@@ -18,28 +18,35 @@
 #
 
 class AccountsController < AdminController
-  manage_restfully :number=>"params[:number]"
+  manage_restfully :number => "params[:number]"
+
+  unroll
+  unroll :deposit_pending_payments
+  unroll :attorney_thirds
+  unroll :client_thirds
+  unroll :supplier_thirds
+  unroll :charges
 
   def self.accounts_conditions
     code  = ""
-    code += light_search_conditions(Account.table_name=>[:name, :number, :comment])
-    code += "[0] += ' AND number LIKE ?'\n"
-    code += "c << params[:prefix].to_s+'%'\n"
-    code += "if params[:used_accounts].to_i == 1\n"
-    code += "  c[0] += ' AND id IN (SELECT account_id FROM #{JournalEntryLine.table_name} AS jel JOIN #{JournalEntry.table_name} AS je ON (entry_id=je.id) WHERE '+JournalEntry.period_condition(params[:period], params[:started_on], params[:stopped_on], 'je')+')'\n"
-    code += "end\n"
-    code += "c\n"
+    code << light_search_conditions(Account.table_name => [:name, :number, :comment])
+    code << "[0] += ' AND number LIKE ?'\n"
+    code << "c << params[:prefix].to_s+'%'\n"
+    code << "if params[:used_accounts].to_i == 1\n"
+    code << "  c[0] += ' AND id IN (SELECT account_id FROM #{JournalEntryLine.table_name} AS jel JOIN #{JournalEntry.table_name} AS je ON (entry_id=je.id) WHERE '+JournalEntry.period_condition(params[:period], params[:started_on], params[:stopped_on], 'je')+')'\n"
+    code << "end\n"
+    code << "c\n"
     # list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
     return code
   end
 
-  list(:conditions=>accounts_conditions, :order=>"number ASC", :per_page=>20) do |t|
-    t.column :number, :url=>true
-    t.column :name, :url=>true
+  list(:conditions => accounts_conditions, :order => "number ASC", :per_page => 20) do |t|
+    t.column :number, :url => true
+    t.column :name, :url => true
     t.column :reconcilable
     t.column :comment
     t.action :edit
-    t.action :destroy, :if=>"RECORD.destroyable\?"
+    t.action :destroy, :if => "RECORD.destroyable\?"
   end
 
   # Displays the main page with the list of accounts
@@ -48,7 +55,7 @@ class AccountsController < AdminController
 
   def self.account_moves_conditions(options={})
     code = ""
-    code << light_search_conditions({:journal_entry_line=>[:name, :debit, :credit, :original_debit, :original_credit], :journal_entry=>[:number]}, :conditions=>"c", :variable=>"params[:b]")+"\n"
+    code << light_search_conditions({:journal_entry_line => [:name, :debit, :credit, :original_debit, :original_credit], :journal_entry => [:number]}, :conditions => "c", :variable => "params[:b]")+"\n"
     code << journal_period_crit("params")
     code << journal_entries_states_crit("params")
     # code << journals_crit("params")
@@ -58,23 +65,23 @@ class AccountsController < AdminController
     return code
   end
 
-  list(:journal_entry_lines, :joins=>:entry, :conditions=>account_moves_conditions, :order=>"entry_id DESC, #{JournalEntryLine.table_name}.position") do |t|
-    t.column :name, :through=>:journal, :url=>true
-    t.column :number, :through=>:entry, :url=>true
-    t.column :printed_on, :through=>:entry, :datatype=>:date, :label=>:column
+  list(:journal_entry_lines, :joins => :entry, :conditions => account_moves_conditions, :order => "entry_id DESC, #{JournalEntryLine.table_name}.position") do |t|
+    t.column :name, :through => :journal, :url => true
+    t.column :number, :through => :entry, :url => true
+    t.column :printed_on, :through => :entry, :datatype => :date, :label => :column
     t.column :name
     t.column :state_label
     t.column :letter
-    t.column :debit, :currency=>"RECORD.entry.financial_year.currency"
-    t.column :credit, :currency=>"RECORD.entry.financial_year.currency"
+    t.column :debit, :currency => "RECORD.entry.financial_year.currency"
+    t.column :credit, :currency => "RECORD.entry.financial_year.currency"
   end
 
-  list(:entities, :conditions=>["? IN (client_account_id, supplier_account_id, attorney_account_id)", ['session[:current_account_id]']], :order=>"created_at DESC") do |t|
-    t.column :code, :url=>true
-    t.column :full_name, :url=>true
-    t.column :label, :through=>:client_account, :url=>true
-    t.column :label, :through=>:supplier_account, :url=>true
-    t.column :label, :through=>:attorney_account, :url=>true
+  list(:entities, :conditions => ["? IN (client_account_id, supplier_account_id, attorney_account_id)", ['session[:current_account_id]']], :order => "created_at DESC") do |t|
+    t.column :code, :url => true
+    t.column :full_name, :url => true
+    t.column :label, :through => :client_account, :url => true
+    t.column :label, :through => :supplier_account, :url => true
+    t.column :label, :through => :attorney_account, :url => true
   end
 
   # Displays details of one account selected with +params[:id]+
@@ -85,20 +92,20 @@ class AccountsController < AdminController
   end
 
   def self.account_reconciliation_conditions
-    code  = search_conditions(:accounts, :accounts=>[:name, :number, :comment], :journal_entries=>[:number], JournalEntryLine.table_name=>[:name, :debit, :credit])+"[0] += ' AND accounts.reconcilable = ?'\n"
-    code += "c << true\n"
-    code += "c[0] += ' AND "+JournalEntryLine.connection.length(JournalEntryLine.connection.trim("COALESCE(letter, \\'\\')"))+" = 0'\n"
-    code += "c"
+    code  = search_conditions(:accounts, :accounts => [:name, :number, :comment], :journal_entries => [:number], JournalEntryLine.table_name => [:name, :debit, :credit])+"[0] += ' AND accounts.reconcilable = ?'\n"
+    code << "c << true\n"
+    code << "c[0] += ' AND "+JournalEntryLine.connection.length(JournalEntryLine.connection.trim("COALESCE(letter, \\'\\')"))+" = 0'\n"
+    code << "c"
     return code
   end
 
-  list(:reconciliation, :model=>:journal_entry_lines, :joins=>[:entry, :account], :conditions=>account_reconciliation_conditions, :order=>"accounts.number, journal_entries.printed_on") do |t|
-    t.column :number, :through=>:account, :url=>{:action=>:mark}
-    t.column :name, :through=>:account, :url=>{:action=>:mark}
-    t.column :number, :through=>:entry
+  list(:reconciliation, :model => :journal_entry_lines, :joins => [:entry, :account], :conditions => account_reconciliation_conditions, :order => "accounts.number, journal_entries.printed_on") do |t|
+    t.column :number, :through => :account, :url => {:action => :mark}
+    t.column :name, :through => :account, :url => {:action => :mark}
+    t.column :number, :through => :entry
     t.column :name
-    t.column :debit, :currency=>"RECORD.entry.financial_year.currency"
-    t.column :credit, :currency=>"RECORD.entry.financial_year.currency"
+    t.column :debit, :currency => "RECORD.entry.financial_year.currency"
+    t.column :credit, :currency => "RECORD.entry.financial_year.currency"
   end
 
   def reconciliation
@@ -113,7 +120,7 @@ class AccountsController < AdminController
         if letter.nil?
           notify_error_now(:cannot_mark_entry_lines)
         else
-          notify_success_now(:journal_entry_lines_marked_with_letter, :letter=>letter)
+          notify_success_now(:journal_entry_lines_marked_with_letter, :letter => letter)
         end
       else
         notify_warning_now(:select_entry_lines_to_mark_together)
@@ -129,11 +136,9 @@ class AccountsController < AdminController
   end
 
   def load
-    if request.post?
-      locale, name = params[:list].split(".")
-      Account.load_chart(name, :locale => locale)
-      redirect_to :action => :index
-    end
+    locale, name = params[:list].split(".")
+    Account.load_chart(name, :locale => locale)
+    redirect_to_back
   end
 
 end

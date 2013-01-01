@@ -18,17 +18,18 @@
 #
 
 class OutgoingPaymentModesController < AdminController
-  manage_restfully :with_accounting=>"true"
+  manage_restfully :with_accounting => "true"
   manage_restfully_list :name
 
-  list(:order=>:position) do |t|
+  list(:order => :position) do |t|
     t.column :name
-    t.column :name, :through=>:cash, :url=>true
+    t.column :name, :through => :cash, :url => true
     t.column :with_accounting
-    t.action :up, :method=>:post, :if=>"!RECORD.first\?"
-    t.action :down, :method=>:post, :if=>"!RECORD.last\?"
+    t.column :name, :through => :attorney_journal, :url => true
+    t.action :up,   :method => :post, :unless => :first?
+    t.action :down, :method => :post, :unless => :last?
     t.action :edit
-    t.action :destroy, :if=>"RECORD.destroyable\?"
+    t.action :destroy, :if => :destroyable?
   end
 
   # Displays the main page with the list of outgoing payment modes

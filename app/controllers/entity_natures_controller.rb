@@ -20,7 +20,7 @@
 class EntityNaturesController < AdminController
   manage_restfully
 
-  unroll :all, :label => "{name}, {title}"
+  unroll :label => "{name}, {title}"
 
   list do |t|
     t.column :name

@@ -46,14 +46,14 @@
 
 
 class ListingNode < CompanyRecord
-  acts_as_list :scope=>:listing_id
+  acts_as_list :scope => :listing_id
   acts_as_tree
   attr_readonly :listing_id, :nature
-  enumerize :nature, :in => [:datetime, :boolean, :string, :numeric, :belongs_to, :has_many]
+  enumerize :nature, :in => [:root, :column, :datetime, :boolean, :string, :numeric, :belongs_to, :has_many]
   belongs_to :listing
-  belongs_to :item_listing, :class_name=>"Listing"
-  belongs_to :item_listing_node, :class_name=>"ListingNode"
-  has_many :items, :class_name=>"ListingNodeItem"
+  belongs_to :item_listing, :class_name => "Listing"
+  belongs_to :item_listing_node, :class_name => "ListingNode"
+  has_many :items, :class_name => "ListingNodeItem"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :item_nature, :allow_nil => true, :maximum => 8
   validates_length_of :attribute_name, :condition_operator, :condition_value, :key, :label, :name, :nature, :sql_type, :allow_nil => true, :maximum => 255
@@ -67,40 +67,40 @@ class ListingNode < CompanyRecord
   @@natures = self.nature.values
 
   @@comparators = {
-    :numeric=>["any", "gt", "lt", "ge", "le", "eq", "neq", "vn", "nvn"],
-    :string=>["any", "begins", "finishes", "contains", "equal", "in", "not_begins", "not_finishes", "not_contains", "not_equal", "begins_cs", "finishes_cs", "contains_cs", "equal_cs", "not_begins_cs", "not_finishes_cs", "not_contains_cs", "not_equal_cs"],
-    :date=>["any", "gt", "lt", "ge", "le", "eq", "neq", "vn", "nvn"],
-    :boolean=>["any", "is_true", "is_false"],
-    :unknown=>["--"]
+    :numeric => ["any", "gt", "lt", "ge", "le", "eq", "neq", "vn", "nvn"],
+    :string => ["any", "begins", "finishes", "contains", "equal", "in", "not_begins", "not_finishes", "not_contains", "not_equal", "begins_cs", "finishes_cs", "contains_cs", "equal_cs", "not_begins_cs", "not_finishes_cs", "not_contains_cs", "not_equal_cs"],
+    :date => ["any", "gt", "lt", "ge", "le", "eq", "neq", "vn", "nvn"],
+    :boolean => ["any", "is_true", "is_false"],
+    :unknown => ["--"]
   }
   @@corresponding_comparators = {
-    :eq=> "{{COLUMN}} = {{VALUE}}",
-    :neq=>"{{COLUMN}} != {{VALUE}}",
-    :gt=> "{{COLUMN}} > {{VALUE}}",
-    :lt=> "{{COLUMN}} < {{VALUE}}",
-    :ge=> "{{COLUMN}} >= {{VALUE}}",
-    :le=> "{{COLUMN}} <= {{VALUE}}",
-    :vn=> "{{COLUMN}} IS NULL",
-    :nvn=> "{{COLUMN}} IS NOT NULL",
-    :begins=>  "LOWER({{COLUMN}}) LIKE {{VALUE%}}",
-    :finishes=>"LOWER({{COLUMN}}) LIKE {{%VALUE}}",
-    :contains=>"LOWER({{COLUMN}}) LIKE {{%VALUE%}}",
-    :equal=>   "LOWER({{COLUMN}}) = {{VALUE}}",
-    :begins_cs=>  "{{COLUMN}} LIKE {{VALUE%}}",
-    :finishes_cs=>"{{COLUMN}} LIKE {{%VALUE}}",
-    :contains_cs=>"{{COLUMN}} LIKE {{%VALUE%}}",
-    :equal_cs=>   "{{COLUMN}} = {{VALUE}}",
-    :not_begins=>  "LOWER({{COLUMN}}) NOT LIKE {{VALUE%}}",
-    :not_finishes=>"LOWER({{COLUMN}}) NOT LIKE {{%VALUE}}",
-    :not_contains=>"LOWER({{COLUMN}}) NOT LIKE {{%VALUE%}}",
-    :not_equal=>   "LOWER({{COLUMN}}) != {{VALUE}}",
-    :not_begins_cs=>  "{{COLUMN}} NOT LIKE {{VALUE%}}",
-    :not_finishes_cs=>"{{COLUMN}} NOT LIKE {{%VALUE}}",
-    :not_contains_cs=>"{{COLUMN}} NOT LIKE {{%VALUE%}}",
-    :not_equal_cs=>   "{{COLUMN}} != {{VALUE}}",
-    :is_true=> "{{COLUMN}} = {{VALUE}}",
-    :is_false=>"{{COLUMN}} = {{VALUE}}",
-    :in=>"{{COLUMN}} IN {{LIST}}"
+    :eq =>  "{{COLUMN}} = {{VALUE}}",
+    :neq => "{{COLUMN}} != {{VALUE}}",
+    :gt =>  "{{COLUMN}} > {{VALUE}}",
+    :lt =>  "{{COLUMN}} < {{VALUE}}",
+    :ge =>  "{{COLUMN}} >= {{VALUE}}",
+    :le =>  "{{COLUMN}} <= {{VALUE}}",
+    :vn =>  "{{COLUMN}} IS NULL",
+    :nvn =>  "{{COLUMN}} IS NOT NULL",
+    :begins =>   "LOWER({{COLUMN}}) LIKE {{VALUE%}}",
+    :finishes => "LOWER({{COLUMN}}) LIKE {{%VALUE}}",
+    :contains => "LOWER({{COLUMN}}) LIKE {{%VALUE%}}",
+    :equal =>    "LOWER({{COLUMN}}) = {{VALUE}}",
+    :begins_cs =>   "{{COLUMN}} LIKE {{VALUE%}}",
+    :finishes_cs => "{{COLUMN}} LIKE {{%VALUE}}",
+    :contains_cs => "{{COLUMN}} LIKE {{%VALUE%}}",
+    :equal_cs =>    "{{COLUMN}} = {{VALUE}}",
+    :not_begins =>   "LOWER({{COLUMN}}) NOT LIKE {{VALUE%}}",
+    :not_finishes => "LOWER({{COLUMN}}) NOT LIKE {{%VALUE}}",
+    :not_contains => "LOWER({{COLUMN}}) NOT LIKE {{%VALUE%}}",
+    :not_equal =>    "LOWER({{COLUMN}}) != {{VALUE}}",
+    :not_begins_cs =>   "{{COLUMN}} NOT LIKE {{VALUE%}}",
+    :not_finishes_cs => "{{COLUMN}} NOT LIKE {{%VALUE}}",
+    :not_contains_cs => "{{COLUMN}} NOT LIKE {{%VALUE%}}",
+    :not_equal_cs =>    "{{COLUMN}} != {{VALUE}}",
+    :is_true =>  "{{COLUMN}} = {{VALUE}}",
+    :is_false => "{{COLUMN}} = {{VALUE}}",
+    :in => "{{COLUMN}} IN {{LIST}}"
   }
 
   before_validation do
@@ -120,10 +120,10 @@ class ListingNode < CompanyRecord
     end
   end
 
-  before_validation(:on=>:create) do
+  before_validation(:on => :create) do
     if self.reflection?
       for node in listing.nodes
-        if node = self.listing.nodes.find(:first, :conditions=>{:name=>self.name})
+        if node = self.listing.nodes.find(:first, :conditions => {:name => self.name})
           self.name = node.name.succ
         end
       end
@@ -142,7 +142,7 @@ class ListingNode < CompanyRecord
 
   def compute_joins(sql_alias=nil)
     conditions = ""
-    for child in self.children.find(:all, :conditions=>["(nature = ? OR nature = ?)", 'belongs_to', 'has_many'])
+    for child in self.children.find(:all, :conditions => ["(nature = ? OR nature = ?)", 'belongs_to', 'has_many'])
       parent = sql_alias||self.name||child.parent.model.table_name
       if child.nature == "has_many" #or child.nature == "belongs_to"
         conditions += " LEFT JOIN #{child.model.table_name} AS #{child.name} ON (#{child.name}.#{child.reflection.foreign_key} = #{parent}.id)"
@@ -263,9 +263,9 @@ class ListingNode < CompanyRecord
   def comparison
     if self.condition_operator and self.condition_operator != "any"
       if self.condition_value
-        return tc('comparison.with_value', :comparator=>tc('comparators.'+self.condition_operator), :value=>(self.sql_type=="date" ? I18n.localize(self.condition_value.to_date) : self.condition_value.to_s))
+        return tc('comparison.with_value', :comparator => tc('comparators.'+self.condition_operator), :value => (self.sql_type=="date" ? I18n.localize(self.condition_value.to_date) : self.condition_value.to_s))
       else
-        return tc('comparison.without_value', :comparator=>tc('comparators.'+self.condition_operator))
+        return tc('comparison.without_value', :comparator => tc('comparators.'+self.condition_operator))
       end
     else
       return tc(:add_filter)
@@ -278,7 +278,7 @@ class ListingNode < CompanyRecord
     attributes[:parent_id]  = (parent ? parent.id : nil)
     attributes.delete("key")
     node = self.class.create!(attributes)
-    for child in self.children.find(:all, :order=>:position)
+    for child in self.children.find(:all, :order => :position)
       child.duplicate(listing, node)
     end
   end

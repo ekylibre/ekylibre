@@ -18,16 +18,16 @@
 #
 
 class UnitsController < AdminController
-  manage_restfully :base=>"params[:base]"
+  manage_restfully
 
-  list(:order=>:name) do |t|
+  list(:order => :name) do |t|
     t.column :label
     t.column :name
     t.column :coefficient
     t.column :base
     t.column :start
     t.action :edit
-    t.action :destroy, :if=>"RECORD.destroyable\?"
+    t.action :destroy, :if => :destroyable?
   end
 
   # Displays the main page with the list of units
@@ -36,7 +36,7 @@ class UnitsController < AdminController
 
   def load
     Unit.load_defaults
-    redirect_to :action=>:index
+    redirect_to_current
   end
 
 end

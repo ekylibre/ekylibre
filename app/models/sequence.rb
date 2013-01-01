@@ -40,19 +40,21 @@
 
 
 class Sequence < CompanyRecord
-  @@periods = ['cweek', 'month', 'number', 'year']
-  @@replace = Regexp.new('\[('+@@periods.join('|')+')(\|(\d+)(\|([^\]]*))?)?\]')
-  # FIXME: Adds all usage for sequence? or register_usage like Account! ?
-  @@usages = ["assets", "cash_transfers", "deposits", "entities", "incoming_deliveries", "incoming_payments", "outgoing_deliveries", "outgoing_payments", "purchases", "sales_invoices", "sales", "stock_transfers", "subscriptions", "transports"]
-  cattr_reader :usages
+  enumerize :period, :in => [:cweek, :month, :number, :year]
+  # TODO: Adds all usage for sequence? or register_usage like Account ?
+  enumerize :usage, :in => [:assets, :cash_transfers, :deposits, :entities, :incoming_deliveries, :incoming_payments, :outgoing_deliveries, :outgoing_payments, :purchases, :sales_invoices, :sales, :stock_transfers, :subscriptions, :transports]
+  # cattr_reader :usages
 
-  has_many :preferences, :as=>:record_value
+  REPLACE_REGEXP = Regexp.new('\[(' + self.period.values.join('|') + ')(\|(\d+)(\|([^\]]*))?)?\]').freeze
+
+  has_many :preferences, :as => :record_value
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :last_cweek, :last_month, :last_number, :last_year, :number_increment, :number_start, :allow_nil => true, :only_integer => true
   validates_length_of :name, :number_format, :period, :usage, :allow_nil => true, :maximum => 255
   validates_presence_of :name, :number_format, :number_increment, :number_start, :period
   #]VALIDATORS]
-  validates_inclusion_of :period, :in => @@periods
+  validates_inclusion_of  :period, :in => self.period.values
+  validates_inclusion_of  :usage, :in => self.usage.values, :allow_nil => true
   validates_uniqueness_of :number_format
   validates_uniqueness_of :usage, :if => :used?
 
@@ -62,7 +64,7 @@ class Sequence < CompanyRecord
     self.period ||= 'number'
   end
 
-  protect(:on=>:destroy) do
+  protect(:on => :destroy) do
     self.preferences.size <= 0
   end
 
@@ -72,22 +74,17 @@ class Sequence < CompanyRecord
 
 
   def self.load_defaults
-    # FIXME: Needs to clarify between translations and usages
-    for usage in self.usages
+    for usage in self.usage.values
       unless sequence = self.find_by_usage(usage)
-        self.create(:usage => usage)
+        attrs = "models.sequence.default.#{usage}".t
+        if attrs.is_a?(Hash)
+          attrs = tc("default.#{usage}").delete_if{|k,v| ![:name, :number_format, :number_increment, :number_start, :period].include?(k)}
+        else
+          attrs = {:name => usage.to_s.capitalize, :number_format => usage.to_s.upcase + "[number|12]", :period => :number}
+        end
+        self.create(attrs.merge(:usage => usage))
       end
     end
-    # for sequence, attributes in tc('default.sequences')
-    #   unless self.preferred("#{sequence}_sequence")
-    #     seq = self.sequences.create(attributes)
-    #     self.prefer!("#{sequence}_sequence", seq) if seq
-    #   end
-    # end
-  end
-
-  def self.periods
-    @@periods.collect{|p| [tc("periods.#{p}"), p]}.sort{|a,b| a[0]<=>b[0]}
   end
 
   def used?
@@ -101,9 +98,9 @@ class Sequence < CompanyRecord
   def compute(number=nil)
     number ||= self.last_number
     today = Date.today
-    self['number_format'].gsub(@@replace) do |m|
+    self['number_format'].gsub(REPLACE_REGEXP) do |m|
       key, size, pattern = $1, $3, $5
-      string = (key == 'number' ? number :  today.send(key)).to_s
+      string = (key == 'number' ? number : today.send(key)).to_s
       size.nil? ? string : string.rjust(size.to_i, pattern||'0')
     end
   end
@@ -111,7 +108,7 @@ class Sequence < CompanyRecord
   def next_value
     self.reload
     today = Date.today
-    period = self.period
+    period = self.period.to_s
     if self.last_number.nil?
       self.last_number  = self.number_start
     else

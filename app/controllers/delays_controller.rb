@@ -19,9 +19,11 @@
 
 class DelaysController < AdminController
   manage_restfully
+  
+  unroll
 
   list do |t|
-    t.column :name, :url=>true
+    t.column :name, :url => true
     t.column :active
     t.column :expression
     t.column :comment

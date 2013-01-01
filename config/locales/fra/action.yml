@@ -609,6 +609,7 @@ fra:
         one: "%{count} erreur a empêché l’enregistrement (%{model})"
         other: "%{count} erreurs ont empêché l’enregistrement (%{model})"
   labels:
+    no_results: "Aucun résultat"
     x_items_remain_on_y:
       one: "%{count} élément restant."
       other: "%{count} éléments non visibles. Affinez votre recherche."

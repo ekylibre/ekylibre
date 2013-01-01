@@ -27,39 +27,39 @@ class ListingNodesController < AdminController
       if desc[0] == "special"
         if desc[1] == "all_columns"
           model = @listing_node.model
-          for column in model.content_columns.sort{|a,b| model.human_attribute_name(a.name.to_s)<=>model.human_attribute_name(b.name.to_s)}
-            ln = @listing_node.children.new(:nature=>"column", :attribute_name=>column.name, :label=>@listing_node.model.human_attribute_name(column.name))
+          for column in model.content_columns.sort{|a,b| model.human_attribute_name(a.name.to_s)<=> model.human_attribute_name(b.name.to_s)}
+            ln = @listing_node.children.new(:nature => "column", :attribute_name => column.name, :label => @listing_node.model.human_attribute_name(column.name))
             ln.save!
           end
         end
       else
-        ln = @listing_node.children.new(:nature=>desc[0], :attribute_name=>desc[1], :label=>@listing_node.model.human_attribute_name(desc[1]))
+        ln = @listing_node.children.new(:nature => desc[0], :attribute_name => desc[1], :label => @listing_node.model.human_attribute_name(desc[1]))
         ln.save!
       end
     end
 
-    render(:partial=>"listings/reflection", :object=>@listing_node)
+    render(:partial => "listings/reflection", :object => @listing_node)
   end
 
   def create
     return unless @listing_node = find_and_check(:listing_node, params[:parent_id])
-    render :text=>"[UnfoundListingNode]" unless @listing_node
+    render :text => "[UnfoundListingNode]" unless @listing_node
     desc = params[:nature].split("-")
     # raise Exception.new desc.inspect
     if desc[0] == "special"
       if desc[1] == "all_columns"
         model = @listing_node.model
-        for column in model.content_columns.sort{|a,b| model.human_attribute_name(a.name.to_s)<=>model.human_attribute_name(b.name.to_s)}
-          ln = @listing_node.children.new(:nature=>"column", :attribute_name=>column.name, :label=>@listing_node.model.human_attribute_name(column.name))
+        for column in model.content_columns.sort{|a,b| model.human_attribute_name(a.name.to_s) <=>  model.human_attribute_name(b.name.to_s)}
+          ln = @listing_node.children.new(:nature => "column", :attribute_name => column.name, :label => @listing_node.model.human_attribute_name(column.name))
           ln.save!
         end
       end
     else
-      ln = @listing_node.children.new(:nature=>desc[0], :attribute_name=>desc[1], :label=>@listing_node.model.human_attribute_name(desc[1]))
+      ln = @listing_node.children.new(:nature => desc[0], :attribute_name => desc[1], :label => @listing_node.model.human_attribute_name(desc[1]))
       ln.save!
     end
 
-    render(:partial=>"listings/reflection", :object=>@listing_node)
+    render(:partial => "listings/reflection", :object => @listing_node)
   end
 
   def destroy
@@ -67,9 +67,9 @@ class ListingNodesController < AdminController
     parent = @listing_node.parent
     @listing_node.reload.destroy
     if request.xhr?
-      render(:partial=>"listings/reflection", :object=>parent)
+      render(:partial => "listings/reflection", :object => parent)
     else
-      redirect_to :controller=>:listings, :action=>:edit, :id=>@listing_node.listing_id
+      redirect_to :controller => :listings, :action => :edit, :id => @listing_node.listing_id
     end
   end
 
@@ -78,19 +78,19 @@ class ListingNodesController < AdminController
     if request.xhr?
       if params[:type] == "hide" or params[:type] == "show"
         @listing_node.exportable = !@listing_node.exportable
-        render :text=>""
+        render :text => ""
       elsif params[:type] == "column_label"
         @listing_node.label = params[:label]
-        render(:partial=>"listing_nodes/column_label", :object=>@listing_node)
+        render(:partial => "listing_nodes/column_label", :object => @listing_node)
       elsif params[:type] == "comparison"
         @listing_node.condition_operator = params[:comparator]
         @listing_node.condition_value = params[:comparison_value]
-        render(:partial=>"listing_nodes/comparison", :object=>@listing_node)
+        render(:partial => "listing_nodes/comparison", :object => @listing_node)
       elsif params[:type] == "position"
         @listing_node.position = params[:position]
-        render(:partial=>"listing_nodes/position", :object=>@listing_node)
+        render(:partial => "listing_nodes/position", :object => @listing_node)
       else
-        render(:text=>"[ERROR] Unknown update type")
+        render(:text => "[ERROR] Unknown update type")
       end
       @listing_node.save
     else
@@ -103,17 +103,17 @@ class ListingNodesController < AdminController
     if request.xhr?
       if params[:type] == "exportable" # "hide" or params[:type] == "show"
         @listing_node.exportable = !@listing_node.exportable
-        render :text=>""
+        render :text => ""
       elsif params[:type] == "column_label"
         @listing_node.label = params[:label]
-        render(:partial=>"listing_nodes/column_label", :object=>@listing_node)
+        render(:partial => "listing_nodes/column_label", :object => @listing_node)
       elsif params[:type] == "comparison"
         @listing_node.condition_operator = params[:comparator]
         @listing_node.condition_value = params[:comparison_value]
-        render(:partial=>"listing_nodes/comparison", :object=>@listing_node)
+        render(:partial => "listing_nodes/comparison", :object => @listing_node)
       elsif params[:type] == "position"
         @listing_node.position = params[:position]
-        render(:partial=>"listing_nodes/position", :object=>@listing_node)
+        render(:partial => "listing_nodes/position", :object => @listing_node)
       end
       @listing_node.save
     else

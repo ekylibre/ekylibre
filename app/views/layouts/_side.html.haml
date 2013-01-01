@@ -6,9 +6,9 @@
 
 -side_menu do |m|
   -if request.url == root_url
-    -m.link(:logout, session_url, :method => :delete)
+    -m.link(:destroy, {:controller => :sessions}, :method => :delete)
   -else
-    -m.link(:root, root_url, :icon => :up)
+    -m.link(:index, {:controller => :dashboards}, :icon => :up)
     -if menu and menu.hierarchy.size > 2
       -for item in menu.hierarchy[1..-2]
         -m.link(item.human_name, item.default_page.url_options, :icon => :up)
