@@ -79,45 +79,51 @@ Ekylibre::Application.routes.draw do
   end
   resources :animals do
     collection do
+      get :unroll_all
       get :list
       get :list_events
       get :list_children
-      match "print", :via => [:get, :post]
-     # match "/print" => "animals#print"
     end
   end
   resources :animal_diagnostics do
     collection do
+      get :unroll_all
       get :list
     end
   end
   resources :animal_diseases do
     collection do
+      get :unroll_all
       get :list
     end
   end
   resources :animal_drugs do
     collection do
+      get :unroll_all
       get :list
     end
   end
   resources :animal_drug_natures do
     collection do
+      get :unroll_all
       get :list
     end
   end
   resources :animal_events do
     collection do
+      get :unroll_all
       get :list
     end
   end
   resources :animal_event_natures do
     collection do
+      get :unroll_all
       get :list
     end
   end
   resources :animal_groups do
     collection do
+      get :unroll_all
       get :list
       get :list_animals
       get :list_events
@@ -125,26 +131,31 @@ Ekylibre::Application.routes.draw do
   end
   resources :animal_posologies do
     collection do
+      get :unroll_all
       get :list
     end
   end
   resources :animal_prescriptions do
     collection do
+      get :unroll_all
       get :list
     end
   end
   resources :animal_races do
     collection do
+      get :unroll_all
       get :list
     end
   end
   resources :animal_race_natures do
     collection do
+      get :unroll_all
       get :list
     end
   end
   resources :animal_treatments do
     collection do
+      get :unroll_all
       get :list
     end
   end
@@ -657,6 +668,7 @@ Ekylibre::Application.routes.draw do
   # resources :transfers
   resources :units do
     collection do
+      get :unroll_all
       get :list
       post :load
     end

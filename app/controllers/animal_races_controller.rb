@@ -19,6 +19,7 @@
 
 class AnimalRacesController < AdminController
   manage_restfully
+  unroll :all
 
   list do |t|
     t.column :name, :url=>true

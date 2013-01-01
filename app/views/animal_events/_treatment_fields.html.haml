@@ -1,11 +1,11 @@
 -# Generated automatically. Don't edit this file.
 .nested-fields
-  =link_to_remove_association 'Remove treatment', f
+  =link_to_remove_association('labels.remove_treatment'.t, f, :class => 'nested-remove remove-treatment')
   =f.input(:started_at)
   =f.input(:quantity)
-  =f.association(:quantity_unit)
-  =f.association(:drug)
-  =f.association(:prescription)
+  =f.input(:quantity_unit)
+  =f.input(:drug)
+  =f.input(:prescription)
   =f.input(:duration_wait_for_milk)
   =f.input(:duration_unit_wait_for_milk)
   =f.input(:duration_wait_for_meat)
