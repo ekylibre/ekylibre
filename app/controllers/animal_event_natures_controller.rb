@@ -19,7 +19,7 @@
 
 class AnimalEventNaturesController < AdminController
   manage_restfully
-
+  unroll :label => "{name}"
   list() do |t|
     t.column :name, :url=>true
     t.column :description

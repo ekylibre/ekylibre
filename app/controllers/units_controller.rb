@@ -19,7 +19,8 @@
 
 class UnitsController < AdminController
   manage_restfully
-
+  unroll
+  
   list(:order => :name) do |t|
     t.column :label
     t.column :name

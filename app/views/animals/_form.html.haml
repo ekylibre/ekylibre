@@ -12,8 +12,8 @@
   =image_tag(@animal.picture.url(:thumb))
 
 -field_set(:genealogy) do # partie entrée sortie de l entité animal
-  -association :father
   -association :mother
+  -association :father
 
 -field_set(:stock) do # partie entrée sortie de l entité animal
   -input :is_external
@@ -21,5 +21,3 @@
   -input :income_reasons
   -input :outgone_on, :include_blank => true, :default_value => :blank
   -input :outgone_reasons, :include_blank => true, :default_value => :blank
-
-

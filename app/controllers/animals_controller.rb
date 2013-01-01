@@ -19,7 +19,9 @@
 
 class AnimalsController < AdminController
   manage_restfully
-  unroll :all
+  
+  unroll :label => "{name}"
+  
   respond_to :xml, :json , :pdf, :html
   
   list do |t|

@@ -19,7 +19,7 @@
 
 class AnimalGroupsController < AdminController
   manage_restfully
-  unroll :all
+  unroll :label => "{name}"
   
   list do |t|
     t.column :name, :url=>true

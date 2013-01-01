@@ -13,17 +13,17 @@
 
 -field_set(:care) do |f|
   =nested_association(:diagnostics) do
-    =input :symptoms
-    =input :corpse_location
-    =input :disease
+    -input :symptoms
+    -input :corpse_location
+    -input :disease
   
 -field_set(:treatment) do |f|
   =nested_association(:treatments) do
-    =input :started_at
-    =input :quantity
-    =input :quantity_unit
-    =input :drug
-    =input :prescription
+    -input :started_at
+    -input :quantity
+    -input :quantity_unit
+    -input :drug
+    -input :prescription
     -input :duration_wait_for_milk
     -input :duration_unit_wait_for_milk
     -input :duration_wait_for_meat
