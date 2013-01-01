@@ -1108,6 +1108,7 @@ jpn:
     # no_proposer: "-- Sans parrain ni marraine --"
     # no_purchases: "Aucun achat en attente de reception"
     # no_records: "Pas d’enregistrements"
+    # no_results: "Aucun résultat"
     # no_tracking: "Aucun lot"
     # no_transfers: "Aucun transfert à réaliser"
     # normal: "Régime du réel normal"
@@ -1470,6 +1471,9 @@ jpn:
       # one: "%{count} encaissement"
       # other: "%{count} encaissements"
       # zero: "0 encaissement"
+    x_items_remain_on_y:
+      # one: "%{count} élément restant."
+      # other: "%{count} éléments non visibles. Affinez votre recherche."
     x_journal_entries:
       # one: "%{count} écriture"
       # other: "%{count} écritures"

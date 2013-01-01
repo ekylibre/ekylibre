@@ -31,25 +31,25 @@ input[type="submit"], a.btn {
   $normal-color: darken($normal, 50%);
   $normal-shadow: lighten($normal, 20%);
   a.btn {
-    #{$selector} { 
+    #{$selector} {
       white-space: nowrap;
       margin: 0;
       color: $normal-color;
       @include button-normal-state($normal);
       @include inline-block;
       vertical-align: middle;
-      span { 
+      span {
         margin: 0 2px;
         html[dir="ltr"] &:first-child, html[dir="rtl"] &:last-child { margin-left: 0; }
         html[dir="rtl"] &:first-child, html[dir="ltr"] &:last-child { margin-right: 0; }
       }
-      &, .text { 
+      &, .text {
         line-height: 1em;
         color: $normal-color;
         @include text-shadow($menu-border-width $menu-border-width 1px $normal-shadow);
       }
-      .icon { 
-        background-repeat: no-repeat; 
+      .icon {
+        background-repeat: no-repeat;
       }
       &:focus {
         border: $menu-border-width solid $active;
@@ -59,7 +59,7 @@ input[type="submit"], a.btn {
         position: relative;
         z-index: 2;
         &, .text {
-          color: #FFF; 
+          color: #FFF;
           @include text-shadow(0 0 1px $normal-color);
           text-decoration: none;
         }
@@ -70,7 +70,7 @@ input[type="submit"], a.btn {
         border-color: rgba(0, 0, 0, 0.25) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1);
         @include box-shadow(0 2px 2px rgba(0, 0, 0, 0.3) inset, 0 -2px 2px rgba(0, 0, 0, 0.05));
         &, .text {
-          color: #FFF; 
+          color: #FFF;
           @include text-shadow(-1px -1px 1px $normal-color);
           text-decoration: none;
         }
@@ -79,44 +79,44 @@ input[type="submit"], a.btn {
         background: #CCC;
         cursor: default;
         pointer-events: none;
-        .text { 
+        .text {
           @include text-shadow(none);
         }
-        &:hover { 
+        &:hover {
           .text { color: #666; }
         }
       }
     }
   }
   input[type="submit"] {
-    #{$selector} { 
-      padding: 3px 6px 4px; 
+    #{$selector} {
+      padding: 3px 6px 4px;
       color: $normal-color;
       line-height: 1em;
       @include button-normal-state($normal);
       @include inline-block;
       @include text-shadow(1px 1px 1px $normal-shadow);
-      &:focus { 
+      &:focus {
         border: $menu-border-width solid $active;
       }
       &:hover {
         @include text-shadow(0 0 1px $normal-color);
         @include background-image(linear-gradient(lighten($active, 8%), $active));
-        color: #FFF; 
+        color: #FFF;
         text-decoration: none;
-        padding: 3px 6px 4px; 
+        padding: 3px 6px 4px;
         border-width: $menu-border-width;
       }
       &:active {
         padding: 4px 6px 3px 6px;
-        color: #FFF; 
+        color: #FFF;
         border-color: rgba(0, 0, 0, 0.25) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1);
         @include background-image(linear-gradient($active, darken($active, 8%)));
         @include box-shadow(0 2px 2px rgba(0, 0, 0, 0.3) inset, 0 -2px 2px rgba(0, 0, 0, 0.05));
         @include text-shadow(-1px -1px 1px $normal-color);
         text-decoration: none;
       }
-      &[disabled] { 
+      &[disabled] {
         background: #CCC;
         cursor: default;
         pointer-events: none;
@@ -124,7 +124,7 @@ input[type="submit"], a.btn {
         color: #666;
       }
     }
-  } 
+  }
 }
 
 
@@ -132,12 +132,12 @@ input[type="submit"], a.btn {
 @include button(#D88E68, #D88E68, "&.important");
 
 /*@mixin button-group { */
-@mixin button-group() { 
-  button, a.btn.large, a.btn.mini, a.btn, input, select { 
+@mixin button-group() {
+  button, a.btn.large, a.btn.mini, a.btn, input, select {
     @include border-radius(0);
     margin-left: -1 * $menu-border-width;
     z-index: 1;
-    &:first-child { 
+    &:first-child {
       margin-left: 0;
     }
     html[dir="ltr"] &:first-child, html[dir="rtl"] &:last-child {
@@ -148,14 +148,14 @@ input[type="submit"], a.btn {
       @include border-top-right-radius($buttons-radius);
       @include border-bottom-right-radius($buttons-radius);
     }
-    &:focus, &:hover, &:active { 
+    &:focus, &:hover, &:active {
       position: relative;
       z-index: 2;
     }
   }
 }
 
-.toolbar { 
+.toolbar {
   margin: 0 0 8px 0;
   @include text-align(left);
   @include button-group;
@@ -167,7 +167,7 @@ input[type="submit"], a.btn {
   $format-interval: nth($format, 2);
   $format-selector: nth($format, 3);
   $format-radius: nth($format, 4);
-  @each $buttons in $buttons-names { 
+  @each $buttons in $buttons-names {
     @each $icon-name in $buttons {
       $button-name: ".#{$icon-name}";
       @if $icon-name == default {
@@ -197,7 +197,7 @@ input[type="submit"], a.btn {
         }
       }
 /*
-      .mn.#{$icon-name} { 
+      .mn.#{$icon-name} {
         #{$format-selector} {
           .icon {
             height: $format-interval*2/3;

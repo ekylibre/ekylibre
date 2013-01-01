@@ -20,6 +20,7 @@
 class CustomFieldsController < AdminController
   manage_restfully :redirect_to=>'(@custom_field.nature=="choice" ? {:action=>:show, :id=>"id"} : :back)'
   manage_restfully_list
+  unroll
 
   list(:order=>:position) do |t|
     t.column :name, :url=>true

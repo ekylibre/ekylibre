@@ -2,6 +2,7 @@
 if ActiveRecord::Base.connection.adapter_name == 'SQLServer'
   Time::DATE_FORMATS[:db] = "%Y-%m-%dT%H:%M:%S"
   Animal.coerce_sqlserver_date :born_on, :ceded_on, :income_on, :outgone_on, :purchased_on
+  AnimalPrescription.coerce_sqlserver_date :prescripted_on
   Asset.coerce_sqlserver_date :ceded_on, :purchased_on, :started_on, :stopped_on
   AssetDepreciation.coerce_sqlserver_date :created_on, :started_on, :stopped_on
   BankStatement.coerce_sqlserver_date :started_on, :stopped_on

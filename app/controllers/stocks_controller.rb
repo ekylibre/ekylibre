@@ -20,6 +20,8 @@
 class StocksController < AdminController
   manage_restfully
 
+  unroll
+
   def self.stocks_conditions(options={})
     code = ""
     code << "conditions = {} \n"

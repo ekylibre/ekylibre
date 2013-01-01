@@ -20,6 +20,8 @@
 class EstablishmentsController < AdminController
   manage_restfully
 
+  unroll
+
   list(:order => :nic) do |t|
     t.column :name
     t.column :nic

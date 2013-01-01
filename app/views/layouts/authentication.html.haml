@@ -3,7 +3,7 @@
 %html{:xmlns => "http://www.w3.org/1999/xhtml", :dir => t("i18n.dir"), :lang => t("i18n.iso2"), "xml:lang" => t("i18n.iso2"), :class => :authentication}
   %head
     %link{:rel => "icon", :type => "image/png", :href => image_path("favicon.png")}
-    %meta{:name => "viewport", :content => "width=device-width, initial-scale=1.0, maximum-scale=1.0"}
+    =meta_viewport_tag
     =title_tag
     =csrf_meta_tags
     =stylesheet_link_tag :application

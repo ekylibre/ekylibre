@@ -1,8 +1,8 @@
 -field_set do # partie info general de l entité animal
   -association :nature # affiche un menu deroulant construit par la relation group_id vers le champ name de l entité animal_group
   -input :name # affiche le champ name de l entité animal avec une infos derriere
-  -input :comment, :field=>:textarea # affiche le champ comment
-  -f.input :picture, :multiple => true
+  -input :comment, :field => :text # affiche le champ comment
+  -input :picture, :multiple => true
 
 -field_set(:asset) do # partie info general de l entité animal
   -association :asset

@@ -19,7 +19,7 @@
 
 class DelaysController < AdminController
   manage_restfully
-  
+
   unroll
 
   list do |t|

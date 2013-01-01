@@ -1146,6 +1146,7 @@ spa:
     # no_proposer: "-- Sans parrain ni marraine --"
     # no_purchases: "Aucun achat en attente de reception"
     # no_records: "Pas d’enregistrements"
+    # no_results: "Aucun résultat"
     # no_tracking: "Aucun lot"
     # no_transfers: "Aucun transfert à réaliser"
     normal: "Regimen del real normal"
@@ -1521,6 +1522,9 @@ spa:
       # one: "%{count} encaissement"
       # other: "%{count} encaissements"
       # zero: "0 encaissement"
+    x_items_remain_on_y:
+      # one: "%{count} élément restant."
+      # other: "%{count} éléments non visibles. Affinez votre recherche."
     x_journal_entries:
       one: "La escritura"
       other: "%{cuento} escrituras"

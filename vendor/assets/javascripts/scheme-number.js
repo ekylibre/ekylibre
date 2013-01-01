@@ -779,7 +779,7 @@ SN.maxIntegerDigits = 1e6;  // 1 million digits.
 
     > a1 = fn["exact?"]("2");       // a1 === true
     > a1 = fn["exact?"](sn("2"));   // same
-    > 
+    >
     > a2 = fn["exact?"](2);         // a2 === false
     > a2 = fn["exact?"]("2.0");     // same
     > a2 = fn["exact?"](sn("2.0")); // same

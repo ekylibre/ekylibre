@@ -20,6 +20,8 @@
 class AnimalTreatmentsController < AdminController
   manage_restfully
 
+  unroll
+
   list() do |t|
     t.column :name, :url=>true
     t.column :name, :through=>:disease, :url=>true

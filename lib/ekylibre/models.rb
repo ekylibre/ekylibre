@@ -27,7 +27,7 @@ module Ekylibre
     },
     :animal_diagnostic => {
       :creator_id => :entity,
-      :disease_id => '',
+      :disease_id => :animal_disease,
       :event_id => :event,
       :updater_id => :entity
     },

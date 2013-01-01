@@ -39,7 +39,7 @@ def search_missing_validations(klass)
 end
 
 desc "Adds default validations in models based on the schema"
-task :validations=>:environment do
+task :validations => :environment do
   log = File.open(Rails.root.join("log", "clean-validations.log"), "wb")
 
   models = []

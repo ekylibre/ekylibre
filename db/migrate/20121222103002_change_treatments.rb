@@ -1,12 +1,12 @@
 class ChangeTreatments< ActiveRecord::Migration
   def change
-     
+
       add_column :animal_events, :parent_id, :integer
       add_column :animal_events, :planned_at, :datetime
       add_column :animal_events, :moved_at, :datetime
       rename_column :animal_events, :started_on, :started_at
       rename_column :animal_events, :stopped_on, :stopped_at
-     
+
       rename_column :animal_treatments, :started_on, :started_at
       rename_column :animal_treatments, :stopped_on, :stopped_at
       add_column :animal_treatments, :prescription_id, :integer
@@ -19,7 +19,7 @@ class ChangeTreatments< ActiveRecord::Migration
       add_column :animal_treatments, :duration_unit_wait_for_meat, :string
 
       add_column :drugs, :prescripted, :boolean, :default => true, :null => true
-      
+
      create_table :posologies do |t|
        t.belongs_to :animal_race_nature
        t.belongs_to :drug
@@ -41,9 +41,9 @@ class ChangeTreatments< ActiveRecord::Migration
     add_index :posologies, :animal_race_nature_id
     add_index :posologies, :drug_id
     add_index :posologies, :disease_id
-      
-      
-      
+
+
+
     create_table :animal_treatment_uses do |t|
        t.belongs_to :event
        t.belongs_to :treatment

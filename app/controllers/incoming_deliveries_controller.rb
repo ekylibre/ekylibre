@@ -18,6 +18,7 @@
 #
 
 class IncomingDeliveriesController < AdminController
+  unroll
 
   list(:conditions=>moved_conditions(IncomingDelivery)) do |t|
     t.column :number

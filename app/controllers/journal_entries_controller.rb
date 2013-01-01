@@ -19,6 +19,8 @@
 
 class JournalEntriesController < AdminController
 
+  unroll
+
   list(:lines, :model=>:journal_entry_lines, :conditions=>{:entry_id=>['session[:current_journal_entry_id]']}, :order=>"entry_id DESC, position") do |t|
     t.column :name
     t.column :number, :through=>:account, :url=>true

@@ -16,13 +16,14 @@
       </part>
       
       <!-- Contacts -->
-      <part if="entity.contacts.size > 0" height="10mm">
+      <part if="entity.addresses.size > 0" height="10mm">
 	<set top="5mm">
-	  <text value="{{entity.contacts.size.to_s}} contact(s)" bold="true" left="50%" align="center"/>
+	  <text value="{{entity.addresses.size.to_s}} contact(s)" bold="true" left="50%" align="center"/>
 	</set>
       </part>
-      <table if="entity.contacts.size&gt;0" collection="entity.contacts">
-	<column label="Adresse" property="address" width="100mm"/>
+      <table if="entity.addresses.size&gt;0" collection="entity.addresses">
+	<column label="Adresse" property="canal" width="95mm"/>
+	<column label="Adresse" property="coordinate" width="95mm"/>
       </table>
 
       <!-- Ventes -->

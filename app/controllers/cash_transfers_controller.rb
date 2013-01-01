@@ -20,6 +20,8 @@
 class CashTransfersController < AdminController
   manage_restfully :created_on=>'Date.today'
 
+  unroll
+
   list do |t|
     t.column :number, :url=>true
     t.column :emitter_amount, :currency=>"RECORD.emitter_cash.currency"

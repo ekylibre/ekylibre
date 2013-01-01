@@ -193,7 +193,7 @@ Raphael.el.tag = function (angle, r, x, y) {
             this.rotate(angle - 180, bb.x + bb.width + r + d, bb.y + bb.height / 2);
         } else {
             this.translate(x - bb.x + r + d, y - bb.y - bb.height / 2);
-            this.rotate(angle, bb.x - r - d, bb.y + bb.height / 2); 
+            this.rotate(angle, bb.x - r - d, bb.y + bb.height / 2);
         }
     }
 
@@ -690,7 +690,7 @@ Raphael.g = {
      **
      > Default value
      | { font: '12px Arial, sans-serif', fill: '#fff' }
-     \*/  
+     \*/
     txtattr: { font: '12px Arial, sans-serif', fill: '#fff' },
 
     /*\
@@ -714,7 +714,7 @@ Raphael.g = {
 
             return colors;
     })(),
-    
+
     snapEnds: function(from, to, steps) {
         var f = from,
             t = to;
@@ -843,7 +843,7 @@ Raphael.g = {
 
         return res;
     },
-    
+
     labelise: function(label, val, total) {
         if (label) {
             return (label + "").replace(/(##+(?:\.#+)?)|(%%+(?:\.%+)?)/g, function (all, value, percent) {

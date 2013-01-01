@@ -18,6 +18,8 @@
 #
 
 class EntityCategoriesController < AdminController
+  unroll
+
   manage_restfully
 
   list do |t|

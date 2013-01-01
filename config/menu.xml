@@ -283,7 +283,6 @@
       <page to="stocks#create"/>
       <page to="stocks#destroy"/>
       <page to="stocks#edit"/>
-      <page to="stocks#formize"/>
       <page to="stocks#list"/>
       <page to="stocks#new"/>
       <page to="stocks#update"/>
@@ -340,7 +339,6 @@
       <page to="transports#create"/>
       <page to="transports#destroy"/>
       <page to="transports#edit"/>
-      <page to="transports#formize"/>
       <page to="transports#list"/>
       <page to="transports#list_deliveries"/>
       <page to="transports#list_transportable_deliveries"/>
@@ -392,16 +390,16 @@
       <page to="animals#update"/>
     </menu>
     <menu name="animal_groups">
-        <page to="animal_groups#index"/>
-        <page to="animal_groups#create"/>
-        <page to="animal_groups#destroy"/>
-        <page to="animal_groups#edit"/>
-        <page to="animal_groups#list"/>
-        <page to="animal_groups#list_animals"/>
-        <page to="animal_groups#list_events"/>
-        <page to="animal_groups#new"/>
-        <page to="animal_groups#show"/>
-        <page to="animal_groups#update"/>
+      <page to="animal_groups#index"/>
+      <page to="animal_groups#create"/>
+      <page to="animal_groups#destroy"/>
+      <page to="animal_groups#edit"/>
+      <page to="animal_groups#list"/>
+      <page to="animal_groups#list_animals"/>
+      <page to="animal_groups#list_events"/>
+      <page to="animal_groups#new"/>
+      <page to="animal_groups#show"/>
+      <page to="animal_groups#update"/>
     </menu>
     <menu name="land_parcels">
       <page to="land_parcels#index"/>
@@ -925,15 +923,6 @@
     </menu>
   </menu>
   <undefined>
-    <menu name="companies">
-      <page to="companies#register"/>
-    </menu>
-    <menu name="dashboards">
-      <page to="dashboards#list_critic_stocks"/>
-      <page to="dashboards#list_my_future_events"/>
-      <page to="dashboards#list_recent_events"/>
-      <page to="dashboards#welcome"/>
-    </menu>
     <menu name="animal_diagnostics">
       <page to="animal_diagnostics#index"/>
       <page to="animal_diagnostics#create"/>
@@ -943,6 +932,18 @@
       <page to="animal_diagnostics#new"/>
       <page to="animal_diagnostics#show"/>
       <page to="animal_diagnostics#update"/>
+    </menu>
+    <menu name="animals">
+      <page to="animals#list_events"/>
+    </menu>
+    <menu name="companies">
+      <page to="companies#register"/>
+    </menu>
+    <menu name="dashboards">
+      <page to="dashboards#list_critic_stocks"/>
+      <page to="dashboards#list_my_future_events"/>
+      <page to="dashboards#list_recent_events"/>
+      <page to="dashboards#welcome"/>
     </menu>
     <menu name="entities">
       <page to="entities#list_addresses"/>
@@ -959,6 +960,7 @@
       <page to="help#show"/>
     </menu>
     <menu name="interfacers">
+      <page to="interfacers#autocomplete"/>
       <page to="interfacers#autocomplete_for_area_name"/>
       <page to="interfacers#autocomplete_for_entity_origin"/>
       <page to="interfacers#autocomplete_for_event_location"/>
@@ -967,25 +969,21 @@
       <page to="interfacers#autocomplete_for_mandate_title"/>
       <page to="interfacers#product_trackings"/>
       <page to="interfacers#product_units"/>
+      <page to="interfacers#search_for"/>
       <page to="interfacers#search_for_account"/>
-      <page to="interfacers#search_for_all_contacts"/>
       <page to="interfacers#search_for_attorneys_accounts"/>
       <page to="interfacers#search_for_available_prices"/>
-      <page to="interfacers#search_for_client_contacts"/>
       <page to="interfacers#search_for_clients"/>
       <page to="interfacers#search_for_clients_accounts"/>
       <page to="interfacers#search_for_collected_account"/>
       <page to="interfacers#search_for_districts"/>
       <page to="interfacers#search_for_entities"/>
-      <page to="interfacers#search_for_incoming_delivery_contacts"/>
       <page to="interfacers#search_for_operation_products"/>
-      <page to="interfacers#search_for_outgoing_deliveries"/>
-      <page to="interfacers#search_for_outgoing_delivery_contacts"/>
       <page to="interfacers#search_for_paid_account"/>
       <page to="interfacers#search_for_purchase_products"/>
-      <page to="interfacers#search_for_subscription_contacts"/>
       <page to="interfacers#search_for_suppliers"/>
       <page to="interfacers#search_for_suppliers_accounts"/>
+      <page to="interfacers#select_options"/>
       <page to="interfacers#toggle_module"/>
       <page to="interfacers#toggle_side"/>
       <page to="interfacers#toggle_tab"/>
@@ -996,6 +994,16 @@
     <menu name="myselves">
       <page to="myselves#change_password"/>
       <page to="myselves#statistics"/>
+    </menu>
+    <menu name="preferences">
+      <page to="preferences#index"/>
+      <page to="preferences#create"/>
+      <page to="preferences#destroy"/>
+      <page to="preferences#edit"/>
+      <page to="preferences#list"/>
+      <page to="preferences#new"/>
+      <page to="preferences#show"/>
+      <page to="preferences#update"/>
     </menu>
     <menu name="professions">
       <page to="professions#index"/>

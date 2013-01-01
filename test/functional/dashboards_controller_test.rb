@@ -19,5 +19,5 @@
 
 require 'test_helper'
 class DashboardsControllerTest < ActionController::TestCase
-  test_restfully_all_actions :welcome=>:index
+  test_restfully_all_actions
 end

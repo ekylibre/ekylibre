@@ -6,11 +6,11 @@
   <parameters>
     <parameter name="financial_year" nature="financial_year">Bilan</parameter>
   </parameters>
-  <document unit="mm" size="10" title="Bilan {{financial_year.company.name}} {{financial_year.code}}">
+  <document unit="mm" size="10" title="Bilan {{Entity.of_company.full_name}} {{financial_year.code}}">
     <page orientation="portrait" format="A4" margin="10mm">
       <slice margins="0 0 5mm">
 	<rectangle height="18mm" background="#BCF8" radius="2mm"/>
-	<text value="{{financial_year.company.name}}" align="center" top="1mm" size="10pt"/>
+	<text value="{{Entity.of_company.full_name}}" align="center" top="1mm" size="10pt"/>
 	<text value="BILAN ACTIF" align="center" top="6mm" size="15pt" bold="true"/>
 	<text value="Période du {{financial_year/started_on?format=month_letter}} au {{financial_year/stopped_on?format=month_letter}}" align="center" top="13.5mm" size="10pt"/>
       </slice>
@@ -352,7 +352,7 @@
     <page orientation="portrait" format="A4" margin="10mm">
       <slice margins="0 0 5mm">
 	<rectangle height="18mm" background="#BCF8" radius="2mm"/>
-	<text value="{{financial_year.company.name}}" align="center" top="1mm" size="10pt"/>
+	<text value="{{Entity.of_company.full_name}}" align="center" top="1mm" size="10pt"/>
 	<text value="BILAN PASSIF" align="center" top="6mm" size="15pt" bold="true"/>
 	<text value="Période du {{financial_year/started_on?format=month_letter}} au {{financial_year/stopped_on?format=month_letter}}" align="center" top="13.5mm" size="10pt"/>
       </slice>

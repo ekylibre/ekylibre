@@ -20,11 +20,12 @@
 class SalesController < AdminController
   include ActionView::Helpers::NumberHelper
 
+  unroll
 
   # management -> sales_conditions
   def self.sales_conditions
     code = ""
-    code = search_conditions(:sale, :sales=>[:pretax_amount, :amount, :number, :initial_number, :comment], :entities=>[:code, :full_name])+"||=[]\n"
+    code = search_conditions(:sale, :sales => [:pretax_amount, :amount, :number, :initial_number, :comment], :entities => [:code, :full_name])+"||=[]\n"
     code += "unless session[:sale_state].blank?\n"
     code += "  if session[:sale_state] == 'current'\n"
     code += "    c[0] += \" AND state IN ('estimate', 'order', 'invoice')\"\n"
@@ -41,20 +42,20 @@ class SalesController < AdminController
     code
   end
 
-  list(:conditions=>sales_conditions, :joins=>:client, :order=>'created_on desc, number desc', :line_class=>'RECORD.tags') do |t|
-    t.column :number, :url=>{:action=>:show, :step=>:default}
+  list(:conditions => sales_conditions, :joins => :client, :order => 'created_on desc, number desc', :line_class => 'RECORD.tags') do |t|
+    t.column :number, :url => {:action => :show, :step => :default}
     t.column :created_on
     t.column :invoiced_on
-    t.column :label, :through=>:client, :url=>true
-    t.column :label, :through=>:responsible
+    t.column :label, :through => :client, :url => true
+    t.column :label, :through => :responsible
     t.column :comment
     t.column :state_label
-    t.column :paid_amount, :currency=>true
-    t.column :amount, :currency=>true
-    t.action :show, :url=>{:format=>:pdf}, :image=>:print
-    t.action :edit, :if=>'RECORD.draft? '
-    t.action :cancel, :if=>'RECORD.cancelable? '
-    t.action :destroy, :if=>'RECORD.aborted? '
+    t.column :paid_amount, :currency => true
+    t.column :amount, :currency => true
+    t.action :show, :url => {:format => :pdf}, :image => :print
+    t.action :edit, :if => 'RECORD.draft? '
+    t.action :cancel, :if => 'RECORD.cancelable? '
+    t.action :destroy, :if => 'RECORD.aborted? '
   end
 
   # Displays the main page with the list of sales
@@ -68,44 +69,44 @@ class SalesController < AdminController
     end
   end
 
-  list(:credits, :model=>:sales, :conditions=>{:origin_id=>['session[:current_sale_id]'] }, :children=>:lines) do |t|
-    t.column :number, :url=>true, :children=>:designation
-    t.column :full_name, :through=>:client, :children=>false
-    t.column :created_on, :children=>false
-    t.column :pretax_amount, :currency=>{:body=>true, :children=>"RECORD.sale.currency"}
-    t.column :amount, :currency=>{:body=>true, :children=>"RECORD.sale.currency"}
+  list(:credits, :model => :sales, :conditions => {:origin_id => ['session[:current_sale_id]'] }, :children => :lines) do |t|
+    t.column :number, :url => true, :children => :designation
+    t.column :full_name, :through => :client, :children => false
+    t.column :created_on, :children => false
+    t.column :pretax_amount, :currency => {:body => true, :children => "RECORD.sale.currency"}
+    t.column :amount, :currency => {:body => true, :children => "RECORD.sale.currency"}
   end
 
-  list(:deliveries, :model=>:outgoing_deliveries, :children=>:lines, :conditions=>{:sale_id=>['session[:current_sale_id]']}) do |t|
-    t.column :number, :children=>:product_name
-    t.column :last_name, :through=>:transporter, :children=>false, :url=>true
-    t.column :address, :through=>:contact, :children=>false
-    t.column :planned_on, :children=>false
-    t.column :moved_on, :children=>false
-    t.column :quantity, :datatype=>:decimal
-    t.column :pretax_amount, :currency=>{:body=>"RECORD.sale.currency", :children=>"RECORD.delivery.sale.currency"}
-    t.column :amount, :currency=>{:body=>"RECORD.sale.currency", :children=>"RECORD.delivery.sale.currency"}
-    t.action :edit, :if=>'RECORD.sale.order? '
-    t.action :destroy, :if=>'RECORD.sale.order? '
+  list(:deliveries, :model => :outgoing_deliveries, :children => :lines, :conditions => {:sale_id => ['session[:current_sale_id]']}) do |t|
+    t.column :number, :children => :product_name
+    t.column :last_name, :through => :transporter, :children => false, :url => true
+    t.column :coordinate, :through => :address, :children => false
+    t.column :planned_on, :children => false
+    t.column :moved_on, :children => false
+    t.column :quantity, :datatype => :decimal
+    t.column :pretax_amount, :currency => {:body => "RECORD.sale.currency", :children => "RECORD.delivery.sale.currency"}
+    t.column :amount, :currency => {:body => "RECORD.sale.currency", :children => "RECORD.delivery.sale.currency"}
+    t.action :edit, :if => 'RECORD.sale.order? '
+    t.action :destroy, :if => 'RECORD.sale.order? '
   end
 
-  list(:payment_uses, :model=>:incoming_payment_uses, :conditions=>["#{IncomingPaymentUse.table_name}.expense_id=? AND #{IncomingPaymentUse.table_name}.expense_type=?", ['session[:current_sale_id]'], 'Sale']) do |t|
-    t.column :number, :through=>:payment, :url=>true
-    t.column :amount, :currency=>"RECORD.payment.currency", :through=>:payment, :label=>"payment_amount", :url=>true
-    t.column :amount, :currency=>"RECORD.payment.currency"
+  list(:payment_uses, :model => :incoming_payment_uses, :conditions => ["#{IncomingPaymentUse.table_name}.expense_id=? AND #{IncomingPaymentUse.table_name}.expense_type=?", ['session[:current_sale_id]'], 'Sale']) do |t|
+    t.column :number, :through => :payment, :url => true
+    t.column :amount, :currency => "RECORD.payment.currency", :through => :payment, :label => "payment_amount", :url => true
+    t.column :amount, :currency => "RECORD.payment.currency"
     t.column :payment_way
-    t.column :scheduled, :through=>:payment, :datatype=>:boolean, :label=>:column
+    t.column :scheduled, :through => :payment, :datatype => :boolean, :label => :column
     t.column :downpayment
-    # t.column :paid_on, :through=>:payment, :label=>:column, :datatype=>:date
-    t.column :to_bank_on, :through=>:payment, :label=>:column, :datatype=>:date
+    # t.column :paid_on, :through => :payment, :label => :column, :datatype => :date
+    t.column :to_bank_on, :through => :payment, :label => :column, :datatype => :date
     t.action :destroy
   end
 
-  list(:subscriptions, :conditions=>{:sale_id=>['session[:current_sale_id]']}) do |t|
+  list(:subscriptions, :conditions => {:sale_id => ['session[:current_sale_id]']}) do |t|
     t.column :number
-    t.column :name, :through=>:nature
-    t.column :full_name, :through=>:entity, :url=>true
-    t.column :address, :through=>:contact
+    t.column :name, :through => :nature
+    t.column :full_name, :through => :entity, :url => true
+    t.column :coordinate, :through => :address
     t.column :start
     t.column :finish
     t.column :quantity
@@ -113,29 +114,29 @@ class SalesController < AdminController
     t.action :destroy
   end
 
-  list(:undelivered_lines, :model=>:sale_lines, :conditions=>{:sale_id=>['session[:current_sale_id]'], :reduction_origin_id=>nil}) do |t|
-    t.column :name, :through=>:product
-    t.column :pretax_amount, :currency=>"RECORD.price.currency", :through=>:price
+  list(:undelivered_lines, :model => :sale_lines, :conditions => {:sale_id => ['session[:current_sale_id]'], :reduction_origin_id => nil}) do |t|
+    t.column :name, :through => :product
+    t.column :pretax_amount, :currency => "RECORD.price.currency", :through => :price
     t.column :quantity
-    t.column :label, :through=>:unit
-    t.column :pretax_amount, :currency=>"RECORD.price.currency"
+    t.column :label, :through => :unit
+    t.column :pretax_amount, :currency => "RECORD.price.currency"
     t.column :amount
-    t.column :undelivered_quantity, :datatype=>:decimal
+    t.column :undelivered_quantity, :datatype => :decimal
   end
 
-  list(:lines, :model=>:sale_lines, :conditions=>{:sale_id=>['params[:id]']}, :order=>:position, :export=>false, :line_class=>"((RECORD.product.subscription? and RECORD.subscriptions.sum(:quantity) != RECORD.quantity) ? 'warning' : '')", :include=>[:product, :subscriptions]) do |t|
-    #t.column :name, :through=>:product
+  list(:lines, :model => :sale_lines, :conditions => {:sale_id => ['params[:id]']}, :order => :position, :export => false, :line_class => "((RECORD.product.subscription? and RECORD.subscriptions.sum(:quantity) != RECORD.quantity) ? 'warning' : '')", :include => [:product, :subscriptions]) do |t|
+    #t.column :name, :through => :product
     t.column :position
     t.column :label
     t.column :annotation
-    t.column :serial, :through=>:tracking, :url=>true
+    t.column :serial, :through => :tracking, :url => true
     t.column :quantity
-    t.column :label, :through=>:unit
-    t.column :pretax_amount, :through=>:price, :label=>"unit_price_amount", :currency=>"RECORD.price.currency"
-    t.column :pretax_amount, :currency=>"RECORD.sale.currency"
-    t.column :amount, :currency=>"RECORD.sale.currency"
-    t.action :edit, :if=>'RECORD.sale.draft? and RECORD.reduction_origin_id.nil? '
-    t.action :destroy, :if=>'RECORD.sale.draft? and RECORD.reduction_origin_id.nil? '
+    t.column :label, :through => :unit
+    t.column :pretax_amount, :through => :price, :label => "unit_price_amount", :currency => "RECORD.price.currency"
+    t.column :pretax_amount, :currency => "RECORD.sale.currency"
+    t.column :amount, :currency => "RECORD.sale.currency"
+    t.action :edit, :if => 'RECORD.sale.draft? and RECORD.reduction_origin_id.nil? '
+    t.action :destroy, :if => 'RECORD.sale.draft? and RECORD.reduction_origin_id.nil? '
   end
 
   # Displays details of one sale selected with +params[:id]+
@@ -151,15 +152,15 @@ class SalesController < AdminController
         end
         if params[:step] == "deliveries"
           if @sale.deliveries.size <= 0 and @sale.order? and @sale.has_content?
-            redirect_to :controller=>:outgoing_deliveries, :action=>:new, :sale_id=>@sale.id
+            redirect_to :controller => :outgoing_deliveries, :action => :new, :sale_id => @sale.id
           elsif @sale.deliveries.size <= 0 and @sale.invoice?
             notify(:sale_already_invoiced)
           elsif @sale.lines.size <= 0
             notify_warning(:no_lines_found)
-            redirect_to :action=>:show, :step=>:products, :id=>@sale.id
+            redirect_to :action => :show, :step => :products, :id => @sale.id
           end
         end
-        t3e @sale.attributes, :client=>@sale.client.full_name, :state=>@sale.state_label, :label=>@sale.label
+        t3e @sale.attributes, :client => @sale.client.full_name, :state => @sale.state_label, :label => @sale.label
       end
       format.xml { render :xml => @sale.to_xml }
       format.pdf do
@@ -178,19 +179,19 @@ class SalesController < AdminController
     if request.post?
       @sale.abort
     end
-    redirect_to :action=>:show, :id=>@sale.id
+    redirect_to :action => :show, :id => @sale.id
   end
 
 
-  list(:creditable_lines, :model=>:sale_lines, :conditions=>["sale_id=? AND reduction_origin_id IS NULL", ['session[:sale_id]']]) do |t|
+  list(:creditable_lines, :model => :sale_lines, :conditions => ["sale_id=? AND reduction_origin_id IS NULL", ['session[:sale_id]']]) do |t|
     t.column :label
     t.column :annotation
-    t.column :name, :through=>:product
-    t.column :amount, :through=>:price, :label=>:column
+    t.column :name, :through => :product
+    t.column :amount, :through => :price, :label => :column
     t.column :quantity
-    t.column :credited_quantity, :datatype=>:decimal
-    t.check_box  :validated, :value=>"true", :label=>'OK'
-    t.text_field :quantity, :value=>"RECORD.uncredited_quantity", :size=>6
+    t.column :credited_quantity, :datatype => :decimal
+    t.check_box  :validated, :value => "true", :label => 'OK'
+    t.text_field :quantity, :value => "RECORD.uncredited_quantity", :size => 6
   end
 
   def cancel
@@ -204,8 +205,8 @@ class SalesController < AdminController
         return
       end
       responsible = Entity.find_by_id(params[:sale][:responsible_id]) if params[:sale]
-      if credit = @sale.cancel(lines, :responsible=>responsible||@current_user)
-        redirect_to :action=>:show, :id=>credit.id
+      if credit = @sale.cancel(lines, :responsible => responsible||@current_user)
+        redirect_to :action => :show, :id => credit.id
       end
     end
     t3e @sale.attributes
@@ -216,25 +217,25 @@ class SalesController < AdminController
     if request.post?
       @sale.confirm
     end
-    redirect_to :action=>:show, :step=>:deliveries, :id=>@sale.id
+    redirect_to :action => :show, :step => :deliveries, :id => @sale.id
   end
 
   def contacts
     if request.xhr?
-      client, contact_id = nil, nil
-      client = if params[:selected] and contact = Contact.find_by_id(params[:selected])
-                 contact.entity
+      client, address_id = nil, nil
+      client = if params[:selected] and address = EntityAddress.find_by_id(params[:selected])
+                 address.entity
                else
                  Entity.find_by_id(params[:client_id])
                end
       if client
         session[:current_entity_id] = client.id
-        contact_id = (contact ? contact.id : client.default_contact.id)
+        address_id = (address ? address.id : client.default_mail_address.id)
       end
-      @sale = Sale.find_by_id(params[:sale_id])||Sale.new(:contact_id=>contact_id, :delivery_contact_id=>contact_id, :invoice_contact_id=>contact_id)
-      render :partial=>'contacts_form', :locals=>{:client=>client}
+      @sale = Sale.find_by_id(params[:sale_id])||Sale.new(:address_id => address_id, :delivery_address_id => address_id, :invoice_address_id => address_id)
+      render :partial => 'contacts_form', :locals => {:client => client}
     else
-      redirect_to :action=>:index
+      redirect_to :action => :index
     end
   end
 
@@ -243,15 +244,15 @@ class SalesController < AdminController
     if request.post?
       @sale.correct
     end
-    redirect_to :action=>:show, :step=>:products, :id=>@sale.id
+    redirect_to :action => :show, :step => :products, :id => @sale.id
   end
 
   def new
     @sale = Sale.new
     if client = Entity.find_by_id(params[:client_id]||params[:entity_id]||session[:current_entity_id])
-      if client.default_contact
-        cid = client.default_contact.id
-        @sale.attributes = {:contact_id=>cid, :delivery_contact_id=>cid, :invoice_contact_id=>cid}
+      if client.default_mail_address
+        cid = client.default_mail_address.id
+        @sale.attributes = {:address_id => cid, :delivery_address_id => cid, :invoice_address_id => cid}
       end
     end
     session[:current_entity_id] = (client ? client.id : nil)
@@ -267,7 +268,7 @@ class SalesController < AdminController
   def create
     @sale = Sale.new(params[:sale])
     @sale.number = ''
-    return if save_and_redirect(@sale, :url=>{:action=>:show, :step=>:products, :id=>"id"})
+    return if save_and_redirect(@sale, :url => {:action => :show, :step => :products, :id => "id"})
     render_restfully_form
   end
 
@@ -287,12 +288,12 @@ class SalesController < AdminController
     return unless sale = find_and_check(:sale)
     copy = nil
     begin
-      copy = sale.duplicate(:responsible_id=>@current_user.id)
+      copy = sale.duplicate(:responsible_id => @current_user.id)
     rescue Exception => e
-      notify_error(:exception_raised, :message=>e.message)
+      notify_error(:exception_raised, :message => e.message)
     end
     if copy
-      redirect_to :action=>:show, :step=>:products, :id=>copy.id
+      redirect_to :action => :show, :step => :products, :id => copy.id
       return
     end
     redirect_to_current
@@ -303,11 +304,11 @@ class SalesController < AdminController
     if request.post?
       ActiveRecord::Base.transaction do
         raise ActiveRecord::Rollback unless @sale.invoice
-        redirect_to :action=>:show, :step=>:summary, :id=>@sale.id
+        redirect_to :action => :show, :step => :summary, :id => @sale.id
         return
       end
     end
-    redirect_to :action=>:show, :step=>:products, :id=>@sale.id
+    redirect_to :action => :show, :step => :products, :id => @sale.id
   end
 
   def propose
@@ -315,7 +316,7 @@ class SalesController < AdminController
     if request.post?
       @sale.propose
     end
-    redirect_to :action=>:show, :step=>:products, :id=>@sale.id
+    redirect_to :action => :show, :step => :products, :id => @sale.id
   end
 
   def propose_and_invoice
@@ -328,7 +329,7 @@ class SalesController < AdminController
         raise ActiveRecord::Rollback unless @sale.invoice
       end
     end
-    redirect_to :action=>:show, :step=>:summary, :id=>@sale.id
+    redirect_to :action => :show, :step => :summary, :id => @sale.id
   end
 
   def refuse
@@ -336,14 +337,14 @@ class SalesController < AdminController
     if request.post?
       @sale.refuse
     end
-    redirect_to :action=>:show, :step=>:products, :id=>@sale.id
+    redirect_to :action => :show, :step => :products, :id => @sale.id
   end
 
   def edit
     return unless @sale = find_and_check(:sale)
     unless @sale.draft?
       notify_error(:sale_cannot_be_updated)
-      redirect_to :action=>:show, :step=>:products, :id=>@sale.id
+      redirect_to :action => :show, :step => :products, :id => @sale.id
       return
     end
     t3e @sale.attributes
@@ -354,11 +355,11 @@ class SalesController < AdminController
     return unless @sale = find_and_check(:sale)
     unless @sale.draft?
       notify_error(:sale_cannot_be_updated)
-      redirect_to :action=>:show, :step=>:products, :id=>@sale.id
+      redirect_to :action => :show, :step => :products, :id => @sale.id
       return
     end
     if @sale.update_attributes(params[:sale])
-      redirect_to :action=>:show, :step=>:products, :id=>@sale.id
+      redirect_to :action => :show, :step => :products, :id => @sale.id
       return
     end
     t3e @sale.attributes
@@ -393,7 +394,7 @@ class SalesController < AdminController
       while date <= finish
         period = '="'+t('date.abbr_month_names')[date.month]+" "+date.year.to_s+'"'
         months << period
-        for product in Product.find(:all, :select=>"products.*, total", :joins=>ActiveRecord::Base.send(:sanitize_sql_array, ["LEFT JOIN (#{query}) AS sold ON (products.id=product_id)", date.beginning_of_month, date.end_of_month]), :order=>"product_id")
+        for product in Product.find(:all, :select => "products.*, total", :joins => ActiveRecord::Base.send(:sanitize_sql_array, ["LEFT JOIN (#{query}) AS sold ON (products.id=product_id)", date.beginning_of_month, date.end_of_month]), :order => "product_id")
           data[product.id.to_s] ||= {}
           data[product.id.to_s][period] = product.total.to_f
         end
@@ -413,7 +414,7 @@ class SalesController < AdminController
               if data[product.id.to_s][months[i]].zero?
                 row << ''
               else
-                row << number_to_currency(data[product.id.to_s][months[i]], :separator=>',', :delimiter=>' ', :unit=>'', :precision=>2)
+                row << number_to_currency(data[product.id.to_s][months[i]], :separator => ',', :delimiter => ' ', :unit => '', :precision => 2)
               end
             end
             csv << row
@@ -421,7 +422,7 @@ class SalesController < AdminController
         end
       end
 
-      send_data csv_data, :type=>Mime::CSV, :disposition=>'inline', :filename=>tl(source)+'.csv'
+      send_data csv_data, :type => Mime::CSV, :disposition => 'inline', :filename => tl(source)+'.csv'
     end
   end
 

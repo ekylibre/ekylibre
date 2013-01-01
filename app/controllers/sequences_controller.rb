@@ -20,6 +20,8 @@
 class SequencesController < AdminController
   manage_restfully :number_format=>"'[number|8]'", :last_number=>"0"
 
+  unroll
+
   list do |t|
     t.column :name
     t.column :compute

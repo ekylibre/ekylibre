@@ -19,6 +19,8 @@
 
 class OutgoingDeliveriesController < AdminController
 
+  unroll
+
   list(:conditions=>light_search_conditions(:outgoing_deliveries=>[:number, :reference_number, :weight, :amount, :pretax_amount], :entities=>[:full_name, :code])+moved_conditions(OutgoingDelivery)) do |t|
     t.column :number, :url=>true
     t.column :number, :through=>:transport, :url=>true

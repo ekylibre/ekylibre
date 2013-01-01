@@ -6,7 +6,7 @@
 /*
     $.widget("ekylibre.selector", {
         _create: function () {
-            
+
         }
     });
 */

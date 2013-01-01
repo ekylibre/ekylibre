@@ -12,9 +12,9 @@
       <part height="30mm">
 	<set>
 	  <text value="Expéditeur" align="left" />
-	  <text value="{{transport.company.entity.default_contact/print_address}}" top="4mm" align="left" bold="true"/>
+	  <text value="{{Entity.of_company.default_mail_address/mail_coordinate}}" top="4mm" align="left" bold="true"/>
 	  <text value="Transporteur" left="95mm"/>
-	  <text value="{{transport/address}}"  top="4mm" left="95mm" bold="true"/>
+	  <text value="{{transport.transporter.default_mail_address/mail_coordinate}}"  top="4mm" left="95mm" bold="true"/>
 	</set>
       </part>
 

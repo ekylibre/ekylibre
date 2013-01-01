@@ -20,6 +20,8 @@
 class AnimalDiagnosticsController < AdminController
   manage_restfully
 
+  unroll
+
   list() do |t|
     t.column :symptoms, :url=>true
     t.column :name, :through=>:event, :url=>true

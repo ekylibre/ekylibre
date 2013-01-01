@@ -1,91 +1,91 @@
 # -*- coding: utf-8 -*-
 # = Informations
-#
+# 
 # == License
-#
+# 
 # Ekylibre - Simple ERP
-# Copyright (C) 2009-2012 Brice Texier, Thibaud Merigon
-#
+# Copyright (C) 2009-2013 Brice Texier, Thibaud Merigon
+# 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
-#
+# 
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-#
+# 
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
-#
+# 
 # == Table: entities
 #
 #  active                              :boolean          default(TRUE), not null
-#  activity_code                       :string(32)
+#  activity_code                       :string(32)       
 #  admin                               :boolean          not null
 #  attorney                            :boolean          not null
-#  attorney_account_id                 :integer
-#  authorized_payments_count           :integer
-#  born_on                             :date
-#  category_id                         :integer
+#  attorney_account_id                 :integer          
+#  authorized_payments_count           :integer          
+#  born_on                             :date             
+#  category_id                         :integer          
 #  client                              :boolean          not null
-#  client_account_id                   :integer
-#  code                                :string(64)
-#  comment                             :text
-#  connected_at                        :datetime
-#  country                             :string(2)
+#  client_account_id                   :integer          
+#  code                                :string(64)       
+#  comment                             :text             
+#  connected_at                        :datetime         
+#  country                             :string(2)        
 #  created_at                          :datetime         not null
-#  creator_id                          :integer
+#  creator_id                          :integer          
 #  currency                            :string(255)      not null
-#  dead_on                             :date
-#  deliveries_conditions               :string(60)
-#  department_id                       :integer
-#  ean13                               :string(13)
+#  dead_on                             :date             
+#  deliveries_conditions               :string(60)       
+#  department_id                       :integer          
+#  ean13                               :string(13)       
 #  employed                            :boolean          not null
-#  employment                          :string(255)
-#  establishment_id                    :integer
-#  first_met_on                        :date
-#  first_name                          :string(255)
+#  employment                          :string(255)      
+#  establishment_id                    :integer          
+#  first_met_on                        :date             
+#  first_name                          :string(255)      
 #  full_name                           :string(255)      not null
-#  hashed_password                     :string(64)
+#  hashed_password                     :string(64)       
 #  id                                  :integer          not null, primary key
-#  invoices_count                      :integer
+#  invoices_count                      :integer          
 #  language                            :string(3)        default("???"), not null
 #  last_name                           :string(255)      not null
-#  left_on                             :date
+#  left_on                             :date             
 #  lock_version                        :integer          default(0), not null
 #  locked                              :boolean          not null
 #  loggable                            :boolean          not null
-#  maximum_grantable_reduction_percent :decimal(19, 4)
+#  maximum_grantable_reduction_percent :decimal(19, 4)   
 #  nature_id                           :integer          not null
 #  of_company                          :boolean          not null
-#  office                              :string(255)
-#  origin                              :string(255)
-#  payment_delay_id                    :integer
-#  payment_mode_id                     :integer
-#  photo                               :string(255)
-#  profession_id                       :integer
-#  proposer_id                         :integer
+#  office                              :string(255)      
+#  origin                              :string(255)      
+#  payment_delay_id                    :integer          
+#  payment_mode_id                     :integer          
+#  photo                               :string(255)      
+#  profession_id                       :integer          
+#  proposer_id                         :integer          
 #  prospect                            :boolean          not null
-#  recruited_on                        :date
-#  reduction_rate                      :decimal(19, 10)
+#  recruited_on                        :date             
+#  reduction_rate                      :decimal(19, 10)  
 #  reflation_submissive                :boolean          not null
-#  responsible_id                      :integer
-#  rights                              :text
-#  role_id                             :integer
-#  salt                                :string(64)
-#  siren                               :string(9)
-#  soundex                             :string(4)
+#  responsible_id                      :integer          
+#  rights                              :text             
+#  role_id                             :integer          
+#  salt                                :string(64)       
+#  siren                               :string(9)        
+#  soundex                             :string(4)        
 #  supplier                            :boolean          not null
-#  supplier_account_id                 :integer
+#  supplier_account_id                 :integer          
 #  transporter                         :boolean          not null
 #  updated_at                          :datetime         not null
-#  updater_id                          :integer
-#  username                            :string(32)
-#  vat_number                          :string(15)
+#  updater_id                          :integer          
+#  username                            :string(32)       
+#  vat_number                          :string(15)       
 #  vat_submissive                      :boolean          default(TRUE), not null
-#  webpass                             :string(255)
+#  webpass                             :string(255)      
 #
 
 require "digest/sha2"
@@ -109,8 +109,6 @@ class Entity < CompanyRecord
   belongs_to :supplier_account, :class_name => "Account"
   has_many :cashes, :dependent => :destroy
   has_many :clients, :class_name => "Entity", :foreign_key => :responsible_id, :dependent => :nullify
-  # DEPRECATE
-  has_many :contacts, :conditions => {:deleted_at => nil}, :class_name => "EntityAddress"
   has_many :addresses, :conditions => {:deleted_at => nil}, :class_name => "EntityAddress"
   has_many :mails,     :conditions => {:canal => "mail",    :deleted_at => nil}, :class_name => "EntityAddress"
   has_many :emails,    :conditions => {:canal => "email",   :deleted_at => nil}, :class_name => "EntityAddress"
@@ -153,7 +151,7 @@ class Entity < CompanyRecord
   has_many :managed_unpaid_sales, :class_name => "Sale", :foreign_key => :responsible_id, :order => "created_on", :conditions => ["state IN ('order', 'invoice') AND paid_amount < amount AND lost = ? ", false]
   has_many :usable_incoming_payments, :conditions => ["used_amount < amount"], :class_name => "IncomingPayment", :foreign_key => :payer_id
   has_many :waiting_deliveries, :class_name => "OutgoingDelivery", :foreign_key => :transporter_id, :conditions => ["moved_on IS NULL AND planned_on <= CURRENT_DATE"]
-  has_one :default_address, :class_name => "EntityAddress", :conditions => {:by_default => true}
+  has_one :default_mail_address, :class_name => "EntityAddress", :conditions => {:by_default => true, :canal => :mail}
 
   accepts_nested_attributes_for :mails,    :reject_if => :all_blank, :allow_destroy => true
   accepts_nested_attributes_for :emails,   :reject_if => :all_blank, :allow_destroy => true
@@ -329,7 +327,7 @@ class Entity < CompanyRecord
     end
   end
 
-  def address
+  def default_mail_coordinate
     self.default_address ? self.default_address.coordinate : '[NoDefaultEntityAddressError]'
   end
 

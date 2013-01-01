@@ -32,23 +32,23 @@ class ActiveSupport::TestCase
   # Add more helper methods to be used by all tests here...
 
   def actions_of(cont)
-    User.rights[cont].keys
+    Entity.rights[cont].keys
   end
 
   def login(name, password)
     # print "L"
     old_controller = @controller
     @controller = SessionsController.new
-    post :create, :name=>name, :password=>password
-    url = {:controller=>:dashboards, :action=>:index}
-    assert_redirected_to root_url, root_url.inspect
+    post :create, :name => name, :password => password
+    assert_response :redirect
+    assert_redirected_to root_url, "If login succeed, a redirection must be done to #{root_url}"
     assert_not_nil(session[:user_id])
     @controller = old_controller
   end
 
-  def fast_login(user)
+  def fast_login(entity)
     # print "V"
-    @controller.send(:init_session, user)
+    @controller.send(:init_session, entity)
   end
 
 
@@ -70,7 +70,7 @@ class ActionController::TestCase
     code  = ""
     code << "context 'A #{controller} controller' do\n"
     code << "  setup do\n"
-    code << "    @user = users(:users_001)\n"
+    code << "    @user = entities(:entities_001)\n"
     # code << "    login(@user.name, @user.comment)\n"
     code << "    login('gendo', 'secret')\n"
     # code << "    fast_login(@user)\n"
@@ -82,12 +82,11 @@ class ActionController::TestCase
     # code << "  should 'have restful actions' do\n"
     except = options.delete(:except)||[]
     except = [except] unless except.is_a? Array
-    except << :formize
     # for ignored in except
     #   puts "Ignore: #{controller}##{ignored}"
     # end
-    return unless User.rights[controller]
-    for action in User.rights[controller].keys.sort{|a,b| a.to_s<=>b.to_s} # .delete_if{|x| ![:index, :new, :create, :edit, :update, :destroy, :show].include?(x.to_sym)} # .delete_if{|x| except.include? x}
+    return unless Entity.rights[controller]
+    for action in Entity.rights[controller].keys.sort{|a,b| a.to_s <=> b.to_s} # .delete_if{|x| ![:index, :new, :create, :edit, :update, :destroy, :show].include?(x.to_sym)} # .delete_if{|x| except.include? x}
       if except.include? action
         puts "Ignore: #{controller}##{action}"
         next
@@ -128,9 +127,11 @@ class ActionController::TestCase
         # code << "    assert_raise ActionController::RoutingError, 'GET #{controller}/#{action}' do\n"
         # code << "      get :#{action}\n"
         # code << "    end\n"
-        code << "    get :#{action}, :id=>'NaID'\n"
-        code << "    get :#{action}, :id=>1\n"
-        code << '    assert_response :success, "Flash: #{flash.inspect}"'+"\n"
+        code << "    assert_nothing_raised do\n"
+        code << "      get :#{action}, :id => 'NaID'\n"
+        code << "    end\n"
+        code << "    get :#{action}, :id => 1\n"
+        code << "    assert_response :success, \"Flash: \#{flash.inspect}\"\n"
         code << "    assert_not_nil assigns(:#{model})\n"
       elsif mode == :create
         klass = model.classify.constantize
@@ -140,11 +141,11 @@ class ActionController::TestCase
 
         code << "    #{model} = #{controller}(:#{controller}_001)\n"
         code << "    assert_nothing_raised do\n"
-        code << "      post :#{action}, :#{model}=>{"+attributes.collect{|a| ":#{a}=>#{model}.#{a}"}.join(', ')+"}\n"
+        code << "      post :#{action}, :#{model} => {"+attributes.collect{|a| ":#{a} => #{model}.#{a}"}.join(', ')+"}\n"
         code << "    end\n"
         if protected_attributes.size > 0
           code << "    assert_raise(ActiveModel::MassAssignmentSecurity::Error, 'POST #{controller}/#{action}') do\n"
-          code << "      post :#{action}, :#{model}=>#{model}.attributes\n"
+          code << "      post :#{action}, :#{model} => #{model}.attributes\n"
           code << "    end\n"
         end
       elsif mode == :update
@@ -155,38 +156,38 @@ class ActionController::TestCase
 
         code << "    #{model} = #{controller}(:#{controller}_001)\n"
         code << "    assert_nothing_raised do\n"
-        code << "      put :#{action}, :id=>#{model}.id, :#{model}=>{"+attributes.collect{|a| ":#{a}=>#{model}.#{a}"}.join(', ')+"}\n"
+        code << "      put :#{action}, :id => #{model}.id, :#{model} => {"+attributes.collect{|a| ":#{a} => #{model}.#{a}"}.join(', ')+"}\n"
         code << "    end\n"
         if protected_attributes.size > 0
           code << "    assert_raise(ActiveModel::MassAssignmentSecurity::Error, 'PUT #{controller}/#{action}/:id') do\n"
-          code << "      put :#{action}, :id=>#{model}.id, :#{model}=>#{model}.attributes\n"
+          code << "      put :#{action}, :id => #{model}.id, :#{model} => #{model}.attributes\n"
           code << "    end\n"
         end
       elsif mode == :destroy
         code << "    assert_nothing_raised do\n"
-        code << "      delete :#{action}, :id=>2\n"
+        code << "      delete :#{action}, :id => 2\n"
         code << "    end\n"
         code << "    assert_response :redirect\n"
       elsif mode == :list
         code << "    get :#{action}\n"
         code << "    assert_response :success, \"The action #{action.inspect} does not seem to support GET method \#{redirect_to_url} / \#{flash.inspect}\"\n"
         for format in [:csv, :xcsv, :ods]
-          code << "    get :#{action}, :format=>:#{format}\n"
+          code << "    get :#{action}, :format => :#{format}\n"
           code << "    assert_response :success, 'Action #{action} does not esport in format #{format}'\n"
         end
       elsif mode == :touch
         # code << "    assert_raise ActionController::RoutingError, 'POST #{controller}/#{action}' do\n"
         # code << "      post :#{action}\n"
         # code << "    end\n"
-        code << "    post :#{action}, :id=>'NaID'\n"
-        code << "    post :#{action}, :id=>1\n"
+        code << "    post :#{action}, :id => 'NaID'\n"
+        code << "    post :#{action}, :id => 1\n"
         code << "    assert_response :redirect\n"
       elsif mode == :get_and_post # with ID
         # code << "    assert_raise ActionController::RoutingError, 'GET #{controller}/#{action}' do\n"
         # code << "      get :#{action}\n"
         # code << "    end\n"
-        code << "    get :#{action}, :id=>'NaID'\n"
-        code << "    get :#{action}, :id=>1\n"
+        code << "    get :#{action}, :id => 'NaID'\n"
+        code << "    get :#{action}, :id => 1\n"
         code << '    assert_response :success, "Flash: #{flash.inspect}"'+"\n"
       elsif mode == :index_xhr
         code << "    get :#{action}\n"
@@ -194,9 +195,9 @@ class ActionController::TestCase
         code << "    xhr :get, :#{action}\n"
         code << '    assert_response :success, "Flash: #{flash.inspect}"'+"\n"
       elsif mode == :show_xhr
-        code << "    get :#{action}, :id=>1\n"
+        code << "    get :#{action}, :id => 1\n"
         code << "    assert_response :redirect\n"
-        code << "    xhr :get, :#{action}, :id=>1\n"
+        code << "    xhr :get, :#{action}, :id => 1\n"
         code << "    assert_not_nil assigns(:#{model})\n"
       else
         code << "    get :#{action}\n"

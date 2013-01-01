@@ -53,9 +53,9 @@
     }
 
     function Linechart(paper, x, y, width, height, valuesx, valuesy, opts) {
-        
+
         var chartinst = this;
-        
+
         opts = opts || {};
 
         if (!paper.raphael.is(valuesx[0], "array")) {
@@ -85,7 +85,7 @@
  **
  * Set containing Elements corresponding to shades plotted in the chart (if `opts.shade` was `true`).
  **
- ** 
+ **
  \*/
         var shades = paper.set();
 
@@ -119,9 +119,9 @@
  * linechart.axis
  [ object ]
  **
- * Set containing Elements of the chart axis. The set is populated if `'axis'` definition string was passed to @Paper.linechart 
+ * Set containing Elements of the chart axis. The set is populated if `'axis'` definition string was passed to @Paper.linechart
  **
- ** 
+ **
  \*/
         var axis = paper.set();
 
@@ -139,7 +139,7 @@
  **
  * Set containing Elements corresponding to lines plotted in the chart.
  **
- ** 
+ **
  \*/
         var lines = paper.set(),
  /*\
@@ -148,7 +148,7 @@
  **
  * Set containing Elements corresponding to symbols plotted in the chart.
  **
- ** 
+ **
  \*/
             symbols = paper.set(),
             line;
@@ -299,7 +299,7 @@
  - mouseout handler (function) handler for the event
  - this (object) callback is executed in a context of a cover element
  * Conveniece method to set up hover-in and hover-out event handlers on the entire area of the chart.
- * The handlers are passed a event object containing 
+ * The handlers are passed a event object containing
  o {
  o x (number) x coordinate on all lines in the chart
  o y (array) y coordinates of all lines corresponding to the x
@@ -307,7 +307,7 @@
  = (object) @linechart object
  **
  \*/
- 
+
         chart.hoverColumn = function (fin, fout) {
             !columns && createColumns();
             columns.mouseover(fin).mouseout(fout);
@@ -321,7 +321,7 @@
  - click handler (function) handler for the event
  - this (object) callback is executed in a context of a cover element
  * Conveniece method to set up click event handler on the antire area of the chart.
- * The handler is passed a event object containing 
+ * The handler is passed a event object containing
  o {
  o x (number) x coordinate on all lines in the chart
  o y (array) y coordinates of all lines corresponding to the x
@@ -409,7 +409,7 @@
  o y (number) y coordinate of the data point
  o value (number) value represented by the data point
  o }
- * Iterates over each unique data point plotted on every line on the chart.  
+ * Iterates over each unique data point plotted on every line on the chart.
  = (object) @linechart object
  **
  \*/
@@ -440,12 +440,12 @@
 
         return chart;
     };
-    
+
     //inheritance
     var F = function() {};
     F.prototype = Raphael.g;
     Linechart.prototype = new F;
-    
+
  /*
  * linechart method on paper
  */
@@ -470,7 +470,7 @@
  o width (number) controls the size of the plotted symbol. Also controls the thickness of the line using a formula stroke-width=width/2. This option is likely to change in the future versions of g.raphael.
  o colors (array) colors to plot data series. Raphael default colors are used if not passed
  o shade (boolean) whether or not to plot a shade of the chart [default: false]. Currently only a shade between the line and x axis is supported.
- o nostroke (boolean) whether or not to plot lines [default: false]. Only practical when shade is enabled. 
+ o nostroke (boolean) whether or not to plot lines [default: false]. Only practical when shade is enabled.
  o dash (string) changes display of the line from continues to dashed or dotted (Possible values are the same as stroke-dasharray attribute, see @Element.attr).
  o smooth (boolean) changes display of the line from point-to-point straight lines to curves (type C, see @Paper.path).
  o axis (string) Which axes should be renedered. String of four values evaluated in order `'top right bottom left'` e.g. `'0 0 1 1'`.
@@ -485,5 +485,5 @@
     Raphael.fn.linechart = function(x, y, width, height, valuesx, valuesy, opts) {
         return new Linechart(this, x, y, width, height, valuesx, valuesy, opts);
     }
-    
+
 })();

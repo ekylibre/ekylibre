@@ -19,4 +19,5 @@
 
 class EntityAddressesController < AdminController
   manage_restfully :entity_id => "params[:entity_id]||session[:current_entity_id]", :country => "Entity.find(params[:entity_id]||session[:current_entity_id]).country rescue Entity.of_company.country", :t3e => {:entity => "@contact.entity.full_name"}
+  unroll
 end

@@ -20,6 +20,8 @@
 class AssetsController < AdminController
   manage_restfully :currency=>'Entity.of_company.currency', :depreciation_method=>"'linear'"
 
+  unroll
+
   list do |t|
     t.column :number, :url=>true
     t.column :name, :url=>true

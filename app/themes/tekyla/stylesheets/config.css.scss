@@ -5,12 +5,12 @@
 @import "compass/css3";
 @import "compass/utilities";
 
-@mixin define-right-property($base-name, $value) { 
+@mixin define-right-property($base-name, $value) {
   html[dir="ltr"] & { #{$base-name}-right: $value; }
   html[dir="rtl"] & { #{$base-name}-left: $value; }
 }
 
-@mixin define-left-property($base-name, $value) { 
+@mixin define-left-property($base-name, $value) {
   html[dir="ltr"] & { #{$base-name}-left: $value; }
   html[dir="rtl"] & { #{$base-name}-right: $value; }
 }
@@ -21,48 +21,48 @@
 @mixin border-left($value)  { @include define-left-property(border, $value); }
 
 
-@mixin left($base-name, $value) { 
+@mixin left($base-name, $value) {
   html[dir="ltr"] & { #{$base-name}-left: $value; }
   html[dir="rtl"] & { #{$base-name}-right: $value; }
 }
 
-@mixin right($base-name, $value) { 
+@mixin right($base-name, $value) {
   html[dir="ltr"] & { #{$base-name}-right: $value; }
   html[dir="rtl"] & { #{$base-name}-left: $value; }
 }
 
-@mixin text-align($dir) { 
+@mixin text-align($dir) {
   @if $dir == right {
     html[dir="ltr"] & { text-align: right; }
-    html[dir="rtl"] & { text-align: left; }    
+    html[dir="rtl"] & { text-align: left; }
   } @else if $dir == left {
     html[dir="ltr"] & { text-align: left; }
-    html[dir="rtl"] & { text-align: right; }    
+    html[dir="rtl"] & { text-align: right; }
   } @else {
     html[dir="ltr"] &, html[dir="rtl"] & { text-align: $dir; }
   }
 }
 
-@mixin float($dir) { 
+@mixin float($dir) {
   @if $dir == right {
     html[dir="ltr"] & { float: right; }
-    html[dir="rtl"] & { float: left; }    
+    html[dir="rtl"] & { float: left; }
   } @else if $dir == left {
     html[dir="ltr"] & { float: left; }
-    html[dir="rtl"] & { float: right; }    
+    html[dir="rtl"] & { float: right; }
   } @else {
     html[dir="ltr"] &, html[dir="rtl"] & { float: $dir; }
   }
 }
 
-@mixin display($mode) { 
-  @if $mode == box { 
+@mixin display($mode) {
+  @if $mode == box {
     display: -o-box;
     display: -ms-box;
     display: -moz-box;
     display: -webkit-box;
     display: box;
-  } @else { 
+  } @else {
     display: $mode;
   }
 }
@@ -72,7 +72,7 @@
 $modules-names:  relationship        accountancy         sales               purchases           stocks              production         ;
 $modules-colors: #07D                #380                #BB4                #c60                #B00                #741               ;
 $modules: ();
-@for $i from 1 through length($modules-names) { 
+@for $i from 1 through length($modules-names) {
   $modules: append($modules, (nth($modules-names, $i) nth($modules-colors, $i)));
 }
 
@@ -92,7 +92,7 @@ $invalid-color: red;
 $hover-transparency: 0.85;
 $hover-mask: transparentize($base-color, $hover-transparency);
 
-@function background-hover($background-color) { 
+@function background-hover($background-color) {
 /*  @return mix($background-color, $base-color, 78%);*/
   @return mix($background-color, opacify($hover-mask, 1), percentage($hover-transparency));
 }
@@ -121,7 +121,7 @@ $default-gap: round($fs-normal * 0.55);
 $cell-background: mix($desktop-background, $base-color, 82%);
 $cell-background-current: mix($desktop-background, $base-color, 62%);
 
-@mixin title($font-size) { 
+@mixin title($font-size) {
   font-size: $font-size;
   line-height: round($font-size * 1.4);
   font-weight: bold;
@@ -132,11 +132,11 @@ $l: 40%;
 $s: 70%;
 
 /*@include box-shadow(0 0 5px #555); @include box-shadow(0 0 5px rgba(0,0,0,0.5));*/
-@mixin menu-shadow { 
+@mixin menu-shadow {
   @include box-shadow(0 0 ($fs-normal/4) rgba(0, 0, 0, 0.3));
 }
 
-@mixin menu { 
+@mixin menu {
   @include background($menu-background);
   @include menu-shadow;
   border: $menu-border;
@@ -144,26 +144,26 @@ $s: 70%;
   padding: $menu-padding;
 }
 
-@mixin menu-item { 
+@mixin menu-item {
   display: block;
   padding: 0;
   height: $menu-height;
   width: $menu-width;
-  list-style-type:none; 
-  &:hover { 
-    background: $menu-background-hover; 
+  list-style-type:none;
+  &:hover {
+    background: $menu-background-hover;
     @include border-radius($default-border-radius);
   }
-  &.no-link { 
+  &.no-link {
     background: transparent;
     cursor: default;
     pointer-events: none;
   }
   a {
-    $padding: ($menu-height - $menu-text-height)/2; 
+    $padding: ($menu-height - $menu-text-height)/2;
     display: block;
     padding: $padding;
-    &, & span { 
+    &, & span {
       height: $menu-text-height;
       line-height: $menu-text-height;
       vertical-align: middle;
@@ -178,7 +178,7 @@ $s: 70%;
       margin: (($menu-text-height - 16px)/2) 0;
       @include right(margin, $padding);
     }
-    span.text { 
+    span.text {
       /*@include inline-block;*/
       display: block;
       float: left;
@@ -187,20 +187,20 @@ $s: 70%;
       width: $menu-width - 16px - 3 * $padding;
       font-weight: normal;
       white-space: nowrap;
-      overflow: hidden; 
+      overflow: hidden;
       @include ellipsis;
     }
   }
 }
 
-@mixin menu-separator { 
-  height: $menu-border-width; 
-  background: $menu-border-color; 
-  padding: 0; 
+@mixin menu-separator {
+  height: $menu-border-width;
+  background: $menu-border-color;
+  padding: 0;
   margin: $menu-padding auto;
 }
 
-@mixin incrust-shadow { 
+@mixin incrust-shadow {
   @include box-shadow(0 0 round($fs-normal/2) rgba(0,0,0,0.15));
 }
 

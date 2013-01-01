@@ -18,15 +18,16 @@
 #
 
 class TransportsController < AdminController
+  unroll
 
-  list(:children=>:deliveries, :conditions=>light_search_conditions(:transports=>[:number, :comment], :entities=>[:code, :full_name])) do |t|
-    t.column :number, :url=>true
+  list(:children => :deliveries, :conditions => light_search_conditions(:transports => [:number, :comment], :entities => [:code, :full_name])) do |t|
+    t.column :number, :url => true
     t.column :comment
-    t.column :created_on, :children=>:planned_on
-    t.column :transport_on, :children=>:moved_on
-    t.column :full_name, :through=>:transporter, :children=>:contact_address, :url=>true
+    t.column :created_on, :children => :planned_on
+    t.column :transport_on, :children => :moved_on
+    t.column :full_name, :through => :transporter, :children => :default_mail_coordinate, :url => true
     t.column :weight
-    t.action :show, :url=>{:format=>:pdf}, :image=>:print
+    t.action :show, :url => {:format => :pdf}, :image => :print
     t.action :edit
     t.action :destroy
   end
@@ -36,16 +37,16 @@ class TransportsController < AdminController
   end
 
 
-  list(:deliveries, :model=>:outgoing_deliveries, :children=>:lines, :conditions=>{:transport_id=>['session[:current_transport_id]']}) do |t|
-    t.column :address, :through=>:contact, :children=>:product_name
-    t.column :planned_on, :children=>false
-    t.column :moved_on, :children=>false
-    t.column :number, :url=>true, :children=>false
-    # t.column :number, :through=>:sale, :url=>true, :children=>false
+  list(:deliveries, :model => :outgoing_deliveries, :children => :lines, :conditions => {:transport_id => ['session[:current_transport_id]']}) do |t|
+    t.column :coordinate, :through => :address, :children => :product_name
+    t.column :planned_on, :children => false
+    t.column :moved_on, :children => false
+    t.column :number, :url => true, :children => false
+    # t.column :number, :through => :sale, :url => true, :children => false
     t.column :quantity
     t.column :pretax_amount
     t.column :amount
-    t.column :weight, :children=>false
+    t.column :weight, :children => false
   end
 
   # Displays details of one transport selected with +params[:id]+
@@ -82,39 +83,29 @@ class TransportsController < AdminController
     return code
   end
 
-  list(:transportable_deliveries, :model=>:outgoing_deliveries, :children=>:lines, :conditions=>transportable_deliveries_conditions, :pagination=>:none, :order=>:planned_on, :line_class=>"(RECORD.planned_on<Date.today ? 'critic' : RECORD.planned_on == Date.today ? 'warning' : '')") do |t|
-    t.check_box :selected, :value=>'(session[:current_transport_id].to_i.zero? ? RECORD.planned_on <= Date.today : RECORD.transport_id == session[:current_transport_id])'
-    t.column :address, :through=>:contact, :children=>:product_name
-    t.column :planned_on, :children=>false
-    t.column :moved_on, :children=>false
-    t.column :number, :url=>true, :children=>false
-    # t.column :number, :through=>:sale, :url=>true, :children=>false
-    t.column :last_name, :through=>:transporter, :children=>false, :url=>true
+  list(:transportable_deliveries, :model => :outgoing_deliveries, :children => :lines, :conditions => transportable_deliveries_conditions, :pagination => :none, :order => :planned_on, :line_class => "(RECORD.planned_on<Date.today ? 'critic' : RECORD.planned_on == Date.today ? 'warning' : '')") do |t|
+    t.check_box :selected, :value => '(session[:current_transport_id].to_i.zero? ? RECORD.planned_on <= Date.today : RECORD.transport_id == session[:current_transport_id])'
+    t.column :coordinate, :through => :address, :children => :product_name
+    t.column :planned_on, :children => false
+    t.column :moved_on, :children => false
+    t.column :number, :url => true, :children => false
+    # t.column :number, :through => :sale, :url => true, :children => false
+    t.column :last_name, :through => :transporter, :children => false, :url => true
     t.column :quantity
     t.column :pretax_amount
     t.column :amount
-    t.column :weight, :children=>false
-  end
-
-  formize do |f|
-    f.field_set :general do |fs|
-      fs.field :transporter, :choices=>:waiting_transporters, :new=>{:transporter=>1}
-      fs.field :responsible, :choices=>:employees, :new=>{:employed=>1}, :include_blank=>true
-      fs.field :reference_number
-      fs.field :transport_on
-      fs.field :comment
-    end
+    t.column :weight, :children => false
   end
 
   def new
-    @transport = Transport.new(:transport_on=>Date.today, :responsible_id=>@current_user.id, :transporter_id=>params[:transporter_id], :responsible_id=>@current_user.id)
+    @transport = Transport.new(:transport_on => Date.today, :responsible_id => @current_user.id, :transporter_id => params[:transporter_id], :responsible_id => @current_user.id)
     session[:current_transport_id] = @transport.id
     session[:current_transporter_id] = @transport.transporter_id
     if request.xhr?
       if params[:transport_id] and transport = Transport.find_by_id(params[:transport_id])
         session[:current_transport_id] ||= transport.id
       end
-      render :partial=>"deliveries_form"
+      render :partial => "deliveries_form"
     else
       render_restfully_form
     end
@@ -124,7 +115,7 @@ class TransportsController < AdminController
     @transport = Transport.new(params[:transport])
     session[:current_transport_id] = @transport.id
     session[:current_transporter_id] = @transport.transporter_id
-    return if save_and_redirect(@transport, :url=>{:action=>:show, :id=>'id'}) do |transport|
+    return if save_and_redirect(@transport, :url => {:action => :show, :id => 'id'}) do |transport|
       transport.deliveries.clear
       params[:transportable_deliveries] ||= {}
       for delivery_id, delivery_attrs in params[:transportable_deliveries].select{|k,v| v["selected"].to_i == 1}
@@ -149,7 +140,7 @@ class TransportsController < AdminController
     return unless @transport = find_and_check(:transports)
     session[:current_transport_id] = @transport.id
     session[:current_transporter_id] = @transport.transporter_id
-    return if save_and_redirect(@transport, :attributes=>params[:transport], :url=>{:action=>:show, :id=>'id'}) do |transport|
+    return if save_and_redirect(@transport, :attributes => params[:transport], :url => {:action => :show, :id => 'id'}) do |transport|
       transport.deliveries.clear
       params[:transportable_deliveries] ||= {}
       for delivery_id, delivery_attrs in params[:transportable_deliveries].select{|k,v| v["selected"].to_i == 1}

@@ -20,6 +20,8 @@
 class StockTransfersController < AdminController
   manage_restfully :nature=>"'transfer'", :planned_on=>"Date.today"
 
+  unroll
+
   list(:conditions=>moved_conditions(StockTransfer)) do |t|
     t.column :number
     t.column :nature_label

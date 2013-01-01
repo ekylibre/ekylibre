@@ -38,7 +38,7 @@ class AdminController < BaseController
     options = (args[-1].is_a?(Hash) ? args.delete_at(-1) : {})
     name = args[-1]
 
-    model = (options.delete(:model) || controller_name.singularize).to_s.classify.constantize
+    model = (options.delete(:model) || controller_name).to_s.classify.constantize
     foreign_record  = model.name.underscore
     foreign_records = foreign_record.pluralize
     scope_name = options.delete(:scope) || name
@@ -47,14 +47,14 @@ class AdminController < BaseController
       available_methods = model.columns_hash.keys.collect{|x| x.to_sym}
       label = [:label, :full_name, :native_name, :title, :name, :code, :number, :inspect].detect{|x| available_methods.include?(x)}
     end
-    label = (label.is_a?(Symbol) ? "{#{label}:%X%}" : label.is_a?(String) ? label : I18n.translate("unroll.labels." + self.name.underscore.gsub(/_controller$/, '').split('/').join(".") + ".#{name || all}"))
+    label = (label.is_a?(Symbol) ? "{#{label}:%X%}" : label.is_a?(String) ? label : I18n.translate("unroll.labels." + self.name.underscore.gsub(/_controller$/, '').split('/').join(".") + ".#{name || :all}"))
 
     columns = []
     item_label = label.inspect.gsub(/\{[a-z\_]+(\:\%?X\%?)?\}/) do |word|
       ca = word[1..-2].split(":")
       column = model.columns_hash[ca[0]]
       raise Exception.new("Unknown column #{ca[0]} for #{model.name}") unless column
-      columns << {column: column, name: column.name, filter: ca[1]|| "X%"} 
+      columns << {column: column, name: column.name, filter: ca[1]|| "X%"}
       '" + item.' + column.name + '.l + "'
     end
 
@@ -101,11 +101,11 @@ class AdminController < BaseController
     code << "  items = #{model.name}.where(conditions)#{'.' + scope_name.to_s if scope_name}\n"
     code << "  respond_to do |format|\n"
     code << "    format.html { render :file => '#{dir.join(file_name).relative_path_from(Rails.root)}', :locals => { :items => items, :keys => keys }, :layout => false }\n"
-    code << "    format.json { render :json => items.collect{|item| {:label=>#{item_label}, :id => item.id}}.to_json }\n"
-    code << "    format.xml  { render  :xml => items.collect{|item| {:label=>#{item_label}, :id => item.id}}.to_xml }\n"
+    code << "    format.json { render :json => items.collect{|item| {:label => #{item_label}, :id => item.id}}.to_json }\n"
+    code << "    format.xml  { render  :xml => items.collect{|item| {:label => #{item_label}, :id => item.id}}.to_xml }\n"
     code << "  end\n"
     code << "end"
-    puts code
+    # puts code
     class_eval(code)
   end
 
@@ -125,7 +125,7 @@ class AdminController < BaseController
     code << "    DocumentTemplate.find_by_active_and_nature_and_by_default(true, '#{nature}', true)\n"
     code << "  end\n"
     code << "  unless template\n"
-    code << "    notify_error(:cannot_find_document_template, :nature=>'#{nature}', :template=>template.inspect)\n"
+    code << "    notify_error(:cannot_find_document_template, :nature => '#{nature}', :template => template.inspect)\n"
     code << "    redirect_to_back\n"
     code << "    return\n"
     code << "  end\n"
@@ -138,9 +138,9 @@ class AdminController < BaseController
       code << "    raise ArgumentError.new('#{p[1].name} expected, got '+#{p[0]}.class.name+':'+#{p[0]}.inspect) unless #{p[0]}.is_a?(#{p[1].name})\n"
     end
     code << "    data, filename = template.print_fastly!("+parameters.collect{|p| p[0]}.join(', ')+")\n"
-    code << "    send_data(data, :filename=>filename, :type=>Mime::PDF, :disposition=>'inline')\n"
-    code << "  rescue Exception=>e\n"
-    code << "    notify_error(:print_failure, :class=>e.class.to_s, :error=>e.message.to_s, :cache=>template.cache.to_s)\n"
+    code << "    send_data(data, :filename => filename, :type => Mime::PDF, :disposition => 'inline')\n"
+    code << "  rescue Exception => e\n"
+    code << "    notify_error(:print_failure, :class => e.class.to_s, :error => e.message.to_s, :cache => template.cache.to_s)\n"
     code << "    redirect_to_back\n"
      code << "  end\n"
     code << "end\n"
@@ -192,8 +192,8 @@ class AdminController < BaseController
     # partial   = options[:partial] || 'form'
     # options[:form_options] = {} unless options[:form_options].is_a?(Hash)
     # options[:form_options][:multipart] = true if options[:multipart]
-    # render(:template => options[:template]||"forms/#{operation}", :locals=>{:operation=>operation, :partial=>partial, :options=>options})
-    render(:template =>"forms/#{self.action_name}", :locals => {:options => options})
+    # render(:template => options[:template]||"forms/#{operation}", :locals => {:operation => operation, :partial => partial, :options => options})
+    render(:template  => "forms/#{self.action_name}", :locals => {:options => options})
   end
 
 
@@ -205,12 +205,12 @@ class AdminController < BaseController
       klass = model.to_s.classify.constantize
       record = klass.find_by_id(id.to_s.to_i)
     rescue
-      notify_error(:unavailable_model, :model => model.inspect, :id=>id)
+      notify_error(:unavailable_model, :model => model.inspect, :id => id)
       redirect_to_current
       return false
     end
     if record.nil?
-      notify_error(:unavailable_model, :model => klass.model_name.human, :id=>id)
+      notify_error(:unavailable_model, :model => klass.model_name.human, :id => id)
       redirect_to_current
     end
     return record
@@ -298,7 +298,7 @@ class AdminController < BaseController
     elsif not session[:locale] and not request.env["HTTP_ACCEPT_LANGUAGE"].blank?
       codes = {}
       for l in ::I18n.active_locales
-        codes[::I18n.translate("i18n.iso2", :locale=>l).to_s] = l
+        codes[::I18n.translate("i18n.iso2", :locale => l).to_s] = l
       end
       session[:locale] = codes[request.env["HTTP_ACCEPT_LANGUAGE"].to_s.split(/[\,\;]+/).select{|x| !x.match(/^q\=/)}.detect{|x| codes[x[0..1]]}[0..1]]
     end
@@ -310,7 +310,7 @@ class AdminController < BaseController
   def identify()
     # Load current_user if connected
     @current_user = nil
-    @current_user = Entity.find(:first, :conditions=>{:id=>session[:user_id]}, :readonly=>true) if session[:user_id]
+    @current_user = Entity.find(:first, :conditions => {:id => session[:user_id]}, :readonly => true) if session[:user_id]
   end
 
 
@@ -329,7 +329,7 @@ class AdminController < BaseController
 
     # Check current_user
     unless @current_user
-      notify_error(:access_denied, :reason=>"NOT PUBLIC", :url=>request.url.inspect)
+      notify_error(:access_denied, :reason => "NOT PUBLIC", :url => request.url.inspect)
       redirect_to_login(request.url)
       return false
     end
@@ -348,7 +348,7 @@ class AdminController < BaseController
     elsif session[:last_query].to_i<Time.now.to_i-session[:expiration].to_i
       notify(:expired_session)
       if request.xhr?
-        render :text=>"<script>window.location.replace('#{new_session_url}')</script>"
+        render :text => "<script>window.location.replace('#{new_session_url}')</script>"
       else
         redirect_to_login(request.path)
       end
@@ -363,9 +363,9 @@ class AdminController < BaseController
     # Check rights before allowing access
     if message = @current_user.authorization(self.controller_name, self.action_name, session[:rights])
       if @current_user.admin
-        notify_error_now(:access_denied, :reason=>message, :url=>request.path.inspect)
+        notify_error_now(:access_denied, :reason => message, :url => request.path.inspect)
       else
-        notify_error(:access_denied, :reason=>message, :url=>request.path.inspect)
+        notify_error(:access_denied, :reason => message, :url => request.path.inspect)
         redirect_to_back
         return false
       end
@@ -384,101 +384,11 @@ class AdminController < BaseController
     if @current_user and request.get? and not request.xhr? and params[:format].blank?
       session[:history] = [] unless session[:history].is_a? Array
       session[:history].delete_if { |h| h[:path] == request.path }
-      session[:history].insert(0, {:title => self.human_action_name, :path => request.path}) # :url=>request.url, :reverse => Ekylibre.menu.page(self.controller_name, self.action_name)
+      session[:history].insert(0, {:title => self.human_action_name, :path => request.path}) # :url => request.url, :reverse => Ekylibre.menu.page(self.controller_name, self.action_name)
       session[:history].delete_at(30)
     end
   end
 
-  # Generate HTML for a CallInfo object of RubyProf
-  def self.call_info_tree(call_info, options={})
-    options[:total_time] ||= call_info.total_time
-    options[:threshold]  ||= 0.5
-    options[:display] = true if options[:display].nil?
-    options[:depth] ||= 0
-    html = ""
-    percentage = 100*call_info.total_time.to_f/options[:total_time].to_f
-    return "" unless percentage >= options[:threshold]
-    method_info = call_info.target
-    # #{(255-3*depth).to_s(16)*3}
-
-    html += "<div class='profile p#{call_info.parent.object_id}' style='margin-left: 8px; background: ##{(255-percentage).to_i.to_s(16)*3}; #{'display: none' unless options[:display]}'>"
-    regexp = /\([^\)]+\)/
-
-    html += "<div class='tit' title='#{h(method_info.source_file.gsub(Rails.root.to_s, 'RAILS_ROOT').gsub(Gem.dir, 'GEM_DIR'))}:#{h(method_info.line)} called at line #{h(call_info.line)}' onclick='$(\".p#{call_info.object_id}\").toggle();'>"
-    html += "<span class='fil'><span class='cls'>"+h(method_info.klass_name.gsub(regexp, ''))+"</span>&nbsp;<span class='mth'>"+h(method_info.method_name)+"</span></span>"
-    html += "<span class='md mdc'>"+percentage.round(1).to_s+"%</span>"
-    html += "<span class='md mdc'>"+call_info.called.to_s+"&times;</span>"
-    html += "<span class='md dec'>"+(call_info.total_time*1_000_000).round(1).to_s+"µs</span>"
-    html += "<span class='md dec'>"+(call_info.self_time*1_000_000).round(1).to_s+"µs</span>"
-    html += "</div>"
-    child_options = options.dup
-    child_options[:depth] += 1
-    child_options[:display] = (percentage >= 33 ? true : false)
-    for child in call_info.children.sort{|a,b| a.line <=> b.line}
-      html += call_info_tree(child, child_options)
-    end
-    html += "</div>"
-    return html
-  end
-
-  # Generate HTML for a CallInfo object of RubyProf
-  def self.method_info_tree(method_info)
-    regexp = /\([^\)]+\)/
-    html = ""
-    html += "<div class='profile'>"
-    html += "<div class='tit'>"
-    html += "<span class='fil'>"+h(method_info.source_file.gsub(Rails.root.to_s, ''))+"</span>:<span class='lno'>"+h(method_info.line)+"</span> <span class='cls'>"+h(method_info.klass_name.gsub(regexp, ''))+"</span>&nbsp;<span class='mth'>"+h(method_info.method_name)+"</span>"
-    html += "<span class='dec tot'>"+(method_info.total_time*1_000_000).round(1).to_s+"µs</span>"
-    html += "<span class='dec sav'>"+(method_info.self_time*1_000_000).round(1).to_s+"µs</span>"
-    html += "</div>"
-    # html += "<h3>Called by</h3>"
-    # html += "<h3>Calls</h3>"
-    html += "</div>"
-    return html
-  end
-
-
-  def profile()
-    unless params[:profile]
-      set_trace_func(proc { |event, file, line, id, binding, classname|
-                       printf "%8s %s:%-2d %10s %8s\n", event, file, line, id, classname
-                     }) if params[:trace]
-      yield
-      set_trace_func(nil) if params[:trace]
-      return
-    end
-    # require 'ruby-prof'
-    RubyProf.measure_mode = RubyProf::PROCESS_TIME
-    result = RubyProf.profile do
-      yield
-    end
-    if params[:profile] == "graph"
-      printer = RubyProf::CallStackPrinter.new(result)
-      name = "RubyProf-#{self.controller_name}-#{self.action_name}-#{Time.now.to_i.to_s(36)}.html"
-      file = File.open(Rails.root.join("public", name), "wb")
-      printer.print(file)
-      self.response.body.sub! "</body>", "<a href='/#{name}'>Graph</a></body>" # <div>CallTree printed in STDOUT</div>
-    else
-      html = "<small>"
-      for id, method_infos in result.threads
-        html += "<h2>Thread: #{id}</h2>"
-        ci  = method_infos[0].call_infos[0]
-        until ci.root?
-          ci = ci.parent
-        end
-        if params[:profile] == "tree"
-          html += self.class.call_info_tree(ci, :threshold=>params[:threshold])
-        elsif params[:profile] == "flat"
-          for method_info in method_infos
-            next unless method_info.source_file.match(Rails.root.to_s)
-            html += self.class.method_info_tree(method_info)
-          end
-        end
-      end
-      html += "</small>"
-      self.response_body = self.response.body.sub("</body>", html + "</body>")
-    end
-  end
 
 
 
@@ -534,11 +444,11 @@ class AdminController < BaseController
     code << "    pattern = '%'+params[:term].to_s.mb_chars.downcase.strip.gsub(/\s+/,'%').gsub(/[#{String::MINUSCULES.join}]/,'_')+'%'\n"
     code << "    @#{items} = #{model_name.to_s.classify}.select('DISTINCT #{method}').where('LOWER(#{method}) LIKE ?', pattern).order('#{method} ASC').limit(80)\n"
     code << "    respond_to do |format|\n"
-    code << "      format.html { render :inline=>\"<%=content_tag(:ul, @#{items}.map { |#{item}| content_tag(:li, #{item}.#{method})) }.join.html_safe)%>\" }\n"
-    code << "      format.json { render :json=>@#{items}.collect{|#{item}| #{item}.#{method}}.to_json }\n"
+    code << "      format.html { render :inline => \"<%=content_tag(:ul, @#{items}.map { |#{item}| content_tag(:li, #{item}.#{method})) }.join.html_safe)%>\" }\n"
+    code << "      format.json { render :json => @#{items}.collect{|#{item}| #{item}.#{method}}.to_json }\n"
     code << "    end\n"
     code << "  else\n"
-    code << "    render :text=>'', :layout=>true\n"
+    code << "    render :text => '', :layout => true\n"
     code << "  end\n"
     code << "end\n"
     class_eval(code, "#{__FILE__}:#{__LINE__}")
@@ -553,7 +463,7 @@ class AdminController < BaseController
     xhr = defaults.delete(:xhr)
     durl = defaults.delete(:destroy_to)
     record_name = name.to_s.singularize
-    model = name.to_s.singularize.classify.constantize
+    model = name.to_s.classify.constantize
 
     # url = "#{record_name}_url(@#{record_name})" if url.blank?
 
@@ -587,7 +497,7 @@ class AdminController < BaseController
     code << "  @#{record_name} = #{model.name}.new(#{values})\n"
     if xhr
       code << "  if request.xhr?\n"
-      code << "    render :partial=>#{xhr.is_a?(String) ? xhr.inspect : 'detail_form'.inspect}\n"
+      code << "    render :partial => #{xhr.is_a?(String) ? xhr.inspect : 'detail_form'.inspect}\n"
       code << "  else\n"
       code << "    #{render_form}\n"
       code << "  end\n"
@@ -598,22 +508,22 @@ class AdminController < BaseController
 
     code << "def create\n"
     code << "  @#{record_name} = #{model.name}.new(params[:#{record_name}])\n"
-    code << "  return if save_and_redirect(@#{record_name}#{',  :url=>'+url if url})\n"
+    code << "  return if save_and_redirect(@#{record_name}#{',  :url => '+url if url})\n"
     code << "  #{render_form}\n"
     code << "end\n"
 
     # this action updates an existing record with a form.
     code << "def edit\n"
     code << "  return unless @#{record_name} = find_and_check(:#{record_name})\n"
-    code << "  t3e(@#{record_name}.attributes"+(t3e ? ".merge("+t3e.collect{|k,v| ":#{k}=>(#{v})"}.join(", ")+")" : "")+")\n"
+    code << "  t3e(@#{record_name}.attributes"+(t3e ? ".merge("+t3e.collect{|k,v| ":#{k} => (#{v})"}.join(", ")+")" : "")+")\n"
     code << "  #{render_form}\n"
     code << "end\n"
 
     code << "def update\n"
     code << "  return unless @#{record_name} = find_and_check(:#{record_name})\n"
-    code << "  t3e(@#{record_name}.attributes"+(t3e ? ".merge("+t3e.collect{|k,v| ":#{k}=>(#{v})"}.join(", ")+")" : "")+")\n"
+    code << "  t3e(@#{record_name}.attributes"+(t3e ? ".merge("+t3e.collect{|k,v| ":#{k} => (#{v})"}.join(", ")+")" : "")+")\n"
     code << "  @#{record_name}.attributes = params[:#{record_name}]\n"
-    code << "  return if save_and_redirect(@#{record_name}#{', :url=>('+url+')' if url})\n"
+    code << "  return if save_and_redirect(@#{record_name}#{', :url => ('+url+')' if url})\n"
     code << "  #{render_form}\n"
     code << "end\n"
 
@@ -652,11 +562,11 @@ class AdminController < BaseController
     sort = ""
     position, conditions = "#{record_name}_position_column", "#{record_name}_conditions"
     sort += "#{position}, #{conditions} = #{record_name}.position_column, #{record_name}.scope_condition\n"
-    sort += "#{records}_count = #{model.name}.count(#{position}, :conditions=>#{conditions})\n"
-    sort += "unless #{records}_count == #{model.name}.count(#{position}, :conditions=>#{conditions}, :distinct=>true) and #{model.name}.sum(#{position}, :conditions=>#{conditions}) == #{records}_count*(#{records}_count+1)/2\n"
-    sort += "  #{records} = #{model.name}.find(:all, :conditions=>#{conditions}, :order=>#{position}+', #{order_by}')\n"
+    sort += "#{records}_count = #{model.name}.count(#{position}, :conditions => #{conditions})\n"
+    sort += "unless #{records}_count == #{model.name}.count(#{position}, :conditions => #{conditions}, :distinct => true) and #{model.name}.sum(#{position}, :conditions => #{conditions}) == #{records}_count*(#{records}_count+1)/2\n"
+    sort += "  #{records} = #{model.name}.find(:all, :conditions => #{conditions}, :order => #{position}+', #{order_by}')\n"
     sort += "  #{records}.each_index do |i|\n"
-    sort += "    #{model.name}.update_all({#{position}=>i+1}, {:id=>#{records}[i].id})\n"
+    sort += "    #{model.name}.update_all({#{position} => i+1}, {:id => #{records}[i].id})\n"
     sort += "  end\n"
     sort += "end\n"
 

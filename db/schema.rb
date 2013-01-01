@@ -837,28 +837,28 @@ ActiveRecord::Schema.define(:version => 20121226103003) do
   add_index "entities", ["updater_id"], :name => "index_entities_on_updater_id"
 
   create_table "entity_addresses", :force => true do |t|
-    t.integer  "entity_id",                                                                  :null => false
-    t.boolean  "by_default",                                              :default => false, :null => false
+    t.integer  "entity_id",                                                                 :null => false
+    t.boolean  "by_default",                                             :default => false, :null => false
     t.string   "mail_line_2"
     t.string   "mail_line_3"
     t.string   "mail_line_5"
-    t.datetime "created_at",                                                                 :null => false
-    t.datetime "updated_at",                                                                 :null => false
+    t.datetime "created_at",                                                                :null => false
+    t.datetime "updated_at",                                                                :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                            :default => 0,     :null => false
+    t.integer  "lock_version",                                           :default => 0,     :null => false
     t.string   "mail_country",     :limit => 2
     t.string   "code",             :limit => 4
     t.datetime "deleted_at"
     t.integer  "mail_area_id"
     t.string   "mail_line_6"
     t.string   "mail_line_4"
-    t.string   "canal",            :limit => 16,                                             :null => false
-    t.string   "coordinate",       :limit => 511,                                            :null => false
+    t.string   "canal",            :limit => 16,                                            :null => false
+    t.string   "coordinate",       :limit => 511,                                           :null => false
     t.string   "name"
     t.string   "mail_line_1"
-    t.spatial  "mail_geolocation", :limit => {:srid=>-1, :type=>"point"}
-    t.boolean  "mail_auto_update",                                        :default => false, :null => false
+    t.spatial  "mail_geolocation", :limit => {:srid=>0, :type=>"point"}
+    t.boolean  "mail_auto_update",                                       :default => false, :null => false
   end
 
   add_index "entity_addresses", ["by_default"], :name => "index_entity_addresses_on_by_default"
@@ -2280,7 +2280,6 @@ ActiveRecord::Schema.define(:version => 20121226103003) do
     t.text     "comment"
     t.string   "number"
     t.integer  "sale_line_id"
-    t.string   "_activation"
   end
 
   add_index "subscriptions", ["created_at"], :name => "index_subscriptions_on_created_at"

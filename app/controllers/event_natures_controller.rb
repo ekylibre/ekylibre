@@ -20,6 +20,8 @@
 class EventNaturesController < AdminController
   manage_restfully
 
+  unroll
+
   list do |t|
     t.column :name
     t.column :text_usage

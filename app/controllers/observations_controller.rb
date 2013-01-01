@@ -18,5 +18,6 @@
 #
 
 class ObservationsController < AdminController
-  manage_restfully :importance=>"'normal'", :entity_id=>"params[:entity_id]"
+  manage_restfully :importance => "Observation.importance.default_value"
+  unroll
 end

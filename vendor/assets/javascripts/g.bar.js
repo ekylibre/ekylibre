@@ -163,7 +163,7 @@
  > Usage
  | r.vbarchart(0, 0, 620, 260, [76, 70, 67, 71, 69], {})
  \*/
- 
+
     function VBarchart(paper, x, y, width, height, values, opts) {
         opts = opts || {};
 
@@ -213,7 +213,7 @@
 
             total = Math.max.apply(Math, opts.stacked ? stacktotal : total);
         }
-        
+
         total = (opts.to) || total;
 
         var barwidth = width / (len * (100 + gutter) + gutter) * 100,
@@ -413,16 +413,16 @@
         chart.covers = covers;
         return chart;
     };
-    
+
     //inheritance
     var F = function() {};
     F.prototype = Raphael.g;
     HBarchart.prototype = VBarchart.prototype = new F; //prototype reused by hbarchart
-    
+
     Raphael.fn.barchart = function(x, y, width, height, values, opts) {
         return new VBarchart(this, x, y, width, height, values, opts);
     };
-    
+
 /*\
  * Paper.barchart
  [ method ]
@@ -451,7 +451,7 @@
  > Usage
  | r.barchart(0, 0, 620, 260, [76, 70, 67, 71, 69], {})
  \*/
- 
+
     function HBarchart(paper, x, y, width, height, values, opts) {
         opts = opts || {};
 
@@ -499,7 +499,7 @@
 
             total = Math.max.apply(Math, opts.stacked ? stacktotal : total);
         }
-        
+
         total = (opts.to) || total;
 
         var barheight = Math.floor(height / (len * (100 + gutter) + gutter) * 100),
@@ -666,9 +666,9 @@
         chart.covers = covers;
         return chart;
     };
-    
+
     Raphael.fn.hbarchart = function(x, y, width, height, values, opts) {
         return new HBarchart(this, x, y, width, height, values, opts);
     };
-    
+
 })();

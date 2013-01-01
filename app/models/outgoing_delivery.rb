@@ -1,53 +1,51 @@
 # = Informations
-#
+# 
 # == License
-#
+# 
 # Ekylibre - Simple ERP
-# Copyright (C) 2009-2012 Brice Texier, Thibaud Merigon
-#
+# Copyright (C) 2009-2013 Brice Texier, Thibaud Merigon
+# 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
-#
+# 
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-#
+# 
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
-#
+# 
 # == Table: outgoing_deliveries
 #
-#  address_id       :integer
+#  address_id       :integer          
 #  amount           :decimal(19, 4)   default(0.0), not null
-#  comment          :text
+#  comment          :text             
 #  created_at       :datetime         not null
-#  creator_id       :integer
-#  currency         :string(3)
+#  creator_id       :integer          
+#  currency         :string(3)        
 #  id               :integer          not null, primary key
 #  lock_version     :integer          default(0), not null
-#  mode_id          :integer
-#  moved_on         :date
-#  number           :string(255)
-#  planned_on       :date
+#  mode_id          :integer          
+#  moved_on         :date             
+#  number           :string(255)      
+#  planned_on       :date             
 #  pretax_amount    :decimal(19, 4)   default(0.0), not null
-#  reference_number :string(255)
+#  reference_number :string(255)      
 #  sale_id          :integer          not null
-#  transport_id     :integer
-#  transporter_id   :integer
+#  transport_id     :integer          
+#  transporter_id   :integer          
 #  updated_at       :datetime         not null
-#  updater_id       :integer
-#  weight           :decimal(19, 4)
+#  updater_id       :integer          
+#  weight           :decimal(19, 4)   
 #
 
 
 class OutgoingDelivery < CompanyRecord
   acts_as_numbered
   attr_readonly :sale_id, :number
-  # DEPRECATED Replace use of contact with address
-  belongs_to :contact, :class_name => "EntityAddress", :foreign_key => :address_id
   belongs_to :address, :class_name => "EntityAddress"
   belongs_to :mode, :class_name=>"OutgoingDeliveryMode"
   belongs_to :sale
@@ -111,7 +109,7 @@ class OutgoingDelivery < CompanyRecord
   end
 
   def label
-    tc('label', :client=>self.sale.client.full_name.to_s, :address=>self.contact.address.to_s)
+    tc('label', :client => self.sale.client.full_name.to_s, :address => self.address.coordinate.to_s)
   end
 
   # Used with list for the moment
@@ -119,14 +117,12 @@ class OutgoingDelivery < CompanyRecord
     0
   end
 
-  def contact_address
-    self.contact.address if self.contact
+  def address_coordinate
+    self.address.coordinate if self.address
   end
 
-  def address
-    a = self.sale.client.full_name+"\n"
-    a += (self.contact ? self.contact.address : self.sale.client.default_contact.address).gsub(/\s*\,\s*/, "\n")
-    a
+  def address_mail_coordinate
+    return (self.address || self.sale.client.default_mail_address).mail_coordinate
   end
 
   def parcel_sum

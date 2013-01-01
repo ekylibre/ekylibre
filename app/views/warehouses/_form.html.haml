@@ -1,11 +1,11 @@
 -field_set do
   -input :name
-  -association :parent, :source => "self#others"
+  -association :parent
   -input :comment, :field => :text
   -input :reservoir, :show => :reservoir_options
 
 -field_set(:reservoir_options) do
-  -association :product, :source => "Product#availables"
+  -association :product, :source => :availables
   -input :quantity_max
   -input :number
 

@@ -20,6 +20,8 @@
 class ProfessionsController < AdminController
   manage_restfully
 
+  unroll
+
   list(:order=>:name) do |t|
     t.column :name
     t.column :code

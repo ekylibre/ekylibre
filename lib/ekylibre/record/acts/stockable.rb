@@ -22,7 +22,7 @@ module Ekylibre::Record
           attributes[:origin] =  (origin ? "#{variable}.#{origin}" : "#{variable}")
           attributes[:moved_on] = "#{attributes[:origin]}.#{attributes[:moved_on]}" if attributes[:moved_on].is_a? Symbol
           attributes[:generated] = "true"
-          attributes[:company_id] = "#{variable}.company_id"
+          # attributes[:company_id] = "#{variable}.company_id"
           attrs = attributes.collect{|k,v| ":#{k}=>"+(v.is_a?(String) ? "(#{v})" : "#{variable}.#{v}")}.join(", ")
           code  = ""
           update_method = "_update_#{stock_move}_#{__LINE__}"

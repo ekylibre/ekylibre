@@ -1,68 +1,68 @@
 # = Informations
-#
+# 
 # == License
-#
+# 
 # Ekylibre - Simple ERP
-# Copyright (C) 2009-2012 Brice Texier, Thibaud Merigon
-#
+# Copyright (C) 2009-2013 Brice Texier, Thibaud Merigon
+# 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
-#
+# 
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-#
+# 
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
-#
+# 
 # == Table: sales
 #
-#  accounted_at        :datetime
-#  address_id          :integer
+#  accounted_at        :datetime         
+#  address_id          :integer          
 #  amount              :decimal(19, 4)   default(0.0), not null
-#  annotation          :text
+#  annotation          :text             
 #  client_id           :integer          not null
-#  comment             :text
-#  conclusion          :text
-#  confirmed_on        :date
+#  comment             :text             
+#  conclusion          :text             
+#  confirmed_on        :date             
 #  created_at          :datetime         not null
 #  created_on          :date             not null
-#  creator_id          :integer
+#  creator_id          :integer          
 #  credit              :boolean          not null
-#  currency            :string(3)
-#  delivery_address_id :integer
+#  currency            :string(3)        
+#  delivery_address_id :integer          
 #  downpayment_amount  :decimal(19, 4)   default(0.0), not null
-#  expiration_id       :integer
-#  expired_on          :date
-#  function_title      :string(255)
+#  expiration_id       :integer          
+#  expired_on          :date             
+#  function_title      :string(255)      
 #  has_downpayment     :boolean          not null
 #  id                  :integer          not null, primary key
-#  initial_number      :string(64)
-#  introduction        :text
-#  invoice_address_id  :integer
-#  invoiced_on         :date
-#  journal_entry_id    :integer
+#  initial_number      :string(64)       
+#  introduction        :text             
+#  invoice_address_id  :integer          
+#  invoiced_on         :date             
+#  journal_entry_id    :integer          
 #  letter_format       :boolean          default(TRUE), not null
 #  lock_version        :integer          default(0), not null
 #  lost                :boolean          not null
-#  nature_id           :integer
+#  nature_id           :integer          
 #  number              :string(64)       not null
-#  origin_id           :integer
+#  origin_id           :integer          
 #  paid_amount         :decimal(19, 4)   not null
 #  payment_delay_id    :integer          not null
-#  payment_on          :date
+#  payment_on          :date             
 #  pretax_amount       :decimal(19, 4)   default(0.0), not null
-#  reference_number    :string(255)
-#  responsible_id      :integer
+#  reference_number    :string(255)      
+#  responsible_id      :integer          
 #  state               :string(64)       default("O"), not null
-#  subject             :string(255)
+#  subject             :string(255)      
 #  sum_method          :string(8)        default("wt"), not null
-#  transporter_id      :integer
+#  transporter_id      :integer          
 #  updated_at          :datetime         not null
-#  updater_id          :integer
+#  updater_id          :integer          
 #
 
 
@@ -73,15 +73,9 @@ class Sale < CompanyRecord
   attr_protected :pretax_amount, :amount
   belongs_to :client, :class_name=>"Entity"
   belongs_to :payer, :class_name=>"Entity", :foreign_key=>:client_id
-  # DEPRECATED Replace use of contact with address
-  belongs_to :contact, :class_name => "EntityAddress", :foreign_key => :address_id
   belongs_to :address, :class_name => "EntityAddress"
-  # DEPRECATED Replace use of delivery_contact with delivery_address
-  belongs_to :delivery_contact, :class_name => "EntityAddress", :foreign_key => :delivery_address_id
   belongs_to :delivery_address, :class_name => "EntityAddress"
   belongs_to :expiration, :class_name=>"Delay"
-  # DEPRECATED Replace use of contact with address
-  belongs_to :invoice_contact, :class_name => "EntityAddress", :foreign_key => :invoice_address_id
   belongs_to :invoice_address, :class_name => "EntityAddress"
   belongs_to :journal_entry
   belongs_to :nature, :class_name=>"SaleNature"
@@ -106,7 +100,7 @@ class Sale < CompanyRecord
   validates_presence_of :amount, :client, :created_on, :downpayment_amount, :number, :paid_amount, :payer, :payment_delay, :pretax_amount, :state, :sum_method
   #]VALIDATORS]
   validates_presence_of :client, :currency, :nature
-  validates_presence_of :invoiced_on, :if=>Proc.new{|s| s.invoice?}
+  validates_presence_of :invoiced_on, :if => :invoice?
 
   state_machine :state, :initial => :draft do
     state :draft
@@ -151,12 +145,12 @@ class Sale < CompanyRecord
     self.paid_amount = 0
     self.paid_amount = self.payment_uses.sum(:amount) unless self.payment_uses.empty?
     self.paid_amount -= self.credits.sum(:amount) unless self.credits.empty?
-    if self.contact.nil? and self.client
-      dc = self.client.default_contact
-      self.contact_id = dc.id if dc
+    if self.address.nil? and self.client
+      dc = self.client.default_mail_address
+      self.address_id = dc.id if dc
     end
-    self.delivery_contact_id ||= self.contact_id
-    self.invoice_contact_id  ||= self.delivery_contact_id
+    self.delivery_address_id ||= self.address_id
+    self.invoice_address_id  ||= self.delivery_address_id
     self.created_on ||= Date.today
     self.nature ||= SaleNature.first if self.nature.nil? and SaleNature.count == 1
     if self.nature
@@ -244,7 +238,7 @@ class Sale < CompanyRecord
       end
     end
     if lines.size>0
-      delivery = self.deliveries.create!(:pretax_amount=>0, :amount=>0, :planned_on=>Date.today, :moved_on=>Date.today, :contact_id=>self.delivery_contact_id)
+      delivery = self.deliveries.create!(:pretax_amount=>0, :amount=>0, :planned_on=>Date.today, :moved_on=>Date.today, :address_id=>self.delivery_address_id)
       for line in lines
         delivery.lines.create! line
       end
@@ -295,7 +289,7 @@ class Sale < CompanyRecord
       end
       # Subscriptions
       for sub in self.subscriptions.find(:all, :conditions=>["NOT suspended"])
-        copy.subscriptions.create!(:sale_id=>copy.id, :entity_id=>sub.entity_id, :contact_id=>sub.contact_id, :quantity=>sub.quantity, :nature_id=>sub.nature_id, :product_id=>sub.product_id, :sale_line_id=>lines[sub.sale_line_id])
+        copy.subscriptions.create!(:sale_id=>copy.id, :entity_id=>sub.entity_id, :address_id=>sub.address_id, :quantity=>sub.quantity, :nature_id=>sub.nature_id, :product_id=>sub.product_id, :sale_line_id=>lines[sub.sale_line_id])
       end
     else
       raise Exception.new(copy.errors.inspect)
@@ -383,11 +377,8 @@ class Sale < CompanyRecord
     return self.state
   end
 
-  def address
-    a = self.client.full_name+" \r\n"
-    c = (self.invoice? ? self.invoice_contact : self.contact)
-    a += (c ? c.address : self.client.default_contact.address).gsub(/\s*\,\s*/, " \r\n")
-    a
+  def mail_address
+    return (self.address || self.client.default_mail_address).mail_coordinate
   end
 
   def number_label

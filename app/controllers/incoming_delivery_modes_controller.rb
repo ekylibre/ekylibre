@@ -20,6 +20,8 @@
 class IncomingDeliveryModesController < AdminController
   manage_restfully
 
+  unroll
+
   list do |t|
     t.column :name
     t.column :code

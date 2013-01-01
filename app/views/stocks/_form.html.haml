@@ -1,6 +1,6 @@
 -field_set do
   -association :warehouse
-  -association :product, :source => "Product#stockables"
+  -association :product, :source => :stockables
 
 -field_set(:product_options, :depend_on=>:product) do
   -association :unit, :buttons => {:new=>{:base=>"product.unit.base"}}

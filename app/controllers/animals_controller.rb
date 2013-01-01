@@ -21,6 +21,8 @@ class AnimalsController < AdminController
   manage_restfully :multipart => true
   respond_to :html, :xml, :pdf
 
+  unroll
+
   list do |t|
     t.column :identification_number, :url => true
     t.column :name, :url=>true

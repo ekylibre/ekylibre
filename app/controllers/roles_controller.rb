@@ -18,6 +18,7 @@
 #
 
 class RolesController < AdminController
+  unroll
 
   list(:order => :name, :children => :users) do |t|
     t.column :name, :children => :label

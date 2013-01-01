@@ -67,7 +67,7 @@ module Ddb #:nodoc:
         # and <tt>before_create</tt> filters for doing the stamping.
         def stampable(options = {})
           defaults  = {
-                        :stamper_class_name => :user,
+                        :stamper_class_name => :entity,
                         :creator_attribute  => Ddb::Userstamp.compatibility_mode ? :created_by : :creator_id,
                         :updater_attribute  => Ddb::Userstamp.compatibility_mode ? :updated_by : :updater_id,
                         :deleter_attribute  => Ddb::Userstamp.compatibility_mode ? :deleted_by : :deleter_id

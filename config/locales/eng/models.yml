@@ -1158,59 +1158,59 @@ eng:
             admin: "Manager"
             public: "Public (no rights)"
         sale_nature_name: "Standard"
-        sequences:
-          assets:
-            name: "Numeration of assets"
-            number_format: "A[number|7]"
-          cash_transfers:
-            name: "Numeration of cash transfers"
-            number_format: "CT[year|4][number|4]"
-            period: "year"
-          deposits:
-            name: "Numeration of deposits"
-            number_format: "B[year|4][number|4]"
-            period: "year"
-          entities:
-            name: "Numeration of people"
-            number_format: "[number|8]"
-          incoming_deliveries:
-            name: "Numeration of incoming deliveries"
-            number_format: "ID[year|4][number|4]"
-            period: "year"
-          incoming_payments:
-            name: "Numeration of payments"
-            number_format: "P[year|4][number|6]"
-            period: "year"
-          outgoing_deliveries:
-            name: "Numeration of outgoing deliveries"
-            number_format: "OD[year|4][number|6]"
-            period: "year"
-          outgoing_payments:
-            name: "Numeration of payments"
-            number_format: "D[year|4][number|4]"
-            period: "year"
-          purchases:
-            name: "Numeration of purchases"
-            number_format: "PO[year|4][month|2][number|4]"
-            period: "month"
-          sales:
-            name: "Numeration of sales"
-            number_format: "SO[year|4][month|2][number|6]"
-            period: "month"
-          sales_invoices:
-            name: "Numeration of sales invoices"
-            number_format: "F[year|4][number|6]"
-            period: "year"
-          stock_transfers:
-            name: "Numeration of stock transfers"
-            number_format: "ST[year|4][number|4]"
-            period: "year"
-          subscriptions:
-            name: "Numeration of subscriptions"
-            number_format: "SUB[number|8]"
-          transports:
-            name: "Numeration of transports"
-            number_format: "SH[number|8]"
+        sequences:  #?
+          assets: #?
+            name: "Numeration of assets" #?
+            number_format: "A[number|7]" #?
+          cash_transfers: #?
+            name: "Numeration of cash transfers" #?
+            number_format: "CT[year|4][number|4]" #?
+            period: "year" #?
+          deposits: #?
+            name: "Numeration of deposits" #?
+            number_format: "B[year|4][number|4]" #?
+            period: "year" #?
+          entities: #?
+            name: "Numeration of people" #?
+            number_format: "[number|8]" #?
+          incoming_deliveries: #?
+            name: "Numeration of incoming deliveries" #?
+            number_format: "ID[year|4][number|4]" #?
+            period: "year" #?
+          incoming_payments: #?
+            name: "Numeration of payments" #?
+            number_format: "P[year|4][number|6]" #?
+            period: "year" #?
+          outgoing_deliveries: #?
+            name: "Numeration of outgoing deliveries" #?
+            number_format: "OD[year|4][number|6]" #?
+            period: "year" #?
+          outgoing_payments: #?
+            name: "Numeration of payments" #?
+            number_format: "D[year|4][number|4]" #?
+            period: "year" #?
+          purchases: #?
+            name: "Numeration of purchases" #?
+            number_format: "PO[year|4][month|2][number|4]" #?
+            period: "month" #?
+          sales: #?
+            name: "Numeration of sales" #?
+            number_format: "SO[year|4][month|2][number|6]" #?
+            period: "month" #?
+          sales_invoices: #?
+            name: "Numeration of sales invoices" #?
+            number_format: "F[year|4][number|6]" #?
+            period: "year" #?
+          stock_transfers: #?
+            name: "Numeration of stock transfers" #?
+            number_format: "ST[year|4][number|4]" #?
+            period: "year" #?
+          subscriptions: #?
+            name: "Numeration of subscriptions" #?
+            number_format: "SUB[number|8]" #?
+          transports: #?
+            name: "Numeration of transports" #?
+            number_format: "SH[number|8]" #?
         taxes:
           tva0000:
             amount: "0.0"
@@ -1232,18 +1232,18 @@ eng:
             collected: "445713"
             name: "VAT 19,60%"
             paid: "445663"
-        units:
-          a: "Are"
-          ca: "Centiare (m²)"
-          ha: "Hectare"
-          hl: "Hectolitre"
-          kg: "Kilogram"
-          km: "Kilometre"
-          l: "Litre"
-          m: "Metre"
-          m3: "Cubic metre"
-          t: "Tonne"
-          u: "Unit"
+        units:  #?
+          a: "Are" #?
+          ca: "Centiare (m²)" #?
+          ha: "Hectare" #?
+          hl: "Hectolitre" #?
+          kg: "Kilogram" #?
+          km: "Kilometre" #?
+          l: "Litre" #?
+          m: "Metre" #?
+          m3: "Cubic metre" #?
+          t: "Tonne" #?
+          u: "Unit" #?
         warehouse_name: "Warehouse"
       import:
         dont_use: "-- Do not use --"
@@ -1473,6 +1473,59 @@ eng:
       tracking: "S/N: %{serial}"
       warehouse_can_not_transfer_product: "The product %{product} can not be used with %{warehouse}, because it contains only %{contained_product} "
     sequence:
+      default:
+        assets:
+          # name: "Numérotation des immobilisations"
+          # number_format: "I[number|7]"
+        cash_transfers:
+          # name: "Numérotation des virements internes"
+          # number_format: "VI[year|4][number|4]"
+          # period: "year"
+        deposits:
+          # name: "Numérotation des remises en banque"
+          # number_format: "B[year|4][number|4]"
+          # period: "year"
+        entities:
+          # name: "Numérotation des personnes"
+          # number_format: "[number|8]"
+        incoming_deliveries:
+          # name: "Numérotation des bons de réceptions"
+          # number_format: "BR[year|4][number|4]"
+          # period: "year"
+        incoming_payments:
+          # name: "Numérotation des encaissements"
+          # number_format: "R[year|4][number|6]"
+          # period: "year"
+        outgoing_deliveries:
+          # name: "Numérotation des bons de livraisons"
+          # number_format: "BL[year|4][number|6]"
+          # period: "year"
+        outgoing_payments:
+          # name: "Numérotation des décaissements"
+          # number_format: "D[year|4][number|4]"
+          # period: "year"
+        purchases:
+          # name: "Numérotation des achats"
+          # number_format: "A[year|4][month|2][number|6]"
+          # period: "month"
+        sales:
+          # name: "Numérotation des ventes"
+          # number_format: "V[year|4][month|2][number|6]"
+          # period: "month"
+        sales_invoices:
+          # name: "Numérotation des factures"
+          # number_format: "F[year|4][number|6]"
+          # period: "year"
+        stock_transfers:
+          # name: "Numérotation des transferts de stock"
+          # number_format: "TS[year|4][number|4]"
+          # period: "year"
+        subscriptions:
+          # name: "Numérotation des abonnements"
+          # number_format: "ABO[number|8]"
+        transports:
+          # name: "Numérotation des transports"
+          # number_format: "TR[number|8]"
       periods:
         cweek: "Commercial week"
         month: "Month"
@@ -1512,6 +1565,19 @@ eng:
         other: "Other"
         towed: "Towed"
         tractor: "Tractor"
+    unit:
+      default:
+        # a: "Are"
+        # ca: "Centiare (m²)"
+        # ha: "Hectare"
+        # hl: "Hectolitre"
+        # kg: "Kilogramme"
+        # km: "Kilomètre"
+        # l: "Litre"
+        # m: "Mètre"
+        # m3: "Mètre cube"
+        # t: "Tonne"
+        # u: "Unité"
     user:
       no_right_defined_for_this_part_of_the_application: "No right defined for this part of the application: %{controller}%{action}"
       no_right_defined_for_this_part_of_the_application_and_this_user: "You can not access to this page"

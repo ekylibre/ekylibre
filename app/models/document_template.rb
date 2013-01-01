@@ -1,44 +1,44 @@
 # -*- coding: utf-8 -*-
 # = Informations
-#
+# 
 # == License
-#
+# 
 # Ekylibre - Simple ERP
-# Copyright (C) 2009-2012 Brice Texier, Thibaud Merigon
-#
+# Copyright (C) 2009-2013 Brice Texier, Thibaud Merigon
+# 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
-#
+# 
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-#
+# 
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
-#
+# 
 # == Table: document_templates
 #
 #  active       :boolean          not null
 #  by_default   :boolean          default(TRUE), not null
-#  cache        :text
-#  code         :string(32)
-#  country      :string(2)
+#  cache        :text             
+#  code         :string(32)       
+#  country      :string(2)        
 #  created_at   :datetime         not null
-#  creator_id   :integer
-#  family       :string(32)
-#  filename     :string(255)
+#  creator_id   :integer          
+#  family       :string(32)       
+#  filename     :string(255)      
 #  id           :integer          not null, primary key
 #  language     :string(3)        default("???"), not null
 #  lock_version :integer          default(0), not null
 #  name         :string(255)      not null
-#  nature       :string(64)
-#  source       :text
-#  to_archive   :boolean
+#  nature       :string(64)       
+#  source       :text             
+#  to_archive   :boolean          
 #  updated_at   :datetime         not null
-#  updater_id   :integer
+#  updater_id   :integer          
 #
 
 
@@ -114,9 +114,9 @@ class DocumentTemplate < CompanyRecord
   end
 
   def set_by_default# (by_default=nil)
-    if self.nature != 'other' and DocumentTemplate.count(:conditions=>{:by_default=>true, :nature=>self.nature}) != 1
-      DocumentTemplate.update_all({:by_default=>true}, {:id=>self.id})
-      DocumentTemplate.update_all({:by_default=>false}, ["id != ? and nature = ?", self.id, self.nature])
+    if self.nature != 'other' and self.class.count(:conditions=>{:by_default=>true, :nature=>self.nature}) != 1
+      self.class.update_all({:by_default=>true}, {:id=>self.id})
+      self.class.update_all({:by_default=>false}, ["id != ? and nature = ?", self.id, self.nature])
     end
   end
 
@@ -150,7 +150,7 @@ class DocumentTemplate < CompanyRecord
     # Try to find an existing archive
     owner = args[0].class.ancestors.include?(ActiveRecord::Base) ? args[0] : Company.first
     if self.to_archive and owner.is_a?(ActiveRecord::Base)
-      document = Document.where(:nature_code=>self.code, :owner_id=>owner.id, :owner_type=>owner.class.name).order("created_at DESC").first
+      document = Document.where(:nature_code => self.code, :owner_id => owner.id, :owner_type => owner.class.name).order("created_at DESC").first
       return document.data, document.original_name if document
     end
 
@@ -159,9 +159,9 @@ class DocumentTemplate < CompanyRecord
     pdf = eval(self.cache)
 
     # Archive the document if necessary
-    document = self.archive(owner, pdf, :extension=>'pdf') if self.to_archive
+    document = self.archive(owner, pdf, :extension => 'pdf') if self.to_archive
 
-    return pdf, self.compute_filename(owner)+".pdf"
+    return pdf, self.compute_filename(owner) + ".pdf"
   end
 
 
@@ -214,9 +214,27 @@ class DocumentTemplate < CompanyRecord
   def print(*args)
     begin
       return self.print!(*args)
-    rescue Exception=>e
+    rescue Exception => e
       return self.class.error_document(e)
     end
+  end
+
+  # Print! a document
+  def self.print(nature, options = {})
+    template ||= options[:template]
+    template = if template.is_a? String or template.is_a? Symbol
+                 self.find_by_active_and_nature_and_code(true, nature, template)
+               else
+                 self.find_by_active_and_nature_and_by_default(true, nature, true)
+               end
+    raise ArgumentError.new("Unfound template") unless template
+    parameters = []
+    for p in self.document_natures[nature]
+      x = options[p[0]]
+      raise ArgumentError.new("options[:#{p[0]}] must be a #{p[1].name} (got #{x.class.name})") if x.class != p[1]
+      parameters << x
+    end
+    return template.print_fastly!(*parameters)
   end
 
 
@@ -280,7 +298,7 @@ class DocumentTemplate < CompanyRecord
     begin
       pdf = eval(code)
     rescue Exception=>e
-      pdf = DocumentTemplate.error_document(e)
+      pdf = self.class.error_document(e)
     end
     pdf
   end

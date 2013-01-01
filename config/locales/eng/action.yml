@@ -1082,6 +1082,7 @@ eng:
     no_proposer: "No proposer"
     no_purchases: "No purchases"
     no_records: "No records"
+    # no_results: "Aucun résultat"
     no_tracking: "No tracking"
     no_transfers: "No transfers"
     normal: "Normal"
@@ -1444,6 +1445,9 @@ eng:
       one: "%{count} incoming payment"
       other: "%{count} incoming payments"
       zero: "0 incoming payments"
+    x_items_remain_on_y:
+      # one: "%{count} élément restant."
+      # other: "%{count} éléments non visibles. Affinez votre recherche."
     x_journal_entries:
       one: "%{count} journal entries"
       other: "%{count} journal entries "

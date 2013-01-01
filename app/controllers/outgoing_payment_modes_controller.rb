@@ -21,6 +21,8 @@ class OutgoingPaymentModesController < AdminController
   manage_restfully :with_accounting => "true"
   manage_restfully_list :name
 
+  unroll
+
   list(:order => :position) do |t|
     t.column :name
     t.column :name, :through => :cash, :url => true

@@ -20,6 +20,8 @@
 class SubscriptionsController < AdminController
   manage_restfully :address_id => "EntityAddress.find_by_entity_id(params[:entity_id]).id rescue 0", :nature_id => "SubscriptionNature.first.id rescue 0", :t3e => {:nature => "@subscription.nature.name", :start => "@subscription.start", :finish => "@subscription.finish"}
 
+  unroll
+
   def self.subscriptions_conditions(options={})
     code  = ""
     code << "conditions = [ \" COALESCE(#{Subscription.table_name}.sale_id, 0) NOT IN (SELECT id FROM #{Sale.table_name} WHERE state NOT IN ('invoice', 'order'))\" ]\n"

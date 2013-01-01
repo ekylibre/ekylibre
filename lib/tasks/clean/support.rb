@@ -199,3 +199,17 @@ def models_in_file
   # end
   return list
 end
+
+
+def controllers_in_file
+  Dir.glob(Rails.root.join("app", "controllers", "**", "*.rb")).each { |file| require file }
+  list = if ActionController::Base.respond_to? :descendants
+           ActionController::Base.send(:descendants)
+         elsif ActionController::Base.respond_to? :subclasses
+           ActionController::Base.send(:subclasses)
+         else
+           Object.subclasses_of(ActionController::Base)
+         end.sort{|a,b| a.name <=> b.name}
+  # .select{|x| not x.name.match('::') and not x.abstract_class?}
+  return list
+end

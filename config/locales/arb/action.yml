@@ -1202,6 +1202,7 @@ arb:
     no_proposer: "-- دون راعي او كفيل --"
     no_purchases: "لا شراء في انتظار الاستلام"
     no_records: "ولا اية سجل"
+    # no_results: "Aucun résultat"
     no_tracking: "ولا اي مسار"
     no_transfers: "لم يتم اي عملية نقل"
     normal: "نظام واقعي طبيعي"
@@ -1610,6 +1611,9 @@ arb:
       one: "دفعة واحدة"
       other: "%{count} دفعات اخرى"
       zero: "ولااية دفعة"
+    x_items_remain_on_y:
+      # one: "%{count} élément restant."
+      # other: "%{count} éléments non visibles. Affinez votre recherche."
     x_journal_entries:
       one: "سجل واحد"
       other: "%{count} سجلات اخرى"

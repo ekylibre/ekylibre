@@ -8,16 +8,18 @@
   -if @financial_year == FinancialYear.closable
     -t.close @financial_year
 
-%h2= tc 'general_informations'
-=attributes_list(@financial_year) do |l|
-  -l.attribute :started_on
-  -l.attribute :stopped_on
-  -l.attribute :closed
-  -l.attribute :code
-  -l.attribute :last_journal_entry, :url => true
+=beehive do |b|
+  -b.cell :details do
+    =attributes_list(@financial_year) do |l|
+      -l.attribute :started_on
+      -l.attribute :stopped_on
+      -l.attribute :closed
+      -l.attribute :code
+      -l.attribute :last_journal_entry, :url => true
 
-=tabbox(:financial_year) do |tb|
-  -tb.tab(@financial_year.closed ? :balance : :last_computed_balance) do
-    =list :account_balances
-  -tb.tab(:asset_depreciations) do
-    =list :asset_depreciations
+  -b.tabbox do
+    -b.cell(@financial_year.closed ? :balance : :last_computed_balance) do
+      =list :account_balances
+
+    -b.cell(:asset_depreciations) do
+      =list :asset_depreciations

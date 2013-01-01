@@ -12,7 +12,7 @@
     -if menu and menu.hierarchy.size > 2
       -for item in menu.hierarchy[1..-2]
         -m.link(item.human_name, item.default_page.url_options, :icon => :up)
-    -if menu.default_page != current_page
+    -if menu and menu.default_page != current_page
       -item = menu
       -m.link(item.human_name, item.default_page.url_options, :icon => :up)
 
@@ -27,10 +27,11 @@
 
 
 -side_menu do |m|
-  -unless menu.hierarchy.detect{|i| i.name == :settings}
-    -expected = "settings_" + menu.hierarchy[1..-1].collect{|m| m.name}.join("_") + "_dashboard_url"
-    -url = (respond_to?(expected) ? send(expected) : settings_dashboard_url)
-    -m.link("labels.menus.settings".t, url)
+  -if menu
+    -unless menu.hierarchy.detect{|i| i.name == :settings}
+      -expected = "settings_" + menu.hierarchy[1..-1].collect{|m| m.name}.join("_") + "_dashboard_url"
+      -url = (respond_to?(expected) ? send(expected) : settings_dashboard_url)
+      -m.link("labels.menus.settings".t, url)
   -m.link(:help, "#", "data-toggle-visibility" => "#help")
 
 -if content_for?(:aside)

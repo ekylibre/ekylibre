@@ -14,7 +14,7 @@ class SessionsController < AuthenticationController
       initialize_session(user)
       session[:locale] = params[:locale].to_sym unless params[:locale].blank?
       unless session[:user_id].blank?
-        redirect_to params[:redirect]||root_url
+        redirect_to params[:redirect] || root_url
         return
       end
     else

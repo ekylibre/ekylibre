@@ -1,27 +1,29 @@
 =toolbar do |t|
   -t.edit @cash
 
-=attributes_list(@cash) do |l|
-  -l.attribute :name
-  -l.attribute :nature_label
-  -l.attribute :journal, :url=>true
-  -l.attribute :account, :url=>true
-  -if @cash.bank_account?
-    -l.attribute :bank_name
-    -l.attribute :address
-    -l.attribute :iban_label
-    -l.attribute :bic
-    -if @cash.bban_mode?
-      -l.attribute :bank_code
-      -l.attribute :agency_code
-      -l.attribute :number
-      -l.attribute :key
+=beehive do |b|
+  -b.cell do
+    =attributes_list(@cash) do |l|
+      -l.attribute :name
+      -l.attribute :nature_label
+      -l.attribute :journal, :url=>true
+      -l.attribute :account, :url=>true
+      -if @cash.bank_account?
+        -l.attribute :bank_name
+        -l.attribute :address
+        -l.attribute :iban_label
+        -l.attribute :bic
+        -if @cash.bban_mode?
+          -l.attribute :bank_code
+          -l.attribute :agency_code
+          -l.attribute :number
+          -l.attribute :key
 
-=tabbox(:cash) do |tb|
   -if @cash.bank_account?
-    -tb.tab(:deposits) do
-      =list(:deposits)
-    -tb.tab(:bank_statements) do
-      =toolbar do |t|
-        -t.link(:new, :controller=>:bank_statements, :cash_id=>@cash.id)
-      =list(:bank_statements)
+    -b.tabbox do
+      -cell(:deposits) do
+        =list(:deposits)
+      -cell(:bank_statements) do
+        =toolbar do |t|
+          -t.link(:new, :controller=>:bank_statements, :cash_id=>@cash.id)
+        =list(:bank_statements)

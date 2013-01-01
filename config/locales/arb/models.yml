@@ -1668,31 +1668,8 @@ arb:
             public: "(الشعب (من دون حقوق"
         sale_nature_name: "مقياس البيع"
         sample_product_name: "عينة المنتج" #?
-        sequences:
-          accountancy: #?
-          assets:
-            # name: "Numérotation des immobilisations"
-            # number_format: "I[number|7]"
-          cash_transfers:
-            # name: "Numérotation des virements internes"
-            # number_format: "VI[year|4][number|4]"
-            # period: "year"
-          deposits:
-            # name: "Numérotation des remises en banque"
-            # number_format: "B[year|4][number|4]"
-            # period: "year"
-          entities:
-            # name: "Numérotation des personnes"
-            # number_format: "[number|8]"
-          incoming_deliveries:
-            # name: "Numérotation des bons de réceptions"
-            # number_format: "BR[year|4][number|4]"
-            # period: "year"
-          incoming_payments:
-            # name: "Numérotation des encaissements"
-            # number_format: "R[year|4][number|6]"
-            # period: "year"
-          management:  #?
+        sequences:  #?
+          management: #?
             deposits: #?
               name: "عدد الاقتطاعات البنكية" #?
               number_format: "B[year|4][number|4]" #?
@@ -1716,42 +1693,10 @@ arb:
             subscriptions: #?
               name: "عدد الاشتراكات" #?
               number_format: "ABO[number|8]" #?
-          outgoing_deliveries:
-            # name: "Numérotation des bons de livraisons"
-            # number_format: "BL[year|4][number|6]"
-            # period: "year"
-          outgoing_payments:
-            # name: "Numérotation des décaissements"
-            # number_format: "D[year|4][number|4]"
-            # period: "year"
-          purchase_order: #?
-          purchases:
-            # name: "Numérotation des achats"
-            # number_format: "A[year|4][month|2][number|6]"
-            # period: "month"
-          relations:  #?
+          relations: #?
             entities: #?
               name: "عدد الاشخاص" #?
               number_format: "[number|8]" #?
-          sales:
-            # name: "Numérotation des ventes"
-            # number_format: "V[year|4][month|2][number|6]"
-            # period: "month"
-          sales_invoices:
-            # name: "Numérotation des factures"
-            # number_format: "F[year|4][number|6]"
-            # period: "year"
-          sales_orders: #?
-          stock_transfers:
-            # name: "Numérotation des transferts de stock"
-            # number_format: "TS[year|4][number|4]"
-            # period: "year"
-          subscriptions:
-            # name: "Numérotation des abonnements"
-            # number_format: "ABO[number|8]"
-          transports:
-            # name: "Numérotation des transports"
-            # number_format: "TR[number|8]"
         taxes:
           tva0000:
             amount: "0.0"
@@ -1773,18 +1718,18 @@ arb:
             collected: "445713"
             name: "TVA 19,60%"
             paid: "445663"
-        units:
-          a: "و"
-          ca: "(m²) سنتميتر"
-          ha: "هكتار"
-          hl: "هيكتولتر"
-          kg: "كيلو غرام"
-          km: "كيلو متر"
-          l: "لتر"
-          m: "متر"
-          m3: "متر مكعب"
-          t: "طن"
-          u: "وحدة قياس"
+        units:  #?
+          a: "و" #?
+          ca: "(m²) سنتميتر" #?
+          ha: "هكتار" #?
+          hl: "هيكتولتر" #?
+          kg: "كيلو غرام" #?
+          km: "كيلو متر" #?
+          l: "لتر" #?
+          m: "متر" #?
+          m3: "متر مكعب" #?
+          t: "طن" #?
+          u: "وحدة قياس" #?
         warehouse_name: "المخزون"
       import:
         dont_use: "-- لعدم الاسعمال--"
@@ -2037,6 +1982,59 @@ arb:
     sales_invoice_line:  #?
       no_product: "[لا لاي منتج]" #?
     sequence:
+      default:
+        assets:
+          # name: "Numérotation des immobilisations"
+          # number_format: "I[number|7]"
+        cash_transfers:
+          # name: "Numérotation des virements internes"
+          # number_format: "VI[year|4][number|4]"
+          # period: "year"
+        deposits:
+          # name: "Numérotation des remises en banque"
+          # number_format: "B[year|4][number|4]"
+          # period: "year"
+        entities:
+          # name: "Numérotation des personnes"
+          # number_format: "[number|8]"
+        incoming_deliveries:
+          # name: "Numérotation des bons de réceptions"
+          # number_format: "BR[year|4][number|4]"
+          # period: "year"
+        incoming_payments:
+          # name: "Numérotation des encaissements"
+          # number_format: "R[year|4][number|6]"
+          # period: "year"
+        outgoing_deliveries:
+          # name: "Numérotation des bons de livraisons"
+          # number_format: "BL[year|4][number|6]"
+          # period: "year"
+        outgoing_payments:
+          # name: "Numérotation des décaissements"
+          # number_format: "D[year|4][number|4]"
+          # period: "year"
+        purchases:
+          # name: "Numérotation des achats"
+          # number_format: "A[year|4][month|2][number|6]"
+          # period: "month"
+        sales:
+          # name: "Numérotation des ventes"
+          # number_format: "V[year|4][month|2][number|6]"
+          # period: "month"
+        sales_invoices:
+          # name: "Numérotation des factures"
+          # number_format: "F[year|4][number|6]"
+          # period: "year"
+        stock_transfers:
+          # name: "Numérotation des transferts de stock"
+          # number_format: "TS[year|4][number|4]"
+          # period: "year"
+        subscriptions:
+          # name: "Numérotation des abonnements"
+          # number_format: "ABO[number|8]"
+        transports:
+          # name: "Numérotation des transports"
+          # number_format: "TR[number|8]"
       periods:
         cweek: "اسبوع"
         month: "شهر"
@@ -2077,6 +2075,19 @@ arb:
         other: "اخرى"
         towed: "اقتران"
         tractor: "تراكتور"
+    unit:
+      default:
+        # a: "Are"
+        # ca: "Centiare (m²)"
+        # ha: "Hectare"
+        # hl: "Hectolitre"
+        # kg: "Kilogramme"
+        # km: "Kilomètre"
+        # l: "Litre"
+        # m: "Mètre"
+        # m3: "Mètre cube"
+        # t: "Tonne"
+        # u: "Unité"
     user:
       no_right_defined_for_this_part_of_the_application: "ليس هنالك من حقوق محددة لهذا الجزء من الطلب : %{controller}/%{action}"
       no_right_defined_for_this_part_of_the_application_and_this_user: "ليس هنالك من حقوق محددة لهذا الجزء من الطلب ولهذا المستخدم"

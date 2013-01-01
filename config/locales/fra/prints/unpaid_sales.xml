@@ -8,12 +8,12 @@
   </parameters>
   <document unit="mm" size="10">
     
-    <iteration variable="responsible" collection="company.unpaid_responsibles">
+    <iteration variable="responsible" collection="unpaid_sales">
       <page orientation="portrait" format="A4" margin="10mm">
 	
 	<part height="20mm">
 	  <set>
-	    <text value="État des impayées de {{responsible/label}} ({{company.name}})" left="50%" align="center" bold="true" size="14"/>
+	    <text value="État des impayées de {{responsible/label}}" left="50%" align="center" bold="true" size="14"/>
 	    <text value="Situation au {{Date.today?format=month_letter}}" left="50%" align="center" size="14" top="7mm"/>
 	  </set>
 	</part>

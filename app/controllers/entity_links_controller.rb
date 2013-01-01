@@ -19,4 +19,5 @@
 
 class EntityLinksController < AdminController
   manage_restfully :entity_1_id=>'Entity.find(params[:entity_id]).id rescue 0'
+  unroll
 end

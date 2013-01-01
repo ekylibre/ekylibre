@@ -20,6 +20,8 @@
 class SaleNaturesController < AdminController
   manage_restfully :currency=>"Entity.of_company.currency"
 
+  unroll
+
   list do |t|
     t.column :name, :url=>true
     t.column :active

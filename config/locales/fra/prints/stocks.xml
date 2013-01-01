@@ -15,7 +15,7 @@
 	</set>
       </part>
       
-      <table collection="company.stocks" fixed="true">
+      <table collection="Stock.all" fixed="true">
 	<column label="Lieu de stockage" property="warehouse/name" width="50mm"/>
 	<column label="Produit" property="product/name" width="60mm"/>
 	<column label="N°Lot" property="tracking_name" width="50mm"/>

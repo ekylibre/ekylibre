@@ -20,6 +20,8 @@
 class DocumentTemplatesController < AdminController
   manage_restfully :country=>"Entity.of_company.country", :language=>"Entity.of_company.language"
 
+  unroll
+
   list(:order=>"nature, name") do |t|
     t.column :active
     t.column :name

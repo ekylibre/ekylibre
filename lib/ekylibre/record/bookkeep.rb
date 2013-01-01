@@ -36,7 +36,7 @@ module Ekylibre::Record  #:nodoc:
         raise ArgumentError.new("Unknown journal: (#{attributes[:journal].inspect})") unless attributes[:journal].is_a? Journal
 
         Ekylibre::Record::Base.transaction do
-          journal_entry = @resource.company.journal_entries.find_by_id(@resource.send(column)) rescue nil
+          journal_entry = JournalEntry.find_by_id(@resource.send(column)) rescue nil
 
           # Cancel the existing journal_entry
           if journal_entry and journal_entry.draft? and (attributes[:journal].id == journal_entry.journal_id)
@@ -50,7 +50,7 @@ module Ekylibre::Record  #:nodoc:
 
           # Add journal lines
           if block_given? and condition and @action != :destroy
-            journal_entry ||= @resource.company.journal_entries.create!(attributes)
+            journal_entry ||= JournalEntry.create!(attributes)
             yield(journal_entry)
             journal_entry.reload.confirm unless @draft
           end
@@ -89,17 +89,17 @@ module Ekylibre::Record  #:nodoc:
         # code += "before_destroy {|record| return false unless record.destroyable? }"
 
         # raise Exception.new("#{method_name} method already defined. Use :method_name option to choose a different name.") if self.instance_methods.include?(method_name.to_sym)
-        code += "def #{method_name}(action=:create, draft=nil)\n"
-        code += "  draft = self.company.prefer_bookkeep_in_draft? if draft.nil?\n"
+        code += "def #{method_name}(action = :create, draft = nil)\n"
+        code += "  draft = ::Preference[:bookkeep_in_draft] if draft.nil?\n"
         code += "  self.#{core_method_name}(Ekylibre::Record::Bookkeep::Base.new(self, action, draft))\n"
-        code += "  self.class.update_all({:#{configuration[:column]}=>Time.now}, {:id=>self.id})\n"
+        code += "  self.class.update_all({:#{configuration[:column]} => Time.now}, {:id => self.id})\n"
         code += "end\n"
 
         configuration[:on] = [configuration[:on]] if configuration[:on].is_a? Symbol and configuration[:on] != :nothing
         for action in Ekylibre::Record::Bookkeep::actions
           if configuration[:on].include? action
             code += "after_#{action} do \n"
-            code += "  self.#{method_name}(:#{action}, self.company.prefer_bookkeep_in_draft?) if self.company.prefer_bookkeep_automatically?\n"
+            code += "  self.#{method_name}(:#{action}, ::Preference[:bookkeep_in_draft]) if ::Preference[:bookkeep_automatically]\n"
             code += "end\n"
           end
         end if configuration[:on].is_a? Array

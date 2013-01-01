@@ -7,7 +7,7 @@
 
     -preferences = Preference.where("name LIKE ?", "%_accounts").order("name")
     -#if preferences.count > 0
-      -for preference in 
+      -for preference in
         -field t("preferences."+preference.name), {:datatype=>preference.nature.to_sym, :model=>preference.model, :value=>preference.value, :name=>"preference[#{preference.name}][value]"}
   =form_actions do
     =submit_tag tl(:load)

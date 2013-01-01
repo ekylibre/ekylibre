@@ -6,5 +6,5 @@
       %td{:colspan=>6, :style=>"background: transparent; padding:8px 4px 0; border-left:none; border-right:none;"}=error_messages "operation_use", :object=>use
 %tr{:id=>id, :class=>cycle('odd', 'even')}
   %td
-    =select_tag("uses[#{id}][tool_id]", options_for_select(Tool.collect{|t| [t.name, t.id]}, use[:tool_id].to_i))
+    =select_tag("uses[#{id}][tool_id]", options_for_select(Tool.all.collect{|t| [t.name, t.id]}, use[:tool_id].to_i))
   %td.act=tool_to(tg(:destroy), "#", :tool => :destroy, "data-remove" => "##{id}, ##{id}-errors")

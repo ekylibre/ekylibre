@@ -369,6 +369,7 @@ fra:
     allocation_account: "Compte de dotation"
     amount: "Montant"
     animal: "Animaux"
+    # animal_drugs: "Animal drugs"
     animal_events: "Evenement des animaux"
     animal_group: "Lot"
     # animal_race_nature: "Animal race nature"
@@ -509,9 +510,10 @@ fra:
     decimal_min: "Intervalle bas"
     decimal_value: "Valeur décimale"
     declared_on: "Déclarée le"
-    default_address: "Coordonnée par défaut"
+    default_address: "Coordonnée par défaut" #?
     default_contact: "Contact par défaut"
     default_currency: "Devise par défaut"
+    # default_mail_address: "Default mail address"
     default_stock: "Stock par défaut"
     deferred_payment: "Crédit à reporter"
     delays: "Délais" #?
@@ -678,7 +680,7 @@ fra:
     inventory: "Inventaire"
     inventory_lines: "Lignes d’inventaire"
     # invoice_address: "Invoice address"
-    invoice_contact: "Adresse pour la facture"
+    invoice_contact: "Adresse pour la facture" #?
     invoiced: "Facturée" #?
     invoiced_on: "Facturée le"
     invoices_count: "Nombre de factures"
@@ -1439,11 +1441,6 @@ fra:
       tracking: "N°Lot\_: %{serial}"
       warehouse_can_not_transfer_product: "Le produit %{product} ne peut être sorti du réservoir %{warehouse}, celui-ci contient %{contained_product} "
     sequence:
-      periods:
-        cweek: "Semaine"
-        month: "Mois"
-        number: "-- Aucune --"
-        year: "Année"
       default:
         assets:
           name: "Numérotation des immobilisations"
@@ -1497,7 +1494,11 @@ fra:
         transports:
           name: "Numérotation des transports"
           number_format: "TR[number|8]"
-
+      periods:
+        cweek: "Semaine"
+        month: "Mois"
+        number: "-- Aucune --"
+        year: "Année"
     stock:
       default_name: "%{warehouse}/%{product}/%{tracking}"
       label:

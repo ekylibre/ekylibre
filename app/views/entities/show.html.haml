@@ -42,7 +42,6 @@
       -for datum in @entity.custom_field_data.find(:all, :joins=>"JOIN custom_fields ON (custom_fields.id=custom_field_id)", :order=>"position")
         -l.custom datum.custom_field.name, datum.value unless datum.value.to_s.blank?
 
-  -# =tabbox(:entity) do |tb|
   -b.tabbox do
     -b.cell(tl(:x_subscriptions, :count=>@entity.subscriptions.count)) do
       =toolbar do |t|

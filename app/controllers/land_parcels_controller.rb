@@ -20,6 +20,8 @@
 class LandParcelsController < AdminController
   manage_restfully :started_on=>"Date.today"
 
+  unroll
+
   list(:conditions=>["? BETWEEN #{LandParcel.table_name}.started_on AND COALESCE(#{LandParcel.table_name}.stopped_on, ?)", ['session[:viewed_on]'], ['session[:viewed_on]']], :order=>"name") do |t|
     t.column :name, :url=>true
     t.column :number

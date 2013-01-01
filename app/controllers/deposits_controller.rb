@@ -19,6 +19,8 @@
 
 class DepositsController < AdminController
 
+  unroll
+
   list(:order=>"created_at DESC") do |t|
     t.column :number, :url=>true
     t.column :amount, :currency=>"RECORD.cash.currency", :url=>true

@@ -21,6 +21,8 @@ class ProductionChainWorkCentersController < AdminController
   manage_restfully :production_chain_id=>"params[:production_chain_id]", :nature=>"(params[:nature]||'input')"
   manage_restfully_list
 
+  unroll
+
   # Displays details of one production chain work center selected with +params[:id]+
   def show
     return unless @production_chain_work_center = find_and_check(:production_chain_work_center)

@@ -92,7 +92,7 @@ module ApplicationHelper
     object = instance_variable_get("@#{object_name}")
     model = object.class
     unless reflection = object.class.reflections[association.to_sym]
-      raise ArgumentError.new("Unknown reflection for #{model.name}: #{association.inspect}") 
+      raise ArgumentError.new("Unknown reflection for #{model.name}: #{association.inspect}")
     end
     raise ArgumentError.new("Reflection #{reflection.name} must be a belongs_to") if reflection.macro != :belongs_to
     return text_field(object_name, reflection.foreign_key, html_options.merge('data-selector' => url_for(choices)))
@@ -492,7 +492,7 @@ module ApplicationHelper
       @current_box = nil
     end
 
-    def cell(name, options = {}, &block)
+    def cell(name = :details, options = {}, &block)
       c = Cell.new(name, options, &block)
       if @current_box
         @current_box << c
@@ -569,7 +569,7 @@ module ApplicationHelper
   end
 
   def meta_viewport_tag
-    content_tag(:meta, nil, :name => "viewport", :content => "width=device-width, initial-scale=1.0, maximum-scale=1.0")
+    tag(:meta, :name => "viewport", :content => "width=device-width, initial-scale=1.0, maximum-scale=1.0")
   end
 
   def title_tag
@@ -1261,7 +1261,8 @@ module ApplicationHelper
 
 
   FACES = {
-    # :text => :textarea
+    :textarea => :text,
+    :text_area => :text,
     :date => :date_field
   }
 
@@ -1562,11 +1563,12 @@ module ApplicationHelper
     source = options.delete(:source)
     asource = []
     if source.to_s.match("#")
-      asource = source.to_s.split('#')     
+      asource = source.to_s.split('#')
     else
       asource[0] = reflection.class_name.underscore.pluralize
+      asource[1] = source
     end
-    asource[1] = "unroll" + (asource[1].blank? ? "" : "_" + asource[1])
+    asource[1] = "unroll" + (asource[1].blank? ? "" : "_" + asource[1].to_s)
     face = options.delete(:field)
     required = (options.has_key?(:required) ? options[:required] : model.validators_on(name).detect{|v| v.attributes.include?(name) and v.is_a?(ActiveModel::Validations::PresenceValidator)} ? true : false)
 
@@ -1585,7 +1587,7 @@ module ApplicationHelper
     buttons = options[:buttons] || {}
     for action in [:new] # , :edit  system actions
       if buttons[action].is_a?(FalseClass) or options[action].is_a?(FalseClass)
-        buttons.delete(action) 
+        buttons.delete(action)
       elsif !buttons[action].is_a?(Hash)
         buttons[action] = {}
       end
@@ -1594,7 +1596,7 @@ module ApplicationHelper
     for action, action_options in buttons
       buttons[action] = {} if !buttons[action].is_a?(Hash)
     end
-    
+
     item_id = "@#{reflection.foreign_key.to_s.upcase}@"
     if buttons.size > 0
       haml << "    %span.btn-toolbar\n"
@@ -2338,7 +2340,7 @@ module ApplicationHelper
   def journals_crit
     code, field = "", :journals
     code << content_tag(:label, Company.human_attribute_name("journals"))
-    journals = Journal
+    journals = Journal.all
     params[field] = {} unless params[field].is_a? Hash
     no_journal = !journals.detect{|x| params[field].has_key?(x.id.to_s)}
     for journal in journals

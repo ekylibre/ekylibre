@@ -51,7 +51,7 @@ class InterfacersController < AdminController
 
   # TODO: Manage options in role and add watch dog to ensure that autocomplete must be used in rights with parameters
   def autocomplete
-    
+
   end
 
   def select_options

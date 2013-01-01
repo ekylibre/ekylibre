@@ -20,14 +20,16 @@
 class AnimalPosologiesController < AdminController
   manage_restfully
 
-  list() do |t|
+  unroll
+
+  list(:order => :id) do |t|
     t.column :name, :url=>true
     t.column :name, :through=>:disease, :url=>true
     t.column :name, :through=>:drug, :url=>true
     t.column :name, :through=>:animal_race_nature, :url=>true
     t.action :show, :url=>{:format=>:pdf}, :image=>:print
     t.action :edit
-    t.action :destroy, :if=>"RECORD.destroyable\?"
+    t.action :destroy, :if => :destroyable?
   end
 
   # Show a list of @prescription

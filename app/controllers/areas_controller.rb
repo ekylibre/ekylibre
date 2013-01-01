@@ -18,14 +18,16 @@
 #
 
 class AreasController < AdminController
-  manage_restfully :district_id=>"params[:district_id]", :country=>"Entity.of_company.country"
+  manage_restfully :country => "Entity.of_company.country"
 
-  list(:conditions=>search_conditions(:areas, :areas=>[:postcode, :name]), :order=>:name) do |t|
+  unroll
+
+  list(:conditions => search_conditions(:areas, :areas => [:postcode, :name]), :order => :name) do |t|
     t.column :name
     t.column :postcode
     t.column :city
     t.column :code
-    t.column :name, :through=>:district
+    t.column :name, :through => :district
     t.column :country
     t.action :edit
     t.action :destroy

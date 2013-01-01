@@ -1,20 +1,23 @@
 =toolbar do |t|
   -t.edit @warehouse
 
-=attributes_list(@warehouse) do |l|
-  -l.attribute :name
-  -l.attribute :comment
-  -l.attribute :establishment
-  -l.attribute :division
-  -l.attribute :subdivision
-  -l.attribute :subsubdivision
-  -if @warehouse.reservoir
-    -l.attribute :product, :label=>:name, :url=>true
-    -l.attribute :number
-    -l.attribute :quantity_max
 
-=tabbox(:warehouse) do |tb|
-  -tb.tab :stocks do
-    =list(:stocks)
-  -tb.tab :stock_moves do
-    =list(:stock_moves)
+=beehive do |b|
+  -b.cell :details do
+    =attributes_list(@warehouse) do |l|
+      -l.attribute :name
+      -l.attribute :comment
+      -l.attribute :establishment
+      -l.attribute :division
+      -l.attribute :subdivision
+      -l.attribute :subsubdivision
+      -if @warehouse.reservoir
+        -l.attribute :product, :label => :name, :url => true
+        -l.attribute :number
+        -l.attribute :quantity_max
+
+  -b.tabbox do
+    -b.cell :stocks do
+      =list(:stocks)
+    -b.cell :stock_moves do
+      =list(:stock_moves)

@@ -1,10 +1,10 @@
-/* -*- mode: javascript; indent-tabs-mode: nil; js-indent-level: 2; coding: utf-8 -*- */ 
+/* -*- mode: javascript; indent-tabs-mode: nil; js-indent-level: 2; coding: utf-8 -*- */
 /*jslint browser: true */
 
 function toggleElement(element, show, reverseElement) {
   element = $(element);
-  if (show === null || show === undefined) { 
-    show = (element.css("display") === "none"); 
+  if (show === null || show === undefined) {
+    show = (element.css("display") === "none");
   }
   if (show) {
     element.show();
@@ -176,7 +176,7 @@ function toCurrency(value) {
       }
       return 0;
     },
-    
+
     isHorizontal: function(element) {
       element = $(element);
       return element.hasClass('hbox');
@@ -200,12 +200,12 @@ function toCurrency(value) {
                                           if ($(a).hasClass("anchor-right")) { return 1 } else if ($(a).hasClass("anchor-left")) { return 2 }; return 2;
                                           })*/;
       var childrenLength = children.length;
-      if (width === undefined) { 
+      if (width === undefined) {
         width = element.width();
         height = element.height();
       }
 
-      if (childrenLength>0) { 
+      if (childrenLength>0) {
         // element.css({position: "relative"});
         var horizontal = lr.isHorizontal(element);
         var elementLength = (horizontal ? width : height);
@@ -255,7 +255,7 @@ function toCurrency(value) {
               } else {
                 w = width-borders[index].horizontal*1;
                 h = childLength;/*-borders[index].vertical*1;*/
-                childTop  = x+lr.getNumericalStyle(element, 'padding-top')*1; 
+                childTop  = x+lr.getNumericalStyle(element, 'padding-top')*1;
                 childLeft = 0+lr.getNumericalStyle(child, 'margin-left')*1+lr.getNumericalStyle(element, 'padding-left')*1;
               }
               if (child.css('overflow') === null) {
@@ -274,7 +274,7 @@ function toCurrency(value) {
       return element;
     }
   };
-  
+
 
 
   // Adds a plugin to jQuery to work with numerical values.
@@ -291,8 +291,8 @@ function toCurrency(value) {
         value = value.replace(/\,/g, "");
       }
       value = parseFloat(value.replace(/[^0-9\.]*/g, ''));
-      /* if (element.is("input") && !isNaN(element.val())) { 
-         value = parseFloat(element.val()); 
+      /* if (element.is("input") && !isNaN(element.val())) {
+         value = parseFloat(element.val());
          } else if (!isNaN(element.html())) {
          value = parseFloat(element.html());
          }*/
@@ -303,10 +303,10 @@ function toCurrency(value) {
       }
     } else {
       // Set
-      if (element.is("input")) { 
+      if (element.is("input")) {
         element.val(toCurrency(newValue));
-      } else { 
-        element.html(toCurrency(newValue)); 
+      } else {
+        element.html(toCurrency(newValue));
       }
       return element;
     }
@@ -353,7 +353,7 @@ function toCurrency(value) {
       result = 0;
       $(use).each(function () {
         result = result + $.calculate.call(this);
-      });                
+      });
     }
     if (element.numericalValue() !== result) {
       element.numericalValue(result);
@@ -366,7 +366,7 @@ function toCurrency(value) {
   $.fn.sum = function () {
     var result = 0;
     this.each(function () {
-      result = result + $(this).numericalValue();            
+      result = result + $(this).numericalValue();
     });
     return result;
   };
@@ -377,7 +377,7 @@ function toCurrency(value) {
     if (event === null || event === undefined) {
       event = "remove";
     }
-    this.each(function() {     
+    this.each(function() {
       var element = $(this), allChildren = element.find("*");
       allChildren.detach();
       allChildren.trigger(event);
@@ -397,7 +397,7 @@ function toCurrency(value) {
     }
     // this small bit of unserializing borrowed from James Campbell's "JQuery Unserialize v1.0"
     params = params.split("&");
-    
+
     var unserializedParams = {};
     $.each(params, function() {
       var properties = this.split("=");

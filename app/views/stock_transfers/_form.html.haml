@@ -1,6 +1,6 @@
 -field_set do
   -input :nature, :show => {:transfer => :second_warehouse}
-  -association :product, :source => "Product#availables"
+  -association :product, :source => :availables
   -association :tracking
   -input :quantity
   -association :warehouse

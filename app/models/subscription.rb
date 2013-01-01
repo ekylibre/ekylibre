@@ -1,45 +1,45 @@
 # = Informations
-#
+# 
 # == License
-#
+# 
 # Ekylibre - Simple ERP
-# Copyright (C) 2009-2012 Brice Texier, Thibaud Merigon
-#
+# Copyright (C) 2009-2013 Brice Texier, Thibaud Merigon
+# 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
-#
+# 
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-#
+# 
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
-#
+# 
 # == Table: subscriptions
 #
-#  address_id   :integer
-#  comment      :text
+#  address_id   :integer          
+#  comment      :text             
 #  created_at   :datetime         not null
-#  creator_id   :integer
-#  entity_id    :integer
-#  first_number :integer
+#  creator_id   :integer          
+#  entity_id    :integer          
+#  first_number :integer          
 #  id           :integer          not null, primary key
-#  last_number  :integer
+#  last_number  :integer          
 #  lock_version :integer          default(0), not null
-#  nature_id    :integer
-#  number       :string(255)
-#  product_id   :integer
-#  quantity     :decimal(19, 4)
-#  sale_id      :integer
-#  sale_line_id :integer
-#  started_on   :date
-#  stopped_on   :date
+#  nature_id    :integer          
+#  number       :string(255)      
+#  product_id   :integer          
+#  quantity     :decimal(19, 4)   
+#  sale_id      :integer          
+#  sale_line_id :integer          
+#  started_on   :date             
+#  stopped_on   :date             
 #  suspended    :boolean          not null
 #  updated_at   :datetime         not null
-#  updater_id   :integer
+#  updater_id   :integer          
 #
 
 
@@ -56,7 +56,7 @@ class Subscription < CompanyRecord
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :first_number, :last_number, :allow_nil => true, :only_integer => true
   validates_numericality_of :quantity, :allow_nil => true
-  validates_length_of :_activation, :number, :allow_nil => true, :maximum => 255
+  validates_length_of :number, :allow_nil => true, :maximum => 255
   validates_inclusion_of :suspended, :in => [true, false]
   #]VALIDATORS]
   validates_presence_of :started_on, :stopped_on, :if=>Proc.new{|u| u.nature and u.nature.nature=="period"}

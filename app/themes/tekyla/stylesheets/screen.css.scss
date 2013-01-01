@@ -11,8 +11,8 @@
 $experimental-support-for-svg: true;
 
 html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video, input, textarea, select, options {
-  margin:0; 
-  padding:0; 
+  margin:0;
+  padding:0;
   font-family: $base-font-family;
   vertical-align: middle;
   font-size: $fs-normal;
@@ -22,10 +22,10 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 /*
 fieldset {
   @include border-radius($default-border-radius);
-  padding: round($default-gap/2) $default-gap $default-gap; 
-  margin: 0 0 $default-gap; 
+  padding: round($default-gap/2) $default-gap $default-gap;
+  margin: 0 0 $default-gap;
   border: $menu-border;
-  legend { 
+  legend {
     padding: 0 round(0.25*$fs-normal);
     color: $base-color;
     font-size: $fs-large;
@@ -34,7 +34,7 @@ fieldset {
     .icon { display: none }
     &[data-toggle-set] {
       cursor: default;
-      .icon { 
+      .icon {
         @include inline-block;
         width: 12px;
         height: 12px;
@@ -62,8 +62,8 @@ html {
   background: $menu-background;
 }
 
-#wrap { 
-  #main { 
+#wrap {
+  #main {
     /*border-bottom: 4*$menu-border-width solid $base-color;*/
     /*@include box-shadow(0 0 $fs-large rgba(#000, 0.3));*/
     padding: $default-gap;
@@ -71,52 +71,52 @@ html {
       @include incrust-shadow;
       background: mix(#FFF, $base-color, 98%);
       @include border-radius(3px);
-      border: $menu-border;      
+      border: $menu-border;
       #header {
         /*background: $base-color;*/
-        #toolbar { 
+        #toolbar {
           @include float(right);
           position: absolute;
           top: 0;
           right: 0;
           @include right(margin, $default-gap);
           margin-top: $default-gap;
-          .group { 
+          .group {
             @include button-group;
             .btn {
               .icon { margin: 0; }
               .text { display: none; }
             }
-          }    
+          }
         }
         #title {
-          margin: 0; 
+          margin: 0;
           &, & * { @include title($fs-very-huge); }
           padding: round($default-gap/2) $default-gap ;
           * { @include margin-right($default-gap) }
-          html body &  { 
+          html body &  {
             .module { font-weight: normal;}
             .separator { color: #AAA;}
             .leaf { color: #000 }
           }
           /*@include text-shadow(0 0 $fs-small rgba(#000, 0.5));*/
         }
-        #subtitle { 
+        #subtitle {
           &, & * { @include title($fs-huge); }
-          font-weight: normal; 
+          font-weight: normal;
           font-style: italic;
         }
-   
+
       }
-      #content { 
+      #content {
         padding: $default-gap;
       }
       h2 { margin: 8px 0px 4px; font-size: $fs-huge; color: $title-color; font-weight: bold;  padding: 1px 0;}
-      .menu { 
+      .menu {
         @include border-radius($default-border-radius);
-        background: $cell-background; 
-        @include incrust-shadow; 
-        padding:4px 6px; 
+        background: $cell-background;
+        @include incrust-shadow;
+        padding:4px 6px;
         margin: 0 0 8px;
         h2 { margin: 2px 0px !important; }
         ul { padding: round($fs-normal*0.25) round($fs-normal*1.25); }
@@ -129,8 +129,8 @@ html {
   }
 }
 
-#legals { 
-  @include text-align(center); 
+#legals {
+  @include text-align(center);
   padding: round(0.5*$fs-small);
   &, & * { color: $neutral-color; font-size: $fs-small;} /* text-shadow: 1px 1px 0 #FFF */
 }
@@ -146,9 +146,9 @@ html {
 
 
 
-.fields { 
-/*  background: image-url("themes/tekyla/shadow-top.png") repeat-x bottom; 
-  padding: 0 1px; 
+.fields {
+/*  background: image-url("themes/tekyla/shadow-top.png") repeat-x bottom;
+  padding: 0 1px;
   overflow: auto; */
 }
 
@@ -159,12 +159,12 @@ html {
 #about-us div a img { border:none; }
 #about-us div table { margin: 0 auto; width: 500px; }
 
-.content { 
+.content {
   $content-font-size: round($fs-normal*0.9);
   clear: both;
-  * { 
+  * {
     vertical-align: baseline;
-    color: $text-color; line-height: 1.2em; font-size: $content-font-size; 
+    color: $text-color; line-height: 1.2em; font-size: $content-font-size;
   }
   h1 { @include title($fs-normal); margin: 0px 0 8px; text-transform: uppercase; letter-spacing: 1px;}
   h2 { @include title($fs-normal); margin: 8px 0 4px; border-bottom: $menu-border; }
@@ -172,20 +172,20 @@ html {
   pre { font-family: "Liberation Mono", monospace; color: #777; background: #FFF; padding: $default-gap; margin: $default-gap 0; }
   strong { font-weight: bold; }
   em { font-style: italic; }
-  ul, ol { 
-    padding: 0; 
+  ul, ol {
+    padding: 0;
     @include left(padding, 1.3*$content-font-size);
     margin: 0 0 $default-gap 0;
   }
   ul li { list-style-type: square; }
   ol li { list-style-type: decimal; }
-  dl { 
+  dl {
     padding: 0 0.1em; margin-bottom: 0.2em;
     dt { margin-top: .2em; font-weight: bold; color: #210 }
     dd { margin-bottom: .2em; margin-left: 1em; }
   }
   a img { border: $menu-border-width solid $link-color; padding: $menu-border-width; }
-  p { 
+  p {
     /*@include text-align(justify);*/
     margin: 0 0 $default-gap 0;
     &.notice { border-left: $default-gap solid #7A4; background: #CE8; padding: round($default-gap/2) $default-gap; }
@@ -194,7 +194,7 @@ html {
   .text-end { height: 1px; }
   .help-error {  @include text-align(center); margin: $default-gap 0; color: mix($text-color, $menu-background, 50%); @include text-shadow($menu-border-width $menu-border-width 0 $desktop-background) }
   .content .md {
-    display:block; 
+    display:block;
     &.md-center { margin: round($default-gap/2) auto; }
     &.md-left   { margin: round($default-gap/2); @include float(left); }
     &.md-right  { margin: round($default-gap/2); @include float(right); }
@@ -202,7 +202,7 @@ html {
 }
 
 
-i { 
+i {
   @include inline-block;
   width: 16px;
   height: 16px;
@@ -211,14 +211,14 @@ i {
 }
 
 
-#side { 
+#side {
   @include respond-to(phone) {
     @include background($desktop-background);
     padding-bottom: $default-gap;
     @include box-shadow(0 0 $fs-normal rgba(#000, 0.5));
   }
 
-  ul.side-menu { 
+  ul.side-menu {
     margin: $default-gap;
     $transp: 40%;
     @include incrust-shadow;
@@ -227,48 +227,48 @@ i {
       display:block;
       margin-top: -1 * $menu-border-width;
       $padding: round($fs-normal*0.7) (round($fs-normal*0.7)+16px)  round($fs-normal*0.7) round($fs-normal*0.7);
-      a { 
+      a {
         background: white;
         display:block;
         padding: $padding;
         border: $menu-border;
         @include ellipsis;
-        i { 
+        i {
           @include float(right);
           margin: 0 -1*(round($fs-normal*0.35)+16px) 0 0;
         }
       }
-      &:first-child { 
+      &:first-child {
         margin-top: 0;
-        a { 
+        a {
           @include border-top-left-radius($default-border-radius);
           @include border-top-right-radius($default-border-radius);
         }
       }
-      &:last-child a { 
+      &:last-child a {
         @include border-bottom-left-radius($default-border-radius);
         @include border-bottom-right-radius($default-border-radius);
       }
-      &:hover a { 
+      &:hover a {
         background: mix(white, $menu-border-color, 80%);
         text-decoration: none;
       }
-      &.current, &.active { 
+      &.current, &.active {
         position: relative;
         z-index: 2;
         a {
           background: $base-color;
           padding: $padding + 1;
           border: none;
-          color: white; 
+          color: white;
         }
       }
     }
-    
+
   }
 
-  &:last-child { 
-    *:last-child { 
+  &:last-child {
+    *:last-child {
       margin-bottom: 0;
     }
   }
@@ -302,7 +302,7 @@ table.quick td { padding: 0px 4px; }
   .code { font-family: "Liberation Mono", monospace; }
   .label { color: #555; @include text-align(right);}
   .value .string {
-    max-height: 3em; overflow-y: auto; 
+    max-height: 3em; overflow-y: auto;
     &, & * { font-size: $fs-normal; line-height: $fs-normal;}
   }
 }
@@ -312,12 +312,12 @@ table.quick td { padding: 0px 4px; }
 
 .logo { width: 160px; padding:4px; background: white; border:1px solid #EEE; text-align:center; vertical-align:center; }
 
-.flash { 
-  padding: $default-gap; 
-  margin-bottom: $default-gap; 
-  vertical-align: middle; 
-  color: black; 
-  border: $menu-border; 
+.flash {
+  padding: $default-gap;
+  margin-bottom: $default-gap;
+  vertical-align: middle;
+  color: black;
+  border: $menu-border;
   @include border-radius($default-border-radius);
   @include incrust-shadow;
   $icon-size: 32px;
@@ -330,30 +330,30 @@ table.quick td { padding: 0px 4px; }
   .message {
     @include left(margin, $icon-size + $default-gap);
     h3 {
-      font-size: $fs-normal; 
-      font-weight: bold; 
+      font-size: $fs-normal;
+      font-weight: bold;
       $gap: floor(($default-gap - $menu-border-width)/2);
-      padding: 0 0 $gap; 
-      margin-bottom: $default-gap - $menu-border-width - $gap; 
-      border-bottom: $menu-border-width dotted #999; 
+      padding: 0 0 $gap;
+      margin-bottom: $default-gap - $menu-border-width - $gap;
+      border-bottom: $menu-border-width dotted #999;
     }
-    ul { 
+    ul {
       padding: round($fs-normal/4);
-      @include left(padding, round(1.2*$fs-normal)); 
+      @include left(padding, round(1.2*$fs-normal));
       li { list-style-type: square; }
     }
   }
-  .end { 
+  .end {
     clear: both;
     height: 0;
   }
-  @each $level in (error #D10), (warning #E60), (success #591), (information #777) { 
+  @each $level in (error #D10), (warning #E60), (success #591), (information #777) {
     $level-name: nth($level, 1);
     $level-color: change-color(nth($level, 2), $lightness: 40%);
     &.#{$level-name} {
       &, & .message h3 { border-color: $level-color;}
       * { color: $level-color; }
-      background-color: mix($level-color, $desktop-background, 10%); 
+      background-color: mix($level-color, $desktop-background, 10%);
       .icon { @include common-sprite(notification-#{$level-name}); }
     }
   }
@@ -367,16 +367,16 @@ table.quick td { padding: 0px 4px; }
 .contact { padding: 5px 0 8px 4px; border:0.2px solid; border-color:$light-color; background-color:#FEB; }
 
 
-.fieldset { 
+.fieldset {
   @include border-radius($default-border-radius);
   $vertical-gap: round($default-gap*0.7);
-  padding: $vertical-gap $default-gap; 
-  margin: 0 0 $default-gap; 
+  padding: $vertical-gap $default-gap;
+  margin: 0 0 $default-gap;
   $fieldset-border: $menu-border;
   border: $fieldset-border;
   @include incrust-shadow;
   $size: $fs-large;
-  .fieldset-legend { 
+  .fieldset-legend {
     padding: 0;
     label, span {
       color: $neutral-color;
@@ -385,7 +385,7 @@ table.quick td { padding: 0px 4px; }
     }
     font-weight: bold;
     vertical-align: middle;
-    .icon { 
+    .icon {
       @include inline-block;
       @include icons-sprite(page);
       height: 16px;
@@ -400,68 +400,68 @@ table.quick td { padding: 0px 4px; }
       width: $tool-size;
       height: $tool-size;
       margin: round(($size - $tool-size)/2) 0 0;
-      &.collapsed { 
+      &.collapsed {
         @include common-sprite(toggle-show);
         &:hover { @include common-sprite(toggle-show-hover) }
       }
-      &.not-collapsed { 
+      &.not-collapsed {
         @include common-sprite(toggle-hide);
         &:hover { @include common-sprite(toggle-hide-hover) }
       }
     }
   }
-  @each $field_set in care, drug, delay, document, general-informations, stock, animal, vegetable, entity, asset, genealogy, group, treatment { 
+  @each $field_set in care, drug, delay, document, general-informations, stock, animal, vegetable, entity, asset, genealogy, group, treatment {
     &##{ $field_set } .fieldset-legend .icon {
       @include icons-sprite($field_set);
     }
   }
 
-  textarea { 
+  textarea {
     width: 70%;
     resize: vertical;
   }
-  .fieldset-fields { 
+  .fieldset-fields {
     border-top: $fieldset-border;
     margin-top: $vertical-gap;
     padding-top: $vertical-gap;
   }
   .actions { border-left: none; border-right: none; border-bottom: none; margin-top: 8px}
-  .input { 
+  .input {
     padding: round($fs-normal*0.2) 0;
-    margin: round($fs-normal*0.1) 0;    
+    margin: round($fs-normal*0.1) 0;
 
-    .control-label { 
+    .control-label {
       width: 25%;
       @include float(left);
       line-height: 1.4*$fs-normal;
       @include inline-block;
       white-space: nowrap;
       @include right(margin, round($fs-normal/2));
-      &.required { 
-        abbr { 
-          color: red; 
+      &.required {
+        abbr {
+          color: red;
           float: right;
         }
       }
     }
-    input{ 
+    input{
       max-width: 65%;
     }
   }
 }
 
 
-.control-group { 
+.control-group {
   margin: round($fs-normal/3) 0;
   padding: round($fs-normal/3) 0;
   @include clearfix;
-  .control-label { 
+  .control-label {
     width: $label-width;
     @include float(left);
     line-height: round(1.4*$fs-normal);
-    &.required { 
-      abbr { 
-        color: red; 
+    &.required {
+      abbr {
+        color: red;
         float: right;
       }
     }
@@ -470,26 +470,26 @@ table.quick td { padding: 0px 4px; }
     $margin-left: round($label-width * 1.1);
     @include margin-left($margin-left);
     width: 100% - $margin-left;
-    input, select, textarea { 
+    input, select, textarea {
       max-width: 100% - $margin-left;
     }
   }
 }
 
-.input-append { 
+.input-append {
   @include button-group;
-  .btn { 
+  .btn {
     .text { display: none; }
     .icon { margin-left: 0; margin-right: 0; }
   }
 }
 
-table.formalize { 
+table.formalize {
   border-collapse: collapse;
   margin-left: auto;
   margin-right: auto;
   width: 100%;
-  tr.field td { 
+  tr.field td {
     label { color: #555; }
     td:last-child { border: none }
   }
@@ -528,7 +528,7 @@ div.field.mono-choice .toolbar { margin: 0 8px; }
 .form-column {
   overflow: auto;
   &.aside {
-    width: $menu-width; 
+    width: $menu-width;
     @include float(left);
     @include right(padding, round($fs-normal/2));
   }
@@ -539,44 +539,44 @@ span.rad {
   * { vertical-align: middle; ; }
 }
 
-.form-actions { 
+.form-actions {
   @include text-align(center);
-  input, a, span { 
+  input, a, span {
     @include text-align(center);
     @include margin-left($fs-normal);
     &:first-child { @include margin-left(0) }
   }
-  padding: round($fs-normal) !important; 
-  background: $menu-background; 
+  padding: round($fs-normal) !important;
+  background: $menu-background;
   /*border-top: $menu-border;*/
   margin: 0;
 }
 
 
-input, textarea, select { 
+input, textarea, select {
   border: $input-border;
   @include border-radius(3px);
-  @include background($input-background); 
+  @include background($input-background);
   @include box-shadow(0 0 0.7em rgba(#000, 0.1), 0 round($fs-normal*0.2) round($fs-normal*0.4) rgba(#000, 0.12) inset);
   padding: 4*$menu-border-width;
-  
-  &:focus { 
+
+  &:focus {
     $color: change-color($base-color, $lightness: 70%);
     @include box-shadow(0 0 0.6em rgba($color, 0.6));
     border-color: $color;
-    &.invalid { 
-      border-color: $invalid-color !important; 
+    &.invalid {
+      border-color: $invalid-color !important;
     }
   }
 }
 input.invalid, textarea.invalid, select.invalid { border: 1px solid $invalid-color !important; background-color: #FDD !important; }
-.kujaku { 
-  background: white; 
-  color: #580; 
+.kujaku {
+  background: white;
+  color: #580;
   @include box-shadow(0 0 $fs-small rgba(#000, 0.5));
-  @include border-radius($default-border-radius); 
+  @include border-radius($default-border-radius);
   padding: $default-gap;
-  margin: 0 0 $default-gap 0; 
+  margin: 0 0 $default-gap 0;
   table {
     margin: 0px auto;
     .crit { border-top: $menu-border-width dotted #580; padding: round($fs-normal/6) round($fs-normal/4); vertical-align: middle; text-align:center; }
@@ -584,7 +584,7 @@ input.invalid, textarea.invalid, select.invalid { border: 1px solid $invalid-col
   }
   .label { padding: round($fs-normal/6) round($fs-normal/4); }
   .submit { padding: round($fs-normal/6) round($fs-normal/4); width: 10*$fs-normal; text-align:center; }
-  &.popover { 
+  &.popover {
     display: none;
     position: absolute;
     right: $default-gap;
@@ -619,10 +619,10 @@ html[dir="rtl"] .stepper td.step { background-position: left center; }
 
 
 
-.login { 
+.login {
   @extend .well;
-/*  z-index: 1000; 
-  border: $menu-border; 
+/*  z-index: 1000;
+  border: $menu-border;
   background: $menu-background;
   margin: $fs-normal 0;
   padding: $fs-normal;*/
@@ -630,13 +630,13 @@ html[dir="rtl"] .stepper td.step { background-position: left center; }
   .logoban { height:80px; width: 280px; @include common-sprite(ekylibre); margin: 16px auto 8px; }
   h2 { color:red !important; padding: 2px; text-align:center; font-size: $fs-huge; }
   p { margin:8px; }
-  table { 
+  table {
     border-collapse: collapse;  margin:16px auto; margin-left:auto; margin-right:auto;
     tr {
-      td { 
+      td {
         padding: 2px 4px;
         label { @include text-align(right); vertical-align: middle; }
-        &.input { 
+        &.input {
           padding: 3px;
           &, & input { width:128px; }
         }
@@ -663,16 +663,16 @@ html[dir="rtl"] .stepper td.step { background-position: left center; }
 .tabs {
   $tabs-height: 2 * ceil($fs-normal * 0.8);
   height: $tabs-height;
-  padding: 0px; 
+  padding: 0px;
   white-space: nowrap;
-  & > .tab { 
+  & > .tab {
     @include inline-block;
     $text-height: 2 * ceil($fs-normal * 0.55);
     height: $text-height;
     line-height: $text-height;
     cursor: pointer;
-    @include right(margin, round($fs-normal/4)); 
-    padding: (($tabs-height - $text-height)/2 - $menu-border-width) 6px (($tabs-height - $text-height)/2); 
+    @include right(margin, round($fs-normal/4));
+    padding: (($tabs-height - $text-height)/2 - $menu-border-width) 6px (($tabs-height - $text-height)/2);
     color: #000;
     text-shadow: 1px 1px 0 white;
     text-decoration: none;
@@ -683,11 +683,11 @@ html[dir="rtl"] .stepper td.step { background-position: left center; }
     @include border-top-right-radius($default-border-radius);
     background: $menu-background;
     opacity: 0.5;
-    &:hover { 
-      opacity: 0.8; 
+    &:hover {
+      opacity: 0.8;
     }
     &.current {
-      font-weight: bold; 
+      font-weight: bold;
       text-shadow: none;
       opacity: 1;
       position: relative;
@@ -698,7 +698,7 @@ html[dir="rtl"] .stepper td.step { background-position: left center; }
 
 .tabbox {
   margin: $default-gap 0;
-  & > .tabs  { 
+  & > .tabs  {
     @extend .tabs;
   }
   & > .tabpanels {
@@ -715,12 +715,12 @@ html[dir="rtl"] .stepper td.step { background-position: left center; }
   }
 }
 
-ul#journals { 
+ul#journals {
   border-bottom: $menu-border-width solid mix($desktop-background, #000, 70%);
   @include background(linear-gradient(top, rgba(0,0,0,0), rgba(0,0,0,0.05)));
   @extend .tabs;
   @include left(padding, round($fs-normal/4));
-  & > li { 
+  & > li {
     @extend .tab;
     &.current{ @include background($desktop-background); }
     &.special{ color: $base-color; }
@@ -729,20 +729,20 @@ ul#journals {
 
 
 $tree-line: 1px dotted #AAA;
-.branch { 
+.branch {
 
-  &:hover { 
-    background-color: background-hover($desktop-background); 
+  &:hover {
+    background-color: background-hover($desktop-background);
   }
-  .shift { 
-    height: 15px; 
-    width:10px; 
+  .shift {
+    height: 15px;
+    width:10px;
     border-bottom: $tree-line;
     html[dir="ltr"] & { float:left; }
     html[dir="rtl"] & { float:right; }
   }
-  .tools { 
-    padding: 1px 4px; 
+  .tools {
+    padding: 1px 4px;
     width: 20em;
     html[dir="ltr"] & { float:right; }
     html[dir="rtl"] & { float:left; }
@@ -750,18 +750,18 @@ $tree-line: 1px dotted #AAA;
   .item {
     padding: 2px;
     @include left(padding, 16px);
-    td.ic { 
+    td.ic {
       width: 16px;
       @include right(padding, 4px);
-      .icon { 
+      .icon {
         height: 16px;
         width:16px;
         &.table  { @include icons-sprite(table) }
         &.column { @include icons-sprite(column) }
       }
     }
-    table { 
-      width: 100%; 
+    table {
+      width: 100%;
 /*      border-bottom:1px dotted #79F; */
     }
     form { @include inline-block; }
@@ -773,7 +773,7 @@ $tree-line: 1px dotted #AAA;
   }
 }
 
-.branches { 
+.branches {
   html[dir="ltr"] & { margin-left: 20px; border-left: $tree-line; }
   html[dir="rtl"] & { margin-right: 20px; border-right: $tree-line; }
 }
@@ -793,12 +793,12 @@ div.fastadd { background: #FC8; text-align:center; padding: 4px; margin: 4px 0; 
 #conditions .param { padding: 2px; border-bottom: 1px dotted #AAA; }
 #conditions .param:last-child { border-bottom:none; }
 
-table.accounts { 
-  tr { 
-    td.tabs { 
-      width: 16em; 
+table.accounts {
+  tr {
+    td.tabs {
+      width: 16em;
       .major-accounts {
-        a, strong { 
+        a, strong {
           background: $cell-background; display: block; padding:4px 8px; margin-bottom:2px;
           html[dir="ltr"] & { @include border-top-left-radius($default-border-radius); @include border-bottom-left-radius($default-border-radius); }
           html[dir="rtl"] & { @include border-top-right-radius($default-border-radius); @include border-bottom-right-radius($default-border-radius); }
@@ -809,7 +809,7 @@ table.accounts {
     }
   }
 }
-  
+
 table.accounts tr td.list, .tab-content { background: $cell-background-current; padding: 4*$menu-border-width; }
 
 .view {
@@ -821,11 +821,11 @@ table.accounts tr td.list, .tab-content { background: $cell-background-current; 
     height: $text-height;
     line-height: $text-height;
     vertical-align: top;
-    padding: round($fs-normal/4) round($fs-normal/2); 
+    padding: round($fs-normal/4) round($fs-normal/2);
     margin: 0 round($fs-normal/6);
-    background: $cell-background; 
+    background: $cell-background;
     @include border-top-left-radius($default-border-radius);
-    @include border-top-right-radius($default-border-radius); 
+    @include border-top-right-radius($default-border-radius);
   }
   strong { background: $cell-background-current; }
 }
@@ -879,7 +879,7 @@ html[dir="rtl"] .work-center-graph .input-conveyors .conveyor { margin-right: au
 
 .bmenu {
   position: relative;
-  ul { 
+  ul {
     display: none; position:absolute; z-index: 1000;
     @include menu;
     html[dir="ltr"] & { left: -1px; }
@@ -892,19 +892,19 @@ html[dir="rtl"] .work-center-graph .input-conveyors .conveyor { margin-right: au
 
 
 
-.treemap { 
+.treemap {
   border-collapse: collapse; width: 100%;
-  .plot { 
-    padding: 4px; 
-    border: 2px solid #8a8; 
-    vertical-align: top; 
-    .name { 
-      padding: 2px; 
-      display:block; 
-      border-bottom: 1px dotted #8A8; 
+  .plot {
+    padding: 4px;
+    border: 2px solid #8a8;
+    vertical-align: top;
+    .name {
+      padding: 2px;
+      display:block;
+      border-bottom: 1px dotted #8A8;
     }
-    ul.operations { 
-      padding: 2px 2px 2px 20px; 
+    ul.operations {
+      padding: 2px 2px 2px 20px;
     }
   }
 }
@@ -950,31 +950,31 @@ html[dir="rtl"] input[data-unroll] { background-position: left center; padding-l
   background: white;
   border: 1px solid #AAA;
   z-index: 2;
-  .items-list { 
+  .items-list {
     max-height: 400px;
     min-width: 350px;
     overflow-y: auto;
-    li { 
+    li {
       padding: 8px;
       *, & * { vertical-align: baseline; }
       strong { font-weight: bold }
-      &.selected { 
+      &.selected {
         background: rgba($base-color, 0.2);
         cursor: pointer;
       }
     }
   }
-  .items-status { 
+  .items-status {
     display: block;
     padding: 8px;
-    background: #EFE; 
+    background: #EFE;
     font-style: italic;
   }
 }
 
 .ui-dialog .ui-dialog-content.ajax-dialog { padding: 8px; }
 
-.ui-autocomplete.ui-menu { 
+.ui-autocomplete.ui-menu {
   position: absolute;
   cursor: default;
   background: $menu-background;
@@ -1015,13 +1015,13 @@ html[dir="rtl"] input[data-unroll] { background-position: left center; padding-l
 
 
 
-.ui-dialog { 
-  position: absolute; 
+.ui-dialog {
+  position: absolute;
   background: $menu-background;
   border: 2px solid $base-color;
   @include box-shadow(0 0 10px rgba(0, 0, 0, 0.3));
   overflow: hidden;
-  .ui-dialog-titlebar { 
+  .ui-dialog-titlebar {
     padding: 4px;
     height: 16px;
     background: $base-color;
@@ -1032,9 +1032,9 @@ html[dir="rtl"] input[data-unroll] { background-position: left center; padding-l
       color: white;
       @include text-shadow(0 0 3px rgba(0,0,0,0.5));
     }
-    .ui-dialog-titlebar-close { 
+    .ui-dialog-titlebar-close {
       float: right;
-      span { 
+      span {
         display: block;
         @include squish-text;
         @include icons-sprite(close);
@@ -1044,11 +1044,11 @@ html[dir="rtl"] input[data-unroll] { background-position: left center; padding-l
       &:hover, &:focus { padding: 0; }
     }
   }
-  .ui-dialog-content { 
+  .ui-dialog-content {
     clear: both;
     position: relative; border: 0; padding: .5em 1em; background: none; overflow: auto; zoom: 1; }
-  .ui-dialog-buttonpane { 
-    text-align: left; border-width: 1px 0 0 0; background-image: none; margin: .5em 0 0 0; padding: .3em 1em .5em .4em; 
+  .ui-dialog-buttonpane {
+    text-align: left; border-width: 1px 0 0 0; background-image: none; margin: .5em 0 0 0; padding: .3em 1em .5em .4em;
     .ui-dialog-buttonset { float: right; }
     button { margin: .5em .4em .5em 0; cursor: pointer; }
   }
@@ -1057,12 +1057,12 @@ html[dir="rtl"] input[data-unroll] { background-position: left center; padding-l
 
 .ui-draggable .ui-dialog-titlebar { cursor: move; }
 
-.ui-widget-overlay { 
-  position: absolute; 
-  top: 0; 
-  left: 0; 
-  width: 100%; 
-  height: 100%; 
+.ui-widget-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   background: transparentize($base-color, 0.8);
 }
 
@@ -1074,8 +1074,8 @@ html[dir="rtl"] input[data-unroll] { background-position: left center; padding-l
   @include border-radius(3px);
   @include box-shadow(0 0 5px rgba(0,0,0,0.3));
   $title-line-height: 16px;
-  .ui-datepicker-prev { 
-    float: left; 
+  .ui-datepicker-prev {
+    float: left;
     line-height: $title-line-height;
     @include hide-text;
     display: block;
@@ -1094,30 +1094,30 @@ html[dir="rtl"] input[data-unroll] { background-position: left center; padding-l
     margin:3px;
     @include icons-sprite(right);
   }
-  .ui-datepicker-title { 
+  .ui-datepicker-title {
     padding: 4px;
     @include text-align(center);
     line-height: $title-line-height;
     * { font-weight: bold; }
   }
-  table { 
+  table {
     border-collapse: separate;
     border-spacing: 2px;
-    th { 
+    th {
       @include text-align(center);
       font-weight: bold;
     }
-    td { 
+    td {
       border: 1px solid mix($base-color, #FFF, 15%);
-      &:hover { 
+      &:hover {
         border: 1px solid #FFF;
         background: rgba(255, 255, 255, 0.5);
       }
-      &.ui-datepicker-unselectable { 
+      &.ui-datepicker-unselectable {
         border: none;
         background: transparent;
       }
-      a { 
+      a {
         display: block;
         padding: 2px 4px;
         @include text-align(center);
@@ -1132,7 +1132,7 @@ input[data-datepicker] {@include text-align(center)}
 
 
 
-@mixin big-button($isize) { 
+@mixin big-button($isize) {
   $image-size: $isize;
   $font-size: $fs-huge - round((100px - $image-size) * 0.05);
   $margin: round($image-size * 0.10);
@@ -1145,7 +1145,7 @@ input[data-datepicker] {@include text-align(center)}
   border: 2*$biseau solid #CCC;
   @include box-shadow(0 0 $margin rgba(#000, 0.1) inset);
   @include inline-block;
-  &:hover { 
+  &:hover {
     opacity: 1;
   }
   .text {
@@ -1161,7 +1161,7 @@ input[data-datepicker] {@include text-align(center)}
     padding: 0;
     margin-top: $margin;
   }
-  .icon { 
+  .icon {
     background-size: 100%;
     height: $image-size;
     width: $image-size;
@@ -1172,37 +1172,37 @@ input[data-datepicker] {@include text-align(center)}
   }
   background-color: $base-color;
   margin: $margin * 1.2;
-  @each $module in $modules { 
-    &.#{nth($module, 1)} { 
+  @each $module in $modules {
+    &.#{nth($module, 1)} {
       @include background(linear-gradient(top, nth($module, 2), nth($module, 2), darken(nth($module, 2), 12%)));
       border-color: mix(#DDD, nth($module, 2), 80%);
       span.icon { background-image: image-url("themes/tekyla/menus-#{$isize}/#{nth($module, 1)}.png"); }
     }
   }
-  &:active { 
+  &:active {
     border-color: #CCA;
   }
 }
 
 
 
-#main-menu { 
+#main-menu {
   @include text-align(center);
   .big-button:link, .big-button:visited {
-    @media screen and (min-width: 768px) { 
+    @media screen and (min-width: 768px) {
       @include big-button(100px);
     }
-    @media screen and (max-width: 767px) { 
+    @media screen and (max-width: 767px) {
       @include big-button(80px);
     }
-    @media screen and (max-width: 480px) { 
+    @media screen and (max-width: 480px) {
       @include big-button(60px);
     }
   }
 
 }
 
-.big-button:link, .big-button:visited { 
+.big-button:link, .big-button:visited {
   $image-size: 160px;
   $font-size: round($image-size * 0.12);
   $margin: round($image-size * 0.10);
@@ -1220,7 +1220,7 @@ input[data-datepicker] {@include text-align(center)}
   text-decoration: none;
   border: 2*$biseau solid #CCC;
   @include inline-block;
-  &:hover { 
+  &:hover {
     opacity: 1;
   }
   .text {
@@ -1236,7 +1236,7 @@ input[data-datepicker] {@include text-align(center)}
     padding: 0;
     margin-top: $margin;
   }
-  .icon { 
+  .icon {
     background-size: 100%;
     height: $image-size;
     width: $image-size;
@@ -1247,18 +1247,18 @@ input[data-datepicker] {@include text-align(center)}
   }
   background-color: $base-color;
   margin: $fs-normal;
-  @each $module in $modules-names { 
-    &.#{$module} { 
+  @each $module in $modules-names {
+    &.#{$module} {
       span.icon { background-image: image-url("themes/tekyla/menus-160/#{$module}.png"); }
     }
   }
-  &:active { 
+  &:active {
     border-color: #CCA;
   }
 }
 
 
-#help { 
+#help {
   display: none;
   float: left;
   @include box-shadow(0 0 15px rgba(#000, 0.3));
@@ -1274,7 +1274,7 @@ input[data-datepicker] {@include text-align(center)}
 }
 
 
-.beehive { 
+.beehive {
   .box {
     $min-width: 300px;
     $min-height: 200px;
@@ -1285,13 +1285,13 @@ input[data-datepicker] {@include text-align(center)}
     &:first-child { margin-top: 0; }
     @include clearfix;
 
-    .cell-titles { 
+    .cell-titles {
       display: none;
     }
 
     $cell-title-vertical-padding: round($default-gap*0.6);
     $cell-title-horizontal-padding: round($default-gap*0.8);
-    .cell-title { 
+    .cell-title {
       color: #000;
       font-weight: bold;
       padding: $cell-title-vertical-padding $cell-title-horizontal-padding;
@@ -1307,11 +1307,11 @@ input[data-datepicker] {@include text-align(center)}
       .cell-inner {
         margin-left: $default-gap;
         @include border-radius(3px);
-        &.loading { 
+        &.loading {
           min-height: $min-height;
           background: image-url("themes/tekyla/cell-loader.gif") center center no-repeat;
         }
-        .cell-content { 
+        .cell-content {
           border: $cell-border;
           border-top: none;
           padding: $default-gap;
@@ -1321,19 +1321,19 @@ input[data-datepicker] {@include text-align(center)}
           @include border-bottom-radius(3px);
         }
       }
-      &:first-child { 
-        .cell-inner { 
+      &:first-child {
+        .cell-inner {
           margin-left: 0;
         }
       }
     }
 
-    @for $i from 1 through 10 { 
+    @for $i from 1 through 10 {
       &.box-#{ $i }-cells {
-        .cell { 
-          width: (100% / $i); 
-          @if $i > 1 { 
-            .cell-content { 
+        .cell {
+          width: (100% / $i);
+          @if $i > 1 {
+            .cell-content {
               height: min-height;
             }
           }
@@ -1343,18 +1343,18 @@ input[data-datepicker] {@include text-align(center)}
             width: 100%;
             .cell-inner {
               margin-left: 0;
-              .cell-content { 
+              .cell-content {
                 height: auto;
               }
             }
           }
         }
         @media screen and (min-width: round(0.5*$i*$min-width) + 1px) {
-  
+
           &.box-tab {
             ul.cell-titles {
               display: block;
-              li { 
+              li {
                 @include inline-block;
                 padding-top: $cell-border-width;
                 opacity: 0.4;
@@ -1363,20 +1363,20 @@ input[data-datepicker] {@include text-align(center)}
                   display: block;
                   border-bottom: none;
                 }
-                &.active { 
+                &.active {
                   opacity: 1;
                   a { padding-bottom: $cell-title-vertical-padding + $cell-border-width; }
                   margin-bottom: (-1 * $cell-border-width);
                 }
               }
             }
-            .cells { 
+            .cells {
               .cell {
                 display: none;
                 width: 100%;
                 margin-top : 0;
                 border-top: $cell-border;
-                &.active { 
+                &.active {
                   display: block;
                 }
                 .cell-inner {
@@ -1397,20 +1397,20 @@ input[data-datepicker] {@include text-align(center)}
 }
 
 
-[data-chart] { 
+[data-chart] {
   overflow-x: scroll;
 }
 
-@each $module in $modules { 
+@each $module in $modules {
   $name: nth($module, 1);
   $color: nth($module, 2);
-  body.mod-#{$name} { 
-    #wrap { 
+  body.mod-#{$name} {
+    #wrap {
       #main {
         border-color: $color;
         background: mix(#FFF, $color, 98%);
         /*a:link, a:visited, a:focus, a:hover, a:active { color: $color; }*/
-        #header { 
+        #header {
           #title { &, & * { color: $color; } }
           #subtitle { &, & * { color: mix($desktop-background, $color, 30%); } }
         }
@@ -1420,9 +1420,9 @@ input[data-datepicker] {@include text-align(center)}
 }
 
 
-.control-group.hidden { 
+.control-group.hidden {
   display: none;
 }
-.nested-remove { 
+.nested-remove {
   @include float(right);
 }

@@ -1,8 +1,8 @@
-/* -*- mode: javascript; indent-tabs-mode: nil; -*- */ 
+/* -*- mode: javascript; indent-tabs-mode: nil; -*- */
 
 (function ($) {
     "use strict";
-    
+
     // Toggle now with
     $(document).ready(function (event) {
         $('*[data-toggle-now-with]').each(function () {
@@ -57,7 +57,7 @@
     };
     $(document).ready($.timedSession.startCountdown);
     $(document).ajaxStop($.timedSession.startCountdown);
-    
+
     // Set auto resizing
     $.resizeLayout = function () {
         $.layoutResizing.resize($('#body.resizable'), $(window).width(), $(window).height());
@@ -71,7 +71,7 @@
     $(document).ready($.resizeLayoutProperly);
     $(window).resize($.resizeLayoutProperly);
     $(window).bind("layout:change", $.resizeLayoutProperly);
-    
+
 
     // Beehive tab box
     $(document).behave("click", ".box-tab > ul.cell-titles > li > a.cell-title[href]", function () {
@@ -120,7 +120,7 @@
         window.location.replace($.buildURL(element.data("redirect"), params));
     });
 
-    
+
     $(document).behave("load change keypress", "select[data-show-value]", function () {
         var element = $(this), prefix = element.data("show-value");
         element.find("option").each(function () {
@@ -129,7 +129,7 @@
         $(prefix + element.val()).show();
     });
 
-    
+
 
     // Old system adaptation to jQuery
     $(document).behave("click", "a[data-new-item]", function () {
@@ -208,7 +208,7 @@
     $.calculateResults();
     window.setInterval($.calculateResults, 300);
 
-    
+
     $(document).behave("load", "*[data-balance]", function () {
         var element = $(this), operands = $(this).data("balance").split(/\s\-\s/g).slice(0,2);
         $(document).behave('change emulated:change', operands.join(", "), function () {
@@ -240,7 +240,7 @@
         var selector = element.data("valid-if-equality-between");
         $(document).behave("load keyup change emulated:change remove", selector, function () {
             var value = null, equality = true;
-            $(selector).each(function () { 
+            $(selector).each(function () {
                 if (value === null) { value = $(this).numericalValue(); }
                 if (value !== $(this).numericalValue()) { equality = false; }
             });
@@ -272,7 +272,7 @@
     $(document).behave("focusout", "input[data-add-line-unless]", function () {
         var element = $(this);
         if (element.numericalValue() !== 0 && !$(element.data("add-line-unless")).hasClass("valid")) {
-            if (element.data("with")) {  
+            if (element.data("with")) {
                 var params = {};
                 $(element.data("with")).each(function () {
                     var paramName = $(this).data("parameter-name") || $(this).attr("id");
@@ -326,7 +326,7 @@
         }
     });
 
-    
+
     // Toggle side menu
     $(document).behave("click", "a[data-toggle-view-mode]", function () {
         var element = $(this);
@@ -468,7 +468,7 @@
             potentials += choices[key];
         }
         element.behave("load click keyup change emulated:change", function (event) {
-            var targets = choices[element.val()];      
+            var targets = choices[element.val()];
             $(potentials).hide();
             if (targets !== null && targets !== undefined) {
                 $(targets).show();
@@ -487,7 +487,7 @@
             potentials += choices[key];
         }
         element.behave("load click keyup change emulated:change", function (event) {
-            var targets = choices[element.val()];      
+            var targets = choices[element.val()];
             $(potentials).show();
             if (targets !== null && targets !== undefined) {
                 $(targets).hide();
@@ -511,12 +511,12 @@
             hidden = $("<input type='hidden' name='" + name + "'/>");
             hidden.val(element.data("date-iso"));
             element.before(hidden);
-            
+
             options['dateFormat']  = element.data("date");
             options['altField']    = hidden;
             options['altFormat']   = 'yy-mm-dd';
             options['defaultDate'] = element.val();
-            
+
             // Check for dependents
             if (hidden.data('dependents') !== undefined && hidden.data('dependents') !== null) {
                 if (hidden.data('observe') === undefined || hidden.data('observe') === null) {

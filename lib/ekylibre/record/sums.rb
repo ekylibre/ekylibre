@@ -32,7 +32,7 @@ module Ekylibre::Record
             code += "    #{v} += "+(k.is_a?(Symbol) ? "#{children.to_s.singularize}.#{k}" : k)+"\n"
           end
           code += "  end\n"
-          code += "  "+Ekylibre.references[self.name.underscore.to_sym]["#{target}_id".to_sym].to_s.classify+".update_all({"+options.collect{|k, v| ":#{v}=>#{v}"}.join(", ")+"}, {:company_id=>self.company_id, :id=>self.#{target}_id})\n"
+          code += "  "+Ekylibre.references[self.name.underscore.to_sym]["#{target}_id".to_sym].to_s.classify+".update_all({"+options.collect{|k, v| ":#{v}=>#{v}"}.join(", ")+"}, {:id => self.#{target}_id})\n"
           code += "end\n"
         end
         # list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}

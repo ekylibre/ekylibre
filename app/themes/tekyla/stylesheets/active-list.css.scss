@@ -10,40 +10,40 @@ $list-hover-backgrounds: ("" rgba(255, 255, 255, 0)) (":hover" $hover-mask);
 // $default-border-color: $menu-border-color;
 // $zz-menu-width: 250px;
 
-.active-list[data-list-source], .active-list { 
-  table.list { 
+.active-list[data-list-source], .active-list {
+  table.list {
     border-collapse: collapse;
     width: 100%;
     border: $menu-border;
     //@include box-shadow(0 0 7px rgba(0, 0, 0, 0.15));
     @include incrust-shadow;
-    thead { 
-      th { 
+    thead {
+      th {
         border: $menu-border;
         padding: round($fs-normal*0.2) round($fs-normal*0.4);
         @include ellipsis;
         @include text-align(left);
         @include background($menu-background);
         @include background-image(linear-gradient(lighten($menu-background, $default-lightness-variation), darken($menu-background, $default-lightness-variation)));
-        &[data-list-column-sort] { 
-          .icon { 
-            @include active-list-sprite(sort); 
+        &[data-list-column-sort] {
+          .icon {
+            @include active-list-sprite(sort);
             @include inline-block;
             @include left(margin, round($fs-normal*0.2));
           }
-          &.sor[data-list-column-sort="desc"] .icon { 
+          &.sor[data-list-column-sort="desc"] .icon {
             @include active-list-sprite(sort-down); }
-          &.sor[data-list-column-sort="asc"] .icon { 
+          &.sor[data-list-column-sort="asc"] .icon {
             @include active-list-sprite(sort-up); }
         }
-        &.spe { 
-          
+        &.spe {
+
           width: 16px;
           height: 16px;
-          .list-menu { 
+          .list-menu {
             position: relative;
             background: none;
-            .list-menu-start { 
+            .list-menu-start {
               padding: 2px;
               width: 16px;
               height: 16px;
@@ -52,20 +52,20 @@ $list-hover-backgrounds: ("" rgba(255, 255, 255, 0)) (":hover" $hover-mask);
             }
             &:hover {
               @include menu-shadow;
-              .list-menu-start { 
-                background-color: $menu-background; 
-//                z-index:5000; 
+              .list-menu-start {
+                background-color: $menu-background;
+//                z-index:5000;
               }
             }
-            ul { 
+            ul {
               @include menu;
-              li { 
+              li {
                 @include menu-item;
-                ul { 
+                ul {
                   & { right: $menu-width; }
                   html[dir="rtl"] & { left: $menu-width; }
                 }
-                a { 
+                a {
                   &.pages     .icon { @include active-list-sprite(pages); }
                   &.columns   .icon { @include active-list-sprite(columns); }
                 }
@@ -73,11 +73,11 @@ $list-hover-backgrounds: ("" rgba(255, 255, 255, 0)) (":hover" $hover-mask);
                 &.check     .icon { @include active-list-sprite(check); }
                 &.checked   .icon { @include active-list-sprite(true); }
                 &.unchecked .icon { @include active-list-sprite(false); }
-                &:hover { 
+                &:hover {
                   text-decoration: none;
                   background: $menu-background-hover;
                 }
-                &.separator { 
+                &.separator {
                   @include menu-separator;
                 }
 
@@ -91,9 +91,9 @@ $list-hover-backgrounds: ("" rgba(255, 255, 255, 0)) (":hover" $hover-mask);
         }
       }
     }
-    tbody { 
+    tbody {
       tr {
-        td { 
+        td {
           padding: round($fs-normal*0.2) round($fs-normal*0.4);
           border-top: $menu-border-width solid mix($base-color, #FFF, 10%);
           border-bottom: none;
@@ -101,7 +101,7 @@ $list-hover-backgrounds: ("" rgba(255, 255, 255, 0)) (":hover" $hover-mask);
           border-right: none;
           line-height: 16px;
           @include ellipsis;
-          &.chk,&.act, &.dld, &.bln, &.dat, &.web  { 
+          &.chk,&.act, &.dld, &.bln, &.dat, &.web  {
             @include text-align(center);
             .checkbox-true, .checkbox-false { margin: 0 auto; }
           }
@@ -109,15 +109,15 @@ $list-hover-backgrounds: ("" rgba(255, 255, 255, 0)) (":hover" $hover-mask);
           &.country { white-space: nowrap; }
           &.color { color: white; text-shadow: 0 0 2px #000; width: 6ex; @include text-align(center) }
         }
-        &.child { 
-          td { 
-            &:first-child { 
+        &.child {
+          td {
+            &:first-child {
               @include left(padding, 2*$fs-normal);
             }
             @include opacity(0.6);
           }
         }
-        &:first-child td { 
+        &:first-child td {
           border-top: none;
         }
       }
@@ -125,12 +125,12 @@ $list-hover-backgrounds: ("" rgba(255, 255, 255, 0)) (":hover" $hover-mask);
 
     @include list-colors($desktop-background);
   }
-  .extras { 
+  .extras {
     // z-index: 0;
     @include background(transparentize($desktop-background, 0.7));
-    .pagination { 
+    .pagination {
        @include text-align(left);
-       & > * { 
+       & > * {
          margin: 0 2px;
        }
        .first-page, .previous-page, .next-page, .last-page {
@@ -149,7 +149,7 @@ $list-hover-backgrounds: ("" rgba(255, 255, 255, 0)) (":hover" $hover-mask);
         html[dir="rtl"] & .previous-page, & .next-page {
           @include active-list-sprite(next-page);
         }
-       .separator { 
+       .separator {
          @include inline-block;
          width: $menu-border-width;
          $margin:$menu-border-width * 3 ;
@@ -169,46 +169,46 @@ $list-hover-backgrounds: ("" rgba(255, 255, 255, 0)) (":hover" $hover-mask);
 
 
 
-.active-list[data-list-source] table.list, .active-list table.list, table.list { 
+.active-list[data-list-source] table.list, .active-list table.list, table.list {
   width: 100%;
   tr.total {
-    td, th { 
+    td, th {
       border: $menu-border;
-      font-size: $fs-large; 
+      font-size: $fs-large;
       font-weight: bold;
       padding: 2px;
       html[dir="ltr"] & { text-align:right; }
       html[dir="rtl"] & { text-align:left; }
     }
-    th { 
+    th {
       padding: 4px 6px;
       @include background-image(linear-gradient(lighten($menu-background, 4%), darken($menu-background, 4%)));
     }
-    td { 
+    td {
       padding: 4px;
       color: $text-color;
       @include background-image(linear-gradient(lighten($desktop-background, 4%), darken($desktop-background, 4%)));
     }
-    &.invalid td { color: #D20; }  
+    &.invalid td { color: #D20; }
   }
   tbody {
-    tr.empty { 
-      td { 
+    tr.empty {
+      td {
         text-align: center;
         color: rgba(0, 0, 0, 0.3);
         font-weight: bold;
         /*padding: 1ex !important;*/
       }
     }
-    tr.odd, tr.even, tr.empty { 
-      td { 
+    tr.odd, tr.even, tr.empty {
+      td {
         padding-top: $fs-normal*0.25;
         padding-bottom: $fs-normal*0.25;
       }
     }
-    td.act { 
+    td.act {
       width: 16px;
-      a { 
+      a {
         color: transparent;
         font-size: 0;
         @include icons-sprite(action);
@@ -259,16 +259,16 @@ $list-hover-backgrounds: ("" rgba(255, 255, 255, 0)) (":hover" $hover-mask);
         &.unmark      { @include icons-sprite(unmark); }
         &.up          { @include icons-sprite(up); }
       }
-     
+
     }
   }
-  
+
 }
 
 
-table.active-list tr.total.valid   td { color: #090; }  
-table.active-list tr.subtotal.invalid td { color: #D20; }  
-table.active-list tr.subtotal.valid   td { color: #090; }  
-table.active-list tr.first-line    td { border-top: 2px solid #F77; }  
-table.active-list tr.last-line     td { border-bottom: 2px solid #F77; }  
+table.active-list tr.total.valid   td { color: #090; }
+table.active-list tr.subtotal.invalid td { color: #D20; }
+table.active-list tr.subtotal.valid   td { color: #090; }
+table.active-list tr.first-line    td { border-top: 2px solid #F77; }
+table.active-list tr.last-line     td { border-bottom: 2px solid #F77; }
 table.active-list tr.inline-errors td { background: transparent; padding:8px 4px 0; border-left:none; border-right:none; }

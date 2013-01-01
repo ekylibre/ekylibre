@@ -14,9 +14,9 @@
 	  <text value="Destinataire :" />
 	  <text value="{{transport.deliveries.first/address}}"  top="5mm" size="9"/>
 	  <text value="Expéditeur :" left="65mm" align="left" />
-	  <text value="{{transport.company.entity.default_contact/print_address}}" left="65mm" top="5mm"  size="9" align="left"/>
+	  <text value="{{Entity.of_company.default_mail_address/mail_coordinate}}" left="65mm" top="5mm"  size="9" align="left"/>
 	  <text value="Transporteur :" left="130mm"/>
-	  <text value="{{transport/address}}"  top="5mm" left="130mm"  size="9"/>
+	  <text value="{{transport.transporter.default_mail_address/mail_coordinate}}"  top="5mm" left="130mm"  size="9"/>
 	</set>
       </part>
 

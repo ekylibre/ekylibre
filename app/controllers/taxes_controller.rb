@@ -20,6 +20,8 @@
 class TaxesController < AdminController
   manage_restfully :nature=>":percent"
 
+  unroll
+
   list do |t|
     t.column :name
     t.column :amount, :precision=>3

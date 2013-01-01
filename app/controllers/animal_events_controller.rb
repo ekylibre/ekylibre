@@ -20,6 +20,8 @@
 class AnimalEventsController < AdminController
   manage_restfully :animal_id=>"params[:animal_id]", :animal_group_id=>"params[:animal_group_id]"
 
+  unroll
+
   list() do |t|
     t.column :name, :url=>true
     t.column :name, :through=>:animal, :url=>true

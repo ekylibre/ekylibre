@@ -26,14 +26,14 @@ $break-huge: 1200px;
   @include single-respond-to($media5) { @content };
 }
 
-@mixin break-percent($property, $percent) { 
-  @include single-respond-to(tablet) { 
+@mixin break-percent($property, $percent) {
+  @include single-respond-to(tablet) {
     #{$property}: round($percent * $break-small);
   }
-  @include single-respond-to(desktop) { 
+  @include single-respond-to(desktop) {
     #{$property}: round($percent * $break-large);
   }
-  @include single-respond-to(table) { 
+  @include single-respond-to(table) {
     #{$property}: round($percent * $break-huge);
   }
 }
@@ -42,30 +42,30 @@ $break-huge: 1200px;
 html.authentication {
   height: 100%;
   width: 100%;
-  body { 
+  body {
     height: 100%;
     width: 100%;
   }
 }
 
-html.admin { 
+html.admin {
   height:100%;
   $side-percent: 0.22;
   &[dir="ltr"] body #wrap {
     #side { margin-right: -100% }
     #main { @include break-percent(margin-left, $side-percent); }
   }
-  &[dir="rtl"] body #wrap { 
+  &[dir="rtl"] body #wrap {
     #side { margin-left: -100% }
     #main { @include break-percent(margin-right, $side-percent); }
   }
-  body { 
+  body {
     width: 100%;
     height: 100%;
-    #wrap { 
+    #wrap {
       width: 100%;
       display: block;
-      #side { 
+      #side {
         position: absolute;
         top: 0;
         left: 0;
@@ -81,23 +81,23 @@ html.admin {
       $gap: round($default-gap * 0.5);
       #wrap {
         display: block;
-        #side { 
+        #side {
           position: absolute;
           top: 0;
           left: 0;
           width: 100%;
           display: none;
-          &.visible { 
+          &.visible {
             display: block;
           }
         }
-        #main { 
+        #main {
           display: block;
-          .login { 
+          .login {
             width: auto;
             margin: $gap 0;
           }
-          #content { 
+          #content {
             padding-left: $gap;
             padding-right: $gap;
           }

@@ -16,48 +16,48 @@ html {
   height: 100%;
   body {
     height: 100%;
-    #wrap { 
-      #side { 
+    #wrap {
+      #side {
       }
-      #main { 
+      #main {
       }
     }
   }
 }
 
 
-#side { 
+#side {
   display: none;
-  &.visible { 
+  &.visible {
     display: block;
   }
 }
 
-#nav { 
+#nav {
   @extend .visible-phone;
 }
 
 
 /* Other */
-html { 
+html {
   body {
     @include background(#DDD linear-gradient(top, #FFF, #DDD) fixed);
     #wrap {
       #main {
-        #header { 
+        #header {
           margin-top: $grid-gutter-width;
         }
       }
-      #side { 
+      #side {
         padding-top: $grid-gutter-width;
       }
     }
-    #legals { 
+    #legals {
       text-align: center;
     }
   }
 }
 
-.nav.nav-tabs.nav-stacked { 
+.nav.nav-tabs.nav-stacked {
   background: white;
 }

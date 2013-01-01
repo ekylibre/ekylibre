@@ -29,7 +29,7 @@ module Ekylibre::Record
     include ActsAsTree
 
     # Permits to use enumerize in all models
-    include Enumerize
+    extend Enumerize
 
     # Make all models stampables
     self.stampable

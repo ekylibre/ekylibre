@@ -19,6 +19,8 @@
 
 class InventoriesController < AdminController
 
+  unroll
+
   list do |t|
     t.column :created_on
     t.column :changes_reflected

@@ -20,6 +20,8 @@
 class ToolsController < AdminController
   manage_restfully :multipart => true
 
+  unroll
+
   list(:operations, :model=>:operation_uses, :conditions=>{:tool_id=>['session[:current_tool_id]']}, :order=>"created_at ASC") do |t|
     t.column :name,       :through=>:operation, :label=>:column, :url=>true
     t.column :planned_on, :through=>:operation, :label=>:column, :datatype=>:date
