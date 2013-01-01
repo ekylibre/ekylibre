@@ -22,7 +22,7 @@ class AnimalPrescriptionsController < AdminController
 
   unroll
 
-  list() do |t|
+  list do |t|
     t.column :name, :url=>true
     t.column :name, :through=>:prescriptor, :url=>true
     t.column :prescription_number

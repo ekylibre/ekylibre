@@ -621,13 +621,18 @@ arb:
       account: "الحساب"
       account_balance: "رصيد الحساب"
       # animal: "Animaux"
+      # animal_diagnostic: "Diagnostic"
+      # animal_disease: "Maladie"
+      # animal_drug: "Médicaments vétérinaires"
+      # animal_drug_nature: "Types de médicaments vétérinaires"
       # animal_event: "Evenements liés aux animaux"
       # animal_event_nature: "Type d'évènement lié aux animaux"
       # animal_group: "Lot"
+      # animal_posology: "Posologie vétérinaire"
+      # animal_prescription: "Ordonnance"
       # animal_race: "Race"
       # animal_race_nature: "Espèce"
       # animal_treatment: "Traitement"
-      # animal_treatment_use: "Dose lié à un traitement"
       area: "المنطقة البريدية"
       # asset: "Immobilisation"
       # asset_depreciation: "Amortissement d’immobilisation"
@@ -648,13 +653,9 @@ arb:
       department: "الخجمة"
       deposit: "الاقتطاع المصرفي"
       # deposit_line: "Ligne de remise en banque"
-      # diagnostic: "Diagnostic"
-      # disease: "Maladie"
       district: "مقاطعة"
       document: "الوثيقة"
       document_template: "نموذج الوثيقة"
-      # drug: "Médicament"
-      # drug_nature: "Type de médicament"
       entity: "الفرد"
       # entity_address: "Adresse"
       entity_category: "فئة الفرد"
@@ -697,7 +698,6 @@ arb:
       outgoing_payment_use: "تأثير الدفعة"
       parameter: "الاعدادات" #?
       # preference: "Préférence"
-      # prescription: "Ordonnance"
       price: "الاسعار"
       product: "الانتاج"
       product_category: "فئة الانتاج"
@@ -758,6 +758,7 @@ arb:
     # animal: "Animaux"
     # animal_events: "Evenement des animaux"
     # animal_group: "Lot"
+    # animal_race_nature: "Espèce animale"
     # animals: "Animals"
     annotation: "ملاحظة"
     area: "المنطقة البريدية"
@@ -876,6 +877,7 @@ arb:
     contact_id: "العنوان" #?
     contacts: "الاتصالات"
     # conveyors: "Convoyeurs"
+    # corpse_location: "Localisation corporelle"
     counterpart: "النسخة المطابقة" #?
     counterpart_id: "النسخة المطالقة" #?
     country: "البلد"
@@ -1270,6 +1272,7 @@ arb:
     # picture_file_name: "Picture file name"
     # picture_file_size: "Picture file size"
     # picture_updated_at: "Picture updated at"
+    # planned_at: "Prévu le"
     # planned_depreciations: "Amortissements prévus"
     planned_on: "قرر يوم"
     polygon: "متناسقين" #?
@@ -1405,6 +1408,7 @@ arb:
     service_coeff: "معامل كمية الخدمة"
     # sex: "Sexe"
     sha256: "SHA256"
+    # shape: "silhouette"
     shipped: "المستلم"
     shipped_on: "شحنها يوم"
     siren: "رقم صفارة الانذار"
@@ -1537,6 +1541,7 @@ arb:
     with_tracking: "مع التتبع"
     # with_transport: "Avec transport"
     # work_center: "Centre d’opération"
+    # working_number: "numéro de travail"
   models:
     account:
       default_account_name: "دفتر الحسابات %{number}" #?

@@ -1,8 +1,10 @@
 -field_set do
   -input :name
+  -association :prescription, :include_blank => true, :default_value => :blank
 
 -field_set(:disease) do
   -association :disease, :include_blank => true, :default_value => :blank
+
 
 -field_set(:drug) do
   -association :drug, :include_blank => true, :default_value => :blank
@@ -10,7 +12,7 @@
   -association :quantity_unit
   -input :per_animal_unit
 
--field_set(:delay) do
+-field_set(:care) do
   -input :duration
   -input :per_duration_time_unit
   -input :frequency

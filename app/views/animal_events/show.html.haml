@@ -2,5 +2,10 @@
   -t.edit @animal_event
   -t.print_entity @animal_event
 
-=attributes_list(@animal_event) do |l|
-  -l.attribute :name
+=beehive do |b|
+  -b.cell :details do
+
+    =attributes_list(@animal_event) do |l|
+      -l.attribute :name
+
+   

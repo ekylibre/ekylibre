@@ -19,6 +19,7 @@
 
 class AnimalRacesController < AdminController
   manage_restfully
+  unroll :label => "{name}"
 
   unroll
 

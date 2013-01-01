@@ -1,5 +1,6 @@
 -# Generated automatically. Don't edit this file.
 .nested-fields
-  =link_to_remove_association 'Remove diagnostic', f
-  =f.input(:symptoms)
-  =f.association(:disease)
+  =link_to_remove_association('labels.remove_diagnostic'.t, f, :class => 'nested-remove remove-diagnostic')
+  =f.input(:symptoms, :wrapper_html => {:id => 'symptoms-wrapper'})
+  =f.input(:corpse_location, :wrapper_html => {:id => 'corpse_location-wrapper'})
+  =f.input(:disease, :wrapper_html => {:id => 'disease-wrapper'})
