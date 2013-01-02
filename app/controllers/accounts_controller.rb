@@ -26,6 +26,8 @@ class AccountsController < AdminController
   unroll :client_thirds
   unroll :supplier_thirds
   unroll :charges
+  unroll :banks
+  unroll :cashes
 
   def self.accounts_conditions
     code  = ""
@@ -136,9 +138,11 @@ class AccountsController < AdminController
   end
 
   def load
-    locale, name = params[:list].split(".")
-    Account.load_chart(name, :locale => locale)
-    redirect_to_back
+    if request.post?
+      locale, name = params[:list].split(".")
+      Account.load_chart(name, :locale => locale)
+      redirect_to_back
+    end
   end
 
 end

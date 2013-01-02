@@ -23,6 +23,7 @@
 #  created_at                  :datetime         not null
 #  creator_id                  :integer          
 #  disease_id                  :integer          
+#  drug_admission_path         :string(255)      
 #  drug_id                     :integer          
 #  duration                    :decimal(19, 4)   
 #  duration_unit_wait_for_meat :string(255)      
@@ -63,7 +64,7 @@ class AnimalTreatment < CompanyRecord
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :duration_wait_for_meat, :duration_wait_for_milk, :frequency, :allow_nil => true, :only_integer => true
   validates_numericality_of :duration, :quantity, :allow_nil => true
-  validates_length_of :duration_unit_wait_for_meat, :duration_unit_wait_for_milk, :name, :per_animal_unit, :per_duration_time_unit, :per_frequency_time_unit, :allow_nil => true, :maximum => 255
+  validates_length_of :drug_admission_path, :duration_unit_wait_for_meat, :duration_unit_wait_for_milk, :name, :per_animal_unit, :per_duration_time_unit, :per_frequency_time_unit, :allow_nil => true, :maximum => 255
   validates_presence_of :frequency, :quantity
   #]VALIDATORS]
 end

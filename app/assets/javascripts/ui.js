@@ -474,7 +474,6 @@
                 $(targets).show();
             }
         });
-        return false;
     });
 
     $(document).behave("load", "[data-hide-if]", function (event) {
@@ -493,7 +492,6 @@
                 $(targets).hide();
             }
         });
-        return false;
     });
 
 

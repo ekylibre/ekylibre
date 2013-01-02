@@ -100,7 +100,7 @@ fra:
       edit: "Modifier la trésorerie\_: %{name}"
       index: "Trésoreries"
       new: "Enregistrer une nouvelle trésorerie"
-      show: "%{nature_label}\_: %{name}"
+      show: "%{nature}\_: %{name}"
     companies:
       register: "Enregistrer sa société"
     custom_field_choices:

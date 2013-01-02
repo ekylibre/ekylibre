@@ -5,7 +5,7 @@
   -b.cell do
     =attributes_list(@cash) do |l|
       -l.attribute :name
-      -l.attribute :nature_label
+      -l.attribute :nature
       -l.attribute :journal, :url=>true
       -l.attribute :account, :url=>true
       -if @cash.bank_account?
@@ -13,7 +13,7 @@
         -l.attribute :address
         -l.attribute :iban_label
         -l.attribute :bic
-        -if @cash.bban_mode?
+        -if @cash.mode_bban?
           -l.attribute :bank_code
           -l.attribute :agency_code
           -l.attribute :number
@@ -21,9 +21,9 @@
 
   -if @cash.bank_account?
     -b.tabbox do
-      -cell(:deposits) do
+      -b.cell(:deposits) do
         =list(:deposits)
-      -cell(:bank_statements) do
+      -b.cell(:bank_statements) do
         =toolbar do |t|
           -t.link(:new, :controller=>:bank_statements, :cash_id=>@cash.id)
         =list(:bank_statements)

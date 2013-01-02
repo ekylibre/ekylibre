@@ -21,7 +21,6 @@
 # == Table: animals
 #
 #  born_on               :date             
-#  ceded_on              :date             
 #  comment               :text             
 #  created_at            :datetime         not null
 #  creator_id            :integer          
@@ -31,16 +30,19 @@
 #  id                    :integer          not null, primary key
 #  identification_number :string(255)      not null
 #  income_on             :date             
+#  income_reasons        :string(255)      
+#  is_external           :boolean          not null
+#  is_reproductor        :boolean          not null
 #  lock_version          :integer          default(0), not null
 #  mother_id             :integer          
 #  name                  :string(255)      not null
 #  outgone_on            :date             
+#  outgone_reasons       :string(255)      
 #  owner_id              :integer          
 #  picture_content_type  :string(255)      
 #  picture_file_name     :string(255)      
 #  picture_file_size     :integer          
 #  picture_updated_at    :datetime         
-#  purchased_on          :date             
 #  race_id               :integer          
 #  sex                   :string(16)       default("male"), not null
 #  updated_at            :datetime         not null

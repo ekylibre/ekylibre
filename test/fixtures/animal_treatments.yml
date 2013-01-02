@@ -23,6 +23,7 @@
 #  created_at                  :datetime         not null
 #  creator_id                  :integer          
 #  disease_id                  :integer          
+#  drug_admission_path         :string(255)      
 #  drug_id                     :integer          
 #  duration                    :decimal(19, 4)   
 #  duration_unit_wait_for_meat :string(255)      

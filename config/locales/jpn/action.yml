@@ -110,7 +110,7 @@ jpn:
       # edit: "Modifier la trésorerie\_: %{name}"
       # index: "Trésoreries"
       # new: "Enregistrer une nouvelle trésorerie"
-      # show: "%{nature_label}\_: %{name}"
+      # show: "%{nature}\_: %{name}"
     companies:
       register: "会社を登録する"
     contacts: #?

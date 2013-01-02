@@ -1,5 +1,5 @@
 -field_set do
-  -association :cash, :source => "self#bank_accounts", :buttons => {:new=>{:nature=>:bank_account}}
+  -association :cash, :source => :bank_accounts, :new => {:nature => :bank_account}
   -input :number
   -input :started_on
   -input :stopped_on

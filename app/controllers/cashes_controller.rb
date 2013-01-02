@@ -20,14 +20,15 @@
 class CashesController < AdminController
 
   unroll
+  unroll :bank_accounts
 
-  list(:order=>:name) do |t|
-    t.column :name, :url=>true
-    t.column :nature_label
+  list(:order => :name) do |t|
+    t.column :name, :url => true
+    t.column :nature
     t.column :currency
     t.column :country
-    t.column :number, :through=>:account, :url=>true
-    t.column :name, :through=>:journal, :url=>true
+    t.column :number, :through => :account, :url => true
+    t.column :name, :through => :journal, :url => true
     t.action :edit
     t.action :destroy
   end
@@ -36,20 +37,20 @@ class CashesController < AdminController
   def index
   end
 
-  list(:bank_statements, :conditions=>{:cash_id=>['session[:current_cash_id]']}, :order=>"started_on DESC") do |t|
-    t.column :number, :url=>true
+  list(:bank_statements, :conditions => {:cash_id => ['session[:current_cash_id]']}, :order => "started_on DESC") do |t|
+    t.column :number, :url => true
     t.column :started_on
     t.column :stopped_on
-    t.column :credit, :currency=>"RECORD.cash.currency"
-    t.column :debit, :currency=>"RECORD.cash.currency"
+    t.column :credit, :currency => "RECORD.cash.currency"
+    t.column :debit, :currency => "RECORD.cash.currency"
   end
 
-  list(:deposits, :conditions=>{:cash_id=>['session[:current_cash_id]']}, :order=>"created_on DESC") do |t|
-    t.column :number, :url=>true
+  list(:deposits, :conditions => {:cash_id => ['session[:current_cash_id]']}, :order => "created_on DESC") do |t|
+    t.column :number, :url => true
     t.column :created_on
     t.column :payments_count
-    t.column :amount, :currency=>"RECORD.cash.currency"
-    t.column :name, :through=>:mode
+    t.column :amount, :currency => "RECORD.cash.currency"
+    t.column :name, :through => :mode
     t.column :comment
   end
 
@@ -57,16 +58,16 @@ class CashesController < AdminController
   def show
     return unless @cash = find_and_check(:cash)
     session[:current_cash_id] = @cash.id
-    t3e @cash.attributes.merge(:nature_label=>@cash.nature_label)
+    t3e @cash.attributes.merge(:nature => @cash.nature)
   end
 
   def new
     if request.xhr? and params[:mode] == "accountancy"
       @cash = Cash.new(params[:cash])
-      render :partial=>'accountancy_form', :locals=>{:nature=>params[:nature]}
+      render :partial => 'accountancy_form', :locals => {:nature => params[:nature]}
       return
     end
-    @cash = Cash.new(:mode=>"bban", :currency=>Entity.of_company.currency, :nature=>"bank_account", :entity_id=>params[:entity_id]||Entity.of_company.id)
+    @cash = Cash.new(:mode => "bban", :currency => Entity.of_company.currency, :nature => "bank_account", :entity_id => params[:entity_id]||Entity.of_company.id)
     render_restfully_form
   end
 

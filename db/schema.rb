@@ -1034,17 +1034,6 @@ ActiveRecord::Schema.define(:version => 20121231103001) do
   add_index "financial_years", ["updated_at"], :name => "index_financialyears_on_updated_at"
   add_index "financial_years", ["updater_id"], :name => "index_financialyears_on_updater_id"
 
-  create_table "ilot_017005218", :primary_key => "gid", :force => true do |t|
-    t.string  "pacage",   :limit => 9
-    t.integer "numero",   :limit => 2
-    t.integer "campagne", :limit => 2
-    t.string  "commune",  :limit => 5
-    t.string  "nat_code", :limit => 2
-    t.float   "surf_tot"
-    t.float   "surf_ref"
-    t.spatial "shape",    :limit => {:srid=>-1, :type=>"multi_polygon"}
-  end
-
   create_table "incoming_deliveries", :force => true do |t|
     t.integer  "purchase_id"
     t.decimal  "pretax_amount",                 :precision => 19, :scale => 4, :default => 0.0, :null => false
@@ -1351,20 +1340,20 @@ ActiveRecord::Schema.define(:version => 20121231103001) do
   add_index "land_parcel_kinships", ["updater_id"], :name => "index_land_parcel_kinships_on_updater_id"
 
   create_table "land_parcels", :force => true do |t|
-    t.string   "name",                                                                                                   :null => false
+    t.string   "name",                                                                                                  :null => false
     t.text     "description"
-    t.datetime "created_at",                                                                                             :null => false
-    t.datetime "updated_at",                                                                                             :null => false
+    t.datetime "created_at",                                                                                            :null => false
+    t.datetime "updated_at",                                                                                            :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                                                          :default => 0,   :null => false
+    t.integer  "lock_version",                                                                         :default => 0,   :null => false
     t.string   "number"
-    t.decimal  "area_measure",                                           :precision => 19, :scale => 4, :default => 0.0, :null => false
+    t.decimal  "area_measure",                                          :precision => 19, :scale => 4, :default => 0.0, :null => false
     t.integer  "area_unit_id"
-    t.date     "started_on",                                                                                             :null => false
+    t.date     "started_on",                                                                                            :null => false
     t.date     "stopped_on"
-    t.integer  "group_id",                                                                                               :null => false
-    t.spatial  "shape",        :limit => {:srid=>-1, :type=>"geometry"}
+    t.integer  "group_id",                                                                                              :null => false
+    t.spatial  "shape",        :limit => {:srid=>0, :type=>"geometry"}
   end
 
   add_index "land_parcels", ["created_at"], :name => "index_shapes_on_created_at"

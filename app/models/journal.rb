@@ -58,6 +58,9 @@ class Journal < CompanyRecord
     raise ArgumentError.new("Journal#used_for must be one of these: #{@@natures.join(', ')}")
     where(:nature => nature.to_s)
   }
+  scope :banks,  -> { where(:nature => :bank) }
+  scope :cashes, -> { where(:nature => :cash) }
+
 
   before_validation(:on=>:create) do
     if year = FinancialYear.first

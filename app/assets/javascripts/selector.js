@@ -34,6 +34,12 @@
             return selector;
         },
 
+        getSourceURL: function (element) {
+            var selector = element;
+            // Adds data-change-source management
+            return selector.data("selector");
+        },
+
         closeMenu: function (element) {
             var selector = element, menu, hidden, search;
             menu   = selector.prop("dropDownMenu");
@@ -66,7 +72,7 @@
             if (search !== undefined) {
                 data = {q: search};
             }
-            $.ajax(selector.data("selector"), {
+            $.ajax($.Selector.getSourceURL(selector), {
                 dataType: "html",
                 data: data,
                 success: function (data, status, request) {
@@ -99,17 +105,19 @@
 
         set: function (element, id) {
             var selector = element;
-            $.ajax(selector.data("selector"), {
-                dataType: "json",
-                data: {id: id},
-                success: function (data, status, request) {
+            if (id !== undefined && id !== "") {
+                $.ajax($.Selector.getSourceURL(selector), {
+                    dataType: "json",
+                    data: {id: id},
+                    success: function (data, status, request) {
                     var item = $.parseJSON(request.responseText)[0];
-                    $.Selector.select(selector, item.id, item.label);
-                },
-                error: function (request, status, error) {
-                    alert("Cannot get details of item on " + selector.data('selector') + " (" + status + "): " + error);
-                }
-            });
+                        $.Selector.select(selector, item.id, item.label);
+                    },
+                    error: function (request, status, error) {
+                        alert("Cannot get details of item on " + selector.data('selector') + " (" + status + "): " + error);
+                    }
+                });
+            }
             return selector;
         }
 
