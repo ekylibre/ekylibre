@@ -4,7 +4,7 @@ gem 'rails', '3.2.9'
 
 gem 'pg' # Needed for some tasks
 gem 'activerecord-postgis-adapter'
-# gem 'activerecord-spatialite-adapter'
+gem 'activerecord-spatialite-adapter'
 
 gem 'haml'
 gem 'fastercsv'
