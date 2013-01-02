@@ -22,8 +22,8 @@ class AnimalsController < AdminController
 
   respond_to :xml, :json , :pdf, :html
 
-  unroll
-
+  unroll :label => "{name}, {sex}"
+  
   list do |t|
     t.column :working_number, :url => true
     t.column :name, :url=>true

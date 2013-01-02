@@ -46,11 +46,16 @@ Ekylibre::Application.routes.draw do
 
   namespace :admin do
     namespace :cells do
+      resource :animal_pie_cell, :only => :show
+      resource :animal_bar_cell, :only => :show
       resource :demo_bar_cell, :only => :show
       resource :demo_pie_cell, :only => :show
       resource :placeholder_cell, :only => :show
 
       resource :last_events_cell, :only => :show do
+        get :list, :on => :collection
+      end
+      resource :last_animals_cell, :only => :show do
         get :list, :on => :collection
       end
     end
@@ -82,7 +87,6 @@ Ekylibre::Application.routes.draw do
   end
   resources :animals do
     collection do
-      get :unroll
       get :list
       get :list_events
       get :list_children
@@ -91,49 +95,42 @@ Ekylibre::Application.routes.draw do
   end
   resources :animal_diagnostics do
     collection do
-      get :unroll
       get :list
       get :unroll
     end
   end
   resources :animal_diseases do
     collection do
-      get :unroll
       get :list
       get :unroll
     end
   end
   resources :animal_drugs do
     collection do
-      get :unroll
       get :list
       get :unroll
     end
   end
   resources :animal_drug_natures do
     collection do
-      get :unroll
       get :list
       get :unroll
     end
   end
   resources :animal_events do
     collection do
-      get :unroll
       get :list
       get :unroll
     end
   end
   resources :animal_event_natures do
     collection do
-      get :unroll
       get :list
       get :unroll
     end
   end
   resources :animal_groups do
     collection do
-      get :unroll
       get :list
       get :list_animals
       get :list_events
@@ -142,35 +139,30 @@ Ekylibre::Application.routes.draw do
   end
   resources :animal_posologies do
     collection do
-      get :unroll
       get :list
       get :unroll
     end
   end
   resources :animal_prescriptions do
     collection do
-      get :unroll
       get :list
       get :unroll
     end
   end
   resources :animal_races do
     collection do
-      get :unroll
       get :list
       get :unroll
     end
   end
   resources :animal_race_natures do
     collection do
-      get :unroll
       get :list
       get :unroll
     end
   end
   resources :animal_treatments do
     collection do
-      get :unroll
       get :list
       get :unroll
     end
