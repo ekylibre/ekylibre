@@ -546,6 +546,12 @@ span.rad, label.radio {
   }
 }
 
+.form-fields {
+  @include respond-to(table) {
+    @include columns(2);
+  }
+}
+
 .form-actions {
   @include text-align(center);
   input, a, span {

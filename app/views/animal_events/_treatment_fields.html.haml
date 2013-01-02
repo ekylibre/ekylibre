@@ -1,4 +1,5 @@
 -# Generated automatically. Don't edit this file.
+-animal_treatment ||= f.object
 .nested-fields
   =link_to_remove_association('labels.remove_treatment'.t, f, :class => 'nested-remove remove-treatment')
   =f.input(:started_at, :wrapper_html => {:id => 'started-at-field'})
@@ -7,8 +8,8 @@
     %label.control-label{:for => 'animal_treatment-quantity_unit-input'}
       =AnimalTreatment.human_attribute_name('quantity_unit')
     .controls
-      =selector(:animal_treatment, :quantity_unit, {:controller=>"units", :action=>:unroll}, {:object => object}, :id => 'animal_treatment-quantity_unit-input', :class => 'selector')
-      -for error in object.errors['quantity_unit']
+      =selector(:animal_treatment, :quantity_unit, {:controller=>"units", :action=>:unroll}, {:object => animal_treatment}, :id => 'animal_treatment-quantity_unit-input', :class => 'selector')
+      -for error in animal_treatment.errors['quantity_unit']
         %span.help-inline=error
       %span.btn-toolbar
         =link_to({:controller => :units, :action => :new}, 'data-new-item' => 'animal_treatment-quantity_unit-input', :class => 'btn btn-new') do
@@ -18,8 +19,8 @@
     %label.control-label{:for => 'animal_treatment-drug-input'}
       =AnimalTreatment.human_attribute_name('drug')
     .controls
-      =selector(:animal_treatment, :drug, {:controller=>"animal_drugs", :action=>:unroll}, {:object => object}, :id => 'animal_treatment-drug-input', :class => 'selector')
-      -for error in object.errors['drug']
+      =selector(:animal_treatment, :drug, {:controller=>"animal_drugs", :action=>:unroll}, {:object => animal_treatment}, :id => 'animal_treatment-drug-input', :class => 'selector')
+      -for error in animal_treatment.errors['drug']
         %span.help-inline=error
       %span.btn-toolbar
         =link_to({:controller => :animal_drugs, :action => :new}, 'data-new-item' => 'animal_treatment-drug-input', :class => 'btn btn-new') do
@@ -29,8 +30,8 @@
     %label.control-label{:for => 'animal_treatment-prescription-input'}
       =AnimalTreatment.human_attribute_name('prescription')
     .controls
-      =selector(:animal_treatment, :prescription, {:controller=>"animal_prescriptions", :action=>:unroll}, {:object => object}, :id => 'animal_treatment-prescription-input', :class => 'selector')
-      -for error in object.errors['prescription']
+      =selector(:animal_treatment, :prescription, {:controller=>"animal_prescriptions", :action=>:unroll}, {:object => animal_treatment}, :id => 'animal_treatment-prescription-input', :class => 'selector')
+      -for error in animal_treatment.errors['prescription']
         %span.help-inline=error
       %span.btn-toolbar
         =link_to({:controller => :animal_prescriptions, :action => :new}, 'data-new-item' => 'animal_treatment-prescription-input', :class => 'btn btn-new') do
