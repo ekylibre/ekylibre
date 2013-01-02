@@ -2,10 +2,12 @@ rvm:
   - 1.9.2
   - 1.9.3
 env:
-  - DB=mysql
-  - DB=postgresql
-  - DB=sqlite3
-before_script: 
-  - "test/ci/setup"
+  - DB=postgis
+#  - DB=mysql
+#  - DB=postgresql
+#  - DB=sqlite3
+before_script:
+  - sh -c "if [ '$DB' = 'postgis' ]; then psql -c 'DROP DATABASE IF EXISTS ekylibre_test;' -U postgres; fi"
+  - sh -c "if [ '$DB' = 'postgis' ]; then psql -c 'CREATE DATABASE ekylibre_test;' -U postgres; fi"
   - "bundle exec rake db:migrate" #  > migrate.log
 script: "bundle exec rake test"

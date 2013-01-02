@@ -1,0 +1,8 @@
+test:
+  adapter: postgis
+  encoding: unicode
+  database: ekylibre_test
+  schema_search_path: public,postgis
+  username: postgres
+  # script_dir: /usr/share/postgresql/9.1/contrib/postgis-2.0
+  postgis_extension: true
