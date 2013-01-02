@@ -9,6 +9,9 @@ system("cp -f #{here}/database.#{database}.yml #{here}/../../config/database.yml
 # Create Database manually
 if database == :postgresql or database == :postgis
   system('psql -c "CREATE DATABASE ekylibre_test;" -U postgres > /dev/null 2>&1')
+  if database == :postgis
+    system('psql -c "CREATE SCHEMA postgis;" -U postgres ekylibre_test > /dev/null 2>&1')
+  end
 elsif database == :mysql
   system('mysql -e "CREATE DATABASE ekylibre_test;" > /dev/null 2>&1')
 end
