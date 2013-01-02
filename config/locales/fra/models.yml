@@ -659,6 +659,7 @@ fra:
     in_name: "Abréviation incluse dans le nom de la personne"
     included: "Incluse"
     income_on: "Date d'entrée"
+    income_reasons: "Income reasons"
     incoming_deliveries: "Livraisons entrantes"
     incoming_delivery_lines: "Lignes de livraisons entrantes" #?
     incoming_delivery_modes: "Modes de livraisons entrantes" #?
@@ -679,6 +680,8 @@ fra:
     invoiced_on: "Facturée le"
     invoices_count: "Nombre de factures"
     is_debit: "Débit"
+    # is_external: "Is external"
+    # is_reproductor: "Is reproductor"
     item_listing: "Nœud de l’extraction"
     item_listing_node: "Nœud de l’élément"
     item_nature: "Nature de l’élément"
@@ -803,6 +806,7 @@ fra:
     outgoing_payment_uses: "Parties de décaissements"
     outgoing_payments: "Décaissements"
     outgone_on: "Date de sortie"
+    outgone_reasons: "Outgone reasons"
     output_conveyors: "Convoyeur sortant"
     owner: "Propriétaire"
     owner_type: "Nature du propriétaire"

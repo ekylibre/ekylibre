@@ -21,9 +21,9 @@
   =nested_association(:treatments) do
     -input :started_at
     -input :quantity
-    -input :quantity_unit
-    -input :drug
-    -input :prescription
+    -association :quantity_unit
+    -association :drug
+    -association :prescription
     -input :duration_wait_for_milk
     -input :duration_unit_wait_for_milk
     -input :duration_wait_for_meat

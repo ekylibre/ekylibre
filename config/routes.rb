@@ -78,6 +78,8 @@ Ekylibre::Application.routes.draw do
       get :unroll_attorney_thirds
       get :unroll_supplier_thirds
       get :unroll_deposit_pending_payments
+      get :unroll_banks
+      get :unroll_cashes
       match "load", :via => [:get, :post]
     end
     member do
@@ -202,6 +204,7 @@ Ekylibre::Application.routes.draw do
       get :list_deposits
       get :list_bank_statements
       get :unroll
+      get :unroll_bank_accounts
     end
   end
   resources :cash_transfers do
@@ -415,6 +418,8 @@ Ekylibre::Application.routes.draw do
       get :list_entries
       get :list_general_ledger
       get :unroll
+      get :unroll_banks
+      get :unroll_cashes
     end
     member do
       match "close", :via => [:get, :post]

@@ -22,7 +22,6 @@
 # == Table: animals
 #
 #  born_on               :date             
-#  ceded_on              :date             
 #  comment               :text             
 #  created_at            :datetime         not null
 #  creator_id            :integer          
@@ -32,16 +31,19 @@
 #  id                    :integer          not null, primary key
 #  identification_number :string(255)      not null
 #  income_on             :date             
+#  income_reasons        :string(255)      
+#  is_external           :boolean          not null
+#  is_reproductor        :boolean          not null
 #  lock_version          :integer          default(0), not null
 #  mother_id             :integer          
 #  name                  :string(255)      not null
 #  outgone_on            :date             
+#  outgone_reasons       :string(255)      
 #  owner_id              :integer          
 #  picture_content_type  :string(255)      
 #  picture_file_name     :string(255)      
 #  picture_file_size     :integer          
 #  picture_updated_at    :datetime         
-#  purchased_on          :date             
 #  race_id               :integer          
 #  sex                   :string(16)       default("male"), not null
 #  updated_at            :datetime         not null
@@ -66,7 +68,8 @@ class Animal < CompanyRecord
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :picture_file_size, :allow_nil => true, :only_integer => true
   validates_length_of :sex, :allow_nil => true, :maximum => 16
-  validates_length_of :identification_number, :name, :picture_content_type, :picture_file_name, :working_number, :allow_nil => true, :maximum => 255
+  validates_length_of :identification_number, :income_reasons, :name, :outgone_reasons, :picture_content_type, :picture_file_name, :working_number, :allow_nil => true, :maximum => 255
+  validates_inclusion_of :is_external, :is_reproductor, :in => [true, false]
   validates_presence_of :group, :identification_number, :name, :sex
   #]VALIDATORS]
   validates_uniqueness_of :name, :identification_number

@@ -1087,6 +1087,7 @@ arb:
     in_name: "الاختصارات تشمل اسم الملف"
     included: "تضمنت"
     # income_on: "Date d'entrée"
+    # income_reasons: "Income reasons"
     # incoming_deliveries: "Livraisons entrantes"
     # incoming_delivery_lines: "Lignes de livraisons entrantes"
     # incoming_delivery_modes: "Modes de livraisons entrantes"
@@ -1223,6 +1224,7 @@ arb:
     outgoing_payment_uses: "ازاء المصروفات"
     outgoing_payments: "المصروفات"
     # outgone_on: "Date de sortie"
+    # outgone_reasons: "Outgone reasons"
     # output_conveyors: "Convoyeur sortant"
     owner: "المالك"
     owner_id: "مالك" #?

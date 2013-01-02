@@ -1,12 +1,42 @@
 -# Generated automatically. Don't edit this file.
 .nested-fields
   =link_to_remove_association('labels.remove_treatment'.t, f, :class => 'nested-remove remove-treatment')
-  =f.input(:started_at, :wrapper_html => {:id => 'started_at-wrapper'})
-  =f.input(:quantity, :wrapper_html => {:id => 'quantity-wrapper'})
-  =f.input(:quantity_unit, :wrapper_html => {:id => 'quantity_unit-wrapper'})
-  =f.input(:drug, :wrapper_html => {:id => 'drug-wrapper'})
-  =f.input(:prescription, :wrapper_html => {:id => 'prescription-wrapper'})
-  =f.input(:duration_wait_for_milk, :wrapper_html => {:id => 'duration_wait_for_milk-wrapper'})
-  =f.input(:duration_unit_wait_for_milk, :wrapper_html => {:id => 'duration_unit_wait_for_milk-wrapper'})
-  =f.input(:duration_wait_for_meat, :wrapper_html => {:id => 'duration_wait_for_meat-wrapper'})
-  =f.input(:duration_unit_wait_for_meat, :wrapper_html => {:id => 'duration_unit_wait_for_meat-wrapper'})
+  =f.input(:started_at, :wrapper_html => {:id => 'started-at-field'})
+  =f.input(:quantity, :wrapper_html => {:id => 'quantity-field'})
+  #quantity-unit-field.control-group
+    %label.control-label{:for => 'animal_treatment-quantity_unit-input'}
+      =AnimalTreatment.human_attribute_name('quantity_unit')
+    .controls
+      =selector(:animal_treatment, :quantity_unit, {:controller=>"units", :action=>:unroll}, {:object => object}, :id => 'animal_treatment-quantity_unit-input', :class => 'selector')
+      -for error in object.errors['quantity_unit']
+        %span.help-inline=error
+      %span.btn-toolbar
+        =link_to({:controller => :units, :action => :new}, 'data-new-item' => 'animal_treatment-quantity_unit-input', :class => 'btn btn-new') do
+          %span.icon
+          %span.text='labels.new'.t
+  #drug-field.control-group
+    %label.control-label{:for => 'animal_treatment-drug-input'}
+      =AnimalTreatment.human_attribute_name('drug')
+    .controls
+      =selector(:animal_treatment, :drug, {:controller=>"animal_drugs", :action=>:unroll}, {:object => object}, :id => 'animal_treatment-drug-input', :class => 'selector')
+      -for error in object.errors['drug']
+        %span.help-inline=error
+      %span.btn-toolbar
+        =link_to({:controller => :animal_drugs, :action => :new}, 'data-new-item' => 'animal_treatment-drug-input', :class => 'btn btn-new') do
+          %span.icon
+          %span.text='labels.new'.t
+  #prescription-field.control-group
+    %label.control-label{:for => 'animal_treatment-prescription-input'}
+      =AnimalTreatment.human_attribute_name('prescription')
+    .controls
+      =selector(:animal_treatment, :prescription, {:controller=>"animal_prescriptions", :action=>:unroll}, {:object => object}, :id => 'animal_treatment-prescription-input', :class => 'selector')
+      -for error in object.errors['prescription']
+        %span.help-inline=error
+      %span.btn-toolbar
+        =link_to({:controller => :animal_prescriptions, :action => :new}, 'data-new-item' => 'animal_treatment-prescription-input', :class => 'btn btn-new') do
+          %span.icon
+          %span.text='labels.new'.t
+  =f.input(:duration_wait_for_milk, :wrapper_html => {:id => 'duration-wait-for-milk-field'})
+  =f.input(:duration_unit_wait_for_milk, :wrapper_html => {:id => 'duration-unit-wait-for-milk-field'})
+  =f.input(:duration_wait_for_meat, :wrapper_html => {:id => 'duration-wait-for-meat-field'})
+  =f.input(:duration_unit_wait_for_meat, :wrapper_html => {:id => 'duration-unit-wait-for-meat-field'})

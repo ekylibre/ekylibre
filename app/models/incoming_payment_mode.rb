@@ -71,7 +71,7 @@ class IncomingPaymentMode < CompanyRecord
   scope :depositers, where(:with_deposit => true).order(:name)
 
   before_validation do
-    if self.cash.cash?
+    if self.cash.cash_box?
       self.with_deposit = false
       self.with_commission = false
     end

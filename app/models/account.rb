@@ -73,6 +73,8 @@ class Account < CompanyRecord
   scope :client_thirds,            lambda { where('number LIKE ?', self.chart_number(:client_thirds)+"%").order(:number, :name) }
   scope :supplier_thirds,          lambda { where('number LIKE ?', self.chart_number(:supplier_thirds)+"%").order(:number, :name) }
   scope :charges,                  lambda { where('number LIKE ?', self.chart_number(:charges)+"%").order(:number, :name) }
+  scope :banks,                    lambda { where('number LIKE ?', self.chart_number(:banks)+"%").order(:number, :name) }
+  scope :cashes,                   lambda { where('number LIKE ?', self.chart_number(:cashes)+"%").order(:number, :name) }
 
 
   # This method allows to create the parent accounts if it is necessary.

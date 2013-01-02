@@ -1,22 +1,17 @@
 #!/usr/bin/env ruby
-require 'fileutils'
-include FileUtils
-
 here = File.dirname(__FILE__)
-
-database = ENV['DB'].to_s
-if database.size.zero?
-  database = :sqlite3
-else
-  database = database.to_sym
-end
+# Define default DB type
+database = (ENV['DB'] ? ENV['DB'].to_sym : :spatialite)
 
 # Copy database.yml like in real case
 system("cp -f #{here}/database.#{database}.yml #{here}/../../config/database.yml")
 
 # Create Database manually
 if database == :postgresql or database == :postgis
-  system('psql -c "create database ekylibre_test;" -U postgres > /dev/null 2>&1')
+  system('psql -c "CREATE DATABASE ekylibre_test;" -U postgres > /dev/null 2>&1')
+  if database == :postgis
+    system('psql -c "CREATE SCHEMA postgis;" -U postgres ekylibre_test > /dev/null 2>&1')
+  end
 elsif database == :mysql
-  system('mysql -e "create database ekylibre_test;" > /dev/null 2>&1')
+  system('mysql -e "CREATE DATABASE ekylibre_test;" > /dev/null 2>&1')
 end

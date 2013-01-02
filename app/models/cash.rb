@@ -48,9 +48,11 @@
 
 
 class Cash < CompanyRecord
-  @@natures = ["bank_account", "cash_box"]
-  @@modes = ["iban", "bban"]
-  @@bban_translations = {:fr=>["abcdefghijklmonpqrstuvwxyz", "12345678912345678923456789"]}
+  # @@natures = ["bank_account", "cash_box"]
+  # @@modes = ["iban", "bban"]
+  @@bban_translations = {
+    :fr => ["abcdefghijklmonpqrstuvwxyz", "12345678912345678923456789"]
+  }
 
   attr_readonly :nature, :currency
   belongs_to :account
@@ -61,6 +63,9 @@ class Cash < CompanyRecord
   has_many :outgoing_payment_modes
   has_many :incoming_payment_modes
   has_one :last_bank_statement, :class_name=>"BankStatement", :order=>"stopped_on DESC"
+  enumerize :nature, :in => [:bank_account, :cash_box], :default => :bank_account, :predicates => true
+  enumerize :mode, :in => [:iban, :bban], :default => :iban, :predicates => {:prefix => true}
+
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :country, :allow_nil => true, :maximum => 2
   validates_length_of :currency, :allow_nil => true, :maximum => 3
@@ -73,23 +78,26 @@ class Cash < CompanyRecord
   validates_presence_of :account, :journal, :mode, :name, :nature
   #]VALIDATORS]
   # validates_presence_of :bank_name
-  validates_inclusion_of :mode, :in=>%w( iban bban )
+  validates_inclusion_of :mode, :in => self.mode.values
+  validates_inclusion_of :nature, :in => self.nature.values
   validates_uniqueness_of :account_id
 
   default_scope order(:name)
   scope :bank_account_of_company, lambda { where("(entity_id IS NULL OR entity_id=?) AND nature=?", Entity.of_company.id, "bank_account") }
+  scope :bank_accounts, lambda { where("(entity_id IS NULL OR entity_id=?) AND nature=?", Entity.of_company.id, "bank_account") }
+
 
   # before create a bank account, this computes automatically code iban.
   before_validation do
     self.mode.lower!
-    self.mode = @@modes[0] if self.mode.blank?
+    self.mode = self.class.mode.default_value if self.mode.blank?
     if eoc = Entity.of_company
       self.entity_id = eoc.id
       self.currency ||= eoc.currency
     end
-    if self.iban_mode?
+    if self.mode_iban?
       self.iban = self.iban.to_s.upper.gsub(/[^A-Z0-9]/, '')
-    elsif self.bban_mode?
+    elsif self.mode_bban?
       self.iban = self.class.generate_iban(self.country, self.bank_code+self.agency_code+self.number+self.key)
     end
     self.iban_label = self.iban.split(/(\w\w\w\w)/).delete_if{|k| k.empty?}.join(" ")
@@ -101,7 +109,7 @@ class Cash < CompanyRecord
       errors.add(:journal, :currency_does_not_match) unless self.currency == self.journal.currency
     end
     if self.bank_account?
-      if self.bban_mode?
+      if self.mode_bban?
         errors.add_to_base(:unvalid_bban) unless self.class.valid_bban?(self.country, self.attributes)
       end
       errors.add(:iban, :invalid) unless self.class.valid_iban?(self.iban)
@@ -113,40 +121,22 @@ class Cash < CompanyRecord
   end
 
 
-  def bank_account?
-    self.nature.to_s == "bank_account"
-  end
+  # # this method returns an array .
+  # def self.modes
+  #   @@modes.collect{|x| [tc('modes.'+x.to_s), x] }
+  # end
 
-  def cash?
-    self.nature.to_s == "cash"
-  end
+  # def self.nature_label(name)
+  #   tc('natures.'+name.to_s)
+  # end
 
-  def bban_mode?
-    self.mode.to_s.downcase == "bban"
-  end
+  # def nature_label
+  #   self.class.nature_label(self.nature.to_s)
+  # end
 
-  def iban_mode?
-    self.mode.to_s.downcase == "iban"
-  end
-
-
-
-  # this method returns an array .
-  def self.modes
-    @@modes.collect{|x| [tc('modes.'+x.to_s), x] }
-  end
-
-  def self.nature_label(name)
-    tc('natures.'+name.to_s)
-  end
-
-  def nature_label
-    self.class.nature_label(self.nature.to_s)
-  end
-
-  def self.natures
-    @@natures.collect{|x| [self.nature_label(x), x] }
-  end
+  # def self.natures
+  #   @@natures.collect{|x| [self.nature_label(x), x] }
+  # end
 
 
 

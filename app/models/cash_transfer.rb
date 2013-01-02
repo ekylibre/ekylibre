@@ -43,16 +43,16 @@
 class CashTransfer < CompanyRecord
   acts_as_numbered
   attr_readonly :number
-  belongs_to :emitter_cash, :class_name=>"Cash"
-  belongs_to :emitter_journal_entry, :class_name=>"JournalEntry"
-  belongs_to :receiver_cash, :class_name=>"Cash"
-  belongs_to :receiver_journal_entry, :class_name=>"JournalEntry"
+  belongs_to :emitter_cash, :class_name => "Cash"
+  belongs_to :emitter_journal_entry, :class_name => "JournalEntry"
+  belongs_to :receiver_cash, :class_name => "Cash"
+  belongs_to :receiver_journal_entry, :class_name => "JournalEntry"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :currency_rate, :emitter_amount, :receiver_amount, :allow_nil => true
   validates_length_of :number, :allow_nil => true, :maximum => 255
   validates_presence_of :currency_rate, :emitter_amount, :emitter_cash, :number, :receiver_amount, :receiver_cash
   #]VALIDATORS]
-  validates_numericality_of :emitter_amount, :receiver_amount, :greater_than=>0.0
+  validates_numericality_of :emitter_amount, :receiver_amount, :greater_than => 0.0
   validates_presence_of :created_on
 
   before_validation do
@@ -65,14 +65,14 @@ class CashTransfer < CompanyRecord
   end
 
   bookkeep do |b|
-    preference = self.company.preference("financial_internal_transfers_accounts")
-    transfer_account = self.company.account(preference.value, preference.label)
-    label = tc(:bookkeep, :resource=>self.class.model_name.human, :number=>self.number, :comment=>self.comment, :emitter=>self.emitter_cash.name, :receiver=>self.receiver_cash.name)
-    b.journal_entry(self.emitter_cash.journal, :column=>:emitter_journal_entry_id) do |entry|
+    preference = Preference[:financial_internal_transfers_accounts]
+    transfer_account = Account.get(preference.value, preference.label)
+    label = tc(:bookkeep, :resource => self.class.model_name.human, :number => self.number, :comment => self.comment, :emitter => self.emitter_cash.name, :receiver => self.receiver_cash.name)
+    b.journal_entry(self.emitter_cash.journal, :column => :emitter_journal_entry_id) do |entry|
       entry.add_debit( label, transfer_account.id, self.emitter_amount)
       entry.add_credit(label, self.emitter_cash.account_id, self.emitter_amount)
     end
-    b.journal_entry(self.receiver_cash.journal, :column=>:receiver_journal_entry_id) do |entry|
+    b.journal_entry(self.receiver_cash.journal, :column => :receiver_journal_entry_id) do |entry|
       entry.add_debit( label, self.receiver_cash.account_id, self.receiver_amount)
       entry.add_credit(label, transfer_account.id, self.receiver_amount)
     end
