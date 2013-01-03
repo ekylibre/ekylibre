@@ -5,12 +5,15 @@
     %li= link_to tc('x_performed_operations', :count=>unvalidateds.count), :action=>:unvalidateds, :controller=>:operations
 
 =beehive(:production) do
-  -cell :demo_bar
   -hbox do
-    -cell :last_events
+    -cell :demo_bar
     -cell :demo_pie
   -hbox do
-    -cell :placeholder
+    -cell :last_events
+    -cell :animal_pie
+    -cell :last_animals
+  -hbox do
+    -cell :animal_bar
     -cell :placeholder
     -cell :example do
       %h1 Direct HTML without controller

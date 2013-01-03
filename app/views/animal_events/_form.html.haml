@@ -4,7 +4,7 @@
   -association :parent
 
 -field_set(:animal) do |f|
-  -association :animal
+  -association :animal, :source => :here
   -association :animal_group
 
 -field_set(:delay) do |f|

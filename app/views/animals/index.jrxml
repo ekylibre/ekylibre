@@ -6,7 +6,16 @@
 	<style name="Title" fontName="DejaVu Sans" fontSize="30" isBold="true" pdfFontName="Times-Bold"/>
 	<style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18"/>
 	<style name="Column header" forecolor="#666666" fontName="DejaVu Sans" fontSize="12" isBold="true"/>
-	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<style name="Detail" fontName="Arial" fontSize="12">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{outgone-reasons} == "dead"]]></conditionExpression>
+			<style mode="Transparent" forecolor="#FF3333" fill="Solid" vAlign="Top" isBold="false" isItalic="false" isUnderline="false"/>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{race-name}.contains("CROISE")]]></conditionExpression>
+			<style mode="Opaque" backcolor="#FFFF00" fill="Solid" vAlign="Top" isBlankWhenNull="false" isBold="false" isItalic="false" isUnderline="false"/>
+		</conditionalStyle>
+	</style>
 	<style name="Row" mode="Transparent"/>
 	<style name="Crosstab Data Text" hAlign="Center"/>
 	<parameter name="XML_DATA_DOCUMENT" class="java.lang.String" isForPrompting="false"/>
@@ -55,6 +64,12 @@
 	</field>
 	<field name="mother-name" class="java.lang.String">
 		<fieldDescription><![CDATA[mother/name]]></fieldDescription>
+	</field>
+	<field name="outgone-on" class="java.lang.String">
+		<fieldDescription><![CDATA[outgone-on]]></fieldDescription>
+	</field>
+	<field name="outgone-reasons" class="java.lang.String">
+		<fieldDescription><![CDATA[outgone-reasons]]></fieldDescription>
 	</field>
 	<sortField name="working-number" order="Descending"/>
 	<sortField name="born-on" order="Descending"/>
@@ -202,42 +217,49 @@
 	<detail>
 		<band height="21" splitType="Stretch">
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="42865504-0435-4a06-9df0-2151563c4fea" x="208" y="0" width="68" height="21"/>
+				<reportElement uuid="dba1a483-6562-4082-a5d2-a0dd845fe182" style="Detail" mode="Opaque" x="276" y="0" width="53" height="21"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{father-name}.toLowerCase()]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="42865504-0435-4a06-9df0-2151563c4fea" style="Detail" mode="Opaque" x="208" y="0" width="68" height="21"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="DejaVu Sans" size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{mother-name}.toLowerCase()]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
-				<reportElement uuid="b8637e72-0dab-486c-980e-630dbe469547" x="113" y="0" width="54" height="21"/>
+				<reportElement uuid="b8637e72-0dab-486c-980e-630dbe469547" style="Detail" mode="Opaque" x="113" y="0" width="54" height="21"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="DejaVu Sans" size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{born-on}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="0850cafe-2771-4d68-aa3e-3ac65ab93627" x="329" y="0" width="71" height="21"/>
+				<reportElement uuid="0850cafe-2771-4d68-aa3e-3ac65ab93627" style="Detail" mode="Opaque" x="329" y="0" width="71" height="21"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="DejaVu Sans" size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{race-name}.toLowerCase()]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="e39cad02-7296-4b15-be64-83e1005f9da2" x="1" y="0" width="72" height="21"/>
+				<reportElement uuid="e39cad02-7296-4b15-be64-83e1005f9da2" style="Detail" mode="Opaque" x="1" y="0" width="72" height="21"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="DejaVu Sans" size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{name}.toLowerCase()]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="14106f98-080d-4ea6-9add-6ce992833746" x="73" y="0" width="40" height="21"/>
+				<reportElement uuid="14106f98-080d-4ea6-9add-6ce992833746" style="Detail" mode="Opaque" x="73" y="0" width="40" height="21"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="DejaVu Sans" size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{working-number}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="a38d906a-cdce-41e6-8ec3-ca0b9b9f65b6" x="167" y="0" width="41" height="21"/>
+				<reportElement uuid="a38d906a-cdce-41e6-8ec3-ca0b9b9f65b6" style="Detail" mode="Opaque" x="167" y="0" width="41" height="21"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="DejaVu Sans" size="9"/>
 				</textElement>
@@ -246,13 +268,6 @@
 			<line>
 				<reportElement uuid="09a03d97-1c8c-4a8b-85a3-1868d25e2f8a" x="2" y="20" width="398" height="1"/>
 			</line>
-			<textField isBlankWhenNull="true">
-				<reportElement uuid="dba1a483-6562-4082-a5d2-a0dd845fe182" x="276" y="0" width="53" height="21"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="DejaVu Sans" size="9"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{father-name}.toLowerCase()]]></textFieldExpression>
-			</textField>
 		</band>
 	</detail>
 	<columnFooter>

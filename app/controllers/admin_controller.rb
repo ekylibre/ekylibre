@@ -59,9 +59,10 @@ class AdminController < BaseController
       max = options[:max] || 80
       unless label = options.delete(:label)
         available_methods = model.columns_hash.keys.collect{|x| x.to_sym}
-        label = [:label, :full_name, :native_name, :title, :name, :code, :number, :inspect].detect{|x| available_methods.include?(x)}
+        label = [:title, :label, :full_name, :name, :code, :number].detect{|x| available_methods.include?(x)}
       end
-      label = (label.is_a?(Symbol) ? "{#{label}:%X%}" : label.is_a?(String) ? label : I18n.translate("unroll.labels." + self.name.underscore.gsub(/_controller$/, '').split('/').join(".") + ".#{name || :all}"))
+      base = "unroll." + self.name.underscore.gsub(/_controller$/, '').split('/').join(".")
+      label = (label.is_a?(Symbol) ? "{#{label}:%X%}" : label.is_a?(String) ? label : I18n.translate(base + ".#{name || :all}", :default => [(base + ".all").to_sym]))
 
       columns = []
       item_label = label.inspect.gsub(/\{[a-z\_]+(\:\%?X\%?)?\}/) do |word|

@@ -1,5 +1,7 @@
 eng:
   rights:
+    __minimum__: "Access to the minimum"
+    __public__: "Public access"
     backup_company: "Make and reload backups"
     bookkeep: "Transfer commercial data in accountancy"
     build_production_chains: "Build production chains"
@@ -70,6 +72,4 @@ eng:
     manage_users: "Manage users"
     manage_warehouses: "Manage warehouses"
     merge_entities: "Merge people"
-    __minimum__: "Access to the minimum"
-    __public__: "Public access"
     use_production_chains: "Use production chains"

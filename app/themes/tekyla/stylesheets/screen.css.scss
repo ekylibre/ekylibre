@@ -410,8 +410,8 @@ table.quick td { padding: 0px 4px; }
       }
     }
   }
-  @each $field_set in care, drug, delay, document, general-informations, stock, animal, vegetable, entity, asset, genealogy, group, treatment {
-    &##{ $field_set }-fieldset .fieldset-legend .icon {
+  @each $field_set in care, drug, delay, document, general-informations, stock, animal, vegetable, entity, asset, genealogy, group, movement, treatment {
+    &##{ $field_set }-fieldset.fieldset .fieldset-legend .icon {
       @include icons-sprite($field_set);
     }
   }

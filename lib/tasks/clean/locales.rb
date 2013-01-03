@@ -102,7 +102,11 @@ task :locales => :environment do
 
   # Preferences
   to_translate += hash_count(::I18n.translate("preferences"))
-  translation += "  preferences:"+hash_to_yaml(::I18n.translate("preferences"), 2)
+  translation += "  preferences:"+hash_to_yaml(::I18n.translate("preferences"), 2) + "\n"
+
+  # Unroll
+  to_translate += hash_count(::I18n.translate("unroll"))
+  translation += "  unroll:"+hash_to_yaml(::I18n.translate("unroll"), 2)
 
   File.open(locale_dir.join("action.yml"), "wb") do |file|
     file.write(translation)
@@ -236,9 +240,8 @@ task :locales => :environment do
     to_translate += hash_count(definition[2])
     translation += "    #{model}:"+yaml_value(definition[2], 2).gsub(/\n/, (definition[1] == :unused ? " #?\n" : "\n"))+"\n"
   end
-  to_translate += hash_count(::I18n.translate("enumerations"))
-  translation += "  enumerations: &enumerations"+hash_to_yaml(::I18n.translate("enumerations"), 2)+"\n"
-  translation << "  enumerize: *enumerations\n"
+  to_translate += hash_count(::I18n.translate("enumerize"))
+  translation += "  enumerize:"+hash_to_yaml(::I18n.translate("enumerize"), 2)+"\n"
 
   File.open(locale_dir.join("models.yml"), "wb") do |file|
     file.write(translation)

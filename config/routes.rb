@@ -46,11 +46,16 @@ Ekylibre::Application.routes.draw do
 
   namespace :admin do
     namespace :cells do
+      resource :animal_pie_cell, :only => :show
+      resource :animal_bar_cell, :only => :show
       resource :demo_bar_cell, :only => :show
       resource :demo_pie_cell, :only => :show
       resource :placeholder_cell, :only => :show
 
       resource :last_events_cell, :only => :show do
+        get :list, :on => :collection
+      end
+      resource :last_animals_cell, :only => :show do
         get :list, :on => :collection
       end
     end
