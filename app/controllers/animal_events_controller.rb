@@ -20,7 +20,7 @@
 class AnimalEventsController < AdminController
   manage_restfully :animal_id=>"params[:animal_id]", :animal_group_id=>"params[:animal_group_id]"
   respond_to :pdf, :html, :xml
-  unroll
+  unroll :label => "{name}"
   list() do |t|
     t.column :name, :url=>true
     t.column :name, :through=>:animal, :url=>true

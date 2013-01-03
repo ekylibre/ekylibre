@@ -47,4 +47,7 @@ class AnimalPrescription < CompanyRecord
   validates_length_of :name, :picture_content_type, :picture_file_name, :prescription_number, :allow_nil => true, :maximum => 255
   #]VALIDATORS]
   validates_presence_of :prescriptor
+  
+  default_scope order(:name).order(:prescripted_on)
+  
 end

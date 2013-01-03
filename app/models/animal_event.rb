@@ -62,4 +62,6 @@ class AnimalEvent < CompanyRecord
   validates_length_of :name, :allow_nil => true, :maximum => 255
   validates_presence_of :name, :nature
   #]VALIDATORS]
+  
+  default_scope order(:started_at, :name)
 end

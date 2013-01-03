@@ -76,6 +76,12 @@ class Animal < CompanyRecord
   validates_inclusion_of :sex, :in => self.sex.values
   validates_length_of :working_number, :allow_nil => true, :maximum => 4
 
+
+  default_scope order(:name)
+  scope :father, where("sex = 'male' AND is_reproductor = true").order(:name)
+  scope :mother, where("sex = 'female'").order(:name)
+  scope :here, where("is_external = ? AND (outgone_on IS NULL or outgone_on > ?)", false, Time.now).order(:name)
+  
    # construction d'une liste permettant l'affichage des animaux dans les formulaires avec les info importantes sur leur identités
    # @example
    def list_animal_full_name
