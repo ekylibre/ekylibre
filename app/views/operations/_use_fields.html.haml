@@ -1,4 +1,5 @@
 -# Generated automatically. Don't edit this file.
+-operation_use ||= f.object
 .nested-fields
   =link_to_remove_association('labels.remove_use'.t, f, :class => 'nested-remove remove-use')
   #tool-field.control-group
@@ -6,8 +7,8 @@
       %abbr{:title => 'required'} *
       =OperationUse.human_attribute_name('tool')
     .controls
-      =selector(:operation_use, :tool, {:controller=>"tools", :action=>:unroll}, {:object => object}, :id => 'operation_use-tool-input', :class => 'selector required')
-      -for error in object.errors['tool']
+      =selector(:operation_use, :tool, {:controller=>"tools", :action=>:unroll}, {:object => operation_use}, :id => 'operation_use-tool-input', :class => 'selector required')
+      -for error in operation_use.errors['tool']
         %span.help-inline=error
       %span.btn-toolbar
         =link_to({:controller => :tools, :action => :new}, 'data-new-item' => 'operation_use-tool-input', :class => 'btn btn-new') do

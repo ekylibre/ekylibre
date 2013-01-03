@@ -1372,7 +1372,7 @@ module ApplicationHelper
       fs_name = fs[:name]
       set_id = "#{fs_name}-fields"
       toggle_id = "#{set_id}-toggle"
-      fs_haml  = "##{fs[:wrapper_id]}.fieldset.form-horizontal\n"
+      fs_haml  = "%fieldset##{fs[:wrapper_id]}.fieldset.form-horizontal\n"
       fs_haml << "  .fieldset-legend\n"
       fs_haml << "    %span.icon\n"
       fs_haml << "    %span{:for => '#{toggle_id}'}=" + (fs_name.is_a?(Symbol) ? ":'#{fs_name.to_s.gsub('-', '_')}'.t(:default => [:'labels.#{fs_name.to_s.gsub('-', '_')}', :'form.legends.#{fs_name.to_s.gsub('-', '_')}'])" : fs_name.to_s.inspect) + "\n"
@@ -1706,13 +1706,15 @@ module ApplicationHelper
   def render_field_nested_association(name, options = {})
     record = name.to_s.singularize
     nested_model = @master_model.reflections[name].class_name.constantize
+    object = nested_model.name.underscore
     fs_name = options[:in]
 
     partial  = "-# Generated automatically. Don't edit this file.\n"
+    partial << "-#{object} ||= f.object\n"
     partial << ".nested-fields\n"
     partial << "  =link_to_remove_association('labels.remove_#{record}'.t, f, :class => 'nested-remove remove-#{record.to_s.parameterize}')\n"
     for f in options[:fields]
-      partial << render_field(f.merge(:model => nested_model, :object => "object"), 1)
+      partial << render_field(f.merge(:model => nested_model, :object => object), 1)
     end
 
     File.open(Rails.root.join("app", "views", *(controller.class.name.underscore.gsub(/_controller$/, '').split('/')), "_#{record}_fields.html.haml"), "wb") do |f|

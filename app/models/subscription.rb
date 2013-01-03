@@ -20,6 +20,7 @@
 # 
 # == Table: subscriptions
 #
+#  _activation  :string(255)      
 #  address_id   :integer          
 #  comment      :text             
 #  created_at   :datetime         not null
@@ -56,7 +57,7 @@ class Subscription < CompanyRecord
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :first_number, :last_number, :allow_nil => true, :only_integer => true
   validates_numericality_of :quantity, :allow_nil => true
-  validates_length_of :number, :allow_nil => true, :maximum => 255
+  validates_length_of :_activation, :number, :allow_nil => true, :maximum => 255
   validates_inclusion_of :suspended, :in => [true, false]
   #]VALIDATORS]
   validates_presence_of :started_on, :stopped_on, :if=>Proc.new{|u| u.nature and u.nature.nature=="period"}

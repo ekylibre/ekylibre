@@ -15,7 +15,7 @@
   =nested_association(:diagnostics) do
     -input :symptoms
     -input :corpse_location
-    -input :disease
+    -association :disease
 
 -field_set(:treatment) do |f|
   =nested_association(:treatments) do

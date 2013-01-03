@@ -20,6 +20,7 @@
 # 
 # == Table: subscriptions
 #
+#  _activation  :string(255)      
 #  address_id   :integer          
 #  comment      :text             
 #  created_at   :datetime         not null
