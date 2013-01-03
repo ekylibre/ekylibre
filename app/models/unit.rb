@@ -155,7 +155,7 @@ class Unit < CompanyRecord
   end
 
   protect(:on => :destroy) do
-    return true
+    return false
   end
 
 end

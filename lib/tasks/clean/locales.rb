@@ -236,6 +236,9 @@ task :locales => :environment do
     to_translate += hash_count(definition[2])
     translation += "    #{model}:"+yaml_value(definition[2], 2).gsub(/\n/, (definition[1] == :unused ? " #?\n" : "\n"))+"\n"
   end
+  to_translate += hash_count(::I18n.translate("enumerations"))
+  translation += "  enumerations: &enumerations"+hash_to_yaml(::I18n.translate("enumerations"), 2)+"\n"
+  translation << "  enumerize: *enumerations\n"
 
   File.open(locale_dir.join("models.yml"), "wb") do |file|
     file.write(translation)

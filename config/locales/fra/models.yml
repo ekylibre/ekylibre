@@ -1547,3 +1547,12 @@ fra:
     user: #?
       no_right_defined_for_this_part_of_the_application: "Aucun droit défini pour cette partie de l’application\_: %{controller}/%{action}" #?
       no_right_defined_for_this_part_of_the_application_and_this_user: "Vous n’avez pas accès à cette partie de l’application"
+  enumerations: &enumerations
+    cash:
+      mode:
+        bban: "Relevé d’identité bancaire (RIB)"
+        iban: "IBAN"
+      nature:
+        bank_account: "Compte bancaire"
+        cash_box: "Caisse"
+  enumerize: *enumerations

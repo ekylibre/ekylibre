@@ -18,9 +18,7 @@
 #
 
 class ProductsController < AdminController
-  unroll
-  unroll :availables
-  unroll :stockables
+  unroll_all
 
   # management -> products_conditions
   def self.products_conditions(options={})

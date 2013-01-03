@@ -20,7 +20,7 @@
 class DistrictsController < AdminController
   manage_restfully
 
-  unroll
+  unroll_all
 
   list(:children=>:areas, :conditions=>search_conditions(:districts, :districts=>[:code, :name]), :order=>:name) do |t|
     t.column :name

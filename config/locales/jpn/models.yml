@@ -1054,6 +1054,22 @@ jpn:
     # with_transport: "Avec transport"
     # work_center: "Centre d’opération"
     # working_number: "numéro de travail"
+  enumerations:
+    cash:
+      mode:
+        # bban: "Relevé d’identité bancaire (RIB)"
+        # iban: "IBAN"
+      nature:
+        # bank_account: "Compte bancaire"
+        # cash_box: "Caisse"
+  enumerize:
+    cash:
+      mode:
+        # bban: "Relevé d’identité bancaire (RIB)"
+        # iban: "IBAN"
+      nature:
+        # bank_account: "Compte bancaire"
+        # cash_box: "Caisse"
   models:
     account:
       # label: "%{number} - %{name}"

@@ -1066,6 +1066,22 @@ eng:
     with_transport: "With transport"
     work_center: "Work center"
     # working_number: "numéro de travail"
+  enumerations:
+    cash:
+      mode:
+        # bban: "Relevé d’identité bancaire (RIB)"
+        # iban: "IBAN"
+      nature:
+        # bank_account: "Compte bancaire"
+        # cash_box: "Caisse"
+  enumerize:
+    cash:
+      mode:
+        # bban: "Relevé d’identité bancaire (RIB)"
+        # iban: "IBAN"
+      nature:
+        # bank_account: "Compte bancaire"
+        # cash_box: "Caisse"
   models:
     account:
       label: "%{number} - %{name}"

@@ -83,8 +83,9 @@ class Cash < CompanyRecord
   validates_uniqueness_of :account_id
 
   default_scope order(:name)
-  scope :bank_account_of_company, lambda { where("(entity_id IS NULL OR entity_id=?) AND nature=?", Entity.of_company.id, "bank_account") }
-  scope :bank_accounts, lambda { where("(entity_id IS NULL OR entity_id=?) AND nature=?", Entity.of_company.id, "bank_account") }
+  # scope :bank_account_of_company, lambda { where("(entity_id IS NULL OR entity_id=?) AND nature=?", Entity.of_company.id, "bank_account") }
+  scope :bank_accounts, -> { where("(entity_id IS NULL OR entity_id=?) AND nature=?", Entity.of_company.id, "bank_account") }
+  scope :cash_boxes, -> { where("(entity_id IS NULL OR entity_id=?) AND nature=?", Entity.of_company.id, "cash_box") }
 
 
   # before create a bank account, this computes automatically code iban.

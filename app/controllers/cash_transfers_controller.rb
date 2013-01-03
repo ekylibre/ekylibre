@@ -20,7 +20,7 @@
 class CashTransfersController < AdminController
   manage_restfully :created_on=>'Date.today'
 
-  unroll
+  unroll_all
 
   list do |t|
     t.column :number, :url=>true

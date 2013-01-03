@@ -75,6 +75,18 @@ module Ekylibre::Record
 
     class << self
 
+      attr_reader :scopes
+      @scopes = []
+
+      # Permits to consider something and something_id like the same
+      def scope_with_registration(name, scope_options = {})
+        @scopes ||= []
+        @scopes << name
+        scope_without_registration(name, scope_options = {})
+      end
+      alias_method_chain :scope, :registration
+
+
       # Permits to consider something and something_id like the same
       def human_attribute_name_with_id(attribute, options = {})
         human_attribute_name_without_id(attribute.to_s.gsub(/_id$/, ''), options)

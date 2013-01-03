@@ -20,7 +20,7 @@
 class AreasController < AdminController
   manage_restfully :country => "Entity.of_company.country"
 
-  unroll
+  unroll_all
 
   list(:conditions => search_conditions(:areas, :areas => [:postcode, :name]), :order => :name) do |t|
     t.column :name

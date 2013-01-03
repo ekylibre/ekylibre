@@ -18,7 +18,7 @@
 #
 
 class TransportsController < AdminController
-  unroll
+  unroll_all
 
   list(:children => :deliveries, :conditions => light_search_conditions(:transports => [:number, :comment], :entities => [:code, :full_name])) do |t|
     t.column :number, :url => true

@@ -89,7 +89,7 @@ module ApplicationHelper
 
 
   def selector(object_name, association, choices, options = {}, html_options = {})
-    object = instance_variable_get("@#{object_name}")
+    object = options[:object] || instance_variable_get("@#{object_name}")
     model = object.class
     unless reflection = object.class.reflections[association.to_sym]
       raise ArgumentError.new("Unknown reflection for #{model.name}: #{association.inspect}")
@@ -1372,7 +1372,7 @@ module ApplicationHelper
       fs_name = fs[:name]
       set_id = "#{fs_name}-fields"
       toggle_id = "#{set_id}-toggle"
-      fs_haml  = "##{fs[:wrapper_id]}.fieldset.form-horizontal\n"
+      fs_haml  = "%fieldset##{fs[:wrapper_id]}.fieldset.form-horizontal\n"
       fs_haml << "  .fieldset-legend\n"
       fs_haml << "    %span.icon\n"
       fs_haml << "    %span{:for => '#{toggle_id}'}=" + (fs_name.is_a?(Symbol) ? ":'#{fs_name.to_s.gsub('-', '_')}'.t(:default => [:'labels.#{fs_name.to_s.gsub('-', '_')}', :'form.legends.#{fs_name.to_s.gsub('-', '_')}'])" : fs_name.to_s.inspect) + "\n"
@@ -1575,6 +1575,7 @@ module ApplicationHelper
     haml  = ""
     input_html = {}
     model = options[:model] || @master_model
+    object = options[:object] || "@" + model.name.underscore
     readonly = model.readonly_attributes.include?(name.to_s)
     # face ||= :select if source.is_a?(Symbol)
     if model.columns_hash[name.to_s]
@@ -1590,7 +1591,7 @@ module ApplicationHelper
     haml << "=f.input(:#{name}"
     haml << ", :collection => #{source}" if source.is_a?(Symbol)
     haml << ", :as => :#{FACES[face]||face}" if face.is_a?(Symbol)
-    haml << ", :readonly => !@#{model.name.underscore}.new_record?" if readonly
+    haml << ", :readonly => !#{object}.new_record?" if readonly
     haml << ", :wrapper_html => {:id => '#{options[:wrapper_id]}'}"
     input_html[:rows] = "3" if face == :text
 
@@ -1623,6 +1624,7 @@ module ApplicationHelper
 
   def render_field_association(name, options = {})
     model = options[:model] || @master_model
+    object = options[:object] || "@" + model.name.underscore
     reflection = model.reflections[name]
     raise ArgumentError.new("Unknown reflection :#{name} for #{model.name}") if reflection.nil?
     reflection_model = reflection.class_name.classify.constantize
@@ -1649,7 +1651,7 @@ module ApplicationHelper
         sources << default_source
         sources_code = sources.collect do |s|
           x  = ""
-          x << "(" + s[0].collect{|k,v| "@#{model.name.underscore}.#{k}.to_s == '#{v}'" }.join(" && ") + ") ? " unless s[0].empty?
+          x << "(" + s[0].collect{|k,v| "#{object}.#{k}.to_s == '#{v}'" }.join(" && ") + ") ? " unless s[0].empty?
           x << (s[1].nil? ? "'NoDefaultSource'" : normalize_source(s[1], reflection.class_name.underscore.pluralize).inspect)
           x
         end.join(" : ")
@@ -1659,12 +1661,12 @@ module ApplicationHelper
           x << (s[1].nil? ? "NoDefaultSource" : url_for(normalize_source(s[1], reflection.class_name.underscore.pluralize)))
           x
         end.join(" : ")
-        haml << "    =selector(:#{model.name.underscore}, :#{reflection.name}, (#{sources_code}), {}, :id => '#{input_id}', :class => 'selector#{' required' if required}', 'data-change-source' => '#{sources_data}')\n"
+        haml << "    =selector(:#{model.name.underscore}, :#{reflection.name}, (#{sources_code}), {:object => #{object}}, :id => '#{input_id}', :class => 'selector#{' required' if required}', 'data-change-source' => '#{sources_data}')\n"
       else
         source = normalize_source(source, reflection.class_name.underscore.pluralize)
-        haml << "    =selector(:#{model.name.underscore}, :#{reflection.name}, #{source.inspect}, {}, :id => '#{input_id}', :class => 'selector#{' required' if required}')\n"
+        haml << "    =selector(:#{model.name.underscore}, :#{reflection.name}, #{source.inspect}, {:object => #{object}}, :id => '#{input_id}', :class => 'selector#{' required' if required}')\n"
       end
-      haml << "    -for error in @#{model.name.underscore}.errors['#{reflection.name}']\n"
+      haml << "    -for error in #{object}.errors['#{reflection.name}']\n"
       haml << "      %span.help-inline=error\n"
       buttons = options[:buttons] || {}
       for action in [:new] # , :edit  system actions
@@ -1704,13 +1706,15 @@ module ApplicationHelper
   def render_field_nested_association(name, options = {})
     record = name.to_s.singularize
     nested_model = @master_model.reflections[name].class_name.constantize
+    object = nested_model.name.underscore
     fs_name = options[:in]
 
     partial  = "-# Generated automatically. Don't edit this file.\n"
+    partial << "-#{object} ||= f.object\n"
     partial << ".nested-fields\n"
     partial << "  =link_to_remove_association('labels.remove_#{record}'.t, f, :class => 'nested-remove remove-#{record.to_s.parameterize}')\n"
     for f in options[:fields]
-      partial << render_field(f.merge(:model => nested_model), 1)
+      partial << render_field(f.merge(:model => nested_model, :object => object), 1)
     end
 
     File.open(Rails.root.join("app", "views", *(controller.class.name.underscore.gsub(/_controller$/, '').split('/')), "_#{record}_fields.html.haml"), "wb") do |f|

@@ -20,7 +20,7 @@
 class IncomingPaymentsController < AdminController
   manage_restfully :to_bank_on=>"Date.today", :paid_on=>"Date.today", :responsible_id=>"@current_user.id", :payer_id=>"(Entity.find(params[:payer_id]).id rescue 0)", :amount=>"params[:amount].to_f", :bank=>"params[:bank]", :account_number=>"params[:account_number]"
 
-  unroll
+  unroll_all
 
   def self.incoming_payments_conditions(options={})
     code = search_conditions(:incoming_payments, :incoming_payments=>[:amount, :used_amount, :check_number, :number, :account_number

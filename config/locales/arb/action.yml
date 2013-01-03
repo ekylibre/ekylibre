@@ -46,7 +46,7 @@ arb:
       # show: "Type d'évènement %{name}"
     animal_events:
       # edit: "Modifier un évènement"
-      # index: "Evènements"
+      # index: "Évènements"
       # new: "Créer un évènement"
       # show: "évènement %{name} commencé le %{started_at}"
     animal_groups:

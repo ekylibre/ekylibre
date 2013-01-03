@@ -20,7 +20,7 @@
 class WarehousesController < AdminController
   manage_restfully :reservoir=>"params[:reservoir]"
 
-  unroll
+  unroll_all
 
   list do |t|
     t.column :name, :url=>true

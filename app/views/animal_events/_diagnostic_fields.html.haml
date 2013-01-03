@@ -1,14 +1,15 @@
 -# Generated automatically. Don't edit this file.
+-animal_diagnostic ||= f.object
 .nested-fields
   =link_to_remove_association('labels.remove_diagnostic'.t, f, :class => 'nested-remove remove-diagnostic')
-  =f.input(:symptoms, :readonly => !@animal_diagnostic.new_record?, :wrapper_html => {:id => 'symptoms-field'})
-  =f.input(:corpse_location, :readonly => !@animal_diagnostic.new_record?, :wrapper_html => {:id => 'corpse-location-field'})
+  =f.input(:symptoms, :readonly => !animal_diagnostic.new_record?, :wrapper_html => {:id => 'symptoms-field'})
+  =f.input(:corpse_location, :readonly => !animal_diagnostic.new_record?, :wrapper_html => {:id => 'corpse-location-field'})
   #disease-field.control-group
     %label.control-label{:for => 'animal_diagnostic-disease-input'}
       =AnimalDiagnostic.human_attribute_name('disease')
     .controls
-      =selector(:animal_diagnostic, :disease, {:controller=>"animal_diseases", :action=>:unroll}, {}, :id => 'animal_diagnostic-disease-input', :class => 'selector')
-      -for error in @animal_diagnostic.errors['disease']
+      =selector(:animal_diagnostic, :disease, {:controller=>"animal_diseases", :action=>:unroll}, {:object => animal_diagnostic}, :id => 'animal_diagnostic-disease-input', :class => 'selector')
+      -for error in animal_diagnostic.errors['disease']
         %span.help-inline=error
       %span.btn-toolbar
         =link_to({:controller => :animal_diseases, :action => :new}, 'data-new-item' => 'animal_diagnostic-disease-input', :class => 'btn btn-new') do
