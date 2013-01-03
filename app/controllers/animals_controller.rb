@@ -47,7 +47,7 @@ class AnimalsController < AdminController
     respond_to do |format|
       format.json { render json: @animal }
       format.xml { render xml: @animal , :include => [:race , :father, :mother]}
-      format.pdf { render pdf: @animal }
+      format.pdf { respond_with @animal }
       format.html
     end
   end

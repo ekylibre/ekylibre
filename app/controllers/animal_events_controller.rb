@@ -19,7 +19,7 @@
 
 class AnimalEventsController < AdminController
   manage_restfully :animal_id=>"params[:animal_id]", :animal_group_id=>"params[:animal_group_id]"
-  respond_to :pdf, :html, :xml
+  respond_to :xml, :pdf, :html
   unroll :label => "{name}"
   list() do |t|
     t.column :name, :url=>true
@@ -46,7 +46,7 @@ class AnimalEventsController < AdminController
        :diseases,
        :treatments => { :include => [:drug, :quantity_unit, :prescription]}
        ] }
-     format.pdf { render pdf: @animal_event }
+     format.pdf { respond_with @animal_event }
      format.html
      end
   end
