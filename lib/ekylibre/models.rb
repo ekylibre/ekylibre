@@ -21,7 +21,7 @@ module Ekylibre
       :father_id => :animal,
       :group_id => :animal_group,
       :mother_id => :animal,
-      :owner_id => '',
+      :owner_id => :entity,
       :race_id => :animal_race,
       :updater_id => :entity
     },
@@ -37,7 +37,7 @@ module Ekylibre
     },
     :animal_drug => {
       :creator_id => :entity,
-      :nature_id => '',
+      :nature_id => :animal_drug_nature,
       :unit_id => :unit,
       :updater_id => :entity
     },
@@ -65,14 +65,14 @@ module Ekylibre
     :animal_posology => {
       :animal_race_nature_id => :animal_race_nature,
       :creator_id => :entity,
-      :disease_id => '',
-      :drug_id => '',
-      :quantity_unit_id => '',
+      :disease_id => :animal_disease,
+      :drug_id => :animal_drug,
+      :quantity_unit_id => :unit,
       :updater_id => :entity
     },
     :animal_prescription => {
       :creator_id => :entity,
-      :prescriptor_id => '',
+      :prescriptor_id => :entity,
       :updater_id => :entity
     },
     :animal_race => {
@@ -90,7 +90,7 @@ module Ekylibre
       :drug_id => :drug,
       :event_id => :event,
       :prescription_id => :prescription,
-      :quantity_unit_id => '',
+      :quantity_unit_id => :unit,
       :updater_id => :entity
     },
     :area => {

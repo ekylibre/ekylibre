@@ -134,7 +134,7 @@
 #   - "tool_natures::new"
 #   - "tool_natures::show"
 #   - "tool_natures::update"
-# Accéder au minimum vital
+# Access to the minimum
 __minimum__:
   actions:
   - "dashboards::index"
@@ -146,22 +146,22 @@ __minimum__:
   - "interfacers::product_trackings"
   - "interfacers::product_units"
   - "interfacers::search_for_account"
-  - "interfacers::search_for_all_contacts"
+  - "interfacers::search_for_all_contacts # NONEXISTENT ACTION !!!"
   - "interfacers::search_for_attorneys_accounts"
   - "interfacers::search_for_available_prices"
-  - "interfacers::search_for_client_contacts"
+  - "interfacers::search_for_client_contacts # NONEXISTENT ACTION !!!"
   - "interfacers::search_for_clients"
   - "interfacers::search_for_clients_accounts"
   - "interfacers::search_for_collected_account"
   - "interfacers::search_for_districts"
   - "interfacers::search_for_entities"
-  - "interfacers::search_for_incoming_delivery_contacts"
+  - "interfacers::search_for_incoming_delivery_contacts # NONEXISTENT ACTION !!!"
   - "interfacers::search_for_operation_products"
-  - "interfacers::search_for_outgoing_deliveries"
-  - "interfacers::search_for_outgoing_delivery_contacts"
+  - "interfacers::search_for_outgoing_deliveries # NONEXISTENT ACTION !!!"
+  - "interfacers::search_for_outgoing_delivery_contacts # NONEXISTENT ACTION !!!"
   - "interfacers::search_for_paid_account"
   - "interfacers::search_for_purchase_products"
-  - "interfacers::search_for_subscription_contacts"
+  - "interfacers::search_for_subscription_contacts # NONEXISTENT ACTION !!!"
   - "interfacers::search_for_suppliers"
   - "interfacers::search_for_suppliers_accounts"
   - "interfacers::toggle_module"
@@ -210,43 +210,43 @@ __public__:
   - "sessions::destroy"
   - "sessions::new"
   - "sessions::renew"
-# Effectuer/Recharger des sauvegardes
+# Make and reload backups
 backup_company:
   actions:
-  - "dashboards::settings"
+  - "dashboards::settings # NONEXISTENT ACTION !!!"
   - "settings::backup"
   - "settings::backups"
   - "settings::restore"
-# Basculer les opérations commerciales en comptabilité
+# Transfer commercial data in accountancy
 bookkeep:
   actions:
-  - "dashboards::accountancy"
+  - "dashboards::accountancy # NONEXISTENT ACTION !!!"
   - "journals::bookkeep"
-# Construire des chaînes de production
+# Build production chains
 build_production_chains:
   actions: []
-# Faire des avoirs
+# Cancel sales_invoices
 cancel_sales_invoices:
   actions:
-  - "dashboards::sales"
+  - "dashboards::sales # NONEXISTENT ACTION !!!"
   - "sales::cancel"
   - "sales::index"
   - "sales::list_creditable_lines"
   - "sales::list_credits"
-# Changer les prix au moment des ventes
+# Change prices on sales
 change_prices_on_sales:
   actions: []
-# Clôturer et déclôturer des journaux
+# Close and reopen journals
 close_journals:
   actions:
-  - "dashboards::accountancy"
+  - "dashboards::accountancy # NONEXISTENT ACTION !!!"
   - "journals::close"
   - "journals::index"
   - "journals::reopen"
-# Configurer les options de la société
+# Configure the options of the company
 configure_company:
   actions:
-  - "dashboards::settings"
+  - "dashboards::settings # NONEXISTENT ACTION !!!"
   - "departments::create"
   - "departments::destroy"
   - "departments::edit"
@@ -271,22 +271,22 @@ configure_company:
   - "sequences::update"
   - "settings::edit"
   - "settings::update"
-# Consulter les documents comptables
+# Consult accounting documents
 consult_accounting_documents:
   actions:
-  - "dashboards::accountancy"
+  - "dashboards::accountancy # NONEXISTENT ACTION !!!"
   - "journals::balance"
   - "journals::general_ledger"
   - "journals::list_general_ledger"
   - "journals::reports"
-# Consulter les fiches clients/fournisseurs
+# Consult the people
 consult_entities:
   actions:
-  - "dashboards::relationship"
+  - "dashboards::relationship # NONEXISTENT ACTION !!!"
   - "entities::index"
   - "entities::list"
   - "entities::list_cashes"
-  - "entities::list_contacts"
+  - "entities::list_contacts # NONEXISTENT ACTION !!!"
   - "entities::list_events"
   - "entities::list_incoming_payments"
   - "entities::list_outgoing_payments"
@@ -294,27 +294,27 @@ consult_entities:
   - "entities::list_sales"
   - "entities::list_subscriptions"
   - "entities::show"
-# Consulter les écritures
+# Consult the journal entries
 consult_journal_entries:
   actions:
-  - "dashboards::accountancy"
+  - "dashboards::accountancy # NONEXISTENT ACTION !!!"
   - "journals::index"
   - "journals::show"
-# Consulter les prix
+# Consult the prices
 consult_prices:
   actions:
-  - "dashboards::sales"
+  - "dashboards::sales # NONEXISTENT ACTION !!!"
   - "prices::index"
-# Consulter les produits
+# Consult the products
 consult_products:
   actions:
-  - "dashboards::sales"
+  - "dashboards::sales # NONEXISTENT ACTION !!!"
   - "products::index"
   - "products::show"
-# Consulter les achats
+# Consult the purchases
 consult_purchases:
   actions:
-  - "dashboards::purchases"
+  - "dashboards::purchases # NONEXISTENT ACTION !!!"
   - "purchases::index"
   - "purchases::list"
   - "purchases::list_deliveries"
@@ -322,10 +322,10 @@ consult_purchases:
   - "purchases::list_payment_uses"
   - "purchases::list_undelivered_lines"
   - "purchases::show"
-# Consulter les ventes
+# Consult the sales
 consult_sales:
   actions:
-  - "dashboards::sales"
+  - "dashboards::sales # NONEXISTENT ACTION !!!"
   - "sales::index"
   - "sales::list"
   - "sales::list_deliveries"
@@ -334,51 +334,51 @@ consult_sales:
   - "sales::list_undelivered_lines"
   - "sales::show"
   - "sales::statistics"
-# Consulter l’état des stocks
+# Consult the stocks
 consult_stocks:
   actions:
   - "dashboards::list_critic_stocks"
-  - "dashboards::sales"
+  - "dashboards::sales # NONEXISTENT ACTION !!!"
   - "stocks::index"
   - "stocks::list"
-# Consulter les informations de tracabilité
+# Consult the tracking informations
 consult_trackings:
   actions:
-  - "dashboards::stocks"
+  - "dashboards::stocks # NONEXISTENT ACTION !!!"
   - "trackings::list_operation_lines"
   - "trackings::list_purchase_lines"
   - "trackings::list_sale_lines"
   - "trackings::list_stocks"
   - "trackings::show"
-# Effectuer des extractions (sans pouvoir les concevoir)
+# Export listings
 extract_listings:
   actions:
-  - "dashboards::settings"
+  - "dashboards::settings # NONEXISTENT ACTION !!!"
   - "listings::extract"
   - "listings::index"
-# Octroyer des réductions commerciales lors des ventes
+# Set reduction on sales
 give_discounts_on_sales:
   actions: []
-# Importer des données d’autres logiciels
+# Import data from other software
 import_data:
   actions:
-  - "dashboards::settings"
+  - "dashboards::settings # NONEXISTENT ACTION !!!"
   - "settings::import"
-# Importer, exporter des fiches clients/fournisseurs
+# Import, export people listings
 import_export_entities:
   actions:
-  - "dashboards::relationship"
+  - "dashboards::relationship # NONEXISTENT ACTION !!!"
   - "entities::export"
   - "entities::import"
   - "entities::index"
   - "entities::list"
-# Gérer l’envoi de courriels par les extractions
+# Send mail to lists
 mail_to_listings:
   actions:
-  - "dashboards::settings"
+  - "dashboards::settings # NONEXISTENT ACTION !!!"
   - "listings::index"
   - "listings::mail"
-# Gérer les comptes comptables
+# Manage accounts
 manage_accounts:
   actions:
   - "accounts::create"
@@ -392,8 +392,8 @@ manage_accounts:
   - "accounts::new"
   - "accounts::show"
   - "accounts::update"
-  - "dashboards::accountancy"
-# Gérer les zones
+  - "dashboards::accountancy # NONEXISTENT ACTION !!!"
+# Manage areas
 manage_areas:
   actions:
   - "areas::create"
@@ -403,8 +403,8 @@ manage_areas:
   - "areas::list"
   - "areas::new"
   - "areas::update"
-  - "dashboards::relationship"
-# Gérer les immobilisations
+  - "dashboards::relationship # NONEXISTENT ACTION !!!"
+# Manage assets
 manage_assets:
   actions:
   - "assets::create"
@@ -416,8 +416,8 @@ manage_assets:
   - "assets::new"
   - "assets::show"
   - "assets::update"
-  - "dashboards::accountancy"
-# Pointage des relevés de comptes
+  - "dashboards::accountancy # NONEXISTENT ACTION !!!"
+# Point bank statements
 manage_bank_statements:
   actions:
   - "bank_statements::create"
@@ -430,8 +430,8 @@ manage_bank_statements:
   - "bank_statements::point"
   - "bank_statements::show"
   - "bank_statements::update"
-  - "dashboards::accountancy"
-# Gérer les virements internes
+  - "dashboards::accountancy # NONEXISTENT ACTION !!!"
+# Manage cash transfers
 manage_cash_transfers:
   actions:
   - "cash_transfers::create"
@@ -442,8 +442,8 @@ manage_cash_transfers:
   - "cash_transfers::new"
   - "cash_transfers::show"
   - "cash_transfers::update"
-  - "dashboards::accountancy"
-# Gérer les comptes de trésorerie
+  - "dashboards::accountancy # NONEXISTENT ACTION !!!"
+# Manage cashes
 manage_cashes:
   actions:
   - "cashes::create"
@@ -456,8 +456,8 @@ manage_cashes:
   - "cashes::new"
   - "cashes::show"
   - "cashes::update"
-  - "dashboards::accountancy"
-# Gérer les champs personnalisés
+  - "dashboards::accountancy # NONEXISTENT ACTION !!!"
+# Manage custom fields
 manage_custom_fields:
   actions:
   - "custom_field_choices::create"
@@ -479,11 +479,11 @@ manage_custom_fields:
   - "custom_fields::sort"
   - "custom_fields::up"
   - "custom_fields::update"
-  - "dashboards::relationship"
-# Gérer les délais
+  - "dashboards::relationship # NONEXISTENT ACTION !!!"
+# Manage delays
 manage_delays:
   actions:
-  - "dashboards::sales"
+  - "dashboards::sales # NONEXISTENT ACTION !!!"
   - "delays::create"
   - "delays::destroy"
   - "delays::edit"
@@ -492,10 +492,10 @@ manage_delays:
   - "delays::new"
   - "delays::show"
   - "delays::update"
-# Gérer les remises en banque
+# Manage deposits
 manage_deposits:
   actions:
-  - "dashboards::accountancy"
+  - "dashboards::accountancy # NONEXISTENT ACTION !!!"
   - "deposits::create"
   - "deposits::destroy"
   - "deposits::edit"
@@ -508,10 +508,10 @@ manage_deposits:
   - "deposits::show"
   - "deposits::unvalidateds"
   - "deposits::update"
-# Gérer les zones administratives
+# Manage districts
 manage_districts:
   actions:
-  - "dashboards::relationship"
+  - "dashboards::relationship # NONEXISTENT ACTION !!!"
   - "districts::create"
   - "districts::destroy"
   - "districts::edit"
@@ -520,10 +520,10 @@ manage_districts:
   - "districts::new"
   - "districts::update"
   - "interfacers::search_for_districts"
-# Gérer les modèles de document
+# Manage document templates
 manage_document_templates:
   actions:
-  - "dashboards::settings"
+  - "dashboards::settings # NONEXISTENT ACTION !!!"
   - "document_templates::create"
   - "document_templates::destroy"
   - "document_templates::duplicate"
@@ -534,14 +534,14 @@ manage_document_templates:
   - "document_templates::new"
   - "document_templates::print"
   - "document_templates::update"
-# Gérer les fiches clients/fournisseurs
+# Manage people
 manage_entities:
   actions:
   - "entities::create"
   - "entities::destroy"
   - "entities::edit"
   - "entities::list_cashes"
-  - "entities::list_contacts"
+  - "entities::list_contacts # NONEXISTENT ACTION !!!"
   - "entities::list_events"
   - "entities::list_incoming_payments"
   - "entities::list_mandates"
@@ -555,10 +555,10 @@ manage_entities:
   - "interfacers::search_for_attorneys_accounts"
   - "interfacers::search_for_clients_accounts"
   - "interfacers::search_for_suppliers_accounts"
-# Gérer les types de fiche
+# Manage people natures
 manage_entities_natures:
   actions:
-  - "dashboards::relationship"
+  - "dashboards::relationship # NONEXISTENT ACTION !!!"
   - "entity_natures::create"
   - "entity_natures::destroy"
   - "entity_natures::edit"
@@ -566,10 +566,10 @@ manage_entities_natures:
   - "entity_natures::list"
   - "entity_natures::new"
   - "entity_natures::update"
-# Gérer les catégories de fiche
+# Manage people categories
 manage_entity_categories:
   actions:
-  - "dashboards::relationship"
+  - "dashboards::relationship # NONEXISTENT ACTION !!!"
   - "entity_categories::create"
   - "entity_categories::destroy"
   - "entity_categories::edit"
@@ -579,10 +579,10 @@ manage_entity_categories:
   - "entity_categories::new"
   - "entity_categories::show"
   - "entity_categories::update"
-# Gérer les liens entre fiches
+# Manage people links
 manage_entity_links:
   actions:
-  - "dashboards::relationship"
+  - "dashboards::relationship # NONEXISTENT ACTION !!!"
   - "entities::list_links"
   - "entity_link_natures::create"
   - "entity_link_natures::destroy"
@@ -596,10 +596,10 @@ manage_entity_links:
   - "entity_links::edit"
   - "entity_links::new"
   - "entity_links::update"
-# Créer, modifier des devis
+# Create and update estimates
 manage_estimates:
   actions:
-  - "dashboards::sales"
+  - "dashboards::sales # NONEXISTENT ACTION !!!"
   - "interfacers::search_for_available_prices"
   - "interfacers::search_for_clients"
   - "prices::find"
@@ -623,10 +623,10 @@ manage_estimates:
   - "sales::show"
   - "sales::update"
   - "subscriptions::coordinates"
-# Gérer les évènements
+# Manage events
 manage_events:
   actions:
-  - "dashboards::relationship"
+  - "dashboards::relationship # NONEXISTENT ACTION !!!"
   - "event_natures::create"
   - "event_natures::destroy"
   - "event_natures::edit"
@@ -643,10 +643,10 @@ manage_events:
   - "events::new"
   - "events::update"
   - "interfacers::autocomplete_for_event_location"
-# Gérer, clôturer les exercices
+# Manage and close financial years
 manage_financial_years:
   actions:
-  - "dashboards::accountancy"
+  - "dashboards::accountancy # NONEXISTENT ACTION !!!"
   - "financial_years::close"
   - "financial_years::compute_balances"
   - "financial_years::create"
@@ -660,10 +660,10 @@ manage_financial_years:
   - "financial_years::new"
   - "financial_years::show"
   - "financial_years::update"
-# Gérer les modes de livraisons entrantes
+# Manage incoming delivery modes
 manage_incoming_delivery_modes:
   actions:
-  - "dashboards::sales"
+  - "dashboards::sales # NONEXISTENT ACTION !!!"
   - "incoming_delivery_modes::create"
   - "incoming_delivery_modes::destroy"
   - "incoming_delivery_modes::edit"
@@ -671,10 +671,10 @@ manage_incoming_delivery_modes:
   - "incoming_delivery_modes::list"
   - "incoming_delivery_modes::new"
   - "incoming_delivery_modes::update"
-# Gérer les modes d’encaissement
+# Manage incoming payment modes
 manage_incoming_payment_modes:
   actions:
-  - "dashboards::accountancy"
+  - "dashboards::accountancy # NONEXISTENT ACTION !!!"
   - "incoming_payment_modes::create"
   - "incoming_payment_modes::destroy"
   - "incoming_payment_modes::down"
@@ -685,10 +685,10 @@ manage_incoming_payment_modes:
   - "incoming_payment_modes::reflect"
   - "incoming_payment_modes::up"
   - "incoming_payment_modes::update"
-# Gérer les règlements de vente
+# Manage sale payments
 manage_incoming_payments:
   actions:
-  - "dashboards::accountancy"
+  - "dashboards::accountancy # NONEXISTENT ACTION !!!"
   - "incoming_payment_uses::create"
   - "incoming_payment_uses::destroy"
   - "incoming_payment_uses::new"
@@ -703,10 +703,10 @@ manage_incoming_payments:
   - "incoming_payments::update"
   - "sales::list_payment_uses"
   - "sales::show"
-# Gérer les inventaires
+# Manage inventories
 manage_inventories:
   actions:
-  - "dashboards::sales"
+  - "dashboards::sales # NONEXISTENT ACTION !!!"
   - "inventories::create"
   - "inventories::destroy"
   - "inventories::edit"
@@ -719,14 +719,14 @@ manage_inventories:
   - "inventories::reflect"
   - "inventories::show"
   - "inventories::update"
-# Gérer les écritures
+# Manage journal entries
 manage_journal_entries:
   actions:
   - "accounts::list_reconciliation"
   - "accounts::mark"
   - "accounts::reconciliation"
   - "accounts::unmark"
-  - "dashboards::accountancy"
+  - "dashboards::accountancy # NONEXISTENT ACTION !!!"
   - "interfacers::search_for_account"
   - "journal_entries::create"
   - "journal_entries::destroy"
@@ -745,10 +745,10 @@ manage_journal_entries:
   - "journals::list_lines"
   - "journals::list_mixed"
   - "journals::show"
-# Gérer, clôturer, déclôturer les journaux
+# Manage, close and reopen journals
 manage_journals:
   actions:
-  - "dashboards::accountancy"
+  - "dashboards::accountancy # NONEXISTENT ACTION !!!"
   - "journals::close"
   - "journals::create"
   - "journals::destroy"
@@ -759,10 +759,10 @@ manage_journals:
   - "journals::reopen"
   - "journals::show"
   - "journals::update"
-# Gérer les groupes d’îlots
+# Manage groups of land parcels
 manage_land_parcel_groups:
   actions:
-  - "dashboards::production"
+  - "dashboards::production # NONEXISTENT ACTION !!!"
   - "land_parcel_groups::create"
   - "land_parcel_groups::destroy"
   - "land_parcel_groups::edit"
@@ -770,10 +770,10 @@ manage_land_parcel_groups:
   - "land_parcel_groups::list"
   - "land_parcel_groups::new"
   - "land_parcel_groups::update"
-# Gérer les îlots
+# Manage fields
 manage_land_parcels:
   actions:
-  - "dashboards::production"
+  - "dashboards::production # NONEXISTENT ACTION !!!"
   - "land_parcels::create"
   - "land_parcels::destroy"
   - "land_parcels::divide"
@@ -785,10 +785,10 @@ manage_land_parcels:
   - "land_parcels::new"
   - "land_parcels::show"
   - "land_parcels::update"
-# Gérer les extractions
+# Manage listings
 manage_listings:
   actions:
-  - "dashboards::settings"
+  - "dashboards::settings # NONEXISTENT ACTION !!!"
   - "listing_nodes::create"
   - "listing_nodes::destroy"
   - "listing_nodes::edit"
@@ -802,10 +802,10 @@ manage_listings:
   - "listings::list"
   - "listings::new"
   - "listings::update"
-# Gérer les responsabilités
+# Manage mandates
 manage_mandates:
   actions:
-  - "dashboards::relationship"
+  - "dashboards::relationship # NONEXISTENT ACTION !!!"
   - "interfacers::autocomplete_for_mandate_family"
   - "interfacers::autocomplete_for_mandate_organization"
   - "interfacers::autocomplete_for_mandate_title"
@@ -817,20 +817,20 @@ manage_mandates:
   - "mandates::list"
   - "mandates::new"
   - "mandates::update"
-# Gérer les observations
+# Manage observations
 manage_observations:
   actions:
-  - "dashboards::relationship"
+  - "dashboards::relationship # NONEXISTENT ACTION !!!"
   - "entities::list_observations"
   - "observations::create"
   - "observations::destroy"
   - "observations::edit"
   - "observations::new"
   - "observations::update"
-# Gérer les travaux
+# Manage operations
 manage_operations:
   actions:
-  - "dashboards::production"
+  - "dashboards::production # NONEXISTENT ACTION !!!"
   - "interfacers::search_for_operation_products"
   - "operation_lines::create"
   - "operation_lines::new"
@@ -855,10 +855,10 @@ manage_operations:
   - "operations::show"
   - "operations::unvalidateds"
   - "operations::update"
-# Gérer les types de livraison
+# Manage outgoing delivery modes
 manage_outgoing_delivery_modes:
   actions:
-  - "dashboards::sales"
+  - "dashboards::sales # NONEXISTENT ACTION !!!"
   - "outgoing_delivery_modes::create"
   - "outgoing_delivery_modes::destroy"
   - "outgoing_delivery_modes::edit"
@@ -866,10 +866,10 @@ manage_outgoing_delivery_modes:
   - "outgoing_delivery_modes::list"
   - "outgoing_delivery_modes::new"
   - "outgoing_delivery_modes::update"
-# Gérer les modes de décaissement
+# Manage disbursement modes
 manage_outgoing_payment_modes:
   actions:
-  - "dashboards::accountancy"
+  - "dashboards::accountancy # NONEXISTENT ACTION !!!"
   - "outgoing_payment_modes::create"
   - "outgoing_payment_modes::destroy"
   - "outgoing_payment_modes::down"
@@ -879,10 +879,10 @@ manage_outgoing_payment_modes:
   - "outgoing_payment_modes::new"
   - "outgoing_payment_modes::up"
   - "outgoing_payment_modes::update"
-# Gérer les décaissements
+# Manage disbursements
 manage_outgoing_payments:
   actions:
-  - "dashboards::accountancy"
+  - "dashboards::accountancy # NONEXISTENT ACTION !!!"
   - "outgoing_payment_uses::create"
   - "outgoing_payment_uses::destroy"
   - "outgoing_payment_uses::new"
@@ -898,10 +898,10 @@ manage_outgoing_payments:
   - "purchases::list_lines"
   - "purchases::list_payment_uses"
   - "purchases::show"
-# Gérer les prix
+# Manage prices
 manage_prices:
   actions:
-  - "dashboards::sales"
+  - "dashboards::sales # NONEXISTENT ACTION !!!"
   - "prices::create"
   - "prices::destroy"
   - "prices::edit"
@@ -910,10 +910,10 @@ manage_prices:
   - "prices::list"
   - "prices::new"
   - "prices::update"
-# Gérer les catégories de produits
+# Manage product categories
 manage_product_categories:
   actions:
-  - "dashboards::sales"
+  - "dashboards::sales # NONEXISTENT ACTION !!!"
   - "product_categories::create"
   - "product_categories::destroy"
   - "product_categories::edit"
@@ -923,10 +923,10 @@ manage_product_categories:
   - "product_categories::new"
   - "product_categories::show"
   - "product_categories::update"
-# Gérer les produits
+# Manage products
 manage_products:
   actions:
-  - "dashboards::sales"
+  - "dashboards::sales # NONEXISTENT ACTION !!!"
   - "product_components::create"
   - "product_components::destroy"
   - "product_components::edit"
@@ -943,10 +943,10 @@ manage_products:
   - "products::list_stocks"
   - "products::new"
   - "products::update"
-# Gérer les types d’achat
+# Manage purchase natures
 manage_purchase_natures:
   actions:
-  - "dashboards::settings"
+  - "dashboards::settings # NONEXISTENT ACTION !!!"
   - "purchase_natures::create"
   - "purchase_natures::destroy"
   - "purchase_natures::edit"
@@ -955,10 +955,10 @@ manage_purchase_natures:
   - "purchase_natures::new"
   - "purchase_natures::show"
   - "purchase_natures::update"
-# Gérer les achats
+# Manage purchases
 manage_purchases:
   actions:
-  - "dashboards::purchases"
+  - "dashboards::purchases # NONEXISTENT ACTION !!!"
   - "incoming_deliveries::confirm"
   - "incoming_deliveries::create"
   - "incoming_deliveries::destroy"
@@ -974,7 +974,7 @@ manage_purchases:
   - "incoming_delivery_modes::list"
   - "incoming_delivery_modes::new"
   - "incoming_delivery_modes::update"
-  - "interfacers::search_for_incoming_delivery_contacts"
+  - "interfacers::search_for_incoming_delivery_contacts # NONEXISTENT ACTION !!!"
   - "interfacers::search_for_purchase_products"
   - "interfacers::search_for_suppliers"
   - "purchase_lines::create"
@@ -1000,10 +1000,10 @@ manage_purchases:
   - "purchases::refuse"
   - "purchases::show"
   - "purchases::update"
-# Gérer les types de vente
+# Manage sales natures
 manage_sale_natures:
   actions:
-  - "dashboards::settings"
+  - "dashboards::settings # NONEXISTENT ACTION !!!"
   - "sale_natures::create"
   - "sale_natures::destroy"
   - "sale_natures::edit"
@@ -1012,11 +1012,11 @@ manage_sale_natures:
   - "sale_natures::new"
   - "sale_natures::show"
   - "sale_natures::update"
-# Gérer les ventes (devis, commandes et livraisons)
+# Manages sales
 manage_sales:
   actions:
-  - "dashboards::sales"
-  - "interfacers::search_for_outgoing_delivery_contacts"
+  - "dashboards::sales # NONEXISTENT ACTION !!!"
+  - "interfacers::search_for_outgoing_delivery_contacts # NONEXISTENT ACTION !!!"
   - "outgoing_deliveries::create"
   - "outgoing_deliveries::destroy"
   - "outgoing_deliveries::edit"
@@ -1037,10 +1037,10 @@ manage_sales:
   - "sales::propose_and_invoice"
   - "sales::refuse"
   - "sales::show"
-# Gérer les mouvements de stocks
+# Manage stock moves
 manage_stock_moves:
   actions:
-  - "dashboards::stocks"
+  - "dashboards::stocks # NONEXISTENT ACTION !!!"
   - "stock_transfers::confirm"
   - "stock_transfers::confirm_all"
   - "stock_transfers::create"
@@ -1058,10 +1058,10 @@ manage_stock_moves:
   - "stocks::list"
   - "stocks::new"
   - "stocks::update"
-# Gérer les abonnements
+# Manage subscriptions
 manage_subscriptions:
   actions:
-  - "dashboards::sales"
+  - "dashboards::sales # NONEXISTENT ACTION !!!"
   - "subscription_natures::create"
   - "subscription_natures::decrement"
   - "subscription_natures::destroy"
@@ -1079,10 +1079,10 @@ manage_subscriptions:
   - "subscriptions::list"
   - "subscriptions::new"
   - "subscriptions::update"
-# Gérer les taxes
+# Manage taxes
 manage_taxes:
   actions:
-  - "dashboards::accountancy"
+  - "dashboards::accountancy # NONEXISTENT ACTION !!!"
   - "interfacers::search_for_collected_account"
   - "interfacers::search_for_paid_account"
   - "taxes::create"
@@ -1092,10 +1092,10 @@ manage_taxes:
   - "taxes::list"
   - "taxes::new"
   - "taxes::update"
-# Gérer les outils de production
+# Manage tools of production
 manage_tools:
   actions:
-  - "dashboards::production"
+  - "dashboards::production # NONEXISTENT ACTION !!!"
   - "tools::create"
   - "tools::destroy"
   - "tools::edit"
@@ -1105,11 +1105,11 @@ manage_tools:
   - "tools::new"
   - "tools::show"
   - "tools::update"
-# Gérer les transports
+# Manage transports
 manage_transports:
   actions:
-  - "dashboards::stocks"
-  - "interfacers::search_for_outgoing_deliveries"
+  - "dashboards::stocks # NONEXISTENT ACTION !!!"
+  - "interfacers::search_for_outgoing_deliveries # NONEXISTENT ACTION !!!"
   - "transports::create"
   - "transports::destroy"
   - "transports::edit"
@@ -1120,10 +1120,10 @@ manage_transports:
   - "transports::new"
   - "transports::show"
   - "transports::update"
-# Gérer les unités de mesure
+# Manage units of measure
 manage_units:
   actions:
-  - "dashboards::settings"
+  - "dashboards::settings # NONEXISTENT ACTION !!!"
   - "units::create"
   - "units::destroy"
   - "units::edit"
@@ -1132,10 +1132,10 @@ manage_units:
   - "units::load"
   - "units::new"
   - "units::update"
-# Gérer les utilisateurs
+# Manage users
 manage_users:
   actions:
-  - "dashboards::settings"
+  - "dashboards::settings # NONEXISTENT ACTION !!!"
   - "roles::create"
   - "roles::destroy"
   - "roles::edit"
@@ -1153,10 +1153,10 @@ manage_users:
   - "users::show"
   - "users::unlock"
   - "users::update"
-# Gérer les lieux de stockage
+# Manage warehouses
 manage_warehouses:
   actions:
-  - "dashboards::sales"
+  - "dashboards::sales # NONEXISTENT ACTION !!!"
   - "warehouses::create"
   - "warehouses::destroy"
   - "warehouses::edit"
@@ -1167,12 +1167,12 @@ manage_warehouses:
   - "warehouses::new"
   - "warehouses::show"
   - "warehouses::update"
-# Fusionner les fiches clients/fournisseurs
+# Merge people
 merge_entities:
   actions:
-  - "dashboards::relationship"
+  - "dashboards::relationship # NONEXISTENT ACTION !!!"
   - "entities::index"
   - "entities::merge"
-# Utiliser les chaînes de production
+# Use production chains
 use_production_chains:
   actions: []

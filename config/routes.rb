@@ -93,6 +93,9 @@ Ekylibre::Application.routes.draw do
       get :list_events
       get :list_children
       get :unroll
+      get :unroll_father
+      get :unroll_mother
+      get :unroll_here
     end
   end
   resources :animal_diagnostics do
