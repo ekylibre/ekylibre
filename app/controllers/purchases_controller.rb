@@ -20,7 +20,7 @@
 class PurchasesController < AdminController
   manage_restfully :supplier_id=>"params[:supplier_id]", :planned_on=>"Date.today+2", :redirect_to=>'{:action=>:show, :step=>:products, :id=>"id"}'
 
-  unroll
+  unroll_all
 
   list(:conditions=>search_conditions(:purchase, :purchases=>[:created_on, :pretax_amount, :amount, :number, :reference_number, :comment], :entities=>[:code, :full_name]), :joins=>:supplier, :line_class=>'RECORD.state', :order=>"created_on DESC, number DESC") do |t|
     t.column :number, :url=>{:action=>:show, :step=>:default}

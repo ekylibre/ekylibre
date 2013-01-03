@@ -118,11 +118,14 @@ def actions_in_file(path, controller)
     line = line.gsub(/(^\s*|\s*$)/,'')
     if line.match(/^\s*def\s+[a-z0-9\_]+\s*$/)
       actions << line.split(/def\s/)[1].gsub(/\s/,'')
-    elsif line.match(/^\s*formize[\s\(]+\:\w+/)
-      formize = line.split(/[\s\(\)\,\:]+/)
-      actions << "formize_"+formize[1]
-    elsif line.match(/^\s*formize([\s\(]+|\s*$)/)
-      actions << "formize"
+    # elsif line.match(/^\s*formize[\s\(]+\:\w+/)
+    #   formize = line.split(/[\s\(\)\,\:]+/)
+    #   actions << "formize_"+formize[1]
+    # elsif line.match(/^\s*formize([\s\(]+|\s*$)/)
+    #   actions << "formize"
+    elsif line.match(/^\s*unroll_all[\s\(]+\:\w+/)
+      # TODO add unroll of scopes
+      actions << "unroll"
     elsif line.match(/^\s*search_for[\s\(]+\:\w+/)
       search_for = line.split(/[\s\(\)\,\:]+/)
       actions << "search_for_"+search_for[1]
@@ -151,23 +154,15 @@ def actions_in_file(path, controller)
       actions << 'edit'
       actions << 'update'
       actions << 'destroy'
-    elsif line.match(/^\s*manage_list[\s\(]+\:\w+/)
-      prefix = line.split(/[\s\(\)\,\:]+/)[1].singularize
-      actions << prefix+'_up'
-      actions << prefix+'_down'
-    elsif line.match(/^\s*manage[\s\(]+\:\w+/)
-      prefix = line.split(/[\s\(\)\,\:]+/)[1].singularize
-      actions << prefix+'_create'
-      actions << prefix+'_update'
-      actions << prefix+'_delete'
     end
   end
-  # TODO: Reactivate dashboards
-  # if controller.to_s == "dashboards"
-  #   for menu in Ekylibre.menus.keys
-  #     actions << menu.to_s
-  #   end
-  # end
+  if controller.to_s == "dashboards"
+    for menu in Ekylibre.menu.with_menus do
+      h = menu.hierarchy.collect{|m| m.name }[1..-1]
+      next if h.empty?
+      actions << h.join("_")
+    end
+  end
 
   return actions
 end

@@ -20,7 +20,7 @@
 class SalesController < AdminController
   include ActionView::Helpers::NumberHelper
 
-  unroll
+  unroll_all
 
   # management -> sales_conditions
   def self.sales_conditions

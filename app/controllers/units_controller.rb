@@ -20,7 +20,7 @@
 class UnitsController < AdminController
   manage_restfully
 
-  unroll :label => "{label} ({name})"
+  unroll_all
 
   list(:order => :name) do |t|
     t.column :label

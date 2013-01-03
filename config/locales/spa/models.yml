@@ -976,6 +976,14 @@ spa:
     # with_tracking: "With tracking"
     # with_transport: "With transport"
     # work_center: "Work center"
+  enumerize:
+    cash:
+      modes:
+        # bban: "Basic Bank Account Number (BBAN)"
+        # iban: "International Bank Account Number (IBAN)"
+      natures:
+        # bank_account: "Bank account"
+        # cash_box: "Cash box"
   models:
     account:
       # label: "%{number} - %{name}"
@@ -985,13 +993,7 @@ spa:
         # linear: "Linear"
         # simplified_linear: "Simplified linear"
     bank_statement: #?
-    cash:
-      modes:
-        # bban: "Basic Bank Account Number"
-        # iban: "IBAN"
-      natures:
-        # bank_account: "Bank account"
-        # cash_box: "Caisse"
+    cash: #?
     cash_transfer:
       # bookkeep: "[%{resource} %{number}] From %{emitter} to %{receiver} %{comment}"
     company:
@@ -1153,18 +1155,7 @@ spa:
             # collected: "445713"
             # name: "VAT 19,60%"
             # paid: "445663"
-        units:
-          # a: "Are"
-          # ca: "Centiare (m²)"
-          # ha: "Hectare"
-          # hl: "Hectolitre"
-          # kg: "Kilogram"
-          # km: "Kilometre"
-          # l: "Litre"
-          # m: "Metre"
-          # m3: "Cubic metre"
-          # t: "Tonne"
-          # u: "Unit"
+        units: #?
         # warehouse_name: "Warehouse"
       import:
         # dont_use: "-- Do not use --"
@@ -1401,8 +1392,7 @@ spa:
     sales_invoice: #?
     sales_invoice_line: #?
     sequence:
-      default:  #?
- #?
+      default: #?
       periods:
         # cweek: "Commercial week"
         # month: "Month"
@@ -1448,13 +1438,13 @@ spa:
         # ca: "Centiare (m²)"
         # ha: "Hectare"
         # hl: "Hectolitre"
-        # kg: "Kilogramme"
-        # km: "Kilomètre"
+        # kg: "Kilogram"
+        # km: "Kilometre"
         # l: "Litre"
-        # m: "Mètre"
-        # m3: "Mètre cube"
+        # m: "Metre"
+        # m3: "Cubic metre"
         # t: "Tonne"
-        # u: "Unité"
+        # u: "Unit"
     user:
       # no_right_defined_for_this_part_of_the_application: "No right defined for this part of the application: %{controller}%{action}"
       # no_right_defined_for_this_part_of_the_application_and_this_user: "You can not access to this page"

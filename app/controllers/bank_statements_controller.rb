@@ -20,7 +20,7 @@
 class BankStatementsController < AdminController
   manage_restfully :started_on=>"Cash.find(params[:cash_id]).last_bank_statement.stopped_on+1 rescue (Date.today-1.month-2.days)", :stopped_on=>"Cash.find(params[:cash_id]).last_bank_statement.stopped_on>>1 rescue (Date.today-2.days)", :redirect_to=>'{:action => :point, :id =>"id"}'
 
-  unroll
+  unroll_all
 
   list(:order=>"started_on DESC") do |t|
     t.column :name, :through=>:cash, :url=>true

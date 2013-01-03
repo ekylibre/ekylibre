@@ -20,7 +20,7 @@
 class SubscriptionNaturesController < AdminController
   manage_restfully :nature=>"SubscriptionNature.natures.first[1]"
 
-  unroll
+  unroll_all
 
   list(:children=>:products) do |t|
     t.column :name, :url=>{:id=>'nil', :action=>:index, :controller=>:subscriptions, :nature_id=>"RECORD.id"}

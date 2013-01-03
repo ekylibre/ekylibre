@@ -20,14 +20,7 @@
 class AccountsController < AdminController
   manage_restfully :number => "params[:number]"
 
-  unroll
-  unroll :deposit_pending_payments
-  unroll :attorney_thirds
-  unroll :client_thirds
-  unroll :supplier_thirds
-  unroll :charges
-  unroll :banks
-  unroll :cashes
+  unroll_all
 
   def self.accounts_conditions
     code  = ""

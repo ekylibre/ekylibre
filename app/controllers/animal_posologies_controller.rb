@@ -20,7 +20,7 @@
 class AnimalPosologiesController < AdminController
   manage_restfully
 
-  unroll
+  unroll_all
 
   list(:order => :id) do |t|
     t.column :name, :url=>true

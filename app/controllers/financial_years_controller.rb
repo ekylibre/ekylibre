@@ -19,7 +19,7 @@
 
 class FinancialYearsController < AdminController
 
-  unroll
+  unroll_all
 
   list(:order=>"started_on DESC") do |t|
     t.column :code, :url=>true

@@ -19,7 +19,7 @@
 
 class DepositsController < AdminController
 
-  unroll
+  unroll_all
 
   list(:order=>"created_at DESC") do |t|
     t.column :number, :url=>true

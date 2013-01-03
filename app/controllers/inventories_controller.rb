@@ -19,7 +19,7 @@
 
 class InventoriesController < AdminController
 
-  unroll
+  unroll_all
 
   list do |t|
     t.column :created_on

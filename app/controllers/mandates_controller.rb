@@ -20,7 +20,7 @@
 class MandatesController < AdminController
   manage_restfully :entity_id=>"params[:entity_id]"
 
-  unroll
+  unroll_all
 
   def self.mandates_conditions(options={})
     code = ""

@@ -1058,13 +1058,6 @@ eng:
         graduated: "Graduated"
         linear: "Linear"
         simplified_linear: "Simplified linear"
-    cash:
-      modes:
-        bban: "Basic Bank Account Number"
-        iban: "IBAN"
-      natures:
-        bank_account: "Bank account"
-        cash_box: "Caisse"
     cash_transfer:
       bookkeep: "[%{resource} %{number}] From %{emitter} to %{receiver} %{comment}"
     company:
@@ -1223,18 +1216,6 @@ eng:
             collected: "445713"
             name: "VAT 19,60%"
             paid: "445663"
-        units:
-          a: "Are"
-          ca: "Centiare (m²)"
-          ha: "Hectare"
-          hl: "Hectolitre"
-          kg: "Kilogram"
-          km: "Kilometre"
-          l: "Litre"
-          m: "Metre"
-          m3: "Cubic metre"
-          t: "Tonne"
-          u: "Unit"
         warehouse_name: "Warehouse"
       import:
         dont_use: "-- Do not use --"
@@ -1463,8 +1444,6 @@ eng:
       tracking: "S/N: %{serial}"
       warehouse_can_not_transfer_product: "The product %{product} can not be used with %{warehouse}, because it contains only %{contained_product} "
     sequence:
-      default:
-
       periods:
         cweek: "Commercial week"
         month: "Month"
@@ -1510,13 +1489,21 @@ eng:
         ca: "Centiare (m²)"
         ha: "Hectare"
         hl: "Hectolitre"
-        kg: "Kilogramme"
-        km: "Kilomètre"
+        kg: "Kilogram"
+        km: "Kilometre"
         l: "Litre"
-        m: "Mètre"
-        m3: "Mètre cube"
+        m: "Metre"
+        m3: "Cubic metre"
         t: "Tonne"
-        u: "Unité"
+        u: "Unit"
     user: #?
       no_right_defined_for_this_part_of_the_application: "No right defined for this part of the application: %{controller}%{action}" #?
       no_right_defined_for_this_part_of_the_application_and_this_user: "You can not access to this page"
+  enumerize:
+    cash:
+      modes:
+        bban: "Basic Bank Account Number (BBAN)"
+        iban: "International Bank Account Number (IBAN)"
+      natures:
+        bank_account: "Bank account"
+        cash_box: "Cash box"

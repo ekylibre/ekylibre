@@ -1492,6 +1492,14 @@ arb:
     with_tracking: "مع التتبع"
     # with_transport: "With transport"
     # work_center: "Work center"
+  enumerize:
+    cash:
+      modes:
+        # bban: "Basic Bank Account Number (BBAN)"
+        # iban: "International Bank Account Number (IBAN)"
+      natures:
+        # bank_account: "Bank account"
+        # cash_box: "Cash box"
   models:
     account:
       default_account_name: "دفتر الحسابات %{number}" #?
@@ -1507,13 +1515,13 @@ arb:
       error_journal_statement: "بيان بنكي محدد لدى الدفتر اليومي" #?
       error_period_statement: "الوقت الفاصل غير ملائم للبيان البنكي" #?
       error_print_statement: "يجب طباعة البيان بعد سجله الاخير" #?
-    cash:
-      modes:
-        bban: "(RIB)بيان الحساب المصرفي"
-        iban: "IBAN"
-      natures:
-        bank_account: "حساب مصرفي"
-        cash_box: "صندوق النقدي"
+    cash:  #?
+      modes: #?
+        bban: "(RIB)بيان الحساب المصرفي" #?
+        iban: "IBAN" #?
+      natures: #?
+        bank_account: "حساب مصرفي" #?
+        cash_box: "صندوق النقدي" #?
     cash_transfer:
       # bookkeep: "[%{resource} %{number}] From %{emitter} to %{receiver} %{comment}"
     company:
@@ -1725,18 +1733,18 @@ arb:
             collected: "445713"
             name: "TVA 19,60%"
             paid: "445663"
-        units:
-          a: "و"
-          ca: "(m²) سنتميتر"
-          ha: "هكتار"
-          hl: "هيكتولتر"
-          kg: "كيلو غرام"
-          km: "كيلو متر"
-          l: "لتر"
-          m: "متر"
-          m3: "متر مكعب"
-          t: "طن"
-          u: "وحدة قياس"
+        units:  #?
+          a: "و" #?
+          ca: "(m²) سنتميتر" #?
+          ha: "هكتار" #?
+          hl: "هيكتولتر" #?
+          kg: "كيلو غرام" #?
+          km: "كيلو متر" #?
+          l: "لتر" #?
+          m: "متر" #?
+          m3: "متر مكعب" #?
+          t: "طن" #?
+          u: "وحدة قياس" #?
         warehouse_name: "المخزون"
       import:
         dont_use: "-- لعدم الاسعمال--"
@@ -1988,8 +1996,7 @@ arb:
     sales_invoice_line:  #?
       no_product: "[لا لاي منتج]" #?
     sequence:
-      default:  #?
- #?
+      default: #?
       periods:
         cweek: "اسبوع"
         month: "شهر"
@@ -2036,13 +2043,13 @@ arb:
         # ca: "Centiare (m²)"
         # ha: "Hectare"
         # hl: "Hectolitre"
-        # kg: "Kilogramme"
-        # km: "Kilomètre"
+        # kg: "Kilogram"
+        # km: "Kilometre"
         # l: "Litre"
-        # m: "Mètre"
-        # m3: "Mètre cube"
+        # m: "Metre"
+        # m3: "Cubic metre"
         # t: "Tonne"
-        # u: "Unité"
+        # u: "Unit"
     user:
       no_right_defined_for_this_part_of_the_application: "ليس هنالك من حقوق محددة لهذا الجزء من الطلب : %{controller}/%{action}"
       no_right_defined_for_this_part_of_the_application_and_this_user: "ليس هنالك من حقوق محددة لهذا الجزء من الطلب ولهذا المستخدم"

@@ -1641,3 +1641,10 @@ fra:
     transports_sequence: "Numérotation des transports"
     use_entity_codes_for_account_numbers: "Utiliser le code personne pour composer les numéros de compte"
     various_journal: "Journal des opérations diverses par défaut"
+  unroll:
+    animal_prescriptions:
+      all: "N° {prescription_number} du {prescripted_on}"
+    animals:
+      all: "{name} ({sex})"
+    units:
+      all: "{label} ({name})"

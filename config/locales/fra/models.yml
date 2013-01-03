@@ -1070,6 +1070,20 @@ fra:
     with_transport: "Avec transport"
     work_center: "Centre d’opération"
     working_number: "Numéro de travail" #?
+  enumerize:
+    cash:
+      mode:  #?
+        bban: "Relevé d’identité bancaire (RIB)" #?
+        iban: "IBAN" #?
+      modes:
+        # bban: "Basic Bank Account Number (BBAN)"
+        # iban: "International Bank Account Number (IBAN)"
+      nature:  #?
+        bank_account: "Compte bancaire" #?
+        cash_box: "Caisse" #?
+      natures:
+        # bank_account: "Bank account"
+        # cash_box: "Cash box"
   models:
     account:
       label: "%{number} - %{name}"
@@ -1082,13 +1096,13 @@ fra:
         graduated: "Dégressive"
         linear: "Linéaire"
         simplified_linear: "Linéaire simplifiée"
-    cash:
-      modes:
-        bban: "Relevé d’identité bancaire (RIB)"
-        iban: "IBAN"
-      natures:
-        bank_account: "Compte bancaire"
-        cash_box: "Caisse"
+    cash:  #?
+      modes: #?
+        bban: "Relevé d’identité bancaire (RIB)" #?
+        iban: "IBAN" #?
+      natures: #?
+        bank_account: "Compte bancaire" #?
+        cash_box: "Caisse" #?
     cash_transfer:
       bookkeep: "[%{resource} %{number}] De %{emitter} à %{receiver} %{comment}"
     company:
@@ -1247,18 +1261,7 @@ fra:
             collected: "445713"
             name: "TVA 19,60%"
             paid: "445663"
-        units:
-          # a: "Are"
-          # ca: "Centiare (m²)"
-          # ha: "Hectare"
-          # hl: "Hectolitre"
-          # kg: "Kilogram"
-          # km: "Kilometre"
-          # l: "Litre"
-          # m: "Metre"
-          # m3: "Cubic metre"
-          # t: "Tonne"
-          # u: "Unit"
+        units: #?
         warehouse_name: "Réserve"
       import:
         dont_use: "-- Ne pas utiliser --"

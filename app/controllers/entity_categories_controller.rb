@@ -18,7 +18,7 @@
 #
 
 class EntityCategoriesController < AdminController
-  unroll
+  unroll_all
 
   manage_restfully
 

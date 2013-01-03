@@ -18,7 +18,7 @@
 #
 
 class TrackingsController < AdminController
-  unroll
+  unroll_all
 
   list(:operation_lines, :conditions=>{:tracking_id=>['session[:current_tracking_id]']}, :order=>'operation_id') do |t|
     t.column :name, :through=>:operation, :url=>true

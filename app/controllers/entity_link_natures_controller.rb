@@ -19,7 +19,7 @@
 
 class EntityLinkNaturesController < AdminController
   manage_restfully
-  unroll
+  unroll_all
 
   list do |t|
     t.column :name

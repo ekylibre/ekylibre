@@ -1428,3 +1428,10 @@ jpn:
     # transports_sequence: "Numeration of transports"
     # use_entity_codes_for_account_numbers: "Use code for creating account numbers"
     # various_journal: "Default various operations journal"
+  unroll:
+    animal_prescriptions:
+      # all: "#{prescription_number} on {prescripted_on}"
+    animals:
+      # all: "{name} ({sex})"
+    units:
+      # all: "{label} ({name})"

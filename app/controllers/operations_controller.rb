@@ -19,7 +19,7 @@
 
 class OperationsController < AdminController
 
-  unroll
+  unroll_all
 
   list(:order=>" planned_on desc, name asc") do |t|
     t.column :name, :url=>true

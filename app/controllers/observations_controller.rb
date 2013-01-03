@@ -19,5 +19,5 @@
 
 class ObservationsController < AdminController
   manage_restfully :importance => "Observation.importance.default_value"
-  unroll
+  unroll_all
 end

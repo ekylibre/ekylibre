@@ -20,7 +20,7 @@
 class ProductionChainsController < AdminController
   manage_restfully
 
-  unroll
+  unroll_all
 
   list(:order=>"name") do |t|
     t.column :name, :url=>true

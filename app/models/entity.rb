@@ -190,7 +190,8 @@ class Entity < CompanyRecord
   # validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i, :if => lambda{|r| !r.email.blank?}
 
   # default_scope order(:last_name, :first_name)
-  scope :necessary_transporters, where("id IN (SELECT transporter_id FROM #{OutgoingDelivery.table_name} WHERE (moved_on IS NULL AND planned_on <= CURRENT_DATE) OR transport_id IS NULL)").order(:last_name, :first_name)
+  scope :necessary_transporters, -> { where("id IN (SELECT transporter_id FROM #{OutgoingDelivery.table_name} WHERE (moved_on IS NULL AND planned_on <= CURRENT_DATE) OR transport_id IS NULL)").order(:last_name, :first_name) }
+  scope :employees, -> { where(:employed => true) }
 
   # Needed to stamp all records
   model_stamper

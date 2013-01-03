@@ -19,7 +19,7 @@
 
 class ListingsController < AdminController
 
-  unroll
+  unroll_all
 
   list(:order => :name) do |t|
     t.column :name, :url => {:action => :edit}

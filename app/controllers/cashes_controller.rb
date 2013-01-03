@@ -19,8 +19,7 @@
 
 class CashesController < AdminController
 
-  unroll
-  unroll :bank_accounts
+  unroll_all
 
   list(:order => :name) do |t|
     t.column :name, :url => true

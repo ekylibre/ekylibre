@@ -72,14 +72,7 @@ Ekylibre::Application.routes.draw do
       get :list_reconciliation
       get :list_entities
       get :reconciliation
-      get :unroll
-      get :unroll_charges
-      get :unroll_client_thirds
-      get :unroll_attorney_thirds
-      get :unroll_supplier_thirds
-      get :unroll_deposit_pending_payments
-      get :unroll_banks
-      get :unroll_cashes
+      unroll_all
       match "load", :via => [:get, :post]
     end
     member do
@@ -92,46 +85,43 @@ Ekylibre::Application.routes.draw do
       get :list
       get :list_events
       get :list_children
-      get :unroll
-      get :unroll_father
-      get :unroll_mother
-      get :unroll_here
+      unroll_all
     end
   end
   resources :animal_diagnostics do
     collection do
       get :list
-      get :unroll
+      unroll_all
     end
   end
   resources :animal_diseases do
     collection do
       get :list
-      get :unroll
+      unroll_all
     end
   end
   resources :animal_drugs do
     collection do
       get :list
-      get :unroll
+      unroll_all
     end
   end
   resources :animal_drug_natures do
     collection do
       get :list
-      get :unroll
+      unroll_all
     end
   end
   resources :animal_events do
     collection do
       get :list
-      get :unroll
+      unroll_all
     end
   end
   resources :animal_event_natures do
     collection do
       get :list
-      get :unroll
+      unroll_all
     end
   end
   resources :animal_groups do
@@ -139,49 +129,49 @@ Ekylibre::Application.routes.draw do
       get :list
       get :list_animals
       get :list_events
-      get :unroll
+      unroll_all
     end
   end
   resources :animal_posologies do
     collection do
       get :list
-      get :unroll
+      unroll_all
     end
   end
   resources :animal_prescriptions do
     collection do
       get :list
-      get :unroll
+      unroll_all
     end
   end
   resources :animal_races do
     collection do
       get :list
-      get :unroll
+      unroll_all
     end
   end
   resources :animal_race_natures do
     collection do
       get :list
-      get :unroll
+      unroll_all
     end
   end
   resources :animal_treatments do
     collection do
       get :list
-      get :unroll
+      unroll_all
     end
   end
   resources :areas do
     collection do
       get :list
-      get :unroll
+      unroll_all
     end
   end
   resources :assets, :path => "financial_assets" do
     collection do
       get :list
-      get :unroll
+      unroll_all
     end
     member do
       get :cede
@@ -195,7 +185,7 @@ Ekylibre::Application.routes.draw do
     collection do
       get :list
       get :list_lines
-      get :unroll
+      unroll_all
     end
     member do
       match "point", :via => [:get, :post]
@@ -206,14 +196,13 @@ Ekylibre::Application.routes.draw do
       get :list
       get :list_deposits
       get :list_bank_statements
-      get :unroll
-      get :unroll_bank_accounts
+      unroll_all
     end
   end
   resources :cash_transfers do
     collection do
       get :list
-      get :unroll
+      unroll_all
     end
   end
   # resources :cultivations
@@ -222,7 +211,7 @@ Ekylibre::Application.routes.draw do
     collection do
       get :list
       get :list_choices
-      get :unroll
+      unroll_all
     end
     member do
       post :up
@@ -240,13 +229,13 @@ Ekylibre::Application.routes.draw do
   resources :delays do
     collection do
       get :list
-      get :unroll
+      unroll_all
     end
   end
   resources :departments do
     collection do
       get :list
-      get :unroll
+      unroll_all
     end
   end
   resources :deposits do
@@ -255,7 +244,7 @@ Ekylibre::Application.routes.draw do
       get :list_payments
       get :list_depositable_payments
       get :list_unvalidateds
-      get :unroll
+      unroll_all
       match "unvalidateds", :via => [:get, :post]
     end
   end
@@ -263,14 +252,14 @@ Ekylibre::Application.routes.draw do
   resources :districts do
     collection do
       get :list
-      get :unroll
+      unroll_all
     end
   end
   resources :document_templates do
     collection do
       get :list
       post :load
-      get :unroll
+      unroll_all
     end
     member do
       get :print
@@ -280,7 +269,7 @@ Ekylibre::Application.routes.draw do
   resources :documents do
     collection do
       get :print
-      get :unroll
+      unroll_all
     end
   end
   resources :entities do
@@ -297,8 +286,7 @@ Ekylibre::Application.routes.draw do
       get :list_addresses
       get :list_cashes
       get :list_links
-      get :unroll_employees
-      get :unroll
+      unroll_all
       match "import", :via => [:get, :post]
       match "export", :via => [:get, :post]
       match "merge", :via => [:get, :post]
@@ -307,7 +295,7 @@ Ekylibre::Application.routes.draw do
   resources :entity_addresses
   resources :entity_categories do
     collection do
-      get :unroll
+      unroll_all
       get :list
       get :list_prices
     end
@@ -315,33 +303,33 @@ Ekylibre::Application.routes.draw do
   resources :entity_links, :except => [:index, :show]
   resources :entity_link_natures do
     collection do
-      get :unroll
+      unroll_all
       get :list
     end
   end
   resources :entity_natures do
     collection do
-      get :unroll
+      unroll_all
       get :list
     end
   end
   resources :establishments do
     collection do
       get :list
-      get :unroll
+      unroll_all
     end
   end
   resources :events do
     collection do
       get :list
       get :change_minutes
-      get :unroll
+      unroll_all
     end
   end
   resources :event_natures do
     collection do
       get :list
-      get :unroll
+      unroll_all
     end
   end
   resources :financial_years do
@@ -349,7 +337,7 @@ Ekylibre::Application.routes.draw do
       get :list
       get :list_account_balances
       get :list_asset_depreciations
-      get :unroll
+      unroll_all
     end
     member do
       match "close", :via => [:get, :post]
@@ -361,7 +349,7 @@ Ekylibre::Application.routes.draw do
   resources :incoming_deliveries do
     collection do
       get :list
-      get :unroll
+      unroll_all
     end
     member do
       match "confirm", :via => [:get, :post]
@@ -371,20 +359,20 @@ Ekylibre::Application.routes.draw do
   resources :incoming_delivery_modes do
     collection do
       get :list
-      get :unroll
+      unroll_all
     end
   end
   resources :incoming_payments do
     collection do
       get :list
       get :list_sales
-      get :unroll
+      unroll_all
     end
   end
   resources :incoming_payment_modes do
     collection do
       get :list
-      get :unroll
+      unroll_all
     end
     member do
       post :up
@@ -399,7 +387,7 @@ Ekylibre::Application.routes.draw do
       get :list_lines
       get :list_lines_create
       get :list_lines_update
-      get :unroll
+      unroll_all
     end
     member do
       match "reflect", :via => [:get, :post]
@@ -420,9 +408,7 @@ Ekylibre::Application.routes.draw do
       get :list_lines
       get :list_entries
       get :list_general_ledger
-      get :unroll
-      get :unroll_banks
-      get :unroll_cashes
+      unroll_all
     end
     member do
       match "close", :via => [:get, :post]
@@ -440,7 +426,7 @@ Ekylibre::Application.routes.draw do
       get :list
       get :list_operations
       post :merge
-      get :unroll
+      unroll_all
     end
     member do
       match "divide", :via => [:get, :post]
@@ -449,7 +435,7 @@ Ekylibre::Application.routes.draw do
   resources :land_parcel_groups do
     collection do
       get :list
-      get :unroll
+      unroll_all
     end
   end
   # resources :land_parcel_kinships
@@ -458,7 +444,7 @@ Ekylibre::Application.routes.draw do
   resources :listings do
     collection do
       get :list
-      get :unroll
+      unroll_all
     end
     member do
       get :extract
@@ -469,7 +455,7 @@ Ekylibre::Application.routes.draw do
   resources :mandates do
     collection do
       get :list
-      get :unroll
+      unroll_all
       match "configure", :via => [:get, :post]
     end
   end
@@ -480,7 +466,7 @@ Ekylibre::Application.routes.draw do
       get :list_lines
       get :list_uses
       get :list_unvalidateds
-      get :unroll
+      unroll_all
       match "unvalidateds", :via => [:get, :post]
     end
   end
@@ -488,7 +474,7 @@ Ekylibre::Application.routes.draw do
   resources :operation_natures do
     collection do
       get :list
-      get :unroll
+      unroll_all
     end
   end
   resources :operation_uses
@@ -496,27 +482,27 @@ Ekylibre::Application.routes.draw do
     collection do
       get :list
       get :list_lines
-      get :unroll
+      unroll_all
     end
   end
   # resources :outgoing_delivery_lines
   resources :outgoing_delivery_modes do
     collection do
       get :list
-      get :unroll
+      unroll_all
     end
   end
   resources :outgoing_payments do
     collection do
       get :list
       get :list_purchases
-      get :unroll
+      unroll_all
     end
   end
   resources :outgoing_payment_modes do
     collection do
       get :list
-      get :unroll
+      unroll_all
     end
     member do
       post :up
@@ -531,13 +517,13 @@ Ekylibre::Application.routes.draw do
       match "export", :via => [:get, :post]
       match "import", :via => [:get, :post]
       get :find
-      get :unroll
+      unroll_all
     end
   end
   resources :preferences do
     collection do
       get :list
-      get :unroll
+      unroll_all
     end
   end
   resources :products do
@@ -547,23 +533,21 @@ Ekylibre::Application.routes.draw do
       get :list_stocks
       get :list_stock_moves
       get :list_components
-      get :unroll
-      get :unroll_availables
-      get :unroll_stockables
+      unroll_all
     end
   end
   resources :product_categories do
     collection do
       get :list
       get :list_products
-      get :unroll
+      unroll_all
     end
   end
   resources :product_components, :except => [:show, :index]
   resources :production_chains do
     collection do
       get :list
-      get :unroll
+      unroll_all
     end
   end
   resources :production_chain_conveyors
@@ -572,21 +556,21 @@ Ekylibre::Application.routes.draw do
       get :play
       post :down
       post :up
-      get :unroll
+      unroll_all
     end
   end
   # resources :production_chain_work_centers_uses
   resources :professions do
     collection do
       get :list
-      get :unroll
+      unroll_all
     end
   end
   resources :purchase_lines, :except => [:index, :show]
   resources :purchase_natures do
     collection do
       get :list
-      get :unroll
+      unroll_all
     end
   end
   resources :purchases do
@@ -596,7 +580,7 @@ Ekylibre::Application.routes.draw do
       get :list_undelivered_lines
       get :list_deliveries
       get :list_payment_uses
-      get :unroll
+      unroll_all
     end
     member do
       post :correct
@@ -610,20 +594,20 @@ Ekylibre::Application.routes.draw do
   resources :roles do
     collection do
       get :list
-      get :unroll
+      unroll_all
     end
   end
   resources :sale_lines, :except => [:index, :show] do
     collection do
       get :list
       get :detail
-      get :unroll
+      unroll_all
     end
   end
   resources :sale_natures do
     collection do
       get :list
-      get :unroll
+      unroll_all
     end
   end
   resources :sales do
@@ -638,7 +622,7 @@ Ekylibre::Application.routes.draw do
       get :list_creditable_lines
       get :statistics
       get :contacts
-      get :unroll
+      unroll_all
     end
     member do
       get :list_lines
@@ -657,7 +641,7 @@ Ekylibre::Application.routes.draw do
     collection do
       get :list
       post :load
-      get :unroll
+      unroll_all
     end
   end
   # resources :stock_moves
@@ -665,7 +649,7 @@ Ekylibre::Application.routes.draw do
     collection do
       get :list
       get :list_confirm
-      get :unroll
+      unroll_all
       match "confirm_all", :via => [:get, :post]
     end
     member do
@@ -675,13 +659,13 @@ Ekylibre::Application.routes.draw do
   resources :stocks do
     collection do
       get :list
-      get :unroll
+      unroll_all
     end
   end
   resources :subscription_natures do
     collection do
       get :list
-      get :unroll
+      unroll_all
     end
     member do
       post :increment
@@ -691,7 +675,7 @@ Ekylibre::Application.routes.draw do
   resources :subscriptions do
     collection do
       get :list
-      get :unroll
+      unroll_all
       get :coordinates
       get :message
     end
@@ -700,20 +684,20 @@ Ekylibre::Application.routes.draw do
   resources :taxes do
     collection do
       get :list
-      get :unroll
+      unroll_all
     end
   end
   resources :tools do
     collection do
       get :list
       get :list_operations
-      get :unroll
+      unroll_all
     end
   end
   resources :tool_natures do
     collection do
       get :list
-      get :unroll
+      unroll_all
     end
   end
   resources :trackings do
@@ -722,7 +706,7 @@ Ekylibre::Application.routes.draw do
       get :list_sale_lines
       get :list_purchase_lines
       get :list_operation_lines
-      get :unroll
+      unroll_all
     end
   end
   # resources :tracking_states
@@ -731,7 +715,7 @@ Ekylibre::Application.routes.draw do
       get :list
       get :list_deliveries
       get :list_transportable_deliveries
-      get :unroll
+      unroll_all
       # match "deliveries", :via => [:get, :post]
       # match "delivery_delete", :via => [:get, :post]
     end
@@ -739,10 +723,9 @@ Ekylibre::Application.routes.draw do
   # resources :transfers
   resources :units do
     collection do
-      get :unroll
       get :list
       post :load
-      get :unroll
+      unroll_all
     end
   end
   resources :users do
@@ -759,7 +742,7 @@ Ekylibre::Application.routes.draw do
       get :list
       get :list_stocks
       get :list_stock_moves
-      get :unroll
+      unroll_all
     end
   end
   # end

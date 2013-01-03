@@ -20,7 +20,7 @@
 class AnimalPrescriptionsController < AdminController
   manage_restfully
 
-  unroll :label => "N° {prescription_number} du {prescripted_on}"
+  unroll_all
 
   list do |t|
     t.column :name, :url=>true

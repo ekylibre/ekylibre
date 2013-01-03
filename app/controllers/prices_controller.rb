@@ -19,7 +19,7 @@
 
 class PricesController < AdminController
 
-  unroll
+  unroll_all
 
   list(:conditions=>prices_conditions, :order=>:product_id) do |t|
     t.column :name, :through=>:product, :url=>true

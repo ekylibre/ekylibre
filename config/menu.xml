@@ -933,6 +933,9 @@
       <page to="animal_diagnostics#show"/>
       <page to="animal_diagnostics#update"/>
     </menu>
+    <menu name="animal_races">
+      <page to="animal_races#unroll"/>
+    </menu>
     <menu name="animals">
       <page to="animals#list_events"/>
     </menu>
@@ -954,6 +957,9 @@
       <page to="entity_addresses#edit"/>
       <page to="entity_addresses#new"/>
       <page to="entity_addresses#update"/>
+    </menu>
+    <menu name="entity_natures">
+      <page to="entity_natures#unroll"/>
     </menu>
     <menu name="help">
       <page to="help#index"/>

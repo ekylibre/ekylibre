@@ -64,6 +64,7 @@ eng:
       # index: "Index animal race"
       # new: "New animal race"
       # show: "Show animal race"
+      # unroll: "Unroll animal race"
     animal_treatments:
       # edit: "Edit animal treatment"
       # index: "Index animal treatment"
@@ -114,12 +115,24 @@ eng:
       show: "Custom field: %{name}"
       sort: "Sort custom field choices"
     dashboards:
-      accountancy: "Accountancy dashboard" #?
+      accountancy: "Accountancy dashboard"
       finances: "Finances dashboard" #?
       general: "General dashboard" #?
       # index: "Index dashboard"
-      production: "Production dashboard" #?
-      relationship: "Relationship dashboard" #?
+      production: "Production dashboard"
+      # purchases: "Purchases dashboard"
+      relationship: "Relationship dashboard"
+      # sales: "Sales dashboard"
+      # settings: "Settings dashboard"
+      # settings_accountancy: "Settings accountancy dashboard"
+      # settings_base: "Settings base dashboard"
+      # settings_production: "Settings production dashboard"
+      # settings_products: "Settings products dashboard"
+      # settings_purchases: "Settings purchases dashboard"
+      # settings_relationship: "Settings relationship dashboard"
+      # settings_sales: "Settings sales dashboard"
+      # settings_stocks: "Settings stocks dashboard"
+      # stocks: "Stocks dashboard"
       trade: "Trade dashboard" #?
       welcome: "Welcome on Ekylibre"
     delays:
@@ -175,6 +188,7 @@ eng:
       edit: "Edit the person type: %{name}"
       index: "Person types"
       new: "Add a new person type"
+      # unroll: "Unroll entity nature"
     establishments:
       edit: "Edit the establishment: %{name}"
       index: "Establishments"
@@ -1458,3 +1472,10 @@ eng:
     transports_sequence: "Numeration of transports"
     use_entity_codes_for_account_numbers: "Use code for creating account numbers"
     various_journal: "Default various operations journal"
+  unroll:
+    animal_prescriptions:
+      all: "#{prescription_number} on {prescripted_on}"
+    animals:
+      all: "{name} ({sex})"
+    units:
+      all: "{label} ({name})"
