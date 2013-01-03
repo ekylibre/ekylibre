@@ -39,12 +39,12 @@ class AdminController < BaseController
     # including the default scope
     def unroll_all(options = {})
       model = (options[:model] || self.controller_name).classify.constantize
-      # Default scope
-      self.unroll(options)
       # Named scopes
       for scope in (model.scopes || [])
         self.unroll(scope, options)
       end
+      # Default scope
+      self.unroll(options)
     end
 
     # Create unroll action for one given scope
@@ -69,7 +69,8 @@ class AdminController < BaseController
         column = model.columns_hash[ca[0]]
         raise Exception.new("Unknown column #{ca[0]} for #{model.name}") unless column
         columns << {column: column, name: column.name, filter: ca[1]|| "X%"}
-        '" + item.' + column.name + '.l + "'
+        i = "item.#{column.name}"
+        "\" + (#{i}.nil? ? '' : #{i}.l) + \""
       end
 
       haml  = ""
@@ -115,7 +116,8 @@ class AdminController < BaseController
       code << "    end\n"
       code << "    conditions[0] << ')'\n"
       code << "  end\n"
-      code << "  items = #{model.name}.where(conditions)#{'.' + scope_name.to_s if scope_name}\n"
+      code << "  items = #{model.name}#{'.' + scope_name.to_s if scope_name}.where(conditions)\n"
+
       code << "  respond_to do |format|\n"
       code << "    format.html { render :file => '#{dir.join(file_name).relative_path_from(Rails.root)}', :locals => { :items => items, :keys => keys }, :layout => false }\n"
       code << "    format.json { render :json => items.collect{|item| {:label => #{item_label}, :id => item.id}}.to_json }\n"

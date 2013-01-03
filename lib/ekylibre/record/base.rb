@@ -79,10 +79,10 @@ module Ekylibre::Record
       @scopes = []
 
       # Permits to consider something and something_id like the same
-      def scope_with_registration(name, scope_options = {})
+      def scope_with_registration(name, scope_options = {}, &block)
         @scopes ||= []
         @scopes << name
-        scope_without_registration(name, scope_options = {})
+        scope_without_registration(name, scope_options, &block)
       end
       alias_method_chain :scope, :registration
 
