@@ -88,6 +88,11 @@ module ApplicationHelper
   # end
 
 
+  def selector_tag(name, choices, options = {}, html_options = {})
+    return text_field_tag(name, html_options.merge('data-selector' => url_for(choices)))
+  end
+
+
   def selector(object_name, association, choices, options = {}, html_options = {})
     object = options[:object] || instance_variable_get("@#{object_name}")
     model = object.class
@@ -1540,7 +1545,7 @@ module ApplicationHelper
               "."+g[:wrapper_id].to_s
             elsif s = @field_sets[id.to_sym]
               "#"+s[:wrapper_id].to_s
-            elsif f = @fields[id.to_sym]
+            elsif f = @fields.select{|f| f[:name].to_s == id.to_s}.first
               "#"+f[:wrapper_id].to_s
             else
               raise Exception.new("Unable to find form element #{expr}")

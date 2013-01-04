@@ -65,7 +65,7 @@ class CashTransfer < CompanyRecord
   end
 
   bookkeep do |b|
-    preference = Preference[:financial_internal_transfers_accounts]
+    preference = Preference.get(:financial_internal_transfers_accounts)
     transfer_account = Account.get(preference.value, preference.label)
     label = tc(:bookkeep, :resource => self.class.model_name.human, :number => self.number, :comment => self.comment, :emitter => self.emitter_cash.name, :receiver => self.receiver_cash.name)
     b.journal_entry(self.emitter_cash.journal, :column => :emitter_journal_entry_id) do |entry|

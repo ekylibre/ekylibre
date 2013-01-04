@@ -1,17 +1,15 @@
-=form_tag({:id=>@step}, :multipart=>true, :style=>'overflow:none', :class=>"vbox flex") do
-  .fields.flex
+=form_tag({:id => @step}, :multipart => true, :style => 'overflow:none') do
+  .form-fields
     -if @step == :upload
-      =formalize do |f|
-        -f.title :select_file_to_upload
-        -f.field tc(:file_to_upload), file_field_tag(:upload)
-        -#f.field tc('first_line_as_title'), check_box_tag(:first_line_as_title)
-        -f.field tc('file_nature'), select_tag(:nature, options_for_select(@formats))
+      =field_set(:select_file_to_upload) do
+        -field tc(:file_to_upload), file_field_tag(:upload)
+        -field tc('first_line_as_title'), check_box_tag(:first_line_as_title)
+        -field tc('file_nature'), select_tag(:nature, options_for_select(@formats))
     -elsif @step == :columns
       -params[:columns] ||= {}
-      =formalize do |f|
-        -f.title :columns
+      =field_set(:columns) do
         -@columns.each_index do |index|
-          -f.field @columns[index], select_tag("columns[#{index}]", options_for_select(@options, params[:columns][index.to_s]||(@options.detect{|x| x[0].match(/#{@columns[index]}/)}[1] rescue nil)))+" "+content_tag(:span, @first_line[index], :class=>:note)
+          -field(@columns[index], select_tag("columns[#{index}]", options_for_select(@options, params[:columns][index.to_s]||(@options.detect{|x| x[0].match(/#{@columns[index]}/)}[1] rescue nil)))+" "+content_tag(:span, @first_line[index], :class => :note))
     -elsif @step == :validate
       .flash.information
         %h3=tg('notifications.information')
@@ -21,18 +19,18 @@
           %h3=tg('notifications.warning')
           %p=tc(:errors_explanation)
           %ul
-            -for index, errors in @report[:errors].sort{|a,b| a[0].to_i<=>b[0].to_i}
+            -for index, errors in @report[:errors].sort{|a,b| a[0].to_i <=> b[0].to_i}
               %li
-                %span=tc(:line, :index=>index)
+                %span=tc(:line, :index => index)
                 %ul
                   -for error in errors
                     %li=error
     .end
-  .actions
+  =form_actions do
     -if @step == :validate
-      =link_to(tg(:previous), :action=>:import, :id=>:columns)
+      =link_to(tg(:previous), :action => :import, :id => :columns)
       =submit_tag(tg(:import))
     -else
-      =link_to(tg(:previous), :action=>:import, :id=>:upload) if @step == :columns
+      =link_to(tg(:previous), :action => :import, :id => :upload) if @step == :columns
       =submit_tag(tg(:next))
 

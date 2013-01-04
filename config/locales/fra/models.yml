@@ -1071,38 +1071,51 @@ fra:
     work_center: "Centre d’opération"
     working_number: "Numéro de travail" #?
   enumerize:
-    cash:
-      mode:  #?
-        bban: "Relevé d’identité bancaire (RIB)" #?
-        iban: "IBAN" #?
-      modes:
-        # bban: "Basic Bank Account Number (BBAN)"
-        # iban: "International Bank Account Number (IBAN)"
-      nature:  #?
-        bank_account: "Compte bancaire" #?
-        cash_box: "Caisse" #?
-      natures:
-        # bank_account: "Bank account"
-        # cash_box: "Cash box"
-  models:
-    account:
-      label: "%{number} - %{name}"
-    animal:  #?
-      sex: #?
-        female: "Femelle" #?
-        male: "Mâle" #?
+    animal:
+      sex:
+        female: "Femelle"
+        male: "Mâle"
     asset:
-      depreciation_methods:
+      depreciation_method:
         graduated: "Dégressive"
         linear: "Linéaire"
         simplified_linear: "Linéaire simplifiée"
-    cash:  #?
-      modes: #?
-        bban: "Relevé d’identité bancaire (RIB)" #?
-        iban: "IBAN" #?
-      natures: #?
-        bank_account: "Compte bancaire" #?
-        cash_box: "Caisse" #?
+    cash:
+      mode:
+        bban: "Relevé d’identité bancaire (RIB)"
+        iban: "IBAN"
+      nature:
+        bank_account: "Compte bancaire"
+        cash_box: "Caisse"
+    document_template:
+      family:
+        accountancy: "Comptabilité"
+        company: "Société"
+        management: "Commerce"
+        production: "Production"
+        relations: "Relations"
+        resources: "Ressources"
+      nature:
+        animal: "Fiche animal"
+        balance: "Balance"
+        balance_sheet: "Bilan comptable"
+        deposit: "Remise en banque"
+        entity: "Fiche personnes"
+        financial_year: "Documents de synthèse"
+        general_journal: "Journal général"
+        general_ledger: "Grand livre"
+        income_statement: "Compte de résultat"
+        inventory: "Inventaire"
+        journal: "Journal"
+        other: "Autre"
+        purchase: "Commande fournisseur"
+        sales_invoice: "Facture client"
+        sales_order: "Devis/Commande"
+        stocks: "État des stocks"
+        transport: "Transport"
+  models:
+    account:
+      label: "%{number} - %{name}"
     cash_transfer:
       bookkeep: "[%{resource} %{number}] De %{emitter} à %{receiver} %{comment}"
     company:
@@ -1123,37 +1136,6 @@ fra:
             immediate: "Immédiat"
             standard: "Standard (30j FDM)"
         department_name: "Gestion/Production"
-        document_templates:
-          accountancy:
-            balance_sheet:
-              filename: "Bilan de l’exercice [code]"
-            general_journal:
-              filename: "Journal général"
-            general_ledger:
-              filename: "Grand livre"
-            income_statement:
-              filename: "Compte de résultat de l’exercice [code]"
-            journal:
-              filename: "[name] (Journal)"
-          management:
-            deposit:
-              filename: "Remise en banque [number]"
-            inventory:
-              filename: "Inventaire [number]"
-            purchase:
-              filename: "Achat [number]"
-            sales_invoice:
-              filename: "Facture [number]"
-              to_archive: "true"
-            sales_order:
-              filename: "Vente [number]"
-            stocks:
-              filename: "État des stocks"
-            transport:
-              filename: "Transport du [created_on]"
-          relations:
-            entity:
-              filename: "Fiche de [full_name]"
         establishment_name: "Établissement principal"
         event_natures:
           purchase: "Création d’un achat"
@@ -1187,59 +1169,6 @@ fra:
             admin: "Gérant"
             public: "Public (sans droits)"
         sale_nature_name: "Vente standard"
-        sequences:
-          assets:
-            # name: "Numeration of assets"
-            # number_format: "A[number|7]"
-          cash_transfers:
-            # name: "Numeration of cash transfers"
-            # number_format: "CT[year|4][number|4]"
-            # period: "year"
-          deposits:
-            # name: "Numeration of deposits"
-            # number_format: "B[year|4][number|4]"
-            # period: "year"
-          entities:
-            # name: "Numeration of people"
-            # number_format: "[number|8]"
-          incoming_deliveries:
-            # name: "Numeration of incoming deliveries"
-            # number_format: "ID[year|4][number|4]"
-            # period: "year"
-          incoming_payments:
-            # name: "Numeration of payments"
-            # number_format: "P[year|4][number|6]"
-            # period: "year"
-          outgoing_deliveries:
-            # name: "Numeration of outgoing deliveries"
-            # number_format: "OD[year|4][number|6]"
-            # period: "year"
-          outgoing_payments:
-            # name: "Numeration of payments"
-            # number_format: "D[year|4][number|4]"
-            # period: "year"
-          purchases:
-            # name: "Numeration of purchases"
-            # number_format: "PO[year|4][month|2][number|4]"
-            # period: "month"
-          sales:
-            # name: "Numeration of sales"
-            # number_format: "SO[year|4][month|2][number|6]"
-            # period: "month"
-          sales_invoices:
-            # name: "Numeration of sales invoices"
-            # number_format: "F[year|4][number|6]"
-            # period: "year"
-          stock_transfers:
-            # name: "Numeration of stock transfers"
-            # number_format: "ST[year|4][number|4]"
-            # period: "year"
-          subscriptions:
-            # name: "Numeration of subscriptions"
-            # number_format: "SUB[number|8]"
-          transports:
-            # name: "Numeration of transports"
-            # number_format: "SH[number|8]"
         taxes:
           tva0000:
             amount: "0.0"
@@ -1286,34 +1215,40 @@ fra:
         zero: "[%{resource} %{number}] Aucun encaissement %{mode} %{comment}"
       bookkeep_with_payment: "[%{resource} %{number}] %{mode} %{check_number} de %{payer} (%{payment})"
     document_template:
+      default:
+        accountancy:
+          balance_sheet:
+            filename: "Bilan de l’exercice [code]"
+          general_journal:
+            filename: "Journal général"
+          general_ledger:
+            filename: "Grand livre"
+          income_statement:
+            filename: "Compte de résultat de l’exercice [code]"
+          journal:
+            filename: "[name] (Journal)"
+        management:
+          deposit:
+            filename: "Remise en banque [number]"
+          inventory:
+            filename: "Inventaire [number]"
+          purchase:
+            filename: "Achat [number]"
+          sales_invoice:
+            filename: "Facture [number]"
+            to_archive: "true"
+          sales_order:
+            filename: "Vente [number]"
+          stocks:
+            filename: "État des stocks"
+          transport:
+            filename: "Transport du [created_on]"
+        relations:
+          entity:
+            filename: "Fiche de [full_name]"
       error_attribute: "Le champ %{value} est incorrect. Les possibilités sont\_: %{possibilities}"
-      families:
-        accountancy: "Comptabilité"
-        company: "Société"
-        management: "Commerce"
-        production: "Production"
-        relations: "Relations"
-        resources: "Ressources"
       invalid_filename: "Fichier"
       nature_do_not_allow_to_use_attributes: "La nature du modèle ne permet pas d’utiliser d’attributs"
-      natures:
-        animal: "Fiche animal" #?
-        balance: "Balance"
-        balance_sheet: "Bilan comptable"
-        deposit: "Remise en banque"
-        entity: "Fiche personnes"
-        financial_year: "Documents de synthèse"
-        general_journal: "Journal général"
-        general_ledger: "Grand livre"
-        income_statement: "Compte de résultat"
-        inventory: "Inventaire"
-        journal: "Journal"
-        other: "Autres"
-        purchase: "Commande fournisseur"
-        sales_invoice: "Facture client"
-        sales_order: "Devis/Commande"
-        stocks: "État des stocks"
-        transport: "Transport"
       unvalid_nature: "Votre type de modèle est incorrect. Vous devriez supprimer ce modèle et le réinstaller."
     entity:
       client: "Client"
@@ -1491,59 +1426,59 @@ fra:
       tracking: "N°Lot\_: %{serial}"
       warehouse_can_not_transfer_product: "Le produit %{product} ne peut être sorti du réservoir %{warehouse}, celui-ci contient %{contained_product} "
     sequence:
-      default:  #?
-        assets: #?
-          name: "Numérotation des immobilisations" #?
-          number_format: "I[number|7]" #?
-        cash_transfers: #?
-          name: "Numérotation des virements internes" #?
-          number_format: "VI[year|4][number|4]" #?
-          period: "year" #?
-        deposits: #?
-          name: "Numérotation des remises en banque" #?
-          number_format: "B[year|4][number|4]" #?
-          period: "year" #?
-        entities: #?
-          name: "Numérotation des personnes" #?
-          number_format: "[number|8]" #?
-        incoming_deliveries: #?
-          name: "Numérotation des bons de réceptions" #?
-          number_format: "BR[year|4][number|4]" #?
-          period: "year" #?
-        incoming_payments: #?
-          name: "Numérotation des encaissements" #?
-          number_format: "R[year|4][number|6]" #?
-          period: "year" #?
-        outgoing_deliveries: #?
-          name: "Numérotation des bons de livraisons" #?
-          number_format: "BL[year|4][number|6]" #?
-          period: "year" #?
-        outgoing_payments: #?
-          name: "Numérotation des décaissements" #?
-          number_format: "D[year|4][number|4]" #?
-          period: "year" #?
-        purchases: #?
-          name: "Numérotation des achats" #?
-          number_format: "A[year|4][month|2][number|6]" #?
-          period: "month" #?
-        sales: #?
-          name: "Numérotation des ventes" #?
-          number_format: "V[year|4][month|2][number|6]" #?
-          period: "month" #?
-        sales_invoices: #?
-          name: "Numérotation des factures" #?
-          number_format: "F[year|4][number|6]" #?
-          period: "year" #?
-        stock_transfers: #?
-          name: "Numérotation des transferts de stock" #?
-          number_format: "TS[year|4][number|4]" #?
-          period: "year" #?
-        subscriptions: #?
-          name: "Numérotation des abonnements" #?
-          number_format: "ABO[number|8]" #?
-        transports: #?
-          name: "Numérotation des transports" #?
-          number_format: "TR[number|8]" #?
+      default:
+        assets:
+          name: "Numérotation des immobilisations"
+          number_format: "I[number|7]"
+        cash_transfers:
+          name: "Numérotation des virements internes"
+          number_format: "VI[year|4][number|4]"
+          period: "year"
+        deposits:
+          name: "Numérotation des remises en banque"
+          number_format: "B[year|4][number|4]"
+          period: "year"
+        entities:
+          name: "Numérotation des personnes"
+          number_format: "[number|8]"
+        incoming_deliveries:
+          name: "Numérotation des bons de réceptions"
+          number_format: "BR[year|4][number|4]"
+          period: "year"
+        incoming_payments:
+          name: "Numérotation des encaissements"
+          number_format: "R[year|4][number|6]"
+          period: "year"
+        outgoing_deliveries:
+          name: "Numérotation des bons de livraisons"
+          number_format: "BL[year|4][number|6]"
+          period: "year"
+        outgoing_payments:
+          name: "Numérotation des décaissements"
+          number_format: "D[year|4][number|4]"
+          period: "year"
+        purchases:
+          name: "Numérotation des achats"
+          number_format: "A[year|4][month|2][number|6]"
+          period: "month"
+        sales:
+          name: "Numérotation des ventes"
+          number_format: "V[year|4][month|2][number|6]"
+          period: "month"
+        sales_invoices:
+          name: "Numérotation des factures"
+          number_format: "F[year|4][number|6]"
+          period: "year"
+        stock_transfers:
+          name: "Numérotation des transferts de stock"
+          number_format: "TS[year|4][number|4]"
+          period: "year"
+        subscriptions:
+          name: "Numérotation des abonnements"
+          number_format: "ABO[number|8]"
+        transports:
+          name: "Numérotation des transports"
+          number_format: "TR[number|8]"
       periods:
         cweek: "Semaine"
         month: "Mois"

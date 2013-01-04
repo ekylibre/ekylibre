@@ -36,11 +36,10 @@
 
 class Journal < CompanyRecord
   attr_readonly :currency
-  # cattr_accessor :natures
   has_many :cashes
   has_many :entry_lines, :class_name=>"JournalEntryLine"
   has_many :entries, :class_name=>"JournalEntry"
-  enumerize :nature, :in => [:sales, :purchases, :bank, :forward, :various, :cash]
+  enumerize :nature, :in => [:sales, :purchases, :bank, :forward, :various, :cash], :default => :various, :predicates => true
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :currency, :allow_nil => true, :maximum => 3
   validates_length_of :code, :allow_nil => true, :maximum => 4
@@ -51,16 +50,14 @@ class Journal < CompanyRecord
   validates_uniqueness_of :code
   validates_uniqueness_of :name
 
-  @@natures = self.nature.values
-
   default_scope order(:name)
   scope :used_for, lambda { |nature|
-    raise ArgumentError.new("Journal#used_for must be one of these: #{@@natures.join(', ')}")
+    raise ArgumentError.new("Journal#used_for must be one of these: #{self.nature.values.join(', ')}") unless self.nature.values.include?(nature.to_s)
     where(:nature => nature.to_s)
   }
-  scope :banks,  -> { where(:nature => :bank) }
-  scope :cashes, -> { where(:nature => :cash) }
-
+  for nature in self.nature.values
+    scope nature.to_s.pluralize,  -> { where(:nature => nature) }
+  end
 
   before_validation(:on=>:create) do
     if year = FinancialYear.first
@@ -176,10 +173,10 @@ class Journal < CompanyRecord
     period.entries.find(:all, :order => "lpad(number,20,'0') DESC", :limit => number_entry)
   end
 
-  # this method returns an array .
-  def self.natures
-    @@natures.collect{|x| [tc('natures.'+x.to_s), x] }
-  end
+  # # this method returns an array .
+  # def self.natures
+  #   @@natures.collect{|x| [tc('natures.'+x.to_s), x] }
+  # end
 
   def entry_lines_between(started_on, stopped_on)
     self.entry_lines.find(:all, :joins=>"JOIN #{JournalEntry.table_name} AS journal_entries ON (journal_entries.id=entry_id)", :conditions=>["printed_on BETWEEN ? AND ? ", started_on, stopped_on], :order=>"printed_on, journal_entries.id, journal_entry_lines.id")

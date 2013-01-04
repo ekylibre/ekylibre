@@ -1,14 +1,4 @@
 -# TODO Manage permutations in forms ?
-%table.flex.center
-  %tr
-    %td
-      %label=EntityLink.human_attribute_name("entity_1_id")
-      =combo_box(:entity_link, :entity_1_id, :entities, :controller=>:interfacers)
-    %td=select(:entity_link, :nature_id, EntityLinkNature.collect{|n| [n.name_1_to_2, n.id]})
-    %td
-      %label=EntityLink.human_attribute_name("entity_2_id")
-      =combo_box(:entity_link, :entity_2_id, :entities, :controller=>:interfacers)
-  %tr
-    %td
-    %td=link_to(tl(:permute), "#", "data-permute-combo-box"=>"#entity_link_entity_1_id, #entity_link_entity_2_id")
-    %td
+=field_set do
+  -input :entity_1, :permute_with => :entity_2
+  -input :entity_2, :permute_with => :entity_1

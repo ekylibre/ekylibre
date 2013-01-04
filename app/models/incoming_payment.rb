@@ -79,10 +79,8 @@ class IncomingPayment < CompanyRecord
 
   delegate :currency, :to => :mode
 
-  default_scope order("id DESC")
-  scope :depositables, lambda {
-    where("deposit_id IS NULL AND to_bank_on >= ? AND mode_id IN (SELECT id FROM #{IncomingPaymentMode.table_name} WHERE with_deposit = ?)", true, Date.today)
-  }
+  default_scope -> { order("id DESC") }
+  scope :depositables, -> { where("deposit_id IS NULL AND to_bank_on >= ? AND mode_id IN (SELECT id FROM #{IncomingPaymentMode.table_name} WHERE with_deposit = ?)", Date.today, true) }
 
   before_validation(:on=>:create) do
     self.created_on ||= Date.today

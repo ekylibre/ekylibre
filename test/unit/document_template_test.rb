@@ -44,8 +44,36 @@
 require 'test_helper'
 
 class DocumentTemplateTest < ActiveSupport::TestCase
-  # Replace this with your real tests.
-  test "the truth" do
-    assert true
+
+  # Tests all templates
+  def test_compile_all_templates
+    for locale in I18n.active_locales
+      # Load all templates
+      assert_nothing_raised do
+        DocumentTemplate.load_defaults(:locale => locale)
+      end
+      # Compile all templates
+      DocumentTemplate.where(:language => locale).find_each do |template|
+        assert_not_nil template.nature, template.inspect
+        if DocumentTemplate.document_natures[template.nature.to_sym].size > 0
+          assert_raise ArgumentError do
+            DocumentTemplate.print(template.nature)
+          end
+        else
+          assert_nothing_raised do
+            DocumentTemplate.print(template.nature)
+          end
+        end
+        code = ""
+        assert_nothing_raised(template.source) do
+          code = Templating.compile(template.source, :xil, :mode => :debug)
+        end
+        # assert_nothing_raised(code) do
+        #   eval(code)
+        # end
+      end
+    end
   end
+
+
 end

@@ -73,7 +73,7 @@ class SaleTest < ActiveSupport::TestCase
   context "A minimal-configuration" do
 
     setup do
-      DocumentTemplate.load_defaults
+      DocumentTemplate.load_defaults(:locale => :fra)
       DocumentTemplate.update_all({:to_archive => true}, {:nature => :sales_invoice})
     end
 

@@ -24,14 +24,17 @@ Ekylibre::Application.routes.draw do
       match "import", :via => [:get, :post]
     end
   end
-  # resources :dashboards, :only => [] do
-  #   collection do
-  #     get :welcome
-  #   end
-  # end
 
   # Permits to use dynamic dashboards
   dashboards
+  resource :dashboards, :only => [] do
+    collection do
+      get :list_future_events
+      get :recent_events
+      get :critic_stocks
+      get :welcome
+    end
+  end
   # get "dashboards", :to => "dashboards#index", :as => :dashboard
   # match '/dashboards/:action', :controller => "dashboards", :via => :get, :as => :dashboard
   match '/toggle/side' => "interfacers#toggle_side"

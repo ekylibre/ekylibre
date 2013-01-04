@@ -102,7 +102,7 @@ eng:
       edit: "Edit cash: %{name}"
       index: "Cashes"
       new: "Add a new cash"
-      show: "%{nature_label}: %{name}"
+      show: "%{nature}: %{name}"
     companies:
       register: "Register a company"
     custom_field_choices:

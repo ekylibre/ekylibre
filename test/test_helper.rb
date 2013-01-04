@@ -71,20 +71,15 @@ class ActionController::TestCase
     code << "context 'A #{controller} controller' do\n"
     code << "  setup do\n"
     code << "    @user = entities(:entities_001)\n"
-    # code << "    login(@user.name, @user.comment)\n"
     code << "    login('gendo', 'secret')\n"
-    # code << "    fast_login(@user)\n"
     code << "  end\n"
     # code << "  teardown do\n"
     # code << "    @user = nil\n"
     # code << "    reset_session\n"
     # code << "  end\n"
-    # code << "  should 'have restful actions' do\n"
+
     except = options.delete(:except)||[]
     except = [except] unless except.is_a? Array
-    # for ignored in except
-    #   puts "Ignore: #{controller}##{ignored}"
-    # end
     return unless Entity.rights[controller]
     for action in Entity.rights[controller].keys.sort{|a,b| a.to_s <=> b.to_s} # .delete_if{|x| ![:index, :new, :create, :edit, :update, :destroy, :show].include?(x.to_sym)} # .delete_if{|x| except.include? x}
       if except.include? action
@@ -113,7 +108,9 @@ class ActionController::TestCase
                end
       end
 
-      model = controller.to_s.singularize
+      # model = controller.to_s.singularize
+      model_name = controller.to_s.classify
+      record = model_name.underscore
       if options[action].is_a? Hash
         # code << "    get :#{action}\n"
         # code << "    assert_response :redirect\n"
@@ -132,37 +129,52 @@ class ActionController::TestCase
         code << "    end\n"
         code << "    get :#{action}, :id => 1\n"
         code << "    assert_response :success, \"Flash: \#{flash.inspect}\"\n"
-        code << "    assert_not_nil assigns(:#{model})\n"
+        code << "    assert_not_nil assigns(:#{record})\n"
       elsif mode == :create
-        klass = model.classify.constantize
-        protected_attributes = klass.protected_attributes.to_a
-        attributes = klass.attribute_names - protected_attributes
-        protected_attributes -= ["id", "type"]
+        model = model_name.constantize
+        restricted = false
+        attributes = if model.accessible_attributes.to_a.size > 0
+                       restricted = true
+                       model.accessible_attributes.to_a
+                     elsif model.protected_attributes.to_a.size > 0
+                       restricted = true
+                       model.attribute_names - model.protected_attributes.to_a
+                     else
+                       model.attribute_names
+                     end
 
-        code << "    #{model} = #{controller}(:#{controller}_001)\n"
+        code << "    #{record} = #{controller}(:#{controller}_001)\n"
         code << "    assert_nothing_raised do\n"
-        code << "      post :#{action}, :#{model} => {"+attributes.collect{|a| ":#{a} => #{model}.#{a}"}.join(', ')+"}\n"
+        code << "      post :#{action}, :#{record} => {"+attributes.collect{|a| ":#{a} => #{record}.#{a}"}.join(', ')+"}\n"
         code << "    end\n"
-        if protected_attributes.size > 0
-          code << "    assert_raise(ActiveModel::MassAssignmentSecurity::Error, 'POST #{controller}/#{action}') do\n"
-          code << "      post :#{action}, :#{model} => #{model}.attributes\n"
-          code << "    end\n"
-        end
+        # if restricted
+        #   code << "    assert_raise(ActiveModel::MassAssignmentSecurity::Error, 'POST #{controller}/#{action}') do\n"
+        #   code << "      post :#{action}, :#{record} => #{record}.attributes\n"
+        #   code << "    end\n"
+        # end
       elsif mode == :update
-        klass = model.classify.constantize
-        protected_attributes = klass.protected_attributes.to_a
-        attributes = klass.attribute_names - protected_attributes
-        protected_attributes -= ["id", "type"]
+        model = model_name.constantize
+        restricted = false
+        protected_attributes = model.protected_attributes.to_a - ["id", "type"]
+        attributes = if model.accessible_attributes.to_a.size > 0
+                       restricted = true
+                       model.accessible_attributes.to_a
+                     elsif protected_attributes.size > 0
+                       restricted = true
+                       model.attribute_names - protected_attributes
+                     else
+                       model.attribute_names
+                     end
 
-        code << "    #{model} = #{controller}(:#{controller}_001)\n"
+        code << "    #{record} = #{controller}(:#{controller}_001)\n"
         code << "    assert_nothing_raised do\n"
-        code << "      put :#{action}, :id => #{model}.id, :#{model} => {"+attributes.collect{|a| ":#{a} => #{model}.#{a}"}.join(', ')+"}\n"
+        code << "      put :#{action}, :id => #{record}.id, :#{record} => {"+attributes.collect{|a| ":#{a} => #{record}.#{a}"}.join(', ')+"}\n"
         code << "    end\n"
-        if protected_attributes.size > 0
-          code << "    assert_raise(ActiveModel::MassAssignmentSecurity::Error, 'PUT #{controller}/#{action}/:id') do\n"
-          code << "      put :#{action}, :id => #{model}.id, :#{model} => #{model}.attributes\n"
-          code << "    end\n"
-        end
+        # if restricted
+        #   code << "    assert_raise(ActiveModel::MassAssignmentSecurity::Error, 'PUT #{controller}/#{action}/:id') do\n"
+        #   code << "      put :#{action}, :id => #{record}.id, :#{record} => #{record}.attributes\n"
+        #   code << "    end\n"
+        # end
       elsif mode == :destroy
         code << "    assert_nothing_raised do\n"
         code << "      delete :#{action}, :id => 2\n"
@@ -198,7 +210,7 @@ class ActionController::TestCase
         code << "    get :#{action}, :id => 1\n"
         code << "    assert_response :redirect\n"
         code << "    xhr :get, :#{action}, :id => 1\n"
-        code << "    assert_not_nil assigns(:#{model})\n"
+        code << "    assert_not_nil assigns(:#{record})\n"
       else
         code << "    get :#{action}\n"
         code << "    assert_response :success, \"The action #{action.inspect} does not seem to support GET method \#{redirect_to_url} / \#{flash.inspect}\"\n"
@@ -209,7 +221,7 @@ class ActionController::TestCase
     # code << "  end\n"
     code << "end\n"
 
-    # code.split("\n").each_with_index{|line, x| puts((x+1).to_s.rjust(4)+": "+line)}
+    code.split("\n").each_with_index{|line, x| puts((x+1).to_s.rjust(4)+": "+line)}
     class_eval(code, "#{__FILE__}:#{__LINE__}")
 
   end

@@ -10,8 +10,8 @@
     <page format="A4" margin="10mm">
       <part height="85mm">
         <set>
-          <image value="{{deposit.company.entity/photo}}" height="30mm">
-            <text value="{{deposit.company.entity/full_name}}" size="16"/>
+          <image value="{{Entity.of_company/photo}}" height="30mm">
+            <text value="{{Entity.of_company/full_name}}" size="16"/>
           </image>
           <text value="{{deposit.cash/bank_name}}" bold="true" align="left" font="helvetica" top="42mm" left="100mm"/>
           <text value="{{deposit.cash/address}}" align="left" font="helvetica" top="46mm" left="100mm"/>
@@ -57,8 +57,8 @@
           <set top="2.5mm"> 
             <text value="Deposit #{{deposit/number}}" size="10" align="left"/>
             <text value="{{deposit/created_on?format=month_letter}}" size="10" right="0" align="right"/>
-            <text value="{{deposit.company.entity/full_name}} - SIREN {{deposit.company.entity/siren}}" size="8" left="50%" align="center" top="6mm"/>
-            <text value="{{deposit.company.entity.default_contact/address}}" size="8" left="50%" align="center" top="9.5mm"/>
+            <text value="{{Entity.of_company/full_name}} - SIREN {{Entity.of_company/siren}}" size="8" left="50%" align="center" top="6mm"/>
+            <text value="{{Entity.of_company.default_mail_address/coordinate}}" size="8" left="50%" align="center" top="9.5mm"/>
           </set>
         </set>
       </part>

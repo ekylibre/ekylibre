@@ -18,24 +18,24 @@
 #
 
 class DocumentTemplatesController < AdminController
-  manage_restfully :country=>"Entity.of_company.country", :language=>"Entity.of_company.language"
+  manage_restfully :country => "Entity.of_company.country", :language => "Entity.of_company.language"
 
   unroll_all
 
-  list(:order=>"nature, name") do |t|
+  list(:order => "nature, name") do |t|
     t.column :active
     t.column :name
     t.column :code
-    t.column :family_label
-    t.column :nature_label
+    t.column :family
+    t.column :nature
     t.column :by_default
     t.column :to_archive
     t.column :language
     t.column :country
-    t.action :print, :format=>:pdf
-    t.action :duplicate, :method=>:post
+    t.action :print, :format => :pdf
+    t.action :duplicate, :method => :post
     t.action :edit
-    t.action :destroy, :if=>"RECORD.destroyable\?"
+    t.action :destroy, :if => :destroyable?
   end
 
   # Displays the main page with the list of document templates
@@ -48,22 +48,22 @@ class DocumentTemplatesController < AdminController
     attrs.delete("id")
     attrs.delete("lock_version")
     attrs.delete_if{|k,v| k.match(/^(cre|upd)at((e|o)r_id|ed_(at|on))/) }
-    while DocumentTemplate.where(:code=>attrs["code"]).first
+    while DocumentTemplate.where(:code => attrs["code"]).first
       attrs["code"].succ!
     end
     copy = DocumentTemplate.create(attrs)
-    redirect_to :action=>:edit, :id=>copy
+    redirect_to :action => :edit, :id => copy.id
   end
 
   def print
     return unless @document_template = find_and_check(:document_template)
-    send_data @document_template.sample, :filename=>@document_template.name.simpleize, :type=>Mime::PDF, :disposition=>'inline'
+    send_data @document_template.sample, :filename => @document_template.name.simpleize, :type => Mime::PDF, :disposition => 'inline'
   end
 
   def load
     DocumentTemplate.load_defaults
     notify_success(:update_is_done)
-    redirect_to :action=>:index
+    redirect_to :action => :index
   end
 
 end

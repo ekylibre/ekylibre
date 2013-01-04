@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
-<template title="Example" lang="fr" version="2.0">
+<template title="Vente" lang="fr" version="2.0">
   <infos>
     <info name="authors">Thibaud Mérigon, Brice Texier</info>
   </infos>
   <parameters>
     <parameter name="sales_order" nature="sales_order">Vente</parameter>
   </parameters>
-  <document unit="mm" size="10" title="client.label">
+  <document unit="mm" size="10" title="{{sales_order.number}}">
     <page orientation="portrait" format="A4" margin="10mm">
       <part height="72mm">
         <set>
@@ -22,7 +22,7 @@
           <text value="Devis N°{{sales_order/number}}" bold="true"/>
         </set>
         <set if="sales_order.responsible" top="4mm">
-          <text value="Entre {{Entity.of_company/name}}, {{sales_order.responsible/label}} et {{sales_order.client/full_name}}."/>
+          <text value="Entre {{Entity.of_company/full_name}}, {{sales_order.responsible/full_name}} et {{sales_order.client/full_name}}."/>
         </set>
       </part> 
 

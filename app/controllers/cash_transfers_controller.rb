@@ -18,16 +18,16 @@
 #
 
 class CashTransfersController < AdminController
-  manage_restfully :created_on=>'Date.today'
+  manage_restfully :created_on => 'Date.today'
 
   unroll_all
 
   list do |t|
-    t.column :number, :url=>true
-    t.column :emitter_amount, :currency=>"RECORD.emitter_cash.currency"
-    t.column :name, :through=>:emitter_cash, :url=>true
-    t.column :receiver_amount, :currency=>"RECORD.receiver_cash.currency"
-    t.column :name, :through=>:receiver_cash, :url=>true
+    t.column :number, :url => true
+    t.column :emitter_amount,  :currency => "RECORD.emitter_cash.currency"
+    t.column :name, :through => :emitter_cash, :url => true
+    t.column :receiver_amount, :currency => "RECORD.receiver_cash.currency"
+    t.column :name, :through => :receiver_cash, :url => true
     t.column :created_on
     t.column :comment
     t.action :edit

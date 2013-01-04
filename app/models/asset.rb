@@ -52,8 +52,8 @@
 #
 
 class Asset < CompanyRecord
-  DEPRECIATION_METHODS = ['simplified_linear', 'linear'] # graduated
   acts_as_numbered
+  enumerize :depreciation_method, :in => [:simplified_linear, :linear], :predicates => {:prefix => true} # graduated
   belongs_to :charges_account, :class_name => "Account"
   belongs_to :allocation_account, :class_name => "Account"
   belongs_to :journal, :class_name => "Journal"
@@ -67,12 +67,13 @@ class Asset < CompanyRecord
   validates_presence_of :allocation_account, :depreciable_amount, :depreciated_amount, :depreciation_method, :journal, :name, :number, :started_on, :stopped_on
   #]VALIDATORS]
   validates_uniqueness_of :name
+  validates_inclusion_of :depreciation_method, :in => self.depreciation_method.values
 
-  def self.deprecation_methods
-    return DEPRECIATION_METHODS.collect do |key|
-      [tc("depreciation_methods.#{key}"), key]
-    end
-  end
+  # def self.deprecation_methods
+  #   return DEPRECIATION_METHODS.collect do |key|
+  #     [tc("depreciation_methods.#{key}"), key]
+  #   end
+  # end
 
   before_validation(:on => :create) do
     self.depreciated_amount ||= 0
@@ -127,15 +128,13 @@ class Asset < CompanyRecord
     self.depreciate! if @auto_depreciate
   end
 
+  # def linear_method?
+  #   return (self.depreciation_method == 'linear' ? true : false)
+  # end
 
-
-  def linear_method?
-    return (self.depreciation_method == 'linear' ? true : false)
-  end
-
-  def simplified_linear_method?
-    return (self.depreciation_method == 'simplified_linear' ? true : false)
-  end
+  # def simplified_linear_method?
+  #   return (self.depreciation_method == 'simplified_linear' ? true : false)
+  # end
 
   def depreciate!
     self.planned_depreciations.clear

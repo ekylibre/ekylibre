@@ -67,8 +67,8 @@ class IncomingPaymentMode < CompanyRecord
 
   delegate :currency, :to => :cash
 
-  default_scope order(:position)
-  scope :depositers, where(:with_deposit => true).order(:name)
+  default_scope -> { order(:position) }
+  scope :depositers, -> { where(:with_deposit => true).order(:name) }
 
   before_validation do
     if self.cash.cash_box?

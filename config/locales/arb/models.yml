@@ -1493,23 +1493,57 @@ arb:
     # with_transport: "With transport"
     # work_center: "Work center"
   enumerize:
+    animal:
+      sex:
+        # female: "Female"
+        # male: "Male"
+    asset:
+      depreciation_method:
+        # graduated: "Graduated"
+        # linear: "Linear"
+        # simplified_linear: "Simplified linear"
     cash:
-      modes:
+      mode:
         # bban: "Basic Bank Account Number (BBAN)"
         # iban: "International Bank Account Number (IBAN)"
-      natures:
+      modes: #?
+      nature:
         # bank_account: "Bank account"
         # cash_box: "Cash box"
+      natures: #?
+    document_template:
+      family:
+        # accountancy: "Accountancy"
+        # company: "Company"
+        # management: "Management"
+        # production: "Production"
+        # relations: "Relationships"
+        # resources: "Resources"
+      nature:
+        # animal: "Animal card"
+        # balance: "Balance"
+        # balance_sheet: "Balance sheet"
+        # deposit: "Deposit"
+        # entity: "Person"
+        # financial_year: "Financial year document"
+        # general_journal: "General journal"
+        # general_ledger: "Grand ledger"
+        # income_statement: "Income statement"
+        # inventory: "Inventory"
+        # journal: "Journal"
+        # other: "Other"
+        # purchase: "Purchase order"
+        # sales_invoice: "Sales invoice"
+        # sales_order: "Sales order"
+        # stocks: "Stocks"
+        # transport: "Transport"
   models:
     account:
       default_account_name: "دفتر الحسابات %{number}" #?
       error_delete: "لا يمكن حذف حساب لاحتوائه على حسابات فرعية" #?
       label: "%{number} - %{name}"
-    asset:
-      depreciation_methods:
-        # graduated: "Graduated"
-        # linear: "Linear"
-        # simplified_linear: "Simplified linear"
+    asset:  #?
+ #?
     bank_statement:  #?
       error_account_children: ".لا يمكن حذف دفتر الحسابات لاحتوائه على حسابات فرعية" #?
       error_journal_statement: "بيان بنكي محدد لدى الدفتر اليومي" #?
@@ -1549,39 +1583,37 @@ arb:
           journals: "ادفاتر اليومية" #?
           sale: "البيع" #?
           sales_invoice: "فاتورة" #?
-        document_templates:
-          accountancy:
-            balance_sheet:
-              filename: "[code] عرض عام"
-            general_journal:
-              filename: "دفتر عام"
-            general_ledger:
-              filename: "دفتر الحسابات"
-            income_statement:
-              filename: "[code]بيان حسابات الدخل"
-            journal:
-              filename: "[name] (الدفتر اليومي)"
-          management:
-            deposit:
-              filename: "[created_on] اقتطاع البنك من"
-            inventory:
-              filename: "[created_on] جرد ل"
-            purchase:
-              filename: "[number]شراء"
-            sale:  #?
+        document_templates:  #?
+          accountancy: #?
+            balance_sheet: #?
+              filename: "[code] عرض عام" #?
+            general_journal: #?
+              filename: "دفتر عام" #?
+            general_ledger: #?
+              filename: "دفتر الحسابات" #?
+            income_statement: #?
+              filename: "[code]بيان حسابات الدخل" #?
+            journal: #?
+              filename: "[name] (الدفتر اليومي)" #?
+          management: #?
+            deposit: #?
+              filename: "[created_on] اقتطاع البنك من" #?
+            inventory: #?
+              filename: "[created_on] جرد ل" #?
+            purchase: #?
+              filename: "[number]شراء" #?
+            sale: #?
               filename: "[number]بيع" #?
-            sales_invoice:
-              filename: "[number] فاتورة"
-              to_archive: "صحيح"
-            sales_order:
-              # filename: "sale [number]"
-            stocks:
-              filename: "حالة الاسهم"
-            transport:
-              filename: "[created_on] توصيل ل"
-          relations:
-            entity:
-              filename: " [full_name] ملف ال"
+            sales_invoice: #?
+              filename: "[number] فاتورة" #?
+              to_archive: "صحيح" #?
+            stocks: #?
+              filename: "حالة الاسهم" #?
+            transport: #?
+              filename: "[created_on] توصيل ل" #?
+          relations: #?
+            entity: #?
+              filename: " [full_name] ملف ال" #?
         document_templates_filenames:  #?
           balance_sheet: "[code]الميزانية العمومية" #?
           deposit: "[created_on] الاقتطاع البنكي ل" #?
@@ -1631,30 +1663,8 @@ arb:
             public: "(الشعب (من دون حقوق"
         sale_nature_name: "مقياس البيع"
         sample_product_name: "عينة المنتج" #?
-        sequences:
-          assets:
-            # name: "Numeration of assets"
-            # number_format: "A[number|7]"
-          cash_transfers:
-            # name: "Numeration of cash transfers"
-            # number_format: "CT[year|4][number|4]"
-            # period: "year"
-          deposits:
-            # name: "Numeration of deposits"
-            # number_format: "B[year|4][number|4]"
-            # period: "year"
-          entities:
-            # name: "Numeration of people"
-            # number_format: "[number|8]"
-          incoming_deliveries:
-            # name: "Numeration of incoming deliveries"
-            # number_format: "ID[year|4][number|4]"
-            # period: "year"
-          incoming_payments:
-            # name: "Numeration of payments"
-            # number_format: "P[year|4][number|6]"
-            # period: "year"
-          management:  #?
+        sequences:  #?
+          management: #?
             deposits: #?
               name: "عدد الاقتطاعات البنكية" #?
               number_format: "B[year|4][number|4]" #?
@@ -1678,40 +1688,10 @@ arb:
             subscriptions: #?
               name: "عدد الاشتراكات" #?
               number_format: "ABO[number|8]" #?
-          outgoing_deliveries:
-            # name: "Numeration of outgoing deliveries"
-            # number_format: "OD[year|4][number|6]"
-            # period: "year"
-          outgoing_payments:
-            # name: "Numeration of payments"
-            # number_format: "D[year|4][number|4]"
-            # period: "year"
-          purchases:
-            # name: "Numeration of purchases"
-            # number_format: "PO[year|4][month|2][number|4]"
-            # period: "month"
-          relations:  #?
+          relations: #?
             entities: #?
               name: "عدد الاشخاص" #?
               number_format: "[number|8]" #?
-          sales:
-            # name: "Numeration of sales"
-            # number_format: "SO[year|4][month|2][number|6]"
-            # period: "month"
-          sales_invoices:
-            # name: "Numeration of sales invoices"
-            # number_format: "F[year|4][number|6]"
-            # period: "year"
-          stock_transfers:
-            # name: "Numeration of stock transfers"
-            # number_format: "ST[year|4][number|4]"
-            # period: "year"
-          subscriptions:
-            # name: "Numeration of subscriptions"
-            # number_format: "SUB[number|8]"
-          transports:
-            # name: "Numeration of transports"
-            # number_format: "SH[number|8]"
         taxes:
           tva0000:
             amount: "0.0"
@@ -1772,34 +1752,64 @@ arb:
         zero: "[%{resource} %{number}] ولا اية دفعة %{mode} %{comment}"
       bookkeep_with_payment: "[%{resource} %{number}] %{mode} %{check_number} من %{payer} (%{payment})"
     document_template:
+      default:
+        accountancy:
+          balance_sheet:
+            # filename: "Balance sheet [code]"
+          general_journal:
+            # filename: "General journal"
+          general_ledger:
+            # filename: "General ledger"
+          income_statement:
+            # filename: "Income statement [code]"
+          journal:
+            # filename: "[name] (Journal)"
+        management:
+          deposit:
+            # filename: "Deposit [number]"
+          inventory:
+            # filename: "Inventory [number]"
+          purchase:
+            # filename: "Purchase order [number]"
+          sales_invoice:
+            # filename: "Sales invoice [number]"
+            # to_archive: "true"
+          sales_order:
+            # filename: "sale [number]"
+          stocks:
+            # filename: "Stocks"
+          transport:
+            # filename: "Transport [created_on]"
+        relations:
+          entity:
+            # filename: "[full_name]"
       error_attribute: "الحقل %{value} غير صحيح.الاحتمالات هم%{possibilities}"
-      families:
-        accountancy: "المحاسبة"
-        company: "الشركة"
-        management: "التجارة"
-        production: "الانتاج"
-        relations: "العلاقات"
-        resources: "المصادر"
+      families:  #?
+        accountancy: "المحاسبة" #?
+        company: "الشركة" #?
+        management: "التجارة" #?
+        production: "الانتاج" #?
+        relations: "العلاقات" #?
+        resources: "المصادر" #?
       invalid_filename: "بيان مصور"
       nature_do_not_allow_to_use_attributes: "لا تسمح طبيعة النموذج باستخدام صفة مميزة"
-      natures:
-        balance: "الرصيد"
-        balance_sheet: "الميزانة العمومية"
-        deposit: "الاقتطاع البنكي"
-        entity: "ملفات الاشخاص"
-        financial_year: "وثائق لمناقشة"
-        general_journal: "دفتر يوم عام"
-        general_ledger: "دفتر الحسابات"
-        income_statement: "حسابات الدخل"
-        inventory: "عملية الجرد"
-        journal: "الدفتر اليومي"
-        other: "اخرى"
-        purchase: "طلب الممول"
+      natures:  #?
+        balance: "الرصيد" #?
+        balance_sheet: "الميزانة العمومية" #?
+        deposit: "الاقتطاع البنكي" #?
+        entity: "ملفات الاشخاص" #?
+        financial_year: "وثائق لمناقشة" #?
+        general_journal: "دفتر يوم عام" #?
+        general_ledger: "دفتر الحسابات" #?
+        income_statement: "حسابات الدخل" #?
+        inventory: "عملية الجرد" #?
+        journal: "الدفتر اليومي" #?
+        other: "اخرى" #?
+        purchase: "طلب الممول" #?
         sale: "طلب / اقتباس" #?
-        sales_invoice: "فاتورة العميل"
-        # sales_order: "Sales order"
-        stocks: "حالة الاسهم"
-        transport: "وسائل النقل"
+        sales_invoice: "فاتورة العميل" #?
+        stocks: "حالة الاسهم" #?
+        transport: "وسائل النقل" #?
       unvalid_nature: "نوع نموذجكم غير صحيح، يجب عليكم حذف هذا النموذج واعادة تثبيته."
     entity:
       client: "العميل"
@@ -1996,7 +2006,59 @@ arb:
     sales_invoice_line:  #?
       no_product: "[لا لاي منتج]" #?
     sequence:
-      default: #?
+      default:
+        assets:
+          # name: "Numeration of assets"
+          # number_format: "A[number|7]"
+        cash_transfers:
+          # name: "Numeration of cash transfers"
+          # number_format: "CT[year|4][number|4]"
+          # period: "year"
+        deposits:
+          # name: "Numeration of deposits"
+          # number_format: "B[year|4][number|4]"
+          # period: "year"
+        entities:
+          # name: "Numeration of people"
+          # number_format: "[number|8]"
+        incoming_deliveries:
+          # name: "Numeration of incoming deliveries"
+          # number_format: "ID[year|4][number|4]"
+          # period: "year"
+        incoming_payments:
+          # name: "Numeration of payments"
+          # number_format: "P[year|4][number|6]"
+          # period: "year"
+        outgoing_deliveries:
+          # name: "Numeration of outgoing deliveries"
+          # number_format: "OD[year|4][number|6]"
+          # period: "year"
+        outgoing_payments:
+          # name: "Numeration of payments"
+          # number_format: "D[year|4][number|4]"
+          # period: "year"
+        purchases:
+          # name: "Numeration of purchases"
+          # number_format: "PO[year|4][month|2][number|4]"
+          # period: "month"
+        sales:
+          # name: "Numeration of sales"
+          # number_format: "SO[year|4][month|2][number|6]"
+          # period: "month"
+        sales_invoices:
+          # name: "Numeration of sales invoices"
+          # number_format: "F[year|4][number|6]"
+          # period: "year"
+        stock_transfers:
+          # name: "Numeration of stock transfers"
+          # number_format: "ST[year|4][number|4]"
+          # period: "year"
+        subscriptions:
+          # name: "Numeration of subscriptions"
+          # number_format: "SUB[number|8]"
+        transports:
+          # name: "Numeration of transports"
+          # number_format: "SH[number|8]"
       periods:
         cweek: "اسبوع"
         month: "شهر"

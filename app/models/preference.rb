@@ -104,7 +104,7 @@ class Preference < CompanyRecord
   end
 
   def self.[](name)
-    return self.get(name)
+    return self.get(name).value
   end
 
 
@@ -117,7 +117,7 @@ class Preference < CompanyRecord
     elsif preference.nil?
       raise ArgumentError.new("Undefined preference: "+name.to_s)
     end
-    return preference.value
+    return preference
   end
 
   def value

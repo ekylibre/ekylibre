@@ -1,8 +1,8 @@
 =form_tag do
-  =formalize do |f|
-    -f.field tc(:entity_to_update), combo_box_tag(:master, :entities, :controller=>:interfacers)
-    -f.field tc(:entity_to_delete), combo_box_tag(:double, :entities, :controller=>:interfacers)
+  =field_set(:merge) do
+    -field tc(:entity_to_update), selector_tag(:master)
+    -field tc(:entity_to_delete), selector_tag(:double)
   =toolbar do |t|
-    -t.link :permute, {:action=>:merge}, "data-permute-combo-box"=>"#master, #double"
-  .actions
+    -t.link :permute, {:action => :merge}, "data-permute-combo-box"=>"#master, #double"
+  =form_actions do
     =submit_tag tc(:merge)

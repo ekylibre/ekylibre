@@ -21,17 +21,17 @@ class DepositsController < AdminController
 
   unroll_all
 
-  list(:order=>"created_at DESC") do |t|
-    t.column :number, :url=>true
-    t.column :amount, :currency=>"RECORD.cash.currency", :url=>true
+  list(:order => "created_at DESC") do |t|
+    t.column :number, :url => true
+    t.column :amount, :currency => "RECORD.cash.currency", :url => true
     t.column :payments_count
-    t.column :name, :through=>:cash, :url=>true
-    t.column :label, :through=>:responsible
+    t.column :name, :through => :cash, :url => true
+    t.column :label, :through => :responsible
     t.column :created_on
     t.column :comment
-    t.action :show, :url=>{:format=>:pdf}, :image=>:print
-    t.action :edit, :if=>'RECORD.locked == false'
-    t.action :destroy, :if=>'RECORD.locked == false'
+    t.action :show, :url => {:format => :pdf}, :image => :print
+    t.action :edit, :unless => :locked?
+    t.action :destroy, :unless => :locked?
   end
 
   # Displays the main page with the list of deposits
@@ -40,14 +40,14 @@ class DepositsController < AdminController
   end
 
 
-  list(:payments, :model=>:incoming_payments, :conditions=>{:deposit_id=>['session[:deposit_id]']}, :pagination=>:none, :order=>:number) do |t|
-    t.column :number, :url=>true
-    t.column :full_name, :through=>:payer, :url=>true
+  list(:payments, :model => :incoming_payments, :conditions => {:deposit_id => ['session[:deposit_id]']}, :pagination => :none, :order => :number) do |t|
+    t.column :number, :url => true
+    t.column :full_name, :through => :payer, :url => true
     t.column :bank
     t.column :account_number
     t.column :check_number
     t.column :paid_on
-    t.column :amount, :currency=>"RECORD.mode.cash.currency", :url=>true
+    t.column :amount, :currency => "RECORD.mode.cash.currency", :url => true
   end
 
   # Displays details of one deposit selected with +params[:id]+
@@ -63,24 +63,24 @@ class DepositsController < AdminController
   end
 
 
-  list(:depositable_payments, :model=>:incoming_payments, :conditions=>["deposit_id=? OR (mode_id=? AND deposit_id IS NULL)", ['session[:deposit_id]'], ['session[:payment_mode_id]']], :pagination=>:none, :order=>"to_bank_on, created_at", :line_class=>"((RECORD.to_bank_on||Date.yesterday)>Date.today ? 'critic' : '')") do |t|
-    t.column :number, :url=>true
-    t.column :full_name, :through=>:payer, :url=>true
+  list(:depositable_payments, :model => :incoming_payments, :conditions => ["deposit_id=? OR (mode_id=? AND deposit_id IS NULL)", ['session[:deposit_id]'], ['session[:payment_mode_id]']], :pagination => :none, :order => "to_bank_on, created_at", :line_class => "((RECORD.to_bank_on||Date.yesterday)>Date.today ? 'critic' : '')") do |t|
+    t.column :number, :url => true
+    t.column :full_name, :through => :payer, :url => true
     t.column :bank
     t.column :account_number
     t.column :check_number
     t.column :paid_on
-    t.column :label, :through=>:responsible
-    t.column :amount, :currency=>"RECORD.mode.cash.currency"
-    t.check_box :to_deposit, :value=>'(RECORD.to_bank_on<=Date.today and (session[:deposit_id].nil? ? (RECORD.responsible.nil? or RECORD.responsible_id==@current_user.id) : (RECORD.deposit_id==session[:deposit_id])))', :label=>tc(:to_deposit)
+    t.column :label, :through => :responsible
+    t.column :amount, :currency => "RECORD.mode.cash.currency"
+    t.check_box :to_deposit, :value => '(RECORD.to_bank_on<=Date.today and (session[:deposit_id].nil? ? (RECORD.responsible.nil? or RECORD.responsible_id==@current_user.id) : (RECORD.deposit_id==session[:deposit_id])))', :label => tc(:to_deposit)
   end
 
   def new
     return unless mode = find_mode
     session[:deposit_id] = nil
     session[:payment_mode_id] = mode.id
-    @deposit = Deposit.new(:created_on=>Date.today, :mode_id=>mode.id, :responsible_id=>@current_user.id)
-    t3e :mode=>mode.name
+    @deposit = Deposit.new(:created_on => Date.today, :mode_id => mode.id, :responsible_id => @current_user.id)
+    t3e :mode => mode.name
     render_restfully_form
   end
 
@@ -92,11 +92,11 @@ class DepositsController < AdminController
     @deposit.mode_id = mode.id
     if @deposit.save
       payments = params[:depositable_payments].collect{|id, attrs| (attrs[:to_deposit].to_i==1 ? id.to_i : nil)}.compact
-      IncomingPayment.update_all({:deposit_id=>@deposit.id}, {:id => payments})
+      IncomingPayment.update_all({:deposit_id => @deposit.id}, {:id => payments})
       @deposit.refresh
-      return if save_and_redirect(@deposit, :saved=>true)
+      return if save_and_redirect(@deposit, :saved => true)
     end
-    t3e :mode=>mode.name
+    t3e :mode => mode.name
     render_restfully_form
   end
 
@@ -115,11 +115,11 @@ class DepositsController < AdminController
     if @deposit.update_attributes(params[:deposit])
       ActiveRecord::Base.transaction do
         payments = params[:depositable_payments].collect{|id, attrs| (attrs[:to_deposit].to_i==1 ? id.to_i : nil)}.compact
-        IncomingPayment.update_all({:deposit_id=>nil}, {:deposit_id => @deposit.id})
-        IncomingPayment.update_all({:deposit_id=>@deposit.id}, {:id => payments})
+        IncomingPayment.update_all({:deposit_id => nil}, {:deposit_id => @deposit.id})
+        IncomingPayment.update_all({:deposit_id => @deposit.id}, {:id => payments})
       end
       @deposit.refresh
-      return if save_and_redirect(@deposit, :saved=>true)
+      return if save_and_redirect(@deposit, :saved => true)
     end
     t3e @deposit.attributes
     render_restfully_form
@@ -132,12 +132,12 @@ class DepositsController < AdminController
   end
 
 
-  list(:unvalidateds, :model=>:deposits, :conditions=>{:locked=>false}) do |t|
+  list(:unvalidateds, :model => :deposits, :conditions => {:locked => false}) do |t|
     t.column :created_on
     t.column :amount
     t.column :payments_count
-    t.column :name, :through=>:cash, :url=>true
-    t.check_box :validated, :value=>'RECORD.created_on<=Date.today-(15)'
+    t.column :name, :through => :cash, :url => true
+    t.check_box :validated, :value => 'RECORD.created_on<=Date.today-(15)'
   end
 
   def unvalidateds
@@ -145,9 +145,9 @@ class DepositsController < AdminController
     if request.post?
       for id, values in params[:unvalidateds] || {}
         return unless deposit = find_and_check(:deposit, id)
-        deposit.update_attributes!(:locked=>true) if deposit and values[:validated].to_i == 1
+        deposit.update_attributes!(:locked => true) if deposit and values[:validated].to_i == 1
       end
-      redirect_to :action=>:unvalidateds
+      redirect_to :action => :unvalidateds
     end
   end
 
@@ -157,12 +157,12 @@ class DepositsController < AdminController
     mode = IncomingPaymentMode.find_by_id(params[:mode_id])
     if mode.nil?
       notify_warning(:need_payment_mode_to_create_deposit)
-      redirect_to :action=>:index
+      redirect_to :action => :index
       return nil
     end
     if mode.depositable_payments.size <= 0
       notify_warning(:no_payment_to_deposit)
-      redirect_to :action=>:index
+      redirect_to :action => :index
       return nil
     end
     return mode

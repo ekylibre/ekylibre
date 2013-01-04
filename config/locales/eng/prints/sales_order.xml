@@ -1,28 +1,28 @@
 <?xml version="1.0"?>
-<template title="Example" lang="fr" version="2.0">
+<template title="Sales order" lang="en" version="2.0">
   <infos>
     <info name="authors">Thibaud Mérigon, Brice Texier</info>
   </infos>
   <parameters>
     <parameter name="sales_order" nature="sales_order">Sales order</parameter>
   </parameters>
-  <document unit="mm" size="10" title="sales_order.number">
+  <document unit="mm" size="10" title="{{sales_order.number}}">
     <page orientation="portrait" format="A4" margin="10mm">
       <part height="72mm">
         <set>
-          <image value="{{sales_order.company.entity/photo}}" height="30mm">
-            <text value="{{sales_order.company.entity/full_name}}" size="16"/>
+          <image value="{{Entity.of_company/photo}}" height="30mm">
+            <text value="{{Entity.of_company/full_name}}" size="16"/>
           </image>
-          <text value="{{sales_order/address}}" align="left" font="helvetica" top="42mm" left="100mm"/>
+          <text value="{{sales_order/mail_address}}" align="left" font="helvetica" top="42mm" left="100mm"/>
         </set>
       </part>
       <part height="11mm">
         <set>
-          <text value="À {{sales_order.company.default_contact.mail_area/city_name?capitalize=true}}, le {{sales_order/created_on?format=month_letter}}" left="100%" align="right"/>
+          <text value="À {{Entity.of_company.default_mail_address.mail_area/city_name?capitalize=true}}, le {{sales_order/created_on?format=month_letter}}" left="100%" align="right"/>
           <text value="Devis N°{{sales_order/number}}" bold="true"/>
         </set>
         <set if="sales_order.responsible" top="4mm">
-          <text value="Entre {{sales_order.company/name}}, {{sales_order.responsible/label}} et {{sales_order.client/full_name}}."/>
+          <text value="Entre {{Entity.of_company/full_name}}, {{sales_order.responsible/full_name}} et {{sales_order.client/full_name}}."/>
         </set>
       </part> 
 
@@ -115,7 +115,7 @@
             <text value="Réf. Client : {{sales_order.client/code}}" top="4mm" align="left"/>
             <text value="Page 1 sur 1" top="8mm" align="left"/>
             <text value="{{sales_order/created_on?format=month_letter}}" size="10" left="50%" align="center"/>
-            <text value="N° TVA Intracommunautaire : {{sales_order.company.entity/vat_number}} - SIREN : {{sales_order.company.entity/siren}} - Code APE : {{sales_order.company.entity/activity_code}}" size="7" left="50%" align="center" top="6mm"/>
+            <text value="N° TVA Intracommunautaire : {{Entity.of_company/vat_number}} - SIREN : {{Entity.of_company/siren}} - Code APE : {{Entity.of_company/activity_code}}" size="7" left="50%" align="center" top="6mm"/>
             <text value="Paraphe" size="10" right="20mm" align="right" bold="true"/>
             <rectangle width="18mm" height="8mm" right="18mm" border="0.5 solid #000"/>
           </set>

@@ -977,21 +977,55 @@ spa:
     # with_transport: "With transport"
     # work_center: "Work center"
   enumerize:
-    cash:
-      modes:
-        # bban: "Basic Bank Account Number (BBAN)"
-        # iban: "International Bank Account Number (IBAN)"
-      natures:
-        # bank_account: "Bank account"
-        # cash_box: "Cash box"
-  models:
-    account:
-      # label: "%{number} - %{name}"
+    animal:
+      sex:
+        # female: "Female"
+        # male: "Male"
     asset:
-      depreciation_methods:
+      depreciation_method:
         # graduated: "Graduated"
         # linear: "Linear"
         # simplified_linear: "Simplified linear"
+    cash:
+      mode:
+        # bban: "Basic Bank Account Number (BBAN)"
+        # iban: "International Bank Account Number (IBAN)"
+      modes: #?
+      nature:
+        # bank_account: "Bank account"
+        # cash_box: "Cash box"
+      natures: #?
+    document_template:
+      family:
+        # accountancy: "Accountancy"
+        # company: "Company"
+        # management: "Management"
+        # production: "Production"
+        # relations: "Relationships"
+        # resources: "Resources"
+      nature:
+        # animal: "Animal card"
+        # balance: "Balance"
+        # balance_sheet: "Balance sheet"
+        # deposit: "Deposit"
+        # entity: "Person"
+        # financial_year: "Financial year document"
+        # general_journal: "General journal"
+        # general_ledger: "Grand ledger"
+        # income_statement: "Income statement"
+        # inventory: "Inventory"
+        # journal: "Journal"
+        # other: "Other"
+        # purchase: "Purchase order"
+        # sales_invoice: "Sales invoice"
+        # sales_order: "Sales order"
+        # stocks: "Stocks"
+        # transport: "Transport"
+  models:
+    account:
+      # label: "%{number} - %{name}"
+    asset:  #?
+ #?
     bank_statement: #?
     cash: #?
     cash_transfer:
@@ -1015,38 +1049,8 @@ spa:
             # standard: "Standard (30d EOM)"
         # department_name: "Default department"
         document_natures: #?
-        document_templates:
-          accountancy:
-            balance_sheet:
-              # filename: "Balance sheet [code]"
-            general_journal:
-              # filename: "General journal"
-            general_ledger:
-              # filename: "General ledger"
-            income_statement:
-              # filename: "Income statement [code]"
-            journal:
-              # filename: "[name] (Journal)"
-          management:
-            deposit:
-              # filename: "Deposit [number]"
-            inventory:
-              # filename: "Inventory [number]"
-            purchase:
-              # filename: "Purchase order [number]"
-            sale: #?
-            sales_invoice:
-              # filename: "Sales invoice [number]"
-              # to_archive: "true"
-            sales_order:
-              # filename: "sale [number]"
-            stocks:
-              # filename: "Stocks"
-            transport:
-              # filename: "Transport [created_on]"
-          relations:
-            entity:
-              # filename: "[full_name]"
+        document_templates:  #?
+ #?
         document_templates_filenames: #?
         # establishment_name: "Default establishment"
         event_natures:
@@ -1081,59 +1085,7 @@ spa:
             # admin: "Manager"
             # public: "Public (no rights)"
         # sale_nature_name: "Standard"
-        sequences:
-          assets:
-            # name: "Numeration of assets"
-            # number_format: "A[number|7]"
-          cash_transfers:
-            # name: "Numeration of cash transfers"
-            # number_format: "CT[year|4][number|4]"
-            # period: "year"
-          deposits:
-            # name: "Numeration of deposits"
-            # number_format: "B[year|4][number|4]"
-            # period: "year"
-          entities:
-            # name: "Numeration of people"
-            # number_format: "[number|8]"
-          incoming_deliveries:
-            # name: "Numeration of incoming deliveries"
-            # number_format: "ID[year|4][number|4]"
-            # period: "year"
-          incoming_payments:
-            # name: "Numeration of payments"
-            # number_format: "P[year|4][number|6]"
-            # period: "year"
-          outgoing_deliveries:
-            # name: "Numeration of outgoing deliveries"
-            # number_format: "OD[year|4][number|6]"
-            # period: "year"
-          outgoing_payments:
-            # name: "Numeration of payments"
-            # number_format: "D[year|4][number|4]"
-            # period: "year"
-          purchases:
-            # name: "Numeration of purchases"
-            # number_format: "PO[year|4][month|2][number|4]"
-            # period: "month"
-          sales:
-            # name: "Numeration of sales"
-            # number_format: "SO[year|4][month|2][number|6]"
-            # period: "month"
-          sales_invoices:
-            # name: "Numeration of sales invoices"
-            # number_format: "F[year|4][number|6]"
-            # period: "year"
-          stock_transfers:
-            # name: "Numeration of stock transfers"
-            # number_format: "ST[year|4][number|4]"
-            # period: "year"
-          subscriptions:
-            # name: "Numeration of subscriptions"
-            # number_format: "SUB[number|8]"
-          transports:
-            # name: "Numeration of transports"
-            # number_format: "SH[number|8]"
+        sequences: #?
         taxes:
           tva0000:
             # amount: "0.0"
@@ -1183,33 +1135,42 @@ spa:
         # zero: "[%{resource} %{number}] No payments %{mode} %{comment}"
       # bookkeep_with_payment: "[%{resource} %{number}] %{mode} %{check_number} from %{payer} (%{payment})"
     document_template:
+      default:
+        accountancy:
+          balance_sheet:
+            # filename: "Balance sheet [code]"
+          general_journal:
+            # filename: "General journal"
+          general_ledger:
+            # filename: "General ledger"
+          income_statement:
+            # filename: "Income statement [code]"
+          journal:
+            # filename: "[name] (Journal)"
+        management:
+          deposit:
+            # filename: "Deposit [number]"
+          inventory:
+            # filename: "Inventory [number]"
+          purchase:
+            # filename: "Purchase order [number]"
+          sales_invoice:
+            # filename: "Sales invoice [number]"
+            # to_archive: "true"
+          sales_order:
+            # filename: "sale [number]"
+          stocks:
+            # filename: "Stocks"
+          transport:
+            # filename: "Transport [created_on]"
+        relations:
+          entity:
+            # filename: "[full_name]"
       # error_attribute: "The key word %{value} is incorrect. The possibilities are: %{possibilities}"
-      families:
-        # accountancy: "Accountancy"
-        # company: "Company"
-        # management: "Management"
-        # production: "Production"
-        # relations: "Relationships"
-        # resources: "Resources"
+      families: #?
       # invalid_filename: "File"
       # nature_do_not_allow_to_use_attributes: "The type does not allow to use attributes"
-      natures:
-        # balance: "Balance"
-        # balance_sheet: "Balance sheet"
-        # deposit: "Deposit"
-        # entity: "Person"
-        # financial_year: "Financial year document"
-        # general_journal: "General journal"
-        # general_ledger: "Grand ledger"
-        # income_statement: "Income statement"
-        # inventory: "Inventory"
-        # journal: "Journal"
-        # other: "Other"
-        # purchase: "Purchase order"
-        # sales_invoice: "Sales invoice"
-        # sales_order: "Sales order"
-        # stocks: "Stocks"
-        # transport: "Transport"
+      natures: #?
       # unvalid_nature: "Unvalid type of document template."
     entity:
       # client: "Client"
@@ -1392,7 +1353,59 @@ spa:
     sales_invoice: #?
     sales_invoice_line: #?
     sequence:
-      default: #?
+      default:
+        assets:
+          # name: "Numeration of assets"
+          # number_format: "A[number|7]"
+        cash_transfers:
+          # name: "Numeration of cash transfers"
+          # number_format: "CT[year|4][number|4]"
+          # period: "year"
+        deposits:
+          # name: "Numeration of deposits"
+          # number_format: "B[year|4][number|4]"
+          # period: "year"
+        entities:
+          # name: "Numeration of people"
+          # number_format: "[number|8]"
+        incoming_deliveries:
+          # name: "Numeration of incoming deliveries"
+          # number_format: "ID[year|4][number|4]"
+          # period: "year"
+        incoming_payments:
+          # name: "Numeration of payments"
+          # number_format: "P[year|4][number|6]"
+          # period: "year"
+        outgoing_deliveries:
+          # name: "Numeration of outgoing deliveries"
+          # number_format: "OD[year|4][number|6]"
+          # period: "year"
+        outgoing_payments:
+          # name: "Numeration of payments"
+          # number_format: "D[year|4][number|4]"
+          # period: "year"
+        purchases:
+          # name: "Numeration of purchases"
+          # number_format: "PO[year|4][month|2][number|4]"
+          # period: "month"
+        sales:
+          # name: "Numeration of sales"
+          # number_format: "SO[year|4][month|2][number|6]"
+          # period: "month"
+        sales_invoices:
+          # name: "Numeration of sales invoices"
+          # number_format: "F[year|4][number|6]"
+          # period: "year"
+        stock_transfers:
+          # name: "Numeration of stock transfers"
+          # number_format: "ST[year|4][number|4]"
+          # period: "year"
+        subscriptions:
+          # name: "Numeration of subscriptions"
+          # number_format: "SUB[number|8]"
+        transports:
+          # name: "Numeration of transports"
+          # number_format: "SH[number|8]"
       periods:
         # cweek: "Commercial week"
         # month: "Month"

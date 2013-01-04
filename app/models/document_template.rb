@@ -43,31 +43,8 @@
 
 
 class DocumentTemplate < CompanyRecord
-  after_save :set_by_default
-  # TODO Do we keep DocumentTemplate families ?
-  cattr_reader :families, :document_natures
-  enumerize :family, :in => [:company, :relations, :accountancy, :management, :production], :predicates => true
-  has_many :documents, :foreign_key=>:template_id
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_length_of :country, :allow_nil => true, :maximum => 2
-  validates_length_of :language, :allow_nil => true, :maximum => 3
-  validates_length_of :code, :family, :allow_nil => true, :maximum => 32
-  validates_length_of :nature, :allow_nil => true, :maximum => 64
-  validates_length_of :filename, :name, :allow_nil => true, :maximum => 255
-  validates_inclusion_of :active, :by_default, :in => [true, false]
-  validates_presence_of :language, :name
-  #]VALIDATORS]
-  validates_presence_of :filename
-  validates_uniqueness_of :code
-
-  include ActionView::Helpers::NumberHelper
-
-  @@families = [:company, :relations, :accountancy, :management, :production] # :resources,
-
-  # id is forbidden names for parameters
+  # Be careful! :id is a forbidden name for parameters
   @@document_natures = {
-#    :journal =>          [ [:journal, Journal], [:started_on, Date], [:stopped_on, Date] ]  }
-# {
     :animal =>           [ [:animal, Animal]],
     :balance_sheet =>    [ [:financial_year, FinancialYear] ],
     :entity =>           [ [:entity, Entity] ],
@@ -82,9 +59,32 @@ class DocumentTemplate < CompanyRecord
     :sales =>            [ [:established_on, Date] ],
     :sales_order =>      [ [:sales_order, Sale] ],
     :stocks =>           [ [:established_on, Date] ],
-    # :synthesis =>        [ [:financial_year, FinancialYear] ],
     :transport =>        [ [:transport, Transport] ]
   }
+  after_save :set_by_default
+  cattr_reader :document_natures
+  # TODO Do we keep DocumentTemplate families ?
+  enumerize :family, :in => [:company, :relations, :accountancy, :management, :production], :predicates => true
+  enumerize :nature, :in => self.document_natures.keys, :predicates => {:prefix => true}
+  has_many :documents, :foreign_key => :template_id
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_length_of :country, :allow_nil => true, :maximum => 2
+  validates_length_of :language, :allow_nil => true, :maximum => 3
+  validates_length_of :code, :family, :allow_nil => true, :maximum => 32
+  validates_length_of :nature, :allow_nil => true, :maximum => 64
+  validates_length_of :filename, :name, :allow_nil => true, :maximum => 255
+  validates_inclusion_of :active, :by_default, :in => [true, false]
+  validates_presence_of :language, :name
+  #]VALIDATORS]
+  validates_presence_of :filename, :nature, :family, :code
+  validates_uniqueness_of :code
+  validates_inclusion_of :family, :in => self.family.values
+  validates_inclusion_of :nature, :in => self.nature.values
+
+  include ActionView::Helpers::NumberHelper
+
+  # @@families = [:company, :relations, :accountancy, :management, :production] # :resources,
+
 
   # [:balance, :sales_invoice, :sale, :purchase, :inventory, :transport, :deposit, :entity, :journal, :ledger, :other]
 
@@ -93,7 +93,7 @@ class DocumentTemplate < CompanyRecord
 
   default_scope order(:name)
   scope :of_nature, lambda { |nature|
-    raise ArgumentError.new("Unknown nature for a DocumentTemplate (got #{nature.inspect}:#{nature.class})") unless @@document_natures.keys.include?(nature.to_sym)
+    raise ArgumentError.new("Unknown nature for a DocumentTemplate (got #{nature.inspect}:#{nature.class})") unless self.nature.values.include?(nature.to_s)
     where(:nature => nature.to_s, :active => true).order(:name)
   }
 
@@ -109,14 +109,14 @@ class DocumentTemplate < CompanyRecord
     errors.add(:source, :invalid) if self.cache.blank?
     if self.nature != "other"
       syntax_errors = self.filename_errors
-      errors.add_to_base(syntax_errors, :forced=>true) unless syntax_errors.empty?
+      errors.add_to_base(syntax_errors, :forced => true) unless syntax_errors.empty?
     end
   end
 
   def set_by_default# (by_default=nil)
-    if self.nature != 'other' and self.class.count(:conditions=>{:by_default=>true, :nature=>self.nature}) != 1
-      self.class.update_all({:by_default=>true}, {:id=>self.id})
-      self.class.update_all({:by_default=>false}, ["id != ? and nature = ?", self.id, self.nature])
+    if self.nature != 'other' and self.class.count(:conditions => {:by_default => true, :nature => self.nature}) != 1
+      self.class.update_all({:by_default => true}, {:id => self.id})
+      self.class.update_all({:by_default => false}, ["id != ? and nature = ?", self.id, self.nature])
     end
   end
 
@@ -124,21 +124,21 @@ class DocumentTemplate < CompanyRecord
     self.documents.size <= 0
   end
 
-  def self.families
-    @@families.collect{|x| [tc('families.'+x.to_s), x.to_s]}
-  end
+  # def self.families
+  #   @@families.collect{|x| [tc('families.'+x.to_s), x.to_s]}
+  # end
 
-  def self.natures
-    @@document_natures.keys.collect{|x| [tc('natures.'+x.to_s), x.to_s]}.sort{|a,b| a[0].ascii<=>b[0].ascii}
-  end
+  # def self.natures
+  #   @@document_natures.keys.collect{|x| [tc('natures.'+x.to_s), x.to_s]}.sort{|a,b| a[0].ascii< => b[0].ascii}
+  # end
 
-  def family_label
-    tc('families.'+self.family) if self.family
-  end
+  # def family_label
+  #   tc('families.'+self.family) if self.family
+  # end
 
-  def nature_label
-    tc('natures.'+self.nature) if self.nature
-  end
+  # def nature_label
+  #   tc('natures.'+self.nature) if self.nature
+  # end
 
 
   # Print document without checks fast but dangerous if parameters are not checked before...
@@ -173,7 +173,7 @@ class DocumentTemplate < CompanyRecord
     self.save! unless self.cache.starts_with?(Templating.preamble)
 
     # Analyze and cleans parameters
-    parameters = @@document_natures[self.nature.to_sym]
+    parameters = self.class.document_natures[self.nature.to_sym]
     raise StandardError.new(tc(:unvalid_nature)) if parameters.nil?
     if args[0].is_a? Hash
       hash = args[0]
@@ -191,7 +191,7 @@ class DocumentTemplate < CompanyRecord
 
     # Try to find an existing archive
     if self.to_archive and args[0].class.ancestors.include?(ActiveRecord::Base)
-      document = Document.where(:nature_code=>self.code, :owner_id=>owner.id, :owner_type=>owner.class.name).order("created_at DESC").first
+      document = Document.where(:nature_code => self.code, :owner_id => owner.id, :owner_type => owner.class.name).order("created_at DESC").first
       return document.data, document.original_name if document
     end
 
@@ -204,7 +204,7 @@ class DocumentTemplate < CompanyRecord
     end
 
     # Archive the document if necessary
-    document = self.archive(owner, pdf, :extension=>'pdf') if self.to_archive
+    document = self.archive(owner, pdf, :extension => 'pdf') if self.to_archive
 
     return pdf, self.compute_filename(owner)+".pdf"
   end
@@ -229,7 +229,7 @@ class DocumentTemplate < CompanyRecord
                end
     raise ArgumentError.new("Unfound template") unless template
     parameters = []
-    for p in self.document_natures[nature]
+    for p in self.document_natures[nature.to_sym]
       x = options[p[0]]
       raise ArgumentError.new("options[:#{p[0]}] must be a #{p[1].name} (got #{x.class.name})") if x.class != p[1]
       parameters << x
@@ -241,11 +241,11 @@ class DocumentTemplate < CompanyRecord
   def filename_errors
     errors = []
     begin
-      klass = @@document_natures[self.nature.to_sym][0][1]
+      klass = self.class.document_natures[self.nature.to_sym][0][1]
       columns = klass.content_columns.collect{|x| x.name.to_s}.sort
       self.filename.gsub(/\[\w+\]/) do |word|
         unless columns.include?(word[1..-2])
-          errors << tc(:error_attribute, :value=>word, :possibilities=>columns.collect { |column| column+" ("+klass.human_attribute_name(column)+")" }.join(", "))
+          errors << tc(:error_attribute, :value => word, :possibilities => columns.collect { |column| column+" ("+klass.human_attribute_name(column)+")" }.join(", "))
         end
         "*"
       end
@@ -270,7 +270,7 @@ class DocumentTemplate < CompanyRecord
   end
 
   def archive(owner, data, attributes={})
-    document = self.documents.new(attributes.merge(:owner_id=>owner.id, :owner_type=>owner.class.name))
+    document = self.documents.new(attributes.merge(:owner_id => owner.id, :owner_type => owner.class.name))
     method_name = [:document_name, :number, :code, :name, :id].detect{|x| owner.respond_to?(x)}
     document.printed_at = Time.now
     document.extension ||= 'bin'
@@ -292,12 +292,12 @@ class DocumentTemplate < CompanyRecord
 
   def sample
     self.save!
-    code = Templating.compile(self.source, :xil, :mode=>:debug)
+    code = Templating.compile(self.source, :xil, :mode => :debug)
     pdf = nil
     # code.split("\n").each_with_index{|l,x| puts((x+1).to_s.rjust(4)+": "+l)}
     begin
       pdf = eval(code)
-    rescue Exception=>e
+    rescue Exception => e
       pdf = self.class.error_document(e)
     end
     pdf
@@ -307,7 +307,7 @@ class DocumentTemplate < CompanyRecord
   # Produces a generic document with the trace of the thrown exception
   def self.error_document(exception)
     Templating::Writer.generate do |doc|
-      doc.page(:size=>"A4", :margin=>15.mm) do |p|
+      doc.page(:size => "A4", :margin => 15.mm) do |p|
         if exception.is_a? Exception
           p.slice do |s|
             s.text("Exception: "+exception.inspect)
@@ -319,43 +319,35 @@ class DocumentTemplate < CompanyRecord
           end
         else
           p.slice do |s|
-            s.text("Error: "+exception.inspect, :width=>180.mm)
+            s.text("Error: "+exception.inspect, :width => 180.mm)
           end
         end
       end
     end
   end
 
-  def self.load_defaults
-    language = Entity.of_company.language
-    files_dir = Rails.root.join("config", "locales", ::I18n.locale.to_s, "prints")
-    for family, templates in ::I18n.translate('models.company.default.document_templates')
+
+  # Loads in DB all default document templates
+  def self.load_defaults(options = {})
+    locale = (options[:locale] || Entity.of_company.language || I18n.locale).to_s
+    country = Entity.of_company.country || 'fr'
+    files_dir = Rails.root.join("config", "locales", locale, "prints")
+    all_templates = ::I18n.translate('models.document_template.default') || {}
+    for family, templates in all_templates
       for template, attributes in templates
         next unless File.exist? files_dir.join("#{template}.xml")
-        #begin
         File.open(files_dir.join("#{template}.xml"), "rb:UTF-8") do |f|
-          attributes[:name] ||= I18n::t('models.document_template.natures.'+template.to_s)
-          attributes[:name] = attributes[:name].to_s
-          attributes[:nature] ||= template.to_s
-          attributes[:filename] ||= "File"
-          attributes[:to_archive] = true if attributes[:to_archive] == "true"
-          if RUBY_VERSION =~ /^1\.9/
-            attributes[:source] = f.read.force_encoding('UTF-8')
-          else
-            attributes[:source] = f.read
-          end
-          code = attributes[:name].to_s.codeize[0..7]
-          doc = self.find_by_code(code)
-          doc ||= self.new
-          doc.attributes = HashWithIndifferentAccess.new(:active=>true, :language=>language, :country=>'fr', :family=>family.to_s, :code=>code, :by_default=>false).merge(attributes)
-          # doc["source"].force_encoding!('UTF-8') if RUBY_VERSION =~ /^1\.9/
+          nature, code = (attributes[:nature] || template), template.to_s # attributes[:name].to_s.codeize[0..7]
+          doc = self.find_by_code(code) || self.new(:code => code)
+          doc.attributes = HashWithIndifferentAccess.new(:active => true, :language => locale, :country => country, :family => family, :by_default => false, :nature => nature, :filename => (attributes[:filename] || "File"))
+          doc.name = (attributes[:name] || doc.nature.text).to_s
+          doc.to_archive = true if attributes[:to_archive] == "true"
+          doc.source = f.read.force_encoding('UTF-8')
           doc.save!
         end
-        #rescue
-        #end
       end
-    end
-
+    end if all_templates.is_a?(Hash)
+    return true
   end
 
 end

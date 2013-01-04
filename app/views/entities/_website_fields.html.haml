@@ -1,5 +1,6 @@
 -# Generated automatically. Don't edit this file.
+-entity_address ||= f.object
 .nested-fields
   =link_to_remove_association('labels.remove_website'.t, f, :class => 'nested-remove remove-website')
-  =f.input(:canal, :as => :hidden, :wrapper_html => {:id => 'canal-wrapper'})
-  =f.input(:coordinate, :as => :url, :wrapper_html => {:id => 'coordinate-wrapper'})
+  =f.input(:canal, :as => :hidden, :readonly => !entity_address.new_record?, :wrapper_html => {:id => 'canal-field'})
+  =f.input(:coordinate, :as => :url, :readonly => !entity_address.new_record?, :wrapper_html => {:id => 'coordinate-field'})
