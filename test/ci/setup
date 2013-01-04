@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 script_path=`readlink -f $0`
 script_dir=`dirname $script_path`
@@ -6,17 +6,17 @@ test_database=ekylibre_test
 
 cp -f $script_dir/database.$DB.yml $script_dir/../../config/database.yml
 
-if [[ "$DB" == "postgis" ]]; then
+if [ "$DB" = "postgis" ]; then
     psql -c "CREATE DATABASE $test_database;" -U postgres
     psql -U postgres -d $test_database -c "CREATE SCHEMA postgis;"
 
-    if [[ "$POSTGIS" == "2.0" ]]; then
+    if [ "$POSTGIS" = "2.0" ]; then
 	psql -U postgres -d $test_database -c "CREATE EXTENSION postgis;"
     else
 	createlang -U postgres plpgsql $test_database
 	psql -U postgres -d $test_database -f /usr/share/postgresql/9.1/contrib/postgis-1.5/postgis.sql
 	psql -U postgres -d $test_database -f /usr/share/postgresql/9.1/contrib/postgis-1.5/spatial_ref_sys.sql
     fi
-elif [[ "$DB" == "mysql" ]]; then
+elif [ "$DB" = "mysql" ]; then
     mysql -e "CREATE DATABASE $test_database;"
 fi
