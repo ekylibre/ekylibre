@@ -49,7 +49,7 @@ class AnimalEventsController < AdminController
        :diseases,
        :treatments => { :include => [:drug, :quantity_unit, :prescription]}
        ] }
-     format.pdf { render pdf: @animal_event }
+     format.pdf { respond_with @animal_event }
      format.html
      end
   end

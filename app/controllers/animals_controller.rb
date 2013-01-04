@@ -20,7 +20,7 @@
 class AnimalsController < AdminController
   manage_restfully
 
-  respond_to :xml, :json , :pdf, :html
+  respond_to :pdf, :xml, :json, :html 
 
   unroll_all
 
@@ -41,12 +41,10 @@ class AnimalsController < AdminController
 
   def index
     @animal = Animal.all
-    respond_to do |format|
-      format.json { render json: @animal }
-      format.xml { render xml: @animal , :include => [:race , :father, :mother]}
-      format.pdf { render pdf: @animal }
-      format.html
-    end
+    #parsing a parameter to Jasper for company full name
+    @entity_full_name = Entity.of_company.full_name
+    #respond with associated models to simplify quering in Ireport
+    respond_with @animal, :include => [:race , :father, :mother]
   end
 
   # Liste des soins de l'animal considéré

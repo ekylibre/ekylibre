@@ -659,12 +659,14 @@ fra:
     amount_to_reduce: "Sommes à imputer, exprimées en euros, y compris acompte congés"
     amount_with_taxes: "Montant TTC" #?
     animal: "Animal" #?
-    animal_group_tabbox:  #?
-      animals: "Animaux du lot" #?
-      cares: "Soins réalisés sur le lot" #?
-    animal_tabbox:  #?
-      cares: "Soins" #?
-      childrens: "Enfants" #?
+    animal_pie: "Animaux par lot"
+    animal_bar: "Animaux par lot"
+    animal_group_tabbox:
+      animals: "Animaux du lot"
+      cares: "Soins réalisés sur le lot"
+    animal_tabbox:
+      cares: "Soins"
+      childrens: "Enfants"
     apply: "Appliquer"
     are_you_sure: "Êtes-vous sûr(e) de vouloir faire cela ?"
     are_you_sure_you_want_to_confirm: "Êtes-vous sûr(e) de vouloir passer la vente en commande ?"
@@ -786,6 +788,8 @@ fra:
     delivery: "Livraison"
     delivery_natural_gas_and_electricity_assessable: "Livraisons de gaz naturel ou d’électricité imposables en France" #?
     delivery_natural_gas_and_electricity_not_assessable: "Livraisons de gaz naturel ou d’électricité non imposables en France" #?
+    demo_bar: "Histogramme"
+    demo_pie: "Cammenbert"
     departments: "Services"
     deposit: "Remise en banque"
     deposit_update: "Modifier la remise en banque" #?
@@ -926,9 +930,11 @@ fra:
     land_parcel_name: "Îlot"
     land_parcel_update: "Modifier l’îlot" #?
     land_parcels: "Îlots"
+    last_animals: "Dernières Naissances"
     last_computed_balance: "Dernière balance calculée"
     last_payment_amount: "Montant du dernier encaissement"
     last_payment_date: "Date du dernier encaissement"
+    last_events: "Derniers Evènements"
     left_balance_amount: "Report du crédit antérieur non imputé et non remboursé"
     letter: "Lettrer"
     letter_conclusion: "Veuillez agréer, Chère Madame, Cher Monsieur, l’expression de mes salutations distinguées."
@@ -1146,6 +1152,7 @@ fra:
     personalized_mail: "Envoyer un mail personnalisé"
     pertinence: "%{value}%"
     phone: "Tél."
+    placeholder: "Espace réservé"
     planned_on: "Date prévisionnelle"
     play: "Éxécuter"
     please_wait: "Merci de patienter..."

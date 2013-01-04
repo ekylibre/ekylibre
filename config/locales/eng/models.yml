@@ -1050,6 +1050,62 @@ eng:
     work_center: "Work center"
     # working_number: "Working number"
     # zone: "Zone"
+  enumerize:
+    animal:  #?
+      sex: #?
+        female: "female" #?
+        male: "male" #?
+      income_reasons:
+        birth: "birth"
+        purchase: "purchase"
+        housing: "housing"
+        other: "other"
+      outgone_reasons:
+        dead: "dead"
+        sale: "sale"
+        autoconsumption: "autoconsumption"
+        other: "other"
+    animal_treatment:
+      duration_unit_wait_for_milk:
+        hours: "Hours"
+        days: "Days"
+        milking: "Treates"
+      duration_unit_wait_for_meat:
+        hours: "Hours"
+        days: "Days"
+    drug_admission_path:
+      oral: "Oral"
+      ima: "IntraMammary"
+      imu: "IntraMuscular"
+      iu: "IntraUterin"
+      iv: "IntraVeineuse"
+    per_duration_time_unit:
+      hours: "Hours"
+      days: "Days"
+      weeks: "Weeks"
+      months: "Months"
+    per_animal_unit:
+      per_animal: " / Animal"
+      per_kg: " / Kg"
+      per_milking: " / Treate"
+    per_frequency_time_unit:
+      times_per_12_hours: " / 12 Hours"
+      times_per_day: " / Day"
+      times_per_week: " / Week"
+      times_per_month: " / Month"
+    cash:
+      mode:  #?
+        bban: "BBAN" #?
+        iban: "IBAN" #?
+      modes:
+        # bban: "Basic Bank Account Number (BBAN)"
+        # iban: "International Bank Account Number (IBAN)"
+      nature:  #?
+        bank_account: "Bank Account" #?
+        cash_box: "Cash Box" #?
+      natures:
+        # bank_account: "Bank account"
+        # cash_box: "Cash box"
   models:
     account:
       label: "%{number} - %{name}"
