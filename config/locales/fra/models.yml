@@ -1071,6 +1071,48 @@ fra:
     work_center: "Centre d’opération"
     working_number: "Numéro de travail" #?
   enumerize:
+    animal:  #?
+      sex: #?
+        female: "Femelle" #?
+        male: "Mâle" #?
+      income_reasons:
+        birth: "Naissance"
+        purchase: "Achat"
+        housing: "Pension"
+        other: "Autres"
+      outgone_reasons:
+        dead: "Décès"
+        sale: "Vente"
+        autoconsumption: "Autoconsommation"
+        other: "Autres"
+    animal_treatment:
+      duration_unit_wait_for_milk:
+        hours: "Heures"
+        days: "Jours"
+        milking: "Traites"
+      duration_unit_wait_for_meat:
+        hours: "Heures"
+        days: "Jours"
+    drug_admission_path:
+      oral: "Orale"
+      ima: "IntraMammaire"
+      imu: "IntraMusculaire"
+      iu: "IntraUtérine"
+      iv: "IntraVeineuse"
+    per_duration_time_unit:
+      hours: "Heures"
+      days: "Jours"
+      weeks: "Semaines"
+      months: "Mois"
+    per_animal_unit:
+      per_animal: " / Animal"
+      per_kg: " / Kg"
+      per_milking: " / Traite"
+    per_frequency_time_unit:
+      times_per_12_hours: " / 12 Heures"
+      times_per_day: " / Jour"
+      times_per_week: " / Semaine"
+      times_per_month: " / Mois"
     cash:
       mode:  #?
         bban: "Relevé d’identité bancaire (RIB)" #?
@@ -1087,10 +1129,6 @@ fra:
   models:
     account:
       label: "%{number} - %{name}"
-    animal:  #?
-      sex: #?
-        female: "Femelle" #?
-        male: "Mâle" #?
     asset:
       depreciation_methods:
         graduated: "Dégressive"
