@@ -1,11 +1,14 @@
 rvm:
   - 1.9.3
 env:
-  - DB=postgis
+  - DB=postgis-1.5
+  - DB=postgis-2.0
   - DB=spatialite
 #  - DB=mysql
 #  - DB=postgresql
 #  - DB=sqlite3
+before_install: 
+  - test/ci/install
 before_script:
   - test/ci/setup
   - bundle exec rake db:migrate

@@ -1,17 +1,27 @@
 #!/usr/bin/env ruby
 here = File.dirname(__FILE__)
 # Define default DB type
-database = (ENV['DB'] ? ENV['DB'].to_sym : :spatialite)
+database = (ENV['DB'] || :spatialite).to_s
+adpater = database.split('-')[0].to_sym
+db="ekylibre_test"
 
 # Copy database.yml like in real case
-system("cp -f #{here}/database.#{database}.yml #{here}/../../config/database.yml")
+system("cp -f #{here}/database.#{adapter}.yml #{here}/../../config/database.yml")
 
 # Create Database manually
-if database == :postgresql or database == :postgis
-  system('psql -c "CREATE DATABASE ekylibre_test;" -U postgres > /dev/null 2>&1')
-  if database == :postgis
-    system('psql -c "CREATE SCHEMA postgis;" -U postgres ekylibre_test > /dev/null 2>&1')
+if adapter == :postgresql or adapter == :postgis
+  system("psql -c \"CREATE DATABASE #{db};\" -U postgres > /dev/null 2>&1")
+  if adapter == :postgis
+    system("psql -c \"CREATE SCHEMA postgis;\" -U postgres #{db} > /dev/null 2>&1")
   end
-elsif database == :mysql
-  system('mysql -e "CREATE DATABASE ekylibre_test;" > /dev/null 2>&1')
+elsif adapter == :mysql
+  system("mysql -e \"CREATE DATABASE #{db};\" > /dev/null 2>&1")
+end
+
+if database == "postgis-2.0"
+  system("psql -U postgres -d #{db} -c \"CREATE EXTENSION postgis;\" > /dev/null 2>&1")
+else
+  system("createlang -U postgres plpgsql #{db} > /dev/null 2>&1")
+  system("psql -U postgres -d #{db} -f /usr/share/postgresql/9.1/contrib/postgis-1.5/postgis.sql > /dev/null 2>&1")
+  system("psql -U postgres -d #{db} -f /usr/share/postgresql/9.1/contrib/postgis-1.5/spatial_ref_sys.sql > /dev/null 2>&1")
 end
