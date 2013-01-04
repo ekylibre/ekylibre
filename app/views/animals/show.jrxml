@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="show" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9c1f11b7-03dd-4803-9e1b-41b87b9d23c0">
+	<property name="ireport.zoom" value="1.210000000000005"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="5"/>
+	<style name="Title" fontName="DejaVu Sans" fontSize="50" isBold="true" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<style name="Row" mode="Transparent"/>
+	<parameter name="XML_DATA_DOCUMENT" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="XML_URL" class="java.lang.String" isForPrompting="false"/>
+	<queryString language="xPath">
+		<![CDATA[/animal]]>
+	</queryString>
+	<field name="born-on" class="java.lang.String">
+		<fieldDescription><![CDATA[born-on]]></fieldDescription>
+	</field>
+	<field name="comment" class="java.lang.String">
+		<fieldDescription><![CDATA[/animal/comment]]></fieldDescription>
+	</field>
+	<field name="creator-id" class="java.lang.String">
+		<fieldDescription><![CDATA[/animal/creator-id]]></fieldDescription>
+	</field>
+	<field name="description" class="java.lang.String">
+		<fieldDescription><![CDATA[/animal/description]]></fieldDescription>
+	</field>
+	<field name="father-id" class="java.lang.String">
+		<fieldDescription><![CDATA[/animal/father-id]]></fieldDescription>
+	</field>
+	<field name="group-id" class="java.lang.String">
+		<fieldDescription><![CDATA[/animal/group-id]]></fieldDescription>
+	</field>
+	<field name="id" class="java.lang.String">
+		<fieldDescription><![CDATA[/animal/id]]></fieldDescription>
+	</field>
+	<field name="identification-number" class="java.lang.String">
+		<fieldDescription><![CDATA[/animal/identification-number]]></fieldDescription>
+	</field>
+	<field name="lock-version" class="java.lang.String">
+		<fieldDescription><![CDATA[/animal/lock-version]]></fieldDescription>
+	</field>
+	<field name="income-on" class="java.lang.String">
+		<fieldDescription><![CDATA[/animal/income-on]]></fieldDescription>
+	</field>
+	<field name="name" class="java.lang.String">
+		<fieldDescription><![CDATA[name]]></fieldDescription>
+	</field>
+	<field name="picture-file-name" class="java.lang.String">
+		<fieldDescription><![CDATA[/animal/picture-file-name]]></fieldDescription>
+	</field>
+	<field name="race-id" class="java.lang.String">
+		<fieldDescription><![CDATA[/animal/race-id]]></fieldDescription>
+	</field>
+	<field name="sex" class="java.lang.String">
+		<fieldDescription><![CDATA[/animal/sex]]></fieldDescription>
+	</field>
+	<field name="updated-at" class="java.lang.String">
+		<fieldDescription><![CDATA[/animal/updated-at]]></fieldDescription>
+	</field>
+	<field name="updater-id" class="java.lang.String">
+		<fieldDescription><![CDATA[/animal/updater-id]]></fieldDescription>
+	</field>
+	<field name="father-name" class="java.lang.String">
+		<fieldDescription><![CDATA[father/name]]></fieldDescription>
+	</field>
+	<field name="mother-name" class="java.lang.String">
+		<fieldDescription><![CDATA[mother/name]]></fieldDescription>
+	</field>
+	<field name="race-name" class="java.lang.String">
+		<fieldDescription><![CDATA[race/name]]></fieldDescription>
+	</field>
+	<field name="outgone-on" class="java.lang.String">
+		<fieldDescription><![CDATA[outgone-on]]></fieldDescription>
+	</field>
+	<field name="outgone-reasons" class="java.lang.String">
+		<fieldDescription><![CDATA[outgone-reasons]]></fieldDescription>
+	</field>
+	<field name="working-number" class="java.lang.String">
+		<fieldDescription><![CDATA[working-number]]></fieldDescription>
+	</field>
+	<field name="income-reasons" class="java.lang.String">
+		<fieldDescription><![CDATA[income-reasons]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="302" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="762330c6-a035-463c-be4a-d3d1f4e26fd6" style="Title" mode="Opaque" x="-21" y="25" width="596" height="41" backcolor="#CAC0B5"/>
+				<textElement verticalAlignment="Middle">
+					<font pdfFontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<image onErrorType="Blank">
+				<reportElement uuid="4df9e3cd-892d-4f2b-8e67-0a7136aed9af" x="415" y="0" width="140" height="97" isRemoveLineWhenBlank="true"/>
+				<imageExpression><![CDATA["/home/djoulin/ekylibre_dev/public/system/animals/pictures/000/000/00"+$F{id}+"/thumb/"+$F{picture-file-name}]]></imageExpression>
+			</image>
+			<rectangle radius="2">
+				<reportElement uuid="7295b3a4-1715-4584-b262-75754d9b3f4d" mode="Transparent" x="415" y="0" width="129" height="97" forecolor="#7F4D15"/>
+				<graphicElement>
+					<pen lineWidth="2.0"/>
+				</graphicElement>
+			</rectangle>
+			<textField>
+				<reportElement uuid="662de52c-0c71-4d48-aa52-88a284773ba8" x="0" y="25" width="415" height="41"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="24" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+			</textField>
+			<rectangle radius="2">
+				<reportElement uuid="7295b3a4-1715-4584-b262-75754d9b3f4d" mode="Transparent" x="-11" y="214" width="555" height="88" forecolor="#CAC0B5"/>
+				<graphicElement>
+					<pen lineWidth="2.0"/>
+				</graphicElement>
+			</rectangle>
+			<textField>
+				<reportElement uuid="82d6a344-4d57-4408-8b15-28595d78b787" x="275" y="66" width="140" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{race-name}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="fc432988-943c-4fcf-8b80-fc698b0122ec" x="84" y="149" width="119" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{mother-name}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="07d23b36-0206-43b3-b84d-4ab580366b61" x="84" y="92" width="119" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{father-name}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement uuid="43126bf5-1dc6-47ac-bedf-6abeab9ee928" x="41" y="131" width="13" height="22" forecolor="#CAC0B5"/>
+				<graphicElement>
+					<pen lineWidth="4.0"/>
+				</graphicElement>
+			</line>
+			<line direction="BottomUp">
+				<reportElement uuid="43126bf5-1dc6-47ac-bedf-6abeab9ee928" x="41" y="108" width="18" height="17" forecolor="#CAC0B5"/>
+				<graphicElement>
+					<pen lineWidth="4.0"/>
+				</graphicElement>
+			</line>
+			<ellipse>
+				<reportElement uuid="b644caee-643c-462d-bc2d-b25dbeb3b3f1" x="59" y="97" width="13" height="11" forecolor="#CAC0B5" backcolor="#CAC0B5"/>
+			</ellipse>
+			<ellipse>
+				<reportElement uuid="b644caee-643c-462d-bc2d-b25dbeb3b3f1" x="64" y="141" width="11" height="10" forecolor="#CAC0B5" backcolor="#CAC0B5"/>
+			</ellipse>
+			<line direction="BottomUp">
+				<reportElement uuid="97fd7994-b9fe-44ab-8a46-22ff28cd5265" x="70" y="90" width="12" height="9" forecolor="#CAC0B5"/>
+				<graphicElement>
+					<pen lineWidth="2.0"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement uuid="6e0320b3-5e3e-4653-8a63-601861ab05ef" x="72" y="89" width="10" height="1" forecolor="#CAC0B5"/>
+				<graphicElement>
+					<pen lineWidth="2.0"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement uuid="6e0320b3-5e3e-4653-8a63-601861ab05ef" x="82" y="89" width="1" height="10" forecolor="#CAC0B5"/>
+				<graphicElement>
+					<pen lineWidth="2.0"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement uuid="6e0320b3-5e3e-4653-8a63-601861ab05ef" x="69" y="152" width="1" height="19" forecolor="#CAC0B5"/>
+				<graphicElement>
+					<pen lineWidth="2.0"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement uuid="6e0320b3-5e3e-4653-8a63-601861ab05ef" x="64" y="157" width="11" height="1" forecolor="#CAC0B5"/>
+				<graphicElement>
+					<pen lineWidth="2.0"/>
+				</graphicElement>
+			</line>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="27" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="23" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="6" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="25" splitType="Stretch">
+			<frame>
+				<reportElement uuid="0475879f-e40d-46ef-bcee-450e0a1fc247" mode="Opaque" x="-21" y="1" width="596" height="24" forecolor="#7F4D15" backcolor="#CAC0B5"/>
+				<textField pattern="dd/MM/yyyy HH.mm.ss">
+					<reportElement uuid="2e0909fa-9d0c-4cd4-9e2f-2a8b1460d557" x="21" y="2" width="112" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>
