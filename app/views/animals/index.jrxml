@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="cares_list" language="groovy" columnCount="2" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="401" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" whenResourceMissingType="Empty" uuid="9c1f11b7-03dd-4803-9e1b-41b87b9d23c0">
-	<property name="ireport.zoom" value="1.1"/>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="animals_list" language="groovy" columnCount="2" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="401" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isTitleNewPage="true" whenResourceMissingType="Empty" uuid="9c1f11b7-03dd-4803-9e1b-41b87b9d23c0">
+	<property name="ireport.zoom" value="1.2100000000000009"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="655"/>
 	<style name="Title" fontName="DejaVu Sans" fontSize="30" isBold="true" pdfFontName="Times-Bold"/>
 	<style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18"/>
 	<style name="Column header" forecolor="#666666" fontName="DejaVu Sans" fontSize="12" isBold="true"/>
@@ -20,6 +20,7 @@
 	<style name="Crosstab Data Text" hAlign="Center"/>
 	<parameter name="XML_DATA_DOCUMENT" class="java.lang.String" isForPrompting="false"/>
 	<parameter name="XML_URL" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="entity_full_name" class="java.lang.String"/>
 	<queryString language="xPath">
 		<![CDATA[/animals/animal[is-external='false']]]>
 	</queryString>
@@ -38,7 +39,7 @@
 	<field name="picture-file-name" class="java.lang.String">
 		<fieldDescription><![CDATA[picture-file-name]]></fieldDescription>
 	</field>
-	<field name="id" class="java.lang.String">
+	<field name="id" class="java.lang.Integer">
 		<fieldDescription><![CDATA[id]]></fieldDescription>
 	</field>
 	<field name="mother-id" class="java.lang.String">
@@ -93,7 +94,7 @@
 					<textFieldExpression><![CDATA[$F{born-on}.getYear()+1900]]></textFieldExpression>
 				</textField>
 				<line>
-					<reportElement uuid="5abae6f2-281f-493a-b567-f347b80e42b3" x="-21" y="28" width="421" height="1" forecolor="#7F4D15"/>
+					<reportElement uuid="5abae6f2-281f-493a-b567-f347b80e42b3" x="-21" y="27" width="411" height="1" forecolor="#7F4D15"/>
 				</line>
 			</band>
 		</groupHeader>
@@ -150,6 +151,18 @@
 				<reportElement uuid="a71f0297-336f-4988-a9e8-f29e2f7e811d" x="730" y="-1" width="52" height="43"/>
 				<imageExpression><![CDATA["/home/djoulin/ekylibre_dev/app/themes/tekyla/images/menus-100px/production.png"]]></imageExpression>
 			</image>
+			<textField>
+				<reportElement uuid="f7e9c2f9-de1f-48bc-a87d-ec1cffcf1db6" x="416" y="1" width="266" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Droid Sans" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{entity_full_name}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy HH.mm.ss">
+				<reportElement uuid="2e0909fa-9d0c-4cd4-9e2f-2a8b1460d557" x="416" y="21" width="266" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 	<pageHeader>
@@ -192,39 +205,32 @@
 				<text><![CDATA[sexe]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="52d5043d-384e-4840-a3c3-eb48a3871d11" style="Column header" x="208" y="0" width="68" height="22"/>
+				<reportElement uuid="52d5043d-384e-4840-a3c3-eb48a3871d11" style="Column header" x="208" y="0" width="92" height="22"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="DejaVu Sans"/>
 				</textElement>
 				<text><![CDATA[mère]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="52d5043d-384e-4840-a3c3-eb48a3871d11" style="Column header" x="276" y="0" width="53" height="22"/>
+				<reportElement uuid="52d5043d-384e-4840-a3c3-eb48a3871d11" style="Column header" x="300" y="0" width="90" height="22"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="DejaVu Sans"/>
 				</textElement>
 				<text><![CDATA[père]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="52d5043d-384e-4840-a3c3-eb48a3871d11" style="Column header" x="329" y="0" width="71" height="22"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="DejaVu Sans"/>
-				</textElement>
-				<text><![CDATA[race]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
 		<band height="21" splitType="Stretch">
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="dba1a483-6562-4082-a5d2-a0dd845fe182" style="Detail" mode="Opaque" x="276" y="0" width="53" height="21"/>
+				<reportElement uuid="dba1a483-6562-4082-a5d2-a0dd845fe182" style="Detail" mode="Opaque" x="300" y="0" width="90" height="21"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="DejaVu Sans" size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{father-name}.toLowerCase()]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="42865504-0435-4a06-9df0-2151563c4fea" style="Detail" mode="Opaque" x="208" y="0" width="68" height="21"/>
+				<reportElement uuid="42865504-0435-4a06-9df0-2151563c4fea" style="Detail" mode="Opaque" x="208" y="0" width="92" height="21"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="DejaVu Sans" size="9"/>
 				</textElement>
@@ -236,13 +242,6 @@
 					<font fontName="DejaVu Sans" size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{born-on}]]></textFieldExpression>
-			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement uuid="0850cafe-2771-4d68-aa3e-3ac65ab93627" style="Detail" mode="Opaque" x="329" y="0" width="71" height="21"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="DejaVu Sans" size="9"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{race-name}.toLowerCase()]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement uuid="e39cad02-7296-4b15-be64-83e1005f9da2" style="Detail" mode="Opaque" x="1" y="0" width="72" height="21"/>
@@ -266,7 +265,7 @@
 				<textFieldExpression><![CDATA[( $F{sex} == 'female' ? "F" : "M" )]]></textFieldExpression>
 			</textField>
 			<line>
-				<reportElement uuid="09a03d97-1c8c-4a8b-85a3-1868d25e2f8a" x="2" y="20" width="398" height="1"/>
+				<reportElement uuid="09a03d97-1c8c-4a8b-85a3-1868d25e2f8a" x="2" y="20" width="388" height="1"/>
 			</line>
 		</band>
 	</detail>
@@ -291,18 +290,30 @@
 					</textElement>
 					<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" /"]]></textFieldExpression>
 				</textField>
-				<textField pattern="EEEEE dd MMMMM yyyy">
+				<textField pattern="dd/MM/yyyy">
 					<reportElement uuid="19cb2bb2-0898-440b-923b-fd1c15eb24d4" style="Column header" x="22" y="1" width="197" height="20" forecolor="#736343"/>
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="false"/>
 					</textElement>
 					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 				</textField>
+				<staticText>
+					<reportElement uuid="572665e0-a042-44c7-b043-305939d63f18" mode="Opaque" x="321" y="2" width="90" height="20" backcolor="#FFFF00"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<text><![CDATA[Race croisée]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="572665e0-a042-44c7-b043-305939d63f18" mode="Transparent" x="437" y="2" width="95" height="20" forecolor="#FF3333" backcolor="#FFFF00"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[mort naissance]]></text>
+				</staticText>
 			</frame>
 		</band>
 	</pageFooter>
 	<summary>
-		<band height="190" splitType="Stretch">
+		<band height="555" splitType="Stretch">
 			<crosstab>
 				<reportElement uuid="3a63daa9-0c7d-47af-8955-adba1729221c" x="0" y="71" width="802" height="91"/>
 				<rowGroup name="sex" width="70" totalPosition="End">
@@ -420,11 +431,40 @@
 				<textElement textAlignment="Center">
 					<font fontName="Times New Roman" pdfFontName="Times-Roman"/>
 				</textElement>
-				<text><![CDATA[Naissance Male - Femelle / an]]></text>
+				<text><![CDATA[Naissance / sexe / an]]></text>
 			</staticText>
 			<line>
 				<reportElement uuid="5abae6f2-281f-493a-b567-f347b80e42b3" x="231" y="45" width="591" height="1" forecolor="#7F4D15"/>
 			</line>
+			<staticText>
+				<reportElement uuid="b004bfbd-c2d8-47f0-9929-ae1d9a6fd03b" style="SubTitle" x="2" y="223" width="229" height="24"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" pdfFontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[Naissance / race / an]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="5abae6f2-281f-493a-b567-f347b80e42b3" x="231" y="234" width="591" height="1" forecolor="#7F4D15"/>
+			</line>
+			<stackedBarChart>
+				<chart>
+					<reportElement uuid="35ef500d-73e4-42e9-8281-62216ff62942" x="1" y="268" width="801" height="262"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<categoryDataset>
+					<categorySeries>
+						<seriesExpression><![CDATA[$F{race-name}]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{born-on}.getYear()+1900]]></categoryExpression>
+						<valueExpression><![CDATA[$V{id_1}]]></valueExpression>
+					</categorySeries>
+				</categoryDataset>
+				<barPlot>
+					<plot/>
+					<itemLabel/>
+				</barPlot>
+			</stackedBarChart>
 		</band>
 	</summary>
 </jasperReport>
