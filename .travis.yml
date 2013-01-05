@@ -1,9 +1,9 @@
 rvm:
-  - 1.9.2
+# - 1.9.2
   - 1.9.3
 env:
-  - DB=postgis POSTGIS=1.5
-  - DB=postgis POSTGIS=2.0
+  - DB=postgis POSTGIS=v15
+  - DB=postgis POSTGIS=v20
 #  - DB=spatialite
 
 #  - DB=mysql

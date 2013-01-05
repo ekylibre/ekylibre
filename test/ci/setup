@@ -10,7 +10,7 @@ if [ "$DB" = "postgis" ]; then
     psql -c "CREATE DATABASE $test_database;" -U postgres
     psql -U postgres -d $test_database -c "CREATE SCHEMA postgis;"
 
-    if [ "$POSTGIS" = "2.0" ]; then
+    if [ "$POSTGIS" = "v20" ]; then
 	psql -U postgres -d $test_database -c "CREATE EXTENSION postgis;"
     else
 	createlang -U postgres plpgsql $test_database
