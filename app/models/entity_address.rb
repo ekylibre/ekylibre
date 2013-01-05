@@ -68,7 +68,7 @@ class EntityAddress < CompanyRecord
   validates_inclusion_of :by_default, :mail_auto_update, :in => [true, false]
   validates_presence_of :canal, :coordinate, :entity
   #]VALIDATORS]
-  validates_format_of :coordinate, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i, :if => lambda{|a| a.email?}
+  validates_format_of :coordinate, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i, :if => :email?
   validates_inclusion_of :canal, :in => self.canal.values
 
   # Use unscoped to get all historic
@@ -85,7 +85,10 @@ class EntityAddress < CompanyRecord
     if self.entity
       self.by_default = true if self.entity.addresses.where(:canal => self.canal).count.zero?
     end
-    self.coordinate.strip! if self.coordinate.is_a?(String)
+    if self.coordinate.is_a?(String)
+      self.coordinate.strip! 
+      self.coordinate.downcase!
+    end
     if self.mail?
       if self.mail_line_6
         self.mail_line_6 = self.mail_line_6.to_s.gsub(/\s+/,' ').strip
