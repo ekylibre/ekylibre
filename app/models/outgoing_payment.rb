@@ -61,6 +61,9 @@ class OutgoingPayment < CompanyRecord
   validates_numericality_of :used_amount, :greater_than_or_equal_to => 0
   validates_presence_of :to_bank_on, :created_on
 
+  default_scope -> { order("id DESC") }
+  scope :unbalanceds, -> { where("used_amount < amount") }
+
   before_validation(:on => :create) do
     self.created_on ||= Date.today
     true

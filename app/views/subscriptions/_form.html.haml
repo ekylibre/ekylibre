@@ -1,11 +1,14 @@
 -# TODO Check
-=hidden_field :subscription, :sale_line_id
 -field_set do
+  -association :sale_line, :field => :hidden
   -association :nature
   -input :quantity
-  -#input :entity_id, :choices=>:entities
-  -#input :sale_id
-  -#input :suspended
+  -# input :suspended
+  -input :address
+  -input :comment
 
-=render :partial=>"coordinates_form"
-
+-field_set :interval, :depend_on => :nature do
+  -input :started_on, :if => :period?
+  -input :stopped_on, :if => :period?
+  -input :first_number, :if => :quantity?
+  -input :last_number,  :if => :quantity?

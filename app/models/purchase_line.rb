@@ -62,6 +62,8 @@ class PurchaseLine < CompanyRecord
   validates_presence_of :tracking, :if=>Proc.new{|pol| !pol.tracking_serial.blank?}
   validates_uniqueness_of :tracking_serial, :scope=>:price_id, :allow_nil=>true, :if=>Proc.new{|pl| !pl.tracking_serial.blank? }
 
+  accepts_nested_attributes_for :price
+
   sums :purchase, :lines, :pretax_amount, :amount
 
   before_validation do

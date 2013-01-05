@@ -47,7 +47,7 @@
 
 
 class EntityAddress < CompanyRecord
-  attr_readonly   :entity_id, :name, :code,       :canal, :coordinate, :mail_line_1, :mail_line_2, :mail_line_3, :mail_line_4, :mail_line_5, :mail_line_6, :mail_country
+  attr_readonly   :entity_id
   attr_accessible :entity_id, :name, :by_default, :canal, :coordinate, :mail_line_1, :mail_line_2, :mail_line_3, :mail_line_4, :mail_line_5, :mail_line_6, :mail_country
   belongs_to :mail_area, :class_name => "Area"
   belongs_to :entity
@@ -57,7 +57,7 @@ class EntityAddress < CompanyRecord
   has_many :sales
   has_many :subscriptions
   has_many :warehouses
-  enumerize :canal, :in => %w(mail email phone mobile fax website), :default => :email, :predicates => true
+  enumerize :canal, :in => [:mail, :email, :phone, :mobile, :fax, :website], :default => :email, :predicates => true
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :mail_country, :allow_nil => true, :maximum => 2
@@ -71,6 +71,7 @@ class EntityAddress < CompanyRecord
   validates_format_of :coordinate, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i, :if => lambda{|a| a.email?}
   validates_inclusion_of :canal, :in => self.canal.values
 
+  # Use unscoped to get all historic
   default_scope -> { where("deleted_at IS NULL") }
 
   # Defines test and scope methods for all canals
@@ -114,7 +115,7 @@ class EntityAddress < CompanyRecord
   end
 
   after_save do
-      if self.by_default
+    if self.by_default
       self.class.update_all({:by_default => false}, ["entity_id = ? AND canal = ? AND id != ?", self.entity_id, self.canal, self.id])
     end
   end

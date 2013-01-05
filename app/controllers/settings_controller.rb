@@ -20,23 +20,22 @@
 class SettingsController < AdminController
 
   def edit
-    @my_company = @current_company
-    t3e @my_company.attributes
   end
 
   def update
-    @my_company = Company.find(@current_company.id)
-    saved = false
+    saved = true
     ActiveRecord::Base.transaction do
-      if saved = @my_company.update_attributes(params[:my_company])
-        for key, data in params[:preference]
-          @my_company.prefer! key, data[:value]
+      for key, data in params[:preference]
+        if preference = Preference.get(key)
+          preference.value = params[:value]
+          preference.save
+        else
+          saved = false
         end
       end
     end
     redirect_to_back and return if saved
-    t3e @my_company.attributes
-    render :action=>:edit
+    render :edit
   end
 
 

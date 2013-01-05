@@ -1,20 +1,17 @@
-=form_tag({}, :method=>:get) do
-  %fieldset
-    %legend=tc(:print)
-    =formalize do |f|
-      -f.title DocumentTemplate.model_name.human
-      -f.field DocumentTemplate.model_name.human, select_tag("template", options_for_select(@document_templates.collect{|d| [d.name, d.code]}, params[:code]), "data-dependents"=>"#document-options", "data-parameter-name"=>"code")
-    #document-options{"data-refresh"=>url_for(:action=>:reports), "data-refresh-mode"=>"update"}=render(:partial=>'options')
-    .actions=submit_tag tg(:print), :name=>nil
+=form_tag({}, :method => :get) do
+  =field_set :print do
+    =field DocumentTemplate.model_name.human, select_tag("template", options_for_select(@document_templates.collect{|d| [d.name, d.code]}, params[:code]), "data-dependents"=>"#document-options", "data-parameter-name"=>"code")
+    #document-options{"data-refresh"=>url_for(:action=>:reports), "data-refresh-mode"=>"update"}
+      =render(:partial=>'options')
+  =form_actions do
+    =submit_tag tg(:print), :name=>nil
 
-=form_tag({}, :method=>:get) do
-  %fieldset
-    %legend=tc(:exportation)
-    =formalize do |f|
-      -f.title tg(:export)
-      -f.field tg(:select_document), select_tag("export", options_for_select([[tc(:accounting_balance), "balance"], ["Format carré", "isaquare"]],  params[:export]))
-      -year = FinancialYear.current
-      -f.field tg(:from), date_field_tag("started_on", year.started_on)
-      -f.field tg(:to),   date_field_tag("stopped_on", year.stopped_on)
-    .actions=submit_tag tg(:export), :name=>nil
+=form_tag({}, :method => :get) do
+  =field_set :export do
+    =field tg(:select_document), select_tag("export", options_for_select([[tc(:accounting_balance), "balance"], ["Format carré", "isaquare"]],  params[:export]))
+    -year = FinancialYear.current
+    =field tg(:from), date_field_tag("started_on", year.started_on)
+    =field tg(:to),   date_field_tag("stopped_on", year.stopped_on)
+  =form_actions do
+    =submit_tag tg(:export), :name => nil
 

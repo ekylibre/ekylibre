@@ -28,7 +28,7 @@ module Ekylibre
     :animal_diagnostic => {
       :creator_id => :entity,
       :disease_id => :animal_disease,
-      :event_id => :event,
+      :event_id => :animal_event,
       :updater_id => :entity
     },
     :animal_disease => {
@@ -86,10 +86,10 @@ module Ekylibre
     },
     :animal_treatment => {
       :creator_id => :entity,
-      :disease_id => :disease,
-      :drug_id => :drug,
-      :event_id => :event,
-      :prescription_id => :prescription,
+      :disease_id => :animal_disease,
+      :drug_id => :animal_drug,
+      :event_id => :animal_event,
+      :prescription_id => :animal_prescription,
       :quantity_unit_id => :unit,
       :updater_id => :entity
     },
@@ -462,7 +462,7 @@ module Ekylibre
       :creator_id => :entity,
       :record_value_id => "record_value_type",
       :updater_id => :entity,
-      :user_id => :user
+      :user_id => :entity
     },
     :price => {
       :category_id => :entity_category,

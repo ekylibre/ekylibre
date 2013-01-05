@@ -218,7 +218,7 @@ class AdminController < BaseController
   end
 
 
-  def find_and_check(model=nil, id=nil, options={})
+  def find_and_check(model = nil, id = nil, options={})
     model ||= self.controller_name
     model, record, klass = model.to_s, nil, nil
     id ||= params[:id]
@@ -535,13 +535,13 @@ class AdminController < BaseController
 
     # this action updates an existing record with a form.
     code << "def edit\n"
-    code << "  return unless @#{record_name} = find_and_check(:#{record_name})\n"
+    code << "  return unless @#{record_name} = find_and_check(:#{name})\n"
     code << "  t3e(@#{record_name}.attributes"+(t3e ? ".merge("+t3e.collect{|k,v| ":#{k} => (#{v})"}.join(", ")+")" : "")+")\n"
     code << "  #{render_form}\n"
     code << "end\n"
 
     code << "def update\n"
-    code << "  return unless @#{record_name} = find_and_check(:#{record_name})\n"
+    code << "  return unless @#{record_name} = find_and_check(:#{name})\n"
     code << "  t3e(@#{record_name}.attributes"+(t3e ? ".merge("+t3e.collect{|k,v| ":#{k} => (#{v})"}.join(", ")+")" : "")+")\n"
     code << "  @#{record_name}.attributes = params[:#{record_name}]\n"
     code << "  return if save_and_redirect(@#{record_name}#{', :url => ('+url+')' if url})\n"
@@ -550,7 +550,7 @@ class AdminController < BaseController
 
     # this action deletes or hides an existing record.
     code << "def destroy\n"
-    code << "  return unless @#{record_name} = find_and_check(:#{record_name})\n"
+    code << "  return unless @#{record_name} = find_and_check(:#{name})\n"
     if model.instance_methods.include?("destroyable?")
       code << "  if @#{record_name}.destroyable?\n"
       code << "    #{model.name}.destroy(@#{record_name}.id)\n"

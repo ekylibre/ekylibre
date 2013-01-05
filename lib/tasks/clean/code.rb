@@ -12,17 +12,20 @@ task :code do
   end
   files.sort!
   for file in files
-    source = nil
+    original = nil
     File.open(file, "rb") do |f|
-      source = f.read
+      original = f.read
     end
-
+    source = original.dup
 
     # source.gsub!(/(\w+)\ +/, '\1 ')
     source.gsub!(/[\ \t]+\n/, "\n")
+    # source.gsub!(/\n+\n$/, "\n")
 
-    File.open(file, "wb") do |f|
-      f.write source
+    if source != original
+      File.open(file, "wb") do |f|
+        f.write source
+      end
     end
   end
 

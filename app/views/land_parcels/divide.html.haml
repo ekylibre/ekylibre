@@ -1,9 +1,6 @@
-=form_tag({}, :class=>"flex") do
-  .fields.flex
-    =formalize do |f|
-      -f.error :land_parcel
-      -f.field :land_parcel, :stopped_on
-    %h2=tl :land_parcels
+=form_tag({}) do
+  =field_set :division, @land_parcel do
+    =field :stopped_on
     %table.list
       %thead
         %tr
@@ -12,7 +9,7 @@
           %th.act
           %th.act
       %tfoot
-        %tr.total#total_line{"data-valid-if-equality-between"=>"#used-area, #total-area"}
+        %tr.total#total_line{"data-valid-if-equality-between" => "#used-area, #total-area"}
           %th=tl(:total)
           %td
             %span#used-area{"data-use"=>".area"}
@@ -22,5 +19,5 @@
           %th
       %tbody#subdivisions
         =render :partial=>"land_parcels/subdivision_form"
-  .actions
+  =form_actions do
     =submit_tag(tl(:divide))

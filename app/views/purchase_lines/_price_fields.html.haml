@@ -1,0 +1,30 @@
+-# Generated automatically. Don't edit this file.
+-price ||= f.object
+.nested-fields
+  =link_to_remove_association('labels.remove_price'.t, f, :class => 'nested-remove remove-price')
+  #category-field.control-group
+    %label.control-label.required{:for => 'price-category-input'}
+      %abbr{:title => 'required'} *
+      =Price.human_attribute_name('category')
+    .controls
+      =selector(:price, :category, {:controller=>"entity_categories", :action=>:unroll}, {:object => price}, :id => 'price-category-input', :class => 'selector required')
+      -for error in price.errors['category']
+        %span.help-inline=error
+      %span.btn-toolbar
+        =link_to({:controller => :entity_categories, :action => :new}, 'data-new-item' => 'price-category-input', :class => 'btn btn-new') do
+          %span.icon
+          %span.text='labels.new'.t
+  =f.input(:pretax_amount, :wrapper_html => {:id => 'pretax-amount-field'})
+  #tax-field.control-group
+    %label.control-label.required{:for => 'price-tax-input'}
+      %abbr{:title => 'required'} *
+      =Price.human_attribute_name('tax')
+    .controls
+      =selector(:price, :tax, {:controller=>"taxes", :action=>:unroll}, {:object => price}, :id => 'price-tax-input', :class => 'selector required')
+      -for error in price.errors['tax']
+        %span.help-inline=error
+      %span.btn-toolbar
+        =link_to({:controller => :taxes, :action => :new}, 'data-new-item' => 'price-tax-input', :class => 'btn btn-new') do
+          %span.icon
+          %span.text='labels.new'.t
+  =f.input(:currency, :collection => currencies, :wrapper_html => {:id => 'currency-field'})

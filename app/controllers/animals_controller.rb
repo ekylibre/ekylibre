@@ -73,7 +73,7 @@ class AnimalsController < AdminController
         t3e @animal
       end
       format.xml {render xml: @animal, :include => [:race , :father, :mother]}
-      format.pdf {respond_with @animal, :include => [:race , :father, :mother]} 
+      format.pdf {respond_with @animal, :include => [:race , :father, :mother]}
     end
   end
 

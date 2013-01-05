@@ -1576,10 +1576,10 @@ arb:
       default:
         admin: "المدير" #?
         bank_journal_nature_name: "البنك" #?
-        cash:
-          name:
-            bank_account: "حساب مصرفي"
-            cash_box: "صندوق نقدي"
+        cash:  #?
+          name: #?
+            bank_account: "حساب مصرفي" #?
+            cash_box: "صندوق نقدي" #?
         category: "افتراضيا"
         delays:
           expression:
@@ -1652,13 +1652,12 @@ arb:
             name: "شيك"
           transfer:
             name: "التحويل"
-        journals:
-          bank: "الدفتر اليومي للبنك"
-          cash: "الدفتر اليومي للصندوق النقدي"
-          # forward: "Carried-forward"
-          purchases: "دفاتر الشراء اليومية"
-          sales: "دفاتر البيع اليومية"
-          various: "دفاتر يومية لعمليات متنوعة"
+        journals:  #?
+          bank: "الدفتر اليومي للبنك" #?
+          cash: "الدفتر اليومي للصندوق النقدي" #?
+          purchases: "دفاتر الشراء اليومية" #?
+          sales: "دفاتر البيع اليومية" #?
+          various: "دفاتر يومية لعمليات متنوعة" #?
         outgoing_payment_modes:
           cash:
             name: "عملة نقدية"

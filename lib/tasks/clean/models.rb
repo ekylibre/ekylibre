@@ -16,7 +16,7 @@ task :models => :environment do
   for model in models
     m = model.name.underscore.to_sym
     cols = []
-    model.columns.sort{|a,b| a.name<=>b.name}.each do |column|
+    model.columns.sort{|a,b| a.name <=> b.name}.each do |column|
       c = column.name.to_sym
       if c.to_s.match(/_id$/)
         val = (refs[m].is_a?(Hash) ? refs[m][c] : nil)

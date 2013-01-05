@@ -10,7 +10,7 @@ class ModelsTest < Test::Unit::TestCase
         assert(!t.blank?, "#{k}.#{c} foreign key is not determined.")
         if t.is_a? Symbol
           assert_nothing_raised do
-            t.to_s.classify.constantize
+            t.to_s.pluralize.classify.constantize
           end
         end
       end

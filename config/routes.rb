@@ -295,7 +295,7 @@ Ekylibre::Application.routes.draw do
       match "merge", :via => [:get, :post]
     end
   end
-  resources :entity_addresses do
+  resources :entity_addresses, :except => [:index, :show] do
     collection do
       unroll_all
     end

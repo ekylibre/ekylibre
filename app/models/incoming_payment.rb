@@ -81,6 +81,7 @@ class IncomingPayment < CompanyRecord
 
   default_scope -> { order("id DESC") }
   scope :depositables, -> { where("deposit_id IS NULL AND to_bank_on >= ? AND mode_id IN (SELECT id FROM #{IncomingPaymentMode.table_name} WHERE with_deposit = ?)", Date.today, true) }
+  scope :unbalanceds,  -> { where("used_amount < amount") }
 
   before_validation(:on=>:create) do
     self.created_on ||= Date.today

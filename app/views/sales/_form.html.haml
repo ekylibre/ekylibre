@@ -1,22 +1,23 @@
 -# TODO Form
 =sales_steps
-=formalize do |f|
-  -f.error 'sale'
-  -f.title :client
-  -f.field :sale, :client_id, :choices=>:clients, :new=>true, "data-parameter-name"=>"client_id", "data-dependents"=>"#contacts"
 
-#contacts{:data=>{"refresh"=>url_for(:action=>:contacts), "refresh-mode"=>"update"}}=render "contacts_form"
+=field_set do
+  -association :client, :source => :clients
 
-=formalize do |f|
-  -f.title :sales_conditions
-  -f.field :sale, :nature_id, :choices=>{:reflection=>:sale_natures}, :new=>true
-  -f.field :sale, :responsible_id, :choices=>{:reflection=>:employees}, :new=>{:employed=>1}
-  -f.field :sale, :transporter_id, :choices=>{:reflection=>:transporters, :include_blank=>""}
-  -f.field :sale, :comment, :field=>:textarea
-  -f.field :sale, :letter_format, "data-show"=>"#letter_format"
-=formalize(:id=>:letter_format) do |f|
-  -f.title :letter_options
-  -f.field :sale, :subject
-  -f.field :sale, :function_title
-  -f.field :sale, :introduction, :field=>:textarea
-  -f.field :sale, :conclusion, :field=>:textarea
+=field_set :addresses, :depend_on => :client do
+  -association :address
+  -association :delivery_address
+  -association :invoice_address
+
+=field_set :sales_conditions do
+  -association :nature
+  -association :responsible, :source => :employees, :new => {:employed => 1}
+  -association :transporter, :source => :transporters
+  -input :comment
+  -input :letter_format, :show => :letter_options
+
+=field_set :letter_options do
+  -input :subject
+  -input :function_title
+  -input :introduction
+  -input :conclusion

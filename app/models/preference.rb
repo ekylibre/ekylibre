@@ -65,8 +65,9 @@ class Preference < CompanyRecord
 
   prefer :bookkeep_automatically, :boolean, true
   prefer :bookkeep_in_draft, :boolean, true
-  # prefer :detail_payments_in_deposit_bookkeeping, :boolean, true
+  prefer :detail_payments_in_deposit_bookkeeping, :boolean, true
   prefer :use_entity_codes_for_account_numbers, :boolean, true
+  prefer :sales_conditions, :string, ""
 
   # TODO removes these preferences to manage charts
   prefer :capital_gains_accounts, :integer, 120

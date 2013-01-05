@@ -392,15 +392,15 @@ class Entity < CompanyRecord
   end
 
 
-  def self.exportable_columns
-    columns = []
-    columns += Entity.content_columns.collect{|c| [Entity.model_name.human+"/"+Entity.human_attribute_name(c.name), "entity-"+c.name]}.sort
-    columns += EntityAddress.content_columns.collect{|c| [EntityAddress.model_name.human+"/"+EntityAddress.human_attribute_name(c.name), "address-"+c.name]}.sort
-    columns += EntityNature.content_columns.collect{|c| [EntityNature.model_name.human+"/"+EntityNature.human_attribute_name(c.name), "entity_nature-"+c.name]}.sort
-    columns += EntityCategory.content_columns.collect{|c| [EntityCategory.model_name.human+"/"+EntityCategory.human_attribute_name(c.name), "entity_category-"+c.name]}.sort
-    columns += CustomField.all.collect{|c| [CustomField.model_name.human+"/"+c.name, "custom_field-id"+c.id.to_s]}.sort
-    return columns
-  end
+  # def self.exportable_columns
+  #   columns = []
+  #   columns += Entity.content_columns.collect{|c| [Entity.model_name.human+"/"+Entity.human_attribute_name(c.name), "entity-"+c.name]}.sort
+  #   columns += EntityAddress.content_columns.collect{|c| [EntityAddress.model_name.human+"/"+EntityAddress.human_attribute_name(c.name), "address-"+c.name]}.sort
+  #   columns += EntityNature.content_columns.collect{|c| [EntityNature.model_name.human+"/"+EntityNature.human_attribute_name(c.name), "entity_nature-"+c.name]}.sort
+  #   columns += EntityCategory.content_columns.collect{|c| [EntityCategory.model_name.human+"/"+EntityCategory.human_attribute_name(c.name), "entity_category-"+c.name]}.sort
+  #   columns += CustomField.all.collect{|c| [CustomField.model_name.human+"/"+c.name, "custom_field-id"+c.id.to_s]}.sort
+  #   return columns
+  # end
 
 
   def self.import(file, cols, options={})

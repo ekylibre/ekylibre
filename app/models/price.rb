@@ -61,6 +61,12 @@ class Price < CompanyRecord
   validates_presence_of :entity
   validates_numericality_of :pretax_amount, :amount, :greater_than_or_equal_to => 0
 
+  delegate :stockable?, :subscription?, :to => :product
+
+  scope :availables_for_sales, -> { joins(:product).where("#{Price.table_name}.active=? AND #{Product.table_name}.active=?", true, true) }
+
+
+
   before_validation do
     if entity = Entity.of_company
       self.currency  ||= entity.currency

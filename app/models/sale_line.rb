@@ -77,8 +77,7 @@ class SaleLine < CompanyRecord
   #]VALIDATORS]
   validates_presence_of :price
 
-  # accepts_nested_attributes_for :subscriptions
-
+  accepts_nested_attributes_for :subscriptions
 
   before_validation do
     # check_reservoir = true

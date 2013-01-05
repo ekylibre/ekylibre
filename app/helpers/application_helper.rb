@@ -1012,7 +1012,7 @@ module ApplicationHelper
       attribute = args[0]
       object = @object_of_current_field_set
       model = object.class
-      label = model.huamn_attribute_name(attribute)
+      label = model.human_attribute_name(attribute)
       input = if options[:source]
                 select(object, attribute, options[:source])
               else
@@ -1735,15 +1735,15 @@ module ApplicationHelper
     partial = options[:with] || "#{name}_form"
     attrs = []
     if options[:depend_on]
-      attrs << "'data-depend-on' => #{form_element_ids(options[:depend_on])}"
+      attrs << "'data-depend-on' => '#{form_element_ids(options[:depend_on])}'"
       options[:refresh_url] ||= {:action => "refresh_#{name}"}
     end
     if options[:refresh_url]
-      attrs << "'data-refresh' => " + url_for(options[:refresh_url]).to_s
+      attrs << "'data-refresh' => '#{url_for(options[:refresh_url])}'"
       options[:refresh_mode] ||= :update
     end
     if options[:refresh_mode]
-      attrs << "'data-refresh-mode' => " + options[:refresh_mode].to_s
+      attrs << "'data-refresh-mode' => '#{options[:refresh_mode]}'"
     end
     attrs = "{" + attrs.join(", ") + "}" unless attrs.empty?
     haml  = ""
@@ -1754,8 +1754,10 @@ module ApplicationHelper
 
 
   def render_field_nested_association(name, options = {})
+    model = options[:model] || @master_model
     record = name.to_s.singularize
-    nested_model = @master_model.reflections[name].class_name.constantize
+    raise ArgumentError("Unknown reflection #{name.inspect} for #{model.name}") unless model.reflections[name]
+    nested_model = model.reflections[name].class_name.constantize
     object = nested_model.name.underscore
     fs_name = options[:in]
 
@@ -2552,7 +2554,7 @@ module ApplicationHelper
   # Imported from app/helpers/relations_helper.rb
   def condition_label(condition)
     if condition.match(/^generic/)
-      klass, attribute = condition.split(/\-/)[1].classify.constantize, condition.split(/\-/)[2]
+      klass, attribute = condition.split(/\-/)[1].pluralize.classify.constantize, condition.split(/\-/)[2]
       return tl("conditions.filter_on_attribute_of_class", :attribute => klass.human_attribute_name(attribute), :class => klass.model_name.human)
     else
       return tl("conditions.#{condition}")

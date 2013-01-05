@@ -1,17 +1,15 @@
 -# TODO Form
-=hidden_field_tag :purchase_id, params[:purchase_id]
-=formalize do |f|
-  -f.error :purchase_line
-  -f.field :purchase_line, :product_id, :choices=>:purchase_products, :new=>true, "data-parameter-name"=>"product_id", "data-dependents"=>"#price-amount"
-  -f.field :purchase_line, :quantity
-  -f.field :purchase_line, :annotation, :field=>:textarea
+=field_set do
+  -association :purchase, :field => :hidden
+  -association :product, :source => :purchaseables # , :new=>true, "data-parameter-name"=>"product_id", "data-dependents"=>"#price-amount"
+  -input :quantity
+  -input :annotation
+  -nested_association :price do
+    -association :category
+    -input :pretax_amount
+    -association :tax
+    -input :currency, :source => :currencies
 
--@price ||= @purchase_line.price
--if @price
-  #price-amount{"data-refresh"=>find_prices_url(:entity_id=>@purchase_line.purchase.supplier_id), "data-refresh-mode"=>"update"}=render :partial=>"prices/amount_form"
-
-=formalize do |f|
-  -f.title :stocks
-  -if Warehouse.count > 1
-    -f.field :purchase_line, :warehouse_id, :choices=>{:reflection=>:warehouses}
-  -f.field :purchase_line, :tracking_serial
+=field_set :stocks, :depend_on => :product, :if => :stockable? do
+  -association :warehouse
+  -input :tracking_serial, :if => :trackable?

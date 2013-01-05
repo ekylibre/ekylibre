@@ -174,7 +174,7 @@ class EntitiesController < AdminController
       @columns = Entity.exportable_columns
       @conditions = ["special-subscriber"] # , "special-buyer", "special-relation"]
       @conditions += Entity.exportable_columns.collect{|c| "generic-entity-#{c.name}"}.sort
-      @conditions += EntityAddress.exportable_columns.collect{|c| "generic-address-#{c.name}"}.sort
+      @conditions += EntityAddress.exportable_columns.collect{|c| "generic-entity-address-#{c.name}"}.sort
       @conditions += ["generic-area-postcode", "generic-area-city"]
       @conditions += ["generic-district-name"]
       if request.post?

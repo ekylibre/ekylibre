@@ -109,6 +109,7 @@ class Product < CompanyRecord
   default_scope -> { order(:name) }
   scope :availables, -> { where(:active => true).order(:name) }
   scope :stockables, -> { where(:stockable => true).order(:name) }
+  scope :purchaseables, -> { where(:for_purchases => true).order(:name) }
 
   before_validation do
     self.code = self.name.codeize.upper if !self.name.blank? and self.code.blank?

@@ -1,7 +1,12 @@
 -field_set do
   -association :entity
   -input :by_default
-=render :partial=>"coordinates_form"
-
-
-
+  -input :canal, :show => {:mail => :mail_details}, :hide => {:mail => :coordinate}
+  -input :coordinate
+  -input :mail_line_1, :in => :mail_details
+  -input :mail_line_2, :in => :mail_details
+  -input :mail_line_3, :in => :mail_details
+  -input :mail_line_4, :in => :mail_details
+  -input :mail_line_5, :in => :mail_details
+  -input :mail_line_6, :in => :mail_details
+  -input :mail_country, :source => :countries, :in => :mail_details

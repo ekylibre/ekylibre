@@ -1,16 +1,13 @@
--# TODO Form
+-# TODO: Manage extra content in forms ?
 =purchase_steps
 
-=formalize do |f|
-  -f.error :purchase
-  -f.title :infos
-  -if @purchase.updateable?
-    -f.field :purchase, :supplier_id, :choices=>:suppliers, :new=>true
-    -f.field :purchase, :nature_id, :choices=>{:reflection=>:purchase_natures}, :new=>true
-    -f.field :purchase, :delivery_contact_id, :choices=>{:reflection=>:self_contacts, :label=>:address}, :new=>{:entity_id=>Entity.of_company.id}
-    -f.field :purchase, :planned_on
-    -f.field :purchase, :reference_number
-    -f.field :purchase, :responsible_id, :choices=>{:reflection=>:employees}, :new=>{:employed=>1}
-  -f.field :purchase, :comment, :field=>:textarea
+=field_set do
+  -association :supplier, :source => :suppliers
+  -association :nature
+  -association :delivery_address, :source => :own_mails, :new => {:entity_id => Entity.of_company.id}
+  -input :planned_on
+  -input :reference_number
+  -association :responsible, :source => :employees, :new => {:employed => 1}
+  -input :comment
 
 

@@ -6,4 +6,4 @@
   -input :expense_id, :field => :hidden
   -input :expense_type, :field => :hidden
   -input :downpayment
-  -association :payment, :source => :usable, :new => {:payer_id => "expense.payer.id".to_sym, :amount => "expense.unpaid_amount".to_sym, :bank => "previous_payment.bank".to_sym, :account_number => "previous_payment.account_number".to_sym, :currency => "expense.currency".to_sym}
+  -association :payment, :source => :unbalanceds, :new => {:payer_id => "expense.payer.id".to_sym, :amount => "expense.unpaid_amount".to_sym, :bank => "previous_payment.bank".to_sym, :account_number => "previous_payment.account_number".to_sym, :currency => "expense.currency".to_sym}

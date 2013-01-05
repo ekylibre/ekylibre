@@ -68,10 +68,11 @@ class Account < CompanyRecord
 
   default_scope order(:number, :name)
   scope :majors, where("number LIKE '_'").order(:number, :name)
-  scope :deposit_pending_payments, lambda { where('number LIKE ?', self.chart_number(:attorney_thirds)+"%").order(:number, :name) }
+  scope :deposit_pending_payments, lambda { where('number LIKE ?', self.chart_number(:deposit_pending_payments)+"%").order(:number, :name) }
   scope :attorney_thirds,          lambda { where('number LIKE ?', self.chart_number(:attorney_thirds)+"%").order(:number, :name) }
   scope :client_thirds,            lambda { where('number LIKE ?', self.chart_number(:client_thirds)+"%").order(:number, :name) }
   scope :supplier_thirds,          lambda { where('number LIKE ?', self.chart_number(:supplier_thirds)+"%").order(:number, :name) }
+  scope :products,                 lambda { where('number LIKE ?', self.chart_number(:products)+"%").order(:number, :name) }
   scope :charges,                  lambda { where('number LIKE ?', self.chart_number(:charges)+"%").order(:number, :name) }
   scope :banks,                    lambda { where('number LIKE ?', self.chart_number(:banks)+"%").order(:number, :name) }
   scope :cashes,                   lambda { where('number LIKE ?', self.chart_number(:cashes)+"%").order(:number, :name) }

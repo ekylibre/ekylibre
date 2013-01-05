@@ -1046,10 +1046,7 @@ spa:
     company:
       # cant_find_document_template: "Can not find document template"
       default:
-        cash:
-          name:
-            # bank_account: "Bank account"
-            # cash_box: "Cash"
+        cash: #?
         # category: "By default"
         delays:
           expression:
@@ -1076,13 +1073,7 @@ spa:
             # name: "Check"
           transfer:
             # name: "Transfer"
-        journals:
-          # bank: "Bank"
-          # cash: "Cash"
-          # forward: "Carried-forward"
-          # purchases: "Purchases"
-          # sales: "Sales"
-          # various: "Various operations"
+        journals: #?
         outgoing_payment_modes:
           cash:
             # name: "Cash"

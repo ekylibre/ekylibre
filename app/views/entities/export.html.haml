@@ -1,5 +1,5 @@
-=form_tag({:id=>@step}, :multipart=>true, :style=>'overflow:none', :class=>"vbox flex") do
-  .fields.vbox.flex{:style=>'overflow:none'}
+=form_tag({:id => @step}, :multipart => true) do
+  .fields.vbox.flex{:style => 'overflow:none'}
     .form-column.aside
       -params[:columns] ||= {}
       -index = 0
@@ -8,7 +8,7 @@
         -for klass in [Entity, EntityAddress, Area, District]
           %tr.title
             %th=klass.model_name.human
-          -for c in klass.exportable_columns.sort{|a,b| a.name<=>b.name}
+          -for c in klass.exportable_columns.sort{|a,b| a.name <=> b.name}
             -code = klass.name.underscore+'-'+c.name
             -params[:columns][code] ||= {}
             %tr.field
@@ -17,12 +17,12 @@
                 =hidden_field_tag("columns[#{code}][label]", klass.human_attribute_name(c.name))
                 =hidden_field_tag("columns[#{code}][order]", index+=1)
                 =hidden_field_tag("columns[#{code}][check]", 0)
-                =check_box_tag("columns[#{code}][check]", "1", params[:columns][code][:check]||(c.type==:string), :id=>"columns_#{code}_check_f")
-                =content_tag(:label, klass.human_attribute_name(c.name), :for=>"columns_#{code}_check_f")
+                =check_box_tag("columns[#{code}][check]", "1", params[:columns][code][:check]||(c.type==:string), :id => "columns_#{code}_check_f")
+                =content_tag(:label, klass.human_attribute_name(c.name), :for => "columns_#{code}_check_f")
         %tr.title
           %th=CustomField.model_name.human
-        -for c in CustomField
-          -code = CustomField.name.underscore+'-id'+c.id.to_s
+        -CustomField.find_each do |c|
+          -code = CustomField.name.underscore + '-id' + c.id.to_s
           -params[:columns][code] ||= {}
           %tr.field
             %td
@@ -30,18 +30,17 @@
               =hidden_field_tag("columns[#{code}][label]", klass.human_attribute_name(c.name))
               =hidden_field_tag("columns[#{code}][order]", index+=1)
               =hidden_field_tag("columns[#{code}][check]", 0)
-              =check_box_tag("columns[#{code}][check]", "1", params[:columns][code][:check]||(c.nature!="boolean" and c.active), :id=>"columns_#{code}_check_f")
-              =content_tag(:label, klass.human_attribute_name(c.name), :for=>"columns_#{code}_check_f")
+              =check_box_tag("columns[#{code}][check]", "1", params[:columns][code][:check]||(c.nature!="boolean" and c.active), :id => "columns_#{code}_check_f")
+              =content_tag(:label, klass.human_attribute_name(c.name), :for => "columns_#{code}_check_f")
 
       .end
     .form-column
-      =formalize do |f|
-        -f.title :add_conditions
-        -f.field tc('check'), {:choices=>[[tc(:all_conditions), :and], [tc(:one_condition), :or]], :datatype=>:radio, :name=>:check, :value=>params[:check]||:and}
+      =field_set :add_conditions do
+        -field tc('check'), {:choices => [[tc(:all_conditions), :and], [tc(:one_condition), :or]], :datatype => :radio, :name => :check, :value => params[:check]||:and}
       .fastadd
-        =select_tag("condition", options_for_select(@conditions.collect{|x| [condition_label(x), x]}.sort{|a,b| a[0]<=>b[0]}))
-        =link_to(tc(:add_condition), {:action=>:export}, :remote=>true, "data-update"=>"#conditions", "data-update-at"=>:bottom, "data-type"=>:html, "data-with"=>"#condition")
+        =select_tag("condition", options_for_select(@conditions.collect{|x| [condition_label(x), x]}.sort{|a,b| a[0] <=> b[0]}))
+        =link_to(tc(:add_condition), {:action => :export}, :remote => true, "data-update" => "#conditions", "data-update-at" => :bottom, "data-type" => :html, "data-with" => "#condition")
       #conditions
       .end
-  .actions
+  =form_actions do
     =submit_tag(tg(:export))

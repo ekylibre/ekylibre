@@ -1175,10 +1175,10 @@ fra:
     company:
       cant_find_document_template: "Impossible de trouver le modèle de document correspondant"
       default:
-        cash:
-          name:
-            bank_account: "Compte bancaire"
-            cash_box: "Caisse"
+        cash:  #?
+          name: #?
+            bank_account: "Compte bancaire" #?
+            cash_box: "Caisse" #?
         category: "Par défaut"
         delays:
           expression:
@@ -1202,13 +1202,13 @@ fra:
             name: "Chèque"
           transfer:
             name: "Virement"
-        journals:
-          bank: "Banque"
-          cash: "Caisse"
-          forward: "À nouveaux"
-          purchases: "Achats"
-          sales: "Ventes"
-          various: "Opérations diverses"
+        journals:  #?
+          bank: "Banque" #?
+          cash: "Caisse" #?
+          forward: "À nouveaux" #?
+          purchases: "Achats" #?
+          sales: "Ventes" #?
+          various: "Opérations diverses" #?
         outgoing_payment_modes:
           cash:
             name: "Espèces"
