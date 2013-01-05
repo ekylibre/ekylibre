@@ -72,9 +72,8 @@ class AnimalsController < AdminController
         session[:current_animal_id] = @animal.id
         t3e @animal
       end
-      format.json { render json: @animal }
-      format.xml { render xml: @animal }
-      format.pdf { render pdf: @animal }
+      format.xml {render xml: @animal, :include => [:race , :father, :mother]}
+      format.pdf {respond_with @animal, :include => [:race , :father, :mother]} 
     end
   end
 
