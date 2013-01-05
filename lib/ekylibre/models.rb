@@ -28,7 +28,7 @@ module Ekylibre
     :animal_diagnostic => {
       :creator_id => :entity,
       :disease_id => :animal_disease,
-      :event_id => :animal_event,
+      :event_id => :event,
       :updater_id => :entity
     },
     :animal_disease => {
@@ -88,7 +88,7 @@ module Ekylibre
       :creator_id => :entity,
       :disease_id => :animal_disease,
       :drug_id => :animal_drug,
-      :event_id => :animal_event,
+      :event_id => :event,
       :prescription_id => :animal_prescription,
       :quantity_unit_id => :unit,
       :updater_id => :entity

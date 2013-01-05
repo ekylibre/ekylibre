@@ -86,7 +86,7 @@ class EntityAddress < CompanyRecord
       self.by_default = true if self.entity.addresses.where(:canal => self.canal).count.zero?
     end
     if self.coordinate.is_a?(String)
-      self.coordinate.strip! 
+      self.coordinate.strip!
       self.coordinate.downcase!
     end
     if self.mail?
