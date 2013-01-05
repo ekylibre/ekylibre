@@ -20,17 +20,17 @@
 class IncomingDeliveriesController < AdminController
   unroll_all
 
-  list(:conditions=>moved_conditions(IncomingDelivery)) do |t|
+  list(:conditions => moved_conditions(IncomingDelivery)) do |t|
     t.column :number
     t.column :reference_number
     t.column :comment
     t.column :weight
     t.column :planned_on
     t.column :moved_on
-    t.column :name, :through=>:mode
-    t.column :number, :through=>:purchase, :url=>true
+    t.column :name, :through => :mode
+    t.column :number, :through => :purchase, :url => true
     t.column :amount
-    t.action :confirm, :method=>:post, :if=>'RECORD.moved_on.nil? ', 'data-confirm' => :are_you_sure
+    t.action :confirm, :method => :post, :if => 'RECORD.moved_on.nil? ', 'data-confirm'  =>  :are_you_sure
     t.action :edit
     t.action :destroy
   end
@@ -42,7 +42,7 @@ class IncomingDeliveriesController < AdminController
   def confirm
     return unless incoming_delivery = find_and_check
     incoming_delivery.execute if request.post?
-    redirect_to :action=>:index, :mode=>:unconfirmed
+    redirect_to :action => :index, :mode => :unconfirmed
   end
 
   def new
@@ -54,8 +54,8 @@ class IncomingDeliveriesController < AdminController
     end
     purchase_lines = @purchase.lines# .find_all_by_reduction_origin_id(nil)
     notify_warning(:no_lines_found) if purchase_lines.empty?
-    @incoming_delivery = IncomingDelivery.new(:pretax_amount=>@purchase.undelivered("pretax_amount"), :amount=>@purchase.undelivered("amount"), :planned_on=>Date.today, :contact_id=>@purchase.delivery_contact_id)
-    @incoming_delivery_lines = purchase_lines.collect{|x| IncomingDeliveryLine.new(:purchase_line_id=>x.id, :quantity=>x.undelivered_quantity)}
+    @incoming_delivery = IncomingDelivery.new(:pretax_amount => @purchase.undelivered("pretax_amount"), :amount => @purchase.undelivered("amount"), :planned_on => Date.today, :address_id => @purchase.delivery_address_id)
+    @incoming_delivery_lines = purchase_lines.collect{|x| IncomingDeliveryLine.new(:purchase_line_id => x.id, :quantity => x.undelivered_quantity)}
     render_restfully_form
   end
 
@@ -73,17 +73,17 @@ class IncomingDeliveriesController < AdminController
       if saved = @incoming_delivery.save
         for line in purchase_lines
           if params[:incoming_delivery_line][line.id.to_s][:quantity].to_f > 0
-            incoming_delivery_line = @incoming_delivery.lines.new(:purchase_line_id=>line.id, :quantity=>params[:incoming_delivery_line][line.id.to_s][:quantity].to_f)
+            incoming_delivery_line = @incoming_delivery.lines.new(:purchase_line_id => line.id, :quantity => params[:incoming_delivery_line][line.id.to_s][:quantity].to_f)
             saved = false unless incoming_delivery_line.save
             @incoming_delivery.errors.add_from_record(incoming_delivery_line)
           end
         end
       end
       raise ActiveRecord::Rollback unless saved
-      redirect_to :controller=>:purchases, :action=>:show, :step=>:deliveries, :id=>@purchase.id
+      redirect_to :controller => :purchases, :action => :show, :step => :deliveries, :id => @purchase.id
       return
     end
-    @incoming_delivery_lines = purchase_lines.collect{|x| IncomingDeliveryLine.new(:purchase_line_id=>x.id, :quantity=>x.undelivered_quantity)}
+    @incoming_delivery_lines = purchase_lines.collect{|x| IncomingDeliveryLine.new(:purchase_line_id => x.id, :quantity => x.undelivered_quantity)}
     render_restfully_form
   end
 
@@ -92,7 +92,7 @@ class IncomingDeliveriesController < AdminController
     session[:current_incoming_delivery] = @incoming_delivery.id
     @purchase = @incoming_delivery.purchase
     @incoming_delivery_lines = @incoming_delivery.lines
-    render_restfully_form(:id=>@incoming_delivery_form)
+    render_restfully_form(:id => @incoming_delivery_form)
   end
 
   def update
@@ -106,19 +106,19 @@ class IncomingDeliveriesController < AdminController
         for line in @incoming_delivery.lines
           line_attrs = params[:incoming_delivery_line][line.purchase_line.id.to_s]||{}
           if line_attrs[:quantity].to_f > 0
-            saved = false unless line.update_attributes(:quantity=>line_attrs[:quantity].to_f)
+            saved = false unless line.update_attributes(:quantity => line_attrs[:quantity].to_f)
             @incoming_delivery.errors.add_from_record(line)
           end
         end
       end
       if saved
-        redirect_to :controller=>:purchases, :action=>:show, :step=>:deliveries, :id=>@purchase.id
+        redirect_to :controller => :purchases, :action => :show, :step => :deliveries, :id => @purchase.id
         return
       else
         raise ActiveRecord::Rollback
       end
     end
-    render_restfully_form(:id=>@incoming_delivery_form)
+    render_restfully_form(:id => @incoming_delivery_form)
   end
 
 

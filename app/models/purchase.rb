@@ -51,8 +51,6 @@ class Purchase < CompanyRecord
   acts_as_numbered
   after_create {|r| r.supplier.add_event(:purchase, r.updater_id)}
   attr_readonly :currency
-  # DEPRECATED Replace delivery_contact with delivery_address
-  belongs_to :delivery_contact, :class_name => "EntityAddress", :foreign_key => :delivery_address_id
   belongs_to :delivery_address, :class_name => "EntityAddress"
   belongs_to :journal_entry
   belongs_to :nature, :class_name => "PurchaseNature"

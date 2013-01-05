@@ -29,9 +29,9 @@ Ekylibre::Application.routes.draw do
   dashboards
   resource :dashboards, :only => [] do
     collection do
-      get :list_future_events
-      get :recent_events
-      get :critic_stocks
+      get :list_my_future_events
+      get :list_recent_events
+      get :list_critic_stocks
       get :welcome
     end
   end
@@ -295,7 +295,11 @@ Ekylibre::Application.routes.draw do
       match "merge", :via => [:get, :post]
     end
   end
-  resources :entity_addresses
+  resources :entity_addresses do
+    collection do
+      unroll_all
+    end
+  end
   resources :entity_categories do
     collection do
       unroll_all

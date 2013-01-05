@@ -45,14 +45,14 @@ class ProductCategory < CompanyRecord
   #]VALIDATORS]
   validates_uniqueness_of :name
 
-  default_scope order(:name)
+  default_scope -> { order(:name) }
 
   before_validation do
     self.catalog_name = self.name if self.catalog_name.blank?
   end
 
-  def others
-    self.class.where("id != COALESCE(?, 0)", self.id).reorder(:parent_id, :name)
+  validate do
+    errors.add(:parent_id, :invalid) if self.parent_id == self.id
   end
 
   def to_s

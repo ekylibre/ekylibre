@@ -497,7 +497,7 @@ eng:
     deliveries_conditions: "Deliveries conditions"
     delivery: "Delivery"
     delivery_address: "Delivery address"
-    delivery_contact: "Delivery contact"
+    delivery_contact: "Delivery contact" #?
     delivery_lines: "Delivery lines"
     density_label: "Density label"
     departed_on: "Departed on" #?
@@ -869,7 +869,7 @@ eng:
     query: "Query"
     # race: "Race"
     # races: "Races"
-    range: "Range"
+    range: "Range" #?
     reason: "Reason"
     receipt: "Receipt"
     received: "Received"
@@ -923,7 +923,7 @@ eng:
     self_contacts: "Self contacts"
     sequences: "Sequences" #?
     serial: "Serial"
-    service_coeff: "Service coeff"
+    service_coeff: "Service coeff" #?
     sex: "Sex"
     sha256: "SHA256"
     # shape: "Shape"
@@ -1021,7 +1021,7 @@ eng:
     usable_outgoing_payments: "Usable disbursements"
     usage: "Usage"
     usage_duration: "Usage duration"
-    use_range: "Use range"
+    use_range: "Use range" #?
     used_amount: "Used amount"
     useful_lines: "Useful lines"
     user: "User"
@@ -1050,62 +1050,6 @@ eng:
     work_center: "Work center"
     # working_number: "Working number"
     # zone: "Zone"
-  enumerize:
-    animal:  #?
-      sex: #?
-        female: "female" #?
-        male: "male" #?
-      income_reasons:
-        birth: "birth"
-        purchase: "purchase"
-        housing: "housing"
-        other: "other"
-      outgone_reasons:
-        dead: "dead"
-        sale: "sale"
-        autoconsumption: "autoconsumption"
-        other: "other"
-    animal_treatment:
-      duration_unit_wait_for_milk:
-        hours: "Hours"
-        days: "Days"
-        milking: "Treates"
-      duration_unit_wait_for_meat:
-        hours: "Hours"
-        days: "Days"
-    drug_admission_path:
-      oral: "Oral"
-      ima: "IntraMammary"
-      imu: "IntraMuscular"
-      iu: "IntraUterin"
-      iv: "IntraVeineuse"
-    per_duration_time_unit:
-      hours: "Hours"
-      days: "Days"
-      weeks: "Weeks"
-      months: "Months"
-    per_animal_unit:
-      per_animal: " / Animal"
-      per_kg: " / Kg"
-      per_milking: " / Treate"
-    per_frequency_time_unit:
-      times_per_12_hours: " / 12 Hours"
-      times_per_day: " / Day"
-      times_per_week: " / Week"
-      times_per_month: " / Month"
-    cash:
-      mode:  #?
-        bban: "BBAN" #?
-        iban: "IBAN" #?
-      modes:
-        # bban: "Basic Bank Account Number (BBAN)"
-        # iban: "International Bank Account Number (IBAN)"
-      nature:  #?
-        bank_account: "Bank Account" #?
-        cash_box: "Cash Box" #?
-      natures:
-        # bank_account: "Bank account"
-        # cash_box: "Cash box"
   models:
     account:
       label: "%{number} - %{name}"
@@ -1114,10 +1058,6 @@ eng:
     company:
       cant_find_document_template: "Can not find document template"
       default:
-        cash:
-          name:
-            bank_account: "Bank account"
-            cash_box: "Cash"
         category: "By default"
         delays:
           expression:
@@ -1141,13 +1081,6 @@ eng:
             name: "Check"
           transfer:
             name: "Transfer"
-        journals:
-          bank: "Bank"
-          cash: "Cash"
-          forward: "Carried-forward"
-          purchases: "Purchases"
-          sales: "Sales"
-          various: "Various operations"
         outgoing_payment_modes:
           cash:
             name: "Cash"
@@ -1336,11 +1269,6 @@ eng:
         with_components: "%{product} (%{unit}) (transformed material)"
         without_components: "%{product} (%{unit}) (raw material)"
       label: "%{product} (%{unit})"
-      natures:
-        product: "Product"
-        service: "Service"
-        subscrip: "Subcription"
-        transfer: "Transfer"
       stock_move: "%{origin} (%{code})"
       subscription_label:
         period: "Subscription %{subscription_nature} for %{entity} at %{address} from %{start} to %{finish}"
@@ -1569,3 +1497,9 @@ eng:
         purchases: "Purchases"
         sales: "Sales"
         various: "Various operations"
+    product:
+      nature:
+        product: "Product"
+        service: "Service"
+        subscription: "Subcription"
+        transfer: "Transfer"

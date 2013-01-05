@@ -67,29 +67,29 @@
 
 
 class Sale < CompanyRecord
-  acts_as_numbered :number, :readonly=>false
+  acts_as_numbered :number, :readonly => false
   after_create {|r| r.client.add_event(:sale, r.updater_id)}
   attr_readonly :created_on, :currency
   attr_protected :pretax_amount, :amount
-  belongs_to :client, :class_name=>"Entity"
-  belongs_to :payer, :class_name=>"Entity", :foreign_key=>:client_id
-  belongs_to :address, :class_name => "EntityAddress"
-  belongs_to :delivery_address, :class_name => "EntityAddress"
-  belongs_to :expiration, :class_name=>"Delay"
-  belongs_to :invoice_address, :class_name => "EntityAddress"
+  belongs_to :client, :class_name => "Entity"
+  belongs_to :payer, :class_name => "Entity", :foreign_key => :client_id
+  belongs_to :address, :class_name  =>  "EntityAddress"
+  belongs_to :delivery_address, :class_name  =>  "EntityAddress"
+  belongs_to :expiration, :class_name => "Delay"
+  belongs_to :invoice_address, :class_name  =>  "EntityAddress"
   belongs_to :journal_entry
-  belongs_to :nature, :class_name=>"SaleNature"
-  belongs_to :origin, :class_name=>"Sale"
-  belongs_to :payment_delay, :class_name=>"Delay"
-  belongs_to :responsible, :class_name=>"Entity"
-  belongs_to :transporter, :class_name=>"Entity"
-  has_many :credits, :class_name=>"Sale", :foreign_key=>:origin_id
-  has_many :deliveries, :class_name=>"OutgoingDelivery", :dependent=>:destroy
-  has_many :lines, :class_name=>"SaleLine", :foreign_key=>:sale_id, :dependent=>:destroy, :order=>"position, id"
-  has_many :payment_uses, :as=>:expense, :class_name=>"IncomingPaymentUse", :dependent=>:destroy
-  has_many :payments, :through=>:payment_uses
-  has_many :subscriptions, :class_name=>"Subscription"
-  has_many :uses, :as=>:expense, :class_name=>"IncomingPaymentUse", :dependent=>:destroy
+  belongs_to :nature, :class_name => "SaleNature"
+  belongs_to :origin, :class_name => "Sale"
+  belongs_to :payment_delay, :class_name => "Delay"
+  belongs_to :responsible, :class_name => "Entity"
+  belongs_to :transporter, :class_name => "Entity"
+  has_many :credits, :class_name => "Sale", :foreign_key => :origin_id
+  has_many :deliveries, :class_name => "OutgoingDelivery", :dependent => :destroy
+  has_many :lines, :class_name => "SaleLine", :foreign_key => :sale_id, :dependent => :destroy, :order => "position, id"
+  has_many :payment_uses, :as => :expense, :class_name => "IncomingPaymentUse", :dependent => :destroy
+  has_many :payments, :through => :payment_uses
+  has_many :subscriptions, :class_name => "Subscription"
+  has_many :uses, :as => :expense, :class_name => "IncomingPaymentUse", :dependent => :destroy
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :amount, :downpayment_amount, :paid_amount, :pretax_amount, :allow_nil => true
   validates_length_of :currency, :allow_nil => true, :maximum => 3
@@ -100,9 +100,9 @@ class Sale < CompanyRecord
   validates_presence_of :amount, :client, :created_on, :downpayment_amount, :number, :paid_amount, :payer, :payment_delay, :pretax_amount, :state, :sum_method
   #]VALIDATORS]
   validates_presence_of :client, :currency, :nature
-  validates_presence_of :invoiced_on, :if => :invoice?
+  validates_presence_of :invoiced_on, :if  =>  :invoice?
 
-  state_machine :state, :initial => :draft do
+  state_machine :state, :initial  =>  :draft do
     state :draft
     state :estimate
     state :refused
@@ -111,33 +111,33 @@ class Sale < CompanyRecord
     state :aborted
 
     event :propose do
-      transition :draft => :estimate, :if=>:has_content?
+      transition :draft  =>  :estimate, :if => :has_content?
     end
     event :correct do
-      transition :estimate => :draft
-      transition :refused => :draft
-      transition :order => :draft, :if=>Proc.new{|so| so.paid_amount <= 0}
+      transition :estimate  =>  :draft
+      transition :refused  =>  :draft
+      transition :order  =>  :draft, :if => Proc.new{|so| so.paid_amount <= 0}
     end
     event :refuse do
-      transition :estimate => :refused, :if=>:has_content?
+      transition :estimate  =>  :refused, :if => :has_content?
     end
     event :confirm do
-      transition :estimate => :order, :if=>:has_content?
+      transition :estimate  =>  :order, :if => :has_content?
     end
     event :invoice do
-      transition :order => :invoice, :if=>:has_content?
-      transition :estimate => :invoice, :if=>:has_content_not_deliverable?
+      transition :order  =>  :invoice, :if => :has_content?
+      transition :estimate  =>  :invoice, :if => :has_content_not_deliverable?
     end
     event :abort do
-      # transition [:draft, :estimate] => :aborted # , :order
-      transition :draft => :aborted # , :order
+      # transition [:draft, :estimate]  =>  :aborted # , :order
+      transition :draft  =>  :aborted # , :order
     end
   end
 
 
   @@natures = [:estimate, :order, :invoice]
 
-  before_validation(:on => :create) do
+  before_validation(:on  =>  :create) do
     self.currency = self.nature.currency if self.nature
   end
 
@@ -165,7 +165,7 @@ class Sale < CompanyRecord
     true
   end
 
-  before_validation(:on=>:create) do
+  before_validation(:on => :create) do
     self.created_on = Date.today
   end
 
@@ -178,11 +178,20 @@ class Sale < CompanyRecord
     end
   end
 
+  validate do
+    for mail_address in [:address, :delivery_address, :invoice_address]
+      if self.send(mail_address)
+        unless self.send(mail_address).mail?
+          errors.add(mail_address, :must_be_a_mail_address)
+        end
+      end
+    end
+  end
 
   # This method bookkeeps the sale depending on its state
   bookkeep do |b|
-    b.journal_entry(self.nature.journal, :printed_on=>self.invoiced_on, :if=>(self.nature.with_accounting? and self.invoice?)) do |entry|
-      label = tc(:bookkeep, :resource=>self.state_label, :number=>self.number, :client=>self.client.full_name, :products=>(self.comment.blank? ? self.lines.collect{|x| x.label}.to_sentence : self.comment), :sale=>self.initial_number)
+    b.journal_entry(self.nature.journal, :printed_on => self.invoiced_on, :if => (self.nature.with_accounting? and self.invoice?)) do |entry|
+      label = tc(:bookkeep, :resource => self.state_label, :number => self.number, :client => self.client.full_name, :products => (self.comment.blank? ? self.lines.collect{|x| x.label}.to_sentence : self.comment), :sale => self.initial_number)
       entry.add_debit(label, self.client.account(:client).id, self.amount) unless self.amount.zero?
       for line in self.lines
         entry.add_credit(label, (line.account||line.product.sales_account).id, line.pretax_amount) unless line.pretax_amount.zero?
@@ -221,7 +230,7 @@ class Sale < CompanyRecord
   # Confirm the sale order. This permits to define deliveries and assert validity of sale
   def confirm(validated_on=Date.today, *args)
     return false unless self.can_confirm?
-    self.reload.update_attributes!(:confirmed_on=>validated_on||Date.today)
+    self.reload.update_attributes!(:confirmed_on => validated_on||Date.today)
     return super
   end
 
@@ -234,11 +243,11 @@ class Sale < CompanyRecord
     for line in self.lines.find_all_by_reduction_origin_id(nil)
       quantity = line.undelivered_quantity
       if quantity > 0 and line.product.deliverable?
-        lines << {:sale_line_id=>line.id, :quantity=>quantity}
+        lines << {:sale_line_id => line.id, :quantity => quantity}
       end
     end
     if lines.size>0
-      delivery = self.deliveries.create!(:pretax_amount=>0, :amount=>0, :planned_on=>Date.today, :moved_on=>Date.today, :address_id=>self.delivery_address_id)
+      delivery = self.deliveries.create!(:pretax_amount => 0, :amount => 0, :planned_on => Date.today, :moved_on => Date.today, :address_id => self.delivery_address_id)
       for line in lines
         delivery.lines.create! line
       end
@@ -283,13 +292,13 @@ class Sale < CompanyRecord
     if copy.save
       # Lines
       lines = {}
-      for line in self.lines.find(:all, :conditions=>["quantity>0"])
-        l = copy.lines.create! :sale_id=>copy.id, :product_id=>line.product_id, :quantity=>line.quantity, :warehouse_id=>line.warehouse_id
+      for line in self.lines.find(:all, :conditions => ["quantity>0"])
+        l = copy.lines.create! :sale_id => copy.id, :product_id => line.product_id, :quantity => line.quantity, :warehouse_id => line.warehouse_id
         lines[line.id] = l.id
       end
       # Subscriptions
-      for sub in self.subscriptions.find(:all, :conditions=>["NOT suspended"])
-        copy.subscriptions.create!(:sale_id=>copy.id, :entity_id=>sub.entity_id, :address_id=>sub.address_id, :quantity=>sub.quantity, :nature_id=>sub.nature_id, :product_id=>sub.product_id, :sale_line_id=>lines[sub.sale_line_id])
+      for sub in self.subscriptions.find(:all, :conditions => ["NOT suspended"])
+        copy.subscriptions.create!(:sale_id => copy.id, :entity_id => sub.entity_id, :address_id => sub.address_id, :quantity => sub.quantity, :nature_id => sub.nature_id, :product_id => sub.product_id, :sale_line_id => lines[sub.sale_line_id])
       end
     else
       raise Exception.new(copy.errors.inspect)
@@ -354,7 +363,7 @@ class Sale < CompanyRecord
 
   # Label of the sales order depending on the state and the number
   def label
-    tc('label.'+self.state, :number=>self.number)
+    tc('label.'+self.state, :number => self.number)
   end
 
   # Alias for letter_format? method
@@ -382,7 +391,7 @@ class Sale < CompanyRecord
   end
 
   def number_label
-    tc("number_label."+(self.estimate? ? 'proposal' : 'command'), :number=>self.number)
+    tc("number_label."+(self.estimate? ? 'proposal' : 'command'), :number => self.number)
   end
 
   def taxes_amount
@@ -390,14 +399,14 @@ class Sale < CompanyRecord
   end
 
   def usable_payments
-    self.client.incoming_payments.where("COALESCE(used_amount, 0)<COALESCE(amount, 0)").joins(:mode=>:cash).where("currency=?", self.currency).order("to_bank_on")
+    self.client.incoming_payments.where("COALESCE(used_amount, 0)<COALESCE(amount, 0)").joins(:mode => :cash).where("currency=?", self.currency).order("to_bank_on")
   end
 
   # Build general sales condition for the sale order
   def sales_conditions
     c = []
-    c << tc('sales_conditions.downpayment', :percent=>100*self.nature.downpayment_rate, :amount=>(self.nature.downpayment_rate*self.amount).round(2)) if self.amount>self.nature.downpayment_minimum
-    c << tc('sales_conditions.validity', :expiration=>::I18n.localize(self.expired_on, :format=>:legal))
+    c << tc('sales_conditions.downpayment', :percent => 100*self.nature.downpayment_rate, :amount => (self.nature.downpayment_rate*self.amount).round(2)) if self.amount>self.nature.downpayment_minimum
+    c << tc('sales_conditions.validity', :expiration => ::I18n.localize(self.expired_on, :format => :legal))
     c += self.nature.sales_conditions.to_s.split(/\s*\n\s*/)
     c += self.responsible.department.sales_conditions.to_s.split(/\s*\n\s*/) if self.responsible and self.responsible.department
     c
@@ -424,12 +433,12 @@ class Sale < CompanyRecord
   def cancel(lines={}, options={})
     lines = lines.delete_if{|k,v| v.zero?}
     return false if !self.cancelable? or lines.size.zero?
-    credit = self.class.new(:origin_id=>self.id, :client_id=>self.client_id, :credit=>true, :responsible=>options[:responsible]||self.responsible, :nature_id=>self.nature_id)
+    credit = self.class.new(:origin_id => self.id, :client_id => self.client_id, :credit => true, :responsible => options[:responsible]||self.responsible, :nature_id => self.nature_id)
     ActiveRecord::Base.transaction do
       if saved = credit.save
-        for line in self.lines.find(:all, :conditions=>{:id=>lines.keys})
+        for line in self.lines.find(:all, :conditions => {:id => lines.keys})
           quantity = -lines[line.id.to_s].abs
-          credit_line = credit.lines.create(:quantity=>quantity, :origin_id=>line.id, :product_id=>line.product_id, :price_id=>line.price_id, :reduction_percent=>line.reduction_percent)
+          credit_line = credit.lines.create(:quantity => quantity, :origin_id => line.id, :product_id => line.product_id, :price_id => line.price_id, :reduction_percent => line.reduction_percent)
           unless credit_line.save
             saved = false
             credit.errors.add_from_record(credit_line)

@@ -1024,11 +1024,24 @@ jpn:
         # sales_order: "Sales order"
         # stocks: "Stocks"
         # transport: "Transport"
+    journal:
+      nature:
+        # bank: "Bank"
+        # cash: "Cash"
+        # forward: "Carried-forward"
+        # purchases: "Purchases"
+        # sales: "Sales"
+        # various: "Various operations"
+    product:
+      nature:
+        # product: "Product"
+        # service: "Service"
+        # subscription: "Subcription"
+        # transfer: "Transfer"
   models:
     account:
       # label: "%{number} - %{name}"
-    asset:  #?
- #?
+    asset: #?
     bank_statement: #?
     cash: #?
     cash_transfer:
@@ -1052,8 +1065,7 @@ jpn:
             # standard: "Standard (30d EOM)"
         # department_name: "Default department"
         document_natures: #?
-        document_templates:  #?
- #?
+        document_templates: #?
         document_templates_filenames: #?
         # establishment_name: "Default establishment"
         event_natures:
@@ -1197,14 +1209,7 @@ jpn:
       # bookkeep: "[%{resource}] %{mode} (%{payment_number}) received from %{attorney} for %{client} (%{expense_number})"
     inventory_line:
       # inventory: "Inventory"
-    journal:
-      natures:
-        # bank: "Bank"
-        # cash: "Cash"
-        # forward: "Carried-forward"
-        # purchases: "Purchases"
-        # sales: "Sales"
-        # various: "Various operations"
+    journal: #?
     journal_entry:
       # entry_cancel: "Cancel of entry %{number}: %{name}"
       state: #?
@@ -1280,11 +1285,7 @@ jpn:
         # with_components: "%{product} (%{unit}) (transformed material)"
         # without_components: "%{product} (%{unit}) (raw material)"
       # label: "%{product} (%{unit})"
-      natures:
-        # product: "Product"
-        # service: "Service"
-        # subscrip: "Subcription"
-        # transfer: "Transfer"
+      natures: #?
       # stock_move: "%{origin} (%{code})"
       subscription_label:
         # period: "Subscription %{subscription_nature} for %{entity} at %{address} from %{start} to %{finish}"

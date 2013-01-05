@@ -6,6 +6,6 @@
   -association :mode
 
 -field_set(:depositable_options) do
-  -association :responsible, :source => "Entity#workers"
+  -association :responsible, :source => :employees
   -input :paid_on
   -input :check_number

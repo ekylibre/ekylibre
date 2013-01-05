@@ -32,10 +32,11 @@ class SubscriptionsController < AdminController
     code << "unless session[:subscriptions_instant].nil?\n"
     code << "  if session[:subscriptions_nature_nature] == 'quantity'\n"
     code << "    conditions[0] += \" AND ? BETWEEN #{Subscription.table_name}.first_number AND #{Subscription.table_name}.last_number\"\n"
+    code << "    conditions << session[:subscriptions_instant]\n"
     code << "  elsif session[:subscriptions_nature_nature] == 'period'\n"
     code << "    conditions[0] += \" AND ? BETWEEN #{Subscription.table_name}.started_on AND #{Subscription.table_name}.stopped_on\"\n"
+    code << "    conditions << session[:subscriptions_instant]\n"
     code << "  end\n"
-    code << "  conditions << session[:subscriptions_instant]\n"
     code << "end\n"
     code << "conditions\n"
     code

@@ -124,7 +124,6 @@ module Ekylibre
     :cash => {
       :account_id => :account,
       :creator_id => :entity,
-      :entity_id => :entity,
       :journal_id => :journal,
       :updater_id => :entity
     },

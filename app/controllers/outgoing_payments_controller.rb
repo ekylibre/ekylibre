@@ -18,12 +18,12 @@
 #
 
 class OutgoingPaymentsController < AdminController
-  manage_restfully :to_bank_on=>"Date.today", :paid_on=>"Date.today", :responsible_id=>"@current_user.id", :payee_id=>"params[:payee_id]", :amount=>"params[:amount].to_f"
+  manage_restfully :to_bank_on => "Date.today", :paid_on => "Date.today", :responsible_id => "@current_user.id", :payee_id => "params[:payee_id]", :amount => "params[:amount].to_f"
 
   unroll_all
 
   def self.outgoing_payments_conditions(options={})
-    code = search_conditions(:outgoing_payments, :outgoing_payments=>[:amount, :used_amount, :check_number, :number], :entities=>[:code, :full_name])+"||=[]\n"
+    code = search_conditions(:outgoing_payments, :outgoing_payments => [:amount, :used_amount, :check_number, :number], :entities => [:code, :full_name])+"||=[]\n"
     code += "if session[:outgoing_payment_state] == 'undelivered'\n"
     code += "  c[0] += ' AND delivered=?'\n"
     code += "  c << false\n"
@@ -37,18 +37,18 @@ class OutgoingPaymentsController < AdminController
     return code
   end
 
-  list(:conditions=>outgoing_payments_conditions, :joins=>:payee, :order=>"to_bank_on DESC", :line_class=>"(RECORD.used_amount.zero? ? 'critic' : RECORD.unused_amount>0 ? 'warning' : '')") do |t|
-    t.column :number, :url=>true
-    t.column :full_name, :through=>:payee, :url=>true
+  list(:conditions => outgoing_payments_conditions, :joins => :payee, :order => "to_bank_on DESC", :line_class => "(RECORD.used_amount.zero? ? 'critic' : RECORD.unused_amount>0 ? 'warning' : '')") do |t|
+    t.column :number, :url => true
+    t.column :full_name, :through => :payee, :url => true
     t.column :paid_on
-    t.column :amount, :currency=>true, :url=>true
-    t.column :used_amount, :currency=>true
-    t.column :name, :through=>:mode
+    t.column :amount, :currency => true, :url => true
+    t.column :used_amount, :currency => true
+    t.column :name, :through => :mode
     t.column :check_number
     t.column :to_bank_on
-    # t.column :label, :through=>:responsible
-    t.action :edit, :if=>"RECORD.updateable\?"
-    t.action :destroy, :if=>"RECORD.destroyable\?"
+    # t.column :label, :through => :responsible
+    t.action :edit, :if => "RECORD.updateable\?"
+    t.action :destroy, :if => "RECORD.destroyable\?"
   end
 
   # Displays the main page with the list of outgoing payments
@@ -57,19 +57,19 @@ class OutgoingPaymentsController < AdminController
     session[:outgoing_payment_key]   = params[:q]||""
   end
 
-  list(:purchases, :conditions=>["#{Purchase.table_name}.id IN (SELECT expense_id FROM #{OutgoingPaymentUse.table_name} WHERE payment_id=?)", ['session[:current_outgoing_payment_id]']]) do |t|
-    t.column :number, :url=>true
-    t.column :description, :through=>:supplier, :url=>true
+  list(:purchases, :conditions => ["#{Purchase.table_name}.id IN (SELECT expense_id FROM #{OutgoingPaymentUse.table_name} WHERE payment_id=?)", ['session[:current_outgoing_payment_id]']]) do |t|
+    t.column :number, :url => true
+    t.column :description, :through => :supplier, :url => true
     t.column :created_on
-    t.column :pretax_amount, :currency=>true
-    t.column :amount, :currency=>true
+    t.column :pretax_amount, :currency => true
+    t.column :amount, :currency => true
   end
 
   # Displays details of one outgoing payment selected with +params[:id]+
   def show
     return unless @outgoing_payment = find_and_check(:outgoing_payment)
     session[:current_outgoing_payment_id] = @outgoing_payment.id
-    t3e :number=>@outgoing_payment.number, :payee=>@outgoing_payment.payee.full_name
+    t3e :number => @outgoing_payment.number, :payee => @outgoing_payment.payee.full_name
   end
 
 end

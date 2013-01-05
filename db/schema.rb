@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121231103001) do
+ActiveRecord::Schema.define(:version => 20130104180436) do
 
   create_table "account_balances", :force => true do |t|
     t.integer  "account_id",                                                        :null => false
@@ -507,7 +507,6 @@ ActiveRecord::Schema.define(:version => 20121231103001) do
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.integer  "lock_version",               :default => 0,              :null => false
-    t.integer  "entity_id"
     t.string   "bank_code"
     t.string   "agency_code"
     t.string   "number"
@@ -525,7 +524,6 @@ ActiveRecord::Schema.define(:version => 20121231103001) do
   add_index "cashes", ["created_at"], :name => "index_bank_accounts_on_created_at"
   add_index "cashes", ["creator_id"], :name => "index_bank_accounts_on_creator_id"
   add_index "cashes", ["currency"], :name => "index_cashes_on_currency"
-  add_index "cashes", ["entity_id"], :name => "index_bank_accounts_on_entity_id"
   add_index "cashes", ["journal_id"], :name => "index_bank_accounts_on_journal_id"
   add_index "cashes", ["updated_at"], :name => "index_bank_accounts_on_updated_at"
   add_index "cashes", ["updater_id"], :name => "index_bank_accounts_on_updater_id"
@@ -1715,22 +1713,19 @@ ActiveRecord::Schema.define(:version => 20121231103001) do
   add_index "preferences", ["user_id"], :name => "index_parameters_on_user_id"
 
   create_table "prices", :force => true do |t|
-    t.decimal  "pretax_amount",              :precision => 19, :scale => 4,                    :null => false
-    t.decimal  "amount",                     :precision => 19, :scale => 4,                    :null => false
-    t.boolean  "use_range",                                                 :default => false, :null => false
-    t.decimal  "quantity_min",               :precision => 19, :scale => 4, :default => 0.0,   :null => false
-    t.decimal  "quantity_max",               :precision => 19, :scale => 4, :default => 0.0,   :null => false
-    t.integer  "product_id",                                                                   :null => false
-    t.integer  "tax_id",                                                                       :null => false
-    t.datetime "created_at",                                                                   :null => false
-    t.datetime "updated_at",                                                                   :null => false
+    t.decimal  "pretax_amount",              :precision => 19, :scale => 4,                   :null => false
+    t.decimal  "amount",                     :precision => 19, :scale => 4,                   :null => false
+    t.integer  "product_id",                                                                  :null => false
+    t.integer  "tax_id",                                                                      :null => false
+    t.datetime "created_at",                                                                  :null => false
+    t.datetime "updated_at",                                                                  :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                              :default => 0,     :null => false
+    t.integer  "lock_version",                                              :default => 0,    :null => false
     t.integer  "entity_id"
     t.datetime "started_at"
     t.datetime "stopped_at"
-    t.boolean  "active",                                                    :default => true,  :null => false
+    t.boolean  "active",                                                    :default => true, :null => false
     t.boolean  "by_default",                                                :default => true
     t.integer  "category_id"
     t.string   "currency",      :limit => 3
@@ -1862,7 +1857,7 @@ ActiveRecord::Schema.define(:version => 20121231103001) do
   create_table "products", :force => true do |t|
     t.boolean  "for_purchases",                                                           :default => false, :null => false
     t.boolean  "for_sales",                                                               :default => true,  :null => false
-    t.string   "nature",                     :limit => 8,                                                    :null => false
+    t.string   "nature",                     :limit => 16,                                                   :null => false
     t.string   "name",                                                                                       :null => false
     t.integer  "number",                                                                                     :null => false
     t.boolean  "active",                                                                  :default => true,  :null => false
@@ -1873,7 +1868,6 @@ ActiveRecord::Schema.define(:version => 20121231103001) do
     t.text     "catalog_description"
     t.text     "description"
     t.text     "comment"
-    t.decimal  "service_coeff",                            :precision => 19, :scale => 4
     t.integer  "category_id",                                                                                :null => false
     t.integer  "unit_id",                                                                                    :null => false
     t.datetime "created_at",                                                                                 :null => false

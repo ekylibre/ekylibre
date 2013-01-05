@@ -47,8 +47,8 @@
 
 
 class EntityAddress < CompanyRecord
-  attr_readonly   :entity_id, :name, :code, :canal, :coordinate, :mail_line_1, :mail_line_2, :mail_line_3, :mail_line_4, :mail_line_5, :mail_line_6
-  attr_accessible :entity_id, :name, :canal, :coordinate, :mail_line_1, :mail_line_2, :mail_line_3, :mail_line_4, :mail_line_5, :mail_line_6, :by_default
+  attr_readonly   :entity_id, :name, :code,       :canal, :coordinate, :mail_line_1, :mail_line_2, :mail_line_3, :mail_line_4, :mail_line_5, :mail_line_6, :mail_country
+  attr_accessible :entity_id, :name, :by_default, :canal, :coordinate, :mail_line_1, :mail_line_2, :mail_line_3, :mail_line_4, :mail_line_5, :mail_line_6, :mail_country
   belongs_to :mail_area, :class_name => "Area"
   belongs_to :entity
   has_many :incoming_deliveries
@@ -75,7 +75,8 @@ class EntityAddress < CompanyRecord
 
   # Defines test and scope methods for all canals
   self.canal.values.each do |canal|
-    scope canal.to_sym, -> {where(canal: '#{canal}')}
+    scope canal, -> {where(canal: canal)}
+    scope "own_#{canal.to_s.pluralize}", -> { where("canal = ? AND entity_id = ?", canal, Entity.of_company.id) }
   end
 
 
@@ -141,7 +142,7 @@ class EntityAddress < CompanyRecord
   end
 
   def self.exportable_columns
-    self.content_columns.delete_if{|c| [:deleted_at, :closed_on, :lock_version, :code, :created_at, :updated_at].include?(c.name.to_sym)}
+    return self.content_columns.delete_if{|c| [:deleted_at, :closed_on, :lock_version, :code, :created_at, :updated_at].include?(c.name.to_sym)}
   end
 
   def label

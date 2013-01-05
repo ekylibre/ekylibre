@@ -4,19 +4,15 @@
   -input :code2
   -input :ean13
   -input :catalog_name
-  -input :comment, :field => :text
+  -input :comment
 
 -field_set :nature do
   -association :category
   -association :unit
   -input :weight
-  -# input :price
-  -input :nature, :show => "[NATURE]_options"
+  -input :nature, :show => {:subscription => :subscription}
 
--field_set :service_options do
-  -input :service_coeff
-
--field_set :subscrip_options do
+-field_set :subscription do
   -association :subscription_nature
   -input :duration
 
@@ -26,10 +22,10 @@
   -input :for_sales, :show => :sales_account
   -input :for_purchases, :show => :purchases_account
   -input :for_productions
-  -input :deliverable, :show => :stockable
-  -input :stockable, :show => :stocks
+  -input :deliverable, :show => :stock_options
+  -input :stockable, :show => :stocks, :in => :stock_options
 
--field_set :stocks do
+-field_set :stocks, :in => :stock_options do
   -nested_association(:stocks) do
     -input :critic_quantity_min
     -input :quantity_min
@@ -39,5 +35,5 @@
 -#price=render :partial=>'price_amount_form'
 
 -field_set :accountancy do
-  -input :sales_account, :source => "Account#products"
-  -input :purchases_account, :source => "Account#charges"
+  -association :sales_account,     :source => :products
+  -association :purchases_account, :source => :charges

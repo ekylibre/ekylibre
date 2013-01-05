@@ -21,16 +21,16 @@ class OutgoingDeliveriesController < AdminController
 
   unroll_all
 
-  list(:conditions=>light_search_conditions(:outgoing_deliveries=>[:number, :reference_number, :weight, :amount, :pretax_amount], :entities=>[:full_name, :code])+moved_conditions(OutgoingDelivery)) do |t|
-    t.column :number, :url=>true
-    t.column :number, :through=>:transport, :url=>true
-    t.column :full_name, :through=>:transporter, :url=>true
+  list(:conditions => light_search_conditions(:outgoing_deliveries => [:number, :reference_number, :weight, :amount, :pretax_amount], :entities => [:full_name, :code])+moved_conditions(OutgoingDelivery)) do |t|
+    t.column :number, :url => true
+    t.column :number, :through => :transport, :url => true
+    t.column :full_name, :through => :transporter, :url => true
     t.column :reference_number
     t.column :comment
     t.column :planned_on
     t.column :moved_on
-    t.column :name, :through=>:mode
-    # t.column :number, :through=>:sale, :url=>true
+    t.column :name, :through => :mode
+    # t.column :number, :through => :sale, :url => true
     t.column :weight
     t.column :amount
     t.action :edit
@@ -41,14 +41,14 @@ class OutgoingDeliveriesController < AdminController
   def index
   end
 
-  list(:lines, :model=>:outgoing_delivery_lines, :conditions=>{:delivery_id=>['session[:current_outgoing_delivery_id]']}) do |t|
-    t.column :name, :through=>:product, :url=>true
-    t.column :number, :through=>:tracking, :url=>true
+  list(:lines, :model => :outgoing_delivery_lines, :conditions => {:delivery_id => ['session[:current_outgoing_delivery_id]']}) do |t|
+    t.column :name, :through => :product, :url => true
+    t.column :number, :through => :tracking, :url => true
     t.column :quantity
-    t.column :name, :through=>:unit
+    t.column :name, :through => :unit
     t.column :pretax_amount
     t.column :amount
-    t.column :name, :through=>:warehouse, :url=>true
+    t.column :name, :through => :warehouse, :url => true
   end
 
   # Displays details of one outgoind delivery selected with +params[:id]+
@@ -68,8 +68,8 @@ class OutgoingDeliveriesController < AdminController
     sale_lines = sale.lines.find_all_by_reduction_origin_id(nil)
     notify_warning(:no_lines_found) if sale_lines.empty?
 
-    @outgoing_delivery_lines = sale_lines.collect{|x| OutgoingDeliveryLine.new(:sale_line_id=>x.id, :quantity=>x.undelivered_quantity)}
-    @outgoing_delivery = OutgoingDelivery.new(:sale_id=>sale.id, :pretax_amount=>sale.undelivered("pretax_amount"), :amount=>sale.undelivered("amount"), :planned_on=>Date.today, :transporter_id=>sale.transporter_id, :contact_id=>sale.delivery_contact_id||sale.client.default_contact)
+    @outgoing_delivery_lines = sale_lines.collect{|x| OutgoingDeliveryLine.new(:sale_line_id => x.id, :quantity => x.undelivered_quantity)}
+    @outgoing_delivery = OutgoingDelivery.new(:sale_id => sale.id, :pretax_amount => sale.undelivered("pretax_amount"), :amount => sale.undelivered("amount"), :planned_on => Date.today, :transporter_id => sale.transporter_id, :address => sale.delivery_address||sale.client.default_mail_address)
     render_restfully_form
   end
 
@@ -90,7 +90,7 @@ class OutgoingDeliveriesController < AdminController
 
         for line in sale_lines
           quantity = params[:outgoing_delivery_line][line.id.to_s][:quantity].to_f rescue 0
-          outgoing_delivery_line = @outgoing_delivery.lines.new(:sale_line_id=>line.id, :quantity=>quantity)
+          outgoing_delivery_line = @outgoing_delivery.lines.new(:sale_line_id => line.id, :quantity => quantity)
           if quantity > 0
             saved = false unless outgoing_delivery_line.save
             puts [saved, outgoing_delivery_line, outgoing_delivery_line.errors.to_hash].inspect
@@ -124,7 +124,7 @@ class OutgoingDeliveriesController < AdminController
       saved = @outgoing_delivery.update_attributes!(params[:outgoing_delivery])
       if saved
         for line in @outgoing_delivery.lines
-          saved = false unless line.update_attributes(:quantity=>params[:outgoing_delivery_line][line.sale_line.id.to_s][:quantity])
+          saved = false unless line.update_attributes(:quantity => params[:outgoing_delivery_line][line.sale_line.id.to_s][:quantity])
           @outgoing_delivery.errors.add_from_record(line)
         end
       end

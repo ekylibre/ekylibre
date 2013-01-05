@@ -19,20 +19,20 @@
 
 class OperationLinesController < AdminController
 
-  def new
-    if request.xhr?
-      render :partial=>'row_form'
-    else
-      redirect_to operations_url
-    end
-  end
+  # def new
+  #   if request.xhr?
+  #     render :partial=>'row_form'
+  #   else
+  #     redirect_to operations_url
+  #   end
+  # end
 
-  def create
-    if request.xhr?
-      render :partial=>'row_form'
-    else
-      redirect_to operations_url
-    end
-  end
+  # def create
+  #   if request.xhr?
+  #     render :partial=>'row_form'
+  #   else
+  #     redirect_to operations_url
+  #   end
+  # end
 
 end

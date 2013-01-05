@@ -1,9 +1,10 @@
 -# TODO Manage soft_copy_to
 -field_set do
   -input :name, :soft_copy_to => :catalog_name
-  -input :comment, :field => :text
-  -association :parent, :source => "self#others"
+  -input :comment
+  -association :parent
+
 -field_set(:catalog) do
   -input :catalog_name
-  -input :catalog_description, :field => :text
+  -input :catalog_description
 

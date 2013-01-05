@@ -18,7 +18,7 @@
 #
 
 class JournalsController < AdminController
-  manage_restfully :nature=>"params[:nature]||Journal.natures[0][1]", :currency=>"Entity.of_company.currency"
+  manage_restfully :nature => "params[:nature]||Journal.nature", :currency => "Entity.of_company.currency"
 
   unroll_all
 
@@ -30,8 +30,8 @@ class JournalsController < AdminController
     search_options = {}
     filter = {JournalEntryLine.table_name => [:name, :debit, :credit]}
     unless options[:with_lines]
-      code += light_search_conditions(filter, :conditions=>"cjel")+"\n"
-      search_options[:filters] = {"#{JournalEntry.table_name}.id IN (SELECT entry_id FROM #{JournalEntryLine.table_name} WHERE '+cjel[0]+')"=>"cjel[1..-1]"}
+      code += light_search_conditions(filter, :conditions => "cjel")+"\n"
+      search_options[:filters] = {"#{JournalEntry.table_name}.id IN (SELECT entry_id FROM #{JournalEntryLine.table_name} WHERE '+cjel[0]+')" => "cjel[1..-1]"}
       filter.delete(JournalEntryLine.table_name)
     end
     filter[JournalEntry.table_name] = [:number, :debit, :credit]
@@ -55,47 +55,47 @@ class JournalsController < AdminController
     return code.gsub(/\s*\n\s*/, ";")
   end
 
-  list(:lines, :model=>:journal_entry_lines, :conditions=>journal_entries_conditions, :joins=>:entry, :line_class=>"(RECORD.position==1 ? 'first-line' : '')", :order=>"entry_id DESC, #{JournalEntryLine.table_name}.position") do |t|
-    t.column :number, :through=>:entry, :url=>true
-    t.column :printed_on, :through=>:entry, :datatype=>:date
-    t.column :number, :through=>:account, :url=>true
-    t.column :name, :through=>:account, :url=>true
+  list(:lines, :model => :journal_entry_lines, :conditions => journal_entries_conditions, :joins => :entry, :line_class => "(RECORD.position==1 ? 'first-line' : '')", :order => "entry_id DESC, #{JournalEntryLine.table_name}.position") do |t|
+    t.column :number, :through => :entry, :url => true
+    t.column :printed_on, :through => :entry, :datatype => :date
+    t.column :number, :through => :account, :url => true
+    t.column :name, :through => :account, :url => true
     t.column :name
     t.column :state_label
-    t.column :original_debit, :currency=>"RECORD.entry.original_currency"
-    t.column :original_credit, :currency=>"RECORD.entry.original_currency"
+    t.column :original_debit, :currency => "RECORD.entry.original_currency"
+    t.column :original_credit, :currency => "RECORD.entry.original_currency"
   end
 
-  list(:entries, :model=>:journal_entries, :conditions=>journal_entries_conditions, :order=>"created_at DESC") do |t|
-    t.column :number, :url=>true
+  list(:entries, :model => :journal_entries, :conditions => journal_entries_conditions, :order => "created_at DESC") do |t|
+    t.column :number, :url => true
     t.column :printed_on
     t.column :state_label
-    t.column :original_debit, :currency=>:original_currency
-    t.column :original_credit, :currency=>:original_currency
-    t.action :edit, :if=>'RECORD.updateable? '
-    t.action :destroy, :if=>"RECORD.destroyable\?"
+    t.column :original_debit, :currency => :original_currency
+    t.column :original_credit, :currency => :original_currency
+    t.action :edit, :if => 'RECORD.updateable? '
+    t.action :destroy, :if => "RECORD.destroyable\?"
   end
 
-  list(:mixed, :model=>:journal_entries, :conditions=>journal_entries_conditions, :children=>:lines, :order=>"created_at DESC", :per_page=>10) do |t|
-    t.column :number, :url=>true, :children=>:name
-    t.column :printed_on, :datatype=>:date, :children=>false
-    # t.column :label, :through=>:account, :url=>{:action=>:account}
+  list(:mixed, :model => :journal_entries, :conditions => journal_entries_conditions, :children => :lines, :order => "created_at DESC", :per_page => 10) do |t|
+    t.column :number, :url => true, :children => :name
+    t.column :printed_on, :datatype => :date, :children => false
+    # t.column :label, :through => :account, :url => {:action => :account}
     t.column :state_label
-    t.column :original_debit, :currency=>{:body=>:original_currency, :children=>"RECORD.entry.original_currency"}
-    t.column :original_credit, :currency=>{:body=>:original_currency, :children=>"RECORD.entry.original_currency"}
-    t.action :edit, :if=>'RECORD.updateable? '
-    t.action :destroy, :if=>"RECORD.destroyable\?"
+    t.column :original_debit, :currency => {:body => :original_currency, :children => "RECORD.entry.original_currency"}
+    t.column :original_credit, :currency => {:body => :original_currency, :children => "RECORD.entry.original_currency"}
+    t.action :edit, :if => :updateable?
+    t.action :destroy, :if => :destroyable?
   end
 
-  list(:order=>:code) do |t|
-    t.column :name, :url=>true
-    t.column :code, :url=>true
-    t.column :nature_label
+  list(:order => :code) do |t|
+    t.column :name, :url => true
+    t.column :code, :url => true
+    t.column :nature
     t.column :currency
     t.column :closed_on
-    # t.action :document_print, :url=>{:code=>:JOURNAL, :journal=>"RECORD.id"}
-    t.action :close, :if=>'RECORD.closable?(Date.today)', :image=>:unlock
-    t.action :reopen, :if=>"RECORD.reopenable\?", :image=>:lock
+    # t.action :document_print, :url => {:code => :JOURNAL, :journal => "RECORD.id"}
+    t.action :close, :if => 'RECORD.closable?(Date.today)', :image => :unlock
+    t.action :reopen, :if => :reopenable?, :image => :lock
     t.action :edit
     t.action :destroy
   end
@@ -123,7 +123,7 @@ class JournalsController < AdminController
     end
     if request.post?
       if @journal.close(params[:journal][:closed_on].to_date)
-        notify_success(:journal_closed_on, :closed_on=>::I18n.l(@journal.closed_on), :journal=>@journal.name)
+        notify_success(:journal_closed_on, :closed_on => ::I18n.l(@journal.closed_on), :journal => @journal.name)
         redirect_to_back
       end
     end
@@ -139,7 +139,7 @@ class JournalsController < AdminController
     end
     if request.post?
       if @journal.reopen(params[:journal][:closed_on].to_date)
-        notify_success(:journal_reopened_on, :closed_on=>::I18n.l(@journal.closed_on), :journal=>@journal.name)
+        notify_success(:journal_reopened_on, :closed_on => ::I18n.l(@journal.closed_on), :journal => @journal.name)
         redirect_to_back
       end
     end
@@ -152,12 +152,12 @@ class JournalsController < AdminController
 
 
 
-  list(:draft_lines, :model=>:journal_entry_lines, :conditions=>journal_entries_conditions(:with_journals=>true, :state=>:draft), :joins=>:entry, :line_class=>"(RECORD.position==1 ? 'first-line' : '')", :order=>"entry_id DESC, #{JournalEntryLine.table_name}.position") do |t|
-    t.column :name, :through=>:journal, :url=>true
-    t.column :number, :through=>:entry, :url=>true
-    t.column :printed_on, :through=>:entry, :datatype=>:date
-    t.column :number, :through=>:account, :url=>true
-    t.column :name, :through=>:account, :url=>true
+  list(:draft_lines, :model => :journal_entry_lines, :conditions => journal_entries_conditions(:with_journals => true, :state => :draft), :joins => :entry, :line_class => "(RECORD.position==1 ? 'first-line' : '')", :order => "entry_id DESC, #{JournalEntryLine.table_name}.position") do |t|
+    t.column :name, :through => :journal, :url => true
+    t.column :number, :through => :entry, :url => true
+    t.column :printed_on, :through => :entry, :datatype => :date
+    t.column :number, :through => :account, :url => true
+    t.column :name, :through => :account, :url => true
     t.column :name
     t.column :debit, :currency => "RECORD.entry.financial_year.currency"
     t.column :credit, :currency => "RECORD.entry.financial_year.currency"
@@ -168,16 +168,16 @@ class JournalsController < AdminController
     if request.post? and params[:validate]
       conditions = nil
       begin
-        conditions = eval(self.class.journal_entries_conditions(:with_journals=>true, :state=>:draft))
+        conditions = eval(self.class.journal_entries_conditions(:with_journals => true, :state => :draft))
         journal_entries = JournalEntry.where(conditions)
         undone = 0
         for entry in journal_entries
           entry.confirm if entry.can_confirm?
           undone += 1 if entry.draft?
         end
-        notify_success_now(:draft_entry_lines_are_validated, :count=>journal_entries.size-undone)
-      rescue Exception=>e
-        notify_error_now(:exception_raised, :message=>e.message)
+        notify_success_now(:draft_entry_lines_are_validated, :count => journal_entries.size-undone)
+      rescue Exception => e
+        notify_error_now(:exception_raised, :message => e.message)
       end
     end
   end
@@ -189,7 +189,7 @@ class JournalsController < AdminController
     @natures = [:sale, :incoming_payment_use, :incoming_payment, :deposit, :purchase, :outgoing_payment_use, :outgoing_payment, :cash_transfer]
 
     if request.get?
-      notify_now(:bookkeeping_works_only_with, :list=>@natures.collect{|x| x.to_s.classify.constantize.model_name.human}.to_sentence)
+      notify_now(:bookkeeping_works_only_with, :list => @natures.collect{|x| x.to_s.classify.constantize.model_name.human}.to_sentence)
       @step = 1
     elsif request.put?
       @step = 2
@@ -214,7 +214,7 @@ class JournalsController < AdminController
           end
         end
         notify_success(:bookkeeping_is_finished)
-        redirect_to :action=>(state == :draft ? :draft : :bookkeep)
+        redirect_to :action => (state == :draft ? :draft : :bookkeep)
       end
     end
 
@@ -230,7 +230,7 @@ class JournalsController < AdminController
   def self.general_ledger_conditions(options={})
     conn = ActiveRecord::Base.connection
     code = ""
-    code << light_search_conditions({:journal_entry_line=>[:name, :debit, :credit, :original_debit, :original_credit]}, :conditions=>"c")+"\n"
+    code << light_search_conditions({:journal_entry_line => [:name, :debit, :credit, :original_debit, :original_credit]}, :conditions => "c")+"\n"
     code << journal_period_crit("params")
     code << journal_entries_states_crit("params")
     code << accounts_range_crit("params")
@@ -240,25 +240,25 @@ class JournalsController < AdminController
     return code # .gsub(/\s*\n\s*/, ";")
   end
 
-  list(:general_ledger, :model=>:journal_entry_lines, :conditions=>general_ledger_conditions, :joins=>[:entry, :account], :order=>"accounts.number, journal_entries.number, #{JournalEntryLine.table_name}.position") do |t|
-    t.column :number, :through=>:account, :url=>true
-    t.column :name, :through=>:account, :url=>true
-    t.column :number, :through=>:entry, :url=>true
-    t.column :printed_on, :through=>:entry, :datatype=>:date
+  list(:general_ledger, :model => :journal_entry_lines, :conditions => general_ledger_conditions, :joins => [:entry, :account], :order => "accounts.number, journal_entries.number, #{JournalEntryLine.table_name}.position") do |t|
+    t.column :number, :through => :account, :url => true
+    t.column :name, :through => :account, :url => true
+    t.column :number, :through => :entry, :url => true
+    t.column :printed_on, :through => :entry, :datatype => :date
     t.column :name
-    t.column :debit, :currency=>"RECORD.entry.financial_year.currency"
-    t.column :credit, :currency=>"RECORD.entry.financial_year.currency"
+    t.column :debit, :currency => "RECORD.entry.financial_year.currency"
+    t.column :credit, :currency => "RECORD.entry.financial_year.currency"
   end
 
   def general_ledger
   end
 
   def reports
-    # redirect_to :action=>:index
-    @document_templates = DocumentTemplate.where(:family=>"accountancy", :nature=>["journal", "general_journal", "general_ledger"]).order(:name)
+    # redirect_to :action => :index
+    @document_templates = DocumentTemplate.where(:family => "accountancy", :nature => ["journal", "general_journal", "general_ledger"]).order(:name)
     @document_template = DocumentTemplate.find_by_family_and_code("accountancy", params[:code])
     if request.xhr?
-      render :partial=>'options'
+      render :partial => 'options'
       return
     end
     if params[:export] == "balance"
@@ -276,13 +276,13 @@ class JournalsController < AdminController
             csv << line
           end
         end
-        send_data(csv_string, :filename=>'export.csv', :type=>Mime::CSV)
+        send_data(csv_string, :filename => 'export.csv', :type => Mime::CSV)
       rescue Exception => e
-        notify_error_now(:exception_raised, :message=>e.message)
+        notify_error_now(:exception_raised, :message => e.message)
       end
     elsif params[:export] == "isaquare"
       path = Ekylibre::Export::AccountancySpreadsheet.generate(params[:started_on].to_date, params[:stopped_on].to_date, Entity.of_company.full_name.simpleize+".ECC")
-      send_file(path, :filename=>path.basename, :type=>Mime::ZIP)
+      send_file(path, :filename => path.basename, :type => Mime::ZIP)
     elsif params[:template]
       template = DocumentTemplate.find_by_code(params[:template])
       nature = template.nature.to_sym
@@ -312,7 +312,7 @@ class JournalsController < AdminController
         Exchanges.import(nature, file)
         begin
         rescue Exception => e
-          notify_error_now(:exception_raised, :message=>e.message)
+          notify_error_now(:exception_raised, :message => e.message)
         end
       end
     end

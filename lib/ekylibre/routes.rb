@@ -12,11 +12,15 @@ class ActionDispatch::Routing::Mapper
 
   # Create unroll routes for all scope by default for the current_ressource
   def unroll_all(options = {})
-    unrolls = (self.instance_variable_get("@scope")[:scope_level_resource].controller + "_controller").classify.constantize.unrolls
-    if unrolls
-      for scope in unrolls
-        get scope
+    begin
+      unrolls = (self.instance_variable_get("@scope")[:scope_level_resource].controller + "_controller").classify.constantize.unrolls
+      if unrolls
+        for scope in unrolls
+          get scope
+        end
       end
+    rescue
+      # Migrate mode
     end
   end
 

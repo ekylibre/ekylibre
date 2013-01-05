@@ -1537,13 +1537,26 @@ arb:
         # sales_order: "Sales order"
         # stocks: "Stocks"
         # transport: "Transport"
+    journal:
+      nature:
+        # bank: "Bank"
+        # cash: "Cash"
+        # forward: "Carried-forward"
+        # purchases: "Purchases"
+        # sales: "Sales"
+        # various: "Various operations"
+    product:
+      nature:
+        # product: "Product"
+        # service: "Service"
+        # subscription: "Subcription"
+        # transfer: "Transfer"
   models:
     account:
       default_account_name: "دفتر الحسابات %{number}" #?
       error_delete: "لا يمكن حذف حساب لاحتوائه على حسابات فرعية" #?
       label: "%{number} - %{name}"
-    asset:  #?
- #?
+    asset: #?
     bank_statement:  #?
       error_account_children: ".لا يمكن حذف دفتر الحسابات لاحتوائه على حسابات فرعية" #?
       error_journal_statement: "بيان بنكي محدد لدى الدفتر اليومي" #?
@@ -1833,14 +1846,14 @@ arb:
       bookkeep: "[%{resource}] %{mode} (%{payment_number}) وردت من %{attorney} ل %{client} (%{expense_number})"
     inventory_line:
       inventory: "عملية الجرد"
-    journal:
-      natures:
-        bank: "البنك"
-        cash: "الصندوق النقدي"
-        forward: "تقرير عن اي جديد"
-        purchases: "المشتريات"
-        sales: "المبيعات"
-        various: "عمليات متنوعة"
+    journal:  #?
+      natures: #?
+        bank: "البنك" #?
+        cash: "الصندوق النقدي" #?
+        forward: "تقرير عن اي جديد" #?
+        purchases: "المشتريات" #?
+        sales: "المبيعات" #?
+        various: "عمليات متنوعة" #?
     journal_entry:
       # entry_cancel: "Cancel of entry %{number}: %{name}"
       record_cancel: "الانعكاس السلبي للقطعة %{number} : %{name}" #?
@@ -1920,11 +1933,11 @@ arb:
         with_components: "%{product} (%{unit}) (ليس هناك من فترة استراحة)"
         without_components: "%{product} (%{unit}) (مادة خام)"
       label: "%{product} (%{unit})"
-      natures:
-        product: "المنتج"
-        service: "الخدمة"
-        subscrip: "الاشتراك"
-        transfer: "تحويل"
+      natures:  #?
+        product: "المنتج" #?
+        service: "الخدمة" #?
+        subscrip: "الاشتراك" #?
+        transfer: "تحويل" #?
       stock_move: "%{origin} (%{code})"
       subscription_label:
         period: "اشتراك %{subscription_nature} ل %{entity} للعنوان %{address} من %{start} الى %{finish}"

@@ -31,7 +31,6 @@
 #  created_at   :datetime         not null
 #  creator_id   :integer          
 #  currency     :string(3)        
-#  entity_id    :integer          
 #  iban         :string(34)       
 #  iban_label   :string(48)       
 #  id           :integer          not null, primary key
@@ -56,7 +55,6 @@ class Cash < CompanyRecord
 
   attr_readonly :nature, :currency
   belongs_to :account
-  belongs_to :entity
   belongs_to :journal
   has_many :bank_statements
   has_many :deposits
@@ -83,18 +81,16 @@ class Cash < CompanyRecord
   validates_uniqueness_of :account_id
 
   default_scope order(:name)
-  # scope :bank_account_of_company, lambda { where("(entity_id IS NULL OR entity_id=?) AND nature=?", Entity.of_company.id, "bank_account") }
-  scope :bank_accounts, -> { where("(entity_id IS NULL OR entity_id=?) AND nature=?", Entity.of_company.id, "bank_account") }
-  scope :cash_boxes, -> { where("(entity_id IS NULL OR entity_id=?) AND nature=?", Entity.of_company.id, "cash_box") }
+  scope :bank_accounts, -> { where(:nature => :bank_account) }
+  scope :cash_boxes,    -> { where(:nature => :cash_box) }
 
 
   # before create a bank account, this computes automatically code iban.
   before_validation do
     self.mode.lower!
     self.mode = self.class.mode.default_value if self.mode.blank?
-    if eoc = Entity.of_company
-      self.entity_id = eoc.id
-      self.currency ||= eoc.currency
+    if self.currency.blank? and eoc = Entity.of_company
+      self.currency = eoc.currency
     end
     if self.mode_iban?
       self.iban = self.iban.to_s.upper.gsub(/[^A-Z0-9]/, '')

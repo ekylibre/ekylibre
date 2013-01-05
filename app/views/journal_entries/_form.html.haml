@@ -1,8 +1,5 @@
--# TODO Journal entries
-=hidden_field_tag "journal_id", params[:journal_id]
-=formalize do |f|
-  -f.error :journal_entry
-  -f.field JournalEntry.human_attribute_name("journal"), link_to(@journal_entry.journal.name, :action=>:show, :controller=>:journals, :id=>@journal.id)
-  -f.field :journal_entry, :number
-  -f.field :journal_entry, :printed_on, "data-dependents"=>"#exchange-rate", "data-parameter-name"=>"printed_on"
-#exchange-rate{:data=>{"refresh"=>url_for(:controller=>:journal_entries, :action=>:new, :journal_id=>@journal.id), "refresh-mode"=>"update"}}=render(:partial=>"journal_entries/exchange_rate_form")
+=field_set do
+  -input :journal, :readonly => true
+  -input :number
+  -input :printed_on
+  -partial :exchange_rate, :depend_on => [:printed_on, :journal], :refresh_url => new_journal_entry_url

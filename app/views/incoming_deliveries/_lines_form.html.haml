@@ -1,0 +1,26 @@
+%table.list
+  %tr
+    %th=IncomingDeliveryLine.human_attribute_name(:product)
+    %th=Price.human_attribute_name(:pretax_amount)
+    %th=Price.human_attribute_name(:amount)
+    %th=tc(:total_quantity)
+    %th=IncomingDeliveryLine.human_attribute_name(:unit)
+    %th=tc(:quantity_rest)
+    %th=tc(:quantity)
+    %th=IncomingDeliveryLine.human_attribute_name(:pretax_amount)
+    %th=IncomingDeliveryLine.human_attribute_name(:amount)
+  -for line in @incoming_delivery_lines
+    %tr{:class => cycle('odd','even')}
+      %td=line.purchase_line.label
+      %td.dec{:class => "pta-#{line.purchase_line_id}"}=line.purchase_line.price.pretax_amount
+      %td.dec{:class => "awt-#{line.purchase_line_id}"}=line.purchase_line.price.amount
+      %td.dec=line.purchase_line.quantity
+      %td=line.purchase_line.unit.label
+      %td.dec=line.purchase_line.undelivered_quantity
+      %td=text_field_tag "incoming_delivery_line[#{line.purchase_line_id}][quantity]", line.quantity, :id => "incoming_delivery_line_#{line.purchase_line_id}_quantity", :class => "pta-#{line.purchase_line_id} awt-#{line.purchase_line_id}", "data-less-than-or-equal-to" => line.quantity+line.purchase_line.undelivered_quantity
+      %td.dec.pta{"data-use" => ".pta-#{line.purchase_line_id}", "data-calculate" => "mul"}
+      %td.dec.awt{"data-use" => ".awt-#{line.purchase_line_id}", "data-calculate" => "mul"}
+  %tr.total
+    %th{:colspan => 7}=tg :total
+    %td#total_pretax_amount{"data-use" => ".pta"}=@incoming_delivery.pretax_amount
+    %td#total_amount{"data-use" => ".awt"}=@incoming_delivery.amount

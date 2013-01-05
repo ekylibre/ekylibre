@@ -55,6 +55,7 @@ class JournalEntriesController < AdminController
     end
   end
 
+
   def create
     return unless @journal = find_and_check(:journal, params[:journal_id])
     session[:current_journal_id] = @journal.id

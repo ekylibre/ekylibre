@@ -59,7 +59,7 @@ jpn:
       # edit: "Edit cash: %{name}"
       # index: "Cashes"
       # new: "Add a new cash"
-      # show: "%{nature_label}: %{name}"
+      # show: "%{nature}: %{name}"
     companies:
       register: "会社を登録する"
     contacts: #?
@@ -590,8 +590,14 @@ jpn:
     # amount: "Amount with taxes"
     # amount_to_add: "Total to add"
     # amount_to_reduce: "Total to reduce"
-    animal_group_tabbox: #?
-    animal_tabbox: #?
+    # animal_bar: "Animals by category"
+    animal_group_tabbox:
+      # animals: "Animal"
+      # cares: "Cares on animal"
+    # animal_pie: "Animals by category"
+    animal_tabbox:
+      # cares: "Cares"
+      # childrens: "Childs"
     apply: "適用する"
     # are_you_sure: "Are you sure you want to do this?"
     # are_you_sure_you_want_to_confirm: "Are you sure you want to order"
@@ -704,6 +710,8 @@ jpn:
     # deliver: "Delivered on"
     # deliveries: "Deliveries"
     # delivery: "Delivery"
+    # demo_bar: "Bar"
+    # demo_pie: "Pie"
     # departments: "Departments"
     # deposit: "Deposit"
     deposit_create: #?
@@ -824,7 +832,9 @@ jpn:
     # journals: "Journals"
     # land_parcel_name: "Land parcel name"
     # land_parcels: "Land parcels"
+    # last_animals: "Last Birth"
     # last_computed_balance: "Last computed balance"
+    # last_events: "Last Events"
     # last_payment_amount: "Amount of the last payment"
     # last_payment_date: "Date of the last payment"
     # left_balance_amount: "Left Balance Amount"
@@ -994,6 +1004,7 @@ jpn:
     # personalized_mail: "Send a personalized mail"
     # pertinence: "%{value}%"
     # phone: "Pho."
+    # placeholder: "Placeholder"
     # planned_on: "Planned on"
     # play: "Play"
     # please_wait: "Please wait..."

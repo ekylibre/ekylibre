@@ -41,7 +41,7 @@
 #  immobilizations_account_id :integer          
 #  lock_version               :integer          default(0), not null
 #  name                       :string(255)      not null
-#  nature                     :string(8)        not null
+#  nature                     :string(16)       not null
 #  number                     :integer          not null
 #  price                      :decimal(19, 4)   default(0.0)
 #  published                  :boolean          not null
@@ -50,7 +50,6 @@
 #  quantity_min               :decimal(19, 4)   default(0.0)
 #  reduction_submissive       :boolean          not null
 #  sales_account_id           :integer          
-#  service_coeff              :decimal(19, 4)   
 #  stockable                  :boolean          not null
 #  subscription_nature_id     :integer          
 #  subscription_period        :string(255)      

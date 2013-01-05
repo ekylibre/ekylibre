@@ -1071,102 +1071,102 @@ fra:
     work_center: "Centre d’opération"
     working_number: "Numéro de travail" #?
   enumerize:
-    animal:  #?
-      sex: #?
-        female: "Femelle" #?
-        male: "Mâle" #?
-      income_reasons:
-        birth: "Naissance"
-        purchase: "Achat"
-        housing: "Pension"
-        other: "Autres"
-      outgone_reasons:
-        dead: "Décès"
-        sale: "Vente"
-        autoconsumption: "Autoconsommation"
-        other: "Autres"
-    animal_treatment:
-      duration_unit_wait_for_milk:
-        hours: "Heures"
-        days: "Jours"
-        milking: "Traites"
-      duration_unit_wait_for_meat:
-        hours: "Heures"
-        days: "Jours"
-    drug_admission_path:
-      oral: "Orale"
-      ima: "IntraMammaire"
-      imu: "IntraMusculaire"
-      iu: "IntraUtérine"
-      iv: "IntraVeineuse"
-    per_duration_time_unit:
-      hours: "Heures"
-      days: "Jours"
-      weeks: "Semaines"
-      months: "Mois"
-    per_animal_unit:
-      per_animal: " / Animal"
-      per_kg: " / Kg"
-      per_milking: " / Traite"
-    per_frequency_time_unit:
-      times_per_12_hours: " / 12 Heures"
-      times_per_day: " / Jour"
-      times_per_week: " / Semaine"
-      times_per_month: " / Mois"
-    cash:
-      mode:  #?
-        bban: "Relevé d’identité bancaire (RIB)" #?
-        iban: "IBAN" #?
-      modes:
-        # bban: "Basic Bank Account Number (BBAN)"
-        # iban: "International Bank Account Number (IBAN)"
-      nature:  #?
-        bank_account: "Compte bancaire" #?
-        cash_box: "Caisse" #?
-      natures:
-        # bank_account: "Bank account"
-        # cash_box: "Cash box"
-  models:
-    account:
-      label: "%{number} - %{name}"
+    animal:
+      income_reasons:  #?
+        birth: "Naissance" #?
+        housing: "Pension" #?
+        other: "Autres" #?
+        purchase: "Achat" #?
+      outgone_reasons:  #?
+        autoconsumption: "Autoconsommation" #?
+        dead: "Décès" #?
+        other: "Autres" #?
+        sale: "Vente" #?
+      sex:
+        female: "Femelle"
+        male: "Mâle"
+    animal_treatment:  #?
+      duration_unit_wait_for_meat: #?
+        days: "Jours" #?
+        hours: "Heures" #?
+      duration_unit_wait_for_milk: #?
+        days: "Jours" #?
+        hours: "Heures" #?
+        milking: "Traites" #?
     asset:
       depreciation_method:
-        graduated: "Dégressive"
-        linear: "Linéaire"
-        simplified_linear: "Linéaire simplifiée"
+        # graduated: "Graduated"
+        # linear: "Linear"
+        # simplified_linear: "Simplified linear"
     cash:
       mode:
         bban: "Relevé d’identité bancaire (RIB)"
         iban: "IBAN"
+      modes: #?
       nature:
         bank_account: "Compte bancaire"
         cash_box: "Caisse"
+      natures: #?
     document_template:
       family:
-        accountancy: "Comptabilité"
-        company: "Société"
-        management: "Commerce"
-        production: "Production"
-        relations: "Relations"
-        resources: "Ressources"
+        # accountancy: "Accountancy"
+        # company: "Company"
+        # management: "Management"
+        # production: "Production"
+        # relations: "Relationships"
+        # resources: "Resources"
       nature:
-        animal: "Fiche animal"
-        balance: "Balance"
-        balance_sheet: "Bilan comptable"
-        deposit: "Remise en banque"
-        entity: "Fiche personnes"
-        financial_year: "Documents de synthèse"
-        general_journal: "Journal général"
-        general_ledger: "Grand livre"
-        income_statement: "Compte de résultat"
-        inventory: "Inventaire"
-        journal: "Journal"
-        other: "Autre"
-        purchase: "Commande fournisseur"
-        sales_invoice: "Facture client"
-        sales_order: "Devis/Commande"
-        stocks: "État des stocks"
-        transport: "Transport"
+        # animal: "Animal card"
+        # balance: "Balance"
+        # balance_sheet: "Balance sheet"
+        # deposit: "Deposit"
+        # entity: "Person"
+        # financial_year: "Financial year document"
+        # general_journal: "General journal"
+        # general_ledger: "Grand ledger"
+        # income_statement: "Income statement"
+        # inventory: "Inventory"
+        # journal: "Journal"
+        # other: "Other"
+        # purchase: "Purchase order"
+        # sales_invoice: "Sales invoice"
+        # sales_order: "Sales order"
+        # stocks: "Stocks"
+        # transport: "Transport"
+    drug_admission_path:  #?
+      ima: "IntraMammaire" #?
+      imu: "IntraMusculaire" #?
+      iu: "IntraUtérine" #?
+      iv: "IntraVeineuse" #?
+      oral: "Orale" #?
+    journal:
+      nature:
+        # bank: "Bank"
+        # cash: "Cash"
+        # forward: "Carried-forward"
+        # purchases: "Purchases"
+        # sales: "Sales"
+        # various: "Various operations"
+    per_animal_unit:  #?
+      per_animal: " / Animal" #?
+      per_kg: " / Kg" #?
+      per_milking: " / Traite" #?
+    per_duration_time_unit:  #?
+      days: "Jours" #?
+      hours: "Heures" #?
+      months: "Mois" #?
+      weeks: "Semaines" #?
+    per_frequency_time_unit:  #?
+      times_per_12_hours: " / 12 Heures" #?
+      times_per_day: " / Jour" #?
+      times_per_month: " / Mois" #?
+      times_per_week: " / Semaine" #?
+    product:
+      nature:
+        # product: "Product"
+        # service: "Service"
+        # subscription: "Subcription"
+        # transfer: "Transfer"
   models:
     account:
       label: "%{number} - %{name}"
@@ -1326,14 +1326,14 @@ fra:
       bookkeep: "[%{resource}] %{mode} (%{payment_number}) reçu de %{attorney} pour %{client} (%{expense_number})"
     inventory_line:
       inventory: "Inventaire "
-    journal:
-      natures:
-        bank: "Banque"
-        cash: "Caisse"
-        forward: "Report à nouveaux"
-        purchases: "Achats"
-        sales: "Ventes"
-        various: "Opérations diverses"
+    journal:  #?
+      natures: #?
+        bank: "Banque" #?
+        cash: "Caisse" #?
+        forward: "Report à nouveaux" #?
+        purchases: "Achats" #?
+        sales: "Ventes" #?
+        various: "Opérations diverses" #?
     journal_entry:
       entry_cancel: "Contre-passation de l’écriture %{number}: %{name}"
       states:
@@ -1406,11 +1406,11 @@ fra:
         with_components: "%{product} (%{unit}) (produit transformé)"
         without_components: "%{product} (%{unit}) (matière première)"
       label: "%{product} (%{unit})"
-      natures:
-        product: "Produit"
-        service: "Service"
-        subscrip: "Abonnement"
-        transfer: "Transfert"
+      natures:  #?
+        product: "Produit" #?
+        service: "Service" #?
+        subscrip: "Abonnement" #?
+        transfer: "Transfert" #?
       stock_move: "%{origin} (%{code})"
       subscription_label:
         period: "Abonnement %{subscription_nature} pour %{entity} à l’adresse %{address} du %{start} au %{finish}"

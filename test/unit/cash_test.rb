@@ -31,7 +31,6 @@
 #  created_at   :datetime         not null
 #  creator_id   :integer          
 #  currency     :string(3)        
-#  entity_id    :integer          
 #  iban         :string(34)       
 #  iban_label   :string(48)       
 #  id           :integer          not null, primary key

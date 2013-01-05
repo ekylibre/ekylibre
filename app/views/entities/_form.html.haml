@@ -57,6 +57,7 @@
     =input :mail_line_4
     =input :mail_line_5
     =input :mail_line_6
+    =input :mail_country, :source => :countries
   =nested_association(:phones, :before => :emails) do
     =input :canal, :value => "phone", :field => :hidden
     =input :coordinate, :field => :tel

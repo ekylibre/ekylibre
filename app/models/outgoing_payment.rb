@@ -45,23 +45,23 @@
 class OutgoingPayment < CompanyRecord
   acts_as_numbered
   belongs_to :journal_entry
-  belongs_to :mode, :class_name=>"OutgoingPaymentMode"
-  belongs_to :payee, :class_name=>"Entity"
-  belongs_to :responsible, :class_name=>"Entity"
-  has_many :uses, :class_name=>"OutgoingPaymentUse", :foreign_key=>:payment_id, :dependent=>:destroy
-  has_many :purchases, :through=>:uses
-  has_many :expenses, :through=>:uses
+  belongs_to :mode, :class_name => "OutgoingPaymentMode"
+  belongs_to :payee, :class_name => "Entity"
+  belongs_to :responsible, :class_name => "Entity"
+  has_many :uses, :class_name => "OutgoingPaymentUse", :foreign_key => :payment_id, :dependent => :destroy
+  has_many :purchases, :through => :uses
+  has_many :expenses, :through => :uses
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :amount, :used_amount, :allow_nil => true
   validates_length_of :check_number, :number, :allow_nil => true, :maximum => 255
   validates_inclusion_of :delivered, :in => [true, false]
   validates_presence_of :amount, :mode, :payee, :responsible, :to_bank_on, :used_amount
   #]VALIDATORS]
-  validates_numericality_of :amount, :greater_than=>0
-  validates_numericality_of :used_amount, :greater_than_or_equal_to=>0
+  validates_numericality_of :amount, :greater_than => 0
+  validates_numericality_of :used_amount, :greater_than_or_equal_to => 0
   validates_presence_of :to_bank_on, :created_on
 
-  before_validation(:on=>:create) do
+  before_validation(:on => :create) do
     self.created_on ||= Date.today
     true
   end
@@ -71,7 +71,7 @@ class OutgoingPayment < CompanyRecord
   end
 
   validate do
-    errors.add(:amount, :greater_than_or_equal_to, :count=>self.used_amount) if self.amount < self.used_amount
+    errors.add(:amount, :greater_than_or_equal_to, :count => self.used_amount) if self.amount < self.used_amount
   end
 
   protect(:on => :update) do
@@ -87,8 +87,8 @@ class OutgoingPayment < CompanyRecord
   bookkeep do |b|
     # attorney_amount = self.attorney_amount
     supplier_amount = self.amount #  - attorney_amount
-    label = tc(:bookkeep, :resource=>self.class.model_name.human, :number=>self.number, :payee=>self.payee.full_name, :mode=>self.mode.name, :expenses=>self.uses.collect{|p| p.expense.number}.to_sentence, :check_number=>self.check_number)
-    b.journal_entry(self.mode.cash.journal, :printed_on=>self.to_bank_on, :unless=>(!self.mode.with_accounting? or !self.delivered)) do |entry|
+    label = tc(:bookkeep, :resource => self.class.model_name.human, :number => self.number, :payee => self.payee.full_name, :mode => self.mode.name, :expenses => self.uses.collect{|p| p.expense.number}.to_sentence, :check_number => self.check_number)
+    b.journal_entry(self.mode.cash.journal, :printed_on => self.to_bank_on, :unless => (!self.mode.with_accounting? or !self.delivered)) do |entry|
       entry.add_debit(label, self.payee.account(:supplier).id, supplier_amount) unless supplier_amount.zero?
       # entry.add_debit(label, self.payee.account(:attorney).id, attorney_amount) unless attorney_amount.zero?
       entry.add_credit(label, self.mode.cash.account_id, self.amount)
@@ -101,7 +101,7 @@ class OutgoingPayment < CompanyRecord
   end
 
   def label
-    tc(:label, :amount=>I18n.localize(self.amount, :currency=>self.currency), :date=>I18n.localize(self.created_at.to_date), :mode=>self.mode.name, :usable_amount=>I18n.localize(self.unused_amount, :currency=>self.mode.cash.currency), :payee=>self.payee.full_name, :number=>self.number)
+    tc(:label, :amount => I18n.localize(self.amount, :currency => self.currency), :date => I18n.localize(self.created_at.to_date), :mode => self.mode.name, :usable_amount => I18n.localize(self.unused_amount, :currency => self.mode.cash.currency), :payee => self.payee.full_name, :number => self.number)
   end
 
   def unused_amount
@@ -119,10 +119,10 @@ class OutgoingPayment < CompanyRecord
   # Use the maximum available amount to pay the expense
   def pay(expense, options={})
     raise Exception.new("Expense must be Purchase (not #{expense.class.name})") unless expense.class.name == Purchase.name
-    # OutgoingPaymentUse.destroy_all(:expense_id=>expense.id, :payment_id=>self.id)
+    # OutgoingPaymentUse.destroy_all(:expense_id => expense.id, :payment_id => self.id)
     # self.reload
     # use_amount = [expense.unpaid_amount, self.unused_amount].min
-    use = self.uses.create(:expense=>expense, :downpayment=>options[:downpayment])
+    use = self.uses.create(:expense => expense, :downpayment => options[:downpayment])
     if use.errors.size > 0
       errors.add_from_record(use)
       return false

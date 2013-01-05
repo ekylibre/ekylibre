@@ -24,12 +24,12 @@ class InventoriesController < AdminController
   list do |t|
     t.column :created_on
     t.column :changes_reflected
-    t.column :label, :through=>:responsible, :url=>true
+    t.column :label, :through => :responsible, :url => true
     t.column :comment
-    t.action :show, :url=>{:format=>:pdf}, :image=>:print
-    t.action :reflect, :if=>'RECORD.reflectable?', :image=>"action", 'data-confirm' => :are_you_sure
-    t.action :edit,  :if=>'!RECORD.changes_reflected? '
-    t.action :destroy, :if=>'!RECORD.changes_reflected? '
+    t.action :show, :url => {:format => :pdf}, :image => :print
+    t.action :reflect, :if => :reflectable?, :image => "action", 'data-confirm' => :are_you_sure
+    t.action :edit,  :unless => :changes_reflected?
+    t.action :destroy, :unless => :changes_reflected?
   end
 
   # Displays the main page with the list of inventories
@@ -39,13 +39,13 @@ class InventoriesController < AdminController
     end
   end
 
-  list(:lines, :model=>:inventory_lines, :conditions=>{:inventory_id=>['params[:id]'] }, :order=>'warehouse_id') do |t|
-    t.column :name, :through=>:warehouse, :url=>true
-    t.column :name, :through=>:product, :url=>true
-    t.column :name, :through=>:tracking, :url=>true
-    t.column :theoric_quantity, :precision=>3
-    t.column :quantity, :precision=>3
-    t.column :name, :through=>:unit
+  list(:lines, :model => :inventory_lines, :conditions => {:inventory_id => ['params[:id]'] }, :order => 'warehouse_id') do |t|
+    t.column :name, :through => :warehouse, :url => true
+    t.column :name, :through => :product, :url => true
+    t.column :name, :through => :tracking, :url => true
+    t.column :theoric_quantity, :precision => 3
+    t.column :quantity, :precision => 3
+    t.column :name, :through => :unit
   end
 
   # Displays details of one inventory selected with +params[:id]+
@@ -58,20 +58,20 @@ class InventoriesController < AdminController
     end
   end
 
-  list(:lines_create, :model=>:stocks, :pagination=>:none, :order=>"#{Warehouse.table_name}.name, #{Product.table_name}.name") do |t|
-    t.column :name, :through=>:warehouse, :url=>true
-    t.column :name, :through=>:product, :url=>true
-    t.column :name, :through=>:tracking, :url=>true
-    t.column :quantity, :precision=>3
-    t.column :label, :through=>:unit
+  list(:lines_create, :model => :stocks, :pagination => :none, :order => "#{Warehouse.table_name}.name, #{Product.table_name}.name") do |t|
+    t.column :name, :through => :warehouse, :url => true
+    t.column :name, :through => :product, :url => true
+    t.column :name, :through => :tracking, :url => true
+    t.column :quantity, :precision => 3
+    t.column :label, :through => :unit
     t.text_field :quantity
   end
 
-  list(:lines_update, :model=>:inventory_lines, :conditions=>{:inventory_id=>['session[:current_inventory_id]'] }, :pagination=>:none, :order=>"#{Warehouse.table_name}.name, #{Product.table_name}.name") do |t|
-    t.column :name, :through=>:warehouse, :url=>true
-    t.column :name, :through=>:product, :url=>true
-    t.column :name, :through=>:tracking, :url=>true
-    t.column :theoric_quantity, :precision=>3
+  list(:lines_update, :model => :inventory_lines, :conditions => {:inventory_id => ['session[:current_inventory_id]'] }, :pagination => :none, :order => "#{Warehouse.table_name}.name, #{Product.table_name}.name") do |t|
+    t.column :name, :through => :warehouse, :url => true
+    t.column :name, :through => :product, :url => true
+    t.column :name, :through => :tracking, :url => true
+    t.column :theoric_quantity, :precision => 3
     t.text_field :quantity
   end
 
@@ -82,7 +82,8 @@ class InventoriesController < AdminController
       redirect_to_back
     end
     notify_warning_now(:validates_old_inventories) if Inventory.find_all_by_changes_reflected(false).size >= 1
-    @inventory = Inventory.new(:responsible_id=>@current_user.id)
+    @inventory = Inventory.new(:responsible_id => @current_user.id)
+    render_restfully_form
   end
 
   def create
@@ -97,10 +98,33 @@ class InventoriesController < AdminController
     # raise Exception.new(params[:lines_create].inspect)
     if @inventory.save
       @inventory.set_lines(params[:lines_create].values)
-      redirect_to :action=>:index
+      redirect_to :action => :index
       return
     end
-    render :new
+    render_restfully_form
+  end
+
+  def edit
+    return unless @inventory = find_and_check(:inventory)
+    session[:current_inventory_id] = @inventory.id
+    t3e @inventory.attributes
+    render_restfully_form
+  end
+
+  def update
+    return unless @inventory = find_and_check(:inventory)
+    session[:current_inventory_id] = @inventory.id
+    unless @inventory.changes_reflected
+      if @inventory.update_attributes(params[:inventory])
+        # @inventory.set_lines(params[:lines_create].values)
+        for id, attributes in (params[:lines_update]||{})
+          il = InventoryLine.find_by_id(id).update_attributes!(attributes)
+        end
+      end
+      redirect_to :action => :index
+      return
+    end
+    render_restfully_form
   end
 
   def destroy
@@ -118,29 +142,7 @@ class InventoriesController < AdminController
     else
       notify_error(:changes_have_not_been_reflected)
     end
-    redirect_to :action=>:index
-  end
-
-  def edit
-    return unless @inventory = find_and_check(:inventory)
-    session[:current_inventory_id] = @inventory.id
-    t3e @inventory.attributes
-  end
-
-  def update
-    return unless @inventory = find_and_check(:inventory)
-    session[:current_inventory_id] = @inventory.id
-    unless @inventory.changes_reflected
-      if @inventory.update_attributes(params[:inventory])
-        # @inventory.set_lines(params[:lines_create].values)
-        for id, attributes in (params[:lines_update]||{})
-          il = InventoryLine.find_by_id(id).update_attributes!(attributes)
-        end
-      end
-      redirect_to :action=>:index
-      return
-    end
-    render :edit
+    redirect_to :action => :index
   end
 
 end

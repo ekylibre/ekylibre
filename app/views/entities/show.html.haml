@@ -98,9 +98,3 @@
       =toolbar do |t|
         -t.link :new, :controller=>:outgoing_payments, :payee_id=>@entity.id
       =list(:outgoing_payments)
-
-    -#b.cell(tl(:x_cashes, :count=>@entity.cashes.count)) do
-      =toolbar do |t|
-        -t.link :new, :controller=>:cashes, :entity_id=>@entity.id
-      =list(:cashes)
-

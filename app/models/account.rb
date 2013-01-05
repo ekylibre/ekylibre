@@ -232,9 +232,9 @@ class Account < CompanyRecord
   # Returns list of reconcilable prefixes defined in preferences
   def self.reconcilable_prefixes
     return [:client, :supplier, :attorney].collect do |mode|
-      Preference['third_'+mode.to_s.pluralize+'_accounts'].to_s
+      Preference["third_#{mode.to_s.pluralize}_accounts".to_sym].to_s
     end
-    return [Configuration.third_client_accounts, Configuration.third_supplier_accounts, Configuration.third_attorney_accounts]
+    # return [Configuration.third_client_accounts, Configuration.third_supplier_accounts, Configuration.third_attorney_accounts]
   end
 
   # Returns a RegExp based on reconcilable_prefixes

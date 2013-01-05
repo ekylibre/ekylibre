@@ -1,9 +1,9 @@
 -field_set do
   -input :name
-  -association :responsible, :source => "Entity#workers"
+  -association :responsible, :source => :employees
   -association :nature
   -input :planned_on
-  -input :description, :field => :text
+  -input :description
 
 -field_set(:duration) do
   -input :hour_duration

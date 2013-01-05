@@ -148,7 +148,7 @@ class Preference < CompanyRecord
   end
 
   def label(locale=nil)
-    ::I18n.t("preferences."+self.name, :locale => locale)
+    ::I18n.t("preferences." + self.name.to_s, :locale => locale)
   end
 
   def record?

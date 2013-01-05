@@ -54,15 +54,16 @@ ActiveRecord::Base.transaction do
   DocumentTemplate.load_defaults
 
   journals = {}
-  for journal in [:sales, :purchases, :bank, :various, :cash]
-    j = Journal.create!(:name => I18n.t("models.company.default.journals.#{journal}"), :nature => journal.to_s, :currency => currency)
+  for journal in Journal.nature.values
+    j = Journal.create!(:name => I18n.t("enumerize.journal.nature.#{journal}"), :nature => journal.to_s, :currency => currency)
     # company.prefer!("#{journal}_journal", j)
-    journals[journal] = j
+    journals[journal.to_sym] = j
     # company.prefer!("#{journal}_journal", company.journals.create!(:name => I18n.t("models.company.default.journals.#{journal}"), :nature => journal.to_s, :currency => currency))
   end
 
-  cash = Cash.create!(:name => I18n.t('models.company.default.cash.name.cash_box'), :nature => "cash_box", :account => Account.get("531101", "Caisse"), :journal_id => journals[:cash].id)
-  baac = Cash.create!(:name => I18n.t('models.company.default.cash.name.bank_account'), :nature => "bank_account", :account => Account.get("512101", "Compte bancaire"), :journal_id => journals[:bank].id, :iban => "FR7611111222223333333333391", :mode => "iban")
+  cash = Cash.create!(:name => I18n.t('enumerize.cash.nature.cash_box'), :nature => "cash_box", :account => Account.get("531101", "Caisse"), :journal_id => journals[:cash].id)
+  baac = Cash.create!(:name => I18n.t('enumerize.cash.nature.bank_account'), :nature => "bank_account", :account => Account.get("512101", "Compte bancaire"), :journal_id => journals[:bank].id, :iban => "FR7611111222223333333333391", :mode => "iban")
+
   IncomingPaymentMode.create!(:name => I18n.t('models.company.default.incoming_payment_modes.cash.name'), :cash_id => cash.id, :with_accounting => true, :attorney_journal => journals[:various])
   IncomingPaymentMode.create!(:name => I18n.t('models.company.default.incoming_payment_modes.check.name'), :cash_id => baac.id, :with_accounting => true, :with_deposit => true, :depositables_account_id => Account.get("5112", "Chèques à encaisser").id, :depositables_journal_id => journals[:various].id, :attorney_journal => journals[:various])
   IncomingPaymentMode.create!(:name => I18n.t('models.company.default.incoming_payment_modes.transfer.name'), :cash_id => baac.id, :with_accounting => true, :attorney_journal => journals[:various])

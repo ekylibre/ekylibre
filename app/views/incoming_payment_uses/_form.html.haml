@@ -1,12 +1,9 @@
--# TODO Complex "new" links
+-# TODO Manage subheading
 -expense = @incoming_payment_use.expense
 =subheading :attach_an_incoming_payment_to_expense, :type=>expense.class.model_name.human, :number=>expense.number, :label=>expense.label
 
-=formalize do |f|
-  -f.error 'incoming_payment_use'
-  -f.field :incoming_payment_use, :downpayment
-  -payment = @incoming_payment_use.expense.payer.last_incoming_payment || IncomingPayment.new
-  -f.field :incoming_payment_use, :payment_id, :choices=>{:reflection=>:usable_incoming_payments}, :new=>{:payer_id=>@incoming_payment_use.expense.payer.id, :amount=>@incoming_payment_use.expense.unpaid_amount, :bank=>payment.bank, :account_number=>payment.account_number, :currency=>@incoming_payment_use.expense.currency}
-=hidden_field(:incoming_payment_use, :expense_id)
-=hidden_field(:incoming_payment_use, :expense_type)
-
+=field_set do
+  -input :expense_id, :field => :hidden
+  -input :expense_type, :field => :hidden
+  -input :downpayment
+  -association :payment, :source => :usable, :new => {:payer_id => "expense.payer.id".to_sym, :amount => "expense.unpaid_amount".to_sym, :bank => "previous_payment.bank".to_sym, :account_number => "previous_payment.account_number".to_sym, :currency => "expense.currency".to_sym}

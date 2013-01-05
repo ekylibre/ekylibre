@@ -108,9 +108,37 @@ class ActionController::TestCase
                end
       end
 
-      # model = controller.to_s.singularize
       model_name = controller.to_s.classify
       record = model_name.underscore
+      attributes = nil
+      model = model_name.constantize rescue nil
+      if model
+        file_columns = {}
+        if model.respond_to?(:attachment_definitions)
+          unless model.attachment_definitions.nil?
+            file_columns = model.attachment_definitions
+          end
+        end
+        protected_attributes = model.protected_attributes.to_a - ["id", "type"]
+        attributes = if model.accessible_attributes.to_a.size > 0
+                       restricted = true
+                       model.accessible_attributes.to_a
+                     elsif protected_attributes.size > 0
+                       restricted = true
+                       model.attribute_names - protected_attributes
+                     else
+                       model.attribute_names
+                     end
+        attributes = "{" + attributes.collect do |a|
+          if file_columns[a.to_sym]
+            ":#{a} => fixture_file_upload('sample_image.png')"
+          else
+            ":#{a} => #{record}.#{a}"
+          end
+        end.join(", ")+ "}"
+      end
+
+
       if options[action].is_a? Hash
         # code << "    get :#{action}\n"
         # code << "    assert_response :redirect\n"
@@ -131,45 +159,20 @@ class ActionController::TestCase
         code << "    assert_response :success, \"Flash: \#{flash.inspect}\"\n"
         code << "    assert_not_nil assigns(:#{record})\n"
       elsif mode == :create
-        model = model_name.constantize
-        restricted = false
-        attributes = if model.accessible_attributes.to_a.size > 0
-                       restricted = true
-                       model.accessible_attributes.to_a
-                     elsif model.protected_attributes.to_a.size > 0
-                       restricted = true
-                       model.attribute_names - model.protected_attributes.to_a
-                     else
-                       model.attribute_names
-                     end
-
         code << "    #{record} = #{controller}(:#{controller}_001)\n"
-        code << "    assert_nothing_raised do\n"
-        code << "      post :#{action}, :#{record} => {"+attributes.collect{|a| ":#{a} => #{record}.#{a}"}.join(', ')+"}\n"
-        code << "    end\n"
+        #code << "    assert_nothing_raised do\n"
+        code << "      post :#{action}, :#{record} => #{attributes}\n"
+        #code << "    end\n"
         # if restricted
         #   code << "    assert_raise(ActiveModel::MassAssignmentSecurity::Error, 'POST #{controller}/#{action}') do\n"
         #   code << "      post :#{action}, :#{record} => #{record}.attributes\n"
         #   code << "    end\n"
         # end
       elsif mode == :update
-        model = model_name.constantize
-        restricted = false
-        protected_attributes = model.protected_attributes.to_a - ["id", "type"]
-        attributes = if model.accessible_attributes.to_a.size > 0
-                       restricted = true
-                       model.accessible_attributes.to_a
-                     elsif protected_attributes.size > 0
-                       restricted = true
-                       model.attribute_names - protected_attributes
-                     else
-                       model.attribute_names
-                     end
-
         code << "    #{record} = #{controller}(:#{controller}_001)\n"
-        code << "    assert_nothing_raised do\n"
-        code << "      put :#{action}, :id => #{record}.id, :#{record} => {"+attributes.collect{|a| ":#{a} => #{record}.#{a}"}.join(', ')+"}\n"
-        code << "    end\n"
+        #code << "    assert_nothing_raised do\n"
+        code << "      put :#{action}, :id => #{record}.id, :#{record} => #{attributes}\n"
+        #code << "    end\n"
         # if restricted
         #   code << "    assert_raise(ActiveModel::MassAssignmentSecurity::Error, 'PUT #{controller}/#{action}/:id') do\n"
         #   code << "      put :#{action}, :id => #{record}.id, :#{record} => #{record}.attributes\n"
@@ -214,14 +217,20 @@ class ActionController::TestCase
       else
         code << "    get :#{action}\n"
         code << "    assert_response :success, \"The action #{action.inspect} does not seem to support GET method \#{redirect_to_url} / \#{flash.inspect}\"\n"
-        code << "    assert_select('html body div#body', 1, '#{action}')\n" # +response.inspect
+        code << "    assert_select('html body div#wrap', 1, 'Cannot get main element in view #{action}')\n" # +response.inspect
       end
       code << "  end\n"
     end
     # code << "  end\n"
     code << "end\n"
 
-    code.split("\n").each_with_index{|line, x| puts((x+1).to_s.rjust(4)+": "+line)}
+    file = Rails.root.join("tmp", "auto-tests", "#{controller}.rb")
+    FileUtils.mkdir_p(file.dirname)
+    File.open(file, "wb") do |f|
+      f.write(code)
+    end
+    # code.split("\n").each_with_index{|line, x| puts((x+1).to_s.rjust(4)+": "+line)}
+
     class_eval(code, "#{__FILE__}:#{__LINE__}")
 
   end

@@ -32,14 +32,11 @@
 #  lock_version  :integer          default(0), not null
 #  pretax_amount :decimal(19, 4)   not null
 #  product_id    :integer          not null
-#  quantity_max  :decimal(19, 4)   default(0.0), not null
-#  quantity_min  :decimal(19, 4)   default(0.0), not null
 #  started_at    :datetime         
 #  stopped_at    :datetime         
 #  tax_id        :integer          not null
 #  updated_at    :datetime         not null
 #  updater_id    :integer          
-#  use_range     :boolean          not null
 #
 
 

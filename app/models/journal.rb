@@ -74,7 +74,7 @@ class Journal < CompanyRecord
       self.currency ||= eoc.currency
     end
     # TODO: Removes default value for closed_on
-    self.code = tc('natures.'+self.nature.to_s).codeize if self.code.blank?
+    self.code = self.nature.text.codeize if self.code.blank?
     self.code = self.code[0..3]
   end
 

@@ -88,7 +88,9 @@ module ApplicationHelper
   # end
 
 
-  def selector_tag(name, choices, options = {}, html_options = {})
+  def selector_tag(name, choices = nil, options = {}, html_options = {})
+    choices ||= :unroll
+    choices = {:action => choices} if choices.is_a?(Symbol)
     return text_field_tag(name, html_options.merge('data-selector' => url_for(choices)))
   end
 
@@ -1001,7 +1003,25 @@ module ApplicationHelper
 
 
 
-  def field(label, input = nil, &block)
+  def field(*args, &block)
+    options = (args[-1].is_a?(Hash) ? args.delete_at(-1) : {})
+    label, input = nil, nil
+    if args[0].is_a?(String)
+      label, input = args[0], args[1]
+    elsif args[0].is_a?(Symbol)
+      attribute = args[0]
+      object = @object_of_current_field_set
+      model = object.class
+      label = model.huamn_attribute_name(attribute)
+      input = if options[:source]
+                select(object, attribute, options[:source])
+              else
+                text_field(object, attribute)
+              end
+    else
+      raise ArgumentError("field don't understand these parameters: #{args.inspect}")
+    end
+
     return content_tag(:div, content_tag(:label, label, :class => "control-label") + content_tag(:div, (block_given? ? capture(&block) : input), :class => "controls"), :class => "control-group")
   end
 
@@ -1329,14 +1349,14 @@ module ApplicationHelper
     # Check field_set, field and association
     default_field_set = tree.first[:name]
     for field in @fields
-      field[:in] ||= default_field_set
+      field[:set] ||= default_field_set
     end
 
     fields = @fields.dup
     roots = fields.select{|f| f[:before].blank? and f[:after].blank?}
     raise ArgumentError.new("No root field defined...") if roots.size.zero?
     for set in tree
-      set[:fields] = roots.select{|f| f[:in] == set[:name]}
+      set[:fields] = roots.select{|f| f[:set] == set[:name]}
     end
     others = fields - roots
     # raise [others.collect{|x| x[:name]}, tree.collect{|x| x[:name]}].inspect
@@ -1347,16 +1367,16 @@ module ApplicationHelper
         if other[:before]
           ref = @fields.select{|f| f[:name] == other[:before]}.first
           raise Exception.new("Unknown field #{other[:before]}") unless ref
-          raise Exception.new("Fields (#{other[:name]} before #{ref[:name]}) must be in the same set if you want to use :before") if ref[:in] != other[:in]
-          fs = tree.select{|fs| fs[:name] == other[:in]}.first
+          raise Exception.new("Fields (#{other[:name]} before #{ref[:name]}) must be in the same set if you want to use :before") if ref[:set] != other[:set]
+          fs = tree.select{|fs| fs[:name] == other[:set]}.first
           if fs[:fields].select{|f| f[:name] == other[:before]}.first
             fs[:fields].insert(fs[:fields].index(ref), others.delete(other))
           end
         elsif other[:after]
           ref = @fields.select{|f| f[:name] == other[:after]}.first
           raise Exception.new("Unknown field #{other[:after]}") unless ref
-          raise Exception.new("Fields (#{other[:name]} after #{ref[:name]}) must be in the same set if you want to use :after") if ref[:in] != other[:in]
-          fs = tree.select{|fs| fs[:name] == other[:in]}.first
+          raise Exception.new("Fields (#{other[:name]} after #{ref[:name]}) must be in the same set if you want to use :after") if ref[:set] != other[:set]
+          fs = tree.select{|fs| fs[:name] == other[:set]}.first
           if fs[:fields].select{|f| f[:name] == other[:after]}.first
             fs[:fields].insert(fs[:fields].index(ref)+1, others.delete(other))
           end
@@ -1415,7 +1435,7 @@ module ApplicationHelper
 
   def field_set(*args, &block)
     options = (args[-1].is_a?(Hash) ? args.delete_at(-1) : {})
-    name  = (args[-1].is_a?(Symbol) ? args.delete_at(-1) : "general-informations").to_sym
+    name  = (args[0].is_a?(Symbol) ? args.delete_at(0) : "general-informations").to_sym
     # Test if we are building a field_set with master_form
     if @field_sets
       if @field_sets[name]
@@ -1429,14 +1449,7 @@ module ApplicationHelper
           raise Exception.new("Cannot be before something and after other thing")
         end
         options[:object] = (args[-1] ? args.delete_at(-1) : (options[:object] || instance_variable_get('@' + controller.controller_name.to_s.singularize)))
-        if options[:in]
-          options[:in] = [options[:in]] unless options[:in].is_a?(Array)
-          options[:in] = options[:in].flatten.collect{|g| g.to_sym}
-          for group in options[:in]
-            @groups[group] ||= {:name => group, :field_sets => [], :wrapper_id => group.to_s.gsub(/\_/, '-') + "-group"}
-            @groups[group][:field_sets] << name
-          end
-        end
+        options[:in] = normalize_groups(options[:in])
         @field_sets[name] = options
       end
       if block_given?
@@ -1446,13 +1459,13 @@ module ApplicationHelper
       end
       return nil
     else
+      @object_of_current_field_set = args[-1]
       return content_tag(:div, content_tag(:div, content_tag(:span, "", :class => :icon) + content_tag(:span, (name.is_a?(Symbol) ? name.to_s.gsub('-', '_').t(:default => ["labels.#{name.to_s.gsub('-', '_')}".to_sym, "form.legends.#{name.to_s.gsub('-', '_')}".to_sym]) : name.to_s)), :class => "fieldset-legend") + content_tag(:div, capture(&block), :class => "fieldset-fields"), :class => "fieldset")
     end
   end
 
   def input(name, options = {})
     check_field_name_before_push(name, __method__)
-    options[:in] ||= @current_field_set
     options.merge!(:type => __method__, :name => name)
     model = options[:model] || @master_model
     if column = model.columns_hash[name.to_s]
@@ -1479,28 +1492,28 @@ module ApplicationHelper
       end
     end
 
-
-    options[:multipart] = true if @master_model.respond_to?(:attachment_definitions)
+    if model.respond_to?(:attachment_definitions)
+      unless model.attachment_definitions.nil?
+        options[:multipart] = true
+      end
+    end
     push_field(options)
   end
 
   def association(name, options = {})
     check_field_name_before_push(name, __method__)
-    options[:in] ||= @current_field_set
     options.merge!(:type => __method__, :name => name)
     push_field(options)
   end
 
   def partial(name, options = {})
     check_field_name_before_push(name, __method__)
-    options[:in] ||= @current_field_set
     options.merge!(:type => __method__, :name => name)
     push_field(options)
   end
 
   def nested_association(name, options = {}, &block)
     check_field_name_before_push(name, __method__)
-    options[:in] ||= @current_field_set
     fields = (block_given? ? collect_fields(&block) : [])
     options.merge!(:type => __method__, :name => name, :fields => fields)
     push_field(options)
@@ -1508,7 +1521,6 @@ module ApplicationHelper
 
   def custom_fields(options = {})
     check_field_name_before_push(__method__, __method__)
-    options[:in] ||= @current_field_set
     options.merge!(:type => __method__, :name => __method__)
     push_field(options)
   end
@@ -1527,6 +1539,8 @@ module ApplicationHelper
   def push_field(field)
     field[:wrapper_id] = "#{field[:name].to_s.gsub(/\_/, '-')}-field"
     field[:name] = field[:name].to_sym
+    field[:set] ||= @current_field_set
+    field[:in] = normalize_groups(field[:in])
     @fields[0] << field
     return true
   end
@@ -1554,6 +1568,20 @@ module ApplicationHelper
     end.flatten.join(", ")
   end
 
+  def normalize_groups(groups)
+    if groups.nil? or groups.blank?
+      return nil
+    else
+      groups = [groups] unless groups.is_a?(Array)
+      groups = groups.flatten.collect{|g| g.to_sym}
+      for group in groups
+        @groups[group] ||= {:name => group, :wrapper_id => group.to_s.gsub(/\_/, '-') + "-group"}
+      end
+    end
+    return groups
+  end
+
+
   def normalize_source(source, default_controller)
     url = {}
     if source.to_s.match("#")
@@ -1571,7 +1599,11 @@ module ApplicationHelper
   def render_field(field, depth = 0)
     options = field.dup
     name, type = options.delete(:name), options.delete(:type)
-    return send("render_field_#{type}", name, options).strip.gsub(/^/, '  '*depth) + "\n"
+    haml = send("render_field_#{type}", name, options).strip
+    for group in options[:in]
+      haml = ".#{@groups[group][:wrapper_id]}.field-group\n" + haml.gsub(/^/, '  ')
+    end if options[:in]
+    return haml.gsub(/^/, '  '*depth) + "\n"
   end
 
   def render_field_input(name, options = {})
@@ -1632,7 +1664,7 @@ module ApplicationHelper
     object = options[:object] || "@" + model.name.underscore
     reflection = model.reflections[name]
     raise ArgumentError.new("Unknown reflection :#{name} for #{model.name}") if reflection.nil?
-    reflection_model = reflection.class_name.classify.constantize
+    reflection_model = reflection.class_name.constantize
     source = options.delete(:source)
     face = options.delete(:field)
     required = (options.has_key?(:required) ? options[:required] : model.validators_on(name).detect{|v| v.attributes.include?(name) and v.is_a?(ActiveModel::Validations::PresenceValidator)} ? true : false)
@@ -1690,7 +1722,7 @@ module ApplicationHelper
       if buttons.size > 0
         haml << "    %span.btn-toolbar\n"
         for action, action_options in buttons
-          haml << "      =link_to({:controller => :#{reflection_model.name.pluralize.underscore}, :action => :#{action}" + (action_options[:member] ? ", :id => '#{item_id}'" : '') + "}, 'data-#{action}-item' => '#{input_id}'" + (action_options[:member] ? ", 'data-#{action}-item-id' => '#{item_id}'" : '') + ", :class => 'btn btn-#{action}') do\n"
+          haml << "      =link_to({:controller => :#{reflection_model.name.pluralize.underscore}, :action => :#{action}" + (action_options.delete(:member) ? ", :id => '#{item_id}'" : '') + action_options.collect{|k,v| ", :#{k} => " + (v.is_a?(Symbol) ? "#{object}.#{v}" : v.inspect)}.join + "}, 'data-#{action}-item' => '#{input_id}'" + (action_options[:member] ? ", 'data-#{action}-item-id' => '#{item_id}'" : '') + ", :class => 'btn btn-#{action}') do\n"
           haml << "        %span.icon\n"
           haml << "        %span.text='labels.#{action}'.t\n"
         end
@@ -1701,8 +1733,21 @@ module ApplicationHelper
 
   def render_field_partial(name, options = {})
     partial = options[:with] || "#{name}_form"
+    attrs = []
+    if options[:depend_on]
+      attrs << "'data-depend-on' => #{form_element_ids(options[:depend_on])}"
+      options[:refresh_url] ||= {:action => "refresh_#{name}"}
+    end
+    if options[:refresh_url]
+      attrs << "'data-refresh' => " + url_for(options[:refresh_url]).to_s
+      options[:refresh_mode] ||= :update
+    end
+    if options[:refresh_mode]
+      attrs << "'data-refresh-mode' => " + options[:refresh_mode].to_s
+    end
+    attrs = "{" + attrs.join(", ") + "}" unless attrs.empty?
     haml  = ""
-    haml << "##{options[:wrapper_id]}=render(:partial => '#{partial}')\n"
+    haml << "##{options[:wrapper_id]}#{attrs}=render(:partial => '#{partial}')\n"
     return haml
   end
 

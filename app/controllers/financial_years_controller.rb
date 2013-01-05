@@ -21,31 +21,31 @@ class FinancialYearsController < AdminController
 
   unroll_all
 
-  list(:order=>"started_on DESC") do |t|
-    t.column :code, :url=>true
+  list(:order => "started_on DESC") do |t|
+    t.column :code, :url => true
     t.column :closed
-    t.column :started_on, :url=>true
-    t.column :stopped_on, :url=>true
+    t.column :started_on, :url => true
+    t.column :stopped_on, :url => true
     t.column :currency
     t.column :currency_precision
     # t.action :close, :if => '!RECORD.closed and RECORD.closable?'
-    t.action :edit, :if => '!RECORD.closed'
-    t.action :destroy, :if => '!RECORD.closed'
+    t.action :edit, :unless => :closed?
+    t.action :destroy, :unless => :closed?
   end
 
   # Displays the main page with the list of financial years
   def index
   end
 
-  list(:account_balances, :joins=>:account, :conditions=>{:financial_year_id=>['session[:current_financial_year_id]']}, :order=>"number") do |t|
-    t.column :number, :through=>:account, :url=>true
-    t.column :name, :through=>:account, :url=>true
+  list(:account_balances, :joins => :account, :conditions => {:financial_year_id => ['session[:current_financial_year_id]']}, :order => "number") do |t|
+    t.column :number, :through => :account, :url => true
+    t.column :name, :through => :account, :url => true
     t.column :local_debit, :currency => "RECORD.financial_year.currency"
     t.column :local_credit, :currency => "RECORD.financial_year.currency"
   end
 
-  list(:asset_depreciations, :conditions=>{:financial_year_id=>['session[:current_financial_year_id]']}) do |t|
-    t.column :name, :through=>:asset, :url=>true
+  list(:asset_depreciations, :conditions => {:financial_year_id => ['session[:current_financial_year_id]']}) do |t|
+    t.column :name, :through => :asset, :url => true
     t.column :started_on
     t.column :stopped_on
     t.column :amount, :currency => true
@@ -83,10 +83,10 @@ class FinancialYearsController < AdminController
     # Launch close process
     return unless @financial_year = find_and_check
     if request.post?
-      params[:journal_id] = Journal.create!(:nature=>"renew").id if params[:journal_id]=="0"
-      if @financial_year.close(params[:financial_year][:stopped_on].to_date, :renew_id=>params[:journal_id])
+      params[:journal_id] = Journal.create!(:nature => "renew").id if params[:journal_id]=="0"
+      if @financial_year.close(params[:financial_year][:stopped_on].to_date, :renew_id => params[:journal_id])
         notify_success(:closed_financial_years)
-        redirect_to(:action=>:index)
+        redirect_to(:action => :index)
       end
     else
       journal = Journal.used_for(:forward).first

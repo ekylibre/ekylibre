@@ -23,7 +23,7 @@ class ProductsController < AdminController
   # management -> products_conditions
   def self.products_conditions(options={})
     code = ""
-    code = light_search_conditions(:products=>[:number, :code, :code2, :name, :catalog_name, :description, :catalog_description, :ean13])+"\n"
+    code = light_search_conditions(:products => [:number, :code, :code2, :name, :catalog_name, :description, :catalog_description, :ean13])+"\n"
     code += "if session[:product_state] == 'active'\n"
     code += "  c[0] += ' AND active = ?'\n"
     code += "  c << true\n"
@@ -39,14 +39,14 @@ class ProductsController < AdminController
     code
   end
 
-  list(:conditions=>products_conditions) do |t|
+  list(:conditions => products_conditions) do |t|
     # t.column :number
-    t.column :name, :through=>:category, :url=>true
-    t.column :name, :url=>true
-    t.column :code, :url=>true
+    t.column :name, :through => :category, :url => true
+    t.column :name, :url => true
+    t.column :code, :url => true
     t.column :stockable
-    t.column :nature_label
-    t.column :label, :through=>:unit
+    t.column :nature
+    t.column :label, :through => :unit
     t.action :edit
     t.action :destroy
   end
@@ -58,40 +58,40 @@ class ProductsController < AdminController
   end
 
 
-  list(:components, :model=>:product_components, :conditions=>{:product_id=>['session[:product_id]'], :active=>true}) do |t|
+  list(:components, :model => :product_components, :conditions => {:product_id => ['session[:product_id]'], :active => true}) do |t|
     t.column :quantity
-    t.column :label, :through=>[:component, :unit]
-    t.column :name, :through=>:component
+    t.column :label, :through => [:component, :unit]
+    t.column :name, :through => :component
     t.action :edit
     t.action :destroy
   end
 
-  list(:prices, :conditions=>{:product_id=>['session[:product_id]'], :active=>true}) do |t|
-    t.column :name, :through=>:entity, :url=>true
-    t.column :name, :through=>:category, :url=>true
-    t.column :pretax_amount, :currency => true
-    t.column :amount, :currency => true
+  list(:prices, :conditions => {:product_id => ['session[:product_id]'], :active => true}) do |t|
+    t.column :name, :through => :entity, :url => true
+    t.column :name, :through => :category, :url => true
+    t.column :pretax_amount, :currency  =>  true
+    t.column :amount, :currency  =>  true
     t.column :by_default
     # t.column :range
     t.action :edit
     t.action :destroy
   end
 
-  list(:stock_moves, :conditions=>{:product_id =>['session[:product_id]']}, :line_class=>'RECORD.state', :order=>"updated_at DESC") do |t|
+  list(:stock_moves, :conditions => {:product_id  => ['session[:product_id]']}, :line_class => 'RECORD.state', :order => "updated_at DESC") do |t|
     t.column :name
-    # t.column :name, :through=>:origin
-    t.column :name, :through=>:warehouse, :url=>true
-    t.column :name, :through=>:tracking, :url=>true
+    # t.column :name, :through => :origin
+    t.column :name, :through => :warehouse, :url => true
+    t.column :name, :through => :tracking, :url => true
     t.column :quantity
-    t.column :label, :through=>:unit
+    t.column :label, :through => :unit
     t.column :virtual
     t.column :planned_on
     t.column :moved_on
   end
 
-  list(:stocks, :conditions=>['#{Stock.table_name}.product_id = ?', ['session[:product_id]']], :line_class=>'RECORD.state', :order=>"updated_at DESC") do |t|
-    t.column :name, :through=>:warehouse, :url=>true
-    t.column :name, :through=>:tracking, :url=>true
+  list(:stocks, :conditions => ['#{Stock.table_name}.product_id = ?', ['session[:product_id]']], :line_class => 'RECORD.state', :order => "updated_at DESC") do |t|
+    t.column :name, :through => :warehouse, :url => true
+    t.column :name, :through => :tracking, :url => true
     #t.column :quantity_max
     #t.column :quantity_min
     #t.column :critic_quantity_min
@@ -107,7 +107,7 @@ class ProductsController < AdminController
   end
 
   def new
-    @product = Product.new(:nature=>Product.natures.first[1])
+    @product = Product.new(:nature => Product.nature.default_value)
     @stock = Stock.new
     render_restfully_form
   end
@@ -124,7 +124,7 @@ class ProductsController < AdminController
         @product.errors.add_from_record(@stock)
       end
       raise ActiveRecord::Rollback unless saved
-      return if save_and_redirect(@product, :saved=>saved)
+      return if save_and_redirect(@product, :saved => saved)
     end
     render_restfully_form
   end
@@ -163,15 +163,15 @@ class ProductsController < AdminController
       end
       raise ActiveRecord::Rollback unless saved
     end
-    return if save_and_redirect(@product, :saved=>saved)
+    return if save_and_redirect(@product, :saved => saved)
     t3e @product.attributes
     render_restfully_form
   end
 
   def change_quantities
-    @stock = Stock.find(:first, :conditions=>{:warehouse_id=>params[:warehouse_id], :product_id=>session[:product_id]})
+    @stock = Stock.find(:first, :conditions => {:warehouse_id => params[:warehouse_id], :product_id => session[:product_id]})
     if @stock.nil?
-      @stock = Stock.new(:quantity_min=>1, :quantity_max=>0, :critic_quantity_min=>0)
+      @stock = Stock.new(:quantity_min => 1, :quantity_max => 0, :critic_quantity_min => 0)
     end
   end
 

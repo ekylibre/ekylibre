@@ -18,25 +18,25 @@
 #
 
 class PurchasesController < AdminController
-  manage_restfully :supplier_id=>"params[:supplier_id]", :planned_on=>"Date.today+2", :redirect_to=>'{:action=>:show, :step=>:products, :id=>"id"}'
+  manage_restfully :supplier_id => "params[:supplier_id]", :planned_on => "Date.today+2", :redirect_to => '{:action => :show, :step => :products, :id => "id"}'
 
   unroll_all
 
-  list(:conditions=>search_conditions(:purchase, :purchases=>[:created_on, :pretax_amount, :amount, :number, :reference_number, :comment], :entities=>[:code, :full_name]), :joins=>:supplier, :line_class=>'RECORD.state', :order=>"created_on DESC, number DESC") do |t|
-    t.column :number, :url=>{:action=>:show, :step=>:default}
-    t.column :reference_number, :url=>{:action=>:show, :step=>:products}
+  list(:conditions => search_conditions(:purchase, :purchases => [:created_on, :pretax_amount, :amount, :number, :reference_number, :comment], :entities => [:code, :full_name]), :joins => :supplier, :line_class => 'RECORD.state', :order => "created_on DESC, number DESC") do |t|
+    t.column :number, :url => {:action => :show, :step => :default}
+    t.column :reference_number, :url => {:action => :show, :step => :products}
     t.column :created_on
     # t.column :planned_on
     # t.column :moved_on
-    t.column :full_name, :through=>:supplier, :url=>true
+    t.column :full_name, :through => :supplier, :url => true
     t.column :comment
     # t.column :shipped
     t.column :state_label
-    t.column :paid_amount, :currency=>true
-    t.column :amount, :currency=>true
-    t.action :show, :url=>{:format=>:pdf}, :image=>:print
+    t.column :paid_amount, :currency => true
+    t.column :amount, :currency => true
+    t.action :show, :url => {:format => :pdf}, :image => :print
     t.action :edit
-    t.action :destroy, :if=>"RECORD.destroyable\?"
+    t.action :destroy, :if => "RECORD.destroyable\?"
   end
 
   # Displays the main page with the list of purchases
@@ -45,48 +45,48 @@ class PurchasesController < AdminController
   end
 
 
-  list(:deliveries, :model=>:incoming_deliveries, :children=>:lines, :conditions=>{:purchase_id=>['session[:current_purchase_id]']}) do |t|
-    t.column :address, :through=>:contact, :children=>:product_name
-    t.column :planned_on, :children=>false
-    t.column :moved_on, :children=>false
-    t.column :quantity, :datatype=>:decimal
-    t.column :pretax_amount, :currency=>{:body=>"RECORD.purchase.currency", :children=>"RECORD.delivery.purchase.currency"}
-    t.column :amount, :currency=>{:body=>"RECORD.purchase.currency", :children=>"RECORD.delivery.purchase.currency"}
-    t.action :edit, :if=>'RECORD.purchase.order? '
-    t.action :destroy, :if=>'RECORD.purchase.order? '
+  list(:deliveries, :model => :incoming_deliveries, :children => :lines, :conditions => {:purchase_id => ['session[:current_purchase_id]']}) do |t|
+    t.column :address, :through => :contact, :children => :product_name
+    t.column :planned_on, :children => false
+    t.column :moved_on, :children => false
+    t.column :quantity, :datatype => :decimal
+    t.column :pretax_amount, :currency => {:body => "RECORD.purchase.currency", :children => "RECORD.delivery.purchase.currency"}
+    t.column :amount, :currency => {:body => "RECORD.purchase.currency", :children => "RECORD.delivery.purchase.currency"}
+    t.action :edit, :if => 'RECORD.purchase.order? '
+    t.action :destroy, :if => 'RECORD.purchase.order? '
   end
 
-  list(:payment_uses, :model=>:outgoing_payment_uses, :conditions=>["#{OutgoingPaymentUse.table_name}.expense_id=? ", ['session[:current_purchase_id]']]) do |t|
-    t.column :number, :through=>:payment, :url=>true
-    t.column :amount, :currency=>"RECORD.payment.currency", :through=>:payment, :label=>"payment_amount", :url=>true
-    t.column :amount, :currency=>"RECORD.payment.currency"
-    t.column :name, :through=>[:payment, :mode]
+  list(:payment_uses, :model => :outgoing_payment_uses, :conditions => ["#{OutgoingPaymentUse.table_name}.expense_id=? ", ['session[:current_purchase_id]']]) do |t|
+    t.column :number, :through => :payment, :url => true
+    t.column :amount, :currency => "RECORD.payment.currency", :through => :payment, :label => "payment_amount", :url => true
+    t.column :amount, :currency => "RECORD.payment.currency"
+    t.column :name, :through => [:payment, :mode]
     t.column :downpayment
-    t.column :to_bank_on, :through=>:payment, :label=>:column, :datatype=>:date
-    t.action :destroy#, :if=>'RECORD.expense.shipped == false'
+    t.column :to_bank_on, :through => :payment, :label => :column, :datatype => :date
+    t.action :destroy#, :if => 'RECORD.expense.shipped == false'
   end
 
-  list(:undelivered_lines, :model=>:purchase_lines, :conditions=>{:purchase_id=>['session[:current_purchase_id]']}) do |t|
-    t.column :name, :through=>:product
-    t.column :pretax_amount, :currency=>"RECORD.price.currency", :through=>:price
+  list(:undelivered_lines, :model => :purchase_lines, :conditions => {:purchase_id => ['session[:current_purchase_id]']}) do |t|
+    t.column :name, :through => :product
+    t.column :pretax_amount, :currency => "RECORD.price.currency", :through => :price
     t.column :quantity
-    t.column :label, :through=>:unit
-    t.column :pretax_amount, :currency=>"RECORD.purchase.currency"
-    t.column :amount, :currency=>"RECORD.purchase.currency"
-    t.column :undelivered_quantity, :datatype=>:decimal
+    t.column :label, :through => :unit
+    t.column :pretax_amount, :currency => "RECORD.purchase.currency"
+    t.column :amount, :currency => "RECORD.purchase.currency"
+    t.column :undelivered_quantity, :datatype => :decimal
   end
 
-  list(:lines, :model=>:purchase_lines, :conditions=>{:purchase_id=>['session[:current_purchase_id]']}) do |t|
-    t.column :name, :through=>:product, :url=>true
+  list(:lines, :model => :purchase_lines, :conditions => {:purchase_id => ['session[:current_purchase_id]']}) do |t|
+    t.column :name, :through => :product, :url => true
     t.column :annotation
     t.column :tracking_serial
     t.column :quantity
-    t.column :label, :through=>:unit
-    t.column :pretax_amount, :currency=>"RECORD.purchase.currency", :through=>:price
-    t.column :pretax_amount, :currency=>"RECORD.purchase.currency"
-    t.column :amount, :currency=>"RECORD.purchase.currency"
-    t.action :edit, :if=>'RECORD.purchase.draft? '
-    t.action :destroy, :if=>'RECORD.purchase.draft? '
+    t.column :label, :through => :unit
+    t.column :pretax_amount, :currency => "RECORD.purchase.currency", :through => :price
+    t.column :pretax_amount, :currency => "RECORD.purchase.currency"
+    t.column :amount, :currency => "RECORD.purchase.currency"
+    t.action :edit, :if => 'RECORD.purchase.draft? '
+    t.action :destroy, :if => 'RECORD.purchase.draft? '
   end
 
 
@@ -100,22 +100,22 @@ class PurchasesController < AdminController
         if params[:step] and not ["products", "deliveries", "summary"].include?(params[:step])
           state  = @purchase.state
           params[:step] = (@purchase.invoice? ? :summary : @purchase.order? ? :deliveries : :products).to_s
-          # redirect_to :action=>:show, :id=>@purchase.id,  :step=>(["invoiced", "finished"].include?(state) ? :summary : state=="processing" ? :deliveries : :products)
+          # redirect_to :action => :show, :id => @purchase.id,  :step => (["invoiced", "finished"].include?(state) ? :summary : state=="processing" ? :deliveries : :products)
           # return
         end
         if params[:step] == "deliveries"
           if @purchase.deliveries.size <= 0 and @purchase.order? and @purchase.has_content?
-            redirect_to :action=>:new, :controller=>:incoming_deliveries, :purchase_id=>@purchase.id
+            redirect_to :action => :new, :controller => :incoming_deliveries, :purchase_id => @purchase.id
           elsif @purchase.deliveries.size <= 0 and @purchase.invoice?
             notify(:purchase_already_invoiced)
           elsif @purchase.lines.size <= 0
             notify_warning(:no_lines_found)
-            redirect_to :action=>:show, :step=>:products, :id=>@purchase.id
+            redirect_to :action => :show, :step => :products, :id => @purchase.id
           end
         end
-        t3e @purchase.attributes, :supplier=>@purchase.supplier.full_name, :state=>@purchase.state_label
+        t3e @purchase.attributes, :supplier => @purchase.supplier.full_name, :state => @purchase.state_label
       end
-      format.xml { render :xml => @purchase.to_xml }
+      format.xml { render :xml  =>  @purchase.to_xml }
       format.pdf { render_print_purchase(@purchase) }
     end
   end
@@ -125,7 +125,7 @@ class PurchasesController < AdminController
     if request.post?
       @purchase.abort
     end
-    redirect_to :action=>:show, :id=>@purchase.id
+    redirect_to :action => :show, :id => @purchase.id
   end
 
   def confirm
@@ -134,7 +134,7 @@ class PurchasesController < AdminController
     if request.post?
       step = :deliveries if @purchase.confirm
     end
-    redirect_to :action=>:show, :step=>step, :id=>@purchase.id
+    redirect_to :action => :show, :step => step, :id => @purchase.id
   end
 
   def correct
@@ -142,17 +142,17 @@ class PurchasesController < AdminController
     if request.post?
       @purchase.correct
     end
-    redirect_to :action=>:show, :step=>:products, :id=>@purchase.id
+    redirect_to :action => :show, :step => :products, :id => @purchase.id
   end
 
   def invoice
     return unless @purchase = find_and_check(:purchase)
     ActiveRecord::Base.transaction do
       raise ActiveRecord::Rollback unless @purchase.invoice(params[:invoiced_on])
-      redirect_to :action=>:show, :step=>:summary, :id=>@purchase.id
+      redirect_to :action => :show, :step => :summary, :id => @purchase.id
       return
     end
-    redirect_to :action=>:show, :step=>:products, :id=>@purchase.id
+    redirect_to :action => :show, :step => :products, :id => @purchase.id
   end
 
   def propose
@@ -160,7 +160,7 @@ class PurchasesController < AdminController
     if request.post?
       @purchase.propose
     end
-    redirect_to :action=>:show, :step=>:products, :id=>@purchase.id
+    redirect_to :action => :show, :step => :products, :id => @purchase.id
   end
 
   def refuse
@@ -168,7 +168,7 @@ class PurchasesController < AdminController
     if request.post?
       @purchase.refuse
     end
-    redirect_to :action=>:show, :step=>:products, :id=>@purchase.id
+    redirect_to :action => :show, :step => :products, :id => @purchase.id
   end
 
 end

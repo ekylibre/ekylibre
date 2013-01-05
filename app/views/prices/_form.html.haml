@@ -1,14 +1,12 @@
--field_set do
+=field_set do
   -association :product
+  -# TODO: Cannot keep "if" in forms
   -if @mode != :sales
-    -association :entity, :source => "Entity#suppliers"
+    -association :entity, :source => :suppliers
   -input :by_default
 
-=render :partial=>"amount_form"
-
--#  -input :use_range, "data-show"=>"interval"
--#  #interval
--#    =formalize do |f|
--#      -input :quantity_min
--#      -input :quantity_max
-
+=field_set :amount do
+  -association :category
+  -input :pretax_amount
+  -association :tax
+  -input :currency, :source => :currencies

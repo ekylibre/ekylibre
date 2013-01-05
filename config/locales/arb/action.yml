@@ -649,8 +649,14 @@ arb:
     amount_to_add: "جمع واضافة القيمة باليورو، بما في ذلك ايام العطل"
     amount_to_reduce: "جمع القيمة ونسبها الى اليورو، بما في ذلك ايام العطل"
     amount_with_taxes: "مجموع قيمة التسليم مع كامل الضرائب" #?
-    animal_group_tabbox: #?
-    animal_tabbox: #?
+    # animal_bar: "Animals by category"
+    animal_group_tabbox:
+      # animals: "Animal"
+      # cares: "Cares on animal"
+    # animal_pie: "Animals by category"
+    animal_tabbox:
+      # cares: "Cares"
+      # childrens: "Childs"
     apply: "تطبيق"
     are_you_sure: "هل انت متأكد من رغبتك بالقيام به؟"
     are_you_sure_you_want_to_confirm: "هل انت متأكد من رغبتك بالمضي بطلب الشراء؟"
@@ -780,6 +786,8 @@ arb:
     # delivery: "Delivery"
     delivery_natural_gas_and_electricity_assessable: "وتخضع امدادات الغاز الطبيعي والكهرباء للضريبة في فرنسا" #?
     delivery_natural_gas_and_electricity_not_assessable: "لا تخضع امدادات الغاز الطبيعي والكهرباء للضريبة في فرنسا" #?
+    # demo_bar: "Bar"
+    # demo_pie: "Pie"
     department_create: "اضافة وظيفة جديدة" #?
     departments: "وظائف/مهام"
     deposit: "اقتطاعات البنك"
@@ -945,7 +953,9 @@ arb:
     land_parcel_name: "نظام"
     land_parcel_update: "تعديل النظام" #?
     land_parcels: "قائمة بالنظام"
+    # last_animals: "Last Birth"
     # last_computed_balance: "Last computed balance"
+    # last_events: "Last Events"
     # last_payment_amount: "Amount of the last payment"
     # last_payment_date: "Date of the last payment"
     left_balance_amount: "ارجاء الرصيد السابق غير معلق وغير مكلف"
@@ -1178,6 +1188,7 @@ arb:
     personalized_mail: "ارسال بريد الكتروني شخصي"
     pertinence: "%{value}%"
     # phone: "Pho."
+    # placeholder: "Placeholder"
     planned_on: "قرر يوم"
     # play: "Play"
     # please_wait: "Please wait..."

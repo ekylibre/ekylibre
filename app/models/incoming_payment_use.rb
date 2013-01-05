@@ -122,6 +122,8 @@ class IncomingPaymentUse < CompanyRecord
     not self.payment.scheduled or (self.payment.scheduled and self.payment.validated)
   end
 
-
+  def previous_payment
+    return (self.expense ? self.expense.payer.last_incoming_payment : IncomingPayment.new)
+  end
 
 end

@@ -20,7 +20,7 @@
 class AnimalsController < AdminController
   manage_restfully
 
-  respond_to :pdf, :xml, :json, :html 
+  respond_to :pdf, :xml, :json, :html
 
   unroll_all
 

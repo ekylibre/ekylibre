@@ -289,13 +289,13 @@ eng:
       edit: "Edit the observation"
       new: "Add a new observation"
     operation_lines:
-      new: "New operation's product"
+      new: "New operation's product" #?
     operation_natures:
       edit: "Edit type of operation: %{name}"
       index: "Types of operation"
       new: "Create a new type of operation"
     operation_uses:
-      new: "New tool's use"
+      new: "New tool's use" #?
     operations:
       edit: "Edit operation %{name}"
       index: "Operations"
@@ -647,11 +647,11 @@ eng:
     amount: "Amount with taxes"
     amount_to_add: "Total to add"
     amount_to_reduce: "Total to reduce"
-    animal_pie: "Animals by category"
     animal_bar: "Animals by category"
     animal_group_tabbox:
       animals: "Animal"
       cares: "Cares on animal"
+    animal_pie: "Animals by category"
     animal_tabbox:
       cares: "Cares"
       childrens: "Childs"
@@ -890,9 +890,9 @@ eng:
     land_parcels: "Land parcels"
     last_animals: "Last Birth"
     last_computed_balance: "Last computed balance"
+    last_events: "Last Events"
     last_payment_amount: "Amount of the last payment"
     last_payment_date: "Date of the last payment"
-    last_events: "Last Events"
     left_balance_amount: "Left Balance Amount"
     letter: "Letter"
     letter_conclusion: "Please accept, Dear Madam, Dear Sir, the assurances of my highest consideration."

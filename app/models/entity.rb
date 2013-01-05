@@ -107,7 +107,6 @@ class Entity < CompanyRecord
   belongs_to :responsible, :class_name => "Entity"
   belongs_to :role
   belongs_to :supplier_account, :class_name => "Account"
-  has_many :cashes, :dependent => :destroy
   has_many :clients, :class_name => "Entity", :foreign_key => :responsible_id, :dependent => :nullify
   has_many :addresses, :conditions => {:deleted_at => nil}, :class_name => "EntityAddress"
   has_many :mails,     :conditions => {:canal => "mail",    :deleted_at => nil}, :class_name => "EntityAddress"
@@ -192,6 +191,9 @@ class Entity < CompanyRecord
   # default_scope order(:last_name, :first_name)
   scope :necessary_transporters, -> { where("id IN (SELECT transporter_id FROM #{OutgoingDelivery.table_name} WHERE (moved_on IS NULL AND planned_on <= CURRENT_DATE) OR transport_id IS NULL)").order(:last_name, :first_name) }
   scope :employees, -> { where(:employed => true) }
+  scope :suppliers,    -> { where(:supplier => true) }
+  scope :transporters, -> { where(:transporter => true) }
+  scope :clients,      -> { where(:client => true) }
 
   # Needed to stamp all records
   model_stamper
@@ -292,7 +294,7 @@ class Entity < CompanyRecord
     valid_account = self.send(natures[nature])
     if valid_account.nil?
       prefix = Account.find_in_chart("#{nature}_thirds").number
-      if self.company.prefer_use_entity_codes_for_account_numbers?
+      if Preference[:use_entity_codes_for_account_numbers]
         number = prefix.to_s+self.code.to_s
         valid_account = Account.find_by_number(number)
         valid_account = Account.create(:number => number, :name => self.full_name, :reconcilable => true) unless valid_account
@@ -347,7 +349,7 @@ class Entity < CompanyRecord
     raise Exception.new("Company entity is not mergeable") if entity.of_company?
     Ekylibre::Record::Base.transaction do
       # Classics
-      for many in [:cashes, :direct_links, :events, :godchildren, :indirect_links, :mandates, :observations, :prices, :purchases, :outgoing_deliveries, :outgoing_payments, :sales, :sale_lines, :incoming_payments, :subscriptions, :trackings, :transfers, :transports, :transporter_sales]
+      for many in [:direct_links, :events, :godchildren, :indirect_links, :mandates, :observations, :prices, :purchases, :outgoing_deliveries, :outgoing_payments, :sales, :sale_lines, :incoming_payments, :subscriptions, :trackings, :transfers, :transports, :transporter_sales]
         ref = self.class.reflections[many]
         ref.class_name.constantize.update_all({ref.foreign_key => self.id}, {ref.foreign_key => entity.id})
       end

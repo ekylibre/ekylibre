@@ -61,6 +61,9 @@ class Operation < CompanyRecord
   validates_presence_of :name, :planned_on, :responsible, :started_at
   #]VALIDATORS]
 
+  accepts_nested_attributes_for :lines, :reject_if => :all_blank, :allow_destroy => true
+  accepts_nested_attributes_for :uses, :reject_if => :all_blank, :allow_destroy => true
+
   default_scope order(:planned_on, :moved_on)
   scope :unvalidateds, where(:moved_on => nil)
 

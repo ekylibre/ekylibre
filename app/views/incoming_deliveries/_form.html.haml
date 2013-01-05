@@ -1,39 +1,12 @@
--# TODO Form
+-# TODO: Manage extra contents in forms
 =purchase_steps
 
-=formalize do |f|
-  -f.error :incoming_delivery
-  -f.title :infos
-  -f.field :incoming_delivery, :contact_id, :choices=>:incoming_delivery_contacts, :new=>{:entity_id=>@purchase.supplier_id}
-  -f.field :incoming_delivery, :mode_id, :choices=>{:reflection=>:incoming_delivery_modes}, :new=>true
-  -f.field :incoming_delivery, :planned_on
+=field_set do
+  -# TODO: Manage variables in :new parameters
+  -association :address, :source => :own_mails # , :new => {:entity_id => @purchase.supplier_id}
+  -association :mode
+  -input :planned_on
 
-
-%h2=IncomingDelivery.human_attribute_name("lines")
-%table.list
-  %tr
-    %th=IncomingDeliveryLine.human_attribute_name(:product)
-    %th=Price.human_attribute_name(:pretax_amount)
-    %th=Price.human_attribute_name(:amount)
-    %th=tc(:total_quantity)
-    %th=IncomingDeliveryLine.human_attribute_name(:unit)
-    %th=tc(:quantity_rest)
-    %th=tc(:quantity)
-    %th=IncomingDeliveryLine.human_attribute_name(:pretax_amount)
-    %th=IncomingDeliveryLine.human_attribute_name(:amount)
-  -for line in @incoming_delivery_lines
-    %tr{:class=>cycle('odd','even')}
-      %td=line.purchase_line.label
-      %td.dec{:class=>"pta-#{line.purchase_line_id}"}=line.purchase_line.price.pretax_amount
-      %td.dec{:class=>"awt-#{line.purchase_line_id}"}=line.purchase_line.price.amount
-      %td.dec=line.purchase_line.quantity
-      %td=line.purchase_line.unit.label
-      %td.dec=line.purchase_line.undelivered_quantity
-      %td=text_field_tag "incoming_delivery_line[#{line.purchase_line_id}][quantity]", line.quantity, :id=>"incoming_delivery_line_#{line.purchase_line_id}_quantity", :class=>"pta-#{line.purchase_line_id} awt-#{line.purchase_line_id}", "data-less-than-or-equal-to"=>line.quantity+line.purchase_line.undelivered_quantity
-      %td.dec.pta{"data-use"=>".pta-#{line.purchase_line_id}", "data-calculate"=>"mul"}
-      %td.dec.awt{"data-use"=>".awt-#{line.purchase_line_id}", "data-calculate"=>"mul"}
-  %tr.total
-    %th{:colspan=>7}=tg :total
-    %td#total_pretax_amount{"data-use"=>".pta"}=@incoming_delivery.pretax_amount
-    %td#total_amount{"data-use"=>".awt"}=@incoming_delivery.amount
+=field_set :incoming_delivery_lines do
+  -partial :lines
 

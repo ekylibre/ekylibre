@@ -634,8 +634,14 @@ spa:
     amount_to_add: "Sumas a añadir, exprimadas en euros, y tambien con cantidad a cuenta vacaciones"
     amount_to_reduce: "Sumas a imputar, exprimadas en euros, y tambien con cantidad a cuenta vacaciones"
     amount_with_taxes: "Total de la entrega TTC" #?
-    animal_group_tabbox: #?
-    animal_tabbox: #?
+    # animal_bar: "Animals by category"
+    animal_group_tabbox:
+      # animals: "Animal"
+      # cares: "Cares on animal"
+    # animal_pie: "Animals by category"
+    animal_tabbox:
+      # cares: "Cares"
+      # childrens: "Childs"
     # apply: "Apply"
     # are_you_sure: "Are you sure you want to do this?"
     # are_you_sure_you_want_to_confirm: "Are you sure you want to order"
@@ -757,6 +763,8 @@ spa:
     # delivery: "Delivery"
     delivery_natural_gas_and_electricity_assessable: "Entrega de gaz natural ou elctricidad imponible en Francia" #?
     delivery_natural_gas_and_electricity_not_assessable: "Entrega de gaz natural ou elctricidad no imponible en Francia" #?
+    # demo_bar: "Bar"
+    # demo_pie: "Pie"
     department_create: "Añadir un nuevo servicio" #?
     departments: "Servicios"
     deposit: "Aposto en banco del"
@@ -900,7 +908,9 @@ spa:
     journals: "Periodico general"
     # land_parcel_name: "Land parcel name"
     # land_parcels: "Land parcels"
+    # last_animals: "Last Birth"
     # last_computed_balance: "Last computed balance"
+    # last_events: "Last Events"
     # last_payment_amount: "Amount of the last payment"
     # last_payment_date: "Date of the last payment"
     left_balance_amount: "Aplazamiento del credito anterior sin imputar ni reembolsar"
@@ -1097,6 +1107,7 @@ spa:
     personalized_mail: "Enviar un correo electronico personalizado"
     pertinence: "%{value}%"
     # phone: "Pho."
+    # placeholder: "Placeholder"
     # planned_on: "Planned on"
     # play: "Play"
     # please_wait: "Please wait..."

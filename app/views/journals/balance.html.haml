@@ -3,7 +3,7 @@
   -k.crit :journal_entries_states
   -k.crit :accounts_range
   -k.criterion do
-    -centralized = @current_company.preferences.find(:all, :order=>"id", :conditions=>["name LIKE ? ", "third_%_accounts"]).collect{|p| p.value.to_s}.join(" ")
+    -centralized = Preference.find(:all, :order=>"id", :conditions=>["name LIKE ? ", "third_%_accounts"]).collect{|p| p.value.to_s}.join(" ")
     %label=tc(:centralize)
     =text_field_tag("centralize", params[:centralize]||centralized, :size=>30)
   -k.criterion do

@@ -1,14 +1,12 @@
--# TODO Cash form
 =field_set do
-  -association :entity, :field => :hidden
   -input :name
   -input :currency, :source => :currencies
-  -input :nature, :show => {:bank_account => :bank_account_options} # , :choices=>Cash.natures.collect{|n| [n[0], n[1], {"data-show"=>"##{n[1]}_options", "data-dependents"=>"#cash-accountancy", "data-parameter-name"=>"nature"}]}
+  -input :nature, :show => {:bank_account => :bank_account_options}
 
-=field_set(:bank_account, :in => :bank_account_options) do # #bank_account_options
+=field_set(:bank_account, :in => :bank_account_options) do
   -input :bank_name
   -input :address, :field => :text
-  -input :mode, :show => {} # :bban => :bban_options, :iban => :iban_options} # , :field => :radio, :choices=>Cash.modes.collect{|m| [m[0], m[1], {"data-show"=>"##{m[1]}_options"}]}
+  -input :mode, :show => {}
 
 =field_set(:bban, :in => :bank_account_options) do
   -input :country, :field => :hidden
@@ -24,7 +22,3 @@
 =field_set(:accountancy) do
   -association :account, :source => {{:nature => :bank_account} => :banks, {:nature => :cash_box} => :cashes}, :new => {:number => Account.chart_number(:banks)}
   -association :journal, :source => {{:nature => :bank_account} => :banks, {:nature => :cash_box} => :cashes}, :new => {:nature => :bank}
-
--#cash-accountancy{"data-refresh"=>url_for(:controller=>:cashes, :action=>:new, :mode=>:accountancy), "data-refresh-mode"=>"update"}=render :partial=>"accountancy_form"
-
-

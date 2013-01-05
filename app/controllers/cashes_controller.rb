@@ -61,18 +61,12 @@ class CashesController < AdminController
   end
 
   def new
-    if request.xhr? and params[:mode] == "accountancy"
-      @cash = Cash.new(params[:cash])
-      render :partial => 'accountancy_form', :locals => {:nature => params[:nature]}
-      return
-    end
-    @cash = Cash.new(:mode => "bban", :currency => Entity.of_company.currency, :nature => "bank_account", :entity_id => params[:entity_id]||Entity.of_company.id)
+    @cash = Cash.new(:mode => Cash.mode.default_value, :currency => Entity.of_company.currency, :nature => Cash.nature.default_value)
     render_restfully_form
   end
 
   def create
     @cash = Cash.new(params[:cash])
-    @cash.entity = @cash.entity||Entity.of_company
     return if save_and_redirect(@cash)
     render_restfully_form
   end

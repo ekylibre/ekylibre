@@ -32,14 +32,11 @@
 #  lock_version  :integer          default(0), not null
 #  pretax_amount :decimal(19, 4)   not null
 #  product_id    :integer          not null
-#  quantity_max  :decimal(19, 4)   default(0.0), not null
-#  quantity_min  :decimal(19, 4)   default(0.0), not null
 #  started_at    :datetime         
 #  stopped_at    :datetime         
 #  tax_id        :integer          not null
 #  updated_at    :datetime         not null
 #  updater_id    :integer          
-#  use_range     :boolean          not null
 #
 
 
@@ -55,14 +52,14 @@ class Price < CompanyRecord
   has_many :purchase_lines
   has_many :sale_lines
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :amount, :pretax_amount, :quantity_max, :quantity_min, :allow_nil => true
+  validates_numericality_of :amount, :pretax_amount, :allow_nil => true
   validates_length_of :currency, :allow_nil => true, :maximum => 3
-  validates_inclusion_of :active, :use_range, :in => [true, false]
-  validates_presence_of :amount, :pretax_amount, :product, :quantity_max, :quantity_min, :tax
+  validates_inclusion_of :active, :in => [true, false]
+  validates_presence_of :amount, :pretax_amount, :product, :tax
   #]VALIDATORS]
-  validates_presence_of :category, :if=>Proc.new{|price| price.entity_id == Entity.of_company.id}
+  validates_presence_of :category, :if => Proc.new{|price| price.entity_id == Entity.of_company.id}
   validates_presence_of :entity
-  validates_numericality_of :pretax_amount, :amount, :greater_than_or_equal_to=>0
+  validates_numericality_of :pretax_amount, :amount, :greater_than_or_equal_to => 0
 
   before_validation do
     if entity = Entity.of_company
@@ -79,16 +76,14 @@ class Price < CompanyRecord
       self.pretax_amount = self.amount.to_f - tax_amount.round(2)
     end
     self.started_at = Time.now
-    self.quantity_min ||= 0
-    self.quantity_max ||= 0
   end
 
 
   def update
     current_time = Time.now
     stamper_id = self.class.stamper_class.stamper.id rescue nil
-    nc = self.class.create!(self.attributes.merge(:started_at=>current_time, :created_at=>current_time, :updated_at=>current_time, :creator_id=>stamper_id, :updater_id=>stamper_id, :active=>true))
-    self.class.update_all({:stopped_at=>current_time, :active=>false}, {:id=>self.id})
+    nc = self.class.create!(self.attributes.merge(:started_at => current_time, :created_at => current_time, :updated_at => current_time, :creator_id => stamper_id, :updater_id => stamper_id, :active => true))
+    self.class.update_all({:stopped_at => current_time, :active => false}, {:id => self.id})
     nc.set_by_default
     return nc
   end
@@ -96,13 +91,13 @@ class Price < CompanyRecord
   def destroy
     unless self.new_record?
       current_time = Time.now
-      self.class.update_all({:stopped_at=>current_time, :active=>false}, {:id=>self.id})
+      self.class.update_all({:stopped_at => current_time, :active => false}, {:id => self.id})
     end
   end
 
   def set_by_default
     if self.by_default
-      Price.update_all({:by_default=>false}, ["product_id=? AND id!=? AND entity_id=?", self.product_id, self.id||0, Entity.of_company.id])
+      Price.update_all({:by_default => false}, ["product_id=? AND id!=? AND entity_id=?", self.product_id, self.id||0, Entity.of_company.id])
     end
   end
 
@@ -111,7 +106,7 @@ class Price < CompanyRecord
   end
 
   def change(amount, tax_id)
-    conditions = {:product_id=>self.product_id, :amount=>amount, :tax_id=>tax_id, :active=>true, :entity_id=>self.entity_id, :currency=>self.currency, :category_id=>self.category_id}
+    conditions = {:product_id => self.product_id, :amount => amount, :tax_id => tax_id, :active => true, :entity_id => self.entity_id, :currency => self.currency, :category_id => self.category_id}
     price = self.class.where(conditions).first
     if price.nil?
       self.update_column(:active, false)
@@ -120,16 +115,8 @@ class Price < CompanyRecord
     price
   end
 
-  def range
-    if self.use_range
-      tc(:range, :min=>self.quantity_min, :max=>self.quantity_max)
-    else
-      tc(:no_range)
-    end
-  end
-
   def label
-    tc(:label, :product=>self.product.name, :amount=>self.amount, :currency=>self.currency)
+    tc(:label, :product => self.product.name, :amount => self.amount, :currency => self.currency)
   end
 
   def compute(quantity=nil, pretax_amount=nil, amount=nil)

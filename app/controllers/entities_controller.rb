@@ -38,14 +38,6 @@ class EntitiesController < AdminController
     session[:entity_key] = params[:q]
   end
 
-  list(:cashes, :conditions => {:entity_id => ['session[:current_entity_id]']}) do |t|
-    t.column :name
-    t.column :number
-    t.column :iban_label
-    t.action :edit
-    t.action :destroy
-  end
-
   list(:addresses, :model => :entity_addresses, :conditions => ['deleted_at IS NULL AND (entity_id = ? OR entity_id IN ( SELECT entity_1_id FROM #{EntityLink.table_name} INNER JOIN #{EntityLinkNature.table_name} ON (#{EntityLinkNature.table_name}.propagate_contacts = ? AND #{EntityLink.table_name}.nature_id = #{EntityLinkNature.table_name}.id AND stopped_on IS NULL) WHERE (entity_1_id = ? OR entity_2_id = ?)) OR entity_id IN (SELECT entity_2_id FROM #{EntityLink.table_name} INNER JOIN #{EntityLinkNature.table_name} ON #{EntityLinkNature.table_name}.propagate_contacts = ? AND #{EntityLink.table_name}.nature_id = #{EntityLinkNature.table_name}.id  AND stopped_on IS NULL WHERE (entity_1_id = ? OR entity_2_id = ?)))', ['session[:current_entity_id]'], true, ['session[:current_entity_id]'], ['session[:current_entity_id]'], true, ['session[:current_entity_id]'], ['session[:current_entity_id]'] ]) do |t|
     t.column :address, :url => {:action => :edit}
     t.column :phone
