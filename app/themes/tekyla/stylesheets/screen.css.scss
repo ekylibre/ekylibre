@@ -450,6 +450,14 @@ table.quick td { padding: 0px 4px; }
   }
 }
 
+.help-inline {
+  display: inline-block;
+  *display: inline;
+  padding-left: 5px;
+  vertical-align: middle;
+  *zoom: 1;
+  color:  rgb(237, 0, 78);
+}
 
 .control-group {
   margin: round($fs-normal/3) 0;
@@ -575,8 +583,9 @@ input, textarea, select {
 
   &:focus {
     $color: change-color($base-color, $lightness: 70%);
-    @include box-shadow(0 0 0.6em rgba($color, 0.6));
+    @include box-shadow(0 0 2em rgba($color, 0.4));
     border-color: $color;
+    border-width: 2px;
     &.invalid {
       border-color: $invalid-color !important;
     }
