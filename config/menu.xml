@@ -446,13 +446,16 @@
     <menu name="base">
       <page to="dashboards#settings_base"/>
       <menu name="settings">
-        <page to="settings#about"/>
-        <page to="settings#backup"/>
-        <page to="settings#backups"/>
         <page to="settings#edit"/>
-        <page to="settings#import"/>
-        <page to="settings#restore"/>
         <page to="settings#update"/>
+      </menu>
+      <menu name="import">
+        <page to="settings#import"/>
+      </menu>
+      <menu name="backups">
+        <page to="settings#backups"/>
+        <page to="settings#backup"/>
+        <page to="settings#restore"/>
       </menu>
       <menu name="sequences">
         <page to="sequences#index"/>
@@ -534,6 +537,9 @@
         <page to="document_templates#new"/>
         <page to="document_templates#print"/>
         <page to="document_templates#update"/>
+      </menu>
+      <menu name="about">
+        <page to="settings#about"/>
       </menu>
     </menu>
     <menu name="relationship">

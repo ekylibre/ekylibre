@@ -525,6 +525,11 @@ html[dir="rtl"] div.field label.attr { text-align: left; }
 div.field.mono-choice .toolbar { margin: 0 8px; }
 
 
+.spacer {
+  height: 2*$fs-normal;  
+  display: block;
+}
+
 .form-column {
   overflow: auto;
   &.aside {
