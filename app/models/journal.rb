@@ -37,8 +37,8 @@
 class Journal < CompanyRecord
   attr_readonly :currency
   has_many :cashes
-  has_many :entry_lines, :class_name=>"JournalEntryLine"
-  has_many :entries, :class_name=>"JournalEntry"
+  has_many :entry_lines, :class_name => "JournalEntryLine"
+  has_many :entries, :class_name => "JournalEntry"
   enumerize :nature, :in => [:sales, :purchases, :bank, :forward, :various, :cash], :default => :various, :predicates => true
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :currency, :allow_nil => true, :maximum => 3
@@ -59,7 +59,7 @@ class Journal < CompanyRecord
     scope nature.to_s.pluralize,  -> { where(:nature => nature) }
   end
 
-  before_validation(:on=>:create) do
+  before_validation(:on => :create) do
     if year = FinancialYear.first
       self.closed_on = year.started_on - 1
     else
@@ -69,7 +69,7 @@ class Journal < CompanyRecord
 
   # this method is called before creation or validation method.
   before_validation do
-    self.name = self.nature_label if self.name.blank? and self.nature
+    self.name = self.nature.text if self.name.blank? and self.nature
     if eoc = Entity.of_company
       self.currency ||= eoc.currency
     end
@@ -84,7 +84,7 @@ class Journal < CompanyRecord
       valid = true if self.closed_on == financial_year.started_on-1
     end
     unless valid
-      errors.add(:closed_on, :end_of_month, :closed_on=>::I18n.localize(self.closed_on)) if self.closed_on.to_date != self.closed_on.end_of_month.to_date
+      errors.add(:closed_on, :end_of_month, :closed_on => ::I18n.localize(self.closed_on)) if self.closed_on.to_date != self.closed_on.end_of_month.to_date
     end
     if self.code.to_s.size > 0
       errors.add(:code, :taken) if Journal.where("id != ? AND code = ?", self.id||0, self.code.to_s[0..1]).count > 0
@@ -95,15 +95,10 @@ class Journal < CompanyRecord
     self.entries.count.zero? and self.entry_lines.count.zero? and self.cashes.count.zero?
   end
 
-  # Provides a translation for the nature of the journal
-  def nature_label(nature=nil)
-    tc('natures.'+(nature||self.nature).to_s)
-  end
-
   #
   def closable?(closed_on=nil)
     closed_on ||= Date.today
-    self.class.update_all({:closed_on=>Date.civil(1900, 12, 31)}, {:id=>self.id}) if self.closed_on.nil?
+    self.class.update_all({:closed_on => Date.civil(1900, 12, 31)}, {:id => self.id}) if self.closed_on.nil?
     self.reload
     return false unless (closed_on << 1).end_of_month > self.closed_on
     return true
@@ -122,10 +117,10 @@ class Journal < CompanyRecord
   # this method closes a journal.
   def close(closed_on)
     errors.add(:closed_on, :end_of_month) if self.closed_on != self.closed_on.end_of_month
-    errors.add_to_base(:draft_entry_lines) if self.entry_lines.find(:all, :joins=>"JOIN #{JournalEntry.table_name} AS journal_entries ON (entry_id=journal_entries.id)", :conditions=>["#{JournalEntryLine.table_name}.state=? AND printed_on BETWEEN ? AND ? ", "draft", self.closed_on+1, closed_on ]).size > 0
+    errors.add_to_base(:draft_entry_lines) if self.entry_lines.find(:all, :joins => "JOIN #{JournalEntry.table_name} AS journal_entries ON (entry_id=journal_entries.id)", :conditions => ["#{JournalEntryLine.table_name}.state=? AND printed_on BETWEEN ? AND ? ", "draft", self.closed_on+1, closed_on ]).size > 0
     return false unless errors.empty?
     ActiveRecord::Base.transaction do
-      for entry in self.entries.find(:all, :conditions=>["printed_on BETWEEN ? AND ? ", self.closed_on+1, closed_on])
+      for entry in self.entries.find(:all, :conditions => ["printed_on BETWEEN ? AND ? ", self.closed_on+1, closed_on])
         entry.close
       end
       self.update_column(:closed_on, closed_on)
@@ -152,7 +147,7 @@ class Journal < CompanyRecord
 
   def reopen(closed_on)
     ActiveRecord::Base.transaction do
-      for entry in self.entries.find(:all, :conditions=>["printed_on BETWEEN ? AND ? ", closed_on+1, self.closed_on])
+      for entry in self.entries.find(:all, :conditions => ["printed_on BETWEEN ? AND ? ", closed_on+1, self.closed_on])
         entry.reopen
       end
       self.update_column(:closed_on, closed_on)
@@ -173,18 +168,14 @@ class Journal < CompanyRecord
     period.entries.find(:all, :order => "lpad(number,20,'0') DESC", :limit => number_entry)
   end
 
-  # # this method returns an array .
-  # def self.natures
-  #   @@natures.collect{|x| [tc('natures.'+x.to_s), x] }
-  # end
 
   def entry_lines_between(started_on, stopped_on)
-    self.entry_lines.find(:all, :joins=>"JOIN #{JournalEntry.table_name} AS journal_entries ON (journal_entries.id=entry_id)", :conditions=>["printed_on BETWEEN ? AND ? ", started_on, stopped_on], :order=>"printed_on, journal_entries.id, journal_entry_lines.id")
+    self.entry_lines.find(:all, :joins => "JOIN #{JournalEntry.table_name} AS journal_entries ON (journal_entries.id=entry_id)", :conditions => ["printed_on BETWEEN ? AND ? ", started_on, stopped_on], :order => "printed_on, journal_entries.id, journal_entry_lines.id")
   end
 
   def entry_lines_calculate(column, started_on, stopped_on, operation=:sum)
     column = (column == :balance ? "#{JournalEntryLine.table_name}.original_debit - #{JournalEntryLine.table_name}.original_credit" : "#{JournalEntryLine.table_name}.original_#{column}")
-    self.entry_lines.calculate(operation, column, :joins=>"JOIN #{JournalEntry.table_name} AS journal_entries ON (journal_entries.id=entry_id)", :conditions=>["printed_on BETWEEN ? AND ? ", started_on, stopped_on])
+    self.entry_lines.calculate(operation, column, :joins => "JOIN #{JournalEntry.table_name} AS journal_entries ON (journal_entries.id=entry_id)", :conditions => ["printed_on BETWEEN ? AND ? ", started_on, stopped_on])
   end
 
 
@@ -253,7 +244,7 @@ class Journal < CompanyRecord
       lines += conn.select_rows(query)
     end
 
-    return lines.sort{|a,b| a[5]<=>b[5]}
+    return lines.sort{|a,b| a[5] <=> b[5]}
   end
 
 

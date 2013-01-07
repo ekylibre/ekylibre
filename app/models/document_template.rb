@@ -124,22 +124,6 @@ class DocumentTemplate < CompanyRecord
     self.documents.size <= 0
   end
 
-  # def self.families
-  #   @@families.collect{|x| [tc('families.'+x.to_s), x.to_s]}
-  # end
-
-  # def self.natures
-  #   @@document_natures.keys.collect{|x| [tc('natures.'+x.to_s), x.to_s]}.sort{|a,b| a[0].ascii< => b[0].ascii}
-  # end
-
-  # def family_label
-  #   tc('families.'+self.family) if self.family
-  # end
-
-  # def nature_label
-  #   tc('natures.'+self.nature) if self.nature
-  # end
-
 
   # Print document without checks fast but dangerous if parameters are not checked before...
   # Use carefully

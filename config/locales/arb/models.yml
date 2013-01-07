@@ -1516,6 +1516,7 @@ arb:
     usage_duration: "(مدة الاستخدام (ساعات"
     use_range: "استخدام الكمية الفاصلة"
     # used_amount: "Used amount"
+    # used_with: "Used with"
     # useful_lines: "Useful lines"
     user: "المستخدم"
     user_id: "المستخدم" #?
@@ -1558,6 +1559,14 @@ arb:
         # bank_account: "Bank account"
         # cash_box: "Cash box"
       natures: #?
+    custom_field:
+      nature:
+        # boolean: "Check box"
+        # choice: "Choice list"
+        # date: "Date"
+        # datetime: "Date and time"
+        # decimal: "Decimal"
+        # string: "Text"
     document_template:
       family:
         # accountancy: "Accountancy"
@@ -1584,6 +1593,12 @@ arb:
         # sales_order: "Sales order"
         # stocks: "Stocks"
         # transport: "Transport"
+    event_nature:
+      usage:
+        # manual: "Manual"
+        # purchase: "Creation of a purchase"
+        # sale: "Creation of a sale"
+        # sales_invoice: "Creation of a sales invoice"
     journal:
       nature:
         # bank: "Bank"
@@ -1592,15 +1607,62 @@ arb:
         # purchases: "Purchases"
         # sales: "Sales"
         # various: "Various operations"
+    observation:
+      importance:
+        # important: "Important"
+        # normal: "Normal"
+        # notice: "Notice"
+    operation_line:
+      direction:
+        # in: "In"
+        # out: "Out"
     product:
       nature:
         # product: "Product"
         # service: "Service"
         # subscription: "Subcription"
         # transfer: "Transfer"
+    production_chain_work_center:
+      nature:
+        # input: "One in, many out"
+        # output: "Many in, one out"
+    sequence:
+      period:
+        # cweek: "Commercial week"
+        # month: "Month"
+        # number: "No periodicity"
+        # year: "Year"
+      usage:
+        # assets: "Numeration of assets"
+        # cash_transfers: "Numeration of cash transfers"
+        # deposits: "Numeration of deposits"
+        # entities: "Numeration of people"
+        # incoming_deliveries: "Numeration of incoming deliveries"
+        # incoming_payments: "Numeration of payments"
+        # outgoing_deliveries: "Numeration of outgoing deliveries"
+        # outgoing_payments: "Numeration of payments"
+        # purchases: "Numeration of purchases"
+        # sales: "Numeration of sales"
+        # sales_invoices: "Numeration of sales invoices"
+        # stock_transfers: "Numeration of stock transfers"
+        # subscriptions: "Numeration of subscriptions"
+        # transports: "Numeration of transports"
     sex:
       # female: "Female"
       # male: "Male"
+    stock_transfer:
+      nature:
+        # gain: "Gain"
+        # transfer: "Transfer"
+        # waste: "Loss"
+    subscription_nature:
+      nature:
+        # period: "Subscription by date"
+        # quantity: "Subscription by number"
+    tax:
+      nature:
+        # amount: "Amount"
+        # percentage: "Percentage"
   models:
     account:
       default_account_name: "دفتر الحسابات %{number}" #?
@@ -1797,14 +1859,14 @@ arb:
       sales_invoice_creation: "انشاء فاتورة" #?
     contact:
       error_modify_contact: "من المستحيل تعديل الاسماء"
-    custom_field:
-      natures:
-        boolean: "صندوق للتحقق"
-        choice: "قائمة الخيارات"
-        date: "التاريخ"
-        datetime: "التاريخ والوقت"
-        decimal: "عشري"
-        string: "نص"
+    custom_field:  #?
+      natures: #?
+        boolean: "صندوق للتحقق" #?
+        choice: "قائمة الخيارات" #?
+        date: "التاريخ" #?
+        datetime: "التاريخ والوقت" #?
+        decimal: "عشري" #?
+        string: "نص" #?
     delay:
       error_unvalid_format_for_expression: "الاسلوب ليس بالشكل الصحيح"
     deposit:
@@ -1875,14 +1937,16 @@ arb:
       unvalid_nature: "نوع نموذجكم غير صحيح، يجب عليكم حذف هذا النموذج واعادة تثبيته."
     entity:
       client: "العميل"
+      # no_right_defined_for_this_part_of_the_application: "No right defined for this part of the application: %{controller}%{action}"
+      # no_right_defined_for_this_part_of_the_application_and_this_user: "You can not access to this page"
       supplier: "الممول"
-    event_nature:
-      usages:
-        mailing: "البريدي"
-        manual: "كتيب"
-        purchase: "انشاء طلب شراء"
-        sale: "انشاء طلب بيع"
-        sales_invoice: "انشاء فاتورة"
+    event_nature:  #?
+      usages: #?
+        mailing: "البريدي" #?
+        manual: "كتيب" #?
+        purchase: "انشاء طلب شراء" #?
+        sale: "انشاء طلب بيع" #?
+        sales_invoice: "انشاء فاتورة" #?
     financial_year:
       # bookkeep: "[%{resource} %{number}] Depreciation of %{name} (%{position}/%{total})"
       code:
@@ -1949,16 +2013,16 @@ arb:
         with_value: "%{comparator} %{value}"
         without_value: "%{comparator}"
       reflections: "الجداول المرتبطة"
-    observation:
-      importances:
-        important: "مهم"
-        normal: "طبيعي"
-        notice: "ضئيل"
+    observation:  #?
+      importances: #?
+        important: "مهم" #?
+        normal: "طبيعي" #?
+        notice: "ضئيل" #?
     operation_line:
       density_label: "%{value} %{product_unit}/%{area_unit}"
-      direction_label:
-        in: "الواردة"
-        out: "الصادرة"
+      direction_label:  #?
+        in: "الواردة" #?
+        out: "الصادرة" #?
     outgoing_delivery:
       label: "%{client} الى %{address}"
       natures:  #?
@@ -1991,9 +2055,9 @@ arb:
       subscription_label:
         period: "اشتراك %{subscription_nature} ل %{entity} للعنوان %{address} من %{start} الى %{finish}"
         quantity: "الاشتراك %{subscription_nature} ل %{entity} للعنوان %{address} من رقم%{start} الى رقم%{finish}"
-      supply_methods:
-        buy: "المشتريات"
-        produce: "الانتاج"
+      supply_methods:  #?
+        buy: "المشتريات" #?
+        produce: "الانتاج" #?
       to:
         produce: "الانتاج"
         purchases: "المشتريات"
@@ -2002,10 +2066,7 @@ arb:
       unknown_use_of_product: "(يجب تحديد الغاية من المنتج (شراء او بيع او تأجير" #?
     product_component:
       of_product: "نتاج"
-    production_chain_work_center:
-      natures:
-        # input: "One in, many out"
-        # output: "Many in, one out"
+    production_chain_work_center: #?
     purchase:
       bookkeep: "[%{resource} %{number}] %{products} لل %{supplier}"
       label: "%{supplier} الى %{address}"
@@ -2030,10 +2091,10 @@ arb:
         # invoice: "Sales invoice %{number}"
         order: "رقم الطلب%{number}"
         # refused: "Refused estimate %{number}"
-      natures:
-        estimate: "التقدير"
-        order: "طلب"
-        sales_invoice: "فاتورة"
+      natures:  #?
+        estimate: "التقدير" #?
+        order: "طلب" #?
+        sales_invoice: "فاتورة" #?
       sale: "البيع %{number}"
       sales_conditions:
         downpayment: "دفعة مقدمة %{percent}% (soit %{amount}€) يجب ادخال لبدفعة على توقيع التقدير الحالي"
@@ -2070,62 +2131,48 @@ arb:
     sequence:
       default:
         assets:
-          # name: "Numeration of assets"
           # number_format: "A[number|7]"
         cash_transfers:
-          # name: "Numeration of cash transfers"
           # number_format: "CT[year|4][number|4]"
           # period: "year"
         deposits:
-          # name: "Numeration of deposits"
           # number_format: "B[year|4][number|4]"
           # period: "year"
         entities:
-          # name: "Numeration of people"
           # number_format: "[number|8]"
         incoming_deliveries:
-          # name: "Numeration of incoming deliveries"
           # number_format: "ID[year|4][number|4]"
           # period: "year"
         incoming_payments:
-          # name: "Numeration of payments"
           # number_format: "P[year|4][number|6]"
           # period: "year"
         outgoing_deliveries:
-          # name: "Numeration of outgoing deliveries"
           # number_format: "OD[year|4][number|6]"
           # period: "year"
         outgoing_payments:
-          # name: "Numeration of payments"
           # number_format: "D[year|4][number|4]"
           # period: "year"
         purchases:
-          # name: "Numeration of purchases"
           # number_format: "PO[year|4][month|2][number|4]"
           # period: "month"
         sales:
-          # name: "Numeration of sales"
           # number_format: "SO[year|4][month|2][number|6]"
           # period: "month"
         sales_invoices:
-          # name: "Numeration of sales invoices"
           # number_format: "F[year|4][number|6]"
           # period: "year"
         stock_transfers:
-          # name: "Numeration of stock transfers"
           # number_format: "ST[year|4][number|4]"
           # period: "year"
         subscriptions:
-          # name: "Numeration of subscriptions"
           # number_format: "SUB[number|8]"
         transports:
-          # name: "Numeration of transports"
           # number_format: "SH[number|8]"
-      periods:
-        cweek: "اسبوع"
-        month: "شهر"
-        number: "-- لا شيء --"
-        year: "السنة"
+      periods:  #?
+        cweek: "اسبوع" #?
+        month: "شهر" #?
+        number: "-- لا شيء --" #?
+        year: "السنة" #?
     stock:
       # default_name: "%{warehouse}/%{product}/%{tracking}"
       label:
@@ -2133,20 +2180,19 @@ arb:
         without_tracking: "%{warehouse} : غير متتبع, %{quantity}%{unit} متاح"
     stock_move:
       # default_name: "%{origin} (%{code})"
-    stock_transfer:
-      natures:
-        # gain: "Gain"
-        transfer: "التحويل"
-        waste: "الضائع"
-    subscription_nature:
-      natures:
-        period: "الاشتراك وفق التاريخ"
-        quantity: "الاشتراك حسب الكمية"
-    tax:
+    stock_transfer:  #?
+      natures: #?
+        transfer: "التحويل" #?
+        waste: "الضائع" #?
+    subscription_nature:  #?
+      natures: #?
+        period: "الاشتراك وفق التاريخ" #?
+        quantity: "الاشتراك حسب الكمية" #?
+    tax:  #?
       amount_must_be_included_between_0_and_1: "يجب ان يكون مشتمل بين 1 و 0" #?
-      natures:
-        amount: "القيمة"
-        percent: "النسبة المئوية"
+      natures: #?
+        amount: "القيمة" #?
+        percent: "النسبة المئوية" #?
     tax_declaration:
       deferment: "تأجيل"
       monthly: "شهريا"
@@ -2156,11 +2202,11 @@ arb:
       quarterly: "فصلي"
       simplified: "مبسط"
       yearly: "سنوي"
-    tool:
-      natures:
-        other: "اخرى"
-        towed: "اقتران"
-        tractor: "تراكتور"
+    tool:  #?
+      natures: #?
+        other: "اخرى" #?
+        towed: "اقتران" #?
+        tractor: "تراكتور" #?
     unit:
       default:
         # a: "Are"
@@ -2172,8 +2218,8 @@ arb:
         # l: "Litre"
         # m: "Metre"
         # m3: "Cubic metre"
-        # t: "Tonne"
+        # t: "Ton"
         # u: "Unit"
-    user:
-      no_right_defined_for_this_part_of_the_application: "ليس هنالك من حقوق محددة لهذا الجزء من الطلب : %{controller}/%{action}"
-      no_right_defined_for_this_part_of_the_application_and_this_user: "ليس هنالك من حقوق محددة لهذا الجزء من الطلب ولهذا المستخدم"
+    user:  #?
+      no_right_defined_for_this_part_of_the_application: "ليس هنالك من حقوق محددة لهذا الجزء من الطلب : %{controller}/%{action}" #?
+      no_right_defined_for_this_part_of_the_application_and_this_user: "ليس هنالك من حقوق محددة لهذا الجزء من الطلب ولهذا المستخدم" #?

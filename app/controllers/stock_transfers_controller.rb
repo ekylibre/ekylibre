@@ -18,21 +18,21 @@
 #
 
 class StockTransfersController < AdminController
-  manage_restfully :nature=>"'transfer'", :planned_on=>"Date.today"
+  manage_restfully :nature => "StockTransfer.nature.default_value", :planned_on => "Date.today"
 
   unroll_all
 
-  list(:conditions=>moved_conditions(StockTransfer)) do |t|
+  list(:conditions => moved_conditions(StockTransfer)) do |t|
     t.column :number
-    t.column :nature_label
-    t.column :name, :through=>:product, :url=>true
+    t.column :nature
+    t.column :name, :through => :product, :url => true
     t.column :quantity
-    t.column :label, :through=>:unit
-    t.column :name, :through=>:warehouse, :url=>true
-    t.column :name, :through=>:second_warehouse, :url=>true
+    t.column :label, :through => :unit
+    t.column :name, :through => :warehouse, :url => true
+    t.column :name, :through => :second_warehouse, :url => true
     t.column :planned_on
     t.column :moved_on
-    t.action :confirm, :method=>:post, :if=>'RECORD.moved_on.nil? ', 'data-confirm' => :are_you_sure
+    t.action :confirm, :method => :post, :if => 'RECORD.moved_on.nil? ', 'data-confirm'  =>  :are_you_sure
     t.action :edit
     t.action :destroy
   end
@@ -45,18 +45,18 @@ class StockTransfersController < AdminController
   def confirm
     return unless stock_transfer = find_and_check(:stock_transfer)
     stock_transfer.execute
-    redirect_to :action=>:index, :mode=>:confirmed
+    redirect_to :action => :index, :mode => :confirmed
   end
 
-  list(:confirm, :model=>:stock_transfers, :conditions=>{:moved_on=>nil}, :order=>"planned_on") do |t|
+  list(:confirm, :model => :stock_transfers, :conditions => {:moved_on => nil}, :order => "planned_on") do |t|
     t.column :number
-    t.column :nature_label
-    t.column :name, :through=>:product
-    t.column :quantity, :datatype=>:decimal
-    t.column :name, :through=>:warehouse
-    t.column :name, :through=>:second_warehouse
-    t.column :planned_on, :children=>false
-    t.check_box :executed, :value=>'RECORD.planned_on<=Date.today'
+    t.column :nature
+    t.column :name, :through => :product
+    t.column :quantity, :datatype => :decimal
+    t.column :name, :through => :warehouse
+    t.column :name, :through => :second_warehouse
+    t.column :planned_on, :children => false
+    t.check_box :executed, :value => 'RECORD.planned_on<=Date.today'
   end
 
   # Confirms many transfers
@@ -73,9 +73,9 @@ class StockTransfersController < AdminController
         transfers << transfer if values[:executed].to_i == 1
       end
       for transfer in transfers
-        transfer.update_attributes(:moved_on=>Date.today)
+        transfer.update_attributes(:moved_on => Date.today)
       end
-      redirect_to :action=>:index, :mode=>:confirmed
+      redirect_to :action => :index, :mode => :confirmed
     end
   end
 

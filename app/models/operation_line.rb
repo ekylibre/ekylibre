@@ -41,8 +41,9 @@
 
 
 class OperationLine < CompanyRecord
-  acts_as_stockable :quantity=>'self.in? ? -self.quantity : self.quantity', :origin=>:operation
-  belongs_to :area_unit, :class_name=>"Unit"
+  acts_as_stockable :quantity => 'self.in? ? -self.quantity : self.quantity', :origin => :operation
+  enumerize :direction, :in => [:in, :out], :default => :in, :predicates => true
+  belongs_to :area_unit, :class_name => "Unit"
   belongs_to :warehouse
   belongs_to :operation
   belongs_to :product
@@ -58,11 +59,10 @@ class OperationLine < CompanyRecord
   validates_presence_of :product
 
   # IN operation.target or OUT of operation.target
-  @@directions = ["in", "out"]
-  validates_inclusion_of :direction, :in => @@directions
+  validates_inclusion_of :direction, :in => self.direction.values
 
   before_validation do
-    self.direction = @@directions[0] unless @@directions.include? self.direction
+    self.direction = self.class.direction.default_value unless self.class.direction.values.include? self.direction.to_s
     self.quantity = self.quantity.to_f
     self.unit_id ||= self.product.unit_id if self.product
 
@@ -75,13 +75,13 @@ class OperationLine < CompanyRecord
       end
     end
 
-    if self.direction == "out"
+    if self.out?
       self.tracking_serial = self.tracking_serial.to_s.strip
       unless self.tracking_serial.blank?
         producer = Entity.of_company
         unless producer.has_another_tracking?(self.tracking_serial, self.product_id)
           tracking = Tracking.find_by_serial_and_producer_id(self.tracking_serial.upper, producer.id)
-          tracking = Tracking.create!(:name=>self.tracking_serial, :product_id=>self.product_id, :producer_id=>producer.id) if tracking.nil?
+          tracking = Tracking.create!(:name => self.tracking_serial, :product_id => self.product_id, :producer_id => producer.id) if tracking.nil?
           self.tracking_id = tracking.id
         end
         self.tracking_serial.upper!
@@ -91,24 +91,11 @@ class OperationLine < CompanyRecord
     end
   end
 
-  # Translate direction
-  def direction_label
-    tc('direction_label.'+self.direction.to_s)
-  end
-
-  def in?
-    self.direction == "in"
-  end
-
-  def out?
-    self.direction == "out"
-  end
-
   def density_label
     if self.unit_quantity.nil? or self.area_unit.nil?
       "-"
     else
-      tc("density_label", :value=>self.unit_quantity, :area_unit=>self.area_unit.name, :product_unit=>self.unit.name)
+      tc("density_label", :value => self.unit_quantity, :area_unit => self.area_unit.name, :product_unit => self.unit.name)
     end
   end
 

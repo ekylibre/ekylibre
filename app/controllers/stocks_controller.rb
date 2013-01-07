@@ -30,16 +30,16 @@ class StocksController < AdminController
     code
   end
 
-  list(:conditions=>stocks_conditions, :line_class=>'RECORD.state') do |t|
-    t.column :name, :through=>:warehouse,:url=>true
-    t.column :name, :through=>:product,:url=>true
-    t.column :name, :through=>:tracking, :url=>true
+  list(:conditions => stocks_conditions, :line_class => 'RECORD.state') do |t|
+    t.column :name, :through => :warehouse,:url => true
+    t.column :name, :through => :product,:url => true
+    t.column :name, :through => :tracking, :url => true
     t.column :quantity_max
     t.column :quantity_min
     t.column :critic_quantity_min
-    t.column :virtual_quantity, :precision=>3
-    t.column :quantity, :precision=>3
-    t.column :label, :through=>:unit
+    t.column :virtual_quantity, :precision => 3
+    t.column :quantity, :precision => 3
+    t.column :label, :through => :unit
   end
 
   # Displays the main page with the list of stocks

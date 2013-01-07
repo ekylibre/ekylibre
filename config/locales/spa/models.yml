@@ -988,6 +988,7 @@ spa:
     # usage_duration: "Usage duration"
     # use_range: "Use range"
     # used_amount: "Used amount"
+    # used_with: "Used with"
     # useful_lines: "Useful lines"
     # user: "User"
     # user_name: "User name"
@@ -1027,6 +1028,14 @@ spa:
         # bank_account: "Bank account"
         # cash_box: "Cash box"
       natures: #?
+    custom_field:
+      nature:
+        # boolean: "Check box"
+        # choice: "Choice list"
+        # date: "Date"
+        # datetime: "Date and time"
+        # decimal: "Decimal"
+        # string: "Text"
     document_template:
       family:
         # accountancy: "Accountancy"
@@ -1053,6 +1062,12 @@ spa:
         # sales_order: "Sales order"
         # stocks: "Stocks"
         # transport: "Transport"
+    event_nature:
+      usage:
+        # manual: "Manual"
+        # purchase: "Creation of a purchase"
+        # sale: "Creation of a sale"
+        # sales_invoice: "Creation of a sales invoice"
     journal:
       nature:
         # bank: "Bank"
@@ -1061,15 +1076,62 @@ spa:
         # purchases: "Purchases"
         # sales: "Sales"
         # various: "Various operations"
+    observation:
+      importance:
+        # important: "Important"
+        # normal: "Normal"
+        # notice: "Notice"
+    operation_line:
+      direction:
+        # in: "In"
+        # out: "Out"
     product:
       nature:
         # product: "Product"
         # service: "Service"
         # subscription: "Subcription"
         # transfer: "Transfer"
+    production_chain_work_center:
+      nature:
+        # input: "One in, many out"
+        # output: "Many in, one out"
+    sequence:
+      period:
+        # cweek: "Commercial week"
+        # month: "Month"
+        # number: "No periodicity"
+        # year: "Year"
+      usage:
+        # assets: "Numeration of assets"
+        # cash_transfers: "Numeration of cash transfers"
+        # deposits: "Numeration of deposits"
+        # entities: "Numeration of people"
+        # incoming_deliveries: "Numeration of incoming deliveries"
+        # incoming_payments: "Numeration of payments"
+        # outgoing_deliveries: "Numeration of outgoing deliveries"
+        # outgoing_payments: "Numeration of payments"
+        # purchases: "Numeration of purchases"
+        # sales: "Numeration of sales"
+        # sales_invoices: "Numeration of sales invoices"
+        # stock_transfers: "Numeration of stock transfers"
+        # subscriptions: "Numeration of subscriptions"
+        # transports: "Numeration of transports"
     sex:
       # female: "Female"
       # male: "Male"
+    stock_transfer:
+      nature:
+        # gain: "Gain"
+        # transfer: "Transfer"
+        # waste: "Loss"
+    subscription_nature:
+      nature:
+        # period: "Subscription by date"
+        # quantity: "Subscription by number"
+    tax:
+      nature:
+        # amount: "Amount"
+        # percentage: "Percentage"
   models:
     account:
       # label: "%{number} - %{name}"
@@ -1154,14 +1216,7 @@ spa:
     complement: #?
     contact:
       # error_modify_contact: "The contact can not be updated."
-    custom_field:
-      natures:
-        # boolean: "Check box"
-        # choice: "Choice list"
-        # date: "Date"
-        # datetime: "Date and time"
-        # decimal: "Decimal"
-        # string: "Text"
+    custom_field: #?
     delay:
       # error_unvalid_format_for_expression: "Unvalid format for expression"
     delivery: #?
@@ -1212,14 +1267,10 @@ spa:
       # unvalid_nature: "Unvalid type of document template."
     entity:
       # client: "Client"
+      # no_right_defined_for_this_part_of_the_application: "No right defined for this part of the application: %{controller}%{action}"
+      # no_right_defined_for_this_part_of_the_application_and_this_user: "You can not access to this page"
       # supplier: "Supplier"
-    event_nature:
-      usages:
-        # mailing: "Mailing"
-        # manual: "Manual"
-        # purchase: "Creation of a purchase"
-        # sale: "Creation of a sale"
-        # sales_invoice: "Creation of a sales invoice"
+    event_nature: #?
     financial_year:
       # bookkeep: "[%{resource} %{number}] Depreciation of %{name} (%{position}/%{total})"
       code:
@@ -1279,16 +1330,10 @@ spa:
         # with_value: "%{comparator} %{value}"
         # without_value: "%{comparator}"
       # reflections: "Associated tables"
-    observation:
-      importances:
-        # important: "Important"
-        # normal: "Normal"
-        # notice: "Notice"
+    observation: #?
     operation_line:
       # density_label: "%{value} %{product_unit}/%{area_unit}"
-      direction_label:
-        # in: "In"
-        # out: "Out"
+      direction_label: #?
     outgoing_delivery:
       # label: "%{client} at %{address}"
       # sale: "Sale %{number}"
@@ -1313,9 +1358,7 @@ spa:
       subscription_label:
         # period: "Subscription %{subscription_nature} for %{entity} at %{address} from %{start} to %{finish}"
         # quantity: "Subscription %{subscription_nature} for %{entity} at %{address} from %{start} to %{finish}"
-      supply_methods:
-        # buy: "Buy"
-        # produce: "Produce"
+      supply_methods: #?
       to:
         # produce: "Production"
         # purchases: "Purchases"
@@ -1323,10 +1366,7 @@ spa:
         # sales: "Sales"
     product_component:
       # of_product: "of product"
-    production_chain_work_center:
-      natures:
-        # input: "One in, many out"
-        # output: "Many in, one out"
+    production_chain_work_center: #?
     purchase:
       # bookkeep: "[%{resource} %{number}] %{products} of %{supplier}"
       # label: "%{supplier} at %{address}"
@@ -1351,10 +1391,7 @@ spa:
         # invoice: "Sales invoice %{number}"
         # order: "Sales order %{number}"
         # refused: "Refused estimate %{number}"
-      natures:
-        # estimate: "Estimate"
-        # order: "Order"
-        # sales_invoice: "Sales invoice"
+      natures: #?
       # sale: "Sale %{number}"
       sales_conditions:
         # downpayment: "A downpayment of %{percentage}% (i.e. %{amount}€) must be paid at the signature of this present estimate."
@@ -1382,62 +1419,44 @@ spa:
     sequence:
       default:
         assets:
-          # name: "Numeration of assets"
           # number_format: "A[number|7]"
         cash_transfers:
-          # name: "Numeration of cash transfers"
           # number_format: "CT[year|4][number|4]"
           # period: "year"
         deposits:
-          # name: "Numeration of deposits"
           # number_format: "B[year|4][number|4]"
           # period: "year"
         entities:
-          # name: "Numeration of people"
           # number_format: "[number|8]"
         incoming_deliveries:
-          # name: "Numeration of incoming deliveries"
           # number_format: "ID[year|4][number|4]"
           # period: "year"
         incoming_payments:
-          # name: "Numeration of payments"
           # number_format: "P[year|4][number|6]"
           # period: "year"
         outgoing_deliveries:
-          # name: "Numeration of outgoing deliveries"
           # number_format: "OD[year|4][number|6]"
           # period: "year"
         outgoing_payments:
-          # name: "Numeration of payments"
           # number_format: "D[year|4][number|4]"
           # period: "year"
         purchases:
-          # name: "Numeration of purchases"
           # number_format: "PO[year|4][month|2][number|4]"
           # period: "month"
         sales:
-          # name: "Numeration of sales"
           # number_format: "SO[year|4][month|2][number|6]"
           # period: "month"
         sales_invoices:
-          # name: "Numeration of sales invoices"
           # number_format: "F[year|4][number|6]"
           # period: "year"
         stock_transfers:
-          # name: "Numeration of stock transfers"
           # number_format: "ST[year|4][number|4]"
           # period: "year"
         subscriptions:
-          # name: "Numeration of subscriptions"
           # number_format: "SUB[number|8]"
         transports:
-          # name: "Numeration of transports"
           # number_format: "SH[number|8]"
-      periods:
-        # cweek: "Commercial week"
-        # month: "Month"
-        # number: "No periodicity"
-        # year: "Year"
+      periods: #?
     stock:
       # default_name: "%{warehouse}/%{product}/%{tracking}"
       label:
@@ -1445,19 +1464,9 @@ spa:
         # without_tracking: "%{warehouse}: No serial, %{quantity}%{unit} available"
     stock_move:
       # default_name: "%{origin} (%{code})"
-    stock_transfer:
-      natures:
-        # gain: "Gain"
-        # transfer: "Transfer"
-        # waste: "Loss"
-    subscription_nature:
-      natures:
-        # period: "Subscription by date"
-        # quantity: "Subscription by number"
-    tax:
-      natures:
-        # amount: "Amount"
-        # percent: "Percentage"
+    stock_transfer: #?
+    subscription_nature: #?
+    tax: #?
     tax_declaration:
       # deferment: "Deferment"
       # monthly: "Monthly"
@@ -1467,11 +1476,7 @@ spa:
       # quarterly: "Quarterly"
       # simplified: "Simplified real"
       # yearly: "Yearly"
-    tool:
-      natures:
-        # other: "Other"
-        # towed: "Towed"
-        # tractor: "Tractor"
+    tool: #?
     unit:
       default:
         # a: "Are"
@@ -1483,8 +1488,6 @@ spa:
         # l: "Litre"
         # m: "Metre"
         # m3: "Cubic metre"
-        # t: "Tonne"
+        # t: "Ton"
         # u: "Unit"
-    user:
-      # no_right_defined_for_this_part_of_the_application: "No right defined for this part of the application: %{controller}%{action}"
-      # no_right_defined_for_this_part_of_the_application_and_this_user: "You can not access to this page"
+    user: #?

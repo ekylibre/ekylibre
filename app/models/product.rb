@@ -66,7 +66,6 @@
 
 class Product < CompanyRecord
   enumerize :nature, :in => [:product, :service, :subscription], :default => :product, :predicates => true
-  @@natures = self.nature.values
   belongs_to :purchases_account, :class_name => "Account"
   belongs_to :sales_account, :class_name => "Account"
   belongs_to :subscription_nature
@@ -144,24 +143,8 @@ class Product < CompanyRecord
   end
 
 
-  # def self.natures
-  #   @@natures.collect{|x| [self.nature_label(x), x] }
-  # end
-
-  # def self.nature_label(nature)
-  #   tc('natures.'+nature.to_s)
-  # end
-
-  # def nature_label
-  #   self.class.nature_label(self.nature)
-  # end
-
-  # def subscription?
-  #   self.nature.to_s == :subscrip.to_s
-  # end
-
   def has_components?
-    self.components.size > 0
+    self.components.count > 0
   end
 
   def default_price(category_id)

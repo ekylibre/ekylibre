@@ -61,14 +61,6 @@ class SubscriptionNature < CompanyRecord
     self.subscriptions.count <= 0 and self.products.count <= 0
   end
 
-  # def self.natures
-  #   [:quantity, :period].collect{|x| [tc('natures.'+x.to_s), x] }
-  # end
-
-  # def nature_label
-  #   tc('natures.'+self.nature.to_s)
-  # end
-
   def now
     return (self.period? ? Date.today : self.actual_number)
   end

@@ -21,14 +21,14 @@ class OperationsController < AdminController
 
   unroll_all
 
-  list(:order=>" planned_on desc, name asc") do |t|
-    t.column :name, :url=>true
-    t.column :name, :through=>:nature
-    t.column :label, :through=>:responsible, :url=>true
+  list(:order => " planned_on desc, name asc") do |t|
+    t.column :name, :url => true
+    t.column :name, :through => :nature
+    t.column :label, :through => :responsible, :url => true
     t.column :planned_on
     t.column :moved_on
     t.column :tools_list
-    t.column :name, :through=>:target
+    t.column :name, :through => :target
     t.column :duration
     t.action :edit
     t.action :destroy
@@ -39,17 +39,17 @@ class OperationsController < AdminController
   end
 
 
-  list(:uses, :model=>:operation_uses, :conditions=>{:operation_id=>['session[:current_operation_id]']}, :order=>"id") do |t|
-    t.column :name, :through=>:tool, :url=>true
+  list(:uses, :model => :operation_uses, :conditions => {:operation_id => ['session[:current_operation_id]']}, :order => "id") do |t|
+    t.column :name, :through => :tool, :url => true
   end
 
-  list(:lines, :model=>:operation_lines, :conditions=>{:operation_id=>['session[:current_operation_id]']}, :order=>"direction") do |t|
-    t.column :direction_label
-    t.column :name, :through=>:warehouse, :url=>true
-    t.column :name, :through=>:product, :url=>true
+  list(:lines, :model => :operation_lines, :conditions => {:operation_id => ['session[:current_operation_id]']}, :order => "direction") do |t|
+    t.column :direction
+    t.column :name, :through => :warehouse, :url => true
+    t.column :name, :through => :product, :url => true
     t.column :quantity
-    t.column :label, :through=>:unit
-    t.column :name, :through=>:tracking, :url=>true
+    t.column :label, :through => :unit
+    t.column :name, :through => :tracking, :url => true
     t.column :density_label
   end
 
@@ -62,7 +62,7 @@ class OperationsController < AdminController
   end
 
   def new
-    @operation = Operation.new(:planned_on=>params[:planned_on]||Date.today, :target_id=>params[:target_id].to_i, :responsible_id=>@current_user.id, :hour_duration=>2, :min_duration=>0)
+    @operation = Operation.new(:planned_on => params[:planned_on]||Date.today, :target_id => params[:target_id].to_i, :responsible_id => @current_user.id, :hour_duration => 2, :min_duration => 0)
     render_restfully_form
   end
 
@@ -108,26 +108,26 @@ class OperationsController < AdminController
   end
 
 
-  list(:unvalidateds, :model=>:operations, :conditions=>{:moved_on=>nil}) do |t|
+  list(:unvalidateds, :model => :operations, :conditions => {:moved_on => nil}) do |t|
     t.column :name
-    t.column :name, :through=>:nature
-    t.column :label, :through=>:responsible, :url=>true
-    t.column :name, :through=>:target
+    t.column :name, :through => :nature
+    t.column :label, :through => :responsible, :url => true
+    t.column :name, :through => :target
     t.column :planned_on
-    t.text_field :moved_on, :value=>'Date.today', :size=>10
-    t.check_box :validated, :value=>'RECORD.planned_on<=Date.today'
+    t.text_field :moved_on, :value => 'Date.today', :size => 10
+    t.check_box :validated, :value => 'RECORD.planned_on<=Date.today'
   end
 
   def unvalidateds
-    @operations = Operation.where(:moved_on => nil)
+    @operations = Operation.where(:moved_on  =>  nil)
     notify_now(:no_unvalidated_operations) if @operations.count.zero?
     if request.post?
       for id, values in params[:unvalidateds]
         operation = Operation.find_by_id(id)
         operation.make((values[:moved_on].to_date rescue Date.today)) if operation and values[:validated].to_i == 1
-        #operation.update_attributes!(:moved_on=>Date.today) if operation and values[:validated].to_i == 1
+        #operation.update_attributes!(:moved_on => Date.today) if operation and values[:validated].to_i == 1
       end
-      redirect_to :action=>:unvalidateds
+      redirect_to :action => :unvalidateds
     end
   end
 

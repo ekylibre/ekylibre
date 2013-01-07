@@ -1,9 +1,9 @@
 -field_set do
   -input :nature, :show => {:quantity => :number_options}
   -input :name
-  -input :reduction_rate
+  -input :reduction_percentage
   -association :entity_link_nature
-  -input :comment, :field => :text
+  -input :comment
 
 -field_set(:number_options) do
   -input :actual_number

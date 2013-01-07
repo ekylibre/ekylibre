@@ -13,5 +13,5 @@
 
 -field_set(:commission, :in => :accountancy_options) do
   -input :commission_base_amount
-  -input :commission_percent
+  -input :commission_percentage
   -association :commission_account, :source => :charges, :new => {:number => Account.chart_number(:charges)}

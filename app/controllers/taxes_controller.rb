@@ -25,7 +25,7 @@ class TaxesController < AdminController
   list do |t|
     t.column :name
     t.column :amount, :precision => 3
-    t.column :nature_label
+    t.column :nature
     t.column :included
     t.column :reductible
     t.column :label, :through => :paid_account, :url => true

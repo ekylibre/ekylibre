@@ -33,8 +33,7 @@
   =association :responsible, :source => :employees, :after => :category
   =input :vat_submissive
   =input :reflation_submissive
-  -#=input :discount_rate
-  =input :reduction_rate
+  =input :reduction_percentage
   =input :authorized_payments_count
   =input :deliveries_conditions, :field => :text
   =association :client_account, :source => :client_thirds, :buttons => {:new => {:number => Account.find_in_chart(:client_thirds).number}}

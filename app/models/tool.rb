@@ -44,9 +44,9 @@
 class Tool < CompanyRecord
   attr_accessible :nature_id, :asset_id, :picture, :name, :comment, :purchased_on, :ceded_on, :consumption, :state
   has_attached_file :picture, :styles => { :medium => "300x300>", :thumb => "100x100>" }
-  has_many :uses, :class_name=>"OperationUse"
-  belongs_to :nature, :class_name=>"ToolNature"
-  belongs_to :asset, :class_name=>"Asset"
+  has_many :uses, :class_name => "OperationUse"
+  belongs_to :nature, :class_name => "ToolNature"
+  belongs_to :asset, :class_name => "Asset"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :picture_file_size, :allow_nil => true, :only_integer => true
   validates_numericality_of :consumption, :allow_nil => true
@@ -54,7 +54,7 @@ class Tool < CompanyRecord
   validates_presence_of :name
   #]VALIDATORS]
 
-  default_scope order(:name)
+  default_scope -> { order(:name) }
 
   def usage_duration_sum
     sum = 0
@@ -65,11 +65,11 @@ class Tool < CompanyRecord
   end
 
   def usage_duration
-    return Operation.sum(:duration, :conditions=>["moved_on IS NOT NULL AND id IN (SELECT operation_id FROM #{OperationUse.table_name} WHERE tool_id=?)", self.id])
+    return Operation.sum(:duration, :conditions => ["moved_on IS NOT NULL AND id IN (SELECT operation_id FROM #{OperationUse.table_name} WHERE tool_id=?)", self.id])
   end
 
   def remaining_duration
-    return Operation.sum(:duration, :conditions=>["moved_on IS NULL AND id IN (SELECT operation_id FROM #{OperationUse.table_name} WHERE tool_id=?)", self.id])
+    return Operation.sum(:duration, :conditions => ["moved_on IS NULL AND id IN (SELECT operation_id FROM #{OperationUse.table_name} WHERE tool_id=?)", self.id])
   end
 
 

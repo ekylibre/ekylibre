@@ -473,7 +473,7 @@ fra:
     contact: "Adresse"
     contacts: "Contacts"
     conveyors: "Convoyeurs"
-    # coordinate: "Coordinate"
+    coordinate: "Coordonnée"
     corpse_location: "Localisation corporelle" #?
     country: "Pays"
     created_at: "Date et heure de création"
@@ -561,8 +561,7 @@ fra:
     downpayment: "Acompte"
     downpayment_amount: "Montant de l’acompte"
     downpayment_minimum: "Somme minimale"
-    # downpayment_percentage: "Downpayment percentage"
-    downpayment_rate: "Taux acompte" #?
+    downpayment_percentage: "Pourcentage d'acompte"
     draft: "Brouillard" #?
     draft_mode: "Mode brouillard" #?
     drug: "Médicament"
@@ -616,10 +615,9 @@ fra:
     expression: "Expression"
     extension: "Extension"
     family: "Module"
-    family_label: "Module" #?
     father: "Père"
     fax: "Fax"
-    # faxes: "Faxes"
+    faxes: "Fax"
     filename: "Nom de fichier"
     filesize: "Taille du fichier"
     filtered_columns: "Colonnes filtrées"
@@ -678,8 +676,7 @@ fra:
     inventories: "Inventaires"
     inventory: "Inventaire"
     inventory_lines: "Lignes d’inventaire"
-    # invoice_address: "Invoice address"
-    invoice_contact: "Adresse pour la facture" #?
+    invoice_address: "Adresse pour la facture"
     invoiced: "Facturée" #?
     invoiced_on: "Facturée le"
     invoices_count: "Nombre de factures"
@@ -714,13 +711,6 @@ fra:
     length_max: "Nombre de caractères maximum" #?
     letter: "Lettre"
     letter_format: "Devis au format lettre"
-    line_2: "Destinataire - Service" #?
-    line_3: "Bât. - Rés. - ZI..." #?
-    line_4: "Numéro et libellé de la voie" #?
-    line_5: "Mention spéciale - Lieu dit" #?
-    line_6: "Code postal ET ville" #?
-    line_6_city: "Ville" #?
-    line_6_code: "Code postal" #?
     lines: "Lignes"
     listing: "Extraction"
     listing_node_items: "Éléments de nœud d’extraction"
@@ -744,11 +734,11 @@ fra:
     # mail_country: "Mail country"
     # mail_geolocation: "Mail geolocation"
     # mail_line_1: "Addressee, department"
-    # mail_line_2: "Appartment, floor"
-    # mail_line_3: "Building, residence"
-    # mail_line_4: "Number and Street"
-    # mail_line_5: "Special mentions, place name"
-    # mail_line_6: "Postal code and city"
+    mail_line_2: "Destinataire - Service"
+    mail_line_3: "Bât. - Rés. - ZI..."
+    mail_line_4: "Numéro et libellé de la voie"
+    mail_line_5: "Mention spéciale - Lieu dit"
+    mail_line_6: "Code postal ET ville"
     # mails: "Mails"
     major_accounts: "Classes comptables"
     mandates: "Responsabilités"
@@ -852,8 +842,8 @@ fra:
     postcode: "Code postal"
     preferences: "Préférences"
     pregnant: "Pleine"
-    prescripted: "sur ordonnance" #?
-    prescripted_on: "prescrit le" #?
+    prescripted: "Sur ordonnance" #?
+    prescripted_on: "Prescrit le" #?
     prescription: "Ordonnance" #?
     prescription_number: "référence de l’ordonnance" #?
     prescriptions: "Ordonnances"
@@ -915,12 +905,12 @@ fra:
     reconcilable: "Lettrable"
     record_value: "Enregistrement"
     record_value_type: "Type d’enregistrement"
-    # recruited_on: "Recruited on"
+    recruited_on: "Recruté(e) le"
     reductible: "Réductible"
     reduction: "Ligne de réduction"
     reduction_origin: "Ligne soumise à réduction"
-    reduction_percent: "Pourcentage de réduction"
-    # reduction_percentage: "Reduction percentage"
+    # reduction_percent: "Reduction percentage"
+    reduction_percentage: "Pourcentage de réduction"
     reduction_rate: "Taux de réduction"
     reduction_submissive: "Soumis à réduction"
     reductions: "Lignes de réductions"
@@ -965,7 +955,7 @@ fra:
     service_coeff: "Coefficient (de quantité) de service" #?
     sex: "Sexe"
     sha256: "SHA256"
-    shape: "silhouette" #?
+    shape: "Contour" #?
     shipped: "Reçu" #?
     shipped_on: "Envoyé le" #?
     siren: "N° SIREN"
@@ -1045,7 +1035,7 @@ fra:
     treatment: "Traitement" #?
     treatment_uses: "Treatment uses" #?
     treatments: "Treatments"
-    # type: "Type"
+    type: "Type"
     # unconfirmed_stock_transfers: "Unconfirmed stock transfers"
     # undelivered_incoming_deliveries: "Undelivered incoming deliveries"
     # undelivered_outgoing_deliveries: "Undelivered outgoing deliveries"
@@ -1068,6 +1058,7 @@ fra:
     usage_duration: "Durée d’utilisation (heures)"
     use_range: "Utiliser un intervalle de quantité"
     used_amount: "Montant utilisé"
+    # used_with: "Used with"
     # useful_lines: "Useful lines"
     user: "Utilisateur"
     user_name: "Identifiant"
@@ -1106,9 +1097,6 @@ fra:
         dead: "Décès" #?
         other: "Autres" #?
         sale: "Vente" #?
-      sex: #?
-        female: "Femelle" #?
-        male: "Mâle" #?
     animal_treatment:  #?
       duration_unit_wait_for_meat: #?
         days: "Jours" #?
@@ -1119,58 +1107,81 @@ fra:
         milking: "Traites" #?
     asset:
       depreciation_method:
-        # graduated: "Graduated"
-        # linear: "Linear"
-        # simplified_linear: "Simplified linear"
+        graduated: "Dégressive"
+        linear: "Linéaire"
+        simplified_linear: "Linéaire simplifié"
     cash:
       mode:
         bban: "Relevé d’identité bancaire (RIB)"
         iban: "IBAN"
-      modes: #?
       nature:
         bank_account: "Compte bancaire"
         cash_box: "Caisse"
       natures: #?
+    custom_field:
+      nature:
+        boolean: "Case à cocher"
+        choice: "Liste de choix"
+        date: "Date"
+        datetime: "Date et heure"
+        decimal: "Chiffre (décimal)"
+        string: "Texte"
     document_template:
       family:
-        # accountancy: "Accountancy"
-        # company: "Company"
-        # management: "Management"
-        # production: "Production"
-        # relations: "Relationships"
-        # resources: "Resources"
+        accountancy: "Comptabilité"
+        company: "Société"
+        management: "Gestion commerciale"
+        production: "Production"
+        relations: "Personnes"
+        resources: "Resources"
       nature:
-        # animal: "Animal card"
-        # balance: "Balance"
-        # balance_sheet: "Balance sheet"
-        # deposit: "Deposit"
-        # entity: "Person"
-        # financial_year: "Financial year document"
-        # general_journal: "General journal"
-        # general_ledger: "Grand ledger"
-        # income_statement: "Income statement"
-        # inventory: "Inventory"
-        # journal: "Journal"
-        # other: "Other"
-        # purchase: "Purchase order"
-        # sales_invoice: "Sales invoice"
-        # sales_order: "Sales order"
-        # stocks: "Stocks"
-        # transport: "Transport"
+        animal: "Animal"
+        balance: "Balance"
+        balance_sheet: "Bilan comptable"
+        deposit: "Remise en banque"
+        entity: "Personne"
+        financial_year: "Exercice comptable"
+        general_journal: "Journal général"
+        general_ledger: "Grand livre"
+        income_statement: "Compte de résultat"
+        inventory: "Inventaire"
+        journal: "Journal"
+        other: "Auter"
+        purchase: "Achat"
+        sales_invoice: "Facture de vente"
+        sales_order: "Vente"
+        stocks: "Stocks"
+        transport: "Transport"
     drug_admission_path:  #?
       ima: "IntraMammaire" #?
       imu: "IntraMusculaire" #?
       iu: "IntraUtérine" #?
       iv: "IntraVeineuse" #?
       oral: "Orale" #?
+    event_nature:
+      usage:
+        mailing: "Mailing" #?
+        manual: "Manuelle"
+        purchase: "Création d’un achat"
+        sale: "Création d’un devis"
+        sales_invoice: "Création d’une facture"
     journal:
       nature:
-        # bank: "Bank"
-        # cash: "Cash"
-        # forward: "Carried-forward"
-        # purchases: "Purchases"
-        # sales: "Sales"
-        # various: "Various operations"
+        bank: "Banque"
+        cash: "Caisse"
+        forward: "Report à nouveaux"
+        purchases: "Achats"
+        sales: "Ventes"
+        various: "Opérations diverses"
+    observation:
+      importance:
+        important: "Importante"
+        normal: "Normale"
+        notice: "Faible"
+    operation_line:
+      direction:
+        in: "Intrant"
+        out: "Sortant"
     per_animal_unit:  #?
       per_animal: " / Animal" #?
       per_kg: " / Kg" #?
@@ -1187,13 +1198,51 @@ fra:
       times_per_week: " / Semaine" #?
     product:
       nature:
-        # product: "Product"
-        # service: "Service"
-        # subscription: "Subcription"
-        # transfer: "Transfer"
+        product: "Produit"
+        service: "Service"
+        subscription: "Abonnement"
+        transfer: "Transfert"
+    production_chain_work_center:
+      nature:
+        input: "Une entrée, plusieurs sorties"
+        output: "Plusieurs entrées, une sortie"
+    sequence:
+      period:
+        cweek: "Semaine"
+        month: "Mois"
+        number: "Pas de périodicité"
+        year: "Année"
+      usage:
+        assets: "Numérotation des immobilisations"
+        cash_transfers: "Numérotation des virements internes"
+        deposits: "Numérotation des remises en banque"
+        entities: "Numérotation des personnes"
+        incoming_deliveries: "Numérotation des bons de réceptions"
+        incoming_payments: "Numérotation des encaissements"
+        outgoing_deliveries: "Numérotation des bons de livraisons"
+        outgoing_payments: "Numérotation des décaissements"
+        purchases: "Numérotation des achats"
+        sales: "Numérotation des ventes"
+        sales_invoices: "Numérotation des factures"
+        stock_transfers: "Numérotation des transferts de stock"
+        subscriptions: "Numérotation des abonnements"
+        transports: "Numérotation des transports"
     sex:
-      # female: "Female"
-      # male: "Male"
+      female: "Femelle"
+      male: "Mâle"
+    stock_transfer:
+      nature:
+        gain: "Gain"
+        transfer: "Transfert"
+        waste: "Perte"
+    subscription_nature:
+      nature:
+        period: "Abonnement par date"
+        quantity: "Abonnement par numéros"
+    tax:
+      nature:
+        amount: "Montant"
+        percentage: "Pourcentage"
   models:
     account:
       label: "%{number} - %{name}"
@@ -1202,10 +1251,6 @@ fra:
     company:
       cant_find_document_template: "Impossible de trouver le modèle de document correspondant"
       default:
-        cash:  #?
-          name: #?
-            bank_account: "Compte bancaire" #?
-            cash_box: "Caisse" #?
         category: "Par défaut"
         delays:
           expression:
@@ -1229,13 +1274,6 @@ fra:
             name: "Chèque"
           transfer:
             name: "Virement"
-        journals:  #?
-          bank: "Banque" #?
-          cash: "Caisse" #?
-          forward: "À nouveaux" #?
-          purchases: "Achats" #?
-          sales: "Ventes" #?
-          various: "Opérations diverses" #?
         outgoing_payment_modes:
           cash:
             name: "Espèces"
@@ -1279,14 +1317,6 @@ fra:
       sales: "Ventes"
     contact:
       error_modify_contact: "Impossible de modifier un contact"
-    custom_field:
-      natures:
-        boolean: "Case à cocher"
-        choice: "Liste de choix"
-        date: "Date"
-        datetime: "Date et heure"
-        decimal: "Chiffre décimal"
-        string: "Texte"
     delay:
       error_unvalid_format_for_expression: "L’expression n’est pas au bon format"
     deposit:
@@ -1333,14 +1363,9 @@ fra:
       unvalid_nature: "Votre type de modèle est incorrect. Vous devriez supprimer ce modèle et le réinstaller."
     entity:
       client: "Client"
+      no_right_defined_for_this_part_of_the_application: "Aucun droit défini pour cette partie de l’application\_: %{controller}/%{action}"
+      no_right_defined_for_this_part_of_the_application_and_this_user: "Vous n’avez pas accès à cette partie de l’application"
       supplier: "Fournisseur"
-    event_nature:
-      usages:
-        mailing: "Mailing"
-        manual: "Manuelle"
-        purchase: "Création d’un achat"
-        sale: "Création d’un devis"
-        sales_invoice: "Création d’une facture"
     financial_year:
       bookkeep: "[%{resource} %{number}] Amortissement de %{name} (%{position}/%{total})"
       code:
@@ -1353,14 +1378,7 @@ fra:
       bookkeep: "[%{resource}] %{mode} (%{payment_number}) reçu de %{attorney} pour %{client} (%{expense_number})"
     inventory_line:
       inventory: "Inventaire "
-    journal:  #?
-      natures: #?
-        bank: "Banque" #?
-        cash: "Caisse" #?
-        forward: "Report à nouveaux" #?
-        purchases: "Achats" #?
-        sales: "Ventes" #?
-        various: "Opérations diverses" #?
+    journal: #?
     journal_entry:
       entry_cancel: "Contre-passation de l’écriture %{number}: %{name}"
       states:
@@ -1404,16 +1422,8 @@ fra:
         with_value: "%{comparator} %{value}"
         without_value: "%{comparator}"
       reflections: "Tables liées"
-    observation:
-      importances:
-        important: "Importante"
-        normal: "Normale"
-        notice: "Faible"
     operation_line:
       density_label: "%{value} %{product_unit}/%{area_unit}"
-      direction_label:
-        in: "Intrant"
-        out: "Sortant"
     outgoing_delivery:
       label: "%{client} à %{address}"
       sale: "Vente %{number}"
@@ -1433,18 +1443,10 @@ fra:
         with_components: "%{product} (%{unit}) (produit transformé)"
         without_components: "%{product} (%{unit}) (matière première)"
       label: "%{product} (%{unit})"
-      natures:  #?
-        product: "Produit" #?
-        service: "Service" #?
-        subscrip: "Abonnement" #?
-        transfer: "Transfert" #?
       stock_move: "%{origin} (%{code})"
       subscription_label:
         period: "Abonnement %{subscription_nature} pour %{entity} à l’adresse %{address} du %{start} au %{finish}"
         quantity: "Abonnement %{subscription_nature} pour %{entity} à l’adresse %{address} du n°%{start} au n°%{finish}"
-      supply_methods:
-        buy: "Achat"
-        produce: "Production"
       to:
         produce: "Production"
         purchases: "Achat"
@@ -1452,10 +1454,6 @@ fra:
         sales: "Vente"
     product_component:
       of_product: "du produit"
-    production_chain_work_center:
-      natures:
-        input: "Une entrée, plusieurs sorties"
-        output: "Plusieurs entrées, une sortie"
     purchase:
       bookkeep: "[%{resource} %{number}] %{products} de %{supplier}"
       label: "%{supplier} à %{address}"
@@ -1480,10 +1478,6 @@ fra:
         invoice: "Facture %{number}"
         order: "Commande %{number}"
         refused: "Devis refusé %{number}"
-      natures:
-        estimate: "Devis"
-        order: "Commande"
-        sales_invoice: "Facture"
       sale: "Vente %{number}"
       sales_conditions:
         downpayment: "Un acompte de %{percent}% (soit %{amount}€) devra être versé à la signature du présent devis."
@@ -1509,62 +1503,43 @@ fra:
     sequence:
       default:
         assets:
-          name: "Numérotation des immobilisations"
           number_format: "I[number|7]"
         cash_transfers:
-          name: "Numérotation des virements internes"
           number_format: "VI[year|4][number|4]"
           period: "year"
         deposits:
-          name: "Numérotation des remises en banque"
           number_format: "B[year|4][number|4]"
           period: "year"
         entities:
-          name: "Numérotation des personnes"
           number_format: "[number|8]"
         incoming_deliveries:
-          name: "Numérotation des bons de réceptions"
           number_format: "BR[year|4][number|4]"
           period: "year"
         incoming_payments:
-          name: "Numérotation des encaissements"
           number_format: "R[year|4][number|6]"
           period: "year"
         outgoing_deliveries:
-          name: "Numérotation des bons de livraisons"
           number_format: "BL[year|4][number|6]"
           period: "year"
         outgoing_payments:
-          name: "Numérotation des décaissements"
           number_format: "D[year|4][number|4]"
           period: "year"
         purchases:
-          name: "Numérotation des achats"
           number_format: "A[year|4][month|2][number|6]"
           period: "month"
         sales:
-          name: "Numérotation des ventes"
           number_format: "V[year|4][month|2][number|6]"
           period: "month"
         sales_invoices:
-          name: "Numérotation des factures"
           number_format: "F[year|4][number|6]"
           period: "year"
         stock_transfers:
-          name: "Numérotation des transferts de stock"
           number_format: "TS[year|4][number|4]"
           period: "year"
         subscriptions:
-          name: "Numérotation des abonnements"
           number_format: "ABO[number|8]"
         transports:
-          name: "Numérotation des transports"
           number_format: "TR[number|8]"
-      periods:
-        cweek: "Semaine"
-        month: "Mois"
-        number: "-- Aucune --"
-        year: "Année"
     stock:
       default_name: "%{warehouse}/%{product}/%{tracking}"
       label:
@@ -1572,19 +1547,6 @@ fra:
         without_tracking: "%{warehouse}\_: Non tracé, %{quantity}%{unit} disponible(s)"
     stock_move:
       default_name: "%{origin} (%{code})"
-    stock_transfer:
-      natures:
-        gain: "Gain"
-        transfer: "Transfert"
-        waste: "Perte"
-    subscription_nature:
-      natures:
-        period: "Abonnement par date"
-        quantity: "Abonnement par numéros"
-    tax:
-      natures:
-        amount: "Montant"
-        percent: "Pourcentage"
     tax_declaration:
       deferment: "Reporté"
       monthly: "Mensuelle"
@@ -1594,11 +1556,6 @@ fra:
       quarterly: "Trimestrielle"
       simplified: "Réel simplifié"
       yearly: "Annuelle"
-    tool:
-      natures:
-        other: "Autres"
-        towed: "Attelage"
-        tractor: "Tracteur"
     unit:
       default:
         a: "Are"
@@ -1612,6 +1569,3 @@ fra:
         m3: "Mètre cube"
         t: "Tonne"
         u: "Unité"
-    user:
-      no_right_defined_for_this_part_of_the_application: "Aucun droit défini pour cette partie de l’application\_: %{controller}/%{action}"
-      no_right_defined_for_this_part_of_the_application_and_this_user: "Vous n’avez pas accès à cette partie de l’application"

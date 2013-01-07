@@ -8,7 +8,7 @@
       %td{:colspan=>6, :style=>"background: transparent; padding:8px 4px 0; border-left:none; border-right:none;"}=error_messages 'operation_line', :object=>line
 %tr{:id=>id, :class=>(direction==:in ? 'odd' : 'even')}
   %td
-    %strong{:title=>h(line.inspect)}=::I18n.t("models.operation_line.direction_label."+direction.to_s)
+    %strong{:title=>h(line.inspect)}=::I18n.t("enumerize.operation_line.direction."+direction.to_s)
     =hidden_field_tag("lines[#{id}][direction]", direction)
   %td=combo_box_tag("lines[#{id}][product_id]", :operation_products, {:value=>product, :controller=>:interfacers, :no_resize=>true}, "data-dependents"=>"#lines_#{id}_unit_id, #lines_#{id}_tracking_id", "data-parameter-name"=>"product_id")
   %td

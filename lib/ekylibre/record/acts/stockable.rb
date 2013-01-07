@@ -17,13 +17,14 @@ module Ekylibre::Record
           record = self.name.underscore.to_s
           variable = "self" # self.name.underscore # "self" ||
           attributes = {}
-          [:quantity, :product, :unit, :warehouse, :tracking, :moved_on].each{|a| attributes[a] = a}
-          attributes.merge!(options)
+          [:quantity, :product, :unit, :warehouse, :tracking, :moved_on].each do |attr|
+            attributes[attr] = options.delete(attr) || attr
+          end
           attributes[:origin] =  (origin ? "#{variable}.#{origin}" : "#{variable}")
           attributes[:moved_on] = "#{attributes[:origin]}.#{attributes[:moved_on]}" if attributes[:moved_on].is_a? Symbol
           attributes[:generated] = "true"
           # attributes[:company_id] = "#{variable}.company_id"
-          attrs = attributes.collect{|k,v| ":#{k}=>"+(v.is_a?(String) ? "(#{v})" : "#{variable}.#{v}")}.join(", ")
+          attrs = attributes.collect{|k, v| ":#{k} => " + (v.is_a?(Symbol) ? "#{variable}.#{v}" : "(#{v})") }.join(", ")
           code  = ""
           update_method = "_update_#{stock_move}_#{__LINE__}"
 
@@ -41,7 +42,7 @@ module Ekylibre::Record
           code << "after_save do"+(variable == "self" ? "" : "|#{variable}|")+"\n"
           # code << "  puts \"#{self.name} (\#\{#{variable}.id\})\"\n"
           if condition
-            code << "  unless #{condition}\n"
+            code << "  unless " + (condition.is_a?(Symbol) ? "#{variable}.#{condition}" : condition) +"\n"
             code << "    #{variable}.#{stock_move}.destroy if #{variable}.#{stock_move}\n"
             code << "    return\n"
             code << "  end\n"

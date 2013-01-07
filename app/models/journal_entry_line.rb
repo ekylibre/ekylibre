@@ -44,7 +44,7 @@
 
 
 class JournalEntryLine < CompanyRecord
-  acts_as_list :scope=>:entry
+  acts_as_list :scope => :entry
   after_create  :update_entry
   after_destroy :update_entry
   after_destroy :unmark
@@ -52,7 +52,7 @@ class JournalEntryLine < CompanyRecord
   attr_readonly :entry_id, :journal_id, :state
   belongs_to :account
   belongs_to :journal
-  belongs_to :entry, :class_name=>"JournalEntry"
+  belongs_to :entry, :class_name => "JournalEntry"
   belongs_to :bank_statement
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :balance, :credit, :debit, :original_credit, :original_debit, :allow_nil => true
@@ -62,13 +62,13 @@ class JournalEntryLine < CompanyRecord
   validates_presence_of :account, :balance, :credit, :debit, :entry, :name, :original_credit, :original_debit, :state
   #]VALIDATORS]
   validates_presence_of :account
-  # validates_uniqueness_of :letter, :scope=>:account_id, :if=>Proc.new{|x| !x.letter.blank?}
+  # validates_uniqueness_of :letter, :scope => :account_id, :if => Proc.new{|x| !x.letter.blank?}
 
   scope :between, lambda { |started_on, stopped_on|
     joins("JOIN #{JournalEntry.table_name} AS journal_entries ON (journal_entries.id=entry_id)").where("printed_on BETWEEN ? AND ? ", started_on, stopped_on).order("printed_on, journal_entries.id, journal_entry_lines.id")
   }
 
-  state_machine :state, :initial=>:draft do
+  state_machine :state, :initial => :draft do
     state :draft
     state :confirmed
     state :closed
@@ -95,7 +95,7 @@ class JournalEntryLine < CompanyRecord
     end
   end
 
-  validate(:on=>:update) do
+  validate(:on => :update) do
     old = self.class.find(self.id)
     errors.add_to_base(:entry_has_been_already_validated) if old.closed?
     # Forbids to change "manually" the letter. Use Account#mark/unmark.
@@ -109,8 +109,8 @@ class JournalEntryLine < CompanyRecord
       return
     end
     errors.add_to_base :unvalid_amounts if self.debit != 0 and self.credit != 0
-    errors.add(:debit,  :greater_or_equal_than, :count=>0) if self.debit<0
-    errors.add(:credit, :greater_or_equal_than, :count=>0) if self.credit<0
+    errors.add(:debit,  :greater_or_equal_than, :count => 0) if self.debit<0
+    errors.add(:credit, :greater_or_equal_than, :count => 0) if self.credit<0
   end
 
   protect(:on => :update) do

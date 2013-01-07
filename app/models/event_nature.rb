@@ -35,8 +35,8 @@
 
 class EventNature < CompanyRecord
   attr_readonly :name
-  has_many :events, :foreign_key=>:nature_id
-  enumerize :usage, :in => [:manual, :sale, :purchase, :sales_invoice]
+  has_many :events, :foreign_key => :nature_id
+  enumerize :usage, :in => [:manual, :sale, :purchase, :sales_invoice], :defaut => :manual, :predicates => true
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :duration, :allow_nil => true, :only_integer => true
   validates_length_of :usage, :allow_nil => true, :maximum => 64
@@ -45,18 +45,10 @@ class EventNature < CompanyRecord
   validates_presence_of :name
   #]VALIDATORS]
 
-  default_scope order(:name)
+  default_scope -> { order(:name) }
 
   protect(:on => :destroy) do
-    self.events.size <= 0
-  end
-
-  def self.usages
-    [:manual, :sale, :purchase, :sales_invoice].collect{|x| [tc('usages.'+x.to_s), x] }
-  end
-
-  def text_usage
-    self.usage.blank? ? "" :   tc('usages.'+self.usage.to_s)
+    self.events.count <= 0
   end
 
 end

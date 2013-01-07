@@ -18,33 +18,34 @@
 #
 
 class CustomFieldsController < AdminController
-  manage_restfully :redirect_to=>'(@custom_field.nature=="choice" ? {:action=>:show, :id=>"id"} : :back)'
+  manage_restfully :redirect_to => '(@custom_field.choice? ? {:action => :show, :id => "id"} : :back)'
   manage_restfully_list
   unroll_all
 
-  list(:order=>:position) do |t|
-    t.column :name, :url=>true
-    t.column :nature_label
+  list(:order => :position) do |t|
+    t.column :used_with
+    t.column :name, :url => true
+    t.column :nature
     t.column :required
     t.column :active
-    t.column :choices_count, :datatype=>:integer
-    t.action :up, :method=>:post, :if=>'!RECORD.first? '
-    t.action :down, :method=>:post, :if=>'!RECORD.last? '
+    t.column :choices_count, :datatype => :integer
+    t.action :up, :method => :post, :unless => :first?
+    t.action :down, :method => :post, :unless => :last?
     t.action :edit
-    t.action :show, :image=>:menulist, :if=>"(RECORD.nature == 'choice')"
+    t.action :show, :image => :menulist, :if => :choice?
   end
 
   # Displays the main page with the list of custom fields
   def index
   end
 
-  list(:choices, :model=>:custom_field_choices, :conditions=>{:custom_field_id=>['session[:current_custom_field_id]']}, :order=>'position') do |t|
+  list(:choices, :model => :custom_field_choices, :conditions => {:custom_field_id => ['session[:current_custom_field_id]']}, :order => 'position') do |t|
     t.column :name
     t.column :value
-    t.action :up, :if=>"not RECORD.first\?", :method=>:post
-    t.action :down, :if=>"not RECORD.last\?", :method=>:post
+    t.action :up, :unless => :first?, :method => :post
+    t.action :down, :unless => :last?, :method => :post
     t.action :edit
-    t.action :destroy, :if=>"RECORD.destroyable\?"
+    t.action :destroy, :if => :destroyable?
   end
 
   # Displays details of one custom field selected with +params[:id]+

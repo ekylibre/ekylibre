@@ -134,9 +134,6 @@ class Sale < CompanyRecord
     end
   end
 
-
-  @@natures = [:estimate, :order, :invoice]
-
   before_validation(:on  =>  :create) do
     self.currency = self.nature.currency if self.nature
   end
@@ -320,17 +317,6 @@ class Sale < CompanyRecord
     array
   end
 
-
-  def self.natures
-    @@natures.collect{|x| [tc('natures.'+x.to_s), x] }
-  end
-
-
-  # Obsolete
-  def text_state
-    puts "DEPRECATION WARNING: Please use state_label in place of text_state"
-    state_label
-  end
 
   def self.state_label(state)
     tc('states.'+state.to_s)

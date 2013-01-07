@@ -38,7 +38,7 @@
 
 class ProductionChainWorkCenter < CompanyRecord
   acts_as_list :scope => :production_chain
-  enumerize :nature, :in => [:input, :output]
+  enumerize :nature, :in => [:input, :output], :default => :input, :predicates => true
   belongs_to :building, :class_name => "Warehouse"
   belongs_to :operation_nature
   belongs_to :production_chain

@@ -117,7 +117,7 @@ class Entity < CompanyRecord
   has_many :websites,  :conditions => {:canal => "website", :deleted_at => nil}, :class_name => "EntityAddress"
 
   has_many :auto_updateable_addresses, :conditions => {:deleted_at => nil, :mail_auto_update => true}, :class_name => "EntityAddress"
-  has_many :custom_field_data
+  has_many :custom_field_data, :as => :customized
   has_many :direct_links, :class_name => "EntityLink", :foreign_key => :entity_1_id
   has_many :events
   has_many :animal_events, :class_name => "AnimalEvent", :foreign_key => :watcher_id

@@ -45,9 +45,9 @@
 class StockTransfer < CompanyRecord
   acts_as_numbered
   acts_as_stockable :quantity => '-self.quantity'
-  acts_as_stockable :second_stock_move, :warehouse => 'self.second_warehouse', :if => 'self.transfer?'
+  acts_as_stockable :second_stock_move, :warehouse => :second_warehouse, :if => :transfer?
   attr_readonly :nature
-  enumerize :nature, :in => [:waste, :transfer, :gain], :predicates => true
+  enumerize :nature, :in => [:waste, :transfer, :gain], :default => :transfer, :predicates => true
   belongs_to :product
   belongs_to :second_stock_move, :class_name => "StockMove"
   belongs_to :second_warehouse, :class_name => "Warehouse"
@@ -62,7 +62,7 @@ class StockTransfer < CompanyRecord
   validates_presence_of :nature, :number, :planned_on, :product, :quantity, :warehouse
   #]VALIDATORS]
   validates_presence_of :unit
-  validates_presence_of :second_warehouse, :if => Proc.new{|x| x.transfer?}
+  validates_presence_of :second_warehouse, :if => :transfer?
   validates_numericality_of :quantity, :greater_than => 0.0
   validates_inclusion_of :nature, :in => self.nature.values
 
@@ -91,14 +91,6 @@ class StockTransfer < CompanyRecord
       errors.add_to_base(:warehouse_can_not_waste_product, :warehouse => self.warehouse.name, :product => self.product.name, :contained_product => self.warehouse.product.name) if self.nature=="waste"
     end
     errors.add_to_base(:warehouses_can_not_be_identical) if self.warehouse_id == self.second_warehouse_id
-  end
-
-  def self.natures
-    self.nature.values.collect{|x| [tc('natures.'+x.to_s), x] }
-  end
-
-  def nature_label
-    tc('natures.'+self.nature.to_s)
   end
 
   def execute(moved_on = Date.today)

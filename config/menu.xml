@@ -498,6 +498,27 @@
         <page to="users#unlock"/>
         <page to="users#update"/>
       </menu>
+      <menu name="custom_fields">
+        <page to="custom_fields#index"/>
+        <page to="custom_fields#create"/>
+        <page to="custom_fields#destroy"/>
+        <page to="custom_fields#down"/>
+        <page to="custom_fields#edit"/>
+        <page to="custom_fields#list"/>
+        <page to="custom_fields#list_choices"/>
+        <page to="custom_fields#new"/>
+        <page to="custom_fields#show"/>
+        <page to="custom_fields#sort"/>
+        <page to="custom_fields#up"/>
+        <page to="custom_fields#update"/>
+        <page to="custom_field_choices#create"/>
+        <page to="custom_field_choices#destroy"/>
+        <page to="custom_field_choices#down"/>
+        <page to="custom_field_choices#edit"/>
+        <page to="custom_field_choices#new"/>
+        <page to="custom_field_choices#up"/>
+        <page to="custom_field_choices#update"/>
+      </menu>
       <menu name="delays">
         <page to="delays#index"/>
         <page to="delays#create"/>
@@ -610,27 +631,6 @@
         <page to="districts#list"/>
         <page to="districts#new"/>
         <page to="districts#update"/>
-      </menu>
-      <menu name="custom_fields">
-        <page to="custom_fields#index"/>
-        <page to="custom_fields#create"/>
-        <page to="custom_fields#destroy"/>
-        <page to="custom_fields#down"/>
-        <page to="custom_fields#edit"/>
-        <page to="custom_fields#list"/>
-        <page to="custom_fields#list_choices"/>
-        <page to="custom_fields#new"/>
-        <page to="custom_fields#show"/>
-        <page to="custom_fields#sort"/>
-        <page to="custom_fields#up"/>
-        <page to="custom_fields#update"/>
-        <page to="custom_field_choices#create"/>
-        <page to="custom_field_choices#destroy"/>
-        <page to="custom_field_choices#down"/>
-        <page to="custom_field_choices#edit"/>
-        <page to="custom_field_choices#new"/>
-        <page to="custom_field_choices#up"/>
-        <page to="custom_field_choices#update"/>
       </menu>
     </menu>
     <menu name="accountancy">

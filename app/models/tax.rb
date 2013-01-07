@@ -39,7 +39,7 @@
 
 class Tax < CompanyRecord
   attr_readonly :nature, :amount
-  enumerize :nature, :in => [:amount, :percentage], :predicates => true
+  enumerize :nature, :in => [:amount, :percentage], :default => :percentage, :predicates => true
   belongs_to :collected_account, :class_name => "Account"
   belongs_to :paid_account, :class_name => "Account"
   has_many :prices
@@ -55,28 +55,20 @@ class Tax < CompanyRecord
   validates_presence_of :collected_account
   validates_presence_of :paid_account
   validates_uniqueness_of :name
-  validates_numericality_of :amount, :in => 0..100, :if => :percentage
+  validates_numericality_of :amount, :in => 0..100, :if => :percentage?
 
   protect(:on => :destroy) do
     self.prices.count <= 0 and self.sale_lines.count <= 0
   end
 
-  def compute(amount, with_taxes=false)
+  def compute(amount, with_taxes = false)
     if self.percentage? and with_taxes
       amount.to_f / (1 + 100/self.amount.to_f)
     elsif self.percentage?
-      amount.to_f*self.amount.to_f/100
+      amount.to_f * self.amount.to_f/100
     elsif self.amount?
       self.amount
     end
   end
-
-  # def self.natures
-  #   self.nature.values.collect{|x| [tc('natures.'+x.to_s), x] }
-  # end
-
-  # def nature_label
-  #   tc('natures.'+self.nature.to_s)
-  # end
 
 end

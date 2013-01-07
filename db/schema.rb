@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130107122941) do
+ActiveRecord::Schema.define(:version => 20130107213733) do
 
   create_table "account_balances", :force => true do |t|
     t.integer  "account_id",                                                        :null => false
@@ -603,21 +603,21 @@ ActiveRecord::Schema.define(:version => 20130107122941) do
   add_index "custom_field_data", ["updater_id"], :name => "index_complement_data_on_updater_id"
 
   create_table "custom_fields", :force => true do |t|
-    t.string   "name",                                                                           :null => false
-    t.string   "nature",          :limit => 8,                                                   :null => false
+    t.string   "name",                                                                          :null => false
+    t.string   "nature",         :limit => 8,                                                   :null => false
     t.integer  "position"
-    t.boolean  "active",                                                      :default => true,  :null => false
-    t.boolean  "required",                                                    :default => false, :null => false
+    t.boolean  "active",                                                     :default => true,  :null => false
+    t.boolean  "required",                                                   :default => false, :null => false
     t.integer  "maximal_length"
-    t.decimal  "minimal_value",                :precision => 19, :scale => 4
-    t.decimal  "maximal_value",                :precision => 19, :scale => 4
-    t.datetime "created_at",                                                                     :null => false
-    t.datetime "updated_at",                                                                     :null => false
+    t.decimal  "minimal_value",               :precision => 19, :scale => 4
+    t.decimal  "maximal_value",               :precision => 19, :scale => 4
+    t.datetime "created_at",                                                                    :null => false
+    t.datetime "updated_at",                                                                    :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                                :default => 0,     :null => false
-    t.string   "customized_type",                                                                :null => false
-    t.integer  "minimal_length",                                              :default => 0,     :null => false
+    t.integer  "lock_version",                                               :default => 0,     :null => false
+    t.string   "used_with",                                                                     :null => false
+    t.integer  "minimal_length",                                             :default => 0,     :null => false
   end
 
   add_index "custom_fields", ["created_at"], :name => "index_complements_on_created_at"

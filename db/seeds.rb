@@ -6,13 +6,13 @@ currency = 'EUR'
 entity = {:loggable => true}
 entity[:first_name] = ENV["first_name"] || "Admin"
 entity[:last_name] = ENV["last_name"] || "STRATOR"
-unless entity[:username] = ENV["username"]
-  entity[:username] = "admin"
-  puts "Username is: #{entity[:username]}"
+unless entity[:user_name] = ENV["user_name"]
+  entity[:user_name] = "admin"
+  puts "Username is: #{entity[:user_name]}"
 end
 unless entity[:password] = ENV["password"]
   entity[:password] = rand(100_000_000).to_s(36)
-  puts "Password is #{entity[:password]}"
+  puts "Password is: #{entity[:password]}"
 end
 entity[:password_confirmation] = entity[:password]
 
@@ -24,6 +24,7 @@ ActiveRecord::Base.transaction do
   Sequence.load_defaults
   Unit.load_defaults
 
+  # TODO Lcalize these lines
   mister = EntityNature.create!(:name => 'Monsieur', :title => 'M', :physical => true)
   EntityNature.create!(:name => 'Madame', :title => 'Mme', :physical => true)
   EntityNature.create!(:name => 'Société Anonyme', :title => 'SA', :physical => false)
@@ -47,7 +48,7 @@ ActiveRecord::Base.transaction do
   ProductCategory.create(:name => I18n.t('models.company.default.product_category_name'))
 
   for code, tax in I18n.t("models.company.default.taxes")
-    Tax.create!(:name => tax[:name], :nature => (tax[:nature]||"percent"), :amount => tax[:amount].to_f, :collected_account_id => Account.get(tax[:collected], tax[:name]).id, :paid_account_id => Account.get(tax[:paid], tax[:name]).id)
+    Tax.create!(:name => tax[:name], :nature => (tax[:nature]||Tax.nature.default_value), :amount => tax[:amount].to_f, :collected_account_id => Account.get(tax[:collected], tax[:name]).id, :paid_account_id => Account.get(tax[:paid], tax[:name]).id)
   end
 
   # loading of all the templates
@@ -77,7 +78,7 @@ ActiveRecord::Base.transaction do
     delays << Delay.create!(:name => I18n.t('models.company.default.delays.name.'+d), :expression => I18n.t('models.company.default.delays.expression.'+d), :active => true)
   end
   FinancialYear.create!(:started_on => Date.today.beginning_of_month)
-  SaleNature.create!(:name => I18n.t('models.company.default.sale_nature_name'), :expiration_id => delays[0].id, :payment_delay_id => delays[2].id, :downpayment => false, :downpayment_minimum => 300, :downpayment_rate => 0.3, :currency => currency, :with_accounting => true, :journal => journals[:sales])
+  SaleNature.create!(:name => I18n.t('models.company.default.sale_nature_name'), :expiration_id => delays[0].id, :payment_delay_id => delays[2].id, :downpayment => false, :downpayment_minimum => 300, :downpayment_percentage => 30, :currency => currency, :with_accounting => true, :journal => journals[:sales])
   PurchaseNature.create!(:name => I18n.t('models.company.default.purchase_nature_name'), :currency => currency, :with_accounting => true, :journal => journals[:purchases])
 
 

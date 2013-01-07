@@ -22,7 +22,7 @@ class TrackingsController < AdminController
 
   list(:operation_lines, :conditions=>{:tracking_id=>['session[:current_tracking_id]']}, :order=>'operation_id') do |t|
     t.column :name, :through=>:operation, :url=>true
-    t.column :direction_label
+    t.column :direction
     t.column :quantity
     t.column :label, :through=>:unit
     t.column :name, :through=>:warehouse, :url=>true

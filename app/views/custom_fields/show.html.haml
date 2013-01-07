@@ -1,15 +1,15 @@
 =toolbar do |t|
-  -if @custom_field.nature == 'choice'
+  -if @custom_field.choice?
     -t.link :new, :controller=>:custom_field_choices, :custom_field_id=>@custom_field.id
     -t.sort @custom_field, {:method=>:post}
   -t.edit @custom_field
 
 =attributes_list(@custom_field) do |l|
   -l.attribute :name
-  -l.attribute :nature_label
+  -l.attribute :nature
   -l.attribute :active
   -l.attribute :required
 
--if @custom_field.nature == 'choice'
+-if @custom_field.choice?
   %h2=tg(:choices)
   =list :choices

@@ -77,22 +77,21 @@ class Sequence < CompanyRecord
     for usage in self.usage.values
       unless sequence = self.find_by_usage(usage)
         attrs = "models.sequence.default.#{usage}".t
+        sequence = self.new(:usage => usage)
+        sequence.name = sequence.usage.text
         if attrs.is_a?(Hash)
           attrs = tc("default.#{usage}").delete_if{|k,v| ![:name, :number_format, :number_increment, :number_start, :period].include?(k)}
         else
-          attrs = {:name => usage.to_s.capitalize, :number_format => usage.to_s.upcase + "[number|12]", :period => :number}
+          attrs = {:number_format => sequence.usage.to_s.upcase + "[number|12]", :period => :number}
         end
-        self.create(attrs.merge(:usage => usage))
+        sequence.attributes = attrs.merge(:usage => usage)
+        sequence.save
       end
     end
   end
 
   def used?
     !self.usage.blank?
-  end
-
-  def period_name
-    tc("periods.#{self.period}") if self.period != "number"
   end
 
   def compute(number=nil)

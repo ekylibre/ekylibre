@@ -18,19 +18,19 @@
 #
 
 class SubscriptionNaturesController < AdminController
-  manage_restfully :nature=>"SubscriptionNature.natures.first[1]"
+  manage_restfully :nature => "SubscriptionNature.nature.default_value"
 
   unroll_all
 
-  list(:children=>:products) do |t|
-    t.column :name, :url=>{:id=>'nil', :action=>:index, :controller=>:subscriptions, :nature_id=>"RECORD.id"}
-    t.column :nature_label, :children=>false
-    t.column :actual_number, :children=>false
-    t.column :reduction_rate, :children=>false
-    t.action :increment, :method=>:post, :if=>"RECORD.nature=='quantity'"
-    t.action :decrement, :method=>:post, :if=>"RECORD.nature=='quantity'"
+  list(:children => :products) do |t|
+    t.column :name, :url => {:id => 'nil', :action => :index, :controller => :subscriptions, :nature_id => "RECORD.id"}
+    t.column :nature, :children => false
+    t.column :actual_number, :children => false
+    t.column :reduction_percentage, :children => false
+    t.action :increment, :method => :post, :if => :quantity?
+    t.action :decrement, :method => :post, :if => :quantity?
     t.action :edit
-    t.action :destroy, :if=>"RECORD.destroyable\?"
+    t.action :destroy, :if => :destroyable?
   end
 
   # Displays the main page with the list of subscription natures
@@ -40,14 +40,14 @@ class SubscriptionNaturesController < AdminController
   def decrement
     return unless @subscription_nature = find_and_check(:subscription_nature)
     @subscription_nature.decrement!(:actual_number)
-    notify_success(:new_actual_number, :actual_number=>@subscription_nature.actual_number)
+    notify_success(:new_actual_number, :actual_number => @subscription_nature.actual_number)
     redirect_to_back
   end
 
   def increment
     return unless @subscription_nature = find_and_check(:subscription_nature)
     @subscription_nature.increment!(:actual_number)
-    notify_success(:new_actual_number, :actual_number=>@subscription_nature.actual_number)
+    notify_success(:new_actual_number, :actual_number => @subscription_nature.actual_number)
     redirect_to_back
   end
 

@@ -61,7 +61,7 @@ class IncomingPaymentMode < CompanyRecord
   validates_inclusion_of :detail_payments, :with_accounting, :with_commission, :with_deposit, :in => [true, false]
   validates_presence_of :commission_base_amount, :commission_percentage, :name
   #]VALIDATORS]
-  validates_inclusion_of :commission_percentage, :in => 1..100
+  validates_numericality_of :commission_percentage, :greater_than_or_equal_to => 0, :if => :with_commission?
   validates_presence_of :attorney_journal, :if => :with_accounting?
   validates_presence_of :depositables_account, :if => :with_deposit?
   validates_presence_of :cash
