@@ -1586,7 +1586,7 @@ fra:
     record_cannot_be_removed: "L’enregistrement ne peut pas être supprimé"
     record_has_been_correctly_removed: "L’enregistrement a été supprimé correctement"
     record_has_not_been_removed: "L’enregistrement n’a pas être supprimé correctement"
-    restoration_finished: "La restauration de la sauvegarde s’est terminée (en %{value} secondes). Votre code société est %{code}"
+    restoration_finished: "La restauration de la sauvegarde s’est terminée (en %{value} secondes)."
     sale_already_invoiced: "La vente a déjà été facturée: vous ne pouvez pas définir de livraison"
     sale_cannot_be_updated: "Le devis n’est plus modifiable."
     sale_cant_be_deleted: "La vente ne peut plus être supprimée"

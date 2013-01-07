@@ -1,5 +1,5 @@
 =form_tag() do
   =field_set :generate_last_journal_entry do
-    -field content_tag(:label, tc(:with_assets_depreciations), :for => :assets_depreciations), check_box_tag(:assets_depreciations)
+    =field content_tag(:label, tc(:with_assets_depreciations), :for => :assets_depreciations), check_box_tag(:assets_depreciations)
   =form_actions do
     =submit_tag tc(:generate), :name=>nil

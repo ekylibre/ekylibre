@@ -54,9 +54,9 @@ class SettingsController < AdminController
 
   # Create a backup in a zipball
   def backup
-    backup = @current_company.backup(:creator=>@current_user.label, :with_prints=>params[:with_prints])
-    send_file(backup, :stream=>false)
-    File.delete(backup)
+    backup = Ekylibre::Backup.create(:creator => current_user.full_name, :with_prints => params[:with_prints])
+    send_file(backup) # , :stream => false
+    # File.delete(backup)
   end
 
 
@@ -64,13 +64,14 @@ class SettingsController < AdminController
   # All the operations are included in one transaction
   def restore
     backup = params[:file][:path]
-    file = Rails.root.join("tmp", "uploads", backup.original_filename+"."+rand.to_s[2..-1].to_i.to_s(36))
+    file = Rails.root.join("tmp", "uploads", backup.original_filename + "." + rand.to_s[2..-1].to_i.to_s(36))
     FileUtils.mkdir_p(file.dirname)
-    File.open(file, "wb") { |f| f.write(backup.read)}
+    File.open(file, "wb") { |f| f.write(backup.read) }
+    user_name = current_user.username
     start = Time.now
-    if @current_company.restore(file)
-      @current_company.reload
-      notify_success_now(:restoration_finished, :value=>(Time.now-start).to_s, :code=>@current_company.code)
+    if Ekylibre::Backup.restore(file)
+      # TODO: Restore session of current_user ?
+      notify_success_now(:restoration_finished, :value => (Time.now - start).to_s)
     else
       notify_error_now(:unvalid_version_for_restore)
     end
