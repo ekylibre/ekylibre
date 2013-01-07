@@ -29,7 +29,7 @@
 #  lock_version          :integer          default(0), not null
 #  name                  :string(255)      not null
 #  nature                :string(8)        not null
-#  reduction_rate        :decimal(19, 10)  
+#  reduction_percentage  :decimal(19, 4)   
 #  updated_at            :datetime         not null
 #  updater_id            :integer          
 #
@@ -37,38 +37,37 @@
 
 class SubscriptionNature < CompanyRecord
   attr_readonly :nature
-  enumerize :nature, :in => [:period, :quantity], :predicates => true
+  enumerize :nature, :in => [:period, :quantity], :default => :period, :predicates => true
   belongs_to :entity_link_nature
   has_many :products
   has_many :subscriptions, :foreign_key => :nature_id
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :actual_number, :allow_nil => true, :only_integer => true
-  validates_numericality_of :reduction_rate, :allow_nil => true
+  validates_numericality_of :reduction_percentage, :allow_nil => true
   validates_length_of :nature, :allow_nil => true, :maximum => 8
   validates_length_of :name, :allow_nil => true, :maximum => 255
   validates_presence_of :name, :nature
   #]VALIDATORS]
-  validates_numericality_of :reduction_rate, :greater_than_or_equal_to=>0, :less_than_or_equal_to=>1
+  validates_numericality_of :reduction_percentage, :greater_than_or_equal_to => 0, :less_than_or_equal_to => 100
 
-  default_scope order(:name)
+  default_scope -> { order(:name) }
 
   before_validation do
-    self.reduction_rate ||= 0
+    self.reduction_percentage ||= 0
   end
 
   protect(:on => :destroy) do
-    self.subscriptions.size <= 0 and self.products.size <= 0
+    self.subscriptions.count <= 0 and self.products.count <= 0
   end
 
-  def self.natures
-    [:quantity, :period].collect{|x| [tc('natures.'+x.to_s), x] }
-  end
+  # def self.natures
+  #   [:quantity, :period].collect{|x| [tc('natures.'+x.to_s), x] }
+  # end
 
-
-  def nature_label
-    tc('natures.'+self.nature.to_s)
-  end
+  # def nature_label
+  #   tc('natures.'+self.nature.to_s)
+  # end
 
   def now
     return (self.period? ? Date.today : self.actual_number)
@@ -83,19 +82,11 @@ class SubscriptionNature < CompanyRecord
   end
 
   def start
-    if self.period?
-      return :started_on
-    else
-      return :first_number
-    end
+    return fields[0]
   end
 
   def finish
-    if self.period?
-      return :stopped_on
-    else
-      return :last_number
-    end
+    return fields[1]
   end
 
 end

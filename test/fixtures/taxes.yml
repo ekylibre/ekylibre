@@ -29,7 +29,7 @@
 #  included             :boolean          not null
 #  lock_version         :integer          default(0), not null
 #  name                 :string(255)      not null
-#  nature               :string(8)        not null
+#  nature               :string(16)       not null
 #  paid_account_id      :integer          
 #  reductible           :boolean          default(TRUE), not null
 #  updated_at           :datetime         not null

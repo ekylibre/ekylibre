@@ -534,7 +534,7 @@ div.field.mono-choice .toolbar { margin: 0 8px; }
 
 
 .spacer {
-  height: 2*$fs-normal;  
+  height: 2*$fs-normal;
   display: block;
 }
 
@@ -581,6 +581,7 @@ span.rad, label.radio {
 
 input, textarea, select {
   border: $input-border;
+  margin: 1px;
   @include border-radius(3px);
   @include background($input-background);
   @include box-shadow(0 0 0.7em rgba(#000, 0.1), 0 round($fs-normal*0.2) round($fs-normal*0.4) rgba(#000, 0.12) inset);
@@ -591,6 +592,7 @@ input, textarea, select {
     @include box-shadow(0 0 2em rgba($color, 0.4));
     border-color: $color;
     border-width: 2px;
+    margin: 0px;
     &.invalid {
       border-color: $invalid-color !important;
     }

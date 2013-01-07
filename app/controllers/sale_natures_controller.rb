@@ -30,7 +30,7 @@ class SaleNaturesController < AdminController
     # t.column :name, :through=>:payment_delay, :url=>true
     t.column :downpayment
     # t.column :downpayment_minimum
-    # t.column :downpayment_rate
+    # t.column :downpayment_percentage
     t.column :with_accounting
     t.column :name, :through=>:journal, :url=>true
     #t.column :comment

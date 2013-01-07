@@ -96,13 +96,20 @@ task :tests => :environment do
         next
       end
       cols = model.columns.collect{|c| c.name.to_s}
+      required_cols = model.columns.select{|c| !c.null and c.default.nil?}.collect{|c| c.name.to_s}
       if yaml.is_a?(Hash)
         for record_name, attributes in yaml
+          requireds = required_cols.dup
           for attr_name, value in attributes
             unless cols.include?(attr_name.to_s)
               errors[:fixtures] += 1
-                log.write(" - Errors: Column #{attr_name} is unknown in #{file}\n")
+              log.write(" - Errors: Column #{attr_name} is unknown in #{file}\n")
             end
+            requireds.delete(attr_name.to_s)
+          end
+          for col in requireds
+            errors[:fixtures] += 1
+            log.write(" - Errors: Missing required column #{col} in #{file}\n")
           end
         end
       else

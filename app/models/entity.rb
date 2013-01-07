@@ -21,71 +21,71 @@
 # 
 # == Table: entities
 #
-#  active                              :boolean          default(TRUE), not null
-#  activity_code                       :string(32)       
-#  admin                               :boolean          not null
-#  attorney                            :boolean          not null
-#  attorney_account_id                 :integer          
-#  authorized_payments_count           :integer          
-#  born_on                             :date             
-#  category_id                         :integer          
-#  client                              :boolean          not null
-#  client_account_id                   :integer          
-#  code                                :string(64)       
-#  comment                             :text             
-#  connected_at                        :datetime         
-#  country                             :string(2)        
-#  created_at                          :datetime         not null
-#  creator_id                          :integer          
-#  currency                            :string(255)      not null
-#  dead_on                             :date             
-#  deliveries_conditions               :string(60)       
-#  department_id                       :integer          
-#  ean13                               :string(13)       
-#  employed                            :boolean          not null
-#  employment                          :string(255)      
-#  establishment_id                    :integer          
-#  first_met_on                        :date             
-#  first_name                          :string(255)      
-#  full_name                           :string(255)      not null
-#  hashed_password                     :string(64)       
-#  id                                  :integer          not null, primary key
-#  invoices_count                      :integer          
-#  language                            :string(3)        default("???"), not null
-#  last_name                           :string(255)      not null
-#  left_on                             :date             
-#  lock_version                        :integer          default(0), not null
-#  locked                              :boolean          not null
-#  loggable                            :boolean          not null
-#  maximum_grantable_reduction_percent :decimal(19, 4)   
-#  nature_id                           :integer          not null
-#  of_company                          :boolean          not null
-#  office                              :string(255)      
-#  origin                              :string(255)      
-#  payment_delay_id                    :integer          
-#  payment_mode_id                     :integer          
-#  photo                               :string(255)      
-#  profession_id                       :integer          
-#  proposer_id                         :integer          
-#  prospect                            :boolean          not null
-#  recruited_on                        :date             
-#  reduction_rate                      :decimal(19, 10)  
-#  reflation_submissive                :boolean          not null
-#  responsible_id                      :integer          
-#  rights                              :text             
-#  role_id                             :integer          
-#  salt                                :string(64)       
-#  siren                               :string(9)        
-#  soundex                             :string(4)        
-#  supplier                            :boolean          not null
-#  supplier_account_id                 :integer          
-#  transporter                         :boolean          not null
-#  updated_at                          :datetime         not null
-#  updater_id                          :integer          
-#  username                            :string(32)       
-#  vat_number                          :string(15)       
-#  vat_submissive                      :boolean          default(TRUE), not null
-#  webpass                             :string(255)      
+#  active                                 :boolean          default(TRUE), not null
+#  activity_code                          :string(32)       
+#  admin                                  :boolean          not null
+#  attorney                               :boolean          not null
+#  attorney_account_id                    :integer          
+#  authorized_payments_count              :integer          
+#  born_on                                :date             
+#  category_id                            :integer          
+#  client                                 :boolean          not null
+#  client_account_id                      :integer          
+#  code                                   :string(64)       
+#  comment                                :text             
+#  connected_at                           :datetime         
+#  country                                :string(2)        
+#  created_at                             :datetime         not null
+#  creator_id                             :integer          
+#  currency                               :string(255)      not null
+#  dead_on                                :date             
+#  deliveries_conditions                  :string(60)       
+#  department_id                          :integer          
+#  ean13                                  :string(13)       
+#  employed                               :boolean          not null
+#  employment                             :string(255)      
+#  establishment_id                       :integer          
+#  first_met_on                           :date             
+#  first_name                             :string(255)      
+#  full_name                              :string(255)      not null
+#  hashed_password                        :string(64)       
+#  id                                     :integer          not null, primary key
+#  invoices_count                         :integer          
+#  language                               :string(3)        default("???"), not null
+#  last_name                              :string(255)      not null
+#  left_on                                :date             
+#  lock_version                           :integer          default(0), not null
+#  locked                                 :boolean          not null
+#  loggable                               :boolean          not null
+#  maximal_grantable_reduction_percentage :decimal(19, 4)   
+#  nature_id                              :integer          not null
+#  of_company                             :boolean          not null
+#  office                                 :string(255)      
+#  origin                                 :string(255)      
+#  payment_delay_id                       :integer          
+#  payment_mode_id                        :integer          
+#  photo                                  :string(255)      
+#  profession_id                          :integer          
+#  proposer_id                            :integer          
+#  prospect                               :boolean          not null
+#  recruited_on                           :date             
+#  reduction_percentage                   :decimal(19, 4)   
+#  reflation_submissive                   :boolean          not null
+#  responsible_id                         :integer          
+#  rights                                 :text             
+#  role_id                                :integer          
+#  salt                                   :string(64)       
+#  siren                                  :string(9)        
+#  soundex                                :string(4)        
+#  supplier                               :boolean          not null
+#  supplier_account_id                    :integer          
+#  transporter                            :boolean          not null
+#  updated_at                             :datetime         not null
+#  updater_id                             :integer          
+#  user_name                              :string(32)       
+#  vat_number                             :string(15)       
+#  vat_submissive                         :boolean          default(TRUE), not null
+#  webpass                                :string(255)      
 #
 
 require "digest/sha2"
@@ -164,14 +164,14 @@ class Entity < CompanyRecord
   end
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :maximum_grantable_reduction_percent, :reduction_rate, :allow_nil => true
+  validates_numericality_of :maximal_grantable_reduction_percentage, :reduction_percentage, :allow_nil => true
   validates_length_of :country, :allow_nil => true, :maximum => 2
   validates_length_of :language, :allow_nil => true, :maximum => 3
   validates_length_of :soundex, :allow_nil => true, :maximum => 4
   validates_length_of :siren, :allow_nil => true, :maximum => 9
   validates_length_of :ean13, :allow_nil => true, :maximum => 13
   validates_length_of :vat_number, :allow_nil => true, :maximum => 15
-  validates_length_of :activity_code, :username, :allow_nil => true, :maximum => 32
+  validates_length_of :activity_code, :user_name, :allow_nil => true, :maximum => 32
   validates_length_of :deliveries_conditions, :allow_nil => true, :maximum => 60
   validates_length_of :code, :hashed_password, :salt, :allow_nil => true, :maximum => 64
   validates_length_of :currency, :employment, :first_name, :full_name, :last_name, :office, :origin, :photo, :webpass, :allow_nil => true, :maximum => 255
@@ -181,11 +181,11 @@ class Entity < CompanyRecord
   validates_presence_of :category
   validates_presence_of :password, :password_confirmation, :if => Proc.new{|e| e.hashed_password.blank? and e.loggable?}
   validates_confirmation_of :password
-  validates_inclusion_of :maximum_grantable_reduction_percent, :in => 0..100
-  validates_uniqueness_of :username
-  validates_presence_of   :username, :if => :loggable?
-  validates_format_of     :username, :with => /^[a-z0-9][a-z0-9\.\_]+[a-z0-9]$/, :if => lambda{|e| !e.username.blank?}
-  validates_length_of     :username, :in => 3..32, :if => lambda{|e| !e.username.blank?}
+  validates_inclusion_of :maximal_grantable_reduction_percentage, :in => 0..100
+  validates_uniqueness_of :user_name
+  validates_presence_of   :user_name, :if => :loggable?
+  validates_format_of     :user_name, :with => /^[a-z0-9][a-z0-9\.\_]+[a-z0-9]$/, :if => lambda{|e| !e.user_name.blank?}
+  validates_length_of     :user_name, :in => 3..32, :if => lambda{|e| !e.user_name.blank?}
   # validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i, :if => lambda{|r| !r.email.blank?}
 
   # default_scope order(:last_name, :first_name)
@@ -222,7 +222,7 @@ class Entity < CompanyRecord
       self.language = entity.language if self.language.blank?
       self.currency = entity.currency if self.currency.blank?
     end
-    self.maximum_grantable_reduction_percent ||= 0
+    self.maximal_grantable_reduction_percentage ||= 0
     # self.admin = true if self.rights.nil?
     self.rights_array = self.rights_array # Clean the rights
     return true
@@ -259,7 +259,7 @@ class Entity < CompanyRecord
   end
 
   def label
-    self.code+'. '+self.full_name
+    self.code.to_s + '. ' + self.full_name.to_s
   end
 
   #
@@ -334,8 +334,8 @@ class Entity < CompanyRecord
     self.default_address ? self.default_address.coordinate : '[NoDefaultEntityAddressError]'
   end
 
-  def max_reduction_percent(computed_on=Date.today)
-    Subscription.maximum(:reduction_rate, :joins => "JOIN #{SubscriptionNature.table_name} AS sn ON (#{Subscription.table_name}.nature_id = sn.id) LEFT JOIN #{EntityLink.table_name} AS el ON (el.nature_id = sn.entity_link_nature_id AND #{Subscription.table_name}.entity_id IN (entity_1_id, entity_2_id))", :conditions => ["? IN (#{Subscription.table_name}.entity_id, entity_1_id, entity_2_id) AND ? BETWEEN #{Subscription.table_name}.started_on AND #{Subscription.table_name}.stopped_on AND COALESCE(#{Subscription.table_name}.sale_id, 0) NOT IN (SELECT id FROM #{Sale.table_name} WHERE state='estimate')", self.id, computed_on]).to_f*100||0.0
+  def maximal_reduction_percentage(computed_on = Date.today)
+    return Subscription.maximum(:reduction_percentage, :joins => "JOIN #{SubscriptionNature.table_name} AS sn ON (#{Subscription.table_name}.nature_id = sn.id) LEFT JOIN #{EntityLink.table_name} AS el ON (el.nature_id = sn.entity_link_nature_id AND #{Subscription.table_name}.entity_id IN (entity_1_id, entity_2_id))", :conditions => ["? IN (#{Subscription.table_name}.entity_id, entity_1_id, entity_2_id) AND ? BETWEEN #{Subscription.table_name}.started_on AND #{Subscription.table_name}.stopped_on AND COALESCE(#{Subscription.table_name}.sale_id, 0) NOT IN (SELECT id FROM #{Sale.table_name} WHERE state='estimate')", self.id, computed_on]).to_f || 0.0
   end
 
   def description
@@ -500,7 +500,7 @@ class Entity < CompanyRecord
         else
           line << [ "", "", "", "", "", "", "", "", "", "", ""]
         end
-        line << [ entity.reduction_rate.to_s.gsub(/\./,","), entity.comment]
+        line << [ entity.reduction_percentage.to_s.gsub(/\./,","), entity.comment]
         csv << line.flatten
       end
     end
@@ -554,8 +554,8 @@ class Entity < CompanyRecord
   end
 
   # Find and check user account
-  def self.authenticate(username, password)
-    if user = self.find_by_username_and_loggable(username.to_s.downcase, true)
+  def self.authenticate(user_name, password)
+    if user = self.find_by_user_name_and_loggable(user_name.to_s.downcase, true)
       if user.locked or !user.authenticated?(password.to_s)
         user = nil
       end

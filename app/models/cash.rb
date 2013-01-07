@@ -47,12 +47,9 @@
 
 
 class Cash < CompanyRecord
-  # @@natures = ["bank_account", "cash_box"]
-  # @@modes = ["iban", "bban"]
-  @@bban_translations = {
+  BBAN_TRANSLATIONS = {
     :fr => ["abcdefghijklmonpqrstuvwxyz", "12345678912345678923456789"]
   }
-
   attr_readonly :nature, :currency
   belongs_to :account
   belongs_to :journal
@@ -60,7 +57,7 @@ class Cash < CompanyRecord
   has_many :deposits
   has_many :outgoing_payment_modes
   has_many :incoming_payment_modes
-  has_one :last_bank_statement, :class_name=>"BankStatement", :order=>"stopped_on DESC"
+  has_one :last_bank_statement, :class_name => "BankStatement", :order => "stopped_on DESC"
   enumerize :nature, :in => [:bank_account, :cash_box], :default => :bank_account, :predicates => true
   enumerize :mode, :in => [:iban, :bban], :default => :iban, :predicates => {:prefix => true}
 
@@ -75,15 +72,13 @@ class Cash < CompanyRecord
   validates_inclusion_of :by_default, :in => [true, false]
   validates_presence_of :account, :journal, :mode, :name, :nature
   #]VALIDATORS]
-  # validates_presence_of :bank_name
   validates_inclusion_of :mode, :in => self.mode.values
   validates_inclusion_of :nature, :in => self.nature.values
   validates_uniqueness_of :account_id
 
-  default_scope order(:name)
+  default_scope -> { order(:name) }
   scope :bank_accounts, -> { where(:nature => :bank_account) }
   scope :cash_boxes,    -> { where(:nature => :cash_box) }
-
 
   # before create a bank account, this computes automatically code iban.
   before_validation do
@@ -114,61 +109,34 @@ class Cash < CompanyRecord
   end
 
   protect(:on => :destroy) do
-    self.deposits.size <= 0 and self.bank_statements.size <= 0
+    self.deposits.count <= 0 and self.bank_statements.count <= 0
   end
 
 
-  # # this method returns an array .
-  # def self.modes
-  #   @@modes.collect{|x| [tc('modes.'+x.to_s), x] }
-  # end
+  def formatted_bban(separator = ".")
+    return [self.bank_code, self.agency_code, self.number, self.key].join(separator)
+  end
 
-  # def self.nature_label(name)
-  #   tc('natures.'+name.to_s)
-  # end
-
-  # def nature_label
-  #   self.class.nature_label(self.nature.to_s)
-  # end
-
-  # def self.natures
-  #   @@natures.collect{|x| [self.nature_label(x), x] }
-  # end
-
-
-
-
-  #this method checks if the BBAN is valid.
+  # Checks if the BBAN is valid.
   def self.valid_bban?(country_code, options={})
     case cc = country_code.lower.to_sym
     when :fr
-      ban = (options["bank_code"].to_s.lower.tr(*@@bban_translations[cc]).to_i*89+
-             options["agency_code"].to_s.lower.tr(*@@bban_translations[cc]).to_i*15+
-             options["number"].to_s.lower.tr(*@@bban_translations[cc]).to_i*3)
-      return (options["key"].to_i+ban.modulo(97)-97).zero?
+      ban = (options["bank_code"].to_s.lower.tr(*BBAN_TRANSLATIONS[cc]).to_i*89+
+             options["agency_code"].to_s.lower.tr(*BBAN_TRANSLATIONS[cc]).to_i*15+
+             options["number"].to_s.lower.tr(*BBAN_TRANSLATIONS[cc]).to_i*3)
+      return (options["key"].to_i + ban.modulo(97) - 97).zero?
     else
       raise ArgumentError.new("Unknown country code #{country_code.inspect}")
     end
   end
 
-  #this method generates the IBAN key.
-  def self.generate_iban(country_code, bban)
-   iban = bban+country_code.upcase+"00"
-    iban.each_char do |c|
-      if c=~/\D/
-       iban.gsub!(c, c.to_i(36).to_s)
-     end
-   end
-   return country_code+(98 - (iban.to_i.modulo 97)).to_s+bban
-  end
-
-  #this method checks if the IBAN is valid.
+  # Checks if the IBAN is valid.
   def self.valid_iban?(iban)
     iban = iban.to_s
     return false unless iban.length > 4
-    str = iban[4..iban.length]+iban[0..1]+"00"
+    str = iban[4..iban.length] + iban[0..1] + "00"
 
-    # test the iban key
+    # Test the iban key
     str.each_char do |c|
       if c=~/\D/
         str.gsub!(c, c.to_i(36).to_s)
@@ -176,12 +144,18 @@ class Cash < CompanyRecord
     end
     iban_key = 98 - (str.to_i.modulo 97)
 
-    return (iban_key.to_i.eql? iban[2..3].to_i)
-
+    return iban_key.to_i.eql?(iban[2..3].to_i)
   end
 
-  def formated_bban
-    self.bank_code.to_s+"."+self.agency_code.to_s+"."+self.number.to_s+"."+self.key.to_s
+  # Generates the IBAN key.
+  def self.generate_iban(country_code, bban)
+    iban = bban + country_code.upcase + "00"
+    iban.each_char do |c|
+      if c =~ /\D/
+        iban.gsub!(c, c.to_i(36).to_s)
+      end
+    end
+    return country_code + (98 - (iban.to_i.modulo 97)).to_s + bban
   end
 
 

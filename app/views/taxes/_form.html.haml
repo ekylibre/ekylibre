@@ -1,9 +1,8 @@
--# TODO Check
 -field_set do
   -input :nature
   -input :amount
   -input :name
-  -association :collected_account # , :choices=>:collected_account, :resize=>true, :new=>{:number=>Account.find_in_chart(:collected_taxes).number}
-  -association :paid_account # , :choices=>:paid_account, :resize=>true, :new=>{:number=>Account.find_in_chart(:paid_taxes)}
+  -association :collected_account, :source => :collected_taxes, :new => {:number => Account.chart_number(:collected_taxes)}
+  -association :paid_account, :source => :paid_taxes, :new => {:number => Account.chart_number(:paid_taxes)}
   -input :included
   -input :reductible

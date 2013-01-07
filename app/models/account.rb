@@ -39,7 +39,7 @@
 class Account < CompanyRecord
   @@references = []
   attr_readonly :number
-  has_many :account_balances
+  # has_many :account_balances
   has_many :attorneys, :class_name => "Entity", :foreign_key => :attorney_account_id
   has_many :balances, :class_name => "AccountBalance"
   has_many :cashes
@@ -76,6 +76,8 @@ class Account < CompanyRecord
   scope :charges,                  lambda { where('number LIKE ?', self.chart_number(:charges)+"%").order(:number, :name) }
   scope :banks,                    lambda { where('number LIKE ?', self.chart_number(:banks)+"%").order(:number, :name) }
   scope :cashes,                   lambda { where('number LIKE ?', self.chart_number(:cashes)+"%").order(:number, :name) }
+  scope :collected_taxes,          lambda { where('number LIKE ?', self.chart_number(:taxes_collected)+"%").order(:number, :name) }
+  scope :paid_taxes,               lambda { where('number LIKE ?', self.chart_number(:taxes_paid)+"%").order(:number, :name) }
 
 
   # This method allows to create the parent accounts if it is necessary.
@@ -188,22 +190,20 @@ class Account < CompanyRecord
     return '('+conditions.join(' OR ')+')'
   end
 
+  def self.human_chart_name(chart)
+    return ::I18n.translate("accounting_systems.#{name}.name")
+  end
+
   # Find all available accounting systems in all languages
-  def self.lists
-    lists = {}
-    # for locale in ::I18n.active_locales
-    locale = I18n.locale
-    for k, v in ::I18n.translate("accounting_systems", :locale => locale)
-      lists["#{locale}.#{k}"] = v[:name] unless v.nil? or v[:name].nil?
-    end
-    # end
-    return lists
+  def self.charts
+    ac = ::I18n.translate("accounting_systems")
+    return (ac.is_a?(Hash) ? ac.keys : [])
   end
 
   # Replace current chart of account with a new
   def self.load_chart(name, options = {})
-    locale = options[:locale] || I18n.locale
-    if (chart = ::I18n.translate("accounting_systems.#{name}", :locale => locale)).is_a? Hash
+    chart = ::I18n.translate("accounting_systems.#{name}")
+    if chart.is_a? Hash
 
       self.transaction do
         # Destroy unused existing accounts
@@ -226,7 +226,9 @@ class Account < CompanyRecord
           end
         end
       end
+      return true
     end
+    return false
   end
 
 

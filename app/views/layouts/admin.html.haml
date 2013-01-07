@@ -9,7 +9,7 @@
     =stylesheet_link_tag :application
     =theme_link_tag(@current_theme)
   -expiration = {}
-  -expiration = {"timeout" => session[:expiration], "timeout-href" => renew_session_url(:username => @current_user.username)} if @current_user and session[:expiration].to_i>0
+  -expiration = {"timeout" => session[:expiration], "timeout-href" => renew_session_url(:user_name => @current_user.user_name)} if @current_user and session[:expiration].to_i>0
   %body{:data => expiration, :class => "mod-"+reverse_menus[0].to_s}
     #wrap
       %aside#side.visible=side_tag

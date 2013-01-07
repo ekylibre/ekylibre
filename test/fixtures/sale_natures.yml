@@ -27,7 +27,7 @@
 #  currency                :string(3)        
 #  downpayment             :boolean          not null
 #  downpayment_minimum     :decimal(19, 4)   default(0.0), not null
-#  downpayment_rate        :decimal(19, 10)  default(0.0), not null
+#  downpayment_percentage  :decimal(19, 4)   default(0.0), not null
 #  expiration_id           :integer          not null
 #  id                      :integer          not null, primary key
 #  journal_id              :integer          
@@ -50,7 +50,7 @@
 #   creator_id: 1
 #   downpayment: true
 #   downpayment_minimum: 0
-#   downpayment_rate: 0
+#   downpayment_percentage: 0
 #   expiration_id: 1
 #   id: 1
 #   name: "Lorem ipsum"
@@ -65,8 +65,8 @@ sale_natures_001:
   creator_id: 1
   currency: 'EUR'
   downpayment: true
-  downpayment_minimum: 0
-  downpayment_rate: 0
+  downpayment_minimum: 300
+  downpayment_percentage: 30
   expiration_id: 1
   id: 1
   journal_id: 3
@@ -82,7 +82,7 @@ sale_natures_002:
   currency: 'EUR'
   downpayment: true
   downpayment_minimum: 0
-  downpayment_rate: 0
+  downpayment_percentage: 0
   expiration_id: 1
   id: 2
   name: "Lorem ipsum"

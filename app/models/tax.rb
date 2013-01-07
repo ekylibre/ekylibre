@@ -29,7 +29,7 @@
 #  included             :boolean          not null
 #  lock_version         :integer          default(0), not null
 #  name                 :string(255)      not null
-#  nature               :string(8)        not null
+#  nature               :string(16)       not null
 #  paid_account_id      :integer          
 #  reductible           :boolean          default(TRUE), not null
 #  updated_at           :datetime         not null
@@ -39,14 +39,14 @@
 
 class Tax < CompanyRecord
   attr_readonly :nature, :amount
-  enumerize :nature, :in => [:amount, :percent], :predicates => true
-  belongs_to :collected_account, :class_name=>"Account"
-  belongs_to :paid_account, :class_name=>"Account"
+  enumerize :nature, :in => [:amount, :percentage], :predicates => true
+  belongs_to :collected_account, :class_name => "Account"
+  belongs_to :paid_account, :class_name => "Account"
   has_many :prices
   has_many :sale_lines
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :amount, :allow_nil => true
-  validates_length_of :nature, :allow_nil => true, :maximum => 8
+  validates_length_of :nature, :allow_nil => true, :maximum => 16
   validates_length_of :name, :allow_nil => true, :maximum => 255
   validates_inclusion_of :included, :reductible, :in => [true, false]
   validates_presence_of :amount, :name, :nature
@@ -55,29 +55,28 @@ class Tax < CompanyRecord
   validates_presence_of :collected_account
   validates_presence_of :paid_account
   validates_uniqueness_of :name
-  validates_numericality_of :amount, :in=>0..100, :if=>Proc.new{|x| x.percent?}
-
+  validates_numericality_of :amount, :in => 0..100, :if => :percentage
 
   protect(:on => :destroy) do
-    self.prices.size <= 0 and self.sale_lines.size <= 0
+    self.prices.count <= 0 and self.sale_lines.count <= 0
   end
 
   def compute(amount, with_taxes=false)
-    if self.percent? and with_taxes
+    if self.percentage? and with_taxes
       amount.to_f / (1 + 100/self.amount.to_f)
-    elsif self.percent?
+    elsif self.percentage?
       amount.to_f*self.amount.to_f/100
     elsif self.amount?
       self.amount
     end
   end
 
-  def self.natures
-    self.nature.values.collect{|x| [tc('natures.'+x.to_s), x] }
-  end
+  # def self.natures
+  #   self.nature.values.collect{|x| [tc('natures.'+x.to_s), x] }
+  # end
 
-  def nature_label
-    tc('natures.'+self.nature.to_s)
-  end
+  # def nature_label
+  #   tc('natures.'+self.nature.to_s)
+  # end
 
 end

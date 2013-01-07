@@ -48,16 +48,16 @@ class JournalEntry < CompanyRecord
   attr_readonly :journal_id, :created_on
   belongs_to :financial_year
   belongs_to :journal
-  belongs_to :resource, :polymorphic=>true
-  has_many :asset_depreciations, :dependent=>:nullify
-  has_many :useful_lines, :conditions=>["balance != ?", 0.0], :foreign_key=>:entry_id, :class_name=>"JournalEntryLine"
-  has_many :lines, :foreign_key=>:entry_id, :dependent=>:delete_all, :class_name=>"JournalEntryLine"
-  has_many :outgoing_payments, :dependent=>:nullify
-  has_many :outgoing_payment_uses, :dependent=>:nullify
-  has_many :incoming_payments, :dependent=>:nullify
-  has_many :incoming_payment_uses, :dependent=>:nullify
-  has_many :purchases, :dependent=>:nullify
-  has_many :sales, :dependent=>:nullify
+  belongs_to :resource, :polymorphic => true
+  has_many :asset_depreciations, :dependent => :nullify
+  has_many :useful_lines, :conditions => ["balance != ?", 0.0], :foreign_key => :entry_id, :class_name => "JournalEntryLine"
+  has_many :lines, :foreign_key => :entry_id, :dependent => :delete_all, :class_name => "JournalEntryLine"
+  has_many :outgoing_payments, :dependent => :nullify
+  has_many :outgoing_payment_uses, :dependent => :nullify
+  has_many :incoming_payments, :dependent => :nullify
+  has_many :incoming_payment_uses, :dependent => :nullify
+  has_many :purchases, :dependent => :nullify
+  has_many :sales, :dependent => :nullify
   has_one :financial_year_as_last, :foreign_key => :last_journal_entry_id, :class_name => "FinancialYear", :dependent => :nullify
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :balance, :credit, :debit, :original_credit, :original_currency_rate, :original_debit, :allow_nil => true
@@ -68,20 +68,20 @@ class JournalEntry < CompanyRecord
   #]VALIDATORS]
   validates_presence_of :original_currency
   validates_format_of :number, :with => /^[\dA-Z]+$/
-  validates_numericality_of :original_currency_rate, :greater_than=>0
+  validates_numericality_of :original_currency_rate, :greater_than => 0
 
-  state_machine :state, :initial=>:draft do
+  state_machine :state, :initial => :draft do
     state :draft
     state :confirmed
     state :closed
     event :confirm do
-      transition :draft=>:confirmed, :if=>:balanced?
+      transition :draft => :confirmed, :if => :balanced?
     end
     event :close do
-      transition :confirmed=>:closed, :if=>:balanced?
+      transition :confirmed => :closed, :if => :balanced?
     end
 #     event :reopen do
-#       transition :closed=>:confirmed
+#       transition :closed => :confirmed
 #     end
   end
 
@@ -159,7 +159,7 @@ class JournalEntry < CompanyRecord
     end
   end
 
-  validate(:on=>:update) do
+  validate(:on => :update) do
     old = self.class.find(self.id)
     errors.add_to_base(:entry_has_been_already_validated) if old.closed?
   end
@@ -169,7 +169,7 @@ class JournalEntry < CompanyRecord
     # TODO: Validates number has journal's code as prefix
     return unless self.created_on
     if self.journal
-      errors.add(:printed_on, :closed_journal, :journal=>self.journal.name, :closed_on=>::I18n.localize(self.journal.closed_on)) if self.printed_on <= self.journal.closed_on
+      errors.add(:printed_on, :closed_journal, :journal => self.journal.name, :closed_on => ::I18n.localize(self.journal.closed_on)) if self.printed_on <= self.journal.closed_on
     end
     unless self.financial_year
       errors.add(:printed_on, :out_of_existing_financial_year)
@@ -177,14 +177,14 @@ class JournalEntry < CompanyRecord
   end
 
   after_save do
-    JournalEntryLine.update_all({:state=>self.state}, ["entry_id = ? AND state != ? ", self.id, self.state])
+    JournalEntryLine.update_all({:state => self.state}, ["entry_id = ? AND state != ? ", self.id, self.state])
   end
 
-  protect(:on=>:destroy) do
+  protect(:on => :destroy) do
     self.printed_on > self.journal.closed_on and not self.closed?
   end
 
-  protect(:on=>:update) do
+  protect(:on => :update) do
     self.printed_on > self.journal.closed_on and not self.closed?
   end
 
@@ -212,11 +212,11 @@ class JournalEntry < CompanyRecord
   # Create counter-entry_lines
   def cancel
     reconcilable_accounts = []
-    entry = self.class.new(:journal=>self.journal, :resource=>self.resource, :original_currency=>self.original_currency, :original_currency_rate=>self.original_currency_rate, :printed_on=>self.printed_on)
+    entry = self.class.new(:journal => self.journal, :resource => self.resource, :original_currency => self.original_currency, :original_currency_rate => self.original_currency_rate, :printed_on => self.printed_on)
     ActiveRecord::Base.transaction do
       entry.save!
       for line in self.useful_lines
-        entry.send(:add!, tc(:entry_cancel, :number=>self.number, :name=>line.name), line.account, (line.debit-line.credit).abs, :credit=>(line.debit>0))
+        entry.send(:add!, tc(:entry_cancel, :number => self.number, :name => line.name), line.account, (line.debit-line.credit).abs, :credit => (line.debit>0))
         reconcilable_accounts << line.account if line.account.reconcilable? and not reconcilable_accounts.include?(line.account)
       end
     end
@@ -255,7 +255,7 @@ class JournalEntry < CompanyRecord
 
 #   #this method tests if all the entry_lines matching to the entry does not edited in draft mode.
 #   def normalized
-#     return (not self.lines.exists?(:draft=>true))
+#     return (not self.lines.exists?(:draft => true))
 #   end
 
   # Adds an entry_line with the minimum informations. It computes debit and credit with the "amount".
@@ -267,7 +267,7 @@ class JournalEntry < CompanyRecord
 
   #
   def add_credit(name, account, amount, options={})
-    add!(name, account, amount, options.merge({:credit=>true}))
+    add!(name, account, amount, options.merge({:credit => true}))
   end
 
 
@@ -280,7 +280,7 @@ class JournalEntry < CompanyRecord
       omission = (options.delete(:omission)||"...").to_s
       name = name[0..254-omission.size]+omission
     end
-    attributes = options.merge(:name=>name)
+    attributes = options.merge(:name => name)
     attributes[:account_id] = account.is_a?(Integer) ? account : account.id
     # attributes[:original_currency] = self.journal.currency
     credit = options.delete(:credit) ? true : false

@@ -45,8 +45,6 @@
 class Warehouse < CompanyRecord
   acts_as_tree
   attr_readonly :reservoir
-  # DEPRECATED Replace use of contact with address
-  belongs_to :contact, :class_name => "EntityAddress", :foreign_key => :address_id
   belongs_to :address, :class_name => "EntityAddress"
   belongs_to :establishment
   belongs_to :product
@@ -61,26 +59,23 @@ class Warehouse < CompanyRecord
   validates_length_of :division, :name, :subdivision, :subsubdivision, :allow_nil => true, :maximum => 255
   validates_presence_of :name
   #]VALIDATORS]
+  validates_presence_of :product, :if => :reservoir?
 
   default_scope order(:name)
   scope :of_product, lambda { |product|
     where("(product_id = ? AND reservoir = ?) OR reservoir = ?", product.id, true, false)
   }
 
-  def others
-    self.class.where("id != COALESCE(?, 0)", self.id)
-  end
-
   def can_receive?(product_id)
     #raise Exception.new product_id.inspect+self.reservoir.inspect
     reception = true
     if self.reservoir
-      stock = Stock.find(:all, :conditions=>{:product_id=>self.product_id, :warehouse_id=>self.id})
-      if !stock[0].nil?
-        reception = (self.product_id == product_id || stock[0].quantity <= 0)
-        self.update_attributes!(:product_id=>product_id) if stock[0].quantity <= 0
-        #if stock[0].quantity <= 0
-        for ps in stock
+      stocks = Stock.where(:product_id => self.product_id, :warehouse_id => self.id)
+      if !stocks.first.nil?
+        reception = ((self.product_id == product_id) || (stocks.first.quantity <= 0))
+        self.update_attributes!(:product_id => product_id) if stocks.first.quantity <= 0
+        #if stocks.first.quantity <= 0
+        for ps in stocks
           ps.destroy if ps.product_id != product_id and ps.quantity <=0
         end
         #end

@@ -25,10 +25,11 @@
 #  created_at      :datetime         not null
 #  creator_id      :integer          
 #  custom_field_id :integer          not null
+#  customized_id   :integer          not null
+#  customized_type :string(255)      not null
 #  date_value      :date             
 #  datetime_value  :datetime         
 #  decimal_value   :decimal(19, 4)   
-#  entity_id       :integer          not null
 #  id              :integer          not null, primary key
 #  lock_version    :integer          default(0), not null
 #  string_value    :text             

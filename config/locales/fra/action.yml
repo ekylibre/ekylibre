@@ -117,13 +117,21 @@ fra:
       accountancy: "Tableau de bord comptable"
       finances: "Tableau de bord financier"
       general: "Tableau de bord général"
-      index: "Menu principal" #?
+      index: "Menu principal"
       production: "Tableau de bord de la production"
-      purchases: "Tableau de bord des achats" #?
+      purchases: "Tableau de bord des achats"
       relationship: "Tableau de bord de la gestion des relations"
-      sales: "Tableau de bord des ventes" #?
-      settings: "Configuration" #?
-      stocks: "Tableau de bord des stocks" #?
+      sales: "Tableau de bord des ventes"
+      settings: "Configuration"
+      # settings_accountancy: "Accountancy settings  dashboard"
+      settings_base: "Base"
+      # settings_production: "Production settings dashboard"
+      # settings_products: "Products settings dashboard"
+      # settings_purchases: "Purchases settings dashboard"
+      # settings_relationship: "Relationship settings dashboard"
+      # settings_sales: "Sales settings dashboard"
+      # settings_stocks: "Stocks settings dashboard"
+      stocks: "Tableau de bord des stocks"
       trade: "Tableau de bord de la gestion commerciale"
       welcome: "Bienvenue dans Ekylibre"
     delays:
@@ -486,6 +494,7 @@ fra:
   controllers:
     account_balances: "Soldes de comptes"
     accounts: "Plan de comptes"
+    # admin: "Administration"
     animal_diagnostics: "Diagnostics" #?
     animal_diseases: "Maladies" #?
     animal_drug_natures: "Type de médicaments" #?
@@ -502,7 +511,7 @@ fra:
     application: "Application"
     areas: "Zones postales"
     assets: "Immobilisations"
-    authentication: "Authentification" #?
+    authentication: "Authentification"
     bank_statements: "Relevés de compte bancaire"
     cash_transfers: "Virements internes"
     cashes: "Trésoreries"
@@ -520,7 +529,7 @@ fra:
     document_templates: "Modèles de document"
     documents: "Documents"
     entities: "Personnes"
-    entity_addresses: "Adresses" #?
+    entity_addresses: "Adresses"
     entity_categories: "Catégories de fiche"
     entity_link_natures: "Types de lien"
     entity_links: "Liens entre personnes"
@@ -1389,8 +1398,8 @@ fra:
     use_incoming_payment: "Rattacher l’encaissement %{payment}"
     use_renew: "Sélectionnez un journal pour reporter les à nouveaux"
     used_accounts: "Comptes utilisés seulement"
+    user_name: "Nom d’utilisateur"
     user_update: "Modifier les informations de l’utilisateur" #?
-    username: "Nom d’utilisateur"
     uses: "Matériel"
     valid: "Valider"
     validate: "Valider"

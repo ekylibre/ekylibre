@@ -237,19 +237,19 @@ fra:
     models:
       account: "Compte"
       account_balance: "Balance de compte"
-      animal: "Animaux" #?
-      animal_diagnostic: "Diagnostic" #?
-      animal_disease: "Maladie" #?
-      animal_drug: "Médicaments vétérinaires" #?
-      animal_drug_nature: "Types de médicaments vétérinaires" #?
-      animal_event: "Evenements liés aux animaux" #?
-      animal_event_nature: "Type d'évènement lié aux animaux" #?
-      animal_group: "Lot" #?
-      animal_posology: "Posologie vétérinaire" #?
-      animal_prescription: "Ordonnance" #?
-      animal_race: "Race" #?
-      animal_race_nature: "Espèce" #?
-      animal_treatment: "Traitement" #?
+      animal: "Animaux"
+      animal_diagnostic: "Diagnostic"
+      animal_disease: "Maladie"
+      animal_drug: "Médicaments vétérinaires"
+      animal_drug_nature: "Types de médicaments vétérinaires"
+      animal_event: "Evenements liés aux animaux"
+      animal_event_nature: "Type d'évènement lié aux animaux"
+      animal_group: "Lot"
+      animal_posology: "Posologie vétérinaire"
+      animal_prescription: "Ordonnance"
+      animal_race: "Race"
+      animal_race_nature: "Espèce"
+      animal_treatment: "Traitement"
       area: "Zone postale"
       asset: "Immobilisation"
       asset_depreciation: "Amortissement d’immobilisation"
@@ -270,7 +270,7 @@ fra:
       document: "Document"
       document_template: "Modèle de document"
       entity: "Personne"
-      entity_address: "Adresse" #?
+      entity_address: "Adresse"
       entity_category: "Catégorie de personne"
       entity_link: "Lien de personne"
       entity_link_nature: "Nature de lien entre personnes"
@@ -334,7 +334,7 @@ fra:
       tax: "Taxe"
       tax_declaration: "Déclaration de taxes"
       tool: "Outil"
-      tool_nature: "Type d'équipements" #?
+      tool_nature: "Type d'équipements"
       tracking: "Lot traçable"
       tracking_state: "État de lot"
       transfer: "Transfert"
@@ -355,18 +355,18 @@ fra:
     activity_code: "Code APE/NAF"
     actual_number: "Numéro en cours"
     address: "Adresse"
-    addresses: "Adresses" #?
+    addresses: "Adresses"
     admin: "Administrateur système"
     age_max: "Age maximum" #?
     age_min: "Age minimum" #?
     agency_code: "Code guichet"
     allocation_account: "Compte de dotation"
     amount: "Montant"
-    animal: "Animaux" #?
-    # animal_cares: "Animal cares"
-    animal_events: "Evenement des animaux" #?
-    animal_group: "Lot" #?
-    animal_race_nature: "Espèce animale" #?
+    animal: "Animaux"
+    # animal_drugs: "Animal drugs"
+    animal_events: "Evenement des animaux"
+    animal_group: "Lot"
+    animal_race_nature: "Espèce animale"
     animals: "Animals"
     annotation: "Annotation"
     area: "Zone postale"
@@ -456,7 +456,8 @@ fra:
     commission_account: "Compte à utiliser pour la commission"
     commission_amount: "Montant de la commission"
     commission_base_amount: "Montant fixe de la commission"
-    commission_percent: "Pourcentage de commission"
+    commission_percent: "Pourcentage de commission" #?
+    # commission_percentage: "Commission percentage"
     commissioned_incoming_payment_modes: "Modes d’encaissement avec commission"
     company: "Société"
     component: "Produit contenu"
@@ -472,6 +473,7 @@ fra:
     contact: "Adresse"
     contacts: "Contacts"
     conveyors: "Convoyeurs"
+    # coordinate: "Coordinate"
     corpse_location: "Localisation corporelle" #?
     country: "Pays"
     created_at: "Date et heure de création"
@@ -494,6 +496,8 @@ fra:
     custom_field_choices: "Choix de champ complémentaire"
     custom_field_data: "Données complémentaires de fiche"
     custom_fields: "Champs complémentaires"
+    # customized: "Customized"
+    # customized_type: "Customized type"
     data: "Données complémentaires"
     date_value: "Valeur date"
     datetime_value: "Valeur date/heure"
@@ -506,6 +510,7 @@ fra:
     default_address: "Coordonnée par défaut" #?
     default_contact: "Contact par défaut"
     default_currency: "Devise par défaut"
+    # default_mail_address: "Default mail address"
     default_stock: "Stock par défaut"
     deferred_payment: "Crédit à reporter"
     delays: "Délais"
@@ -538,13 +543,14 @@ fra:
     depreciation_percentage: "Pourcentage d’amortissement"
     depreciations: "Amortissements"
     description: "Description"
+    # detail_payments: "Detail payments"
     diagnostics: "Diagnostics"
     diff_less: "Droits enlevés"
     diff_more: "Droits rajoutés"
     direct_links: "Liens directs"
     direction: "Type"
     direction_label: "Type"
-    discount_rate: "Taux d’escompte"
+    discount_rate: "Taux d’escompte" #?
     disease: "Maladie"
     diseases: "Maladies"
     district: "Zone administrative"
@@ -555,7 +561,8 @@ fra:
     downpayment: "Acompte"
     downpayment_amount: "Montant de l’acompte"
     downpayment_minimum: "Somme minimale"
-    downpayment_rate: "Taux acompte"
+    # downpayment_percentage: "Downpayment percentage"
+    downpayment_rate: "Taux acompte" #?
     draft: "Brouillard" #?
     draft_mode: "Mode brouillard" #?
     drug: "Médicament"
@@ -609,9 +616,10 @@ fra:
     expression: "Expression"
     extension: "Extension"
     family: "Module"
-    family_label: "Module"
-    father: "Père" #?
+    family_label: "Module" #?
+    father: "Père"
     fax: "Fax"
+    # faxes: "Faxes"
     filename: "Nom de fichier"
     filesize: "Taille du fichier"
     filtered_columns: "Colonnes filtrées"
@@ -647,7 +655,7 @@ fra:
     iban: "IBAN"
     iban_label: "IBAN"
     id: "ID"
-    identification_number: "Numéro d'identification" #?
+    identification_number: "Numéro d'identification"
     immobilizations_account: "Compte d’immobilisation" #?
     immobilizations_products: "Produits d’immobilizations"
     importance: "Importance"
@@ -670,7 +678,8 @@ fra:
     inventories: "Inventaires"
     inventory: "Inventaire"
     inventory_lines: "Lignes d’inventaire"
-    invoice_contact: "Adresse pour la facture"
+    # invoice_address: "Invoice address"
+    invoice_contact: "Adresse pour la facture" #?
     invoiced: "Facturée" #?
     invoiced_on: "Facturée le"
     invoices_count: "Nombre de factures"
@@ -701,17 +710,17 @@ fra:
     last_name: "Nom de famille"
     last_number: "Dernier numéro"
     last_year: "Dernière année"
-    latitude: "Latitude"
-    length_max: "Nombre de caractères maximum"
+    latitude: "Latitude" #?
+    length_max: "Nombre de caractères maximum" #?
     letter: "Lettre"
     letter_format: "Devis au format lettre"
-    line_2: "Destinataire - Service"
-    line_3: "Bât. - Rés. - ZI..."
-    line_4: "Numéro et libellé de la voie"
-    line_5: "Mention spéciale - Lieu dit"
-    line_6: "Code postal ET ville"
-    line_6_city: "Ville"
-    line_6_code: "Code postal"
+    line_2: "Destinataire - Service" #?
+    line_3: "Bât. - Rés. - ZI..." #?
+    line_4: "Numéro et libellé de la voie" #?
+    line_5: "Mention spéciale - Lieu dit" #?
+    line_6: "Code postal ET ville" #?
+    line_6_city: "Ville" #?
+    line_6_code: "Code postal" #?
     lines: "Lignes"
     listing: "Extraction"
     listing_node_items: "Éléments de nœud d’extraction"
@@ -724,18 +733,30 @@ fra:
     location: "Location"
     lock_version: "Version"
     locked: "Verrouillé"
+    # loggable: "Loggable"
     longitude: "Longitude"
     lost: "En perte"
     luminance: "Luminosité"
     mail: "E-mail"
+    # mail_area: "Mail area"
+    # mail_auto_update: "Mail auto update"
     mail_columns: "Colonnes de courriel"
+    # mail_country: "Mail country"
+    # mail_geolocation: "Mail geolocation"
+    # mail_line_1: "Addressee, department"
+    # mail_line_2: "Appartment, floor"
+    # mail_line_3: "Building, residence"
+    # mail_line_4: "Number and Street"
+    # mail_line_5: "Special mentions, place name"
+    # mail_line_6: "Postal code and city"
+    # mails: "Mails"
     major_accounts: "Classes comptables"
     mandates: "Responsabilités"
     min_duration: "Minute(s)"
     mobile: "Portable"
     mode: "Mode"
-    mother: "Mère" #?
-    moved_at: "Fait à" #?
+    mother: "Mère"
+    moved_at: "Fait à"
     moved_on: "Fait le"
     moves: "Mouvements"
     name: "Nom"
@@ -754,6 +775,7 @@ fra:
     number_increment: "Incrément"
     number_start: "Début de la numération"
     observations: "Observations"
+    # of_company: "Of the company"
     office: "Bureau/Atelier"
     old_password: "Mot de passe actuel"
     operation: "Travail"
@@ -829,7 +851,7 @@ fra:
     posologies: "Posologies"
     postcode: "Code postal"
     preferences: "Préférences"
-    pregnant: "Pleine" #?
+    pregnant: "Pleine"
     prescripted: "sur ordonnance" #?
     prescripted_on: "prescrit le" #?
     prescription: "Ordonnance" #?
@@ -893,10 +915,12 @@ fra:
     reconcilable: "Lettrable"
     record_value: "Enregistrement"
     record_value_type: "Type d’enregistrement"
+    # recruited_on: "Recruited on"
     reductible: "Réductible"
     reduction: "Ligne de réduction"
     reduction_origin: "Ligne soumise à réduction"
     reduction_percent: "Pourcentage de réduction"
+    # reduction_percentage: "Reduction percentage"
     reduction_rate: "Taux de réduction"
     reduction_submissive: "Soumis à réduction"
     reductions: "Lignes de réductions"
@@ -938,7 +962,7 @@ fra:
     self_contacts: "Contacts en propre"
     sequences: "Séquences"
     serial: "N°Lot"
-    service_coeff: "Coefficient (de quantité) de service"
+    service_coeff: "Coefficient (de quantité) de service" #?
     sex: "Sexe"
     sha256: "SHA256"
     shape: "silhouette" #?
@@ -1046,7 +1070,7 @@ fra:
     used_amount: "Montant utilisé"
     # useful_lines: "Useful lines"
     user: "Utilisateur"
-    username: "Identifiant" #?
+    user_name: "Identifiant"
     users: "Utilisateurs"
     uses: "Matériels utilisés"
     value: "Valeur"
@@ -1071,20 +1095,20 @@ fra:
     work_center: "Centre d’opération"
     working_number: "Numéro de travail" #?
   enumerize:
-    animal:
-      income_reasons:  #?
+    animal:  #?
+      income_reasons: #?
         birth: "Naissance" #?
         housing: "Pension" #?
         other: "Autres" #?
         purchase: "Achat" #?
-      outgone_reasons:  #?
+      outgone_reasons: #?
         autoconsumption: "Autoconsommation" #?
         dead: "Décès" #?
         other: "Autres" #?
         sale: "Vente" #?
-      sex:
-        female: "Femelle"
-        male: "Mâle"
+      sex: #?
+        female: "Femelle" #?
+        male: "Mâle" #?
     animal_treatment:  #?
       duration_unit_wait_for_meat: #?
         days: "Jours" #?
@@ -1167,6 +1191,9 @@ fra:
         # service: "Service"
         # subscription: "Subcription"
         # transfer: "Transfer"
+    sex:
+      # female: "Female"
+      # male: "Male"
   models:
     account:
       label: "%{number} - %{name}"

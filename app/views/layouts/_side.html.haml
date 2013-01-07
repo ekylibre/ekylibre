@@ -16,7 +16,6 @@
       -item = menu
       -m.link(item.human_name, item.default_page.url_options, :icon => :up)
 
-
 -side_menu do |m|
   -if menu
     -for item in menu
@@ -24,7 +23,6 @@
         -attrs = {:active => item.in_path?(controller_name, action_name)}
         -attrs[:icon] = :inside if item.items.size > 0
         -m.link(item.human_name, item.default_page.url_options, attrs)
-
 
 -side_menu do |m|
   -if menu

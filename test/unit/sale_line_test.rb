@@ -20,31 +20,31 @@
 # 
 # == Table: sale_lines
 #
-#  account_id          :integer          
-#  amount              :decimal(19, 4)   default(0.0), not null
-#  annotation          :text             
-#  created_at          :datetime         not null
-#  creator_id          :integer          
-#  entity_id           :integer          
-#  id                  :integer          not null, primary key
-#  label               :text             
-#  lock_version        :integer          default(0), not null
-#  origin_id           :integer          
-#  position            :integer          
-#  pretax_amount       :decimal(19, 4)   default(0.0), not null
-#  price_amount        :decimal(19, 4)   
-#  price_id            :integer          not null
-#  product_id          :integer          not null
-#  quantity            :decimal(19, 4)   default(1.0), not null
-#  reduction_origin_id :integer          
-#  reduction_percent   :decimal(19, 4)   default(0.0), not null
-#  sale_id             :integer          not null
-#  tax_id              :integer          
-#  tracking_id         :integer          
-#  unit_id             :integer          
-#  updated_at          :datetime         not null
-#  updater_id          :integer          
-#  warehouse_id        :integer          
+#  account_id           :integer          
+#  amount               :decimal(19, 4)   default(0.0), not null
+#  annotation           :text             
+#  created_at           :datetime         not null
+#  creator_id           :integer          
+#  entity_id            :integer          
+#  id                   :integer          not null, primary key
+#  label                :text             
+#  lock_version         :integer          default(0), not null
+#  origin_id            :integer          
+#  position             :integer          
+#  pretax_amount        :decimal(19, 4)   default(0.0), not null
+#  price_amount         :decimal(19, 4)   
+#  price_id             :integer          not null
+#  product_id           :integer          not null
+#  quantity             :decimal(19, 4)   default(1.0), not null
+#  reduction_origin_id  :integer          
+#  reduction_percentage :decimal(19, 4)   default(0.0), not null
+#  sale_id              :integer          not null
+#  tax_id               :integer          
+#  tracking_id          :integer          
+#  unit_id              :integer          
+#  updated_at           :datetime         not null
+#  updater_id           :integer          
+#  warehouse_id         :integer          
 #
 
 

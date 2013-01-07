@@ -136,7 +136,8 @@ module Ekylibre
       :updater_id => :entity
     },
     :company => {
-
+      :creator_id => :entity,
+      :updater_id => :entity
     },
     :cultivation => {
       :creator_id => :entity,
@@ -155,7 +156,7 @@ module Ekylibre
       :choice_value_id => :custom_field_choice,
       :creator_id => :entity,
       :custom_field_id => :custom_field,
-      :entity_id => :entity,
+      :customized_id => "customized_type",
       :updater_id => :entity
     },
     :delay => {

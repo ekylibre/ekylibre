@@ -25,10 +25,11 @@
 #  created_at      :datetime         not null
 #  creator_id      :integer          
 #  custom_field_id :integer          not null
+#  customized_id   :integer          not null
+#  customized_type :string(255)      not null
 #  date_value      :date             
 #  datetime_value  :datetime         
 #  decimal_value   :decimal(19, 4)   
-#  entity_id       :integer          not null
 #  id              :integer          not null, primary key
 #  lock_version    :integer          default(0), not null
 #  string_value    :text             
@@ -41,10 +42,11 @@ class CustomFieldDatum < CompanyRecord
   attr_readonly :custom_field_id, :entity_id
   belongs_to :choice_value, :class_name=>"CustomFieldChoice"
   belongs_to :custom_field
-  belongs_to :entity
+  belongs_to :customized, :polymorphic => true
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :decimal_value, :allow_nil => true
-  validates_presence_of :custom_field, :entity
+  validates_length_of :customized_type, :allow_nil => true, :maximum => 255
+  validates_presence_of :custom_field, :customized, :customized_type
   #]VALIDATORS]
   validates_uniqueness_of :custom_field_id, :scope=>[:entity_id]
 

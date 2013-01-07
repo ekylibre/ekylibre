@@ -33,4 +33,4 @@
   -association :tax
 
 =field_set :give_discount, :grant_on => :give_discounts_on_sales, :depend_on => :price, :if => "product.reduction_submissive?".to_sym do
-  -input :reduction_percent, :size => 5
+  -input :reduction_percentage, :size => 5

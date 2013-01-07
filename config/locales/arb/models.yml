@@ -608,6 +608,19 @@ arb:
     models:
       account: "الحساب"
       account_balance: "رصيد الحساب"
+      # animal: "Animal"
+      # animal_diagnostic: "Animal diagnostic"
+      # animal_disease: "Animal disease"
+      # animal_drug: "Animal drug"
+      # animal_drug_nature: "Animal drug type"
+      # animal_event: "Animal event"
+      # animal_event_nature: "Animal event type"
+      # animal_group: "Animal group"
+      # animal_posology: "Animal posology"
+      # animal_prescription: "Animal prescription"
+      # animal_race: "Animal race"
+      # animal_race_nature: "Animal race type"
+      # animal_treatment: "Animal treatment"
       area: "المنطقة البريدية"
       # asset: "Asset"
       # asset_depreciation: "Asset depreciation"
@@ -632,6 +645,7 @@ arb:
       document: "الوثيقة"
       document_template: "نموذج الوثيقة"
       entity: "الفرد"
+      # entity_address: "Address"
       entity_category: "فئة الفرد"
       entity_link: "رابط الفرد"
       entity_link_nature: "طبيعة الرابط بين الافراد"
@@ -699,6 +713,7 @@ arb:
       tax: "الضريبة"
       tax_declaration: "تصريح الضرائب"
       tool: "الاداة"
+      # tool_nature: "Tool type"
       tracking: "حصة ممكن عزوها"
       # tracking_state: "Tracking state"
       transfer: "التحويل"
@@ -720,12 +735,17 @@ arb:
     activity_code: "APE/NAF رمز"
     actual_number: "الرقم الحالي"
     address: "العنوان"
+    # addresses: "Addresses"
     admin: "مسؤول النظام"
     agency_code: "رمز الوكالة"
     # allocation_account: "Allocation account"
     amount: "القيمة من دون الضرائب"
     amount_with_taxes: "القيمة مع كامل الضرائب" #?
-    # animal_cares: "Animal cares"
+    # animal: "Animal"
+    # animal_drugs: "Animal drugs"
+    # animal_events: "Animal events"
+    # animal_group: "Animal group"
+    # animal_race_nature: "Animal race nature"
     # animals: "Animals"
     annotation: "ملاحظة"
     area: "المنطقة البريدية"
@@ -825,7 +845,8 @@ arb:
     commission_account_id: "الحساب المستخدم للعمولة" #?
     commission_amount: "القيمة الثابتة للعمولة"
     # commission_base_amount: "Base amount of the commission"
-    commission_percent: "نسبة العمولة"
+    commission_percent: "نسبة العمولة" #?
+    # commission_percentage: "Commission percentage"
     # commissioned_incoming_payment_modes: "Commissioned incoming payment modes"
     company: "الشركة"
     company_id: "شركة" #?
@@ -844,6 +865,7 @@ arb:
     contact_id: "العنوان" #?
     contacts: "الاتصالات"
     # conveyors: "Conveyors"
+    # coordinate: "Coordinate"
     counterpart: "النسخة المطابقة" #?
     counterpart_id: "النسخة المطالقة" #?
     country: "البلد"
@@ -870,6 +892,8 @@ arb:
     custom_field_data: "تكملة بيانات الملف"
     custom_field_id: "حقول اضافية" #?
     custom_fields: "الحقول الاضافية"
+    # customized: "Customized"
+    # customized_type: "Customized type"
     data: "بيانات اضافية"
     date_value: "قيمة التاريخ"
     datetime_value: "قيمة التاريخ/الساعة"
@@ -881,6 +905,7 @@ arb:
     declared_on: "صرح يوم"
     default_contact: "الشخص المتوقع الاتصال به"
     default_currency: "العملة الافتراضية"
+    # default_mail_address: "Default mail address"
     # default_stock: "Default stock"
     deferred_payment: "ائتمان معلق"
     delays: "تأخير"
@@ -921,6 +946,7 @@ arb:
     description: "الوصف"
     dest_contact: "عنوان التسليم" #?
     dest_contact_id: "عنوان التسليم" #?
+    # detail_payments: "Detail payments"
     # diagnostics: "Diagnostics"
     diff_less: "حقوق الازالة"
     diff_more: "حقوق الاضافة"
@@ -928,7 +954,7 @@ arb:
     direction: "النوع"
     direction_label: "النوع"
     discount: "(%خصم (بنسبة  " #?
-    discount_rate: "سعر الخصم"
+    discount_rate: "سعر الخصم" #?
     # disease: "Disease"
     # diseases: "Diseases"
     district: "المنطقة"
@@ -940,7 +966,8 @@ arb:
     downpayment: "القسط"
     downpayment_amount: "قيمة القسط"
     downpayment_minimum: "الحد الادنى للمجموع"
-    downpayment_rate: "معدل القسط"
+    # downpayment_percentage: "Downpayment percentage"
+    downpayment_rate: "معدل القسط" #?
     draft: "المسودة" #?
     draft_mode: "نمط المسودة" #?
     # drug: "Drug"
@@ -999,8 +1026,10 @@ arb:
     expression: "اسلوب للتعبير"
     extension: "التوسع"
     family: "وحدة قياس"
-    family_label: "وحدة قياس"
+    family_label: "وحدة قياس" #?
+    # father: "Father"
     fax: "فاكس"
+    # faxes: "Faxes"
     filename: "الملف"
     filesize: "حجم الملف"
     # filtered_columns: "Filtered columns"
@@ -1037,6 +1066,7 @@ arb:
     iban: "IBAN"
     iban_label: "IBAN"
     id: "ID"
+    # identification_number: "Identification number"
     immobilizations_account_id: "الحساب الساكن" #?
     # immobilizations_products: "Immobilizations products"
     importance: "ذو شأن"
@@ -1059,7 +1089,8 @@ arb:
     inventory: "عملية الجرد"
     inventory_id: "عملية جرد" #?
     inventory_lines: "طرق الجرد"
-    invoice_contact: "العنوان للفاتورة"
+    # invoice_address: "Invoice address"
+    invoice_contact: "العنوان للفاتورة" #?
     invoice_contact_id: "العنوان للفاتورة" #?
     invoiced: "مفوتر" #?
     # invoiced_on: "Invoiced on"
@@ -1093,17 +1124,17 @@ arb:
     last_name: "اسم العائلة"
     last_number: "الرقم الاخير"
     last_year: "السنة السابقة"
-    latitude: "خطوط العرض"
-    length_max: "عدد الاحرف كحد اقصى"
+    latitude: "خطوط العرض" #?
+    length_max: "عدد الاحرف كحد اقصى" #?
     letter: "خطاب"
     letter_format: "مقتبس على شكل خطاب"
-    line_2: "خدمة - المستلم"
-    line_3: "Bأ¢t. - Rأ©s. - ZI..."
-    line_4: "رقم واسم الطريق"
-    line_5: "تنبيه خاص"
-    line_6: "الرمز البريدي والمدينة"
-    line_6_city: "المدينة"
-    line_6_code: "الرمز البريدي"
+    line_2: "خدمة - المستلم" #?
+    line_3: "Bأ¢t. - Rأ©s. - ZI..." #?
+    line_4: "رقم واسم الطريق" #?
+    line_5: "تنبيه خاص" #?
+    line_6: "الرمز البريدي والمدينة" #?
+    line_6_city: "المدينة" #?
+    line_6_code: "الرمز البريدي" #?
     lines: "طرق تسديد الفاتورة"
     listing: "الاستخراج"
     listing_id: "استخاج" #?
@@ -1117,11 +1148,23 @@ arb:
     # location: "Location"
     lock_version: "الاصدار"
     locked: "مقفل"
+    # loggable: "Loggable"
     longitude: "خطوط الطول"
     lost: "الضائع"
     # luminance: "Luminance"
     mail: "البريد الالكتروني"
+    # mail_area: "Mail area"
+    # mail_auto_update: "Mail auto update"
     # mail_columns: "Mail columns"
+    # mail_country: "Mail country"
+    # mail_geolocation: "Mail geolocation"
+    # mail_line_1: "Addressee, department"
+    # mail_line_2: "Appartment, floor"
+    # mail_line_3: "Building, residence"
+    # mail_line_4: "Number and Street"
+    # mail_line_5: "Special mentions, place name"
+    # mail_line_6: "Postal code and city"
+    # mails: "Mails"
     major_accounts: "الحسابات الئيسية"
     mandates: "تفويضات"
     master: "كتلة رئيسية" #?
@@ -1130,6 +1173,8 @@ arb:
     mobile: "الهاتف النقال"
     mode: "نمط الدفعة"
     mode_id: "طريقة تسديد دفعة" #?
+    # mother: "Mother"
+    # moved_at: "Moved at"
     moved_on: "انجز يوم"
     # moves: "Moves"
     name: "الاسم"
@@ -1149,6 +1194,7 @@ arb:
     number_increment: "الاضافة"
     number_start: "بدأ الترقيم"
     observations: "ملاحظات"
+    # of_company: "Of the company"
     office: "المكتب/الاستديو"
     old_password: "كلمة المرور الحالية"
     operation: "العمل"
@@ -1234,6 +1280,7 @@ arb:
     # posologies: "Posologies"
     postcode: "الرمز البريدي"
     preferences: "الاعدادات"
+    # pregnant: "Pregnant"
     # prescriptions: "Prescriptions"
     # pretax_amount: "Pre-tax amount"
     price: "سعر الكلفة"
@@ -1298,11 +1345,13 @@ arb:
     record_value: "التسجيل"
     record_value_id: "تسجيل" #?
     record_value_type: "نوع التسجيل"
+    # recruited_on: "Recruited on"
     reductible: "ناقص"
     reduction: "طريقة الخصم"
     reduction_origin: "طرق قابلة للخصم"
     reduction_origin_id: "الطررق القابلة للخصم" #?
     reduction_percent: "(%)معدل الخصم المسموح"
+    # reduction_percentage: "Reduction percentage"
     reduction_rate: "معدل الخصم"
     reduction_submissive: "خاضع للتخفيض"
     reductions: "طرق الخصومات"
@@ -1353,7 +1402,7 @@ arb:
     self_contacts: "الاتصالات الخاصة"
     sequences: "التسلسلات"
     serial: "عدد الحصص"
-    service_coeff: "معامل كمية الخدمة"
+    service_coeff: "معامل كمية الخدمة" #?
     # sex: "Sex"
     sha256: "SHA256"
     shipped: "المستلم" #?
@@ -1470,6 +1519,7 @@ arb:
     # useful_lines: "Useful lines"
     user: "المستخدم"
     user_id: "المستخدم" #?
+    # user_name: "User name"
     users: "المستخدمين"
     uses: "المعدات المستخدمة"
     value: "القيمة"
@@ -1493,10 +1543,7 @@ arb:
     # with_transport: "With transport"
     # work_center: "Work center"
   enumerize:
-    animal:
-      sex:
-        # female: "Female"
-        # male: "Male"
+    animal: #?
     asset:
       depreciation_method:
         # graduated: "Graduated"
@@ -1551,6 +1598,9 @@ arb:
         # service: "Service"
         # subscription: "Subcription"
         # transfer: "Transfer"
+    sex:
+      # female: "Female"
+      # male: "Male"
   models:
     account:
       default_account_name: "دفتر الحسابات %{number}" #?

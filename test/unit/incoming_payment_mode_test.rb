@@ -24,7 +24,7 @@
 #  cash_id                 :integer          
 #  commission_account_id   :integer          
 #  commission_base_amount  :decimal(19, 4)   default(0.0), not null
-#  commission_percent      :decimal(19, 4)   default(0.0), not null
+#  commission_percentage   :decimal(19, 4)   default(0.0), not null
 #  created_at              :datetime         not null
 #  creator_id              :integer          
 #  depositables_account_id :integer          

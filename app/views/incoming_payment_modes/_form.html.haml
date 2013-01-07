@@ -1,19 +1,17 @@
--# TODO Manage 2+ levels of hide/show
-
 -field_set do
   -input :name
   -association :cash
-  -input :with_accounting, :show => :accountancy
+  -input :with_accounting, :show => :accountancy_options
 
--field_set(:accountancy) do
+-field_set(:accountancy, :in => :accountancy_options) do
   -input :with_deposit, :show => :deposit
   -input :with_commission, :show => :commission
 
--field_set(:deposit) do
-  -association :depositables_account, :source => "accounts#deposit_pending_payments", :new => {:number => Account.chart_number(:deposit_pending_payments)}
+-field_set(:deposit, :in => :accountancy_options) do
+  -association :depositables_account, :source => :deposit_pending_payments, :new => {:number => Account.chart_number(:deposit_pending_payments)}
   -association :depositables_journal
 
--field_set(:commission) do
+-field_set(:commission, :in => :accountancy_options) do
   -input :commission_base_amount
   -input :commission_percent
-  -association :commission_account, :source => "accounts#charges", :new => {:number => Account.chart_number(:charges)}
+  -association :commission_account, :source => :charges, :new => {:number => Account.chart_number(:charges)}

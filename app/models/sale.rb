@@ -158,9 +158,8 @@ class Sale < CompanyRecord
       self.expired_on ||= self.expiration.compute(self.created_on)
       self.payment_delay_id ||= self.nature.payment_delay_id
       self.has_downpayment = self.nature.downpayment if self.has_downpayment.nil?
-      self.downpayment_amount ||= self.amount*self.nature.downpayment_rate if self.amount>=self.nature.downpayment_minimum
+      self.downpayment_amount ||= (self.amount * self.nature.downpayment_percentage * 0.01) if self.amount >= self.nature.downpayment_minimum
     end
-
     self.sum_method = 'wt'
     true
   end
@@ -405,7 +404,7 @@ class Sale < CompanyRecord
   # Build general sales condition for the sale order
   def sales_conditions
     c = []
-    c << tc('sales_conditions.downpayment', :percent => 100*self.nature.downpayment_rate, :amount => (self.nature.downpayment_rate*self.amount).round(2)) if self.amount>self.nature.downpayment_minimum
+    c << tc('sales_conditions.downpayment', :percentage => self.nature.downpayment_percentage, :amount => (self.nature.downpayment_percentage * 0.01 * self.amount).round(2)) if self.amount > self.nature.downpayment_minimum
     c << tc('sales_conditions.validity', :expiration => ::I18n.localize(self.expired_on, :format => :legal))
     c += self.nature.sales_conditions.to_s.split(/\s*\n\s*/)
     c += self.responsible.department.sales_conditions.to_s.split(/\s*\n\s*/) if self.responsible and self.responsible.department
@@ -438,7 +437,7 @@ class Sale < CompanyRecord
       if saved = credit.save
         for line in self.lines.find(:all, :conditions => {:id => lines.keys})
           quantity = -lines[line.id.to_s].abs
-          credit_line = credit.lines.create(:quantity => quantity, :origin_id => line.id, :product_id => line.product_id, :price_id => line.price_id, :reduction_percent => line.reduction_percent)
+          credit_line = credit.lines.create(:quantity => quantity, :origin_id => line.id, :product_id => line.product_id, :price_id => line.price_id, :reduction_percentage => line.reduction_percentage)
           unless credit_line.save
             saved = false
             credit.errors.add_from_record(credit_line)

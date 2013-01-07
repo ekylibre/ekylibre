@@ -27,7 +27,7 @@
 #  currency                :string(3)        
 #  downpayment             :boolean          not null
 #  downpayment_minimum     :decimal(19, 4)   default(0.0), not null
-#  downpayment_rate        :decimal(19, 10)  default(0.0), not null
+#  downpayment_percentage  :decimal(19, 4)   default(0.0), not null
 #  expiration_id           :integer          not null
 #  id                      :integer          not null, primary key
 #  journal_id              :integer          
@@ -50,11 +50,11 @@ class SaleNature < CompanyRecord
   belongs_to :payment_mode, :class_name=>"IncomingPaymentMode"
   has_many :sales
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :downpayment_minimum, :downpayment_rate, :allow_nil => true
+  validates_numericality_of :downpayment_minimum, :downpayment_percentage, :allow_nil => true
   validates_length_of :currency, :allow_nil => true, :maximum => 3
   validates_length_of :name, :allow_nil => true, :maximum => 255
   validates_inclusion_of :active, :downpayment, :with_accounting, :in => [true, false]
-  validates_presence_of :downpayment_minimum, :downpayment_rate, :expiration, :name, :payment_delay
+  validates_presence_of :downpayment_minimum, :downpayment_percentage, :expiration, :name, :payment_delay
   #]VALIDATORS]
   validates_presence_of :journal, :if=>Proc.new{|sn| sn.with_accounting?}
   validates_presence_of :currency

@@ -77,8 +77,8 @@ class Product < CompanyRecord
   has_many :outgoing_delivery_lines
   has_many :prices
   has_many :purchase_lines
-  # TODO rename warehouses to reservoirs
-  has_many :warehouses, :conditions => {:reservoir => true}
+  has_many :reservoirs, :conditions => {:reservoir => true}
+  # has_many :warehouses, :conditions => {:reservoir => true}
   has_many :sale_lines
   has_many :stock_moves
   has_many :stock_transfers

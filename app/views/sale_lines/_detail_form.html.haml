@@ -19,5 +19,5 @@
   -if current_user.can?(:give_discounts_on_sales) and product.reduction_submissive?
     =formalize do |f|
       -f.title :give_discount
-      -f.field :sale_line, :reduction_percent, :size=>5
+      -f.field :sale_line, :reduction_percentage, :size=>5
 

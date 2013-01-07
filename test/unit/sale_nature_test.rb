@@ -27,7 +27,7 @@
 #  currency                :string(3)        
 #  downpayment             :boolean          not null
 #  downpayment_minimum     :decimal(19, 4)   default(0.0), not null
-#  downpayment_rate        :decimal(19, 10)  default(0.0), not null
+#  downpayment_percentage  :decimal(19, 4)   default(0.0), not null
 #  expiration_id           :integer          not null
 #  id                      :integer          not null, primary key
 #  journal_id              :integer          

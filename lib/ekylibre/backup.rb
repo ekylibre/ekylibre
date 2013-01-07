@@ -8,10 +8,10 @@ module Ekylibre
       file = self.temporary_dir.join("backup-#{Time.now.strftime('%Y%m%d-%H%M%S')}.zip")
       doc = Nokogiri::XML::Document.new
       doc.root = backup = Nokogiri::XML::Node.new('backup', doc)
-      
+
       # doc = LibXML::XML::Document.new
       # doc.root = backup = LibXML::XML::Node.new('backup')
-      
+
       {'version' => version, 'creation-date' => Date.today, 'creator' => creator}.each{ |k,v| backup[k]=v.to_s }
       backup << root = Nokogiri::XML::Node.new('company', doc)
       root[:name] = Entity.of_company.full_name
@@ -95,7 +95,7 @@ module Ekylibre
         # Load all data
         puts "R> Loading backup data..."  if verbose
         code  = ""
-        
+
         all_rows = {}
         root.element_children.each_with_index do |rows, index|
           model_name = rows.attr('model').to_sym

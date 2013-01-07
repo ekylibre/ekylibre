@@ -24,7 +24,7 @@
 #  cash_id                 :integer          
 #  commission_account_id   :integer          
 #  commission_base_amount  :decimal(19, 4)   default(0.0), not null
-#  commission_percent      :decimal(19, 4)   default(0.0), not null
+#  commission_percentage   :decimal(19, 4)   default(0.0), not null
 #  created_at              :datetime         not null
 #  creator_id              :integer          
 #  depositables_account_id :integer          
@@ -56,13 +56,14 @@ class IncomingPaymentMode < CompanyRecord
   has_many :payments, :foreign_key => :mode_id, :class_name => "IncomingPayment"
   has_many :unlocked_payments, :foreign_key => :mode_id, :class_name => "IncomingPayment", :conditions => 'journal_entry_id IN (SELECT id FROM #{JournalEntry.table_name} WHERE state=#{connection.quote("draft")})'
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :commission_base_amount, :commission_percent, :allow_nil => true
+  validates_numericality_of :commission_base_amount, :commission_percentage, :allow_nil => true
   validates_length_of :name, :allow_nil => true, :maximum => 50
   validates_inclusion_of :detail_payments, :with_accounting, :with_commission, :with_deposit, :in => [true, false]
-  validates_presence_of :commission_base_amount, :commission_percent, :name
+  validates_presence_of :commission_base_amount, :commission_percentage, :name
   #]VALIDATORS]
+  validates_inclusion_of :commission_percentage, :in => 1..100
   validates_presence_of :attorney_journal, :if => :with_accounting?
-  validates_presence_of :depositables_account, :if => Proc.new{|x| x.with_deposit? and x.with_accounting? }
+  validates_presence_of :depositables_account, :if => :with_deposit?
   validates_presence_of :cash
 
   delegate :currency, :to => :cash
@@ -83,11 +84,11 @@ class IncomingPaymentMode < CompanyRecord
   end
 
   protect(:on => :destroy) do
-    self.payments.size <= 0
+    self.payments.count <= 0
   end
 
   def commission_amount(amount)
-    return (amount*self.commission_percent/100+self.commission_base_amount).round(2)
+    return (amount*self.commission_percentage*0.01 + self.commission_base_amount).round(2)
   end
 
 end

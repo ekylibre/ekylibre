@@ -38,9 +38,15 @@ require 'test_helper'
 
 class AccountTest < ActiveSupport::TestCase
 
-  # Replace this with your real tests.'
-  test "the truth" do
-    assert true
+  test "load the charts" do
+    # for locale in I18n.active_locales
+    #   I18n.locale = locale
+    #   assert_equal I18n.locale, locale
+    #   charts = Account.charts
+    #   for chart in charts
+    #     Account.load_chart(chart)
+    #   end
+    # end
   end
 
 end

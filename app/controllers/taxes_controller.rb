@@ -18,20 +18,20 @@
 #
 
 class TaxesController < AdminController
-  manage_restfully :nature=>":percent"
+  manage_restfully :nature => "Tax.nature.default_value"
 
   unroll_all
 
   list do |t|
     t.column :name
-    t.column :amount, :precision=>3
+    t.column :amount, :precision => 3
     t.column :nature_label
     t.column :included
     t.column :reductible
-    t.column :label, :through=>:paid_account, :url=>true
-    t.column :label, :through=>:collected_account, :url=>true
-    t.action :edit
-    t.action :destroy
+    t.column :label, :through => :paid_account, :url => true
+    t.column :label, :through => :collected_account, :url => true
+    t.action :edit, :if => :updateable?
+    t.action :destroy, :if => :destroyable?
   end
 
   # Displays the main page with the list of taxes

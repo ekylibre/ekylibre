@@ -20,60 +20,60 @@
 # 
 # == Table: sale_lines
 #
-#  account_id          :integer          
-#  amount              :decimal(19, 4)   default(0.0), not null
-#  annotation          :text             
-#  created_at          :datetime         not null
-#  creator_id          :integer          
-#  entity_id           :integer          
-#  id                  :integer          not null, primary key
-#  label               :text             
-#  lock_version        :integer          default(0), not null
-#  origin_id           :integer          
-#  position            :integer          
-#  pretax_amount       :decimal(19, 4)   default(0.0), not null
-#  price_amount        :decimal(19, 4)   
-#  price_id            :integer          not null
-#  product_id          :integer          not null
-#  quantity            :decimal(19, 4)   default(1.0), not null
-#  reduction_origin_id :integer          
-#  reduction_percent   :decimal(19, 4)   default(0.0), not null
-#  sale_id             :integer          not null
-#  tax_id              :integer          
-#  tracking_id         :integer          
-#  unit_id             :integer          
-#  updated_at          :datetime         not null
-#  updater_id          :integer          
-#  warehouse_id        :integer          
+#  account_id           :integer          
+#  amount               :decimal(19, 4)   default(0.0), not null
+#  annotation           :text             
+#  created_at           :datetime         not null
+#  creator_id           :integer          
+#  entity_id            :integer          
+#  id                   :integer          not null, primary key
+#  label                :text             
+#  lock_version         :integer          default(0), not null
+#  origin_id            :integer          
+#  position             :integer          
+#  pretax_amount        :decimal(19, 4)   default(0.0), not null
+#  price_amount         :decimal(19, 4)   
+#  price_id             :integer          not null
+#  product_id           :integer          not null
+#  quantity             :decimal(19, 4)   default(1.0), not null
+#  reduction_origin_id  :integer          
+#  reduction_percentage :decimal(19, 4)   default(0.0), not null
+#  sale_id              :integer          not null
+#  tax_id               :integer          
+#  tracking_id          :integer          
+#  unit_id              :integer          
+#  updated_at           :datetime         not null
+#  updater_id           :integer          
+#  warehouse_id         :integer          
 #
 
 
 class SaleLine < CompanyRecord
-  acts_as_list :scope=>:sale
+  acts_as_list :scope => :sale
   after_save :set_reduction
   attr_readonly :sale_id
   belongs_to :account
   belongs_to :entity
   belongs_to :warehouse
   belongs_to :sale
-  belongs_to :origin, :class_name=>"SaleLine"
+  belongs_to :origin, :class_name => "SaleLine"
   belongs_to :price
   belongs_to :product
-  belongs_to :reduction_origin, :class_name=>"SaleLine"
+  belongs_to :reduction_origin, :class_name => "SaleLine"
   belongs_to :tax
   belongs_to :tracking
   belongs_to :unit
-  has_many :delivery_lines, :class_name=>"OutgoingDeliveryLine", :foreign_key=>:sale_line_id
-  has_one :reduction, :class_name=>"SaleLine", :foreign_key=>:reduction_origin_id
-  has_many :credits, :class_name=>"SaleLine", :foreign_key=>:origin_id
-  has_many :reductions, :class_name=>"SaleLine", :foreign_key=>:reduction_origin_id, :dependent=>:delete_all
-  has_many :subscriptions, :dependent=>:destroy
+  has_many :delivery_lines, :class_name => "OutgoingDeliveryLine", :foreign_key => :sale_line_id
+  has_one :reduction, :class_name => "SaleLine", :foreign_key => :reduction_origin_id
+  has_many :credits, :class_name => "SaleLine", :foreign_key => :origin_id
+  has_many :reductions, :class_name => "SaleLine", :foreign_key => :reduction_origin_id, :dependent => :delete_all
+  has_many :subscriptions, :dependent => :destroy
 
   sums :sale, :lines, :pretax_amount, :amount
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :amount, :pretax_amount, :price_amount, :quantity, :reduction_percent, :allow_nil => true
-  validates_presence_of :amount, :pretax_amount, :price, :product, :quantity, :reduction_percent, :sale
+  validates_numericality_of :amount, :pretax_amount, :price_amount, :quantity, :reduction_percentage, :allow_nil => true
+  validates_presence_of :amount, :pretax_amount, :price, :product, :quantity, :reduction_percentage, :sale
   #]VALIDATORS]
   validates_presence_of :price
 
@@ -118,10 +118,6 @@ class SaleLine < CompanyRecord
           self.pretax_amount = (q*self.price.pretax_amount).round(2)
         end
       else
-        # reduction_rate = self.sale.client.max_reduction_rate
-        # self.quantity = -reduction_rate*self.reduction_origin.quantity
-        # self.amount   = -reduction_rate*self.reduction_origin.amount
-        # self.amount_with_taxes = -reduction_rate*self.reduction_origin.amount_with_taxes
         self.pretax_amount = (self.price.pretax_amount*self.quantity).round(2)
         self.amount = (self.price.amount*self.quantity).round(2)
       end
@@ -130,7 +126,7 @@ class SaleLine < CompanyRecord
 
     #     if self.warehouse.reservoir && self.warehouse.product_id != self.product_id
     #       check_reservoir = false
-    #       errors.add_to_base(:warehouse_can_not_transfer_product, :warehouse=>self.warehouse.name, :product=>self.product.name, :contained_product=>self.warehouse.product.name, :account_id=>0, :unit_id=>self.unit_id)
+    #       errors.add_to_base(:warehouse_can_not_transfer_product, :warehouse => self.warehouse.name, :product => self.product.name, :contained_product => self.warehouse.product.name, :account_id => 0, :unit_id => self.unit_id)
     #     end
     #     check_reservoir
     return false if self.pretax_amount.zero? and self.amount.zero? and self.quantity.zero?
@@ -139,16 +135,16 @@ class SaleLine < CompanyRecord
 
   validate do
     if self.warehouse
-      errors.add_to_base(:warehouse_can_not_transfer_product, :warehouse=>self.warehouse.name, :product=>self.product.name, :contained_product=>self.warehouse.product.name) unless self.warehouse.can_receive?(self.product_id)
+      errors.add_to_base(:warehouse_can_not_transfer_product, :warehouse => self.warehouse.name, :product => self.product.name, :contained_product => self.warehouse.product.name) unless self.warehouse.can_receive?(self.product_id)
       if self.tracking
-        stock = Stocks.where(:product_id=>self.product_id, :warehouse_id=>self.warehouse_id, :tracking_id=>self.tracking_id).first
-        errors.add_to_base(:can_not_use_this_tracking, :tracking=>self.tracking.name) if stock and stock.virtual_quantity < self.quantity
+        stock = Stocks.where(:product_id => self.product_id, :warehouse_id => self.warehouse_id, :tracking_id => self.tracking_id).first
+        errors.add_to_base(:can_not_use_this_tracking, :tracking => self.tracking.name) if stock and stock.virtual_quantity < self.quantity
       end
     end
     if self.price
       errors.add_to_base(:currency_is_not_sale_currency) if self.price.currency != self.sale.currency
     end
-    # TODO validates responsible can make reduction and reduction rate is convenient
+    # TODO validates responsible can make reduction and reduction percentage is convenient
   end
 
   protect(:on => :update) do
@@ -156,9 +152,9 @@ class SaleLine < CompanyRecord
   end
 
   def set_reduction
-    if self.reduction_percent > 0 and self.product.reduction_submissive and self.reduction_origin_id.nil?
+    if self.reduction_percentage > 0 and self.product.reduction_submissive and self.reduction_origin_id.nil?
       reduction = self.reduction || self.build_reduction
-      reduction.attributes = {:reduction_origin_id=>self.id, :price_id=>self.price_id, :product_id=>self.product_id, :sale_id=>self.sale_id, :warehouse_id=>self.warehouse_id, :quantity=>-self.quantity*reduction_percent/100, :label=>tc('reduction_on', :product=>self.product.catalog_name, :percent=>self.reduction_percent)}
+      reduction.attributes = {:reduction_origin_id => self.id, :price_id => self.price_id, :product_id => self.product_id, :sale_id => self.sale_id, :warehouse_id => self.warehouse_id, :quantity => -self.quantity*reduction_percentage/100, :label => tc('reduction_on', :product => self.product.catalog_name, :percentage => self.reduction_percentage)}
       reduction.save!
     elsif self.reduction
       self.reduction.destroy
@@ -191,7 +187,7 @@ class SaleLine < CompanyRecord
   def designation
     d  = self.label
     d += "\n"+self.annotation.to_s unless self.annotation.blank?
-    d += "\n"+tc(:tracking, :serial=>self.tracking.serial.to_s) if self.tracking
+    d += "\n"+tc(:tracking, :serial => self.tracking.serial.to_s) if self.tracking
     d
   end
 
@@ -201,7 +197,7 @@ class SaleLine < CompanyRecord
 
   def new_subscription(attributes={})
     #raise Exception.new attributes.inspect
-    subscription = Subscription.new((attributes||{}).merge(:sale_id=>self.sale.id, :product_id=>self.product_id, :nature_id=>self.product.subscription_nature_id, :sale_line_id=>self.id))
+    subscription = Subscription.new((attributes||{}).merge(:sale_id => self.sale.id, :product_id => self.product_id, :nature_id => self.product.subscription_nature_id, :sale_line_id => self.id))
     subscription.attributes = attributes
     product = subscription.product
     nature  = subscription.nature

@@ -20,20 +20,22 @@
 # 
 # == Table: custom_fields
 #
-#  active       :boolean          default(TRUE), not null
-#  created_at   :datetime         not null
-#  creator_id   :integer          
-#  decimal_max  :decimal(19, 4)   
-#  decimal_min  :decimal(19, 4)   
-#  id           :integer          not null, primary key
-#  length_max   :integer          
-#  lock_version :integer          default(0), not null
-#  name         :string(255)      not null
-#  nature       :string(8)        not null
-#  position     :integer          
-#  required     :boolean          not null
-#  updated_at   :datetime         not null
-#  updater_id   :integer          
+#  active          :boolean          default(TRUE), not null
+#  created_at      :datetime         not null
+#  creator_id      :integer          
+#  customized_type :string(255)      not null
+#  id              :integer          not null, primary key
+#  lock_version    :integer          default(0), not null
+#  maximal_length  :integer          
+#  maximal_value   :decimal(19, 4)   
+#  minimal_length  :integer          default(0), not null
+#  minimal_value   :decimal(19, 4)   
+#  name            :string(255)      not null
+#  nature          :string(8)        not null
+#  position        :integer          
+#  required        :boolean          not null
+#  updated_at      :datetime         not null
+#  updater_id      :integer          
 #
 
 
@@ -44,12 +46,12 @@ class CustomField < CompanyRecord
   has_many :choices, :class_name => "CustomFieldChoice", :order => :position, :dependent => :delete_all
   has_many :data, :class_name => "CustomFieldDatum", :dependent => :delete_all
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :length_max, :allow_nil => true, :only_integer => true
-  validates_numericality_of :decimal_max, :decimal_min, :allow_nil => true
+  validates_numericality_of :maximal_length, :minimal_length, :allow_nil => true, :only_integer => true
+  validates_numericality_of :maximal_value, :minimal_value, :allow_nil => true
   validates_length_of :nature, :allow_nil => true, :maximum => 8
-  validates_length_of :name, :allow_nil => true, :maximum => 255
+  validates_length_of :customized_type, :name, :allow_nil => true, :maximum => 255
   validates_inclusion_of :active, :required, :in => [true, false]
-  validates_presence_of :name, :nature
+  validates_presence_of :customized_type, :minimal_length, :name, :nature
   #]VALIDATORS]
   validates_inclusion_of :nature, :in => self.nature.values
 

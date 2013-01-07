@@ -132,9 +132,9 @@ class AccountsController < AdminController
 
   def load
     if request.post?
-      locale, name = params[:list].split(".")
-      Account.load_chart(name, :locale => locale)
-      redirect_to_back
+      if Account.load_chart(params[:chart])
+        redirect_to_back
+      end
     end
   end
 

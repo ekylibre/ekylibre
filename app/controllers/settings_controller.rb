@@ -67,7 +67,7 @@ class SettingsController < AdminController
     file = Rails.root.join("tmp", "uploads", backup.original_filename + "." + rand.to_s[2..-1].to_i.to_s(36))
     FileUtils.mkdir_p(file.dirname)
     File.open(file, "wb") { |f| f.write(backup.read) }
-    user_name = current_user.username
+    user_name = current_user.user_name
     start = Time.now
     if Ekylibre::Backup.restore(file)
       # TODO: Restore session of current_user ?

@@ -20,9 +20,14 @@
 # 
 # == Table: companies
 #
-#  code :string(16)       not null
-#  id   :integer          not null, primary key
-#  log  :text             
+#  code         :string(16)       not null
+#  created_at   :datetime         
+#  creator_id   :integer          
+#  id           :integer          not null, primary key
+#  lock_version :integer          default(0), not null
+#  log          :text             
+#  updated_at   :datetime         
+#  updater_id   :integer          
 #
 
 

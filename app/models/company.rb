@@ -22,21 +22,26 @@
 # 
 # == Table: companies
 #
-#  code :string(16)       not null
-#  id   :integer          not null, primary key
-#  log  :text             
+#  code         :string(16)       not null
+#  created_at   :datetime         
+#  creator_id   :integer          
+#  id           :integer          not null, primary key
+#  lock_version :integer          default(0), not null
+#  log          :text             
+#  updated_at   :datetime         
+#  updater_id   :integer          
 #
 
 
 class Company < Ekylibre::Record::Base
   # include Ekylibre::Record::Preference
 
-  # has_many :accounts, :order=>:number
+  # has_many :accounts, :order => :number
   # has_many :account_balances
   # has_many :areas
   # has_many :assets
   # has_many :asset_depreciations
-  # has_many :cashes, :order=>:name
+  # has_many :cashes, :order => :name
   # has_many :cash_transfers
   # has_many :bank_statements
   # has_many :contacts
@@ -55,29 +60,29 @@ class Company < Ekylibre::Record::Base
   # has_many :entity_links
   # has_many :entity_natures
   # has_many :establishments
-  # has_many :event_natures, :order=>"name"
+  # has_many :event_natures, :order => "name"
   # has_many :events
-  # has_many :financial_years, :order=>"started_on DESC"
+  # has_many :financial_years, :order => "started_on DESC"
   # has_many :incoming_deliveries
   # has_many :incoming_delivery_lines
   # has_many :incoming_delivery_modes
   # has_many :incoming_payments
-  # has_many :incoming_payment_modes, :order=>:name
+  # has_many :incoming_payment_modes, :order => :name
   # has_many :incoming_payment_uses
   # has_many :inventories
   # has_many :inventory_lines
-  # has_many :journals, :order=>:name
+  # has_many :journals, :order => :name
   # has_many :journal_entries
   # has_many :journal_entry_lines
-  # has_many :land_parcels, :order=>:name
-  # has_many :land_parcel_groups, :order=>:name
+  # has_many :land_parcels, :order => :name
+  # has_many :land_parcel_groups, :order => :name
   # has_many :land_parcel_kinships
   # has_many :listings
   # has_many :listing_nodes
   # has_many :listing_node_items
   # has_many :mandates
   # has_many :observations
-  # has_many :operation_natures, :order=>:name
+  # has_many :operation_natures, :order => :name
   # has_many :operations
   # has_many :operation_lines
   # has_many :operation_uses
@@ -85,15 +90,15 @@ class Company < Ekylibre::Record::Base
   # has_many :outgoing_delivery_lines
   # has_many :outgoing_delivery_modes
   # has_many :outgoing_payments
-  # has_many :outgoing_payment_modes, :order=>:name
+  # has_many :outgoing_payment_modes, :order => :name
   # has_many :outgoing_payment_uses
-  # has_many :preferences, :conditions=>{:user_id=>nil}, :order=>:name
+  # has_many :preferences, :conditions => {:user_id => nil}, :order => :name
   # has_many :prices
-  # has_many :products, :order=>'active DESC, name'
-  # has_many :product_categories, :order=>:name
+  # has_many :products, :order => 'active DESC, name'
+  # has_many :product_categories, :order => :name
   # has_many :product_components
   # has_many :production_chains
-  # has_many :production_chain_work_centers, :order=>:name
+  # has_many :production_chain_work_centers, :order => :name
   # has_many :production_chain_work_center_lines
   # has_many :production_chain_work_center_uses
   # has_many :professions
@@ -105,19 +110,19 @@ class Company < Ekylibre::Record::Base
   # has_many :sale_lines
   # has_many :sale_natures
   # has_many :sequences
-  # has_many :stocks, :order=>"warehouse_id, product_id, tracking_id"
+  # has_many :stocks, :order => "warehouse_id, product_id, tracking_id"
   # has_many :stock_moves
   # has_many :stock_transfers
-  # has_many :subscription_natures, :order=>:name
+  # has_many :subscription_natures, :order => :name
   # has_many :subscriptions
-  # has_many :taxes, :order=>'amount'
+  # has_many :taxes, :order => 'amount'
   # has_many :tax_declarations
-  # has_many :tools, :order=>:name
+  # has_many :tools, :order => :name
   # has_many :trackings
   # has_many :transfers
   # has_many :transports
-  # has_many :units, :order=>'base, coefficient, name'
-  # has_many :users, :order=>'last_name, first_name'
+  # has_many :units, :order => 'base, coefficient, name'
+  # has_many :users, :order => 'last_name, first_name'
   # has_many :warehouses
 
   # # Sequences
@@ -136,10 +141,10 @@ class Company < Ekylibre::Record::Base
   # # preference :subscriptions_sequence, 'Sequence'
   # # preference :transports_sequence, 'Sequence'
   # # Behaviours
-  # preference :bookkeep_automatically, 'Boolean', :default=>true
-  # preference :bookkeep_in_draft, 'Boolean', :default=>true
-  # # preference :detail_payments_in_deposit_bookkeeping, 'Boolean', :default=>true
-  # preference :use_entity_codes_for_account_numbers, 'Boolean', :default=>true
+  # preference :bookkeep_automatically, 'Boolean', :default => true
+  # preference :bookkeep_in_draft, 'Boolean', :default => true
+  # # preference :detail_payments_in_deposit_bookkeeping, 'Boolean', :default => true
+  # preference :use_entity_codes_for_account_numbers, 'Boolean', :default => true
   # # Journals
   # # preference :bank_journal, 'Journal'
   # # preference :cash_journal, 'Journal'
@@ -148,23 +153,23 @@ class Company < Ekylibre::Record::Base
   # # preference :sales_journal, 'Journal'
   # # preference :various_journal, 'Journal'
   # # Accounts
-  # # preference :capital_gains_accounts, 'Integer', :default=>120
-  # # preference :capital_losses_accounts, 'Integer', :default=>129
-  # # preference :charges_accounts, 'Integer', :default=>6
-  # # preference :financial_banks_accounts, 'Integer', :default=>51
-  # # preference :financial_cashes_accounts, 'Integer', :default=>53
-  # # preference :financial_internal_transfers_accounts, 'Integer', :default=>58
-  # # preference :financial_payments_to_deposit_accounts, 'Integer', :default=>511
-  # # preference :products_accounts, 'Integer', :default=>7
-  # # preference :taxes_acquisition_accounts, 'Integer', :default=>4452
-  # # preference :taxes_assimilated_accounts, 'Integer', :default=>447
-  # # preference :taxes_balance_accounts, 'Integer', :default=>44567
-  # # preference :taxes_payback_accounts, 'Integer', :default=>44583
-  # # preference :taxes_collected_accounts, 'Integer', :default=>4457
-  # # preference :taxes_paid_accounts, 'Integer', :default=>4456
-  # # preference :third_attorneys_accounts, 'Integer', :default=>467
-  # # preference :third_clients_accounts, 'Integer', :default=>411
-  # # preference :third_suppliers_accounts, 'Integer', :default=>401
+  # # preference :capital_gains_accounts, 'Integer', :default => 120
+  # # preference :capital_losses_accounts, 'Integer', :default => 129
+  # # preference :charges_accounts, 'Integer', :default => 6
+  # # preference :financial_banks_accounts, 'Integer', :default => 51
+  # # preference :financial_cashes_accounts, 'Integer', :default => 53
+  # # preference :financial_internal_transfers_accounts, 'Integer', :default => 58
+  # # preference :financial_payments_to_deposit_accounts, 'Integer', :default => 511
+  # # preference :products_accounts, 'Integer', :default => 7
+  # # preference :taxes_acquisition_accounts, 'Integer', :default => 4452
+  # # preference :taxes_assimilated_accounts, 'Integer', :default => 447
+  # # preference :taxes_balance_accounts, 'Integer', :default => 44567
+  # # preference :taxes_payback_accounts, 'Integer', :default => 44583
+  # # preference :taxes_collected_accounts, 'Integer', :default => 4457
+  # # preference :taxes_paid_accounts, 'Integer', :default => 4456
+  # # preference :third_attorneys_accounts, 'Integer', :default => 467
+  # # preference :third_clients_accounts, 'Integer', :default => 411
+  # # preference :third_suppliers_accounts, 'Integer', :default => 401
 
 
   def self.conditions_proc(string)
@@ -176,45 +181,45 @@ class Company < Ekylibre::Record::Base
   end
 
   # Specifics
-  ### has_many :attorney_accounts, :class_name=>"Account", :order=>:number, :conditions=>conditions_proc('number LIKE #{connection.quote(self.preferred_third_attorneys_accounts.to_s+\'%\')}')
-  has_many :available_prices, :class_name=>"Price", :conditions=>conditions_proc('prices.entity_id=#{self.entity_id} AND prices.active=#{connection.quoted_true} AND product_id IN (SELECT id FROM #{Product.table_name} WHERE company_id=#{id} AND active=#{connection.quoted_true})'), :order=>"prices.amount"
-  ### has_many :available_products, :class_name=>"Product", :conditions=>{:active=>true}, :order=>:name
-  has_many :bank_journals, :class_name=>"Journal", :order=>:code, :conditions=>conditions_proc('nature LIKE \'bank\'')
-  has_many :banks_accounts, :class_name=>"Account", :order=>:number, :conditions=>conditions_proc('number LIKE #{connection.quote(self.preferred_financial_banks_accounts.to_s+\'%\')}')
-  has_many :buildings, :class_name=>"Warehouse", :conditions=>{:reservoir=>false}, :order=>:name
-  has_many :cash_journals, :class_name=>"Journal", :order=>:code, :conditions=>conditions_proc('nature LIKE \'cash\'')
-  has_many :cashes_accounts, :class_name=>"Account", :order=>:number, :conditions=>conditions_proc('number LIKE #{connection.quote(self.preferred_financial_cashes_accounts.to_s+\'%\')}')
-  has_many :charges_accounts, :class_name=>"Account", :order=>:number, :conditions=>conditions_proc('number LIKE #{connection.quote(self.preferred_charges_accounts.to_s+\'%\')}')
-  has_many :choice_custom_fields, :class_name=>"CustomField", :conditions=>{:nature=>"choice"}, :order=>"name"
-  ### has_many :client_accounts, :class_name=>"Account", :order=>:number, :conditions=>conditions_proc('number LIKE #{connection.quote(self.preferred_third_clients_accounts.to_s+\'%\')}')
-  ### has_many :critic_stocks, :class_name=>"Stock", :conditions=>['virtual_quantity <= quantity_min AND NOT (virtual_quantity=0 AND quantity=0 AND tracking_id IS NOT NULL)']
-  has_many :employees, :class_name=>"Entity", :conditions=>{:employed=>true}, :order=>'last_name, first_name'
-  ### has_many :depositable_payments, :class_name=>"IncomingPayment", :conditions=>conditions_proc('deposit_id IS NULL AND mode_id IN (SELECT id FROM #{IncomingPaymentMode.table_name} WHERE company_id=#{id} AND with_deposit=#{connection.quoted_true})')
-  ### has_many :major_accounts, :class_name=>"Account", :conditions=>["number LIKE '_'"], :order=>"number"
-  ### has_many :payments_to_deposit, :class_name=>"IncomingPayment", :order=>"created_on", :conditions=>conditions_proc('deposit_id IS NULL AND mode_id IN (SELECT id FROM #{IncomingPaymentMode.table_name} WHERE company_id=#{id} AND with_deposit=#{connection.quoted_true}) AND to_bank_on >= #{connection.quote(Date.today-14)}')
-  has_many :payments_to_deposit_accounts, :class_name=>"Account", :order=>:number, :conditions=>conditions_proc('number LIKE #{connection.quote(self.preferred_financial_payments_to_deposit_accounts.to_s+\'%\')}')
-  has_many :productable_products, :class_name=>"Product", :conditions=>{:to_produce=>true}
-  has_many :products_accounts, :class_name=>"Account", :order=>:number, :conditions=>conditions_proc('number LIKE #{connection.quote(self.preferred_products_accounts.to_s+\'%\')}')
-  has_many :self_cashes, :class_name=>"Cash", :order=>:name, :conditions=>conditions_proc('entity_id=#{self.entity_id}')
-  ### has_many :self_bank_accounts, :class_name=>"Cash", :order=>:name, :conditions=>conditions_proc('(entity_id IS NULL OR entity_id=#{self.entity_id}) AND nature=\'bank_account\'')
-  has_many :self_contacts, :class_name=>"Contact", :conditions=>conditions_proc('deleted_at IS NULL AND entity_id = #{self.entity_id}'), :order=>'address'
-  ### has_many :stockable_products, :class_name=>"Product", :conditions=>{:stockable=>true}
-  ### has_many :supplier_accounts, :class_name=>"Account", :order=>:number, :conditions=>conditions_proc('number LIKE #{connection.quote(self.preferred_third_suppliers_accounts.to_s+\'%\')}')
-  has_many :suppliers, :class_name=>"Entity", :conditions=>{:supplier=>true}, :order=>'active DESC, last_name, first_name'
-  has_many :surface_units, :class_name=>"Unit", :conditions=>{:base=>"m2"}, :order=>'coefficient, name'
-  has_many :transporters, :class_name=>"Entity", :conditions=>{:transporter=>true}, :order=>'active DESC, last_name, first_name'
-  ### has_many :unconfirmed_stock_transfers, :class_name=>"StockTransfer", :conditions=>{:moved_on=>nil}
-  ### has_many :undelivered_incoming_deliveries, :class_name=>"IncomingDelivery", :conditions=>{:moved_on=>nil}
-  ### has_many :undelivered_outgoing_deliveries, :class_name=>"OutgoingDelivery", :conditions=>{:moved_on=>nil}
-  has_many :unpaid_responsibles, :class_name=>"Entity", :conditions=>conditions_proc('id in (SELECT responsible_id FROM #{Sale.table_name} WHERE company_id=#{id} AND state IN (\'order\', \'invoice\') AND paid_amount < amount AND lost = #{connection.quoted_false})')
-  ### has_many :untransportered_deliveries, :class_name=>"OutgoingDelivery", :conditions=>{:moved_on=>nil, :transporter_id=>nil} # without_transporter
-  has_many :usable_incoming_payments, :class_name=>"IncomingPayment", :conditions=>conditions_proc('used_amount < amount'), :order=>'amount'
-  has_many :usable_outgoing_payments, :class_name=>"OutgoingPayment", :conditions=>conditions_proc('used_amount < amount'), :order=>'amount'
-  ### has_many :waiting_transporters, :class_name=>"Entity", :conditions=>["id IN (SELECT transporter_id FROM #{OutgoingDelivery.table_name} WHERE (moved_on IS NULL AND planned_on <= CURRENT_DATE) OR transport_id IS NULL)"]
+  ### has_many :attorney_accounts, :class_name => "Account", :order => :number, :conditions => conditions_proc('number LIKE #{connection.quote(self.preferred_third_attorneys_accounts.to_s+\'%\')}')
+  has_many :available_prices, :class_name => "Price", :conditions => conditions_proc('prices.entity_id=#{self.entity_id} AND prices.active=#{connection.quoted_true} AND product_id IN (SELECT id FROM #{Product.table_name} WHERE company_id=#{id} AND active=#{connection.quoted_true})'), :order => "prices.amount"
+  ### has_many :available_products, :class_name => "Product", :conditions => {:active => true}, :order => :name
+  has_many :bank_journals, :class_name => "Journal", :order => :code, :conditions => conditions_proc('nature LIKE \'bank\'')
+  has_many :banks_accounts, :class_name => "Account", :order => :number, :conditions => conditions_proc('number LIKE #{connection.quote(self.preferred_financial_banks_accounts.to_s+\'%\')}')
+  has_many :buildings, :class_name => "Warehouse", :conditions => {:reservoir => false}, :order => :name
+  has_many :cash_journals, :class_name => "Journal", :order => :code, :conditions => conditions_proc('nature LIKE \'cash\'')
+  has_many :cashes_accounts, :class_name => "Account", :order => :number, :conditions => conditions_proc('number LIKE #{connection.quote(self.preferred_financial_cashes_accounts.to_s+\'%\')}')
+  has_many :charges_accounts, :class_name => "Account", :order => :number, :conditions => conditions_proc('number LIKE #{connection.quote(self.preferred_charges_accounts.to_s+\'%\')}')
+  has_many :choice_custom_fields, :class_name => "CustomField", :conditions => {:nature => "choice"}, :order => "name"
+  ### has_many :client_accounts, :class_name => "Account", :order => :number, :conditions => conditions_proc('number LIKE #{connection.quote(self.preferred_third_clients_accounts.to_s+\'%\')}')
+  ### has_many :critic_stocks, :class_name => "Stock", :conditions => ['virtual_quantity <= quantity_min AND NOT (virtual_quantity=0 AND quantity=0 AND tracking_id IS NOT NULL)']
+  has_many :employees, :class_name => "Entity", :conditions => {:employed => true}, :order => 'last_name, first_name'
+  ### has_many :depositable_payments, :class_name => "IncomingPayment", :conditions => conditions_proc('deposit_id IS NULL AND mode_id IN (SELECT id FROM #{IncomingPaymentMode.table_name} WHERE company_id=#{id} AND with_deposit=#{connection.quoted_true})')
+  ### has_many :major_accounts, :class_name => "Account", :conditions => ["number LIKE '_'"], :order => "number"
+  ### has_many :payments_to_deposit, :class_name => "IncomingPayment", :order => "created_on", :conditions => conditions_proc('deposit_id IS NULL AND mode_id IN (SELECT id FROM #{IncomingPaymentMode.table_name} WHERE company_id=#{id} AND with_deposit=#{connection.quoted_true}) AND to_bank_on >= #{connection.quote(Date.today-14)}')
+  has_many :payments_to_deposit_accounts, :class_name => "Account", :order => :number, :conditions => conditions_proc('number LIKE #{connection.quote(self.preferred_financial_payments_to_deposit_accounts.to_s+\'%\')}')
+  has_many :productable_products, :class_name => "Product", :conditions => {:to_produce => true}
+  has_many :products_accounts, :class_name => "Account", :order => :number, :conditions => conditions_proc('number LIKE #{connection.quote(self.preferred_products_accounts.to_s+\'%\')}')
+  has_many :self_cashes, :class_name => "Cash", :order => :name, :conditions => conditions_proc('entity_id=#{self.entity_id}')
+  ### has_many :self_bank_accounts, :class_name => "Cash", :order => :name, :conditions => conditions_proc('(entity_id IS NULL OR entity_id=#{self.entity_id}) AND nature=\'bank_account\'')
+  has_many :self_contacts, :class_name => "Contact", :conditions => conditions_proc('deleted_at IS NULL AND entity_id = #{self.entity_id}'), :order => 'address'
+  ### has_many :stockable_products, :class_name => "Product", :conditions => {:stockable => true}
+  ### has_many :supplier_accounts, :class_name => "Account", :order => :number, :conditions => conditions_proc('number LIKE #{connection.quote(self.preferred_third_suppliers_accounts.to_s+\'%\')}')
+  has_many :suppliers, :class_name => "Entity", :conditions => {:supplier => true}, :order => 'active DESC, last_name, first_name'
+  has_many :surface_units, :class_name => "Unit", :conditions => {:base => "m2"}, :order => 'coefficient, name'
+  has_many :transporters, :class_name => "Entity", :conditions => {:transporter => true}, :order => 'active DESC, last_name, first_name'
+  ### has_many :unconfirmed_stock_transfers, :class_name => "StockTransfer", :conditions => {:moved_on => nil}
+  ### has_many :undelivered_incoming_deliveries, :class_name => "IncomingDelivery", :conditions => {:moved_on => nil}
+  ### has_many :undelivered_outgoing_deliveries, :class_name => "OutgoingDelivery", :conditions => {:moved_on => nil}
+  has_many :unpaid_responsibles, :class_name => "Entity", :conditions => conditions_proc('id in (SELECT responsible_id FROM #{Sale.table_name} WHERE company_id=#{id} AND state IN (\'order\', \'invoice\') AND paid_amount < amount AND lost = #{connection.quoted_false})')
+  ### has_many :untransportered_deliveries, :class_name => "OutgoingDelivery", :conditions => {:moved_on => nil, :transporter_id => nil} # without_transporter
+  has_many :usable_incoming_payments, :class_name => "IncomingPayment", :conditions => conditions_proc('used_amount < amount'), :order => 'amount'
+  has_many :usable_outgoing_payments, :class_name => "OutgoingPayment", :conditions => conditions_proc('used_amount < amount'), :order => 'amount'
+  ### has_many :waiting_transporters, :class_name => "Entity", :conditions => ["id IN (SELECT transporter_id FROM #{OutgoingDelivery.table_name} WHERE (moved_on IS NULL AND planned_on <= CURRENT_DATE) OR transport_id IS NULL)"]
 
   has_one :first_financial_year, :class_name => "FinancialYear", :order => "started_on"
-  has_one :current_financial_year, :class_name=>"FinancialYear", :conditions=>{:closed => false}, :order => "ABS(CURRENT_DATE - started_on) DESC"
-  has_one :closable_financial_year, :class_name=>"FinancialYear", :conditions=>["closed = ? AND stopped_on < CURRENT_DATE", false], :order => "started_on"
+  has_one :current_financial_year, :class_name => "FinancialYear", :conditions => {:closed => false}, :order => "ABS(CURRENT_DATE - started_on) DESC"
+  has_one :closable_financial_year, :class_name => "FinancialYear", :conditions => ["closed = ? AND stopped_on < CURRENT_DATE", false], :order => "started_on"
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :code, :allow_nil => true, :maximum => 16
@@ -231,7 +236,7 @@ class Company < Ekylibre::Record::Base
       self.code = self.name.to_s[0..7].simpleize
       self.code = rand.to_s[2..-1].to_i.to_s(36)[0..7] if self.code.blank?
       self.code = self.code.simpleize.upper
-      while Company.count(:conditions=>["code=? AND id!=?",self.code, self.id])>0 do
+      while Company.count(:conditions => ["code=? AND id!=?",self.code, self.id])>0 do
         self.code.succ!
       end
     end
@@ -256,14 +261,14 @@ class Company < Ekylibre::Record::Base
   def account(number, name=nil)
     number = number.to_s
     a = self.accounts.find_by_number(number)
-    return a||self.accounts.create!(:number=>number, :name=>name||number.to_s)
+    return a||self.accounts.create!(:number => number, :name => name||number.to_s)
   end
 
 
   def preference(name)
     preference = self.preferences.find_by_name(name)
     if preference.nil? and ref = self.class.preferences_reference[name.to_s]
-      preference = self.preferences.new(:name=>name, :nature=>ref[:nature], :record_value_type=>ref[:record_value_type])
+      preference = self.preferences.new(:name => name, :nature => ref[:nature], :record_value_type => ref[:record_value_type])
       preference.value = ref[:default]
       preference.save!
     end
@@ -272,11 +277,11 @@ class Company < Ekylibre::Record::Base
 
 
   def admin_role
-    self.roles.find(:first)#, :conditions=>"actions LIKE '%all%'")
+    self.roles.find(:first)#, :conditions => "actions LIKE '%all%'")
   end
 
   def available_entities(options={})
-    #    options[:conditions]={:deleted=>false}
+    #    options[:conditions]={:deleted => false}
     self.entities.find(:all, options)
   end
 
@@ -284,20 +289,20 @@ class Company < Ekylibre::Record::Base
     array = self.entity_link_natures.find_all_by_symmetric(false).collect{|x| [x.name_1_to_2, x.id]}
     array += self.entity_link_natures.find_all_by_symmetric(false).collect{|x| [x.name_2_to_1, x.id.to_s+"-R"]}
     array += self.entity_link_natures.find_all_by_symmetric(true).collect{|x| [x.name_1_to_2, x.id]}
-    array.sort!{|a,b| a[0]<=>b[0] }
+    array.sort!{|a,b| a[0] <=> b[0] }
     #raise Exception.new array.inspect
     array
   end
 
 
   def available_taxes(options={})
-    #    options[:conditions]={:deleted=>false}
+    #    options[:conditions]={:deleted => false}
     self.taxes.find(:all, options)
   end
 
 
   def available_users(options={})
-    self.users.find(:all, :order=>:last_name, :conditions=>{:locked=>false})
+    self.users.find(:all, :order => :last_name, :conditions => {:locked => false})
   end
 
   # def financial_year_at(searched_on=Date.today)
@@ -330,11 +335,11 @@ class Company < Ekylibre::Record::Base
     if row.blank?
       nature = self.entity_natures.find_by_abbreviation("-")
     else
-      nature = EntityNature.find(:first, :conditions=>['company_id = ? AND LOWER(name) LIKE ? ',self.id, row.lower])
+      nature = EntityNature.find(:first, :conditions => ['company_id = ? AND LOWER(name) LIKE ? ',self.id, row.lower])
       #raise Exception.new nature.empty?.inspect
       #raise Exception.new nature.inspect if row == "SCEA"
-      nature = EntityNature.find(:first, :conditions=>['company_id = ? AND LOWER(abbreviation) LIKE ?', self.id, row.lower]) if nature.nil?
-      nature = EntityNature.create!(:name=>row, :abbreviation=>row[0..1], :in_name=>false, :physical=>true, :company_id=>self.id) if nature.nil?
+      nature = EntityNature.find(:first, :conditions => ['company_id = ? AND LOWER(abbreviation) LIKE ?', self.id, row.lower]) if nature.nil?
+      nature = EntityNature.create!(:name => row, :abbreviation => row[0..1], :in_name => false, :physical => true, :company_id => self.id) if nature.nil?
     end
     nature.id
   end
@@ -343,8 +348,8 @@ class Company < Ekylibre::Record::Base
     if row.blank?
       nature = self.entity_categories.first
     else
-      nature = EntityCategory.find(:first, :conditions=>['company_id = ? AND LOWER(name) LIKE ? ',self.id, row.lower])
-      nature = EntityCategory.create!(:name=>row, :by_default=>false, :company_id=>self.id) if nature.nil?
+      nature = EntityCategory.find(:first, :conditions => ['company_id = ? AND LOWER(name) LIKE ? ',self.id, row.lower])
+      nature = EntityCategory.create!(:name => row, :by_default => false, :company_id => self.id) if nature.nil?
     end
     nature.id
   end
@@ -360,7 +365,7 @@ class Company < Ekylibre::Record::Base
   #     label = [:label, :native_name, :name, :code, :number, :inspect].detect{|x| available_methods.include?(x.to_s)}
   #     raise ArgumentError.new(":label option is needed (#{model.name}(#{available_methods.inspect}):#{options.inspect})") if label.nil?
   #   end
-  #   find_options = {} # :conditions=>"true"}
+  #   find_options = {} # :conditions => "true"}
   #   if options[:order]
   #     find_options[:order] = options[:order]
   #   elsif model.columns_hash.keys.include?(options[:label].to_s)
@@ -399,7 +404,7 @@ class Company < Ekylibre::Record::Base
     raise ArgumentError.new("Unvalid journal name: #{name.inspect}") unless self.class.preferences_reference.has_key? pref_name
     unless journal = self.preferred(pref_name)
       journal = self.journals.find_by_nature(name)
-      journal = self.journals.create!(:name=>tc("default.journals.#{name}"), :nature=>name, :currency=>self.default_currency) unless journal
+      journal = self.journals.create!(:name => tc("default.journals.#{name}"), :nature => name, :currency => self.default_currency) unless journal
       self.prefer!(pref_name, journal)
     end
     return journal
@@ -421,28 +426,28 @@ class Company < Ekylibre::Record::Base
   #     Sequence.load_defaults
   #     Unit.load_defaults
 
-  #     EntityNature.create!(:name=>'Monsieur', :title=>'M', :physical=>true)
-  #     EntityNature.create!(:name=>'Madame', :title=>'Mme', :physical=>true)
-  #     EntityNature.create!(:name=>'Société Anonyme', :title=>'SA', :physical=>false)
-  #     undefined_nature = EntityNature.create!(:name=>'Indéfini', :title=>'', :in_name=>false, :physical=>false)
-  #     category = EntityCategory.create!(:name=>tc('default.category'))
-  #     firm = Entity.create!(:category_id=> category.id, :nature_id=>undefined_nature.id, :language=>language, :last_name=>code, :currency => currency, :of_company => true)
+  #     EntityNature.create!(:name => 'Monsieur', :title => 'M', :physical => true)
+  #     EntityNature.create!(:name => 'Madame', :title => 'Mme', :physical => true)
+  #     EntityNature.create!(:name => 'Société Anonyme', :title => 'SA', :physical => false)
+  #     undefined_nature = EntityNature.create!(:name => 'Indéfini', :title => '', :in_name => false, :physical => false)
+  #     category = EntityCategory.create!(:name => tc('default.category'))
+  #     firm = Entity.create!(:category_id =>  category.id, :nature_id => undefined_nature.id, :language => language, :last_name => code, :currency => currency, :of_company => true)
   #     firm.contacts.create!(:line_2 => "", :line_3 => "", :line_5 => "", :line_6 => "", :by_default => true)
 
   #     user.admin = true
-  #     user.role = Role.create!(:name=>tc('default.role.name.admin'),  :rights => Entity.rights_list.join(' '))
-  #     Role.create!(:name=>tc('default.role.name.public'), :rights => '')
+  #     user.role = Role.create!(:name => tc('default.role.name.admin'),  :rights => Entity.rights_list.join(' '))
+  #     Role.create!(:name => tc('default.role.name.public'), :rights => '')
   #     user.save!
 
   #     Account.load_chart(:accounting_system)
 
-  #     Department.create!(:name=>tc('default.department_name'))
-  #     establishment = Establishment.create!(:name=>tc('default.establishment_name'), :nic=>"00000")
-  #     #   # currency = company.currency || 'EUR' # company.currencies.create!(:name=>'Euro', :code=>'EUR', :value_format=>'%f €', :rate=>1)
-  #     ProductCategory.create(:name=>tc('default.product_category_name'))
+  #     Department.create!(:name => tc('default.department_name'))
+  #     establishment = Establishment.create!(:name => tc('default.establishment_name'), :nic => "00000")
+  #     #   # currency = company.currency || 'EUR' # company.currencies.create!(:name => 'Euro', :code => 'EUR', :value_format => '%f €', :rate => 1)
+  #     ProductCategory.create(:name => tc('default.product_category_name'))
 
   #     for code, tax in tc("default.taxes")
-  #       Tax.create!(:name=>tax[:name], :nature=>(tax[:nature]||"percent"), :amount=>tax[:amount].to_f, :collected_account_id=>Account.get(tax[:collected], tax[:name]).id, :paid_account_id=>Account.get(tax[:paid], tax[:name]).id)
+  #       Tax.create!(:name => tax[:name], :nature => (tax[:nature]||"percentage"), :amount => tax[:amount].to_f, :collected_account_id => Account.get(tax[:collected], tax[:name]).id, :paid_account_id => Account.get(tax[:paid], tax[:name]).id)
   #     end
 
   #     # loading of all the templates
@@ -450,10 +455,10 @@ class Company < Ekylibre::Record::Base
 
   #     journals = {}
   #     for journal in [:sales, :purchases, :bank, :various, :cash]
-  #       j = Journal.create!(:name=>tc("default.journals.#{journal}"), :nature=>journal.to_s, :currency=>currency)
+  #       j = Journal.create!(:name => tc("default.journals.#{journal}"), :nature => journal.to_s, :currency => currency)
   #       # company.prefer!("#{journal}_journal", j)
   #       journals[journal] = j
-  #       # company.prefer!("#{journal}_journal", company.journals.create!(:name=>tc("default.journals.#{journal}"), :nature=>journal.to_s, :currency=>currency))
+  #       # company.prefer!("#{journal}_journal", company.journals.create!(:name => tc("default.journals.#{journal}"), :nature => journal.to_s, :currency => currency))
   #     end
 
   #     cash = Cash.create!(:name => tc('default.cash.name.cash_box'), :nature => "cash_box", :account => Account.get("531101", "Caisse"), :journal_id => journals[:cash].id)
@@ -471,7 +476,7 @@ class Company < Ekylibre::Record::Base
   #       delays << Delay.create!(:name => tc('default.delays.name.'+d), :expression => tc('default.delays.expression.'+d), :active => true)
   #     end
   #     FinancialYear.create!(:started_on => Date.today.beginning_of_month)
-  #     SaleNature.create!(:name => tc('default.sale_nature_name'), :expiration_id => delays[0].id, :payment_delay_id => delays[2].id, :downpayment => false, :downpayment_minimum => 300, :downpayment_rate => 0.3, :currency => currency, :with_accounting => true, :journal => journals[:sales])
+  #     SaleNature.create!(:name => tc('default.sale_nature_name'), :expiration_id => delays[0].id, :payment_delay_id => delays[2].id, :downpayment => false, :downpayment_minimum => 300, :downpayment_percentage => 30, :currency => currency, :with_accounting => true, :journal => journals[:sales])
   #     PurchaseNature.create!(:name => tc('default.purchase_nature_name'), :currency => currency, :with_accounting => true, :journal => journals[:purchases])
 
 
@@ -492,81 +497,81 @@ class Company < Ekylibre::Record::Base
 
   # def self.create_with_data(company_attr=nil, user_attr=nil, demo_language_code=nil)
   #   language = 'fra'
-  #   # company = Company.new({:language=>language}.merge(company_attr))
+  #   # company = Company.new({:language => language}.merge(company_attr))
   #   # company = Company.new(company_attr)
   #   user = Entity.new(user_attr)
 
   #   ActiveRecord::Base.transaction do
   #     company.save!
-  #     company.roles.create!(:name=>tc('default.role.name.admin'),  :rights=>Entity.rights_list.join(' '))
-  #     company.roles.create!(:name=>tc('default.role.name.public'), :rights=>'')
+  #     company.roles.create!(:name => tc('default.role.name.admin'),  :rights => Entity.rights_list.join(' '))
+  #     company.roles.create!(:name => tc('default.role.name.public'), :rights => '')
   #     user.company_id = company.id
   #     user.role_id = company.admin_role.id
   #     user.save!
 
   #     company.load_accounts(:accounting_system)
 
-  #     company.departments.create!(:name=>tc('default.department_name'))
-  #     establishment = company.establishments.create!(:name=>tc('default.establishment_name'), :nic=>"00000")
-  #     currency = company.currency || 'EUR' # company.currencies.create!(:name=>'Euro', :code=>'EUR', :value_format=>'%f €', :rate=>1)
-  #     company.product_categories.create(:name=>tc('default.product_category_name'))
+  #     company.departments.create!(:name => tc('default.department_name'))
+  #     establishment = company.establishments.create!(:name => tc('default.establishment_name'), :nic => "00000")
+  #     currency = company.currency || 'EUR' # company.currencies.create!(:name => 'Euro', :code => 'EUR', :value_format => '%f €', :rate => 1)
+  #     company.product_categories.create(:name => tc('default.product_category_name'))
   #     company.load_units
   #     company.load_sequences
 
   #     user.reload
-  #     user.attributes = {:employed=>true, :commercial=>true, :department_id=>company.departments.first.id, :establishment_id=>company.establishments.first.id, :employment=>'-'}
+  #     user.attributes = {:employed => true, :commercial => true, :department_id => company.departments.first.id, :establishment_id => company.establishments.first.id, :employment => '-'}
   #     user.save!
 
   #     for code, tax in tc("default.taxes")
-  #       company.taxes.create!(:name=>tax[:name], :nature=>(tax[:nature]||"percent"), :amount=>tax[:amount].to_f, :collected_account_id=>company.account(tax[:collected], tax[:name]).id, :paid_account_id=>company.account(tax[:paid], tax[:name]).id)
+  #       company.taxes.create!(:name => tax[:name], :nature => (tax[:nature]||"percentage"), :amount => tax[:amount].to_f, :collected_account_id => company.account(tax[:collected], tax[:name]).id, :paid_account_id => company.account(tax[:paid], tax[:name]).id)
   #     end
 
-  #     company.entity_natures.create!(:name=>'Monsieur', :title=>'M', :physical=>true)
-  #     company.entity_natures.create!(:name=>'Madame', :title=>'Mme', :physical=>true)
-  #     company.entity_natures.create!(:name=>'Société Anonyme', :title=>'SA', :physical=>false)
-  #     undefined_nature = company.entity_natures.create!(:name=>'Indéfini', :title=>'', :in_name=>false, :physical=>false)
-  #     category = company.entity_categories.create!(:name=>tc('default.category'))
-  #     firm = company.entities.create!(:category_id=> category.id, :nature_id=>undefined_nature.id, :language=>language, :last_name=>company.name)
+  #     company.entity_natures.create!(:name => 'Monsieur', :title => 'M', :physical => true)
+  #     company.entity_natures.create!(:name => 'Madame', :title => 'Mme', :physical => true)
+  #     company.entity_natures.create!(:name => 'Société Anonyme', :title => 'SA', :physical => false)
+  #     undefined_nature = company.entity_natures.create!(:name => 'Indéfini', :title => '', :in_name => false, :physical => false)
+  #     category = company.entity_categories.create!(:name => tc('default.category'))
+  #     firm = company.entities.create!(:category_id =>  category.id, :nature_id => undefined_nature.id, :language => language, :last_name => company.name)
   #     company.reload
   #     company.entity_id = firm.id
   #     company.save!
-  #     company.entity.contacts.create!(:company_id=>company.id, :line_2=>"", :line_3=>"", :line_5=>"", :line_6=>'12345 MAVILLE', :by_default=>true)
+  #     company.entity.contacts.create!(:company_id => company.id, :line_2 => "", :line_3 => "", :line_5 => "", :line_6 => '12345 MAVILLE', :by_default => true)
 
   #     # loading of all the templates
   #     company.load_prints
 
   #     journals = {}
   #     for journal in [:sales, :purchases, :bank, :various, :cash]
-  #       j = company.journals.create!(:name=>tc("default.journals.#{journal}"), :nature=>journal.to_s, :currency=>currency)
+  #       j = company.journals.create!(:name => tc("default.journals.#{journal}"), :nature => journal.to_s, :currency => currency)
   #       # company.prefer!("#{journal}_journal", j)
   #       journals[journal] = j
-  #       # company.prefer!("#{journal}_journal", company.journals.create!(:name=>tc("default.journals.#{journal}"), :nature=>journal.to_s, :currency=>currency))
+  #       # company.prefer!("#{journal}_journal", company.journals.create!(:name => tc("default.journals.#{journal}"), :nature => journal.to_s, :currency => currency))
   #     end
 
-  #     cash = company.cashes.create!(:name=>tc('default.cash.name.cash_box'), :company_id=>company.id, :nature=>"cash_box", :account=>company.account("531101", "Caisse"), :journal_id=>journals[:cash].id)
-  #     baac = company.cashes.create!(:name=>tc('default.cash.name.bank_account'), :company_id=>company.id, :nature=>"bank_account", :account=>company.account("512101", "Compte bancaire"), :journal_id=>journal[:bank].id, :iban=>"FR7611111222223333333333391", :mode=>"iban")
-  #     company.incoming_payment_modes.create!(:name=>tc('default.incoming_payment_modes.cash.name'), :company_id=>company.id, :cash_id=>cash.id, :with_accounting=>true)
-  #     company.incoming_payment_modes.create!(:name=>tc('default.incoming_payment_modes.check.name'), :company_id=>company.id, :cash_id=>baac.id, :with_accounting=>true, :with_deposit=>true, :depositables_account_id=>company.account("5112", "Chèques à encaisser").id, :depositables_journal_id=>company.preferred_various_journal)
-  #     company.incoming_payment_modes.create!(:name=>tc('default.incoming_payment_modes.transfer.name'), :company_id=>company.id, :cash_id=>baac.id, :with_accounting=>true)
+  #     cash = company.cashes.create!(:name => tc('default.cash.name.cash_box'), :company_id => company.id, :nature => "cash_box", :account => company.account("531101", "Caisse"), :journal_id => journals[:cash].id)
+  #     baac = company.cashes.create!(:name => tc('default.cash.name.bank_account'), :company_id => company.id, :nature => "bank_account", :account => company.account("512101", "Compte bancaire"), :journal_id => journal[:bank].id, :iban => "FR7611111222223333333333391", :mode => "iban")
+  #     company.incoming_payment_modes.create!(:name => tc('default.incoming_payment_modes.cash.name'), :company_id => company.id, :cash_id => cash.id, :with_accounting => true)
+  #     company.incoming_payment_modes.create!(:name => tc('default.incoming_payment_modes.check.name'), :company_id => company.id, :cash_id => baac.id, :with_accounting => true, :with_deposit => true, :depositables_account_id => company.account("5112", "Chèques à encaisser").id, :depositables_journal_id => company.preferred_various_journal)
+  #     company.incoming_payment_modes.create!(:name => tc('default.incoming_payment_modes.transfer.name'), :company_id => company.id, :cash_id => baac.id, :with_accounting => true)
 
-  #     company.outgoing_payment_modes.create!(:name=>tc('default.outgoing_payment_modes.cash.name'), :company_id=>company.id, :cash_id=>cash.id, :with_accounting=>true)
-  #     company.outgoing_payment_modes.create!(:name=>tc('default.outgoing_payment_modes.check.name'), :company_id=>company.id, :cash_id=>baac.id, :with_accounting=>true)
-  #     company.outgoing_payment_modes.create!(:name=>tc('default.outgoing_payment_modes.transfer.name'), :company_id=>company.id, :cash_id=>baac.id, :with_accounting=>true)
+  #     company.outgoing_payment_modes.create!(:name => tc('default.outgoing_payment_modes.cash.name'), :company_id => company.id, :cash_id => cash.id, :with_accounting => true)
+  #     company.outgoing_payment_modes.create!(:name => tc('default.outgoing_payment_modes.check.name'), :company_id => company.id, :cash_id => baac.id, :with_accounting => true)
+  #     company.outgoing_payment_modes.create!(:name => tc('default.outgoing_payment_modes.transfer.name'), :company_id => company.id, :cash_id => baac.id, :with_accounting => true)
 
   #     delays = []
   #     ['expiration', 'standard', 'immediate'].each do |d|
-  #       delays << company.delays.create!(:name=>tc('default.delays.name.'+d), :expression=>tc('default.delays.expression.'+d), :active=>true)
+  #       delays << company.delays.create!(:name => tc('default.delays.name.'+d), :expression => tc('default.delays.expression.'+d), :active => true)
   #     end
-  #     company.financial_years.create!(:started_on=>Date.today)
-  #     company.sale_natures.create!(:name=>tc('default.sale_nature_name'), :expiration_id=>delays[0].id, :payment_delay_id=>delays[2].id, :downpayment=>false, :downpayment_minimum=>300, :downpayment_rate=>0.3, :currency=>currency, :with_accounting=>true, :journal=>company.preferred_sales_journal)
-  #     company.purchase_natures.create!(:name=>tc('default.purchase_nature_name'), :currency=>currency, :with_accounting=>true, :journal=>company.preferred_purchases_journal)
+  #     company.financial_years.create!(:started_on => Date.today)
+  #     company.sale_natures.create!(:name => tc('default.sale_nature_name'), :expiration_id => delays[0].id, :payment_delay_id => delays[2].id, :downpayment => false, :downpayment_minimum => 300, :downpayment_percentage => 30, :currency => currency, :with_accounting => true, :journal => company.preferred_sales_journal)
+  #     company.purchase_natures.create!(:name => tc('default.purchase_nature_name'), :currency => currency, :with_accounting => true, :journal => company.preferred_purchases_journal)
 
 
   #     company.load_sequences
 
-  #     company.warehouses.create!(:name=>tc('default.warehouse_name'), :establishment_id=>establishment.id)
+  #     company.warehouses.create!(:name => tc('default.warehouse_name'), :establishment_id => establishment.id)
   #     for nature in [:sale, :sales_invoice, :purchase]
-  #       company.event_natures.create!(:duration=>10, :usage=>nature.to_s, :name=>tc("default.event_natures.#{nature}"))
+  #       company.event_natures.create!(:duration => 10, :usage => nature.to_s, :name => tc("default.event_natures.#{nature}"))
   #     end
 
   #     # Add custom_fieldary data to test
@@ -604,7 +609,7 @@ class Company < Ekylibre::Record::Base
   #         code = attributes[:name].to_s.codeize[0..7]
   #         doc = self.document_templates.find_by_code(code)
   #         doc ||= self.document_templates.new
-  #         doc.attributes = HashWithIndifferentAccess.new(:active=>true, :language=>language, :country=>'fr', :family=>family.to_s, :code=>code, :by_default=>false).merge(attributes)
+  #         doc.attributes = HashWithIndifferentAccess.new(:active => true, :language => language, :country => 'fr', :family => family.to_s, :code => code, :by_default => false).merge(attributes)
   #         # doc["source"].force_encoding!('UTF-8') if RUBY_VERSION =~ /^1\.9/
   #         doc.save!
   #       end
@@ -618,7 +623,7 @@ class Company < Ekylibre::Record::Base
   #   for name, desc in Unit.default_units
   #     # unit = self.units.find_by_base_and_coefficient_and_start(desc[:base], desc[:coefficient], desc[:start])
   #     unless self.units.find_by_name(name.to_s)
-  #       self.units.create!(:name=>name.to_s, :label=>tc('default.units.'+name.to_s), :base=>desc[:base], :coefficient=>desc[:coefficient], :start=>desc[:start])
+  #       self.units.create!(:name => name.to_s, :label => tc('default.units.'+name.to_s), :base => desc[:base], :coefficient => desc[:coefficient], :start => desc[:start])
   #     end
   #   end
   # end
@@ -636,7 +641,7 @@ class Company < Ekylibre::Record::Base
 
   # def load_accounts(name, options={})
   #   locale = options[:locale]
-  #   if (plan = ::I18n.translate("accounting_systems.#{name}", :locale=>locale)).is_a? Hash
+  #   if (plan = ::I18n.translate("accounting_systems.#{name}", :locale => locale)).is_a? Hash
   #     ActiveRecord::Base.transaction do
   #       # Destroy unused existing accounts
   #       self.accounts.destroy_all
@@ -649,12 +654,12 @@ class Company < Ekylibre::Record::Base
   #       end if options[:reconcilable]
 
   #       # Create new accounts
-  #       for num, name in plan.to_a.sort{|a,b| a[0].to_s<=>b[0].to_s}.select{|k, v| k.to_s.match(/^n\_/)}
+  #       for num, name in plan.to_a.sort{|a,b| a[0].to_s <=> b[0].to_s}.select{|k, v| k.to_s.match(/^n\_/)}
   #         number = num.to_s[2..-1]
   #         if account = self.accounts.find_by_number(number)
-  #           account.update_attributes!(:name=>name, :reconcilable=>(options[:reconcilable] and number.match(regexp)))
+  #           account.update_attributes!(:name => name, :reconcilable => (options[:reconcilable] and number.match(regexp)))
   #         else
-  #           raise number.inspect unless self.accounts.create(:number=>number, :name=>name, :reconcilable=>(number.match(regexp) ? true : false))
+  #           raise number.inspect unless self.accounts.create(:number => number, :name => name, :reconcilable => (number.match(regexp) ? true : false))
   #         end
   #       end
 
@@ -665,13 +670,13 @@ class Company < Ekylibre::Record::Base
 
 
   def load_demo_data(language_code=nil)
-    self.entity_natures.create!(:name=>"Société A Responsabilité Limitée", :title=>"SARL", :in_name=>true)
+    self.entity_natures.create!(:name => "Société A Responsabilité Limitée", :title => "SARL", :in_name => true)
     last_name = ["MARTIN", "DUPONT", "DURAND", "LABAT", "VILLENEUVE", "SICARD", "FRERET", "FOUCAULT", "DUPEYRON", "BORGÈS", "DUBOIS", "LEROY", "MOREL", "GUERIN", "MORIN", "ROUSSEAU", "LEMAIRE", "DUVAL", "BRUN", "FERNANDEZ", "BRETON", "LEBLANC", "DA SILVA", "CORDIER", "BRIAND", "CAMUS", "VOISIN", "LELIEVRE", "GONZALEZ"]
     first_name = ["Benoît", "Stéphane", "Marine", "Roger", "Céline", "Bertrand", "Camille", "Dominique", "Julie", "Kévin", "Maxime", "Vincent", "Claire", "Marie-France", "Jean-Marie", "Anne-Marie", "Dominique", "Hakim", "Alain", "Daniel", "Sylvie", "Fabrice", "Nathalie", "Véronique", "Jeanine", "Edouard", "Colette", "Sébastien", "Rémi", "Joseph", "Baptiste", "Manuel", "Sofia", "Indira", "Martine", "Guy"]
     streets = ["Cours Xavier Arnozan", "Cours du général de Gaulle", "Route pavée", "Avenue Thiers", "Rue Gambetta", "5th Avenue", "rue Louis La Brocante", "Rue Léon Blum", "Avenue des Champs Élysées", "Cours de la marne"]
     cities = ["33000 Bordeaux", "33170 Gradignan", "40600 Biscarosse", "33400 Talence", "75001 Paris", "13000 Marseille", "33600 Pessac", "47000 Agen", "33710 Pugnac", "33700 Mérignac", "40000 Mont de Marsan"]
     entity_natures = self.entity_natures.collect{|x| x.id.to_s}
-    indifferent_attributes = {:category_id=>self.entity_categories.first.id, :language=>self.entity.language}
+    indifferent_attributes = {:category_id => self.entity_categories.first.id, :language => self.entity.language}
     products = ["Salades", "Bouteille en verre 75 cl", "Bouchon liège", "Capsule CRD", "Capsule", "Étiquette", "Vin Quillet-Bont 2005", "Caisse Bois 6 btles", "Bouteille Quillet-Bont 2005 75 cl", "Caisse 6 b. Quillet-Bont 2005", "Pommes de terre", "Séjour 1 nuit", "Séjour 1 semaine 1/2 pension", "Fongicide", "Insecticide"]
     product_category_id = self.product_categories.first.id
     category_id = self.entity_categories.first.id
@@ -686,68 +691,68 @@ class Company < Ekylibre::Record::Base
       entity.supplier = (rand() > 0.75 or x == 0)
       entity.transporter = rand() > 0.9
       entity.save!
-      contact = entity.contacts.create!(:company_id=>self.id, :line_4=>rand(100).to_s+" "+streets[rand(streets.size)], :line_6=>cities[rand(cities.size)], :by_default=>true)
+      contact = entity.contacts.create!(:company_id => self.id, :line_4 => rand(100).to_s+" "+streets[rand(streets.size)], :line_6 => cities[rand(cities.size)], :by_default => true)
     end
-    self.entity_link_natures.create!(:name=>"Gérant - Société", :name_1_to_2=>"gère la société", :name_2_to_1=>"est une société qui a pour associé", :propagate_contacts=>true, :symmetric=>false)
-    self.subscription_natures.create!(:name=>"Abonnement annuel", :nature=>"period", :reduction_rate=>0.1)
-    self.event_natures.create!(:name=>"Conversation téléphonique", :duration=>10, :usage=>"manual")
+    self.entity_link_natures.create!(:name => "Gérant - Société", :name_1_to_2 => "gère la société", :name_2_to_1 => "est une société qui a pour associé", :propagate_contacts => true, :symmetric => false)
+    self.subscription_natures.create!(:name => "Abonnement annuel", :nature => "period", :reduction_percentage => 10)
+    self.event_natures.create!(:name => "Conversation téléphonique", :duration => 10, :usage => "manual")
 
     # charge_account  = self.accounts.find_by_number("60")
     product_account = self.accounts.find_by_number("7")
-    units = self.units.find(:all, :conditions=>"base IS NULL OR base in ('', 'kg', 'm3')")
+    units = self.units.find(:all, :conditions => "base IS NULL OR base in ('', 'kg', 'm3')")
     taxes = self.taxes
     for product_name in products
-      product = self.products.create!(:nature=>"product", :name=>product_name, :for_sales=>true, :for_productions=>true, :category_id=>product_category_id, :unit=>units[rand(units.size)], :deliverable=>true, :stockable=>true, :weight=>rand(3), :sales_account_id=>product_account.id)
+      product = self.products.create!(:nature => "product", :name => product_name, :for_sales => true, :for_productions => true, :category_id => product_category_id, :unit => units[rand(units.size)], :deliverable => true, :stockable => true, :weight => rand(3), :sales_account_id => product_account.id)
       product.reload
-      product.prices.create!(:amount=>rand(100), :company_id=>self.id, :use_range=>false, :tax_id=>taxes[rand(taxes.size)].id, :category_id=>category_id, :entity_id=>product.name.include?("icide") ? self.entities.find(:first, :conditions=>{:supplier=>true}).id : self.entity_id)
+      product.prices.create!(:amount => rand(100), :company_id => self.id, :use_range => false, :tax_id => taxes[rand(taxes.size)].id, :category_id => category_id, :entity_id => product.name.include?("icide") ? self.entities.find(:first, :conditions => {:supplier => true}).id : self.entity_id)
     end
 
     product = self.products.find_by_name("Caisse 6 b. Quillet-Bont 2005")
-    self.product_components.create!(:active=>true, :product_id=>product.id, :component_id=>self.products.find_by_name("Bouteille Quillet-Bont 2005 75 cl").id, :quantity=>6, :warehouse_id=>self.warehouses.first.id)
-    self.product_components.create!(:active=>true, :product_id=>product.id, :component_id=>self.products.find_by_name("Caisse Bois 6 btles").id, :quantity=>1, :warehouse_id=>self.warehouses.first.id)
+    self.product_components.create!(:active => true, :product_id => product.id, :component_id => self.products.find_by_name("Bouteille Quillet-Bont 2005 75 cl").id, :quantity => 6, :warehouse_id => self.warehouses.first.id)
+    self.product_components.create!(:active => true, :product_id => product.id, :component_id => self.products.find_by_name("Caisse Bois 6 btles").id, :quantity => 1, :warehouse_id => self.warehouses.first.id)
 
     product = self.products.find_by_name("Bouteille Quillet-Bont 2005 75 cl")
-    self.product_components.create!(:active=>true, :product_id=>product.id, :component_id=>self.products.find_by_name("Bouchon liège").id, :quantity=>1, :warehouse_id=>self.warehouses.first.id)
-    self.product_components.create!(:active=>true, :product_id=>product.id, :component_id=>self.products.find_by_name("Étiquette").id, :quantity=>1, :warehouse_id=>self.warehouses.first.id)
-    self.product_components.create!(:active=>true, :product_id=>product.id, :component_id=>self.products.find_by_name("Bouteille en verre 75 cl").id, :quantity=>1, :warehouse_id=>self.warehouses.first.id)
-    self.product_components.create!(:active=>true, :product_id=>product.id, :component_id=>self.products.find_by_name("Vin Quillet-Bont 2005").id, :quantity=>0.75, :warehouse_id=>self.warehouses.first.id)
-    self.product_components.create!(:active=>true, :product_id=>product.id, :component_id=>self.products.find_by_name("Capsule CRD").id, :quantity=>1, :warehouse_id=>self.warehouses.first.id)
+    self.product_components.create!(:active => true, :product_id => product.id, :component_id => self.products.find_by_name("Bouchon liège").id, :quantity => 1, :warehouse_id => self.warehouses.first.id)
+    self.product_components.create!(:active => true, :product_id => product.id, :component_id => self.products.find_by_name("Étiquette").id, :quantity => 1, :warehouse_id => self.warehouses.first.id)
+    self.product_components.create!(:active => true, :product_id => product.id, :component_id => self.products.find_by_name("Bouteille en verre 75 cl").id, :quantity => 1, :warehouse_id => self.warehouses.first.id)
+    self.product_components.create!(:active => true, :product_id => product.id, :component_id => self.products.find_by_name("Vin Quillet-Bont 2005").id, :quantity => 0.75, :warehouse_id => self.warehouses.first.id)
+    self.product_components.create!(:active => true, :product_id => product.id, :component_id => self.products.find_by_name("Capsule CRD").id, :quantity => 1, :warehouse_id => self.warehouses.first.id)
 
-    self.subscriptions.create!(:nature_id=>self.subscription_natures.first.id, :started_on=>Date.today, :stopped_on=>Date.today+(365), :entity_id=>self.entities.find(:first, :conditions=>{:client=>true}).id, :suspended=>false)
+    self.subscriptions.create!(:nature_id => self.subscription_natures.first.id, :started_on => Date.today, :stopped_on => Date.today+(365), :entity_id => self.entities.find(:first, :conditions => {:client => true}).id, :suspended => false)
 
     product = self.products.find_by_name("Vin Quillet-Bont 2005")
-    self.warehouses.create!(:name=>"Cuve Jupiter", :product_id=>product.id, :quantity_max=>1000, :number=>1, :reservoir=>true, :establishment_id=>self.establishments.first.id)
+    self.warehouses.create!(:name => "Cuve Jupiter", :product_id => product.id, :quantity_max => 1000, :number => 1, :reservoir => true, :establishment_id => self.establishments.first.id)
 
 
-    units = self.units.find(:all, :conditions=>{:base =>'m2'})
-    group = self.land_parcel_groups.create!(:name=>"General")
+    units = self.units.find(:all, :conditions => {:base  => 'm2'})
+    group = self.land_parcel_groups.create!(:name => "General")
     for land_parcel in ["Milou", "Rantanplan", "Idéfix", "Cubitus", "Snoopy"]
-      self.land_parcels.create!(:name=>land_parcel, :area_measure=>rand(1000)+10, :area_unit=>units[rand(units.size)], :group_id=>group.id)
+      self.land_parcels.create!(:name => land_parcel, :area_measure => rand(1000)+10, :area_unit => units[rand(units.size)], :group_id => group.id)
     end
     for nature in ["Palissage", "Récolte", "Traitements", "Labour", "Vendange", "Épandange", "Éclaircissage"]
-      self.operation_natures.create!(:name=>nature, :target_type=>"LandParcel")
+      self.operation_natures.create!(:name => nature, :target_type => "LandParcel")
     end
     for nature in ["Fabrication", "Transformation", "Ouillage"]
-      self.operation_natures.create!(:name=>nature, :target_type=>"Stock")
+      self.operation_natures.create!(:name => nature, :target_type => "Stock")
     end
     for tool in ["Tracteur MF", "Renault 50"]
-      self.tools.create!(:name=>tool, :nature=>"tractor")
+      self.tools.create!(:name => tool, :nature => "tractor")
     end
     for tool in ["Semoire en ligne", "Pulvérisateur porté", "Herse rotative", "Charrue"]
-      self.tools.create!(:name=>tool, :nature=>"towed")
+      self.tools.create!(:name => tool, :nature => "towed")
     end
     for tool in ["Embouteilleuse", "Pétrin"]
-      self.tools.create!(:name=>tool, :nature=>"other")
+      self.tools.create!(:name => tool, :nature => "other")
     end
   end
 
   # def journal_entry_lines_between(started_on, stopped_on)
-  #   self.journal_entry_lines.find(:all, :joins=>"JOIN #{JournalEntry.table_name} AS journal_entries ON (journal_entries.id=entry_id)", :conditions=>["printed_on BETWEEN ? AND ? ", started_on, stopped_on], :order=>"printed_on, journal_entries.id, journal_entry_lines.id")
+  #   self.journal_entry_lines.find(:all, :joins => "JOIN #{JournalEntry.table_name} AS journal_entries ON (journal_entries.id=entry_id)", :conditions => ["printed_on BETWEEN ? AND ? ", started_on, stopped_on], :order => "printed_on, journal_entries.id, journal_entry_lines.id")
   # end
 
   def journal_entry_lines_calculate(column, started_on, stopped_on, operation=:sum)
     column = (column == :balance ? "#{JournalEntryLine.table_name}.original_debit - #{JournalEntryLine.table_name}.original_credit" : "#{JournalEntryLine.table_name}.original_#{column}")
-    self.journal_entry_lines.calculate(operation, column, :joins=>"JOIN #{JournalEntry.table_name} AS journal_entries ON (journal_entries.id=entry_id)", :conditions=>["printed_on BETWEEN ? AND ? ", started_on, stopped_on])
+    self.journal_entry_lines.calculate(operation, column, :joins => "JOIN #{JournalEntry.table_name} AS journal_entries ON (journal_entries.id=entry_id)", :conditions => ["printed_on BETWEEN ? AND ? ", started_on, stopped_on])
   end
 
 
