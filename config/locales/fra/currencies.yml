@@ -165,6 +165,8 @@ fra:
     ZAR: "Rand"
     ZMK: "Kwacha zambien"
     ZWL: "Dollar zimbabwéen"
+  # Override here default formatting options for each currency IF NEEDED
+  # Ex.: number.currency.formats.XXX.format
   number:
     currency:
-      formats: #?
+      formats:
