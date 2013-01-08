@@ -28,14 +28,14 @@ jpn:
     BZD: "ベリーズ・ドル"
     CAD: "カナダ・ドル"
     CDF: "コンゴ・フラン"
-    # CHE: "WIR Euro"
+    # CHE: "Euro WIR"
     CHF: "スイス・フラン"
-    # CHW: "WIR Franc"
-    # CLF: "Unidades de fomento"
+    # CHW: "Franc WIR"
+    # CLF: "Unidad de formento"
     CLP: "チリ・ペソ"
     CNY: "人民元"
     COP: "コロンビア・ペソ"
-    # COU: "Unidad de Valor Real"
+    # COU: "Unidad de valor real"
     CRC: "コスタリカ・コロン"
     CSD: "セルビア・ディナール" #?
     CUC: "兌換ペソ"
@@ -58,7 +58,7 @@ jpn:
     GEL: "ラリ"
     GGP: "ガーンジー・ポンド" #?
     GHC: "セディ" #?
-    # GHS: "Ghana Cedi"
+    # GHS: "Cedi"
     GIP: "ジブラルタル・ポンド"
     GMD: "ダラシ"
     GNF: "ギニア・フラン"
@@ -109,7 +109,7 @@ jpn:
     MVR: "ルフィヤ"
     MWK: "マラウイ・クワチャ"
     MXN: "メキシコ・ペソ"
-    # MXV: "Mexican Unidad de Inversion (UDI)"
+    # MXV: "Unidad de inversión"
     MYR: "リンギット"
     MZN: "メティカル"
     NAD: "ナミビア・ドル"
@@ -129,7 +129,7 @@ jpn:
     QAR: "カタール・リヤル"
     ROL: "旧ルーマニア・レウ" #?
     RON: "新ルーマニア・レウ"
-    # RSD: "Serbian Dinar"
+    # RSD: "Dinar serbe"
     RUB: "ロシア・ルーブル"
     RWF: "ルワンダ・フラン"
     SAR: "サウディ・リヤル"
@@ -161,13 +161,13 @@ jpn:
     UAH: "フリヴニャ"
     UGX: "ウガンダ・シリング"
     USD: "アメリカ合衆国ドル"
-    # USN: "US Dollar (Next day)"
-    # USS: "US Dollar (Same day)"
-    # UYI: "Uruguay Peso en Unidades Indexadas (URUIURUI)"
+    # USN: "Dollar américain"
+    # USS: "Dollar américain"
+    # UYI: "Peso uruguayen en unités indexées (URUIURUI)"
     UYU: "ウルグアイ・ペソ"
     UZS: "ウズベキスタン・スム"
     VEB: "ボリバル" #?
-    # VEF: "Bolivar Fuerte"
+    # VEF: "Bolívar vénézuélien"
     VND: "ドン"
     VUV: "バツ"
     WST: "サモア・タラ"
@@ -175,7 +175,7 @@ jpn:
     ZAR: "ランド"
     ZMK: "ザンビア・クワチャ"
     ZWD: "ジンバブエ・ドル" #?
-    # ZWL: "Zimbabwe Dollar"
+    # ZWL: "Dollar zimbabwéen"
   number:
     currency:
       formats:  #?

@@ -27,6 +27,10 @@
         -t.link(:new, :controller=>:animal_events, :animal_id=>@animal.id)
       =list(:events)
 
-    -b.cell(:children) do
+    -b.cell(:childrens) do
       =list(:children)
+
+    -b.cell(:picture) do
+      -if @animal.picture.exists?
+        =image_tag(@animal.picture.url(:original))
 

@@ -39,7 +39,7 @@ task :locales => :environment do
     controller_name = controller_file.split("/")[-1].split("_controller")[0]
     actions = actions_in_file(controller_file, controller_name).sort
     existing_actions = ::I18n.translate("actions.#{controller_name}").stringify_keys.keys rescue []
-    translateable_actions = (actions.delete_if{|a| [:update, :create, :destroy, :up, :down, :decrement, :increment, :duplicate, :reflect].include?(a.to_sym) or a.to_s.match(/^(list|formize)(\_|$)/)}|existing_actions).sort
+    translateable_actions = (actions.delete_if{|a| [:update, :create, :destroy, :up, :down, :decrement, :increment, :duplicate, :reflect].include?(a.to_sym) or a.to_s.match(/^(list|unroll)(\_|$)/)}|existing_actions).sort
     if not translateable_actions.empty? and not [:interfacers].include?(controller_name.to_sym)
       translation += "    #{controller_name}:\n"
       for action_name in translateable_actions
@@ -234,14 +234,16 @@ task :locales => :environment do
     translation += "\n"
     # end
   end
+
+  to_translate += hash_count(::I18n.translate("enumerize"))
+  translation += "  enumerize:"+hash_to_yaml(::I18n.translate("enumerize"), 2)+"\n"
+
   translation += "  models:\n"
   for model, definition in models.sort
     next unless definition[2]
     to_translate += hash_count(definition[2])
     translation += "    #{model}:"+yaml_value(definition[2], 2).gsub(/\n/, (definition[1] == :unused ? " #?\n" : "\n"))+"\n"
   end
-  to_translate += hash_count(::I18n.translate("enumerize"))
-  translation += "  enumerize:"+hash_to_yaml(::I18n.translate("enumerize"), 2)+"\n"
 
   File.open(locale_dir.join("models.yml"), "wb") do |file|
     file.write(translation)

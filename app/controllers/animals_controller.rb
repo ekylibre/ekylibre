@@ -32,6 +32,8 @@ class AnimalsController < AdminController
     t.column :sex
     t.column :name, :through=>:mother, :url=>true
     t.column :name, :through=>:father, :url=>true
+    t.column :outgone_on
+    t.column :outgone_reasons
     t.action :show, :url=>{:format=>:pdf}, :image=>:print
     t.action :edit
     t.action :destroy, :if=>"RECORD.destroyable\?"

@@ -34,7 +34,7 @@ class AnimalGroupsController < AdminController
   list(:animals, :conditions=>{:group_id=>['session[:current_animal_group_id]']}, :order=>"name ASC") do |t|
     t.column :name, :url=>true
     t.column :sex
-    t.column :identification_number, :url=>{:action=>:show}
+    t.column :working_number, :url=>{:action=>:show}
     t.column :born_on
   end
 

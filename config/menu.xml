@@ -939,9 +939,6 @@
       <page to="animal_diagnostics#show"/>
       <page to="animal_diagnostics#update"/>
     </menu>
-    <menu name="animal_races">
-      <page to="animal_races#unroll"/>
-    </menu>
     <menu name="animals">
       <page to="animals#list_events"/>
     </menu>

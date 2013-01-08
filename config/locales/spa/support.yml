@@ -49,7 +49,7 @@ spa:
         many: "%{count} segundos"
         one: "1 segundo"
   form:
-    # new: "New…"
+    # new: "Nouveau…"
   list:
     columns: "Columnas"
     export:
@@ -61,17 +61,17 @@ spa:
       title: "Exportación"
       true_value: "VERDAD"
     export_as: "Exportar a %{exported}..."
-    # items_per_page: "Items per page"
+    # items_per_page: "Éléments par page"
     menu: "Menú"
-    next: "Siguiente" #?
+    next: "Siguiente"
     no_records: "Vacío"
     pagination:
-      # first: "First page"
-      # last: "Last page"
-      # next: "Next page"
-      # previous: "Previous page"
-      # showing_x_to_y_of_total: "Showing %{x} to %{y} of %{total}"
-    previous: "Anterior" #?
+      # first: "Début"
+      # last: "Fin"
+      # next: "Suivant"
+      # previous: "Précédent"
+      # showing_x_to_y_of_total: "Enregistrements %{x} à %{y} sur %{total}"
+    previous: "Anterior"
     x_per_page:
       one: "%{count} por página"
       other: "%{count} por página"
@@ -80,7 +80,7 @@ spa:
       format:
         delimiter: ","
         format: "%u%n"
-        # negative_format: "-%n%u"
+        # negative_format: "-%n%s%u"
         precision: 2
         separator: "."
         unit: "€"

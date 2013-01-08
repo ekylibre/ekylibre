@@ -20,17 +20,17 @@
 class AnimalRacesController < AdminController
   manage_restfully
 
-  unroll_all :label => "{name}"
+  unroll_all
 
   list do |t|
-    t.column :name, :url=>true
-    t.column :name, :through=>:nature, :url=>true
+    t.column :name, :url => true
+    t.column :name, :through => :nature, :url => true
     t.column :comment
     t.column :code
     t.column :description
-    t.action :show, :url=>{:format=>:pdf}, :image=>:print
+    t.action :show, :url => {:format => :pdf}, :image => :print
     t.action :edit
-    t.action :destroy, :if=>"RECORD.destroyable\?"
+    t.action :destroy, :if => :destroyable?
   end
 
   # Show a list of animals natures
