@@ -37,8 +37,9 @@
 
 
 class Area < CompanyRecord
+  attr_accessible :code, :name, :district_id, :country
   belongs_to :district
-  has_many :contacts
+  has_many :mail_addresses, :class_name => "EntityAddress", :foreign_key => :mail_area_id
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :country, :allow_nil => true, :maximum => 2
   validates_length_of :city, :city_name, :code, :name, :postcode, :allow_nil => true, :maximum => 255
@@ -48,11 +49,11 @@ class Area < CompanyRecord
   before_validation do
     self.name = self.name.gsub(/\s+/,' ').strip
     words = self.name.to_s.split(' ')
-    start = words[0].to_s.ascii.length<=3 ? 2 : 1
+    start = (words[0].to_s.ascii.length <= 3 ? 2 : 1)
     self.postcode, self.city, self.city_name = '', '', ''
-    if words and words.size>0
-      self.postcode = (words[0..start-1]||[]).join(" ")
-      self.city = (words[start..-1]||[]).join(" ")
+    if words and words.size > 0
+      self.postcode = (words[0..start-1] || []).join(" ")
+      self.city = (words[start..-1] || []).join(" ")
       self.city_name = self.city
       if self.city_name.match(/cedex/i)
         self.city_name = self.city_name.split(/\scedex/i)[0].strip
@@ -63,7 +64,6 @@ class Area < CompanyRecord
   def self.exportable_columns
     self.content_columns.delete_if{|c| ![:city, :postcode].include?(c.name.to_sym)}
   end
-
 
 end
 

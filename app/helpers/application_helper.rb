@@ -1703,7 +1703,7 @@ module ApplicationHelper
         source = normalize_source(source, reflection.class_name.underscore.pluralize)
         haml << "    =selector(:#{model.name.underscore}, :#{reflection.name}, #{source.inspect}, {:object => #{object}}, :id => '#{input_id}', :class => 'selector#{' required' if required}')\n"
       end
-      haml << "    -for error in #{object}.errors['#{reflection.name}']\n"
+      haml << "    -for error in #{object}.errors['#{reflection.foreign_key}']\n"
       haml << "      %span.help-inline=error\n"
       buttons = options[:buttons] || {}
       for action in [:new] # , :edit  system actions

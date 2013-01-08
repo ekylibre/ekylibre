@@ -191,7 +191,7 @@ class Account < CompanyRecord
   end
 
   def self.human_chart_name(chart)
-    return ::I18n.translate("accounting_systems.#{name}.name")
+    return ::I18n.translate("accounting_systems.#{chart}.name")
   end
 
   # Find all available accounting systems in all languages

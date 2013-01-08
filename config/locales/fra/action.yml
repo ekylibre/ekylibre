@@ -804,7 +804,7 @@ fra:
     delivery_natural_gas_and_electricity_assessable: "Livraisons de gaz naturel ou d’électricité imposables en France" #?
     delivery_natural_gas_and_electricity_not_assessable: "Livraisons de gaz naturel ou d’électricité non imposables en France" #?
     demo_bar: "Histogramme"
-    demo_pie: "Cammenbert"
+    demo_pie: "Camenbert"
     departments: "Services"
     deposit: "Remise en banque"
     deposit_update: "Modifier la remise en banque" #?
@@ -945,7 +945,7 @@ fra:
     land_parcel_name: "Îlot"
     land_parcel_update: "Modifier l’îlot" #?
     land_parcels: "Îlots"
-    last_animals: "Dernières Naissances"
+    last_animals: "Dernières naissances"
     last_computed_balance: "Dernière balance calculée"
     last_events: "Derniers Evènements"
     last_payment_amount: "Montant du dernier encaissement"

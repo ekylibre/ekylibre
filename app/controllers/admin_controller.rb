@@ -477,7 +477,7 @@ class AdminController < BaseController
 
 
   # Build standard RESTful actions to manage records of a model
-  def self.manage_restfully(defaults={})
+  def self.manage_restfully(defaults = {})
     name = self.controller_name
     t3e = defaults.delete(:t3e)
     url = defaults.delete(:redirect_to)

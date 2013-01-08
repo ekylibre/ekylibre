@@ -23,11 +23,11 @@ class ProductCategoriesController < AdminController
   unroll_all
 
   list do |t|
-    t.column :name, :url=>true
+    t.column :name, :url => true
     t.column :comment
     t.column :catalog_name
     t.column :catalog_description
-    t.column :name, :through=>:parent
+    t.column :name, :through => :parent
     t.action :edit
     t.action :destroy
   end
@@ -36,10 +36,10 @@ class ProductCategoriesController < AdminController
   def index
   end
 
-  list(:products, :conditions=>{:category_id=>['session[:current_product_category_id]']}, :order=>'active DESC, name') do |t|
+  list(:products, :conditions => {:category_id => ['session[:current_product_category_id]']}, :order => 'active DESC, name') do |t|
     t.column :number
-    t.column :name, :url=>true
-    t.column :code, :url=>true
+    t.column :name, :url => true
+    t.column :code, :url => true
     t.column :description
     t.column :active
     t.action :edit
