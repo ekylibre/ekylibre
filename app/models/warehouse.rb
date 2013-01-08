@@ -43,6 +43,7 @@
 
 
 class Warehouse < CompanyRecord
+  # TODO: Use acts_as_nested_set
   acts_as_tree
   attr_readonly :reservoir
   belongs_to :address, :class_name => "EntityAddress"
@@ -66,6 +67,25 @@ class Warehouse < CompanyRecord
     where("(product_id = ? AND reservoir = ?) OR reservoir = ?", product.id, true, false)
   }
 
+  validate do
+    # TODO: Describe errors more precisely
+    if self.parent
+      errors.add(:parent_id, :invalid) if self.parent.reservoir?
+      if self.parent_id == self.id or self.parent_ids.include?(self.id) or self.child_ids.include?(self.id)
+        errors.add(:parent_id, :invalid) 
+      end
+    end
+  end
+
+  protect(:on => :destroy) do
+    dependencies = 0
+    for k, v in self.class.reflections.select{|k, v| v.macro == :has_many}
+      dependencies += self.send(k).size
+    end
+    return dependencies <= 0
+  end
+
+
   def can_receive?(product_id)
     #raise Exception.new product_id.inspect+self.reservoir.inspect
     reception = true
@@ -86,17 +106,28 @@ class Warehouse < CompanyRecord
     reception
   end
 
-  # obsolete
-  def can_receive(product_id)
-    self.can_receive?(product_id)
+  # # obsolete
+  # def can_receive(product_id)
+  #   self.can_receive?(product_id)
+  # end
+
+  # Returns parent ids
+  def parent_ids
+    if self.parent
+      return [self.parent_id] + self.parent.parent_ids
+    else
+      return []
+    end
   end
 
-  protect(:on => :destroy) do
-    dependencies = 0
-    for k, v in self.class.reflections.select{|k, v| v.macro == :has_many}
-      dependencies += self.send(k).size
+  # Return child ids
+  def child_ids
+    ids = []
+    for child in self.children
+      ids << child.id
+      ids += child.child_ids
     end
-    return dependencies <= 0
+    return ids
   end
 
 

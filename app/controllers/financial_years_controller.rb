@@ -27,7 +27,7 @@ class FinancialYearsController < AdminController
     t.column :started_on, :url => true
     t.column :stopped_on, :url => true
     t.column :currency
-    t.column :currency_precision
+    # t.column :currency_precision
     # t.action :close, :if => '!RECORD.closed and RECORD.closable?'
     t.action :edit, :unless => :closed?
     t.action :destroy, :unless => :closed?

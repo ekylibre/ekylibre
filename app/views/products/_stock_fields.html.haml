@@ -11,7 +11,7 @@
       =Stock.human_attribute_name('warehouse')
     .controls
       =selector(:stock, :warehouse, {:controller=>"warehouses", :action=>:unroll}, {:object => stock}, :id => 'stock-warehouse-input', :class => 'selector required')
-      -for error in stock.errors['warehouse']
+      -for error in stock.errors['warehouse_id']
         %span.help-inline=error
       %span.btn-toolbar
         =link_to({:controller => :warehouses, :action => :new}, 'data-new-item' => 'stock-warehouse-input', :class => 'btn btn-new') do

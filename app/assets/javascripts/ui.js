@@ -526,5 +526,10 @@
         }
     });
 
+    /* Refresh behave items */
+    $(document).on("cocoon:after-insert", function (event) {
+        $.Behave.refresh();
+    });
+
 
 })( jQuery );

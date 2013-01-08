@@ -52,7 +52,9 @@ class ProductCategory < CompanyRecord
   end
 
   validate do
-    errors.add(:parent_id, :invalid) if self.parent_id == self.id
+    if self.parent
+      errors.add(:parent_id, :invalid) if self.parent_id == self.id
+    end
   end
 
   def to_s
@@ -63,7 +65,7 @@ class ProductCategory < CompanyRecord
     if self.parent.nil?
       0
     else
-      self.parent.depth+1
+      self.parent.depth + 1
     end
   end
 

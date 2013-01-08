@@ -32,6 +32,7 @@
 
 
 class District < CompanyRecord
+  attr_accessible :code, :name
   has_many :areas
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :code, :name, :allow_nil => true, :maximum => 255

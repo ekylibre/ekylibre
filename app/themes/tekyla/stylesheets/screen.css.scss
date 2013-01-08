@@ -560,6 +560,7 @@ span.rad, label.radio {
 }
 
 .form-fields {
+  @include clearfix;
   @include respond-to(table) {
     @include columns(2);
   }
