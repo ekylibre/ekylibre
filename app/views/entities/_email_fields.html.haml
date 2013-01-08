@@ -3,4 +3,4 @@
 .nested-fields
   =link_to_remove_association('labels.remove_email'.t, f, :class => 'nested-remove remove-email')
   =f.input(:canal, :as => :hidden, :wrapper_html => {:id => 'canal-field'})
-  =f.input(:coordinate, :as => :email, :wrapper_html => {:id => 'coordinate-field'})
+  =f.input(:coordinate, :as => :email, :label => I18n.translate("enumerize.entity_address.canal.email"), :wrapper_html => {:id => 'coordinate-field'})

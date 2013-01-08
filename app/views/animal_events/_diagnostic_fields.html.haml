@@ -9,7 +9,7 @@
       =AnimalDiagnostic.human_attribute_name('disease')
     .controls
       =selector(:animal_diagnostic, :disease, {:controller=>"animal_diseases", :action=>:unroll}, {:object => animal_diagnostic}, :id => 'animal_diagnostic-disease-input', :class => 'selector')
-      -for error in animal_diagnostic.errors['disease']
+      -for error in animal_diagnostic.errors['disease_id']
         %span.help-inline=error
       %span.btn-toolbar
         =link_to({:controller => :animal_diseases, :action => :new}, 'data-new-item' => 'animal_diagnostic-disease-input', :class => 'btn btn-new') do

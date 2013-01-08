@@ -47,7 +47,8 @@
 =field_set(:coordinates, :major => true) do # |f|
   =nested_association(:emails) do
     =input :canal, :value => "email", :field => :hidden
-    =input :coordinate, :field => :email
+    =input :coordinate, :field => :email, :label => "enumerize.entity_address.canal.email"
+
   =nested_association(:mails) do
     =input :canal, :value => "mail", :field => :hidden
     =input :mail_line_1
@@ -57,16 +58,21 @@
     =input :mail_line_5
     =input :mail_line_6
     =input :mail_country, :source => :countries
+
   =nested_association(:phones, :before => :emails) do
     =input :canal, :value => "phone", :field => :hidden
-    =input :coordinate, :field => :tel
+    =input :coordinate, :field => :tel, :label => "enumerize.entity_address.canal.phone"
+
   =nested_association(:mobiles) do
     =input :canal, :value => "mobile", :field => :hidden
-    =input :coordinate, :field => :tel
+    =input :coordinate, :field => :tel, :label => "enumerize.entity_address.canal.mobile"
+
   =nested_association(:faxes) do
     =input :canal, :value => "fax", :field => :hidden
-    =input :coordinate, :field => :tel
+    =input :coordinate, :field => :tel, :label => "enumerize.entity_address.canal.fax"
+
   =nested_association(:websites) do
     =input :canal, :value => "website", :field => :hidden
-    =input :coordinate, :field => :url
+    =input :coordinate, :field => :url, :label => "enumerize.entity_address.canal.website"
+
 -#=render :partial => "contacts/coordinates_form"

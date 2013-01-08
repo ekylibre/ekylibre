@@ -15,20 +15,22 @@
   html[dir="rtl"] & { #{$base-name}-right: $value; }
 }
 
+@mixin padding-right($value) { @include define-right-property(padding, $value); }
+@mixin padding-left($value)  { @include define-left-property(padding, $value); }
 @mixin margin-right($value) { @include define-right-property(margin, $value); }
 @mixin margin-left($value)  { @include define-left-property(margin, $value); }
 @mixin border-right($value) { @include define-right-property(border, $value); }
 @mixin border-left($value)  { @include define-left-property(border, $value); }
 
 
-@mixin left($base-name, $value) {
-  html[dir="ltr"] & { #{$base-name}-left: $value; }
-  html[dir="rtl"] & { #{$base-name}-right: $value; }
+@mixin left($value) {
+  html[dir="ltr"] & { left: $value; }
+  html[dir="rtl"] & { right: $value; }
 }
 
-@mixin right($base-name, $value) {
-  html[dir="ltr"] & { #{$base-name}-right: $value; }
-  html[dir="rtl"] & { #{$base-name}-left: $value; }
+@mixin right($value) {
+  html[dir="ltr"] & { right: $value; }
+  html[dir="rtl"] & { left: $value; }
 }
 
 @mixin text-align($dir) {
@@ -176,7 +178,7 @@ $s: 70%;
       height:16px;
       width: 16px;
       margin: (($menu-text-height - 16px)/2) 0;
-      @include right(margin, $padding);
+      @include margin-right($padding);
     }
     span.text {
       /*@include inline-block;*/

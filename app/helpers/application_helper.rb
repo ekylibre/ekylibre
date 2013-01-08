@@ -1629,6 +1629,7 @@ module ApplicationHelper
     haml << ", :collection => #{source}" if source.is_a?(Symbol)
     haml << ", :as => :#{FACES[face]||face}" if face.is_a?(Symbol)
     haml << ", :readonly => !#{object}.new_record?" if readonly
+    haml << ", :label => I18n.translate(#{options[:label].inspect})" if options[:label]
     haml << ", :wrapper_html => {:id => '#{options[:wrapper_id]}'}"
     input_html[:rows] = "3" if face == :text
 

@@ -8,7 +8,7 @@
       =OperationUse.human_attribute_name('tool')
     .controls
       =selector(:operation_use, :tool, {:controller=>"tools", :action=>:unroll}, {:object => operation_use}, :id => 'operation_use-tool-input', :class => 'selector required')
-      -for error in operation_use.errors['tool']
+      -for error in operation_use.errors['tool_id']
         %span.help-inline=error
       %span.btn-toolbar
         =link_to({:controller => :tools, :action => :new}, 'data-new-item' => 'operation_use-tool-input', :class => 'btn btn-new') do

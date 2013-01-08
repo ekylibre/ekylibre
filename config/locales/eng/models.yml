@@ -450,7 +450,7 @@ eng:
     connected_at: "Connected at"
     consumption: "Consumption"
     contact: "Contact"
-    contacts: "Contacts"
+    contacts: "Contacts" #?
     conveyors: "Conveyors"
     coordinate: "Coordinate"
     # corpse_location: "Corpse location"
@@ -694,6 +694,7 @@ eng:
     lost: "Lost"
     luminance: "Luminance"
     mail: "Mail"
+    # mail_addresses: "Mail addresses"
     mail_area: "Mail area"
     mail_auto_update: "Mail auto update"
     mail_columns: "Mail columns"
@@ -1416,6 +1417,14 @@ eng:
         sales_order: "Sales order"
         stocks: "Stocks"
         transport: "Transport"
+    entity_address:
+      canal:
+        email: "E-mail"
+        fax: "Fax"
+        mail: "Mail"
+        mobile: "Mobile"
+        phone: "Phone"
+        website: "Website"
     event_nature:
       usage:
         manual: "Manual"

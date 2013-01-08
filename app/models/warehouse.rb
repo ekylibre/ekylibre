@@ -72,7 +72,7 @@ class Warehouse < CompanyRecord
     if self.parent
       errors.add(:parent_id, :invalid) if self.parent.reservoir?
       if self.parent_id == self.id or self.parent_ids.include?(self.id) or self.child_ids.include?(self.id)
-        errors.add(:parent_id, :invalid) 
+        errors.add(:parent_id, :invalid)
       end
     end
   end

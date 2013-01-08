@@ -1158,6 +1158,14 @@ fra:
       iu: "IntraUtérine" #?
       iv: "IntraVeineuse" #?
       oral: "Orale" #?
+    entity_address:
+      canal:
+        email: "E-mail"
+        fax: "Fax"
+        mail: "Mail"
+        mobile: "Téléphone portable"
+        phone: "Téléphone fixe"
+        website: "Site web"
     event_nature:
       usage:
         mailing: "Mailing" #?

@@ -8,7 +8,7 @@
       =Price.human_attribute_name('category')
     .controls
       =selector(:price, :category, {:controller=>"entity_categories", :action=>:unroll}, {:object => price}, :id => 'price-category-input', :class => 'selector required')
-      -for error in price.errors['category']
+      -for error in price.errors['category_id']
         %span.help-inline=error
       %span.btn-toolbar
         =link_to({:controller => :entity_categories, :action => :new}, 'data-new-item' => 'price-category-input', :class => 'btn btn-new') do
@@ -21,7 +21,7 @@
       =Price.human_attribute_name('tax')
     .controls
       =selector(:price, :tax, {:controller=>"taxes", :action=>:unroll}, {:object => price}, :id => 'price-tax-input', :class => 'selector required')
-      -for error in price.errors['tax']
+      -for error in price.errors['tax_id']
         %span.help-inline=error
       %span.btn-toolbar
         =link_to({:controller => :taxes, :action => :new}, 'data-new-item' => 'price-tax-input', :class => 'btn btn-new') do

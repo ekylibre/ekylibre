@@ -7,7 +7,7 @@
       =Subscription.human_attribute_name('address')
     .controls
       =selector(:subscription, :address, {:controller=>"entity_addresses", :action=>:unroll}, {:object => subscription}, :id => 'subscription-address-input', :class => 'selector')
-      -for error in subscription.errors['address']
+      -for error in subscription.errors['address_id']
         %span.help-inline=error
       %span.btn-toolbar
         =link_to({:controller => :entity_addresses, :action => :new}, 'data-new-item' => 'subscription-address-input', :class => 'btn btn-new') do

@@ -9,7 +9,7 @@
       =OperationLine.human_attribute_name('product')
     .controls
       =selector(:operation_line, :product, {:controller=>"products", :action=>:unroll}, {:object => operation_line}, :id => 'operation_line-product-input', :class => 'selector required')
-      -for error in operation_line.errors['product']
+      -for error in operation_line.errors['product_id']
         %span.help-inline=error
       %span.btn-toolbar
         =link_to({:controller => :products, :action => :new}, 'data-new-item' => 'operation_line-product-input', :class => 'btn btn-new') do
@@ -21,7 +21,7 @@
       =OperationLine.human_attribute_name('tracking')
     .controls
       =selector(:operation_line, :tracking, {:controller=>"trackings", :action=>:unroll}, {:object => operation_line}, :id => 'operation_line-tracking-input', :class => 'selector')
-      -for error in operation_line.errors['tracking']
+      -for error in operation_line.errors['tracking_id']
         %span.help-inline=error
       %span.btn-toolbar
         =link_to({:controller => :trackings, :action => :new}, 'data-new-item' => 'operation_line-tracking-input', :class => 'btn btn-new') do
@@ -33,7 +33,7 @@
       =OperationLine.human_attribute_name('warehouse')
     .controls
       =selector(:operation_line, :warehouse, {:controller=>"warehouses", :action=>:unroll}, {:object => operation_line}, :id => 'operation_line-warehouse-input', :class => 'selector required')
-      -for error in operation_line.errors['warehouse']
+      -for error in operation_line.errors['warehouse_id']
         %span.help-inline=error
       %span.btn-toolbar
         =link_to({:controller => :warehouses, :action => :new}, 'data-new-item' => 'operation_line-warehouse-input', :class => 'btn btn-new') do

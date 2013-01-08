@@ -1593,6 +1593,14 @@ arb:
         # sales_order: "Sales order"
         # stocks: "Stocks"
         # transport: "Transport"
+    entity_address:
+      canal:
+        # email: "E-mail"
+        # fax: "Fax"
+        # mail: "Mail"
+        # mobile: "Mobile"
+        # phone: "Phone"
+        # website: "Website"
     event_nature:
       usage:
         # manual: "Manual"

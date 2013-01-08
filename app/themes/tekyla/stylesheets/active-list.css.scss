@@ -29,7 +29,7 @@ $list-hover-backgrounds: ("" rgba(255, 255, 255, 0)) (":hover" $hover-mask);
           .icon {
             @include active-list-sprite(sort);
             @include inline-block;
-            @include left(margin, round($fs-normal*0.2));
+            @include margin-left(round($fs-normal*0.2));
           }
           &.sor[data-list-column-sort="desc"] .icon {
             @include active-list-sprite(sort-down); }
@@ -112,7 +112,7 @@ $list-hover-backgrounds: ("" rgba(255, 255, 255, 0)) (":hover" $hover-mask);
         &.child {
           td {
             &:first-child {
-              @include left(padding, 2*$fs-normal);
+              @include padding-left(2*$fs-normal);
             }
             @include opacity(0.6);
           }
