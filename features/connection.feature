@@ -8,5 +8,5 @@ Feature: Connect to back-end
     Given I am on the login page
     When I fill in "name" with "gendo"
     And I fill in "password" with "secret"
-    And I press "Login"
+    And I press "login"
     Then I am redirected to the general dashboard page
