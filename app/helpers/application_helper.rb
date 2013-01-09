@@ -407,7 +407,7 @@ module ApplicationHelper
     def custom_fields(*args)
       for datum in @object.custom_field_data.joins("JOIN custom_fields ON (custom_fields.id = custom_field_id AND active)").order(:position)
         unless datum.value.to_s.blank?
-          self.custom datum.custom_field.name, datum.value 
+          self.custom datum.custom_field.name, datum.value
         end
       end
       @items << [:custom_fields]
@@ -1433,7 +1433,7 @@ module ApplicationHelper
     haml = "-# Generated on #{Time.now.l(:locale => :eng)}\n" +
       "=simple_fields_for(@#{resource}) do |f|\n" +
       haml.gsub(/^/, '  ')
-    
+
     # if Rails.env.development?
     #   haml << "\n=@#{resource}.errors.inspect if @#{resource}.errors\n"
     # end
@@ -1812,11 +1812,11 @@ module ApplicationHelper
     subfields = "custom_field_fields"
 
     haml  = ""
-    haml << "-custom_fields = CustomField.used_with(:#{model.name.underscore})\n"
+    haml << "-custom_fields = CustomField.of(:#{model.name.underscore})\n"
     haml << "-if custom_fields.count > 0\n"
     haml << "  ##{options[:wrapper_id]}\n"
     haml << "    -data = #{object}.custom_field_data\n"
-    haml << "    -for custom_field in CustomField.used_with(:#{model.name.underscore})\n"
+    haml << "    -for custom_field in custom_fields\n"
     haml << "      -datum = data.select{|d| d.custom_field_id == custom_field.id}.first || custom_field.data.build(:customized => #{object})\n"
     haml << "      =f.simple_fields_for(:custom_field_data, datum) do |#{subfields}|\n"
     common_options = ", :required => custom_field.required?, :label => custom_field.name"

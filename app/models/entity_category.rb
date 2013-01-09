@@ -51,7 +51,7 @@ class EntityCategory < CompanyRecord
   end
 
   after_save do
-    if self.by_default    
+    if self.by_default
       self.class.update_all({:by_default => false}, ["id != ?", self.id])
     end
   end

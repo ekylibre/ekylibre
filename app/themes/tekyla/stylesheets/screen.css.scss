@@ -484,12 +484,12 @@ $controls-margin-left: round($label-width * 1.1);
     input, select, textarea {
       max-width: 100% - $controls-margin-left;
     }
-    .btn-new { 
+    .btn-new {
       .icon { @include margin-right(0); }
       .text { display: none; }
     }
   }
-  &.selector .controls{ 
+  &.selector .controls{
     @include toolbar;
   }
 }
@@ -1481,17 +1481,17 @@ input[data-datepicker] {@include text-align(center)}
 }
 
 
-.topo-coordinate { 
-  &, & * { 
+.topo-coordinate {
+  &, & * {
     font-size: $fs-large;
     line-height: round($fs-large * 1.2);
   }
-  .canal-label { 
+  .canal-label {
     @include inline-block;
-    min-width: 150px; 
+    min-width: 150px;
   }
-  .canal-value { 
-    &, & * { 
+  .canal-value {
+    &, & * {
       font-weight: bold;
     }
   }

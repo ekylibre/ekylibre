@@ -61,7 +61,7 @@ class CustomField < CompanyRecord
 
   default_scope -> { order(:used_with, :position) }
   scope :actives, -> { where(:active => true).order(:position) }
-  scope :used_with, lambda { |used_with| where(:active => true, :used_with => used_with) }  
+  scope :of, lambda { |model| where(:active => true, :used_with => model) }
 
   def choices_count
     self.choices.count

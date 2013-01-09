@@ -5,15 +5,11 @@
   =f.input(:critic_quantity_min, :wrapper_html => {:id => 'critic-quantity-min-field'})
   =f.input(:quantity_min, :wrapper_html => {:id => 'quantity-min-field'})
   =f.input(:quantity_max, :wrapper_html => {:id => 'quantity-max-field'})
-  #warehouse-field.control-group
+  #warehouse-field.control-group.selector.required
     %label.control-label.required{:for => 'stock-warehouse-input'}
       %abbr{:title => 'required'} *
       =Stock.human_attribute_name('warehouse')
     .controls
-      =selector(:stock, :warehouse, {:controller=>"warehouses", :action=>:unroll}, {:object => stock}, :id => 'stock-warehouse-input', :class => 'selector required')
-      -for error in stock.errors['warehouse_id']
+      =selector(:stock, :warehouse, {:controller=>"warehouses", :action=>:unroll}, {:object => stock}, :id => 'stock-warehouse-input', :class => 'selector required') + link_to(('<span class="icon"></span><span class="text">' + h('labels.new'.t) + '</span>').html_safe, {:controller => :warehouses, :action => :new}, 'data-new-item' => 'stock-warehouse-input', :class => 'btn btn-new')
+      -for error in stock.errors['warehouse']
         %span.help-inline=error
-      %span.btn-toolbar
-        =link_to({:controller => :warehouses, :action => :new}, 'data-new-item' => 'stock-warehouse-input', :class => 'btn btn-new') do
-          %span.icon
-          %span.text='labels.new'.t

@@ -2,17 +2,13 @@
 -subscription ||= f.object
 .nested-fields
   =link_to_remove_association('labels.remove_subscription'.t, f, :class => 'nested-remove remove-subscription')
-  #address-field.control-group
-    %label.control-label{:for => 'subscription-address-input'}
+  #address-field.control-group.selector.optional
+    %label.control-label.optional{:for => 'subscription-address-input'}
       =Subscription.human_attribute_name('address')
     .controls
-      =selector(:subscription, :address, {:controller=>"entity_addresses", :action=>:unroll}, {:object => subscription}, :id => 'subscription-address-input', :class => 'selector')
-      -for error in subscription.errors['address_id']
+      =selector(:subscription, :address, {:controller=>"entity_addresses", :action=>:unroll}, {:object => subscription}, :id => 'subscription-address-input', :class => 'selector optional') + link_to(('<span class="icon"></span><span class="text">' + h('labels.new'.t) + '</span>').html_safe, {:controller => :entity_addresses, :action => :new}, 'data-new-item' => 'subscription-address-input', :class => 'btn btn-new')
+      -for error in subscription.errors['address']
         %span.help-inline=error
-      %span.btn-toolbar
-        =link_to({:controller => :entity_addresses, :action => :new}, 'data-new-item' => 'subscription-address-input', :class => 'btn btn-new') do
-          %span.icon
-          %span.text='labels.new'.t
   =f.input(:comment, :wrapper_html => {:id => 'comment-field'})
   =f.input(:started_on, :as => :date_field, :wrapper_html => {:id => 'started-on-field'})
   =f.input(:stopped_on, :as => :date_field, :wrapper_html => {:id => 'stopped-on-field'})
