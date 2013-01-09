@@ -71,7 +71,7 @@ class CustomFieldDatum < CompanyRecord
   end
 
   def value
-    self.send self.custom_field.nature+'_value'
+    self.send(self.custom_field.nature+'_value')
   end
 
   def value=(object)

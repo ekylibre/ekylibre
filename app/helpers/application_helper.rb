@@ -1773,7 +1773,7 @@ module ApplicationHelper
     File.open(Rails.root.join("app", "views", *(controller.class.name.underscore.gsub(/_controller$/, '').split('/')), "_#{record}_fields.html.haml"), "wb") do |f|
       f.write partial
     end
-    haml  = "##{options[:wrapper_id]}-#{name}\n"
+    haml  = "##{options[:wrapper_id]}\n"
     haml << "  =f.simple_fields_for(:#{name}) do |#{record}|\n"
     haml << "    =render '#{record}_fields', :f => #{record}\n"
     haml << "  .links\n"
@@ -1782,7 +1782,25 @@ module ApplicationHelper
   end
 
   def render_field_custom_fields(name, options = {})
-    return '%em Custom fields'
+    model = options[:model] || @master_model
+    object = options[:object] || "@#{model.name.underscore}"
+    haml  = "##{options[:wrapper_id]}\n"
+    haml << "  -data = CustomFieldDatum.where(:customized_id => #{object}.id, :customized_type => '#{model.name}').all\n"
+    haml << "  -for custom_field in CustomField.used_with(:#{model.name.underscore})\n"
+    haml << "    -datum = data.select{|d| d.custom_field_id == custom_field.id}.first || custom_field.data.new(:customized => #{object})\n"
+    haml << "    =fields_for(:custom_field_data, datum) do |sf|\n"
+    haml << "      -classes = custom_field.nature + (custom_field.required? ? ' required' : '')\n"
+    haml << "      .control-group{:class => classes}\n"
+    haml << "        %label.control-label{:class => classes, :for => ''}\n"
+    haml << "          -if custom_field.required?\n"
+    haml << "            %abbr{:title => 'required'}\n"
+    haml << "          =custom_field.name\n"
+    haml << "        .controls\n"
+    haml << "          =sf.text_field(:value)\n"
+    haml << "          -if custom_field.choice?\n"
+    haml << "          -elsif custom_field.boolean?\n"
+    haml << "          -else # String\n"
+    return haml
   end
 
 

@@ -59,8 +59,9 @@ class CustomField < CompanyRecord
 
   accepts_nested_attributes_for :choices
 
-  default_scope -> { order(:position) }
+  default_scope -> { order("used_with, position") }
   scope :actives, -> { where(:active => true).order(:position) }
+  scope :used_with, lambda { |used_with| where(:active => true, :used_with => used_with) }  
 
   def choices_count
     self.choices.count

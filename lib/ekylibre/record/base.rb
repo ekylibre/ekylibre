@@ -46,6 +46,10 @@ module Ekylibre::Record
       self.class.where("id != ?", self.id || -1)
     end
 
+    # Defined a default relation to CustomField
+    has_many :custom_field_data, :as => :customized, :dependent => :delete_all
+    accepts_nested_attributes_for :custom_field_data
+
     # Updates the associated record with values matching those of the instance attributes.
     # Returns the number of affected rows.
     def update_strictly(attribute_names = @attributes.keys)

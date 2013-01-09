@@ -22,7 +22,7 @@ class CustomFieldsController < AdminController
   manage_restfully_list
   unroll_all
 
-  list(:order => :position) do |t|
+  list(:order => "used_with, position") do |t|
     t.column :used_with
     t.column :name, :url => true
     t.column :nature

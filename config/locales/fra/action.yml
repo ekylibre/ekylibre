@@ -771,7 +771,7 @@ fra:
     contact: "à l’adresse"
     contains: "Contient"
     contextual_help: "Aide contextuelle"
-    coordinates: "Coordonnées de l’abonnement"
+    coordinates: "Coordonnées"
     copy_of: "Copie de %{source}"
     cost_income_statement: "Charges"
     cost_sum: "Total charges d’exploitation"
