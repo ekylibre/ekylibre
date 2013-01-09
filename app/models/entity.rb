@@ -115,11 +115,7 @@ class Entity < CompanyRecord
   has_many :mobiles,   :conditions => {:canal => "mobile",  :deleted_at => nil}, :class_name => "EntityAddress", :inverse_of => :entity
   has_many :faxes,     :conditions => {:canal => "fax",     :deleted_at => nil}, :class_name => "EntityAddress", :inverse_of => :entity
   has_many :websites,  :conditions => {:canal => "website", :deleted_at => nil}, :class_name => "EntityAddress", :inverse_of => :entity
-  has_many :custom_field_data, :as => :customized, :dependent => :delete_all, :inverse_of => :customized
-
-
   has_many :auto_updateable_addresses, :conditions => {:deleted_at => nil, :mail_auto_update => true}, :class_name => "EntityAddress"
-  has_many :custom_field_data, :as => :customized
   has_many :direct_links, :class_name => "EntityLink", :foreign_key => :entity_1_id
   has_many :events
   has_many :animal_events, :class_name => "AnimalEvent", :foreign_key => :watcher_id
@@ -160,7 +156,6 @@ class Entity < CompanyRecord
   accepts_nested_attributes_for :mobiles,  :reject_if => :all_blank, :allow_destroy => true
   accepts_nested_attributes_for :faxes,    :reject_if => :all_blank, :allow_destroy => true
   accepts_nested_attributes_for :websites, :reject_if => :all_blank, :allow_destroy => true
-  accepts_nested_attributes_for :custom_field_data
 
   def self.of_company
     self.where(:of_company => true).first
@@ -184,9 +179,9 @@ class Entity < CompanyRecord
   validates_presence_of :category
   validates_presence_of :password, :password_confirmation, :if => Proc.new{|e| e.hashed_password.blank? and e.loggable?}
   validates_confirmation_of :password
-  validates_inclusion_of :maximal_grantable_reduction_percentage, :in => 0..100
-  validates_uniqueness_of :user_name
+  validates_numericality_of :maximal_grantable_reduction_percentage, :greater_than_or_equal_to => 0, :less_than_or_equal_to => 100
   validates_presence_of   :user_name, :if => :loggable?
+  validates_uniqueness_of :user_name
   validates_format_of     :user_name, :with => /^[a-z0-9][a-z0-9\.\_]+[a-z0-9]$/, :if => lambda{|e| !e.user_name.blank?}
   validates_length_of     :user_name, :in => 3..32, :if => lambda{|e| !e.user_name.blank?}
   # validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i, :if => lambda{|r| !r.email.blank?}
@@ -227,6 +222,18 @@ class Entity < CompanyRecord
     end
     unless self.category
       self.category = EntityCategory.where(:by_default => true).first
+    end
+    if self.user_name.blank? and not self.last_name.blank?
+      self.user_name = ""
+      unless self.first_name.blank?
+        self.user_name << self.first_name.to_s.ascii.downcase.gsub(/[^a-z0-9]/, '') + "."
+      end
+      self.user_name << self.last_name.to_s.ascii.downcase.gsub(/[^a-z0-9]/, '')
+      base_name, base_number = self.user_name, 0
+      while Entity.where("id != ?", self.id || 0).where(:user_name => self.user_name).count > 0
+        base_number += 1
+        self.user_name = base_name + base_number.to_s
+      end
     end
     self.maximal_grantable_reduction_percentage ||= 0
     # self.admin = true if self.rights.nil?

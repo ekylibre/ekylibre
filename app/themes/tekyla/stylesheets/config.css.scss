@@ -206,6 +206,30 @@ $s: 70%;
   @include box-shadow(0 0 round($fs-normal/2) rgba(0,0,0,0.15));
 }
 
+@mixin toolbar { 
+  & > * { 
+    display: none;
+  }
+  & > input, & > .btn { 
+    display: inline-block;
+    @include border-radius(0);
+    @include margin-left(-1px);
+    @include margin-right(0);    
+    &:focus, &:active, &:hover { 
+      position: relative;
+      z-index: 2;
+    }
+    &:first-child { 
+      @include margin-left(0);
+      @include border-left-radius($default-border-radius);
+    }
+    &:last-child { 
+      @include border-right-radius($default-border-radius);
+    }
+  }
+}
+
+
 
 $common-layout: smart;
 @import "themes/tekyla/common/*.png";

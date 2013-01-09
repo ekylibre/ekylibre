@@ -5,42 +5,56 @@
   -t.destroy(@entity, :method=>:delete, "data-confirm" => tg(:are_you_sure_you_want_to_delete)) if @entity.destroyable?
 
 =beehive do |b|
-  -b.cell :details do
-    =attributes_list(@entity) do |l|
-      -l.attribute :last_name
-      -l.attribute :first_name unless @entity.first_name.blank?
-      -l.attribute :nature if @entity.nature
-      -l.attribute :code
-      -l.attribute :active
-      -l.custom Entity.human_attribute_name("country"), image_tag("countries/"+@entity.country+".png")+" "+t("countries."+@entity.country) unless @entity.country.blank?
-      -l.attribute :siren unless @entity.siren.blank?
-      -l.attribute :activity_code unless @entity.activity_code.blank?
-      -l.attribute :vat_number unless @entity.vat_number.blank?
-      -l.attribute :excise unless @entity.vat_number.blank?
-      -l.attribute :born_on unless @entity.born_on.blank?
-      -l.attribute :dead_on unless @entity.dead_on.blank?
-      -l.attribute :comment unless @entity.comment.blank?
-      -l.attribute :prospect
-      -l.attribute :client
-      -if @entity.client
-        -l.attribute :category, :label=>:name, :url=>true
-        -l.attribute :first_met_on unless @entity.first_met_on.blank?
-        -l.attribute :proposer, :label=>:full_name unless @entity.proposer_id.blank?
-        -l.attribute :vat_submissive
-        -l.attribute :reflation_submissive
-        -l.attribute :reduction_rate unless @entity.reduction_rate.blank?
-        -l.attribute :authorized_payments_count unless @entity.authorized_payments_count.blank?
-        -l.attribute :deliveries_conditions unless @entity.deliveries_conditions.blank?
-        -l.attribute :client_account, :url=>true
-      -l.attribute :supplier
-      -if @entity.supplier
-        -l.attribute :supplier_account, :url=>true
-      -l.attribute :attorney
-      -if @entity.attorney
-        -l.attribute :attorney_account, :url=>true
-      -l.attribute :transporter
-      -for datum in @entity.custom_field_data.find(:all, :joins=>"JOIN custom_fields ON (custom_fields.id=custom_field_id)", :order=>"position")
-        -l.custom datum.custom_field.name, datum.value unless datum.value.to_s.blank?
+  -b.tabbox do
+    -b.cell :coordinates do
+      -for address in @entity.addresses.order(:canal, :by_default)
+        .topo-coordinate
+          %span.canal-label{:class => "canal-"+address.canal.to_s}=address.canal.text
+          %span.canal-value
+            -if address.email?
+              =mail_to(address.coordinate, address.coordinate)
+            -elsif address.phone? or address.mobile?
+              %a{:href => "tel:#{address.coordinate}"}=address.coordinate
+            -elsif address.mail?
+              =link_to(address.coordinate, "https://maps.google.fr/?q=#{URI.encode(address.coordinate)}")
+            -elsif address.website?
+              =link_to(address.coordinate, address.coordinate)
+            -else
+              =address.coordinate
+    -b.cell :details do
+      =attributes_list(@entity) do |l|
+        -l.attribute :last_name
+        -l.attribute :first_name unless @entity.first_name.blank?
+        -l.attribute :nature if @entity.nature
+        -l.attribute :code
+        -l.attribute :active
+        -l.custom Entity.human_attribute_name("country"), image_tag("countries/"+@entity.country+".png")+" "+t("countries."+@entity.country) unless @entity.country.blank?
+        -l.attribute :siren unless @entity.siren.blank?
+        -l.attribute :activity_code unless @entity.activity_code.blank?
+        -l.attribute :vat_number unless @entity.vat_number.blank?
+        -l.attribute :excise unless @entity.vat_number.blank?
+        -l.attribute :born_on unless @entity.born_on.blank?
+        -l.attribute :dead_on unless @entity.dead_on.blank?
+        -l.attribute :comment unless @entity.comment.blank?
+        -l.attribute :prospect
+        -l.attribute :client
+        -if @entity.client
+          -l.attribute :category, :label=>:name, :url=>true
+          -l.attribute :first_met_on unless @entity.first_met_on.blank?
+          -l.attribute :proposer, :label=>:full_name unless @entity.proposer_id.blank?
+          -l.attribute :vat_submissive
+          -l.attribute :reflation_submissive
+          -l.attribute :reduction_percentage unless @entity.reflation_submissive?
+          -l.attribute :authorized_payments_count unless @entity.authorized_payments_count.blank?
+          -l.attribute :deliveries_conditions unless @entity.deliveries_conditions.blank?
+          -l.attribute :client_account, :url=>true
+        -l.attribute :supplier
+        -if @entity.supplier
+          -l.attribute :supplier_account, :url=>true
+        -l.attribute :attorney
+        -if @entity.attorney
+          -l.attribute :attorney_account, :url=>true
+        -l.attribute :transporter
 
   -b.tabbox do
     -b.cell(tl(:x_subscriptions, :count=>@entity.subscriptions.count)) do

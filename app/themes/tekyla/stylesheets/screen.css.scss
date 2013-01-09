@@ -434,9 +434,7 @@ table.quick td { padding: 0px 4px; }
       width: 25%;
       @include float(left);
       line-height: 1.4*$fs-normal;
-      @include display(block);
-      @include ellipsis;
-      white-space: nowrap;
+      @include inline-block;
       @include margin-right(round($fs-normal/2));
       &.required {
         abbr {
@@ -463,13 +461,16 @@ table.quick td { padding: 0px 4px; }
 $controls-margin-left: round($label-width * 1.1);
 
 .control-group {
-  margin: round($fs-normal/3) 0;
-  padding: round($fs-normal/3) 0;
+  margin: round($fs-normal/4) 0;
+  padding: round($fs-normal/4) 0;
   @include clearfix;
   .control-label {
     width: $label-width;
     @include float(left);
     line-height: round(1.4*$fs-normal);
+    margin: round($fs-normal/4) 0;
+    @include display(block);
+    @include ellipsis;
     &.required {
       abbr {
         color: red;
@@ -483,6 +484,13 @@ $controls-margin-left: round($label-width * 1.1);
     input, select, textarea {
       max-width: 100% - $controls-margin-left;
     }
+    .btn-new { 
+      .icon { @include margin-right(0); }
+      .text { display: none; }
+    }
+  }
+  &.selector .controls{ 
+    @include toolbar;
   }
 }
 
@@ -584,18 +592,15 @@ span.rad, label.radio {
 
 input, textarea, select {
   border: $input-border;
-  margin: 1px;
   @include border-radius(3px);
   @include background($input-background);
-  @include box-shadow(0 0 0.7em rgba(#000, 0.1), 0 round($fs-normal*0.2) round($fs-normal*0.4) rgba(#000, 0.12) inset);
-  padding: 4*$menu-border-width;
+  @include box-shadow(0 0 0.2em rgba(#000, 0.1), 0 round($fs-normal*0.2) round($fs-normal*0.4) rgba(#000, 0.12) inset);
+  padding: 2*$menu-border-width 3*$menu-border-width;
 
   &:focus {
     $color: change-color($base-color, $lightness: 70%);
-    @include box-shadow(0 0 2em rgba($color, 0.4));
+    @include box-shadow(0 0 round($fs-normal*0.5) rgba($color, 0.8));
     border-color: $color;
-    border-width: 2px;
-    margin: 0px;
     &.invalid {
       border-color: $invalid-color !important;
     }
@@ -1472,5 +1477,22 @@ input[data-datepicker] {@include text-align(center)}
   margin-bottom: $fs-normal;
   .nested-add {
     @include margin-left($controls-margin-left);
+  }
+}
+
+
+.topo-coordinate { 
+  &, & * { 
+    font-size: $fs-large;
+    line-height: round($fs-large * 1.2);
+  }
+  .canal-label { 
+    @include inline-block;
+    min-width: 150px; 
+  }
+  .canal-value { 
+    &, & * { 
+      font-weight: bold;
+    }
   }
 }

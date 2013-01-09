@@ -18,7 +18,7 @@
 #
 
 class MandatesController < AdminController
-  manage_restfully :entity_id=>"params[:entity_id]"
+  manage_restfully :entity_id => "params[:entity_id]"
 
   unroll_all
 
@@ -41,8 +41,8 @@ class MandatesController < AdminController
     code
   end
 
-  list(:conditions=>mandates_conditions) do |t|
-    t.column :full_name, :through=>:entity, :url=>true
+  list(:conditions => mandates_conditions) do |t|
+    t.column :full_name, :through => :entity, :url => true
     t.column :title
     t.column :organization
     t.column :family

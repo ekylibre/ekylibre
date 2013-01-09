@@ -349,25 +349,31 @@ module ApplicationHelper
 
   def attributes_list(record, options={}, &block)
     columns = options[:columns] || 3
-    attribute_list = AttributesList.new
+    attribute_list = AttributesList.new(record)
     raise ArgumentError.new("One parameter needed") unless block.arity == 1
     yield attribute_list if block_given?
+    unless options[:without_custom_fields]
+      unless attribute_list.items.detect{|item| item[0] == :custom_fields}
+        attribute_list.custom_fields
+      end
+    end
     unless options[:without_stamp]
-      attribute_list.attribute :creator
+      attribute_list.attribute :creator, :label => :full_name
       attribute_list.attribute :created_at
-      attribute_list.attribute :updater
+      attribute_list.attribute :updater, :label => :full_name
       attribute_list.attribute :updated_at
       # attribute_list.attribute :lock_version
     end
     code = ""
-    size = attribute_list.items.size
+    items = attribute_list.items.delete_if{|x| x[0] == :custom_fields}
+    size = items.size
     if size > 0
       column_height = (size.to_f/columns.to_f).ceil
 
       column_height.times do |c|
         line = ""
         columns.times do |i|
-          args = attribute_list.items[i*column_height+c] # [c*columns+i]
+          args = items[i*column_height+c] # [c*columns+i]
           next if args.nil?
           label, value = if args[0] == :custom
                            attribute_item(*args[1])
@@ -385,8 +391,9 @@ module ApplicationHelper
 
   class AttributesList
     attr_reader :items
-    def initialize()
+    def initialize(object)
       @items = []
+      @object = object
     end
 
     def attribute(*args)
@@ -395,6 +402,15 @@ module ApplicationHelper
 
     def custom(*args)
       @items << [:custom, args]
+    end
+
+    def custom_fields(*args)
+      for datum in @object.custom_field_data.joins("JOIN custom_fields ON (custom_fields.id = custom_field_id AND active)").order(:position)
+        unless datum.value.to_s.blank?
+          self.custom datum.custom_field.name, datum.value 
+        end
+      end
+      @items << [:custom_fields]
     end
 
   end
@@ -1419,7 +1435,7 @@ module ApplicationHelper
       haml.gsub(/^/, '  ')
     
     # if Rails.env.development?
-    # haml << "\n=@#{resource}.errors.inspect if @#{resource}.errors\n"
+    #   haml << "\n=@#{resource}.errors.inspect if @#{resource}.errors\n"
     # end
 
     File.open(dir.join(file), "wb") do |f|
@@ -1673,13 +1689,14 @@ module ApplicationHelper
     source = options.delete(:source)
     face = options.delete(:field)
     required = (options.has_key?(:required) ? options[:required] : model.validators_on(name).detect{|v| v.attributes.include?(name) and v.is_a?(ActiveModel::Validations::PresenceValidator)} ? true : false)
+    required_class = (required ? "required" : "optional")
     input_id = "#{model.name.underscore}-#{reflection.name}-input"
     haml = ""
     if face == :hidden
       haml << "=f.association(:#{reflection.name}, :as => :hidden, :wrapper_html => {:id => '#{options[:wrapper_id]}'})\n"
     else
-      haml << "##{options[:wrapper_id]}.control-group\n"
-      haml << "  %label.control-label#{'.required' if required}{:for => '#{input_id}'}\n"
+      haml << "##{options[:wrapper_id]}.control-group.selector.#{required_class}\n"
+      haml << "  %label.control-label.#{required_class}{:for => '#{input_id}'}\n"
       haml << "    %abbr{:title => 'required'} *\n" if required
       haml << "    =#{model.name}.human_attribute_name('#{reflection.name}')\n"
       attrs = (reflection_model.columns_hash.keys + reflection_model.instance_methods).collect{|a| a.to_sym}
@@ -1703,10 +1720,10 @@ module ApplicationHelper
           x << (s[1].nil? ? "NoDefaultSource" : url_for(normalize_source(s[1], reflection.class_name.underscore.pluralize)))
           x
         end.join(" : ")
-        haml << "    =selector(:#{model.name.underscore}, :#{reflection.name}, (#{sources_code}), {:object => #{object}}, :id => '#{input_id}', :class => 'selector#{' required' if required}', 'data-change-source' => '#{sources_data}')\n"
+        haml << "    =selector(:#{model.name.underscore}, :#{reflection.name}, (#{sources_code}), {:object => #{object}}, :id => '#{input_id}', :class => 'selector #{required_class}', 'data-change-source' => '#{sources_data}')"
       else
         source = normalize_source(source, reflection.class_name.underscore.pluralize)
-        haml << "    =selector(:#{model.name.underscore}, :#{reflection.name}, #{source.inspect}, {:object => #{object}}, :id => '#{input_id}', :class => 'selector#{' required' if required}')\n"
+        haml << "    =selector(:#{model.name.underscore}, :#{reflection.name}, #{source.inspect}, {:object => #{object}}, :id => '#{input_id}', :class => 'selector #{required_class}')"
       end
       buttons = options[:buttons] || {}
       for action in [:new] # , :edit  system actions
@@ -1723,11 +1740,12 @@ module ApplicationHelper
 
       item_id = "@#{reflection.foreign_key.to_s.upcase}@"
       if buttons.size > 0
-        haml << "    %span.btn-toolbar\n"
+        # haml << "    %<\n"
         for action, action_options in buttons
-          haml << "      =link_to({:controller => :#{reflection_model.name.pluralize.underscore}, :action => :#{action}" + (action_options.delete(:member) ? ", :id => '#{item_id}'" : '') + action_options.collect{|k,v| ", :#{k} => " + (v.is_a?(Symbol) ? "#{object}.#{v}" : v.inspect)}.join + "}, 'data-#{action}-item' => '#{input_id}'" + (action_options[:member] ? ", 'data-#{action}-item-id' => '#{item_id}'" : '') + ", :class => 'btn btn-#{action}') do\n"
-          haml << "        %span.icon\n"
-          haml << "        %span.text='labels.#{action}'.t\n"
+          # HAML puts unwanted spaces and don't permit to remove it
+          haml << " + link_to(('<span class=\"icon\"></span><span class=\"text\">' + h('labels.#{action}'.t) + '</span>').html_safe, {:controller => :#{reflection_model.name.pluralize.underscore}, :action => :#{action}" + (action_options.delete(:member) ? ", :id => '#{item_id}'" : '') + action_options.collect{|k,v| ", :#{k} => " + (v.is_a?(Symbol) ? "#{object}.#{v}" : v.inspect)}.join + "}, 'data-#{action}-item' => '#{input_id}'" + (action_options[:member] ? ", 'data-#{action}-item-id' => '#{item_id}'" : '') + ", :class => 'btn btn-#{action}')\n"
+          # haml << "      %span.icon\n"
+          # haml << "      %span.text='labels.#{action}'.t\n"
         end
       end
 
@@ -1791,53 +1809,31 @@ module ApplicationHelper
   def render_field_custom_fields(name, options = {})
     model = options[:model] || @master_model
     object = options[:object] || "@#{model.name.underscore}"
-    subfields = "cf"
+    subfields = "custom_field_fields"
 
-    haml  = "##{options[:wrapper_id]}\n"
-    haml << "  -data = #{object}.custom_field_data\n"
-    # haml << "  .data=data.inspect\n"
-    # haml << "  -data = CustomFieldDatum.where(:customized_id => #{object}.id, :customized_type => '#{model.name}').all\n"
-    # haml << "  -for custom_field in CustomField.used_with(:#{model.name.underscore})\n"
-    # haml << "    -datum = data.select{|d| d.custom_field_id == custom_field.id}.first || custom_field.data.new(:customized => #{object})\n"
-
-    # haml << "    =simple_fields_for(\"#{model.name.underscore}[custom_field_data_attributes][\#{datum.id || (rand(1_000_000_000)+9999999999)}]\", datum) do |#{subfields}|\n"
-    haml << "  -for custom_field in CustomField.used_with(:#{model.name.underscore})\n"
-    haml << "    -datum = data.select{|d| d.custom_field_id == custom_field.id}.first || custom_field.data.new(:customized => #{object})\n"
-    # haml << "    =simple_fields_for('#{model.name.underscore}[custom_field_data_attributes][' + (datum.id || rand(1_000_000_000)+9999999999).to_s + ']', datum) do |#{subfields}|\n"
-    haml << "    =simple_fields_for(:custom_field_data) do |#{subfields}|\n"
+    haml  = ""
+    haml << "-custom_fields = CustomField.used_with(:#{model.name.underscore})\n"
+    haml << "-if custom_fields.count > 0\n"
+    haml << "  ##{options[:wrapper_id]}\n"
+    haml << "    -data = #{object}.custom_field_data\n"
+    haml << "    -for custom_field in CustomField.used_with(:#{model.name.underscore})\n"
+    haml << "      -datum = data.select{|d| d.custom_field_id == custom_field.id}.first || custom_field.data.build(:customized => #{object})\n"
+    haml << "      =f.simple_fields_for(:custom_field_data, datum) do |#{subfields}|\n"
     common_options = ", :required => custom_field.required?, :label => custom_field.name"
-    haml << "      =#{subfields}.hidden_field(:customized_type)\n"
-    haml << "      =#{subfields}.hidden_field(:custom_field_id)\n"
-    haml << "      -if custom_field.choice?\n"
-    haml << "        =#{subfields}.input(:choice_value_id, :as => :select, :collection => custom_field.choices#{common_options})\n"
-    haml << "      -elsif custom_field.boolean?\n"
-    haml << "        =#{subfields}.input(:value, :as => :boolean#{common_options})\n"
-    haml << "      -elsif custom_field.date?\n"
-    haml << "        =#{subfields}.input(:value, :as => :date_field#{common_options})\n"
-    haml << "      -elsif custom_field.datetime?\n"
-    haml << "        =#{subfields}.input(:value, :as => :datetime#{common_options})\n"
-    haml << "      -elsif custom_field.decimal?\n"
-    haml << "        =#{subfields}.input(:value, :as => :decimal#{common_options})\n"
-    haml << "      -else\n"
-    haml << "        =#{subfields}.input(:value, :as => :string#{common_options})\n"
-    # Errors
-    # haml << "      -for error in #{subfields}.object.errors['value']\n"
-    # haml << "        %span.help-inline=error\n"
-
-    # haml << "    =fields_for(\"#{model.name.underscore}[custom_field_data_attributes][\#{datum.id || (rand(1_000_000_000)+9999999999)}]\", datum) do |#{subfields}|\n"
-    # haml << "      -classes = custom_field.nature + (custom_field.required? ? ' required' : '')\n"
-    # haml << "      .control-group{:class => classes}\n"
-    # haml << "        %label.control-label{:class => classes, :for => ''}\n"
-    # haml << "          -if custom_field.required?\n"
-    # haml << "            %abbr{:title => 'required'}\n"
-    # haml << "          =custom_field.name\n"
-    # haml << "        .controls\n"
-    # haml << "          -if custom_field.choice?\n"
-    # haml << "            =#{subfields}.select(:choice_value_id, custom_field.choices.collect{|choice| [choice.name, choice.id]}, :include_blank => !custom_field.required?)\n"
-    # haml << "          -elsif custom_field.boolean?\n"
-    # haml << "            =#{subfields}.check_box(:boolean_value)\n"
-    # haml << "          -else\n"
-    # haml << "            =#{subfields}.text_field(custom_field.nature.to_s + '_value')\n"
+    haml << "        =#{subfields}.hidden_field(:customized_type)\n"
+    haml << "        =#{subfields}.hidden_field(:custom_field_id)\n"
+    haml << "        -if custom_field.choice?\n"
+    haml << "          =#{subfields}.association(:choice_value, :collection => custom_field.choices#{common_options})\n"
+    haml << "        -elsif custom_field.boolean?\n"
+    haml << "          =#{subfields}.input(:value, :as => :boolean#{common_options})\n"
+    haml << "        -elsif custom_field.date?\n"
+    haml << "          =#{subfields}.input(:value, :as => :date_field#{common_options})\n"
+    haml << "        -elsif custom_field.datetime?\n"
+    haml << "          =#{subfields}.input(:value, :as => :datetime#{common_options})\n"
+    haml << "        -elsif custom_field.decimal?\n"
+    haml << "          =#{subfields}.input(:value, :as => :decimal#{common_options})\n"
+    haml << "        -else\n"
+    haml << "          =#{subfields}.input(:value, :as => :string#{common_options})\n"
     return haml
   end
 
