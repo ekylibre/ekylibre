@@ -37,7 +37,7 @@ $list-hover-backgrounds: ("" rgba(255, 255, 255, 0)) (":hover" $hover-mask);
             @include active-list-sprite(sort-up); }
         }
         &.spe {
-
+          overflow: visible;
           width: 16px;
           height: 16px;
           .list-menu {
@@ -54,7 +54,7 @@ $list-hover-backgrounds: ("" rgba(255, 255, 255, 0)) (":hover" $hover-mask);
               @include menu-shadow;
               .list-menu-start {
                 background-color: $menu-background;
-//                z-index:5000;
+                // z-index:5000;
               }
             }
             ul {
