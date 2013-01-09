@@ -44,8 +44,8 @@ class CustomField < CompanyRecord
   attr_readonly :nature
   enumerize :nature, :in => [:string, :decimal, :boolean, :date, :datetime, :choice], :predicates => true
   enumerize :used_with, :in => Ekylibre.models, :default_value => Ekylibre.models.first, :predicates => {:prefix => true}
-  has_many :choices, :class_name => "CustomFieldChoice", :order => :position, :dependent => :delete_all
-  has_many :data, :class_name => "CustomFieldDatum", :dependent => :delete_all
+  has_many :choices, :class_name => "CustomFieldChoice", :order => :position, :dependent => :delete_all, :inverse_of => :custom_field
+  has_many :data, :class_name => "CustomFieldDatum", :dependent => :delete_all, :inverse_of => :custom_field
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :maximal_length, :minimal_length, :allow_nil => true, :only_integer => true
   validates_numericality_of :maximal_value, :minimal_value, :allow_nil => true
@@ -59,7 +59,7 @@ class CustomField < CompanyRecord
 
   accepts_nested_attributes_for :choices
 
-  default_scope -> { order("used_with, position") }
+  default_scope -> { order(:used_with, :position) }
   scope :actives, -> { where(:active => true).order(:position) }
   scope :used_with, lambda { |used_with| where(:active => true, :used_with => used_with) }  
 

@@ -108,13 +108,15 @@ class Entity < CompanyRecord
   belongs_to :role
   belongs_to :supplier_account, :class_name => "Account"
   has_many :clients, :class_name => "Entity", :foreign_key => :responsible_id, :dependent => :nullify
-  has_many :addresses, :conditions => {:deleted_at => nil}, :class_name => "EntityAddress"
-  has_many :mails,     :conditions => {:canal => "mail",    :deleted_at => nil}, :class_name => "EntityAddress"
-  has_many :emails,    :conditions => {:canal => "email",   :deleted_at => nil}, :class_name => "EntityAddress"
-  has_many :phones,    :conditions => {:canal => "phone",   :deleted_at => nil}, :class_name => "EntityAddress"
-  has_many :mobiles,   :conditions => {:canal => "mobile",  :deleted_at => nil}, :class_name => "EntityAddress"
-  has_many :faxes,     :conditions => {:canal => "fax",     :deleted_at => nil}, :class_name => "EntityAddress"
-  has_many :websites,  :conditions => {:canal => "website", :deleted_at => nil}, :class_name => "EntityAddress"
+  has_many :addresses, :conditions => {:deleted_at => nil}, :class_name => "EntityAddress", :inverse_of => :entity
+  has_many :mails,     :conditions => {:canal => "mail",    :deleted_at => nil}, :class_name => "EntityAddress", :inverse_of => :entity
+  has_many :emails,    :conditions => {:canal => "email",   :deleted_at => nil}, :class_name => "EntityAddress", :inverse_of => :entity
+  has_many :phones,    :conditions => {:canal => "phone",   :deleted_at => nil}, :class_name => "EntityAddress", :inverse_of => :entity
+  has_many :mobiles,   :conditions => {:canal => "mobile",  :deleted_at => nil}, :class_name => "EntityAddress", :inverse_of => :entity
+  has_many :faxes,     :conditions => {:canal => "fax",     :deleted_at => nil}, :class_name => "EntityAddress", :inverse_of => :entity
+  has_many :websites,  :conditions => {:canal => "website", :deleted_at => nil}, :class_name => "EntityAddress", :inverse_of => :entity
+  has_many :custom_field_data, :as => :customized, :dependent => :delete_all, :inverse_of => :customized
+
 
   has_many :auto_updateable_addresses, :conditions => {:deleted_at => nil, :mail_auto_update => true}, :class_name => "EntityAddress"
   has_many :custom_field_data, :as => :customized
@@ -158,6 +160,7 @@ class Entity < CompanyRecord
   accepts_nested_attributes_for :mobiles,  :reject_if => :all_blank, :allow_destroy => true
   accepts_nested_attributes_for :faxes,    :reject_if => :all_blank, :allow_destroy => true
   accepts_nested_attributes_for :websites, :reject_if => :all_blank, :allow_destroy => true
+  accepts_nested_attributes_for :custom_field_data
 
   def self.of_company
     self.where(:of_company => true).first
@@ -221,6 +224,9 @@ class Entity < CompanyRecord
     if entity = Entity.of_company
       self.language = entity.language if self.language.blank?
       self.currency = entity.currency if self.currency.blank?
+    end
+    unless self.category
+      self.category = EntityCategory.where(:by_default => true).first
     end
     self.maximal_grantable_reduction_percentage ||= 0
     # self.admin = true if self.rights.nil?

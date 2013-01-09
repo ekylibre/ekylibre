@@ -39,31 +39,34 @@
 
 
 class CustomFieldDatum < CompanyRecord
-  attr_readonly :custom_field_id, :entity_id
-  belongs_to :choice_value, :class_name=>"CustomFieldChoice"
-  belongs_to :custom_field
-  belongs_to :customized, :polymorphic => true
+  attr_readonly :custom_field_id, :customized_id, :customized_type
+  belongs_to :choice_value, :class_name => "CustomFieldChoice"
+  belongs_to :custom_field, :inverse_of => :data
+  belongs_to :customized, :polymorphic => true, :inverse_of => :custom_field_data
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :decimal_value, :allow_nil => true
   validates_length_of :customized_type, :allow_nil => true, :maximum => 255
   validates_presence_of :custom_field, :customized, :customized_type
   #]VALIDATORS]
-  validates_uniqueness_of :custom_field_id, :scope=>[:entity_id]
+  validates_uniqueness_of :custom_field_id, :scope => [:customized_id, :customized_type]
 
   validate do
-    if custom_field = self.custom_field
-      errors.add_to_base(:required, :field=>custom_field.name) if custom_field.required and self.value.blank?
+    if self.custom_field
+      errors.add(:value, :required, :field => self.custom_field.name) if self.custom_field.required? and self.value.blank?
       unless self.value.blank?
-        if custom_field.nature == 'string'
-          unless custom_field.length_max.blank? or custom_field.length_max<=0
-            errors.add_to_base(:too_long, :field=>custom_field.name, :length=>custom_field.length_max) if self.string_value.length>custom_field.length_max
+        if self.custom_field.string?
+          unless self.custom_field.maximal_length.blank? or self.custom_field.maximal_length <= 0
+            errors.add(:value, :too_long, :field => self.custom_field.name, :length => self.custom_field.length_max) if self.string_value.length > self.custom_field.maximal_length
           end
-        elsif custom_field.nature =='decimal'
-          unless custom_field.decimal_min.blank?
-            errors.add_to_base(:less_than, :field=>custom_field.name, :minimum=>custom_field.decimal_min) if self.decimal_value<custom_field.decimal_min
+          unless self.custom_field.minimal_length.blank? or self.custom_field.minimal_length <= 0
+            errors.add(:value, :too_short, :field => self.custom_field.name, :length => self.custom_field.length_max) if self.string_value.length < self.custom_field.minimal_length
           end
-          unless custom_field.decimal_max.blank?
-            errors.add_to_base(:greater_than, :field=>custom_field.name, :maximum=>custom_field.decimal_max) if self.decimal_value>custom_field.decimal_max
+        elsif self.custom_field.decimal?
+          unless self.custom_field.minimal_value.blank?
+            errors.add(:value, :less_than, :field => self.custom_field.name, :minimum => self.custom_field.minimal_value) if self.decimal_value < self.custom_field.minimal_value
+          end
+          unless self.custom_field.maximal_value.blank?
+            errors.add(:value, :greater_than, :field => self.custom_field.name, :maximum => self.custom_field.maximal_value) if self.decimal_value > self.custom_field.maximal_value
           end
         end
       end
@@ -71,7 +74,7 @@ class CustomFieldDatum < CompanyRecord
   end
 
   def value
-    self.send(self.custom_field.nature+'_value')
+    self.send(self.custom_field.nature + '_value')
   end
 
   def value=(object)

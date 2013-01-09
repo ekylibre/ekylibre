@@ -34,9 +34,10 @@
 
 
 class CustomFieldChoice < CompanyRecord
-  belongs_to :custom_field
-  has_many :data, :class_name=>"CustomFieldDatum", :foreign_key=>"choice_value_id"
-  acts_as_list :scope=>:custom_field_id
+  attr_accessible :name, :custom_field_id, :position
+  belongs_to :custom_field, :inverse_of => :choices
+  has_many :data, :class_name => "CustomFieldDatum", :foreign_key => :choice_value_id
+  acts_as_list :scope => :custom_field
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :name, :value, :allow_nil => true, :maximum => 255
@@ -44,7 +45,7 @@ class CustomFieldChoice < CompanyRecord
   #]VALIDATORS]
 
   before_validation do
-    self.value = self.name.to_s.codeize if self.value.blank?
+    self.value = self.name.to_s.codeize # if self.value.blank?
   end
 
   protect(:on => :destroy) do

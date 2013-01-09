@@ -47,8 +47,10 @@ module Ekylibre::Record
     end
 
     # Defined a default relation to CustomField
-    has_many :custom_field_data, :as => :customized, :dependent => :delete_all
-    accepts_nested_attributes_for :custom_field_data
+    # has_many :custom_field_data, :as => :customized, :dependent => :delete_all, :inverse_of => :customized
+    # attr_accessible :custom_field_data
+    # accepts_nested_attributes_for :custom_field_data
+
 
     # Updates the associated record with values matching those of the instance attributes.
     # Returns the number of affected rows.

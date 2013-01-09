@@ -1,4 +1,4 @@
-=field_set(:major => true) do # |f|
+=field_set(:major => true) do
   =association :nature
   =input :language, :source => :languages, :field => :select
   =input :last_name
@@ -11,7 +11,7 @@
   =input :attorney, :show => :attorney_informations
   =input :transporter
 
-=field_set(:details, :collapsed => true) do # |f|
+=field_set(:details) do # , :collapsed => true
   =input :country, :source => :countries
   =input :siren
   =input :activity_code
@@ -25,7 +25,7 @@
   -#for datum in @custom_field_data
     =custom_field datum.custom_field.name, {:datatype => datum.custom_field.nature.to_sym, :id => "custom_field_datum_#{datum.custom_field_id}_value", :name => "custom_field_datum[#{datum.custom_field_id}][value]", :value => datum.value, :size => datum.custom_field.length_max, :options => {:include_blank => (datum.custom_field.required ? nil : '')}, :choices => datum.custom_field.choices.collect{|x| [x.name , x.id]}  }
 
-=field_set(:client_informations) do # |f|
+=field_set(:client_informations) do
   =association :category
   =input :origin, :autocomplete => true
   =input :first_met_on
@@ -38,13 +38,13 @@
   =input :deliveries_conditions, :field => :text
   =association :client_account, :source => :client_thirds, :buttons => {:new => {:number => Account.find_in_chart(:client_thirds).number}}
 
-=field_set(:supplier_informations) do # |f|
+=field_set(:supplier_informations) do
   =association :supplier_account, :source => :supplier_thirds, :buttons => {:new => {:number => Account.find_in_chart(:supplier_thirds).number}}
 
-=field_set(:attorney_informations, :after => :client_informations) do # |f|
+=field_set(:attorney_informations, :after => :client_informations) do
   =association :attorney_account, :source => :attorney_thirds, :buttons => {:new => {:number => Account.find_in_chart(:attorney_thirds).number}}
 
-=field_set(:coordinates, :major => true) do # |f|
+=field_set(:coordinates, :major => true) do
   =nested_association(:emails) do
     =input :canal, :value => "email", :field => :hidden
     =input :coordinate, :field => :email, :label => "enumerize.entity_address.canal.email"
