@@ -43,24 +43,25 @@
 
 
 class PurchaseLine < CompanyRecord
-  acts_as_list :scope=>:purchase
+  acts_as_list :scope => :purchase
+  attr_accessible :annotation, :price_id, :product_id, :quantity, :tracking_serial, :unit_id, :warehouse_id
   attr_readonly :purchase_id
   belongs_to :account
   belongs_to :purchase
   belongs_to :price
   belongs_to :product
   belongs_to :warehouse
-  belongs_to :tracking, :dependent=>:destroy
+  belongs_to :tracking, :dependent => :destroy
   belongs_to :unit
-  has_many :delivery_lines, :class_name=>"IncomingDeliveryLine", :foreign_key=>:purchase_line_id
+  has_many :delivery_lines, :class_name => "IncomingDeliveryLine", :foreign_key => :purchase_line_id
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :amount, :pretax_amount, :quantity, :allow_nil => true
   validates_length_of :tracking_serial, :allow_nil => true, :maximum => 255
   validates_presence_of :account, :amount, :pretax_amount, :price, :product, :purchase, :quantity, :unit
   #]VALIDATORS]
   validates_presence_of :pretax_amount, :price
-  validates_presence_of :tracking, :if=>Proc.new{|pol| !pol.tracking_serial.blank?}
-  validates_uniqueness_of :tracking_serial, :scope=>:price_id, :allow_nil=>true, :if=>Proc.new{|pl| !pl.tracking_serial.blank? }
+  validates_presence_of :tracking, :if => Proc.new{|pol| !pol.tracking_serial.blank?}
+  validates_uniqueness_of :tracking_serial, :scope => :price_id, :allow_nil => true, :if => Proc.new{|pl| !pl.tracking_serial.blank? }
 
   accepts_nested_attributes_for :price
 
@@ -84,7 +85,7 @@ class PurchaseLine < CompanyRecord
     if self.warehouse
       if self.warehouse.reservoir && self.warehouse.product_id != self.product_id
         check_reservoir = false
-        errors.add_to_base(:warehouse_can_not_receive_product, :warehouse=>self.warehouse.name, :product=>self.product.name, :contained_product=>self.warehouse.product.name)
+        errors.add_to_base(:warehouse_can_not_receive_product, :warehouse => self.warehouse.name, :product => self.product.name, :contained_product => self.warehouse.product.name)
       end
     end
 
@@ -93,7 +94,7 @@ class PurchaseLine < CompanyRecord
       producer = self.purchase.supplier
       unless producer.has_another_tracking?(self.tracking_serial, self.product_id)
         tracking = Tracking.find_by_serial_and_producer_id(self.tracking_serial.upper, producer.id)
-        tracking = Tracking.create!(:name=>self.tracking_serial, :product_id=>self.product_id, :producer_id=>producer.id) if tracking.nil?
+        tracking = Tracking.create!(:name => self.tracking_serial, :product_id => self.product_id, :producer_id => producer.id) if tracking.nil?
         self.tracking_id = tracking.id
       end
       self.tracking_serial.upper!
@@ -111,7 +112,7 @@ class PurchaseLine < CompanyRecord
   end
 
   def name
-    options = {:product=>self.product.name, :unit=>self.unit.name, :quantity=>quantity.to_s, :amount=>self.price.amount, :currency=>self.price.currency.name}
+    options = {:product => self.product.name, :unit => self.unit.name, :quantity => quantity.to_s, :amount => self.price.amount, :currency => self.price.currency.name}
     if self.tracking
       options[:tracking] = self.tracking.name
       tc(:name_with_tracking, options)
@@ -131,7 +132,7 @@ class PurchaseLine < CompanyRecord
   def designation
     d  = self.product_name
     d += "\n"+self.annotation.to_s unless self.annotation.blank?
-    d += "\n"+tc(:tracking, :serial=>self.tracking.serial.to_s) if self.tracking
+    d += "\n"+tc(:tracking, :serial => self.tracking.serial.to_s) if self.tracking
     d
   end
 

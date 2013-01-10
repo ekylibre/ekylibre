@@ -37,6 +37,7 @@
 
 
 class Unit < CompanyRecord
+  attr_accessible :base, :coefficient, :label, :name, :start
   has_many :products
   has_many :animal_drugs
   has_many :stock_moves

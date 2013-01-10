@@ -42,6 +42,7 @@
 
 
 class Deposit < CompanyRecord
+  attr_accessible :cash_id, :comment, :created_on, :mode_id, :number, :responsible_id
   acts_as_numbered
   belongs_to :cash
   belongs_to :responsible, :class_name=>"Entity"

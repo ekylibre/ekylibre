@@ -70,7 +70,7 @@ require 'test_helper'
 
 class SaleTest < ActiveSupport::TestCase
 
-  context "A minimal-configuration" do
+  context "A minimal configuration" do
 
     setup do
       DocumentTemplate.load_defaults(:locale => :fra)
@@ -87,9 +87,9 @@ class SaleTest < ActiveSupport::TestCase
       should "be invoiced" do
         assert !@sale.invoice
 
-        line = @sale.lines.new(:quantity => 12, :price => prices(:prices_001), :warehouse => warehouses(:warehouses_001))
+        line = @sale.lines.new(:quantity => 12, :price_id => prices(:prices_001).id, :warehouse_id => warehouses(:warehouses_001).id)
         assert line.save, line.errors.inspect
-        line = @sale.lines.new(:quantity => 25, :price => prices(:prices_003), :warehouse => warehouses(:warehouses_001))
+        line = @sale.lines.new(:quantity => 25, :price_id => prices(:prices_003).id, :warehouse_id => warehouses(:warehouses_001).id)
         assert line.save, line.errors.inspect
         @sale.reload
         assert_equal "draft", @sale.state
@@ -118,7 +118,7 @@ class SaleTest < ActiveSupport::TestCase
         assert @sale.save, @sale.errors.inspect
         assert_equal Date.today, @sale.created_on
         for y in 1..10
-          line = @sale.lines.new(:quantity => 1 + rand(70)*rand, :price => prices("prices_#{(3+rand(2)).to_s.rjust(3, '0')}".to_sym), :warehouse => warehouses(:warehouses_001))
+          line = @sale.lines.new(:quantity => 1 + rand(70)*rand, :price_id => prices("prices_#{(3+rand(2)).to_s.rjust(3, '0')}".to_sym).id, :warehouse_id => warehouses(:warehouses_001).id)
           # assert line.valid?, [product.prices, line.price].inspect
           assert line.save, line.errors.inspect
         end

@@ -43,9 +43,7 @@
 
 
 class StockTransfer < CompanyRecord
-  acts_as_numbered
-  acts_as_stockable :quantity => '-self.quantity'
-  acts_as_stockable :second_stock_move, :warehouse => :second_warehouse, :if => :transfer?
+  attr_accessible :comment, :nature, :planned_on, :product_id, :quantity, :second_warehouse_id, :tracking_id, :unit_id, :warehouse_id
   attr_readonly :nature
   enumerize :nature, :in => [:waste, :transfer, :gain], :default => :transfer, :predicates => true
   belongs_to :product
@@ -67,6 +65,11 @@ class StockTransfer < CompanyRecord
   validates_inclusion_of :nature, :in => self.nature.values
 
   scope :unconfirmeds, where(:moved_on => nil)
+
+  acts_as_numbered
+  acts_as_stockable :quantity => '-self.quantity'
+  acts_as_stockable :second_stock_move, :warehouse => :second_warehouse, :if => :transfer?
+
 
   before_validation do
     self.unit_id = self.product.unit_id if self.product

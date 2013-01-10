@@ -37,7 +37,8 @@
 
 
 class EntityNature < CompanyRecord
-  has_many :entities, :foreign_key=>:nature_id
+  attr_accessible :active, :description, :full_name_format, :in_name, :name, :physical, :title
+  has_many :entities, :foreign_key => :nature_id, :inverse_of => :nature
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :full_name_format, :name, :title, :allow_nil => true, :maximum => 255
   validates_inclusion_of :active, :in_name, :physical, :in => [true, false]

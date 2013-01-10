@@ -41,6 +41,7 @@
 
 
 class Price < CompanyRecord
+  attr_accessible :active, :amount, :by_default, :category_id, :entity_id, :pretax_amount, :product_id, :tax_id, :currency
   after_create :set_by_default
   belongs_to :category, :class_name=>"EntityCategory"
   belongs_to :entity
@@ -88,7 +89,7 @@ class Price < CompanyRecord
   def update
     current_time = Time.now
     stamper_id = self.class.stamper_class.stamper.id rescue nil
-    nc = self.class.create!(self.attributes.merge(:started_at => current_time, :created_at => current_time, :updated_at => current_time, :creator_id => stamper_id, :updater_id => stamper_id, :active => true))
+    nc = self.class.create!(self.attributes.merge(:started_at => current_time, :created_at => current_time, :updated_at => current_time, :creator_id => stamper_id, :updater_id => stamper_id, :active => true).delete_if{|k,v| k.to_s == "id"}, :without_protection => true)
     self.class.update_all({:stopped_at => current_time, :active => false}, {:id => self.id})
     nc.set_by_default
     return nc

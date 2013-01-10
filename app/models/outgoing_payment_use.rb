@@ -37,6 +37,7 @@
 
 class OutgoingPaymentUse < CompanyRecord
   acts_as_reconcilable :supplier, :payee
+  attr_accessible :payee
   belongs_to :expense, :class_name=>"Purchase"
   belongs_to :purchase, :foreign_key=>"expense_id"
   belongs_to :journal_entry

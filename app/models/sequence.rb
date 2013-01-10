@@ -40,6 +40,7 @@
 
 
 class Sequence < CompanyRecord
+  attr_accessible :name, :number_format, :number_increment, :number_start, :period, :usage, :last_number
   enumerize :period, :in => [:cweek, :month, :number, :year]
   # TODO: Adds all usage for sequence? or register_usage like Account ?
   enumerize :usage, :in => [:assets, :cash_transfers, :deposits, :entities, :incoming_deliveries, :incoming_payments, :outgoing_deliveries, :outgoing_payments, :purchases, :sales_invoices, :sales, :stock_transfers, :subscriptions, :transports]

@@ -39,6 +39,7 @@
 
 
 class CustomFieldDatum < CompanyRecord
+  attr_accessible :custom_field_id, :customized_id, :customized_type, :value, :choice_value_id
   attr_readonly :custom_field_id, :customized_id, :customized_type
   belongs_to :choice_value, :class_name => "CustomFieldChoice"
   belongs_to :custom_field, :inverse_of => :data

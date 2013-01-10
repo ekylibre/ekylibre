@@ -34,7 +34,9 @@
 
 
 class Department < CompanyRecord
+  attr_accessible :name, :comment, :sales_conditions, :parent_id
   has_many :employees, :class_name => "Entity"
+  acts_as_tree
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :name, :allow_nil => true, :maximum => 255
   validates_presence_of :name

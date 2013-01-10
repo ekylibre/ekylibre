@@ -41,9 +41,9 @@
 
 
 class OutgoingDeliveryLine < CompanyRecord
-  acts_as_stockable :quantity=>'-self.quantity', :origin=>:delivery
+  attr_accessible :sale_line_id, :product_id, :price_id, :unit_id, :tracking_id, :warehouse_id
   attr_readonly :sale_line_id, :product_id, :price_id, :unit_id
-  belongs_to :delivery, :class_name=>"OutgoingDelivery"
+  belongs_to :delivery, :class_name => "OutgoingDelivery"
   belongs_to :price
   belongs_to :product
   belongs_to :sale_line
@@ -57,7 +57,8 @@ class OutgoingDeliveryLine < CompanyRecord
   #]VALIDATORS]
   validates_presence_of :product, :unit
 
-  sums :delivery, :lines, :pretax_amount, :amount, "(line.product.weight||0)*line.quantity"=>:weight
+  acts_as_stockable :quantity => '-self.quantity', :origin => :delivery
+  sums :delivery, :lines, :pretax_amount, :amount, "(line.product.weight||0)*line.quantity" => :weight
 
   before_validation do
     if self.sale_line
@@ -71,18 +72,18 @@ class OutgoingDeliveryLine < CompanyRecord
     true
   end
 
-  validate(:on=>:create) do
+  validate(:on => :create) do
     if self.product
       maximum = self.undelivered_quantity
-      errors.add_to_base(:greater_than_undelivered_quantity, :maximum=>maximum, :unit=>self.product.unit.name, :product=>self.product_name) if (self.quantity > maximum)
+      errors.add_to_base(:greater_than_undelivered_quantity, :maximum => maximum, :unit => self.product.unit.name, :product => self.product_name) if (self.quantity > maximum)
     end
     true
   end
 
-  validate(:on=>:update) do
+  validate(:on => :update) do
     old_self = self.class.find(self.id)
     maximum = self.undelivered_quantity + old_self.quantity
-    errors.add_to_base(:greater_than_undelivered_quantity, :maximum=>maximum, :unit=>self.product.unit.name, :product=>self.product_name) if (self.quantity > maximum)
+    errors.add_to_base(:greater_than_undelivered_quantity, :maximum => maximum, :unit => self.product.unit.name, :product => self.product_name) if (self.quantity > maximum)
   end
 
   def undelivered_quantity

@@ -42,6 +42,7 @@
 
 class Transport < CompanyRecord
   acts_as_numbered
+  attr_accessible :comment, :purchase_id, :reference_number, :responsible_id, :transport_on, :transporter_id, :weight
   belongs_to :responsible, :class_name=>"Entity"
   belongs_to :transporter, :class_name=>"Entity"
   has_many :deliveries, :dependent=>:nullify, :class_name=>"OutgoingDelivery"

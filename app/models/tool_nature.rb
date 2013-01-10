@@ -34,7 +34,9 @@
 
 
 class ToolNature < CompanyRecord
-  has_many :tools, :class_name=>"Tool"
+  # TODO: Remove "AAE" columns which are too specific to french law
+  attr_accessible :name, :comment, :code_aae, :name_aae
+  has_many :tools, :class_name => "Tool"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :code_aee, :name, :name_aee, :allow_nil => true, :maximum => 255
   #]VALIDATORS]

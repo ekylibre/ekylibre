@@ -48,7 +48,7 @@ module Ekylibre::Record
 
     # Defined a default relation to CustomField
     has_many :custom_field_data, :as => :customized, :dependent => :destroy, :inverse_of => :customized
-    # attr_accessible :custom_field_data
+    attr_accessible :custom_field_data_attributes
     accepts_nested_attributes_for :custom_field_data
 
 

@@ -45,8 +45,7 @@
 
 class Subscription < CompanyRecord
   acts_as_numbered
-  # DEPRECATED Replace use of contact with address
-  belongs_to :contact, :class_name => "EntityAddress", :foreign_key => :address_id
+  attr_accessible :address_id, :comment, :first_number, :last_number, :started_on, :stopped_on, :suspended, :sale_line_id, :nature_id
   belongs_to :address, :class_name => "EntityAddress"
   belongs_to :entity
   belongs_to :nature, :class_name => "SubscriptionNature"
@@ -65,16 +64,16 @@ class Subscription < CompanyRecord
   validates_presence_of :sale_line, :if=>Proc.new{|s| !s.sale.nil?}, :on=>:create
 
   before_validation do
-    self.contact   ||= self.sale.delivery_contact if self.sale
-    self.entity_id = self.contact.entity_id if self.contact
-    self.nature_id ||= self.product.subscription_nature_id if self.product
-    self.sale_id ||= self.sale_line.sale_id if self.sale_line
+    self.sale_id      = self.sale_line.sale_id if self.sale_line
+    self.address_id ||= self.sale.delivery_address_id if self.sale
+    self.entity_id    = self.address.entity_id if self.contact
+    self.nature_id    = self.product.subscription_nature_id if self.product
     return true
   end
 
-  before_validation(:on=>:create) do
+  before_validation(:on => :create) do
     if self.nature
-      if self.nature.nature == "period"
+      if self.nature.period?
         if self.product
           period = (self.product.subscription_period.blank? ? '1 year' : self.product.subscription_period)||'1 year'
         else
@@ -83,7 +82,7 @@ class Subscription < CompanyRecord
         #raise Exception.new "ok"+period.inspect+self.product.subscription_period.inspect
         self.started_on ||= Date.today
         self.stopped_on ||= Delay.compute(period+", 1 day ago", self.started_on)
-      else
+      elsif self.nature.quantity?
         if self.product
           period = (self.product.subscription_quantity.blank? ? 1 : self.product.subscription_quantity)||1
         else
@@ -97,7 +96,7 @@ class Subscription < CompanyRecord
 
   validate do
     if self.contact and self.entity
-      errors.add(:entity_id, :entity_must_be_the_same_as_the_contact_entity) if self.contact.entity_id!=self.entity_id
+      errors.add(:entity_id, :entity_must_be_the_same_as_the_contact_entity) if self.address.entity_id != self.entity_id
     end
     if self.address
       errors.add(:address_id, :invalid) unless self.address.mail?

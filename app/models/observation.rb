@@ -33,6 +33,7 @@
 
 
 class Observation < CompanyRecord
+  attr_accessible :entity_id, :importance, :description
   enumerize :importance, :in => [:important, :normal, :notice], :default => :notice, :predicates => true
   belongs_to :entity
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.

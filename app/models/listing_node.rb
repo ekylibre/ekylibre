@@ -48,6 +48,7 @@
 class ListingNode < CompanyRecord
   acts_as_list :scope => :listing_id
   acts_as_tree
+  attr_accessible :attribute_name, :condition_operator, :condition_value, :exportable, :label, :listing_id, :nature, :parent_id, :position, :sql_type
   attr_readonly :listing_id, :nature
   enumerize :nature, :in => [:root, :column, :datetime, :boolean, :string, :numeric, :belongs_to, :has_many]
   belongs_to :listing

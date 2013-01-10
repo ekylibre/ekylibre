@@ -37,6 +37,7 @@
 
 
 class AnimalDrug < CompanyRecord
+  attr_accessible :name, :comment, :frequency, :nature_id, :prescripted, :quantity, :unit_id
   belongs_to :nature, :class_name => "AnimalDrugNature"
   belongs_to :unit
   has_many :posologies, :class_name => "AnimalPosology", :foreign_key => :drug_id

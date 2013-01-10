@@ -61,6 +61,7 @@ class DocumentTemplate < CompanyRecord
     :stocks =>           [ [:established_on, Date] ],
     :transport =>        [ [:transport, Transport] ]
   }
+  attr_accessible :active, :by_default, :code, :country, :family, :filename, :language, :name, :nature, :source, :to_archive
   after_save :set_by_default
   cattr_reader :document_natures
   # TODO Do we keep DocumentTemplate families ?
@@ -254,10 +255,11 @@ class DocumentTemplate < CompanyRecord
   end
 
   def archive(owner, data, attributes={})
-    document = self.documents.new(attributes.merge(:owner_id => owner.id, :owner_type => owner.class.name))
+    document = self.documents.build
+    document.owner = owner
+    document.extension = attributes[:extension] || "bin"
     method_name = [:document_name, :number, :code, :name, :id].detect{|x| owner.respond_to?(x)}
     document.printed_at = Time.now
-    document.extension ||= 'bin'
     document.subdir = Date.today.strftime('%Y-%m')
     document.original_name = owner.send(method_name).to_s.simpleize+'.'+document.extension.to_s
     document.filename = owner.send(method_name).to_s.codeize+'-'+document.printed_at.to_i.to_s(36).upper+'-'+Document.generate_key+'.'+document.extension.to_s

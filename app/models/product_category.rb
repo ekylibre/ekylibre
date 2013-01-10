@@ -36,6 +36,7 @@
 
 
 class ProductCategory < CompanyRecord
+  attr_accessible :name, :catalog_name, :catalog_description, :comment, :parent_id
   acts_as_tree
   has_many :products
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.

@@ -65,6 +65,7 @@
 
 
 class Product < CompanyRecord
+  attr_accessible :active, :catalog_description, :catalog_name, :category_id, :code, :code2, :comment, :deliverable, :description, :ean13, :for_immobilizations, :for_productions, :for_purchases, :for_sales, :immobilizations_account_id, :name, :nature, :number, :purchases_account_id, :reduction_submissive, :sales_account_id, :stockable, :subscription_nature_id, :subscription_period, :subscription_quantity, :trackable, :unit_id, :unquantifiable, :weight
   enumerize :nature, :in => [:product, :service, :subscription], :default => :product, :predicates => true
   belongs_to :purchases_account, :class_name => "Account"
   belongs_to :sales_account, :class_name => "Account"
@@ -77,13 +78,13 @@ class Product < CompanyRecord
   has_many :prices
   has_many :purchase_lines
   has_many :reservoirs, :conditions => {:reservoir => true}
-  # has_many :warehouses, :conditions => {:reservoir => true}
   has_many :sale_lines
   has_many :stock_moves
   has_many :stock_transfers
   has_many :stocks
   has_many :subscriptions
   has_many :trackings
+  # has_many :warehouses, :through => :stocks
   has_one :default_stock, :class_name => "Stock", :order => :name
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :number, :subscription_quantity, :allow_nil => true, :only_integer => true
@@ -102,6 +103,7 @@ class Product < CompanyRecord
   validates_presence_of :purchases_account, :if => :for_purchases?
   validates_uniqueness_of :code
   validates_uniqueness_of :name
+  validates_presence_of :weight, :if => :deliverable?
 
   accepts_nested_attributes_for :stocks, :reject_if => :all_blank, :allow_destroy => true
 

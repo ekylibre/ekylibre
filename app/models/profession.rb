@@ -34,6 +34,7 @@
 
 
 class Profession < CompanyRecord
+  attr_accessible :name, :code, :commercial, :rome
   has_many :employees, :class_name => "Entity"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :code, :name, :rome, :allow_nil => true, :maximum => 255

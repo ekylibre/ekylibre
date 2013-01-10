@@ -45,6 +45,7 @@
 
 class OutgoingDelivery < CompanyRecord
   acts_as_numbered
+  attr_accessible :address_id, :comment, :mode_id, :planned_on, :reference_number, :sale_id
   attr_readonly :sale_id, :number
   belongs_to :address, :class_name => "EntityAddress"
   belongs_to :mode, :class_name=>"OutgoingDeliveryMode"

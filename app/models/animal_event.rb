@@ -42,6 +42,7 @@
 
 
 class AnimalEvent < CompanyRecord
+  attr_accessible :animal_group_id, :animal_group, :comment, :description, :moved_at, :name, :nature_id, :parent_id, :planned_at, :started_at, :stopped_at, :watcher_id
   belongs_to :nature, :class_name => "AnimalEventNature"
   belongs_to :animal, :class_name => "Animal", :conditions => ["is_external = ? AND (outgone_on IS NULL or outgone_on > ?)", false, Time.now]
   belongs_to :animal_group, :class_name => "AnimalGroup"

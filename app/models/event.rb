@@ -38,6 +38,7 @@
 
 
 class Event < CompanyRecord
+  attr_accessible :duration, :entity_id, :location, :reason, :nature_id, :responsible_id, :started_at
   belongs_to :entity
   belongs_to :nature, :class_name => "EventNature"
   belongs_to :responsible, :class_name => "Entity"

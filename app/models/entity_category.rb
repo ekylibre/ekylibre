@@ -34,6 +34,7 @@
 
 
 class EntityCategory < CompanyRecord
+  attr_accessible :name, :description, :by_default
   has_many :active_prices, :class_name => "Price", :foreign_key => :category_id, :conditions => {:active => true}
   has_many :entities, :foreign_key => :category_id
   has_many :prices, :foreign_key => :category_id

@@ -51,6 +51,7 @@
 class SaleLine < CompanyRecord
   acts_as_list :scope => :sale
   after_save :set_reduction
+  attr_accessible :annotation, :price_id, :product_id, :quantity, :reduction_percentage, :sale_id, :tax_id, :tracking_id, :unit_id, :warehouse_id
   attr_readonly :sale_id
   belongs_to :account
   belongs_to :entity

@@ -51,6 +51,7 @@
 
 class IncomingPayment < CompanyRecord
   acts_as_numbered
+  attr_accessible :account_number, :amount, :bank, :check_number, :mode_id, :paid_on, :to_bank_on, :payer, :received
   belongs_to :commission_account, :class_name=>"Account"
   belongs_to :responsible, :class_name=>"Entity"
   belongs_to :deposit

@@ -39,6 +39,7 @@
 
 
 class LandParcel < CompanyRecord
+  attr_accessible :name, :number, :area_measure, :area_unit_id
   belongs_to :area_unit, :class_name=>"Unit"
   belongs_to :group, :class_name=>"LandParcelGroup"
   has_many :operations, :as=>:target

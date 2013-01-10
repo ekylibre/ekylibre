@@ -49,8 +49,10 @@
 
 class Purchase < CompanyRecord
   acts_as_numbered
-  after_create {|r| r.supplier.add_event(:purchase, r.updater_id)}
+  attr_accessible :comment, :delivery_address_id, :nature_id, :planned_on, :reference_number, :responsible_id, :supplier_id
   attr_readonly :currency
+
+  after_create {|r| r.supplier.add_event(:purchase, r.updater_id)}
   belongs_to :delivery_address, :class_name => "EntityAddress"
   belongs_to :journal_entry
   belongs_to :nature, :class_name => "PurchaseNature"

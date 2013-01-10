@@ -31,6 +31,7 @@
 
 
 class AnimalDrugNature < CompanyRecord
+  attr_accessible :name
   has_many :drugs, :class_name => "AnimalDrug"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :name, :allow_nil => true, :maximum => 255

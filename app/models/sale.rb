@@ -69,6 +69,7 @@
 class Sale < CompanyRecord
   acts_as_numbered :number, :readonly => false
   after_create {|r| r.client.add_event(:sale, r.updater_id)}
+  attr_accessible :address_id, :annotation, :client_id, :comment, :conclusion, :delivery_address_id, :function_title, :introduction, :invoice_address_id, :letter_format, :nature_id, :reference_number, :responsible_id, :subject, :sum_method, :transporter_id
   attr_readonly :created_on, :currency
   attr_protected :pretax_amount, :amount
   belongs_to :client, :class_name => "Entity"

@@ -38,8 +38,8 @@
 
 
 class InventoryLine < CompanyRecord
-  acts_as_stockable :quantity=>"self.quantity-self.theoric_quantity", :origin=>:inventory
-  belongs_to :inventory
+  attr_accessible :product_id, :quantity, :tracking_id, :unit_id, :warehouse_id
+  belongs_to :inventory, :inverse_of => :lines
   belongs_to :product
   belongs_to :stock_move
   belongs_to :tracking
@@ -50,6 +50,8 @@ class InventoryLine < CompanyRecord
   validates_numericality_of :quantity, :theoric_quantity, :allow_nil => true
   validates_presence_of :inventory, :product, :quantity, :theoric_quantity, :warehouse
   #]VALIDATORS]
+
+  acts_as_stockable :quantity => "self.quantity-self.theoric_quantity", :origin => :inventory
 
   def stock_id=(id)
     if s = Stock.find_by_id(id)

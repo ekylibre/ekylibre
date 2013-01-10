@@ -35,6 +35,7 @@
 
 
 class AnimalRace < CompanyRecord
+  attr_accessible :name, :code, :comment, :description, :nature_id
   has_many :animals, :foreign_key => :race_id
   belongs_to :nature, :class_name => "AnimalRaceNature"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.

@@ -36,6 +36,7 @@
 
 class OutgoingPaymentMode < CompanyRecord
   acts_as_list
+  attr_accessible :attorney_journal_id, :cash_id, :name, :position, :with_accounting
   belongs_to :attorney_journal, :class_name => "Journal"
   belongs_to :cash
   has_many :payments, :class_name=>"OutgoingPayment", :foreign_key=>:mode_id
@@ -46,6 +47,8 @@ class OutgoingPaymentMode < CompanyRecord
   validates_presence_of :name
   #]VALIDATORS]
   validates_presence_of :attorney_journal, :if => :with_accounting?
+
+  default_scope -> { order(:position) }
 
   protect(:on => :destroy) do
     self.payments.size.zero?

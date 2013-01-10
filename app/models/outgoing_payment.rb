@@ -44,6 +44,7 @@
 
 class OutgoingPayment < CompanyRecord
   acts_as_numbered
+  attr_accessible :amount, :check_number, :paid_on, :to_bank_on, :used_amount, :responsible_id, :payee_id, :mode_id
   belongs_to :journal_entry
   belongs_to :mode, :class_name => "OutgoingPaymentMode"
   belongs_to :payee, :class_name => "Entity"

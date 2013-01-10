@@ -33,6 +33,7 @@
 
 
 class AnimalDisease < CompanyRecord
+  attr_accessible :code, :name, :zone
   has_many :posologies, :class_name => "AnimalPosology", :foreign_key => :disease_id
   has_many :diagnostics, :class_name => "AnimalDiagnostic", :foreign_key => :disease_id
   has_many :events, :class_name => "AnimalEvent", :through => :diagnostics

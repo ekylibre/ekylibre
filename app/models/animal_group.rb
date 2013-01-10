@@ -37,6 +37,7 @@
 
 
 class AnimalGroup < CompanyRecord
+  attr_accessible :age_min, :age_max, :comment, :description, :name, :pregnant, :sex
   enumerize :sex, :in => [:male, :female], :predicates => true
   has_many :animals, :foreign_key => :group_id
   has_many :events, :class_name => "AnimalEvent", :foreign_key => :animal_group_id

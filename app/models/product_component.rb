@@ -39,8 +39,9 @@
 
 
 class ProductComponent < CompanyRecord
+  attr_accessible :active, :comment, :name, :product_id, :component_id, :quantity
   attr_readonly :quantity, :name, :comment
-  belongs_to :component, :class_name=>"Product"
+  belongs_to :component, :class_name => "Product"
   belongs_to :warehouse
   belongs_to :product
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
@@ -53,10 +54,10 @@ class ProductComponent < CompanyRecord
   autosave :product
 
   before_validation do
-    self.name = tg(:x_units_of_product_y, :quantity=>self.quantity, :unit=>self.component.unit.name, :product=>self.component.name)
+    self.name = tg(:x_units_of_product_y, :quantity => self.quantity, :unit => self.component.unit.name, :product => self.component.name)
   end
 
-  before_validation(:on=>:create) do
+  before_validation(:on => :create) do
     self.active = true
     self.started_at = Time.now
   end
@@ -66,14 +67,14 @@ class ProductComponent < CompanyRecord
     stamper = self.class.stamper_class.stamper rescue nil
     # raise stamper.inspect unless stamper.nil?
     stamper_id = stamper.id if stamper.is_a? Entity
-    nc = self.class.create!(self.attributes.merge(:created_at=>current_time, :updated_at=>current_time, :creator_id=>stamper_id, :updater_id=>stamper_id))
-    self.class.update_all({:active=>false}, {:id=>self.id})
+    nc = self.class.create!(self.attributes.merge(:created_at => current_time, :updated_at => current_time, :creator_id => stamper_id, :updater_id => stamper_id), :without_protection => true)
+    self.class.update_all({:active => false}, {:id => self.id})
     return nc
   end
 
   def destroy #_without_callbacks
     unless new_record?
-      self.class.update_all({:active=>false, :stopped_at=>Time.now}, {:id=>self.id})
+      self.class.update_all({:active => false, :stopped_at => Time.now}, {:id => self.id})
     end
   end
 

@@ -38,8 +38,9 @@
 
 
 class Inventory < CompanyRecord
-  belongs_to :responsible, :class_name=>"Entity"
-  has_many :lines, :class_name=>"InventoryLine", :dependent=>:destroy
+  attr_accessible :created_on, :number, :responsible_id
+  belongs_to :responsible, :class_name => "Entity"
+  has_many :lines, :class_name => "InventoryLine", :dependent => :destroy, :inverse_of => :inventory
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :number, :allow_nil => true, :maximum => 16
@@ -50,7 +51,7 @@ class Inventory < CompanyRecord
     self.created_on ||= Date.today
   end
 
-  bookkeep :on=>:nothing do |b|
+  bookkeep :on => :nothing do |b|
   end
 
   def reflectable?

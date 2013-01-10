@@ -38,6 +38,7 @@
 class SubscriptionNature < CompanyRecord
   attr_readonly :nature
   enumerize :nature, :in => [:period, :quantity], :default => :period, :predicates => true
+  attr_accessible :actual_number, :comment, :entity_link_nature_id, :name, :nature, :reduction_percentage
   belongs_to :entity_link_nature
   has_many :products
   has_many :subscriptions, :foreign_key => :nature_id

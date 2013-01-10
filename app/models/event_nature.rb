@@ -34,6 +34,7 @@
 
 
 class EventNature < CompanyRecord
+  attr_accessible :name, :duration, :active, :usage
   attr_readonly :name
   has_many :events, :foreign_key => :nature_id
   enumerize :usage, :in => [:manual, :sale, :purchase, :sales_invoice], :defaut => :manual, :predicates => true

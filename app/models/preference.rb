@@ -112,7 +112,9 @@ class Preference < CompanyRecord
   def self.get(name)
     preference = Preference.find_by_name(name)
     if preference.nil? and self.reference.has_key?(name.to_s)
-      preference = self.new(:name => name, :nature => self.reference[name][:nature])
+      preference = self.new
+      preference.name = name
+      preference.nature = self.reference[name][:nature]
       preference.value = self.reference[name][:default] if self.reference[name][:default]
       preference.save!
     elsif preference.nil?

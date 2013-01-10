@@ -34,11 +34,13 @@
 
 
 class OutgoingDeliveryMode < CompanyRecord
-  has_many :deliveries, :foreign_key=>:mode_id, :class_name=>"OutgoingDelivery"
+  attr_accessible :name, :code, :comment, :with_transport
+  has_many :deliveries, :foreign_key => :mode_id, :class_name => "OutgoingDelivery", :inverse_of => :mode
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :code, :allow_nil => true, :maximum => 8
   validates_length_of :name, :allow_nil => true, :maximum => 255
   validates_inclusion_of :with_transport, :in => [true, false]
   validates_presence_of :code, :name
   #]VALIDATORS]
+  validates_uniqueness_of :name, :code
 end

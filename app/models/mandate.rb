@@ -36,6 +36,7 @@
 
 
 class Mandate < CompanyRecord
+  attr_accessible :entity_id, :family, :organization, :started_on, :stopped_on, :title
   belongs_to :entity
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :family, :organization, :title, :allow_nil => true, :maximum => 255

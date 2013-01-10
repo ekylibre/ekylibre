@@ -38,6 +38,7 @@
 
 class IncomingPaymentUse < CompanyRecord
   acts_as_reconcilable :client, :payer
+  attr_accessible :payment_id
   belongs_to :expense, :polymorphic=>true
   belongs_to :journal_entry
   belongs_to :payment, :class_name=>"IncomingPayment"

@@ -33,6 +33,7 @@
 
 
 class AnimalEventNature < CompanyRecord
+  attr_accessible :name, :comment, :description
   has_many :events, :class_name => "AnimalEvent", :foreign_key => :nature_id
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :name, :allow_nil => true, :maximum => 255

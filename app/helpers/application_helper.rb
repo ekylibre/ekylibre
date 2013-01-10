@@ -1334,7 +1334,12 @@ module ApplicationHelper
         # no HTML expected to be generated
         render(:partial => partial)
       end
+      # check presence of custom_fields
+      unless @fields.flatten.detect{|f| f[:name] == :custom_fields}
+        custom_fields(:set => @field_sets.keys.first)
+      end
     end
+
 
     # Orders
     field_sets = @field_sets.values

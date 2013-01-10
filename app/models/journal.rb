@@ -35,6 +35,7 @@
 
 
 class Journal < CompanyRecord
+  attr_accessible :code, :name, :nature, :currency
   attr_readonly :currency
   has_many :cashes
   has_many :entry_lines, :class_name => "JournalEntryLine"

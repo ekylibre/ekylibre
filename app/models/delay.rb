@@ -36,6 +36,7 @@
 
 
 class Delay < CompanyRecord
+  attr_accessible :active, :comment, :expression, :name
   has_many :entities
   has_many :sales
   has_many :sale_natures

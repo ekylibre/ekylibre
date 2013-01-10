@@ -43,6 +43,7 @@
 
 class IncomingDelivery < CompanyRecord
   acts_as_numbered
+  attr_accessible :address_id, :comment, :mode_id, :moved_on, :planned_on, :reference_number
   attr_readonly :number
   # DEPRECATED Replace use of contact with address
   belongs_to :contact, :class_name => "EntityAddress", :foreign_key => :address_id

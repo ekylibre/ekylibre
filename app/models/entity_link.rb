@@ -36,6 +36,7 @@
 
 
 class EntityLink < CompanyRecord
+  attr_accessible :comment, :entity_1_id, :entity_2_id, :nature_id, :started_on, :stopped_on
   belongs_to :entity_1, :class_name=>"Entity"
   belongs_to :entity_2, :class_name=>"Entity"
   belongs_to :nature, :class_name=>"EntityLinkNature"

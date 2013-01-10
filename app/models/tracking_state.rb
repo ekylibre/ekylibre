@@ -41,6 +41,7 @@
 
 
 class TrackingState < CompanyRecord
+  attr_accessible :atmospheric_pressure, :comment, :examinated_at, :luminance, :net_weight, :relative_humidity, :responsible_id, :temperature, :tracking_id, :total_weight
   attr_readonly :tracking_id
   belongs_to :tracking
 

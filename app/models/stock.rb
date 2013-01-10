@@ -41,6 +41,7 @@
 
 class Stock < CompanyRecord
   attr_readonly :unit_id, :product_id, :warehouse_id, :tracking_id
+  attr_accessible :name, :critic_quantity_min, :quantity_min, :quantity_max, :tracking_id, :unit_id, :warehouse_id
   attr_protected :quantity
   belongs_to :warehouse
   belongs_to :product

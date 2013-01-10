@@ -92,6 +92,7 @@ require "digest/sha2"
 
 class Entity < CompanyRecord
   acts_as_numbered :code
+  attr_accessible :active, :activity_code, :attorney, :attorney_account_id, :authorized_payments_count, :born_on, :category_id, :client, :client_account_id, :code, :comment, :country, :currency, :dead_on, :deliveries_conditions, :department_id, :ean13, :employed, :employment, :establishment_id, :first_met_on, :first_name, :full_name, :language, :last_name, :left_on, :loggable, :maximal_grantable_reduction_percentage, :nature_id, :office, :origin, :payment_delay_id, :payment_mode_id, :photo, :profession_id, :proposer_id, :prospect, :recruited_on, :reduction_percentage, :reflation_submissive, :responsible_id, :role_id, :siren, :supplier, :supplier_account_id, :transporter, :user_name, :vat_number, :vat_submissive
   attr_accessor :password_confirmation, :old_password
   attr_protected :hashed_password, :salt, :locked, :rights
   belongs_to :attorney_account, :class_name => "Account"
@@ -522,11 +523,13 @@ class Entity < CompanyRecord
 
 
 
-  def preference(name, value=nil, nature=:string)
+  def preference(name, value = nil, nature = :string)
     p = self.preferences.find(:first, :order => :id, :conditions => {:name => name})
     if p.nil?
-      p = self.preferences.new(:name => name, :nature => nature.to_s)
-      p.value = value
+      p = self.preferences.build
+      p.name   = name
+      p.nature = nature.to_s
+      p.value  = value
       p.save!
     end
     return p

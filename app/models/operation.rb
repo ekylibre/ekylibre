@@ -46,6 +46,7 @@
 
 
 class Operation < CompanyRecord
+  attr_accessible :description, :hour_duration, :min_duration, :planned_on, :nature_id, :started_at, :stopped_at, :target_id, :target_type
   belongs_to :nature, :class_name=>"OperationNature"
   belongs_to :responsible, :class_name=>"Entity"
   belongs_to :target, :polymorphic=>true

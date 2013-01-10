@@ -45,6 +45,7 @@
 
 
 class JournalEntry < CompanyRecord
+  attr_accessible :journal_id, :number, :printed_on, :resource, :journal
   attr_readonly :journal_id, :created_on
   belongs_to :financial_year
   belongs_to :journal

@@ -37,6 +37,7 @@
 
 
 class Account < CompanyRecord
+  attr_accessible :name, :number, :reconcilable, :comment, :is_debit
   @@references = []
   attr_readonly :number
   # has_many :account_balances

@@ -33,6 +33,7 @@
 
 
 class LandParcelGroup < CompanyRecord
+  attr_accessible :name, :color, :comment
   has_many :land_parcels, :foreign_key=>:group_id, :order=>:name
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :color, :allow_nil => true, :maximum => 6

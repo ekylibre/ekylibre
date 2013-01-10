@@ -47,6 +47,7 @@ class StockMove < CompanyRecord
   after_save :add_in_stock
   after_destroy :remove_from_stock
   before_update :remove_from_stock
+  attr_accessible :comment, :name
   belongs_to :warehouse
   belongs_to :origin, :polymorphic => true
   belongs_to :product

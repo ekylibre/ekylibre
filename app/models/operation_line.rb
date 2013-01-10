@@ -41,11 +41,11 @@
 
 
 class OperationLine < CompanyRecord
-  acts_as_stockable :quantity => 'self.in? ? -self.quantity : self.quantity', :origin => :operation
+  attr_accessible :direction, :product_id, :quantity, :unit_id, :warehouse_id
   enumerize :direction, :in => [:in, :out], :default => :in, :predicates => true
   belongs_to :area_unit, :class_name => "Unit"
   belongs_to :warehouse
-  belongs_to :operation
+  belongs_to :operation, :inverse_of => :lines
   belongs_to :product
   belongs_to :stock_move
   belongs_to :tracking
@@ -57,9 +57,9 @@ class OperationLine < CompanyRecord
   validates_presence_of :direction, :operation, :quantity, :unit_quantity
   #]VALIDATORS]
   validates_presence_of :product
-
-  # IN operation.target or OUT of operation.target
   validates_inclusion_of :direction, :in => self.direction.values
+
+  acts_as_stockable :quantity => 'self.in? ? -self.quantity : self.quantity', :origin => :operation
 
   before_validation do
     self.direction = self.class.direction.default_value unless self.class.direction.values.include? self.direction.to_s

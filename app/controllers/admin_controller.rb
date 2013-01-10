@@ -516,7 +516,7 @@ class AdminController < BaseController
 
     code << "def new\n"
     values = model.accessible_attributes.to_a.inject({}) do |hash, attr|
-      hash[attr] = "params[:#{attr}]"
+      hash[attr] = "params[:#{attr}]" unless attr.blank? or attr.to_s.match(/_attributes$/)
       hash
     end.merge(defaults).collect{|k,v| ":#{k} => (#{v})"}.join(", ")
     code << "  @#{record_name} = #{model.name}.new(#{values})\n"

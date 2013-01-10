@@ -44,6 +44,7 @@
 
 
 class SaleNature < CompanyRecord
+  attr_accessible :active, :comment, :currency, :downpayment, :downpayment_minimum, :downpayment_percentage, :expiration_id, :journal_id, :payment_delay_id, :payment_mode_complement, :payment_mode_id, :sales_conditions, :with_accounting
   belongs_to :journal
   belongs_to :expiration, :class_name=>"Delay"
   belongs_to :payment_delay, :class_name=>"Delay"
