@@ -57,12 +57,16 @@ class AdminController < BaseController
       foreign_records = foreign_record.pluralize
       scope_name = options.delete(:scope) || name
       max = options[:max] || 80
-      unless label = options.delete(:label)
-        available_methods = model.columns_hash.keys.collect{|x| x.to_sym}
-        label = [:title, :label, :full_name, :name, :code, :number].detect{|x| available_methods.include?(x)}
+      if label = options.delete(:label)
+        label = (label.is_a?(Symbol) ? "{#{label}:%X%}" : label.to_s)
+      else
+        base = "unroll." + self.name.underscore.gsub(/_controller$/, '').split('/').join(".")
+        label = I18n.translate(base + ".#{name || :all}", :default => [(base + ".all").to_sym, ""])
+        if label.blank?
+          available_methods = model.columns_hash.keys.collect{|x| x.to_sym}
+          label = '{' + [:title, :label, :full_name, :name, :code, :number].select{|x| available_methods.include?(x)}.first.to_s + ':%X%}'
+        end
       end
-      base = "unroll." + self.name.underscore.gsub(/_controller$/, '').split('/').join(".")
-      label = (label.is_a?(Symbol) ? "{#{label}:%X%}" : label.is_a?(String) ? label : I18n.translate(base + ".#{name || :all}", :default => [(base + ".all").to_sym]))
 
       columns = []
       item_label = label.inspect.gsub(/\{[a-z\_]+(\:\%?X\%?)?\}/) do |word|
