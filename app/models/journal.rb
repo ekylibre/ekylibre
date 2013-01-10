@@ -38,8 +38,8 @@ class Journal < CompanyRecord
   attr_accessible :code, :name, :nature, :currency
   attr_readonly :currency
   has_many :cashes
-  has_many :entry_lines, :class_name => "JournalEntryLine"
-  has_many :entries, :class_name => "JournalEntry"
+  has_many :entry_lines, :class_name => "JournalEntryLine", :inverse_of => :journal
+  has_many :entries, :class_name => "JournalEntry", :inverse_of => :journal
   enumerize :nature, :in => [:sales, :purchases, :bank, :forward, :various, :cash], :default => :various, :predicates => true
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :currency, :allow_nil => true, :maximum => 3

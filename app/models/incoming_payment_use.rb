@@ -37,13 +37,13 @@
 
 
 class IncomingPaymentUse < CompanyRecord
-  acts_as_reconcilable :client, :payer
-  attr_accessible :payment_id
-  belongs_to :expense, :polymorphic=>true
+  attr_accessible :payment_id, :expense_id, :expense_type, :downpayment
+  belongs_to :expense, :polymorphic => true
   belongs_to :journal_entry
-  belongs_to :payment, :class_name=>"IncomingPayment"
+  belongs_to :payment, :class_name => "IncomingPayment", :inverse_of => :uses
 
   # autosave :expense, :payment
+  acts_as_reconcilable :client, :payer
 
   cattr_reader :expense_types
   @@expense_types = ["Sale", "Transfer"]
@@ -54,7 +54,7 @@ class IncomingPaymentUse < CompanyRecord
   validates_inclusion_of :downpayment, :in => [true, false]
   validates_presence_of :expense, :expense_type, :payment
   #]VALIDATORS]
-  validates_numericality_of :amount, :greater_than=>0
+  validates_numericality_of :amount, :greater_than => 0
   validates_presence_of :expense, :payment
 
   before_validation do
@@ -65,13 +65,13 @@ class IncomingPaymentUse < CompanyRecord
     return true
   end
 
-  validate(:on=>:create) do
+  validate(:on => :create) do
     if self.expense and self.payment
       errors.add(:amount, :invalid) unless self.amount <= self.reconcilable_amount
     end
   end
 
-  validate(:on=>:update) do
+  validate(:on => :update) do
     old = self.class.find(self.id)
     if self.expense and self.payment
       errors.add(:amount, :invalid) unless self.amount <= self.reconcilable_amount+old.amount
@@ -89,9 +89,9 @@ class IncomingPaymentUse < CompanyRecord
   end
 
   bookkeep do |b|
-    label = tc(:bookkeep, :resource=>self.class.model_name.human, :expense_number=>self.expense.number, :payment_number=>self.payment.number, :attorney=>self.payment.payer.full_name, :client=>self.expense.client.full_name, :mode=>self.payment.mode.name)
+    label = tc(:bookkeep, :resource => self.class.model_name.human, :expense_number => self.expense.number, :payment_number => self.payment.number, :attorney => self.payment.payer.full_name, :client => self.expense.client.full_name, :mode => self.payment.mode.name)
     attorney, client = self.payment.payer.account(:client), self.expense.client.account(:client)
-    b.journal_entry(self.payment.mode.attorney_journal, :printed_on=>self.payment.created_on, :unless=>(attorney.id == client.id)) do |entry|
+    b.journal_entry(self.payment.mode.attorney_journal, :printed_on => self.payment.created_on, :unless => (attorney.id == client.id)) do |entry|
       entry.add_debit(label, attorney.id, self.amount)
       entry.add_credit(label,  client.id, self.amount)
     end
@@ -102,12 +102,12 @@ class IncomingPaymentUse < CompanyRecord
   after_destroy :calculate_reconciliated_amounts
 
   def calculate_reconciliated_amounts
-    self.payment.class.update_all({:used_amount=>self.payment.uses.sum(:amount)}, {:id=>self.payment_id})
+    self.payment.class.update_all({:used_amount => self.payment.uses.sum(:amount)}, {:id => self.payment_id})
     expense = self.expense
     if expense.is_a? Sale
-      expense.class.update_all({:paid_amount=>expense.uses.sum(:amount) - (expense.credits.sum(:amount)||0)}, {:id=>self.expense_id})
+      expense.class.update_all({:paid_amount => expense.uses.sum(:amount) - (expense.credits.sum(:amount)||0)}, {:id => self.expense_id})
     else
-      expense.class.update_all({:paid_amount=>expense.uses.sum(:amount)}, {:id=>self.expense_id})
+      expense.class.update_all({:paid_amount => expense.uses.sum(:amount)}, {:id => self.expense_id})
     end
   end
 

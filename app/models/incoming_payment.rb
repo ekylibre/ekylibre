@@ -50,44 +50,41 @@
 
 
 class IncomingPayment < CompanyRecord
-  acts_as_numbered
-  attr_accessible :account_number, :amount, :bank, :check_number, :mode_id, :paid_on, :to_bank_on, :payer, :received
-  belongs_to :commission_account, :class_name=>"Account"
-  belongs_to :responsible, :class_name=>"Entity"
+  attr_accessible :account_number, :amount, :bank, :check_number, :mode_id, :paid_on, :to_bank_on, :received, :responsible_id, :payer_id
+  attr_readonly :payer_id
+  attr_readonly :amount, :account_number, :bank, :check_number, :mode_id, :if => Proc.new{ self.deposit and self.deposit.locked? }
+  belongs_to :commission_account, :class_name => "Account"
+  belongs_to :responsible, :class_name => "Entity"
   belongs_to :deposit
   belongs_to :journal_entry
-  belongs_to :payer, :class_name=>"Entity"
-  belongs_to :mode, :class_name=>"IncomingPaymentMode"
-  has_many :uses, :class_name=>"IncomingPaymentUse", :foreign_key=>:payment_id, :dependent=>:destroy
-  has_many :sales, :through=>:uses, :source=>:expense, :source_type=>"Sale"
-  has_many :transfers, :through=>:uses, :source=>:expense, :source_type=>"Transfer"
-
-  autosave :deposit
-
-  attr_readonly :payer_id
-  attr_readonly :amount, :account_number, :bank, :check_number, :mode_id, :if=>Proc.new{self.deposit and self.deposit.locked? }
-
+  belongs_to :payer, :class_name => "Entity", :inverse_of => :incoming_payments
+  belongs_to :mode, :class_name => "IncomingPaymentMode"
+  has_many :uses, :class_name => "IncomingPaymentUse", :foreign_key => :payment_id, :dependent => :destroy, :inverse_of => :payment
+  has_many :sales, :through => :uses, :source => :expense, :source_type => "Sale"
+  has_many :transfers, :through => :uses, :source => :expense, :source_type => "Transfer"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :amount, :commission_amount, :used_amount, :allow_nil => true
   validates_length_of :account_number, :bank, :check_number, :number, :allow_nil => true, :maximum => 255
   validates_inclusion_of :received, :scheduled, :in => [true, false]
   validates_presence_of :amount, :commission_amount, :mode, :to_bank_on, :used_amount
   #]VALIDATORS]
-  validates_numericality_of :amount, :greater_than=>0
-  validates_numericality_of :used_amount, :commission_amount, :greater_than_or_equal_to=>0
+  validates_numericality_of :amount, :greater_than => 0
+  validates_numericality_of :used_amount, :commission_amount, :greater_than_or_equal_to => 0
   validates_presence_of :payer, :created_on
-  validates_presence_of :commission_account, :if=>Proc.new{|p| p.commission_amount!=0}
+  validates_presence_of :commission_account, :if => Proc.new{|p| p.mode.with_commission? }
 
+  acts_as_numbered
+  autosave :deposit
   delegate :currency, :to => :mode
 
   default_scope -> { order("id DESC") }
   scope :depositables, -> { where("deposit_id IS NULL AND to_bank_on >= ? AND mode_id IN (SELECT id FROM #{IncomingPaymentMode.table_name} WHERE with_deposit = ?)", Date.today, true) }
   scope :unbalanceds,  -> { where("used_amount < amount") }
 
-  before_validation(:on=>:create) do
+  before_validation(:on => :create) do
     self.created_on ||= Date.today
     self.to_bank_on ||= Date.today
-    self.scheduled = (self.to_bank_on>Date.today ? true : false) # if self.scheduled.nil?
+    self.scheduled = (self.to_bank_on > Date.today ? true : false)
     self.received = false if self.scheduled
     true
   end
@@ -101,7 +98,7 @@ class IncomingPayment < CompanyRecord
   end
 
   validate do
-    errors.add(:amount, :greater_than_or_equal_to, :count=>self.used_amount) if self.amount < self.used_amount
+    errors.add(:amount, :greater_than_or_equal_to, :count => self.used_amount) if self.used_amount > self.amount
   end
 
   protect(:on => :update) do
@@ -112,15 +109,15 @@ class IncomingPayment < CompanyRecord
   # It depends on the preference which permit to activate the "automatic bookkeeping"
   bookkeep do |b|
     mode = self.mode
-    label = tc(:bookkeep, :resource=>self.class.model_name.human, :number=>self.number, :payer=>self.payer.full_name, :mode=>mode.name, :expenses=>self.uses.collect{|p| p.expense.number}.to_sentence, :check_number=>self.check_number)
+    label = tc(:bookkeep, :resource => self.class.model_name.human, :number => self.number, :payer => self.payer.full_name, :mode => mode.name, :expenses => self.uses.collect{|p| p.expense.number}.to_sentence, :check_number => self.check_number)
     if mode.with_deposit?
-      b.journal_entry(mode.depositables_journal, :printed_on=>self.to_bank_on, :unless=>(!mode or !mode.with_accounting? or !self.received)) do |entry|
+      b.journal_entry(mode.depositables_journal, :printed_on => self.to_bank_on, :unless => (!mode or !mode.with_accounting? or !self.received)) do |entry|
         entry.add_debit(label,  mode.depositables_account_id, self.amount-self.commission_amount)
         entry.add_debit(label,  self.commission_account_id, self.commission_amount) if self.commission_amount > 0
         entry.add_credit(label, self.payer.account(:client).id, self.amount) unless self.amount.zero?
       end
     else
-      b.journal_entry(mode.cash.journal, :printed_on=>self.to_bank_on, :unless=>(!mode or !mode.with_accounting? or !self.received)) do |entry|
+      b.journal_entry(mode.cash.journal, :printed_on => self.to_bank_on, :unless => (!mode or !mode.with_accounting? or !self.received)) do |entry|
         entry.add_debit(label,  mode.cash.account_id, self.amount-self.commission_amount)
         entry.add_debit(label,  self.commission_account_id, self.commission_amount) if self.commission_amount > 0
         entry.add_credit(label, self.payer.account(:client).id, self.amount) unless self.amount.zero?
@@ -134,7 +131,7 @@ class IncomingPayment < CompanyRecord
   # end
 
   def label
-    tc(:label, :amount=>I18n.localize(self.amount, :currency=>self.mode.cash.currency), :date=>I18n.localize(self.to_bank_on), :mode=>self.mode.name, :usable_amount=>I18n.localize(self.unused_amount, :currency=>self.mode.cash.currency), :payer=>self.payer.full_name, :number=>self.number)
+    tc(:label, :amount => I18n.localize(self.amount, :currency => self.mode.cash.currency), :date => I18n.localize(self.to_bank_on), :mode => self.mode.name, :usable_amount => I18n.localize(self.unused_amount, :currency => self.mode.cash.currency), :payer => self.payer.full_name, :number => self.number)
   end
 
   def unused_amount
@@ -152,10 +149,10 @@ class IncomingPayment < CompanyRecord
   # Use the maximum available amount to pay the expense between unpaid and unused amounts
   def pay(expense, options={})
     raise Exception.new("Expense must be "+ IncomingPaymentUse.expense_types.collect{|x| "a "+x}.join(" or ")) unless IncomingPaymentUse.expense_types.include? expense.class.name
-    # IncomingPaymentUse.destroy_all(:expense_type=>expense.class.name, :expense_id=>expense.id, :payment_id=>self.id)
+    # IncomingPaymentUse.destroy_all(:expense_type => expense.class.name, :expense_id => expense.id, :payment_id => self.id)
     # self.reload
     # use_amount = [expense.unpaid_amount, self.unused_amount].min
-    use = self.uses.create(:expense=>expense, :downpayment=>options[:downpayment])
+    use = self.uses.create(:expense => expense, :downpayment => options[:downpayment])
     if use.errors.size > 0
       errors.add_from_record(use)
       return false

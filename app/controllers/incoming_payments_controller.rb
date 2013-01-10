@@ -18,13 +18,13 @@
 #
 
 class IncomingPaymentsController < AdminController
-  manage_restfully :to_bank_on=>"Date.today", :paid_on=>"Date.today", :responsible_id=>"@current_user.id", :payer_id=>"(Entity.find(params[:payer_id]).id rescue 0)", :amount=>"params[:amount].to_f", :bank=>"params[:bank]", :account_number=>"params[:account_number]"
+  manage_restfully :to_bank_on => "Date.today", :paid_on => "Date.today", :responsible_id => "current_user.id", :payer_id => "(Entity.find(params[:payer_id]).id rescue 0)", :amount => "params[:amount].to_f"
 
   unroll_all
 
   def self.incoming_payments_conditions(options={})
-    code = search_conditions(:incoming_payments, :incoming_payments=>[:amount, :used_amount, :check_number, :number, :account_number
-], :entities=>[:code, :full_name])+"||=[]\n"
+    code = search_conditions(:incoming_payments, :incoming_payments => [:amount, :used_amount, :check_number, :number, :account_number
+], :entities => [:code, :full_name])+"||=[]\n"
     code += "if session[:incoming_payment_state] == 'unreceived'\n"
     code += "  c[0] += ' AND received=?'\n"
     code += "  c << false\n"
@@ -40,18 +40,18 @@ class IncomingPaymentsController < AdminController
     return code
   end
 
-  list(:conditions=>incoming_payments_conditions, :joins=>:payer, :order=>"to_bank_on DESC") do |t|
-    t.column :number, :url=>true
-    t.column :full_name, :through=>:payer, :url=>true
+  list(:conditions => incoming_payments_conditions, :joins => :payer, :order => "to_bank_on DESC") do |t|
+    t.column :number, :url => true
+    t.column :full_name, :through => :payer, :url => true
     t.column :paid_on
-    t.column :amount, :currency=>"RECORD.mode.cash.currency", :url=>true
-    t.column :used_amount, :currency=>"RECORD.mode.cash.currency"
-    t.column :name, :through=>:mode
+    t.column :amount, :currency => "RECORD.mode.cash.currency", :url => true
+    t.column :used_amount, :currency => "RECORD.mode.cash.currency"
+    t.column :name, :through => :mode
     t.column :check_number
     t.column :to_bank_on
-    t.column :number, :through=>:deposit, :url=>true
-    t.action :edit, :if=>"RECORD.deposit.nil\?"
-    t.action :destroy, :if=>"RECORD.used_amount.to_f<=0"
+    t.column :number, :through => :deposit, :url => true
+    t.action :edit, :if => "RECORD.deposit.nil\?"
+    t.action :destroy, :if => "RECORD.used_amount.to_f <= 0"
   end
 
   # Displays the main page with the list of incoming payments
@@ -60,9 +60,9 @@ class IncomingPaymentsController < AdminController
     session[:incoming_payment_key]   = params[:q]
   end
 
-  list(:sales, :conditions=>["#{Sale.table_name}.id IN (SELECT expense_id FROM #{IncomingPaymentUse.table_name} WHERE payment_id=? AND expense_type=?)", ['session[:current_incoming_payment_id]'], Sale.name], :line_class=>'RECORD.tags') do |t|
-    t.column :number, :url=>true
-    t.column :description, :through=>:client, :url=>true
+  list(:sales, :conditions => ["#{Sale.table_name}.id IN (SELECT expense_id FROM #{IncomingPaymentUse.table_name} WHERE payment_id=? AND expense_type=?)", ['session[:current_incoming_payment_id]'], Sale.name], :line_class => 'RECORD.tags') do |t|
+    t.column :number, :url => true
+    t.column :description, :through => :client, :url => true
     t.column :created_on
     t.column :pretax_amount
     t.column :amount
@@ -72,7 +72,7 @@ class IncomingPaymentsController < AdminController
   def show
     return unless @incoming_payment = find_and_check(:incoming_payment)
     session[:current_incoming_payment_id] = @incoming_payment.id
-    t3e :number=>@incoming_payment.number, :entity=>@incoming_payment.payer.full_name
+    t3e :number => @incoming_payment.number, :entity => @incoming_payment.payer.full_name
   end
 
 end

@@ -18,10 +18,11 @@
 #
 
 class OperationsController < AdminController
+  manage_restfully :planned_on => "params[:planned_on]||Date.today", :target_id => "params[:target_id].to_i", :responsible_id => "current_user.id", :hour_duration => "2", :min_duration => "0"
 
   unroll_all
 
-  list(:order => " planned_on desc, name asc") do |t|
+  list(:order => "planned_on DESC, name ASC") do |t|
     t.column :name, :url => true
     t.column :name, :through => :nature
     t.column :label, :through => :responsible, :url => true
@@ -61,51 +62,51 @@ class OperationsController < AdminController
     t3e @operation.attributes
   end
 
-  def new
-    @operation = Operation.new(:planned_on => params[:planned_on]||Date.today, :target_id => params[:target_id].to_i, :responsible_id => @current_user.id, :hour_duration => 2, :min_duration => 0)
-    render_restfully_form
-  end
+  # def new
+  #   @operation = Operation.new(:planned_on => params[:planned_on]||Date.today, :target_id => params[:target_id].to_i, :responsible_id => @current_user.id, :hour_duration => 2, :min_duration => 0)
+  #   render_restfully_form
+  # end
 
-  def create
-    @operation = Operation.new(params[:operation])
-    @operation_lines = (params[:lines]||{}).values
-    @operation_uses = (params[:uses]||{}).values
-    redirect_to_back and return if @operation.save_with_uses_and_lines(@operation_uses, @operation_lines)
-    render_restfully_form
-  end
+  # def create
+  #   @operation = Operation.new(params[:operation])
+  #   @operation_lines = (params[:lines]||{}).values
+  #   @operation_uses = (params[:uses]||{}).values
+  #   redirect_to_back and return if @operation.save_with_uses_and_lines(@operation_uses, @operation_lines)
+  #   render_restfully_form
+  # end
 
-  def destroy
-    return unless @operation = find_and_check(:operations)
-    @operation.destroy
-    redirect_to_current
-  end
+  # def destroy
+  #   return unless @operation = find_and_check(:operations)
+  #   @operation.destroy
+  #   redirect_to_current
+  # end
 
-  def edit
-    return unless @operation = find_and_check(:operations)
-    session[:tool_ids] = []
-    for tool in @operation.tools
-      session[:tool_ids] << tool.id.to_s
-    end
-    t3e @operation.attributes
-    render_restfully_form
-  end
+  # def edit
+  #   return unless @operation = find_and_check(:operations)
+  #   session[:tool_ids] = []
+  #   for tool in @operation.tools
+  #     session[:tool_ids] << tool.id.to_s
+  #   end
+  #   t3e @operation.attributes
+  #   render_restfully_form
+  # end
 
-  def update
-    return unless @operation = find_and_check(:operations)
-    session[:tool_ids] = []
-    for tool in @operation.tools
-      session[:tool_ids] << tool.id.to_s
-    end
-    @operation.attributes = params[:operation]
-    @operation_lines = (params[:lines]||{}).values
-    @operation_uses = (params[:uses]||{}).values
-    if @operation.save_with_uses_and_lines(@operation_uses, @operation_lines)
-      redirect_to_back
-      return
-    end
-    t3e @operation.attributes
-    render_restfully_form
-  end
+  # def update
+  #   return unless @operation = find_and_check(:operations)
+  #   session[:tool_ids] = []
+  #   for tool in @operation.tools
+  #     session[:tool_ids] << tool.id.to_s
+  #   end
+  #   @operation.attributes = params[:operation]
+  #   @operation_lines = (params[:lines]||{}).values
+  #   @operation_uses = (params[:uses]||{}).values
+  #   if @operation.save_with_uses_and_lines(@operation_uses, @operation_lines)
+  #     redirect_to_back
+  #     return
+  #   end
+  #   t3e @operation.attributes
+  #   render_restfully_form
+  # end
 
 
   list(:unvalidateds, :model => :operations, :conditions => {:moved_on => nil}) do |t|

@@ -69,7 +69,7 @@ class OutgoingDeliveriesController < AdminController
     notify_warning(:no_lines_found) if sale_lines.empty?
 
     @outgoing_delivery_lines = sale_lines.collect{|x| OutgoingDeliveryLine.new(:sale_line_id => x.id, :quantity => x.undelivered_quantity)}
-    @outgoing_delivery = OutgoingDelivery.new(:sale_id => sale.id, :pretax_amount => sale.undelivered("pretax_amount"), :amount => sale.undelivered("amount"), :planned_on => Date.today, :transporter_id => sale.transporter_id, :address => sale.delivery_address||sale.client.default_mail_address)
+    @outgoing_delivery = sale.deliveries.build({:pretax_amount => sale.undelivered(:pretax_amount), :amount => sale.undelivered(:amount), :planned_on => Date.today, :transporter_id => sale.transporter_id, :address => sale.delivery_address||sale.client.default_mail_address}, :without_protection => true)
     render_restfully_form
   end
 

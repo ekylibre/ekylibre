@@ -45,14 +45,14 @@
 
 
 class JournalEntry < CompanyRecord
-  attr_accessible :journal_id, :number, :printed_on, :resource, :journal
+  attr_accessible :journal_id, :number, :printed_on, :resource
   attr_readonly :journal_id, :created_on
   belongs_to :financial_year
-  belongs_to :journal
+  belongs_to :journal, :inverse_of => :entries
   belongs_to :resource, :polymorphic => true
   has_many :asset_depreciations, :dependent => :nullify
   has_many :useful_lines, :conditions => ["balance != ?", 0.0], :foreign_key => :entry_id, :class_name => "JournalEntryLine"
-  has_many :lines, :foreign_key => :entry_id, :dependent => :delete_all, :class_name => "JournalEntryLine"
+  has_many :lines, :foreign_key => :entry_id, :dependent => :delete_all, :class_name => "JournalEntryLine", :inverse_of => :entry
   has_many :outgoing_payments, :dependent => :nullify
   has_many :outgoing_payment_uses, :dependent => :nullify
   has_many :incoming_payments, :dependent => :nullify
@@ -281,11 +281,11 @@ class JournalEntry < CompanyRecord
       omission = (options.delete(:omission)||"...").to_s
       name = name[0..254-omission.size]+omission
     end
+    credit = options.delete(:credit) ? true : false
+    credit = (not credit) if amount < 0
     attributes = options.merge(:name => name)
     attributes[:account_id] = account.is_a?(Integer) ? account : account.id
     # attributes[:original_currency] = self.journal.currency
-    credit = options.delete(:credit) ? true : false
-    credit = (not credit) if amount < 0
     if credit
       attributes[:original_credit] = amount.abs
       attributes[:original_debit]  = 0.0

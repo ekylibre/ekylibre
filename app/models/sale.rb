@@ -85,7 +85,7 @@ class Sale < CompanyRecord
   belongs_to :responsible, :class_name => "Entity"
   belongs_to :transporter, :class_name => "Entity"
   has_many :credits, :class_name => "Sale", :foreign_key => :origin_id
-  has_many :deliveries, :class_name => "OutgoingDelivery", :dependent => :destroy
+  has_many :deliveries, :class_name => "OutgoingDelivery", :dependent => :destroy, :inverse_of => :sale
   has_many :lines, :class_name => "SaleLine", :foreign_key => :sale_id, :dependent => :destroy, :order => "position, id"
   has_many :payment_uses, :as => :expense, :class_name => "IncomingPaymentUse", :dependent => :destroy
   has_many :payments, :through => :payment_uses
@@ -331,9 +331,7 @@ class Sale < CompanyRecord
   # Computes an amount (with or without taxes) of the undelivered products
   # - +column+ can be +:amount+ or +:pretax_amount+
   def undelivered(column)
-    sum  = self.send(column)
-    sum -= self.deliveries.sum(column)
-    sum.round(2)
+    return (self.send(column) - self.deliveries.sum(column)).round(2)
   end
 
 

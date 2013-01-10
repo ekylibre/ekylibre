@@ -571,6 +571,14 @@ class AdminController < BaseController
     code << "end\n"
 
     # code.split("\n").each_with_index{|l, x| puts((x+1).to_s.rjust(4)+": "+l)}
+    unless Rails.env.production?
+      file = Rails.root.join("tmp", "auto-rest", "manage-restfully-#{controller_name}.rb")
+      FileUtils.mkdir_p(file.dirname)
+      File.open(file, "wb") do |f|
+        f.write code
+      end
+    end
+
     class_eval(code)
   end
 
@@ -586,14 +594,14 @@ class AdminController < BaseController
 
     sort = ""
     position, conditions = "#{record_name}_position_column", "#{record_name}_conditions"
-    sort += "#{position}, #{conditions} = #{record_name}.position_column, #{record_name}.scope_condition\n"
-    sort += "#{records}_count = #{model.name}.count(#{position}, :conditions => #{conditions})\n"
-    sort += "unless #{records}_count == #{model.name}.count(#{position}, :conditions => #{conditions}, :distinct => true) and #{model.name}.sum(#{position}, :conditions => #{conditions}) == #{records}_count*(#{records}_count+1)/2\n"
-    sort += "  #{records} = #{model.name}.find(:all, :conditions => #{conditions}, :order => #{position}+', #{order_by}')\n"
-    sort += "  #{records}.each_index do |i|\n"
-    sort += "    #{model.name}.update_all({#{position} => i+1}, {:id => #{records}[i].id})\n"
-    sort += "  end\n"
-    sort += "end\n"
+    sort << "#{position}, #{conditions} = #{record_name}.position_column, #{record_name}.scope_condition\n"
+    sort << "#{records}_count = #{model.name}.count(#{position}, :conditions => #{conditions})\n"
+    sort << "unless #{records}_count == #{model.name}.count(#{position}, :conditions => #{conditions}, :distinct => true) and #{model.name}.sum(#{position}, :conditions => #{conditions}) == #{records}_count*(#{records}_count+1)/2\n"
+    sort << "  #{records} = #{model.name}.find(:all, :conditions => #{conditions}, :order => #{position}+', #{order_by}')\n"
+    sort << "  #{records}.each_index do |i|\n"
+    sort << "    #{model.name}.update_all({#{position} => i+1}, {:id => #{records}[i].id})\n"
+    sort << "  end\n"
+    sort << "end\n"
 
     code << "def up\n"
     code << "  return unless #{record_name} = find_and_check(:#{record_name})\n"

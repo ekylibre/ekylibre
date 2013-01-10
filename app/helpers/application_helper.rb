@@ -1822,7 +1822,7 @@ module ApplicationHelper
     haml << "  ##{options[:wrapper_id]}\n"
     haml << "    -data = #{object}.custom_field_data\n"
     haml << "    -for custom_field in custom_fields\n"
-    haml << "      -datum = data.select{|d| d.custom_field_id == custom_field.id}.first || custom_field.data.build(:customized => #{object})\n"
+    haml << "      -datum = data.select{|d| d.custom_field_id == custom_field.id}.first || custom_field.data.build({:customized => #{object}}, :without_protection => true)\n"
     haml << "      =f.simple_fields_for(:custom_field_data, datum) do |#{subfields}|\n"
     common_options = ", :required => custom_field.required?, :label => custom_field.name"
     haml << "        =#{subfields}.hidden_field(:customized_type)\n"
