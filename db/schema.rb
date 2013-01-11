@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130110221001) do
+ActiveRecord::Schema.define(:version => 20130111082201) do
 
   create_table "account_balances", :force => true do |t|
     t.integer  "account_id",                                                        :null => false
@@ -232,7 +232,6 @@ ActiveRecord::Schema.define(:version => 20130110221001) do
     t.integer  "lock_version",                                                  :default => 0,   :null => false
     t.integer  "product_category_id"
     t.decimal  "currative_quantity",             :precision => 19, :scale => 4, :default => 0.0, :null => false
-    t.decimal  "decimal",                        :precision => 19, :scale => 4, :default => 0.0, :null => false
   end
 
   add_index "animal_posologies", ["animal_race_id"], :name => "index_animal_posologies_on_animal_race_id"
