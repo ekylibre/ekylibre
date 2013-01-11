@@ -1,0 +1,37 @@
+-# Generated automatically. Don't edit this file.
+-animal_posology ||= f.object
+.nested-fields
+  =link_to_remove_association('labels.remove_posology'.t, f, :class => 'nested-remove remove-posology')
+  #animal-race-field.control-group.selector.optional
+    %label.control-label.optional{:for => 'animal_posology-animal_race-input'}
+      =AnimalPosology.human_attribute_name('animal_race')
+    .controls
+      =selector(:animal_posology, :animal_race, {:controller=>"animal_races", :action=>:unroll}, {:object => animal_posology}, :id => 'animal_posology-animal_race-input', :class => 'selector optional') + link_to(('<span class="icon"></span><span class="text">' + h('labels.new'.t) + '</span>').html_safe, {:controller => :animal_races, :action => :new}, 'data-new-item' => 'animal_posology-animal_race-input', :class => 'btn btn-new')
+      -for error in animal_posology.errors['animal_race']
+        %span.help-inline=error
+  #disease-field.control-group.selector.optional
+    %label.control-label.optional{:for => 'animal_posology-disease-input'}
+      =AnimalPosology.human_attribute_name('disease')
+    .controls
+      =selector(:animal_posology, :disease, {:controller=>"animal_diseases", :action=>:unroll}, {:object => animal_posology}, :id => 'animal_posology-disease-input', :class => 'selector optional') + link_to(('<span class="icon"></span><span class="text">' + h('labels.new'.t) + '</span>').html_safe, {:controller => :animal_diseases, :action => :new}, 'data-new-item' => 'animal_posology-disease-input', :class => 'btn btn-new')
+      -for error in animal_posology.errors['disease']
+        %span.help-inline=error
+  =f.input(:preventive_quantity, :wrapper_html => {:id => 'preventive-quantity-field'})
+  =f.input(:currative_quantity, :wrapper_html => {:id => 'currative-quantity-field'})
+  #quantity-unit-field.control-group.selector.optional
+    %label.control-label.optional{:for => 'animal_posology-quantity_unit-input'}
+      =AnimalPosology.human_attribute_name('quantity_unit')
+    .controls
+      =selector(:animal_posology, :quantity_unit, {:controller=>"units", :action=>:unroll}, {:object => animal_posology}, :id => 'animal_posology-quantity_unit-input', :class => 'selector optional') + link_to(('<span class="icon"></span><span class="text">' + h('labels.new'.t) + '</span>').html_safe, {:controller => :units, :action => :new}, 'data-new-item' => 'animal_posology-quantity_unit-input', :class => 'btn btn-new')
+      -for error in animal_posology.errors['quantity_unit']
+        %span.help-inline=error
+  =f.input(:quantity_interval, :wrapper_html => {:id => 'quantity-interval-field'})
+  =f.input(:quantity_delay, :wrapper_html => {:id => 'quantity-delay-field'})
+  =f.input(:product_category_waiting_delay, :wrapper_html => {:id => 'product-category-waiting-delay-field'})
+  #product-category-field.control-group.selector.optional
+    %label.control-label.optional{:for => 'animal_posology-product_category-input'}
+      =AnimalPosology.human_attribute_name('product_category')
+    .controls
+      =selector(:animal_posology, :product_category, {:controller=>"product_categories", :action=>:unroll}, {:object => animal_posology}, :id => 'animal_posology-product_category-input', :class => 'selector optional') + link_to(('<span class="icon"></span><span class="text">' + h('labels.new'.t) + '</span>').html_safe, {:controller => :product_categories, :action => :new}, 'data-new-item' => 'animal_posology-product_category-input', :class => 'btn btn-new')
+      -for error in animal_posology.errors['product_category']
+        %span.help-inline=error

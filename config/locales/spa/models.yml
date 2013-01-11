@@ -3,15 +3,11 @@ spa:
     attributes:
       animal:
         # race: "Race"
-      animal_group:
-        # age_max: "Age maximum"
-        # age_min: "Age minimum"
-        # pregnant: "Surveillance de la gestation"
+      animal_group: #?
       animal_race:
         # code: "Code race"
       animal_treatment_use:
         # drug_admission_path: "Voie d’admission"
-        # per_animal_unit: " / "
         # quantity_unit: "Unité"
       asset_depreciation:
         # asset_amount: "Valeur nette comptable (VNC)"
@@ -375,7 +371,8 @@ spa:
     # area_measure: "Superficie"
     # area_unit: "Unité de surface"
     # areas: "Zones postales"
-    # arrived_on: "Arrivé le"
+    # arrival_reasons: "Causes d'entrée"
+    # arrived_on: "Date d'entrée"
     # asset: "Immobilisation"
     # asset_amount: "Valeur nette comptable"
     # asset_depreciations: "Dépréciations d’immobilisation"
@@ -533,6 +530,7 @@ spa:
     # departed_on: "Parti le"
     # department: "Service"
     # departments: "Services"
+    # departure_reasons: "Causes de sortie"
     # deposit: "Remise en banque"
     # depositable_payments: "Encaissements encaissables"
     # depositables_account: "Compte d’attente pour les encaissements à encaisser"
@@ -569,6 +567,7 @@ spa:
     # draft_mode: "Mode brouillard"
     # drug: "Médicament"
     # drug_admission_path: "Voie d'admission"
+    # drug_admission_way: "Drug admission way"
     # drug_allowed: "Médicament utilisable sans prescription"
     # drugs: "Médicaments"
     # duration: "Durée"
@@ -617,6 +616,7 @@ spa:
     # exportable_columns: "Colonnes exportables"
     # expression: "Expression"
     # extension: "Extension"
+    # external: "Externe à l'exploitation"
     # family: "Module"
     # father: "Père"
     # fax: "Fax"
@@ -663,8 +663,6 @@ spa:
     # in_cash: "En espèce"
     # in_name: "Abréviation incluse dans le nom de la personne"
     # included: "Incluse"
-    # income_on: "Date d'entrée"
-    # income_reasons: "Causes d'entrée"
     # incoming_deliveries: "Livraisons entrantes"
     # incoming_delivery_lines: "Lignes de livraisons entrantes"
     # incoming_delivery_modes: "Modes de livraisons entrantes"
@@ -684,8 +682,6 @@ spa:
     # invoiced_on: "Facturée le"
     # invoices_count: "Nombre de factures"
     # is_debit: "Débit"
-    # is_external: "Externe à l'exploitation"
-    # is_reproductor: "Reproducteur"
     # item_listing: "Nœud de l’extraction"
     # item_listing_node: "Nœud de l’élément"
     # item_nature: "Nature de l’élément"
@@ -806,8 +802,6 @@ spa:
     # outgoing_payment_modes: "Modes de décaissement"
     # outgoing_payment_uses: "Parties de décaissements"
     # outgoing_payments: "Décaissements"
-    # outgone_on: "Date de sortie"
-    # outgone_reasons: "Causes de sortie"
     # output_conveyors: "Convoyeur sortant"
     # owner: "Propriétaire"
     # owner_type: "Nature du propriétaire"
@@ -899,6 +893,8 @@ spa:
     # purchases_account: "Compte comptable de charges"
     # purchases_products: "Produits d’achat"
     # quantity: "Quantité"
+    # quantity_delay: "Pendant"
+    # quantity_interval: "Toutes les"
     # quantity_max: "Quantité maximum"
     # quantity_min: "Quantité minimum"
     # quantity_unit: "Unité de la quantité"
@@ -931,6 +927,7 @@ spa:
     # reflections: "Reflections"
     # relative_humidity: "Humidité relative"
     # remaining_duration: "Durée d’utilisation prévue (heures)"
+    # reproductor: "Reproducteur"
     # required: "Obligatoire"
     # reservoir: "Réservoir"
     # reservoirs: "Réservoirs"
@@ -1093,28 +1090,23 @@ spa:
     # with_tracking: "Avec tracabilité"
     # with_transport: "Avec transport"
     # work_center: "Centre d’opération"
-    # working_number: "Numéro de travail"
+    # work_number: "Numéro de travail"
     # zone: "Zone"
   enumerize:
     animal:
-      income_reasons:
+      arrival_reasons:
         # birth: "Naissance"
         # housing: "Pension"
         # other: "Autres"
         # purchase: "Achat"
-      outgone_reasons:
+      departure_reasons:
         # autoconsumption: "Autoconsommation"
         # dead: "Décès"
         # other: "Autres"
         # sale: "Vente"
-    animal_treatment:
-      duration_unit_wait_for_meat:
-        # days: "Jours"
-        # hours: "Heures"
-      duration_unit_wait_for_milk:
-        # days: "Jours"
-        # hours: "Heures"
-        # milking: "Traites"
+      income_reasons: #?
+      outgone_reasons: #?
+    animal_treatment: #?
     asset:
       depreciation_method:
         # graduated: "Dégressive"

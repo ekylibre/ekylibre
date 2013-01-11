@@ -39,6 +39,11 @@ eng:
       # index: "Évènements"
       # new: "Créer un évènement"
       # show: "évènement %{name} commencé le %{started_at}"
+    animal_group_events:
+      # edit: "Modifier un évènement par lot"
+      # index: "Évènements par lot"
+      # new: "Créer un évènement par lot"
+      # show: "évènement par lot\_: %{name} commencé le %{started_at}"
     animal_groups:
       # edit: "Modifier le lot\_: %{name} "
       # index: "Lots d'animaux"
@@ -54,11 +59,7 @@ eng:
       # index: "Ordonnance"
       # new: "Nouvelle ordonnance"
       # show: "Ordonnance\_: %{name} du \_: %{prescripted_on}"
-    animal_race_natures:
-      # edit: "Modifier le type de race\_: %{name} "
-      # index: "Type de race"
-      # new: "Créer un type de race"
-      # show: "Type de race\_: %{name}"
+    animal_race_natures: #?
     animal_races:
       # edit: "Modifier la race\_: %{name} "
       # index: "Races"
@@ -508,7 +509,7 @@ eng:
     animal_groups: "Animal's groups"
     animal_posologies: "Posologies"
     animal_prescriptions: "Animal's prescriptions"
-    animal_race_natures: "Animal's species"
+    animal_race_natures: "Animal's species" #?
     animal_races: "Races"
     animal_treatments: "Animal's treatments"
     animals: "Animals"
@@ -663,6 +664,7 @@ eng:
     add_mobile: "Add mobile phone number"
     add_payment: "Add payment"
     add_phone: "Add phone number"
+    # add_posology: "Ajouter une posologie"
     add_quickly_a_line: "Add quickly a line of product"
     add_subscription_for_sale_line: "Add subscription for sale line #%{position}"
     add_treatment: "Add treatment"
@@ -825,6 +827,7 @@ eng:
     display_help: "Display help"
     district_x: "%{name} (%{code})"
     divide: "Divide"
+    # document: "Document joint"
     document_natures: "Document types"
     document_templates: "Document templates"
     dont_use_journal: "-- Do not use journal --"
@@ -1416,6 +1419,7 @@ eng:
     used_accounts: "Used accounts only"
     user_name: "Username"
     # user_update: "Modifier les informations de l’utilisateur"
+    # users: "Compte utilisateur"
     uses: "Tools"
     valid: "Valid"
     validate: "Validate"
@@ -1674,6 +1678,8 @@ eng:
     use_entity_codes_for_account_numbers: "Use code for creating account numbers"
     various_journal: "Default various operations journal"
   unroll:
+    animal_events:
+      # all: "{name} - {started_at}"
     animal_prescriptions:
       all: "#{prescription_number} on {prescripted_on}"
     animals:

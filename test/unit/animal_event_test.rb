@@ -20,24 +20,23 @@
 # 
 # == Table: animal_events
 #
-#  animal_group_id :integer          
-#  animal_id       :integer          
-#  comment         :text             
-#  created_at      :datetime         not null
-#  creator_id      :integer          
-#  description     :text             
-#  id              :integer          not null, primary key
-#  lock_version    :integer          default(0), not null
-#  moved_at        :datetime         
-#  name            :string(255)      not null
-#  nature_id       :integer          not null
-#  parent_id       :integer          
-#  planned_at      :datetime         
-#  started_at      :datetime         
-#  stopped_at      :datetime         
-#  updated_at      :datetime         not null
-#  updater_id      :integer          
-#  watcher_id      :integer          
+#  animal_id    :integer          
+#  comment      :text             
+#  created_at   :datetime         not null
+#  creator_id   :integer          
+#  description  :text             
+#  id           :integer          not null, primary key
+#  lock_version :integer          default(0), not null
+#  moved_at     :datetime         
+#  name         :string(255)      not null
+#  nature_id    :integer          not null
+#  parent_id    :integer          
+#  planned_at   :datetime         
+#  started_at   :datetime         
+#  stopped_at   :datetime         
+#  updated_at   :datetime         not null
+#  updater_id   :integer          
+#  watcher_id   :integer          
 #
 require 'test_helper'
 

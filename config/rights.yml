@@ -35,6 +35,8 @@
 #   - "animal_event_natures::update"
 #   - "animal_events::destroy"
 #   - "animal_events::update"
+#   - "animal_group_events::destroy"
+#   - "animal_group_events::update"
 #   - "animal_groups::destroy"
 #   - "animal_groups::list_animals"
 #   - "animal_groups::list_events"

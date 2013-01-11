@@ -20,31 +20,23 @@
 # 
 # == Table: animal_treatments
 #
-#  created_at                  :datetime         not null
-#  creator_id                  :integer          
-#  disease_id                  :integer          
-#  drug_admission_path         :string(255)      
-#  drug_id                     :integer          
-#  duration                    :decimal(19, 4)   
-#  duration_unit_wait_for_meat :string(255)      
-#  duration_unit_wait_for_milk :string(255)      
-#  duration_wait_for_meat      :integer          
-#  duration_wait_for_milk      :integer          
-#  event_id                    :integer          
-#  frequency                   :integer          default(1), not null
-#  id                          :integer          not null, primary key
-#  lock_version                :integer          default(0), not null
-#  name                        :string(255)      
-#  per_animal_unit             :string(255)      
-#  per_duration_time_unit      :string(255)      
-#  per_frequency_time_unit     :string(255)      
-#  prescription_id             :integer          
-#  quantity                    :decimal(19, 4)   default(0.0), not null
-#  quantity_unit_id            :integer          
-#  started_at                  :datetime         
-#  stopped_at                  :datetime         
-#  updated_at                  :datetime         not null
-#  updater_id                  :integer          
+#  created_at         :datetime         not null
+#  creator_id         :integer          
+#  disease_id         :integer          
+#  drug_admission_way :string(255)      
+#  drug_id            :integer          
+#  event_id           :integer          
+#  id                 :integer          not null, primary key
+#  lock_version       :integer          default(0), not null
+#  name               :string(255)      
+#  prescription_id    :integer          
+#  quantity           :decimal(19, 4)   default(0.0), not null
+#  quantity_delay     :string(255)      
+#  quantity_interval  :string(255)      
+#  started_at         :datetime         
+#  stopped_at         :datetime         
+#  updated_at         :datetime         not null
+#  updater_id         :integer          
 #
 require 'test_helper'
 

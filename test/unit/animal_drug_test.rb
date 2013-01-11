@@ -23,14 +23,11 @@
 #  comment      :text             
 #  created_at   :datetime         not null
 #  creator_id   :integer          
-#  frequency    :integer          default(1)
 #  id           :integer          not null, primary key
 #  lock_version :integer          default(0), not null
 #  name         :string(255)      not null
 #  nature_id    :integer          not null
 #  prescripted  :boolean          default(TRUE)
-#  quantity     :decimal(19, 4)   default(0.0)
-#  unit_id      :integer          
 #  updated_at   :datetime         not null
 #  updater_id   :integer          
 #

@@ -49,6 +49,11 @@ spa:
       # index: "Évènements"
       # new: "Créer un évènement"
       # show: "évènement %{name} commencé le %{started_at}"
+    animal_group_events:
+      # edit: "Modifier un évènement par lot"
+      # index: "Évènements par lot"
+      # new: "Créer un évènement par lot"
+      # show: "évènement par lot\_: %{name} commencé le %{started_at}"
     animal_groups:
       # edit: "Modifier le lot\_: %{name} "
       # index: "Lots d'animaux"
@@ -64,11 +69,7 @@ spa:
       # index: "Ordonnance"
       # new: "Nouvelle ordonnance"
       # show: "Ordonnance\_: %{name} du \_: %{prescripted_on}"
-    animal_race_natures:
-      # edit: "Modifier le type de race\_: %{name} "
-      # index: "Type de race"
-      # new: "Créer un type de race"
-      # show: "Type de race\_: %{name}"
+    animal_race_natures: #?
     animal_race_types: #?
     animal_races:
       # edit: "Modifier la race\_: %{name} "
@@ -563,7 +564,6 @@ spa:
     # animal_groups: "Lot d'Animaux"
     # animal_posologies: "Posologies"
     # animal_prescriptions: "Ordonnances vétérinaires"
-    # animal_race_natures: "Espèces animales"
     # animal_races: "Races"
     # animal_treatments: "Soins des Animaux"
     # animals: "Animaux"
@@ -725,6 +725,7 @@ spa:
     # add_mobile: "Ajouter un n° de portable"
     # add_payment: "Ajouter un encaissement"
     # add_phone: "Ajouter un n° de téléphone"
+    # add_posology: "Ajouter une posologie"
     # add_quickly_a_line: "Ajouter rapidement une ligne de produit"
     # add_subscription_for_sale_line: "Ajouter un abonnement pour la ligne N°%{position}"
     # add_treatment: "Ajouter un traitement"
@@ -893,6 +894,7 @@ spa:
     # display_help: "Afficher l’aide"
     # district_x: "%{name} (%{code})"
     # divide: "Diviser"
+    # document: "Document joint"
     document_natures: "Tipos de documentos"
     document_template_create: "Crear un modelo de documento" #?
     document_templates: "Modelos de documentos"
@@ -1274,7 +1276,7 @@ spa:
     print_on: "el"
     # print_with_template: "Imprimer %{name}"
     product: "Producto"
-    # product_category: "Catégorie"
+    # product_category: "Produits"
     # product_category_update: "Modifier la catégorie"
     # product_name: "Produit"
     product_tabbox:
@@ -1505,6 +1507,7 @@ spa:
     user_create: "Añadir un nuevo utilizador" #?
     user_name: "Nombre de usuario"
     user_update: "Modificar las informaciones del utilizador"
+    # users: "Compte utilisateur"
     # uses: "Matériel"
     # valid: "Valider"
     validate: "Validar"
@@ -1776,9 +1779,11 @@ spa:
     # use_entity_codes_for_account_numbers: "Utiliser le code personne pour composer les numéros de compte"
     # various_journal: "Journal des opérations diverses par défaut"
   unroll:
+    animal_events:
+      # all: "{name} - {started_at}"
     animal_prescriptions:
       # all: "N° {prescription_number} du {prescripted_on}"
     animals:
-      # all: "{name} ({sex})"
+      # all: "{name} - {work_number}"
     units:
       # all: "{label} ({name})"

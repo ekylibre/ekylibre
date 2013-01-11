@@ -24,6 +24,7 @@ class AnimalRacesController < AdminController
 
   list do |t|
     t.column :name, :url => true
+    t.column :name, :through=>:parent, :url=>true
     t.column :comment
     t.column :code
     t.column :description

@@ -3,15 +3,11 @@ eng:
     attributes:
       animal:
         race: "Race"
-      animal_group:
-        # age_max: "Age maximum"
-        # age_min: "Age minimum"
-        # pregnant: "Surveillance de la gestation"
+      animal_group: #?
       animal_race:
         # code: "Code race"
       animal_treatment_use:
         # drug_admission_path: "Voie d’admission"
-        # per_animal_unit: " / "
         # quantity_unit: "Unité"
       asset_depreciation:
         asset_amount: "Accountable value"
@@ -374,6 +370,7 @@ eng:
     area_measure: "Area measure"
     area_unit: "Area unit"
     areas: "Areas"
+    # arrival_reasons: "Causes d'entrée"
     arrived_on: "Arrived on"
     asset: "Asset"
     asset_amount: "Accountable value"
@@ -531,6 +528,7 @@ eng:
     departed_on: "Departed on"
     department: "Department"
     departments: "Departments"
+    # departure_reasons: "Causes de sortie"
     deposit: "Deposit"
     depositable_payments: "Embankable payments"
     depositables_account: "Embankables account"
@@ -567,6 +565,7 @@ eng:
     # draft_mode: "Mode brouillard"
     drug: "Drug"
     drug_admission_path: "Drug admission path"
+    # drug_admission_way: "Drug admission way"
     # drug_allowed: "Médicament utilisable sans prescription"
     drugs: "Drugs"
     duration: "Duration"
@@ -615,6 +614,7 @@ eng:
     exportable_columns: "Exportable columns"
     expression: "Expression"
     extension: "Extension"
+    # external: "Externe à l'exploitation"
     family: "Family"
     father: "Father"
     fax: "Fax"
@@ -661,8 +661,7 @@ eng:
     in_cash: "In cash"
     in_name: "In name"
     included: "Included"
-    # income_on: "Date d'entrée"
-    income_reasons: "Income reasons"
+    income_reasons: "Income reasons" #?
     incoming_deliveries: "Incoming deliveries"
     incoming_delivery_lines: "Incoming delivery lines"
     incoming_delivery_modes: "Incoming delivery modes"
@@ -682,8 +681,6 @@ eng:
     invoiced_on: "Invoiced on"
     invoices_count: "Invoices count"
     is_debit: "Is debit"
-    # is_external: "Externe à l'exploitation"
-    # is_reproductor: "Reproducteur"
     item_listing: "Item listing"
     item_listing_node: "Item listing node"
     item_nature: "Item type"
@@ -805,8 +802,7 @@ eng:
     outgoing_payment_modes: "Disbursement modes"
     outgoing_payment_uses: "Disbursement parts"
     outgoing_payments: "Disbursements"
-    # outgone_on: "Date de sortie"
-    outgone_reasons: "Outgone reasons"
+    outgone_reasons: "Outgone reasons" #?
     output_conveyors: "Output conveyors"
     owner: "Owner"
     owner_type: "Owner type"
@@ -902,6 +898,8 @@ eng:
     purchases_account: "Purchases account"
     purchases_products: "Purchases products"
     quantity: "Quantity"
+    # quantity_delay: "Pendant"
+    # quantity_interval: "Toutes les"
     quantity_max: "Quantity max"
     quantity_min: "Quantity min"
     quantity_unit: "Quantity unit"
@@ -935,6 +933,7 @@ eng:
     reflections: "Reflections"
     relative_humidity: "Relative humidity"
     remaining_duration: "Remaining duration"
+    # reproductor: "Reproducteur"
     required: "Required"
     reservoir: "Reservoir"
     # reservoirs: "Réservoirs"
@@ -1102,28 +1101,23 @@ eng:
     with_tracking: "With tracking"
     with_transport: "With transport"
     work_center: "Work center"
-    # working_number: "Numéro de travail"
+    # work_number: "Numéro de travail"
     # zone: "Zone"
   enumerize:
     animal:
-      income_reasons:
+      arrival_reasons:
         # birth: "Naissance"
         # housing: "Pension"
         # other: "Autres"
         # purchase: "Achat"
-      outgone_reasons:
+      departure_reasons:
         # autoconsumption: "Autoconsommation"
         # dead: "Décès"
         # other: "Autres"
         # sale: "Vente"
-    animal_treatment:
-      duration_unit_wait_for_meat:
-        # days: "Jours"
-        # hours: "Heures"
-      duration_unit_wait_for_milk:
-        # days: "Jours"
-        # hours: "Heures"
-        # milking: "Traites"
+      income_reasons: #?
+      outgone_reasons: #?
+    animal_treatment: #?
     asset:
       depreciation_method:
         graduated: "Graduated"

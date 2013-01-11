@@ -504,10 +504,10 @@ fra:
     animal_drugs: "Médicaments"
     animal_event_natures: "Type d'évenements des Animaux"
     animal_events: "Evenements des Animaux"
+    # animal_group_events: "Animal group events"
     animal_groups: "Lot d'Animaux"
     animal_posologies: "Posologies"
     animal_prescriptions: "Ordonnances vétérinaires"
-    animal_race_natures: "Espèces animales"
     animal_races: "Races"
     animal_treatments: "Soins des Animaux"
     animals: "Animaux"
@@ -662,6 +662,7 @@ fra:
     add_mobile: "Ajouter un n° de portable"
     add_payment: "Ajouter un encaissement"
     add_phone: "Ajouter un n° de téléphone"
+    add_posology: "Ajouter une posologie"
     add_quickly_a_line: "Ajouter rapidement une ligne de produit"
     add_subscription_for_sale_line: "Ajouter un abonnement pour la ligne N°%{position}"
     add_treatment: "Ajouter un traitement"
@@ -823,6 +824,7 @@ fra:
     display_help: "Afficher l’aide"
     district_x: "%{name} (%{code})"
     divide: "Diviser"
+    document: "Document joint"
     document_natures: "Types de documents"
     document_templates: "Modèles de documents"
     dont_use_journal: "-- Ne pas utiliser de journal --"
@@ -1194,7 +1196,7 @@ fra:
     print_on: "Le"
     print_with_template: "Imprimer %{name}"
     product: "Produit"
-    product_category: "Catégorie"
+    product_category: "Produits"
     product_category_update: "Modifier la catégorie"
     product_name: "Produit"
     product_tabbox:
@@ -1413,6 +1415,7 @@ fra:
     used_accounts: "Comptes utilisés seulement"
     user_name: "Nom d’utilisateur"
     user_update: "Modifier les informations de l’utilisateur"
+    users: "Compte utilisateur"
     uses: "Matériel"
     valid: "Valider"
     validate: "Valider"
@@ -1671,11 +1674,11 @@ fra:
     use_entity_codes_for_account_numbers: "Utiliser le code personne pour composer les numéros de compte"
     various_journal: "Journal des opérations diverses par défaut"
   unroll:
+    animal_events:
+      all: "{name} - {started_at}"
     animal_prescriptions:
       all: "N° {prescription_number} du {prescripted_on}"
     animals:
       all: "{name} - {work_number}"
-    animal_events:
-      all: "{name} - {started_at}"
     units:
       all: "{label} ({name})"

@@ -5,7 +5,6 @@
 
 -field_set(:animal) do |f|
   -association :animal, :source => :here
-  -association :animal_group
 
 -field_set(:delay) do |f|
   -input :planned_at
@@ -20,14 +19,11 @@
 -field_set(:treatment) do |f|
   =nested_association(:treatments) do
     -input :started_at
-    -input :quantity
-    -association :quantity_unit
     -association :drug
+    -input :quantity
+    -input :quantity_interval
+    -input :quantity_delay
     -association :prescription
-    -input :duration_wait_for_milk
-    -input :duration_unit_wait_for_milk
-    -input :duration_wait_for_meat
-    -input :duration_unit_wait_for_meat
 
 -field_set(:entity) do |f|
   -association :watcher, :include_blank => true, :default_value => :blank

@@ -34,13 +34,13 @@ class AnimalGroupsController < AdminController
   list(:animals, :conditions=>{:group_id=>['session[:current_animal_group_id]']}, :order=>"name ASC") do |t|
     t.column :name, :url=>true
     t.column :sex
-    t.column :working_number, :url=>{:action=>:show}
+    t.column :work_number, :url=>{:action=>:show}
     t.column :born_on
   end
 
-  list(:events,:model=>:animal_events, :conditions=>{:animal_group_id=>['session[:current_animal_group_id]']}, :order=>"started_on ASC") do |t|
+  list(:events,:model=>:animal_group_events, :conditions=>{:animal_group_id=>['session[:current_animal_group_id]']}, :order=>"started_at ASC") do |t|
     t.column :name
-    t.column :started_on
+    t.column :started_at
     t.column :comment
   end
 

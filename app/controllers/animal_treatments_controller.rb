@@ -29,7 +29,6 @@ class AnimalTreatmentsController < AdminController
     t.column :prescription_number, :through=>:prescription
     t.column :started_at
     t.column :stopped_at
-    t.column :duration
     t.action :edit
     t.action :destroy, :if=>"RECORD.destroyable\?"
   end

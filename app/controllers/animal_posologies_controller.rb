@@ -23,10 +23,10 @@ class AnimalPosologiesController < AdminController
   unroll_all
 
   list(:order => :id) do |t|
-    t.column :name, :url=>true
-    t.column :name, :through=>:disease, :url=>true
     t.column :name, :through=>:drug, :url=>true
+    t.column :name, :through=>:disease, :url=>true
     t.column :name, :through=>:animal_race, :url=>true
+    t.column :name, :through=>:product_category, :url=>true
     t.action :show, :url=>{:format=>:pdf}, :image=>:print
     t.action :edit
     t.action :destroy, :if => :destroyable?

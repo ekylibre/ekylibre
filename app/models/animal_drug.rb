@@ -23,27 +23,32 @@
 #  comment      :text             
 #  created_at   :datetime         not null
 #  creator_id   :integer          
-#  frequency    :integer          default(1)
 #  id           :integer          not null, primary key
 #  lock_version :integer          default(0), not null
 #  name         :string(255)      not null
 #  nature_id    :integer          not null
 #  prescripted  :boolean          default(TRUE)
-#  quantity     :decimal(19, 4)   default(0.0)
-#  unit_id      :integer          
 #  updated_at   :datetime         not null
 #  updater_id   :integer          
 #
 
 
 class AnimalDrug < CompanyRecord
-  attr_accessible :name, :comment, :nature_id, :prescripted
+  attr_accessible :name, :comment, :nature_id, :prescripted, :posologies_attributes
   belongs_to :nature, :class_name => "AnimalDrugNature"
   has_many :posologies, :class_name => "AnimalPosology", :foreign_key => :drug_id
-  has_many :treatments, :class_name => "AnimalTreatment"
+  has_many :treatments, :class_name => "AnimalTreatment", :foreign_key => :drug_id
+  has_many :animal_races, :through => :posologies
+  has_many :diseases, :through => :posologies
+  has_many :product_categories, :through => :posologies
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :name, :allow_nil => true, :maximum => 255
   validates_presence_of :name, :nature
   #]VALIDATORS]
   validates_uniqueness_of :name
+
+  accepts_nested_attributes_for :posologies,    :reject_if => :all_blank, :allow_destroy => true
+  accepts_nested_attributes_for :animal_races,    :reject_if => :all_blank, :allow_destroy => false
+  accepts_nested_attributes_for :diseases,    :reject_if => :all_blank, :allow_destroy => false
+  accepts_nested_attributes_for :product_categories,    :reject_if => :all_blank, :allow_destroy => false
 end

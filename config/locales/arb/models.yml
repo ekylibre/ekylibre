@@ -16,15 +16,11 @@ arb:
         lock_version: "الاصدار المحلي" #?
       animal:
         # race: "Race"
-      animal_group:
-        # age_max: "Age maximum"
-        # age_min: "Age minimum"
-        # pregnant: "Surveillance de la gestation"
+      animal_group: #?
       animal_race:
         # code: "Code race"
       animal_treatment_use:
         # drug_admission_path: "Voie d’admission"
-        # per_animal_unit: " / "
         # quantity_unit: "Unité"
       area:  #?
         code: "الرمز الداخلي" #?
@@ -769,6 +765,7 @@ arb:
     area_unit: "وحدة المساحة"
     area_unit_id: "وحدة مساحة" #?
     areas: "الرموز البريدية"
+    # arrival_reasons: "Causes d'entrée"
     arrived_on: "وصل يوم"
     # asset: "Immobilisation"
     # asset_amount: "Valeur nette comptable"
@@ -947,6 +944,7 @@ arb:
     department: "المبنى"
     department_id: "مبنى" #?
     departments: "الخدمات"
+    # departure_reasons: "Causes de sortie"
     deposit: "الاقتطاع المصرفي"
     deposit_id: "اقتطاع مرفي" #?
     depositable_payments: "تسديد الدفعات نقدا"
@@ -992,6 +990,7 @@ arb:
     draft_mode: "نمط المسودة"
     # drug: "Médicament"
     # drug_admission_path: "Voie d'admission"
+    # drug_admission_way: "Drug admission way"
     # drug_allowed: "Médicament utilisable sans prescription"
     # drugs: "Médicaments"
     duration: "المدة"
@@ -1048,6 +1047,7 @@ arb:
     # exportable_columns: "Colonnes exportables"
     expression: "اسلوب للتعبير"
     extension: "التوسع"
+    # external: "Externe à l'exploitation"
     family: "وحدة قياس"
     family_label: "وحدة قياس" #?
     # father: "Père"
@@ -1098,8 +1098,6 @@ arb:
     # in_cash: "En espèce"
     in_name: "الاختصارات تشمل اسم الملف"
     included: "تضمنت"
-    # income_on: "Date d'entrée"
-    # income_reasons: "Causes d'entrée"
     # incoming_deliveries: "Livraisons entrantes"
     # incoming_delivery_lines: "Lignes de livraisons entrantes"
     # incoming_delivery_modes: "Modes de livraisons entrantes"
@@ -1122,8 +1120,6 @@ arb:
     # invoiced_on: "Facturée le"
     # invoices_count: "Nombre de factures"
     is_debit: "مدين"
-    # is_external: "Externe à l'exploitation"
-    # is_reproductor: "Reproducteur"
     item_listing: "عقد الاستخراج"
     item_listing_id: "عقد استخراج" #?
     item_listing_node: "عقد البند"
@@ -1266,8 +1262,6 @@ arb:
     outgoing_payment_modes: "اساليب المصروفات"
     outgoing_payment_uses: "ازاء المصروفات"
     outgoing_payments: "المصروفات"
-    # outgone_on: "Date de sortie"
-    # outgone_reasons: "Causes de sortie"
     # output_conveyors: "Convoyeur sortant"
     owner: "المالك"
     owner_id: "مالك" #?
@@ -1376,6 +1370,8 @@ arb:
     purchases_account_id: "رسوم المحاسبة" #?
     # purchases_products: "Produits d’achat"
     quantity: "الكمية"
+    # quantity_delay: "Pendant"
+    # quantity_interval: "Toutes les"
     quantity_max: "الكمية كحد اقصى"
     quantity_min: "الكمية كحد ادنى"
     # quantity_unit: "Unité de la quantité"
@@ -1411,6 +1407,7 @@ arb:
     # reflections: "Reflections"
     # relative_humidity: "Humidité relative"
     remaining_duration: "(مدة الاستخدام المتبقي (ساعات "
+    # reproductor: "Reproducteur"
     required: "الزامي"
     reservoir: "المخزن"
     # reservoirs: "Réservoirs"
@@ -1598,28 +1595,23 @@ arb:
     with_tracking: "مع التتبع"
     # with_transport: "Avec transport"
     # work_center: "Centre d’opération"
-    # working_number: "Numéro de travail"
+    # work_number: "Numéro de travail"
     # zone: "Zone"
   enumerize:
     animal:
-      income_reasons:
+      arrival_reasons:
         # birth: "Naissance"
         # housing: "Pension"
         # other: "Autres"
         # purchase: "Achat"
-      outgone_reasons:
+      departure_reasons:
         # autoconsumption: "Autoconsommation"
         # dead: "Décès"
         # other: "Autres"
         # sale: "Vente"
-    animal_treatment:
-      duration_unit_wait_for_meat:
-        # days: "Jours"
-        # hours: "Heures"
-      duration_unit_wait_for_milk:
-        # days: "Jours"
-        # hours: "Heures"
-        # milking: "Traites"
+      income_reasons: #?
+      outgone_reasons: #?
+    animal_treatment: #?
     asset:
       depreciation_method:
         # graduated: "Dégressive"

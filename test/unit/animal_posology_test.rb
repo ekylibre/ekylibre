@@ -20,26 +20,25 @@
 # 
 # == Table: animal_posologies
 #
-#  animal_race_nature_id       :integer          
-#  created_at                  :datetime         not null
-#  creator_id                  :integer          
-#  description                 :string(255)      
-#  disease_id                  :integer          
-#  drug_admission_path         :string(255)      
-#  drug_id                     :integer          
-#  duration_unit_wait_for_meat :string(255)      
-#  duration_unit_wait_for_milk :string(255)      
-#  duration_wait_for_meat      :integer          
-#  duration_wait_for_milk      :integer          
-#  frequency                   :integer          default(1), not null
-#  id                          :integer          not null, primary key
-#  lock_version                :integer          default(0), not null
-#  per_duration_time_unit      :string(255)      
-#  per_frequency_time_unit     :string(255)      
-#  quantity                    :decimal(19, 4)   default(0.0), not null
-#  quantity_unit_id            :integer          
-#  updated_at                  :datetime         not null
-#  updater_id                  :integer          
+#  animal_race_id                 :integer          
+#  created_at                     :datetime         not null
+#  creator_id                     :integer          
+#  currative_quantity             :decimal(19, 4)   default(0.0), not null
+#  decimal                        :decimal(19, 4)   default(0.0), not null
+#  description                    :string(255)      
+#  disease_id                     :integer          
+#  drug_admission_way             :string(255)      
+#  drug_id                        :integer          
+#  id                             :integer          not null, primary key
+#  lock_version                   :integer          default(0), not null
+#  preventive_quantity            :decimal(19, 4)   default(0.0), not null
+#  product_category_id            :integer          
+#  product_category_waiting_delay :string(255)      
+#  quantity_delay                 :string(255)      
+#  quantity_interval              :string(255)      
+#  quantity_unit_id               :integer          
+#  updated_at                     :datetime         not null
+#  updater_id                     :integer          
 #
 require 'test_helper'
 

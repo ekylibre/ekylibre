@@ -240,10 +240,11 @@ fra:
       animal_event: "Evenements liés aux animaux"
       animal_event_nature: "Type d'évènement lié aux animaux"
       animal_group: "Lot"
+      # animal_group_event: "Animal group event"
       animal_posology: "Posologie vétérinaire"
       animal_prescription: "Ordonnance"
       animal_race: "Race"
-      animal_race_nature: "Espèce"
+      animal_race_nature: "Espèce" #?
       animal_treatment: "Traitement"
       area: "Zone postale"
       asset: "Immobilisation"
@@ -353,8 +354,8 @@ fra:
     address: "Adresse"
     addresses: "Adresses"
     admin: "Administrateur système"
-    age_max: "Age maximum"
-    age_min: "Age minimum"
+    age_max: "Age maximum" #?
+    age_min: "Age minimum" #?
     agency_code: "Code guichet"
     allocation_account: "Compte de dotation"
     amount: "Montant"
@@ -362,14 +363,18 @@ fra:
     animal_drugs: "Médicaments"
     animal_events: "Evenement des animaux"
     animal_group: "Lot"
-    animal_race_nature: "Espèce animale"
+    # animal_posologies: "Animal posologies"
+    # animal_race: "Animal race"
+    animal_race_nature: "Espèce animale" #?
+    # animal_races: "Animal races"
     animals: "Animals"
     annotation: "Annotation"
     area: "Zone postale"
     area_measure: "Superficie"
     area_unit: "Unité de surface"
     areas: "Zones postales"
-    arrived_on: "Arrivé le" #?
+    arrival_reasons: "Causes d'entrée"
+    arrived_on: "Date d'entrée"
     asset: "Immobilisation"
     asset_amount: "Valeur nette comptable"
     asset_depreciations: "Dépréciations d’immobilisation"
@@ -483,6 +488,7 @@ fra:
     critic_stocks: "Stocks critiques" #?
     crypt_key: "Clé de cryptage"
     crypt_mode: "Mode de cryptage"
+    # currative_quantity: "Currative quantity"
     currency: "Devise"
     currency_precision: "Nombre de décimales"
     currency_rate: "Taux de change"
@@ -499,6 +505,7 @@ fra:
     datetime_value: "Valeur date/heure"
     dead_on: "Date de décès"
     debit: "Débit"
+    # decimal: "Decimal"
     decimal_max: "Intervalle haut" #?
     decimal_min: "Intervalle bas" #?
     decimal_value: "Valeur décimale"
@@ -523,9 +530,10 @@ fra:
     delivery_mail: "Delivery mail" #?
     delivery_modes: "Modes de livraison" #?
     density_label: "Densité"
-    departed_on: "Parti le" #?
+    departed_on: "Parti le"
     department: "Service"
     departments: "Services" #?
+    departure_reasons: "Causes de sortie"
     deposit: "Remise en banque"
     depositable_payments: "Encaissements encaissables"
     depositables_account: "Compte d’attente pour les encaissements à encaisser"
@@ -561,14 +569,15 @@ fra:
     draft: "Brouillard" #?
     draft_mode: "Mode brouillard" #?
     drug: "Médicament"
-    drug_admission_path: "Voie d'admission"
+    drug_admission_path: "Voie d'admission" #?
+    drug_admission_way: "Drug admission way"
     drug_allowed: "Médicament utilisable sans prescription" #?
     drugs: "Médicaments"
     duration: "Durée"
-    duration_unit_wait_for_meat: "Unité de la durée d'attente (Viande)"
-    duration_unit_wait_for_milk: "Unité de la durée d'attente (Lait)"
-    duration_wait_for_meat: "Temps d'attente avant remise en vente (Viande)"
-    duration_wait_for_milk: "Temps d'attente avant remise en vente (Lait)"
+    duration_unit_wait_for_meat: "Unité de la durée d'attente (Viande)" #?
+    duration_unit_wait_for_milk: "Unité de la durée d'attente (Lait)" #?
+    duration_wait_for_meat: "Temps d'attente avant remise en vente (Viande)" #?
+    duration_wait_for_milk: "Temps d'attente avant remise en vente (Lait)" #?
     ean13: "Code EAN13"
     email: "Courriel (e-mail)" #?
     emails: "Courriels (e-mails)"
@@ -610,6 +619,7 @@ fra:
     exportable_columns: "Colonnes exportables"
     expression: "Expression"
     extension: "Extension"
+    external: "Externe à l'exploitation"
     family: "Module"
     father: "Père"
     fax: "Fax" #?
@@ -630,7 +640,7 @@ fra:
     for_productions: "Produit fabriqué ou récolté"
     for_purchases: "Produit acheté"
     for_sales: "Produit vendu"
-    frequency: "Frequency"
+    frequency: "Frequency" #?
     full_name: "Nom complet"
     full_name_format: "Format du nom complet"
     function_title: "Civilités"
@@ -656,8 +666,6 @@ fra:
     in_cash: "En espèce"
     in_name: "Abréviation incluse dans le nom de la personne"
     included: "Incluse"
-    arrived_on: "Date d'entrée"
-    arrival_reasons: "Causes d'entrée"
     incoming_deliveries: "Livraisons entrantes"
     incoming_delivery_lines: "Lignes de livraisons entrantes" #?
     incoming_delivery_modes: "Modes de livraisons entrantes" #?
@@ -677,8 +685,6 @@ fra:
     invoiced_on: "Facturée le"
     invoices_count: "Nombre de factures"
     is_debit: "Débit"
-    is_external: "Externe à l'exploitation"
-    is_reproductor: "Reproducteur"
     item_listing: "Nœud de l’extraction"
     item_listing_node: "Nœud de l’élément"
     item_nature: "Nature de l’élément"
@@ -799,8 +805,6 @@ fra:
     outgoing_payment_modes: "Modes de décaissement"
     outgoing_payment_uses: "Parties de décaissements"
     outgoing_payments: "Décaissements"
-    outgone_on: "Date de sortie"
-    outgone_reasons: "Causes de sortie"
     output_conveyors: "Convoyeur sortant"
     owner: "Propriétaire"
     owner_type: "Nature du propriétaire"
@@ -830,9 +834,9 @@ fra:
     payments_count: "Nb. encaissements"
     payments_to_deposit: "Encaissements à encaisser" #?
     payments_to_deposit_accounts: "Comptes des encaissements à encaisser"
-    per_animal_unit: "Per animal unit"
-    per_duration_time_unit: "Per duration time unit"
-    per_frequency_time_unit: "Per frequency time unit"
+    per_animal_unit: "Per animal unit" #?
+    per_duration_time_unit: "Per duration time unit" #?
+    per_frequency_time_unit: "Per frequency time unit" #?
     period: "Périodicité"
     period_name: "Périodicité" #?
     phone: "Téléphone" #?
@@ -851,7 +855,7 @@ fra:
     posologies: "Posologies"
     postcode: "Code postal"
     preferences: "Préférences"
-    pregnant: "Pleine"
+    pregnant: "Pleine" #?
     prescripted: "Sur ordonnance"
     prescripted_on: "Prescrit le"
     prescription: "Ordonnance"
@@ -859,6 +863,7 @@ fra:
     prescriptions: "Ordonnances"
     prescriptor: "Vétérinaire"
     pretax_amount: "Montant HT"
+    # preventive_quantity: "Preventive quantity"
     price: "Prix"
     price_amount: "Montant HT"
     prices: "Prix"
@@ -866,7 +871,9 @@ fra:
     printed_on: "Datée du"
     producer: "Producteur"
     product: "Produit"
-    product_categories: "Catégories de produit" #?
+    product_categories: "Catégories de produit"
+    # product_category: "Product category"
+    # product_category_waiting_delay: "Product category waiting delay"
     product_components: "Composants de produit" #?
     productable_products: "Produits produisibles"
     production_chain: "Chaîne de production"
@@ -892,12 +899,14 @@ fra:
     purchases_account: "Compte comptable de charges"
     purchases_products: "Produits d’achat"
     quantity: "Quantité"
+    quantity_delay: "Pendant"
+    quantity_interval: "Toutes les"
     quantity_max: "Quantité maximum"
     quantity_min: "Quantité minimum"
     quantity_unit: "Unité de la quantité"
     query: "Requête"
     race: "Race"
-    races: "Races"
+    races: "Races" #?
     range: "Intervalle" #?
     rate: "Taux de change" #?
     reason: "Motif"
@@ -924,6 +933,7 @@ fra:
     reflections: "Reflections"
     relative_humidity: "Humidité relative"
     remaining_duration: "Durée d’utilisation prévue (heures)"
+    reproductor: "Reproducteur"
     required: "Obligatoire"
     reservoir: "Réservoir"
     reservoirs: "Réservoirs"
@@ -1086,28 +1096,20 @@ fra:
     with_tracking: "Avec tracabilité"
     with_transport: "Avec transport"
     work_center: "Centre d’opération"
-    working_number: "Numéro de travail"
+    work_number: "Numéro de travail"
     zone: "Zone"
   enumerize:
     animal:
-      income_reasons:
+      arrival_reasons:
         birth: "Naissance"
         housing: "Pension"
         other: "Autres"
         purchase: "Achat"
-      outgone_reasons:
+      departure_reasons:
         autoconsumption: "Autoconsommation"
         dead: "Décès"
         other: "Autres"
         sale: "Vente"
-    animal_treatment:
-      duration_unit_wait_for_meat:
-        days: "Jours"
-        hours: "Heures"
-      duration_unit_wait_for_milk:
-        days: "Jours"
-        hours: "Heures"
-        milking: "Traites"
     asset:
       depreciation_method:
         graduated: "Dégressive"

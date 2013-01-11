@@ -8,10 +8,6 @@
     =attributes_list(@animal_group) do |l| # liste des champs à afficher
       -l.attribute :name
       -l.attribute :comment
-      -l.attribute :age_min
-      -l.attribute :age_max
-      -l.attribute :sex
-      -l.attribute :pregnant
 
   -b.tabbox do
 
@@ -22,7 +18,7 @@
 
     -b.cell(:events) do
       =toolbar do |t|
-        -t.link(:new, :controller=>:animal_events, :animal_group_id=>@animal_group.id)
+        -t.link(:new, :controller=>:animal_group_events, :animal_group_id=>@animal_group.id)
       =list(:events)
       =image_tag(@chart)
 

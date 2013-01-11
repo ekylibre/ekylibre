@@ -20,31 +20,30 @@
 # 
 # == Table: animal_events
 #
-#  animal_group_id :integer          
-#  animal_id       :integer          
-#  comment         :text             
-#  created_at      :datetime         not null
-#  creator_id      :integer          
-#  description     :text             
-#  id              :integer          not null, primary key
-#  lock_version    :integer          default(0), not null
-#  moved_at        :datetime         
-#  name            :string(255)      not null
-#  nature_id       :integer          not null
-#  parent_id       :integer          
-#  planned_at      :datetime         
-#  started_at      :datetime         
-#  stopped_at      :datetime         
-#  updated_at      :datetime         not null
-#  updater_id      :integer          
-#  watcher_id      :integer          
+#  animal_id    :integer          
+#  comment      :text             
+#  created_at   :datetime         not null
+#  creator_id   :integer          
+#  description  :text             
+#  id           :integer          not null, primary key
+#  lock_version :integer          default(0), not null
+#  moved_at     :datetime         
+#  name         :string(255)      not null
+#  nature_id    :integer          not null
+#  parent_id    :integer          
+#  planned_at   :datetime         
+#  started_at   :datetime         
+#  stopped_at   :datetime         
+#  updated_at   :datetime         not null
+#  updater_id   :integer          
+#  watcher_id   :integer          
 #
 
 
 class AnimalEvent < CompanyRecord
-  attr_accessible  :animal_id, :comment, :description, :moved_at, :name, :nature_id, :parent_id, :planned_at, :started_at, :stopped_at, :watcher_id
+  attr_accessible  :animal_id, :comment, :description, :moved_at, :name, :nature_id, :parent_id, :planned_at, :started_at, :diagnostics_attributes, :treatments_attributes, :stopped_at, :watcher_id
   belongs_to :nature, :class_name => "AnimalEventNature"
-  belongs_to :animal, :class_name => "Animal", :conditions => ["is_external = ? AND (outgone_on IS NULL or outgone_on > ?)", false, Time.now]
+  belongs_to :animal, :class_name => "Animal"
   belongs_to :parent, :class_name => "AnimalEvent"
   has_many :treatments , :class_name => "AnimalTreatment", :foreign_key => :event_id
   belongs_to :watcher, :class_name => "Entity"

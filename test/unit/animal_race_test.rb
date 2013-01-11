@@ -28,7 +28,7 @@
 #  id           :integer          not null, primary key
 #  lock_version :integer          default(0), not null
 #  name         :string(255)      not null
-#  nature_id    :integer          not null
+#  parent_id    :integer          
 #  updated_at   :datetime         not null
 #  updater_id   :integer          
 #

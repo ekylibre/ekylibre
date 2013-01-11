@@ -20,8 +20,6 @@
 # 
 # == Table: animal_groups
 #
-#  age_max      :integer          
-#  age_min      :integer          
 #  comment      :text             
 #  created_at   :datetime         not null
 #  creator_id   :integer          
@@ -29,8 +27,7 @@
 #  id           :integer          not null, primary key
 #  lock_version :integer          default(0), not null
 #  name         :string(255)      not null
-#  pregnant     :boolean          not null
-#  sex          :string(16)       
+#  parent_id    :integer          
 #  updated_at   :datetime         not null
 #  updater_id   :integer          
 #

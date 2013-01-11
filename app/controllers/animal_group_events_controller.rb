@@ -30,7 +30,6 @@ class AnimalGroupEventsController < AdminController
     t.column :name, :through=>:nature, :url=>true
     t.column :name, :through=>:watcher, :url=>true
     t.column :comment
-    t.column :description
     t.action :show, :url=>{:format=>:pdf}, :image=>:print
     t.action :edit
     t.action :destroy, :if=>"RECORD.destroyable\?"
@@ -51,7 +50,7 @@ class AnimalGroupEventsController < AdminController
   # Show one @animal_event with params_id
   def show
     return unless @animal_group_event = find_and_check
-    session[:current_animal_event_id] = @animal_group_event.id
+    session[:current_animal_group_event_id] = @animal_group_event.id
     t3e @animal_group_event
   end
 
