@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130111082201) do
+ActiveRecord::Schema.define(:version => 20130111092201) do
 
   create_table "account_balances", :force => true do |t|
     t.integer  "account_id",                                                        :null => false
@@ -185,6 +185,7 @@ ActiveRecord::Schema.define(:version => 20130111082201) do
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.integer  "lock_version",    :default => 0, :null => false
+    t.string   "name"
   end
 
   add_index "animal_group_events", ["animal_group_id"], :name => "index_animal_group_events_on_animal_group_id"

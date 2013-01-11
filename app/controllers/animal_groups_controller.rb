@@ -39,7 +39,6 @@ class AnimalGroupsController < AdminController
   end
 
   list(:events,:model=>:animal_group_events, :conditions=>{:animal_group_id=>['session[:current_animal_group_id]']}, :order=>"started_at ASC") do |t|
-    t.column :name
     t.column :started_at
     t.column :comment
   end

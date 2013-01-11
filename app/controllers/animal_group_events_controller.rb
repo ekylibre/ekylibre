@@ -25,7 +25,6 @@ class AnimalGroupEventsController < AdminController
   unroll_all
 
   list do |t|
-    t.column :name, :url=>true
     t.column :name, :through=>:animal_group, :url=>true
     t.column :name, :through=>:nature, :url=>true
     t.column :name, :through=>:watcher, :url=>true

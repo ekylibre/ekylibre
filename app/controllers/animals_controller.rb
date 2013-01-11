@@ -54,7 +54,7 @@ class AnimalsController < AdminController
     t.column :name, :url=>true
     t.column :name ,:through => :nature
     t.column :name ,:through => :watcher
-    t.column :started_on
+    t.column :started_at
     t.column :comment
   end
 
