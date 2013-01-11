@@ -22,8 +22,8 @@ class IncomingPaymentUsesController < AdminController
   def new
     expense = nil
     return unless expense = find_and_check(params[:expense_type], params[:expense_id])
-    @incoming_payment_use = IncomingPaymentUse.new(:expense=>expense, :downpayment=>!expense.invoice?)
-    # t3e :type=>expense.class.model_name.human, :number=>expense.number, :label=>expense.label
+    @incoming_payment_use = IncomingPaymentUse.new(:expense_id => expense.id, :expense_type => expense.class.name, :downpayment => !expense.invoice?)
+    # t3e :type => expense.class.model_name.human, :number => expense.number, :label => expense.label
     render_restfully_form
   end
 
@@ -32,7 +32,7 @@ class IncomingPaymentUsesController < AdminController
     @incoming_payment_use = IncomingPaymentUse.new(params[:incoming_payment_use])
     return if save_and_redirect(@incoming_payment_use)
     expense = @incoming_payment_use.expense
-    t3e :type=>expense.class.model_name.human, :number=>expense.number, :label=>expense.label
+    t3e :type => expense.class.model_name.human, :number => expense.number, :label => expense.label
     render_restfully_form
   end
 

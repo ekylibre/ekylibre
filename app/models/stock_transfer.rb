@@ -98,7 +98,8 @@ class StockTransfer < CompanyRecord
 
   def execute(moved_on = Date.today)
     self.class.transaction do
-      self.update_attributes(:moved_on => moved_on)
+      self.moved_on = moved_on
+      self.save!
     end
   end
 

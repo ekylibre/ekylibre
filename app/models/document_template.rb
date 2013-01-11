@@ -289,6 +289,18 @@ class DocumentTemplate < CompanyRecord
     pdf
   end
 
+  # Generate a copy of the template with a different code.
+  def duplicate
+    attrs = self.attributes.dup
+    attrs.delete("id")
+    attrs.delete("lock_version")
+    attrs.delete_if{|k,v| k.match(/^(cre|upd)at((e|o)r_id|ed_(at|on))/) }
+    while self.class.where(:code => attrs["code"]).first
+      attrs["code"].succ!
+    end
+    return self.class.create(attrs, :without_protection => true)
+  end
+
 
   # Produces a generic document with the trace of the thrown exception
   def self.error_document(exception)

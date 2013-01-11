@@ -46,15 +46,15 @@
 
 
 class Operation < CompanyRecord
-  attr_accessible :description, :hour_duration, :min_duration, :planned_on, :nature_id, :started_at, :stopped_at, :target_id, :target_type
-  belongs_to :nature, :class_name=>"OperationNature"
-  belongs_to :responsible, :class_name=>"Entity"
-  belongs_to :target, :polymorphic=>true
+  attr_accessible :description, :hour_duration, :min_duration, :planned_on, :nature_id, :started_at, :stopped_at, :target_id, :target_type, :responsible_id
+  belongs_to :nature, :class_name => "OperationNature"
+  belongs_to :responsible, :class_name => "Entity"
+  belongs_to :target, :polymorphic => true
   belongs_to :production_chain_work_center
-  has_many :operation_uses, :dependent=>:destroy
-  has_many :uses,  :class_name=>"OperationUse", :dependent=>:destroy
-  has_many :lines, :class_name=>"OperationLine", :dependent=>:destroy
-  has_many :tools, :through=>:operation_uses
+  has_many :operation_uses, :dependent => :destroy
+  has_many :uses,  :class_name => "OperationUse", :dependent => :destroy
+  has_many :lines, :class_name => "OperationLine", :dependent => :destroy
+  has_many :tools, :through => :operation_uses
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :consumption, :duration, :hour_duration, :min_duration, :allow_nil => true
@@ -65,10 +65,10 @@ class Operation < CompanyRecord
   accepts_nested_attributes_for :lines, :reject_if => :all_blank, :allow_destroy => true
   accepts_nested_attributes_for :uses, :reject_if => :all_blank, :allow_destroy => true
 
-  default_scope order(:planned_on, :moved_on)
-  scope :unvalidateds, where(:moved_on => nil)
+  default_scope -> { order(:planned_on, :moved_on) }
+  scope :unvalidateds, -> { where(:moved_on => nil) }
 
-  before_validation(:on=>:create) do
+  before_validation(:on => :create) do
     self.started_at = Time.now if self.started_at.nil?
   end
 
@@ -76,79 +76,78 @@ class Operation < CompanyRecord
     self.duration = (self.min_duration.to_i + (self.hour_duration.to_i)*60 )
   end
 
-
-  def save_with_uses_and_lines(uses=[], lines=[])
-    ActiveRecord::Base.transaction do
-      op_saved = self.save
-      saved = op_saved
-      # Tools
-      self.uses.clear
-      uses.each_index do |index|
-        uses[index] = self.uses.build(uses[index])
-        if op_saved
-          saved = false unless uses[index].save
-        end
-      end
-      if saved
-        self.reload
-        self.update_column(:tools_list, self.tools.collect{|t| t.name}.to_sentence)
-      end
-
-      # Lines
-      self.lines.clear
-      lines.each_index do |index|
-        lines[index] = self.lines.build(lines[index])
-        if op_saved
-          saved = false unless lines[index].save
-        end
-      end
-      self.reload if saved
-      if saved
-        return true
-      else
-        raise ActiveRecord::Rollback
-      end
-    end
-    return false
+  protect(:on => :update) do
+    self.production_chain_work_center.nil?
   end
 
-  def set_tools(tools)
-    # Reinit tool uses
-    self.operation_uses.clear
-    # Add new tools
-    unless tools.nil?
-      tools.each do |tool|
-        OperationUse.create!(:operation_id=>self.id, :tool_id=>tool[0].to_i)
-      end
-    end
-    self.reload
-    self.tools_list = self.tools.collect{|t| t.name}.join(", ")
-    self.save
-  end
+  # def save_with_uses_and_lines(uses=[], lines=[])
+  #   ActiveRecord::Base.transaction do
+  #     op_saved = self.save
+  #     saved = op_saved
+  #     # Tools
+  #     self.uses.clear
+  #     uses.each_index do |index|
+  #       uses[index] = self.uses.build(uses[index])
+  #       if op_saved
+  #         saved = false unless uses[index].save
+  #       end
+  #     end
+  #     if saved
+  #       self.reload
+  #       self.update_column(:tools_list, self.tools.collect{|t| t.name}.to_sentence)
+  #     end
+
+  #     # Lines
+  #     self.lines.clear
+  #     lines.each_index do |index|
+  #       lines[index] = self.lines.build(lines[index])
+  #       if op_saved
+  #         saved = false unless lines[index].save
+  #       end
+  #     end
+  #     self.reload if saved
+  #     if saved
+  #       return true
+  #     else
+  #       raise ActiveRecord::Rollback
+  #     end
+  #   end
+  #   return false
+  # end
+
+  # def set_tools(tools)
+  #   # Reinit tool uses
+  #   self.operation_uses.clear
+  #   # Add new tools
+  #   unless tools.nil?
+  #     tools.each do |tool|
+  #       OperationUse.create!(:operation_id => self.id, :tool_id => tool[0].to_i)
+  #     end
+  #   end
+  #   self.reload
+  #   self.tools_list = self.tools.collect{|t| t.name}.join(", ")
+  #   self.save
+  # end
 
 
-  # Set all the lines in one time
-  def set_lines(lines)
-    # Reinit existing lines
-    self.lines.clear
-    # Reload (new) values
-    for line in lines
-      self.lines.create!(line)
-    end
-    return true
-  end
+  # # Set all the lines in one time
+  # def set_lines(lines)
+  #   # Reinit existing lines
+  #   self.lines.clear
+  #   # Reload (new) values
+  #   for line in lines
+  #     self.lines.create!(line)
+  #   end
+  #   return true
+  # end
 
   def make(made_on)
     ActiveRecord::Base.transaction do
-      self.update_attributes!(:moved_on=>made_on)
+      self.update_attributes!(:moved_on => made_on)
       for line in lines
         line.confirm_stock_move
       end
     end
-  end
-
-  protect(:on => :update) do
-    self.production_chain_work_center.nil?
   end
 
 end

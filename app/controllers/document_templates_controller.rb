@@ -43,15 +43,8 @@ class DocumentTemplatesController < AdminController
   end
 
   def duplicate
-    return unless @document_template = find_and_check(:document_template)
-    attrs = @document_template.attributes.dup
-    attrs.delete("id")
-    attrs.delete("lock_version")
-    attrs.delete_if{|k,v| k.match(/^(cre|upd)at((e|o)r_id|ed_(at|on))/) }
-    while DocumentTemplate.where(:code => attrs["code"]).first
-      attrs["code"].succ!
-    end
-    copy = DocumentTemplate.create(attrs)
+    return unless document_template = find_and_check(:document_template)
+    copy = document_template.duplicate
     redirect_to :action => :edit, :id => copy.id
   end
 

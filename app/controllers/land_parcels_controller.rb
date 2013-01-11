@@ -18,16 +18,16 @@
 #
 
 class LandParcelsController < AdminController
-  manage_restfully :started_on=>"Date.today"
+  manage_restfully :started_on => "Date.today"
 
   unroll_all
 
-  list(:conditions=>["? BETWEEN #{LandParcel.table_name}.started_on AND COALESCE(#{LandParcel.table_name}.stopped_on, ?)", ['session[:viewed_on]'], ['session[:viewed_on]']], :order=>"name") do |t|
-    t.column :name, :url=>true
+  list(:conditions => ["? BETWEEN #{LandParcel.table_name}.started_on AND COALESCE(#{LandParcel.table_name}.stopped_on, ?)", ['session[:viewed_on]'], ['session[:viewed_on]']], :order => "name") do |t|
+    t.column :name, :url => true
     t.column :number
-    t.column :area_measure, :datatype=>:decimal
-    t.column :name, :through=>:area_unit
-    t.column :name, :through=>:group
+    t.column :area_measure, :datatype => :decimal
+    t.column :name, :through => :area_unit
+    t.column :name, :through => :group
     t.column :description
     t.column :started_on
     t.column :stopped_on
@@ -41,10 +41,10 @@ class LandParcelsController < AdminController
     session[:viewed_on] = params[:viewed_on] = params[:viewed_on].to_date rescue Date.today
   end
 
-  list(:operations, :conditions=>{:target_type=>LandParcel.name, :target_id=>['session[:current_land_parcel]']}, :order=>"planned_on ASC") do |t|
-    t.column :name, :url=>true
-    t.column :name, :through=>:nature
-    t.column :label, :through=>:responsible, :url=>true
+  list(:operations, :conditions => {:target_type => LandParcel.name, :target_id => ['session[:current_land_parcel]']}, :order => "planned_on ASC") do |t|
+    t.column :name, :url => true
+    t.column :name, :through => :nature
+    t.column :label, :through => :responsible, :url => true
     t.column :planned_on
     t.column :moved_on
     t.column :tools_list
@@ -63,13 +63,13 @@ class LandParcelsController < AdminController
   def divide
     return unless @land_parcel = find_and_check(:land_parcel)
     if request.xhr?
-      render :partial=>"subdivision_form"
+      render :partial => "subdivision_form"
       return
     end
 
     if request.post?
       if @land_parcel.divide(params[:subdivisions].values, params[:land_parcel][:stopped_on].to_date)
-        redirect_to :action=>:index
+        redirect_to :action => :index
       end
     end
     @land_parcel.stopped_on ||= (session[:viewed_on].to_date rescue Date.today) - 1
@@ -79,11 +79,11 @@ class LandParcelsController < AdminController
   def merge
     land_parcels = params[:land_parcel].select{|k, v| v.to_i == 1}.collect{|k, v| LandParcel.find(k.to_i)}
     child = land_parcels[0].merge(land_parcels[1..-1], session[:viewed_on])
-    # redirect_to(:action=>:show, :id=>child.id)
+    # redirect_to(:action => :show, :id => child.id)
     if child
-      render :text=>url_for(:action=>:show, :id=>child.id, :viewed_on=>session[:viewed_on] + 1), :layout=>false
+      render :text => url_for(:action => :show, :id => child.id, :viewed_on => session[:viewed_on] + 1), :layout => false
     else
-      render :text=>url_for(:action=>:index, :viewed_on=>session[:viewed_on] + 1), :layout=>false
+      render :text => url_for(:action => :index, :viewed_on => session[:viewed_on] + 1), :layout => false
     end
   end
 

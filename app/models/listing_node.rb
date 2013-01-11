@@ -273,12 +273,14 @@ class ListingNode < CompanyRecord
     end
   end
 
-  def duplicate(listing, parent=nil)
+  def duplicate(listing, parent = nil)
     attributes = self.attributes
     attributes[:listing_id] = listing.id
     attributes[:parent_id]  = (parent ? parent.id : nil)
     attributes.delete("key")
-    node = self.class.create!(attributes)
+    attributes.delete("id")
+    attributes.delete("lock_version")
+    node = self.class.create!(attributes, :without_protection => true)
     for child in self.children.find(:all, :order => :position)
       child.duplicate(listing, node)
     end

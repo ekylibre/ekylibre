@@ -21,15 +21,15 @@ class JournalEntriesController < AdminController
 
   unroll_all
 
-  list(:lines, :model=>:journal_entry_lines, :conditions=>{:entry_id=>['session[:current_journal_entry_id]']}, :order=>"entry_id DESC, position") do |t|
+  list(:lines, :model => :journal_entry_lines, :conditions => {:entry_id => ['session[:current_journal_entry_id]']}, :order => "entry_id DESC, position") do |t|
     t.column :name
-    t.column :number, :through=>:account, :url=>true
-    t.column :name, :through=>:account, :url=>true
-    t.column :number, :through=>:bank_statement, :url=>true
-    t.column :original_debit, :currency=>"RECORD.entry.original_currency"
-    t.column :original_credit, :currency=>"RECORD.entry.original_currency"
-    t.column :debit, :currency=>"RECORD.entry.financial_year.currency"
-    t.column :credit, :currency=>"RECORD.entry.financial_year.currency"
+    t.column :number, :through => :account, :url => true
+    t.column :name, :through => :account, :url => true
+    t.column :number, :through => :bank_statement, :url => true
+    t.column :original_debit, :currency => "RECORD.entry.original_currency"
+    t.column :original_credit, :currency => "RECORD.entry.original_currency"
+    t.column :debit, :currency => "RECORD.entry.financial_year.currency"
+    t.column :credit, :currency => "RECORD.entry.financial_year.currency"
   end
 
 
@@ -40,6 +40,7 @@ class JournalEntriesController < AdminController
     t3e @journal_entry.attributes
   end
 
+
   def new
     return unless @journal = find_and_check(:journal, params[:journal_id])
     session[:current_journal_id] = @journal.id
@@ -48,7 +49,7 @@ class JournalEntriesController < AdminController
     @journal_entry.number = @journal.next_number
     @journal_entry_lines = []
     if request.xhr?
-      render(:partial=>'journal_entries/exchange_rate_form')
+      render(:partial => 'journal_entries/exchange_rate_form')
     else
       t3e @journal.attributes
       render_restfully_form
@@ -63,8 +64,8 @@ class JournalEntriesController < AdminController
     @journal_entry_lines = (params[:lines]||{}).values
     # raise @journal_entry_lines.inspect
     if @journal_entry.save_with_lines(@journal_entry_lines)
-      notify_success(:journal_entry_has_been_saved, :number=>@journal_entry.number)
-      redirect_to :controller=>:journal_entries, :action=>:new, :journal_id=>@journal.id # , :draft_mode=>(1 if @journal_entry.draft_mode)
+      notify_success(:journal_entry_has_been_saved, :number => @journal_entry.number)
+      redirect_to :controller => :journal_entries, :action => :new, :journal_id => @journal.id # , :draft_mode => (1 if @journal_entry.draft_mode)
       return
     end
     t3e @journal.attributes
@@ -115,4 +116,5 @@ class JournalEntriesController < AdminController
     t3e @journal_entry.attributes
     render_restfully_form
   end
+
 end

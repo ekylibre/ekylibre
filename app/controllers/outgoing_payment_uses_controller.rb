@@ -22,8 +22,8 @@ class OutgoingPaymentUsesController < AdminController
   def new
     expense = nil
     return unless expense = find_and_check(:purchase, params[:expense_id])
-    @outgoing_payment_use = OutgoingPaymentUse.new(:expense=>expense)
-    t3e :number=>expense.number
+    @outgoing_payment_use = OutgoingPaymentUse.new(:expense_id => expense.id)
+    t3e :number => expense.number
     render_restfully_form
   end
 
@@ -35,7 +35,7 @@ class OutgoingPaymentUsesController < AdminController
       return
     end
     expense = @outgoing_payment_use.expense
-    t3e :number=>expense.number
+    t3e :number => expense.number
     render_restfully_form
   end
 

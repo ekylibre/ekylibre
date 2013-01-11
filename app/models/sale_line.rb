@@ -49,9 +49,8 @@
 
 
 class SaleLine < CompanyRecord
-  acts_as_list :scope => :sale
   after_save :set_reduction
-  attr_accessible :annotation, :price_id, :product_id, :quantity, :reduction_percentage, :sale_id, :tax_id, :tracking_id, :unit_id, :warehouse_id
+  attr_accessible :annotation, :price_amount, :price_id, :product_id, :quantity, :reduction_percentage, :sale_id, :tax_id, :tracking_id, :unit_id, :warehouse_id
   attr_readonly :sale_id
   belongs_to :account
   belongs_to :entity
@@ -70,6 +69,7 @@ class SaleLine < CompanyRecord
   has_many :reductions, :class_name => "SaleLine", :foreign_key => :reduction_origin_id, :dependent => :delete_all
   has_many :subscriptions, :dependent => :destroy
 
+  acts_as_list :scope => :sale
   sums :sale, :lines, :pretax_amount, :amount
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.

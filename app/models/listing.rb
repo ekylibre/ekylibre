@@ -99,7 +99,7 @@ class Listing < CompanyRecord
   end
 
   def duplicate
-    listing = self.class.create!(self.attributes.merge(:name => tg(:copy_of, :source => self.name)))
+    listing = self.class.create!(self.attributes.merge(:name => tg(:copy_of, :source => self.name)).delete_if{|a| ["id", "lock_version"].include?(a.to_s)}, :without_protection => true)
     self.root.duplicate(listing)
     listing.reload
     listing.save

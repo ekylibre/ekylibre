@@ -1,5 +1,5 @@
 =field_set do
-  -input :journal, :readonly => true
+  -association :journal, :readonly => true
   -input :number
   -input :printed_on
   -partial :exchange_rate, :depend_on => [:printed_on, :journal], :refresh_url => new_journal_entry_url

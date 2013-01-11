@@ -32,8 +32,8 @@ module Ekylibre::Record  #:nodoc:
         attributes[:resource]   ||= @resource
         # attributes[:state]      ||= @state
         attributes[:printed_on] ||= @resource.created_on if @resource.respond_to? :created_on
-        attributes[:journal] = journal
-        raise ArgumentError.new("Unknown journal: (#{attributes[:journal].inspect})") unless attributes[:journal].is_a? Journal
+        raise ArgumentError.new("Unknown journal: (#{journal.inspect})") unless journal.is_a? Journal
+        attributes[:journal_id] = journal.id
 
         Ekylibre::Record::Base.transaction do
           journal_entry = JournalEntry.find_by_id(@resource.send(column)) rescue nil

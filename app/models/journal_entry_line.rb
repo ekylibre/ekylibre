@@ -44,16 +44,11 @@
 
 
 class JournalEntryLine < CompanyRecord
-  acts_as_list :scope => :entry
-  after_create  :update_entry
-  after_destroy :update_entry
-  after_destroy :unmark
-  after_update  :update_entry
-  attr_accessible :entry_id, :journal_id, :original_credit, :original_debit
+  attr_accessible :entry_id, :journal_id, :original_credit, :original_debit, :account_id, :name
   attr_readonly :entry_id, :journal_id, :state
   belongs_to :account
-  belongs_to :journal
-  belongs_to :entry, :class_name => "JournalEntry"
+  belongs_to :journal, :inverse_of => :entry_lines
+  belongs_to :entry, :class_name => "JournalEntry", :inverse_of => :lines
   belongs_to :bank_statement
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :balance, :credit, :debit, :original_credit, :original_debit, :allow_nil => true
@@ -64,6 +59,12 @@ class JournalEntryLine < CompanyRecord
   #]VALIDATORS]
   validates_presence_of :account
   # validates_uniqueness_of :letter, :scope => :account_id, :if => Proc.new{|x| !x.letter.blank?}
+
+  acts_as_list :scope => :entry
+  after_create  :update_entry
+  after_destroy :update_entry
+  after_destroy :unmark
+  after_update  :update_entry
 
   scope :between, lambda { |started_on, stopped_on|
     joins("JOIN #{JournalEntry.table_name} AS journal_entries ON (journal_entries.id=entry_id)").where("printed_on BETWEEN ? AND ? ", started_on, stopped_on).order("printed_on, journal_entries.id, journal_entry_lines.id")

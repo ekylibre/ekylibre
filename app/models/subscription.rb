@@ -58,15 +58,15 @@ class Subscription < CompanyRecord
   validates_length_of :number, :allow_nil => true, :maximum => 255
   validates_inclusion_of :suspended, :in => [true, false]
   #]VALIDATORS]
-  validates_presence_of :started_on, :stopped_on, :if=>Proc.new{|u| u.nature and u.nature.nature=="period"}
-  validates_presence_of :first_number, :last_number, :if=>Proc.new{|u| u.nature and u.nature.nature=="quantity"}
+  validates_presence_of :started_on, :stopped_on, :if => Proc.new{|u| u.nature and u.nature.period?}
+  validates_presence_of :first_number, :last_number, :if => Proc.new{|u| u.nature and u.nature.quantity?}
   validates_presence_of :nature, :entity
-  validates_presence_of :sale_line, :if=>Proc.new{|s| !s.sale.nil?}, :on=>:create
+  validates_presence_of :sale_line, :if => Proc.new{|s| !s.sale.nil?}, :on => :create
 
   before_validation do
     self.sale_id      = self.sale_line.sale_id if self.sale_line
     self.address_id ||= self.sale.delivery_address_id if self.sale
-    self.entity_id    = self.address.entity_id if self.contact
+    self.entity_id    = self.address.entity_id if self.address
     self.nature_id    = self.product.subscription_nature_id if self.product
     return true
   end
@@ -95,7 +95,7 @@ class Subscription < CompanyRecord
   end
 
   validate do
-    if self.contact and self.entity
+    if self.address and self.entity
       errors.add(:entity_id, :entity_must_be_the_same_as_the_contact_entity) if self.address.entity_id != self.entity_id
     end
     if self.address
@@ -105,17 +105,7 @@ class Subscription < CompanyRecord
 
 
   def entity_name
-    if self.entity
-      self.entity.full_name
-    elsif self.contact
-      if self.contact.entity.is_a?(Entity)
-        self.contact.entity.full_name
-      else
-        '--'
-      end
-    else
-      '-'
-    end
+    return self.address.mail_line_1
   end
 
   # Initialize default preferences
@@ -128,38 +118,37 @@ class Subscription < CompanyRecord
     self
   end
 
-  # TODO: Change method name
-#  def natura
-#    self.nature||(self.product ? self.product.subscription_nature : 'unknown_nature')
-#  end
-
   def start
-    if self.nature.nature == "quantity"
+    if self.nature.quantity?
       self.first_number
-    elsif self.started_on.nil?
-      ''
-    else
-      ::I18n.localize(self.started_on)
+    elsif self.nature.period?
+      if self.started_on.nil?
+        ''
+      else
+        ::I18n.localize(self.started_on)
+      end
     end
   end
 
   def finish
-    if self.nature.nature == "quantity"
+    if self.nature.quantity?
       self.last_number
-    elsif self.stopped_on.nil?
-      ''
-    else
-      ::I18n.localize(self.stopped_on)
+    elsif self.nature.period?
+      if self.stopped_on.nil?
+        ''
+      else
+        ::I18n.localize(self.stopped_on)
+      end
     end
   end
 
-  def active?(instant=nil)
-    if self.nature.nature == "quantity"
+  def active?(instant = nil)
+    if self.nature.quantity?
       instant ||= self.nature.actual_number
-      self.first_number<=instant and instant<=self.last_number
-    else
+      self.first_number <= instant and instant <= self.last_number
+    elsif self.nature.period?
       instant ||= Date.today
-      self.started_on<=instant and instant<=self.stopped_on
+      self.started_on <= instant and instant <= self.stopped_on
     end
   end
 
