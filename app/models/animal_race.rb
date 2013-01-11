@@ -35,9 +35,10 @@
 
 
 class AnimalRace < CompanyRecord
-  attr_accessible :name, :code, :comment, :description, :nature_id
+  attr_accessible :name, :code, :comment, :description, :parent_id
   has_many :animals, :foreign_key => :race_id
-  belongs_to :nature, :class_name => "AnimalRaceNature"
+  has_many :posologies, :class_name => "AnimalPosology", :foreign_key => :animal_race_id
+  belongs_to :parent, :class_name => "AnimalRace"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :code, :allow_nil => true, :only_integer => true
   validates_length_of :name, :allow_nil => true, :maximum => 255

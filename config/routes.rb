@@ -121,6 +121,12 @@ Ekylibre::Application.routes.draw do
       unroll_all
     end
   end
+  resources :animal_group_events do
+    collection do
+      get :list
+      unroll_all
+    end
+  end
   resources :animal_event_natures do
     collection do
       get :list
@@ -148,12 +154,6 @@ Ekylibre::Application.routes.draw do
     end
   end
   resources :animal_races do
-    collection do
-      get :list
-      unroll_all
-    end
-  end
-  resources :animal_race_natures do
     collection do
       get :list
       unroll_all

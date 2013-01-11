@@ -41,27 +41,15 @@
 #
 
 
-class AnimalEvent < CompanyRecord
-  attr_accessible  :animal_id, :comment, :description, :moved_at, :name, :nature_id, :parent_id, :planned_at, :started_at, :stopped_at, :watcher_id
+class AnimalGroupEvent < CompanyRecord
+  attr_accessible :animal_group_id, :comment, :description, :moved_at, :name, :nature_id, :parent_id, :planned_at, :started_at, :stopped_at, :watcher_id
   belongs_to :nature, :class_name => "AnimalEventNature"
-  belongs_to :animal, :class_name => "Animal", :conditions => ["is_external = ? AND (outgone_on IS NULL or outgone_on > ?)", false, Time.now]
-  belongs_to :parent, :class_name => "AnimalEvent"
-  has_many :treatments , :class_name => "AnimalTreatment", :foreign_key => :event_id
+  belongs_to :animal_group, :class_name => "AnimalGroup"
+  belongs_to :parent, :class_name => "AnimalGroupEvent"
   belongs_to :watcher, :class_name => "Entity"
-  has_many :diagnostics,:class_name => "AnimalDiagnostic", :foreign_key => :event_id
-  has_many :diseases, :through => :diagnostics
-  has_many :drugs, :through => :treatments
-  has_many :prescriptions, :through => :treatments
-  # No columns for this
-  # belongs_to :quantity_unit, :class_name => "Unit"
-  accepts_nested_attributes_for :treatments,    :reject_if => :all_blank, :allow_destroy => true
-  accepts_nested_attributes_for :diagnostics,    :reject_if => :all_blank, :allow_destroy => true
-  accepts_nested_attributes_for :diseases,    :reject_if => :all_blank, :allow_destroy => true
-
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :name, :allow_nil => true, :maximum => 255
   validates_presence_of :name, :nature
   #]VALIDATORS]
-
   default_scope order(:started_at, :name)
 end

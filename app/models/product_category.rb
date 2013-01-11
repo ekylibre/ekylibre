@@ -39,6 +39,7 @@ class ProductCategory < CompanyRecord
   attr_accessible :name, :catalog_name, :catalog_description, :comment, :parent_id
   acts_as_tree
   has_many :products
+  has_many :animal_posologies
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :catalog_name, :name, :allow_nil => true, :maximum => 255
   validates_inclusion_of :published, :in => [true, false]

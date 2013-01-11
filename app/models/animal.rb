@@ -53,13 +53,13 @@
 
 
 class Animal < CompanyRecord
-  attr_accessible :is_reproductor, :income_reasons, :outgone_reasons, :is_external, :born_on, :comment, :description, :father_id, :mother_id, :group_id, :identification_number, :income_on, :name, :outgone_on, :picture, :race_id, :sex, :working_number
+  attr_accessible :custom_field_data_attributes, :reproductor, :arrival_reasons, :departure_reasons, :external, :born_on, :comment, :description, :father_id, :mother_id, :group_id, :identification_number, :arrived_on, :name, :departed_on, :picture, :race_id, :sex, :work_number
   enumerize :sex, :in => [:male, :female]
-  enumerize :income_reasons, :in => [:birth, :purchase, :housing, :other], :default=> :birth
-  enumerize :outgone_reasons, :in => [:dead, :sale, :autoconsumption, :other], :default=> :sale
+  enumerize :arrival_reasons, :in => [:birth, :purchase, :housing, :other], :default=> :birth
+  enumerize :departure_reasons, :in => [:dead, :sale, :autoconsumption, :other], :default=> :sale
   belongs_to :group, :class_name => "AnimalGroup"
   belongs_to :race, :class_name => "AnimalRace"
-  belongs_to :father, :class_name => "Animal", :conditions => {:sex => :male, :is_reproductor => 'true'}
+  belongs_to :father, :class_name => "Animal", :conditions => {:sex => :male, :reproductor => 'true'}
   belongs_to :mother, :class_name => "Animal", :conditions => {:sex => :female}
   has_many :events, :class_name => "AnimalEvent",:foreign_key => :animal_id
   has_many :treatments, :class_name => "AnimalTreatment", :through => :events
@@ -68,23 +68,19 @@ class Animal < CompanyRecord
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :picture_file_size, :allow_nil => true, :only_integer => true
   validates_length_of :sex, :allow_nil => true, :maximum => 16
-  validates_length_of :identification_number, :income_reasons, :name, :outgone_reasons, :picture_content_type, :picture_file_name, :working_number, :allow_nil => true, :maximum => 255
-  validates_inclusion_of :is_external, :is_reproductor, :in => [true, false]
+  validates_length_of :identification_number, :arrival_reasons, :name, :departure_reasons, :picture_content_type, :picture_file_name, :working_number, :allow_nil => true, :maximum => 255
+  validates_inclusion_of :external, :reproductor, :in => [true, false]
   validates_presence_of :group, :identification_number, :name, :sex
   #]VALIDATORS]
   validates_uniqueness_of :name, :identification_number
   validates_inclusion_of :sex, :in => self.sex.values
-  validates_length_of :working_number, :allow_nil => true, :maximum => 4
+  validates_length_of :work_number, :allow_nil => true, :maximum => 4
 
 
   default_scope order(:name)
-  scope :father, where("sex = 'male' AND is_reproductor = true").order(:name)
+  scope :father, where("sex = 'male' AND reproductor = true").order(:name)
   scope :mother, where("sex = 'female'").order(:name)
-  scope :here, where("is_external = ? AND (outgone_on IS NULL or outgone_on > ?)", false, Time.now).order(:name)
+  scope :here, where("external = ? AND (departed_on IS NULL or departed_on > ?)", false, Time.now).order(:name)
 
-   # construction d'une liste permettant l'affichage des animaux dans les formulaires avec les info importantes sur leur identités
-   # @example
-   def list_animal_full_name
-      "#{name} - #{identification_number} - #{sex}"
-   end
+
 end

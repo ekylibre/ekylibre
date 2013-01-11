@@ -367,16 +367,6 @@
       <page to="operation_uses#create"/>
       <page to="operation_uses#new"/>
     </menu>
-    <menu name="animal_events">
-      <page to="animal_events#index"/>
-      <page to="animal_events#create"/>
-      <page to="animal_events#destroy"/>
-      <page to="animal_events#edit"/>
-      <page to="animal_events#list"/>
-      <page to="animal_events#new"/>
-      <page to="animal_events#show"/>
-      <page to="animal_events#update"/>
-    </menu>
     <menu name="animals">
       <page to="animals#index"/>
       <page to="animals#create"/>
@@ -389,6 +379,16 @@
       <page to="animals#show"/>
       <page to="animals#update"/>
     </menu>
+    <menu name="animal_events">
+      <page to="animal_events#index"/>
+      <page to="animal_events#create"/>
+      <page to="animal_events#destroy"/>
+      <page to="animal_events#edit"/>
+      <page to="animal_events#list"/>
+      <page to="animal_events#new"/>
+      <page to="animal_events#show"/>
+      <page to="animal_events#update"/>
+    </menu>
     <menu name="animal_groups">
       <page to="animal_groups#index"/>
       <page to="animal_groups#create"/>
@@ -400,6 +400,16 @@
       <page to="animal_groups#new"/>
       <page to="animal_groups#show"/>
       <page to="animal_groups#update"/>
+    </menu>
+    <menu name="animal_group_events">
+      <page to="animal_group_events#index"/>
+      <page to="animal_group_events#create"/>
+      <page to="animal_group_events#destroy"/>
+      <page to="animal_group_events#edit"/>
+      <page to="animal_group_events#list"/>
+      <page to="animal_group_events#new"/>
+      <page to="animal_group_events#show"/>
+      <page to="animal_group_events#update"/>
     </menu>
     <menu name="land_parcels">
       <page to="land_parcels#index"/>
@@ -824,16 +834,6 @@
         <page to="operation_natures#list"/>
         <page to="operation_natures#new"/>
         <page to="operation_natures#update"/>
-      </menu>
-      <menu name="animal_race_natures">
-        <page to="animal_race_natures#index"/>
-        <page to="animal_race_natures#create"/>
-        <page to="animal_race_natures#destroy"/>
-        <page to="animal_race_natures#edit"/>
-        <page to="animal_race_natures#list"/>
-        <page to="animal_race_natures#new"/>
-        <page to="animal_race_natures#show"/>
-        <page to="animal_race_natures#update"/>
       </menu>
       <menu name="animal_races">
         <page to="animal_races#index"/>

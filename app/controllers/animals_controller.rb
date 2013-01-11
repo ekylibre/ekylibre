@@ -25,15 +25,15 @@ class AnimalsController < AdminController
   unroll_all
 
   list do |t|
-    t.column :working_number, :url => true
+    t.column :work_number, :url => true
     t.column :name, :url=>true
     t.column :name, :through=>:group, :url=>true
     t.column :born_on
     t.column :sex
     t.column :name, :through=>:mother, :url=>true
     t.column :name, :through=>:father, :url=>true
-    t.column :outgone_on
-    t.column :outgone_reasons
+    t.column :departed_on
+    t.column :departure_reasons
     t.action :show, :url=>{:format=>:pdf}, :image=>:print
     t.action :edit
     t.action :destroy, :if=>"RECORD.destroyable\?"
@@ -50,7 +50,7 @@ class AnimalsController < AdminController
   end
 
   # Liste des soins de l'animal considéré
-  list(:events, :model=>:animal_events, :conditions=>{:animal_id=>['session[:current_animal_id]']}, :order=>"started_on ASC") do |t|
+  list(:events, :model=>:animal_events, :conditions=>{:animal_id=>['session[:current_animal_id]']}, :order=>"started_at ASC") do |t|
     t.column :name, :url=>true
     t.column :name ,:through => :nature
     t.column :name ,:through => :watcher
@@ -59,7 +59,7 @@ class AnimalsController < AdminController
   end
 
   # Liste des enfants de l'animal considéré
-  list(:children, :model=>:animal, :conditions=>{:mother_id=>['session[:current_animal_id]']}, :order=>"born_on DESC") do |t|
+  list(:children, :model=>:animal, :conditions=>[" mother_id = ? OR father_id = ? ",['session[:current_animal_id]'],['session[:current_animal_id]']], :order=>"born_on DESC") do |t|
     t.column :name, :url=>true
     t.column :born_on
     t.column :sex

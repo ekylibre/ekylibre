@@ -44,15 +44,12 @@
 
 
 class AnimalPosology < CompanyRecord
-  belongs_to :animal_race_nature, :class_name=>"AnimalRaceNature"
+  belongs_to :animal_race, :class_name=>"AnimalRace"
   belongs_to :drug, :class_name=>"AnimalDrug"
   belongs_to :disease, :class_name=>"AnimalDisease"
   belongs_to :quantity_unit, :class_name=>"Unit"
+  belongs_to :product_category, :class_name=>"ProductCategory"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :duration_wait_for_meat, :duration_wait_for_milk, :frequency, :allow_nil => true, :only_integer => true
-  validates_numericality_of :quantity, :allow_nil => true
-  validates_length_of :description, :drug_admission_path, :duration_unit_wait_for_meat, :duration_unit_wait_for_milk, :per_duration_time_unit, :per_frequency_time_unit, :allow_nil => true, :maximum => 255
-  validates_presence_of :frequency, :quantity
   #]VALIDATORS]
 
 end

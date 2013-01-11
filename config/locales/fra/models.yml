@@ -3,15 +3,10 @@ fra:
     attributes:
       animal:
         race: "Race"
-      animal_group:
-        age_max: "Age maximum"
-        age_min: "Age minimum"
-        pregnant: "Surveillance de la gestation"
       animal_race:
         code: "Code race"
       animal_treatment_use:
         drug_admission_path: "Voie d’admission"
-        per_animal_unit: " / "
         quantity_unit: "Unité"
       asset_depreciation:
         asset_amount: "Valeur nette comptable (VNC)"
@@ -661,8 +656,8 @@ fra:
     in_cash: "En espèce"
     in_name: "Abréviation incluse dans le nom de la personne"
     included: "Incluse"
-    income_on: "Date d'entrée"
-    income_reasons: "Causes d'entrée"
+    arrived_on: "Date d'entrée"
+    arrival_reasons: "Causes d'entrée"
     incoming_deliveries: "Livraisons entrantes"
     incoming_delivery_lines: "Lignes de livraisons entrantes" #?
     incoming_delivery_modes: "Modes de livraisons entrantes" #?

@@ -26,7 +26,7 @@ class AnimalPosologiesController < AdminController
     t.column :name, :url=>true
     t.column :name, :through=>:disease, :url=>true
     t.column :name, :through=>:drug, :url=>true
-    t.column :name, :through=>:animal_race_nature, :url=>true
+    t.column :name, :through=>:animal_race, :url=>true
     t.action :show, :url=>{:format=>:pdf}, :image=>:print
     t.action :edit
     t.action :destroy, :if => :destroyable?

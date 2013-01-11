@@ -49,22 +49,14 @@
 
 
 class AnimalTreatment < CompanyRecord
-  attr_accessible :event_id, :drug_admission_path, :per_animal_unit, :quantity_unit_id, :quantity, :name, :prescription_id, :disease_id, :drug_id, :duration, :started_at, :per_duration_time_unit, :frequency, :per_frequency_time_unit, :duration_wait_for_milk, :duration_unit_wait_for_milk, :duration_wait_for_meat, :duration_unit_wait_for_meat
-  enumerize :per_animal_unit, :in => [:per_animal, :per_kg, :per_milking], :default =>  :per_animal
-  enumerize :per_frequency_time_unit, :in => [:times_per_12_hours,:times_per_day, :times_per_week, :times_per_month], :default=> :times_per_day
-  enumerize :per_duration_time_unit, :in => [:hours, :days, :weeks, :months], :default=> :days
-  enumerize :duration_unit_wait_for_milk, :in => [:hours, :days, :milking], :default=> :milking
-  enumerize :duration_unit_wait_for_meat, :in => [:hours, :days], :default=> :days
-  enumerize :drug_admission_path, :in => [:oral, :ima, :imu, :iu, :iv], :default=> :oral
+  attr_accessible :quantity_delay, :quantity_interval, :event_id, :drug_admission_way, :quantity_unit_id, :quantity, :name, :prescription_id, :disease_id, :drug_id, :started_at
+  enumerize :drug_admission_way, :in => [:oral, :ima, :imu, :iu, :iv], :default=> :oral
   belongs_to :disease, :class_name => "AnimalDisease"
   belongs_to :drug, :class_name => "AnimalDrug"
   belongs_to :event, :class_name => "AnimalEvent"
   belongs_to :prescription, :class_name => "AnimalPrescription"
   belongs_to :quantity_unit, :class_name => "Unit"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :duration_wait_for_meat, :duration_wait_for_milk, :frequency, :allow_nil => true, :only_integer => true
-  validates_numericality_of :duration, :quantity, :allow_nil => true
-  validates_length_of :drug_admission_path, :duration_unit_wait_for_meat, :duration_unit_wait_for_milk, :name, :per_animal_unit, :per_duration_time_unit, :per_frequency_time_unit, :allow_nil => true, :maximum => 255
-  validates_presence_of :frequency, :quantity
+  validates_length_of :drug_admission_way, :name, :allow_nil => true, :maximum => 255
   #]VALIDATORS]
 end

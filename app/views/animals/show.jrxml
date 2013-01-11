@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="show" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9c1f11b7-03dd-4803-9e1b-41b87b9d23c0">
 	<property name="ireport.zoom" value="1.7715610000000124"/>
 	<property name="ireport.x" value="26"/>
-	<property name="ireport.y" value="438"/>
+	<property name="ireport.y" value="96"/>
 	<style name="Title" fontName="DejaVu Sans" fontSize="50" isBold="true" pdfFontName="Times-Bold"/>
 	<style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18"/>
 	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
@@ -107,8 +107,8 @@
 	<field name="lock-version" class="java.lang.String">
 		<fieldDescription><![CDATA[/animal/lock-version]]></fieldDescription>
 	</field>
-	<field name="income-on" class="java.lang.String">
-		<fieldDescription><![CDATA[/animal/income-on]]></fieldDescription>
+	<field name="arrived-on" class="java.util.Date">
+		<fieldDescription><![CDATA[arrived-on]]></fieldDescription>
 	</field>
 	<field name="name" class="java.lang.String">
 		<fieldDescription><![CDATA[name]]></fieldDescription>
@@ -137,17 +137,17 @@
 	<field name="race-name" class="java.lang.String">
 		<fieldDescription><![CDATA[race/name]]></fieldDescription>
 	</field>
-	<field name="outgone-on" class="java.lang.String">
-		<fieldDescription><![CDATA[outgone-on]]></fieldDescription>
+	<field name="departed-on" class="java.lang.String">
+		<fieldDescription><![CDATA[departed-on]]></fieldDescription>
 	</field>
-	<field name="outgone-reasons" class="java.lang.String">
-		<fieldDescription><![CDATA[outgone-reasons]]></fieldDescription>
+	<field name="departure-reasons" class="java.lang.String">
+		<fieldDescription><![CDATA[departure-reasons]]></fieldDescription>
 	</field>
-	<field name="working-number" class="java.lang.String">
-		<fieldDescription><![CDATA[working-number]]></fieldDescription>
+	<field name="work-number" class="java.lang.String">
+		<fieldDescription><![CDATA[work-number]]></fieldDescription>
 	</field>
-	<field name="income-reasons" class="java.lang.String">
-		<fieldDescription><![CDATA[income-reasons]]></fieldDescription>
+	<field name="arrival-reasons" class="java.lang.String">
+		<fieldDescription><![CDATA[arrival-reasons]]></fieldDescription>
 	</field>
 	<field name="group-name" class="java.lang.String">
 		<fieldDescription><![CDATA[group/name]]></fieldDescription>
@@ -262,7 +262,7 @@
 			<textField>
 				<reportElement uuid="db378f31-6277-4062-adb5-ef4c3c689bcc" x="303" y="25" width="112" height="20"/>
 				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{working-number}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{work-number}]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
 				<reportElement uuid="affdffdc-32dd-48d1-a280-349fec173194" x="353" y="74" width="62" height="29"/>
@@ -282,24 +282,24 @@
 				<textElement verticalAlignment="Middle">
 					<font fontName="DejaVu Sans"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{outgone-on}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{departed-on}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement uuid="0f2828cc-d9d8-4ba8-83f7-d233cb52544a" x="415" y="122" width="129" height="15" forecolor="#CC3300"/>
 				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{outgone-reasons}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{departure-reasons}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement uuid="c27ca805-87fe-4787-827d-6f8e911ae85c" x="415" y="105" width="129" height="16"/>
 				<textElement/>
-				<textFieldExpression><![CDATA[$F{income-reasons}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{arrival-reasons}]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
 				<reportElement uuid="5ff7256f-0e09-4226-97b4-cc6849f2342c" x="353" y="105" width="62" height="16"/>
 				<textElement>
 					<font fontName="DejaVu Sans"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{income-on}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{arrived-on}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement uuid="232f1027-c305-4a71-b2c6-fb05c670ed17" x="303" y="45" width="112" height="20"/>
@@ -338,7 +338,7 @@
 			</staticText>
 			<staticText>
 				<reportElement uuid="52d5043d-384e-4840-a3c3-eb48a3871d11" style="Column header" x="272" y="121" width="81" height="16">
-					<printWhenExpression><![CDATA[$F{outgone-on} != null]]></printWhenExpression>
+					<printWhenExpression><![CDATA[$F{departed-on} != null]]></printWhenExpression>
 				</reportElement>
 				<textElement verticalAlignment="Middle">
 					<font fontName="DejaVu Sans" size="10"/>

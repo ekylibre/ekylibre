@@ -39,6 +39,11 @@ fra:
       index: "Évènements"
       new: "Créer un évènement"
       show: "évènement %{name} commencé le %{started_at}"
+    animal_group_events:
+      edit: "Modifier un évènement par lot"
+      index: "Évènements par lot"
+      new: "Créer un évènement par lot"
+      show: "évènement par lot\_: %{name} commencé le %{started_at}"
     animal_groups:
       edit: "Modifier le lot\_: %{name} "
       index: "Lots d'animaux"
@@ -54,11 +59,6 @@ fra:
       index: "Ordonnance"
       new: "Nouvelle ordonnance"
       show: "Ordonnance\_: %{name} du \_: %{prescripted_on}"
-    animal_race_natures:
-      edit: "Modifier le type de race\_: %{name} "
-      index: "Type de race"
-      new: "Créer un type de race"
-      show: "Type de race\_: %{name}"
     animal_races:
       edit: "Modifier la race\_: %{name} "
       index: "Races"
@@ -1674,6 +1674,8 @@ fra:
     animal_prescriptions:
       all: "N° {prescription_number} du {prescripted_on}"
     animals:
-      all: "{name} ({sex})"
+      all: "{name} - {work_number}"
+    animal_events:
+      all: "{name} - {started_at}"
     units:
       all: "{label} ({name})"

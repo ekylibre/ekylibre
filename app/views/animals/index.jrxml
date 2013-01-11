@@ -2,13 +2,13 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="animals_list" language="groovy" columnCount="2" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="401" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isTitleNewPage="true" whenResourceMissingType="Empty" uuid="9c1f11b7-03dd-4803-9e1b-41b87b9d23c0">
 	<property name="ireport.zoom" value="1.2100000000000009"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="638"/>
 	<style name="Title" fontName="DejaVu Sans" fontSize="30" isBold="true" pdfFontName="Times-Bold"/>
 	<style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18"/>
 	<style name="Column header" forecolor="#666666" fontName="DejaVu Sans" fontSize="12" isBold="true"/>
 	<style name="Detail" fontName="Arial" fontSize="12">
 		<conditionalStyle>
-			<conditionExpression><![CDATA[$F{outgone-reasons} == "dead"]]></conditionExpression>
+			<conditionExpression><![CDATA[$F{departure-reasons} == "dead"]]></conditionExpression>
 			<style mode="Transparent" forecolor="#FF3333" fill="Solid" vAlign="Top" isBold="false" isItalic="false" isUnderline="false"/>
 		</conditionalStyle>
 		<conditionalStyle>
@@ -22,7 +22,7 @@
 	<parameter name="XML_URL" class="java.lang.String" isForPrompting="false"/>
 	<parameter name="entity_full_name" class="java.lang.String"/>
 	<queryString language="xPath">
-		<![CDATA[/animals/animal[is-external='false']]]>
+		<![CDATA[/animals/animal[external='false']]]>
 	</queryString>
 	<field name="name" class="java.lang.String">
 		<fieldDescription><![CDATA[name]]></fieldDescription>
@@ -54,8 +54,8 @@
 	<field name="updated-at" class="java.util.Date">
 		<fieldDescription><![CDATA[updated-at]]></fieldDescription>
 	</field>
-	<field name="working-number" class="java.lang.String">
-		<fieldDescription><![CDATA[working-number]]></fieldDescription>
+	<field name="work-number" class="java.lang.String">
+		<fieldDescription><![CDATA[work-number]]></fieldDescription>
 	</field>
 	<field name="race-name" class="java.lang.String">
 		<fieldDescription><![CDATA[race/name]]></fieldDescription>
@@ -66,14 +66,14 @@
 	<field name="mother-name" class="java.lang.String">
 		<fieldDescription><![CDATA[mother/name]]></fieldDescription>
 	</field>
-	<field name="outgone-on" class="java.lang.String">
-		<fieldDescription><![CDATA[outgone-on]]></fieldDescription>
+	<field name="departed-on" class="java.lang.String">
+		<fieldDescription><![CDATA[departed-on]]></fieldDescription>
 	</field>
-	<field name="outgone-reasons" class="java.lang.String">
-		<fieldDescription><![CDATA[outgone-reasons]]></fieldDescription>
+	<field name="departure-reasons" class="java.lang.String">
+		<fieldDescription><![CDATA[departure-reasons]]></fieldDescription>
 	</field>
 	<sortField name="born-on" order="Descending"/>
-	<sortField name="working-number" order="Descending"/>
+	<sortField name="work-number" order="Descending"/>
 	<variable name="id_1" class="java.lang.Integer" resetType="Group" resetGroup="year" calculation="Count">
 		<variableExpression><![CDATA[$F{id}]]></variableExpression>
 	</variable>
@@ -255,7 +255,7 @@
 				<textElement verticalAlignment="Middle">
 					<font fontName="DejaVu Sans" size="9"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{working-number}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{work-number}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement uuid="a38d906a-cdce-41e6-8ec3-ca0b9b9f65b6" style="Detail" mode="Opaque" x="167" y="0" width="41" height="21"/>
@@ -437,18 +437,18 @@
 				<reportElement uuid="5abae6f2-281f-493a-b567-f347b80e42b3" x="231" y="45" width="591" height="1" forecolor="#7F4D15"/>
 			</line>
 			<staticText>
-				<reportElement uuid="b004bfbd-c2d8-47f0-9929-ae1d9a6fd03b" style="SubTitle" x="2" y="223" width="229" height="24"/>
+				<reportElement uuid="b004bfbd-c2d8-47f0-9929-ae1d9a6fd03b" style="SubTitle" positionType="Float" stretchType="RelativeToBandHeight" x="2" y="223" width="229" height="24"/>
 				<textElement textAlignment="Center">
 					<font fontName="Times New Roman" pdfFontName="Times-Roman"/>
 				</textElement>
 				<text><![CDATA[Naissance / race / an]]></text>
 			</staticText>
 			<line>
-				<reportElement uuid="5abae6f2-281f-493a-b567-f347b80e42b3" x="231" y="234" width="591" height="1" forecolor="#7F4D15"/>
+				<reportElement uuid="5abae6f2-281f-493a-b567-f347b80e42b3" positionType="Float" stretchType="RelativeToBandHeight" x="231" y="234" width="591" height="1" forecolor="#7F4D15"/>
 			</line>
 			<stackedBarChart>
 				<chart>
-					<reportElement uuid="35ef500d-73e4-42e9-8281-62216ff62942" x="1" y="268" width="801" height="262"/>
+					<reportElement uuid="35ef500d-73e4-42e9-8281-62216ff62942" positionType="Float" stretchType="RelativeToBandHeight" x="1" y="268" width="801" height="262"/>
 					<chartTitle/>
 					<chartSubtitle/>
 					<chartLegend/>

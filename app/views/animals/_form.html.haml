@@ -3,21 +3,24 @@
   -association :race
   -input :name , :hint => "le nom de votre animal"# affiche le champ name de l entité animal avec une infos derriere
   -input :sex # affiche le champ sexe sous forme de radio avec une collection de proposition (M ou F) de l entité animal
-  -input :is_reproductor
+  -input :reproductor
   -input :born_on
-  -input :working_number
+  -input :work_number
   -input :identification_number, :placeholder => 'FR + DEPT + 8 chiffres'
   -input :comment # affiche le champ comment formaté en zone de texte
   -input :picture
   =image_tag(@animal.picture.url(:thumb))
+  =custom_fields
+  -#for datum in @custom_field_data
+    =custom_field datum.custom_field.name, {:datatype => datum.custom_field.nature.to_sym, :id => "custom_field_datum_#{datum.custom_field_id}_value", :name => "custom_field_datum[#{datum.custom_field_id}][value]", :value => datum.value, :size => datum.custom_field.length_max, :options => {:include_blank => (datum.custom_field.required ? nil : '')}, :choices => datum.custom_field.choices.collect{|x| [x.name , x.id]}  }
 
 -field_set(:genealogy) do # partie entrée sortie de l entité animal
   -association :mother, :source => :mother
   -association :father, :source => :father
 
 -field_set(:movement) do # partie entrée sortie de l entité animal
-  -input :is_external
-  -input :income_on
-  -input :income_reasons
-  -input :outgone_on, :include_blank => true, :default_value => :blank
-  -input :outgone_reasons, :include_blank => true, :default_value => :blank
+  -input :external
+  -input :arrived_on
+  -input :arrival_reasons
+  -input :departed_on, :include_blank => true, :default_value => :blank
+  -input :departure_reasons, :include_blank => true, :default_value => :blank

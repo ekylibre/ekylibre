@@ -37,15 +37,11 @@
 
 
 class AnimalDrug < CompanyRecord
-  attr_accessible :name, :comment, :frequency, :nature_id, :prescripted, :quantity, :unit_id
+  attr_accessible :name, :comment, :nature_id, :prescripted
   belongs_to :nature, :class_name => "AnimalDrugNature"
-  belongs_to :unit
   has_many :posologies, :class_name => "AnimalPosology", :foreign_key => :drug_id
   has_many :treatments, :class_name => "AnimalTreatment"
-  has_many :diseases, :class_name => "AnimalDisease", :through => :treatments
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :frequency, :allow_nil => true, :only_integer => true
-  validates_numericality_of :quantity, :allow_nil => true
   validates_length_of :name, :allow_nil => true, :maximum => 255
   validates_presence_of :name, :nature
   #]VALIDATORS]

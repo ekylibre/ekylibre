@@ -17,13 +17,18 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class AnimalRaceNaturesController < AdminController
+class AnimalGroupEventsController < AdminController
   manage_restfully
+
+  respond_to :pdf, :html, :xml
 
   unroll_all
 
   list do |t|
     t.column :name, :url=>true
+    t.column :name, :through=>:animal_group, :url=>true
+    t.column :name, :through=>:nature, :url=>true
+    t.column :name, :through=>:watcher, :url=>true
     t.column :comment
     t.column :description
     t.action :show, :url=>{:format=>:pdf}, :image=>:print
@@ -31,15 +36,23 @@ class AnimalRaceNaturesController < AdminController
     t.action :destroy, :if=>"RECORD.destroyable\?"
   end
 
-  # Show a list of animals natures
+  # Show a list of @animal_event
+  # @TODO FIX Jasperreport gem calling method to work with format pdf
   def index
+    @animal_group_event = AnimalGroupEvent.all
+    respond_to do |format|
+     format.json { render json: @animal_group_event }
+     format.xml { render xml: @animal_group_event , :include => :animal_group}
+     format.pdf { respond_with @animal_group_event }
+     format.html
+     end
   end
 
-  # Show one Animal with params_id
+  # Show one @animal_event with params_id
   def show
-    return unless @animal_race_nature = find_and_check
-    session[:current_animal_race_nature_id] = @animal_race_nature.id
-    t3e @animal_race_nature
+    return unless @animal_group_event = find_and_check
+    session[:current_animal_event_id] = @animal_group_event.id
+    t3e @animal_group_event
   end
 
 end

@@ -24,10 +24,7 @@ class AnimalDrugsController < AdminController
 
   list() do |t|
     t.column :name, :url=>true
-    t.column :name, :through=>:unit, :url=>true
     t.column :name, :through=>:nature, :url=>true
-    t.column :frequency
-    t.column :quantity
     t.column :comment
     t.action :show, :url=>{:format=>:pdf}, :image=>:print
     t.action :edit

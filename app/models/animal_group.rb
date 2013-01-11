@@ -37,18 +37,13 @@
 
 
 class AnimalGroup < CompanyRecord
-  attr_accessible :age_min, :age_max, :comment, :description, :name, :pregnant, :sex
-  enumerize :sex, :in => [:male, :female], :predicates => true
+  attr_accessible :comment, :description, :name
+  belongs_to :parent, :class_name => "AnimalGroup"
   has_many :animals, :foreign_key => :group_id
-  has_many :events, :class_name => "AnimalEvent", :foreign_key => :animal_group_id
-  has_many :treatments, :class_name => "AnimalTreatment", :through => :events
+  has_many :events, :class_name => "AnimalGroupEvent", :foreign_key => :animal_group_id
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :age_max, :age_min, :allow_nil => true, :only_integer => true
-  validates_length_of :sex, :allow_nil => true, :maximum => 16
   validates_length_of :name, :allow_nil => true, :maximum => 255
-  validates_inclusion_of :pregnant, :in => [true, false]
   validates_presence_of :name
   #]VALIDATORS]
   validates_uniqueness_of :name
-  validates_inclusion_of :sex, :in => self.sex.values
 end
