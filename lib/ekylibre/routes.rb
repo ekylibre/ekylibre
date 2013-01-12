@@ -19,8 +19,10 @@ class ActionDispatch::Routing::Mapper
           get scope
         end
       end
-    rescue
+    rescue Exception => e
       # Migrate mode
+    ensure
+      return nil
     end
   end
 

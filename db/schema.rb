@@ -842,28 +842,28 @@ ActiveRecord::Schema.define(:version => 20130111092201) do
   add_index "entities", ["updater_id"], :name => "index_entities_on_updater_id"
 
   create_table "entity_addresses", :force => true do |t|
-    t.integer  "entity_id",                                                                  :null => false
-    t.boolean  "by_default",                                              :default => false, :null => false
+    t.integer  "entity_id",                                                                 :null => false
+    t.boolean  "by_default",                                             :default => false, :null => false
     t.string   "mail_line_2"
     t.string   "mail_line_3"
     t.string   "mail_line_5"
-    t.datetime "created_at",                                                                 :null => false
-    t.datetime "updated_at",                                                                 :null => false
+    t.datetime "created_at",                                                                :null => false
+    t.datetime "updated_at",                                                                :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                            :default => 0,     :null => false
+    t.integer  "lock_version",                                           :default => 0,     :null => false
     t.string   "mail_country",     :limit => 2
     t.string   "code",             :limit => 4
     t.datetime "deleted_at"
     t.integer  "mail_area_id"
     t.string   "mail_line_6"
     t.string   "mail_line_4"
-    t.string   "canal",            :limit => 16,                                             :null => false
-    t.string   "coordinate",       :limit => 511,                                            :null => false
+    t.string   "canal",            :limit => 16,                                            :null => false
+    t.string   "coordinate",       :limit => 511,                                           :null => false
     t.string   "name"
     t.string   "mail_line_1"
-    t.spatial  "mail_geolocation", :limit => {:srid=>-1, :type=>"point"}
-    t.boolean  "mail_auto_update",                                        :default => false, :null => false
+    t.boolean  "mail_auto_update",                                       :default => false, :null => false
+    t.spatial  "mail_geolocation", :limit => {:srid=>0, :type=>"point"}
   end
 
   add_index "entity_addresses", ["by_default"], :name => "index_entity_addresses_on_by_default"
@@ -1035,17 +1035,6 @@ ActiveRecord::Schema.define(:version => 20130111092201) do
   add_index "financial_years", ["currency"], :name => "index_financial_years_on_currency"
   add_index "financial_years", ["updated_at"], :name => "index_financialyears_on_updated_at"
   add_index "financial_years", ["updater_id"], :name => "index_financialyears_on_updater_id"
-
-  create_table "ilot_017005218", :primary_key => "gid", :force => true do |t|
-    t.string  "pacage",   :limit => 9
-    t.integer "numero",   :limit => 2
-    t.integer "campagne", :limit => 2
-    t.string  "commune",  :limit => 5
-    t.string  "nat_code", :limit => 2
-    t.float   "surf_tot"
-    t.float   "surf_ref"
-    t.spatial "shape",    :limit => {:srid=>-1, :type=>"multi_polygon"}
-  end
 
   create_table "incoming_deliveries", :force => true do |t|
     t.integer  "purchase_id"
@@ -1353,20 +1342,20 @@ ActiveRecord::Schema.define(:version => 20130111092201) do
   add_index "land_parcel_kinships", ["updater_id"], :name => "index_land_parcel_kinships_on_updater_id"
 
   create_table "land_parcels", :force => true do |t|
-    t.string   "name",                                                                                                   :null => false
+    t.string   "name",                                                                                                  :null => false
     t.text     "description"
-    t.datetime "created_at",                                                                                             :null => false
-    t.datetime "updated_at",                                                                                             :null => false
+    t.datetime "created_at",                                                                                            :null => false
+    t.datetime "updated_at",                                                                                            :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                                                          :default => 0,   :null => false
+    t.integer  "lock_version",                                                                         :default => 0,   :null => false
     t.string   "number"
-    t.decimal  "area_measure",                                           :precision => 19, :scale => 4, :default => 0.0, :null => false
+    t.decimal  "area_measure",                                          :precision => 19, :scale => 4, :default => 0.0, :null => false
     t.integer  "area_unit_id"
-    t.date     "started_on",                                                                                             :null => false
+    t.date     "started_on",                                                                                            :null => false
     t.date     "stopped_on"
-    t.integer  "group_id",                                                                                               :null => false
-    t.spatial  "shape",        :limit => {:srid=>-1, :type=>"geometry"}
+    t.integer  "group_id",                                                                                              :null => false
+    t.spatial  "shape",        :limit => {:srid=>0, :type=>"geometry"}
   end
 
   add_index "land_parcels", ["created_at"], :name => "index_shapes_on_created_at"
