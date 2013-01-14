@@ -79,6 +79,7 @@ class Product < CompanyRecord
   validates_inclusion_of :external, :reproductor, :in => [true, false]
   validates_presence_of :identification_number, :name, :sex
   #]VALIDATORS]
+
   validates_uniqueness_of :name, :identification_number
   validates_inclusion_of :sex, :in => self.sex.values
 

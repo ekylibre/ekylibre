@@ -152,6 +152,7 @@ eng:
         # contains_blank_page: "%{attribute} contient une page vide"
         currency_does_not_match: "The currency of the %{attribute} is different from %{currency}"
         empty: "%{attribute} can't be empty"
+        # entry_has_been_already_validated: "La pièce a été validée et ne peut plus être modifiée"
         equal_to: "%{attribute} must be equal to %{count}"
         even: "%{attribute} must be even"
         exclusion: "%{attribute} is reserved"
@@ -161,6 +162,7 @@ eng:
         inclusion: "%{attribute} is not included in the list"
         invalid: "%{attribute} is invalid"
         invalid_at: "%{attribute} is_invalid. Error near %{error}"
+        # invalid_syntax: "%{attribute} comporte des erreurs de syntaxe : %{errors}"
         invalid_token: "%{attribute} is invalid. Invalid token %{error}. Expected tokens are %{accepted}."
         less_than: "%{attribute} must be less than %{count}"
         less_than_or_equal_to: "%{attribute} must be less than or equal to %{count}"
@@ -169,7 +171,7 @@ eng:
         nothing_to_pay: "Nothing to pay. If you want to register a downpayment, do not forget to note that."
         odd: "%{attribute} must be odd"
         posterior: "The date %{attribute} must be posterior to %{to}"
-        record_has_been_already_validated: "Record has been already validated"
+        record_has_been_already_validated: "Record has been already validated" #?
         record_invalid: "Validations failed : %{errors}"
         taken: "%{attribute} has already been taken"
         too_long: "%{attribute} is too long (maximum is %{count} characters)"
@@ -200,9 +202,12 @@ eng:
             stopped_on:
               end_of_month: "%{attribute} must be an en of month"
           overlap: "%{attribute} overlaps an existing financial year"
+        incoming_delivery_line:
+          # greater_than_undelivered_quantity: "La quantité de produit %{product} à livrer dépasse la quantité non livrée (%{maximum}%{unit})"
         journal:
           attributes:
             closed_on:
+              # draft_entry_lines: "Des écritures du brouillard sont encore présente avant le %{closed_on}"
               end_of_month: "%{attribute} must be an end of month (%{closed_on})"
         journal_entry:
           closed_journal: "The journal %{journal} is closed on %{closed_on}. No updates are possible until this date."
@@ -266,8 +271,7 @@ eng:
       cash: "Cash"
       cash_transfer: "Cash transfer"
       company: "Company"
-      contact: ""
-      # contact_address: ""
+      contact: "" #?
       cultivation: "Cultivation"
       custom_field: "Complement field"
       custom_field_choice: "Complement field choice"
@@ -375,8 +379,6 @@ eng:
     address: "Address"
     addresses: "Addresses"
     admin: "Admin"
-    # age_max: "Age maximum"
-    # age_min: "Age minimum"
     agency_code: "Agency code"
     allocation_account: "Allocation account"
     amount: "Amount"
@@ -490,7 +492,7 @@ eng:
     connected_at: "Connected at"
     consumption: "Consumption"
     contact: "Contact"
-    contacts: "Contacts"
+    contacts: "Contacts" #?
     conveyors: "Conveyors"
     coordinate: "Coordinate"
     # corpse_location: "Localisation corporelle"
@@ -522,8 +524,8 @@ eng:
     datetime_value: "Datetime value"
     dead_on: "Dead on"
     debit: "Debit"
-    decimal_max: "Decimal max"
-    decimal_min: "Decimal min"
+    decimal_max: "Decimal max" #?
+    decimal_min: "Decimal min" #?
     decimal_value: "Decimal value"
     declared_on: "Declared on"
     # default_address: "Coordonnée par défaut"
@@ -541,7 +543,7 @@ eng:
     deliveries_conditions: "Deliveries conditions"
     delivery: "Delivery"
     delivery_address: "Delivery address"
-    delivery_contact: "Delivery contact"
+    delivery_contact: "Delivery contact" #?
     delivery_lines: "Delivery lines"
     # delivery_mail: "Delivery mail"
     # delivery_modes: "Modes de livraison"
@@ -569,7 +571,7 @@ eng:
     diff_more: "Diff more"
     direct_links: "Direct links"
     direction: "Direction"
-    direction_label: "Direction label"
+    direction_label: "Direction label" #?
     # discount_rate: "Taux d’escompte"
     disease: "Disease"
     diseases: "Diseases"
@@ -590,10 +592,10 @@ eng:
     # drug_allowed: "Médicament utilisable sans prescription"
     drugs: "Drugs"
     duration: "Duration"
-    duration_unit_wait_for_meat: "Duration unit wait for meat"
-    duration_unit_wait_for_milk: "Duration unit wait for milk"
-    duration_wait_for_meat: "Duration wait for meat"
-    duration_wait_for_milk: "Duration wait for milk"
+    duration_unit_wait_for_meat: "Duration unit wait for meat" #?
+    duration_unit_wait_for_milk: "Duration unit wait for milk" #?
+    duration_wait_for_meat: "Duration wait for meat" #?
+    duration_wait_for_milk: "Duration wait for milk" #?
     ean13: "Ean13"
     email: "Email"
     # emails: "Courriels (e-mails)"
@@ -625,7 +627,7 @@ eng:
     event_natures: "Event types"
     events: "Events"
     examinated_at: "Examinated at"
-    excise: "Excise"
+    excise: "Excise" #?
     expense: "Expense"
     expense_type: "Expense type"
     expenses: "Expenses"
@@ -638,7 +640,7 @@ eng:
     # external: "Externe à l'exploitation"
     family: "Family"
     father: "Father"
-    fax: "Fax"
+    fax: "Fax" #?
     faxes: "Faxes"
     filename: "Filename"
     filesize: "Filesize"
@@ -726,7 +728,6 @@ eng:
     last_name: "Last name"
     last_number: "Last number"
     last_year: "Last year"
-    # latitude: "Latitude"
     # left_on: "Parti le"
     # length_max: "Nombre de caractères maximum"
     letter: "Letter"
@@ -745,7 +746,7 @@ eng:
     locked: "Locked"
     # log: "Journal d'évènements"
     loggable: "Loggable"
-    longitude: "Longitude"
+    longitude: "Longitude" #?
     lost: "Lost"
     luminance: "Luminance"
     mail: "Mail"
@@ -858,8 +859,8 @@ eng:
     per_duration_time_unit: "Per duration time unit"
     per_frequency_time_unit: "Per frequency time unit"
     period: "Period"
-    period_name: "Period name"
-    phone: "Phone"
+    period_name: "Period name" #?
+    phone: "Phone" #?
     # phones: "Téléphones"
     photo: "Photo"
     physical: "Physical"
@@ -875,7 +876,7 @@ eng:
     posologies: "Posologies"
     postcode: "Postcode"
     preferences: "Preferences"
-    pregnant: "Pregnant"
+    pregnant: "Pregnant" #?
     # prescripted: "Sur ordonnance"
     # prescripted_on: "Prescrit le"
     # prescription: "Ordonnance"
@@ -929,14 +930,13 @@ eng:
     # race: "Race"
     # races: "Races"
     range: "Range"
-    # rate: "Taux de change"
     reason: "Reason"
     receipt: "Receipt"
     received: "Received"
     receiver_amount: "Received amount"
     receiver_cash: "Receiver cash"
-    receiver_currency: "Receiver currency"
-    receiver_currency_rate: "Received currency rate"
+    receiver_currency: "Receiver currency" #?
+    receiver_currency_rate: "Received currency rate" #?
     receiver_journal_entry: "Receiver journal entry"
     reconcilable: "Reconcilable"
     record_value: "Record value"
@@ -947,7 +947,7 @@ eng:
     reduction_origin: "Reduction origin"
     reduction_percent: "Reduction percentage" #?
     reduction_percentage: "Reduction percentage"
-    reduction_rate: "Reduction rate"
+    reduction_rate: "Reduction rate" #?
     reduction_submissive: "Reduction submissive"
     reductions: "Reductions"
     reference_number: "Reference number"
@@ -1003,7 +1003,6 @@ eng:
     source_quantity: "Source quantity"
     sql_type: "Sql type"
     start: "Start"
-    # start_on: "Début le"
     started_at: "Started at"
     started_on: "Started on"
     started_sec: "Started sec"
@@ -1047,8 +1046,8 @@ eng:
     taxes: "Taxes"
     temperature: "Temperature"
     template: "Template"
-    text_importance: "Text importance"
-    text_nature: "Text type"
+    text_importance: "Text importance" #?
+    text_nature: "Text type" #?
     theoric_quantity: "Theoric quantity"
     title: "Title"
     to: "To"
@@ -1114,7 +1113,7 @@ eng:
     warehouses: "Warehouses"
     # watcher: "Observateur"
     webpass: "Webpass"
-    website: "Website"
+    website: "Website" #?
     # websites: "Sites web"
     weight: "Weight (kg)"
     with_accounting: "With accounting"
@@ -1378,8 +1377,7 @@ eng:
       sales: "sales"
     contact:  #?
       error_modify_contact: "The contact can not be updated." #?
-    contact_address:
-      # error_modify_contact: "Impossible de modifier un contact"
+    contact_address: #?
     delay:
       error_unvalid_format_for_expression: "Unvalid format for expression"
     deposit:

@@ -957,7 +957,6 @@
       <page to="help#show"/>
     </menu>
     <menu name="interfacers">
-      <page to="interfacers#autocomplete"/>
       <page to="interfacers#autocomplete_for_area_name"/>
       <page to="interfacers#autocomplete_for_entity_origin"/>
       <page to="interfacers#autocomplete_for_event_location"/>

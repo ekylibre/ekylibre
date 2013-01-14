@@ -9,10 +9,6 @@
 #   - "dashboards::settings_stocks"
 #   - "entities::list_entity_events"
 #   - "entity_natures::unroll"
-#   - "interfacers::autocomplete"
-#   - "interfacers::search_for"
-#   - "interfacers::select_options"
-#   - "interfacers::unroll"
 #   - "preferences::create"
 #   - "preferences::destroy"
 #   - "preferences::edit"
@@ -97,13 +93,13 @@ __minimum__:
   - "dashboards::welcome"
   - "help::index"
   - "help::show"
-  - "interfacers::product_trackings"
-  - "interfacers::product_units"
-  - "interfacers::toggle_module"
-  - "interfacers::toggle_side"
-  - "interfacers::toggle_tab"
-  - "interfacers::toggle_view_mode"
-  - "interfacers::unroll_options"
+  - "interfacers::product_trackings # NONEXISTENT ACTION !!!"
+  - "interfacers::product_units # NONEXISTENT ACTION !!!"
+  - "interfacers::toggle_module # NONEXISTENT ACTION !!!"
+  - "interfacers::toggle_side # NONEXISTENT ACTION !!!"
+  - "interfacers::toggle_tab # NONEXISTENT ACTION !!!"
+  - "interfacers::toggle_view_mode # NONEXISTENT ACTION !!!"
+  - "interfacers::unroll_options # NONEXISTENT ACTION !!!"
   - "myselves::change_password"
   - "myselves::statistics"
   - "settings::about"
@@ -444,7 +440,11 @@ manage_districts:
   - "districts::list"
   - "districts::new"
   - "districts::update"
+<<<<<<< HEAD
   - "interfacers::search_for_districts # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!!"
+=======
+  - "interfacers::search_for_districts # NONEXISTENT ACTION !!!"
+>>>>>>> 4f68db405e6a5b3715e73595ee4c48d8f795ed5a
 # Gérer les modèles de document
 manage_document_templates:
   actions:
@@ -482,9 +482,15 @@ manage_entities:
   - "entity_addresses::update"
   - "interfacers::autocomplete_for_area_name"
   - "interfacers::autocomplete_for_entity_origin"
+<<<<<<< HEAD
   - "interfacers::search_for_attorneys_accounts # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!!"
   - "interfacers::search_for_clients_accounts # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!!"
   - "interfacers::search_for_suppliers_accounts # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!!"
+=======
+  - "interfacers::search_for_attorneys_accounts # NONEXISTENT ACTION !!!"
+  - "interfacers::search_for_clients_accounts # NONEXISTENT ACTION !!!"
+  - "interfacers::search_for_suppliers_accounts # NONEXISTENT ACTION !!!"
+>>>>>>> 4f68db405e6a5b3715e73595ee4c48d8f795ed5a
 # Gérer les types de fiche
 manage_entities_natures:
   actions:
@@ -536,6 +542,8 @@ manage_estimates:
   - "dashboards::sales"
   - "interfacers::search_for_available_prices # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!!"
   - "interfacers::search_for_clients # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!!"
+  - "interfacers::search_for_available_prices # NONEXISTENT ACTION !!!"
+  - "interfacers::search_for_clients # NONEXISTENT ACTION !!!"
   - "prices::find"
   - "sale_lines::create"
   - "sale_lines::destroy"
@@ -1036,8 +1044,8 @@ manage_taxes:
   actions:
   - "dashboards::accountancy"
   - "dashboards::accountancy"
-  - "interfacers::search_for_collected_account # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!!"
-  - "interfacers::search_for_paid_account # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!!"
+  - "interfacers::search_for_collected_account # NONEXISTENT ACTION !!!"
+  - "interfacers::search_for_paid_account # NONEXISTENT ACTION !!!"
   - "taxes::create"
   - "taxes::destroy"
   - "taxes::edit"

@@ -110,7 +110,7 @@ class DocumentTemplate < CompanyRecord
     errors.add(:source, :invalid) if self.cache.blank?
     if self.nature != "other"
       syntax_errors = self.filename_errors
-      errors.add_to_base(syntax_errors, :forced => true) unless syntax_errors.empty?
+      errors.add(:filename, :invalid_syntax, :errors => syntax_errors.to_sentence) unless syntax_errors.empty?
     end
   end
 

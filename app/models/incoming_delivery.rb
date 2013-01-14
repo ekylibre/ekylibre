@@ -45,13 +45,11 @@ class IncomingDelivery < CompanyRecord
   acts_as_numbered
   attr_accessible :address_id, :comment, :mode_id, :moved_on, :planned_on, :reference_number
   attr_readonly :number
-  # DEPRECATED Replace use of contact with address
-  belongs_to :contact, :class_name => "EntityAddress", :foreign_key => :address_id
   belongs_to :address, :class_name => "EntityAddress"
-  belongs_to :mode, :class_name=>"IncomingDeliveryMode"
+  belongs_to :mode, :class_name => "IncomingDeliveryMode"
   belongs_to :purchase
-  has_many :lines, :class_name=>"IncomingDeliveryLine", :foreign_key=>:delivery_id, :dependent=>:destroy
-  has_many :stock_moves, :as=>:origin
+  has_many :lines, :class_name => "IncomingDeliveryLine", :foreign_key => :delivery_id, :dependent => :destroy
+  has_many :stock_moves, :as => :origin
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :amount, :pretax_amount, :weight, :allow_nil => true
@@ -61,7 +59,7 @@ class IncomingDelivery < CompanyRecord
   #]VALIDATORS]
   validates_presence_of :planned_on
 
-  scope :undelivereds, where(:moved_on => nil)
+  scope :undelivereds, -> { where(:moved_on => nil) }
 
   before_validation do
     self.planned_on ||= Date.today

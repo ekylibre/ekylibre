@@ -76,7 +76,7 @@ class EntityAddress < CompanyRecord
 
   # Defines test and scope methods for all canals
   self.canal.values.each do |canal|
-    scope canal, -> {where(canal: canal)}
+    scope canal.to_s.pluralize, -> {where(canal: canal)}
     scope "own_#{canal.to_s.pluralize}", -> { where("canal = ? AND entity_id = ?", canal, Entity.of_company.id) }
   end
 
@@ -107,7 +107,7 @@ class EntityAddress < CompanyRecord
     end
   end
 
-  # Each contact have a distinct code
+  # Each address have a distinct code
   before_validation(:on => :create) do
     if self.code.blank?
       self.code = 'AAAA'

@@ -46,7 +46,7 @@ class PurchasesController < AdminController
 
 
   list(:deliveries, :model => :incoming_deliveries, :children => :lines, :conditions => {:purchase_id => ['session[:current_purchase_id]']}) do |t|
-    t.column :address, :through => :contact, :children => :product_name
+    t.column :coordinate, :through => :address, :children => :product_name
     t.column :planned_on, :children => false
     t.column :moved_on, :children => false
     t.column :quantity, :datatype => :decimal

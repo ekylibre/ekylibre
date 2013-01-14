@@ -103,7 +103,7 @@ class Cash < CompanyRecord
     end
     if self.bank_account?
       if self.mode_bban?
-        errors.add_to_base(:unvalid_bban) unless self.class.valid_bban?(self.country, self.attributes)
+        errors.add(:key, :unvalid_bban) unless self.class.valid_bban?(self.country, self.attributes)
       end
       errors.add(:iban, :invalid) unless self.class.valid_iban?(self.iban)
     end

@@ -187,13 +187,6 @@ module ActiveModel
       self[attribute] << message
     end
 
-
-
-
-    def add_to_base(message, options = {})
-      add(:id, message, options)
-    end
-
     def add_from_record(record)
       record.errors.each do |attribute, message|
         self[attribute] ||= []

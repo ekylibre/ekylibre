@@ -87,13 +87,13 @@ class StockTransfer < CompanyRecord
       errors.add(:unit_id, :invalid) unless self.unit.convertible_to? self.product.unit
     end
     if !self.second_warehouse.nil?
-      errors.add_to_base(:warehouse_can_not_receive_product, :warehouse => self.second_warehouse.name, :product => self.product.name, :contained_product => self.second_warehouse.product.name) unless self.second_warehouse.can_receive?(self.product_id)
+      errors.add(:warehouse_id, :warehouse_can_not_receive_product, :warehouse => self.second_warehouse.name, :product => self.product.name, :contained_product => self.second_warehouse.product.name) unless self.second_warehouse.can_receive?(self.product_id)
     end
     unless self.warehouse.can_receive?(self.product_id)
-      errors.add_to_base(:warehouse_can_not_transfer_product, :warehouse => self.warehouse.name, :product => self.product.name, :contained_product => self.warehouse.product.name) if self.transfer?
-      errors.add_to_base(:warehouse_can_not_waste_product, :warehouse => self.warehouse.name, :product => self.product.name, :contained_product => self.warehouse.product.name) if self.waste?
+      errors.add(:warehouse_id, :warehouse_can_not_transfer_product, :warehouse => self.warehouse.name, :product => self.product.name, :contained_product => self.warehouse.product.name) if self.transfer?
+      errors.add(:warehouse_id, :warehouse_can_not_waste_product, :warehouse => self.warehouse.name, :product => self.product.name, :contained_product => self.warehouse.product.name) if self.waste?
     end
-    errors.add_to_base(:warehouses_can_not_be_identical) if self.warehouse_id == self.second_warehouse_id
+    errors.add(:warehouse_id, :warehouses_can_not_be_identical) if self.warehouse_id == self.second_warehouse_id
   end
 
   def execute(moved_on = Date.today)
