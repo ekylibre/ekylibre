@@ -68,6 +68,8 @@ of = root.join("app", "models", "#{old_table.singularize}.rb")
 nf = root.join("app", "models", "#{new_table.singularize}.rb")
 if File.exist?(of)
   execute("git mv #{of} #{nf}")
+end
+if File.exist?(nf)
   execute("sed -i 's/class #{old_table.classify} /class #{new_table.classify} /' #{nf}")  
 end
 
@@ -76,6 +78,8 @@ of = root.join("app", "controllers", "#{old_table}_controller.rb")
 nf = root.join("app", "controllers", "#{new_table}_controller.rb")
 if File.exist?(of)
   execute("git mv #{of} #{nf}")
+end
+if File.exist?(nf)
   execute("sed -i 's/class #{old_table.camelcase}Controller /class #{new_table.camelcase}Controller /' #{nf}")  
 end
 
@@ -91,6 +95,8 @@ of = root.join("app", "helpers", "#{old_table}_helper.rb")
 nf = root.join("app", "helpers", "#{new_table}_helper.rb")
 if File.exist?(of)
   execute("git mv #{of} #{nf}")
+end
+if File.exist?(nf)
   execute("sed -i 's/module #{old_table.camelcase}Helper/module #{new_table.camelcase}Helper/' #{nf}")  
 end
 
@@ -221,6 +227,8 @@ of = root.join("test", "fixtures", "#{old_table}.yml")
 nf = root.join("test", "fixtures", "#{new_table}.yml")
 if File.exist?(of)
   execute("git mv #{of} #{nf}")
+end
+if File.exist?(nf)
   unless @simulate
     source = nil
     File.open(nf, "rb") do |f|
@@ -238,6 +246,8 @@ of = root.join("test", "unit", "#{old_table.singularize}_test.rb")
 nf = root.join("test", "unit", "#{new_table.singularize}_test.rb")
 if File.exist?(of)
   execute("git mv #{of} #{nf}")
+end
+if File.exist?(nf)
   execute("sed -i 's/class #{old_table.classify}Test /class #{new_table.classify}Test /' #{nf}")  
 end
 
@@ -246,6 +256,8 @@ of = root.join("test", "unit", "helpers", "#{old_table}_helper_test.rb")
 nf = root.join("test", "unit", "helpers", "#{new_table}_helper_test.rb")
 if File.exist?(of)
   execute("git mv #{of} #{nf}")
+end
+if File.exist?(nf)
   execute("sed -i 's/class #{old_table.camelcase}HelperTest /class #{new_table.camelcase}HelperTest /' #{nf}")  
 end
 
@@ -254,6 +266,8 @@ of = root.join("test", "functional", "#{old_table}_controller_test.rb")
 nf = root.join("test", "functional", "#{new_table}_controller_test.rb")
 if File.exist?(of)
   execute("git mv #{of} #{nf}")
+end
+if File.exist?(nf)
   execute("sed -i 's/class #{old_table.camelcase}ControllerTest /class #{new_table.camelcase}ControllerTest /' #{nf}")  
 end
 
