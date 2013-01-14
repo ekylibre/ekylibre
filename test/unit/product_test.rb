@@ -20,55 +20,45 @@
 # 
 # == Table: products
 #
-#  active                     :boolean          default(TRUE), not null
-#  catalog_description        :text             
-#  catalog_name               :string(255)      not null
-#  category_id                :integer          not null
-#  code                       :string(16)       
-#  code2                      :string(64)       
-#  comment                    :text             
-#  created_at                 :datetime         not null
-#  creator_id                 :integer          
-#  critic_quantity_min        :decimal(19, 4)   default(1.0)
-#  deliverable                :boolean          not null
-#  description                :text             
-#  ean13                      :string(13)       
-#  for_immobilizations        :boolean          not null
-#  for_productions            :boolean          not null
-#  for_purchases              :boolean          not null
-#  for_sales                  :boolean          default(TRUE), not null
-#  id                         :integer          not null, primary key
-#  immobilizations_account_id :integer          
-#  lock_version               :integer          default(0), not null
-#  name                       :string(255)      not null
-#  nature                     :string(16)       not null
-#  number                     :integer          not null
-#  price                      :decimal(19, 4)   default(0.0)
-#  published                  :boolean          not null
-#  purchases_account_id       :integer          
-#  quantity_max               :decimal(19, 4)   default(0.0)
-#  quantity_min               :decimal(19, 4)   default(0.0)
-#  reduction_submissive       :boolean          not null
-#  sales_account_id           :integer          
-#  stockable                  :boolean          not null
-#  subscription_nature_id     :integer          
-#  subscription_period        :string(255)      
-#  subscription_quantity      :integer          
-#  trackable                  :boolean          not null
-#  unit_id                    :integer          not null
-#  unquantifiable             :boolean          not null
-#  updated_at                 :datetime         not null
-#  updater_id                 :integer          
-#  weight                     :decimal(19, 4)   
-#  with_tracking              :boolean          not null
+#  arrival_reasons       :string(255)      
+#  arrived_on            :date             
+#  born_on               :date             
+#  comment               :text             
+#  created_at            :datetime         not null
+#  creator_id            :integer          
+#  departed_on           :date             
+#  departure_reasons     :string(255)      
+#  description           :text             
+#  external              :boolean          not null
+#  father_id             :integer          
+#  group_id              :integer          not null
+#  id                    :integer          not null, primary key
+#  identification_number :string(255)      not null
+#  lock_version          :integer          default(0), not null
+#  mother_id             :integer          
+#  name                  :string(255)      not null
+#  owner_id              :integer          
+#  picture_content_type  :string(255)      
+#  picture_file_name     :string(255)      
+#  picture_file_size     :integer          
+#  picture_updated_at    :datetime         
+#  quantity              :decimal(, )      
+#  reproductor           :boolean          not null
+#  sex                   :string(16)       default("male"), not null
+#  shape                 :spatial({:srid=> 
+#  specy_id              :integer          
+#  unit_id               :integer          
+#  updated_at            :datetime         not null
+#  updater_id            :integer          
+#  work_number           :string(255)      
 #
-
-
 require 'test_helper'
 
 class ProductTest < ActiveSupport::TestCase
-  # Replace this with your real tests.
-  def test_truth
+
+  # Replace this with your real tests.'
+  test "the truth" do
     assert true
   end
+
 end

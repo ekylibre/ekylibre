@@ -43,14 +43,14 @@
       <page to="observations#update"/>
     </menu>
     <menu name="events">
-      <page to="events#index"/>
-      <page to="events#change_minutes"/>
-      <page to="events#create"/>
-      <page to="events#destroy"/>
-      <page to="events#edit"/>
-      <page to="events#list"/>
-      <page to="events#new"/>
-      <page to="events#update"/>
+      <page to="entity_events#index"/>
+      <page to="entity_events#change_minutes"/>
+      <page to="entity_events#create"/>
+      <page to="entity_events#destroy"/>
+      <page to="entity_events#edit"/>
+      <page to="entity_events#list"/>
+      <page to="entity_events#new"/>
+      <page to="entity_events#update"/>
     </menu>
     <menu name="subscriptions">
       <page to="subscriptions#index"/>
@@ -368,48 +368,48 @@
       <page to="operation_uses#new"/>
     </menu>
     <menu name="animals">
-      <page to="animals#index"/>
-      <page to="animals#create"/>
-      <page to="animals#destroy"/>
-      <page to="animals#edit"/>
-      <page to="animals#list"/>
-      <page to="animals#list_cares"/>
-      <page to="animals#list_children"/>
-      <page to="animals#new"/>
-      <page to="animals#show"/>
-      <page to="animals#update"/>
+      <page to="products#index"/>
+      <page to="products#create"/>
+      <page to="products#destroy"/>
+      <page to="products#edit"/>
+      <page to="products#list"/>
+      <page to="products#list_cares"/>
+      <page to="products#list_children"/>
+      <page to="products#new"/>
+      <page to="products#show"/>
+      <page to="products#update"/>
     </menu>
     <menu name="animal_events">
-      <page to="animal_events#index"/>
-      <page to="animal_events#create"/>
-      <page to="animal_events#destroy"/>
-      <page to="animal_events#edit"/>
-      <page to="animal_events#list"/>
-      <page to="animal_events#new"/>
-      <page to="animal_events#show"/>
-      <page to="animal_events#update"/>
+      <page to="product_events#index"/>
+      <page to="product_events#create"/>
+      <page to="product_events#destroy"/>
+      <page to="product_events#edit"/>
+      <page to="product_events#list"/>
+      <page to="product_events#new"/>
+      <page to="product_events#show"/>
+      <page to="product_events#update"/>
     </menu>
     <menu name="animal_groups">
-      <page to="animal_groups#index"/>
-      <page to="animal_groups#create"/>
-      <page to="animal_groups#destroy"/>
-      <page to="animal_groups#edit"/>
-      <page to="animal_groups#list"/>
-      <page to="animal_groups#list_animals"/>
-      <page to="animal_groups#list_events"/>
-      <page to="animal_groups#new"/>
-      <page to="animal_groups#show"/>
-      <page to="animal_groups#update"/>
+      <page to="product_groups#index"/>
+      <page to="product_groups#create"/>
+      <page to="product_groups#destroy"/>
+      <page to="product_groups#edit"/>
+      <page to="product_groups#list"/>
+      <page to="product_groups#list_animals"/>
+      <page to="product_groups#list_events"/>
+      <page to="product_groups#new"/>
+      <page to="product_groups#show"/>
+      <page to="product_groups#update"/>
     </menu>
     <menu name="animal_group_events">
-      <page to="animal_group_events#index"/>
-      <page to="animal_group_events#create"/>
-      <page to="animal_group_events#destroy"/>
-      <page to="animal_group_events#edit"/>
-      <page to="animal_group_events#list"/>
-      <page to="animal_group_events#new"/>
-      <page to="animal_group_events#show"/>
-      <page to="animal_group_events#update"/>
+      <page to="product_group_events#index"/>
+      <page to="product_group_events#create"/>
+      <page to="product_group_events#destroy"/>
+      <page to="product_group_events#edit"/>
+      <page to="product_group_events#list"/>
+      <page to="product_group_events#new"/>
+      <page to="product_group_events#show"/>
+      <page to="product_group_events#update"/>
     </menu>
     <menu name="land_parcels">
       <page to="land_parcels#index"/>
@@ -605,13 +605,13 @@
         <page to="entity_natures#update"/>
       </menu>
       <menu name="event_natures">
-        <page to="event_natures#index"/>
-        <page to="event_natures#create"/>
-        <page to="event_natures#destroy"/>
-        <page to="event_natures#edit"/>
-        <page to="event_natures#list"/>
-        <page to="event_natures#new"/>
-        <page to="event_natures#update"/>
+        <page to="entity_event_natures#index"/>
+        <page to="entity_event_natures#create"/>
+        <page to="entity_event_natures#destroy"/>
+        <page to="entity_event_natures#edit"/>
+        <page to="entity_event_natures#list"/>
+        <page to="entity_event_natures#new"/>
+        <page to="entity_event_natures#update"/>
       </menu>
       <menu name="subscription_natures">
         <page to="subscription_natures#index"/>
@@ -739,19 +739,19 @@
     <menu name="products">
       <page to="dashboards#settings_products"/>
       <menu name="products">
-        <page to="products#index"/>
-        <page to="products#change_quantities"/>
-        <page to="products#create"/>
-        <page to="products#destroy"/>
-        <page to="products#edit"/>
-        <page to="products#list"/>
-        <page to="products#list_components"/>
-        <page to="products#list_prices"/>
-        <page to="products#list_stock_moves"/>
-        <page to="products#list_stocks"/>
-        <page to="products#new"/>
-        <page to="products#show"/>
-        <page to="products#update"/>
+        <page to="products_natures#index" deletable="true"/>
+        <page to="products_natures#change_quantities" deletable="true"/>
+        <page to="products_natures#create" deletable="true"/>
+        <page to="products_natures#destroy" deletable="true"/>
+        <page to="products_natures#edit" deletable="true"/>
+        <page to="products_natures#list" deletable="true"/>
+        <page to="products_natures#list_components" deletable="true"/>
+        <page to="products_natures#list_prices" deletable="true"/>
+        <page to="products_natures#list_stock_moves" deletable="true"/>
+        <page to="products_natures#list_stocks" deletable="true"/>
+        <page to="products_natures#new" deletable="true"/>
+        <page to="products_natures#show" deletable="true"/>
+        <page to="products_natures#update" deletable="true"/>
         <page to="product_components#create"/>
         <page to="product_components#destroy"/>
         <page to="product_components#edit"/>
@@ -759,15 +759,15 @@
         <page to="product_components#update"/>
       </menu>
       <menu name="product_categories">
-        <page to="product_categories#index"/>
-        <page to="product_categories#create"/>
-        <page to="product_categories#destroy"/>
-        <page to="product_categories#edit"/>
-        <page to="product_categories#list"/>
-        <page to="product_categories#list_products"/>
-        <page to="product_categories#new"/>
-        <page to="product_categories#show"/>
-        <page to="product_categories#update"/>
+        <page to="product_nature_categories#index"/>
+        <page to="product_nature_categories#create"/>
+        <page to="product_nature_categories#destroy"/>
+        <page to="product_nature_categories#edit"/>
+        <page to="product_nature_categories#list"/>
+        <page to="product_nature_categories#list_products"/>
+        <page to="product_nature_categories#new"/>
+        <page to="product_nature_categories#show"/>
+        <page to="product_nature_categories#update"/>
       </menu>
       <menu name="prices">
         <page to="prices#index"/>
@@ -836,84 +836,84 @@
         <page to="operation_natures#update"/>
       </menu>
       <menu name="animal_races">
-        <page to="animal_races#index"/>
-        <page to="animal_races#create"/>
-        <page to="animal_races#destroy"/>
-        <page to="animal_races#edit"/>
-        <page to="animal_races#list"/>
-        <page to="animal_races#new"/>
-        <page to="animal_races#show"/>
-        <page to="animal_races#update"/>
+        <page to="product_species#index"/>
+        <page to="product_species#create"/>
+        <page to="product_species#destroy"/>
+        <page to="product_species#edit"/>
+        <page to="product_species#list"/>
+        <page to="product_species#new"/>
+        <page to="product_species#show"/>
+        <page to="product_species#update"/>
       </menu>
       <menu name="animal_event_natures">
-        <page to="animal_event_natures#index"/>
-        <page to="animal_event_natures#create"/>
-        <page to="animal_event_natures#destroy"/>
-        <page to="animal_event_natures#edit"/>
-        <page to="animal_event_natures#list"/>
-        <page to="animal_event_natures#new"/>
-        <page to="animal_event_natures#show"/>
-        <page to="animal_event_natures#update"/>
+        <page to="product_event_natures#index"/>
+        <page to="product_event_natures#create"/>
+        <page to="product_event_natures#destroy"/>
+        <page to="product_event_natures#edit"/>
+        <page to="product_event_natures#list"/>
+        <page to="product_event_natures#new"/>
+        <page to="product_event_natures#show"/>
+        <page to="product_event_natures#update"/>
       </menu>
       <menu name="animal_treatments">
-        <page to="animal_treatments#index"/>
-        <page to="animal_treatments#create"/>
-        <page to="animal_treatments#destroy"/>
-        <page to="animal_treatments#edit"/>
-        <page to="animal_treatments#list"/>
-        <page to="animal_treatments#new"/>
-        <page to="animal_treatments#show"/>
-        <page to="animal_treatments#update"/>
+        <page to="animal_treatments#index" deletable="true"/>
+        <page to="animal_treatments#create" deletable="true"/>
+        <page to="animal_treatments#destroy" deletable="true"/>
+        <page to="animal_treatments#edit" deletable="true"/>
+        <page to="animal_treatments#list" deletable="true"/>
+        <page to="animal_treatments#new" deletable="true"/>
+        <page to="animal_treatments#show" deletable="true"/>
+        <page to="animal_treatments#update" deletable="true"/>
       </menu>
       <menu name="animal_diseases">
-        <page to="animal_diseases#index"/>
-        <page to="animal_diseases#create"/>
-        <page to="animal_diseases#destroy"/>
-        <page to="animal_diseases#edit"/>
-        <page to="animal_diseases#list"/>
-        <page to="animal_diseases#new"/>
-        <page to="animal_diseases#show"/>
-        <page to="animal_diseases#update"/>
+        <page to="animal_diseases#index" deletable="true"/>
+        <page to="animal_diseases#create" deletable="true"/>
+        <page to="animal_diseases#destroy" deletable="true"/>
+        <page to="animal_diseases#edit" deletable="true"/>
+        <page to="animal_diseases#list" deletable="true"/>
+        <page to="animal_diseases#new" deletable="true"/>
+        <page to="animal_diseases#show" deletable="true"/>
+        <page to="animal_diseases#update" deletable="true"/>
       </menu>
       <menu name="animal_drug_natures">
-        <page to="animal_drug_natures#index"/>
-        <page to="animal_drug_natures#create"/>
-        <page to="animal_drug_natures#destroy"/>
-        <page to="animal_drug_natures#edit"/>
-        <page to="animal_drug_natures#list"/>
-        <page to="animal_drug_natures#new"/>
-        <page to="animal_drug_natures#show"/>
-        <page to="animal_drug_natures#update"/>
+        <page to="animal_drug_natures#index" deletable="true"/>
+        <page to="animal_drug_natures#create" deletable="true"/>
+        <page to="animal_drug_natures#destroy" deletable="true"/>
+        <page to="animal_drug_natures#edit" deletable="true"/>
+        <page to="animal_drug_natures#list" deletable="true"/>
+        <page to="animal_drug_natures#new" deletable="true"/>
+        <page to="animal_drug_natures#show" deletable="true"/>
+        <page to="animal_drug_natures#update" deletable="true"/>
       </menu>
       <menu name="animal_drugs">
-        <page to="animal_drugs#index"/>
-        <page to="animal_drugs#create"/>
-        <page to="animal_drugs#destroy"/>
-        <page to="animal_drugs#edit"/>
-        <page to="animal_drugs#list"/>
-        <page to="animal_drugs#new"/>
-        <page to="animal_drugs#show"/>
-        <page to="animal_drugs#update"/>
+        <page to="animal_drugs#index" deletable="true"/>
+        <page to="animal_drugs#create" deletable="true"/>
+        <page to="animal_drugs#destroy" deletable="true"/>
+        <page to="animal_drugs#edit" deletable="true"/>
+        <page to="animal_drugs#list" deletable="true"/>
+        <page to="animal_drugs#new" deletable="true"/>
+        <page to="animal_drugs#show" deletable="true"/>
+        <page to="animal_drugs#update" deletable="true"/>
       </menu>
       <menu name="animal_posologies">
-        <page to="animal_posologies#index"/>
-        <page to="animal_posologies#create"/>
-        <page to="animal_posologies#destroy"/>
-        <page to="animal_posologies#edit"/>
-        <page to="animal_posologies#list"/>
-        <page to="animal_posologies#new"/>
-        <page to="animal_posologies#show"/>
-        <page to="animal_posologies#update"/>
+        <page to="animal_posologies#index" deletable="true"/>
+        <page to="animal_posologies#create" deletable="true"/>
+        <page to="animal_posologies#destroy" deletable="true"/>
+        <page to="animal_posologies#edit" deletable="true"/>
+        <page to="animal_posologies#list" deletable="true"/>
+        <page to="animal_posologies#new" deletable="true"/>
+        <page to="animal_posologies#show" deletable="true"/>
+        <page to="animal_posologies#update" deletable="true"/>
       </menu>
       <menu name="animal_prescriptions">
-        <page to="animal_prescriptions#index"/>
-        <page to="animal_prescriptions#create"/>
-        <page to="animal_prescriptions#destroy"/>
-        <page to="animal_prescriptions#edit"/>
-        <page to="animal_prescriptions#list"/>
-        <page to="animal_prescriptions#new"/>
-        <page to="animal_prescriptions#show"/>
-        <page to="animal_prescriptions#update"/>
+        <page to="animal_prescriptions#index" deletable="true"/>
+        <page to="animal_prescriptions#create" deletable="true"/>
+        <page to="animal_prescriptions#destroy" deletable="true"/>
+        <page to="animal_prescriptions#edit" deletable="true"/>
+        <page to="animal_prescriptions#list" deletable="true"/>
+        <page to="animal_prescriptions#new" deletable="true"/>
+        <page to="animal_prescriptions#show" deletable="true"/>
+        <page to="animal_prescriptions#update" deletable="true"/>
       </menu>
       <menu name="tools">
         <page to="tools#index"/>
@@ -929,19 +929,6 @@
     </menu>
   </menu>
   <undefined>
-    <menu name="animal_diagnostics">
-      <page to="animal_diagnostics#index"/>
-      <page to="animal_diagnostics#create"/>
-      <page to="animal_diagnostics#destroy"/>
-      <page to="animal_diagnostics#edit"/>
-      <page to="animal_diagnostics#list"/>
-      <page to="animal_diagnostics#new"/>
-      <page to="animal_diagnostics#show"/>
-      <page to="animal_diagnostics#update"/>
-    </menu>
-    <menu name="animals">
-      <page to="animals#list_events"/>
-    </menu>
     <menu name="companies">
       <page to="companies#register"/>
     </menu>
@@ -953,6 +940,7 @@
     </menu>
     <menu name="entities">
       <page to="entities#list_addresses"/>
+      <page to="entities#list_entity_events"/>
     </menu>
     <menu name="entity_addresses">
       <page to="entity_addresses#create"/>
@@ -979,19 +967,6 @@
       <page to="interfacers#product_trackings"/>
       <page to="interfacers#product_units"/>
       <page to="interfacers#search_for"/>
-      <page to="interfacers#search_for_account"/>
-      <page to="interfacers#search_for_attorneys_accounts"/>
-      <page to="interfacers#search_for_available_prices"/>
-      <page to="interfacers#search_for_clients"/>
-      <page to="interfacers#search_for_clients_accounts"/>
-      <page to="interfacers#search_for_collected_account"/>
-      <page to="interfacers#search_for_districts"/>
-      <page to="interfacers#search_for_entities"/>
-      <page to="interfacers#search_for_operation_products"/>
-      <page to="interfacers#search_for_paid_account"/>
-      <page to="interfacers#search_for_purchase_products"/>
-      <page to="interfacers#search_for_suppliers"/>
-      <page to="interfacers#search_for_suppliers_accounts"/>
       <page to="interfacers#select_options"/>
       <page to="interfacers#toggle_module"/>
       <page to="interfacers#toggle_side"/>
@@ -1013,6 +988,26 @@
       <page to="preferences#new"/>
       <page to="preferences#show"/>
       <page to="preferences#update"/>
+    </menu>
+    <menu name="product_groups">
+      <page to="product_groups#list_products"/>
+    </menu>
+    <menu name="product_nature_categories">
+      <page to="product_nature_categories#list_product_natures"/>
+    </menu>
+    <menu name="product_natures">
+      <page to="product_natures#index"/>
+      <page to="product_natures#change_quantities"/>
+      <page to="product_natures#create"/>
+      <page to="product_natures#destroy"/>
+      <page to="product_natures#edit"/>
+      <page to="product_natures#list"/>
+      <page to="product_natures#list_prices"/>
+      <page to="product_natures#list_stock_moves"/>
+      <page to="product_natures#list_stocks"/>
+      <page to="product_natures#new"/>
+      <page to="product_natures#show"/>
+      <page to="product_natures#update"/>
     </menu>
     <menu name="professions">
       <page to="professions#index"/>

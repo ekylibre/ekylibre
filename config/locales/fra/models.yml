@@ -23,6 +23,12 @@ fra:
       entity:
         active: "Active"
         origin: "Lieu de la première rencontre"
+      entity_event:
+        duration: "Durée (en minutes)"
+        location: "Lieu"
+        responsible: "Intervenant"
+      entity_event_nature:
+        duration: "Durée par défaut (en min.)"
       event:
         duration: "Durée (en minutes)"
         location: "Lieu"
@@ -65,11 +71,18 @@ fra:
         category: "Catégorie de fiche associée"
         entity: "Fournisseur"
       product:
-        duration: "Nombre de numéros OU période d’abonnement"
-        price: "Prix de revient"
+        race: "Race"
       product_category:
         children: "Sous-catégories"
         published: "Publiée"
+      product_nature_category:
+        children: "Sous-catégories"
+        published: "Publiée"
+      product_specy:
+        code: "Code race"
+      products_nature:
+        duration: "Nombre de numéros OU période d’abonnement"
+        price: "Prix de revient"
       profession:
         employees: "Employés"
       purchase:
@@ -232,20 +245,19 @@ fra:
     models:
       account: "Compte"
       account_balance: "Balance de compte"
-      animal: "Animaux"
-      animal_diagnostic: "Diagnostic"
-      animal_disease: "Maladie"
-      animal_drug: "Médicaments vétérinaires"
-      animal_drug_nature: "Types de médicaments vétérinaires"
-      animal_event: "Evenements liés aux animaux"
-      animal_event_nature: "Type d'évènement lié aux animaux"
-      animal_group: "Lot"
-      # animal_group_event: "Animal group event"
-      animal_posology: "Posologie vétérinaire"
-      animal_prescription: "Ordonnance"
-      animal_race: "Race"
+      animal: "Animaux" #?
+      animal_diagnostic: "Diagnostic" #?
+      animal_disease: "Maladie" #?
+      animal_drug: "Médicaments vétérinaires" #?
+      animal_drug_nature: "Types de médicaments vétérinaires" #?
+      animal_event: "Evenements liés aux animaux" #?
+      animal_event_nature: "Type d'évènement lié aux animaux" #?
+      animal_group: "Lot" #?
+      animal_posology: "Posologie vétérinaire" #?
+      animal_prescription: "Ordonnance" #?
+      animal_race: "Race" #?
       animal_race_nature: "Espèce" #?
-      animal_treatment: "Traitement"
+      animal_treatment: "Traitement" #?
       area: "Zone postale"
       asset: "Immobilisation"
       asset_depreciation: "Amortissement d’immobilisation"
@@ -269,12 +281,14 @@ fra:
       entity: "Personne"
       entity_address: "Adresse"
       entity_category: "Catégorie de personne"
+      entity_event: "Évènement"
+      entity_event_nature: "Type d’évènement"
       entity_link: "Lien de personne"
       entity_link_nature: "Nature de lien entre personnes"
       entity_nature: "Type de personne"
       establishment: "Établissement"
-      event: "Évènement"
-      event_nature: "Type d’évènement"
+      event: "Évènement" #?
+      event_nature: "Type d’évènement" #?
       financial_year: "Exercice"
       incoming_delivery: "Arrivage"
       incoming_delivery_line: "Ligne d’arrivage"
@@ -307,13 +321,21 @@ fra:
       outgoing_payment_use: "Affectation de décaissement"
       preference: "Préférence"
       price: "Prix"
-      product: "Produit"
-      product_category: "Catégorie de produit"
+      product: "Animaux"
+      product_category: "Catégorie de produit" #?
       product_component: "Composant de produit"
+      product_event: "Evenements liés aux animaux"
+      product_event_nature: "Type d'évènement lié aux animaux"
+      product_group: "Lot"
+      # product_group_event: "Product group event"
+      # product_nature: "Product nature"
+      product_nature_category: "Catégorie de produit"
+      product_specy: "Race"
       production_chain: "Chaîne de production"
       production_chain_conveyor: "Convoyeur de chaîne de production"
       production_chain_work_center: "Centre d’opérations de chaîne de production"
       production_chain_work_center_use: "Utilisation d’outil de centre d’opérations"
+      products_nature: "Produit" #?
       profession: "Profession"
       purchase: "Achat"
       purchase_line: "Ligne d’achat"
@@ -359,14 +381,11 @@ fra:
     agency_code: "Code guichet"
     allocation_account: "Compte de dotation"
     amount: "Montant"
-    animal: "Animaux"
+    animal: "Animaux" #?
     animal_drugs: "Médicaments"
     animal_events: "Evenement des animaux"
-    animal_group: "Lot"
-    # animal_posologies: "Animal posologies"
-    # animal_race: "Animal race"
+    animal_group: "Lot" #?
     animal_race_nature: "Espèce animale" #?
-    # animal_races: "Animal races"
     animals: "Animals"
     annotation: "Annotation"
     area: "Zone postale"
@@ -475,7 +494,7 @@ fra:
     contacts: "Contacts" #?
     conveyors: "Convoyeurs"
     coordinate: "Coordonnée"
-    corpse_location: "Localisation corporelle"
+    corpse_location: "Localisation corporelle" #?
     country: "Pays"
     created_at: "Date et heure de création"
     created_on: "Date de création"
@@ -488,7 +507,6 @@ fra:
     critic_stocks: "Stocks critiques" #?
     crypt_key: "Clé de cryptage"
     crypt_mode: "Mode de cryptage"
-    # currative_quantity: "Currative quantity"
     currency: "Devise"
     currency_precision: "Nombre de décimales"
     currency_rate: "Taux de change"
@@ -505,7 +523,6 @@ fra:
     datetime_value: "Valeur date/heure"
     dead_on: "Date de décès"
     debit: "Débit"
-    # decimal: "Decimal"
     decimal_max: "Intervalle haut" #?
     decimal_min: "Intervalle bas" #?
     decimal_value: "Valeur décimale"
@@ -548,15 +565,15 @@ fra:
     depreciations: "Amortissements"
     description: "Description"
     detail_payments: "Détailler les paiements"
-    diagnostics: "Diagnostics"
+    diagnostics: "Diagnostics" #?
     diff_less: "Droits enlevés"
     diff_more: "Droits rajoutés"
     direct_links: "Liens directs"
     direction: "Type"
     direction_label: "Type" #?
     discount_rate: "Taux d’escompte" #?
-    disease: "Maladie"
-    diseases: "Maladies"
+    disease: "Maladie" #?
+    diseases: "Maladies" #?
     district: "Zone administrative"
     districts: "Zones administratives" #?
     division: "Position X"
@@ -568,11 +585,11 @@ fra:
     downpayment_percentage: "Pourcentage d'acompte"
     draft: "Brouillard" #?
     draft_mode: "Mode brouillard" #?
-    drug: "Médicament"
+    drug: "Médicament" #?
     drug_admission_path: "Voie d'admission" #?
-    drug_admission_way: "Drug admission way"
+    drug_admission_way: "Drug admission way" #?
     drug_allowed: "Médicament utilisable sans prescription" #?
-    drugs: "Médicaments"
+    drugs: "Médicaments" #?
     duration: "Durée"
     duration_unit_wait_for_meat: "Unité de la durée d'attente (Viande)" #?
     duration_unit_wait_for_milk: "Unité de la durée d'attente (Lait)" #?
@@ -605,7 +622,7 @@ fra:
     entry_lines: "Lignes d’écritures"
     establishment: "Établissement"
     establishments: "Établissements" #?
-    event: "Event"
+    event: "Event" #?
     event_natures: "Types d’évènement" #?
     events: "Évènements"
     examinated_at: "Examiné le"
@@ -653,6 +670,7 @@ fra:
     global_debit: "Débit global"
     godchildren: "Filleul"
     group: "Groupe"
+    # groups: "Groups"
     has_downpayment: "A un acompte"
     hashed_password: "Mot de passe crypté"
     hour_duration: "Heure(s)"
@@ -762,7 +780,7 @@ fra:
     mobiles: "Portables"
     mode: "Mode"
     mother: "Mère"
-    moved_at: "Fait à"
+    moved_at: "Fait à" #?
     moved_on: "Fait le"
     moves: "Mouvements"
     name: "Nom"
@@ -818,6 +836,7 @@ fra:
     parent_land_parcel: "Sur-îlot"
     parts: "Affectations" #?
     parts_amount: "Montant utilisé" #?
+    passages: "Passages"
     password: "Mot de passe"
     password_confirmation: "Confirmation du mot de passe"
     payee: "Bénéficiaire"
@@ -848,7 +867,7 @@ fra:
     picture_file_name: "Picture file name"
     picture_file_size: "Picture file size"
     picture_updated_at: "Picture updated at"
-    planned_at: "Prévu à"
+    planned_at: "Prévu à" #?
     planned_depreciations: "Amortissements prévus"
     planned_on: "Prévu le"
     position: "Position"
@@ -856,14 +875,13 @@ fra:
     postcode: "Code postal"
     preferences: "Préférences"
     pregnant: "Pleine" #?
-    prescripted: "Sur ordonnance"
-    prescripted_on: "Prescrit le"
-    prescription: "Ordonnance"
-    prescription_number: "référence de l’ordonnance"
+    prescripted: "Sur ordonnance" #?
+    prescripted_on: "Prescrit le" #?
+    prescription: "Ordonnance" #?
+    prescription_number: "référence de l’ordonnance" #?
     prescriptions: "Ordonnances"
-    prescriptor: "Vétérinaire"
+    prescriptor: "Vétérinaire" #?
     pretax_amount: "Montant HT"
-    # preventive_quantity: "Preventive quantity"
     price: "Prix"
     price_amount: "Montant HT"
     prices: "Prix"
@@ -871,10 +889,10 @@ fra:
     printed_on: "Datée du"
     producer: "Producteur"
     product: "Produit"
-    product_categories: "Catégories de produit"
-    # product_category: "Product category"
-    # product_category_waiting_delay: "Product category waiting delay"
+    product_categories: "Catégories de produit" #?
     product_components: "Composants de produit" #?
+    # product_group: "Product group"
+    # product_natures: "Product natures"
     productable_products: "Produits produisibles"
     production_chain: "Chaîne de production"
     production_chain_conveyor: "Convoyeur de chaîne de production" #?
@@ -899,13 +917,13 @@ fra:
     purchases_account: "Compte comptable de charges"
     purchases_products: "Produits d’achat"
     quantity: "Quantité"
-    quantity_delay: "Pendant"
-    quantity_interval: "Toutes les"
+    quantity_delay: "Pendant" #?
+    quantity_interval: "Toutes les" #?
     quantity_max: "Quantité maximum"
     quantity_min: "Quantité minimum"
-    quantity_unit: "Unité de la quantité"
+    quantity_unit: "Unité de la quantité" #?
     query: "Requête"
-    race: "Race"
+    race: "Race" #?
     races: "Races" #?
     range: "Intervalle" #?
     rate: "Taux de change" #?
@@ -979,6 +997,7 @@ fra:
     soundex: "Soundex"
     source: "Source"
     source_quantity: "Quantité source"
+    # specy: "Specy"
     sql_type: "Type SQL"
     start: "Début"
     start_on: "Début le" #?
@@ -1016,7 +1035,7 @@ fra:
     suspended: "Suspendu"
     symbol: "Symbole" #?
     symmetric: "Symétrique"
-    symptoms: "Symptomes"
+    symptoms: "Symptomes" #?
     target: "Parcelle"
     target_quantity: "Quantité cible"
     target_type: "Type de cible"
@@ -1050,7 +1069,7 @@ fra:
     transports: "Transports"
     treatment: "Traitement" #?
     treatment_uses: "Treatment uses" #?
-    treatments: "Treatments"
+    treatments: "Treatments" #?
     type: "Type" #?
     undelivered_quantity: "Reste à livrer"
     unique_tracking: "Numéro unique"
@@ -1097,7 +1116,7 @@ fra:
     with_transport: "Avec transport"
     work_center: "Centre d’opération"
     work_number: "Numéro de travail"
-    zone: "Zone"
+    zone: "Zone" #?
   enumerize:
     animal:
       arrival_reasons:
@@ -1170,6 +1189,13 @@ fra:
         mobile: "Téléphone portable"
         phone: "Téléphone fixe"
         website: "Site web"
+    entity_event_nature:
+      usage:
+        mailing: "Mailing"
+        manual: "Manuelle"
+        purchase: "Création d’un achat"
+        sale: "Création d’un devis"
+        sales_invoice: "Création d’une facture"
     event_nature:
       usage:
         mailing: "Mailing"
@@ -1209,15 +1235,26 @@ fra:
       times_per_month: " / Mois"
       times_per_week: " / Semaine"
     product:
+      arrival_reasons:
+        birth: "Naissance"
+        housing: "Pension"
+        other: "Autres"
+        purchase: "Achat"
+      departure_reasons:
+        autoconsumption: "Autoconsommation"
+        dead: "Décès"
+        other: "Autres"
+        sale: "Vente"
+    production_chain_work_center:
+      nature:
+        input: "Une entrée, plusieurs sorties"
+        output: "Plusieurs entrées, une sortie"
+    products_nature:
       nature:
         product: "Produit"
         service: "Service"
         subscription: "Abonnement"
         transfer: "Transfert"
-    production_chain_work_center:
-      nature:
-        input: "Une entrée, plusieurs sorties"
-        output: "Plusieurs entrées, une sortie"
     sequence:
       period:
         cweek: "Semaine"
@@ -1464,6 +1501,20 @@ fra:
         sales: "Vente"
     product_component:
       of_product: "du produit"
+    products_nature: #?
+      informations: #?
+        with_components: "%{product} (%{unit}) (produit transformé)" #?
+        without_components: "%{product} (%{unit}) (matière première)" #?
+      label: "%{product} (%{unit})" #?
+      stock_move: "%{origin} (%{code})" #?
+      subscription_label: #?
+        period: "Abonnement %{subscription_nature} pour %{entity} à l’adresse %{address} du %{start} au %{finish}" #?
+        quantity: "Abonnement %{subscription_nature} pour %{entity} à l’adresse %{address} du n°%{start} au n°%{finish}" #?
+      to: #?
+        produce: "Production" #?
+        purchases: "Achat" #?
+        rent: "Location" #?
+        sales: "Vente"
     purchase:
       bookkeep: "[%{resource} %{number}] %{products} de %{supplier}"
       label: "%{supplier} à %{address}"

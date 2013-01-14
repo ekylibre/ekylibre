@@ -160,11 +160,11 @@ class ListingsController < AdminController
           Mailman.deliver_message(params[:from], result[listing_mail_column.label], ts[0], ts[1], attachment)
           notify_success_now(:mails_are_sent)
         end
-	nature = EventNature.where(:usage => "mailing").first
-        nature = EventNature.create!(:name => tc(:mailing), :duration => 5, :usage => "mailing") if nature.nil?
+	nature = EntityEventNature.where(:usage => "mailing").first
+        nature = EntityEventNature.create!(:name => tc(:mailing), :duration => 5, :usage => "mailing") if nature.nil?
         #raise Exception.new nature.inspect
 	Contact.where("email IN (?) AND active = ? ", @mails, true).find_each do |contact|
-          Event.create!(:entity_id => contact.entity_id, :started_at => Time.now, :duration => 5, :nature_id => nature.id, :user_id => @current_user.id)
+          EntityEvent.create!(:entity_id => contact.entity_id, :started_at => Time.now, :duration => 5, :nature_id => nature.id, :user_id => @current_user.id)
         end
         session[:listing_mail_column] = nil
       end

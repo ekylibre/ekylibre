@@ -1,0 +1,9 @@
+=field_set do
+  -association :nature, :as => :radio_buttons
+  -association :parent
+
+-field_set(:animal_group) do |f|
+  -association :product_group
+
+-field_set(:entity) do |f|
+  -association :watcher, :include_blank => true, :default_value => :blank

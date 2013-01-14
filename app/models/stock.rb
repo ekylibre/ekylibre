@@ -44,7 +44,7 @@ class Stock < CompanyRecord
   attr_accessible :name, :critic_quantity_min, :quantity_min, :quantity_max, :tracking_id, :unit_id, :warehouse_id
   attr_protected :quantity
   belongs_to :warehouse
-  belongs_to :product
+  belongs_to :product, :class_name => "ProductNature"
   belongs_to :tracking
   belongs_to :unit
   has_many :moves, :class_name => "StockMove"

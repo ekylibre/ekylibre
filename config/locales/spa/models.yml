@@ -24,6 +24,12 @@ spa:
       entity:
         # active: "Active"
         # origin: "Lieu de la première rencontre"
+      entity_event:
+        # duration: "Durée (en minutes)"
+        # location: "Lieu"
+        # responsible: "Intervenant"
+      entity_event_nature:
+        # duration: "Durée par défaut (en min.)"
       event:
         # duration: "Durée (en minutes)"
         # location: "Lieu"
@@ -67,11 +73,18 @@ spa:
         # category: "Catégorie de fiche associée"
         # entity: "Fournisseur"
       product:
-        # duration: "Nombre de numéros OU période d’abonnement"
-        # price: "Prix de revient"
+        # race: "Race"
       product_category:
         # children: "Sous-catégories"
         # published: "Publiée"
+      product_nature_category:
+        # children: "Sous-catégories"
+        # published: "Publiée"
+      product_specy:
+        # code: "Code race"
+      products_nature:
+        # duration: "Nombre de numéros OU période d’abonnement"
+        # price: "Prix de revient"
       profession:
         # employees: "Employés"
       purchase:
@@ -270,6 +283,8 @@ spa:
       # entity: "Personne"
       # entity_address: "Adresse"
       # entity_category: "Catégorie de personne"
+      # entity_event: "Évènement"
+      # entity_event_nature: "Type d’évènement"
       # entity_link: "Lien de personne"
       # entity_link_nature: "Nature de lien entre personnes"
       # entity_nature: "Type de personne"
@@ -308,13 +323,19 @@ spa:
       # outgoing_payment_use: "Affectation de décaissement"
       # preference: "Préférence"
       # price: "Prix"
-      # product: "Produit"
+      # product: "Animaux"
       # product_category: "Catégorie de produit"
       # product_component: "Composant de produit"
+      # product_event: "Evenements liés aux animaux"
+      # product_event_nature: "Type d'évènement lié aux animaux"
+      # product_group: "Lot"
+      # product_nature_category: "Catégorie de produit"
+      # product_specy: "Race"
       # production_chain: "Chaîne de production"
       # production_chain_conveyor: "Convoyeur de chaîne de production"
       # production_chain_work_center: "Centre d’opérations de chaîne de production"
       # production_chain_work_center_use: "Utilisation d’outil de centre d’opérations"
+      # products_nature: "Produit"
       # profession: "Profession"
       # purchase: "Achat"
       # purchase_line: "Ligne d’achat"
@@ -815,6 +836,7 @@ spa:
     # parent_land_parcel: "Sur-îlot"
     # parts: "Affectations"
     # parts_amount: "Montant utilisé"
+    # passages: "Passages"
     # password: "Mot de passe"
     # password_confirmation: "Confirmation du mot de passe"
     # payee: "Bénéficiaire"
@@ -1169,6 +1191,13 @@ spa:
         # mobile: "Téléphone portable"
         # phone: "Téléphone fixe"
         # website: "Site web"
+    entity_event_nature:
+      usage:
+        # mailing: "Mailing"
+        # manual: "Manuelle"
+        # purchase: "Création d’un achat"
+        # sale: "Création d’un devis"
+        # sales_invoice: "Création d’une facture"
     event_nature:
       usage:
         # mailing: "Mailing"
@@ -1208,15 +1237,28 @@ spa:
       # times_per_month: " / Mois"
       # times_per_week: " / Semaine"
     product:
+      arrival_reasons:
+        # birth: "Naissance"
+        # housing: "Pension"
+        # other: "Autres"
+        # purchase: "Achat"
+      departure_reasons:
+        # autoconsumption: "Autoconsommation"
+        # dead: "Décès"
+        # other: "Autres"
+        # sale: "Vente"
+      income_reasons: #?
+      outgone_reasons: #?
+    production_chain_work_center:
+      nature:
+        # input: "Une entrée, plusieurs sorties"
+        # output: "Plusieurs entrées, une sortie"
+    products_nature:
       nature:
         # product: "Produit"
         # service: "Service"
         # subscription: "Abonnement"
         # transfer: "Transfert"
-    production_chain_work_center:
-      nature:
-        # input: "Une entrée, plusieurs sorties"
-        # output: "Plusieurs entrées, une sortie"
     sequence:
       period:
         # cweek: "Semaine"
@@ -1490,6 +1532,22 @@ spa:
     product_component:
       # of_product: "du produit"
     production_chain_work_center: #?
+    products_nature:
+      informations:
+        # with_components: "%{product} (%{unit}) (produit transformé)"
+        # without_components: "%{product} (%{unit}) (matière première)"
+      # label: "%{product} (%{unit})"
+      natures: #?
+      # stock_move: "%{origin} (%{code})"
+      subscription_label:
+        # period: "Abonnement %{subscription_nature} pour %{entity} à l’adresse %{address} du %{start} au %{finish}"
+        # quantity: "Abonnement %{subscription_nature} pour %{entity} à l’adresse %{address} du n°%{start} au n°%{finish}"
+      supply_methods: #?
+      to:
+        # produce: "Production"
+        # purchases: "Achat"
+        # rent: "Location"
+        # sales: "Vente"
     purchase:
       # bookkeep: "[%{resource} %{number}] %{products} de %{supplier}"
       # label: "%{supplier} à %{address}"

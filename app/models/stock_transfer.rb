@@ -46,7 +46,7 @@ class StockTransfer < CompanyRecord
   attr_accessible :comment, :nature, :planned_on, :product_id, :quantity, :second_warehouse_id, :tracking_id, :unit_id, :warehouse_id
   attr_readonly :nature
   enumerize :nature, :in => [:waste, :transfer, :gain], :default => :transfer, :predicates => true
-  belongs_to :product
+  belongs_to :product, :class_name => "ProductNature"
   belongs_to :second_stock_move, :class_name => "StockMove"
   belongs_to :second_warehouse, :class_name => "Warehouse"
   belongs_to :stock_move

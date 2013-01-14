@@ -38,7 +38,7 @@
 
 class Unit < CompanyRecord
   attr_accessible :base, :coefficient, :label, :name, :start
-  has_many :products
+  has_many :products, :class_name => "Product"
   has_many :animal_drugs
   has_many :stock_moves
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.

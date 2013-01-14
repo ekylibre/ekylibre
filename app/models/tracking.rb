@@ -39,7 +39,7 @@ class Tracking < CompanyRecord
   after_save :update_serials
   attr_accessible :serial, :name, :producer_id, :product_id
   belongs_to :producer, :class_name=>"Entity"
-  belongs_to :product
+  belongs_to :product, :class_name => "ProductNature"
   has_many :outgoing_delivery_lines
   has_many :inventory_lines
   has_many :stocks

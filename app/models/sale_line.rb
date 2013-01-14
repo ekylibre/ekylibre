@@ -58,7 +58,7 @@ class SaleLine < CompanyRecord
   belongs_to :sale
   belongs_to :origin, :class_name => "SaleLine"
   belongs_to :price
-  belongs_to :product
+  belongs_to :product, :class_name => "ProductNature"
   belongs_to :reduction_origin, :class_name => "SaleLine"
   belongs_to :tax
   belongs_to :tracking

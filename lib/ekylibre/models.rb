@@ -2,7 +2,7 @@
 module Ekylibre
   mattr_reader :models, :references
   # List of all models
-  @@models = [:account, :account_balance, :animal, :animal_diagnostic, :animal_disease, :animal_drug, :animal_drug_nature, :animal_event, :animal_event_nature, :animal_group, :animal_group_event, :animal_posology, :animal_prescription, :animal_race, :animal_treatment, :area, :asset, :asset_depreciation, :bank_statement, :cash, :cash_transfer, :company, :cultivation, :custom_field, :custom_field_choice, :custom_field_datum, :delay, :department, :deposit, :deposit_line, :district, :document, :document_template, :entity, :entity_address, :entity_category, :entity_link, :entity_link_nature, :entity_nature, :establishment, :event, :event_nature, :financial_year, :incoming_delivery, :incoming_delivery_line, :incoming_delivery_mode, :incoming_payment, :incoming_payment_mode, :incoming_payment_use, :inventory, :inventory_line, :journal, :journal_entry, :journal_entry_line, :land_parcel, :land_parcel_group, :land_parcel_kinship, :listing, :listing_node, :listing_node_item, :mandate, :observation, :operation, :operation_line, :operation_nature, :operation_use, :outgoing_delivery, :outgoing_delivery_line, :outgoing_delivery_mode, :outgoing_payment, :outgoing_payment_mode, :outgoing_payment_use, :preference, :price, :product, :product_category, :product_component, :production_chain, :production_chain_conveyor, :production_chain_work_center, :production_chain_work_center_use, :profession, :purchase, :purchase_line, :purchase_nature, :role, :sale, :sale_line, :sale_nature, :sequence, :stock, :stock_move, :stock_transfer, :subscription, :subscription_nature, :tax, :tax_declaration, :tool, :tool_nature, :tracking, :tracking_state, :transfer, :transport, :unit, :warehouse]
+  @@models = [:account, :account_balance, :area, :asset, :asset_depreciation, :bank_statement, :cash, :cash_transfer, :company, :cultivation, :custom_field, :custom_field_choice, :custom_field_datum, :delay, :department, :deposit, :deposit_line, :district, :document, :document_template, :entity, :entity_address, :entity_category, :entity_event, :entity_event_nature, :entity_link, :entity_link_nature, :entity_nature, :establishment, :financial_year, :incoming_delivery, :incoming_delivery_line, :incoming_delivery_mode, :incoming_payment, :incoming_payment_mode, :incoming_payment_use, :inventory, :inventory_line, :journal, :journal_entry, :journal_entry_line, :land_parcel, :land_parcel_group, :land_parcel_kinship, :listing, :listing_node, :listing_node_item, :mandate, :observation, :operation, :operation_line, :operation_nature, :operation_use, :outgoing_delivery, :outgoing_delivery_line, :outgoing_delivery_mode, :outgoing_payment, :outgoing_payment_mode, :outgoing_payment_use, :preference, :price, :product, :product_component, :product_event, :product_event_nature, :product_group, :product_group_event, :product_nature, :product_nature_category, :product_specy, :production_chain, :production_chain_conveyor, :production_chain_work_center, :production_chain_work_center_use, :profession, :purchase, :purchase_line, :purchase_nature, :role, :sale, :sale_line, :sale_nature, :sequence, :stock, :stock_move, :stock_transfer, :subscription, :subscription_nature, :tax, :tax_declaration, :tool, :tool_nature, :tracking, :tracking_state, :transfer, :transport, :unit, :warehouse]
 
   # List of all references
   @@references = {
@@ -14,86 +14,6 @@ module Ekylibre
       :account_id => :account,
       :creator_id => :entity,
       :financial_year_id => :financial_year,
-      :updater_id => :entity
-    },
-    :animal => {
-      :creator_id => :entity,
-      :father_id => :animal,
-      :group_id => :animal_group,
-      :mother_id => :animal,
-      :owner_id => :entity,
-      :race_id => :animal_race,
-      :updater_id => :entity
-    },
-    :animal_diagnostic => {
-      :creator_id => :entity,
-      :disease_id => :animal_disease,
-      :event_id => :event,
-      :updater_id => :entity
-    },
-    :animal_disease => {
-      :creator_id => :entity,
-      :updater_id => :entity
-    },
-    :animal_drug => {
-      :creator_id => :entity,
-      :nature_id => :animal_drug_nature,
-      :updater_id => :entity
-    },
-    :animal_drug_nature => {
-      :creator_id => :entity,
-      :updater_id => :entity
-    },
-    :animal_event => {
-      :animal_id => :animal,
-      :creator_id => :entity,
-      :nature_id => :animal_event_nature,
-      :parent_id => :animal_event,
-      :updater_id => :entity,
-      :watcher_id => :entity
-    },
-    :animal_event_nature => {
-      :creator_id => :entity,
-      :updater_id => :entity
-    },
-    :animal_group => {
-      :creator_id => :entity,
-      :parent_id => :animal_group,
-      :updater_id => :entity
-    },
-    :animal_group_event => {
-      :animal_group_id => :animal_group,
-      :creator_id => :entity,
-      :nature_id => :animal_event_nature,
-      :parent_id => :animal_group_event,
-      :updater_id => :entity,
-      :watcher_id => :entity
-    },
-    :animal_posology => {
-      :animal_race_id => :animal_race,
-      :creator_id => :entity,
-      :disease_id => :animal_disease,
-      :drug_id => :animal_drug,
-      :product_category_id => :product_category,
-      :quantity_unit_id => :unit,
-      :updater_id => :entity
-    },
-    :animal_prescription => {
-      :creator_id => :entity,
-      :prescriptor_id => :entity,
-      :updater_id => :entity
-    },
-    :animal_race => {
-      :creator_id => :entity,
-      :parent_id => :animal_race,
-      :updater_id => :entity
-    },
-    :animal_treatment => {
-      :creator_id => :entity,
-      :disease_id => :animal_disease,
-      :drug_id => :animal_drug,
-      :event_id => :event,
-      :prescription_id => :animal_prescription,
       :updater_id => :entity
     },
     :area => {
@@ -225,6 +145,17 @@ module Ekylibre
       :creator_id => :entity,
       :updater_id => :entity
     },
+    :entity_event => {
+      :creator_id => :entity,
+      :entity_id => :entity,
+      :nature_id => :entity_event_nature,
+      :responsible_id => :entity,
+      :updater_id => :entity
+    },
+    :entity_event_nature => {
+      :creator_id => :entity,
+      :updater_id => :entity
+    },
     :entity_link => {
       :creator_id => :entity,
       :entity_1_id => :entity,
@@ -241,17 +172,6 @@ module Ekylibre
       :updater_id => :entity
     },
     :establishment => {
-      :creator_id => :entity,
-      :updater_id => :entity
-    },
-    :event => {
-      :creator_id => :entity,
-      :entity_id => :entity,
-      :nature_id => :event_nature,
-      :responsible_id => :entity,
-      :updater_id => :entity
-    },
-    :event_nature => {
       :creator_id => :entity,
       :updater_id => :entity
     },
@@ -477,18 +397,13 @@ module Ekylibre
       :updater_id => :entity
     },
     :product => {
-      :category_id => :product_category,
       :creator_id => :entity,
-      :immobilizations_account_id => :account,
-      :purchases_account_id => :account,
-      :sales_account_id => :account,
-      :subscription_nature_id => :subscription_nature,
+      :father_id => :product,
+      :group_id => :product_group,
+      :mother_id => :product,
+      :owner_id => :entity,
+      :specy_id => :product_specy,
       :unit_id => :unit,
-      :updater_id => :entity
-    },
-    :product_category => {
-      :creator_id => :entity,
-      :parent_id => :product_category,
       :updater_id => :entity
     },
     :product_component => {
@@ -497,6 +412,51 @@ module Ekylibre
       :product_id => :product,
       :updater_id => :entity,
       :warehouse_id => :warehouse
+    },
+    :product_event => {
+      :creator_id => :entity,
+      :nature_id => :product_event_nature,
+      :parent_id => :product_event,
+      :product_id => :product,
+      :updater_id => :entity,
+      :watcher_id => :entity
+    },
+    :product_event_nature => {
+      :creator_id => :entity,
+      :updater_id => :entity
+    },
+    :product_group => {
+      :creator_id => :entity,
+      :parent_id => :product_group,
+      :updater_id => :entity
+    },
+    :product_group_event => {
+      :creator_id => :entity,
+      :nature_id => :product_group_event_nature,
+      :parent_id => :product_group_event,
+      :product_group_id => :product_group,
+      :updater_id => :entity,
+      :watcher_id => :entity
+    },
+    :product_nature => {
+      :category_id => :product_nature_category,
+      :creator_id => :entity,
+      :immobilizations_account_id => :asset,
+      :purchases_account_id => :account,
+      :sales_account_id => :account,
+      :subscription_nature_id => :subscription_nature,
+      :unit_id => :unit,
+      :updater_id => :entity
+    },
+    :product_nature_category => {
+      :creator_id => :entity,
+      :parent_id => :product_nature_category,
+      :updater_id => :entity
+    },
+    :product_specy => {
+      :creator_id => :entity,
+      :parent_id => :product_specy,
+      :updater_id => :entity
     },
     :production_chain => {
       :creator_id => :entity,

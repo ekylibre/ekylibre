@@ -63,9 +63,9 @@ class ProductionChainsController < AdminController
                   ["STPA", "Special Tomato Palet (トマトの匣)", :u, 925] # 912.8 of tomato + palet (12kg) + film
                  ]
           k = p[0] # .lower.to_sym
-          ps[k] = Product.find_by_code(p[0])
+          ps[k] = ProductNature.find_by_code(p[0])
           # ps[k].destroy; ps[k] = nil
-          ps[k] = Product.create!(:name=>p[1], :code=>p[0], :unit=>us[p[2]], :weight=>p[3], :for_sales=>false, :category=>ProductCategory.first, :nature=>"product", :stockable=>true) unless ps[k]
+          ps[k] = ProductNature.create!(:name=>p[1], :code=>p[0], :unit=>us[p[2]], :weight=>p[3], :for_sales=>false, :category=>ProductNatureCategory.first, :nature=>"product", :stockable=>true) unless ps[k]
         end
 
         for co in [ ["TOMA", nil, 0.0,  :a,   1, true],

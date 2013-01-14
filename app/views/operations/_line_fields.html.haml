@@ -8,7 +8,7 @@
       %abbr{:title => 'required'} *
       =OperationLine.human_attribute_name('product')
     .controls
-      =selector(:operation_line, :product, {:controller=>"products", :action=>:unroll}, {:object => operation_line}, :id => 'operation_line-product-input', :class => 'selector required') + link_to(('<span class="icon"></span><span class="text">' + h('labels.new'.t) + '</span>').html_safe, {:controller => :products, :action => :new}, 'data-new-item' => 'operation_line-product-input', :class => 'btn btn-new')
+      =selector(:operation_line, :product, {:controller=>"product_natures", :action=>:unroll}, {:object => operation_line}, :id => 'operation_line-product-input', :class => 'selector required') + link_to(('<span class="icon"></span><span class="text">' + h('labels.new'.t) + '</span>').html_safe, {:controller => :product_natures, :action => :new}, 'data-new-item' => 'operation_line-product-input', :class => 'btn btn-new')
       -for error in operation_line.errors['product']
         %span.help-inline=error
   =f.input(:quantity, :wrapper_html => {:id => 'quantity-field'})

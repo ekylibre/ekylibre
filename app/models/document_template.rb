@@ -45,7 +45,7 @@
 class DocumentTemplate < CompanyRecord
   # Be careful! :id is a forbidden name for parameters
   @@document_natures = {
-    :animal =>           [ [:animal, Animal]],
+    :animal =>           [ [:animal, Product]],
     :balance_sheet =>    [ [:financial_year, FinancialYear] ],
     :entity =>           [ [:entity, Entity] ],
     :deposit =>          [ [:deposit, Deposit] ],

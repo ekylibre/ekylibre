@@ -34,7 +34,7 @@ class InventoriesController < AdminController
 
   # Displays the main page with the list of inventories
   def index
-    if Product.stockables.count.zero?
+    if ProductNature.stockables.count.zero?
       notify_now(:need_stocks_to_create_inventories)
     end
   end
@@ -58,7 +58,7 @@ class InventoriesController < AdminController
     end
   end
 
-  list(:lines_create, :model => :stocks, :pagination => :none, :order => "#{Warehouse.table_name}.name, #{Product.table_name}.name") do |t|
+  list(:lines_create, :model => :stocks, :pagination => :none, :order => "#{Warehouse.table_name}.name, #{ProductNature.table_name}.name") do |t|
     t.column :name, :through => :warehouse, :url => true
     t.column :name, :through => :product, :url => true
     t.column :name, :through => :tracking, :url => true
@@ -67,7 +67,7 @@ class InventoriesController < AdminController
     t.text_field :quantity
   end
 
-  list(:lines_update, :model => :inventory_lines, :conditions => {:inventory_id => ['session[:current_inventory_id]'] }, :pagination => :none, :order => "#{Warehouse.table_name}.name, #{Product.table_name}.name") do |t|
+  list(:lines_update, :model => :inventory_lines, :conditions => {:inventory_id => ['session[:current_inventory_id]'] }, :pagination => :none, :order => "#{Warehouse.table_name}.name, #{ProductNature.table_name}.name") do |t|
     t.column :name, :through => :warehouse, :url => true
     t.column :name, :through => :product, :url => true
     t.column :name, :through => :tracking, :url => true
@@ -77,7 +77,7 @@ class InventoriesController < AdminController
 
 
   def new
-    if Product.stockables.count.zero?
+    if ProductNature.stockables.count.zero?
       notify_warning(:need_stocks_to_create_inventories)
       redirect_to_back
     end
@@ -87,7 +87,7 @@ class InventoriesController < AdminController
   end
 
   def create
-    if Product.stockables.count.zero?
+    if ProductNature.stockables.count.zero?
       notify_warning(:need_stocks_to_create_inventories)
       redirect_to_back
     end

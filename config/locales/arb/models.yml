@@ -158,6 +158,19 @@ arb:
         usable_incoming_payments: "الدفعات المستخدمة" #?
       entity_category:  #?
         description: "مواصفات" #?
+      entity_event:
+        created_at: "تم انشائها في" #?
+        duration: "(المدة (بالدقائق"
+        location: "الموقع"
+        nature: "النوع" #?
+        nature_id: "النوع" #?
+        responsible: "المتحدث"
+        responsible_id: "المتحدث" #?
+        started_at: "التاريخ والوقت" #?
+        updater_id: "تحديث" #?
+      entity_event_nature:
+        duration: "(المدة الافتراضية (بالدقائق"
+        updated_at: "تم تحديثها في" #?
       entity_link:  #?
         created_at: "تم انشائها في" #?
         nature: "الرابط" #?
@@ -318,10 +331,10 @@ arb:
       product:
         active: "قبل للاستخدام" #?
         comment: "تعليق" #?
-        duration: "عدد ارقام او مدة الاشتراك"
+        duration: "عدد ارقام او مدة الاشتراك" #?
         ean13: "EAN13 الرمز" #?
-        # price: "Prix de revient"
         published: "نشر" #?
+        # race: "Race"
         stock_moves: "حركات السهم" #?
         stocks: "اسهم المنتجات" #?
         unit: "وحدة القياس" #?
@@ -340,6 +353,27 @@ arb:
         updater: "التحدبث" #?
         warehouse: "مكان التخزين" #?
         warehouse_id: "مكان التخزين" #?
+      product_nature_category:
+        catalog_description: "الوصف" #?
+        children: "دلائل فرعية"
+        creator_id: "المننتج" #?
+        published: "تم نشرها"
+        shelves: "فئات الانتاج" #?
+      product_specy:
+        # code: "Code race"
+      products_nature:
+        active: "قبل للاستخدام" #?
+        comment: "تعليق" #?
+        duration: "عدد ارقام او مدة الاشتراك"
+        ean13: "EAN13 الرمز" #?
+        # price: "Prix de revient"
+        published: "نشر" #?
+        stock_moves: "حركات السهم" #?
+        stocks: "اسهم المنتجات" #?
+        unit: "وحدة القياس" #?
+        unit_id: "وحدة قياس" #?
+        warehouses: "اماكن التخزين" #?
+        weight: "(الوزن(كغ" #?
       profession:
         # employees: "Employés"
       purchase:
@@ -656,6 +690,8 @@ arb:
       entity: "الفرد"
       # entity_address: "Adresse"
       entity_category: "فئة الفرد"
+      entity_event: "الحدث"
+      entity_event_nature: "نوع الحدث"
       entity_link: "رابط الفرد"
       entity_link_nature: "طبيعة الرابط بين الافراد"
       entity_nature: "نوع الفرد"
@@ -699,10 +735,16 @@ arb:
       product: "الانتاج"
       product_category: "فئة الانتاج"
       product_component: "عنصر الانتاج"
+      # product_event: "Evenements liés aux animaux"
+      # product_event_nature: "Type d'évènement lié aux animaux"
+      # product_group: "Lot"
+      product_nature_category: "فئة الانتاج"
+      # product_specy: "Race"
       # production_chain: "Chaîne de production"
       # production_chain_conveyor: "Convoyeur de chaîne de production"
       # production_chain_work_center: "Centre d’opérations de chaîne de production"
       # production_chain_work_center_use: "Utilisation d’outil de centre d’opérations"
+      products_nature: "الانتاج"
       profession: "المهنة"
       purchase: "الشراء"
       purchase_line: "طريقة طلب الشراء"
@@ -1278,6 +1320,7 @@ arb:
     # parent_land_parcel: "Sur-îlot"
     parts: "الاجزاء"
     parts_amount: "القيمة المستخدمة"
+    # passages: "Passages"
     password: "كلمة المرور"
     password_confirmation: "تأكيد كلمة السر"
     payee: "المستفيد"
@@ -1674,6 +1717,13 @@ arb:
         # mobile: "Téléphone portable"
         # phone: "Téléphone fixe"
         # website: "Site web"
+    entity_event_nature:
+      usage:
+        # mailing: "Mailing"
+        # manual: "Manuelle"
+        # purchase: "Création d’un achat"
+        # sale: "Création d’un devis"
+        # sales_invoice: "Création d’une facture"
     event_nature:
       usage:
         # mailing: "Mailing"
@@ -1713,15 +1763,28 @@ arb:
       # times_per_month: " / Mois"
       # times_per_week: " / Semaine"
     product:
+      arrival_reasons:
+        # birth: "Naissance"
+        # housing: "Pension"
+        # other: "Autres"
+        # purchase: "Achat"
+      departure_reasons:
+        # autoconsumption: "Autoconsommation"
+        # dead: "Décès"
+        # other: "Autres"
+        # sale: "Vente"
+      income_reasons: #?
+      outgone_reasons: #?
+    production_chain_work_center:
+      nature:
+        # input: "Une entrée, plusieurs sorties"
+        # output: "Plusieurs entrées, une sortie"
+    products_nature:
       nature:
         # product: "Produit"
         # service: "Service"
         # subscription: "Abonnement"
         # transfer: "Transfert"
-    production_chain_work_center:
-      nature:
-        # input: "Une entrée, plusieurs sorties"
-        # output: "Plusieurs entrées, une sortie"
     sequence:
       period:
         # cweek: "Semaine"
@@ -2038,6 +2101,13 @@ arb:
       # no_right_defined_for_this_part_of_the_application: "Aucun droit défini pour cette partie de l’application\_: %{controller}/%{action}"
       # no_right_defined_for_this_part_of_the_application_and_this_user: "Vous n’avez pas accès à cette partie de l’application"
       supplier: "الممول"
+    entity_event_nature:  #?
+      usages: #?
+        mailing: "البريدي" #?
+        manual: "كتيب" #?
+        purchase: "انشاء طلب شراء" #?
+        sale: "انشاء طلب بيع" #?
+        sales_invoice: "انشاء فاتورة" #?
     event_nature:  #?
       usages: #?
         mailing: "البريدي" #?
@@ -2165,6 +2235,29 @@ arb:
     product_component:
       of_product: "نتاج"
     production_chain_work_center: #?
+    products_nature:
+      informations:
+        with_components: "%{product} (%{unit}) (ليس هناك من فترة استراحة)"
+        without_components: "%{product} (%{unit}) (مادة خام)"
+      label: "%{product} (%{unit})"
+      natures:  #?
+        product: "المنتج" #?
+        service: "الخدمة" #?
+        subscrip: "الاشتراك" #?
+        transfer: "تحويل" #?
+      stock_move: "%{origin} (%{code})"
+      subscription_label:
+        period: "اشتراك %{subscription_nature} ل %{entity} للعنوان %{address} من %{start} الى %{finish}"
+        quantity: "الاشتراك %{subscription_nature} ل %{entity} للعنوان %{address} من رقم%{start} الى رقم%{finish}"
+      supply_methods:  #?
+        buy: "المشتريات" #?
+        produce: "الانتاج" #?
+      to:
+        produce: "الانتاج"
+        purchases: "المشتريات"
+        rent: "تأجير"
+        sales: "المبيعات"
+      unknown_use_of_product: "(يجب تحديد الغاية من المنتج (شراء او بيع او تأجير" #?
     purchase:
       bookkeep: "[%{resource} %{number}] %{products} لل %{supplier}"
       label: "%{supplier} الى %{address}"

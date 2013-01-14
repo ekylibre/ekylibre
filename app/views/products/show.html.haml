@@ -1,41 +1,36 @@
 =toolbar do |t|
-  -t.edit @product
+  -t.edit @animal
+  -t.print_animal @animal
+  -t.destroy(@animal, :method=>:delete, "data-confirm" => tg(:are_you_sure_you_want_to_delete)) if @animal.destroyable?
 
 =beehive do |b|
   -b.cell :details do
-    =attributes_list(@product) do |l|
+
+    =attributes_list(@animal) do |l| # liste des champs à afficher
       -l.attribute :name
-      -l.attribute :price
-      -l.attribute :code
-      -l.attribute :code2
-      -l.attribute :ean13
-      -l.attribute :category, :url=>true
-      -l.attribute :unit, :label=>:label
-      -l.attribute :weight
-      -l.attribute :active
-      -l.attribute :to
-      -l.attribute :catalog_name
-      -l.attribute :catalog_description
-      -l.attribute :description
+      -l.attribute :race, :url => true
+      -l.attribute :group, :url => true # on affiche l'attribut name de l'entité AnimalGroup associé par l'attribut group de l'entité courante Animal avec un lien vers ce groupe
+      -l.attribute :sex
+      -l.attribute :mother, :url => true
+      -l.attribute :identification_number
+      -l.attribute :arrived_on
+      -l.attribute :arrival_reasons
+      -l.attribute :departed_on
       -l.attribute :comment
-      -l.attribute :stockable
+    -if @animal.picture.exists?
+      =image_tag(@animal.picture.url(:thumb))
 
   -b.tabbox do
-    -b.cell :prices do
-      =toolbar do |t|
-        -t.link(:new_sales_price, {:controller=>:prices, :action=>:new, :mode=>:sales, :product_id=>session[:product_id]}) if @product.for_sales
-        -t.link(:new_purchase_price, {:controller=>:prices, :action=>:new, :mode=>:purchases, :product_id=>session[:product_id]}) if @product.for_purchases
-      =list :prices
 
-    -b.cell :components do
+    -b.cell(:events) do
       =toolbar do |t|
-        -t.link :new, :controller=>:product_components, :product_id=>@product.id
-      =list :components
+        -t.link(:new, :controller=>:animal_events, :animal_id=>@animal.id)
+      =list(:events)
 
-    -b.cell :stocks do
-      =toolbar do |t|
-        -t.link :new, :controller=>:stocks, :product_id=>@product.id
-      =list(:stocks)
+    -b.cell(:childrens) do
+      =list(:children)
 
-    -b.cell :stock_moves do
-      =list(:stock_moves)
+    -b.cell(:picture) do
+      -if @animal.picture.exists?
+        =image_tag(@animal.picture.url(:original))
+

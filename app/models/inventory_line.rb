@@ -40,7 +40,7 @@
 class InventoryLine < CompanyRecord
   attr_accessible :product_id, :quantity, :tracking_id, :unit_id, :warehouse_id
   belongs_to :inventory, :inverse_of => :lines
-  belongs_to :product
+  belongs_to :product, :class_name => "ProductNature"
   belongs_to :stock_move
   belongs_to :tracking
   belongs_to :unit

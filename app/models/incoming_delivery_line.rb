@@ -46,7 +46,7 @@ class IncomingDeliveryLine < CompanyRecord
   attr_readonly :purchase_line_id, :product_id, :price_id, :unit_id
   belongs_to :delivery, :class_name => "IncomingDelivery"
   belongs_to :price
-  belongs_to :product
+  belongs_to :product, :class_name => "ProductNature"
   belongs_to :purchase_line, :class_name => "PurchaseLine"
   belongs_to :stock_move
   belongs_to :tracking

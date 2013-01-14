@@ -1,11 +1,5 @@
-=kujaku do |k|
-  -k.text
-  -k.radio :all, :active, :inactive
-  -k.criterion do
-    %label=tl(:category)
-    =select_tag(:category_id, options_for_select([[]] + ProductCategory.all.collect{|s| [s.name, s.id]}, :selected => params[:category_id]))
-
+=kujaku
 =toolbar do |t|
   -t.link :new
+  -t.link :index, :format=>:pdf
 =list
-

@@ -24,6 +24,12 @@ eng:
       entity:
         active: "Active"
         origin: "First meeting location"
+      entity_event:
+        duration: "Duration (in minutes)"
+        location: "Location"
+        responsible: "Responsible"
+      entity_event_nature:
+        duration: "Duration by default (in min.)"
       event:
         duration: "Duration (in minutes)"
         location: "Location"
@@ -66,11 +72,18 @@ eng:
         category: "People category"
         entity: "Supplier"
       product:
-        duration: "Quantity OR period"
-        price: "Cost price"
+        race: "Race"
       product_category:
         children: "Sub-product_categories"
         published: "Published"
+      product_nature_category:
+        children: "Sub-product_categories"
+        published: "Published"
+      product_specy:
+        # code: "Code race"
+      products_nature:
+        duration: "Quantity OR period"
+        price: "Cost price"
       profession:
         employees: "Employees"
       purchase:
@@ -269,6 +282,8 @@ eng:
       entity: "Person"
       entity_address: "Address"
       entity_category: "Person category"
+      entity_event: "Event"
+      entity_event_nature: "Event type"
       entity_link: "Person link"
       entity_link_nature: "Person link type"
       entity_nature: "Person type"
@@ -307,13 +322,19 @@ eng:
       outgoing_payment_use: "Disbursement part"
       preference: "Preference"
       price: "Price"
-      product: "Product"
+      product: "Animal"
       product_category: "Product category"
       product_component: "Product component"
+      product_event: "Animal event"
+      product_event_nature: "Animal event type"
+      product_group: "Animal group"
+      product_nature_category: "Product category"
+      product_specy: "Animal race"
       production_chain: "Production chain"
       production_chain_conveyor: "Production chain conveyor"
       production_chain_work_center: "Production chain work center"
       production_chain_work_center_use: "Production chain work center use"
+      products_nature: "Product"
       profession: "Profession"
       purchase: "Purchase order"
       purchase_line: "Purchase order line"
@@ -816,6 +837,7 @@ eng:
     parent_land_parcel: "Parent land parcel"
     # parts: "Affectations"
     # parts_amount: "Montant utilisé"
+    # passages: "Passages"
     password: "Password"
     password_confirmation: "Confirmation of password"
     payee: "Payee"
@@ -1178,6 +1200,13 @@ eng:
         # mobile: "Téléphone portable"
         # phone: "Téléphone fixe"
         # website: "Site web"
+    entity_event_nature:
+      usage:
+        # mailing: "Mailing"
+        manual: "Manual"
+        purchase: "Creation of a purchase"
+        sale: "Creation of a sale"
+        sales_invoice: "Creation of a sales invoice"
     event_nature:
       usage:
         # mailing: "Mailing"
@@ -1217,15 +1246,28 @@ eng:
       # times_per_month: " / Mois"
       # times_per_week: " / Semaine"
     product:
+      arrival_reasons:
+        # birth: "Naissance"
+        # housing: "Pension"
+        # other: "Autres"
+        # purchase: "Achat"
+      departure_reasons:
+        # autoconsumption: "Autoconsommation"
+        # dead: "Décès"
+        # other: "Autres"
+        # sale: "Vente"
+      income_reasons: #?
+      outgone_reasons: #?
+    production_chain_work_center:
+      nature:
+        input: "One in, many out"
+        output: "Many in, one out"
+    products_nature:
       nature:
         product: "Product"
         service: "Service"
         subscription: "Subcription"
         transfer: "Transfer"
-    production_chain_work_center:
-      nature:
-        input: "One in, many out"
-        output: "Many in, one out"
     sequence:
       period:
         cweek: "Commercial week"
@@ -1474,6 +1516,20 @@ eng:
         sales: "Sales"
     product_component:
       of_product: "of product"
+    products_nature:
+      informations:
+        with_components: "%{product} (%{unit}) (transformed material)"
+        without_components: "%{product} (%{unit}) (raw material)"
+      label: "%{product} (%{unit})"
+      stock_move: "%{origin} (%{code})"
+      subscription_label:
+        period: "Subscription %{subscription_nature} for %{entity} at %{address} from %{start} to %{finish}"
+        quantity: "Subscription %{subscription_nature} for %{entity} at %{address} from %{start} to %{finish}"
+      to:
+        produce: "Production"
+        purchases: "Purchases"
+        rent: "Location"
+        sales: "Sales"
     purchase:
       bookkeep: "[%{resource} %{number}] %{products} of %{supplier}"
       label: "%{supplier} at %{address}"

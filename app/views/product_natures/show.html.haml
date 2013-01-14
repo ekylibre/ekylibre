@@ -1,0 +1,41 @@
+=toolbar do |t|
+  -t.edit @product_nature
+
+=beehive do |b|
+  -b.cell :details do
+    =attributes_list(@product_nature) do |l|
+      -l.attribute :name
+      -l.attribute :price
+      -l.attribute :code
+      -l.attribute :code2
+      -l.attribute :ean13
+      -l.attribute :category, :url=>true
+      -l.attribute :unit, :label=>:label
+      -l.attribute :weight
+      -l.attribute :active
+      -l.attribute :to
+      -l.attribute :catalog_name
+      -l.attribute :catalog_description
+      -l.attribute :description
+      -l.attribute :comment
+      -l.attribute :stockable
+
+  -b.tabbox do
+    -b.cell :prices do
+      =toolbar do |t|
+        -t.link(:new_sales_price, {:controller=>:prices, :action=>:new, :mode=>:sales, :product_id=>session[:product_id]}) if @product_nature.for_sales
+        -t.link(:new_purchase_price, {:controller=>:prices, :action=>:new, :mode=>:purchases, :product_id=>session[:product_id]}) if @product_nature.for_purchases
+      =list :prices
+
+    -b.cell :components do
+      =toolbar do |t|
+        -t.link :new, :controller=>:product_components, :product_nature_id=>@product_nature.id
+      =list :components
+
+    -b.cell :stocks do
+      =toolbar do |t|
+        -t.link :new, :controller=>:stocks, :product_nature_id=>@product_nature.id
+      =list(:stocks)
+
+    -b.cell :stock_moves do
+      =list(:stock_moves)
