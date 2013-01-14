@@ -533,8 +533,9 @@ Ekylibre::Application.routes.draw do
       unroll_all
     end
   end
-  resources :products_natures do
+  resources :product_natures do
     collection do
+      get :change_quantities
       get :list
       get :list_prices
       get :list_stocks
@@ -546,7 +547,7 @@ Ekylibre::Application.routes.draw do
   resources :product_nature_categories do
     collection do
       get :list
-      get :list_products
+      get :list_product_natures
       unroll_all
     end
   end

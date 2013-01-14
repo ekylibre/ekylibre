@@ -36,7 +36,7 @@
 class EntityEventNature < CompanyRecord
   attr_accessible :name, :duration, :active, :usage
   attr_readonly :name
-  has_many :events, :foreign_key => :nature_id
+  has_many :events, :foreign_key => :nature_id, :class_name => "EntityEvent"
   enumerize :usage, :in => [:manual, :sale, :purchase, :sales_invoice], :defaut => :manual, :predicates => true
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :duration, :allow_nil => true, :only_integer => true

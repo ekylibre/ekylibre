@@ -18,5 +18,5 @@
 #
 
 require 'test_helper'
-class ProductsNaturesHelperTest < ActionView::TestCase
+class ProductNaturesHelperTest < ActionView::TestCase
 end

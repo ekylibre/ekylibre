@@ -1493,7 +1493,7 @@ module ApplicationHelper
     check_field_name_before_push(name, __method__)
     options.merge!(:type => __method__, :name => name)
     model = options[:model] || @options[0][:model] || @master_model
-    raise "Unknown column #{name} for #{model.name}" unless model.columns_hash[name.to_s]
+    # raise "Unknown column #{name} for #{model.name}" unless model.columns_hash[name.to_s]
     if column = model.columns_hash[name.to_s]
       options[:field] ||= :text if column.type == :text
     end

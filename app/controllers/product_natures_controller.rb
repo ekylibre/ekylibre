@@ -93,7 +93,7 @@ class ProductNaturesController < AdminController
 
   # Displays details of one product selected with +params[:id]+
   def show
-    return unless @product_nature = find_and_check(:product_nature)
+    return unless @product_nature = find_and_check(:product_natures)
     session[:product_nature_id] = @product_nature.id
     t3e @product_nature.attributes
   end
@@ -122,7 +122,7 @@ class ProductNaturesController < AdminController
   end
 
   def destroy
-    return unless @product_nature = find_and_check(:product_nature)
+    return unless @product_nature = find_and_check(:product_natures)
     if request.post? or request.delete?
       @product_nature.destroy
     end
@@ -130,7 +130,7 @@ class ProductNaturesController < AdminController
   end
 
   def edit
-    return unless @product_nature = find_and_check(:product_nature)
+    return unless @product_nature = find_and_check(:product_natures)
     session[:product_nature_id] = @product_nature.id
     @stock = @product_nature.default_stock || Stock.new
     t3e @product_nature.attributes
@@ -138,7 +138,7 @@ class ProductNaturesController < AdminController
   end
 
   def update
-    return unless @product_nature = find_and_check(:product_nature)
+    return unless @product_nature = find_and_check(:product_natures)
     session[:product_nature_id] = @product_nature.id
     @stock = @product_nature.default_stock || Stock.new
     saved = false

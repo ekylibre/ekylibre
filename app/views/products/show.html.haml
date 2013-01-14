@@ -1,15 +1,15 @@
 =toolbar do |t|
-  -t.edit @animal
-  -t.print_animal @animal
-  -t.destroy(@animal, :method=>:delete, "data-confirm" => tg(:are_you_sure_you_want_to_delete)) if @animal.destroyable?
+  -t.edit @product
+  -t.print_product @product
+  -t.destroy(@product, :method=>:delete, "data-confirm" => tg(:are_you_sure_you_want_to_delete)) if @product.destroyable?
 
 =beehive do |b|
   -b.cell :details do
 
-    =attributes_list(@animal) do |l| # liste des champs à afficher
+    =attributes_list(@product) do |l| # liste des champs à afficher
       -l.attribute :name
       -l.attribute :race, :url => true
-      -l.attribute :group, :url => true # on affiche l'attribut name de l'entité AnimalGroup associé par l'attribut group de l'entité courante Animal avec un lien vers ce groupe
+      -l.attribute :group, :url => true # on affiche l'attribut name de l'entité ProductGroup associé par l'attribut group de l'entité courante Product avec un lien vers ce groupe
       -l.attribute :sex
       -l.attribute :mother, :url => true
       -l.attribute :identification_number
@@ -17,20 +17,20 @@
       -l.attribute :arrival_reasons
       -l.attribute :departed_on
       -l.attribute :comment
-    -if @animal.picture.exists?
-      =image_tag(@animal.picture.url(:thumb))
+    -if @product.picture.exists?
+      =image_tag(@product.picture.url(:thumb))
 
   -b.tabbox do
 
     -b.cell(:events) do
       =toolbar do |t|
-        -t.link(:new, :controller=>:animal_events, :animal_id=>@animal.id)
+        -t.link(:new, :controller=>:product_events, :product_id=>@product.id)
       =list(:events)
 
     -b.cell(:childrens) do
       =list(:children)
 
     -b.cell(:picture) do
-      -if @animal.picture.exists?
-        =image_tag(@animal.picture.url(:original))
+      -if @product.picture.exists?
+        =image_tag(@product.picture.url(:original))
 

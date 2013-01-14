@@ -3,7 +3,7 @@
   -k.radio :all, :active, :inactive
   -k.criterion do
     %label=tl(:category)
-    =select_tag(:category_id, options_for_select([[]] + ProductCategory.all.collect{|s| [s.name, s.id]}, :selected => params[:category_id]))
+    =select_tag(:category_id, options_for_select([[]] + ProductNatureCategory.all.collect{|s| [s.name, s.id]}, :selected => params[:category_id]))
 
 =toolbar do |t|
   -t.link :new

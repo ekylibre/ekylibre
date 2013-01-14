@@ -64,7 +64,7 @@
 
     -b.cell(tl(:x_events, :count=>@entity.events.count)) do
       =toolbar do |t|
-        -t.link :new, :controller=>:events, :entity_id=>@entity.id
+        -t.link :new, :controller=>:entity_events, :entity_id=>@entity.id
       =list(:events)
 
     -b.cell(tl(:x_entity_links, :count=>EntityLink.of_entity(@entity).count)) do

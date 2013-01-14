@@ -72,21 +72,21 @@ class ProductNature < CompanyRecord
   belongs_to :subscription_nature
   belongs_to :category, :class_name => "ProductNatureCategory"
   belongs_to :unit
-  has_many :available_stocks, :class_name => "Stock", :conditions => ["quantity > 0"]
-  has_many :components, :class_name => "ProductComponent", :conditions => {:active => true}
-  has_many :outgoing_delivery_lines
-  has_many :prices
-  has_many :purchase_lines
-  has_many :reservoirs, :conditions => {:reservoir => true}
-  has_many :sale_lines
-  has_many :stock_moves
-  has_many :stock_transfers
-  has_many :stocks
-  has_many :subscriptions
-  has_many :trackings
-  has_many :products, :class_name => "Product"
+  has_many :available_stocks, :class_name => "Stock", :conditions => ["quantity > 0"], :foreign_key => :product_id
+  has_many :components, :class_name => "ProductComponent", :conditions => {:active => true}, :foreign_key => :product_id
+  has_many :outgoing_delivery_lines, :foreign_key => :product_id
+  has_many :prices, :foreign_key => :product_id
+  has_many :purchase_lines, :foreign_key => :product_id
+  has_many :reservoirs, :conditions => {:reservoir => true}, :foreign_key => :product_id
+  has_many :sale_lines, :foreign_key => :product_id
+  has_many :stock_moves, :foreign_key => :product_id
+  has_many :stock_transfers, :foreign_key => :product_id
+  has_many :stocks, :foreign_key => :product_id
+  has_many :subscriptions, :foreign_key => :product_id
+  has_many :trackings, :foreign_key => :product_id
+  has_many :products
   # has_many :warehouses, :through => :stocks
-  has_one :default_stock, :class_name => "Stock", :order => :name
+  has_one :default_stock, :class_name => "Stock", :order => :name, :foreign_key => :product_id
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :number, :subscription_quantity, :allow_nil => true, :only_integer => true
   validates_numericality_of :critic_quantity_min, :price, :quantity_max, :quantity_min, :weight, :allow_nil => true

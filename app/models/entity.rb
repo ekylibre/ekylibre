@@ -119,7 +119,7 @@ class Entity < CompanyRecord
   has_many :auto_updateable_addresses, :conditions => {:deleted_at => nil, :mail_auto_update => true}, :class_name => "EntityAddress"
   has_many :direct_links, :class_name => "EntityLink", :foreign_key => :entity_1_id
   has_many :events, :class_name => "EntityEvent"
-  has_many :animal_events, :class_name => "ProductEvent", :foreign_key => :watcher_id
+  has_many :product_events, :class_name => "ProductEvent", :foreign_key => :watcher_id
   has_many :managed_events, :foreign_key => :responsible_id # as Responsible
   has_many :future_events, :class_name => "EntityEvent", :foreign_key => :responsible_id, :conditions => ["started_at >= CURRENT_TIMESTAMP"]
   has_many :godchildren, :class_name => "Entity", :foreign_key => "proposer_id"

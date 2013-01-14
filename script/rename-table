@@ -177,6 +177,14 @@ for file in Dir[root.join("config", "locales", "*", "action.yml")].sort
   end
 end
 
+# config/locales/*/help/
+for file in Dir[root.join("config", "locales", "*", "help", "#{old_table}-*.txt")].sort
+  of = Pathname.new(file)
+  nf = of.join("..", "#{new_table}-#{of.basename.split(/[\-\.]+/)[1..-2].join('-')}.txt")
+  execute("git mv #{of #{nf}")
+end
+
+
 
 # config/menu
 nf = root.join("config", "menu.xml")
@@ -206,7 +214,7 @@ unless @simulate
   end
 end
 
-# config/rights
+# config/routes.rb
 nf = root.join("config", "routes.rb")
 puts "Update #{nf}"
 source = nil
@@ -219,7 +227,6 @@ unless @simulate
     f.write source
   end
 end
-
 
 
 # test/fixtures
@@ -270,6 +277,8 @@ end
 if File.exist?(nf)
   execute("sed -i 's/class #{old_table.camelcase}ControllerTest /class #{new_table.camelcase}ControllerTest /' #{nf}")  
 end
+
+
 
 # General replacing
 print "replace "

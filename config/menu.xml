@@ -739,19 +739,19 @@
     <menu name="products">
       <page to="dashboards#settings_products"/>
       <menu name="products">
-        <page to="products_natures#index" deletable="true"/>
-        <page to="products_natures#change_quantities" deletable="true"/>
-        <page to="products_natures#create" deletable="true"/>
-        <page to="products_natures#destroy" deletable="true"/>
-        <page to="products_natures#edit" deletable="true"/>
-        <page to="products_natures#list" deletable="true"/>
-        <page to="products_natures#list_components" deletable="true"/>
-        <page to="products_natures#list_prices" deletable="true"/>
-        <page to="products_natures#list_stock_moves" deletable="true"/>
-        <page to="products_natures#list_stocks" deletable="true"/>
-        <page to="products_natures#new" deletable="true"/>
-        <page to="products_natures#show" deletable="true"/>
-        <page to="products_natures#update" deletable="true"/>
+        <page to="product_natures#index" deletable="true"/>
+        <page to="product_natures#change_quantities" deletable="true"/>
+        <page to="product_natures#create" deletable="true"/>
+        <page to="product_natures#destroy" deletable="true"/>
+        <page to="product_natures#edit" deletable="true"/>
+        <page to="product_natures#list" deletable="true"/>
+        <page to="product_natures#list_components" deletable="true"/>
+        <page to="product_natures#list_prices" deletable="true"/>
+        <page to="product_natures#list_stock_moves" deletable="true"/>
+        <page to="product_natures#list_stocks" deletable="true"/>
+        <page to="product_natures#new" deletable="true"/>
+        <page to="product_natures#show" deletable="true"/>
+        <page to="product_natures#update" deletable="true"/>
         <page to="product_components#create"/>
         <page to="product_components#destroy"/>
         <page to="product_components#edit"/>

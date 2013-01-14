@@ -182,7 +182,7 @@ class Company < Ekylibre::Record::Base
 
   # Specifics
   ### has_many :attorney_accounts, :class_name => "Account", :order => :number, :conditions => conditions_proc('number LIKE #{connection.quote(self.preferred_third_attorneys_accounts.to_s+\'%\')}')
-  has_many :available_prices, :class_name => "Price", :conditions => conditions_proc('prices.entity_id=#{self.entity_id} AND prices.active=#{connection.quoted_true} AND product_id IN (SELECT id FROM #{ProductsNature.table_name} WHERE company_id=#{id} AND active=#{connection.quoted_true})'), :order => "prices.amount"
+  has_many :available_prices, :class_name => "Price", :conditions => conditions_proc('prices.entity_id=#{self.entity_id} AND prices.active=#{connection.quoted_true} AND product_id IN (SELECT id FROM #{ProductNature.table_name} WHERE company_id=#{id} AND active=#{connection.quoted_true})'), :order => "prices.amount"
   ### has_many :available_products, :class_name => "ProductNature", :conditions => {:active => true}, :order => :name
   has_many :bank_journals, :class_name => "Journal", :order => :code, :conditions => conditions_proc('nature LIKE \'bank\'')
   has_many :banks_accounts, :class_name => "Account", :order => :number, :conditions => conditions_proc('number LIKE #{connection.quote(self.preferred_financial_banks_accounts.to_s+\'%\')}')

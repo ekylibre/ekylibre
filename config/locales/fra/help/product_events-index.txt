@@ -1,0 +1,21 @@
+====== Évènements liés aux animaux ======
+
+Les évènements peuvent concerner un [[>products/index|animal]] ou un groupe d'animaux [[>product_groups/index|groupe d'animaux]].
+
+Ils sont catégorisés [[>product_event_natures/index|catégorisés]].
+
+
+===== Diagnostic =====
+
+Un diagnostic peut correspondre à une suspicion de maladies.
+
+===== Traitement =====
+
+Un evenement de type Traitement suppose l'existence d'un diagnostic avant de réaliser un traitements.
+Certains traitements necessitent une ordonnance.
+
+Vous pouvez gérer une pharmacie pour votre exploitation avec la listes des médicaments utilisés pour vos soins
+Cette pharmacie peut être directement liée à votre stock de produit
+
+Le type de compte est défini **à la création**. Vous ne pourrez pas le modifier une fois créé. 
+S'il n'a pas servi vous pourrez toujours le supprimer.
