@@ -251,19 +251,19 @@ eng:
     models:
       account: "Account"
       account_balance: "Account balance"
-      animal: "Animal"
-      animal_diagnostic: "Animal diagnostic"
-      animal_disease: "Animal disease"
-      animal_drug: "Animal drug"
-      animal_drug_nature: "Animal drug type"
-      animal_event: "Animal event"
-      animal_event_nature: "Animal event type"
-      animal_group: "Animal group"
-      animal_posology: "Animal posology"
-      animal_prescription: "Animal prescription"
-      animal_race: "Animal race"
-      animal_race_nature: "Animal race type"
-      animal_treatment: "Animal treatment"
+      animal: "Animal" #?
+      animal_diagnostic: "Animal diagnostic" #?
+      animal_disease: "Animal disease" #?
+      animal_drug: "Animal drug" #?
+      animal_drug_nature: "Animal drug type" #?
+      animal_event: "Animal event" #?
+      animal_event_nature: "Animal event type" #?
+      animal_group: "Animal group" #?
+      animal_posology: "Animal posology" #?
+      animal_prescription: "Animal prescription" #?
+      animal_race: "Animal race" #?
+      animal_race_nature: "Animal race type" #?
+      animal_treatment: "Animal treatment" #?
       area: "Area"
       asset: "Asset"
       asset_depreciation: "Asset depreciation"
@@ -292,8 +292,8 @@ eng:
       entity_link_nature: "Person link type"
       entity_nature: "Person type"
       establishment: "Establishment"
-      event: "Event"
-      event_nature: "Event type"
+      event: "Event" #?
+      event_nature: "Event type" #?
       financial_year: "Financial year"
       incoming_delivery: "Purchase delivery"
       incoming_delivery_line: "Purchase delivery line"
@@ -327,11 +327,14 @@ eng:
       preference: "Preference"
       price: "Price"
       product: "Animal"
-      product_category: "Product category"
+      product_category: "Product category" #?
       product_component: "Product component"
       product_event: "Animal event"
       product_event_nature: "Animal event type"
       product_group: "Animal group"
+      # product_group_event: "Évènement de groupe de produits"
+      # product_group_passing: "Passage d'un produit dans un groupe"
+      # product_nature: "Type de produit"
       product_nature_category: "Product category"
       product_specy: "Animal race"
       production_chain: "Production chain"
@@ -382,11 +385,11 @@ eng:
     agency_code: "Agency code"
     allocation_account: "Allocation account"
     amount: "Amount"
-    animal: "Animal"
+    animal: "Animal" #?
     animal_drugs: "Animal drugs"
-    animal_events: "Animal events"
-    animal_group: "Animal group"
-    animal_race_nature: "Animal race nature"
+    animal_events: "Animal events" #?
+    animal_group: "Animal group" #?
+    animal_race_nature: "Animal race nature" #?
     animals: "Animals"
     annotation: "Annotation"
     area: "Area"
@@ -432,7 +435,7 @@ eng:
     by_default: "By default"
     cache: "Cache"
     canal: "Canal"
-    cares: "Cares"
+    cares: "Cares" #?
     cash: "Cash"
     cash_journals: "Cash journals"
     cash_transfers: "Cash transfers"
@@ -491,11 +494,10 @@ eng:
     confirmed_on: "Confirmed on"
     connected_at: "Connected at"
     consumption: "Consumption"
-    contact: "Contact"
+    contact: "Contact" #?
     contacts: "Contacts" #?
     conveyors: "Conveyors"
     coordinate: "Coordinate"
-    # corpse_location: "Localisation corporelle"
     country: "Country"
     created_at: "Created at"
     created_on: "Created on"
@@ -545,9 +547,9 @@ eng:
     delivery_address: "Delivery address"
     delivery_contact: "Delivery contact" #?
     delivery_lines: "Delivery lines"
-    # delivery_mail: "Delivery mail"
     # delivery_modes: "Modes de livraison"
     density_label: "Density label"
+    # departed_at: "Parti le"
     departed_on: "Departed on"
     department: "Department"
     departments: "Departments"
@@ -573,8 +575,8 @@ eng:
     direction: "Direction"
     direction_label: "Direction label" #?
     # discount_rate: "Taux d’escompte"
-    disease: "Disease"
-    diseases: "Diseases"
+    disease: "Disease" #?
+    diseases: "Diseases" #?
     district: "District"
     districts: "Districts"
     division: "X"
@@ -586,11 +588,9 @@ eng:
     downpayment_percentage: "Downpayment percentage"
     # draft: "Brouillard"
     # draft_mode: "Mode brouillard"
-    drug: "Drug"
-    drug_admission_path: "Drug admission path"
-    # drug_admission_way: "Drug admission way"
-    # drug_allowed: "Médicament utilisable sans prescription"
-    drugs: "Drugs"
+    drug: "Drug" #?
+    drug_admission_path: "Drug admission path" #?
+    drugs: "Drugs" #?
     duration: "Duration"
     duration_unit_wait_for_meat: "Duration unit wait for meat" #?
     duration_unit_wait_for_milk: "Duration unit wait for milk" #?
@@ -608,6 +608,7 @@ eng:
     employees: "Employees"
     employment: "Employment"
     # end_on: "Fin le"
+    # entered_at: "Arrivé at"
     entities: "People"
     entity: "Entity"
     entity_1: "Person 1"
@@ -671,6 +672,7 @@ eng:
     global_debit: "Global debit"
     godchildren: "Godchildren"
     group: "Group"
+    # groups: "Groupes"
     has_downpayment: "Has downpayment"
     hashed_password: "Hashed password"
     hour_duration: "Hour duration"
@@ -729,7 +731,6 @@ eng:
     last_number: "Last number"
     last_year: "Last year"
     # left_on: "Parti le"
-    # length_max: "Nombre de caractères maximum"
     letter: "Letter"
     letter_format: "Letter format"
     lines: "Lines"
@@ -855,9 +856,9 @@ eng:
     payments_count: "Payments count"
     payments_to_deposit: "Payments to deposit"
     payments_to_deposit_accounts: "Payments to deposit accounts"
-    per_animal_unit: "Per animal unit"
-    per_duration_time_unit: "Per duration time unit"
-    per_frequency_time_unit: "Per frequency time unit"
+    per_animal_unit: "Per animal unit" #?
+    per_duration_time_unit: "Per duration time unit" #?
+    per_frequency_time_unit: "Per frequency time unit" #?
     period: "Period"
     period_name: "Period name" #?
     phone: "Phone" #?
@@ -877,10 +878,6 @@ eng:
     postcode: "Postcode"
     preferences: "Preferences"
     pregnant: "Pregnant" #?
-    # prescripted: "Sur ordonnance"
-    # prescripted_on: "Prescrit le"
-    # prescription: "Ordonnance"
-    # prescription_number: "référence de l’ordonnance"
     prescriptions: "Prescriptions"
     # prescriptor: "Vétérinaire"
     pretax_amount: "Pre-tax amount"
@@ -893,6 +890,8 @@ eng:
     product: "Product"
     product_categories: "Product categories"
     product_components: "Product components"
+    # product_group: "Groupe de produits"
+    # product_natures: "Types de produits"
     productable_products: "Productable products"
     production_chain: "Production chain"
     # production_chain_conveyor: "Convoyeur de chaîne de production"
@@ -985,7 +984,7 @@ eng:
     # second_move: "Second mouvement"
     second_stock_move: "Second stock move"
     second_warehouse: "Second warehouse"
-    self_bank_accounts: "Self bank accounts"
+    self_bank_accounts: "Self bank accounts" #?
     self_cashes: "Self cashes"
     self_contacts: "Self contacts"
     sequences: "Sequences"
@@ -1037,7 +1036,6 @@ eng:
     suspended: "Suspended"
     # symbol: "Symbole"
     symmetric: "Symmetric"
-    # symptoms: "Symptomes"
     target: "Target"
     target_quantity: "Target quantity"
     target_type: "Target type"
@@ -1093,7 +1091,7 @@ eng:
     usable_outgoing_payments: "Usable disbursements"
     usage: "Usage"
     usage_duration: "Usage duration"
-    use_range: "Use range"
+    use_range: "Use range" #?
     used_amount: "Used amount"
     used_with: "Used with"
     useful_lines: "Useful lines"

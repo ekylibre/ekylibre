@@ -249,19 +249,6 @@ fra:
     models:
       account: "Compte"
       account_balance: "Balance de compte"
-      animal: "Animaux" #?
-      animal_diagnostic: "Diagnostic" #?
-      animal_disease: "Maladie" #?
-      animal_drug: "Médicaments vétérinaires" #?
-      animal_drug_nature: "Types de médicaments vétérinaires" #?
-      animal_event: "Evenements liés aux animaux" #?
-      animal_event_nature: "Type d'évènement lié aux animaux" #?
-      animal_group: "Lot" #?
-      animal_posology: "Posologie vétérinaire" #?
-      animal_prescription: "Ordonnance" #?
-      animal_race: "Race" #?
-      animal_race_nature: "Espèce" #?
-      animal_treatment: "Traitement" #?
       area: "Zone postale"
       asset: "Immobilisation"
       asset_depreciation: "Amortissement d’immobilisation"
@@ -289,8 +276,6 @@ fra:
       entity_link_nature: "Nature de lien entre personnes"
       entity_nature: "Type de personne"
       establishment: "Établissement"
-      event: "Évènement" #?
-      event_nature: "Type d’évènement" #?
       financial_year: "Exercice"
       incoming_delivery: "Arrivage"
       incoming_delivery_line: "Ligne d’arrivage"
@@ -324,13 +309,13 @@ fra:
       preference: "Préférence"
       price: "Prix"
       product: "Animaux"
-      product_category: "Catégorie de produit" #?
       product_component: "Composant de produit"
-      product_event: "Evenements liés aux animaux"
-      product_event_nature: "Type d'évènement lié aux animaux"
+      product_event: "Évènements des produits"
+      product_event_nature: "Type d'évènement des produits"
       product_group: "Lot"
-      # product_group_event: "Product group event"
-      # product_nature: "Product nature"
+      product_group_event: "Évènement de groupe de produits"
+      product_group_passing: "Passage d'un produit dans un groupe"
+      product_nature: "Type de produit"
       product_nature_category: "Catégorie de produit"
       product_specy: "Race"
       production_chain: "Chaîne de production"
@@ -381,9 +366,8 @@ fra:
     agency_code: "Code guichet"
     allocation_account: "Compte de dotation"
     amount: "Montant"
-    animal: "Animaux" #?
     animal_drugs: "Médicaments"
-    animal_race_nature: "Espèce animale" #?
+    # animal_events: "Animal events"
     animals: "Animals"
     annotation: "Annotation"
     area: "Zone postale"
@@ -429,7 +413,6 @@ fra:
     by_default: "Par défaut"
     cache: "Cache"
     canal: "Canal"
-    cares: "Soins" #?
     cash: "Trésorerie"
     cash_journals: "Journaux de caisse"
     cash_transfers: "Virements internes" #?
@@ -488,10 +471,8 @@ fra:
     confirmed_on: "Confirmée le"
     connected_at: "Connecté le"
     consumption: "Consommation (litres/heure)"
-    contact: "Adresse" #?
     conveyors: "Convoyeurs"
     coordinate: "Coordonnée"
-    corpse_location: "Localisation corporelle" #?
     country: "Pays"
     created_at: "Date et heure de création"
     created_on: "Date de création"
@@ -520,8 +501,6 @@ fra:
     datetime_value: "Valeur date/heure"
     dead_on: "Date de décès"
     debit: "Débit"
-    decimal_max: "Intervalle haut" #?
-    decimal_min: "Intervalle bas" #?
     decimal_value: "Valeur décimale"
     declared_on: "Déclarée le"
     default_address: "Coordonnée par défaut" #?
@@ -540,9 +519,9 @@ fra:
     delivery: "Livraison"
     delivery_address: "Adresse pour la livraison"
     delivery_lines: "Lignes de livraison"
-    delivery_mail: "Delivery mail" #?
     delivery_modes: "Modes de livraison" #?
     density_label: "Densité"
+    departed_at: "Parti le"
     departed_on: "Parti le"
     department: "Service"
     departments: "Services" #?
@@ -567,8 +546,6 @@ fra:
     direct_links: "Liens directs"
     direction: "Type"
     discount_rate: "Taux d’escompte" #?
-    disease: "Maladie" #?
-    diseases: "Maladies" #?
     district: "Zone administrative"
     districts: "Zones administratives" #?
     division: "Position X"
@@ -580,11 +557,6 @@ fra:
     downpayment_percentage: "Pourcentage d'acompte"
     draft: "Brouillard" #?
     draft_mode: "Mode brouillard" #?
-    drug: "Médicament" #?
-    drug_admission_path: "Voie d'admission" #?
-    drug_admission_way: "Drug admission way" #?
-    drug_allowed: "Médicament utilisable sans prescription" #?
-    drugs: "Médicaments" #?
     duration: "Durée"
     ean13: "Code EAN13"
     email: "Courriel (e-mail)" #?
@@ -598,6 +570,7 @@ fra:
     employees: "employés"
     employment: "Emploi/Rôle"
     end_on: "Fin le" #?
+    entered_at: "Arrivé at"
     entities: "Personnes"
     entity: "Personne"
     entity_1: "Personne 1"
@@ -659,7 +632,7 @@ fra:
     global_debit: "Débit global"
     godchildren: "Filleul"
     group: "Groupe"
-    # groups: "Groups"
+    groups: "Groupes"
     has_downpayment: "A un acompte"
     hashed_password: "Mot de passe crypté"
     hour_duration: "Heure(s)"
@@ -717,7 +690,6 @@ fra:
     last_number: "Dernier numéro"
     last_year: "Dernière année"
     left_on: "Parti le"
-    length_max: "Nombre de caractères maximum" #?
     letter: "Lettre"
     letter_format: "Devis au format lettre"
     lines: "Lignes"
@@ -840,39 +812,22 @@ fra:
     payments_count: "Nb. encaissements"
     payments_to_deposit: "Encaissements à encaisser" #?
     payments_to_deposit_accounts: "Comptes des encaissements à encaisser"
-    per_animal_unit: "Per animal unit" #?
-    per_duration_time_unit: "Per duration time unit" #?
-    per_frequency_time_unit: "Per frequency time unit" #?
     period: "Périodicité"
     phones: "Téléphones"
     photo: "Photo"
     physical: "Personne physique"
     picture: "Photo"
-    picture_content_type: "Picture content type"
-    picture_file_name: "Picture file name"
-    picture_file_size: "Picture file size"
-    picture_updated_at: "Picture updated at"
-    planned_at: "Prévu à" #?
     picture_content_type: "Format de photo"
     picture_file_name: "Nom du fichier photo"
     picture_file_size: "Taille du fichier photo"
     picture_updated_at: "Fichier photo mis à jour le"
-    planned_at: "Prévu à"
+    planned_at: "Prévu à" #?
     planned_depreciations: "Amortissements prévus"
     planned_on: "Prévu le"
     position: "Position"
     posologies: "Posologies"
     postcode: "Code postal"
     preferences: "Préférences"
-    pregnant: "Pleine" #?
-    prescripted: "Sur ordonnance" #?
-    prescripted_on: "Prescrit le" #?
-    prescription: "Ordonnance" #?
-    prescription_number: "référence de l’ordonnance" #?
-    prescripted: "Sur ordonnance"
-    prescripted_on: "Prescrit le"
-    prescription: "Ordonnance"
-    prescription_number: "référence de l’ordonnance"
     prescriptions: "Ordonnances"
     prescriptor: "Vétérinaire" #?
     pretax_amount: "Montant HT"
@@ -885,8 +840,8 @@ fra:
     product: "Produit"
     product_categories: "Catégories de produit" #?
     product_components: "Composants de produit" #?
-    # product_group: "Product group"
-    # product_natures: "Product natures"
+    product_group: "Groupe de produits"
+    product_natures: "Types de produits"
     productable_products: "Produits produisibles"
     production_chain: "Chaîne de production"
     production_chain_conveyor: "Convoyeur de chaîne de production" #?
@@ -971,7 +926,6 @@ fra:
     second_move: "Second mouvement" #?
     second_stock_move: "Second mouvement de stock"
     second_warehouse: "Lieu de stockage du second mouvement"
-    self_bank_accounts: "Comptes bancaires en propre" #?
     self_cashes: "Caisses en propre"
     self_contacts: "Contacts en propre"
     sequences: "Séquences" #?
@@ -1024,7 +978,6 @@ fra:
     suspended: "Suspendu"
     symbol: "Symbole" #?
     symmetric: "Symétrique"
-    symptoms: "Symptomes" #?
     target: "Parcelle"
     target_quantity: "Quantité cible"
     target_type: "Type de cible"
@@ -1074,7 +1027,6 @@ fra:
     usable_outgoing_payments: "Décaissements utilisables"
     usage: "Utilisation"
     usage_duration: "Durée d’utilisation (heures)"
-    use_range: "Utiliser un intervalle de quantité" #?
     used_amount: "Montant utilisé"
     used_with: "Used with"
     useful_lines: "Lignes utiles"

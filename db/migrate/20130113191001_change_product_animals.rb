@@ -1,4 +1,4 @@
-class ChangeProductAnimals< ActiveRecord::Migration
+class ChangeProductAnimals < ActiveRecord::Migration
   def up
 
     rename_table :products, :product_natures
@@ -59,7 +59,7 @@ class ChangeProductAnimals< ActiveRecord::Migration
     add_stamps_indexes :product_place_passings
     add_index :product_place_passings, :product_id
     add_index :product_place_passings, :place_id
-    
+
     drop_table :animal_diagnostics
     drop_table :animal_diseases
     drop_table :animal_drug_natures
@@ -67,7 +67,7 @@ class ChangeProductAnimals< ActiveRecord::Migration
     drop_table :animal_posologies
     drop_table :animal_treatments
     drop_table :animal_prescriptions
-    
+
   end
 
   def down

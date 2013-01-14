@@ -38,7 +38,7 @@ class ProductGroup < CompanyRecord
   belongs_to :parent, :class_name => "ProductGroup"
   has_many :passages, :class_name => "ProductGroupPassing", :foreign_key => :product_group_id
   has_many :products, :through => :passages
-  
+
   accepts_nested_attributes_for :passages,    :reject_if => :all_blank, :allow_destroy => true
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :name, :allow_nil => true, :maximum => 255

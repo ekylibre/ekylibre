@@ -284,6 +284,11 @@ fra:
       index: "Évènements par lot"
       new: "Créer un évènement par lot"
       show: "évènement par lot\_: %{name} commencé le %{started_at}"
+    product_group_passings:
+      # edit: "Edit product group passing"
+      # index: "Index product group passing"
+      # new: "New product group passing"
+      # show: "Show product group passing"
     product_groups:
       edit: "Modifier le lot\_: %{name} "
       index: "Lots d'animaux"
@@ -532,6 +537,7 @@ fra:
     product_event_natures: "Type d'évenements des Animaux"
     product_events: "Evenements des Animaux"
     # product_group_events: "Product group events"
+    # product_group_passings: "Product group passings"
     product_groups: "Lot d'Animaux"
     product_nature_categories: "Catégories de produits"
     # product_natures: "Product natures"

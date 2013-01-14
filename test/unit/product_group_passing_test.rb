@@ -31,12 +31,13 @@
 #  updated_at   :datetime         not null
 #  updater_id   :integer          
 #
+require 'test_helper'
 
+class ProductGroupPassingTest < ActiveSupport::TestCase
 
-class ProductGroupPassing < CompanyRecord
-  attr_accessible :entered_at, :departed_at, :group_id, :product_id
-  belongs_to :group, :class_name => "ProductGroup"
-  belongs_to :product, :class_name => "Product"
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  #]VALIDATORS]
+  # Replace this with your real tests.'
+  test "the truth" do
+    assert true
+  end
+
 end

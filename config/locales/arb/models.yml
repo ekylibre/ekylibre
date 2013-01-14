@@ -655,19 +655,6 @@ arb:
     models:
       account: "الحساب"
       account_balance: "رصيد الحساب"
-      # animal: "Animaux"
-      # animal_diagnostic: "Diagnostic"
-      # animal_disease: "Maladie"
-      # animal_drug: "Médicaments vétérinaires"
-      # animal_drug_nature: "Types de médicaments vétérinaires"
-      # animal_event: "Evenements liés aux animaux"
-      # animal_event_nature: "Type d'évènement lié aux animaux"
-      # animal_group: "Lot"
-      # animal_posology: "Posologie vétérinaire"
-      # animal_prescription: "Ordonnance"
-      # animal_race: "Race"
-      # animal_race_nature: "Espèce"
-      # animal_treatment: "Traitement"
       area: "المنطقة البريدية"
       # asset: "Immobilisation"
       # asset_depreciation: "Amortissement d’immobilisation"
@@ -700,8 +687,8 @@ arb:
       entity_link_nature: "طبيعة الرابط بين الافراد"
       entity_nature: "نوع الفرد"
       establishment: "المؤسسة"
-      event: "الحدث"
-      event_nature: "نوع الحدث"
+      event: "الحدث" #?
+      event_nature: "نوع الحدث" #?
       financial_year: "السنة المالية"
       # incoming_delivery: "Arrivage"
       # incoming_delivery_line: "Ligne d’arrivage"
@@ -737,11 +724,14 @@ arb:
       # preference: "Préférence"
       price: "الاسعار"
       product: "الانتاج"
-      product_category: "فئة الانتاج"
+      product_category: "فئة الانتاج" #?
       product_component: "عنصر الانتاج"
-      # product_event: "Evenements liés aux animaux"
-      # product_event_nature: "Type d'évènement lié aux animaux"
+      # product_event: "Évènements des produits"
+      # product_event_nature: "Type d'évènement des produits"
       # product_group: "Lot"
+      # product_group_event: "Évènement de groupe de produits"
+      # product_group_passing: "Passage d'un produit dans un groupe"
+      # product_nature: "Type de produit"
       product_nature_category: "فئة الانتاج"
       # product_specy: "Race"
       # production_chain: "Chaîne de production"
@@ -796,11 +786,7 @@ arb:
     # allocation_account: "Compte de dotation"
     amount: "القيمة من دون الضرائب"
     amount_with_taxes: "القيمة مع كامل الضرائب" #?
-    # animal: "Animaux"
     # animal_drugs: "Médicaments"
-    # animal_events: "Évènement des animaux"
-    # animal_group: "Lot"
-    # animal_race_nature: "Espèce animale"
     # animals: "Animals"
     annotation: "ملاحظة"
     area: "المنطقة البريدية"
@@ -850,7 +836,6 @@ arb:
     by_default: "افتراضيا"
     cache: "مخبأ"
     # canal: "Canal"
-    # cares: "Soins"
     cash: "الحسابات المصرفية المستخدمة"
     cash_id: "الحسابات المصرفية المستخدمة" #?
     cash_journals: "الدفاتر اليومية للصناديق النقدية"
@@ -919,12 +904,11 @@ arb:
     confirmed_on: "تم التأكيد عليه يوم"
     connected_at: "سجل الدخول في"
     consumption: "الاستهلاك"
-    contact: "العنوان"
+    contact: "العنوان" #?
     contact_id: "العنوان" #?
     contacts: "الاتصالات" #?
     # conveyors: "Convoyeurs"
     # coordinate: "Coordonnée"
-    # corpse_location: "Localisation corporelle"
     counterpart: "النسخة المطابقة" #?
     counterpart_id: "النسخة المطالقة" #?
     country: "البلد"
@@ -981,9 +965,9 @@ arb:
     delivery_contact_id: "عنوان للتسليم" #?
     delivery_id: "تسليم" #?
     delivery_lines: "طرق التسليم"
-    # delivery_mail: "Delivery mail"
     delivery_modes: "اسلوب التسليم"
     density_label: "الكثافة"
+    # departed_at: "Parti le"
     departed_on: "غادر يوم"
     department: "المبنى"
     department_id: "مبنى" #?
@@ -1017,8 +1001,6 @@ arb:
     direction_label: "النوع" #?
     discount: "(%خصم (بنسبة  " #?
     discount_rate: "سعر الخصم"
-    # disease: "Maladie"
-    # diseases: "Maladies"
     district: "المنطقة"
     district_id: "المنطقة الادارية" #?
     districts: "المناطق الادارية"
@@ -1032,11 +1014,6 @@ arb:
     downpayment_rate: "معدل القسط" #?
     draft: "المسودة"
     draft_mode: "نمط المسودة"
-    # drug: "Médicament"
-    # drug_admission_path: "Voie d'admission"
-    # drug_admission_way: "Drug admission way"
-    # drug_allowed: "Médicament utilisable sans prescription"
-    # drugs: "Médicaments"
     duration: "المدة"
     ean13: "Ean13"
     email: "عنوان البريد الالكتروني"
@@ -1050,6 +1027,7 @@ arb:
     employees: "الموظفين"
     employment: "الوظيفة"
     # end_on: "Fin le"
+    # entered_at: "Arrivé at"
     entities: "الافراد"
     entity: "الفرد"
     entity_1: "الملف الاول"
@@ -1124,6 +1102,7 @@ arb:
     global_debit: "الانتاجية الاجمالية"
     # godchildren: "Filleul"
     # group: "Groupe"
+    # groups: "Groupes"
     has_downpayment: "لديه عربون واحد"
     hashed_password: "تشفير كلمة المرور"
     hour_duration: "(ساعة (ساعات"
@@ -1190,7 +1169,7 @@ arb:
     last_year: "السنة السابقة"
     latitude: "خطوط العرض" #?
     # left_on: "Parti le"
-    length_max: "عدد الاحرف كحد اقصى"
+    length_max: "عدد الاحرف كحد اقصى" #?
     letter: "خطاب"
     letter_format: "مقتبس على شكل خطاب"
     line_2: "خدمة - المستلم" #?
@@ -1340,9 +1319,6 @@ arb:
     payments_count: "عدد الدفعات"
     payments_to_deposit: "دفعات الصندوق النقدي"
     payments_to_deposit_accounts: "حساب دفعات الصندوق النقدي"
-    # per_animal_unit: "Per animal unit"
-    # per_duration_time_unit: "Per duration time unit"
-    # per_frequency_time_unit: "Per frequency time unit"
     period: "الفترة"
     period_name: "تواتري" #?
     phone: "هاتف" #?
@@ -1362,10 +1338,6 @@ arb:
     # posologies: "Posologies"
     postcode: "الرمز البريدي"
     preferences: "الاعدادات"
-    # prescripted: "Sur ordonnance"
-    # prescripted_on: "Prescrit le"
-    # prescription: "Ordonnance"
-    # prescription_number: "référence de l’ordonnance"
     # prescriptions: "Ordonnances"
     # prescriptor: "Vétérinaire"
     # pretax_amount: "Montant HT"
@@ -1382,7 +1354,9 @@ arb:
     product_category: "الفئة" #?
     product_category_id: "فئة" #?
     product_components: "مكونات المنتج"
+    # product_group: "Groupe de produits"
     product_id: "المنتج" #?
+    # product_natures: "Types de produits"
     productable_products: "المنتجات الممكن انتاجها"
     # production_chain: "Chaîne de production"
     # production_chain_conveyor: "Convoyeur de chaîne de production"
@@ -1485,7 +1459,7 @@ arb:
     # second_stock_move: "Second mouvement de stock"
     second_warehouse: "موقع تخزين الوصول"
     second_warehouse_id: "موقع تخزين الوصول" #?
-    self_bank_accounts: "الحسابات المصرفية الخاصة"
+    self_bank_accounts: "الحسابات المصرفية الخاصة" #?
     self_cashes: "الصناديق النقدية الخاصة"
     self_contacts: "الاتصالات الخاصة"
     sequences: "التسلسلات"
@@ -1541,7 +1515,6 @@ arb:
     suspended: "معطل"
     symbol: "نموذج"
     symmetric: "متساو"
-    # symptoms: "Symptomes"
     target: "الهدف"
     target_id: "الهدف" #?
     # target_quantity: "Quantité cible"
@@ -1602,7 +1575,7 @@ arb:
     usable_outgoing_payments: "مصروفات ممكن استخدامها"
     usage: "الاستخدام"
     usage_duration: "(مدة الاستخدام (ساعات"
-    use_range: "استخدام الكمية الفاصلة"
+    use_range: "استخدام الكمية الفاصلة" #?
     # used_amount: "Montant utilisé"
     # used_with: "Used with"
     # useful_lines: "Lignes utiles"

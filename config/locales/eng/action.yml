@@ -329,6 +329,7 @@ eng:
       # index: "Évènements par lot"
       # new: "Créer un évènement par lot"
       # show: "évènement par lot\_: %{name} commencé le %{started_at}"
+    product_group_passings: #?
     product_groups:
       # edit: "Modifier le lot\_: %{name} "
       # index: "Lots d'animaux"

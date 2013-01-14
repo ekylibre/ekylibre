@@ -934,8 +934,8 @@
     </menu>
     <menu name="dashboards">
       <page to="dashboards#list_critic_stocks"/>
-      <page to="dashboards#list_my_future_events"/>
-      <page to="dashboards#list_recent_events"/>
+      <page to="dashboards#list_my_future_entity_events"/>
+      <page to="dashboards#list_recent_entity_events"/>
       <page to="dashboards#welcome"/>
     </menu>
     <menu name="entities">
@@ -958,6 +958,7 @@
       <page to="help#show"/>
     </menu>
     <menu name="interfacers">
+      <page to="interfacers#autocomplete"/>
       <page to="interfacers#autocomplete_for_area_name"/>
       <page to="interfacers#autocomplete_for_entity_origin"/>
       <page to="interfacers#autocomplete_for_event_location"/>
@@ -988,6 +989,15 @@
       <page to="preferences#new"/>
       <page to="preferences#show"/>
       <page to="preferences#update"/>
+    </menu>
+    <menu name="product_group_passings">
+      <page to="product_group_passings#index"/>
+      <page to="product_group_passings#create"/>
+      <page to="product_group_passings#destroy"/>
+      <page to="product_group_passings#edit"/>
+      <page to="product_group_passings#new"/>
+      <page to="product_group_passings#show"/>
+      <page to="product_group_passings#update"/>
     </menu>
     <menu name="product_groups">
       <page to="product_groups#list_products"/>

@@ -1,4 +1,6 @@
 # Unused actions in rights
+#   - "dashboards::list_my_future_entity_events"
+#   - "dashboards::list_recent_entity_events"
 #   - "dashboards::settings_accountancy"
 #   - "dashboards::settings_base"
 #   - "dashboards::settings_production"
@@ -7,7 +9,20 @@
 #   - "dashboards::settings_relationship"
 #   - "dashboards::settings_sales"
 #   - "dashboards::settings_stocks"
+#   - "entities::list_entity_events"
+#   - "entity_addresses::unroll"
 #   - "entity_natures::unroll"
+#   - "interfacers::autocomplete"
+#   - "interfacers::product_trackings"
+#   - "interfacers::product_units"
+#   - "interfacers::search_for"
+#   - "interfacers::select_options"
+#   - "interfacers::toggle_module"
+#   - "interfacers::toggle_side"
+#   - "interfacers::toggle_tab"
+#   - "interfacers::toggle_view_mode"
+#   - "interfacers::unroll"
+#   - "interfacers::unroll_options"
 #   - "preferences::create"
 #   - "preferences::destroy"
 #   - "preferences::edit"
@@ -22,6 +37,13 @@
 #   - "product_events::update"
 #   - "product_group_events::destroy"
 #   - "product_group_events::update"
+#   - "product_group_passings::create"
+#   - "product_group_passings::destroy"
+#   - "product_group_passings::edit"
+#   - "product_group_passings::index"
+#   - "product_group_passings::new"
+#   - "product_group_passings::show"
+#   - "product_group_passings::update"
 #   - "product_groups::destroy"
 #   - "product_groups::list_events"
 #   - "product_groups::list_products"
@@ -87,8 +109,8 @@
 __minimum__:
   actions:
   - "dashboards::index"
-  - "dashboards::list_my_future_events"
-  - "dashboards::list_recent_events"
+  - "dashboards::list_my_future_events # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!!"
+  - "dashboards::list_recent_events # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!!"
   - "dashboards::welcome"
   - "help::index"
   - "help::show"
@@ -220,7 +242,7 @@ consult_entities:
   - "entities::index"
   - "entities::list"
   - "entities::list_addresses"
-  - "entities::list_events # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!!"
+  - "entities::list_events # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!!"
   - "entities::list_incoming_payments"
   - "entities::list_outgoing_payments"
   - "entities::list_purchases"
@@ -237,8 +259,8 @@ consult_prices:
 consult_products:
   actions:
   - "dashboards::sales"
-  - "products_natures::index # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!!"
-  - "products_natures::show # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!!"
+  - "products_natures::index # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!!"
+  - "products_natures::show # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!!"
 # Consulter les achats
 consult_purchases:
   actions:
@@ -439,7 +461,7 @@ manage_districts:
   - "districts::list"
   - "districts::new"
   - "districts::update"
-  - "interfacers::search_for_districts # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!!"
+  - "interfacers::search_for_districts # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!!"
 # Gérer les modèles de document
 manage_document_templates:
   actions:
@@ -462,7 +484,7 @@ manage_entities:
   - "entities::create"
   - "entities::destroy"
   - "entities::edit"
-  - "entities::list_events # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!!"
+  - "entities::list_events # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!!"
   - "entities::list_incoming_payments"
   - "entities::list_mandates"
   - "entities::list_purchases"
@@ -477,9 +499,9 @@ manage_entities:
   - "entity_addresses::update"
   - "interfacers::autocomplete_for_area_name"
   - "interfacers::autocomplete_for_entity_origin"
-  - "interfacers::search_for_attorneys_accounts # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!!"
-  - "interfacers::search_for_clients_accounts # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!!"
-  - "interfacers::search_for_suppliers_accounts # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!!"
+  - "interfacers::search_for_attorneys_accounts # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!!"
+  - "interfacers::search_for_clients_accounts # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!!"
+  - "interfacers::search_for_suppliers_accounts # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!!"
 # Gérer les types de fiche
 manage_entities_natures:
   actions:
@@ -859,7 +881,7 @@ manage_product_categories:
   - "product_nature_categories::edit"
   - "product_nature_categories::index"
   - "product_nature_categories::list"
-  - "product_nature_categories::list_products # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!!"
+  - "product_nature_categories::list_products # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!!"
   - "product_nature_categories::new"
   - "product_nature_categories::show"
   - "product_nature_categories::update"
@@ -873,17 +895,17 @@ manage_products:
   - "product_components::edit"
   - "product_components::new"
   - "product_components::update"
-  - "products_natures::change_quantities # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!!"
-  - "products_natures::create # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!!"
-  - "products_natures::destroy # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!!"
-  - "products_natures::edit # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!!"
-  - "products_natures::list # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!!"
-  - "products_natures::list_components # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!!"
-  - "products_natures::list_prices # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!!"
-  - "products_natures::list_stock_moves # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!!"
-  - "products_natures::list_stocks # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!!"
-  - "products_natures::new # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!!"
-  - "products_natures::update # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!!"
+  - "products_natures::change_quantities # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!!"
+  - "products_natures::create # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!!"
+  - "products_natures::destroy # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!!"
+  - "products_natures::edit # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!!"
+  - "products_natures::list # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!!"
+  - "products_natures::list_components # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!!"
+  - "products_natures::list_prices # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!!"
+  - "products_natures::list_stock_moves # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!!"
+  - "products_natures::list_stocks # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!!"
+  - "products_natures::new # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!!"
+  - "products_natures::update # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!!"
 # Gérer les types d’achat
 manage_purchase_natures:
   actions:
@@ -1027,8 +1049,8 @@ manage_taxes:
   actions:
   - "dashboards::accountancy"
   - "dashboards::accountancy"
-  - "interfacers::search_for_collected_account # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!!"
-  - "interfacers::search_for_paid_account # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!!"
+  - "interfacers::search_for_collected_account # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!!"
+  - "interfacers::search_for_paid_account # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!!"
   - "taxes::create"
   - "taxes::destroy"
   - "taxes::edit"

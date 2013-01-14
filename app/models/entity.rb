@@ -336,15 +336,10 @@ class Entity < CompanyRecord
     #count += self.balance<0 ? 1 : 0
   end
 
-  def add_event(nature, user_id)
+  def add_event(usage, user_id)
     if user = Entity.find_by_id(user_id)
-<<<<<<< HEAD
-      EventNature.find_all_by_usage(nature.to_s).each do |event_nature|
-        event_nature.events.create!(:started_at => Time.now, :duration => event_nature.duration, :entity_id => self.id, :responsible_id => user.id)
-=======
-      EntityEventNature.find_all_by_usage(nature.to_s).each do |event_nature|
-        event_nature.create!(:started_at => Time.now, :duration => event_nature.duration, :entity_id => self.id, :responsible_id => user.id)
->>>>>>> b4a7adef3f3dbf91f994c90d340f79464db5926f
+      EntityEventNature.find_all_by_usage(usage).each do |nature|
+        nature.events.create!(:started_at => Time.now, :duration => event_nature.duration, :entity_id => self.id, :responsible_id => user.id)
       end
     end
   end
