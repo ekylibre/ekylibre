@@ -185,7 +185,7 @@ def models_in_file
            ActiveRecord::Base.send(:subclasses)
          else
            Object.subclasses_of(ActiveRecord::Base)
-         end.select{|x| not x.name.match('::') and not x.abstract_class?}.sort{|a,b| a.name <=> b.name}
+         end.select{|x| not x.name.match('::') and not x.abstract_class?}.uniq.sort{|a,b| a.name <=> b.name}
   # if list.empty?
   #   # Return approximative list
   #   Dir.chdir(Rails.root.join("app", "models")) do
