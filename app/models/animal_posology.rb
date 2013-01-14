@@ -24,7 +24,6 @@
 #  created_at                     :datetime         not null
 #  creator_id                     :integer          
 #  currative_quantity             :decimal(19, 4)   default(0.0), not null
-#  decimal                        :decimal(19, 4)   default(0.0), not null
 #  description                    :string(255)      
 #  disease_id                     :integer          
 #  drug_admission_way             :string(255)      
@@ -50,9 +49,9 @@ class AnimalPosology < CompanyRecord
   belongs_to :quantity_unit, :class_name=>"Unit"
   belongs_to :product_category, :class_name=>"ProductCategory"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :currative_quantity, :decimal, :preventive_quantity, :allow_nil => true
+  validates_numericality_of :currative_quantity, :preventive_quantity, :allow_nil => true
   validates_length_of :description, :drug_admission_way, :product_category_waiting_delay, :quantity_delay, :quantity_interval, :allow_nil => true, :maximum => 255
-  validates_presence_of :currative_quantity, :decimal, :preventive_quantity
+  validates_presence_of :currative_quantity, :preventive_quantity
   #]VALIDATORS]
 
 end

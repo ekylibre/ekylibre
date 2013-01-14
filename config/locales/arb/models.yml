@@ -521,6 +521,7 @@ arb:
         # contains_blank_page: "%{attribute} contient une page vide"
         # currency_does_not_match: "La devise de «\_%{attribute}\_» ne correspond pas celle attendue\_: %{currency}"
         empty: "%{attribute} لا يمكن أن تكون فارغة"
+        # entry_has_been_already_validated: "La pièce a été validée et ne peut plus être modifiée"
         equal_to: "%{attribute} يجب أن يكون مساو ل %{count}"
         even: "%{attribute} يجب ان يكون متساو"
         exclusion: "%{attribute} محجوز"
@@ -530,6 +531,7 @@ arb:
         inclusion: "%{attribute} ليست مدرجة بالقائمة"
         invalid: "%{attribute} غير متوفر"
         invalid_at: "%{attribute} غير_متوفر. %{error} على مقربة من الخطأ"
+        # invalid_syntax: "%{attribute} comporte des erreurs de syntaxe : %{errors}"
         invalid_token: "%{attribute} غير متوفر.%{error} النموذج غير معروف.%{accepted} النماذج المقبولة هي"
         less_than: "%{attribute} يجب ان يكون اقل من %{count}"
         less_than_or_equal_to: "%{attribute} يجب ان يكون اقل او يساو %{count}"
@@ -538,7 +540,7 @@ arb:
         nothing_to_pay: ".ليس هنالك ما يدفع، اذا رغبت بتسجيل القسط، فتذكر تحديد ذلك"
         odd: "%{attribute} يجب ان يكون فردي"
         posterior: "%{attribute} \_يجب ان يكون التاريخ في وقت لاحق %{to}"
-        record_has_been_already_validated: "اصبح السجل متوفرا ولا يمكن التعديل"
+        record_has_been_already_validated: "اصبح السجل متوفرا ولا يمكن التعديل" #?
         record_invalid: "Validations failed : %{errors}"
         taken: "%{attribute} قد تم اتخاذه مسبقا"
         too_long: "%{attribute} طويل جدا (%{count}الحد الاقصى للاحرف)"
@@ -569,9 +571,12 @@ arb:
             stopped_on:
               end_of_month: "%{attribute} يجب ان يكون التاريخ في نهاية الشهر"
           overlap: "%{attribute} متواجد على قائمة السنة المالية الحالية"
+        incoming_delivery_line:
+          # greater_than_undelivered_quantity: "La quantité de produit %{product} à livrer dépasse la quantité non livrée (%{maximum}%{unit})"
         journal:
           attributes:
             closed_on:
+              # draft_entry_lines: "Des écritures du brouillard sont encore présente avant le %{closed_on}"
               end_of_month: "%{attribute} يجب ان تطابق تاريخ نهاية الشهر (%{closed_on})"
         journal_entry:
           closed_journal: ".مما لا يمكنك انشاءخ او تعديله او الغاءه لغاية هذا التاريخ %{closed_on} تم اغلاق الدفتر اليومي في"
@@ -636,8 +641,7 @@ arb:
       cash: "الخزينة"
       # cash_transfer: "Virement interne"
       company: "الشركة"
-      contact: "الاتصالات"
-      # contact_address: ""
+      contact: "الاتصالات" #?
       # cultivation: "Culture"
       currency: "العملة" #?
       custom_field: "الحقول التكميلية"
@@ -746,15 +750,13 @@ arb:
     address: "العنوان"
     # addresses: "Adresses"
     admin: "مسؤول النظام"
-    # age_max: "Age maximum"
-    # age_min: "Age minimum"
     agency_code: "رمز الوكالة"
     # allocation_account: "Compte de dotation"
     amount: "القيمة من دون الضرائب"
     amount_with_taxes: "القيمة مع كامل الضرائب" #?
     # animal: "Animaux"
     # animal_drugs: "Médicaments"
-    # animal_events: "Evenement des animaux"
+    # animal_events: "Évènement des animaux"
     # animal_group: "Lot"
     # animal_race_nature: "Espèce animale"
     # animals: "Animals"
@@ -877,7 +879,7 @@ arb:
     consumption: "الاستهلاك"
     contact: "العنوان"
     contact_id: "العنوان" #?
-    contacts: "الاتصالات"
+    contacts: "الاتصالات" #?
     # conveyors: "Convoyeurs"
     # coordinate: "Coordonnée"
     # corpse_location: "Localisation corporelle"
@@ -914,8 +916,8 @@ arb:
     datetime_value: "قيمة التاريخ/الساعة"
     dead_on: "تاريغ الوفاة"
     debit: "الدين"
-    decimal_max: "ارتفاع المدى"
-    decimal_min: "انخفاض المدى"
+    decimal_max: "ارتفاع المدى" #?
+    decimal_min: "انخفاض المدى" #?
     decimal_value: "القيمة العشرية"
     declared_on: "صرح يوم"
     # default_address: "Coordonnée par défaut"
@@ -932,8 +934,8 @@ arb:
     deliveries: "التسليم"
     deliveries_conditions: "شروط التسليم"
     delivery: "التسليم"
-    # delivery_address: "Delivery address"
-    delivery_contact: "عنوان للتسليم"
+    # delivery_address: "Adresse pour la livraison"
+    delivery_contact: "عنوان للتسليم" #?
     delivery_contact_id: "عنوان للتسليم" #?
     delivery_id: "تسليم" #?
     delivery_lines: "طرق التسليم"
@@ -970,7 +972,7 @@ arb:
     diff_more: "حقوق الاضافة"
     direct_links: "روابط مباشرة"
     direction: "النوع"
-    direction_label: "النوع"
+    direction_label: "النوع" #?
     discount: "(%خصم (بنسبة  " #?
     discount_rate: "سعر الخصم"
     # disease: "Maladie"
@@ -994,10 +996,6 @@ arb:
     # drug_allowed: "Médicament utilisable sans prescription"
     # drugs: "Médicaments"
     duration: "المدة"
-    # duration_unit_wait_for_meat: "Unité de la durée d'attente (Viande)"
-    # duration_unit_wait_for_milk: "Unité de la durée d'attente (Lait)"
-    # duration_wait_for_meat: "Temps d'attente avant remise en vente (Viande)"
-    # duration_wait_for_milk: "Temps d'attente avant remise en vente (Lait)"
     ean13: "Ean13"
     email: "عنوان البريد الالكتروني"
     # emails: "Courriels (e-mails)"
@@ -1035,7 +1033,7 @@ arb:
     event_natures: "نوع الحدث"
     events: "الاحداث"
     # examinated_at: "Examiné le"
-    excise: "عدد رسوم الدفع"
+    excise: "عدد رسوم الدفع" #?
     expense: "التكلفة"
     expense_id: "انفاق" #?
     expense_type: "نوع التكلفة"
@@ -1051,7 +1049,7 @@ arb:
     family: "وحدة قياس"
     family_label: "وحدة قياس" #?
     # father: "Père"
-    fax: "فاكس"
+    fax: "فاكس" #?
     # faxes: "Fax"
     filename: "الملف"
     filesize: "حجم الملف"
@@ -1148,7 +1146,7 @@ arb:
     last_name: "اسم العائلة"
     last_number: "الرقم الاخير"
     last_year: "السنة السابقة"
-    latitude: "خطوط العرض"
+    latitude: "خطوط العرض" #?
     # left_on: "Parti le"
     length_max: "عدد الاحرف كحد اقصى"
     letter: "خطاب"
@@ -1175,7 +1173,7 @@ arb:
     locked: "مقفل"
     # log: "Journal d'évènements"
     # loggable: "Peut se connecter"
-    longitude: "خطوط الطول"
+    longitude: "خطوط الطول" #?
     lost: "الضائع"
     # luminance: "Luminosité"
     mail: "البريد الالكتروني"
@@ -1303,16 +1301,16 @@ arb:
     # per_duration_time_unit: "Per duration time unit"
     # per_frequency_time_unit: "Per frequency time unit"
     period: "الفترة"
-    period_name: "تواتري"
-    phone: "هاتف"
+    period_name: "تواتري" #?
+    phone: "هاتف" #?
     # phones: "Téléphones"
     photo: "صورة"
     physical: "الفرد الطبيعي"
     # picture: "Photo"
-    # picture_content_type: "Picture content type"
-    # picture_file_name: "Picture file name"
-    # picture_file_size: "Picture file size"
-    # picture_updated_at: "Picture updated at"
+    # picture_content_type: "Format de photo"
+    # picture_file_name: "Nom du fichier photo"
+    # picture_file_size: "Taille du fichier photo"
+    # picture_updated_at: "Fichier photo mis à jour le"
     # planned_at: "Prévu à"
     # planned_depreciations: "Amortissements prévus"
     planned_on: "قرر يوم"
@@ -1321,7 +1319,6 @@ arb:
     # posologies: "Posologies"
     postcode: "الرمز البريدي"
     preferences: "الاعدادات"
-    # pregnant: "Pleine"
     # prescripted: "Sur ordonnance"
     # prescripted_on: "Prescrit le"
     # prescription: "Ordonnance"
@@ -1379,14 +1376,12 @@ arb:
     # race: "Race"
     # races: "Races"
     range: "فترة فاصلة"
-    rate: "معدل سعر الصرف"
+    rate: "معدل سعر الصرف" #?
     reason: "الدافع"
     receipt: "استلام الكتروني"
     received: "مستلم"
     # receiver_amount: "Montant reçu"
     # receiver_cash: "Trésorerie réceptrice"
-    # receiver_currency: "Devise reçue"
-    # receiver_currency_rate: "Taux de la devise reçue"
     # receiver_journal_entry: "Écriture de la réception"
     # reconcilable: "Lettrable"
     record_value: "التسجيل"
@@ -1399,7 +1394,7 @@ arb:
     reduction_origin_id: "الطررق القابلة للخصم" #?
     reduction_percent: "(%)معدل الخصم المسموح" #?
     # reduction_percentage: "Pourcentage de réduction"
-    reduction_rate: "معدل الخصم"
+    reduction_rate: "معدل الخصم" #?
     reduction_submissive: "خاضع للتخفيض"
     reductions: "طرق الخصومات"
     # reference_number: "N°Référence"
@@ -1465,7 +1460,6 @@ arb:
     # source_quantity: "Quantité source"
     sql_type: "SQL نوع"
     start: "البداية"
-    # start_on: "Début le"
     started_at: "ابتدأ يوم"
     started_on: "ابتدأ يوم"
     started_sec: "(التاريخ والوقت (بالثواني"
@@ -1516,8 +1510,8 @@ arb:
     # temperature: "Température"
     template: "نموذج"
     template_id: "نموذج" #?
-    text_importance: "ذو شأن"
-    text_nature: "النوع"
+    text_importance: "ذو شأن" #?
+    text_nature: "النوع" #?
     theoric_quantity: "الكمية النظرية"
     title: "اللقب"
     to: "ل"
@@ -1586,7 +1580,7 @@ arb:
     warehouses: "مواقع التخزين"
     # watcher: "Observateur"
     webpass: "كلمة مرور الموقع الااكتروني"
-    website: "الموقع الالكتروني"
+    website: "الموقع الالكتروني" #?
     # websites: "Sites web"
     weight: "الوزن"
     with_accounting: "سجل الدفعات"
@@ -1955,8 +1949,7 @@ arb:
       sales_invoice_creation: "انشاء فاتورة" #?
     contact:  #?
       error_modify_contact: "من المستحيل تعديل الاسماء" #?
-    contact_address:
-      # error_modify_contact: "Impossible de modifier un contact"
+    contact_address: #?
     custom_field:  #?
       natures: #?
         boolean: "صندوق للتحقق" #?

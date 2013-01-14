@@ -187,7 +187,7 @@ class Purchase < CompanyRecord
   end
 
   def label
-    self.number# tc('label', :supplier => self.supplier.full_name.to_s, :address => self.delivery_contact.address.to_s)
+    self.number# tc('label', :supplier => self.supplier.full_name.to_s, :address => self.delivery_address.mail_coordinate.to_s)
   end
 
   # Need for use in list

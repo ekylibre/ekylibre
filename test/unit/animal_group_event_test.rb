@@ -27,6 +27,7 @@
 #  id              :integer          not null, primary key
 #  lock_version    :integer          default(0), not null
 #  moved_at        :datetime         
+#  name            :string(255)      
 #  nature_id       :integer          
 #  parent_id       :integer          
 #  planned_at      :datetime         

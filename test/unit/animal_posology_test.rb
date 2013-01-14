@@ -24,7 +24,6 @@
 #  created_at                     :datetime         not null
 #  creator_id                     :integer          
 #  currative_quantity             :decimal(19, 4)   default(0.0), not null
-#  decimal                        :decimal(19, 4)   default(0.0), not null
 #  description                    :string(255)      
 #  disease_id                     :integer          
 #  drug_admission_way             :string(255)      

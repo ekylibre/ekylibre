@@ -163,8 +163,8 @@ class ListingsController < AdminController
 	nature = EventNature.where(:usage => "mailing").first
         nature = EventNature.create!(:name => tc(:mailing), :duration => 5, :usage => "mailing") if nature.nil?
         #raise Exception.new nature.inspect
-	Contact.where("email IN (?) AND active = ? ", @mails, true).find_each do |contact|
-          Event.create!(:entity_id => contact.entity_id, :started_at => Time.now, :duration => 5, :nature_id => nature.id, :user_id => @current_user.id)
+	EntityAddress.emails.where(:coordinate => @mails).find_each do |address|
+          Event.create!(:entity_id => address.entity_id, :started_at => Time.now, :duration => 5, :nature_id => nature.id, :user_id => @current_user.id)
         end
         session[:listing_mail_column] = nil
       end

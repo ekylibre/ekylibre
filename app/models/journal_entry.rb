@@ -71,6 +71,8 @@ class JournalEntry < CompanyRecord
   validates_format_of :number, :with => /^[\dA-Z]+$/
   validates_numericality_of :original_currency_rate, :greater_than => 0
 
+  accepts_nested_attributes_for :lines
+
   state_machine :state, :initial => :draft do
     state :draft
     state :confirmed
@@ -162,7 +164,7 @@ class JournalEntry < CompanyRecord
 
   validate(:on => :update) do
     old = self.class.find(self.id)
-    errors.add_to_base(:entry_has_been_already_validated) if old.closed?
+    errors.add(:number, :entry_has_been_already_validated) if old.closed?
   end
 
   #
@@ -240,7 +242,7 @@ class JournalEntry < CompanyRecord
       end
       self.reload if saved
       if saved and (not self.balanced? or self.lines.size.zero?)
-        self.errors.add_to_base(:unbalanced)
+        self.errors.add(:debit, :unbalanced)
         saved = false
       end
       if saved

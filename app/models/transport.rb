@@ -75,7 +75,7 @@ class Transport < CompanyRecord
 
   # def address
   #   a = self.transporter.full_name+"\n"
-  #   a += self.transporter.default_contact.address.gsub(/\s*\,\s*/, "\n") if !self.transporter.default_contact.nil?
+  #   a += self.transporter.default_mail_address.mail_coordinate if !self.transporter.default_mail_address.nil?
   #   a
   # end
 

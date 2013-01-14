@@ -85,7 +85,7 @@ class PurchaseLine < CompanyRecord
     if self.warehouse
       if self.warehouse.reservoir && self.warehouse.product_id != self.product_id
         check_reservoir = false
-        errors.add_to_base(:warehouse_can_not_receive_product, :warehouse => self.warehouse.name, :product => self.product.name, :contained_product => self.warehouse.product.name)
+        errors.add(:warehouse_id, :warehouse_can_not_receive_product, :warehouse => self.warehouse.name, :product => self.product.name, :contained_product => self.warehouse.product.name)
       end
     end
 

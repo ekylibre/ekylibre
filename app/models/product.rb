@@ -180,23 +180,23 @@ class Product < CompanyRecord
 
   def default_start
     # self.subscription_nature.nature == "period" ? Date.today.beginning_of_year : self.subscription_nature.actual_number
-    self.subscription_nature.nature == "period" ? Date.today : self.subscription_nature.actual_number
+    self.subscription_nature.period? ? Date.today : self.subscription_nature.actual_number
   end
 
   def default_finish
     period = self.subscription_period || '1 year'
     # self.subscription_nature.nature == "period" ? Date.today.next_year.beginning_of_year.next_month.end_of_month : (self.subscription_nature.actual_number + ((self.subscription_quantity-1)||0))
-    self.subscription_nature.nature == "period" ? Delay.compute(period+", 1 day ago", Date.today) : (self.subscription_nature.actual_number + ((self.subscription_quantity-1)||0))
+    self.subscription_nature.period? ? Delay.compute(period+", 1 day ago", Date.today) : (self.subscription_nature.actual_number + ((self.subscription_quantity-1)||0))
   end
 
   def default_subscription_label_for(entity)
     return nil unless self.nature == "subscrip"
     entity  = nil unless entity.is_a? Entity
-    address = entity.default_contact.address rescue nil
+    address = entity.default_mail_address.coordinate rescue nil
     entity = entity.full_name rescue "???"
-    if self.subscription_nature.nature == "period"
+    if self.subscription_nature.period?
       return tc('subscription_label.period', :start => ::I18n.localize(Date.today), :finish => ::I18n.localize(Delay.compute(self.subscription_period.blank? ? '1 year, 1 day ago' : self.product.subscription_period)), :entity => entity, :address => address, :subscription_nature => self.subscription_nature.name)
-    elsif self.subscription_nature.nature == "quantity"
+    elsif self.subscription_nature.quantity?
       return tc('subscription_label.quantity', :start => self.subscription_nature.actual_number.to_i, :finish => (self.subscription_nature.actual_number.to_i + ((self.subscription_quantity-1)||0)), :entity => entity, :address => address, :subscription_nature => self.subscription_nature.name)
     end
   end

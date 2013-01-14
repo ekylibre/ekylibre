@@ -27,6 +27,7 @@
 #  id              :integer          not null, primary key
 #  lock_version    :integer          default(0), not null
 #  moved_at        :datetime         
+#  name            :string(255)      
 #  nature_id       :integer          
 #  parent_id       :integer          
 #  planned_at      :datetime         
@@ -45,6 +46,7 @@ class AnimalGroupEvent < CompanyRecord
   belongs_to :parent, :class_name => "AnimalGroupEvent"
   belongs_to :watcher, :class_name => "Entity"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_length_of :name, :allow_nil => true, :maximum => 255
   #]VALIDATORS]
   default_scope order(:started_at)
 end

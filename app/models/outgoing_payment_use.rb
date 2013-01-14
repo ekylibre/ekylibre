@@ -76,7 +76,7 @@ class OutgoingPaymentUse < CompanyRecord
   end
 
   validate do
-    errors.add_to_base(:nothing_to_pay) if self.amount <= 0 and self.downpayment == false
+    errors.add(:payment_id, :nothing_to_pay) if self.amount <= 0 and self.downpayment == false
   end
 
   bookkeep do |b|

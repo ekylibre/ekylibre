@@ -62,11 +62,6 @@
         -t.link(:new, :controller=>:subscriptions, :entity_id=>@entity.id)
       =list(:subscriptions)
 
-    -#b.cell(tl(:x_contacts, :count=>@entity.contacts.count)) do
-      =toolbar do |t|
-        -t.link(:new, :controller=>:contacts, :entity_id=>@entity.id)
-      =list(:contacts)
-
     -b.cell(tl(:x_events, :count=>@entity.events.count)) do
       =toolbar do |t|
         -t.link :new, :controller=>:events, :entity_id=>@entity.id

@@ -969,36 +969,12 @@
       <page to="help#show"/>
     </menu>
     <menu name="interfacers">
-      <page to="interfacers#autocomplete"/>
       <page to="interfacers#autocomplete_for_area_name"/>
       <page to="interfacers#autocomplete_for_entity_origin"/>
       <page to="interfacers#autocomplete_for_event_location"/>
       <page to="interfacers#autocomplete_for_mandate_family"/>
       <page to="interfacers#autocomplete_for_mandate_organization"/>
       <page to="interfacers#autocomplete_for_mandate_title"/>
-      <page to="interfacers#product_trackings"/>
-      <page to="interfacers#product_units"/>
-      <page to="interfacers#search_for"/>
-      <page to="interfacers#search_for_account"/>
-      <page to="interfacers#search_for_attorneys_accounts"/>
-      <page to="interfacers#search_for_available_prices"/>
-      <page to="interfacers#search_for_clients"/>
-      <page to="interfacers#search_for_clients_accounts"/>
-      <page to="interfacers#search_for_collected_account"/>
-      <page to="interfacers#search_for_districts"/>
-      <page to="interfacers#search_for_entities"/>
-      <page to="interfacers#search_for_operation_products"/>
-      <page to="interfacers#search_for_paid_account"/>
-      <page to="interfacers#search_for_purchase_products"/>
-      <page to="interfacers#search_for_suppliers"/>
-      <page to="interfacers#search_for_suppliers_accounts"/>
-      <page to="interfacers#select_options"/>
-      <page to="interfacers#toggle_module"/>
-      <page to="interfacers#toggle_side"/>
-      <page to="interfacers#toggle_tab"/>
-      <page to="interfacers#toggle_view_mode"/>
-      <page to="interfacers#unroll"/>
-      <page to="interfacers#unroll_options"/>
     </menu>
     <menu name="myselves">
       <page to="myselves#change_password"/>

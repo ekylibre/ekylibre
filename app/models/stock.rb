@@ -79,7 +79,7 @@ class Stock < CompanyRecord
 
   validate do
     if self.warehouse
-      errors.add_to_base(:product_cannot_be_in_warehouse, :warehouse => self.warehouse.name) unless self.warehouse.can_receive?(self.product_id)
+      errors.add(:product_id, :product_cannot_be_in_warehouse, :warehouse => self.warehouse.name) unless self.warehouse.can_receive?(self.product_id)
     end
     return true
   end

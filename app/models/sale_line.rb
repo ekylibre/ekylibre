@@ -127,7 +127,7 @@ class SaleLine < CompanyRecord
 
     #     if self.warehouse.reservoir && self.warehouse.product_id != self.product_id
     #       check_reservoir = false
-    #       errors.add_to_base(:warehouse_can_not_transfer_product, :warehouse => self.warehouse.name, :product => self.product.name, :contained_product => self.warehouse.product.name, :account_id => 0, :unit_id => self.unit_id)
+    #       errors.add(:warehouse_id, :warehouse_can_not_transfer_product, :warehouse => self.warehouse.name, :product => self.product.name, :contained_product => self.warehouse.product.name, :account_id => 0, :unit_id => self.unit_id)
     #     end
     #     check_reservoir
     return false if self.pretax_amount.zero? and self.amount.zero? and self.quantity.zero?
@@ -136,14 +136,14 @@ class SaleLine < CompanyRecord
 
   validate do
     if self.warehouse
-      errors.add_to_base(:warehouse_can_not_transfer_product, :warehouse => self.warehouse.name, :product => self.product.name, :contained_product => self.warehouse.product.name) unless self.warehouse.can_receive?(self.product_id)
+      errors.add(:warehouse_id, :warehouse_can_not_transfer_product, :warehouse => self.warehouse.name, :product => self.product.name, :contained_product => self.warehouse.product.name) unless self.warehouse.can_receive?(self.product_id)
       if self.tracking
         stock = Stocks.where(:product_id => self.product_id, :warehouse_id => self.warehouse_id, :tracking_id => self.tracking_id).first
-        errors.add_to_base(:can_not_use_this_tracking, :tracking => self.tracking.name) if stock and stock.virtual_quantity < self.quantity
+        errors.add(:warehouse_id, :can_not_use_this_tracking, :tracking => self.tracking.name) if stock and stock.virtual_quantity < self.quantity
       end
     end
     if self.price
-      errors.add_to_base(:currency_is_not_sale_currency) if self.price.currency != self.sale.currency
+      errors.add(:price_id, :currency_is_not_sale_currency) if self.price.currency != self.sale.currency
     end
     # TODO validates responsible can make reduction and reduction percentage is convenient
   end
@@ -212,8 +212,8 @@ class SaleLine < CompanyRecord
       end
     end
     subscription.quantity   ||= 1
-    subscription.contact_id ||= self.sale.contact_id
-    subscription.entity_id  ||= subscription.contact.entity_id if subscription.contact
+    subscription.address_id ||= self.sale.delivery_address_id
+    subscription.entity_id  ||= subscription.address.entity_id if subscription.address
     subscription
   end
 

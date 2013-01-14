@@ -85,7 +85,7 @@ class IncomingPaymentUse < CompanyRecord
       end
     end
     errors.add(:expense_type, :invalid) unless @@expense_types.include? self.expense_type
-    errors.add_to_base(:nothing_to_pay) if self.amount <= 0 and self.downpayment == false
+    errors.add(:payment_id, :nothing_to_pay) if self.amount <= 0 and self.downpayment == false
   end
 
   bookkeep do |b|

@@ -75,14 +75,14 @@ class IncomingDeliveryLine < CompanyRecord
   validate(:on => :create) do
     if self.product
       maximum = self.undelivered_quantity
-      errors.add_to_base(:greater_than_undelivered_quantity, :maximum => maximum, :unit => self.product.unit.name, :product => self.product_name) if (self.quantity > maximum)
+      errors.add(:quantity, :greater_than_undelivered_quantity, :maximum => maximum, :unit => self.product.unit.name, :product => self.product_name) if (self.quantity > maximum)
     end
   end
 
   validate(:on => :update) do
     old_self = self.class.find(self.id)
     maximum = self.undelivered_quantity + old_self.quantity
-    errors.add_to_base(:greater_than_undelivered_quantity, :maximum => maximum, :unit => self.product.unit.name, :product => self.product_name) if (self.quantity > maximum)
+    errors.add(:quantity, :greater_than_undelivered_quantity, :maximum => maximum, :unit => self.product.unit.name, :product => self.product_name) if (self.quantity > maximum)
   end
 
   def undelivered_quantity

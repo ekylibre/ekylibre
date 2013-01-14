@@ -57,6 +57,7 @@ class JournalEntryLine < CompanyRecord
   validates_length_of :name, :allow_nil => true, :maximum => 255
   validates_presence_of :account, :balance, :credit, :debit, :entry, :name, :original_credit, :original_debit, :state
   #]VALIDATORS]
+  validates_numericality_of :debit, :credit, :original_debit, :original_credit, :greater_than_or_equal_to => 0
   validates_presence_of :account
   # validates_uniqueness_of :letter, :scope => :account_id, :if => Proc.new{|x| !x.letter.blank?}
 
@@ -75,7 +76,6 @@ class JournalEntryLine < CompanyRecord
     state :confirmed
     state :closed
   end
-
 
   #
   before_validation do
@@ -99,7 +99,7 @@ class JournalEntryLine < CompanyRecord
 
   validate(:on => :update) do
     old = self.class.find(self.id)
-    errors.add_to_base(:entry_has_been_already_validated) if old.closed?
+    errors.add(:account_id, :entry_has_been_already_validated) if old.closed?
     # Forbids to change "manually" the letter. Use Account#mark/unmark.
     errors.add(:letter, :invalid) if old.letter != self.letter and not (old.balanced_letter? and self.balanced_letter?)
   end
@@ -107,12 +107,10 @@ class JournalEntryLine < CompanyRecord
   #
   validate do
     unless self.updateable?
-      errors.add_to_base :closed_entry_line
+      errors.add(:number, :closed_entry)
       return
     end
-    errors.add_to_base :unvalid_amounts if self.debit != 0 and self.credit != 0
-    errors.add(:debit,  :greater_or_equal_than, :count => 0) if self.debit<0
-    errors.add(:credit, :greater_or_equal_than, :count => 0) if self.credit<0
+    errors.add(:credit, :unvalid_amounts) if self.debit != 0 and self.credit != 0
   end
 
   protect(:on => :update) do
