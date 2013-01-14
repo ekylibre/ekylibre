@@ -17,7 +17,7 @@ end
 
 options = {}
 OptionParser.new do |opts|
-  opts.banner = "Usage: #{$PROGRAM_NAME} [options]"
+  opts.banner = "Usage: #{$PROGRAM_NAME} [options] <old_table> <new_table>"
 
   opts.on_tail("-h", "--help", "Show this message") do
     puts opts
