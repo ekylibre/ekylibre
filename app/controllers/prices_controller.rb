@@ -56,7 +56,7 @@ class PricesController < AdminController
 
   def find
     if params[:product_id] and params[:entity_id]
-      return unless product = find_and_check(:product, params[:product_id])
+      return unless product = find_and_check(:products_nature, params[:product_id])
       return unless entity = find_and_check(:entity, params[:entity_id])
       @price = product.prices.find(:first, :conditions => {:entity_id => entity.id, :active => true}, :order => "by_default DESC")
       @price ||= Price.new(:category_id => entity.category_id)
@@ -69,7 +69,7 @@ class PricesController < AdminController
       return unless @price = find_and_check(:price, params[:purchase_line_price_id])
       @product = @price.product if @price
     elsif params[:purchase_line_product_id]
-      return unless @product = find_and_check(:product, params[:purchase_line_product_id])
+      return unless @product = find_and_check(:products_nature, params[:purchase_line_product_id])
       @price = @product.prices.find_by_active_and_by_default_and_entity_id(true, true, params[:entity_id]||Entity.of_company.id) if @product
     end
   end
@@ -108,7 +108,7 @@ class PricesController < AdminController
   end
 
   def export
-    @products = Product.availables
+    @products = ProductNature.availables
     @entity_categories = EntityCategory
 
     csv = ["",""]
@@ -174,7 +174,7 @@ class PricesController < AdminController
           if i > 1
             puts i.to_s+"hhhhhhhhhhhhhhh"
             x = 2
-            @product = Product.find_by_code(row[0])
+            @product = ProductNature.find_by_code(row[0])
             for category in @entity_categories
               blank = true
               tax = Tax.find(:first, :conditions => {:amount => row[x+2].to_s.gsub(/\,/,".").to_f})

@@ -45,7 +45,7 @@ class Price < CompanyRecord
   after_create :set_by_default
   belongs_to :category, :class_name=>"EntityCategory"
   belongs_to :entity
-  belongs_to :product
+  belongs_to :product, :class_name => "ProductNature"
   belongs_to :tax
   # belongs_to :supplier, :class_name => "Entity"
   has_many :outgoing_delivery_lines
@@ -64,7 +64,7 @@ class Price < CompanyRecord
 
   delegate :stockable?, :subscription?, :to => :product
 
-  scope :availables_for_sales, -> { joins(:product).where("#{Price.table_name}.active=? AND #{Product.table_name}.active=?", true, true) }
+  scope :availables_for_sales, -> { joins(:product).where("#{Price.table_name}.active=? AND #{ProductNature.table_name}.active=?", true, true) }
 
 
 

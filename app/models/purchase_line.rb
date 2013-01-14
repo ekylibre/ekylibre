@@ -49,7 +49,7 @@ class PurchaseLine < CompanyRecord
   belongs_to :account
   belongs_to :purchase
   belongs_to :price
-  belongs_to :product
+  belongs_to :product, :class_name => "ProductNature"
   belongs_to :warehouse
   belongs_to :tracking, :dependent => :destroy
   belongs_to :unit

@@ -41,7 +41,7 @@
 
 
 class ProductionChainConveyor < CompanyRecord
-  belongs_to :product
+  belongs_to :product, :class_name => "ProductNature"
   belongs_to :production_chain
   belongs_to :source, :class_name=>"ProductionChainWorkCenter"
   belongs_to :target, :class_name=>"ProductionChainWorkCenter"

@@ -40,7 +40,7 @@ class SubscriptionNature < CompanyRecord
   enumerize :nature, :in => [:period, :quantity], :default => :period, :predicates => true
   attr_accessible :actual_number, :comment, :entity_link_nature_id, :name, :nature, :reduction_percentage
   belongs_to :entity_link_nature
-  has_many :products
+  has_many :products, :class_name => "ProductNature"
   has_many :subscriptions, :foreign_key => :nature_id
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.

@@ -118,10 +118,10 @@ class Entity < CompanyRecord
   has_many :websites,  :conditions => {:canal => "website", :deleted_at => nil}, :class_name => "EntityAddress", :inverse_of => :entity
   has_many :auto_updateable_addresses, :conditions => {:deleted_at => nil, :mail_auto_update => true}, :class_name => "EntityAddress"
   has_many :direct_links, :class_name => "EntityLink", :foreign_key => :entity_1_id
-  has_many :events
-  has_many :animal_events, :class_name => "AnimalEvent", :foreign_key => :watcher_id
+  has_many :events, :class_name => "EntityEvent"
+  has_many :animal_events, :class_name => "ProductEvent", :foreign_key => :watcher_id
   has_many :managed_events, :foreign_key => :responsible_id # as Responsible
-  has_many :future_events, :class_name => "Event", :foreign_key => :responsible_id, :conditions => ["started_at >= CURRENT_TIMESTAMP"]
+  has_many :future_events, :class_name => "EntityEvent", :foreign_key => :responsible_id, :conditions => ["started_at >= CURRENT_TIMESTAMP"]
   has_many :godchildren, :class_name => "Entity", :foreign_key => "proposer_id"
   has_many :incoming_payments, :foreign_key => :payer_id, :inverse_of => :payer
   has_many :indirect_links, :class_name => "EntityLink", :foreign_key => :entity_2_id
@@ -338,8 +338,13 @@ class Entity < CompanyRecord
 
   def add_event(nature, user_id)
     if user = Entity.find_by_id(user_id)
+<<<<<<< HEAD
       EventNature.find_all_by_usage(nature.to_s).each do |event_nature|
         event_nature.events.create!(:started_at => Time.now, :duration => event_nature.duration, :entity_id => self.id, :responsible_id => user.id)
+=======
+      EntityEventNature.find_all_by_usage(nature.to_s).each do |event_nature|
+        event_nature.create!(:started_at => Time.now, :duration => event_nature.duration, :entity_id => self.id, :responsible_id => user.id)
+>>>>>>> b4a7adef3f3dbf91f994c90d340f79464db5926f
       end
     end
   end

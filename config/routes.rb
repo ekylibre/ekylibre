@@ -83,7 +83,7 @@ Ekylibre::Application.routes.draw do
       post :unmark
     end
   end
-  resources :animals do
+  resources :products do
     collection do
       get :list
       get :list_events
@@ -115,25 +115,25 @@ Ekylibre::Application.routes.draw do
       unroll_all
     end
   end
-  resources :animal_events do
+  resources :product_events do
     collection do
       get :list
       unroll_all
     end
   end
-  resources :animal_group_events do
+  resources :product_group_events do
     collection do
       get :list
       unroll_all
     end
   end
-  resources :animal_event_natures do
+  resources :product_event_natures do
     collection do
       get :list
       unroll_all
     end
   end
-  resources :animal_groups do
+  resources :product_groups do
     collection do
       get :list
       get :list_animals
@@ -153,7 +153,7 @@ Ekylibre::Application.routes.draw do
       unroll_all
     end
   end
-  resources :animal_races do
+  resources :product_species do
     collection do
       get :list
       unroll_all
@@ -326,14 +326,14 @@ Ekylibre::Application.routes.draw do
       unroll_all
     end
   end
-  resources :events do
+  resources :entity_events do
     collection do
       get :list
       get :change_minutes
       unroll_all
     end
   end
-  resources :event_natures do
+  resources :entity_event_natures do
     collection do
       get :list
       unroll_all
@@ -533,7 +533,7 @@ Ekylibre::Application.routes.draw do
       unroll_all
     end
   end
-  resources :products do
+  resources :products_natures do
     collection do
       get :list
       get :list_prices
@@ -543,7 +543,7 @@ Ekylibre::Application.routes.draw do
       unroll_all
     end
   end
-  resources :product_categories do
+  resources :product_nature_categories do
     collection do
       get :list
       get :list_products

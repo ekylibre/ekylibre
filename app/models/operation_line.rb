@@ -46,7 +46,7 @@ class OperationLine < CompanyRecord
   belongs_to :area_unit, :class_name => "Unit"
   belongs_to :warehouse
   belongs_to :operation, :inverse_of => :lines
-  belongs_to :product
+  belongs_to :product, :class_name => "ProductNature"
   belongs_to :stock_move
   belongs_to :tracking
   belongs_to :unit

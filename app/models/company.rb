@@ -182,8 +182,8 @@ class Company < Ekylibre::Record::Base
 
   # Specifics
   ### has_many :attorney_accounts, :class_name => "Account", :order => :number, :conditions => conditions_proc('number LIKE #{connection.quote(self.preferred_third_attorneys_accounts.to_s+\'%\')}')
-  has_many :available_prices, :class_name => "Price", :conditions => conditions_proc('prices.entity_id=#{self.entity_id} AND prices.active=#{connection.quoted_true} AND product_id IN (SELECT id FROM #{Product.table_name} WHERE company_id=#{id} AND active=#{connection.quoted_true})'), :order => "prices.amount"
-  ### has_many :available_products, :class_name => "Product", :conditions => {:active => true}, :order => :name
+  has_many :available_prices, :class_name => "Price", :conditions => conditions_proc('prices.entity_id=#{self.entity_id} AND prices.active=#{connection.quoted_true} AND product_id IN (SELECT id FROM #{ProductsNature.table_name} WHERE company_id=#{id} AND active=#{connection.quoted_true})'), :order => "prices.amount"
+  ### has_many :available_products, :class_name => "ProductNature", :conditions => {:active => true}, :order => :name
   has_many :bank_journals, :class_name => "Journal", :order => :code, :conditions => conditions_proc('nature LIKE \'bank\'')
   has_many :banks_accounts, :class_name => "Account", :order => :number, :conditions => conditions_proc('number LIKE #{connection.quote(self.preferred_financial_banks_accounts.to_s+\'%\')}')
   has_many :buildings, :class_name => "Warehouse", :conditions => {:reservoir => false}, :order => :name
@@ -198,12 +198,12 @@ class Company < Ekylibre::Record::Base
   ### has_many :major_accounts, :class_name => "Account", :conditions => ["number LIKE '_'"], :order => "number"
   ### has_many :payments_to_deposit, :class_name => "IncomingPayment", :order => "created_on", :conditions => conditions_proc('deposit_id IS NULL AND mode_id IN (SELECT id FROM #{IncomingPaymentMode.table_name} WHERE company_id=#{id} AND with_deposit=#{connection.quoted_true}) AND to_bank_on >= #{connection.quote(Date.today-14)}')
   has_many :payments_to_deposit_accounts, :class_name => "Account", :order => :number, :conditions => conditions_proc('number LIKE #{connection.quote(self.preferred_financial_payments_to_deposit_accounts.to_s+\'%\')}')
-  has_many :productable_products, :class_name => "Product", :conditions => {:to_produce => true}
+  has_many :productable_products, :class_name => "ProductNature", :conditions => {:to_produce => true}
   has_many :products_accounts, :class_name => "Account", :order => :number, :conditions => conditions_proc('number LIKE #{connection.quote(self.preferred_products_accounts.to_s+\'%\')}')
   has_many :self_cashes, :class_name => "Cash", :order => :name, :conditions => conditions_proc('entity_id=#{self.entity_id}')
   ### has_many :self_bank_accounts, :class_name => "Cash", :order => :name, :conditions => conditions_proc('(entity_id IS NULL OR entity_id=#{self.entity_id}) AND nature=\'bank_account\'')
   has_many :self_contacts, :class_name => "Contact", :conditions => conditions_proc('deleted_at IS NULL AND entity_id = #{self.entity_id}'), :order => 'address'
-  ### has_many :stockable_products, :class_name => "Product", :conditions => {:stockable => true}
+  ### has_many :stockable_products, :class_name => "ProductNature", :conditions => {:stockable => true}
   ### has_many :supplier_accounts, :class_name => "Account", :order => :number, :conditions => conditions_proc('number LIKE #{connection.quote(self.preferred_third_suppliers_accounts.to_s+\'%\')}')
   has_many :suppliers, :class_name => "Entity", :conditions => {:supplier => true}, :order => 'active DESC, last_name, first_name'
   has_many :surface_units, :class_name => "Unit", :conditions => {:base => "m2"}, :order => 'coefficient, name'
@@ -444,7 +444,7 @@ class Company < Ekylibre::Record::Base
   #     Department.create!(:name => tc('default.department_name'))
   #     establishment = Establishment.create!(:name => tc('default.establishment_name'), :nic => "00000")
   #     #   # currency = company.currency || 'EUR' # company.currencies.create!(:name => 'Euro', :code => 'EUR', :value_format => '%f €', :rate => 1)
-  #     ProductCategory.create(:name => tc('default.product_category_name'))
+  #     ProductNatureCategory.create(:name => tc('default.product_category_name'))
 
   #     for code, tax in tc("default.taxes")
   #       Tax.create!(:name => tax[:name], :nature => (tax[:nature]||"percentage"), :amount => tax[:amount].to_f, :collected_account_id => Account.get(tax[:collected], tax[:name]).id, :paid_account_id => Account.get(tax[:paid], tax[:name]).id)
@@ -482,7 +482,7 @@ class Company < Ekylibre::Record::Base
 
   #     Warehouse.create!(:name => tc('default.warehouse_name'), :establishment_id => establishment.id)
   #     for nature in [:sale, :sales_invoice, :purchase]
-  #       EventNature.create!(:duration => 10, :usage => nature.to_s, :name => tc("default.event_natures.#{nature}"))
+  #       EntityEventNature.create!(:duration => 10, :usage => nature.to_s, :name => tc("default.event_natures.#{nature}"))
   #     end
 
   #     #   # Add custom_fieldary data to test

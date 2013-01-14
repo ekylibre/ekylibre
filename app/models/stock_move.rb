@@ -50,7 +50,7 @@ class StockMove < CompanyRecord
   attr_accessible :comment, :name
   belongs_to :warehouse
   belongs_to :origin, :polymorphic => true
-  belongs_to :product
+  belongs_to :product, :class_name => "ProductNature"
   belongs_to :stock
   belongs_to :tracking
   belongs_to :unit

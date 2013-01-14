@@ -394,7 +394,7 @@ class SalesController < AdminController
       while date <= finish
         period = '="'+t('date.abbr_month_names')[date.month]+" "+date.year.to_s+'"'
         months << period
-        for product in Product.find(:all, :select => "products.*, total", :joins => ActiveRecord::Base.send(:sanitize_sql_array, ["LEFT JOIN (#{query}) AS sold ON (products.id=product_id)", date.beginning_of_month, date.end_of_month]), :order => "product_id")
+        for product in ProductNature.find(:all, :select => "products.*, total", :joins => ActiveRecord::Base.send(:sanitize_sql_array, ["LEFT JOIN (#{query}) AS sold ON (products.id=product_id)", date.beginning_of_month, date.end_of_month]), :order => "product_id")
           data[product.id.to_s] ||= {}
           data[product.id.to_s][period] = product.total.to_f
         end
@@ -402,8 +402,8 @@ class SalesController < AdminController
       end
 
       csv_data = Ekylibre::CSV.generate do |csv|
-        csv << [Product.model_name.human, Product.human_attribute_name('code'), Product.human_attribute_name('sales_account_id')]+months
-        for product in Product.order(:name)
+        csv << [ProductNature.model_name.human, ProductNature.human_attribute_name('code'), ProductNature.human_attribute_name('sales_account_id')]+months
+        for product in ProductNature.order(:name)
           valid = false
           for period, amount in data[product.id.to_s]
             valid = true if amount != 0

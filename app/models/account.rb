@@ -48,13 +48,13 @@ class Account < CompanyRecord
   has_many :collected_taxes, :class_name => "Tax", :foreign_key => :collected_account_id
   has_many :commissioned_incoming_payment_modes, :class_name => "IncomingPaymentMode", :foreign_key => :commission_account_id
   has_many :depositables_incoming_payment_modes, :class_name => "IncomingPaymentMode", :foreign_key => :depositables_account_id
-  has_many :immobilizations_products, :class_name => "Product", :foreign_key => :immobilizations_account_id
+  has_many :immobilizations_products, :class_name => "ProductNature", :foreign_key => :immobilizations_account_id
   has_many :journal_entry_lines
   has_many :paid_taxes, :class_name => "Tax", :foreign_key => :paid_account_id
-  has_many :purchases_products, :class_name => "Product", :foreign_key => :purchases_account_id
+  has_many :purchases_products, :class_name => "ProductNature", :foreign_key => :purchases_account_id
   has_many :purchase_lines
   has_many :sale_lines
-  has_many :sales_products, :class_name => "Product", :foreign_key => :sales_account_id
+  has_many :sales_products, :class_name => "ProductNature", :foreign_key => :sales_account_id
   has_many :suppliers, :class_name => "Entity", :foreign_key => :supplier_account_id
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :last_letter, :allow_nil => true, :maximum => 8
@@ -73,7 +73,7 @@ class Account < CompanyRecord
   scope :attorney_thirds,          lambda { where('number LIKE ?', self.chart_number(:attorney_thirds)+"%").order(:number, :name) }
   scope :client_thirds,            lambda { where('number LIKE ?', self.chart_number(:client_thirds)+"%").order(:number, :name) }
   scope :supplier_thirds,          lambda { where('number LIKE ?', self.chart_number(:supplier_thirds)+"%").order(:number, :name) }
-  scope :products,                 lambda { where('number LIKE ?', self.chart_number(:products)+"%").order(:number, :name) }
+  scope :product_natures,                 lambda { where('number LIKE ?', self.chart_number(:product_natures)+"%").order(:number, :name) }
   scope :charges,                  lambda { where('number LIKE ?', self.chart_number(:charges)+"%").order(:number, :name) }
   scope :banks,                    lambda { where('number LIKE ?', self.chart_number(:banks)+"%").order(:number, :name) }
   scope :cashes,                   lambda { where('number LIKE ?', self.chart_number(:cashes)+"%").order(:number, :name) }
@@ -133,7 +133,7 @@ class Account < CompanyRecord
   # Deposit/IncomingPayment
   register_usage :deposit_pending_payments
   # Sale
-  register_usage :products
+  register_usage :product_natures
   # TaxDeclaration
   # register_usage :taxes_acquisition
   # register_usage :taxes_assimilated

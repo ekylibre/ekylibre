@@ -13,74 +13,22 @@ jpn:
     animal_care_natures: #?
     animal_care_types: #?
     animal_cares: #?
-    animal_diagnostics:
-      # edit: "Modifier un diagnostic"
-      # index: "Diagnostic"
-      # new: "Nouveau diagnostic"
-      # show: "Diagnostic\_: %{name}"
-    animal_diseases:
-      # edit: "Modifier la maladie\_: %{name}"
-      # index: "Maladies"
-      # new: "Nouvelle maladie"
-      # show: "Maladie\_: %{name}"
-    animal_drug_natures:
-      # edit: "Modifier le type de médicament\_: %{name}"
-      # index: "Types de médicament"
-      # new: "Nouveau type de médicament"
-      # show: "Type de médicament\_: %{name}"
-    animal_drugs:
-      # edit: "Modifier le médicament\_: %{name}"
-      # index: "Médicaments"
-      # new: "Nouveau médicament"
-      # show: "Médicament\_: %{name}"
-    animal_event_natures:
-      # edit: "Modifier un type d'évènement"
-      # index: "Type d'évènement"
-      # new: "Créer un type d'évènement"
-      # show: "Type d'évènement %{name}"
-    animal_events:
-      # edit: "Modifier un évènement"
-      # index: "Évènements"
-      # new: "Créer un évènement"
-      # show: "évènement %{name} commencé le %{started_at}"
-    animal_group_events:
-      # edit: "Modifier un évènement par lot"
-      # index: "Évènements par lot"
-      # new: "Créer un évènement par lot"
-      # show: "évènement par lot\_: %{name} commencé le %{started_at}"
-    animal_groups:
-      # edit: "Modifier le lot\_: %{name} "
-      # index: "Lots d'animaux"
-      # new: "Créer un lot"
-      # show: "Lot\_: %{name}"
-    animal_posologies:
-      # edit: "Modifier une posologie"
-      # index: "Posologie"
-      # new: "Nouvelle posologie"
-      # show: "Posologie\_: %{name}"
-    animal_prescriptions:
-      # edit: "Modifier une ordonnance"
-      # index: "Ordonnance"
-      # new: "Nouvelle ordonnance"
-      # show: "Ordonnance\_: %{name} du \_: %{prescripted_on}"
+    animal_diagnostics: #?
+    animal_diseases: #?
+    animal_drug_natures: #?
+    animal_drugs: #?
+    animal_event_natures: #?
+    animal_events: #?
+    animal_group_events: #?
+    animal_groups: #?
+    animal_posologies: #?
+    animal_prescriptions: #?
     animal_race_natures: #?
     animal_race_types: #?
-    animal_races:
-      # edit: "Modifier la race\_: %{name} "
-      # index: "Races"
-      # new: "Créer une race"
-      # show: "Race\_: %{name}"
+    animal_races: #?
     animal_treatment_uses: #?
-    animal_treatments:
-      # edit: "Modifier le traitement\_: %{name} "
-      # index: "Traitements"
-      # new: "Créer un traitement"
-      # show: "Traitement\_: %{name}"
-    animals:
-      # edit: "Modifier un animal"
-      # index: "Animaux"
-      # new: "Créer un animal"
-      # show: "animal\_: %{name}"
+    animal_treatments: #?
+    animals: #?
     application: #?
     areas:
       # edit: "Modifier la zone postale\_: %{name}"
@@ -197,6 +145,15 @@ jpn:
       # index: "Catégories de fiche"
       # new: "Ajout d’une nouvelle catégorie de fiche"
       # show: "Catégorie de fiche\_: %{name}"
+    entity_event_natures:
+      # edit: "Modifier le type d’évènement\_: %{name}"
+      # index: "Types d’évènements"
+      # new: "Ajouter un type d’évènement"
+    entity_events:
+      # change_minutes: "Changer la durée de l’évènement"
+      # edit: "Modifier l’un évènement"
+      # index: "Évènements"
+      # new: "Ajout d’un évènement"
     entity_link_natures:
       # edit: "Modifier le type de lien\_: %{name}"
       # index: "Types de lien"
@@ -212,15 +169,8 @@ jpn:
       # edit: "Modifier l’établissement\_: %{name}"
       # index: "Établissements"
       # new: "Ajout d’un nouvel etablissement"
-    event_natures:
-      # edit: "Modifier le type d’évènement\_: %{name}"
-      # index: "Types d’évènements"
-      # new: "Ajouter un type d’évènement"
-    events:
-      # change_minutes: "Changer la durée de l’évènement"
-      # edit: "Modifier l’un évènement"
-      # index: "Évènements"
-      # new: "Ajout d’un évènement"
+    event_natures: #?
+    events: #?
     financial_years:
       # close: "Clôturer l’exercice %{code}"
       # compute_balances: "Calculer la balance de l’exercice"
@@ -361,14 +311,41 @@ jpn:
       # import: "Importer un fichier CSV de tarifs"
       # index: "Prix"
       # new: "Ajout d’un nouveau prix"
-    product_categories:
+    product_categories: #?
+    product_components:
+      # edit: "Modifier le composant %{name}"
+      # new: "Ajouter un composant"
+    product_event_natures:
+      # edit: "Modifier un type d'évènement"
+      # index: "Type d'évènement"
+      # new: "Créer un type d'évènement"
+      # show: "Type d'évènement %{name}"
+    product_events:
+      # edit: "Modifier un évènement"
+      # index: "Évènements"
+      # new: "Créer un évènement"
+      # show: "évènement %{name} commencé le %{started_at}"
+    product_group_events:
+      # edit: "Modifier un évènement par lot"
+      # index: "Évènements par lot"
+      # new: "Créer un évènement par lot"
+      # show: "évènement par lot\_: %{name} commencé le %{started_at}"
+    product_groups:
+      # edit: "Modifier le lot\_: %{name} "
+      # index: "Lots d'animaux"
+      # new: "Créer un lot"
+      # show: "Lot\_: %{name}"
+    product_nature_categories:
       # edit: "Modifier la catégorie de produits\_: %{name}"
       # index: "Catégories de produits"
       # new: "Ajout d’une nouvelle catégorie de produits"
       # show: "Détail de la catégorie\_: %{name}"
-    product_components:
-      # edit: "Modifier le composant %{name}"
-      # new: "Ajouter un composant"
+    product_natures: #?
+    product_species:
+      # edit: "Modifier la race\_: %{name} "
+      # index: "Races"
+      # new: "Créer une race"
+      # show: "Race\_: %{name}"
     production_chain_conveyors:
       # edit: "Mettre à jour le convoyeur (%{source_id}-%{target_id})"
       # new: "Ajouter un nouveau convoyeur dans la chaîne de production"
@@ -384,11 +361,10 @@ jpn:
       # new: "Ajouter une nouvelle chaîne de production"
       # show: "Chaîne de production\_: %{name}"
     products:
-      # change_quantities: "Changer les quantités pour ce produit"
-      # edit: "Modifier le produit\_: %{name}"
-      # index: "Produits"
-      # new: "Ajouter un nouveau produit"
-      # show: "Produit\_: %{name}"
+      # edit: "Modifier un animal"
+      # index: "Animaux"
+      # new: "Créer un animal"
+      # show: "animal\_: %{name}"
     professions:
       # edit: "Modifier la profession\_: %{name}"
       # index: "Professions"
@@ -532,18 +508,6 @@ jpn:
     accountancy: "会計" #?
     # accounts: "Plan de comptes"
     # admin: "Administration"
-    # animal_diagnostics: "Diagnostics"
-    # animal_diseases: "Maladies"
-    # animal_drug_natures: "Type de médicaments"
-    # animal_drugs: "Médicaments"
-    # animal_event_natures: "Type d'évenements des Animaux"
-    # animal_events: "Evenements des Animaux"
-    # animal_groups: "Lot d'Animaux"
-    # animal_posologies: "Posologies"
-    # animal_prescriptions: "Ordonnances vétérinaires"
-    # animal_races: "Races"
-    # animal_treatments: "Soins des Animaux"
-    # animals: "Animaux"
     application: "一般的な車掌"
     # areas: "Zones postales"
     # assets: "Immobilisations"
@@ -569,12 +533,12 @@ jpn:
     # entities: "Personnes"
     # entity_addresses: "Adresses"
     # entity_categories: "Catégories de fiche"
+    # entity_event_natures: "Types d’évènements"
+    # entity_events: "Évènements"
     # entity_link_natures: "Types de lien"
     # entity_links: "Liens entre personnes"
     # entity_natures: "Types de fiches"
     # establishments: "Établissements"
-    # event_natures: "Types d’évènements"
-    # events: "Évènements"
     # financial_years: "Exercices comptables"
     help: "手伝い"
     # incoming_deliveries: "Livraisons entrantes"
@@ -611,14 +575,18 @@ jpn:
     # outgoing_payments: "Décaissements"
     # preferences: "Préférences"
     # prices: "Prix"
-    # product_categories: "Catégories de produits"
     # product_components: "Composants de produits"
+    # product_event_natures: "Type d'évenements des Animaux"
+    # product_events: "Evenements des Animaux"
+    # product_groups: "Lot d'Animaux"
+    # product_nature_categories: "Catégories de produits"
+    # product_species: "Races"
     production: "生産" #?
     # production_chain_conveyors: "Convoyeurs de chaînes de production"
     # production_chain_work_center_uses: "Utilisation des ateliers de chaînes de production"
     # production_chain_work_centers: "Atelier de chaînes de production"
     # production_chains: "Chaînes de production"
-    # products: "Produits"
+    # products: "Animaux"
     # professions: "Professions"
     # purchase_lines: "Lignes d’achat"
     # purchase_natures: "Types d’achat"
@@ -1721,6 +1689,10 @@ jpn:
     animal_prescriptions:
       # all: "N° {prescription_number} du {prescripted_on}"
     animals:
+      # all: "{name} - {work_number}"
+    product_events:
+      # all: "{name} - {started_at}"
+    products:
       # all: "{name} - {work_number}"
     units:
       # all: "{label} ({name})"

@@ -6,10 +6,10 @@
     =li_link_to tc('x_entities',:count=>Entity.count), :controller=>:entities, :action=>:index
 
 -if @current_user.future_events.count > 0
-  %h2=tc(:future_events)
-  =list(:my_future_events)
+  %h2=tc(:future_entity_events)
+  =list(:my_future_entity_events)
 
--if Event.count > 0
-  %h2=tc(:recent_events)
-  =list(:recent_events)
+-if EntityEvent.count > 0
+  %h2=tc(:recent_entity_events)
+  =list(:recent_entity_events)
 

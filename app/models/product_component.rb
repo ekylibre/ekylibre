@@ -41,9 +41,9 @@
 class ProductComponent < CompanyRecord
   attr_accessible :active, :comment, :name, :product_id, :component_id, :quantity
   attr_readonly :quantity, :name, :comment
-  belongs_to :component, :class_name => "Product"
+  belongs_to :component, :class_name => "ProductNature"
   belongs_to :warehouse
-  belongs_to :product
+  belongs_to :product, :class_name => "ProductNature"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :quantity, :allow_nil => true
   validates_length_of :name, :allow_nil => true, :maximum => 255

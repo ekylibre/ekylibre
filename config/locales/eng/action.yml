@@ -9,72 +9,36 @@ eng:
       reconciliation: "Account reconciliation"
       show: "Account: %{number} - %{name}"
       unmark: "Unmark account"
-    animal_diagnostics:
-      edit: "Edit a diagnostic"
-      index: "Diagnostic"
-      new: "Create a new diagnostic"
-      show: "Diagnostic\_: %{name}"
-    animal_diseases:
-      edit: "Edit disease\_: %{name}"
-      index: "Diseases"
-      new: "Create a new disease"
-      show: "Disease\_: %{name}"
-    animal_drug_natures:
-      edit: "Edit drug nature\_: %{name}"
-      index: "Drug natures"
-      new: "Create a new drug nature"
-      show: "Drug nature\_: %{name}"
-    animal_drugs:
-      edit: "Edit drug\_: %{name}"
-      index: "Drugs"
-      new: "Create a new drug"
-      show: "Drug\_: %{name}"
-    animal_event_natures:
-      # edit: "Modifier un type d'évènement"
-      # index: "Type d'évènement"
-      # new: "Créer un type d'évènement"
-      # show: "Type d'évènement %{name}"
-    animal_events:
-      # edit: "Modifier un évènement"
-      # index: "Évènements"
-      # new: "Créer un évènement"
-      # show: "évènement %{name} commencé le %{started_at}"
-    animal_group_events:
-      # edit: "Modifier un évènement par lot"
-      # index: "Évènements par lot"
-      # new: "Créer un évènement par lot"
-      # show: "évènement par lot\_: %{name} commencé le %{started_at}"
-    animal_groups:
-      # edit: "Modifier le lot\_: %{name} "
-      # index: "Lots d'animaux"
-      # new: "Créer un lot"
-      # show: "Lot\_: %{name}"
-    animal_posologies:
-      # edit: "Modifier une posologie"
-      # index: "Posologie"
-      # new: "Nouvelle posologie"
-      # show: "Posologie\_: %{name}"
-    animal_prescriptions:
-      # edit: "Modifier une ordonnance"
-      # index: "Ordonnance"
-      # new: "Nouvelle ordonnance"
-      # show: "Ordonnance\_: %{name} du \_: %{prescripted_on}"
+    animal_diagnostics:  #?
+      edit: "Edit a diagnostic" #?
+      index: "Diagnostic" #?
+      new: "Create a new diagnostic" #?
+      show: "Diagnostic\_: %{name}" #?
+    animal_diseases:  #?
+      edit: "Edit disease\_: %{name}" #?
+      index: "Diseases" #?
+      new: "Create a new disease" #?
+      show: "Disease\_: %{name}" #?
+    animal_drug_natures:  #?
+      edit: "Edit drug nature\_: %{name}" #?
+      index: "Drug natures" #?
+      new: "Create a new drug nature" #?
+      show: "Drug nature\_: %{name}" #?
+    animal_drugs:  #?
+      edit: "Edit drug\_: %{name}" #?
+      index: "Drugs" #?
+      new: "Create a new drug" #?
+      show: "Drug\_: %{name}" #?
+    animal_event_natures: #?
+    animal_events: #?
+    animal_group_events: #?
+    animal_groups: #?
+    animal_posologies: #?
+    animal_prescriptions: #?
     animal_race_natures: #?
-    animal_races:
-      # edit: "Modifier la race\_: %{name} "
-      # index: "Races"
-      # new: "Créer une race"
-      # show: "Race\_: %{name}"
-    animal_treatments:
-      # edit: "Modifier le traitement\_: %{name} "
-      # index: "Traitements"
-      # new: "Créer un traitement"
-      # show: "Traitement\_: %{name}"
-    animals:
-      # edit: "Modifier un animal"
-      # index: "Animaux"
-      # new: "Créer un animal"
-      # show: "animal\_: %{name}"
+    animal_races: #?
+    animal_treatments: #?
+    animals: #?
     areas:
       edit: "Edit the postal area: %{name}"
       index: "Postal areas"
@@ -177,6 +141,15 @@ eng:
       index: "Person categories"
       new: "Add a new person category"
       show: "Person category: %{name}"
+    entity_event_natures:
+      edit: "Edit thee event type: %{name}"
+      index: "Event types"
+      new: "Add a new event type"
+    entity_events:
+      change_minutes: "Change minutes for event"
+      edit: "Edit the event"
+      index: "Events"
+      new: "Add a new event"
     entity_link_natures:
       edit: "Edit the link type: %{name}"
       index: "Link types"
@@ -192,15 +165,15 @@ eng:
       edit: "Edit the establishment: %{name}"
       index: "Establishments"
       new: "Add a new establishment"
-    event_natures:
-      edit: "Edit thee event type: %{name}"
-      index: "Event types"
-      new: "Add a new event type"
-    events:
-      change_minutes: "Change minutes for event"
-      edit: "Edit the event"
-      index: "Events"
-      new: "Add a new event"
+    event_natures:  #?
+      edit: "Edit thee event type: %{name}" #?
+      index: "Event types" #?
+      new: "Add a new event type" #?
+    events:  #?
+      change_minutes: "Change minutes for event" #?
+      edit: "Edit the event" #?
+      index: "Events" #?
+      new: "Add a new event" #?
     financial_years:
       close: "Close financial year: %{code}"
       compute_balances: "Compute financial year balance"
@@ -333,14 +306,45 @@ eng:
       import: "Import prices"
       index: "Prices"
       new: "Add a new price"
-    product_categories:
+    product_categories:  #?
+      edit: "Edit the product category: %{name}" #?
+      index: "Product categories" #?
+      new: "Add a new product category" #?
+      show: "Product category: %{name}" #?
+    product_components:
+      edit: "Edit the component: %{name}"
+      new: "Add a new component"
+    product_event_natures:
+      # edit: "Modifier un type d'évènement"
+      # index: "Type d'évènement"
+      # new: "Créer un type d'évènement"
+      # show: "Type d'évènement %{name}"
+    product_events:
+      # edit: "Modifier un évènement"
+      # index: "Évènements"
+      # new: "Créer un évènement"
+      # show: "évènement %{name} commencé le %{started_at}"
+    product_group_events:
+      # edit: "Modifier un évènement par lot"
+      # index: "Évènements par lot"
+      # new: "Créer un évènement par lot"
+      # show: "évènement par lot\_: %{name} commencé le %{started_at}"
+    product_groups:
+      # edit: "Modifier le lot\_: %{name} "
+      # index: "Lots d'animaux"
+      # new: "Créer un lot"
+      # show: "Lot\_: %{name}"
+    product_nature_categories:
       edit: "Edit the product category: %{name}"
       index: "Product categories"
       new: "Add a new product category"
       show: "Product category: %{name}"
-    product_components:
-      edit: "Edit the component: %{name}"
-      new: "Add a new component"
+    product_natures: #?
+    product_species:
+      # edit: "Modifier la race\_: %{name} "
+      # index: "Races"
+      # new: "Créer une race"
+      # show: "Race\_: %{name}"
     production_chain_conveyors:
       edit: "Edit production chain conveyor (%{source_id}-%{target_id})"
       new: "Add a new conveyor in the production chain"
@@ -355,11 +359,17 @@ eng:
       new: "Add a new production chain"
       show: "Production chain: %{name}"
     products:
-      change_quantities: "Change quantities for product"
+      change_quantities: "Change quantities for product" #?
       edit: "Edit the product: %{name}"
       index: "Products"
       new: "Add a new product"
       show: "Product: %{name}"
+    products_natures:  #?
+      change_quantities: "Change quantities for product" #?
+      edit: "Edit the product: %{name}" #?
+      index: "Products" #?
+      new: "Add a new product" #?
+      show: "Product: %{name}" #?
     professions:
       edit: "Edit profession"
       index: "Professions"
@@ -500,19 +510,19 @@ eng:
     account_balances: "Account balances"
     accounts: "Plan of accounts"
     admin: "Administration"
-    animal_diagnostics: "Diagnostics"
-    animal_diseases: "Diseases"
-    animal_drug_natures: "Drug natures"
-    animal_drugs: "Drugs"
-    animal_event_natures: "Animal's events natures"
-    animal_events: "Animal's events"
-    animal_groups: "Animal's groups"
-    animal_posologies: "Posologies"
-    animal_prescriptions: "Animal's prescriptions"
+    animal_diagnostics: "Diagnostics" #?
+    animal_diseases: "Diseases" #?
+    animal_drug_natures: "Drug natures" #?
+    animal_drugs: "Drugs" #?
+    animal_event_natures: "Animal's events natures" #?
+    animal_events: "Animal's events" #?
+    animal_groups: "Animal's groups" #?
+    animal_posologies: "Posologies" #?
+    animal_prescriptions: "Animal's prescriptions" #?
     animal_race_natures: "Animal's species" #?
-    animal_races: "Races"
-    animal_treatments: "Animal's treatments"
-    animals: "Animals"
+    animal_races: "Races" #?
+    animal_treatments: "Animal's treatments" #?
+    animals: "Animals" #?
     application: "Application"
     areas: "Postal areas"
     assets: "Assets"
@@ -537,12 +547,14 @@ eng:
     entities: "People"
     entity_addresses: "People addresses"
     entity_categories: "Person categories"
+    entity_event_natures: "Event types"
+    entity_events: "Events"
     entity_link_natures: "Link types"
     entity_links: "Entity links"
     entity_natures: "Person types"
     establishments: "Establishments"
-    event_natures: "Event types"
-    events: "Events"
+    event_natures: "Event types" #?
+    events: "Events" #?
     financial_years: "Financial years"
     help: "Help"
     incoming_deliveries: "Incoming deliveries"
@@ -578,13 +590,19 @@ eng:
     outgoing_payments: "Disbursements"
     preferences: "Preferences"
     prices: "Prices"
-    product_categories: "Product categories"
+    product_categories: "Product categories" #?
     product_components: "Product components"
+    product_event_natures: "Animal's events natures"
+    product_events: "Animal's events"
+    product_groups: "Animal's groups"
+    product_nature_categories: "Product categories"
+    product_species: "Races"
     production_chain_conveyors: "Production chain conveyors"
     production_chain_work_center_uses: "Production chain work center uses"
     production_chain_work_centers: "Production chain work centers"
     production_chains: "Production chains"
-    products: "Products"
+    products: "Animals"
+    products_natures: "Products" #?
     professions: "Professions"
     purchase_lines: "Purchase lines"
     purchase_natures: "Purchase types"
@@ -1683,6 +1701,10 @@ eng:
     animal_prescriptions:
       all: "#{prescription_number} on {prescripted_on}"
     animals:
+      all: "{name} ({sex})"
+    product_events:
+      # all: "{name} - {started_at}"
+    products:
       all: "{name} ({sex})"
     units:
       all: "{label} ({name})"

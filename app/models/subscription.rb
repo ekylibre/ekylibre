@@ -49,7 +49,7 @@ class Subscription < CompanyRecord
   belongs_to :address, :class_name => "EntityAddress"
   belongs_to :entity
   belongs_to :nature, :class_name => "SubscriptionNature"
-  belongs_to :product
+  belongs_to :product, :class_name => "ProductNature"
   belongs_to :sale
   belongs_to :sale_line
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.

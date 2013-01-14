@@ -1,39 +1,31 @@
--field_set do
-  -input :name
-  -input :code
-  -input :code2
-  -input :ean13
-  -input :catalog_name
-  -input :comment
+-field_set do # partie info general de l entité animal
+  -association :specy
+  -input :name , :hint => "le nom de votre animal"# affiche le champ name de l entité animal avec une infos derriere
+  -input :sex # affiche le champ sexe sous forme de radio avec une collection de proposition (M ou F) de l entité animal
+  -input :reproductor
+  -input :born_on
+  -input :work_number
+  -input :identification_number, :placeholder => 'FR + DEPT + 8 chiffres'
+  -input :comment # affiche le champ comment formaté en zone de texte
+  -input :picture
+  =image_tag(@product.picture.url(:thumb))
+  =custom_fields
+  -#for datum in @custom_field_data
+    =custom_field datum.custom_field.name, {:datatype => datum.custom_field.nature.to_sym, :id => "custom_field_datum_#{datum.custom_field_id}_value", :name => "custom_field_datum[#{datum.custom_field_id}][value]", :value => datum.value, :size => datum.custom_field.length_max, :options => {:include_blank => (datum.custom_field.required ? nil : '')}, :choices => datum.custom_field.choices.collect{|x| [x.name , x.id]}  }
 
--field_set :nature do
-  -association :category
-  -association :unit
-  -input :weight
-  -input :nature, :show => {:subscription => :subscription}
+-field_set(:genealogy) do # partie entrée sortie de l entité animal
+  -association :mother, :source => :mother
+  -association :father, :source => :father
 
--field_set :subscription do
-  -association :subscription_nature
-  -input :duration
+-field_set(:movement) do # partie entrée sortie de l entité animal
+  -input :external
+  -input :arrived_on
+  -input :arrival_reasons
+  -input :departed_on, :include_blank => true, :default_value => :blank
+  -input :departure_reasons, :include_blank => true, :default_value => :blank
 
--field_set :nature do
-  -input :reduction_submissive
-  -input :active
-  -input :for_sales, :show => :sales_account
-  -input :for_purchases, :show => :purchases_account
-  -input :for_productions
-  -input :deliverable, :show => :stock_options
-  -input :stockable, :show => :stocks, :in => :stock_options
-
--field_set :stocks, :in => :stock_options do
-  -nested_association(:stocks) do
-    -input :critic_quantity_min
-    -input :quantity_min
-    -input :quantity_max
-    -association :warehouse
-
--#price=render :partial=>'price_amount_form'
-
--field_set :accountancy do
-  -association :sales_account,     :source => :products
-  -association :purchases_account, :source => :charges
+-field_set(:group) do
+  =nested_association(:passages) do
+    -association :group
+    -input :entered_at
+    -input :departed_at

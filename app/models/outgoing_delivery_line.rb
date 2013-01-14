@@ -45,7 +45,7 @@ class OutgoingDeliveryLine < CompanyRecord
   attr_readonly :sale_line_id, :product_id, :price_id, :unit_id
   belongs_to :delivery, :class_name => "OutgoingDelivery"
   belongs_to :price
-  belongs_to :product
+  belongs_to :product, :class_name => "ProductNature"
   belongs_to :sale_line
   belongs_to :stock_move
   belongs_to :tracking

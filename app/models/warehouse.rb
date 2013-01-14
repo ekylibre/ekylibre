@@ -49,7 +49,7 @@ class Warehouse < CompanyRecord
   attr_readonly :reservoir
   belongs_to :address, :class_name => "EntityAddress"
   belongs_to :establishment
-  belongs_to :product
+  belongs_to :product, :class_name => "Product"
   has_many :purchase_lines
   has_many :sale_lines
   has_many :stocks
