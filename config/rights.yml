@@ -440,11 +440,7 @@ manage_districts:
   - "districts::list"
   - "districts::new"
   - "districts::update"
-<<<<<<< HEAD
-  - "interfacers::search_for_districts # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!!"
-=======
   - "interfacers::search_for_districts # NONEXISTENT ACTION !!!"
->>>>>>> 4f68db405e6a5b3715e73595ee4c48d8f795ed5a
 # Gérer les modèles de document
 manage_document_templates:
   actions:
@@ -482,15 +478,9 @@ manage_entities:
   - "entity_addresses::update"
   - "interfacers::autocomplete_for_area_name"
   - "interfacers::autocomplete_for_entity_origin"
-<<<<<<< HEAD
-  - "interfacers::search_for_attorneys_accounts # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!!"
-  - "interfacers::search_for_clients_accounts # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!!"
-  - "interfacers::search_for_suppliers_accounts # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!!"
-=======
   - "interfacers::search_for_attorneys_accounts # NONEXISTENT ACTION !!!"
   - "interfacers::search_for_clients_accounts # NONEXISTENT ACTION !!!"
   - "interfacers::search_for_suppliers_accounts # NONEXISTENT ACTION !!!"
->>>>>>> 4f68db405e6a5b3715e73595ee4c48d8f795ed5a
 # Gérer les types de fiche
 manage_entities_natures:
   actions:

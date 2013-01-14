@@ -848,13 +848,11 @@ fra:
     photo: "Photo"
     physical: "Personne physique"
     picture: "Photo"
-<<<<<<< HEAD
     picture_content_type: "Picture content type"
     picture_file_name: "Picture file name"
     picture_file_size: "Picture file size"
     picture_updated_at: "Picture updated at"
     planned_at: "Prévu à" #?
-=======
     picture_content_type: "Format de photo"
     picture_file_name: "Nom du fichier photo"
     picture_file_size: "Taille du fichier photo"
