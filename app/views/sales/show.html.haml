@@ -17,84 +17,90 @@
   -else
     -t.print_sales_order @sale
 
-=attributes_list(@sale) do |l|
-  -l.attribute :client, :label => :label, :url => true
-  -l.attribute :number
-  -l.attribute :initial_number if @sale.invoice?
-  -l.attribute :state_label
-  -l.attribute :responsible, :label => :full_name
-  -l.attribute :created_on
-  -l.attribute :confirmed_on if @sale.confirmed_on?
-  -l.attribute :invoiced_on if @sale.invoiced_on?
-  -l.attribute :origin, :url => true if @sale.invoice? and @sale.origin
-  -l.attribute :payment_delay, :label => :name
-  -l.attribute :nature
-  -l.attribute :currency unless @sale.currency == Entity.of_company.currency
-  -l.attribute :comment unless @sale.comment.blank?
-  -l.attribute :address, :label => :coordinate
-  -l.attribute :delivery_address, :label => :coordinate
-  -l.attribute :invoice_address, :label => :coordinate
-  -l.attribute :letter_format
-  -l.attribute(:journal_entry, :url => true) if @sale.journal_entry
-  -if @sale.letter_format?
-    -l.attribute :subject
-    -l.attribute :function_title
-    -l.attribute :introduction, :field => :textarea
-    -l.attribute :conclusion, :field => :textarea
+=beehive do |b|
+
+  -b.tabbox do
+    -if ["products", "summary", ""].include? params[:step].to_s
+      -b.cell tc(:financial_state) do
+        %table.list
+          -for k, v in @sale.stats # (:with_balance => true)
+            %tr.total
+              %th=tc(k)
+              %td=I18n.localize(v, :currency => @sale.currency)
+
+    -b.cell do
+      =attributes_list(@sale) do |l|
+        -l.attribute :client, :label => :label, :url => true
+        -l.attribute :number
+        -l.attribute :initial_number if @sale.invoice?
+        -l.attribute :state_label
+        -l.attribute :responsible, :label => :full_name
+        -l.attribute :created_on
+        -l.attribute :confirmed_on if @sale.confirmed_on?
+        -l.attribute :invoiced_on if @sale.invoiced_on?
+        -l.attribute :origin, :url => true if @sale.invoice? and @sale.origin
+        -l.attribute :payment_delay, :label => :name
+        -l.attribute :nature
+        -l.attribute :currency unless @sale.currency == Entity.of_company.currency
+        -l.attribute :comment unless @sale.comment.blank?
+        -l.attribute :address, :label => :coordinate
+        -l.attribute :delivery_address, :label => :coordinate
+        -l.attribute :invoice_address, :label => :coordinate
+        -l.attribute :letter_format
+        -l.attribute(:journal_entry, :url => true) if @sale.journal_entry
+        -if @sale.letter_format?
+          -l.attribute :subject
+          -l.attribute :function_title
+          -l.attribute :introduction, :field => :textarea
+          -l.attribute :conclusion, :field => :textarea
+
+  -if ["products", "summary", ""].include? params[:step].to_s
+    -b.cell :lines do
+      -@sale_line = @sale.lines.new
+      -if @sale.draft?
+        =toolbar do |t|
+          -t.link(:new, :controller => :sale_lines, :sale_id => @sale.id)
+        =render :partial => "sale_lines/row_form"
+      =list :lines do
+        %tr.total
+          %th{:colspan => 7}=tc :total
+          %td=number_to_money(@sale.pretax_amount, @sale.currency)
+          %td=number_to_money(@sale.amount, @sale.currency)
+          %th{:colspan => 3}
 
 
--if ["products", "summary", ""].include? params[:step].to_s
-  %h2=Sale.human_attribute_name("lines")
-  -@sale_line = @sale.lines.new
-  -if @sale.draft?
-    =toolbar do |t|
-      -t.link(:new, :controller => :sale_lines, :sale_id => @sale.id)
-    =render :partial => "sale_lines/row_form"
-  =list :lines do
-    %tr.total
-      %th{:colspan => 7}=tc :total
-      %td=number_to_money(@sale.pretax_amount, @sale.currency)
-      %td=number_to_money(@sale.amount, @sale.currency)
-      %th{:colspan => 3}
-  -if @sale.subscriptions.size>0
-    %h2=tl :x_subscriptions, :count => @sale.subscriptions.size
-    -if @sale.draft?
-      =toolbar do |t|
-        -for line in @sale.lines.includes(:product, :reduction_origin)
-          -if line.product.subscription? and not line.reduction_origin
-            -t.link :add_subscription_for_sale_line, {:action => :new, :controller => :subscriptions, :sale_line_id => line.id, :nature_id => line.product.subscription_nature_id}, :i18n => {:position => line.position}
-    =list :subscriptions
+    -if @sale.subscriptions.size>0
+      -b.cell tl(:x_subscriptions, :count => @sale.subscriptions.count) do
+        -if @sale.draft?
+          =toolbar do |t|
+            -for line in @sale.lines.includes(:product, :reduction_origin)
+              -if line.product.subscription? and not line.reduction_origin
+                -t.link :add_subscription_for_sale_line, {:action => :new, :controller => :subscriptions, :sale_line_id => line.id, :nature_id => line.product.subscription_nature_id}, :i18n => {:position => line.position}
+        =list :subscriptions
 
 
--if ["products", "summary", ""].include? params[:step].to_s
-  -unless (@sale.draft? and @sale.unpaid_amount.zero?)
-    %h2=tc :incoming_payments
-    -unless @sale.unpaid_amount.zero?
-      =toolbar do |t|
-        -t.link(:new, :controller => :incoming_payment_uses, :expense_type => :sale, :expense_id => @sale.id, :i18n => {:label => @sale.label})
-        -for payment in @sale.usable_payments
-          -t.link(tl("use_incoming_payment", :payment => payment.label), {:action => :create, :controller => :incoming_payment_uses, :incoming_payment_use => {:expense_type => @sale.class.name, :expense_id => @sale.id, :payment_id => payment.id}}, :method => :post)
-    =list :payment_uses
+  -if ["products", "summary", ""].include? params[:step].to_s
+    -unless (@sale.draft? and @sale.unpaid_amount.zero?)
+      -b.cell tc(:incoming_payments) do
+        -unless @sale.unpaid_amount.zero?
+          =toolbar do |t|
+            -t.link(:new, :controller => :incoming_payment_uses, :expense_type => :sale, :expense_id => @sale.id, :i18n => {:label => @sale.label})
+            -for payment in @sale.usable_payments
+              -t.link(tl("use_incoming_payment", :payment => payment.label), {:action => :create, :controller => :incoming_payment_uses, :incoming_payment_use => {:expense_type => @sale.class.name, :expense_id => @sale.id, :payment_id => payment.id}}, :method => :post)
+        =list :payment_uses
 
 
--if ["deliveries", ""].include? params[:step].to_s
-  -if @sale.deliverable?
-    %h2=tc :undelivered
-    =toolbar do |t|
-      -t.link :new, :controller => :outgoing_deliveries, :sale_id => @sale.id
-    =list :undelivered_lines
-  -if @sale.deliveries.count > 0
-    %h2=Sale.human_attribute_name("deliveries")
-    =list :deliveries
+  -if ["deliveries", ""].include? params[:step].to_s
+    -if @sale.deliverable?
+      -b.cell tc(:undelivered) do
+        =toolbar do |t|
+          -t.link :new, :controller => :outgoing_deliveries, :sale_id => @sale.id
+        =list :undelivered_lines
+      -if @sale.deliveries.count > 0
+        -b.cell Sale.human_attribute_name("deliveries") do
+          =list :deliveries
 
--if ["products", "summary", ""].include? params[:step].to_s and @sale.credits.size > 0
-  %h2=tc :credits
-  =list :credits
+  -if ["products", "summary", ""].include? params[:step].to_s and @sale.credits.size > 0
+    -b.cell tc(:credits) do
+      =list :credits
 
--if ["products", "summary", ""].include? params[:step].to_s
-  %h2=tc :financial_state
-  %table.list
-    -for k, v in @sale.stats # (:with_balance => true)
-      %tr.total
-        %th=tc(k)
-        %td=I18n.localize(v, :currency => @sale.currency)

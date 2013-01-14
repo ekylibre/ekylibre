@@ -9,7 +9,7 @@
       =selector(:subscription, :address, {:controller=>"entity_addresses", :action=>:unroll}, {:object => subscription}, :id => 'subscription-address-input', :class => 'selector optional') + link_to(('<span class="icon"></span><span class="text">' + h('labels.new'.t) + '</span>').html_safe, {:controller => :entity_addresses, :action => :new}, 'data-new-item' => 'subscription-address-input', :class => 'btn btn-new')
       -for error in subscription.errors['address']
         %span.help-inline=error
-  =f.input(:comment, :wrapper_html => {:id => 'comment-field'})
+  =f.input(:comment, :as => :text, :wrapper_html => {:id => 'comment-field'}, :input_html => {'rows' => 3})
   =f.input(:started_on, :as => :date_field, :wrapper_html => {:id => 'started-on-field'})
   =f.input(:stopped_on, :as => :date_field, :wrapper_html => {:id => 'stopped-on-field'})
   =f.input(:first_number, :wrapper_html => {:id => 'first-number-field'})

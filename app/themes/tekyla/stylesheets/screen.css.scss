@@ -376,6 +376,7 @@ table.quick td { padding: 0px 4px; }
   border: $fieldset-border;
   @include incrust-shadow;
   $size: $fs-large;
+  background: white;
   .fieldset-legend {
     padding: 0;
     label, span {

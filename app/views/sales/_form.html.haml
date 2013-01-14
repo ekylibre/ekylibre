@@ -5,9 +5,9 @@
   -association :client, :source => :clients
 
 =field_set :addresses, :depend_on => :client do
-  -association :address
-  -association :delivery_address
-  -association :invoice_address
+  -association :address, :source => :mails
+  -association :delivery_address, :source => :mails
+  -association :invoice_address, :source => :mails
 
 =field_set :sales_conditions do
   -association :nature

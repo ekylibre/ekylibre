@@ -339,7 +339,7 @@ class Entity < CompanyRecord
   def add_event(nature, user_id)
     if user = Entity.find_by_id(user_id)
       EventNature.find_all_by_usage(nature.to_s).each do |event_nature|
-        event_nature.create!(:started_at => Time.now, :duration => event_nature.duration, :entity_id => self.id, :responsible_id => user.id)
+        event_nature.events.create!(:started_at => Time.now, :duration => event_nature.duration, :entity_id => self.id, :responsible_id => user.id)
       end
     end
   end

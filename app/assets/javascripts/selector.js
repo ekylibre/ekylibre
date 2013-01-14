@@ -124,10 +124,11 @@
     };
 
 
-    $(document).behave("load", "input[data-selector]", function (event) {
+    $(document).behave("load cocoon:after-insert", "input[data-selector]", function (event) {
         $.Selector.init($(this));
         return false;
     });
+
 
     $(document).on("keyup", "input[data-selector]", function (event) {
         var selector = $(this), search, menu, code = (event.keyCode || event.which), selected;

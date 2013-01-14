@@ -959,6 +959,7 @@
       <page to="entity_addresses#destroy"/>
       <page to="entity_addresses#edit"/>
       <page to="entity_addresses#new"/>
+      <page to="entity_addresses#unroll"/>
       <page to="entity_addresses#update"/>
     </menu>
     <menu name="entity_natures">

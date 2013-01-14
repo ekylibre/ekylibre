@@ -41,10 +41,10 @@ class AdminController < BaseController
       model = (options[:model] || self.controller_name).classify.constantize
       # Named scopes
       for scope in (model.scopes || [])
-        self.unroll(scope, options)
+        self.unroll(scope, options.dup)
       end
       # Default scope
-      self.unroll(options)
+      self.unroll(options.dup)
     end
 
     # Create unroll action for one given scope

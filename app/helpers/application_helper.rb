@@ -1492,7 +1492,8 @@ module ApplicationHelper
   def input(name, options = {})
     check_field_name_before_push(name, __method__)
     options.merge!(:type => __method__, :name => name)
-    model = options[:model] || @master_model
+    model = options[:model] || @options[0][:model] || @master_model
+    raise "Unknown column #{name} for #{model.name}" unless model.columns_hash[name.to_s]
     if column = model.columns_hash[name.to_s]
       options[:field] ||= :text if column.type == :text
     end
@@ -1539,7 +1540,10 @@ module ApplicationHelper
 
   def nested_association(name, options = {}, &block)
     check_field_name_before_push(name, __method__)
-    fields = (block_given? ? collect_fields(&block) : [])
+    model = options[:model] || @options[0][:model] || @master_model
+    raise ArgumentError.new("Unknown reflection #{name} for #{model.name}") unless model.reflections[name]
+    nested_model = model.reflections[name].class_name.constantize
+    fields = (block_given? ? collect_fields(:model => nested_model, &block) : [])
     options.merge!(:type => __method__, :name => name, :fields => fields)
     push_field(options)
   end
@@ -1570,10 +1574,13 @@ module ApplicationHelper
     return true
   end
 
-  def collect_fields(&block)
+  def collect_fields(options = {}, &block)
     @fields = [] unless @fields.is_a?(Array)
     @fields.insert(0, [])
+    @options = [] unless @options.is_a?(Array)
+    @options.insert(0, options)
     yield if block_given?
+    @options.delete_at(0)
     return @fields.delete_at(0)
   end
 

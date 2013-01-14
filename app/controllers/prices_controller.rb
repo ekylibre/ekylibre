@@ -21,12 +21,12 @@ class PricesController < AdminController
 
   unroll_all
 
-  list(:conditions=>prices_conditions, :order=>:product_id) do |t|
-    t.column :name, :through=>:product, :url=>true
-    t.column :full_name, :through=>:entity, :url=>true
-    t.column :name, :through=>:category, :url=>true
-    t.column :pretax_amount, :currency=>true
-    t.column :amount, :currency=>true
+  list(:conditions => prices_conditions, :order => :product_id) do |t|
+    t.column :name, :through => :product, :url => true
+    t.column :full_name, :through => :entity, :url => true
+    t.column :name, :through => :category, :url => true
+    t.column :pretax_amount, :currency => true
+    t.column :amount, :currency => true
     t.column :by_default
     # t.column :range
     t.action :edit
@@ -35,7 +35,7 @@ class PricesController < AdminController
 
   def new
     @mode = (params[:mode]||"sales").to_sym
-    @price = Price.new(:product_id=>params[:product_id], :currency=>params[:currency]||Entity.of_company.currency, :category_id=>params[:entity_category_id]||session[:current_entity_category_id]||0)
+    @price = Price.new(:product_id => params[:product_id], :currency => params[:currency]||Entity.of_company.currency, :category_id => params[:entity_category_id]||session[:current_entity_category_id]||0)
     @price.entity_id = params[:entity_id] if params[:entity_id]
     render_restfully_form
   end
@@ -58,12 +58,12 @@ class PricesController < AdminController
     if params[:product_id] and params[:entity_id]
       return unless product = find_and_check(:product, params[:product_id])
       return unless entity = find_and_check(:entity, params[:entity_id])
-      @price = product.prices.find(:first, :conditions=>{:entity_id=>entity.id, :active=>true}, :order=>"by_default DESC")
-      @price ||= Price.new(:category_id=>entity.category_id)
+      @price = product.prices.find(:first, :conditions => {:entity_id => entity.id, :active => true}, :order => "by_default DESC")
+      @price ||= Price.new(:category_id => entity.category_id)
       respond_to do |format|
-        format.html { render :partial=>"amount_form" }
-        format.json { render :json=>@price.to_json }
-        format.xml  { render :xml=>@price.to_xml }
+        format.html { render :partial => "amount_form" }
+        format.json { render :json => @price.to_json }
+        format.xml  { render :xml => @price.to_xml }
       end
     elsif !params[:purchase_line_price_id].blank?
       return unless @price = find_and_check(:price, params[:purchase_line_price_id])
@@ -77,7 +77,7 @@ class PricesController < AdminController
   def edit
     return unless @price = find_and_check
     @mode = "purchases" if @price.entity_id != Entity.of_company.id
-    t3e @price.attributes, :product=>@price.product.name
+    t3e @price.attributes, :product => @price.product.name
     render_restfully_form
   end
 
@@ -85,15 +85,15 @@ class PricesController < AdminController
     return unless @price = find_and_check
     @mode = "purchases" if @price.entity_id != Entity.of_company.id
     @price.amount = 0
-    return if save_and_redirect(@price, :attributes=>params[:price])
-    t3e @price.attributes, :product=>@price.product.name
+    return if save_and_redirect(@price, :attributes => params[:price])
+    t3e @price.attributes, :product => @price.product.name
     render_restfully_form
   end
 
   # Displays the main page with the list of prices
   def index
     @modes = ['all', 'clients', 'suppliers']
-    @suppliers = Entity.where(:supplier=>true)
+    @suppliers = Entity.where(:supplier => true)
     session[:entity_id] = 0
     if request.post?
       mode = params[:price][:mode]
@@ -127,7 +127,7 @@ class PricesController < AdminController
         line = []
         line << [product.code, product.name]
         @entity_categories.each do |category|
-          price = Price.find(:first, :conditions=>{:active=>true, :product_id=>product.id, :category_id=>EntityCategory.find_by_code(category.code).id})
+          price = Price.find(:first, :conditions => {:active => true, :product_id => product.id, :category_id => EntityCategory.find_by_code(category.code).id})
           #raise Exception.new price.inspect
           if price.nil?
             line << ["","",""]
@@ -141,8 +141,8 @@ class PricesController < AdminController
     end
 
     send_data csv_string,
-    :type => 'text/csv; charset=iso-8859-1; header=present',
-    :disposition => "attachment; filename=Tarifs.csv"
+    :type  =>  'text/csv; charset=iso-8859-1; header=present',
+    :disposition  =>  "attachment; filename=Tarifs.csv"
 
   end
 
@@ -151,7 +151,7 @@ class PricesController < AdminController
     if request.post?
       if params[:csv_file].nil?
         notify_warning(:you_must_select_a_file_to_import)
-        redirect_to :action=>:import
+        redirect_to :action => :import
       else
         file = params[:csv_file][:path]
         name = "MES_TARIFS.csv"
@@ -165,7 +165,7 @@ class PricesController < AdminController
             x = 2
             while !row[x].nil?
               entity_category = EntityCategory.find_by_code(row[x])
-              entity_category = EntityCategory.create!(:code=>row[x], :name=>row[x+1]) if entity_category.nil?
+              entity_category = EntityCategory.create!(:code => row[x], :name => row[x+1]) if entity_category.nil?
               @entity_categories << entity_category
               x += 3
             end
@@ -177,11 +177,11 @@ class PricesController < AdminController
             @product = Product.find_by_code(row[0])
             for category in @entity_categories
               blank = true
-              tax = Tax.find(:first, :conditions=>{:amount=>row[x+2].to_s.gsub(/\,/,".").to_f})
+              tax = Tax.find(:first, :conditions => {:amount => row[x+2].to_s.gsub(/\,/,".").to_f})
               tax_id = tax.nil? ? nil : tax.id
-              @price = Price.find(:first, :conditions=>{:product_id=>@product.id, :category_id=>category.id, :active=>true} )
+              @price = Price.find(:first, :conditions => {:product_id => @product.id, :category_id => category.id, :active => true} )
               if @price.nil? and (!row[x].nil? or !row[x+1].nil? or !row[x+2].nil?)
-                @price = Price.new(:pretax_amount=>row[x].to_s.gsub(/\,/,".").to_f, :tax_id=>tax_id, :amount=>row[x+1].to_s.gsub(/\,/,".").to_f, :product_id=>@product.id, :category_id=>category.id, :entity_id=>Entity.of_company.id, :currency=>Entity.of_company.currency)
+                @price = Price.new(:pretax_amount => row[x].to_s.gsub(/\,/,".").to_f, :tax_id => tax_id, :amount => row[x+1].to_s.gsub(/\,/,".").to_f, :product_id => @product.id, :category_id => category.id, :entity_id => Entity.of_company.id, :currency => Entity.of_company.currency)
                 blank = false
               elsif !@price.nil?
                 blank = false
