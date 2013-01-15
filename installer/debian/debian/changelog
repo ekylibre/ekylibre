@@ -1,9 +1,10 @@
-ekylibre (0.4.0.+1.b2) stable; urgency=low
+ekylibre (0.4.1) stable; urgency=low
 
   * Changes dependencies to Ruby 1.9
   * Fixes remaining view bugs
+  * Fixes unvalid assets
 
- -- Brice TEXIER <brice.texier@ekylibre.org>  Sun, 07 Oct 2012 20:33:10 +0200
+ -- Brice TEXIER <brice.texier@ekylibre.org>  Tue, 15 Jan 2013 18:03:46 +0100
 
 ekylibre (0.4.0) stable; urgency=low
 
