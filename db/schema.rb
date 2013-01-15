@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130113191001) do
+ActiveRecord::Schema.define(:version => 20130115082601) do
 
   create_table "account_balances", :force => true do |t|
     t.integer  "account_id",                                                        :null => false
@@ -546,28 +546,28 @@ ActiveRecord::Schema.define(:version => 20130113191001) do
   add_index "entities", ["updater_id"], :name => "index_entities_on_updater_id"
 
   create_table "entity_addresses", :force => true do |t|
-    t.integer  "entity_id",                                                                 :null => false
-    t.boolean  "by_default",                                             :default => false, :null => false
+    t.integer  "entity_id",                                                                  :null => false
+    t.boolean  "by_default",                                              :default => false, :null => false
     t.string   "mail_line_2"
     t.string   "mail_line_3"
     t.string   "mail_line_5"
-    t.datetime "created_at",                                                                :null => false
-    t.datetime "updated_at",                                                                :null => false
+    t.datetime "created_at",                                                                 :null => false
+    t.datetime "updated_at",                                                                 :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                           :default => 0,     :null => false
+    t.integer  "lock_version",                                            :default => 0,     :null => false
     t.string   "mail_country",     :limit => 2
     t.string   "code",             :limit => 4
     t.datetime "deleted_at"
     t.integer  "mail_area_id"
     t.string   "mail_line_6"
     t.string   "mail_line_4"
-    t.string   "canal",            :limit => 16,                                            :null => false
-    t.string   "coordinate",       :limit => 511,                                           :null => false
+    t.string   "canal",            :limit => 16,                                             :null => false
+    t.string   "coordinate",       :limit => 511,                                            :null => false
     t.string   "name"
     t.string   "mail_line_1"
-    t.boolean  "mail_auto_update",                                       :default => false, :null => false
-    t.spatial  "mail_geolocation", :limit => {:srid=>0, :type=>"point"}
+    t.spatial  "mail_geolocation", :limit => {:srid=>-1, :type=>"point"}
+    t.boolean  "mail_auto_update",                                        :default => false, :null => false
   end
 
   add_index "entity_addresses", ["by_default"], :name => "index_entity_addresses_on_by_default"
@@ -1046,20 +1046,20 @@ ActiveRecord::Schema.define(:version => 20130113191001) do
   add_index "land_parcel_kinships", ["updater_id"], :name => "index_land_parcel_kinships_on_updater_id"
 
   create_table "land_parcels", :force => true do |t|
-    t.string   "name",                                                                                                  :null => false
+    t.string   "name",                                                                                                   :null => false
     t.text     "description"
-    t.datetime "created_at",                                                                                            :null => false
-    t.datetime "updated_at",                                                                                            :null => false
+    t.datetime "created_at",                                                                                             :null => false
+    t.datetime "updated_at",                                                                                             :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                                                         :default => 0,   :null => false
+    t.integer  "lock_version",                                                                          :default => 0,   :null => false
     t.string   "number"
-    t.decimal  "area_measure",                                          :precision => 19, :scale => 4, :default => 0.0, :null => false
+    t.decimal  "area_measure",                                           :precision => 19, :scale => 4, :default => 0.0, :null => false
     t.integer  "area_unit_id"
-    t.date     "started_on",                                                                                            :null => false
+    t.date     "started_on",                                                                                             :null => false
     t.date     "stopped_on"
-    t.integer  "group_id",                                                                                              :null => false
-    t.spatial  "shape",        :limit => {:srid=>0, :type=>"geometry"}
+    t.integer  "group_id",                                                                                               :null => false
+    t.spatial  "shape",        :limit => {:srid=>-1, :type=>"geometry"}
   end
 
   add_index "land_parcels", ["created_at"], :name => "index_shapes_on_created_at"
@@ -1675,7 +1675,7 @@ ActiveRecord::Schema.define(:version => 20130113191001) do
   add_index "product_place_passings", ["updated_at"], :name => "index_product_place_passings_on_updated_at"
   add_index "product_place_passings", ["updater_id"], :name => "index_product_place_passings_on_updater_id"
 
-  create_table "product_species", :force => true do |t|
+  create_table "product_varieties", :force => true do |t|
     t.string   "name",                        :null => false
     t.text     "description"
     t.text     "comment"
@@ -1688,11 +1688,11 @@ ActiveRecord::Schema.define(:version => 20130113191001) do
     t.integer  "parent_id"
   end
 
-  add_index "product_species", ["created_at"], :name => "index_animal_races_on_created_at"
-  add_index "product_species", ["creator_id"], :name => "index_animal_races_on_creator_id"
-  add_index "product_species", ["parent_id"], :name => "index_animal_races_on_parent_id"
-  add_index "product_species", ["updated_at"], :name => "index_animal_races_on_updated_at"
-  add_index "product_species", ["updater_id"], :name => "index_animal_races_on_updater_id"
+  add_index "product_varieties", ["created_at"], :name => "index_animal_races_on_created_at"
+  add_index "product_varieties", ["creator_id"], :name => "index_animal_races_on_creator_id"
+  add_index "product_varieties", ["parent_id"], :name => "index_animal_races_on_parent_id"
+  add_index "product_varieties", ["updated_at"], :name => "index_animal_races_on_updated_at"
+  add_index "product_varieties", ["updater_id"], :name => "index_animal_races_on_updater_id"
 
   create_table "production_chain_conveyors", :force => true do |t|
     t.integer  "production_chain_id",                                                   :null => false
@@ -1769,21 +1769,21 @@ ActiveRecord::Schema.define(:version => 20130113191001) do
   add_index "production_chains", ["updater_id"], :name => "index_production_chains_on_updater_id"
 
   create_table "products", :force => true do |t|
-    t.integer  "group_id",                                                                           :null => false
-    t.string   "name",                                                                               :null => false
-    t.string   "identification_number",                                                              :null => false
+    t.integer  "group_id",                                                                            :null => false
+    t.string   "name",                                                                                :null => false
+    t.string   "identification_number",                                                               :null => false
     t.date     "born_on"
-    t.string   "sex",                   :limit => 16,                            :default => "male", :null => false
+    t.string   "sex",                   :limit => 16,                             :default => "male", :null => false
     t.text     "description"
     t.text     "comment"
     t.date     "departed_on"
     t.date     "arrived_on"
-    t.datetime "created_at",                                                                         :null => false
-    t.datetime "updated_at",                                                                         :null => false
+    t.datetime "created_at",                                                                          :null => false
+    t.datetime "updated_at",                                                                          :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                                   :default => 0,      :null => false
-    t.integer  "specy_id"
+    t.integer  "lock_version",                                                    :default => 0,      :null => false
+    t.integer  "variety_id"
     t.integer  "father_id"
     t.integer  "mother_id"
     t.string   "picture_file_name"
@@ -1792,13 +1792,13 @@ ActiveRecord::Schema.define(:version => 20130113191001) do
     t.datetime "picture_updated_at"
     t.string   "work_number"
     t.integer  "owner_id"
-    t.boolean  "reproductor",                                                    :default => false,  :null => false
-    t.boolean  "external",                                                       :default => false,  :null => false
+    t.boolean  "reproductor",                                                     :default => false,  :null => false
+    t.boolean  "external",                                                        :default => false,  :null => false
     t.string   "arrival_reasons"
     t.string   "departure_reasons"
     t.decimal  "quantity"
     t.integer  "unit_id"
-    t.spatial  "shape",                 :limit => {:srid=>0, :type=>"geometry"}
+    t.spatial  "shape",                 :limit => {:srid=>-1, :type=>"geometry"}
   end
 
   add_index "products", ["created_at"], :name => "index_animals_on_created_at"
@@ -1808,9 +1808,9 @@ ActiveRecord::Schema.define(:version => 20130113191001) do
   add_index "products", ["mother_id"], :name => "index_animals_on_mother_id"
   add_index "products", ["name"], :name => "index_animals_on_name"
   add_index "products", ["sex"], :name => "index_animals_on_sex"
-  add_index "products", ["specy_id"], :name => "index_animals_on_race_id"
   add_index "products", ["updated_at"], :name => "index_animals_on_updated_at"
   add_index "products", ["updater_id"], :name => "index_animals_on_updater_id"
+  add_index "products", ["variety_id"], :name => "index_animals_on_race_id"
 
   create_table "professions", :force => true do |t|
     t.string   "name",                        :null => false

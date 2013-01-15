@@ -18,7 +18,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 # 
-# == Table: product_species
+# == Table: product_varieties
 #
 #  code         :integer          
 #  comment      :text             
@@ -32,17 +32,13 @@
 #  updated_at   :datetime         not null
 #  updater_id   :integer          
 #
+require 'test_helper'
 
+class ProductVarietyTest < ActiveSupport::TestCase
 
-class ProductSpecy < CompanyRecord
-  attr_accessible :name, :code, :comment, :description, :parent_id
-  has_many :products, :foreign_key => :specy_id
-  # has_many :posologies, :class_name => "AnimalPosology", :foreign_key => :animal_race_id
-  belongs_to :parent, :class_name => "ProductSpecy"
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :code, :allow_nil => true, :only_integer => true
-  validates_length_of :name, :allow_nil => true, :maximum => 255
-  validates_presence_of :name
-  #]VALIDATORS]
-   validates_uniqueness_of :name
+  # Replace this with your real tests.'
+  test "the truth" do
+    assert true
+  end
+
 end

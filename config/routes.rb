@@ -153,7 +153,7 @@ Ekylibre::Application.routes.draw do
       unroll_all
     end
   end
-  resources :product_species do
+  resources :product_varieties do
     collection do
       get :list
       unroll_all

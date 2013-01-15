@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class ProductSpeciesController < AdminController
+class ProductVarietiesController < AdminController
   manage_restfully
 
   unroll_all
@@ -39,9 +39,9 @@ class ProductSpeciesController < AdminController
 
   # Show one Product with params_id
   def show
-    return unless @product_specy = find_and_check
-    session[:current_product_specy_id] = @product_specy.id
-    t3e @product_specy
+    return unless @product_variety = find_and_check
+    session[:current_product_variety_id] = @product_variety.id
+    t3e @product_variety
   end
 
 end

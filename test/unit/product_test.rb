@@ -46,10 +46,10 @@
 #  reproductor           :boolean          not null
 #  sex                   :string(16)       default("male"), not null
 #  shape                 :spatial({:srid=> 
-#  specy_id              :integer          
 #  unit_id               :integer          
 #  updated_at            :datetime         not null
 #  updater_id            :integer          
+#  variety_id            :integer          
 #  work_number           :string(255)      
 #
 require 'test_helper'

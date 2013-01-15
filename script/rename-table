@@ -181,7 +181,7 @@ end
 for file in Dir[root.join("config", "locales", "*", "help", "#{old_table}-*.txt")].sort
   of = Pathname.new(file)
   nf = of.join("..", "#{new_table}-#{of.basename.split(/[\-\.]+/)[1..-2].join('-')}.txt")
-  execute("git mv #{of #{nf}")
+  execute("git mv #{of} #{nf}")
 end
 
 

@@ -47,22 +47,22 @@
 #  reproductor           :boolean          not null
 #  sex                   :string(16)       default("male"), not null
 #  shape                 :spatial({:srid=> 
-#  specy_id              :integer          
 #  unit_id               :integer          
 #  updated_at            :datetime         not null
 #  updater_id            :integer          
+#  variety_id            :integer          
 #  work_number           :string(255)      
 #
 
 
 class Product < CompanyRecord
-  attr_accessible :custom_field_data_attributes, :reproductor, :arrival_reasons, :departure_reasons, :external, :born_on, :comment, :description, :father_id, :mother_id, :group_id, :identification_number, :arrived_on, :name, :departed_on, :picture, :race_id, :sex, :work_number
+  attr_accessible :custom_field_data_attributes, :reproductor, :arrival_reasons, :departure_reasons, :external, :born_on, :comment, :description, :father_id, :mother_id, :group_id, :identification_number, :arrived_on, :name, :departed_on, :picture, :variety_id, :sex, :work_number
   enumerize :sex, :in => [:male, :female]
   enumerize :arrival_reasons, :in => [:birth, :purchase, :housing, :other], :default=> :birth
   enumerize :departure_reasons, :in => [:dead, :sale, :autoconsumption, :other], :default=> :sale
   has_many :passages, :class_name => "ProductGroupPassing", :foreign_key => :product_id
   has_many :groups, :class_name => "ProductGroup", :through => :passages
-  belongs_to :specy, :class_name => "ProductSpecy"
+  belongs_to :variety, :class_name => "ProductVariety"
   belongs_to :father, :class_name => "Product", :conditions => {:sex => :male, :reproductor => 'true'}
   belongs_to :mother, :class_name => "Product", :conditions => {:sex => :female}
   accepts_nested_attributes_for :passages,    :reject_if => :all_blank, :allow_destroy => true

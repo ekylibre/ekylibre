@@ -18,7 +18,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 # 
-# == Table: product_species
+# == Table: product_varieties
 #
 #  code         :integer          
 #  comment      :text             
@@ -32,41 +32,17 @@
 #  updated_at   :datetime         not null
 #  updater_id   :integer          
 #
-#
-# == Fixture: product_species
-#
-# product_species_001:
-#   created_at: 2009-07-19 19:13:59 +02:00
-#   creator_id: 1
-#   id: 1
-#   name: "Lorem ipsum"
-#   updated_at: 2009-07-19 19:13:59 +02:00
-#   updater_id: 1
-#
 
-product_species_001:
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  id: 1
-  name: "BOVINS"
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
-  parent_id: 1
 
-product_species_002:
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  id: 2
-  name: "NORMANDE"
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
-  parent_id: 1
-
-product_species_003:
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  id: 3
-  name: "CHAROLAISE"
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
-  parent_id: 1
+class ProductVariety < CompanyRecord
+  attr_accessible :name, :code, :comment, :description, :parent_id
+  has_many :products, :foreign_key => :variety_id
+  # has_many :posologies, :class_name => "AnimalPosology", :foreign_key => :animal_race_id
+  belongs_to :parent, :class_name => "ProductVariety"
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_numericality_of :code, :allow_nil => true, :only_integer => true
+  validates_length_of :name, :allow_nil => true, :maximum => 255
+  validates_presence_of :name
+  #]VALIDATORS]
+   validates_uniqueness_of :name
+end

@@ -1,1712 +1,1652 @@
----
 fra:
   actions:
     accounts:
-      edit: ! 'Modifier le compte : %{number} - %{name}'
-      index: Plan de comptes
-      load: Charger un plan de compte
-      mark: ! 'Lettrage du compte : %{number} - %{name}'
-      new: Créer un nouveau compte
-      reconciliation: Lettrage de comptes
-      show: ! 'Compte : %{number} - %{name}'
-      unmark: Délettrer un compte
+      edit: "Modifier le compte\_: %{number} - %{name}"
+      index: "Plan de comptes"
+      load: "Charger un plan de compte"
+      mark: "Lettrage du compte\_: %{number} - %{name}"
+      new: "Créer un nouveau compte"
+      reconciliation: "Lettrage de comptes"
+      show: "Compte\_: %{number} - %{name}"
+      unmark: "Délettrer un compte"
     areas:
-      edit: ! 'Modifier la zone postale : %{name}'
-      index: Zones postales
-      new: Ajouter une zone postale
+      edit: "Modifier la zone postale\_: %{name}"
+      index: "Zones postales"
+      new: "Ajouter une zone postale"
     assets:
-      cede: Céder l’immobilisation
-      depreciate: ! 'Calculer l’amortissement de l’immobilisation : %{name}'
-      edit: ! 'Modifier l’immobilisation : %{name}'
-      index: Immobilisations
-      new: Nouvelle immobilisation
-      show: ! 'Immobilisation : %{name}'
+      cede: "Céder l’immobilisation" #?
+      depreciate: "Calculer l’amortissement de l’immobilisation\_: %{name}" #?
+      edit: "Modifier l’immobilisation\_: %{name}"
+      index: "Immobilisations"
+      new: "Nouvelle immobilisation"
+      show: "Immobilisation\_: %{name}"
     bank_statements:
-      edit: Modifier le relevé N°%{number}
-      index: Relevés de compte bancaire
-      new: Pointer un nouveau relevé de compte
-      point: Pointer le relevé N°%{number}
-      show: Relevé de compte N°%{number}
+      edit: "Modifier le relevé N°%{number}"
+      index: "Relevés de compte bancaire"
+      new: "Pointer un nouveau relevé de compte"
+      point: "Pointer le relevé N°%{number}"
+      show: "Relevé de compte N°%{number}"
     cash_transfers:
-      edit: ! 'Modifier le virement interne : %{number}'
-      index: Virements internes
-      new: Faire un nouveau virement interne
-      show: ! 'Virement interne : %{number}'
+      edit: "Modifier le virement interne\_: %{number}"
+      index: "Virements internes"
+      new: "Faire un nouveau virement interne"
+      show: "Virement interne\_: %{number}"
     cashes:
-      edit: ! 'Modifier la trésorerie : %{name}'
-      index: Trésoreries
-      new: Enregistrer une nouvelle trésorerie
-      show: ! '%{nature} : %{name}'
+      edit: "Modifier la trésorerie\_: %{name}"
+      index: "Trésoreries"
+      new: "Enregistrer une nouvelle trésorerie"
+      show: "%{nature}\_: %{name}"
     companies:
-      register: Enregistrer sa société
+      register: "Enregistrer sa société"
     custom_field_choices:
-      edit: ! 'Modifier l’option : %{name}'
-      new: ! ' Création d’une option pour une liste de choix'
+      edit: "Modifier l’option\_: %{name}"
+      new: " Création d’une option pour une liste de choix"
     custom_fields:
-      edit: ! 'Modifier le champ personnalisé : %{name}'
-      index: Champs personnalisés
-      new: Création d’un champ personnalisé
-      show: ! 'Champ personnalisé : %{name}'
-      sort: Trier les choix du champ personnalisé
+      edit: "Modifier le champ personnalisé\_: %{name}"
+      index: "Champs personnalisés"
+      new: "Création d’un champ personnalisé"
+      show: "Champ personnalisé\_: %{name}"
+      sort: "Trier les choix du champ personnalisé"
     dashboards:
-      accountancy: Tableau de bord comptable
-      finances: Tableau de bord financier
-      general: Tableau de bord général
-      index: Menu principal
-      production: Tableau de bord de la production
-      purchases: Tableau de bord des achats
-      relationship: Tableau de bord de la gestion des relations
-      sales: Tableau de bord des ventes
-      settings: Configuration
-      settings_accountancy: Configuration de la comptabilité
-      settings_base: Configuration de base
-      settings_production: Configuration des productions
-      settings_products: Configuration des produits
-      settings_purchases: Configuration des achats
-      settings_relationship: Configuration des tiers
-      settings_sales: Configuration des ventes
-      settings_stocks: Configuration des stocks
-      stocks: Tableau de bord des stocks
-      trade: Tableau de bord de la gestion commerciale
-      welcome: Bienvenue dans Ekylibre
+      accountancy: "Tableau de bord comptable"
+      finances: "Tableau de bord financier" #?
+      general: "Tableau de bord général" #?
+      index: "Menu principal"
+      production: "Tableau de bord de la production"
+      purchases: "Tableau de bord des achats"
+      relationship: "Tableau de bord de la gestion des relations"
+      sales: "Tableau de bord des ventes"
+      settings: "Configuration"
+      settings_accountancy: "Configuration de la comptabilité"
+      settings_base: "Configuration de base"
+      settings_production: "Configuration des productions"
+      settings_products: "Configuration des produits"
+      settings_purchases: "Configuration des achats"
+      settings_relationship: "Configuration des tiers"
+      settings_sales: "Configuration des ventes"
+      settings_stocks: "Configuration des stocks"
+      stocks: "Tableau de bord des stocks"
+      trade: "Tableau de bord de la gestion commerciale" #?
+      welcome: "Bienvenue dans Ekylibre"
     delays:
-      edit: ! 'Modifier le délai : %{name}'
-      index: Délais
-      new: Ajout d’un nouveau délai
-      show: ! 'Délai : %{name}'
+      edit: "Modifier le délai\_: %{name}"
+      index: "Délais"
+      new: "Ajout d’un nouveau délai"
+      show: "Délai\_: %{name}"
     departments:
-      edit: ! 'Modifier le service : %{name}'
-      index: Services
-      new: Ajout d’un nouveau service
+      edit: "Modifier le service\_: %{name}"
+      index: "Services"
+      new: "Ajout d’un nouveau service"
     deposits:
-      edit: Modifier la remise en banque n°%{number} du %{created_on}
-      index: Remises en banque
-      new: Effectuer une remise
-      show: Remise en banque %{number} du %{created_on}
-      unvalidateds: Remises en banque non validées
+      edit: "Modifier la remise en banque n°%{number} du %{created_on}"
+      index: "Remises en banque"
+      new: "Effectuer une remise"
+      show: "Remise en banque %{number} du %{created_on}"
+      unvalidateds: "Remises en banque non validées"
     districts:
-      edit: ! 'Modifier la zone administrative : %{name}'
-      index: Zones administratives
-      new: Ajouter une zone administrative
+      edit: "Modifier la zone administrative\_: %{name}"
+      index: "Zones administratives"
+      new: "Ajouter une zone administrative"
     document_templates:
-      edit: ! 'Modifier le modèle de document : %{name}'
-      index: Modèles de document
-      load: Charger les modèles de document par défaut
-      new: Création d’un modèle de document
-      print: Imprimer un exemple
+      edit: "Modifier le modèle de document\_: %{name}"
+      index: "Modèles de document"
+      load: "Charger les modèles de document par défaut"
+      new: "Création d’un modèle de document"
+      print: "Imprimer un exemple"
     entities:
-      destroy: Supprimer la fiche
-      edit: ! 'Modifier la fiche : %{full_name}'
-      export: Exportation de fiches
-      import: Importation de fiches
-      index: Personnes
-      merge: Fusionner un doublon à sa fiche d’origine
-      new: Nouvelle fiche client/fournisseur
-      show: ! 'Fiche : %{full_name}'
+      destroy: "Supprimer la fiche" #?
+      edit: "Modifier la fiche\_: %{full_name}"
+      export: "Exportation de fiches"
+      import: "Importation de fiches"
+      index: "Personnes"
+      merge: "Fusionner un doublon à sa fiche d’origine"
+      new: "Nouvelle fiche client/fournisseur"
+      show: "Fiche\_: %{full_name}"
     entity_addresses:
-      edit: Modifier une coordonnée
-      new: Ajouter une coordonnée
+      edit: "Modifier une coordonnée"
+      new: "Ajouter une coordonnée"
     entity_categories:
-      edit: ! 'Modifier la catégorie de fiche : %{name}'
-      index: Catégories de fiche
-      new: Ajout d’une nouvelle catégorie de fiche
-      show: ! 'Catégorie de fiche : %{name}'
+      edit: "Modifier la catégorie de fiche\_: %{name}"
+      index: "Catégories de fiche"
+      new: "Ajout d’une nouvelle catégorie de fiche"
+      show: "Catégorie de fiche\_: %{name}"
     entity_event_natures:
-      edit: ! 'Modifier le type d’évènement : %{name}'
-      index: Types d’évènements
-      new: Ajouter un type d’évènement
+      edit: "Modifier le type d’évènement\_: %{name}"
+      index: "Types d’évènements"
+      new: "Ajouter un type d’évènement"
     entity_events:
-      change_minutes: Changer la durée de l’évènement
-      edit: Modifier l’un évènement
-      index: Évènements
-      new: Ajout d’un évènement
+      change_minutes: "Changer la durée de l’évènement"
+      edit: "Modifier l’un évènement"
+      index: "Évènements"
+      new: "Ajout d’un évènement"
     entity_link_natures:
-      edit: ! 'Modifier le type de lien : %{name}'
-      index: Types de lien
-      new: Ajout d’un nouveau type de lien
+      edit: "Modifier le type de lien\_: %{name}"
+      index: "Types de lien"
+      new: "Ajout d’un nouveau type de lien"
     entity_links:
-      edit: Modifier le lien
-      new: Ajout d’un nouveau lien
+      edit: "Modifier le lien"
+      new: "Ajout d’un nouveau lien"
     entity_natures:
-      edit: ! 'Modifier le type de fiche : %{name}'
-      index: Types de fiches
-      new: Ajouter un nouveau type de fiche
+      edit: "Modifier le type de fiche\_: %{name}"
+      index: "Types de fiches"
+      new: "Ajouter un nouveau type de fiche"
     establishments:
-      edit: ! 'Modifier l’établissement : %{name}'
-      index: Établissements
-      new: Ajout d’un nouvel etablissement
+      edit: "Modifier l’établissement\_: %{name}"
+      index: "Établissements"
+      new: "Ajout d’un nouvel etablissement"
     financial_years:
-      close: Clôturer l’exercice %{code}
-      compute_balances: Calculer la balance de l’exercice
-      edit: Modifier un nouvel exercice
-      generate_last_journal_entry: Générer l’écriture de fin de l’exercice %{code}
-      index: Exercices comptables
-      new: Créer un nouvel exercice
-      show: Exercice comptable %{code}
+      close: "Clôturer l’exercice %{code}"
+      compute_balances: "Calculer la balance de l’exercice"
+      edit: "Modifier un nouvel exercice"
+      generate_last_journal_entry: "Générer l’écriture de fin de l’exercice %{code}"
+      index: "Exercices comptables"
+      new: "Créer un nouvel exercice"
+      show: "Exercice comptable %{code}"
     help:
-      index: Aide
-      show: ! 'Aide: %{title}'
+      index: "Aide"
+      show: "Aide: %{title}"
     incoming_deliveries:
-      confirm: Confirmer l’arrivée de la livraison
-      edit: ! 'Modifier l’arrivage: %{number}'
-      index: Livraisons entrantes
-      new: Enregistrer un nouveau arrivage
+      confirm: "Confirmer l’arrivée de la livraison"
+      edit: "Modifier l’arrivage: %{number}"
+      index: "Livraisons entrantes"
+      new: "Enregistrer un nouveau arrivage"
     incoming_delivery_modes:
-      edit: ! 'Modifier le mode de réception d’arrivage: %{name}'
-      index: Modes de réception d’arrivage
-      new: Créer un mode de réception d’arrivage
+      edit: "Modifier le mode de réception d’arrivage: %{name}"
+      index: "Modes de réception d’arrivage"
+      new: "Créer un mode de réception d’arrivage"
     incoming_payment_modes:
-      edit: ! 'Modifier le mode d’encaissement : %{name}'
-      index: Modes d’encaissement
-      new: Ajouter un nouveau mode d’encaissement
+      edit: "Modifier le mode d’encaissement\_: %{name}"
+      index: "Modes d’encaissement"
+      new: "Ajouter un nouveau mode d’encaissement"
     incoming_payment_uses:
-      new: Rattacher un encaissement
+      new: "Rattacher un encaissement"
     incoming_payments:
-      edit: Modifier l’encaissement n°%{number}
-      index: Encaissements
-      new: Ajout d’un nouvel encaissement
-      show: Encaissement n°%{number} de %{entity}
+      edit: "Modifier l’encaissement n°%{number}"
+      index: "Encaissements"
+      new: "Ajout d’un nouvel encaissement"
+      show: "Encaissement n°%{number} de %{entity}"
     inventories:
-      edit: Modifier l’inventaire
-      index: Inventaires
-      new: Nouvel inventaire
-      show: Inventaire %{number}
+      edit: "Modifier l’inventaire"
+      index: "Inventaires"
+      new: "Nouvel inventaire"
+      show: "Inventaire %{number}"
     journal_entries:
-      edit: ! 'Modifier l’écriture : %{number}'
-      new: Ajouter une écriture
-      show: ! 'Écriture : %{number}'
+      edit: "Modifier l’écriture\_: %{number}"
+      new: "Ajouter une écriture"
+      show: "Écriture\_: %{number}"
     journal_entry_lines:
-      new: Ajouter une nouvelle ligne d’écriture
+      new: "Ajouter une nouvelle ligne d’écriture"
     journals:
-      balance: Balance
-      bookkeep: Bascule comptable
-      close: ! 'Clôturer le journal : %{name}'
-      draft: Brouillard
-      edit: ! 'Modifier le journal : %{name}'
-      general_ledger: Grand livre
-      import: Importer des données comptables
-      index: Journaux
-      new: Créer un nouveau journal
-      reopen: ! 'Déclôturer le journal : %{name}'
-      reports: Impression, exportation
-      show: ! 'Journal : %{name} (%{code})'
+      balance: "Balance"
+      bookkeep: "Bascule comptable"
+      close: "Clôturer le journal\_: %{name}"
+      draft: "Brouillard"
+      edit: "Modifier le journal\_: %{name}"
+      general_ledger: "Grand livre"
+      import: "Importer des données comptables"
+      index: "Journaux"
+      new: "Créer un nouveau journal"
+      reopen: "Déclôturer le journal\_: %{name}"
+      reports: "Impression, exportation"
+      show: "Journal\_: %{name} (%{code})"
     land_parcel_groups:
-      edit: ! 'Modifier le groupe d’îlots: %{name}'
-      index: Groupes d’îlots
-      new: Ajouter un nouveau groupe d’îlots
+      edit: "Modifier le groupe d’îlots: %{name}"
+      index: "Groupes d’îlots"
+      new: "Ajouter un nouveau groupe d’îlots"
     land_parcels:
-      divide: ! 'Diviser l’îlot : %{name}'
-      edit: ! 'Modifier l’ îlot : %{name}'
-      index: Îlots
-      merge: Fusionner des îlots
-      new: Ajouter un nouvel îlot
-      show: Îlot %{name}
+      divide: "Diviser l’îlot\_: %{name}"
+      edit: "Modifier l’ îlot\_: %{name}"
+      index: "Îlots"
+      merge: "Fusionner des îlots"
+      new: "Ajouter un nouvel îlot"
+      show: "Îlot %{name}"
     listing_nodes:
-      edit: Modifier le nœud
-      new: Nouveau nœud
+      edit: "Modifier le nœud"
+      new: "Nouveau nœud"
     listings:
-      edit: ! 'Modifier l’extraction : %{name}'
-      extract: ! 'Extraire les données de : %{name}'
-      index: Exportations et mailings
-      mail: ! 'Envoyer un e-mail pour : %{name}'
-      new: Création d’une nouvelle extraction
+      edit: "Modifier l’extraction\_: %{name}"
+      extract: "Extraire les données de\_: %{name}"
+      index: "Exportations et mailings"
+      mail: "Envoyer un e-mail pour\_: %{name}"
+      new: "Création d’une nouvelle extraction"
     mandates:
-      configure: Configuration des responsabilités
-      edit: Modifier la responsabilité
-      index: Responsabilités
-      new: Créer une responsabilité
+      configure: "Configuration des responsabilités"
+      edit: "Modifier la responsabilité"
+      index: "Responsabilités"
+      new: "Créer une responsabilité"
     myselves:
-      change_password: Changer de mot de passe
-      statistics: Mes statistiques
+      change_password: "Changer de mot de passe"
+      statistics: "Mes statistiques"
     observations:
-      edit: Modifier une observation
-      new: Ajouter une observation
+      edit: "Modifier une observation"
+      new: "Ajouter une observation"
     operation_lines:
-      new: Nouveau produit de travail
+      new: "Nouveau produit de travail" #?
     operation_natures:
-      edit: ! 'Modifier le type de travail : %{name}'
-      index: Types de travail
-      new: Créer un nouveau type de travail
+      edit: "Modifier le type de travail\_: %{name}"
+      index: "Types de travail"
+      new: "Créer un nouveau type de travail"
     operation_uses:
-      new: Nouveau matériel de travail
+      new: "Nouveau matériel de travail" #?
     operations:
-      edit: Modifier le travail %{name}
-      index: Travaux
-      new: Créer un nouveau travail
-      show: Détails du travail %{name}
-      unvalidateds: Travaux non validés
+      edit: "Modifier le travail %{name}"
+      index: "Travaux"
+      new: "Créer un nouveau travail"
+      show: "Détails du travail %{name}"
+      unvalidateds: "Travaux non validés"
     outgoing_deliveries:
-      edit: ! 'Modifier la livraison sortante : %{number}'
-      index: Livraisons sortantes
-      new: Ajouter une livraison sortante
-      show: ! 'Livraison sortante : %{number}'
+      edit: "Modifier la livraison sortante\_: %{number}"
+      index: "Livraisons sortantes"
+      new: "Ajouter une livraison sortante"
+      show: "Livraison sortante\_: %{number}"
     outgoing_delivery_modes:
-      edit: ! 'Modifier le mode de livraison : %{name}'
-      index: Modes de livraison
-      new: Ajout d’un nouveau mode de livraison
+      edit: "Modifier le mode de livraison\_: %{name}"
+      index: "Modes de livraison"
+      new: "Ajout d’un nouveau mode de livraison"
     outgoing_payment_modes:
-      edit: Modifier un mode de décaissement
-      index: Modes de décaissement
-      new: Ajouter un mode de décaissement
+      edit: "Modifier un mode de décaissement"
+      index: "Modes de décaissement"
+      new: "Ajouter un mode de décaissement"
     outgoing_payment_uses:
-      new: Payer l’achat N°%{number}
+      new: "Payer l’achat N°%{number}"
     outgoing_payments:
-      edit: ! 'Modifier le décaissement : %{number}'
-      index: Décaissements
-      new: Ajout d’un décaissement
-      show: Décaissement n°%{number} pour %{payee}
+      edit: "Modifier le décaissement\_: %{number}"
+      index: "Décaissements"
+      new: "Ajout d’un décaissement"
+      show: "Décaissement n°%{number} pour %{payee}"
     preferences:
-      edit: Modifier les préférences
-      index: Préfénces
-      new: Nouvelle préférence
-      show: Préférence
+      edit: "Modifier les préférences"
+      index: "Préfénces"
+      new: "Nouvelle préférence"
+      show: "Préférence"
     prices:
-      edit: Modifie le prix %{pretax_amount}/%{amount} sur %{product}
-      export: Exporter les prix
-      find: Trouver un prix
-      import: Importer un fichier CSV de tarifs
-      index: Prix
-      new: Ajout d’un nouveau prix
+      edit: "Modifie le prix %{pretax_amount}/%{amount} sur %{product}"
+      export: "Exporter les prix"
+      find: "Trouver un prix"
+      import: "Importer un fichier CSV de tarifs"
+      index: "Prix"
+      new: "Ajout d’un nouveau prix"
     product_components:
-      edit: Modifier le composant %{name}
-      new: Ajouter un composant
+      edit: "Modifier le composant %{name}"
+      new: "Ajouter un composant"
     product_event_natures:
-      edit: Modifier un type d'évènement
-      index: Type d'évènement
-      new: Créer un type d'évènement
-      show: Type d'évènement %{name}
+      edit: "Modifier un type d'évènement"
+      index: "Type d'évènement"
+      new: "Créer un type d'évènement"
+      show: "Type d'évènement %{name}"
     product_events:
-      edit: Modifier un évènement
-      index: Évènements
-      new: Créer un évènement
-      show: évènement %{name} commencé le %{started_at}
+      edit: "Modifier un évènement"
+      index: "Évènements"
+      new: "Créer un évènement"
+      show: "évènement %{name} commencé le %{started_at}"
     product_group_events:
-      edit: Modifier un évènement par lot
-      index: Évènements par lot
-      new: Créer un évènement par lot
-      show: ! 'évènement par lot : %{name} commencé le %{started_at}'
-    product_group_passings: 
+      edit: "Modifier un évènement par lot"
+      index: "Évènements par lot"
+      new: "Créer un évènement par lot"
+      show: "évènement par lot\_: %{name} commencé le %{started_at}"
+    product_group_passings:
+      # edit: "Edit product group passing"
+      # index: "Index product group passing"
+      # new: "New product group passing"
+      # show: "Show product group passing"
     product_groups:
-      edit: ! 'Modifier le lot : %{name} '
-      index: Lots d'animaux
-      new: Créer un lot
-      show: ! 'Lot : %{name}'
+      edit: "Modifier le lot\_: %{name} "
+      index: "Lots d'animaux"
+      new: "Créer un lot"
+      show: "Lot\_: %{name}"
     product_nature_categories:
-      edit: ! 'Modifier la catégorie de produits : %{name}'
-      index: Catégories de produits
-      new: Ajout d’une nouvelle catégorie de produits
-      show: ! 'Détail de la catégorie : %{name}'
-    product_natures: 
-    product_species:
-      edit: ! 'Modifier la race : %{name} '
-      index: Races
-      new: Créer une race
-      show: ! 'Race : %{name}'
+      edit: "Modifier la catégorie de produits\_: %{name}"
+      index: "Catégories de produits"
+      new: "Ajout d’une nouvelle catégorie de produits"
+      show: "Détail de la catégorie\_: %{name}"
+    product_natures:
+      # change_quantities: "Change quantities product nature"
+      # edit: "Edit product nature"
+      # index: "Index product nature"
+      # new: "New product nature"
+      # show: "Show product nature"
+    product_varieties:
+      edit: "Modifier la race\_: %{name} "
+      index: "Races"
+      new: "Créer une race"
+      show: "Race\_: %{name}"
     production_chain_conveyors:
-      edit: Mettre à jour le convoyeur (%{source_id}-%{target_id})
-      new: Ajouter un nouveau convoyeur dans la chaîne de production
+      edit: "Mettre à jour le convoyeur (%{source_id}-%{target_id})"
+      new: "Ajouter un nouveau convoyeur dans la chaîne de production"
     production_chain_work_centers:
-      edit: ! 'Modifier le centre d’opération : %{name}'
-      new: Ajouter un nouveau centre d’opération
-      play: ! 'Éxécuter la chaîne de production : %{name}'
-      show: ! 'Centre d’opération : #{name}'
+      edit: "Modifier le centre d’opération\_: %{name}"
+      new: "Ajouter un nouveau centre d’opération"
+      play: "Éxécuter la chaîne de production\_: %{name}"
+      show: "Centre d’opération\_: #{name}"
     production_chains:
-      edit: ! 'Modifier la chaîne de production : %{name}'
-      index: Chaînes de production
-      new: Ajouter une nouvelle chaîne de production
-      show: ! 'Chaîne de production : %{name}'
+      edit: "Modifier la chaîne de production\_: %{name}"
+      index: "Chaînes de production"
+      new: "Ajouter une nouvelle chaîne de production"
+      show: "Chaîne de production\_: %{name}"
     products:
-      edit: Modifier un animal
-      index: Animaux
-      new: Créer un animal
-      show: ! 'animal : %{name}'
+      edit: "Modifier un animal"
+      index: "Animaux"
+      new: "Créer un animal"
+      show: "animal\_: %{name}"
     professions:
-      edit: ! 'Modifier la profession : %{name}'
-      index: Professions
-      new: Ajouter une nouvelle profession
+      edit: "Modifier la profession\_: %{name}"
+      index: "Professions"
+      new: "Ajouter une nouvelle profession"
     purchase_lines:
-      edit: Modifier une ligne de la commande
-      new: Ajouter un produit à la commande
+      edit: "Modifier une ligne de la commande"
+      new: "Ajouter un produit à la commande"
     purchase_natures:
-      edit: ! 'Modifier le type d’achat : %{name}'
-      index: Type d’achats
-      new: Nouveau type d’achat
-      show: ! 'Type d’achat : %{name}'
+      edit: "Modifier le type d’achat\_: %{name}"
+      index: "Type d’achats"
+      new: "Nouveau type d’achat"
+      show: "Type d’achat\_: %{name}"
     purchases:
-      abort: Annuler l’achat
-      confirm: Confimer l’achat et attendre les arrivages
-      correct: Corriger l’achat
-      edit: ! 'Modifier l’achat : %{number}'
-      finish: Finir l’achat
-      index: Achats
-      invoice: Réception de la facture
-      new: Nouvel achat
-      propose: Commande soumise au fournisseur
-      refuse: Commande refusée
-      show: ! 'Achat : %{number} au fournisseur %{supplier}'
+      abort: "Annuler l’achat"
+      confirm: "Confimer l’achat et attendre les arrivages"
+      correct: "Corriger l’achat"
+      edit: "Modifier l’achat\_: %{number}"
+      finish: "Finir l’achat" #?
+      index: "Achats"
+      invoice: "Réception de la facture"
+      new: "Nouvel achat"
+      propose: "Commande soumise au fournisseur"
+      refuse: "Commande refusée"
+      show: "Achat\_: %{number} au fournisseur %{supplier}"
     roles:
-      edit: ! 'Modifier le rôle : %{name}'
-      index: Rôles
-      new: Ajouter un rôle
+      edit: "Modifier le rôle\_: %{name}"
+      index: "Rôles"
+      new: "Ajouter un rôle"
     sale_lines:
-      detail: Détailler une ligne de la vente
-      edit: Modifier une ligne de la vente
-      new: Ajouter un produit à la vente
+      detail: "Détailler une ligne de la vente"
+      edit: "Modifier une ligne de la vente"
+      new: "Ajouter un produit à la vente"
     sale_natures:
-      edit: ! 'Modifier le type de vente : %{name}'
-      index: Types de ventes
-      new: Ajout d’un type de vente
-      show: ! 'Type de vente : %{name}'
+      edit: "Modifier le type de vente\_: %{name}"
+      index: "Types de ventes"
+      new: "Ajout d’un type de vente"
+      show: "Type de vente\_: %{name}"
     sales:
-      abort: Annuler la vente
-      cancel: Passage en avoir de la facture %{number}
-      confirm: Passer le devis en commande et aller aux livraisons
-      contacts: Contacts de la vente
-      correct: Corriger le devis
-      edit: Modifier la vente N°%{number}
-      index: Ventes
-      invoice: Facturer directement tout le devis
-      new: Nouvelle vente
-      propose: Devis soumis au client
-      propose_and_invoice: Facturer rapidement
-      refuse: Devis refusé par le client
-      show: ! 'Vente : %{number} pour %{client} - %{state}'
-      statistics: Statistiques  de ventes
+      abort: "Annuler la vente"
+      cancel: "Passage en avoir de la facture %{number}"
+      confirm: "Passer le devis en commande et aller aux livraisons"
+      contacts: "Contacts de la vente"
+      correct: "Corriger le devis"
+      edit: "Modifier la vente N°%{number}"
+      index: "Ventes"
+      invoice: "Facturer directement tout le devis"
+      new: "Nouvelle vente"
+      propose: "Devis soumis au client"
+      propose_and_invoice: "Facturer rapidement"
+      refuse: "Devis refusé par le client"
+      show: "Vente\_: %{number} pour %{client} - %{state}"
+      statistics: "Statistiques  de ventes"
     sequences:
-      edit: ! 'Modifier la séquence : %{name}'
-      index: Séquences
-      load: Charger les séquences manquantes
-      new: Création d’une nouvelle séquence
+      edit: "Modifier la séquence\_: %{name}"
+      index: "Séquences"
+      load: "Charger les séquences manquantes"
+      new: "Création d’une nouvelle séquence"
     sessions:
-      destroy: Se déconnecter
-      new: Connexion
-      renew: Renouveller la session
+      destroy: "Se déconnecter" #?
+      new: "Connexion"
+      renew: "Renouveller la session"
     settings:
-      about: À propos...
-      backup: Faire une copie de sauvegarde
-      backups: Sauvegardes
-      edit: Configuration
-      import: Importer des données
-      restore: Restaurer une sauvegarde
+      about: "À propos..."
+      backup: "Faire une copie de sauvegarde"
+      backups: "Sauvegardes"
+      edit: "Configuration"
+      import: "Importer des données"
+      restore: "Restaurer une sauvegarde"
     stock_moves:
-      edit: ! 'Modifier le mouvement de stock : %{name}'
-      new: Enregistrement d’un mouvement de stock
+      edit: "Modifier le mouvement de stock\_: %{name}" #?
+      new: "Enregistrement d’un mouvement de stock" #?
     stock_transfers:
-      confirm: Transferts à réaliser
-      confirm_all: Confirmer tous les transferts
-      edit: Modifier l’un transfert de stock
-      index: Transferts et pertes de stocks
-      new: Ajouter un transfert ou une perte de stocks
+      confirm: "Transferts à réaliser"
+      confirm_all: "Confirmer tous les transferts"
+      edit: "Modifier l’un transfert de stock"
+      index: "Transferts et pertes de stocks"
+      new: "Ajouter un transfert ou une perte de stocks"
     stocks:
-      edit: ! 'Modifier le stock : %{name}'
-      index: État des stocks
-      new: Nouveau stock
+      edit: "Modifier le stock\_: %{name}"
+      index: "État des stocks"
+      new: "Nouveau stock"
     subscription_natures:
-      edit: ! 'Modifier le type d’abonnement : %{name}'
-      index: Types d’abonnements
-      new: Ajouter un type d’abonnement
-      show: ! 'Type d’abonnement : %{name}'
+      edit: "Modifier le type d’abonnement\_: %{name}"
+      index: "Types d’abonnements"
+      new: "Ajouter un type d’abonnement"
+      show: "Type d’abonnement\_: %{name}" #?
     subscriptions:
-      coordinates: Rafraîchir les coordonnées et la période
-      edit: ! 'Modifier l’abonnement : N°%{number} du %{start} au %{finish}'
-      index: Abonnements
-      new: Création d’un abonnement
+      coordinates: "Rafraîchir les coordonnées et la période"
+      edit: "Modifier l’abonnement\_: N°%{number} du %{start} au %{finish}"
+      index: "Abonnements"
+      new: "Création d’un abonnement"
     tax_declarations:
-      edit: Créer une déclaration
-      index: Déclaration de TVA
-      new: Créer une déclaration
-      show: ! '%{nature} pour la période du %{started_on} au %{stopped_on}'
+      edit: "Créer une déclaration" #?
+      index: "Déclaration de TVA" #?
+      new: "Créer une déclaration" #?
+      show: "%{nature} pour la période du %{started_on} au %{stopped_on}" #?
     taxes:
-      edit: ! 'Modifier la taxe : %{name}'
-      index: Taxes
-      new: Ajouter une nouvelle taxe
+      edit: "Modifier la taxe\_: %{name}"
+      index: "Taxes"
+      new: "Ajouter une nouvelle taxe"
     tool_natures:
-      edit: Modifier un type de matériel
-      index: Type de matériel / équipement
-      new: Nouveau type de matériel
-      show: ! 'Type de matériel : %{name}'
+      edit: "Modifier un type de matériel"
+      index: "Type de matériel / équipement"
+      new: "Nouveau type de matériel"
+      show: "Type de matériel\_: %{name}"
     tools:
-      edit: ! 'Modifier le matériel : %{name}'
-      index: Matériel
-      new: Ajouter un matériel
-      show: ! 'Matériel : %{name}'
+      edit: "Modifier le matériel\_: %{name}"
+      index: "Matériel"
+      new: "Ajouter un matériel"
+      show: "Matériel\_: %{name}"
     trackings:
-      show: Lot %{name}
+      show: "Lot %{name}"
     transports:
-      deliveries: Livraisons du transport
-      delivery_delete: Retirer la livraison du transport
-      edit: Modifier le transport %{number}
-      index: Transports
-      new: Ajout d’un nouveau transport
-      show: Transport %{number}
+      deliveries: "Livraisons du transport" #?
+      delivery_delete: "Retirer la livraison du transport" #?
+      edit: "Modifier le transport %{number}"
+      index: "Transports"
+      new: "Ajout d’un nouveau transport"
+      show: "Transport %{number}"
     units:
-      edit: ! 'Modifier l’unité : %{label}'
-      index: Unités de mesure
-      load: Charger les unités de mesure par défaut
-      new: Ajout d’une nouvelle unité de mesure
+      edit: "Modifier l’unité\_: %{label}"
+      index: "Unités de mesure"
+      load: "Charger les unités de mesure par défaut"
+      new: "Ajout d’une nouvelle unité de mesure"
     users:
-      edit: ! 'Modifier l’utilisateur : %{first_name} %{last_name} (%{name})'
-      index: Utilisateurs
-      lock: Verrouiller l’utilisateur
-      new: Création d’un nouvel utilisateur
-      show: ! 'Utilisateur : %{first_name} %{last_name} (%{name})'
-      unlock: Déverrouiller l’utilisateur
+      edit: "Modifier l’utilisateur\_: %{first_name} %{last_name} (%{name})"
+      index: "Utilisateurs"
+      lock: "Verrouiller l’utilisateur"
+      new: "Création d’un nouvel utilisateur"
+      show: "Utilisateur\_: %{first_name} %{last_name} (%{name})"
+      unlock: "Déverrouiller l’utilisateur"
     warehouses:
-      edit: Modifier l’un lieu de stockage
-      index: Lieux de stockage
-      new: Ajout d’un lieu de stockage
-      show: ! 'Détail du lieu de stockage : %{name}'
+      edit: "Modifier l’un lieu de stockage"
+      index: "Lieux de stockage"
+      new: "Ajout d’un lieu de stockage"
+      show: "Détail du lieu de stockage\_: %{name}"
   controllers:
-    account_balances: Soldes de comptes
-    accounts: Plan de comptes
-    admin: Administration
-    application: Application
-    areas: Zones postales
-    assets: Immobilisations
-    authentication: Authentification
-    bank_statements: Relevés de compte bancaire
-    base: Base
-    cash_transfers: Virements internes
-    cashes: Trésoreries
-    companies: Société
-    cultivations: Cultures
-    custom_field_choices: Choix de champs personnalisés
-    custom_field_data: Données de champs personnalisés
-    custom_fields: Champs personnalisés
-    dashboards: Tableaux de bord
-    delays: Délais
-    departments: Services
-    deposit_lines: Lignes de remise en banque
-    deposits: Remises en banque
-    districts: Zones administratives
-    document_templates: Modèles de document
-    documents: Documents
-    entities: Personnes
-    entity_addresses: Adresses
-    entity_categories: Catégories de fiche
-    entity_event_natures: Types d’évènements
-    entity_events: Évènements
-    entity_link_natures: Types de lien
-    entity_links: Liens entre personnes
-    entity_natures: Types de fiches
-    establishments: Établissements
-    financial_years: Exercices comptables
-    help: Aide
-    incoming_deliveries: Livraisons entrantes
-    incoming_delivery_lines: Lignes de livraison entrante
-    incoming_delivery_modes: Modes de réception d’arrivage
-    incoming_payment_modes: Modes d’encaissement
-    incoming_payment_uses: Utilisation d’encaissement
-    incoming_payments: Encaissements
-    interfacers: Interfaceurs
-    inventories: Inventaires
-    inventory_lines: Lignes d’inventaires
-    journal_entries: Écritures comptables
-    journal_entry_lines: Lignes d’écritures comptables
-    journals: Journaux
-    land_parcel_groups: Groupes d’îlots
-    land_parcel_kinships: Parenté entre îlots
-    land_parcels: Îlots
-    listing_node_items: Élement de nœuds d’extractions
-    listing_nodes: Nœuds d’extractions
-    listings: Exportations et mailings
-    mandates: Responsabilités
-    myselves: Mon compte
-    observations: Observations
-    operation_lines: Ligne de travail
-    operation_natures: Types de travail
-    operation_uses: Utilisations de matériel
-    operations: Travaux
-    outgoing_deliveries: Livraisons sortantes
-    outgoing_delivery_lines: Lignes de livraisons sortantes
-    outgoing_delivery_modes: Modes de livraisons sortantes
-    outgoing_payment_modes: Modes de décaissement
-    outgoing_payment_uses: Utilisations des décaissements
-    outgoing_payments: Décaissements
-    preferences: Préférences
-    prices: Prix
-    product_components: Composants de produits
-    product_event_natures: Type d'évenements des Animaux
-    product_events: Evenements des Animaux
-    product_groups: Lot d'Animaux
-    product_nature_categories: Catégories de produits
-    product_species: Races
-    production_chain_conveyors: Convoyeurs de chaînes de production
-    production_chain_work_center_uses: Utilisation des ateliers de chaînes de production
-    production_chain_work_centers: Atelier de chaînes de production
-    production_chains: Chaînes de production
-    products: Animaux
-    professions: Professions
-    purchase_lines: Lignes d’achat
-    purchase_natures: Types d’achat
-    purchases: Achats
-    roles: Rôles
-    sale_lines: Lignes de vente
-    sale_natures: Types de ventes
-    sales: Ventes
-    sequences: Séquences
-    sessions: Session
-    settings: Paramètres
-    stock_moves: Mouvements de stock
-    stock_transfers: Transferts et pertes de stocks
-    stocks: État des stocks
-    subscription_natures: Types d’abonnements
-    subscriptions: Abonnements
-    tax_declarations: Déclaration de TVA
-    taxes: Taxes
-    tool_natures: Type de matériels
-    tools: Matériel
-    tracking_states: État des lots de traçabilité
-    trackings: Lots de traçabilité
-    transfers: Transferts
-    transports: Transports
-    units: Unités de mesure
-    users: Utilisateurs
-    warehouses: Lieux de stockage
+    account_balances: "Soldes de comptes"
+    accounts: "Plan de comptes"
+    admin: "Administration"
+    application: "Application"
+    areas: "Zones postales"
+    assets: "Immobilisations"
+    authentication: "Authentification"
+    bank_statements: "Relevés de compte bancaire"
+    base: "Base"
+    cash_transfers: "Virements internes"
+    cashes: "Trésoreries"
+    companies: "Société"
+    cultivations: "Cultures"
+    custom_field_choices: "Choix de champs personnalisés"
+    custom_field_data: "Données de champs personnalisés"
+    custom_fields: "Champs personnalisés"
+    dashboards: "Tableaux de bord"
+    delays: "Délais"
+    departments: "Services"
+    deposit_lines: "Lignes de remise en banque"
+    deposits: "Remises en banque"
+    districts: "Zones administratives"
+    document_templates: "Modèles de document"
+    documents: "Documents"
+    entities: "Personnes"
+    entity_addresses: "Adresses"
+    entity_categories: "Catégories de fiche"
+    entity_event_natures: "Types d’évènements"
+    entity_events: "Évènements"
+    entity_link_natures: "Types de lien"
+    entity_links: "Liens entre personnes"
+    entity_natures: "Types de fiches"
+    establishments: "Établissements"
+    financial_years: "Exercices comptables"
+    help: "Aide"
+    incoming_deliveries: "Livraisons entrantes"
+    incoming_delivery_lines: "Lignes de livraison entrante"
+    incoming_delivery_modes: "Modes de réception d’arrivage"
+    incoming_payment_modes: "Modes d’encaissement"
+    incoming_payment_uses: "Utilisation d’encaissement"
+    incoming_payments: "Encaissements"
+    interfacers: "Interfaceurs"
+    inventories: "Inventaires"
+    inventory_lines: "Lignes d’inventaires"
+    journal_entries: "Écritures comptables"
+    journal_entry_lines: "Lignes d’écritures comptables"
+    journals: "Journaux"
+    land_parcel_groups: "Groupes d’îlots"
+    land_parcel_kinships: "Parenté entre îlots"
+    land_parcels: "Îlots"
+    listing_node_items: "Élement de nœuds d’extractions"
+    listing_nodes: "Nœuds d’extractions"
+    listings: "Exportations et mailings"
+    mandates: "Responsabilités"
+    myselves: "Mon compte"
+    observations: "Observations"
+    operation_lines: "Ligne de travail"
+    operation_natures: "Types de travail"
+    operation_uses: "Utilisations de matériel"
+    operations: "Travaux"
+    outgoing_deliveries: "Livraisons sortantes"
+    outgoing_delivery_lines: "Lignes de livraisons sortantes"
+    outgoing_delivery_modes: "Modes de livraisons sortantes"
+    outgoing_payment_modes: "Modes de décaissement"
+    outgoing_payment_uses: "Utilisations des décaissements"
+    outgoing_payments: "Décaissements"
+    preferences: "Préférences"
+    prices: "Prix"
+    product_components: "Composants de produits"
+    product_event_natures: "Type d'évenements des Animaux"
+    product_events: "Evenements des Animaux"
+    # product_group_events: "Product group events"
+    # product_group_passings: "Product group passings"
+    product_groups: "Lot d'Animaux"
+    product_nature_categories: "Catégories de produits"
+    # product_natures: "Product natures"
+    product_varieties: "Races"
+    production_chain_conveyors: "Convoyeurs de chaînes de production"
+    production_chain_work_center_uses: "Utilisation des ateliers de chaînes de production"
+    production_chain_work_centers: "Atelier de chaînes de production"
+    production_chains: "Chaînes de production"
+    products: "Animaux"
+    professions: "Professions"
+    purchase_lines: "Lignes d’achat"
+    purchase_natures: "Types d’achat"
+    purchases: "Achats"
+    roles: "Rôles"
+    sale_lines: "Lignes de vente"
+    sale_natures: "Types de ventes"
+    sales: "Ventes"
+    sequences: "Séquences"
+    sessions: "Session"
+    settings: "Paramètres"
+    stock_moves: "Mouvements de stock"
+    stock_transfers: "Transferts et pertes de stocks"
+    stocks: "État des stocks"
+    subscription_natures: "Types d’abonnements"
+    subscriptions: "Abonnements"
+    tax_declarations: "Déclaration de TVA"
+    taxes: "Taxes"
+    tool_natures: "Type de matériels"
+    tools: "Matériel"
+    tracking_states: "État des lots de traçabilité"
+    trackings: "Lots de traçabilité"
+    transfers: "Transferts"
+    transports: "Transports"
+    units: "Unités de mesure"
+    users: "Utilisateurs"
+    warehouses: "Lieux de stockage"
   errors:
     template:
-      body: ! 'Il y a eu des problèmes avec les champs suivants :'
+      body: "Il y a eu des problèmes avec les champs suivants\_:"
       header:
-        one: ! '%{count} erreur a empêché l’enregistrement (%{model})'
-        other: ! '%{count} erreurs ont empêché l’enregistrement (%{model})'
+        one: "%{count} erreur a empêché l’enregistrement (%{model})"
+        other: "%{count} erreurs ont empêché l’enregistrement (%{model})"
   labels:
-    account_accruals: Comptes de régularisation
-    account_attorney_to_create: -- Créer automatiquement un compte mandataire --
-    account_claims_assets: Créances
-    account_client_to_create: -- Créer automatiquement un compte client --
-    account_current_assets: Actif circulant
-    account_debt: Dettes
-    account_equity: Capitaux propres
-    account_financial_assets: Immobilisations financières
-    account_fixed_assets: Actif immobilisé
-    account_inventories_assets: Stocks
-    account_mark: Lettrer le compte
-    account_name: Compte comptable
-    account_number: N°Compte
-    account_others_assets: Divers
-    account_provision: Provisions pour risques et charges
-    account_supplier_to_create: -- Créer automatiquement un compte fournisseur --
+    account_accruals: "Comptes de régularisation"
+    account_attorney_to_create: "-- Créer automatiquement un compte mandataire --"
+    account_claims_assets: "Créances"
+    account_client_to_create: "-- Créer automatiquement un compte client --"
+    account_current_assets: "Actif circulant"
+    account_debt: "Dettes"
+    account_equity: "Capitaux propres"
+    account_financial_assets: "Immobilisations financières"
+    account_fixed_assets: "Actif immobilisé"
+    account_inventories_assets: "Stocks"
+    account_mark: "Lettrer le compte"
+    account_name: "Compte comptable"
+    account_number: "N°Compte"
+    account_others_assets: "Divers"
+    account_provision: "Provisions pour risques et charges"
+    account_supplier_to_create: "-- Créer automatiquement un compte fournisseur --"
     account_tabbox:
-      children: Sous-comptes
-      entities: Personnes
-      journal_entry_lines: Écritures
-    account_tangible_fixed_assets: Immobilisations corporelles
-    account_untangible_fixed_assets: Immobilisations incorporelles
-    account_update: Modifier le compte
-    account_value_current: BRUT
-    account_value_previous: BRUT N-1
-    accountancy: Comptabilité
-    accounting_balance: Balance comptable
-    accounts: Comptes comptables utilisés
-    accounts_to_load: Plan de compte à charger
-    active: Actif
-    active_balance_sheet: Bilan actif
-    active_current_sum: Total actifs circulants
-    active_fixed_sum: Total actifs immobilisés
-    active_sum: Total actifs
-    add: Ajouter
-    add_condition: Ajouter la condition
-    add_conditions: Ajoutez des conditions
-    add_delivery: Ajouter une livraison
-    add_diagnostic: Ajouter un diagnostic
-    add_email: Ajouter une adresse e-mail
-    add_fax: Ajouter un n° de fax
-    add_mail: Ajouter une adresse postale
-    add_mobile: Ajouter un n° de portable
-    add_payment: Ajouter un encaissement
-    add_phone: Ajouter un n° de téléphone
-    add_posology: Ajouter une posologie
-    add_quickly_a_line: Ajouter rapidement une ligne de produit
-    add_subscription_for_sale_line: Ajouter un abonnement pour la ligne N°%{position}
-    add_treatment: Ajouter un traitement
-    add_website: Ajouter un site Web
-    address: Adresse
-    all: Tous
-    all_accounts: Tous les comptes
-    all_areas: ! '--- Toutes les zones postales ---'
-    all_conditions: toutes les conditions
-    all_periods: Tous les exercices
-    already_credited_quantity: Qté. déjà passée en avoir
-    amount: Montant
-    amount_to_add: Sommes à ajouter, exprimées en euros, y compris acompte congés
-    amount_to_reduce: Sommes à imputer, exprimées en euros, y compris acompte congés
-    amount_with_taxes: Montant TTC
-    animal: Animal
-    animal_bar: Animaux par lot
+      children: "Sous-comptes"
+      entities: "Personnes"
+      journal_entry_lines: "Écritures"
+    account_tangible_fixed_assets: "Immobilisations corporelles"
+    account_untangible_fixed_assets: "Immobilisations incorporelles"
+    account_update: "Modifier le compte"
+    account_value_current: "BRUT"
+    account_value_previous: "BRUT N-1"
+    accountancy: "Comptabilité"
+    accounting_balance: "Balance comptable"
+    accounts: "Comptes comptables utilisés"
+    accounts_to_load: "Plan de compte à charger"
+    active: "Actif"
+    active_balance_sheet: "Bilan actif"
+    active_current_sum: "Total actifs circulants"
+    active_fixed_sum: "Total actifs immobilisés"
+    active_sum: "Total actifs"
+    add: "Ajouter"
+    add_condition: "Ajouter la condition"
+    add_conditions: "Ajoutez des conditions"
+    add_delivery: "Ajouter une livraison"
+    add_diagnostic: "Ajouter un diagnostic"
+    add_email: "Ajouter une adresse e-mail"
+    add_fax: "Ajouter un n° de fax"
+    add_mail: "Ajouter une adresse postale"
+    add_mobile: "Ajouter un n° de portable"
+    add_payment: "Ajouter un encaissement"
+    add_phone: "Ajouter un n° de téléphone"
+    add_posology: "Ajouter une posologie"
+    add_quickly_a_line: "Ajouter rapidement une ligne de produit"
+    add_subscription_for_sale_line: "Ajouter un abonnement pour la ligne N°%{position}"
+    add_treatment: "Ajouter un traitement"
+    add_website: "Ajouter un site Web"
+    address: "Adresse"
+    all: "Tous"
+    all_accounts: "Tous les comptes"
+    all_areas: "--- Toutes les zones postales ---"
+    all_conditions: "toutes les conditions"
+    all_periods: "Tous les exercices"
+    already_credited_quantity: "Qté. déjà passée en avoir"
+    amount: "Montant"
+    amount_to_add: "Sommes à ajouter, exprimées en euros, y compris acompte congés"
+    amount_to_reduce: "Sommes à imputer, exprimées en euros, y compris acompte congés"
+    amount_with_taxes: "Montant TTC"
+    animal: "Animal"
+    animal_bar: "Animaux par lot"
     animal_group_tabbox:
-      animals: Animaux du lot
-      cares: Soins réalisés sur le lot
-    animal_pie: Animaux par lot
+      animals: "Animaux du lot"
+      cares: "Soins réalisés sur le lot"
+    animal_pie: "Animaux par lot"
     animal_tabbox:
-      cares: Soins
-      childrens: Enfants
-    animals: Animaux
-    apply: Appliquer
-    are_you_sure: Êtes-vous sûr(e) de vouloir faire cela ?
-    are_you_sure_you_want_to_confirm: Êtes-vous sûr(e) de vouloir passer la vente
-      en commande ?
-    are_you_sure_you_want_to_delete: Êtes-vous sûr(e) de vouloir supprimer cet enregistrement
-      ?
-    are_you_sure_you_want_to_delete_delivery: Êtes-vous sûr(e) de vouloir enlever
-      cette livraison du transport ?
-    are_you_sure_you_want_to_invoice: Êtes-vous sûr(e) de vouloir facturer la vente
-      ?
-    are_you_sure_you_want_to_send_mails: Êtes-vous sûr(e) de vouloir envoyer les mails
-      ?
-    area_x: ! '%{name} (%{postcode})'
-    assessable_operations: Opérations imposables (H.T)
-    assimilated_tax: Taxes assimilées calculées sur annexe n°3310A
-    attach_an_incoming_payment_to_expense: ! 'Rattacher un encaissement : %{type}
-      N°%{number}'
-    attach_an_outgoing_payment_to_expense: ! 'Rattacher un décaissement : %{type}
-      N°%{number}'
-    attachment: Pièce jointe
-    attorney: Informations mandataire
-    available_columns: ! 'Champs disponibles : %{columns}'
-    back: Revenir à la page précédente
-    backup: Sauvegarder
-    backups: Sauvegardes
+      cares: "Soins"
+      childrens: "Enfants"
+    animals: "Animaux"
+    apply: "Appliquer"
+    are_you_sure: "Êtes-vous sûr(e) de vouloir faire cela ?"
+    are_you_sure_you_want_to_confirm: "Êtes-vous sûr(e) de vouloir passer la vente en commande ?"
+    are_you_sure_you_want_to_delete: "Êtes-vous sûr(e) de vouloir supprimer cet enregistrement ?"
+    are_you_sure_you_want_to_delete_delivery: "Êtes-vous sûr(e) de vouloir enlever cette livraison du transport ?"
+    are_you_sure_you_want_to_invoice: "Êtes-vous sûr(e) de vouloir facturer la vente ?"
+    are_you_sure_you_want_to_send_mails: "Êtes-vous sûr(e) de vouloir envoyer les mails ?"
+    area_x: "%{name} (%{postcode})"
+    assessable_operations: "Opérations imposables (H.T)"
+    assimilated_tax: "Taxes assimilées calculées sur annexe n°3310A"
+    attach_an_incoming_payment_to_expense: "Rattacher un encaissement\_: %{type} N°%{number}"
+    attach_an_outgoing_payment_to_expense: "Rattacher un décaissement\_: %{type} N°%{number}"
+    attachment: "Pièce jointe"
+    attorney: "Informations mandataire"
+    available_columns: "Champs disponibles\_: %{columns}"
+    back: "Revenir à la page précédente"
+    backup: "Sauvegarder"
+    backups: "Sauvegardes"
     bad_browser:
-      explanation: Cette version de navigateur n’est pas supportée par Ekylibre. En
-        utilisant ce navigateur, les pages ne seraient pas affichées correctement
-        et des fonctionnalités seraient manquantes.
-      proposal: ! 'S’il vous plait, envisagez de vous mettre à jour avec l’un de ces
-        navigateurs récents :'
-      title: Il semblerai que vous utilisiez un navigateur obsolète
+      explanation: "Cette version de navigateur n’est pas supportée par Ekylibre. En utilisant ce navigateur, les pages ne seraient pas affichées correctement et des fonctionnalités seraient manquantes."
+      proposal: "S’il vous plait, envisagez de vous mettre à jour avec l’un de ces navigateurs récents\_:"
+      title: "Il semblerai que vous utilisiez un navigateur obsolète"
       wb:
-        chrome: Chrome
-        firefox: Firefox
-        ie: Internet Explorer
-        opera: Opéra
-        safari: Safari
-    balance: Solde
-    bank_statement_point: Pointer le relevé
-    bank_statement_update: Modifier le relevé
-    begins: Commence par
-    body: Corps du message
-    canals: Coordonnées
-    cancel: Annuler
-    cancelled: Passées en avoir
-    care: soins
-    cash: Compte bancaire
+        chrome: "Chrome"
+        firefox: "Firefox"
+        ie: "Internet Explorer"
+        opera: "Opéra"
+        safari: "Safari"
+    balance: "Solde"
+    bank_statement_point: "Pointer le relevé"
+    bank_statement_update: "Modifier le relevé"
+    begins: "Commence par"
+    body: "Corps du message"
+    canals: "Coordonnées"
+    cancel: "Annuler"
+    cancelled: "Passées en avoir"
+    care: "soins"
+    cash: "Compte bancaire"
     cash_tabbox:
-      bank_statements: Relevés de compte
-      deposits: Remises en banque
-    cash_update: Modifier la trésorerie
-    catalog: Description pour catalogue
-    category: Catégorie
-    category_name: Catégorie
-    centralize: Comptes comptables centralisateurs
-    centralized_account: Compte centralisateur %{name}
-    change_price: Changer le prix unitaire
-    changes_reflected: Changements répercutés
-    check: Vérifier
-    check_fields: Vous devez cocher au moins une case pour effectuer la modification
-    childrens: Enfants
-    choices: Choix
-    choose_mail_column: Veuillez choisir la colonne à utiliser pour le mailing
-    city_name: Ville
-    click_to_mail: Écrire votre message avec votre propre messagerie électronique
-    client: Client
-    client_balance: Solde du client
-    client_code: Code cl.
-    client_informations: Informations client
-    client_phone: Téléphone
-    close: Fermer
-    close_financial_year: Clôturer l’exercice
-    close_journal: Clôturer le journal
-    closed: Verrouillées
-    column: Donnée
-    column_family: Famille
-    column_organization: Organisation
-    column_title: Titre
-    columns: Colonnes à importer
-    commission: Commission
-    complement_sort: Trier les choix par nom
-    complements: Champs personnalisés
-    components: Composants
+      bank_statements: "Relevés de compte"
+      deposits: "Remises en banque"
+    cash_update: "Modifier la trésorerie"
+    catalog: "Description pour catalogue"
+    category: "Catégorie"
+    category_name: "Catégorie"
+    centralize: "Comptes comptables centralisateurs"
+    centralized_account: "Compte centralisateur %{name}"
+    change_price: "Changer le prix unitaire"
+    changes_reflected: "Changements répercutés"
+    check: "Vérifier"
+    check_fields: "Vous devez cocher au moins une case pour effectuer la modification"
+    childrens: "Enfants"
+    choices: "Choix"
+    choose_mail_column: "Veuillez choisir la colonne à utiliser pour le mailing"
+    city_name: "Ville"
+    click_to_mail: "Écrire votre message avec votre propre messagerie électronique"
+    client: "Client"
+    client_balance: "Solde du client"
+    client_code: "Code cl."
+    client_informations: "Informations client"
+    client_phone: "Téléphone"
+    close: "Fermer"
+    close_financial_year: "Clôturer l’exercice"
+    close_journal: "Clôturer le journal"
+    closed: "Verrouillées"
+    column: "Donnée"
+    column_family: "Famille"
+    column_organization: "Organisation"
+    column_title: "Titre"
+    columns: "Colonnes à importer"
+    commission: "Commission"
+    complement_sort: "Trier les choix par nom"
+    complements: "Champs personnalisés"
+    components: "Composants"
     conditions:
-      filter_on_attribute_of_class: Filtre sur %{attribute} (%{class})
-      special-subscriber: Filtre Abonné
-    confirmed: Confirmées
-    confirmed_on: Confirmée le
-    connect: Entrer
-    consult: Consulter
-    contact: à l’adresse
-    contains: Contient
-    contextual_help: Aide contextuelle
-    coordinates: Coordonnées
-    copy_of: Copie de %{source}
-    cost_income_statement: Charges
-    cost_sum: Total charges d’exploitation
-    counts_by_nature: Nombre de pièces à comptabiliser par type
-    create: Créer
-    create_journal: -- Créer le journal --
-    created_between: Enregistré entre le %{started_on} et le %{stopped_on}
-    created_on: Créée le
-    credit: Crédit
-    credits: Avoirs
+      filter_on_attribute_of_class: "Filtre sur %{attribute} (%{class})"
+      special-subscriber: "Filtre Abonné"
+    confirmed: "Confirmées"
+    confirmed_on: "Confirmée le"
+    connect: "Entrer"
+    consult: "Consulter"
+    contact: "à l’adresse"
+    contains: "Contient"
+    contextual_help: "Aide contextuelle"
+    coordinates: "Coordonnées"
+    copy_of: "Copie de %{source}"
+    cost_income_statement: "Charges"
+    cost_sum: "Total charges d’exploitation"
+    counts_by_nature: "Nombre de pièces à comptabiliser par type"
+    create: "Créer"
+    create_journal: "-- Créer le journal --"
+    created_between: "Enregistré entre le %{started_on} et le %{stopped_on}"
+    created_on: "Créée le"
+    credit: "Crédit"
+    credits: "Avoirs"
     criterion_modes:
-      all: Tout
-      confirmed: Confirmés
-      unconfirmed: Non-confirmés
-    critic_stock_min: Stock minimum critique
-    critic_stocks: Stocks sous le seuil critique
-    csv_statistics: Statistiques à exporter au format CSV
-    cumul: Cumul du total et du solde précédent N°%{number}
-    currency_with_code: ! '%{code} - %{name}'
-    current: En cours
-    current_letter: ! 'Lettre en cours : %{letter}'
-    custom_field_update: Modifier le champ personnalisé
-    data_to_export: Données à exporter
-    data_to_extract: Données à extraire
-    dates: Saisissez les dates de début et de fin de la période
-    debit: Débit
-    decimal_case: Options pour un décimal
-    default_subject: ! '[%{company}]'
-    delay: Délais
-    delay_update: Modifier le délai
-    delete: Supprimer
-    deliver: Valider l’envoi des livraisons
-    deliveries: Livraisons
-    delivery: Livraison
-    delivery_natural_gas_and_electricity_assessable: Livraisons de gaz naturel ou
-      d’électricité imposables en France
-    delivery_natural_gas_and_electricity_not_assessable: Livraisons de gaz naturel
-      ou d’électricité non imposables en France
-    demo_bar: Histogramme
-    demo_pie: Camenbert
-    departments: Services
-    deposit: Remise en banque
-    deposit_update: Modifier la remise en banque
-    depositable: Complément d’information
-    depreciation: Ammortissement
-    description: Description
-    destroy: Supprimer
-    details: Informations complémentaires
-    discount: Réduc. (%)
-    display: Afficher
-    display_help: Afficher l’aide
-    district_x: ! '%{name} (%{code})'
-    divide: Diviser
-    document: Document joint
-    document_natures: Types de documents
-    document_templates: Modèles de documents
-    dont_use_journal: -- Ne pas utiliser de journal --
-    down: Descendre
-    down_to_level: Détailler jusqu’au niveau
-    download_firefox: Télécharger Mozilla Firefox...
-    downpayment: Acompte
-    draft: Brouillard
-    drug: Médicament
-    duplicate: Dupliquer
-    duration: Durée
-    duration_in_hours_and_minutes: ! '%{hours}h %{minutes}min'
-    edit: Modifier
-    ekylibre: www.ekylibre.org
-    email: ! 'Email:'
-    employee_name: Employé
-    end: au
-    entities_export: Tout exporter au format CSV
-    entities_import: Importer un fichier CSV
-    entities_merge: Fusionner des fiches
-    entity: Personne
-    entity_category_update: Modifier la catégorie de fiche
-    entity_print: Imprimer la fiche
-    entity_to_delete: Doublon à fusionner (et faire disparaitre)
-    entity_to_update: Fiche à mettre à jour avec les éléments du doublon
-    entity_update: Modifier la fiche
-    entries: Écritures
-    entries_to_point: Écritures à pointer
-    error_no_file: Aucune aide n’est disponible pour cette partie de l’application
-      (%{article}). L’aide n’a pas encore été rédigée. Vous pouvez consulter le site
-      en ligne pour plus d’informations.
-    error_sale_already_paid: La vente a déjà été payée en totalité
-    errors_explanation: Il y a des erreurs dans le fichier. Si vous ne corrigez pas
-      les problèmes, les lignes erronées ne seront pas prises en compte lors de l’importation
-    establish_capital_goods: Biens constituant des immobilisations
-    establishment: Établissement
-    establishments: Établissements
-    estimate: Devis
-    estimate_to_order: Passer le devis en commande
-    europe_out_export: Exportations hors CE
-    events: Evènements
-    example: ! 'Exemple : %{value}'
-    exchange_rate_from_x_to_y: Taux de change de %{x} à %{y}
-    executed: Réalisé
-    existing_part: Utiliser un encaissement non affecté
-    expedier: Expéditeur
-    export: Exporter
-    export_backup: Export d’un fichier de sauvegarde
-    exportation: Exportation
-    extract: Extraire
-    fax: Fax
-    file_nature: Type de fichier
-    file_to_download: Fichier à importer
-    file_to_import: Fichier à importer
-    file_to_upload: Fichier à importer
-    filter: Filtrer
-    filter_entries_with: Filtrer les écritures avec
-    financial_state: État financier
-    finish: Terminer
-    finished_income_statement: Produits
-    finished_sum: Total produits d’exploitation
-    finishes: Termine par
-    first_contact: Adresse principale
+      all: "Tout"
+      confirmed: "Confirmés"
+      unconfirmed: "Non-confirmés"
+    critic_stock_min: "Stock minimum critique"
+    critic_stocks: "Stocks sous le seuil critique"
+    csv_statistics: "Statistiques à exporter au format CSV"
+    cumul: "Cumul du total et du solde précédent N°%{number}"
+    currency_with_code: "%{code} - %{name}"
+    current: "En cours"
+    current_letter: "Lettre en cours\_: %{letter}"
+    custom_field_update: "Modifier le champ personnalisé"
+    data_to_export: "Données à exporter"
+    data_to_extract: "Données à extraire"
+    dates: "Saisissez les dates de début et de fin de la période"
+    debit: "Débit"
+    decimal_case: "Options pour un décimal"
+    default_subject: "[%{company}]"
+    delay: "Délais"
+    delay_update: "Modifier le délai"
+    delete: "Supprimer"
+    deliver: "Valider l’envoi des livraisons"
+    deliveries: "Livraisons"
+    delivery: "Livraison"
+    delivery_natural_gas_and_electricity_assessable: "Livraisons de gaz naturel ou d’électricité imposables en France"
+    delivery_natural_gas_and_electricity_not_assessable: "Livraisons de gaz naturel ou d’électricité non imposables en France"
+    demo_bar: "Histogramme"
+    demo_pie: "Camenbert"
+    departments: "Services"
+    deposit: "Remise en banque"
+    deposit_update: "Modifier la remise en banque"
+    depositable: "Complément d’information"
+    depreciation: "Ammortissement"
+    description: "Description"
+    destroy: "Supprimer"
+    details: "Informations complémentaires"
+    discount: "Réduc. (%)"
+    display: "Afficher"
+    display_help: "Afficher l’aide"
+    district_x: "%{name} (%{code})"
+    divide: "Diviser"
+    document: "Document joint"
+    document_natures: "Types de documents"
+    document_templates: "Modèles de documents"
+    dont_use_journal: "-- Ne pas utiliser de journal --"
+    down: "Descendre"
+    down_to_level: "Détailler jusqu’au niveau"
+    download_firefox: "Télécharger Mozilla Firefox..."
+    downpayment: "Acompte"
+    draft: "Brouillard"
+    drug: "Médicament"
+    duplicate: "Dupliquer"
+    duration: "Durée"
+    duration_in_hours_and_minutes: "%{hours}h %{minutes}min"
+    edit: "Modifier"
+    ekylibre: "www.ekylibre.org"
+    email: "Email:"
+    employee_name: "Employé"
+    end: "au"
+    entities_export: "Tout exporter au format CSV"
+    entities_import: "Importer un fichier CSV"
+    entities_merge: "Fusionner des fiches"
+    entity: "Personne"
+    entity_category_update: "Modifier la catégorie de fiche"
+    entity_print: "Imprimer la fiche"
+    entity_to_delete: "Doublon à fusionner (et faire disparaitre)"
+    entity_to_update: "Fiche à mettre à jour avec les éléments du doublon"
+    entity_update: "Modifier la fiche"
+    entries: "Écritures"
+    entries_to_point: "Écritures à pointer"
+    error_no_file: "Aucune aide n’est disponible pour cette partie de l’application (%{article}). L’aide n’a pas encore été rédigée. Vous pouvez consulter le site en ligne pour plus d’informations."
+    error_sale_already_paid: "La vente a déjà été payée en totalité"
+    errors_explanation: "Il y a des erreurs dans le fichier. Si vous ne corrigez pas les problèmes, les lignes erronées ne seront pas prises en compte lors de l’importation"
+    establish_capital_goods: "Biens constituant des immobilisations"
+    establishment: "Établissement"
+    establishments: "Établissements"
+    estimate: "Devis"
+    estimate_to_order: "Passer le devis en commande"
+    europe_out_export: "Exportations hors CE"
+    events: "Evènements"
+    example: "Exemple\_: %{value}"
+    exchange_rate_from_x_to_y: "Taux de change de %{x} à %{y}"
+    executed: "Réalisé"
+    existing_part: "Utiliser un encaissement non affecté"
+    expedier: "Expéditeur"
+    export: "Exporter"
+    export_backup: "Export d’un fichier de sauvegarde"
+    exportation: "Exportation"
+    extract: "Extraire"
+    fax: "Fax"
+    file_nature: "Type de fichier"
+    file_to_download: "Fichier à importer"
+    file_to_import: "Fichier à importer"
+    file_to_upload: "Fichier à importer"
+    filter: "Filtrer"
+    filter_entries_with: "Filtrer les écritures avec"
+    financial_state: "État financier"
+    finish: "Terminer"
+    finished_income_statement: "Produits"
+    finished_sum: "Total produits d’exploitation"
+    finishes: "Termine par"
+    first_contact: "Adresse principale"
     format_date:
-      iso: (AAAA-MM-JJ)
-    free_purchases: Achats en franchise
-    from: À partir du
-    full_name: Client
-    future_events: Futurs événements
-    genealogy: Généalogie
-    general: Informations générales
-    general_informations: Informations générales
-    general_ledger: Grand livre
-    generate: Générer
-    give_discount: Octroyer une remise
-    go: Valider
-    graph_statistics: Statistiques graphiques
-    group: Groupe
-    help: Aide
-    hint: ! 'Astuce : %{value}'
-    home: Retour à l’accueil de l’aide
+      iso: "(AAAA-MM-JJ)"
+    free_purchases: "Achats en franchise"
+    from: "À partir du"
+    full_name: "Client"
+    future_events: "Futurs événements"
+    genealogy: "Généalogie"
+    general: "Informations générales"
+    general_informations: "Informations générales"
+    general_ledger: "Grand livre"
+    generate: "Générer"
+    give_discount: "Octroyer une remise"
+    go: "Valider"
+    graph_statistics: "Statistiques graphiques"
+    group: "Groupe"
+    help: "Aide"
+    hint: "Astuce\_: %{value}"
+    home: "Retour à l’accueil de l’aide"
     hour_duration:
-      one: ! 'Temps d’utilisation total : %{count} heure'
-      other: ! 'Temps d’utilisation total : %{count} heures'
-    iban: Numéro de compte bancaire internationale (IBAN)
-    identification: Nom et codes du produit
-    import: Importer
-    import_backup: Import de fichier de sauvegarde
-    importation_explanation: Pour confirmer l’importation, vous devez confirmer en
-      cliquant sur Importer.
-    include_blank: ! '--- Aucune organisation ---'
-    income_statement: Comptes de résultats
-    incoming_payment_conditions: Conditions d’encaissement
-    incoming_payment_update: Modifier l’encaissement
-    incoming_payment_use_create: Affecter un encaissement
-    incoming_payments: Encaissements
+      one: "Temps d’utilisation total\_: %{count} heure"
+      other: "Temps d’utilisation total\_: %{count} heures"
+    iban: "Numéro de compte bancaire internationale (IBAN)"
+    identification: "Nom et codes du produit"
+    import: "Importer"
+    import_backup: "Import de fichier de sauvegarde"
+    importation_explanation: "Pour confirmer l’importation, vous devez confirmer en cliquant sur Importer."
+    include_blank: "--- Aucune organisation ---"
+    income_statement: "Comptes de résultats"
+    incoming_payment_conditions: "Conditions d’encaissement"
+    incoming_payment_update: "Modifier l’encaissement"
+    incoming_payment_use_create: "Affecter un encaissement"
+    incoming_payments: "Encaissements"
     incoming_payments_states:
-      all: Tous
-      undeposited: Non remis en banque
-      unparted: Non affectés
-      unreceived: Non reçus
-      waiting: À encaisser plus tard
-    indicator: Tableau de bord
-    info: ! 'Information : %{value}'
-    infos: Information générales
-    insert_actual_password: Saisissez votre mot de passe actuel
-    insert_password: Saisissez votre nouveau mot de passe
-    international_normal_vat_collected: Taux normal à 8,5%
-    international_reduce_vat_collected: Taux réduit à 2,1%
-    international_vat_collected: Opérations réalisées dans les DOM
-    interval: Intervalle personnalisé
-    inventory: Inventaire
-    inventory_print: Imprimer l’inventaire
-    invoiced_amount: Montant facturé
-    invoices_only: Utiliser seulement les factures
-    is: Est
-    journal: Journal
-    journal_detail: Cloturé au %{closed_on}
-    journal_entries: Écritures
-    journal_entries_states: États des écritures utilisées
-    journal_name: ! '%{name}'
-    journal_record_update: Modifier la pièce
-    journal_update: Modifier le journal
+      all: "Tous"
+      undeposited: "Non remis en banque"
+      unparted: "Non affectés"
+      unreceived: "Non reçus"
+      waiting: "À encaisser plus tard"
+    indicator: "Tableau de bord"
+    info: "Information\_: %{value}"
+    infos: "Information générales"
+    insert_actual_password: "Saisissez votre mot de passe actuel"
+    insert_password: "Saisissez votre nouveau mot de passe"
+    international_normal_vat_collected: "Taux normal à 8,5%"
+    international_reduce_vat_collected: "Taux réduit à 2,1%"
+    international_vat_collected: "Opérations réalisées dans les DOM"
+    interval: "Intervalle personnalisé"
+    inventory: "Inventaire"
+    inventory_print: "Imprimer l’inventaire"
+    invoiced_amount: "Montant facturé"
+    invoices_only: "Utiliser seulement les factures"
+    is: "Est"
+    journal: "Journal"
+    journal_detail: "Cloturé au %{closed_on}"
+    journal_entries: "Écritures"
+    journal_entries_states: "États des écritures utilisées"
+    journal_name: "%{name}"
+    journal_record_update: "Modifier la pièce"
+    journal_update: "Modifier le journal"
     journal_view:
-      entries: Écritures
-      lines: Lignes d’écritures
-      mixed: Écritures et lignes
-    journals: Journaux
-    land_parcel_name: Îlot
-    land_parcel_update: Modifier l’îlot
-    land_parcels: Îlots
-    last_animals: Dernières naissances
-    last_computed_balance: Dernière balance calculée
-    last_events: Derniers Evènements
-    last_payment_amount: Montant du dernier encaissement
-    last_payment_date: Date du dernier encaissement
-    left_balance_amount: Report du crédit antérieur non imputé et non remboursé
-    letter: Lettrer
-    letter_conclusion: Veuillez agréer, Chère Madame, Cher Monsieur, l’expression
-      de mes salutations distinguées.
-    letter_function_title: Chère Madame, Cher Monsieur
-    letter_introduction: Suite à notre conversation, je vous communique les éléments
-      du devis.
-    letter_options: Lettre
-    lettering_account_client: Lettrage des comptes clients
-    lettering_account_supplier: Lettrage des comptes fournisseurs
+      entries: "Écritures"
+      lines: "Lignes d’écritures"
+      mixed: "Écritures et lignes"
+    journals: "Journaux"
+    land_parcel_name: "Îlot"
+    land_parcel_update: "Modifier l’îlot"
+    land_parcels: "Îlots"
+    last_animals: "Dernières naissances"
+    last_computed_balance: "Dernière balance calculée"
+    last_events: "Derniers Evènements"
+    last_payment_amount: "Montant du dernier encaissement"
+    last_payment_date: "Date du dernier encaissement"
+    left_balance_amount: "Report du crédit antérieur non imputé et non remboursé"
+    letter: "Lettrer"
+    letter_conclusion: "Veuillez agréer, Chère Madame, Cher Monsieur, l’expression de mes salutations distinguées."
+    letter_function_title: "Chère Madame, Cher Monsieur"
+    letter_introduction: "Suite à notre conversation, je vous communique les éléments du devis."
+    letter_options: "Lettre"
+    lettering_account_client: "Lettrage des comptes clients"
+    lettering_account_supplier: "Lettrage des comptes fournisseurs"
     lettering_modes:
-      attorneys: Mandataires
-      clients: Clients
-      suppliers: Fournisseurs
-      title: Catégories de tiers
-    line: ! 'Ligne n°%{index} :'
-    line_stock: ! 'Lieu de stockage: %{warehouse}, quantité disponible: %{virtual_q}'
-    listing_extract: Éxécuter l’extraction
-    listing_mail: Envoyer un courriel
-    listings: Extractions de données
-    load: Charger
-    load_demo_data: Charger des données de tests
-    locale: Langue
-    localization: Localisation géographique
-    lock: Verrouiller
-    mail: Envoyer un courriel
-    mailing: Mailing
+      attorneys: "Mandataires"
+      clients: "Clients"
+      suppliers: "Fournisseurs"
+      title: "Catégories de tiers"
+    line: "Ligne n°%{index}\_:"
+    line_stock: "Lieu de stockage: %{warehouse}, quantité disponible: %{virtual_q}"
+    listing_extract: "Éxécuter l’extraction"
+    listing_mail: "Envoyer un courriel"
+    listings: "Extractions de données"
+    load: "Charger"
+    load_demo_data: "Charger des données de tests"
+    locale: "Langue"
+    localization: "Localisation géographique"
+    lock: "Verrouiller"
+    mail: "Envoyer un courriel"
+    mailing: "Mailing"
     mails:
-      one: ! '%{count} courriel'
-      other: ! '%{count} courriels'
-      zero: Aucun courriels
-    management: Gestion commerciale
-    management_index: Index de la gestion commerciale
-    mandates_fields: Vous devez saisir au moins une valeur dans l’un des champs
-    mandates_filters: Vous devez saisir au moins une valeur de recherche pour un des
-      champs
-    mandates_new_fields: Vous devez saisir au moins une valeur dans l’un des champs
-      de modification
-    manual_period: du %{start} au %{finish}
-    medical_informations: Informations médicales
-    meeting: Lieu(x) de rencontre
+      one: "%{count} courriel"
+      other: "%{count} courriels"
+      zero: "Aucun courriels"
+    management: "Gestion commerciale"
+    management_index: "Index de la gestion commerciale"
+    mandates_fields: "Vous devez saisir au moins une valeur dans l’un des champs"
+    mandates_filters: "Vous devez saisir au moins une valeur de recherche pour un des champs"
+    mandates_new_fields: "Vous devez saisir au moins une valeur dans l’un des champs de modification"
+    manual_period: "du %{start} au %{finish}"
+    medical_informations: "Informations médicales"
+    meeting: "Lieu(x) de rencontre"
     menus:
-      accountancy: Comptabilité
-      finances: Finances
-      general: Général
-      home: Accueil
-      production: Production
-      purchases: Achats
-      relationship: Tiers
-      sales: Ventes
-      settings: Configuration
-      stocks: Stocks
+      accountancy: "Comptabilité"
+      finances: "Finances"
+      general: "Général"
+      home: "Accueil"
+      production: "Production"
+      purchases: "Achats"
+      relationship: "Tiers"
+      sales: "Ventes"
+      settings: "Configuration"
+      stocks: "Stocks"
       submenus:
-        accounts: Comptes
-        assets: Immobilisations
-        cashes: Trésorerie
-        company: Société
-        entities: Personnes
-        events: Évènements
-        financial_years: Exercices
-        incoming_deliveries: Réceptions
-        incoming_payments: Encaissements
-        informations: Informations
-        journals: Journaux
-        land_parcels: Îlots et travaux
-        mandates: Responsabilités
-        my_account: Mon compte
-        outgoing_deliveries: Expéditions
-        outgoing_payments: Décaissements
-        parameters: Paramètres
-        production_chains: Chaînes de production
-        products: Produits
-        purchases: Achats
-        reporting: États
-        rights: Droits d’accès
-        sales: Ventes
-        stocks: Stocks
-        subscriptions: Abonnements
-        tasks: Tâches
-        tax_declarations: Déclarations de taxes
-        tools: Outils
-      trade: Commerce
-    merge: Fusionner
-    missing_help: Page inexistante
-    mistake_on_quantities_sum: La somme des quantités n’est pas égale à la quantité
-      totale produite
-    mobile: Portable
-    mode: Mode
-    modes: Modes
-    modules: Modules
-    month_period: ! '%{code} - %{month} %{year}'
-    monthly: Mensuelle
-    moved_on: Fait le
-    movement: Mouvements
-    moves: Mouvements de stocks
-    my_company: Saisissez les informations sur votre société
-    my_self: Saisissez les informations vous concernant
-    n: Non
-    name: Nom
-    national_deliveries: Livraisons intracommunautaires
-    national_normal_vat_collected: Taux normal à 19,6%
-    national_reduce_vat_collected: Taux réduit à 5,5%
-    national_vat_collected: Opérations réalisées en France métropolitaine
-    nature: Type
+        accounts: "Comptes"
+        assets: "Immobilisations"
+        cashes: "Trésorerie"
+        company: "Société"
+        entities: "Personnes"
+        events: "Évènements"
+        financial_years: "Exercices"
+        incoming_deliveries: "Réceptions"
+        incoming_payments: "Encaissements"
+        informations: "Informations"
+        journals: "Journaux"
+        land_parcels: "Îlots et travaux"
+        mandates: "Responsabilités"
+        my_account: "Mon compte"
+        outgoing_deliveries: "Expéditions"
+        outgoing_payments: "Décaissements"
+        parameters: "Paramètres"
+        production_chains: "Chaînes de production"
+        products: "Produits"
+        purchases: "Achats"
+        reporting: "États"
+        rights: "Droits d’accès"
+        sales: "Ventes"
+        stocks: "Stocks"
+        subscriptions: "Abonnements"
+        tasks: "Tâches"
+        tax_declarations: "Déclarations de taxes"
+        tools: "Outils"
+      trade: "Commerce"
+    merge: "Fusionner"
+    missing_help: "Page inexistante"
+    mistake_on_quantities_sum: "La somme des quantités n’est pas égale à la quantité totale produite"
+    mobile: "Portable"
+    mode: "Mode"
+    modes: "Modes"
+    modules: "Modules"
+    month_period: "%{code} - %{month} %{year}"
+    monthly: "Mensuelle"
+    moved_on: "Fait le"
+    movement: "Mouvements"
+    moves: "Mouvements de stocks"
+    my_company: "Saisissez les informations sur votre société"
+    my_self: "Saisissez les informations vous concernant"
+    n: "Non"
+    name: "Nom"
+    national_deliveries: "Livraisons intracommunautaires"
+    national_normal_vat_collected: "Taux normal à 19,6%"
+    national_reduce_vat_collected: "Taux réduit à 5,5%"
+    national_vat_collected: "Opérations réalisées en France métropolitaine"
+    nature: "Type"
     nb_mandates:
-      one: ! '%{count} responsabilité enregistrée'
-      other: ! '%{count} responsabilités enregistrées'
-      zero: Aucune responsabilité enregistrée
+      one: "%{count} responsabilité enregistrée"
+      other: "%{count} responsabilités enregistrées"
+      zero: "Aucune responsabilité enregistrée"
     nb_products:
-      one: ! '%{count} produit enregistré'
-      other: ! '%{count} produits enregistrés'
-      zero: Aucun produit enregistré
+      one: "%{count} produit enregistré"
+      other: "%{count} produits enregistrés"
+      zero: "Aucun produit enregistré"
     nb_purchases:
-      one: ! '%{count} achat en attente de reception'
-      other: ! '%{count} achats en attente de reception'
-      zero: Aucun achat en attente de reception
-    nb_years: Nombre d’années dans l’historique
-    need_entities_to_consult_mandates: Vous devez créer des fiches clients/fournisseurs
-      avant
-    need_warehouse_to_create_production: Vous devez créer un lieu de stockage pour
-      pouvoir enregistrer vos productions
-    net_vat_amount: TVA nette due
-    new: Nouveau...
+      one: "%{count} achat en attente de reception"
+      other: "%{count} achats en attente de reception"
+      zero: "Aucun achat en attente de reception"
+    nb_years: "Nombre d’années dans l’historique"
+    need_entities_to_consult_mandates: "Vous devez créer des fiches clients/fournisseurs avant"
+    need_warehouse_to_create_production: "Vous devez créer un lieu de stockage pour pouvoir enregistrer vos productions"
+    net_vat_amount: "TVA nette due"
+    new: "Nouveau..."
     new_deposit:
-      one: ! 'Effectuer une remise : %{mode} (%{count} encaissement disponible)'
-      other: ! 'Effectuer une remise : %{mode} (%{count} encaissements disponibles)'
-      zero: ! 'Effectuer une remise : %{mode} (Pas d’encaissements disponibles)'
-    new_family: Nouvelle famille
-    new_in_line: Ajouter un produit intrant
-    new_organization: Nouvelle organisation
-    new_out_line: Ajouter un produit sortant
-    new_payment: Enregistrer un nouvel encaissement
-    new_purchase_price: Créer un prix d’achat
-    new_reservoir: Ajouter un réservoir
-    new_sale: Nouvelle vente
-    new_sales_price: Ajouter un prix de vente
-    new_title: Nouveau titre
+      one: "Effectuer une remise\_: %{mode} (%{count} encaissement disponible)"
+      other: "Effectuer une remise\_: %{mode} (%{count} encaissements disponibles)"
+      zero: "Effectuer une remise\_: %{mode} (Pas d’encaissements disponibles)"
+    new_family: "Nouvelle famille"
+    new_in_line: "Ajouter un produit intrant"
+    new_organization: "Nouvelle organisation"
+    new_out_line: "Ajouter un produit sortant"
+    new_payment: "Enregistrer un nouvel encaissement"
+    new_purchase_price: "Créer un prix d’achat"
+    new_reservoir: "Ajouter un réservoir"
+    new_sale: "Nouvelle vente"
+    new_sales_price: "Ajouter un prix de vente"
+    new_title: "Nouveau titre"
     new_transport_of_x_deliveries:
-      one: Nouveau transport (%{count} livraison)
-      other: Nouveau transport (%{count} livraisons)
+      one: "Nouveau transport (%{count} livraison)"
+      other: "Nouveau transport (%{count} livraisons)"
     new_transport_of_x_deliveries_for_y:
-      one: Nouveau transport pour %{transporter} (%{count} livraison)
-      other: Nouveau transport pour %{transporter} (%{count} livraisons)
-    new_value: Nouvelle valeur
-    next: Suivant
-    no_commercial: -- Sans commercial --
-    no_contacts: Aucune adresse définie pour %{name}
-    no_deliveries: Aucune livraison en attente
-    no_deliveries_for_this_sale: Cette vente n’est associée à aucune livraison
-    no_deposits: Aucune remise en banque à valider
-    no_filters: ! '--- Pas de filtre ---'
-    no_javascript: Votre navigateur ne supporte pas le javascript. Vous devez l’activer
-      pour pouvoir utiliser le logiciel. Merci de votre compréhension.
-    no_origin: -- Sans origine --
-    no_products: Sans produit
-    no_proposer: -- Sans parrain ni marraine --
-    no_purchases: Aucun achat en attente de reception
-    no_records: Pas d’enregistrements
-    no_results: Aucun résultat
-    no_tracking: Aucun lot
-    no_transfers: Aucun transfert à réaliser
-    normal: Régime du réel normal
-    not_assessable_operations: Opérations non imposables
-    not_begins: Ne commence pas par
-    not_contains: Ne contient pas
-    not_finishes: Ne termine pas par
-    not_is: N’est pas
+      one: "Nouveau transport pour %{transporter} (%{count} livraison)"
+      other: "Nouveau transport pour %{transporter} (%{count} livraisons)"
+    new_value: "Nouvelle valeur"
+    next: "Suivant"
+    no_commercial: "-- Sans commercial --"
+    no_contacts: "Aucune adresse définie pour %{name}"
+    no_deliveries: "Aucune livraison en attente"
+    no_deliveries_for_this_sale: "Cette vente n’est associée à aucune livraison"
+    no_deposits: "Aucune remise en banque à valider"
+    no_filters: "--- Pas de filtre ---"
+    no_javascript: "Votre navigateur ne supporte pas le javascript. Vous devez l’activer pour pouvoir utiliser le logiciel. Merci de votre compréhension."
+    no_origin: "-- Sans origine --"
+    no_products: "Sans produit"
+    no_proposer: "-- Sans parrain ni marraine --"
+    no_purchases: "Aucun achat en attente de reception"
+    no_records: "Pas d’enregistrements"
+    no_results: "Aucun résultat"
+    no_tracking: "Aucun lot"
+    no_transfers: "Aucun transfert à réaliser"
+    normal: "Régime du réel normal"
+    not_assessable_operations: "Opérations non imposables"
+    not_begins: "Ne commence pas par"
+    not_contains: "Ne contient pas"
+    not_finishes: "Ne termine pas par"
+    not_is: "N’est pas"
     notifications:
-      error: Erreur
-      information: Information
-      success: Opération réalisée avec succès
-      warning: Attention!
-    number: Numéro
-    number_options: Options de numérotations
-    on_account: À remettre sur le compte
-    one_condition: au moins une condition
-    operation_lines: Intrants et sortants
-    operation_update: Modifier le travail
-    operation_use_create: Ajouter un matériel
-    operations: Travaux
-    order: Commande
-    order_amount_with_taxes: Montant de la commande
-    order_print: Imprimer la commande
-    other_results: Autres résultats...
-    others: Autre TVA à déduire
-    others_assessable_operations: Autres opérations imposables
-    others_not_assessable_operations: Autres opérations non imposables
-    others_services: Autres biens et services
-    out_vat_amount: Base hors taxe
-    outgoing_payment_update: Modifier le décaissement
-    outgoing_payment_use_create: Payer l’achat
+      error: "Erreur"
+      information: "Information"
+      success: "Opération réalisée avec succès"
+      warning: "Attention!"
+    number: "Numéro"
+    number_options: "Options de numérotations"
+    on_account: "À remettre sur le compte"
+    one_condition: "au moins une condition"
+    operation_lines: "Intrants et sortants"
+    operation_update: "Modifier le travail"
+    operation_use_create: "Ajouter un matériel"
+    operations: "Travaux"
+    order: "Commande"
+    order_amount_with_taxes: "Montant de la commande"
+    order_print: "Imprimer la commande"
+    other_results: "Autres résultats..."
+    others: "Autre TVA à déduire"
+    others_assessable_operations: "Autres opérations imposables"
+    others_not_assessable_operations: "Autres opérations non imposables"
+    others_services: "Autres biens et services"
+    out_vat_amount: "Base hors taxe"
+    outgoing_payment_update: "Modifier le décaissement"
+    outgoing_payment_use_create: "Payer l’achat"
     outgoing_payments_states:
-      all: Tous
-      undelivered: Non délivrés
-      unparted: Non affectés
-      waiting: À décaisser plus tard
-    overflow: CREDIT OU EXCEDENT
-    page_title: ! '%{company_code} - %{menu} - %{action}'
-    page_title_by_default: Ekylibre - %{action}
-    page_title_special: ! '%{company_code} - %{action}'
-    paid_amount: Montant réglé
-    paid_on: Réglé le
-    parameters: Paramètres
-    parts_amount: Montant réglé
-    passive_balance_sheet: Bilan passif
-    passive_capital_sum: Total capitaux
-    passive_debt_sum: Total dettes
-    passive_stock_sum: Total provisions
-    passive_sum: Total passifs
-    password: Mot de passe
-    payback: Remboursement demandée
-    payment_amount: Montant de l’encaissement
-    payment_label: ! '%{number}. %{amount} (%{usable_amount} restants) du %{date}
-      par %{mode} de %{entity}'
-    payment_mode: Mode d’encaissement
-    payment_on: Payé le
-    payment_uses: Décaissements
-    payments: Encaissements
-    payments_amount: Montant réglé
-    payments_count: Nombre de %{mode}
-    payments_number: Nombre de règlements
-    payments_total: Total encaissements
-    period: Période prédéfinie
-    permute: Permuter les fiches
-    personalized_mail: Envoyer un mail personnalisé
-    pertinence: ! '%{value}%'
-    phone: Tél.
-    picture: Photo
-    placeholder: Espace réservé
-    planned_on: Date prévisionnelle
-    play: Éxécuter
-    please_wait: Merci de patienter...
-    preferences: Préférences
-    pretax_amount: Montant HT
-    previous: Précédent
-    previous_bank_statement: Solde du relevé précédent N°%{number}
-    price: Prix
-    price_amount: Prix HT
-    price_amount_with_taxes: Prix TTC
-    prices_export: Exporter vos tarifs au format CSV
-    prices_for_all: Tous les prix
-    prices_for_clients: Les prix de vente
-    prices_for_suppliers: Les prix d’achat du fournisseur
-    prices_import: Importer un fichier CSV
-    print: Imprimer
-    print_on: Le
-    print_with_template: Imprimer %{name}
-    product: Produit
-    product_category: Produits
-    product_category_update: Modifier la catégorie
-    product_name: Produit
+      all: "Tous"
+      undelivered: "Non délivrés"
+      unparted: "Non affectés"
+      waiting: "À décaisser plus tard"
+    overflow: "CREDIT OU EXCEDENT"
+    page_title: "%{company_code} - %{menu} - %{action}"
+    page_title_by_default: "Ekylibre - %{action}"
+    page_title_special: "%{company_code} - %{action}"
+    paid_amount: "Montant réglé"
+    paid_on: "Réglé le"
+    parameters: "Paramètres"
+    parts_amount: "Montant réglé"
+    passive_balance_sheet: "Bilan passif"
+    passive_capital_sum: "Total capitaux"
+    passive_debt_sum: "Total dettes"
+    passive_stock_sum: "Total provisions"
+    passive_sum: "Total passifs"
+    password: "Mot de passe"
+    payback: "Remboursement demandée"
+    payment_amount: "Montant de l’encaissement"
+    payment_label: "%{number}. %{amount} (%{usable_amount} restants) du %{date} par %{mode} de %{entity}"
+    payment_mode: "Mode d’encaissement"
+    payment_on: "Payé le"
+    payment_uses: "Décaissements"
+    payments: "Encaissements"
+    payments_amount: "Montant réglé"
+    payments_count: "Nombre de %{mode}"
+    payments_number: "Nombre de règlements"
+    payments_total: "Total encaissements"
+    period: "Période prédéfinie"
+    permute: "Permuter les fiches"
+    personalized_mail: "Envoyer un mail personnalisé"
+    pertinence: "%{value}%"
+    phone: "Tél."
+    picture: "Photo"
+    placeholder: "Espace réservé"
+    planned_on: "Date prévisionnelle"
+    play: "Éxécuter"
+    please_wait: "Merci de patienter..."
+    preferences: "Préférences"
+    pretax_amount: "Montant HT"
+    previous: "Précédent"
+    previous_bank_statement: "Solde du relevé précédent N°%{number}"
+    price: "Prix"
+    price_amount: "Prix HT"
+    price_amount_with_taxes: "Prix TTC"
+    prices_export: "Exporter vos tarifs au format CSV"
+    prices_for_all: "Tous les prix"
+    prices_for_clients: "Les prix de vente"
+    prices_for_suppliers: "Les prix d’achat du fournisseur"
+    prices_import: "Importer un fichier CSV"
+    print: "Imprimer"
+    print_on: "Le"
+    print_with_template: "Imprimer %{name}"
+    product: "Produit"
+    product_category: "Produits"
+    product_category_update: "Modifier la catégorie"
+    product_name: "Produit"
     product_tabbox:
-      components: Composants
-      prices: Prix
-      stock_moves: Mouvements de stock
-      stocks: Stocks
-    product_update: Modifier la fiche du produit
-    production: Gestion de la production
-    productions: Productions
-    products: Produits
+      components: "Composants"
+      prices: "Prix"
+      stock_moves: "Mouvements de stock"
+      stocks: "Stocks"
+    product_update: "Modifier la fiche du produit"
+    production: "Gestion de la production"
+    productions: "Productions"
+    products: "Produits"
     products_states:
-      active: Actifs
-      all: Tous
-      inactive: Inactifs
-    profitability: Rentabilité
-    purchase: Achat
-    purchase_lines: Lignes de l’achat
+      active: "Actifs"
+      all: "Tous"
+      inactive: "Inactifs"
+    profitability: "Rentabilité"
+    purchase: "Achat"
+    purchase_lines: "Lignes de l’achat"
     purchase_steps:
-      deliveries: Livraisons
-      products: Création de l’achat
-      summary: Décaissements
-    purchase_update: Modifier les informations de la commande
-    purchases: Achats
-    purchases_price_create: Ajouter un prix d’achat
-    quantity: Quantité
-    quantity_rest: Quantité restante
-    quantity_to_credit: Qté. à passer en avoir
-    quarterly: Trimestrielle
-    query: ! 'Requête:'
-    received: Reçue
-    recent_events: Derniers événements
-    recent_historic: Historique récent
-    record_has_been_correctly_removed: L’enregistrement a été supprimé correctement.
-    record_has_not_been_removed: L’enregistrement n’a pu être supprimé.
-    reflect: Refléter
-    refresh: Rafraîchir
-    register: Créer une nouvelle société
-    relationship: Gestion des relations clients/fournisseurs
-    remove_diagnostic: Supprimer un diagnostic
-    remove_treatment: Supprimer un traitement
-    reopen: Déclôturer
-    reopen_journal: Déclôturer le journal
-    report: Informations communes
-    reported_balance: Crédit à reporter
-    reservoir: Réservoir
-    reservoir_informations: Informations sur le réservoir
-    resource: ! 'Consulter la pièce d’origine : %{resource} %{number}'
-    resources: Gestion des ressources humaines
-    rest_to_pay: Reste à payer
-    restore: Restaurer
-    result: Résultat
+      deliveries: "Livraisons"
+      products: "Création de l’achat"
+      summary: "Décaissements"
+    purchase_update: "Modifier les informations de la commande"
+    purchases: "Achats"
+    purchases_price_create: "Ajouter un prix d’achat"
+    quantity: "Quantité"
+    quantity_rest: "Quantité restante"
+    quantity_to_credit: "Qté. à passer en avoir"
+    quarterly: "Trimestrielle"
+    query: "Requête:"
+    received: "Reçue"
+    recent_events: "Derniers événements"
+    recent_historic: "Historique récent"
+    record_has_been_correctly_removed: "L’enregistrement a été supprimé correctement."
+    record_has_not_been_removed: "L’enregistrement n’a pu être supprimé."
+    reflect: "Refléter"
+    refresh: "Rafraîchir"
+    register: "Créer une nouvelle société"
+    relationship: "Gestion des relations clients/fournisseurs"
+    remove_diagnostic: "Supprimer un diagnostic"
+    remove_treatment: "Supprimer un traitement"
+    reopen: "Déclôturer"
+    reopen_journal: "Déclôturer le journal"
+    report: "Informations communes"
+    reported_balance: "Crédit à reporter"
+    reservoir: "Réservoir"
+    reservoir_informations: "Informations sur le réservoir"
+    resource: "Consulter la pièce d’origine\_: %{resource} %{number}"
+    resources: "Gestion des ressources humaines"
+    rest_to_pay: "Reste à payer"
+    restore: "Restaurer"
+    result: "Résultat"
     results:
-      one: ! '%{count} résultat'
-      other: ! '%{count} résultats'
-      zero: Aucun résultat
-    reverse: Appliquer la condition inverse
+      one: "%{count} résultat"
+      other: "%{count} résultats"
+      zero: "Aucun résultat"
+    reverse: "Appliquer la condition inverse"
     right_modules:
-      accountancy: Droits module Comptabilité
-      company: Droits module Société
-      finances: Droits module Finances
-      management: Droits module Commerce
-      production: Droits module Production
-      relationship: Droits module Relations
-      resources: Droits module Ressources
-    rights: Droits
-    role: Rôle
-    role_name: Entrez le nom du rôle puis attribuez lui ses droits
-    roles: Rôles
-    running_cost: Charges d’exploitation
-    running_finished: Produits d’exploitation
-    sale: Vente
-    sale_cancel: Faire un avoir sur la facture
-    sale_deliveries: Livraisons
-    sale_line_create: Ajouter un produit au devis (Mode complet)
-    sale_lines: Lignes de la vente
-    sale_update: Modifier les informations du devis
-    sales: Ventes
-    sales_conditions: Conditions de vente
-    sales_invoice: Facture
-    sales_invoice_lines: Lignes de la facture
-    sales_invoice_number: Numéro de facture
-    sales_invoice_print: Imprimer la facture
-    sales_invoice_sale: Facturer la vente
-    sales_invoices: Factures
+      accountancy: "Droits module Comptabilité"
+      company: "Droits module Société"
+      finances: "Droits module Finances"
+      management: "Droits module Commerce"
+      production: "Droits module Production"
+      relationship: "Droits module Relations"
+      resources: "Droits module Ressources"
+    rights: "Droits"
+    role: "Rôle"
+    role_name: "Entrez le nom du rôle puis attribuez lui ses droits"
+    roles: "Rôles"
+    running_cost: "Charges d’exploitation"
+    running_finished: "Produits d’exploitation"
+    sale: "Vente"
+    sale_cancel: "Faire un avoir sur la facture"
+    sale_deliveries: "Livraisons"
+    sale_line_create: "Ajouter un produit au devis (Mode complet)"
+    sale_lines: "Lignes de la vente"
+    sale_update: "Modifier les informations du devis"
+    sales: "Ventes"
+    sales_conditions: "Conditions de vente"
+    sales_invoice: "Facture"
+    sales_invoice_lines: "Lignes de la facture"
+    sales_invoice_number: "Numéro de facture"
+    sales_invoice_print: "Imprimer la facture"
+    sales_invoice_sale: "Facturer la vente"
+    sales_invoices: "Factures"
     sales_invoices_states:
-      all: Toutes
-      cancelled: Passées en avoir
-      credits: Avoirs
-    sales_invoices_total: Total factures
-    sales_price_create: Ajouter un prix de vente
+      all: "Toutes"
+      cancelled: "Passées en avoir"
+      credits: "Avoirs"
+    sales_invoices_total: "Total factures"
+    sales_price_create: "Ajouter un prix de vente"
     sales_states:
-      all: Toutes
-      current: En cours
-      unpaid: Impayées
+      all: "Toutes"
+      current: "En cours"
+      unpaid: "Impayées"
     sales_steps:
-      deliveries: Planification des livraisons
-      estimate: Création du devis
-      general: Description
-      products: Produits
-      summary: Facture et encaissements
-    save: Enregistrer
-    save_in_draft: Sauvegarder dans le brouillard
-    scheduled: Échéance
-    search: Rechercher
-    search_account: Rechercher un compte
-    search_for_available_prices: ! '%{code} - %{name}%s: %{pretax_amount}/%{amount}
-      (HT/TTC)'
-    search_go: Lancer la recherche
-    search_sales: Rechercher des ventes
-    second_contact: Adresse secondaire
-    second_warehouse_name: Entrée de
-    select_account_client: Compte à lettrer
-    select_account_supplier: Compte à lettrer
-    select_area: Zone postale
-    select_closure_date: Choisissez la date de clôture
-    select_columns: Cochez les colonnes que vous voulez voir apparaitre dans le tableau.
-    select_date: Entrez une date
-    select_date_generation: Date limite d’intégration
-    select_document: Sélectionnez un document
-    select_existing_payment: Sélectionner un encaissement existant
-    select_file_to_upload: Sélectionnez le fichier à importer
-    select_financial_year: Exercice
-    select_number: Entrez un numéro
-    select_number_or_date: Entrez un numéro ou une date
-    select_organization: Organisation
-    select_renew_journal: Journal utilisé pour les reports à nouveaux
-    select_warehouse: Sélectionnez un lieu de stockage
-    send: Envoyer le mail
-    send_test: Envoyer un mail de test
-    sequences_load: Charger les séquences manquantes
-    set_reconcilable_new_but_existing_third_accounts: Rendre lettrables les nouveaux
-      comptes tiers déjà existants
-    ship: Prévue le
-    simplified: Régime du réel simplifié
-    source: Source de données
-    start: Du
-    state: État
-    stock_max: Stock maximum
-    stock_min: Stock minimum
-    stocks: Stocks
-    stocks_preferences: Gestion des stocks
-    stop: Jusqu’au
-    string_case: Options pour le texte
-    subject: Sujet
-    submit: Envoyer
-    subscriber_period: Abonné(e) le %{subscribed_on}
-    subscriber_quantity: Abonné(e) au numéro %{subscribed_on}
-    subscription_nature: Type d’abonnement
-    subscription_natures_down: Décrémenter le numéro actuel (-1)
-    subscription_natures_up: Incrémenter le numéro actuel (+1)
-    subscriptions: Abonnements
-    subtitle: Informations générales
-    subtotal: Sous-total %{name}
-    subtotals_at_level: Sous-totaux aux niveaux
-    supplier: Fournisseur
-    supplier_code: Code fournisseur
-    supplier_informations: Informations fournisseur
-    supply: Livraison
-    synthesis: Documents de synthèse
-    target: Cible
-    tax_declaration_create: Ajouter une nouvelle déclaration
-    theoric_quantity: Quantité théorique
-    third_informations: Informations tierces
-    to: Au
-    to_bank_on: À encaisser le
-    to_date: Au
-    to_deliver: Livrer
-    to_deposit: À encaisser
-    tool_update: Modifier le matériel
-    tools: Matériel utilisé
-    tools_list: Matériel
-    total: Total
-    total_amount: Montant total HT
-    total_in_currency: Total (%{currency})
-    total_invoiced_amount: Total montant facturé
-    total_paid_amount: Montant total payé
-    total_quantity: Quantité totale
-    total_unpaid_amount: Montant total impayé
-    totals: Totaux (pièces validées et brouillard)
-    tracking: Lot
-    transfer: Effectuer les transferts
-    transport: Transport
-    transport_deliveries: Livraisons du transport
+      deliveries: "Planification des livraisons"
+      estimate: "Création du devis"
+      general: "Description"
+      products: "Produits"
+      summary: "Facture et encaissements"
+    save: "Enregistrer"
+    save_in_draft: "Sauvegarder dans le brouillard"
+    scheduled: "Échéance"
+    search: "Rechercher"
+    search_account: "Rechercher un compte"
+    search_for_available_prices: "%{code} - %{name}%s: %{pretax_amount}/%{amount} (HT/TTC)"
+    search_go: "Lancer la recherche"
+    search_sales: "Rechercher des ventes"
+    second_contact: "Adresse secondaire"
+    second_warehouse_name: "Entrée de"
+    select_account_client: "Compte à lettrer"
+    select_account_supplier: "Compte à lettrer"
+    select_area: "Zone postale"
+    select_closure_date: "Choisissez la date de clôture"
+    select_columns: "Cochez les colonnes que vous voulez voir apparaitre dans le tableau."
+    select_date: "Entrez une date"
+    select_date_generation: "Date limite d’intégration"
+    select_document: "Sélectionnez un document"
+    select_existing_payment: "Sélectionner un encaissement existant"
+    select_file_to_upload: "Sélectionnez le fichier à importer"
+    select_financial_year: "Exercice"
+    select_number: "Entrez un numéro"
+    select_number_or_date: "Entrez un numéro ou une date"
+    select_organization: "Organisation"
+    select_renew_journal: "Journal utilisé pour les reports à nouveaux"
+    select_warehouse: "Sélectionnez un lieu de stockage"
+    send: "Envoyer le mail"
+    send_test: "Envoyer un mail de test"
+    sequences_load: "Charger les séquences manquantes"
+    set_reconcilable_new_but_existing_third_accounts: "Rendre lettrables les nouveaux comptes tiers déjà existants"
+    ship: "Prévue le"
+    simplified: "Régime du réel simplifié"
+    source: "Source de données"
+    start: "Du"
+    state: "État"
+    stock_max: "Stock maximum"
+    stock_min: "Stock minimum"
+    stocks: "Stocks"
+    stocks_preferences: "Gestion des stocks"
+    stop: "Jusqu’au"
+    string_case: "Options pour le texte"
+    subject: "Sujet"
+    submit: "Envoyer"
+    subscriber_period: "Abonné(e) le %{subscribed_on}"
+    subscriber_quantity: "Abonné(e) au numéro %{subscribed_on}"
+    subscription_nature: "Type d’abonnement"
+    subscription_natures_down: "Décrémenter le numéro actuel (-1)"
+    subscription_natures_up: "Incrémenter le numéro actuel (+1)"
+    subscriptions: "Abonnements"
+    subtitle: "Informations générales"
+    subtotal: "Sous-total %{name}"
+    subtotals_at_level: "Sous-totaux aux niveaux"
+    supplier: "Fournisseur"
+    supplier_code: "Code fournisseur"
+    supplier_informations: "Informations fournisseur"
+    supply: "Livraison"
+    synthesis: "Documents de synthèse"
+    target: "Cible"
+    tax_declaration_create: "Ajouter une nouvelle déclaration"
+    theoric_quantity: "Quantité théorique"
+    third_informations: "Informations tierces"
+    to: "Au"
+    to_bank_on: "À encaisser le"
+    to_date: "Au"
+    to_deliver: "Livrer"
+    to_deposit: "À encaisser"
+    tool_update: "Modifier le matériel"
+    tools: "Matériel utilisé"
+    tools_list: "Matériel"
+    total: "Total"
+    total_amount: "Montant total HT"
+    total_in_currency: "Total (%{currency})"
+    total_invoiced_amount: "Total montant facturé"
+    total_paid_amount: "Montant total payé"
+    total_quantity: "Quantité totale"
+    total_unpaid_amount: "Montant total impayé"
+    totals: "Totaux (pièces validées et brouillard)"
+    tracking: "Lot"
+    transfer: "Effectuer les transferts"
+    transport: "Transport"
+    transport_deliveries: "Livraisons du transport"
     transport_states:
-      all: Tous
-      making: En cours
-      ready: Prêts
-      shipped: Expédié
-      waiting: En attente
-    treatment: Traitement
-    undelivered: Reste à livrer
-    undeposited: Non remis en banque
-    uninvoiced_amount: Montant non facturé
-    unit: Unité
-    unit_price_amount: PU HT
-    unit_price_amount_with_taxes: PU TTC
-    units_load: Charger les unités de base manquantes
-    unknown_condition: Type de condition inconnue
-    unlock: Déverrouiller
-    unpaid: Impayées
-    unpaid_amount: Montant restant à payer
-    unpaid_days: À payer depuis (jours)
-    unpaid_sales: Ventes impayées
-    unpaid_sales_export: Exporter la liste des ventes impayées au format csv
-    unparted: Non affectés
-    unreceived: Non reçus
-    unset_reconcilable_old_third_accounts: Rendre non-lettrables les anciens comptes
-      tiers
-    unused_payment: Encaissement à utiliser
-    unvalid_date: Date incorrecte
-    unvalidated_operations: Travaux non validés
-    up: Monter
-    update: Modifier
-    update_params: Modifier la recherche
-    usage: Utilisation
-    use_incoming_payment: Rattacher l’encaissement %{payment}
-    use_renew: Sélectionnez un journal pour reporter les à nouveaux
-    used_accounts: Comptes utilisés seulement
-    user_name: Nom d’utilisateur
-    user_update: Modifier les informations de l’utilisateur
-    users: Compte utilisateur
-    uses: Matériel
-    valid: Valider
-    validate: Valider
-    validate_selected_entries: Valider les écritures sélectionnées
-    vat: Taxe à payer
-    vat_acquisitions: Acquisitions intracommunautaires
-    vat_amount: Taxe due
-    vat_collected: TVA BRUTE
-    vat_paid: TVA DEDUCTIBLE
-    view: Affichage
+      all: "Tous"
+      making: "En cours"
+      ready: "Prêts"
+      shipped: "Expédié"
+      waiting: "En attente"
+    treatment: "Traitement"
+    undelivered: "Reste à livrer"
+    undeposited: "Non remis en banque"
+    uninvoiced_amount: "Montant non facturé"
+    unit: "Unité"
+    unit_price_amount: "PU HT"
+    unit_price_amount_with_taxes: "PU TTC"
+    units_load: "Charger les unités de base manquantes"
+    unknown_condition: "Type de condition inconnue"
+    unlock: "Déverrouiller"
+    unpaid: "Impayées"
+    unpaid_amount: "Montant restant à payer"
+    unpaid_days: "À payer depuis (jours)"
+    unpaid_sales: "Ventes impayées"
+    unpaid_sales_export: "Exporter la liste des ventes impayées au format csv"
+    unparted: "Non affectés"
+    unreceived: "Non reçus"
+    unset_reconcilable_old_third_accounts: "Rendre non-lettrables les anciens comptes tiers"
+    unused_payment: "Encaissement à utiliser"
+    unvalid_date: "Date incorrecte"
+    unvalidated_operations: "Travaux non validés"
+    up: "Monter"
+    update: "Modifier"
+    update_params: "Modifier la recherche"
+    usage: "Utilisation"
+    use_incoming_payment: "Rattacher l’encaissement %{payment}"
+    use_renew: "Sélectionnez un journal pour reporter les à nouveaux"
+    used_accounts: "Comptes utilisés seulement"
+    user_name: "Nom d’utilisateur"
+    user_update: "Modifier les informations de l’utilisateur"
+    users: "Compte utilisateur"
+    uses: "Matériel"
+    valid: "Valider"
+    validate: "Valider"
+    validate_selected_entries: "Valider les écritures sélectionnées"
+    vat: "Taxe à payer"
+    vat_acquisitions: "Acquisitions intracommunautaires"
+    vat_amount: "Taxe due"
+    vat_collected: "TVA BRUTE"
+    vat_paid: "TVA DEDUCTIBLE"
+    view: "Affichage"
     view_modes:
-      printable: Mode « Imprimable »
-      resized: Mode « Tout à l’écran »
-    virtual_quantity: Quantité virtuelle
-    warehouse: Lieu de stockage
-    warehouse_name: Sortie de
+      printable: "Mode «\_Imprimable\_»"
+      resized: "Mode «\_Tout à l’écran\_»"
+    virtual_quantity: "Quantité virtuelle"
+    warehouse: "Lieu de stockage"
+    warehouse_name: "Sortie de"
     warehouse_tabbox:
-      stock_moves: Mouvements de stock
-      stocks: Stocks
-    warehouse_update: Modifier le lieu de stockage
-    warehouses: Voir la liste des lieux de stockage
-    weight: Poids
-    with_assets_depreciations: Inclure les amortissements des immobilisations
-    with_prints: Inclure les impressions (factures, commandes...)
+      stock_moves: "Mouvements de stock"
+      stocks: "Stocks"
+    warehouse_update: "Modifier le lieu de stockage"
+    warehouses: "Voir la liste des lieux de stockage"
+    weight: "Poids"
+    with_assets_depreciations: "Inclure les amortissements des immobilisations"
+    with_prints: "Inclure les impressions (factures, commandes...)"
     x_cashes:
-      one: 1 compte bancaire
-      other: ! '%{count} comptes bancaires'
-      zero: 0 compte bancaire
+      one: "1 compte bancaire"
+      other: "%{count} comptes bancaires"
+      zero: "0 compte bancaire"
     x_contacts:
-      one: ! '%{count} contact'
-      other: ! '%{count} contacts'
-      zero: 0 contact
+      one: "%{count} contact"
+      other: "%{count} contacts"
+      zero: "0 contact"
     x_depositable_payments:
-      one: ! '%{count} encaissement à encaisser depuis au moins 15 j.'
-      other: ! '%{count} encaissement à encaisser depuis au moins 15 j.'
-      zero: Aucun encaissement à encaisser depuis au moins 15 j.
+      one: "%{count} encaissement à encaisser depuis au moins 15 j."
+      other: "%{count} encaissement à encaisser depuis au moins 15 j."
+      zero: "Aucun encaissement à encaisser depuis au moins 15 j."
     x_deposits_to_validate:
-      one: ! '%{count} remise en banque à valider'
-      other: ! '%{count} remises en banque à valider'
-      zero: Aucune remise en banque à valider
+      one: "%{count} remise en banque à valider"
+      other: "%{count} remises en banque à valider"
+      zero: "Aucune remise en banque à valider"
     x_entities:
-      one: ! '%{count} fiche client/fournisseur'
-      other: ! '%{count} fiches clients/fournisseurs'
-      zero: Aucune fiche clients/fournisseurs
+      one: "%{count} fiche client/fournisseur"
+      other: "%{count} fiches clients/fournisseurs"
+      zero: "Aucune fiche clients/fournisseurs"
     x_entity_links:
-      one: ! '%{count} lien'
-      other: ! '%{count} liens'
-      zero: 0 lien
+      one: "%{count} lien"
+      other: "%{count} liens"
+      zero: "0 lien"
     x_events:
-      one: ! '%{count} évènement'
-      other: ! '%{count} évènements'
-      zero: 0 évènement
+      one: "%{count} évènement"
+      other: "%{count} évènements"
+      zero: "0 évènement"
     x_events_of_nature_y:
-      one: ! ' %{count} évènement de type %{nature} d’une durée de %{duration} minutes'
-      other: ! ' %{count} évènements de type %{nature} pour une durée totale de %{duration}
-        minutes'
-      zero: ! ' Aucun événement de type %{nature}'
+      one: " %{count} évènement de type %{nature} d’une durée de %{duration} minutes"
+      other: " %{count} évènements de type %{nature} pour une durée totale de %{duration} minutes"
+      zero: " Aucun événement de type %{nature}"
     x_incoming_payments:
-      one: ! '%{count} encaissement'
-      other: ! '%{count} encaissements'
-      zero: 0 encaissement
+      one: "%{count} encaissement"
+      other: "%{count} encaissements"
+      zero: "0 encaissement"
     x_items_remain_on_y:
-      one: ! '%{count} élément restant.'
-      other: ! '%{count} éléments non visibles. Affinez votre recherche.'
+      one: "%{count} élément restant."
+      other: "%{count} éléments non visibles. Affinez votre recherche."
     x_journal_entries:
-      one: ! '%{count} écriture'
-      other: ! '%{count} écritures'
-      zero: Aucune écriture
+      one: "%{count} écriture"
+      other: "%{count} écritures"
+      zero: "Aucune écriture"
     x_mandates:
-      one: ! '%{count} responsabilité'
-      other: ! '%{count} responsabilités '
-      zero: 0 responsabilité
+      one: "%{count} responsabilité"
+      other: "%{count} responsabilités "
+      zero: "0 responsabilité"
     x_observations:
-      one: ! '%{count} observation'
-      other: ! '%{count} observations'
-      zero: 0 observation
+      one: "%{count} observation"
+      other: "%{count} observations"
+      zero: "0 observation"
     x_operations:
-      one: ! '%{count} travail'
-      other: ! '%{count} travaux'
-      zero: Aucun travail
+      one: "%{count} travail"
+      other: "%{count} travaux"
+      zero: "Aucun travail"
     x_outgoing_payments:
-      one: ! '%{count} décaissement'
-      other: ! '%{count} décaissements'
-      zero: 0 décaissement
+      one: "%{count} décaissement"
+      other: "%{count} décaissements"
+      zero: "0 décaissement"
     x_performed_operations:
-      one: ! '%{count} travail à réaliser'
-      other: ! '%{count} travaux à réaliser'
-      zero: Aucun travail à réaliser
+      one: "%{count} travail à réaliser"
+      other: "%{count} travaux à réaliser"
+      zero: "Aucun travail à réaliser"
     x_prices:
-      one: ! '%{count} prix'
-      other: ! '%{count} prix'
-      zero: 0 prix
+      one: "%{count} prix"
+      other: "%{count} prix"
+      zero: "0 prix"
     x_purchases:
-      one: ! '%{count} achat'
-      other: ! '%{count} achats'
-      zero: 0 achat
+      one: "%{count} achat"
+      other: "%{count} achats"
+      zero: "0 achat"
     x_sales:
-      one: ! '%{count} vente'
-      other: ! '%{count} ventes'
-      zero: 0 vente
+      one: "%{count} vente"
+      other: "%{count} ventes"
+      zero: "0 vente"
     x_sales_invoices:
-      one: ! '%{count} facture'
-      other: ! '%{count} factures'
-      zero: 0 facture
+      one: "%{count} facture"
+      other: "%{count} factures"
+      zero: "0 facture"
     x_stock_transfers_to_confirm:
-      one: ! '%{count} transfert à effectuer'
-      other: ! '%{count} transferts à effectuer'
-      zero: Aucun transfert à effectuer
+      one: "%{count} transfert à effectuer"
+      other: "%{count} transferts à effectuer"
+      zero: "Aucun transfert à effectuer"
     x_subscriptions:
-      one: ! '%{count} abonnement'
-      other: ! '%{count} abonnements'
-      zero: 0 abonnement
-    x_unit: ! '%{quantity}%{unit}'
-    x_unit_of_product_per_second: ! '%{quantity}%{unit}/s de %{product}'
-    x_unit_per_second: ! 'Débit: %{quantity}%{unit}/s'
-    x_units_of_product_y: ! '%{quantity}%{unit} de %{product}'
+      one: "%{count} abonnement"
+      other: "%{count} abonnements"
+      zero: "0 abonnement"
+    x_unit: "%{quantity}%{unit}"
+    x_unit_of_product_per_second: "%{quantity}%{unit}/s de %{product}"
+    x_unit_per_second: "Débit: %{quantity}%{unit}/s"
+    x_units_of_product_y: "%{quantity}%{unit} de %{product}"
     x_waiting_incoming_deliveries:
-      one: ! '%{count} livraison entrante en attente'
-      other: ! '%{count} livraisons entrantes en attente'
+      one: "%{count} livraison entrante en attente"
+      other: "%{count} livraisons entrantes en attente"
     x_waiting_outgoing_deliveries:
-      one: ! '%{count} livraison sortante en attente'
-      other: ! '%{count} livraisons sortantes en attente'
-    y: Oui
-    yearly: Annuelle
+      one: "%{count} livraison sortante en attente"
+      other: "%{count} livraisons sortantes en attente"
+    y: "Oui"
+    yearly: "Annuelle"
   notifications:
-    access_denied: Vous n’avez pas le droit d’accéder à cette page. %{reason} (%{url})
-    bad_file: Le fichier ne semble pas correspondre.
-    bookkeeping_is_finished: La bascule en comptabilité est finie.
-    bookkeeping_works_only_with: ! 'La bascule en comptabilité ne peut se faire actuellement
-      que pour : %{list}.'
-    cannot_delete_entity: Il n’est pas possible de supprimer cette fiche car elle
-      possède un historique comptable
-    cannot_find_document_template: Impossible de trouver le modèle de document
-    cannot_mark_entry_lines: Impossible de lettrer ces lignes d’écritures ensemble
-    cannot_merge_an_entity_with_itself: Il n’est pas possible de fusionner une fiche
-      avec elle-même
-    cannot_merge_entities: Une erreur est survenue. Il n’est pas possible de fusionner
-      ces fiches.
-    changes_have_been_reflected: Les changements ont été correctement répercutés sur
-      l’état des stocks actuel
-    changes_have_not_been_reflected: Les changements n’ont pas pu être correctement
-      répercutés sur l’état des stocks actuel
-    closed_financial_years: L’exercice a été correctement clôturé
-    columns_are_already_uses: Une ou plusieurs colonnes à importer sont sélectionnées
-      plusieurs fois
-    draft_entry_lines_are_validated:
-      one: ! '%{count} ligne de brouillard validée'
-      other: ! '%{count} lignes de brouillard validées'
-      zero: Aucune ligne de brouillard validée
-    entity_columns_are_needed: Vous devez spécifier au moins une colonne pour la personne
-      et notamment son nom de famille/dénomination sociale.
-    exception_raised: ! 'Une erreur est survenue durant le traitement : %{message}'
-    expired_session: Session expirée. Veuillez vous reconnecter.
-    fails_to_extract_listing: ! 'L’extraction n’a pas pu s’effectuer : %{message}'
-    import_succeeded: Vos données ont été correctement importées
-    importation_cancelled: Vos données n’ont été pas été importées. L’importation
-      a été annulée
-    importation_finished: L’importation est terminée.
-    impossible_to_add_lines: Vous ne pouvez plus ajouter de produits à votre vente,
-      le devis est passé en commande
-    impossible_to_add_lines_to_purchase: Vous ne pouvez plus ajouter de produits à
-      votre achat
-    invalid_file_nature: Type de fichier invalide
-    journal_closed_on: Le %{journal} a été clôturé au %{closed_on} correctement.
-    journal_entry_already_validated: La pièce a déjà été validée et ne peut plus être
-      modifiée
-    journal_entry_has_been_saved: La pièce N°%{number} a été enregistrée correctement
-    journal_entry_lines_marked_with_letter: Les lignes d’écritures ont été lettrées
-      avec la lettre %{letter}
-    journal_reopened_on: Le %{journal} a été déclôturé au %{closed_on} correctement.
-    mails_are_sent: Les courriels ont été envoyés
-    need_balanced_journal_to_tax_declaration: Tous vos journaux doivent être clôturés
-      et équilibrés à cette date.
-    need_cash_to_record_statements: Vous devez avoir au moins créer un compte bancaire
-      pour pouvoir saisir un relevé de compte.
-    need_closed_financial_year_to_declaration: Vous devez avoir un exercice clôturé
-      pour créer une déclaration de TVA.
-    need_company_code_to_login: Vous devez sélectionner votre société pour pouvoir
-      vous connecter avec ce nom d’utilisateur
-    need_entries_to_point: Aucune écriture n’a été trouvé pour la période du relevé
-      bancaire.
-    need_journal_to_manage_tax_declaration: Vous devez avoir au moins un journal des
-      opérations diverses et un journal de vente ou d’achat pour pouvoir enregistrer
-      des déclarations de taxes.
-    need_payment_mode_to_create_deposit: Vous devez spécifier un mode de réglement
-      pour effectuer une remise en banque
-    need_quantities_to_cancel_an_sale: Vous devez spécifier une quantité pour pouvoir
-      faire un avoir
-    need_stocks_to_create_inventories: Vous devez gérer les stocks d’au moins un produit
-      pour pouvoir faire un inventaire
-    need_stocks_warehouse_to_create_products: Vous devez créer un lieu de stockage
-      pour pouvoir créer un produit
-    need_to_create_subscription_nature: Vous devez créer un type d’abonnement pour
-      pouvoir gérer vos abonnements
-    need_warehouse_to_create_purchase_line: Vous devez créer un lieu de stockage pour
-      pouvoir réaliser un achat
-    need_warehouse_to_create_sale_line: Vous devez créer un lieu de stockage pour
-      pouvoir réaliser une vente
-    need_warehouse_to_record_stock_moves: Pour pouvoir gérer vos stocks vous devez
-      enregistrer vos lieux de stockage.
-    new_actual_number: Le nouveau numéro en cours est %{actual_number}
-    no_authenticated: Vous n’avez pas pu être identifié. Le nom d’utilisateur ou le
-      mot de passe doit être incorrect.
-    no_balance_template: Pas de modèle de document pour la balance
-    no_closable_financial_year: Vous n’avez aucun exercice à clôturer.
-    no_closable_journal: Vous ne pouvez pas clôturer ce journal.
-    no_depositable_payments: Il n’y a pas de réglements à remettre en banque
-    no_existing_mandates: Il n’y a pas de responsabilités enregistrées pour l’instant
-    no_financial_year: Aucun exercice enregistré
-    no_lines_found: ! 'Aucun pruduit n’a été ajouté à la commande '
-    no_payment_to_deposit: Aucun règlement à encaisser
-    no_reopenable_journal: Vous ne pouvez pas déclôturer ce journal.
-    no_stocks: Vous n’avez aucun stock. Si vous désirez gérer le stock d’un produit,
-      veuillez cocher l’option « Gérer les stocks » dans les caractéristiques de votre
-      produit.
-    no_template_journal: Pas de modèle journal
-    no_template_journal_by_id: Pas de modèle journal
-    no_unconfirmed_stock_transfers: Aucun transfert de stocks non-confirmé
-    no_unvalidated_operations: Aucun travail à réaliser
-    no_warehouse: Aucun lieu de stockage n’est défini. Veuillez en créer un pour pouvoir
-      gérer vos stocks
-    password_successfully_changed: Votre mot de passe a été mis à jour avec succès
-    prices_import_succeeded: Vos données ont été correctement importées
-    print_failure: Impossible d’imprimer. Essayer de recharger les modèles de documents
-      pour corriger le problème. %{error} (%{class}).
-    purchase_already_invoiced: Achat déjà facturé
-    record_cannot_be_removed: L’enregistrement ne peut pas être supprimé
-    record_has_been_correctly_removed: L’enregistrement a été supprimé correctement
-    record_has_not_been_removed: L’enregistrement n’a pas être supprimé correctement
-    restoration_finished: La restauration de la sauvegarde s’est terminée (en %{value}
-      secondes).
-    sale_already_invoiced: ! 'La vente a déjà été facturée: vous ne pouvez pas définir
-      de livraison'
-    sale_cannot_be_updated: Le devis n’est plus modifiable.
-    sale_cant_be_deleted: La vente ne peut plus être supprimée
-    select_entry_lines_to_mark_together: Sélectionnez des lignes d’écritures à lettrer
-      ensemble
-    specify_filter: Vous choisir appliquer au moins un filtre de recherche
-    specify_updates: Vous devez spécifier au moins un champ à modifier
-    unavailable_model: ! '%{model} indisponible ou inexistante (%{id})'
-    unknown_action: La page demandée est indisponible (%{url})
-    unknown_company: Société inconnue
-    unvalid_version_for_restore: La version du logiciel utilisé pour effectuer la
-      sauvegarde ne correspond pas à la version actuelle du logiciel
-    update_is_done: La mise à jour a été effectuée
-    validates_old_inventories: Il est conseillé de supprimer ou de valider les inventaires
-      non validés avant d’en faire un nouveau
-    x_unpointed_journal_entry_lines:
-      one: Il y a une écriture à pointer
-      other: Il y a %{count} écritures à pointer
-      zero: Il n’y a pas d’écritures à pointer pour l’instant
-    you_must_have_an_email_column: Vous devez avoir une colonne Email dans votre extraction
-    you_must_select_a_file_to_import: Vous devez sélectionner un fichier à importer
-    you_will_lose_all_your_current_data: Si vous continuez, vous allez perdre toutes
-      vos données en cours de saisie. Voulez-vous poursuivre ?
+    access_denied: "Vous n’avez pas le droit d’accéder à cette page. %{reason} (%{url})"
+    bad_file: "Le fichier ne semble pas correspondre."
+    bookkeeping_is_finished: "La bascule en comptabilité est finie."
+    bookkeeping_works_only_with: "La bascule en comptabilité ne peut se faire actuellement que pour\_: %{list}."
+    cannot_delete_entity: "Il n’est pas possible de supprimer cette fiche car elle possède un historique comptable"
+    cannot_find_document_template: "Impossible de trouver le modèle de document"
+    cannot_mark_entry_lines: "Impossible de lettrer ces lignes d’écritures ensemble"
+    cannot_merge_an_entity_with_itself: "Il n’est pas possible de fusionner une fiche avec elle-même"
+    cannot_merge_entities: "Une erreur est survenue. Il n’est pas possible de fusionner ces fiches."
+    changes_have_been_reflected: "Les changements ont été correctement répercutés sur l’état des stocks actuel"
+    changes_have_not_been_reflected: "Les changements n’ont pas pu être correctement répercutés sur l’état des stocks actuel"
+    closed_financial_years: "L’exercice a été correctement clôturé"
+    columns_are_already_uses: "Une ou plusieurs colonnes à importer sont sélectionnées plusieurs fois"
+    draft_entry_lines_are_validated: 
+      one: "%{count} ligne de brouillard validée"
+      other: "%{count} lignes de brouillard validées"
+      zero: "Aucune ligne de brouillard validée"
+    entity_columns_are_needed: "Vous devez spécifier au moins une colonne pour la personne et notamment son nom de famille/dénomination sociale."
+    exception_raised: "Une erreur est survenue durant le traitement\_: %{message}"
+    expired_session: "Session expirée. Veuillez vous reconnecter."
+    fails_to_extract_listing: "L’extraction n’a pas pu s’effectuer\_: %{message}"
+    import_succeeded: "Vos données ont été correctement importées" #?
+    importation_cancelled: "Vos données n’ont été pas été importées. L’importation a été annulée"
+    importation_finished: "L’importation est terminée."
+    impossible_to_add_lines: "Vous ne pouvez plus ajouter de produits à votre vente, le devis est passé en commande"
+    impossible_to_add_lines_to_purchase: "Vous ne pouvez plus ajouter de produits à votre achat"
+    invalid_file_nature: "Type de fichier invalide"
+    journal_closed_on: "Le %{journal} a été clôturé au %{closed_on} correctement."
+    journal_entry_already_validated: "La pièce a déjà été validée et ne peut plus être modifiée"
+    journal_entry_has_been_saved: "La pièce N°%{number} a été enregistrée correctement"
+    journal_entry_lines_marked_with_letter: "Les lignes d’écritures ont été lettrées avec la lettre %{letter}"
+    journal_reopened_on: "Le %{journal} a été déclôturé au %{closed_on} correctement."
+    mails_are_sent: "Les courriels ont été envoyés"
+    need_balanced_journal_to_tax_declaration: "Tous vos journaux doivent être clôturés et équilibrés à cette date." #?
+    need_cash_to_record_statements: "Vous devez avoir au moins créer un compte bancaire pour pouvoir saisir un relevé de compte."
+    need_closed_financial_year_to_declaration: "Vous devez avoir un exercice clôturé pour créer une déclaration de TVA." #?
+    need_company_code_to_login: "Vous devez sélectionner votre société pour pouvoir vous connecter avec ce nom d’utilisateur" #?
+    need_entries_to_point: "Aucune écriture n’a été trouvé pour la période du relevé bancaire."
+    need_journal_to_manage_tax_declaration: "Vous devez avoir au moins un journal des opérations diverses et un journal de vente ou d’achat pour pouvoir enregistrer des déclarations de taxes." #?
+    need_payment_mode_to_create_deposit: "Vous devez spécifier un mode de réglement pour effectuer une remise en banque"
+    need_quantities_to_cancel_an_sale: "Vous devez spécifier une quantité pour pouvoir faire un avoir"
+    need_stocks_to_create_inventories: "Vous devez gérer les stocks d’au moins un produit pour pouvoir faire un inventaire"
+    need_stocks_warehouse_to_create_products: "Vous devez créer un lieu de stockage pour pouvoir créer un produit" #?
+    need_to_create_subscription_nature: "Vous devez créer un type d’abonnement pour pouvoir gérer vos abonnements"
+    need_warehouse_to_create_purchase_line: "Vous devez créer un lieu de stockage pour pouvoir réaliser un achat"
+    need_warehouse_to_create_sale_line: "Vous devez créer un lieu de stockage pour pouvoir réaliser une vente" #?
+    need_warehouse_to_record_stock_moves: "Pour pouvoir gérer vos stocks vous devez enregistrer vos lieux de stockage."
+    new_actual_number: "Le nouveau numéro en cours est %{actual_number}"
+    no_authenticated: "Vous n’avez pas pu être identifié. Le nom d’utilisateur ou le mot de passe doit être incorrect."
+    no_balance_template: "Pas de modèle de document pour la balance" #?
+    no_closable_financial_year: "Vous n’avez aucun exercice à clôturer." #?
+    no_closable_journal: "Vous ne pouvez pas clôturer ce journal."
+    no_depositable_payments: "Il n’y a pas de réglements à remettre en banque"
+    no_existing_mandates: "Il n’y a pas de responsabilités enregistrées pour l’instant"
+    no_financial_year: "Aucun exercice enregistré" #?
+    no_lines_found: "Aucun pruduit n’a été ajouté à la commande "
+    no_payment_to_deposit: "Aucun règlement à encaisser"
+    no_reopenable_journal: "Vous ne pouvez pas déclôturer ce journal."
+    no_stocks: "Vous n’avez aucun stock. Si vous désirez gérer le stock d’un produit, veuillez cocher l’option «\_Gérer les stocks\_» dans les caractéristiques de votre produit."
+    no_template_journal: "Pas de modèle journal" #?
+    no_template_journal_by_id: "Pas de modèle journal" #?
+    no_unconfirmed_stock_transfers: "Aucun transfert de stocks non-confirmé"
+    no_unvalidated_operations: "Aucun travail à réaliser"
+    no_warehouse: "Aucun lieu de stockage n’est défini. Veuillez en créer un pour pouvoir gérer vos stocks"
+    password_successfully_changed: "Votre mot de passe a été mis à jour avec succès"
+    prices_import_succeeded: "Vos données ont été correctement importées"
+    print_failure: "Impossible d’imprimer. Essayer de recharger les modèles de documents pour corriger le problème. %{error} (%{class})."
+    purchase_already_invoiced: "Achat déjà facturé"
+    record_cannot_be_removed: "L’enregistrement ne peut pas être supprimé"
+    record_has_been_correctly_removed: "L’enregistrement a été supprimé correctement"
+    record_has_not_been_removed: "L’enregistrement n’a pas être supprimé correctement" #?
+    restoration_finished: "La restauration de la sauvegarde s’est terminée (en %{value} secondes)."
+    sale_already_invoiced: "La vente a déjà été facturée: vous ne pouvez pas définir de livraison"
+    sale_cannot_be_updated: "Le devis n’est plus modifiable."
+    sale_cant_be_deleted: "La vente ne peut plus être supprimée"
+    select_entry_lines_to_mark_together: "Sélectionnez des lignes d’écritures à lettrer ensemble"
+    specify_filter: "Vous choisir appliquer au moins un filtre de recherche"
+    specify_updates: "Vous devez spécifier au moins un champ à modifier"
+    unavailable_model: "%{model} indisponible ou inexistante (%{id})"
+    unknown_action: "La page demandée est indisponible (%{url})" #?
+    unknown_company: "Société inconnue" #?
+    unvalid_version_for_restore: "La version du logiciel utilisé pour effectuer la sauvegarde ne correspond pas à la version actuelle du logiciel"
+    update_is_done: "La mise à jour a été effectuée"
+    validates_old_inventories: "Il est conseillé de supprimer ou de valider les inventaires non validés avant d’en faire un nouveau"
+    x_unpointed_journal_entry_lines: 
+      one: "Il y a une écriture à pointer"
+      other: "Il y a %{count} écritures à pointer"
+      zero: "Il n’y a pas d’écritures à pointer pour l’instant"
+    you_must_have_an_email_column: "Vous devez avoir une colonne Email dans votre extraction"
+    you_must_select_a_file_to_import: "Vous devez sélectionner un fichier à importer"
+    you_will_lose_all_your_current_data: "Si vous continuez, vous allez perdre toutes vos données en cours de saisie. Voulez-vous poursuivre ?" #?
   preferences:
-    assets_sequence: Numérotation des immobilisations
-    bank_journal: Journal de banque par défaut
-    bookkeep_automatically: Activer la bascule automatique des données comptables
-    bookkeep_in_draft: Enregistrer les pièces dans le brouillard lors de la bascule
-      automatique
-    capital_gains_accounts: Résultat de l’exercice (bénéfice)
-    capital_losses_accounts: Résultat de l’exercice (perte)
-    cash_journal: Journal de caisse par défaut
-    cash_transfers_sequence: Numérotation des virements internes
-    charges_accounts: Comptes de charges
-    deposits_sequence: Numérotation des remises en banque
-    detail_payments_in_deposit_bookkeeping: Détailler la liste des règlements lors
-      de la comptabilisation d’une remise en banque
-    entities_sequence: Numérotation des fiches clients/fournisseurs
-    financial_banks_accounts: Comptes de banque
-    financial_cashes_accounts: Comptes de caisse
-    financial_internal_transfers_accounts: Virements internes
-    financial_payments_to_deposit_accounts: Règlements à encaisser
-    forward_journal: Journal des reports à nouveau par défaut
-    incoming_deliveries_sequence: Numérotation des livraisons entrantes
-    incoming_payments_sequence: Numérotation des encaissements
-    outgoing_deliveries_sequence: Numérotation des livraisons sortantes
-    outgoing_payments_sequence: Numérotation des décaissements
-    products_accounts: Comptes de produits
-    purchases_journal: Journal des achats par défaut
-    purchases_sequence: Numérotation des achats
-    sales_invoices_sequence: Numérotation des factures
-    sales_journal: Journal des ventes par défaut
-    sales_sequence: Numérotation des ventes
-    stock_transfers_sequence: Numérotation des transferts et pertes de stock
-    subscriptions_sequence: Numérotation des abonnements
-    taxes_acquisition_accounts: Compte des taxes d’acquisitions intracommunautaires
-    taxes_assimilated_accounts: Compte des taxes assimilées
-    taxes_balance_accounts: Compte de taxe net
-    taxes_collected_accounts: Compte des taxes collectées
-    taxes_paid_accounts: Compte des taxes déductibles
-    taxes_payback_accounts: Compte de taxes de remboursement
-    third_attorneys_accounts: Comptes mandataires
-    third_clients_accounts: Comptes clients
-    third_suppliers_accounts: Comptes fournisseurs
-    transports_sequence: Numérotation des transports
-    use_entity_codes_for_account_numbers: Utiliser le code personne pour composer
-      les numéros de compte
-    various_journal: Journal des opérations diverses par défaut
+    assets_sequence: "Numérotation des immobilisations"
+    bank_journal: "Journal de banque par défaut"
+    bookkeep_automatically: "Activer la bascule automatique des données comptables"
+    bookkeep_in_draft: "Enregistrer les pièces dans le brouillard lors de la bascule automatique"
+    capital_gains_accounts: "Résultat de l’exercice (bénéfice)"
+    capital_losses_accounts: "Résultat de l’exercice (perte)"
+    cash_journal: "Journal de caisse par défaut"
+    cash_transfers_sequence: "Numérotation des virements internes"
+    charges_accounts: "Comptes de charges"
+    deposits_sequence: "Numérotation des remises en banque"
+    detail_payments_in_deposit_bookkeeping: "Détailler la liste des règlements lors de la comptabilisation d’une remise en banque"
+    entities_sequence: "Numérotation des fiches clients/fournisseurs"
+    financial_banks_accounts: "Comptes de banque"
+    financial_cashes_accounts: "Comptes de caisse"
+    financial_internal_transfers_accounts: "Virements internes"
+    financial_payments_to_deposit_accounts: "Règlements à encaisser"
+    forward_journal: "Journal des reports à nouveau par défaut"
+    incoming_deliveries_sequence: "Numérotation des livraisons entrantes"
+    incoming_payments_sequence: "Numérotation des encaissements"
+    outgoing_deliveries_sequence: "Numérotation des livraisons sortantes"
+    outgoing_payments_sequence: "Numérotation des décaissements"
+    products_accounts: "Comptes de produits"
+    purchases_journal: "Journal des achats par défaut"
+    purchases_sequence: "Numérotation des achats"
+    sales_invoices_sequence: "Numérotation des factures"
+    sales_journal: "Journal des ventes par défaut"
+    sales_sequence: "Numérotation des ventes"
+    stock_transfers_sequence: "Numérotation des transferts et pertes de stock"
+    subscriptions_sequence: "Numérotation des abonnements"
+    taxes_acquisition_accounts: "Compte des taxes d’acquisitions intracommunautaires"
+    taxes_assimilated_accounts: "Compte des taxes assimilées"
+    taxes_balance_accounts: "Compte de taxe net"
+    taxes_collected_accounts: "Compte des taxes collectées"
+    taxes_paid_accounts: "Compte des taxes déductibles"
+    taxes_payback_accounts: "Compte de taxes de remboursement"
+    third_attorneys_accounts: "Comptes mandataires"
+    third_clients_accounts: "Comptes clients"
+    third_suppliers_accounts: "Comptes fournisseurs"
+    transports_sequence: "Numérotation des transports"
+    use_entity_codes_for_account_numbers: "Utiliser le code personne pour composer les numéros de compte"
+    various_journal: "Journal des opérations diverses par défaut"
   unroll:
     animal_events:
-      all: ! '{name} - {started_at}'
+      all: "{name} - {started_at}"
     animal_prescriptions:
-      all: N° {prescription_number} du {prescripted_on}
+      all: "N° {prescription_number} du {prescripted_on}"
     animals:
-      all: ! '{name} - {work_number}'
+      all: "{name} - {work_number}"
     product_events:
-      all: ! '{name} - {started_at}'
+      all: "{name} - {started_at}"
     products:
-      all: ! '{name} - {work_number}'
+      all: "{name} - {work_number}"
     units:
-      all: ! '{label} ({name})'
+      all: "{label} ({name})"
