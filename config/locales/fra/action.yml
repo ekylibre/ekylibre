@@ -294,6 +294,20 @@ fra:
       index: "Lots d'animaux"
       new: "Créer un lot"
       show: "Lot\_: %{name}"
+    product_indicator_nature_choices:
+      # edit: "Edit product indicator nature choice"
+      # new: "New product indicator nature choice"
+    product_indicator_natures:
+      # edit: "Edit product indicator nature"
+      # index: "Index product indicator nature"
+      # new: "New product indicator nature"
+      # show: "Show product indicator nature"
+      # sort: "Sort product indicator nature"
+    product_indicators:
+      # edit: "Edit product indicator"
+      # index: "Index product indicator"
+      # new: "New product indicator"
+      # show: "Show product indicator"
     product_nature_categories:
       edit: "Modifier la catégorie de produits\_: %{name}"
       index: "Catégories de produits"
@@ -305,6 +319,16 @@ fra:
       # index: "Index product nature"
       # new: "New product nature"
       # show: "Show product nature"
+    product_process_phases:
+      # edit: "Edit product process phase"
+      # index: "Index product process phase"
+      # new: "New product process phase"
+      # show: "Show product process phase"
+    product_processes:
+      # edit: "Edit product process"
+      # index: "Index product process"
+      # new: "New product process"
+      # show: "Show product process"
     product_varieties:
       edit: "Modifier la race\_: %{name} "
       index: "Races"
@@ -539,8 +563,13 @@ fra:
     # product_group_events: "Product group events"
     # product_group_passings: "Product group passings"
     product_groups: "Lot d'Animaux"
+    # product_indicator_nature_choices: "Product indicator nature choices"
+    # product_indicator_natures: "Product indicator natures"
+    # product_indicators: "Product indicators"
     product_nature_categories: "Catégories de produits"
     # product_natures: "Product natures"
+    # product_process_phases: "Product process phases"
+    # product_processes: "Product processes"
     product_varieties: "Races"
     production_chain_conveyors: "Convoyeurs de chaînes de production"
     production_chain_work_center_uses: "Utilisation des ateliers de chaînes de production"

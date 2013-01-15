@@ -1139,6 +1139,7 @@ arb:
     incoming_payment_modes: "طرق تسديد الدفعات"
     incoming_payment_uses: "اجزاء الدفعات"
     incoming_payments: "الدفعات"
+    # indicators: "Indicators"
     indirect_links: "روابط مباشرة"
     # initial_number: "Numéro initial"
     # input_conveyors: "Convoyeur entrant"
@@ -1363,6 +1364,7 @@ arb:
     prices: "الاسعار"
     printed_at: "طبعت في"
     printed_on: "طبع يوم"
+    # process: "Process"
     producer: "المنتج"
     producer_id: "المنتج" #?
     product: "الانتاج"
@@ -1602,6 +1604,7 @@ arb:
     uses: "المعدات المستخدمة"
     value: "القيمة"
     value_format: "التصميم"
+    # variety: "Variety"
     vat_number: "عدد القيمة الضريبية المضافة داخل المجتمع المحلي"
     vat_submissive: "القيمة الضريبية المضافة التابعة"
     virtual: "عملي"

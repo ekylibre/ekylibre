@@ -49,8 +49,8 @@ Ekylibre::Application.routes.draw do
 
   namespace :admin do
     namespace :cells do
-      resource :animal_pie_cell, :only => :show
-      resource :animal_bar_cell, :only => :show
+      resource :product_pie_cell, :only => :show
+      resource :product_bar_cell, :only => :show
       resource :demo_bar_cell, :only => :show
       resource :demo_pie_cell, :only => :show
       resource :placeholder_cell, :only => :show
@@ -58,7 +58,7 @@ Ekylibre::Application.routes.draw do
       resource :last_events_cell, :only => :show do
         get :list, :on => :collection
       end
-      resource :last_animals_cell, :only => :show do
+      resource :last_products_cell, :only => :show do
         get :list, :on => :collection
       end
     end
@@ -91,30 +91,6 @@ Ekylibre::Application.routes.draw do
       unroll_all
     end
   end
-  resources :animal_diagnostics do
-    collection do
-      get :list
-      unroll_all
-    end
-  end
-  resources :animal_diseases do
-    collection do
-      get :list
-      unroll_all
-    end
-  end
-  resources :animal_drugs do
-    collection do
-      get :list
-      unroll_all
-    end
-  end
-  resources :animal_drug_natures do
-    collection do
-      get :list
-      unroll_all
-    end
-  end
   resources :product_events do
     collection do
       get :list
@@ -136,20 +112,8 @@ Ekylibre::Application.routes.draw do
   resources :product_groups do
     collection do
       get :list
-      get :list_animals
+      get :list_products
       get :list_events
-      unroll_all
-    end
-  end
-  resources :animal_posologies do
-    collection do
-      get :list
-      unroll_all
-    end
-  end
-  resources :animal_prescriptions do
-    collection do
-      get :list
       unroll_all
     end
   end
@@ -159,7 +123,13 @@ Ekylibre::Application.routes.draw do
       unroll_all
     end
   end
-  resources :animal_treatments do
+  resources :product_processes do
+    collection do
+      get :list
+      unroll_all
+    end
+  end
+  resources :product_process_phases do
     collection do
       get :list
       unroll_all
@@ -542,6 +512,24 @@ Ekylibre::Application.routes.draw do
       get :list_stock_moves
       get :list_components
       unroll_all
+    end
+  end
+    resources :product_indicator_natures do
+    collection do
+      get :list
+      get :list_choices
+      unroll_all
+    end
+    member do
+      post :up
+      post :down
+      post :sort
+    end
+  end
+  resources :product_indicator_nature_choices do
+    member do
+      post :up
+      post :down
     end
   end
   resources :product_nature_categories do

@@ -1,0 +1,8 @@
+=toolbar do |t|
+  -t.edit @product_process
+  -t.print_entity @product_process
+  -t.destroy(@product_process, :method=>:delete, "data-confirm" => tg(:are_you_sure_you_want_to_delete)) if @product_process.destroyable?
+
+=attributes_list(@product_process) do |l| # liste des champs à afficher
+  -l.attribute :name
+  -l.attribute :nature

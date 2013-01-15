@@ -1,0 +1,22 @@
+-field_set do
+  -association :process
+  -input :usage
+  -input :name
+  -input :nature, :show => {:measure => :measure_options, :decimal => :decimal_options, :string => :string_options, :choice => :choice_options}
+  -input :active
+
+-field_set(:measure_options) do
+  -association :unit
+
+-field_set(:string_options) do
+  -input :minimal_length
+  -input :maximal_length
+
+-field_set(:decimal_options) do
+  -input :minimal_value
+  -input :maximal_value
+
+-field_set(:choice_options) do
+  -nested_association :choices do
+    -input :name
+    -input :value

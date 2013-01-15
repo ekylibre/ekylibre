@@ -61,11 +61,13 @@ class Product < CompanyRecord
   enumerize :arrival_reasons, :in => [:birth, :purchase, :housing, :other], :default=> :birth
   enumerize :departure_reasons, :in => [:dead, :sale, :autoconsumption, :other], :default=> :sale
   has_many :passages, :class_name => "ProductGroupPassing", :foreign_key => :product_id
+  has_many :indicators, :class_name => ":ProductIndicator", :foreign_key => :product_id
   has_many :groups, :class_name => "ProductGroup", :through => :passages
   belongs_to :variety, :class_name => "ProductVariety"
   belongs_to :father, :class_name => "Product", :conditions => {:sex => :male, :reproductor => 'true'}
   belongs_to :mother, :class_name => "Product", :conditions => {:sex => :female}
-  accepts_nested_attributes_for :passages,    :reject_if => :all_blank, :allow_destroy => true
+  accepts_nested_attributes_for :passages, :reject_if => :all_blank, :allow_destroy => true
+  accepts_nested_attributes_for :indicators, :reject_if => :all_blank, :allow_destroy => true
   # @TODO waiting for events and operations stabilizations
   #has_many :events, :class_name => "ProductEvent"
   #has_many :operations, :class_name => "Operation"

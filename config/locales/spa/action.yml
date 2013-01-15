@@ -357,12 +357,17 @@ spa:
       # index: "Lots d'animaux"
       # new: "Créer un lot"
       # show: "Lot\_: %{name}"
+    product_indicator_nature_choices: #?
+    product_indicator_natures: #?
+    product_indicators: #?
     product_nature_categories:
       # edit: "Modifier la catégorie de produits\_: %{name}"
       # index: "Catégories de produits"
       # new: "Ajout d’une nouvelle catégorie de produits"
       # show: "Détail de la catégorie\_: %{name}"
     product_natures: #?
+    product_process_phases: #?
+    product_processes: #?
     product_species: #?
     product_varieties:
       # edit: "Modifier la race\_: %{name} "

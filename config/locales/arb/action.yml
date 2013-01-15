@@ -375,6 +375,9 @@ arb:
       # index: "Lots d'animaux"
       # new: "Créer un lot"
       # show: "Lot\_: %{name}"
+    product_indicator_nature_choices: #?
+    product_indicator_natures: #?
+    product_indicators: #?
     product_nature:  #?
       edit: "تعديل المنتج : %{name}" #?
       index: "المنتجات" #?
@@ -390,6 +393,8 @@ arb:
       index: "المنتجات" #?
       new: "اضافة منتج جديد" #?
       show: "المنتجات : %{name}" #?
+    product_process_phases: #?
+    product_processes: #?
     product_species: #?
     product_varieties:
       # edit: "Modifier la race\_: %{name} "

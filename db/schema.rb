@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130115082601) do
+ActiveRecord::Schema.define(:version => 20130115134301) do
 
   create_table "account_balances", :force => true do |t|
     t.integer  "account_id",                                                        :null => false
@@ -1586,6 +1586,78 @@ ActiveRecord::Schema.define(:version => 20130115082601) do
   add_index "product_groups", ["updated_at"], :name => "index_animal_groups_on_updated_at"
   add_index "product_groups", ["updater_id"], :name => "index_animal_groups_on_updater_id"
 
+  create_table "product_indicator_nature_choices", :force => true do |t|
+    t.integer  "nature_id",                   :null => false
+    t.string   "name",                        :null => false
+    t.string   "value"
+    t.integer  "position"
+    t.string   "comment"
+    t.datetime "created_at",                  :null => false
+    t.datetime "updated_at",                  :null => false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version", :default => 0, :null => false
+  end
+
+  add_index "product_indicator_nature_choices", ["created_at"], :name => "index_product_indicator_nature_choices_on_created_at"
+  add_index "product_indicator_nature_choices", ["creator_id"], :name => "index_product_indicator_nature_choices_on_creator_id"
+  add_index "product_indicator_nature_choices", ["nature_id"], :name => "index_product_indicator_nature_choices_on_nature_id"
+  add_index "product_indicator_nature_choices", ["updated_at"], :name => "index_product_indicator_nature_choices_on_updated_at"
+  add_index "product_indicator_nature_choices", ["updater_id"], :name => "index_product_indicator_nature_choices_on_updater_id"
+
+  create_table "product_indicator_natures", :force => true do |t|
+    t.integer  "process_id",                                                       :null => false
+    t.integer  "unit_id"
+    t.string   "name",                                                             :null => false
+    t.string   "nature"
+    t.string   "usage"
+    t.integer  "minimal_length"
+    t.integer  "maximal_length"
+    t.decimal  "minimal_value",  :precision => 19, :scale => 4
+    t.decimal  "maximal_value",  :precision => 19, :scale => 4
+    t.boolean  "active",                                        :default => false, :null => false
+    t.string   "comment"
+    t.datetime "created_at",                                                       :null => false
+    t.datetime "updated_at",                                                       :null => false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version",                                  :default => 0,     :null => false
+  end
+
+  add_index "product_indicator_natures", ["created_at"], :name => "index_product_indicator_natures_on_created_at"
+  add_index "product_indicator_natures", ["creator_id"], :name => "index_product_indicator_natures_on_creator_id"
+  add_index "product_indicator_natures", ["process_id"], :name => "index_product_indicator_natures_on_process_id"
+  add_index "product_indicator_natures", ["unit_id"], :name => "index_product_indicator_natures_on_unit_id"
+  add_index "product_indicator_natures", ["updated_at"], :name => "index_product_indicator_natures_on_updated_at"
+  add_index "product_indicator_natures", ["updater_id"], :name => "index_product_indicator_natures_on_updater_id"
+
+  create_table "product_indicators", :force => true do |t|
+    t.integer  "product_id",                                                        :null => false
+    t.integer  "nature_id",                                                         :null => false
+    t.datetime "measured_at",                                                       :null => false
+    t.string   "comment"
+    t.decimal  "decimal_value",   :precision => 19, :scale => 4
+    t.decimal  "measure_value",   :precision => 19, :scale => 4
+    t.integer  "measure_unit_id"
+    t.text     "string_value"
+    t.boolean  "boolean_value",                                  :default => false, :null => false
+    t.integer  "choice_value_id"
+    t.datetime "created_at",                                                        :null => false
+    t.datetime "updated_at",                                                        :null => false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version",                                   :default => 0,     :null => false
+  end
+
+  add_index "product_indicators", ["choice_value_id"], :name => "index_product_indicators_on_choice_value_id"
+  add_index "product_indicators", ["created_at"], :name => "index_product_indicators_on_created_at"
+  add_index "product_indicators", ["creator_id"], :name => "index_product_indicators_on_creator_id"
+  add_index "product_indicators", ["measure_unit_id"], :name => "index_product_indicators_on_measure_unit_id"
+  add_index "product_indicators", ["nature_id"], :name => "index_product_indicators_on_nature_id"
+  add_index "product_indicators", ["product_id"], :name => "index_product_indicators_on_product_id"
+  add_index "product_indicators", ["updated_at"], :name => "index_product_indicators_on_updated_at"
+  add_index "product_indicators", ["updater_id"], :name => "index_product_indicators_on_updater_id"
+
   create_table "product_nature_categories", :force => true do |t|
     t.string   "name",                                   :null => false
     t.string   "catalog_name",                           :null => false
@@ -1674,6 +1746,45 @@ ActiveRecord::Schema.define(:version => 20130115082601) do
   add_index "product_place_passings", ["product_id"], :name => "index_product_place_passings_on_product_id"
   add_index "product_place_passings", ["updated_at"], :name => "index_product_place_passings_on_updated_at"
   add_index "product_place_passings", ["updater_id"], :name => "index_product_place_passings_on_updater_id"
+
+  create_table "product_process_phases", :force => true do |t|
+    t.integer  "process_id"
+    t.string   "name"
+    t.integer  "position"
+    t.string   "phase_delay"
+    t.string   "nature"
+    t.string   "comment"
+    t.datetime "created_at",                  :null => false
+    t.datetime "updated_at",                  :null => false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version", :default => 0, :null => false
+  end
+
+  add_index "product_process_phases", ["created_at"], :name => "index_product_process_phases_on_created_at"
+  add_index "product_process_phases", ["creator_id"], :name => "index_product_process_phases_on_creator_id"
+  add_index "product_process_phases", ["process_id"], :name => "index_product_process_phases_on_process_id"
+  add_index "product_process_phases", ["updated_at"], :name => "index_product_process_phases_on_updated_at"
+  add_index "product_process_phases", ["updater_id"], :name => "index_product_process_phases_on_updater_id"
+
+  create_table "product_processes", :force => true do |t|
+    t.integer  "variety_id",                      :null => false
+    t.string   "name",                            :null => false
+    t.string   "nature"
+    t.string   "comment"
+    t.boolean  "repeatable",   :default => false, :null => false
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version", :default => 0,     :null => false
+  end
+
+  add_index "product_processes", ["created_at"], :name => "index_product_processes_on_created_at"
+  add_index "product_processes", ["creator_id"], :name => "index_product_processes_on_creator_id"
+  add_index "product_processes", ["updated_at"], :name => "index_product_processes_on_updated_at"
+  add_index "product_processes", ["updater_id"], :name => "index_product_processes_on_updater_id"
+  add_index "product_processes", ["variety_id"], :name => "index_product_processes_on_variety_id"
 
   create_table "product_varieties", :force => true do |t|
     t.string   "name",                        :null => false
