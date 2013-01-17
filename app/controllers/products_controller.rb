@@ -20,53 +20,6 @@
 class ProductsController < AdminController
   manage_restfully
 
-  respond_to :pdf, :xml, :json, :html
-
   unroll_all
-
-  list do |t|
-    t.column :work_number, :url => true
-    t.column :name, :url=>true
-    t.column :born_on
-    t.column :sex
-    t.column :name, :through=>:mother, :url=>true
-    t.column :name, :through=>:father, :url=>true
-    t.column :departed_on
-    t.column :departure_reasons
-    t.action :show, :url=>{:format=>:pdf}, :image=>:print
-    t.action :edit
-    t.action :destroy, :if=>"RECORD.destroyable\?"
-  end
-
-  # Show a list of product groups
-
-  def index
-    @animal = Product.all
-    #parsing a parameter to Jasper for company full name
-    @entity_full_name = Entity.of_company.full_name
-    #respond with associated models to simplify quering in Ireport
-    respond_with @animal, :include => [:race , :father, :mother]
-  end
-
-   # Liste des enfants de l'animal considéré
-  list(:children, :model => :products, :conditions=>[" mother_id = ? OR father_id = ? ",['session[:current_product_id]'],['session[:current_product_id]']], :order=>"born_on DESC") do |t|
-    t.column :name, :url=>true
-    t.column :born_on
-    t.column :sex
-    t.column :comment
-  end
-
-  # Show one product with params_id
-  def show
-    respond_to do |format|
-      return unless @product = find_and_check(:product)
-      format.html do
-        session[:current_product_id] = @product.id
-        t3e @product
-      end
-      format.xml {render xml: @product, :include => [:race, :father, :mother, :group]}
-      format.pdf {respond_with @product, :include => [:race, :father, :mother, :group]}
-    end
-  end
 
 end

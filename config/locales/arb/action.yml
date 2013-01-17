@@ -164,15 +164,14 @@ arb:
       index: "انواع الملف"
       new: "اضافة نوع جديد للملف"
       show: "نوع الملف : %{name}"
-    entity_event_natures:
-      edit: "تعديل نوع الحدث: %{name}"
-      index: "انواع الاحداث"
-      new: "اضافة نوع الحدث"
-    entity_events:
-      # change_minutes: "Changer la durée de l’évènement"
-      edit: "تعديل الحدث"
-      index: "الاحداث"
-      new: "اضافة حدث"
+    entity_event_natures:  #?
+      edit: "تعديل نوع الحدث: %{name}" #?
+      index: "انواع الاحداث" #?
+      new: "اضافة نوع الحدث" #?
+    entity_events:  #?
+      edit: "تعديل الحدث" #?
+      index: "الاحداث" #?
+      new: "اضافة حدث" #?
     entity_link_natures:
       edit: "تعديل نوع الرابط : %{name}"
       index: "انواع الرابط"
@@ -188,14 +187,15 @@ arb:
       edit: "تعديل نموذج المرفق : %{name}"
       index: "مرافق"
       new: "اضافة مرفق جديد"
-    event_natures:  #?
-      edit: "تعديل نوع الحدث: %{name}" #?
-      index: "انواع الاحداث" #?
-      new: "اضافة نوع الحدث" #?
-    events:  #?
-      edit: "تعديل الحدث" #?
-      index: "الاحداث" #?
-      new: "اضافة حدث" #?
+    event_natures:
+      edit: "تعديل نوع الحدث: %{name}"
+      index: "انواع الاحداث"
+      new: "اضافة نوع الحدث"
+    events:
+      # change_minutes: "Changer la durée de l’évènement"
+      edit: "تعديل الحدث"
+      index: "الاحداث"
+      new: "اضافة حدث"
     finances:  #?
       unvalidated_deposits: "التأكد من اقتطاعات البنك" #?
     financial_years:
@@ -256,10 +256,7 @@ arb:
       reopen: "فتح %{name}"
       # reports: "Impression, exportation"
       show: "الدفتر اليومي : %{name} (%{code})"
-    land_parcel_groups:
-      # edit: "Modifier le groupe d’îlots: %{name}"
-      # index: "Groupes d’îlots"
-      # new: "Ajouter un nouveau groupe d’îlots"
+    land_parcel_groups: #?
     land_parcel_kinships: #?
     land_parcels:
       # divide: "Diviser l’îlot\_: %{name}"
@@ -278,6 +275,11 @@ arb:
       index: "الصادرات وارسال الرسائل"
       mail: "ارسال الرسالة ل «%{name}»"
       new: "انشاء استخلاص جديد"
+    logs:
+      # edit: "Modifier un évènement"
+      # index: "Évènements"
+      # new: "Créer un évènement"
+      # show: "évènement %{name} commencé le %{started_at}"
     management:  #?
       index: "ادارة الاعمال" #?
       sale_lines: "اختيار المنتجات للطلب %{sale} من : %{client}" #?
@@ -351,24 +353,12 @@ arb:
       index: "فئات المنتج" #?
       new: "اضافة فئة جديدة للمنتج" #?
       show: "تفاصيل فئة: %{name}" #?
-    product_components:
-      edit: "تعديل عنصر المنتج %{product} "
-      new: "اضافة عنصر الى المنتج %{product} "
-    product_event_natures:
-      # edit: "Modifier un type d'évènement"
-      # index: "Type d'évènement"
-      # new: "Créer un type d'évènement"
-      # show: "Type d'évènement %{name}"
-    product_events:
-      # edit: "Modifier un évènement"
-      # index: "Évènements"
-      # new: "Créer un évènement"
-      # show: "évènement %{name} commencé le %{started_at}"
-    product_group_events:
-      # edit: "Modifier un évènement par lot"
-      # index: "Évènements par lot"
-      # new: "Créer un évènement par lot"
-      # show: "évènement par lot\_: %{name} commencé le %{started_at}"
+    product_components:  #?
+      edit: "تعديل عنصر المنتج %{product} " #?
+      new: "اضافة عنصر الى المنتج %{product} " #?
+    product_event_natures: #?
+    product_events: #?
+    product_group_events: #?
     product_group_passings: #?
     product_groups:
       # edit: "Modifier le lot\_: %{name} "
@@ -378,6 +368,7 @@ arb:
     product_indicator_nature_choices: #?
     product_indicator_natures: #?
     product_indicators: #?
+    product_memberships: #?
     product_nature:  #?
       edit: "تعديل المنتج : %{name}" #?
       index: "المنتجات" #?
@@ -388,6 +379,9 @@ arb:
       index: "فئات المنتج"
       new: "اضافة فئة جديدة للمنتج"
       show: "تفاصيل فئة: %{name}"
+    product_nature_components:
+      edit: "تعديل عنصر المنتج %{product} "
+      new: "اضافة عنصر الى المنتج %{product} "
     product_natures:  #?
       edit: "تعديل المنتج : %{name}" #?
       index: "المنتجات" #?
@@ -396,6 +390,19 @@ arb:
     product_process_phases: #?
     product_processes: #?
     product_species: #?
+    product_stock_moves:
+      edit: "تعديل حركة سهم : %{name}"
+      new: "التسجيل لحركة السهم"
+    product_stocks:
+      # edit: "Modifier le stock\_: %{name}"
+      index: "وضع الاسهم"
+      # new: "Nouveau stock"
+    product_transfers:
+      confirm: "اتمام عملية نقل"
+      # confirm_all: "Confirmer tous les transferts"
+      edit: "تعديل عملية نقل الاسهم"
+      index: "عمليات نقل وخسارة الاسهم"
+      new: "اضافة عملية نقل او خسارة الاسهم"
     product_varieties:
       # edit: "Modifier la race\_: %{name} "
       # index: "Races"
@@ -499,19 +506,16 @@ arb:
       # edit: "Configuration"
       import: "الاستيراد"
       # restore: "Restaurer une sauvegarde"
-    stock_moves:
-      edit: "تعديل حركة سهم : %{name}"
-      new: "التسجيل لحركة السهم"
-    stock_transfers:
-      confirm: "اتمام عملية نقل"
-      # confirm_all: "Confirmer tous les transferts"
-      edit: "تعديل عملية نقل الاسهم"
-      index: "عمليات نقل وخسارة الاسهم"
-      new: "اضافة عملية نقل او خسارة الاسهم"
-    stocks:
-      # edit: "Modifier le stock\_: %{name}"
-      index: "وضع الاسهم"
-      # new: "Nouveau stock"
+    stock_moves:  #?
+      edit: "تعديل حركة سهم : %{name}" #?
+      new: "التسجيل لحركة السهم" #?
+    stock_transfers:  #?
+      confirm: "اتمام عملية نقل" #?
+      edit: "تعديل عملية نقل الاسهم" #?
+      index: "عمليات نقل وخسارة الاسهم" #?
+      new: "اضافة عملية نقل او خسارة الاسهم" #?
+    stocks:  #?
+      index: "وضع الاسهم" #?
     subscription_natures:
       edit: "تعديل نوع الاشتراك: %{name}"
       index: "انواع الاشتراك"
@@ -531,19 +535,15 @@ arb:
       edit: "تعديل الضريبة : %{name}"
       index: "الضرائب"
       new: "اضافة ضريبة جديدة"
-    tool_natures:
-      # edit: "Modifier un type de matériel"
-      # index: "Type de matériel / équipement"
-      # new: "Nouveau type de matériel"
-      # show: "Type de matériel\_: %{name}"
+    tool_natures: #?
     tools:
       edit: "تعديل المادة : %{name}"
       index: "مادة"
       new: "اضافة مادة"
       show: "المادة : %{name}"
     tracking_states: #?
-    trackings:
-      show: "الحصة %{name}"
+    trackings:  #?
+      show: "الحصة %{name}" #?
     transfers: #?
     transports:
       deliveries: "تسليم وسيلة النقل"
@@ -600,14 +600,14 @@ arb:
     entities: "سجلات الاشخاص"
     # entity_addresses: "Adresses"
     entity_categories: "انواع الملف"
-    entity_event_natures: "انواع الاحداث"
-    entity_events: "الاحداث"
+    entity_event_natures: "انواع الاحداث" #?
+    entity_events: "الاحداث" #?
     entity_link_natures: "انواع الرابط"
     # entity_links: "Liens entre personnes"
     entity_natures: "انواع الملفات"
     establishments: "مرافق"
-    event_natures: "انواع الاحداث" #?
-    events: "الاحداث" #?
+    event_natures: "انواع الاحداث"
+    events: "الاحداث"
     financial_years: "ممارسة المحاسبة"
     help: "المساعدة"
     # incoming_deliveries: "Livraisons entrantes"
@@ -622,12 +622,12 @@ arb:
     # journal_entries: "Écritures comptables"
     # journal_entry_lines: "Lignes d’écritures comptables"
     journals: "الدفاتر اليومية"
-    # land_parcel_groups: "Groupes d’îlots"
     # land_parcel_kinships: "Parenté entre îlots"
     land_parcels: "انظمة"
     # listing_node_items: "Élement de nœuds d’extractions"
     # listing_nodes: "Nœuds d’extractions"
     listings: "الصادرات وارسال الرسائل"
+    # logs: "Evenements des Animaux"
     management: "الادارة" #?
     mandates: "تفويضات"
     # myselves: "Mon compte"
@@ -645,13 +645,14 @@ arb:
     # preferences: "Préférences"
     prices: "الاسعار"
     product_categories: "فئات المنتج" #?
-    # product_components: "Composants de produits"
-    # product_event_natures: "Type d'évenements des Animaux"
-    # product_events: "Evenements des Animaux"
     # product_groups: "Lot d'Animaux"
     product_nature: "المنتجات" #?
     product_nature_categories: "فئات المنتج"
+    # product_nature_components: "Composants de produits"
     product_natures: "المنتجات" #?
+    # product_stock_moves: "Mouvements de stock"
+    product_stocks: "وضع الاسهم"
+    product_transfers: "عمليات نقل وخسارة الاسهم"
     # product_varieties: "Races"
     production: "المنتج" #?
     # production_chain_conveyors: "Convoyeurs de chaînes de production"
@@ -672,17 +673,13 @@ arb:
     sequences: "التسلسلات"
     # sessions: "Session"
     # settings: "Paramètres"
-    # stock_moves: "Mouvements de stock"
-    stock_transfers: "عمليات نقل وخسارة الاسهم"
-    stocks: "وضع الاسهم"
+    stock_transfers: "عمليات نقل وخسارة الاسهم" #?
+    stocks: "وضع الاسهم" #?
     subscription_natures: "انواع الاشتراك"
     # subscriptions: "Abonnements"
     tax_declarations: "تصريح عن قيمة الضريبة الاضافية"
     taxes: "الضرائب"
-    # tool_natures: "Type de matériels"
     tools: "مادة"
-    # tracking_states: "État des lots de traçabilité"
-    # trackings: "Lots de traçabilité"
     # transfers: "Transferts"
     transports: "وسائل النقل"
     units: "وحدات القياس"
@@ -1916,10 +1913,12 @@ arb:
     animal_prescriptions:
       # all: "N° {prescription_number} du {prescripted_on}"
     animals:
-      # all: "{name} - {work_number}"
+      # all: "{name} - {number}"
+    logs:
+      # all: "{observed_at}"
     product_events:
-      # all: "{name} - {started_at}"
+      # all: "{observed_at}"
     products:
-      # all: "{name} - {work_number}"
+      # all: "{number} {name} "
     units:
       # all: "{label} ({name})"

@@ -20,26 +20,26 @@
 # 
 # == Table: subscriptions
 #
-#  address_id   :integer          
-#  comment      :text             
-#  created_at   :datetime         not null
-#  creator_id   :integer          
-#  entity_id    :integer          
-#  first_number :integer          
-#  id           :integer          not null, primary key
-#  last_number  :integer          
-#  lock_version :integer          default(0), not null
-#  nature_id    :integer          
-#  number       :string(255)      
-#  product_id   :integer          
-#  quantity     :decimal(19, 4)   
-#  sale_id      :integer          
-#  sale_line_id :integer          
-#  started_on   :date             
-#  stopped_on   :date             
-#  suspended    :boolean          not null
-#  updated_at   :datetime         not null
-#  updater_id   :integer          
+#  address_id        :integer          
+#  comment           :text             
+#  created_at        :datetime         not null
+#  creator_id        :integer          
+#  entity_id         :integer          
+#  first_number      :integer          
+#  id                :integer          not null, primary key
+#  last_number       :integer          
+#  lock_version      :integer          default(0), not null
+#  nature_id         :integer          
+#  number            :string(255)      
+#  product_nature_id :integer          
+#  quantity          :decimal(19, 4)   
+#  sale_id           :integer          
+#  sale_line_id      :integer          
+#  started_on        :date             
+#  stopped_on        :date             
+#  suspended         :boolean          not null
+#  updated_at        :datetime         not null
+#  updater_id        :integer          
 #
 #
 # == Fixture: subscriptions

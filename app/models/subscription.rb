@@ -20,26 +20,26 @@
 # 
 # == Table: subscriptions
 #
-#  address_id   :integer          
-#  comment      :text             
-#  created_at   :datetime         not null
-#  creator_id   :integer          
-#  entity_id    :integer          
-#  first_number :integer          
-#  id           :integer          not null, primary key
-#  last_number  :integer          
-#  lock_version :integer          default(0), not null
-#  nature_id    :integer          
-#  number       :string(255)      
-#  product_id   :integer          
-#  quantity     :decimal(19, 4)   
-#  sale_id      :integer          
-#  sale_line_id :integer          
-#  started_on   :date             
-#  stopped_on   :date             
-#  suspended    :boolean          not null
-#  updated_at   :datetime         not null
-#  updater_id   :integer          
+#  address_id        :integer          
+#  comment           :text             
+#  created_at        :datetime         not null
+#  creator_id        :integer          
+#  entity_id         :integer          
+#  first_number      :integer          
+#  id                :integer          not null, primary key
+#  last_number       :integer          
+#  lock_version      :integer          default(0), not null
+#  nature_id         :integer          
+#  number            :string(255)      
+#  product_nature_id :integer          
+#  quantity          :decimal(19, 4)   
+#  sale_id           :integer          
+#  sale_line_id      :integer          
+#  started_on        :date             
+#  stopped_on        :date             
+#  suspended         :boolean          not null
+#  updated_at        :datetime         not null
+#  updater_id        :integer          
 #
 
 
@@ -49,7 +49,7 @@ class Subscription < CompanyRecord
   belongs_to :address, :class_name => "EntityAddress"
   belongs_to :entity
   belongs_to :nature, :class_name => "SubscriptionNature"
-  belongs_to :product, :class_name => "ProductNature"
+  belongs_to :product_nature
   belongs_to :sale
   belongs_to :sale_line
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
@@ -67,15 +67,15 @@ class Subscription < CompanyRecord
     self.sale_id      = self.sale_line.sale_id if self.sale_line
     self.address_id ||= self.sale.delivery_address_id if self.sale
     self.entity_id    = self.address.entity_id if self.address
-    self.nature_id    = self.product.subscription_nature_id if self.product
+    self.nature_id    = self.product_nature.subscription_nature_id if self.product_nature
     return true
   end
 
   before_validation(:on => :create) do
     if self.nature
       if self.nature.period?
-        if self.product
-          period = (self.product.subscription_period.blank? ? '1 year' : self.product.subscription_period)||'1 year'
+        if self.product_nature
+          period = (self.product_nature.subscription_period.blank? ? '1 year' : self.product_nature.subscription_period)||'1 year'
         else
           period = '1 year'
         end
@@ -83,8 +83,8 @@ class Subscription < CompanyRecord
         self.started_on ||= Date.today
         self.stopped_on ||= Delay.compute(period+", 1 day ago", self.started_on)
       elsif self.nature.quantity?
-        if self.product
-          period = (self.product.subscription_quantity.blank? ? 1 : self.product.subscription_quantity)||1
+        if self.product_nature
+          period = (self.product_nature.subscription_quantity.blank? ? 1 : self.product_nature.subscription_quantity)||1
         else
           period = 1
         end
@@ -111,8 +111,8 @@ class Subscription < CompanyRecord
   # Initialize default preferences
   def compute_period
     #self.clean
-    if self.product
-      self.nature_id ||= self.product.subscription_nature_id
+    if self.product_nature
+      self.nature_id ||= self.product_nature.subscription_nature_id
     end
     self.valid? if self.new_record?
     self

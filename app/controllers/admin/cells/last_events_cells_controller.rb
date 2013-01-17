@@ -1,9 +1,8 @@
 class Admin::Cells::LastEventsCellsController < Admin::CellsController
 
-  list(:model => :product_events) do |t|
-    t.column :name
-    t.column :started_at
-
+  list(:model => :logs) do |t|
+    t.column :observed_at
+    t.column :description
   end
 
   def show

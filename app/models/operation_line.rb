@@ -29,8 +29,8 @@
 #  operation_id    :integer          not null
 #  product_id      :integer          
 #  quantity        :decimal(19, 4)   default(0.0), not null
+#  stock_id        :integer          
 #  stock_move_id   :integer          
-#  tracking_id     :integer          
 #  tracking_serial :string(255)      
 #  unit_id         :integer          
 #  unit_quantity   :decimal(19, 4)   default(0.0), not null
@@ -42,13 +42,11 @@
 
 class OperationLine < CompanyRecord
   attr_accessible :direction, :product_id, :quantity, :unit_id, :warehouse_id
-  enumerize :direction, :in => [:in, :out], :default => :in, :predicates => true
+  enumerize :direction, :in => [:in, :out, :tool], :default => :in, :predicates => true
   belongs_to :area_unit, :class_name => "Unit"
-  belongs_to :warehouse
   belongs_to :operation, :inverse_of => :lines
-  belongs_to :product, :class_name => "ProductNature"
-  belongs_to :stock_move
-  belongs_to :tracking
+  belongs_to :product
+  belongs_to :stock_move, :class_name => "ProductStockMove"
   belongs_to :unit
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :quantity, :unit_quantity, :allow_nil => true

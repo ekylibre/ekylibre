@@ -49,7 +49,7 @@ class SubscriptionsController < AdminController
     t.column :mail_line_4, :through => :address, :label => :column
     t.column :mail_line_5, :through => :address, :label => :column
     t.column :mail_line_6, :through => :address, :label => :column
-    t.column :name, :through => :product
+    t.column :name, :through => :product_nature
     t.column :quantity
     t.column :start
     t.column :finish
@@ -85,9 +85,9 @@ class SubscriptionsController < AdminController
       return unless nature = find_and_check(:subscription_nature, params[:nature_id])
     elsif params[:price_id]
       return unless price = find_and_check(:price, params[:price_id])
-      if price.product.subscription?
-        nature = price.product.subscription_nature
-        attributes[:product_id] = price.product_id
+      if price.product_nature.subscription?
+        nature = price.product_nature.subscription_nature
+        attributes[:product_nature_id] = price.product_nature_id
       end
     end
     if nature

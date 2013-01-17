@@ -145,15 +145,8 @@ jpn:
       # index: "Catégories de fiche"
       # new: "Ajout d’une nouvelle catégorie de fiche"
       # show: "Catégorie de fiche\_: %{name}"
-    entity_event_natures:
-      # edit: "Modifier le type d’évènement\_: %{name}"
-      # index: "Types d’évènements"
-      # new: "Ajouter un type d’évènement"
-    entity_events:
-      # change_minutes: "Changer la durée de l’évènement"
-      # edit: "Modifier l’un évènement"
-      # index: "Évènements"
-      # new: "Ajout d’un évènement"
+    entity_event_natures: #?
+    entity_events: #?
     entity_link_natures:
       # edit: "Modifier le type de lien\_: %{name}"
       # index: "Types de lien"
@@ -169,8 +162,15 @@ jpn:
       # edit: "Modifier l’établissement\_: %{name}"
       # index: "Établissements"
       # new: "Ajout d’un nouvel etablissement"
-    event_natures: #?
-    events: #?
+    event_natures:
+      # edit: "Modifier le type d’évènement\_: %{name}"
+      # index: "Types d’évènements"
+      # new: "Ajouter un type d’évènement"
+    events:
+      # change_minutes: "Changer la durée de l’évènement"
+      # edit: "Modifier l’un évènement"
+      # index: "Évènements"
+      # new: "Ajout d’un évènement"
     financial_years:
       # close: "Clôturer l’exercice %{code}"
       # compute_balances: "Calculer la balance de l’exercice"
@@ -229,10 +229,7 @@ jpn:
       # reopen: "Déclôturer le journal\_: %{name}"
       # reports: "Impression, exportation"
       # show: "Journal\_: %{name} (%{code})"
-    land_parcel_groups:
-      # edit: "Modifier le groupe d’îlots: %{name}"
-      # index: "Groupes d’îlots"
-      # new: "Ajouter un nouveau groupe d’îlots"
+    land_parcel_groups: #?
     land_parcel_kinships: #?
     land_parcels:
       # divide: "Diviser l’îlot\_: %{name}"
@@ -251,6 +248,11 @@ jpn:
       # index: "Exportations et mailings"
       # mail: "Envoyer un e-mail pour\_: %{name}"
       # new: "Création d’une nouvelle extraction"
+    logs:
+      # edit: "Modifier un évènement"
+      # index: "Évènements"
+      # new: "Créer un évènement"
+      # show: "évènement %{name} commencé le %{started_at}"
     mandates:
       # configure: "Configuration des responsabilités"
       # edit: "Modifier la responsabilité"
@@ -312,24 +314,10 @@ jpn:
       # index: "Prix"
       # new: "Ajout d’un nouveau prix"
     product_categories: #?
-    product_components:
-      # edit: "Modifier le composant %{name}"
-      # new: "Ajouter un composant"
-    product_event_natures:
-      # edit: "Modifier un type d'évènement"
-      # index: "Type d'évènement"
-      # new: "Créer un type d'évènement"
-      # show: "Type d'évènement %{name}"
-    product_events:
-      # edit: "Modifier un évènement"
-      # index: "Évènements"
-      # new: "Créer un évènement"
-      # show: "évènement %{name} commencé le %{started_at}"
-    product_group_events:
-      # edit: "Modifier un évènement par lot"
-      # index: "Évènements par lot"
-      # new: "Créer un évènement par lot"
-      # show: "évènement par lot\_: %{name} commencé le %{started_at}"
+    product_components: #?
+    product_event_natures: #?
+    product_events: #?
+    product_group_events: #?
     product_group_passings: #?
     product_groups:
       # edit: "Modifier le lot\_: %{name} "
@@ -339,15 +327,32 @@ jpn:
     product_indicator_nature_choices: #?
     product_indicator_natures: #?
     product_indicators: #?
+    product_memberships: #?
     product_nature_categories:
       # edit: "Modifier la catégorie de produits\_: %{name}"
       # index: "Catégories de produits"
       # new: "Ajout d’une nouvelle catégorie de produits"
       # show: "Détail de la catégorie\_: %{name}"
+    product_nature_components:
+      # edit: "Modifier le composant %{name}"
+      # new: "Ajouter un composant"
     product_natures: #?
     product_process_phases: #?
     product_processes: #?
     product_species: #?
+    product_stock_moves:
+      # edit: "Modifier le mouvement de stock\_: %{name}"
+      # new: "Enregistrement d’un mouvement de stock"
+    product_stocks:
+      # edit: "Modifier le stock\_: %{name}"
+      # index: "État des stocks"
+      # new: "Nouveau stock"
+    product_transfers:
+      # confirm: "Transferts à réaliser"
+      # confirm_all: "Confirmer tous les transferts"
+      # edit: "Modifier l’un transfert de stock"
+      # index: "Transferts et pertes de stocks"
+      # new: "Ajouter un transfert ou une perte de stocks"
     product_varieties:
       # edit: "Modifier la race\_: %{name} "
       # index: "Races"
@@ -440,19 +445,9 @@ jpn:
       # edit: "Configuration"
       # import: "Importer des données"
       # restore: "Restaurer une sauvegarde"
-    stock_moves:
-      # edit: "Modifier le mouvement de stock\_: %{name}"
-      # new: "Enregistrement d’un mouvement de stock"
-    stock_transfers:
-      # confirm: "Transferts à réaliser"
-      # confirm_all: "Confirmer tous les transferts"
-      # edit: "Modifier l’un transfert de stock"
-      # index: "Transferts et pertes de stocks"
-      # new: "Ajouter un transfert ou une perte de stocks"
-    stocks:
-      # edit: "Modifier le stock\_: %{name}"
-      # index: "État des stocks"
-      # new: "Nouveau stock"
+    stock_moves: #?
+    stock_transfers: #?
+    stocks: #?
     subscription_natures:
       # edit: "Modifier le type d’abonnement\_: %{name}"
       # index: "Types d’abonnements"
@@ -472,19 +467,14 @@ jpn:
       # edit: "Modifier la taxe\_: %{name}"
       # index: "Taxes"
       # new: "Ajouter une nouvelle taxe"
-    tool_natures:
-      # edit: "Modifier un type de matériel"
-      # index: "Type de matériel / équipement"
-      # new: "Nouveau type de matériel"
-      # show: "Type de matériel\_: %{name}"
+    tool_natures: #?
     tools:
       # edit: "Modifier le matériel\_: %{name}"
       # index: "Matériel"
       # new: "Ajouter un matériel"
       # show: "Matériel\_: %{name}"
     tracking_states: #?
-    trackings:
-      # show: "Lot %{name}"
+    trackings: #?
     transfers: #?
     transports:
       # deliveries: "Livraisons du transport"
@@ -540,12 +530,12 @@ jpn:
     # entities: "Personnes"
     # entity_addresses: "Adresses"
     # entity_categories: "Catégories de fiche"
-    # entity_event_natures: "Types d’évènements"
-    # entity_events: "Évènements"
     # entity_link_natures: "Types de lien"
     # entity_links: "Liens entre personnes"
     # entity_natures: "Types de fiches"
     # establishments: "Établissements"
+    # event_natures: "Types d’évènements"
+    # events: "Évènements"
     # financial_years: "Exercices comptables"
     help: "手伝い"
     # incoming_deliveries: "Livraisons entrantes"
@@ -560,12 +550,12 @@ jpn:
     # journal_entries: "Écritures comptables"
     # journal_entry_lines: "Lignes d’écritures comptables"
     # journals: "Journaux"
-    # land_parcel_groups: "Groupes d’îlots"
     # land_parcel_kinships: "Parenté entre îlots"
     # land_parcels: "Îlots"
     # listing_node_items: "Élement de nœuds d’extractions"
     # listing_nodes: "Nœuds d’extractions"
     # listings: "Exportations et mailings"
+    # logs: "Evenements des Animaux"
     management: "商業の管理" #?
     # mandates: "Responsabilités"
     # myselves: "Mon compte"
@@ -582,11 +572,12 @@ jpn:
     # outgoing_payments: "Décaissements"
     # preferences: "Préférences"
     # prices: "Prix"
-    # product_components: "Composants de produits"
-    # product_event_natures: "Type d'évenements des Animaux"
-    # product_events: "Evenements des Animaux"
     # product_groups: "Lot d'Animaux"
     # product_nature_categories: "Catégories de produits"
+    # product_nature_components: "Composants de produits"
+    # product_stock_moves: "Mouvements de stock"
+    # product_stocks: "État des stocks"
+    # product_transfers: "Transferts et pertes de stocks"
     # product_varieties: "Races"
     production: "生産" #?
     # production_chain_conveyors: "Convoyeurs de chaînes de production"
@@ -606,17 +597,11 @@ jpn:
     # sequences: "Séquences"
     # sessions: "Session"
     # settings: "Paramètres"
-    # stock_moves: "Mouvements de stock"
-    # stock_transfers: "Transferts et pertes de stocks"
-    # stocks: "État des stocks"
     # subscription_natures: "Types d’abonnements"
     # subscriptions: "Abonnements"
     # tax_declarations: "Déclaration de TVA"
     # taxes: "Taxes"
-    # tool_natures: "Type de matériels"
     # tools: "Matériel"
-    # tracking_states: "État des lots de traçabilité"
-    # trackings: "Lots de traçabilité"
     # transfers: "Transferts"
     # transports: "Transports"
     # units: "Unités de mesure"
@@ -1696,10 +1681,12 @@ jpn:
     animal_prescriptions:
       # all: "N° {prescription_number} du {prescripted_on}"
     animals:
-      # all: "{name} - {work_number}"
+      # all: "{name} - {number}"
+    logs:
+      # all: "{observed_at}"
     product_events:
-      # all: "{name} - {started_at}"
+      # all: "{observed_at}"
     products:
-      # all: "{name} - {work_number}"
+      # all: "{number} {name} "
     units:
       # all: "{label} ({name})"

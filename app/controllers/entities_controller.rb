@@ -51,7 +51,7 @@ class EntitiesController < AdminController
     t.action :destroy
   end
 
-  list(:events, :model => :entity_events, :conditions => {:entity_id => ['session[:current_entity_id]']}, :order => "created_at DESC") do |t|
+  list(:events, :model => :events, :conditions => {:entity_id => ['session[:current_entity_id]']}, :order => "created_at DESC") do |t|
     t.column :name, :through => :nature
     t.column :reason
     t.column :label, :through => :responsible, :url => true

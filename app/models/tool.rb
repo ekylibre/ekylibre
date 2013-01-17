@@ -18,40 +18,64 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 # 
-# == Table: tools
+# == Table: products
 #
-#  asset_id             :integer          
-#  ceded_on             :date             
-#  comment              :text             
-#  consumption          :decimal(19, 4)   
-#  created_at           :datetime         not null
-#  creator_id           :integer          
-#  id                   :integer          not null, primary key
-#  lock_version         :integer          default(0), not null
-#  name                 :string(255)      not null
-#  nature_id            :integer          
-#  picture_content_type :string(255)      
-#  picture_file_name    :string(255)      
-#  picture_file_size    :integer          
-#  picture_updated_at   :datetime         
-#  purchased_on         :date             
-#  state                :string(255)      
-#  updated_at           :datetime         not null
-#  updater_id           :integer          
+#  active                   :boolean          not null
+#  address_id               :integer          
+#  area_measure             :decimal(19, 4)   
+#  area_unit_id             :integer          
+#  asset_id                 :integer          
+#  born_at                  :datetime         
+#  comment                  :text             
+#  content_maximal_quantity :decimal(19, 4)   default(0.0), not null
+#  content_nature_id        :integer          
+#  content_unit_id          :integer          
+#  created_at               :datetime         not null
+#  creator_id               :integer          
+#  dead_at                  :datetime         
+#  description              :text             
+#  external                 :boolean          not null
+#  father_id                :integer          
+#  id                       :integer          not null, primary key
+#  lock_version             :integer          default(0), not null
+#  maximal_quantity         :decimal(19, 4)   default(0.0), not null
+#  minimal_quantity         :decimal(19, 4)   default(0.0), not null
+#  mother_id                :integer          
+#  name                     :string(255)      not null
+#  nature_id                :integer          not null
+#  number                   :string(255)      
+#  owner_id                 :integer          
+#  parent_warehouse_id      :integer          
+#  picture_content_type     :string(255)      
+#  picture_file_name        :string(255)      
+#  picture_file_size        :integer          
+#  picture_updated_at       :datetime         
+#  producer_id              :integer          
+#  reproductor              :boolean          not null
+#  reservoir                :boolean          not null
+#  serial_number            :string(255)      
+#  sex                      :string(255)      
+#  shape                    :spatial({:srid=> 
+#  type                     :string(255)      not null
+#  unit_id                  :integer          not null
+#  updated_at               :datetime         not null
+#  updater_id               :integer          
+#  work_number              :string(255)      
 #
 
 
-class Tool < CompanyRecord
+class Tool < Product
   attr_accessible :nature_id, :asset_id, :picture, :name, :comment, :purchased_on, :ceded_on, :consumption, :state
   has_attached_file :picture, :styles => { :medium => "300x300>", :thumb => "100x100>" }
   has_many :uses, :class_name => "OperationUse"
-  belongs_to :nature, :class_name => "ToolNature"
-  belongs_to :asset, :class_name => "Asset"
+  belongs_to :nature, :class_name => "ProductNature"
+  belongs_to :asset
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :picture_file_size, :allow_nil => true, :only_integer => true
-  validates_numericality_of :consumption, :allow_nil => true
-  validates_length_of :name, :picture_content_type, :picture_file_name, :state, :allow_nil => true, :maximum => 255
-  validates_presence_of :name
+  validates_numericality_of :area_measure, :content_maximal_quantity, :maximal_quantity, :minimal_quantity, :allow_nil => true
+  validates_length_of :name, :number, :picture_content_type, :picture_file_name, :serial_number, :sex, :work_number, :allow_nil => true, :maximum => 255
+  validates_inclusion_of :active, :external, :reproductor, :reservoir, :in => [true, false]
+  validates_presence_of :content_maximal_quantity, :maximal_quantity, :minimal_quantity, :name, :nature, :unit
   #]VALIDATORS]
 
   default_scope -> { order(:name) }

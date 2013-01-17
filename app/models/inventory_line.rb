@@ -27,9 +27,9 @@
 #  lock_version     :integer          default(0), not null
 #  product_id       :integer          not null
 #  quantity         :decimal(19, 4)   not null
+#  stock_id         :integer          
 #  stock_move_id    :integer          
 #  theoric_quantity :decimal(19, 4)   not null
-#  tracking_id      :integer          
 #  unit_id          :integer          
 #  updated_at       :datetime         not null
 #  updater_id       :integer          
@@ -38,33 +38,30 @@
 
 
 class InventoryLine < CompanyRecord
-  attr_accessible :product_id, :quantity, :tracking_id, :unit_id, :warehouse_id
+  attr_accessible :product_id, :quantity, :unit_id, :warehouse_id
   belongs_to :inventory, :inverse_of => :lines
-  belongs_to :product, :class_name => "ProductNature"
-  belongs_to :stock_move
-  belongs_to :tracking
+  belongs_to :product
+  belongs_to :stock_move, :class_name => "ProductStockMove"
   belongs_to :unit
-  belongs_to :warehouse
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :quantity, :theoric_quantity, :allow_nil => true
-  validates_presence_of :inventory, :product, :quantity, :theoric_quantity, :warehouse
+  validates_presence_of :inventory, :product, :quantity, :theoric_quantity
   #]VALIDATORS]
 
-  acts_as_stockable :quantity => "self.quantity-self.theoric_quantity", :origin => :inventory
+  acts_as_stockable :quantity => "self.quantity - self.theoric_quantity", :origin => :inventory
 
-  def stock_id=(id)
-    if s = Stock.find_by_id(id)
-      self.product_id  = s.product_id
-      self.warehouse_id = s.warehouse_id
-      self.tracking_id = s.tracking_id
-      self.theoric_quantity = s.quantity||0
-      self.unit_id     = s.unit_id
-    end
-  end
+  # def stock_id=(id)
+  #   if s = ProductStock.find_by_id(id)
+  #     self.product_id  = s.product_id
+  #     self.warehouse_id = s.warehouse_id
+  #     self.theoric_quantity = s.quantity||0
+  #     self.unit_id     = s.unit_id
+  #   end
+  # end
 
-  def tracking_name
-    return self.tracking ? self.tracking.name : ""
-  end
+  # def tracking_name
+  #   return self.tracking ? self.tracking.name : ""
+  # end
 
 end

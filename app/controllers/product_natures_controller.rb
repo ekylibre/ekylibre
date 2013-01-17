@@ -69,26 +69,27 @@ class ProductNaturesController < AdminController
     t.action :destroy
   end
 
-  list(:stock_moves, :conditions => {:product_id  => ['session[:product_id]']}, :line_class => 'RECORD.state', :order => "updated_at DESC") do |t|
+  list(:product_stock_moves, :conditions => {:product_id  => ['session[:product_id]']}, :line_class => 'RECORD.state', :order => "updated_at DESC") do |t|
     t.column :name
     # t.column :name, :through => :origin
-    t.column :name, :through => :warehouse, :url => true
-    t.column :name, :through => :tracking, :url => true
+    # t.column :name, :through => :warehouse, :url => true
+    # t.column :name, :through => :tracking, :url => true
     t.column :quantity
     t.column :label, :through => :unit
-    t.column :virtual
-    t.column :planned_on
-    t.column :moved_on
+    t.column :mode
+    # t.column :planned_on
+    # t.column :moved_on
+    t.column :moved_at
   end
 
-  list(:stocks, :conditions => ['#{Stock.table_name}.product_id = ?', ['session[:product_id]']], :line_class => 'RECORD.state', :order => "updated_at DESC") do |t|
-    t.column :name, :through => :warehouse, :url => true
-    t.column :name, :through => :tracking, :url => true
-    #t.column :quantity_max
-    #t.column :quantity_min
-    #t.column :critic_quantity_min
-    t.column :virtual_quantity
-    t.column :quantity
+  list(:product_stocks, :conditions => ['#{ProductStock.table_name}.product_id = ?', ['session[:product_id]']], :line_class => 'RECORD.state', :order => "updated_at DESC") do |t|
+    # t.column :name, :through => :warehouse, :url => true
+    t.column :name, :through => :product, :url => true
+    t.column :minimal_quantity
+    t.column :maximal_quantity
+    # t.column :critic_quantity_min
+    # t.column :virtual_quantity
+    # t.column :quantity
   end
 
   # Displays details of one product selected with +params[:id]+
@@ -100,14 +101,14 @@ class ProductNaturesController < AdminController
 
   def new
     @product_nature = ProductNature.new(:nature => ProductNature.nature.default_value)
-    @stock = Stock.new
+    @stock = ProductStock.new
     render_restfully_form
   end
 
   def create
     @product_nature = ProductNature.new(params[:product])
     @product_nature.duration = params[:product][:duration]
-    @stock = Stock.new(params[:stock])
+    @stock = ProductStock.new(params[:stock])
     ActiveRecord::Base.transaction do
       saved = @product_nature.save
       if @product_nature.stockable and saved
@@ -132,7 +133,7 @@ class ProductNaturesController < AdminController
   def edit
     return unless @product_nature = find_and_check(:product_natures)
     session[:product_nature_id] = @product_nature.id
-    @stock = @product_nature.default_stock || Stock.new
+    @stock = @product_nature.default_stock || ProductStock.new
     t3e @product_nature.attributes
     render_restfully_form
   end
@@ -140,12 +141,12 @@ class ProductNaturesController < AdminController
   def update
     return unless @product_nature = find_and_check(:product_natures)
     session[:product_nature_id] = @product_nature.id
-    @stock = @product_nature.default_stock || Stock.new
+    @stock = @product_nature.default_stock || ProductStock.new
     saved = false
     ActiveRecord::Base.transaction do
       if saved = @product_nature.update_attributes(params[:product_nature])
         if @stock.new_record? and params[:product_nature][:stockable] == "1"
-          @stock = Stock.new(params[:stock])
+          @stock = ProductStock.new(params[:stock])
           @stock.product_id = @product_nature.id
           save = false unless @stock.save
         elsif !@stock.new_record? and Warehouse.count > 0
@@ -161,9 +162,9 @@ class ProductNaturesController < AdminController
   end
 
   def change_quantities
-    @stock = Stock.find(:first, :conditions => {:warehouse_id => params[:warehouse_id], :product_nature_id => session[:product_nature_id]})
+    @stock = ProductStock.find(:first, :conditions => {:warehouse_id => params[:warehouse_id], :product_nature_id => session[:product_nature_id]})
     if @stock.nil?
-      @stock = Stock.new(:quantity_min => 1, :quantity_max => 0, :critic_quantity_min => 0)
+      @stock = ProductStock.new(:quantity_min => 1, :quantity_max => 0, :critic_quantity_min => 0)
     end
   end
 

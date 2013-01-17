@@ -27,7 +27,7 @@
 #  flow                :decimal(19, 4)   default(0.0), not null
 #  id                  :integer          not null, primary key
 #  lock_version        :integer          default(0), not null
-#  product_id          :integer          not null
+#  product_nature_id   :integer          not null
 #  production_chain_id :integer          not null
 #  source_id           :integer          
 #  source_quantity     :decimal(19, 4)   default(0.0), not null
@@ -41,15 +41,15 @@
 
 
 class ProductionChainConveyor < CompanyRecord
-  belongs_to :product, :class_name => "ProductNature"
+  belongs_to :product_nature
   belongs_to :production_chain
-  belongs_to :source, :class_name=>"ProductionChainWorkCenter"
-  belongs_to :target, :class_name=>"ProductionChainWorkCenter"
+  belongs_to :source, :class_name => "ProductionChainWorkCenter"
+  belongs_to :target, :class_name => "ProductionChainWorkCenter"
   belongs_to :unit
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :flow, :source_quantity, :target_quantity, :allow_nil => true
   validates_inclusion_of :check_state, :unique_tracking, :in => [true, false]
-  validates_presence_of :flow, :product, :production_chain, :source_quantity, :target_quantity, :unit
+  validates_presence_of :flow, :product_nature, :production_chain, :source_quantity, :target_quantity, :unit
   #]VALIDATORS]
 
   @@check_events = [:none, :input, :output, :both]

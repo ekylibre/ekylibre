@@ -20,32 +20,32 @@
 # 
 # == Table: prices
 #
-#  active        :boolean          default(TRUE), not null
-#  amount        :decimal(19, 4)   not null
-#  by_default    :boolean          default(TRUE)
-#  category_id   :integer          
-#  created_at    :datetime         not null
-#  creator_id    :integer          
-#  currency      :string(3)        
-#  entity_id     :integer          
-#  id            :integer          not null, primary key
-#  lock_version  :integer          default(0), not null
-#  pretax_amount :decimal(19, 4)   not null
-#  product_id    :integer          not null
-#  started_at    :datetime         
-#  stopped_at    :datetime         
-#  tax_id        :integer          not null
-#  updated_at    :datetime         not null
-#  updater_id    :integer          
+#  active            :boolean          default(TRUE), not null
+#  amount            :decimal(19, 4)   not null
+#  by_default        :boolean          default(TRUE)
+#  category_id       :integer          
+#  created_at        :datetime         not null
+#  creator_id        :integer          
+#  currency          :string(3)        
+#  entity_id         :integer          
+#  id                :integer          not null, primary key
+#  lock_version      :integer          default(0), not null
+#  pretax_amount     :decimal(19, 4)   not null
+#  product_nature_id :integer          not null
+#  started_at        :datetime         
+#  stopped_at        :datetime         
+#  tax_id            :integer          not null
+#  updated_at        :datetime         not null
+#  updater_id        :integer          
 #
 
 
 class Price < CompanyRecord
   attr_accessible :active, :amount, :by_default, :category_id, :entity_id, :pretax_amount, :product_id, :tax_id, :currency
   after_create :set_by_default
-  belongs_to :category, :class_name=>"EntityCategory"
+  belongs_to :category, :class_name => "EntityCategory"
   belongs_to :entity
-  belongs_to :product, :class_name => "ProductNature"
+  belongs_to :product_nature
   belongs_to :tax
   # belongs_to :supplier, :class_name => "Entity"
   has_many :outgoing_delivery_lines
@@ -56,7 +56,7 @@ class Price < CompanyRecord
   validates_numericality_of :amount, :pretax_amount, :allow_nil => true
   validates_length_of :currency, :allow_nil => true, :maximum => 3
   validates_inclusion_of :active, :in => [true, false]
-  validates_presence_of :amount, :pretax_amount, :product, :tax
+  validates_presence_of :amount, :pretax_amount, :product_nature, :tax
   #]VALIDATORS]
   validates_presence_of :category, :if => Proc.new{|price| price.entity_id == Entity.of_company.id}
   validates_presence_of :entity

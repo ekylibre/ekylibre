@@ -40,7 +40,7 @@ class Unit < CompanyRecord
   attr_accessible :base, :coefficient, :label, :name, :start
   has_many :products, :class_name => "Product"
   has_many :animal_drugs
-  has_many :stock_moves
+  has_many :stock_moves, :class_name => "ProductStockMove"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :coefficient, :start, :allow_nil => true
   validates_length_of :name, :allow_nil => true, :maximum => 8

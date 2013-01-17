@@ -129,7 +129,7 @@ class SalesController < AdminController
     t.column :position
     t.column :label
     t.column :annotation
-    t.column :serial, :through => :tracking, :url => true
+    t.column :serial_number, :through => :product, :url => true
     t.column :quantity
     t.column :label, :through => :unit
     t.column :pretax_amount, :through => :price, :label => "unit_price_amount", :currency => "RECORD.price.currency"

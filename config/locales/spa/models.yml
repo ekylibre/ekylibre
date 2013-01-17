@@ -85,6 +85,13 @@ spa:
         # published: "Publiée"
       product_specy:
         # code: "Code race"
+      product_stock:
+        # quantity: "Stock réel"
+      product_stock_move:
+        # origin: "Origine"
+      product_transfer:
+        # second_warehouse: "Lieu de stockage d’arrivée"
+        # warehouse: "Lieu de stockage de départ"
       product_variety:
         # code: "Code race"
       products_nature:
@@ -227,6 +234,13 @@ spa:
         price:
           # already_defined: "Un prix a déjà été défini pour cette liste de prix et ce produit"
           # range_overlap: "L’intervalle de quantité en chevauche un autre (de %{min} à %{max})"
+        product_stock:
+          # product_cannot_be_in_warehouse: "Le produit ne peut pas être stocké dans le réservoir %{warehouse}"
+        product_transfer:
+          # warehouse_can_not_receive_product: "Le lieu de stockage %{warehouse} ne peut recevoir le produit %{product}, il contient déjà le produit %{contained_product}"
+          # warehouse_can_not_transfer_product: "Vous ne pouvez pas tranférer le produit %{product} depuis le lieu de stockage %{warehouse}, celui-ci contient le produit %{contained_product}"
+          # warehouse_can_not_waste_product: "Vous ne pouvez pas enregistrer de perte pour  le produit %{product} depuis le lieu de stockage %{warehouse}, celui-ci contient le produit %{contained_product}"
+          # warehouses_can_not_be_identical: "Les lieux de stockage (départ et arrivée) ne peuvent pas être identiques"
         purchase_line:
           # serial_already_used_with_an_other_product: "%{attribute} a déjà été utilisé pour un autre type de produit du même fournisseur"
           # warehouse_can_not_receive_product: "Le réservoir %{warehouse} ne peut pas recevoir le produit %{product}, il contient déjà le produit %{contained_product}."
@@ -283,6 +297,8 @@ spa:
       # entity_link_nature: "Nature de lien entre personnes"
       # entity_nature: "Type de personne"
       # establishment: "Établissement"
+      # event: "Évènement"
+      # event_nature: "Type d’évènement"
       # financial_year: "Exercice"
       # incoming_delivery: "Arrivage"
       # incoming_delivery_line: "Ligne d’arrivage"
@@ -301,6 +317,7 @@ spa:
       # listing: "Extraction"
       # listing_node: "Nœud d’extraction"
       # listing_node_item: "Élément de nœud d’extraction"
+      # log: "Évènements des produits"
       # mandate: "Responsabilité"
       # observation: "Observation"
       # operation: "Travail"
@@ -322,9 +339,14 @@ spa:
       # product_group: "Lot"
       # product_group_event: "Évènement de groupe de produits"
       # product_group_passing: "Passage d'un produit dans un groupe"
+      # product_membership: "Passage d'un produit dans un groupe"
       # product_nature: "Produit"
       # product_nature_category: "Catégorie de produit"
+      # product_nature_component: "Composant de produit"
       # product_specy: "Race"
+      # product_stock: "Stock de produit"
+      # product_stock_move: "Mouvement de stock"
+      # product_transfer: "Transfert ou perte de Stock"
       # product_variety: "Race"
       # production_chain: "Chaîne de production"
       # production_chain_conveyor: "Convoyeur de chaîne de production"
@@ -414,6 +436,7 @@ spa:
     # bban: "RIB"
     # bic: "BIC"
     # boolean_value: "Valeur booléenne"
+    # born_at: "Born at"
     # born_on: "Date de naissance"
     # building: "Bâtiment"
     # buildings: "Bâtiments"
@@ -479,6 +502,7 @@ spa:
     # confirmed_on: "Confirmée le"
     # connected_at: "Connecté le"
     # consumption: "Consommation (litres/heure)"
+    # content_maximal_quantity: "Content maximal quantity"
     # conveyors: "Convoyeurs"
     # coordinate: "Coordonnée"
     # country: "Pays"
@@ -507,8 +531,10 @@ spa:
     # data: "Données complémentaires"
     # date_value: "Valeur date"
     # datetime_value: "Valeur date/heure"
+    # dead_at: "Dead at"
     # dead_on: "Date de décès"
     # debit: "Débit"
+    # decimal: "Decimal"
     # decimal_value: "Valeur décimale"
     # declared_on: "Déclarée le"
     # default_address: "Coordonnée par défaut"
@@ -546,6 +572,7 @@ spa:
     # depreciation_method: "Méthode d’amortissement"
     # depreciation_percentage: "Pourcentage d’amortissement"
     # depreciations: "Amortissements"
+    # depth: "Depth"
     # description: "Description"
     # detail_payments: "Détailler les paiements"
     # diagnostics: "Diagnostics"
@@ -701,6 +728,7 @@ spa:
     # left_on: "Parti le"
     # letter: "Lettre"
     # letter_format: "Devis au format lettre"
+    # lft: "Lft"
     # lines: "Lignes"
     # listing: "Extraction"
     # listing_node_items: "Éléments de nœud d’extraction"
@@ -740,9 +768,12 @@ spa:
     # mandates: "Responsabilités"
     # maximal_grantable_reduction_percentage: "Pourcentage maximal autorisé à etre effectué"
     # maximal_length: "Longueur maximale"
+    # maximal_quantity: "Maximal quantity"
     # maximal_value: "Valeur maximale"
+    # memberships: "Memberships"
     # min_duration: "Minute(s)"
     # minimal_length: "Longueur minimale"
+    # minimal_quantity: "Minimal quantity"
     # minimal_value: "Valeur minimale"
     # mobile: "Portable"
     # mobiles: "Portables"
@@ -851,6 +882,7 @@ spa:
     # product_categories: "Catégories de produit"
     # product_components: "Composants de produit"
     # product_group: "Groupe de produits"
+    # product_nature: "Product nature"
     # product_natures: "Types de produits"
     # productable_products: "Produits produisibles"
     # production_chain: "Chaîne de production"
@@ -913,6 +945,7 @@ spa:
     # resource: "Origine"
     # resource_type: "Origine"
     # responsible: "Responsable"
+    # rgt: "Rgt"
     # rights: "Droits"
     # role: "Rôle de base"
     # roles: "Rôles"
@@ -940,6 +973,7 @@ spa:
     # self_contacts: "Contacts en propre"
     # sequences: "Séquences"
     # serial: "N°Lot"
+    # serial_number: "Serial number"
     # service_coeff: "Coefficient (de quantité) de service"
     # sex: "Sexe"
     # sha256: "SHA256"
@@ -1206,6 +1240,11 @@ spa:
         # service: "Service"
         # subscription: "Abonnement"
         # transfer: "Transfert"
+    product_transfer:
+      nature:
+        # gain: "Gain"
+        # transfer: "Transfert"
+        # waste: "Perte"
     production_chain_work_center:
       nature:
         # input: "Une entrée, plusieurs sorties"
@@ -1503,6 +1542,15 @@ spa:
         # purchases: "Achat"
         # rent: "Location"
         # sales: "Vente"
+    product_nature_component:
+      # of_product: "du produit"
+    product_stock:
+      # default_name: "%{warehouse}/%{product}/%{tracking}"
+      label:
+        # with_tracking: "%{warehouse}\_: Lot %{tracking}, %{quantity}%{unit} disponible(s)"
+        # without_tracking: "%{warehouse}\_: Non tracé, %{quantity}%{unit} disponible(s)"
+    product_stock_move:
+      # default_name: "%{origin} (%{code})"
     production_chain_work_center: #?
     products_nature:
       informations:

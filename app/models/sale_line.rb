@@ -39,8 +39,8 @@
 #  reduction_origin_id  :integer          
 #  reduction_percentage :decimal(19, 4)   default(0.0), not null
 #  sale_id              :integer          not null
+#  stock_id             :integer          
 #  tax_id               :integer          
-#  tracking_id          :integer          
 #  unit_id              :integer          
 #  updated_at           :datetime         not null
 #  updater_id           :integer          
@@ -50,18 +50,16 @@
 
 class SaleLine < CompanyRecord
   after_save :set_reduction
-  attr_accessible :annotation, :price_amount, :price_id, :product_id, :quantity, :reduction_percentage, :sale_id, :tax_id, :tracking_id, :unit_id, :warehouse_id
+  attr_accessible :annotation, :price_amount, :price_id, :product_id, :quantity, :reduction_percentage, :sale_id, :tax_id, :unit_id
   attr_readonly :sale_id
   belongs_to :account
   belongs_to :entity
-  belongs_to :warehouse
   belongs_to :sale
   belongs_to :origin, :class_name => "SaleLine"
   belongs_to :price
-  belongs_to :product, :class_name => "ProductNature"
+  belongs_to :product
   belongs_to :reduction_origin, :class_name => "SaleLine"
   belongs_to :tax
-  belongs_to :tracking
   belongs_to :unit
   has_many :delivery_lines, :class_name => "OutgoingDeliveryLine", :foreign_key => :sale_line_id
   has_one :reduction, :class_name => "SaleLine", :foreign_key => :reduction_origin_id
@@ -171,12 +169,12 @@ class SaleLine < CompanyRecord
   end
 
   def stock_id
-    Stock.find_by_warehouse_id_and_product_id_and_tracking_id(self.warehouse_id, self.product_id, self.tracking_id).id rescue nil
+    ProductStock.find_by_warehouse_id_and_product_id_and_tracking_id(self.warehouse_id, self.product_id, self.tracking_id).id rescue nil
   end
 
   def stock_id=(value)
     value = value.to_i
-    if value > 0 and stock = Stock.find_by_id(value)
+    if value > 0 and stock = ProductStock.find_by_id(value)
       self.warehouse_id = stock.warehouse_id
       self.tracking_id = stock.tracking_id
       self.product_id  = stock.product_id

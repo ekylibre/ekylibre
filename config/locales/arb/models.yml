@@ -372,8 +372,34 @@ arb:
         creator_id: "المننتج" #?
         published: "تم نشرها"
         shelves: "فئات الانتاج" #?
+      product_nature_component:  #?
+        comment: "تعليق" #?
+        product_id: "الانتاج" #?
+        updater: "التحدبث" #?
+        warehouse: "مكان التخزين" #?
+        warehouse_id: "مكان التخزين" #?
       product_specy:
         # code: "Code race"
+      product_stock:
+        critic_quantity_min: "الكمية المنتقدة كحد ادنى" #?
+        product: "المنتج" #?
+        product_id: "منتج" #?
+        quantity: "الاسهم الواقعية"
+        tracking_id: "حصة" #?
+      product_stock_move:
+        # origin: "Origine"
+        origin_id: "منشأ" #?
+        product: "المنتج" #?
+        second_warehouse_id: "موقع تخزين الحركة الثانية" #?
+        tracking_id: "حصة" #?
+      product_transfer:
+        created_at: "انشأ في" #?
+        creator_id: "منتج" #?
+        nature: "النوع" #?
+        product: "المنتج" #?
+        # second_warehouse: "Lieu de stockage d’arrivée"
+        warehouse: "موقع تخزين المغادرة"
+        warehouse_id: "موقع تخزين المغادرة" #?
       product_variety:
         # code: "Code race"
       products_nature:
@@ -641,6 +667,13 @@ arb:
         price:
           already_defined: "قد تم تحديد السعر لهذا المنتج وقائمة الاسعار سابقا"
           range_overlap: "تداخل فاصل زمني اخر للكمية (  %{min} الى\_ %{max})"
+        product_stock:
+          product_cannot_be_in_warehouse: "%{warehouse} لا يمكن تخزين المنتج في خزينة"
+        product_transfer:
+          warehouse_can_not_receive_product: "لا يمكن لموقع التخزين%{warehouse} استقبال المنتج %{product}, لاحتوائه مسبقا على منتج %{contained_product}"
+          warehouse_can_not_transfer_product: "لا يمكنك تحويل المنتج %{product} من موقع التخزين %{warehouse}, لاحتوائه على منتج %{contained_product}"
+          warehouse_can_not_waste_product: "لا يمكنك تسجيل الخسارة للمنتج %{product} من موقع التخزين %{warehouse}, هذا ويحتوي المنتج %{contained_product}"
+          warehouses_can_not_be_identical: "مواقع التخزين (المغادرة والواصلة) قد لا تكون متطابقة"
         purchase_line:
           serial_already_used_with_an_other_product: "%{attribute} تم استخدامها لنوع اخر من المنتج من نفس الممون"
           warehouse_can_not_receive_product: "لا يمكن للخزينة %{warehouse} استقبال النتج %{product}, لاحتوائها منتج سابق %{contained_product}."
@@ -702,8 +735,8 @@ arb:
       entity_link_nature: "طبيعة الرابط بين الافراد"
       entity_nature: "نوع الفرد"
       establishment: "المؤسسة"
-      event: "الحدث" #?
-      event_nature: "نوع الحدث" #?
+      event: "الحدث"
+      event_nature: "نوع الحدث"
       financial_year: "السنة المالية"
       # incoming_delivery: "Arrivage"
       # incoming_delivery_line: "Ligne d’arrivage"
@@ -723,6 +756,7 @@ arb:
       listing: "الاستخراج"
       listing_node: "عقدة الاستخراج"
       listing_node_item: "عنصر غقدة الاستخراج"
+      # log: "Évènements des produits"
       mandate: "التفويض"
       observation: "ملاحظة"
       operation: "العمل"
@@ -746,9 +780,14 @@ arb:
       # product_group: "Lot"
       # product_group_event: "Évènement de groupe de produits"
       # product_group_passing: "Passage d'un produit dans un groupe"
+      # product_membership: "Passage d'un produit dans un groupe"
       product_nature: "الانتاج"
       product_nature_category: "فئة الانتاج"
+      product_nature_component: "عنصر الانتاج"
       # product_specy: "Race"
+      product_stock: "سهم الانتاج"
+      product_stock_move: "حركة السهم"
+      product_transfer: "تحول او ضياع السهم"
       # product_variety: "Race"
       # production_chain: "Chaîne de production"
       # production_chain_conveyor: "Convoyeur de chaîne de production"
@@ -846,6 +885,7 @@ arb:
     bban: "RIB"
     bic: "BIC"
     boolean_value: "القيمة المنطقية"
+    # born_at: "Born at"
     born_on: "تاريخ الميلاد"
     # building: "Bâtiment"
     # buildings: "Bâtiments"
@@ -923,6 +963,7 @@ arb:
     contact: "العنوان" #?
     contact_id: "العنوان" #?
     contacts: "الاتصالات" #?
+    # content_maximal_quantity: "Content maximal quantity"
     # conveyors: "Convoyeurs"
     # coordinate: "Coordonnée"
     counterpart: "النسخة المطابقة" #?
@@ -956,8 +997,10 @@ arb:
     data: "بيانات اضافية"
     date_value: "قيمة التاريخ"
     datetime_value: "قيمة التاريخ/الساعة"
+    # dead_at: "Dead at"
     dead_on: "تاريغ الوفاة"
     debit: "الدين"
+    # decimal: "Decimal"
     decimal_max: "ارتفاع المدى" #?
     decimal_min: "انخفاض المدى" #?
     decimal_value: "القيمة العشرية"
@@ -1005,6 +1048,7 @@ arb:
     # depreciation_method: "Méthode d’amortissement"
     # depreciation_percentage: "Pourcentage d’amortissement"
     # depreciations: "Amortissements"
+    # depth: "Depth"
     description: "الوصف"
     dest_contact: "عنوان التسليم" #?
     dest_contact_id: "عنوان التسليم" #?
@@ -1189,6 +1233,7 @@ arb:
     length_max: "عدد الاحرف كحد اقصى" #?
     letter: "خطاب"
     letter_format: "مقتبس على شكل خطاب"
+    # lft: "Lft"
     line_2: "خدمة - المستلم" #?
     line_3: "Bأ¢t. - Rأ©s. - ZI..." #?
     line_4: "رقم واسم الطريق" #?
@@ -1239,9 +1284,12 @@ arb:
     max_reduction_rate: "سعر التخفيض" #?
     # maximal_grantable_reduction_percentage: "Pourcentage maximal autorisé à etre effectué"
     # maximal_length: "Longueur maximale"
+    # maximal_quantity: "Maximal quantity"
     # maximal_value: "Valeur maximale"
+    # memberships: "Memberships"
     min_duration: "(دقيقة (دقائق"
     # minimal_length: "Longueur minimale"
+    # minimal_quantity: "Minimal quantity"
     # minimal_value: "Valeur minimale"
     mobile: "الهاتف النقال"
     # mobiles: "Portables"
@@ -1374,6 +1422,7 @@ arb:
     product_components: "مكونات المنتج"
     # product_group: "Groupe de produits"
     product_id: "المنتج" #?
+    # product_nature: "Product nature"
     # product_natures: "Types de produits"
     productable_products: "المنتجات الممكن انتاجها"
     # production_chain: "Chaîne de production"
@@ -1446,6 +1495,7 @@ arb:
     resource_type: "نوع المصدر"
     responsible: "المسؤول"
     responsible_id: "المسؤول" #?
+    # rgt: "Rgt"
     rights: "الحقوق"
     role: "الدور الاساسي"
     role_id: "الدور الاساسي" #?
@@ -1482,6 +1532,7 @@ arb:
     self_contacts: "الاتصالات الخاصة"
     sequences: "التسلسلات"
     serial: "عدد الحصص"
+    # serial_number: "Serial number"
     service_coeff: "معامل كمية الخدمة"
     # sex: "Sexe"
     sha256: "SHA256"
@@ -1767,6 +1818,11 @@ arb:
         # service: "Service"
         # subscription: "Abonnement"
         # transfer: "Transfert"
+    product_transfer:
+      nature:
+        # gain: "Gain"
+        # transfer: "Transfert"
+        # waste: "Perte"
     production_chain_work_center:
       nature:
         # input: "Une entrée, plusieurs sorties"
@@ -2248,6 +2304,19 @@ arb:
         rent: "تأجير"
         sales: "المبيعات"
       unknown_use_of_product: "(يجب تحديد الغاية من المنتج (شراء او بيع او تأجير" #?
+    product_nature_component:
+      of_product: "نتاج"
+    product_stock:
+      # default_name: "%{warehouse}/%{product}/%{tracking}"
+      label:
+        with_tracking: "%{warehouse} : الحصة %{tracking}, %{quantity}%{unit} المتوفرة"
+        without_tracking: "%{warehouse} : غير متتبع, %{quantity}%{unit} متاح"
+    product_stock_move:
+      # default_name: "%{origin} (%{code})"
+    product_transfer:  #?
+      natures: #?
+        transfer: "التحويل" #?
+        waste: "الضائع" #?
     production_chain_work_center: #?
     products_nature:
       informations:

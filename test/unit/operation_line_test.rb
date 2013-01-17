@@ -29,8 +29,8 @@
 #  operation_id    :integer          not null
 #  product_id      :integer          
 #  quantity        :decimal(19, 4)   default(0.0), not null
+#  stock_id        :integer          
 #  stock_move_id   :integer          
-#  tracking_id     :integer          
 #  tracking_serial :string(255)      
 #  unit_id         :integer          
 #  unit_quantity   :decimal(19, 4)   default(0.0), not null

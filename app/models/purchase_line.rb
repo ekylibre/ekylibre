@@ -33,7 +33,7 @@
 #  product_id      :integer          not null
 #  purchase_id     :integer          not null
 #  quantity        :decimal(19, 4)   default(1.0), not null
-#  tracking_id     :integer          
+#  stock_id        :integer          
 #  tracking_serial :string(255)      
 #  unit_id         :integer          not null
 #  updated_at      :datetime         not null
@@ -44,14 +44,12 @@
 
 class PurchaseLine < CompanyRecord
   acts_as_list :scope => :purchase
-  attr_accessible :annotation, :price_id, :product_id, :quantity, :tracking_serial, :unit_id, :warehouse_id
+  attr_accessible :annotation, :price_id, :product_id, :quantity, :tracking_serial, :unit_id
   attr_readonly :purchase_id
   belongs_to :account
   belongs_to :purchase
   belongs_to :price
-  belongs_to :product, :class_name => "ProductNature"
-  belongs_to :warehouse
-  belongs_to :tracking, :dependent => :destroy
+  belongs_to :product
   belongs_to :unit
   has_many :delivery_lines, :class_name => "IncomingDeliveryLine", :foreign_key => :purchase_line_id
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
@@ -60,7 +58,6 @@ class PurchaseLine < CompanyRecord
   validates_presence_of :account, :amount, :pretax_amount, :price, :product, :purchase, :quantity, :unit
   #]VALIDATORS]
   validates_presence_of :pretax_amount, :price
-  validates_presence_of :tracking, :if => Proc.new{|pol| !pol.tracking_serial.blank?}
   validates_uniqueness_of :tracking_serial, :scope => :price_id, :allow_nil => true, :if => Proc.new{|pl| !pl.tracking_serial.blank? }
 
   accepts_nested_attributes_for :price

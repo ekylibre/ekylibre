@@ -46,11 +46,11 @@ class OperationsController < AdminController
 
   list(:lines, :model => :operation_lines, :conditions => {:operation_id => ['session[:current_operation_id]']}, :order => "direction") do |t|
     t.column :direction
-    t.column :name, :through => :warehouse, :url => true
+    # t.column :name, :through => :warehouse, :url => true
     t.column :name, :through => :product, :url => true
     t.column :quantity
     t.column :label, :through => :unit
-    t.column :name, :through => :tracking, :url => true
+    t.column :serial_number, :through => :product
     t.column :density_label
   end
 

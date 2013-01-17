@@ -27,7 +27,7 @@
 #  flow                :decimal(19, 4)   default(0.0), not null
 #  id                  :integer          not null, primary key
 #  lock_version        :integer          default(0), not null
-#  product_id          :integer          not null
+#  product_nature_id   :integer          not null
 #  production_chain_id :integer          not null
 #  source_id           :integer          
 #  source_quantity     :decimal(19, 4)   default(0.0), not null

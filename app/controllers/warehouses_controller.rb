@@ -18,15 +18,15 @@
 #
 
 class WarehousesController < AdminController
-  manage_restfully :reservoir=>"params[:reservoir]"
+  manage_restfully
 
   unroll_all
 
   list do |t|
-    t.column :name, :url=>true
+    t.column :name, :url => true
     t.column :comment
-    t.column :name, :through=>:establishment
-    t.column :name, :through=>:parent, :url=>true
+    # t.column :name, :through => :establishment
+    # t.column :name, :through => :parent, :url => true
     t.column :reservoir
     t.action :edit
     t.action :destroy
@@ -37,22 +37,22 @@ class WarehousesController < AdminController
     notify_now(:need_warehouse_to_record_stock_moves) if Warehouse.count.zero?
   end
 
-  list(:stock_moves, :conditions=>{:warehouse_id=>['session[:current_warehouse_id]']}) do |t|
+  list(:product_stock_moves, :conditions => {:warehouse_id => ['session[:current_warehouse_id]']}) do |t|
     t.column :name
     t.column :planned_on
     t.column :moved_on
     t.column :quantity
-    t.column :label, :through=>:unit
-    t.column :name, :through=>:product, :url=>true
+    t.column :label, :through => :unit
+    t.column :name, :through => :product, :url => true
     t.column :virtual
-    # t.action :edit, :if=>'RECORD.generated != true'
-    # t.action :destroy,:if=>'RECORD.generated != true'
+    # t.action :edit, :if => 'RECORD.generated != true'
+    # t.action :destroy,:if => 'RECORD.generated != true'
   end
 
-  list(:stocks, :conditions=>{:warehouse_id=>['session[:current_warehouse_id]']}, :order=>"quantity DESC") do |t|
-    t.column :name, :through=>:product,:url=>true
-    t.column :name, :through=>:tracking, :url=>true
-    t.column :weight, :through=>:product, :label=>:column
+  list(:product_stocks, :conditions => {:warehouse_id => ['session[:current_warehouse_id]']}, :order => "quantity DESC") do |t|
+    t.column :name, :through => :product,:url => true
+    # t.column :name, :through => :tracking, :url => true
+    t.column :weight, :through => :product, :label => :column
     t.column :quantity_max
     t.column :quantity_min
     t.column :critic_quantity_min

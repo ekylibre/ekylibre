@@ -31,8 +31,8 @@
 #  product_id       :integer          not null
 #  purchase_line_id :integer          not null
 #  quantity         :decimal(19, 4)   default(1.0), not null
+#  stock_id         :integer          
 #  stock_move_id    :integer          
-#  tracking_id      :integer          
 #  unit_id          :integer          not null
 #  updated_at       :datetime         not null
 #  updater_id       :integer          

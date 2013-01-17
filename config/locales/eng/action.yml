@@ -141,15 +141,15 @@ eng:
       index: "Person categories"
       new: "Add a new person category"
       show: "Person category: %{name}"
-    entity_event_natures:
-      edit: "Edit thee event type: %{name}"
-      index: "Event types"
-      new: "Add a new event type"
-    entity_events:
-      change_minutes: "Change minutes for event"
-      edit: "Edit the event"
-      index: "Events"
-      new: "Add a new event"
+    entity_event_natures:  #?
+      edit: "Edit thee event type: %{name}" #?
+      index: "Event types" #?
+      new: "Add a new event type" #?
+    entity_events:  #?
+      change_minutes: "Change minutes for event" #?
+      edit: "Edit the event" #?
+      index: "Events" #?
+      new: "Add a new event" #?
     entity_link_natures:
       edit: "Edit the link type: %{name}"
       index: "Link types"
@@ -165,15 +165,15 @@ eng:
       edit: "Edit the establishment: %{name}"
       index: "Establishments"
       new: "Add a new establishment"
-    event_natures:  #?
-      edit: "Edit thee event type: %{name}" #?
-      index: "Event types" #?
-      new: "Add a new event type" #?
-    events:  #?
-      change_minutes: "Change minutes for event" #?
-      edit: "Edit the event" #?
-      index: "Events" #?
-      new: "Add a new event" #?
+    event_natures:
+      edit: "Edit thee event type: %{name}"
+      index: "Event types"
+      new: "Add a new event type"
+    events:
+      change_minutes: "Change minutes for event"
+      edit: "Edit the event"
+      index: "Events"
+      new: "Add a new event"
     financial_years:
       close: "Close financial year: %{code}"
       compute_balances: "Compute financial year balance"
@@ -229,10 +229,10 @@ eng:
       reopen: "Reopen journal : %{name}"
       reports: "Prints, exportations"
       show: "Journal: %{name} (%{code})"
-    land_parcel_groups:
-      edit: "Edit group of land parcels: %{name}"
-      index: "Groups of land parcels"
-      new: "Add a new group of land parcels"
+    land_parcel_groups:  #?
+      edit: "Edit group of land parcels: %{name}" #?
+      index: "Groups of land parcels" #?
+      new: "Add a new group of land parcels" #?
     land_parcels:
       divide: "Divide land parcel: %{name}"
       edit: "Edit land parcel: %{name}"
@@ -249,6 +249,11 @@ eng:
       index: "Listings and mailings"
       mail: "Send an email to: %{name}"
       new: "Add a new listing"
+    logs:
+      # edit: "Modifier un évènement"
+      # index: "Évènements"
+      # new: "Créer un évènement"
+      # show: "évènement %{name} commencé le %{started_at}"
     mandates:
       configure: "Configure mandates"
       edit: "Edit the mandate"
@@ -311,24 +316,12 @@ eng:
       index: "Product categories" #?
       new: "Add a new product category" #?
       show: "Product category: %{name}" #?
-    product_components:
-      edit: "Edit the component: %{name}"
-      new: "Add a new component"
-    product_event_natures:
-      # edit: "Modifier un type d'évènement"
-      # index: "Type d'évènement"
-      # new: "Créer un type d'évènement"
-      # show: "Type d'évènement %{name}"
-    product_events:
-      # edit: "Modifier un évènement"
-      # index: "Évènements"
-      # new: "Créer un évènement"
-      # show: "évènement %{name} commencé le %{started_at}"
-    product_group_events:
-      # edit: "Modifier un évènement par lot"
-      # index: "Évènements par lot"
-      # new: "Créer un évènement par lot"
-      # show: "évènement par lot\_: %{name} commencé le %{started_at}"
+    product_components:  #?
+      edit: "Edit the component: %{name}" #?
+      new: "Add a new component" #?
+    product_event_natures: #?
+    product_events: #?
+    product_group_events: #?
     product_group_passings: #?
     product_groups:
       # edit: "Modifier le lot\_: %{name} "
@@ -338,6 +331,7 @@ eng:
     product_indicator_nature_choices: #?
     product_indicator_natures: #?
     product_indicators: #?
+    product_memberships: #?
     product_nature:  #?
       change_quantities: "Change quantities for product" #?
       edit: "Edit the product: %{name}" #?
@@ -349,6 +343,9 @@ eng:
       index: "Product categories"
       new: "Add a new product category"
       show: "Product category: %{name}"
+    product_nature_components:
+      edit: "Edit the component: %{name}"
+      new: "Add a new component"
     product_natures:  #?
       change_quantities: "Change quantities for product" #?
       edit: "Edit the product: %{name}" #?
@@ -358,6 +355,19 @@ eng:
     product_process_phases: #?
     product_processes: #?
     product_species: #?
+    product_stock_moves:
+      edit: "Edit the stock move: %{name}"
+      new: "add a new stock move"
+    product_stocks:
+      edit: "Edit stock: %{name}"
+      index: "Stocks state"
+      new: "New stock"
+    product_transfers:
+      confirm: "Waiting stock transfers"
+      confirm_all: "Confirm all stock transfer"
+      edit: "Edit the stock transfer/loss"
+      index: "Transfers and loss"
+      new: "Add a new stock transfer or loss"
     product_varieties:
       # edit: "Modifier la race\_: %{name} "
       # index: "Races"
@@ -456,19 +466,19 @@ eng:
       edit: "Configuration"
       import: "Import data"
       restore: "Restore data"
-    stock_moves:
-      edit: "Edit the stock move: %{name}"
-      new: "add a new stock move"
-    stock_transfers:
-      confirm: "Waiting stock transfers"
-      confirm_all: "Confirm all stock transfer"
-      edit: "Edit the stock transfer/loss"
-      index: "Transfers and loss"
-      new: "Add a new stock transfer or loss"
-    stocks:
-      edit: "Edit stock: %{name}"
-      index: "Stocks state"
-      new: "New stock"
+    stock_moves:  #?
+      edit: "Edit the stock move: %{name}" #?
+      new: "add a new stock move" #?
+    stock_transfers:  #?
+      confirm: "Waiting stock transfers" #?
+      confirm_all: "Confirm all stock transfer" #?
+      edit: "Edit the stock transfer/loss" #?
+      index: "Transfers and loss" #?
+      new: "Add a new stock transfer or loss" #?
+    stocks:  #?
+      edit: "Edit stock: %{name}" #?
+      index: "Stocks state" #?
+      new: "New stock" #?
     subscription_natures:
       edit: "Edit the subscription type: %{name}"
       index: "Subscription types"
@@ -488,18 +498,18 @@ eng:
       edit: "Edit tax: %{name}"
       index: "Taxes"
       new: "Add a new tax"
-    tool_natures:
-      edit: "Edit a tool nature %{name} "
-      index: "Tools and equipments"
-      new: "New tool nature"
-      show: "Tool nature\_: %{name}"
+    tool_natures:  #?
+      edit: "Edit a tool nature %{name} " #?
+      index: "Tools and equipments" #?
+      new: "New tool nature" #?
+      show: "Tool nature\_: %{name}" #?
     tools:
       edit: "Edit tool: %{name}"
       index: "Tools"
       new: "Add a tool"
       show: "Tool: %{name}"
-    trackings:
-      show: "Tracking: %{name}"
+    trackings:  #?
+      show: "Tracking: %{name}" #?
     transports:
       deliveries: "Transport's deliveries"
       delivery_delete: "Delete transport's deliveries"
@@ -565,14 +575,14 @@ eng:
     entities: "People"
     entity_addresses: "People addresses"
     entity_categories: "Person categories"
-    entity_event_natures: "Event types"
-    entity_events: "Events"
+    entity_event_natures: "Event types" #?
+    entity_events: "Events" #?
     entity_link_natures: "Link types"
     entity_links: "Entity links"
     entity_natures: "Person types"
     establishments: "Establishments"
-    event_natures: "Event types" #?
-    events: "Events" #?
+    event_natures: "Event types"
+    events: "Events"
     financial_years: "Financial years"
     help: "Help"
     incoming_deliveries: "Incoming deliveries"
@@ -587,12 +597,13 @@ eng:
     journal_entries: "Journal entries"
     journal_entry_lines: "Journal entry lines"
     journals: "Journals"
-    land_parcel_groups: "Groups of land parcels"
+    land_parcel_groups: "Groups of land parcels" #?
     land_parcel_kinships: "Land parcel kinships"
     land_parcels: "Land parcels"
     listing_node_items: "Listing node items"
     listing_nodes: "Listing nodes"
     listings: "Listings and mailings"
+    logs: "Animal's events"
     mandates: "Mandates"
     myselves: "Myself"
     observations: "Observations"
@@ -609,14 +620,18 @@ eng:
     preferences: "Preferences"
     prices: "Prices"
     product_categories: "Product categories" #?
-    product_components: "Product components"
-    product_event_natures: "Animal's events natures"
-    product_events: "Animal's events"
+    product_components: "Product components" #?
+    product_event_natures: "Animal's events natures" #?
+    product_events: "Animal's events" #?
     product_groups: "Animal's groups"
     product_nature: "Products" #?
     product_nature_categories: "Product categories"
+    product_nature_components: "Product components"
     product_natures: "Products" #?
     product_species: "Races" #?
+    product_stock_moves: "Stock moves"
+    product_stocks: "Stocks state"
+    product_transfers: "Transfers and loss"
     product_varieties: "Races"
     production_chain_conveyors: "Production chain conveyors"
     production_chain_work_center_uses: "Production chain work center uses"
@@ -635,17 +650,17 @@ eng:
     sequences: "Sequences"
     sessions: "Session"
     settings: "Settings"
-    stock_moves: "Stock moves"
-    stock_transfers: "Transfers and loss"
-    stocks: "Stocks state"
+    stock_moves: "Stock moves" #?
+    stock_transfers: "Transfers and loss" #?
+    stocks: "Stocks state" #?
     subscription_natures: "Subscription types"
     subscriptions: "Subscriptions"
     tax_declarations: "Tax declarations"
     taxes: "Taxes"
-    tool_natures: "Tool's natures"
+    tool_natures: "Tool's natures" #?
     tools: "Tools"
-    tracking_states: "Tracking states"
-    trackings: "Trackings"
+    tracking_states: "Tracking states" #?
+    trackings: "Trackings" #?
     transfers: "Transfers"
     transports: "Transports"
     units: "Units of measure"
@@ -1723,8 +1738,10 @@ eng:
       all: "#{prescription_number} on {prescripted_on}"
     animals:
       all: "{name} ({sex})"
+    logs:
+      # all: "{observed_at}"
     product_events:
-      # all: "{name} - {started_at}"
+      # all: "{observed_at}"
     products:
       all: "{name} ({sex})"
     units:

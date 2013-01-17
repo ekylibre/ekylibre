@@ -43,14 +43,14 @@
       <page to="observations#update"/>
     </menu>
     <menu name="events">
-      <page to="entity_events#index"/>
-      <page to="entity_events#change_minutes"/>
-      <page to="entity_events#create"/>
-      <page to="entity_events#destroy"/>
-      <page to="entity_events#edit"/>
-      <page to="entity_events#list"/>
-      <page to="entity_events#new"/>
-      <page to="entity_events#update"/>
+      <page to="events#index"/>
+      <page to="events#change_minutes"/>
+      <page to="events#create"/>
+      <page to="events#destroy"/>
+      <page to="events#edit"/>
+      <page to="events#list"/>
+      <page to="events#new"/>
+      <page to="events#update"/>
     </menu>
     <menu name="subscriptions">
       <page to="subscriptions#index"/>
@@ -279,25 +279,25 @@
   <menu name="stocks">
     <page to="dashboards#stocks"/>
     <menu name="stocks">
-      <page to="stocks#index"/>
-      <page to="stocks#create"/>
-      <page to="stocks#destroy"/>
-      <page to="stocks#edit"/>
-      <page to="stocks#list"/>
-      <page to="stocks#new"/>
-      <page to="stocks#update"/>
+      <page to="product_stocks#index"/>
+      <page to="product_stocks#create"/>
+      <page to="product_stocks#destroy"/>
+      <page to="product_stocks#edit"/>
+      <page to="product_stocks#list"/>
+      <page to="product_stocks#new"/>
+      <page to="product_stocks#update"/>
     </menu>
     <menu name="stock_transfers">
-      <page to="stock_transfers#index"/>
-      <page to="stock_transfers#confirm"/>
-      <page to="stock_transfers#confirm_all"/>
-      <page to="stock_transfers#create"/>
-      <page to="stock_transfers#destroy"/>
-      <page to="stock_transfers#edit"/>
-      <page to="stock_transfers#list"/>
-      <page to="stock_transfers#list_confirm"/>
-      <page to="stock_transfers#new"/>
-      <page to="stock_transfers#update"/>
+      <page to="product_transfers#index"/>
+      <page to="product_transfers#confirm"/>
+      <page to="product_transfers#confirm_all"/>
+      <page to="product_transfers#create"/>
+      <page to="product_transfers#destroy"/>
+      <page to="product_transfers#edit"/>
+      <page to="product_transfers#list"/>
+      <page to="product_transfers#list_confirm"/>
+      <page to="product_transfers#new"/>
+      <page to="product_transfers#update"/>
     </menu>
     <menu name="inventories">
       <page to="inventories#index"/>
@@ -380,14 +380,14 @@
       <page to="products#update"/>
     </menu>
     <menu name="animal_events">
-      <page to="product_events#index"/>
-      <page to="product_events#create"/>
-      <page to="product_events#destroy"/>
-      <page to="product_events#edit"/>
-      <page to="product_events#list"/>
-      <page to="product_events#new"/>
-      <page to="product_events#show"/>
-      <page to="product_events#update"/>
+      <page to="logs#index"/>
+      <page to="logs#create"/>
+      <page to="logs#destroy"/>
+      <page to="logs#edit"/>
+      <page to="logs#list"/>
+      <page to="logs#new"/>
+      <page to="logs#show"/>
+      <page to="logs#update"/>
     </menu>
     <menu name="animal_groups">
       <page to="product_groups#index"/>
@@ -402,14 +402,14 @@
       <page to="product_groups#update"/>
     </menu>
     <menu name="animal_group_events">
-      <page to="product_group_events#index"/>
-      <page to="product_group_events#create"/>
-      <page to="product_group_events#destroy"/>
-      <page to="product_group_events#edit"/>
-      <page to="product_group_events#list"/>
-      <page to="product_group_events#new"/>
-      <page to="product_group_events#show"/>
-      <page to="product_group_events#update"/>
+      <page to="product_group_events#index" deletable="true"/>
+      <page to="product_group_events#create" deletable="true"/>
+      <page to="product_group_events#destroy" deletable="true"/>
+      <page to="product_group_events#edit" deletable="true"/>
+      <page to="product_group_events#list" deletable="true"/>
+      <page to="product_group_events#new" deletable="true"/>
+      <page to="product_group_events#show" deletable="true"/>
+      <page to="product_group_events#update" deletable="true"/>
     </menu>
     <menu name="land_parcels">
       <page to="land_parcels#index"/>
@@ -605,13 +605,13 @@
         <page to="entity_natures#update"/>
       </menu>
       <menu name="event_natures">
-        <page to="entity_event_natures#index"/>
-        <page to="entity_event_natures#create"/>
-        <page to="entity_event_natures#destroy"/>
-        <page to="entity_event_natures#edit"/>
-        <page to="entity_event_natures#list"/>
-        <page to="entity_event_natures#new"/>
-        <page to="entity_event_natures#update"/>
+        <page to="event_natures#index"/>
+        <page to="event_natures#create"/>
+        <page to="event_natures#destroy"/>
+        <page to="event_natures#edit"/>
+        <page to="event_natures#list"/>
+        <page to="event_natures#new"/>
+        <page to="event_natures#update"/>
       </menu>
       <menu name="subscription_natures">
         <page to="subscription_natures#index"/>
@@ -752,11 +752,11 @@
         <page to="product_natures#new"/>
         <page to="product_natures#show"/>
         <page to="product_natures#update"/>
-        <page to="product_components#create"/>
-        <page to="product_components#destroy"/>
-        <page to="product_components#edit"/>
-        <page to="product_components#new"/>
-        <page to="product_components#update"/>
+        <page to="product_nature_components#create"/>
+        <page to="product_nature_components#destroy"/>
+        <page to="product_nature_components#edit"/>
+        <page to="product_nature_components#new"/>
+        <page to="product_nature_components#update"/>
       </menu>
       <menu name="product_categories">
         <page to="product_nature_categories#index"/>
@@ -818,13 +818,13 @@
     <menu name="production">
       <page to="dashboards#settings_production"/>
       <menu name="land_parcel_groups">
-        <page to="land_parcel_groups#index"/>
-        <page to="land_parcel_groups#create"/>
-        <page to="land_parcel_groups#destroy"/>
-        <page to="land_parcel_groups#edit"/>
-        <page to="land_parcel_groups#list"/>
-        <page to="land_parcel_groups#new"/>
-        <page to="land_parcel_groups#update"/>
+        <page to="land_parcel_groups#index" deletable="true"/>
+        <page to="land_parcel_groups#create" deletable="true"/>
+        <page to="land_parcel_groups#destroy" deletable="true"/>
+        <page to="land_parcel_groups#edit" deletable="true"/>
+        <page to="land_parcel_groups#list" deletable="true"/>
+        <page to="land_parcel_groups#new" deletable="true"/>
+        <page to="land_parcel_groups#update" deletable="true"/>
       </menu>
       <menu name="operation_natures">
         <page to="operation_natures#index"/>
@@ -846,14 +846,14 @@
         <page to="product_varieties#update"/>
       </menu>
       <menu name="product_event_natures">
-        <page to="product_event_natures#index"/>
-        <page to="product_event_natures#create"/>
-        <page to="product_event_natures#destroy"/>
-        <page to="product_event_natures#edit"/>
-        <page to="product_event_natures#list"/>
-        <page to="product_event_natures#new"/>
-        <page to="product_event_natures#show"/>
-        <page to="product_event_natures#update"/>
+        <page to="product_event_natures#index" deletable="true"/>
+        <page to="product_event_natures#create" deletable="true"/>
+        <page to="product_event_natures#destroy" deletable="true"/>
+        <page to="product_event_natures#edit" deletable="true"/>
+        <page to="product_event_natures#list" deletable="true"/>
+        <page to="product_event_natures#new" deletable="true"/>
+        <page to="product_event_natures#show" deletable="true"/>
+        <page to="product_event_natures#update" deletable="true"/>
       </menu>
       <menu name="tools">
         <page to="tools#index"/>
@@ -869,6 +869,17 @@
     </menu>
   </menu>
   <undefined>
+    <menu name="animals">
+      <page to="animals#index"/>
+      <page to="animals#create"/>
+      <page to="animals#destroy"/>
+      <page to="animals#edit"/>
+      <page to="animals#list"/>
+      <page to="animals#list_children"/>
+      <page to="animals#new"/>
+      <page to="animals#show"/>
+      <page to="animals#update"/>
+    </menu>
     <menu name="companies">
       <page to="companies#register"/>
     </menu>
@@ -929,15 +940,6 @@
       <page to="preferences#show"/>
       <page to="preferences#update"/>
     </menu>
-    <menu name="product_group_passings">
-      <page to="product_group_passings#index"/>
-      <page to="product_group_passings#create"/>
-      <page to="product_group_passings#destroy"/>
-      <page to="product_group_passings#edit"/>
-      <page to="product_group_passings#new"/>
-      <page to="product_group_passings#show"/>
-      <page to="product_group_passings#update"/>
-    </menu>
     <menu name="product_groups">
       <page to="product_groups#list_products"/>
     </menu>
@@ -973,8 +975,21 @@
       <page to="product_indicators#show"/>
       <page to="product_indicators#update"/>
     </menu>
+    <menu name="product_memberships">
+      <page to="product_memberships#index"/>
+      <page to="product_memberships#create"/>
+      <page to="product_memberships#destroy"/>
+      <page to="product_memberships#edit"/>
+      <page to="product_memberships#new"/>
+      <page to="product_memberships#show"/>
+      <page to="product_memberships#update"/>
+    </menu>
     <menu name="product_nature_categories">
       <page to="product_nature_categories#list_product_natures"/>
+    </menu>
+    <menu name="product_natures">
+      <page to="product_natures#list_product_stock_moves"/>
+      <page to="product_natures#list_product_stocks"/>
     </menu>
     <menu name="product_process_phases">
       <page to="product_process_phases#index"/>
@@ -1011,22 +1026,9 @@
       <page to="sessions#new"/>
       <page to="sessions#renew"/>
     </menu>
-    <menu name="tool_natures">
-      <page to="tool_natures#index"/>
-      <page to="tool_natures#create"/>
-      <page to="tool_natures#destroy"/>
-      <page to="tool_natures#edit"/>
-      <page to="tool_natures#list"/>
-      <page to="tool_natures#new"/>
-      <page to="tool_natures#show"/>
-      <page to="tool_natures#update"/>
-    </menu>
-    <menu name="trackings">
-      <page to="trackings#list_operation_lines"/>
-      <page to="trackings#list_purchase_lines"/>
-      <page to="trackings#list_sale_lines"/>
-      <page to="trackings#list_stocks"/>
-      <page to="trackings#show"/>
+    <menu name="warehouses">
+      <page to="warehouses#list_product_stock_moves"/>
+      <page to="warehouses#list_product_stocks"/>
     </menu>
   </undefined>
 </menu>

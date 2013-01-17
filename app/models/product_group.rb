@@ -20,14 +20,18 @@
 # 
 # == Table: product_groups
 #
+#  color        :string(255)      
 #  comment      :text             
 #  created_at   :datetime         not null
 #  creator_id   :integer          
+#  depth        :integer          default(0), not null
 #  description  :text             
 #  id           :integer          not null, primary key
+#  lft          :integer          
 #  lock_version :integer          default(0), not null
 #  name         :string(255)      not null
 #  parent_id    :integer          
+#  rgt          :integer          
 #  updated_at   :datetime         not null
 #  updater_id   :integer          
 #
@@ -36,13 +40,14 @@
 class ProductGroup < CompanyRecord
   attr_accessible :comment, :description, :name
   belongs_to :parent, :class_name => "ProductGroup"
-  has_many :passages, :class_name => "ProductGroupPassing", :foreign_key => :product_group_id
+  has_many :passages, :class_name => "ProductMembership", :foreign_key => :product_group_id
   has_many :products, :through => :passages
 
   accepts_nested_attributes_for :passages,    :reject_if => :all_blank, :allow_destroy => true
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_length_of :name, :allow_nil => true, :maximum => 255
-  validates_presence_of :name
+  validates_numericality_of :depth, :lft, :rgt, :allow_nil => true, :only_integer => true
+  validates_length_of :color, :name, :allow_nil => true, :maximum => 255
+  validates_presence_of :depth, :name
   #]VALIDATORS]
   validates_uniqueness_of :name
 end

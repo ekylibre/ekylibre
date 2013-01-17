@@ -39,8 +39,8 @@
 #  reduction_origin_id  :integer          
 #  reduction_percentage :decimal(19, 4)   default(0.0), not null
 #  sale_id              :integer          not null
+#  stock_id             :integer          
 #  tax_id               :integer          
-#  tracking_id          :integer          
 #  unit_id              :integer          
 #  updated_at           :datetime         not null
 #  updater_id           :integer          

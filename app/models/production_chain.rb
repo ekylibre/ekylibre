@@ -57,7 +57,7 @@ class ProductionChain < CompanyRecord
       lines = []
       for k, v in inputs
         conveyor = ProductionChainConveyor.find(k.to_i)
-        stock = Stock.find(v[:stock_id].to_i)
+        stock = ProductStock.find(v[:stock_id].to_i)
         lines << {:direction=>"in", :product=>conveyor.product, :quantity=>v[:quantity], :tracking=>stock.tracking, :warehouse=>stock.warehouse}
       end
       for conveyor in from.output_conveyors

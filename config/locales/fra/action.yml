@@ -9,6 +9,11 @@ fra:
       reconciliation: "Lettrage de comptes"
       show: "Compte\_: %{number} - %{name}"
       unmark: "Délettrer un compte"
+    animals:
+      # edit: "Edit animal"
+      # index: "Index animal"
+      # new: "New animal"
+      # show: "Show animal"
     areas:
       edit: "Modifier la zone postale\_: %{name}"
       index: "Zones postales"
@@ -110,15 +115,6 @@ fra:
       index: "Catégories de fiche"
       new: "Ajout d’une nouvelle catégorie de fiche"
       show: "Catégorie de fiche\_: %{name}"
-    entity_event_natures:
-      edit: "Modifier le type d’évènement\_: %{name}"
-      index: "Types d’évènements"
-      new: "Ajouter un type d’évènement"
-    entity_events:
-      change_minutes: "Changer la durée de l’évènement"
-      edit: "Modifier l’un évènement"
-      index: "Évènements"
-      new: "Ajout d’un évènement"
     entity_link_natures:
       edit: "Modifier le type de lien\_: %{name}"
       index: "Types de lien"
@@ -134,6 +130,15 @@ fra:
       edit: "Modifier l’établissement\_: %{name}"
       index: "Établissements"
       new: "Ajout d’un nouvel etablissement"
+    event_natures:
+      edit: "Modifier le type d’évènement\_: %{name}"
+      index: "Types d’évènements"
+      new: "Ajouter un type d’évènement"
+    events:
+      change_minutes: "Changer la durée de l’évènement"
+      edit: "Modifier l’un évènement"
+      index: "Évènements"
+      new: "Ajout d’un évènement"
     financial_years:
       close: "Clôturer l’exercice %{code}"
       compute_balances: "Calculer la balance de l’exercice"
@@ -189,10 +194,6 @@ fra:
       reopen: "Déclôturer le journal\_: %{name}"
       reports: "Impression, exportation"
       show: "Journal\_: %{name} (%{code})"
-    land_parcel_groups:
-      edit: "Modifier le groupe d’îlots: %{name}"
-      index: "Groupes d’îlots"
-      new: "Ajouter un nouveau groupe d’îlots"
     land_parcels:
       divide: "Diviser l’îlot\_: %{name}"
       edit: "Modifier l’ îlot\_: %{name}"
@@ -209,6 +210,11 @@ fra:
       index: "Exportations et mailings"
       mail: "Envoyer un e-mail pour\_: %{name}"
       new: "Création d’une nouvelle extraction"
+    logs:
+      edit: "Modifier un évènement"
+      index: "Évènements"
+      new: "Créer un évènement"
+      show: "évènement %{name} commencé le %{started_at}"
     mandates:
       configure: "Configuration des responsabilités"
       edit: "Modifier la responsabilité"
@@ -266,29 +272,6 @@ fra:
       import: "Importer un fichier CSV de tarifs"
       index: "Prix"
       new: "Ajout d’un nouveau prix"
-    product_components:
-      edit: "Modifier le composant %{name}"
-      new: "Ajouter un composant"
-    product_event_natures:
-      edit: "Modifier un type d'évènement"
-      index: "Type d'évènement"
-      new: "Créer un type d'évènement"
-      show: "Type d'évènement %{name}"
-    product_events:
-      edit: "Modifier un évènement"
-      index: "Évènements"
-      new: "Créer un évènement"
-      show: "évènement %{name} commencé le %{started_at}"
-    product_group_events:
-      edit: "Modifier un évènement par lot"
-      index: "Évènements par lot"
-      new: "Créer un évènement par lot"
-      show: "évènement par lot\_: %{name} commencé le %{started_at}"
-    product_group_passings:
-      # edit: "Edit product group passing"
-      # index: "Index product group passing"
-      # new: "New product group passing"
-      # show: "Show product group passing"
     product_groups:
       edit: "Modifier le lot\_: %{name} "
       index: "Lots d'animaux"
@@ -308,11 +291,19 @@ fra:
       # index: "Index product indicator"
       # new: "New product indicator"
       # show: "Show product indicator"
+    product_memberships:
+      # edit: "Edit product membership"
+      # index: "Index product membership"
+      # new: "New product membership"
+      # show: "Show product membership"
     product_nature_categories:
       edit: "Modifier la catégorie de produits\_: %{name}"
       index: "Catégories de produits"
       new: "Ajout d’une nouvelle catégorie de produits"
       show: "Détail de la catégorie\_: %{name}"
+    product_nature_components:
+      edit: "Modifier le composant %{name}"
+      new: "Ajouter un composant"
     product_natures:
       # change_quantities: "Change quantities product nature"
       # edit: "Edit product nature"
@@ -329,6 +320,19 @@ fra:
       # index: "Index product process"
       # new: "New product process"
       # show: "Show product process"
+    product_stock_moves:
+      edit: "Modifier le mouvement de stock\_: %{name}" #?
+      new: "Enregistrement d’un mouvement de stock" #?
+    product_stocks:
+      edit: "Modifier le stock\_: %{name}"
+      index: "État des stocks"
+      new: "Nouveau stock"
+    product_transfers:
+      confirm: "Transferts à réaliser"
+      confirm_all: "Confirmer tous les transferts"
+      edit: "Modifier l’un transfert de stock"
+      index: "Transferts et pertes de stocks"
+      new: "Ajouter un transfert ou une perte de stocks"
     product_varieties:
       edit: "Modifier la race\_: %{name} "
       index: "Races"
@@ -349,9 +353,9 @@ fra:
       show: "Chaîne de production\_: %{name}"
     products:
       edit: "Modifier un animal"
-      index: "Animaux"
+      index: "Animaux" #?
       new: "Créer un animal"
-      show: "animal\_: %{name}"
+      show: "animal\_: %{name}" #?
     professions:
       edit: "Modifier la profession\_: %{name}"
       index: "Professions"
@@ -420,19 +424,6 @@ fra:
       edit: "Configuration"
       import: "Importer des données"
       restore: "Restaurer une sauvegarde"
-    stock_moves:
-      edit: "Modifier le mouvement de stock\_: %{name}" #?
-      new: "Enregistrement d’un mouvement de stock" #?
-    stock_transfers:
-      confirm: "Transferts à réaliser"
-      confirm_all: "Confirmer tous les transferts"
-      edit: "Modifier l’un transfert de stock"
-      index: "Transferts et pertes de stocks"
-      new: "Ajouter un transfert ou une perte de stocks"
-    stocks:
-      edit: "Modifier le stock\_: %{name}"
-      index: "État des stocks"
-      new: "Nouveau stock"
     subscription_natures:
       edit: "Modifier le type d’abonnement\_: %{name}"
       index: "Types d’abonnements"
@@ -452,18 +443,11 @@ fra:
       edit: "Modifier la taxe\_: %{name}"
       index: "Taxes"
       new: "Ajouter une nouvelle taxe"
-    tool_natures:
-      edit: "Modifier un type de matériel"
-      index: "Type de matériel / équipement"
-      new: "Nouveau type de matériel"
-      show: "Type de matériel\_: %{name}"
     tools:
       edit: "Modifier le matériel\_: %{name}"
       index: "Matériel"
       new: "Ajouter un matériel"
       show: "Matériel\_: %{name}"
-    trackings:
-      show: "Lot %{name}"
     transports:
       deliveries: "Livraisons du transport" #?
       delivery_delete: "Retirer la livraison du transport" #?
@@ -492,6 +476,7 @@ fra:
     account_balances: "Soldes de comptes"
     accounts: "Plan de comptes"
     admin: "Administration"
+    # animals: "Animals"
     application: "Application"
     areas: "Zones postales"
     assets: "Immobilisations"
@@ -516,12 +501,12 @@ fra:
     entities: "Personnes"
     entity_addresses: "Adresses"
     entity_categories: "Catégories de fiche"
-    entity_event_natures: "Types d’évènements"
-    entity_events: "Évènements"
     entity_link_natures: "Types de lien"
     entity_links: "Liens entre personnes"
     entity_natures: "Types de fiches"
     establishments: "Établissements"
+    event_natures: "Types d’évènements"
+    events: "Évènements"
     financial_years: "Exercices comptables"
     help: "Aide"
     incoming_deliveries: "Livraisons entrantes"
@@ -536,12 +521,12 @@ fra:
     journal_entries: "Écritures comptables"
     journal_entry_lines: "Lignes d’écritures comptables"
     journals: "Journaux"
-    land_parcel_groups: "Groupes d’îlots"
     land_parcel_kinships: "Parenté entre îlots"
     land_parcels: "Îlots"
     listing_node_items: "Élement de nœuds d’extractions"
     listing_nodes: "Nœuds d’extractions"
     listings: "Exportations et mailings"
+    logs: "Evenements des Animaux"
     mandates: "Responsabilités"
     myselves: "Mon compte"
     observations: "Observations"
@@ -557,19 +542,19 @@ fra:
     outgoing_payments: "Décaissements"
     preferences: "Préférences"
     prices: "Prix"
-    product_components: "Composants de produits"
-    product_event_natures: "Type d'évenements des Animaux"
-    product_events: "Evenements des Animaux"
-    # product_group_events: "Product group events"
-    # product_group_passings: "Product group passings"
     product_groups: "Lot d'Animaux"
     # product_indicator_nature_choices: "Product indicator nature choices"
     # product_indicator_natures: "Product indicator natures"
     # product_indicators: "Product indicators"
+    # product_memberships: "Product memberships"
     product_nature_categories: "Catégories de produits"
+    product_nature_components: "Composants de produits"
     # product_natures: "Product natures"
     # product_process_phases: "Product process phases"
     # product_processes: "Product processes"
+    product_stock_moves: "Mouvements de stock"
+    product_stocks: "État des stocks"
+    product_transfers: "Transferts et pertes de stocks"
     product_varieties: "Races"
     production_chain_conveyors: "Convoyeurs de chaînes de production"
     production_chain_work_center_uses: "Utilisation des ateliers de chaînes de production"
@@ -587,17 +572,11 @@ fra:
     sequences: "Séquences"
     sessions: "Session"
     settings: "Paramètres"
-    stock_moves: "Mouvements de stock"
-    stock_transfers: "Transferts et pertes de stocks"
-    stocks: "État des stocks"
     subscription_natures: "Types d’abonnements"
     subscriptions: "Abonnements"
     tax_declarations: "Déclaration de TVA"
     taxes: "Taxes"
-    tool_natures: "Type de matériels"
     tools: "Matériel"
-    tracking_states: "État des lots de traçabilité"
-    trackings: "Lots de traçabilité"
     transfers: "Transferts"
     transports: "Transports"
     units: "Unités de mesure"
@@ -1672,10 +1651,12 @@ fra:
     animal_prescriptions:
       all: "N° {prescription_number} du {prescripted_on}"
     animals:
-      all: "{name} - {work_number}"
+      all: "{name} - {number}"
+    logs:
+      all: "{observed_at}"
     product_events:
-      all: "{name} - {started_at}"
+      all: "{observed_at}"
     products:
-      all: "{name} - {work_number}"
+      all: "{number} {name} "
     units:
       all: "{label} ({name})"

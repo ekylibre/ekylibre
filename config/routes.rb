@@ -91,7 +91,7 @@ Ekylibre::Application.routes.draw do
       unroll_all
     end
   end
-  resources :product_events do
+  resources :logs do
     collection do
       get :list
       unroll_all
@@ -296,14 +296,14 @@ Ekylibre::Application.routes.draw do
       unroll_all
     end
   end
-  resources :entity_events do
+  resources :events do
     collection do
       get :list
       get :change_minutes
       unroll_all
     end
   end
-  resources :entity_event_natures do
+  resources :event_natures do
     collection do
       get :list
       unroll_all
@@ -539,7 +539,7 @@ Ekylibre::Application.routes.draw do
       unroll_all
     end
   end
-  resources :product_components, :except => [:show, :index]
+  resources :product_nature_components, :except => [:show, :index]
   resources :production_chains do
     collection do
       get :list
@@ -640,8 +640,8 @@ Ekylibre::Application.routes.draw do
       unroll_all
     end
   end
-  # resources :stock_moves
-  resources :stock_transfers do
+  # resources :product_stock_moves
+  resources :product_transfers do
     collection do
       get :list
       get :list_confirm
@@ -652,7 +652,7 @@ Ekylibre::Application.routes.draw do
       match "confirm", :via => [:get, :post]
     end
   end
-  resources :stocks do
+  resources :product_stocks do
     collection do
       get :list
       unroll_all

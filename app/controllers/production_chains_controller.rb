@@ -22,8 +22,8 @@ class ProductionChainsController < AdminController
 
   unroll_all
 
-  list(:order=>"name") do |t|
-    t.column :name, :url=>true
+  list(:order => "name") do |t|
+    t.column :name, :url => true
     t.column :comment
     t.action :edit
     t.action :destroy
@@ -33,21 +33,21 @@ class ProductionChainsController < AdminController
   def index
     if params[:generate] == "sample"
       ActiveRecord::Base.transaction do
-        building = Warehouse.where(:reservoir=>false).first
+        building = Warehouse.where(:reservoir => false).first
         name = "Sample production chain (手本)"
         pc = ProductionChain.find_by_name(name)
         pc.destroy if pc
-        pc = ProductionChain.create!(:name=>name)
+        pc = ProductionChain.create!(:name => name)
         ops = {}
-        for op, long_name in {:a=>"Cooling", :b=>"Sorting", :c=>"Packaging Q1S1", :d=>"Packaging Q1S2", :e=>"Packaging Q2S1", :f=>"Packaging Q2S2", :g=>"Packaging Special Palet"}.sort{|a,b| a.to_s<=>b.to_s}
+        for op, long_name in {:a => "Cooling", :b => "Sorting", :c => "Packaging Q1S1", :d => "Packaging Q1S2", :e => "Packaging Q2S1", :f => "Packaging Q2S2", :g => "Packaging Special Palet"}.sort{|a,b| a.to_s <=> b.to_s}
           name = long_name.split(/\s+/)[0]
           n = OperationNature.find_by_name(name)
-          n = OperationNature.create!(:name=>name) if n.nil?
-          ops[op] = pc.operations.create!(:name=>long_name, :building=>building, :nature=>(long_name.match(/\s/) ? "output" : "input"), :operation_nature=>n)
+          n = OperationNature.create!(:name => name) if n.nil?
+          ops[op] = pc.operations.create!(:name => long_name, :building => building, :nature => (long_name.match(/\s/) ? "output" : "input"), :operation_nature => n)
         end
         us = {}
-        us[:kg] = Unit.find_by_name("kg")||Unit.create!(:name=>"kg", :label=>"Kilogram", :base=>"kg")
-        us[:u]  = Unit.find_by_name("u") ||Unit.create!(:name=>"u", :label=>"Unit", :base=>"")
+        us[:kg] = Unit.find_by_name("kg")||Unit.create!(:name => "kg", :label => "Kilogram", :base => "kg")
+        us[:u]  = Unit.find_by_name("u") ||Unit.create!(:name => "u", :label => "Unit", :base => "")
         ps = {}
         for p in [["TOMA", "Tomato (トマト)", :kg, 1],
                   ["TO11", "Tomato Q1S1 (トマト)", :kg, 1],
@@ -65,7 +65,7 @@ class ProductionChainsController < AdminController
           k = p[0] # .lower.to_sym
           ps[k] = ProductNature.find_by_code(p[0])
           # ps[k].destroy; ps[k] = nil
-          ps[k] = ProductNature.create!(:name=>p[1], :code=>p[0], :unit=>us[p[2]], :weight=>p[3], :for_sales=>false, :category=>ProductNatureCategory.first, :nature=>"product", :stockable=>true) unless ps[k]
+          ps[k] = ProductNature.create!(:name => p[1], :code => p[0], :unit => us[p[2]], :weight => p[3], :for_sales => false, :category => ProductNatureCategory.first, :nature => "product", :stockable => true) unless ps[k]
         end
 
         for co in [ ["TOMA", nil, 0.0,  :a,   1, true],
@@ -84,31 +84,31 @@ class ProductionChainsController < AdminController
                     ["TB22",  :f, 1.0,  :g, 120, false, true],
                     ["STPA",  :g, 1.0, nil,   0, false, true]
                   ]
-          pc.conveyors.create!(:product=>ps[co[0]], :source=>ops[co[1]], :source_quantity=>co[2], :target=>ops[co[3]], :target_quantity=>co[4], :check_state=>co[5], :unique_tracking=>co[6]||false)
+          pc.conveyors.create!(:product_nature => ps[co[0]], :source => ops[co[1]], :source_quantity => co[2], :target => ops[co[3]], :target_quantity => co[4], :check_state => co[5], :unique_tracking => co[6]||false)
         end
-        redirect_to :action=>:show, :id=>pc.id
+        redirect_to :action => :show, :id => pc.id
       end
     end
   end
 
 
 
-  list(:work_centers, :model=>:production_chain_work_centers, :order=>"name") do |t|
-    t.column :name, :url=>true
-    t.column :name, :through=>:operation_nature
+  list(:work_centers, :model => :production_chain_work_centers, :order => "name") do |t|
+    t.column :name, :url => true
+    t.column :name, :through => :operation_nature
     t.column :nature
-    t.column :name, :through=>:building, :url=>true
+    t.column :name, :through => :building, :url => true
     t.column :comment
     t.action :edit
     t.action :destroy
   end
 
-  list(:conveyors, :model=>:production_chain_conveyors, :order=>"id") do |t|
-    t.column :name, :through=>:product, :url=>true
+  list(:conveyors, :model => :production_chain_conveyors, :order => "id") do |t|
+    t.column :name, :through => :product_nature, :url => true
     t.column :flow
-    t.column :name, :through=>:unit
-    t.column :name, :through=>:source, :url=>true
-    t.column :name, :through=>:target, :url=>true
+    t.column :name, :through => :unit
+    t.column :name, :through => :source, :url => true
+    t.column :name, :through => :target, :url => true
     t.action :edit
     t.action :destroy
   end

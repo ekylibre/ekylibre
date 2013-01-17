@@ -20,47 +20,39 @@
 # 
 # == Table: product_natures
 #
-#  active                     :boolean          default(TRUE), not null
-#  catalog_description        :text             
-#  catalog_name               :string(255)      not null
-#  category_id                :integer          not null
-#  code                       :string(16)       
-#  code2                      :string(64)       
-#  comment                    :text             
-#  created_at                 :datetime         not null
-#  creator_id                 :integer          
-#  critic_quantity_min        :decimal(19, 4)   default(1.0)
-#  deliverable                :boolean          not null
-#  description                :text             
-#  ean13                      :string(13)       
-#  for_immobilizations        :boolean          not null
-#  for_productions            :boolean          not null
-#  for_purchases              :boolean          not null
-#  for_sales                  :boolean          default(TRUE), not null
-#  id                         :integer          not null, primary key
-#  immobilizations_account_id :integer          
-#  lock_version               :integer          default(0), not null
-#  name                       :string(255)      not null
-#  nature                     :string(16)       not null
-#  number                     :integer          not null
-#  price                      :decimal(19, 4)   default(0.0)
-#  published                  :boolean          not null
-#  purchases_account_id       :integer          
-#  quantity_max               :decimal(19, 4)   default(0.0)
-#  quantity_min               :decimal(19, 4)   default(0.0)
-#  reduction_submissive       :boolean          not null
-#  sales_account_id           :integer          
-#  stockable                  :boolean          not null
-#  subscription_nature_id     :integer          
-#  subscription_period        :string(255)      
-#  subscription_quantity      :integer          
-#  trackable                  :boolean          not null
-#  unit_id                    :integer          not null
-#  unquantifiable             :boolean          not null
-#  updated_at                 :datetime         not null
-#  updater_id                 :integer          
-#  weight                     :decimal(19, 4)   
-#  with_tracking              :boolean          not null
+#  active                 :boolean          not null
+#  alive                  :boolean          not null
+#  asset_account_id       :integer          
+#  category_id            :integer          not null
+#  charge_account_id      :integer          
+#  comment                :text             
+#  commercial_description :text             
+#  commercial_name        :string(255)      not null
+#  created_at             :datetime         not null
+#  creator_id             :integer          
+#  deliverable            :boolean          not null
+#  depreciable            :boolean          not null
+#  description            :text             
+#  id                     :integer          not null, primary key
+#  indivisible            :boolean          not null
+#  lock_version           :integer          default(0), not null
+#  name                   :string(255)      not null
+#  number                 :string(32)       not null
+#  producible             :boolean          not null
+#  product_account_id     :integer          
+#  purchasable            :boolean          not null
+#  reductible             :boolean          not null
+#  saleable               :boolean          not null
+#  stockable              :boolean          not null
+#  subscribing            :boolean          not null
+#  subscription_duration  :string(255)      
+#  subscription_nature_id :integer          
+#  traceable              :boolean          not null
+#  transferable           :boolean          not null
+#  unit_id                :integer          not null
+#  updated_at             :datetime         not null
+#  updater_id             :integer          
+#  variety_id             :integer          not null
 #
 require 'test_helper'
 

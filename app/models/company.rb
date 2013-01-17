@@ -192,7 +192,7 @@ class Company < Ekylibre::Record::Base
   has_many :charges_accounts, :class_name => "Account", :order => :number, :conditions => conditions_proc('number LIKE #{connection.quote(self.preferred_charges_accounts.to_s+\'%\')}')
   has_many :choice_custom_fields, :class_name => "CustomField", :conditions => {:nature => "choice"}, :order => "name"
   ### has_many :client_accounts, :class_name => "Account", :order => :number, :conditions => conditions_proc('number LIKE #{connection.quote(self.preferred_third_clients_accounts.to_s+\'%\')}')
-  ### has_many :critic_stocks, :class_name => "Stock", :conditions => ['virtual_quantity <= quantity_min AND NOT (virtual_quantity=0 AND quantity=0 AND tracking_id IS NOT NULL)']
+  ### has_many :critic_stocks, :class_name => "ProductStock", :conditions => ['virtual_quantity <= quantity_min AND NOT (virtual_quantity=0 AND quantity=0 AND tracking_id IS NOT NULL)']
   has_many :employees, :class_name => "Entity", :conditions => {:employed => true}, :order => 'last_name, first_name'
   ### has_many :depositable_payments, :class_name => "IncomingPayment", :conditions => conditions_proc('deposit_id IS NULL AND mode_id IN (SELECT id FROM #{IncomingPaymentMode.table_name} WHERE company_id=#{id} AND with_deposit=#{connection.quoted_true})')
   ### has_many :major_accounts, :class_name => "Account", :conditions => ["number LIKE '_'"], :order => "number"
@@ -208,7 +208,7 @@ class Company < Ekylibre::Record::Base
   has_many :suppliers, :class_name => "Entity", :conditions => {:supplier => true}, :order => 'active DESC, last_name, first_name'
   has_many :surface_units, :class_name => "Unit", :conditions => {:base => "m2"}, :order => 'coefficient, name'
   has_many :transporters, :class_name => "Entity", :conditions => {:transporter => true}, :order => 'active DESC, last_name, first_name'
-  ### has_many :unconfirmed_stock_transfers, :class_name => "StockTransfer", :conditions => {:moved_on => nil}
+  ### has_many :unconfirmed_stock_transfers, :class_name => "ProductTransfer", :conditions => {:moved_on => nil}
   ### has_many :undelivered_incoming_deliveries, :class_name => "IncomingDelivery", :conditions => {:moved_on => nil}
   ### has_many :undelivered_outgoing_deliveries, :class_name => "OutgoingDelivery", :conditions => {:moved_on => nil}
   has_many :unpaid_responsibles, :class_name => "Entity", :conditions => conditions_proc('id in (SELECT responsible_id FROM #{Sale.table_name} WHERE company_id=#{id} AND state IN (\'order\', \'invoice\') AND paid_amount < amount AND lost = #{connection.quoted_false})')
@@ -482,7 +482,7 @@ class Company < Ekylibre::Record::Base
 
   #     Warehouse.create!(:name => tc('default.warehouse_name'), :establishment_id => establishment.id)
   #     for nature in [:sale, :sales_invoice, :purchase]
-  #       EntityEventNature.create!(:duration => 10, :usage => nature.to_s, :name => tc("default.event_natures.#{nature}"))
+  #       EventNature.create!(:duration => 10, :usage => nature.to_s, :name => tc("default.event_natures.#{nature}"))
   #     end
 
   #     #   # Add custom_fieldary data to test
@@ -733,7 +733,7 @@ class Company < Ekylibre::Record::Base
       self.operation_natures.create!(:name => nature, :target_type => "LandParcel")
     end
     for nature in ["Fabrication", "Transformation", "Ouillage"]
-      self.operation_natures.create!(:name => nature, :target_type => "Stock")
+      self.operation_natures.create!(:name => nature, :target_type => "ProductStock")
     end
     for tool in ["Tracteur MF", "Renault 50"]
       self.tools.create!(:name => tool, :nature => "tractor")

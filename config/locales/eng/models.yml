@@ -84,6 +84,13 @@ eng:
         published: "Published"
       product_specy:
         # code: "Code race"
+      product_stock:
+        quantity: "Real quantity"
+      product_stock_move:
+        origin: "Origine"
+      product_transfer:
+        second_warehouse: "Arrival warehouse"
+        warehouse: "Departure warehouse"
       product_variety:
         # code: "Code race"
       products_nature:
@@ -227,6 +234,13 @@ eng:
         price:
           already_defined: "A price is already defined for this list and this product"
           range_overlap: "The range overlaps an other(from %{min} to %{max})"
+        product_stock:
+          product_cannot_be_in_warehouse: "Product can not be stored in %{warehouse}"
+        product_transfer:
+          warehouse_can_not_receive_product: "%{warehouse} can not receive %{product}, it already contains %{contained_product}"
+          warehouse_can_not_transfer_product: "You can not transfer %{product} in %{warehouse}, it already contains %{contained_product}"
+          warehouse_can_not_waste_product: "You can not register a loss of %{product} in %{warehouse}, it already contains %{contained_product}"
+          warehouses_can_not_be_identical: "Warehouses can not be identical"
         purchase_line:
           serial_already_used_with_an_other_product: "%{attribute} has been already used for an other product of the same supplier"
           warehouse_can_not_receive_product: "The warehouse %{warehouse} can not receive %{product}, it already contains %{contained_product}."
@@ -297,8 +311,8 @@ eng:
       entity_link_nature: "Person link type"
       entity_nature: "Person type"
       establishment: "Establishment"
-      event: "Event" #?
-      event_nature: "Event type" #?
+      event: "Event"
+      event_nature: "Event type"
       financial_year: "Financial year"
       incoming_delivery: "Purchase delivery"
       incoming_delivery_line: "Purchase delivery line"
@@ -317,6 +331,7 @@ eng:
       listing: "Listing"
       listing_node: "Listing node"
       listing_node_item: "Listing node item"
+      log: "Animal event"
       mandate: "Mandate"
       observation: "Observation"
       operation: "Operation"
@@ -339,9 +354,14 @@ eng:
       product_group: "Animal group"
       # product_group_event: "Évènement de groupe de produits"
       # product_group_passing: "Passage d'un produit dans un groupe"
+      # product_membership: "Passage d'un produit dans un groupe"
       product_nature: "Product"
       product_nature_category: "Product category"
+      product_nature_component: "Product component"
       product_specy: "Animal race"
+      product_stock: "Stock"
+      product_stock_move: "Stock move"
+      product_transfer: "Stock transfer"
       product_variety: "Animal race"
       production_chain: "Production chain"
       production_chain_conveyor: "Production chain conveyor"
@@ -435,6 +455,7 @@ eng:
     bban: "BBAN"
     bic: "BIC"
     boolean_value: "Boolean value"
+    # born_at: "Born at"
     born_on: "Born on"
     building: "Building"
     buildings: "Buildings"
@@ -502,6 +523,7 @@ eng:
     consumption: "Consumption"
     contact: "Contact" #?
     contacts: "Contacts" #?
+    # content_maximal_quantity: "Content maximal quantity"
     conveyors: "Conveyors"
     coordinate: "Coordinate"
     country: "Country"
@@ -530,8 +552,10 @@ eng:
     data: "Data"
     date_value: "Date value"
     datetime_value: "Datetime value"
+    # dead_at: "Dead at"
     dead_on: "Dead on"
     debit: "Debit"
+    # decimal: "Decimal"
     decimal_max: "Decimal max" #?
     decimal_min: "Decimal min" #?
     decimal_value: "Decimal value"
@@ -572,6 +596,7 @@ eng:
     depreciation_method: "Depreciation method"
     depreciation_percentage: "Depreciation percentage"
     depreciations: "Depreciations"
+    # depth: "Depth"
     description: "Description"
     detail_payments: "Detail payments"
     diagnostics: "Diagnostics"
@@ -740,6 +765,7 @@ eng:
     # left_on: "Parti le"
     letter: "Letter"
     letter_format: "Letter format"
+    # lft: "Lft"
     lines: "Lines"
     listing: "Listing"
     listing_node_items: "Listing node items"
@@ -780,9 +806,12 @@ eng:
     mandates: "Mandates"
     # maximal_grantable_reduction_percentage: "Pourcentage maximal autorisé à etre effectué"
     # maximal_length: "Longueur maximale"
+    # maximal_quantity: "Maximal quantity"
     # maximal_value: "Valeur maximale"
+    # memberships: "Memberships"
     min_duration: "Min duration"
     # minimal_length: "Longueur minimale"
+    # minimal_quantity: "Minimal quantity"
     # minimal_value: "Valeur minimale"
     mobile: "Mobile"
     # mobiles: "Portables"
@@ -899,6 +928,7 @@ eng:
     product_categories: "Product categories"
     product_components: "Product components"
     # product_group: "Groupe de produits"
+    # product_nature: "Product nature"
     # product_natures: "Types de produits"
     productable_products: "Productable products"
     production_chain: "Production chain"
@@ -969,6 +999,7 @@ eng:
     resource: "Resource"
     resource_type: "Resource type"
     responsible: "Responsible"
+    # rgt: "Rgt"
     rights: "Rights"
     role: "Role"
     roles: "Roles"
@@ -997,6 +1028,7 @@ eng:
     self_contacts: "Self contacts"
     sequences: "Sequences"
     serial: "Serial"
+    # serial_number: "Serial number"
     # service_coeff: "Coefficient (de quantité) de service"
     sex: "Sex"
     sha256: "SHA256"
@@ -1270,6 +1302,11 @@ eng:
         service: "Service"
         subscription: "Subcription"
         transfer: "Transfer"
+    product_transfer:
+      nature:
+        gain: "Gain"
+        transfer: "Transfer"
+        waste: "Loss"
     production_chain_work_center:
       nature:
         input: "One in, many out"
@@ -1541,6 +1578,15 @@ eng:
         purchases: "Purchases"
         rent: "Location"
         sales: "Sales"
+    product_nature_component:
+      of_product: "of product"
+    product_stock:
+      default_name: "%{warehouse}/%{product}/%{tracking}"
+      label:
+        with_tracking: "%{warehouse}: S/N%{tracking}, %{quantity}%{unit} available"
+        without_tracking: "%{warehouse}: No serial, %{quantity}%{unit} available"
+    product_stock_move:
+      default_name: "%{origin} (%{code})"
     products_nature:
       informations:
         with_components: "%{product} (%{unit}) (transformed material)"

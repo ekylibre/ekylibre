@@ -10,8 +10,10 @@ module Ekylibre::Record
 
         # Add methods for reconciliating
         def acts_as_stockable(*args)
+          # TODO: Repair acts_as_stockable
+          return nil
           options = (args[-1].is_a?(Hash) ? args.delete_at(-1) : {})
-          stock_move = args[0].is_a?(Symbol) ? args[0] : :stock_move
+          stock_move = args[0].is_a?(Symbol) ? args[0] : :move
           reflection = self.reflections[stock_move]
           condition = options.delete(:if)
           origin = options.delete(:origin)

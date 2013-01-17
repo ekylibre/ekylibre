@@ -23,8 +23,8 @@ class EntityCategoriesController < AdminController
   manage_restfully
 
   list do |t|
-    t.column :code, :url=>true
-    t.column :name, :url=>true
+    t.column :code, :url => true
+    t.column :name, :url => true
     t.column :description
     t.column :by_default
     t.action :edit
@@ -35,11 +35,11 @@ class EntityCategoriesController < AdminController
   def index
   end
 
-  list(:prices, :model=>:prices, :conditions=>{:active=>true, :category_id=>['session[:current_entity_category_id]']}) do |t|
-    t.column :name, :through=>:product, :url=>true
+  list(:prices, :model => :prices, :conditions => {:active => true, :category_id => ['session[:current_entity_category_id]']}) do |t|
+    t.column :name, :through => :product_nature, :url => true
     t.column :pretax_amount
     t.column :amount
-    t.column :name, :through=>:tax
+    t.column :name, :through => :tax
     t.action :destroy
   end
 

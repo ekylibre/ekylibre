@@ -21,8 +21,8 @@ class PricesController < AdminController
 
   unroll_all
 
-  list(:conditions => prices_conditions, :order => :product_id) do |t|
-    t.column :name, :through => :product, :url => true
+  list(:conditions => prices_conditions, :order => :product_nature_id) do |t|
+    t.column :name, :through => :product_nature, :url => true
     t.column :full_name, :through => :entity, :url => true
     t.column :name, :through => :category, :url => true
     t.column :pretax_amount, :currency => true
@@ -35,7 +35,7 @@ class PricesController < AdminController
 
   def new
     @mode = (params[:mode]||"sales").to_sym
-    @price = Price.new(:product_id => params[:product_id], :currency => params[:currency]||Entity.of_company.currency, :category_id => params[:entity_category_id]||session[:current_entity_category_id]||0)
+    @price = Price.new(:product_nature_id => params[:product_nature_id], :currency => params[:currency]||Entity.of_company.currency, :category_id => params[:entity_category_id]||session[:current_entity_category_id]||0)
     @price.entity_id = params[:entity_id] if params[:entity_id]
     render_restfully_form
   end
@@ -55,8 +55,8 @@ class PricesController < AdminController
   end
 
   def find
-    if params[:product_id] and params[:entity_id]
-      return unless product = find_and_check(:product_natures, params[:product_id])
+    if params[:product_nature_id] and params[:entity_id]
+      return unless product = find_and_check(:product_natures, params[:product_nature_id])
       return unless entity = find_and_check(:entity, params[:entity_id])
       @price = product.prices.find(:first, :conditions => {:entity_id => entity.id, :active => true}, :order => "by_default DESC")
       @price ||= Price.new(:category_id => entity.category_id)
@@ -69,7 +69,7 @@ class PricesController < AdminController
       return unless @price = find_and_check(:price, params[:purchase_line_price_id])
       @product = @price.product if @price
     elsif params[:purchase_line_product_id]
-      return unless @product = find_and_check(:product_natures, params[:purchase_line_product_id])
+      return unless @product = find_and_check(:products, params[:purchase_line_product_id])
       @price = @product.prices.find_by_active_and_by_default_and_entity_id(true, true, params[:entity_id]||Entity.of_company.id) if @product
     end
   end

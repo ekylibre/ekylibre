@@ -39,10 +39,10 @@ class InventoriesController < AdminController
     end
   end
 
-  list(:lines, :model => :inventory_lines, :conditions => {:inventory_id => ['params[:id]'] }, :order => 'warehouse_id') do |t|
-    t.column :name, :through => :warehouse, :url => true
+  list(:lines, :model => :inventory_lines, :conditions => {:inventory_id => ['params[:id]'] }, :order => :id) do |t|
+    # t.column :name, :through => :warehouse, :url => true
     t.column :name, :through => :product, :url => true
-    t.column :name, :through => :tracking, :url => true
+    t.column :serial_number, :through => :product
     t.column :theoric_quantity, :precision => 3
     t.column :quantity, :precision => 3
     t.column :name, :through => :unit
@@ -58,19 +58,19 @@ class InventoriesController < AdminController
     end
   end
 
-  list(:lines_create, :model => :stocks, :pagination => :none, :order => "#{Warehouse.table_name}.name, #{ProductNature.table_name}.name") do |t|
-    t.column :name, :through => :warehouse, :url => true
+  list(:lines_create, :model => :product_stocks, :pagination => :none, :order => "#{Warehouse.table_name}.name, #{ProductNature.table_name}.name") do |t|
+    # t.column :name, :through => :warehouse, :url => true
     t.column :name, :through => :product, :url => true
-    t.column :name, :through => :tracking, :url => true
+    t.column :serial_number, :through => :product
     t.column :quantity, :precision => 3
     t.column :label, :through => :unit
     t.text_field :quantity
   end
 
   list(:lines_update, :model => :inventory_lines, :conditions => {:inventory_id => ['session[:current_inventory_id]'] }, :pagination => :none, :order => "#{Warehouse.table_name}.name, #{ProductNature.table_name}.name") do |t|
-    t.column :name, :through => :warehouse, :url => true
+    # t.column :name, :through => :warehouse, :url => true
     t.column :name, :through => :product, :url => true
-    t.column :name, :through => :tracking, :url => true
+    t.column :serial_number, :through => :product
     t.column :theoric_quantity, :precision => 3
     t.text_field :quantity
   end

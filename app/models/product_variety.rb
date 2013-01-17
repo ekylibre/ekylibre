@@ -20,15 +20,20 @@
 # 
 # == Table: product_varieties
 #
-#  code         :integer          
+#  automatic    :boolean          not null
+#  code         :string(255)      
 #  comment      :text             
 #  created_at   :datetime         not null
 #  creator_id   :integer          
+#  depth        :integer          default(0), not null
 #  description  :text             
 #  id           :integer          not null, primary key
+#  lft          :integer          
 #  lock_version :integer          default(0), not null
 #  name         :string(255)      not null
 #  parent_id    :integer          
+#  product_type :string(255)      not null
+#  rgt          :integer          
 #  updated_at   :datetime         not null
 #  updater_id   :integer          
 #
@@ -41,9 +46,10 @@ class ProductVariety < CompanyRecord
   # has_many :posologies, :class_name => "AnimalPosology", :foreign_key => :animal_race_id
   belongs_to :parent, :class_name => "ProductVariety"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :code, :allow_nil => true, :only_integer => true
-  validates_length_of :name, :allow_nil => true, :maximum => 255
-  validates_presence_of :name
+  validates_numericality_of :depth, :lft, :rgt, :allow_nil => true, :only_integer => true
+  validates_length_of :code, :name, :product_type, :allow_nil => true, :maximum => 255
+  validates_inclusion_of :automatic, :in => [true, false]
+  validates_presence_of :depth, :name, :product_type
   #]VALIDATORS]
    validates_uniqueness_of :name
 end

@@ -43,12 +43,12 @@ class OutgoingDeliveriesController < AdminController
 
   list(:lines, :model => :outgoing_delivery_lines, :conditions => {:delivery_id => ['session[:current_outgoing_delivery_id]']}) do |t|
     t.column :name, :through => :product, :url => true
-    t.column :number, :through => :tracking, :url => true
+    t.column :serial_number, :through => :product
     t.column :quantity
     t.column :name, :through => :unit
     t.column :pretax_amount
     t.column :amount
-    t.column :name, :through => :warehouse, :url => true
+    # t.column :name, :through => :warehouse, :url => true
   end
 
   # Displays details of one outgoind delivery selected with +params[:id]+

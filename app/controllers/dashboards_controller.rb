@@ -19,7 +19,7 @@
 
 class DashboardsController < AdminController
 
-  list(:my_future_entity_events, :model => :entity_events, :conditions => ['started_at >= CURRENT_TIMESTAMP'], :order => "started_at ASC", :line_class => "(RECORD.responsible_id=@current_user.id ? 'notice' : '')", :per_page => 10) do |t|
+  list(:my_future_entity_events, :model => :events, :conditions => ['started_at >= CURRENT_TIMESTAMP'], :order => "started_at ASC", :line_class => "(RECORD.responsible_id=@current_user.id ? 'notice' : '')", :per_page => 10) do |t|
     t.column :started_at
     t.column :full_name, :through => :entity, :url => true
     t.column :name, :through => :nature
@@ -28,7 +28,7 @@ class DashboardsController < AdminController
     t.column :label, :through => :responsible, :url => true
   end
 
-  list(:recent_entity_events, :model => :entity_events, :conditions => ['started_at < CURRENT_TIMESTAMP'], :order => "started_at DESC", :per_page => 10) do |t|
+  list(:recent_entity_events, :model => :events, :conditions => ['started_at < CURRENT_TIMESTAMP'], :order => "started_at DESC", :per_page => 10) do |t|
     t.column :started_at
     t.column :full_name, :through => :entity, :url => true
     t.column :name, :through => :nature
@@ -37,10 +37,10 @@ class DashboardsController < AdminController
     t.column :label, :through => :responsible, :url => true
   end
 
-  list(:critic_stocks, :model => :stocks, :conditions => ['#{Stock.table_name}.virtual_quantity <= #{Stock.table_name}.quantity_min AND NOT (#{Stock.table_name}.virtual_quantity=0 AND #{Stock.table_name}.quantity=0 AND #{Stock.table_name}.tracking_id IS NOT NULL)'] , :line_class => 'RECORD.state', :order => 'virtual_quantity/(2*quantity_min+0.01)') do |t|
+  list(:critic_stocks, :model => :product_stocks, :conditions => ['#{ProductStock.table_name}.virtual_quantity <= #{ProductStock.table_name}.quantity_min AND NOT (#{ProductStock.table_name}.virtual_quantity=0 AND #{ProductStock.table_name}.quantity=0 AND #{ProductStock.table_name}.tracking_id IS NOT NULL)'] , :line_class => 'RECORD.state', :order => 'virtual_quantity/(2*quantity_min+0.01)') do |t|
     t.column :name, :through => :product, :url => true
     t.column :name, :through => :warehouse, :url => true
-    t.column :name, :through => :tracking, :url => true
+    t.column :serial_number, :through => :product, :url => true
     t.column :critic_quantity_min
     t.column :quantity_min
     t.column :quantity_max

@@ -31,8 +31,8 @@
 #  product_id    :integer          not null
 #  quantity      :decimal(19, 4)   default(1.0), not null
 #  sale_line_id  :integer          not null
+#  stock_id      :integer          
 #  stock_move_id :integer          
-#  tracking_id   :integer          
 #  unit_id       :integer          not null
 #  updated_at    :datetime         not null
 #  updater_id    :integer          
@@ -41,16 +41,14 @@
 
 
 class OutgoingDeliveryLine < CompanyRecord
-  attr_accessible :sale_line_id, :product_id, :price_id, :unit_id, :tracking_id, :warehouse_id
+  attr_accessible :sale_line_id, :product_id, :price_id, :unit_id
   attr_readonly :sale_line_id, :product_id, :price_id, :unit_id
   belongs_to :delivery, :class_name => "OutgoingDelivery"
   belongs_to :price
-  belongs_to :product, :class_name => "ProductNature"
+  belongs_to :product
   belongs_to :sale_line
-  belongs_to :stock_move
-  belongs_to :tracking
+  belongs_to :stock_move, :class_name => "ProductStockMove"
   belongs_to :unit
-  belongs_to :warehouse
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :amount, :pretax_amount, :quantity, :allow_nil => true
   validates_presence_of :amount, :delivery, :pretax_amount, :price, :product, :quantity, :sale_line, :unit
@@ -65,7 +63,6 @@ class OutgoingDeliveryLine < CompanyRecord
       self.product_id  = self.sale_line.product_id
       self.price_id    = self.sale_line.price.id
       self.unit_id     = self.sale_line.unit_id
-      self.warehouse_id = self.sale_line.warehouse_id
     end
     self.pretax_amount = self.sale_line.price.pretax_amount*self.quantity
     self.amount = self.sale_line.price.amount*self.quantity
