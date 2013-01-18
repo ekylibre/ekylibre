@@ -416,7 +416,7 @@ fra:
     area_unit: "Unité de surface"
     areas: "Zones postales"
     # arrival_move: "Arrival move"
-    arrival_reasons: "Causes d'entrée"
+    arrival_reasons: "Causes d'entrée" #?
     # arrival_stock: "Arrival stock"
     # arrival_warehouse: "Arrival warehouse"
     arrived_on: "Date d'entrée" #?
@@ -579,7 +579,7 @@ fra:
     department: "Service"
     departments: "Services" #?
     # departure_move: "Departure move"
-    departure_reasons: "Causes de sortie"
+    departure_reasons: "Causes de sortie" #?
     # departure_stock: "Departure stock"
     # departure_warehouse: "Departure warehouse"
     deposit: "Remise en banque"

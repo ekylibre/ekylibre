@@ -38,7 +38,11 @@ eng:
     animal_race_natures: #?
     animal_races: #?
     animal_treatments: #?
-    animals: #?
+    animals:
+      # edit: "Modifier l'animal\_: %{name}"
+      # index: "Liste des animaux"
+      # new: "Nouvel animal"
+      # show: "Animal\_: %{name}"
     areas:
       edit: "Edit the postal area: %{name}"
       index: "Postal areas"
@@ -325,7 +329,7 @@ eng:
     product_group_passings: #?
     product_groups:
       # edit: "Modifier le lot\_: %{name} "
-      # index: "Lots d'animaux"
+      # index: "Lots de produits"
       # new: "Créer un lot"
       # show: "Lot\_: %{name}"
     product_indicator_nature_choices: #?
@@ -716,6 +720,7 @@ eng:
     add_fax: "Add fax"
     add_mail: "Add postal adress"
     add_mobile: "Add mobile phone number"
+    # add_passage: "Ajouter un produit"
     add_payment: "Add payment"
     add_phone: "Add phone number"
     # add_posology: "Ajouter une posologie"

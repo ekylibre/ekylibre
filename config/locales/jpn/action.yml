@@ -28,7 +28,11 @@ jpn:
     animal_races: #?
     animal_treatment_uses: #?
     animal_treatments: #?
-    animals: #?
+    animals:
+      # edit: "Modifier l'animal\_: %{name}"
+      # index: "Liste des animaux"
+      # new: "Nouvel animal"
+      # show: "Animal\_: %{name}"
     application: #?
     areas:
       # edit: "Modifier la zone postale\_: %{name}"
@@ -321,7 +325,7 @@ jpn:
     product_group_passings: #?
     product_groups:
       # edit: "Modifier le lot\_: %{name} "
-      # index: "Lots d'animaux"
+      # index: "Lots de produits"
       # new: "Créer un lot"
       # show: "Lot\_: %{name}"
     product_indicator_nature_choices: #?
@@ -572,7 +576,7 @@ jpn:
     # outgoing_payments: "Décaissements"
     # preferences: "Préférences"
     # prices: "Prix"
-    # product_groups: "Lot d'Animaux"
+    # product_groups: "Lot de produits"
     # product_nature_categories: "Catégories de produits"
     # product_nature_components: "Composants de produits"
     # product_stock_moves: "Mouvements de stock"
@@ -657,6 +661,7 @@ jpn:
     # add_fax: "Ajouter un n° de fax"
     # add_mail: "Ajouter une adresse postale"
     # add_mobile: "Ajouter un n° de portable"
+    # add_passage: "Ajouter un produit"
     # add_payment: "Ajouter un encaissement"
     # add_phone: "Ajouter un n° de téléphone"
     # add_posology: "Ajouter une posologie"

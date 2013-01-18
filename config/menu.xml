@@ -369,17 +369,17 @@
     </menu>
     <menu name="products">
       <page to="products#index"/>
-	  <menu name="animals">
-	  	<page to="animals#index"/>
-	    <page to="animals#create"/>
-	    <page to="animals#destroy"/>
-	    <page to="animals#edit"/>
-	    <page to="animals#list"/>
-	    <page to="animals#list_children"/>
-	    <page to="animals#new"/>
-	    <page to="animals#show"/>
-	    <page to="animals#update"/>
-	  </menu>
+      <menu name="animals">
+        <page to="animals#index"/>
+        <page to="animals#create"/>
+        <page to="animals#destroy"/>
+        <page to="animals#edit"/>
+        <page to="animals#list"/>
+        <page to="animals#list_children"/>
+        <page to="animals#new"/>
+        <page to="animals#show"/>
+        <page to="animals#update"/>
+      </menu>
     </menu>
     <menu name="animal_events">
       <page to="logs#index"/>
@@ -878,6 +878,7 @@
       <page to="dashboards#list_critic_stocks"/>
       <page to="dashboards#list_my_future_entity_events"/>
       <page to="dashboards#list_recent_entity_events"/>
+      <page to="dashboards#production_products"/>
       <page to="dashboards#welcome"/>
     </menu>
     <menu name="entities">
@@ -1000,6 +1001,13 @@
       <page to="product_processes#new"/>
       <page to="product_processes#show"/>
       <page to="product_processes#update"/>
+    </menu>
+    <menu name="products">
+      <page to="products#create"/>
+      <page to="products#destroy"/>
+      <page to="products#edit"/>
+      <page to="products#new"/>
+      <page to="products#update"/>
     </menu>
     <menu name="professions">
       <page to="professions#index"/>
