@@ -29,7 +29,7 @@
       
       <!-- Tableau -->
       <table collection="sales_invoice.lines" fixed="true">
-        <column label="Code" property="product/code" width="20mm" align="center"/>
+        <column label="Code" property="product/number" width="20mm" align="center"/>
         <column label="Désignation" property="designation" width="80mm"/>
         <column label="Qté." property="quantity" width="13mm" numeric="money"/>
         <column label="Prix unitaire HT" property="price/pretax_amount" width="22mm" numeric="money"/>

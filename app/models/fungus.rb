@@ -60,6 +60,7 @@
 #  unit_id                  :integer          not null
 #  updated_at               :datetime         not null
 #  updater_id               :integer          
+#  variety_id               :integer          not null
 #
 class Fungus < Bioproduct
 end

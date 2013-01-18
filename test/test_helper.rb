@@ -137,50 +137,42 @@ class ActionController::TestCase
           end
         end.join(", ")+ "}"
       end
-
+      table_name = (model ? model.table_name : "unknown_table")
 
       if options[action].is_a? Hash
-        # code << "    get :#{action}\n"
-        # code << "    assert_response :redirect\n"
         code << "    get :#{action}, #{options[action].inspect[1..-2]}\n"
         code << "    assert_response :success, \"The action #{action.inspect} does not seem to support GET method \#{redirect_to_url} / \#{flash.inspect}\"\n"
-        # code << "    assert_select('html body div#body', 1, '#{action}'+response.inspect)\n"
       elsif mode == :index
         code << "    get :#{action}\n"
         code << '    assert_response :success, "Flash: #{flash.inspect}"'+"\n"
       elsif mode == :show
-        # code << "    assert_raise ActionController::RoutingError, 'GET #{controller}/#{action}' do\n"
-        # code << "      get :#{action}\n"
-        # code << "    end\n"
         code << "    assert_nothing_raised do\n"
         code << "      get :#{action}, :id => 'NaID'\n"
         code << "    end\n"
-        code << "    get :#{action}, :id => 1\n"
+        code << "    #{record} = #{table_name}(:#{controller}_001)\n"
+        code << "    get :#{action}, :id => #{record}.id\n"
         code << "    assert_response :success, \"Flash: \#{flash.inspect}\"\n"
         code << "    assert_not_nil assigns(:#{record})\n"
       elsif mode == :create
-        code << "    #{record} = #{controller}(:#{controller}_001)\n"
-        #code << "    assert_nothing_raised do\n"
-        code << "      post :#{action}, :#{record} => #{attributes}\n"
-        #code << "    end\n"
+        code << "    #{record} = #{table_name}(:#{controller}_001)\n"
+        code << "    post :#{action}, :#{record} => #{attributes}\n"
         # if restricted
         #   code << "    assert_raise(ActiveModel::MassAssignmentSecurity::Error, 'POST #{controller}/#{action}') do\n"
         #   code << "      post :#{action}, :#{record} => #{record}.attributes\n"
         #   code << "    end\n"
         # end
       elsif mode == :update
-        code << "    #{record} = #{controller}(:#{controller}_001)\n"
-        #code << "    assert_nothing_raised do\n"
-        code << "      put :#{action}, :id => #{record}.id, :#{record} => #{attributes}\n"
-        #code << "    end\n"
+        code << "    #{record} = #{table_name}(:#{controller}_001)\n"
+        code << "    put :#{action}, :id => #{record}.id, :#{record} => #{attributes}\n"
         # if restricted
         #   code << "    assert_raise(ActiveModel::MassAssignmentSecurity::Error, 'PUT #{controller}/#{action}/:id') do\n"
         #   code << "      put :#{action}, :id => #{record}.id, :#{record} => #{record}.attributes\n"
         #   code << "    end\n"
         # end
       elsif mode == :destroy
+        code << "    #{record} = #{table_name}(:#{controller}_002)\n"
         code << "    assert_nothing_raised do\n"
-        code << "      delete :#{action}, :id => 2\n"
+        code << "      delete :#{action}, :id => #{record}.id\n"
         code << "    end\n"
         code << "    assert_response :redirect\n"
       elsif mode == :list
@@ -188,21 +180,23 @@ class ActionController::TestCase
         code << "    assert_response :success, \"The action #{action.inspect} does not seem to support GET method \#{redirect_to_url} / \#{flash.inspect}\"\n"
         for format in [:csv, :xcsv, :ods]
           code << "    get :#{action}, :format => :#{format}\n"
-          code << "    assert_response :success, 'Action #{action} does not esport in format #{format}'\n"
+          code << "    assert_response :success, 'Action #{action} does not export in format #{format}'\n"
         end
       elsif mode == :touch
         # code << "    assert_raise ActionController::RoutingError, 'POST #{controller}/#{action}' do\n"
         # code << "      post :#{action}\n"
         # code << "    end\n"
         code << "    post :#{action}, :id => 'NaID'\n"
-        code << "    post :#{action}, :id => 1\n"
+        code << "    #{record} = #{table_name}(:#{controller}_001)\n"
+        code << "    post :#{action}, :id => #{record}.id\n"
         code << "    assert_response :redirect\n"
       elsif mode == :get_and_post # with ID
         # code << "    assert_raise ActionController::RoutingError, 'GET #{controller}/#{action}' do\n"
         # code << "      get :#{action}\n"
         # code << "    end\n"
         code << "    get :#{action}, :id => 'NaID'\n"
-        code << "    get :#{action}, :id => 1\n"
+        code << "    #{record} = #{table_name}(:#{controller}_001)\n"
+        code << "    get :#{action}, :id => #{record}.id\n"
         code << '    assert_response :success, "Flash: #{flash.inspect}"'+"\n"
       elsif mode == :index_xhr
         code << "    get :#{action}\n"
@@ -210,9 +204,10 @@ class ActionController::TestCase
         code << "    xhr :get, :#{action}\n"
         code << '    assert_response :success, "Flash: #{flash.inspect}"'+"\n"
       elsif mode == :show_xhr
-        code << "    get :#{action}, :id => 1\n"
+        code << "    #{record} = #{table_name}(:#{controller}_001)\n"
+        code << "    get :#{action}, :id => #{record}.id\n"
         code << "    assert_response :redirect\n"
-        code << "    xhr :get, :#{action}, :id => 1\n"
+        code << "    xhr :get, :#{action}, :id => #{record}.id\n"
         code << "    assert_not_nil assigns(:#{record})\n"
       else
         code << "    get :#{action}\n"

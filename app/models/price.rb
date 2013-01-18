@@ -104,7 +104,7 @@ class Price < CompanyRecord
 
   def set_by_default
     if self.by_default
-      Price.update_all({:by_default => false}, ["product_id=? AND id!=? AND entity_id=?", self.product_id, self.id||0, Entity.of_company.id])
+      Price.update_all({:by_default => false}, ["product_nature_id = ? AND id != ? AND entity_id = ?", self.product_nature_id, self.id||0, self.entity_id])
     end
   end
 
@@ -113,7 +113,7 @@ class Price < CompanyRecord
   end
 
   def change(amount, tax_id)
-    conditions = {:product_id => self.product_id, :amount => amount, :tax_id => tax_id, :active => true, :entity_id => self.entity_id, :currency => self.currency, :category_id => self.category_id}
+    conditions = {:product_nature_id => self.product_nature_id, :amount => amount, :tax_id => tax_id, :active => true, :entity_id => self.entity_id, :currency => self.currency, :category_id => self.category_id}
     price = self.class.where(conditions).first
     if price.nil?
       self.update_column(:active, false)
@@ -123,10 +123,10 @@ class Price < CompanyRecord
   end
 
   def label
-    tc(:label, :product => self.product.name, :amount => self.amount, :currency => self.currency)
+    tc(:label, :product_nature => self.product_nature.name, :amount => self.amount, :currency => self.currency)
   end
 
-  def compute(quantity=nil, pretax_amount=nil, amount=nil)
+  def compute(quantity = nil, pretax_amount = nil, amount = nil)
     if quantity
       pretax_amount = self.pretax_amount*quantity
       amount = self.amount*quantity
