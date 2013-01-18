@@ -38,12 +38,13 @@
 
 
 class ProductGroup < CompanyRecord
-  attr_accessible :comment, :description, :name
+  attr_accessible :comment, :description, :name, :parent_id, :passages_attributes
   belongs_to :parent, :class_name => "ProductGroup"
-  has_many :passages, :class_name => "ProductMembership", :foreign_key => :product_group_id
+  has_many :passages, :class_name => "ProductMembership", :foreign_key => :group_id
   has_many :products, :through => :passages
 
   accepts_nested_attributes_for :passages,    :reject_if => :all_blank, :allow_destroy => true
+  
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :depth, :lft, :rgt, :allow_nil => true, :only_integer => true
   validates_length_of :color, :name, :allow_nil => true, :maximum => 255

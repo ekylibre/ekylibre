@@ -64,15 +64,15 @@
 #
 
 class Animal < Bioproduct
-  attr_accessible :reproductor, :arrival_reasons, :departure_reasons, :external, :born_on, :comment, :description, :father_id, :mother_id, :group_id, :identification_number, :arrived_on, :name, :departed_on, :picture, :variety_id, :sex, :work_number
+  attr_accessible :nature_id, :reproductor, :external, :born_at, :dead_at, :comment, :description, :father_id, :mother_id, :serial_number, :name, :picture, :sex, :work_number
   enumerize :sex, :in => [:male, :female]
-  enumerize :arrival_reasons, :in => [:birth, :purchase, :housing, :other], :default=> :birth
-  enumerize :departure_reasons, :in => [:dead, :sale, :autoconsumption, :other], :default=> :sale
-  has_many :indicators, :class_name => ":ProductIndicator", :foreign_key => :product_id
+  #enumerize :arrival_reasons, :in => [:birth, :purchase, :housing, :other], :default=> :birth
+  #enumerize :departure_reasons, :in => [:dead, :sale, :autoconsumption, :other], :default=> :sale
+  has_many :indicators, :class_name => "ProductIndicator", :foreign_key => :product_id
   # has_many :groups, :class_name => "ProductGroup", :through => :passages
-  belongs_to :father, :class_name => "Product", :conditions => {:sex => :male, :reproductor => 'true'}
-  belongs_to :mother, :class_name => "Product", :conditions => {:sex => :female}
-
+  belongs_to :father, :class_name => "Animal", :conditions => {:sex => :male, :reproductor => 'true'}
+  belongs_to :mother, :class_name => "Animal", :conditions => {:sex => :female}
+  belongs_to :nature, :class_name => "ProductNature"
 
   # @TODO waiting for events and operations stabilizations
   #has_many :events, :class_name => "Log"
@@ -80,13 +80,11 @@ class Animal < Bioproduct
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :picture_file_size, :allow_nil => true, :only_integer => true
-  validates_numericality_of :area_measure, :content_maximal_quantity, :maximal_quantity, :minimal_quantity, :allow_nil => true
-  validates_length_of :name, :number, :picture_content_type, :picture_file_name, :serial_number, :sex, :allow_nil => true, :maximum => 255
-  validates_inclusion_of :active, :external, :reproductor, :reservoir, :in => [true, false]
-  validates_presence_of :content_maximal_quantity, :maximal_quantity, :minimal_quantity, :name, :nature, :unit, :variety
+  validates_length_of :name, :picture_content_type, :picture_file_name, :serial_number, :sex, :allow_nil => true, :maximum => 255
+  validates_inclusion_of :external, :reproductor, :in => [true, false]
   #]VALIDATORS]
 
-  validates_uniqueness_of :name, :identification_number
+  validates_uniqueness_of :name, :serial_number
   validates_inclusion_of :sex, :in => self.sex.values
 
   default_scope -> { order(:name) }

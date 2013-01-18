@@ -27,12 +27,10 @@ class AnimalsController < AdminController
   list do |t|
     t.column :work_number, :url => true
     t.column :name, :url => true
-    t.column :born_on
+    t.column :born_at
     t.column :sex
     t.column :name, :through => :mother, :url => true
     t.column :name, :through => :father, :url => true
-    t.column :departed_on
-    t.column :departure_reasons
     t.action :show, :url => {:format => :pdf}, :image => :print
     t.action :edit
     t.action :destroy, :if => "RECORD.destroyable\?"
@@ -45,13 +43,13 @@ class AnimalsController < AdminController
     #parsing a parameter to Jasper for company full name
     @entity_full_name = Entity.of_company.full_name
     #respond with associated models to simplify quering in Ireport
-    respond_with @animal, :include => [:race , :father, :mother]
+    respond_with @animal, :include => [:father, :mother]
   end
 
    # Liste des enfants de l'animal considéré
-  list(:children, :model => :animals, :conditions => [" mother_id = ? OR father_id = ? ",['session[:current_animal_id]'],['session[:current_animal_id]']], :order => "born_on DESC") do |t|
+  list(:children, :model => :animals, :conditions => [" mother_id = ? OR father_id = ? ",['session[:current_animal_id]'],['session[:current_animal_id]']], :order => "born_at DESC") do |t|
     t.column :name, :url => true
-    t.column :born_on
+    t.column :born_at
     t.column :sex
     t.column :comment
   end
@@ -64,8 +62,8 @@ class AnimalsController < AdminController
         session[:current_animal_id] = @animal.id
         t3e @animal
       end
-      format.xml {render xml: @animal, :include => [:race, :father, :mother, :group]}
-      format.pdf {respond_with @animal, :include => [:race, :father, :mother, :group]}
+      format.xml {render xml: @animal, :include => [:father, :mother]}
+      format.pdf {respond_with @animal, :include => [:father, :mother]}
     end
   end
 

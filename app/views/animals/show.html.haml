@@ -1,0 +1,36 @@
+=toolbar do |t|
+  -t.edit @product
+  -t.print_product @product
+  -t.destroy(@product, :method=>:delete, "data-confirm" => tg(:are_you_sure_you_want_to_delete)) if @product.destroyable?
+
+=beehive do |b|
+  -b.cell :details do
+
+    =attributes_list(@product) do |l| # liste des champs à afficher
+      -l.attribute :name
+      -l.attribute :race, :url => true
+      -l.attribute :group, :url => true # on affiche l'attribut name de l'entité ProductGroup associé par l'attribut group de l'entité courante Product avec un lien vers ce groupe
+      -l.attribute :sex
+      -l.attribute :mother, :url => true
+      -l.attribute :identification_number
+      -l.attribute :arrived_on
+      -l.attribute :arrival_reasons
+      -l.attribute :departed_on
+      -l.attribute :comment
+    -if @product.picture.exists?
+      =image_tag(@product.picture.url(:thumb))
+
+  -b.tabbox do
+
+    -b.cell(:events) do
+      =toolbar do |t|
+        -t.link(:new, :controller=>:product_events, :product_id=>@product.id)
+      =list(:events)
+
+    -b.cell(:childrens) do
+      =list(:children)
+
+    -b.cell(:picture) do
+      -if @product.picture.exists?
+        =image_tag(@product.picture.url(:original))
+

@@ -9,17 +9,3 @@
       -l.attribute :name
       -l.attribute :comment
 
-  -b.tabbox do
-
-    -b.cell(:animals) do
-      =toolbar do |t|
-        -t.link(:new, :controller=>:animals, :group_id=>@product_group.id)
-      =list(:animals)
-
-    -#b.cell(:events) do
-      =toolbar do |t|
-        -t.link(:new, :controller=>:animal_group_events, :animal_group_id=>@product_group.id)
-      =list(:events)
-      =image_tag(@chart)
-
-

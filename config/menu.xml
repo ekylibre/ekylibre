@@ -367,17 +367,19 @@
       <page to="operation_uses#create"/>
       <page to="operation_uses#new"/>
     </menu>
-    <menu name="animals">
+    <menu name="products">
       <page to="products#index"/>
-      <page to="products#create"/>
-      <page to="products#destroy"/>
-      <page to="products#edit"/>
-      <page to="products#list"/>
-      <page to="products#list_cares"/>
-      <page to="products#list_children"/>
-      <page to="products#new"/>
-      <page to="products#show"/>
-      <page to="products#update"/>
+	  <menu name="animals">
+	  	<page to="animals#index"/>
+	    <page to="animals#create"/>
+	    <page to="animals#destroy"/>
+	    <page to="animals#edit"/>
+	    <page to="animals#list"/>
+	    <page to="animals#list_children"/>
+	    <page to="animals#new"/>
+	    <page to="animals#show"/>
+	    <page to="animals#update"/>
+	  </menu>
     </menu>
     <menu name="animal_events">
       <page to="logs#index"/>
@@ -869,17 +871,6 @@
     </menu>
   </menu>
   <undefined>
-    <menu name="animals">
-      <page to="animals#index"/>
-      <page to="animals#create"/>
-      <page to="animals#destroy"/>
-      <page to="animals#edit"/>
-      <page to="animals#list"/>
-      <page to="animals#list_children"/>
-      <page to="animals#new"/>
-      <page to="animals#show"/>
-      <page to="animals#update"/>
-    </menu>
     <menu name="companies">
       <page to="companies#register"/>
     </menu>

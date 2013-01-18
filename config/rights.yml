@@ -1,13 +1,4 @@
 # Unused actions in rights
-#   - "animals::create"
-#   - "animals::destroy"
-#   - "animals::edit"
-#   - "animals::index"
-#   - "animals::list"
-#   - "animals::list_children"
-#   - "animals::new"
-#   - "animals::show"
-#   - "animals::update"
 #   - "dashboards::list_my_future_entity_events"
 #   - "dashboards::list_recent_entity_events"
 #   - "dashboards::settings_accountancy"
@@ -165,6 +156,15 @@ __minimum__:
 # Public access
 __public__:
   actions:
+  - "animals::create"
+  - "animals::destroy"
+  - "animals::edit"
+  - "animals::index"
+  - "animals::list"
+  - "animals::list_children"
+  - "animals::new"
+  - "animals::show"
+  - "animals::update"
   - "companies::register"
   - "logs::create"
   - "logs::edit"
