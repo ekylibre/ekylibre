@@ -10,10 +10,10 @@ fra:
       show: "Compte\_: %{number} - %{name}"
       unmark: "Délettrer un compte"
     animals:
-      # edit: "Edit animal"
-      # index: "Index animal"
-      # new: "New animal"
-      # show: "Show animal"
+      edit: "Modifier l'animal\_: %{name}"
+      index: "Liste des animaux"
+      new: "Nouvel animal"
+      show: "Animal\_: %{name}"
     areas:
       edit: "Modifier la zone postale\_: %{name}"
       index: "Zones postales"

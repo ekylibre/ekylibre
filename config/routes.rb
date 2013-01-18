@@ -83,6 +83,13 @@ Ekylibre::Application.routes.draw do
       post :unmark
     end
   end
+  resources :animals do
+    collection do
+      get :list
+      get :list_children
+      unroll_all
+    end
+  end
   resources :products do
     collection do
       get :list
