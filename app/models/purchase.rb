@@ -151,7 +151,7 @@ class Purchase < CompanyRecord
   end
 
   def purchased?
-    return self.order? or self.invoice?    
+    return (self.order? or self.invoice?)
   end
 
   def has_content_not_deliverable?

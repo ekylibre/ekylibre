@@ -58,6 +58,7 @@ fra:
       general: "Tableau de bord général" #?
       index: "Menu principal"
       production: "Tableau de bord de la production"
+      # production_products: "Production products dashboard"
       purchases: "Tableau de bord des achats"
       relationship: "Tableau de bord de la gestion des relations"
       sales: "Tableau de bord des ventes"
@@ -631,8 +632,8 @@ fra:
     add_fax: "Ajouter un n° de fax"
     add_mail: "Ajouter une adresse postale"
     add_mobile: "Ajouter un n° de portable"
-    add_payment: "Ajouter un encaissement"
     add_passage: "Ajouter un produit"
+    add_payment: "Ajouter un encaissement"
     add_phone: "Ajouter un n° de téléphone"
     add_posology: "Ajouter une posologie"
     add_quickly_a_line: "Ajouter rapidement une ligne de produit"

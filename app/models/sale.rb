@@ -208,7 +208,7 @@ class Sale < CompanyRecord
   end
 
   def sold?
-    return self.order? or self.invoice?
+    return (self.order? or self.invoice?)
   end
 
   def has_content_not_deliverable?

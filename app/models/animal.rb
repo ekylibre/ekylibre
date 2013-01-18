@@ -80,8 +80,10 @@ class Animal < Bioproduct
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :picture_file_size, :allow_nil => true, :only_integer => true
-  validates_length_of :name, :picture_content_type, :picture_file_name, :serial_number, :sex, :allow_nil => true, :maximum => 255
-  validates_inclusion_of :external, :reproductor, :in => [true, false]
+  validates_numericality_of :area_measure, :content_maximal_quantity, :maximal_quantity, :minimal_quantity, :allow_nil => true
+  validates_length_of :name, :number, :picture_content_type, :picture_file_name, :serial_number, :sex, :allow_nil => true, :maximum => 255
+  validates_inclusion_of :active, :external, :reproductor, :reservoir, :in => [true, false]
+  validates_presence_of :content_maximal_quantity, :maximal_quantity, :minimal_quantity, :name, :nature, :unit, :variety
   #]VALIDATORS]
 
   validates_uniqueness_of :name, :serial_number
