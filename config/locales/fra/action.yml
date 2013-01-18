@@ -274,7 +274,7 @@ fra:
       new: "Ajout d’un nouveau prix"
     product_groups:
       edit: "Modifier le lot\_: %{name} "
-      index: "Lots d'animaux"
+      index: "Lots de produits"
       new: "Créer un lot"
       show: "Lot\_: %{name}"
     product_indicator_nature_choices:
@@ -541,7 +541,7 @@ fra:
     outgoing_payments: "Décaissements"
     preferences: "Préférences"
     prices: "Prix"
-    product_groups: "Lot d'Animaux"
+    product_groups: "Lot de produits"
     # product_indicator_nature_choices: "Product indicator nature choices"
     # product_indicator_natures: "Product indicator natures"
     # product_indicators: "Product indicators"
@@ -632,6 +632,7 @@ fra:
     add_mail: "Ajouter une adresse postale"
     add_mobile: "Ajouter un n° de portable"
     add_payment: "Ajouter un encaissement"
+    add_passage: "Ajouter un produit"
     add_phone: "Ajouter un n° de téléphone"
     add_posology: "Ajouter une posologie"
     add_quickly_a_line: "Ajouter rapidement une ligne de produit"

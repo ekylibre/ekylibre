@@ -1,4 +1,11 @@
 -field_set do
+  -association :parent
   -input :name
   -input :description
   -input :comment
+
+-field_set(:group) do
+  =nested_association(:passages) do
+    -input :started_at
+    -input :stopped_at
+    -association :product

@@ -33,9 +33,8 @@ class ProductGroupsController < AdminController
 
   list(:products, :conditions => {:group_id => ['session[:current_product_group_id]']}, :order => "name ASC") do |t|
     t.column :name, :url => true
-    t.column :sex
     t.column :work_number, :url => {:action => :show}
-    t.column :born_on
+    t.column :born_at
   end
 
   # list(:events,:model  =>  :product_group_events, :conditions => {:animal_group_id => ['session[:current_animal_group_id]']}, :order => "started_at ASC") do |t|
