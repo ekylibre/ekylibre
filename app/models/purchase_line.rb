@@ -52,6 +52,13 @@ class PurchaseLine < CompanyRecord
   belongs_to :product
   belongs_to :unit
   has_many :delivery_lines, :class_name => "IncomingDeliveryLine", :foreign_key => :purchase_line_id
+
+  accepts_nested_attributes_for :price
+  delegate :purchased?, :to => :purchase
+  
+  acts_as_stockable :mode => :virtual, :direction => :in, :if => :purchased?
+  sums :purchase, :lines, :pretax_amount, :amount
+
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :amount, :pretax_amount, :quantity, :allow_nil => true
   validates_length_of :tracking_serial, :allow_nil => true, :maximum => 255
@@ -60,10 +67,6 @@ class PurchaseLine < CompanyRecord
   validates_presence_of :pretax_amount, :price
   validates_uniqueness_of :tracking_serial, :scope => :price_id, :allow_nil => true, :if => Proc.new{|pl| !pl.tracking_serial.blank? }
 
-  accepts_nested_attributes_for :price
-
-  acts_as_stockable :mode => :virtual, :direction => :in
-  sums :purchase, :lines, :pretax_amount, :amount
 
   before_validation do
     check_reservoir = true

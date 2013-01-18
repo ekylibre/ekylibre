@@ -204,7 +204,11 @@ class Sale < CompanyRecord
   end
 
   def has_content?
-    self.lines.size > 0
+    self.lines.count > 0
+  end
+
+  def sold?
+    return self.order? or self.invoice?
   end
 
   def has_content_not_deliverable?

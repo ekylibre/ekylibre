@@ -66,9 +66,12 @@ class SaleLine < CompanyRecord
   has_many :credits, :class_name => "SaleLine", :foreign_key => :origin_id
   has_many :reductions, :class_name => "SaleLine", :foreign_key => :reduction_origin_id, :dependent => :delete_all
   has_many :subscriptions, :dependent => :destroy
+  
+  accepts_nested_attributes_for :subscriptions
+  delegate :sold?, :to => :sale
 
   acts_as_list :scope => :sale
-  acts_as_stockable :mode => :virtual
+  acts_as_stockable :mode => :virtual, :if => :sold?
   sums :sale, :lines, :pretax_amount, :amount
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
@@ -77,7 +80,6 @@ class SaleLine < CompanyRecord
   #]VALIDATORS]
   validates_presence_of :price
 
-  accepts_nested_attributes_for :subscriptions
 
   before_validation do
     # check_reservoir = true

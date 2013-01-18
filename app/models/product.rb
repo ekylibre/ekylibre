@@ -84,4 +84,11 @@ class Product < CompanyRecord
   accepts_nested_attributes_for :indicators, :reject_if => :all_blank, :allow_destroy => true
 
   validates_presence_of :nature, :name, :number
+
+  before_validation do
+    if self.nature
+      self.variety_id = self.nature.variety_id
+      self.unit_id = self.nature.unit_id
+    end
+  end
 end
