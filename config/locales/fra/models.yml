@@ -1142,7 +1142,7 @@ fra:
     with_tracking: "Avec tracabilité" #?
     with_transport: "Avec transport"
     work_center: "Centre d’opération"
-    work_number: "Numéro de travail"
+    work_number: "Numéro de travail" #?
     zone: "Zone" #?
   enumerize:
     animal:

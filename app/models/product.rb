@@ -61,7 +61,6 @@
 #  unit_id                  :integer          not null
 #  updated_at               :datetime         not null
 #  updater_id               :integer          
-#  work_number              :string(255)      
 #
 
 
@@ -69,7 +68,7 @@ class Product < CompanyRecord
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :picture_file_size, :allow_nil => true, :only_integer => true
   validates_numericality_of :area_measure, :content_maximal_quantity, :maximal_quantity, :minimal_quantity, :allow_nil => true
-  validates_length_of :name, :number, :picture_content_type, :picture_file_name, :serial_number, :sex, :work_number, :allow_nil => true, :maximum => 255
+  validates_length_of :name, :number, :picture_content_type, :picture_file_name, :serial_number, :sex, :allow_nil => true, :maximum => 255
   validates_inclusion_of :active, :external, :reproductor, :reservoir, :in => [true, false]
   validates_presence_of :content_maximal_quantity, :maximal_quantity, :minimal_quantity, :name, :nature, :unit
   #]VALIDATORS]
