@@ -5,7 +5,7 @@
   -input :comment
 
 -field_set(:group) do
-  =nested_association(:passages) do
+  =nested_association(:memberships) do
     -input :started_at
     -input :stopped_at
     -association :product
