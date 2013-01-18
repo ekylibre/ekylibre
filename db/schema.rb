@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130116200101) do
+ActiveRecord::Schema.define(:version => 20130118132538) do
 
   create_table "account_balances", :force => true do |t|
     t.integer  "account_id",                                                        :null => false
@@ -1981,6 +1981,7 @@ ActiveRecord::Schema.define(:version => 20130116200101) do
     t.integer  "updater_id"
     t.integer  "lock_version",                                                                                     :default => 0,     :null => false
     t.spatial  "shape",                    :limit => {:srid=>0, :type=>"geometry"}
+    t.integer  "variety_id"
   end
 
   add_index "products", ["address_id"], :name => "index_products_on_address_id"

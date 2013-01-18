@@ -68,8 +68,8 @@ class ProductTransfer < CompanyRecord
   scope :unconfirmeds, -> { where(:moved_at => nil) }
 
   acts_as_numbered
-  acts_as_stockable :departure_stock_move, :if => :departure?, :quantity => '-self.quantity'
-  acts_as_stockable :arrival_stock_move, :if => :arrival?
+  acts_as_stockable :departure, :if => :departure? # acts_as_stockable :departure_stock_move, :if => :departure?, :quantity => '-self.quantity'
+  acts_as_stockable :arrival, :direction => :in, :if => :arrival? # :arrival_stock_move, :if => :arrival?
 
 
   before_validation do

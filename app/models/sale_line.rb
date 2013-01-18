@@ -68,6 +68,7 @@ class SaleLine < CompanyRecord
   has_many :subscriptions, :dependent => :destroy
 
   acts_as_list :scope => :sale
+  acts_as_stockable :mode => :virtual
   sums :sale, :lines, :pretax_amount, :amount
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.

@@ -30,7 +30,8 @@ module Ekylibre
       :parent_warehouse_id => :warehouse,
       :producer_id => :entity,
       :unit_id => :unit,
-      :updater_id => :entity
+      :updater_id => :entity,
+      :variety_id => :product_variety
     },
     :area => {
       :creator_id => :entity,
@@ -74,7 +75,8 @@ module Ekylibre
       :parent_warehouse_id => :warehouse,
       :producer_id => :entity,
       :unit_id => :unit,
-      :updater_id => :entity
+      :updater_id => :entity,
+      :variety_id => :product_variety
     },
     :cash => {
       :account_id => :account,
@@ -226,7 +228,8 @@ module Ekylibre
       :parent_warehouse_id => :warehouse,
       :producer_id => :entity,
       :unit_id => :unit,
-      :updater_id => :entity
+      :updater_id => :entity,
+      :variety_id => :product_variety
     },
     :incoming_delivery => {
       :address_id => :entity_address,
@@ -326,7 +329,8 @@ module Ekylibre
       :parent_warehouse_id => :warehouse,
       :producer_id => :entity,
       :unit_id => :unit,
-      :updater_id => :entity
+      :updater_id => :entity,
+      :variety_id => :product_variety
     },
     :land_parcel_kinship => {
       :child_land_parcel_id => :land_parcel,
@@ -376,7 +380,8 @@ module Ekylibre
       :parent_warehouse_id => :warehouse,
       :producer_id => :entity,
       :unit_id => :unit,
-      :updater_id => :entity
+      :updater_id => :entity,
+      :variety_id => :product_variety
     },
     :observation => {
       :creator_id => :entity,
@@ -472,7 +477,8 @@ module Ekylibre
       :parent_warehouse_id => :warehouse,
       :producer_id => :entity,
       :unit_id => :unit,
-      :updater_id => :entity
+      :updater_id => :entity,
+      :variety_id => :product_variety
     },
     :preference => {
       :creator_id => :entity,
@@ -502,7 +508,8 @@ module Ekylibre
       :parent_warehouse_id => :warehouse,
       :producer_id => :entity,
       :unit_id => :unit,
-      :updater_id => :entity
+      :updater_id => :entity,
+      :variety_id => :product_variety
     },
     :product_group => {
       :creator_id => :entity,
@@ -723,7 +730,8 @@ module Ekylibre
       :parent_warehouse_id => :warehouse,
       :producer_id => :entity,
       :unit_id => :unit,
-      :updater_id => :entity
+      :updater_id => :entity,
+      :variety_id => :product_variety
     },
     :subscription => {
       :address_id => :entity_address,
@@ -766,7 +774,8 @@ module Ekylibre
       :parent_warehouse_id => :warehouse,
       :producer_id => :entity,
       :unit_id => :unit,
-      :updater_id => :entity
+      :updater_id => :entity,
+      :variety_id => :product_variety
     },
     :transfer => {
       :creator_id => :entity,
@@ -799,7 +808,8 @@ module Ekylibre
       :parent_warehouse_id => :warehouse,
       :producer_id => :entity,
       :unit_id => :unit,
-      :updater_id => :entity
+      :updater_id => :entity,
+      :variety_id => :product_variety
     },
     :warehouse => {
       :address_id => :entity_address,
@@ -815,7 +825,8 @@ module Ekylibre
       :parent_warehouse_id => :warehouse,
       :producer_id => :entity,
       :unit_id => :unit,
-      :updater_id => :entity
+      :updater_id => :entity,
+      :variety_id => :product_variety
     }
   }
 

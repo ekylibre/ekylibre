@@ -62,6 +62,7 @@ class PurchaseLine < CompanyRecord
 
   accepts_nested_attributes_for :price
 
+  acts_as_stockable :mode => :virtual, :direction => :in
   sums :purchase, :lines, :pretax_amount, :amount
 
   before_validation do
