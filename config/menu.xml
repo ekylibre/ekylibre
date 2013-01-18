@@ -962,7 +962,6 @@
       <page to="product_indicator_natures#list_choices"/>
       <page to="product_indicator_natures#new"/>
       <page to="product_indicator_natures#show"/>
-      <page to="product_indicator_natures#sort"/>
       <page to="product_indicator_natures#up"/>
       <page to="product_indicator_natures#update"/>
     </menu>

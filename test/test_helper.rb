@@ -131,7 +131,7 @@ class ActionController::TestCase
                      end.delete_if{|a| a.blank? or a.to_s.match(/_attributes$/)}
         attributes = "{" + attributes.collect do |a|
           if file_columns[a.to_sym]
-            ":#{a} => fixture_file_upload('sample_image.png')"
+            ":#{a} => fixture_file_upload('files/sample_image.png')"
           else
             ":#{a} => #{record}.#{a}"
           end

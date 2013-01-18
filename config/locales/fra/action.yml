@@ -285,7 +285,6 @@ fra:
       # index: "Index product indicator nature"
       # new: "New product indicator nature"
       # show: "Show product indicator nature"
-      # sort: "Sort product indicator nature"
     product_indicators:
       # edit: "Edit product indicator"
       # index: "Index product indicator"

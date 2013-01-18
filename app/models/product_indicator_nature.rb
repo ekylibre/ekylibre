@@ -61,7 +61,7 @@ class ProductIndicatorNature < CompanyRecord
   validates_inclusion_of :usage, :in => self.usage.values
 
   accepts_nested_attributes_for :choices
-  
+
   default_scope -> { order(:name) }
   scope :actives, -> { where(:active => true).order(:name) }
 

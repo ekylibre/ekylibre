@@ -18,7 +18,7 @@ class AddIncidentManagement< ActiveRecord::Migration
     add_index :incidents, [:target_id, :target_type]
     add_index :incidents, :nature_id
     add_index :incidents, :watcher_id
-    
+
     create_table :incident_natures do |t|
        t.string     :name, :null => false
        t.string     :nature # enumerize
