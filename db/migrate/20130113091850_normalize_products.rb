@@ -888,8 +888,8 @@ class NormalizeProducts < ActiveRecord::Migration
       t.belongs_to :asset
       # Animal specific columns
       t.string :sex
-      # t.string :identification_number replaced by number
-      t.string :work_number
+      # t.string :identification_number replaced by serial_number
+      # t.string :work_number replaced by number
       t.boolean :reproductor, :null => false, :default => false
       t.boolean :external, :null => false, :default => false
       t.belongs_to :owner
@@ -1133,14 +1133,9 @@ class NormalizeProducts < ActiveRecord::Migration
       add_index  table, :stock_id
       # Fill new column
       execute("UPDATE #{qtn} SET stock_id = nps.id FROM #{quoted_table_name(:product_stocks)} AS nps JOIN #{quoted_table_name(:products)} AS np ON (np.id = nps.product_id) WHERE #{qtn}.product_id = np.id AND #{qtn}.warehouse_id = nps.warehouse_id AND #{qtn}.tracking_id = np.old_tracking_id")
-      # execute("UPDATE #{qtn} SET product_stock_id = nps.id FROM #{quoted_table_name(:product_stocks)} AS nps JOIN #{quoted_table_name(:products)} AS np ON (np.id = nps.product_id) WHERE #{qtn}.product_id = np.old_id AND #{qtn}.warehouse_id = nps.warehouse_id AND #{qtn}.tracking_id = np.tracking_id")
 
       # Removes old columns
       model = table.to_s.singularize.to_sym
-      # remove_column :product_id
-      # @@references[model].delete(:product_id)
-      # remove_column table, :warehouse_id
-      # @@references[model].delete(:warehouse_id)
       remove_column table, :tracking_id
       @@references[model].delete(:tracking_id)
     end
@@ -1176,20 +1171,17 @@ class NormalizeProducts < ActiveRecord::Migration
     add_column :products, :old_animal_id, :integer
     unit_id = select_value("SELECT id FROM units WHERE LENGTH(TRIM(base)) <= 0")
     unit_id = 0 if unit_id.blank?
-    ca = [:name, :description, :comment, :sex, :work_number, :reproductor, :external, :owner_id, :father_id, :mother_id, :created_at, :creator_id, :updated_at, :updater_id, :lock_version]
-    da = {:type => "'Animal'", :old_animal_id => "a.id", :number => :identification_number, :born_at => :born_on, :unit_id => unit_id, :nature_id => "npn.id"}
+    ca = [:name, :description, :comment, :sex, :reproductor, :external, :owner_id, :father_id, :mother_id, :created_at, :creator_id, :updated_at, :updater_id, :lock_version]
+    da = {:type => "'Animal'", :old_animal_id => "a.id", :number => :work_number, :serial_number => :identification_number, :born_at => :born_on, :unit_id => unit_id, :nature_id => "npn.id"}
     execute("INSERT INTO #{quoted_table_name(:products)} (" + ca.join(', ') + ", " + da.keys.join(', ') + ") SELECT " + ca.collect{|c| "a.#{c}"}.join(', ') + ", " + da.values.join(', ') + " FROM #{quoted_table_name(:animals)} AS a JOIN #{quoted_table_name(:product_natures)} AS npn ON (npn.variety_id = a.race_id)")
     update_depending_records(:animals, :products, :old_animal_id)
-    # execute("UPDATE #{quoted_table_name(:products)} SET father_id = p.id FROM #{quoted_table_name(:products)} AS p WHERE p.old_animal_id = #{quoted_table_name(:products)}.father_id AND #{quoted_table_name(:products)}.father_id IS NOT NULL")
-    # execute("UPDATE #{quoted_table_name(:products)} SET mother_id = p.id FROM #{quoted_table_name(:products)} AS p WHERE p.old_animal_id = #{quoted_table_name(:products)}.mother_id AND #{quoted_table_name(:products)}.mother_id IS NOT NULL")
 
     # Animal groups
     add_column :product_groups, :old_animal_group_id, :integer
     ca = [:name, :parent_id, :description, :comment, :created_at, :creator_id, :updated_at, :updater_id, :lock_version]
     execute("INSERT INTO #{quoted_table_name(:product_groups)} (" + ca.join(', ') + ") SELECT " + ca.join(', ') + " FROM #{quoted_table_name(:animal_groups)}")
     update_depending_records(:animal_groups, :product_groups, :old_animal_group_id)
-    # Update parent
-    # execute("UPDATE #{quoted_table_name(:product_groups)} SET parent_id = p.id FROM #{quoted_table_name(:product_groups)} AS p WHERE p.old_animal_group_id = #{quoted_table_name(:product_groups)}.parent_id AND #{quoted_table_name(:product_groups)}.parent_id IS NOT NULL")
+
 
     # Animal Memberships
     ca = [:created_at, :creator_id, :updated_at, :updater_id, :lock_version]
@@ -1202,8 +1194,8 @@ class NormalizeProducts < ActiveRecord::Migration
     update_depending_records(:land_parcel_groups, :product_groups, :old_land_parcel_group_id)
 
 
-    count = select_value("SELECT count(*) FROM #{quoted_table_name(:land_parcels)}").to_i
-    if Rails.env.development? or count > 0
+    land_parcels_count = select_value("SELECT count(*) FROM #{quoted_table_name(:land_parcels)}").to_i
+    if Rails.env.development? or land_parcels_count > 0
 
       # "LandParcelNature"
       unit_id = select_value("SELECT id FROM #{quoted_table_name(:units)} WHERE base = 'm2' ORDER BY name DESC").to_i
@@ -1241,8 +1233,8 @@ class NormalizeProducts < ActiveRecord::Migration
     execute("INSERT INTO #{quoted_table_name(:products)} (old_tool_id, " + ca.join(', ') + ", " + da.keys.join(', ') + ") SELECT id, " + ca.join(', ') + ", " + da.values.join(', ') + " FROM #{quoted_table_name(:tools)} AS t")
     update_depending_records(:tools, :products, :old_tool_id)
 
-    count = select_value("SELECT count(*) FROM #{quoted_table_name(:warehouses)}").to_i
-    if Rails.env.development? or count > 0
+    warehouses_count = select_value("SELECT count(*) FROM #{quoted_table_name(:warehouses)}").to_i
+    if Rails.env.development? or warehouses_count > 0
       # "WarehouseNature"
       unit_id = select_value("SELECT id FROM #{quoted_table_name(:units)} WHERE base = 'm2' ORDER BY name ASC").to_i
       name, number = "Warehouse", "WAREHOUSE0"
@@ -1263,10 +1255,14 @@ class NormalizeProducts < ActiveRecord::Migration
 
     remove_column :product_nature_components, :warehouse_id
 
-    remove_column :products, :old_warehouse_id
+    if Rails.env.development? or warehouses_count > 0
+      remove_column :products, :old_warehouse_id
+    end
     remove_column :products, :old_tool_id
     remove_column :product_natures, :old_tool_nature_id
-    remove_column :products, :old_land_parcel_id
+    if Rails.env.development? or land_parcels_count > 0
+      remove_column :products, :old_land_parcel_id
+    end
     remove_column :product_groups, :old_land_parcel_group_id
     remove_column :product_groups, :old_animal_group_id
     remove_column :products, :old_animal_id

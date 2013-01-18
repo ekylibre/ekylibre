@@ -60,7 +60,6 @@
 #  unit_id                  :integer          not null
 #  updated_at               :datetime         not null
 #  updater_id               :integer          
-#  work_number              :string(255)      
 #
 #
 # == Fixture: products

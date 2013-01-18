@@ -1962,7 +1962,6 @@ ActiveRecord::Schema.define(:version => 20130116200101) do
     t.integer  "producer_id"
     t.integer  "asset_id"
     t.string   "sex"
-    t.string   "work_number"
     t.boolean  "reproductor",                                                                                      :default => false, :null => false
     t.boolean  "external",                                                                                         :default => false, :null => false
     t.integer  "owner_id"
