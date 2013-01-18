@@ -45,7 +45,6 @@ ActiveRecord::Base.transaction do
   Department.create!(:name => I18n.t('models.company.default.department_name'))
   establishment = Establishment.create!(:name => I18n.t('models.company.default.establishment_name'), :nic => "00000")
   #   # currency = company.currency || 'EUR' # company.currencies.create!(:name => 'Euro', :code => 'EUR', :value_format => '%f €', :rate => 1)
-  ProductCategory.create(:name => I18n.t('models.company.default.product_category_name'))
 
   for code, tax in I18n.t("models.company.default.taxes")
     Tax.create!(:name => tax[:name], :nature => (tax[:nature]||Tax.nature.default_value), :amount => tax[:amount].to_f, :collected_account_id => Account.get(tax[:collected], tax[:name]).id, :paid_account_id => Account.get(tax[:paid], tax[:name]).id)
@@ -82,10 +81,7 @@ ActiveRecord::Base.transaction do
   PurchaseNature.create!(:name => I18n.t('models.company.default.purchase_nature_name'), :currency => currency, :with_accounting => true, :journal => journals[:purchases])
 
 
-  Warehouse.create!(:name => I18n.t('models.company.default.warehouse_name'), :establishment_id => establishment.id)
-  for nature in [:sale, :sales_invoice, :purchase]
-    EventNature.create!(:duration => 10, :usage => nature.to_s, :name => I18n.t("models.company.default.event_natures.#{nature}"))
-  end
+# @TODO - create default products
 
   #   # Add custom_fieldary data to test
   #   company.load_demo_data unless demo_language_code.blank?

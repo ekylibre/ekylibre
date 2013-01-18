@@ -44,7 +44,7 @@
 
 
 class IncomingPaymentMode < CompanyRecord
-  attr_accessible :cash_id, :attorney_journal_id, :commission_account_id, :commission_base_amount, :commission_percentage, :depositables_account_id, :depositables_journal_id, :detail_payments, :name, :position, :with_accounting, :with_commission, :with_deposit
+  attr_accessible :cash_id, :attorney_journal, :attorney_journal_id, :commission_account_id, :commission_base_amount, :commission_percentage, :depositables_account_id, :depositables_journal_id, :detail_payments, :name, :position, :with_accounting, :with_commission, :with_deposit
   attr_readonly :cash_id, :cash
   acts_as_list
   belongs_to :attorney_journal, :class_name => "Journal"

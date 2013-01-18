@@ -67,7 +67,7 @@
 class Warehouse < Place
   # TODO: Use acts_as_nested_set
   # acts_as_tree
-  attr_accessible :address_id, :comment, :establishment_id, :reservoir, :unit_id, :product_id, :maximal_quantity
+  attr_accessible :name, :address_id, :comment, :establishment_id, :reservoir, :unit_id, :product_id, :maximal_quantity
   attr_readonly :reservoir
   # belongs_to :address, :class_name => "EntityAddress"
   # belongs_to :establishment

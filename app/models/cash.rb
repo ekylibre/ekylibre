@@ -50,7 +50,7 @@ class Cash < CompanyRecord
   BBAN_TRANSLATIONS = {
     :fr => ["abcdefghijklmonpqrstuvwxyz", "12345678912345678923456789"]
   }
-  attr_accessible :name, :nature, :mode, :iban, :key, :bank_name, :bank_code, :agency_code, :number, :address, :account_id, :journal_id, :country, :currency
+  attr_accessible :name, :nature, :account, :mode, :iban, :key, :bank_name, :bank_code, :agency_code, :number, :address, :account_id, :journal_id, :country, :currency
   attr_readonly :nature, :currency
   belongs_to :account
   belongs_to :journal

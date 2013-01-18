@@ -36,7 +36,7 @@
 
 class OutgoingPaymentMode < CompanyRecord
   acts_as_list
-  attr_accessible :attorney_journal_id, :cash_id, :name, :position, :with_accounting
+  attr_accessible :attorney_journal, :attorney_journal_id, :cash_id, :name, :position, :with_accounting
   belongs_to :attorney_journal, :class_name => "Journal"
   belongs_to :cash
   has_many :payments, :class_name=>"OutgoingPayment", :foreign_key=>:mode_id
