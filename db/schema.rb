@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130115134301) do
+ActiveRecord::Schema.define(:version => 20130116200101) do
 
   create_table "account_balances", :force => true do |t|
     t.integer  "account_id",                                                        :null => false
@@ -739,6 +739,48 @@ ActiveRecord::Schema.define(:version => 20130115134301) do
   add_index "financial_years", ["currency"], :name => "index_financial_years_on_currency"
   add_index "financial_years", ["updated_at"], :name => "index_financialyears_on_updated_at"
   add_index "financial_years", ["updater_id"], :name => "index_financialyears_on_updater_id"
+
+  create_table "incident_natures", :force => true do |t|
+    t.string   "name",                        :null => false
+    t.string   "nature"
+    t.text     "description"
+    t.datetime "created_at",                  :null => false
+    t.datetime "updated_at",                  :null => false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version", :default => 0, :null => false
+  end
+
+  add_index "incident_natures", ["created_at"], :name => "index_incident_natures_on_created_at"
+  add_index "incident_natures", ["creator_id"], :name => "index_incident_natures_on_creator_id"
+  add_index "incident_natures", ["updated_at"], :name => "index_incident_natures_on_updated_at"
+  add_index "incident_natures", ["updater_id"], :name => "index_incident_natures_on_updater_id"
+
+  create_table "incidents", :force => true do |t|
+    t.integer  "target_id",                   :null => false
+    t.string   "target_type",                 :null => false
+    t.integer  "nature_id",                   :null => false
+    t.integer  "watcher_id",                  :null => false
+    t.datetime "observed_at",                 :null => false
+    t.integer  "priority"
+    t.integer  "gravity"
+    t.string   "status"
+    t.string   "name"
+    t.string   "description"
+    t.datetime "created_at",                  :null => false
+    t.datetime "updated_at",                  :null => false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version", :default => 0, :null => false
+  end
+
+  add_index "incidents", ["created_at"], :name => "index_incidents_on_created_at"
+  add_index "incidents", ["creator_id"], :name => "index_incidents_on_creator_id"
+  add_index "incidents", ["nature_id"], :name => "index_incidents_on_nature_id"
+  add_index "incidents", ["target_id", "target_type"], :name => "index_incidents_on_target_id_and_target_type"
+  add_index "incidents", ["updated_at"], :name => "index_incidents_on_updated_at"
+  add_index "incidents", ["updater_id"], :name => "index_incidents_on_updater_id"
+  add_index "incidents", ["watcher_id"], :name => "index_incidents_on_watcher_id"
 
   create_table "incoming_deliveries", :force => true do |t|
     t.integer  "purchase_id"
