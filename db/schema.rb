@@ -1981,7 +1981,7 @@ ActiveRecord::Schema.define(:version => 20130118132538) do
     t.integer  "updater_id"
     t.integer  "lock_version",                                                                                     :default => 0,     :null => false
     t.spatial  "shape",                    :limit => {:srid=>0, :type=>"geometry"}
-    t.integer  "variety_id"
+    t.integer  "variety_id",                                                                                                          :null => false
   end
 
   add_index "products", ["address_id"], :name => "index_products_on_address_id"
