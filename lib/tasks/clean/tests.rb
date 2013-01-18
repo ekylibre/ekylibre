@@ -85,8 +85,9 @@ task :tests => :environment do
 
   # Check fixture files
   yaml = nil
+  files = Dir.glob(Rails.root.join("test", "fixtures", "*.yml")).collect{|f| f.to_s}
   for model in models
-    file = Rails.root.join("test", "fixtures", model.name.underscore.pluralize + ".yml")
+    file = Rails.root.join("test", "fixtures", model.table_name + ".yml")
     if File.exist?(file)
       begin
         yaml = YAML.load_file(file)
@@ -125,6 +126,14 @@ task :tests => :environment do
       end
       log.write("   > Fixture file has been created: #{file}\n")
     end
+    files.delete(file.to_s)
+  end
+  for file in files.sort
+    errors[:fixtures] += 1
+    log.write(" - Error: Unexpected fixture file: #{file}\n")
+  end
+  if files.size > 0
+    log.write("   > git rm #{files.join(' ')}\n")
   end
 
   # Check functional test files
@@ -155,7 +164,7 @@ task :tests => :environment do
   end
   for file in files.sort
     errors[:functionals] += 1
-    log.write(" - Error: Unexpected test file: #{file}\n")
+    log.write(" - Error: Unexpected test files: #{file}\n")
   end
   if files.size > 0
     log.write("   > git rm #{files.join(' ')}\n")

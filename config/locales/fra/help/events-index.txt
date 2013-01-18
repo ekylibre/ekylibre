@@ -3,7 +3,7 @@
 ===== Qu'est ce qu'un évènement ? =====
 Ils permettent de situer dans le temps et l'espace les contacts établis avec les clients/fournisseurs.
 
-Certains évènements peuvent s'enregistrer automatiquement en fonction du [[>entity_event_natures/index|type d'évènement]]. Cela permet de faire un suivi complet dans la liste des évènements de chaque client.
+Certains évènements peuvent s'enregistrer automatiquement en fonction du [[>event_natures/index|type d'évènement]]. Cela permet de faire un suivi complet dans la liste des évènements de chaque client.
 
 ===== Gestion des évènements =====
 Il est possible de créer {{theme:icons/new.png|créer}}, modifier {{theme:icons/edit.png|modifier}} ou même supprimer {{theme:icons/destroy.png|supprimer}}.
