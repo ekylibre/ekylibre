@@ -41,13 +41,13 @@
 
 
 class ProductIndicatorNature < CompanyRecord
-  attr_accessible
+  attr_accessible :nature, :active, :choices, :indicators , :process_id , :unit_id , :usage, :maximal_length, :minimal_length, :maximal_value, :minimal_value
   attr_readonly :nature
   enumerize :nature, :in => [:string, :decimal, :boolean, :measure, :choice], :predicates => true
   enumerize :usage, :in => [:life, :production, :environment]
   belongs_to :process, :class_name => "ProductProcess"
   belongs_to :unit, :class_name => "Unit"
-  has_many :indicators, :class_name => "ProductIndicator", :foreign_key => :nature_id
+  has_many :indicators, :class_name => "ProductIndicator" , :dependent => :delete_all, :inverse_of => :nature
   has_many :choices, :class_name => "ProductIndicatorNatureChoice", :order => :position, :dependent => :delete_all, :inverse_of => :nature
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
@@ -61,5 +61,12 @@ class ProductIndicatorNature < CompanyRecord
   validates_inclusion_of :usage, :in => self.usage.values
 
   accepts_nested_attributes_for :choices
+  
+  default_scope -> { order(:name) }
+  scope :actives, -> { where(:active => true).order(:name) }
+
+  def choices_count
+    self.choices.count
+  end
 
 end

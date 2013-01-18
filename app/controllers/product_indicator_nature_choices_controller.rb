@@ -18,7 +18,7 @@
 #
 
 class ProductIndicatorNatureChoicesController < AdminController
-  manage_restfully :nature_id => 'params[:current_product_indicator_nature_id]', :destroy_to => ':controller => :product_indicator_natures, :action => :show, :id => @product_indicator_nature_choice.product_indicator_nature'
+  manage_restfully :nature_id => 'params[:current_nature_id]', :destroy_to => ':controller => :product_indicator_natures, :action => :show, :id => @product_indicator_nature_choice.nature'
   manage_restfully_list
   unroll_all
 end

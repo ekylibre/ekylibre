@@ -37,8 +37,8 @@
 class ProductIndicatorNatureChoice < CompanyRecord
   attr_accessible :name, :position
   belongs_to :nature, :inverse_of => :choices
-  has_many :data, :class_name => "ProductIndicator", :foreign_key => :choice_value_id
-  acts_as_list :scope => :product_indicator_nature
+  has_many :data, :class_name => "ProductIndicator", :dependent => :delete_all, :inverse_of => :choice_value
+  acts_as_list
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :comment, :name, :value, :allow_nil => true, :maximum => 255

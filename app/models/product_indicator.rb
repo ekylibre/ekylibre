@@ -42,9 +42,9 @@
 class ProductIndicator < CompanyRecord
   attr_accessible :product_id, :nature_id, :measured_at, :comment, :decimal_value, :measure_value, :string_value, :boolean_value, :choice_value_id
   belongs_to :product, :class_name => "Product"
-  belongs_to :nature, :class_name => "ProductIndicatorNature"
+  belongs_to :nature, :class_name => "ProductIndicatorNature", :inverse_of => :indicators
   belongs_to :measure_unit, :class_name => "Unit"
-  belongs_to :choice_value, :class_name => "ProductIndicatorNatureChoice"
+  belongs_to :choice_value, :class_name => "ProductIndicatorNatureChoice", :inverse_of => :data
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :decimal_value, :measure_value, :allow_nil => true
   validates_length_of :comment, :allow_nil => true, :maximum => 255

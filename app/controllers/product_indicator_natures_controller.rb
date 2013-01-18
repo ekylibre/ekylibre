@@ -18,18 +18,16 @@
 #
 
 class ProductIndicatorNaturesController < AdminController
-  manage_restfully :redirect_to => '(@product_indicator_nature.choice? ? {:action => :show, :id => "id"} : :back)'
+  manage_restfully
   manage_restfully_list
   unroll_all
 
-  list(:order => "position") do |t|
+  list(:order => "name") do |t|
     t.column :usage
     t.column :name, :url => true
     t.column :nature
     t.column :active
     t.column :choices_count, :datatype => :integer
-    t.action :up, :method => :post, :unless => :first?
-    t.action :down, :method => :post, :unless => :last?
     t.action :edit
     t.action :show, :image => :menulist, :if => :choice?
   end
@@ -54,11 +52,5 @@ class ProductIndicatorNaturesController < AdminController
     t3e @product_indicator_nature.attributes
   end
 
-  # Sort all choices by name
-  def sort
-    return unless @product_indicator_nature = find_and_check(:product_indicator_nature)
-    @product_indicator_nature.sort_choices
-    redirect_to_current
-  end
 
 end
