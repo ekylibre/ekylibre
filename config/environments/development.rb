@@ -39,6 +39,6 @@ Ekylibre::Application.configure do
   Paperclip.options[:command_path] = "/usr/bin/"
 
   #for postgis
-  script_dir = "/usr/share/postgresql/9.1/contrib/postgis-1.5"
+  script_dir = "/usr/share/postgresql/9.1/contrib/postgis-2.1"
 
 end
