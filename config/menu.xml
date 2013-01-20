@@ -121,7 +121,7 @@
       <page to="journal_entries#new"/>
       <page to="journal_entries#show"/>
       <page to="journal_entries#update"/>
-      <page to="journal_entry_lines#new"/>
+      <page to="journal_entry_items#new"/>
     </menu>
     <menu name="cashes">
       <page to="cashes#index"/>
@@ -240,12 +240,12 @@
       <page to="sales#show"/>
       <page to="sales#statistics"/>
       <page to="sales#update"/>
-      <page to="sale_lines#create"/>
-      <page to="sale_lines#destroy"/>
-      <page to="sale_lines#detail"/>
-      <page to="sale_lines#edit"/>
-      <page to="sale_lines#new"/>
-      <page to="sale_lines#update"/>
+      <page to="sale_items#create"/>
+      <page to="sale_items#destroy"/>
+      <page to="sale_items#detail"/>
+      <page to="sale_items#edit"/>
+      <page to="sale_items#new"/>
+      <page to="sale_items#update"/>
     </menu>
   </menu>
   <menu name="purchases">
@@ -269,11 +269,11 @@
       <page to="purchases#refuse"/>
       <page to="purchases#show"/>
       <page to="purchases#update"/>
-      <page to="purchase_lines#create"/>
-      <page to="purchase_lines#destroy"/>
-      <page to="purchase_lines#edit"/>
-      <page to="purchase_lines#new"/>
-      <page to="purchase_lines#update"/>
+      <page to="purchase_items#create"/>
+      <page to="purchase_items#destroy"/>
+      <page to="purchase_items#edit"/>
+      <page to="purchase_items#new"/>
+      <page to="purchase_items#update"/>
     </menu>
   </menu>
   <menu name="stocks">
@@ -362,8 +362,8 @@
       <page to="operations#show"/>
       <page to="operations#unvalidateds"/>
       <page to="operations#update"/>
-      <page to="operation_lines#create"/>
-      <page to="operation_lines#new"/>
+      <page to="operation_items#create"/>
+      <page to="operation_items#new"/>
       <page to="operation_uses#create"/>
       <page to="operation_uses#new"/>
     </menu>
@@ -871,6 +871,9 @@
     </menu>
   </menu>
   <undefined>
+    <menu name="accounts">
+      <page to="accounts#list_journal_entry_items"/>
+    </menu>
     <menu name="companies">
       <page to="companies#register"/>
     </menu>
@@ -917,6 +920,10 @@
       <page to="interfacers#toggle_view_mode"/>
       <page to="interfacers#unroll"/>
       <page to="interfacers#unroll_options"/>
+    </menu>
+    <menu name="journals">
+      <page to="journals#list_draft_items"/>
+      <page to="journals#list_items"/>
     </menu>
     <menu name="myselves">
       <page to="myselves#change_password"/>

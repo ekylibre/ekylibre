@@ -51,8 +51,8 @@ class JournalEntry < CompanyRecord
   belongs_to :journal, :inverse_of => :entries
   belongs_to :resource, :polymorphic => true
   has_many :asset_depreciations, :dependent => :nullify
-  has_many :useful_lines, :conditions => ["balance != ?", 0.0], :foreign_key => :entry_id, :class_name => "JournalEntryLine"
-  has_many :lines, :foreign_key => :entry_id, :dependent => :delete_all, :class_name => "JournalEntryLine", :inverse_of => :entry
+  has_many :useful_items, :conditions => ["balance != ?", 0.0], :foreign_key => :entry_id, :class_name => "JournalEntryItem"
+  has_many :items, :foreign_key => :entry_id, :dependent => :delete_all, :class_name => "JournalEntryItem", :inverse_of => :entry
   has_many :outgoing_payments, :dependent => :nullify
   has_many :outgoing_payment_uses, :dependent => :nullify
   has_many :incoming_payments, :dependent => :nullify
@@ -71,7 +71,7 @@ class JournalEntry < CompanyRecord
   validates_format_of :number, :with => /^[\dA-Z]+$/
   validates_numericality_of :original_currency_rate, :greater_than => 0
 
-  accepts_nested_attributes_for :lines
+  accepts_nested_attributes_for :items
 
   state_machine :state, :initial => :draft do
     state :draft
@@ -151,10 +151,10 @@ class JournalEntry < CompanyRecord
     else
       self.original_currency_rate = 1
     end
-    self.original_debit  = self.lines.sum(:original_debit)
-    self.original_credit = self.lines.sum(:original_credit)
-    self.debit  = self.lines.sum(:debit)
-    self.credit = self.lines.sum(:credit)
+    self.original_debit  = self.items.sum(:original_debit)
+    self.original_credit = self.items.sum(:original_credit)
+    self.debit  = self.items.sum(:debit)
+    self.credit = self.items.sum(:credit)
     self.balance = self.debit - self.credit
     self.created_on = Date.today
     if self.journal and not self.number
@@ -180,7 +180,7 @@ class JournalEntry < CompanyRecord
   end
 
   after_save do
-    JournalEntryLine.update_all({:state => self.state}, ["entry_id = ? AND state != ? ", self.id, self.state])
+    JournalEntryItem.update_all({:state => self.state}, ["entry_id = ? AND state != ? ", self.id, self.state])
   end
 
   protect(:on => :destroy) do
@@ -202,7 +202,7 @@ class JournalEntry < CompanyRecord
 
   #determines if the entry is balanced or not.
   def balanced?
-    self.balance.zero? # and self.lines.count > 0
+    self.balance.zero? # and self.items.count > 0
   end
 
   # this method computes the debit and the credit of the entry.
@@ -212,15 +212,15 @@ class JournalEntry < CompanyRecord
   end
 
   # Add a entry which cancel the entry
-  # Create counter-entry_lines
+  # Create counter-entry_items
   def cancel
     reconcilable_accounts = []
     entry = self.class.new(:journal => self.journal, :resource => self.resource, :original_currency => self.original_currency, :original_currency_rate => self.original_currency_rate, :printed_on => self.printed_on)
     ActiveRecord::Base.transaction do
       entry.save!
-      for line in self.useful_lines
-        entry.send(:add!, tc(:entry_cancel, :number => self.number, :name => line.name), line.account, (line.debit-line.credit).abs, :credit => (line.debit>0))
-        reconcilable_accounts << line.account if line.account.reconcilable? and not reconcilable_accounts.include?(line.account)
+      for item in self.useful_items
+        entry.send(:add!, tc(:entry_cancel, :number => self.number, :name => item.name), item.account, (item.debit-item.credit).abs, :credit => (item.debit>0))
+        reconcilable_accounts << item.account if item.account.reconcilable? and not reconcilable_accounts.include?(item.account)
       end
     end
     # Mark accounts
@@ -230,18 +230,18 @@ class JournalEntry < CompanyRecord
     return entry
   end
 
-  def save_with_lines(entry_lines)
+  def save_with_items(entry_items)
     ActiveRecord::Base.transaction do
       saved = self.save
-      self.lines.clear
-      entry_lines.each_index do |index|
-        entry_lines[index] = self.lines.build(entry_lines[index])
+      self.items.clear
+      entry_items.each_index do |index|
+        entry_items[index] = self.items.build(entry_items[index])
         if saved
-          saved = false unless entry_lines[index].save
+          saved = false unless entry_items[index].save
         end
       end
       self.reload if saved
-      if saved and (not self.balanced? or self.lines.size.zero?)
+      if saved and (not self.balanced? or self.items.size.zero?)
         self.errors.add(:debit, :unbalanced)
         saved = false
       end
@@ -256,12 +256,12 @@ class JournalEntry < CompanyRecord
 
 
 
-#   #this method tests if all the entry_lines matching to the entry does not edited in draft mode.
+#   #this method tests if all the entry_items matching to the entry does not edited in draft mode.
 #   def normalized
-#     return (not self.lines.exists?(:draft => true))
+#     return (not self.items.exists?(:draft => true))
 #   end
 
-  # Adds an entry_line with the minimum informations. It computes debit and credit with the "amount".
+  # Adds an entry_item with the minimum informations. It computes debit and credit with the "amount".
   # If the amount is negative, the amount is put in the other column (debit or credit). Example:
   #   entry.add_debit("blabla", account, -65) # will put +65 in +credit+ column
   def add_debit(name, account, amount, options={})
@@ -295,7 +295,7 @@ class JournalEntry < CompanyRecord
       attributes[:original_credit] = 0.0
       attributes[:original_debit]  = amount.abs
     end
-    e = self.lines.create!(attributes)
+    e = self.items.create!(attributes)
     return e
   end
 

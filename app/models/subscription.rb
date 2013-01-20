@@ -34,7 +34,7 @@
 #  product_nature_id :integer          
 #  quantity          :decimal(19, 4)   
 #  sale_id           :integer          
-#  sale_line_id      :integer          
+#  sale_item_id      :integer          
 #  started_on        :date             
 #  stopped_on        :date             
 #  suspended         :boolean          not null
@@ -45,13 +45,13 @@
 
 class Subscription < CompanyRecord
   acts_as_numbered
-  attr_accessible :address_id, :comment, :first_number, :last_number, :started_on, :stopped_on, :suspended, :sale_line_id, :nature_id
+  attr_accessible :address_id, :comment, :first_number, :last_number, :started_on, :stopped_on, :suspended, :sale_item_id, :nature_id
   belongs_to :address, :class_name => "EntityAddress"
   belongs_to :entity
   belongs_to :nature, :class_name => "SubscriptionNature"
   belongs_to :product_nature
   belongs_to :sale
-  belongs_to :sale_line
+  belongs_to :sale_item, :class_name => "SaleItem"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :first_number, :last_number, :allow_nil => true, :only_integer => true
   validates_numericality_of :quantity, :allow_nil => true
@@ -61,10 +61,10 @@ class Subscription < CompanyRecord
   validates_presence_of :started_on, :stopped_on, :if => Proc.new{|u| u.nature and u.nature.period?}
   validates_presence_of :first_number, :last_number, :if => Proc.new{|u| u.nature and u.nature.quantity?}
   validates_presence_of :nature, :entity
-  validates_presence_of :sale_line, :if => Proc.new{|s| !s.sale.nil?}, :on => :create
+  validates_presence_of :sale_item, :if => Proc.new{|s| !s.sale.nil?}, :on => :create
 
   before_validation do
-    self.sale_id      = self.sale_line.sale_id if self.sale_line
+    self.sale_id      = self.sale_item.sale_id if self.sale_item
     self.address_id ||= self.sale.delivery_address_id if self.sale
     self.entity_id    = self.address.entity_id if self.address
     self.nature_id    = self.product_nature.subscription_nature_id if self.product_nature

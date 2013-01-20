@@ -47,9 +47,13 @@ jpn:
         # amount: "Montant attribué à la vente"
         # payment: "Encaissement"
         # payment_way: "Mode d’encaissement"
+      inventory_item:
+        # quantity: "Quantité constatée"
       inventory_line:
         # quantity: "Quantité constatée"
       journal_entry: #?
+      journal_entry_item:
+        # closed: "Cloturée"
       journal_entry_line:
         # closed: "Cloturée"
       land_parcel:
@@ -105,6 +109,8 @@ jpn:
         # moved_on: "Reçu le"
         # payment_uses: "Parties de décaissement"
         # planned_on: "Réception prévue le"
+      purchase_item:
+        # order: "Achat"
       purchase_line:
         # order: "Achat"
       sale:
@@ -113,6 +119,9 @@ jpn:
         # lines: "Lignes de vente"
         # parts_amount: "Montant payé"
         # payments: "Encaissements"
+      sale_item:
+        # label: "Produit"
+        # price: "Produit tarifé"
       sale_line:
         # label: "Produit"
         # price: "Produit tarifé"
@@ -214,6 +223,8 @@ jpn:
             stopped_on:
               # end_of_month: "%{attribute} doit être une date de fin de mois"
           # overlap: "%{attribute} se trouve sur un exercice existant"
+        incoming_delivery_item:
+          # greater_than_undelivered_quantity: "La quantité de produit %{product} à livrer dépasse la quantité non livrée (%{maximum}%{unit})"
         incoming_delivery_line:
           # greater_than_undelivered_quantity: "La quantité de produit %{product} à livrer dépasse la quantité non livrée (%{maximum}%{unit})"
         journal:
@@ -225,10 +236,16 @@ jpn:
           # closed_journal: "Le journal est clôturé au %{closed_on} donc vous ne pouvez plus créer, modifier ou supprimer de pièces jusqu’à cette date-là."
           # out_of_existing_financial_year: "L’écriture doit être enregistrée dans un exercice comptable existant."
           # unbalanced: "La pièce n’est pas équilibrée"
+        journal_entry_item:
+          # closed_entry: "L’écriture est verrouillée. Il n’est pas possible de la modifier."
+          # empty_amounts: "L’écriture doit être renseignée soit au débit, soit au crédit."
+          # unvalid_amounts: "L’écriture doit être renseignée soit au débit, soit au crédit mais pas les deux en même temps."
         journal_entry_line:
           # closed_entry: "L’écriture est verrouillée. Il n’est pas possible de la modifier."
           # empty_amounts: "L’écriture doit être renseignée soit au débit, soit au crédit."
           # unvalid_amounts: "L’écriture doit être renseignée soit au débit, soit au crédit mais pas les deux en même temps."
+        outgoing_delivery_item:
+          # greater_than_undelivered_quantity: "La quantité de produit %{product} à livrer dépasse la quantité non livrée (%{maximum}%{unit})"
         outgoing_delivery_line:
           # greater_than_undelivered_quantity: "La quantité de produit %{product} à livrer dépasse la quantité non livrée (%{maximum}%{unit})"
         price:
@@ -241,9 +258,17 @@ jpn:
           # warehouse_can_not_transfer_product: "Vous ne pouvez pas tranférer le produit %{product} depuis le lieu de stockage %{warehouse}, celui-ci contient le produit %{contained_product}"
           # warehouse_can_not_waste_product: "Vous ne pouvez pas enregistrer de perte pour  le produit %{product} depuis le lieu de stockage %{warehouse}, celui-ci contient le produit %{contained_product}"
           # warehouses_can_not_be_identical: "Les lieux de stockage (départ et arrivée) ne peuvent pas être identiques"
+        purchase_item:
+          # serial_already_used_with_an_other_product: "%{attribute} a déjà été utilisé pour un autre type de produit du même fournisseur"
+          # warehouse_can_not_receive_product: "Le réservoir %{warehouse} ne peut pas recevoir le produit %{product}, il contient déjà le produit %{contained_product}."
         purchase_line:
           # serial_already_used_with_an_other_product: "%{attribute} a déjà été utilisé pour un autre type de produit du même fournisseur"
           # warehouse_can_not_receive_product: "Le réservoir %{warehouse} ne peut pas recevoir le produit %{product}, il contient déjà le produit %{contained_product}."
+        sale_item:
+          # can_not_use_this_tracking: "Vous ne  pouvez pas utiliser le lot %{tracking}, la quantité commandée est supérieure à la quantité disponible"
+          # currency_is_not_sale_currency: "La devise du prix du produit ne correspond pas celle définie pour la vente"
+          # error_no_found_price: "Aucun prix n’ a pu être trouvé pour ce produit et cette liste de tarif"
+          # warehouse_can_not_transfer_product: "Le produit %{product} ne peut être sorti du réservoir %{warehouse}, celui-ci contient %{contained_product}."
         sale_line:
           # can_not_use_this_tracking: "Vous ne  pouvez pas utiliser le lot %{tracking}, la quantité commandée est supérieure à la quantité disponible"
           # currency_is_not_sale_currency: "La devise du prix du produit ne correspond pas celle définie pour la vente"
@@ -284,6 +309,7 @@ jpn:
       # delay: "Délai"
       # department: "Service"
       # deposit: "Remise en banque"
+      # deposit_item: "Ligne de remise en banque"
       # deposit_line: "Ligne de remise en banque"
       # district: "Zone administrative"
       # document: "Document"
@@ -301,15 +327,18 @@ jpn:
       # event_nature: "Type d’évènement"
       # financial_year: "Exercice"
       # incoming_delivery: "Arrivage"
+      # incoming_delivery_item: "Ligne d’arrivage"
       # incoming_delivery_line: "Ligne d’arrivage"
       # incoming_delivery_mode: "Mode d’arrivage"
       # incoming_payment: "Encaissement"
       # incoming_payment_mode: "Mode d’encaissement"
       # incoming_payment_use: "Affectation d’encaissement"
       # inventory: "Inventaire"
+      # inventory_item: "Ligne d’inventaire"
       # inventory_line: "Ligne d’inventaire"
       # journal: "Journal"
       # journal_entry: "Écriture"
+      # journal_entry_item: "Ligne d’écriture"
       # journal_entry_line: "Ligne d’écriture"
       # land_parcel: "Îlot"
       # land_parcel_group: "Groupe d’îlots"
@@ -321,10 +350,12 @@ jpn:
       # mandate: "Responsabilité"
       # observation: "Observation"
       # operation: "Travail"
+      # operation_item: "Intrant/sortant"
       # operation_line: "Intrant/sortant"
       # operation_nature: "Type de travail"
       # operation_use: "Utilisation d’outil"
       # outgoing_delivery: "Livraison"
+      # outgoing_delivery_item: "Ligne de livraison"
       # outgoing_delivery_line: "Ligne de livraison"
       # outgoing_delivery_mode: "Mode de livraison"
       # outgoing_payment: "Décaissement"
@@ -355,10 +386,12 @@ jpn:
       # products_nature: "Produit"
       # profession: "Profession"
       # purchase: "Achat"
+      # purchase_item: "Ligne d’achat"
       # purchase_line: "Ligne d’achat"
       # purchase_nature: "Type d’achat"
       # role: "Rôle"
       # sale: "Vente"
+      # sale_item: "Ligne de vente"
       # sale_line: "Ligne de vente"
       # sale_nature: "Type de vente"
       # sequence: "Séquence"
@@ -955,6 +988,7 @@ jpn:
     # root_model: "Racine"
     # root_model_name: "Racine"
     # sale: "Vente"
+    # sale_item: "Sale item"
     # sale_line: "Ligne de vente"
     # sale_lines: "Lignes de vente"
     # sale_natures: "Types de vente"
@@ -1206,6 +1240,10 @@ jpn:
         # important: "Importante"
         # normal: "Normale"
         # notice: "Faible"
+    operation_item:
+      direction:
+        # in: "Intrant"
+        # out: "Sortant"
     operation_line:
       direction:
         # in: "Intrant"
@@ -1444,6 +1482,8 @@ jpn:
       # label: "%{number}. %{amount} (%{usable_amount} restants) du %{date} en %{mode} de %{payer}"
     incoming_payment_use:
       # bookkeep: "[%{resource}] %{mode} (%{payment_number}) reçu de %{attorney} pour %{client} (%{expense_number})"
+    inventory_item:
+      # inventory: "Inventaire "
     inventory_line:
       # inventory: "Inventaire "
     journal: #?
@@ -1494,11 +1534,16 @@ jpn:
         # without_value: "%{comparator}"
       # reflections: "Tables liées"
     observation: #?
+    operation_item:
+      # density_label: "%{value} %{product_unit}/%{area_unit}"
+      direction_label: #?
     operation_line:
       # density_label: "%{value} %{product_unit}/%{area_unit}"
       direction_label: #?
     outgoing_delivery:
       # label: "%{client} à %{address}"
+      # sale: "Vente %{number}"
+    outgoing_delivery_item:
       # sale: "Vente %{number}"
     outgoing_delivery_line:
       # sale: "Vente %{number}"
@@ -1582,6 +1627,10 @@ jpn:
         # invoice: "Facture"
         # order: "Commande"
         # refused: "Refusé"
+    purchase_item:
+      # name: "%{product} (%{quantity}%{unit}) à %{amount}%{currency}/%{unit}"
+      # name_with_tracking: "%{product}/%{tracking} (%{quantity}%{unit}) à %{amount}%{currency}/%{unit}"
+      # tracking: "N°Lot\_: %{serial}"
     purchase_line:
       # name: "%{product} (%{quantity}%{unit}) à %{amount}%{currency}/%{unit}"
       # name_with_tracking: "%{product}/%{tracking} (%{quantity}%{unit}) à %{amount}%{currency}/%{unit}"
@@ -1611,6 +1660,13 @@ jpn:
         # invoice: "Facture"
         # order: "Commande"
         # refused: "Devis refusé"
+    sale_item:
+      # can_not_use_this_tracking: "Vous ne  pouvez pas utiliser le lot %{name}, la quantité commandée est supérieure à la quantité disponible "
+      # currency_is_not_sale_currency: "Le prix du produit ne correspond pas à la monnaie définie pour la vente"
+      # no_product: "[Pas de produit]"
+      # reduction_on: "Remise de %{percent}% sur\_: %{product}"
+      # tracking: "N°Lot\_: %{serial}"
+      # warehouse_can_not_transfer_product: "Le produit %{product} ne peut être sorti du réservoir %{warehouse}, celui-ci contient %{contained_product} "
     sale_line:
       # can_not_use_this_tracking: "Vous ne  pouvez pas utiliser le lot %{name}, la quantité commandée est supérieure à la quantité disponible "
       # currency_is_not_sale_currency: "Le prix du produit ne correspond pas à la monnaie définie pour la vente"

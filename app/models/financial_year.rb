@@ -298,7 +298,7 @@ class FinancialYear < CompanyRecord
 
   # Re-create all account_balances record for the financial year
   def compute_balances!
-    results = ActiveRecord::Base.connection.select_all("SELECT account_id, sum(jel.debit) AS debit, sum(jel.credit) AS credit, count(jel.id) AS count FROM #{JournalEntryLine.table_name} AS jel JOIN #{JournalEntry.table_name} AS je ON (je.id = jel.entry_id AND je.printed_on BETWEEN #{self.class.connection.quote(self.started_on)} AND #{self.class.connection.quote(self.stopped_on)}) WHERE je.state != 'draft' GROUP BY account_id")
+    results = ActiveRecord::Base.connection.select_all("SELECT account_id, sum(jel.debit) AS debit, sum(jel.credit) AS credit, count(jel.id) AS count FROM #{JournalEntryItem.table_name} AS jel JOIN #{JournalEntry.table_name} AS je ON (je.id = jel.entry_id AND je.printed_on BETWEEN #{self.class.connection.quote(self.started_on)} AND #{self.class.connection.quote(self.stopped_on)}) WHERE je.state != 'draft' GROUP BY account_id")
     self.account_balances.clear
     for result in results
       self.account_balances.create!(:account_id=>result["account_id"].to_i, :local_count=>result["count"].to_i, :local_credit=>result["credit"].to_f, :local_debit=>result["debit"].to_f)

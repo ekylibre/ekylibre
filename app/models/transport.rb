@@ -43,9 +43,9 @@
 class Transport < CompanyRecord
   acts_as_numbered
   attr_accessible :comment, :purchase_id, :reference_number, :responsible_id, :transport_on, :transporter_id, :weight
-  belongs_to :responsible, :class_name=>"Entity"
-  belongs_to :transporter, :class_name=>"Entity"
-  has_many :deliveries, :dependent=>:nullify, :class_name=>"OutgoingDelivery"
+  belongs_to :responsible, :class_name => "Entity"
+  belongs_to :transporter, :class_name => "Entity"
+  has_many :deliveries, :dependent => :nullify, :class_name => "OutgoingDelivery"
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :amount, :pretax_amount, :weight, :allow_nil => true
@@ -53,7 +53,7 @@ class Transport < CompanyRecord
   validates_presence_of :amount, :pretax_amount, :transporter
   #]VALIDATORS]
 
-  before_validation(:on=>:create) do
+  before_validation(:on => :create) do
     self.created_on ||= Date.today
     return true
   end
@@ -72,12 +72,5 @@ class Transport < CompanyRecord
   def refresh
     self.save
   end
-
-  # def address
-  #   a = self.transporter.full_name+"\n"
-  #   a += self.transporter.default_mail_address.mail_coordinate if !self.transporter.default_mail_address.nil?
-  #   a
-  # end
-
 
 end

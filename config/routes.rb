@@ -178,7 +178,7 @@ Ekylibre::Application.routes.draw do
       match "unvalidateds", :via => [:get, :post]
     end
   end
-  # resources :deposit_lines
+  # resources :deposit_items
   resources :districts do
     collection do
       get :list
@@ -289,7 +289,7 @@ Ekylibre::Application.routes.draw do
       match "confirm", :via => [:get, :post]
     end
   end
-  # resources :incoming_delivery_lines
+  # resources :incoming_delivery_items
   resources :incoming_delivery_modes do
     collection do
       get :list
@@ -327,7 +327,7 @@ Ekylibre::Application.routes.draw do
       match "reflect", :via => [:get, :post]
     end
   end
-  # resources :inventory_lines
+  # resources :inventory_items
   resources :journals do
     collection do
       match "draft", :via => [:get, :post]
@@ -354,7 +354,7 @@ Ekylibre::Application.routes.draw do
       get :list_lines
     end
   end
-  resources :journal_entry_lines, :only => [:new, :create]
+  resources :journal_entry_items, :only => [:new, :create]
   resources :land_parcels do
     collection do
       get :list
@@ -410,7 +410,7 @@ Ekylibre::Application.routes.draw do
       match "unvalidateds", :via => [:get, :post]
     end
   end
-  resources :operation_lines, :only => [:new, :create]
+  resources :operation_items, :only => [:new, :create]
   resources :operation_natures do
     collection do
       get :list
@@ -425,7 +425,7 @@ Ekylibre::Application.routes.draw do
       unroll_all
     end
   end
-  # resources :outgoing_delivery_lines
+  # resources :outgoing_delivery_items
   resources :outgoing_delivery_modes do
     collection do
       get :list
@@ -559,7 +559,7 @@ Ekylibre::Application.routes.draw do
       unroll_all
     end
   end
-  resources :purchase_lines, :except => [:index, :show]
+  resources :purchase_items, :except => [:index, :show]
   resources :purchase_natures do
     collection do
       get :list
@@ -590,7 +590,7 @@ Ekylibre::Application.routes.draw do
       unroll_all
     end
   end
-  resources :sale_lines, :except => [:index, :show] do
+  resources :sale_items, :except => [:index, :show] do
     collection do
       get :list
       get :detail

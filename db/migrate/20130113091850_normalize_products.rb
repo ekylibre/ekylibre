@@ -759,12 +759,12 @@ class NormalizeProducts < ActiveRecord::Migration
   def rename_table_and_co(old_table, new_table)
     rename_table_and_indexes(old_table, new_table)
     # Updates foreign columns
-    for table, columns in references_of(old_table)
+    for table, columns in references_of(new_table)
       for column, target in columns
         if target.is_a?(String)
           execute("UPDATE #{quoted_table_name(table)} SET #{target} = '#{new_table.to_s.classify}' WHERE #{target} = '#{old_table.to_s.classify}'")
         elsif column.to_s.match(/(^|\_)#{old_table.to_s.singularize + '_id'}$/)
-          rename_column table, column, column.to_s.gsub(/(^|\_)#{old_table.to_s.singularize + '_id'}$/, '\1' + new_table.to_s.singularize + '_id')
+          rename_column table, column, column.to_s.gsub(/(^|\_)#{old_table.to_s.singularize + '_id'}$/, '\1' + new_table.to_s.singularize + '_id').to_sym
         else
           say("No logic way to rename #{table}##{column} for #{new_table}")
         end

@@ -66,7 +66,7 @@ class PurchasesController < AdminController
   #   t.action :destroy#, :if => 'RECORD.expense.shipped == false'
   # end
 
-  list(:undelivered_lines, :model => :purchase_lines, :conditions => {:purchase_id => ['session[:current_purchase_id]']}) do |t|
+  list(:undelivered_lines, :model => :purchase_items, :conditions => {:purchase_id => ['session[:current_purchase_id]']}) do |t|
     t.column :name, :through => :product
     t.column :pretax_amount, :currency => "RECORD.price.currency", :through => :price
     t.column :quantity
@@ -76,7 +76,7 @@ class PurchasesController < AdminController
     t.column :undelivered_quantity, :datatype => :decimal
   end
 
-  list(:lines, :model => :purchase_lines, :conditions => {:purchase_id => ['session[:current_purchase_id]']}) do |t|
+  list(:lines, :model => :purchase_items, :conditions => {:purchase_id => ['session[:current_purchase_id]']}) do |t|
     t.column :name, :through => :product, :url => true
     t.column :annotation
     t.column :tracking_serial

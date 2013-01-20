@@ -44,7 +44,7 @@ class Tax < CompanyRecord
   belongs_to :collected_account, :class_name => "Account"
   belongs_to :paid_account, :class_name => "Account"
   has_many :prices
-  has_many :sale_lines
+  has_many :sale_lines, :class_name => "SaleItem"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :amount, :allow_nil => true
   validates_length_of :nature, :allow_nil => true, :maximum => 16

@@ -44,7 +44,7 @@ class OperationsController < AdminController
     t.column :name, :through => :tool, :url => true
   end
 
-  list(:lines, :model => :operation_lines, :conditions => {:operation_id => ['session[:current_operation_id]']}, :order => "direction") do |t|
+  list(:lines, :model => :operation_items, :conditions => {:operation_id => ['session[:current_operation_id]']}, :order => "direction") do |t|
     t.column :direction
     # t.column :name, :through => :warehouse, :url => true
     t.column :name, :through => :product, :url => true

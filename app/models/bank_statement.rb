@@ -43,7 +43,7 @@ class BankStatement < CompanyRecord
   validates_presence_of :cash, :credit, :debit, :number, :started_on, :stopped_on
   #]VALIDATORS]
   belongs_to :cash
-  has_many :lines, :dependent=>:nullify, :class_name=>"JournalEntryLine"
+  has_many :lines, :dependent=>:nullify, :class_name=>"JournalEntryItem"
 
   before_validation do
     self.debit  = self.lines.sum(:original_debit)
@@ -72,7 +72,7 @@ class BankStatement < CompanyRecord
   end
 
   def eligible_lines
-    JournalEntryLine.where("bank_statement_id = ? OR (account_id = ? AND (bank_statement_id IS NULL OR journal_entries.created_on BETWEEN ? AND ?))", self.id, self.cash.account_id, self.started_on, self.stopped_on).joins("INNER JOIN #{JournalEntry.table_name} AS journal_entries ON journal_entries.id = entry_id").order("bank_statement_id DESC, #{JournalEntry.table_name}.printed_on DESC, #{JournalEntryLine.table_name}.position")
+    JournalEntryItem.where("bank_statement_id = ? OR (account_id = ? AND (bank_statement_id IS NULL OR journal_entries.created_on BETWEEN ? AND ?))", self.id, self.cash.account_id, self.started_on, self.stopped_on).joins("INNER JOIN #{JournalEntry.table_name} AS journal_entries ON journal_entries.id = entry_id").order("bank_statement_id DESC, #{JournalEntry.table_name}.printed_on DESC, #{JournalEntryItem.table_name}.position")
   end
 
 end

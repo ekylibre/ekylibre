@@ -38,7 +38,7 @@ class Journal < CompanyRecord
   attr_accessible :code, :name, :nature, :currency
   attr_readonly :currency
   has_many :cashes
-  has_many :entry_lines, :class_name => "JournalEntryLine", :inverse_of => :journal
+  has_many :entry_items, :class_name => "JournalEntryItem", :inverse_of => :journal
   has_many :entries, :class_name => "JournalEntry", :inverse_of => :journal
   enumerize :nature, :in => [:sales, :purchases, :bank, :forward, :various, :cash], :default => :various, :predicates => true
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
@@ -93,7 +93,7 @@ class Journal < CompanyRecord
   end
 
   protect(:on => :destroy) do
-    self.entries.count.zero? and self.entry_lines.count.zero? and self.cashes.count.zero?
+    self.entries.count.zero? and self.entry_items.count.zero? and self.cashes.count.zero?
   end
 
   #
@@ -118,7 +118,7 @@ class Journal < CompanyRecord
   # this method closes a journal.
   def close(closed_on)
     errors.add(:closed_on, :end_of_month) if self.closed_on != self.closed_on.end_of_month
-    errors.add(:closed_on, :draft_entry_lines, :closed_on => closed_on.l) if self.entry_lines.joins("JOIN #{JournalEntry.table_name} AS journal_entries ON (entry_id=journal_entries.id)").where(:state => :draft).where("printed_on BETWEEN ? AND ? ", "draft", self.closed_on+1, closed_on).count > 0
+    errors.add(:closed_on, :draft_entry_items, :closed_on => closed_on.l) if self.entry_items.joins("JOIN #{JournalEntry.table_name} AS journal_entries ON (entry_id=journal_entries.id)").where(:state => :draft).where("printed_on BETWEEN ? AND ? ", "draft", self.closed_on+1, closed_on).count > 0
     return false unless errors.empty?
     ActiveRecord::Base.transaction do
       self.entries.where("printed_on BETWEEN ? AND ? ", self.closed_on+1, closed_on).find_each do |entry|
@@ -170,27 +170,27 @@ class Journal < CompanyRecord
   end
 
 
-  def entry_lines_between(started_on, stopped_on)
-    self.entry_lines.find(:all, :joins => "JOIN #{JournalEntry.table_name} AS journal_entries ON (journal_entries.id=entry_id)", :conditions => ["printed_on BETWEEN ? AND ? ", started_on, stopped_on], :order => "printed_on, journal_entries.id, journal_entry_lines.id")
+  def entry_items_between(started_on, stopped_on)
+    self.entry_items.find(:all, :joins => "JOIN #{JournalEntry.table_name} AS journal_entries ON (journal_entries.id=entry_id)", :conditions => ["printed_on BETWEEN ? AND ? ", started_on, stopped_on], :order => "printed_on, journal_entries.id, journal_entry_items.id")
   end
 
-  def entry_lines_calculate(column, started_on, stopped_on, operation=:sum)
-    column = (column == :balance ? "#{JournalEntryLine.table_name}.original_debit - #{JournalEntryLine.table_name}.original_credit" : "#{JournalEntryLine.table_name}.original_#{column}")
-    self.entry_lines.calculate(operation, column, :joins => "JOIN #{JournalEntry.table_name} AS journal_entries ON (journal_entries.id=entry_id)", :conditions => ["printed_on BETWEEN ? AND ? ", started_on, stopped_on])
+  def entry_items_calculate(column, started_on, stopped_on, operation=:sum)
+    column = (column == :balance ? "#{JournalEntryItem.table_name}.original_debit - #{JournalEntryItem.table_name}.original_credit" : "#{JournalEntryItem.table_name}.original_#{column}")
+    self.entry_items.calculate(operation, column, :joins => "JOIN #{JournalEntry.table_name} AS journal_entries ON (journal_entries.id=entry_id)", :conditions => ["printed_on BETWEEN ? AND ? ", started_on, stopped_on])
   end
 
 
   # Compute a balance with many options
   # * :started_on Use journal entries printed on after started_on
   # * :stopped_on Use journal entries printed on before stopped_on
-  # * :draft      Use draft journal entry_lines
-  # * :confirmed  Use confirmed journal entry_lines
-  # * :closed     Use closed journal entry_lines
+  # * :draft      Use draft journal entry_items
+  # * :confirmed  Use confirmed journal entry_items
+  # * :closed     Use closed journal entry_items
   # * :accounts   Select ranges of accounts
   # * :centralize Select account's prefixe which permits to centralize
   def self.balance(options={})
     conn = ActiveRecord::Base.connection
-    journal_entry_lines, journal_entries, accounts = "jel", "je", "a"
+    journal_entry_items, journal_entries, accounts = "jel", "je", "a"
 
     journal_entries_states = ' AND '+JournalEntry.state_condition(options[:states], journal_entries)
 
@@ -201,51 +201,51 @@ class Journal < CompanyRecord
     options[:centralize] = centralize.join(" ")
     centralized = centralize.collect{|c| "#{accounts}.number LIKE #{conn.quote(c+'%')}"}.join(" OR ")
 
-    from_where  = " FROM #{JournalEntryLine.table_name} AS #{journal_entry_lines} JOIN #{Account.table_name} AS #{accounts} ON (account_id=#{accounts}.id) JOIN #{JournalEntry.table_name} AS #{journal_entries} ON (entry_id=#{journal_entries}.id)"
+    from_where  = " FROM #{JournalEntryItem.table_name} AS #{journal_entry_items} JOIN #{Account.table_name} AS #{accounts} ON (account_id=#{accounts}.id) JOIN #{JournalEntry.table_name} AS #{journal_entries} ON (entry_id=#{journal_entries}.id)"
     from_where += " WHERE "+JournalEntry.period_condition(options[:period], options[:started_on], options[:stopped_on], journal_entries)
 
     # Total
-    lines = []
-    query  = "SELECT '', -1, sum(COALESCE(#{journal_entry_lines}.debit, 0)), sum(COALESCE(#{journal_entry_lines}.credit, 0)), sum(COALESCE(#{journal_entry_lines}.debit, 0)) - sum(COALESCE(#{journal_entry_lines}.credit, 0)), '#{'Z'*16}' AS skey"
+    items = []
+    query  = "SELECT '', -1, sum(COALESCE(#{journal_entry_items}.debit, 0)), sum(COALESCE(#{journal_entry_items}.credit, 0)), sum(COALESCE(#{journal_entry_items}.debit, 0)) - sum(COALESCE(#{journal_entry_items}.credit, 0)), '#{'Z'*16}' AS skey"
     query += from_where
     query += journal_entries_states
     query += account_range
-    lines += conn.select_rows(query)
+    items += conn.select_rows(query)
 
     # Sub-totals
     for name, value in options.select{|k, v| k.to_s.match(/^level_\d+$/) and v.to_i == 1}
       level = name.split(/\_/)[-1].to_i
-      query  = "SELECT #{conn.substr(accounts+'.number', 1, level)} AS subtotal, -2, sum(COALESCE(#{journal_entry_lines}.debit, 0)), sum(COALESCE(#{journal_entry_lines}.credit, 0)), sum(COALESCE(#{journal_entry_lines}.debit, 0)) - sum(COALESCE(#{journal_entry_lines}.credit, 0)), #{conn.substr(accounts+'.number', 1, level)}||'#{'Z'*(16-level)}' AS skey"
+      query  = "SELECT #{conn.substr(accounts+'.number', 1, level)} AS subtotal, -2, sum(COALESCE(#{journal_entry_items}.debit, 0)), sum(COALESCE(#{journal_entry_items}.credit, 0)), sum(COALESCE(#{journal_entry_items}.debit, 0)) - sum(COALESCE(#{journal_entry_items}.credit, 0)), #{conn.substr(accounts+'.number', 1, level)}||'#{'Z'*(16-level)}' AS skey"
       query += from_where
       query += journal_entries_states
       query += account_range
       query += " AND #{conn.length(accounts+'.number')} >= #{level}"
       query += " GROUP BY subtotal"
-      lines += conn.select_rows(query)
+      items += conn.select_rows(query)
     end
 
     # NOT centralized accounts (default)
-    query  = "SELECT #{accounts}.number, #{accounts}.id AS account_id, sum(COALESCE(#{journal_entry_lines}.debit, 0)), sum(COALESCE(#{journal_entry_lines}.credit, 0)), sum(COALESCE(#{journal_entry_lines}.debit, 0)) - sum(COALESCE(#{journal_entry_lines}.credit, 0)), #{accounts}.number AS skey"
+    query  = "SELECT #{accounts}.number, #{accounts}.id AS account_id, sum(COALESCE(#{journal_entry_items}.debit, 0)), sum(COALESCE(#{journal_entry_items}.credit, 0)), sum(COALESCE(#{journal_entry_items}.debit, 0)) - sum(COALESCE(#{journal_entry_items}.credit, 0)), #{accounts}.number AS skey"
     query += from_where
     query += journal_entries_states
     query += account_range
     query += " AND #{conn.not_boolean(centralized)}" unless centralize.empty?
     query += " GROUP BY #{accounts}.id, #{accounts}.number"
     query += " ORDER BY #{accounts}.number"
-    lines += conn.select_rows(query)
+    items += conn.select_rows(query)
 
     # Centralized accounts
     for prefix in centralize
-      query  = "SELECT #{conn.substr(accounts+'.number', 1, prefix.size)} AS centralize, -3, sum(COALESCE(#{journal_entry_lines}.debit, 0)), sum(COALESCE(#{journal_entry_lines}.credit, 0)), sum(COALESCE(#{journal_entry_lines}.debit, 0)) - sum(COALESCE(#{journal_entry_lines}.credit, 0)), #{conn.quote(prefix)} AS skey"
+      query  = "SELECT #{conn.substr(accounts+'.number', 1, prefix.size)} AS centralize, -3, sum(COALESCE(#{journal_entry_items}.debit, 0)), sum(COALESCE(#{journal_entry_items}.credit, 0)), sum(COALESCE(#{journal_entry_items}.debit, 0)) - sum(COALESCE(#{journal_entry_items}.credit, 0)), #{conn.quote(prefix)} AS skey"
       query += from_where
       query += journal_entries_states
       query += account_range
       query += " AND #{accounts}.number LIKE #{conn.quote(prefix+'%')}"
       query += " GROUP BY centralize"
-      lines += conn.select_rows(query)
+      items += conn.select_rows(query)
     end
 
-    return lines.sort{|a,b| a[5] <=> b[5]}
+    return items.sort{|a,b| a[5] <=> b[5]}
   end
 
 

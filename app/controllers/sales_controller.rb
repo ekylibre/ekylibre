@@ -114,7 +114,7 @@ class SalesController < AdminController
     t.action :destroy
   end
 
-  list(:undelivered_lines, :model => :sale_lines, :conditions => {:sale_id => ['session[:current_sale_id]'], :reduction_origin_id => nil}) do |t|
+  list(:undelivered_lines, :model => :sale_items, :conditions => {:sale_id => ['session[:current_sale_id]'], :reduction_origin_id => nil}) do |t|
     t.column :name, :through => :product
     t.column :pretax_amount, :currency => "RECORD.price.currency", :through => :price
     t.column :quantity
@@ -124,7 +124,7 @@ class SalesController < AdminController
     t.column :undelivered_quantity, :datatype => :decimal
   end
 
-  list(:lines, :model => :sale_lines, :conditions => {:sale_id => ['params[:id]']}, :order => :position, :export => false, :line_class => "((RECORD.product.subscription? and RECORD.subscriptions.sum(:quantity) != RECORD.quantity) ? 'warning' : '')", :include => [:product, :subscriptions]) do |t|
+  list(:lines, :model => :sale_items, :conditions => {:sale_id => ['params[:id]']}, :order => :position, :export => false, :line_class => "((RECORD.product.subscription? and RECORD.subscriptions.sum(:quantity) != RECORD.quantity) ? 'warning' : '')", :include => [:product, :subscriptions]) do |t|
     #t.column :name, :through => :product
     t.column :position
     t.column :label
@@ -183,7 +183,7 @@ class SalesController < AdminController
   end
 
 
-  list(:creditable_lines, :model => :sale_lines, :conditions => ["sale_id=? AND reduction_origin_id IS NULL", ['session[:sale_id]']]) do |t|
+  list(:creditable_lines, :model => :sale_items, :conditions => ["sale_id=? AND reduction_origin_id IS NULL", ['session[:sale_id]']]) do |t|
     t.column :label
     t.column :annotation
     t.column :name, :through => :product
@@ -375,7 +375,7 @@ class SalesController < AdminController
     if params[:export] == "sales"
       states = [:invoice]
       states << :order if source == :sales
-      query = "SELECT product_id, sum(sol.#{mode}) AS total FROM #{SaleLine.table_name} AS sol JOIN #{Sale.table_name} AS so ON (sol.sale_id=so.id) WHERE "
+      query = "SELECT product_id, sum(sol.#{mode}) AS total FROM #{SaleItem.table_name} AS sol JOIN #{Sale.table_name} AS so ON (sol.sale_id=so.id) WHERE "
       if params[:invoices].to_i > 0
         query << "state='invoice' AND invoiced_on BETWEEN ? AND ? "
       else

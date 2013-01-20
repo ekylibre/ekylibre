@@ -229,6 +229,11 @@ arb:
         created_on: "اكتمل يوم" #?
         journal_record_id: "السجلات الحسلبية" #?
         lines: "طرق عملية الجرد" #?
+      inventory_item:
+        product_id: "انتاج" #?
+        quantity: "الكمية المتوفرة"
+        stock_moves: "حركات السهم" #?
+        tracking_id: "حصة" #?
       inventory_line:
         product_id: "انتاج" #?
         quantity: "الكمية المتوفرة"
@@ -245,6 +250,12 @@ arb:
         incoming_payments: "دفعات" #?
         outgoing_payment_uses: "اجزاء الدفعات" #?
         outgoing_payments: "دفعات" #?
+      journal_entry_item:
+        account: "حساب" #?
+        # closed: "Cloturée"
+        comment: "تعليق" #?
+        created_at: "انشأت ففي" #?
+        original_credit: "ائتمان" #?
       journal_entry_line:
         account: "حساب" #?
         # closed: "Cloturée"
@@ -281,6 +292,11 @@ arb:
         planned_on: "المقرر عقده يوم" #?
         started_at: "من" #?
         stopped_at: "الى" #?
+      operation_item:  #?
+        area_unit: "منطقة الوحدة" #?
+        area_unit_id: "منطقة الوحدة" #?
+        company_id: "الشركة" #?
+        product_id: "انتاج" #?
       operation_line:  #?
         area_unit: "منطقة الوحدة" #?
         area_unit_id: "منطقة الوحدة" #?
@@ -429,6 +445,16 @@ arb:
         # payment_uses: "Parties de décaissement"
         planned_on: "مقرر الاستقبال يوم"
         received: "المستلم" #?
+      purchase_item:
+        account: "حساب الرسوم المستخدمة" #?
+        account_id: "حساب الرسوم المستخدمة" #?
+        annotation: "الملاحظة" #?
+        order: "طلب الشراء"
+        price: "سعر الوحدة" #?
+        product_id: "انتاج" #?
+        tracking: "رقم الحصة" #?
+        tracking_id: "رقم الحصة" #?
+        unit_id: "الوحدة" #?
       purchase_line:
         account: "حساب الرسوم المستخدمة" #?
         account_id: "حساب الرسوم المستخدمة" #?
@@ -458,6 +484,18 @@ arb:
         stock_moves: "حركات السهم" #?
         transporter_id: "ناقلة" #?
         updated_at: "تم تحديثها في" #?
+      sale_item:
+        annotation: "الملاحظة" #?
+        created_at: "انشأ في" #?
+        label: "الانتاج"
+        order_id: "طلب بيع" #?
+        price: "سعر الانتاج"
+        price_id: "سعر الانتاج" #?
+        product: "المنتج" #?
+        product_id: "منتج" #?
+        reduction_percent: "الخصم بالنسبة المئوية" #?
+        tax_id: "ضريبة" #?
+        tracking_id: "حصة" #?
       sale_line:
         annotation: "الملاحظة" #?
         created_at: "انشأ في" #?
@@ -646,6 +684,8 @@ arb:
             stopped_on:
               end_of_month: "%{attribute} يجب ان يكون التاريخ في نهاية الشهر"
           overlap: "%{attribute} متواجد على قائمة السنة المالية الحالية"
+        incoming_delivery_item:
+          # greater_than_undelivered_quantity: "La quantité de produit %{product} à livrer dépasse la quantité non livrée (%{maximum}%{unit})"
         incoming_delivery_line:
           # greater_than_undelivered_quantity: "La quantité de produit %{product} à livrer dépasse la quantité non livrée (%{maximum}%{unit})"
         journal:
@@ -658,10 +698,16 @@ arb:
           # out_of_existing_financial_year: "L’écriture doit être enregistrée dans un exercice comptable existant."
           out_of_financial_year: "يجب اغتنام السجل خلال السنة المالية" #?
           unbalanced: "ان السجل غير متعادل"
+        journal_entry_item:
+          closed_entry: ".تم اغلاق المدخلات، ولا يمكن التعديل عليها"
+          empty_amounts: "يجب أن تكون المدخلات معرفة اما بالدين او بالائتمان"
+          unvalid_amounts: "يجب ان تكون المدخلات معرفة اما بالدين او بالائتمان، وليس الاثنان معا"
         journal_entry_line:
           closed_entry: ".تم اغلاق المدخلات، ولا يمكن التعديل عليها"
           empty_amounts: "يجب أن تكون المدخلات معرفة اما بالدين او بالائتمان"
           unvalid_amounts: "يجب ان تكون المدخلات معرفة اما بالدين او بالائتمان، وليس الاثنان معا"
+        outgoing_delivery_item:
+          greater_than_undelivered_quantity: "%{product} كمية الانتاج المسلمة تفوق الكمية الغير مسلمة (%{maximum}%{unit})"
         outgoing_delivery_line:
           greater_than_undelivered_quantity: "%{product} كمية الانتاج المسلمة تفوق الكمية الغير مسلمة (%{maximum}%{unit})"
         price:
@@ -674,9 +720,17 @@ arb:
           warehouse_can_not_transfer_product: "لا يمكنك تحويل المنتج %{product} من موقع التخزين %{warehouse}, لاحتوائه على منتج %{contained_product}"
           warehouse_can_not_waste_product: "لا يمكنك تسجيل الخسارة للمنتج %{product} من موقع التخزين %{warehouse}, هذا ويحتوي المنتج %{contained_product}"
           warehouses_can_not_be_identical: "مواقع التخزين (المغادرة والواصلة) قد لا تكون متطابقة"
+        purchase_item:
+          serial_already_used_with_an_other_product: "%{attribute} تم استخدامها لنوع اخر من المنتج من نفس الممون"
+          warehouse_can_not_receive_product: "لا يمكن للخزينة %{warehouse} استقبال النتج %{product}, لاحتوائها منتج سابق %{contained_product}."
         purchase_line:
           serial_already_used_with_an_other_product: "%{attribute} تم استخدامها لنوع اخر من المنتج من نفس الممون"
           warehouse_can_not_receive_product: "لا يمكن للخزينة %{warehouse} استقبال النتج %{product}, لاحتوائها منتج سابق %{contained_product}."
+        sale_item:
+          can_not_use_this_tracking: "لا يمكنك الاستفادة من الحصة %{tracking}, لان الكمية المطلوبة اكبر من الكمية المتاحة"
+          currency_is_not_sale_currency: "لا يطابق سعر عملة المنتج مجموعة البيع"
+          error_no_found_price: "لم يتم العثور على اي سعر لهذا المنتج وقائمة الاسعار"
+          warehouse_can_not_transfer_product: "لا يمكن تحويل المنتج %{product} من خزينة %{warehouse}, لاحتوائه على %{contained_product}."
         sale_line:
           can_not_use_this_tracking: "لا يمكنك الاستفادة من الحصة %{tracking}, لان الكمية المطلوبة اكبر من الكمية المتاحة"
           currency_is_not_sale_currency: "لا يطابق سعر عملة المنتج مجموعة البيع"
@@ -722,6 +776,7 @@ arb:
       delivery_mode: "نمط التسليم" #?
       department: "الخجمة"
       deposit: "الاقتطاع المصرفي"
+      # deposit_item: "Ligne de remise en banque"
       # deposit_line: "Ligne de remise en banque"
       district: "مقاطعة"
       document: "الوثيقة"
@@ -739,15 +794,18 @@ arb:
       event_nature: "نوع الحدث"
       financial_year: "السنة المالية"
       # incoming_delivery: "Arrivage"
+      # incoming_delivery_item: "Ligne d’arrivage"
       # incoming_delivery_line: "Ligne d’arrivage"
       # incoming_delivery_mode: "Mode d’arrivage"
       incoming_payment: "الدفعة"
       incoming_payment_mode: "نوع الدفعة"
       incoming_payment_use: "تأثير الدفعة"
       inventory: "عملية الجرد"
+      inventory_item: "طريقة عملية الجرد"
       inventory_line: "طريقة عملية الجرد"
       journal: "الدفتر اليومي"
       journal_entry: "المدخلات"
+      # journal_entry_item: "Ligne d’écriture"
       # journal_entry_line: "Ligne d’écriture"
       journal_record: "سجل المحاسبة" #?
       land_parcel: "الكتلة"
@@ -760,10 +818,12 @@ arb:
       mandate: "التفويض"
       observation: "ملاحظة"
       operation: "العمل"
+      operation_item: "الواردات/الصادرات"
       operation_line: "الواردات/الصادرات"
       operation_nature: "نوع العمل"
       operation_use: "الاداة المستخدمة"
       # outgoing_delivery: "Livraison"
+      # outgoing_delivery_item: "Ligne de livraison"
       # outgoing_delivery_line: "Ligne de livraison"
       # outgoing_delivery_mode: "Mode de livraison"
       outgoing_payment: "الدفعة"
@@ -796,10 +856,12 @@ arb:
       products_nature: "الانتاج"
       profession: "المهنة"
       purchase: "الشراء"
+      purchase_item: "طريقة طلب الشراء"
       purchase_line: "طريقة طلب الشراء"
       # purchase_nature: "Type d’achat"
       role: "الدور"
       sale: "البيع"
+      sale_item: "طريقة طلب البيع"
       sale_line: "طريقة طلب البيع"
       sale_nature: "نوع طلب البيع"
       sales_invoice: "الفاتورة" #?
@@ -1505,6 +1567,7 @@ arb:
     root_model_name: "جذر"
     sale: "طلب البيع"
     sale_id: "طلب بيع" #?
+    # sale_item: "Sale item"
     # sale_line: "Ligne de vente"
     sale_line_id: "طرق طلب البيع" #?
     sale_lines: "طرق طلب البيع"
@@ -1781,6 +1844,10 @@ arb:
         # important: "Importante"
         # normal: "Normale"
         # notice: "Faible"
+    operation_item:
+      direction:
+        # in: "Intrant"
+        # out: "Sortant"
     operation_line:
       direction:
         # in: "Intrant"
@@ -2172,6 +2239,8 @@ arb:
       label: "%{number}. %{amount} (%{usable_amount} restants) من %{date} بواسطة %{mode} ل %{payer}"
     incoming_payment_use:
       bookkeep: "[%{resource}] %{mode} (%{payment_number}) وردت من %{attorney} ل %{client} (%{expense_number})"
+    inventory_item:
+      inventory: "عملية الجرد"
     inventory_line:
       inventory: "عملية الجرد"
     journal:  #?
@@ -2233,6 +2302,11 @@ arb:
         important: "مهم" #?
         normal: "طبيعي" #?
         notice: "ضئيل" #?
+    operation_item:
+      density_label: "%{value} %{product_unit}/%{area_unit}"
+      direction_label:  #?
+        in: "الواردة" #?
+        out: "الصادرة" #?
     operation_line:
       density_label: "%{value} %{product_unit}/%{area_unit}"
       direction_label:  #?
@@ -2244,6 +2318,8 @@ arb:
         cip: "الشحن مع التأمين" #?
         cpt: "الشحن من غير تأمين" #?
         exw: "التسليم باليد" #?
+      sale: "%{number} المبيعات"
+    outgoing_delivery_item:
       sale: "%{number} المبيعات"
     outgoing_delivery_line:
       sale: "%{number} المبيعات"
@@ -2352,6 +2428,10 @@ arb:
         # invoice: "Facture"
         # order: "Commande"
         # refused: "Refusé"
+    purchase_item:
+      name: "%{product} (%{quantity}%{unit}) ل %{amount}%{currency}/%{unit}"
+      name_with_tracking: "%{product}/%{tracking} (%{quantity}%{unit}) لل %{amount}%{currency}/%{unit}"
+      tracking: "رقم الحصة : %{serial}"
     purchase_line:
       name: "%{product} (%{quantity}%{unit}) ل %{amount}%{currency}/%{unit}"
       name_with_tracking: "%{product}/%{tracking} (%{quantity}%{unit}) لل %{amount}%{currency}/%{unit}"
@@ -2387,6 +2467,14 @@ arb:
         # invoice: "Facture"
         # order: "Commande"
         # refused: "Devis refusé"
+    sale_item:
+      can_not_use_this_tracking: "لا يمكنك استخدام حصة %{name}, ان الكمية المطلوبة تتجاوز الكمية المتاحة "
+      currency_is_not_sale_currency: "لا يتطابق سعر المنتج مع العملة المحددة للبيع"
+      error_no_found_price: "لم يتم العثور على اي سعر لهذا المنتج من قائمة الرسوم الجمركية" #?
+      # no_product: "[Pas de produit]"
+      reduction_on: "تخفيض بنسبة %{percent}% على : %{product}"
+      tracking: "رقم الحصة : %{serial}"
+      warehouse_can_not_transfer_product: "المنتج %{product} لا يأخذ خارج الخزينة %{warehouse}, هذا ويحتوي %{contained_product} "
     sale_line:
       can_not_use_this_tracking: "لا يمكنك استخدام حصة %{name}, ان الكمية المطلوبة تتجاوز الكمية المتاحة "
       currency_is_not_sale_currency: "لا يتطابق سعر المنتج مع العملة المحددة للبيع"

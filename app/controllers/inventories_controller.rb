@@ -39,7 +39,7 @@ class InventoriesController < AdminController
     end
   end
 
-  list(:lines, :model => :inventory_lines, :conditions => {:inventory_id => ['params[:id]'] }, :order => :id) do |t|
+  list(:lines, :model => :inventory_items, :conditions => {:inventory_id => ['params[:id]'] }, :order => :id) do |t|
     # t.column :name, :through => :warehouse, :url => true
     t.column :name, :through => :product, :url => true
     t.column :serial_number, :through => :product
@@ -67,7 +67,7 @@ class InventoriesController < AdminController
     t.text_field :quantity
   end
 
-  list(:lines_update, :model => :inventory_lines, :conditions => {:inventory_id => ['session[:current_inventory_id]'] }, :pagination => :none, :order => "#{Warehouse.table_name}.name, #{ProductNature.table_name}.name") do |t|
+  list(:lines_update, :model => :inventory_items, :conditions => {:inventory_id => ['session[:current_inventory_id]'] }, :pagination => :none, :order => "#{Warehouse.table_name}.name, #{ProductNature.table_name}.name") do |t|
     # t.column :name, :through => :warehouse, :url => true
     t.column :name, :through => :product, :url => true
     t.column :serial_number, :through => :product
@@ -118,7 +118,7 @@ class InventoriesController < AdminController
       if @inventory.update_attributes(params[:inventory])
         # @inventory.set_lines(params[:lines_create].values)
         for id, attributes in (params[:lines_update]||{})
-          il = InventoryLine.find_by_id(id).update_attributes!(attributes)
+          il = InventoryItem.find_by_id(id).update_attributes!(attributes)
         end
       end
       redirect_to :action => :index

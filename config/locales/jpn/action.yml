@@ -217,8 +217,9 @@ jpn:
       # edit: "Modifier l’écriture\_: %{number}"
       # new: "Ajouter une écriture"
       # show: "Écriture\_: %{number}"
-    journal_entry_lines:
+    journal_entry_items:
       # new: "Ajouter une nouvelle ligne d’écriture"
+    journal_entry_lines: #?
     journals:
       # balance: "Balance"
       # bookkeep: "Bascule comptable"
@@ -267,8 +268,9 @@ jpn:
     observations:
       # edit: "Modifier une observation"
       # new: "Ajouter une observation"
-    operation_lines:
+    operation_items:
       # new: "Nouveau produit de travail"
+    operation_lines: #?
     operation_natures:
       # edit: "Modifier le type de travail\_: %{name}"
       # index: "Types de travail"
@@ -383,9 +385,10 @@ jpn:
       # edit: "Modifier la profession\_: %{name}"
       # index: "Professions"
       # new: "Ajouter une nouvelle profession"
-    purchase_lines:
+    purchase_items:
       # edit: "Modifier une ligne de la commande"
       # new: "Ajouter un produit à la commande"
+    purchase_lines: #?
     purchase_natures:
       # edit: "Modifier le type d’achat\_: %{name}"
       # index: "Type d’achats"
@@ -407,10 +410,11 @@ jpn:
       # edit: "Modifier le rôle\_: %{name}"
       # index: "Rôles"
       # new: "Ajouter un rôle"
-    sale_lines:
+    sale_items:
       # detail: "Détailler une ligne de la vente"
       # edit: "Modifier une ligne de la vente"
       # new: "Ajouter un produit à la vente"
+    sale_lines: #?
     sale_natures:
       # edit: "Modifier le type de vente\_: %{name}"
       # index: "Types de ventes"
@@ -524,7 +528,7 @@ jpn:
     # dashboards: "Tableaux de bord"
     # delays: "Délais"
     # departments: "Services"
-    # deposit_lines: "Lignes de remise en banque"
+    # deposit_items: "Lignes de remise en banque"
     # deposits: "Remises en banque"
     # districts: "Zones administratives"
     # document_templates: "Modèles de document"
@@ -541,15 +545,15 @@ jpn:
     # financial_years: "Exercices comptables"
     help: "手伝い"
     # incoming_deliveries: "Livraisons entrantes"
-    # incoming_delivery_lines: "Lignes de livraison entrante"
+    # incoming_delivery_items: "Lignes de livraison entrante"
     # incoming_delivery_modes: "Modes de réception d’arrivage"
     # incoming_payment_modes: "Modes d’encaissement"
     # incoming_payments: "Encaissements"
     # interfacers: "Interfaceurs"
     # inventories: "Inventaires"
-    # inventory_lines: "Lignes d’inventaires"
+    # inventory_items: "Lignes d’inventaires"
     # journal_entries: "Écritures comptables"
-    # journal_entry_lines: "Lignes d’écritures comptables"
+    # journal_entry_items: "Lignes d’écritures comptables"
     # journals: "Journaux"
     # land_parcel_kinships: "Parenté entre îlots"
     # land_parcels: "Îlots"
@@ -561,12 +565,12 @@ jpn:
     # mandates: "Responsabilités"
     # myselves: "Mon compte"
     # observations: "Observations"
-    # operation_lines: "Ligne de travail"
+    # operation_items: "Ligne de travail"
     # operation_natures: "Types de travail"
     # operation_uses: "Utilisations de matériel"
     # operations: "Travaux"
     # outgoing_deliveries: "Livraisons sortantes"
-    # outgoing_delivery_lines: "Lignes de livraisons sortantes"
+    # outgoing_delivery_items: "Lignes de livraisons sortantes"
     # outgoing_delivery_modes: "Modes de livraisons sortantes"
     # outgoing_payment_modes: "Modes de décaissement"
     # outgoing_payments: "Décaissements"
@@ -586,12 +590,12 @@ jpn:
     # production_chains: "Chaînes de production"
     # products: "Animaux"
     # professions: "Professions"
-    # purchase_lines: "Lignes d’achat"
+    # purchase_items: "Lignes d’achat"
     # purchase_natures: "Types d’achat"
     # purchases: "Achats"
     relations: "関係" #?
     # roles: "Rôles"
-    # sale_lines: "Lignes de vente"
+    # sale_items: "Lignes de vente"
     # sale_natures: "Types de ventes"
     # sales: "Ventes"
     # sequences: "Séquences"

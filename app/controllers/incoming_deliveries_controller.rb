@@ -55,7 +55,7 @@ class IncomingDeliveriesController < AdminController
     purchase_lines = @purchase.lines# .find_all_by_reduction_origin_id(nil)
     notify_warning(:no_lines_found) if purchase_lines.empty?
     @incoming_delivery = IncomingDelivery.new({:pretax_amount => @purchase.undelivered("pretax_amount"), :amount => @purchase.undelivered("amount"), :planned_on => Date.today, :address_id => @purchase.delivery_address_id}, :without_protection => true)
-    @incoming_delivery_lines = purchase_lines.collect{|x| IncomingDeliveryLine.new(:purchase_line_id => x.id, :quantity => x.undelivered_quantity)}
+    @incoming_delivery_lines = purchase_lines.collect{|x| IncomingDeliveryItem.new(:purchase_line_id => x.id, :quantity => x.undelivered_quantity)}
     render_restfully_form
   end
 
@@ -83,7 +83,7 @@ class IncomingDeliveriesController < AdminController
       redirect_to :controller => :purchases, :action => :show, :step => :deliveries, :id => @purchase.id
       return
     end
-    @incoming_delivery_lines = purchase_lines.collect{|x| IncomingDeliveryLine.new(:purchase_line_id => x.id, :quantity => x.undelivered_quantity)}
+    @incoming_delivery_lines = purchase_lines.collect{|x| IncomingDeliveryItem.new(:purchase_line_id => x.id, :quantity => x.undelivered_quantity)}
     render_restfully_form
   end
 

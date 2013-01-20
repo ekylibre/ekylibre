@@ -51,7 +51,7 @@ class OutgoingDelivery < CompanyRecord
   belongs_to :sale, :inverse_of => :deliveries
   belongs_to :transport
   belongs_to :transporter, :class_name => "Entity"
-  has_many :lines, :class_name => "OutgoingDeliveryLine", :foreign_key => :delivery_id, :dependent => :destroy
+  has_many :items, :class_name => "OutgoingDeliveryItem", :foreign_key => :delivery_id, :dependent => :destroy
   has_many :stock_moves, :as => :origin, :dependent => :destroy
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :amount, :pretax_amount, :weight, :allow_nil => true
@@ -81,8 +81,8 @@ class OutgoingDelivery < CompanyRecord
   end
 
 #   transfer do |t|
-#     for line in self.lines
-#       t.move(:use => line)
+#     for item in self.items
+#       t.move(:use => item)
 #     end
 #   end
 
@@ -91,9 +91,9 @@ class OutgoingDelivery < CompanyRecord
   # This permits to manage stocks.
   def ship(shipped_on=Date.today)
     # self.confirm_transfer(shipped_on)
-    # self.lines.each{|l| l.confirm_move}
-    for line in self.lines.find(:all, :conditions => ["quantity>0"])
-      line.product.move_outgoing_stock(:origin => line, :warehouse_id => line.sale_line.warehouse_id, :planned_on => self.planned_on, :moved_on => shipped_on)
+    # self.items.each{|l| l.confirm_move}
+    for item in self.items.find(:all, :conditions => ["quantity>0"])
+      item.product.move_outgoing_stock(:origin => item, :warehouse_id => item.sale_item.warehouse_id, :planned_on => self.planned_on, :moved_on => shipped_on)
     end
     self.moved_on = shipped_on if self.moved_on.nil?
     self.save
@@ -127,7 +127,7 @@ class OutgoingDelivery < CompanyRecord
   end
 
   def parcel_sum
-    self.lines.sum(:quantity)
+    self.items.sum(:quantity)
   end
 
 end

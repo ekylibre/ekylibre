@@ -34,7 +34,7 @@
 #  product_nature_id :integer          
 #  quantity          :decimal(19, 4)   
 #  sale_id           :integer          
-#  sale_line_id      :integer          
+#  sale_item_id      :integer          
 #  started_on        :date             
 #  stopped_on        :date             
 #  suspended         :boolean          not null

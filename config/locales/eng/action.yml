@@ -218,8 +218,10 @@ eng:
       edit: "Edit journal entry: %{number}"
       new: "Add an entry"
       show: "Journal entry: %{number}"
-    journal_entry_lines:
+    journal_entry_items:
       new: "Add a new entry line"
+    journal_entry_lines:  #?
+      new: "Add a new entry line" #?
     journals:
       balance: "Balance"
       bookkeep: "Bookkeep"
@@ -269,8 +271,10 @@ eng:
     observations:
       edit: "Edit the observation"
       new: "Add a new observation"
-    operation_lines:
+    operation_items:
       new: "New operation's product"
+    operation_lines:  #?
+      new: "New operation's product" #?
     operation_natures:
       edit: "Edit type of operation: %{name}"
       index: "Types of operation"
@@ -406,9 +410,12 @@ eng:
       edit: "Edit profession"
       index: "Professions"
       new: "Add a new profession"
-    purchase_lines:
+    purchase_items:
       edit: "Edit the purhase order line"
       new: "Add a product to the purchase"
+    purchase_lines:  #?
+      edit: "Edit the purhase order line" #?
+      new: "Add a product to the purchase" #?
     purchase_natures:
       edit: "Edit purchase type"
       index: "Purchase types"
@@ -430,10 +437,14 @@ eng:
       edit: "Edit the role: %{name}"
       index: "Roles"
       new: "Add a new role"
-    sale_lines:
+    sale_items:
       detail: "Details sale's line"
       edit: "Edit sale's line"
       new: "Add a product to the sale"
+    sale_lines:  #?
+      detail: "Details sale's line" #?
+      edit: "Edit sale's line" #?
+      new: "Add a product to the sale" #?
     sale_natures:
       edit: "Edit the sale type: %{name}"
       index: "Sale types"
@@ -571,7 +582,8 @@ eng:
     dashboards: "Dashboards"
     delays: "Delays"
     departments: "Departments"
-    deposit_lines: "Deposit lines"
+    deposit_items: "Deposit lines"
+    deposit_lines: "Deposit lines" #?
     deposits: "Deposits"
     districts: "Districts"
     document_templates: "Document templates"
@@ -590,16 +602,19 @@ eng:
     financial_years: "Financial years"
     help: "Help"
     incoming_deliveries: "Incoming deliveries"
-    incoming_delivery_lines: "Incoming delivery lines"
+    incoming_delivery_items: "Incoming delivery lines"
+    incoming_delivery_lines: "Incoming delivery lines" #?
     incoming_delivery_modes: "Incoming delivery modes"
     incoming_payment_modes: "Incoming payment modes"
     incoming_payment_uses: "Incoming payment uses" #?
     incoming_payments: "Incoming payments"
     interfacers: "Interfacers"
     inventories: "Inventories"
-    inventory_lines: "Inventory lines"
+    inventory_items: "Inventory lines"
+    inventory_lines: "Inventory lines" #?
     journal_entries: "Journal entries"
-    journal_entry_lines: "Journal entry lines"
+    journal_entry_items: "Journal entry lines"
+    journal_entry_lines: "Journal entry lines" #?
     journals: "Journals"
     land_parcel_groups: "Groups of land parcels" #?
     land_parcel_kinships: "Land parcel kinships"
@@ -611,12 +626,14 @@ eng:
     mandates: "Mandates"
     myselves: "Myself"
     observations: "Observations"
-    operation_lines: "Operation lines"
+    operation_items: "Operation lines"
+    operation_lines: "Operation lines" #?
     operation_natures: "Types of operation"
     operation_uses: "Operation uses of tools"
     operations: "Operations"
     outgoing_deliveries: "Outgoing deliveries"
-    outgoing_delivery_lines: "Outgoing delivery lines"
+    outgoing_delivery_items: "Outgoing delivery lines"
+    outgoing_delivery_lines: "Outgoing delivery lines" #?
     outgoing_delivery_modes: "Outgoing delivery modes"
     outgoing_payment_modes: "Disbursement modes"
     outgoing_payment_uses: "Outgoing payment uses" #?
@@ -644,11 +661,13 @@ eng:
     products: "Animals"
     products_natures: "Products" #?
     professions: "Professions"
-    purchase_lines: "Purchase lines"
+    purchase_items: "Purchase lines"
+    purchase_lines: "Purchase lines" #?
     purchase_natures: "Purchase types"
     purchases: "Purchases"
     roles: "Roles"
-    sale_lines: "Sale lines"
+    sale_items: "Sale lines"
+    sale_lines: "Sale lines" #?
     sale_natures: "Sale types"
     sales: "Sales"
     sequences: "Sequences"

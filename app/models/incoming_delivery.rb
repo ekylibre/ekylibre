@@ -48,7 +48,7 @@ class IncomingDelivery < CompanyRecord
   belongs_to :address, :class_name => "EntityAddress"
   belongs_to :mode, :class_name => "IncomingDeliveryMode"
   belongs_to :purchase
-  has_many :lines, :class_name => "IncomingDeliveryLine", :foreign_key => :delivery_id, :dependent => :destroy
+  has_many :lines, :class_name => "IncomingDeliveryItem", :foreign_key => :delivery_id, :dependent => :destroy
   has_many :stock_moves, :as => :origin
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.

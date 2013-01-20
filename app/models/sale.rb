@@ -85,7 +85,7 @@ class Sale < CompanyRecord
   belongs_to :transporter, :class_name => "Entity"
   has_many :credits, :class_name => "Sale", :foreign_key => :origin_id
   has_many :deliveries, :class_name => "OutgoingDelivery", :dependent => :destroy, :inverse_of => :sale
-  has_many :lines, :class_name => "SaleLine", :foreign_key => :sale_id, :dependent => :destroy, :order => "position, id"
+  has_many :items, :class_name => "SaleItem", :foreign_key => :sale_id, :dependent => :destroy, :order => "position, id"
   has_many :payment_uses, :as => :expense, :class_name => "IncomingPaymentUse", :dependent => :destroy
   has_many :payments, :through => :payment_uses
   has_many :subscriptions, :class_name => "Subscription"
@@ -187,11 +187,11 @@ class Sale < CompanyRecord
   # This method bookkeeps the sale depending on its state
   bookkeep do |b|
     b.journal_entry(self.nature.journal, :printed_on => self.invoiced_on, :if => (self.nature.with_accounting? and self.invoice?)) do |entry|
-      label = tc(:bookkeep, :resource => self.state_label, :number => self.number, :client => self.client.full_name, :products => (self.comment.blank? ? self.lines.collect{|x| x.label}.to_sentence : self.comment), :sale => self.initial_number)
+      label = tc(:bookkeep, :resource => self.state_label, :number => self.number, :client => self.client.full_name, :products => (self.comment.blank? ? self.items.collect{|x| x.label}.to_sentence : self.comment), :sale => self.initial_number)
       entry.add_debit(label, self.client.account(:client).id, self.amount) unless self.amount.zero?
-      for line in self.lines
-        entry.add_credit(label, (line.account||line.product.sales_account).id, line.pretax_amount) unless line.pretax_amount.zero?
-        entry.add_credit(label, line.price.tax.collected_account_id, line.taxes_amount) unless line.taxes_amount.zero?
+      for item in self.items
+        entry.add_credit(label, (item.account||item.product.sales_account).id, item.pretax_amount) unless item.pretax_amount.zero?
+        entry.add_credit(label, item.price.tax.collected_account_id, item.taxes_amount) unless item.taxes_amount.zero?
       end
     end
     # self.uses.first.reconciliate if self.uses.first
@@ -203,7 +203,7 @@ class Sale < CompanyRecord
   end
 
   def has_content?
-    self.lines.count > 0
+    self.items.count > 0
   end
 
   def sold?
@@ -213,8 +213,8 @@ class Sale < CompanyRecord
   def has_content_not_deliverable?
     return false unless self.has_content?
     deliverable = false
-    for line in self.lines
-      deliverable = true if line.product.deliverable?
+    for item in self.items
+      deliverable = true if item.product.deliverable?
     end
     return !deliverable
   end
@@ -239,17 +239,17 @@ class Sale < CompanyRecord
   # The sale order is confirmed if it hasn't be done.
   def deliver
     return false unless self.order?
-    lines = []
-    for line in self.lines.find_all_by_reduction_origin_id(nil)
-      quantity = line.undelivered_quantity
-      if quantity > 0 and line.product.deliverable?
-        lines << {:sale_line_id => line.id, :quantity => quantity}
+    items = []
+    for item in self.items.find_all_by_reduction_origin_id(nil)
+      quantity = item.undelivered_quantity
+      if quantity > 0 and item.product.deliverable?
+        items << {:sale_item_id => item.id, :quantity => quantity}
       end
     end
-    if lines.size>0
+    if items.size>0
       delivery = self.deliveries.create!(:pretax_amount => 0, :amount => 0, :planned_on => Date.today, :moved_on => Date.today, :address_id => self.delivery_address_id)
-      for line in lines
-        delivery.lines.create! line
+      for item in items
+        delivery.items.create! item
       end
       self.refresh
     end
@@ -282,7 +282,7 @@ class Sale < CompanyRecord
     self.deliver.invoice
   end
 
-  # Duplicates a +sale+ in 'E' mode with its lines and its active subscriptions
+  # Duplicates a +sale+ in 'E' mode with its items and its active subscriptions
   def duplicate(attributes={})
     fields = [:client_id, :nature_id, :currency, :letter_format, :annotation, :subject, :function_title, :introduction, :conclusion, :comment]
     hash = {}
@@ -290,15 +290,15 @@ class Sale < CompanyRecord
     copy = self.class.build(attributes.merge(hash))
     copy.save!
     if copy.save
-      # Lines
-      lines = {}
-      for line in self.lines.find(:all, :conditions => ["quantity>0"])
-        l = copy.lines.create! :sale_id => copy.id, :product_id => line.product_id, :quantity => line.quantity, :warehouse_id => line.warehouse_id
-        lines[line.id] = l.id
+      # Items
+      items = {}
+      for item in self.items.find(:all, :conditions => ["quantity>0"])
+        l = copy.items.create! :sale_id => copy.id, :product_id => item.product_id, :quantity => item.quantity, :warehouse_id => item.warehouse_id
+        items[item.id] = l.id
       end
       # Subscriptions
       for sub in self.subscriptions.find(:all, :conditions => ["NOT suspended"])
-        copy.subscriptions.create!(:sale_id => copy.id, :entity_id => sub.entity_id, :address_id => sub.address_id, :quantity => sub.quantity, :nature_id => sub.nature_id, :product_id => sub.product_id, :sale_line_id => lines[sub.sale_line_id])
+        copy.subscriptions.create!(:sale_id => copy.id, :entity_id => sub.entity_id, :address_id => sub.address_id, :quantity => sub.quantity, :nature_id => sub.nature_id, :product_id => sub.product_id, :sale_item_id => items[sub.sale_item_id])
       end
     else
       raise Exception.new(copy.errors.inspect)
@@ -405,8 +405,8 @@ class Sale < CompanyRecord
 
   def products
     p = []
-    for line in self.lines
-      p << line.product.name
+    for item in self.items
+      p << item.product.name
     end
     ps = p.join(", ")
   end
@@ -417,18 +417,18 @@ class Sale < CompanyRecord
   end
 
   # Create a credit for the selected invoice? guarding the reference
-  def cancel(lines={}, options={})
-    lines = lines.delete_if{|k,v| v.zero?}
-    return false if !self.cancelable? or lines.size.zero?
+  def cancel(items={}, options={})
+    items = items.delete_if{|k,v| v.zero?}
+    return false if !self.cancelable? or items.size.zero?
     credit = self.class.new(:origin_id => self.id, :client_id => self.client_id, :credit => true, :responsible => options[:responsible]||self.responsible, :nature_id => self.nature_id)
     ActiveRecord::Base.transaction do
       if saved = credit.save
-        for line in self.lines.find(:all, :conditions => {:id => lines.keys})
-          quantity = -lines[line.id.to_s].abs
-          credit_line = credit.lines.create(:quantity => quantity, :origin_id => line.id, :product_id => line.product_id, :price_id => line.price_id, :reduction_percentage => line.reduction_percentage)
-          unless credit_line.save
+        for item in self.items.find(:all, :conditions => {:id => items.keys})
+          quantity = -items[item.id.to_s].abs
+          credit_item = credit.items.create(:quantity => quantity, :origin_id => item.id, :product_id => item.product_id, :price_id => item.price_id, :reduction_percentage => item.reduction_percentage)
+          unless credit_item.save
             saved = false
-            credit.errors.add_from_record(credit_line)
+            credit.errors.add_from_record(credit_item)
           end
         end
       else

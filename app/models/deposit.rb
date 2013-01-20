@@ -45,11 +45,11 @@ class Deposit < CompanyRecord
   attr_accessible :cash_id, :comment, :created_on, :mode_id, :number, :responsible_id
   acts_as_numbered
   belongs_to :cash
-  belongs_to :responsible, :class_name=>"Entity"
+  belongs_to :responsible, :class_name => "Entity"
   belongs_to :journal_entry
-  belongs_to :mode, :class_name=>"IncomingPaymentMode"
-  has_many :payments, :class_name=>"IncomingPayment", :dependent=>:nullify, :order=>"number"
-  # has_many :journal_entries, :as=>:resource, :dependent=>:nullify, :order=>"created_at"
+  belongs_to :mode, :class_name => "IncomingPaymentMode"
+  has_many :payments, :class_name => "IncomingPayment", :dependent => :nullify, :order => "number"
+  # has_many :journal_entries, :as => :resource, :dependent => :nullify, :order => "created_at"
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :amount, :allow_nil => true
@@ -67,7 +67,7 @@ class Deposit < CompanyRecord
     self.cash = self.mode.cash if self.mode
   end
 
-  before_validation(:on=>:update) do
+  before_validation(:on => :update) do
     self.payments_count = self.payments.count
     self.amount = self.payments.sum(:amount)
   end
@@ -82,7 +82,7 @@ class Deposit < CompanyRecord
   # It depends on the preference which permit to activate the "automatic bookkeeping"
   bookkeep do |b|
     payments = self.reload.payments unless b.action == :destroy
-    b.journal_entry(self.cash.journal, :if=>!self.mode.depositables_account.nil?) do |entry|
+    b.journal_entry(self.cash.journal, :if => !self.mode.depositables_account.nil?) do |entry|
 
       commissions, commissions_amount = {}, 0
       for payment in payments
@@ -91,7 +91,7 @@ class Deposit < CompanyRecord
         commissions_amount += payment.commission_amount
       end
 
-      label = tc(:bookkeep, :resource=>self.class.model_name.human, :number=>self.number, :count=>self.payments_count, :mode=>self.mode.name, :responsible=>self.responsible.label, :comment=>self.comment)
+      label = tc(:bookkeep, :resource => self.class.model_name.human, :number => self.number, :count => self.payments_count, :mode => self.mode.name, :responsible => self.responsible.label, :comment => self.comment)
 
       entry.add_debit( label, self.cash.account_id, self.amount-commissions_amount)
       for commission_account_id, commission_amount in commissions
@@ -100,7 +100,7 @@ class Deposit < CompanyRecord
 
       if self.company.prefer_detail_payments_in_deposit_bookkeeping?
         for payment in payments
-          label = tc(:bookkeep_with_payment, :resource=>self.class.model_name.human, :number=>self.number, :mode=>self.mode.name, :payer=>payment.payer.full_name, :check_number=>payment.check_number, :payment=>payment.number)
+          label = tc(:bookkeep_with_payment, :resource => self.class.model_name.human, :number => self.number, :mode => self.mode.name, :payer => payment.payer.full_name, :check_number => payment.check_number, :payment => payment.number)
           entry.add_credit(label, self.mode.depositables_account_id, payment.amount)
         end
       else

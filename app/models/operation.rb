@@ -53,7 +53,7 @@ class Operation < CompanyRecord
   belongs_to :production_chain_work_center
   has_many :operation_uses, :dependent => :destroy
   has_many :uses,  :class_name => "OperationUse", :dependent => :destroy
-  has_many :lines, :class_name => "OperationLine", :dependent => :destroy
+  has_many :lines, :class_name => "OperationItem", :dependent => :destroy
   has_many :tools, :through => :operation_uses
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.

@@ -59,7 +59,7 @@ class Purchase < CompanyRecord
   belongs_to :payee, :class_name => "Entity", :foreign_key => :supplier_id
   belongs_to :supplier, :class_name => "Entity"
   belongs_to :responsible, :class_name => "Entity"
-  has_many :lines, :class_name => "PurchaseLine", :foreign_key => :purchase_id
+  has_many :lines, :class_name => "PurchaseItem", :foreign_key => :purchase_id
   has_many :deliveries, :class_name => "IncomingDelivery"
   has_many :payment_uses, :foreign_key => :expense_id, :class_name => "OutgoingPaymentUse", :dependent => :destroy
   has_many :products, :through => :lines, :uniq => true

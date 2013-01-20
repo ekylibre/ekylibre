@@ -22,17 +22,17 @@ class JournalsController < AdminController
 
   unroll_all
 
-  @@journal_views = ["lines", "entries", "mixed"]
+  @@journal_views = ["items", "entries", "mixed"]
   cattr_reader :journal_views
 
   def self.journal_entries_conditions(options={})
     code = ""
     search_options = {}
-    filter = {JournalEntryLine.table_name => [:name, :debit, :credit]}
-    unless options[:with_lines]
+    filter = {JournalEntryItem.table_name => [:name, :debit, :credit]}
+    unless options[:with_items]
       code += light_search_conditions(filter, :conditions => "cjel")+"\n"
-      search_options[:filters] = {"#{JournalEntry.table_name}.id IN (SELECT entry_id FROM #{JournalEntryLine.table_name} WHERE '+cjel[0]+')" => "cjel[1..-1]"}
-      filter.delete(JournalEntryLine.table_name)
+      search_options[:filters] = {"#{JournalEntry.table_name}.id IN (SELECT entry_id FROM #{JournalEntryItem.table_name} WHERE '+cjel[0]+')" => "cjel[1..-1]"}
+      filter.delete(JournalEntryItem.table_name)
     end
     filter[JournalEntry.table_name] = [:number, :debit, :credit]
     code += light_search_conditions(filter, search_options)
@@ -55,7 +55,7 @@ class JournalsController < AdminController
     return code.gsub(/\s*\n\s*/, ";")
   end
 
-  list(:lines, :model => :journal_entry_lines, :conditions => journal_entries_conditions, :joins => :entry, :line_class => "(RECORD.position==1 ? 'first-line' : '')", :order => "entry_id DESC, #{JournalEntryLine.table_name}.position") do |t|
+  list(:items, :model => :journal_entry_items, :conditions => journal_entries_conditions, :joins => :entry, :item_class => "(RECORD.position==1 ? 'first-item' : '')", :order => "entry_id DESC, #{JournalEntryItem.table_name}.position") do |t|
     t.column :number, :through => :entry, :url => true
     t.column :printed_on, :through => :entry, :datatype => :date
     t.column :number, :through => :account, :url => true
@@ -76,7 +76,7 @@ class JournalsController < AdminController
     t.action :destroy, :if => "RECORD.destroyable\?"
   end
 
-  list(:mixed, :model => :journal_entries, :conditions => journal_entries_conditions, :children => :lines, :order => "created_at DESC", :per_page => 10) do |t|
+  list(:mixed, :model => :journal_entries, :conditions => journal_entries_conditions, :children => :items, :order => "created_at DESC", :per_page => 10) do |t|
     t.column :number, :url => true, :children => :name
     t.column :printed_on, :datatype => :date, :children => false
     # t.column :label, :through => :account, :url => {:action => :account}
@@ -152,7 +152,7 @@ class JournalsController < AdminController
 
 
 
-  list(:draft_lines, :model => :journal_entry_lines, :conditions => journal_entries_conditions(:with_journals => true, :state => :draft), :joins => :entry, :line_class => "(RECORD.position==1 ? 'first-line' : '')", :order => "entry_id DESC, #{JournalEntryLine.table_name}.position") do |t|
+  list(:draft_items, :model => :journal_entry_items, :conditions => journal_entries_conditions(:with_journals => true, :state => :draft), :joins => :entry, :item_class => "(RECORD.position==1 ? 'first-item' : '')", :order => "entry_id DESC, #{JournalEntryItem.table_name}.position") do |t|
     t.column :name, :through => :journal, :url => true
     t.column :number, :through => :entry, :url => true
     t.column :printed_on, :through => :entry, :datatype => :date
@@ -175,7 +175,7 @@ class JournalsController < AdminController
           entry.confirm if entry.can_confirm?
           undone += 1 if entry.draft?
         end
-        notify_success_now(:draft_entry_lines_are_validated, :count => journal_entries.size-undone)
+        notify_success_now(:draft_entry_items_are_validated, :count => journal_entries.size-undone)
       rescue Exception => e
         notify_error_now(:exception_raised, :message => e.message)
       end
@@ -230,7 +230,7 @@ class JournalsController < AdminController
   def self.general_ledger_conditions(options={})
     conn = ActiveRecord::Base.connection
     code = ""
-    code << light_search_conditions({:journal_entry_line => [:name, :debit, :credit, :original_debit, :original_credit]}, :conditions => "c")+"\n"
+    code << light_search_conditions({:journal_entry_item => [:name, :debit, :credit, :original_debit, :original_credit]}, :conditions => "c")+"\n"
     code << journal_period_crit("params")
     code << journal_entries_states_crit("params")
     code << accounts_range_crit("params")
@@ -240,7 +240,7 @@ class JournalsController < AdminController
     return code # .gsub(/\s*\n\s*/, ";")
   end
 
-  list(:general_ledger, :model => :journal_entry_lines, :conditions => general_ledger_conditions, :joins => [:entry, :account], :order => "accounts.number, journal_entries.number, #{JournalEntryLine.table_name}.position") do |t|
+  list(:general_ledger, :model => :journal_entry_items, :conditions => general_ledger_conditions, :joins => [:entry, :account], :order => "accounts.number, journal_entries.number, #{JournalEntryItem.table_name}.position") do |t|
     t.column :number, :through => :account, :url => true
     t.column :name, :through => :account, :url => true
     t.column :number, :through => :entry, :url => true
@@ -262,8 +262,8 @@ class JournalsController < AdminController
       return
     end
     if params[:export] == "balance"
-      query  = "SELECT ''''||accounts.number, accounts.name, sum(COALESCE(journal_entry_lines.debit, 0)), sum(COALESCE(journal_entry_lines.credit, 0)), sum(COALESCE(journal_entry_lines.debit, 0)) - sum(COALESCE(journal_entry_lines.credit, 0))"
-      query += " FROM #{JournalEntryLine.table_name} AS journal_entry_lines JOIN #{Account.table_name} AS accounts ON (account_id=accounts.id) JOIN #{JournalEntry.table_name} AS journal_entries ON (entry_id=journal_entries.id)"
+      query  = "SELECT ''''||accounts.number, accounts.name, sum(COALESCE(journal_entry_items.debit, 0)), sum(COALESCE(journal_entry_items.credit, 0)), sum(COALESCE(journal_entry_items.debit, 0)) - sum(COALESCE(journal_entry_items.credit, 0))"
+      query += " FROM #{JournalEntryItem.table_name} AS journal_entry_items JOIN #{Account.table_name} AS accounts ON (account_id=accounts.id) JOIN #{JournalEntry.table_name} AS journal_entries ON (entry_id=journal_entries.id)"
       query += " WHERE printed_on BETWEEN #{ActiveRecord::Base.connection.quote(params[:started_on].to_date)} AND #{ActiveRecord::Base.connection.quote(params[:stopped_on].to_date)}"
       query += " GROUP BY accounts.name, accounts.number"
       query += " ORDER BY accounts.number"
@@ -272,8 +272,8 @@ class JournalsController < AdminController
         result.insert(0, ["N°Compte", "Libellé du compte", "Débit", "Crédit", "Solde"])
         result.insert(0, ["Balance du #{params[:started_on]} au #{params[:stopped_on]}"])
         csv_string = Ekylibre::CSV.generate do |csv|
-          for line in result
-            csv << line
+          for item in result
+            csv << item
           end
         end
         send_data(csv_string, :filename => 'export.csv', :type => Mime::CSV)

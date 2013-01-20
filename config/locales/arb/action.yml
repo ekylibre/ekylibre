@@ -245,8 +245,9 @@ arb:
       edit: "تعديل السجل رقم %{number} من %{created_on}"
       new: "اضافة سجل"
       show: "رقم سجل المحاسبة%{number} من %{created_on}"
-    journal_entry_lines:
+    journal_entry_items:
       # new: "Ajouter une nouvelle ligne d’écriture"
+    journal_entry_lines: #?
     journals:
       balance: "رصيد الحساب"
       bookkeep: "نظام المحاسبة المتغير"
@@ -303,8 +304,9 @@ arb:
     observations:
       edit: "تعديل الملاحظة"
       new: "اضافة ملاحظة"
-    operation_lines:
+    operation_items:
       # new: "Nouveau produit de travail"
+    operation_lines: #?
     operation_natures:
       edit: "تعديل نوع العمل : %{name}"
       index: "اواع العمل"
@@ -443,9 +445,12 @@ arb:
       # edit: "Modifier la profession\_: %{name}"
       # index: "Professions"
       # new: "Ajouter une nouvelle profession"
-    purchase_lines:
+    purchase_items:
       edit: "تعديل تصميم الطلب"
       new: "اضافة طلب للمنتج : %{number}"
+    purchase_lines:  #?
+      edit: "تعديل تصميم الطلب" #?
+      new: "اضافة طلب للمنتج : %{number}" #?
     purchase_natures:
       # edit: "Modifier le type d’achat\_: %{name}"
       # index: "Type d’achats"
@@ -469,10 +474,13 @@ arb:
       edit: "تعديل المهام : %{name}"
       index: "مهام"
       new: "اضافة مهام"
-    sale_lines:
+    sale_items:
       # detail: "Détailler une ligne de la vente"
       edit: "تعديل مسار طلب المنتج"
       new: "اضافة تصميم خطوط المنتج"
+    sale_lines:  #?
+      edit: "تعديل مسار طلب المنتج" #?
+      new: "اضافة تصميم خطوط المنتج" #?
     sale_natures:
       edit: "تعديل نوع البيع : %{name}"
       index: "انواع طلبات البيع"
@@ -596,7 +604,7 @@ arb:
     # dashboards: "Tableaux de bord"
     delays: "مهلة"
     departments: "الوظائف/المهام"
-    # deposit_lines: "Lignes de remise en banque"
+    # deposit_items: "Lignes de remise en banque"
     deposits: "اقتطاعات البنك"
     districts: "المناطق الادارية"
     document_templates: "نماذج الوثيقة"
@@ -615,15 +623,15 @@ arb:
     financial_years: "ممارسة المحاسبة"
     help: "المساعدة"
     # incoming_deliveries: "Livraisons entrantes"
-    # incoming_delivery_lines: "Lignes de livraison entrante"
+    # incoming_delivery_items: "Lignes de livraison entrante"
     # incoming_delivery_modes: "Modes de réception d’arrivage"
     incoming_payment_modes: "طرق تسديد الدفعات"
     incoming_payments: "الدفعات"
     # interfacers: "Interfaceurs"
     inventories: "الجرد"
-    # inventory_lines: "Lignes d’inventaires"
+    # inventory_items: "Lignes d’inventaires"
     # journal_entries: "Écritures comptables"
-    # journal_entry_lines: "Lignes d’écritures comptables"
+    # journal_entry_items: "Lignes d’écritures comptables"
     journals: "الدفاتر اليومية"
     # land_parcel_kinships: "Parenté entre îlots"
     land_parcels: "انظمة"
@@ -635,12 +643,12 @@ arb:
     mandates: "تفويضات"
     # myselves: "Mon compte"
     # observations: "Observations"
-    # operation_lines: "Ligne de travail"
+    # operation_items: "Ligne de travail"
     operation_natures: "اواع العمل"
     # operation_uses: "Utilisations de matériel"
     operations: "اعمال"
     # outgoing_deliveries: "Livraisons sortantes"
-    # outgoing_delivery_lines: "Lignes de livraisons sortantes"
+    # outgoing_delivery_items: "Lignes de livraisons sortantes"
     outgoing_delivery_modes: "وسائل التسليم"
     outgoing_payment_modes: "طرق تسديد الدفعات"
     outgoing_payments: "دفعات"
@@ -664,12 +672,12 @@ arb:
     products: "المنتجات"
     products_natures: "المنتجات" #?
     # professions: "Professions"
-    # purchase_lines: "Lignes d’achat"
+    # purchase_items: "Lignes d’achat"
     # purchase_natures: "Types d’achat"
     purchases: "المستريات"
     relations: "العلاقات" #?
     roles: "مهام"
-    # sale_lines: "Lignes de vente"
+    # sale_items: "Lignes de vente"
     sale_natures: "انواع طلبات البيع"
     sales: "الطلبات وتحديد الاسعار"
     sequences: "التسلسلات"

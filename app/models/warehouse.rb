@@ -72,8 +72,8 @@ class Warehouse < Place
   # belongs_to :address, :class_name => "EntityAddress"
   # belongs_to :establishment
   belongs_to :content_nature, :class_name => "ProductNature"
-  has_many :purchase_lines
-  has_many :sale_lines
+  has_many :purchase_lines, :class_name => "PurchaseItem"
+  has_many :sale_lines, :class_name => "SaleItem"
   has_many :stocks, :class_name => "ProductStock"
   has_many :stock_moves, :class_name => "ProductStockMove"
   has_many :stock_transfers, :class_name => "ProductTransfer"

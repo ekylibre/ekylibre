@@ -42,10 +42,10 @@ class BankStatementsController < AdminController
       redirect_to new_cash_url
       return
     end
-    notify_now(:x_unpointed_journal_entry_lines, :count => JournalEntryLine.where("bank_statement_id IS NULL and account_id IN (?)", cashes.map(&:account_id)).count)
+    notify_now(:x_unpointed_journal_entry_lines, :count => JournalEntryItem.where("bank_statement_id IS NULL and account_id IN (?)", cashes.map(&:account_id)).count)
   end
 
-  list(:lines, :model  => :journal_entry_lines, :conditions => {:bank_statement_id => ['session[:current_bank_statement_id]']}, :order => "entry_id") do |t|
+  list(:lines, :model => :journal_entry_items, :conditions => {:bank_statement_id => ['session[:current_bank_statement_id]']}, :order => "entry_id") do |t|
     t.column :name, :through => :journal, :url => true
     t.column :number, :through => :entry, :url => true
     t.column :created_on, :through => :entry, :datatype => :date, :label => :column
@@ -68,7 +68,7 @@ class BankStatementsController < AdminController
     if request.post?
       # raise Exception.new(params[:journal_entry_line].inspect)
       @bank_statement.lines.clear
-      @bank_statement.line_ids = params[:journal_entry_line].select{|k, v| v[:checked]=="1" and JournalEntryLine.find_by_id(k)}.collect{|k, v| k.to_i}
+      @bank_statement.line_ids = params[:journal_entry_line].select{|k, v| v[:checked]=="1" and JournalEntryItem.find_by_id(k)}.collect{|k, v| k.to_i}
       if @bank_statement.save
         redirect_to :action => :index
         return

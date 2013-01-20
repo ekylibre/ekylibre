@@ -48,10 +48,10 @@ class Price < CompanyRecord
   belongs_to :product_nature
   belongs_to :tax
   # belongs_to :supplier, :class_name => "Entity"
-  has_many :outgoing_delivery_lines
+  has_many :outgoing_delivery_lines, :class_name => "OutgoingDeliveryItem"
   has_many :taxes
-  has_many :purchase_lines
-  has_many :sale_lines
+  has_many :purchase_lines, :class_name => "PurchaseItem"
+  has_many :sale_lines, :class_name => "SaleItem"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :amount, :pretax_amount, :allow_nil => true
   validates_length_of :currency, :allow_nil => true, :maximum => 3

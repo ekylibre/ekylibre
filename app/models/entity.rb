@@ -138,7 +138,7 @@ class Entity < CompanyRecord
   has_many :managed_sales_invoices, :foreign_key => :responsible_id, :class_name => "Sale", :conditions => {:state => :invoice}
   has_many :sales, :foreign_key => :client_id, :order => "created_on desc"
   has_many :managed_sales, :foreign_key => :responsible_id
-  has_many :sale_lines
+  has_many :sale_lines, :class_name => "SaleItem"
   has_many :subscriptions
   has_many :trackings, :foreign_key => :producer_id
   has_many :transfers, :foreign_key => :supplier_id

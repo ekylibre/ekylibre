@@ -49,11 +49,11 @@ class Account < CompanyRecord
   has_many :commissioned_incoming_payment_modes, :class_name => "IncomingPaymentMode", :foreign_key => :commission_account_id
   has_many :depositables_incoming_payment_modes, :class_name => "IncomingPaymentMode", :foreign_key => :depositables_account_id
   has_many :immobilizations_products, :class_name => "ProductNature", :foreign_key => :immobilizations_account_id
-  has_many :journal_entry_lines
+  has_many :journal_entry_items, :class_name => "JournalEntryItem"
   has_many :paid_taxes, :class_name => "Tax", :foreign_key => :paid_account_id
   has_many :purchases_products, :class_name => "ProductNature", :foreign_key => :purchases_account_id
-  has_many :purchase_lines
-  has_many :sale_lines
+  has_many :purchase_items, :class_name => "PurchaseItem"
+  has_many :sale_items, :class_name => "SaleItem"
   has_many :sales_products, :class_name => "ProductNature", :foreign_key => :sales_account_id
   has_many :suppliers, :class_name => "Entity", :foreign_key => :supplier_account_id
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
@@ -252,56 +252,56 @@ class Account < CompanyRecord
   end
 
 
-  def reconcilable_entry_lines(period, started_on, stopped_on)
-    self.journal_entry_lines.find(:all, :joins => "JOIN #{JournalEntry.table_name} AS je ON (entry_id=je.id)", :conditions => JournalEntry.period_condition(period, started_on, stopped_on, 'je'), :order => "letter DESC, je.number DESC, #{JournalEntryLine.table_name}.position")
+  def reconcilable_entry_items(period, started_on, stopped_on)
+    self.journal_entry_items.find(:all, :joins => "JOIN #{JournalEntry.table_name} AS je ON (entry_id=je.id)", :conditions => JournalEntry.period_condition(period, started_on, stopped_on, 'je'), :order => "letter DESC, je.number DESC, #{JournalEntryItem.table_name}.position")
   end
 
   def new_letter
     letter = self.last_letter
     letter = letter.blank? ? "AAA" : letter.succ
     self.update_column(:last_letter, letter)
-    # line = self.journal_entry_lines.find(:first, :conditions => [self.class.connection.length(self.class.connection.trim("letter"))+" > 0"], :order => "letter DESC")
-    # return (line ? line.letter.succ : "AAA")
+    # item = self.journal_entry_items.find(:first, :conditions => [self.class.connection.length(self.class.connection.trim("letter"))+" > 0"], :order => "letter DESC")
+    # return (item ? item.letter.succ : "AAA")
     return letter
   end
 
 
-  # Finds entry lines to mark, checks their "markability" and
+  # Finds entry items to mark, checks their "markability" and
   # if all valids mark all with a new letter or the first defined before
   def mark_entries(*journal_entries)
     ids = journal_entries.flatten.compact.collect{|e| e.id}
-    return self.mark(self.journal_entry_lines.find(:all, :conditions => {:entry_id => ids}).collect{|l| l.id})
+    return self.mark(self.journal_entry_items.find(:all, :conditions => {:entry_id => ids}).collect{|l| l.id})
   end
 
-  # Mark entry lines with the given +letter+. If no +letter+ given, it uses a new letter.
-  # Don't mark unless all the marked lines will be balanced together
-  def mark(line_ids, letter = nil)
-    conditions = ["id IN (?) AND (letter IS NULL OR #{connection.length(connection.trim('letter'))} <= 0)", line_ids]
-    lines = self.journal_entry_lines.find(:all, :conditions => conditions)
-    return nil unless line_ids.size > 1 and lines.size == line_ids.size and lines.collect{|l| l.debit-l.credit}.sum.to_f.zero?
+  # Mark entry items with the given +letter+. If no +letter+ given, it uses a new letter.
+  # Don't mark unless all the marked items will be balanced together
+  def mark(item_ids, letter = nil)
+    conditions = ["id IN (?) AND (letter IS NULL OR #{connection.length(connection.trim('letter'))} <= 0)", item_ids]
+    items = self.journal_entry_items.find(:all, :conditions => conditions)
+    return nil unless item_ids.size > 1 and items.size == item_ids.size and items.collect{|l| l.debit-l.credit}.sum.to_f.zero?
     letter ||= self.new_letter
-    self.journal_entry_lines.update_all({:letter => letter}, conditions)
+    self.journal_entry_items.update_all({:letter => letter}, conditions)
     return letter
   end
 
-  # Unmark all the entry lines concerned by the +letter+
+  # Unmark all the entry items concerned by the +letter+
   def unmark(letter)
-    self.journal_entry_lines.update_all({:letter => nil}, {:letter => letter})
+    self.journal_entry_items.update_all({:letter => nil}, {:letter => letter})
   end
 
-  # Check if the balance of the entry lines of the given +letter+ is zero.
+  # Check if the balance of the entry items of the given +letter+ is zero.
   def balanced_letter?(letter)
-    lines = self.journal_entry_lines.find(:all, :conditions => ["letter = ?", letter.to_s])
-    return true if lines.size <= 0
-    return lines.sum("debit-credit").to_f.zero?
+    items = self.journal_entry_items.find(:all, :conditions => ["letter = ?", letter.to_s])
+    return true if items.size <= 0
+    return items.sum("debit-credit").to_f.zero?
   end
 
   # Compute debit, credit, balance, balance_debit and balance_credit of the account
-  # with all the entry lines
+  # with all the entry items
   def totals
     hash = {}
-    hash[:debit]  = self.journal_entry_lines.sum(:debit)
-    hash[:credit] = self.journal_entry_lines.sum(:credit)
+    hash[:debit]  = self.journal_entry_items.sum(:debit)
+    hash[:credit] = self.journal_entry_items.sum(:credit)
     hash[:balance_debit] = 0.0
     hash[:balance_credit] = 0.0
     hash[:balance] = (hash[:debit]-hash[:credit]).abs
@@ -310,13 +310,13 @@ class Account < CompanyRecord
   end
 
 
-  # def journal_entry_lines_between(started_on, stopped_on)
-  #   self.journal_entry_lines.find(:all, :joins => "JOIN #{JournalEntry.table_name} AS journal_entries ON (journal_entries.id=entry_id)", :conditions => ["printed_on BETWEEN ? AND ? ", started_on, stopped_on], :order => "printed_on, journal_entries.id, #{JournalEntryLine.table_name}.id")
+  # def journal_entry_items_between(started_on, stopped_on)
+  #   self.journal_entry_items.find(:all, :joins => "JOIN #{JournalEntry.table_name} AS journal_entries ON (journal_entries.id=entry_id)", :conditions => ["printed_on BETWEEN ? AND ? ", started_on, stopped_on], :order => "printed_on, journal_entries.id, #{JournalEntryItem.table_name}.id")
   # end
 
-  def journal_entry_lines_calculate(column, started_on, stopped_on, operation=:sum)
-    column = (column == :balance ? "#{JournalEntryLine.table_name}.original_debit - #{JournalEntryLine.table_name}.original_credit" : "#{JournalEntryLine.table_name}.original_#{column}")
-    self.journal_entry_lines.calculate(operation, column, :joins => "JOIN #{JournalEntry.table_name} AS journal_entries ON (journal_entries.id=entry_id)", :conditions => ["printed_on BETWEEN ? AND ? ", started_on, stopped_on])
+  def journal_entry_items_calculate(column, started_on, stopped_on, operation=:sum)
+    column = (column == :balance ? "#{JournalEntryItem.table_name}.original_debit - #{JournalEntryItem.table_name}.original_credit" : "#{JournalEntryItem.table_name}.original_#{column}")
+    self.journal_entry_items.calculate(operation, column, :joins => "JOIN #{JournalEntry.table_name} AS journal_entries ON (journal_entries.id=entry_id)", :conditions => ["printed_on BETWEEN ? AND ? ", started_on, stopped_on])
   end
 
 
@@ -337,8 +337,8 @@ class Account < CompanyRecord
     res_balance = 0
 
     for account in accounts
-      debit  = account.journal_entry_lines.sum(:debit,  :conditions  => ["r.created_on BETWEEN ? AND ?", from, to], :joins => "INNER JOIN #{JournalEntry.table_name} AS r ON r.id=#{JournalEntryLine.table_name}.entry_id").to_f
-      credit = account.journal_entry_lines.sum(:credit, :conditions  => ["r.created_on BETWEEN ? AND ?", from, to], :joins => "INNER JOIN #{JournalEntry.table_name} AS r ON r.id=#{JournalEntryLine.table_name}.entry_id").to_f
+      debit  = account.journal_entry_items.sum(:debit,  :conditions  => ["r.created_on BETWEEN ? AND ?", from, to], :joins => "INNER JOIN #{JournalEntry.table_name} AS r ON r.id=#{JournalEntryItem.table_name}.entry_id").to_f
+      credit = account.journal_entry_items.sum(:credit, :conditions  => ["r.created_on BETWEEN ? AND ?", from, to], :joins => "INNER JOIN #{JournalEntry.table_name} AS r ON r.id=#{JournalEntryItem.table_name}.entry_id").to_f
 
       compute=HashWithIndifferentAccess.new
       compute[:id] = account.id.to_i
@@ -404,13 +404,13 @@ class Account < CompanyRecord
     accounts.each do |account|
       compute=[] #HashWithIndifferentAccess.new
 
-      journal_entry_lines = account.journal_entry_lines.find(:all, :conditions => ["r.created_on BETWEEN ? AND ?", from, to ], :joins => "INNER JOIN #{JournalEntry.table_name} AS r ON r.id=#{JournalEntryLine.table_name}.entry_id", :order => "r.number ASC")
+      journal_entry_items = account.journal_entry_items.find(:all, :conditions => ["r.created_on BETWEEN ? AND ?", from, to ], :joins => "INNER JOIN #{JournalEntry.table_name} AS r ON r.id=#{JournalEntryItem.table_name}.entry_id", :order => "r.number ASC")
 
-      if journal_entry_lines.size > 0
+      if journal_entry_items.size > 0
         entries = []
         compute << account.number.to_i
         compute << account.name.to_s
-        journal_entry_lines.each do |e|
+        journal_entry_items.each do |e|
           entry = HashWithIndifferentAccess.new
           entry[:date] = e.entry.created_on
           entry[:name] = e.name.to_s
@@ -419,7 +419,7 @@ class Account < CompanyRecord
           entry[:credit] = e.credit
           entry[:debit] = e.debit
           entries << entry
-          # compute[:journal_entry_lines] << entry
+          # compute[:journal_entry_items] << entry
         end
         compute << entries
         ledger << compute
