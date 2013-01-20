@@ -32,6 +32,7 @@ class AdminController < BaseController
   # include ExceptionNotifiable
   # local_addresses.clear
 
+
   class << self
     attr_reader :unrolls
 

@@ -202,8 +202,8 @@ eng:
       edit: "Edit the incoming payment mode: %{name}"
       index: "Incoming payment modes"
       new: "Add a new incoming payment mode"
-    incoming_payment_uses:
-      new: "Attach an incoming payment"
+    incoming_payment_uses:  #?
+      new: "Attach an incoming payment" #?
     incoming_payments:
       edit: "Edit the incoming payment %{number}"
       index: "Incoming payments"
@@ -296,8 +296,8 @@ eng:
       edit: "Edit the disbursement mode"
       index: "Disbursement modes"
       new: "Add a new disbursement mode"
-    outgoing_payment_uses:
-      new: "Pay the purchase %{number}"
+    outgoing_payment_uses:  #?
+      new: "Pay the purchase %{number}" #?
     outgoing_payments:
       edit: "Edit the disbursement: %{number}"
       index: "Disbursements"
@@ -593,7 +593,7 @@ eng:
     incoming_delivery_lines: "Incoming delivery lines"
     incoming_delivery_modes: "Incoming delivery modes"
     incoming_payment_modes: "Incoming payment modes"
-    incoming_payment_uses: "Incoming payment uses"
+    incoming_payment_uses: "Incoming payment uses" #?
     incoming_payments: "Incoming payments"
     interfacers: "Interfacers"
     inventories: "Inventories"
@@ -619,7 +619,7 @@ eng:
     outgoing_delivery_lines: "Outgoing delivery lines"
     outgoing_delivery_modes: "Outgoing delivery modes"
     outgoing_payment_modes: "Disbursement modes"
-    outgoing_payment_uses: "Outgoing payment uses"
+    outgoing_payment_uses: "Outgoing payment uses" #?
     outgoing_payments: "Disbursements"
     preferences: "Preferences"
     prices: "Prices"

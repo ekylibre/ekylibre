@@ -56,15 +56,15 @@ class PurchasesController < AdminController
     t.action :destroy, :if => 'RECORD.purchase.order? '
   end
 
-  list(:payment_uses, :model => :outgoing_payment_uses, :conditions => ["#{OutgoingPaymentUse.table_name}.expense_id=? ", ['session[:current_purchase_id]']]) do |t|
-    t.column :number, :through => :payment, :url => true
-    t.column :amount, :currency => "RECORD.payment.currency", :through => :payment, :label => "payment_amount", :url => true
-    t.column :amount, :currency => "RECORD.payment.currency"
-    t.column :name, :through => [:payment, :mode]
-    t.column :downpayment
-    t.column :to_bank_on, :through => :payment, :label => :column, :datatype => :date
-    t.action :destroy#, :if => 'RECORD.expense.shipped == false'
-  end
+  # list(:payment_uses, :model => :outgoing_payment_uses, :conditions => ["#{OutgoingPaymentUse.table_name}.expense_id=? ", ['session[:current_purchase_id]']]) do |t|
+  #   t.column :number, :through => :payment, :url => true
+  #   t.column :amount, :currency => "RECORD.payment.currency", :through => :payment, :label => "payment_amount", :url => true
+  #   t.column :amount, :currency => "RECORD.payment.currency"
+  #   t.column :name, :through => [:payment, :mode]
+  #   t.column :downpayment
+  #   t.column :to_bank_on, :through => :payment, :label => :column, :datatype => :date
+  #   t.action :destroy#, :if => 'RECORD.expense.shipped == false'
+  # end
 
   list(:undelivered_lines, :model => :purchase_lines, :conditions => {:purchase_id => ['session[:current_purchase_id]']}) do |t|
     t.column :name, :through => :product

@@ -178,9 +178,9 @@
       <page to="incoming_payments#new"/>
       <page to="incoming_payments#show"/>
       <page to="incoming_payments#update"/>
-      <page to="incoming_payment_uses#create"/>
-      <page to="incoming_payment_uses#destroy"/>
-      <page to="incoming_payment_uses#new"/>
+      <page to="incoming_payment_uses#create" deletable="true"/>
+      <page to="incoming_payment_uses#destroy" deletable="true"/>
+      <page to="incoming_payment_uses#new" deletable="true"/>
     </menu>
     <menu name="outgoing_payments">
       <page to="outgoing_payments#index"/>
@@ -192,9 +192,9 @@
       <page to="outgoing_payments#new"/>
       <page to="outgoing_payments#show"/>
       <page to="outgoing_payments#update"/>
-      <page to="outgoing_payment_uses#create"/>
-      <page to="outgoing_payment_uses#destroy"/>
-      <page to="outgoing_payment_uses#new"/>
+      <page to="outgoing_payment_uses#create" deletable="true"/>
+      <page to="outgoing_payment_uses#destroy" deletable="true"/>
+      <page to="outgoing_payment_uses#new" deletable="true"/>
     </menu>
     <menu name="deposits">
       <page to="deposits#index"/>

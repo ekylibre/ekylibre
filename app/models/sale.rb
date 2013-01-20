@@ -33,6 +33,7 @@
 #  creator_id          :integer          
 #  credit              :boolean          not null
 #  currency            :string(3)        
+#  deal_group_id       :integer          
 #  delivery_address_id :integer          
 #  downpayment_amount  :decimal(19, 4)   default(0.0), not null
 #  expiration_id       :integer          
@@ -47,11 +48,9 @@
 #  journal_entry_id    :integer          
 #  letter_format       :boolean          default(TRUE), not null
 #  lock_version        :integer          default(0), not null
-#  lost                :boolean          not null
 #  nature_id           :integer          
 #  number              :string(64)       not null
 #  origin_id           :integer          
-#  paid_amount         :decimal(19, 4)   not null
 #  payment_delay_id    :integer          not null
 #  payment_on          :date             
 #  pretax_amount       :decimal(19, 4)   default(0.0), not null
@@ -92,13 +91,13 @@ class Sale < CompanyRecord
   has_many :subscriptions, :class_name => "Subscription"
   has_many :uses, :as => :expense, :class_name => "IncomingPaymentUse", :dependent => :destroy
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :amount, :downpayment_amount, :paid_amount, :pretax_amount, :allow_nil => true
+  validates_numericality_of :amount, :downpayment_amount, :pretax_amount, :allow_nil => true
   validates_length_of :currency, :allow_nil => true, :maximum => 3
   validates_length_of :sum_method, :allow_nil => true, :maximum => 8
   validates_length_of :initial_number, :number, :state, :allow_nil => true, :maximum => 64
   validates_length_of :function_title, :reference_number, :subject, :allow_nil => true, :maximum => 255
-  validates_inclusion_of :credit, :has_downpayment, :letter_format, :lost, :in => [true, false]
-  validates_presence_of :amount, :client, :created_on, :downpayment_amount, :number, :paid_amount, :payer, :payment_delay, :pretax_amount, :state, :sum_method
+  validates_inclusion_of :credit, :has_downpayment, :letter_format, :in => [true, false]
+  validates_presence_of :amount, :client, :created_on, :downpayment_amount, :number, :payer, :payment_delay, :pretax_amount, :state, :sum_method
   #]VALIDATORS]
   validates_presence_of :client, :currency, :nature
   validates_presence_of :invoiced_on, :if  =>  :invoice?

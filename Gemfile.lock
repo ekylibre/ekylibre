@@ -107,7 +107,7 @@ GEM
     faraday_middleware (0.9.0)
       faraday (>= 0.7.4, < 0.9)
     fastercsv (1.5.5)
-    ffi (1.3.0)
+    ffi (1.3.1)
     formize (1.0.0)
       jquery-rails
       rails (>= 3.2)
@@ -123,7 +123,7 @@ GEM
     i18n-complements (0.0.7)
       i18n (>= 0.6)
     journey (1.0.4)
-    jquery-rails (2.1.4)
+    jquery-rails (2.2.0)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
     json (1.7.6)
@@ -140,7 +140,7 @@ GEM
     multi_json (1.5.0)
     multipart-post (1.1.5)
     nokogiri (1.5.6)
-    oily_png (1.0.2)
+    oily_png (1.0.3)
       chunky_png (~> 1.2.1)
     paperclip (3.4.0)
       activemodel (>= 3.0.0)
@@ -159,7 +159,9 @@ GEM
     prawn (0.12.0)
       pdf-reader (>= 0.9.0)
       ttfunk (~> 1.0.2)
-    rack (1.4.3)
+    quiet_assets (1.0.1)
+      railties (~> 3.1)
+    rack (1.4.4)
     rack-cache (1.2)
       rack (>= 0.4)
     rack-mini-profiler (0.1.23)
@@ -176,7 +178,7 @@ GEM
       activesupport (= 3.2.11)
       bundler (~> 1.0)
       railties (= 3.2.11)
-    rails-erd (1.0.0)
+    rails-erd (1.1.0)
       activerecord (>= 3.0)
       activesupport (>= 3.0)
       choice (~> 0.1.6)
@@ -201,7 +203,7 @@ GEM
     rspec-expectations (2.12.1)
       diff-lcs (~> 1.1.3)
     rspec-mocks (2.12.1)
-    rspec-rails (2.12.1)
+    rspec-rails (2.12.2)
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       railties (>= 3.0)
@@ -212,7 +214,7 @@ GEM
     ruby-rc4 (0.1.5)
     rubyzip (0.9.9)
     sass (3.2.5)
-    sass-rails (3.2.5)
+    sass-rails (3.2.6)
       railties (~> 3.2.0)
       sass (>= 3.1.10)
       tilt (~> 1.3)
@@ -230,7 +232,7 @@ GEM
       multi_json (~> 1.0)
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
-    sqlite3 (1.3.6)
+    sqlite3 (1.3.7)
     state_machine (1.1.2)
     therubyracer (0.10.2)
       libv8 (~> 3.3.10)
@@ -253,6 +255,8 @@ GEM
       polyglot
       polyglot (>= 0.3.1)
     ttfunk (1.0.3)
+    turbolinks (1.0.0)
+      coffee-rails
     twitter-stream (0.1.16)
       eventmachine (>= 0.12.8)
       http_parser.rb (~> 0.5.1)
@@ -295,9 +299,11 @@ DEPENDENCIES
   paperclip
   pg
   prawn (>= 0.10.0)
+  quiet_assets
   rack-mini-profiler
   rails (= 3.2.11)
   rails-erd
+  rjb (= 1.4.3)
   rspec-rails
   rubyzip
   sass-rails (~> 3.2.3)
@@ -305,4 +311,5 @@ DEPENDENCIES
   state_machine
   therubyracer (~> 0.10.2)
   thin
+  turbolinks
   uglifier (>= 1.0.3)

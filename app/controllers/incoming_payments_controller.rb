@@ -60,13 +60,13 @@ class IncomingPaymentsController < AdminController
     session[:incoming_payment_key]   = params[:q]
   end
 
-  list(:sales, :conditions => ["#{Sale.table_name}.id IN (SELECT expense_id FROM #{IncomingPaymentUse.table_name} WHERE payment_id=? AND expense_type=?)", ['session[:current_incoming_payment_id]'], Sale.name], :line_class => 'RECORD.tags') do |t|
-    t.column :number, :url => true
-    t.column :description, :through => :client, :url => true
-    t.column :created_on
-    t.column :pretax_amount
-    t.column :amount
-  end
+  # list(:sales, :conditions => ["#{Sale.table_name}.id IN (SELECT expense_id FROM #{IncomingPaymentUse.table_name} WHERE payment_id=? AND expense_type=?)", ['session[:current_incoming_payment_id]'], Sale.name], :line_class => 'RECORD.tags') do |t|
+  #   t.column :number, :url => true
+  #   t.column :description, :through => :client, :url => true
+  #   t.column :created_on
+  #   t.column :pretax_amount
+  #   t.column :amount
+  # end
 
   # Displays details of one incoming payment selected with +params[:id]+
   def show

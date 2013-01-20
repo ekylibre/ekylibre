@@ -33,6 +33,7 @@
 #  creator_id          :integer          
 #  credit              :boolean          not null
 #  currency            :string(3)        
+#  deal_group_id       :integer          
 #  delivery_address_id :integer          
 #  downpayment_amount  :decimal(19, 4)   default(0.0), not null
 #  expiration_id       :integer          
@@ -47,11 +48,9 @@
 #  journal_entry_id    :integer          
 #  letter_format       :boolean          default(TRUE), not null
 #  lock_version        :integer          default(0), not null
-#  lost                :boolean          not null
 #  nature_id           :integer          
 #  number              :string(64)       not null
 #  origin_id           :integer          
-#  paid_amount         :decimal(19, 4)   not null
 #  payment_delay_id    :integer          not null
 #  payment_on          :date             
 #  pretax_amount       :decimal(19, 4)   default(0.0), not null
@@ -78,9 +77,7 @@
 #   has_downpayment: true
 #   id: 1
 #   letter_format: true
-#   lost: true
 #   number: "Lorem ipsum"
-#   paid_amount: 0
 #   payment_delay_id: 1
 #   pretax_amount: 0
 #   state: "Lorem ipsum"
@@ -105,7 +102,6 @@ sales_001:
   letter_format: true
   nature_id: 1
   number: "SO123456"
-  paid_amount: 0.0
   payment_delay_id: 1
   state: "draft"
   sum_method: "wt"
@@ -128,7 +124,6 @@ sales_002:
   letter_format: true
   nature_id: 1
   number: "SO123457"
-  paid_amount: 0.0
   payment_delay_id: 1
   state: "draft"
   sum_method: "wt"
@@ -151,7 +146,6 @@ sales_003:
   letter_format: true
   nature_id: 1
   number: "SO123457"
-  paid_amount: 0.0
   payment_delay_id: 1
   state: "order"
   sum_method: "wt"
@@ -170,9 +164,7 @@ sales_004:
   has_downpayment: false
   id: 4
   letter_format: true
-  lost: false
   number: "SO7894582"
-  paid_amount: 0
   payment_delay_id: 1
   pretax_amount: 10
   state: "draft"
@@ -197,7 +189,6 @@ sales_005:
   letter_format: true
   nature_id: 1
   number: "SO123460"
-  paid_amount: 0.0
   payment_delay_id: 1
   state: "order"
   sum_method: "wt"

@@ -26,7 +26,10 @@
 #  created_at       :datetime         not null
 #  created_on       :date             
 #  creator_id       :integer          
+#  currency         :string(3)        not null
+#  deal_group_id    :integer          
 #  delivered        :boolean          default(TRUE), not null
+#  downpayment      :boolean          default(TRUE), not null
 #  id               :integer          not null, primary key
 #  journal_entry_id :integer          
 #  lock_version     :integer          default(0), not null
@@ -38,7 +41,6 @@
 #  to_bank_on       :date             not null
 #  updated_at       :datetime         not null
 #  updater_id       :integer          
-#  used_amount      :decimal(19, 4)   default(0.0), not null
 #
 
 

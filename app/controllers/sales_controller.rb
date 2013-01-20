@@ -90,17 +90,17 @@ class SalesController < AdminController
     t.action :destroy, :if => 'RECORD.sale.order? '
   end
 
-  list(:payment_uses, :model => :incoming_payment_uses, :conditions => ["#{IncomingPaymentUse.table_name}.expense_id=? AND #{IncomingPaymentUse.table_name}.expense_type=?", ['session[:current_sale_id]'], 'Sale']) do |t|
-    t.column :number, :through => :payment, :url => true
-    t.column :amount, :currency => "RECORD.payment.currency", :through => :payment, :label => "payment_amount", :url => true
-    t.column :amount, :currency => "RECORD.payment.currency"
-    t.column :payment_way
-    t.column :scheduled, :through => :payment, :datatype => :boolean, :label => :column
-    t.column :downpayment
-    # t.column :paid_on, :through => :payment, :label => :column, :datatype => :date
-    t.column :to_bank_on, :through => :payment, :label => :column, :datatype => :date
-    t.action :destroy
-  end
+  # list(:payment_uses, :model => :incoming_payment_uses, :conditions => ["#{IncomingPaymentUse.table_name}.expense_id=? AND #{IncomingPaymentUse.table_name}.expense_type=?", ['session[:current_sale_id]'], 'Sale']) do |t|
+  #   t.column :number, :through => :payment, :url => true
+  #   t.column :amount, :currency => "RECORD.payment.currency", :through => :payment, :label => "payment_amount", :url => true
+  #   t.column :amount, :currency => "RECORD.payment.currency"
+  #   t.column :payment_way
+  #   t.column :scheduled, :through => :payment, :datatype => :boolean, :label => :column
+  #   t.column :downpayment
+  #   # t.column :paid_on, :through => :payment, :label => :column, :datatype => :date
+  #   t.column :to_bank_on, :through => :payment, :label => :column, :datatype => :date
+  #   t.action :destroy
+  # end
 
   list(:subscriptions, :conditions => {:sale_id => ['session[:current_sale_id]']}) do |t|
     t.column :number

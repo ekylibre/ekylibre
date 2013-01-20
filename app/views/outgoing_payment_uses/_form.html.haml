@@ -1,8 +1,0 @@
--# TODO Manage subheading
--expense = @outgoing_payment_use.expense
-=subheading :attach_an_outgoing_payment_to_expense, :number => expense.number, :type => expense.class.model_name.human
-
-=field_set do
-  -input :expense_id, :field => :hidden
-  -input :downpayment
-  -association :payment, :source => :unbalanceds, :new => {:payee_id => "expense.supplier_id".to_sym, :amount => "expense.unpaid_amount".to_sym}

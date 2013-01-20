@@ -28,6 +28,7 @@
 #  created_on          :date             
 #  creator_id          :integer          
 #  currency            :string(3)        
+#  deal_group_id       :integer          
 #  delivery_address_id :integer          
 #  id                  :integer          not null, primary key
 #  invoiced_on         :date             
@@ -35,7 +36,6 @@
 #  lock_version        :integer          default(0), not null
 #  nature_id           :integer          
 #  number              :string(64)       not null
-#  paid_amount         :decimal(19, 4)   default(0.0), not null
 #  planned_on          :date             
 #  pretax_amount       :decimal(19, 4)   default(0.0), not null
 #  reference_number    :string(255)      
@@ -65,11 +65,11 @@ class Purchase < CompanyRecord
   has_many :products, :through => :lines, :uniq => true
   has_many :uses, :foreign_key => :expense_id, :class_name => "OutgoingPaymentUse", :dependent => :destroy
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :amount, :paid_amount, :pretax_amount, :allow_nil => true
+  validates_numericality_of :amount, :pretax_amount, :allow_nil => true
   validates_length_of :currency, :allow_nil => true, :maximum => 3
   validates_length_of :number, :state, :allow_nil => true, :maximum => 64
   validates_length_of :reference_number, :allow_nil => true, :maximum => 255
-  validates_presence_of :amount, :number, :paid_amount, :payee, :pretax_amount, :supplier
+  validates_presence_of :amount, :number, :payee, :pretax_amount, :supplier
   #]VALIDATORS]
   validates_presence_of :planned_on, :created_on, :currency, :state, :nature
   validates_uniqueness_of :number

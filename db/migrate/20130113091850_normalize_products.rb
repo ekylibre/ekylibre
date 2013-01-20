@@ -775,7 +775,7 @@ class NormalizeProducts < ActiveRecord::Migration
 
   def insert_varieties(types, parent_id = nil)
     for type, children in types
-      execute("INSERT INTO #{quoted_table_name(:product_varieties)} (name, code, product_type, automatic, parent_id, created_at, updated_at) SELECT '#{type.to_s.humanize}', '#{type}', '#{type.to_s.camelcase}', TRUE, #{parent_id || 'NULL'}, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP")
+      execute("INSERT INTO #{quoted_table_name(:product_varieties)} (name, code, product_type, automatic, parent_id, created_at, updated_at) SELECT '#{type.to_s.humanize}', '#{type}', '#{type.to_s.camelcase}', #{quoted_true}, #{parent_id || 'NULL'}, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP")
       unless children.nil?
         new_parent_id = select_value("SELECT id FROM #{quoted_table_name(:product_varieties)} WHERE code = '#{type}'")
         insert_varieties(children, new_parent_id)
@@ -1080,6 +1080,11 @@ class NormalizeProducts < ActiveRecord::Migration
     # Rename table in order to be more logical
     rename_table_and_co :product_components, :product_nature_components
 
+    # Normalize/fix existing data
+    execute("UPDATE #{quoted_table_name(:old_stock_moves)} SET stock_id = s.id FROM #{quoted_table_name(:old_stocks)} AS s WHERE stock_id IS NULL AND s.warehouse_id = #{quoted_table_name(:old_stock_moves)}.warehouse_id AND s.product_id = #{quoted_table_name(:old_stock_moves)}.product_id AND s.tracking_id = #{quoted_table_name(:old_stock_moves)}.tracking_id")
+    execute("INSERT INTO #{quoted_table_name(:old_stocks)} (product_id, warehouse_id, tracking_id, unit_id) SELECT product_id, warehouse_id, tracking_id, unit_id FROM #{quoted_table_name(:old_stock_moves)} WHERE stock_id IS NULL")
+    execute("UPDATE #{quoted_table_name(:old_stock_moves)} SET stock_id = s.id FROM #{quoted_table_name(:old_stocks)} AS s WHERE stock_id IS NULL AND s.warehouse_id = #{quoted_table_name(:old_stock_moves)}.warehouse_id AND s.product_id = #{quoted_table_name(:old_stock_moves)}.product_id AND s.tracking_id = #{quoted_table_name(:old_stock_moves)}.tracking_id")
+
     # Varieties
     insert_varieties(VARIETIES)
 
@@ -1096,14 +1101,14 @@ class NormalizeProducts < ActiveRecord::Migration
     add_column :products, :old_id, :integer
     add_column :products, :old_stock_id, :integer
     add_column :products, :old_tracking_id, :integer
-    da = {:minimal_quantity => "p.quantity_min", :maximal_quantity => "p.quantity_max", :old_id => "p.id", :old_stock_id => "s.id", :name => "p.name", :unit_id => "s.unit_id", :old_tracking_id => "s.tracking_id", :serial_number => "ot.serial", :producer_id => "ot.producer_id", :description => "p.description", :number => "p.number", :nature_id => "npn.id", :created_at => "p.created_at", :creator_id => "p.creator_id", :updated_at => "p.updated_at", :updater_id => "p.updater_id", :lock_version => "p.lock_version", :type => "CASE WHEN p.nature = 'product' THEN 'Matter' ELSE 'Service' END"}
+    da = {:minimal_quantity => "COALESCE(p.quantity_min, 0)", :maximal_quantity => "COALESCE(p.quantity_max, 0)", :old_id => "p.id", :old_stock_id => "s.id", :name => "p.name", :unit_id => "s.unit_id", :old_tracking_id => "s.tracking_id", :serial_number => "ot.serial", :producer_id => "ot.producer_id", :description => "p.description", :number => "p.number", :nature_id => "npn.id", :created_at => "p.created_at", :creator_id => "p.creator_id", :updated_at => "p.updated_at", :updater_id => "p.updater_id", :lock_version => "p.lock_version", :type => "CASE WHEN p.nature = 'product' THEN 'Matter' ELSE 'Service' END"}
     execute("INSERT INTO #{quoted_table_name(:products)} (" + da.keys.join(', ') + ") SELECT DISTINCT " + da.values.join(', ') + " FROM #{quoted_table_name(:old_stocks)} AS s LEFT JOIN #{quoted_table_name(:old_products)} AS p ON (s.product_id = p.id) LEFT JOIN #{quoted_table_name(:product_natures)} AS npn ON (p.id = npn.old_id) LEFT JOIN #{quoted_table_name(:trackings)} AS ot ON (s.tracking_id = ot.id)")
     update_depending_records(:old_products, :products, :old_id)
 
     # Old stocks
     add_column :product_stocks, :old_id, :integer
     add_column :product_stocks, :old_tracking_id, :integer
-    da = {:old_id => "s.id", :product_id => "np.id", :warehouse_id => "s.warehouse_id", :unit_id => "s.unit_id", :old_tracking_id => "s.tracking_id", :minimal_quantity => "s.quantity_min", :maximal_quantity => "s.quantity_max", :created_at => "s.created_at", :creator_id => "s.creator_id", :updated_at => "s.updated_at", :updater_id => "s.updater_id", :lock_version => "s.lock_version", :real_quantity => "s.quantity", :virtual_quantity => "s.virtual_quantity"}
+    da = {:old_id => "s.id", :product_id => "np.id", :warehouse_id => "s.warehouse_id", :unit_id => "s.unit_id", :old_tracking_id => "s.tracking_id", :minimal_quantity => "COALESCE(s.quantity_min, 0)", :maximal_quantity => "COALESCE(s.quantity_max, 0)", :created_at => "s.created_at", :creator_id => "s.creator_id", :updated_at => "s.updated_at", :updater_id => "s.updater_id", :lock_version => "s.lock_version", :real_quantity => "COALESCE(s.quantity, 0)", :virtual_quantity => "COALESCE(s.virtual_quantity, 0)"}
     execute("INSERT INTO #{quoted_table_name(:product_stocks)} (" + da.keys.join(', ') + ") SELECT " + da.values.join(', ') + " FROM #{quoted_table_name(:old_stocks)} AS s LEFT JOIN #{quoted_table_name(:products)} AS np ON (s.product_id = np.id)")
     update_depending_records(:old_stocks, :product_stocks, :old_id)
 
@@ -1164,7 +1169,7 @@ class NormalizeProducts < ActiveRecord::Migration
     add_column :product_natures, :old_animal_nature_id, :integer
     unit_id = select_value("SELECT id FROM #{quoted_table_name(:units)} WHERE LENGTH(TRIM(base)) <= 0 ORDER BY name DESC").to_i
     ca = [:name, :comment, :description, :created_at, :creator_id, :lock_version, :updated_at, :updater_id]
-    da = {:old_animal_nature_id => "ar.id", :number => "ar.code", :unit_id => unit_id, :commercial_name => "ar.name", :variety_id => "v.id", :active => true, :category_id => default_category_id, :saleable => "TRUE", :purchasable => "TRUE", :indivisible => "TRUE"}
+    da = {:old_animal_nature_id => "ar.id", :number => "ar.code", :unit_id => unit_id, :commercial_name => "ar.name", :variety_id => "v.id", :active => true, :category_id => default_category_id, :saleable => quoted_true, :purchasable => quoted_true, :indivisible => quoted_true}
     execute("INSERT INTO #{quoted_table_name(:product_natures)} (" + ca.join(', ') + ", " + da.keys.join(', ') + ") SELECT " + ca.collect{|c| "ar.#{c}"}.join(', ') + ", " + da.values.join(', ') + " FROM #{quoted_table_name(:animal_races)} AS ar LEFT JOIN #{quoted_table_name(:product_varieties)} AS v ON (v.old_animal_race_id = ar.id)")
 
     # Animals
@@ -1201,14 +1206,14 @@ class NormalizeProducts < ActiveRecord::Migration
       unit_id = select_value("SELECT id FROM #{quoted_table_name(:units)} WHERE base = 'm2' ORDER BY name DESC").to_i
       name, number = "Land parcel", "LANDPARCEL0"
       ca = [:created_at, :creator_id, :lock_version, :updated_at, :updater_id]
-      da = {:name => "'#{name}'", :number => "'#{number}'", :unit_id => unit_id, :commercial_name => "'#{name}'", :variety_id => "v.id", :active => true, :category_id => default_category_id, :saleable => "TRUE", :purchasable => "TRUE"}
+      da = {:name => "'#{name}'", :number => "'#{number}'", :unit_id => unit_id, :commercial_name => "'#{name}'", :variety_id => "v.id", :active => true, :category_id => default_category_id, :saleable => quoted_true, :purchasable => quoted_true}
       execute("INSERT INTO #{quoted_table_name(:product_natures)} (" + ca.join(', ') + ", " + da.keys.join(', ') + ") SELECT " + ca.join(', ') + ", " + da.values.join(', ') + " FROM #{quoted_table_name(:product_varieties)} AS v WHERE v.code = 'land_parcel'")
       nature_id = select_value("SELECT id FROM #{quoted_table_name(:product_natures)} WHERE number = '#{number}'").to_i
 
       # LandParcel
       add_column :products, :old_land_parcel_id, :integer
       ca = [:name, :number, :description, :created_at, :creator_id, :lock_version, :updated_at, :updater_id, :shape, :area_measure, :area_unit_id]
-      da = {:type => "'LandParcel'", :active => "TRUE", :nature_id => nature_id, :unit_id => unit_id, :born_at => "started_on", :dead_at => "stopped_on"}
+      da = {:type => "'LandParcel'", :active => quoted_true, :nature_id => nature_id, :unit_id => unit_id, :born_at => "started_on", :dead_at => "stopped_on"}
       execute("INSERT INTO #{quoted_table_name(:products)} (old_land_parcel_id, " + ca.join(', ') + ", " + da.keys.join(', ') + ") SELECT id, " + ca.join(', ') + ", " + da.values.join(', ') + " FROM #{quoted_table_name(:land_parcels)}")
       update_depending_records(:land_parcels, :products, :old_land_parcel_id)
 
@@ -1222,7 +1227,7 @@ class NormalizeProducts < ActiveRecord::Migration
     unit_id = select_value("SELECT id FROM #{quoted_table_name(:units)} WHERE LENGTH(TRIM(base)) <= 0 ORDER BY name DESC").to_i
     variety_id = select_value("SELECT id FROM #{quoted_table_name(:product_varieties)} WHERE code = 'tool'").to_i
     ca = [:name, :comment, :created_at, :creator_id, :updated_at, :updater_id, :lock_version]
-    da = {:number => "'TN'||CAST(tn.id AS VARCHAR)", :unit_id => unit_id, :commercial_name => :name, :variety_id => variety_id, :category_id => default_category_id, :saleable => "TRUE", :purchasable => "TRUE", :stockable => "TRUE", :reductible => "TRUE", :indivisible => "TRUE"}
+    da = {:number => "'TN'||CAST(tn.id AS VARCHAR)", :unit_id => unit_id, :commercial_name => :name, :variety_id => variety_id, :category_id => default_category_id, :saleable => quoted_true, :purchasable => quoted_true, :stockable => quoted_true, :reductible => quoted_true, :indivisible => quoted_true}
     execute("INSERT INTO #{quoted_table_name(:product_natures)} (old_tool_nature_id, " + ca.join(', ') + ", " + da.keys.join(', ') + ") SELECT id, " + ca.join(', ') + ", " + da.values.join(', ') + " FROM #{quoted_table_name(:tool_natures)} AS tn")
     update_depending_records(:tool_natures, :product_natures, :old_tool_nature_id)
 
@@ -1239,14 +1244,14 @@ class NormalizeProducts < ActiveRecord::Migration
       unit_id = select_value("SELECT id FROM #{quoted_table_name(:units)} WHERE base = 'm2' ORDER BY name ASC").to_i
       name, number = "Warehouse", "WAREHOUSE0"
       ca = [:created_at, :creator_id, :lock_version, :updated_at, :updater_id]
-      da = {:name => "'#{name}'", :number => "'#{number}'", :unit_id => unit_id, :commercial_name => "'#{name}'", :variety_id => "v.id", :active => true, :category_id => default_category_id, :saleable => "TRUE", :purchasable => "TRUE"}
+      da = {:name => "'#{name}'", :number => "'#{number}'", :unit_id => unit_id, :commercial_name => "'#{name}'", :variety_id => "v.id", :active => true, :category_id => default_category_id, :saleable => quoted_true, :purchasable => quoted_true}
       execute("INSERT INTO #{quoted_table_name(:product_natures)} (" + ca.join(', ') + ", " + da.keys.join(', ') + ") SELECT " + ca.join(', ') + ", " + da.values.join(', ') + " FROM #{quoted_table_name(:product_varieties)} AS v WHERE v.code = 'warehouse'")
       nature_id = select_value("SELECT id FROM #{quoted_table_name(:product_natures)} WHERE number = '#{number}'").to_i
 
       # Warehouse
       add_column :products, :old_warehouse_id, :integer
       ca = [:name, :number, :created_at, :creator_id, :lock_version, :updated_at, :updater_id, :reservoir, :address_id]
-      da = {:type => "'Warehouse'", :active => "TRUE", :nature_id => nature_id, :unit_id => unit_id, :content_nature_id => :product_nature_id, :content_unit_id => :unit_id, :content_maximal_quantity => :quantity_max, :description => "COALESCE(division, name) || COALESCE(', ' || subdivision, '') || COALESCE(', ' || subsubdivision, '')", :unit_id => unit_id, :parent_warehouse_id => :parent_id}
+      da = {:type => "'Warehouse'", :active => quoted_true, :nature_id => nature_id, :unit_id => unit_id, :content_nature_id => :product_nature_id, :content_unit_id => :unit_id, :content_maximal_quantity => "COALESCE(quantity_max, 0.0)", :description => "COALESCE(division, name) || COALESCE(', ' || subdivision, '') || COALESCE(', ' || subsubdivision, '')", :unit_id => unit_id, :parent_warehouse_id => :parent_id}
       execute("INSERT INTO #{quoted_table_name(:products)} (old_warehouse_id, " + ca.join(', ') + ", " + da.keys.join(', ') + ") SELECT id, " + ca.collect{|c| "w.#{c}" }.join(', ') + ", " + da.values.join(', ') + " FROM #{quoted_table_name(:warehouses)} AS w")
 
       @@references[:warehouse].delete(:parent_id)

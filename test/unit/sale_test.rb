@@ -33,6 +33,7 @@
 #  creator_id          :integer          
 #  credit              :boolean          not null
 #  currency            :string(3)        
+#  deal_group_id       :integer          
 #  delivery_address_id :integer          
 #  downpayment_amount  :decimal(19, 4)   default(0.0), not null
 #  expiration_id       :integer          
@@ -47,11 +48,9 @@
 #  journal_entry_id    :integer          
 #  letter_format       :boolean          default(TRUE), not null
 #  lock_version        :integer          default(0), not null
-#  lost                :boolean          not null
 #  nature_id           :integer          
 #  number              :string(64)       not null
 #  origin_id           :integer          
-#  paid_amount         :decimal(19, 4)   not null
 #  payment_delay_id    :integer          not null
 #  payment_on          :date             
 #  pretax_amount       :decimal(19, 4)   default(0.0), not null

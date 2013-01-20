@@ -1,4 +1,5 @@
 Ekylibre::Application.routes.draw do
+
   resource :session, :only => [:new, :create, :destroy] do
     member do
       match "renew", :via => [:get, :post]
@@ -90,58 +91,7 @@ Ekylibre::Application.routes.draw do
       unroll_all
     end
   end
-  resources :products do
-    collection do
-      get :list
-      get :list_events
-      get :list_children
-      unroll_all
-    end
-  end
-  resources :logs do
-    collection do
-      get :list
-      unroll_all
-    end
-  end
-  resources :product_group_events do
-    collection do
-      get :list
-      unroll_all
-    end
-  end
-  resources :product_event_natures do
-    collection do
-      get :list
-      unroll_all
-    end
-  end
-  resources :product_groups do
-    collection do
-      get :list
-      get :list_products
-      get :list_events
-      unroll_all
-    end
-  end
-  resources :product_varieties do
-    collection do
-      get :list
-      unroll_all
-    end
-  end
-  resources :product_processes do
-    collection do
-      get :list
-      unroll_all
-    end
-  end
-  resources :product_process_phases do
-    collection do
-      get :list
-      unroll_all
-    end
-  end
+  resources :deal_groups
   resources :areas do
     collection do
       get :list
@@ -436,6 +386,12 @@ Ekylibre::Application.routes.draw do
       match "mail", :via => [:get, :post]
     end
   end
+  resources :logs do
+    collection do
+      get :list
+      unroll_all
+    end
+  end
   resources :mandates do
     collection do
       get :list
@@ -510,6 +466,40 @@ Ekylibre::Application.routes.draw do
       unroll_all
     end
   end
+  resources :products do
+    collection do
+      get :list
+      get :list_events
+      get :list_children
+      unroll_all
+    end
+  end
+  resources :product_groups do
+    collection do
+      get :list
+      get :list_products
+      get :list_events
+      unroll_all
+    end
+  end
+  resources :product_varieties do
+    collection do
+      get :list
+      unroll_all
+    end
+  end
+  resources :product_processes do
+    collection do
+      get :list
+      unroll_all
+    end
+  end
+  resources :product_process_phases do
+    collection do
+      get :list
+      unroll_all
+    end
+  end
   resources :product_natures do
     collection do
       get :change_quantities
@@ -521,7 +511,7 @@ Ekylibre::Application.routes.draw do
       unroll_all
     end
   end
-    resources :product_indicator_natures do
+  resources :product_indicator_natures do
     collection do
       get :list
       get :list_choices

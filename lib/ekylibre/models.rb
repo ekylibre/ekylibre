@@ -2,7 +2,7 @@
 module Ekylibre
   mattr_reader :models, :references
   # List of all models
-  @@models = [:account, :account_balance, :animal, :area, :asset, :asset_depreciation, :bank_statement, :bioproduct, :cash, :cash_transfer, :company, :cultivation, :custom_field, :custom_field_choice, :custom_field_datum, :delay, :department, :deposit, :deposit_line, :district, :document, :document_template, :entity, :entity_address, :entity_category, :entity_link, :entity_link_nature, :entity_nature, :establishment, :event, :event_nature, :financial_year, :fungus, :incoming_delivery, :incoming_delivery_line, :incoming_delivery_mode, :incoming_payment, :incoming_payment_mode, :incoming_payment_use, :inventory, :inventory_line, :journal, :journal_entry, :journal_entry_line, :land_parcel, :land_parcel_kinship, :listing, :listing_node, :listing_node_item, :log, :mandate, :matter, :observation, :operation, :operation_line, :operation_nature, :operation_use, :outgoing_delivery, :outgoing_delivery_line, :outgoing_delivery_mode, :outgoing_payment, :outgoing_payment_mode, :outgoing_payment_use, :place, :preference, :price, :product, :product_group, :product_indicator, :product_indicator_nature, :product_indicator_nature_choice, :product_membership, :product_nature, :product_nature_category, :product_nature_component, :product_process, :product_process_phase, :product_stock, :product_stock_move, :product_stock_period, :product_transfer, :product_variety, :production_chain, :production_chain_conveyor, :production_chain_work_center, :production_chain_work_center_use, :profession, :purchase, :purchase_line, :purchase_nature, :role, :sale, :sale_line, :sale_nature, :sequence, :service, :subscription, :subscription_nature, :tax, :tax_declaration, :tool, :transfer, :transport, :unit, :vegetal, :warehouse]
+  @@models = [:account, :account_balance, :animal, :area, :asset, :asset_depreciation, :bank_statement, :bioproduct, :cash, :cash_transfer, :company, :cultivation, :custom_field, :custom_field_choice, :custom_field_datum, :deal_group, :delay, :department, :deposit, :deposit_line, :district, :document, :document_template, :entity, :entity_address, :entity_category, :entity_link, :entity_link_nature, :entity_nature, :establishment, :event, :event_nature, :financial_year, :fungus, :incoming_delivery, :incoming_delivery_line, :incoming_delivery_mode, :incoming_payment, :incoming_payment_mode, :inventory, :inventory_line, :journal, :journal_entry, :journal_entry_line, :land_parcel, :land_parcel_kinship, :listing, :listing_node, :listing_node_item, :log, :mandate, :matter, :observation, :operation, :operation_line, :operation_nature, :operation_use, :outgoing_delivery, :outgoing_delivery_line, :outgoing_delivery_mode, :outgoing_payment, :outgoing_payment_mode, :place, :preference, :price, :product, :product_group, :product_indicator, :product_indicator_nature, :product_indicator_nature_choice, :product_membership, :product_nature, :product_nature_category, :product_nature_component, :product_process, :product_process_phase, :product_stock, :product_stock_move, :product_stock_period, :product_transfer, :product_variety, :production_chain, :production_chain_conveyor, :production_chain_work_center, :production_chain_work_center_use, :profession, :purchase, :purchase_line, :purchase_nature, :role, :sale, :sale_line, :sale_nature, :sequence, :service, :subscription, :subscription_nature, :tax, :tax_declaration, :tool, :transfer, :transport, :unit, :vegetal, :warehouse]
 
   # List of all references
   @@references = {
@@ -114,6 +114,12 @@ module Ekylibre
       :creator_id => :entity,
       :custom_field_id => :custom_field,
       :customized_id => "customized_type",
+      :updater_id => :entity
+    },
+    :deal_group => {
+      :creator_id => :entity,
+      :journal_entry_id => :journal_entry,
+      :origin_id => "origin_type",
       :updater_id => :entity
     },
     :delay => {
@@ -257,6 +263,7 @@ module Ekylibre
     :incoming_payment => {
       :commission_account_id => :account,
       :creator_id => :entity,
+      :deal_group_id => :deal_group,
       :deposit_id => :deposit,
       :journal_entry_id => :journal_entry,
       :mode_id => :incoming_payment_mode,
@@ -271,13 +278,6 @@ module Ekylibre
       :creator_id => :entity,
       :depositables_account_id => :account,
       :depositables_journal_id => :journal,
-      :updater_id => :entity
-    },
-    :incoming_payment_use => {
-      :creator_id => :entity,
-      :expense_id => "expense_type",
-      :journal_entry_id => :journal_entry,
-      :payment_id => :incoming_payment,
       :updater_id => :entity
     },
     :inventory => {
@@ -444,6 +444,7 @@ module Ekylibre
     },
     :outgoing_payment => {
       :creator_id => :entity,
+      :deal_group_id => :deal_group,
       :journal_entry_id => :journal_entry,
       :mode_id => :outgoing_payment_mode,
       :payee_id => :entity,
@@ -454,13 +455,6 @@ module Ekylibre
       :attorney_journal_id => :journal,
       :cash_id => :cash,
       :creator_id => :entity,
-      :updater_id => :entity
-    },
-    :outgoing_payment_use => {
-      :creator_id => :entity,
-      :expense_id => :purchase,
-      :journal_entry_id => :journal_entry,
-      :payment_id => :outgoing_payment,
       :updater_id => :entity
     },
     :place => {
@@ -647,6 +641,7 @@ module Ekylibre
     },
     :purchase => {
       :creator_id => :entity,
+      :deal_group_id => :deal_group,
       :delivery_address_id => :entity_address,
       :journal_entry_id => :journal_entry,
       :nature_id => :purchase_nature,
@@ -678,6 +673,7 @@ module Ekylibre
       :address_id => :entity_address,
       :client_id => :entity,
       :creator_id => :entity,
+      :deal_group_id => :deal_group,
       :delivery_address_id => :entity_address,
       :expiration_id => :delay,
       :invoice_address_id => :entity_address,
@@ -779,6 +775,7 @@ module Ekylibre
     },
     :transfer => {
       :creator_id => :entity,
+      :deal_group_id => :deal_group,
       :journal_entry_id => :journal_entry,
       :supplier_id => :entity,
       :updater_id => :entity

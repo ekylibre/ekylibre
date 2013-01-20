@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130118132538) do
+ActiveRecord::Schema.define(:version => 20130118232421) do
 
   create_table "account_balances", :force => true do |t|
     t.integer  "account_id",                                                        :null => false
@@ -324,6 +324,28 @@ ActiveRecord::Schema.define(:version => 20130118132538) do
   add_index "custom_fields", ["required"], :name => "index_complements_on_required"
   add_index "custom_fields", ["updated_at"], :name => "index_complements_on_updated_at"
   add_index "custom_fields", ["updater_id"], :name => "index_complements_on_updater_id"
+
+  create_table "deal_groups", :force => true do |t|
+    t.integer  "origin_id",                                                                       :null => false
+    t.string   "origin_type",                                                                     :null => false
+    t.boolean  "closed",                                                       :default => false, :null => false
+    t.datetime "closed_at"
+    t.string   "currency",         :limit => 3,                                                   :null => false
+    t.decimal  "debit",                         :precision => 19, :scale => 4, :default => 0.0,   :null => false
+    t.decimal  "credit",                        :precision => 19, :scale => 4, :default => 0.0,   :null => false
+    t.datetime "accounted_at"
+    t.integer  "journal_entry_id"
+    t.datetime "created_at",                                                                      :null => false
+    t.datetime "updated_at",                                                                      :null => false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version",                                                 :default => 0,     :null => false
+  end
+
+  add_index "deal_groups", ["created_at"], :name => "index_deal_groups_on_created_at"
+  add_index "deal_groups", ["creator_id"], :name => "index_deal_groups_on_creator_id"
+  add_index "deal_groups", ["updated_at"], :name => "index_deal_groups_on_updated_at"
+  add_index "deal_groups", ["updater_id"], :name => "index_deal_groups_on_updater_id"
 
   create_table "delays", :force => true do |t|
     t.string   "name",                           :null => false
@@ -877,59 +899,40 @@ ActiveRecord::Schema.define(:version => 20130118132538) do
   add_index "incoming_payment_modes", ["updated_at"], :name => "index_payment_modes_on_updated_at"
   add_index "incoming_payment_modes", ["updater_id"], :name => "index_payment_modes_on_updater_id"
 
-  create_table "incoming_payment_uses", :force => true do |t|
-    t.decimal  "amount",           :precision => 19, :scale => 4
-    t.integer  "payment_id",                                                                  :null => false
-    t.datetime "created_at",                                                                  :null => false
-    t.datetime "updated_at",                                                                  :null => false
-    t.integer  "creator_id"
-    t.integer  "updater_id"
-    t.integer  "lock_version",                                    :default => 0,              :null => false
-    t.boolean  "downpayment",                                     :default => false,          :null => false
-    t.string   "expense_type",                                    :default => "UnknownModel", :null => false
-    t.integer  "expense_id",                                      :default => 0,              :null => false
-    t.integer  "journal_entry_id"
-    t.datetime "accounted_at"
-  end
-
-  add_index "incoming_payment_uses", ["created_at"], :name => "index_payment_parts_on_created_at"
-  add_index "incoming_payment_uses", ["creator_id"], :name => "index_payment_parts_on_creator_id"
-  add_index "incoming_payment_uses", ["expense_id"], :name => "index_payment_parts_on_expense_id"
-  add_index "incoming_payment_uses", ["expense_type"], :name => "index_payment_parts_on_expense_type"
-  add_index "incoming_payment_uses", ["updated_at"], :name => "index_payment_parts_on_updated_at"
-  add_index "incoming_payment_uses", ["updater_id"], :name => "index_payment_parts_on_updater_id"
-
   create_table "incoming_payments", :force => true do |t|
     t.date     "paid_on"
-    t.decimal  "amount",                :precision => 19, :scale => 4,                           :null => false
-    t.integer  "mode_id",                                                                        :null => false
-    t.datetime "created_at",                                                                     :null => false
-    t.datetime "updated_at",                                                                     :null => false
+    t.decimal  "amount",                             :precision => 19, :scale => 4,                           :null => false
+    t.integer  "mode_id",                                                                                     :null => false
+    t.datetime "created_at",                                                                                  :null => false
+    t.datetime "updated_at",                                                                                  :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                         :default => 0,            :null => false
+    t.integer  "lock_version",                                                      :default => 0,            :null => false
     t.string   "bank"
     t.string   "check_number"
     t.string   "account_number"
     t.integer  "payer_id"
-    t.date     "to_bank_on",                                           :default => '0001-01-01', :null => false
+    t.date     "to_bank_on",                                                        :default => '0001-01-01', :null => false
     t.integer  "deposit_id"
     t.integer  "responsible_id"
-    t.boolean  "scheduled",                                            :default => false,        :null => false
-    t.boolean  "received",                                             :default => true,         :null => false
-    t.decimal  "used_amount",           :precision => 19, :scale => 4,                           :null => false
+    t.boolean  "scheduled",                                                         :default => false,        :null => false
+    t.boolean  "received",                                                          :default => true,         :null => false
     t.string   "number"
     t.date     "created_on"
     t.datetime "accounted_at"
     t.text     "receipt"
     t.integer  "journal_entry_id"
     t.integer  "commission_account_id"
-    t.decimal  "commission_amount",     :precision => 19, :scale => 4, :default => 0.0,          :null => false
+    t.decimal  "commission_amount",                  :precision => 19, :scale => 4, :default => 0.0,          :null => false
+    t.string   "currency",              :limit => 3,                                                          :null => false
+    t.boolean  "downpayment",                                                       :default => true,         :null => false
+    t.integer  "deal_group_id"
   end
 
   add_index "incoming_payments", ["accounted_at"], :name => "index_payments_on_accounted_at"
   add_index "incoming_payments", ["created_at"], :name => "index_payments_on_created_at"
   add_index "incoming_payments", ["creator_id"], :name => "index_payments_on_creator_id"
+  add_index "incoming_payments", ["deal_group_id"], :name => "index_incoming_payments_on_deal_group_id"
   add_index "incoming_payments", ["updated_at"], :name => "index_payments_on_updated_at"
   add_index "incoming_payments", ["updater_id"], :name => "index_payments_on_updater_id"
 
@@ -1384,48 +1387,32 @@ ActiveRecord::Schema.define(:version => 20130118132538) do
   add_index "outgoing_payment_modes", ["updated_at"], :name => "index_purchase_payment_modes_on_updated_at"
   add_index "outgoing_payment_modes", ["updater_id"], :name => "index_purchase_payment_modes_on_updater_id"
 
-  create_table "outgoing_payment_uses", :force => true do |t|
-    t.datetime "accounted_at"
-    t.decimal  "amount",           :precision => 19, :scale => 4, :default => 0.0,   :null => false
-    t.boolean  "downpayment",                                     :default => false, :null => false
-    t.integer  "expense_id",                                                         :null => false
-    t.integer  "payment_id",                                                         :null => false
-    t.integer  "journal_entry_id"
-    t.datetime "created_at",                                                         :null => false
-    t.datetime "updated_at",                                                         :null => false
-    t.integer  "creator_id"
-    t.integer  "updater_id"
-    t.integer  "lock_version",                                    :default => 0,     :null => false
-  end
-
-  add_index "outgoing_payment_uses", ["created_at"], :name => "index_purchase_payment_parts_on_created_at"
-  add_index "outgoing_payment_uses", ["creator_id"], :name => "index_purchase_payment_parts_on_creator_id"
-  add_index "outgoing_payment_uses", ["updated_at"], :name => "index_purchase_payment_parts_on_updated_at"
-  add_index "outgoing_payment_uses", ["updater_id"], :name => "index_purchase_payment_parts_on_updater_id"
-
   create_table "outgoing_payments", :force => true do |t|
     t.datetime "accounted_at"
-    t.decimal  "amount",           :precision => 19, :scale => 4, :default => 0.0,  :null => false
+    t.decimal  "amount",                        :precision => 19, :scale => 4, :default => 0.0,  :null => false
     t.string   "check_number"
-    t.boolean  "delivered",                                       :default => true, :null => false
+    t.boolean  "delivered",                                                    :default => true, :null => false
     t.date     "created_on"
     t.integer  "journal_entry_id"
-    t.integer  "responsible_id",                                                    :null => false
-    t.integer  "payee_id",                                                          :null => false
-    t.integer  "mode_id",                                                           :null => false
+    t.integer  "responsible_id",                                                                 :null => false
+    t.integer  "payee_id",                                                                       :null => false
+    t.integer  "mode_id",                                                                        :null => false
     t.string   "number"
     t.date     "paid_on"
-    t.decimal  "used_amount",      :precision => 19, :scale => 4, :default => 0.0,  :null => false
-    t.date     "to_bank_on",                                                        :null => false
-    t.datetime "created_at",                                                        :null => false
-    t.datetime "updated_at",                                                        :null => false
+    t.date     "to_bank_on",                                                                     :null => false
+    t.datetime "created_at",                                                                     :null => false
+    t.datetime "updated_at",                                                                     :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                    :default => 0,    :null => false
+    t.integer  "lock_version",                                                 :default => 0,    :null => false
+    t.string   "currency",         :limit => 3,                                                  :null => false
+    t.boolean  "downpayment",                                                  :default => true, :null => false
+    t.integer  "deal_group_id"
   end
 
   add_index "outgoing_payments", ["created_at"], :name => "index_purchase_payments_on_created_at"
   add_index "outgoing_payments", ["creator_id"], :name => "index_purchase_payments_on_creator_id"
+  add_index "outgoing_payments", ["deal_group_id"], :name => "index_outgoing_payments_on_deal_group_id"
   add_index "outgoing_payments", ["updated_at"], :name => "index_purchase_payments_on_updated_at"
   add_index "outgoing_payments", ["updater_id"], :name => "index_purchase_payments_on_updater_id"
 
@@ -1962,7 +1949,6 @@ ActiveRecord::Schema.define(:version => 20130118132538) do
     t.integer  "producer_id"
     t.integer  "asset_id"
     t.string   "sex"
-    t.string   "work_number"
     t.boolean  "reproductor",                                                                                      :default => false, :null => false
     t.boolean  "external",                                                                                         :default => false, :null => false
     t.integer  "owner_id"
@@ -2083,7 +2069,6 @@ ActiveRecord::Schema.define(:version => 20130118132538) do
     t.date     "invoiced_on"
     t.date     "created_on"
     t.datetime "accounted_at"
-    t.decimal  "paid_amount",                       :precision => 19, :scale => 4, :default => 0.0, :null => false
     t.integer  "journal_entry_id"
     t.string   "reference_number"
     t.string   "state",               :limit => 64
@@ -2091,12 +2076,14 @@ ActiveRecord::Schema.define(:version => 20130118132538) do
     t.integer  "responsible_id"
     t.string   "currency",            :limit => 3
     t.integer  "nature_id"
+    t.integer  "deal_group_id"
   end
 
   add_index "purchases", ["accounted_at"], :name => "index_purchase_orders_on_accounted_at"
   add_index "purchases", ["created_at"], :name => "index_purchase_orders_on_created_at"
   add_index "purchases", ["creator_id"], :name => "index_purchase_orders_on_creator_id"
   add_index "purchases", ["currency"], :name => "index_purchases_on_currency"
+  add_index "purchases", ["deal_group_id"], :name => "index_purchases_on_deal_group_id"
   add_index "purchases", ["updated_at"], :name => "index_purchase_orders_on_updated_at"
   add_index "purchases", ["updater_id"], :name => "index_purchase_orders_on_updater_id"
 
@@ -2205,7 +2192,6 @@ ActiveRecord::Schema.define(:version => 20130118132538) do
     t.integer  "updater_id"
     t.integer  "lock_version",                                                     :default => 0,     :null => false
     t.date     "confirmed_on"
-    t.decimal  "paid_amount",                       :precision => 19, :scale => 4,                    :null => false
     t.integer  "responsible_id"
     t.boolean  "letter_format",                                                    :default => true,  :null => false
     t.text     "annotation"
@@ -2215,17 +2201,18 @@ ActiveRecord::Schema.define(:version => 20130118132538) do
     t.string   "reference_number"
     t.date     "invoiced_on"
     t.boolean  "credit",                                                           :default => false, :null => false
-    t.boolean  "lost",                                                             :default => false, :null => false
     t.date     "payment_on"
     t.integer  "origin_id"
     t.string   "initial_number",      :limit => 64
     t.string   "currency",            :limit => 3
+    t.integer  "deal_group_id"
   end
 
   add_index "sales", ["accounted_at"], :name => "index_sale_orders_on_accounted_at"
   add_index "sales", ["created_at"], :name => "index_sale_orders_on_created_at"
   add_index "sales", ["creator_id"], :name => "index_sale_orders_on_creator_id"
   add_index "sales", ["currency"], :name => "index_sales_on_currency"
+  add_index "sales", ["deal_group_id"], :name => "index_sales_on_deal_group_id"
   add_index "sales", ["updated_at"], :name => "index_sale_orders_on_updated_at"
   add_index "sales", ["updater_id"], :name => "index_sale_orders_on_updater_id"
 
@@ -2362,26 +2349,28 @@ ActiveRecord::Schema.define(:version => 20130118132538) do
   add_index "taxes", ["updater_id"], :name => "index_taxes_on_updater_id"
 
   create_table "transfers", :force => true do |t|
-    t.decimal  "amount",           :precision => 19, :scale => 4, :default => 0.0, :null => false
-    t.decimal  "paid_amount",      :precision => 19, :scale => 4, :default => 0.0, :null => false
+    t.decimal  "amount",                        :precision => 19, :scale => 4, :default => 0.0, :null => false
     t.integer  "supplier_id"
     t.string   "label"
     t.string   "comment"
     t.date     "started_on"
     t.date     "stopped_on"
-    t.datetime "created_at",                                                       :null => false
-    t.datetime "updated_at",                                                       :null => false
+    t.datetime "created_at",                                                                    :null => false
+    t.datetime "updated_at",                                                                    :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                    :default => 0,   :null => false
+    t.integer  "lock_version",                                                 :default => 0,   :null => false
     t.date     "created_on"
     t.datetime "accounted_at"
     t.integer  "journal_entry_id"
+    t.string   "currency",         :limit => 3,                                                 :null => false
+    t.integer  "deal_group_id"
   end
 
   add_index "transfers", ["accounted_at"], :name => "index_transfers_on_accounted_at"
   add_index "transfers", ["created_at"], :name => "index_transfers_on_created_at"
   add_index "transfers", ["creator_id"], :name => "index_transfers_on_creator_id"
+  add_index "transfers", ["deal_group_id"], :name => "index_transfers_on_deal_group_id"
   add_index "transfers", ["updated_at"], :name => "index_transfers_on_updated_at"
   add_index "transfers", ["updater_id"], :name => "index_transfers_on_updater_id"
 

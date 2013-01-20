@@ -200,8 +200,7 @@ jpn:
       # edit: "Modifier le mode d’encaissement\_: %{name}"
       # index: "Modes d’encaissement"
       # new: "Ajouter un nouveau mode d’encaissement"
-    incoming_payment_uses:
-      # new: "Rattacher un encaissement"
+    incoming_payment_uses: #?
     incoming_payments:
       # edit: "Modifier l’encaissement n°%{number}"
       # index: "Encaissements"
@@ -296,8 +295,7 @@ jpn:
       # edit: "Modifier un mode de décaissement"
       # index: "Modes de décaissement"
       # new: "Ajouter un mode de décaissement"
-    outgoing_payment_uses:
-      # new: "Payer l’achat N°%{number}"
+    outgoing_payment_uses: #?
     outgoing_payments:
       # edit: "Modifier le décaissement\_: %{number}"
       # index: "Décaissements"
@@ -546,7 +544,6 @@ jpn:
     # incoming_delivery_lines: "Lignes de livraison entrante"
     # incoming_delivery_modes: "Modes de réception d’arrivage"
     # incoming_payment_modes: "Modes d’encaissement"
-    # incoming_payment_uses: "Utilisation d’encaissement"
     # incoming_payments: "Encaissements"
     # interfacers: "Interfaceurs"
     # inventories: "Inventaires"
@@ -572,7 +569,6 @@ jpn:
     # outgoing_delivery_lines: "Lignes de livraisons sortantes"
     # outgoing_delivery_modes: "Modes de livraisons sortantes"
     # outgoing_payment_modes: "Modes de décaissement"
-    # outgoing_payment_uses: "Utilisations des décaissements"
     # outgoing_payments: "Décaissements"
     # preferences: "Préférences"
     # prices: "Prix"

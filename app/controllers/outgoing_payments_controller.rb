@@ -18,7 +18,7 @@
 #
 
 class OutgoingPaymentsController < AdminController
-  manage_restfully :to_bank_on => "Date.today", :paid_on => "Date.today", :responsible_id => "@current_user.id", :payee_id => "params[:payee_id]", :amount => "params[:amount].to_f"
+  manage_restfully :to_bank_on => "Date.today", :paid_on => "Date.today", :responsible_id => "current_user.id", :payee_id => "params[:payee_id]", :amount => "params[:amount].to_f"
 
   unroll_all
 
@@ -57,13 +57,13 @@ class OutgoingPaymentsController < AdminController
     session[:outgoing_payment_key]   = params[:q]||""
   end
 
-  list(:purchases, :conditions => ["#{Purchase.table_name}.id IN (SELECT expense_id FROM #{OutgoingPaymentUse.table_name} WHERE payment_id=?)", ['session[:current_outgoing_payment_id]']]) do |t|
-    t.column :number, :url => true
-    t.column :description, :through => :supplier, :url => true
-    t.column :created_on
-    t.column :pretax_amount, :currency => true
-    t.column :amount, :currency => true
-  end
+  # list(:purchases, :conditions => ["#{Purchase.table_name}.id IN (SELECT expense_id FROM #{OutgoingPaymentUse.table_name} WHERE payment_id=?)", ['session[:current_outgoing_payment_id]']]) do |t|
+  #   t.column :number, :url => true
+  #   t.column :description, :through => :supplier, :url => true
+  #   t.column :created_on
+  #   t.column :pretax_amount, :currency => true
+  #   t.column :amount, :currency => true
+  # end
 
   # Displays details of one outgoing payment selected with +params[:id]+
   def show

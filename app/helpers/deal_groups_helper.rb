@@ -1,0 +1,2 @@
+module DealGroupsHelper
+end

@@ -25,10 +25,13 @@ gem 'enumerize'
 # gem 'paper_trail'
 gem 'thin'
 gem 'nokogiri'
+gem 'turbolinks'
+
 
 # Reporting
 # gem 'thinreports-rails'
 # jasper_rails need rjb which need $ sudo apt-get install openjdk-7-jdk and set JAVA_HOME and add a line in environement.rb
+gem 'rjb', '1.4.3'
 gem 'jasper-rails', :git => 'git://github.com/fortesinformatica/jasper-rails.git'
 
 
@@ -65,4 +68,5 @@ end
 group :development do
   gem 'rack-mini-profiler'
   gem 'rails-erd'
+  gem 'quiet_assets'
 end

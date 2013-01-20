@@ -18,29 +18,31 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 # 
-# == Table: incoming_payment_uses
+# == Table: deal_groups
 #
 #  accounted_at     :datetime         
-#  amount           :decimal(19, 4)   
+#  closed           :boolean          not null
+#  closed_at        :datetime         
 #  created_at       :datetime         not null
 #  creator_id       :integer          
-#  downpayment      :boolean          not null
-#  expense_id       :integer          default(0), not null
-#  expense_type     :string(255)      default("UnknownModel"), not null
+#  credit           :decimal(19, 4)   default(0.0), not null
+#  currency         :string(3)        not null
+#  debit            :decimal(19, 4)   default(0.0), not null
 #  id               :integer          not null, primary key
 #  journal_entry_id :integer          
 #  lock_version     :integer          default(0), not null
-#  payment_id       :integer          not null
+#  origin_id        :integer          not null
+#  origin_type      :string(255)      not null
 #  updated_at       :datetime         not null
 #  updater_id       :integer          
 #
-
-
-require 'test_helper'
-
-class IncomingPaymentUseTest < ActiveSupport::TestCase
-  # Replace this with your real tests.
-  test "the truth" do
-    assert true
-  end
+class DealGroup < ActiveRecord::Base
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_numericality_of :credit, :debit, :allow_nil => true
+  validates_length_of :currency, :allow_nil => true, :maximum => 3
+  validates_length_of :origin_type, :allow_nil => true, :maximum => 255
+  validates_inclusion_of :closed, :in => [true, false]
+  validates_presence_of :credit, :currency, :debit, :origin_type
+  #]VALIDATORS]
+  # attr_accessible :title, :body
 end

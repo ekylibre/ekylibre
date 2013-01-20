@@ -26,11 +26,12 @@
 #  created_at       :datetime         not null
 #  created_on       :date             
 #  creator_id       :integer          
+#  currency         :string(3)        not null
+#  deal_group_id    :integer          
 #  id               :integer          not null, primary key
 #  journal_entry_id :integer          
 #  label            :string(255)      
 #  lock_version     :integer          default(0), not null
-#  paid_amount      :decimal(19, 4)   default(0.0), not null
 #  started_on       :date             
 #  stopped_on       :date             
 #  supplier_id      :integer          

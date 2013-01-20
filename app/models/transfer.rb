@@ -26,11 +26,12 @@
 #  created_at       :datetime         not null
 #  created_on       :date             
 #  creator_id       :integer          
+#  currency         :string(3)        not null
+#  deal_group_id    :integer          
 #  id               :integer          not null, primary key
 #  journal_entry_id :integer          
 #  label            :string(255)      
 #  lock_version     :integer          default(0), not null
-#  paid_amount      :decimal(19, 4)   default(0.0), not null
 #  started_on       :date             
 #  stopped_on       :date             
 #  supplier_id      :integer          
@@ -48,9 +49,10 @@ class Transfer < CompanyRecord
   has_many :uses, :as=>:expense, :class_name=>"IncomingPaymentUse"
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :amount, :paid_amount, :allow_nil => true
+  validates_numericality_of :amount, :allow_nil => true
+  validates_length_of :currency, :allow_nil => true, :maximum => 3
   validates_length_of :comment, :label, :allow_nil => true, :maximum => 255
-  validates_presence_of :amount, :paid_amount
+  validates_presence_of :amount, :currency
   #]VALIDATORS]
   validates_presence_of :created_on, :supplier
 

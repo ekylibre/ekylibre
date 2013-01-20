@@ -479,8 +479,8 @@ class ReorganizeUsersEntitiesAndContacts < ActiveRecord::Migration
       :creator_id => :user,
       :product_id => :product,
       :production_chain_id => :production_chain,
-      :source_id => :land_parcel,
-      :target_id => :land_parcel,
+      :source_id => :production_chain_work_center,
+      :target_id => :production_chain_work_center,
       :unit_id => :unit,
       :updater_id => :user
     },
@@ -722,7 +722,8 @@ class ReorganizeUsersEntitiesAndContacts < ActiveRecord::Migration
       t.remove :longitude
       t.remove :address
     end
-    execute("UPDATE entity_addresses SET canal = 'mail', mail_line_1 = e.full_name, mail_auto_update = true, coordinate = TRIM(e.full_name)" + (2..6).collect{|i| " || COALESCE(E'\n' || mail_line_#{i}, '')"}.join + " FROM entities AS e WHERE e.id = entity_id")
+    execute("DELETE FROM #{quoted_table_name(:entity_addresses)} WHERE entity_id NOT IN (SELECT id FROM #{quoted_table_name(:entities)})")
+    execute("UPDATE #{quoted_table_name(:entity_addresses)} SET canal = 'mail', mail_auto_update = TRUE, mail_line_1 = e.full_name, coordinate = TRIM(e.full_name)" + (2..6).collect{|i| " || COALESCE(',' || mail_line_#{i}, '')"}.join + " FROM entities AS e WHERE e.id = entity_id AND e.full_name IS NOT NULL")
     change_column_null :entity_addresses, :canal, false
     change_column_null :entity_addresses, :coordinate, false
     for canal in [:fax, :phone, :email, :mobile, :website]

@@ -18,28 +18,28 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 # 
-# == Table: outgoing_payment_uses
+# == Table: deal_groups
 #
 #  accounted_at     :datetime         
-#  amount           :decimal(19, 4)   default(0.0), not null
+#  closed           :boolean          not null
+#  closed_at        :datetime         
 #  created_at       :datetime         not null
 #  creator_id       :integer          
-#  downpayment      :boolean          not null
-#  expense_id       :integer          not null
+#  credit           :decimal(19, 4)   default(0.0), not null
+#  currency         :string(3)        not null
+#  debit            :decimal(19, 4)   default(0.0), not null
 #  id               :integer          not null, primary key
 #  journal_entry_id :integer          
 #  lock_version     :integer          default(0), not null
-#  payment_id       :integer          not null
+#  origin_id        :integer          not null
+#  origin_type      :string(255)      not null
 #  updated_at       :datetime         not null
 #  updater_id       :integer          
 #
-
-
 require 'test_helper'
 
-class OutgoingPaymentUseTest < ActiveSupport::TestCase
-  # Replace this with your real tests.
-  test "the truth" do
-    assert true
-  end
+class DealGroupTest < ActiveSupport::TestCase
+  # test "the truth" do
+  #   assert true
+  # end
 end

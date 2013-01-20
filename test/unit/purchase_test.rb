@@ -28,6 +28,7 @@
 #  created_on          :date             
 #  creator_id          :integer          
 #  currency            :string(3)        
+#  deal_group_id       :integer          
 #  delivery_address_id :integer          
 #  id                  :integer          not null, primary key
 #  invoiced_on         :date             
@@ -35,7 +36,6 @@
 #  lock_version        :integer          default(0), not null
 #  nature_id           :integer          
 #  number              :string(64)       not null
-#  paid_amount         :decimal(19, 4)   default(0.0), not null
 #  planned_on          :date             
 #  pretax_amount       :decimal(19, 4)   default(0.0), not null
 #  reference_number    :string(255)      

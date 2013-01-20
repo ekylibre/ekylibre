@@ -26,7 +26,10 @@
 #  created_at       :datetime         not null
 #  created_on       :date             
 #  creator_id       :integer          
+#  currency         :string(3)        not null
+#  deal_group_id    :integer          
 #  delivered        :boolean          default(TRUE), not null
+#  downpayment      :boolean          default(TRUE), not null
 #  id               :integer          not null, primary key
 #  journal_entry_id :integer          
 #  lock_version     :integer          default(0), not null
@@ -38,7 +41,6 @@
 #  to_bank_on       :date             not null
 #  updated_at       :datetime         not null
 #  updater_id       :integer          
-#  used_amount      :decimal(19, 4)   default(0.0), not null
 #
 
 
@@ -53,10 +55,11 @@ class OutgoingPayment < CompanyRecord
   has_many :purchases, :through => :uses
   has_many :expenses, :through => :uses
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :amount, :used_amount, :allow_nil => true
+  validates_numericality_of :amount, :allow_nil => true
+  validates_length_of :currency, :allow_nil => true, :maximum => 3
   validates_length_of :check_number, :number, :allow_nil => true, :maximum => 255
-  validates_inclusion_of :delivered, :in => [true, false]
-  validates_presence_of :amount, :mode, :payee, :responsible, :to_bank_on, :used_amount
+  validates_inclusion_of :delivered, :downpayment, :in => [true, false]
+  validates_presence_of :amount, :currency, :mode, :payee, :responsible, :to_bank_on
   #]VALIDATORS]
   validates_numericality_of :amount, :greater_than => 0
   validates_numericality_of :used_amount, :greater_than_or_equal_to => 0
