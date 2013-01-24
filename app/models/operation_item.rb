@@ -42,7 +42,7 @@
 
 class OperationItem < CompanyRecord
   attr_accessible :direction, :product_id, :quantity, :unit_id, :warehouse_id
-  enumerize :direction, :in => [:in, :out, :tool], :default => :in, :predicates => true
+  enumerize :direction, :in => [:input, :output, :tool, :target], :default => :in, :predicates => true
   belongs_to :area_unit, :class_name => "Unit"
   belongs_to :operation, :inverse_of => :lines
   belongs_to :product
