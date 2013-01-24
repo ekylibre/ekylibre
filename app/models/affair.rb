@@ -18,7 +18,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 # 
-# == Table: deal_groups
+# == Table: affairs
 #
 #  accounted_at     :datetime         
 #  closed           :boolean          not null
@@ -36,10 +36,13 @@
 #  updated_at       :datetime         not null
 #  updater_id       :integer          
 #
-require 'test_helper'
-
-class DealGroupTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+class Affair < ActiveRecord::Base
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_numericality_of :credit, :debit, :allow_nil => true
+  validates_length_of :currency, :allow_nil => true, :maximum => 3
+  validates_length_of :origin_type, :allow_nil => true, :maximum => 255
+  validates_inclusion_of :closed, :in => [true, false]
+  validates_presence_of :credit, :currency, :debit, :origin_type
+  #]VALIDATORS]
+  # attr_accessible :title, :body
 end

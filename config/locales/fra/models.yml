@@ -295,6 +295,7 @@ fra:
     models:
       account: "Compte"
       account_balance: "Balance de compte"
+      # affair: "Affair"
       # animal: "Animal"
       area: "Zone postale"
       asset: "Immobilisation"
@@ -308,7 +309,6 @@ fra:
       custom_field: "Champ complémentaire"
       custom_field_choice: "Choix de champ complémentaire"
       custom_field_datum: "Donnée complémentaire de fiche"
-      # deal_group: "Deal group"
       delay: "Délai"
       department: "Service"
       deposit: "Remise en banque"

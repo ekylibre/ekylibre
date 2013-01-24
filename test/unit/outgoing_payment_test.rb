@@ -21,13 +21,13 @@
 # == Table: outgoing_payments
 #
 #  accounted_at     :datetime         
+#  affair_id        :integer          
 #  amount           :decimal(19, 4)   default(0.0), not null
 #  check_number     :string(255)      
 #  created_at       :datetime         not null
 #  created_on       :date             
 #  creator_id       :integer          
 #  currency         :string(3)        not null
-#  deal_group_id    :integer          
 #  delivered        :boolean          default(TRUE), not null
 #  downpayment      :boolean          default(TRUE), not null
 #  id               :integer          not null, primary key

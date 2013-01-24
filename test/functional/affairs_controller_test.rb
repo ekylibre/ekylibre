@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class DealGroupsControllerTest < ActionController::TestCase
+class AffairsControllerTest < ActionController::TestCase
   # test "the truth" do
   #   assert true
   # end

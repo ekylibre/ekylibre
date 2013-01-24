@@ -22,6 +22,7 @@
 #
 #  accounted_at        :datetime         
 #  address_id          :integer          
+#  affair_id           :integer          
 #  amount              :decimal(19, 4)   default(0.0), not null
 #  annotation          :text             
 #  client_id           :integer          not null
@@ -33,7 +34,6 @@
 #  creator_id          :integer          
 #  credit              :boolean          not null
 #  currency            :string(3)        
-#  deal_group_id       :integer          
 #  delivery_address_id :integer          
 #  downpayment_amount  :decimal(19, 4)   default(0.0), not null
 #  expiration_id       :integer          

@@ -91,7 +91,7 @@ Ekylibre::Application.routes.draw do
       unroll_all
     end
   end
-  resources :deal_groups
+  resources :affairs
   resources :areas do
     collection do
       get :list

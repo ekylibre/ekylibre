@@ -57,6 +57,28 @@ ActiveRecord::Schema.define(:version => 20130120140522) do
   add_index "accounts", ["updated_at"], :name => "index_accounts_on_updated_at"
   add_index "accounts", ["updater_id"], :name => "index_accounts_on_updater_id"
 
+  create_table "affairs", :force => true do |t|
+    t.integer  "origin_id",                                                                       :null => false
+    t.string   "origin_type",                                                                     :null => false
+    t.boolean  "closed",                                                       :default => false, :null => false
+    t.datetime "closed_at"
+    t.string   "currency",         :limit => 3,                                                   :null => false
+    t.decimal  "debit",                         :precision => 19, :scale => 4, :default => 0.0,   :null => false
+    t.decimal  "credit",                        :precision => 19, :scale => 4, :default => 0.0,   :null => false
+    t.datetime "accounted_at"
+    t.integer  "journal_entry_id"
+    t.datetime "created_at",                                                                      :null => false
+    t.datetime "updated_at",                                                                      :null => false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version",                                                 :default => 0,     :null => false
+  end
+
+  add_index "affairs", ["created_at"], :name => "index_affairs_on_created_at"
+  add_index "affairs", ["creator_id"], :name => "index_affairs_on_creator_id"
+  add_index "affairs", ["updated_at"], :name => "index_affairs_on_updated_at"
+  add_index "affairs", ["updater_id"], :name => "index_affairs_on_updater_id"
+
   create_table "areas", :force => true do |t|
     t.string   "postcode",                                    :null => false
     t.string   "name",                                        :null => false
@@ -324,28 +346,6 @@ ActiveRecord::Schema.define(:version => 20130120140522) do
   add_index "custom_fields", ["required"], :name => "index_complements_on_required"
   add_index "custom_fields", ["updated_at"], :name => "index_complements_on_updated_at"
   add_index "custom_fields", ["updater_id"], :name => "index_complements_on_updater_id"
-
-  create_table "deal_groups", :force => true do |t|
-    t.integer  "origin_id",                                                                       :null => false
-    t.string   "origin_type",                                                                     :null => false
-    t.boolean  "closed",                                                       :default => false, :null => false
-    t.datetime "closed_at"
-    t.string   "currency",         :limit => 3,                                                   :null => false
-    t.decimal  "debit",                         :precision => 19, :scale => 4, :default => 0.0,   :null => false
-    t.decimal  "credit",                        :precision => 19, :scale => 4, :default => 0.0,   :null => false
-    t.datetime "accounted_at"
-    t.integer  "journal_entry_id"
-    t.datetime "created_at",                                                                      :null => false
-    t.datetime "updated_at",                                                                      :null => false
-    t.integer  "creator_id"
-    t.integer  "updater_id"
-    t.integer  "lock_version",                                                 :default => 0,     :null => false
-  end
-
-  add_index "deal_groups", ["created_at"], :name => "index_deal_groups_on_created_at"
-  add_index "deal_groups", ["creator_id"], :name => "index_deal_groups_on_creator_id"
-  add_index "deal_groups", ["updated_at"], :name => "index_deal_groups_on_updated_at"
-  add_index "deal_groups", ["updater_id"], :name => "index_deal_groups_on_updater_id"
 
   create_table "delays", :force => true do |t|
     t.string   "name",                           :null => false
@@ -925,13 +925,13 @@ ActiveRecord::Schema.define(:version => 20130120140522) do
     t.decimal  "commission_amount",                  :precision => 19, :scale => 4, :default => 0.0,          :null => false
     t.string   "currency",              :limit => 3,                                                          :null => false
     t.boolean  "downpayment",                                                       :default => true,         :null => false
-    t.integer  "deal_group_id"
+    t.integer  "affair_id"
   end
 
   add_index "incoming_payments", ["accounted_at"], :name => "index_payments_on_accounted_at"
+  add_index "incoming_payments", ["affair_id"], :name => "index_incoming_payments_on_affair_id"
   add_index "incoming_payments", ["created_at"], :name => "index_payments_on_created_at"
   add_index "incoming_payments", ["creator_id"], :name => "index_payments_on_creator_id"
-  add_index "incoming_payments", ["deal_group_id"], :name => "index_incoming_payments_on_deal_group_id"
   add_index "incoming_payments", ["updated_at"], :name => "index_payments_on_updated_at"
   add_index "incoming_payments", ["updater_id"], :name => "index_payments_on_updater_id"
 
@@ -1345,12 +1345,12 @@ ActiveRecord::Schema.define(:version => 20130120140522) do
     t.integer  "lock_version",                                                 :default => 0,    :null => false
     t.string   "currency",         :limit => 3,                                                  :null => false
     t.boolean  "downpayment",                                                  :default => true, :null => false
-    t.integer  "deal_group_id"
+    t.integer  "affair_id"
   end
 
+  add_index "outgoing_payments", ["affair_id"], :name => "index_outgoing_payments_on_affair_id"
   add_index "outgoing_payments", ["created_at"], :name => "index_purchase_payments_on_created_at"
   add_index "outgoing_payments", ["creator_id"], :name => "index_purchase_payments_on_creator_id"
-  add_index "outgoing_payments", ["deal_group_id"], :name => "index_outgoing_payments_on_deal_group_id"
   add_index "outgoing_payments", ["updated_at"], :name => "index_purchase_payments_on_updated_at"
   add_index "outgoing_payments", ["updater_id"], :name => "index_purchase_payments_on_updater_id"
 
@@ -1981,14 +1981,14 @@ ActiveRecord::Schema.define(:version => 20130120140522) do
     t.integer  "responsible_id"
     t.string   "currency",            :limit => 3
     t.integer  "nature_id"
-    t.integer  "deal_group_id"
+    t.integer  "affair_id"
   end
 
   add_index "purchases", ["accounted_at"], :name => "index_purchase_orders_on_accounted_at"
+  add_index "purchases", ["affair_id"], :name => "index_purchases_on_affair_id"
   add_index "purchases", ["created_at"], :name => "index_purchase_orders_on_created_at"
   add_index "purchases", ["creator_id"], :name => "index_purchase_orders_on_creator_id"
   add_index "purchases", ["currency"], :name => "index_purchases_on_currency"
-  add_index "purchases", ["deal_group_id"], :name => "index_purchases_on_deal_group_id"
   add_index "purchases", ["updated_at"], :name => "index_purchase_orders_on_updated_at"
   add_index "purchases", ["updater_id"], :name => "index_purchase_orders_on_updater_id"
 
@@ -2109,14 +2109,14 @@ ActiveRecord::Schema.define(:version => 20130120140522) do
     t.integer  "origin_id"
     t.string   "initial_number",      :limit => 64
     t.string   "currency",            :limit => 3
-    t.integer  "deal_group_id"
+    t.integer  "affair_id"
   end
 
   add_index "sales", ["accounted_at"], :name => "index_sale_orders_on_accounted_at"
+  add_index "sales", ["affair_id"], :name => "index_sales_on_affair_id"
   add_index "sales", ["created_at"], :name => "index_sale_orders_on_created_at"
   add_index "sales", ["creator_id"], :name => "index_sale_orders_on_creator_id"
   add_index "sales", ["currency"], :name => "index_sales_on_currency"
-  add_index "sales", ["deal_group_id"], :name => "index_sales_on_deal_group_id"
   add_index "sales", ["updated_at"], :name => "index_sale_orders_on_updated_at"
   add_index "sales", ["updater_id"], :name => "index_sale_orders_on_updater_id"
 
@@ -2287,13 +2287,13 @@ ActiveRecord::Schema.define(:version => 20130120140522) do
     t.datetime "accounted_at"
     t.integer  "journal_entry_id"
     t.string   "currency",         :limit => 3,                                                 :null => false
-    t.integer  "deal_group_id"
+    t.integer  "affair_id"
   end
 
   add_index "transfers", ["accounted_at"], :name => "index_transfers_on_accounted_at"
+  add_index "transfers", ["affair_id"], :name => "index_transfers_on_affair_id"
   add_index "transfers", ["created_at"], :name => "index_transfers_on_created_at"
   add_index "transfers", ["creator_id"], :name => "index_transfers_on_creator_id"
-  add_index "transfers", ["deal_group_id"], :name => "index_transfers_on_deal_group_id"
   add_index "transfers", ["updated_at"], :name => "index_transfers_on_updated_at"
   add_index "transfers", ["updater_id"], :name => "index_transfers_on_updater_id"
 

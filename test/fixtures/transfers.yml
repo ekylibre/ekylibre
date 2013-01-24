@@ -21,13 +21,13 @@
 # == Table: transfers
 #
 #  accounted_at     :datetime         
+#  affair_id        :integer          
 #  amount           :decimal(19, 4)   default(0.0), not null
 #  comment          :string(255)      
 #  created_at       :datetime         not null
 #  created_on       :date             
 #  creator_id       :integer          
 #  currency         :string(3)        not null
-#  deal_group_id    :integer          
 #  id               :integer          not null, primary key
 #  journal_entry_id :integer          
 #  label            :string(255)      

@@ -22,6 +22,7 @@
 #
 #  account_number        :string(255)      
 #  accounted_at          :datetime         
+#  affair_id             :integer          
 #  amount                :decimal(19, 4)   not null
 #  bank                  :string(255)      
 #  check_number          :string(255)      
@@ -31,7 +32,6 @@
 #  created_on            :date             
 #  creator_id            :integer          
 #  currency              :string(3)        not null
-#  deal_group_id         :integer          
 #  deposit_id            :integer          
 #  downpayment           :boolean          default(TRUE), not null
 #  id                    :integer          not null, primary key

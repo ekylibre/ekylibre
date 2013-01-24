@@ -110,7 +110,7 @@ class ReplaceLinesWithItems < ActiveRecord::Migration
       :customized_id => "customized_type",
       :updater_id => :entity
     },
-    :deal_group => {
+    :affair => {
       :creator_id => :entity,
       :journal_entry_id => :journal_entry,
       :origin_id => "origin_type",
@@ -257,7 +257,7 @@ class ReplaceLinesWithItems < ActiveRecord::Migration
     :incoming_payment => {
       :commission_account_id => :account,
       :creator_id => :entity,
-      :deal_group_id => :deal_group,
+      :affair_id => :affair,
       :deposit_id => :deposit,
       :journal_entry_id => :journal_entry,
       :mode_id => :incoming_payment_mode,
@@ -426,7 +426,7 @@ class ReplaceLinesWithItems < ActiveRecord::Migration
     },
     :outgoing_payment => {
       :creator_id => :entity,
-      :deal_group_id => :deal_group,
+      :affair_id => :affair,
       :journal_entry_id => :journal_entry,
       :mode_id => :outgoing_payment_mode,
       :payee_id => :entity,
@@ -607,7 +607,7 @@ class ReplaceLinesWithItems < ActiveRecord::Migration
     },
     :purchase => {
       :creator_id => :entity,
-      :deal_group_id => :deal_group,
+      :affair_id => :affair,
       :delivery_address_id => :entity_address,
       :journal_entry_id => :journal_entry,
       :nature_id => :purchase_nature,
@@ -639,7 +639,7 @@ class ReplaceLinesWithItems < ActiveRecord::Migration
       :address_id => :entity_address,
       :client_id => :entity,
       :creator_id => :entity,
-      :deal_group_id => :deal_group,
+      :affair_id => :affair,
       :delivery_address_id => :entity_address,
       :expiration_id => :delay,
       :invoice_address_id => :entity_address,
@@ -741,7 +741,7 @@ class ReplaceLinesWithItems < ActiveRecord::Migration
     },
     :transfer => {
       :creator_id => :entity,
-      :deal_group_id => :deal_group,
+      :affair_id => :affair,
       :journal_entry_id => :journal_entry,
       :supplier_id => :entity,
       :updater_id => :entity

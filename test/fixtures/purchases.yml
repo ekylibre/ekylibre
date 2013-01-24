@@ -21,6 +21,7 @@
 # == Table: purchases
 #
 #  accounted_at        :datetime         
+#  affair_id           :integer          
 #  amount              :decimal(19, 4)   default(0.0), not null
 #  comment             :text             
 #  confirmed_on        :date             
@@ -28,7 +29,6 @@
 #  created_on          :date             
 #  creator_id          :integer          
 #  currency            :string(3)        
-#  deal_group_id       :integer          
 #  delivery_address_id :integer          
 #  id                  :integer          not null, primary key
 #  invoiced_on         :date             
