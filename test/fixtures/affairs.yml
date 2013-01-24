@@ -58,7 +58,7 @@ affairs_001:
   created_at: 2009-07-19 19:13:59 +02:00
   creator_id: 1
   credit: 0
-  currency: "Lorem ipsum"
+  currency: "EUR"
   debit: 0
   id: 1
   origin_id: 1
@@ -71,7 +71,7 @@ affairs_001:
   created_at: 2009-07-19 19:13:59 +02:00
   creator_id: 1
   credit: 0
-  currency: "Lorem ipsum"
+  currency: "EUR"
   debit: 0
   id: 1
   origin_id: 1

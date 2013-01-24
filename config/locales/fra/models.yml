@@ -309,7 +309,7 @@ fra:
       custom_field: "Champ complémentaire"
       custom_field_choice: "Choix de champ complémentaire"
       custom_field_datum: "Donnée complémentaire de fiche"
-      delay: "Délai"
+      delay: "Délai" #?
       department: "Service"
       deposit: "Remise en banque"
       deposit_item: "Ligne de remise en banque"
@@ -687,11 +687,12 @@ fra:
     expense: "Dépense" #?
     expense_type: "Type de dépense" #?
     expenses: "Dépenses"
-    expiration: "Délai d’expiration du devis"
+    expiration: "Délai d’expiration du devis" #?
+    expiration_delay: "Expiration delay"
     expired_on: "Date d’expiration"
     exportable: "Exportable"
     exportable_columns: "Colonnes exportables"
-    expression: "Expression"
+    expression: "Expression" #?
     extension: "Extension"
     external: "Externe à l'exploitation"
     family: "Module"
@@ -1039,7 +1040,7 @@ fra:
     # sale_items: "Sale items"
     sale_line: "Ligne de vente" #?
     sale_lines: "Lignes de vente"
-    sale_natures: "Types de vente"
+    sale_natures: "Types de vente" #?
     # saleable: "Saleable"
     sales: "Ventes"
     sales_account: "Compte comptable de produits" #?
@@ -1456,7 +1457,7 @@ fra:
         dont_use: "-- Ne pas utiliser --"
         generate_string_custom_field: "-- Créer un champ personnalisé (texte) --"
       sales: "Ventes"
-    delay:
+    delay: #?
       error_unvalid_format_for_expression: "L’expression n’est pas au bon format"
     deposit:
       bookkeep:

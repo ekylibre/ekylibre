@@ -62,7 +62,7 @@
 #  of_company                             :boolean          not null
 #  office                                 :string(255)      
 #  origin                                 :string(255)      
-#  payment_delay_id                       :integer          
+#  payment_delay                          :string(255)      
 #  payment_mode_id                        :integer          
 #  photo                                  :string(255)      
 #  profession_id                          :integer          
@@ -92,7 +92,7 @@ require "digest/sha2"
 
 class Entity < CompanyRecord
   acts_as_numbered :code
-  attr_accessible :active, :activity_code, :attorney, :attorney_account_id, :authorized_payments_count, :born_on, :category_id, :client, :client_account_id, :code, :comment, :country, :currency, :dead_on, :deliveries_conditions, :department_id, :ean13, :employed, :employment, :establishment_id, :first_met_on, :first_name, :full_name, :language, :last_name, :left_on, :loggable, :maximal_grantable_reduction_percentage, :nature_id, :office, :origin, :payment_delay_id, :payment_mode_id, :photo, :profession_id, :proposer_id, :prospect, :recruited_on, :reduction_percentage, :reflation_submissive, :responsible_id, :role_id, :siren, :supplier, :supplier_account_id, :transporter, :user_name, :vat_number, :vat_submissive
+  attr_accessible :active, :activity_code, :attorney, :attorney_account_id, :authorized_payments_count, :born_on, :category_id, :client, :client_account_id, :code, :comment, :country, :currency, :dead_on, :deliveries_conditions, :department_id, :ean13, :employed, :employment, :establishment_id, :first_met_on, :first_name, :full_name, :language, :last_name, :left_on, :loggable, :maximal_grantable_reduction_percentage, :nature_id, :office, :origin, :payment_delay, :payment_mode_id, :photo, :profession_id, :proposer_id, :prospect, :recruited_on, :reduction_percentage, :reflation_submissive, :responsible_id, :role_id, :siren, :supplier, :supplier_account_id, :transporter, :user_name, :vat_number, :vat_submissive
   attr_accessor :password_confirmation, :old_password
   attr_protected :hashed_password, :salt, :locked, :rights
   belongs_to :attorney_account, :class_name => "Account"
@@ -101,7 +101,6 @@ class Entity < CompanyRecord
   belongs_to :department
   belongs_to :establishment
   belongs_to :nature, :class_name => "EntityNature"
-  belongs_to :payment_delay, :class_name => "Delay"
   belongs_to :payment_mode, :class_name => "IncomingPaymentMode"
   belongs_to :profession
   belongs_to :proposer, :class_name => "Entity"
@@ -173,7 +172,7 @@ class Entity < CompanyRecord
   validates_length_of :activity_code, :user_name, :allow_nil => true, :maximum => 32
   validates_length_of :deliveries_conditions, :allow_nil => true, :maximum => 60
   validates_length_of :code, :hashed_password, :salt, :allow_nil => true, :maximum => 64
-  validates_length_of :currency, :employment, :first_name, :full_name, :last_name, :office, :origin, :photo, :webpass, :allow_nil => true, :maximum => 255
+  validates_length_of :currency, :employment, :first_name, :full_name, :last_name, :office, :origin, :payment_delay, :photo, :webpass, :allow_nil => true, :maximum => 255
   validates_inclusion_of :active, :admin, :attorney, :client, :employed, :locked, :loggable, :of_company, :prospect, :reflation_submissive, :supplier, :transporter, :vat_submissive, :in => [true, false]
   validates_presence_of :currency, :full_name, :language, :last_name, :nature
   #]VALIDATORS]
@@ -185,6 +184,7 @@ class Entity < CompanyRecord
   validates_uniqueness_of :user_name
   validates_format_of     :user_name, :with => /^[a-z0-9][a-z0-9\.\_]+[a-z0-9]$/, :if => lambda{|e| !e.user_name.blank?}
   validates_length_of     :user_name, :in => 3..32, :if => lambda{|e| !e.user_name.blank?}
+  validates_delay_format_of :payment_delay
   # validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i, :if => lambda{|r| !r.email.blank?}
 
   # default_scope order(:last_name, :first_name)

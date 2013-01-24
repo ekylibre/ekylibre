@@ -36,7 +36,7 @@
 #  currency            :string(3)        
 #  delivery_address_id :integer          
 #  downpayment_amount  :decimal(19, 4)   default(0.0), not null
-#  expiration_id       :integer          
+#  expiration_delay    :string(255)      
 #  expired_on          :date             
 #  function_title      :string(255)      
 #  has_downpayment     :boolean          not null
@@ -51,7 +51,7 @@
 #  nature_id           :integer          
 #  number              :string(64)       not null
 #  origin_id           :integer          
-#  payment_delay_id    :integer          not null
+#  payment_delay       :string(255)      not null
 #  payment_on          :date             
 #  pretax_amount       :decimal(19, 4)   default(0.0), not null
 #  reference_number    :string(255)      
@@ -75,12 +75,10 @@ class Sale < CompanyRecord
   belongs_to :payer, :class_name => "Entity", :foreign_key => :client_id
   belongs_to :address, :class_name  =>  "EntityAddress"
   belongs_to :delivery_address, :class_name  =>  "EntityAddress"
-  belongs_to :expiration, :class_name => "Delay"
   belongs_to :invoice_address, :class_name  =>  "EntityAddress"
   belongs_to :journal_entry
   belongs_to :nature, :class_name => "SaleNature"
   belongs_to :origin, :class_name => "Sale"
-  belongs_to :payment_delay, :class_name => "Delay"
   belongs_to :responsible, :class_name => "Entity"
   belongs_to :transporter, :class_name => "Entity"
   has_many :credits, :class_name => "Sale", :foreign_key => :origin_id
@@ -95,12 +93,13 @@ class Sale < CompanyRecord
   validates_length_of :currency, :allow_nil => true, :maximum => 3
   validates_length_of :sum_method, :allow_nil => true, :maximum => 8
   validates_length_of :initial_number, :number, :state, :allow_nil => true, :maximum => 64
-  validates_length_of :function_title, :reference_number, :subject, :allow_nil => true, :maximum => 255
+  validates_length_of :expiration_delay, :function_title, :payment_delay, :reference_number, :subject, :allow_nil => true, :maximum => 255
   validates_inclusion_of :credit, :has_downpayment, :letter_format, :in => [true, false]
   validates_presence_of :amount, :client, :created_on, :downpayment_amount, :number, :payer, :payment_delay, :pretax_amount, :state, :sum_method
   #]VALIDATORS]
   validates_presence_of :client, :currency, :nature
   validates_presence_of :invoiced_on, :if  =>  :invoice?
+  validates_delay_format_of :payment_delay, :expiration_delay
 
   state_machine :state, :initial  =>  :draft do
     state :draft
@@ -153,7 +152,7 @@ class Sale < CompanyRecord
     if self.nature
       self.expiration_id ||= self.nature.expiration_id
       self.expired_on ||= self.expiration.compute(self.created_on)
-      self.payment_delay_id ||= self.nature.payment_delay_id
+      self.payment_delay ||= self.nature.payment_delay
       self.has_downpayment = self.nature.downpayment if self.has_downpayment.nil?
       self.downpayment_amount ||= (self.amount * self.nature.downpayment_percentage * 0.01) if self.amount >= self.nature.downpayment_minimum
     end
@@ -265,7 +264,7 @@ class Sale < CompanyRecord
     ActiveRecord::Base.transaction do
       # Set values for invoice
       self.invoiced_on = Date.today
-      self.payment_on ||= self.payment_delay.compute if self.payment_delay
+      self.payment_on ||= Delay.new(self.payment_delay).compute(self.invoiced_on)
       self.initial_number = self.number
       if sequence = Sequence.of(:sales_invoices)
         self.number = sequence.next_value

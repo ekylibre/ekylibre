@@ -115,11 +115,11 @@ spa:
       # stocks: "Tableau de bord des stocks"
       # trade: "Tableau de bord de la gestion commerciale"
       # welcome: "Bienvenue dans Ekylibre"
-    delays:
-      edit: "Modificacion del plazo : %{name}"
-      index: "plazos"
-      new: "Añadir un plazo"
-      show: "plazo : %{name}"
+    delays:  #?
+      edit: "Modificacion del plazo : %{name}" #?
+      index: "plazos" #?
+      new: "Añadir un plazo" #?
+      show: "plazo : %{name}" #?
     departments:
       edit: "Modificar el servicio : %{name}"
       index: "Servicios"
@@ -542,7 +542,7 @@ spa:
     # custom_field_data: "Données de champs personnalisés"
     # custom_fields: "Champs personnalisés"
     # dashboards: "Tableaux de bord"
-    delays: "plazos"
+    delays: "plazos" #?
     departments: "Servicios"
     # deposit_items: "Lignes de remise en banque"
     deposits: "Aposto en banco"

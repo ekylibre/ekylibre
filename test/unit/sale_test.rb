@@ -36,7 +36,7 @@
 #  currency            :string(3)        
 #  delivery_address_id :integer          
 #  downpayment_amount  :decimal(19, 4)   default(0.0), not null
-#  expiration_id       :integer          
+#  expiration_delay    :string(255)      
 #  expired_on          :date             
 #  function_title      :string(255)      
 #  has_downpayment     :boolean          not null
@@ -51,7 +51,7 @@
 #  nature_id           :integer          
 #  number              :string(64)       not null
 #  origin_id           :integer          
-#  payment_delay_id    :integer          not null
+#  payment_delay       :string(255)      not null
 #  payment_on          :date             
 #  pretax_amount       :decimal(19, 4)   default(0.0), not null
 #  reference_number    :string(255)      

@@ -4,6 +4,7 @@ require 'userstamp/userstamp'
 require 'userstamp/migration_helper'
 
 require 'migration_helper'
+require 'delay'
 
 require 'safe_string'
 require 'exchanges'

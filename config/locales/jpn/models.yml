@@ -666,6 +666,7 @@ jpn:
     # expense_type: "Type de dépense"
     # expenses: "Dépenses"
     # expiration: "Délai d’expiration du devis"
+    # expiration_delay: "Expiration delay"
     # expired_on: "Date d’expiration"
     # exportable: "Exportable"
     # exportable_columns: "Colonnes exportables"

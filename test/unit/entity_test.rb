@@ -61,7 +61,7 @@
 #  of_company                             :boolean          not null
 #  office                                 :string(255)      
 #  origin                                 :string(255)      
-#  payment_delay_id                       :integer          
+#  payment_delay                          :string(255)      
 #  payment_mode_id                        :integer          
 #  photo                                  :string(255)      
 #  profession_id                          :integer          

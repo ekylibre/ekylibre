@@ -1188,6 +1188,7 @@ arb:
     expense_type: "نوع التكلفة"
     # expenses: "Dépenses"
     expiration: "تأخير المهلة"
+    # expiration_delay: "Expiration delay"
     expiration_id: "تأخير مهلة" #?
     expired_on: "انتهى يوم"
     exportable: "قبل للتصدير"

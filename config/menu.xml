@@ -532,14 +532,14 @@
         <page to="custom_field_choices#update"/>
       </menu>
       <menu name="delays">
-        <page to="delays#index"/>
-        <page to="delays#create"/>
-        <page to="delays#destroy"/>
-        <page to="delays#edit"/>
-        <page to="delays#list"/>
-        <page to="delays#new"/>
-        <page to="delays#show"/>
-        <page to="delays#update"/>
+        <page to="delays#index" deletable="true"/>
+        <page to="delays#create" deletable="true"/>
+        <page to="delays#destroy" deletable="true"/>
+        <page to="delays#edit" deletable="true"/>
+        <page to="delays#list" deletable="true"/>
+        <page to="delays#new" deletable="true"/>
+        <page to="delays#show" deletable="true"/>
+        <page to="delays#update" deletable="true"/>
       </menu>
       <menu name="departments">
         <page to="departments#index"/>

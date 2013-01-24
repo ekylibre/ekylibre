@@ -28,12 +28,12 @@
 #  downpayment             :boolean          not null
 #  downpayment_minimum     :decimal(19, 4)   default(0.0), not null
 #  downpayment_percentage  :decimal(19, 4)   default(0.0), not null
-#  expiration_id           :integer          not null
+#  expiration_delay        :string(255)      not null
 #  id                      :integer          not null, primary key
 #  journal_id              :integer          
 #  lock_version            :integer          default(0), not null
 #  name                    :string(255)      not null
-#  payment_delay_id        :integer          not null
+#  payment_delay           :string(255)      not null
 #  payment_mode_complement :text             
 #  payment_mode_id         :integer          
 #  sales_conditions        :text             
@@ -44,22 +44,21 @@
 
 
 class SaleNature < CompanyRecord
-  attr_accessible :name, :journal, :active, :comment, :currency, :downpayment, :downpayment_minimum, :downpayment_percentage, :expiration_id, :journal_id, :payment_delay_id, :payment_mode_complement, :payment_mode_id, :sales_conditions, :with_accounting
+  attr_accessible :name, :journal, :active, :comment, :currency, :downpayment, :downpayment_minimum, :downpayment_percentage, :expiration_id, :journal_id, :payment_delay, :payment_mode_complement, :payment_mode_id, :sales_conditions, :with_accounting
   belongs_to :journal
-  belongs_to :expiration, :class_name=>"Delay"
-  belongs_to :payment_delay, :class_name=>"Delay"
-  belongs_to :payment_mode, :class_name=>"IncomingPaymentMode"
+  belongs_to :payment_mode, :class_name => "IncomingPaymentMode"
   has_many :sales
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :downpayment_minimum, :downpayment_percentage, :allow_nil => true
   validates_length_of :currency, :allow_nil => true, :maximum => 3
-  validates_length_of :name, :allow_nil => true, :maximum => 255
+  validates_length_of :expiration_delay, :name, :payment_delay, :allow_nil => true, :maximum => 255
   validates_inclusion_of :active, :downpayment, :with_accounting, :in => [true, false]
-  validates_presence_of :downpayment_minimum, :downpayment_percentage, :expiration, :name, :payment_delay
+  validates_presence_of :downpayment_minimum, :downpayment_percentage, :expiration_delay, :name, :payment_delay
   #]VALIDATORS]
-  validates_presence_of :journal, :if=>Proc.new{|sn| sn.with_accounting?}
+  validates_presence_of :journal, :if => :with_accounting?
   validates_presence_of :currency
   validates_uniqueness_of :name
+  validates_delay_format_of :payment_delay, :expiration_delay
 
   validate do
     if self.journal

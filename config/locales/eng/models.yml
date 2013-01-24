@@ -700,6 +700,7 @@ eng:
     expense_type: "Expense type"
     expenses: "Expenses"
     expiration: "Expiration"
+    # expiration_delay: "Expiration delay"
     expired_on: "Expired on"
     exportable: "Exportable"
     exportable_columns: "Exportable columns"

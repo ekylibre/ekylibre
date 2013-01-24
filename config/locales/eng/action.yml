@@ -103,11 +103,11 @@ eng:
       stocks: "Stocks dashboard"
       trade: "Trade dashboard"
       welcome: "Welcome on Ekylibre"
-    delays:
-      edit: "Edit the delay: %{name}"
-      index: "Delays"
-      new: "Add a new delay"
-      show: "Delay: %{name}"
+    delays:  #?
+      edit: "Edit the delay: %{name}" #?
+      index: "Delays" #?
+      new: "Add a new delay" #?
+      show: "Delay: %{name}" #?
     departments:
       edit: "Edit the department: %{name}"
       index: "Departments"
@@ -583,7 +583,7 @@ eng:
     custom_field_data: "Custom field data"
     custom_fields: "Custom fields"
     dashboards: "Dashboards"
-    delays: "Delays"
+    delays: "Delays" #?
     departments: "Departments"
     deposit_items: "Deposit lines"
     deposit_lines: "Deposit lines" #?

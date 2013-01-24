@@ -28,12 +28,12 @@
 #  downpayment             :boolean          not null
 #  downpayment_minimum     :decimal(19, 4)   default(0.0), not null
 #  downpayment_percentage  :decimal(19, 4)   default(0.0), not null
-#  expiration_id           :integer          not null
+#  expiration_delay        :string(255)      not null
 #  id                      :integer          not null, primary key
 #  journal_id              :integer          
 #  lock_version            :integer          default(0), not null
 #  name                    :string(255)      not null
-#  payment_delay_id        :integer          not null
+#  payment_delay           :string(255)      not null
 #  payment_mode_complement :text             
 #  payment_mode_id         :integer          
 #  sales_conditions        :text             

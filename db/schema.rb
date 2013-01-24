@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130120140522) do
+ActiveRecord::Schema.define(:version => 20130124202141) do
 
   create_table "account_balances", :force => true do |t|
     t.integer  "account_id",                                                        :null => false
@@ -347,23 +347,6 @@ ActiveRecord::Schema.define(:version => 20130120140522) do
   add_index "custom_fields", ["updated_at"], :name => "index_complements_on_updated_at"
   add_index "custom_fields", ["updater_id"], :name => "index_complements_on_updater_id"
 
-  create_table "delays", :force => true do |t|
-    t.string   "name",                           :null => false
-    t.boolean  "active",       :default => true, :null => false
-    t.string   "expression",                     :null => false
-    t.text     "comment"
-    t.datetime "created_at",                     :null => false
-    t.datetime "updated_at",                     :null => false
-    t.integer  "creator_id"
-    t.integer  "updater_id"
-    t.integer  "lock_version", :default => 0,    :null => false
-  end
-
-  add_index "delays", ["created_at"], :name => "index_delays_on_created_at"
-  add_index "delays", ["creator_id"], :name => "index_delays_on_creator_id"
-  add_index "delays", ["updated_at"], :name => "index_delays_on_updated_at"
-  add_index "delays", ["updater_id"], :name => "index_delays_on_updater_id"
-
   create_table "departments", :force => true do |t|
     t.string   "name",                            :null => false
     t.text     "comment"
@@ -523,7 +506,6 @@ ActiveRecord::Schema.define(:version => 20130120140522) do
     t.integer  "responsible_id"
     t.integer  "proposer_id"
     t.integer  "payment_mode_id"
-    t.integer  "payment_delay_id"
     t.integer  "invoices_count"
     t.date     "first_met_on"
     t.integer  "category_id"
@@ -557,6 +539,7 @@ ActiveRecord::Schema.define(:version => 20130120140522) do
     t.text     "rights"
     t.integer  "role_id"
     t.boolean  "loggable",                                                                            :default => false, :null => false
+    t.string   "payment_delay"
   end
 
   add_index "entities", ["code"], :name => "entities_codes"
@@ -2043,9 +2026,7 @@ ActiveRecord::Schema.define(:version => 20130120140522) do
 
   create_table "sale_natures", :force => true do |t|
     t.string   "name",                                                                                   :null => false
-    t.integer  "expiration_id",                                                                          :null => false
     t.boolean  "active",                                                              :default => true,  :null => false
-    t.integer  "payment_delay_id",                                                                       :null => false
     t.boolean  "downpayment",                                                         :default => false, :null => false
     t.decimal  "downpayment_minimum",                  :precision => 19, :scale => 4, :default => 0.0,   :null => false
     t.decimal  "downpayment_percentage",               :precision => 19, :scale => 4, :default => 0.0,   :null => false
@@ -2061,6 +2042,8 @@ ActiveRecord::Schema.define(:version => 20130120140522) do
     t.string   "currency",                :limit => 3
     t.integer  "journal_id"
     t.text     "sales_conditions"
+    t.string   "expiration_delay",                                                                       :null => false
+    t.string   "payment_delay",                                                                          :null => false
   end
 
   add_index "sale_natures", ["created_at"], :name => "index_sale_order_natures_on_created_at"
@@ -2077,9 +2060,7 @@ ActiveRecord::Schema.define(:version => 20130120140522) do
     t.decimal  "pretax_amount",                     :precision => 19, :scale => 4, :default => 0.0,   :null => false
     t.decimal  "amount",                            :precision => 19, :scale => 4, :default => 0.0,   :null => false
     t.string   "state",               :limit => 64,                                :default => "O",   :null => false
-    t.integer  "expiration_id"
     t.date     "expired_on"
-    t.integer  "payment_delay_id",                                                                    :null => false
     t.boolean  "has_downpayment",                                                  :default => false, :null => false
     t.decimal  "downpayment_amount",                :precision => 19, :scale => 4, :default => 0.0,   :null => false
     t.integer  "address_id"
@@ -2110,6 +2091,8 @@ ActiveRecord::Schema.define(:version => 20130120140522) do
     t.string   "initial_number",      :limit => 64
     t.string   "currency",            :limit => 3
     t.integer  "affair_id"
+    t.string   "expiration_delay"
+    t.string   "payment_delay",                                                                       :null => false
   end
 
   add_index "sales", ["accounted_at"], :name => "index_sale_orders_on_accounted_at"

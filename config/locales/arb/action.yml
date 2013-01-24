@@ -118,11 +118,11 @@ arb:
       # stocks: "Tableau de bord des stocks"
       # trade: "Tableau de bord de la gestion commerciale"
       # welcome: "Bienvenue dans Ekylibre"
-    delays:
-      edit: "تعديل المهلة : %{name}"
-      index: "مهلة"
-      new: "اضافة مهلة جديدة"
-      show: "المهلة : %{name}"
+    delays:  #?
+      edit: "تعديل المهلة : %{name}" #?
+      index: "مهلة" #?
+      new: "اضافة مهلة جديدة" #?
+      show: "المهلة : %{name}" #?
     departments:
       edit: "تعديل الوظيفة : %{name}"
       index: "الوظائف/المهام"
@@ -601,7 +601,7 @@ arb:
     # custom_field_data: "Données de champs personnalisés"
     custom_fields: "الحقول المخصصة"
     # dashboards: "Tableaux de bord"
-    delays: "مهلة"
+    delays: "مهلة" #?
     departments: "الوظائف/المهام"
     # deposit_items: "Lignes de remise en banque"
     deposits: "اقتطاعات البنك"
