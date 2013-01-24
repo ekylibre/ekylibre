@@ -40,12 +40,14 @@
 class Inventory < CompanyRecord
   attr_accessible :created_on, :number, :responsible_id
   belongs_to :responsible, :class_name => "Entity"
-  has_many :lines, :class_name => "InventoryItem", :dependent => :destroy, :inverse_of => :inventory
+  has_many :items, :class_name => "InventoryItem", :dependent => :destroy, :inverse_of => :inventory
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :number, :allow_nil => true, :maximum => 16
   validates_presence_of :created_on
   #]VALIDATORS]
+
+  accepts_nested_attributes_for :items
 
   before_validation do
     self.created_on ||= Date.today
@@ -61,21 +63,21 @@ class Inventory < CompanyRecord
   def reflect_changes(moved_on=Date.today)
     self.moved_on = moved_on
     self.changes_reflected = true
-    for line in self.lines
-      line.confirm_stock_move(moved_on)
+    for item in self.items
+      item.confirm_stock_move(moved_on)
     end
     self.save
   end
 
-  def set_lines(lines)
-    # (Re)init lines
-    self.lines.clear
-    # Load (new) values
-    for line in lines
-      l = self.lines.new(line)
-      l.stock_id = line[:stock_id].to_i if line[:stock_id]
-      l.save!
-    end
-  end
+  # def set_items(items)
+  #   # (Re)init items
+  #   self.items.clear
+  #   # Load (new) values
+  #   for item in items
+  #     l = self.items.new(item)
+  #     l.stock_id = item[:stock_id].to_i if item[:stock_id]
+  #     l.save!
+  #   end
+  # end
 
 end

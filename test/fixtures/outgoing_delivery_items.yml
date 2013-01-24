@@ -26,13 +26,13 @@
 #  delivery_id   :integer          not null
 #  id            :integer          not null, primary key
 #  lock_version  :integer          default(0), not null
+#  move_id       :integer          
 #  pretax_amount :decimal(19, 4)   default(0.0), not null
 #  price_id      :integer          not null
 #  product_id    :integer          not null
 #  quantity      :decimal(19, 4)   default(1.0), not null
 #  sale_item_id  :integer          not null
-#  stock_id      :integer          
-#  stock_move_id :integer          
+#  tracking_id   :integer          
 #  unit_id       :integer          not null
 #  updated_at    :datetime         not null
 #  updater_id    :integer          

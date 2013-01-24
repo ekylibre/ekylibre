@@ -268,15 +268,10 @@ jpn:
     observations:
       # edit: "Modifier une observation"
       # new: "Ajouter une observation"
-    operation_items:
-      # new: "Nouveau produit de travail"
+    operation_items: #?
     operation_lines: #?
-    operation_natures:
-      # edit: "Modifier le type de travail\_: %{name}"
-      # index: "Types de travail"
-      # new: "Créer un nouveau type de travail"
-    operation_uses:
-      # new: "Nouveau matériel de travail"
+    operation_natures: #?
+    operation_uses: #?
     operations:
       # edit: "Modifier le travail %{name}"
       # index: "Travaux"
@@ -332,6 +327,9 @@ jpn:
     product_indicator_natures: #?
     product_indicators: #?
     product_memberships: #?
+    product_moves:
+      # edit: "Modifier le mouvement de stock\_: %{name}"
+      # new: "Enregistrement d’un mouvement de stock"
     product_nature_categories:
       # edit: "Modifier la catégorie de produits\_: %{name}"
       # index: "Catégories de produits"
@@ -344,13 +342,8 @@ jpn:
     product_process_phases: #?
     product_processes: #?
     product_species: #?
-    product_stock_moves:
-      # edit: "Modifier le mouvement de stock\_: %{name}"
-      # new: "Enregistrement d’un mouvement de stock"
-    product_stocks:
-      # edit: "Modifier le stock\_: %{name}"
-      # index: "État des stocks"
-      # new: "Nouveau stock"
+    product_stock_moves: #?
+    product_stocks: #?
     product_transfers:
       # confirm: "Transferts à réaliser"
       # confirm_all: "Confirmer tous les transferts"
@@ -555,7 +548,6 @@ jpn:
     # journal_entries: "Écritures comptables"
     # journal_entry_items: "Lignes d’écritures comptables"
     # journals: "Journaux"
-    # land_parcel_kinships: "Parenté entre îlots"
     # land_parcels: "Îlots"
     # listing_node_items: "Élement de nœuds d’extractions"
     # listing_nodes: "Nœuds d’extractions"
@@ -565,9 +557,6 @@ jpn:
     # mandates: "Responsabilités"
     # myselves: "Mon compte"
     # observations: "Observations"
-    # operation_items: "Ligne de travail"
-    # operation_natures: "Types de travail"
-    # operation_uses: "Utilisations de matériel"
     # operations: "Travaux"
     # outgoing_deliveries: "Livraisons sortantes"
     # outgoing_delivery_items: "Lignes de livraisons sortantes"
@@ -577,10 +566,9 @@ jpn:
     # preferences: "Préférences"
     # prices: "Prix"
     # product_groups: "Lot de produits"
+    # product_moves: "Mouvements de stock"
     # product_nature_categories: "Catégories de produits"
     # product_nature_components: "Composants de produits"
-    # product_stock_moves: "Mouvements de stock"
-    # product_stocks: "État des stocks"
     # product_transfers: "Transferts et pertes de stocks"
     # product_varieties: "Races"
     production: "生産" #?

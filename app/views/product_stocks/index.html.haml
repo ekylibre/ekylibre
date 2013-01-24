@@ -1,9 +1,0 @@
--unless Stock.count.zero?
-  =kujaku do |k|
-    -k.criterion do
-      %label=tc('select_warehouse')
-      =select_tag(:warehouse_id, options_for_select([[]] + Warehouse.all.collect{|x| [x.name, x.id]}, params[:warehouse_id]))
-
-  =toolbar do |t|
-    -t.print_stocks Date.today.to_s, :action=>:index, :controller=>:stocks
-=list

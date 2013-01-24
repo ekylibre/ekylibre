@@ -18,14 +18,13 @@
 #
 
 class OperationsController < AdminController
-  manage_restfully :planned_on => "params[:planned_on]||Date.today", :target_id => "params[:target_id].to_i", :responsible_id => "current_user.id", :hour_duration => "2", :min_duration => "0"
+  manage_restfully :planned_on => "params[:planned_on]||Date.today", :target_id => "params[:target_id].to_i", :hour_duration => "2", :min_duration => "0"
 
   unroll_all
 
   list(:order => "planned_on DESC, name ASC") do |t|
     t.column :name, :url => true
-    t.column :name, :through => :nature
-    t.column :label, :through => :responsible, :url => true
+    t.column :nature
     t.column :planned_on
     t.column :moved_on
     t.column :tools_list
@@ -40,19 +39,19 @@ class OperationsController < AdminController
   end
 
 
-  list(:uses, :model => :operation_uses, :conditions => {:operation_id => ['session[:current_operation_id]']}, :order => "id") do |t|
-    t.column :name, :through => :tool, :url => true
-  end
+  # list(:uses, :model => :operation_uses, :conditions => {:operation_id => ['session[:current_operation_id]']}, :order => "id") do |t|
+  #   t.column :name, :through => :tool, :url => true
+  # end
 
-  list(:lines, :model => :operation_items, :conditions => {:operation_id => ['session[:current_operation_id]']}, :order => "direction") do |t|
-    t.column :direction
-    # t.column :name, :through => :warehouse, :url => true
-    t.column :name, :through => :product, :url => true
-    t.column :quantity
-    t.column :label, :through => :unit
-    t.column :serial_number, :through => :product
-    t.column :density_label
-  end
+  # list(:lines, :model => :operation_items, :conditions => {:operation_id => ['session[:current_operation_id]']}, :order => "direction") do |t|
+  #   t.column :direction
+  #   # t.column :name, :through => :warehouse, :url => true
+  #   t.column :name, :through => :product, :url => true
+  #   t.column :quantity
+  #   t.column :label, :through => :unit
+  #   t.column :serial_number, :through => :product
+  #   t.column :density_label
+  # end
 
 
   # Displays details of one operation selected with +params[:id]+
@@ -109,10 +108,9 @@ class OperationsController < AdminController
   # end
 
 
-  list(:unvalidateds, :model => :operations, :conditions => {:moved_on => nil}) do |t|
+  list(:unvalidateds, :model => :operations, :conditions => {:confirmed => false}, :order => "id DESC") do |t|
     t.column :name
-    t.column :name, :through => :nature
-    t.column :label, :through => :responsible, :url => true
+    t.column :nature
     t.column :name, :through => :target
     t.column :planned_on
     t.text_field :moved_on, :value => 'Date.today', :size => 10

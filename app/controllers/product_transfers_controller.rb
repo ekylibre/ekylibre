@@ -22,16 +22,17 @@ class ProductTransfersController < AdminController
 
   unroll_all
 
-  list(:conditions => moved_conditions(ProductTransfer)) do |t|
-    t.column :number
-    t.column :nature
+  list(:conditions => moved_conditions(ProductTransfer), :order => "id DESC") do |t|
+    # t.column :number
+    # t.column :nature
     t.column :name, :through => :product, :url => true
-    t.column :quantity
-    t.column :label, :through => :unit
+    # t.column :quantity
+    # t.column :label, :through => :unit
     # t.column :name, :through => :warehouse, :url => true
     # t.column :name, :through => :second_warehouse, :url => true
     # t.column :planned_on
-    t.column :moved_at
+    t.column :started_at
+    t.column :stopped_at
     t.action :confirm, :method => :post, :if => 'RECORD.moved_on.nil? ', 'data-confirm'  =>  :are_you_sure
     t.action :edit
     t.action :destroy

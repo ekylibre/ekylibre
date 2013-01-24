@@ -40,17 +40,17 @@ class LandParcelsController < AdminController
     session[:viewed_on] = params[:viewed_on] = params[:viewed_on].to_date rescue Date.today
   end
 
-  list(:operations, :conditions => {:target_type => LandParcel.name, :target_id => ['session[:current_land_parcel]']}, :order => "planned_on ASC") do |t|
-    t.column :name, :url => true
-    t.column :name, :through => :nature
-    t.column :label, :through => :responsible, :url => true
-    t.column :planned_on
-    t.column :moved_on
-    t.column :tools_list
-    t.column :duration
-    t.action :edit
-    t.action :destroy
-  end
+  # list(:operations, :conditions => {:target_type => LandParcel.name, :target_id => ['session[:current_land_parcel]']}, :order => "planned_on ASC") do |t|
+  #   t.column :name, :url => true
+  #   t.column :name, :through => :nature
+  #   t.column :label, :through => :responsible, :url => true
+  #   t.column :planned_on
+  #   t.column :moved_on
+  #   t.column :tools_list
+  #   t.column :duration
+  #   t.action :edit
+  #   t.action :destroy
+  # end
 
   # Displays details of one land parcel selected with +params[:id]+
   def show

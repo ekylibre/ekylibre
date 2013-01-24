@@ -17,7 +17,6 @@ if ActiveRecord::Base.connection.adapter_name == 'SQLServer'
   Journal.coerce_sqlserver_date :closed_on
   JournalEntry.coerce_sqlserver_date :created_on, :printed_on
   Mandate.coerce_sqlserver_date :started_on, :stopped_on
-  Operation.coerce_sqlserver_date :moved_on, :planned_on
   OutgoingDelivery.coerce_sqlserver_date :moved_on, :planned_on
   OutgoingPayment.coerce_sqlserver_date :created_on, :paid_on, :to_bank_on
   Purchase.coerce_sqlserver_date :confirmed_on, :created_on, :invoiced_on, :planned_on

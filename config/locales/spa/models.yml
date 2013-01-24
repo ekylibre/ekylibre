@@ -81,6 +81,8 @@ spa:
       product_category:
         # children: "Sous-catégories"
         # published: "Publiée"
+      product_move:
+        # origin: "Origine"
       product_nature:
         # duration: "Nombre de numéros OU période d’abonnement"
         # price: "Prix de revient"
@@ -371,6 +373,7 @@ spa:
       # product_group_event: "Évènement de groupe de produits"
       # product_group_passing: "Passage d'un produit dans un groupe"
       # product_membership: "Passage d'un produit dans un groupe"
+      # product_move: "Mouvement de stock"
       # product_nature: "Produit"
       # product_nature_category: "Catégorie de produit"
       # product_nature_component: "Composant de produit"
@@ -812,6 +815,7 @@ spa:
     # mobiles: "Portables"
     # mode: "Mode"
     # mother: "Mère"
+    # move: "Move"
     # moved_at: "Fait à"
     # moved_on: "Fait le"
     # moves: "Mouvements"
@@ -950,6 +954,7 @@ spa:
     # race: "Race"
     # races: "Races"
     # range: "Intervalle"
+    # real_quantity: "Real quantity"
     # reason: "Motif"
     # receipt: "Reçu électronique"
     # received: "Reçue"
@@ -1571,6 +1576,8 @@ spa:
         # sales: "Vente"
     product_component:
       # of_product: "du produit"
+    product_move:
+      # default_name: "%{origin} (%{code})"
     product_nature:
       informations:
         # with_components: "%{product} (%{unit}) (produit transformé)"

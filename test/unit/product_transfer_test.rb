@@ -20,25 +20,17 @@
 # 
 # == Table: product_transfers
 #
-#  arrival_move_id        :integer          
-#  arrival_stock_id       :integer          
-#  arrival_warehouse_id   :integer          
-#  comment                :text             
-#  created_at             :datetime         not null
-#  creator_id             :integer          
-#  departure_move_id      :integer          
-#  departure_stock_id     :integer          
-#  departure_warehouse_id :integer          
-#  id                     :integer          not null, primary key
-#  lock_version           :integer          default(0), not null
-#  moved_at               :datetime         not null
-#  nature                 :string(255)      not null
-#  number                 :string(255)      not null
-#  product_id             :integer          not null
-#  quantity               :decimal(19, 4)   not null
-#  unit_id                :integer          not null
-#  updated_at             :datetime         not null
-#  updater_id             :integer          
+#  created_at     :datetime         not null
+#  creator_id     :integer          
+#  destination_id :integer          
+#  id             :integer          not null, primary key
+#  lock_version   :integer          default(0), not null
+#  origin_id      :integer          
+#  product_id     :integer          not null
+#  started_at     :datetime         not null
+#  stopped_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  updater_id     :integer          
 #
 
 

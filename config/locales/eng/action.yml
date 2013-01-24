@@ -271,16 +271,16 @@ eng:
     observations:
       edit: "Edit the observation"
       new: "Add a new observation"
-    operation_items:
-      new: "New operation's product"
+    operation_items:  #?
+      new: "New operation's product" #?
     operation_lines:  #?
       new: "New operation's product" #?
-    operation_natures:
-      edit: "Edit type of operation: %{name}"
-      index: "Types of operation"
-      new: "Create a new type of operation"
-    operation_uses:
-      new: "New tool's use"
+    operation_natures:  #?
+      edit: "Edit type of operation: %{name}" #?
+      index: "Types of operation" #?
+      new: "Create a new type of operation" #?
+    operation_uses:  #?
+      new: "New tool's use" #?
     operations:
       edit: "Edit operation %{name}"
       index: "Operations"
@@ -340,6 +340,9 @@ eng:
     product_indicator_natures: #?
     product_indicators: #?
     product_memberships: #?
+    product_moves:
+      edit: "Edit the stock move: %{name}"
+      new: "add a new stock move"
     product_nature:  #?
       change_quantities: "Change quantities for product" #?
       edit: "Edit the product: %{name}" #?
@@ -363,13 +366,13 @@ eng:
     product_process_phases: #?
     product_processes: #?
     product_species: #?
-    product_stock_moves:
-      edit: "Edit the stock move: %{name}"
-      new: "add a new stock move"
-    product_stocks:
-      edit: "Edit stock: %{name}"
-      index: "Stocks state"
-      new: "New stock"
+    product_stock_moves:  #?
+      edit: "Edit the stock move: %{name}" #?
+      new: "add a new stock move" #?
+    product_stocks:  #?
+      edit: "Edit stock: %{name}" #?
+      index: "Stocks state" #?
+      new: "New stock" #?
     product_transfers:
       confirm: "Waiting stock transfers"
       confirm_all: "Confirm all stock transfer"
@@ -617,7 +620,7 @@ eng:
     journal_entry_lines: "Journal entry lines" #?
     journals: "Journals"
     land_parcel_groups: "Groups of land parcels" #?
-    land_parcel_kinships: "Land parcel kinships"
+    land_parcel_kinships: "Land parcel kinships" #?
     land_parcels: "Land parcels"
     listing_node_items: "Listing node items"
     listing_nodes: "Listing nodes"
@@ -626,10 +629,10 @@ eng:
     mandates: "Mandates"
     myselves: "Myself"
     observations: "Observations"
-    operation_items: "Operation lines"
+    operation_items: "Operation lines" #?
     operation_lines: "Operation lines" #?
-    operation_natures: "Types of operation"
-    operation_uses: "Operation uses of tools"
+    operation_natures: "Types of operation" #?
+    operation_uses: "Operation uses of tools" #?
     operations: "Operations"
     outgoing_deliveries: "Outgoing deliveries"
     outgoing_delivery_items: "Outgoing delivery lines"
@@ -645,13 +648,14 @@ eng:
     product_event_natures: "Animal's events natures" #?
     product_events: "Animal's events" #?
     product_groups: "Animal's groups"
+    product_moves: "Stock moves"
     product_nature: "Products" #?
     product_nature_categories: "Product categories"
     product_nature_components: "Product components"
     product_natures: "Products" #?
     product_species: "Races" #?
-    product_stock_moves: "Stock moves"
-    product_stocks: "Stocks state"
+    product_stock_moves: "Stock moves" #?
+    product_stocks: "Stocks state" #?
     product_transfers: "Transfers and loss"
     product_varieties: "Races"
     production_chain_conveyors: "Production chain conveyors"

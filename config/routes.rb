@@ -410,14 +410,7 @@ Ekylibre::Application.routes.draw do
       match "unvalidateds", :via => [:get, :post]
     end
   end
-  resources :operation_items, :only => [:new, :create]
-  resources :operation_natures do
-    collection do
-      get :list
-      unroll_all
-    end
-  end
-  resources :operation_uses
+  resources :operation_works, :only => [:new, :create]
   resources :outgoing_deliveries do
     collection do
       get :list
@@ -637,7 +630,7 @@ Ekylibre::Application.routes.draw do
       unroll_all
     end
   end
-  # resources :product_stock_moves
+  # resources :product_moves
   resources :product_transfers do
     collection do
       get :list

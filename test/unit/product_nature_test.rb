@@ -43,11 +43,14 @@
 #  purchasable            :boolean          not null
 #  reductible             :boolean          not null
 #  saleable               :boolean          not null
-#  stockable              :boolean          not null
+#  storable               :boolean          not null
+#  storage                :boolean          not null
 #  subscribing            :boolean          not null
 #  subscription_duration  :string(255)      
 #  subscription_nature_id :integer          
+#  towable                :boolean          not null
 #  traceable              :boolean          not null
+#  tractive               :boolean          not null
 #  transferable           :boolean          not null
 #  unit_id                :integer          not null
 #  updated_at             :datetime         not null

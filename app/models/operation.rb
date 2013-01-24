@@ -20,41 +20,38 @@
 # 
 # == Table: operations
 #
-#  created_at                      :datetime         not null
-#  creator_id                      :integer          
-#  description                     :text             
-#  id                              :integer          not null, primary key
-#  lock_version                    :integer          default(0), not null
-#  name                            :string(255)      not null
-#  nature_id                       :integer          
-#  production_chain_work_center_id :integer          
-#  responsible_id                  :integer          not null
-#  started_at                      :datetime         not null
-#  stopped_at                      :datetime         
-#  updated_at                      :datetime         not null
-#  updater_id                      :integer          
+#  confirmed        :boolean          not null
+#  created_at       :datetime         not null
+#  creator_id       :integer          
+#  id               :integer          not null, primary key
+#  lock_version     :integer          default(0), not null
+#  nature           :string(255)      not null
+#  operand_id       :integer          
+#  operand_quantity :decimal(19, 4)   
+#  operand_unit_id  :integer          
+#  started_at       :datetime         not null
+#  stopped_at       :datetime         not null
+#  target_id        :integer          not null
+#  updated_at       :datetime         not null
+#  updater_id       :integer          
 #
 
 
 class Operation < CompanyRecord
   attr_accessible :description, :hour_duration, :min_duration, :planned_on, :nature_id, :started_at, :stopped_at, :target_id, :target_type, :responsible_id
-  belongs_to :nature, :class_name => "OperationNature"
-  belongs_to :responsible, :class_name => "Entity"
-  belongs_to :target, :polymorphic => true
-  belongs_to :production_chain_work_center
-  has_many :operation_uses, :dependent => :destroy
-  has_many :uses,  :class_name => "OperationUse", :dependent => :destroy
-  has_many :lines, :class_name => "OperationItem", :dependent => :destroy
-  has_many :tools, :through => :operation_uses
+  belongs_to :target, :class_name => "Product"
+  belongs_to :operand, :class_name => "Product"
+  has_many :works, :class_name => "OperationWork"
+  has_many :workers, :through => :works
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :consumption, :duration, :hour_duration, :min_duration, :allow_nil => true
-  validates_length_of :name, :target_type, :tools_list, :allow_nil => true, :maximum => 255
-  validates_presence_of :name, :planned_on, :responsible, :started_at
+  validates_numericality_of :operand_quantity, :allow_nil => true
+  validates_length_of :nature, :allow_nil => true, :maximum => 255
+  validates_inclusion_of :confirmed, :in => [true, false]
+  validates_presence_of :nature, :started_at, :stopped_at, :target
   #]VALIDATORS]
 
-  accepts_nested_attributes_for :lines, :reject_if => :all_blank, :allow_destroy => true
-  accepts_nested_attributes_for :uses, :reject_if => :all_blank, :allow_destroy => true
+  accepts_nested_attributes_for :works, :reject_if => :all_blank, :allow_destroy => true
 
   default_scope -> { order(:planned_on, :moved_on) }
   scope :unvalidateds, -> { where(:moved_on => nil) }
@@ -71,7 +68,7 @@ class Operation < CompanyRecord
     self.production_chain_work_center.nil?
   end
 
-  # def save_with_uses_and_lines(uses=[], lines=[])
+  # def save_with_uses_and_items(uses=[], items=[])
   #   ActiveRecord::Base.transaction do
   #     op_saved = self.save
   #     saved = op_saved
@@ -88,12 +85,12 @@ class Operation < CompanyRecord
   #       self.update_column(:tools_list, self.tools.collect{|t| t.name}.to_sentence)
   #     end
 
-  #     # Lines
-  #     self.lines.clear
-  #     lines.each_index do |index|
-  #       lines[index] = self.lines.build(lines[index])
+  #     # Items
+  #     self.items.clear
+  #     items.each_index do |index|
+  #       items[index] = self.items.build(items[index])
   #       if op_saved
-  #         saved = false unless lines[index].save
+  #         saved = false unless items[index].save
   #       end
   #     end
   #     self.reload if saved
@@ -121,13 +118,13 @@ class Operation < CompanyRecord
   # end
 
 
-  # # Set all the lines in one time
-  # def set_lines(lines)
-  #   # Reinit existing lines
-  #   self.lines.clear
+  # # Set all the items in one time
+  # def set_items(items)
+  #   # Reinit existing items
+  #   self.items.clear
   #   # Reload (new) values
-  #   for line in lines
-  #     self.lines.create!(line)
+  #   for item in items
+  #     self.items.create!(item)
   #   end
   #   return true
   # end
@@ -135,8 +132,8 @@ class Operation < CompanyRecord
   def make(made_on)
     ActiveRecord::Base.transaction do
       self.update_attributes!(:moved_on => made_on)
-      for line in lines
-        line.confirm_stock_move
+      for item in items
+        item.confirm_stock_move
       end
     end
   end

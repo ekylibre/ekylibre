@@ -245,7 +245,7 @@ class ReplaceLinesWithItems < ActiveRecord::Migration
       :product_id => :product,
       :purchase_line_id => :purchase_line,
       :stock_id => :product_stock,
-      :stock_move_id => :product_stock_move,
+      :stock_move_id => :product_move,
       :unit_id => :unit,
       :updater_id => :entity,
       :warehouse_id => :warehouse
@@ -285,7 +285,7 @@ class ReplaceLinesWithItems < ActiveRecord::Migration
       :inventory_id => :inventory,
       :product_id => :product,
       :stock_id => :stock,
-      :stock_move_id => :product_stock_move,
+      :stock_move_id => :product_move,
       :unit_id => :unit,
       :updater_id => :entity,
       :warehouse_id => :warehouse
@@ -387,19 +387,7 @@ class ReplaceLinesWithItems < ActiveRecord::Migration
       :nature_id => :operation_nature,
       :production_chain_work_center_id => :production_chain_work_center,
       :responsible_id => :entity,
-      :target_id => "target_type",
       :updater_id => :entity
-    },
-    :operation_line => {
-      :area_unit_id => :unit,
-      :creator_id => :entity,
-      :operation_id => :operation,
-      :product_id => :product,
-      :stock_id => :stock,
-      :stock_move_id => :product_stock_move,
-      :unit_id => :unit,
-      :updater_id => :entity,
-      :warehouse_id => :warehouse
     },
     :operation_nature => {
       :creator_id => :entity,
@@ -427,7 +415,7 @@ class ReplaceLinesWithItems < ActiveRecord::Migration
       :product_id => :product,
       :sale_line_id => :sale_line,
       :stock_id => :stock,
-      :stock_move_id => :product_stock_move,
+      :stock_move_id => :product_move,
       :unit_id => :unit,
       :updater_id => :entity,
       :warehouse_id => :warehouse
@@ -489,6 +477,7 @@ class ReplaceLinesWithItems < ActiveRecord::Migration
       :content_nature_id => :product_nature,
       :content_unit_id => :unit_id,
       :creator_id => :entity,
+      :tracking_id => :tracking,
       :father_id => :product,
       :mother_id => :product,
       :nature_id => :product_nature,
@@ -561,41 +550,24 @@ class ReplaceLinesWithItems < ActiveRecord::Migration
       :process_id => :product_process,
       :updater_id => :entity
     },
-    :product_stock => {
-      :creator_id => :entity,
-      :product_id => :product,
-      :unit_id => :unit,
-      :updater_id => :entity,
-      :warehouse_id => :warehouse
-    },
-    :product_stock_move => {
+    :product_move => {
       :creator_id => :entity,
       :origin_id => "origin_type",
       :product_id => :product,
-      :stock_id => :product_stock,
       :unit_id => :unit,
       :updater_id => :entity,
-      :warehouse_id => :warehouse
-    },
-    :product_stock_period => {
-      :creator_id => :entity,
-      :move_id => :product_stock_move,
-      :product_id => :product,
-      :stock_id => :product_stock,
-      :unit_id => :unit,
-      :updater_id => :entity,
-      :warehouse_id => :warehouse
     },
     :product_transfer => {
-      :arrival_move_id => :product_stock_move,
-      :arrival_stock_id => :product_stock,
-      :arrival_warehouse_id => :warehouse,
+      :origin => :place,
       :creator_id => :entity,
-      :departure_move_id => :product_stock_move,
-      :departure_stock_id => :product_stock,
-      :departure_warehouse_id => :warehouse,
+      :destination_id => :place,
       :product_id => :product,
-      :unit_id => :unit,
+      :updater_id => :entity
+    },
+    :product_localization => {
+      :container_id => :place,
+      :creator_id => :entity,
+      :product_id => :product,
       :updater_id => :entity
     },
     :product_variety => {
@@ -881,7 +853,6 @@ class ReplaceLinesWithItems < ActiveRecord::Migration
     rename_table_and_co :incoming_delivery_lines, :incoming_delivery_items
     rename_table_and_co :inventory_lines, :inventory_items
     rename_table_and_co :journal_entry_lines, :journal_entry_items
-    rename_table_and_co :operation_lines, :operation_items
     rename_table_and_co :outgoing_delivery_lines, :outgoing_delivery_items
     rename_table_and_co :purchase_lines, :purchase_items
     rename_table_and_co :sale_lines, :sale_items

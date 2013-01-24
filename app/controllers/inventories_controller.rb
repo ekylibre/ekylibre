@@ -58,10 +58,10 @@ class InventoriesController < AdminController
     end
   end
 
-  list(:lines_create, :model => :product_stocks, :pagination => :none, :order => "#{Warehouse.table_name}.name, #{ProductNature.table_name}.name") do |t|
+  list(:lines_create, :model => :products, :pagination => :none, :order => "#{Warehouse.table_name}.name, #{ProductNature.table_name}.name") do |t|
     # t.column :name, :through => :warehouse, :url => true
-    t.column :name, :through => :product, :url => true
-    t.column :serial_number, :through => :product
+    t.column :name, :url => true
+    t.column :serial_number, :through => :tracking
     t.column :quantity, :precision => 3
     t.column :label, :through => :unit
     t.text_field :quantity
@@ -69,7 +69,7 @@ class InventoriesController < AdminController
 
   list(:lines_update, :model => :inventory_items, :conditions => {:inventory_id => ['session[:current_inventory_id]'] }, :pagination => :none, :order => "#{Warehouse.table_name}.name, #{ProductNature.table_name}.name") do |t|
     # t.column :name, :through => :warehouse, :url => true
-    t.column :name, :through => :product, :url => true
+    t.column :name, :trough => :product, :url => true
     t.column :serial_number, :through => :product
     t.column :theoric_quantity, :precision => 3
     t.text_field :quantity

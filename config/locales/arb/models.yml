@@ -369,6 +369,12 @@ arb:
         updater: "التحدبث" #?
         warehouse: "مكان التخزين" #?
         warehouse_id: "مكان التخزين" #?
+      product_move:
+        # origin: "Origine"
+        origin_id: "منشأ" #?
+        product: "المنتج" #?
+        second_warehouse_id: "موقع تخزين الحركة الثانية" #?
+        tracking_id: "حصة" #?
       product_nature:
         active: "قبل للاستخدام" #?
         comment: "تعليق" #?
@@ -841,6 +847,7 @@ arb:
       # product_group_event: "Évènement de groupe de produits"
       # product_group_passing: "Passage d'un produit dans un groupe"
       # product_membership: "Passage d'un produit dans un groupe"
+      product_move: "حركة السهم"
       product_nature: "الانتاج"
       product_nature_category: "فئة الانتاج"
       product_nature_component: "عنصر الانتاج"
@@ -1358,6 +1365,7 @@ arb:
     mode: "نمط الدفعة"
     mode_id: "طريقة تسديد دفعة" #?
     # mother: "Mère"
+    # move: "Move"
     # moved_at: "Fait à"
     moved_on: "انجز يوم"
     # moves: "Mouvements"
@@ -1523,6 +1531,7 @@ arb:
     # races: "Races"
     range: "فترة فاصلة"
     rate: "معدل سعر الصرف" #?
+    # real_quantity: "Real quantity"
     reason: "الدافع"
     receipt: "استلام الكتروني"
     received: "مستلم"
@@ -2357,6 +2366,8 @@ arb:
       unknown_use_of_product: "(يجب تحديد الغاية من المنتج (شراء او بيع او تأجير" #?
     product_component:
       of_product: "نتاج"
+    product_move:
+      # default_name: "%{origin} (%{code})"
     product_nature:
       informations:
         with_components: "%{product} (%{unit}) (ليس هناك من فترة استراحة)"

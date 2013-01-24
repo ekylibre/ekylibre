@@ -20,50 +20,34 @@
 # 
 # == Table: product_transfers
 #
-#  arrival_move_id        :integer          
-#  arrival_stock_id       :integer          
-#  arrival_warehouse_id   :integer          
-#  comment                :text             
-#  created_at             :datetime         not null
-#  creator_id             :integer          
-#  departure_move_id      :integer          
-#  departure_stock_id     :integer          
-#  departure_warehouse_id :integer          
-#  id                     :integer          not null, primary key
-#  lock_version           :integer          default(0), not null
-#  moved_at               :datetime         not null
-#  nature                 :string(255)      not null
-#  number                 :string(255)      not null
-#  product_id             :integer          not null
-#  quantity               :decimal(19, 4)   not null
-#  unit_id                :integer          not null
-#  updated_at             :datetime         not null
-#  updater_id             :integer          
+#  created_at     :datetime         not null
+#  creator_id     :integer          
+#  destination_id :integer          
+#  id             :integer          not null, primary key
+#  lock_version   :integer          default(0), not null
+#  origin_id      :integer          
+#  product_id     :integer          not null
+#  started_at     :datetime         not null
+#  stopped_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  updater_id     :integer          
 #
 
 
 class ProductTransfer < CompanyRecord
   attr_accessible :comment, :nature, :planned_on, :product_id, :quantity, :second_warehouse_id, :tracking_id, :unit_id, :warehouse_id
-  attr_readonly :nature
-  enumerize :nature, :in => [:loss, :transfer, :gain], :default => :transfer, :predicates => true
+  # attr_readonly :nature
+  # enumerize :nature, :in => [:loss, :transfer, :gain], :default => :transfer, :predicates => true
   belongs_to :product
-  belongs_to :arrival_move, :class_name => "ProductStockMove"
-  belongs_to :arrival_stock, :class_name => "ProductStock"
-  belongs_to :arrival_warehouse, :class_name => "Warehouse"
-  belongs_to :departure_move, :class_name => "ProductStockMove"
-  belongs_to :departure_stock, :class_name => "ProductStock"
-  belongs_to :departure_warehouse, :class_name => "Warehouse"
-  belongs_to :unit
+  belongs_to :origin, :class_name => "Product"
+  belongs_to :destination, :class_name => "Product"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :quantity, :allow_nil => true
-  validates_length_of :nature, :number, :allow_nil => true, :maximum => 255
-  validates_presence_of :moved_at, :nature, :number, :product, :quantity, :unit
+  validates_presence_of :product, :started_at, :stopped_at
   #]VALIDATORS]
-  validates_presence_of :unit
-  validates_presence_of :arrival_stock_move, :if => :arrival?
-  validates_presence_of :departure_stock_move, :if => :departure?
+  # validates_presence_of :arrival_stock_move, :if => :arrival?
+  # validates_presence_of :departure_stock_move, :if => :departure?
   validates_numericality_of :quantity, :greater_than => 0.0
-  validates_inclusion_of :nature, :in => self.nature.values
+  # validates_inclusion_of :nature, :in => self.nature.values
 
   scope :unconfirmeds, -> { where(:moved_at => nil) }
 

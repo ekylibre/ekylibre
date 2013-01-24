@@ -69,7 +69,7 @@ class ProductNaturesController < AdminController
     t.action :destroy
   end
 
-  list(:product_stock_moves, :conditions => {:product_id  => ['session[:product_id]']}, :line_class => 'RECORD.state', :order => "updated_at DESC") do |t|
+  list(:product_moves, :conditions => {:product_id  => ['session[:product_id]']}, :line_class => 'RECORD.state', :order => "updated_at DESC") do |t|
     t.column :name
     # t.column :name, :through => :origin
     # t.column :name, :through => :warehouse, :url => true
@@ -82,15 +82,15 @@ class ProductNaturesController < AdminController
     t.column :moved_at
   end
 
-  list(:product_stocks, :conditions => ['#{ProductStock.table_name}.product_id = ?', ['session[:product_id]']], :line_class => 'RECORD.state', :order => "updated_at DESC") do |t|
-    # t.column :name, :through => :warehouse, :url => true
-    t.column :name, :through => :product, :url => true
-    t.column :minimal_quantity
-    t.column :maximal_quantity
-    # t.column :critic_quantity_min
-    # t.column :virtual_quantity
-    # t.column :quantity
-  end
+  # list(:product_stocks, :conditions => ['#{ProductStock.table_name}.product_id = ?', ['session[:product_id]']], :line_class => 'RECORD.state', :order => "updated_at DESC") do |t|
+  #   # t.column :name, :through => :warehouse, :url => true
+  #   t.column :name, :through => :product, :url => true
+  #   t.column :minimal_quantity
+  #   t.column :maximal_quantity
+  #   # t.column :critic_quantity_min
+  #   # t.column :virtual_quantity
+  #   # t.column :quantity
+  # end
 
   # Displays details of one product selected with +params[:id]+
   def show
@@ -101,7 +101,6 @@ class ProductNaturesController < AdminController
 
   def new
     @product_nature = ProductNature.new(:nature => ProductNature.nature.default_value)
-    @stock = ProductStock.new
     render_restfully_form
   end
 

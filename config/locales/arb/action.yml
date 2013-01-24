@@ -304,15 +304,13 @@ arb:
     observations:
       edit: "تعديل الملاحظة"
       new: "اضافة ملاحظة"
-    operation_items:
-      # new: "Nouveau produit de travail"
+    operation_items: #?
     operation_lines: #?
-    operation_natures:
-      edit: "تعديل نوع العمل : %{name}"
-      index: "اواع العمل"
-      new: "انشاء نوع جديد من العمل"
-    operation_uses:
-      # new: "Nouveau matériel de travail"
+    operation_natures:  #?
+      edit: "تعديل نوع العمل : %{name}" #?
+      index: "اواع العمل" #?
+      new: "انشاء نوع جديد من العمل" #?
+    operation_uses: #?
     operations:
       edit: "تعدل العمل %{name}"
       index: "اعمال"
@@ -375,6 +373,9 @@ arb:
     product_indicator_natures: #?
     product_indicators: #?
     product_memberships: #?
+    product_moves:
+      edit: "تعديل حركة سهم : %{name}"
+      new: "التسجيل لحركة السهم"
     product_nature:  #?
       edit: "تعديل المنتج : %{name}" #?
       index: "المنتجات" #?
@@ -396,13 +397,11 @@ arb:
     product_process_phases: #?
     product_processes: #?
     product_species: #?
-    product_stock_moves:
-      edit: "تعديل حركة سهم : %{name}"
-      new: "التسجيل لحركة السهم"
-    product_stocks:
-      # edit: "Modifier le stock\_: %{name}"
-      index: "وضع الاسهم"
-      # new: "Nouveau stock"
+    product_stock_moves:  #?
+      edit: "تعديل حركة سهم : %{name}" #?
+      new: "التسجيل لحركة السهم" #?
+    product_stocks:  #?
+      index: "وضع الاسهم" #?
     product_transfers:
       confirm: "اتمام عملية نقل"
       # confirm_all: "Confirmer tous les transferts"
@@ -633,7 +632,6 @@ arb:
     # journal_entries: "Écritures comptables"
     # journal_entry_items: "Lignes d’écritures comptables"
     journals: "الدفاتر اليومية"
-    # land_parcel_kinships: "Parenté entre îlots"
     land_parcels: "انظمة"
     # listing_node_items: "Élement de nœuds d’extractions"
     # listing_nodes: "Nœuds d’extractions"
@@ -643,9 +641,7 @@ arb:
     mandates: "تفويضات"
     # myselves: "Mon compte"
     # observations: "Observations"
-    # operation_items: "Ligne de travail"
-    operation_natures: "اواع العمل"
-    # operation_uses: "Utilisations de matériel"
+    operation_natures: "اواع العمل" #?
     operations: "اعمال"
     # outgoing_deliveries: "Livraisons sortantes"
     # outgoing_delivery_items: "Lignes de livraisons sortantes"
@@ -656,12 +652,12 @@ arb:
     prices: "الاسعار"
     product_categories: "فئات المنتج" #?
     # product_groups: "Lot de produits"
+    # product_moves: "Mouvements de stock"
     product_nature: "المنتجات" #?
     product_nature_categories: "فئات المنتج"
     # product_nature_components: "Composants de produits"
     product_natures: "المنتجات" #?
-    # product_stock_moves: "Mouvements de stock"
-    product_stocks: "وضع الاسهم"
+    product_stocks: "وضع الاسهم" #?
     product_transfers: "عمليات نقل وخسارة الاسهم"
     # product_varieties: "Races"
     production: "المنتج" #?

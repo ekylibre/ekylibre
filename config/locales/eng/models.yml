@@ -80,6 +80,8 @@ eng:
       product_category:
         children: "Sub-product_categories"
         published: "Published"
+      product_move:
+        origin: "Origine"
       product_nature:
         duration: "Quantity OR period"
         price: "Cost price"
@@ -386,6 +388,7 @@ eng:
       # product_group_event: "Évènement de groupe de produits"
       # product_group_passing: "Passage d'un produit dans un groupe"
       # product_membership: "Passage d'un produit dans un groupe"
+      product_move: "Stock move"
       product_nature: "Product"
       product_nature_category: "Product category"
       product_nature_component: "Product component"
@@ -850,6 +853,7 @@ eng:
     # mobiles: "Portables"
     mode: "Mode"
     mother: "Mother"
+    # move: "Move"
     moved_at: "Moved at"
     moved_on: "Moved on"
     moves: "Moves"
@@ -1000,6 +1004,7 @@ eng:
     # race: "Race"
     # races: "Races"
     range: "Range"
+    # real_quantity: "Real quantity"
     reason: "Reason"
     receipt: "Receipt"
     received: "Received"
@@ -1608,6 +1613,8 @@ eng:
         sales: "Sales"
     product_component:
       of_product: "of product"
+    product_move:
+      default_name: "%{origin} (%{code})"
     product_nature:
       informations:
         with_components: "%{product} (%{unit}) (transformed material)"

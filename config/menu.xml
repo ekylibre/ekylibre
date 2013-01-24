@@ -279,13 +279,13 @@
   <menu name="stocks">
     <page to="dashboards#stocks"/>
     <menu name="stocks">
-      <page to="product_stocks#index"/>
-      <page to="product_stocks#create"/>
-      <page to="product_stocks#destroy"/>
-      <page to="product_stocks#edit"/>
-      <page to="product_stocks#list"/>
-      <page to="product_stocks#new"/>
-      <page to="product_stocks#update"/>
+      <page to="product_stocks#index" deletable="true"/>
+      <page to="product_stocks#create" deletable="true"/>
+      <page to="product_stocks#destroy" deletable="true"/>
+      <page to="product_stocks#edit" deletable="true"/>
+      <page to="product_stocks#list" deletable="true"/>
+      <page to="product_stocks#new" deletable="true"/>
+      <page to="product_stocks#update" deletable="true"/>
     </menu>
     <menu name="stock_transfers">
       <page to="product_transfers#index"/>
@@ -362,10 +362,10 @@
       <page to="operations#show"/>
       <page to="operations#unvalidateds"/>
       <page to="operations#update"/>
-      <page to="operation_items#create"/>
-      <page to="operation_items#new"/>
-      <page to="operation_uses#create"/>
-      <page to="operation_uses#new"/>
+      <page to="operation_items#create" deletable="true"/>
+      <page to="operation_items#new" deletable="true"/>
+      <page to="operation_uses#create" deletable="true"/>
+      <page to="operation_uses#new" deletable="true"/>
     </menu>
     <menu name="products">
       <page to="products#index"/>
@@ -829,13 +829,13 @@
         <page to="land_parcel_groups#update" deletable="true"/>
       </menu>
       <menu name="operation_natures">
-        <page to="operation_natures#index"/>
-        <page to="operation_natures#create"/>
-        <page to="operation_natures#destroy"/>
-        <page to="operation_natures#edit"/>
-        <page to="operation_natures#list"/>
-        <page to="operation_natures#new"/>
-        <page to="operation_natures#update"/>
+        <page to="operation_natures#index" deletable="true"/>
+        <page to="operation_natures#create" deletable="true"/>
+        <page to="operation_natures#destroy" deletable="true"/>
+        <page to="operation_natures#edit" deletable="true"/>
+        <page to="operation_natures#list" deletable="true"/>
+        <page to="operation_natures#new" deletable="true"/>
+        <page to="operation_natures#update" deletable="true"/>
       </menu>
       <menu name="product_varieties">
         <page to="product_varieties#index"/>
@@ -878,7 +878,6 @@
       <page to="companies#register"/>
     </menu>
     <menu name="dashboards">
-      <page to="dashboards#list_critic_stocks"/>
       <page to="dashboards#list_my_future_entity_events"/>
       <page to="dashboards#list_recent_entity_events"/>
       <page to="dashboards#production_products"/>
@@ -986,8 +985,7 @@
       <page to="product_nature_categories#list_product_natures"/>
     </menu>
     <menu name="product_natures">
-      <page to="product_natures#list_product_stock_moves"/>
-      <page to="product_natures#list_product_stocks"/>
+      <page to="product_natures#list_product_moves"/>
     </menu>
     <menu name="product_process_phases">
       <page to="product_process_phases#index"/>
@@ -1032,8 +1030,7 @@
       <page to="sessions#renew"/>
     </menu>
     <menu name="warehouses">
-      <page to="warehouses#list_product_stock_moves"/>
-      <page to="warehouses#list_product_stocks"/>
+      <page to="warehouses#list_product_moves"/>
     </menu>
   </undefined>
 </menu>

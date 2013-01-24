@@ -43,11 +43,14 @@
 #  purchasable            :boolean          not null
 #  reductible             :boolean          not null
 #  saleable               :boolean          not null
-#  stockable              :boolean          not null
+#  storable               :boolean          not null
+#  storage                :boolean          not null
 #  subscribing            :boolean          not null
 #  subscription_duration  :string(255)      
 #  subscription_nature_id :integer          
+#  towable                :boolean          not null
 #  traceable              :boolean          not null
+#  tractive               :boolean          not null
 #  transferable           :boolean          not null
 #  unit_id                :integer          not null
 #  updated_at             :datetime         not null
@@ -83,7 +86,7 @@ class ProductNature < CompanyRecord
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :number, :allow_nil => true, :maximum => 32
   validates_length_of :commercial_name, :name, :subscription_duration, :allow_nil => true, :maximum => 255
-  validates_inclusion_of :active, :alive, :deliverable, :depreciable, :indivisible, :producible, :purchasable, :reductible, :saleable, :stockable, :subscribing, :traceable, :transferable, :in => [true, false]
+  validates_inclusion_of :active, :alive, :deliverable, :depreciable, :indivisible, :producible, :purchasable, :reductible, :saleable, :storable, :storage, :subscribing, :towable, :traceable, :tractive, :transferable, :in => [true, false]
   validates_presence_of :category, :commercial_name, :name, :number, :unit, :variety
   #]VALIDATORS]
   validates_presence_of :subscription_nature,   :if => :subscription?

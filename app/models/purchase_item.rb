@@ -33,7 +33,7 @@
 #  product_id      :integer          not null
 #  purchase_id     :integer          not null
 #  quantity        :decimal(19, 4)   default(1.0), not null
-#  stock_id        :integer          
+#  tracking_id     :integer          
 #  tracking_serial :string(255)      
 #  unit_id         :integer          not null
 #  updated_at      :datetime         not null

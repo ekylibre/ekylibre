@@ -32,35 +32,40 @@
 #  content_unit_id          :integer          
 #  created_at               :datetime         not null
 #  creator_id               :integer          
+#  current_place_id         :integer          
 #  dead_at                  :datetime         
 #  description              :text             
 #  external                 :boolean          not null
 #  father_id                :integer          
 #  id                       :integer          not null, primary key
+#  identification_number    :string(255)      
 #  lock_version             :integer          default(0), not null
 #  maximal_quantity         :decimal(19, 4)   default(0.0), not null
 #  minimal_quantity         :decimal(19, 4)   default(0.0), not null
 #  mother_id                :integer          
 #  name                     :string(255)      not null
 #  nature_id                :integer          not null
-#  number                   :string(255)      
-#  owner_id                 :integer          
-#  parent_warehouse_id      :integer          
+#  number                   :string(255)      not null
+#  owner_id                 :integer          not null
+#  parent_place_id          :integer          
 #  picture_content_type     :string(255)      
 #  picture_file_name        :string(255)      
 #  picture_file_size        :integer          
 #  picture_updated_at       :datetime         
-#  producer_id              :integer          
+#  real_quantity            :decimal(19, 4)   default(0.0), not null
 #  reproductor              :boolean          not null
 #  reservoir                :boolean          not null
-#  serial_number            :string(255)      
 #  sex                      :string(255)      
 #  shape                    :spatial({:srid=> 
+#  tracking_id              :integer          
+#  tractor_id               :integer          
 #  type                     :string(255)      not null
 #  unit_id                  :integer          not null
 #  updated_at               :datetime         not null
 #  updater_id               :integer          
 #  variety_id               :integer          not null
+#  virtual_quantity         :decimal(19, 4)   default(0.0), not null
+#  work_number              :string(255)      
 #
 class Bioproduct < Product
 end

@@ -25,11 +25,11 @@
 #  id               :integer          not null, primary key
 #  inventory_id     :integer          not null
 #  lock_version     :integer          default(0), not null
+#  move_id          :integer          
 #  product_id       :integer          not null
 #  quantity         :decimal(19, 4)   not null
-#  stock_id         :integer          
-#  stock_move_id    :integer          
 #  theoric_quantity :decimal(19, 4)   not null
+#  tracking_id      :integer          
 #  unit_id          :integer          
 #  updated_at       :datetime         not null
 #  updater_id       :integer          
@@ -39,9 +39,9 @@
 
 class InventoryItem < CompanyRecord
   attr_accessible :product_id, :quantity, :unit_id, :warehouse_id
-  belongs_to :inventory, :inverse_of => :lines
+  belongs_to :inventory, :inverse_of => :items
   belongs_to :product
-  belongs_to :stock_move, :class_name => "ProductStockMove"
+  belongs_to :move, :class_name => "ProductMove"
   belongs_to :unit
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.

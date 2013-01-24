@@ -37,7 +37,7 @@ class WarehousesController < AdminController
     notify_now(:need_warehouse_to_record_stock_moves) if Warehouse.count.zero?
   end
 
-  list(:product_stock_moves, :conditions => {:warehouse_id => ['session[:current_warehouse_id]']}) do |t|
+  list(:product_moves, :conditions => {:warehouse_id => ['session[:current_warehouse_id]']}) do |t|
     t.column :name
     t.column :planned_on
     t.column :moved_on
@@ -49,16 +49,16 @@ class WarehousesController < AdminController
     # t.action :destroy,:if => 'RECORD.generated != true'
   end
 
-  list(:product_stocks, :conditions => {:warehouse_id => ['session[:current_warehouse_id]']}, :order => "quantity DESC") do |t|
-    t.column :name, :through => :product,:url => true
-    # t.column :name, :through => :tracking, :url => true
-    t.column :weight, :through => :product, :label => :column
-    t.column :quantity_max
-    t.column :quantity_min
-    t.column :critic_quantity_min
-    t.column :virtual_quantity
-    t.column :quantity
-  end
+  # list(:product_stocks, :conditions => {:warehouse_id => ['session[:current_warehouse_id]']}, :order => "quantity DESC") do |t|
+  #   t.column :name, :through => :product,:url => true
+  #   # t.column :name, :through => :tracking, :url => true
+  #   t.column :weight, :through => :product, :label => :column
+  #   t.column :quantity_max
+  #   t.column :quantity_min
+  #   t.column :critic_quantity_min
+  #   t.column :virtual_quantity
+  #   t.column :quantity
+  # end
 
   # Displays details of one warehouse selected with +params[:id]+
   def show

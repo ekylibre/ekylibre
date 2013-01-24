@@ -20,28 +20,20 @@
 # 
 # == Table: operations
 #
-#  consumption                     :decimal(19, 4)   
-#  created_at                      :datetime         not null
-#  creator_id                      :integer          
-#  description                     :text             
-#  duration                        :decimal(19, 4)   
-#  hour_duration                   :decimal(19, 4)   
-#  id                              :integer          not null, primary key
-#  lock_version                    :integer          default(0), not null
-#  min_duration                    :decimal(19, 4)   
-#  moved_on                        :date             
-#  name                            :string(255)      not null
-#  nature_id                       :integer          
-#  planned_on                      :date             not null
-#  production_chain_work_center_id :integer          
-#  responsible_id                  :integer          not null
-#  started_at                      :datetime         not null
-#  stopped_at                      :datetime         
-#  target_id                       :integer          
-#  target_type                     :string(255)      
-#  tools_list                      :string(255)      
-#  updated_at                      :datetime         not null
-#  updater_id                      :integer          
+#  confirmed        :boolean          not null
+#  created_at       :datetime         not null
+#  creator_id       :integer          
+#  id               :integer          not null, primary key
+#  lock_version     :integer          default(0), not null
+#  nature           :string(255)      not null
+#  operand_id       :integer          
+#  operand_quantity :decimal(19, 4)   
+#  operand_unit_id  :integer          
+#  started_at       :datetime         not null
+#  stopped_at       :datetime         not null
+#  target_id        :integer          not null
+#  updated_at       :datetime         not null
+#  updater_id       :integer          
 #
 
 

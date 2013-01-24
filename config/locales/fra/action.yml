@@ -225,14 +225,6 @@ fra:
     observations:
       edit: "Modifier une observation"
       new: "Ajouter une observation"
-    operation_items:
-      new: "Nouveau produit de travail" #?
-    operation_natures:
-      edit: "Modifier le type de travail\_: %{name}"
-      index: "Types de travail"
-      new: "Créer un nouveau type de travail"
-    operation_uses:
-      new: "Nouveau matériel de travail" #?
     operations:
       edit: "Modifier le travail %{name}"
       index: "Travaux"
@@ -292,6 +284,9 @@ fra:
       # index: "Index product membership"
       # new: "New product membership"
       # show: "Show product membership"
+    product_moves:
+      edit: "Modifier le mouvement de stock\_: %{name}" #?
+      new: "Enregistrement d’un mouvement de stock" #?
     product_nature_categories:
       edit: "Modifier la catégorie de produits\_: %{name}"
       index: "Catégories de produits"
@@ -316,13 +311,6 @@ fra:
       # index: "Index product process"
       # new: "New product process"
       # show: "Show product process"
-    product_stock_moves:
-      edit: "Modifier le mouvement de stock\_: %{name}" #?
-      new: "Enregistrement d’un mouvement de stock" #?
-    product_stocks:
-      edit: "Modifier le stock\_: %{name}"
-      index: "État des stocks"
-      new: "Nouveau stock"
     product_transfers:
       confirm: "Transferts à réaliser"
       confirm_all: "Confirmer tous les transferts"
@@ -517,7 +505,6 @@ fra:
     journal_entries: "Écritures comptables"
     journal_entry_items: "Lignes d’écritures comptables"
     journals: "Journaux"
-    land_parcel_kinships: "Parenté entre îlots"
     land_parcels: "Îlots"
     listing_node_items: "Élement de nœuds d’extractions"
     listing_nodes: "Nœuds d’extractions"
@@ -526,9 +513,7 @@ fra:
     mandates: "Responsabilités"
     myselves: "Mon compte"
     observations: "Observations"
-    operation_items: "Ligne de travail"
-    operation_natures: "Types de travail"
-    operation_uses: "Utilisations de matériel"
+    # operation_works: "Operation works"
     operations: "Travaux"
     outgoing_deliveries: "Livraisons sortantes"
     outgoing_delivery_items: "Lignes de livraisons sortantes"
@@ -542,13 +527,12 @@ fra:
     # product_indicator_natures: "Product indicator natures"
     # product_indicators: "Product indicators"
     # product_memberships: "Product memberships"
+    product_moves: "Mouvements de stock"
     product_nature_categories: "Catégories de produits"
     product_nature_components: "Composants de produits"
     # product_natures: "Product natures"
     # product_process_phases: "Product process phases"
     # product_processes: "Product processes"
-    product_stock_moves: "Mouvements de stock"
-    product_stocks: "État des stocks"
     product_transfers: "Transferts et pertes de stocks"
     product_varieties: "Races"
     production_chain_conveyors: "Convoyeurs de chaînes de production"
@@ -572,6 +556,7 @@ fra:
     tax_declarations: "Déclaration de TVA"
     taxes: "Taxes"
     tools: "Matériel"
+    # trackings: "Trackings"
     transfers: "Transferts"
     transports: "Transports"
     units: "Unités de mesure"
@@ -1569,12 +1554,12 @@ fra:
     no_lines_found: "Aucun pruduit n’a été ajouté à la commande "
     no_payment_to_deposit: "Aucun règlement à encaisser"
     no_reopenable_journal: "Vous ne pouvez pas déclôturer ce journal."
-    no_stocks: "Vous n’avez aucun stock. Si vous désirez gérer le stock d’un produit, veuillez cocher l’option «\_Gérer les stocks\_» dans les caractéristiques de votre produit."
+    no_stocks: "Vous n’avez aucun stock. Si vous désirez gérer le stock d’un produit, veuillez cocher l’option «\_Gérer les stocks\_» dans les caractéristiques de votre produit." #?
     no_template_journal: "Pas de modèle journal" #?
     no_template_journal_by_id: "Pas de modèle journal" #?
     no_unconfirmed_stock_transfers: "Aucun transfert de stocks non-confirmé"
     no_unvalidated_operations: "Aucun travail à réaliser"
-    no_warehouse: "Aucun lieu de stockage n’est défini. Veuillez en créer un pour pouvoir gérer vos stocks"
+    no_warehouse: "Aucun lieu de stockage n’est défini. Veuillez en créer un pour pouvoir gérer vos stocks" #?
     password_successfully_changed: "Votre mot de passe a été mis à jour avec succès"
     prices_import_succeeded: "Vos données ont été correctement importées"
     print_failure: "Impossible d’imprimer. Essayer de recharger les modèles de documents pour corriger le problème. %{error} (%{class})."

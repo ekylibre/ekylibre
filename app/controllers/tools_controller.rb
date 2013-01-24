@@ -18,25 +18,25 @@
 #
 
 class ToolsController < AdminController
-  manage_restfully :multipart => true
+  manage_restfully
 
   unroll_all
 
-  list(:operations, :model=>:operation_uses, :conditions=>{:tool_id=>['session[:current_tool_id]']}, :order=>"created_at ASC") do |t|
-    t.column :name,       :through=>:operation, :label=>:column, :url=>true
-    t.column :planned_on, :through=>:operation, :label=>:column, :datatype=>:date
-    t.column :moved_on,   :through=>:operation, :label=>:column
-    t.column :tools_list, :through=>:operation, :label=>:column
-    t.column :duration,   :through=>:operation, :label=>:column
-  end
+  # list(:operations, :model => :operation_uses, :conditions => {:tool_id => ['session[:current_tool_id]']}, :order => "created_at ASC") do |t|
+  #   t.column :name,       :through => :operation, :label => :column, :url => true
+  #   t.column :planned_on, :through => :operation, :label => :column, :datatype => :date
+  #   t.column :moved_on,   :through => :operation, :label => :column
+  #   t.column :tools_list, :through => :operation, :label => :column
+  #   t.column :duration,   :through => :operation, :label => :column
+  # end
 
-  list(:order=>"name") do |t|
-    t.column :name, :url=>true
-    t.column :name, :through=>:nature, :url=>true
-    t.column :purchased_on, :datatype=>:date
-    t.column :ceded_on, :datatype=>:date
+  list(:order => "name") do |t|
+    t.column :name, :url => true
+    t.column :name, :through => :nature, :url => true
+    t.column :purchased_on, :datatype => :date
+    t.column :ceded_on, :datatype => :date
     t.action :edit
-    t.action :destroy, :if=>"RECORD.destroyable\?"
+    t.action :destroy, :if => :destroyable?
   end
 
   # Displays details of one tool selected with +params[:id]+
