@@ -47,17 +47,17 @@ require 'test_helper'
 
 class JournalEntryItemTest < ActiveSupport::TestCase
 
-  fixtures :journal_entry_lines
+  fixtures :journal_entry_items
 
   test "the validity of entries" do
-    line = journal_entry_lines(:journal_entry_lines_001)
-    assert line.valid?, line.inspect+"\n"+line.errors.full_messages.to_sentence
-    line.original_debit = 5
-    assert line.valid?, line.inspect+"\n"+line.errors.full_messages.to_sentence
-    line.original_credit = 17
-    assert !line.valid?, line.inspect+"\n"+line.errors.full_messages.to_sentence
-    line.original_debit = 0
-    assert line.valid?, line.inspect+"\n"+line.errors.full_messages.to_sentence
+    item = journal_entry_items(:journal_entry_items_001)
+    assert item.valid?, item.inspect+"\n"+item.errors.full_messages.to_sentence
+    item.original_debit = 5
+    assert item.valid?, item.inspect+"\n"+item.errors.full_messages.to_sentence
+    item.original_credit = 17
+    assert !item.valid?, item.inspect+"\n"+item.errors.full_messages.to_sentence
+    item.original_debit = 0
+    assert item.valid?, item.inspect+"\n"+item.errors.full_messages.to_sentence
   end
 
 end

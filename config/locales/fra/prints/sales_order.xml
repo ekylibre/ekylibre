@@ -37,7 +37,7 @@
         </set>
       </part>
       
-      <table collection="sales_order.lines" fixed="true">
+      <table collection="sales_order.items" fixed="true">
         <column label="Code" property="product/number" width="20mm" align="center"/>
         <column label="Désignation" property="designation" width="80mm"/>
         <column label="Qté." property="quantity" width="13mm" numeric="money"/>

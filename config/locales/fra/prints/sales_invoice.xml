@@ -28,7 +28,7 @@
       </part>
       
       <!-- Tableau -->
-      <table collection="sales_invoice.lines" fixed="true">
+      <table collection="sales_invoice.items" fixed="true">
         <column label="Code" property="product/number" width="20mm" align="center"/>
         <column label="Désignation" property="designation" width="80mm"/>
         <column label="Qté." property="quantity" width="13mm" numeric="money"/>
@@ -41,8 +41,8 @@
       <!-- Totaux -->
       <part height="14mm">
         <set left="100mm" top="1mm">
-          <text value="Totaux ({{sales_invoice.lines[0].price.currency}})" top="0.5mm" left="33mm" align="right" bold="true"/>
-          <text value="Net à payer ({{sales_invoice.lines[0].price.currency}})" top="6mm" left="33mm" align="right" bold="true" size="11.5"/>
+          <text value="Totaux ({{sales_invoice.items[0].price.currency}})" top="0.5mm" left="33mm" align="right" bold="true"/>
+          <text value="Net à payer ({{sales_invoice.items[0].price.currency}})" top="6mm" left="33mm" align="right" bold="true" size="11.5"/>
           <text value="{{sales_invoice.amount?numeric}}" top="6mm" left="55mm" align="center" bold="true" size="12"/>
           <text value="{{sales_invoice.pretax_amount?numeric}}" top="0.5mm" left="54.5mm" align="right"/>
           <text value="{{sales_invoice.taxes_amount?numeric}}" top="0.5mm" left="74.5mm" align="right"/>
@@ -106,7 +106,7 @@
           <line path="-50%,1mm ; 150%,1mm" border="0.5 dashed #000"/>
           <line path="70mm,1mm ; 70mm,70mm" border="0.5 dashed #000"/>
           <text value="À découper et à joindre à votre règlement" top="3mm" bold="true" />
-          <text value="Reste à payer ({{sales_invoice.lines[0].price.currency}}) : {{sales_invoice/unpaid_amount}}" top="8mm"/>
+          <text value="Reste à payer ({{sales_invoice.items[0].price.currency}}) : {{sales_invoice/unpaid_amount}}" top="8mm"/>
           <text value="N°Facture : {{sales_invoice/number}}" top="12mm"/>
           <text value="Client : {{sales_invoice.client/code}}" top="16mm" align="left" />
         </set>

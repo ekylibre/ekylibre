@@ -138,9 +138,6 @@ class Sale < CompanyRecord
   end
 
   before_validation do
-    self.paid_amount = 0
-    self.paid_amount = self.payment_uses.sum(:amount) unless self.payment_uses.empty?
-    self.paid_amount -= self.credits.sum(:amount) unless self.credits.empty?
     if self.address.nil? and self.client
       dc = self.client.default_mail_address
       self.address_id = dc.id if dc
@@ -167,7 +164,7 @@ class Sale < CompanyRecord
   before_update do
     old = self.class.find(self.id)
     if old.invoice?
-      for attr in self.class.columns_hash.keys - ["paid_amount"]
+      for attr in self.class.columns_hash.keys
         self.send(attr+"=", old.send(attr))
       end
     end
@@ -307,18 +304,18 @@ class Sale < CompanyRecord
 
 
 
-  # Produces some amounts about the sale order.
-  # Some options can be used:
-  # - +:multi_sales_invoices+ adds the uninvoiced amount and invoiced amount
-  # - +:with_balance+ adds the balance of the client of the sale order
-  def stats(options={})
-    array = []
-    array << [:client_balance, self.client.balance] if options[:with_balance]
-    array << [:amount, self.amount]
-    array << [:paid_amount, self.paid_amount]
-    array << [:unpaid_amount, self.unpaid_amount]
-    array
-  end
+  # # Produces some amounts about the sale order.
+  # # Some options can be used:
+  # # - +:multi_sales_invoices+ adds the uninvoiced amount and invoiced amount
+  # # - +:with_balance+ adds the balance of the client of the sale order
+  # def stats(options={})
+  #   array = []
+  #   array << [:client_balance, self.client.balance] if options[:with_balance]
+  #   array << [:amount, self.amount]
+  #   array << [:paid_amount, self.paid_amount]
+  #   array << [:unpaid_amount, self.unpaid_amount]
+  #   array
+  # end
 
 
   def self.state_label(state)
@@ -342,10 +339,10 @@ class Sale < CompanyRecord
     not self.undelivered(:amount).zero? and (self.invoice? or self.order?)
   end
 
-  # Calculate unpaid amount
-  def unpaid_amount
-    self.amount - self.paid_amount
-  end
+  # # Calculate unpaid amount
+  # def unpaid_amount
+  #   self.amount - self.paid_amount
+  # end
 
   # Label of the sales order depending on the state and the number
   def label
@@ -357,20 +354,20 @@ class Sale < CompanyRecord
     self.letter_format?
   end
 
-  def tags
-    if self.order? or self.invoice? and !self.credit? and !self.amount.zero?
-      if self.paid_amount.zero?
-        return "critic "+self.state
-      elsif self.paid_amount != self.amount
-        return "warning "+self.state
-      else
-        return self.state
-      end
-    elsif self.credit?
-      return "disabled "+self.state
-    end
-    return self.state
-  end
+  # def tags
+  #   if self.order? or self.invoice? and !self.credit? and !self.amount.zero?
+  #     if self.paid_amount.zero?
+  #       return "critic "+self.state
+  #     elsif self.paid_amount != self.amount
+  #       return "warning "+self.state
+  #     else
+  #       return self.state
+  #     end
+  #   elsif self.credit?
+  #     return "disabled "+self.state
+  #   end
+  #   return self.state
+  # end
 
   def mail_address
     return (self.address || self.client.default_mail_address).mail_coordinate
