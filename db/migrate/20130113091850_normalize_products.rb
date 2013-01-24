@@ -10,86 +10,6 @@ class NormalizeProducts < ActiveRecord::Migration
       :financial_year_id => :financial_year,
       :updater_id => :entity
     },
-    :animal => {
-      :creator_id => :entity,
-      :father_id => :animal,
-      :group_id => :animal_group,
-      :mother_id => :animal,
-      :owner_id => :entity,
-      :race_id => :animal_race,
-      :updater_id => :entity
-    },
-    :animal_diagnostic => {
-      :creator_id => :entity,
-      :disease_id => :animal_disease,
-      :event_id => :event,
-      :updater_id => :entity
-    },
-    :animal_disease => {
-      :creator_id => :entity,
-      :updater_id => :entity
-    },
-    :animal_drug => {
-      :creator_id => :entity,
-      :nature_id => :animal_drug_nature,
-      :updater_id => :entity
-    },
-    :animal_drug_nature => {
-      :creator_id => :entity,
-      :updater_id => :entity
-    },
-    :animal_event => {
-      :animal_id => :animal,
-      :creator_id => :entity,
-      :nature_id => :animal_event_nature,
-      :parent_id => :animal_event,
-      :updater_id => :entity,
-      :watcher_id => :entity
-    },
-    :animal_event_nature => {
-      :creator_id => :entity,
-      :updater_id => :entity
-    },
-    :animal_group => {
-      :creator_id => :entity,
-      :parent_id => :animal_group,
-      :updater_id => :entity
-    },
-    :animal_group_event => {
-      :animal_group_id => :animal_group,
-      :creator_id => :entity,
-      :nature_id => :animal_event_nature,
-      :parent_id => :animal_group_event,
-      :updater_id => :entity,
-      :watcher_id => :entity
-    },
-    :animal_posology => {
-      :animal_race_id => :animal_race,
-      :creator_id => :entity,
-      :disease_id => :animal_disease,
-      :drug_id => :animal_drug,
-      :product_category_id => :product_category,
-      :quantity_unit_id => :unit,
-      :updater_id => :entity
-    },
-    :animal_prescription => {
-      :creator_id => :entity,
-      :prescriptor_id => :entity,
-      :updater_id => :entity
-    },
-    :animal_race => {
-      :creator_id => :entity,
-      :parent_id => :animal_race,
-      :updater_id => :entity
-    },
-    :animal_treatment => {
-      :creator_id => :entity,
-      :disease_id => :animal_disease,
-      :drug_id => :animal_drug,
-      :event_id => :event,
-      :prescription_id => :animal_prescription,
-      :updater_id => :entity
-    },
     :area => {
       :creator_id => :entity,
       :district_id => :district,
@@ -803,6 +723,18 @@ class NormalizeProducts < ActiveRecord::Migration
 
 
   def up
+    # Prevents errors by renaming table products
+    rename_table_and_indexes :products, :old_products
+
+    # Prevents errors by renaming table stocks
+    rename_table_and_indexes :stocks, :old_stocks
+
+    # Prevents errors by renaming table stock_moves
+    rename_table_and_indexes :stock_moves, :old_stock_moves
+
+    # Prevents errors by renaming table operations
+    rename_table_and_indexes :operations, :old_operations
+
     # Adds concept of product variety
     create_table :product_varieties do |t|
       t.string :name, :null => false
@@ -842,7 +774,10 @@ class NormalizeProducts < ActiveRecord::Migration
       t.boolean :purchasable,  :null => false, :default => false
       t.boolean :producible,   :null => false, :default => false
       t.boolean :deliverable,  :null => false, :default => false
-      t.boolean :stockable,    :null => false, :default => false
+      t.boolean :storable,     :null => false, :default => false
+      t.boolean :storage,      :null => false, :default => false
+      t.boolean :towable,      :null => false, :default => false
+      t.boolean :tractive,     :null => false, :default => false
       t.boolean :traceable,    :null => false, :default => false
       t.boolean :transferable, :null => false, :default => false
       t.boolean :reductible,   :null => false, :default => false
@@ -864,18 +799,16 @@ class NormalizeProducts < ActiveRecord::Migration
     add_index :product_natures, :product_account_id
     add_index :product_natures, :asset_account_id
 
-
-    # Prevents errors by renaming table products
-    rename_table_and_indexes :products, :old_products
-
     # Re-create table product
     create_table :products do |t|
       t.string :type, :null => false
       t.string :name, :null => false
-      t.string :number
+      t.string :number, :null => false
       t.boolean :active, :null => false, :default => false
+      t.belongs_to :variety, :null => false
       t.belongs_to :nature, :null => false
       t.belongs_to :unit, :null => false # Same as nature.unit_id
+      t.belongs_to :tractor
       t.datetime :born_at
       t.datetime :dead_at
       t.text :description
@@ -883,6 +816,8 @@ class NormalizeProducts < ActiveRecord::Migration
       t.attachment :picture
       t.decimal :minimal_quantity, :precision => 19, :scale => 4, :null => false, :default => 0.0
       t.decimal :maximal_quantity, :precision => 19, :scale => 4, :null => false, :default => 0.0
+      t.decimal    :real_quantity, :precision => 19, :scale => 4, :null => false, :default => 0.0
+      t.decimal :virtual_quantity, :precision => 19, :scale => 4, :null => false, :default => 0.0
       t.string :serial_number
       t.belongs_to :producer
       t.belongs_to :asset
@@ -912,8 +847,11 @@ class NormalizeProducts < ActiveRecord::Migration
     end
     add_stamps_indexes :products
     add_index :products, :type
+    add_index :products, :number, :unique => true
     add_index :products, :nature_id
+    add_index :products, :variety_id
     add_index :products, :unit_id
+    add_index :products, :tractor_id
     add_index :products, :asset_id
     # Animal specific indexes
     add_index :products, :owner_id
@@ -928,27 +866,61 @@ class NormalizeProducts < ActiveRecord::Migration
     add_index :products, :content_unit_id
     add_index :products, :parent_warehouse_id
 
-    # Prevents errors by renaming table stocks
-    rename_table_and_indexes :stocks, :old_stocks
-
-    # Contains all the emplacement ever used to stock the product
-    create_table :product_stocks do |t|
+    # Historize differents localizations of the products
+    create_table :product_localizations do |t|
       t.belongs_to :product,   :null => false # RO
-      t.belongs_to :warehouse, :null => false # RO
-      t.belongs_to :unit,      :null => false # Duplicated from product.unit_id if possible
-      t.decimal    :real_quantity, :precision => 19, :scale => 4, :null => false, :default => 0.0
-      t.decimal :virtual_quantity, :precision => 19, :scale => 4, :null => false, :default => 0.0
-      t.decimal :minimal_quantity, :precision => 19, :scale => 4, :null => false, :default => 0.0
-      t.decimal :maximal_quantity, :precision => 19, :scale => 4, :null => false, :default => 0.0
+      t.belongs_to :place,     :null => false # RO
+      t.datetime :started_at
+      t.datetime :stopped_at
+      t.stamps      
+    end
+    add_stamps_indexes :product_locatings
+    add_index :product_locatings, :product_id
+    add_index :product_locatings, :place_id
+    add_index :product_locatings, :started_at
+    add_index :product_locatings, :stopped_at
+
+    # Create new table operations mono-target and mono-operand
+    create_table :operations do |t|
+      t.belongs_to :target, :null => false
+      t.belongs_to :operand
+      t.string :nature, :null => false # receive, produce, consume, attach, detach, separate, merge
+      t.belongs_to :operand_unit
+      t.decimal :operand_quantity, :precision => 19, :scale => 4, :null => false, :default => 0.0
+      t.datetime :started_at
+      t.datetime :stopped_at
       t.stamps
     end
-    add_stamps_indexes :product_stocks
-    add_index :product_stocks, :product_id
-    add_index :product_stocks, :warehouse_id
-    add_index :product_stocks, :unit_id
+    add_stamp_indexes :operations
+    add_index :operations, :target_id
+    add_index :operations, :operand_id
+    add_index :operations, :nature
 
-    # Prevents errors by renaming table stock_moves
-    rename_table_and_indexes :stock_moves, :old_stock_moves
+    #
+    create_table :operation_jobs do |t|
+      t.belongs_to :operation, :null => false
+      t.belongs_to :worker, :null => false
+      t.stamps
+    end
+
+
+
+
+    # Contains all the emplacement ever used to stock the product
+    # create_table :product_stocks do |t|
+    #   t.belongs_to :product,   :null => false # RO
+    #   t.belongs_to :warehouse, :null => false # RO
+    #   t.belongs_to :unit,      :null => false # Duplicated from product.unit_id if possible
+    #   t.decimal    :real_quantity, :precision => 19, :scale => 4, :null => false, :default => 0.0
+    #   t.decimal :virtual_quantity, :precision => 19, :scale => 4, :null => false, :default => 0.0
+    #   t.decimal :minimal_quantity, :precision => 19, :scale => 4, :null => false, :default => 0.0
+    #   t.decimal :maximal_quantity, :precision => 19, :scale => 4, :null => false, :default => 0.0
+    #   t.stamps
+    # end
+    # add_stamps_indexes :product_stocks
+    # add_index :product_stocks, :product_id
+    # add_index :product_stocks, :warehouse_id
+    # add_index :product_stocks, :unit_id
 
     # Contains all moves of the stock of the product
     create_table :product_stock_moves do |t|
@@ -1157,41 +1129,6 @@ class NormalizeProducts < ActiveRecord::Migration
       end
     end
 
-    # Animal races
-    add_column :product_varieties, :old_animal_race_id, :integer
-    ca = [:name, :code, :description, :comment, :parent_id, :created_at, :creator_id, :updated_at, :updater_id, :lock_version]
-    da = {:old_animal_race_id => :id, :product_type => "'Animal'"}
-    execute("INSERT INTO #{quoted_table_name(:product_varieties)} (" + ca.join(', ') + ", " + da.keys.join(', ') + ") SELECT " + ca.join(', ') + ", " + da.values.join(', ') + " FROM #{quoted_table_name(:animal_races)}")
-    update_depending_records(:animal_races, :product_varieties, :old_animal_race_id)
-    execute("UPDATE #{quoted_table_name(:product_varieties)} SET parent_id = av.id FROM #{quoted_table_name(:product_varieties)} AS av WHERE av.code = 'animal' AND #{quoted_table_name(:product_varieties)}.old_animal_race_id IS NOT NULL AND #{quoted_table_name(:product_varieties)}.parent_id IS NULL")
-
-    # "Animal nature"
-    add_column :product_natures, :old_animal_nature_id, :integer
-    unit_id = select_value("SELECT id FROM #{quoted_table_name(:units)} WHERE LENGTH(TRIM(base)) <= 0 ORDER BY name DESC").to_i
-    ca = [:name, :comment, :description, :created_at, :creator_id, :lock_version, :updated_at, :updater_id]
-    da = {:old_animal_nature_id => "ar.id", :number => "ar.code", :unit_id => unit_id, :commercial_name => "ar.name", :variety_id => "v.id", :active => true, :category_id => default_category_id, :saleable => quoted_true, :purchasable => quoted_true, :indivisible => quoted_true}
-    execute("INSERT INTO #{quoted_table_name(:product_natures)} (" + ca.join(', ') + ", " + da.keys.join(', ') + ") SELECT " + ca.collect{|c| "ar.#{c}"}.join(', ') + ", " + da.values.join(', ') + " FROM #{quoted_table_name(:animal_races)} AS ar LEFT JOIN #{quoted_table_name(:product_varieties)} AS v ON (v.old_animal_race_id = ar.id)")
-
-    # Animals
-    add_column :products, :old_animal_id, :integer
-    unit_id = select_value("SELECT id FROM units WHERE LENGTH(TRIM(base)) <= 0")
-    unit_id = 0 if unit_id.blank?
-    ca = [:name, :description, :comment, :sex, :reproductor, :external, :owner_id, :father_id, :mother_id, :created_at, :creator_id, :updated_at, :updater_id, :lock_version]
-    da = {:type => "'Animal'", :old_animal_id => "a.id", :number => :work_number, :serial_number => :identification_number, :born_at => :born_on, :unit_id => unit_id, :nature_id => "npn.id"}
-    execute("INSERT INTO #{quoted_table_name(:products)} (" + ca.join(', ') + ", " + da.keys.join(', ') + ") SELECT " + ca.collect{|c| "a.#{c}"}.join(', ') + ", " + da.values.join(', ') + " FROM #{quoted_table_name(:animals)} AS a JOIN #{quoted_table_name(:product_natures)} AS npn ON (npn.variety_id = a.race_id)")
-    update_depending_records(:animals, :products, :old_animal_id)
-
-    # Animal groups
-    add_column :product_groups, :old_animal_group_id, :integer
-    ca = [:name, :parent_id, :description, :comment, :created_at, :creator_id, :updated_at, :updater_id, :lock_version]
-    execute("INSERT INTO #{quoted_table_name(:product_groups)} (" + ca.join(', ') + ") SELECT " + ca.join(', ') + " FROM #{quoted_table_name(:animal_groups)}")
-    update_depending_records(:animal_groups, :product_groups, :old_animal_group_id)
-
-
-    # Animal Memberships
-    ca = [:created_at, :creator_id, :updated_at, :updater_id, :lock_version]
-    execute("INSERT INTO #{quoted_table_name(:product_memberships)} (product_id, group_id, " + ca.join(', ') + ") SELECT np.id, a.group_id, " + ca.collect{|c| "a.#{c}"}.join(', ') + " FROM #{quoted_table_name(:animals)} AS a JOIN #{quoted_table_name(:products)} AS np ON (np.old_animal_id = a.id) WHERE a.group_id IS NOT NULL AND np.id IS NOT NULL")
-
     # LandParcelGroup
     add_column :product_groups, :old_land_parcel_group_id, :integer
     ca = [:name, :comment, :color, :created_at, :creator_id, :lock_version, :updated_at, :updater_id]
@@ -1296,22 +1233,6 @@ class NormalizeProducts < ActiveRecord::Migration
     drop_table :tools
     drop_table :tool_natures
     drop_table :warehouses
-
-    drop_table :animals
-
-    drop_table :animal_groups
-    drop_table :animal_races
-    drop_table :animal_events
-    drop_table :animal_event_natures
-    drop_table :animal_group_events
-
-    drop_table :animal_diagnostics
-    drop_table :animal_diseases
-    drop_table :animal_drug_natures
-    drop_table :animal_drugs
-    drop_table :animal_posologies
-    drop_table :animal_treatments
-    drop_table :animal_prescriptions
   end
 
   def down
