@@ -44,5 +44,4 @@ class Affair < ActiveRecord::Base
   validates_inclusion_of :closed, :in => [true, false]
   validates_presence_of :credit, :currency, :debit, :origin_type
   #]VALIDATORS]
-  # attr_accessible :title, :body
 end

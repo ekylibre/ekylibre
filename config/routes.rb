@@ -1,5 +1,7 @@
 Ekylibre::Application.routes.draw do
 
+
+
   resource :session, :only => [:new, :create, :destroy] do
     member do
       match "renew", :via => [:get, :post]
@@ -475,12 +477,7 @@ Ekylibre::Application.routes.draw do
       unroll_all
     end
   end
-  resources :product_varieties do
-    collection do
-      get :list
-      unroll_all
-    end
-  end
+  resources :product_localizations
   resources :product_processes do
     collection do
       get :list
@@ -530,6 +527,12 @@ Ekylibre::Application.routes.draw do
     end
   end
   resources :product_nature_components, :except => [:show, :index]
+  resources :product_varieties do
+    collection do
+      get :list
+      unroll_all
+    end
+  end
   resources :production_chains do
     collection do
       get :list
