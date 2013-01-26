@@ -79,8 +79,18 @@ fra:
       product_move:
         origin: "Origine"
       product_nature:
+        asset_account: "Compte d'immobilisation"
+        charge_account: "Compte d'achat"
+        commercial_name: "Nom Catalogue"
+        depreciable: "Ammortissable"
         duration: "Nombre de numéros OU période d’abonnement"
         price: "Prix de revient"
+        producible: "Productible"
+        product_account: "Compte de vente"
+        purchasable: "Achetable"
+        saleable: "Vendable"
+        stock_account: "Compte de stock"
+        storable: "Stockable"
       product_nature_category:
         children: "Sous-catégories"
         published: "Publiée"
@@ -461,6 +471,7 @@ fra:
     arrival_reasons: "Causes d'entrée" #?
     arrived_on: "Date d'entrée" #?
     asset: "Immobilisation"
+    # asset_account: "Asset account"
     asset_amount: "Valeur nette comptable"
     asset_depreciations: "Dépréciations d’immobilisation"
     assets: "Immobilisations" #?
@@ -477,7 +488,7 @@ fra:
     # automatic: "Automatic"
     available_prices: "Prix disponibles" #?
     available_products: "Produits disponibles" #?
-    available_stocks: "Stocks disponibles"
+    available_stocks: "Stocks disponibles" #?
     balance: "Solde"
     balance_amount: "Solde"
     balances: "Balances de compte"
@@ -602,7 +613,7 @@ fra:
     default_contact: "Contact par défaut" #?
     default_currency: "Devise par défaut" #?
     default_mail_address: "Adresse email par défaut"
-    default_stock: "Stock par défaut"
+    default_stock: "Stock par défaut" #?
     deferred_payment: "Crédit à reporter"
     delays: "Délais" #?
     deleted_at: "Supprimé le"
@@ -1031,7 +1042,7 @@ fra:
     reproductor: "Reproducteur"
     required: "Obligatoire"
     reservoir: "Réservoir"
-    reservoirs: "Réservoirs"
+    reservoirs: "Réservoirs" #?
     resource: "Origine"
     resource_type: "Origine"
     responsible: "Responsable"
@@ -1086,6 +1097,7 @@ fra:
     state: "État"
     state_label: "État"
     stock: "Stock de produit" #?
+    # stock_account: "Stock account"
     stock_move: "Mouvement de stock" #?
     stock_moves: "Mouvements de stock"
     stock_transfers: "Transferts ou pertes de stock"

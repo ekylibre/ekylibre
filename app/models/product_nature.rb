@@ -43,6 +43,7 @@
 #  purchasable            :boolean          not null
 #  reductible             :boolean          not null
 #  saleable               :boolean          not null
+#  stock_account_id       :integer          
 #  storable               :boolean          not null
 #  storage                :boolean          not null
 #  subscribing            :boolean          not null
@@ -60,11 +61,12 @@
 
 
 class ProductNature < CompanyRecord
-  attr_accessible :active, :commercial_description, :commercial_name, :category_id, :comment, :deliverable, :description, :ean13, :for_immobilizations, :for_productions, :for_purchases, :for_sales, :asset_account_id, :name, :nature, :number, :charge_account_id, :reduction_submissive, :product_account_id, :stockable, :subscription_nature_id, :subscription_period, :subscription_quantity, :trackable, :unit_id, :unquantifiable, :weight
+  attr_accessible :active, :commercial_description, :commercial_name, :category_id, :comment, :deliverable, :description, :depreciable, :producible, :purchasable, :saleable, :asset_account_id, :name, :number, :charge_account_id, :product_account_id, :storable, :subscription_nature_id, :subscription_duration, :traceable, :unit_id
   #enumerize :nature, :in => [:product, :service, :subscription], :default => :product, :predicates => true
   belongs_to :asset_account, :class_name => "Account"
   belongs_to :charge_account, :class_name => "Account"
   belongs_to :product_account, :class_name => "Account"
+  belongs_to :stock_account, :class_name => "Account"
   belongs_to :subscription_nature
   belongs_to :category, :class_name => "ProductNatureCategory"
   belongs_to :unit
@@ -95,6 +97,8 @@ class ProductNature < CompanyRecord
   validates_presence_of :subscription_quantity, :if => Proc.new{|u| u.subscription? and u.subscription_nature and u.subscription_nature.quantity? }
   validates_presence_of :product_account,     :if => :saleable?
   validates_presence_of :charge_account, :if => :purchasable?
+  validates_presence_of :stock_account, :if => :storable?
+  validates_presence_of :asset_account, :if => :depreciable?
   validates_uniqueness_of :number
   validates_uniqueness_of :name
 

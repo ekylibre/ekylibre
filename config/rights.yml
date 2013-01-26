@@ -70,13 +70,11 @@
 #   - "product_memberships::show"
 #   - "product_memberships::update"
 #   - "product_nature_categories::list_product_natures"
-#   - "product_natures::change_quantities"
 #   - "product_natures::create"
 #   - "product_natures::destroy"
 #   - "product_natures::edit"
 #   - "product_natures::list"
 #   - "product_natures::list_prices"
-#   - "product_natures::list_product_moves"
 #   - "product_natures::new"
 #   - "product_natures::update"
 #   - "product_process_phases::create"
@@ -290,7 +288,7 @@ consult_products:
   actions:
   - "dashboards::sales"
   - "product_natures::index"
-  - "product_natures::show"
+  - "product_natures::show # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!!"
 # Consulter les achats
 consult_purchases:
   actions:

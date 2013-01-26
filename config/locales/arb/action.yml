@@ -389,11 +389,11 @@ arb:
     product_nature_components:
       edit: "تعديل عنصر المنتج %{product} "
       new: "اضافة عنصر الى المنتج %{product} "
-    product_natures:  #?
-      edit: "تعديل المنتج : %{name}" #?
-      index: "المنتجات" #?
-      new: "اضافة منتج جديد" #?
-      show: "المنتجات : %{name}" #?
+    product_natures:
+      edit: "تعديل المنتج : %{name}"
+      index: "المنتجات"
+      new: "اضافة منتج جديد"
+      show: "المنتجات : %{name}"
     product_process_phases: #?
     product_processes: #?
     product_species: #?

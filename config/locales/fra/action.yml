@@ -289,11 +289,10 @@ fra:
       edit: "Modifier le composant %{name}"
       new: "Ajouter un composant"
     product_natures:
-      # change_quantities: "Change quantities product nature"
-      # edit: "Edit product nature"
-      # index: "Index product nature"
-      # new: "New product nature"
-      # show: "Show product nature"
+      edit: "Modifier le type de produit\_: %{name}"
+      index: "Type de produit"
+      new: "Nouveau type de produit"
+      show: "Type de produit\_: %{name}" #?
     product_process_phases:
       # edit: "Edit product process phase"
       # index: "Index product process phase"

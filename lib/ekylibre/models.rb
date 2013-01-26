@@ -537,6 +537,7 @@ module Ekylibre
       :charge_account_id => :account,
       :creator_id => :entity,
       :product_account_id => :account,
+      :stock_account_id => :account,
       :subscription_nature_id => :subscription_nature,
       :unit_id => :unit,
       :updater_id => :entity,

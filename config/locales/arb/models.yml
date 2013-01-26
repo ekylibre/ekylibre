@@ -376,13 +376,23 @@ arb:
         tracking_id: "حصة" #?
       product_nature:
         active: "قبل للاستخدام" #?
+        # asset_account: "Compte d'immobilisation"
+        # charge_account: "Compte d'achat"
         comment: "تعليق" #?
+        # commercial_name: "Nom Catalogue"
+        # depreciable: "Ammortissable"
         duration: "عدد ارقام او مدة الاشتراك"
         ean13: "EAN13 الرمز" #?
         # price: "Prix de revient"
+        # producible: "Productible"
+        # product_account: "Compte de vente"
         published: "نشر" #?
+        # purchasable: "Achetable"
+        # saleable: "Vendable"
+        # stock_account: "Compte de stock"
         stock_moves: "حركات السهم" #?
         stocks: "اسهم المنتجات" #?
+        # storable: "Stockable"
         unit: "وحدة القياس" #?
         unit_id: "وحدة قياس" #?
         warehouses: "اماكن التخزين" #?

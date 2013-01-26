@@ -796,6 +796,7 @@ class NormalizeProducts < ActiveRecord::Migration
       t.belongs_to :charge_account
       t.belongs_to :product_account
       t.belongs_to :asset_account
+      t.belongs_to :stock_account
       t.stamps
     end
     add_stamps_indexes :product_natures
@@ -806,6 +807,7 @@ class NormalizeProducts < ActiveRecord::Migration
     add_index :product_natures, :charge_account_id
     add_index :product_natures, :product_account_id
     add_index :product_natures, :asset_account_id
+    add_index :product_natures, :stock_account_id
 
     # Re-create table product
     create_table :products do |t|

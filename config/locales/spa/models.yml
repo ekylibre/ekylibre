@@ -83,8 +83,18 @@ spa:
       product_move:
         # origin: "Origine"
       product_nature:
+        # asset_account: "Compte d'immobilisation"
+        # charge_account: "Compte d'achat"
+        # commercial_name: "Nom Catalogue"
+        # depreciable: "Ammortissable"
         # duration: "Nombre de numéros OU période d’abonnement"
         # price: "Prix de revient"
+        # producible: "Productible"
+        # product_account: "Compte de vente"
+        # purchasable: "Achetable"
+        # saleable: "Vendable"
+        # stock_account: "Compte de stock"
+        # storable: "Stockable"
       product_nature_category:
         # children: "Sous-catégories"
         # published: "Publiée"

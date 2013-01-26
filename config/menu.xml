@@ -940,9 +940,6 @@
     <menu name="product_nature_categories">
       <page to="product_nature_categories#list_product_natures"/>
     </menu>
-    <menu name="product_natures">
-      <page to="product_natures#list_product_moves"/>
-    </menu>
     <menu name="product_process_phases">
       <page to="product_process_phases#index"/>
       <page to="product_process_phases#create"/>

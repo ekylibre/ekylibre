@@ -43,6 +43,7 @@
 #  purchasable            :boolean          not null
 #  reductible             :boolean          not null
 #  saleable               :boolean          not null
+#  stock_account_id       :integer          
 #  storable               :boolean          not null
 #  storage                :boolean          not null
 #  subscribing            :boolean          not null

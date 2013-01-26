@@ -1614,6 +1614,7 @@ ActiveRecord::Schema.define(:version => 20130125154553) do
     t.integer  "charge_account_id"
     t.integer  "product_account_id"
     t.integer  "asset_account_id"
+    t.integer  "stock_account_id"
     t.datetime "created_at",                                              :null => false
     t.datetime "updated_at",                                              :null => false
     t.integer  "creator_id"
@@ -1628,6 +1629,7 @@ ActiveRecord::Schema.define(:version => 20130125154553) do
   add_index "product_natures", ["creator_id"], :name => "index_product_natures_on_creator_id"
   add_index "product_natures", ["number"], :name => "index_product_natures_on_number", :unique => true
   add_index "product_natures", ["product_account_id"], :name => "index_product_natures_on_product_account_id"
+  add_index "product_natures", ["stock_account_id"], :name => "index_product_natures_on_stock_account_id"
   add_index "product_natures", ["subscription_nature_id"], :name => "index_product_natures_on_subscription_nature_id"
   add_index "product_natures", ["updated_at"], :name => "index_product_natures_on_updated_at"
   add_index "product_natures", ["updater_id"], :name => "index_product_natures_on_updater_id"

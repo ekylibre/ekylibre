@@ -83,8 +83,18 @@ eng:
       product_move:
         origin: "Origine"
       product_nature:
+        # asset_account: "Compte d'immobilisation"
+        # charge_account: "Compte d'achat"
+        # commercial_name: "Nom Catalogue"
+        # depreciable: "Ammortissable"
         duration: "Quantity OR period"
         price: "Cost price"
+        # producible: "Productible"
+        # product_account: "Compte de vente"
+        # purchasable: "Achetable"
+        # saleable: "Vendable"
+        # stock_account: "Compte de stock"
+        # storable: "Stockable"
       product_nature_category:
         children: "Sub-product_categories"
         published: "Published"
