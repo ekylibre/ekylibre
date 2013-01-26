@@ -41,7 +41,7 @@ class Delay
   def initialize(expression)
     expression ||= []
     expression = expression.to_s.mb_chars.downcase.split(/\s*\,\s*/) if @expression.is_a?(String)
-    raise ArgumentError.new("String or Array expected (got #{expression.class.name}:#{expression.inspect})")
+    raise ArgumentError.new("String or Array expected (got #{expression.class.name}:#{expression.inspect})") unless expression.is_a?(Array)
     @expression = expression.collect do |step|
       if step.match(/^(eom|end of month|fdm|fin de mois)$/)
         [:eom]
