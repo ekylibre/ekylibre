@@ -97,7 +97,7 @@ module ValidatesDelayFormat
         begin
           Delay.new(value)
         rescue InvalidDelayExpression => e
-          record.errors.add(attributes, :invalid, options.merge!(:value => value))
+          record.errors.add(attributes, :invalid, options.merge(:value => value))
         end
       end
     end
