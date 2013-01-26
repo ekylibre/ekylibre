@@ -73,7 +73,7 @@ ActiveRecord::Base.transaction do
   OutgoingPaymentMode.create!(:name => I18n.t('models.company.default.outgoing_payment_modes.transfer.name'), :cash_id => baac.id, :with_accounting => true, :attorney_journal => journals[:various])
 
   FinancialYear.create!(:started_on => Date.today.beginning_of_month)
-  SaleNature.create!(:name => I18n.t('models.company.default.sale_nature_name'), :expiration_delay => "30 day", :payment_delay => "30 day", :downpayment => false, :downpayment_minimum => 300, :downpayment_percentage => 30, :currency => currency, :with_accounting => true, :journal => journals[:sales])
+  #SaleNature.create!(:name => I18n.t('models.company.default.sale_nature_name'), :expiration_delay => "30 day", :payment_delay => "30 day", :downpayment => false, :downpayment_minimum => 300, :downpayment_percentage => 30, :currency => currency, :with_accounting => true, :journal => journals[:sales])
   PurchaseNature.create!(:name => I18n.t('models.company.default.purchase_nature_name'), :currency => currency, :with_accounting => true, :journal => journals[:purchases])
 
 

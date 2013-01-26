@@ -70,11 +70,14 @@
 
 
 class LandParcel < Place
-  attr_accessible :name, :number, :area_measure, :area_unit_id, :started_on
+  attr_accessible :name, :number, :area_measure, :area_unit_id, :born_at
   belongs_to :area_unit, :class_name => "Unit"
-  has_many :operations, :as => :target
-  has_many :parent_kinships, :class_name => "LandParcelKinship", :foreign_key => :child_land_parcel_id, :dependent => :destroy
-  has_many :child_kinships, :class_name => "LandParcelKinship", :foreign_key => :parent_land_parcel_id, :dependent => :destroy
+  belongs_to :parent_place, :class_name => "LandParcel"
+  # TODO : adapt with operations
+  #has_many :operations, :as => :target
+  # TODO : waiting for "merge" operation type
+  #has_many :parent_kinships, :class_name => "LandParcelKinship", :foreign_key => :child_land_parcel_id, :dependent => :destroy
+  #has_many :child_kinships, :class_name => "LandParcelKinship", :foreign_key => :parent_land_parcel_id, :dependent => :destroy
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :picture_file_size, :allow_nil => true, :only_integer => true
   validates_numericality_of :area_measure, :content_maximal_quantity, :maximal_quantity, :minimal_quantity, :real_quantity, :virtual_quantity, :allow_nil => true
@@ -82,51 +85,53 @@ class LandParcel < Place
   validates_inclusion_of :active, :external, :reproductor, :reservoir, :in => [true, false]
   validates_presence_of :content_maximal_quantity, :maximal_quantity, :minimal_quantity, :name, :nature, :number, :real_quantity, :unit, :variety, :virtual_quantity
   #]VALIDATORS]
-  validates_presence_of :area_unit
+  validates_presence_of :area_measure, :area_unit, :born_at
 
-  before_validation do
+  #before_validation do
     #self.master = false if self.master.nil?
     #self.polygon ||= "-"
-    self.started_on ||= Date.today
-  end
+    #self.started_on ||= Date.today
+  #end
 
-  before_validation(:on => :update) do
-    if self.operations.count <= 0
+  # TODO : waiting for operations stabilizations
+  #before_validation(:on => :update) do
+    #if self.operations.count <= 0
       # We can't change the area of a parcel if operations has been made on it
-      old = self.class.find(self.id)
-      self.area_measure = old.area_measure
-      self.area_unit_id = old.area_unit_id
-    end
-  end
+      #old = self.class.find(self.id)
+      #self.area_measure = old.area_measure
+      #self.area_unit_id = old.area_unit_id
+    #end
+  #end
 
+  # TODO : waiting for "merge" operation type
+  #def divide(subdivisions, divided_on)
+  #  if (total = subdivisions.collect{|s| s[:area_measure].to_f}.sum) != self.area_measure.to_f
+  #   errors.add :area_measure, :invalid, :measure => total, :expected_measure => self.area_measure, :unit => self.area_unit.name
+  #    return false
+  # end
+  #  return false unless divided_on.is_a? Date
+  #  return false unless divided_on > self.started_on
+  #  for subdivision in subdivisions
+  #    child = LandParcel.create!(subdivision.merge(:started_on => divided_on+1, :area_unit_id => self.area_unit_id))
+  #    LandParcelKinship.create!(:parent_land_parcel => self, :child_land_parcel => child, :nature => "divide")
+  #  end
+  #  self.update_column(:stopped_on, divided_on)
+  #end
 
-  def divide(subdivisions, divided_on)
-    if (total = subdivisions.collect{|s| s[:area_measure].to_f}.sum) != self.area_measure.to_f
-      errors.add :area_measure, :invalid, :measure => total, :expected_measure => self.area_measure, :unit => self.area_unit.name
-      return false
-    end
-    return false unless divided_on.is_a? Date
-    return false unless divided_on > self.started_on
-    for subdivision in subdivisions
-      child = LandParcel.create!(subdivision.merge(:started_on => divided_on+1, :area_unit_id => self.area_unit_id))
-      LandParcelKinship.create!(:parent_land_parcel => self, :child_land_parcel => child, :nature => "divide")
-    end
-    self.update_column(:stopped_on, divided_on)
-  end
-
-  def merge(other_parcels, merged_on)
-    return false unless other_parcels.size > 0
-    return false unless merged_on.is_a? Date
-    return false unless merged_on > self.started_on
-    parcels, area = [self]+other_parcels, 0.0
-    parcels.each{|p| area += p.area(self.area_unit) }
-    child = LandParcel.create!(:name => parcels.collect{|p| p.name}.join("+"), :started_on => merged_on+1, :area_unit_id => self.area_unit_id, :area_measure => area)
-    for parcel in parcels
-      LandParcelKinship.create!(:parent_land_parcel => parcel, :child_land_parcel => child, :nature => "merge")
-      parcel.update_column(:stopped_on, merged_on)
-    end
-    return child
-  end
+  # TODO : waiting for "merge" operation type
+  #def merge(other_parcels, merged_on)
+  #  return false unless other_parcels.size > 0
+  #  return false unless merged_on.is_a? Date
+  #  return false unless merged_on > self.started_on
+  #  parcels, area = [self]+other_parcels, 0.0
+  # parcels.each{|p| area += p.area(self.area_unit) }
+  # child = LandParcel.create!(:name => parcels.collect{|p| p.name}.join("+"), :started_on => merged_on+1, :area_unit_id => self.area_unit_id, :area_measure => area)
+  #  for parcel in parcels
+  #    LandParcelKinship.create!(:parent_land_parcel => parcel, :child_land_parcel => child, :nature => "merge")
+  #   parcel.update_column(:stopped_on, merged_on)
+  # end
+  #return child
+  #end
 
 
   def area(unit=nil)
@@ -134,8 +139,9 @@ class LandParcel < Place
     return self.area_unit.convert_to(self.area_measure, unit)
   end
 
-  def operations_on(viewed_on=Date.today)
-    self.operations.find(:all, :conditions => ["(moved_on IS NULL AND planned_on=?) OR (moved_on IS NOT NULL AND moved_on=?)", viewed_on, viewed_on])
-  end
+  # TODO : waiting for operations
+  #def operations_on(viewed_on=Date.today)
+    #self.operations.find(:all, :conditions => ["(moved_on IS NULL AND planned_on=?) OR (moved_on IS NOT NULL AND moved_on=?)", viewed_on, viewed_on])
+  #end
 
 end

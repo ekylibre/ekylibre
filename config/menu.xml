@@ -369,6 +369,17 @@
     </menu>
     <menu name="products">
       <page to="products#index"/>
+      <menu name="product_groups">
+        <page to="product_groups#index"/>
+        <page to="product_groups#create"/>
+        <page to="product_groups#destroy"/>
+        <page to="product_groups#edit"/>
+        <page to="product_groups#list"/>
+        <page to="product_groups#list_children"/>
+        <page to="product_groups#new"/>
+        <page to="product_groups#show"/>
+        <page to="product_groups#update"/>
+      </menu>
       <menu name="animals">
         <page to="animals#index"/>
         <page to="animals#create"/>
@@ -380,8 +391,19 @@
         <page to="animals#show"/>
         <page to="animals#update"/>
       </menu>
+      <menu name="vegetals">
+        <page to="vegetals#index"/>
+        <page to="vegetals#create"/>
+        <page to="vegetals#destroy"/>
+        <page to="vegetals#edit"/>
+        <page to="vegetals#list"/>
+        <page to="vegetals#list_children"/>
+        <page to="vegetals#new"/>
+        <page to="vegetals#show"/>
+        <page to="vegetals#update"/>
+      </menu>
     </menu>
-    <menu name="animal_events">
+    <menu name="logs">
       <page to="logs#index"/>
       <page to="logs#create"/>
       <page to="logs#destroy"/>
@@ -391,7 +413,7 @@
       <page to="logs#show"/>
       <page to="logs#update"/>
     </menu>
-    <menu name="animal_groups">
+    <menu name="product_groups">
       <page to="product_groups#index"/>
       <page to="product_groups#create"/>
       <page to="product_groups#destroy"/>
@@ -402,16 +424,6 @@
       <page to="product_groups#new"/>
       <page to="product_groups#show"/>
       <page to="product_groups#update"/>
-    </menu>
-    <menu name="animal_group_events">
-      <page to="product_group_events#index" deletable="true"/>
-      <page to="product_group_events#create" deletable="true"/>
-      <page to="product_group_events#destroy" deletable="true"/>
-      <page to="product_group_events#edit" deletable="true"/>
-      <page to="product_group_events#list" deletable="true"/>
-      <page to="product_group_events#new" deletable="true"/>
-      <page to="product_group_events#show" deletable="true"/>
-      <page to="product_group_events#update" deletable="true"/>
     </menu>
     <menu name="land_parcels">
       <page to="land_parcels#index"/>
@@ -425,32 +437,6 @@
       <page to="land_parcels#new"/>
       <page to="land_parcels#show"/>
       <page to="land_parcels#update"/>
-    </menu>
-    <menu name="production_chains">
-      <page to="production_chains#index"/>
-      <page to="production_chains#create"/>
-      <page to="production_chains#destroy"/>
-      <page to="production_chains#edit"/>
-      <page to="production_chains#list"/>
-      <page to="production_chains#list_conveyors"/>
-      <page to="production_chains#list_work_centers"/>
-      <page to="production_chains#new"/>
-      <page to="production_chains#show"/>
-      <page to="production_chains#update"/>
-      <page to="production_chain_work_centers#create"/>
-      <page to="production_chain_work_centers#destroy"/>
-      <page to="production_chain_work_centers#down"/>
-      <page to="production_chain_work_centers#edit"/>
-      <page to="production_chain_work_centers#new"/>
-      <page to="production_chain_work_centers#play"/>
-      <page to="production_chain_work_centers#show"/>
-      <page to="production_chain_work_centers#up"/>
-      <page to="production_chain_work_centers#update"/>
-      <page to="production_chain_conveyors#create"/>
-      <page to="production_chain_conveyors#destroy"/>
-      <page to="production_chain_conveyors#edit"/>
-      <page to="production_chain_conveyors#new"/>
-      <page to="production_chain_conveyors#update"/>
     </menu>
   </menu>
   <menu name="settings">
@@ -828,15 +814,6 @@
         <page to="land_parcel_groups#new" deletable="true"/>
         <page to="land_parcel_groups#update" deletable="true"/>
       </menu>
-      <menu name="operation_natures">
-        <page to="operation_natures#index" deletable="true"/>
-        <page to="operation_natures#create" deletable="true"/>
-        <page to="operation_natures#destroy" deletable="true"/>
-        <page to="operation_natures#edit" deletable="true"/>
-        <page to="operation_natures#list" deletable="true"/>
-        <page to="operation_natures#new" deletable="true"/>
-        <page to="operation_natures#update" deletable="true"/>
-      </menu>
       <menu name="product_varieties">
         <page to="product_varieties#index"/>
         <page to="product_varieties#create"/>
@@ -847,15 +824,31 @@
         <page to="product_varieties#show"/>
         <page to="product_varieties#update"/>
       </menu>
-      <menu name="product_event_natures">
-        <page to="product_event_natures#index" deletable="true"/>
-        <page to="product_event_natures#create" deletable="true"/>
-        <page to="product_event_natures#destroy" deletable="true"/>
-        <page to="product_event_natures#edit" deletable="true"/>
-        <page to="product_event_natures#list" deletable="true"/>
-        <page to="product_event_natures#new" deletable="true"/>
-        <page to="product_event_natures#show" deletable="true"/>
-        <page to="product_event_natures#update" deletable="true"/>
+      <menu name="production_chains">
+        <page to="production_chains#index"/>
+        <page to="production_chains#create"/>
+        <page to="production_chains#destroy"/>
+        <page to="production_chains#edit"/>
+        <page to="production_chains#list"/>
+        <page to="production_chains#list_conveyors"/>
+        <page to="production_chains#list_work_centers"/>
+        <page to="production_chains#new"/>
+        <page to="production_chains#show"/>
+        <page to="production_chains#update"/>
+        <page to="production_chain_work_centers#create"/>
+        <page to="production_chain_work_centers#destroy"/>
+        <page to="production_chain_work_centers#down"/>
+        <page to="production_chain_work_centers#edit"/>
+        <page to="production_chain_work_centers#new"/>
+        <page to="production_chain_work_centers#play"/>
+        <page to="production_chain_work_centers#show"/>
+        <page to="production_chain_work_centers#up"/>
+        <page to="production_chain_work_centers#update"/>
+        <page to="production_chain_conveyors#create"/>
+        <page to="production_chain_conveyors#destroy"/>
+        <page to="production_chain_conveyors#edit"/>
+        <page to="production_chain_conveyors#new"/>
+        <page to="production_chain_conveyors#update"/>
       </menu>
       <menu name="tools">
         <page to="tools#index"/>
@@ -1008,6 +1001,7 @@
       <page to="products#create"/>
       <page to="products#destroy"/>
       <page to="products#edit"/>
+      <page to="products#list"/>
       <page to="products#new"/>
       <page to="products#update"/>
     </menu>

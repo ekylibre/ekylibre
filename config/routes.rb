@@ -726,6 +726,12 @@ Ekylibre::Application.routes.draw do
       post :unlock
     end
   end
+  resources :vegetals do
+    collection do
+      get :list
+      unroll_all
+    end
+  end
   resources :warehouses do
     collection do
       get :list

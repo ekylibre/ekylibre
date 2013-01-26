@@ -40,7 +40,7 @@ eng:
     animal_treatments: #?
     animals:
       # edit: "Modifier l'animal\_: %{name}"
-      # index: "Liste des animaux"
+      # index: "Productions animales"
       # new: "Nouvel animal"
       # show: "Animal\_: %{name}"
     areas:
@@ -380,10 +380,10 @@ eng:
       index: "Transfers and loss"
       new: "Add a new stock transfer or loss"
     product_varieties:
-      # edit: "Modifier la race\_: %{name} "
-      # index: "Races"
-      # new: "Créer une race"
-      # show: "Race\_: %{name}"
+      # edit: "Modifier la variété\_: %{name} "
+      # index: "Variétés"
+      # new: "Créer une variétés"
+      # show: "Variété\_: %{name}"
     production_chain_conveyors:
       edit: "Edit production chain conveyor (%{source_id}-%{target_id})"
       new: "Add a new conveyor in the production chain"
@@ -547,6 +547,11 @@ eng:
       new: "Add a new user"
       show: "User: %{first_name} %{last_name} (%{name})"
       unlock: "Unlock user"
+    vegetals:
+      # edit: "Modifier une production végétale"
+      # index: "Productions végétales"
+      # new: "Nouvelle production végétale"
+      # show: "Production végétale\_: %{name} %{area_measure} %{area_unit.name}"
     warehouses:
       edit: "Edit the warehouse: %{name}"
       index: "Warehouses"
@@ -556,6 +561,7 @@ eng:
     account_balances: "Account balances"
     accounts: "Plan of accounts"
     admin: "Administration"
+    # affairs: "Affaires"
     animal_diagnostics: "Diagnostics" #?
     animal_diseases: "Diseases" #?
     animal_drug_natures: "Drug natures" #?
@@ -568,7 +574,7 @@ eng:
     animal_race_natures: "Animal's species" #?
     animal_races: "Races" #?
     animal_treatments: "Animal's treatments" #?
-    animals: "Animals" #?
+    animals: "Animals"
     application: "Application"
     areas: "Postal areas"
     assets: "Assets"

@@ -68,4 +68,31 @@
 #  work_number              :string(255)      
 #
 class Vegetal < Bioproduct
+  attr_accessible :variety_id, :nature_id, :reproductor, :external, :born_at, :dead_at, :comment, :description, :identification_number, :name, :picture, :work_number
+  #enumerize :sex, :in => [:male, :female]
+  #enumerize :arrival_reasons, :in => [:birth, :purchase, :housing, :other], :default=> :birth
+  #enumerize :departure_reasons, :in => [:dead, :sale, :autoconsumption, :other], :default=> :sale
+  has_many :indicators, :class_name => "ProductIndicator", :foreign_key => :product_id, :dependent => :destroy
+  # has_many :groups, :class_name => "ProductGroup", :through => :passages
+  #belongs_to :father, :class_name => "Animal", :conditions => {:sex => :male, :reproductor => 'true'}
+  #belongs_to :mother, :class_name => "Animal", :conditions => {:sex => :female}
+  belongs_to :nature, :class_name => "ProductNature"
+  belongs_to :variety, :class_name => "ProductVariety"
+
+  # @TODO waiting for events and operations stabilizations
+  #has_many :events, :class_name => "Log"
+  #has_many :operations, :class_name => "Operation"
+
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_numericality_of :picture_file_size, :allow_nil => true, :only_integer => true
+  validates_numericality_of :area_measure, :content_maximal_quantity, :maximal_quantity, :minimal_quantity, :real_quantity, :virtual_quantity, :allow_nil => true
+  validates_length_of :identification_number, :name, :number, :picture_content_type, :picture_file_name, :sex, :work_number, :allow_nil => true, :maximum => 255
+  validates_inclusion_of :active, :external, :reproductor, :reservoir, :in => [true, false]
+  validates_presence_of :content_maximal_quantity, :maximal_quantity, :minimal_quantity, :name, :nature, :number, :real_quantity, :unit, :variety, :virtual_quantity
+  #]VALIDATORS]
+
+  validates_uniqueness_of :name, :identification_number
+
+  default_scope -> { order(:name) }
+
 end

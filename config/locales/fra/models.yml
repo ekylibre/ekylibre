@@ -2,12 +2,7 @@ fra:
   activerecord:
     attributes:
       animal:
-        race: "Race"
-      animal_race:
-        code: "Code race"
-      animal_treatment_use:
-        drug_admission_path: "Voie d’admission"
-        quantity_unit: "Unité"
+        variety: "Race"
       asset_depreciation:
         asset_amount: "Valeur nette comptable (VNC)"
       cash:
@@ -55,6 +50,8 @@ fra:
       journal_entry_line:
         closed: "Cloturée"
       land_parcel:
+        area_measure: "Surface"
+        born_at: "Date de création"
         children: "Sous-îlots"
         number: "Numéro PAC ou numéro de parcelle"
       mandate:
@@ -150,6 +147,8 @@ fra:
         nature: "Régime de la déclaration"
         period: "Période"
       tool:
+        born_at: "Date de mise en service"
+        dead_at: "Date de mise au rebut"
         uses: "Utilisations d’outil"
       tracking:
         active: "Utilisé"
@@ -162,6 +161,11 @@ fra:
         locked: "Compte verrouillé"
         name: "Nom d’utilisateur"
         reduction_percent: "Taux de réduction autorisé (%)"
+      vegetal:
+        born_at: "Date création"
+        nature: "Nature de la culture"
+        reproductor: "Multiplication"
+        variety: "Variété"
       warehouse:
         children: "Sous lieu de stockage"
         product: "Produit contenu"
@@ -510,7 +514,7 @@ fra:
     charges_accounts: "Comptes de charge" #?
     check_number: "N°Chèque"
     check_state: "Vérifier l’état"
-    child_kinships: "Relation enfant"
+    child_kinships: "Relation enfant" #?
     child_land_parcel: "Sous-îlot" #?
     children: "Enfants"
     choice_custom_fields: "Champs personnalisables à liste" #?
@@ -750,7 +754,7 @@ fra:
     incoming_payments: "Encaissements"
     indicators: "Indicators"
     indirect_links: "Liens indirects"
-    # indivisible: "Indivisible"
+    indivisible: "Indivisible"
     initial_number: "Numéro initial"
     input_conveyors: "Convoyeur entrant"
     integer_value: "Valeur entière"
@@ -835,9 +839,9 @@ fra:
     maximal_length: "Longueur maximale"
     maximal_quantity: "Maximal quantity"
     maximal_value: "Valeur maximale"
-    # measure_unit: "Measure unit"
-    # measure_value: "Measure value"
-    # measured_at: "Measured at"
+    measure_unit: "Unité de mesure"
+    measure_value: "Valeur de la mesure"
+    measured_at: "Mesuré à"
     memberships: "Memberships"
     min_duration: "Minute(s)" #?
     minimal_length: "Longueur minimale"
@@ -905,8 +909,9 @@ fra:
     paid_on: "Réglé le"
     paid_taxes: "Taxes payées"
     parent: "Parent"
-    parent_kinships: "Relation parent"
+    parent_kinships: "Relation parent" #?
     parent_land_parcel: "Sur-îlot" #?
+    # parent_place: "Parent place"
     parts: "Affectations" #?
     parts_amount: "Montant utilisé" #?
     passages: "Passages" #?
@@ -1021,7 +1026,7 @@ fra:
     reflation_submissive: "Soumis à la relance"
     reflections: "Reflections"
     relative_humidity: "Humidité relative" #?
-    remaining_duration: "Durée d’utilisation prévue (heures)"
+    remaining_duration: "Durée d’utilisation prévue (heures)" #?
     # repeatable: "Repeatable"
     reproductor: "Reproducteur"
     required: "Obligatoire"
@@ -1166,7 +1171,7 @@ fra:
     usable_incoming_payments: "Encaissements utilisables"
     usable_outgoing_payments: "Décaissements utilisables" #?
     usage: "Utilisation"
-    usage_duration: "Durée d’utilisation (heures)"
+    usage_duration: "Durée d’utilisation (heures)" #?
     used_amount: "Montant utilisé" #?
     used_with: "Used with"
     # useful_items: "Useful items"

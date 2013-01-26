@@ -71,10 +71,12 @@
 
 
 class Product < CompanyRecord
-  belongs_to :nature
-  belongs_to :variety
+  belongs_to :nature, :class_name => "ProductNature"
+  belongs_to :variety, :class_name => "ProductVariety"
   belongs_to :unit
   belongs_to :tracking
+  belongs_to :father, :class_name => "Product"
+  belongs_to :mother, :class_name => "Product"
   has_many :memberships, :class_name => "ProductMembership"
   has_many :indicators, :class_name => "ProductIndicator"
   has_attached_file :picture, :styles => { :medium => "300x300>", :thumb => "100x100>" }

@@ -15,13 +15,10 @@ arb:
         financial_year: "مهنة" #?
         lock_version: "الاصدار المحلي" #?
       animal:
-        # race: "Race"
+        # variety: "Race"
       animal_group: #?
-      animal_race:
-        # code: "Code race"
-      animal_treatment_use:
-        # drug_admission_path: "Voie d’admission"
-        # quantity_unit: "Unité"
+      animal_race: #?
+      animal_treatment_use: #?
       area:  #?
         code: "الرمز الداخلي" #?
         created_at: "تم انشائه في" #?
@@ -263,6 +260,8 @@ arb:
         created_at: "انشأت ففي" #?
         original_credit: "ائتمان" #?
       land_parcel:
+        # area_measure: "Surface"
+        # born_at: "Date de création"
         children: "شبه كتل"
         number: "رقم المساحة او رقم الحزمة"
         updated_at: "تم تحديثه" #?
@@ -592,7 +591,9 @@ arb:
         # period: "Période"
         updated_at: "تم تحديثها في" #?
       tool:
+        # born_at: "Date de mise en service"
         consumption: "(الاستهلاك (لتر / ساعة " #?
+        # dead_at: "Date de mise au rebut"
         text_nature: "طبيغة النص" #?
         uses: "استخدامات الادوات"
       tracking:
@@ -628,6 +629,11 @@ arb:
         locked: "حساب مغلق"
         name: "اسم المستخدم"
         # reduction_percent: "Taux de réduction autorisé (%)"
+      vegetal:
+        # born_at: "Date création"
+        # nature: "Nature de la culture"
+        # reproductor: "Multiplication"
+        # variety: "Variété"
       warehouse:
         # children: "Sous lieu de stockage"
         # product: "Produit contenu"

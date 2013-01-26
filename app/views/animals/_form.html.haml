@@ -1,11 +1,12 @@
 -field_set do # partie info general de l entité animal
   -association :nature
+  -association :variety
   -input :name , :hint => "le nom de votre animal"# affiche le champ name de l entité animal avec une infos derriere
   -input :sex # affiche le champ sexe sous forme de radio avec une collection de proposition (M ou F) de l entité animal
   -input :reproductor
   -input :born_at
   -input :work_number
-  -input :serial_number, :placeholder => 'FR + DEPT + 8 chiffres'
+  -input :identification_number, :placeholder => 'FR + DEPT + 8 chiffres'
   -input :comment # affiche le champ comment formaté en zone de texte
   -input :picture
   =image_tag(@animal.picture.url(:thumb))

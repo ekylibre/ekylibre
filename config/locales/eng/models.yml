@@ -2,13 +2,11 @@ eng:
   activerecord:
     attributes:
       animal:
-        race: "Race"
+        race: "Race" #?
+        # variety: "Race"
       animal_group: #?
-      animal_race:
-        # code: "Code race"
-      animal_treatment_use:
-        # drug_admission_path: "Voie d’admission"
-        # quantity_unit: "Unité"
+      animal_race: #?
+      animal_treatment_use: #?
       asset_depreciation:
         asset_amount: "Accountable value"
       cash:
@@ -56,6 +54,8 @@ eng:
       journal_entry_line:
         closed: "Closed"
       land_parcel:
+        # area_measure: "Surface"
+        # born_at: "Date de création"
         children: "Sub-plots"
         number: "CAP Number or plot number"
       mandate:
@@ -151,6 +151,8 @@ eng:
         nature: "Régime de la déclaration"
         period: "Périod"
       tool:
+        # born_at: "Date de mise en service"
+        # dead_at: "Date de mise au rebut"
         uses: "Tool uses"
       tracking:
         active: "Used"
@@ -163,6 +165,11 @@ eng:
         locked: "Locked"
         name: "User name"
         reduction_percent: "Authorized percentage of discount (%)"
+      vegetal:
+        # born_at: "Date création"
+        # nature: "Nature de la culture"
+        # reproductor: "Multiplication"
+        # variety: "Variété"
       warehouse:
         children: "Sub-warehouse"
         product: "Contained product"
