@@ -66,6 +66,7 @@ ActiveRecord::Schema.define(:version => 20130125154553) do
     t.decimal  "debit",                         :precision => 19, :scale => 4, :default => 0.0,   :null => false
     t.decimal  "credit",                        :precision => 19, :scale => 4, :default => 0.0,   :null => false
     t.datetime "accounted_at"
+    t.date     "last_deal_on"
     t.integer  "journal_entry_id"
     t.datetime "created_at",                                                                      :null => false
     t.datetime "updated_at",                                                                      :null => false

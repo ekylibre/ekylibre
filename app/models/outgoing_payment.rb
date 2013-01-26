@@ -45,7 +45,6 @@
 
 
 class OutgoingPayment < CompanyRecord
-  acts_as_numbered
   attr_accessible :amount, :check_number, :paid_on, :to_bank_on, :responsible_id, :payee_id, :mode_id # , :used_amount
   belongs_to :journal_entry
   belongs_to :mode, :class_name => "OutgoingPaymentMode"
@@ -67,6 +66,10 @@ class OutgoingPayment < CompanyRecord
 
   default_scope -> { order("id DESC") }
   scope :unbalanceds, -> { where("used_amount < amount") }
+
+  delegate :currency, :to => :mode
+  acts_as_numbered
+  acts_as_affairable
 
   before_validation(:on => :create) do
     self.created_on ||= Date.today

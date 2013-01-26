@@ -304,7 +304,7 @@ fra:
       # bioproduct: "Bioproduct"
       cash: "Trésorerie"
       cash_transfer: "Virement interne"
-      company: "Société"
+      company: "Société" #?
       cultivation: "Culture"
       custom_field: "Champ complémentaire"
       custom_field_choice: "Choix de champ complémentaire"
@@ -380,6 +380,7 @@ fra:
       # product_indicator: "Product indicator"
       # product_indicator_nature: "Product indicator nature"
       # product_indicator_nature_choice: "Product indicator nature choice"
+      # product_localization: "Product localization"
       product_membership: "Passage d'un produit dans un groupe"
       product_move: "Mouvement de stock"
       product_nature: "Produit"
@@ -469,7 +470,7 @@ fra:
     authorized_payments_count: "Nombre d’encaissements autorisés"
     auto_updateable_addresses: "Adresses mises à jour automatiquement"
     # automatic: "Automatic"
-    available_prices: "Prix disponibles"
+    available_prices: "Prix disponibles" #?
     available_products: "Produits disponibles" #?
     available_stocks: "Stocks disponibles"
     balance: "Solde"
@@ -477,11 +478,11 @@ fra:
     balances: "Balances de compte"
     bank: "Banque"
     bank_code: "Code banque"
-    bank_journals: "Journaux de banque"
+    bank_journals: "Journaux de banque" #?
     bank_name: "Nom de la banque"
     bank_statement: "Relevé de compte bancaire"
     bank_statements: "Relevés de compte bancaire"
-    banks_accounts: "Comptes comptables de banque"
+    banks_accounts: "Comptes comptables de banque" #?
     base: "Base"
     bban: "RIB" #?
     bic: "BIC"
@@ -489,15 +490,15 @@ fra:
     born_at: "Born at"
     born_on: "Date de naissance"
     building: "Bâtiment"
-    buildings: "Bâtiments"
+    buildings: "Bâtiments" #?
     by_default: "Par défaut"
     cache: "Cache"
     canal: "Canal"
     cash: "Trésorerie"
-    cash_journals: "Journaux de caisse"
+    cash_journals: "Journaux de caisse" #?
     cash_transfers: "Virements internes" #?
     cashes: "Trésoreries"
-    cashes_accounts: "Comptes de caisse"
+    cashes_accounts: "Comptes de caisse" #?
     catalog_description: "Description pour le catalogue"
     catalog_name: "Nom pour le catalogue"
     category: "Catégorie"
@@ -506,13 +507,13 @@ fra:
     changes_reflected: "Refléter les changements"
     # charge_account: "Charge account"
     charges_account: "Compte de charge"
-    charges_accounts: "Comptes de charge"
+    charges_accounts: "Comptes de charge" #?
     check_number: "N°Chèque"
     check_state: "Vérifier l’état"
     child_kinships: "Relation enfant"
     child_land_parcel: "Sous-îlot" #?
     children: "Enfants"
-    choice_custom_fields: "Champs personnalisables à liste"
+    choice_custom_fields: "Champs personnalisables à liste" #?
     choice_value: "Valeur choix"
     choices: "Choix de champ complémentaire"
     choices_count: "Nb. Choix"
@@ -522,7 +523,7 @@ fra:
     client_account: "Compte client associé"
     client_accounts: "Comptes clients" #?
     clients: "Clients"
-    closable_financial_year: "Exercice clôturable"
+    closable_financial_year: "Exercice clôturable" #?
     closed: "Clôturé"
     # closed_at: "Closed at"
     closed_on: "Date de clôture"
@@ -576,7 +577,7 @@ fra:
     currency_precision: "Nombre de décimales"
     currency_rate: "Taux de change"
     current_amount: "Montant actuel"
-    current_financial_year: "Exercice comptable en cours"
+    current_financial_year: "Exercice comptable en cours" #?
     custom_field: "Champ complémentaire"
     custom_field_choices: "Choix de champ complémentaire" #?
     custom_field_data: "Données complémentaires de fiche"
@@ -593,8 +594,8 @@ fra:
     decimal_value: "Valeur décimale"
     declared_on: "Déclarée le"
     default_address: "Coordonnée par défaut" #?
-    default_contact: "Contact par défaut"
-    default_currency: "Devise par défaut"
+    default_contact: "Contact par défaut" #?
+    default_currency: "Devise par défaut" #?
     default_mail_address: "Adresse email par défaut"
     default_stock: "Stock par défaut"
     deferred_payment: "Crédit à reporter"
@@ -705,7 +706,7 @@ fra:
     financial_year_as_last: "Exercice (en tant que écriture de fin d’exercice)"
     financial_years: "Exercices" #?
     finish: "Fin"
-    first_financial_year: "Premier exercice"
+    first_financial_year: "Premier exercice" #?
     first_met_on: "Date de la première rencontre"
     first_name: "Prénom"
     first_number: "Premier numéro"
@@ -781,6 +782,7 @@ fra:
     language: "Langue"
     last_bank_statement: "Dernier relevé bancaire"
     last_cweek: "Dernière semaine"
+    # last_deal_on: "Last deal on"
     # last_done: "Last done"
     last_journal_entry: "Écriture de fin d’exercice"
     last_letter: "Dernière lettre"
@@ -804,7 +806,7 @@ fra:
     location: "Location"
     lock_version: "Version"
     locked: "Verrouillé"
-    log: "Journal d'évènements"
+    log: "Journal d'évènements" #?
     loggable: "Peut se connecter"
     lost: "En perte" #?
     luminance: "Luminosité" #?
@@ -923,7 +925,7 @@ fra:
     payments: "Encaissements"
     payments_count: "Nb. encaissements"
     payments_to_deposit: "Encaissements à encaisser" #?
-    payments_to_deposit_accounts: "Comptes des encaissements à encaisser"
+    payments_to_deposit_accounts: "Comptes des encaissements à encaisser" #?
     period: "Périodicité"
     # phase_delay: "Phase delay"
     phones: "Téléphones"
@@ -962,12 +964,12 @@ fra:
     product_nature: "Product nature"
     product_natures: "Types de produits"
     # product_type: "Product type"
-    productable_products: "Produits produisibles"
+    productable_products: "Produits produisibles" #?
     production_chain: "Chaîne de production"
     production_chain_conveyor: "Convoyeur de chaîne de production" #?
     production_chain_work_center: "Centre d’opérations de chaîne de production" #?
     products: "Produits"
-    products_accounts: "Comptes produits"
+    products_accounts: "Comptes produits" #?
     profession: "Profession"
     professions: "Professions" #?
     propagate_contacts: "Propager les contacts"
@@ -1036,6 +1038,7 @@ fra:
     root_model: "Racine"
     root_model_name: "Racine"
     sale: "Vente"
+    # sale_credits: "Sale credits"
     sale_item: "Sale item"
     # sale_items: "Sale items"
     sale_line: "Ligne de vente" #?
@@ -1055,8 +1058,8 @@ fra:
     second_move: "Second mouvement" #?
     second_stock_move: "Second mouvement de stock" #?
     second_warehouse: "Lieu de stockage du second mouvement" #?
-    self_cashes: "Caisses en propre"
-    self_contacts: "Contacts en propre"
+    self_cashes: "Caisses en propre" #?
+    self_contacts: "Contacts en propre" #?
     sequences: "Séquences" #?
     serial: "N°Lot"
     serial_number: "Serial number"
@@ -1107,7 +1110,7 @@ fra:
     supplier_account: "Compte fournisseur associé"
     supplier_accounts: "Comptes fournisseurs" #?
     suppliers: "Fournisseurs"
-    surface_units: "Unités de surface"
+    surface_units: "Unités de surface" #?
     suspended: "Suspendu"
     symbol: "Symbole" #?
     symmetric: "Symétrique"
@@ -1142,7 +1145,7 @@ fra:
     transport_on: "Transport le"
     transporter: "Transporteur"
     transporter_sales: "Ventes de transporteurs"
-    transporters: "Transporteurs"
+    transporters: "Transporteurs" #?
     transports: "Transports"
     treatment: "Traitement" #?
     treatment_uses: "Treatment uses" #?
@@ -1154,14 +1157,14 @@ fra:
     unit_quantity: "Quantité par unité de surface" #?
     units: "Unités"
     unlocked_payments: "Paiement non verrouillés"
-    unpaid_responsibles: "Responsables d'impayés"
+    unpaid_responsibles: "Responsables d'impayés" #?
     unpaid_sales: "Ventes impayées" #?
     unquantifiable: "Non quantifiable" #?
     unused_conveyors: "Convoyeurs inutilisés"
     updated_at: "Mis à jour le"
     updater: "Modificateur"
     usable_incoming_payments: "Encaissements utilisables"
-    usable_outgoing_payments: "Décaissements utilisables"
+    usable_outgoing_payments: "Décaissements utilisables" #?
     usage: "Utilisation"
     usage_duration: "Durée d’utilisation (heures)"
     used_amount: "Montant utilisé" #?
@@ -1391,71 +1394,71 @@ fra:
       label: "%{number} - %{name}"
     cash_transfer:
       bookkeep: "[%{resource} %{number}] De %{emitter} à %{receiver} %{comment}"
-    company:
-      cant_find_document_template: "Impossible de trouver le modèle de document correspondant"
-      default:
-        category: "Par défaut"
-        delays:
-          expression:
-            expiration: "1 mois"
-            immediate: "0 jour"
-            standard: "30 jours, fin de mois"
-          name:
-            expiration: "Expiration (1 M)"
-            immediate: "Immédiat"
-            standard: "Standard (30j FDM)"
-        department_name: "Gestion/Production"
-        establishment_name: "Établissement principal"
-        event_natures:
-          purchase: "Création d’un achat"
-          sale: "Création d’un devis"
-          sales_invoice: "Création d’une facture"
-        incoming_payment_modes:
-          cash:
-            name: "Espèces"
-          check:
-            name: "Chèque"
-          transfer:
-            name: "Virement"
-        outgoing_payment_modes:
-          cash:
-            name: "Espèces"
-          check:
-            name: "Chèque"
-          transfer:
-            name: "Virement"
-        product_category_name: "Sans catégorie"
-        purchase_nature_name: "Standard"
-        role:
-          name:
-            admin: "Gérant"
-            public: "Public (sans droits)"
-        sale_nature_name: "Vente standard"
-        taxes:
-          tva0000:
-            amount: "0.0"
-            collected: "445710"
-            name: "TVA 0,00%"
-            paid: "445660"
-          tva0210:
-            amount: "2.1"
-            collected: "445711"
-            name: "TVA 2,10%"
-            paid: "445661"
-          tva0550:
-            amount: "5.5"
-            collected: "445712"
-            name: "TVA 5,50%"
-            paid: "445662"
-          tva1960:
-            amount: "19.6"
-            collected: "445713"
-            name: "TVA 19,60%"
-            paid: "445663"
-        warehouse_name: "Réserve"
-      import:
-        dont_use: "-- Ne pas utiliser --"
-        generate_string_custom_field: "-- Créer un champ personnalisé (texte) --"
+    company: #?
+      cant_find_document_template: "Impossible de trouver le modèle de document correspondant" #?
+      default: #?
+        category: "Par défaut" #?
+        delays: #?
+          expression: #?
+            expiration: "1 mois" #?
+            immediate: "0 jour" #?
+            standard: "30 jours, fin de mois" #?
+          name: #?
+            expiration: "Expiration (1 M)" #?
+            immediate: "Immédiat" #?
+            standard: "Standard (30j FDM)" #?
+        department_name: "Gestion/Production" #?
+        establishment_name: "Établissement principal" #?
+        event_natures: #?
+          purchase: "Création d’un achat" #?
+          sale: "Création d’un devis" #?
+          sales_invoice: "Création d’une facture" #?
+        incoming_payment_modes: #?
+          cash: #?
+            name: "Espèces" #?
+          check: #?
+            name: "Chèque" #?
+          transfer: #?
+            name: "Virement" #?
+        outgoing_payment_modes: #?
+          cash: #?
+            name: "Espèces" #?
+          check: #?
+            name: "Chèque" #?
+          transfer: #?
+            name: "Virement" #?
+        product_category_name: "Sans catégorie" #?
+        purchase_nature_name: "Standard" #?
+        role: #?
+          name: #?
+            admin: "Gérant" #?
+            public: "Public (sans droits)" #?
+        sale_nature_name: "Vente standard" #?
+        taxes: #?
+          tva0000: #?
+            amount: "0.0" #?
+            collected: "445710" #?
+            name: "TVA 0,00%" #?
+            paid: "445660" #?
+          tva0210: #?
+            amount: "2.1" #?
+            collected: "445711" #?
+            name: "TVA 2,10%" #?
+            paid: "445661" #?
+          tva0550: #?
+            amount: "5.5" #?
+            collected: "445712" #?
+            name: "TVA 5,50%" #?
+            paid: "445662" #?
+          tva1960: #?
+            amount: "19.6" #?
+            collected: "445713" #?
+            name: "TVA 19,60%" #?
+            paid: "445663" #?
+        warehouse_name: "Réserve" #?
+      import: #?
+        dont_use: "-- Ne pas utiliser --" #?
+        generate_string_custom_field: "-- Créer un champ personnalisé (texte) --" #?
       sales: "Ventes"
     delay: #?
       error_unvalid_format_for_expression: "L’expression n’est pas au bon format"

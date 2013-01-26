@@ -48,11 +48,8 @@
 
 
 class Purchase < CompanyRecord
-  acts_as_numbered
   attr_accessible :comment, :delivery_address_id, :nature_id, :planned_on, :reference_number, :responsible_id, :supplier_id
   attr_readonly :currency
-
-  after_create {|r| r.supplier.add_event(:purchase, r.updater_id)}
   belongs_to :delivery_address, :class_name => "EntityAddress"
   belongs_to :journal_entry
   belongs_to :nature, :class_name => "PurchaseNature"
@@ -74,6 +71,9 @@ class Purchase < CompanyRecord
   validates_presence_of :planned_on, :created_on, :currency, :state, :nature
   validates_uniqueness_of :number
 
+  acts_as_numbered
+  acts_as_affairable
+  after_create {|r| r.supplier.add_event(:purchase, r.updater_id)}
   state_machine :state, :initial => :draft do
     state :draft
     state :estimate

@@ -76,9 +76,10 @@ class IncomingPayment < CompanyRecord
   validates_presence_of :payer, :created_on
   validates_presence_of :commission_account, :if => Proc.new{|p| p.mode.with_commission? }
 
-  acts_as_numbered
-  autosave :deposit
   delegate :currency, :to => :mode
+  acts_as_numbered
+  acts_as_affairable
+  autosave :deposit
 
   default_scope -> { order("id DESC") }
   scope :depositables, -> { where("deposit_id IS NULL AND to_bank_on >= ? AND mode_id IN (SELECT id FROM #{IncomingPaymentMode.table_name} WHERE with_deposit = ?)", Date.today, true) }

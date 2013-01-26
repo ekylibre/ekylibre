@@ -2,7 +2,7 @@
 module Ekylibre
   mattr_reader :models, :references
   # List of all models
-  @@models = [:account, :account_balance, :affair, :animal, :area, :asset, :asset_depreciation, :bank_statement, :bioproduct, :cash, :cash_transfer, :company, :cultivation, :custom_field, :custom_field_choice, :custom_field_datum, :department, :deposit, :deposit_item, :district, :document, :document_template, :entity, :entity_address, :entity_category, :entity_link, :entity_link_nature, :entity_nature, :establishment, :event, :event_nature, :financial_year, :fungus, :incoming_delivery, :incoming_delivery_item, :incoming_delivery_mode, :incoming_payment, :incoming_payment_mode, :inventory, :inventory_item, :journal, :journal_entry, :journal_entry_item, :land_parcel, :listing, :listing_node, :listing_node_item, :log, :mandate, :matter, :observation, :operation, :operation_work, :outgoing_delivery, :outgoing_delivery_item, :outgoing_delivery_mode, :outgoing_payment, :outgoing_payment_mode, :place, :preference, :price, :product, :product_group, :product_indicator, :product_indicator_nature, :product_indicator_nature_choice, :product_membership, :product_move, :product_nature, :product_nature_category, :product_nature_component, :product_process, :product_process_phase, :product_transfer, :product_variety, :production_chain, :production_chain_conveyor, :production_chain_work_center, :production_chain_work_center_use, :profession, :purchase, :purchase_item, :purchase_nature, :role, :sale, :sale_item, :sale_nature, :sequence, :service, :subscription, :subscription_nature, :tax, :tax_declaration, :tool, :tracking, :transfer, :transport, :unit, :vegetal, :warehouse]
+  @@models = [:account, :account_balance, :affair, :animal, :area, :asset, :asset_depreciation, :bank_statement, :bioproduct, :cash, :cash_transfer, :cultivation, :custom_field, :custom_field_choice, :custom_field_datum, :department, :deposit, :deposit_item, :district, :document, :document_template, :entity, :entity_address, :entity_category, :entity_link, :entity_link_nature, :entity_nature, :establishment, :event, :event_nature, :financial_year, :fungus, :incoming_delivery, :incoming_delivery_item, :incoming_delivery_mode, :incoming_payment, :incoming_payment_mode, :inventory, :inventory_item, :journal, :journal_entry, :journal_entry_item, :land_parcel, :listing, :listing_node, :listing_node_item, :log, :mandate, :matter, :observation, :operation, :operation_work, :outgoing_delivery, :outgoing_delivery_item, :outgoing_delivery_mode, :outgoing_payment, :outgoing_payment_mode, :place, :preference, :price, :product, :product_group, :product_indicator, :product_indicator_nature, :product_indicator_nature_choice, :product_localization, :product_membership, :product_move, :product_nature, :product_nature_category, :product_nature_component, :product_process, :product_process_phase, :product_transfer, :product_variety, :production_chain, :production_chain_conveyor, :production_chain_work_center, :production_chain_work_center_use, :profession, :purchase, :purchase_item, :purchase_nature, :role, :sale, :sale_item, :sale_nature, :sequence, :service, :subscription, :subscription_nature, :tax, :tax_declaration, :tool, :tracking, :transfer, :transport, :unit, :vegetal, :warehouse]
 
   # List of all references
   @@references = {
@@ -100,10 +100,6 @@ module Ekylibre
       :emitter_journal_entry_id => :journal_entry,
       :receiver_cash_id => :cash,
       :receiver_journal_entry_id => :journal_entry,
-      :updater_id => :entity
-    },
-    :company => {
-      :creator_id => :entity,
       :updater_id => :entity
     },
     :cultivation => {
@@ -514,6 +510,13 @@ module Ekylibre
     :product_indicator_nature_choice => {
       :creator_id => :entity,
       :nature_id => :product_indicator_nature,
+      :updater_id => :entity
+    },
+    :product_localization => {
+      :container_id => :product,
+      :creator_id => :entity,
+      :product_id => :product,
+      :transfer_id => :transfer,
       :updater_id => :entity
     },
     :product_membership => {

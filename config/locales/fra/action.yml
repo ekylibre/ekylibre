@@ -41,8 +41,6 @@ fra:
       index: "Trésoreries"
       new: "Enregistrer une nouvelle trésorerie"
       show: "%{nature}\_: %{name}"
-    companies:
-      register: "Enregistrer sa société"
     custom_field_choices:
       edit: "Modifier l’option\_: %{name}"
       new: " Création d’une option pour une liste de choix"
@@ -465,7 +463,6 @@ fra:
     base: "Base"
     cash_transfers: "Virements internes"
     cashes: "Trésoreries"
-    companies: "Société"
     cultivations: "Cultures"
     custom_field_choices: "Choix de champs personnalisés"
     custom_field_data: "Données de champs personnalisés"
@@ -520,6 +517,7 @@ fra:
     # product_indicator_nature_choices: "Product indicator nature choices"
     # product_indicator_natures: "Product indicator natures"
     # product_indicators: "Product indicators"
+    # product_localizations: "Product localizations"
     # product_memberships: "Product memberships"
     product_moves: "Mouvements de stock"
     product_nature_categories: "Catégories de produits"
