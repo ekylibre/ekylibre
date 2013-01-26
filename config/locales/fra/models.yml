@@ -442,6 +442,7 @@ fra:
     address: "Adresse"
     addresses: "Adresses"
     admin: "Administrateur système"
+    affair: "Affair"
     agency_code: "Code guichet"
     # alive: "Alive"
     allocation_account: "Compte de dotation"
@@ -782,7 +783,6 @@ fra:
     language: "Langue"
     last_bank_statement: "Dernier relevé bancaire"
     last_cweek: "Dernière semaine"
-    # last_deal_on: "Last deal on"
     # last_done: "Last done"
     last_journal_entry: "Écriture de fin d’exercice"
     last_letter: "Dernière lettre"
@@ -1038,7 +1038,6 @@ fra:
     root_model: "Racine"
     root_model_name: "Racine"
     sale: "Vente"
-    # sale_credits: "Sale credits"
     sale_item: "Sale item"
     # sale_items: "Sale items"
     sale_line: "Ligne de vente" #?

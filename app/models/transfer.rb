@@ -56,6 +56,8 @@ class Transfer < CompanyRecord
   #]VALIDATORS]
   validates_presence_of :created_on, :supplier
 
+  acts_as_affairable :dealt_on => :created_on, :debit => false, :third => :client
+
   before_validation do
     self.created_on ||= Date.today
     # self.paid_amount = self.payment_uses.sum(:amount)||0

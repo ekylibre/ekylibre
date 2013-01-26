@@ -58,15 +58,12 @@ ActiveRecord::Schema.define(:version => 20130125154553) do
   add_index "accounts", ["updater_id"], :name => "index_accounts_on_updater_id"
 
   create_table "affairs", :force => true do |t|
-    t.integer  "origin_id",                                                                       :null => false
-    t.string   "origin_type",                                                                     :null => false
     t.boolean  "closed",                                                       :default => false, :null => false
     t.datetime "closed_at"
     t.string   "currency",         :limit => 3,                                                   :null => false
     t.decimal  "debit",                         :precision => 19, :scale => 4, :default => 0.0,   :null => false
     t.decimal  "credit",                        :precision => 19, :scale => 4, :default => 0.0,   :null => false
     t.datetime "accounted_at"
-    t.date     "last_deal_on"
     t.integer  "journal_entry_id"
     t.datetime "created_at",                                                                      :null => false
     t.datetime "updated_at",                                                                      :null => false

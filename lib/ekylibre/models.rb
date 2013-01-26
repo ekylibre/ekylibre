@@ -19,7 +19,6 @@ module Ekylibre
     :affair => {
       :creator_id => :entity,
       :journal_entry_id => :journal_entry,
-      :origin_id => "origin_type",
       :updater_id => :entity
     },
     :animal => {

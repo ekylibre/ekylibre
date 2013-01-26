@@ -69,7 +69,7 @@ class OutgoingPayment < CompanyRecord
 
   delegate :currency, :to => :mode
   acts_as_numbered
-  acts_as_affairable
+  acts_as_affairable :dealt_on => :to_bank_on, :debit => false, :third => :payee
 
   before_validation(:on => :create) do
     self.created_on ||= Date.today

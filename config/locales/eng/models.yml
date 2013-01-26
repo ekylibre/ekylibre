@@ -444,6 +444,7 @@ eng:
     address: "Address"
     addresses: "Addresses"
     admin: "Admin"
+    # affair: "Affair"
     agency_code: "Agency code"
     allocation_account: "Allocation account"
     amount: "Amount"

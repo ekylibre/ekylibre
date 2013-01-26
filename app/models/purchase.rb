@@ -72,7 +72,7 @@ class Purchase < CompanyRecord
   validates_uniqueness_of :number
 
   acts_as_numbered
-  acts_as_affairable
+  acts_as_affairable :third => :supplier
   after_create {|r| r.supplier.add_event(:purchase, r.updater_id)}
   state_machine :state, :initial => :draft do
     state :draft
@@ -140,6 +140,10 @@ class Purchase < CompanyRecord
 #     if use = self.uses.first
 #       use.reconciliate
 #     end
+  end
+
+  def dealt_on
+    return (self.invoice? ? self.invoiced_on : self.created_on)
   end
 
   def refresh

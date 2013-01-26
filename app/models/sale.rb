@@ -100,7 +100,7 @@ class Sale < CompanyRecord
   validates_delay_format_of :payment_delay, :expiration_delay
 
   acts_as_numbered :number, :readonly => false
-  acts_as_affairable
+  acts_as_affairable :debit => :credit, :third => :client
   after_create {|r| r.client.add_event(:sale, r.updater_id)}
 
   state_machine :state, :initial  =>  :draft do
@@ -195,6 +195,13 @@ class Sale < CompanyRecord
     # self.uses.first.reconciliate if self.uses.first
   end
 
+  def dealt_on
+    return (self.invoice? ? self.invoiced_on : self.created_on)
+  end
+
+  def deal_amount
+    return (self.credit? ? -self.amount : self.amount)
+  end
 
   def refresh
     self.save

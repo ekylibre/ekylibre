@@ -30,15 +30,12 @@
 #  debit            :decimal(19, 4)   default(0.0), not null
 #  id               :integer          not null, primary key
 #  journal_entry_id :integer          
-#  last_deal_on     :date             
 #  lock_version     :integer          default(0), not null
-#  origin_id        :integer          not null
-#  origin_type      :string(255)      not null
 #  updated_at       :datetime         not null
 #  updater_id       :integer          
 #
 
-# Where to put amounts
+# Where to put amounts. The point of view is us
 #       Deal      |  Debit  |  Credit |
 # Sale            |         |    X    |
 # SaleCredit      |    X    |         |
@@ -46,32 +43,28 @@
 # PurchaseCredit  |         |    X    |
 # IncomingPayment |    X    |         |
 # OutgoingPayment |         |    X    |
+# Transfer        |         |    X    |
 #
-class Affair < ActiveRecord::Base
-  has_many :sales, :conditions => {:credit => false }, :inverse_of => :affair
-  has_many :sale_credits, :conditions => {:credit => true }, :inverse_of => :affair
-  has_many :purchases, :inverse_of => :affair
-  has_many :incoming_payments, :inverse_of => :affair
-  has_many :outgoing_payments, :inverse_of => :affair
+class Affair < CompanyRecord
+  AFFAIRABLE_TYPES = ["Sale", "Purchase", "IncomingPayment", "OutgoingPayment", "Transfer"]
+  has_many :sales, :inverse_of => :affair, :dependent => :nullify
+  has_many :purchases, :inverse_of => :affair, :dependent => :nullify
+  has_many :incoming_payments, :inverse_of => :affair, :dependent => :nullify
+  has_many :outgoing_payments, :inverse_of => :affair, :dependent => :nullify
+  has_many :transfers, :inverse_of => :affair, :dependent => :nullify
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :credit, :debit, :allow_nil => true
   validates_length_of :currency, :allow_nil => true, :maximum => 3
-  validates_length_of :origin_type, :allow_nil => true, :maximum => 255
   validates_inclusion_of :closed, :in => [true, false]
-  validates_presence_of :credit, :currency, :debit, :origin_type
+  validates_presence_of :credit, :currency, :debit
   #]VALIDATORS]
-  validates :origin_type, :inclusion => ["Sale", "Purchase", "IncomingPayment", "OutgoingPayment"]
 
   before_validation do
-    # Sums debits
-    self.debit  = 0
-    self.debit -= self.sale_credits.sum(:amount).to_d # Credit amount are negative
-    self.debit += self.purchases.sum(:amount).to_d
-    self.debit += self.incoming_payments.sum(:amount).to_d
-    # Sums credits
-    self.credit = 0
-    self.credit += self.sales.sum(:amount).to_d
-    self.credit += self.outgoing_payments.sum(:amount).to_d
+    self.debit, self.credit  = 0, 0
+    for deal in self.deals
+      self.debit  += deal.deal_debit_amount
+      self.credit += deal.deal_credit_amount
+    end
     # Check state
     if self.credit == self.debit # and self.debit != 0
       self.closed = true
@@ -82,19 +75,38 @@ class Affair < ActiveRecord::Base
     end
   end
 
-  # TODO : Finish bookkeeping
-  # bookkeep do |b|
-  #   label = tc(:bookkeep)
-  #   thirds = {}
-  #   for sale in self.sales
-  #     thirds
-  #   end
-  #   b.journal_entry(Journal.various.first, :printed_on => self.last_deal_on, :unless => thirds.empty?) do |entry|
-  #     entry.add_debit(label, attorney.id, self.amount)
-  #     entry.add_credit(label,  client.id, self.amount)
-  #   end
-  # end
+  after_save do
+    if self.deals.size.zero? and !self.journal_entry
+      self.destroy
+    end
+  end
 
+  bookkeep do |b|
+    label = tc(:bookkeep)
+    all_deals = self.deals
+    thirds = all_deals.inject({}) do |hash, deal|
+      if third = deal.deal_third
+        account = third.account(deal.class.affairable_options[:role])
+        hash[account.id] ||= 0
+        hash[account.id] += deal.deal_debit_amount - deal.deal_credit_amount
+      end
+      hash
+    end.delete_if{|k, v| v.zero?}
+    b.journal_entry(Journal.various.first, :printed_on => all_deals.last.dealt_on, :if => (self.debit == self.credit and !thirds.empty?)) do |entry|
+      for account_id, amount in thirds
+        entry.add_debit(label, account_id, amount)
+      end
+    end
+  end
+
+
+  # Removes empty affairs
+  def self.clean_deads
+    self.where("journal_entry_id NOT IN (SELECT id FROM #{quoted_table_name(:journal_entries)})" + AFFAIRABLE_TYPES.collect do |type|
+                 model = type.constantize
+                 "AND id NOT IN (SELECT #{model.reflections[model.affairable_options[:reflection]].foreign_key}affair_id FROM #{quoted_table_name(model.table_name)})"
+               end.join).delete_all
+  end
 
   # Adds a deal in the affair
   # Checks if possible and updates amounts
@@ -102,12 +114,19 @@ class Affair < ActiveRecord::Base
     if deal.currency != self.currency
       raise ArgumentError.new("The deal currency (#{deal.currency}) is different of the affair currency(#{self.currency})")
     end
-    old_affair = deal.affair
     deal.affair = self
     deal.save!
-    self.save!
-    old_affair.save!
-    return self
+    return self.reload
+  end
+
+  def deals
+    return (self.sales.to_a +
+            self.purchases.to_a +
+            self.incoming_payments.to_a +
+            self.outgoing_payments.to_a +
+            self.transfers.to_a).compact.sort do |a, b|
+      a.dealt_on <=> b.dealt_on
+    end
   end
 
 end

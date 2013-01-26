@@ -906,6 +906,7 @@ arb:
     address: "العنوان"
     # addresses: "Adresses"
     admin: "مسؤول النظام"
+    # affair: "Affair"
     agency_code: "رمز الوكالة"
     # allocation_account: "Compte de dotation"
     amount: "القيمة من دون الضرائب"

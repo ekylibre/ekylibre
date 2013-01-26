@@ -78,7 +78,7 @@ class IncomingPayment < CompanyRecord
 
   delegate :currency, :to => :mode
   acts_as_numbered
-  acts_as_affairable
+  acts_as_affairable :dealt_on => :to_bank_on, :third => :payer
   autosave :deposit
 
   default_scope -> { order("id DESC") }

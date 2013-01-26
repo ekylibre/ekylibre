@@ -8,8 +8,115 @@ module Ekylibre::Record
 
       module ClassMethods
 
-        def acts_as_affairable
-          # TODO: Make magic
+        def acts_as_affairable(*args)
+          options = (args[-1].is_a?(Hash) ? args.delete_at(-1) : {})
+          reflection = self.reflections[args[0] || options[:reflection] || :affair]
+          currency = options[:currency] || :currency
+          options[:dealt_on] ||= :created_on
+          options[:debit] = true unless options.has_key?(:debit)
+
+          code  = ""
+
+          affair, affair_id = :affair, :affair_id
+          if reflection
+            affair, affair_id = reflection.name, reflection.foreign_key
+          else
+            raise Exception.new("Unable to acts as affairable no affair column") unless self.columns.detect{|c| c.name.to_sym == affair_id}
+            code << "belongs_to :#{affair}, :inverse_of => :#{self.name.underscore.pluralize}\n"
+          end
+
+          # Marks model as affairable
+          code << "def self.affairable_options\n"
+          code << "  return {:reflection => :#{affair}, :currency => :#{currency}, :third => :#{options[:role] || options[:third]}}\n"
+          code << "end\n"
+
+          # Refresh after each save
+          code << "validate do\n"
+          code << "  if self.#{affair}\n"
+          code << "    unless self.#{affair}.currency == self.#{currency}\n"
+          code << "      errors.add(:#{affair}, :invalid_currency, :got => self.#{currency}, :expected => self.#{affair}.currency)\n"
+          code << "      errors.add(:#{affair_id}, :invalid_currency, :got => self.#{currency}, :expected => self.#{affair}.currency)\n"
+          code << "    end\n"
+          code << "  end\n"
+          code << "end\n"
+
+          # Create "empty" affair if missing before every save
+          code << "before_save do\n"
+          code << "  unless self.#{affair}\n"
+          code << "    self.create_#{affair}!(:currency => self.#{currency})\n"
+          code << "  end\n"
+          code << "end\n"
+
+          # Refresh after each save
+          code << "after_save do\n"
+          code << "  if self.#{affair}\n"
+          code << "    self.#{affair}.save\n"
+          code << "  end\n"
+          code << "  Affair.clean_deads\n"
+          code << "end\n"
+
+          # Return if deal is a debit for us
+          code << "def deal_debit?\n"
+          if options[:debit].is_a?(TrueClass)
+            code << "  return true\n"
+          elsif options[:debit].is_a?(FalseClass)
+            code << "  return false\n"
+          elsif options[:debit].is_a?(Symbol)
+            code << "  return self.#{options[:debit]}\n"
+          else
+            raise ArgumentError.new("Option :debit must be boolean or Symbol")
+          end
+          code << "end\n"
+
+          # Return if deal is a credit for us
+          code << "def deal_credit?\n"
+          if options[:debit].is_a?(TrueClass)
+            code << "  return false\n"
+          elsif options[:debit].is_a?(FalseClass)
+            code << "  return true\n"
+          elsif options[:debit].is_a?(Symbol)
+            code << "  return !self.#{options[:debit]}\n"
+          end
+          code << "end\n"
+
+          # Define which amount to take in account
+          if options[:amount].is_a?(Symbol)
+            code << "def deal_amount\n"
+            code << "  return self.#{options[:amount]}\n"
+            code << "end\n"
+          elsif options[:amount].is_a?(Proc)
+            define_method(:deal_amount, &options[:amount])
+          end
+
+          # Define debit amount
+          code << "def deal_debit_amount\n"
+          code << "  return (self.deal_debit? ? self.deal_amount : 0)\n"
+          code << "end\n"
+
+          # Define credit amount
+          code << "def deal_credit_amount\n"
+          code << "  return (self.deal_credit? ? self.deal_amount : 0)\n"
+          code << "end\n"
+
+          # Define which date to take in account
+          if options[:dealt_on].is_a?(Symbol)
+            code << "def dealt_on\n"
+            code << "  return self.#{options[:dealt_on]}\n"
+            code << "end\n"
+          elsif options[:dealt_on].is_a?(Proc)
+            define_method(:dealt_on, &options[:dealt_on])
+          end
+
+          # Define the third of the deal
+          if options[:third].is_a?(Symbol)
+            code << "def deal_third\n"
+            code << "  return self.#{options[:third]}\n"
+            code << "end\n"
+          elsif options[:third].is_a?(Proc)
+            define_method(:deal_third, &options[:third])
+          end
+
+          class_eval code
         end
       end
 

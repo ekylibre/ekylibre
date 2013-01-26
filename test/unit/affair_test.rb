@@ -30,17 +30,20 @@
 #  debit            :decimal(19, 4)   default(0.0), not null
 #  id               :integer          not null, primary key
 #  journal_entry_id :integer          
-#  last_deal_on     :date             
 #  lock_version     :integer          default(0), not null
-#  origin_id        :integer          not null
-#  origin_type      :string(255)      not null
 #  updated_at       :datetime         not null
 #  updater_id       :integer          
 #
 require 'test_helper'
 
 class AffairTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+
+  # check that every model that can be affairable
+  def test_affairables
+    for type in Affair.AFFAIRABLE_TYPES
+      model = type.constantize
+      assert model.respond_to?(:affairable_options)
+    end
+  end
+
 end
