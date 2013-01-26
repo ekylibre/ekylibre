@@ -18,27 +18,25 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 # 
-# == Table: companies
+# == Table: product_localizations
 #
-#  code         :string(16)       not null
-#  created_at   :datetime         
+#  container_id :integer          
+#  created_at   :datetime         not null
 #  creator_id   :integer          
 #  id           :integer          not null, primary key
 #  lock_version :integer          default(0), not null
-#  log          :text             
-#  updated_at   :datetime         
+#  nature       :string(255)      not null
+#  product_id   :integer          not null
+#  started_at   :datetime         not null
+#  stopped_at   :datetime         not null
+#  transfer_id  :integer          not null
+#  updated_at   :datetime         not null
 #  updater_id   :integer          
 #
-#
-# == Fixture: companies
-#
-# companies_001:
-#   code: "Lorem ipsum"
-#   creator_id: 1
-#   id: 1
-#   updater_id: 1
-#
+require 'test_helper'
 
-companies_001:
-  code: myc
-  id: 1
+class ProductLocalizationTest < ActiveSupport::TestCase
+  # test "the truth" do
+  #   assert true
+  # end
+end

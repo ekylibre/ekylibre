@@ -70,8 +70,8 @@ arb:
       index: "الخزينة"
       new: "التسجيل لخزينة جديدة"
       show: "%{nature_label} : %{name}"
-    companies:
-      register: "تسجيل شركة"
+    companies:  #?
+      register: "تسجيل شركة" #?
     company:  #?
       about: "وحول ايكيليبغ" #?
       backups: "النسخ الاحتياطية" #?
@@ -594,7 +594,6 @@ arb:
     # base: "Base"
     # cash_transfers: "Virements internes"
     cashes: "الخزينة"
-    # companies: "Société"
     company: "شركة" #?
     # cultivations: "Cultures"
     # custom_field_choices: "Choix de champs personnalisés"

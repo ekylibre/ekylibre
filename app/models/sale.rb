@@ -66,8 +66,6 @@
 
 
 class Sale < CompanyRecord
-  acts_as_numbered :number, :readonly => false
-  after_create {|r| r.client.add_event(:sale, r.updater_id)}
   attr_accessible :address_id, :annotation, :client_id, :comment, :conclusion, :delivery_address_id, :function_title, :introduction, :invoice_address_id, :letter_format, :nature_id, :reference_number, :responsible_id, :subject, :sum_method, :transporter_id
   attr_readonly :created_on, :currency
   attr_protected :pretax_amount, :amount
@@ -100,6 +98,10 @@ class Sale < CompanyRecord
   validates_presence_of :client, :currency, :nature
   validates_presence_of :invoiced_on, :if  =>  :invoice?
   validates_delay_format_of :payment_delay, :expiration_delay
+
+  acts_as_numbered :number, :readonly => false
+  acts_as_affairable
+  after_create {|r| r.client.add_event(:sale, r.updater_id)}
 
   state_machine :state, :initial  =>  :draft do
     state :draft

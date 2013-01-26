@@ -71,8 +71,8 @@ eng:
       index: "Cashes"
       new: "Add a new cash"
       show: "%{nature}: %{name}"
-    companies:
-      register: "Register a company"
+    companies:  #?
+      register: "Register a company" #?
     custom_field_choices:
       edit: "Edit the option: %{name}"
       new: "Add a new option for a choices list"
@@ -577,7 +577,7 @@ eng:
     # base: "Base"
     cash_transfers: "Cash transfers"
     cashes: "Cashes"
-    companies: "Companies"
+    companies: "Companies" #?
     cultivations: "Cultivations"
     custom_field_choices: "Custom field choices"
     custom_field_data: "Custom field data"

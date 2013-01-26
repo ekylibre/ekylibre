@@ -874,9 +874,6 @@
     <menu name="accounts">
       <page to="accounts#list_journal_entry_items"/>
     </menu>
-    <menu name="companies">
-      <page to="companies#register"/>
-    </menu>
     <menu name="dashboards">
       <page to="dashboards#list_my_future_entity_events"/>
       <page to="dashboards#list_recent_entity_events"/>

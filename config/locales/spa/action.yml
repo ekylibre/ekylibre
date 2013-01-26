@@ -69,8 +69,8 @@ spa:
       index: "Tresorerias"
       new: "Registrar una nueva tresoreria"
       show: "%{nature_label} : %{name}"
-    companies:
-      register: "Registrar la sociedad"
+    companies:  #?
+      register: "Registrar la sociedad" #?
     company:  #?
       about: "A propocito de Ekylibre" #?
       backups: "Salvaguardia" #?
@@ -535,7 +535,6 @@ spa:
     # base: "Base"
     # cash_transfers: "Virements internes"
     cashes: "Tresorerias"
-    # companies: "Société"
     company: "Compañía" #?
     # cultivations: "Cultures"
     # custom_field_choices: "Choix de champs personnalisés"

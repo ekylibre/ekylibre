@@ -1,0 +1,2 @@
+class ProductLocalizationsController < ApplicationController
+end

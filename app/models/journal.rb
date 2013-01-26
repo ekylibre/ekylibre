@@ -96,6 +96,24 @@ class Journal < CompanyRecord
     self.entries.count.zero? and self.entry_items.count.zero? and self.cashes.count.zero?
   end
 
+
+
+  # Returns the default journal from preferences
+  # Creates the journal if not exists
+  def self.get(name)
+    name = name.to_s
+    pref_name  = "#{name}_journal"
+    raise ArgumentError.new("Unvalid journal name: #{name.inspect}") unless self.class.preferences_reference.has_key? pref_name
+    unless journal = self.preferred(pref_name)
+      journal = self.journals.find_by_nature(name)
+      journal = self.journals.create!(:name => tc("default.journals.#{name}"), :nature => name, :currency => self.default_currency) unless journal
+      self.prefer!(pref_name, journal)
+    end
+    return journal
+  end
+
+
+
   #
   def closable?(closed_on=nil)
     closed_on ||= Date.today

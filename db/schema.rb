@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130124202141) do
+ActiveRecord::Schema.define(:version => 20130125154553) do
 
   create_table "account_balances", :force => true do |t|
     t.integer  "account_id",                                                        :null => false
@@ -66,6 +66,7 @@ ActiveRecord::Schema.define(:version => 20130124202141) do
     t.decimal  "debit",                         :precision => 19, :scale => 4, :default => 0.0,   :null => false
     t.decimal  "credit",                        :precision => 19, :scale => 4, :default => 0.0,   :null => false
     t.datetime "accounted_at"
+    t.date     "last_deal_on"
     t.integer  "journal_entry_id"
     t.datetime "created_at",                                                                      :null => false
     t.datetime "updated_at",                                                                      :null => false
@@ -248,18 +249,6 @@ ActiveRecord::Schema.define(:version => 20130124202141) do
   add_index "cashes", ["journal_id"], :name => "index_bank_accounts_on_journal_id"
   add_index "cashes", ["updated_at"], :name => "index_bank_accounts_on_updated_at"
   add_index "cashes", ["updater_id"], :name => "index_bank_accounts_on_updater_id"
-
-  create_table "companies", :force => true do |t|
-    t.string   "code",         :limit => 16,                :null => false
-    t.text     "log"
-    t.integer  "creator_id"
-    t.datetime "created_at"
-    t.integer  "updater_id"
-    t.datetime "updated_at"
-    t.integer  "lock_version",               :default => 0, :null => false
-  end
-
-  add_index "companies", ["code"], :name => "index_companies_on_code", :unique => true
 
   create_table "cultivations", :force => true do |t|
     t.string   "name",                                            :null => false

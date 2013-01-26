@@ -1,0 +1,2 @@
+module ProductLocalizationsHelper
+end

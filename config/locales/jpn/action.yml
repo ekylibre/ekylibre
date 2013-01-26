@@ -64,8 +64,8 @@ jpn:
       # index: "Trésoreries"
       # new: "Enregistrer une nouvelle trésorerie"
       # show: "%{nature}\_: %{name}"
-    companies:
-      register: "会社を登録する"
+    companies:  #?
+      register: "会社を登録する" #?
     contacts: #?
     cultivations: #?
     currencies: #?
@@ -508,7 +508,6 @@ jpn:
     # base: "Base"
     # cash_transfers: "Virements internes"
     # cashes: "Trésoreries"
-    # companies: "Société"
     company: "会社" #?
     # cultivations: "Cultures"
     # custom_field_choices: "Choix de champs personnalisés"

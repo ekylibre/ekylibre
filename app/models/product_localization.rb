@@ -18,25 +18,27 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 # 
-# == Table: trackings
+# == Table: product_localizations
 #
-#  active       :boolean          default(TRUE), not null
-#  comment      :text             
+#  container_id :integer          
 #  created_at   :datetime         not null
 #  creator_id   :integer          
 #  id           :integer          not null, primary key
 #  lock_version :integer          default(0), not null
-#  name         :string(255)      not null
-#  producer_id  :integer          
-#  product_id   :integer          
-#  serial       :string(255)      
+#  nature       :string(255)      not null
+#  product_id   :integer          not null
+#  started_at   :datetime         not null
+#  stopped_at   :datetime         not null
+#  transfer_id  :integer          not null
 #  updated_at   :datetime         not null
 #  updater_id   :integer          
 #
-class Tracking < CompanyRecord
+
+class ProductLocalization < CompanyRecord
+  enumerize :nature, :in => [:transfer, :interior, :exterior], :default => :interior
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_length_of :name, :serial, :allow_nil => true, :maximum => 255
-  validates_inclusion_of :active, :in => [true, false]
-  validates_presence_of :name
+  validates_length_of :nature, :allow_nil => true, :maximum => 255
+  validates_presence_of :nature, :started_at, :stopped_at
   #]VALIDATORS]
+  validates_inclusion_of :nature, :in => self.nature.values
 end

@@ -10,6 +10,7 @@ class CreateAffairs < ActiveRecord::Migration
       t.decimal  :debit, :precision => 19, :scale => 4, :null => false, :default => 0.0
       t.decimal  :credit, :precision => 19, :scale => 4, :null => false, :default => 0.0
       t.datetime :accounted_at
+      t.date     :last_deal_on
       t.belongs_to :journal_entry
       t.stamps
     end
@@ -35,7 +36,7 @@ class CreateAffairs < ActiveRecord::Migration
       deal = table.to_s.singularize
       add_column table, :affair_id, :integer
       add_column table, :initial_affair_id, :integer
-      da = {:origin_type => "'#{table.to_s.classify}'", :origin_id => :id, :currency => :currency, :debit => (table == :sales ? "CASE WHEN credit THEN #{deal}.amount ELSE 0 END" : [:purchases, :incoming_payments].include?(table) ? "#{deal}.amount" : "0"), :credit => (table == :sales ? "CASE WHEN credit THEN 0 ELSE #{deal}.amount END" : [:purchases, :incoming_payments].include?(table) ? "0" : "#{deal}.amount"), :created_at => :created_at, :creator_id => :creator_id, :lock_version => :lock_version, :updated_at => :updated_at, :updater_id => :updater_id}
+      da = {:origin_type => "'#{table.to_s.classify}'", :origin_id => :id, :currency => :currency, :debit => (table == :sales ? "CASE WHEN credit THEN -#{deal}.amount ELSE 0 END" : [:purchases, :incoming_payments].include?(table) ? "#{deal}.amount" : "0"), :credit => (table == :sales ? "CASE WHEN credit THEN 0 ELSE #{deal}.amount END" : [:purchases, :incoming_payments].include?(table) ? "0" : "#{deal}.amount"), :created_at => :created_at, :creator_id => :creator_id, :lock_version => :lock_version, :updated_at => :updated_at, :updater_id => :updater_id}
       execute("INSERT INTO #{quoted_table_name(:affairs)} (" + da.keys.join(', ') + ") SELECT " + da.values.join(', ') + " FROM #{quoted_table_name(table)} AS #{deal}")
       execute("UPDATE #{quoted_table_name(table)} SET affair_id = dg.id, initial_affair_id = dg.id FROM #{quoted_table_name(:affairs)} AS dg WHERE dg.origin_type = '#{table.to_s.classify}' AND dg.origin_id = #{quoted_table_name(table)}.id")
       add_index table, :affair_id
@@ -55,7 +56,7 @@ class CreateAffairs < ActiveRecord::Migration
 
     # Merge sale credits
     execute("UPDATE #{quoted_table_name(:sales)} SET affair_id = os.affair_id FROM #{quoted_table_name(:sales)} AS os WHERE #{quoted_table_name(:sales)}.credit AND os.id = #{quoted_table_name(:sales)}.origin_id")
-    execute("UPDATE #{quoted_table_name(:affairs)} SET debit = #{quoted_table_name(:affairs)}.debit + sc.amount FROM #{quoted_table_name(:sales)} AS sc WHERE sc.credit AND sc.affair_id = #{quoted_table_name(:affairs)}.id AND sc.affair_id != sc.initial_affair_id")
+    execute("UPDATE #{quoted_table_name(:affairs)} SET debit = #{quoted_table_name(:affairs)}.debit - sc.amount FROM #{quoted_table_name(:sales)} AS sc WHERE sc.credit AND sc.affair_id = #{quoted_table_name(:affairs)}.id AND sc.affair_id != sc.initial_affair_id")
 
 
     # Updates deals state
