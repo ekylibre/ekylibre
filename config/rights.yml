@@ -1,5 +1,4 @@
 # Unused actions in rights
-#   - "accounts::list_journal_entry_items"
 #   - "dashboards::list_my_future_entity_events"
 #   - "dashboards::list_recent_entity_events"
 #   - "dashboards::production_products"
@@ -11,7 +10,6 @@
 #   - "dashboards::settings_relationship"
 #   - "dashboards::settings_sales"
 #   - "dashboards::settings_stocks"
-#   - "entities::list_events"
 #   - "entity_addresses::unroll"
 #   - "entity_natures::unroll"
 #   - "interfacers::autocomplete"
@@ -25,10 +23,9 @@
 #   - "interfacers::toggle_view_mode"
 #   - "interfacers::unroll"
 #   - "interfacers::unroll_options"
-#   - "journals::list_draft_items"
-#   - "journals::list_items"
 #   - "logs::destroy"
 #   - "logs::update"
+#   - "operations::list_unvalidateds"
 #   - "preferences::create"
 #   - "preferences::destroy"
 #   - "preferences::edit"
@@ -77,12 +74,10 @@
 #   - "product_natures::create"
 #   - "product_natures::destroy"
 #   - "product_natures::edit"
-#   - "product_natures::index"
 #   - "product_natures::list"
 #   - "product_natures::list_prices"
 #   - "product_natures::list_product_moves"
 #   - "product_natures::new"
-#   - "product_natures::show"
 #   - "product_natures::update"
 #   - "product_process_phases::create"
 #   - "product_process_phases::destroy"
@@ -100,6 +95,16 @@
 #   - "product_processes::new"
 #   - "product_processes::show"
 #   - "product_processes::update"
+#   - "product_transfers::confirm"
+#   - "product_transfers::confirm_all"
+#   - "product_transfers::create"
+#   - "product_transfers::destroy"
+#   - "product_transfers::edit"
+#   - "product_transfers::index"
+#   - "product_transfers::list"
+#   - "product_transfers::list_confirm"
+#   - "product_transfers::new"
+#   - "product_transfers::update"
 #   - "product_varieties::destroy"
 #   - "product_varieties::update"
 #   - "production_chain_conveyors::create"
@@ -127,8 +132,6 @@
 #   - "production_chains::show"
 #   - "production_chains::update"
 #   - "products::destroy"
-#   - "products::index"
-#   - "products::list"
 #   - "products::update"
 #   - "professions::create"
 #   - "professions::destroy"
@@ -183,7 +186,6 @@ __public__:
   - "products::index"
   - "products::list"
   - "products::new"
-  - "products::show"
   - "sessions::create"
   - "sessions::destroy"
   - "sessions::new"
@@ -312,19 +314,10 @@ consult_sales:
   - "sales::statistics"
 # Consulter l’état des stocks
 consult_stocks:
-  actions:
-  - "dashboards::sales"
-  - "product_stocks::index"
-  - "product_stocks::list"
+  actions: ["dashboards::sales", "products::index", "products::list"]
 # Consulter les informations de tracabilité
 consult_trackings:
-  actions:
-  - "dashboards::stocks"
-  - "trackings::list_operation_lines"
-  - "trackings::list_purchase_lines"
-  - "trackings::list_sale_lines"
-  - "trackings::list_stocks"
-  - "trackings::show"
+  actions: ["dashboards::stocks"]
 # Effectuer des extractions (sans pouvoir les concevoir)
 extract_listings:
   actions: ["dashboards::settings", "listings::extract", "listings::index"]
@@ -1006,7 +999,6 @@ manage_tools:
   - "tools::edit"
   - "tools::index"
   - "tools::list"
-  - "tools::list_operations"
   - "tools::new"
   - "tools::show"
   - "tools::update"

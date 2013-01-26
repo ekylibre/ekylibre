@@ -30,7 +30,7 @@ arb:
     # manage_cash_transfers: "Gérer les virements internes"
     manage_cashes: "ادارة حسابات الخزينة"
     manage_custom_fields: "ادارة الحقول المتخصصة"
-    manage_delays: "ادارة التأخير"
+    manage_delays: "ادارة التأخير" #?
     manage_deposits: "ادارة الاقتطاعات المصرفية"
     manage_districts: "ادارة المقطعات"
     manage_document_templates: "ادارة نماذج الوثائق"
@@ -47,7 +47,6 @@ arb:
     manage_inventories: "ادارة عمبيات الجرد"
     manage_journal_entries: "ادارة المدخلات"
     manage_journals: "ادارة وفتح واغلاق الدفاتر اليومية"
-    # manage_land_parcel_groups: "Gérer les groupes d’îlots"
     manage_land_parcels: "ادارة الهيئة"
     manage_listings: "ادارة المستخرج"
     manage_mandates: "ادارة التفويضات"
@@ -65,7 +64,7 @@ arb:
     manage_purchases: "ادارة المشتريات"
     manage_sale_natures: "ادارة انواع البيع"
     manage_sales: "(ادارة المبيعات (الاوامر والطلبات والاسعار"
-    manage_stock_moves: "ادارة حركات الاسهم"
+    manage_stock_moves: "ادارة حركات الاسهم" #?
     manage_subscriptions: "ادارة الاشتراكات"
     manage_taxes: "ادارة الضرائب"
     manage_tools: "ادارة ادوات المنتجات"

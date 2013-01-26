@@ -31,11 +31,11 @@
       <page to="entity_links#edit"/>
       <page to="entity_links#new"/>
       <page to="entity_links#update"/>
-      <page to="contacts#create" deletable="true"/>
-      <page to="contacts#destroy" deletable="true"/>
-      <page to="contacts#edit" deletable="true"/>
-      <page to="contacts#new" deletable="true"/>
-      <page to="contacts#update" deletable="true"/>
+      <page to="entity_addresses#create"/>
+      <page to="entity_addresses#destroy"/>
+      <page to="entity_addresses#edit"/>
+      <page to="entity_addresses#new"/>
+      <page to="entity_addresses#update"/>
       <page to="observations#create"/>
       <page to="observations#destroy"/>
       <page to="observations#edit"/>
@@ -178,9 +178,6 @@
       <page to="incoming_payments#new"/>
       <page to="incoming_payments#show"/>
       <page to="incoming_payments#update"/>
-      <page to="incoming_payment_uses#create" deletable="true"/>
-      <page to="incoming_payment_uses#destroy" deletable="true"/>
-      <page to="incoming_payment_uses#new" deletable="true"/>
     </menu>
     <menu name="outgoing_payments">
       <page to="outgoing_payments#index"/>
@@ -192,9 +189,6 @@
       <page to="outgoing_payments#new"/>
       <page to="outgoing_payments#show"/>
       <page to="outgoing_payments#update"/>
-      <page to="outgoing_payment_uses#create" deletable="true"/>
-      <page to="outgoing_payment_uses#destroy" deletable="true"/>
-      <page to="outgoing_payment_uses#new" deletable="true"/>
     </menu>
     <menu name="deposits">
       <page to="deposits#index"/>
@@ -279,13 +273,13 @@
   <menu name="stocks">
     <page to="dashboards#stocks"/>
     <menu name="stocks">
-      <page to="product_stocks#index" deletable="true"/>
-      <page to="product_stocks#create" deletable="true"/>
-      <page to="product_stocks#destroy" deletable="true"/>
-      <page to="product_stocks#edit" deletable="true"/>
-      <page to="product_stocks#list" deletable="true"/>
-      <page to="product_stocks#new" deletable="true"/>
-      <page to="product_stocks#update" deletable="true"/>
+      <page to="products#index"/>
+      <page to="products#create"/>
+      <page to="products#destroy"/>
+      <page to="products#edit"/>
+      <page to="products#list"/>
+      <page to="products#new"/>
+      <page to="products#update"/>
     </menu>
     <menu name="stock_transfers">
       <page to="product_transfers#index"/>
@@ -362,10 +356,6 @@
       <page to="operations#show"/>
       <page to="operations#unvalidateds"/>
       <page to="operations#update"/>
-      <page to="operation_items#create" deletable="true"/>
-      <page to="operation_items#new" deletable="true"/>
-      <page to="operation_uses#create" deletable="true"/>
-      <page to="operation_uses#new" deletable="true"/>
     </menu>
     <menu name="products">
       <page to="products#index"/>
@@ -516,16 +506,6 @@
         <page to="custom_field_choices#new"/>
         <page to="custom_field_choices#up"/>
         <page to="custom_field_choices#update"/>
-      </menu>
-      <menu name="delays">
-        <page to="delays#index" deletable="true"/>
-        <page to="delays#create" deletable="true"/>
-        <page to="delays#destroy" deletable="true"/>
-        <page to="delays#edit" deletable="true"/>
-        <page to="delays#list" deletable="true"/>
-        <page to="delays#new" deletable="true"/>
-        <page to="delays#show" deletable="true"/>
-        <page to="delays#update" deletable="true"/>
       </menu>
       <menu name="departments">
         <page to="departments#index"/>
@@ -805,15 +785,6 @@
     </menu>
     <menu name="production">
       <page to="dashboards#settings_production"/>
-      <menu name="land_parcel_groups">
-        <page to="land_parcel_groups#index" deletable="true"/>
-        <page to="land_parcel_groups#create" deletable="true"/>
-        <page to="land_parcel_groups#destroy" deletable="true"/>
-        <page to="land_parcel_groups#edit" deletable="true"/>
-        <page to="land_parcel_groups#list" deletable="true"/>
-        <page to="land_parcel_groups#new" deletable="true"/>
-        <page to="land_parcel_groups#update" deletable="true"/>
-      </menu>
       <menu name="product_varieties">
         <page to="product_varieties#index"/>
         <page to="product_varieties#create"/>
@@ -877,12 +848,7 @@
       <page to="entities#list_addresses"/>
     </menu>
     <menu name="entity_addresses">
-      <page to="entity_addresses#create"/>
-      <page to="entity_addresses#destroy"/>
-      <page to="entity_addresses#edit"/>
-      <page to="entity_addresses#new"/>
       <page to="entity_addresses#unroll"/>
-      <page to="entity_addresses#update"/>
     </menu>
     <menu name="entity_natures">
       <page to="entity_natures#unroll"/>
@@ -996,14 +962,6 @@
       <page to="product_processes#new"/>
       <page to="product_processes#show"/>
       <page to="product_processes#update"/>
-    </menu>
-    <menu name="products">
-      <page to="products#create"/>
-      <page to="products#destroy"/>
-      <page to="products#edit"/>
-      <page to="products#list"/>
-      <page to="products#new"/>
-      <page to="products#update"/>
     </menu>
     <menu name="professions">
       <page to="professions#index"/>
