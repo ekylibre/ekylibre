@@ -1,6 +1,6 @@
 class Admin::Cells::LastProductsCellsController < Admin::CellsController
 
-  list(:model => :animals, :order=>"born_on DESC", :per_page=>5) do |t|
+  list(:model => :animals, :order=>"born_at DESC", :per_page=>5) do |t|
     t.column :name
     t.column :name, :through => :mother
     t.column :name, :through => :father

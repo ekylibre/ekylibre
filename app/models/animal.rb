@@ -69,15 +69,16 @@
 #
 
 class Animal < Bioproduct
-  attr_accessible :nature_id, :reproductor, :external, :born_at, :dead_at, :comment, :description, :father_id, :mother_id, :serial_number, :name, :picture, :sex, :work_number
+  attr_accessible :variety_id, :nature_id, :reproductor, :external, :born_at, :dead_at, :comment, :description, :father_id, :mother_id, :identification_number, :name, :picture, :sex, :work_number
   enumerize :sex, :in => [:male, :female]
   #enumerize :arrival_reasons, :in => [:birth, :purchase, :housing, :other], :default=> :birth
   #enumerize :departure_reasons, :in => [:dead, :sale, :autoconsumption, :other], :default=> :sale
-  has_many :indicators, :class_name => "ProductIndicator", :foreign_key => :product_id
+  has_many :indicators, :class_name => "ProductIndicator", :foreign_key => :product_id, :dependent => :destroy
   # has_many :groups, :class_name => "ProductGroup", :through => :passages
   belongs_to :father, :class_name => "Animal", :conditions => {:sex => :male, :reproductor => 'true'}
   belongs_to :mother, :class_name => "Animal", :conditions => {:sex => :female}
   belongs_to :nature, :class_name => "ProductNature"
+  belongs_to :variety, :class_name => "ProductVariety"
 
   # @TODO waiting for events and operations stabilizations
   #has_many :events, :class_name => "Log"
@@ -91,7 +92,7 @@ class Animal < Bioproduct
   validates_presence_of :content_maximal_quantity, :maximal_quantity, :minimal_quantity, :name, :nature, :number, :real_quantity, :unit, :variety, :virtual_quantity
   #]VALIDATORS]
 
-  validates_uniqueness_of :name, :serial_number
+  validates_uniqueness_of :name, :identification_number
   validates_inclusion_of :sex, :in => self.sex.values
 
   default_scope -> { order(:name) }

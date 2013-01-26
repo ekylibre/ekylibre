@@ -70,10 +70,11 @@
 
 
 class Tool < Product
-  attr_accessible :nature_id, :asset_id, :picture, :name, :comment, :purchased_on, :ceded_on, :consumption, :state
+  attr_accessible :nature_id, :asset_id, :picture, :name, :comment, :born_at, :dead_at, :consumption, :state
   has_attached_file :picture, :styles => { :medium => "300x300>", :thumb => "100x100>" }
-  has_many :uses, :class_name => "OperationUse"
+  #has_many :uses, :class_name => "OperationUse"
   belongs_to :nature, :class_name => "ProductNature"
+  belongs_to :variety, :class_name => "ProductVariety"
   belongs_to :asset
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :picture_file_size, :allow_nil => true, :only_integer => true
@@ -85,22 +86,20 @@ class Tool < Product
 
   default_scope -> { order(:name) }
 
-  def usage_duration_sum
-    sum = 0
-    self.uses.each do |usage|
-      sum += usage.operation.duration
-    end
-    sum/60
-  end
+  #def usage_duration_sum
+  #  sum = 0
+  # self.uses.each do |usage|
+  #    sum += usage.operation.duration
+   # end
+   # sum/60
+  #end
 
-  def usage_duration
-    return Operation.sum(:duration, :conditions => ["moved_on IS NOT NULL AND id IN (SELECT operation_id FROM #{OperationUse.table_name} WHERE tool_id=?)", self.id])
-  end
+  #def usage_duration
+  #  return Operation.sum(:duration, :conditions => ["moved_on IS NOT NULL AND id IN (SELECT operation_id FROM #{OperationUse.table_name} WHERE tool_id=?)", self.id])
+  #end
 
-  def remaining_duration
-    return Operation.sum(:duration, :conditions => ["moved_on IS NULL AND id IN (SELECT operation_id FROM #{OperationUse.table_name} WHERE tool_id=?)", self.id])
-  end
-
-
+  #def remaining_duration
+  #  return Operation.sum(:duration, :conditions => ["moved_on IS NULL AND id IN (SELECT operation_id FROM #{OperationUse.table_name} WHERE tool_id=?)", self.id])
+  #end
 
 end

@@ -36,7 +36,7 @@ arb:
     animal_treatments: #?
     animals:
       # edit: "Modifier l'animal\_: %{name}"
-      # index: "Liste des animaux"
+      # index: "Productions animales"
       # new: "Nouvel animal"
       # show: "Animal\_: %{name}"
     application: #?
@@ -264,10 +264,10 @@ arb:
     land_parcel_groups: #?
     land_parcel_kinships: #?
     land_parcels:
-      # divide: "Diviser l’îlot\_: %{name}"
+      # divide: "Diviser la parcelle\_: %{name}"
       edit: "تعديل النظام : %{name}"
       index: "انظمة"
-      # merge: "Fusionner des îlots"
+      # merge: "Fusionner des parcelles"
       new: "اضافة نظام جديد"
       show: "نظام %{name}"
     listing_node_items: #?
@@ -409,10 +409,10 @@ arb:
       index: "عمليات نقل وخسارة الاسهم"
       new: "اضافة عملية نقل او خسارة الاسهم"
     product_varieties:
-      # edit: "Modifier la race\_: %{name} "
-      # index: "Races"
-      # new: "Créer une race"
-      # show: "Race\_: %{name}"
+      # edit: "Modifier la variété\_: %{name} "
+      # index: "Variétés"
+      # new: "Créer une variétés"
+      # show: "Variété\_: %{name}"
     production:  #?
       index: "ادارة الانتاج" #?
       unvalidated_operations: "تحقيق الاعمال" #?
@@ -576,6 +576,11 @@ arb:
       show: "المستخدم : %{first_name} %{last_name} (%{name})"
       statistics: "احصائياتي" #?
       # unlock: "Déverrouiller l’utilisateur"
+    vegetals:
+      # edit: "Modifier une production végétale"
+      # index: "Productions végétales"
+      # new: "Nouvelle production végétale"
+      # show: "Production végétale\_: %{name} %{area_measure} %{area_unit.name}"
     warehouses:
       edit: "تعديل موقع التخزين"
       index: "مواقع التخزين"
@@ -586,6 +591,8 @@ arb:
     accountancy: "المحاسبة" #?
     accounts: "مخطط الحساب"
     # admin: "Administration"
+    # affairs: "Affaires"
+    # animals: "Animaux"
     application: "تطبيق"
     areas: "العناوين البريد"
     # assets: "Immobilisations"

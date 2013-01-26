@@ -2,13 +2,10 @@ spa:
   activerecord:
     attributes:
       animal:
-        # race: "Race"
+        # variety: "Race"
       animal_group: #?
-      animal_race:
-        # code: "Code race"
-      animal_treatment_use:
-        # drug_admission_path: "Voie d’admission"
-        # quantity_unit: "Unité"
+      animal_race: #?
+      animal_treatment_use: #?
       asset_depreciation:
         # asset_amount: "Valeur nette comptable (VNC)"
       cash:
@@ -57,6 +54,8 @@ spa:
       journal_entry_line:
         # closed: "Cloturée"
       land_parcel:
+        # area_measure: "Surface"
+        # born_at: "Date de création"
         # children: "Sous-îlots"
         # number: "Numéro PAC ou numéro de parcelle"
       mandate:
@@ -152,6 +151,8 @@ spa:
         # nature: "Régime de la déclaration"
         # period: "Période"
       tool:
+        # born_at: "Date de mise en service"
+        # dead_at: "Date de mise au rebut"
         # uses: "Utilisations d’outil"
       tracking:
         # active: "Utilisé"
@@ -164,6 +165,11 @@ spa:
         # locked: "Compte verrouillé"
         # name: "Nom d’utilisateur"
         # reduction_percent: "Taux de réduction autorisé (%)"
+      vegetal:
+        # born_at: "Date création"
+        # nature: "Nature de la culture"
+        # reproductor: "Multiplication"
+        # variety: "Variété"
       warehouse:
         # children: "Sous lieu de stockage"
         # product: "Produit contenu"
