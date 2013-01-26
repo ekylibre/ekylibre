@@ -60,29 +60,30 @@
 
 
 class ProductNature < CompanyRecord
-  attr_accessible :active, :catalog_description, :catalog_name, :category_id, :code, :code2, :comment, :deliverable, :description, :ean13, :for_immobilizations, :for_productions, :for_purchases, :for_sales, :asset_account_id, :name, :nature, :number, :charge_account_id, :reduction_submissive, :product_account_id, :stockable, :subscription_nature_id, :subscription_period, :subscription_quantity, :trackable, :unit_id, :unquantifiable, :weight
-  enumerize :nature, :in => [:product, :service, :subscription], :default => :product, :predicates => true
+  attr_accessible :active, :commercial_description, :commercial_name, :category_id, :comment, :deliverable, :description, :ean13, :for_immobilizations, :for_productions, :for_purchases, :for_sales, :asset_account_id, :name, :nature, :number, :charge_account_id, :reduction_submissive, :product_account_id, :stockable, :subscription_nature_id, :subscription_period, :subscription_quantity, :trackable, :unit_id, :unquantifiable, :weight
+  #enumerize :nature, :in => [:product, :service, :subscription], :default => :product, :predicates => true
+  belongs_to :asset_account, :class_name => "Account"
   belongs_to :charge_account, :class_name => "Account"
   belongs_to :product_account, :class_name => "Account"
   belongs_to :subscription_nature
   belongs_to :category, :class_name => "ProductNatureCategory"
   belongs_to :unit
   belongs_to :variety, :class_name => "ProductVariety"
-  has_many :available_stocks, :class_name => "ProductStock", :conditions => ["quantity > 0"], :foreign_key => :product_id
-  has_many :components, :class_name => "ProductNatureComponent", :conditions => {:active => true}, :foreign_key => :product_id
-  has_many :outgoing_delivery_lines, :foreign_key => :product_id
-  has_many :prices, :foreign_key => :product_id
-  has_many :purchase_lines, :foreign_key => :product_id
-  has_many :reservoirs, :conditions => {:reservoir => true}, :foreign_key => :product_id
-  has_many :sale_lines, :foreign_key => :product_id
-  has_many :stock_moves, :foreign_key => :product_id
-  has_many :stock_transfers, :foreign_key => :product_id
-  has_many :stocks, :foreign_key => :product_id
-  has_many :subscriptions, :foreign_key => :product_id
-  has_many :trackings, :foreign_key => :product_id
-  has_many :products
+  #has_many :available_stocks, :class_name => "ProductStock", :conditions => ["quantity > 0"], :foreign_key => :product_id
+  has_many :components, :class_name => "ProductNatureComponent", :conditions => {:active => true}, :foreign_key => :product_nature_id
+  #has_many :outgoing_delivery_lines, :foreign_key => :product_id
+  has_many :prices, :foreign_key => :product_nature_id
+  #has_many :purchase_lines, :foreign_key => :product_id
+  #has_many :reservoirs, :conditions => {:reservoir => true}, :foreign_key => :product_id
+  #has_many :sale_lines, :foreign_key => :product_id
+  #has_many :stock_moves, :foreign_key => :product_id
+  #has_many :stock_transfers, :foreign_key => :product_id
+ # has_many :stocks, :foreign_key => :product_id
+  has_many :subscriptions, :foreign_key => :product_nature_id
+  #has_many :trackings, :foreign_key => :product_id
+  has_many :products, :foreign_key => :nature_id
   # has_many :warehouses, :through => :stocks
-  has_one :default_stock, :class_name => "ProductStock", :order => :name, :foreign_key => :product_id
+  #has_one :default_stock, :class_name => "ProductStock", :order => :name, :foreign_key => :product_id
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :number, :allow_nil => true, :maximum => 32
   validates_length_of :commercial_name, :name, :subscription_duration, :allow_nil => true, :maximum => 255
@@ -92,44 +93,43 @@ class ProductNature < CompanyRecord
   validates_presence_of :subscription_nature,   :if => :subscription?
   validates_presence_of :subscription_period,   :if => Proc.new{|u| u.subscription? and u.subscription_nature and u.subscription_nature.period? }
   validates_presence_of :subscription_quantity, :if => Proc.new{|u| u.subscription? and u.subscription_nature and u.subscription_nature.quantity? }
-  validates_presence_of :product_account,     :if => :for_sales?
-  validates_presence_of :charge_account, :if => :for_purchases?
-  validates_uniqueness_of :code
+  validates_presence_of :product_account,     :if => :saleable?
+  validates_presence_of :charge_account, :if => :purchasable?
+  validates_uniqueness_of :number
   validates_uniqueness_of :name
-  validates_presence_of :weight, :if => :deliverable?
 
-  accepts_nested_attributes_for :stocks, :reject_if => :all_blank, :allow_destroy => true
+  #accepts_nested_attributes_for :stocks, :reject_if => :all_blank, :allow_destroy => true
 
   default_scope -> { order(:name) }
   scope :availables, -> { where(:active => true).order(:name) }
-  scope :stockables, -> { where(:stockable => true).order(:name) }
-  scope :purchaseables, -> { where(:for_purchases => true).order(:name) }
+  scope :stockables, -> { where(:storable => true).order(:name) }
+  scope :purchaseables, -> { where(:purchasable => true).order(:name) }
 
   before_validation do
-    self.code = self.name.codeize.upper if !self.name.blank? and self.code.blank?
-    self.code = self.code[0..7] unless self.code.blank?
+    self.number = self.name.codeize.upper if !self.name.blank? and self.number.blank?
+    self.number = self.number[0..7] unless self.number.blank?
     if self.number.blank?
       last = self.class.reorder('number DESC').first
       self.number = last.nil? ? 1 : last.number+1
     end
-    while self.class.where("code=? AND id!=?", self.code, self.id||0).first
-      self.code.succ!
+    while self.class.where("number=? AND id!=?", self.number, self.id||0).first
+      self.number.succ!
     end
     self.stockable = false unless self.deliverable?
     self.trackable = false unless self.stockable?
     # self.stockable = true if self.trackable?
     # self.deliverable = true if self.stockable?
-    self.for_productions = true if self.has_components?
-    self.catalog_name = self.name if self.catalog_name.blank?
-    self.subscription_nature_id = nil unless self.subscription?
+    self.producible = true if self.has_components?
+    self.commercial_name = self.name if self.commercial_name.blank?
+    self.subscription_nature_id = nil unless self.subscribing?
     return true
   end
 
   def to
     to = []
-    to << :sales if self.for_sales?
-    to << :purchases if self.for_purchases?
-    to << :produce if self.for_productions?
+    to << :sales if self.saleable?
+    to << :purchases if self.purchasable?
+    to << :produce if self.producible?
     to.collect{|x| tc('to.'+x.to_s)}.to_sentence
   end
 
@@ -137,21 +137,21 @@ class ProductNature < CompanyRecord
     Unit.of_product(self)
   end
 
-
   def has_components?
     self.components.count > 0
   end
 
-  def default_price(category_id)
-    self.prices.find(:first, :conditions => {:category_id => category_id, :active => true, :by_default => true})
-  end
+  #TODO see if we keep this method with product_nature_category ?
+  #def default_price(category_id)
+  #  self.prices.find(:first, :conditions => {:category_id => category_id, :active => true, :by_default => true})
+  # end
 
   def label
-    tc('label', :product => self["name"], :unit => self.unit["label"])
+    tc('label', :product_nature => self["name"], :unit => self.unit["label"])
   end
 
   def informations
-    tc('informations.'+(self.has_components? ? 'with' : 'without')+'_components', :product => self.name, :unit => self.unit.label, :size => self.components.size)
+    tc('informations.'+(self.has_components? ? 'with' : 'without')+'_components', :product_nature => self.name, :unit => self.unit.label, :size => self.components.size)
   end
 
   def duration
@@ -194,56 +194,56 @@ class ProductNature < CompanyRecord
     end
   end
 
+  # TODO : move stock methods in operation / product
   # Create real stocks moves to update the real state of stocks
-  def move_outgoing_stock(options={})
-    add_stock_move(options.merge(:virtual => false, :incoming => false))
-  end
+  #def move_outgoing_stock(options={})
+  #  add_stock_move(options.merge(:virtual => false, :incoming => false))
+  #end
 
-  def move_incoming_stock(options={})
-    add_stock_move(options.merge(:virtual => false, :incoming => true))
-  end
+ # def move_incoming_stock(options={})
+  #  add_stock_move(options.merge(:virtual => false, :incoming => true))
+ # end
 
   # Create virtual stock moves to reserve the products
-  def reserve_outgoing_stock(options={})
-    add_stock_move(options.merge(:virtual => true, :incoming => false))
-  end
+ # def reserve_outgoing_stock(options={})
+  #  add_stock_move(options.merge(:virtual => true, :incoming => false))
+  #end
 
-  def reserve_incoming_stock(options={})
-    add_stock_move(options.merge(:virtual => true, :incoming => true))
-  end
+  #def reserve_incoming_stock(options={})
+  #  add_stock_move(options.merge(:virtual => true, :incoming => true))
+  #end
 
   # Create real stocks moves to update the real state of stocks
-  def move_stock(options={})
-    add_stock_move(options.merge(:virtual => false))
-  end
+  #def move_stock(options={})
+   # add_stock_move(options.merge(:virtual => false))
+  #end
 
   # Create virtual stock moves to reserve the products
-  def reserve_stock(options={})
-    add_stock_move(options.merge(:virtual => true))
-  end
-
+  #def reserve_stock(options={})
+  #  add_stock_move(options.merge(:virtual => true))
+  #end
 
   # Generic method to add stock move in product's stock
-  def add_stock_move(options={})
-    return true unless self.stockable?
-    incoming = options.delete(:incoming)
-    attributes = options.merge(:generated => true)
-    origin = options[:origin]
-    if origin.is_a? ActiveRecord::Base
-      code = [:number, :code, :name, :id].detect{|x| origin.respond_to? x}
-      attributes[:name] = tc('stock_move', :origin => (origin ? ::I18n.t("activerecord.models.#{origin.class.name.underscore}") : "*"), :code => (origin ? origin.send(code) : "*"))
-      for attribute in [:quantity, :unit_id, :tracking_id, :warehouse_id, :product_id]
-        unless attributes.keys.include? attribute
-          attributes[attribute] ||= origin.send(attribute) rescue nil
-        end
-      end
-    end
-    attributes[:quantity] = -attributes[:quantity] unless incoming
-    attributes[:warehouse_id] ||= self.stocks.first.warehouse_id if self.stocks.size > 0
-    attributes[:planned_on] ||= Date.today
-    attributes[:moved_on] ||= attributes[:planned_on] unless attributes.keys.include? :moved_on
-    self.stock_moves.create!(attributes)
-  end
+  #def add_stock_move(options={})
+  # return true unless self.stockable?
+  #  incoming = options.delete(:incoming)
+  #  attributes = options.merge(:generated => true)
+  #  origin = options[:origin]
+  #  if origin.is_a? ActiveRecord::Base
+  #    code = [:number, :code, :name, :id].detect{|x| origin.respond_to? x}
+  #    attributes[:name] = tc('stock_move', :origin => (origin ? ::I18n.t("activerecord.models.#{origin.class.name.underscore}") : "*"), :code => (origin ? origin.send(code) : "*"))
+  #    for attribute in [:quantity, :unit_id, :tracking_id, :warehouse_id, :product_id]
+  #      unless attributes.keys.include? attribute
+  #        attributes[attribute] ||= origin.send(attribute) rescue nil
+  #      end
+  #    end
+  #  end
+  #  attributes[:quantity] = -attributes[:quantity] unless incoming
+  #  attributes[:warehouse_id] ||= self.stocks.first.warehouse_id if self.stocks.size > 0
+  #  attributes[:planned_on] ||= Date.today
+  #  attributes[:moved_on] ||= attributes[:planned_on] unless attributes.keys.include? :moved_on
+  #  self.stock_moves.create!(attributes)
+  # end
 
 
 end
