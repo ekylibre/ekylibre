@@ -357,8 +357,6 @@
       <page to="operations#unvalidateds"/>
       <page to="operations#update"/>
     </menu>
-    <menu name="products">
-      <page to="products#index"/>
       <menu name="product_groups">
         <page to="product_groups#index"/>
         <page to="product_groups#create"/>
@@ -392,29 +390,6 @@
         <page to="vegetals#show"/>
         <page to="vegetals#update"/>
       </menu>
-    </menu>
-    <menu name="logs">
-      <page to="logs#index"/>
-      <page to="logs#create"/>
-      <page to="logs#destroy"/>
-      <page to="logs#edit"/>
-      <page to="logs#list"/>
-      <page to="logs#new"/>
-      <page to="logs#show"/>
-      <page to="logs#update"/>
-    </menu>
-    <menu name="product_groups">
-      <page to="product_groups#index"/>
-      <page to="product_groups#create"/>
-      <page to="product_groups#destroy"/>
-      <page to="product_groups#edit"/>
-      <page to="product_groups#list"/>
-      <page to="product_groups#list_animals"/>
-      <page to="product_groups#list_events"/>
-      <page to="product_groups#new"/>
-      <page to="product_groups#show"/>
-      <page to="product_groups#update"/>
-    </menu>
     <menu name="land_parcels">
       <page to="land_parcels#index"/>
       <page to="land_parcels#create"/>
@@ -936,6 +911,16 @@
       <page to="product_memberships#new"/>
       <page to="product_memberships#show"/>
       <page to="product_memberships#update"/>
+    </menu>
+     <menu name="logs">
+      <page to="logs#index"/>
+      <page to="logs#create"/>
+      <page to="logs#destroy"/>
+      <page to="logs#edit"/>
+      <page to="logs#list"/>
+      <page to="logs#new"/>
+      <page to="logs#show"/>
+      <page to="logs#update"/>
     </menu>
     <menu name="product_nature_categories">
       <page to="product_nature_categories#list_product_natures"/>
