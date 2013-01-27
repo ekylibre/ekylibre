@@ -1,39 +1,40 @@
 -field_set do
   -input :name
-  -input :code
-  -input :code2
-  -input :ean13
-  -input :catalog_name
+  -input :number
+  -input :commercial_name
   -input :comment
 
 -field_set :nature do
   -association :category
   -association :unit
-  -input :weight
-  -input :nature, :show => {:subscription => :subscription}
+  -#input :nature, :show => {:subscription => :subscription}
 
 -field_set :subscription do
   -association :subscription_nature
-  -input :duration
+  -#input :duration
 
 -field_set :nature do
-  -input :reduction_submissive
+  -#input :reduction_submissive
   -input :active
-  -input :for_sales, :show => :sales_account
-  -input :for_purchases, :show => :purchases_account
-  -input :for_productions
-  -input :deliverable, :show => :stock_options
-  -input :stockable, :show => :stocks, :in => :stock_options
+  -input :depreciable, :show => :asset_account
+  -input :saleable, :show => :product_account
+  -input :purchasable, :show => :charge_account
+  -input :producible
+  -input :deliverable#, :show => :stock_options
+  -input :storable, :show => :stock_account#, :show => :stocks, :in => :stock_options
 
--field_set :stocks, :in => :stock_options do
-  -nested_association(:stocks) do
-    -input :critic_quantity_min
-    -input :quantity_min
-    -input :quantity_max
-    -association :warehouse
+-#field_set :stocks, :in => :stock_options do
+  -#nested_association(:stocks) do
+    -#input :critic_quantity_min
+    -#input :quantity_min
+    -#input :quantity_max
+    -#association :warehouse
 
 -#price=render :partial=>'price_amount_form'
 
 -field_set :accountancy do
-  -association :sales_account,     :source => :products
-  -association :purchases_account, :source => :charges
+  -association :product_account#,     :source => :products
+  -association :charge_account#, :source => :charges
+  -association :stock_account
+  -association :asset_account
+

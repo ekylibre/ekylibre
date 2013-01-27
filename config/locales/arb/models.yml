@@ -376,13 +376,23 @@ arb:
         tracking_id: "حصة" #?
       product_nature:
         active: "قبل للاستخدام" #?
+        # asset_account: "Compte d'immobilisation"
+        # charge_account: "Compte d'achat"
         comment: "تعليق" #?
+        # commercial_name: "Nom Catalogue"
+        # depreciable: "Ammortissable"
         duration: "عدد ارقام او مدة الاشتراك"
         ean13: "EAN13 الرمز" #?
         # price: "Prix de revient"
+        # producible: "Productible"
+        # product_account: "Compte de vente"
         published: "نشر" #?
+        # purchasable: "Achetable"
+        # saleable: "Vendable"
+        # stock_account: "Compte de stock"
         stock_moves: "حركات السهم" #?
         stocks: "اسهم المنتجات" #?
+        # storable: "Stockable"
         unit: "وحدة القياس" #?
         unit_id: "وحدة قياس" #?
         warehouses: "اماكن التخزين" #?
@@ -593,9 +603,14 @@ arb:
       tool:
         # born_at: "Date de mise en service"
         consumption: "(الاستهلاك (لتر / ساعة " #?
+        # content_maximal_quantity: "Capacité maximale"
+        # content_nature: "Produit contenu"
+        # content_unit: "Unité"
         # dead_at: "Date de mise au rebut"
+        # parent_place: "Lieu de parking"
         text_nature: "طبيغة النص" #?
         uses: "استخدامات الادوات"
+        # variety: "Marque"
       tracking:
         active: "مستخدم"
         company_id: "الشركة" #?
@@ -985,6 +1000,7 @@ arb:
     charges_accounts: "حسابات الحمولة"
     check_number: "رقم الشيك"
     # check_state: "Vérifier l’état"
+    # chidren: "Chidren"
     # child_kinships: "Relation enfant"
     # child_land_parcel: "Sous-îlot"
     children: "مواقع فرعية للتخزين"
@@ -1040,6 +1056,7 @@ arb:
     contact_id: "العنوان" #?
     contacts: "الاتصالات" #?
     # content_maximal_quantity: "Content maximal quantity"
+    # content_nature: "Content nature"
     # conveyors: "Convoyeurs"
     # coordinate: "Coordonnée"
     counterpart: "النسخة المطابقة" #?
@@ -1442,6 +1459,7 @@ arb:
     parent_id: "نسب" #?
     # parent_kinships: "Relation parent"
     # parent_land_parcel: "Sur-îlot"
+    # parent_place: "Parent place"
     parts: "الاجزاء"
     parts_amount: "القيمة المستخدمة"
     # passages: "Passages"

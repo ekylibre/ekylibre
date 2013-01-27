@@ -307,6 +307,7 @@ eng:
       index: "Disbursements"
       new: "Add a new disbursement"
       show: "Disbursement %{number} for %{payee}"
+    places: #?
     preferences:
       # edit: "Modifier les préférences"
       # index: "Préfénces"
@@ -357,12 +358,12 @@ eng:
     product_nature_components:
       edit: "Edit the component: %{name}"
       new: "Add a new component"
-    product_natures:  #?
+    product_natures:
       change_quantities: "Change quantities for product" #?
-      edit: "Edit the product: %{name}" #?
-      index: "Products" #?
-      new: "Add a new product" #?
-      show: "Product: %{name}" #?
+      edit: "Edit the product: %{name}"
+      index: "Products"
+      new: "Add a new product"
+      show: "Product: %{name}"
     product_process_phases: #?
     product_processes: #?
     product_species: #?

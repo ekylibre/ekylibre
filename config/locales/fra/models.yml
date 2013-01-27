@@ -79,8 +79,18 @@ fra:
       product_move:
         origin: "Origine"
       product_nature:
+        asset_account: "Compte d'immobilisation"
+        charge_account: "Compte d'achat"
+        commercial_name: "Nom Catalogue"
+        depreciable: "Ammortissable"
         duration: "Nombre de numéros OU période d’abonnement"
         price: "Prix de revient"
+        producible: "Productible"
+        product_account: "Compte de vente"
+        purchasable: "Achetable"
+        saleable: "Vendable"
+        stock_account: "Compte de stock"
+        storable: "Stockable"
       product_nature_category:
         children: "Sous-catégories"
         published: "Publiée"
@@ -148,8 +158,13 @@ fra:
         period: "Période"
       tool:
         born_at: "Date de mise en service"
+        content_maximal_quantity: "Capacité maximale"
+        content_nature: "Produit contenu"
+        content_unit: "Unité"
         dead_at: "Date de mise au rebut"
+        parent_place: "Lieu de parking"
         uses: "Utilisations d’outil"
+        variety: "Marque"
       tracking:
         active: "Utilisé"
       transfer:
@@ -517,6 +532,7 @@ fra:
     charges_accounts: "Comptes de charge" #?
     check_number: "N°Chèque"
     check_state: "Vérifier l’état"
+    chidren: "Chidren"
     child_kinships: "Relation enfant" #?
     child_land_parcel: "Sous-îlot" #?
     children: "Enfants"
@@ -565,7 +581,8 @@ fra:
     connected_at: "Connecté le"
     consumption: "Consommation (litres/heure)" #?
     content_maximal_quantity: "Content maximal quantity"
-    # content_nature: "Content nature"
+    content_nature: "Content nature"
+    # content_unit: "Content unit"
     conveyors: "Convoyeurs"
     coordinate: "Coordonnée"
     country: "Pays"
@@ -912,7 +929,7 @@ fra:
     parent: "Parent"
     parent_kinships: "Relation parent" #?
     parent_land_parcel: "Sur-îlot" #?
-    # parent_place: "Parent place"
+    parent_place: "Parent place"
     parts: "Affectations" #?
     parts_amount: "Montant utilisé" #?
     passages: "Passages" #?
@@ -1089,12 +1106,14 @@ fra:
     state: "État"
     state_label: "État"
     stock: "Stock de produit" #?
+    # stock_account: "Stock account"
     stock_move: "Mouvement de stock" #?
     stock_moves: "Mouvements de stock" #?
     stock_transfers: "Transferts ou pertes de stock" #?
     stockable: "Gérer les stocks" #?
     stockable_products: "Produits stockables" #?
     stocks: "Stocks de produit" #?
+    # stocks_products: "Stocks products"
     stopped_at: "Arrêté à"
     stopped_on: "Arrêté le"
     # storable: "Storable"

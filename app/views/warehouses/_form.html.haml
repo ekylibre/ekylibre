@@ -1,16 +1,16 @@
 -field_set do
   -input :name
-  -association :parent
+  -association :parent_place
   -input :comment, :field => :text
   -input :reservoir, :show => :reservoir_options
 
 -field_set(:reservoir_options) do
-  -association :product, :source => :availables
-  -input :quantity_max
+  -#association :product, :source => :availables
+  -input :maximal_quantity
   -input :number
 
--field_set :localization do
-  -association :establishment
-  -input :division
-  -input :subdivision
-  -input :subsubdivision
+-#field_set :localization do
+  -#association :establishment
+  -#input :division
+  -#input :subdivision
+  -#input :subsubdivision

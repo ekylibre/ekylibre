@@ -83,8 +83,18 @@ eng:
       product_move:
         origin: "Origine"
       product_nature:
+        # asset_account: "Compte d'immobilisation"
+        # charge_account: "Compte d'achat"
+        # commercial_name: "Nom Catalogue"
+        # depreciable: "Ammortissable"
         duration: "Quantity OR period"
         price: "Cost price"
+        # producible: "Productible"
+        # product_account: "Compte de vente"
+        # purchasable: "Achetable"
+        # saleable: "Vendable"
+        # stock_account: "Compte de stock"
+        # storable: "Stockable"
       product_nature_category:
         children: "Sub-product_categories"
         published: "Published"
@@ -152,8 +162,13 @@ eng:
         period: "Périod"
       tool:
         # born_at: "Date de mise en service"
+        # content_maximal_quantity: "Capacité maximale"
+        # content_nature: "Produit contenu"
+        # content_unit: "Unité"
         # dead_at: "Date de mise au rebut"
+        # parent_place: "Lieu de parking"
         uses: "Tool uses"
+        # variety: "Marque"
       tracking:
         active: "Used"
       transfer:
@@ -522,6 +537,7 @@ eng:
     charges_accounts: "Charges accounts"
     check_number: "Check number"
     check_state: "Check state"
+    # chidren: "Chidren"
     child_kinships: "Child kinships"
     child_land_parcel: "Child land parcel"
     children: "Children"
@@ -568,6 +584,7 @@ eng:
     contact: "Contact" #?
     contacts: "Contacts" #?
     # content_maximal_quantity: "Content maximal quantity"
+    # content_nature: "Content nature"
     conveyors: "Conveyors"
     coordinate: "Coordinate"
     country: "Country"
@@ -923,6 +940,7 @@ eng:
     parent: "Parent"
     parent_kinships: "Parent kinships"
     parent_land_parcel: "Parent land parcel"
+    # parent_place: "Parent place"
     # parts: "Affectations"
     # parts_amount: "Montant utilisé"
     # passages: "Passages"

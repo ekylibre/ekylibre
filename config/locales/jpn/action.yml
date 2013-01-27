@@ -294,6 +294,7 @@ jpn:
       # index: "Décaissements"
       # new: "Ajout d’un décaissement"
       # show: "Décaissement n°%{number} pour %{payee}"
+    places: #?
     posologies: #?
     preferences:
       # edit: "Modifier les préférences"
@@ -334,7 +335,11 @@ jpn:
     product_nature_components:
       # edit: "Modifier le composant %{name}"
       # new: "Ajouter un composant"
-    product_natures: #?
+    product_natures:
+      # edit: "Modifier le type de produit\_: %{name}"
+      # index: "Type de produit"
+      # new: "Nouveau type de produit"
+      # show: "Type de produit\_: %{name}"
     product_process_phases: #?
     product_processes: #?
     product_species: #?

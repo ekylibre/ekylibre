@@ -446,6 +446,12 @@ Ekylibre::Application.routes.draw do
   end
   resources :outgoing_payment_uses
   # resources :preferences
+  resources :places do
+    collection do
+      get :list
+      unroll_all
+    end
+  end
   resources :prices do
     collection do
       get :list

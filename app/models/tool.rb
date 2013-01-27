@@ -70,18 +70,22 @@
 
 
 class Tool < Product
-  attr_accessible :nature_id, :asset_id, :picture, :name, :comment, :born_at, :dead_at, :consumption, :state
+  attr_accessible :nature_id, :asset_id, :picture, :name, :comment, :born_at, :dead_at, :active, :external, :content_unit_id, :content_nature_id, :owner_id, :parent_place_id, :variety_id, :reservoir, :content_maximal_quantity
   has_attached_file :picture, :styles => { :medium => "300x300>", :thumb => "100x100>" }
   #has_many :uses, :class_name => "OperationUse"
   belongs_to :nature, :class_name => "ProductNature"
   belongs_to :variety, :class_name => "ProductVariety"
+  belongs_to :parent_place, :class_name => "Place"
+  belongs_to :owner, :class_name => "Entity"
+  belongs_to :content_nature, :class_name => "Product"
+  belongs_to :content_unit, :class_name => "Unit"
   belongs_to :asset
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :picture_file_size, :allow_nil => true, :only_integer => true
   validates_numericality_of :area_measure, :content_maximal_quantity, :maximal_quantity, :minimal_quantity, :real_quantity, :virtual_quantity, :allow_nil => true
   validates_length_of :identification_number, :name, :number, :picture_content_type, :picture_file_name, :sex, :work_number, :allow_nil => true, :maximum => 255
   validates_inclusion_of :active, :external, :reproductor, :reservoir, :in => [true, false]
-  validates_presence_of :content_maximal_quantity, :maximal_quantity, :minimal_quantity, :name, :nature, :number, :real_quantity, :unit, :variety, :virtual_quantity
+  validates_presence_of :content_maximal_quantity, :maximal_quantity, :minimal_quantity, :name, :nature, :number, :owner, :real_quantity, :unit, :variety, :virtual_quantity
   #]VALIDATORS]
 
   default_scope -> { order(:name) }

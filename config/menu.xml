@@ -357,63 +357,38 @@
       <page to="operations#unvalidateds"/>
       <page to="operations#update"/>
     </menu>
-    <menu name="products">
-      <page to="products#index"/>
-      <menu name="product_groups">
-        <page to="product_groups#index"/>
-        <page to="product_groups#create"/>
-        <page to="product_groups#destroy"/>
-        <page to="product_groups#edit"/>
-        <page to="product_groups#list"/>
-        <page to="product_groups#list_children"/>
-        <page to="product_groups#new"/>
-        <page to="product_groups#show"/>
-        <page to="product_groups#update"/>
-      </menu>
-      <menu name="animals">
-        <page to="animals#index"/>
-        <page to="animals#create"/>
-        <page to="animals#destroy"/>
-        <page to="animals#edit"/>
-        <page to="animals#list"/>
-        <page to="animals#list_children"/>
-        <page to="animals#new"/>
-        <page to="animals#show"/>
-        <page to="animals#update"/>
-      </menu>
-      <menu name="vegetals">
-        <page to="vegetals#index"/>
-        <page to="vegetals#create"/>
-        <page to="vegetals#destroy"/>
-        <page to="vegetals#edit"/>
-        <page to="vegetals#list"/>
-        <page to="vegetals#list_children"/>
-        <page to="vegetals#new"/>
-        <page to="vegetals#show"/>
-        <page to="vegetals#update"/>
-      </menu>
-    </menu>
-    <menu name="logs">
-      <page to="logs#index"/>
-      <page to="logs#create"/>
-      <page to="logs#destroy"/>
-      <page to="logs#edit"/>
-      <page to="logs#list"/>
-      <page to="logs#new"/>
-      <page to="logs#show"/>
-      <page to="logs#update"/>
-    </menu>
     <menu name="product_groups">
       <page to="product_groups#index"/>
       <page to="product_groups#create"/>
       <page to="product_groups#destroy"/>
       <page to="product_groups#edit"/>
       <page to="product_groups#list"/>
-      <page to="product_groups#list_animals"/>
-      <page to="product_groups#list_events"/>
+      <page to="product_groups#list_children"/>
       <page to="product_groups#new"/>
       <page to="product_groups#show"/>
       <page to="product_groups#update"/>
+    </menu>
+    <menu name="animals">
+      <page to="animals#index"/>
+      <page to="animals#create"/>
+      <page to="animals#destroy"/>
+      <page to="animals#edit"/>
+      <page to="animals#list"/>
+      <page to="animals#list_children"/>
+      <page to="animals#new"/>
+      <page to="animals#show"/>
+      <page to="animals#update"/>
+    </menu>
+    <menu name="vegetals">
+      <page to="vegetals#index"/>
+      <page to="vegetals#create"/>
+      <page to="vegetals#destroy"/>
+      <page to="vegetals#edit"/>
+      <page to="vegetals#list"/>
+      <page to="vegetals#list_children"/>
+      <page to="vegetals#new"/>
+      <page to="vegetals#show"/>
+      <page to="vegetals#update"/>
     </menu>
     <menu name="land_parcels">
       <page to="land_parcels#index"/>
@@ -841,7 +816,6 @@
     <menu name="dashboards">
       <page to="dashboards#list_my_future_entity_events"/>
       <page to="dashboards#list_recent_entity_events"/>
-      <page to="dashboards#production_products"/>
       <page to="dashboards#welcome"/>
     </menu>
     <menu name="entities">
@@ -880,9 +854,29 @@
       <page to="journals#list_draft_items"/>
       <page to="journals#list_items"/>
     </menu>
+    <menu name="logs">
+      <page to="logs#index"/>
+      <page to="logs#create"/>
+      <page to="logs#destroy"/>
+      <page to="logs#edit"/>
+      <page to="logs#list"/>
+      <page to="logs#new"/>
+      <page to="logs#show"/>
+      <page to="logs#update"/>
+    </menu>
     <menu name="myselves">
       <page to="myselves#change_password"/>
       <page to="myselves#statistics"/>
+    </menu>
+    <menu name="places">
+      <page to="places#index"/>
+      <page to="places#create"/>
+      <page to="places#destroy"/>
+      <page to="places#edit"/>
+      <page to="places#list"/>
+      <page to="places#new"/>
+      <page to="places#show"/>
+      <page to="places#update"/>
     </menu>
     <menu name="preferences">
       <page to="preferences#index"/>
@@ -939,9 +933,6 @@
     </menu>
     <menu name="product_nature_categories">
       <page to="product_nature_categories#list_product_natures"/>
-    </menu>
-    <menu name="product_natures">
-      <page to="product_natures#list_product_moves"/>
     </menu>
     <menu name="product_process_phases">
       <page to="product_process_phases#index"/>
