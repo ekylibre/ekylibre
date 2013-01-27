@@ -162,8 +162,13 @@ jpn:
         # period: "Période"
       tool:
         # born_at: "Date de mise en service"
+        # content_maximal_quantity: "Capacité maximale"
+        # content_nature: "Produit contenu"
+        # content_unit: "Unité"
         # dead_at: "Date de mise au rebut"
+        # parent_place: "Lieu de parking"
         # uses: "Utilisations d’outil"
+        # variety: "Marque"
       tracking:
         # active: "Utilisé"
       transfer:
@@ -556,6 +561,7 @@ jpn:
     # connected_at: "Connecté le"
     # consumption: "Consommation (litres/heure)"
     # content_maximal_quantity: "Content maximal quantity"
+    # content_nature: "Content nature"
     # conveyors: "Convoyeurs"
     # coordinate: "Coordonnée"
     # country: "Pays"
@@ -894,6 +900,7 @@ jpn:
     parent_id: "親戚" #?
     # parent_kinships: "Relation parent"
     # parent_land_parcel: "Sur-îlot"
+    # parent_place: "Parent place"
     # parts: "Affectations"
     # parts_amount: "Montant utilisé"
     # passages: "Passages"

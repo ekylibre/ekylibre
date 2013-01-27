@@ -603,9 +603,14 @@ arb:
       tool:
         # born_at: "Date de mise en service"
         consumption: "(الاستهلاك (لتر / ساعة " #?
+        # content_maximal_quantity: "Capacité maximale"
+        # content_nature: "Produit contenu"
+        # content_unit: "Unité"
         # dead_at: "Date de mise au rebut"
+        # parent_place: "Lieu de parking"
         text_nature: "طبيغة النص" #?
         uses: "استخدامات الادوات"
+        # variety: "Marque"
       tracking:
         active: "مستخدم"
         company_id: "الشركة" #?
@@ -1050,6 +1055,7 @@ arb:
     contact_id: "العنوان" #?
     contacts: "الاتصالات" #?
     # content_maximal_quantity: "Content maximal quantity"
+    # content_nature: "Content nature"
     # conveyors: "Convoyeurs"
     # coordinate: "Coordonnée"
     counterpart: "النسخة المطابقة" #?
@@ -1452,6 +1458,7 @@ arb:
     parent_id: "نسب" #?
     # parent_kinships: "Relation parent"
     # parent_land_parcel: "Sur-îlot"
+    # parent_place: "Parent place"
     parts: "الاجزاء"
     parts_amount: "القيمة المستخدمة"
     # passages: "Passages"

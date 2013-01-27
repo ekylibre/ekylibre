@@ -307,6 +307,7 @@ eng:
       index: "Disbursements"
       new: "Add a new disbursement"
       show: "Disbursement %{number} for %{payee}"
+    places: #?
     preferences:
       # edit: "Modifier les préférences"
       # index: "Préfénces"

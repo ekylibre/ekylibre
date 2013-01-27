@@ -72,14 +72,15 @@
 class Warehouse < Place
   # TODO: Use acts_as_nested_set
   # acts_as_tree
-  attr_accessible :name, :address_id, :comment, :establishment_id, :reservoir, :unit_id, :product_id, :maximal_quantity
+  attr_accessible :name, :address_id, :comment, :reservoir, :unit_id, :content_nature_id, :maximal_quantity
   attr_readonly :reservoir
   # belongs_to :address, :class_name => "EntityAddress"
   # belongs_to :establishment
+  belongs_to :parent_place, :class_name => "Place"
   belongs_to :content_nature, :class_name => "ProductNature"
   has_many :purchase_lines, :class_name => "PurchaseItem"
   has_many :sale_lines, :class_name => "SaleItem"
-  has_many :stocks, :class_name => "ProductStock"
+  has_many :stocks, :class_name => "Product"
   has_many :stock_moves, :class_name => "ProductMove"
   has_many :stock_transfers, :class_name => "ProductTransfer"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
@@ -140,6 +141,7 @@ class Warehouse < Place
   #   self.can_receive?(product_id)
   # end
 
+  # TODO : adapt method to parent_place
   # Returns parent ids
   def parent_ids
     if self.parent

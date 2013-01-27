@@ -294,6 +294,7 @@ jpn:
       # index: "Décaissements"
       # new: "Ajout d’un décaissement"
       # show: "Décaissement n°%{number} pour %{payee}"
+    places: #?
     posologies: #?
     preferences:
       # edit: "Modifier les préférences"

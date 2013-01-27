@@ -61,7 +61,7 @@
 
 
 class ProductNature < CompanyRecord
-  attr_accessible :active, :commercial_description, :commercial_name, :category_id, :comment, :deliverable, :description, :depreciable, :producible, :purchasable, :saleable, :asset_account_id, :name, :number, :charge_account_id, :product_account_id, :storable, :subscription_nature_id, :subscription_duration, :traceable, :unit_id
+  attr_accessible :active, :commercial_description, :commercial_name, :category_id, :comment, :deliverable, :description, :depreciable, :producible, :purchasable, :saleable, :asset_account_id, :name, :number,:stock_account_id ,:charge_account_id, :product_account_id, :storable, :subscription_nature_id, :subscription_duration, :traceable, :unit_id
   #enumerize :nature, :in => [:product, :service, :subscription], :default => :product, :predicates => true
   belongs_to :asset_account, :class_name => "Account"
   belongs_to :charge_account, :class_name => "Account"
@@ -92,9 +92,9 @@ class ProductNature < CompanyRecord
   validates_inclusion_of :active, :alive, :deliverable, :depreciable, :indivisible, :producible, :purchasable, :reductible, :saleable, :storable, :storage, :subscribing, :towable, :traceable, :tractive, :transferable, :in => [true, false]
   validates_presence_of :category, :commercial_name, :name, :number, :unit, :variety
   #]VALIDATORS]
-  validates_presence_of :subscription_nature,   :if => :subscription?
-  validates_presence_of :subscription_period,   :if => Proc.new{|u| u.subscription? and u.subscription_nature and u.subscription_nature.period? }
-  validates_presence_of :subscription_quantity, :if => Proc.new{|u| u.subscription? and u.subscription_nature and u.subscription_nature.quantity? }
+  validates_presence_of :subscription_nature,   :if => :subscribing?
+  validates_presence_of :subscription_period,   :if => Proc.new{|u| u.subscribing? and u.subscription_nature and u.subscription_nature.period? }
+  validates_presence_of :subscription_quantity, :if => Proc.new{|u| u.subscribing? and u.subscription_nature and u.subscription_nature.quantity? }
   validates_presence_of :product_account,     :if => :saleable?
   validates_presence_of :charge_account, :if => :purchasable?
   validates_presence_of :stock_account, :if => :storable?
@@ -119,8 +119,8 @@ class ProductNature < CompanyRecord
     while self.class.where("number=? AND id!=?", self.number, self.id||0).first
       self.number.succ!
     end
-    self.stockable = false unless self.deliverable?
-    self.trackable = false unless self.stockable?
+    self.storable = false unless self.deliverable?
+    self.traceable = false unless self.storable?
     # self.stockable = true if self.trackable?
     # self.deliverable = true if self.stockable?
     self.producible = true if self.has_components?

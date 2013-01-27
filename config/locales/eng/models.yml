@@ -162,8 +162,13 @@ eng:
         period: "Périod"
       tool:
         # born_at: "Date de mise en service"
+        # content_maximal_quantity: "Capacité maximale"
+        # content_nature: "Produit contenu"
+        # content_unit: "Unité"
         # dead_at: "Date de mise au rebut"
+        # parent_place: "Lieu de parking"
         uses: "Tool uses"
+        # variety: "Marque"
       tracking:
         active: "Used"
       transfer:
@@ -578,6 +583,7 @@ eng:
     contact: "Contact" #?
     contacts: "Contacts" #?
     # content_maximal_quantity: "Content maximal quantity"
+    # content_nature: "Content nature"
     conveyors: "Conveyors"
     coordinate: "Coordinate"
     country: "Country"
@@ -933,6 +939,7 @@ eng:
     parent: "Parent"
     parent_kinships: "Parent kinships"
     parent_land_parcel: "Parent land parcel"
+    # parent_place: "Parent place"
     # parts: "Affectations"
     # parts_amount: "Montant utilisé"
     # passages: "Passages"

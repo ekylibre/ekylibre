@@ -68,4 +68,7 @@
 #  work_number              :string(255)      
 #
 class Place < Product
+
+  has_many :warehouses, :class_name => "Warehouse", :foreign_key => :parent_place_id
+
 end

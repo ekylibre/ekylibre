@@ -56,7 +56,6 @@ fra:
       general: "Tableau de bord général" #?
       index: "Menu principal"
       production: "Tableau de bord de la production"
-      # production_products: "Production products dashboard"
       purchases: "Tableau de bord des achats"
       relationship: "Tableau de bord de la gestion des relations"
       sales: "Tableau de bord des ventes"
@@ -242,6 +241,11 @@ fra:
       index: "Décaissements"
       new: "Ajout d’un décaissement"
       show: "Décaissement n°%{number} pour %{payee}"
+    places:
+      # edit: "Edit place"
+      # index: "Index place"
+      # new: "New place"
+      # show: "Show place"
     preferences:
       edit: "Modifier les préférences"
       index: "Préfénces"
@@ -515,6 +519,7 @@ fra:
     outgoing_delivery_modes: "Modes de livraisons sortantes"
     outgoing_payment_modes: "Modes de décaissement"
     outgoing_payments: "Décaissements"
+    # places: "Places"
     preferences: "Préférences"
     prices: "Prix"
     product_groups: "Lot de produits"

@@ -338,6 +338,7 @@ arb:
       index: "دفعات"
       new: "اضافة دفعة"
       show: "رقم الدفعة%{number} من اجل %{payee}"
+    places: #?
     posologies: #?
     preferences:
       # edit: "Modifier les préférences"
