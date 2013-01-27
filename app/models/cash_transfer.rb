@@ -40,7 +40,7 @@
 #
 
 
-class CashTransfer < CompanyRecord
+class CashTransfer < Ekylibre::Record::Base
   acts_as_numbered
   attr_accessible :comment, :created_on, :currency_rate, :emitter_amount, :emitter_cash_id, :emitter_journal_entry_id, :number, :receiver_amount, :receiver_cash_id, :receiver_journal_entry_id
   attr_readonly :number

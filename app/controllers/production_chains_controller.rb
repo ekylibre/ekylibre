@@ -41,9 +41,9 @@ class ProductionChainsController < AdminController
         ops = {}
         for op, long_name in {:a => "Cooling", :b => "Sorting", :c => "Packaging Q1S1", :d => "Packaging Q1S2", :e => "Packaging Q2S1", :f => "Packaging Q2S2", :g => "Packaging Special Palet"}.sort{|a,b| a.to_s <=> b.to_s}
           name = long_name.split(/\s+/)[0]
-          n = OperationNature.find_by_name(name)
-          n = OperationNature.create!(:name => name) if n.nil?
-          ops[op] = pc.operations.create!(:name => long_name, :building => building, :nature => (long_name.match(/\s/) ? "output" : "input"), :operation_nature => n)
+          # n = OperationNature.find_by_name(name)
+          # n = OperationNature.create!(:name => name) if n.nil?
+          ops[op] = pc.operations.create!(:name => long_name, :building => building, :nature => (long_name.match(/\s/) ? "output" : "input")) # , :operation_nature => n
         end
         us = {}
         us[:kg] = Unit.find_by_name("kg")||Unit.create!(:name => "kg", :label => "Kilogram", :base => "kg")
@@ -95,7 +95,7 @@ class ProductionChainsController < AdminController
 
   list(:work_centers, :model => :production_chain_work_centers, :order => "name") do |t|
     t.column :name, :url => true
-    t.column :name, :through => :operation_nature
+    # t.column :name, :through => :operation_nature
     t.column :nature
     t.column :name, :through => :building, :url => true
     t.column :comment

@@ -68,4 +68,5 @@
 #  work_number              :string(255)      
 #
 class Place < Product
+  has_many :product_localizations
 end

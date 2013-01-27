@@ -37,7 +37,7 @@
 #
 
 
-class Inventory < CompanyRecord
+class Inventory < Ekylibre::Record::Base
   attr_accessible :created_on, :number, :responsible_id
   belongs_to :responsible, :class_name => "Entity"
   has_many :items, :class_name => "InventoryItem", :dependent => :destroy, :inverse_of => :inventory

@@ -41,7 +41,7 @@
 #
 
 
-class IncomingDeliveryItem < CompanyRecord
+class IncomingDeliveryItem < Ekylibre::Record::Base
   attr_accessible :delivery_id, :price_id, :product_id, :warehouse_id
   attr_readonly :purchase_item_id, :product_id, :price_id, :unit_id
   belongs_to :delivery, :class_name => "IncomingDelivery"

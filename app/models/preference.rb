@@ -38,7 +38,7 @@
 #
 
 
-class Preference < CompanyRecord
+class Preference < Ekylibre::Record::Base
   enumerize :nature, :in => Preference.columns_hash.keys.select{|x| x.match(/_value(_id)?$/)}.collect{|x| x.split(/_value/)[0].to_sym }, :default => :string, :predicates => true
   @@natures = self.nature.values
   @@conversions = {:float => :decimal, :true_class => :boolean, :false_class => :boolean, :fixnum => :integer}

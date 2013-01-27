@@ -37,7 +37,7 @@
 #
 
 
-class ProductNatureComponent < CompanyRecord
+class ProductNatureComponent < Ekylibre::Record::Base
   attr_accessible :active, :comment, :name, :product_id, :component_id, :quantity
   attr_readonly :quantity, :name, :comment
   belongs_to :component, :class_name => "ProductNature"

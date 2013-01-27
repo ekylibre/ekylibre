@@ -34,9 +34,9 @@
 #
 
 
-class ProductIndicatorNatureChoice < CompanyRecord
+class ProductIndicatorNatureChoice < Ekylibre::Record::Base
   attr_accessible :name, :position
-  belongs_to :nature, :inverse_of => :choices
+  belongs_to :nature, :class_name => "ProductIndicatorNature", :inverse_of => :choices
   has_many :data, :class_name => "ProductIndicator", :dependent => :delete_all, :inverse_of => :choice_value
   acts_as_list
 

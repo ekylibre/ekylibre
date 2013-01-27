@@ -37,12 +37,11 @@
 #
 
 
-class Operation < CompanyRecord
+class Operation < Ekylibre::Record::Base
   attr_accessible :description, :hour_duration, :min_duration, :planned_on, :nature_id, :started_at, :stopped_at, :target_id, :target_type, :responsible_id
   belongs_to :target, :class_name => "Product"
   belongs_to :operand, :class_name => "Product"
   has_many :works, :class_name => "OperationWork"
-  has_many :workers, :through => :works
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :operand_quantity, :allow_nil => true

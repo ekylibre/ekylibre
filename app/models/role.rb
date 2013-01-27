@@ -31,7 +31,7 @@
 #
 
 
-class Role < CompanyRecord
+class Role < Ekylibre::Record::Base
   attr_accessible :name, :rights
   has_many :users, :class_name => "Entity"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.

@@ -35,7 +35,7 @@
 #
 
 
-class ProductNatureCategory < CompanyRecord
+class ProductNatureCategory < Ekylibre::Record::Base
   attr_accessible :name, :catalog_name, :catalog_description, :comment, :parent_id
   acts_as_tree
   has_many :product_natures

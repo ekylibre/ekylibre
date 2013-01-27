@@ -34,7 +34,7 @@
 #  updater_id   :integer          
 #
 
-class ProductLocalization < CompanyRecord
+class ProductLocalization < Ekylibre::Record::Base
   enumerize :nature, :in => [:transfer, :interior, :exterior], :default => :interior
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :nature, :allow_nil => true, :maximum => 255

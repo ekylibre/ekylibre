@@ -59,7 +59,7 @@
 #
 
 
-class ProductNature < CompanyRecord
+class ProductNature < Ekylibre::Record::Base
   attr_accessible :active, :commercial_description, :commercial_name, :category_id, :comment, :deliverable, :description, :ean13, :for_immobilizations, :for_productions, :for_purchases, :for_sales, :asset_account_id, :name, :nature, :number, :charge_account_id, :reduction_submissive, :product_account_id, :stockable, :subscription_nature_id, :subscription_period, :subscription_quantity, :trackable, :unit_id, :unquantifiable, :weight
   #enumerize :nature, :in => [:product, :service, :subscription], :default => :product, :predicates => true
   belongs_to :asset_account, :class_name => "Account"

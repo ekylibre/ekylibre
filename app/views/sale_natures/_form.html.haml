@@ -7,8 +7,8 @@
   -input :comment, :field => :text
 
 =field_set(:payment_conditions) do
-  -association :expiration
-  -association :payment_delay
+  -input :expiration_delay
+  -input :payment_delay
   -association :payment_mode
   -input :payment_mode_complement
 

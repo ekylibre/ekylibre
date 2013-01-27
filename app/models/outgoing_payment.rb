@@ -44,15 +44,12 @@
 #
 
 
-class OutgoingPayment < CompanyRecord
+class OutgoingPayment < Ekylibre::Record::Base
   attr_accessible :amount, :check_number, :paid_on, :to_bank_on, :responsible_id, :payee_id, :mode_id # , :used_amount
   belongs_to :journal_entry
   belongs_to :mode, :class_name => "OutgoingPaymentMode"
   belongs_to :payee, :class_name => "Entity"
   belongs_to :responsible, :class_name => "Entity"
-  has_many :uses, :class_name => "OutgoingPaymentUse", :foreign_key => :payment_id, :dependent => :destroy
-  has_many :purchases, :through => :uses
-  has_many :expenses, :through => :uses
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :amount, :allow_nil => true
   validates_length_of :currency, :allow_nil => true, :maximum => 3

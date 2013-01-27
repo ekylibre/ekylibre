@@ -40,7 +40,7 @@
 #
 
 
-class OutgoingDeliveryItem < CompanyRecord
+class OutgoingDeliveryItem < Ekylibre::Record::Base
   attr_accessible :sale_item_id, :product_id, :price_id, :unit_id
   attr_readonly :sale_item_id, :product_id, :price_id, :unit_id
   belongs_to :delivery, :class_name => "OutgoingDelivery", :inverse_of => :items

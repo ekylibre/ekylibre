@@ -33,7 +33,7 @@
 #
 
 
-class EntityCategory < CompanyRecord
+class EntityCategory < Ekylibre::Record::Base
   attr_accessible :name, :description, :by_default
   has_many :active_prices, :class_name => "Price", :foreign_key => :category_id, :conditions => {:active => true}
   has_many :entities, :foreign_key => :category_id

@@ -51,7 +51,7 @@
 #  updater_id              :integer          
 #
 
-class Asset < CompanyRecord
+class Asset < Ekylibre::Record::Base
   attr_accessible :name, :started_on, :stopped_on, :comment, :description
   acts_as_numbered
   enumerize :depreciation_method, :in => [:simplified_linear, :linear], :predicates => {:prefix => true} # graduated

@@ -50,7 +50,14 @@ require 'test_helper'
 
 class EntityAddressTest < ActiveSupport::TestCase
   # Replace this with your real tests.
-  def test_truth
-    assert true
+  def test_presence_of_canal_scopes
+    for canal in EntityAddress.canal.values
+      scope_name = canal.to_s.pluralize.to_sym
+      assert EntityAddress.respond_to?(scope_name), "EntityAddress must have a scope #{scope_name}"
+      scope_name = ("own_" + canal.to_s.pluralize).to_sym
+      assert EntityAddress.respond_to?(scope_name), "EntityAddress must have a scope #{scope_name}"
+      # TODO Check that scope works
+    end
+
   end
 end

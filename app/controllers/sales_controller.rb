@@ -256,7 +256,7 @@ class SalesController < AdminController
       end
     end
     session[:current_entity_id] = (client ? client.id : nil)
-    @sale.responsible_id = @current_user.id
+    @sale.responsible_id = current_user.id
     @sale.client_id = session[:current_entity_id]
     @sale.letter_format = false
     @sale.function_title = tg('letter_function_title')

@@ -40,7 +40,7 @@ class AffairTest < ActiveSupport::TestCase
 
   # check that every model that can be affairable
   def test_affairables
-    for type in Affair.AFFAIRABLE_TYPES
+    for type in Affair::AFFAIRABLE_TYPES
       model = type.constantize
       assert model.respond_to?(:affairable_options)
     end

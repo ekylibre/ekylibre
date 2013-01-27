@@ -39,7 +39,7 @@
 #
 
 
-class ProductVariety < CompanyRecord
+class ProductVariety < Ekylibre::Record::Base
   attr_accessible :name, :code, :comment, :description, :parent_id
   has_many :products, :foreign_key => :variety_id
   has_many :processes, :class_name => "ProductProcess", :foreign_key => :variety_id

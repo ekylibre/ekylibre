@@ -90,7 +90,7 @@
 
 require "digest/sha2"
 
-class Entity < CompanyRecord
+class Entity < Ekylibre::Record::Base
   acts_as_numbered :code
   attr_accessible :active, :activity_code, :attorney, :attorney_account_id, :authorized_payments_count, :born_on, :category_id, :client, :client_account_id, :code, :comment, :country, :currency, :dead_on, :deliveries_conditions, :department_id, :ean13, :employed, :employment, :establishment_id, :first_met_on, :first_name, :full_name, :language, :last_name, :left_on, :loggable, :maximal_grantable_reduction_percentage, :nature_id, :office, :origin, :payment_delay, :payment_mode_id, :photo, :profession_id, :proposer_id, :prospect, :recruited_on, :reduction_percentage, :reflation_submissive, :responsible_id, :role_id, :siren, :supplier, :supplier_account_id, :transporter, :user_name, :vat_number, :vat_submissive
   attr_accessor :password_confirmation, :old_password
@@ -119,7 +119,7 @@ class Entity < CompanyRecord
   has_many :direct_links, :class_name => "EntityLink", :foreign_key => :entity_1_id
   has_many :events, :class_name => "Event"
   has_many :product_events, :class_name => "Log", :foreign_key => :watcher_id
-  has_many :managed_events, :foreign_key => :responsible_id # as Responsible
+  has_many :managed_events, :class_name => "Event", :foreign_key => :responsible_id # as Responsible
   has_many :future_events, :class_name => "Event", :foreign_key => :responsible_id, :conditions => ["started_at >= CURRENT_TIMESTAMP"]
   has_many :godchildren, :class_name => "Entity", :foreign_key => "proposer_id"
   has_many :incoming_payments, :foreign_key => :payer_id, :inverse_of => :payer
@@ -136,15 +136,14 @@ class Entity < CompanyRecord
   has_many :sales_invoices, :class_name => "Sale", :foreign_key => :client_id, :order => "created_on desc", :conditions => {:state => "invoice"}
   has_many :managed_sales_invoices, :foreign_key => :responsible_id, :class_name => "Sale", :conditions => {:state => :invoice}
   has_many :sales, :foreign_key => :client_id, :order => "created_on desc"
-  has_many :managed_sales, :foreign_key => :responsible_id
+  has_many :managed_sales, :class_name => "Sale", :foreign_key => :responsible_id
   has_many :sale_lines, :class_name => "SaleItem"
   has_many :subscriptions
   has_many :trackings, :foreign_key => :producer_id
   has_many :transfers, :foreign_key => :supplier_id
   has_many :transports, :foreign_key => :transporter_id
-  has_many :managed_transports, :foreign_key => :responsible_id
+  has_many :managed_transports, :class_name => "Transport", :foreign_key => :responsible_id
   has_many :transporter_sales, :foreign_key => :transporter_id, :order => "created_on desc", :class_name => "Sale"
-  has_many :prescriptions, :class_name => "AnimalPrescription", :foreign_key => :prescriptor_id
   has_many :managed_unpaid_sales, :class_name => "Sale", :foreign_key => :responsible_id, :order => "created_on", :conditions => ["state IN ('order', 'invoice') AND paid_amount < amount AND lost = ? ", false]
   has_many :usable_incoming_payments, :conditions => ["used_amount < amount"], :class_name => "IncomingPayment", :foreign_key => :payer_id
   has_many :waiting_deliveries, :class_name => "OutgoingDelivery", :foreign_key => :transporter_id, :conditions => ["moved_on IS NULL AND planned_on <= CURRENT_DATE"]

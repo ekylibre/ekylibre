@@ -534,6 +534,7 @@ class AdminController < BaseController
 
     code << "def create\n"
     code << "  @#{record_name} = #{model.name}.new(params[:#{record_name}])\n"
+    # code << "  @#{record_name}.save!\n"
     code << "  return if save_and_redirect(@#{record_name}#{',  :url => '+url if url})\n"
     code << "  #{render_form}\n"
     code << "end\n"

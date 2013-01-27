@@ -43,14 +43,17 @@ module Ekylibre::Record
           # Create "empty" affair if missing before every save
           code << "before_save do\n"
           code << "  unless self.#{affair}\n"
-          code << "    self.create_#{affair}!(:currency => self.#{currency})\n"
+          code << "    #{affair} = Affair.new\n"
+          code << "    #{affair}.currency = self.#{currency}\n"
+          code << "    #{affair}.save!\n"
+          code << "    self.#{affair_id} = #{affair}.id\n"
           code << "  end\n"
           code << "end\n"
 
           # Refresh after each save
           code << "after_save do\n"
           code << "  if self.#{affair}\n"
-          code << "    self.#{affair}.save\n"
+          code << "    self.#{affair}.reload.save\n"
           code << "  end\n"
           code << "  Affair.clean_deads\n"
           code << "end\n"
@@ -115,6 +118,8 @@ module Ekylibre::Record
           elsif options[:third].is_a?(Proc)
             define_method(:deal_third, &options[:third])
           end
+
+          # code.split("\n").each_with_index{|x, i| puts((i+1).to_s.rjust(4)+": "+x)}
 
           class_eval code
         end

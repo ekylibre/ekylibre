@@ -33,7 +33,7 @@
 #
 
 
-class ProductMembership < CompanyRecord
+class ProductMembership < Ekylibre::Record::Base
   attr_accessible :started_at, :stopped_at,  :group_id, :product_id
   belongs_to :group, :class_name => "ProductGroup"
   belongs_to :product, :class_name => "Product"

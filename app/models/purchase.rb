@@ -47,7 +47,7 @@
 #
 
 
-class Purchase < CompanyRecord
+class Purchase < Ekylibre::Record::Base
   attr_accessible :comment, :delivery_address_id, :nature_id, :planned_on, :reference_number, :responsible_id, :supplier_id
   attr_readonly :currency
   belongs_to :delivery_address, :class_name => "EntityAddress"
@@ -56,11 +56,9 @@ class Purchase < CompanyRecord
   belongs_to :payee, :class_name => "Entity", :foreign_key => :supplier_id
   belongs_to :supplier, :class_name => "Entity"
   belongs_to :responsible, :class_name => "Entity"
-  has_many :lines, :class_name => "PurchaseItem", :foreign_key => :purchase_id
+  has_many :items, :class_name => "PurchaseItem", :foreign_key => :purchase_id
   has_many :deliveries, :class_name => "IncomingDelivery"
-  has_many :payment_uses, :foreign_key => :expense_id, :class_name => "OutgoingPaymentUse", :dependent => :destroy
-  has_many :products, :through => :lines, :uniq => true
-  has_many :uses, :foreign_key => :expense_id, :class_name => "OutgoingPaymentUse", :dependent => :destroy
+  has_many :products, :through => :items, :uniq => true
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :amount, :pretax_amount, :allow_nil => true
   validates_length_of :currency, :allow_nil => true, :maximum => 3
@@ -112,8 +110,8 @@ class Purchase < CompanyRecord
     if eoc = Entity.of_company
       self.currency ||= eoc.currency
     end
-    self.pretax_amount = self.lines.sum(:pretax_amount)
-    self.amount = self.lines.sum(:amount)
+    self.pretax_amount = self.items.sum(:pretax_amount)
+    self.amount = self.items.sum(:amount)
     return true
   end
 
@@ -131,9 +129,9 @@ class Purchase < CompanyRecord
   bookkeep do |b|
     b.journal_entry(self.nature.journal, :if => self.invoice?) do |entry|
       label = tc(:bookkeep, :resource => self.class.model_name.human, :number => self.number, :supplier => self.supplier.full_name, :products => (self.comment.blank? ? self.products.collect{|x| x.name}.to_sentence : self.comment))
-      for line in self.lines
-        entry.add_debit(label, line.product.purchases_account_id, line.pretax_amount) unless line.quantity.zero?
-        entry.add_debit(label, line.price.tax.paid_account_id, line.taxes_amount) unless line.taxes_amount.zero?
+      for item in self.items
+        entry.add_debit(label, item.product.purchases_account_id, item.pretax_amount) unless item.quantity.zero?
+        entry.add_debit(label, item.price.tax.paid_account_id, item.taxes_amount) unless item.taxes_amount.zero?
       end
       entry.add_credit(label, self.supplier.account(:supplier).id, self.amount)
     end
@@ -151,7 +149,7 @@ class Purchase < CompanyRecord
   end
 
   def has_content?
-    self.lines.count > 0
+    self.items.count > 0
   end
 
   def purchased?
@@ -161,8 +159,8 @@ class Purchase < CompanyRecord
   def has_content_not_deliverable?
     return false unless self.has_content?
     deliverable = false
-    for line in self.lines
-      deliverable = true if line.product.deliverable?
+    for item in self.items
+      deliverable = true if item.product.deliverable?
     end
     return !deliverable
   end

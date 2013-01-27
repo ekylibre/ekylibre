@@ -35,7 +35,7 @@
 #
 
 
-class ProductProcessPhase < CompanyRecord
+class ProductProcessPhase < Ekylibre::Record::Base
   attr_accessible :process_id, :name, :position, :phase_delay, :nature, :comment
   enumerize :nature, :in => [:life, :production, :environment]
   belongs_to :process, :class_name => "ProductProcess"

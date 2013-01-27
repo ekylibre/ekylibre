@@ -33,7 +33,7 @@
 #
 
 
-class OutgoingDeliveryMode < CompanyRecord
+class OutgoingDeliveryMode < Ekylibre::Record::Base
   attr_accessible :name, :code, :comment, :with_transport
   has_many :deliveries, :foreign_key => :mode_id, :class_name => "OutgoingDelivery", :inverse_of => :mode
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.

@@ -39,7 +39,7 @@
 #
 
 
-class CustomField < CompanyRecord
+class CustomField < Ekylibre::Record::Base
   acts_as_list :scope => 'used_with = \'#{used_with}\''
   attr_accessible :active, :maximal_length, :minimal_length, :maximal_value, :minimal_value, :name, :nature, :position, :required, :used_with
   attr_readonly :nature

@@ -41,7 +41,7 @@
 #  updater_id    :integer          
 #
 
-class Document < CompanyRecord
+class Document < Ekylibre::Record::Base
   belongs_to :owner, :polymorphic => true
   belongs_to :template, :class_name => "DocumentTemplate"
 

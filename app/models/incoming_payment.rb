@@ -51,7 +51,7 @@
 #
 
 
-class IncomingPayment < CompanyRecord
+class IncomingPayment < Ekylibre::Record::Base
   attr_accessible :account_number, :amount, :bank, :check_number, :mode_id, :paid_on, :to_bank_on, :received, :responsible_id, :payer_id
   attr_readonly :payer_id
   attr_readonly :amount, :account_number, :bank, :check_number, :mode_id, :if => Proc.new{ self.deposit and self.deposit.locked? }
@@ -61,9 +61,6 @@ class IncomingPayment < CompanyRecord
   belongs_to :journal_entry
   belongs_to :payer, :class_name => "Entity", :inverse_of => :incoming_payments
   belongs_to :mode, :class_name => "IncomingPaymentMode"
-  has_many :uses, :class_name => "IncomingPaymentUse", :foreign_key => :payment_id, :dependent => :destroy, :inverse_of => :payment
-  has_many :sales, :through => :uses, :source => :expense, :source_type => "Sale"
-  has_many :transfers, :through => :uses, :source => :expense, :source_type => "Transfer"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :amount, :commission_amount, :allow_nil => true
   validates_length_of :currency, :allow_nil => true, :maximum => 3

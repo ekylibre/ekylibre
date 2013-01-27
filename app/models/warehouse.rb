@@ -77,11 +77,10 @@ class Warehouse < Place
   # belongs_to :address, :class_name => "EntityAddress"
   # belongs_to :establishment
   belongs_to :content_nature, :class_name => "ProductNature"
-  has_many :purchase_lines, :class_name => "PurchaseItem"
-  has_many :sale_lines, :class_name => "SaleItem"
-  has_many :stocks, :class_name => "ProductStock"
-  has_many :stock_moves, :class_name => "ProductMove"
-  has_many :stock_transfers, :class_name => "ProductTransfer"
+  # has_many :purchase_lines, :class_name => "PurchaseItem"
+  # has_many :sale_lines, :class_name => "SaleItem"
+  # has_many :stock_moves, :class_name => "ProductMove"
+  # has_many :stock_transfers, :class_name => "ProductTransfer"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :picture_file_size, :allow_nil => true, :only_integer => true
   validates_numericality_of :area_measure, :content_maximal_quantity, :maximal_quantity, :minimal_quantity, :real_quantity, :virtual_quantity, :allow_nil => true

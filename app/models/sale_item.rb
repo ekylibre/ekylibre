@@ -48,7 +48,7 @@
 #
 
 
-class SaleItem < CompanyRecord
+class SaleItem < Ekylibre::Record::Base
   after_save :set_reduction
   attr_accessible :annotation, :price_amount, :price_id, :product_id, :quantity, :reduction_percentage, :sale_id, :tax_id, :unit_id
   attr_readonly :sale_id

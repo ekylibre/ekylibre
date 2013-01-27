@@ -447,11 +447,12 @@ fra:
     addresses: "Adresses"
     admin: "Administrateur système"
     affair: "Affair"
+    # affairs: "Affairs"
     agency_code: "Code guichet"
     # alive: "Alive"
     allocation_account: "Compte de dotation"
     amount: "Montant"
-    animal_drugs: "Médicaments"
+    animal_drugs: "Médicaments" #?
     animals: "Animals" #?
     annotation: "Annotation"
     area: "Zone postale"
@@ -461,6 +462,7 @@ fra:
     arrival_reasons: "Causes d'entrée" #?
     arrived_on: "Date d'entrée" #?
     asset: "Immobilisation"
+    # asset_account: "Asset account"
     asset_amount: "Valeur nette comptable"
     asset_depreciations: "Dépréciations d’immobilisation"
     assets: "Immobilisations" #?
@@ -477,7 +479,7 @@ fra:
     # automatic: "Automatic"
     available_prices: "Prix disponibles" #?
     available_products: "Produits disponibles" #?
-    available_stocks: "Stocks disponibles"
+    available_stocks: "Stocks disponibles" #?
     balance: "Solde"
     balance_amount: "Solde"
     balances: "Balances de compte"
@@ -602,7 +604,7 @@ fra:
     default_contact: "Contact par défaut" #?
     default_currency: "Devise par défaut" #?
     default_mail_address: "Adresse email par défaut"
-    default_stock: "Stock par défaut"
+    default_stock: "Stock par défaut" #?
     deferred_payment: "Crédit à reporter"
     delays: "Délais" #?
     deleted_at: "Supprimé le"
@@ -692,9 +694,8 @@ fra:
     examinated_at: "Examiné le" #?
     expense: "Dépense" #?
     expense_type: "Type de dépense" #?
-    expenses: "Dépenses"
-    expiration: "Délai d’expiration du devis" #?
-    expiration_delay: "Expiration delay"
+    expenses: "Dépenses" #?
+    expiration_delay: "Délai d’expiration"
     expired_on: "Date d’expiration"
     exportable: "Exportable"
     exportable_columns: "Colonnes exportables"
@@ -751,7 +752,7 @@ fra:
     incoming_delivery_lines: "Lignes de livraisons entrantes" #?
     incoming_delivery_modes: "Modes de livraisons entrantes" #?
     incoming_payment_modes: "Modes d’encaissement"
-    incoming_payment_uses: "Parties d’encaissement"
+    incoming_payment_uses: "Parties d’encaissement" #?
     incoming_payments: "Encaissements"
     indicators: "Indicators"
     indirect_links: "Liens indirects"
@@ -878,7 +879,7 @@ fra:
     # operand_quantity: "Operand quantity"
     operation: "Travail" #?
     operation_lines: "Intrants/sortants" #?
-    operation_nature: "Type d’operation"
+    operation_nature: "Type d’operation" #?
     operation_natures: "Types de travail" #?
     operation_uses: "Utilisations d’outil" #?
     operations: "Travaux"
@@ -897,7 +898,7 @@ fra:
     outgoing_delivery_lines: "Lignes de livraisons sortantes"
     outgoing_delivery_modes: "Modes de livraisons sortantes" #?
     outgoing_payment_modes: "Modes de décaissement"
-    outgoing_payment_uses: "Parties de décaissements"
+    outgoing_payment_uses: "Parties de décaissements" #?
     outgoing_payments: "Décaissements"
     output_conveyors: "Convoyeur sortant"
     owner: "Propriétaire"
@@ -925,7 +926,7 @@ fra:
     payment_mode_complement: "Complément d’information sur le mode d’encaissement"
     payment_modes: "Modes d’encaissement" #?
     payment_on: "A régler au plus tard le"
-    payment_uses: "Parties d’encaissement"
+    payment_uses: "Parties d’encaissement" #?
     payment_way: "Mode de décaissement" #?
     payments: "Encaissements"
     payments_count: "Nb. encaissements"
@@ -948,7 +949,7 @@ fra:
     posologies: "Posologies" #?
     postcode: "Code postal"
     preferences: "Préférences"
-    prescriptions: "Ordonnances"
+    prescriptions: "Ordonnances" #?
     prescriptor: "Vétérinaire" #?
     pretax_amount: "Montant HT"
     price: "Prix"
@@ -966,6 +967,8 @@ fra:
     product_components: "Composants de produit" #?
     # product_events: "Product events"
     product_group: "Groupe de produits" #?
+    product_localizations: "Product localizations"
+    product_moves: "Product moves"
     product_nature: "Product nature"
     product_natures: "Types de produits"
     # product_type: "Product type"
@@ -1031,7 +1034,7 @@ fra:
     reproductor: "Reproducteur"
     required: "Obligatoire"
     reservoir: "Réservoir"
-    reservoirs: "Réservoirs"
+    reservoirs: "Réservoirs" #?
     resource: "Origine"
     resource_type: "Origine"
     responsible: "Responsable"
@@ -1087,11 +1090,11 @@ fra:
     state_label: "État"
     stock: "Stock de produit" #?
     stock_move: "Mouvement de stock" #?
-    stock_moves: "Mouvements de stock"
-    stock_transfers: "Transferts ou pertes de stock"
+    stock_moves: "Mouvements de stock" #?
+    stock_transfers: "Transferts ou pertes de stock" #?
     stockable: "Gérer les stocks" #?
     stockable_products: "Produits stockables" #?
-    stocks: "Stocks de produit"
+    stocks: "Stocks de produit" #?
     stopped_at: "Arrêté à"
     stopped_on: "Arrêté le"
     # storable: "Storable"
@@ -1200,7 +1203,6 @@ fra:
     with_transport: "Avec transport"
     work_center: "Centre d’opération"
     work_number: "Numéro de travail"
-    # workers: "Workers"
     # works: "Works"
     zone: "Zone" #?
   enumerize:

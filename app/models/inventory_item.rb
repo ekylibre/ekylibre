@@ -37,7 +37,7 @@
 #
 
 
-class InventoryItem < CompanyRecord
+class InventoryItem < Ekylibre::Record::Base
   attr_accessible :product_id, :quantity, :unit_id, :warehouse_id
   belongs_to :inventory, :inverse_of => :items
   belongs_to :product

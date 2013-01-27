@@ -33,7 +33,7 @@
 #
 
 
-class EventNature < CompanyRecord
+class EventNature < Ekylibre::Record::Base
   attr_accessible :name, :duration, :active, :usage
   attr_readonly :name
   has_many :events, :foreign_key => :nature_id, :class_name => "Event"

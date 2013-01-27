@@ -41,7 +41,7 @@
 #  updated_at         :datetime         not null
 #  updater_id         :integer          
 #
-class AssetDepreciation < CompanyRecord
+class AssetDepreciation < Ekylibre::Record::Base
   attr_accessible :accountable, :amount, :asset_amount, :asset_id, :created_on, :depreciation, :financial_year_id, :position
   acts_as_list :scope => :asset
   belongs_to :asset

@@ -33,7 +33,7 @@
 #
 
 
-class Department < CompanyRecord
+class Department < Ekylibre::Record::Base
   attr_accessible :name, :comment, :sales_conditions, :parent_id
   has_many :employees, :class_name => "Entity"
   acts_as_tree

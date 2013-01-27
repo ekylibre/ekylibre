@@ -46,7 +46,7 @@
 #
 
 
-class Cash < CompanyRecord
+class Cash < Ekylibre::Record::Base
   BBAN_TRANSLATIONS = {
     :fr => ["abcdefghijklmonpqrstuvwxyz", "12345678912345678923456789"]
   }

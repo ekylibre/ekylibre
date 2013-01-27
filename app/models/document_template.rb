@@ -42,7 +42,7 @@
 #
 
 
-class DocumentTemplate < CompanyRecord
+class DocumentTemplate < Ekylibre::Record::Base
   # Be careful! :id is a forbidden name for parameters
   @@document_natures = {
     :animal =>           [ [:animal, Product]],

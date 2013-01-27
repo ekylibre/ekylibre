@@ -43,7 +43,7 @@
 #
 
 
-class OutgoingDelivery < CompanyRecord
+class OutgoingDelivery < Ekylibre::Record::Base
   attr_accessible :address_id, :comment, :mode_id, :planned_on, :reference_number, :sale_id
   attr_readonly :sale_id, :number
   belongs_to :address, :class_name => "EntityAddress"
@@ -52,7 +52,7 @@ class OutgoingDelivery < CompanyRecord
   belongs_to :transport
   belongs_to :transporter, :class_name => "Entity"
   has_many :items, :class_name => "OutgoingDeliveryItem", :foreign_key => :delivery_id, :dependent => :destroy
-  has_many :stock_moves, :as => :origin, :dependent => :destroy
+  has_many :product_moves, :as => :origin, :dependent => :destroy
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :amount, :pretax_amount, :weight, :allow_nil => true
   validates_length_of :currency, :allow_nil => true, :maximum => 3

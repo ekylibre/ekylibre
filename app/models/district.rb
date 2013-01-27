@@ -31,7 +31,7 @@
 #
 
 
-class District < CompanyRecord
+class District < Ekylibre::Record::Base
   attr_accessible :code, :name
   has_many :areas
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.

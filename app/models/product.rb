@@ -70,7 +70,7 @@
 #
 
 
-class Product < CompanyRecord
+class Product < Ekylibre::Record::Base
   belongs_to :nature, :class_name => "ProductNature"
   belongs_to :variety, :class_name => "ProductVariety"
   belongs_to :unit

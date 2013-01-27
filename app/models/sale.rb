@@ -65,15 +65,15 @@
 #
 
 
-class Sale < CompanyRecord
+class Sale < Ekylibre::Record::Base
   attr_accessible :address_id, :annotation, :client_id, :comment, :conclusion, :delivery_address_id, :function_title, :introduction, :invoice_address_id, :letter_format, :nature_id, :reference_number, :responsible_id, :subject, :sum_method, :transporter_id
   attr_readonly :created_on, :currency
   attr_protected :pretax_amount, :amount
   belongs_to :client, :class_name => "Entity"
   belongs_to :payer, :class_name => "Entity", :foreign_key => :client_id
-  belongs_to :address, :class_name  =>  "EntityAddress"
-  belongs_to :delivery_address, :class_name  =>  "EntityAddress"
-  belongs_to :invoice_address, :class_name  =>  "EntityAddress"
+  belongs_to :address, :class_name => "EntityAddress"
+  belongs_to :delivery_address, :class_name => "EntityAddress"
+  belongs_to :invoice_address, :class_name => "EntityAddress"
   belongs_to :journal_entry
   belongs_to :nature, :class_name => "SaleNature"
   belongs_to :origin, :class_name => "Sale"
@@ -82,10 +82,7 @@ class Sale < CompanyRecord
   has_many :credits, :class_name => "Sale", :foreign_key => :origin_id
   has_many :deliveries, :class_name => "OutgoingDelivery", :dependent => :destroy, :inverse_of => :sale
   has_many :items, :class_name => "SaleItem", :foreign_key => :sale_id, :dependent => :destroy, :order => "position, id"
-  has_many :payment_uses, :as => :expense, :class_name => "IncomingPaymentUse", :dependent => :destroy
-  has_many :payments, :through => :payment_uses
   has_many :subscriptions, :class_name => "Subscription"
-  has_many :uses, :as => :expense, :class_name => "IncomingPaymentUse", :dependent => :destroy
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :amount, :downpayment_amount, :pretax_amount, :allow_nil => true
   validates_length_of :currency, :allow_nil => true, :maximum => 3
@@ -96,14 +93,14 @@ class Sale < CompanyRecord
   validates_presence_of :amount, :client, :created_on, :downpayment_amount, :number, :payer, :payment_delay, :pretax_amount, :state, :sum_method
   #]VALIDATORS]
   validates_presence_of :client, :currency, :nature
-  validates_presence_of :invoiced_on, :if  =>  :invoice?
+  validates_presence_of :invoiced_on, :if => :invoice?
   validates_delay_format_of :payment_delay, :expiration_delay
 
   acts_as_numbered :number, :readonly => false
   acts_as_affairable :debit => :credit, :third => :client
   after_create {|r| r.client.add_event(:sale, r.updater_id)}
 
-  state_machine :state, :initial  =>  :draft do
+  state_machine :state, :initial => :draft do
     state :draft
     state :estimate
     state :refused
@@ -112,30 +109,30 @@ class Sale < CompanyRecord
     state :aborted
 
     event :propose do
-      transition :draft  =>  :estimate, :if => :has_content?
+      transition :draft => :estimate, :if => :has_content?
     end
     event :correct do
-      transition :estimate  =>  :draft
-      transition :refused  =>  :draft
-      transition :order  =>  :draft, :if => Proc.new{|so| so.paid_amount <= 0}
+      transition :estimate => :draft
+      transition :refused => :draft
+      transition :order => :draft, :if => Proc.new{|so| so.paid_amount <= 0}
     end
     event :refuse do
-      transition :estimate  =>  :refused, :if => :has_content?
+      transition :estimate => :refused, :if => :has_content?
     end
     event :confirm do
-      transition :estimate  =>  :order, :if => :has_content?
+      transition :estimate => :order, :if => :has_content?
     end
     event :invoice do
-      transition :order  =>  :invoice, :if => :has_content?
-      transition :estimate  =>  :invoice, :if => :has_content_not_deliverable?
+      transition :order => :invoice, :if => :has_content?
+      transition :estimate => :invoice, :if => :has_content_not_deliverable?
     end
     event :abort do
-      # transition [:draft, :estimate]  =>  :aborted # , :order
-      transition :draft  =>  :aborted # , :order
+      # transition [:draft, :estimate] => :aborted # , :order
+      transition :draft => :aborted # , :order
     end
   end
 
-  before_validation(:on  =>  :create) do
+  before_validation(:on => :create) do
     self.currency = self.nature.currency if self.nature
   end
 
@@ -149,8 +146,8 @@ class Sale < CompanyRecord
     self.created_on ||= Date.today
     self.nature ||= SaleNature.first if self.nature.nil? and SaleNature.count == 1
     if self.nature
-      self.expiration_id ||= self.nature.expiration_id
-      self.expired_on ||= self.expiration.compute(self.created_on)
+      self.expiration_delay ||= self.nature.expiration_delay
+      self.expired_on ||= Delay.new(self.expiration_delay).compute(self.created_on)
       self.payment_delay ||= self.nature.payment_delay
       self.has_downpayment = self.nature.downpayment if self.has_downpayment.nil?
       self.downpayment_amount ||= (self.amount * self.nature.downpayment_percentage * 0.01) if self.amount >= self.nature.downpayment_minimum
@@ -167,7 +164,7 @@ class Sale < CompanyRecord
     old = self.class.find(self.id)
     if old.invoice?
       for attr in self.class.columns_hash.keys
-        self.send(attr+"=", old.send(attr))
+        self.send(attr + "=", old.send(attr))
       end
     end
   end
@@ -195,10 +192,13 @@ class Sale < CompanyRecord
     # self.uses.first.reconciliate if self.uses.first
   end
 
+
+  # Gives the date to use for affair bookkeeping
   def dealt_on
     return (self.invoice? ? self.invoiced_on : self.created_on)
   end
 
+  # Gives the amount to use for affair bookkeeping
   def deal_amount
     return (self.credit? ? -self.amount : self.amount)
   end
@@ -422,7 +422,7 @@ class Sale < CompanyRecord
   end
 
   # Create a credit for the selected invoice? guarding the reference
-  def cancel(items={}, options={})
+  def cancel(items = {}, options = {})
     items = items.delete_if{|k,v| v.zero?}
     return false if !self.cancelable? or items.size.zero?
     credit = self.class.new(:origin_id => self.id, :client_id => self.client_id, :credit => true, :responsible => options[:responsible]||self.responsible, :nature_id => self.nature_id)

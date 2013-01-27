@@ -490,7 +490,7 @@ $controls-margin-left: round($label-width * 1.1);
       .text { display: none; }
     }
   }
-  &.selector .controls{
+  &.selector .controls .input{
     @include toolbar;
   }
 }

@@ -33,7 +33,7 @@
 #
 
 
-class CustomFieldChoice < CompanyRecord
+class CustomFieldChoice < Ekylibre::Record::Base
   attr_accessible :name, :custom_field_id, :position
   belongs_to :custom_field, :inverse_of => :choices
   has_many :data, :class_name => "CustomFieldDatum", :foreign_key => :choice_value_id

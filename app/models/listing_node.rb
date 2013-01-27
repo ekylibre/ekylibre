@@ -45,7 +45,7 @@
 #
 
 
-class ListingNode < CompanyRecord
+class ListingNode < Ekylibre::Record::Base
   acts_as_list :scope => :listing_id
   acts_as_tree
   attr_accessible :attribute_name, :condition_operator, :condition_value, :exportable, :label, :listing_id, :nature, :parent_id, :position, :sql_type

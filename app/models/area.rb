@@ -36,7 +36,7 @@
 #
 
 
-class Area < CompanyRecord
+class Area < Ekylibre::Record::Base
   attr_accessible :code, :name, :district_id, :country
   belongs_to :district
   has_many :mail_addresses, :class_name => "EntityAddress", :foreign_key => :mail_area_id

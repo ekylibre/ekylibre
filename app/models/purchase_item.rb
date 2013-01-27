@@ -42,7 +42,7 @@
 #
 
 
-class PurchaseItem < CompanyRecord
+class PurchaseItem < Ekylibre::Record::Base
   acts_as_list :scope => :purchase
   attr_accessible :annotation, :price_id, :product_id, :quantity, :tracking_serial, :unit_id
   attr_readonly :purchase_id

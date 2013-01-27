@@ -39,7 +39,7 @@
 #
 
 
-class AccountBalance < CompanyRecord
+class AccountBalance < Ekylibre::Record::Base
   belongs_to :account
   belongs_to :financial_year
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.

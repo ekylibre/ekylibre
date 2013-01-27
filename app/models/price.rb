@@ -40,7 +40,7 @@
 #
 
 
-class Price < CompanyRecord
+class Price < Ekylibre::Record::Base
   attr_accessible :active, :amount, :by_default, :category_id, :entity_id, :pretax_amount, :product_id, :tax_id, :currency
   after_create :set_by_default
   belongs_to :category, :class_name => "EntityCategory"

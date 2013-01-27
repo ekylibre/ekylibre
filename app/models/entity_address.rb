@@ -46,7 +46,7 @@
 #
 
 
-class EntityAddress < CompanyRecord
+class EntityAddress < Ekylibre::Record::Base
   attr_readonly   :entity_id
   attr_accessible :entity_id, :name, :by_default, :canal, :coordinate, :mail_line_1, :mail_line_2, :mail_line_3, :mail_line_4, :mail_line_5, :mail_line_6, :mail_country
   belongs_to :mail_area, :class_name => "Area"

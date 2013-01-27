@@ -6,36 +6,36 @@ end
 class Delay
   SEPARATOR = ','.freeze
   TRANSLATIONS = {
-    "an" => :year,
-    "ans" => :year,
-    "année" => :year,
-    "années" => :year,
-    "annee" => :year,
-    "annees" => :year,
-    "year" => :year,
-    "years" => :year,
-    "mois" => :month,
-    "month" => :month,
-    "months" => :mmonth,
-    "week" => :week,
-    "semaine" => :week,
-    "weeks" => :week,
-    "semaines" => :week,
-    "jour" => :day,
-    "day" => :day,
-    "jours" => :day,
-    "days" => :day,
-    "heure" => :hour,
-    "hour" => :hour,
-    "heures" => :hour,
-    "hours" => :hour,
-    "minute" => :minute,
-    "minutes" => :minute,
-    "seconde" => :second,
-    "second" => :second,
-    "secondes" => :second,
-    "seconds" => :second
-  }.freeze
+    'an' => :year,
+    'ans' => :year,
+    'année' => :year,
+    'années' => :year,
+    'annee' => :year,
+    'annees' => :year,
+    'year' => :year,
+    'years' => :year,
+    'mois' => :month,
+    'month' => :month,
+    'months' => :mmonth,
+    'week' => :week,
+    'semaine' => :week,
+    'weeks' => :week,
+    'semaines' => :week,
+    'jour' => :day,
+    'day' => :day,
+    'jours' => :day,
+    'days' => :day,
+    'heure' => :hour,
+    'hour' => :hour,
+    'heures' => :hour,
+    'hours' => :hour,
+    'minute' => :minute,
+    'minutes' => :minute,
+    'seconde' => :second,
+    'second' => :second,
+    'secondes' => :second,
+    'seconds' => :second
+  }
   KEYS = TRANSLATIONS.keys.join("|").freeze
 
   def initialize(expression)
@@ -47,14 +47,15 @@ class Delay
         [:eom]
       elsif step.match(/^(bom|beginning of month|ddm|debut de mois|début de mois)$/)
         [:bom]
-      elsif step.match(/^\d+\ (#{KEYS})?(\ (avant|ago))?$/)
-        words = step.split(/\s+/)
-        unless TRANSLATIONS[words[1]]
-          raise InvalidDelayExpression.new("#{words[1]} is an undefined period")
+      elsif step.match(/^\d+\ (#{KEYS})(\ (avant|ago))?$/)
+        words = step.split(/\s+/).map(&:to_s)
+        if TRANSLATIONS[words[1]].nil?
+          puts TRANSLATIONS.inspect
+          raise InvalidDelayExpression.new("#{words[1].inspect} is an undefined period (#{step})")
         end
-        [TRANSLATIONS[words[1]] , (words[2].nil? ? 1 : -1) * words[0].to_i]
+        [TRANSLATIONS[words[1]] , (words[2].blank? ? 1 : -1) * words[0].to_i]
       elsif !step.blank?
-        raise InvalidDelayExpression.new("#{words[1]} is an undefined step")
+        raise InvalidDelayExpression.new("#{step} is an undefined step")
       end
     end
   end

@@ -1,8 +1,8 @@
-=render :partial=>"entities/search"
+=render :partial => "entities/search"
 =toolbar do |t|
   -t.edit @entity
   -t.print_entity @entity
-  -t.destroy(@entity, :method=>:delete, "data-confirm" => tg(:are_you_sure_you_want_to_delete)) if @entity.destroyable?
+  -t.destroy(@entity, :method => :delete, "data-confirm" => tg(:are_you_sure_you_want_to_delete)) if @entity.destroyable?
 
 =beehive do |b|
   -b.tabbox do
@@ -39,71 +39,71 @@
         -l.attribute :prospect
         -l.attribute :client
         -if @entity.client
-          -l.attribute :category, :label=>:name, :url=>true
+          -l.attribute :category, :label => :name, :url => true
           -l.attribute :first_met_on unless @entity.first_met_on.blank?
-          -l.attribute :proposer, :label=>:full_name unless @entity.proposer_id.blank?
+          -l.attribute :proposer, :label => :full_name unless @entity.proposer_id.blank?
           -l.attribute :vat_submissive
           -l.attribute :reflation_submissive
           -l.attribute :reduction_percentage unless @entity.reflation_submissive?
           -l.attribute :authorized_payments_count unless @entity.authorized_payments_count.blank?
           -l.attribute :deliveries_conditions unless @entity.deliveries_conditions.blank?
-          -l.attribute :client_account, :url=>true
+          -l.attribute :client_account, :url => true
         -l.attribute :supplier
         -if @entity.supplier
-          -l.attribute :supplier_account, :url=>true
+          -l.attribute :supplier_account, :url => true
         -l.attribute :attorney
         -if @entity.attorney
-          -l.attribute :attorney_account, :url=>true
+          -l.attribute :attorney_account, :url => true
         -l.attribute :transporter
 
   -b.tabbox do
-    -b.cell(tl(:x_subscriptions, :count=>@entity.subscriptions.count)) do
+    -b.cell(tl(:x_subscriptions, :count => @entity.subscriptions.count)) do
       =toolbar do |t|
-        -t.link(:new, :controller=>:subscriptions, :entity_id=>@entity.id)
+        -t.link(:new, :controller => :subscriptions, :entity_id => @entity.id)
       =list(:subscriptions)
 
-    -b.cell(tl(:x_events, :count=>@entity.events.count)) do
+    -b.cell(tl(:x_events, :count => @entity.events.count)) do
       =toolbar do |t|
-        -t.link :new, :controller=>:entity_events, :entity_id=>@entity.id
+        -t.link :new, :controller => :events, :entity_id => @entity.id
       =list(:events)
 
-    -b.cell(tl(:x_entity_links, :count=>EntityLink.of_entity(@entity).count)) do
+    -b.cell(tl(:x_entity_links, :count => EntityLink.of_entity(@entity).count)) do
       =toolbar do |t|
-        -t.link :new, :controller=>:entity_links, :entity_id=>@entity.id
+        -t.link :new, :controller => :entity_links, :entity_id => @entity.id
       =list(:links)
 
-    -b.cell(tl(:x_observations, :count=>@entity.observations.count)) do
+    -b.cell(tl(:x_observations, :count => @entity.observations.count)) do
       =toolbar do |t|
-        -t.link :new, :controller=>:observations, :entity_id=>@entity.id
+        -t.link :new, :controller => :observations, :entity_id => @entity.id
       =list(:observations)
 
-    -b.cell(tl(:x_mandates, :count=>@entity.mandates.count)) do
+    -b.cell(tl(:x_mandates, :count => @entity.mandates.count)) do
       =toolbar do |t|
-        -t.link :new, :controller=>:mandates, :entity_id=>@entity.id
+        -t.link :new, :controller => :mandates, :entity_id => @entity.id
       =list(:mandates)
 
 
     -if File.exist?(Rails.root.join("app", "views", "entities", "_extra.html.haml"))
       -b.cell("Extra") do
-        =render :partial=>"extra"
+        =render :partial => "extra"
 
   -b.tabbox do
-    -b.cell(tl(:x_sales, :count=>@entity.sales.count)) do
+    -b.cell(tl(:x_sales, :count => @entity.sales.count)) do
       =toolbar do |t|
-        -t.link(:new, :controller=>:sales, :client_id=>@entity.id)
+        -t.link(:new, :controller => :sales, :client_id => @entity.id)
       =list(:sales)
 
-    -b.cell(tl(:x_incoming_payments, :count=>@entity.incoming_payments.count)) do
+    -b.cell(tl(:x_incoming_payments, :count => @entity.incoming_payments.count)) do
       =toolbar do |t|
-        -t.link :new, :controller=>:incoming_payments, :payer_id=>@entity.id
+        -t.link :new, :controller => :incoming_payments, :payer_id => @entity.id
       =list(:incoming_payments)
 
-    -b.cell(tl(:x_purchases, :count=>@entity.purchases.count)) do
+    -b.cell(tl(:x_purchases, :count => @entity.purchases.count)) do
       =toolbar do |t|
-        -t.link(:new, :controller=>:purchases, :supplier_id=>@entity.id)
+        -t.link(:new, :controller => :purchases, :supplier_id => @entity.id)
       =list(:purchases)
 
-    -b.cell(tl(:x_outgoing_payments, :count=>@entity.outgoing_payments.count)) do
+    -b.cell(tl(:x_outgoing_payments, :count => @entity.outgoing_payments.count)) do
       =toolbar do |t|
-        -t.link :new, :controller=>:outgoing_payments, :payee_id=>@entity.id
+        -t.link :new, :controller => :outgoing_payments, :payee_id => @entity.id
       =list(:outgoing_payments)

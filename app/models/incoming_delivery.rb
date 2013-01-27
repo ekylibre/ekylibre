@@ -41,15 +41,15 @@
 #
 
 
-class IncomingDelivery < CompanyRecord
+class IncomingDelivery < Ekylibre::Record::Base
   acts_as_numbered
   attr_accessible :address_id, :comment, :mode_id, :moved_on, :planned_on, :reference_number
   attr_readonly :number
   belongs_to :address, :class_name => "EntityAddress"
   belongs_to :mode, :class_name => "IncomingDeliveryMode"
   belongs_to :purchase
-  has_many :lines, :class_name => "IncomingDeliveryItem", :foreign_key => :delivery_id, :dependent => :destroy
-  has_many :stock_moves, :as => :origin
+  has_many :items, :class_name => "IncomingDeliveryItem", :foreign_key => :delivery_id, :dependent => :destroy
+  has_many :product_moves, :as => :origin
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :amount, :pretax_amount, :weight, :allow_nil => true
@@ -64,10 +64,10 @@ class IncomingDelivery < CompanyRecord
   before_validation do
     self.planned_on ||= Date.today
 #     self.pretax_amount = self.amount = self.weight = 0.0
-#     for line in self.lines
-#       self.pretax_amount += line.pretax_amount
-#       self.amount += line.amount
-#       self.weight += (line.product.weight||0)*line.quantity
+#     for item in self.items
+#       self.pretax_amount += item.pretax_amount
+#       self.amount += item.amount
+#       self.weight += (item.product.weight||0)*item.quantity
 #     end
     return true
   end

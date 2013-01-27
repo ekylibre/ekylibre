@@ -40,7 +40,7 @@
 #
 
 
-class ProductionChainConveyor < CompanyRecord
+class ProductionChainConveyor < Ekylibre::Record::Base
   belongs_to :product_nature
   belongs_to :production_chain
   belongs_to :source, :class_name => "ProductionChainWorkCenter"

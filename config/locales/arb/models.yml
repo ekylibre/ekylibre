@@ -1194,8 +1194,8 @@ arb:
     expense_id: "انفاق" #?
     expense_type: "نوع التكلفة"
     # expenses: "Dépenses"
-    expiration: "تأخير المهلة"
-    # expiration_delay: "Expiration delay"
+    expiration: "تأخير المهلة" #?
+    # expiration_delay: "Délai d’expiration"
     expiration_id: "تأخير مهلة" #?
     expired_on: "انتهى يوم"
     exportable: "قبل للتصدير"
@@ -1504,6 +1504,8 @@ arb:
     product_components: "مكونات المنتج"
     # product_group: "Groupe de produits"
     product_id: "المنتج" #?
+    # product_localizations: "Product localizations"
+    # product_moves: "Product moves"
     # product_nature: "Product nature"
     # product_natures: "Types de produits"
     productable_products: "المنتجات الممكن انتاجها"

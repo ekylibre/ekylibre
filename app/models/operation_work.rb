@@ -30,7 +30,7 @@
 #  updater_id   :integer          
 #  worker_id    :integer          not null
 #
-class OperationWork < CompanyRecord
+class OperationWork < Ekylibre::Record::Base
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :nature, :allow_nil => true, :maximum => 255
   validates_presence_of :nature

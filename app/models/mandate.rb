@@ -35,7 +35,7 @@
 #
 
 
-class Mandate < CompanyRecord
+class Mandate < Ekylibre::Record::Base
   attr_accessible :entity_id, :family, :organization, :started_on, :stopped_on, :title
   belongs_to :entity
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.

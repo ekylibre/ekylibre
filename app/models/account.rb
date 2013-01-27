@@ -36,7 +36,7 @@
 #
 
 
-class Account < CompanyRecord
+class Account < Ekylibre::Record::Base
   attr_accessible :name, :number, :reconcilable, :comment, :is_debit
   @@references = []
   attr_readonly :number

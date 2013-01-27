@@ -32,7 +32,7 @@
 #
 
 
-class DepositItem < CompanyRecord
+class DepositItem < Ekylibre::Record::Base
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :amount, :quantity, :allow_nil => true
   validates_presence_of :amount, :quantity

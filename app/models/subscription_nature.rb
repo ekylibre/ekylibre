@@ -35,7 +35,7 @@
 #
 
 
-class SubscriptionNature < CompanyRecord
+class SubscriptionNature < Ekylibre::Record::Base
   attr_readonly :nature
   enumerize :nature, :in => [:period, :quantity], :default => :period, :predicates => true
   attr_accessible :actual_number, :comment, :entity_link_nature_id, :name, :nature, :reduction_percentage

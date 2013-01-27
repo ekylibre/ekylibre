@@ -38,7 +38,7 @@
 #
 
 
-class ProductMove < CompanyRecord
+class ProductMove < Ekylibre::Record::Base
   belongs_to :origin, :polymorphic => true
   belongs_to :product
   belongs_to :unit

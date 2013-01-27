@@ -33,7 +33,7 @@
 #  updated_at   :datetime         not null
 #  updater_id   :integer          
 #
-class Tracking < CompanyRecord
+class Tracking < Ekylibre::Record::Base
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :name, :serial, :allow_nil => true, :maximum => 255
   validates_inclusion_of :active, :in => [true, false]

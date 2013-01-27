@@ -31,7 +31,7 @@
 #
 
 
-class ProductionChain < CompanyRecord
+class ProductionChain < Ekylibre::Record::Base
   has_many :operations, :class_name=>"ProductionChainWorkCenter", :order=>:position, :dependent=>:delete_all
   has_many :conveyors, :class_name=>"ProductionChainConveyor", :dependent=>:delete_all
   has_many :unused_conveyors, :class_name=>"ProductionChainConveyor", :conditions=>{:source_id=>nil, :target_id=>nil}

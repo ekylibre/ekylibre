@@ -35,7 +35,7 @@
 #
 
 
-class EntityLinkNature < CompanyRecord
+class EntityLinkNature < Ekylibre::Record::Base
   attr_accessible :comment, :name, :name_1_to_2, :name_2_to_1, :propagate_contacts, :symmetric
   has_many :entity_links, :foreign_key => :nature_id
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.

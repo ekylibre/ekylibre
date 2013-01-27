@@ -33,7 +33,7 @@
 #  updater_id      :integer          
 #  with_accounting :boolean          not null
 #
-class PurchaseNature < CompanyRecord
+class PurchaseNature < Ekylibre::Record::Base
   attr_accessible :name, :journal,  :comment, :active, :currency, :with_accounting, :journal_id
   belongs_to :journal
   has_many :purchases

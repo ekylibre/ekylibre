@@ -37,7 +37,7 @@
 #
 
 
-class Listing < CompanyRecord
+class Listing < Ekylibre::Record::Base
   attr_accessible :name, :root_model, :comment, :conditions
   attr_readonly :root_model
   has_many :columns, :class_name => "ListingNode", :conditions => ["nature = ?", "column"]

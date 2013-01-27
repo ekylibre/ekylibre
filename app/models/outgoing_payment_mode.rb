@@ -34,7 +34,7 @@
 #
 
 
-class OutgoingPaymentMode < CompanyRecord
+class OutgoingPaymentMode < Ekylibre::Record::Base
   acts_as_list
   attr_accessible :attorney_journal, :attorney_journal_id, :cash_id, :name, :position, :with_accounting
   belongs_to :attorney_journal, :class_name => "Journal"

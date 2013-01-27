@@ -45,8 +45,9 @@
 # OutgoingPayment |         |    X    |
 # Transfer        |         |    X    |
 #
-class Affair < CompanyRecord
+class Affair < Ekylibre::Record::Base
   AFFAIRABLE_TYPES = ["Sale", "Purchase", "IncomingPayment", "OutgoingPayment", "Transfer"]
+  belongs_to :journal_entry
   has_many :sales, :inverse_of => :affair, :dependent => :nullify
   has_many :purchases, :inverse_of => :affair, :dependent => :nullify
   has_many :incoming_payments, :inverse_of => :affair, :dependent => :nullify
@@ -60,7 +61,7 @@ class Affair < CompanyRecord
   #]VALIDATORS]
 
   before_validation do
-    self.debit, self.credit  = 0, 0
+    self.debit, self.credit = 0, 0
     for deal in self.deals
       self.debit  += deal.deal_debit_amount
       self.credit += deal.deal_credit_amount
@@ -92,7 +93,7 @@ class Affair < CompanyRecord
       end
       hash
     end.delete_if{|k, v| v.zero?}
-    b.journal_entry(Journal.various.first, :printed_on => all_deals.last.dealt_on, :if => (self.debit == self.credit and !thirds.empty?)) do |entry|
+    b.journal_entry(Journal.various.first, :printed_on => (all_deals.last ? all_deals.last.dealt_on : Date.today), :if => (self.debit == self.credit and !thirds.empty?)) do |entry|
       for account_id, amount in thirds
         entry.add_debit(label, account_id, amount)
       end
@@ -102,9 +103,9 @@ class Affair < CompanyRecord
 
   # Removes empty affairs
   def self.clean_deads
-    self.where("journal_entry_id NOT IN (SELECT id FROM #{quoted_table_name(:journal_entries)})" + AFFAIRABLE_TYPES.collect do |type|
+    self.where("journal_entry_id NOT IN (SELECT id FROM #{connection.quote_table_name(:journal_entries)})" + AFFAIRABLE_TYPES.collect do |type|
                  model = type.constantize
-                 "AND id NOT IN (SELECT #{model.reflections[model.affairable_options[:reflection]].foreign_key}affair_id FROM #{quoted_table_name(model.table_name)})"
+                 "AND id NOT IN (SELECT #{model.reflections[model.affairable_options[:reflection]].foreign_key} FROM #{connection.quote_table_name(model.table_name)})"
                end.join).delete_all
   end
 

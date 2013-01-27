@@ -34,7 +34,7 @@
 #
 
 
-class ProductProcess < CompanyRecord
+class ProductProcess < Ekylibre::Record::Base
   attr_accessible :variety_id, :name, :nature, :comment, :repeatable
   enumerize :nature, :in => [:life, :production, :environment]
   belongs_to :variety, :class_name => "ProductVariety"

@@ -34,7 +34,7 @@
 #
 
 
-class Journal < CompanyRecord
+class Journal < Ekylibre::Record::Base
   attr_accessible :code, :name, :nature, :currency
   attr_readonly :currency
   has_many :cashes
@@ -56,9 +56,12 @@ class Journal < CompanyRecord
     raise ArgumentError.new("Journal#used_for must be one of these: #{self.nature.values.join(', ')}") unless self.nature.values.include?(nature.to_s)
     where(:nature => nature.to_s)
   }
-  for nature in self.nature.values
-    scope nature.to_s.pluralize,  -> { where(:nature => nature) }
-  end
+  scope :sales,     -> { where(:nature => :sales) }
+  scope :purchases, -> { where(:nature => :purchases) }
+  scope :banks,     -> { where(:nature => :bank) }
+  scope :forwards,  -> { where(:nature => :forward) }
+  scope :various,   -> { where(:nature => :various) }
+  scope :cashes,    -> { where(:nature => :cashes) }
 
   before_validation(:on => :create) do
     if year = FinancialYear.first

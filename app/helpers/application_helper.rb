@@ -1715,6 +1715,7 @@ module ApplicationHelper
       label_method = options[:label_method] || [:label, :native_name, :name, :to_s, :inspect].detect{|x| attrs.include?(x)}
       include_blank = !required
       haml << "  .controls\n"
+      haml << "    %span.input\n"
       if source.is_a?(Hash)
         sources = source.to_a
         default_source = sources.select{ |a| a[0].is_a?(Hash) and a[0].empty? }.first || [{}, nil]
@@ -1732,10 +1733,10 @@ module ApplicationHelper
           x << (s[1].nil? ? "NoDefaultSource" : url_for(normalize_source(s[1], reflection.class_name.underscore.pluralize)))
           x
         end.join(" : ")
-        haml << "    =selector(:#{model.name.underscore}, :#{reflection.name}, (#{sources_code}), {:object => #{object}}, :id => '#{input_id}', :class => 'selector #{required_class}', 'data-change-source' => '#{sources_data}')"
+        haml << "      =selector(:#{model.name.underscore}, :#{reflection.name}, (#{sources_code}), {:object => #{object}}, :id => '#{input_id}', :class => 'selector #{required_class}', 'data-change-source' => '#{sources_data}')"
       else
         source = normalize_source(source, reflection.class_name.underscore.pluralize)
-        haml << "    =selector(:#{model.name.underscore}, :#{reflection.name}, #{source.inspect}, {:object => #{object}}, :id => '#{input_id}', :class => 'selector #{required_class}')"
+        haml << "      =selector(:#{model.name.underscore}, :#{reflection.name}, #{source.inspect}, {:object => #{object}}, :id => '#{input_id}', :class => 'selector #{required_class}')"
       end
       buttons = options[:buttons] || {}
       for action in [:new] # , :edit  system actions
@@ -1802,7 +1803,7 @@ module ApplicationHelper
     partial  = "-# Generated automatically. Don't edit this file.\n"
     partial << "-#{object} ||= f.object\n"
     partial << ".nested-fields\n"
-    partial << "  =link_to_remove_association('labels.remove_#{record}'.t, f, :class => 'nested-remove remove-#{record.to_s.parameterize}')\n"
+    partial << "  =link_to_remove_association('labels.remove_#{record}'.t, f, 'data-no-turbolink' => true, :class => 'nested-remove remove-#{record.to_s.parameterize}')\n"
     for f in options[:fields]
       partial << render_field(f.merge(:model => nested_model, :object => object), 1)
     end
@@ -1814,7 +1815,7 @@ module ApplicationHelper
     haml << "  =f.simple_fields_for(:#{name}) do |#{record}|\n"
     haml << "    =render '#{record}_fields', :f => #{record}\n"
     haml << "  .links\n"
-    haml << "    =link_to_add_association('labels.add_#{record}'.t, f, :#{name}, :class => 'nested-add add-#{record.to_s.parameterize}')\n"
+    haml << "    =link_to_add_association('labels.add_#{record}'.t, f, :#{name}, 'data-no-turbolink' => true, :class => 'nested-add add-#{record.to_s.parameterize}')\n"
     return haml
   end
 

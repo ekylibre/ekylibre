@@ -37,7 +37,7 @@
 #
 
 
-class Event < CompanyRecord
+class Event < Ekylibre::Record::Base
   attr_accessible :duration, :entity_id, :location, :reason, :nature_id, :responsible_id, :started_at
   belongs_to :entity
   belongs_to :nature, :class_name => "EventNature"

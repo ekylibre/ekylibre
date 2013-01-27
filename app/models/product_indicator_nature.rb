@@ -40,7 +40,7 @@
 #
 
 
-class ProductIndicatorNature < CompanyRecord
+class ProductIndicatorNature < Ekylibre::Record::Base
   attr_accessible :nature, :active, :choices, :indicators , :process_id , :unit_id , :usage, :maximal_length, :minimal_length, :maximal_value, :minimal_value
   attr_readonly :nature
   enumerize :nature, :in => [:string, :decimal, :boolean, :measure, :choice], :predicates => true

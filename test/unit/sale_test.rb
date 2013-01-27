@@ -86,6 +86,9 @@ class SaleTest < ActiveSupport::TestCase
       should "be invoiced" do
         assert !@sale.invoice
 
+        assert !@sale.affair.nil?
+        assert_equal @sale.amount, @sale.affair.credit
+
         item = @sale.items.new(:quantity => 12, :price_id => prices(:prices_001).id, :warehouse_id => products(:warehouses_001).id)
         assert item.save, item.errors.inspect
         item = @sale.items.new(:quantity => 25, :price_id => prices(:prices_003).id, :warehouse_id => products(:warehouses_001).id)

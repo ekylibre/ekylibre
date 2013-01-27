@@ -41,7 +41,7 @@
 #
 
 
-class Deposit < CompanyRecord
+class Deposit < Ekylibre::Record::Base
   attr_accessible :cash_id, :comment, :created_on, :mode_id, :number, :responsible_id
   acts_as_numbered
   belongs_to :cash

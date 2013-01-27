@@ -32,7 +32,7 @@
 #
 
 
-class Observation < CompanyRecord
+class Observation < Ekylibre::Record::Base
   attr_accessible :entity_id, :importance, :description
   enumerize :importance, :in => [:important, :normal, :notice], :default => :notice, :predicates => true
   belongs_to :entity

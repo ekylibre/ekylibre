@@ -33,7 +33,7 @@
 #
 
 
-class Establishment < CompanyRecord
+class Establishment < Ekylibre::Record::Base
   attr_accessible :name, :comment, :nic
   has_many :warehouses
   has_many :employees, :class_name => "Entity"

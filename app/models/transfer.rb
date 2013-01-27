@@ -40,13 +40,11 @@
 #
 
 
-class Transfer < CompanyRecord
+class Transfer < Ekylibre::Record::Base
   attr_readonly :comment
   belongs_to :supplier, :class_name=>"Entity"
   belongs_to :client, :class_name=>"Entity", :foreign_key=>:supplier_id
   belongs_to :payer, :class_name=>"Entity", :foreign_key=>:supplier_id
-  has_many :payment_uses, :as=>:expense, :class_name=>"IncomingPaymentUse"
-  has_many :uses, :as=>:expense, :class_name=>"IncomingPaymentUse"
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :amount, :allow_nil => true

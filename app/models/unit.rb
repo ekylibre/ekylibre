@@ -36,11 +36,9 @@
 #
 
 
-class Unit < CompanyRecord
+class Unit < Ekylibre::Record::Base
   attr_accessible :base, :coefficient, :label, :name, :start
   has_many :products, :class_name => "Product"
-  has_many :animal_drugs
-  has_many :stock_moves, :class_name => "ProductMove"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :coefficient, :start, :allow_nil => true
   validates_length_of :name, :allow_nil => true, :maximum => 8
@@ -87,6 +85,10 @@ class Unit < CompanyRecord
 
   before_save do
     self.base = self.class.normalize(self.base)
+  end
+
+  protect(:on => :destroy) do
+    return false
   end
 
   def self.load_defaults
@@ -153,10 +155,6 @@ class Unit < CompanyRecord
 
   def convertible_to?(other_unit)
     return (self.base == other_unit.base ? true : false)
-  end
-
-  protect(:on => :destroy) do
-    return false
   end
 
 end
