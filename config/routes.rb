@@ -1,15 +1,10 @@
 Ekylibre::Application.routes.draw do
 
-
+  devise_for :users, :path => 'authentication'
 
   resource :session, :only => [:new, :create, :destroy] do
     member do
       match "renew", :via => [:get, :post]
-    end
-  end
-  resource :company, :only => [] do
-    collection do
-      match "register", :via => [:get, :post]
     end
   end
   resource :myself, :path => "me", :only => [] do

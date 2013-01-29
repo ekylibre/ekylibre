@@ -460,7 +460,8 @@ fra:
     actual_number: "Numéro en cours"
     address: "Adresse"
     addresses: "Adresses"
-    admin: "Administrateur système"
+    admin: "Administrateur système" #?
+    # administrator: "Administrator"
     affair: "Affair"
     # affairs: "Affairs"
     agency_code: "Code guichet"
@@ -489,6 +490,7 @@ fra:
     attorney_journal: "Attorney journal"
     attorneys: "Mandataires"
     attribute_name: "Nom de l’attribut"
+    # authentication_token: "Authentication token"
     authorized_payments_count: "Nombre d’encaissements autorisés"
     auto_updateable_addresses: "Adresses mises à jour automatiquement"
     # automatic: "Automatic"
@@ -576,7 +578,10 @@ fra:
     condition_operator: "Comparateur"
     condition_value: "Valeur comparée"
     conditions: "Conditions (SQL)"
+    # confirmation_sent_at: "Confirmation sent at"
+    # confirmation_token: "Confirmation token"
     # confirmed: "Confirmed"
+    # confirmed_at: "Confirmed at"
     confirmed_on: "Confirmée le"
     connected_at: "Connecté le"
     consumption: "Consommation (litres/heure)" #?
@@ -602,6 +607,8 @@ fra:
     currency_rate: "Taux de change"
     current_amount: "Montant actuel"
     current_financial_year: "Exercice comptable en cours" #?
+    # current_sign_in_at: "Current sign in at"
+    # current_sign_in_ip: "Current sign in ip"
     custom_field: "Champ complémentaire"
     custom_field_choices: "Choix de champ complémentaire" #?
     custom_field_data: "Données complémentaires de fiche"
@@ -676,8 +683,8 @@ fra:
     draft: "Brouillard" #?
     draft_mode: "Mode brouillard" #?
     duration: "Durée"
-    ean13: "Code EAN13"
-    email: "Courriel (e-mail)" #?
+    ean13: "Code EAN13" #?
+    email: "Courriel (e-mail)"
     emails: "Courriels (e-mails)"
     emitter_amount: "Montant émis"
     emitter_cash: "Trésorerie émettrice"
@@ -687,6 +694,7 @@ fra:
     employed: "Employé par la société"
     employees: "employés"
     employment: "Emploi/Rôle"
+    # encrypted_password: "Encrypted password"
     end_on: "Fin le" #?
     entered_at: "Arrivé at" #?
     entities: "Personnes"
@@ -719,6 +727,7 @@ fra:
     expression: "Expression" #?
     extension: "Extension"
     external: "Externe à l'exploitation"
+    # failed_attempts: "Failed attempts"
     family: "Module"
     father: "Père"
     faxes: "Fax"
@@ -753,7 +762,7 @@ fra:
     group: "Groupe"
     groups: "Groupes" #?
     has_downpayment: "A un acompte"
-    hashed_password: "Mot de passe crypté"
+    hashed_password: "Mot de passe crypté" #?
     hour_duration: "Heure(s)" #?
     iban: "IBAN"
     iban_label: "IBAN"
@@ -811,6 +820,8 @@ fra:
     last_month: "Dernier mois"
     last_name: "Nom de famille"
     last_number: "Dernier numéro"
+    # last_sign_in_at: "Last sign in at"
+    # last_sign_in_ip: "Last sign in ip"
     last_year: "Dernière année"
     left_on: "Parti le"
     letter: "Lettre"
@@ -828,6 +839,7 @@ fra:
     location: "Location"
     lock_version: "Version"
     locked: "Verrouillé"
+    # locked_at: "Locked at"
     log: "Journal d'évènements" #?
     loggable: "Peut se connecter"
     lost: "En perte" #?
@@ -1043,15 +1055,19 @@ fra:
     reduction_submissive: "Soumis à réduction" #?
     reductions: "Lignes de réductions"
     reference_number: "N°Référence"
-    reflation_submissive: "Soumis à la relance"
+    reflation_submissive: "Soumis à la relance" #?
     reflections: "Reflections"
     relative_humidity: "Humidité relative" #?
     remaining_duration: "Durée d’utilisation prévue (heures)" #?
+    # remember_created_at: "Remember created at"
+    # reminder_submissive: "Reminder submissive"
     # repeatable: "Repeatable"
     reproductor: "Reproducteur"
     required: "Obligatoire"
     reservoir: "Réservoir"
     reservoirs: "Réservoirs" #?
+    # reset_password_sent_at: "Reset password sent at"
+    # reset_password_token: "Reset password token"
     resource: "Origine"
     resource_type: "Origine"
     responsible: "Responsable"
@@ -1077,7 +1093,7 @@ fra:
     sales_invoices: "Factures"
     sales_invoices_count: "Nombre de factures" #?
     sales_products: "Produits de vente"
-    salt: "Sel"
+    salt: "Sel" #?
     scheduled: "Encaissement programmé"
     second_move: "Second mouvement" #?
     second_stock_move: "Second mouvement de stock" #?
@@ -1093,6 +1109,7 @@ fra:
     shape: "Contour"
     shipped: "Reçu" #?
     shipped_on: "Envoyé le" #?
+    # sign_in_count: "Sign in count"
     siren: "N° SIREN"
     siret: "N° SIRET"
     soundex: "Soundex"
@@ -1177,11 +1194,13 @@ fra:
     treatment_uses: "Treatment uses" #?
     treatments: "Treatments" #?
     type: "Type"
+    # unconfirmed_email: "Unconfirmed email"
     undelivered_quantity: "Reste à livrer"
     unique_tracking: "Numéro unique"
     unit: "Unité"
     unit_quantity: "Quantité par unité de surface" #?
     units: "Unités"
+    # unlock_token: "Unlock token"
     unlocked_payments: "Paiement non verrouillés"
     unpaid_responsibles: "Responsables d'impayés" #?
     unpaid_sales: "Ventes impayées" #?
@@ -1198,7 +1217,7 @@ fra:
     # useful_items: "Useful items"
     useful_lines: "Lignes utiles" #?
     user: "Utilisateur"
-    user_name: "Identifiant"
+    user_name: "Identifiant" #?
     users: "Utilisateurs"
     uses: "Matériels utilisés"
     value: "Valeur"

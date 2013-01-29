@@ -59,7 +59,7 @@ class Role < Ekylibre::Record::Base
     added_rights = new_rights_array-old_rights_array
     deleted_rights = old_rights_array- new_rights_array
 
-    users = Entity.find_all_by_role_id_and_admin(self.id, false)
+    users = Entity.find_all_by_role_id_and_administrator(self.id, false)
     for user in users
       # puts user.rights.inspect
       user_rights_array = []

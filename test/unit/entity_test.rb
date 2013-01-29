@@ -22,9 +22,10 @@
 #
 #  active                                 :boolean          default(TRUE), not null
 #  activity_code                          :string(32)       
-#  admin                                  :boolean          not null
+#  administrator                          :boolean          not null
 #  attorney                               :boolean          not null
 #  attorney_account_id                    :integer          
+#  authentication_token                   :string(255)      
 #  authorized_payments_count              :integer          
 #  born_on                                :date             
 #  category_id                            :integer          
@@ -32,29 +33,38 @@
 #  client_account_id                      :integer          
 #  code                                   :string(64)       
 #  comment                                :text             
+#  confirmation_sent_at                   :datetime         
+#  confirmation_token                     :string(255)      
+#  confirmed_at                           :datetime         
 #  connected_at                           :datetime         
 #  country                                :string(2)        
 #  created_at                             :datetime         not null
 #  creator_id                             :integer          
 #  currency                               :string(255)      not null
+#  current_sign_in_at                     :datetime         
+#  current_sign_in_ip                     :string(255)      
 #  dead_on                                :date             
 #  deliveries_conditions                  :string(60)       
 #  department_id                          :integer          
-#  ean13                                  :string(13)       
+#  email                                  :string(255)      not null
 #  employed                               :boolean          not null
 #  employment                             :string(255)      
+#  encrypted_password                     :string(255)      default(""), not null
 #  establishment_id                       :integer          
+#  failed_attempts                        :integer          default(0)
 #  first_met_on                           :date             
 #  first_name                             :string(255)      
 #  full_name                              :string(255)      not null
-#  hashed_password                        :string(64)       
 #  id                                     :integer          not null, primary key
 #  invoices_count                         :integer          
 #  language                               :string(3)        default("???"), not null
 #  last_name                              :string(255)      not null
+#  last_sign_in_at                        :datetime         
+#  last_sign_in_ip                        :string(255)      
 #  left_on                                :date             
 #  lock_version                           :integer          default(0), not null
 #  locked                                 :boolean          not null
+#  locked_at                              :datetime         
 #  loggable                               :boolean          not null
 #  maximal_grantable_reduction_percentage :decimal(19, 4)   
 #  nature_id                              :integer          not null
@@ -69,19 +79,23 @@
 #  prospect                               :boolean          not null
 #  recruited_on                           :date             
 #  reduction_percentage                   :decimal(19, 4)   
-#  reflation_submissive                   :boolean          not null
+#  remember_created_at                    :datetime         
+#  reminder_submissive                    :boolean          not null
+#  reset_password_sent_at                 :datetime         
+#  reset_password_token                   :string(255)      
 #  responsible_id                         :integer          
 #  rights                                 :text             
 #  role_id                                :integer          
-#  salt                                   :string(64)       
+#  sign_in_count                          :integer          default(0)
 #  siren                                  :string(9)        
 #  soundex                                :string(4)        
 #  supplier                               :boolean          not null
 #  supplier_account_id                    :integer          
 #  transporter                            :boolean          not null
+#  unconfirmed_email                      :string(255)      
+#  unlock_token                           :string(255)      
 #  updated_at                             :datetime         not null
 #  updater_id                             :integer          
-#  user_name                              :string(32)       
 #  vat_number                             :string(15)       
 #  vat_submissive                         :boolean          default(TRUE), not null
 #  webpass                                :string(255)      

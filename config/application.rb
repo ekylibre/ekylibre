@@ -68,6 +68,9 @@ module Ekylibre
     # Enable the asset pipeline
     config.assets.enabled = true
 
+    # Disable models load when precompiling assets. Needed for Heroku
+    # config.assets.initialize_on_precompile = false
+
     # Change default prefix for assets
     # config.assets.prefix = 'assets'
 
@@ -83,5 +86,13 @@ module Ekylibre
       g.template_engine :haml
     end
 
+    # Configure layouts for devise
+    config.to_prepare do
+      Devise::SessionsController.layout "authentication"
+      Devise::RegistrationsController.layout proc{ |controller| user_signed_in? ? "application" : "authentication" }
+      Devise::ConfirmationsController.layout "authentication"
+      Devise::UnlocksController.layout "authentication"            
+      Devise::PasswordsController.layout "authentication"        
+    end
   end
 end

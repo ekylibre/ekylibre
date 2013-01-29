@@ -50,7 +50,7 @@
                 alert("FAILURE (Error "+status+"): "+error);
                 var frame = $("#" + frame_id);
                 frame.dialog("close");
-                frame.remove();                
+                frame.remove();
             }
         });
         $.Dialogram.count += 1;
@@ -67,11 +67,11 @@
             }
         }
         frame.dialog("option", "title", title);
-        
+
         $("#" + frame_id + " form").each(function (index, form) {
             $(form).attr('data-dialog', frame_id);
         });
-        
+
     };
 
     $.submitAjaxForm = function () {
@@ -79,7 +79,7 @@
         var frame_id = form.attr('data-dialog');
         var frame = $('#'+frame_id);
         var settings = frame.prop("dialogSettings");
-        
+
         var field = $(document.createElement('input'));
         field.attr({ type: 'hidden', name: 'dialog', value: frame_id });
         form.append(field);
@@ -110,7 +110,7 @@
                 alert("FAILURE (Error "+status+"): "+error);
                 var frame = $("#" + frame_id);
                 frame.dialog("close");
-                frame.remove();                
+                frame.remove();
                 // if ($.isFunction(settings["error"])) { settings["error"].call(form, frame, request, status, error); }
             }
         });

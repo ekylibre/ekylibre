@@ -6,16 +6,16 @@ currency = 'EUR'
 entity = {:loggable => true}
 entity[:first_name] = ENV["first_name"] || "Admin"
 entity[:last_name] = ENV["last_name"] || "STRATOR"
-unless entity[:user_name] = ENV["user_name"]
-  entity[:user_name] = "admin"
-  puts "Username is: #{entity[:user_name]}"
+unless entity[:email] = ENV["email"]
+  entity[:email] = "admin@ekylibre.org"
+  puts "Username is: #{entity[:email]}"
 end
 unless entity[:password] = ENV["password"]
-  entity[:password] = rand(100_000_000).to_s(36)
+  entity[:password] = Entity.give_password(8, :normal)
   puts "Password is: #{entity[:password]}"
 end
 entity[:password_confirmation] = entity[:password]
-
+puts entity.inspect
 entity = Entity.new(entity)
 
 company = ENV["company"] || "My Company"
@@ -24,7 +24,6 @@ ActiveRecord::Base.transaction do
   Sequence.load_defaults
   Unit.load_defaults
 
-  # TODO Lcalize these lines
   mister = EntityNature.create!(:name => 'Monsieur', :title => 'M', :physical => true)
   EntityNature.create!(:name => 'Madame', :title => 'Mme', :physical => true)
   EntityNature.create!(:name => 'Société Anonyme', :title => 'SA', :physical => false)
@@ -33,10 +32,10 @@ ActiveRecord::Base.transaction do
   firm = Entity.create!(:category_id =>  category.id, :nature_id => undefined_nature.id, :language => language, :last_name => company, :currency => currency, :of_company => true)
   firm.addresses.create!(:canal => "mail", :mail_line_2 => "", :mail_line_3 => "", :mail_line_4 => "", :mail_line_5 => "", :mail_line_6 => "", :by_default => true)
 
-  entity.admin = true
+  entity.administrator = true
   entity.nature = mister
   entity.category = category
-  entity.role = Role.create!(:name => I18n.t('models.company.default.role.name.admin'),  :rights => Entity.rights_list.join(' '))
+  entity.role = Role.create!(:name => I18n.t('models.company.default.role.name.administrator'),  :rights => Entity.rights_list.join(' '))
   Role.create!(:name => I18n.t('models.company.default.role.name.public'), :rights => '')
   entity.save!
 
@@ -77,9 +76,8 @@ ActiveRecord::Base.transaction do
   PurchaseNature.create!(:name => I18n.t('models.company.default.purchase_nature_name'), :currency => currency, :with_accounting => true, :journal => journals[:purchases])
 
 
-# @TODO - create default products
+  # @TODO - create default products
 
-  #   # Add custom_fieldary data to test
-  #   company.load_demo_data unless demo_language_code.blank?
+  # Add custom_field data to test
 end
 

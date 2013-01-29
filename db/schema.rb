@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130125154553) do
+ActiveRecord::Schema.define(:version => 20130129112939) do
 
   create_table "account_balances", :force => true do |t|
     t.integer  "account_id",                                                        :null => false
@@ -470,7 +470,6 @@ ActiveRecord::Schema.define(:version => 20130125154553) do
     t.boolean  "active",                                                                              :default => true,  :null => false
     t.date     "born_on"
     t.date     "dead_on"
-    t.string   "ean13",                                  :limit => 13
     t.string   "soundex",                                :limit => 4
     t.boolean  "client",                                                                              :default => false, :null => false
     t.boolean  "supplier",                                                                            :default => false, :null => false
@@ -482,7 +481,7 @@ ActiveRecord::Schema.define(:version => 20130125154553) do
     t.integer  "client_account_id"
     t.integer  "supplier_account_id"
     t.boolean  "vat_submissive",                                                                      :default => true,  :null => false
-    t.boolean  "reflation_submissive",                                                                :default => false, :null => false
+    t.boolean  "reminder_submissive",                                                                 :default => false, :null => false
     t.string   "deliveries_conditions",                  :limit => 60
     t.decimal  "reduction_percentage",                                 :precision => 19, :scale => 4
     t.text     "comment"
@@ -505,13 +504,11 @@ ActiveRecord::Schema.define(:version => 20130125154553) do
     t.boolean  "prospect",                                                                            :default => false, :null => false
     t.boolean  "attorney",                                                                            :default => false, :null => false
     t.integer  "attorney_account_id"
-    t.string   "user_name",                              :limit => 32
-    t.string   "salt",                                   :limit => 64
-    t.string   "hashed_password",                        :limit => 64
+    t.string   "email",                                                                                                  :null => false
     t.boolean  "locked",                                                                              :default => false, :null => false
     t.string   "currency",                                                                                               :null => false
     t.boolean  "of_company",                                                                          :default => false, :null => false
-    t.boolean  "admin",                                                                               :default => false, :null => false
+    t.boolean  "administrator",                                                                       :default => false, :null => false
     t.date     "recruited_on"
     t.datetime "connected_at"
     t.date     "left_on"
@@ -526,13 +523,34 @@ ActiveRecord::Schema.define(:version => 20130125154553) do
     t.integer  "role_id"
     t.boolean  "loggable",                                                                            :default => false, :null => false
     t.string   "payment_delay"
+    t.string   "encrypted_password",                                                                  :default => "",    :null => false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",                                                                       :default => 0
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.string   "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string   "unconfirmed_email"
+    t.integer  "failed_attempts",                                                                     :default => 0
+    t.string   "unlock_token"
+    t.datetime "locked_at"
+    t.string   "authentication_token"
   end
 
+  add_index "entities", ["authentication_token"], :name => "index_entities_on_authentication_token", :unique => true
   add_index "entities", ["code"], :name => "entities_codes"
   add_index "entities", ["code"], :name => "index_entities_on_code"
+  add_index "entities", ["confirmation_token"], :name => "index_entities_on_confirmation_token", :unique => true
   add_index "entities", ["created_at"], :name => "index_entities_on_created_at"
   add_index "entities", ["creator_id"], :name => "index_entities_on_creator_id"
   add_index "entities", ["of_company"], :name => "index_entities_on_of_company"
+  add_index "entities", ["reset_password_token"], :name => "index_entities_on_reset_password_token", :unique => true
+  add_index "entities", ["unlock_token"], :name => "index_entities_on_unlock_token", :unique => true
   add_index "entities", ["updated_at"], :name => "index_entities_on_updated_at"
   add_index "entities", ["updater_id"], :name => "index_entities_on_updater_id"
 

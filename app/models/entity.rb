@@ -23,9 +23,10 @@
 #
 #  active                                 :boolean          default(TRUE), not null
 #  activity_code                          :string(32)       
-#  admin                                  :boolean          not null
+#  administrator                          :boolean          not null
 #  attorney                               :boolean          not null
 #  attorney_account_id                    :integer          
+#  authentication_token                   :string(255)      
 #  authorized_payments_count              :integer          
 #  born_on                                :date             
 #  category_id                            :integer          
@@ -33,29 +34,38 @@
 #  client_account_id                      :integer          
 #  code                                   :string(64)       
 #  comment                                :text             
+#  confirmation_sent_at                   :datetime         
+#  confirmation_token                     :string(255)      
+#  confirmed_at                           :datetime         
 #  connected_at                           :datetime         
 #  country                                :string(2)        
 #  created_at                             :datetime         not null
 #  creator_id                             :integer          
 #  currency                               :string(255)      not null
+#  current_sign_in_at                     :datetime         
+#  current_sign_in_ip                     :string(255)      
 #  dead_on                                :date             
 #  deliveries_conditions                  :string(60)       
 #  department_id                          :integer          
-#  ean13                                  :string(13)       
+#  email                                  :string(255)      not null
 #  employed                               :boolean          not null
 #  employment                             :string(255)      
+#  encrypted_password                     :string(255)      default(""), not null
 #  establishment_id                       :integer          
+#  failed_attempts                        :integer          default(0)
 #  first_met_on                           :date             
 #  first_name                             :string(255)      
 #  full_name                              :string(255)      not null
-#  hashed_password                        :string(64)       
 #  id                                     :integer          not null, primary key
 #  invoices_count                         :integer          
 #  language                               :string(3)        default("???"), not null
 #  last_name                              :string(255)      not null
+#  last_sign_in_at                        :datetime         
+#  last_sign_in_ip                        :string(255)      
 #  left_on                                :date             
 #  lock_version                           :integer          default(0), not null
 #  locked                                 :boolean          not null
+#  locked_at                              :datetime         
 #  loggable                               :boolean          not null
 #  maximal_grantable_reduction_percentage :decimal(19, 4)   
 #  nature_id                              :integer          not null
@@ -70,19 +80,23 @@
 #  prospect                               :boolean          not null
 #  recruited_on                           :date             
 #  reduction_percentage                   :decimal(19, 4)   
-#  reflation_submissive                   :boolean          not null
+#  remember_created_at                    :datetime         
+#  reminder_submissive                    :boolean          not null
+#  reset_password_sent_at                 :datetime         
+#  reset_password_token                   :string(255)      
 #  responsible_id                         :integer          
 #  rights                                 :text             
 #  role_id                                :integer          
-#  salt                                   :string(64)       
+#  sign_in_count                          :integer          default(0)
 #  siren                                  :string(9)        
 #  soundex                                :string(4)        
 #  supplier                               :boolean          not null
 #  supplier_account_id                    :integer          
 #  transporter                            :boolean          not null
+#  unconfirmed_email                      :string(255)      
+#  unlock_token                           :string(255)      
 #  updated_at                             :datetime         not null
 #  updater_id                             :integer          
-#  user_name                              :string(32)       
 #  vat_number                             :string(15)       
 #  vat_submissive                         :boolean          default(TRUE), not null
 #  webpass                                :string(255)      
@@ -91,10 +105,11 @@
 require "digest/sha2"
 
 class Entity < Ekylibre::Record::Base
-  acts_as_numbered :code
-  attr_accessible :active, :activity_code, :attorney, :attorney_account_id, :authorized_payments_count, :born_on, :category_id, :client, :client_account_id, :code, :comment, :country, :currency, :dead_on, :deliveries_conditions, :department_id, :ean13, :employed, :employment, :establishment_id, :first_met_on, :first_name, :full_name, :language, :last_name, :left_on, :loggable, :maximal_grantable_reduction_percentage, :nature_id, :office, :origin, :payment_delay, :payment_mode_id, :photo, :profession_id, :proposer_id, :prospect, :recruited_on, :reduction_percentage, :reflation_submissive, :responsible_id, :role_id, :siren, :supplier, :supplier_account_id, :transporter, :user_name, :vat_number, :vat_submissive
+  # Setup accessible (or protected) attributes for your model
+  attr_accessible :email, :password, :password_confirmation, :remember_me
+  attr_accessible :active, :activity_code, :attorney, :attorney_account_id, :authorized_payments_count, :born_on, :category_id, :client, :client_account_id, :code, :comment, :country, :currency, :dead_on, :deliveries_conditions, :department_id, :ean13, :employed, :employment, :establishment_id, :first_met_on, :first_name, :full_name, :language, :last_name, :left_on, :loggable, :maximal_grantable_reduction_percentage, :nature_id, :office, :origin, :payment_delay, :payment_mode_id, :photo, :profession_id, :proposer_id, :prospect, :recruited_on, :reduction_percentage, :reflation_submissive, :responsible_id, :role_id, :siren, :supplier, :supplier_account_id, :transporter, :vat_number, :vat_submissive
   attr_accessor :password_confirmation, :old_password
-  attr_protected :hashed_password, :salt, :locked, :rights
+  attr_protected :rights
   belongs_to :attorney_account, :class_name => "Account"
   belongs_to :category, :class_name => "EntityCategory"
   belongs_to :client_account, :class_name => "Account"
@@ -149,6 +164,36 @@ class Entity < Ekylibre::Record::Base
   has_many :waiting_deliveries, :class_name => "OutgoingDelivery", :foreign_key => :transporter_id, :conditions => ["moved_on IS NULL AND planned_on <= CURRENT_DATE"]
   has_one :default_mail_address, :class_name => "EntityAddress", :conditions => {:by_default => true, :canal => :mail}
 
+  # default_scope order(:last_name, :first_name)
+  scope :necessary_transporters, -> { where("id IN (SELECT transporter_id FROM #{OutgoingDelivery.table_name} WHERE (moved_on IS NULL AND planned_on <= CURRENT_DATE) OR transport_id IS NULL)").order(:last_name, :first_name) }
+  scope :employees, -> { where(:employed => true) }
+  scope :suppliers,    -> { where(:supplier => true) }
+  scope :transporters, -> { where(:transporter => true) }
+  scope :clients,      -> { where(:client => true) }
+
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_numericality_of :failed_attempts, :allow_nil => true, :only_integer => true
+  validates_numericality_of :maximal_grantable_reduction_percentage, :reduction_percentage, :allow_nil => true
+  validates_length_of :country, :allow_nil => true, :maximum => 2
+  validates_length_of :language, :allow_nil => true, :maximum => 3
+  validates_length_of :soundex, :allow_nil => true, :maximum => 4
+  validates_length_of :siren, :allow_nil => true, :maximum => 9
+  validates_length_of :vat_number, :allow_nil => true, :maximum => 15
+  validates_length_of :activity_code, :allow_nil => true, :maximum => 32
+  validates_length_of :deliveries_conditions, :allow_nil => true, :maximum => 60
+  validates_length_of :code, :allow_nil => true, :maximum => 64
+  validates_length_of :authentication_token, :confirmation_token, :currency, :current_sign_in_ip, :email, :employment, :encrypted_password, :first_name, :full_name, :last_name, :last_sign_in_ip, :office, :origin, :payment_delay, :photo, :reset_password_token, :unconfirmed_email, :unlock_token, :webpass, :allow_nil => true, :maximum => 255
+  validates_inclusion_of :active, :administrator, :attorney, :client, :employed, :locked, :loggable, :of_company, :prospect, :reminder_submissive, :supplier, :transporter, :vat_submissive, :in => [true, false]
+  validates_presence_of :currency, :email, :encrypted_password, :full_name, :language, :last_name, :nature
+  #]VALIDATORS]
+  validates_presence_of :category
+  # validates_presence_of :password, :password_confirmation, :if => Proc.new{|e| e.encrypted_password.blank? and e.loggable?}
+  validates_confirmation_of :password
+  validates_numericality_of :maximal_grantable_reduction_percentage, :greater_than_or_equal_to => 0, :less_than_or_equal_to => 100
+  validates_delay_format_of :payment_delay
+  # validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i, :if => lambda{|r| !r.email.blank?}
+
+  acts_as_numbered :code
   accepts_nested_attributes_for :mails,    :reject_if => :all_blank, :allow_destroy => true
   accepts_nested_attributes_for :emails,   :reject_if => :all_blank, :allow_destroy => true
   accepts_nested_attributes_for :phones,   :reject_if => :all_blank, :allow_destroy => true
@@ -160,48 +205,14 @@ class Entity < Ekylibre::Record::Base
     self.where(:of_company => true).first
   end
 
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :maximal_grantable_reduction_percentage, :reduction_percentage, :allow_nil => true
-  validates_length_of :country, :allow_nil => true, :maximum => 2
-  validates_length_of :language, :allow_nil => true, :maximum => 3
-  validates_length_of :soundex, :allow_nil => true, :maximum => 4
-  validates_length_of :siren, :allow_nil => true, :maximum => 9
-  validates_length_of :ean13, :allow_nil => true, :maximum => 13
-  validates_length_of :vat_number, :allow_nil => true, :maximum => 15
-  validates_length_of :activity_code, :user_name, :allow_nil => true, :maximum => 32
-  validates_length_of :deliveries_conditions, :allow_nil => true, :maximum => 60
-  validates_length_of :code, :hashed_password, :salt, :allow_nil => true, :maximum => 64
-  validates_length_of :currency, :employment, :first_name, :full_name, :last_name, :office, :origin, :payment_delay, :photo, :webpass, :allow_nil => true, :maximum => 255
-  validates_inclusion_of :active, :admin, :attorney, :client, :employed, :locked, :loggable, :of_company, :prospect, :reflation_submissive, :supplier, :transporter, :vat_submissive, :in => [true, false]
-  validates_presence_of :currency, :full_name, :language, :last_name, :nature
-  #]VALIDATORS]
-  validates_presence_of :category
-  validates_presence_of :password, :password_confirmation, :if => Proc.new{|e| e.hashed_password.blank? and e.loggable?}
-  validates_confirmation_of :password
-  validates_numericality_of :maximal_grantable_reduction_percentage, :greater_than_or_equal_to => 0, :less_than_or_equal_to => 100
-  validates_presence_of   :user_name, :if => :loggable?
-  validates_uniqueness_of :user_name
-  validates_format_of     :user_name, :with => /^[a-z0-9][a-z0-9\.\_]+[a-z0-9]$/, :if => lambda{|e| !e.user_name.blank?}
-  validates_length_of     :user_name, :in => 3..32, :if => lambda{|e| !e.user_name.blank?}
-  validates_delay_format_of :payment_delay
-  # validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i, :if => lambda{|r| !r.email.blank?}
 
-  # default_scope order(:last_name, :first_name)
-  scope :necessary_transporters, -> { where("id IN (SELECT transporter_id FROM #{OutgoingDelivery.table_name} WHERE (moved_on IS NULL AND planned_on <= CURRENT_DATE) OR transport_id IS NULL)").order(:last_name, :first_name) }
-  scope :employees, -> { where(:employed => true) }
-  scope :suppliers,    -> { where(:supplier => true) }
-  scope :transporters, -> { where(:transporter => true) }
-  scope :clients,      -> { where(:client => true) }
-
-  # Needed to stamp all records
-  model_stamper
-
-  class << self
-    def rights_file; Rails.root.join("config", "rights.yml"); end
-    def minimum_right; :__minimum__; end
-    def rights; @@rights; end
-    def rights_list; @@rights_list; end
-    def useful_rights; @@useful_rights; end
+  before_validation(:on => :create) do
+    self.email = self.class.give_password(48, :dummy)+"@"+self.class.give_password(48, :dummy) + "." +self.class.give_password(3, :dummy) if self.email.nil?
+    if self.password.nil?
+      pass = self.class.give_password(128)
+      self.password = pass
+      self.password_confirmation = pass
+    end
   end
 
 
@@ -222,18 +233,6 @@ class Entity < Ekylibre::Record::Base
     end
     unless self.category
       self.category = EntityCategory.where(:by_default => true).first
-    end
-    if self.user_name.blank? and not self.last_name.blank?
-      self.user_name = ""
-      unless self.first_name.blank?
-        self.user_name << self.first_name.to_s.ascii.downcase.gsub(/[^a-z0-9]/, '') + "."
-      end
-      self.user_name << self.last_name.to_s.ascii.downcase.gsub(/[^a-z0-9]/, '')
-      base_name, base_number = self.user_name, 0
-      while Entity.where("id != ?", self.id || 0).where(:user_name => self.user_name).count > 0
-        base_number += 1
-        self.user_name = base_name + base_number.to_s
-      end
     end
     self.maximal_grantable_reduction_percentage ||= 0
     # self.admin = true if self.rights.nil?
@@ -520,153 +519,5 @@ class Entity < Ekylibre::Record::Base
     return csv_string
   end
 
-
-
-  def preference(name, value = nil, nature = :string)
-    p = self.preferences.find(:first, :order => :id, :conditions => {:name => name})
-    if p.nil?
-      p = self.preferences.build
-      p.name   = name
-      p.nature = nature.to_s
-      p.value  = value
-      p.save!
-    end
-    return p
-  end
-
-
-  def rights_array
-    self.rights.to_s.split(/\s+/).collect{|x| x.to_sym}
-  end
-
-  def rights_array=(array)
-    narray = array.select{|x| Entity.rights_list.include? x.to_sym}.collect{|x| x.to_sym}
-    self.rights = narray.join(" ")
-    return narray
-  end
-
-  def diff_more(right_markup = 'div', separator='')
-    return '<div>&infin;</div>'.html_safe if self.admin?
-    (self.rights_array-self.role.rights_array).select{|x| Entity.rights_list.include?(x)}.collect{|x| "<#{right_markup}>"+::I18n.t("rights.#{x}")+"</#{right_markup}>"}.join(separator).html_safe
-  end
-
-
-  def diff_less(right_markup = 'div', separator='')
-    return '' if self.admin?
-    (self.role.rights_array-self.rights_array).select{|x| Entity.rights_list.include?(x)}.collect{|x| "<#{right_markup}>"+::I18n.t("rights.#{x}")+"</#{right_markup}>"}.join(separator).html_safe
-  end
-
-  def password
-    @password
-  end
-
-  def password=(passwd)
-    @password = passwd
-    unless self.password.blank?
-      self.salt = Entity.generate_password(64)
-      self.hashed_password = Entity.encrypted_password(self.password, self.salt)
-    end
-  end
-
-  # Find and check user account
-  def self.authenticate(user_name, password)
-    if user = self.find_by_user_name_and_loggable(user_name.to_s.downcase, true)
-      if user.locked or !user.authenticated?(password.to_s)
-        user = nil
-      end
-    end
-    return user
-  end
-
-  def authorization(controller_name, action_name, rights_list=nil)
-    rights_list = self.rights_array if rights_list.blank?
-    message = nil
-    if Entity.rights[controller_name.to_sym].nil?
-      message = tc(:no_right_defined_for_this_part_of_the_application, :controller => controller_name, :action => action_name)
-    elsif (rights = Entity.rights[controller_name.to_sym][action_name.to_sym]).nil?
-      message = tc(:no_right_defined_for_this_part_of_the_application, :controller => controller_name, :action => action_name)
-    elsif (rights & [:__minimum__, :__public__]).empty? and (rights_list & rights).empty? and not self.admin?
-      message = tc(:no_right_defined_for_this_part_of_the_application_and_this_user)
-    end
-    return message
-  end
-
-  def can?(right)
-    self.admin? or self.rights.match(/(^|\s)#{right}(\s|$)/)
-  end
-
-  protect(:on => :destroy) do
-    Entity.count > 1
-  end
-
-  def authenticated?(password)
-    self.hashed_password == Entity.encrypted_password(password, self.salt)
-  end
-
-  # Used for generic password creation
-  def self.give_password(length=8, mode=:complex)
-    Entity.generate_password(length, mode)
-  end
-
-  private
-
-  def self.encrypted_password(password, salt)
-    string_to_hash = "<"+password.to_s+":"+salt.to_s+"/>"
-    Digest::SHA256.hexdigest(string_to_hash)
-  end
-
-  def self.generate_password(password_length=8, mode=:normal)
-    return '' if password_length.blank? or password_length<1
-    case mode
-    when :dummy then
-      letters = %w(a b c d e f g h j k m n o p q r s t u w x y 3 4 6 7 8 9)
-    when :simple then
-      letters = %w(a b c d e f g h j k m n o p q r s t u w x y A B C D E F G H J K M N P Q R T U W Y X 3 4 6 7 8 9)
-    when :normal then
-      letters = %w(a b c d e f g h i j k l m n o p q r s t u v w x y z A B C D E F G H I J K L M N O P Q R S T U V W Y X Z 0 1 2 3 4 5 6 7 8 9)
-    else
-      letters = %w(a b c d e f g h i j k l m n o p q r s t u v w x y z A B C D E F G H I J K L M N O P Q R S T U V W Y X Z 0 1 2 3 4 5 6 7 8 9 _ = + - * | [ ] { } . : ; ! ? , § µ % / & < >)
-    end
-    letters_length = letters.length
-    password = ''
-    password_length.times{password+=letters[(letters_length*rand).to_i]}
-    password
-  end
-
-
-  def self.initialize_rights
-    definition = YAML.load_file(Entity.rights_file)
-    # Expand actions
-    for right, attributes in definition
-      if attributes
-        attributes['actions'].each_index do |index|
-          unless attributes['actions'][index].match(/\:\:/)
-            attributes['actions'][index] = attributes['controller'].to_s+"::"+attributes['actions'][index]
-          end
-        end if attributes['actions'].is_a? Array
-      end
-    end
-    definition.delete_if{|k, v| k == "__not_used__" }
-    @@rights_list = definition.keys.sort.collect{|x| x.to_sym}.delete_if{|k, v| k.to_s.match(/^__.*__$/)}
-    @@rights = {}
-    @@useful_rights = {}
-    for right, attributes in definition
-      if attributes.is_a? Hash
-        unless attributes["controller"].blank?
-          controller = attributes["controller"].to_sym
-          @@useful_rights[controller] ||= []
-          @@useful_rights[controller] << right.to_sym
-        end
-        for uniq_action in attributes["actions"]
-          controller, action = uniq_action.split(/\W+/)[0..1].collect{|x| x.to_sym}
-          @@rights[controller] ||= {}
-          @@rights[controller][action] ||= []
-          @@rights[controller][action] << right.to_sym
-        end if attributes["actions"].is_a? Array
-      end
-    end
-  end
-
-  Entity.initialize_rights
 
 end

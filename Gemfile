@@ -8,8 +8,8 @@ gem 'activerecord-spatialite-adapter'
 
 gem 'haml'
 gem 'fastercsv'
-gem 'libxml-ruby', :require=>'libxml'
-gem 'rubyzip', :require=>'zip/zip'
+gem 'libxml-ruby', :require => 'libxml'
+gem 'rubyzip', :require => 'zip/zip'
 gem 'exception_notification'
 gem 'state_machine'
 gem 'i18n-complements'
@@ -26,15 +26,18 @@ gem 'enumerize'
 gem 'thin'
 gem 'nokogiri'
 gem 'turbolinks'
+gem 'devise'
 
 
 # Reporting
 # gem 'thinreports-rails'
 # jasper_rails need rjb which need $ sudo apt-get install openjdk-7-jdk and set JAVA_HOME and add a line in environement.rb
-gem 'rjb', '1.4.3'
+gem 'rjb'
 gem 'jasper-rails', :git => 'git://github.com/fortesinformatica/jasper-rails.git'
 
 
+gem 'jquery-rails'
+#gem 'jquery_mobile_rails'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -44,18 +47,14 @@ group :assets do
   gem 'oily_png'
   gem 'compass-rails'
   gem 'bootstrap-sass'
-  # gem 'dojo-rails'
-  # gem 'dojox-rails'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   # gem 'libv8', '~> 3.11.8'
-  gem 'therubyracer', '~> 0.10.2', :platform => :ruby
+  gem 'therubyracer', :platform => :ruby # , '~> 0.10.2'
 
   gem 'uglifier', '>= 1.0.3'
 end
 
-gem 'jquery-rails'
-#gem 'jquery_mobile_rails'
 
 group :test do
   gem 'capybara'

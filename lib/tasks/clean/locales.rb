@@ -282,6 +282,11 @@ task :locales => :environment do
   atotal += count
   acount += count
 
+  # Devise
+  count = sort_yaml_file :devise, log
+  atotal += count
+  acount += count
+
 
 
   # puts " - Locale: #{::I18n.locale_label} (Reference)"
@@ -293,7 +298,7 @@ task :locales => :environment do
 
 
 
-  for locale in ::I18n.available_locales.delete_if{|l| l==::I18n.default_locale or l.to_s.size!=3}.sort{|a,b| a.to_s<=>b.to_s}
+  for locale in ::I18n.available_locales.delete_if{|l| l == ::I18n.default_locale or l.to_s.size != 3}.sort{|a,b| a.to_s <=> b.to_s}
     ::I18n.locale = locale
     locale_dir = Rails.root.join("config", "locales", locale.to_s)
     FileUtils.makedirs(locale_dir) unless File.exist?(locale_dir)

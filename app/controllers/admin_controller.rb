@@ -22,10 +22,11 @@ class AdminController < BaseController
   # helper :all # include all helpers, all the time
   # before_filter :no_cache
   before_filter :i18nize
-  before_filter :identify
+  before_filter :authenticate_entity!
+  # before_filter :identify
   before_filter :authorize
   after_filter  :historize
-  attr_accessor :current_user
+  # attr_accessor :current_user
   layout :dialog_or_not
 
   include Userstamp

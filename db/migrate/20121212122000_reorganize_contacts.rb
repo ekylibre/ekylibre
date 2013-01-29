@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-class ReorganizeUsersEntitiesAndContacts < ActiveRecord::Migration
+class ReorganizeContacts < ActiveRecord::Migration
   REFERENCES = {
     :account => {
       :creator_id => :user,
@@ -703,7 +703,6 @@ class ReorganizeUsersEntitiesAndContacts < ActiveRecord::Migration
   end.freeze
 
   def up
-
     rename_table :contacts, :entity_addresses
     change_table :entity_addresses do |t|
       t.string :canal, :limit => 16
@@ -740,57 +739,6 @@ class ReorganizeUsersEntitiesAndContacts < ActiveRecord::Migration
     for column in [:code, :created_at, :creator_id, :entity_id, :updated_at, :updater_id]
       rename_index(:entity_addresses, "index_contacts_on_#{column}".to_sym, "index_entity_addresses_on_#{column}".to_sym)
     end
-
-    # Merge users in entities
-    change_table :entities do |t|
-      t.boolean    :admin, :null => false, :default => false
-      t.date       :recruited_on
-      t.datetime   :connected_at
-      t.date       :left_on
-      t.references :department
-      t.boolean    :employed, :null => false, :default => false
-      t.string     :employment
-      t.references :establishment
-      t.string     :office
-      t.references :profession
-      t.decimal    :maximum_grantable_reduction_percent, :precision => 19, :scale => 4
-      t.text       :rights
-      t.references :role
-      t.boolean    :loggable, :null => false, :default => false
-    end
-
-    commons = [:admin, :comment, :connected_at, :created_at, :creator_id, :department_id, :employed, :employment, :establishment_id, :first_name, :hashed_password, :language, :last_name, :lock_version, :locked, :name, :office, :profession_id, :rights, :role_id, :salt, :updated_at, :updater_id].join(', ')
-
-    max = select_value("SELECT MAX(id) FROM #{quoted_table_name(:entities)}")
-    users = {}
-    nature_id = select_value("SELECT id FROM #{quoted_table_name(:entity_natures)} ORDER BY physical DESC, id LIMIT 1")
-    if nature_id.blank?
-      execute("INSERT INTO #{quoted_table_name(:entity_natures)} (title, name, active, created_at, updated_at) VALUES ('-', '-', true, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)")
-      nature_id = select_value("SELECT id FROM #{quoted_table_name(:entity_natures)} ORDER BY physical DESC, id LIMIT 1")
-    end
-
-    for user in select_all("SELECT id, email FROM users")
-      # Create entity for user
-      execute("INSERT INTO #{quoted_table_name(:entities)} (loggable, nature_id, full_name, currency, recruited_on, left_on, maximum_grantable_reduction_percent, #{commons}) SELECT TRUE, #{nature_id}, last_name||COALESCE(' '||first_name, ''), 'EUR', arrived_on, departed_on, reduction_percent, #{commons} FROM #{quoted_table_name(:users)} WHERE id = #{user['id']}")
-      users[user['id']] = select_value("SELECT max(id) FROM #{quoted_table_name(:entities)}").to_i
-      # Add email
-      unless user['email'].blank?
-        execute("INSERT INTO #{quoted_table_name(:entity_addresses)} (entity_id, canal, coordinate) SELECT #{users[user['id']]}, 'email', '#{user['email']}'")
-      end
-    end
-    # Reconnect foreign keys on entities
-    if users.size > 0
-      for table, columns in USER_TABLES
-        execute("UPDATE #{table} SET " + columns.collect{|c| "#{c} = CASE" + users.collect{|u,e| " WHEN #{c} = #{u} THEN #{e}"}.join + " ELSE NULL END"}.join(", "))
-      end
-    end
-
-    rename_column :entities, :name, :username
-    remove_column :entities, :discount_rate # unused
-    remove_column :entities, :excise # unused
-    execute("INSERT INTO #{quoted_table_name(:entity_addresses)} (entity_id, canal, coordinate) SELECT id, 'website', website FROM entities WHERE LENGTH(TRIM(website)) > 0")
-    remove_column :entities, :website
-    drop_table :users
   end
 
   def down
