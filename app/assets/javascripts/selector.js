@@ -202,7 +202,7 @@
         return false;
     });
 
-    $(document).on("hover", '.items-menu ul li[data-item-label][data-item-id]', function (event) {
+    $(document).on("mouseenter hover", '.items-menu ul li[data-item-label][data-item-id]', function (event) {
         var element = $(this), list;
         list = element.closest("ul");
         list.find("li.selected[data-item-label][data-item-id]").removeClass("selected");

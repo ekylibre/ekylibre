@@ -2,7 +2,7 @@
 =sales_steps
 
 =field_set do
-  -association :client, :source => :clients
+  -association :client # , :source => :clients
 
 =field_set :addresses, :depend_on => :client do
   -association :address, :source => :mails
