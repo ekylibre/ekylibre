@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-class ReorganizeContacts < ActiveRecord::Migration
+class TransformContactsInAddresses < ActiveRecord::Migration
   REFERENCES = {
     :account => {
       :creator_id => :user,
