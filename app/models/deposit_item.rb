@@ -23,6 +23,7 @@
 #  amount       :decimal(19, 4)   default(1.0), not null
 #  created_at   :datetime         not null
 #  creator_id   :integer          
+#  currency     :string(3)        not null
 #  deposit_id   :integer          not null
 #  id           :integer          not null, primary key
 #  lock_version :integer          default(0), not null
@@ -35,6 +36,7 @@
 class DepositItem < Ekylibre::Record::Base
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :amount, :quantity, :allow_nil => true
-  validates_presence_of :amount, :quantity
+  validates_length_of :currency, :allow_nil => true, :maximum => 3
+  validates_presence_of :amount, :currency, :quantity
   #]VALIDATORS]
 end

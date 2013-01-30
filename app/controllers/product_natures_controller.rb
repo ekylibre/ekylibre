@@ -63,7 +63,7 @@ class ProductNaturesController < AdminController
 
 
   list(:prices, :conditions => {:product_nature_id => ['session[:product_nature_id]'], :active => true}) do |t|
-    t.column :name, :through => :entity, :url => true
+    t.column :name, :through => :supplier, :url => true
     t.column :name, :through => :category, :url => true
     t.column :pretax_amount, :currency  =>  true
     t.column :amount, :currency  =>  true

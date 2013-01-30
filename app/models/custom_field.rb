@@ -20,22 +20,22 @@
 # 
 # == Table: custom_fields
 #
-#  active         :boolean          default(TRUE), not null
-#  created_at     :datetime         not null
-#  creator_id     :integer          
-#  id             :integer          not null, primary key
-#  lock_version   :integer          default(0), not null
-#  maximal_length :integer          
-#  maximal_value  :decimal(19, 4)   
-#  minimal_length :integer          default(0), not null
-#  minimal_value  :decimal(19, 4)   
-#  name           :string(255)      not null
-#  nature         :string(8)        not null
-#  position       :integer          
-#  required       :boolean          not null
-#  updated_at     :datetime         not null
-#  updater_id     :integer          
-#  used_with      :string(255)      not null
+#  active          :boolean          default(TRUE), not null
+#  created_at      :datetime         not null
+#  creator_id      :integer          
+#  customized_type :string(255)      not null
+#  id              :integer          not null, primary key
+#  lock_version    :integer          default(0), not null
+#  maximal_length  :integer          
+#  maximal_value   :decimal(19, 4)   
+#  minimal_length  :integer          default(0), not null
+#  minimal_value   :decimal(19, 4)   
+#  name            :string(255)      not null
+#  nature          :string(8)        not null
+#  position        :integer          
+#  required        :boolean          not null
+#  updated_at      :datetime         not null
+#  updater_id      :integer          
 #
 
 
@@ -51,9 +51,9 @@ class CustomField < Ekylibre::Record::Base
   validates_numericality_of :maximal_length, :minimal_length, :allow_nil => true, :only_integer => true
   validates_numericality_of :maximal_value, :minimal_value, :allow_nil => true
   validates_length_of :nature, :allow_nil => true, :maximum => 8
-  validates_length_of :name, :used_with, :allow_nil => true, :maximum => 255
+  validates_length_of :customized_type, :name, :allow_nil => true, :maximum => 255
   validates_inclusion_of :active, :required, :in => [true, false]
-  validates_presence_of :minimal_length, :name, :nature, :used_with
+  validates_presence_of :customized_type, :minimal_length, :name, :nature
   #]VALIDATORS]
   validates_inclusion_of :nature, :in => self.nature.values
   validates_inclusion_of :used_with, :in => self.used_with.values

@@ -91,8 +91,8 @@ module Ekylibre
       Devise::SessionsController.layout "authentication"
       Devise::RegistrationsController.layout proc{ |controller| user_signed_in? ? "application" : "authentication" }
       Devise::ConfirmationsController.layout "authentication"
-      Devise::UnlocksController.layout "authentication"            
-      Devise::PasswordsController.layout "authentication"        
+      Devise::UnlocksController.layout "authentication"
+      Devise::PasswordsController.layout "authentication"
     end
   end
 end

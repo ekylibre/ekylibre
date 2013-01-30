@@ -18,4 +18,18 @@
 #
 
 class ApplicationController < ActionController::Base
+
+  def self.human_action_name(action, options={})
+    options = {} unless options.is_a?(Hash)
+    root, action = "actions."+self.controller_name+".", action.to_s
+    options[:default] ||= []
+    options[:default] << (root+"new").to_sym  if action == "create"
+    options[:default] << (root+"edit").to_sym if action == "update"
+    return ::I18n.translate(root+action, options)
+  end
+
+  def human_action_name()
+    return self.class.human_action_name(action_name, @title)
+  end
+
 end

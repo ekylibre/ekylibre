@@ -47,6 +47,7 @@ group :assets do
   gem 'oily_png'
   gem 'compass-rails'
   gem 'bootstrap-sass'
+  gem 'compass_twitter_bootstrap'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   # gem 'libv8', '~> 3.11.8'

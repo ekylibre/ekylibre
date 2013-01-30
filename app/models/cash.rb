@@ -20,29 +20,29 @@
 # 
 # == Table: cashes
 #
-#  account_id   :integer          not null
-#  address      :text             
-#  agency_code  :string(255)      
-#  bank_code    :string(255)      
-#  bank_name    :string(50)       
-#  bic          :string(16)       
-#  by_default   :boolean          not null
-#  country      :string(2)        
-#  created_at   :datetime         not null
-#  creator_id   :integer          
-#  currency     :string(3)        
-#  iban         :string(34)       
-#  iban_label   :string(48)       
-#  id           :integer          not null, primary key
-#  journal_id   :integer          not null
-#  key          :string(255)      
-#  lock_version :integer          default(0), not null
-#  mode         :string(255)      default("IBAN"), not null
-#  name         :string(255)      not null
-#  nature       :string(16)       default("bank_account"), not null
-#  number       :string(255)      
-#  updated_at   :datetime         not null
-#  updater_id   :integer          
+#  account_id           :integer          not null
+#  bank_account_key     :string(255)      
+#  bank_account_number  :string(255)      
+#  bank_agency_address  :text             
+#  bank_agency_code     :string(255)      
+#  bank_code            :string(255)      
+#  bank_identifier_code :string(16)       
+#  bank_name            :string(50)       
+#  by_default           :boolean          not null
+#  country              :string(2)        
+#  created_at           :datetime         not null
+#  creator_id           :integer          
+#  currency             :string(3)        
+#  iban                 :string(34)       
+#  id                   :integer          not null, primary key
+#  journal_id           :integer          not null
+#  lock_version         :integer          default(0), not null
+#  mode                 :string(255)      default("iban"), not null
+#  name                 :string(255)      not null
+#  nature               :string(16)       default("bank_account"), not null
+#  spaced_iban          :string(48)       
+#  updated_at           :datetime         not null
+#  updater_id           :integer          
 #
 
 
@@ -65,11 +65,11 @@ class Cash < Ekylibre::Record::Base
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :country, :allow_nil => true, :maximum => 2
   validates_length_of :currency, :allow_nil => true, :maximum => 3
-  validates_length_of :bic, :nature, :allow_nil => true, :maximum => 16
+  validates_length_of :bank_identifier_code, :nature, :allow_nil => true, :maximum => 16
   validates_length_of :iban, :allow_nil => true, :maximum => 34
-  validates_length_of :iban_label, :allow_nil => true, :maximum => 48
+  validates_length_of :spaced_iban, :allow_nil => true, :maximum => 48
   validates_length_of :bank_name, :allow_nil => true, :maximum => 50
-  validates_length_of :agency_code, :bank_code, :key, :mode, :name, :number, :allow_nil => true, :maximum => 255
+  validates_length_of :bank_account_key, :bank_account_number, :bank_agency_code, :bank_code, :mode, :name, :allow_nil => true, :maximum => 255
   validates_inclusion_of :by_default, :in => [true, false]
   validates_presence_of :account, :journal, :mode, :name, :nature
   #]VALIDATORS]

@@ -25,11 +25,11 @@
 #  creator_id       :integer          
 #  description      :text             
 #  full_name_format :string(255)      
+#  gender           :string(255)      not null
 #  id               :integer          not null, primary key
 #  in_name          :boolean          default(TRUE), not null
 #  lock_version     :integer          default(0), not null
 #  name             :string(255)      not null
-#  physical         :boolean          not null
 #  title            :string(255)      
 #  updated_at       :datetime         not null
 #  updater_id       :integer          

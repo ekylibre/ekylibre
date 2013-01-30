@@ -965,6 +965,8 @@ arb:
     balance_amount: "الرصيد"
     balances: "ارصدة الحساب"
     bank: "البنك"
+    # bank_account_number: "Bank account number"
+    # bank_check_number: "Bank check number"
     bank_code: "الرمز المصرفي"
     bank_journals: "دفاتر يومية مصرفية"
     bank_name: "اسم البنك"

@@ -8,8 +8,7 @@ if ActiveRecord::Base.connection.adapter_name == 'SQLServer'
   Cultivation.coerce_sqlserver_date :started_on, :stopped_on
   CustomFieldDatum.coerce_sqlserver_date :date_value
   Deposit.coerce_sqlserver_date :created_on
-  Entity.coerce_sqlserver_date :born_on, :dead_on, :first_met_on, :left_on, :recruited_on
-  EntityLink.coerce_sqlserver_date :started_on, :stopped_on
+  Entity.coerce_sqlserver_date :born_on, :dead_on, :first_met_on
   FinancialYear.coerce_sqlserver_date :started_on, :stopped_on
   IncomingDelivery.coerce_sqlserver_date :moved_on, :planned_on
   IncomingPayment.coerce_sqlserver_date :created_on, :paid_on, :to_bank_on
@@ -25,4 +24,5 @@ if ActiveRecord::Base.connection.adapter_name == 'SQLServer'
   TaxDeclaration.coerce_sqlserver_date :declared_on, :paid_on, :started_on, :stopped_on
   Transfer.coerce_sqlserver_date :created_on, :started_on, :stopped_on
   Transport.coerce_sqlserver_date :created_on, :transport_on
+  User.coerce_sqlserver_date :arrived_on, :departed_on
 end

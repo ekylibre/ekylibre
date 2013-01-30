@@ -20,12 +20,12 @@
 # 
 # == Table: incoming_payments
 #
-#  account_number        :string(255)      
 #  accounted_at          :datetime         
 #  affair_id             :integer          
 #  amount                :decimal(19, 4)   not null
-#  bank                  :string(255)      
-#  check_number          :string(255)      
+#  bank_account_number   :string(255)      
+#  bank_check_number     :string(255)      
+#  bank_name             :string(255)      
 #  commission_account_id :integer          
 #  commission_amount     :decimal(19, 4)   default(0.0), not null
 #  created_at            :datetime         not null

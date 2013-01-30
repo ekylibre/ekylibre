@@ -20,12 +20,12 @@
 # 
 # == Table: incoming_payments
 #
-#  account_number        :string(255)      
 #  accounted_at          :datetime         
 #  affair_id             :integer          
 #  amount                :decimal(19, 4)   not null
-#  bank                  :string(255)      
-#  check_number          :string(255)      
+#  bank_account_number   :string(255)      
+#  bank_check_number     :string(255)      
+#  bank_name             :string(255)      
 #  commission_account_id :integer          
 #  commission_amount     :decimal(19, 4)   default(0.0), not null
 #  created_at            :datetime         not null
@@ -64,7 +64,7 @@ class IncomingPayment < Ekylibre::Record::Base
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :amount, :commission_amount, :allow_nil => true
   validates_length_of :currency, :allow_nil => true, :maximum => 3
-  validates_length_of :account_number, :bank, :check_number, :number, :allow_nil => true, :maximum => 255
+  validates_length_of :bank_account_number, :bank_check_number, :bank_name, :number, :allow_nil => true, :maximum => 255
   validates_inclusion_of :downpayment, :received, :scheduled, :in => [true, false]
   validates_presence_of :amount, :commission_amount, :currency, :mode, :to_bank_on
   #]VALIDATORS]

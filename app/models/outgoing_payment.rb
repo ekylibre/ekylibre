@@ -20,27 +20,28 @@
 # 
 # == Table: outgoing_payments
 #
-#  accounted_at     :datetime         
-#  affair_id        :integer          
-#  amount           :decimal(19, 4)   default(0.0), not null
-#  check_number     :string(255)      
-#  created_at       :datetime         not null
-#  created_on       :date             
-#  creator_id       :integer          
-#  currency         :string(3)        not null
-#  delivered        :boolean          default(TRUE), not null
-#  downpayment      :boolean          default(TRUE), not null
-#  id               :integer          not null, primary key
-#  journal_entry_id :integer          
-#  lock_version     :integer          default(0), not null
-#  mode_id          :integer          not null
-#  number           :string(255)      
-#  paid_on          :date             
-#  payee_id         :integer          not null
-#  responsible_id   :integer          not null
-#  to_bank_on       :date             not null
-#  updated_at       :datetime         not null
-#  updater_id       :integer          
+#  accounted_at      :datetime         
+#  affair_id         :integer          
+#  amount            :decimal(19, 4)   default(0.0), not null
+#  bank_check_number :string(255)      
+#  cash_id           :integer          not null
+#  created_at        :datetime         not null
+#  created_on        :date             
+#  creator_id        :integer          
+#  currency          :string(3)        not null
+#  delivered         :boolean          default(TRUE), not null
+#  downpayment       :boolean          default(TRUE), not null
+#  id                :integer          not null, primary key
+#  journal_entry_id  :integer          
+#  lock_version      :integer          default(0), not null
+#  mode_id           :integer          not null
+#  number            :string(255)      
+#  paid_on           :date             
+#  payee_id          :integer          not null
+#  responsible_id    :integer          not null
+#  to_bank_on        :date             not null
+#  updated_at        :datetime         not null
+#  updater_id        :integer          
 #
 
 
@@ -53,7 +54,7 @@ class OutgoingPayment < Ekylibre::Record::Base
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :amount, :allow_nil => true
   validates_length_of :currency, :allow_nil => true, :maximum => 3
-  validates_length_of :check_number, :number, :allow_nil => true, :maximum => 255
+  validates_length_of :bank_check_number, :number, :allow_nil => true, :maximum => 255
   validates_inclusion_of :delivered, :downpayment, :in => [true, false]
   validates_presence_of :amount, :currency, :mode, :payee, :responsible, :to_bank_on
   #]VALIDATORS]

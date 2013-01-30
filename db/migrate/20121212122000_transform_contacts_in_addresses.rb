@@ -739,6 +739,11 @@ class TransformContactsInAddresses < ActiveRecord::Migration
     for column in [:code, :created_at, :creator_id, :entity_id, :updated_at, :updater_id]
       rename_index(:entity_addresses, "index_contacts_on_#{column}".to_sym, "index_entity_addresses_on_#{column}".to_sym)
     end
+
+    execute("INSERT INTO #{quoted_table_name(:entity_addresses)} (entity_id, canal, coordinate) SELECT id, 'website', website FROM entities WHERE LENGTH(TRIM(website)) > 0")
+    remove_column :entities, :website
+
+    rename_column :entity_link_natures, :propagate_contacts, :propagate_addresses
   end
 
   def down

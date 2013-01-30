@@ -20,6 +20,7 @@
 # 
 # == Table: incoming_payment_modes
 #
+#  active                  :boolean          
 #  attorney_journal_id     :integer          
 #  cash_id                 :integer          
 #  commission_account_id   :integer          
@@ -34,7 +35,6 @@
 #  lock_version            :integer          default(0), not null
 #  name                    :string(50)       not null
 #  position                :integer          
-#  published               :boolean          
 #  updated_at              :datetime         not null
 #  updater_id              :integer          
 #  with_accounting         :boolean          not null

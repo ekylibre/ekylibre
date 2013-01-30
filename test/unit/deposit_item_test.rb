@@ -23,6 +23,7 @@
 #  amount       :decimal(19, 4)   default(1.0), not null
 #  created_at   :datetime         not null
 #  creator_id   :integer          
+#  currency     :string(3)        not null
 #  deposit_id   :integer          not null
 #  id           :integer          not null, primary key
 #  lock_version :integer          default(0), not null

@@ -484,6 +484,8 @@ spa:
     # balance_amount: "Solde"
     # balances: "Balances de compte"
     # bank: "Banque"
+    # bank_account_number: "Bank account number"
+    # bank_check_number: "Bank check number"
     # bank_code: "Code banque"
     # bank_journals: "Journaux de banque"
     # bank_name: "Nom de la banque"

@@ -23,8 +23,8 @@ task :models => :environment do
         val = ((val.nil? or val.blank?) ? "''" : val.inspect)
         if c == :parent_id
           val = ":#{m}"
-        elsif [:creator_id, :updater_id, :responsible_id].include? c
-          val = ":entity"
+        elsif [:creator_id, :updater_id].include? c
+          val = ":user"
         elsif model.columns_hash.keys.include?(c.to_s[0..-4]+"_type")
           val = "\"#{c.to_s[0..-4]}_type\""
         elsif symodels.include? c.to_s[0..-4].to_sym

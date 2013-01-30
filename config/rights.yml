@@ -295,7 +295,7 @@ consult_products:
   actions:
   - "dashboards::sales"
   - "product_natures::index"
-  - "product_natures::show # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!!"
+  - "product_natures::show # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!!"
 # Consulter les achats
 consult_purchases:
   actions:

@@ -21,85 +21,57 @@
 # 
 # == Table: entities
 #
-#  active                                 :boolean          default(TRUE), not null
-#  activity_code                          :string(32)       
-#  administrator                          :boolean          not null
-#  attorney                               :boolean          not null
-#  attorney_account_id                    :integer          
-#  authentication_token                   :string(255)      
-#  authorized_payments_count              :integer          
-#  born_on                                :date             
-#  category_id                            :integer          
-#  client                                 :boolean          not null
-#  client_account_id                      :integer          
-#  code                                   :string(64)       
-#  comment                                :text             
-#  confirmation_sent_at                   :datetime         
-#  confirmation_token                     :string(255)      
-#  confirmed_at                           :datetime         
-#  connected_at                           :datetime         
-#  country                                :string(2)        
-#  created_at                             :datetime         not null
-#  creator_id                             :integer          
-#  currency                               :string(255)      not null
-#  current_sign_in_at                     :datetime         
-#  current_sign_in_ip                     :string(255)      
-#  dead_on                                :date             
-#  deliveries_conditions                  :string(60)       
-#  department_id                          :integer          
-#  email                                  :string(255)      not null
-#  employed                               :boolean          not null
-#  employment                             :string(255)      
-#  encrypted_password                     :string(255)      default(""), not null
-#  establishment_id                       :integer          
-#  failed_attempts                        :integer          default(0)
-#  first_met_on                           :date             
-#  first_name                             :string(255)      
-#  full_name                              :string(255)      not null
-#  id                                     :integer          not null, primary key
-#  invoices_count                         :integer          
-#  language                               :string(3)        default("???"), not null
-#  last_name                              :string(255)      not null
-#  last_sign_in_at                        :datetime         
-#  last_sign_in_ip                        :string(255)      
-#  left_on                                :date             
-#  lock_version                           :integer          default(0), not null
-#  locked                                 :boolean          not null
-#  locked_at                              :datetime         
-#  loggable                               :boolean          not null
-#  maximal_grantable_reduction_percentage :decimal(19, 4)   
-#  nature_id                              :integer          not null
-#  of_company                             :boolean          not null
-#  office                                 :string(255)      
-#  origin                                 :string(255)      
-#  payment_delay                          :string(255)      
-#  payment_mode_id                        :integer          
-#  photo                                  :string(255)      
-#  profession_id                          :integer          
-#  proposer_id                            :integer          
-#  prospect                               :boolean          not null
-#  recruited_on                           :date             
-#  reduction_percentage                   :decimal(19, 4)   
-#  remember_created_at                    :datetime         
-#  reminder_submissive                    :boolean          not null
-#  reset_password_sent_at                 :datetime         
-#  reset_password_token                   :string(255)      
-#  responsible_id                         :integer          
-#  rights                                 :text             
-#  role_id                                :integer          
-#  sign_in_count                          :integer          default(0)
-#  siren                                  :string(9)        
-#  soundex                                :string(4)        
-#  supplier                               :boolean          not null
-#  supplier_account_id                    :integer          
-#  transporter                            :boolean          not null
-#  unconfirmed_email                      :string(255)      
-#  unlock_token                           :string(255)      
-#  updated_at                             :datetime         not null
-#  updater_id                             :integer          
-#  vat_number                             :string(15)       
-#  vat_submissive                         :boolean          default(TRUE), not null
-#  webpass                                :string(255)      
+#  active                    :boolean          default(TRUE), not null
+#  activity_code             :string(32)       
+#  attorney                  :boolean          not null
+#  attorney_account_id       :integer          
+#  authorized_payments_count :integer          
+#  born_on                   :date             
+#  category_id               :integer          
+#  client                    :boolean          not null
+#  client_account_id         :integer          
+#  code                      :string(64)       
+#  comment                   :text             
+#  country                   :string(2)        
+#  created_at                :datetime         not null
+#  creator_id                :integer          
+#  currency                  :string(255)      not null
+#  dead_on                   :date             
+#  deliveries_conditions     :string(60)       
+#  discount_percentage       :decimal(19, 4)   
+#  first_met_on              :date             
+#  first_name                :string(255)      
+#  full_name                 :string(255)      not null
+#  id                        :integer          not null, primary key
+#  invoices_count            :integer          
+#  language                  :string(3)        default("???"), not null
+#  last_name                 :string(255)      not null
+#  lock_version              :integer          default(0), not null
+#  locked                    :boolean          not null
+#  nature_id                 :integer          not null
+#  of_company                :boolean          not null
+#  origin                    :string(255)      
+#  payment_delay             :string(255)      
+#  payment_mode_id           :integer          
+#  picture_content_type      :string(255)      
+#  picture_file_name         :string(255)      
+#  picture_file_size         :integer          
+#  picture_updated_at        :datetime         
+#  proposer_id               :integer          
+#  prospect                  :boolean          not null
+#  reduction_percentage      :decimal(19, 4)   
+#  reminder_submissive       :boolean          not null
+#  responsible_id            :integer          
+#  siren                     :string(9)        
+#  soundex                   :string(4)        
+#  supplier                  :boolean          not null
+#  supplier_account_id       :integer          
+#  transporter               :boolean          not null
+#  updated_at                :datetime         not null
+#  updater_id                :integer          
+#  vat_number                :string(15)       
+#  vat_submissive            :boolean          default(TRUE), not null
+#  webpass                   :string(255)      
 #
 
 require "digest/sha2"
@@ -107,20 +79,16 @@ require "digest/sha2"
 class Entity < Ekylibre::Record::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me
-  attr_accessible :active, :activity_code, :attorney, :attorney_account_id, :authorized_payments_count, :born_on, :category_id, :client, :client_account_id, :code, :comment, :country, :currency, :dead_on, :deliveries_conditions, :department_id, :ean13, :employed, :employment, :establishment_id, :first_met_on, :first_name, :full_name, :language, :last_name, :left_on, :loggable, :maximal_grantable_reduction_percentage, :nature_id, :office, :origin, :payment_delay, :payment_mode_id, :photo, :profession_id, :proposer_id, :prospect, :recruited_on, :reduction_percentage, :reflation_submissive, :responsible_id, :role_id, :siren, :supplier, :supplier_account_id, :transporter, :vat_number, :vat_submissive
+  attr_accessible :active, :activity_code, :attorney, :attorney_account_id, :authorized_payments_count, :born_on, :category_id, :client, :client_account_id, :code, :comment, :country, :currency, :dead_on, :deliveries_conditions, :employed, :employment, :establishment_id, :first_met_on, :first_name, :full_name, :language, :last_name, :left_on, :loggable, :maximal_grantable_reduction_percentage, :nature_id, :office, :origin, :payment_delay, :payment_mode_id, :photo, :profession_id, :proposer_id, :prospect, :recruited_on, :reduction_percentage, :reflation_submissive, :responsible_id, :role_id, :siren, :supplier, :supplier_account_id, :transporter, :vat_number, :vat_submissive
   attr_accessor :password_confirmation, :old_password
   attr_protected :rights
   belongs_to :attorney_account, :class_name => "Account"
   belongs_to :category, :class_name => "EntityCategory"
   belongs_to :client_account, :class_name => "Account"
-  belongs_to :department
-  belongs_to :establishment
   belongs_to :nature, :class_name => "EntityNature"
   belongs_to :payment_mode, :class_name => "IncomingPaymentMode"
-  belongs_to :profession
   belongs_to :proposer, :class_name => "Entity"
-  belongs_to :responsible, :class_name => "Entity"
-  belongs_to :role
+  belongs_to :responsible, :class_name => "User"
   belongs_to :supplier_account, :class_name => "Account"
   has_many :clients, :class_name => "Entity", :foreign_key => :responsible_id, :dependent => :nullify
   has_many :addresses, :conditions => {:deleted_at => nil}, :class_name => "EntityAddress", :inverse_of => :entity
@@ -172,8 +140,8 @@ class Entity < Ekylibre::Record::Base
   scope :clients,      -> { where(:client => true) }
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :failed_attempts, :allow_nil => true, :only_integer => true
-  validates_numericality_of :maximal_grantable_reduction_percentage, :reduction_percentage, :allow_nil => true
+  validates_numericality_of :picture_file_size, :allow_nil => true, :only_integer => true
+  validates_numericality_of :discount_percentage, :reduction_percentage, :allow_nil => true
   validates_length_of :country, :allow_nil => true, :maximum => 2
   validates_length_of :language, :allow_nil => true, :maximum => 3
   validates_length_of :soundex, :allow_nil => true, :maximum => 4
@@ -182,9 +150,9 @@ class Entity < Ekylibre::Record::Base
   validates_length_of :activity_code, :allow_nil => true, :maximum => 32
   validates_length_of :deliveries_conditions, :allow_nil => true, :maximum => 60
   validates_length_of :code, :allow_nil => true, :maximum => 64
-  validates_length_of :authentication_token, :confirmation_token, :currency, :current_sign_in_ip, :email, :employment, :encrypted_password, :first_name, :full_name, :last_name, :last_sign_in_ip, :office, :origin, :payment_delay, :photo, :reset_password_token, :unconfirmed_email, :unlock_token, :webpass, :allow_nil => true, :maximum => 255
-  validates_inclusion_of :active, :administrator, :attorney, :client, :employed, :locked, :loggable, :of_company, :prospect, :reminder_submissive, :supplier, :transporter, :vat_submissive, :in => [true, false]
-  validates_presence_of :currency, :email, :encrypted_password, :full_name, :language, :last_name, :nature
+  validates_length_of :currency, :first_name, :full_name, :last_name, :origin, :payment_delay, :picture_content_type, :picture_file_name, :webpass, :allow_nil => true, :maximum => 255
+  validates_inclusion_of :active, :attorney, :client, :locked, :of_company, :prospect, :reminder_submissive, :supplier, :transporter, :vat_submissive, :in => [true, false]
+  validates_presence_of :currency, :full_name, :language, :last_name, :nature
   #]VALIDATORS]
   validates_presence_of :category
   # validates_presence_of :password, :password_confirmation, :if => Proc.new{|e| e.encrypted_password.blank? and e.loggable?}

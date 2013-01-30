@@ -443,13 +443,13 @@ fra:
       transfer: "Transfert"
       transport: "Transport"
       unit: "Unité"
-      user: "Utilisateur" #?
+      user: "Utilisateur"
       # vegetal: "Vegetal"
       warehouse: "Lieu de stockage"
   attributes:
     account: "Compte comptable"
     account_balances: "Balances de compte"
-    account_number: "Numéro de compte"
+    account_number: "Numéro de compte" #?
     accountable: "Comptabilisable"
     accounted_at: "Date comptabilisation"
     accounts: "Comptes" #?
@@ -464,7 +464,7 @@ fra:
     # administrator: "Administrator"
     affair: "Affair"
     # affairs: "Affairs"
-    agency_code: "Code guichet"
+    agency_code: "Code guichet" #?
     # alive: "Alive"
     allocation_account: "Compte de dotation"
     amount: "Montant"
@@ -476,7 +476,7 @@ fra:
     area_unit: "Unité de surface"
     areas: "Zones postales"
     arrival_reasons: "Causes d'entrée" #?
-    arrived_on: "Date d'entrée" #?
+    arrived_on: "Date d'entrée"
     asset: "Immobilisation"
     # asset_account: "Asset account"
     asset_amount: "Valeur nette comptable"
@@ -500,8 +500,14 @@ fra:
     balance: "Solde"
     balance_amount: "Solde"
     balances: "Balances de compte"
-    bank: "Banque"
+    bank: "Banque" #?
+    # bank_account_key: "Bank account key"
+    bank_account_number: "Bank account number"
+    # bank_agency_address: "Bank agency address"
+    # bank_agency_code: "Bank agency code"
+    bank_check_number: "Bank check number"
     bank_code: "Code banque"
+    # bank_identifier_code: "Bank identifier code"
     bank_journals: "Journaux de banque" #?
     bank_name: "Nom de la banque"
     bank_statement: "Relevé de compte bancaire"
@@ -509,7 +515,7 @@ fra:
     banks_accounts: "Comptes comptables de banque" #?
     base: "Base"
     bban: "RIB" #?
-    bic: "BIC"
+    bic: "BIC" #?
     boolean_value: "Valeur booléenne"
     born_at: "Born at"
     born_on: "Date de naissance"
@@ -532,7 +538,7 @@ fra:
     # charge_account: "Charge account"
     charges_account: "Compte de charge"
     charges_accounts: "Comptes de charge" #?
-    check_number: "N°Chèque"
+    check_number: "N°Chèque" #?
     check_state: "Vérifier l’état"
     chidren: "Chidren"
     child_kinships: "Relation enfant" #?
@@ -583,7 +589,7 @@ fra:
     # confirmed: "Confirmed"
     # confirmed_at: "Confirmed at"
     confirmed_on: "Confirmée le"
-    connected_at: "Connecté le"
+    connected_at: "Connecté le" #?
     consumption: "Consommation (litres/heure)" #?
     content_maximal_quantity: "Content maximal quantity"
     content_nature: "Content nature"
@@ -621,6 +627,7 @@ fra:
     dead_at: "Dead at"
     dead_on: "Date de décès"
     debit: "Débit"
+    # debtor: "Debtor"
     decimal: "Decimal" #?
     decimal_value: "Valeur décimale"
     declared_on: "Déclarée le"
@@ -644,7 +651,7 @@ fra:
     delivery_modes: "Modes de livraison" #?
     density_label: "Densité" #?
     departed_at: "Parti le" #?
-    departed_on: "Parti le" #?
+    departed_on: "Parti le"
     department: "Service"
     departments: "Services" #?
     departure_reasons: "Causes de sortie" #?
@@ -657,7 +664,7 @@ fra:
     # depreciable: "Depreciable"
     depreciable_amount: "Montant amortissable"
     depreciated_amount: "Montant amorti"
-    depreciation: "Amortissement"
+    depreciation: "Amortissement" #?
     depreciation_method: "Méthode d’amortissement"
     depreciation_percentage: "Pourcentage d’amortissement"
     depreciations: "Amortissements"
@@ -670,6 +677,7 @@ fra:
     diff_more: "Droits rajoutés"
     direct_links: "Liens directs"
     direction: "Type" #?
+    # discount_percentage: "Discount percentage"
     discount_rate: "Taux d’escompte" #?
     district: "Zone administrative"
     districts: "Zones administratives" #?
@@ -752,6 +760,7 @@ fra:
     full_name_format: "Format du nom complet"
     function_title: "Civilités"
     future_events: "Evènements futurs"
+    # gender: "Gender"
     genealogy: "Généalogie" #?
     generated: "Généré" #?
     global_balance: "Solde global"
@@ -765,7 +774,7 @@ fra:
     hashed_password: "Mot de passe crypté" #?
     hour_duration: "Heure(s)" #?
     iban: "IBAN"
-    iban_label: "IBAN"
+    iban_label: "IBAN" #?
     id: "ID"
     identification_number: "Numéro d'identification"
     immobilizations_account: "Compte d’immobilisation" #?
@@ -794,7 +803,7 @@ fra:
     invoiced: "Facturée" #?
     invoiced_on: "Facturée le"
     invoices_count: "Nombre de factures"
-    is_debit: "Débit"
+    is_debit: "Débit" #?
     item_listing: "Nœud de l’extraction"
     item_listing_node: "Nœud de l’élément"
     item_nature: "Nature de l’élément"
@@ -823,7 +832,7 @@ fra:
     # last_sign_in_at: "Last sign in at"
     # last_sign_in_ip: "Last sign in ip"
     last_year: "Dernière année"
-    left_on: "Parti le"
+    left_on: "Parti le" #?
     letter: "Lettre"
     letter_format: "Devis au format lettre"
     lft: "Lft"
@@ -841,7 +850,7 @@ fra:
     locked: "Verrouillé"
     # locked_at: "Locked at"
     log: "Journal d'évènements" #?
-    loggable: "Peut se connecter"
+    loggable: "Peut se connecter" #?
     lost: "En perte" #?
     luminance: "Luminosité" #?
     mail: "E-mail"
@@ -892,7 +901,7 @@ fra:
     nature: "Type"
     nature_code: "Code"
     net_weight: "Masse nette" #?
-    nic: "NIC (Numéro Interne de Classement)"
+    nic: "NIC (Numéro Interne de Classement)" #?
     node: "Nœud"
     nodes: "Nœuds d’extraction"
     number: "Numéro"
@@ -964,8 +973,8 @@ fra:
     period: "Périodicité"
     # phase_delay: "Phase delay"
     phones: "Téléphones"
-    photo: "Photo"
-    physical: "Personne physique"
+    photo: "Photo" #?
+    physical: "Personne physique" #?
     picture: "Photo"
     picture_content_type: "Format de photo"
     picture_file_name: "Nom du fichier photo"
@@ -1009,7 +1018,8 @@ fra:
     products_accounts: "Comptes produits" #?
     profession: "Profession"
     professions: "Professions" #?
-    propagate_contacts: "Propager les contacts"
+    # propagate_addresses: "Propagate addresses"
+    propagate_contacts: "Propager les contacts" #?
     proposer: "Parrain"
     prospect: "Prospect"
     protected: "Protégé"
@@ -1047,7 +1057,7 @@ fra:
     reconcilable: "Lettrable"
     record_value: "Enregistrement"
     record_value_type: "Type d’enregistrement"
-    recruited_on: "Recruté(e) le"
+    recruited_on: "Recruté(e) le" #?
     reductible: "Réductible"
     reduction: "Ligne de réduction"
     reduction_origin: "Ligne soumise à réduction"
@@ -1075,7 +1085,7 @@ fra:
     rights: "Droits"
     role: "Rôle de base"
     roles: "Rôles" #?
-    rome: "Code ROME"
+    rome: "Code ROME" #?
     root_model: "Racine"
     root_model_name: "Racine"
     sale: "Vente"
@@ -1111,15 +1121,16 @@ fra:
     shipped_on: "Envoyé le" #?
     # sign_in_count: "Sign in count"
     siren: "N° SIREN"
-    siret: "N° SIRET"
+    siret: "N° SIRET" #?
     soundex: "Soundex"
     source: "Source"
     source_quantity: "Quantité source"
+    # spaced_iban: "Spaced iban"
     sql_type: "Type SQL"
     start: "Début"
     started_at: "Débuté à"
     started_on: "Débuté le"
-    started_sec: "Date et heure (en secondes)"
+    started_sec: "Date et heure (en secondes)" #?
     state: "État"
     state_label: "État"
     stock: "Stock de produit" #?

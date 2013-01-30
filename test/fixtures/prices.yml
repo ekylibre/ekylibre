@@ -27,13 +27,13 @@
 #  created_at        :datetime         not null
 #  creator_id        :integer          
 #  currency          :string(3)        
-#  entity_id         :integer          
 #  id                :integer          not null, primary key
 #  lock_version      :integer          default(0), not null
 #  pretax_amount     :decimal(19, 4)   not null
 #  product_nature_id :integer          not null
 #  started_at        :datetime         
 #  stopped_at        :datetime         
+#  supplier_id       :integer          
 #  tax_id            :integer          not null
 #  updated_at        :datetime         not null
 #  updater_id        :integer          

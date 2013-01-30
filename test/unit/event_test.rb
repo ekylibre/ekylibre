@@ -31,7 +31,7 @@
 #  reason         :text             
 #  responsible_id :integer          not null
 #  started_at     :datetime         not null
-#  started_sec    :integer          not null
+#  stopped_at     :datetime         
 #  updated_at     :datetime         not null
 #  updater_id     :integer          
 #

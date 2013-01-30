@@ -23,6 +23,7 @@
 #  accounted_at     :datetime         
 #  affair_id        :integer          
 #  amount           :decimal(19, 4)   default(0.0), not null
+#  client_id        :integer          not null
 #  comment          :string(255)      
 #  created_at       :datetime         not null
 #  created_on       :date             
@@ -34,7 +35,6 @@
 #  lock_version     :integer          default(0), not null
 #  started_on       :date             
 #  stopped_on       :date             
-#  supplier_id      :integer          
 #  updated_at       :datetime         not null
 #  updater_id       :integer          
 #

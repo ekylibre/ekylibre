@@ -20,18 +20,18 @@
 # 
 # == Table: entity_link_natures
 #
-#  comment            :text             
-#  created_at         :datetime         not null
-#  creator_id         :integer          
-#  id                 :integer          not null, primary key
-#  lock_version       :integer          default(0), not null
-#  name               :string(255)      not null
-#  name_1_to_2        :string(255)      
-#  name_2_to_1        :string(255)      
-#  propagate_contacts :boolean          not null
-#  symmetric          :boolean          not null
-#  updated_at         :datetime         not null
-#  updater_id         :integer          
+#  comment             :text             
+#  created_at          :datetime         not null
+#  creator_id          :integer          
+#  id                  :integer          not null, primary key
+#  lock_version        :integer          default(0), not null
+#  name                :string(255)      not null
+#  name_1_to_2         :string(255)      
+#  name_2_to_1         :string(255)      
+#  propagate_addresses :boolean          not null
+#  symmetric           :boolean          not null
+#  updated_at          :datetime         not null
+#  updater_id          :integer          
 #
 
 
@@ -40,7 +40,7 @@ class EntityLinkNature < Ekylibre::Record::Base
   has_many :entity_links, :foreign_key => :nature_id
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :name, :name_1_to_2, :name_2_to_1, :allow_nil => true, :maximum => 255
-  validates_inclusion_of :propagate_contacts, :symmetric, :in => [true, false]
+  validates_inclusion_of :propagate_addresses, :symmetric, :in => [true, false]
   validates_presence_of :name
   #]VALIDATORS]
 

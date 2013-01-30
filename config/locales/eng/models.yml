@@ -504,6 +504,8 @@ eng:
     balance_amount: "Balance amount"
     balances: "Balances"
     bank: "Bank"
+    # bank_account_number: "Bank account number"
+    # bank_check_number: "Bank check number"
     bank_code: "Bank code"
     bank_journals: "Bank journals"
     bank_name: "Bank name"

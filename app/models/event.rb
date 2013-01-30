@@ -31,7 +31,7 @@
 #  reason         :text             
 #  responsible_id :integer          not null
 #  started_at     :datetime         not null
-#  started_sec    :integer          not null
+#  stopped_at     :datetime         
 #  updated_at     :datetime         not null
 #  updater_id     :integer          
 #
@@ -43,9 +43,9 @@ class Event < Ekylibre::Record::Base
   belongs_to :nature, :class_name => "EventNature"
   belongs_to :responsible, :class_name => "Entity"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :duration, :started_sec, :allow_nil => true, :only_integer => true
+  validates_numericality_of :duration, :allow_nil => true, :only_integer => true
   validates_length_of :location, :allow_nil => true, :maximum => 255
-  validates_presence_of :entity, :nature, :responsible, :started_at, :started_sec
+  validates_presence_of :entity, :nature, :responsible, :started_at
   #]VALIDATORS]
   validates_presence_of :responsible, :nature, :entity
 

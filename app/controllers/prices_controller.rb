@@ -23,7 +23,7 @@ class PricesController < AdminController
 
   list(:conditions => prices_conditions, :order => :product_nature_id) do |t|
     t.column :name, :through => :product_nature, :url => true
-    t.column :full_name, :through => :entity, :url => true
+    t.column :full_name, :through => :supplier, :url => true
     t.column :name, :through => :category, :url => true
     t.column :pretax_amount, :currency => true
     t.column :amount, :currency => true
@@ -36,14 +36,14 @@ class PricesController < AdminController
   def new
     @mode = (params[:mode]||"sales").to_sym
     @price = Price.new(:product_nature_id => params[:product_nature_id], :currency => params[:currency]||Entity.of_company.currency, :category_id => params[:entity_category_id]||session[:current_entity_category_id]||0)
-    @price.entity_id = params[:entity_id] if params[:entity_id]
+    @price.supplier_id = params[:supplier_id] if params[:supplier_id]
     render_restfully_form
   end
 
   def create
     @mode = (params[:mode]||"sales").to_sym
     @price = Price.new(params[:price])
-    @price.entity_id = params[:price][:entity_id]||Entity.of_company.id
+    @price.supplier_id = params[:price][:supplier_id]||Entity.of_company.id
     return if save_and_redirect(@price)
     render_restfully_form
   end
@@ -55,11 +55,11 @@ class PricesController < AdminController
   end
 
   def find
-    if params[:product_nature_id] and params[:entity_id]
+    if params[:product_nature_id] and params[:supplier_id]
       return unless product = find_and_check(:product_natures, params[:product_nature_id])
-      return unless entity = find_and_check(:entity, params[:entity_id])
-      @price = product.prices.find(:first, :conditions => {:entity_id => entity.id, :active => true}, :order => "by_default DESC")
-      @price ||= Price.new(:category_id => entity.category_id)
+      return unless supplier = find_and_check(:supplier, params[:supplier_id])
+      @price = product.prices.find(:first, :conditions => {:supplier_id => supplier.id, :active => true}, :order => "by_default DESC")
+      @price ||= Price.new(:category_id => supplier.category_id)
       respond_to do |format|
         format.html { render :partial => "amount_form" }
         format.json { render :json => @price.to_json }
@@ -70,20 +70,20 @@ class PricesController < AdminController
       @product = @price.product if @price
     elsif params[:purchase_line_product_id]
       return unless @product = find_and_check(:products, params[:purchase_line_product_id])
-      @price = @product.prices.find_by_active_and_by_default_and_entity_id(true, true, params[:entity_id]||Entity.of_company.id) if @product
+      @price = @product.prices.find_by_active_and_by_default_and_supplier_id(true, true, params[:supplier_id]||Entity.of_company.id) if @product
     end
   end
 
   def edit
     return unless @price = find_and_check
-    @mode = "purchases" if @price.entity_id != Entity.of_company.id
+    @mode = "purchases" if @price.supplier_id != Entity.of_company.id
     t3e @price.attributes, :product => @price.product.name
     render_restfully_form
   end
 
   def update
     return unless @price = find_and_check
-    @mode = "purchases" if @price.entity_id != Entity.of_company.id
+    @mode = "purchases" if @price.supplier_id != Entity.of_company.id
     @price.amount = 0
     return if save_and_redirect(@price, :attributes => params[:price])
     t3e @price.attributes, :product => @price.product.name
@@ -94,15 +94,15 @@ class PricesController < AdminController
   def index
     @modes = ['all', 'clients', 'suppliers']
     @suppliers = Entity.where(:supplier => true)
-    session[:entity_id] = 0
+    session[:supplier_id] = 0
     if request.post?
       mode = params[:price][:mode]
       if mode == "suppliers"
-        session[:entity_id] = params[:price][:supply].to_i
+        session[:supplier_id] = params[:price][:supply].to_i
       elsif mode == "clients"
-        session[:entity_id] = Entity.of_company.id
+        session[:supplier_id] = Entity.of_company.id
       else
-        session[:entity_id] = 0
+        session[:supplier_id] = 0
       end
     end
   end
@@ -181,7 +181,7 @@ class PricesController < AdminController
               tax_id = tax.nil? ? nil : tax.id
               @price = Price.find(:first, :conditions => {:product_id => @product.id, :category_id => category.id, :active => true} )
               if @price.nil? and (!row[x].nil? or !row[x+1].nil? or !row[x+2].nil?)
-                @price = Price.new(:pretax_amount => row[x].to_s.gsub(/\,/,".").to_f, :tax_id => tax_id, :amount => row[x+1].to_s.gsub(/\,/,".").to_f, :product_id => @product.id, :category_id => category.id, :entity_id => Entity.of_company.id, :currency => Entity.of_company.currency)
+                @price = Price.new(:pretax_amount => row[x].to_s.gsub(/\,/,".").to_f, :tax_id => tax_id, :amount => row[x+1].to_s.gsub(/\,/,".").to_f, :product_id => @product.id, :category_id => category.id, :supplier_id => Entity.of_company.id, :currency => Entity.of_company.currency)
                 blank = false
               elsif !@price.nil?
                 blank = false

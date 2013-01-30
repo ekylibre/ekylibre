@@ -27,13 +27,13 @@
 #  created_at        :datetime         not null
 #  creator_id        :integer          
 #  currency          :string(3)        
-#  entity_id         :integer          
 #  id                :integer          not null, primary key
 #  lock_version      :integer          default(0), not null
 #  pretax_amount     :decimal(19, 4)   not null
 #  product_nature_id :integer          not null
 #  started_at        :datetime         
 #  stopped_at        :datetime         
+#  supplier_id       :integer          
 #  tax_id            :integer          not null
 #  updated_at        :datetime         not null
 #  updater_id        :integer          
@@ -41,13 +41,12 @@
 
 
 class Price < Ekylibre::Record::Base
-  attr_accessible :active, :amount, :by_default, :category_id, :entity_id, :pretax_amount, :product_id, :tax_id, :currency
+  attr_accessible :active, :amount, :by_default, :category_id, :supplier_id, :pretax_amount, :product_id, :tax_id, :currency
   after_create :set_by_default
   belongs_to :category, :class_name => "EntityCategory"
-  belongs_to :entity
   belongs_to :product_nature
   belongs_to :tax
-  # belongs_to :supplier, :class_name => "Entity"
+  belongs_to :supplier, :class_name => "Entity"
   has_many :outgoing_delivery_lines, :class_name => "OutgoingDeliveryItem"
   has_many :taxes
   has_many :purchase_lines, :class_name => "PurchaseItem"
@@ -58,8 +57,8 @@ class Price < Ekylibre::Record::Base
   validates_inclusion_of :active, :in => [true, false]
   validates_presence_of :amount, :pretax_amount, :product_nature, :tax
   #]VALIDATORS]
-  validates_presence_of :category, :if => Proc.new{|price| price.entity_id == Entity.of_company.id}
-  validates_presence_of :entity
+  validates_presence_of :category, :if => Proc.new{|price| price.supplier_id == Entity.of_company.id}
+  validates_presence_of :supplier
   validates_numericality_of :pretax_amount, :amount, :greater_than_or_equal_to => 0
 
   delegate :stockable?, :subscription?, :to => :product
@@ -69,9 +68,9 @@ class Price < Ekylibre::Record::Base
 
 
   before_validation do
-    if entity = Entity.of_company
-      self.currency  ||= entity.currency
-      self.entity_id ||= entity.id
+    if supplier = Entity.of_company
+      self.currency  ||= supplier.currency
+      self.supplier_id ||= supplier.id
     end
     if self.amount.to_f > 0
       self.amount = self.amount.round(2)
@@ -104,7 +103,7 @@ class Price < Ekylibre::Record::Base
 
   def set_by_default
     if self.by_default
-      Price.update_all({:by_default => false}, ["product_nature_id = ? AND id != ? AND entity_id = ?", self.product_nature_id, self.id||0, self.entity_id])
+      Price.update_all({:by_default => false}, ["product_nature_id = ? AND id != ? AND supplier_id = ?", self.product_nature_id, self.id||0, self.supplier_id])
     end
   end
 
@@ -113,7 +112,7 @@ class Price < Ekylibre::Record::Base
   end
 
   def change(amount, tax_id)
-    conditions = {:product_nature_id => self.product_nature_id, :amount => amount, :tax_id => tax_id, :active => true, :entity_id => self.entity_id, :currency => self.currency, :category_id => self.category_id}
+    conditions = {:product_nature_id => self.product_nature_id, :amount => amount, :tax_id => tax_id, :active => true, :supplier_id => self.supplier_id, :currency => self.currency, :category_id => self.category_id}
     price = self.class.where(conditions).first
     if price.nil?
       self.update_column(:active, false)

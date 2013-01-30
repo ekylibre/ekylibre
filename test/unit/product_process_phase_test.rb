@@ -25,11 +25,11 @@
 #  creator_id   :integer          
 #  id           :integer          not null, primary key
 #  lock_version :integer          default(0), not null
-#  name         :string(255)      
-#  nature       :string(255)      
+#  name         :string(255)      not null
+#  nature       :string(255)      not null
 #  phase_delay  :string(255)      
 #  position     :integer          
-#  process_id   :integer          
+#  process_id   :integer          not null
 #  updated_at   :datetime         not null
 #  updater_id   :integer          
 #

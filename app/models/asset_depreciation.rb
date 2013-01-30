@@ -29,7 +29,6 @@
 #  created_on         :date             not null
 #  creator_id         :integer          
 #  depreciated_amount :decimal(19, 4)   
-#  depreciation       :text             
 #  financial_year_id  :integer          
 #  id                 :integer          not null, primary key
 #  journal_entry_id   :integer          

@@ -23,8 +23,8 @@
 #  comment      :text             
 #  created_at   :datetime         not null
 #  creator_id   :integer          
+#  debtor       :boolean          not null
 #  id           :integer          not null, primary key
-#  is_debit     :boolean          not null
 #  label        :string(255)      not null
 #  last_letter  :string(8)        
 #  lock_version :integer          default(0), not null

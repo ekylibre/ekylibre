@@ -23,6 +23,7 @@
 #  accounted_at     :datetime         
 #  affair_id        :integer          
 #  amount           :decimal(19, 4)   default(0.0), not null
+#  client_id        :integer          not null
 #  comment          :string(255)      
 #  created_at       :datetime         not null
 #  created_on       :date             
@@ -34,7 +35,6 @@
 #  lock_version     :integer          default(0), not null
 #  started_on       :date             
 #  stopped_on       :date             
-#  supplier_id      :integer          
 #  updated_at       :datetime         not null
 #  updater_id       :integer          
 #
@@ -42,17 +42,15 @@
 
 class Transfer < Ekylibre::Record::Base
   attr_readonly :comment
-  belongs_to :supplier, :class_name=>"Entity"
-  belongs_to :client, :class_name=>"Entity", :foreign_key=>:supplier_id
-  belongs_to :payer, :class_name=>"Entity", :foreign_key=>:supplier_id
+  belongs_to :client, :class_name => "Entity"
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :amount, :allow_nil => true
   validates_length_of :currency, :allow_nil => true, :maximum => 3
   validates_length_of :comment, :label, :allow_nil => true, :maximum => 255
-  validates_presence_of :amount, :currency
+  validates_presence_of :amount, :client, :currency
   #]VALIDATORS]
-  validates_presence_of :created_on, :supplier
+  validates_presence_of :created_on, :client
 
   acts_as_affairable :dealt_on => :created_on, :debit => false, :third => :client
 
@@ -62,12 +60,6 @@ class Transfer < Ekylibre::Record::Base
   end
 
   bookkeep(:on => :nothing) do |b|
-  end
-
-  alias_attribute :client_id, :supplier_id
-
-  def unpaid_amount
-    self.amount - self.paid_amount
   end
 
   def number

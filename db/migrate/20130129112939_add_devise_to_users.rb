@@ -1,4 +1,4 @@
-class AddDeviseToEntities < ActiveRecord::Migration
+class AddDeviseToUsers < ActiveRecord::Migration
   def self.up
     # # Merge users in entities
     # change_table :entities do |t|
@@ -55,15 +55,13 @@ class AddDeviseToEntities < ActiveRecord::Migration
 
     change_table(:users) do |t|
       ## Database authenticatable
-      t.rename :user_name, :email
-      t.change :email, :string, :limit => 255
+      # t.rename :user_name, :email
+      # t.change :email, :string, :limit => 255
       # t.string :email,              :null => false, :default => ""
       t.string :encrypted_password, :null => false, :default => ""
       t.remove :hashed_password
       t.remove :salt
-      t.remove :ean13
       t.rename :admin, :administrator
-      t.rename :reflation_submissive, :reminder_submissive
 
       ## Recoverable
       t.string   :reset_password_token
@@ -75,7 +73,7 @@ class AddDeviseToEntities < ActiveRecord::Migration
       ## Trackable
       t.integer  :sign_in_count, :default => 0
       t.datetime :current_sign_in_at
-      t.datetime :last_sign_in_at
+      t.rename :connected_at, :last_sign_in_at
       t.string   :current_sign_in_ip
       t.string   :last_sign_in_ip
 
@@ -96,14 +94,24 @@ class AddDeviseToEntities < ActiveRecord::Migration
       # Uncomment below if timestamps were not included in your original model.
       # t.timestamps
     end
-    execute("UPDATE #{quoted_table_name(:users)} SET email = email || '@ekylibre.org'")
-    change_column_null :users, :email, false
 
-    # add_index :users, :email,                :unique => true
+    remove_index :users, :email
+    add_index :users, :email,                :unique => true
     add_index :users, :reset_password_token, :unique => true
     add_index :users, :confirmation_token,   :unique => true
     add_index :users, :unlock_token,         :unique => true
     add_index :users, :authentication_token, :unique => true
+
+    add_column :users, :entity_id, :integer
+    add_column :entities, :old_user_id, :integer
+    en_id = select_value("SELECT id FROM  #{quoted_table_name(:entity_natures)} ORDER BY gender DESC") || '0'
+    ca = [:first_name, :last_name, :created_at, :updated_at, :creator_id, :updater_id, :lock_version]
+    da = {:nature_id => en_id, :old_user_id => :id}
+    execute("INSERT INTO #{quoted_table_name(:entities)} (" + ca.join(", ") + ", " + da.keys.join(", ") + ") SELECT " + ca.join(", ") + ", " + da.values.join(", ") + " FROM #{quoted_table_name(:users)}")
+    execute("UPDATE #{quoted_table_name(:users)} SET entity_id = e.id FROM #{quoted_table_name(:entities)} AS e WHERE e.old_user_id = #{quoted_table_name(:users)}.id")
+    change_column_null :users, :entity_id, false
+    add_index :users, :entity_id, :unique => true
+    remove_column :entities, :old_user_id
   end
 
   def self.down

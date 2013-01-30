@@ -29,7 +29,7 @@
 #  position        :integer          
 #  updated_at      :datetime         not null
 #  updater_id      :integer          
-#  value           :string(255)      not null
+#  value           :string(255)      
 #
 
 
@@ -41,7 +41,7 @@ class CustomFieldChoice < Ekylibre::Record::Base
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :name, :value, :allow_nil => true, :maximum => 255
-  validates_presence_of :custom_field, :name, :value
+  validates_presence_of :custom_field, :name
   #]VALIDATORS]
 
   before_validation do

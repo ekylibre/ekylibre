@@ -23,8 +23,8 @@
 #  comment      :text             
 #  created_at   :datetime         not null
 #  creator_id   :integer          
+#  debtor       :boolean          not null
 #  id           :integer          not null, primary key
-#  is_debit     :boolean          not null
 #  label        :string(255)      not null
 #  last_letter  :string(8)        
 #  lock_version :integer          default(0), not null
@@ -62,7 +62,7 @@ class Account < Ekylibre::Record::Base
   validates_length_of :number, :allow_nil => true, :maximum => 16
   validates_length_of :name, :allow_nil => true, :maximum => 208
   validates_length_of :label, :allow_nil => true, :maximum => 255
-  validates_inclusion_of :is_debit, :reconcilable, :in => [true, false]
+  validates_inclusion_of :debtor, :reconcilable, :in => [true, false]
   validates_presence_of :label, :name, :number
   #]VALIDATORS]
   validates_format_of :number, :with => /^\d(\d(\d[0-9A-Z]*)?)?$/

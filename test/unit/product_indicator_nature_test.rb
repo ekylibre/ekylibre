@@ -31,12 +31,12 @@
 #  minimal_length :integer          
 #  minimal_value  :decimal(19, 4)   
 #  name           :string(255)      not null
-#  nature         :string(255)      
+#  nature         :string(255)      not null
 #  process_id     :integer          not null
 #  unit_id        :integer          
 #  updated_at     :datetime         not null
 #  updater_id     :integer          
-#  usage          :string(255)      
+#  usage          :string(255)      not null
 #
 require 'test_helper'
 

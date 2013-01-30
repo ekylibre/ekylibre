@@ -28,7 +28,7 @@
 #  id                    :integer          not null, primary key
 #  lock_version          :integer          default(0), not null
 #  name                  :string(255)      not null
-#  nature                :string(8)        not null
+#  nature                :string(255)      not null
 #  reduction_percentage  :decimal(19, 4)   
 #  updated_at            :datetime         not null
 #  updater_id            :integer          
@@ -46,8 +46,7 @@ class SubscriptionNature < Ekylibre::Record::Base
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :actual_number, :allow_nil => true, :only_integer => true
   validates_numericality_of :reduction_percentage, :allow_nil => true
-  validates_length_of :nature, :allow_nil => true, :maximum => 8
-  validates_length_of :name, :allow_nil => true, :maximum => 255
+  validates_length_of :name, :nature, :allow_nil => true, :maximum => 255
   validates_presence_of :name, :nature
   #]VALIDATORS]
   validates_numericality_of :reduction_percentage, :greater_than_or_equal_to => 0, :less_than_or_equal_to => 100

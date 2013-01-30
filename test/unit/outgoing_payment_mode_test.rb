@@ -20,6 +20,7 @@
 # 
 # == Table: outgoing_payment_modes
 #
+#  active              :boolean          not null
 #  attorney_journal_id :integer          
 #  cash_id             :integer          
 #  created_at          :datetime         not null

@@ -20,6 +20,7 @@
 # 
 # == Table: outgoing_payment_modes
 #
+#  active              :boolean          not null
 #  attorney_journal_id :integer          
 #  cash_id             :integer          
 #  created_at          :datetime         not null
@@ -43,7 +44,7 @@ class OutgoingPaymentMode < Ekylibre::Record::Base
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :name, :allow_nil => true, :maximum => 50
-  validates_inclusion_of :with_accounting, :in => [true, false]
+  validates_inclusion_of :active, :with_accounting, :in => [true, false]
   validates_presence_of :name
   #]VALIDATORS]
   validates_presence_of :attorney_journal, :if => :with_accounting?

@@ -23,10 +23,13 @@
 #  comment          :text             
 #  created_at       :datetime         not null
 #  creator_id       :integer          
+#  depth            :integer          default(0), not null
 #  id               :integer          not null, primary key
+#  lft              :integer          
 #  lock_version     :integer          default(0), not null
 #  name             :string(255)      not null
 #  parent_id        :integer          
+#  rgt              :integer          
 #  sales_conditions :text             
 #  updated_at       :datetime         not null
 #  updater_id       :integer          
@@ -38,8 +41,9 @@ class Department < Ekylibre::Record::Base
   has_many :employees, :class_name => "Entity"
   acts_as_tree
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_numericality_of :depth, :lft, :rgt, :allow_nil => true, :only_integer => true
   validates_length_of :name, :allow_nil => true, :maximum => 255
-  validates_presence_of :name
+  validates_presence_of :depth, :name
   #]VALIDATORS]
   validates_uniqueness_of :name
 end

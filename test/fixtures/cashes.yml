@@ -20,29 +20,29 @@
 # 
 # == Table: cashes
 #
-#  account_id   :integer          not null
-#  address      :text             
-#  agency_code  :string(255)      
-#  bank_code    :string(255)      
-#  bank_name    :string(50)       
-#  bic          :string(16)       
-#  by_default   :boolean          not null
-#  country      :string(2)        
-#  created_at   :datetime         not null
-#  creator_id   :integer          
-#  currency     :string(3)        
-#  iban         :string(34)       
-#  iban_label   :string(48)       
-#  id           :integer          not null, primary key
-#  journal_id   :integer          not null
-#  key          :string(255)      
-#  lock_version :integer          default(0), not null
-#  mode         :string(255)      default("IBAN"), not null
-#  name         :string(255)      not null
-#  nature       :string(16)       default("bank_account"), not null
-#  number       :string(255)      
-#  updated_at   :datetime         not null
-#  updater_id   :integer          
+#  account_id           :integer          not null
+#  bank_account_key     :string(255)      
+#  bank_account_number  :string(255)      
+#  bank_agency_address  :text             
+#  bank_agency_code     :string(255)      
+#  bank_code            :string(255)      
+#  bank_identifier_code :string(16)       
+#  bank_name            :string(50)       
+#  by_default           :boolean          not null
+#  country              :string(2)        
+#  created_at           :datetime         not null
+#  creator_id           :integer          
+#  currency             :string(3)        
+#  iban                 :string(34)       
+#  id                   :integer          not null, primary key
+#  journal_id           :integer          not null
+#  lock_version         :integer          default(0), not null
+#  mode                 :string(255)      default("iban"), not null
+#  name                 :string(255)      not null
+#  nature               :string(16)       default("bank_account"), not null
+#  spaced_iban          :string(48)       
+#  updated_at           :datetime         not null
+#  updater_id           :integer          
 #
 #
 # == Fixture: cashes

@@ -20,22 +20,22 @@
 # 
 # == Table: custom_fields
 #
-#  active         :boolean          default(TRUE), not null
-#  created_at     :datetime         not null
-#  creator_id     :integer          
-#  id             :integer          not null, primary key
-#  lock_version   :integer          default(0), not null
-#  maximal_length :integer          
-#  maximal_value  :decimal(19, 4)   
-#  minimal_length :integer          default(0), not null
-#  minimal_value  :decimal(19, 4)   
-#  name           :string(255)      not null
-#  nature         :string(8)        not null
-#  position       :integer          
-#  required       :boolean          not null
-#  updated_at     :datetime         not null
-#  updater_id     :integer          
-#  used_with      :string(255)      not null
+#  active          :boolean          default(TRUE), not null
+#  created_at      :datetime         not null
+#  creator_id      :integer          
+#  customized_type :string(255)      not null
+#  id              :integer          not null, primary key
+#  lock_version    :integer          default(0), not null
+#  maximal_length  :integer          
+#  maximal_value   :decimal(19, 4)   
+#  minimal_length  :integer          default(0), not null
+#  minimal_value   :decimal(19, 4)   
+#  name            :string(255)      not null
+#  nature          :string(8)        not null
+#  position        :integer          
+#  required        :boolean          not null
+#  updated_at      :datetime         not null
+#  updater_id      :integer          
 #
 
 

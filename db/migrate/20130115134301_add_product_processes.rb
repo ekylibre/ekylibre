@@ -1,10 +1,11 @@
+# -*- coding: utf-8 -*-
 class AddProductProcesses< ActiveRecord::Migration
 
   def change
 
     create_table :product_indicators do |t|
        t.belongs_to :product, :null => false
-       t.belongs_to :nature, :null => false
+       t.belongs_to :nature,  :null => false
        t.datetime   :measured_at, :null => false
        t.string     :comment
        t.decimal    :decimal_value,   :precision => 19, :scale => 4
@@ -24,10 +25,10 @@ class AddProductProcesses< ActiveRecord::Migration
 
      create_table :product_indicator_natures do |t|
        t.belongs_to :process, :null => false
+       t.string     :name,   :null => false
+       t.string     :nature, :null => false  # decimal, measure, string, boolean ou choice
+       t.string     :usage,  :null => false  # notion métiers avec enumerize
        t.belongs_to :unit
-       t.string     :name, :null => false
-       t.string     :nature  # decimal, measure, string, boolean ou choice
-       t.string     :usage  # notion métiers avec enumerize
        t.integer    :minimal_length
        t.integer    :maximal_length
        t.decimal    :minimal_value,   :precision => 19, :scale => 4
@@ -52,11 +53,11 @@ class AddProductProcesses< ActiveRecord::Migration
     add_index :product_indicator_nature_choices, :nature_id
 
     create_table :product_process_phases do |t|
-       t.belongs_to :process
-       t.string     :name
+       t.belongs_to :process, :null => false
+       t.string     :name,    :null => false
+       t.string     :nature,  :null => false  # Work notion
        t.integer    :position
        t.string     :phase_delay
-       t.string     :nature # notion métiers avec enumerize
        t.string     :comment
        t.stamps
     end
@@ -65,8 +66,8 @@ class AddProductProcesses< ActiveRecord::Migration
 
     create_table :product_processes do |t|
        t.belongs_to :variety, :null => false
-       t.string     :name, :null => false
-       t.string     :nature # notion métiers avec enumerize
+       t.string     :name,   :null => false
+       t.string     :nature, :null => false # Work notion
        t.string     :comment
        t.boolean    :repeatable, :null => false, :default => false
        t.stamps

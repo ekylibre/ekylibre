@@ -25,11 +25,11 @@
 #  creator_id   :integer          
 #  id           :integer          not null, primary key
 #  lock_version :integer          default(0), not null
-#  name         :string(255)      
-#  nature       :string(255)      
+#  name         :string(255)      not null
+#  nature       :string(255)      not null
 #  phase_delay  :string(255)      
 #  position     :integer          
-#  process_id   :integer          
+#  process_id   :integer          not null
 #  updated_at   :datetime         not null
 #  updater_id   :integer          
 #
@@ -41,6 +41,7 @@ class ProductProcessPhase < Ekylibre::Record::Base
   belongs_to :process, :class_name => "ProductProcess"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :comment, :name, :nature, :phase_delay, :allow_nil => true, :maximum => 255
+  validates_presence_of :name, :nature, :process
   #]VALIDATORS]
   validates_inclusion_of :nature, :in => self.nature.values
 end

@@ -28,8 +28,8 @@
 #  id           :integer          not null, primary key
 #  lock_version :integer          default(0), not null
 #  nature_id    :integer          not null
-#  started_on   :date             
-#  stopped_on   :date             
+#  started_at   :datetime         
+#  stopped_at   :datetime         
 #  updated_at   :datetime         not null
 #  updater_id   :integer          
 #
