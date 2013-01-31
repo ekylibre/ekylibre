@@ -289,9 +289,6 @@ fra:
       index: "Catégories de produits"
       new: "Ajout d’une nouvelle catégorie de produits"
       show: "Détail de la catégorie\_: %{name}"
-    product_nature_components:
-      edit: "Modifier le composant %{name}"
-      new: "Ajouter un composant"
     product_natures:
       edit: "Modifier le type de produit\_: %{name}"
       index: "Type de produit"
@@ -471,7 +468,6 @@ fra:
     base: "Base"
     cash_transfers: "Virements internes"
     cashes: "Trésoreries"
-    cultivations: "Cultures"
     custom_field_choices: "Choix de champs personnalisés"
     custom_field_data: "Données de champs personnalisés"
     custom_fields: "Champs personnalisés"
@@ -530,7 +526,6 @@ fra:
     # product_memberships: "Product memberships"
     product_moves: "Mouvements de stock"
     product_nature_categories: "Catégories de produits"
-    product_nature_components: "Composants de produits"
     # product_natures: "Product natures"
     # product_process_phases: "Product process phases"
     # product_processes: "Product processes"

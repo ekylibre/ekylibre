@@ -93,7 +93,7 @@ class Cash < Ekylibre::Record::Base
     elsif self.mode_bban?
       self.iban = self.class.generate_iban(self.country, self.bank_code+self.agency_code+self.number+self.key)
     end
-    self.iban_label = self.iban.split(/(\w\w\w\w)/).delete_if{|k| k.empty?}.join(" ")
+    self.spaced_iban = self.iban.split(/(\w\w\w\w)/).delete_if{|k| k.empty?}.join(" ")
   end
 
   # IBAN have to be checked before saved.
@@ -114,8 +114,8 @@ class Cash < Ekylibre::Record::Base
   end
 
 
-  def formatted_bban(separator = ".")
-    return [self.bank_code, self.agency_code, self.number, self.key].join(separator)
+  def formatted_bban(separator = " ")
+    return [self.bank_code, self.bank_agency_code, self.bank_account_number, self.bank_account_key].join(separator)
   end
 
   # Checks if the BBAN is valid.
@@ -123,9 +123,9 @@ class Cash < Ekylibre::Record::Base
     case cc = country_code.lower.to_sym
     when :fr
       ban = (options["bank_code"].to_s.lower.tr(*BBAN_TRANSLATIONS[cc]).to_i*89+
-             options["agency_code"].to_s.lower.tr(*BBAN_TRANSLATIONS[cc]).to_i*15+
-             options["number"].to_s.lower.tr(*BBAN_TRANSLATIONS[cc]).to_i*3)
-      return (options["key"].to_i + ban.modulo(97) - 97).zero?
+             options["bank_agency_code"].to_s.lower.tr(*BBAN_TRANSLATIONS[cc]).to_i*15+
+             options["bank_account_number"].to_s.lower.tr(*BBAN_TRANSLATIONS[cc]).to_i*3)
+      return (options["bank_account_key"].to_i + ban.modulo(97) - 97).zero?
     else
       raise ArgumentError.new("Unknown country code #{country_code.inspect}")
     end

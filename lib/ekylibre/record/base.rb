@@ -26,7 +26,7 @@ module Ekylibre::Record
     self.abstract_class = true
 
     # Replaces old module: ActiveRecord::Acts::Tree
-    include ActsAsTree
+    # include ActsAsTree
 
     # Permits to use enumerize in all models
     extend Enumerize

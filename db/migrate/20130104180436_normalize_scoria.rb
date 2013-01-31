@@ -1,14 +1,5 @@
-class NormalizeOldConventions < ActiveRecord::Migration
+class NormalizeScoria < ActiveRecord::Migration
   def up
-    change_column :products, :nature, :string, :limit => 16
-    execute "UPDATE #{quoted_table_name(:products)} SET nature = 'subscription' WHERE nature = 'subscrip'"
-    remove_column :products, :service_coeff
-
-    remove_column :prices, :use_range
-    remove_column :prices, :quantity_min
-    remove_column :prices, :quantity_max
-
-
     rename_column :accounts, :is_debit, :debtor
 
     remove_column :asset_depreciations, :depreciation
@@ -21,6 +12,8 @@ class NormalizeOldConventions < ActiveRecord::Migration
     # rename_column :cashes, :bank_name, :bank_account_agency_code
     rename_column :cashes, :bic, :bank_identifier_code
     change_column_default :cashes, :mode, "iban"
+
+    drop_table :cultivations
 
     change_column_null :custom_field_choices, :value, true
 
@@ -65,6 +58,10 @@ class NormalizeOldConventions < ActiveRecord::Migration
     rename_column :incoming_payments, :account_number, :bank_account_number
     rename_column :incoming_payments, :check_number, :bank_check_number
 
+    add_column :listing_nodes, :lft, :integer
+    add_column :listing_nodes, :rgt, :integer
+    add_column :listing_nodes, :depth, :integer, :null => false, :default => 0
+
     add_column :outgoing_payment_modes, :active, :boolean, :null => false, :default => false
     execute("UPDATE #{quoted_table_name(:outgoing_payment_modes)} SET active = #{quoted_true}")
 
@@ -74,6 +71,19 @@ class NormalizeOldConventions < ActiveRecord::Migration
     change_column_null :outgoing_payments, :cash_id, false
 
     rename_column :prices, :entity_id, :supplier_id
+    remove_column :prices, :use_range
+    remove_column :prices, :quantity_min
+    remove_column :prices, :quantity_max
+
+    change_column :products, :nature, :string, :limit => 16
+    execute "UPDATE #{quoted_table_name(:products)} SET nature = 'subscription' WHERE nature = 'subscrip'"
+    remove_column :products, :service_coeff
+
+    add_column :product_categories, :lft, :integer
+    add_column :product_categories, :rgt, :integer
+    add_column :product_categories, :depth, :integer, :null => false, :default => 0
+
+    drop_table :product_components
 
     remove_column :professions, :rome
     change_column :professions, :commercial, :boolean, :null => false, :default => false
@@ -82,8 +92,6 @@ class NormalizeOldConventions < ActiveRecord::Migration
 
     rename_column :transfers, :supplier_id, :client_id
     change_column_null :transfers, :client_id, false
-
-
   end
 
   def down

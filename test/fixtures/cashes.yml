@@ -67,7 +67,7 @@ cashes_001:
   currency: 'EUR'
   by_default: true
   iban: "FR7611111222223333333333391"
-  iban_label: "FR76 1111 1222 2233 3333 3333 391"
+  spaced_iban: "FR76 1111 1222 2233 3333 3333 391"
   id: 1
   journal_id: 1
   mode: "iban"
@@ -83,7 +83,7 @@ cashes_002:
   currency: 'EUR'
   by_default: false
   iban: "FR76"
-  iban_label: "FR76"
+  spaced_iban: "FR76"
   id: 2
   journal_id: 1
   mode: "iban"

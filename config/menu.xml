@@ -695,11 +695,11 @@
         <page to="product_natures#new"/>
         <page to="product_natures#show"/>
         <page to="product_natures#update"/>
-        <page to="product_nature_components#create"/>
-        <page to="product_nature_components#destroy"/>
-        <page to="product_nature_components#edit"/>
-        <page to="product_nature_components#new"/>
-        <page to="product_nature_components#update"/>
+        <page to="product_nature_components#create" deletable="true"/>
+        <page to="product_nature_components#destroy" deletable="true"/>
+        <page to="product_nature_components#edit" deletable="true"/>
+        <page to="product_nature_components#new" deletable="true"/>
+        <page to="product_nature_components#update" deletable="true"/>
       </menu>
       <menu name="product_categories">
         <page to="product_nature_categories#index"/>

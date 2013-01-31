@@ -95,6 +95,9 @@ class AddDeviseToUsers < ActiveRecord::Migration
       # t.timestamps
     end
 
+    remove_column :users, :name
+    change_column_null :users, :email, false
+
     remove_index :users, :email
     add_index :users, :email,                :unique => true
     add_index :users, :reset_password_token, :unique => true
@@ -109,7 +112,7 @@ class AddDeviseToUsers < ActiveRecord::Migration
     da = {:nature_id => en_id, :old_user_id => :id}
     execute("INSERT INTO #{quoted_table_name(:entities)} (" + ca.join(", ") + ", " + da.keys.join(", ") + ") SELECT " + ca.join(", ") + ", " + da.values.join(", ") + " FROM #{quoted_table_name(:users)}")
     execute("UPDATE #{quoted_table_name(:users)} SET entity_id = e.id FROM #{quoted_table_name(:entities)} AS e WHERE e.old_user_id = #{quoted_table_name(:users)}.id")
-    change_column_null :users, :entity_id, false
+    # change_column_null :users, :entity_id, false
     add_index :users, :entity_id, :unique => true
     remove_column :entities, :old_user_id
   end

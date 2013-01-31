@@ -34,11 +34,11 @@
 #  current_sign_in_ip                     :string(255)      
 #  departed_on                            :date             
 #  department_id                          :integer          
-#  email                                  :string(255)      
+#  email                                  :string(255)      not null
 #  employed                               :boolean          not null
 #  employment                             :string(255)      
 #  encrypted_password                     :string(255)      default(""), not null
-#  entity_id                              :integer          not null
+#  entity_id                              :integer          
 #  establishment_id                       :integer          
 #  failed_attempts                        :integer          default(0)
 #  first_name                             :string(255)      not null
@@ -51,7 +51,6 @@
 #  locked                                 :boolean          not null
 #  locked_at                              :datetime         
 #  maximal_grantable_reduction_percentage :decimal(19, 4)   default(5.0), not null
-#  name                                   :string(32)       not null
 #  office                                 :string(255)      
 #  profession_id                          :integer          
 #  remember_created_at                    :datetime         

@@ -78,7 +78,6 @@ require "digest/sha2"
 
 class Entity < Ekylibre::Record::Base
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me
   attr_accessible :active, :activity_code, :attorney, :attorney_account_id, :authorized_payments_count, :born_on, :category_id, :client, :client_account_id, :code, :comment, :country, :currency, :dead_on, :deliveries_conditions, :employed, :employment, :establishment_id, :first_met_on, :first_name, :full_name, :language, :last_name, :left_on, :loggable, :maximal_grantable_reduction_percentage, :nature_id, :office, :origin, :payment_delay, :payment_mode_id, :photo, :profession_id, :proposer_id, :prospect, :recruited_on, :reduction_percentage, :reflation_submissive, :responsible_id, :role_id, :siren, :supplier, :supplier_account_id, :transporter, :vat_number, :vat_submissive
   attr_accessor :password_confirmation, :old_password
   attr_protected :rights
@@ -134,7 +133,7 @@ class Entity < Ekylibre::Record::Base
 
   # default_scope order(:last_name, :first_name)
   scope :necessary_transporters, -> { where("id IN (SELECT transporter_id FROM #{OutgoingDelivery.table_name} WHERE (moved_on IS NULL AND planned_on <= CURRENT_DATE) OR transport_id IS NULL)").order(:last_name, :first_name) }
-  scope :employees, -> { where(:employed => true) }
+  scope :employees,    -> { where(:employed => true) }
   scope :suppliers,    -> { where(:supplier => true) }
   scope :transporters, -> { where(:transporter => true) }
   scope :clients,      -> { where(:client => true) }
@@ -155,11 +154,7 @@ class Entity < Ekylibre::Record::Base
   validates_presence_of :currency, :full_name, :language, :last_name, :nature
   #]VALIDATORS]
   validates_presence_of :category
-  # validates_presence_of :password, :password_confirmation, :if => Proc.new{|e| e.encrypted_password.blank? and e.loggable?}
-  validates_confirmation_of :password
-  validates_numericality_of :maximal_grantable_reduction_percentage, :greater_than_or_equal_to => 0, :less_than_or_equal_to => 100
   validates_delay_format_of :payment_delay
-  # validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i, :if => lambda{|r| !r.email.blank?}
 
   acts_as_numbered :code
   accepts_nested_attributes_for :mails,    :reject_if => :all_blank, :allow_destroy => true
@@ -173,23 +168,13 @@ class Entity < Ekylibre::Record::Base
     self.where(:of_company => true).first
   end
 
-
-  before_validation(:on => :create) do
-    self.email = self.class.give_password(48, :dummy)+"@"+self.class.give_password(48, :dummy) + "." +self.class.give_password(3, :dummy) if self.email.nil?
-    if self.password.nil?
-      pass = self.class.give_password(128)
-      self.password = pass
-      self.password_confirmation = pass
-    end
-  end
-
-
   before_validation do
-    self.webpass = Entity.give_password(8, :normal) if self.webpass.blank?
+    self.webpass = User.give_password(8, :normal) if self.webpass.blank?
     self.soundex = self.last_name.soundex2 if !self.last_name.nil?
     self.first_name = self.first_name.to_s.strip
     self.last_name  = self.last_name.to_s.strip
     self.full_name = (self.last_name.to_s+" "+self.first_name.to_s)
+    self.category = EntityCategory.by_default unless self.category
     unless self.nature.nil?
       self.full_name = (self.nature.title+' '+self.full_name).strip unless self.nature.in_name # or self.nature.abbreviation == "-")
     end
@@ -202,9 +187,6 @@ class Entity < Ekylibre::Record::Base
     unless self.category
       self.category = EntityCategory.where(:by_default => true).first
     end
-    self.maximal_grantable_reduction_percentage ||= 0
-    # self.admin = true if self.rights.nil?
-    self.rights_array = self.rights_array # Clean the rights
     return true
   end
 

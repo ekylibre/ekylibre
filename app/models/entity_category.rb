@@ -47,6 +47,7 @@ class EntityCategory < Ekylibre::Record::Base
   validates_uniqueness_of :code
 
   before_validation do
+    self.by_default = true if self.class.where(:by_default => true).where("id != ?", self.id || 0).count.zero?
     self.code = self.name.to_s.codeize if self.code.blank?
     self.code = self.code[0..7]
   end
@@ -59,6 +60,10 @@ class EntityCategory < Ekylibre::Record::Base
 
   protect(:on => :destroy) do
     self.entities.count <= 0 and self.prices.count <= 0
+  end
+
+  def self.by_default
+    self.where(:by_default => true).first
   end
 
 end

@@ -355,9 +355,9 @@ eng:
       index: "Product categories"
       new: "Add a new product category"
       show: "Product category: %{name}"
-    product_nature_components:
-      edit: "Edit the component: %{name}"
-      new: "Add a new component"
+    product_nature_components:  #?
+      edit: "Edit the component: %{name}" #?
+      new: "Add a new component" #?
     product_natures:
       change_quantities: "Change quantities for product" #?
       edit: "Edit the product: %{name}"
@@ -585,7 +585,7 @@ eng:
     cash_transfers: "Cash transfers"
     cashes: "Cashes"
     companies: "Companies" #?
-    cultivations: "Cultivations"
+    cultivations: "Cultivations" #?
     custom_field_choices: "Custom field choices"
     custom_field_data: "Custom field data"
     custom_fields: "Custom fields"
@@ -658,7 +658,7 @@ eng:
     product_moves: "Stock moves"
     product_nature: "Products" #?
     product_nature_categories: "Product categories"
-    product_nature_components: "Product components"
+    product_nature_components: "Product components" #?
     product_natures: "Products" #?
     product_species: "Races" #?
     product_stock_moves: "Stock moves" #?

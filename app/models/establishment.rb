@@ -33,19 +33,12 @@
 
 
 class Establishment < Ekylibre::Record::Base
-  attr_accessible :name, :comment, :nic
+  attr_accessible :name, :comment
   has_many :warehouses
-  has_many :employees, :class_name => "Entity"
+  has_many :employees, :class_name => "Users"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :code, :name, :allow_nil => true, :maximum => 255
   validates_presence_of :name
   #]VALIDATORS]
   validates_uniqueness_of :name
-  validates_uniqueness_of :siret
-
-  before_validation do
-    if eoc = Entity.of_company
-      self.siret = eoc.siren.to_s + self.nic.to_s
-    end
-  end
 end

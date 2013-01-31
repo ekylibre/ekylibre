@@ -3,20 +3,19 @@
 # TODO: I18nize seeds !!!
 language = 'fra'
 currency = 'EUR'
-entity = {:loggable => true}
-entity[:first_name] = ENV["first_name"] || "Admin"
-entity[:last_name] = ENV["last_name"] || "STRATOR"
-unless entity[:email] = ENV["email"]
-  entity[:email] = "admin@ekylibre.org"
-  puts "Username is: #{entity[:email]}"
+user = {}
+user[:first_name] = ENV["first_name"] || "Admin"
+user[:last_name] = ENV["last_name"] || "STRATOR"
+unless user[:email] = ENV["email"]
+  user[:email] = "admin@ekylibre.org"
+  puts "Username is: #{user[:email]}"
 end
-unless entity[:password] = ENV["password"]
-  entity[:password] = Entity.give_password(8, :normal)
-  puts "Password is: #{entity[:password]}"
+unless user[:password] = ENV["password"]
+  user[:password] = User.give_password(8, :normal)
+  puts "Password is: #{user[:password]}"
 end
-entity[:password_confirmation] = entity[:password]
-puts entity.inspect
-entity = Entity.new(entity)
+user[:password_confirmation] = user[:password]
+user = User.new(user)
 
 company = ENV["company"] || "My Company"
 
@@ -24,26 +23,24 @@ ActiveRecord::Base.transaction do
   Sequence.load_defaults
   Unit.load_defaults
 
-  mister = EntityNature.create!(:name => 'Monsieur', :title => 'M', :physical => true)
-  EntityNature.create!(:name => 'Madame', :title => 'Mme', :physical => true)
-  EntityNature.create!(:name => 'Société Anonyme', :title => 'SA', :physical => false)
-  undefined_nature = EntityNature.create!(:name => 'Indéfini', :title => '', :in_name => false, :physical => false)
+  EntityNature.create!(:name => 'Monsieur', :title => 'M', :gender => :man)
+  EntityNature.create!(:name => 'Madame', :title => 'Mme', :gender => :woman)
+  EntityNature.create!(:name => 'Société Anonyme', :title => 'SA', :gender => :organization)
+  undefined_nature = EntityNature.create!(:name => 'Indéfini', :title => '', :in_name => false, :gender => :undefined)
   category = EntityCategory.create!(:name => I18n.t('models.company.default.category'))
   firm = Entity.create!(:category_id =>  category.id, :nature_id => undefined_nature.id, :language => language, :last_name => company, :currency => currency, :of_company => true)
   firm.addresses.create!(:canal => "mail", :mail_line_2 => "", :mail_line_3 => "", :mail_line_4 => "", :mail_line_5 => "", :mail_line_6 => "", :by_default => true)
 
-  entity.administrator = true
-  entity.nature = mister
-  entity.category = category
-  entity.role = Role.create!(:name => I18n.t('models.company.default.role.name.administrator'),  :rights => Entity.rights_list.join(' '))
+  user.administrator = true
+  user.role = Role.create!(:name => I18n.t('models.company.default.role.name.administrator'), :rights => User.rights_list.join(' '))
   Role.create!(:name => I18n.t('models.company.default.role.name.public'), :rights => '')
-  entity.save!
+  user.save!
 
   Account.load_chart(:accounting_system)
 
   Department.create!(:name => I18n.t('models.company.default.department_name'))
-  establishment = Establishment.create!(:name => I18n.t('models.company.default.establishment_name'), :nic => "00000")
-  #   # currency = company.currency || 'EUR' # company.currencies.create!(:name => 'Euro', :code => 'EUR', :value_format => '%f €', :rate => 1)
+  establishment = Establishment.create!(:name => I18n.t('models.company.default.establishment_name'))
+  # currency = company.currency || 'EUR' # company.currencies.create!(:name => 'Euro', :code => 'EUR', :value_format => '%f €', :rate => 1)
 
   for code, tax in I18n.t("models.company.default.taxes")
     Tax.create!(:name => tax[:name], :nature => (tax[:nature]||Tax.nature.default_value), :amount => tax[:amount].to_f, :collected_account_id => Account.get(tax[:collected], tax[:name]).id, :paid_account_id => Account.get(tax[:paid], tax[:name]).id)

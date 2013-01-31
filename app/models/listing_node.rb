@@ -25,6 +25,7 @@
 #  condition_value      :string(255)      
 #  created_at           :datetime         not null
 #  creator_id           :integer          
+#  depth                :integer          default(0), not null
 #  exportable           :boolean          default(TRUE), not null
 #  id                   :integer          not null, primary key
 #  item_listing_id      :integer          
@@ -33,12 +34,14 @@
 #  item_value           :text             
 #  key                  :string(255)      
 #  label                :string(255)      not null
+#  lft                  :integer          
 #  listing_id           :integer          not null
 #  lock_version         :integer          default(0), not null
 #  name                 :string(255)      not null
 #  nature               :string(255)      not null
 #  parent_id            :integer          
 #  position             :integer          
+#  rgt                  :integer          
 #  sql_type             :string(255)      
 #  updated_at           :datetime         not null
 #  updater_id           :integer          
@@ -47,7 +50,7 @@
 
 class ListingNode < Ekylibre::Record::Base
   acts_as_list :scope => :listing_id
-  acts_as_tree
+  acts_as_nested_set
   attr_accessible :attribute_name, :condition_operator, :condition_value, :exportable, :label, :listing_id, :nature, :parent_id, :position, :sql_type
   attr_readonly :listing_id, :nature
   enumerize :nature, :in => [:root, :column, :datetime, :boolean, :string, :numeric, :belongs_to, :has_many]
@@ -56,10 +59,11 @@ class ListingNode < Ekylibre::Record::Base
   belongs_to :item_listing_node, :class_name => "ListingNode"
   has_many :items, :class_name => "ListingNodeItem"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_numericality_of :depth, :lft, :rgt, :allow_nil => true, :only_integer => true
   validates_length_of :item_nature, :allow_nil => true, :maximum => 8
   validates_length_of :attribute_name, :condition_operator, :condition_value, :key, :label, :name, :nature, :sql_type, :allow_nil => true, :maximum => 255
   validates_inclusion_of :exportable, :in => [true, false]
-  validates_presence_of :label, :listing, :name, :nature
+  validates_presence_of :depth, :label, :listing, :name, :nature
   #]VALIDATORS]
   validates_uniqueness_of :key
 

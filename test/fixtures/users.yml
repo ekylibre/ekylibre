@@ -34,11 +34,11 @@
 #  current_sign_in_ip                     :string(255)      
 #  departed_on                            :date             
 #  department_id                          :integer          
-#  email                                  :string(255)      
+#  email                                  :string(255)      not null
 #  employed                               :boolean          not null
 #  employment                             :string(255)      
 #  encrypted_password                     :string(255)      default(""), not null
-#  entity_id                              :integer          not null
+#  entity_id                              :integer          
 #  establishment_id                       :integer          
 #  failed_attempts                        :integer          default(0)
 #  first_name                             :string(255)      not null
@@ -51,7 +51,6 @@
 #  locked                                 :boolean          not null
 #  locked_at                              :datetime         
 #  maximal_grantable_reduction_percentage :decimal(19, 4)   default(5.0), not null
-#  name                                   :string(32)       not null
 #  office                                 :string(255)      
 #  profession_id                          :integer          
 #  remember_created_at                    :datetime         
@@ -72,27 +71,49 @@
 #   administrator: true
 #   created_at: 2009-07-19 19:13:59 +02:00
 #   creator_id: 1
+#   email: "Lorem ipsum"
 #   employed: true
 #   encrypted_password: "Lorem ipsum"
-#   entity_id: 1
 #   first_name: "Lorem ipsum"
 #   id: 1
 #   language: "Lorem ipsum"
 #   last_name: "Lorem ipsum"
 #   locked: true
 #   maximal_grantable_reduction_percentage: 0
-#   name: "Lorem ipsum"
 #   role_id: 1
 #   updated_at: 2009-07-19 19:13:59 +02:00
 #   updater_id: 1
 #
 
-# This model initially had no columns defined.  If you add columns to the
-# model remove the '{}' from the fixture names and add the columns immediately
-# below each fixture, per the syntax in the comments below
-#
-one: {}
-# column: value
-#
-two: {}
-#  column: value
+
+users_001:
+  administrator: true
+  id: 1
+  employed: true
+  first_name: Mikawel
+  last_name: Makinous
+  email: gendo@nerv.jp
+  language: fra
+  locked: false
+  rights: ''
+  role_id: 1
+  created_at: 2009-07-19 19:13:59 +02:00
+  creator_id: 1
+  updated_at: 2006-07-19 19:13:59 +02:00
+  updater_id: 1
+
+users_002:
+  administrator: false
+  id: 2
+  employed: true
+  first_name: Nikawel
+  last_name: Nakinous
+  email: niknak@nanak.com
+  language: fra
+  locked: false
+  rights: ''
+  role_id: 1
+  created_at: 2009-07-19 19:13:59 +02:00
+  creator_id: 1
+  updated_at: 2006-07-19 19:13:59 +02:00
+  updater_id: 1

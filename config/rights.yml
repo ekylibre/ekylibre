@@ -292,10 +292,7 @@ consult_prices:
   actions: ["dashboards::sales", "prices::index"]
 # Consulter les produits
 consult_products:
-  actions:
-  - "dashboards::sales"
-  - "product_natures::index"
-  - "product_natures::show # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!!"
+  actions: ["dashboards::sales", "product_natures::index"]
 # Consulter les achats
 consult_purchases:
   actions:
@@ -862,11 +859,11 @@ manage_products:
   actions:
   - "dashboards::sales"
   - "dashboards::sales"
-  - "product_nature_components::create"
-  - "product_nature_components::destroy"
-  - "product_nature_components::edit"
-  - "product_nature_components::new"
-  - "product_nature_components::update"
+  - "product_nature_components::create # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!!"
+  - "product_nature_components::destroy # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!!"
+  - "product_nature_components::edit # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!!"
+  - "product_nature_components::new # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!!"
+  - "product_nature_components::update # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!!"
 # Gérer les types d’achat
 manage_purchase_natures:
   actions:

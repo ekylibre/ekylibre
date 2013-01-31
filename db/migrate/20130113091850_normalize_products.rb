@@ -405,13 +405,13 @@ class NormalizeProducts < ActiveRecord::Migration
       :parent_id => :product_category,
       :updater_id => :entity
     },
-    :product_component => {
-      :component_id => :product,
-      :creator_id => :entity,
-      :product_id => :product,
-      :updater_id => :entity,
-      :warehouse_id => :warehouse
-    },
+    # :product_component => {
+    #   :component_id => :product,
+    #   :creator_id => :entity,
+    #   :product_id => :product,
+    #   :updater_id => :entity,
+    #   :warehouse_id => :warehouse
+    # },
     :production_chain => {
       :creator_id => :entity,
       :updater_id => :entity
@@ -1010,8 +1010,8 @@ class NormalizeProducts < ActiveRecord::Migration
     rename_table_and_co :product_categories, :product_nature_categories
 
     # Rename table in order to be more logical
-    rename_table_and_co :product_components, :product_nature_components
-    remove_column :product_nature_components, :warehouse_id
+    # rename_table_and_co :product_components, :product_nature_components
+    # remove_column :product_nature_components, :warehouse_id
 
 
     # Insert master varieties

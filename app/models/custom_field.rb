@@ -44,7 +44,7 @@ class CustomField < Ekylibre::Record::Base
   attr_accessible :active, :maximal_length, :minimal_length, :maximal_value, :minimal_value, :name, :nature, :position, :required, :used_with
   attr_readonly :nature
   enumerize :nature, :in => [:string, :decimal, :boolean, :date, :datetime, :choice], :predicates => true
-  enumerize :used_with, :in => Ekylibre.models, :default_value => Ekylibre.models.first, :predicates => {:prefix => true}
+  enumerize :used_with, :in => Ekylibre.models.map(&:to_s).map(&:camelcase), :default_value => Ekylibre.models.first, :predicates => {:prefix => true}
   has_many :choices, :class_name => "CustomFieldChoice", :order => :position, :dependent => :delete_all, :inverse_of => :custom_field
   has_many :data, :class_name => "CustomFieldDatum", :dependent => :delete_all, :inverse_of => :custom_field
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.

@@ -387,9 +387,9 @@ arb:
       index: "فئات المنتج"
       new: "اضافة فئة جديدة للمنتج"
       show: "تفاصيل فئة: %{name}"
-    product_nature_components:
-      edit: "تعديل عنصر المنتج %{product} "
-      new: "اضافة عنصر الى المنتج %{product} "
+    product_nature_components:  #?
+      edit: "تعديل عنصر المنتج %{product} " #?
+      new: "اضافة عنصر الى المنتج %{product} " #?
     product_natures:
       edit: "تعديل المنتج : %{name}"
       index: "المنتجات"
@@ -603,7 +603,6 @@ arb:
     # cash_transfers: "Virements internes"
     cashes: "الخزينة"
     company: "شركة" #?
-    # cultivations: "Cultures"
     # custom_field_choices: "Choix de champs personnalisés"
     # custom_field_data: "Données de champs personnalisés"
     custom_fields: "الحقول المخصصة"
@@ -662,7 +661,6 @@ arb:
     # product_moves: "Mouvements de stock"
     product_nature: "المنتجات" #?
     product_nature_categories: "فئات المنتج"
-    # product_nature_components: "Composants de produits"
     product_natures: "المنتجات" #?
     product_stocks: "وضع الاسهم" #?
     product_transfers: "عمليات نقل وخسارة الاسهم"

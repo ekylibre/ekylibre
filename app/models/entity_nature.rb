@@ -37,7 +37,8 @@
 
 
 class EntityNature < Ekylibre::Record::Base
-  attr_accessible :active, :description, :full_name_format, :in_name, :name, :physical, :title
+  attr_accessible :active, :description, :full_name_format, :in_name, :name, :gender, :title
+  enumerize :gender, :in => [:organization, :woman, :man, :undefined], :default => :undefined, :predicates => true
   has_many :entities, :foreign_key => :nature_id, :inverse_of => :nature
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :full_name_format, :gender, :name, :title, :allow_nil => true, :maximum => 255
@@ -46,11 +47,11 @@ class EntityNature < Ekylibre::Record::Base
   #]VALIDATORS]
   validates_uniqueness_of :name
 
-  default_scope order(:name)
+  default_scope -> { order(:name) }
 
   before_validation do
-    self.in_name = false if self.physical
-    if self.physical
+    self.in_name = false if self.man? or self.woman?
+    if self.man? or self.woman?
       self.full_name_format ||= '[title] [last_name] [first_name]'
     else
       self.full_name_format ||= '[last_name]'
@@ -58,7 +59,7 @@ class EntityNature < Ekylibre::Record::Base
   end
 
   protect(:on => :destroy) do
-    self.entities.size <= 0
+    self.entities.count <= 0
   end
 
 end

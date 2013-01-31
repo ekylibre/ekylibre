@@ -246,24 +246,6 @@ ActiveRecord::Schema.define(:version => 20130129112939) do
   add_index "cashes", ["updated_at"], :name => "index_bank_accounts_on_updated_at"
   add_index "cashes", ["updater_id"], :name => "index_bank_accounts_on_updater_id"
 
-  create_table "cultivations", :force => true do |t|
-    t.string   "name",                                            :null => false
-    t.date     "started_on",                                      :null => false
-    t.date     "stopped_on"
-    t.string   "color",        :limit => 6, :default => "FFFFFF", :null => false
-    t.text     "comment"
-    t.datetime "created_at",                                      :null => false
-    t.datetime "updated_at",                                      :null => false
-    t.integer  "creator_id"
-    t.integer  "updater_id"
-    t.integer  "lock_version",              :default => 0,        :null => false
-  end
-
-  add_index "cultivations", ["created_at"], :name => "index_cultivations_on_created_at"
-  add_index "cultivations", ["creator_id"], :name => "index_cultivations_on_creator_id"
-  add_index "cultivations", ["updated_at"], :name => "index_cultivations_on_updated_at"
-  add_index "cultivations", ["updater_id"], :name => "index_cultivations_on_updater_id"
-
   create_table "custom_field_choices", :force => true do |t|
     t.integer  "custom_field_id",                :null => false
     t.string   "name",                           :null => false
@@ -1054,6 +1036,9 @@ ActiveRecord::Schema.define(:version => 20130129112939) do
     t.string   "condition_value"
     t.string   "condition_operator"
     t.string   "attribute_name"
+    t.integer  "lft"
+    t.integer  "rgt"
+    t.integer  "depth",                             :default => 0,    :null => false
   end
 
   add_index "listing_nodes", ["created_at"], :name => "index_listing_nodes_on_created_at"
@@ -1139,16 +1124,21 @@ ActiveRecord::Schema.define(:version => 20130129112939) do
   create_table "observations", :force => true do |t|
     t.string   "importance",   :limit => 10,                :null => false
     t.text     "description",                               :null => false
-    t.integer  "entity_id",                                 :null => false
+    t.integer  "owner_id",                                  :null => false
     t.datetime "created_at",                                :null => false
     t.datetime "updated_at",                                :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.integer  "lock_version",               :default => 0, :null => false
+    t.string   "owner_type",                                :null => false
+    t.datetime "observed_at",                               :null => false
+    t.integer  "author_id",                                 :null => false
   end
 
+  add_index "observations", ["author_id"], :name => "index_observations_on_author_id"
   add_index "observations", ["created_at"], :name => "index_observations_on_created_at"
   add_index "observations", ["creator_id"], :name => "index_observations_on_creator_id"
+  add_index "observations", ["owner_id", "owner_type"], :name => "index_observations_on_owner_id_and_owner_type"
   add_index "observations", ["updated_at"], :name => "index_observations_on_updated_at"
   add_index "observations", ["updater_id"], :name => "index_observations_on_updater_id"
 
@@ -1544,6 +1534,9 @@ ActiveRecord::Schema.define(:version => 20130129112939) do
     t.integer  "updater_id"
     t.integer  "lock_version",        :default => 0,     :null => false
     t.boolean  "published",           :default => false, :null => false
+    t.integer  "lft"
+    t.integer  "rgt"
+    t.integer  "depth",               :default => 0,     :null => false
   end
 
   add_index "product_nature_categories", ["created_at"], :name => "index_product_nature_categories_on_created_at"
@@ -1551,27 +1544,6 @@ ActiveRecord::Schema.define(:version => 20130129112939) do
   add_index "product_nature_categories", ["parent_id"], :name => "index_product_nature_categories_on_parent_id"
   add_index "product_nature_categories", ["updated_at"], :name => "index_product_nature_categories_on_updated_at"
   add_index "product_nature_categories", ["updater_id"], :name => "index_product_nature_categories_on_updater_id"
-
-  create_table "product_nature_components", :force => true do |t|
-    t.string   "name",                                                            :null => false
-    t.integer  "product_nature_id",                                               :null => false
-    t.integer  "component_id",                                                    :null => false
-    t.decimal  "quantity",          :precision => 19, :scale => 4,                :null => false
-    t.text     "comment"
-    t.boolean  "active",                                                          :null => false
-    t.datetime "started_at"
-    t.datetime "stopped_at"
-    t.datetime "created_at",                                                      :null => false
-    t.datetime "updated_at",                                                      :null => false
-    t.integer  "creator_id"
-    t.integer  "updater_id"
-    t.integer  "lock_version",                                     :default => 0, :null => false
-  end
-
-  add_index "product_nature_components", ["created_at"], :name => "index_product_nature_components_on_created_at"
-  add_index "product_nature_components", ["creator_id"], :name => "index_product_nature_components_on_creator_id"
-  add_index "product_nature_components", ["updated_at"], :name => "index_product_nature_components_on_updated_at"
-  add_index "product_nature_components", ["updater_id"], :name => "index_product_nature_components_on_updater_id"
 
   create_table "product_natures", :force => true do |t|
     t.string   "name",                                                    :null => false
@@ -2300,19 +2272,18 @@ ActiveRecord::Schema.define(:version => 20130129112939) do
   add_index "units", ["updater_id"], :name => "index_units_on_updater_id"
 
   create_table "users", :force => true do |t|
-    t.string   "name",                                   :limit => 32,                                                   :null => false
-    t.string   "first_name",                                                                                             :null => false
-    t.string   "last_name",                                                                                              :null => false
-    t.boolean  "locked",                                                                              :default => false, :null => false
-    t.string   "email"
-    t.integer  "role_id",                                                                                                :null => false
-    t.datetime "created_at",                                                                                             :null => false
-    t.datetime "updated_at",                                                                                             :null => false
+    t.string   "first_name",                                                                                            :null => false
+    t.string   "last_name",                                                                                             :null => false
+    t.boolean  "locked",                                                                             :default => false, :null => false
+    t.string   "email",                                                                                                 :null => false
+    t.integer  "role_id",                                                                                               :null => false
+    t.datetime "created_at",                                                                                            :null => false
+    t.datetime "updated_at",                                                                                            :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                                                        :default => 0,     :null => false
-    t.decimal  "maximal_grantable_reduction_percentage",               :precision => 19, :scale => 4, :default => 5.0,   :null => false
-    t.boolean  "administrator",                                                                       :default => true,  :null => false
+    t.integer  "lock_version",                                                                       :default => 0,     :null => false
+    t.decimal  "maximal_grantable_reduction_percentage",              :precision => 19, :scale => 4, :default => 5.0,   :null => false
+    t.boolean  "administrator",                                                                      :default => true,  :null => false
     t.text     "rights"
     t.date     "arrived_on"
     t.text     "comment"
@@ -2322,15 +2293,15 @@ ActiveRecord::Schema.define(:version => 20130129112939) do
     t.integer  "establishment_id"
     t.string   "office"
     t.integer  "profession_id"
-    t.boolean  "employed",                                                                            :default => false, :null => false
+    t.boolean  "employed",                                                                           :default => false, :null => false
     t.string   "employment"
-    t.string   "language",                               :limit => 3,                                 :default => "???", :null => false
+    t.string   "language",                               :limit => 3,                                :default => "???", :null => false
     t.datetime "last_sign_in_at"
-    t.string   "encrypted_password",                                                                  :default => "",    :null => false
+    t.string   "encrypted_password",                                                                 :default => "",    :null => false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",                                                                       :default => 0
+    t.integer  "sign_in_count",                                                                      :default => 0
     t.datetime "current_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
@@ -2338,11 +2309,11 @@ ActiveRecord::Schema.define(:version => 20130129112939) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string   "unconfirmed_email"
-    t.integer  "failed_attempts",                                                                     :default => 0
+    t.integer  "failed_attempts",                                                                    :default => 0
     t.string   "unlock_token"
     t.datetime "locked_at"
     t.string   "authentication_token"
-    t.integer  "entity_id",                                                                                              :null => false
+    t.integer  "entity_id"
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true

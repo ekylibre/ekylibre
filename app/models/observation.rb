@@ -20,33 +20,34 @@
 # 
 # == Table: observations
 #
+#  author_id    :integer          not null
 #  created_at   :datetime         not null
 #  creator_id   :integer          
 #  description  :text             not null
-#  entity_id    :integer          not null
 #  id           :integer          not null, primary key
 #  importance   :string(10)       not null
 #  lock_version :integer          default(0), not null
+#  observed_at  :datetime         not null
+#  owner_id     :integer          not null
+#  owner_type   :string(255)      not null
 #  updated_at   :datetime         not null
 #  updater_id   :integer          
 #
 
 
 class Observation < Ekylibre::Record::Base
-  attr_accessible :entity_id, :importance, :description
+  attr_accessible :author_id, :importance, :description, :owner_id, :owner_type
   enumerize :importance, :in => [:important, :normal, :notice], :default => :notice, :predicates => true
-  belongs_to :entity
+  belongs_to :owner, :polymorphic => true
+  belongs_to :author, :class_name => "User"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :importance, :allow_nil => true, :maximum => 10
-  validates_presence_of :description, :entity, :importance
+  validates_length_of :owner_type, :allow_nil => true, :maximum => 255
+  validates_presence_of :author, :description, :importance, :observed_at, :owner, :owner_type
   #]VALIDATORS]
 
   before_validation do
     self.importance ||= self.class.importance.default_value
-  end
-
-  def status
-    return {:important => :critic, :normal => :minimum}[self.importance.to_sym]||self.importance.to_sym
   end
 
 end

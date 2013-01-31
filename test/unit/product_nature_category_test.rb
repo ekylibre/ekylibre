@@ -25,11 +25,14 @@
 #  comment             :text             
 #  created_at          :datetime         not null
 #  creator_id          :integer          
+#  depth               :integer          default(0), not null
 #  id                  :integer          not null, primary key
+#  lft                 :integer          
 #  lock_version        :integer          default(0), not null
 #  name                :string(255)      not null
 #  parent_id           :integer          
 #  published           :boolean          not null
+#  rgt                 :integer          
 #  updated_at          :datetime         not null
 #  updater_id          :integer          
 #

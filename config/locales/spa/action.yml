@@ -357,9 +357,7 @@ spa:
       # index: "Catégories de produits"
       # new: "Ajout d’une nouvelle catégorie de produits"
       # show: "Détail de la catégorie\_: %{name}"
-    product_nature_components:
-      # edit: "Modifier le composant %{name}"
-      # new: "Ajouter un composant"
+    product_nature_components: #?
     product_natures:
       # edit: "Modifier le type de produit\_: %{name}"
       # index: "Type de produit"
@@ -548,7 +546,6 @@ spa:
     # cash_transfers: "Virements internes"
     cashes: "Tresorerias"
     company: "Compañía" #?
-    # cultivations: "Cultures"
     # custom_field_choices: "Choix de champs personnalisés"
     # custom_field_data: "Données de champs personnalisés"
     # custom_fields: "Champs personnalisés"
@@ -603,7 +600,6 @@ spa:
     # product_groups: "Lot de produits"
     # product_moves: "Mouvements de stock"
     # product_nature_categories: "Catégories de produits"
-    # product_nature_components: "Composants de produits"
     # product_transfers: "Transferts et pertes de stocks"
     # product_varieties: "Races"
     production: "Producción" #?

@@ -35,11 +35,11 @@
 #  current_sign_in_ip                     :string(255)      
 #  departed_on                            :date             
 #  department_id                          :integer          
-#  email                                  :string(255)      
+#  email                                  :string(255)      not null
 #  employed                               :boolean          not null
 #  employment                             :string(255)      
 #  encrypted_password                     :string(255)      default(""), not null
-#  entity_id                              :integer          not null
+#  entity_id                              :integer          
 #  establishment_id                       :integer          
 #  failed_attempts                        :integer          default(0)
 #  first_name                             :string(255)      not null
@@ -52,7 +52,6 @@
 #  locked                                 :boolean          not null
 #  locked_at                              :datetime         
 #  maximal_grantable_reduction_percentage :decimal(19, 4)   default(5.0), not null
-#  name                                   :string(32)       not null
 #  office                                 :string(255)      
 #  profession_id                          :integer          
 #  remember_created_at                    :datetime         
@@ -68,24 +67,27 @@
 #
 
 class User < Ekylibre::Record::Base
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :first_name, :last_name
+  attr_readonly :entity_id
   belongs_to :department
   belongs_to :establishment
   belongs_to :entity
   belongs_to :role
   belongs_to :profession
-
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :failed_attempts, :allow_nil => true, :only_integer => true
   validates_numericality_of :maximal_grantable_reduction_percentage, :allow_nil => true
   validates_length_of :language, :allow_nil => true, :maximum => 3
-  validates_length_of :name, :allow_nil => true, :maximum => 32
   validates_length_of :authentication_token, :confirmation_token, :current_sign_in_ip, :email, :employment, :encrypted_password, :first_name, :last_name, :last_sign_in_ip, :office, :reset_password_token, :unconfirmed_email, :unlock_token, :allow_nil => true, :maximum => 255
   validates_inclusion_of :administrator, :employed, :locked, :in => [true, false]
-  validates_presence_of :encrypted_password, :entity, :first_name, :language, :last_name, :maximal_grantable_reduction_percentage, :name, :role
+  validates_presence_of :email, :encrypted_password, :first_name, :language, :last_name, :maximal_grantable_reduction_percentage, :role
   #]VALIDATORS]
-  validates_presence_of :entity
+  # validates_presence_of :password, :password_confirmation, :if => Proc.new{|e| e.encrypted_password.blank? and e.loggable?}
+  validates_confirmation_of :password
+  validates_numericality_of :maximal_grantable_reduction_percentage, :greater_than_or_equal_to => 0, :less_than_or_equal_to => 100
+  validates_uniqueness_of :email
+  # validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i, :if => lambda{|r| !r.email.blank?}
 
-  attr_accessible :email, :password, :password_confirmation, :remember_me
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable, :registerable
   # :lockable, :timeoutable and :omniauthable
@@ -101,7 +103,15 @@ class User < Ekylibre::Record::Base
   end
 
   before_validation do
+    self.maximal_grantable_reduction_percentage ||= 0
     self.rights_array = self.rights_array # Clean the rights
+  end
+
+  before_save do
+    unless self.entity
+      entity = Entity.create!(:first_name => self.first_name, :last_name => self.last_name, :nature_id => EntityNature.order("in_name DESC, gender DESC").first.id)
+      self.entity_id = entity.id
+    end
   end
 
   def rights_array

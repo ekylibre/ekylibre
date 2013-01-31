@@ -324,7 +324,7 @@ fra:
       cash: "Trésorerie"
       cash_transfer: "Virement interne"
       company: "Société" #?
-      cultivation: "Culture"
+      cultivation: "Culture" #?
       custom_field: "Champ complémentaire"
       custom_field_choice: "Choix de champ complémentaire"
       custom_field_datum: "Donnée complémentaire de fiche"
@@ -404,7 +404,7 @@ fra:
       product_move: "Mouvement de stock"
       product_nature: "Produit"
       product_nature_category: "Catégorie de produit"
-      product_nature_component: "Composant de produit"
+      product_nature_component: "Composant de produit" #?
       # product_process: "Product process"
       # product_process_phase: "Product process phase"
       product_specy: "Race" #?
@@ -491,6 +491,7 @@ fra:
     attorneys: "Mandataires"
     attribute_name: "Nom de l’attribut"
     # authentication_token: "Authentication token"
+    # author: "Author"
     authorized_payments_count: "Nombre d’encaissements autorisés"
     auto_updateable_addresses: "Adresses mises à jour automatiquement"
     # automatic: "Automatic"
@@ -577,7 +578,7 @@ fra:
     commission_percentage: "Pourcentage de commission"
     commissioned_incoming_payment_modes: "Modes d’encaissement avec commission"
     company: "Société" #?
-    component: "Produit contenu"
+    component: "Produit contenu" #?
     components: "Composants de produit"
     compute: "Dernière valeur"
     conclusion: "Conclusion"
@@ -760,7 +761,7 @@ fra:
     full_name_format: "Format du nom complet"
     function_title: "Civilités"
     future_events: "Evènements futurs"
-    # gender: "Gender"
+    gender: "Gender"
     genealogy: "Généalogie" #?
     generated: "Généré" #?
     global_balance: "Solde global"
@@ -909,7 +910,7 @@ fra:
     number_increment: "Incrément"
     number_start: "Début de la numération"
     observations: "Observations"
-    # observed_at: "Observed at"
+    observed_at: "Observed at"
     of_company: "Dossier basé sur cette entreprise"
     office: "Bureau/Atelier"
     old_password: "Mot de passe actuel"
@@ -1673,7 +1674,7 @@ fra:
         purchases: "Achat"
         rent: "Location"
         sales: "Vente"
-    product_nature_component:
+    product_nature_component: #?
       of_product: "du produit"
     product_stock: #?
       default_name: "%{warehouse}/%{product}/%{tracking}" #?
