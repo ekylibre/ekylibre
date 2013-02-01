@@ -7,10 +7,9 @@
 
 $experimental-support-for-svg: true;
 
-@import "compass/reset";
+// @import "compass/reset";
 @import "compass/css3";
 @import "compass/utilities";
-@import "foundation";
 
 @mixin define-right-property($base-name, $value) {
   html[dir="ltr"] & { #{$base-name}-right: $value; }
@@ -86,9 +85,9 @@ $modules: ();
 
 $fs-normal: 14px;
 $fs-small:      ceil(0.73*$fs-normal);
-$fs-large:     round(1.10*$fs-normal);
-$fs-huge:      round(1.20*$fs-normal);
-$fs-very-huge: round(1.40*$fs-normal);
+$fs-large:     round(1.20*$fs-normal);
+$fs-huge:      round(1.44*$fs-normal);
+$fs-very-huge: round(1.73*$fs-normal);
 
 $neutral-color: #777;
 $base-color: #16D;
@@ -243,7 +242,19 @@ $icons-layout: smart;
 $sans-font-family: 'Open Sans', Helvetica, 'Liberation Sans', sans-serif;
 $base-font-family: $sans-font-family;
 
-@import "layout.css.scss";
-@import "active-list.css.scss";
-@import "buttons.css.scss";
+$headerFontFamily: $base-font-family;
+$bodyFontFamily: $base-font-family;
+$baseFontSize: $fs-normal;
+$mainColor: $base-color;
+
+@import "foundation";
+// @import "foundation/functions/all";
+
+
+@import "active-list/minimal";
+@import "beehive.css.scss";
+@import "tables.css.scss";
+// @import "layout.css.scss";
+// @import "active-list.css.scss";
+// @import "buttons.css.scss";
 @import "main.css.scss";

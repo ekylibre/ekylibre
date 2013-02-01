@@ -445,7 +445,7 @@ module ApplicationHelper
           if cell.block?
             html << content_tag(:div, capture(&cell.block), :class => "cell-inner")
           else
-            html << "<div class=\"cell-inner\" data-cell=\""+ url_for(:controller => "admin/cells/#{cell.name}_cells", :action => :show)+"\"></div>"
+            html << "<div class=\"cell-inner\" data-cell=\""+ url_for(:controller => "backend/cells/#{cell.name}_cells", :action => :show)+"\"></div>"
           end
           html << "</div>"
         end
@@ -459,7 +459,7 @@ module ApplicationHelper
           if cell.block?
             panes << content_tag(:div, capture(&cell.block), :class => "box-pane")
           else
-            panes << "<div class=\"box-pane\" data-cell=\""+ url_for(:controller => "admin/cells/#{cell.name}_cells", :action => :show)+"\"></div>"
+            panes << "<div class=\"box-pane\" data-cell=\""+ url_for(:controller => "backend/cells/#{cell.name}_cells", :action => :show)+"\"></div>"
           end
         end
         html << "</ul>"
@@ -2429,103 +2429,6 @@ module ApplicationHelper
     return ""
   end
 
-
-  def journals_tag
-    render :partial => "journals/index"
-  end
-
-
-  def journal_view_tag
-    code = content_tag(:span, tg(:view))
-    for mode in controller.journal_views
-      if @journal_view == mode
-        code << content_tag(:strong, tc("journal_view.#{mode}"))
-      else
-        code << link_to(tc("journal_view.#{mode}"), params.merge(:view => mode)).html_safe
-      end
-    end
-    return content_tag(:div, code, :class => :view)
-  end
-
-  # Create a widget with all the possible periods
-  def journal_period_crit(name=:period, value=nil, options={})
-    configuration = {:custom => :interval}
-    configuration.update(options) if options.is_a?(Hash)
-    configuration[:id] ||= name.to_s.gsub(/\W+/, '_').gsub(/(^_|_$)/, '')
-    value ||= params[name]
-    list = []
-    list << [tc(:all_periods), "all"]
-    FinancialYear.find_each do |year|
-      list << [year.code, year.started_on.to_s << "_" << year.stopped_on.to_s]
-      list2 = []
-      date = year.started_on
-      while date<year.stopped_on and date < Date.today
-        date2 = date.end_of_month
-        list2 << [tc(:month_period, :year => date.year, :month => t("date.month_names")[date.month], :code => year.code), date.to_s << "_" << date2.to_s]
-        date = date2+1
-      end
-      list += list2.reverse
-    end
-    code = ""
-    code << content_tag(:label, tc(:period), :for => configuration[:id]) + " "
-    fy = FinancialYear.current
-    params[:period] = value = value || (fy ? fy.started_on.to_s + "_" + fy.stopped_on.to_s : :all)
-    if configuration[:custom]
-      params[:started_on] = params[:started_on].to_date rescue (fy ? fy.started_on : Date.today)
-      params[:stopped_on] = params[:stopped_on].to_date rescue (fy ? fy.stopped_on : Date.today)
-      params[:stopped_on] = params[:started_on] if params[:started_on] > params[:stopped_on]
-      list.insert(0, [tc(configuration[:custom]), configuration[:custom]])
-      custom_id = "#{configuration[:id]}_#{configuration[:custom]}"
-      toggle_method = "toggle#{custom_id.camelcase}"
-      code << select_tag(name, options_for_select(list, value), :id => configuration[:id], "data-show-value" => "##{configuration[:id]}_")
-      code << " " << content_tag(:span, tc(:manual_period, :start => date_field_tag(:started_on, params[:started_on], :size => 8), :finish => date_field_tag(:stopped_on, params[:stopped_on], :size => 8)).html_safe, :id => custom_id)
-    else
-      code << select_tag(name, options_for_select(list, value), :id => configuration[:id])
-    end
-    return code.html_safe
-  end
-
-  # Create a widget to select states of entries (and entry lines)
-  def journal_entries_states_crit
-    code = ""
-    code << content_tag(:label, tc(:journal_entries_states))
-    states = JournalEntry.states
-    params[:states] = {} unless params[:states].is_a? Hash
-    no_state = !states.detect{|x| params[:states].has_key?(x)}
-    for state in states
-      key = state.to_s
-      name, id = "states[#{key}]", "states_#{key}"
-      if active = (params[:states][key]=="1" or no_state)
-        params[:states][key] = "1"
-      else
-        params[:states].delete(key)
-      end
-      code << " " << check_box_tag(name, "1", active, :id => id)
-      code << " " << content_tag(:label, JournalEntry.state_label(state), :for => id)
-    end
-    return code.html_safe
-  end
-
-  # Create a widget to select some journals
-  def journals_crit
-    code, field = "", :journals
-    code << content_tag(:label, Company.human_attribute_name("journals"))
-    journals = Journal.all
-    params[field] = {} unless params[field].is_a? Hash
-    no_journal = !journals.detect{|x| params[field].has_key?(x.id.to_s)}
-    for journal in journals
-      key = journal.id.to_s
-      name, id = "#{field}[#{key}]", "#{field}_#{key}"
-      if active = (params[field][key] == "1" or no_journal)
-        params[field][key] = "1"
-      else
-        params[field].delete(key)
-      end
-      code << " " << check_box_tag(name, "1", active, :id => id)
-      code << " " << content_tag(:label, journal.name, :for => id)
-    end
-    return code.html_safe
-  end
 
 
   # Create a widget to select ranges of account

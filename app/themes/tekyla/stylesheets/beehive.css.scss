@@ -1,0 +1,125 @@
+.beehive {
+  .box {
+    $min-width: 300px;
+    $min-height: 200px;
+    $cell-border-width: 1px;
+    $cell-border: $cell-border-width solid #DDD;
+    margin-top: $default-gap;
+    padding: 0 $cell-border-width;
+    &:first-child { margin-top: 0; }
+    @include clearfix;
+
+    .cell-titles {
+      display: none;
+    }
+
+    $cell-title-vertical-padding: round($default-gap*1);
+    $cell-title-horizontal-padding: round($default-gap*2);
+    .cell-title {
+      color: #000;
+      font-weight: bold;
+      padding: $cell-title-vertical-padding $cell-title-horizontal-padding;
+//      border: $cell-border;
+      background: #FFF;
+//      background: #EEE;
+//      @include background(linear-gradient(top, #EEE, white));
+//      @include border-top-radius(3px);
+    }
+
+    .cell {
+      @include float(left);
+      width: 100%;
+      .cell-inner {
+        margin-left: $default-gap;
+        @include border-radius(3px);
+        &.loading {
+          min-height: $min-height;
+          background: image-url("themes/tekyla/cell-loader.gif") center center no-repeat;
+        }
+        .cell-content {
+          max-width: 100%;
+          overflow: auto;
+        }
+      }
+      &:first-child {
+        .cell-inner {
+          margin-left: 0;
+        }
+      }
+    }
+
+    @for $i from 1 through 10 {
+      &.box-#{ $i }-cells {
+        .cell {
+          width: (100% / $i);
+          @if $i > 1 {
+            .cell-content {
+              height: min-height;
+            }
+          }
+          @media screen and (max-width: round(1.2*$i*$min-width)) {
+            margin-top: $default-gap;
+            &:first-child { margin-top: 0 }
+            width: 100%;
+            .cell-inner {
+              margin-left: 0;
+              .cell-content {
+                height: auto;
+              }
+            }
+          }
+        }
+        @media screen and (min-width: round(0.5*$i*$min-width) + 1px) {
+
+          &.box-tab {
+            ul.cell-titles {
+              display: block;
+              border-bottom: $cell-border;
+              @include background(linear-gradient(bottom, #F9F9F9, white));
+              li {
+                @include inline-block;
+                padding-top: $cell-border-width;
+                opacity: 0.4;
+                &:hover { opacity: 0.8 }
+                a {
+                  text-decoration: none;
+                  display: block;
+                  border: $cell-border-width solid transparent;
+                }
+                &.active {
+                  opacity: 1;
+                  
+                  a { 
+                    border: $cell-border;
+                    border-top: 2px solid $base-color;
+                    border-bottom: none;
+                    padding-bottom: $cell-title-vertical-padding + $cell-border-width; 
+                  }
+                  margin-bottom: (-1 * $cell-border-width);
+                }
+              }
+            }
+            .cells {
+              .cell {
+                display: none;
+                width: 100%;
+                margin-top : 0;
+                &.active {
+                  display: block;
+                }
+                .cell-inner {
+                  margin-left : 0;
+                }
+                .cell-title { display: none; }
+              }
+            }
+          }
+
+
+
+        }
+      }
+    }
+
+  }
+}

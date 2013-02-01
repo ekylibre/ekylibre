@@ -1,26 +1,27 @@
-%ul#journals
-  -if JournalEntryLine.find_by_state("draft")
+%dl.sub-nav
+  %dt=Backend::JournalsController.human_name
+  -if JournalEntryItem.find_by_state("draft")
     -name = tc("draft").html_safe
     -if action_name == "draft"
-      %li.current.special=name
+      %dd.active.special=name
     -else
-      %li=link_to(name, params.merge(:controller=>:journals, :action=>:draft), :class=>"tab special")
+      %dd=link_to(name, params.merge(:controller=>:journals, :action=>:draft), :class=>"tab special")
   -Journal.find_each do |journal|
     -name = journal.name.html_safe
     -classes = ""
-    -classes = "current" if (@journal and controller_name == "journals" and action_name == "show" and journal.id == @journal.id) or (@journal_entry and @journal_entry.journal_id == journal.id)
-    %li{:class => classes}=link_to(name, params.merge(:controller=>:journals, :action=>:show, :id=>journal.id), :title=>journal.name)
+    -classes = "active" if (@journal and controller_name == "journals" and action_name == "show" and journal.id == @journal.id) or (@journal_entry and @journal_entry.journal_id == journal.id)
+    %dd{:class => classes}=link_to(name, params.merge(:controller=>:journals, :action=>:show, :id=>journal.id), :title=>journal.name)
 
 -#.tabbox.journals
   .tabs
     -if JournalEntryLine.find_by_state("draft")
       -name=tc("draft").html_safe
       -if action_name=="draft"
-        %strong.tab.current.special=name
+        %strong.tab.active.special=name
       -else
         =link_to(name, params.merge(:controller=>:journals, :action=>:draft), :class=>"tab special")
     -Journal.find_each do |journal|
       -name=journal.name.html_safe
       -klass = "tab"
-      -klass += " current" if (@journal and controller_name == "journals" and action_name == "show" and journal.id == @journal.id) or (@journal_entry and @journal_entry.journal_id == journal.id)
+      -klass += " active" if (@journal and controller_name == "journals" and action_name == "show" and journal.id == @journal.id) or (@journal_entry and @journal_entry.journal_id == journal.id)
       =link_to(name, params.merge(:controller=>:journals, :action=>:show, :id=>journal.id), :title=>journal.name, :class=>klass)

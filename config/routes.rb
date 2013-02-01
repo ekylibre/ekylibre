@@ -76,7 +76,7 @@ Ekylibre::Application.routes.draw do
     resources :accounts do
       collection do
         get :list
-        get :list_journal_entry_lines
+        get :list_journal_entry_items
         get :list_reconciliation
         get :list_entities
         get :reconciliation
@@ -118,7 +118,7 @@ Ekylibre::Application.routes.draw do
     resources :bank_statements do
       collection do
         get :list
-        get :list_lines
+        get :list_items
         unroll_all
       end
       member do
@@ -322,9 +322,9 @@ Ekylibre::Application.routes.draw do
     resources :inventories do
       collection do
         get :list
-        get :list_lines
-        get :list_lines_create
-        get :list_lines_update
+        get :list_items
+        get :list_items_create
+        get :list_items_update
         unroll_all
       end
       member do
@@ -341,9 +341,9 @@ Ekylibre::Application.routes.draw do
         get :balance
         get :general_ledger
         get :list
-        get :list_draft_lines
+        get :list_draft_items
         get :list_mixed
-        get :list_lines
+        get :list_items
         get :list_entries
         get :list_general_ledger
         unroll_all
@@ -355,7 +355,7 @@ Ekylibre::Application.routes.draw do
     end
     resources :journal_entries do
       collection do
-        get :list_lines
+        get :list_items
       end
     end
     resources :journal_entry_items, :only => [:new, :create]
@@ -407,7 +407,7 @@ Ekylibre::Application.routes.draw do
     resources :operations do
       collection do
         get :list
-        get :list_lines
+        get :list_items
         get :list_uses
         get :list_unvalidateds
         unroll_all
@@ -418,7 +418,7 @@ Ekylibre::Application.routes.draw do
     resources :outgoing_deliveries do
       collection do
         get :list
-        get :list_lines
+        get :list_items
         unroll_all
       end
     end
@@ -571,8 +571,8 @@ Ekylibre::Application.routes.draw do
     resources :purchases do
       collection do
         get :list
-        get :list_lines
-        get :list_undelivered_lines
+        get :list_items
+        get :list_undelivered_items
         get :list_deliveries
         get :list_payment_uses
         unroll_all
@@ -606,21 +606,21 @@ Ekylibre::Application.routes.draw do
       end
     end
     resources :sales do
-      resources :lines, :only => [:new, :create], :controller => :sale_lines
+      resources :items, :only => [:new, :create], :controller => :sale_items
       collection do
         get :list
-        get :list_undelivered_lines
+        get :list_undelivered_items
         get :list_subscriptions
         get :list_payment_uses
         get :list_deliveries
         get :list_credits
-        get :list_creditable_lines
+        get :list_creditable_items
         get :statistics
         get :contacts
         unroll_all
       end
       member do
-        get :list_lines
+        get :list_items
         match "cancel", :via => [:get, :post]
         post :duplicate
         post :correct
@@ -698,9 +698,9 @@ Ekylibre::Application.routes.draw do
     resources :trackings do
       collection do
         get :list_stocks
-        get :list_sale_lines
-        get :list_purchase_lines
-        get :list_operation_lines
+        get :list_sale_items
+        get :list_purchase_items
+        get :list_operation_items
         unroll_all
       end
     end

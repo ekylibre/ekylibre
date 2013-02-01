@@ -14,6 +14,7 @@
 //= require jquery-ui
 //= require jquery_ujs
 //= require turbolinks
+//= require foundation
 //= require active-list.jquery
 //= require formize
 //= require cocoon

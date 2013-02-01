@@ -76,6 +76,7 @@ class User < Ekylibre::Record::Base
   belongs_to :profession
   has_many :events, :class_name => "Event", :foreign_key => :responsible_id
   has_many :future_events, :class_name => "Event", :foreign_key => :responsible_id, :conditions => ["started_at >= CURRENT_TIMESTAMP"]
+  has_many :preferences, :dependent => :destroy, :foreign_key => :user_id
   has_many :sales_invoices, :foreign_key => :responsible_id, :class_name => "Sale", :conditions => {:state => :invoice}
   has_many :sales, :class_name => "Sale", :foreign_key => :responsible_id
   has_many :transports, :class_name => "Transport", :foreign_key => :responsible_id
