@@ -568,7 +568,7 @@ fra:
     collected_taxes: "TVA collectées"
     color: "Couleur"
     columns: "Colonnes"
-    comment: "Commentaire"
+    comment: "Commentaire" #?
     commercial: "Activité commerciale"
     # commercial_description: "Commercial description"
     # commercial_name: "Commercial name"
@@ -592,6 +592,7 @@ fra:
     confirmed_on: "Confirmée le"
     connected_at: "Connecté le" #?
     consumption: "Consommation (litres/heure)" #?
+    # content: "Content"
     content_maximal_quantity: "Content maximal quantity"
     content_nature: "Content nature"
     # content_unit: "Content unit"
@@ -869,11 +870,11 @@ fra:
     mail_line_6: "Code postal ET ville"
     mails: "Emails"
     major_accounts: "Classes comptables" #?
-    managed_events: "Évènements gérés"
-    managed_sales: "Ventes gérées"
-    managed_sales_invoices: "Factures gérées"
-    managed_transports: "Transports gérés"
-    managed_unpaid_sales: "Ventes impayées gérées"
+    managed_events: "Évènements gérés" #?
+    managed_sales: "Ventes gérées" #?
+    managed_sales_invoices: "Factures gérées" #?
+    managed_transports: "Transports gérés" #?
+    managed_unpaid_sales: "Ventes impayées gérées" #?
     mandates: "Responsabilités"
     maximal_grantable_reduction_percentage: "Pourcentage maximal autorisé à etre effectué"
     maximal_length: "Longueur maximale"
@@ -1152,6 +1153,7 @@ fra:
     subdir: "Sous-répertoire"
     subdivision: "Position Y" #?
     subject: "Objet"
+    # subject_type: "Subject type"
     # subscribing: "Subscribing"
     # subscription_duration: "Subscription duration"
     subscription_nature: "Type"
@@ -1215,7 +1217,7 @@ fra:
     # unlock_token: "Unlock token"
     unlocked_payments: "Paiement non verrouillés"
     unpaid_responsibles: "Responsables d'impayés" #?
-    unpaid_sales: "Ventes impayées" #?
+    unpaid_sales: "Ventes impayées"
     unquantifiable: "Non quantifiable" #?
     unused_conveyors: "Convoyeurs inutilisés"
     updated_at: "Mis à jour le"

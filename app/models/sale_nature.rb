@@ -21,10 +21,10 @@
 # == Table: sale_natures
 #
 #  active                  :boolean          default(TRUE), not null
-#  comment                 :text             
 #  created_at              :datetime         not null
 #  creator_id              :integer          
 #  currency                :string(3)        
+#  description             :text             
 #  downpayment             :boolean          not null
 #  downpayment_minimum     :decimal(19, 4)   default(0.0), not null
 #  downpayment_percentage  :decimal(19, 4)   default(0.0), not null

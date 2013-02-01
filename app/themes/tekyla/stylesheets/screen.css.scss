@@ -5,1495 +5,245 @@
  *= require_self
 */
 
-/*@import "config.css.scss";
-@import "active-list.css.scss";*/
-@import "buttons.css.scss";
 $experimental-support-for-svg: true;
 
-html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video, input, textarea, select, options {
-  margin:0;
-  padding:0;
-  font-family: $base-font-family;
-  vertical-align: middle;
-  font-size: $fs-normal;
-  color: $text-color;
-  @include text-align(left);
-}
-/*
-fieldset {
-  @include border-radius($default-border-radius);
-  padding: round($default-gap/2) $default-gap $default-gap;
-  margin: 0 0 $default-gap;
-  border: $menu-border;
-  legend {
-    padding: 0 round(0.25*$fs-normal);
-    color: $base-color;
-    font-size: $fs-large;
-    font-weight: bold;
-    vertical-align: middle;
-    .icon { display: none }
-    &[data-toggle-set] {
-      cursor: default;
-      .icon {
-        @include inline-block;
-        width: 12px;
-        height: 12px;
-        @include margin-right(round(0.25*$fs-normal));
-      }
-      &.show .icon { @include common-sprite(toggle-show) }
-      &.show:hover .icon { @include common-sprite(toggle-show-hover) }
-      &.hide .icon { @include common-sprite(toggle-hide) }
-      &.hide:hover .icon { @include common-sprite(toggle-hide-hover) }
-    }
-  }
-  .actions { border-left: none; border-right: none; border-bottom: none; margin-top: 8px}
-}
-*/
+@import "compass/reset";
+@import "compass/css3";
+@import "compass/utilities";
+@import "foundation";
 
-td, th, a, p, input, textarea, select, div { font-size: $fs-normal;}
-small, sup, sub { font-size: $fs-small; }
-a:link, a:visited, a:focus { color: $link-color; text-decoration: none; }
-a:hover { color: $link-color; text-decoration: underline;}
-
-*[data-click], .clickable { cursor: pointer; }
-
-html {
-/*  background: $menu-background image-url("sunset.jpg") center no-repeat fixed;*/
-  background: $menu-background;
+@mixin define-right-property($base-name, $value) {
+  html[dir="ltr"] & { #{$base-name}-right: $value; }
+  html[dir="rtl"] & { #{$base-name}-left: $value; }
 }
 
-#wrap {
-  #main {
-    /*border-bottom: 4*$menu-border-width solid $base-color;*/
-    /*@include box-shadow(0 0 $fs-large rgba(#000, 0.3));*/
-    padding: $default-gap;
-    #main-wrapper {
-      @include incrust-shadow;
-      background: mix(#FFF, $base-color, 98%);
-      @include border-radius(3px);
-      border: $menu-border;
-      #header {
-        /*background: $base-color;*/
-        #toolbar {
-          @include float(right);
-          position: absolute;
-          top: 0;
-          right: 0;
-          @include margin-right($default-gap);
-          margin-top: $default-gap;
-          .group {
-            @include button-group;
-            .btn {
-              .icon { margin: 0; }
-              .text { display: none; }
-            }
-          }
-        }
-        #title {
-          margin: 0;
-          &, & * { @include title($fs-very-huge); }
-          padding: round($default-gap/2) $default-gap ;
-          * { @include margin-right($default-gap) }
-          html body &  {
-            .module { font-weight: normal;}
-            .separator { color: #AAA;}
-            .leaf { color: #000 }
-          }
-          /*@include text-shadow(0 0 $fs-small rgba(#000, 0.5));*/
-        }
-        #subtitle {
-          &, & * { @include title($fs-huge); }
-          font-weight: normal;
-          font-style: italic;
-        }
+@mixin define-left-property($base-name, $value) {
+  html[dir="ltr"] & { #{$base-name}-left: $value; }
+  html[dir="rtl"] & { #{$base-name}-right: $value; }
+}
 
-      }
-      #content {
-        padding: $default-gap;
-      }
-      h2 { margin: 8px 0px 4px; font-size: $fs-huge; color: $title-color; font-weight: bold;  padding: 1px 0;}
-      .menu {
-        @include border-radius($default-border-radius);
-        background: $cell-background;
-        @include incrust-shadow;
-        padding:4px 6px;
-        margin: 0 0 8px;
-        h2 { margin: 2px 0px !important; }
-        ul { padding: round($fs-normal*0.25) round($fs-normal*1.25); }
-        li { list-style-type: square; padding: 1px; }
-        &.special { background: #FE9; }
-        &.special a:link, &.special a:visited { color: #A60; }
-        &.indicator { background: #FD8; } /*#FA3;*/
-      }
-    }
+@mixin padding-right($value) { @include define-right-property(padding, $value); }
+@mixin padding-left($value)  { @include define-left-property(padding, $value); }
+@mixin margin-right($value) { @include define-right-property(margin, $value); }
+@mixin margin-left($value)  { @include define-left-property(margin, $value); }
+@mixin border-right($value) { @include define-right-property(border, $value); }
+@mixin border-left($value)  { @include define-left-property(border, $value); }
+
+@mixin left($value) {
+  html[dir="ltr"] & { left: $value; }
+  html[dir="rtl"] & { right: $value; }
+}
+
+@mixin right($value) {
+  html[dir="ltr"] & { right: $value; }
+  html[dir="rtl"] & { left: $value; }
+}
+
+@mixin text-align($dir) {
+  @if $dir == right {
+    html[dir="ltr"] & { text-align: right; }
+    html[dir="rtl"] & { text-align: left; }
+  } @else if $dir == left {
+    html[dir="ltr"] & { text-align: left; }
+    html[dir="rtl"] & { text-align: right; }
+  } @else {
+    html[dir="ltr"] &, html[dir="rtl"] & { text-align: $dir; }
   }
 }
 
-#legals {
-  @include text-align(center);
-  padding: round(0.5*$fs-small);
-  &, & * { color: $neutral-color; font-size: $fs-small;} /* text-shadow: 1px 1px 0 #FFF */
-}
-
-
-
-
-
-
-
-
-
-
-
-
-.fields {
-/*  background: image-url("themes/tekyla/shadow-top.png") repeat-x bottom;
-  padding: 0 1px;
-  overflow: auto; */
-}
-
-.end { height: 8px; }
-
-#about-us div { padding: 64px; }
-#about-us div a { @include text-align(center); display: block; }
-#about-us div a img { border:none; }
-#about-us div table { margin: 0 auto; width: 500px; }
-
-.content {
-  $content-font-size: round($fs-normal*0.9);
-  clear: both;
-  * {
-    vertical-align: baseline;
-    color: $text-color; line-height: 1.2em; font-size: $content-font-size;
-  }
-  h1 { @include title($fs-normal); margin: 0px 0 8px; text-transform: uppercase; letter-spacing: 1px;}
-  h2 { @include title($fs-normal); margin: 8px 0 4px; border-bottom: $menu-border; }
-  h3 { @include title($content-font-size); margin: 4px 0 2px 10px; color: $text-color; }
-  pre { font-family: "Liberation Mono", monospace; color: #777; background: #FFF; padding: $default-gap; margin: $default-gap 0; }
-  strong { font-weight: bold; }
-  em { font-style: italic; }
-  ul, ol {
-    padding: 0;
-    @include padding-left(1.3*$content-font-size);
-    margin: 0 0 $default-gap 0;
-  }
-  ul li { list-style-type: square; }
-  ol li { list-style-type: decimal; }
-  dl {
-    padding: 0 0.1em; margin-bottom: 0.2em;
-    dt { margin-top: .2em; font-weight: bold; color: #210 }
-    dd { margin-bottom: .2em; margin-left: 1em; }
-  }
-  a img { border: $menu-border-width solid $link-color; padding: $menu-border-width; }
-  p {
-    /*@include text-align(justify);*/
-    margin: 0 0 $default-gap 0;
-    &.notice { border-left: $default-gap solid #7A4; background: #CE8; padding: round($default-gap/2) $default-gap; }
-    &.warning { border-left: $default-gap solid #FA0; background: #FD9; padding: round($default-gap/2) $default-gap; }
-  }
-  .text-end { height: 1px; }
-  .help-error {  @include text-align(center); margin: $default-gap 0; color: mix($text-color, $menu-background, 50%); @include text-shadow($menu-border-width $menu-border-width 0 $desktop-background) }
-  .content .md {
-    display:block;
-    &.md-center { margin: round($default-gap/2) auto; }
-    &.md-left   { margin: round($default-gap/2); @include float(left); }
-    &.md-right  { margin: round($default-gap/2); @include float(right); }
+@mixin float($dir) {
+  @if $dir == right {
+    html[dir="ltr"] & { float: right; }
+    html[dir="rtl"] & { float: left; }
+  } @else if $dir == left {
+    html[dir="ltr"] & { float: left; }
+    html[dir="rtl"] & { float: right; }
+  } @else {
+    html[dir="ltr"] &, html[dir="rtl"] & { float: $dir; }
   }
 }
 
-
-i {
-  @include inline-block;
-  width: 16px;
-  height: 16px;
-  &.icon-up { @include icons-sprite(up) }
-  &.icon-inside { @include icons-sprite(right) }
-}
-
-
-#side {
-  @include respond-to(phone) {
-    @include background($desktop-background);
-    padding-bottom: $default-gap;
-    @include box-shadow(0 0 $fs-normal rgba(#000, 0.5));
-  }
-
-  ul.side-menu {
-    margin: $default-gap;
-    $transp: 40%;
-    @include incrust-shadow;
-    @include border-radius($default-border-radius);
-    li {
-      display:block;
-      margin-top: -1 * $menu-border-width;
-      $padding: round($fs-normal*0.7) (round($fs-normal*0.7)+16px)  round($fs-normal*0.7) round($fs-normal*0.7);
-      a {
-        background: white;
-        display:block;
-        padding: $padding;
-        border: $menu-border;
-        @include ellipsis;
-        i {
-          @include float(right);
-          margin: 0 -1*(round($fs-normal*0.35)+16px) 0 0;
-        }
-      }
-      &:first-child {
-        margin-top: 0;
-        a {
-          @include border-top-left-radius($default-border-radius);
-          @include border-top-right-radius($default-border-radius);
-        }
-      }
-      &:last-child a {
-        @include border-bottom-left-radius($default-border-radius);
-        @include border-bottom-right-radius($default-border-radius);
-      }
-      &:hover a {
-        background: mix(white, $menu-border-color, 80%);
-        text-decoration: none;
-      }
-      &.current, &.active {
-        position: relative;
-        z-index: 2;
-        a {
-          background: $base-color;
-          padding: $padding + 1;
-          border: none;
-          color: white;
-        }
-      }
-    }
-
-  }
-
-  &:last-child {
-    *:last-child {
-      margin-bottom: 0;
-    }
+@mixin display($mode) {
+  @if $mode == box {
+    display: -o-box;
+    display: -ms-box;
+    display: -moz-box;
+    display: -webkit-box;
+    display: box;
+  } @else {
+    display: $mode;
   }
 }
 
-
-
-
-#helpage { padding-left: $default-gap; }
-
-.clearfix:after { content: "."; display:block; height:0; clear: both; visibility: hidden; }
-/* backslash hack hides from IE mac \*/
-* html .clearfix { height: 1%; }
-.clearfix { display: block; }
-/* end backslash hack*/
-
-table.invex, table.invisible { border-collapse: collapse; }
-table.invex { width: 100% }
-table.invex > tbody > tr > td { vertical-align: top;  }
-table.invex tr td.space{ width: 8px }
-table.center { margin-left: auto; margin-right: auto; }
-
-table.quick { margin: 0 8px 8px 8px; border-collapse: collapse; }
-table.quick td { padding: 0px 4px; }
-
-
-.attributes-list {
-  border-collapse: collapse; width: 100%;
-  tr td { border-bottom: $menu-border; border-style : dotted; }
-  .label, .value { padding: round($fs-normal/6) round($fs-normal/3);  vertical-align: middle; }
-  .code { font-family: "Liberation Mono", monospace; }
-  .label { color: #555; @include text-align(right);}
-  .value .string {
-    max-height: 3em; overflow-y: auto;
-    &, & * { font-size: $fs-normal; line-height: $fs-normal;}
-  }
+/* 37E */
+/*##############|                   |                   |                   |                   |                   |                   |*/
+$modules-names:  relationship        accountancy         sales               purchases           stocks              production         ;
+$modules-colors: #07D                #380                #BB4                #c60                #B00                #741               ;
+$modules: ();
+@for $i from 1 through length($modules-names) {
+  $modules: append($modules, (nth($modules-names, $i) nth($modules-colors, $i)));
 }
 
-.desc { background: transparent; text-shadow: white 0 0 1.5px; color: black; behavior: url(/pie.htc); }
+$fs-normal: 14px;
+$fs-small:      ceil(0.73*$fs-normal);
+$fs-large:     round(1.10*$fs-normal);
+$fs-huge:      round(1.20*$fs-normal);
+$fs-very-huge: round(1.40*$fs-normal);
 
+$neutral-color: #777;
+$base-color: #16D;
+$link-color:  darken($base-color, 27%);
+$link-color:  darken($base-color, 10%);
+$text-color:  #111;
+$title-color: darken($base-color, 40%);
+$invalid-color: red;
+$hover-transparency: 0.85;
+$hover-mask: transparentize($base-color, $hover-transparency);
 
-.logo { width: 160px; padding:4px; background: white; border:1px solid #EEE; text-align:center; vertical-align:center; }
-
-.flash {
-  padding: $default-gap;
-  margin-bottom: $default-gap;
-  vertical-align: middle;
-  color: black;
-  border: $menu-border;
-  @include border-radius($default-border-radius);
-  @include incrust-shadow;
-  $icon-size: 32px;
-  .icon {
-    display: block;
-    height: $icon-size;
-    width: $icon-size;
-    @include float(left);
-  }
-  .message {
-    @include margin-left($icon-size + $default-gap);
-    h3 {
-      font-size: $fs-normal;
-      font-weight: bold;
-      $gap: floor(($default-gap - $menu-border-width)/2);
-      padding: 0 0 $gap;
-      margin-bottom: $default-gap - $menu-border-width - $gap;
-      border-bottom: $menu-border-width dotted #999;
-    }
-    ul {
-      padding: round($fs-normal/4);
-      @include padding-left(round(1.2*$fs-normal));
-      li { list-style-type: square; }
-    }
-  }
-  .end {
-    clear: both;
-    height: 0;
-  }
-  @each $level in (error #D10), (warning #E60), (success #591), (information #777) {
-    $level-name: nth($level, 1);
-    $level-color: change-color(nth($level, 2), $lightness: 40%);
-    &.#{$level-name} {
-      &, & .message h3 { border-color: $level-color;}
-      * { color: $level-color; }
-      background-color: mix($level-color, $desktop-background, 10%);
-      .icon { @include common-sprite(notification-#{$level-name}); }
-    }
-  }
+@function background-hover($background-color) {
+/*  @return mix($background-color, $base-color, 78%);*/
+  @return mix($background-color, opacify($hover-mask, 1), percentage($hover-transparency));
 }
 
-.checkbox-true { @include common-sprite(true); height:12px; width:12px; }
-.checkbox-false { @include common-sprite(false); height:12px; width:12px; }
+//$base-color: #95b0e4;
+//$link-color: $base-color; /* #3162C0; /* 02C */
+$desktop-background: #FFFFFF;
+$input-background: $desktop-background;
+$light-color: mix($base-color, $desktop-background, 50%); /* #C9D7F1 */
+$menu-background: #F0F0F0; /* #3D5C8D F1F1F1 86a5e0 c8d3e9*/
+$menu-background-hover: background-hover($menu-background);
+$menu-border-color: mix($menu-background, #000000, 87%);
+$menu-border-width: floor($fs-normal / 10);
+$menu-border: $menu-border-width solid $menu-border-color;
+$menu-width: $fs-normal * 13;
+$menu-padding: 2*$menu-border-width;
+$menu-height:      2 * ceil($fs-normal * 0.875);
+$menu-text-height: 2 * ceil($fs-normal * 0.655);
+$input-border: $menu-border-width solid mix($desktop-background, $neutral-color, 60%);
+$label-width: 25%;
 
-.count { margin: 0 0 4px; color:#777; }
+$default-border-radius: round($fs-normal/5);
+/* Variation from center to  */
+$default-lightness-variation: 5%;
+$default-gap: round($fs-normal * 0.55);
+$cell-background: mix($desktop-background, $base-color, 82%);
+$cell-background-current: mix($desktop-background, $base-color, 62%);
 
-.contact { padding: 5px 0 8px 4px; border:0.2px solid; border-color:$light-color; background-color:#FEB; }
-
-
-.fieldset {
-  @include border-radius($default-border-radius);
-  $vertical-gap: round($default-gap*0.7);
-  padding: $vertical-gap $default-gap;
-  margin: 0 0 $default-gap;
-  $fieldset-border: $menu-border;
-  border: $fieldset-border;
-  @include incrust-shadow;
-  $size: $fs-large;
-  background: white;
-  .fieldset-legend {
-    padding: 0;
-    label, span {
-      color: $neutral-color;
-      font-size: $size;
-      line-height: $size;
-    }
-    font-weight: bold;
-    vertical-align: middle;
-    .icon {
-      @include inline-block;
-      @include icons-sprite(page);
-      height: 16px;
-      width: 16px;
-      @include margin-right(round($size/4));
-    }
-    [data-toggle-set] {
-      cursor: default;
-      @include inline-block;
-      @include float(right);
-      $tool-size: 12px;
-      width: $tool-size;
-      height: $tool-size;
-      margin: round(($size - $tool-size)/2) 0 0;
-      &.collapsed {
-        @include common-sprite(toggle-show);
-        &:hover { @include common-sprite(toggle-show-hover) }
-      }
-      &.not-collapsed {
-        @include common-sprite(toggle-hide);
-        &:hover { @include common-sprite(toggle-hide-hover) }
-      }
-    }
-  }
-  @each $field_set in care, drug, delay, document, general-informations, stock, animal, vegetable, entity, asset, genealogy, group, movement, treatment {
-    &##{ $field_set }-fieldset .fieldset-legend .icon {
-      @include icons-sprite($field_set);
-    }
-  }
-
-  textarea {
-    width: 70%;
-    resize: vertical;
-  }
-  .fieldset-fields {
-    border-top: $fieldset-border;
-    margin-top: $vertical-gap;
-    padding-top: $vertical-gap;
-  }
-  .actions { border-left: none; border-right: none; border-bottom: none; margin-top: 8px}
-  .input {
-    padding: round($fs-normal*0.2) 0;
-    margin: round($fs-normal*0.1) 0;
-
-    .control-label {
-      width: 25%;
-      @include float(left);
-      line-height: 1.4*$fs-normal;
-      @include inline-block;
-      @include margin-right(round($fs-normal/2));
-      &.required {
-        abbr {
-          color: red;
-          float: right;
-        }
-      }
-    }
-    input{
-      max-width: 65%;
-    }
-  }
+@mixin title($font-size) {
+  font-size: $font-size;
+  line-height: round($font-size * 1.4);
+  font-weight: bold;
+  color: $title-color;
 }
 
-.help-inline {
-  display: inline-block;
-  *display: inline;
-  padding-left: 5px;
-  vertical-align: middle;
-  *zoom: 1;
-  color:  rgb(237, 0, 78);
+@mixin menu-shadow {
+  @include box-shadow(0 0 ($fs-normal/4) rgba(0, 0, 0, 0.3));
 }
 
-$controls-margin-left: round($label-width * 1.1);
-
-.control-group {
-  margin: round($fs-normal/4) 0;
-  padding: round($fs-normal/4) 0;
-  @include clearfix;
-  .control-label {
-    width: $label-width;
-    @include float(left);
-    line-height: round(1.4*$fs-normal);
-    margin: round($fs-normal/4) 0;
-    @include display(block);
-    @include ellipsis;
-    &.required {
-      abbr {
-        color: red;
-        float: right;
-      }
-    }
-  }
-  .controls {
-    @include margin-left($controls-margin-left);
-    width: 100% - $controls-margin-left;
-    input, select, textarea {
-      max-width: 100% - $controls-margin-left;
-    }
-    .btn-new {
-      .icon { @include margin-right(0); }
-      .text { display: none; }
-    }
-  }
-  &.selector .controls .input{
-    @include toolbar;
-  }
-}
-
-.input-append {
-  @include button-group;
-  .btn {
-    .text { display: none; }
-    .icon { margin-left: 0; margin-right: 0; }
-  }
-}
-
-table.formalize {
-  border-collapse: collapse;
-  margin-left: auto;
-  margin-right: auto;
-  width: 100%;
-  tr.field td {
-    label { color: #555; }
-    td:last-child { border: none }
-  }
-}
-table.formalize td.label { @include text-align(right); padding:1px 4px; color: #555; width: 30%; border-right: 0px dotted #CCC;  }
-table.formalize td.input { padding: 4px 6px 4px 2px; }
-table.formalize td.help  { text-align:left; padding:2px 2px 2px 6px; font-size: $fs-small; border-left: 1px dashed #CCC; }
-table.formalize td [required] { border: $menu-border-width solid #33F; background-color: #EEF }
-table.formalize td .info         { color: #007;  background:#CDF; padding:2px; }
-table.formalize td .info span    { color: #55C; }
-table.formalize td .example      { color: #040;  background:#CFC; padding:2px; }
-table.formalize td .example span { color: #4A5; }
-table.formalize td .hint         { color: #600;  background:#FDE; padding:2px; }
-table.formalize td .hint span    { color: #B54; }
-table.formalize td .note         { color: #777; }
-table.formalize tr.title th { padding: 16px 8px 2px; border-bottom: 0px dotted #012; color: #012; font-size: $fs-normal; border-bottom: 1px solid #CCC; font-weight:bold; }
-table.formalize td.input .code { font-family: "Liberation Mono", monospace; }
-a.act img { border: none !important; }
-/*
-table.formalize tr.odd  td { background: #E5ECF6; }
-table.formalize tr.even td { background: #F0F8FF; }
-*/
-table.formalize a.fastadd { margin: 0px 8px; }
-
-
-
-
-
-div.field { padding: 4px; }
-div.field > * { vertical-align: middle; }
-div.field label.attr { color: #555; width: 30%; display: inline-block; text-align: right; padding: 0 8px;}
-html[dir="rtl"] div.field label.attr { text-align: left; }
-div.field.mono-choice .toolbar { margin: 0 8px; }
-
-
-.spacer {
-  height: 2*$fs-normal;
-  display: block;
-}
-
-.form-column {
-  overflow: auto;
-  &.aside {
-    width: $menu-width;
-    @include float(left);
-    @include padding-right(round($fs-normal/2));
-  }
-}
-
-span.rad, label.radio {
-  padding: round($fs-normal/8) 0;
-  @include margin-left(round($fs-normal/2));
-  * { vertical-align: middle; }
-  &:first-child {
-    @include margin-left(0);
-  }
-  input {
-    @include margin-right($fs-normal/4);
-  }
-}
-
-.form-fields {
-  @include clearfix;
-  @include respond-to(table) {
-    @include columns(2);
-  }
-}
-
-.form-actions {
-  @include text-align(center);
-  input, a, span {
-    @include text-align(center);
-    @include margin-left($fs-normal);
-    &:first-child { @include margin-left(0) }
-  }
-  padding: round($fs-normal) !important;
-  background: $menu-background;
-  /*border-top: $menu-border;*/
-  margin: 0;
-}
-
-
-input, textarea, select {
-  border: $input-border;
-  @include border-radius(3px);
-  @include background($input-background);
-  @include box-shadow(0 0 0.2em rgba(#000, 0.1), 0 round($fs-normal*0.2) round($fs-normal*0.4) rgba(#000, 0.12) inset);
-  padding: 2*$menu-border-width 3*$menu-border-width;
-
-  &:focus {
-    $color: change-color($base-color, $lightness: 70%);
-    @include box-shadow(0 0 round($fs-normal*0.5) rgba($color, 0.8));
-    border-color: $color;
-    &.invalid {
-      border-color: $invalid-color !important;
-    }
-  }
-}
-input.invalid, textarea.invalid, select.invalid { border: 1px solid $invalid-color !important; background-color: #FDD !important; }
-.kujaku {
-  background: white;
-  color: #580;
-  @include box-shadow(0 0 $fs-small rgba(#000, 0.5));
-  @include border-radius($default-border-radius);
-  padding: $default-gap;
-  margin: 0 0 $default-gap 0;
-  table {
-    margin: 0px auto;
-    .crit { border-top: $menu-border-width dotted #580; padding: round($fs-normal/6) round($fs-normal/4); vertical-align: middle; text-align:center; }
-    tr:first-child .crit { border-top: none; }
-  }
-  .label { padding: round($fs-normal/6) round($fs-normal/4); }
-  .submit { padding: round($fs-normal/6) round($fs-normal/4); width: 10*$fs-normal; text-align:center; }
-  &.popover {
-    display: none;
-    position: absolute;
-    right: $default-gap;
-    top: 40px;
-    z-index: 10000;
-    margin: 0;
-  }
-}
-
-
-.results { background: #EEF;  padding:4px 6px; margin: 0 0 8px; width:192px; }
-.results h2 { font-size : $fs-large; color: black; padding: 2px; margin: 2px 0px; }
-.results ul { padding: 4px 4px 4px 18px; }
-.results li { list-style-type: square; }
-.results li .pertinence{ color: #AAA; font-size: 11px; }
-
-
-
-/*e7f2fd bbcfe6*/
-
-h2.form { font-size: $fs-large; margin: 8px 0px 4px; border-bottom: 1px solid $light-color; color: #656C79; }
-
-.stepper { border-collapse: collapse; width: 100%; margin-bottom:8px; }
-.stepper td { height: 36px; }
-.stepper td.step { text-align:center; background: image-url("themes/tekyla/stepper-default.png") no-repeat; padding: 6px 20px; line-height: 24px; height: 24px; vertical-align:middle;}
-.stepper td.step.usable { background: image-url("themes/tekyla/stepper-usable.png") no-repeat; }
-.stepper td.step.active { background: image-url("themes/tekyla/stepper-active.png") no-repeat; }
-html[dir="ltr"] .stepper td.step { background-position: right center; }
-html[dir="rtl"] .stepper td.step { background-position: left center; }
-.stepper td.transition { width: 8px; }
-
-
-
-
-.login {
-  @extend .well;
-/*  z-index: 1000;
-  border: $menu-border;
-  background: $menu-background;
-  margin: $fs-normal 0;
-  padding: $fs-normal;*/
-  .ui-dialog & { margin: 0; padding: 0 8px;}
-  .logoban { height:80px; width: 280px; @include common-sprite(ekylibre); margin: 16px auto 8px; }
-  h2 { color:red !important; padding: 2px; text-align:center; font-size: $fs-huge; }
-  p { margin:8px; }
-  table {
-    border-collapse: collapse;  margin:16px auto; margin-left:auto; margin-right:auto;
-    tr {
-      td {
-        padding: 2px 4px;
-        label { @include text-align(right); vertical-align: middle; }
-        &.input {
-          padding: 3px;
-          &, & input { width:128px; }
-        }
-        &.button {text-align:center; padding:6px; }
-      }
-    }
-    &.browsers tr td { padding: 8px 16px; }
-  }
-  &.register { padding:16px 0; @include text-align(center);}
-}
-#nojavascript p { font-weight: bold; @include text-align(center); padding: 24px; color: #c00; }
-
-
-/* Users rights */
-.right-category { @include text-align(center); padding: 15px 0 5px 0; font-weight: bold; }
-.right {  margin-left:50px; }
-
-/* entries */
-#table.entries tr * { border: 1px solid #AAA; padding: 1px 2px; }
-#table.entries tr.odd td{background: #E3F4FF; }
-#table.entries tr.even td{background: #A3FCFF; }
-
-
-.tabs {
-  $tabs-height: 2 * ceil($fs-normal * 0.8);
-  height: $tabs-height;
-  padding: 0px;
-  white-space: nowrap;
-  & > .tab {
-    @include inline-block;
-    $text-height: 2 * ceil($fs-normal * 0.55);
-    height: $text-height;
-    line-height: $text-height;
-    cursor: pointer;
-    @include margin-right(round($fs-normal/4));
-    padding: (($tabs-height - $text-height)/2 - $menu-border-width) 6px (($tabs-height - $text-height)/2);
-    color: #000;
-    text-shadow: 1px 1px 0 white;
-    text-decoration: none;
-    white-space: nowrap;
-    border: $menu-border;
-    border-bottom: none;
-    @include border-top-left-radius($default-border-radius);
-    @include border-top-right-radius($default-border-radius);
-    background: $menu-background;
-    opacity: 0.5;
-    &:hover {
-      opacity: 0.8;
-    }
-    &.current {
-      font-weight: bold;
-      text-shadow: none;
-      opacity: 1;
-      position: relative;
-      top: $menu-border-width;
-    }
-  }
-}
-
-.tabbox {
-  margin: $default-gap 0;
-  & > .tabs  {
-    @extend .tabs;
-  }
-  & > .tabpanels {
-    @include incrust-shadow;
-    background: $menu-background;
-    border: $menu-border;
-    padding: $default-gap;
-    @include border-bottom-left-radius($default-border-radius);
-    @include border-bottom-right-radius($default-border-radius);
-    & > .tabpanel {
-      display: none;
-      &.current { display: block; }
-    }
-  }
-}
-
-ul#journals {
-  border-bottom: $menu-border-width solid mix($desktop-background, #000, 70%);
-  @include background(linear-gradient(top, rgba(0,0,0,0), rgba(0,0,0,0.05)));
-  @extend .tabs;
-  @include padding-left(round($fs-normal/4));
-  & > li {
-    @extend .tab;
-    &.current{ @include background($desktop-background); }
-    &.special{ color: $base-color; }
-  }
-}
-
-
-$tree-line: 1px dotted #AAA;
-.branch {
-
-  &:hover {
-    background-color: background-hover($desktop-background);
-  }
-  .shift {
-    height: 15px;
-    width:10px;
-    border-bottom: $tree-line;
-    html[dir="ltr"] & { float:left; }
-    html[dir="rtl"] & { float:right; }
-  }
-  .tools {
-    padding: 1px 4px;
-    width: 20em;
-    html[dir="ltr"] & { float:right; }
-    html[dir="rtl"] & { float:left; }
-  }
-  .item {
-    padding: 2px;
-    @include padding-left(16px);
-    td.ic {
-      width: 16px;
-      @include padding-right(4px);
-      .icon {
-        height: 16px;
-        width:16px;
-        &.table  { @include icons-sprite(table) }
-        &.column { @include icons-sprite(column) }
-      }
-    }
-    table {
-      width: 100%;
-/*      border-bottom:1px dotted #79F; */
-    }
-    form { @include inline-block; }
-    .export { vertical-align: middle; width: 1em; @include padding-right(2px);}
-    .attribute { color: #888; font-style: italic; }
-    td.delete {padding: 0 4px; width: 2em; }
-    td.position { width: 15ex; }
-    .item-tool { @include text-align(right); }
-  }
-}
-
-.branches {
-  @include margin-left(20px);
-  @include border-left($tree-line);
-}
-
-
-tbody.lines td input { width: 95%; }
-
-
-
-div.fastadd { background: #FC8; text-align:center; padding: 4px; margin: 4px 0; }
-
-#conditions .condition { background: #FD8; padding: 4px; margin-bottom: 8px; }
-#conditions .title { clear: both; background: #FEA; padding: 4px; }
-#conditions .title .right-menu { float: right; padding-left:8px; }
-#conditions .title h3 { font-size: $fs-normal; }
-#conditions .parameters { padding-top: 4px; }
-#conditions .param { padding: 2px; border-bottom: 1px dotted #AAA; }
-#conditions .param:last-child { border-bottom:none; }
-
-table.accounts {
-  tr {
-    td.tabs {
-      width: 16em;
-      .major-accounts {
-        a, strong {
-          background: $cell-background; display: block; padding:4px 8px; margin-bottom:2px;
-          html[dir="ltr"] & { @include border-top-left-radius($default-border-radius); @include border-bottom-left-radius($default-border-radius); }
-          html[dir="rtl"] & { @include border-top-right-radius($default-border-radius); @include border-bottom-right-radius($default-border-radius); }
-        }
-        strong { background: $cell-background-current; font-weight: bold; }
-        & > *:last-child { margin-bottom: 0 }
-      }
-    }
-  }
-}
-
-table.accounts tr td.list, .tab-content { background: $cell-background-current; padding: 4*$menu-border-width; }
-
-.view {
-  padding: 0 round($fs-normal/4);
-  span { padding:4px 8px; }
-  a, strong {
-    @include inline-block;
-    $text-height: $fs-normal + 2px;
-    height: $text-height;
-    line-height: $text-height;
-    vertical-align: top;
-    padding: round($fs-normal/4) round($fs-normal/2);
-    margin: 0 round($fs-normal/6);
-    background: $cell-background;
-    @include border-top-left-radius($default-border-radius);
-    @include border-top-right-radius($default-border-radius);
-  }
-  strong { background: $cell-background-current; }
-}
-
-
-.map { border: 1px solid #999; background: white; }
-
-
-html[dir="ltr"] .toggle { float:right }
-html[dir="rtl"] .toggle { float:right }
-.toggle a.icon { background-position: center center;  height: 18px; }
-.toggle a.icon.current { @include opacity(0.5); }
-
-#chains .chain { border-top: 1px dotted #CCC;  }
-#chains .chain:first-child { border-top: none;  }
-.chain { padding:8px 0; }
-html[dir="ltr"] .chain .delete { float:right; }
-html[dir="rtl"] .chain .delete { float:left; }
-.work-center-graph { border-collapse: collapse; }
-.work-center-graph .work-center { background: $light-color; padding: 4px 8px; border: 2px dotted $base-color; text-align:center; width: 10em;}
-.work-center-graph .work-center.master { border-style: solid; }
-.work-center-graph .work-center .action { margin: 2px;}
-table.conveyor { border-collapse: collapse; margin: 2px 0; }
-.conveyor .information table { border-collapse: collapse; padding: 0}
-.conveyor .cell { background: #DDD; font-size: $fs-small; border: 2px solid #555; padding: 0;}
-/*.conveyor .cell * { font-size: $fs-small; }
-.conveyor .cell .bmenu { padding: 0; width: 12em;}
-.conveyor .cell .bmenu ul { width: 12em;}
-.conveyor .cell .bmenu a { display: block; padding: 2px 4px;}*/
-.conveyor a img { border: none; display: block;}
-.conveyor .cell.action { padding: 1px; }
-.conveyor .cell.quantity { background: $light-color; padding: 2px 4px; border-color: $base-color;  }
-html[dir="ltr"] .conveyor .cell.target, html[dir="rtl"] .conveyor .cell.source { margin-right: -2px; border-right: none; }
-html[dir="rtl"] .conveyor .cell.target, html[dir="ltr"] .conveyor .cell.source { margin-left: -2px; border-left: none; }
-.conveyor .cell.check-state { background: #EF9; }
-.conveyor .cell.unique-tracking { background: #FE9; }
-.conveyor .cell.new { padding: 2px 4px; background: #FFD; @include border-radius(5px); }
-
-.conveyor .conveyor-input {  width: 24px; background: image-url("themes/tekyla/conveyor.png") no-repeat -8px center; }
-.conveyor .conveyor-output { width: 32px; background: image-url("themes/tekyla/conveyor.png") no-repeat -32px center; }
-html[dir="rtl"] .conveyor .conveyor-input { background-position: -32px center; }
-html[dir="rtl"] .conveyor .conveyor-output { background-position: 0px center; }
-
-
-.conveyor .rail { width: 20px; background: image-url("themes/tekyla/rail.png") repeat-x center; }
-.conveyor .arrow { width: 16px; background-repeat: no-repeat; background-position:center; height: 24px;}
-html[dir="ltr"] .conveyor .arrow { background-image: image-url("themes/tekyla/arrow-right.png"); }
-html[dir="rtl"] .conveyor .arrow { background-image: image-url("themes/tekyla/arrow-left.png"); }
-html[dir="ltr"] .work-center-graph .input-conveyors .conveyor { margin-left: auto; }
-html[dir="rtl"] .work-center-graph .input-conveyors .conveyor { margin-right: auto; }
-
-.bmenu {
-  position: relative;
-  ul {
-    display: none; position:absolute; z-index: 1000;
-    @include menu;
-    html[dir="ltr"] & { left: -1px; }
-    html[dir="rtl"] & { right: -1px; }
-    li { @include menu-item; }
-  }
-  &:hover ul { display: block;  }
-}
-
-
-
-
-.treemap {
-  border-collapse: collapse; width: 100%;
-  .plot {
-    padding: 4px;
-    border: 2px solid #8a8;
-    vertical-align: top;
-    .name {
-      padding: 2px;
-      display:block;
-      border-bottom: 1px dotted #8A8;
-    }
-    ul.operations {
-      padding: 2px 2px 2px 20px;
-    }
-  }
-}
-.treemap .plot.odd { background: #D7F1C9; }
-.treemap .plot.even { background: #C9F1D7; }
-.treemap .plot.selected {background: Highlight; color: HighlightText; }
-.treemap .plot.selected * { color: HighlightText; }
-
-
-table.active-list tr.aborted td, table.active-list tr.refused td { text-decoration: line-through; }
-
-table.profile { border-collapse: collapse; border-spacing: 0; width: 100%;}
-table.profile td { padding: 1px 2px; }
-
-div.profile { clear: both; border-left: 1px solid #000; border-top: 1px solid #000;}
-div.profile .md { float: right; }
-
-.profile * { font-size: $fs-small; font-family: "Liberation Mono", monospace; }
-.profile .dec { text-align: right; width: 15ex;}
-.profile .mdc { text-align: right; width: 7ex;}
-.profile .tit { border : 1px solid transparent; cursor: pointer;}
-.profile .tit:hover { border : 1px solid red }
-.profile span.fil { color: #0A7; }
-.profile span.lno { color: #0A7; }
-.profile span.cls { color: #05D; }
-.profile span.mth { color: #D50; }
-
-
-/*all the styles used by the plugin Unroll.*/
-div.unroll-choices {width: 350px; z-index: 1000; background-color: #FFF;}
-div.unroll-choices ul {border:1px solid #555; margin:0; padding:0; list-style-type:none; }
-div.unroll-choices ul li { margin:0; padding:3px; color: #000; cursor: pointer; } /*$light-color*/
-div.unroll-choices ul li.selected {background-color: $light-color; }
-div.unroll-choices ul strong.highlight { margin:0; padding:0; }
-/*input[data-unroll] { background: #FFF image-url("themes/tekyla/buttons/unroll.png") no-repeat; }
-html[dir="ltr"] input[data-unroll] { background-position: right center; padding-right: 18px; }
-html[dir="rtl"] input[data-unroll] { background-position: left center; padding-left: 18px; }
-*/
-
-.items-menu {
-  position: absolute;
-  @include float(left);
-  background: white;
-  border: 1px solid #AAA;
-  z-index: 2;
-  .items-list {
-    max-height: 400px;
-    min-width: 350px;
-    overflow-y: auto;
-    li {
-      padding: 8px;
-      *, & * { vertical-align: baseline; }
-      strong { font-weight: bold }
-      &.selected {
-        background: rgba($base-color, 0.2);
-        cursor: pointer;
-      }
-    }
-  }
-  .items-status {
-    display: block;
-    padding: 8px;
-    background: #EFE;
-    font-style: italic;
-  }
-}
-
-.ui-dialog .ui-dialog-content.ajax-dialog { padding: 8px; }
-
-.ui-autocomplete.ui-menu {
-  position: absolute;
-  cursor: default;
-  background: $menu-background;
+@mixin menu {
+  @include background($menu-background);
   @include menu-shadow;
   border: $menu-border;
-  list-style:none;
+  width: $menu-width;
+  padding: $menu-padding;
+}
+
+@mixin menu-item {
+  display: block;
   padding: 0;
-  margin: 0;
-  display:block;
-  float: left;
-  max-height: 200px;
-  overflow: auto;
-  .ui-menu {
-    margin-top: -3px;
-  }
-  .ui-menu-item {
-    margin:0;
-    padding: 0;
-    zoom: 1;
-    float: left;
-    clear: left;
-    width: 100%;
-    a {
-      text-decoration:none;
-      display:block;
-      padding:.2em .4em;
-      line-height:1.5;
-      zoom:1;
-      &.ui-state-hover, &.ui-state-active {
-        font-weight: normal;
-        background: $menu-background-hover;
-        /*margin: -1px;*/
-      }
-    }
-  }
-}
-
-
-
-
-.ui-dialog {
-  position: absolute;
-  background: $menu-background;
-  border: 2px solid $base-color;
-  @include box-shadow(0 0 10px rgba(0, 0, 0, 0.3));
-  overflow: hidden;
-  .ui-dialog-titlebar {
-    padding: 4px;
-    height: 16px;
-    background: $base-color;
-    .ui-dialog-title {
-      margin: 4px;
-      font-weight: bold;
-      font-size: $fs-large;
-      color: white;
-      @include text-shadow(0 0 3px rgba(0,0,0,0.5));
-    }
-    .ui-dialog-titlebar-close {
-      float: right;
-      span {
-        display: block;
-        @include squish-text;
-        @include icons-sprite(close);
-        height: 16px;
-        width: 16px;
-      }
-      &:hover, &:focus { padding: 0; }
-    }
-  }
-  .ui-dialog-content {
-    clear: both;
-    position: relative; border: 0; padding: .5em 1em; background: none; overflow: auto; zoom: 1; }
-  .ui-dialog-buttonpane {
-    text-align: left; border-width: 1px 0 0 0; background-image: none; margin: .5em 0 0 0; padding: .3em 1em .5em .4em;
-    .ui-dialog-buttonset { float: right; }
-    button { margin: .5em .4em .5em 0; cursor: pointer; }
-  }
-  .ui-resizable-se { width: 14px; height: 14px; right: 3px; bottom: 3px; }
-}
-
-.ui-draggable .ui-dialog-titlebar { cursor: move; }
-
-.ui-widget-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: transparentize($base-color, 0.8);
-}
-
-.ui-datepicker {
-  display:none;
-  background: $menu-background;
-  padding: 4px;
-  border: 1px solid #AAA;
-  @include border-radius(3px);
-  @include box-shadow(0 0 5px rgba(0,0,0,0.3));
-  $title-line-height: 16px;
-  .ui-datepicker-prev {
-    float: left;
-    line-height: $title-line-height;
-    @include hide-text;
-    display: block;
-    width: 16px;
-    height: 16px;
-    margin: 3px;
-    @include icons-sprite(left);
-  }
-  .ui-datepicker-next {
-    float: right;
-    line-height: $title-line-height;
-    @include hide-text;
-    display: block;
-    width: 16px;
-    height: 16px;
-    margin:3px;
-    @include icons-sprite(right);
-  }
-  .ui-datepicker-title {
-    padding: 4px;
-    @include text-align(center);
-    line-height: $title-line-height;
-    * { font-weight: bold; }
-  }
-  table {
-    border-collapse: separate;
-    border-spacing: 2px;
-    th {
-      @include text-align(center);
-      font-weight: bold;
-    }
-    td {
-      border: 1px solid mix($base-color, #FFF, 15%);
-      &:hover {
-        border: 1px solid #FFF;
-        background: rgba(255, 255, 255, 0.5);
-      }
-      &.ui-datepicker-unselectable {
-        border: none;
-        background: transparent;
-      }
-      a {
-        display: block;
-        padding: 2px 4px;
-        @include text-align(center);
-      }
-    }
-  }
-}
-
-
-
-input[data-datepicker] {@include text-align(center)}
-
-
-
-@mixin big-button($isize) {
-  $image-size: $isize;
-  $font-size: $fs-huge - round((100px - $image-size) * 0.05);
-  $margin: round($image-size * 0.10);
-  $biseau: round($isize * 0.02);
-  $biseau-opacity: 0.3;
-  width: $image-size;
-  padding: $margin;
-  @include border-radius($biseau*5);
-  text-decoration: none;
-  border: 2*$biseau solid #CCC;
-  @include box-shadow(0 0 $margin rgba(#000, 0.1) inset);
-  @include inline-block;
+  height: $menu-height;
+  width: $menu-width;
+  list-style-type:none;
   &:hover {
-    opacity: 1;
+    background: $menu-background-hover;
+    @include border-radius($default-border-radius);
   }
-  .text {
-    color: white;
-    font-weight:bold;
-    @include text-shadow(0 0 5px rgba(#000, 0.5));
+  &.no-link {
+    background: transparent;
+    cursor: default;
+    pointer-events: none;
+  }
+  a {
+    $padding: ($menu-height - $menu-text-height)/2;
     display: block;
-    text-align: center;
-    vertical-align: center;
-    overflow: hidden;
-    font-size: $font-size;
-    line-height: $font-size;
-    padding: 0;
-    margin-top: $margin;
-  }
-  .icon {
-    background-size: 100%;
-    height: $image-size;
-    width: $image-size;
-    display: block;
-    margin: 0 auto;
-    background-position: center center;
-    background-repeat: no-repeat;
-  }
-  background-color: $base-color;
-  margin: $margin * 1.2;
-  @each $module in $modules {
-    &.#{nth($module, 1)} {
-      @include background(linear-gradient(top, nth($module, 2), nth($module, 2), darken(nth($module, 2), 12%)));
-      border-color: mix(#DDD, nth($module, 2), 80%);
-      span.icon { background-image: image-url("themes/tekyla/menus-#{$isize}/#{nth($module, 1)}.png"); }
+    padding: $padding;
+    &, & span {
+      height: $menu-text-height;
+      line-height: $menu-text-height;
+      vertical-align: middle;
     }
-  }
-  &:active {
-    border-color: #CCA;
-  }
-}
-
-
-
-#main-menu {
-  @include text-align(center);
-  .big-button:link, .big-button:visited {
-    @media screen and (min-width: 768px) {
-      @include big-button(100px);
+    span.icon {
+      /*@include inline-block;*/
+      display: block;
+      float: left;
+      padding: 0;
+      height:16px;
+      width: 16px;
+      margin: (($menu-text-height - 16px)/2) 0;
+      @include margin-right($padding);
     }
-    @media screen and (max-width: 767px) {
-      @include big-button(80px);
-    }
-    @media screen and (max-width: 480px) {
-      @include big-button(60px);
-    }
-  }
-
-}
-
-.big-button:link, .big-button:visited {
-  $image-size: 160px;
-  $font-size: round($image-size * 0.12);
-  $margin: round($image-size * 0.10);
-/*  $size: $image-size
-  $size: 200px;
-  $margin: round($size * 0.07);
-  $font-size: $fs-huge;
-  $image-size: $size - (3 * $margin) - $font-size;*/
-  $biseau: 3px;
-  $biseau-opacity: 0.3;
-  width: $image-size; /*$size - (2 * $margin);*/
-  padding: $margin;
-  @include border-radius($biseau*5);
-  /*opacity: 0.8;*/
-  text-decoration: none;
-  border: 2*$biseau solid #CCC;
-  @include inline-block;
-  &:hover {
-    opacity: 1;
-  }
-  .text {
-    color: white;
-    font-weight:bold;
-    @include text-shadow(0 0 5px rgba(#000, 0.5));
-    display: block;
-    text-align: center;
-    vertical-align: center;
-    overflow: hidden;
-    font-size: $font-size;
-    line-height: $font-size;
-    padding: 0;
-    margin-top: $margin;
-  }
-  .icon {
-    background-size: 100%;
-    height: $image-size;
-    width: $image-size;
-    display: block;
-    margin: 0 auto;
-    background-position: center center;
-    background-repeat: no-repeat;
-  }
-  background-color: $base-color;
-  margin: $fs-normal;
-  @each $module in $modules-names {
-    &.#{$module} {
-      span.icon { background-image: image-url("themes/tekyla/menus-160/#{$module}.png"); }
-    }
-  }
-  &:active {
-    border-color: #CCA;
-  }
-}
-
-
-#help {
-  display: none;
-  float: left;
-  @include box-shadow(0 0 15px rgba(#000, 0.3));
-  background: white;
-  position: absolute;
-  width: 30*$fs-normal;
-  left:$menu-width+$fs-normal;
-  top: $fs-normal;
-  padding: $fs-small;
-  z-index: 10000;
-  height: 90%;
-  overflow: auto;
-}
-
-
-.beehive {
-  .box {
-    $min-width: 300px;
-    $min-height: 200px;
-    $cell-border-width: 1px;
-    $cell-border: $cell-border-width solid #CCC;
-    margin-top: $default-gap;
-    padding: 0 $cell-border-width;
-    &:first-child { margin-top: 0; }
-    @include clearfix;
-
-    .cell-titles {
-      display: none;
-    }
-
-    $cell-title-vertical-padding: round($default-gap*0.6);
-    $cell-title-horizontal-padding: round($default-gap*0.8);
-    .cell-title {
-      color: #000;
-      font-weight: bold;
-      padding: $cell-title-vertical-padding $cell-title-horizontal-padding;
-      border: $cell-border;
-      background: #EEE;
-      @include background(linear-gradient(top, #EEE, white));
-      @include border-top-radius(3px);
-    }
-
-    .cell {
-      @include float(left);
-      width: 100%;
-      .cell-inner {
-        margin-left: $default-gap;
-        @include border-radius(3px);
-        &.loading {
-          min-height: $min-height;
-          background: image-url("themes/tekyla/cell-loader.gif") center center no-repeat;
-        }
-        .cell-content {
-          border: $cell-border;
-          border-top: none;
-          padding: $default-gap;
-          max-width: 100%;
-          overflow: auto;
-          background: white;
-          @include border-bottom-radius(3px);
-        }
-      }
-      &:first-child {
-        .cell-inner {
-          margin-left: 0;
-        }
-      }
-    }
-
-    @for $i from 1 through 10 {
-      &.box-#{ $i }-cells {
-        .cell {
-          width: (100% / $i);
-          @if $i > 1 {
-            .cell-content {
-              height: min-height;
-            }
-          }
-          @media screen and (max-width: round(1.2*$i*$min-width)) {
-            margin-top: $default-gap;
-            &:first-child { margin-top: 0 }
-            width: 100%;
-            .cell-inner {
-              margin-left: 0;
-              .cell-content {
-                height: auto;
-              }
-            }
-          }
-        }
-        @media screen and (min-width: round(0.5*$i*$min-width) + 1px) {
-
-          &.box-tab {
-            ul.cell-titles {
-              display: block;
-              li {
-                @include inline-block;
-                padding-top: $cell-border-width;
-                opacity: 0.4;
-                a {
-                  text-decoration: none;
-                  display: block;
-                  border-bottom: none;
-                }
-                &.active {
-                  opacity: 1;
-                  a { padding-bottom: $cell-title-vertical-padding + $cell-border-width; }
-                  margin-bottom: (-1 * $cell-border-width);
-                }
-              }
-            }
-            .cells {
-              .cell {
-                display: none;
-                width: 100%;
-                margin-top : 0;
-                border-top: $cell-border;
-                &.active {
-                  display: block;
-                }
-                .cell-inner {
-                  margin-left : 0;
-                }
-                .cell-title { display: none; }
-              }
-            }
-          }
-
-
-
-        }
-      }
-    }
-
-  }
-}
-
-
-[data-chart] {
-  overflow-x: scroll;
-}
-
-@each $module in $modules {
-  $name: nth($module, 1);
-  $color: nth($module, 2);
-  body.mod-#{$name} {
-    #wrap {
-      #main {
-        border-color: $color;
-        background: mix(#FFF, $color, 98%);
-        /*a:link, a:visited, a:focus, a:hover, a:active { color: $color; }*/
-        #header {
-          #title { &, & * { color: $color; } }
-          #subtitle { &, & * { color: mix($desktop-background, $color, 30%); } }
-        }
-      }
+    span.text {
+      /*@include inline-block;*/
+      display: block;
+      float: left;
+      padding: 0;
+      margin: 0;
+      width: $menu-width - 16px - 3 * $padding;
+      font-weight: normal;
+      white-space: nowrap;
+      overflow: hidden;
+      @include ellipsis;
     }
   }
 }
 
-
-.control-group.hidden {
-  display: none;
-}
-.nested-fields {
-  position: relative;
-  .nested-remove {
-    @include float(right);
-    position: absolute;
-    @include right(0);
-    @include icons-sprite(destroy);
-    @include display(block);
-    width: 16px;
-    height: 16px;
-    @include hide-text();
-  }
-}
-.links {
-  margin-bottom: $fs-normal;
-  .nested-add {
-    @include margin-left($controls-margin-left);
-  }
+@mixin menu-separator {
+  height: $menu-border-width;
+  background: $menu-border-color;
+  padding: 0;
+  margin: $menu-padding auto;
 }
 
+@mixin incrust-shadow {
+  @include box-shadow(0 0 round($fs-normal/2) rgba(0,0,0,0.15));
+}
 
-.topo-coordinate {
-  &, & * {
-    font-size: $fs-large;
-    line-height: round($fs-large * 1.2);
+@mixin toolbar {
+  & > * {
+    display: none;
   }
-  .canal-label {
-    @include inline-block;
-    min-width: 150px;
-  }
-  .canal-value {
-    &, & * {
-      font-weight: bold;
+  & > input, & > .btn {
+    display: inline-block;
+    @include border-radius(0);
+    @include margin-left(-1px);
+    @include margin-right(0);
+    &:focus, &:active, &:hover {
+      position: relative;
+      z-index: 2;
+    }
+    &:first-child {
+      @include margin-left(0);
+      @include border-left-radius($default-border-radius);
+    }
+    &:last-child {
+      @include border-right-radius($default-border-radius);
     }
   }
 }
+
+$common-layout: smart;
+@import "themes/tekyla/common/*.png";
+@include all-common-sprites;
+
+$icons-layout: smart;
+@import "themes/tekyla/icons/*.png";
+@include all-icons-sprites;
+
+/*@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400italic,700,700italic);*/
+$sans-font-family: 'Open Sans', Helvetica, 'Liberation Sans', sans-serif;
+$base-font-family: $sans-font-family;
+
+@import "layout.css.scss";
+@import "active-list.css.scss";
+@import "buttons.css.scss";
+@import "main.css.scss";

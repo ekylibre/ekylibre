@@ -6,16 +6,15 @@ task :locales => :environment do
   missing_prompt = "# "
 
   # Load of actions
-  all_actions = {}
-  for right, attributes in YAML.load_file(User.rights_file)
-    for full_action in attributes['actions']
-      controller, action = (full_action.match(/\:\:/) ? full_action.split(/\W+/)[0..1] : [attributes['controller'].to_s, full_action])
+  all_actions = HashWithIndifferentAccess.new
+  for right, actions in YAML.load_file(User.rights_file)
+    for uniq_action in actions
+      controller, action = uniq_action.split(/\#/)[0..1]
       all_actions[controller] ||= []
-      all_actions[controller] << action unless action.match /dy(li|ta)|delete|kame/
-    end if attributes['actions'].is_a? Array
+      all_actions[controller] << action
+    end if actions.is_a? Array
   end
   useful_actions = all_actions.dup
-  useful_actions.delete("authentication")
   useful_actions.delete("help")
 
   locale = ::I18n.locale = ::I18n.default_locale
@@ -34,35 +33,34 @@ task :locales => :environment do
   translation  = "#{locale}:\n"
 
   # Actions
-  translation += "  actions:\n"
-  for controller_file in Dir[Rails.root.join("app", "controllers", "*.rb")].sort
-    controller_name = controller_file.split("/")[-1].split("_controller")[0]
-    actions = actions_in_file(controller_file, controller_name).sort
+  translation << "  actions:\n"
+  # raise controllers_hash.inspect
+  for controller_name, actions in actions_hash
     existing_actions = ::I18n.translate("actions.#{controller_name}").stringify_keys.keys rescue []
-    translateable_actions = (actions.delete_if{|a| [:update, :create, :destroy, :up, :down, :decrement, :increment, :duplicate, :reflect].include?(a.to_sym) or a.to_s.match(/^(list|unroll)(\_|$)/)}|existing_actions).sort
-    if not translateable_actions.empty? and not [:interfacers].include?(controller_name.to_sym)
-      translation += "    #{controller_name}:\n"
+    translateable_actions = []
+    translateable_actions += (actions.delete_if{|a| [:update, :create, :destroy, :up, :down, :decrement, :increment, :duplicate, :reflect].include?(a.to_sym) or a.to_s.match(/^(list|unroll)(\_|$)/)}|existing_actions).sort if controller_name != "backend/interfacers"
+    if translateable_actions.size > 0
+      translation << "    " + controller_name + ":\n"
       for action_name in translateable_actions
         name = ::I18n.hardtranslate("actions.#{controller_name}.#{action_name}")
         to_translate += 1
         if actions.include?(action_name)
           untranslated += 1 if name.blank?
         end
-        translation += "      #{missing_prompt if name.blank?}#{action_name}: "+yaml_value(name.blank? ? "#{action_name}#{'_'+controller_name.singularize unless action_name.match(/^list/)}".humanize : name, 3)
-        translation += " #?" unless actions.include?(action_name)
-        translation += "\n"
+        translation << "      #{missing_prompt if name.blank?}#{action_name}: " + yaml_value(name.blank? ? "#{action_name}#{'_'+controller_name.singularize unless action_name.match(/^list/)}".humanize : name, 3)
+        translation << " #?" unless actions.include?(action_name)
+        translation << "\n"
       end
     end
   end
 
   # Controllers
   translation += "  controllers:\n"
-  for controller_file in Dir[Rails.root.join("app", "controllers", "*.rb")].sort
-    controller_name = controller_file.split(/[\\\/]+/)[-1].gsub('_controller.rb', '')
+  for controller_name, actions in actions_hash
     name = ::I18n.hardtranslate("controllers.#{controller_name}")
     untranslated += 1 if name.blank?
     to_translate += 1
-    translation += "    #{missing_prompt if name.blank?}#{controller_name}: "+yaml_value(name.blank? ? controller_name.humanize : name, 2)+"\n"
+    translation += "    #{missing_prompt if name.blank?}#{controller_name}: " + yaml_value(name.blank? ? controller_name.humanize : name, 2) + "\n"
   end
 
   # Errors

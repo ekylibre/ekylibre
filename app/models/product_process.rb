@@ -20,9 +20,9 @@
 # 
 # == Table: product_processes
 #
-#  comment      :string(255)      
 #  created_at   :datetime         not null
 #  creator_id   :integer          
+#  description  :string(255)      
 #  id           :integer          not null, primary key
 #  lock_version :integer          default(0), not null
 #  name         :string(255)      not null
@@ -39,7 +39,7 @@ class ProductProcess < Ekylibre::Record::Base
   enumerize :nature, :in => [:life, :production, :environment]
   belongs_to :variety, :class_name => "ProductVariety"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_length_of :comment, :name, :nature, :allow_nil => true, :maximum => 255
+  validates_length_of :description, :name, :nature, :allow_nil => true, :maximum => 255
   validates_inclusion_of :repeatable, :in => [true, false]
   validates_presence_of :name, :nature, :variety
   #]VALIDATORS]

@@ -89,7 +89,7 @@ module Ekylibre
     # Configure layouts for devise
     config.to_prepare do
       Devise::SessionsController.layout "authentication"
-      Devise::RegistrationsController.layout proc{ |controller| user_signed_in? ? "application" : "authentication" }
+      Devise::RegistrationsController.layout proc{ |controller| user_signed_in? ? "backend" : "authentication" }
       Devise::ConfirmationsController.layout "authentication"
       Devise::UnlocksController.layout "authentication"
       Devise::PasswordsController.layout "authentication"

@@ -22,10 +22,10 @@
 #
 #  boolean_value   :boolean          not null
 #  choice_value_id :integer          
-#  comment         :string(255)      
 #  created_at      :datetime         not null
 #  creator_id      :integer          
 #  decimal_value   :decimal(19, 4)   
+#  description     :string(255)      
 #  id              :integer          not null, primary key
 #  lock_version    :integer          default(0), not null
 #  measure_unit_id :integer          
@@ -47,7 +47,7 @@ class ProductIndicator < Ekylibre::Record::Base
   belongs_to :choice_value, :class_name => "ProductIndicatorNatureChoice", :inverse_of => :data
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :decimal_value, :measure_value, :allow_nil => true
-  validates_length_of :comment, :allow_nil => true, :maximum => 255
+  validates_length_of :description, :allow_nil => true, :maximum => 255
   validates_inclusion_of :boolean_value, :in => [true, false]
   validates_presence_of :measured_at, :nature, :product
   #]VALIDATORS]

@@ -21,15 +21,15 @@
 # == Table: observations
 #
 #  author_id    :integer          not null
+#  content      :text             not null
 #  created_at   :datetime         not null
 #  creator_id   :integer          
-#  description  :text             not null
 #  id           :integer          not null, primary key
 #  importance   :string(10)       not null
 #  lock_version :integer          default(0), not null
 #  observed_at  :datetime         not null
-#  owner_id     :integer          not null
-#  owner_type   :string(255)      not null
+#  subject_id   :integer          not null
+#  subject_type :string(255)      not null
 #  updated_at   :datetime         not null
 #  updater_id   :integer          
 #

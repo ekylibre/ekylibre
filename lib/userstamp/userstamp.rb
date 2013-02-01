@@ -24,7 +24,7 @@ module Ddb
           # your own implementation of this method to the private section of
           # the controller where you are including the Userstamp module.
           def set_stamper
-            Entity.stamper = self.current_user
+            User.stamper = self.current_user
           end
 
           # The <tt>reset_stamper</tt> method as implemented here assumes that a
@@ -33,7 +33,7 @@ module Ddb
           # the private section of the controller where you are including the
           # Userstamp module.
           def reset_stamper
-            Entity.reset_stamper
+            User.reset_stamper
           end
         #end private
       end

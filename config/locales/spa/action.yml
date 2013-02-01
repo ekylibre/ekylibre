@@ -1,13 +1,17 @@
 spa:
   actions:
-    account_balances: #?
-    accountancy:  #?
+    authentication/sessions:
+      # destroy: "Se déconnecter"
+      new: "Conexión"
+      # renew: "Renouveller la session"
+    backend/account_balances: #?
+    backend/accountancy:  #?
       balance: "Equilibrio" #?
       bookkeep: "Bascula contable" #?
       draft: "Niebla" #?
       general_ledger: "Grande libro" #?
       index: "Contabilidad general" #?
-    accounts:
+    backend/accounts:
       edit: "Modificar el cuento : %{number} - %{name}"
       index: "Plan de cuento"
       # load: "Charger un plan de compte"
@@ -16,62 +20,50 @@ spa:
       reconciliation: "Marcar con letra los cuentos"
       show: "Compte : %{number} - %{name}"
       # unmark: "Délettrer un compte"
-    animal_care_natures: #?
-    animal_care_types: #?
-    animal_cares: #?
-    animal_diagnostics: #?
-    animal_diseases: #?
-    animal_drug_natures: #?
-    animal_drugs: #?
-    animal_event_natures: #?
-    animal_events: #?
-    animal_group_events: #?
-    animal_groups: #?
-    animal_posologies: #?
-    animal_prescriptions: #?
-    animal_race_natures: #?
-    animal_race_types: #?
-    animal_races: #?
-    animal_treatment_uses: #?
-    animal_treatments: #?
-    animals:
+    backend/animals:
       # edit: "Modifier l'animal\_: %{name}"
       # index: "Productions animales"
       # new: "Nouvel animal"
       # show: "Animal\_: %{name}"
-    application: #?
-    areas:
+    backend/application: #?
+    backend/areas:
       # edit: "Modifier la zone postale\_: %{name}"
       # index: "Zones postales"
       # new: "Ajouter une zone postale"
-    assets:
+    backend/assets:
       # cede: "Céder l’immobilisation"
       # depreciate: "Calculer l’amortissement de l’immobilisation\_: %{name}"
       # edit: "Modifier l’immobilisation\_: %{name}"
       # index: "Immobilisations"
       # new: "Nouvelle immobilisation"
       # show: "Immobilisation\_: %{name}"
-    authentication:  #?
-      login: "Conexión" #?
-    bank_statements:
+    backend/bank_statements:
       edit: "Modificar el leventar N°%{number}"
       index: "Levantar de cuntos bancarios"
       new: "Despuntar un nuevo leventar de cuento"
       point: "Despuntar el leventar N°%{number} du %{contado}"
       show: "Leventard de cuento N°%{number}"
-    cash_transfers:
+    backend/base: #?
+    backend/cash_transfers:
       # edit: "Modifier le virement interne\_: %{number}"
       # index: "Virements internes"
       # new: "Faire un nouveau virement interne"
       # show: "Virement interne\_: %{number}"
-    cashes:
+    backend/cashes:
       edit: "Modificar la tresoreria : %{name}"
       index: "Tresorerias"
       new: "Registrar una nueva tresoreria"
       show: "%{nature_label} : %{name}"
-    companies:  #?
+    backend/cells/demo_bar_cells: #?
+    backend/cells/demo_pie_cells: #?
+    backend/cells/last_events_cells: #?
+    backend/cells/last_products_cells: #?
+    backend/cells/placeholder_cells: #?
+    backend/cells/product_bar_cells: #?
+    backend/cells/product_pie_cells: #?
+    backend/companies:  #?
       register: "Registrar la sociedad" #?
-    company:  #?
+    backend/company:  #?
       about: "A propocito de Ekylibre" #?
       backups: "Salvaguardia" #?
       change_password: "Cambiar su contraseña" #?
@@ -81,20 +73,20 @@ spa:
       index: "Hola, %{user}" #?
       listing_nodes: "Escoge las informaciones para extraer" #?
       welcome: "Bienvenido sobre Ekylibre, %{user}" #?
-    contacts: #?
-    cultivations: #?
-    currencies: #?
-    custom_field_choices:
+    backend/contacts: #?
+    backend/cultivations: #?
+    backend/currencies: #?
+    backend/custom_field_choices:
       # edit: "Modifier l’option\_: %{name}"
       # new: " Création d’une option pour une liste de choix"
-    custom_field_data: #?
-    custom_fields:
+    backend/custom_field_data: #?
+    backend/custom_fields:
       # edit: "Modifier le champ personnalisé\_: %{name}"
       # index: "Champs personnalisés"
       # new: "Création d’un champ personnalisé"
       # show: "Champ personnalisé\_: %{name}"
       # sort: "Trier les choix du champ personnalisé"
-    dashboards:
+    backend/dashboards:
       # accountancy: "Tableau de bord comptable"
       # finances: "Tableau de bord financier"
       # general: "Tableau de bord général"
@@ -115,40 +107,37 @@ spa:
       # stocks: "Tableau de bord des stocks"
       # trade: "Tableau de bord de la gestion commerciale"
       # welcome: "Bienvenue dans Ekylibre"
-    delays:  #?
+    backend/delays:  #?
       edit: "Modificacion del plazo : %{name}" #?
       index: "plazos" #?
       new: "Añadir un plazo" #?
       show: "plazo : %{name}" #?
-    departments:
+    backend/departments:
       edit: "Modificar el servicio : %{name}"
       index: "Servicios"
       new: "Añadido de nuevo servicio"
-    deposit_lines: #?
-    deposits:
+    backend/deposit_lines: #?
+    backend/deposits:
       edit: "Modificacion del aposto en banco del %{created_on}"
       index: "Aposto en banco"
       new: "Crear un aposto : %{mode}"
       show: "Aposto en banco %{number} del %{created_on}"
       # unvalidateds: "Remises en banque non validées"
-    diagnostics: #?
-    diseases: #?
-    districts:
+    backend/diagnostics: #?
+    backend/diseases: #?
+    backend/districts:
       # edit: "Modifier la zone administrative\_: %{name}"
       # index: "Zones administratives"
       # new: "Ajouter une zone administrative"
-    document_templates:
+    backend/document_templates:
       edit: "Modificacion del modelo de documento : %{name}"
       index: "Modelos de documento"
       load: "Cargar los modelos de documento por defecto"
       new: "Créacion de un modelo de documento"
       # print: "Imprimer un exemple"
-    documents:  #?
+    backend/documents:  #?
       print: "Impresion, exportacion" #?
-    drug_natures: #?
-    drug_types: #?
-    drugs: #?
-    entities:
+    backend/entities:
       # destroy: "Supprimer la fiche"
       # edit: "Modifier la fiche\_: %{full_name}"
       # export: "Exportation de fiches"
@@ -157,42 +146,40 @@ spa:
       # merge: "Fusionner un doublon à sa fiche d’origine"
       # new: "Nouvelle fiche client/fournisseur"
       # show: "Fiche\_: %{full_name}"
-    entity_addresses:
+    backend/entity_addresses:
       # edit: "Modifier une coordonnée"
       # new: "Ajouter une coordonnée"
-    entity_categories:
+    backend/entity_categories:
       # edit: "Modifier la catégorie de fiche\_: %{name}"
       # index: "Catégories de fiche"
       # new: "Ajout d’une nouvelle catégorie de fiche"
       # show: "Catégorie de fiche\_: %{name}"
-    entity_event_natures: #?
-    entity_events: #?
-    entity_link_natures:
+    backend/entity_link_natures:
       # edit: "Modifier le type de lien\_: %{name}"
       # index: "Types de lien"
       # new: "Ajout d’un nouveau type de lien"
-    entity_links:
+    backend/entity_links:
       # edit: "Modifier le lien"
       # new: "Ajout d’un nouveau lien"
-    entity_natures:
+    backend/entity_natures:
       # edit: "Modifier le type de fiche\_: %{name}"
       # index: "Types de fiches"
       # new: "Ajouter un nouveau type de fiche"
-    establishments:
+    backend/establishments:
       edit: "Modificacion del establecimiento : %{name}"
       index: "Establecimientos"
       new: "Añadido de un nuevo establecimiento"
-    event_natures:
+    backend/event_natures:
       # edit: "Modifier le type d’évènement\_: %{name}"
       # index: "Types d’évènements"
       # new: "Ajouter un type d’évènement"
-    events:
+    backend/events:
       # change_minutes: "Changer la durée de l’évènement"
       # edit: "Modifier l’un évènement"
       # index: "Évènements"
       # new: "Ajout d’un évènement"
-    finances: #?
-    financial_years:
+    backend/finances: #?
+    backend/financial_years:
       close: "Cerrado de ejercicio"
       # compute_balances: "Calculer la balance de l’exercice"
       edit: "Modificar un nuevo ejercicio"
@@ -200,44 +187,44 @@ spa:
       index: "Exercicios contables"
       new: "Crear un nuevo ejercicio"
       show: "Exercicio contable %{code}"
-    help:
+    backend/help:
       # index: "Aide"
       # show: "Aide: %{title}"
-    incoming_deliveries:
+    backend/incoming_deliveries:
       # confirm: "Confirmer l’arrivée de la livraison"
       # edit: "Modifier l’arrivage: %{number}"
       # index: "Livraisons entrantes"
       # new: "Enregistrer un nouveau arrivage"
-    incoming_delivery_lines: #?
-    incoming_delivery_modes:
+    backend/incoming_delivery_lines: #?
+    backend/incoming_delivery_modes:
       # edit: "Modifier le mode de réception d’arrivage: %{name}"
       # index: "Modes de réception d’arrivage"
       # new: "Créer un mode de réception d’arrivage"
-    incoming_payment_modes:
+    backend/incoming_payment_modes:
       # edit: "Modifier le mode d’encaissement\_: %{name}"
       # index: "Modes d’encaissement"
       # new: "Ajouter un nouveau mode d’encaissement"
-    incoming_payment_uses: #?
-    incoming_payments:
+    backend/incoming_payment_uses: #?
+    backend/incoming_payments:
       # edit: "Modifier l’encaissement n°%{number}"
       # index: "Encaissements"
       # new: "Ajout d’un nouvel encaissement"
       # show: "Encaissement n°%{number} de %{entity}"
-    interfacers: #?
-    inventories:
+    backend/interfacers: #?
+    backend/inventories:
       edit: "Modificacion del inventario"
       index: "Inventarios"
       new: "Inventario"
       # show: "Inventaire %{number}"
-    inventory_lines: #?
-    journal_entries:
+    backend/inventory_lines: #?
+    backend/journal_entries:
       edit: "Modificar la pieza N°%{numro} du %{fecha de creacion}"
       new: "Añadir una pieza"
       show: "Pieza contable N°%{number} del %{fecha de creacion}"
-    journal_entry_items:
+    backend/journal_entry_items:
       # new: "Ajouter une nouvelle ligne d’écriture"
-    journal_entry_lines: #?
-    journals:
+    backend/journal_entry_lines: #?
+    backend/journals:
       balance: "Equilibrio"
       bookkeep: "Bascula contable"
       close: "Cierre del %{name}"
@@ -250,168 +237,169 @@ spa:
       reopen: "Déclôture du %{name}"
       # reports: "Impression, exportation"
       show: "Periodico : %{name} (%{code})"
-    land_parcel_groups: #?
-    land_parcel_kinships: #?
-    land_parcels:
+    backend/land_parcel_groups: #?
+    backend/land_parcel_kinships: #?
+    backend/land_parcels:
       # divide: "Diviser la parcelle\_: %{name}"
       # edit: "Modifier la parcelle\_: %{name}"
       # index: "Parcelles"
       # merge: "Fusionner des parcelles"
       # new: "Ajouter une nouvelle parcelle"
       # show: "Parcelle %{name}"
-    listing_node_items: #?
-    listing_nodes:
+    backend/listing_node_items: #?
+    backend/listing_nodes:
       # edit: "Modifier le nœud"
       # new: "Nouveau nœud"
-    listings:
+    backend/listings:
       edit: "Modificacion de la extraccion : %{name}"
       # extract: "Extraire les données de\_: %{name}"
       index: "Exportacion y mailing"
       mail: "Enviar un correo electronico para «%{name}»"
       new: "Créacion de nueva extraccion"
-    logs:
+    backend/logs:
       # edit: "Modifier un évènement"
       # index: "Évènements"
       # new: "Créer un évènement"
       # show: "évènement %{name} commencé le %{started_at}"
-    management:  #?
+    backend/management:  #?
       index: "Administracion commercial" #?
       sales_invoice: "%{nature} %{number}" #?
       sales_invoices: "Facturas" #?
-    mandates:
+    backend/mandates:
       # configure: "Configuration des responsabilités"
       # edit: "Modifier la responsabilité"
       # index: "Responsabilités"
       # new: "Créer une responsabilité"
-    myselves:
+    backend/myselves:
       # change_password: "Changer de mot de passe"
       # statistics: "Mes statistiques"
-    observations:
+    backend/observations:
       # edit: "Modifier une observation"
       # new: "Ajouter une observation"
-    operation_items: #?
-    operation_lines: #?
-    operation_natures: #?
-    operation_uses: #?
-    operations:
+    backend/operation_items: #?
+    backend/operation_lines: #?
+    backend/operation_natures: #?
+    backend/operation_uses: #?
+    backend/operations:
       # edit: "Modifier le travail %{name}"
       # index: "Travaux"
       # new: "Créer un nouveau travail"
       # show: "Détails du travail %{name}"
       # unvalidateds: "Travaux non validés"
-    outgoing_deliveries:
+    backend/outgoing_deliveries:
       edit: "Modificacion de la entrega"
       # index: "Livraisons sortantes"
       new: "Añadir una entrega"
       # show: "Livraison sortante\_: %{number}"
-    outgoing_delivery_lines: #?
-    outgoing_delivery_modes:
+    backend/outgoing_delivery_lines: #?
+    backend/outgoing_delivery_modes:
       edit: "Modificacion del modo de entrega : %{name}"
       index: "Modos de entrega"
       new: "Añadir un nuevo modo de entrega"
-    outgoing_payment_modes:
+    backend/outgoing_payment_modes:
       # edit: "Modifier un mode de décaissement"
       # index: "Modes de décaissement"
       # new: "Ajouter un mode de décaissement"
-    outgoing_payment_uses: #?
-    outgoing_payments:
+    backend/outgoing_payment_uses: #?
+    backend/outgoing_payments:
       # edit: "Modifier le décaissement\_: %{number}"
       # index: "Décaissements"
       # new: "Ajout d’un décaissement"
       # show: "Décaissement n°%{number} pour %{payee}"
-    places: #?
-    posologies: #?
-    preferences:
+    backend/places: #?
+    backend/posologies: #?
+    backend/preferences:
       # edit: "Modifier les préférences"
       # index: "Préfénces"
       # new: "Nouvelle préférence"
       # show: "Préférence"
-    prescriptions: #?
-    prices:
+    backend/prescriptions: #?
+    backend/prices:
       # edit: "Modifie le prix %{pretax_amount}/%{amount} sur %{product}"
       # export: "Exporter les prix"
       # find: "Trouver un prix"
       # import: "Importer un fichier CSV de tarifs"
       # index: "Prix"
       # new: "Ajout d’un nouveau prix"
-    product_categories: #?
-    product_components: #?
-    product_event_natures: #?
-    product_events: #?
-    product_group_events: #?
-    product_group_passings: #?
-    product_groups:
+    backend/product_categories: #?
+    backend/product_components: #?
+    backend/product_event_natures: #?
+    backend/product_events: #?
+    backend/product_group_events: #?
+    backend/product_group_passings: #?
+    backend/product_groups:
       # edit: "Modifier le lot\_: %{name} "
       # index: "Lots de produits"
       # new: "Créer un lot"
       # show: "Lot\_: %{name}"
-    product_indicator_nature_choices: #?
-    product_indicator_natures: #?
-    product_indicators: #?
-    product_memberships: #?
-    product_moves:
+    backend/product_indicator_nature_choices: #?
+    backend/product_indicator_natures: #?
+    backend/product_indicators: #?
+    backend/product_memberships: #?
+    backend/product_moves:
       # edit: "Modifier le mouvement de stock\_: %{name}"
       # new: "Enregistrement d’un mouvement de stock"
-    product_nature_categories:
+    backend/product_nature_categories:
       # edit: "Modifier la catégorie de produits\_: %{name}"
       # index: "Catégories de produits"
       # new: "Ajout d’une nouvelle catégorie de produits"
       # show: "Détail de la catégorie\_: %{name}"
-    product_nature_components: #?
-    product_natures:
+    backend/product_nature_components: #?
+    backend/product_natures:
       # edit: "Modifier le type de produit\_: %{name}"
       # index: "Type de produit"
       # new: "Nouveau type de produit"
       # show: "Type de produit\_: %{name}"
-    product_process_phases: #?
-    product_processes: #?
-    product_species: #?
-    product_stock_moves: #?
-    product_stocks: #?
-    product_transfers:
+    backend/product_process_phases: #?
+    backend/product_processes: #?
+    backend/product_species: #?
+    backend/product_stock_moves: #?
+    backend/product_stocks: #?
+    backend/product_transfers:
       # confirm: "Transferts à réaliser"
       # confirm_all: "Confirmer tous les transferts"
       # edit: "Modifier l’un transfert de stock"
       # index: "Transferts et pertes de stocks"
       # new: "Ajouter un transfert ou une perte de stocks"
-    product_varieties:
+    backend/product_varieties:
       # edit: "Modifier la variété\_: %{name} "
       # index: "Variétés"
       # new: "Créer une variétés"
       # show: "Variété\_: %{name}"
-    production_chain_conveyors:
+    backend/production_chain_conveyors:
       # edit: "Mettre à jour le convoyeur (%{source_id}-%{target_id})"
       # new: "Ajouter un nouveau convoyeur dans la chaîne de production"
-    production_chain_work_center_uses: #?
-    production_chain_work_centers:
+    backend/production_chain_work_center_uses: #?
+    backend/production_chain_work_centers:
       # edit: "Modifier le centre d’opération\_: %{name}"
       # new: "Ajouter un nouveau centre d’opération"
       # play: "Éxécuter la chaîne de production\_: %{name}"
       # show: "Centre d’opération\_: #{name}"
-    production_chains:
+    backend/production_chains:
       # edit: "Modifier la chaîne de production\_: %{name}"
       # index: "Chaînes de production"
       # new: "Ajouter une nouvelle chaîne de production"
       # show: "Chaîne de production\_: %{name}"
-    products:
+    backend/products:
       # edit: "Modifier un produit"
       # index: "Produits"
       # new: "Créer un produits"
       # show: "produit\_: %{name}"
-    professions:
+    backend/professions:
       # edit: "Modifier la profession\_: %{name}"
       # index: "Professions"
       # new: "Ajouter une nouvelle profession"
-    purchase_items:
+    backend/public: #?
+    backend/purchase_items:
       # edit: "Modifier une ligne de la commande"
       # new: "Ajouter un produit à la commande"
-    purchase_lines: #?
-    purchase_natures:
+    backend/purchase_lines: #?
+    backend/purchase_natures:
       # edit: "Modifier le type d’achat\_: %{name}"
       # index: "Type d’achats"
       # new: "Nouveau type d’achat"
       # show: "Type d’achat\_: %{name}"
-    purchases:
+    backend/purchases:
       # abort: "Annuler l’achat"
       # confirm: "Confimer l’achat et attendre les arrivages"
       # correct: "Corriger l’achat"
@@ -423,21 +411,21 @@ spa:
       # propose: "Commande soumise au fournisseur"
       # refuse: "Commande refusée"
       # show: "Achat\_: %{number} au fournisseur %{supplier}"
-    roles:
+    backend/roles:
       edit: "Modificacion del papel : %{name}"
       index: "Papeles"
       new: "Añadir un papel"
-    sale_items:
+    backend/sale_items:
       # detail: "Détailler une ligne de la vente"
       # edit: "Modifier une ligne de la vente"
       # new: "Ajouter un produit à la vente"
-    sale_lines: #?
-    sale_natures:
+    backend/sale_lines: #?
+    backend/sale_natures:
       # edit: "Modifier le type de vente\_: %{name}"
       # index: "Types de ventes"
       # new: "Ajout d’un type de vente"
       # show: "Type de vente\_: %{name}"
-    sales:
+    backend/sales:
       # abort: "Annuler la vente"
       cancel: "Paso en activo de la factura %{number}"
       # confirm: "Passer le devis en commande et aller aux livraisons"
@@ -452,16 +440,13 @@ spa:
       # refuse: "Devis refusé par le client"
       # show: "Vente\_: %{number} pour %{client} - %{state}"
       # statistics: "Statistiques  de ventes"
-    sequences:
+    backend/sequences:
       edit: "Modificacion de la sequencia : %{name}"
       index: "Sequencias"
       # load: "Charger les séquences manquantes"
       new: "Creacion de une nueva sequencia"
-    sessions:
-      # destroy: "Se déconnecter"
-      # new: "Connexion"
-      # renew: "Renouveller la session"
-    settings:
+    backend/sessions: #?
+    backend/settings:
       about: "A propocito de Ekylibre"
       # backup: "Faire une copie de sauvegarde"
       backups: "Salvaguardia"
@@ -469,50 +454,50 @@ spa:
       # edit: "Configuration"
       import: "Importacion"
       # restore: "Restaurer une sauvegarde"
-    stock_moves: #?
-    stock_transfers: #?
-    stocks: #?
-    subscription_natures:
+    backend/stock_moves: #?
+    backend/stock_transfers: #?
+    backend/stocks: #?
+    backend/subscription_natures:
       # edit: "Modifier le type d’abonnement\_: %{name}"
       # index: "Types d’abonnements"
       # new: "Ajouter un type d’abonnement"
       # show: "Type d’abonnement\_: %{name}"
-    subscriptions:
+    backend/subscriptions:
       # coordinates: "Rafraîchir les coordonnées et la période"
       # edit: "Modifier l’abonnement\_: N°%{number} du %{start} au %{finish}"
       # index: "Abonnements"
       # new: "Création d’un abonnement"
-    tax_declarations:
+    backend/tax_declarations:
       edit: "Crear una declaracion"
       index: "Declaracion de TVA"
       new: "Crear una declaracion"
       show: "%{nature} para el periodo %{fecha de empezo} al %{fecha de termino}"
-    taxes:
+    backend/taxes:
       edit: "Modificar la tasa : %{name}"
       index: "Tasas"
       new: "Añadir nueva tarifa"
-    tool_natures: #?
-    tools:
+    backend/tool_natures: #?
+    backend/tools:
       # edit: "Modifier le matériel\_: %{name}"
       # index: "Matériel"
       # new: "Ajouter un matériel"
       # show: "Matériel\_: %{name}"
-    tracking_states: #?
-    trackings: #?
-    transfers: #?
-    transports:
+    backend/tracking_states: #?
+    backend/trackings: #?
+    backend/transfers: #?
+    backend/transports:
       # deliveries: "Livraisons du transport"
       # delivery_delete: "Retirer la livraison du transport"
       # edit: "Modifier le transport %{number}"
       # index: "Transports"
       # new: "Ajout d’un nouveau transport"
       # show: "Transport %{number}"
-    units:
+    backend/units:
       edit: "Modificacion de la unidad : %{label}"
       index: "Unidad de medida"
       # load: "Charger les unités de mesure par défaut"
       new: "Añadir una nueva unidad de medida"
-    users:
+    backend/users:
       edit: "Modificction del utilizador"
       index: "Utilizador"
       # lock: "Verrouiller l’utilisateur"
@@ -520,116 +505,115 @@ spa:
       show: "Utilizador : %{first_name} %{last_name} (%{name})"
       statistics: "Mis estadisticas" #?
       # unlock: "Déverrouiller l’utilisateur"
-    vegetals:
+    backend/vegetals:
       # edit: "Modifier une production végétale"
       # index: "Productions végétales"
       # new: "Nouvelle production végétale"
       # show: "Production végétale\_: %{name} %{area_measure} %{area_unit.name}"
-    warehouses:
+    backend/warehouses:
       edit: "Modificacion de un lugar de deposito"
       index: "Lugar de deposito"
       new: "Añadir un lugar de deposito"
       show: "Detaile del lugar de deposito : %{name}"
+    public:
+      # index: "Accueil"
   controllers:
-    # account_balances: "Soldes de comptes"
-    accountancy: "Contabilidad" #?
-    accounts: "Plan de cuento"
-    # admin: "Administration"
-    # affairs: "Affaires"
-    # animals: "Animaux"
-    application: "Aplicación"
-    # areas: "Zones postales"
-    # assets: "Immobilisations"
-    authentication: "Autenticación"
-    bank_statements: "Levantar de cuntos bancarios"
-    # base: "Base"
-    # cash_transfers: "Virements internes"
-    cashes: "Tresorerias"
-    company: "Compañía" #?
-    # custom_field_choices: "Choix de champs personnalisés"
-    # custom_field_data: "Données de champs personnalisés"
-    # custom_fields: "Champs personnalisés"
-    # dashboards: "Tableaux de bord"
-    delays: "plazos" #?
-    departments: "Servicios"
-    # deposit_items: "Lignes de remise en banque"
-    deposits: "Aposto en banco"
-    # districts: "Zones administratives"
-    document_templates: "Modelos de documento"
-    # documents: "Documents"
-    # entities: "Personnes"
-    # entity_addresses: "Adresses"
-    # entity_categories: "Catégories de fiche"
-    # entity_link_natures: "Types de lien"
-    # entity_links: "Liens entre personnes"
-    # entity_natures: "Types de fiches"
-    establishments: "Establecimientos"
-    # event_natures: "Types d’évènements"
-    # events: "Évènements"
-    finances: "Finanzas" #?
-    financial_years: "Exercicios contables"
-    help: "Ayuda"
-    # incoming_deliveries: "Livraisons entrantes"
-    # incoming_delivery_items: "Lignes de livraison entrante"
-    # incoming_delivery_modes: "Modes de réception d’arrivage"
-    # incoming_payment_modes: "Modes d’encaissement"
-    # incoming_payments: "Encaissements"
-    # interfacers: "Interfaceurs"
-    inventories: "Inventarios"
-    # inventory_items: "Lignes d’inventaires"
-    # journal_entries: "Écritures comptables"
-    # journal_entry_items: "Lignes d’écritures comptables"
-    journals: "Periodicos"
-    # land_parcels: "Îlots"
-    # listing_node_items: "Élement de nœuds d’extractions"
-    # listing_nodes: "Nœuds d’extractions"
-    listings: "Exportacion y mailing"
-    # logs: "Evenements des Animaux"
-    management: "Administración comercial" #?
-    # mandates: "Responsabilités"
-    # myselves: "Mon compte"
-    # observations: "Observations"
-    # operations: "Travaux"
-    # outgoing_deliveries: "Livraisons sortantes"
-    # outgoing_delivery_items: "Lignes de livraisons sortantes"
-    outgoing_delivery_modes: "Modos de entrega"
-    # outgoing_payment_modes: "Modes de décaissement"
-    # outgoing_payments: "Décaissements"
-    # preferences: "Préférences"
-    # prices: "Prix"
-    # product_groups: "Lot de produits"
-    # product_moves: "Mouvements de stock"
-    # product_nature_categories: "Catégories de produits"
-    # product_transfers: "Transferts et pertes de stocks"
-    # product_varieties: "Races"
-    production: "Producción" #?
-    # production_chain_conveyors: "Convoyeurs de chaînes de production"
-    # production_chain_work_center_uses: "Utilisation des ateliers de chaînes de production"
-    # production_chain_work_centers: "Atelier de chaînes de production"
-    # production_chains: "Chaînes de production"
-    # products: "Produits"
-    # professions: "Professions"
-    # purchase_items: "Lignes d’achat"
-    # purchase_natures: "Types d’achat"
-    # purchases: "Achats"
-    relations: "Relaciónes" #?
-    roles: "Papeles"
-    # sale_items: "Lignes de vente"
-    # sale_natures: "Types de ventes"
-    # sales: "Ventes"
-    sequences: "Sequencias"
-    # sessions: "Session"
-    # settings: "Paramètres"
-    # subscription_natures: "Types d’abonnements"
-    # subscriptions: "Abonnements"
-    tax_declarations: "Declaracion de TVA"
-    taxes: "Tasas"
-    # tools: "Matériel"
-    # transfers: "Transferts"
-    # transports: "Transports"
-    units: "Unidad de medida"
-    users: "Utilizador"
-    warehouses: "Lugar de deposito"
+    authentication/sessions: "Autenticación"
+    # backend/account_balances: "Soldes de comptes"
+    backend/accountancy: "Contabilidad" #?
+    backend/accounts: "Plan de cuento"
+    # backend/affairs: "Affaires"
+    # backend/animals: "Animaux"
+    backend/application: "Aplicación" #?
+    # backend/areas: "Zones postales"
+    # backend/assets: "Immobilisations"
+    backend/bank_statements: "Levantar de cuntos bancarios"
+    # backend/cash_transfers: "Virements internes"
+    backend/cashes: "Tresorerias"
+    backend/company: "Compañía" #?
+    # backend/custom_field_choices: "Choix de champs personnalisés"
+    # backend/custom_field_data: "Données de champs personnalisés"
+    # backend/custom_fields: "Champs personnalisés"
+    # backend/dashboards: "Tableaux de bord"
+    backend/delays: "plazos" #?
+    backend/departments: "Servicios"
+    # backend/deposit_items: "Lignes de remise en banque"
+    backend/deposits: "Aposto en banco"
+    # backend/districts: "Zones administratives"
+    backend/document_templates: "Modelos de documento"
+    # backend/documents: "Documents"
+    # backend/entities: "Personnes"
+    # backend/entity_addresses: "Adresses"
+    # backend/entity_categories: "Catégories de fiche"
+    # backend/entity_link_natures: "Types de lien"
+    # backend/entity_links: "Liens entre personnes"
+    # backend/entity_natures: "Types de fiches"
+    backend/establishments: "Establecimientos"
+    # backend/event_natures: "Types d’évènements"
+    # backend/events: "Évènements"
+    backend/finances: "Finanzas" #?
+    backend/financial_years: "Exercicios contables"
+    backend/help: "Ayuda"
+    # backend/incoming_deliveries: "Livraisons entrantes"
+    # backend/incoming_delivery_items: "Lignes de livraison entrante"
+    # backend/incoming_delivery_modes: "Modes de réception d’arrivage"
+    # backend/incoming_payment_modes: "Modes d’encaissement"
+    # backend/incoming_payments: "Encaissements"
+    # backend/interfacers: "Interfaceurs"
+    backend/inventories: "Inventarios"
+    # backend/inventory_items: "Lignes d’inventaires"
+    # backend/journal_entries: "Écritures comptables"
+    # backend/journal_entry_items: "Lignes d’écritures comptables"
+    backend/journals: "Periodicos"
+    # backend/land_parcels: "Îlots"
+    # backend/listing_node_items: "Élement de nœuds d’extractions"
+    # backend/listing_nodes: "Nœuds d’extractions"
+    backend/listings: "Exportacion y mailing"
+    # backend/logs: "Evenements des Animaux"
+    backend/management: "Administración comercial" #?
+    # backend/mandates: "Responsabilités"
+    # backend/myselves: "Mon compte"
+    # backend/observations: "Observations"
+    # backend/operations: "Travaux"
+    # backend/outgoing_deliveries: "Livraisons sortantes"
+    # backend/outgoing_delivery_items: "Lignes de livraisons sortantes"
+    backend/outgoing_delivery_modes: "Modos de entrega"
+    # backend/outgoing_payment_modes: "Modes de décaissement"
+    # backend/outgoing_payments: "Décaissements"
+    # backend/preferences: "Préférences"
+    # backend/prices: "Prix"
+    # backend/product_groups: "Lot de produits"
+    # backend/product_moves: "Mouvements de stock"
+    # backend/product_nature_categories: "Catégories de produits"
+    # backend/product_transfers: "Transferts et pertes de stocks"
+    # backend/product_varieties: "Races"
+    backend/production: "Producción" #?
+    # backend/production_chain_conveyors: "Convoyeurs de chaînes de production"
+    # backend/production_chain_work_center_uses: "Utilisation des ateliers de chaînes de production"
+    # backend/production_chain_work_centers: "Atelier de chaînes de production"
+    # backend/production_chains: "Chaînes de production"
+    # backend/products: "Produits"
+    # backend/professions: "Professions"
+    # backend/purchase_items: "Lignes d’achat"
+    # backend/purchase_natures: "Types d’achat"
+    # backend/purchases: "Achats"
+    backend/relations: "Relaciónes" #?
+    backend/roles: "Papeles"
+    # backend/sale_items: "Lignes de vente"
+    # backend/sale_natures: "Types de ventes"
+    # backend/sales: "Ventes"
+    backend/sequences: "Sequencias"
+    # backend/settings: "Paramètres"
+    # backend/subscription_natures: "Types d’abonnements"
+    # backend/subscriptions: "Abonnements"
+    backend/tax_declarations: "Declaracion de TVA"
+    backend/taxes: "Tasas"
+    # backend/tools: "Matériel"
+    # backend/transfers: "Transferts"
+    # backend/transports: "Transports"
+    backend/units: "Unidad de medida"
+    backend/users: "Utilizador"
+    backend/warehouses: "Lugar de deposito"
   errors:
     messages:
       # already_confirmed: "a déjà été validé(e)"

@@ -20,9 +20,9 @@
 # 
 # == Table: entity_links
 #
-#  comment      :text             
 #  created_at   :datetime         not null
 #  creator_id   :integer          
+#  description  :text             
 #  entity_1_id  :integer          not null
 #  entity_2_id  :integer          not null
 #  id           :integer          not null, primary key
@@ -36,22 +36,20 @@
 
 
 class EntityLink < Ekylibre::Record::Base
-  attr_accessible :comment, :entity_1_id, :entity_2_id, :nature_id, :started_on, :stopped_on
-  belongs_to :entity_1, :class_name=>"Entity"
-  belongs_to :entity_2, :class_name=>"Entity"
-  belongs_to :nature, :class_name=>"EntityLinkNature"
+  attr_accessible :comment, :entity_1_id, :entity_2_id, :nature_id, :started_at, :stopped_at
+  belongs_to :entity_1, :class_name => "Entity"
+  belongs_to :entity_2, :class_name => "Entity"
+  belongs_to :nature, :class_name => "EntityLinkNature"
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_presence_of :entity_1, :entity_2, :nature
   #]VALIDATORS]
 
-  default_scope where(:stopped_on => nil)
-  scope :of_entity, lambda { |entity|
-    where("stopped_on IS NULL AND ? IN (entity_1_id, entity_2_id)", entity.id)
-  }
+  default_scope -> { where(:stopped_at => nil) }
+  scope :of_entity, lambda { |entity| where("stopped_at IS NULL AND ? IN (entity_1_id, entity_2_id)", entity.id) }
 
   before_validation do
-    self.started_on ||= Date.today
+    self.started_at ||= Time.now
   end
 
 end

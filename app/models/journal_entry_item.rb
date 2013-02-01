@@ -23,11 +23,11 @@
 #  account_id        :integer          not null
 #  balance           :decimal(19, 4)   default(0.0), not null
 #  bank_statement_id :integer          
-#  comment           :text             
 #  created_at        :datetime         not null
 #  creator_id        :integer          
 #  credit            :decimal(19, 4)   default(0.0), not null
 #  debit             :decimal(19, 4)   default(0.0), not null
+#  description       :text             
 #  entry_id          :integer          not null
 #  id                :integer          not null, primary key
 #  journal_id        :integer          

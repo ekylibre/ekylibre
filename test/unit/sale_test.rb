@@ -26,7 +26,6 @@
 #  amount              :decimal(19, 4)   default(0.0), not null
 #  annotation          :text             
 #  client_id           :integer          not null
-#  comment             :text             
 #  conclusion          :text             
 #  confirmed_on        :date             
 #  created_at          :datetime         not null
@@ -35,6 +34,7 @@
 #  credit              :boolean          not null
 #  currency            :string(3)        
 #  delivery_address_id :integer          
+#  description         :text             
 #  downpayment_amount  :decimal(19, 4)   default(0.0), not null
 #  expiration_delay    :string(255)      
 #  expired_on          :date             

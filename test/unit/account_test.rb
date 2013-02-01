@@ -20,10 +20,10 @@
 # 
 # == Table: accounts
 #
-#  comment      :text             
 #  created_at   :datetime         not null
 #  creator_id   :integer          
 #  debtor       :boolean          not null
+#  description  :text             
 #  id           :integer          not null, primary key
 #  label        :string(255)      not null
 #  last_letter  :string(8)        

@@ -21,11 +21,11 @@
 # == Table: cash_transfers
 #
 #  accounted_at              :datetime         
-#  comment                   :text             
 #  created_at                :datetime         not null
 #  created_on                :date             
 #  creator_id                :integer          
 #  currency_rate             :decimal(19, 10)  default(1.0), not null
+#  description               :text             
 #  emitter_amount            :decimal(19, 4)   default(0.0), not null
 #  emitter_cash_id           :integer          not null
 #  emitter_journal_entry_id  :integer          

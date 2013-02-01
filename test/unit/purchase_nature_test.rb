@@ -21,10 +21,10 @@
 # == Table: purchase_natures
 #
 #  active          :boolean          not null
-#  comment         :text             
 #  created_at      :datetime         not null
 #  creator_id      :integer          
 #  currency        :string(3)        
+#  description     :text             
 #  id              :integer          not null, primary key
 #  journal_id      :integer          
 #  lock_version    :integer          default(0), not null

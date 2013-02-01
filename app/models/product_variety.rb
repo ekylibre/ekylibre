@@ -22,7 +22,6 @@
 #
 #  automatic    :boolean          not null
 #  code         :string(255)      
-#  comment      :text             
 #  created_at   :datetime         not null
 #  creator_id   :integer          
 #  depth        :integer          default(0), not null

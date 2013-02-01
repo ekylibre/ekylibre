@@ -20,9 +20,9 @@
 # 
 # == Table: product_processes
 #
-#  comment      :string(255)      
 #  created_at   :datetime         not null
 #  creator_id   :integer          
+#  description  :string(255)      
 #  id           :integer          not null, primary key
 #  lock_version :integer          default(0), not null
 #  name         :string(255)      not null

@@ -21,9 +21,9 @@
 # == Table: subscription_natures
 #
 #  actual_number         :integer          
-#  comment               :text             
 #  created_at            :datetime         not null
 #  creator_id            :integer          
+#  description           :text             
 #  entity_link_nature_id :integer          
 #  id                    :integer          not null, primary key
 #  lock_version          :integer          default(0), not null

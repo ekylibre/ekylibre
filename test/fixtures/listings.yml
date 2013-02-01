@@ -20,10 +20,10 @@
 # 
 # == Table: listings
 #
-#  comment      :text             
 #  conditions   :text             
 #  created_at   :datetime         not null
 #  creator_id   :integer          
+#  description  :text             
 #  id           :integer          not null, primary key
 #  lock_version :integer          default(0), not null
 #  mail         :text             

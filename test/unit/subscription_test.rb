@@ -21,9 +21,9 @@
 # == Table: subscriptions
 #
 #  address_id        :integer          
-#  comment           :text             
 #  created_at        :datetime         not null
 #  creator_id        :integer          
+#  description       :text             
 #  entity_id         :integer          
 #  first_number      :integer          
 #  id                :integer          not null, primary key

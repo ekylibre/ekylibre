@@ -25,7 +25,6 @@
 #  asset_account_id       :integer          
 #  category_id            :integer          not null
 #  charge_account_id      :integer          
-#  comment                :text             
 #  commercial_description :text             
 #  commercial_name        :string(255)      not null
 #  created_at             :datetime         not null

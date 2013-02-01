@@ -26,7 +26,6 @@
 #  area_unit_id             :integer          
 #  asset_id                 :integer          
 #  born_at                  :datetime         
-#  comment                  :text             
 #  content_maximal_quantity :decimal(19, 4)   default(0.0), not null
 #  content_nature_id        :integer          
 #  content_unit_id          :integer          

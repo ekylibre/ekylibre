@@ -24,7 +24,6 @@
 #  ceded                   :boolean          
 #  ceded_on                :date             
 #  charges_account_id      :integer          
-#  comment                 :text             
 #  created_at              :datetime         not null
 #  creator_id              :integer          
 #  currency                :string(3)        

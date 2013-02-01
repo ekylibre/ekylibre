@@ -23,13 +23,13 @@
 #  accounted_at        :datetime         
 #  affair_id           :integer          
 #  amount              :decimal(19, 4)   default(0.0), not null
-#  comment             :text             
 #  confirmed_on        :date             
 #  created_at          :datetime         not null
 #  created_on          :date             
 #  creator_id          :integer          
 #  currency            :string(3)        
 #  delivery_address_id :integer          
+#  description         :text             
 #  id                  :integer          not null, primary key
 #  invoiced_on         :date             
 #  journal_entry_id    :integer          

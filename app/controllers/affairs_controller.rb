@@ -1,2 +1,0 @@
-class AffairsController < ApplicationController
-end

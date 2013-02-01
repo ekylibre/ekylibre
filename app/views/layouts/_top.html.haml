@@ -1,4 +1,4 @@
--if @current_user
+-if current_user
   .user-bar
     %a.name.root
       %span.text=Entity.of_company.full_name
@@ -6,14 +6,14 @@
       %li.no-link
         %a.name
           %span.icon
-          %span.text=@current_user.label
+          %span.text=current_user.label
       %li.separator
       -for mode in ["printable", "resized"]
         %li=menu_to(tl("view_modes.#{mode}"), params, :menu=>"#{'un' unless mode == session[:view_mode]}checked", "data-toggle-view-mode"=>url_for(:action=>:toggle_view_mode, :controller=>:interfacers, :mode=>mode))
       %li.separator
       %li=menu_to(SessionsController.human_action_name(:destroy), session_url, :method=>:delete, :menu=>:logout)
 
--if @current_user
+-if current_user
   -rm = reverse_menus
   .menu-bar
     %ul

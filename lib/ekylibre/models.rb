@@ -372,7 +372,7 @@ module Ekylibre
     :observation => {
       :author_id => :user,
       :creator_id => :user,
-      :owner_id => "owner_type",
+      :subject_id => "subject_type",
       :updater_id => :user
     },
     :operation => {

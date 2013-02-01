@@ -20,9 +20,9 @@
 # 
 # == Table: product_indicator_nature_choices
 #
-#  comment      :string(255)      
 #  created_at   :datetime         not null
 #  creator_id   :integer          
+#  description  :string(255)      
 #  id           :integer          not null, primary key
 #  lock_version :integer          default(0), not null
 #  name         :string(255)      not null
@@ -41,7 +41,7 @@ class ProductIndicatorNatureChoice < Ekylibre::Record::Base
   acts_as_list
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_length_of :comment, :name, :value, :allow_nil => true, :maximum => 255
+  validates_length_of :description, :name, :value, :allow_nil => true, :maximum => 255
   validates_presence_of :name, :nature
   #]VALIDATORS]
 

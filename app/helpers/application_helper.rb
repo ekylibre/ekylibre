@@ -21,10 +21,6 @@
 # encoding: utf-8
 module ApplicationHelper
 
-  def current_user
-    controller.current_user
-  end
-
   # # def options_for_unroll(options = {})
   # #   raise ArgumentError.new("Need :reflection option (#{options.inspect})") unless options[:reflection].to_s.size > 0
   # #   reflection = self.class.reflections[options[:reflection].to_sym]
@@ -114,7 +110,7 @@ module ApplicationHelper
       url = {:controller => action[0].to_sym, :action => action[1].to_sym}
     end
     url[:controller] ||= controller_name if url.is_a?(Hash)
-    AdminController.authorized?(url)
+    BackendController.authorized?(url)
   end
 
   # It's the menu generated for the current user
@@ -434,7 +430,7 @@ module ApplicationHelper
       block[board]
     end
 
-    return render(:partial => "admin/beehive", :object => board)
+    return render(:partial => "backend/beehive", :object => board)
 
     html << "<div class=\"beehive beehive-#{board.name}\">"
     for box in board.boxes

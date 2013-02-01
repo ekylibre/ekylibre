@@ -24,11 +24,11 @@
 #  affair_id        :integer          
 #  amount           :decimal(19, 4)   default(0.0), not null
 #  client_id        :integer          not null
-#  comment          :string(255)      
 #  created_at       :datetime         not null
 #  created_on       :date             
 #  creator_id       :integer          
 #  currency         :string(3)        not null
+#  description      :string(255)      
 #  id               :integer          not null, primary key
 #  journal_entry_id :integer          
 #  label            :string(255)      
@@ -47,7 +47,7 @@ class Transfer < Ekylibre::Record::Base
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :amount, :allow_nil => true
   validates_length_of :currency, :allow_nil => true, :maximum => 3
-  validates_length_of :comment, :label, :allow_nil => true, :maximum => 255
+  validates_length_of :description, :label, :allow_nil => true, :maximum => 255
   validates_presence_of :amount, :client, :currency
   #]VALIDATORS]
   validates_presence_of :created_on, :client

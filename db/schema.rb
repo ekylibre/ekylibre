@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130129112939) do
+ActiveRecord::Schema.define(:version => 20130130123000) do
 
   create_table "account_balances", :force => true do |t|
     t.integer  "account_id",                                                        :null => false
@@ -43,7 +43,7 @@ ActiveRecord::Schema.define(:version => 20130129112939) do
     t.string   "label",                                          :null => false
     t.boolean  "debtor",                      :default => false, :null => false
     t.string   "last_letter",  :limit => 8
-    t.text     "comment"
+    t.text     "description"
     t.datetime "created_at",                                     :null => false
     t.datetime "updated_at",                                     :null => false
     t.integer  "creator_id"
@@ -132,7 +132,6 @@ ActiveRecord::Schema.define(:version => 20130129112939) do
     t.string   "name",                                                                               :null => false
     t.string   "number",                                                                             :null => false
     t.text     "description"
-    t.text     "comment"
     t.date     "purchased_on"
     t.integer  "purchase_id"
     t.integer  "purchase_item_id"
@@ -195,7 +194,7 @@ ActiveRecord::Schema.define(:version => 20130129112939) do
     t.integer  "emitter_journal_entry_id"
     t.datetime "accounted_at"
     t.string   "number",                                                                     :null => false
-    t.text     "comment"
+    t.text     "description"
     t.decimal  "currency_rate",             :precision => 19, :scale => 10, :default => 1.0, :null => false
     t.decimal  "emitter_amount",            :precision => 19, :scale => 4,  :default => 0.0, :null => false
     t.decimal  "receiver_amount",           :precision => 19, :scale => 4,  :default => 0.0, :null => false
@@ -316,7 +315,7 @@ ActiveRecord::Schema.define(:version => 20130129112939) do
 
   create_table "departments", :force => true do |t|
     t.string   "name",                            :null => false
-    t.text     "comment"
+    t.text     "description"
     t.integer  "parent_id"
     t.datetime "created_at",                      :null => false
     t.datetime "updated_at",                      :null => false
@@ -356,7 +355,7 @@ ActiveRecord::Schema.define(:version => 20130129112939) do
     t.decimal  "amount",           :precision => 19, :scale => 4, :default => 0.0,   :null => false
     t.integer  "payments_count",                                  :default => 0,     :null => false
     t.date     "created_on",                                                         :null => false
-    t.text     "comment"
+    t.text     "description"
     t.integer  "cash_id",                                                            :null => false
     t.integer  "mode_id",                                                            :null => false
     t.datetime "created_at",                                                         :null => false
@@ -470,7 +469,7 @@ ActiveRecord::Schema.define(:version => 20130129112939) do
     t.string   "deliveries_conditions",     :limit => 60
     t.decimal  "discount_percentage",                     :precision => 19, :scale => 4
     t.decimal  "reduction_percentage",                    :precision => 19, :scale => 4
-    t.text     "comment"
+    t.text     "description"
     t.string   "vat_number",                :limit => 15
     t.string   "country",                   :limit => 2
     t.integer  "authorized_payments_count"
@@ -569,7 +568,7 @@ ActiveRecord::Schema.define(:version => 20130129112939) do
     t.integer  "updater_id"
     t.integer  "lock_version",        :default => 0,     :null => false
     t.boolean  "propagate_addresses", :default => false, :null => false
-    t.text     "comment"
+    t.text     "description"
   end
 
   add_index "entity_link_natures", ["created_at"], :name => "index_entity_link_natures_on_created_at"
@@ -586,7 +585,7 @@ ActiveRecord::Schema.define(:version => 20130129112939) do
     t.integer  "nature_id",                   :null => false
     t.datetime "started_at"
     t.datetime "stopped_at"
-    t.text     "comment"
+    t.text     "description"
     t.datetime "created_at",                  :null => false
     t.datetime "updated_at",                  :null => false
     t.integer  "creator_id"
@@ -625,7 +624,7 @@ ActiveRecord::Schema.define(:version => 20130129112939) do
   create_table "establishments", :force => true do |t|
     t.string   "name",                        :null => false
     t.string   "code"
-    t.text     "comment"
+    t.text     "description"
     t.datetime "created_at",                  :null => false
     t.datetime "updated_at",                  :null => false
     t.integer  "creator_id"
@@ -747,7 +746,7 @@ ActiveRecord::Schema.define(:version => 20130129112939) do
     t.integer  "purchase_id"
     t.decimal  "pretax_amount",                 :precision => 19, :scale => 4, :default => 0.0, :null => false
     t.decimal  "amount",                        :precision => 19, :scale => 4, :default => 0.0, :null => false
-    t.text     "comment"
+    t.text     "description"
     t.integer  "address_id"
     t.date     "planned_on"
     t.date     "moved_on"
@@ -797,7 +796,7 @@ ActiveRecord::Schema.define(:version => 20130129112939) do
   create_table "incoming_delivery_modes", :force => true do |t|
     t.string   "name",                                     :null => false
     t.string   "code",         :limit => 8,                :null => false
-    t.text     "comment"
+    t.text     "description"
     t.datetime "created_at",                               :null => false
     t.datetime "updated_at",                               :null => false
     t.integer  "creator_id"
@@ -876,7 +875,7 @@ ActiveRecord::Schema.define(:version => 20130129112939) do
 
   create_table "inventories", :force => true do |t|
     t.date     "created_on",                                     :null => false
-    t.text     "comment"
+    t.text     "description"
     t.boolean  "changes_reflected"
     t.datetime "created_at",                                     :null => false
     t.datetime "updated_at",                                     :null => false
@@ -957,7 +956,7 @@ ActiveRecord::Schema.define(:version => 20130129112939) do
     t.integer  "bank_statement_id"
     t.string   "letter",            :limit => 8
     t.integer  "position"
-    t.text     "comment"
+    t.text     "description"
     t.datetime "created_at",                                                                          :null => false
     t.datetime "updated_at",                                                                          :null => false
     t.integer  "creator_id"
@@ -1057,7 +1056,7 @@ ActiveRecord::Schema.define(:version => 20130129112939) do
     t.string   "name",                        :null => false
     t.string   "root_model",                  :null => false
     t.text     "query"
-    t.text     "comment"
+    t.text     "description"
     t.text     "story"
     t.datetime "created_at",                  :null => false
     t.datetime "updated_at",                  :null => false
@@ -1123,14 +1122,14 @@ ActiveRecord::Schema.define(:version => 20130129112939) do
 
   create_table "observations", :force => true do |t|
     t.string   "importance",   :limit => 10,                :null => false
-    t.text     "description",                               :null => false
-    t.integer  "owner_id",                                  :null => false
+    t.text     "content",                                   :null => false
+    t.integer  "subject_id",                                :null => false
     t.datetime "created_at",                                :null => false
     t.datetime "updated_at",                                :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.integer  "lock_version",               :default => 0, :null => false
-    t.string   "owner_type",                                :null => false
+    t.string   "subject_type",                              :null => false
     t.datetime "observed_at",                               :null => false
     t.integer  "author_id",                                 :null => false
   end
@@ -1138,7 +1137,7 @@ ActiveRecord::Schema.define(:version => 20130129112939) do
   add_index "observations", ["author_id"], :name => "index_observations_on_author_id"
   add_index "observations", ["created_at"], :name => "index_observations_on_created_at"
   add_index "observations", ["creator_id"], :name => "index_observations_on_creator_id"
-  add_index "observations", ["owner_id", "owner_type"], :name => "index_observations_on_owner_id_and_owner_type"
+  add_index "observations", ["subject_id", "subject_type"], :name => "index_observations_on_subject_id_and_subject_type"
   add_index "observations", ["updated_at"], :name => "index_observations_on_updated_at"
   add_index "observations", ["updater_id"], :name => "index_observations_on_updater_id"
 
@@ -1188,7 +1187,7 @@ ActiveRecord::Schema.define(:version => 20130129112939) do
     t.integer  "sale_id",                                                                       :null => false
     t.decimal  "pretax_amount",                 :precision => 19, :scale => 4, :default => 0.0, :null => false
     t.decimal  "amount",                        :precision => 19, :scale => 4, :default => 0.0, :null => false
-    t.text     "comment"
+    t.text     "description"
     t.datetime "created_at",                                                                    :null => false
     t.datetime "updated_at",                                                                    :null => false
     t.integer  "creator_id"
@@ -1240,7 +1239,7 @@ ActiveRecord::Schema.define(:version => 20130129112939) do
   create_table "outgoing_delivery_modes", :force => true do |t|
     t.string   "name",                                           :null => false
     t.string   "code",           :limit => 8,                    :null => false
-    t.text     "comment"
+    t.text     "description"
     t.datetime "created_at",                                     :null => false
     t.datetime "updated_at",                                     :null => false
     t.integer  "creator_id"
@@ -1357,7 +1356,6 @@ ActiveRecord::Schema.define(:version => 20130129112939) do
   create_table "product_groups", :force => true do |t|
     t.string   "name",                        :null => false
     t.text     "description"
-    t.text     "comment"
     t.string   "color"
     t.integer  "parent_id"
     t.integer  "lft"
@@ -1383,7 +1381,7 @@ ActiveRecord::Schema.define(:version => 20130129112939) do
     t.string   "name",                        :null => false
     t.string   "value"
     t.integer  "position"
-    t.string   "comment"
+    t.string   "description"
     t.datetime "created_at",                  :null => false
     t.datetime "updated_at",                  :null => false
     t.integer  "creator_id"
@@ -1408,7 +1406,7 @@ ActiveRecord::Schema.define(:version => 20130129112939) do
     t.decimal  "minimal_value",  :precision => 19, :scale => 4
     t.decimal  "maximal_value",  :precision => 19, :scale => 4
     t.boolean  "active",                                        :default => false, :null => false
-    t.string   "comment"
+    t.string   "description"
     t.datetime "created_at",                                                       :null => false
     t.datetime "updated_at",                                                       :null => false
     t.integer  "creator_id"
@@ -1427,7 +1425,7 @@ ActiveRecord::Schema.define(:version => 20130129112939) do
     t.integer  "product_id",                                                        :null => false
     t.integer  "nature_id",                                                         :null => false
     t.datetime "measured_at",                                                       :null => false
-    t.string   "comment"
+    t.string   "description"
     t.decimal  "decimal_value",   :precision => 19, :scale => 4
     t.decimal  "measure_value",   :precision => 19, :scale => 4
     t.integer  "measure_unit_id"
@@ -1526,7 +1524,7 @@ ActiveRecord::Schema.define(:version => 20130129112939) do
     t.string   "name",                                   :null => false
     t.string   "catalog_name",                           :null => false
     t.text     "catalog_description"
-    t.text     "comment"
+    t.text     "description"
     t.integer  "parent_id"
     t.datetime "created_at",                             :null => false
     t.datetime "updated_at",                             :null => false
@@ -1550,7 +1548,6 @@ ActiveRecord::Schema.define(:version => 20130129112939) do
     t.string   "number",                 :limit => 32,                    :null => false
     t.integer  "unit_id",                                                 :null => false
     t.text     "description"
-    t.text     "comment"
     t.string   "commercial_name",                                         :null => false
     t.text     "commercial_description"
     t.integer  "variety_id",                                              :null => false
@@ -1603,7 +1600,7 @@ ActiveRecord::Schema.define(:version => 20130129112939) do
     t.string   "nature",                      :null => false
     t.integer  "position"
     t.string   "phase_delay"
-    t.string   "comment"
+    t.string   "description"
     t.datetime "created_at",                  :null => false
     t.datetime "updated_at",                  :null => false
     t.integer  "creator_id"
@@ -1621,7 +1618,7 @@ ActiveRecord::Schema.define(:version => 20130129112939) do
     t.integer  "variety_id",                      :null => false
     t.string   "name",                            :null => false
     t.string   "nature",                          :null => false
-    t.string   "comment"
+    t.string   "description"
     t.boolean  "repeatable",   :default => false, :null => false
     t.datetime "created_at",                      :null => false
     t.datetime "updated_at",                      :null => false
@@ -1660,7 +1657,6 @@ ActiveRecord::Schema.define(:version => 20130129112939) do
   create_table "product_varieties", :force => true do |t|
     t.string   "name",                            :null => false
     t.text     "description"
-    t.text     "comment"
     t.string   "product_type",                    :null => false
     t.string   "code"
     t.integer  "parent_id"
@@ -1695,7 +1691,7 @@ ActiveRecord::Schema.define(:version => 20130129112939) do
     t.boolean  "unique_tracking",                                    :default => false, :null => false
     t.integer  "target_id"
     t.decimal  "target_quantity",     :precision => 19, :scale => 4, :default => 0.0,   :null => false
-    t.text     "comment"
+    t.text     "description"
     t.datetime "created_at",                                                            :null => false
     t.datetime "updated_at",                                                            :null => false
     t.integer  "creator_id"
@@ -1729,7 +1725,7 @@ ActiveRecord::Schema.define(:version => 20130129112939) do
     t.string   "name",                               :null => false
     t.string   "nature",                             :null => false
     t.integer  "building_id",                        :null => false
-    t.text     "comment"
+    t.text     "description"
     t.integer  "position"
     t.datetime "created_at",                         :null => false
     t.datetime "updated_at",                         :null => false
@@ -1745,7 +1741,7 @@ ActiveRecord::Schema.define(:version => 20130129112939) do
 
   create_table "production_chains", :force => true do |t|
     t.string   "name",                        :null => false
-    t.text     "comment"
+    t.text     "description"
     t.datetime "created_at",                  :null => false
     t.datetime "updated_at",                  :null => false
     t.integer  "creator_id"
@@ -1773,7 +1769,6 @@ ActiveRecord::Schema.define(:version => 20130129112939) do
     t.datetime "born_at"
     t.datetime "dead_at"
     t.text     "description"
-    t.text     "comment"
     t.string   "picture_file_name"
     t.string   "picture_content_type"
     t.integer  "picture_file_size"
@@ -1872,7 +1867,7 @@ ActiveRecord::Schema.define(:version => 20130129112939) do
   create_table "purchase_natures", :force => true do |t|
     t.boolean  "active",                       :default => false, :null => false
     t.string   "name"
-    t.text     "comment"
+    t.text     "description"
     t.string   "currency",        :limit => 3
     t.boolean  "with_accounting",              :default => false, :null => false
     t.integer  "journal_id"
@@ -1896,7 +1891,7 @@ ActiveRecord::Schema.define(:version => 20130129112939) do
     t.decimal  "pretax_amount",                     :precision => 19, :scale => 4, :default => 0.0, :null => false
     t.decimal  "amount",                            :precision => 19, :scale => 4, :default => 0.0, :null => false
     t.integer  "delivery_address_id"
-    t.text     "comment"
+    t.text     "description"
     t.datetime "created_at",                                                                        :null => false
     t.datetime "updated_at",                                                                        :null => false
     t.integer  "creator_id"
@@ -1979,7 +1974,7 @@ ActiveRecord::Schema.define(:version => 20130129112939) do
     t.boolean  "downpayment",                                                         :default => false, :null => false
     t.decimal  "downpayment_minimum",                  :precision => 19, :scale => 4, :default => 0.0,   :null => false
     t.decimal  "downpayment_percentage",               :precision => 19, :scale => 4, :default => 0.0,   :null => false
-    t.text     "comment"
+    t.text     "description"
     t.datetime "created_at",                                                                             :null => false
     t.datetime "updated_at",                                                                             :null => false
     t.integer  "creator_id"
@@ -2019,7 +2014,7 @@ ActiveRecord::Schema.define(:version => 20130129112939) do
     t.string   "function_title"
     t.text     "introduction"
     t.text     "conclusion"
-    t.text     "comment"
+    t.text     "description"
     t.datetime "created_at",                                                                          :null => false
     t.datetime "updated_at",                                                                          :null => false
     t.integer  "creator_id"
@@ -2088,7 +2083,7 @@ ActiveRecord::Schema.define(:version => 20130129112939) do
     t.string   "name",                                                                :null => false
     t.integer  "actual_number"
     t.string   "nature",                                                              :null => false
-    t.text     "comment"
+    t.text     "description"
     t.datetime "created_at",                                                          :null => false
     t.datetime "updated_at",                                                          :null => false
     t.integer  "creator_id"
@@ -2121,7 +2116,7 @@ ActiveRecord::Schema.define(:version => 20130129112939) do
     t.boolean  "suspended",                                        :default => false, :null => false
     t.integer  "nature_id"
     t.integer  "entity_id"
-    t.text     "comment"
+    t.text     "description"
     t.string   "number"
     t.integer  "sale_item_id"
   end
@@ -2188,7 +2183,7 @@ ActiveRecord::Schema.define(:version => 20130129112939) do
     t.string   "name",                           :null => false
     t.string   "serial"
     t.boolean  "active",       :default => true, :null => false
-    t.text     "comment"
+    t.text     "description"
     t.datetime "created_at",                     :null => false
     t.datetime "updated_at",                     :null => false
     t.integer  "creator_id"
@@ -2207,7 +2202,7 @@ ActiveRecord::Schema.define(:version => 20130129112939) do
     t.decimal  "amount",                        :precision => 19, :scale => 4, :default => 0.0, :null => false
     t.integer  "client_id",                                                                     :null => false
     t.string   "label"
-    t.string   "comment"
+    t.string   "description"
     t.date     "started_on"
     t.date     "stopped_on"
     t.datetime "created_at",                                                                    :null => false
@@ -2235,7 +2230,7 @@ ActiveRecord::Schema.define(:version => 20130129112939) do
     t.decimal  "weight",           :precision => 19, :scale => 4
     t.date     "created_on"
     t.date     "transport_on"
-    t.text     "comment"
+    t.text     "description"
     t.datetime "created_at",                                                       :null => false
     t.datetime "updated_at",                                                       :null => false
     t.integer  "creator_id"
@@ -2286,7 +2281,7 @@ ActiveRecord::Schema.define(:version => 20130129112939) do
     t.boolean  "administrator",                                                                      :default => true,  :null => false
     t.text     "rights"
     t.date     "arrived_on"
-    t.text     "comment"
+    t.text     "description"
     t.boolean  "commercial"
     t.date     "departed_on"
     t.integer  "department_id"

@@ -21,9 +21,9 @@
 # == Table: production_chain_conveyors
 #
 #  check_state         :boolean          not null
-#  comment             :text             
 #  created_at          :datetime         not null
 #  creator_id          :integer          
+#  description         :text             
 #  flow                :decimal(19, 4)   default(0.0), not null
 #  id                  :integer          not null, primary key
 #  lock_version        :integer          default(0), not null

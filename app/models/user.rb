@@ -24,7 +24,6 @@
 #  administrator                          :boolean          default(TRUE), not null
 #  arrived_on                             :date             
 #  authentication_token                   :string(255)      
-#  comment                                :text             
 #  commercial                             :boolean          
 #  confirmation_sent_at                   :datetime         
 #  confirmation_token                     :string(255)      
@@ -35,6 +34,7 @@
 #  current_sign_in_ip                     :string(255)      
 #  departed_on                            :date             
 #  department_id                          :integer          
+#  description                            :text             
 #  email                                  :string(255)      not null
 #  employed                               :boolean          not null
 #  employment                             :string(255)      
@@ -74,6 +74,13 @@ class User < Ekylibre::Record::Base
   belongs_to :entity
   belongs_to :role
   belongs_to :profession
+  has_many :events, :class_name => "Event", :foreign_key => :responsible_id
+  has_many :future_events, :class_name => "Event", :foreign_key => :responsible_id, :conditions => ["started_at >= CURRENT_TIMESTAMP"]
+  has_many :sales_invoices, :foreign_key => :responsible_id, :class_name => "Sale", :conditions => {:state => :invoice}
+  has_many :sales, :class_name => "Sale", :foreign_key => :responsible_id
+  has_many :transports, :class_name => "Transport", :foreign_key => :responsible_id
+  has_many :unpaid_sales, :class_name => "Sale", :foreign_key => :responsible_id, :order => "created_on", :conditions => ["state IN ('order', 'invoice') AND paid_amount < amount AND lost = ? ", false]
+
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :failed_attempts, :allow_nil => true, :only_integer => true
   validates_numericality_of :maximal_grantable_reduction_percentage, :allow_nil => true
@@ -99,7 +106,6 @@ class User < Ekylibre::Record::Base
     def minimum_right; :__minimum__; end
     def rights; @@rights; end
     def rights_list; @@rights_list; end
-    def useful_rights; @@useful_rights; end
   end
 
   before_validation do
@@ -218,34 +224,15 @@ class User < Ekylibre::Record::Base
 
   def self.initialize_rights
     definition = YAML.load_file(self.rights_file)
-    # Expand actions
-    for right, attributes in definition
-      if attributes
-        attributes['actions'].each_index do |index|
-          unless attributes['actions'][index].match(/\:\:/)
-            attributes['actions'][index] = attributes['controller'].to_s+"::"+attributes['actions'][index]
-          end
-        end if attributes['actions'].is_a? Array
-      end
-    end
-    definition.delete_if{|k, v| k == "__not_used__" }
-    @@rights_list = definition.keys.sort.collect{|x| x.to_sym}.delete_if{|k, v| k.to_s.match(/^__.*__$/)}
-    @@rights = {}
-    @@useful_rights = {}
-    for right, attributes in definition
-      if attributes.is_a? Hash
-        unless attributes["controller"].blank?
-          controller = attributes["controller"].to_sym
-          @@useful_rights[controller] ||= []
-          @@useful_rights[controller] << right.to_sym
-        end
-        for uniq_action in attributes["actions"]
-          controller, action = uniq_action.split(/\W+/)[0..1].collect{|x| x.to_sym}
-          @@rights[controller] ||= {}
-          @@rights[controller][action] ||= []
-          @@rights[controller][action] << right.to_sym
-        end if attributes["actions"].is_a? Array
-      end
+    @@rights_list = definition.keys.sort.delete_if{|k| k.match(/^__.*__$/)}.map(&:to_sym)
+    @@rights = HashWithIndifferentAccess.new
+    for right, actions in definition
+      for uniq_action in actions
+        controller, action = uniq_action.split(/\#/)[0..1]
+        @@rights[controller] ||= HashWithIndifferentAccess.new
+        @@rights[controller][action] ||= []
+        @@rights[controller][action] << right.to_sym
+      end if actions.is_a? Array
     end
   end
 

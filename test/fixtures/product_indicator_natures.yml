@@ -21,9 +21,9 @@
 # == Table: product_indicator_natures
 #
 #  active         :boolean          not null
-#  comment        :string(255)      
 #  created_at     :datetime         not null
 #  creator_id     :integer          
+#  description    :string(255)      
 #  id             :integer          not null, primary key
 #  lock_version   :integer          default(0), not null
 #  maximal_length :integer          

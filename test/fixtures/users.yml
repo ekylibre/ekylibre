@@ -23,7 +23,6 @@
 #  administrator                          :boolean          default(TRUE), not null
 #  arrived_on                             :date             
 #  authentication_token                   :string(255)      
-#  comment                                :text             
 #  commercial                             :boolean          
 #  confirmation_sent_at                   :datetime         
 #  confirmation_token                     :string(255)      
@@ -34,6 +33,7 @@
 #  current_sign_in_ip                     :string(255)      
 #  departed_on                            :date             
 #  department_id                          :integer          
+#  description                            :text             
 #  email                                  :string(255)      not null
 #  employed                               :boolean          not null
 #  employment                             :string(255)      

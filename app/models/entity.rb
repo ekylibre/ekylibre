@@ -31,13 +31,13 @@
 #  client                    :boolean          not null
 #  client_account_id         :integer          
 #  code                      :string(64)       
-#  comment                   :text             
 #  country                   :string(2)        
 #  created_at                :datetime         not null
 #  creator_id                :integer          
 #  currency                  :string(255)      not null
 #  dead_on                   :date             
 #  deliveries_conditions     :string(60)       
+#  description               :text             
 #  discount_percentage       :decimal(19, 4)   
 #  first_met_on              :date             
 #  first_name                :string(255)      
@@ -101,13 +101,11 @@ class Entity < Ekylibre::Record::Base
   has_many :direct_links, :class_name => "EntityLink", :foreign_key => :entity_1_id
   has_many :events, :class_name => "Event"
   has_many :product_events, :class_name => "Log", :foreign_key => :watcher_id
-  has_many :managed_events, :class_name => "Event", :foreign_key => :responsible_id # as Responsible
-  has_many :future_events, :class_name => "Event", :foreign_key => :responsible_id, :conditions => ["started_at >= CURRENT_TIMESTAMP"]
   has_many :godchildren, :class_name => "Entity", :foreign_key => "proposer_id"
   has_many :incoming_payments, :foreign_key => :payer_id, :inverse_of => :payer
   has_many :indirect_links, :class_name => "EntityLink", :foreign_key => :entity_2_id
   has_many :mandates
-  has_many :observations
+  has_many :observations, :as => :subject
   has_many :preferences, :dependent => :destroy, :foreign_key => :user_id
   has_many :prices
   has_many :purchase_invoices, :class_name => "Purchase", :foreign_key => :supplier_id, :order => "created_on desc", :conditions => {:state => "invoice"}
@@ -116,17 +114,13 @@ class Entity < Ekylibre::Record::Base
   has_many :outgoing_deliveries, :foreign_key => :transporter_id
   has_many :outgoing_payments, :foreign_key => :payee_id
   has_many :sales_invoices, :class_name => "Sale", :foreign_key => :client_id, :order => "created_on desc", :conditions => {:state => "invoice"}
-  has_many :managed_sales_invoices, :foreign_key => :responsible_id, :class_name => "Sale", :conditions => {:state => :invoice}
   has_many :sales, :foreign_key => :client_id, :order => "created_on desc"
-  has_many :managed_sales, :class_name => "Sale", :foreign_key => :responsible_id
   has_many :sale_lines, :class_name => "SaleItem"
   has_many :subscriptions
   has_many :trackings, :foreign_key => :producer_id
   has_many :transfers, :foreign_key => :supplier_id
   has_many :transports, :foreign_key => :transporter_id
-  has_many :managed_transports, :class_name => "Transport", :foreign_key => :responsible_id
   has_many :transporter_sales, :foreign_key => :transporter_id, :order => "created_on desc", :class_name => "Sale"
-  has_many :managed_unpaid_sales, :class_name => "Sale", :foreign_key => :responsible_id, :order => "created_on", :conditions => ["state IN ('order', 'invoice') AND paid_amount < amount AND lost = ? ", false]
   has_many :usable_incoming_payments, :conditions => ["used_amount < amount"], :class_name => "IncomingPayment", :foreign_key => :payer_id
   has_many :waiting_deliveries, :class_name => "OutgoingDelivery", :foreign_key => :transporter_id, :conditions => ["moved_on IS NULL AND planned_on <= CURRENT_DATE"]
   has_one :default_mail_address, :class_name => "EntityAddress", :conditions => {:by_default => true, :canal => :mail}

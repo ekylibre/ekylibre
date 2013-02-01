@@ -1,6 +1,10 @@
 eng:
   actions:
-    accounts:
+    authentication/sessions:
+      destroy: "Log out"
+      new: "New session"
+      renew: "Renew session"
+    backend/accounts:
       edit: "Edit account: %{number} - %{name}"
       index: "Plan of accounts"
       load: "Load a plan of accounts"
@@ -9,45 +13,16 @@ eng:
       reconciliation: "Account reconciliation"
       show: "Account: %{number} - %{name}"
       unmark: "Unmark account"
-    animal_diagnostics:  #?
-      edit: "Edit a diagnostic" #?
-      index: "Diagnostic" #?
-      new: "Create a new diagnostic" #?
-      show: "Diagnostic\_: %{name}" #?
-    animal_diseases:  #?
-      edit: "Edit disease\_: %{name}" #?
-      index: "Diseases" #?
-      new: "Create a new disease" #?
-      show: "Disease\_: %{name}" #?
-    animal_drug_natures:  #?
-      edit: "Edit drug nature\_: %{name}" #?
-      index: "Drug natures" #?
-      new: "Create a new drug nature" #?
-      show: "Drug nature\_: %{name}" #?
-    animal_drugs:  #?
-      edit: "Edit drug\_: %{name}" #?
-      index: "Drugs" #?
-      new: "Create a new drug" #?
-      show: "Drug\_: %{name}" #?
-    animal_event_natures: #?
-    animal_events: #?
-    animal_group_events: #?
-    animal_groups: #?
-    animal_posologies: #?
-    animal_prescriptions: #?
-    animal_race_natures: #?
-    animal_races: #?
-    animal_treatments: #?
-    animals:
+    backend/animals:
       # edit: "Modifier l'animal\_: %{name}"
       # index: "Productions animales"
       # new: "Nouvel animal"
       # show: "Animal\_: %{name}"
-    areas:
+    backend/areas:
       edit: "Edit the postal area: %{name}"
       index: "Postal areas"
       new: "Add a postal area"
-    assets:
+    backend/assets:
       cede: "Cede %{name}"
       depreciate: "Compute depreciations of %{name}"
       edit: "Edit asset: %{name}"
@@ -55,34 +30,40 @@ eng:
       new: "New asset"
       sell: "Sell asset" #?
       show: "Asset: %{name}"
-    bank_statements:
+    backend/bank_statements:
       edit: "Edit bank statement %{number}"
       index: "Bank statements"
       new: "Create a new account statement"
       point: "Bank reconciliation with bank statement %{number}"
       show: "Account statement N°%{number}"
-    cash_transfers:
+    backend/base: #?
+    backend/cash_transfers:
       edit: "Edit cash transfer: %{number}"
       index: "Cash transfers"
       new: "Add a new cash transfer"
       show: "Cash transfer: %{number}"
-    cashes:
+    backend/cashes:
       edit: "Edit cash: %{name}"
       index: "Cashes"
       new: "Add a new cash"
       show: "%{nature}: %{name}"
-    companies:  #?
-      register: "Register a company" #?
-    custom_field_choices:
+    backend/cells/demo_bar_cells: #?
+    backend/cells/demo_pie_cells: #?
+    backend/cells/last_events_cells: #?
+    backend/cells/last_products_cells: #?
+    backend/cells/placeholder_cells: #?
+    backend/cells/product_bar_cells: #?
+    backend/cells/product_pie_cells: #?
+    backend/custom_field_choices:
       edit: "Edit the option: %{name}"
       new: "Add a new option for a choices list"
-    custom_fields:
+    backend/custom_fields:
       edit: "Edit the custom field: %{name}"
       index: "Custom fields"
       new: "Add a new custom field"
       show: "Custom field: %{name}"
       sort: "Sort custom field choices"
-    dashboards:
+    backend/dashboards:
       accountancy: "Accountancy dashboard"
       finances: "Finances dashboard"
       general: "General dashboard"
@@ -103,32 +84,27 @@ eng:
       stocks: "Stocks dashboard"
       trade: "Trade dashboard"
       welcome: "Welcome on Ekylibre"
-    delays:  #?
-      edit: "Edit the delay: %{name}" #?
-      index: "Delays" #?
-      new: "Add a new delay" #?
-      show: "Delay: %{name}" #?
-    departments:
+    backend/departments:
       edit: "Edit the department: %{name}"
       index: "Departments"
       new: "Add a new department"
-    deposits:
+    backend/deposits:
       edit: "Edit the deposit %{number}"
       index: "Deposits"
       new: "Add a new deposit"
       show: "Deposit %{number} on %{created_on}"
       unvalidateds: "Unvalidated deposits"
-    districts:
+    backend/districts:
       edit: "Edit the district: %{name}"
       index: "Districts"
       new: "Add a new district"
-    document_templates:
+    backend/document_templates:
       edit: "Edit the document template: %{name}"
       index: "Document templates"
       load: "Load default document templates (overwrite the old templates)"
       new: "Add a new document template"
       print: "Print document template"
-    entities:
+    backend/entities:
       destroy: "Remove person"
       edit: "Edit person: %{full_name}"
       export: "Export people"
@@ -137,48 +113,48 @@ eng:
       merge: "Merge two people"
       new: "Add a new person"
       show: "Person: %{full_name}"
-    entity_addresses:
+    backend/entity_addresses:
       edit: "Edit a coordinate"
       new: "Add a coordinate"
-    entity_categories:
+    backend/entity_categories:
       edit: "Edit the person category: %{name}"
       index: "Person categories"
       new: "Add a new person category"
       show: "Person category: %{name}"
-    entity_event_natures:  #?
+    backend/entity_event_natures:  #?
       edit: "Edit thee event type: %{name}" #?
       index: "Event types" #?
       new: "Add a new event type" #?
-    entity_events:  #?
+    backend/entity_events:  #?
       change_minutes: "Change minutes for event" #?
       edit: "Edit the event" #?
       index: "Events" #?
       new: "Add a new event" #?
-    entity_link_natures:
+    backend/entity_link_natures:
       edit: "Edit the link type: %{name}"
       index: "Link types"
       new: "Add a new link type"
-    entity_links:
+    backend/entity_links:
       edit: "Edit the link"
       new: "Add a new link"
-    entity_natures:
+    backend/entity_natures:
       edit: "Edit the person type: %{name}"
       index: "Person types"
       new: "Add a new person type"
-    establishments:
+    backend/establishments:
       edit: "Edit the establishment: %{name}"
       index: "Establishments"
       new: "Add a new establishment"
-    event_natures:
+    backend/event_natures:
       edit: "Edit thee event type: %{name}"
       index: "Event types"
       new: "Add a new event type"
-    events:
+    backend/events:
       change_minutes: "Change minutes for event"
       edit: "Edit the event"
       index: "Events"
       new: "Add a new event"
-    financial_years:
+    backend/financial_years:
       close: "Close financial year: %{code}"
       compute_balances: "Compute financial year balance"
       edit: "Edit new financial year"
@@ -186,43 +162,41 @@ eng:
       index: "Financial years"
       new: "Open a new financial year"
       show: "Financial year %{code}"
-    help:
+    backend/help:
       index: "Help"
       show: "Help: %{title}"
-    incoming_deliveries:
+    backend/incoming_deliveries:
       confirm: "Confirm incoming delivery"
       edit: "Edit the incoming delivery"
       index: "Incoming deliveries"
       new: "Add a new incoming delivery"
-    incoming_delivery_modes:
+    backend/incoming_delivery_modes:
       edit: "Edit the incoming delivery mode: %{name}"
       index: "Incoming delivery modes"
       new: "Add a new incoming delivery mode"
-    incoming_payment_modes:
+    backend/incoming_payment_modes:
       edit: "Edit the incoming payment mode: %{name}"
       index: "Incoming payment modes"
       new: "Add a new incoming payment mode"
-    incoming_payment_uses:  #?
+    backend/incoming_payment_uses:  #?
       new: "Attach an incoming payment" #?
-    incoming_payments:
+    backend/incoming_payments:
       edit: "Edit the incoming payment %{number}"
       index: "Incoming payments"
       new: "Add a new incoming payment"
       show: "Incoming payment %{number} of %{entity}"
-    inventories:
+    backend/inventories:
       edit: "Edit the inventory"
       index: "Inventories"
       new: "Add a new inventory"
       show: "Inventory: %{number}"
-    journal_entries:
+    backend/journal_entries:
       edit: "Edit journal entry: %{number}"
       new: "Add an entry"
       show: "Journal entry: %{number}"
-    journal_entry_items:
-      new: "Add a new entry line"
-    journal_entry_lines:  #?
-      new: "Add a new entry line" #?
-    journals:
+    backend/journal_entry_items:
+      new: "Add a new entry item"
+    backend/journals:
       balance: "Balance"
       bookkeep: "Bookkeep"
       close: "Close journal: %{name}"
@@ -235,197 +209,142 @@ eng:
       reopen: "Reopen journal : %{name}"
       reports: "Prints, exportations"
       show: "Journal: %{name} (%{code})"
-    land_parcel_groups:  #?
-      edit: "Edit group of land parcels: %{name}" #?
-      index: "Groups of land parcels" #?
-      new: "Add a new group of land parcels" #?
-    land_parcels:
+    backend/land_parcels:
       divide: "Divide land parcel: %{name}"
       edit: "Edit land parcel: %{name}"
       index: "Land parcels"
       merge: "Merge land parcels"
       new: "Add a new land parcel"
       show: "Land parcel %{name}"
-    listing_nodes:
+    backend/listing_nodes:
       edit: "Edit listing node"
       new: "New listing node"
-    listings:
+    backend/listings:
       edit: "Edit the listing: %{name}"
       extract: "Extract listing: %{name}"
       index: "Listings and mailings"
       mail: "Send an email to: %{name}"
       new: "Add a new listing"
-    logs:
+    backend/logs:
       # edit: "Modifier un évènement"
       # index: "Évènements"
       # new: "Créer un évènement"
       # show: "évènement %{name} commencé le %{started_at}"
-    mandates:
+    backend/mandates:
       configure: "Configure mandates"
       edit: "Edit the mandate"
       index: "Mandates"
       new: "Add a mandate"
-    myselves:
+    backend/myselves:
       change_password: "Change my password"
       statistics: "My statistics"
-    observations:
+    backend/observations:
       edit: "Edit the observation"
       new: "Add a new observation"
-    operation_items:  #?
-      new: "New operation's product" #?
-    operation_lines:  #?
-      new: "New operation's product" #?
-    operation_natures:  #?
-      edit: "Edit type of operation: %{name}" #?
-      index: "Types of operation" #?
-      new: "Create a new type of operation" #?
-    operation_uses:  #?
-      new: "New tool's use" #?
-    operations:
+    backend/operations:
       edit: "Edit operation %{name}"
       index: "Operations"
       new: "Create a new operation"
       show: "Operation Details %{name}"
       unvalidateds: "Unvalidated operations"
-    outgoing_deliveries:
+    backend/outgoing_deliveries:
       edit: "Edit outgoing delivery: %{number}"
       index: "Outgoing deliveries"
       new: "Add a new outgoing delivery"
       show: "Outgoing delivery: %{number}"
-    outgoing_delivery_modes:
+    backend/outgoing_delivery_modes:
       edit: "Edit the outgoing delivery mode: %{name}"
       index: "Outgoing delivery modes"
       new: "Add a new outgoing delivery mode"
-    outgoing_payment_modes:
+    backend/outgoing_payment_modes:
       edit: "Edit the disbursement mode"
       index: "Disbursement modes"
       new: "Add a new disbursement mode"
-    outgoing_payment_uses:  #?
-      new: "Pay the purchase %{number}" #?
-    outgoing_payments:
+    backend/outgoing_payments:
       edit: "Edit the disbursement: %{number}"
       index: "Disbursements"
       new: "Add a new disbursement"
       show: "Disbursement %{number} for %{payee}"
-    places: #?
-    preferences:
+    backend/places: #?
+    backend/preferences:
       # edit: "Modifier les préférences"
       # index: "Préfénces"
       # new: "Nouvelle préférence"
       # show: "Préférence"
-    prices:
+    backend/prices:
       edit: "Edit price %{pretax_amount}/%{amount} of %{product}"
       export: "Export prices"
       find: "Find price"
       import: "Import prices"
       index: "Prices"
       new: "Add a new price"
-    product_categories:  #?
-      edit: "Edit the product category: %{name}" #?
-      index: "Product categories" #?
-      new: "Add a new product category" #?
-      show: "Product category: %{name}" #?
-    product_components:  #?
-      edit: "Edit the component: %{name}" #?
-      new: "Add a new component" #?
-    product_event_natures: #?
-    product_events: #?
-    product_group_events: #?
-    product_group_passings: #?
-    product_groups:
+    backend/product_groups:
       # edit: "Modifier le lot\_: %{name} "
       # index: "Lots de produits"
       # new: "Créer un lot"
       # show: "Lot\_: %{name}"
-    product_indicator_nature_choices: #?
-    product_indicator_natures: #?
-    product_indicators: #?
-    product_memberships: #?
-    product_moves:
+    backend/product_indicator_nature_choices: #?
+    backend/product_indicator_natures: #?
+    backend/product_indicators: #?
+    backend/product_memberships: #?
+    backend/product_moves:
       edit: "Edit the stock move: %{name}"
       new: "add a new stock move"
-    product_nature:  #?
-      change_quantities: "Change quantities for product" #?
-      edit: "Edit the product: %{name}" #?
-      index: "Products" #?
-      new: "Add a new product" #?
-      show: "Product: %{name}" #?
-    product_nature_categories:
+    backend/product_nature_categories:
       edit: "Edit the product category: %{name}"
       index: "Product categories"
       new: "Add a new product category"
       show: "Product category: %{name}"
-    product_nature_components:  #?
-      edit: "Edit the component: %{name}" #?
-      new: "Add a new component" #?
-    product_natures:
-      change_quantities: "Change quantities for product" #?
-      edit: "Edit the product: %{name}"
-      index: "Products"
-      new: "Add a new product"
-      show: "Product: %{name}"
-    product_process_phases: #?
-    product_processes: #?
-    product_species: #?
-    product_stock_moves:  #?
-      edit: "Edit the stock move: %{name}" #?
-      new: "add a new stock move" #?
-    product_stocks:  #?
-      edit: "Edit stock: %{name}" #?
-      index: "Stocks state" #?
-      new: "New stock" #?
-    product_transfers:
+    backend/product_natures:
+      edit: "Edit the product type: %{name}"
+      index: "Product types"
+      new: "Add a new product type"
+      show: "Product type: %{name}"
+    backend/product_process_phases: #?
+    backend/product_processes: #?
+    backend/product_transfers:
       confirm: "Waiting stock transfers"
       confirm_all: "Confirm all stock transfer"
       edit: "Edit the stock transfer/loss"
       index: "Transfers and loss"
       new: "Add a new stock transfer or loss"
-    product_varieties:
+    backend/product_varieties:
       # edit: "Modifier la variété\_: %{name} "
       # index: "Variétés"
       # new: "Créer une variétés"
       # show: "Variété\_: %{name}"
-    production_chain_conveyors:
+    backend/production_chain_conveyors:
       edit: "Edit production chain conveyor (%{source_id}-%{target_id})"
       new: "Add a new conveyor in the production chain"
-    production_chain_work_centers:
+    backend/production_chain_work_centers:
       edit: "Edit the work center: %{name}"
       new: "Add a new work center"
       play: "Play work center: %{name}"
       show: "Work center: %{name}"
-    production_chains:
+    backend/production_chains:
       edit: "Edit production chain: %{name}"
       index: "Production chains"
       new: "Add a new production chain"
       show: "Production chain: %{name}"
-    products:
+    backend/products:
       change_quantities: "Change quantities for product" #?
       edit: "Edit the product: %{name}"
       index: "Products"
       new: "Add a new product"
       show: "Product: %{name}"
-    products_natures:  #?
-      change_quantities: "Change quantities for product" #?
-      edit: "Edit the product: %{name}" #?
-      index: "Products" #?
-      new: "Add a new product" #?
-      show: "Product: %{name}" #?
-    professions:
+    backend/professions:
       edit: "Edit profession"
       index: "Professions"
       new: "Add a new profession"
-    purchase_items:
+    backend/purchase_items:
       edit: "Edit the purhase order line"
       new: "Add a product to the purchase"
-    purchase_lines:  #?
-      edit: "Edit the purhase order line" #?
-      new: "Add a product to the purchase" #?
-    purchase_natures:
+    backend/purchase_natures:
       edit: "Edit purchase type"
       index: "Purchase types"
       new: "New purchase type"
       show: "Purchase type: %{name}"
-    purchases:
+    backend/purchases:
       abort: "Abort"
       confirm: "Confirm order and wait for deliveries"
       correct: "Correct order"
@@ -437,24 +356,20 @@ eng:
       propose: "Propose order"
       refuse: "Refused order"
       show: "Purchase: %{number} - %{state}"
-    roles:
+    backend/roles:
       edit: "Edit the role: %{name}"
       index: "Roles"
       new: "Add a new role"
-    sale_items:
+    backend/sale_items:
       detail: "Details sale's line"
       edit: "Edit sale's line"
       new: "Add a product to the sale"
-    sale_lines:  #?
-      detail: "Details sale's line" #?
-      edit: "Edit sale's line" #?
-      new: "Add a product to the sale" #?
-    sale_natures:
+    backend/sale_natures:
       edit: "Edit the sale type: %{name}"
       index: "Sale types"
       new: "Add a new type of sale"
       show: "Sale type: %{name}"
-    sales:
+    backend/sales:
       abort: "Abort sale"
       cancel: "Cancel sales invoice %{number}"
       confirm: "Confirm estimate and go to deliveries"
@@ -469,237 +384,166 @@ eng:
       refuse: "Estimate refused"
       show: "Sale: %{label} for %{client}"
       statistics: "Sales statistics"
-    sequences:
+    backend/sequences:
       edit: "Edit the sequence: %{name}"
       index: "Sequences"
       load: "Load missing sequences"
       new: "Add a new sequence"
-    sessions:
-      destroy: "Log out"
-      new: "New session"
-      renew: "Renew session"
-    settings:
+    backend/settings:
       about: "About Ekylibre"
       backup: "Backup data"
       backups: "Backups"
       edit: "Configuration"
       import: "Import data"
       restore: "Restore data"
-    stock_moves:  #?
-      edit: "Edit the stock move: %{name}" #?
-      new: "add a new stock move" #?
-    stock_transfers:  #?
-      confirm: "Waiting stock transfers" #?
-      confirm_all: "Confirm all stock transfer" #?
-      edit: "Edit the stock transfer/loss" #?
-      index: "Transfers and loss" #?
-      new: "Add a new stock transfer or loss" #?
-    stocks:  #?
-      edit: "Edit stock: %{name}" #?
-      index: "Stocks state" #?
-      new: "New stock" #?
-    subscription_natures:
+    backend/subscription_natures:
       edit: "Edit the subscription type: %{name}"
       index: "Subscription types"
       new: "Add a new subscription type"
       show: "subscription type\_: %{name}"
-    subscriptions:
+    backend/subscriptions:
       coordinates: "Refresh coordinates and period"
       edit: "Edit subscription: %{number} from %{start} to %{finish}"
       index: "Subscriptions"
       new: "Add a new subscription"
-    tax_declarations:
+    backend/tax_declarations:
       edit: "Create a Tax Declaration"
       index: "VAT Declaration"
       new: "Create a Tax report"
       show: "%{nature} for period from %{started_on} to %{stopped_on}"
-    taxes:
+    backend/taxes:
       edit: "Edit tax: %{name}"
       index: "Taxes"
       new: "Add a new tax"
-    tool_natures:  #?
-      edit: "Edit a tool nature %{name} " #?
-      index: "Tools and equipments" #?
-      new: "New tool nature" #?
-      show: "Tool nature\_: %{name}" #?
-    tools:
+    backend/tools:
       edit: "Edit tool: %{name}"
       index: "Tools"
       new: "Add a tool"
       show: "Tool: %{name}"
-    trackings:  #?
+    backend/trackings:  #?
       show: "Tracking: %{name}" #?
-    transports:
+    backend/transports:
       deliveries: "Transport's deliveries"
       delivery_delete: "Delete transport's deliveries"
       edit: "Edit the transport %{number}"
       index: "Transports"
       new: "Add a new transport"
       show: "Transport: %{number}"
-    units:
+    backend/units:
       edit: "Edit the unit: %{label}"
       index: "Units of measure"
       load: "Load default units of measure"
       new: "Add a new unit of measure"
-    users:
+    backend/users:
       edit: "Edit user: %{first_name} %{last_name} (%{name})"
       index: "Users"
       lock: "Lock user"
       new: "Add a new user"
       show: "User: %{first_name} %{last_name} (%{name})"
       unlock: "Unlock user"
-    vegetals:
+    backend/vegetals:
       # edit: "Modifier une production végétale"
       # index: "Productions végétales"
       # new: "Nouvelle production végétale"
       # show: "Production végétale\_: %{name} %{area_measure} %{area_unit.name}"
-    warehouses:
+    backend/warehouses:
       edit: "Edit the warehouse: %{name}"
       index: "Warehouses"
       new: "Add a new warehouse"
       show: "Warehouse: %{name}"
+    public:
+      index: "Home"
   controllers:
-    account_balances: "Account balances"
-    accounts: "Plan of accounts"
-    admin: "Administration"
-    # affairs: "Affaires"
-    animal_diagnostics: "Diagnostics" #?
-    animal_diseases: "Diseases" #?
-    animal_drug_natures: "Drug natures" #?
-    animal_drugs: "Drugs" #?
-    animal_event_natures: "Animal's events natures" #?
-    animal_events: "Animal's events" #?
-    animal_groups: "Animal's groups" #?
-    animal_posologies: "Posologies" #?
-    animal_prescriptions: "Animal's prescriptions" #?
-    animal_race_natures: "Animal's species" #?
-    animal_races: "Races" #?
-    animal_treatments: "Animal's treatments" #?
-    animals: "Animals"
-    application: "Application"
-    areas: "Postal areas"
-    assets: "Assets"
-    authentication: "Authentication"
-    bank_statements: "Bank statements"
-    # base: "Base"
-    cash_transfers: "Cash transfers"
-    cashes: "Cashes"
-    companies: "Companies" #?
-    cultivations: "Cultivations" #?
-    custom_field_choices: "Custom field choices"
-    custom_field_data: "Custom field data"
-    custom_fields: "Custom fields"
-    dashboards: "Dashboards"
-    delays: "Delays" #?
-    departments: "Departments"
-    deposit_items: "Deposit lines"
-    deposit_lines: "Deposit lines" #?
-    deposits: "Deposits"
-    districts: "Districts"
-    document_templates: "Document templates"
-    documents: "Documents"
-    entities: "People"
-    entity_addresses: "People addresses"
-    entity_categories: "Person categories"
-    entity_event_natures: "Event types" #?
-    entity_events: "Events" #?
-    entity_link_natures: "Link types"
-    entity_links: "Entity links"
-    entity_natures: "Person types"
-    establishments: "Establishments"
-    event_natures: "Event types"
-    events: "Events"
-    financial_years: "Financial years"
-    help: "Help"
-    incoming_deliveries: "Incoming deliveries"
-    incoming_delivery_items: "Incoming delivery lines"
-    incoming_delivery_lines: "Incoming delivery lines" #?
-    incoming_delivery_modes: "Incoming delivery modes"
-    incoming_payment_modes: "Incoming payment modes"
-    incoming_payment_uses: "Incoming payment uses" #?
-    incoming_payments: "Incoming payments"
-    interfacers: "Interfacers"
-    inventories: "Inventories"
-    inventory_items: "Inventory lines"
-    inventory_lines: "Inventory lines" #?
-    journal_entries: "Journal entries"
-    journal_entry_items: "Journal entry lines"
-    journal_entry_lines: "Journal entry lines" #?
-    journals: "Journals"
-    land_parcel_groups: "Groups of land parcels" #?
-    land_parcel_kinships: "Land parcel kinships" #?
-    land_parcels: "Land parcels"
-    listing_node_items: "Listing node items"
-    listing_nodes: "Listing nodes"
-    listings: "Listings and mailings"
-    logs: "Animal's events"
-    mandates: "Mandates"
-    myselves: "Myself"
-    observations: "Observations"
-    operation_items: "Operation lines" #?
-    operation_lines: "Operation lines" #?
-    operation_natures: "Types of operation" #?
-    operation_uses: "Operation uses of tools" #?
-    operations: "Operations"
-    outgoing_deliveries: "Outgoing deliveries"
-    outgoing_delivery_items: "Outgoing delivery lines"
-    outgoing_delivery_lines: "Outgoing delivery lines" #?
-    outgoing_delivery_modes: "Outgoing delivery modes"
-    outgoing_payment_modes: "Disbursement modes"
-    outgoing_payment_uses: "Outgoing payment uses" #?
-    outgoing_payments: "Disbursements"
-    preferences: "Preferences"
-    prices: "Prices"
-    product_categories: "Product categories" #?
-    product_components: "Product components" #?
-    product_event_natures: "Animal's events natures" #?
-    product_events: "Animal's events" #?
-    product_groups: "Animal's groups"
-    product_moves: "Stock moves"
-    product_nature: "Products" #?
-    product_nature_categories: "Product categories"
-    product_nature_components: "Product components" #?
-    product_natures: "Products" #?
-    product_species: "Races" #?
-    product_stock_moves: "Stock moves" #?
-    product_stocks: "Stocks state" #?
-    product_transfers: "Transfers and loss"
-    product_varieties: "Races"
-    production_chain_conveyors: "Production chain conveyors"
-    production_chain_work_center_uses: "Production chain work center uses"
-    production_chain_work_centers: "Production chain work centers"
-    production_chains: "Production chains"
-    products: "Animals"
-    products_natures: "Products" #?
-    professions: "Professions"
-    purchase_items: "Purchase lines"
-    purchase_lines: "Purchase lines" #?
-    purchase_natures: "Purchase types"
-    purchases: "Purchases"
-    roles: "Roles"
-    sale_items: "Sale lines"
-    sale_lines: "Sale lines" #?
-    sale_natures: "Sale types"
-    sales: "Sales"
-    sequences: "Sequences"
-    sessions: "Session"
-    settings: "Settings"
-    stock_moves: "Stock moves" #?
-    stock_transfers: "Transfers and loss" #?
-    stocks: "Stocks state" #?
-    subscription_natures: "Subscription types"
-    subscriptions: "Subscriptions"
-    tax_declarations: "Tax declarations"
-    taxes: "Taxes"
-    tool_natures: "Tool's natures" #?
-    tools: "Tools"
-    tracking_states: "Tracking states" #?
-    trackings: "Trackings" #?
-    transfers: "Transfers"
-    transports: "Transports"
-    units: "Units of measure"
-    users: "Users"
-    warehouses: "Warehouses"
+    # authentication/sessions: "Sessions"
+    backend/account_balances: "Account balances"
+    backend/accounts: "Plan of accounts"
+    # backend/affairs: "Affaires"
+    backend/animals: "Animals"
+    backend/areas: "Postal areas"
+    backend/assets: "Assets"
+    backend/bank_statements: "Bank statements"
+    backend/cash_transfers: "Cash transfers"
+    backend/cashes: "Cashes"
+    backend/custom_field_choices: "Custom field choices"
+    backend/custom_field_data: "Custom field data"
+    backend/custom_fields: "Custom fields"
+    backend/dashboards: "Dashboards"
+    backend/departments: "Departments"
+    backend/deposit_items: "Deposit items"
+    backend/deposits: "Deposits"
+    backend/districts: "Districts"
+    backend/document_templates: "Document templates"
+    backend/documents: "Documents"
+    backend/entities: "People"
+    backend/entity_addresses: "People addresses"
+    backend/entity_categories: "Person categories"
+    backend/entity_link_natures: "Link types"
+    backend/entity_links: "Entity links"
+    backend/entity_natures: "Person types"
+    backend/establishments: "Establishments"
+    backend/event_natures: "Event types"
+    backend/events: "Events"
+    backend/financial_years: "Financial years"
+    backend/help: "Help"
+    backend/incoming_deliveries: "Incoming deliveries"
+    backend/incoming_delivery_items: "Incoming delivery lines"
+    backend/incoming_delivery_modes: "Incoming delivery modes"
+    backend/incoming_payment_modes: "Incoming payment modes"
+    backend/incoming_payments: "Incoming payments"
+    backend/interfacers: "Interfacers"
+    backend/inventories: "Inventories"
+    backend/inventory_items: "Inventory lines"
+    backend/journal_entries: "Journal entries"
+    backend/journal_entry_items: "Journal entry lines"
+    backend/journals: "Journals"
+    backend/land_parcels: "Land parcels"
+    backend/listing_node_items: "Listing node items"
+    backend/listing_nodes: "Listing nodes"
+    backend/listings: "Listings and mailings"
+    backend/logs: "Animal's events"
+    backend/mandates: "Mandates"
+    backend/myselves: "Myself"
+    backend/observations: "Observations"
+    backend/operations: "Operations"
+    backend/outgoing_deliveries: "Outgoing deliveries"
+    backend/outgoing_delivery_items: "Outgoing delivery lines"
+    backend/outgoing_delivery_modes: "Outgoing delivery modes"
+    backend/outgoing_payment_modes: "Disbursement modes"
+    backend/outgoing_payments: "Disbursements"
+    backend/preferences: "Preferences"
+    backend/prices: "Prices"
+    backend/product_groups: "Product groups"
+    backend/product_moves: "Stock moves"
+    backend/product_nature_categories: "Product categories"
+    backend/product_natures: "Product types" #?
+    backend/product_transfers: "Transfers and loss"
+    backend/product_varieties: "Product species"
+    backend/production_chain_conveyors: "Production chain conveyors"
+    backend/production_chain_work_center_uses: "Production chain work center uses"
+    backend/production_chain_work_centers: "Production chain work centers"
+    backend/production_chains: "Production chains"
+    backend/products: "Animals"
+    backend/professions: "Professions"
+    backend/purchase_items: "Purchase lines"
+    backend/purchase_natures: "Purchase types"
+    backend/purchases: "Purchases"
+    backend/roles: "Roles"
+    backend/sale_items: "Sale lines"
+    backend/sale_natures: "Sale types"
+    backend/sales: "Sales"
+    backend/sequences: "Sequences"
+    backend/settings: "Settings"
+    backend/subscription_natures: "Subscription types"
+    backend/subscriptions: "Subscriptions"
+    backend/tax_declarations: "Tax declarations"
+    backend/taxes: "Taxes"
+    backend/tools: "Tools"
+    backend/trackings: "Trackings" #?
+    backend/transfers: "Transfers"
+    backend/transports: "Transports"
+    backend/units: "Units of measure"
+    backend/users: "Users"
+    backend/warehouses: "Warehouses"
   errors:
     messages:
       # already_confirmed: "a déjà été validé(e)"

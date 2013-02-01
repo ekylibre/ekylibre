@@ -21,10 +21,10 @@
 # == Table: transports
 #
 #  amount           :decimal(19, 4)   default(0.0), not null
-#  comment          :text             
 #  created_at       :datetime         not null
 #  created_on       :date             
 #  creator_id       :integer          
+#  description      :text             
 #  id               :integer          not null, primary key
 #  lock_version     :integer          default(0), not null
 #  number           :string(255)      

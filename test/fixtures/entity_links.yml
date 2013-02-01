@@ -20,9 +20,9 @@
 # 
 # == Table: entity_links
 #
-#  comment      :text             
 #  created_at   :datetime         not null
 #  creator_id   :integer          
+#  description  :text             
 #  entity_1_id  :integer          not null
 #  entity_2_id  :integer          not null
 #  id           :integer          not null, primary key

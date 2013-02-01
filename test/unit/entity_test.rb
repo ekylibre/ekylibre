@@ -30,13 +30,13 @@
 #  client                    :boolean          not null
 #  client_account_id         :integer          
 #  code                      :string(64)       
-#  comment                   :text             
 #  country                   :string(2)        
 #  created_at                :datetime         not null
 #  creator_id                :integer          
 #  currency                  :string(255)      not null
 #  dead_on                   :date             
 #  deliveries_conditions     :string(60)       
+#  description               :text             
 #  discount_percentage       :decimal(19, 4)   
 #  first_met_on              :date             
 #  first_name                :string(255)      

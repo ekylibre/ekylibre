@@ -1,3 +1,15 @@
+
+def hash_dig(hash, options = {}, &block)
+  namespaces = options[:namespaces] || []
+  for key, value in hash.sort{|a,b| a[0].to_s <=> b[0].to_s}
+    keys = namespaces + [key]
+    yield(keys, value)
+    hash_dig(value, :namespaces => keys, &block) if value.is_a?(Hash)
+  end
+  return nil
+end
+
+
 def hash_to_yaml(hash, depth=0)
   code = "\n"
   x = hash.to_a.sort{|a,b| a[0].to_s.gsub("_"," ").strip<=>b[0].to_s.gsub("_"," ").strip}
@@ -156,7 +168,7 @@ def actions_in_file(path, controller)
       actions << 'destroy'
     end
   end
-  if controller.to_s == "dashboards"
+  if controller.to_s == "backend/dashboards"
     for menu in Ekylibre.menu.with_menus do
       h = menu.hierarchy.collect{|m| m.name }[1..-1]
       next if h.empty?
@@ -168,13 +180,29 @@ def actions_in_file(path, controller)
 end
 
 def actions_hash
-  ref = {}
-  Dir.glob(Rails.root.join("app", "controllers", "*_controller.rb")) do |x|
-    controller_name = x.split("/")[-1].split("_controller")[0]
-    ref[controller_name] = actions_in_file(x, controller_name).sort
+  ref = HashWithIndifferentAccess.new
+  controllers = Rails.root.join("app", "controllers")
+  Dir.glob(controllers.join("**", "*_controller.rb")).sort.each do |path|
+    controller_name = Pathname.new(path).relative_path_from(controllers).to_s.gsub(/\_controller\.rb$/, '')
+    ref[controller_name] = actions_in_file(path, controller_name).sort
   end
   return ref
 end
+
+# def controllers_hash
+#   ref = HashWithIndifferentAccess.new
+#   controllers = Rails.root.join("app", "controllers")
+#   Dir.glob(controllers.join("**", "*_controller.rb")) do |path|
+#     controller_name = Pathname.new(path).relative_path_from(controllers).to_s.gsub(/\_controller\.rb$/, '').split("/")
+#     r = ref
+#     for namespace in controller_name[0..-2]
+#       r[namespace] ||= HashWithIndifferentAccess.new
+#       r = r[namespace]
+#     end if controller_name.size > 1
+#     r[controller_name.last.to_sym] = nil
+#   end
+#   return ref
+# end
 
 
 def models_in_file

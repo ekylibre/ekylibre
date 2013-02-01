@@ -12,10 +12,12 @@
   %body
     =yield :popover
     #wrap
+      %header#header
+        %h1#title=controller.human_action_name
       #main
-        %header#header
-          %h1#title=controller.human_action_name
         #content
+          =notice
+          =alert
           =notifications_tag
           =yield
     %footer#legals=legals_sentence

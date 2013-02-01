@@ -20,10 +20,10 @@
 # 
 # == Table: departments
 #
-#  comment          :text             
 #  created_at       :datetime         not null
 #  creator_id       :integer          
 #  depth            :integer          default(0), not null
+#  description      :text             
 #  id               :integer          not null, primary key
 #  lft              :integer          
 #  lock_version     :integer          default(0), not null

@@ -1,13 +1,17 @@
 arb:
   actions:
-    account_balances: #?
-    accountancy:  #?
+    authentication/sessions:
+      destroy: "الخروج"
+      new: "الدخول"
+      # renew: "Renouveller la session"
+    backend/account_balances: #?
+    backend/accountancy:  #?
       balance: "رصيد الحساب" #?
       bookkeep: "نظام المحاسبة المتغير" #?
       draft: "المسودات" #?
       general_ledger: "دفتر الحسابات" #?
       index: "المحاسبة العامة" #?
-    accounts:
+    backend/accounts:
       edit: "تعديل الحساب : %{number} - %{name}"
       index: "مخطط الحساب"
       # load: "Charger un plan de compte"
@@ -16,63 +20,48 @@ arb:
       reconciliation: "كتابة حسابات"
       show: "الحساب : %{number} - %{name}"
       # unmark: "Délettrer un compte"
-    animal_care_natures: #?
-    animal_care_types: #?
-    animal_cares: #?
-    animal_diagnostics: #?
-    animal_diseases: #?
-    animal_drug_natures: #?
-    animal_drugs: #?
-    animal_event_natures: #?
-    animal_events: #?
-    animal_group_events: #?
-    animal_groups: #?
-    animal_posologies: #?
-    animal_prescriptions: #?
-    animal_race_natures: #?
-    animal_race_types: #?
-    animal_races: #?
-    animal_treatment_uses: #?
-    animal_treatments: #?
-    animals:
+    backend/animals:
       # edit: "Modifier l'animal\_: %{name}"
       # index: "Productions animales"
       # new: "Nouvel animal"
       # show: "Animal\_: %{name}"
-    application: #?
-    areas:
+    backend/areas:
       edit: "تعديل العنوان البريدي : %{name}"
       index: "العناوين البريد"
       new: "اضافة عنوان بريدي"
-    assets:
+    backend/assets:
       # cede: "Céder l’immobilisation"
       # depreciate: "Calculer l’amortissement de l’immobilisation\_: %{name}"
       # edit: "Modifier l’immobilisation\_: %{name}"
       # index: "Immobilisations"
       # new: "Nouvelle immobilisation"
       # show: "Immobilisation\_: %{name}"
-    authentication:  #?
-      login: "الدخول" #?
-      logout: "الخروج" #?
-    bank_statements:
+    backend/bank_statements:
       edit: "تعديل الكشف المصرفي رقم%{number}"
       index: "بيان الحساب المصرفي"
       new: "الاشارة لكشف حساب جديد"
       point: "رقم اعداد البيان%{number} من %{cash}"
       show: "رقم كشف الحساب%{number}"
-    cash_transfers:
+    backend/cash_transfers:
       # edit: "Modifier le virement interne\_: %{number}"
       # index: "Virements internes"
       # new: "Faire un nouveau virement interne"
       # show: "Virement interne\_: %{number}"
-    cashes:
+    backend/cashes:
       edit: "تعديل الخزينة : %{name}"
       index: "الخزينة"
       new: "التسجيل لخزينة جديدة"
       show: "%{nature_label} : %{name}"
-    companies:  #?
+    backend/cells/demo_bar_cells: #?
+    backend/cells/demo_pie_cells: #?
+    backend/cells/last_events_cells: #?
+    backend/cells/last_products_cells: #?
+    backend/cells/placeholder_cells: #?
+    backend/cells/product_bar_cells: #?
+    backend/cells/product_pie_cells: #?
+    backend/companies:  #?
       register: "تسجيل شركة" #?
-    company:  #?
+    backend/company:  #?
       about: "وحول ايكيليبغ" #?
       backups: "النسخ الاحتياطية" #?
       change_password: "تغيير كلمة المرور" #?
@@ -82,22 +71,22 @@ arb:
       index: "صباح الخير، %{user}" #?
       listing_nodes: "اختر المعلومات المستخرجة" #?
       welcome: "نرحب بايكيليبغ  %{user}" #?
-    contacts:  #?
+    backend/contacts:  #?
       edit: "تعديل عنوان : %{entity}" #?
       new: "اضافة متصل جديد" #?
-    cultivations: #?
-    currencies: #?
-    custom_field_choices:
+    backend/cultivations: #?
+    backend/currencies: #?
+    backend/custom_field_choices:
       edit: "تعديل الخيار : %{name}"
       new: " انشاء خيار واحد للحصول على قائمة الخيارات"
-    custom_field_data: #?
-    custom_fields:
+    backend/custom_field_data: #?
+    backend/custom_fields:
       edit: "تعديل الحقل المخصص : %{name}"
       index: "الحقول المخصصة"
       new: "انشاء حقل مخصص"
       show: "الحقل المخصص : %{name}"
       # sort: "Trier les choix du champ personnalisé"
-    dashboards:
+    backend/dashboards:
       # accountancy: "Tableau de bord comptable"
       # finances: "Tableau de bord financier"
       # general: "Tableau de bord général"
@@ -118,40 +107,34 @@ arb:
       # stocks: "Tableau de bord des stocks"
       # trade: "Tableau de bord de la gestion commerciale"
       # welcome: "Bienvenue dans Ekylibre"
-    delays:  #?
+    backend/delays:  #?
       edit: "تعديل المهلة : %{name}" #?
       index: "مهلة" #?
       new: "اضافة مهلة جديدة" #?
       show: "المهلة : %{name}" #?
-    departments:
+    backend/departments:
       edit: "تعديل الوظيفة : %{name}"
       index: "الوظائف/المهام"
       new: "اضافة وظيفة جديدة"
-    deposit_lines: #?
-    deposits:
+    backend/deposits:
       edit: "تعديل اقتطاعات البنك من %{created_on}"
       index: "اقتطاعات البنك"
       new: "انشاء اقتطاع : %{mode}"
       show: "اقتطاع البنك %{number} من %{created_on}"
       unvalidateds: "التأكد من اقتطاعات البنك"
-    diagnostics: #?
-    diseases: #?
-    districts:
+    backend/districts:
       edit: "تعديل عنوان بريدي : %{name}"
       index: "المناطق الادارية"
       new: "اضافة عنوان بريدي"
-    document_templates:
+    backend/document_templates:
       edit: "تعديل نموذج الوثيقة : %{name}"
       index: "نماذج الوثيقة"
       load: "تحميل نموذج الوثيقة افتراضيا"
       new: "انشاء نموذج للوثيقة"
       # print: "Imprimer un exemple"
-    documents:  #?
+    backend/documents:  #?
       print: "طباعة وتصدير" #?
-    drug_natures: #?
-    drug_types: #?
-    drugs: #?
-    entities:
+    backend/entities:
       # destroy: "Supprimer la fiche"
       edit: "تعديل الملف : %{full_name}"
       export: "تصدير الملفات"
@@ -160,49 +143,49 @@ arb:
       merge: "دمج التكرار مع المافات الاصلية"
       new: "انشاء ملف جديد للعميل / للممول"
       show: "ملف: %{full_name}"
-    entity_addresses:
+    backend/entity_addresses:
       # edit: "Modifier une coordonnée"
       # new: "Ajouter une coordonnée"
-    entity_categories:
+    backend/entity_categories:
       edit: "تعديل نوع الملف : %{name}"
       index: "انواع الملف"
       new: "اضافة نوع جديد للملف"
       show: "نوع الملف : %{name}"
-    entity_event_natures:  #?
+    backend/entity_event_natures:  #?
       edit: "تعديل نوع الحدث: %{name}" #?
       index: "انواع الاحداث" #?
       new: "اضافة نوع الحدث" #?
-    entity_events:  #?
+    backend/entity_events:  #?
       edit: "تعديل الحدث" #?
       index: "الاحداث" #?
       new: "اضافة حدث" #?
-    entity_link_natures:
+    backend/entity_link_natures:
       edit: "تعديل نوع الرابط : %{name}"
       index: "انواع الرابط"
       new: "اضافة نوع رابط جديد"
-    entity_links:
+    backend/entity_links:
       edit: "تعديل الرابط"
       new: "اضافة رابط جديد"
-    entity_natures:
+    backend/entity_natures:
       edit: "تعديل نوع الملف : %{name}"
       index: "انواع الملفات"
       new: "اضافة نوع ملف جديد"
-    establishments:
+    backend/establishments:
       edit: "تعديل نموذج المرفق : %{name}"
       index: "مرافق"
       new: "اضافة مرفق جديد"
-    event_natures:
+    backend/event_natures:
       edit: "تعديل نوع الحدث: %{name}"
       index: "انواع الاحداث"
       new: "اضافة نوع الحدث"
-    events:
+    backend/events:
       # change_minutes: "Changer la durée de l’évènement"
       edit: "تعديل الحدث"
       index: "الاحداث"
       new: "اضافة حدث"
-    finances:  #?
+    backend/finances:  #?
       unvalidated_deposits: "التأكد من اقتطاعات البنك" #?
-    financial_years:
+    backend/financial_years:
       close: "نهاية الممارسة"
       # compute_balances: "Calculer la balance de l’exercice"
       edit: "تعديل المهنة الجديدة"
@@ -210,45 +193,44 @@ arb:
       index: "ممارسة المحاسبة"
       new: "انشاء مهنة جديدة"
       show: "ممارسة المحاسبة %{code}"
-    help:
+    backend/help:
       # index: "Aide"
       # show: "Aide: %{title}"
-    incoming_deliveries:
+    backend/incoming_deliveries:
       # confirm: "Confirmer l’arrivée de la livraison"
       # edit: "Modifier l’arrivage: %{number}"
       # index: "Livraisons entrantes"
       # new: "Enregistrer un nouveau arrivage"
-    incoming_delivery_lines: #?
-    incoming_delivery_modes:
+    backend/incoming_delivery_modes:
       # edit: "Modifier le mode de réception d’arrivage: %{name}"
       # index: "Modes de réception d’arrivage"
       # new: "Créer un mode de réception d’arrivage"
-    incoming_payment_modes:
+    backend/incoming_payment_modes:
       edit: "تعديل طريقة الدفعة: %{name}"
       index: "طرق تسديد الدفعات"
       new: "اضافة طريقة جديدة لتسديد الفعة"
-    incoming_payment_uses:  #?
+    backend/incoming_payment_uses:  #?
       new: "اضافة دفعة جديدة  : %{type} رقم %{number}" #?
-    incoming_payments:
+    backend/incoming_payments:
       edit: "تعديل دفعة رقم%{number}"
       index: "الدفعات"
       new: "اضافة دفعة جديدة"
       show: "دفعة رقم%{number} من %{entity}"
-    interfacers: #?
-    inventories:
+    backend/interfacers: #?
+    backend/inventories:
       edit: "تعديل الجرد"
       index: "الجرد"
       new: "الجرد"
       # show: "Inventaire %{number}"
-    inventory_lines: #?
-    journal_entries:
+    backend/inventory_lines: #?
+    backend/journal_entries:
       edit: "تعديل السجل رقم %{number} من %{created_on}"
       new: "اضافة سجل"
       show: "رقم سجل المحاسبة%{number} من %{created_on}"
-    journal_entry_items:
+    backend/journal_entry_items:
       # new: "Ajouter une nouvelle ligne d’écriture"
-    journal_entry_lines: #?
-    journals:
+    backend/journal_entry_lines: #?
+    backend/journals:
       balance: "رصيد الحساب"
       bookkeep: "نظام المحاسبة المتغير"
       close: "اغلاق %{name}"
@@ -261,31 +243,29 @@ arb:
       reopen: "فتح %{name}"
       # reports: "Impression, exportation"
       show: "الدفتر اليومي : %{name} (%{code})"
-    land_parcel_groups: #?
-    land_parcel_kinships: #?
-    land_parcels:
+    backend/land_parcels:
       # divide: "Diviser la parcelle\_: %{name}"
       edit: "تعديل النظام : %{name}"
       index: "انظمة"
       # merge: "Fusionner des parcelles"
       new: "اضافة نظام جديد"
       show: "نظام %{name}"
-    listing_node_items: #?
-    listing_nodes:
+    backend/listing_node_items: #?
+    backend/listing_nodes:
       # edit: "Modifier le nœud"
       # new: "Nouveau nœud"
-    listings:
+    backend/listings:
       edit: "تعديل المستخرج : %{name}"
       # extract: "Extraire les données de\_: %{name}"
       index: "الصادرات وارسال الرسائل"
       mail: "ارسال الرسالة ل «%{name}»"
       new: "انشاء استخلاص جديد"
-    logs:
+    backend/logs:
       # edit: "Modifier un évènement"
       # index: "Évènements"
       # new: "Créer un évènement"
       # show: "évènement %{name} commencé le %{started_at}"
-    management:  #?
+    backend/management:  #?
       index: "ادارة الاعمال" #?
       sale_lines: "اختيار المنتجات للطلب %{sale} من : %{client}" #?
       sale_summary: "فوترة دفعة  (دفعات) طلب الشراء %{number}" #?
@@ -293,170 +273,164 @@ arb:
       sales_invoices: "الفواتير" #?
       statistics: "الاحصائيات" #?
       undelivered_sales: "التسليم بالانتظار" #?
-    mandates:
+    backend/mandates:
       configure: "ترتيب التفويضات"
       edit: "تعديل التفويض"
       index: "تفويضات"
       new: "انشاء تفويض"
-    myselves:
+    backend/myselves:
       # change_password: "Changer de mot de passe"
       statistics: "احصائياتي"
-    observations:
+    backend/observations:
       edit: "تعديل الملاحظة"
       new: "اضافة ملاحظة"
-    operation_items: #?
-    operation_lines: #?
-    operation_natures:  #?
+    backend/operation_natures:  #?
       edit: "تعديل نوع العمل : %{name}" #?
       index: "اواع العمل" #?
       new: "انشاء نوع جديد من العمل" #?
-    operation_uses: #?
-    operations:
+    backend/operations:
       edit: "تعدل العمل %{name}"
       index: "اعمال"
       new: "انشاء عمل جديد"
       show: "تفاصيل العمل %{name}"
       unvalidateds: "تحقيق الاعمال"
-    outgoing_deliveries:
+    backend/outgoing_deliveries:
       edit: "تعديل التسليم"
       # index: "Livraisons sortantes"
       new: "اضافة تسليم"
       # show: "Livraison sortante\_: %{number}"
-    outgoing_delivery_lines: #?
-    outgoing_delivery_modes:
+    backend/outgoing_delivery_lines: #?
+    backend/outgoing_delivery_modes:
       edit: "تعديل وسيلة التسليم : %{name}"
       index: "وسائل التسليم"
       new: "اضافة وسيلة جديدة للتسليم"
-    outgoing_payment_modes:
+    backend/outgoing_payment_modes:
       edit: "تعديل طريقة تسديد الفعة"
       index: "طرق تسديد الدفعات"
       new: "اضافة طريقة تسديد الدفعة"
-    outgoing_payment_uses:  #?
+    backend/outgoing_payment_uses:  #?
       new: "تسديد الشراء رقم%{number}" #?
-    outgoing_payments:
+    backend/outgoing_payments:
       edit: "تعديل دفعة : %{number}"
       index: "دفعات"
       new: "اضافة دفعة"
       show: "رقم الدفعة%{number} من اجل %{payee}"
-    places: #?
-    posologies: #?
-    preferences:
+    backend/places: #?
+    backend/posologies: #?
+    backend/preferences:
       # edit: "Modifier les préférences"
       # index: "Préfénces"
       # new: "Nouvelle préférence"
       # show: "Préférence"
-    prescriptions: #?
-    prices:
+    backend/prescriptions: #?
+    backend/prices:
       # edit: "Modifie le prix %{pretax_amount}/%{amount} sur %{product}"
       # export: "Exporter les prix"
       # find: "Trouver un prix"
       import: "CSV استيراد بيان التعرفة ضمن"
       index: "الاسعار"
       new: "اضافة سعر جديد"
-    product_categories:  #?
+    backend/product_categories:  #?
       edit: "تعديل فئة المنتج : %{name}" #?
       index: "فئات المنتج" #?
       new: "اضافة فئة جديدة للمنتج" #?
       show: "تفاصيل فئة: %{name}" #?
-    product_components:  #?
+    backend/product_components:  #?
       edit: "تعديل عنصر المنتج %{product} " #?
       new: "اضافة عنصر الى المنتج %{product} " #?
-    product_event_natures: #?
-    product_events: #?
-    product_group_events: #?
-    product_group_passings: #?
-    product_groups:
+    backend/product_groups:
       # edit: "Modifier le lot\_: %{name} "
       # index: "Lots de produits"
       # new: "Créer un lot"
       # show: "Lot\_: %{name}"
-    product_indicator_nature_choices: #?
-    product_indicator_natures: #?
-    product_indicators: #?
-    product_memberships: #?
-    product_moves:
+    backend/product_indicator_nature_choices: #?
+    backend/product_indicator_natures: #?
+    backend/product_indicators: #?
+    backend/product_memberships: #?
+    backend/product_moves:
       edit: "تعديل حركة سهم : %{name}"
       new: "التسجيل لحركة السهم"
-    product_nature:  #?
+    backend/product_nature:  #?
       edit: "تعديل المنتج : %{name}" #?
       index: "المنتجات" #?
       new: "اضافة منتج جديد" #?
       show: "المنتجات : %{name}" #?
-    product_nature_categories:
+    backend/product_nature_categories:
       edit: "تعديل فئة المنتج : %{name}"
       index: "فئات المنتج"
       new: "اضافة فئة جديدة للمنتج"
       show: "تفاصيل فئة: %{name}"
-    product_nature_components:  #?
+    backend/product_nature_components:  #?
       edit: "تعديل عنصر المنتج %{product} " #?
       new: "اضافة عنصر الى المنتج %{product} " #?
-    product_natures:
+    backend/product_natures:
       edit: "تعديل المنتج : %{name}"
       index: "المنتجات"
       new: "اضافة منتج جديد"
       show: "المنتجات : %{name}"
-    product_process_phases: #?
-    product_processes: #?
-    product_species: #?
-    product_stock_moves:  #?
+    backend/product_process_phases: #?
+    backend/product_processes: #?
+    backend/product_species: #?
+    backend/product_stock_moves:  #?
       edit: "تعديل حركة سهم : %{name}" #?
       new: "التسجيل لحركة السهم" #?
-    product_stocks:  #?
+    backend/product_stocks:  #?
       index: "وضع الاسهم" #?
-    product_transfers:
+    backend/product_transfers:
       confirm: "اتمام عملية نقل"
       # confirm_all: "Confirmer tous les transferts"
       edit: "تعديل عملية نقل الاسهم"
       index: "عمليات نقل وخسارة الاسهم"
       new: "اضافة عملية نقل او خسارة الاسهم"
-    product_varieties:
+    backend/product_varieties:
       # edit: "Modifier la variété\_: %{name} "
       # index: "Variétés"
       # new: "Créer une variétés"
       # show: "Variété\_: %{name}"
-    production:  #?
+    backend/production:  #?
       index: "ادارة الانتاج" #?
       unvalidated_operations: "تحقيق الاعمال" #?
-    production_chain_conveyors:
+    backend/production_chain_conveyors:
       # edit: "Mettre à jour le convoyeur (%{source_id}-%{target_id})"
       # new: "Ajouter un nouveau convoyeur dans la chaîne de production"
-    production_chain_work_center_uses: #?
-    production_chain_work_centers:
+    backend/production_chain_work_center_uses: #?
+    backend/production_chain_work_centers:
       # edit: "Modifier le centre d’opération\_: %{name}"
       # new: "Ajouter un nouveau centre d’opération"
       # play: "Éxécuter la chaîne de production\_: %{name}"
       # show: "Centre d’opération\_: #{name}"
-    production_chains:
+    backend/production_chains:
       # edit: "Modifier la chaîne de production\_: %{name}"
       # index: "Chaînes de production"
       # new: "Ajouter une nouvelle chaîne de production"
       # show: "Chaîne de production\_: %{name}"
-    products:
+    backend/products:
       edit: "تعديل المنتج : %{name}"
       index: "المنتجات"
       new: "اضافة منتج جديد"
       show: "المنتجات : %{name}"
-    products_natures:  #?
+    backend/products_natures:  #?
       edit: "تعديل المنتج : %{name}" #?
       index: "المنتجات" #?
       new: "اضافة منتج جديد" #?
       show: "المنتجات : %{name}" #?
-    professions:
+    backend/professions:
       # edit: "Modifier la profession\_: %{name}"
       # index: "Professions"
       # new: "Ajouter une nouvelle profession"
-    purchase_items:
+    backend/public: #?
+    backend/purchase_items:
       edit: "تعديل تصميم الطلب"
       new: "اضافة طلب للمنتج : %{number}"
-    purchase_lines:  #?
+    backend/purchase_lines:  #?
       edit: "تعديل تصميم الطلب" #?
       new: "اضافة طلب للمنتج : %{number}" #?
-    purchase_natures:
+    backend/purchase_natures:
       # edit: "Modifier le type d’achat\_: %{name}"
       # index: "Type d’achats"
       # new: "Nouveau type d’achat"
       # show: "Type d’achat\_: %{name}"
-    purchases:
+    backend/purchases:
       # abort: "Annuler l’achat"
       # confirm: "Confimer l’achat et attendre les arrivages"
       # correct: "Corriger l’achat"
@@ -468,25 +442,25 @@ arb:
       # propose: "Commande soumise au fournisseur"
       # refuse: "Commande refusée"
       show: "تفاصيل الشراء %{number} الى الممول %{supplier} "
-    relations:  #?
+    backend/relations:  #?
       index: "ادارة علاقات العملاء والممولين" #?
-    roles:
+    backend/roles:
       edit: "تعديل المهام : %{name}"
       index: "مهام"
       new: "اضافة مهام"
-    sale_items:
+    backend/sale_items:
       # detail: "Détailler une ligne de la vente"
       edit: "تعديل مسار طلب المنتج"
       new: "اضافة تصميم خطوط المنتج"
-    sale_lines:  #?
+    backend/sale_lines:  #?
       edit: "تعديل مسار طلب المنتج" #?
       new: "اضافة تصميم خطوط المنتج" #?
-    sale_natures:
+    backend/sale_natures:
       edit: "تعديل نوع البيع : %{name}"
       index: "انواع طلبات البيع"
       new: "اضافة نوع البيع"
       # show: "Type de vente\_: %{name}"
-    sales:
+    backend/sales:
       # abort: "Annuler la vente"
       cancel: "مسالك شمولية الفاتورة %{number}"
       confirm: "المضي بطلب تحديد السعر والاتجاه الى التسليم"
@@ -501,16 +475,15 @@ arb:
       # refuse: "Devis refusé par le client"
       show: "تفاصيل البيع %{number} للعميل %{client}"
       # statistics: "Statistiques  de ventes"
-    sequences:
+    backend/sequences:
       edit: "تعديل التسلسل : %{name}"
       index: "التسلسلات"
       # load: "Charger les séquences manquantes"
       new: "انشاء تسلسل جديد"
-    sessions:
-      destroy: "الخروج"
-      new: "الدخول"
-      # renew: "Renouveller la session"
-    settings:
+    backend/sessions:  #?
+      destroy: "الخروج" #?
+      new: "الدخول" #?
+    backend/settings:
       about: "وحول ايكيليبغ"
       # backup: "Faire une copie de sauvegarde"
       backups: "النسخ الاحتياطية"
@@ -518,58 +491,58 @@ arb:
       # edit: "Configuration"
       import: "الاستيراد"
       # restore: "Restaurer une sauvegarde"
-    stock_moves:  #?
+    backend/stock_moves:  #?
       edit: "تعديل حركة سهم : %{name}" #?
       new: "التسجيل لحركة السهم" #?
-    stock_transfers:  #?
+    backend/stock_transfers:  #?
       confirm: "اتمام عملية نقل" #?
       edit: "تعديل عملية نقل الاسهم" #?
       index: "عمليات نقل وخسارة الاسهم" #?
       new: "اضافة عملية نقل او خسارة الاسهم" #?
-    stocks:  #?
+    backend/stocks:  #?
       index: "وضع الاسهم" #?
-    subscription_natures:
+    backend/subscription_natures:
       edit: "تعديل نوع الاشتراك: %{name}"
       index: "انواع الاشتراك"
       new: "اضافة نوع الاشتراك"
       # show: "Type d’abonnement\_: %{name}"
-    subscriptions:
+    backend/subscriptions:
       # coordinates: "Rafraîchir les coordonnées et la période"
       edit: "تعديل الاشتراك:  %{number} من %{start} الى %{finish}"
       # index: "Abonnements"
       new: "انشاء اشتراك جديد"
-    tax_declarations:
+    backend/tax_declarations:
       edit: "انشاء تصريح"
       index: "تصريح عن قيمة الضريبة الاضافية"
       new: "Créer une déclaration"
       show: "%{nature} للمدة الزمنية من %{started_on} الى %{stopped_on}"
-    taxes:
+    backend/taxes:
       edit: "تعديل الضريبة : %{name}"
       index: "الضرائب"
       new: "اضافة ضريبة جديدة"
-    tool_natures: #?
-    tools:
+    backend/tool_natures: #?
+    backend/tools:
       edit: "تعديل المادة : %{name}"
       index: "مادة"
       new: "اضافة مادة"
       show: "المادة : %{name}"
-    tracking_states: #?
-    trackings:  #?
+    backend/tracking_states: #?
+    backend/trackings:  #?
       show: "الحصة %{name}" #?
-    transfers: #?
-    transports:
+    backend/transfers: #?
+    backend/transports:
       deliveries: "تسليم وسيلة النقل"
       # delivery_delete: "Retirer la livraison du transport"
       edit: "تعديل وسيلة النقل"
       index: "وسائل النقل"
       new: "اضافة وسيلة نقل جديدة"
       show: "نقلت من %{created_on}"
-    units:
+    backend/units:
       edit: "تعديل الوحدة : %{label}"
       index: "وحدات القياس"
       # load: "Charger les unités de mesure par défaut"
       new: "اضافة وحدة قياس جديدة"
-    users:
+    backend/users:
       edit: "تعديل المستخدم"
       index: "المستخدمين"
       # lock: "Verrouiller l’utilisateur"
@@ -577,125 +550,125 @@ arb:
       show: "المستخدم : %{first_name} %{last_name} (%{name})"
       statistics: "احصائياتي" #?
       # unlock: "Déverrouiller l’utilisateur"
-    vegetals:
+    backend/vegetals:
       # edit: "Modifier une production végétale"
       # index: "Productions végétales"
       # new: "Nouvelle production végétale"
       # show: "Production végétale\_: %{name} %{area_measure} %{area_unit.name}"
-    warehouses:
+    backend/warehouses:
       edit: "تعديل موقع التخزين"
       index: "مواقع التخزين"
       new: "اضافة موقع للتخزين"
       show: "تفاصيل عن مواقع التخزين : %{name}"
+    public:
+      # index: "Accueil"
   controllers:
-    # account_balances: "Soldes de comptes"
-    accountancy: "المحاسبة" #?
-    accounts: "مخطط الحساب"
-    # admin: "Administration"
-    # affairs: "Affaires"
-    # animals: "Animaux"
-    application: "تطبيق"
-    areas: "العناوين البريد"
-    # assets: "Immobilisations"
-    authentication: "المصادقة"
-    bank_statements: "بيان الحساب المصرفي"
-    # base: "Base"
-    # cash_transfers: "Virements internes"
-    cashes: "الخزينة"
-    company: "شركة" #?
-    # custom_field_choices: "Choix de champs personnalisés"
-    # custom_field_data: "Données de champs personnalisés"
-    custom_fields: "الحقول المخصصة"
-    # dashboards: "Tableaux de bord"
-    delays: "مهلة" #?
-    departments: "الوظائف/المهام"
-    # deposit_items: "Lignes de remise en banque"
-    deposits: "اقتطاعات البنك"
-    districts: "المناطق الادارية"
-    document_templates: "نماذج الوثيقة"
-    # documents: "Documents"
-    entities: "سجلات الاشخاص"
-    # entity_addresses: "Adresses"
-    entity_categories: "انواع الملف"
-    entity_event_natures: "انواع الاحداث" #?
-    entity_events: "الاحداث" #?
-    entity_link_natures: "انواع الرابط"
-    # entity_links: "Liens entre personnes"
-    entity_natures: "انواع الملفات"
-    establishments: "مرافق"
-    event_natures: "انواع الاحداث"
-    events: "الاحداث"
-    financial_years: "ممارسة المحاسبة"
-    help: "المساعدة"
-    # incoming_deliveries: "Livraisons entrantes"
-    # incoming_delivery_items: "Lignes de livraison entrante"
-    # incoming_delivery_modes: "Modes de réception d’arrivage"
-    incoming_payment_modes: "طرق تسديد الدفعات"
-    incoming_payments: "الدفعات"
-    # interfacers: "Interfaceurs"
-    inventories: "الجرد"
-    # inventory_items: "Lignes d’inventaires"
-    # journal_entries: "Écritures comptables"
-    # journal_entry_items: "Lignes d’écritures comptables"
-    journals: "الدفاتر اليومية"
-    land_parcels: "انظمة"
-    # listing_node_items: "Élement de nœuds d’extractions"
-    # listing_nodes: "Nœuds d’extractions"
-    listings: "الصادرات وارسال الرسائل"
-    # logs: "Evenements des Animaux"
-    management: "الادارة" #?
-    mandates: "تفويضات"
-    # myselves: "Mon compte"
-    # observations: "Observations"
-    operation_natures: "اواع العمل" #?
-    operations: "اعمال"
-    # outgoing_deliveries: "Livraisons sortantes"
-    # outgoing_delivery_items: "Lignes de livraisons sortantes"
-    outgoing_delivery_modes: "وسائل التسليم"
-    outgoing_payment_modes: "طرق تسديد الدفعات"
-    outgoing_payments: "دفعات"
-    # preferences: "Préférences"
-    prices: "الاسعار"
-    product_categories: "فئات المنتج" #?
-    # product_groups: "Lot de produits"
-    # product_moves: "Mouvements de stock"
-    product_nature: "المنتجات" #?
-    product_nature_categories: "فئات المنتج"
-    product_natures: "المنتجات" #?
-    product_stocks: "وضع الاسهم" #?
-    product_transfers: "عمليات نقل وخسارة الاسهم"
-    # product_varieties: "Races"
-    production: "المنتج" #?
-    # production_chain_conveyors: "Convoyeurs de chaînes de production"
-    # production_chain_work_center_uses: "Utilisation des ateliers de chaînes de production"
-    # production_chain_work_centers: "Atelier de chaînes de production"
-    # production_chains: "Chaînes de production"
-    products: "المنتجات"
-    products_natures: "المنتجات" #?
-    # professions: "Professions"
-    # purchase_items: "Lignes d’achat"
-    # purchase_natures: "Types d’achat"
-    purchases: "المستريات"
-    relations: "العلاقات" #?
-    roles: "مهام"
-    # sale_items: "Lignes de vente"
-    sale_natures: "انواع طلبات البيع"
-    sales: "الطلبات وتحديد الاسعار"
-    sequences: "التسلسلات"
-    # sessions: "Session"
-    # settings: "Paramètres"
-    stock_transfers: "عمليات نقل وخسارة الاسهم" #?
-    stocks: "وضع الاسهم" #?
-    subscription_natures: "انواع الاشتراك"
-    # subscriptions: "Abonnements"
-    tax_declarations: "تصريح عن قيمة الضريبة الاضافية"
-    taxes: "الضرائب"
-    tools: "مادة"
-    # transfers: "Transferts"
-    transports: "وسائل النقل"
-    units: "وحدات القياس"
-    users: "المستخدمين"
-    warehouses: "مواقع التخزين"
+    # authentication/sessions: "Sessions"
+    # backend/account_balances: "Soldes de comptes"
+    backend/accountancy: "المحاسبة" #?
+    backend/accounts: "مخطط الحساب"
+    # backend/affairs: "Affaires"
+    # backend/animals: "Animaux"
+    backend/application: "تطبيق" #?
+    backend/areas: "العناوين البريد"
+    # backend/assets: "Immobilisations"
+    backend/authentication: "المصادقة" #?
+    backend/bank_statements: "بيان الحساب المصرفي"
+    # backend/cash_transfers: "Virements internes"
+    backend/cashes: "الخزينة"
+    backend/company: "شركة" #?
+    # backend/custom_field_choices: "Choix de champs personnalisés"
+    # backend/custom_field_data: "Données de champs personnalisés"
+    backend/custom_fields: "الحقول المخصصة"
+    # backend/dashboards: "Tableaux de bord"
+    backend/delays: "مهلة" #?
+    backend/departments: "الوظائف/المهام"
+    # backend/deposit_items: "Lignes de remise en banque"
+    backend/deposits: "اقتطاعات البنك"
+    backend/districts: "المناطق الادارية"
+    backend/document_templates: "نماذج الوثيقة"
+    # backend/documents: "Documents"
+    backend/entities: "سجلات الاشخاص"
+    # backend/entity_addresses: "Adresses"
+    backend/entity_categories: "انواع الملف"
+    backend/entity_event_natures: "انواع الاحداث" #?
+    backend/entity_events: "الاحداث" #?
+    backend/entity_link_natures: "انواع الرابط"
+    # backend/entity_links: "Liens entre personnes"
+    backend/entity_natures: "انواع الملفات"
+    backend/establishments: "مرافق"
+    backend/event_natures: "انواع الاحداث"
+    backend/events: "الاحداث"
+    backend/financial_years: "ممارسة المحاسبة"
+    backend/help: "المساعدة"
+    # backend/incoming_deliveries: "Livraisons entrantes"
+    # backend/incoming_delivery_items: "Lignes de livraison entrante"
+    # backend/incoming_delivery_modes: "Modes de réception d’arrivage"
+    backend/incoming_payment_modes: "طرق تسديد الدفعات"
+    backend/incoming_payments: "الدفعات"
+    # backend/interfacers: "Interfaceurs"
+    backend/inventories: "الجرد"
+    # backend/inventory_items: "Lignes d’inventaires"
+    # backend/journal_entries: "Écritures comptables"
+    # backend/journal_entry_items: "Lignes d’écritures comptables"
+    backend/journals: "الدفاتر اليومية"
+    backend/land_parcels: "انظمة"
+    # backend/listing_node_items: "Élement de nœuds d’extractions"
+    # backend/listing_nodes: "Nœuds d’extractions"
+    backend/listings: "الصادرات وارسال الرسائل"
+    # backend/logs: "Evenements des Animaux"
+    backend/management: "الادارة" #?
+    backend/mandates: "تفويضات"
+    # backend/myselves: "Mon compte"
+    # backend/observations: "Observations"
+    backend/operation_natures: "اواع العمل" #?
+    backend/operations: "اعمال"
+    # backend/outgoing_deliveries: "Livraisons sortantes"
+    # backend/outgoing_delivery_items: "Lignes de livraisons sortantes"
+    backend/outgoing_delivery_modes: "وسائل التسليم"
+    backend/outgoing_payment_modes: "طرق تسديد الدفعات"
+    backend/outgoing_payments: "دفعات"
+    # backend/preferences: "Préférences"
+    backend/prices: "الاسعار"
+    backend/product_categories: "فئات المنتج" #?
+    # backend/product_groups: "Lot de produits"
+    # backend/product_moves: "Mouvements de stock"
+    backend/product_nature: "المنتجات" #?
+    backend/product_nature_categories: "فئات المنتج"
+    backend/product_natures: "المنتجات" #?
+    backend/product_stocks: "وضع الاسهم" #?
+    backend/product_transfers: "عمليات نقل وخسارة الاسهم"
+    # backend/product_varieties: "Races"
+    backend/production: "المنتج" #?
+    # backend/production_chain_conveyors: "Convoyeurs de chaînes de production"
+    # backend/production_chain_work_center_uses: "Utilisation des ateliers de chaînes de production"
+    # backend/production_chain_work_centers: "Atelier de chaînes de production"
+    # backend/production_chains: "Chaînes de production"
+    backend/products: "المنتجات"
+    backend/products_natures: "المنتجات" #?
+    # backend/professions: "Professions"
+    # backend/purchase_items: "Lignes d’achat"
+    # backend/purchase_natures: "Types d’achat"
+    backend/purchases: "المستريات"
+    backend/relations: "العلاقات" #?
+    backend/roles: "مهام"
+    # backend/sale_items: "Lignes de vente"
+    backend/sale_natures: "انواع طلبات البيع"
+    backend/sales: "الطلبات وتحديد الاسعار"
+    backend/sequences: "التسلسلات"
+    # backend/settings: "Paramètres"
+    backend/stock_transfers: "عمليات نقل وخسارة الاسهم" #?
+    backend/stocks: "وضع الاسهم" #?
+    backend/subscription_natures: "انواع الاشتراك"
+    # backend/subscriptions: "Abonnements"
+    backend/tax_declarations: "تصريح عن قيمة الضريبة الاضافية"
+    backend/taxes: "الضرائب"
+    backend/tools: "مادة"
+    # backend/transfers: "Transferts"
+    backend/transports: "وسائل النقل"
+    backend/units: "وحدات القياس"
+    backend/users: "المستخدمين"
+    backend/warehouses: "مواقع التخزين"
   errors:
     messages:
       # already_confirmed: "a déjà été validé(e)"
