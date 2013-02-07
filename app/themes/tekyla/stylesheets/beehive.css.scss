@@ -85,6 +85,9 @@
                   text-decoration: none;
                   display: block;
                   border: $cell-border-width solid transparent;
+                  &:focus {
+                    outline: none;
+                  }
                 }
                 &.active {
                   opacity: 1;

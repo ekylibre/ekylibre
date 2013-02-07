@@ -19,7 +19,9 @@
 
 class Backend::UsersController < BackendController
 
-  list(:conditions => {:loggable => true}, :order => "locked, last_name", :line_class => "(RECORD.locked ? 'critic' : '')") do |t|
+  unroll_all
+
+  list(:order => "locked, last_name", :line_class => "(RECORD.locked ? 'critic' : '')") do |t|
     t.column :full_name, :url => true
     t.column :first_name, :url => true
     t.column :last_name, :url => true

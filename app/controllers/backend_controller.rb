@@ -97,7 +97,7 @@ class BackendController < BaseController
       haml << "    =I18n.t('labels.no_results')\n"
 
       # Write haml in cache
-      file_name = (name || "-default-").to_s
+      file_name = (name || "__default__").to_s
       dir = Rails.root.join("tmp", "cache", "unroll", *(self.name.underscore.gsub(/_controller$/, '').split('/')))
       FileUtils.mkdir_p(dir)
       File.open(dir.join("#{file_name}.html.haml"), "wb") do |f|

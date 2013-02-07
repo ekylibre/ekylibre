@@ -25,6 +25,39 @@ html {
   }
 }
 
+
+.attributes-list {
+  @include column-count(3);
+  @include column-gap(2em);
+  @include respondTo(smallScreen) {
+    @include column-count(1);
+  }
+  @include respondTo(mediumScreen) {
+    @include column-count(2);
+    @include column-gap(1.5em);
+  }
+/*  @include respondTo(largeScreen) {
+    @include column-count(4);
+  }
+*/
+  $label-width: 40%;
+  margin-bottom: 1em;
+  dl {
+    @include clearfix;
+    margin: 0;
+    dt { 
+      @include item-label;
+      width: 0.95*$label-width;
+      @include float(left);
+      @include ellipsis;
+    }
+    dd { 
+      @include margin-left($label-width);
+    }
+  }
+}
+
+
 #legals, footer { 
   font-size: $fs-small;
   line-height: round(1.4*$fs-small);

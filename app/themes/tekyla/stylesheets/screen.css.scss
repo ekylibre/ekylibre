@@ -203,6 +203,12 @@ $cell-background-current: mix($desktop-background, $base-color, 62%);
   margin: $menu-padding auto;
 }
 
+@mixin item-label {
+  &, & * {
+    color: #999;
+  }
+}
+
 @mixin incrust-shadow {
   @include box-shadow(0 0 round($fs-normal/2) rgba(0,0,0,0.15));
 }

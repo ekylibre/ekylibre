@@ -364,23 +364,15 @@ module ApplicationHelper
     items = attribute_list.items.delete_if{|x| x[0] == :custom_fields}
     size = items.size
     if size > 0
-      column_height = (size.to_f/columns.to_f).ceil
-
-      column_height.times do |c|
-        line = ""
-        columns.times do |i|
-          args = items[i*column_height+c] # [c*columns+i]
-          next if args.nil?
-          label, value = if args[0] == :custom
-                           attribute_item(*args[1])
-                         elsif args[0] == :attribute
-                           attribute_item(record, *args[1])
-                         end
-          line << content_tag(:td, label, :class => :label) << content_tag(:td, value, :class => :value)
-        end
-        code << content_tag(:tr, line.html_safe)
+      for item in items
+        label, value = if item[0] == :custom
+                         attribute_item(*item[1])
+                       elsif item[0] == :attribute
+                         attribute_item(record, *item[1])
+                       end
+        code << content_tag(:dl, content_tag(:dt, label) + content_tag(:dd, value))
       end
-      code = content_tag(:table, code.html_safe, :class => "attributes-list")
+      code = content_tag(:div, code.html_safe, :class => "attributes-list")
     end
     return code.html_safe
   end
@@ -958,7 +950,7 @@ module ApplicationHelper
 
     content_for(:popover, content_tag(:div, tag.to_s.html_safe, :class => "kujaku popover", :id => id))
 
-    tb = content_tag(:a, content_tag(:div, nil, :class => :icon) + content_tag(:div, "Rechercher", :class => :text), :class => "btn search", "data-toggle-visibility" => "##{id}")
+    tb = content_tag(:a, content_tag(:span, nil, :class => :icon) + content_tag(:span, "Rechercher", :class => :text), :class => "btn search", "data-toggle-visibility" => "##{id}")
     # tb = content_tag(:a, content_tag(:div, nil, :class => :icon) + content_tag(:div, "Rechercher", :class => :text), :class => "search", "data-toggle-visibility" => "##{id}")
 
     tool(tb)
@@ -1107,6 +1099,7 @@ module ApplicationHelper
   def tool(code, &block)
     raise ArgumentError.new("Arguments XOR block code are accepted, but not together.") if code and block_given?
     code = capture(&block) if block_given?
+    code = content_tag(:li, code)
     content_for(:main_toolbar, code)
     return true
   end

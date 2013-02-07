@@ -81,6 +81,8 @@ class User < Ekylibre::Record::Base
   has_many :sales, :class_name => "Sale", :foreign_key => :responsible_id
   has_many :transports, :class_name => "Transport", :foreign_key => :responsible_id
   has_many :unpaid_sales, :class_name => "Sale", :foreign_key => :responsible_id, :order => "created_on", :conditions => ["state IN ('order', 'invoice') AND paid_amount < amount AND lost = ? ", false]
+  scope :employees, -> { where(:employed => true) }
+
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :failed_attempts, :allow_nil => true, :only_integer => true
@@ -101,6 +103,8 @@ class User < Ekylibre::Record::Base
   # :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :recoverable, :rememberable, :trackable, :validatable
   model_stamper # Needed to stamp all records
+  delegate :picture, :to => :entity
+
 
   class << self
     def rights_file; Rails.root.join("config", "rights.yml"); end

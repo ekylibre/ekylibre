@@ -78,7 +78,7 @@ require "digest/sha2"
 
 class Entity < Ekylibre::Record::Base
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :active, :activity_code, :attorney, :attorney_account_id, :authorized_payments_count, :born_on, :category_id, :client, :client_account_id, :code, :comment, :country, :currency, :dead_on, :deliveries_conditions, :employed, :employment, :establishment_id, :first_met_on, :first_name, :full_name, :language, :last_name, :left_on, :loggable, :maximal_grantable_reduction_percentage, :nature_id, :office, :origin, :payment_delay, :payment_mode_id, :photo, :profession_id, :proposer_id, :prospect, :recruited_on, :reduction_percentage, :reflation_submissive, :responsible_id, :role_id, :siren, :supplier, :supplier_account_id, :transporter, :vat_number, :vat_submissive
+  attr_accessible :active, :activity_code, :attorney, :attorney_account_id, :authorized_payments_count, :born_on, :category_id, :client, :client_account_id, :code, :country, :currency, :dead_on, :deliveries_conditions, :first_met_on, :first_name, :full_name, :language, :last_name, :nature_id, :origin, :payment_delay, :payment_mode_id, :picture, :proposer_id, :prospect, :reduction_percentage, :reminder_submissive, :responsible_id, :siren, :supplier, :supplier_account_id, :transporter, :vat_number, :vat_submissive
   attr_accessor :password_confirmation, :old_password
   attr_protected :rights
   belongs_to :attorney_account, :class_name => "Account"
@@ -123,10 +123,18 @@ class Entity < Ekylibre::Record::Base
   has_many :usable_incoming_payments, :conditions => ["used_amount < amount"], :class_name => "IncomingPayment", :foreign_key => :payer_id
   has_many :waiting_deliveries, :class_name => "OutgoingDelivery", :foreign_key => :transporter_id, :conditions => ["moved_on IS NULL AND planned_on <= CURRENT_DATE"]
   has_one :default_mail_address, :class_name => "EntityAddress", :conditions => {:by_default => true, :canal => :mail}
+  has_attached_file :picture, {
+    :url => '/backend/:class/:attachment/:id/:style.:extension',
+    :path => ':rails_root/private/:class/:attachment/:id_partition/:style.:extension',
+    :styles => {
+      :thumb => ["64x64#", :jpg], 
+      :identity => ["200x300#", :jpg],
+      :large => ["400x600#", :jpg]
+    }
+  }
 
   # default_scope order(:last_name, :first_name)
   scope :necessary_transporters, -> { where("id IN (SELECT transporter_id FROM #{OutgoingDelivery.table_name} WHERE (moved_on IS NULL AND planned_on <= CURRENT_DATE) OR transport_id IS NULL)").order(:last_name, :first_name) }
-  scope :employees,    -> { where(:employed => true) }
   scope :suppliers,    -> { where(:supplier => true) }
   scope :transporters, -> { where(:transporter => true) }
   scope :clients,      -> { where(:client => true) }
@@ -445,7 +453,7 @@ class Entity < Ekylibre::Record::Base
   def self.export(find_options={})
     entities = Entity.find(:all, find_options)
     csv_string = Ekylibre::CSV.generate do |csv|
-      csv << ["Code", "Type", "Catégorie", "Nom", "Prénom", "Dest-Service", "Bat.-Res.-ZI", "N° et voie", "Lieu dit", "Code Postal", "Ville", "Téléphone", "Mobile", "Fax", "Email", "Site Web", "Taux de réduction", "Commentaire"]
+      csv << ["Code", "Type", "Catégorie", "Nom", "Prénom", "Dest-Service", "Bat.-Res.-ZI", "N° et voie", "Lieu dit", "Code Postal", "Ville", "Téléphone", "Mobile", "Fax", "Email", "Site Web", "Taux de réduction"]
       entities.each do |entity|
         address = EntityAddress.where(:entity_id => entity.id, :by_default => true, :deleted_at => nil).first
         line = []
@@ -455,7 +463,7 @@ class Entity < Ekylibre::Record::Base
         else
           line << [ "", "", "", "", "", "", "", "", "", "", ""]
         end
-        line << [ entity.reduction_percentage.to_s.gsub(/\./,","), entity.comment]
+        line << [ entity.reduction_percentage.to_s.gsub(/\./,",")]
         csv << line.flatten
       end
     end

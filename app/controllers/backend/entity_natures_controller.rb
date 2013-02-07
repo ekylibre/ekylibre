@@ -26,10 +26,10 @@ class Backend::EntityNaturesController < BackendController
     t.column :name
     t.column :title
     t.column :active
-    t.column :physical
+    t.column :gender
     t.column :in_name
     t.action :edit
-    t.action :destroy, :if => "RECORD.destroyable\?"
+    t.action :destroy, :if => :destroyable?
   end
 
   # Displays the main page with the list of entity natures

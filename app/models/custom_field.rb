@@ -40,11 +40,11 @@
 
 
 class CustomField < Ekylibre::Record::Base
-  acts_as_list :scope => 'used_with = \'#{used_with}\''
-  attr_accessible :active, :maximal_length, :minimal_length, :maximal_value, :minimal_value, :name, :nature, :position, :required, :used_with
+  acts_as_list :scope => 'customized_type = \'#{customized_type}\''
+  attr_accessible :active, :maximal_length, :minimal_length, :maximal_value, :minimal_value, :name, :nature, :position, :required, :customized_type
   attr_readonly :nature
   enumerize :nature, :in => [:string, :decimal, :boolean, :date, :datetime, :choice], :predicates => true
-  enumerize :used_with, :in => Ekylibre.models.map(&:to_s).map(&:camelcase), :default_value => Ekylibre.models.first, :predicates => {:prefix => true}
+  enumerize :customized_type, :in => Ekylibre.models.map(&:to_s).map(&:camelcase), :default_value => Ekylibre.models.first, :predicates => {:prefix => true}
   has_many :choices, :class_name => "CustomFieldChoice", :order => :position, :dependent => :delete_all, :inverse_of => :custom_field
   has_many :data, :class_name => "CustomFieldDatum", :dependent => :delete_all, :inverse_of => :custom_field
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
@@ -56,13 +56,13 @@ class CustomField < Ekylibre::Record::Base
   validates_presence_of :customized_type, :minimal_length, :name, :nature
   #]VALIDATORS]
   validates_inclusion_of :nature, :in => self.nature.values
-  validates_inclusion_of :used_with, :in => self.used_with.values
+  validates_inclusion_of :customized_type, :in => self.customized_type.values
 
   accepts_nested_attributes_for :choices
 
-  default_scope -> { order(:used_with, :position) }
+  default_scope -> { order(:customized_type, :position) }
   scope :actives, -> { where(:active => true).order(:position) }
-  scope :of, lambda { |model| where(:active => true, :used_with => model) }
+  scope :of, lambda { |model| where(:active => true, :customized_type => model) }
 
   def choices_count
     self.choices.count

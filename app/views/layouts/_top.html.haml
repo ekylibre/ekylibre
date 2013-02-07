@@ -1,13 +1,15 @@
-%nav#top.top-bar.fixed
-  %ul.left
-    %li.name
-      =link_to do
-        Ekylibre
-    %li.toggle-bar
-  %section>
-    %ul.left>
-      -for x in menus
-        %li>=link_to(x.human_name, x.default_page.url_options)
+%nav#top.top-bar.contain-to-grid
+  %ul>
+    %li.has-dropdown>
+      =link_to("Ekylibre")
+      %ul.dropdown>
+        -for x in menus
+          %li>=link_to(x.human_name, x.default_page.url_options)
+    %li.toggle-topbar=link_to("", "#")
+  -if content_for?(:main_toolbar)
+    %section>
+      %ul>=content_for(:main_toolbar)
+      
   
 -#if current_user
   .user-bar

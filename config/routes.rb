@@ -160,12 +160,6 @@ Ekylibre::Application.routes.draw do
       end
     end
     # resources :custom_field_data
-    resources :delays do
-      collection do
-        get :list
-        unroll_all
-      end
-    end
     resources :departments do
       collection do
         get :list
@@ -368,12 +362,6 @@ Ekylibre::Application.routes.draw do
       end
       member do
         match "divide", :via => [:get, :post]
-      end
-    end
-    resources :land_parcel_groups do
-      collection do
-        get :list
-        unroll_all
       end
     end
     # resources :land_parcel_kinships
@@ -651,12 +639,6 @@ Ekylibre::Application.routes.draw do
         match "confirm", :via => [:get, :post]
       end
     end
-    resources :product_stocks do
-      collection do
-        get :list
-        unroll_all
-      end
-    end
     resources :subscription_natures do
       collection do
         get :list
@@ -686,12 +668,6 @@ Ekylibre::Application.routes.draw do
       collection do
         get :list
         get :list_operations
-        unroll_all
-      end
-    end
-    resources :tool_natures do
-      collection do
-        get :list
         unroll_all
       end
     end
@@ -726,6 +702,7 @@ Ekylibre::Application.routes.draw do
     resources :users do
       collection do
         get :list
+        unroll_all
       end
       member do
         post :lock

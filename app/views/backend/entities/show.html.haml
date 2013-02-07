@@ -6,21 +6,22 @@
 
 =beehive do |b|
   -b.tabbox do
-    -b.cell :coordinates do
-      -for address in @entity.addresses.order(:canal, :by_default)
-        .topo-coordinate
-          %span.canal-label{:class => "canal-"+address.canal.to_s}=address.canal.text
-          %span.canal-value
-            -if address.email?
-              =mail_to(address.coordinate, address.coordinate)
-            -elsif address.phone? or address.mobile?
-              %a{:href => "tel:#{address.coordinate}"}=address.coordinate
-            -elsif address.mail?
-              =link_to(address.coordinate, "https://maps.google.fr/?q=#{URI.encode(address.coordinate)}")
-            -elsif address.website?
-              =link_to(address.coordinate, address.coordinate)
-            -else
-              =address.coordinate
+    -if @entity.addresses.count > 0
+      -b.cell :coordinates do
+        -for address in @entity.addresses.order(:canal, :by_default)
+          .topo-coordinate
+            %span.canal-label{:class => "canal-"+address.canal.to_s}=address.canal.text
+            %span.canal-value
+              -if address.email?
+                =mail_to(address.coordinate, address.coordinate)
+              -elsif address.phone? or address.mobile?
+                %a{:href => "tel:#{address.coordinate}"}=address.coordinate
+              -elsif address.mail?
+                =link_to(address.coordinate, "https://maps.google.fr/?q=#{URI.encode(address.coordinate)}")
+              -elsif address.website?
+                =link_to(address.coordinate, address.coordinate)
+              -else
+                =address.coordinate
     -b.cell :details do
       =attributes_list(@entity) do |l|
         -l.attribute :last_name

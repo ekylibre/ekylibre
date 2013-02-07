@@ -18,8 +18,7 @@
   =input :vat_number
   =input :born_on
   =input :dead_on
-  =input :photo
-  =input :comment, :field => :text
+  =input :picture
   -# =input :ean13
   =custom_fields
   -#for datum in @custom_field_data
@@ -32,7 +31,7 @@
   =association :proposer
   =association :responsible, :source => :employees
   =input :vat_submissive
-  =input :reflation_submissive, :show => :reduction_percentage
+  =input :reminder_submissive, :show => :reduction_percentage
   =input :reduction_percentage
   =input :authorized_payments_count
   =input :deliveries_conditions, :field => :text
@@ -74,7 +73,3 @@
   =nested_association(:websites) do
     =input :canal, :value => "website", :field => :hidden
     =input :coordinate, :field => :url, :label => "enumerize.entity_address.canal.website"
-
-=field_set :user, :granted_on => :manage_users do
-  =input :loggable
-  =input :user_name
