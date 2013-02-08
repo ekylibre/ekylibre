@@ -1227,7 +1227,7 @@ fra:
     usage: "Utilisation"
     usage_duration: "Durée d’utilisation (heures)" #?
     used_amount: "Montant utilisé" #?
-    used_with: "Used with"
+    used_with: "Used with" #?
     # useful_items: "Useful items"
     useful_lines: "Lignes utiles" #?
     user: "Utilisateur"

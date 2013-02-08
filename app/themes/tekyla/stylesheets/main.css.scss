@@ -1,23 +1,23 @@
-#top { 
+#top {
   margin: 0;
 }
 
-html { 
-  body { 
+html {
+  body {
     background: transparent;
     height: 100%;
-    #wrap { 
+    #wrap {
       @include outerRow();
       width: 100% !important;
       height: 100%;
-      #side { 
+      #side {
         @include column(2);
         height: 100%;
       }
-      #main { 
+      #main {
         @include column(10);
         height: 100%;
-        h1 { 
+        h1 {
           &, & * { font-size: $fs-very-huge; }
         }
       }
@@ -45,33 +45,346 @@ html {
   dl {
     @include clearfix;
     margin: 0;
-    dt { 
+    dt {
       @include item-label;
       width: 0.95*$label-width;
       @include float(left);
       @include ellipsis;
     }
-    dd { 
+    dd {
       @include margin-left($label-width);
     }
   }
 }
 
 
-#legals, footer { 
+#legals, footer {
   font-size: $fs-small;
   line-height: round(1.4*$fs-small);
   @include text-align(center);
   padding: round(0.7*$fs-small);
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+.content {
+  $content-font-size: round($fs-normal*0.9);
+  clear: both;
+  * {
+    vertical-align: baseline;
+    color: $text-color; line-height: 1.2em; font-size: $content-font-size;
+  }
+  h1 { @include title($fs-normal); margin: 0px 0 8px; text-transform: uppercase; letter-spacing: 1px;}
+  h2 { @include title($fs-normal); margin: 8px 0 4px; border-bottom: $menu-border; }
+  h3 { @include title($content-font-size); margin: 4px 0 2px 10px; color: $text-color; }
+  pre { font-family: "Liberation Mono", monospace; color: #777; background: #FFF; padding: $default-gap; margin: $default-gap 0; }
+  strong { font-weight: bold; }
+  em { font-style: italic; }
+  ul, ol {
+    padding: 0;
+    @include padding-left(1.3*$content-font-size);
+    margin: 0 0 $default-gap 0;
+  }
+  ul li { list-style-type: square; }
+  ol li { list-style-type: decimal; }
+  dl {
+    padding: 0 0.1em; margin-bottom: 0.2em;
+    dt { margin-top: .2em; font-weight: bold; color: #210 }
+    dd { margin-bottom: .2em; margin-left: 1em; }
+  }
+  a img { border: $menu-border-width solid $link-color; padding: $menu-border-width; }
+  p {
+    /*@include text-align(justify);*/
+    margin: 0 0 $default-gap 0;
+    &.notice { border-left: $default-gap solid #7A4; background: #CE8; padding: round($default-gap/2) $default-gap; }
+    &.warning { border-left: $default-gap solid #FA0; background: #FD9; padding: round($default-gap/2) $default-gap; }
+  }
+  .text-end { height: 1px; }
+  .help-error {  @include text-align(center); margin: $default-gap 0; color: mix($text-color, $menu-background, 50%); @include text-shadow($menu-border-width $menu-border-width 0 $desktop-background) }
+  .content .md {
+    display:block;
+    &.md-center { margin: round($default-gap/2) auto; }
+    &.md-left   { margin: round($default-gap/2); @include float(left); }
+    &.md-right  { margin: round($default-gap/2); @include float(right); }
+  }
+}
+
+
+.flash {
+  padding: $default-gap;
+  margin-bottom: $default-gap;
+  vertical-align: middle;
+  color: black;
+  border: $menu-border;
+  @include border-radius($default-border-radius);
+  @include incrust-shadow;
+  $icon-size: 32px;
+  .icon {
+    display: block;
+    height: $icon-size;
+    width: $icon-size;
+    @include float(left);
+  }
+  .message {
+    @include margin-left($icon-size + $default-gap);
+    h3 {
+      font-size: $fs-normal;
+      font-weight: bold;
+      $gap: floor(($default-gap - $menu-border-width)/2);
+      padding: 0 0 $gap;
+      margin-bottom: $default-gap - $menu-border-width - $gap;
+      border-bottom: $menu-border-width dotted #999;
+    }
+    ul {
+      padding: round($fs-normal/4);
+      @include padding-left(round(1.2*$fs-normal));
+      li { list-style-type: square; }
+    }
+  }
+  .end {
+    clear: both;
+    height: 0;
+  }
+  @each $level in (error #D10), (warning #E60), (success #591), (information #777) {
+    $level-name: nth($level, 1);
+    $level-color: change-color(nth($level, 2), $lightness: 40%);
+    &.#{$level-name} {
+      &, & .message h3 { border-color: $level-color;}
+      * { color: $level-color; }
+      background-color: mix($level-color, $desktop-background, 10%);
+      .icon { @include common-sprite(notification-#{$level-name}); }
+    }
+  }
+}
+
+.checkbox-true { @include common-sprite(true); height:12px; width:12px; }
+.checkbox-false { @include common-sprite(false); height:12px; width:12px; }
+
+
+
+.fieldset {
+  @include border-radius($default-border-radius);
+  $vertical-gap: round($default-gap*0.7);
+  padding: $vertical-gap $default-gap;
+  margin: 0 0 $default-gap;
+  $fieldset-border: $menu-border;
+  border: $fieldset-border;
+  @include incrust-shadow;
+  $size: $fs-large;
+  background: white;
+  .fieldset-legend {
+    padding: 0;
+    label, span {
+      color: $neutral-color;
+      font-size: $size;
+      line-height: $size;
+    }
+    font-weight: bold;
+    vertical-align: middle;
+    .icon {
+      @include inline-block;
+      @include icons-sprite(page);
+      height: 16px;
+      width: 16px;
+      @include margin-right(round($size/4));
+    }
+    [data-toggle-set] {
+      cursor: default;
+      @include inline-block;
+      @include float(right);
+      $tool-size: 12px;
+      width: $tool-size;
+      height: $tool-size;
+      margin: round(($size - $tool-size)/2) 0 0;
+      &.collapsed {
+        @include common-sprite(toggle-show);
+        &:hover { @include common-sprite(toggle-show-hover) }
+      }
+      &.not-collapsed {
+        @include common-sprite(toggle-hide);
+        &:hover { @include common-sprite(toggle-hide-hover) }
+      }
+    }
+  }
+  @each $field_set in care, drug, delay, document, general-informations, stock, animal, vegetable, entity, asset, genealogy, group, movement, treatment {
+    &##{ $field_set }-fieldset .fieldset-legend .icon {
+      @include icons-sprite($field_set);
+    }
+  }
+
+  textarea {
+    width: 70%;
+    resize: vertical;
+  }
+  .fieldset-fields {
+    border-top: $fieldset-border;
+    margin-top: $vertical-gap;
+    padding-top: $vertical-gap;
+  }
+  .actions { border-left: none; border-right: none; border-bottom: none; margin-top: 8px}
+  .input {
+    padding: round($fs-normal*0.2) 0;
+    margin: round($fs-normal*0.1) 0;
+
+    .control-label {
+      width: 25%;
+      @include float(left);
+      line-height: 1.4*$fs-normal;
+      @include inline-block;
+      @include margin-right(round($fs-normal/2));
+      &.required {
+        abbr {
+          color: red;
+          float: right;
+        }
+      }
+    }
+    input{
+      max-width: 65%;
+    }
+  }
+}
+
+.help-inline {
+  display: inline-block;
+  *display: inline;
+  padding-left: 5px;
+  vertical-align: middle;
+  *zoom: 1;
+  color:  rgb(237, 0, 78);
+}
+
+$controls-margin-left: round($label-width * 1.1);
+
+.control-group {
+  margin: round($fs-normal/4) 0;
+  padding: round($fs-normal/4) 0;
+  @include clearfix;
+  .control-label {
+    width: $label-width;
+    @include float(left);
+    line-height: round(1.4*$fs-normal);
+    margin: round($fs-normal/4) 0;
+    @include display(block);
+    @include ellipsis;
+    &.required {
+      abbr {
+        color: red;
+        float: right;
+      }
+    }
+  }
+  .controls {
+    @include margin-left($controls-margin-left);
+    width: 100% - $controls-margin-left;
+    input, select, textarea {
+      max-width: 100% - $controls-margin-left;
+    }
+    .btn-new {
+      .icon { @include margin-right(0); }
+      .text { display: none; }
+    }
+  }
+  &.selector .controls .input{
+    @include toolbar;
+  }
+}
+
+.input-append {
+  @include button-group;
+  .btn {
+    .text { display: none; }
+    .icon { margin-left: 0; margin-right: 0; }
+  }
+}
+
+
+span.rad, label.radio {
+  padding: round($fs-normal/8) 0;
+  @include margin-left(round($fs-normal/2));
+  * { vertical-align: middle; }
+  &:first-child {
+    @include margin-left(0);
+  }
+  input {
+    @include margin-right($fs-normal/4);
+  }
+}
+
+
+.form-actions {
+  @include text-align(center);
+  input, a, span {
+    @include text-align(center);
+    @include margin-left($fs-normal);
+    &:first-child { @include margin-left(0) }
+  }
+  padding: round($fs-normal) !important;
+  background: $menu-background;
+  /*border-top: $menu-border;*/
+  margin: 0;
+}
+
+
+.kujaku {
+  background: white;
+  color: #580;
+  @include box-shadow(0 0 $fs-small rgba(#000, 0.5));
+  @include border-radius($default-border-radius);
+  padding: $default-gap;
+  margin: 0 0 $default-gap 0;
+  table {
+    margin: 0px auto;
+    .crit { border-top: $menu-border-width dotted #580; padding: round($fs-normal/6) round($fs-normal/4); vertical-align: middle; text-align:center; }
+    tr:first-child .crit { border-top: none; }
+  }
+  .label { padding: round($fs-normal/6) round($fs-normal/4); }
+  .submit { padding: round($fs-normal/6) round($fs-normal/4); width: 10*$fs-normal; text-align:center; }
+  &.popover {
+    display: none;
+    position: absolute;
+    right: $default-gap;
+    top: 40px;
+    z-index: 10000;
+    margin: 0;
+  }
+}
+
+
+
+#help {
+  display: none;
+  float: left;
+  @include box-shadow(0 0 15px rgba(#000, 0.3));
+  background: white;
+  position: absolute;
+  width: 30*$fs-normal;
+  left:$menu-width+$fs-normal;
+  top: $fs-normal;
+  padding: $fs-small;
+  z-index: 10000;
+  height: 90%;
+  overflow: auto;
+}
+
+
 /* Pop overs */
 
-.kujaku.popover { 
+.kujaku.popover {
   display: none;
 }
 
-#help { 
+#help {
   display: none;
 }
 

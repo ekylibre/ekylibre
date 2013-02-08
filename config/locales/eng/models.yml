@@ -1310,7 +1310,7 @@ eng:
       canal:
         # email: "E-mail"
         # fax: "Fax"
-        # mail: "Mail"
+        # mail: "Adresse postale"
         # mobile: "Téléphone portable"
         # phone: "Téléphone fixe"
         # website: "Site web"

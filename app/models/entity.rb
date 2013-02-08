@@ -127,7 +127,7 @@ class Entity < Ekylibre::Record::Base
     :url => '/backend/:class/:attachment/:id/:style.:extension',
     :path => ':rails_root/private/:class/:attachment/:id_partition/:style.:extension',
     :styles => {
-      :thumb => ["64x64#", :jpg], 
+      :thumb => ["64x64#", :jpg],
       :identity => ["200x300#", :jpg],
       :large => ["400x600#", :jpg]
     }

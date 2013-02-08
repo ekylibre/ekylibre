@@ -91,12 +91,12 @@
                 }
                 &.active {
                   opacity: 1;
-                  
-                  a { 
+
+                  a {
                     border: $cell-border;
                     border-top: 2px solid $base-color;
                     border-bottom: none;
-                    padding-bottom: $cell-title-vertical-padding + $cell-border-width; 
+                    padding-bottom: $cell-title-vertical-padding + $cell-border-width;
                   }
                   margin-bottom: (-1 * $cell-border-width);
                 }

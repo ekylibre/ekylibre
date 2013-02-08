@@ -705,7 +705,8 @@ arb:
     account_tabbox:
       children: "الحسابات الفرعية"
       entities: "أشخاص"
-      journal_entry_lines: "ادخالات الدفاتر اليومية"
+      # journal_entry_items: "Écritures"
+      journal_entry_lines: "ادخالات الدفاتر اليومية" #?
     account_tangible_fixed_assets: "موجودات ثابتة وملموسة"
     account_untangible_fixed_assets: "موجودات ثابتة وغير ملموسة"
     account_update: "تعديل الحسابات"
@@ -891,7 +892,7 @@ arb:
     delivery_natural_gas_and_electricity_assessable: "وتخضع امدادات الغاز الطبيعي والكهرباء للضريبة في فرنسا"
     delivery_natural_gas_and_electricity_not_assessable: "لا تخضع امدادات الغاز الطبيعي والكهرباء للضريبة في فرنسا"
     # demo_bar: "Histogramme"
-    # demo_pie: "Camenbert"
+    # demo_pie: "Camembert"
     department_create: "اضافة وظيفة جديدة" #?
     departments: "وظائف/مهام"
     deposit: "اقتطاعات البنك"
@@ -1055,7 +1056,7 @@ arb:
       draft: "المسودات" #?
       entries: "العينات"
       entry_lines: "الادخالات" #?
-      # lines: "Lignes d’écritures"
+      # items: "Lignes d’écritures"
       mixed: "دمج السجلات"
     journals: "الدفاتر اليومية"
     kame: "" #?
@@ -1259,7 +1260,7 @@ arb:
     one_condition: "ما لا يقل عن شرط واحد"
     operation: "" #?
     operation_create: "اضافة عمل" #?
-    # operation_lines: "Intrants et sortants"
+    # operation_items: "Intrants et sortants"
     operation_nature_create: "انشاء نوع عمل جديد" #?
     operation_update: "تعديل العمل"
     operation_use_create: "اضافة مادة"
@@ -1359,8 +1360,9 @@ arb:
     # profitability: "Rentabilité"
     purchase: "الطلب"
     purchase_create: "اضافة شراء جديد" #?
+    # purchase_items: "Lignes de l’achat"
     purchase_line_create: "اضافة طلب للمنتج" #?
-    purchase_lines: "تعديل تصميم الشراء"
+    purchase_lines: "تعديل تصميم الشراء" #?
     purchase_price_create: "انشاء سعر الشراء" #?
     purchase_print: "طباعة الطلب للممول" #?
     purchase_steps:
@@ -1425,8 +1427,10 @@ arb:
     sale_cancel: "الغاء الفاتورة"
     sale_create: "اضافة بيعة جديدة" #?
     sale_deliveries: "تسليم الطلبات"
-    sale_line_create: "(اضافة منتج للاسعار (صيغة كاملة"
-    sale_lines: "تعديل تصميم طلب البيع"
+    # sale_item_create: "Ajouter un produit au devis (Mode complet)"
+    # sale_items: "Lignes de la vente"
+    sale_line_create: "(اضافة منتج للاسعار (صيغة كاملة" #?
+    sale_lines: "تعديل تصميم طلب البيع" #?
     sale_nature_create: "انشاء نوع بيع جديد" #?
     sale_price_create: "اضافة سعر البيع" #?
     sale_print: "طباعة طلب البيع" #?
@@ -1434,7 +1438,8 @@ arb:
     sales: "تم تسديد دفعات طلب البيع"
     # sales_conditions: "Conditions de vente"
     sales_invoice: "الفوترة"
-    sales_invoice_lines: "تصميم الفاتورة"
+    # sales_invoice_items: "Lignes de la facture"
+    sales_invoice_lines: "تصميم الفاتورة" #?
     sales_invoice_number: "فاتورة رقم"
     sales_invoice_print: "طباعة الفاتورة"
     sales_invoice_sale: "فوترة طلب البيع"
@@ -1723,17 +1728,21 @@ arb:
     bookkeeping_works_only_with: "يمكن جعل نطاق الماسبة الحالية ل : %{list}."
     cannot_delete_entity: "غير ممكن حذف هذا الملف لاحتوائه على محاسبة هامة"
     # cannot_find_document_template: "Impossible de trouver le modèle de document"
-    # cannot_mark_entry_lines: "Impossible de lettrer ces lignes d’écritures ensemble"
+    # cannot_mark_entry_items: "Impossible de lettrer ces lignes d’écritures ensemble"
     cannot_merge_an_entity_with_itself: "غير ممكن دمج الملف مع نفسه"
     cannot_merge_entities: "Une erreur est survenue. غير ممكن دمج هذه الملفات"
     changes_have_been_reflected: "كانت تنعكس التغييرات بشكل صحيح على الوضع الحالي للاسهم"
     changes_have_not_been_reflected: "لم تكن تنعكس هذه التغييرات بشكل صحيح على الوضع الحالي للأسهم"
     closed_financial_years: "تم اغلاق السنة المالية بشكل صحيح"
     columns_are_already_uses: "تم اخيار عامود او اكثر للتحميل لمرات عدة"
-    draft_entry_lines_are_validated:
-      one: "تم التحقق من صحة الملفات واخراجها من قائمة المسودات"
-      other: "واخراجها من قائمة المسودات %{count} تم التحقق من صحة الملفات الاخرى"
-      zero: "لم يتم التحقق من صحة اي ملف"
+    draft_entry_items_are_validated:
+      # one: "%{count} ligne de brouillard validée"
+      # other: "%{count} lignes de brouillard validées"
+      # zero: "Aucune ligne de brouillard validée"
+    draft_entry_lines_are_validated:  #?
+      one: "تم التحقق من صحة الملفات واخراجها من قائمة المسودات" #?
+      other: "واخراجها من قائمة المسودات %{count} تم التحقق من صحة الملفات الاخرى" #?
+      zero: "لم يتم التحقق من صحة اي ملف" #?
     entity_columns_are_needed: ".يجب عليك تحديد عامود واحد كحد ادنى للفرد بما في ذلك اسمه"
     exception_raised: "ظهور خطأ واحد اثناء المعالجة: %{message}"
     expired_session: ".نهاية الدورة. الرجاء معاودة الاتصال"
@@ -1741,13 +1750,15 @@ arb:
     import_succeeded: "نم استيراد بياناتك بشكل صحيح"
     importation_cancelled: "لم تم استيراد بياناتك، تم الغاء الاستيراد"
     importation_finished: "انتهاء الاستيراد"
-    impossible_to_add_lines: "لا يمكنك اضافة منتجات اخرى لمبيعاتك، تم تمرير الاسعار مع الطلب"
-    impossible_to_add_lines_to_purchase: "لا يمكنك اضافة منتجات اخرى لمشترياتك"
+    # impossible_to_add_items: "Vous ne pouvez plus ajouter de produits à votre vente, le devis est passé en commande"
+    # impossible_to_add_items_to_purchase: "Vous ne pouvez plus ajouter de produits à votre achat"
+    impossible_to_add_lines: "لا يمكنك اضافة منتجات اخرى لمبيعاتك، تم تمرير الاسعار مع الطلب" #?
+    impossible_to_add_lines_to_purchase: "لا يمكنك اضافة منتجات اخرى لمشترياتك" #?
     invalid_file_nature: "نوع الملف غير صحيح"
     journal_closed_on: "  ال%{journal} تم اغلاقه في %{closed_on} بشكل صحيح."
     journal_entry_already_validated: "قد سبق التحقق من صحة الملف ولا يمكن اجراء اي تعديل اخر عليه"
     journal_entry_has_been_saved: "رقم السجل%{number} تم تسجيله بشكل صحيح"
-    # journal_entry_lines_marked_with_letter: "Les lignes d’écritures ont été lettrées avec la lettre %{letter}"
+    # journal_entry_items_marked_with_letter: "Les lignes d’écritures ont été lettrées avec la lettre %{letter}"
     journal_reopened_on: "%{journal} تم اعادة فتحه في %{closed_on} بشكل صحيح."
     mails_are_sent: "تم ارسال رسائل البريد الالكتروني"
     need_balanced_journal_to_tax_declaration: "يجب ان تكون جميع دفاتركم اليومية مغلقة ومتوازنة مع هذا التاريخ"
@@ -1762,8 +1773,10 @@ arb:
     need_stocks_to_create_inventories: "يجب عليك ادارة الاسهم لمنتج واحد كحد ادنى لتتمكن من اجراء عمليات الجرد"
     need_stocks_warehouse_to_create_products: "يجب عليك انشاء موقع للتخزين لتتمكن من انشاء منتج"
     need_to_create_subscription_nature: "يجب عليك انشاء نوع اشتراك لتتمكن من ادارة اشتراكاتك"
-    need_warehouse_to_create_purchase_line: "يجب عليك انشاء موقع للتخزين لتتمكن من اجراء عملية الشراء"
-    need_warehouse_to_create_sale_line: "يجب عليك انشاء موقع للتخزين لتتمكن من اجراء عملية البيع"
+    # need_warehouse_to_create_purchase_item: "Vous devez créer un lieu de stockage pour pouvoir réaliser un achat"
+    need_warehouse_to_create_purchase_line: "يجب عليك انشاء موقع للتخزين لتتمكن من اجراء عملية الشراء" #?
+    # need_warehouse_to_create_sale_item: "Vous devez créer un lieu de stockage pour pouvoir réaliser une vente"
+    need_warehouse_to_create_sale_line: "يجب عليك انشاء موقع للتخزين لتتمكن من اجراء عملية البيع" #?
     need_warehouse_to_record_stock_moves: "يجب عليك تسجيل مواقعك للتخزين لتتمكن من ادارة اسهمك"
     new_actual_number: "الرقم الجديد الحالي هو %{actual_number}"
     no_authenticated: "ليس بامكانك ان تكون محدد، ان اسم المستخدم او كلمة المرور غير صحيحة"
@@ -1773,7 +1786,8 @@ arb:
     no_depositable_payments: "لا يوجد دفعات لتقديمها للبنك"
     no_existing_mandates: "ليس هنالك من تفويض مسجل في الوقت الحاضر"
     no_financial_year: "لم يتم تسجيل اي سنة مالية"
-    no_lines_found: "لم يتم اضافة اي منتج الى الطلب"
+    # no_items_found: "Aucun pruduit n’a été ajouté à la commande "
+    no_lines_found: "لم يتم اضافة اي منتج الى الطلب" #?
     no_payment_to_deposit: "ليس هنالك من دفعات للحصر"
     no_reopenable_journal: "ليس بامكانك اعادة فتح الدفاتر اليومية"
     no_stocks: "ليس لديك اية سهم، اذا رغبت بادارة سهم المنتج، الرجاء ضع علامة على خيار «ادارة الاسهم» في خصائص منتجاتك"
@@ -1794,7 +1808,7 @@ arb:
     sale_cannot_be_updated: "الطلب غير قابل للتعديل"
     sale_cant_be_deleted: "ليس بامكانك الغاء طلب البيع"
     select_entries_to_letter_together: "اختر الادخالات للكتابة معا " #?
-    # select_entry_lines_to_mark_together: "Sélectionnez des lignes d’écritures à lettrer ensemble"
+    # select_entry_items_to_mark_together: "Sélectionnez des lignes d’écritures à lettrer ensemble"
     specify_filter: "اختر تطبيق تصفية واحدة كحد ادنى للبحث"
     specify_updates: "يجب عليك تحديد حقل واحد كحد ادنى للتعديل"
     unavailable_model: "%{model} غير متوفر أو غير موجود (%{id})"
@@ -1803,10 +1817,14 @@ arb:
     unvalid_version_for_restore: "ان اصدار البرنامج المستخدم لتنفيذ النسخ الاحتياطية لا يطابق اصدار البرنامج الحالي"
     update_is_done: "قد انجز اعداد التحديث"
     validates_old_inventories: "ينصح بالغاء أو التحقق من صحة قوائم الجرد قبل اتخاذ جديد"
-    x_unpointed_journal_entry_lines:
-      one: "يوجد مدخل واحد مشار اليه"
-      other: "%{count} يوجد مدخلات اخرى مشار اليه"
-      zero: "ليس هنالك اية ادخال مشار اليه في هذه اللحظة"
+    x_unpointed_journal_entry_items:
+      # one: "Il y a une écriture à pointer"
+      # other: "Il y a %{count} écritures à pointer"
+      # zero: "Il n’y a pas d’écritures à pointer pour l’instant"
+    x_unpointed_journal_entry_lines:  #?
+      one: "يوجد مدخل واحد مشار اليه" #?
+      other: "%{count} يوجد مدخلات اخرى مشار اليه" #?
+      zero: "ليس هنالك اية ادخال مشار اليه في هذه اللحظة" #?
     you_must_have_an_email_column: "يجب ان يكون لديك عمود خاص بالبريد الالكتروني"
     you_must_select_a_file_to_import: "يجب عليك اختيار ملف للاستيراد"
     you_will_lose_all_your_current_data: "اذا قمت بالمتابعة، فسوف تفقد جميع البيانات الحالية. فهل ترغب بالاستمرار؟"

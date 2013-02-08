@@ -651,7 +651,7 @@ spa:
       children: "subcuentos"
       entities: "Personas"
       journal_entries: "Éscrituras" #?
-      # journal_entry_lines: "Écritures"
+      # journal_entry_items: "Écritures"
     account_tangible_fixed_assets: "Inmobilisaciones corporales"
     account_untangible_fixed_assets: "Inmobilisacions incorporales"
     account_update: "Modificar el cuento"
@@ -828,7 +828,7 @@ spa:
     delivery_natural_gas_and_electricity_assessable: "Entrega de gaz natural ou elctricidad imponible en Francia"
     delivery_natural_gas_and_electricity_not_assessable: "Entrega de gaz natural ou elctricidad no imponible en Francia"
     # demo_bar: "Histogramme"
-    # demo_pie: "Camenbert"
+    # demo_pie: "Camembert"
     department_create: "Añadir un nuevo servicio" #?
     departments: "Servicios"
     deposit: "Aposto en banco del"
@@ -976,7 +976,7 @@ spa:
     journal_view:
       draft_entries: "Niebla" #?
       entries: "Éscrituras"
-      # lines: "Lignes d’écritures"
+      # items: "Lignes d’écritures"
       mixed: "Piezas y Escrituras"
       records: "Piezas" #?
     journals: "Periodico general"
@@ -1158,7 +1158,7 @@ spa:
     # number_options: "Options de numérotations"
     on_account: "Volver a poner sobre la cuenta"
     # one_condition: "au moins une condition"
-    # operation_lines: "Intrants et sortants"
+    # operation_items: "Intrants et sortants"
     # operation_update: "Modifier le travail"
     # operation_use_create: "Ajouter un matériel"
     # operations: "Travaux"
@@ -1247,7 +1247,7 @@ spa:
       # inactive: "Inactifs"
     # profitability: "Rentabilité"
     # purchase: "Achat"
-    # purchase_lines: "Lignes de l’achat"
+    # purchase_items: "Lignes de l’achat"
     purchase_steps:
       # deliveries: "Livraisons"
       products: "Creación de la compra"
@@ -1308,13 +1308,14 @@ spa:
     sale: "Encargos"
     sale_cancel: "Hacer un activo sobre une factura"
     # sale_deliveries: "Livraisons"
-    # sale_line_create: "Ajouter un produit au devis (Mode complet)"
-    # sale_lines: "Lignes de la vente"
+    # sale_item_create: "Ajouter un produit au devis (Mode complet)"
+    # sale_items: "Lignes de la vente"
     # sale_update: "Modifier les informations du devis"
     sales: "Exportar un cuadro de ventas al formato CSV"
     # sales_conditions: "Conditions de vente"
     sales_invoice: "Facturas"
-    sales_invoice_lines: "Lineas de factura"
+    # sales_invoice_items: "Lignes de la facture"
+    sales_invoice_lines: "Lineas de factura" #?
     # sales_invoice_number: "Numéro de facture"
     sales_invoice_print: "Imprimir la factura"
     # sales_invoice_sale: "Facturer la vente"
@@ -1592,7 +1593,7 @@ spa:
     bookkeeping_works_only_with: "La bascula en contabilidad puede hacerse actualmente solo para : %{list}."
     cannot_delete_entity: "No es posible suprimir esta papeleta porque tiene reseña historica contable"
     # cannot_find_document_template: "Impossible de trouver le modèle de document"
-    # cannot_mark_entry_lines: "Impossible de lettrer ces lignes d’écritures ensemble"
+    # cannot_mark_entry_items: "Impossible de lettrer ces lignes d’écritures ensemble"
     cannot_merge_an_entity_with_itself: "No es posible fusionar una papeleta con si misma"
     cannot_merge_entities: "Un error sobrevino. No es posible fusionar estas papeletas."
     changes_have_been_reflected: "Los cambios han sido repercutidos correctamente sobre el estatuto de depósitos actua"
@@ -1603,10 +1604,11 @@ spa:
       one: "La pieza ha sido validada y es sacada de la niebla" #?
       other: "Las %{cuentos} han sido validadas y son sacadas de la niebla" #?
       zero: "Ninguna pieza ha sido validada" #?
-    draft_entry_lines_are_validated:
+    draft_entry_items_are_validated:
       # one: "%{count} ligne de brouillard validée"
       # other: "%{count} lignes de brouillard validées"
       # zero: "Aucune ligne de brouillard validée"
+    draft_entry_lines_are_validated: #?
     entity_columns_are_needed: "se debe especifiar a lo menos une columna para la persona y particularmente sur nombre."
     exception_raised: "Un error sobrevino durante el tratamiento : %{mensaje}"
     expired_session: "sesion espirada. por favor reconectese."
@@ -1614,13 +1616,15 @@ spa:
     import_succeeded: "Sus datos han sido correctamente importados"
     importation_cancelled: "Sus datos no han sido importados. La importación ha sido anulada"
     importation_finished: "La importación esta terminada."
-    impossible_to_add_lines: "No se puede añadir productos a su venta, el presupuesto esta en encargo"
-    impossible_to_add_lines_to_purchase: "No se puede añadir productos a su compra"
+    # impossible_to_add_items: "Vous ne pouvez plus ajouter de produits à votre vente, le devis est passé en commande"
+    # impossible_to_add_items_to_purchase: "Vous ne pouvez plus ajouter de produits à votre achat"
+    impossible_to_add_lines: "No se puede añadir productos a su venta, el presupuesto esta en encargo" #?
+    impossible_to_add_lines_to_purchase: "No se puede añadir productos a su compra" #?
     invalid_file_nature: "Tipo de fichero invalido"
     journal_closed_on: "El %{periodico} ha sido cerrado al %{fecha de cerre} correctamente."
     # journal_entry_already_validated: "La pièce a déjà été validée et ne peut plus être modifiée"
     # journal_entry_has_been_saved: "La pièce N°%{number} a été enregistrée correctement"
-    # journal_entry_lines_marked_with_letter: "Les lignes d’écritures ont été lettrées avec la lettre %{letter}"
+    # journal_entry_items_marked_with_letter: "Les lignes d’écritures ont été lettrées avec la lettre %{letter}"
     journal_record_already_validated: "La pieza ya ha sido validada y ya no puede ser modificada" #?
     journal_record_has_been_saved: "La pieza N°%{number} ha sido registrada correctamente" #?
     journal_reopened_on: "El %{periodico} ha sido cerrado %{fecha de cerre} correctamente."
@@ -1637,8 +1641,10 @@ spa:
     need_stocks_to_create_inventories: "Se debe administrar los depositos a lo menos de un producto para hacer un inventario"
     need_stocks_warehouse_to_create_products: "Se debe crear un lugar de almacenamiento para crear un producto"
     need_to_create_subscription_nature: "se debe crear un tipo de abono para administrar los abonos"
-    need_warehouse_to_create_purchase_line: "Se debe crear un lugar de almacenamiento para hacer una compra"
-    need_warehouse_to_create_sale_line: "Se debe crear un lugar de almacenamiento para hacer une venta"
+    # need_warehouse_to_create_purchase_item: "Vous devez créer un lieu de stockage pour pouvoir réaliser un achat"
+    need_warehouse_to_create_purchase_line: "Se debe crear un lugar de almacenamiento para hacer una compra" #?
+    # need_warehouse_to_create_sale_item: "Vous devez créer un lieu de stockage pour pouvoir réaliser une vente"
+    need_warehouse_to_create_sale_line: "Se debe crear un lugar de almacenamiento para hacer une venta" #?
     need_warehouse_to_record_stock_moves: "Para administrar sus depositos se debe registrar sus lugares de almacenamiento."
     new_actual_number: "El nuevo numero en curso es %{numero_actual}"
     no_authenticated: "No puede ser identificado. El nombre de utilizador o la contrasña debe de ser incorrecta."
@@ -1648,7 +1654,8 @@ spa:
     no_depositable_payments: "No hay pago para entregar en banco"
     no_existing_mandates: "No hay responsabilidades registradas por el momento"
     no_financial_year: "Ningun ejercicio registrado"
-    no_lines_found: "Ningun producto ha sido añadido al encargo"
+    # no_items_found: "Aucun pruduit n’a été ajouté à la commande "
+    no_lines_found: "Ningun producto ha sido añadido al encargo" #?
     no_payment_to_deposit: "Ninguna forma de pago a cobrar"
     no_reopenable_journal: "nos se puede cerrar este periodico."
     no_stocks: "No hay ningun deposito. Si se quiere adùinistrar los depositos para une producto, por favor escroge la opción «administrar los depositos» dentro de las caracteristicas de vuestro producto."
@@ -1669,7 +1676,7 @@ spa:
     sale_cannot_be_updated: "El presupuesto ya no esta modificable."
     sale_cant_be_deleted: "La venta no puede ser suprimida"
     select_entries_to_letter_together: "Escroge escroturas para latrarlas juntas" #?
-    # select_entry_lines_to_mark_together: "Sélectionnez des lignes d’écritures à lettrer ensemble"
+    # select_entry_items_to_mark_together: "Sélectionnez des lignes d’écritures à lettrer ensemble"
     specify_filter: "Se debe escoger aplicar a lo menos un filtro de busqueda"
     specify_updates: "Se debe especifiar a la menos un campo a modifiar"
     unavailable_model: "%{model} indisponible o inexistente (%{id})"
@@ -1682,10 +1689,11 @@ spa:
       one: "Hay escritura a puntar" #?
       other: "hay %{number} escrituras a puntar" #?
       zero: "No hay escrituras a puntar por el momento" #?
-    x_unpointed_journal_entry_lines:
+    x_unpointed_journal_entry_items:
       # one: "Il y a une écriture à pointer"
       # other: "Il y a %{count} écritures à pointer"
       # zero: "Il n’y a pas d’écritures à pointer pour l’instant"
+    x_unpointed_journal_entry_lines: #?
     you_must_have_an_email_column: "Se debe terner una columna Correos Electronicos en su extracción"
     you_must_select_a_file_to_import: "Se debe seleccionar un fichero para importar"
     you_will_lose_all_your_current_data: "Si continua, va a perder todos los datos en curso de embargo. Se quiere perseguir ?"
