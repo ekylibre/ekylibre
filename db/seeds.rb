@@ -11,7 +11,7 @@ unless user[:email] = ENV["email"]
   puts "Username is: #{user[:email]}"
 end
 unless user[:password] = ENV["password"]
-  user[:password] = User.give_password(8, :normal)
+  user[:password] = (Rails.env.development? ? "12345678" : User.give_password(8, :normal))
   puts "Password is: #{user[:password]}"
 end
 user[:password_confirmation] = user[:password]

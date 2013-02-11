@@ -39,6 +39,10 @@ module Ekylibre
         return Menu.new(nil, nil, desc)
       end
 
+      def inspect
+        "#{@name}(#{@items.size} items)\n"
+      end
+
       def add_item(name, desc)
         raise Exception.new("Invalid menu element: #{desc.class.name}:#{desc.inspect}") unless desc.is_a?(Hash)
         name = name.to_s.strip.downcase.to_sym
@@ -124,7 +128,7 @@ module Ekylibre
 
       def human_name
         p = default_page
-        ::I18n.translate(("menus."+self.hierarchy.collect{|m| m.name}.join(".")).to_sym, :default => ["menus.#{@name}".to_sym, "labels.menus.#{@name}".to_sym, "actions.#{p.controller}.#{p.action}".to_sym, "labels.#{@name}".to_sym])
+        ::I18n.translate(("menus." + self.hierarchy.collect{|m| m.name}.join(".")).to_sym, :default => ["menus.#{@name}".to_sym, "labels.menus.#{@name}".to_sym, "actions.#{p.controller}.#{p.action}".to_sym, "labels.#{@name}".to_sym])
       end
 
       def useful

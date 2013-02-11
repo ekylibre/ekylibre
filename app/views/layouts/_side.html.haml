@@ -1,14 +1,15 @@
 -content_for(:popover) do
-  #help=render :partial=>"backend/help/search", :object => @article
+  #help=render :partial => "backend/help/search", :object => @article
 
--current_page = menus.page(controller_name, action_name)
+-current_page = menus.page(controller.class.absolute_controller_name, action_name)
 -menu = current_page.useful_menu if current_page
+
 
 -side_menu do |m|
   -if request.url == root_url or request.url == backend_root_url
     -m.link(:destroy, destroy_user_session_url, :method => :delete)
   -else
-    -m.link(:index, {:controller => :dashboards}, :icon => :up)
+    -m.link(:index, {:controller => "backend/dashboards"}, :icon => :up)
     -if menu and menu.hierarchy.size > 2
       -for item in menu.hierarchy[1..-2]
         -m.link(item.human_name, item.default_page.url_options, :icon => :up)
@@ -20,7 +21,7 @@
   -if menu
     -for item in menu
       -unless item.name == :settings
-        -attrs = {:active => item.in_path?(controller_name, action_name)}
+        -attrs = {:active => item.in_path?(absolute_controller_name, action_name)}
         -attrs[:icon] = :inside if item.items.size > 0
         -m.link(item.human_name, item.default_page.url_options, attrs)
 
@@ -28,7 +29,7 @@
   -if menu
     -unless menu.hierarchy.detect{|i| i.name == :settings}
       -expected = "settings_" + menu.hierarchy[1..-1].collect{|m| m.name}.join("_") + "_dashboard_url"
-      -url = (respond_to?(expected) ? send(expected) : settings_dashboard_url)
+      -url = (respond_to?(expected) ? send(expected) : backend_settings_dashboard_url)
       -m.link("labels.menus.settings".t, url)
   -m.link(:help, "#", "data-toggle-visibility" => "#help")
 

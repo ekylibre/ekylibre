@@ -21,6 +21,10 @@
 # encoding: utf-8
 module ApplicationHelper
 
+  def absolute_controller_name
+    self.controller.class.absolute_controller_name
+  end
+
   # # def options_for_unroll(options = {})
   # #   raise ArgumentError.new("Need :reflection option (#{options.inspect})") unless options[:reflection].to_s.size > 0
   # #   reflection = self.class.reflections[options[:reflection].to_sym]
@@ -658,7 +662,7 @@ module ApplicationHelper
       html << content_tag(:li, link_to(*args), li_options) if authorized?(args[1])
     end
 
-    content_for(:aside, content_tag(:ul, html.html_safe, :class => "side-menu"))
+    content_for(:aside, content_tag(:ul, html.html_safe, :class => "side-menu nav-bar vertical"))
 
     return nil
   end

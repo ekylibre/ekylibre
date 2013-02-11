@@ -11,7 +11,7 @@
     =javascript_include_tag :application
   -expiration = {}
   -expiration = {"timeout" => session[:expiration], "timeout-href" => renew_session_url(:user_name => current_user.user_name)} if current_user and session[:expiration].to_i>0
-  %body{:data => expiration, :class => "mod-"+reverse_menus[0].to_s}
+  %body{:data => expiration}
     -if request.url != backend_root_url
       =navigation_tag
     #wrap
