@@ -1,0 +1,8 @@
+-for item in subnavigation
+  -if with_divider 
+    %li.divider>
+  -attrs = (item.items.size > 0 ? {:class => "has-dropdown"} : {})
+  %li{attrs}>
+    =link_to(item.human_name, item.default_page.url_options)
+    -if item.items.size > 0
+      %ul.dropdown=render(:partial => "layouts/subnavigation", :object => subitems)
