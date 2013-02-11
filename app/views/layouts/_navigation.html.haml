@@ -1,15 +1,11 @@
 %nav#top.top-bar.contain-to-grid
   %ul>
-    %li.has-dropdown>
-      =link_to("Ekylibre")
-      %ul.dropdown>
-        -for x in menus
-          %li>=link_to(x.human_name, x.default_page.url_options)
+    %li>
+      %h1=link_to("Ekylibre")
     %li.toggle-topbar=link_to("", "#")
-  -if content_for?(:main_toolbar)
-    %section>
-      %ul>=content_for(:main_toolbar)
-
+  %section>
+    %ul.left>-# =render(:partial => "layouts/subnavigation", :object => Ekylibre.menu, :locals => {:with_divider => true})
+     
 
 -#if current_user
   .user-bar

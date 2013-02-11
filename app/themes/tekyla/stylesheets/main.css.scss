@@ -301,7 +301,7 @@ $controls-margin-left: round($label-width * 1.1);
 }
 
 .input-append {
-  @include button-group;
+  // @include button-group;
   .btn {
     .text { display: none; }
     .icon { margin-left: 0; margin-right: 0; }

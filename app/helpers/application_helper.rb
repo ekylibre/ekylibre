@@ -121,7 +121,7 @@ module ApplicationHelper
 
   # Return an array of menu and submenu concerned by the action (controller#action)
   def reverse_menus(action=nil)
-    # action ||= "#{self.controller.controller_name}::#{action_name}"
+    # action ||= "#{self.controller.controller_name}##{action_name}"
     # Ekylibre.reverse_menus[action]||[]
     return []
     Ekylibre.menu.stack(controller_name, action_name)
@@ -576,9 +576,9 @@ module ApplicationHelper
     return (session[:view_mode] == "resized" ? true : false)
   end
 
-  def top_tag
+  def navigation_tag
     session[:last_page] ||= {}
-    render :partial => "layouts/top"
+    render :partial => "layouts/navigation"
   end
 
   def meta_viewport_tag
