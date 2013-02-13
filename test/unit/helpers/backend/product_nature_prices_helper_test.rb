@@ -18,5 +18,5 @@
 #
 
 require 'test_helper'
-class Backend::PricesHelperTest < ActionView::TestCase
+class Backend::ProductNaturePricesHelperTest < ActionView::TestCase
 end

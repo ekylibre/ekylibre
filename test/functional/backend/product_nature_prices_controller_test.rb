@@ -18,6 +18,6 @@
 #
 
 require 'test_helper'
-class Backend::PricesControllerTest < BackendControllerTest
+class Backend::ProductNaturePricesControllerTest < BackendControllerTest
   test_restfully_all_actions :except=>[:import, :export, :find]
 end

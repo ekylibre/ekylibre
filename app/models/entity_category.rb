@@ -35,7 +35,7 @@
 
 class EntityCategory < Ekylibre::Record::Base
   attr_accessible :name, :description, :by_default
-  has_many :active_prices, :class_name => "Price", :foreign_key => :category_id, :conditions => {:active => true}
+  has_many :active_prices, :class_name => "ProductNaturePrice", :foreign_key => :category_id, :conditions => {:active => true}
   has_many :entities, :foreign_key => :category_id
   has_many :prices, :foreign_key => :category_id
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.

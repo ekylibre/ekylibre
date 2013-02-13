@@ -100,7 +100,7 @@ class Backend::InterfacersController < BackendController
 
   def self.available_prices_conditions
     code = ""
-    code << "c=['#{Price.table_name}.active=? AND #{ProductNature.table_name}.active=?', true, true]\n"
+    code << "c=['#{ProductNaturePrice.table_name}.active=? AND #{ProductNature.table_name}.active=?', true, true]\n"
     code << "if session[:current_currency]\n"
     code << "  c[0] << ' AND currency=?'\n"
     code << "  c << session[:current_currency]\n"
@@ -196,7 +196,7 @@ class Backend::InterfacersController < BackendController
 
   # def self.available_prices_conditions
   #   code = ""
-  #   code << "c=['#{Price.table_name}.active=? AND #{Product.table_name}.active=?', true, true]\n"
+  #   code << "c=['#{ProductNaturePrice.table_name}.active=? AND #{Product.table_name}.active=?', true, true]\n"
   #   code << "if session[:current_currency]\n"
   #   code << "  c[0] << ' AND currency=?'\n"
   #   code << "  c << session[:current_currency]\n"

@@ -48,7 +48,7 @@ class PurchaseItem < Ekylibre::Record::Base
   attr_readonly :purchase_id
   belongs_to :account
   belongs_to :purchase
-  belongs_to :price
+  belongs_to :price, :class_name => "ProductNaturePrice"
   belongs_to :product
   belongs_to :unit
   has_many :delivery_items, :class_name => "IncomingDeliveryItem", :foreign_key => :purchase_item_id

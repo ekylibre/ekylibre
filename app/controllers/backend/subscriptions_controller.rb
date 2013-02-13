@@ -84,7 +84,7 @@ class Backend::SubscriptionsController < BackendController
     if params[:nature_id]
       return unless nature = find_and_check(:subscription_nature, params[:nature_id])
     elsif params[:price_id]
-      return unless price = find_and_check(:price, params[:price_id])
+      return unless price = find_and_check(:product_nature_price, params[:price_id])
       if price.product_nature.subscription?
         nature = price.product_nature.subscription_nature
         attributes[:product_nature_id] = price.product_nature_id

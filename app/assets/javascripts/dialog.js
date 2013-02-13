@@ -136,7 +136,7 @@
                 // if ($.isFunction(settings["error"])) { settings["error"].call(form, frame, request, status, error); }
             }
         });
-        return false;	
+        return false;
     });
 */
 

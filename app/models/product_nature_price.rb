@@ -18,7 +18,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 # 
-# == Table: prices
+# == Table: product_nature_prices
 #
 #  active            :boolean          default(TRUE), not null
 #  amount            :decimal(19, 4)   not null
@@ -40,7 +40,7 @@
 #
 
 
-class Price < Ekylibre::Record::Base
+class ProductNaturePrice < Ekylibre::Record::Base
   attr_accessible :active, :amount, :by_default, :category_id, :supplier_id, :pretax_amount, :product_nature_id, :tax_id, :currency
   after_create :set_by_default
   belongs_to :category, :class_name => "EntityCategory"
@@ -63,7 +63,7 @@ class Price < Ekylibre::Record::Base
 
   delegate :storable?, :subscription?, :to => :product_nature
 
-  scope :availables_for_sales, -> { joins(:product_nature).where("#{Price.table_name}.active=? AND #{ProductNature.table_name}.active=?", true, true) }
+  scope :availables_for_sales, -> { joins(:product_nature).where("#{ProductNaturePrice.table_name}.active=? AND #{ProductNature.table_name}.active=?", true, true) }
 
 
   before_validation do
@@ -102,7 +102,7 @@ class Price < Ekylibre::Record::Base
 
   def set_by_default
     if self.by_default
-      Price.update_all({:by_default => false}, ["product_nature_id = ? AND id != ? AND supplier_id = ?", self.product_nature_id, self.id||0, self.supplier_id])
+      ProductNaturePrice.update_all({:by_default => false}, ["product_nature_id = ? AND id != ? AND supplier_id = ?", self.product_nature_id, self.id||0, self.supplier_id])
     end
   end
 

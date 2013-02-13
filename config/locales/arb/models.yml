@@ -384,7 +384,7 @@ arb:
         duration: "عدد ارقام او مدة الاشتراك"
         ean13: "EAN13 الرمز" #?
         # price: "Prix de revient"
-        # producible: "Productible"
+        # producible: "Produisible"
         # product_account: "Compte de vente"
         published: "نشر" #?
         # purchasable: "Achetable"
@@ -409,6 +409,15 @@ arb:
         updater: "التحدبث" #?
         warehouse: "مكان التخزين" #?
         warehouse_id: "مكان التخزين" #?
+      product_nature_price:
+        category: "فئة الملف المساعد"
+        category_id: "فئة الملف المساعد" #?
+        company_id: "الشركة" #?
+        entity: "الممول"
+        entity_id: "الممول" #?
+        product_id: "الانتاج" #?
+        sales_invoice_lines: "طرق تسدسد الفاتورة" #?
+        started_at: "ابتدأ يوم\_" #?
       product_specy:
         # code: "Code race"
       product_stock:
@@ -740,6 +749,9 @@ arb:
         price:
           already_defined: "قد تم تحديد السعر لهذا المنتج وقائمة الاسعار سابقا"
           range_overlap: "تداخل فاصل زمني اخر للكمية (  %{min} الى\_ %{max})"
+        product_nature_price:
+          already_defined: "قد تم تحديد السعر لهذا المنتج وقائمة الاسعار سابقا"
+          range_overlap: "تداخل فاصل زمني اخر للكمية (  %{min} الى\_ %{max})"
         product_stock:
           product_cannot_be_in_warehouse: "%{warehouse} لا يمكن تخزين المنتج في خزينة"
         product_transfer:
@@ -872,6 +884,7 @@ arb:
       product_nature: "الانتاج"
       product_nature_category: "فئة الانتاج"
       product_nature_component: "عنصر الانتاج"
+      product_nature_price: "الاسعار"
       # product_specy: "Race"
       product_stock: "سهم الانتاج"
       product_stock_move: "حركة السهم"
@@ -2429,6 +2442,10 @@ arb:
       unknown_use_of_product: "(يجب تحديد الغاية من المنتج (شراء او بيع او تأجير" #?
     product_nature_component:
       of_product: "نتاج"
+    product_nature_price:
+      label: "%{product} / %{amount} %{currency}"
+      no_range: "ليس هناك من فترة استراحة"
+      range: "من %{min} الى %{max}"
     product_stock:
       # default_name: "%{warehouse}/%{product}/%{tracking}"
       label:

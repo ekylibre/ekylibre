@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::PricesController < BackendController
+class Backend::ProductNaturePricesController < BackendController
 
   unroll_all
 
@@ -35,14 +35,14 @@ class Backend::PricesController < BackendController
 
   def new
     @mode = (params[:mode]||"sales").to_sym
-    @price = Price.new(:product_nature_id => params[:product_nature_id], :currency => params[:currency]||Entity.of_company.currency, :category_id => params[:entity_category_id]||session[:current_entity_category_id]||0)
+    @price = ProductNaturePrice.new(:product_nature_id => params[:product_nature_id], :currency => params[:currency]||Entity.of_company.currency, :category_id => params[:entity_category_id]||session[:current_entity_category_id]||0)
     @price.supplier_id = params[:supplier_id] if params[:supplier_id]
     render_restfully_form
   end
 
   def create
     @mode = (params[:mode]||"sales").to_sym
-    @price = Price.new(params[:price])
+    @price = ProductNaturePrice.new(params[:price])
     @price.supplier_id = params[:price][:supplier_id]||Entity.of_company.id
     return if save_and_redirect(@price)
     render_restfully_form
@@ -59,14 +59,14 @@ class Backend::PricesController < BackendController
       return unless product = find_and_check(:product_natures, params[:product_nature_id])
       return unless supplier = find_and_check(:supplier, params[:supplier_id])
       @price = product.prices.find(:first, :conditions => {:supplier_id => supplier.id, :active => true}, :order => "by_default DESC")
-      @price ||= Price.new(:category_id => supplier.category_id)
+      @price ||= ProductNaturePrice.new(:category_id => supplier.category_id)
       respond_to do |format|
         format.html { render :partial => "amount_form" }
         format.json { render :json => @price.to_json }
         format.xml  { render :xml => @price.to_xml }
       end
     elsif !params[:purchase_line_price_id].blank?
-      return unless @price = find_and_check(:price, params[:purchase_line_price_id])
+      return unless @price = find_and_check(:product_nature_price, params[:purchase_line_price_id])
       @product = @price.product if @price
     elsif params[:purchase_line_product_id]
       return unless @product = find_and_check(:products, params[:purchase_line_product_id])
@@ -127,7 +127,7 @@ class Backend::PricesController < BackendController
         line = []
         line << [product.code, product.name]
         @entity_categories.each do |category|
-          price = Price.find(:first, :conditions => {:active => true, :product_id => product.id, :category_id => EntityCategory.find_by_code(category.code).id})
+          price = ProductNaturePrice.find(:first, :conditions => {:active => true, :product_id => product.id, :category_id => EntityCategory.find_by_code(category.code).id})
           #raise Exception.new price.inspect
           if price.nil?
             line << ["","",""]
@@ -179,9 +179,9 @@ class Backend::PricesController < BackendController
               blank = true
               tax = Tax.find(:first, :conditions => {:amount => row[x+2].to_s.gsub(/\,/,".").to_f})
               tax_id = tax.nil? ? nil : tax.id
-              @price = Price.find(:first, :conditions => {:product_id => @product.id, :category_id => category.id, :active => true} )
+              @price = ProductNaturePrice.find(:first, :conditions => {:product_id => @product.id, :category_id => category.id, :active => true} )
               if @price.nil? and (!row[x].nil? or !row[x+1].nil? or !row[x+2].nil?)
-                @price = Price.new(:pretax_amount => row[x].to_s.gsub(/\,/,".").to_f, :tax_id => tax_id, :amount => row[x+1].to_s.gsub(/\,/,".").to_f, :product_id => @product.id, :category_id => category.id, :supplier_id => Entity.of_company.id, :currency => Entity.of_company.currency)
+                @price = ProductNaturePrice.new(:pretax_amount => row[x].to_s.gsub(/\,/,".").to_f, :tax_id => tax_id, :amount => row[x+1].to_s.gsub(/\,/,".").to_f, :product_id => @product.id, :category_id => category.id, :supplier_id => Entity.of_company.id, :currency => Entity.of_company.currency)
                 blank = false
               elsif !@price.nil?
                 blank = false
@@ -210,7 +210,7 @@ class Backend::PricesController < BackendController
           for price in @available_prices
             if price.id.nil?
               puts price.inspect
-              Price.create!(price.attributes)
+              ProductNaturePrice.create!(price.attributes)
             else
               price.update_attributes(price.attributes)
             end

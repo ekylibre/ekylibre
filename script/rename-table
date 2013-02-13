@@ -83,9 +83,26 @@ if File.exist?(nf)
   execute("sed -i 's/class #{old_table.camelcase}Controller /class #{new_table.camelcase}Controller /' #{nf}")  
 end
 
+# app/controllers/backend
+of = root.join("app", "controllers", "backend", "#{old_table}_controller.rb")
+nf = root.join("app", "controllers", "backend", "#{new_table}_controller.rb")
+if File.exist?(of)
+  execute("git mv #{of} #{nf}")
+end
+if File.exist?(nf)
+  execute("sed -i 's/class Backend::#{old_table.camelcase}Controller /class Backend::#{new_table.camelcase}Controller /' #{nf}")  
+end
+
 # app/views
 of = root.join("app", "views", old_table)
 nf = root.join("app", "views", new_table)
+if File.exist?(of)
+  execute("git mv #{of} #{nf}")
+end
+
+# app/views/backend
+of = root.join("app", "views", "backend", old_table)
+nf = root.join("app", "views", "backend", new_table)
 if File.exist?(of)
   execute("git mv #{of} #{nf}")
 end
@@ -98,6 +115,16 @@ if File.exist?(of)
 end
 if File.exist?(nf)
   execute("sed -i 's/module #{old_table.camelcase}Helper/module #{new_table.camelcase}Helper/' #{nf}")  
+end
+
+# app/helpers/backend
+of = root.join("app", "helpers", "backend", "#{old_table}_helper.rb")
+nf = root.join("app", "helpers", "backend", "#{new_table}_helper.rb")
+if File.exist?(of)
+  execute("git mv #{of} #{nf}")
+end
+if File.exist?(nf)
+  execute("sed -i 's/module Backend::#{old_table.camelcase}Helper/module Backend::#{new_table.camelcase}Helper/' #{nf}")  
 end
 
 # config/locales/*/models.yml
@@ -258,6 +285,16 @@ if File.exist?(nf)
   execute("sed -i 's/class #{old_table.classify}Test /class #{new_table.classify}Test /' #{nf}")  
 end
 
+# test/unit/backend
+of = root.join("test", "unit", "backend", "#{old_table.singularize}_test.rb")
+nf = root.join("test", "unit", "backend", "#{new_table.singularize}_test.rb")
+if File.exist?(of)
+  execute("git mv #{of} #{nf}")
+end
+if File.exist?(nf)
+  execute("sed -i 's/class Backend::#{old_table.classify}Test /class Backend::#{new_table.classify}Test /' #{nf}")  
+end
+
 # test/unit/helpers
 of = root.join("test", "unit", "helpers", "#{old_table}_helper_test.rb")
 nf = root.join("test", "unit", "helpers", "#{new_table}_helper_test.rb")
@@ -268,6 +305,16 @@ if File.exist?(nf)
   execute("sed -i 's/class #{old_table.camelcase}HelperTest /class #{new_table.camelcase}HelperTest /' #{nf}")  
 end
 
+# test/unit/helpers/backend
+of = root.join("test", "unit", "helpers", "backend", "#{old_table}_helper_test.rb")
+nf = root.join("test", "unit", "helpers", "backend", "#{new_table}_helper_test.rb")
+if File.exist?(of)
+  execute("git mv #{of} #{nf}")
+end
+if File.exist?(nf)
+  execute("sed -i 's/class Backend::#{old_table.camelcase}HelperTest /class Backend::#{new_table.camelcase}HelperTest /' #{nf}")  
+end
+
 # test/functional
 of = root.join("test", "functional", "#{old_table}_controller_test.rb")
 nf = root.join("test", "functional", "#{new_table}_controller_test.rb")
@@ -276,6 +323,16 @@ if File.exist?(of)
 end
 if File.exist?(nf)
   execute("sed -i 's/class #{old_table.camelcase}ControllerTest /class #{new_table.camelcase}ControllerTest /' #{nf}")  
+end
+
+# test/functional/backend
+of = root.join("test", "functional", "backend", "#{old_table}_controller_test.rb")
+nf = root.join("test", "functional", "backend", "#{new_table}_controller_test.rb")
+if File.exist?(of)
+  execute("git mv #{of} #{nf}")
+end
+if File.exist?(nf)
+  execute("sed -i 's/class Backend::#{old_table.camelcase}ControllerTest /class Backend::#{new_table.camelcase}ControllerTest /' #{nf}")  
 end
 
 

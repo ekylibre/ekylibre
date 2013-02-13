@@ -269,13 +269,6 @@ fra:
       index: "Préfénces"
       new: "Nouvelle préférence"
       show: "Préférence"
-    backend/prices:
-      edit: "Modifie le prix %{pretax_amount}/%{amount} sur %{product}"
-      export: "Exporter les prix"
-      find: "Trouver un prix"
-      import: "Importer un fichier CSV de tarifs"
-      index: "Prix"
-      new: "Ajout d’un nouveau prix"
     backend/product_groups:
       edit: "Modifier le lot\_: %{name} "
       index: "Lots de produits"
@@ -307,11 +300,18 @@ fra:
       index: "Catégories de produits"
       new: "Ajout d’une nouvelle catégorie de produits"
       show: "Détail de la catégorie\_: %{name}"
+    backend/product_nature_prices:
+      # edit: "Edit backend/product nature price"
+      # export: "Export backend/product nature price"
+      # find: "Find backend/product nature price"
+      # import: "Import backend/product nature price"
+      # index: "Index backend/product nature price"
+      # new: "New backend/product nature price"
     backend/product_natures:
       edit: "Modifier le type de produit\_: %{name}"
       index: "Type de produit"
       new: "Nouveau type de produit"
-      show: "Type de produit\_: %{name}" #?
+      show: "Type de produit\_: %{name}"
     backend/product_process_phases:
       # edit: "Edit backend/product process phase"
       # index: "Index backend/product process phase"
@@ -540,7 +540,6 @@ fra:
     backend/outgoing_payments: "Décaissements"
     # backend/places: "Backend/places"
     backend/preferences: "Préférences"
-    backend/prices: "Prix"
     backend/product_groups: "Lot de produits"
     # backend/product_indicator_nature_choices: "Backend/product indicator nature choices"
     # backend/product_indicator_natures: "Backend/product indicator natures"
@@ -549,6 +548,7 @@ fra:
     # backend/product_memberships: "Backend/product memberships"
     backend/product_moves: "Mouvements de stock"
     backend/product_nature_categories: "Catégories de produits"
+    # backend/product_nature_prices: "Backend/product nature prices"
     # backend/product_natures: "Backend/product natures"
     # backend/product_process_phases: "Backend/product process phases"
     # backend/product_processes: "Backend/product processes"
@@ -1660,18 +1660,24 @@ fra:
   unroll:
     backend/animals:
       all: "{name} - {number}"
+    backend/entity_links:
+      all: "{started_at}"
     backend/events:
       all: "{reason}"
     backend/logs:
       all: "{observed_at}"
+    backend/observations:
+      all: "{content}"
     backend/operations:
       all: "{nature} ({created_at})"
-    backend/prices:
+    backend/product_memberships:
+      all: "{started_at}"
+    backend/product_nature_prices:
       all: "{amount} {currency} / {pretax_amount} {currency}"
-    backend/products:
-      all: "{number} {name}"
     backend/product_transfers:
       all: "{id}"
+    backend/products:
+      all: "{number} {name}"
     backend/units:
       all: "{label} ({name})"
     backend/users:

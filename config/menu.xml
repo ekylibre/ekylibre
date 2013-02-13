@@ -708,16 +708,16 @@
         <page to="backend/product_nature_categories#update"/>
       </menu>
       <menu name="prices">
-        <page to="backend/prices#index"/>
-        <page to="backend/prices#create"/>
-        <page to="backend/prices#destroy"/>
-        <page to="backend/prices#edit"/>
-        <page to="backend/prices#export"/>
-        <page to="backend/prices#find"/>
-        <page to="backend/prices#import"/>
-        <page to="backend/prices#list"/>
-        <page to="backend/prices#new"/>
-        <page to="backend/prices#update"/>
+        <page to="backend/prices#index" deletable="true"/>
+        <page to="backend/prices#create" deletable="true"/>
+        <page to="backend/prices#destroy" deletable="true"/>
+        <page to="backend/prices#edit" deletable="true"/>
+        <page to="backend/prices#export" deletable="true"/>
+        <page to="backend/prices#find" deletable="true"/>
+        <page to="backend/prices#import" deletable="true"/>
+        <page to="backend/prices#list" deletable="true"/>
+        <page to="backend/prices#new" deletable="true"/>
+        <page to="backend/prices#update" deletable="true"/>
       </menu>
     </menu>
     <menu name="stocks">
@@ -845,6 +845,9 @@
     <menu name="backend/entity_addresses">
       <page to="backend/entity_addresses#unroll"/>
     </menu>
+    <menu name="backend/entity_categories">
+      <page to="backend/entity_categories#list_product_nature_prices"/>
+    </menu>
     <menu name="backend/entity_natures">
       <page to="backend/entity_natures#unroll"/>
     </menu>
@@ -955,6 +958,21 @@
     <menu name="backend/product_nature_categories">
       <page to="backend/product_nature_categories#list_product_natures"/>
     </menu>
+    <menu name="backend/product_nature_prices">
+      <page to="backend/product_nature_prices#index"/>
+      <page to="backend/product_nature_prices#create"/>
+      <page to="backend/product_nature_prices#destroy"/>
+      <page to="backend/product_nature_prices#edit"/>
+      <page to="backend/product_nature_prices#export"/>
+      <page to="backend/product_nature_prices#find"/>
+      <page to="backend/product_nature_prices#import"/>
+      <page to="backend/product_nature_prices#list"/>
+      <page to="backend/product_nature_prices#new"/>
+      <page to="backend/product_nature_prices#update"/>
+    </menu>
+    <menu name="backend/product_natures">
+      <page to="backend/product_natures#list_product_nature_prices"/>
+    </menu>
     <menu name="backend/product_process_phases">
       <page to="backend/product_process_phases#index"/>
       <page to="backend/product_process_phases#create"/>
@@ -983,6 +1001,11 @@
       <page to="backend/professions#list"/>
       <page to="backend/professions#new"/>
       <page to="backend/professions#update"/>
+    </menu>
+    <menu name="backend/sales">
+      <page to="backend/sales#list_creditable_items"/>
+      <page to="backend/sales#list_items"/>
+      <page to="backend/sales#list_undelivered_items"/>
     </menu>
     <menu name="backend/warehouses">
       <page to="backend/warehouses#list_product_moves"/>

@@ -62,7 +62,7 @@ class Backend::SaleItemsController < BackendController
 
   def detail
     if request.xhr?
-      return unless price = find_and_check(:price, params[:price_id])
+      return unless price = find_and_check(:product_nature_price, params[:price_id])
       @sale = Sale.find_by_id(params[:sale_id]) if params[:sale_id]
       @sale_item = SaleItem.new(:product => price.product, :price => price, :price_amount => 0.0, :quantity => 1.0, :unit_id => price.product.unit_id)
       if @sale

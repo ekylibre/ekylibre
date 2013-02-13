@@ -94,6 +94,9 @@ fra:
       product_nature_category:
         children: "Sous-catégories"
         published: "Publiée"
+      product_nature_price:
+        category: "Catégorie de fiche associée"
+        entity: "Fournisseur"
       product_specy:
         code: "Code race"
       product_stock:
@@ -270,6 +273,9 @@ fra:
         price:
           already_defined: "Un prix a déjà été défini pour cette liste de prix et ce produit"
           range_overlap: "L’intervalle de quantité en chevauche un autre (de %{min} à %{max})"
+        product_nature_price:
+          already_defined: "Un prix a déjà été défini pour cette liste de prix et ce produit"
+          range_overlap: "L’intervalle de quantité en chevauche un autre (de %{min} à %{max})"
         product_stock:
           product_cannot_be_in_warehouse: "Le produit ne peut pas être stocké dans le réservoir %{warehouse}"
         product_transfer:
@@ -388,7 +394,7 @@ fra:
       outgoing_payment_use: "Affectation de décaissement" #?
       # place: "Place"
       preference: "Préférence"
-      price: "Prix"
+      price: "Prix" #?
       product: "Animaux"
       product_component: "Composant de produit" #?
       product_event: "Évènements des produits" #?
@@ -405,6 +411,7 @@ fra:
       product_nature: "Produit"
       product_nature_category: "Catégorie de produit"
       product_nature_component: "Composant de produit" #?
+      product_nature_price: "Prix"
       # product_process: "Product process"
       # product_process_phase: "Product process phase"
       product_specy: "Race" #?
@@ -1640,9 +1647,9 @@ fra:
       label: "%{number}. %{amount} (%{usable_amount} restants) du %{date} en %{mode} pour %{payee}"
     outgoing_payment_use: #?
       bookkeep: "[%{resource}] %{mode} (%{payment_number}) reçu par %{attorney} pour %{supplier} (%{expense_number})"
-    price:
-      label: "%{product} / %{amount} %{currency}"
-      no_range: "Pas d’intervalle"
+    price: #?
+      label: "%{product} / %{amount} %{currency}" #?
+      no_range: "Pas d’intervalle" #?
       range: "De %{min} à %{max}"
     product:
       informations:
@@ -1678,6 +1685,10 @@ fra:
         sales: "Vente"
     product_nature_component: #?
       of_product: "du produit"
+    product_nature_price:
+      label: "%{product} / %{amount} %{currency}"
+      no_range: "Pas d’intervalle"
+      range: "De %{min} à %{max}"
     product_stock: #?
       default_name: "%{warehouse}/%{product}/%{tracking}" #?
       label: #?

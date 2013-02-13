@@ -597,11 +597,11 @@ span.rad, label.radio {
       .dealt-on { width: 16ex; }
       .amount {
         @include text-align(right);
-        &.credit { 
+        &.credit {
 	  &, & * { color: red }
 	}
-        &.debit { 
-          &, & * { color: green }	  
+        &.debit {
+          &, & * { color: green }
 	}
         &, & * {
           font-weight: bold;
@@ -609,9 +609,9 @@ span.rad, label.radio {
       }
     }
     tfoot.total {
-      &, & * { 
+      &, & * {
         @include text-align(right);
-        font-weight: bold;        
+        font-weight: bold;
         background: none;
       }
       .sum {
@@ -619,7 +619,7 @@ span.rad, label.radio {
       }
     }
   }
-    
+
 }
 
 

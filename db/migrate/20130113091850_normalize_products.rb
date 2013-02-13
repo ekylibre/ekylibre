@@ -1010,6 +1010,9 @@ class NormalizeProducts < ActiveRecord::Migration
     rename_table_and_co :product_categories, :product_nature_categories
 
     # Rename table in order to be more logical
+    rename_table_and_indexes :prices, :product_nature_prices
+
+    # Rename table in order to be more logical
     # rename_table_and_co :product_components, :product_nature_components
     # remove_column :product_nature_components, :warehouse_id
 
@@ -1179,7 +1182,7 @@ class NormalizeProducts < ActiveRecord::Migration
       table = model.to_s.tableize.to_sym
       for column, foreign_table in references
         if column == :old_product_id
-          rename_column table, column, ([:prices, :production_chain_conveyors, :product_nature_components, :subscriptions].include?(table) ? :product_nature_id : :product_id)
+          rename_column table, column, ([:product_nature_prices, :production_chain_conveyors, :product_nature_components, :subscriptions].include?(table) ? :product_nature_id : :product_id)
         elsif column == :old_stock_move_id
           rename_column table, column, :move_id
         end

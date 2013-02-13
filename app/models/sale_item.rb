@@ -56,7 +56,7 @@ class SaleItem < Ekylibre::Record::Base
   belongs_to :entity
   belongs_to :sale
   belongs_to :origin, :class_name => "SaleItem"
-  belongs_to :price
+  belongs_to :price, :class_name => "ProductNaturePrice"
   belongs_to :product
   belongs_to :reduction_origin, :class_name => "SaleItem"
   belongs_to :tax
@@ -101,7 +101,7 @@ class SaleItem < Ekylibre::Record::Base
     self.price_amount ||= 0
 
     if self.price_amount > 0
-      price = Price.create!(:pretax_amount => self.price_amount, :tax_id => self.tax_id||0, :entity_id => Entity.of_company.id, :active => false, :product_id => self.product_id, :category_id => self.sale.client.category_id)
+      price = ProductNaturePrice.create!(:pretax_amount => self.price_amount, :tax_id => self.tax_id||0, :entity_id => Entity.of_company.id, :active => false, :product_id => self.product_id, :category_id => self.sale.client.category_id)
       self.price = price
     end
 

@@ -106,7 +106,7 @@ class Entity < Ekylibre::Record::Base
   has_many :indirect_links, :class_name => "EntityLink", :foreign_key => :entity_2_id
   has_many :mandates
   has_many :observations, :as => :subject
-  has_many :prices
+  has_many :prices, :class_name => "ProductNaturePrice"
   has_many :purchase_invoices, :class_name => "Purchase", :foreign_key => :supplier_id, :order => "created_on desc", :conditions => {:state => "invoice"}
   has_many :purchases, :foreign_key => :supplier_id
   has_many :operations, :foreign_key => :responsible_id

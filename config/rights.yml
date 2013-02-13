@@ -9,6 +9,7 @@
 # - "backend/animals#new"
 # - "backend/animals#show"
 # - "backend/animals#update"
+# - "backend/bank_statements#list_lines"
 # - "backend/cells/demo_bar_cells#show"
 # - "backend/cells/demo_pie_cells#show"
 # - "backend/cells/last_events_cells#list"
@@ -29,6 +30,7 @@
 # - "backend/dashboards#settings_sales"
 # - "backend/dashboards#settings_stocks"
 # - "backend/entity_addresses#unroll"
+# - "backend/entity_categories#list_product_nature_prices"
 # - "backend/entity_natures#unroll"
 # - "backend/interfacers#autocomplete"
 # - "backend/interfacers#product_trackings"
@@ -41,6 +43,10 @@
 # - "backend/interfacers#toggle_view_mode"
 # - "backend/interfacers#unroll"
 # - "backend/interfacers#unroll_options"
+# - "backend/inventories#list_lines"
+# - "backend/inventories#list_lines_create"
+# - "backend/inventories#list_lines_update"
+# - "backend/journal_entries#list_lines"
 # - "backend/logs#create"
 # - "backend/logs#destroy"
 # - "backend/logs#edit"
@@ -50,6 +56,7 @@
 # - "backend/logs#show"
 # - "backend/logs#update"
 # - "backend/operations#list_unvalidateds"
+# - "backend/outgoing_deliveries#list_lines"
 # - "backend/places#create"
 # - "backend/places#destroy"
 # - "backend/places#edit"
@@ -108,6 +115,18 @@
 # - "backend/product_memberships#show"
 # - "backend/product_memberships#update"
 # - "backend/product_nature_categories#list_product_natures"
+# - "backend/product_nature_prices#create"
+# - "backend/product_nature_prices#destroy"
+# - "backend/product_nature_prices#edit"
+# - "backend/product_nature_prices#export"
+# - "backend/product_nature_prices#find"
+# - "backend/product_nature_prices#import"
+# - "backend/product_nature_prices#index"
+# - "backend/product_nature_prices#list"
+# - "backend/product_nature_prices#new"
+# - "backend/product_nature_prices#update"
+# - "backend/product_natures#list_product_nature_prices"
+# - "backend/product_natures#show"
 # - "backend/product_process_phases#create"
 # - "backend/product_process_phases#destroy"
 # - "backend/product_process_phases#edit"
@@ -221,7 +240,7 @@ cancel_sales_invoices:
 - "backend/dashboards#sales"
 - "backend/sales#cancel"
 - "backend/sales#index"
-- "backend/sales#list_creditable_lines"
+- "backend/sales#list_creditable_items"
 - "backend/sales#list_credits"
 
 # Change prices on sales
@@ -293,7 +312,7 @@ consult_journal_entries:
 # Consult the prices
 consult_prices:
 - "backend/dashboards#sales"
-- "backend/prices#index"
+- "backend/prices#index" #?
 
 # Consult the products
 consult_products:
@@ -316,8 +335,8 @@ consult_sales:
 - "backend/sales#index"
 - "backend/sales#list"
 - "backend/sales#list_deliveries"
-- "backend/sales#list_lines"
-- "backend/sales#list_undelivered_lines"
+- "backend/sales#list_items"
+- "backend/sales#list_undelivered_items"
 - "backend/sales#show"
 - "backend/sales#statistics"
 
@@ -405,7 +424,7 @@ manage_bank_statements:
 - "backend/bank_statements#edit"
 - "backend/bank_statements#index"
 - "backend/bank_statements#list"
-- "backend/bank_statements#list_lines"
+- "backend/bank_statements#list_items" #?
 - "backend/bank_statements#new"
 - "backend/bank_statements#point"
 - "backend/bank_statements#show"
@@ -543,7 +562,7 @@ manage_entity_categories:
 - "backend/entity_categories#edit"
 - "backend/entity_categories#index"
 - "backend/entity_categories#list"
-- "backend/entity_categories#list_prices"
+- "backend/entity_categories#list_prices" #?
 - "backend/entity_categories#new"
 - "backend/entity_categories#show"
 - "backend/entity_categories#update"
@@ -568,7 +587,7 @@ manage_entity_links:
 # Create and update estimates
 manage_estimates:
 - "backend/dashboards#sales"
-- "backend/prices#find"
+- "backend/prices#find" #?
 - "backend/sale_items#create"
 - "backend/sale_items#destroy"
 - "backend/sale_items#detail"
@@ -673,9 +692,9 @@ manage_inventories:
 - "backend/inventories#edit"
 - "backend/inventories#index"
 - "backend/inventories#list"
-- "backend/inventories#list_lines"
-- "backend/inventories#list_lines_create"
-- "backend/inventories#list_lines_update"
+- "backend/inventories#list_items" #?
+- "backend/inventories#list_items_create" #?
+- "backend/inventories#list_items_update" #?
 - "backend/inventories#new"
 - "backend/inventories#reflect"
 - "backend/inventories#show"
@@ -691,7 +710,7 @@ manage_journal_entries:
 - "backend/journal_entries#create"
 - "backend/journal_entries#destroy"
 - "backend/journal_entries#edit"
-- "backend/journal_entries#list_lines"
+- "backend/journal_entries#list_items" #?
 - "backend/journal_entries#new"
 - "backend/journal_entries#show"
 - "backend/journal_entries#update"
@@ -824,20 +843,20 @@ manage_outgoing_payments:
 - "backend/outgoing_payments#new"
 - "backend/outgoing_payments#show"
 - "backend/outgoing_payments#update"
-- "backend/purchases#list_lines"
+- "backend/purchases#list_items" #?
 - "backend/purchases#show"
 
 # Manage prices
 manage_prices:
 - "backend/dashboards#sales"
-- "backend/prices#create"
-- "backend/prices#destroy"
-- "backend/prices#edit"
-- "backend/prices#export"
-- "backend/prices#import"
-- "backend/prices#list"
-- "backend/prices#new"
-- "backend/prices#update"
+- "backend/prices#create" #?
+- "backend/prices#destroy" #?
+- "backend/prices#edit" #?
+- "backend/prices#export" #?
+- "backend/prices#import" #?
+- "backend/prices#list" #?
+- "backend/prices#new" #?
+- "backend/prices#update" #?
 
 # Manage product categories
 manage_product_categories:
@@ -858,7 +877,7 @@ manage_products:
 - "backend/product_natures#destroy"
 - "backend/product_natures#edit"
 - "backend/product_natures#list"
-- "backend/product_natures#list_prices"
+- "backend/product_natures#list_prices" #?
 - "backend/product_natures#new"
 - "backend/product_natures#update"
 
@@ -907,8 +926,8 @@ manage_purchases:
 - "backend/purchases#invoice"
 - "backend/purchases#list"
 - "backend/purchases#list_deliveries"
-- "backend/purchases#list_lines"
-- "backend/purchases#list_undelivered_lines"
+- "backend/purchases#list_items" #?
+- "backend/purchases#list_undelivered_items" #?
 - "backend/purchases#new"
 - "backend/purchases#propose"
 - "backend/purchases#refuse"
@@ -935,7 +954,7 @@ manage_sales:
 - "backend/outgoing_deliveries#edit"
 - "backend/outgoing_deliveries#index"
 - "backend/outgoing_deliveries#list"
-- "backend/outgoing_deliveries#list_lines"
+- "backend/outgoing_deliveries#list_items" #?
 - "backend/outgoing_deliveries#new"
 - "backend/outgoing_deliveries#show"
 - "backend/outgoing_deliveries#update"
@@ -945,7 +964,7 @@ manage_sales:
 - "backend/sales#destroy"
 - "backend/sales#invoice"
 - "backend/sales#list_deliveries"
-- "backend/sales#list_undelivered_lines"
+- "backend/sales#list_undelivered_items"
 - "backend/sales#propose"
 - "backend/sales#propose_and_invoice"
 - "backend/sales#refuse"

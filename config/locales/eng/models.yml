@@ -89,7 +89,7 @@ eng:
         # depreciable: "Ammortissable"
         duration: "Quantity OR period"
         price: "Cost price"
-        # producible: "Productible"
+        # producible: "Produisible"
         # product_account: "Compte de vente"
         # purchasable: "Achetable"
         # saleable: "Vendable"
@@ -98,6 +98,9 @@ eng:
       product_nature_category:
         children: "Sub-product_categories"
         published: "Published"
+      product_nature_price:
+        category: "People category"
+        entity: "Supplier"
       product_specy:
         # code: "Code race"
       product_stock:
@@ -275,6 +278,9 @@ eng:
         price:
           already_defined: "A price is already defined for this list and this product"
           range_overlap: "The range overlaps an other(from %{min} to %{max})"
+        product_nature_price:
+          already_defined: "A price is already defined for this list and this product"
+          range_overlap: "The range overlaps an other(from %{min} to %{max})"
         product_stock:
           product_cannot_be_in_warehouse: "Product can not be stored in %{warehouse}"
         product_transfer:
@@ -414,6 +420,7 @@ eng:
       product_nature: "Product"
       product_nature_category: "Product category"
       product_nature_component: "Product component"
+      product_nature_price: "Price"
       product_specy: "Animal race"
       product_stock: "Stock"
       product_stock_move: "Stock move"
@@ -1668,6 +1675,10 @@ eng:
         sales: "Sales"
     product_nature_component:
       of_product: "of product"
+    product_nature_price:
+      label: "%{product} / %{amount} %{currency}"
+      no_range: "No range"
+      range: "From %{min} to %{max}"
     product_stock:
       default_name: "%{warehouse}/%{product}/%{tracking}"
       label:

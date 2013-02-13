@@ -17,5 +17,5 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-module Backend::PricesHelper
+module Backend::ProductNaturePricesHelper
 end

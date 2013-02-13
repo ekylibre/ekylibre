@@ -323,13 +323,10 @@ arb:
       # new: "Nouvelle préférence"
       # show: "Préférence"
     backend/prescriptions: #?
-    backend/prices:
-      # edit: "Modifie le prix %{pretax_amount}/%{amount} sur %{product}"
-      # export: "Exporter les prix"
-      # find: "Trouver un prix"
-      import: "CSV استيراد بيان التعرفة ضمن"
-      index: "الاسعار"
-      new: "اضافة سعر جديد"
+    backend/prices:  #?
+      import: "CSV استيراد بيان التعرفة ضمن" #?
+      index: "الاسعار" #?
+      new: "اضافة سعر جديد" #?
     backend/product_categories:  #?
       edit: "تعديل فئة المنتج : %{name}" #?
       index: "فئات المنتج" #?
@@ -363,6 +360,7 @@ arb:
     backend/product_nature_components:  #?
       edit: "تعديل عنصر المنتج %{product} " #?
       new: "اضافة عنصر الى المنتج %{product} " #?
+    backend/product_nature_prices: #?
     backend/product_natures:
       edit: "تعديل المنتج : %{name}"
       index: "المنتجات"
@@ -629,7 +627,7 @@ arb:
     backend/outgoing_payment_modes: "طرق تسديد الدفعات"
     backend/outgoing_payments: "دفعات"
     # backend/preferences: "Préférences"
-    backend/prices: "الاسعار"
+    backend/prices: "الاسعار" #?
     backend/product_categories: "فئات المنتج" #?
     # backend/product_groups: "Lot de produits"
     # backend/product_moves: "Mouvements de stock"
@@ -734,7 +732,7 @@ arb:
     add_payment: "اضافة دفعة"
     # add_phone: "Ajouter un n° de téléphone"
     # add_posology: "Ajouter une posologie"
-    # add_quickly_a_line: "Ajouter rapidement une ligne de produit"
+    # add_quickly_an_item: "Ajouter rapidement une ligne de produit"
     # add_subscription_for_sale_line: "Ajouter un abonnement pour la ligne N°%{position}"
     # add_treatment: "Ajouter un traitement"
     # add_website: "Ajouter un site Web"
@@ -1920,17 +1918,34 @@ arb:
     # use_entity_codes_for_account_numbers: "Utiliser le code personne pour composer les numéros de compte"
     # various_journal: "Journal des opérations diverses par défaut"
   unroll:
-    animal_events:
-      # all: "{name} - {started_at}"
-    animal_prescriptions:
-      # all: "N° {prescription_number} du {prescripted_on}"
-    animals:
+    animal_events: #?
+    animal_prescriptions: #?
+    animals: #?
+    backend/animals:
       # all: "{name} - {number}"
-    logs:
+    backend/entity_links:
+      # all: "{started_at}"
+    backend/events:
+      # all: "{reason}"
+    backend/logs:
       # all: "{observed_at}"
-    product_events:
-      # all: "{observed_at}"
-    products:
-      # all: "{number} {name} "
-    units:
+    backend/observations:
+      # all: "{content}"
+    backend/operations:
+      # all: "{nature} ({created_at})"
+    backend/product_memberships:
+      # all: "{started_at}"
+    backend/product_nature_prices:
+      # all: "{amount} {currency} / {pretax_amount} {currency}"
+    backend/product_transfers:
+      # all: "{id}"
+    backend/products:
+      # all: "{number} {name}"
+    backend/units:
       # all: "{label} ({name})"
+    backend/users:
+      # all: "{first_name} {last_name}"
+    logs: #?
+    product_events: #?
+    products: #?
+    units: #?

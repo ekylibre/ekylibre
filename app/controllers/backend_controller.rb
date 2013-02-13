@@ -124,7 +124,7 @@ class BackendController < BaseController
         code << "    end\n"
         code << "    conditions[0] << ')'\n"
       else
-        raise Exception.new("No searchable columns for #{absolute_controller_name}##{method_name}")
+        puts("No searchable columns for #{absolute_controller_name}##{method_name}")
       end
       code << "  end\n"
       code << "  items = #{model.name}#{'.' + scope_name.to_s if scope_name}.where(conditions)\n"
@@ -761,9 +761,9 @@ class BackendController < BaseController
   def self.prices_conditions(options={})
     code = "conditions=[]\n"
     code << "if session[:supplier_id] == 0 \n "
-    code << " conditions = ['#{Price.table_name}.active = ?', true] \n "
+    code << " conditions = ['#{ProductNaturePrice.table_name}.active = ?', true] \n "
     code << "else \n "
-    code << " conditions = ['#{Price.table_name}.supplier_id = ? AND #{Price.table_name}.active = ?', session[:supplier_id], true]"
+    code << " conditions = ['#{ProductNaturePrice.table_name}.supplier_id = ? AND #{ProductNaturePrice.table_name}.active = ?', session[:supplier_id], true]"
     code << "end \n "
     code << "conditions \n "
     code

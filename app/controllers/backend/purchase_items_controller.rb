@@ -31,7 +31,7 @@ class Backend::PurchaseItemsController < BackendController
       return
     end
     @purchase_line = @purchase.lines.new
-    @price = Price.new(:pretax_amount=>0.0, :currency => @purchase.currency)
+    @price = ProductNaturePrice.new(:pretax_amount=>0.0, :currency => @purchase.currency)
     session[:current_currency] = @price.currency
     t3e @purchase.attributes
     render_restfully_form
@@ -51,8 +51,8 @@ class Backend::PurchaseItemsController < BackendController
     return unless product = find_and_check(:product_natures, params[:purchase_line][:product_id].to_i)
     if params[:price]
       price_attrs = params[:price].symbolize_keys.merge(:product_id=>product.id, :entity_id=>@purchase.supplier_id)
-      price = Price.find(:first, :conditions=>price_attrs)
-      price ||= Price.create!(price_attrs.merge(:active=>true))
+      price = ProductNaturePrice.find(:first, :conditions=>price_attrs)
+      price ||= ProductNaturePrice.create!(price_attrs.merge(:active=>true))
       params[:purchase_line][:price_id] = price.id
     end
     @purchase_line = @purchase.lines.new(params[:purchase_line])
@@ -72,8 +72,8 @@ class Backend::PurchaseItemsController < BackendController
     return unless product = find_and_check(:product_natures, params[:purchase_line][:product_id].to_i)
     if params[:price]
       price_attrs = params[:price].symbolize_keys.merge(:product_id=>product.id, :entity_id=>@purchase_line.purchase.supplier_id)
-      price = Price.find(:first, :conditions=>price_attrs)
-      price ||= Price.create!(price_attrs.merge(:active=>true))
+      price = ProductNaturePrice.find(:first, :conditions=>price_attrs)
+      price ||= ProductNaturePrice.create!(price_attrs.merge(:active=>true))
       params[:purchase_line][:price_id] = price.id
     end
     if @purchase_line.update_attributes(params[:purchase_line])

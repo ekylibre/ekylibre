@@ -2,7 +2,7 @@
 module Ekylibre
   mattr_reader :models, :references
   # List of all models
-  @@models = [:account, :account_balance, :affair, :animal, :area, :asset, :asset_depreciation, :bank_statement, :bioproduct, :cash, :cash_transfer, :custom_field, :custom_field_choice, :custom_field_datum, :department, :deposit, :deposit_item, :district, :document, :document_template, :entity, :entity_address, :entity_category, :entity_link, :entity_link_nature, :entity_nature, :establishment, :event, :event_nature, :financial_year, :fungus, :incoming_delivery, :incoming_delivery_item, :incoming_delivery_mode, :incoming_payment, :incoming_payment_mode, :inventory, :inventory_item, :journal, :journal_entry, :journal_entry_item, :land_parcel, :listing, :listing_node, :listing_node_item, :log, :mandate, :matter, :observation, :operation, :operation_work, :outgoing_delivery, :outgoing_delivery_item, :outgoing_delivery_mode, :outgoing_payment, :outgoing_payment_mode, :place, :preference, :price, :product, :product_group, :product_indicator, :product_indicator_nature, :product_indicator_nature_choice, :product_localization, :product_membership, :product_move, :product_nature, :product_nature_category, :product_process, :product_process_phase, :product_transfer, :product_variety, :production_chain, :production_chain_conveyor, :production_chain_work_center, :production_chain_work_center_use, :profession, :purchase, :purchase_item, :purchase_nature, :role, :sale, :sale_item, :sale_nature, :sequence, :service, :subscription, :subscription_nature, :tax, :tax_declaration, :tool, :tracking, :transfer, :transport, :unit, :user, :vegetal, :warehouse]
+  @@models = [:account, :account_balance, :affair, :animal, :area, :asset, :asset_depreciation, :bank_statement, :bioproduct, :cash, :cash_transfer, :custom_field, :custom_field_choice, :custom_field_datum, :department, :deposit, :deposit_item, :district, :document, :document_template, :entity, :entity_address, :entity_category, :entity_link, :entity_link_nature, :entity_nature, :establishment, :event, :event_nature, :financial_year, :fungus, :incoming_delivery, :incoming_delivery_item, :incoming_delivery_mode, :incoming_payment, :incoming_payment_mode, :inventory, :inventory_item, :journal, :journal_entry, :journal_entry_item, :land_parcel, :listing, :listing_node, :listing_node_item, :log, :mandate, :matter, :observation, :operation, :operation_work, :outgoing_delivery, :outgoing_delivery_item, :outgoing_delivery_mode, :outgoing_payment, :outgoing_payment_mode, :place, :preference, :product, :product_group, :product_indicator, :product_indicator_nature, :product_indicator_nature_choice, :product_localization, :product_membership, :product_move, :product_nature, :product_nature_category, :product_nature_price, :product_process, :product_process_phase, :product_transfer, :product_variety, :production_chain, :production_chain_conveyor, :production_chain_work_center, :production_chain_work_center_use, :profession, :purchase, :purchase_item, :purchase_nature, :role, :sale, :sale_item, :sale_nature, :sequence, :service, :subscription, :subscription_nature, :tax, :tax_declaration, :tool, :tracking, :transfer, :transport, :unit, :user, :vegetal, :warehouse]
 
   # List of all references
   @@references = {
@@ -236,7 +236,7 @@ module Ekylibre
       :creator_id => :user,
       :delivery_id => :incoming_delivery,
       :move_id => :product_move,
-      :price_id => :price,
+      :price_id => '',
       :product_id => :product,
       :purchase_item_id => :purchase_item,
       :tracking_id => :tracking,
@@ -401,7 +401,7 @@ module Ekylibre
       :creator_id => :user,
       :delivery_id => :outgoing_delivery,
       :move_id => :product_move,
-      :price_id => :price,
+      :price_id => '',
       :product_id => :product,
       :sale_item_id => :sale_item,
       :tracking_id => :tracking,
@@ -453,14 +453,6 @@ module Ekylibre
       :record_value_id => "record_value_type",
       :updater_id => :user,
       :user_id => :user
-    },
-    :price => {
-      :category_id => :entity_category,
-      :creator_id => :user,
-      :product_nature_id => :product_nature,
-      :supplier_id => :entity,
-      :tax_id => :tax,
-      :updater_id => :user
     },
     :product => {
       :address_id => :entity_address,
@@ -542,6 +534,14 @@ module Ekylibre
       :parent_id => :product_nature_category,
       :updater_id => :user
     },
+    :product_nature_price => {
+      :category_id => '',
+      :creator_id => :user,
+      :product_nature_id => :product_nature,
+      :supplier_id => '',
+      :tax_id => :tax,
+      :updater_id => :user
+    },
     :product_process => {
       :creator_id => :user,
       :updater_id => :user,
@@ -607,7 +607,7 @@ module Ekylibre
     :purchase_item => {
       :account_id => :account,
       :creator_id => :user,
-      :price_id => :price,
+      :price_id => '',
       :product_id => :product,
       :purchase_id => :purchase,
       :tracking_id => :tracking,
@@ -643,7 +643,7 @@ module Ekylibre
       :creator_id => :user,
       :entity_id => :entity,
       :origin_id => :sale_item,
-      :price_id => :price,
+      :price_id => '',
       :product_id => :product,
       :reduction_origin_id => :sale_item,
       :sale_id => :sale,
