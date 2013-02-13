@@ -15,10 +15,12 @@ a:link, a:visited, a:focus { color: $link-color; text-decoration: none;}
 
 
 #top {
-  margin-bottom: $fs-normal;
+  margin-bottom: 0;
+  @include box-shadow(0 0 $fs-normal rgba(#000, 0.7));
 }
 
 html {
+  background: #F7F7F7;
   body {
     background: transparent;
     height: 100%;
@@ -29,6 +31,7 @@ html {
       #side {
         @include column(2);
         height: 100%;
+        padding: 0;
       }
       #main {
         @include column(10);
@@ -51,12 +54,77 @@ html {
 	  #main-toolbar {
             @include button-group();
 	    @include float(right);
-            margin-top: 0;
+            margin-top: $default-gap;
             .btn {
               .icon { margin: 0; }
 	      .text { display: none; }
 	    }
 	  }
+
+
+ul.side-menu {
+  margin: $default-gap;
+  $transp: 40%;
+  @include incrust-shadow;
+  @include border-radius($default-border-radius);
+  li {
+    display:block;
+    margin-top: -1 * $menu-border-width;
+    $padding: round($fs-normal*0.7) (round($fs-normal*0.7)+16px)  round($fs-normal*0.7) round($fs-normal*0.7);
+    a {
+        background: white;
+        display:block;
+        padding: $padding;
+        border: $menu-border;
+        @include ellipsis;
+        i {
+          @include float(right);
+          margin: 0 -1*(round($fs-normal*0.35)+16px) 0 0;
+        }
+      }
+      &:first-child {
+        margin-top: 0;
+        a {
+          @include border-top-left-radius($default-border-radius);
+          @include border-top-right-radius($default-border-radius);
+        }
+      }
+      &:last-child a {
+        @include border-bottom-left-radius($default-border-radius);
+        @include border-bottom-right-radius($default-border-radius);
+      }
+      &:hover a {
+        background: mix(white, $menu-border-color, 80%);
+        text-decoration: none;
+      }
+      &.current, &.active {
+        position: relative;
+        z-index: 2;
+        a {
+          background: $base-color;
+          padding: $padding + 1;
+          border: none;
+          color: white;
+        }
+      }
+   }
+}
+
+/*
+ul.side-menu {
+  margin-top: $fs-normal;
+  li {
+    a {
+      display: block;
+      padding: round(0.5*$fs-normal) $fs-normal;
+    }
+    &.active {
+      a {
+        background: $active-color;
+      }
+    }
+  }
+}*/
 
 .attributes-list {
   @include column-count(3);
@@ -212,14 +280,14 @@ html {
   $fieldset-border: $menu-border;
   border: $fieldset-border;
   @include incrust-shadow;
-  $size: $fs-large;
+  $size: $fs-normal;
   background: white;
   .fieldset-legend {
     padding: 0;
     label, span {
       color: $neutral-color;
       font-size: $size;
-      line-height: $size;
+      line-height: round(1.2*$size);
     }
     font-weight: bold;
     vertical-align: middle;

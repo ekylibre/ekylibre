@@ -41,7 +41,7 @@
 
 
 class Price < Ekylibre::Record::Base
-  attr_accessible :active, :amount, :by_default, :category_id, :supplier_id, :pretax_amount, :product_id, :tax_id, :currency
+  attr_accessible :active, :amount, :by_default, :category_id, :supplier_id, :pretax_amount, :product_nature_id, :tax_id, :currency
   after_create :set_by_default
   belongs_to :category, :class_name => "EntityCategory"
   belongs_to :product_nature
@@ -61,10 +61,9 @@ class Price < Ekylibre::Record::Base
   validates_presence_of :supplier
   validates_numericality_of :pretax_amount, :amount, :greater_than_or_equal_to => 0
 
-  delegate :stockable?, :subscription?, :to => :product
+  delegate :storable?, :subscription?, :to => :product_nature
 
-  scope :availables_for_sales, -> { joins(:product).where("#{Price.table_name}.active=? AND #{ProductNature.table_name}.active=?", true, true) }
-
+  scope :availables_for_sales, -> { joins(:product_nature).where("#{Price.table_name}.active=? AND #{ProductNature.table_name}.active=?", true, true) }
 
 
   before_validation do

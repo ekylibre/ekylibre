@@ -24,7 +24,7 @@ class Backend::ProductNatureCategoriesController < BackendController
 
   list do |t|
     t.column :name, :url => true
-    t.column :comment
+    t.column :description
     t.column :catalog_name
     t.column :catalog_description
     t.column :name, :through => :parent
@@ -39,7 +39,7 @@ class Backend::ProductNatureCategoriesController < BackendController
   list(:product_natures, :conditions => {:category_id => ['session[:current_product_nature_category_id]']}, :order => 'active DESC, name') do |t|
     t.column :number
     t.column :name, :url => true
-    t.column :code, :url => true
+    # t.column :code, :url => true
     t.column :description
     t.column :active
     t.action :edit

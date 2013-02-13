@@ -1,12 +1,14 @@
 =toolbar do |t|
-  -t.edit @product_category
+  -t.edit @product_nature_category
 
-=attributes_list(@product_category) do |l|
-  -l.attribute :name
-  -l.attribute :parent, :url=>true
-  -l.attribute :comment
-  -l.attribute :catalog_name
-  -l.attribute :catalog_description
+=beehive do |b|
+  -b.cell do
+    =attributes_list(@product_nature_category) do |l|
+      -l.attribute :name
+      -l.attribute :parent, :url=>true
+      -l.attribute :description
+      -l.attribute :catalog_name
+      -l.attribute :catalog_description
 
-%h2=tc(:products)
-=list :products
+  -b.cell tc(:product_natures) do
+    =list :product_natures

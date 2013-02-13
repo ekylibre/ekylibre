@@ -49,7 +49,7 @@ class Backend::ProductNaturesController < BackendController
     t.column :purchasable
     t.column :saleable
     t.column :storable
-    t.column :nature
+    t.column :name, :through => :variety
     t.column :label, :through => :unit
     t.action :edit
     t.action :destroy
@@ -97,12 +97,12 @@ class Backend::ProductNaturesController < BackendController
   # end
 
   # Displays details of one product selected with +params[:id]+
-  #def show
-    #return unless @product_nature = find_and_check(:product_natures)
-   # session[:product_nature_id] = @product_nature.id
-   # t3e @product_nature.attributes
-  #end
-
+  def show
+    return unless @product_nature = find_and_check(:product_natures)
+    session[:product_nature_id] = @product_nature.id
+    t3e @product_nature.attributes
+  end
+  
   #def new
   #  @product_nature = ProductNature.new(:nature => ProductNature.nature.default_value)
    # render_restfully_form

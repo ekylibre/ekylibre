@@ -2,26 +2,35 @@
   -input :name
   -input :number
   -input :commercial_name
-  -input :comment
+  -input :active
+  -association :variety
 
 -field_set :nature do
   -association :category
   -association :unit
   -#input :nature, :show => {:subscription => :subscription}
 
--field_set :subscription do
-  -association :subscription_nature
-  -#input :duration
-
 -field_set :nature do
-  -#input :reduction_submissive
-  -input :active
+  -input :reductible
   -input :depreciable, :show => :asset_account
   -input :saleable, :show => :product_account
   -input :purchasable, :show => :charge_account
   -input :producible
-  -input :deliverable#, :show => :stock_options
+  -input :indivisible
+  -input :alive
+  -input :deliverable # , :show => :stock_options
   -input :storable, :show => :stock_account#, :show => :stocks, :in => :stock_options
+  -input :traceable
+  -input :storage
+  -input :subscribing, :show => :subscription
+  -input :towable 
+  -input :tractive
+
+-field_set :subscription do
+  -association :subscription_nature
+  -input :subscription_duration
+  -#input :duration
+
 
 -#field_set :stocks, :in => :stock_options do
   -#nested_association(:stocks) do
@@ -33,8 +42,8 @@
 -#price=render :partial=>'price_amount_form'
 
 -field_set :accountancy do
-  -association :product_account#,     :source => :products
-  -association :charge_account#, :source => :charges
-  -association :stock_account
   -association :asset_account
+  -association :product_account #,     :source => :products
+  -association :charge_account #, :source => :charges
+  -association :stock_account
 

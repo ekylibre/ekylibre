@@ -85,7 +85,7 @@ fra:
         depreciable: "Ammortissable"
         duration: "Nombre de numéros OU période d’abonnement"
         price: "Prix de revient"
-        producible: "Productible"
+        producible: "Produisible"
         product_account: "Compte de vente"
         purchasable: "Achetable"
         saleable: "Vendable"

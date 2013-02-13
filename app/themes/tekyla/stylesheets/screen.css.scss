@@ -91,6 +91,7 @@ $fs-very-huge: round(1.73*$fs-normal);
 
 $neutral-color: #777;
 $base-color: #16D;
+$active-color: #DE7308; // mix(green, $base-color, 50%);
 $link-color:  darken($base-color, 27%);
 $link-color:  darken($base-color, 10%);
 $text-color:  #111;

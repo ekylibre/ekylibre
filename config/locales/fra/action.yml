@@ -647,7 +647,7 @@ fra:
     add_payment: "Ajouter un encaissement"
     add_phone: "Ajouter un n° de téléphone"
     add_posology: "Ajouter une posologie"
-    add_quickly_a_line: "Ajouter rapidement une ligne de produit"
+    add_quickly_an_item: "Ajouter rapidement une ligne de produit"
     add_subscription_for_sale_line: "Ajouter un abonnement pour la ligne N°%{position}"
     add_treatment: "Ajouter un traitement"
     add_website: "Ajouter un site Web"

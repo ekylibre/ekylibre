@@ -662,7 +662,7 @@ module ApplicationHelper
       html << content_tag(:li, link_to(*args), li_options) if authorized?(args[1])
     end
 
-    content_for(:aside, content_tag(:ul, html.html_safe, :class => "side-menu nav-bar vertical"))
+    content_for(:aside, content_tag(:ul, html.html_safe, :class => "side-menu"))
 
     return nil
   end

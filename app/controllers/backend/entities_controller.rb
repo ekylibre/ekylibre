@@ -121,19 +121,19 @@ class Backend::EntitiesController < BackendController
     t.column :invoiced_on
     t.column :address, :through => :delivery_address
     t.column :state_label
-    t.column :paid_amount, :currency => true
+    # t.column :paid_amount, :currency => true
     t.column :amount, :currency => true
     t.action :show, :url => {:format => :pdf}, :image => :print
     t.action :edit
     t.action :destroy, :if => "RECORD.destroyable\?"
   end
 
-  list(:sales, :conditions => {:client_id => ['session[:current_entity_id]']}, :line_class => 'RECORD.tags', :children => :lines, :per_page => 5, :order => "created_on DESC") do |t|
+  list(:sales, :conditions => {:client_id => ['session[:current_entity_id]']}, :children => :items, :per_page => 5, :order => "created_on DESC") do |t| # , :line_class => 'RECORD.tags'
     t.column :number, :url => true, :children => :label
     t.column :full_name, :through => :responsible, :children => false
     t.column :created_on, :children => false
     t.column :state_label, :children => false
-    t.column :paid_amount, :currency => {:body => true, :children => "RECORD.sale.currency"}, :children => false
+    # t.column :paid_amount, :currency => {:body => true, :children => "RECORD.sale.currency"}, :children => false
     t.column :amount, :currency => {:body => true, :children => "RECORD.sale.currency"}
     t.action :show, :url => {:format => :pdf}, :image => :print
     t.action :duplicate, :method => :post

@@ -60,8 +60,8 @@
 
 
 class ProductNature < Ekylibre::Record::Base
-  attr_accessible :active, :commercial_description, :commercial_name, :category_id, :comment, :deliverable, :description, :ean13, :for_immobilizations, :for_productions, :for_purchases, :for_sales, :asset_account_id, :name, :nature, :number, :charge_account_id, :reduction_submissive, :product_account_id, :stockable, :subscription_nature_id, :subscription_period, :subscription_quantity, :trackable, :unit_id, :unquantifiable, :weight
-  attr_accessible :active, :commercial_description, :commercial_name, :category_id, :comment, :deliverable, :description, :depreciable, :producible, :purchasable, :saleable, :asset_account_id, :name, :number,:stock_account_id ,:charge_account_id, :product_account_id, :storable, :subscription_nature_id, :subscription_duration, :traceable, :unit_id
+  # attr_accessible :active, :commercial_description, :commercial_name, :category_id, :deliverable, :description, :for_immobilizations, :for_productions, :for_purchases, :for_sales, :asset_account_id, :name, :nature, :number, :charge_account_id, :reduction_submissive, :product_account_id, :stockable, :subscription_nature_id, :subscription_period, :subscription_quantity, :trackable, :unit_id, :unquantifiable, :weight
+  attr_accessible :active, :commercial_description, :commercial_name, :category_id, :deliverable, :description, :depreciable, :producible, :purchasable, :saleable, :asset_account_id, :name, :number,:stock_account_id ,:charge_account_id, :product_account_id, :storable, :subscription_nature_id, :subscription_duration, :traceable, :unit_id, :reductible, :indivisible, :alive, :storage, :subscribing, :towable, :tractive, :variety_id
   #enumerize :nature, :in => [:product, :service, :subscription], :default => :product, :predicates => true
   belongs_to :asset_account, :class_name => "Account"
   belongs_to :charge_account, :class_name => "Account"
@@ -80,7 +80,7 @@ class ProductNature < Ekylibre::Record::Base
   #has_many :sale_lines, :foreign_key => :product_id
   #has_many :stock_moves, :foreign_key => :product_id
   #has_many :stock_transfers, :foreign_key => :product_id
- # has_many :stocks, :foreign_key => :product_id
+  # has_many :stocks, :foreign_key => :product_id
   has_many :subscriptions, :foreign_key => :product_nature_id
   #has_many :trackings, :foreign_key => :product_id
   has_many :products, :foreign_key => :nature_id

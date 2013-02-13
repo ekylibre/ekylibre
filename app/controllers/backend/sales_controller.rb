@@ -25,32 +25,31 @@ class Backend::SalesController < BackendController
   # management -> sales_conditions
   def self.sales_conditions
     code = ""
-    code = search_conditions(:sale, :sales => [:pretax_amount, :amount, :number, :initial_number, :comment], :entities => [:code, :full_name])+"||=[]\n"
-    code += "unless session[:sale_state].blank?\n"
-    code += "  if session[:sale_state] == 'current'\n"
-    code += "    c[0] += \" AND state IN ('estimate', 'order', 'invoice')\"\n"
-    code += "  elsif session[:sale_state] == 'unpaid'\n"
-    code += "    c[0] += \" AND state IN ('order', 'invoice') AND paid_amount < amount AND lost = ?\"\n"
-    code += "    c << false\n"
-    code += "  end\n "
-    code += "  if session[:sale_responsible_id] > 0\n"
-    code += "    c[0] += \" AND \#{Sale.table_name}.responsible_id = ?\"\n"
-    code += "    c << session[:sale_responsible_id]\n"
-    code += "  end\n"
-    code += "end\n "
-    code += "c\n "
+    code = search_conditions(:sale, :sales => [:pretax_amount, :amount, :number, :initial_number, :description], :entities => [:code, :full_name])+"||=[]\n"
+    code << "unless session[:sale_state].blank?\n"
+    code << "  if session[:sale_state] == 'current'\n"
+    code << "    c[0] += \" AND state IN ('estimate', 'order', 'invoice')\"\n"
+    # code << "  elsif session[:sale_state] == 'unpaid'\n"
+    # code << "    c[0] += \" AND state IN ('order', 'invoice') AND paid_amount < amount AND lost = ?\"\n"
+    # code << "    c << false\n"
+    code << "  end\n "
+    code << "  if session[:sale_responsible_id] > 0\n"
+    code << "    c[0] += \" AND \#{Sale.table_name}.responsible_id = ?\"\n"
+    code << "    c << session[:sale_responsible_id]\n"
+    code << "  end\n"
+    code << "end\n "
+    code << "c\n "
     code
   end
 
-  list(:conditions => sales_conditions, :joins => :client, :order => 'created_on desc, number desc', :line_class => 'RECORD.tags') do |t|
+  list(:conditions => sales_conditions, :joins => :client, :order => 'created_on desc, number desc') do |t| # , :line_class => 'RECORD.tags'
     t.column :number, :url => {:action => :show, :step => :default}
     t.column :created_on
     t.column :invoiced_on
     t.column :label, :through => :client, :url => true
     t.column :label, :through => :responsible
-    t.column :comment
+    t.column :description
     t.column :state_label
-    t.column :paid_amount, :currency => true
     t.column :amount, :currency => true
     t.action :show, :url => {:format => :pdf}, :image => :print
     t.action :edit, :if => 'RECORD.draft? '

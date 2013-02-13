@@ -1,6 +1,6 @@
 %nav#top.top-bar.contain-to-grid
   %ul>
-    %li.name>=link_to("Ekylibre")
+    %li.name>=link_to("Ekylibre", backend_root_url)
     %li.toggle-topbar>=link_to("", "#")
   %section>
     %ul>=render(:partial => "layouts/subnavigation", :object => Ekylibre.menu.items, :locals => {:with_divider => true, :depth => 0})

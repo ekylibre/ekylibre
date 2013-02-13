@@ -1,5 +1,4 @@
 .beehive {
-  $active-color: mix(green, $base-color, 50%);
   .box {
     $min-width: 300px;
     $min-height: 200px;
@@ -38,6 +37,7 @@
         padding: $cell-title-vertical-padding $cell-title-horizontal-padding;
         border: $cell-border;
         border-top: none;
+        background: #FFFFFF;
       }  
     }
    

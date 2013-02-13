@@ -39,7 +39,7 @@
 
 
 class ProductNatureCategory < Ekylibre::Record::Base
-  attr_accessible :name, :catalog_name, :catalog_description, :comment, :parent_id
+  attr_accessible :name, :catalog_name, :catalog_description, :description, :parent_id
   acts_as_nested_set
   has_many :product_natures
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
