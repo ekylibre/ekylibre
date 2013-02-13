@@ -77,7 +77,7 @@ class Sale < Ekylibre::Record::Base
   belongs_to :journal_entry
   belongs_to :nature, :class_name => "SaleNature"
   belongs_to :origin, :class_name => "Sale"
-  belongs_to :responsible, :class_name => "Entity"
+  belongs_to :responsible, :class_name => "User"
   belongs_to :transporter, :class_name => "Entity"
   has_many :credits, :class_name => "Sale", :foreign_key => :origin_id
   has_many :deliveries, :class_name => "OutgoingDelivery", :dependent => :destroy, :inverse_of => :sale

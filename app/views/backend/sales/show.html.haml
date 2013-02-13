@@ -20,7 +20,11 @@
 =beehive do |b|
 
   -b.tabbox do
-    -if ["products", "summary", ""].include? params[:step].to_s
+    -b.cell tc(:financial_state) do
+      %h1 Bla bla bla
+      %h1 Bla bla bla
+      %h1 Bla bla bla
+    -#if ["products", "summary", ""].include? params[:step].to_s
       -b.cell tc(:financial_state) do
         %table.list
           -for k, v in @sale.stats # (:with_balance => true)
@@ -42,7 +46,7 @@
         -l.attribute :payment_delay, :label => :name
         -l.attribute :nature
         -l.attribute :currency unless @sale.currency == Entity.of_company.currency
-        -l.attribute :comment unless @sale.comment.blank?
+        -l.attribute :description unless @sale.description.blank?
         -l.attribute :address, :label => :coordinate
         -l.attribute :delivery_address, :label => :coordinate
         -l.attribute :invoice_address, :label => :coordinate
@@ -55,13 +59,13 @@
           -l.attribute :conclusion, :field => :textarea
 
   -if ["products", "summary", ""].include? params[:step].to_s
-    -b.cell :lines do
-      -@sale_line = @sale.lines.new
+    -b.cell :items do
+      -@sale_item = @sale.items.new
       -if @sale.draft?
         =toolbar do |t|
-          -t.link(:new, :controller => :sale_lines, :sale_id => @sale.id)
-        =render :partial => "sale_lines/row_form"
-      =list :lines do
+          -t.link(:new, :controller => :sale_items, :sale_id => @sale.id)
+        =render :partial => "backend/sale_items/row_form"
+      =list :items do
         %tr.total
           %th{:colspan => 7}=tc :total
           %td=number_to_money(@sale.pretax_amount, @sale.currency)
@@ -73,21 +77,20 @@
       -b.cell tl(:x_subscriptions, :count => @sale.subscriptions.count) do
         -if @sale.draft?
           =toolbar do |t|
-            -for line in @sale.lines.includes(:product, :reduction_origin)
-              -if line.product.subscription? and not line.reduction_origin
-                -t.link :add_subscription_for_sale_line, {:action => :new, :controller => :subscriptions, :sale_line_id => line.id, :nature_id => line.product.subscription_nature_id}, :i18n => {:position => line.position}
+            -for item in @sale.items.includes(:product, :reduction_origin)
+              -if item.product.subscription? and not item.reduction_origin
+                -t.link :add_subscription_for_sale_item, {:action => :new, :controller => :subscriptions, :sale_item_id => item.id, :nature_id => item.product.subscription_nature_id}, :i18n => {:position => item.position}
         =list :subscriptions
 
 
   -if ["products", "summary", ""].include? params[:step].to_s
-    -unless (@sale.draft? and @sale.unpaid_amount.zero?)
-      -b.cell tc(:incoming_payments) do
-        -unless @sale.unpaid_amount.zero?
-          =toolbar do |t|
-            -t.link(:new, :controller => :incoming_payment_uses, :expense_type => :sale, :expense_id => @sale.id, :i18n => {:label => @sale.label})
-            -for payment in @sale.usable_payments
-              -t.link(tl("use_incoming_payment", :payment => payment.label), {:action => :create, :controller => :incoming_payment_uses, :incoming_payment_use => {:expense_type => @sale.class.name, :expense_id => @sale.id, :payment_id => payment.id}}, :method => :post)
-        =list :payment_uses
+    -b.cell tc(:affair) do
+      -unless @sale.affair.closed?
+        =toolbar do |t|
+          -#t.link(:new, :controller => :incoming_payment_uses, :expense_type => :sale, :expense_id => @sale.id, :i18n => {:label => @sale.label})
+          -for payment in @sale.usable_payments
+            -#t.link(tl("use_incoming_payment", :payment => payment.label), {:action => :create, :controller => :incoming_payment_uses, :incoming_payment_use => {:expense_type => @sale.class.name, :expense_id => @sale.id, :payment_id => payment.id}}, :method => :post)
+      =affair_of(@sale)
 
 
   -if ["deliveries", ""].include? params[:step].to_s
@@ -95,7 +98,7 @@
       -b.cell tc(:undelivered) do
         =toolbar do |t|
           -t.link :new, :controller => :outgoing_deliveries, :sale_id => @sale.id
-        =list :undelivered_lines
+        =list :undelivered_items
       -if @sale.deliveries.count > 0
         -b.cell Sale.human_attribute_name("deliveries") do
           =list :deliveries

@@ -26,7 +26,7 @@ class BackendController < BaseController
   # before_filter :authorize
   # after_filter  :historize
   # # attr_accessor :current_user
-  # layout :dialog_or_not
+  layout :dialog_or_not
 
   include Userstamp
   # include ExceptionNotifiable
@@ -61,7 +61,7 @@ class BackendController < BaseController
       if label = options.delete(:label)
         label = (label.is_a?(Symbol) ? "{#{label}:%X%}" : label.to_s)
       else
-        base = "unroll." + self.name.underscore.gsub(/_controller$/, '').split('/').join(".")
+        base = "unroll." + self.absolute_controller_name
         label = I18n.translate(base + ".#{name || :all}", :default => [(base + ".all").to_sym, ""])
         if label.blank?
           available_methods = model.columns_hash.keys.collect{|x| x.to_sym}
@@ -110,17 +110,22 @@ class BackendController < BaseController
       code  = "def #{method_name}\n"
       code << "  conditions = []\n"
       code << "  keys = params[:q].to_s.strip.mb_chars.downcase.normalize.split(/[\\s\\,]+/)\n"
+      code << "  # " + columns.collect{|c| c[:column].name}.to_sentence + "\n"
       code << "  if params[:id]\n"
       code << "    conditions = {:id => params[:id]}\n"
-      code << "  elsif keys.size > 0\n"
-      code << "    conditions[0] = '('\n"
-      code << "    keys.each_with_index do |key, index|\n"
-      code << "      conditions[0] << ') AND (' if index > 0\n"
       searchable_columns = columns.delete_if{ |c| c[:column].type == :boolean }
-      code << "      conditions[0] << " + searchable_columns.collect{|column| "LOWER(CAST(#{column[:name]} AS VARCHAR)) LIKE ?"}.join(' OR ').inspect + "\n"
-      code << "      conditions += [" + searchable_columns.collect{|column| column[:filter].inspect.gsub('X', '" + key + "').gsub(/(^\"\"\+|\+\"\"\+|\+\"\")/, '')}.join(", ") + "]\n"
-      code << "    end\n"
-      code << "    conditions[0] << ')'\n"
+      if searchable_columns.size > 0
+        code << "  elsif keys.size > 0\n"
+        code << "    conditions[0] = '('\n"
+        code << "    keys.each_with_index do |key, index|\n"
+        code << "      conditions[0] << ') AND (' if index > 0\n"
+        code << "      conditions[0] << " + searchable_columns.collect{|column| "LOWER(CAST(#{column[:name]} AS VARCHAR)) LIKE ?"}.join(' OR ').inspect + "\n"
+        code << "      conditions += [" + searchable_columns.collect{|column| column[:filter].inspect.gsub('X', '" + key + "').gsub(/(^\"\"\+|\+\"\"\+|\+\"\")/, '')}.join(", ") + "]\n"
+        code << "    end\n"
+        code << "    conditions[0] << ')'\n"
+      else
+        raise Exception.new("No searchable columns for #{absolute_controller_name}##{method_name}")
+      end
       code << "  end\n"
       code << "  items = #{model.name}#{'.' + scope_name.to_s if scope_name}.where(conditions)\n"
 
@@ -301,7 +306,7 @@ class BackendController < BaseController
   private
 
   def dialog_or_not()
-    return (request.xhr? ? "dialog" : "backend")
+    return (request.xhr? ? "popover" : params[:dialog] ? "dialog" : "backend")
   end
 
 

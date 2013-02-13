@@ -4,6 +4,7 @@
   -input :with_accounting, :show => :accountancy_options
 
 -field_set(:accountancy, :in => :accountancy_options) do
+  -association :attorney_journal
   -input :with_deposit, :show => :deposit
   -input :with_commission, :show => :commission
 

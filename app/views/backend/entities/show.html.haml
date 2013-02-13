@@ -41,7 +41,7 @@
         -if @entity.client
           -l.attribute :category, :label => :name, :url => true
           -l.attribute :first_met_on unless @entity.first_met_on.blank?
-          -l.attribute :proposer, :label => :full_name unless @entity.proposer_id.blank?
+          -l.attribute :proposer, :label => :full_name unless @entity.proposer.nil?
           -l.attribute :vat_submissive
           -l.attribute :reflation_submissive
           -l.attribute :reduction_percentage unless @entity.reflation_submissive?

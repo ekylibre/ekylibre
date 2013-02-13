@@ -1658,17 +1658,21 @@ fra:
     use_entity_codes_for_account_numbers: "Utiliser le code personne pour composer les numéros de compte"
     various_journal: "Journal des opérations diverses par défaut"
   unroll:
-    animal_events:
-      all: "{name} - {started_at}"
-    animal_prescriptions:
-      all: "N° {prescription_number} du {prescripted_on}"
-    animals:
+    backend/animals:
       all: "{name} - {number}"
-    logs:
+    backend/events:
+      all: "{reason}"
+    backend/logs:
       all: "{observed_at}"
-    product_events:
-      all: "{observed_at}"
-    products:
-      all: "{number} {name} "
-    units:
+    backend/operations:
+      all: "{nature} ({created_at})"
+    backend/prices:
+      all: "{amount} {currency} / {pretax_amount} {currency}"
+    backend/products:
+      all: "{number} {name}"
+    backend/product_transfers:
+      all: "{id}"
+    backend/units:
       all: "{label} ({name})"
+    backend/users:
+      all: "{first_name} {last_name}"

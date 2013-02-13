@@ -21,9 +21,9 @@ class Backend::SaleItemsController < BackendController
 
   def new
     return unless @sale = find_and_check(:sale, params[:sale_id])
-    @sale_line = @sale.lines.new(:price_amount => 0.0, :reduction_percentage => @sale.client.maximal_reduction_percentage)
+    @sale_item = @sale.items.new(:price_amount => 0.0, :reduction_percentage => @sale.client.maximal_reduction_percentage)
     unless @sale.draft?
-      notify_error(:impossible_to_add_lines)
+      notify_error(:impossible_to_add_items)
       redirect_to :controller => :sales, :action => :show, :id => @sale.id, :step => :products
       return
     end
@@ -33,30 +33,30 @@ class Backend::SaleItemsController < BackendController
 
   def create
     return unless @sale = find_and_check(:sale, params[:sale_id])
-    @sale_line = @sale.lines.new(:price_amount => 0.0, :reduction_percentage => @sale.client.maximal_reduction_percentage)
+    @sale_item = @sale.items.new(:price_amount => 0.0, :reduction_percentage => @sale.client.maximal_reduction_percentage)
     unless @sale.draft?
-      notify_error(:impossible_to_add_lines)
+      notify_error(:impossible_to_add_items)
       redirect_to :controller => :sales, :action => :show, :id => @sale.id, :step => :products
       return
     end
-    @sale_line.attributes = params[:sale_line]
+    @sale_item.attributes = params[:sale_item]
     ActiveRecord::Base.transaction do
-      if saved = @sale_line.save
-        if @sale_line.subscription?
-          @subscription = @sale_line.new_subscription(params[:subscription])
+      if saved = @sale_item.save
+        if @sale_item.subscription?
+          @subscription = @sale_item.new_subscription(params[:subscription])
           saved = false unless @subscription.save
-          @subscription.errors.add_from_record(@sale_line)
+          @subscription.errors.add_from_record(@sale_item)
         end
         raise ActiveRecord::Rollback unless saved
       end
-      return if save_and_redirect(@sale_line, :url => {:controller => :sales, :action => :show, :id => @sale.id}, :saved => saved)
+      return if save_and_redirect(@sale_item, :url => {:controller => :sales, :action => :show, :id => @sale.id}, :saved => saved)
     end
     render_restfully_form
   end
 
   def destroy
-    return unless @sale_line = find_and_check(:sale_item)
-    @sale_line.destroy
+    return unless @sale_item = find_and_check(:sale_item)
+    @sale_item.destroy
     redirect_to_current
   end
 
@@ -64,30 +64,30 @@ class Backend::SaleItemsController < BackendController
     if request.xhr?
       return unless price = find_and_check(:price, params[:price_id])
       @sale = Sale.find_by_id(params[:sale_id]) if params[:sale_id]
-      @sale_line = SaleItem.new(:product => price.product, :price => price, :price_amount => 0.0, :quantity => 1.0, :unit_id => price.product.unit_id)
+      @sale_item = SaleItem.new(:product => price.product, :price => price, :price_amount => 0.0, :quantity => 1.0, :unit_id => price.product.unit_id)
       if @sale
-        @sale_line.sale = @sale
-        @sale_line.reduction_percentage = @sale.client.maximal_reduction_percentage
+        @sale_item.sale = @sale
+        @sale_item.reduction_percentage = @sale.client.maximal_reduction_percentage
       end
-      render :partial => "sale_lines/detail#{'_row' if params[:mode]=='row'}_form"
+      render :partial => "backend/sale_items/detail#{'_row' if params[:mode]=='row'}_form"
     else
       redirect_to sales_url
     end
   end
 
   def edit
-    return unless @sale_line = find_and_check(:sale_item)
-    @sale = @sale_line.sale
-    t3e :product => @sale_line.product.name
+    return unless @sale_item = find_and_check(:sale_item)
+    @sale = @sale_item.sale
+    t3e :product => @sale_item.product.name
     render_restfully_form
   end
 
   def update
-    return unless @sale_line = find_and_check(:sale_item)
-    @sale = @sale_line.sale
-    @sale_line.attributes = params[:sale_line]
-    return if save_and_redirect(@sale_line)
-    t3e :product => @sale_line.product.name
+    return unless @sale_item = find_and_check(:sale_item)
+    @sale = @sale_item.sale
+    @sale_item.attributes = params[:sale_item]
+    return if save_and_redirect(@sale_item)
+    t3e :product => @sale_item.product.name
     render_restfully_form
   end
 

@@ -174,7 +174,7 @@ class Entity < Ekylibre::Record::Base
     self.soundex = self.last_name.soundex2 if !self.last_name.nil?
     self.first_name = self.first_name.to_s.strip
     self.last_name  = self.last_name.to_s.strip
-    self.full_name = (self.last_name.to_s+" "+self.first_name.to_s)
+    self.full_name = (self.last_name.to_s + " " + self.first_name.to_s)
     self.category = EntityCategory.by_default unless self.category
     unless self.nature.nil?
       self.full_name = (self.nature.title+' '+self.full_name).strip unless self.nature.in_name # or self.nature.abbreviation == "-")
@@ -275,7 +275,7 @@ class Entity < Ekylibre::Record::Base
         # puts "Find entity (#{x-Time.now}s) :"+i.to_s
         valid_account = Account.create(:number => prefix.to_s+suffix.to_s, :name => self.full_name, :reconcilable => true)
       end
-      self.reload.update_column("#{natures[nature]}_id", valid_account.id)
+      self.reload.update_column("#{natures[nature]}_account_id", valid_account.id)
     end
     return valid_account
   end

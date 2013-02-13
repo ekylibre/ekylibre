@@ -1,6 +1,7 @@
 =form_tag({:action => action}, form_options.merge(params[:dialog] ? {"data-dialog" => params[:dialog]} : {})) do
   -# if form_options[:method] != :post
     =hidden_field_tag(:_method, form_options[:method])
+  -#=@incoming_payment_mode.errors.inspect
   -if params[:redirect]
     =hidden_field_tag(:redirect, params[:redirect]) # || back_url
   .form-fields=fields

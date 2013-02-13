@@ -32,14 +32,16 @@ module Ekylibre::Record  #:nodoc:
         attributes[:resource]   ||= @resource
         # attributes[:state]      ||= @state
         attributes[:printed_on] ||= @resource.created_on if @resource.respond_to? :created_on
-        raise ArgumentError.new("Unknown journal: (#{journal.inspect})") unless journal.is_a? Journal
-        attributes[:journal_id] = journal.id
+        if condition
+          raise ArgumentError.new("Unknown journal: (#{journal.inspect})") unless journal.is_a? Journal
+          attributes[:journal_id] = journal.id
+        end
 
         Ekylibre::Record::Base.transaction do
           journal_entry = JournalEntry.find_by_id(@resource.send(column)) rescue nil
 
           # Cancel the existing journal_entry
-          if journal_entry and journal_entry.draft? and (attributes[:journal].id == journal_entry.journal_id)
+          if journal_entry and journal_entry.draft? and condition and (attributes[:journal].id == journal_entry.journal_id)
             journal_entry.lines.destroy_all
             journal_entry.reload
             journal_entry.update_attributes!(attributes)
@@ -56,7 +58,7 @@ module Ekylibre::Record  #:nodoc:
           end
 
           # Set accounted columns
-          @resource.class.update_all({:accounted_at=>Time.now, column=>(journal_entry ? journal_entry.id : nil)}, {:id=>@resource.id})
+          @resource.class.update_all({:accounted_at => Time.now, column => (journal_entry ? journal_entry.id : nil)}, {:id => @resource.id})
         end
       end
 
@@ -72,7 +74,7 @@ module Ekylibre::Record  #:nodoc:
       def bookkeep(options = {}, &block)
         raise ArgumentError.new("No given block") unless block_given?
         raise ArgumentError.new("Wrong number of arguments (#{block.arity} for 1)") unless block.arity == 1
-        configuration = { :on=>Ekylibre::Record::Bookkeep::actions, :column=>:accounted_at, :method_name=>:bookkeep }
+        configuration = { :on => Ekylibre::Record::Bookkeep::actions, :column => :accounted_at, :method_name => :bookkeep }
         configuration.update(options) if options.is_a?(Hash)
         configuration[:column] = configuration[:column].to_s
         method_name = configuration[:method_name].to_s

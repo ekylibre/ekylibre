@@ -5,15 +5,15 @@
 
 =field_set(:bank_account, :in => :bank_account_options) do
   -input :bank_name
-  -input :address, :field => :text
+  -input :bank_address, :field => :text
   -input :mode, :show => {}
 
 =field_set(:bban, :in => :bank_account_options) do
   -input :country, :field => :hidden
   -input :bank_code
-  -input :agency_code
-  -input :number
-  -input :key
+  -input :bank_agency_code
+  -input :bank_account_number
+  -input :bank_account_key
 
 =field_set(:iban, :in => :bank_account_options) do
   -input :iban

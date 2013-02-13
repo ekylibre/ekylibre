@@ -76,18 +76,18 @@ class Affair < Ekylibre::Record::Base
     end
   end
 
-  after_save do
-    if self.deals.size.zero? and !self.journal_entry
-      self.destroy
-    end
-  end
+  # after_save do
+  #   if self.deals.size.zero? and !self.journal_entry
+  #     self.destroy
+  #   end
+  # end
 
   bookkeep do |b|
     label = tc(:bookkeep)
     all_deals = self.deals
     thirds = all_deals.inject({}) do |hash, deal|
       if third = deal.deal_third
-        account = third.account(deal.class.affairable_options[:role])
+        account = third.account(deal.class.affairable_options[:third])
         hash[account.id] ||= 0
         hash[account.id] += deal.deal_debit_amount - deal.deal_credit_amount
       end
@@ -108,6 +108,12 @@ class Affair < Ekylibre::Record::Base
                  "AND id NOT IN (SELECT #{model.reflections[model.affairable_options[:reflection]].foreign_key} FROM #{connection.quote_table_name(model.table_name)})"
                end.join).delete_all
   end
+
+
+  def balance
+    self.debit - self.credit
+  end
+
 
   # Adds a deal in the affair
   # Checks if possible and updates amounts

@@ -44,7 +44,7 @@
 
 
 class SaleNature < Ekylibre::Record::Base
-  attr_accessible :name, :journal, :active, :comment, :currency, :downpayment, :downpayment_minimum, :downpayment_percentage, :expiration_delay, :journal_id, :payment_delay, :payment_mode_complement, :payment_mode_id, :sales_conditions, :with_accounting
+  attr_accessible :name, :journal, :active, :currency, :downpayment, :downpayment_minimum, :downpayment_percentage, :expiration_delay, :journal_id, :payment_delay, :payment_mode_complement, :payment_mode_id, :sales_conditions, :with_accounting
   belongs_to :journal
   belongs_to :payment_mode, :class_name => "IncomingPaymentMode"
   has_many :sales
@@ -62,8 +62,8 @@ class SaleNature < Ekylibre::Record::Base
 
 
   before_validation do
-    self.expiration_delay ||= "0 minutes"
-    self.payment_delay    ||= "0 minutes"
+    self.expiration_delay = "0 minutes" if self.expiration_delay.blank?
+    self.payment_delay    = "0 minutes" if self.payment_delay.blank?
     self.downpayment_minimum    ||= 0
     self.downpayment_percentage ||= 0
   end

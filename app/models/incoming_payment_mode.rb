@@ -73,7 +73,7 @@ class IncomingPaymentMode < Ekylibre::Record::Base
   scope :depositers, -> { where(:with_deposit => true).order(:name) }
 
   before_validation do
-    if self.cash.cash_box?
+    if self.cash and self.cash.cash_box?
       self.with_deposit = false
       self.with_commission = false
     end
@@ -81,6 +81,11 @@ class IncomingPaymentMode < Ekylibre::Record::Base
       self.depositables_account = nil
       self.depositables_journal = nil
     end
+    unless self.with_commission
+      self.commission_base_amount ||= 0
+      self.commission_percentage ||= 0
+    end
+    
     return true
   end
 
@@ -89,7 +94,7 @@ class IncomingPaymentMode < Ekylibre::Record::Base
   end
 
   def commission_amount(amount)
-    return (amount*self.commission_percentage*0.01 + self.commission_base_amount).round(2)
+    return (amount * self.commission_percentage * 0.01 + self.commission_base_amount).round(2)
   end
 
 end

@@ -4,7 +4,7 @@
   -l.attribute :name
   -l.attribute :active
   -l.attribute :currency
-  -l.attribute :expiration
+  -l.attribute :expiration_delay
   -l.attribute :payment_delay
   -l.attribute :downpayment
   -if @sale_nature.downpayment?
@@ -13,4 +13,3 @@
   -l.attribute :with_accounting
   -if @sale_nature.with_accounting?
     -l.attribute :journal
-  -l.attribute :comment

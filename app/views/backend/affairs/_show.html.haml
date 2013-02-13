@@ -1,0 +1,17 @@
+.affair
+  %table.deals
+    %tfoot.total
+      %tr
+        %th{:colspan => 3}="labels.total".t
+        %td.sum=affair.balance.l(:currency => affair.currency)
+    %tbody
+      -for deal in affair.deals
+        %tr
+          %td.dealt-on=deal.dealt_on.l
+          %td.type=deal.class.model_name.human
+          %td.name=link_to(deal.label, :controller => "backend/"+deal.class.table_name, :action => :show, :id => deal.id)
+          %td.amount{:class => (deal.deal_debit? ? "debit" : "credit")}
+            -unless deal.amount.zero?
+              %span.sign=deal.deal_debit? ? "+" : "-"
+            %span.value=deal.amount.l(:currency => deal.currency)
+  

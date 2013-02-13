@@ -69,7 +69,7 @@ class Backend::SalesController < BackendController
     end
   end
 
-  list(:credits, :model => :sales, :conditions => {:origin_id => ['session[:current_sale_id]'] }, :children => :lines) do |t|
+  list(:credits, :model => :sales, :conditions => {:origin_id => ['session[:current_sale_id]'] }, :children => :items) do |t|
     t.column :number, :url => true, :children => :designation
     t.column :full_name, :through => :client, :children => false
     t.column :created_on, :children => false
@@ -77,7 +77,7 @@ class Backend::SalesController < BackendController
     t.column :amount, :currency => {:body => true, :children => "RECORD.sale.currency"}
   end
 
-  list(:deliveries, :model => :outgoing_deliveries, :children => :lines, :conditions => {:sale_id => ['session[:current_sale_id]']}) do |t|
+  list(:deliveries, :model => :outgoing_deliveries, :children => :items, :conditions => {:sale_id => ['session[:current_sale_id]']}) do |t|
     t.column :number, :children => :product_name
     t.column :last_name, :through => :transporter, :children => false, :url => true
     t.column :coordinate, :through => :address, :children => false
@@ -114,7 +114,7 @@ class Backend::SalesController < BackendController
     t.action :destroy
   end
 
-  list(:undelivered_lines, :model => :sale_items, :conditions => {:sale_id => ['session[:current_sale_id]'], :reduction_origin_id => nil}) do |t|
+  list(:undelivered_items, :model => :sale_items, :conditions => {:sale_id => ['session[:current_sale_id]'], :reduction_origin_id => nil}) do |t|
     t.column :name, :through => :product
     t.column :pretax_amount, :currency => "RECORD.price.currency", :through => :price
     t.column :quantity
@@ -124,7 +124,7 @@ class Backend::SalesController < BackendController
     t.column :undelivered_quantity, :datatype => :decimal
   end
 
-  list(:lines, :model => :sale_items, :conditions => {:sale_id => ['params[:id]']}, :order => :position, :export => false, :line_class => "((RECORD.product.subscription? and RECORD.subscriptions.sum(:quantity) != RECORD.quantity) ? 'warning' : '')", :include => [:product, :subscriptions]) do |t|
+  list(:items, :model => :sale_items, :conditions => {:sale_id => ['params[:id]']}, :order => :position, :export => false, :line_class => "((RECORD.product.subscription? and RECORD.subscriptions.sum(:quantity) != RECORD.quantity) ? 'warning' : '')", :include => [:product, :subscriptions]) do |t|
     #t.column :name, :through => :product
     t.column :position
     t.column :label
@@ -155,8 +155,8 @@ class Backend::SalesController < BackendController
             redirect_to :controller => :outgoing_deliveries, :action => :new, :sale_id => @sale.id
           elsif @sale.deliveries.size <= 0 and @sale.invoice?
             notify(:sale_already_invoiced)
-          elsif @sale.lines.size <= 0
-            notify_warning(:no_lines_found)
+          elsif @sale.items.size <= 0
+            notify_warning(:no_items_found)
             redirect_to :action => :show, :step => :products, :id => @sale.id
           end
         end
@@ -183,7 +183,7 @@ class Backend::SalesController < BackendController
   end
 
 
-  list(:creditable_lines, :model => :sale_items, :conditions => ["sale_id=? AND reduction_origin_id IS NULL", ['session[:sale_id]']]) do |t|
+  list(:creditable_items, :model => :sale_items, :conditions => ["sale_id=? AND reduction_origin_id IS NULL", ['session[:sale_id]']]) do |t|
     t.column :label
     t.column :annotation
     t.column :name, :through => :product
@@ -198,14 +198,14 @@ class Backend::SalesController < BackendController
     return unless @sale = find_and_check(:sale)
     session[:sale_id] = @sale.id
     if request.post?
-      lines = {}
-      params[:creditable_lines].select{|k,v| v[:validated].to_i == 1}.collect{ |k, v| lines[k] = v[:quantity].to_f }
-      if lines.empty?
+      items = {}
+      params[:creditable_items].select{|k,v| v[:validated].to_i == 1}.collect{ |k, v| items[k] = v[:quantity].to_f }
+      if items.empty?
         notify_error_now(:need_quantities_to_cancel_an_sale)
         return
       end
       responsible = Entity.find_by_id(params[:sale][:responsible_id]) if params[:sale]
-      if credit = @sale.cancel(lines, :responsible => responsible||@current_user)
+      if credit = @sale.cancel(items, :responsible => responsible||@current_user)
         redirect_to :action => :show, :id => credit.id
       end
     end

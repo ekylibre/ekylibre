@@ -1103,13 +1103,13 @@ module ApplicationHelper
   def tool(code, &block)
     raise ArgumentError.new("Arguments XOR block code are accepted, but not together.") if code and block_given?
     code = capture(&block) if block_given?
-    code = content_tag(:li, code)
+    # code = content_tag(:li, code)
     content_for(:main_toolbar, code)
     return true
   end
 
   def main_toolbar_tag
-    content_tag(:nav, content_tag(:div, content_for(:main_toolbar), :class => "group") + content_tag(:div, tool_to(:menu, '#', "data-target" => "#side", :tool => :nav, :id => "nav"), :class => :group), :id => "toolbar")
+    content_tag(:div, content_for(:main_toolbar), :id => "main-toolbar") #  + content_tag(:div, tool_to(:menu, '#', "data-target" => "#side", :tool => :nav, :id => "nav"), :class => :group)
   end
 
 

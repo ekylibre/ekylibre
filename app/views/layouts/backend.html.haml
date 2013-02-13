@@ -17,13 +17,12 @@
     #wrap
       %aside#side.visible=side_tag
       #main
-        #main-wrapper
-          %header#header
-            -#=main_toolbar_tag
-            =heading_tag
-            =subheading_tag
-          #content
-            =notifications_tag
-            =yield
+        %header#header
+          =main_toolbar_tag
+          =heading_tag
+          =subheading_tag
+        #content
+          =notifications_tag
+          =yield
     %footer#legals=legals_sentence
     =yield :popover
