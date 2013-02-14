@@ -81,7 +81,7 @@ module Ekylibre::Record  #:nodoc:
         core_method_name ||= "_#{method_name}_#{Ekylibre::Record::Bookkeep::Base.next_id}"
 
         unless Ekylibre::Record::Base.connection.adapter_name == "SQLServer"
-          # raise Exception.new("journal_entry_id is needed for #{self.name}.bookkeep") unless columns_hash["journal_entry_id"]
+          # # raise Exception.new("journal_entry_id is needed for #{self.name}.bookkeep") unless columns_hash["journal_entry_id"]
           raise Exception.new("#{configuration[:column]} is needed for #{self.name}.bookkeep") unless columns_hash[configuration[:column]]
         end
 

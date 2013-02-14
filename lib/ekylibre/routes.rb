@@ -16,9 +16,9 @@ class ActionDispatch::Routing::Mapper
       for unroll in ((((@scope[:module].blank? ? "" : @scope[:module].to_s + "/") + @scope[:controller].to_s + "_controller").camelcase.constantize.unrolls)||[])
         get(unroll)
       end
-    rescue Exception => e
+    rescue # Exception => e
       # Migrate mode
-      puts "#{e.class.name}: #{e.message}\n" + e.backtrace.join("\n")
+      # puts "#{e.class.name}: #{e.message}\n" + e.backtrace.join("\n")
     ensure
       return nil
     end

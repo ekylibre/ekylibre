@@ -42,7 +42,7 @@
 
 
 class Deposit < Ekylibre::Record::Base
-  attr_accessible :cash_id, :comment, :created_on, :mode_id, :number, :responsible_id
+  attr_accessible :cash_id, :description, :created_on, :mode_id, :number, :responsible_id
   acts_as_numbered
   belongs_to :cash
   belongs_to :responsible, :class_name => "Entity"
@@ -59,8 +59,8 @@ class Deposit < Ekylibre::Record::Base
   #]VALIDATORS]
   validates_presence_of :responsible, :cash
 
-  default_scope order(:number)
-  scope :unvalidateds, where(:locked => false)
+  default_scope -> { order(:number) }
+  scope :unvalidateds, -> { where(:locked => false) }
 
 
   before_validation do
