@@ -115,16 +115,6 @@
 # - "backend/product_memberships#show"
 # - "backend/product_memberships#update"
 # - "backend/product_nature_categories#list_product_natures"
-# - "backend/product_nature_prices#create"
-# - "backend/product_nature_prices#destroy"
-# - "backend/product_nature_prices#edit"
-# - "backend/product_nature_prices#export"
-# - "backend/product_nature_prices#find"
-# - "backend/product_nature_prices#import"
-# - "backend/product_nature_prices#index"
-# - "backend/product_nature_prices#list"
-# - "backend/product_nature_prices#new"
-# - "backend/product_nature_prices#update"
 # - "backend/product_natures#list_product_nature_prices"
 # - "backend/product_natures#show"
 # - "backend/product_process_phases#create"
@@ -312,7 +302,7 @@ consult_journal_entries:
 # Consult the prices
 consult_prices:
 - "backend/dashboards#sales"
-- "backend/prices#index" #?
+- "backend/product_nature_prices#index"
 
 # Consult the products
 consult_products:
@@ -587,7 +577,7 @@ manage_entity_links:
 # Create and update estimates
 manage_estimates:
 - "backend/dashboards#sales"
-- "backend/prices#find" #?
+- "backend/product_nature_prices#find"
 - "backend/sale_items#create"
 - "backend/sale_items#destroy"
 - "backend/sale_items#detail"
@@ -849,14 +839,14 @@ manage_outgoing_payments:
 # Manage prices
 manage_prices:
 - "backend/dashboards#sales"
-- "backend/prices#create" #?
-- "backend/prices#destroy" #?
-- "backend/prices#edit" #?
-- "backend/prices#export" #?
-- "backend/prices#import" #?
-- "backend/prices#list" #?
-- "backend/prices#new" #?
-- "backend/prices#update" #?
+- "backend/product_nature_prices#create"
+- "backend/product_nature_prices#destroy"
+- "backend/product_nature_prices#edit"
+- "backend/product_nature_prices#export"
+- "backend/product_nature_prices#import"
+- "backend/product_nature_prices#list"
+- "backend/product_nature_prices#new"
+- "backend/product_nature_prices#update"
 
 # Manage product categories
 manage_product_categories:

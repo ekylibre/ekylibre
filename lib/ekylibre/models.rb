@@ -236,7 +236,7 @@ module Ekylibre
       :creator_id => :user,
       :delivery_id => :incoming_delivery,
       :move_id => :product_move,
-      :price_id => '',
+      :price_id => :product_nature_price,
       :product_id => :product,
       :purchase_item_id => :purchase_item,
       :tracking_id => :tracking,
@@ -401,7 +401,7 @@ module Ekylibre
       :creator_id => :user,
       :delivery_id => :outgoing_delivery,
       :move_id => :product_move,
-      :price_id => '',
+      :price_id => :product_nature_price,
       :product_id => :product,
       :sale_item_id => :sale_item,
       :tracking_id => :tracking,
@@ -535,10 +535,10 @@ module Ekylibre
       :updater_id => :user
     },
     :product_nature_price => {
-      :category_id => '',
+      :category_id => :entity_category,
       :creator_id => :user,
       :product_nature_id => :product_nature,
-      :supplier_id => '',
+      :supplier_id => :entity,
       :tax_id => :tax,
       :updater_id => :user
     },
@@ -607,7 +607,7 @@ module Ekylibre
     :purchase_item => {
       :account_id => :account,
       :creator_id => :user,
-      :price_id => '',
+      :price_id => :product_nature_price,
       :product_id => :product,
       :purchase_id => :purchase,
       :tracking_id => :tracking,
@@ -643,7 +643,7 @@ module Ekylibre
       :creator_id => :user,
       :entity_id => :entity,
       :origin_id => :sale_item,
-      :price_id => '',
+      :price_id => :product_nature_price,
       :product_id => :product,
       :reduction_origin_id => :sale_item,
       :sale_id => :sale,

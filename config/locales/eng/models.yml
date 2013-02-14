@@ -41,18 +41,18 @@ eng:
         amount: "Amount"
         received: "Received"
         to_bank_on: "To bank on"
-      incoming_payment_use:
-        amount: "Used amount"
-        payment: "Incoming payment"
-        payment_way: "Mode of payment"
+      incoming_payment_use:  #?
+        amount: "Used amount" #?
+        payment: "Incoming payment" #?
+        payment_way: "Mode of payment" #?
       inventory_item:
         quantity: "Found quantity"
-      inventory_line:
-        quantity: "Found quantity"
+      inventory_line:  #?
+        quantity: "Found quantity" #?
       journal_entry_item:
         closed: "Closed"
-      journal_entry_line:
-        closed: "Closed"
+      journal_entry_line:  #?
+        closed: "Closed" #?
       land_parcel:
         # area_measure: "Surface"
         # born_at: "Date de création"
@@ -62,19 +62,20 @@ eng:
         family: "Family"
       operation:
         consumption: "Consumption"
-        lines: "Incoming and outgoing products"
+        lines: "Incoming and outgoing products" #?
       outgoing_delivery:
-        lines: "Delivery lines"
+        # items: "Lignes de livraison"
+        lines: "Delivery lines" #?
       outgoing_payment:
         amount: "Amount"
         delivered: "Given to recipient"
       outgoing_payment_mode:
         payments: "Disbursements"
-      outgoing_payment_use:
-        amount: "Used amount"
-      price:
-        category: "People category"
-        entity: "Supplier"
+      outgoing_payment_use:  #?
+        amount: "Used amount" #?
+      price:  #?
+        category: "People category" #?
+        entity: "Supplier" #?
       product:
         race: "Race"
       product_category:
@@ -118,35 +119,36 @@ eng:
       profession:
         employees: "Employees"
       purchase:
+        # items: "Lignes d’achat"
         label: "Purchase order"
-        lines: "Purhase order lines"
+        lines: "Purhase order lines" #?
         moved_on: "Recevied on"
-        payment_uses: "Parts of disbursements"
+        payment_uses: "Parts of disbursements" #?
         planned_on: "Reception on"
-      purchase_item:
-        order: "Purchase order"
-      purchase_line:
-        order: "Purchase order"
+      purchase_item:  #?
+        order: "Purchase order" #?
+      purchase_line:  #?
+        order: "Purchase order" #?
       sale:
         contact: "Address for the estimate"
         has_downpayment: "Request a downpayment"
-        lines: "sale lines"
+        # items: "Lignes de vente"
+        lines: "sale lines" #?
         # parts_amount: "Montant payé"
         payments: "Incoming payments"
       sale_item:
         label: "Product"
         price: "Product"
-      sale_line:
-        label: "Product"
-        price: "Product"
+      sale_line:  #?
+        label: "Product" #?
+        price: "Product" #?
       sale_nature:
         downpayment: "Request downpayment"
       sales_invoice:
         # credit: "Avoir"
-        # lines: "Lignes de facture"
+        # items: "Lignes de facture"
         # origin: "Facture d’origine"
-      sales_invoice_line:
-        # origin: "Ligne d’origine"
+      sales_invoice_line: #?
       stock:
         quantity: "Real quantity"
       stock_move:
@@ -170,7 +172,7 @@ eng:
         # content_unit: "Unité"
         # dead_at: "Date de mise au rebut"
         # parent_place: "Lieu de parking"
-        uses: "Tool uses"
+        uses: "Tool uses" #?
         # variety: "Marque"
       tracking:
         active: "Used"
@@ -181,8 +183,9 @@ eng:
         start: "Value at the origin"
       user:
         locked: "Locked"
+        # maximal_grantable_reduction_percentage: "Taux de réduction autorisé (%)"
         name: "User name"
-        reduction_percent: "Authorized percentage of discount (%)"
+        reduction_percent: "Authorized percentage of discount (%)" #?
       vegetal:
         # born_at: "Date création"
         # nature: "Nature de la culture"
@@ -252,12 +255,11 @@ eng:
           overlap: "%{attribute} overlaps an existing financial year"
         incoming_delivery_item:
           # greater_than_undelivered_quantity: "La quantité de produit %{product} à livrer dépasse la quantité non livrée (%{maximum}%{unit})"
-        incoming_delivery_line:
-          # greater_than_undelivered_quantity: "La quantité de produit %{product} à livrer dépasse la quantité non livrée (%{maximum}%{unit})"
+        incoming_delivery_line: #?
         journal:
           attributes:
             closed_on:
-              # draft_entry_lines: "Des écritures du brouillard sont encore présente avant le %{closed_on}"
+              # draft_entry_items: "Des écritures du brouillard sont encore présente avant le %{closed_on}"
               end_of_month: "%{attribute} must be an end of month (%{closed_on})"
         journal_entry:
           closed_journal: "The journal %{journal} is closed on %{closed_on}. No updates are possible until this date."
@@ -267,17 +269,17 @@ eng:
           closed_entry: "The journal entry is locked. You can not update it."
           empty_amounts: "The journal entry must be filled either debit or credit"
           unvalid_amounts: "The journal entry must be filled either debit or credit but not at the same time."
-        journal_entry_line:
-          closed_entry: "The journal entry is locked. You can not update it."
-          empty_amounts: "The journal entry must be filled either debit or credit"
-          unvalid_amounts: "The journal entry must be filled either debit or credit but not at the same time."
+        journal_entry_line:  #?
+          closed_entry: "The journal entry is locked. You can not update it." #?
+          empty_amounts: "The journal entry must be filled either debit or credit" #?
+          unvalid_amounts: "The journal entry must be filled either debit or credit but not at the same time." #?
         outgoing_delivery_item:
           greater_than_undelivered_quantity: "The quantity of %{product} to deliver is greater than the available quantity (%{maximum}%{unit})"
-        outgoing_delivery_line:
-          greater_than_undelivered_quantity: "The quantity of %{product} to deliver is greater than the available quantity (%{maximum}%{unit})"
-        price:
-          already_defined: "A price is already defined for this list and this product"
-          range_overlap: "The range overlaps an other(from %{min} to %{max})"
+        outgoing_delivery_line:  #?
+          greater_than_undelivered_quantity: "The quantity of %{product} to deliver is greater than the available quantity (%{maximum}%{unit})" #?
+        price:  #?
+          already_defined: "A price is already defined for this list and this product" #?
+          range_overlap: "The range overlaps an other(from %{min} to %{max})" #?
         product_nature_price:
           already_defined: "A price is already defined for this list and this product"
           range_overlap: "The range overlaps an other(from %{min} to %{max})"
@@ -291,19 +293,19 @@ eng:
         purchase_item:
           serial_already_used_with_an_other_product: "%{attribute} has been already used for an other product of the same supplier"
           warehouse_can_not_receive_product: "The warehouse %{warehouse} can not receive %{product}, it already contains %{contained_product}."
-        purchase_line:
-          serial_already_used_with_an_other_product: "%{attribute} has been already used for an other product of the same supplier"
-          warehouse_can_not_receive_product: "The warehouse %{warehouse} can not receive %{product}, it already contains %{contained_product}."
+        purchase_line:  #?
+          serial_already_used_with_an_other_product: "%{attribute} has been already used for an other product of the same supplier" #?
+          warehouse_can_not_receive_product: "The warehouse %{warehouse} can not receive %{product}, it already contains %{contained_product}." #?
         sale_item:
           can_not_use_this_tracking: "You can not user the S/N %{tracking}, the quantity is greater than the available quantity"
           currency_is_not_sale_currency: "Currency is not identical to the sale currency"
           error_no_found_price: "No found price"
           warehouse_can_not_transfer_product: "%{product} can not be found in %{warehouse}, it only contains %{contained_product}."
-        sale_line:
-          can_not_use_this_tracking: "You can not user the S/N %{tracking}, the quantity is greater than the available quantity"
-          currency_is_not_sale_currency: "Currency is not identical to the sale currency"
-          error_no_found_price: "No found price"
-          warehouse_can_not_transfer_product: "%{product} can not be found in %{warehouse}, it only contains %{contained_product}."
+        sale_line:  #?
+          can_not_use_this_tracking: "You can not user the S/N %{tracking}, the quantity is greater than the available quantity" #?
+          currency_is_not_sale_currency: "Currency is not identical to the sale currency" #?
+          error_no_found_price: "No found price" #?
+          warehouse_can_not_transfer_product: "%{product} can not be found in %{warehouse}, it only contains %{contained_product}." #?
         stock:
           product_cannot_be_in_warehouse: "Product can not be stored in %{warehouse}"
         stock_transfer:
@@ -325,6 +327,7 @@ eng:
     models:
       account: "Account"
       account_balance: "Account balance"
+      # affair: "Affaire"
       animal: "Animal" #?
       animal_diagnostic: "Animal diagnostic" #?
       animal_disease: "Animal disease" #?
@@ -346,7 +349,7 @@ eng:
       cash_transfer: "Cash transfer"
       company: "Company"
       contact: "" #?
-      cultivation: "Cultivation"
+      cultivation: "Cultivation" #?
       custom_field: "Complement field"
       custom_field_choice: "Complement field choice"
       custom_field_datum: "Complement datum"
@@ -354,15 +357,15 @@ eng:
       department: "Department"
       deposit: "Deposit"
       deposit_item: "Deposit line"
-      deposit_line: "Deposit line"
+      deposit_line: "Deposit line" #?
       district: "District"
       document: "Document"
       document_template: "Document template"
       entity: "Person"
       entity_address: "Address"
       entity_category: "Person category"
-      entity_event: "Event"
-      entity_event_nature: "Event type"
+      entity_event: "Event" #?
+      entity_event_nature: "Event type" #?
       entity_link: "Person link"
       entity_link_nature: "Person link type"
       entity_nature: "Person type"
@@ -372,7 +375,7 @@ eng:
       financial_year: "Financial year"
       incoming_delivery: "Purchase delivery"
       incoming_delivery_item: "Purchase delivery line"
-      incoming_delivery_line: "Purchase delivery line"
+      incoming_delivery_line: "Purchase delivery line" #?
       incoming_delivery_mode: "Purchase delivery mode"
       incoming_payment: "Incoming payment"
       incoming_payment_mode: "Incoming payment mode"
@@ -383,10 +386,10 @@ eng:
       journal: "Journal"
       journal_entry: "Journal entry"
       journal_entry_item: "Journal entry line"
-      journal_entry_line: "Journal entry line"
+      journal_entry_line: "Journal entry line" #?
       land_parcel: "Land parcel"
-      land_parcel_group: "Land parcel group"
-      land_parcel_kinship: "Land parcel kinship"
+      land_parcel_group: "Land parcel group" #?
+      land_parcel_kinship: "Land parcel kinship" #?
       listing: "Listing"
       listing_node: "Listing node"
       listing_node_item: "Listing node item"
@@ -394,65 +397,63 @@ eng:
       mandate: "Mandate"
       observation: "Observation"
       operation: "Operation"
-      operation_item: "Operation line"
-      operation_line: "Operation line"
-      operation_nature: "Operation type"
-      operation_use: "Tool use"
+      operation_item: "Operation line" #?
+      operation_line: "Operation line" #?
+      operation_nature: "Operation type" #?
+      operation_use: "Tool use" #?
       outgoing_delivery: "Delivery"
       outgoing_delivery_item: "Delivery line"
-      outgoing_delivery_line: "Delivery line"
+      outgoing_delivery_line: "Delivery line" #?
       outgoing_delivery_mode: "Delivery mode"
       outgoing_payment: "Disbursement"
       outgoing_payment_mode: "Disbursement mode"
-      outgoing_payment_use: "Disbursement part"
+      outgoing_payment_use: "Disbursement part" #?
       preference: "Preference"
-      price: "Price"
+      price: "Price" #?
       product: "Animal"
       product_category: "Product category" #?
-      product_component: "Product component"
-      product_event: "Animal event"
-      product_event_nature: "Animal event type"
+      product_component: "Product component" #?
+      product_event: "Animal event" #?
+      product_event_nature: "Animal event type" #?
       product_group: "Animal group"
-      # product_group_event: "Évènement de groupe de produits"
-      # product_group_passing: "Passage d'un produit dans un groupe"
       # product_membership: "Passage d'un produit dans un groupe"
       product_move: "Stock move"
       product_nature: "Product"
       product_nature_category: "Product category"
-      product_nature_component: "Product component"
+      product_nature_component: "Product component" #?
       product_nature_price: "Price"
-      product_specy: "Animal race"
-      product_stock: "Stock"
-      product_stock_move: "Stock move"
+      product_specy: "Animal race" #?
+      product_stock: "Stock" #?
+      product_stock_move: "Stock move" #?
       product_transfer: "Stock transfer"
       product_variety: "Animal race"
       production_chain: "Production chain"
       production_chain_conveyor: "Production chain conveyor"
       production_chain_work_center: "Production chain work center"
       production_chain_work_center_use: "Production chain work center use"
-      products_nature: "Product"
+      products_nature: "Product" #?
       profession: "Profession"
       purchase: "Purchase order"
       purchase_item: "Purchase order line"
-      purchase_line: "Purchase order line"
+      purchase_line: "Purchase order line" #?
       purchase_nature: "Purchase nature"
       role: "Role"
       sale: "sale"
       sale_item: "sale line"
-      sale_line: "sale line"
+      sale_line: "sale line" #?
       sale_nature: "sale type"
       sequence: "Sequence"
-      stock: "Stock"
-      stock_move: "Stock move"
-      stock_transfer: "Stock transfer"
+      stock: "Stock" #?
+      stock_move: "Stock move" #?
+      stock_transfer: "Stock transfer" #?
       subscription: "Subscription"
       subscription_nature: "Subscription type"
       tax: "Tax"
       tax_declaration: "Tax declaration"
       tool: "Tool"
-      tool_nature: "Tool type"
+      tool_nature: "Tool type" #?
       tracking: "Tracking"
-      tracking_state: "Tracking state"
+      tracking_state: "Tracking state" #?
       transfer: "Transfer"
       transport: "Transport"
       unit: "Unit"
@@ -461,7 +462,7 @@ eng:
   attributes:
     account: "Account"
     account_balances: "Account balances"
-    account_number: "Account number"
+    account_number: "Account number" #?
     accountable: "Accountable"
     accounted_at: "Accounted at"
     accounts: "Accounts"
@@ -472,9 +473,11 @@ eng:
     actual_number: "Actual number"
     address: "Address"
     addresses: "Addresses"
-    admin: "Admin"
-    # affair: "Affair"
-    agency_code: "Agency code"
+    admin: "Admin" #?
+    # administrator: "Administrateur système"
+    # affair: "Affaire"
+    # affairs: "Affaires"
+    agency_code: "Agency code" #?
     allocation_account: "Allocation account"
     amount: "Amount"
     animal: "Animal" #?
@@ -510,10 +513,12 @@ eng:
     balance: "Balance"
     balance_amount: "Balance amount"
     balances: "Balances"
-    bank: "Bank"
+    bank: "Bank" #?
     # bank_account_number: "Bank account number"
+    # bank_agency_code: "Code guichet"
     # bank_check_number: "Bank check number"
     bank_code: "Bank code"
+    # bank_identifier_code: "BIC"
     bank_journals: "Bank journals"
     bank_name: "Bank name"
     bank_statement: "Bank statement"
@@ -521,7 +526,7 @@ eng:
     banks_accounts: "Banks accounts"
     base: "Base"
     bban: "BBAN"
-    bic: "BIC"
+    bic: "BIC" #?
     boolean_value: "Boolean value"
     # born_at: "Born at"
     born_on: "Born on"
@@ -675,12 +680,12 @@ eng:
     direct_links: "Direct links"
     direction: "Direction"
     direction_label: "Direction label" #?
-    # discount_rate: "Taux d’escompte"
+    # discount_percentage: "Pourcentage d’escompte"
     disease: "Disease" #?
     diseases: "Diseases" #?
     district: "District"
     districts: "Districts"
-    division: "X"
+    division: "X" #?
     document_templates: "Document templates"
     documents: "Documents"
     downpayment: "Downpayment"
@@ -722,7 +727,8 @@ eng:
     entity_natures: "Person types"
     entries: "Entries"
     entry: "Entry"
-    entry_lines: "Entry lines"
+    # entry_items: "Lignes d’écritures"
+    entry_lines: "Entry lines" #?
     establishment: "Establishment"
     establishments: "Establishments"
     event: "Event"
@@ -791,7 +797,8 @@ eng:
     included: "Included"
     income_reasons: "Income reasons" #?
     incoming_deliveries: "Incoming deliveries"
-    incoming_delivery_lines: "Incoming delivery lines"
+    # incoming_delivery_items: "Lignes de livraisons entrantes"
+    incoming_delivery_lines: "Incoming delivery lines" #?
     incoming_delivery_modes: "Incoming delivery modes"
     incoming_payment_modes: "Incoming payment modes"
     incoming_payment_uses: "Incoming payment parts"
@@ -805,7 +812,8 @@ eng:
     introduction: "Introduction"
     inventories: "Inventories"
     inventory: "Inventory"
-    inventory_lines: "Inventory lines"
+    # inventory_items: "Lignes d’inventaire"
+    inventory_lines: "Inventory lines" #?
     invoice_address: "Invoice address"
     # invoiced: "Facturée"
     invoiced_on: "Invoiced on"
@@ -819,7 +827,8 @@ eng:
     journal: "Journal"
     journal_entries: "Journal entries"
     journal_entry: "Journal entry"
-    journal_entry_lines: "Journal entry lines"
+    # journal_entry_items: "Lignes d’écritures"
+    journal_entry_lines: "Journal entry lines" #?
     journals: "Journals"
     key: "Key"
     label: "Label"
@@ -918,13 +927,14 @@ eng:
     office: "Office"
     old_password: "Old password"
     operation: "Operation"
-    operation_lines: "Operation lines"
+    # operation_items: "Intrants/sortants"
+    operation_lines: "Operation lines" #?
     operation_nature: "Operation type"
     operation_natures: "Operation types"
     operation_uses: "Tool uses"
     operations: "Operations"
     # order: "Vente"
-    # order_line: "Ligne de vente"
+    # order_item: "Ligne de vente"
     organization: "Organization"
     origin: "Origin"
     origin_type: "Origin type"
@@ -934,7 +944,8 @@ eng:
     original_debit: "Original debit"
     original_name: "Original name"
     outgoing_deliveries: "Outgoing deliveries"
-    outgoing_delivery_lines: "Outgoing delivery lines"
+    # outgoing_delivery_items: "Lignes de livraisons sortantes"
+    outgoing_delivery_lines: "Outgoing delivery lines" #?
     outgoing_delivery_modes: "Outgoing delivery modes"
     outgoing_payment_modes: "Disbursement modes"
     outgoing_payment_uses: "Disbursement parts"
@@ -1031,8 +1042,10 @@ eng:
     purchase: "Purchase"
     purchase_amount: "Purchase amount"
     purchase_invoices: "Purchase invoices"
-    purchase_line: "Purchase line"
-    purchase_lines: "Purchase order lines"
+    # purchase_item: "Ligne d’achat"
+    # purchase_items: "Lignes d’achat"
+    purchase_line: "Purchase line" #?
+    purchase_lines: "Purchase order lines" #?
     purchase_natures: "Purchase natures"
     purchased_on: "Purchased on"
     purchases: "Purchase orders"
@@ -1089,15 +1102,16 @@ eng:
     root_model: "Root model"
     root_model_name: "Root model name"
     sale: "Sale"
-    # sale_item: "Sale item"
-    sale_line: "Sale line"
+    # sale_item: "Ligne de vente"
+    # sale_items: "Lignes de vente"
+    sale_line: "Sale line" #?
     sale_lines: "sale lines"
     sale_natures: "sale types"
     sales: "sales"
     sales_account: "Sales account"
     sales_conditions: "Sales conditions"
     # sales_invoice: "Facture"
-    # sales_invoice_lines: "Lignes de facture"
+    # sales_invoice_items: "Lignes de facture"
     sales_invoices: "Sales invoices"
     # sales_invoices_count: "Nombre de factures"
     sales_products: "Sales products"
@@ -1217,7 +1231,8 @@ eng:
     use_range: "Use range" #?
     used_amount: "Used amount"
     used_with: "Used with"
-    useful_lines: "Useful lines"
+    # useful_items: "Lignes utiles"
+    useful_lines: "Useful lines" #?
     user: "User"
     user_name: "User name"
     users: "Users"
@@ -1307,12 +1322,7 @@ eng:
         sales_order: "Sales order"
         stocks: "Stocks"
         transport: "Transport"
-    drug_admission_path:
-      # ima: "IntraMammaire"
-      # imu: "IntraMusculaire"
-      # iu: "IntraUtérine"
-      # iv: "IntraVeineuse"
-      # oral: "Orale"
+    drug_admission_path: #?
     entity_address:
       canal:
         # email: "E-mail"
@@ -1352,24 +1362,13 @@ eng:
       direction:
         in: "In"
         out: "Out"
-    operation_line:
-      direction:
-        in: "In"
-        out: "Out"
-    per_animal_unit:
-      # per_animal: " / Animal"
-      # per_kg: " / Kg"
-      # per_milking: " / Traite"
-    per_duration_time_unit:
-      # days: "Jours"
-      # hours: "Heures"
-      # months: "Mois"
-      # weeks: "Semaines"
-    per_frequency_time_unit:
-      # times_per_12_hours: " / 12 Heures"
-      # times_per_day: " / Jour"
-      # times_per_month: " / Mois"
-      # times_per_week: " / Semaine"
+    operation_line:  #?
+      direction: #?
+        in: "In" #?
+        out: "Out" #?
+    per_animal_unit: #?
+    per_duration_time_unit: #?
+    per_frequency_time_unit: #?
     product:
       arrival_reasons:
         # birth: "Naissance"
@@ -1621,26 +1620,26 @@ eng:
         with_value: "%{comparator} %{value}"
         without_value: "%{comparator}"
       reflections: "Associated tables"
-    operation_item:
-      density_label: "%{value} %{product_unit}/%{area_unit}"
-    operation_line:
-      density_label: "%{value} %{product_unit}/%{area_unit}"
+    operation_item:  #?
+      density_label: "%{value} %{product_unit}/%{area_unit}" #?
+    operation_line:  #?
+      density_label: "%{value} %{product_unit}/%{area_unit}" #?
     outgoing_delivery:
       label: "%{client} at %{address}"
       sale: "Sale %{number}"
     outgoing_delivery_item:
       sale: "Sale %{number}"
-    outgoing_delivery_line:
-      sale: "Sale %{number}"
+    outgoing_delivery_line:  #?
+      sale: "Sale %{number}" #?
     outgoing_payment:
       bookkeep: "[%{resource} %{number}] %{mode} %{check_number} for %{payee} (%{expenses})"
       label: "%{number}. %{usable_amount}/%{amount}, %{mode} for %{payee} on %{date}"
-    outgoing_payment_use:
-      bookkeep: "[%{resource}] %{mode} (%{payment_number}) received from %{attorney} for %{supplier} (%{expense_number})"
-    price:
-      label: "%{product} / %{amount} %{currency}"
-      no_range: "No range"
-      range: "From %{min} to %{max}"
+    outgoing_payment_use:  #?
+      bookkeep: "[%{resource}] %{mode} (%{payment_number}) received from %{attorney} for %{supplier} (%{expense_number})" #?
+    price:  #?
+      label: "%{product} / %{amount} %{currency}" #?
+      no_range: "No range" #?
+      range: "From %{min} to %{max}" #?
     product:
       informations:
         with_components: "%{product} (%{unit}) (transformed material)"
@@ -1655,8 +1654,8 @@ eng:
         purchases: "Purchases"
         rent: "Location"
         sales: "Sales"
-    product_component:
-      of_product: "of product"
+    product_component:  #?
+      of_product: "of product" #?
     product_move:
       default_name: "%{origin} (%{code})"
     product_nature:
@@ -1673,33 +1672,33 @@ eng:
         purchases: "Purchases"
         rent: "Location"
         sales: "Sales"
-    product_nature_component:
-      of_product: "of product"
+    product_nature_component:  #?
+      of_product: "of product" #?
     product_nature_price:
       label: "%{product} / %{amount} %{currency}"
       no_range: "No range"
       range: "From %{min} to %{max}"
-    product_stock:
-      default_name: "%{warehouse}/%{product}/%{tracking}"
-      label:
-        with_tracking: "%{warehouse}: S/N%{tracking}, %{quantity}%{unit} available"
-        without_tracking: "%{warehouse}: No serial, %{quantity}%{unit} available"
-    product_stock_move:
-      default_name: "%{origin} (%{code})"
-    products_nature:
-      informations:
-        with_components: "%{product} (%{unit}) (transformed material)"
-        without_components: "%{product} (%{unit}) (raw material)"
-      label: "%{product} (%{unit})"
-      stock_move: "%{origin} (%{code})"
-      subscription_label:
-        period: "Subscription %{subscription_nature} for %{entity} at %{address} from %{start} to %{finish}"
-        quantity: "Subscription %{subscription_nature} for %{entity} at %{address} from %{start} to %{finish}"
-      to:
-        produce: "Production"
-        purchases: "Purchases"
-        rent: "Location"
-        sales: "Sales"
+    product_stock:  #?
+      default_name: "%{warehouse}/%{product}/%{tracking}" #?
+      label: #?
+        with_tracking: "%{warehouse}: S/N%{tracking}, %{quantity}%{unit} available" #?
+        without_tracking: "%{warehouse}: No serial, %{quantity}%{unit} available" #?
+    product_stock_move:  #?
+      default_name: "%{origin} (%{code})" #?
+    products_nature:  #?
+      informations: #?
+        with_components: "%{product} (%{unit}) (transformed material)" #?
+        without_components: "%{product} (%{unit}) (raw material)" #?
+      label: "%{product} (%{unit})" #?
+      stock_move: "%{origin} (%{code})" #?
+      subscription_label: #?
+        period: "Subscription %{subscription_nature} for %{entity} at %{address} from %{start} to %{finish}" #?
+        quantity: "Subscription %{subscription_nature} for %{entity} at %{address} from %{start} to %{finish}" #?
+      to: #?
+        produce: "Production" #?
+        purchases: "Purchases" #?
+        rent: "Location" #?
+        sales: "Sales" #?
     purchase:
       bookkeep: "[%{resource} %{number}] %{products} of %{supplier}"
       label: "%{supplier} at %{address}"
@@ -1715,10 +1714,10 @@ eng:
       name: "%{product} (%{quantity}%{unit}), %{amount}%{currency}/%{unit}"
       name_with_tracking: "%{product}/%{tracking} (%{quantity}%{unit}), %{amount}%{currency}/%{unit}"
       tracking: "S/N: %{serial}"
-    purchase_line:
-      name: "%{product} (%{quantity}%{unit}), %{amount}%{currency}/%{unit}"
-      name_with_tracking: "%{product}/%{tracking} (%{quantity}%{unit}), %{amount}%{currency}/%{unit}"
-      tracking: "S/N: %{serial}"
+    purchase_line:  #?
+      name: "%{product} (%{quantity}%{unit}), %{amount}%{currency}/%{unit}" #?
+      name_with_tracking: "%{product}/%{tracking} (%{quantity}%{unit}), %{amount}%{currency}/%{unit}" #?
+      tracking: "S/N: %{serial}" #?
     sale:
       bookkeep: "[%{resource} %{number}] %{products} for %{client} (%{sale})"
       label:
@@ -1750,13 +1749,13 @@ eng:
       reduction_on: "Reduction of %{percentage}%  on %{product}"
       tracking: "S/N: %{serial}"
       warehouse_can_not_transfer_product: "The product %{product} can not be used with %{warehouse}, because it contains only %{contained_product} "
-    sale_line:
-      can_not_use_this_tracking: "You can not use the tracking %{name}, the requested quantity is greater than the available quantity"
-      currency_is_not_sale_currency: "The currency of the price differs from the sale currency"
-      no_product: "[No product]"
-      reduction_on: "Reduction of %{percentage}%  on %{product}"
-      tracking: "S/N: %{serial}"
-      warehouse_can_not_transfer_product: "The product %{product} can not be used with %{warehouse}, because it contains only %{contained_product} "
+    sale_line:  #?
+      can_not_use_this_tracking: "You can not use the tracking %{name}, the requested quantity is greater than the available quantity" #?
+      currency_is_not_sale_currency: "The currency of the price differs from the sale currency" #?
+      no_product: "[No product]" #?
+      reduction_on: "Reduction of %{percentage}%  on %{product}" #?
+      tracking: "S/N: %{serial}" #?
+      warehouse_can_not_transfer_product: "The product %{product} can not be used with %{warehouse}, because it contains only %{contained_product} " #?
     sequence:
       default:
         assets:
@@ -1797,13 +1796,13 @@ eng:
           number_format: "SUB[number|8]"
         transports:
           number_format: "SH[number|8]"
-    stock:
-      default_name: "%{warehouse}/%{product}/%{tracking}"
-      label:
-        with_tracking: "%{warehouse}: S/N%{tracking}, %{quantity}%{unit} available"
-        without_tracking: "%{warehouse}: No serial, %{quantity}%{unit} available"
-    stock_move:
-      default_name: "%{origin} (%{code})"
+    stock:  #?
+      default_name: "%{warehouse}/%{product}/%{tracking}" #?
+      label: #?
+        with_tracking: "%{warehouse}: S/N%{tracking}, %{quantity}%{unit} available" #?
+        without_tracking: "%{warehouse}: No serial, %{quantity}%{unit} available" #?
+    stock_move:  #?
+      default_name: "%{origin} (%{code})" #?
     tax_declaration:
       deferment: "Deferment"
       monthly: "Monthly"

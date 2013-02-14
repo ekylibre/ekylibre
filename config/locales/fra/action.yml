@@ -1670,6 +1670,8 @@ fra:
       all: "{content}"
     backend/operations:
       all: "{nature} ({created_at})"
+    backend/product_indicators:
+      all: "{id}"
     backend/product_memberships:
       all: "{started_at}"
     backend/product_nature_prices:
