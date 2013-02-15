@@ -689,7 +689,7 @@
         <page to="backend/product_natures#edit"/>
         <page to="backend/product_natures#list"/>
         <page to="backend/product_natures#list_components"/>
-        <page to="backend/product_natures#list_prices"/>
+        <page to="backend/product_natures#list_product_nature_prices"/>
         <page to="backend/product_natures#list_stock_moves"/>
         <page to="backend/product_natures#list_stocks"/>
         <page to="backend/product_natures#new"/>
@@ -707,17 +707,17 @@
         <page to="backend/product_nature_categories#show"/>
         <page to="backend/product_nature_categories#update"/>
       </menu>
-      <menu name="prices">
-        <page to="backend/prices#index" deletable="true"/>
-        <page to="backend/prices#create" deletable="true"/>
-        <page to="backend/prices#destroy" deletable="true"/>
-        <page to="backend/prices#edit" deletable="true"/>
-        <page to="backend/prices#export" deletable="true"/>
-        <page to="backend/prices#find" deletable="true"/>
-        <page to="backend/prices#import" deletable="true"/>
-        <page to="backend/prices#list" deletable="true"/>
-        <page to="backend/prices#new" deletable="true"/>
-        <page to="backend/prices#update" deletable="true"/>
+      <menu name="product_nature_prices">
+        <page to="backend/product_nature_prices#index" deletable="true"/>
+        <page to="backend/product_nature_prices#create" deletable="true"/>
+        <page to="backend/product_nature_prices#destroy" deletable="true"/>
+        <page to="backend/product_nature_prices#edit" deletable="true"/>
+        <page to="backend/product_nature_prices#export" deletable="true"/>
+        <page to="backend/product_nature_prices#find" deletable="true"/>
+        <page to="backend/product_nature_prices#import" deletable="true"/>
+        <page to="backend/product_nature_prices#list" deletable="true"/>
+        <page to="backend/product_nature_prices#new" deletable="true"/>
+        <page to="backend/product_nature_prices#update" deletable="true"/>
       </menu>
     </menu>
     <menu name="stocks">

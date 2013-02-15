@@ -229,7 +229,7 @@ Ekylibre::Application.routes.draw do
       collection do
         unroll_all
         get :list
-        get :list_prices
+        get :list_product_nature_prices
       end
     end
     resources :entity_links, :except => [:index, :show]
@@ -490,7 +490,7 @@ Ekylibre::Application.routes.draw do
       collection do
         get :change_quantities
         get :list
-        get :list_prices
+        get :list_product_nature_prices
         get :list_stocks
         get :list_stock_moves
         unroll_all
