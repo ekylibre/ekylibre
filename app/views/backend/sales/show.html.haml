@@ -60,8 +60,12 @@
 
   -if ["products", "summary", ""].include? params[:step].to_s
     -b.cell :items do
-      -@sale_item = @sale.items.new
-      -if @sale.draft?
+      .select-product
+        %span.selector
+          =selector_tag("sale_item[price_id]", {:controller => :product_nature_prices, :action => :unroll_availables_for_sales}, {})
+        =button_tag(tl(:add), :class => "btn")
+      -# @sale_item = @sale.items.new
+      -# if @sale.draft?
         =toolbar do |t|
           -t.link(:new, :controller => :sale_items, :sale_id => @sale.id)
         =render :partial => "backend/sale_items/row_form"

@@ -91,7 +91,7 @@ module ApplicationHelper
   def selector_tag(name, choices = nil, options = {}, html_options = {})
     choices ||= :unroll
     choices = {:action => choices} if choices.is_a?(Symbol)
-    return text_field_tag(name, html_options.merge('data-selector' => url_for(choices)))
+    return text_field_tag(name, nil, html_options.merge('data-selector' => url_for(choices)))
   end
 
 

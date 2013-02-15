@@ -409,6 +409,15 @@ $controls-margin-left: round($label-width * 1.1);
 }
 
 
+input[data-selector] {
+  display: inline;
+  margin-bottom: 0;
+  width: auto;
+}
+span.selector {
+  @include toolbar;
+}
+
 span.rad, label.radio {
   padding: round($fs-normal/8) 0;
   @include margin-left(round($fs-normal/2));

@@ -285,11 +285,9 @@ fra:
       # bioproduct: "Bioproduct"
       cash: "Trésorerie"
       cash_transfer: "Virement interne"
-      company: "" #?
       custom_field: "Champ complémentaire"
       custom_field_choice: "Choix de champ complémentaire"
       custom_field_datum: "Donnée complémentaire de fiche"
-      delay: "" #?
       department: "Service"
       deposit: "Remise en banque"
       deposit_item: "Ligne de remise en banque"
@@ -312,10 +310,8 @@ fra:
       incoming_delivery_mode: "Mode d’arrivage"
       incoming_payment: "Encaissement"
       incoming_payment_mode: "Mode d’encaissement"
-      incoming_payment_use: "" #?
       inventory: "Inventaire"
       inventory_item: "Ligne d’inventaire"
-      inventory_line: "" #?
       journal: "Journal"
       journal_entry: "Écriture"
       journal_entry_item: "Ligne d’écriture"
