@@ -689,7 +689,7 @@
         <page to="backend/product_natures#edit"/>
         <page to="backend/product_natures#list"/>
         <page to="backend/product_natures#list_components"/>
-        <page to="backend/product_natures#list_prices"/>
+        <page to="backend/product_natures#list_product_nature_prices"/>
         <page to="backend/product_natures#list_stock_moves"/>
         <page to="backend/product_natures#list_stocks"/>
         <page to="backend/product_natures#new"/>

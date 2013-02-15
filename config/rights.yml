@@ -867,7 +867,7 @@ manage_products:
 - "backend/product_natures#destroy"
 - "backend/product_natures#edit"
 - "backend/product_natures#list"
-- "backend/product_natures#list_prices" #?
+- "backend/product_natures#list_product_nature_prices" #?
 - "backend/product_natures#new"
 - "backend/product_natures#update"
 
