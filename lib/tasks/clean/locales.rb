@@ -173,7 +173,7 @@ task :locales => :environment do
   attributes = HashWithIndifferentAccess.new
   ::I18n.translate("attributes").collect{|k, v| attributes[k.to_s] = [v, :unused]}
   ::I18n.translate("activerecord.models").collect{|k, v| models[k.to_s] = [v, :unused]}
-  ::I18n.translate("models").collect{|k, v| models[k.to_s] ||= []; models[k.to_s][2] = v}
+  # ::I18n.translate("models").collect{|k, v| models[k.to_s] ||= []; models[k.to_s][2] = v}
   models_files = Dir[Rails.root.join("app", "models", "*.rb")].collect{|m| m.split(/[\\\/\.]+/)[-2]}.sort
   for model_file in models_files
     model_name = model_file.sub(/\.rb$/,'')

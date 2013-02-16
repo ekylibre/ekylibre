@@ -8,7 +8,7 @@ task :diagram => :environment do
          else
            Object.subclasses_of(ActiveRecord::Base)
          end.select{|x| not x.name.match('::') and not x.abstract_class?}.uniq.sort{|a,b| a.name <=> b.name}
-  
+
   yuml = '//Ekylibre'
   for model in list
     unless [ActiveRecord::Base, Ekylibre::Record::Base].include? model.superclass

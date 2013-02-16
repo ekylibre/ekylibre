@@ -232,7 +232,7 @@ class Entity < Ekylibre::Record::Base
 
 
   def last_incoming_payment
-    self.incoming_payments.find(:first, :order => "updated_at DESC")
+    self.incoming_payments.last_updateds.first
   end
 
   #

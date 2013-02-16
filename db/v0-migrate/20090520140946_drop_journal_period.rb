@@ -9,7 +9,7 @@ class DropJournalPeriod < ActiveRecord::Migration
           record.closed =  period.closed
           record.financialyear_id = period.financialyear_id
           record.journal_id = period.journal_id
-          record.save(false)
+          record.save! # (false)
         end
       end
     end
@@ -53,7 +53,7 @@ class DropJournalPeriod < ActiveRecord::Migration
     if defined? JournalPeriod
       JournalPeriod.find(:all).each do |period|
         period.stopped_on=period.stopped_on.end_of_month
-        period.save(false)
+        period.save! # (false)
       end
     end
 

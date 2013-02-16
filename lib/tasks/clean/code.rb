@@ -3,6 +3,7 @@ task :code do
   files  = []
   Dir.chdir(Rails.root) do
     files += Dir["**/*.rb"]
+    files += Dir["**/*.rake"]
     files += Dir["**/*.yml"]
     files += Dir["**/*.haml"]
     files += Dir["**/*.js"]

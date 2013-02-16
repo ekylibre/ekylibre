@@ -347,13 +347,13 @@ eng:
       bank_statement: "Bank statement"
       cash: "Cash"
       cash_transfer: "Cash transfer"
-      company: "Company"
+      company: "Company" #?
       contact: "" #?
       cultivation: "Cultivation" #?
       custom_field: "Complement field"
       custom_field_choice: "Complement field choice"
       custom_field_datum: "Complement datum"
-      delay: "Delay"
+      delay: "Delay" #?
       department: "Department"
       deposit: "Deposit"
       deposit_item: "Deposit line"
@@ -379,10 +379,10 @@ eng:
       incoming_delivery_mode: "Purchase delivery mode"
       incoming_payment: "Incoming payment"
       incoming_payment_mode: "Incoming payment mode"
-      incoming_payment_use: "Incoming payment part"
+      incoming_payment_use: "Incoming payment part" #?
       inventory: "Inventory"
       inventory_item: "Inventory line"
-      inventory_line: "Inventory line"
+      inventory_line: "Inventory line" #?
       journal: "Journal"
       journal_entry: "Journal entry"
       journal_entry_item: "Journal entry line"
@@ -1440,252 +1440,206 @@ eng:
       nature:
         amount: "Amount"
         percentage: "Percentage"
-  models:
-    account:
-      label: "%{number} - %{name}"
-    cash_transfer:
-      bookkeep: "[%{resource} %{number}] From %{emitter} to %{receiver} %{comment}"
-    company:
-      cant_find_document_template: "Can not find document template"
-      default:
-        category: "By default"
-        delays:
-          expression:
-            expiration: "1 month"
-            immediate: "0 day"
-            standard: "30 days, end of month"
-          name:
-            expiration: "Expiration (1 M)"
-            immediate: "Immediatly"
-            standard: "Standard (30d EOM)"
-        department_name: "Default department"
-        establishment_name: "Default establishment"
-        event_natures:
-          purchase: "Creation of a purchase"
-          sale: "Creation of a sale"
-          sales_invoice: "Creation of a sales invoice"
-        incoming_payment_modes:
-          cash:
-            name: "Cash"
-          check:
-            name: "Check"
-          transfer:
-            name: "Transfer"
-        outgoing_payment_modes:
-          cash:
-            name: "Cash"
-          check:
-            name: "Check"
-          transfer:
-            name: "Transfer"
-        product_category_name: "Default category"
-        purchase_nature_name: "Standard"
-        role:
-          name:
-            admin: "Manager"
-            public: "Public (no rights)"
-        sale_nature_name: "Standard"
-        taxes:
-          tva0000:
-            amount: "0.0"
-            collected: "445710"
-            name: "VAT 0,00%"
-            paid: "445660"
-          tva0210:
-            amount: "2.1"
-            collected: "445711"
-            name: "VAT 2,10%"
-            paid: "445661"
-          tva0550:
-            amount: "5.5"
-            collected: "445712"
-            name: "VAT 5,50%"
-            paid: "445662"
-          tva1960:
-            amount: "19.6"
-            collected: "445713"
-            name: "VAT 19,60%"
-            paid: "445663"
-        warehouse_name: "Warehouse"
-      import:
-        dont_use: "-- Do not use --"
-        generate_string_custom_field: "-- Create a personalized field (text) --"
-      sales: "sales"
-    contact:  #?
+  models:  #?
+    account: #?
+      label: "%{number} - %{name}" #?
+    cash_transfer: #?
+      bookkeep: "[%{resource} %{number}] From %{emitter} to %{receiver} %{comment}" #?
+    company: #?
+      cant_find_document_template: "Can not find document template" #?
+      default: #?
+        category: "By default" #?
+        delays: #?
+          expression: #?
+            expiration: "1 month" #?
+            immediate: "0 day" #?
+            standard: "30 days, end of month" #?
+          name: #?
+            expiration: "Expiration (1 M)" #?
+            immediate: "Immediatly" #?
+            standard: "Standard (30d EOM)" #?
+        department_name: "Default department" #?
+        establishment_name: "Default establishment" #?
+        event_natures: #?
+          purchase: "Creation of a purchase" #?
+          sale: "Creation of a sale" #?
+          sales_invoice: "Creation of a sales invoice" #?
+        incoming_payment_modes: #?
+          cash: #?
+            name: "Cash" #?
+          check: #?
+            name: "Check" #?
+          transfer: #?
+            name: "Transfer" #?
+        outgoing_payment_modes: #?
+          cash: #?
+            name: "Cash" #?
+          check: #?
+            name: "Check" #?
+          transfer: #?
+            name: "Transfer" #?
+        product_category_name: "Default category" #?
+        purchase_nature_name: "Standard" #?
+        role: #?
+          name: #?
+            admin: "Manager" #?
+            public: "Public (no rights)" #?
+        sale_nature_name: "Standard" #?
+        taxes: #?
+          tva0000: #?
+            amount: "0.0" #?
+            collected: "445710" #?
+            name: "VAT 0,00%" #?
+            paid: "445660" #?
+          tva0210: #?
+            amount: "2.1" #?
+            collected: "445711" #?
+            name: "VAT 2,10%" #?
+            paid: "445661" #?
+          tva0550: #?
+            amount: "5.5" #?
+            collected: "445712" #?
+            name: "VAT 5,50%" #?
+            paid: "445662" #?
+          tva1960: #?
+            amount: "19.6" #?
+            collected: "445713" #?
+            name: "VAT 19,60%" #?
+            paid: "445663" #?
+        warehouse_name: "Warehouse" #?
+      import: #?
+        dont_use: "-- Do not use --" #?
+        generate_string_custom_field: "-- Create a personalized field (text) --" #?
+      sales: "sales" #?
+    contact: #?
       error_modify_contact: "The contact can not be updated." #?
-    contact_address: #?
-    delay:
-      error_unvalid_format_for_expression: "Unvalid format for expression"
-    deposit:
-      bookkeep:
-        one: "[%{resource} %{number}] %{count} payment %{mode} %{comment}"
-        other: "[%{resource} %{number}] %{count} payments %{mode} %{comment}"
-        zero: "[%{resource} %{number}] No payments %{mode} %{comment}"
-      bookkeep_with_payment: "[%{resource} %{number}] %{mode} %{check_number} from %{payer} (%{payment})"
-    document_template:
-      default:
-        accountancy:
-          balance_sheet:
-            filename: "Balance sheet [code]"
-          general_journal:
-            filename: "General journal"
-          general_ledger:
-            filename: "General ledger"
-          income_statement:
-            filename: "Income statement [code]"
-          journal:
-            filename: "[name] (Journal)"
-        management:
-          deposit:
-            filename: "Deposit [number]"
-          inventory:
-            filename: "Inventory [number]"
-          purchase:
-            filename: "Purchase order [number]"
-          sales_invoice:
-            filename: "Sales invoice [number]"
-            to_archive: "true"
-          sales_order:
-            filename: "sale [number]"
-          stocks:
-            filename: "Stocks"
-          transport:
-            filename: "Transport [created_on]"
-        relations:
-          entity:
-            filename: "[full_name]"
-      error_attribute: "The key word %{value} is incorrect. The possibilities are: %{possibilities}"
-      invalid_filename: "File"
-      nature_do_not_allow_to_use_attributes: "The type does not allow to use attributes"
-      unvalid_nature: "Unvalid type of document template."
-    entity:
-      client: "Client"
-      no_right_defined_for_this_part_of_the_application: "No right defined for this part of the application: %{controller}%{action}"
-      no_right_defined_for_this_part_of_the_application_and_this_user: "You can not access to this page"
-      supplier: "Supplier"
-    financial_year:
-      bookkeep: "[%{resource} %{number}] Depreciation of %{name} (%{position}/%{total})"
-      code:
-        double: "FY%{first_year}/%{second_year}"
-        single: "FY%{first_year}"
-    incoming_payment:
-      bookkeep: "[%{resource} %{number}] %{mode} %{check_number} of %{payer} (%{expenses})"
-      label: "%{number}. %{usable_amount}/%{amount}, %{mode} of %{payer} on %{date}"
-    incoming_payment_use:
-      bookkeep: "[%{resource}] %{mode} (%{payment_number}) received from %{attorney} for %{client} (%{expense_number})"
-    inventory_item:
-      inventory: "Inventory"
-    inventory_line:
-      inventory: "Inventory"
-    journal_entry:
-      entry_cancel: "Cancel of entry %{number}: %{name}"
-      states:
-        closed: "Closed"
-        confirmed: "Confirmed"
-        draft: "Draft"
-    listing_node:
-      add_filter: " Add a filter"
-      all_columns: "-- All columns --"
-      columns: "Columns"
-      comparators:
-        any: "-- No condition --"
-        begins: "Starts with"
-        begins_cs: "Starts with (case-sensitive)"
-        contains: "Contains"
-        contains_cs: "Contains (case-sensitive)"
-        eq: "="
-        equal: "Is equals to"
-        equal_cs: "Is equals to (case-sensitive)"
-        finishes: "Finishes with"
-        finishes_cs: "Finishes with (case-sensitive)"
-        ge: "≥"
-        gt: ">"
-        in: "Is equals to one of this following elements"
-        is_false: "Is false"
-        is_true: "Is true"
-        le: "≤"
-        lt: "<"
-        neq: "Is différent from"
-        not_begins: "Do not start with"
-        not_begins_cs: "Do not start with (case-sensitive)"
-        not_contains: "Do not contains"
-        not_contains_cs: "Do not contains (case-sensitive)"
-        not_equal: "Is not equals to"
-        not_equal_cs: "Is not equals to (case-sensitive)"
-        not_finishes: "Do not finish with"
-        not_finishes_cs: "Do not finish with (case-sensitive)"
-        nvn: "Is not empty"
-        vn: "Is empty"
-      comparison:
-        with_value: "%{comparator} %{value}"
-        without_value: "%{comparator}"
-      reflections: "Associated tables"
-    operation_item:  #?
+    delay: #?
+      error_unvalid_format_for_expression: "Unvalid format for expression" #?
+    deposit: #?
+      bookkeep: #?
+        one: "[%{resource} %{number}] %{count} payment %{mode} %{comment}" #?
+        other: "[%{resource} %{number}] %{count} payments %{mode} %{comment}" #?
+        zero: "[%{resource} %{number}] No payments %{mode} %{comment}" #?
+      bookkeep_with_payment: "[%{resource} %{number}] %{mode} %{check_number} from %{payer} (%{payment})" #?
+    document_template: #?
+      default: #?
+        accountancy: #?
+          balance_sheet: #?
+            filename: "Balance sheet [code]" #?
+          general_journal: #?
+            filename: "General journal" #?
+          general_ledger: #?
+            filename: "General ledger" #?
+          income_statement: #?
+            filename: "Income statement [code]" #?
+          journal: #?
+            filename: "[name] (Journal)" #?
+        management: #?
+          deposit: #?
+            filename: "Deposit [number]" #?
+          inventory: #?
+            filename: "Inventory [number]" #?
+          purchase: #?
+            filename: "Purchase order [number]" #?
+          sales_invoice: #?
+            filename: "Sales invoice [number]" #?
+            to_archive: "true" #?
+          sales_order: #?
+            filename: "sale [number]" #?
+          stocks: #?
+            filename: "Stocks" #?
+          transport: #?
+            filename: "Transport [created_on]" #?
+        relations: #?
+          entity: #?
+            filename: "[full_name]" #?
+      error_attribute: "The key word %{value} is incorrect. The possibilities are: %{possibilities}" #?
+      invalid_filename: "File" #?
+      nature_do_not_allow_to_use_attributes: "The type does not allow to use attributes" #?
+      unvalid_nature: "Unvalid type of document template." #?
+    entity: #?
+      client: "Client" #?
+      no_right_defined_for_this_part_of_the_application: "No right defined for this part of the application: %{controller}%{action}" #?
+      no_right_defined_for_this_part_of_the_application_and_this_user: "You can not access to this page" #?
+      supplier: "Supplier" #?
+    financial_year: #?
+      bookkeep: "[%{resource} %{number}] Depreciation of %{name} (%{position}/%{total})" #?
+      code: #?
+        double: "FY%{first_year}/%{second_year}" #?
+        single: "FY%{first_year}" #?
+    incoming_payment: #?
+      bookkeep: "[%{resource} %{number}] %{mode} %{check_number} of %{payer} (%{expenses})" #?
+      label: "%{number}. %{usable_amount}/%{amount}, %{mode} of %{payer} on %{date}" #?
+    incoming_payment_use: #?
+      bookkeep: "[%{resource}] %{mode} (%{payment_number}) received from %{attorney} for %{client} (%{expense_number})" #?
+    inventory_item: #?
+      inventory: "Inventory" #?
+    inventory_line: #?
+      inventory: "Inventory" #?
+    journal_entry: #?
+      entry_cancel: "Cancel of entry %{number}: %{name}" #?
+      states: #?
+        closed: "Closed" #?
+        confirmed: "Confirmed" #?
+        draft: "Draft" #?
+    listing_node: #?
+      add_filter: " Add a filter" #?
+      all_columns: "-- All columns --" #?
+      columns: "Columns" #?
+      comparators: #?
+        any: "-- No condition --" #?
+        begins: "Starts with" #?
+        begins_cs: "Starts with (case-sensitive)" #?
+        contains: "Contains" #?
+        contains_cs: "Contains (case-sensitive)" #?
+        eq: "=" #?
+        equal: "Is equals to" #?
+        equal_cs: "Is equals to (case-sensitive)" #?
+        finishes: "Finishes with" #?
+        finishes_cs: "Finishes with (case-sensitive)" #?
+        ge: "≥" #?
+        gt: ">" #?
+        in: "Is equals to one of this following elements" #?
+        is_false: "Is false" #?
+        is_true: "Is true" #?
+        le: "≤" #?
+        lt: "<" #?
+        neq: "Is différent from" #?
+        not_begins: "Do not start with" #?
+        not_begins_cs: "Do not start with (case-sensitive)" #?
+        not_contains: "Do not contains" #?
+        not_contains_cs: "Do not contains (case-sensitive)" #?
+        not_equal: "Is not equals to" #?
+        not_equal_cs: "Is not equals to (case-sensitive)" #?
+        not_finishes: "Do not finish with" #?
+        not_finishes_cs: "Do not finish with (case-sensitive)" #?
+        nvn: "Is not empty" #?
+        vn: "Is empty" #?
+      comparison: #?
+        with_value: "%{comparator} %{value}" #?
+        without_value: "%{comparator}" #?
+      reflections: "Associated tables" #?
+    operation_item: #?
       density_label: "%{value} %{product_unit}/%{area_unit}" #?
-    operation_line:  #?
+    operation_line: #?
       density_label: "%{value} %{product_unit}/%{area_unit}" #?
-    outgoing_delivery:
-      label: "%{client} at %{address}"
-      sale: "Sale %{number}"
-    outgoing_delivery_item:
-      sale: "Sale %{number}"
-    outgoing_delivery_line:  #?
+    outgoing_delivery: #?
+      label: "%{client} at %{address}" #?
       sale: "Sale %{number}" #?
-    outgoing_payment:
-      bookkeep: "[%{resource} %{number}] %{mode} %{check_number} for %{payee} (%{expenses})"
-      label: "%{number}. %{usable_amount}/%{amount}, %{mode} for %{payee} on %{date}"
-    outgoing_payment_use:  #?
+    outgoing_delivery_item: #?
+      sale: "Sale %{number}" #?
+    outgoing_delivery_line: #?
+      sale: "Sale %{number}" #?
+    outgoing_payment: #?
+      bookkeep: "[%{resource} %{number}] %{mode} %{check_number} for %{payee} (%{expenses})" #?
+      label: "%{number}. %{usable_amount}/%{amount}, %{mode} for %{payee} on %{date}" #?
+    outgoing_payment_use: #?
       bookkeep: "[%{resource}] %{mode} (%{payment_number}) received from %{attorney} for %{supplier} (%{expense_number})" #?
-    price:  #?
+    price: #?
       label: "%{product} / %{amount} %{currency}" #?
       no_range: "No range" #?
       range: "From %{min} to %{max}" #?
-    product:
-      informations:
-        with_components: "%{product} (%{unit}) (transformed material)"
-        without_components: "%{product} (%{unit}) (raw material)"
-      label: "%{product} (%{unit})"
-      stock_move: "%{origin} (%{code})"
-      subscription_label:
-        period: "Subscription %{subscription_nature} for %{entity} at %{address} from %{start} to %{finish}"
-        quantity: "Subscription %{subscription_nature} for %{entity} at %{address} from %{start} to %{finish}"
-      to:
-        produce: "Production"
-        purchases: "Purchases"
-        rent: "Location"
-        sales: "Sales"
-    product_component:  #?
-      of_product: "of product" #?
-    product_move:
-      default_name: "%{origin} (%{code})"
-    product_nature:
-      informations:
-        with_components: "%{product} (%{unit}) (transformed material)"
-        without_components: "%{product} (%{unit}) (raw material)"
-      label: "%{product} (%{unit})"
-      stock_move: "%{origin} (%{code})"
-      subscription_label:
-        period: "Subscription %{subscription_nature} for %{entity} at %{address} from %{start} to %{finish}"
-        quantity: "Subscription %{subscription_nature} for %{entity} at %{address} from %{start} to %{finish}"
-      to:
-        produce: "Production"
-        purchases: "Purchases"
-        rent: "Location"
-        sales: "Sales"
-    product_nature_component:  #?
-      of_product: "of product" #?
-    product_nature_price:
-      label: "%{product} / %{amount} %{currency}"
-      no_range: "No range"
-      range: "From %{min} to %{max}"
-    product_stock:  #?
-      default_name: "%{warehouse}/%{product}/%{tracking}" #?
-      label: #?
-        with_tracking: "%{warehouse}: S/N%{tracking}, %{quantity}%{unit} available" #?
-        without_tracking: "%{warehouse}: No serial, %{quantity}%{unit} available" #?
-    product_stock_move:  #?
-      default_name: "%{origin} (%{code})" #?
-    products_nature:  #?
+    product: #?
       informations: #?
         with_components: "%{product} (%{unit}) (transformed material)" #?
         without_components: "%{product} (%{unit}) (raw material)" #?
@@ -1699,129 +1653,174 @@ eng:
         purchases: "Purchases" #?
         rent: "Location" #?
         sales: "Sales" #?
-    purchase:
-      bookkeep: "[%{resource} %{number}] %{products} of %{supplier}"
-      label: "%{supplier} at %{address}"
-      purchase: "Purchase"
-      states:
-        aborted: "Aborted"
-        draft: "Draft"
-        estimate: "Estimate"
-        invoice: "Invoice"
-        order: "Order"
-        refused: "Refused purchase order"
-    purchase_item:
-      name: "%{product} (%{quantity}%{unit}), %{amount}%{currency}/%{unit}"
-      name_with_tracking: "%{product}/%{tracking} (%{quantity}%{unit}), %{amount}%{currency}/%{unit}"
-      tracking: "S/N: %{serial}"
-    purchase_line:  #?
+    product_component: #?
+      of_product: "of product" #?
+    product_move: #?
+      default_name: "%{origin} (%{code})" #?
+    product_nature: #?
+      informations: #?
+        with_components: "%{product} (%{unit}) (transformed material)" #?
+        without_components: "%{product} (%{unit}) (raw material)" #?
+      label: "%{product} (%{unit})" #?
+      stock_move: "%{origin} (%{code})" #?
+      subscription_label: #?
+        period: "Subscription %{subscription_nature} for %{entity} at %{address} from %{start} to %{finish}" #?
+        quantity: "Subscription %{subscription_nature} for %{entity} at %{address} from %{start} to %{finish}" #?
+      to: #?
+        produce: "Production" #?
+        purchases: "Purchases" #?
+        rent: "Location" #?
+        sales: "Sales" #?
+    product_nature_component: #?
+      of_product: "of product" #?
+    product_nature_price: #?
+      label: "%{product} / %{amount} %{currency}" #?
+      no_range: "No range" #?
+      range: "From %{min} to %{max}" #?
+    product_stock: #?
+      default_name: "%{warehouse}/%{product}/%{tracking}" #?
+      label: #?
+        with_tracking: "%{warehouse}: S/N%{tracking}, %{quantity}%{unit} available" #?
+        without_tracking: "%{warehouse}: No serial, %{quantity}%{unit} available" #?
+    product_stock_move: #?
+      default_name: "%{origin} (%{code})" #?
+    products_nature: #?
+      informations: #?
+        with_components: "%{product} (%{unit}) (transformed material)" #?
+        without_components: "%{product} (%{unit}) (raw material)" #?
+      label: "%{product} (%{unit})" #?
+      stock_move: "%{origin} (%{code})" #?
+      subscription_label: #?
+        period: "Subscription %{subscription_nature} for %{entity} at %{address} from %{start} to %{finish}" #?
+        quantity: "Subscription %{subscription_nature} for %{entity} at %{address} from %{start} to %{finish}" #?
+      to: #?
+        produce: "Production" #?
+        purchases: "Purchases" #?
+        rent: "Location" #?
+        sales: "Sales" #?
+    purchase: #?
+      bookkeep: "[%{resource} %{number}] %{products} of %{supplier}" #?
+      label: "%{supplier} at %{address}" #?
+      purchase: "Purchase" #?
+      states: #?
+        aborted: "Aborted" #?
+        draft: "Draft" #?
+        estimate: "Estimate" #?
+        invoice: "Invoice" #?
+        order: "Order" #?
+        refused: "Refused purchase order" #?
+    purchase_item: #?
       name: "%{product} (%{quantity}%{unit}), %{amount}%{currency}/%{unit}" #?
       name_with_tracking: "%{product}/%{tracking} (%{quantity}%{unit}), %{amount}%{currency}/%{unit}" #?
       tracking: "S/N: %{serial}" #?
-    sale:
-      bookkeep: "[%{resource} %{number}] %{products} for %{client} (%{sale})"
-      label:
-        aborted: "Aborted sale %{number}"
-        draft: "Draft %{number}"
-        estimate: "Estimate %{number}"
-        invoice: "Sales invoice %{number}"
-        order: "Sales order %{number}"
-        refused: "Refused estimate %{number}"
-      sale: "Sale %{number}"
-      sales_conditions:
-        downpayment: "A downpayment of %{percentage}% (i.e. %{amount}€) must be paid at the signature of this present estimate."
-        validity: "This estimate and its general conditions are available until the %{expiration}."
-      sales_invoice:
-        label:
-          credit: "Credit %{number}"
-          normal: "Sales invoice %{number}"
-      states:
-        aborted: "Aborted"
-        draft: "Draft"
-        estimate: "Estimate"
-        invoice: "Invoice"
-        order: "Order"
-        refused: "Refused estimate"
-    sale_item:
-      can_not_use_this_tracking: "You can not use the tracking %{name}, the requested quantity is greater than the available quantity"
-      currency_is_not_sale_currency: "The currency of the price differs from the sale currency"
-      no_product: "[No product]"
-      reduction_on: "Reduction of %{percentage}%  on %{product}"
-      tracking: "S/N: %{serial}"
-      warehouse_can_not_transfer_product: "The product %{product} can not be used with %{warehouse}, because it contains only %{contained_product} "
-    sale_line:  #?
+    purchase_line: #?
+      name: "%{product} (%{quantity}%{unit}), %{amount}%{currency}/%{unit}" #?
+      name_with_tracking: "%{product}/%{tracking} (%{quantity}%{unit}), %{amount}%{currency}/%{unit}" #?
+      tracking: "S/N: %{serial}" #?
+    sale: #?
+      bookkeep: "[%{resource} %{number}] %{products} for %{client} (%{sale})" #?
+      label: #?
+        aborted: "Aborted sale %{number}" #?
+        draft: "Draft %{number}" #?
+        estimate: "Estimate %{number}" #?
+        invoice: "Sales invoice %{number}" #?
+        order: "Sales order %{number}" #?
+        refused: "Refused estimate %{number}" #?
+      sale: "Sale %{number}" #?
+      sales_conditions: #?
+        downpayment: "A downpayment of %{percentage}% (i.e. %{amount}€) must be paid at the signature of this present estimate." #?
+        validity: "This estimate and its general conditions are available until the %{expiration}." #?
+      sales_invoice: #?
+        label: #?
+          credit: "Credit %{number}" #?
+          normal: "Sales invoice %{number}" #?
+      states: #?
+        aborted: "Aborted" #?
+        draft: "Draft" #?
+        estimate: "Estimate" #?
+        invoice: "Invoice" #?
+        order: "Order" #?
+        refused: "Refused estimate" #?
+    sale_item: #?
       can_not_use_this_tracking: "You can not use the tracking %{name}, the requested quantity is greater than the available quantity" #?
       currency_is_not_sale_currency: "The currency of the price differs from the sale currency" #?
       no_product: "[No product]" #?
       reduction_on: "Reduction of %{percentage}%  on %{product}" #?
       tracking: "S/N: %{serial}" #?
       warehouse_can_not_transfer_product: "The product %{product} can not be used with %{warehouse}, because it contains only %{contained_product} " #?
-    sequence:
-      default:
-        assets:
-          number_format: "A[number|7]"
-        cash_transfers:
-          number_format: "CT[year|4][number|4]"
-          period: "year"
-        deposits:
-          number_format: "B[year|4][number|4]"
-          period: "year"
-        entities:
-          number_format: "[number|8]"
-        incoming_deliveries:
-          number_format: "ID[year|4][number|4]"
-          period: "year"
-        incoming_payments:
-          number_format: "P[year|4][number|6]"
-          period: "year"
-        outgoing_deliveries:
-          number_format: "OD[year|4][number|6]"
-          period: "year"
-        outgoing_payments:
-          number_format: "D[year|4][number|4]"
-          period: "year"
-        purchases:
-          number_format: "PO[year|4][month|2][number|4]"
-          period: "month"
-        sales:
-          number_format: "SO[year|4][month|2][number|6]"
-          period: "month"
-        sales_invoices:
-          number_format: "F[year|4][number|6]"
-          period: "year"
-        stock_transfers:
-          number_format: "ST[year|4][number|4]"
-          period: "year"
-        subscriptions:
-          number_format: "SUB[number|8]"
-        transports:
-          number_format: "SH[number|8]"
-    stock:  #?
+    sale_line: #?
+      can_not_use_this_tracking: "You can not use the tracking %{name}, the requested quantity is greater than the available quantity" #?
+      currency_is_not_sale_currency: "The currency of the price differs from the sale currency" #?
+      no_product: "[No product]" #?
+      reduction_on: "Reduction of %{percentage}%  on %{product}" #?
+      tracking: "S/N: %{serial}" #?
+      warehouse_can_not_transfer_product: "The product %{product} can not be used with %{warehouse}, because it contains only %{contained_product} " #?
+    sequence: #?
+      default: #?
+        assets: #?
+          number_format: "A[number|7]" #?
+        cash_transfers: #?
+          number_format: "CT[year|4][number|4]" #?
+          period: "year" #?
+        deposits: #?
+          number_format: "B[year|4][number|4]" #?
+          period: "year" #?
+        entities: #?
+          number_format: "[number|8]" #?
+        incoming_deliveries: #?
+          number_format: "ID[year|4][number|4]" #?
+          period: "year" #?
+        incoming_payments: #?
+          number_format: "P[year|4][number|6]" #?
+          period: "year" #?
+        outgoing_deliveries: #?
+          number_format: "OD[year|4][number|6]" #?
+          period: "year" #?
+        outgoing_payments: #?
+          number_format: "D[year|4][number|4]" #?
+          period: "year" #?
+        purchases: #?
+          number_format: "PO[year|4][month|2][number|4]" #?
+          period: "month" #?
+        sales: #?
+          number_format: "SO[year|4][month|2][number|6]" #?
+          period: "month" #?
+        sales_invoices: #?
+          number_format: "F[year|4][number|6]" #?
+          period: "year" #?
+        stock_transfers: #?
+          number_format: "ST[year|4][number|4]" #?
+          period: "year" #?
+        subscriptions: #?
+          number_format: "SUB[number|8]" #?
+        transports: #?
+          number_format: "SH[number|8]" #?
+    stock: #?
       default_name: "%{warehouse}/%{product}/%{tracking}" #?
       label: #?
         with_tracking: "%{warehouse}: S/N%{tracking}, %{quantity}%{unit} available" #?
         without_tracking: "%{warehouse}: No serial, %{quantity}%{unit} available" #?
-    stock_move:  #?
+    stock_move: #?
       default_name: "%{origin} (%{code})" #?
-    tax_declaration:
-      deferment: "Deferment"
-      monthly: "Monthly"
-      normal: "Normal real"
-      other: "Personalized"
-      payback: "Payback"
-      quarterly: "Quarterly"
-      simplified: "Simplified real"
-      yearly: "Yearly"
-    unit:
-      default:
-        a: "Are"
-        ca: "Centiare (m²)"
-        ha: "Hectare"
-        hl: "Hectolitre"
-        kg: "Kilogram"
-        km: "Kilometre"
-        l: "Litre"
-        m: "Metre"
-        m3: "Cubic metre"
-        t: "Ton"
-        u: "Unit"
+    tax_declaration: #?
+      deferment: "Deferment" #?
+      monthly: "Monthly" #?
+      normal: "Normal real" #?
+      other: "Personalized" #?
+      payback: "Payback" #?
+      quarterly: "Quarterly" #?
+      simplified: "Simplified real" #?
+      yearly: "Yearly" #?
+    unit: #?
+      default: #?
+        a: "Are" #?
+        ca: "Centiare (m²)" #?
+        ha: "Hectare" #?
+        hl: "Hectolitre" #?
+        kg: "Kilogram" #?
+        km: "Kilometre" #?
+        l: "Litre" #?
+        m: "Metre" #?
+        m3: "Cubic metre" #?
+        t: "Ton" #?
+        u: "Unit" #?

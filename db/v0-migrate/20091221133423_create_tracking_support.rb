@@ -32,7 +32,7 @@ class CreateTrackingSupport < ActiveRecord::Migration
     execute "UPDATE #{quoted_table_name(:units)} SET base='' WHERE base='u'"
     if defined? Unit
       for unit in Unit.all
-        unit.save
+        unit.save!
       end
     end
 

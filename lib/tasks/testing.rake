@@ -12,10 +12,10 @@ end
 namespace :test do
 
   desc "Run tests for lib sources"
-  Rake::TestTask.new(:lib) do |t|    
+  Rake::TestTask.new(:lib) do |t|
     t.libs << "test"
     t.pattern = 'test/lib/**/*_test.rb'
-    t.verbose = true    
+    t.verbose = true
   end
 
   remove_task("run")
@@ -42,7 +42,7 @@ end
 
 
 namespace :fixtures do
-  
+
   fixtures_dir = Rails.root.join("test", "fixtures")
 
   def yaml_escape(value, type = :string)
@@ -110,8 +110,8 @@ namespace :fixtures do
         f.write data.to_yaml
       end
     end
-    
-    
+
+
   end
 
 end

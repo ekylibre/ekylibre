@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130130123000) do
+ActiveRecord::Schema.define(:version => 20130216134641) do
 
   create_table "account_balances", :force => true do |t|
     t.integer  "account_id",                                                        :null => false
@@ -31,6 +31,7 @@ ActiveRecord::Schema.define(:version => 20130130123000) do
     t.integer  "lock_version",                                     :default => 0,   :null => false
   end
 
+  add_index "account_balances", ["account_id"], :name => "index_account_balances_on_account_id"
   add_index "account_balances", ["created_at"], :name => "index_account_balances_on_created_at"
   add_index "account_balances", ["creator_id"], :name => "index_account_balances_on_creator_id"
   add_index "account_balances", ["financial_year_id"], :name => "index_account_balances_on_financialyear_id"
@@ -74,6 +75,7 @@ ActiveRecord::Schema.define(:version => 20130130123000) do
 
   add_index "affairs", ["created_at"], :name => "index_affairs_on_created_at"
   add_index "affairs", ["creator_id"], :name => "index_affairs_on_creator_id"
+  add_index "affairs", ["journal_entry_id"], :name => "index_affairs_on_journal_entry_id"
   add_index "affairs", ["updated_at"], :name => "index_affairs_on_updated_at"
   add_index "affairs", ["updater_id"], :name => "index_affairs_on_updater_id"
 
@@ -122,6 +124,7 @@ ActiveRecord::Schema.define(:version => 20130130123000) do
   add_index "asset_depreciations", ["asset_id"], :name => "index_asset_depreciations_on_asset_id"
   add_index "asset_depreciations", ["created_at"], :name => "index_asset_depreciations_on_created_at"
   add_index "asset_depreciations", ["creator_id"], :name => "index_asset_depreciations_on_creator_id"
+  add_index "asset_depreciations", ["financial_year_id"], :name => "index_asset_depreciations_on_financial_year_id"
   add_index "asset_depreciations", ["journal_entry_id"], :name => "index_asset_depreciations_on_journal_entry_id"
   add_index "asset_depreciations", ["updated_at"], :name => "index_asset_depreciations_on_updated_at"
   add_index "asset_depreciations", ["updater_id"], :name => "index_asset_depreciations_on_updater_id"
@@ -157,6 +160,7 @@ ActiveRecord::Schema.define(:version => 20130130123000) do
   end
 
   add_index "assets", ["allocation_account_id"], :name => "index_assets_on_account_id"
+  add_index "assets", ["charges_account_id"], :name => "index_assets_on_charges_account_id"
   add_index "assets", ["created_at"], :name => "index_assets_on_created_at"
   add_index "assets", ["creator_id"], :name => "index_assets_on_creator_id"
   add_index "assets", ["currency"], :name => "index_assets_on_currency"
@@ -209,6 +213,10 @@ ActiveRecord::Schema.define(:version => 20130130123000) do
 
   add_index "cash_transfers", ["created_at"], :name => "index_cash_transfers_on_created_at"
   add_index "cash_transfers", ["creator_id"], :name => "index_cash_transfers_on_creator_id"
+  add_index "cash_transfers", ["emitter_cash_id"], :name => "index_cash_transfers_on_emitter_cash_id"
+  add_index "cash_transfers", ["emitter_journal_entry_id"], :name => "index_cash_transfers_on_emitter_journal_entry_id"
+  add_index "cash_transfers", ["receiver_cash_id"], :name => "index_cash_transfers_on_receiver_cash_id"
+  add_index "cash_transfers", ["receiver_journal_entry_id"], :name => "index_cash_transfers_on_receiver_journal_entry_id"
   add_index "cash_transfers", ["updated_at"], :name => "index_cash_transfers_on_updated_at"
   add_index "cash_transfers", ["updater_id"], :name => "index_cash_transfers_on_updater_id"
 
@@ -348,6 +356,7 @@ ActiveRecord::Schema.define(:version => 20130130123000) do
 
   add_index "deposit_items", ["created_at"], :name => "index_deposit_items_on_created_at"
   add_index "deposit_items", ["creator_id"], :name => "index_deposit_items_on_creator_id"
+  add_index "deposit_items", ["deposit_id"], :name => "index_deposit_items_on_deposit_id"
   add_index "deposit_items", ["updated_at"], :name => "index_deposit_items_on_updated_at"
   add_index "deposit_items", ["updater_id"], :name => "index_deposit_items_on_updater_id"
 
@@ -371,8 +380,12 @@ ActiveRecord::Schema.define(:version => 20130130123000) do
     t.boolean  "in_cash",                                         :default => false, :null => false
   end
 
+  add_index "deposits", ["cash_id"], :name => "index_deposits_on_cash_id"
   add_index "deposits", ["created_at"], :name => "index_embankments_on_created_at"
   add_index "deposits", ["creator_id"], :name => "index_embankments_on_creator_id"
+  add_index "deposits", ["journal_entry_id"], :name => "index_deposits_on_journal_entry_id"
+  add_index "deposits", ["mode_id"], :name => "index_deposits_on_mode_id"
+  add_index "deposits", ["responsible_id"], :name => "index_deposits_on_responsible_id"
   add_index "deposits", ["updated_at"], :name => "index_embankments_on_updated_at"
   add_index "deposits", ["updater_id"], :name => "index_embankments_on_updater_id"
 
@@ -442,6 +455,7 @@ ActiveRecord::Schema.define(:version => 20130130123000) do
   add_index "documents", ["owner_id"], :name => "index_documents_on_owner_id"
   add_index "documents", ["owner_type"], :name => "index_documents_on_owner_type"
   add_index "documents", ["sha256"], :name => "index_documents_on_sha256"
+  add_index "documents", ["template_id"], :name => "index_documents_on_template_id"
   add_index "documents", ["updated_at"], :name => "index_documents_on_updated_at"
   add_index "documents", ["updater_id"], :name => "index_documents_on_updater_id"
 
@@ -498,11 +512,19 @@ ActiveRecord::Schema.define(:version => 20130130123000) do
     t.string   "payment_delay"
   end
 
+  add_index "entities", ["attorney_account_id"], :name => "index_entities_on_attorney_account_id"
+  add_index "entities", ["category_id"], :name => "index_entities_on_category_id"
+  add_index "entities", ["client_account_id"], :name => "index_entities_on_client_account_id"
   add_index "entities", ["code"], :name => "entities_codes"
   add_index "entities", ["code"], :name => "index_entities_on_code"
   add_index "entities", ["created_at"], :name => "index_entities_on_created_at"
   add_index "entities", ["creator_id"], :name => "index_entities_on_creator_id"
+  add_index "entities", ["nature_id"], :name => "index_entities_on_nature_id"
   add_index "entities", ["of_company"], :name => "index_entities_on_of_company"
+  add_index "entities", ["payment_mode_id"], :name => "index_entities_on_payment_mode_id"
+  add_index "entities", ["proposer_id"], :name => "index_entities_on_proposer_id"
+  add_index "entities", ["responsible_id"], :name => "index_entities_on_responsible_id"
+  add_index "entities", ["supplier_account_id"], :name => "index_entities_on_supplier_account_id"
   add_index "entities", ["updated_at"], :name => "index_entities_on_updated_at"
   add_index "entities", ["updater_id"], :name => "index_entities_on_updater_id"
 
@@ -537,6 +559,7 @@ ActiveRecord::Schema.define(:version => 20130130123000) do
   add_index "entity_addresses", ["creator_id"], :name => "index_entity_addresses_on_creator_id"
   add_index "entity_addresses", ["deleted_at"], :name => "index_entity_addresses_on_deleted_at"
   add_index "entity_addresses", ["entity_id"], :name => "index_entity_addresses_on_entity_id"
+  add_index "entity_addresses", ["mail_area_id"], :name => "index_entity_addresses_on_mail_area_id"
   add_index "entity_addresses", ["updated_at"], :name => "index_entity_addresses_on_updated_at"
   add_index "entity_addresses", ["updater_id"], :name => "index_entity_addresses_on_updater_id"
 
@@ -697,6 +720,7 @@ ActiveRecord::Schema.define(:version => 20130130123000) do
   add_index "financial_years", ["created_at"], :name => "index_financialyears_on_created_at"
   add_index "financial_years", ["creator_id"], :name => "index_financialyears_on_creator_id"
   add_index "financial_years", ["currency"], :name => "index_financial_years_on_currency"
+  add_index "financial_years", ["last_journal_entry_id"], :name => "index_financial_years_on_last_journal_entry_id"
   add_index "financial_years", ["updated_at"], :name => "index_financialyears_on_updated_at"
   add_index "financial_years", ["updater_id"], :name => "index_financialyears_on_updater_id"
 
@@ -762,9 +786,12 @@ ActiveRecord::Schema.define(:version => 20130130123000) do
     t.string   "currency",         :limit => 3
   end
 
+  add_index "incoming_deliveries", ["address_id"], :name => "index_incoming_deliveries_on_address_id"
   add_index "incoming_deliveries", ["created_at"], :name => "index_purchase_deliveries_on_created_at"
   add_index "incoming_deliveries", ["creator_id"], :name => "index_purchase_deliveries_on_creator_id"
   add_index "incoming_deliveries", ["currency"], :name => "index_incoming_deliveries_on_currency"
+  add_index "incoming_deliveries", ["mode_id"], :name => "index_incoming_deliveries_on_mode_id"
+  add_index "incoming_deliveries", ["purchase_id"], :name => "index_incoming_deliveries_on_purchase_id"
   add_index "incoming_deliveries", ["updated_at"], :name => "index_purchase_deliveries_on_updated_at"
   add_index "incoming_deliveries", ["updater_id"], :name => "index_purchase_deliveries_on_updater_id"
 
@@ -790,6 +817,13 @@ ActiveRecord::Schema.define(:version => 20130130123000) do
 
   add_index "incoming_delivery_items", ["created_at"], :name => "index_incoming_delivery_items_on_created_at"
   add_index "incoming_delivery_items", ["creator_id"], :name => "index_incoming_delivery_items_on_creator_id"
+  add_index "incoming_delivery_items", ["delivery_id"], :name => "index_incoming_delivery_items_on_delivery_id"
+  add_index "incoming_delivery_items", ["move_id"], :name => "index_incoming_delivery_items_on_move_id"
+  add_index "incoming_delivery_items", ["price_id"], :name => "index_incoming_delivery_items_on_price_id"
+  add_index "incoming_delivery_items", ["product_id"], :name => "index_incoming_delivery_items_on_product_id"
+  add_index "incoming_delivery_items", ["purchase_item_id"], :name => "index_incoming_delivery_items_on_purchase_item_id"
+  add_index "incoming_delivery_items", ["tracking_id"], :name => "index_incoming_delivery_items_on_tracking_id"
+  add_index "incoming_delivery_items", ["unit_id"], :name => "index_incoming_delivery_items_on_unit_id"
   add_index "incoming_delivery_items", ["updated_at"], :name => "index_incoming_delivery_items_on_updated_at"
   add_index "incoming_delivery_items", ["updater_id"], :name => "index_incoming_delivery_items_on_updater_id"
 
@@ -831,8 +865,13 @@ ActiveRecord::Schema.define(:version => 20130130123000) do
     t.integer  "attorney_journal_id"
   end
 
+  add_index "incoming_payment_modes", ["attorney_journal_id"], :name => "index_incoming_payment_modes_on_attorney_journal_id"
+  add_index "incoming_payment_modes", ["cash_id"], :name => "index_incoming_payment_modes_on_cash_id"
+  add_index "incoming_payment_modes", ["commission_account_id"], :name => "index_incoming_payment_modes_on_commission_account_id"
   add_index "incoming_payment_modes", ["created_at"], :name => "index_payment_modes_on_created_at"
   add_index "incoming_payment_modes", ["creator_id"], :name => "index_payment_modes_on_creator_id"
+  add_index "incoming_payment_modes", ["depositables_account_id"], :name => "index_incoming_payment_modes_on_depositables_account_id"
+  add_index "incoming_payment_modes", ["depositables_journal_id"], :name => "index_incoming_payment_modes_on_depositables_journal_id"
   add_index "incoming_payment_modes", ["updated_at"], :name => "index_payment_modes_on_updated_at"
   add_index "incoming_payment_modes", ["updater_id"], :name => "index_payment_modes_on_updater_id"
 
@@ -868,8 +907,14 @@ ActiveRecord::Schema.define(:version => 20130130123000) do
 
   add_index "incoming_payments", ["accounted_at"], :name => "index_payments_on_accounted_at"
   add_index "incoming_payments", ["affair_id"], :name => "index_incoming_payments_on_affair_id"
+  add_index "incoming_payments", ["commission_account_id"], :name => "index_incoming_payments_on_commission_account_id"
   add_index "incoming_payments", ["created_at"], :name => "index_payments_on_created_at"
   add_index "incoming_payments", ["creator_id"], :name => "index_payments_on_creator_id"
+  add_index "incoming_payments", ["deposit_id"], :name => "index_incoming_payments_on_deposit_id"
+  add_index "incoming_payments", ["journal_entry_id"], :name => "index_incoming_payments_on_journal_entry_id"
+  add_index "incoming_payments", ["mode_id"], :name => "index_incoming_payments_on_mode_id"
+  add_index "incoming_payments", ["payer_id"], :name => "index_incoming_payments_on_payer_id"
+  add_index "incoming_payments", ["responsible_id"], :name => "index_incoming_payments_on_responsible_id"
   add_index "incoming_payments", ["updated_at"], :name => "index_payments_on_updated_at"
   add_index "incoming_payments", ["updater_id"], :name => "index_payments_on_updater_id"
 
@@ -891,6 +936,8 @@ ActiveRecord::Schema.define(:version => 20130130123000) do
 
   add_index "inventories", ["created_at"], :name => "index_inventories_on_created_at"
   add_index "inventories", ["creator_id"], :name => "index_inventories_on_creator_id"
+  add_index "inventories", ["journal_entry_id"], :name => "index_inventories_on_journal_entry_id"
+  add_index "inventories", ["responsible_id"], :name => "index_inventories_on_responsible_id"
   add_index "inventories", ["updated_at"], :name => "index_inventories_on_updated_at"
   add_index "inventories", ["updater_id"], :name => "index_inventories_on_updater_id"
 
@@ -912,6 +959,11 @@ ActiveRecord::Schema.define(:version => 20130130123000) do
 
   add_index "inventory_items", ["created_at"], :name => "index_inventory_items_on_created_at"
   add_index "inventory_items", ["creator_id"], :name => "index_inventory_items_on_creator_id"
+  add_index "inventory_items", ["inventory_id"], :name => "index_inventory_items_on_inventory_id"
+  add_index "inventory_items", ["move_id"], :name => "index_inventory_items_on_move_id"
+  add_index "inventory_items", ["product_id"], :name => "index_inventory_items_on_product_id"
+  add_index "inventory_items", ["tracking_id"], :name => "index_inventory_items_on_tracking_id"
+  add_index "inventory_items", ["unit_id"], :name => "index_inventory_items_on_unit_id"
   add_index "inventory_items", ["updated_at"], :name => "index_inventory_items_on_updated_at"
   add_index "inventory_items", ["updater_id"], :name => "index_inventory_items_on_updater_id"
 
@@ -940,8 +992,10 @@ ActiveRecord::Schema.define(:version => 20130130123000) do
 
   add_index "journal_entries", ["created_at"], :name => "index_journal_records_on_created_at"
   add_index "journal_entries", ["creator_id"], :name => "index_journal_records_on_creator_id"
+  add_index "journal_entries", ["financial_year_id"], :name => "index_journal_entries_on_financial_year_id"
   add_index "journal_entries", ["journal_id"], :name => "index_journal_records_on_journal_id"
   add_index "journal_entries", ["original_currency"], :name => "index_journal_entries_on_currency"
+  add_index "journal_entries", ["resource_id", "resource_type"], :name => "index_journal_entries_on_resource_id_and_resource_type"
   add_index "journal_entries", ["updated_at"], :name => "index_journal_records_on_updated_at"
   add_index "journal_entries", ["updater_id"], :name => "index_journal_records_on_updater_id"
 
@@ -972,6 +1026,7 @@ ActiveRecord::Schema.define(:version => 20130130123000) do
   add_index "journal_entry_items", ["created_at"], :name => "index_journal_entry_items_on_created_at"
   add_index "journal_entry_items", ["creator_id"], :name => "index_journal_entry_items_on_creator_id"
   add_index "journal_entry_items", ["entry_id"], :name => "index_journal_entry_items_on_entry_id"
+  add_index "journal_entry_items", ["journal_id"], :name => "index_journal_entry_items_on_journal_id"
   add_index "journal_entry_items", ["letter"], :name => "index_journal_entry_items_on_letter"
   add_index "journal_entry_items", ["name"], :name => "index_journal_entry_items_on_name"
   add_index "journal_entry_items", ["updated_at"], :name => "index_journal_entry_items_on_updated_at"
@@ -1117,6 +1172,7 @@ ActiveRecord::Schema.define(:version => 20130130123000) do
 
   add_index "mandates", ["created_at"], :name => "index_mandates_on_created_at"
   add_index "mandates", ["creator_id"], :name => "index_mandates_on_creator_id"
+  add_index "mandates", ["entity_id"], :name => "index_mandates_on_entity_id"
   add_index "mandates", ["updated_at"], :name => "index_mandates_on_updated_at"
   add_index "mandates", ["updater_id"], :name => "index_mandates_on_updater_id"
 
@@ -1205,10 +1261,14 @@ ActiveRecord::Schema.define(:version => 20130130123000) do
     t.string   "currency",         :limit => 3
   end
 
+  add_index "outgoing_deliveries", ["address_id"], :name => "index_outgoing_deliveries_on_address_id"
   add_index "outgoing_deliveries", ["created_at"], :name => "index_deliveries_on_created_at"
   add_index "outgoing_deliveries", ["creator_id"], :name => "index_deliveries_on_creator_id"
   add_index "outgoing_deliveries", ["currency"], :name => "index_outgoing_deliveries_on_currency"
+  add_index "outgoing_deliveries", ["mode_id"], :name => "index_outgoing_deliveries_on_mode_id"
   add_index "outgoing_deliveries", ["sale_id"], :name => "index_outgoing_deliveries_on_sales_order_id"
+  add_index "outgoing_deliveries", ["transport_id"], :name => "index_outgoing_deliveries_on_transport_id"
+  add_index "outgoing_deliveries", ["transporter_id"], :name => "index_outgoing_deliveries_on_transporter_id"
   add_index "outgoing_deliveries", ["updated_at"], :name => "index_deliveries_on_updated_at"
   add_index "outgoing_deliveries", ["updater_id"], :name => "index_deliveries_on_updater_id"
 
@@ -1233,6 +1293,13 @@ ActiveRecord::Schema.define(:version => 20130130123000) do
 
   add_index "outgoing_delivery_items", ["created_at"], :name => "index_outgoing_delivery_items_on_created_at"
   add_index "outgoing_delivery_items", ["creator_id"], :name => "index_outgoing_delivery_items_on_creator_id"
+  add_index "outgoing_delivery_items", ["delivery_id"], :name => "index_outgoing_delivery_items_on_delivery_id"
+  add_index "outgoing_delivery_items", ["move_id"], :name => "index_outgoing_delivery_items_on_move_id"
+  add_index "outgoing_delivery_items", ["price_id"], :name => "index_outgoing_delivery_items_on_price_id"
+  add_index "outgoing_delivery_items", ["product_id"], :name => "index_outgoing_delivery_items_on_product_id"
+  add_index "outgoing_delivery_items", ["sale_item_id"], :name => "index_outgoing_delivery_items_on_sale_item_id"
+  add_index "outgoing_delivery_items", ["tracking_id"], :name => "index_outgoing_delivery_items_on_tracking_id"
+  add_index "outgoing_delivery_items", ["unit_id"], :name => "index_outgoing_delivery_items_on_unit_id"
   add_index "outgoing_delivery_items", ["updated_at"], :name => "index_outgoing_delivery_items_on_updated_at"
   add_index "outgoing_delivery_items", ["updater_id"], :name => "index_outgoing_delivery_items_on_updater_id"
 
@@ -1267,6 +1334,8 @@ ActiveRecord::Schema.define(:version => 20130130123000) do
     t.boolean  "active",                            :default => false, :null => false
   end
 
+  add_index "outgoing_payment_modes", ["attorney_journal_id"], :name => "index_outgoing_payment_modes_on_attorney_journal_id"
+  add_index "outgoing_payment_modes", ["cash_id"], :name => "index_outgoing_payment_modes_on_cash_id"
   add_index "outgoing_payment_modes", ["created_at"], :name => "index_purchase_payment_modes_on_created_at"
   add_index "outgoing_payment_modes", ["creator_id"], :name => "index_purchase_payment_modes_on_creator_id"
   add_index "outgoing_payment_modes", ["updated_at"], :name => "index_purchase_payment_modes_on_updated_at"
@@ -1297,8 +1366,13 @@ ActiveRecord::Schema.define(:version => 20130130123000) do
   end
 
   add_index "outgoing_payments", ["affair_id"], :name => "index_outgoing_payments_on_affair_id"
+  add_index "outgoing_payments", ["cash_id"], :name => "index_outgoing_payments_on_cash_id"
   add_index "outgoing_payments", ["created_at"], :name => "index_purchase_payments_on_created_at"
   add_index "outgoing_payments", ["creator_id"], :name => "index_purchase_payments_on_creator_id"
+  add_index "outgoing_payments", ["journal_entry_id"], :name => "index_outgoing_payments_on_journal_entry_id"
+  add_index "outgoing_payments", ["mode_id"], :name => "index_outgoing_payments_on_mode_id"
+  add_index "outgoing_payments", ["payee_id"], :name => "index_outgoing_payments_on_payee_id"
+  add_index "outgoing_payments", ["responsible_id"], :name => "index_outgoing_payments_on_responsible_id"
   add_index "outgoing_payments", ["updated_at"], :name => "index_purchase_payments_on_updated_at"
   add_index "outgoing_payments", ["updater_id"], :name => "index_purchase_payments_on_updater_id"
 
@@ -1323,6 +1397,7 @@ ActiveRecord::Schema.define(:version => 20130130123000) do
   add_index "preferences", ["creator_id"], :name => "index_parameters_on_creator_id"
   add_index "preferences", ["name"], :name => "index_parameters_on_name"
   add_index "preferences", ["nature"], :name => "index_parameters_on_nature"
+  add_index "preferences", ["record_value_id", "record_value_type"], :name => "index_preferences_on_record_value_id_and_record_value_type"
   add_index "preferences", ["updated_at"], :name => "index_parameters_on_updated_at"
   add_index "preferences", ["updater_id"], :name => "index_parameters_on_updater_id"
   add_index "preferences", ["user_id"], :name => "index_parameters_on_user_id"
@@ -1442,6 +1517,7 @@ ActiveRecord::Schema.define(:version => 20130130123000) do
   add_index "product_localizations", ["product_id"], :name => "index_product_localizations_on_product_id"
   add_index "product_localizations", ["started_at"], :name => "index_product_localizations_on_started_at"
   add_index "product_localizations", ["stopped_at"], :name => "index_product_localizations_on_stopped_at"
+  add_index "product_localizations", ["transfer_id"], :name => "index_product_localizations_on_transfer_id"
   add_index "product_localizations", ["updated_at"], :name => "index_product_localizations_on_updated_at"
   add_index "product_localizations", ["updater_id"], :name => "index_product_localizations_on_updater_id"
 
@@ -1491,6 +1567,7 @@ ActiveRecord::Schema.define(:version => 20130130123000) do
   add_index "product_moves", ["product_id"], :name => "index_product_moves_on_product_id"
   add_index "product_moves", ["started_at"], :name => "index_product_moves_on_started_at"
   add_index "product_moves", ["stopped_at"], :name => "index_product_moves_on_stopped_at"
+  add_index "product_moves", ["unit_id"], :name => "index_product_moves_on_unit_id"
   add_index "product_moves", ["updated_at"], :name => "index_product_moves_on_updated_at"
   add_index "product_moves", ["updater_id"], :name => "index_product_moves_on_updater_id"
 
@@ -1536,10 +1613,13 @@ ActiveRecord::Schema.define(:version => 20130130123000) do
     t.string   "currency",          :limit => 3
   end
 
+  add_index "product_nature_prices", ["category_id"], :name => "index_product_nature_prices_on_category_id"
   add_index "product_nature_prices", ["created_at"], :name => "index_product_nature_prices_on_created_at"
   add_index "product_nature_prices", ["creator_id"], :name => "index_product_nature_prices_on_creator_id"
   add_index "product_nature_prices", ["currency"], :name => "index_product_nature_prices_on_currency"
   add_index "product_nature_prices", ["product_nature_id"], :name => "index_product_nature_prices_on_old_product_id"
+  add_index "product_nature_prices", ["supplier_id"], :name => "index_product_nature_prices_on_supplier_id"
+  add_index "product_nature_prices", ["tax_id"], :name => "index_product_nature_prices_on_tax_id"
   add_index "product_nature_prices", ["updated_at"], :name => "index_product_nature_prices_on_updated_at"
   add_index "product_nature_prices", ["updater_id"], :name => "index_product_nature_prices_on_updater_id"
 
@@ -1590,6 +1670,7 @@ ActiveRecord::Schema.define(:version => 20130130123000) do
   add_index "product_natures", ["product_account_id"], :name => "index_product_natures_on_product_account_id"
   add_index "product_natures", ["stock_account_id"], :name => "index_product_natures_on_stock_account_id"
   add_index "product_natures", ["subscription_nature_id"], :name => "index_product_natures_on_subscription_nature_id"
+  add_index "product_natures", ["unit_id"], :name => "index_product_natures_on_unit_id"
   add_index "product_natures", ["updated_at"], :name => "index_product_natures_on_updated_at"
   add_index "product_natures", ["updater_id"], :name => "index_product_natures_on_updater_id"
   add_index "product_natures", ["variety_id"], :name => "index_product_natures_on_variety_id"
@@ -1701,6 +1782,11 @@ ActiveRecord::Schema.define(:version => 20130130123000) do
 
   add_index "production_chain_conveyors", ["created_at"], :name => "index_production_chain_conveyors_on_created_at"
   add_index "production_chain_conveyors", ["creator_id"], :name => "index_production_chain_conveyors_on_creator_id"
+  add_index "production_chain_conveyors", ["product_nature_id"], :name => "index_production_chain_conveyors_on_product_nature_id"
+  add_index "production_chain_conveyors", ["production_chain_id"], :name => "index_production_chain_conveyors_on_production_chain_id"
+  add_index "production_chain_conveyors", ["source_id"], :name => "index_production_chain_conveyors_on_source_id"
+  add_index "production_chain_conveyors", ["target_id"], :name => "index_production_chain_conveyors_on_target_id"
+  add_index "production_chain_conveyors", ["unit_id"], :name => "index_production_chain_conveyors_on_unit_id"
   add_index "production_chain_conveyors", ["updated_at"], :name => "index_production_chain_conveyors_on_updated_at"
   add_index "production_chain_conveyors", ["updater_id"], :name => "index_production_chain_conveyors_on_updater_id"
 
@@ -1718,6 +1804,7 @@ ActiveRecord::Schema.define(:version => 20130130123000) do
   add_index "production_chain_work_center_uses", ["creator_id"], :name => "index_production_chain_work_center_uses_on_creator_id"
   add_index "production_chain_work_center_uses", ["updated_at"], :name => "index_production_chain_work_center_uses_on_updated_at"
   add_index "production_chain_work_center_uses", ["updater_id"], :name => "index_production_chain_work_center_uses_on_updater_id"
+  add_index "production_chain_work_center_uses", ["work_center_id"], :name => "index_production_chain_work_center_uses_on_work_center_id"
 
   create_table "production_chain_work_centers", :force => true do |t|
     t.integer  "production_chain_id",                :null => false
@@ -1736,6 +1823,7 @@ ActiveRecord::Schema.define(:version => 20130130123000) do
 
   add_index "production_chain_work_centers", ["created_at"], :name => "index_production_chain_work_centers_on_created_at"
   add_index "production_chain_work_centers", ["creator_id"], :name => "index_production_chain_work_centers_on_creator_id"
+  add_index "production_chain_work_centers", ["production_chain_id"], :name => "index_production_chain_work_centers_on_production_chain_id"
   add_index "production_chain_work_centers", ["updated_at"], :name => "index_production_chain_work_centers_on_updated_at"
   add_index "production_chain_work_centers", ["updater_id"], :name => "index_production_chain_work_centers_on_updater_id"
 
@@ -1859,8 +1947,14 @@ ActiveRecord::Schema.define(:version => 20130130123000) do
     t.string   "tracking_serial"
   end
 
+  add_index "purchase_items", ["account_id"], :name => "index_purchase_items_on_account_id"
   add_index "purchase_items", ["created_at"], :name => "index_purchase_items_on_created_at"
   add_index "purchase_items", ["creator_id"], :name => "index_purchase_items_on_creator_id"
+  add_index "purchase_items", ["price_id"], :name => "index_purchase_items_on_price_id"
+  add_index "purchase_items", ["product_id"], :name => "index_purchase_items_on_product_id"
+  add_index "purchase_items", ["purchase_id"], :name => "index_purchase_items_on_purchase_id"
+  add_index "purchase_items", ["tracking_id"], :name => "index_purchase_items_on_tracking_id"
+  add_index "purchase_items", ["unit_id"], :name => "index_purchase_items_on_unit_id"
   add_index "purchase_items", ["updated_at"], :name => "index_purchase_items_on_updated_at"
   add_index "purchase_items", ["updater_id"], :name => "index_purchase_items_on_updater_id"
 
@@ -1916,6 +2010,11 @@ ActiveRecord::Schema.define(:version => 20130130123000) do
   add_index "purchases", ["created_at"], :name => "index_purchase_orders_on_created_at"
   add_index "purchases", ["creator_id"], :name => "index_purchase_orders_on_creator_id"
   add_index "purchases", ["currency"], :name => "index_purchases_on_currency"
+  add_index "purchases", ["delivery_address_id"], :name => "index_purchases_on_delivery_address_id"
+  add_index "purchases", ["journal_entry_id"], :name => "index_purchases_on_journal_entry_id"
+  add_index "purchases", ["nature_id"], :name => "index_purchases_on_nature_id"
+  add_index "purchases", ["responsible_id"], :name => "index_purchases_on_responsible_id"
+  add_index "purchases", ["supplier_id"], :name => "index_purchases_on_supplier_id"
   add_index "purchases", ["updated_at"], :name => "index_purchase_orders_on_updated_at"
   add_index "purchases", ["updater_id"], :name => "index_purchase_orders_on_updater_id"
 
@@ -1962,9 +2061,18 @@ ActiveRecord::Schema.define(:version => 20130130123000) do
     t.integer  "origin_id"
   end
 
+  add_index "sale_items", ["account_id"], :name => "index_sale_items_on_account_id"
   add_index "sale_items", ["created_at"], :name => "index_sale_items_on_created_at"
   add_index "sale_items", ["creator_id"], :name => "index_sale_items_on_creator_id"
+  add_index "sale_items", ["entity_id"], :name => "index_sale_items_on_entity_id"
+  add_index "sale_items", ["origin_id"], :name => "index_sale_items_on_origin_id"
+  add_index "sale_items", ["price_id"], :name => "index_sale_items_on_price_id"
+  add_index "sale_items", ["product_id"], :name => "index_sale_items_on_product_id"
   add_index "sale_items", ["reduction_origin_id"], :name => "index_sale_items_on_reduction_origin_id"
+  add_index "sale_items", ["sale_id"], :name => "index_sale_items_on_sale_id"
+  add_index "sale_items", ["tax_id"], :name => "index_sale_items_on_tax_id"
+  add_index "sale_items", ["tracking_id"], :name => "index_sale_items_on_tracking_id"
+  add_index "sale_items", ["unit_id"], :name => "index_sale_items_on_unit_id"
   add_index "sale_items", ["updated_at"], :name => "index_sale_items_on_updated_at"
   add_index "sale_items", ["updater_id"], :name => "index_sale_items_on_updater_id"
 
@@ -1992,6 +2100,8 @@ ActiveRecord::Schema.define(:version => 20130130123000) do
 
   add_index "sale_natures", ["created_at"], :name => "index_sale_order_natures_on_created_at"
   add_index "sale_natures", ["creator_id"], :name => "index_sale_order_natures_on_creator_id"
+  add_index "sale_natures", ["journal_id"], :name => "index_sale_natures_on_journal_id"
+  add_index "sale_natures", ["payment_mode_id"], :name => "index_sale_natures_on_payment_mode_id"
   add_index "sale_natures", ["updated_at"], :name => "index_sale_order_natures_on_updated_at"
   add_index "sale_natures", ["updater_id"], :name => "index_sale_order_natures_on_updater_id"
 
@@ -2040,10 +2150,19 @@ ActiveRecord::Schema.define(:version => 20130130123000) do
   end
 
   add_index "sales", ["accounted_at"], :name => "index_sale_orders_on_accounted_at"
+  add_index "sales", ["address_id"], :name => "index_sales_on_address_id"
   add_index "sales", ["affair_id"], :name => "index_sales_on_affair_id"
+  add_index "sales", ["client_id"], :name => "index_sales_on_client_id"
   add_index "sales", ["created_at"], :name => "index_sale_orders_on_created_at"
   add_index "sales", ["creator_id"], :name => "index_sale_orders_on_creator_id"
   add_index "sales", ["currency"], :name => "index_sales_on_currency"
+  add_index "sales", ["delivery_address_id"], :name => "index_sales_on_delivery_address_id"
+  add_index "sales", ["invoice_address_id"], :name => "index_sales_on_invoice_address_id"
+  add_index "sales", ["journal_entry_id"], :name => "index_sales_on_journal_entry_id"
+  add_index "sales", ["nature_id"], :name => "index_sales_on_nature_id"
+  add_index "sales", ["origin_id"], :name => "index_sales_on_origin_id"
+  add_index "sales", ["responsible_id"], :name => "index_sales_on_responsible_id"
+  add_index "sales", ["transporter_id"], :name => "index_sales_on_transporter_id"
   add_index "sales", ["updated_at"], :name => "index_sale_orders_on_updated_at"
   add_index "sales", ["updater_id"], :name => "index_sale_orders_on_updater_id"
 
@@ -2121,9 +2240,14 @@ ActiveRecord::Schema.define(:version => 20130130123000) do
     t.integer  "sale_item_id"
   end
 
+  add_index "subscriptions", ["address_id"], :name => "index_subscriptions_on_address_id"
   add_index "subscriptions", ["created_at"], :name => "index_subscriptions_on_created_at"
   add_index "subscriptions", ["creator_id"], :name => "index_subscriptions_on_creator_id"
+  add_index "subscriptions", ["entity_id"], :name => "index_subscriptions_on_entity_id"
+  add_index "subscriptions", ["nature_id"], :name => "index_subscriptions_on_nature_id"
+  add_index "subscriptions", ["product_nature_id"], :name => "index_subscriptions_on_product_nature_id"
   add_index "subscriptions", ["sale_id"], :name => "index_subscriptions_on_sales_order_id"
+  add_index "subscriptions", ["sale_item_id"], :name => "index_subscriptions_on_sale_item_id"
   add_index "subscriptions", ["updated_at"], :name => "index_subscriptions_on_updated_at"
   add_index "subscriptions", ["updater_id"], :name => "index_subscriptions_on_updater_id"
 
@@ -2153,6 +2277,8 @@ ActiveRecord::Schema.define(:version => 20130130123000) do
 
   add_index "tax_declarations", ["created_at"], :name => "index_tax_declarations_on_created_at"
   add_index "tax_declarations", ["creator_id"], :name => "index_tax_declarations_on_creator_id"
+  add_index "tax_declarations", ["financial_year_id"], :name => "index_tax_declarations_on_financial_year_id"
+  add_index "tax_declarations", ["journal_entry_id"], :name => "index_tax_declarations_on_journal_entry_id"
   add_index "tax_declarations", ["updated_at"], :name => "index_tax_declarations_on_updated_at"
   add_index "tax_declarations", ["updater_id"], :name => "index_tax_declarations_on_updater_id"
 
@@ -2195,6 +2321,7 @@ ActiveRecord::Schema.define(:version => 20130130123000) do
 
   add_index "trackings", ["created_at"], :name => "index_stock_trackings_on_created_at"
   add_index "trackings", ["creator_id"], :name => "index_stock_trackings_on_creator_id"
+  add_index "trackings", ["product_id"], :name => "index_trackings_on_product_id"
   add_index "trackings", ["updated_at"], :name => "index_stock_trackings_on_updated_at"
   add_index "trackings", ["updater_id"], :name => "index_stock_trackings_on_updater_id"
 
@@ -2219,8 +2346,10 @@ ActiveRecord::Schema.define(:version => 20130130123000) do
 
   add_index "transfers", ["accounted_at"], :name => "index_transfers_on_accounted_at"
   add_index "transfers", ["affair_id"], :name => "index_transfers_on_affair_id"
+  add_index "transfers", ["client_id"], :name => "index_transfers_on_client_id"
   add_index "transfers", ["created_at"], :name => "index_transfers_on_created_at"
   add_index "transfers", ["creator_id"], :name => "index_transfers_on_creator_id"
+  add_index "transfers", ["journal_entry_id"], :name => "index_transfers_on_journal_entry_id"
   add_index "transfers", ["updated_at"], :name => "index_transfers_on_updated_at"
   add_index "transfers", ["updater_id"], :name => "index_transfers_on_updater_id"
 
@@ -2245,6 +2374,9 @@ ActiveRecord::Schema.define(:version => 20130130123000) do
 
   add_index "transports", ["created_at"], :name => "index_transports_on_created_at"
   add_index "transports", ["creator_id"], :name => "index_transports_on_creator_id"
+  add_index "transports", ["purchase_id"], :name => "index_transports_on_purchase_id"
+  add_index "transports", ["responsible_id"], :name => "index_transports_on_responsible_id"
+  add_index "transports", ["transporter_id"], :name => "index_transports_on_transporter_id"
   add_index "transports", ["updated_at"], :name => "index_transports_on_updated_at"
   add_index "transports", ["updater_id"], :name => "index_transports_on_updater_id"
 
@@ -2315,8 +2447,11 @@ ActiveRecord::Schema.define(:version => 20130130123000) do
   add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true
   add_index "users", ["created_at"], :name => "index_users_on_created_at"
   add_index "users", ["creator_id"], :name => "index_users_on_creator_id"
+  add_index "users", ["department_id"], :name => "index_users_on_department_id"
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["entity_id"], :name => "index_users_on_entity_id", :unique => true
+  add_index "users", ["establishment_id"], :name => "index_users_on_establishment_id"
+  add_index "users", ["profession_id"], :name => "index_users_on_profession_id"
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
   add_index "users", ["role_id"], :name => "index_users_on_role_id"
   add_index "users", ["unlock_token"], :name => "index_users_on_unlock_token", :unique => true

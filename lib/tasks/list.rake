@@ -31,7 +31,7 @@ namespace :list do
 
   desc "Create public/stylesheets/list-colors.css"
   task :css do
-    
+
 #     dims = [
 #             {:__default__=>"D1DAFFFF", :notice=>"D8FFA3FF", :warning=>"FFE0B3FF", :error=>"FFAD87FF"}, # tr
 #             # {:__default__=>"E1E6FFFF", :notice=>"D8FFA3FF", :warning=>"FFE0B3FF", :error=>"FFC8BFFF"}, # tr
