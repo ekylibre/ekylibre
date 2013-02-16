@@ -18,13 +18,11 @@ gem 'formize', '~> 1.0'
 gem 'prawn', '>= 0.10.0'
 gem 'acts_as_list'
 gem 'awesome_nested_set'
-# gem 'acts_as_tree'
 gem 'simple_form'
 gem 'cocoon'
 gem 'paperclip'
 gem 'enumerize'
 # gem 'paper_trail'
-gem 'thin'
 gem 'nokogiri'
 gem 'turbolinks'
 gem 'devise'
@@ -38,7 +36,7 @@ gem 'jasper-rails', :git => 'git://github.com/fortesinformatica/jasper-rails.git
 
 
 gem 'jquery-rails'
-#gem 'jquery_mobile_rails'
+# gem 'jquery_mobile_rails'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -49,6 +47,7 @@ group :assets do
   gem 'compass-rails'
   gem 'zurb-foundation'
   gem 'foundation-icons-sass-rails'
+  gem 'turbo-sprockets-rails3'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   # gem 'libv8', '~> 3.11.8'
@@ -70,4 +69,10 @@ group :development do
   gem 'rack-mini-profiler'
   gem 'rails-erd'
   gem 'quiet_assets'
+  gem 'better_errors'
+  gem 'binding_of_caller'
+
+  gem 'rails_best_practices'
+
+  gem 'thin'
 end
