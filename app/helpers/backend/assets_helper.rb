@@ -1,2 +1,0 @@
-module Backend::AssetsHelper
-end
