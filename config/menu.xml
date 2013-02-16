@@ -958,9 +958,6 @@
     <menu name="backend/product_nature_categories">
       <page to="backend/product_nature_categories#list_product_natures"/>
     </menu>
-    <menu name="backend/product_natures">
-      <page to="backend/product_natures#list_product_nature_prices"/>
-    </menu>
     <menu name="backend/product_process_phases">
       <page to="backend/product_process_phases#index"/>
       <page to="backend/product_process_phases#create"/>
