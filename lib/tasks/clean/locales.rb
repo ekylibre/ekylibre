@@ -55,24 +55,24 @@ task :locales => :environment do
   end
 
   # Controllers
-  translation += "  controllers:\n"
+  translation << "  controllers:\n"
   for controller_name, actions in actions_hash
     name = ::I18n.hardtranslate("controllers.#{controller_name}")
     untranslated += 1 if name.blank?
     to_translate += 1
-    translation += "    #{missing_prompt if name.blank?}#{controller_name}: " + yaml_value(name.blank? ? controller_name.humanize : name, 2) + "\n"
+    translation << "    #{missing_prompt if name.blank?}#{controller_name}: " + yaml_value(name.blank? ? controller_name.humanize : name, 2) + "\n"
   end
 
   # Errors
   to_translate += hash_count(::I18n.translate("errors"))
-  translation += "  errors:"+hash_to_yaml(::I18n.translate("errors"), 2)+"\n"
+  translation << "  errors:"+hash_to_yaml(::I18n.translate("errors"), 2)+"\n"
 
   # Labels
   to_translate += hash_count(::I18n.translate("labels"))
-  translation += "  labels:"+hash_to_yaml(::I18n.translate("labels"), 2)+"\n"
+  translation << "  labels:"+hash_to_yaml(::I18n.translate("labels"), 2)+"\n"
 
   # Notifications
-  translation += "  notifications:\n"
+  translation << "  notifications:\n"
   notifications = ::I18n.t("notifications")
   deleted_notifs = ::I18n.t("notifications").keys
   for controller in Dir[Rails.root.join("app", "controllers", "*.rb")]
@@ -94,17 +94,17 @@ task :locales => :environment do
     end
     line += "#{key}: "+yaml_value((trans.blank? ? key.to_s.humanize : trans), 2)
     line.gsub!(/$/, " #?") if deleted_notifs.include?(key)
-    translation += line+"\n"
+    translation << line+"\n"
   end
   warnings << "#{deleted_notifs.size} bad notifications" if deleted_notifs.size > 0
 
   # Preferences
   to_translate += hash_count(::I18n.translate("preferences"))
-  translation += "  preferences:"+hash_to_yaml(::I18n.translate("preferences"), 2) + "\n"
+  translation << "  preferences:"+hash_to_yaml(::I18n.translate("preferences"), 2) + "\n"
 
   # Unroll
   to_translate += hash_count(::I18n.translate("unroll"))
-  translation += "  unroll:"+hash_to_yaml(::I18n.translate("unroll"), 2)
+  translation << "  unroll:"+hash_to_yaml(::I18n.translate("unroll"), 2)
 
   File.open(locale_dir.join("action.yml"), "wb") do |file|
     file.write(translation)
@@ -173,7 +173,7 @@ task :locales => :environment do
   attributes = HashWithIndifferentAccess.new
   ::I18n.translate("attributes").collect{|k, v| attributes[k.to_s] = [v, :unused]}
   ::I18n.translate("activerecord.models").collect{|k, v| models[k.to_s] = [v, :unused]}
-  # ::I18n.translate("models").collect{|k, v| models[k.to_s] ||= []; models[k.to_s][2] = v}
+  ::I18n.translate("models").collect{|k, v| models[k.to_s] ||= []; models[k.to_s][2] = v}
   models_files = Dir[Rails.root.join("app", "models", "*.rb")].collect{|m| m.split(/[\\\/\.]+/)[-2]}.sort
   for model_file in models_files
     model_name = model_file.sub(/\.rb$/,'')
@@ -209,38 +209,38 @@ task :locales => :environment do
   end
 
   translation  = locale.to_s+":\n"
-  translation += "  activerecord:\n"
+  translation << "  activerecord:\n"
   to_translate += hash_count(::I18n.translate("activerecord.attributes"))
-  translation += "    attributes:"+hash_to_yaml(::I18n.translate("activerecord.attributes"), 3)+"\n"
+  translation << "    attributes:"+hash_to_yaml(::I18n.translate("activerecord.attributes"), 3)+"\n"
   to_translate += hash_count(::I18n.translate("activerecord.errors"))
-  translation += "    errors:"+hash_to_yaml(::I18n.translate("activerecord.errors"), 3)+"\n"
-  translation += "    models:\n"
+  translation << "    errors:"+hash_to_yaml(::I18n.translate("activerecord.errors"), 3)+"\n"
+  translation << "    models:\n"
   for model, definition in models.sort
-    translation += "      "
-    translation += missing_prompt if definition[1] == :undefined
-    translation += "#{model}: "+yaml_value(definition[0])
-    translation += " #?" if definition[1] == :unused
-    translation += "\n"
+    translation << "      "
+    translation << missing_prompt if definition[1] == :undefined
+    translation << "#{model}: "+yaml_value(definition[0])
+    translation << " #?" if definition[1] == :unused
+    translation << "\n"
   end
-  translation += "  attributes:\n"
+  translation << "  attributes:\n"
   for attribute, definition in attributes.sort
     # unless attribute.to_s.match(/_id$/)
-    translation += "    "
-    translation += missing_prompt if definition[1] == :undefined
-    translation += "#{attribute}: "+yaml_value(definition[0])
-    translation += " #?" if definition[1] == :unused
-    translation += "\n"
+    translation << "    "
+    translation << missing_prompt if definition[1] == :undefined
+    translation << "#{attribute}: "+yaml_value(definition[0])
+    translation << " #?" if definition[1] == :unused
+    translation << "\n"
     # end
   end
 
   to_translate += hash_count(::I18n.translate("enumerize"))
-  translation += "  enumerize:"+hash_to_yaml(::I18n.translate("enumerize"), 2)+"\n"
+  translation << "  enumerize:"+hash_to_yaml(::I18n.translate("enumerize"), 2)+"\n"
 
-  translation += "  models:\n"
+  translation << "  models:\n"
   for model, definition in models.sort
     next unless definition[2]
     to_translate += hash_count(definition[2])
-    translation += "    #{model}:"+yaml_value(definition[2], 2).gsub(/\n/, (definition[1] == :unused ? " #?\n" : "\n"))+"\n"
+    translation << "    #{model}:" + yaml_value(definition[2], 2).gsub(/\n/, (definition[1] == :unused ? " #?\n" : "\n")) + "\n"
   end
 
   File.open(locale_dir.join("models.yml"), "wb") do |file|

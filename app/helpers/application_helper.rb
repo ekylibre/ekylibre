@@ -778,8 +778,8 @@ module ApplicationHelper
     options[:url] ||= {}
     content = content.gsub(/\[\[>[^\|]+\|[^\]]*\]\]/) do |link|
       link = link[3..-3].split('|')
-      url = link[0].split(/[\/\?\&]+/)
-      url = options[:url].merge(:controller => url[0], :action => url[1])
+      url = link[0].split(/[\#\?\&]+/)
+      url = options[:url].merge(:controller => url[0], :action => (url[1]||:index))
       (authorized?(url) ? link_to(link[1], url) : link[1])
     end
 

@@ -12,8 +12,7 @@ jpn:
         # key: "Clé RIB"
         # mode: "Mode"
         # number: "Numéro de compte bancaire"
-      company:
-        # locked: "Verrouillée"
+      company: #?
       deposit:
         # amount: "Montant"
       document:
@@ -302,10 +301,11 @@ jpn:
       # bank_statement: "Relevé de compte bancaire"
       # cash: "Trésorerie"
       # cash_transfer: "Virement interne"
-      company: "会社" #?
+      company: "会社"
       # custom_field: "Champ complémentaire"
       # custom_field_choice: "Choix de champ complémentaire"
       # custom_field_datum: "Donnée complémentaire de fiche"
+      # delay: ""
       # department: "Service"
       # deposit: "Remise en banque"
       # deposit_item: "Ligne de remise en banque"
@@ -327,8 +327,10 @@ jpn:
       # incoming_delivery_mode: "Mode d’arrivage"
       # incoming_payment: "Encaissement"
       # incoming_payment_mode: "Mode d’encaissement"
+      # incoming_payment_use: ""
       # inventory: "Inventaire"
       # inventory_item: "Ligne d’inventaire"
+      # inventory_line: ""
       # journal: "Journal"
       # journal_entry: "Écriture"
       # journal_entry_item: "Ligne d’écriture"
@@ -1296,52 +1298,330 @@ jpn:
       nature:
         # amount: "Montant"
         # percentage: "Pourcentage"
-  models:  #?
-    company: #?
-      default: #?
-        delays: #?
- #?
-        incoming_payment_modes: #?
- #?
-        outgoing_payment_modes: #?
- #?
-        role: #?
- #?
-        taxes: #?
- #?
- #?
- #?
-    deposit: #?
- #?
-    document_template: #?
-      default: #?
-        accountancy: #?
- #?
-        management: #?
- #?
-        relations: #?
- #?
- #?
-    financial_year: #?
- #?
-    journal_entry: #?
- #?
-    listing_node: #?
- #?
-    product: #?
- #?
-    product_nature: #?
- #?
-    purchase: #?
- #?
-    sale: #?
-      sales_invoice: #?
- #?
- #?
-    sequence: #?
-      default: #?
- #?
- #?
-    unit: #?
- #?
- #?
+  models:
+    account:
+      # label: "%{number} - %{name}"
+    cash_transfer:
+      # bookkeep: "[%{resource} %{number}] De %{emitter} à %{receiver} %{comment}"
+    company:
+      # cant_find_document_template: "Impossible de trouver le modèle de document correspondant"
+      default:
+        # category: "Par défaut"
+        delays:
+          expression:
+            # expiration: "1 mois"
+            # immediate: "0 jour"
+            # standard: "30 jours, fin de mois"
+          name:
+            # expiration: "Expiration (1 M)"
+            # immediate: "Immédiat"
+            # standard: "Standard (30j FDM)"
+        # department_name: "Gestion/Production"
+        # establishment_name: "Établissement principal"
+        event_natures:
+          # purchase: "Création d’un achat"
+          # sale: "Création d’un devis"
+          # sales_invoice: "Création d’une facture"
+        incoming_payment_modes:
+          cash:
+            # name: "Espèces"
+          check:
+            # name: "Chèque"
+          transfer:
+            # name: "Virement"
+        outgoing_payment_modes:
+          cash:
+            # name: "Espèces"
+          check:
+            # name: "Chèque"
+          transfer:
+            # name: "Virement"
+        # product_category_name: "Sans catégorie"
+        # purchase_nature_name: "Standard"
+        role:
+          name:
+            # admin: "Gérant"
+            # public: "Public (sans droits)"
+        # sale_nature_name: "Vente standard"
+        taxes:
+          tva0000:
+            # amount: "0.0"
+            # collected: "445710"
+            # name: "TVA 0,00%"
+            # paid: "445660"
+          tva0210:
+            # amount: "2.1"
+            # collected: "445711"
+            # name: "TVA 2,10%"
+            # paid: "445661"
+          tva0550:
+            # amount: "5.5"
+            # collected: "445712"
+            # name: "TVA 5,50%"
+            # paid: "445662"
+          tva1960:
+            # amount: "19.6"
+            # collected: "445713"
+            # name: "TVA 19,60%"
+            # paid: "445663"
+        # warehouse_name: "Réserve"
+      import:
+        # dont_use: "-- Ne pas utiliser --"
+        # generate_string_custom_field: "-- Créer un champ personnalisé (texte) --"
+      # sales: "Ventes"
+    delay:
+      # error_unvalid_format_for_expression: "L’expression n’est pas au bon format"
+    deposit:
+      bookkeep:
+        # one: "[%{resource} %{number}] %{count} encaissement %{mode} %{comment}"
+        # other: "[%{resource} %{number}] %{count} encaissements %{mode} %{comment}"
+        # zero: "[%{resource} %{number}] Aucun encaissement %{mode} %{comment}"
+      # bookkeep_with_payment: "[%{resource} %{number}] %{mode} %{check_number} de %{payer} (%{payment})"
+    document_template:
+      default:
+        accountancy:
+          balance_sheet:
+            # filename: "Bilan de l’exercice [code]"
+          general_journal:
+            # filename: "Journal général"
+          general_ledger:
+            # filename: "Grand livre"
+          income_statement:
+            # filename: "Compte de résultat de l’exercice [code]"
+          journal:
+            # filename: "[name] (Journal)"
+        management:
+          deposit:
+            # filename: "Remise en banque [number]"
+          inventory:
+            # filename: "Inventaire [number]"
+          purchase:
+            # filename: "Achat [number]"
+          sales_invoice:
+            # filename: "Facture [number]"
+            # to_archive: "true"
+          sales_order:
+            # filename: "Vente [number]"
+          stocks:
+            # filename: "État des stocks"
+          transport:
+            # filename: "Transport du [created_on]"
+        relations:
+          entity:
+            # filename: "Fiche de [full_name]"
+      # error_attribute: "Le champ %{value} est incorrect. Les possibilités sont\_: %{possibilities}"
+      # invalid_filename: "Fichier"
+      # nature_do_not_allow_to_use_attributes: "La nature du modèle ne permet pas d’utiliser d’attributs"
+      # unvalid_nature: "Votre type de modèle est incorrect. Vous devriez supprimer ce modèle et le réinstaller."
+    entity:
+      # client: "Client"
+      # no_right_defined_for_this_part_of_the_application: "Aucun droit défini pour cette partie de l’application\_: %{controller}/%{action}"
+      # no_right_defined_for_this_part_of_the_application_and_this_user: "Vous n’avez pas accès à cette partie de l’application"
+      # supplier: "Fournisseur"
+    financial_year:
+      # bookkeep: "[%{resource} %{number}] Amortissement de %{name} (%{position}/%{total})"
+      code:
+        # double: "EX%{first_year}/%{second_year}"
+        # single: "EX%{first_year}"
+    incoming_payment:
+      # bookkeep: "[%{resource} %{number}] %{mode} %{check_number} de %{payer} (%{expenses})"
+      # label: "%{number}. %{amount} (%{usable_amount} restants) du %{date} en %{mode} de %{payer}"
+    incoming_payment_use:
+      # bookkeep: "[%{resource}] %{mode} (%{payment_number}) reçu de %{attorney} pour %{client} (%{expense_number})"
+    inventory_item:
+      # inventory: "Inventaire "
+    inventory_line:
+      # inventory: "Inventaire "
+    journal_entry:
+      # entry_cancel: "Contre-passation de l’écriture %{number}: %{name}"
+      states:
+        # closed: "Verrouillée"
+        # confirmed: "Validée"
+        # draft: "Brouillard"
+    listing_node:
+      # add_filter: " Ajouter un filtre "
+      # all_columns: "-- Toutes les colonnes --"
+      # columns: "Colonnes"
+      comparators:
+        # any: "-- Aucune condition --"
+        # begins: "Commence par"
+        # begins_cs: "Commence par (sensible à la casse)"
+        # contains: "Contient"
+        # contains_cs: "Contient (sensible à la casse)"
+        # eq: "="
+        # equal: "Est égal à"
+        # equal_cs: "Est égal (sensible à la casse)"
+        # finishes: "Se termine par"
+        # finishes_cs: "Se termine par (sensible à la casse)"
+        # ge: "≥"
+        # gt: ">"
+        # in: "Est égal à l’un des éléments suivants"
+        # is_false: "Est faux"
+        # is_true: "Est vrai"
+        # le: "≤"
+        # lt: "<"
+        # neq: "Est différent de"
+        # not_begins: "Ne commence pas par"
+        # not_begins_cs: "Ne commence pas par (sensible à la casse)"
+        # not_contains: "Ne contient pas"
+        # not_contains_cs: "Ne contient pas (sensible à la casse)"
+        # not_equal: "N’est pas égal à"
+        # not_equal_cs: "N’est pas égal à (sensible à la casse)"
+        # not_finishes: "Ne se termine pas par"
+        # not_finishes_cs: "Ne se termine pas par (sensible à la casse)"
+        # nvn: "N’est pas vide"
+        # vn: "Est vide"
+      comparison:
+        # with_value: "%{comparator} %{value}"
+        # without_value: "%{comparator}"
+      # reflections: "Tables liées"
+    outgoing_delivery:
+      # label: "%{client} à %{address}"
+      # sale: "Vente %{number}"
+    outgoing_delivery_item:
+      # sale: "Vente %{number}"
+    outgoing_payment:
+      # bookkeep: "[%{resource} %{number}] %{mode} %{check_number} pour %{payee} (%{expenses})"
+      # label: "%{number}. %{amount} (%{usable_amount} restants) du %{date} en %{mode} pour %{payee}"
+    product:
+      informations:
+        # with_components: "%{product} (%{unit}) (produit transformé)"
+        # without_components: "%{product} (%{unit}) (matière première)"
+      # label: "%{product} (%{unit})"
+      # stock_move: "%{origin} (%{code})"
+      subscription_label:
+        # period: "Abonnement %{subscription_nature} pour %{entity} à l’adresse %{address} du %{start} au %{finish}"
+        # quantity: "Abonnement %{subscription_nature} pour %{entity} à l’adresse %{address} du n°%{start} au n°%{finish}"
+      to:
+        # produce: "Production"
+        # purchases: "Achat"
+        # rent: "Location"
+        # sales: "Vente"
+    product_move:
+      # default_name: "%{origin} (%{code})"
+    product_nature:
+      informations:
+        # with_components: "%{product} (%{unit}) (produit transformé)"
+        # without_components: "%{product} (%{unit}) (matière première)"
+      # label: "%{product} (%{unit})"
+      # stock_move: "%{origin} (%{code})"
+      subscription_label:
+        # period: "Abonnement %{subscription_nature} pour %{entity} à l’adresse %{address} du %{start} au %{finish}"
+        # quantity: "Abonnement %{subscription_nature} pour %{entity} à l’adresse %{address} du n°%{start} au n°%{finish}"
+      to:
+        # produce: "Production"
+        # purchases: "Achat"
+        # rent: "Location"
+        # sales: "Vente"
+    product_nature_price:
+      # label: "%{product} / %{amount} %{currency}"
+      # no_range: "Pas d’intervalle"
+      # range: "De %{min} à %{max}"
+    purchase:
+      # bookkeep: "[%{resource} %{number}] %{products} de %{supplier}"
+      # label: "%{supplier} à %{address}"
+      # purchase: "Achat"
+      states:
+        # aborted: "Annulé"
+        # draft: "Brouillon"
+        # estimate: "Devis"
+        # invoice: "Facture"
+        # order: "Commande"
+        # refused: "Refusé"
+    purchase_item:
+      # name: "%{product} (%{quantity}%{unit}) à %{amount}%{currency}/%{unit}"
+      # name_with_tracking: "%{product}/%{tracking} (%{quantity}%{unit}) à %{amount}%{currency}/%{unit}"
+      # tracking: "N°Lot\_: %{serial}"
+    sale:
+      # bookkeep: "[%{resource} %{number}] %{products} pour %{client} (%{sale})"
+      label:
+        # aborted: "Vente annulée %{number}"
+        # draft: "Brouillon %{number}"
+        # estimate: "Devis %{number}"
+        # invoice: "Facture %{number}"
+        # order: "Commande %{number}"
+        # refused: "Devis refusé %{number}"
+      # sale: "Vente %{number}"
+      sales_conditions:
+        # downpayment: "Un acompte de %{percent}% (soit %{amount}€) devra être versé à la signature du présent devis."
+        # validity: "Ce devis et ses conditions générales sont valables jusqu’au %{expiration}."
+      sales_invoice:
+        label:
+          # credit: "Avoir N°%{number}"
+          # normal: "Facture N°%{number}"
+      states:
+        # aborted: "Annulée"
+        # draft: "Brouillon"
+        # estimate: "Devis"
+        # invoice: "Facture"
+        # order: "Commande"
+        # refused: "Devis refusé"
+    sale_item:
+      # can_not_use_this_tracking: "Vous ne  pouvez pas utiliser le lot %{name}, la quantité commandée est supérieure à la quantité disponible "
+      # currency_is_not_sale_currency: "Le prix du produit ne correspond pas à la monnaie définie pour la vente"
+      # no_product: "[Pas de produit]"
+      # reduction_on: "Remise de %{percent}% sur\_: %{product}"
+      # tracking: "N°Lot\_: %{serial}"
+      # warehouse_can_not_transfer_product: "Le produit %{product} ne peut être sorti du réservoir %{warehouse}, celui-ci contient %{contained_product} "
+    sequence:
+      default:
+        assets:
+          # number_format: "I[number|7]"
+        cash_transfers:
+          # number_format: "VI[year|4][number|4]"
+          # period: "year"
+        deposits:
+          # number_format: "B[year|4][number|4]"
+          # period: "year"
+        entities:
+          # number_format: "[number|8]"
+        incoming_deliveries:
+          # number_format: "BR[year|4][number|4]"
+          # period: "year"
+        incoming_payments:
+          # number_format: "R[year|4][number|6]"
+          # period: "year"
+        outgoing_deliveries:
+          # number_format: "BL[year|4][number|6]"
+          # period: "year"
+        outgoing_payments:
+          # number_format: "D[year|4][number|4]"
+          # period: "year"
+        purchases:
+          # number_format: "A[year|4][month|2][number|6]"
+          # period: "month"
+        sales:
+          # number_format: "V[year|4][month|2][number|6]"
+          # period: "month"
+        sales_invoices:
+          # number_format: "F[year|4][number|6]"
+          # period: "year"
+        stock_transfers:
+          # number_format: "TS[year|4][number|4]"
+          # period: "year"
+        subscriptions:
+          # number_format: "ABO[number|8]"
+        transports:
+          # number_format: "TR[number|8]"
+    tax_declaration:
+      # deferment: "Reporté"
+      # monthly: "Mensuelle"
+      # normal: "Réel normal"
+      # other: "Personnalisée"
+      # payback: "Remboursement"
+      # quarterly: "Trimestrielle"
+      # simplified: "Réel simplifié"
+      # yearly: "Annuelle"
+    unit:
+      default:
+        # a: "Are"
+        # ca: "Centiare (m²)"
+        # ha: "Hectare"
+        # hl: "Hectolitre"
+        # kg: "Kilogramme"
+        # km: "Kilomètre"
+        # l: "Litre"
+        # m: "Mètre"
+        # m3: "Mètre cube"
+        # t: "Tonne"
+        # u: "Unité"

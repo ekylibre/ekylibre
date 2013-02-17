@@ -46,8 +46,8 @@ class ProductNaturePriceTest < ActiveSupport::TestCase
 
   # Test if the historic is preserved on updates
   def test_update
-    price = prices(:prices_001)
-    count = Price.count
+    price = product_nature_prices(:product_nature_prices_001)
+    count = ProductNaturePrice.count
     assert !count.zero?
 
     # Update
@@ -55,11 +55,11 @@ class ProductNaturePriceTest < ActiveSupport::TestCase
     price.pretax_amount = pretax_amount + 50
     saved = price.update
     assert saved, "Price must be saved (#{price.errors.inspect})"
-    assert_equal count + 1, Price.count
+    assert_equal count + 1, ProductNaturePrice.count
     assert price.stopped_at.nil?
     old_price = nil
     assert_nothing_raised do
-      old_price = Price.find(id)
+      old_price = ProductNaturePrice.find(id)
     end
     assert_equal pretax_amount, old_price.pretax_amount
     assert_nothing_raised do
@@ -70,24 +70,24 @@ class ProductNaturePriceTest < ActiveSupport::TestCase
 
   # Test if the historic is preserved on destructions
   def test_destroy
-    price = prices(:prices_003)
-    count = Price.count
+    price = product_nature_prices(:product_nature_prices_003)
+    count = ProductNaturePrice.count
     assert !count.zero?
 
     # Destroy
     price.pretax_amount = 158.20
     assert price.save
-    assert_equal count + 1, Price.count
+    assert_equal count + 1, ProductNaturePrice.count
     assert price.stopped_at.nil?
     id = price.id
     assert price.destroy
-    assert_equal count + 1, Price.count
+    assert_equal count + 1, ProductNaturePrice.count
     assert_nothing_raised do
-      Price.find(id)
+      ProductNaturePrice.find(id)
     end
     assert_nothing_raised do
       price.reload
     end
-    assert !price.stopped_at.nil?, "Price stopped_at must be updated if price is deleted"
+    assert !price.stopped_at.nil?, "ProductNaturePrice stopped_at must be updated if price is deleted"
   end
 end

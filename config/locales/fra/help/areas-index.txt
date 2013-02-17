@@ -4,7 +4,7 @@
 Une zone postale est l'assemblage d'un code postal et d'une ville. L'utilisation de la paire (plutôt que séparément) facilite les recherches.
 
 ===== Utilisation =====
-Ici, vous pouvez [[>areas/new|créer]], modifier {{theme:icons/edit.png}} ou même supprimer {{theme:icons/destroy.png}} des zones postales.
+Ici, vous pouvez [[>backend/areas#new|créer]], modifier {{theme:icons/edit.png}} ou même supprimer {{theme:icons/destroy.png}} des zones postales.
 De même, vous disposez d'un système de recherche classique pour filtrer la zone postale qui vous intéresse.
 
 >>> Les zones postales sont créées par défaut automatiquement lors des enregistrement d'adresse. 

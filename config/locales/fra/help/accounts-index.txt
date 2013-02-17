@@ -3,11 +3,11 @@
 ===== Qu'est-ce qu'un compte comptable~? =====
 Il s'agit d'un compte dans lequel sont enregistrés les évènements économiques et financiers de l'entreprise. Un compte comptable est défini par un numéro et un intitulé en conformité avec le plan comptable général.
 
-Si un compte est lettrable alors, vous pourrez utiliser le module de [[>accounts/reconciliation|lettrage]]. Par défaut tous les comptes clients, fournisseurs et mandataires sont lettrables à la création.
+Si un compte est lettrable alors, vous pourrez utiliser le module de [[>backend/accounts#reconciliation|lettrage]]. Par défaut tous les comptes clients, fournisseurs et mandataires sont lettrables à la création.
 >>> Les écritures non lettrées d'un compte lettrable seront reprises à l'identique d'un exercice comptable à un autre.
 
 ===== Gestion des comptes  =====
-Le plan de compte est extensible à volonté, vous pouvez [[>accounts/new|rajouter]] autant de comptes que nécessaire. Par la suite, il vous sera possible de les modifier {{theme:icons/edit.png}} ou même de les supprimer {{theme:icons/destroy.png}} à condition qu'il n'existe aucune écriture relative à ce compte.
+Le plan de compte est extensible à volonté, vous pouvez [[>backend/accounts#new|rajouter]] autant de comptes que nécessaire. Par la suite, il vous sera possible de les modifier {{theme:icons/edit.png}} ou même de les supprimer {{theme:icons/destroy.png}} à condition qu'il n'existe aucune écriture relative à ce compte.
 
 >>> Il est possible de créer des comptes en alpha-numérique à partir du 4ème caractère. 
 >>> Exemple~: 411MARTIN

@@ -89,9 +89,9 @@ class SaleTest < ActiveSupport::TestCase
         assert !@sale.affair.nil?
         assert_equal @sale.amount, @sale.affair.credit
 
-        item = @sale.items.new(:quantity => 12, :price_id => prices(:prices_001).id, :warehouse_id => products(:warehouses_001).id)
+        item = @sale.items.new(:quantity => 12, :price_id => product_nature_prices(:product_nature_prices_001).id, :warehouse_id => products(:warehouses_001).id)
         assert item.save, item.errors.inspect
-        item = @sale.items.new(:quantity => 25, :price_id => prices(:prices_003).id, :warehouse_id => products(:warehouses_001).id)
+        item = @sale.items.new(:quantity => 25, :price_id => product_nature_prices(:product_nature_prices_003).id, :warehouse_id => products(:warehouses_001).id)
         assert item.save, item.errors.inspect
         @sale.reload
         assert_equal "draft", @sale.state
@@ -120,7 +120,7 @@ class SaleTest < ActiveSupport::TestCase
         assert @sale.save, @sale.errors.inspect
         assert_equal Date.today, @sale.created_on
         for y in 1..10
-          item = @sale.items.new(:quantity => 1 + rand(70)*rand, :price_id => prices("prices_#{(3+rand(2)).to_s.rjust(3, '0')}".to_sym).id, :warehouse_id => products(:warehouses_001).id)
+          item = @sale.items.new(:quantity => 1 + rand(70)*rand, :price_id => product_nature_prices("product_nature_prices_#{(3+rand(2)).to_s.rjust(3, '0')}".to_sym).id, :warehouse_id => products(:warehouses_001).id)
           # assert item.valid?, [product.prices, item.price].inspect
           assert item.save, item.errors.inspect
         end
