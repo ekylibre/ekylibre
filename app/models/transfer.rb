@@ -41,7 +41,7 @@
 
 
 class Transfer < Ekylibre::Record::Base
-  attr_readonly :comment
+  attr_readonly :description
   belongs_to :client, :class_name => "Entity"
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.

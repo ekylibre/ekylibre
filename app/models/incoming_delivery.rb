@@ -43,7 +43,7 @@
 
 class IncomingDelivery < Ekylibre::Record::Base
   acts_as_numbered
-  attr_accessible :address_id, :comment, :mode_id, :moved_on, :planned_on, :reference_number
+  attr_accessible :address_id, :description, :mode_id, :moved_on, :planned_on, :reference_number
   attr_readonly :number
   belongs_to :address, :class_name => "EntityAddress"
   belongs_to :mode, :class_name => "IncomingDeliveryMode"

@@ -35,7 +35,7 @@
 
 
 class ProductTransfer < Ekylibre::Record::Base
-  attr_accessible :comment, :nature, :planned_on, :product_id, :quantity, :second_warehouse_id, :tracking_id, :unit_id, :warehouse_id
+  attr_accessible :description, :nature, :planned_on, :product_id, :quantity, :second_warehouse_id, :tracking_id, :unit_id, :warehouse_id
   # attr_readonly :nature
   # enumerize :nature, :in => [:loss, :transfer, :gain], :default => :transfer, :predicates => true
   belongs_to :product

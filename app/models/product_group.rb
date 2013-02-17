@@ -37,7 +37,7 @@
 
 
 class ProductGroup < Ekylibre::Record::Base
-  attr_accessible :comment, :description, :name, :parent_id, :memberships_attributes
+  attr_accessible :description, :description, :name, :parent_id, :memberships_attributes
   belongs_to :parent, :class_name => "ProductGroup"
   has_many :memberships, :class_name => "ProductMembership", :foreign_key => :group_id
   has_many :products, :through => :memberships

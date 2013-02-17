@@ -38,7 +38,7 @@
 
 
 class Listing < Ekylibre::Record::Base
-  attr_accessible :name, :root_model, :comment, :conditions
+  attr_accessible :name, :root_model, :description, :conditions
   attr_readonly :root_model
   has_many :columns, :class_name => "ListingNode", :conditions => ["nature = ?", "column"]
   has_many :exportable_columns, :class_name => "ListingNode", :conditions => {:nature  => "column", :exportable => true}, :order => "position"

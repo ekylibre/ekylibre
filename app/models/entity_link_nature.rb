@@ -36,7 +36,7 @@
 
 
 class EntityLinkNature < Ekylibre::Record::Base
-  attr_accessible :comment, :name, :name_1_to_2, :name_2_to_1, :propagate_contacts, :symmetric
+  attr_accessible :description, :name, :name_1_to_2, :name_2_to_1, :propagate_contacts, :symmetric
   has_many :entity_links, :foreign_key => :nature_id
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :name, :name_1_to_2, :name_2_to_1, :allow_nil => true, :maximum => 255

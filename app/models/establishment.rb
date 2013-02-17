@@ -33,7 +33,7 @@
 
 
 class Establishment < Ekylibre::Record::Base
-  attr_accessible :name, :comment
+  attr_accessible :name, :description
   has_many :warehouses
   has_many :employees, :class_name => "Users"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.

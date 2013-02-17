@@ -91,7 +91,7 @@ class Deposit < Ekylibre::Record::Base
         commissions_amount += payment.commission_amount
       end
 
-      label = tc(:bookkeep, :resource => self.class.model_name.human, :number => self.number, :count => self.payments_count, :mode => self.mode.name, :responsible => self.responsible.label, :comment => self.comment)
+      label = tc(:bookkeep, :resource => self.class.model_name.human, :number => self.number, :count => self.payments_count, :mode => self.mode.name, :responsible => self.responsible.label, :description => self.description)
 
       entry.add_debit( label, self.cash.account_id, self.amount-commissions_amount)
       for commission_account_id, commission_amount in commissions

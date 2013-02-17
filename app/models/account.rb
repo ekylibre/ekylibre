@@ -37,7 +37,7 @@
 
 
 class Account < Ekylibre::Record::Base
-  attr_accessible :name, :number, :reconcilable, :comment, :is_debit
+  attr_accessible :name, :number, :reconcilable, :description, :debtor
   @@references = []
   attr_readonly :number
   # has_many :account_balances

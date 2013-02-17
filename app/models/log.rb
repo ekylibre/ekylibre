@@ -39,7 +39,7 @@
 
 
 class Log < Ekylibre::Record::Base
-  attr_accessible  :comment, :description, :name, :nature_id, :parent_id, :started_at, :watcher_id
+  attr_accessible :description, :name, :nature_id, :parent_id, :started_at, :watcher_id
   belongs_to :origin, :polymorphic => true
   belongs_to :owner, :polymorphic => true
   # No columns for this

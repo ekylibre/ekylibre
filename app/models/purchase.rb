@@ -48,7 +48,7 @@
 
 
 class Purchase < Ekylibre::Record::Base
-  attr_accessible :comment, :delivery_address_id, :nature_id, :planned_on, :reference_number, :responsible_id, :supplier_id
+  attr_accessible :description, :delivery_address_id, :nature_id, :planned_on, :reference_number, :responsible_id, :supplier_id
   attr_readonly :currency
   belongs_to :delivery_address, :class_name => "EntityAddress"
   belongs_to :journal_entry
@@ -128,7 +128,7 @@ class Purchase < Ekylibre::Record::Base
   # It depends on the preference which permit to activate the "automatic bookkeeping"
   bookkeep do |b|
     b.journal_entry(self.nature.journal, :if => self.invoice?) do |entry|
-      label = tc(:bookkeep, :resource => self.class.model_name.human, :number => self.number, :supplier => self.supplier.full_name, :products => (self.comment.blank? ? self.products.collect{|x| x.name}.to_sentence : self.comment))
+      label = tc(:bookkeep, :resource => self.class.model_name.human, :number => self.number, :supplier => self.supplier.full_name, :products => (self.description.blank? ? self.products.collect{|x| x.name}.to_sentence : self.description))
       for item in self.items
         entry.add_debit(label, item.product.purchases_account_id, item.pretax_amount) unless item.quantity.zero?
         entry.add_debit(label, item.price.tax.paid_account_id, item.taxes_amount) unless item.taxes_amount.zero?

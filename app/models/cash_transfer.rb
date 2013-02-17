@@ -42,7 +42,7 @@
 
 class CashTransfer < Ekylibre::Record::Base
   acts_as_numbered
-  attr_accessible :comment, :created_on, :currency_rate, :emitter_amount, :emitter_cash_id, :emitter_journal_entry_id, :number, :receiver_amount, :receiver_cash_id, :receiver_journal_entry_id
+  attr_accessible :description, :created_on, :currency_rate, :emitter_amount, :emitter_cash_id, :emitter_journal_entry_id, :number, :receiver_amount, :receiver_cash_id, :receiver_journal_entry_id
   attr_readonly :number
   belongs_to :emitter_cash, :class_name => "Cash"
   belongs_to :emitter_journal_entry, :class_name => "JournalEntry"
@@ -68,7 +68,7 @@ class CashTransfer < Ekylibre::Record::Base
   bookkeep do |b|
     preference = Preference.get(:financial_internal_transfers_accounts)
     transfer_account = Account.get(preference.value, preference.label)
-    label = tc(:bookkeep, :resource => self.class.model_name.human, :number => self.number, :comment => self.comment, :emitter => self.emitter_cash.name, :receiver => self.receiver_cash.name)
+    label = tc(:bookkeep, :resource => self.class.model_name.human, :number => self.number, :description => self.description, :emitter => self.emitter_cash.name, :receiver => self.receiver_cash.name)
     b.journal_entry(self.emitter_cash.journal, :column => :emitter_journal_entry_id) do |entry|
       entry.add_debit( label, transfer_account.id, self.emitter_amount)
       entry.add_credit(label, self.emitter_cash.account_id, self.emitter_amount)

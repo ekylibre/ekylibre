@@ -213,7 +213,7 @@ class Entity < Ekylibre::Record::Base
 
 
   def self.exportable_columns
-    self.content_columns.delete_if{|c| [:active, :lock_version, :webpass, :soundex, :photo, :deliveries_conditions].include?(c.name.to_sym)}
+    self.content_columns.delete_if{|c| [:active, :lock_version, :webpass, :soundex, :deliveries_conditions].include?(c.name.to_sym)}
   end
 
   # Returns an entity scope for all other entities

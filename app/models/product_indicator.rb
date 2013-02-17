@@ -40,7 +40,7 @@
 
 
 class ProductIndicator < Ekylibre::Record::Base
-  attr_accessible :product_id, :nature_id, :measured_at, :comment, :decimal_value, :measure_value, :string_value, :boolean_value, :choice_value_id
+  attr_accessible :product_id, :nature_id, :measured_at, :description, :decimal_value, :measure_value, :string_value, :boolean_value, :choice_value_id
   belongs_to :product, :class_name => "Product"
   belongs_to :nature, :class_name => "ProductIndicatorNature", :inverse_of => :indicators
   belongs_to :measure_unit, :class_name => "Unit"
