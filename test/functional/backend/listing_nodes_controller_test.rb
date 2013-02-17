@@ -18,6 +18,6 @@
 #
 
 require 'test_helper'
-class Backend::ListingNodesControllerTest < BackendControllerTest
+class Backend::ListingNodesControllerTest < ActionController::TestCase
   test_restfully_all_actions :new=>{:parent_id=>1}, :edit=>:show_xhr
 end

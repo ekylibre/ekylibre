@@ -18,6 +18,6 @@
 #
 
 require 'test_helper'
-class Backend::SubscriptionsControllerTest < BackendControllerTest
+class Backend::SubscriptionsControllerTest < ActionController::TestCase
   test_restfully_all_actions :except=>[:message, :coordinates]
 end

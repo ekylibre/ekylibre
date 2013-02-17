@@ -18,6 +18,6 @@
 #
 
 require 'test_helper'
-class Backend::TransportsControllerTest < BackendControllerTest
+class Backend::TransportsControllerTest < ActionController::TestCase
   test_restfully_all_actions :except=>[:delivery_delete, :deliveries]
 end

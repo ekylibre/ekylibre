@@ -18,6 +18,6 @@
 #
 
 require 'test_helper'
-class Backend::PurchasesControllerTest < BackendControllerTest
+class Backend::PurchasesControllerTest < ActionController::TestCase
   test_restfully_all_actions
 end

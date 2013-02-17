@@ -18,6 +18,6 @@
 #
 
 require 'test_helper'
-class Backend::PurchaseItemsControllerTest < BackendControllerTest
+class Backend::PurchaseItemsControllerTest < ActionController::TestCase
   test_restfully_all_actions :new=>{:purchase_id=>1}
 end

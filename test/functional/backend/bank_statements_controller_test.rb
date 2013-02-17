@@ -18,6 +18,6 @@
 #
 
 require 'test_helper'
-class Backend::BankStatementsControllerTest < BackendControllerTest
+class Backend::BankStatementsControllerTest < ActionController::TestCase
   test_restfully_all_actions :point=>:get_and_post
 end

@@ -11,7 +11,7 @@
 
       <part height="72mm">
         <set>
-          <image value="{{purchase_order.company.entity/photo}}" height="30mm">
+          <image value="{{purchase_order.company.entity/picture.url(:original)}}" height="30mm">
             <text value="{{purchase_order.company.entity/full_name}}" size="16"/>
 	    <text value="{{purchase_order/client_address}}" top="5mm"/>
           </image>

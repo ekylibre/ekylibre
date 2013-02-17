@@ -56,13 +56,19 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
-
-group :test do
+group :development, :test do
   gem 'capybara'
   gem 'rspec-rails'
-  gem 'cucumber-rails', :require => false
+  gem 'spinach-rails'
+  gem 'awesome_print'
+  gem 'pry'
   # database_cleaner is not required, but highly recommended
   gem 'database_cleaner'
+end
+
+
+group :test do
+  gem "simplecov", :require => false
 end
 
 group :development do

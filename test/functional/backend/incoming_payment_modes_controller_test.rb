@@ -18,6 +18,6 @@
 #
 
 require 'test_helper'
-class Backend::IncomingPaymentModesControllerTest < BackendControllerTest
+class Backend::IncomingPaymentModesControllerTest < ActionController::TestCase
   test_restfully_all_actions :except=>:reflect
 end

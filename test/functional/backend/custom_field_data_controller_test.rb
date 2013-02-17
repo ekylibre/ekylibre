@@ -18,6 +18,6 @@
 #
 
 require 'test_helper'
-class Backend::CustomFieldDataControllerTest < BackendControllerTest
+class Backend::CustomFieldDataControllerTest < ActionController::TestCase
   test_restfully_all_actions
 end

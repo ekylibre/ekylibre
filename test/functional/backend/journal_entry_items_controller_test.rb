@@ -18,6 +18,6 @@
 #
 
 require 'test_helper'
-class Backend::JournalEntryItemsControllerTest < BackendControllerTest
+class Backend::JournalEntryItemsControllerTest < ActionController::TestCase
   test_restfully_all_actions :except=>:new # =>:index_xhr
 end

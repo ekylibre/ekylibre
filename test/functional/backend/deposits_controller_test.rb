@@ -18,6 +18,6 @@
 #
 
 require 'test_helper'
-class Backend::DepositsControllerTest < BackendControllerTest
+class Backend::DepositsControllerTest < ActionController::TestCase
   test_restfully_all_actions :new=>{:mode_id=>1}
 end

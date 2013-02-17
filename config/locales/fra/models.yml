@@ -896,7 +896,6 @@ fra:
     period: "Périodicité"
     # phase_delay: "Phase delay"
     phones: "Téléphones"
-    photo: "Photo" #?
     physical: "Personne physique" #?
     picture: "Photo"
     picture_content_type: "Format de photo"

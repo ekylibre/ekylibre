@@ -18,6 +18,6 @@
 #
 
 require 'test_helper'
-class Backend::DocumentTemplatesControllerTest < BackendControllerTest
+class Backend::DocumentTemplatesControllerTest < ActionController::TestCase
   test_restfully_all_actions :print=>{:id=>1, :format=>:pdf}
 end

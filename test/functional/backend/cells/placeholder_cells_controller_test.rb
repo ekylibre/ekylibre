@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class Backend::Cells::PlaceholderCellsControllerTest < Backend::CellsControllerTest
+class Backend::Cells::PlaceholderCellsControllerTest < ActionController::TestCase
   # test "the truth" do
   #   assert true
   # end

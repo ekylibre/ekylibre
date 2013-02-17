@@ -11,7 +11,7 @@
     <page orientation="portrait" format="A4" margin="10mm">
       <part height="30mm">
 	<set>
-          <image value="{{company.entity/photo}}" height="30mm">
+          <image value="{{company.entity/picture.url(:original)}}" height="30mm">
             <text value="{{company.entity/full_name}}" size="16"/>
           </image>
 	</set>

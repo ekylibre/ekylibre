@@ -261,14 +261,12 @@ class Backend::SalesController < BackendController
     @sale.function_title = tg('letter_function_title')
     @sale.introduction = tg('letter_introduction')
     # @sale.conclusion = tg('letter_conclusion')
-    render_restfully_form
   end
 
   def create
     @sale = Sale.new(params[:sale])
     @sale.number = ''
     return if save_and_redirect(@sale, :url => {:action => :show, :step => :products, :id => "id"})
-    render_restfully_form
   end
 
   def destroy

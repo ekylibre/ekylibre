@@ -18,6 +18,6 @@
 #
 
 require 'test_helper'
-class Backend::JournalEntriesControllerTest < BackendControllerTest
+class Backend::JournalEntriesControllerTest < ActionController::TestCase
   test_restfully_all_actions :new=>{:journal_id=>1}
 end

@@ -18,6 +18,6 @@
 #
 
 require 'test_helper'
-class Backend::DashboardsControllerTest < BackendControllerTest
+class Backend::DashboardsControllerTest < ActionController::TestCase
   test_restfully_all_actions :except => :welcome
 end

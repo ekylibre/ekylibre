@@ -1,4 +1,4 @@
 require 'test_helper'
 
-class Backend::CellsControllerTest < BackendControllerTest
+class Backend::CellsControllerTest < ActionController::TestCase
 end

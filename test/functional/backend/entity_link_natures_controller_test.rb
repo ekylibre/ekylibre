@@ -18,6 +18,6 @@
 #
 
 require 'test_helper'
-class Backend::EntityLinkNaturesControllerTest < BackendControllerTest
+class Backend::EntityLinkNaturesControllerTest < ActionController::TestCase
   test_restfully_all_actions
 end

@@ -10,7 +10,7 @@
     <page format="A4" margin="10mm">
       <part height="85mm">
         <set>
-          <image value="{{Entity.of_company/photo}}" height="30mm">
+          <image value="{{Entity.of_company/picture.url(:original)}}" height="30mm">
             <text value="{{Entity.of_company/full_name}}" size="16"/>
           </image>
           <text value="{{deposit.cash/bank_name}}" bold="true" align="left" font="helvetica" top="42mm" left="100mm"/>

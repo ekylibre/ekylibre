@@ -18,6 +18,6 @@
 #
 
 require 'test_helper'
-class Backend::SubscriptionNaturesControllerTest < BackendControllerTest
+class Backend::SubscriptionNaturesControllerTest < ActionController::TestCase
   test_restfully_all_actions :except=>[:show]
 end

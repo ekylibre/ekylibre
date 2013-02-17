@@ -1,4 +1,4 @@
 require 'test_helper'
-class Backend::ProductIndicatorNaturesControllerTest < BackendControllerTest
+class Backend::ProductIndicatorNaturesControllerTest < ActionController::TestCase
   test_restfully_all_actions
 end

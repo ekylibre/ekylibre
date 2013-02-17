@@ -18,6 +18,6 @@
 #
 
 require 'test_helper'
-class Backend::ListingsControllerTest < BackendControllerTest
+class Backend::ListingsControllerTest < ActionController::TestCase
   test_restfully_all_actions :except=>[:mail, :extract]
 end

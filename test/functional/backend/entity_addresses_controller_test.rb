@@ -18,6 +18,6 @@
 #
 
 require 'test_helper'
-class Backend::EntityAddressesControllerTest < BackendControllerTest
+class Backend::EntityAddressesControllerTest < ActionController::TestCase
   test_restfully_all_actions
 end

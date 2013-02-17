@@ -32,19 +32,19 @@ class ActiveSupport::TestCase
   # Add more helper methods to be used by all tests here...
 
   def actions_of(cont)
-    Entity.rights[cont].keys
+    User.rights[cont].keys
   end
 
-  def login(name, password)
-    # print "L"
-    old_controller = @controller
-    @controller = SessionsController.new
-    post :create, :name => name, :password => password
-    assert_response :redirect
-    assert_redirected_to root_url, "If login succeed, a redirection must be done to #{root_url}"
-    assert_not_nil(session[:user_id])
-    @controller = old_controller
-  end
+  # def login(name, password)
+  #   # print "L"
+  #   old_controller = @controller
+  #   @controller = SessionsController.new
+  #   post :create, :name => name, :password => password
+  #   assert_response :redirect
+  #   assert_redirected_to root_url, "If login succeed, a redirection must be done to #{root_url}"
+  #   assert_not_nil(session[:user_id])
+  #   @controller = old_controller
+  # end
 
   def fast_login(entity)
     # print "V"
@@ -57,21 +57,17 @@ end
 
 
 class ActionController::TestCase
-  if Rails.version.match(/^2\.3/)
-    def response
-      @response
-    end
-  end
-
-
+  include Devise::TestHelpers
 
   def self.test_restfully_all_actions(options={})
     controller ||= self.controller_class.to_s[0..-11].underscore.to_sym
     code  = ""
     code << "context 'A #{controller} controller' do\n"
+    code << "\n"
     code << "  setup do\n"
-    code << "    @user = entities(:entities_001)\n"
-    code << "    login('gendo', 'secret')\n"
+    code << "    @user = users(:users_001)\n"
+    # code << "    login('gendo', 'secret')\n"
+    code << "    sign_in(@user)\n"
     code << "  end\n"
     # code << "  teardown do\n"
     # code << "    @user = nil\n"
@@ -80,14 +76,16 @@ class ActionController::TestCase
 
     except = options.delete(:except)||[]
     except = [except] unless except.is_a? Array
-    return unless Entity.rights[controller]
-    for action in Entity.rights[controller].keys.sort{|a,b| a.to_s <=> b.to_s} # .delete_if{|x| ![:index, :new, :create, :edit, :update, :destroy, :show].include?(x.to_sym)} # .delete_if{|x| except.include? x}
+    return unless User.rights[controller]
+    for action in User.rights[controller].keys.sort{|a,b| a.to_s <=> b.to_s} # .delete_if{|x| ![:index, :new, :create, :edit, :update, :destroy, :show].include?(x.to_sym)} # .delete_if{|x| except.include? x}
+      action = action.to_sym
       if except.include? action
         puts "Ignore: #{controller}##{action}"
         next
       end
 
-      code << "  should 'execute :#{action}' do\n"
+      code << "\n"
+      code << "  should \"#{action}\" do\n"
 
       unless mode = options[action] and options[action].is_a? Symbol
         action_name = action.to_s
@@ -108,7 +106,7 @@ class ActionController::TestCase
                end
       end
 
-      model_name = controller.to_s.classify
+      model_name = controller.to_s.split(/\//)[-1].classify
       record = model_name.underscore
       attributes = nil
       model = model_name.constantize rescue nil
@@ -149,12 +147,12 @@ class ActionController::TestCase
         code << "    assert_nothing_raised do\n"
         code << "      get :#{action}, :id => 'NaID'\n"
         code << "    end\n"
-        code << "    #{record} = #{table_name}(:#{controller}_001)\n"
+        code << "    #{record} = #{table_name}(:#{table_name}_001)\n"
         code << "    get :#{action}, :id => #{record}.id\n"
         code << "    assert_response :success, \"Flash: \#{flash.inspect}\"\n"
         code << "    assert_not_nil assigns(:#{record})\n"
       elsif mode == :create
-        code << "    #{record} = #{table_name}(:#{controller}_001)\n"
+        code << "    #{record} = #{table_name}(:#{table_name}_001)\n"
         code << "    post :#{action}, :#{record} => #{attributes}\n"
         # if restricted
         #   code << "    assert_raise(ActiveModel::MassAssignmentSecurity::Error, 'POST #{controller}/#{action}') do\n"
@@ -162,7 +160,7 @@ class ActionController::TestCase
         #   code << "    end\n"
         # end
       elsif mode == :update
-        code << "    #{record} = #{table_name}(:#{controller}_001)\n"
+        code << "    #{record} = #{table_name}(:#{table_name}_001)\n"
         code << "    put :#{action}, :id => #{record}.id, :#{record} => #{attributes}\n"
         # if restricted
         #   code << "    assert_raise(ActiveModel::MassAssignmentSecurity::Error, 'PUT #{controller}/#{action}/:id') do\n"
@@ -170,7 +168,7 @@ class ActionController::TestCase
         #   code << "    end\n"
         # end
       elsif mode == :destroy
-        code << "    #{record} = #{table_name}(:#{controller}_002)\n"
+        code << "    #{record} = #{table_name}(:#{table_name}_002)\n"
         code << "    assert_nothing_raised do\n"
         code << "      delete :#{action}, :id => #{record}.id\n"
         code << "    end\n"
@@ -187,7 +185,7 @@ class ActionController::TestCase
         # code << "      post :#{action}\n"
         # code << "    end\n"
         code << "    post :#{action}, :id => 'NaID'\n"
-        code << "    #{record} = #{table_name}(:#{controller}_001)\n"
+        code << "    #{record} = #{table_name}(:#{table_name}_001)\n"
         code << "    post :#{action}, :id => #{record}.id\n"
         code << "    assert_response :redirect\n"
       elsif mode == :get_and_post # with ID
@@ -195,7 +193,7 @@ class ActionController::TestCase
         # code << "      get :#{action}\n"
         # code << "    end\n"
         code << "    get :#{action}, :id => 'NaID'\n"
-        code << "    #{record} = #{table_name}(:#{controller}_001)\n"
+        code << "    #{record} = #{table_name}(:#{table_name}_001)\n"
         code << "    get :#{action}, :id => #{record}.id\n"
         code << '    assert_response :success, "Flash: #{flash.inspect}"'+"\n"
       elsif mode == :index_xhr
@@ -204,7 +202,7 @@ class ActionController::TestCase
         code << "    xhr :get, :#{action}\n"
         code << '    assert_response :success, "Flash: #{flash.inspect}"'+"\n"
       elsif mode == :show_xhr
-        code << "    #{record} = #{table_name}(:#{controller}_001)\n"
+        code << "    #{record} = #{table_name}(:#{table_name}_001)\n"
         code << "    get :#{action}, :id => #{record}.id\n"
         code << "    assert_response :redirect\n"
         code << "    xhr :get, :#{action}, :id => #{record}.id\n"
