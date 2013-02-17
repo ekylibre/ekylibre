@@ -60,6 +60,7 @@ class SaleItem < Ekylibre::Record::Base
   belongs_to :product
   belongs_to :reduction_origin, :class_name => "SaleItem"
   belongs_to :tax
+  belongs_to :tracking
   belongs_to :unit
   has_many :delivery_lines, :class_name => "OutgoingDeliveryItem", :foreign_key => :sale_line_id
   has_one :reduction, :class_name => "SaleItem", :foreign_key => :reduction_origin_id
@@ -87,16 +88,16 @@ class SaleItem < Ekylibre::Record::Base
       self.price = self.product.default_price(self.sale.client.category_id)
       # puts [sale.client.category_id, sale].inspect unless self.price
     end
-    self.product = self.price.product if self.price
+    # self.product = self.price.product if self.price
     if self.product
-      self.account_id = self.product.sales_account_id
+      self.account_id = self.product.nature.product_account_id
       self.unit_id = self.product.unit_id
-      if self.product.stockable
-        self.warehouse_id ||= self.product.stocks.first.warehouse_id if self.product.stocks.count > 0
-      else
-        self.warehouse_id = nil
+      if self.product.nature.storable
+      #   self.warehouse_id ||= self.product.stocks.first.warehouse_id if self.product.stocks.count > 0
+      # else
+      #   self.warehouse_id = nil
       end
-      self.label ||= self.product.catalog_name
+      self.label ||= self.product.nature.commercial_name
     end
     self.price_amount ||= 0
 
@@ -136,15 +137,18 @@ class SaleItem < Ekylibre::Record::Base
 
 
   validate do
-    if self.warehouse
-      errors.add(:warehouse_id, :warehouse_can_not_transfer_product, :warehouse => self.warehouse.name, :product => self.product.name, :contained_product => self.warehouse.product.name) unless self.warehouse.can_receive?(self.product_id)
-      if self.tracking
-        stock = Stocks.where(:product_id => self.product_id, :warehouse_id => self.warehouse_id, :tracking_id => self.tracking_id).first
-        errors.add(:warehouse_id, :can_not_use_this_tracking, :tracking => self.tracking.name) if stock and stock.virtual_quantity < self.quantity
-      end
-    end
+    # if self.warehouse
+    #   errors.add(:warehouse_id, :warehouse_can_not_transfer_product, :warehouse => self.warehouse.name, :product => self.product.name, :contained_product => self.warehouse.product.name) unless self.warehouse.can_receive?(self.product_id)
+    #   if self.tracking
+    #     stock = Stocks.where(:product_id => self.product_id, :warehouse_id => self.warehouse_id, :tracking_id => self.tracking_id).first
+    #     errors.add(:warehouse_id, :can_not_use_this_tracking, :tracking => self.tracking.name) if stock and stock.virtual_quantity < self.quantity
+    #   end
+    # end
     if self.price
       errors.add(:price_id, :currency_is_not_sale_currency) if self.price.currency != self.sale.currency
+      if self.product
+        errors.add(:price_id, :invalid) unless self.price.product_nature_id == self.product.nature_id
+      end
     end
     # TODO validates responsible can make reduction and reduction percentage is convenient
   end
@@ -156,7 +160,7 @@ class SaleItem < Ekylibre::Record::Base
   def set_reduction
     if self.reduction_percentage > 0 and self.product.reduction_submissive and self.reduction_origin_id.nil?
       reduction = self.reduction || self.build_reduction
-      reduction.attributes = {:reduction_origin_id => self.id, :price_id => self.price_id, :product_id => self.product_id, :sale_id => self.sale_id, :warehouse_id => self.warehouse_id, :quantity => -self.quantity*reduction_percentage/100, :label => tc('reduction_on', :product => self.product.catalog_name, :percentage => self.reduction_percentage)}
+      reduction.attributes = {:reduction_origin_id => self.id, :price_id => self.price_id, :product_id => self.product_id, :sale_id => self.sale_id, :warehouse_id => self.warehouse_id, :quantity => -self.quantity*reduction_percentage/100, :label => tc('reduction_on', :product => self.product.commercial_name, :percentage => self.reduction_percentage)}
       reduction.save!
     elsif self.reduction
       self.reduction.destroy

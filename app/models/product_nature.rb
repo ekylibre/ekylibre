@@ -74,7 +74,7 @@ class ProductNature < Ekylibre::Record::Base
   #has_many :available_stocks, :class_name => "ProductStock", :conditions => ["quantity > 0"], :foreign_key => :product_id
   has_many :components, :class_name => "ProductNatureComponent", :conditions => {:active => true}, :foreign_key => :product_nature_id
   #has_many :outgoing_delivery_lines, :foreign_key => :product_id
-  has_many :prices, :foreign_key => :product_nature_id
+  has_many :prices, :foreign_key => :product_nature_id, :class_name => "ProductNaturePrice"
   #has_many :purchase_lines, :foreign_key => :product_id
   #has_many :reservoirs, :conditions => {:reservoir => true}, :foreign_key => :product_id
   #has_many :sale_lines, :foreign_key => :product_id
@@ -145,10 +145,9 @@ class ProductNature < Ekylibre::Record::Base
     self.components.count > 0
   end
 
-  #TODO see if we keep this method with product_nature_category ?
-  #def default_price(category_id)
-  #  self.prices.find(:first, :conditions => {:category_id => category_id, :active => true, :by_default => true})
-  # end
+  def default_price(category_id)
+    self.prices.where(:category_id => category_id, :active => true, :by_default => true).first
+  end
 
   def label
     tc('label', :product_nature => self["name"], :unit => self.unit["label"])

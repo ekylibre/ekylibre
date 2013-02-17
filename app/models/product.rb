@@ -99,4 +99,8 @@ class Product < Ekylibre::Record::Base
     end
   end
 
+  def default_price(category_id)
+    self.nature.default_price(category_id)
+  end
+
 end

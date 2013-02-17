@@ -52,9 +52,10 @@ module Ekylibre::Record
 
           # Refresh after each save
           code << "after_save do\n"
-          code << "  if self.#{affair}\n"
-          code << "    self.#{affair}.reload.save\n"
-          code << "  end\n"
+          # code << "  if self.#{affair}\n"
+          code << "  self.#{affair}.reload\n"
+          code << "  self.#{affair}.save!\n"
+          # code << "  end\n"
           code << "  Affair.clean_deads\n"
           code << "end\n"
 

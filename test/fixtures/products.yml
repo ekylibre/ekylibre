@@ -222,11 +222,109 @@ tools_002:
   created_at: 2009-07-19 19:13:59 +02:00
   creator_id: 1
   id: 9
-  name: "Useless trator"
+  name: "Useless tractor"
   nature_id: 1
   number: "0009"
   owner_id: 1
   type: 'Tool'
+  unit_id: 1
+  updated_at: 2009-07-19 19:13:59 +02:00
+  updater_id: 1
+  variety_id: 1
+
+animals_001:
+  created_at: 2009-07-19 19:13:59 +02:00
+  creator_id: 1
+  id: 10
+  name: "Cow"
+  nature_id: 1
+  number: "0010"
+  owner_id: 1
+  type: 'Animal'
+  unit_id: 1
+  updated_at: 2009-07-19 19:13:59 +02:00
+  updater_id: 1
+  variety_id: 1
+
+animals_002:
+  created_at: 2009-07-19 19:13:59 +02:00
+  creator_id: 1
+  id: 11
+  name: "Cow"
+  nature_id: 1
+  number: "0011"
+  owner_id: 1
+  type: 'Animal'
+  unit_id: 1
+  updated_at: 2009-07-19 19:13:59 +02:00
+  updater_id: 1
+  variety_id: 1
+
+matters_001:
+  created_at: 2009-07-19 19:13:59 +02:00
+  creator_id: 1
+  id: 12
+  name: "Sand"
+  nature_id: 1
+  number: "0012"
+  owner_id: 1
+  type: 'Matter'
+  unit_id: 1
+  updated_at: 2009-07-19 19:13:59 +02:00
+  updater_id: 1
+  variety_id: 1
+
+matters_002:
+  created_at: 2009-07-19 19:13:59 +02:00
+  creator_id: 1
+  id: 13
+  name: "Book"
+  nature_id: 1
+  number: "0013"
+  owner_id: 1
+  type: 'Matter'
+  unit_id: 1
+  updated_at: 2009-07-19 19:13:59 +02:00
+  updater_id: 1
+  variety_id: 1
+
+matters_003:
+  created_at: 2009-07-19 19:13:59 +02:00
+  creator_id: 1
+  id: 14
+  name: "Iron grid"
+  nature_id: 1
+  number: "0014"
+  owner_id: 1
+  type: 'Matter'
+  unit_id: 1
+  updated_at: 2009-07-19 19:13:59 +02:00
+  updater_id: 1
+  variety_id: 1
+
+matters_004:
+  created_at: 2009-07-19 19:13:59 +02:00
+  creator_id: 1
+  id: 15
+  name: "Deuterium"
+  nature_id: 1
+  number: "0015"
+  owner_id: 1
+  type: 'Matter'
+  unit_id: 1
+  updated_at: 2009-07-19 19:13:59 +02:00
+  updater_id: 1
+  variety_id: 1
+
+matters_005:
+  created_at: 2009-07-19 19:13:59 +02:00
+  creator_id: 1
+  id: 16
+  name: "Oxygen"
+  nature_id: 1
+  number: "0016"
+  owner_id: 1
+  type: 'Matter'
   unit_id: 1
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
