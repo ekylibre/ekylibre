@@ -1,18 +1,18 @@
--field_set do
-  -input :used_with
-  -input :name
-  -input :nature, :show => {:decimal => :decimal_options, :string => :string_options, :choice => :choice_options}
-  -input :active
-  -input :required
+=field_set do
+  =f.input :used_with
+  =f.input :name
+  =f.input :nature, :show => {:decimal => :decimal_options, :string => :string_options, :choice => :choice_options}
+  =f.input :active
+  =f.input :required
 
--field_set(:string_options) do
-  -input :minimal_length
-  -input :maximal_length
+=field_set(:string_options) do
+  =f.input :minimal_length
+  =f.input :maximal_length
 
--field_set(:decimal_options) do
-  -input :minimal_value
-  -input :maximal_value
+=field_set(:decimal_options) do
+  =f.input :minimal_value
+  =f.input :maximal_value
 
--field_set(:choice_options) do
+=field_set(:choice_options) do
   -nested_association :choices do
-    -input :name
+    =f.input :name

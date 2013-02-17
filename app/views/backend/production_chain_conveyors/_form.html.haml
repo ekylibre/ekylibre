@@ -1,18 +1,18 @@
--field_set do
-  -association :production_chain
+=field_set do
+  =f.association :production_chain
   -# input :name
-  -input :comment, :field=>:textarea
+  =f.input :comment, :field=>:textarea
 
--field_set :product do
-  -association :product
-  -input :check_state
-  -input :flow
+=field_set :product do
+  =f.association :product
+  =f.input :check_state
+  =f.input :flow
 
--field_set :source do
-  -association :source # , :buttons => {:new => {:production_chain_id => @production_chain_conveyor.production_chain_id}}
-  -input :source_quantity
-  -input :unique_tracking
+=field_set :source do
+  =f.association :source # , :buttons => {:new => {:production_chain_id => @production_chain_conveyor.production_chain_id}}
+  =f.input :source_quantity
+  =f.input :unique_tracking
 
--field_set :target do
-  -association :target # , :new=>{:production_chain_id=>@production_chain_conveyor.production_chain_id}
-  -input :target_quantity
+=field_set :target do
+  =f.association :target # , :new=>{:production_chain_id=>@production_chain_conveyor.production_chain_id}
+  =f.input :target_quantity

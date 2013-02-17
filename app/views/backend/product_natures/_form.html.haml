@@ -1,34 +1,34 @@
--field_set do
-  -input :name
-  -input :number
-  -input :commercial_name
-  -input :active
-  -association :variety
+=field_set do
+  =f.input :name
+  =f.input :number
+  =f.input :commercial_name
+  =f.input :active
+  =f.association :variety
 
--field_set :nature do
-  -association :category
-  -association :unit
+=field_set :nature do
+  =f.association :category
+  =f.association :unit
   -#input :nature, :show => {:subscription => :subscription}
 
--field_set :nature do
-  -input :reductible
-  -input :depreciable, :show => :asset_account
-  -input :saleable, :show => :product_account
-  -input :purchasable, :show => :charge_account
-  -input :producible
-  -input :indivisible
-  -input :alive
-  -input :deliverable # , :show => :stock_options
-  -input :storable, :show => :stock_account#, :show => :stocks, :in => :stock_options
-  -input :traceable
-  -input :storage
-  -input :subscribing, :show => :subscription
-  -input :towable
-  -input :tractive
+=field_set :nature do
+  =f.input :reductible
+  =f.input :depreciable, :show => :asset_account
+  =f.input :saleable, :show => :product_account
+  =f.input :purchasable, :show => :charge_account
+  =f.input :producible
+  =f.input :indivisible
+  =f.input :alive
+  =f.input :deliverable # , :show => :stock_options
+  =f.input :storable, :show => :stock_account#, :show => :stocks, :in => :stock_options
+  =f.input :traceable
+  =f.input :storage
+  =f.input :subscribing, :show => :subscription
+  =f.input :towable
+  =f.input :tractive
 
--field_set :subscription do
-  -association :subscription_nature
-  -input :subscription_duration
+=field_set :subscription do
+  =f.association :subscription_nature
+  =f.input :subscription_duration
   -#input :duration
 
 
@@ -41,9 +41,9 @@
 
 -#price=render :partial=>'price_amount_form'
 
--field_set :accountancy do
-  -association :asset_account
-  -association :product_account #,     :source => :products
-  -association :charge_account #, :source => :charges
-  -association :stock_account
+=field_set :accountancy do
+  =f.association :asset_account
+  =f.association :product_account #,     :source => :products
+  =f.association :charge_account #, :source => :charges
+  =f.association :stock_account
 

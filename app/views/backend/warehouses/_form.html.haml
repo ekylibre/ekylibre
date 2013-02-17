@@ -1,13 +1,13 @@
--field_set do
-  -input :name
-  -association :parent_place
-  -input :comment, :field => :text
-  -input :reservoir, :show => :reservoir_options
+=field_set do
+  =f.input :name
+  =f.association :parent_place
+  =f.input :comment, :field => :text
+  =f.input :reservoir, :show => :reservoir_options
 
--field_set(:reservoir_options) do
+=field_set(:reservoir_options) do
   -#association :product, :source => :availables
-  -input :maximal_quantity
-  -input :number
+  =f.input :maximal_quantity
+  =f.input :number
 
 -#field_set :localization do
   -#association :establishment

@@ -1,21 +1,21 @@
 =field_set do
-  -input :last_name
-  -input :first_name
-  -input :language, :choices => :languages
-  -input :user_name
-  -input :password
-  -input :password_confirmation
-  -input :admin, :hide => :rights
-  -input :employed, :show => :employee
+  =f.input :last_name
+  =f.input :first_name
+  =f.input :language, :choices => :languages
+  =f.input :user_name
+  =f.input :password
+  =f.input :password_confirmation
+  =f.input :admin, :hide => :rights
+  =f.input :employed, :show => :employee
 
 =field_set(:employee) do
-  -input :employment
+  =f.input :employment
   -# association :profession
-  -association :department
-  -association :establishment
+  =f.association :department
+  =f.association :establishment
 
 =field_set(:rights) do
-  -association :role
+  =f.association :role
   -# input :reduction_percent
   -# input :free_price
   -# input :credits

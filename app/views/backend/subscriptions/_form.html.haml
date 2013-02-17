@@ -1,14 +1,14 @@
 -# TODO Check
--field_set do
-  -association :sale_line, :field => :hidden
-  -association :nature
-  -input :quantity
+=field_set do
+  =f.association :sale_line, :field => :hidden
+  =f.association :nature
+  =f.input :quantity
   -# input :suspended
-  -association :address
-  -input :comment
+  =f.association :address
+  =f.input :comment
 
--field_set :interval, :depend_on => :nature do
-  -input :started_on, :if => :period?
-  -input :stopped_on, :if => :period?
-  -input :first_number, :if => :quantity?
-  -input :last_number,  :if => :quantity?
+=field_set :interval, :depend_on => :nature do
+  =f.input :started_on, :if => :period?
+  =f.input :stopped_on, :if => :period?
+  =f.input :first_number, :if => :quantity?
+  =f.input :last_number,  :if => :quantity?

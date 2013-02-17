@@ -1,11 +1,11 @@
--field_set do
-  -input :name
-  -input :prescription_number
-  -input :prescripted_on
+=field_set do
+  =f.input :name
+  =f.input :prescription_number
+  =f.input :prescripted_on
 
--field_set(:document) do
-  -input :picture
+=field_set(:document) do
+  =f.input :picture
   =image_tag(@prescription.picture.url(:thumb))
 
--field_set(:entity) do
-  -association :prescriptor
+=field_set(:entity) do
+  =f.association :prescriptor

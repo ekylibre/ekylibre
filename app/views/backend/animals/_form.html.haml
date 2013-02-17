@@ -1,22 +1,22 @@
--field_set do # partie info general de l entité animal
-  -association :nature
-  -association :variety
-  -input :name , :hint => "le nom de votre animal"# affiche le champ name de l entité animal avec une infos derriere
-  -input :sex # affiche le champ sexe sous forme de radio avec une collection de proposition (M ou F) de l entité animal
-  -input :reproductor
-  -input :born_at
-  -input :work_number
-  -input :identification_number, :placeholder => 'FR + DEPT + 8 chiffres'
-  -input :comment # affiche le champ comment formaté en zone de texte
-  -input :picture
+=field_set do # partie info general de l entité animal
+  =f.association :nature
+  =f.association :variety
+  =f.input :name , :hint => "le nom de votre animal"# affiche le champ name de l entité animal avec une infos derriere
+  =f.input :sex # affiche le champ sexe sous forme de radio avec une collection de proposition (M ou F) de l entité animal
+  =f.input :reproductor
+  =f.input :born_at
+  =f.input :work_number
+  =f.input :identification_number, :placeholder => 'FR + DEPT + 8 chiffres'
+  =f.input :comment # affiche le champ comment formaté en zone de texte
+  =f.input :picture
   =image_tag(@animal.picture.url(:thumb))
   =custom_fields
   -#for datum in @custom_field_data
     =custom_field datum.custom_field.name, {:datatype => datum.custom_field.nature.to_sym, :id => "custom_field_datum_#{datum.custom_field_id}_value", :name => "custom_field_datum[#{datum.custom_field_id}][value]", :value => datum.value, :size => datum.custom_field.length_max, :options => {:include_blank => (datum.custom_field.required ? nil : '')}, :choices => datum.custom_field.choices.collect{|x| [x.name , x.id]}  }
 
--field_set(:genealogy) do # partie entrée sortie de l entité animal
-  -association :mother, :source => :mother
-  -association :father, :source => :father
+=field_set(:genealogy) do # partie entrée sortie de l entité animal
+  =f.association :mother, :source => :mother
+  =f.association :father, :source => :father
 
--field_set(:movement) do # partie entrée sortie de l entité animal
-  -input :external
+=field_set(:movement) do # partie entrée sortie de l entité animal
+  =f.input :external

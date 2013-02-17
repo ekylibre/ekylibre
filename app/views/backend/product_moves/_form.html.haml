@@ -1,12 +1,12 @@
--field_set do
-  -input :name
-  -input :comment, :field=>:textarea
-  -input :virtual
+=field_set do
+  =f.input :name
+  =f.input :comment, :field=>:textarea
+  =f.input :virtual
   -# input :input
-  -association :warehouse
-  -input :planned_on
-  -input :moved_on
-  -association :product
-  -input :quantity
+  =f.association :warehouse
+  =f.input :planned_on
+  =f.input :moved_on
+  =f.association :product
+  =f.input :quantity
   -# association :unit
 

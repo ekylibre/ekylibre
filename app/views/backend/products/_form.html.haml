@@ -1,13 +1,13 @@
--field_set do # partie info general de l entité animal
-  -association :variety
-  -input :name , :hint => "le nom de votre animal"# affiche le champ name de l entité animal avec une infos derriere
-  -input :sex # affiche le champ sexe sous forme de radio avec une collection de proposition (M ou F) de l entité animal
-  -input :reproductor
-  -input :born_at
-  -input :work_number
-  -input :number, :placeholder => 'FR + DEPT + 8 chiffres'
-  -input :comment # affiche le champ comment formaté en zone de texte
-  -input :picture
+=field_set do # partie info general de l entité animal
+  =f.association :variety
+  =f.input :name , :hint => "le nom de votre animal"# affiche le champ name de l entité animal avec une infos derriere
+  =f.input :sex # affiche le champ sexe sous forme de radio avec une collection de proposition (M ou F) de l entité animal
+  =f.input :reproductor
+  =f.input :born_at
+  =f.input :work_number
+  =f.input :number, :placeholder => 'FR + DEPT + 8 chiffres'
+  =f.input :comment # affiche le champ comment formaté en zone de texte
+  =f.input :picture
   =image_tag(@product.picture.url(:thumb))
   =custom_fields
   -#for datum in @custom_field_data

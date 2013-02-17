@@ -217,15 +217,15 @@ class BackendController < BaseController
 
   protected
 
-  def render_restfully_form(options = {})
-    # operation = self.action_name.to_sym
-    # operation = (operation == :create ? :new : operation == :update ? :edit : operation)
-    # partial   = options[:partial] || 'form'
-    # options[:form_options] = {} unless options[:form_options].is_a?(Hash)
-    # options[:form_options][:multipart] = true if options[:multipart]
-    # render(:template => options[:template]||"forms/#{operation}", :locals => {:operation => operation, :partial => partial, :options => options})
-    render(:template  => "forms/#{self.action_name}", :locals => {:options => options})
-  end
+  # def render_restfully_form(options = {})
+  #   # operation = self.action_name.to_sym
+  #   # operation = (operation == :create ? :new : operation == :update ? :edit : operation)
+  #   # partial   = options[:partial] || 'form'
+  #   # options[:form_options] = {} unless options[:form_options].is_a?(Hash)
+  #   # options[:form_options][:multipart] = true if options[:multipart]
+  #   # render(:template => options[:template]||"forms/#{operation}", :locals => {:operation => operation, :partial => partial, :options => options})
+  #   render(:template  => "forms/#{self.action_name}", :locals => {:options => options})
+  # end
 
 
   def find_and_check(model = nil, id = nil, options={})
@@ -518,7 +518,7 @@ class BackendController < BaseController
     if defaults.has_key?(:multipart)
       render_form_options << ":multipart => true" if defaults.delete(:multipart)
     end
-    render_form = "render_restfully_form(" + render_form_options.join(", ") + ")"
+    render_form = "render(" + render_form_options.join(", ") + ")"
 
     code = ''
 

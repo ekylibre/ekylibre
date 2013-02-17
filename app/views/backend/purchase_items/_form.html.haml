@@ -1,15 +1,15 @@
 -# TODO Form
 =field_set do
-  -association :purchase, :field => :hidden
-  -association :product, :source => :purchaseables # , :new=>true, "data-parameter-name"=>"product_id", "data-dependents"=>"#price-amount"
-  -input :quantity
-  -input :annotation
+  =f.association :purchase, :field => :hidden
+  =f.association :product, :source => :purchaseables # , :new=>true, "data-parameter-name"=>"product_id", "data-dependents"=>"#price-amount"
+  =f.input :quantity
+  =f.input :annotation
   -nested_association :price do
-    -association :category
-    -input :pretax_amount
-    -association :tax
-    -input :currency, :source => :currencies
+    =f.association :category
+    =f.input :pretax_amount
+    =f.association :tax
+    =f.input :currency, :source => :currencies
 
 =field_set :stocks, :depend_on => :product, :if => :stockable? do
-  -association :warehouse
-  -input :tracking_serial, :if => :trackable?
+  =f.association :warehouse
+  =f.input :tracking_serial, :if => :trackable?

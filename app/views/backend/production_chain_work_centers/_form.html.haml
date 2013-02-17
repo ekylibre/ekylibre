@@ -1,8 +1,8 @@
--field_set do
-  -association :production_chain
-  -input :name
-  -input :nature
+=field_set do
+  =f.association :production_chain
+  =f.input :name
+  =f.input :nature
   -assocaition :operation_nature
-  -association :building, :source => "Warehouse#buildings"
-  -input :comment, :field => :text
+  =f.association :building, :source => "Warehouse#buildings"
+  =f.input :comment, :field => :text
 

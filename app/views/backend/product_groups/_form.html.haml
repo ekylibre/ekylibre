@@ -1,11 +1,11 @@
--field_set do
-  -association :parent
-  -input :name
-  -input :description
-  -input :comment
+=field_set do
+  =f.association :parent
+  =f.input :name
+  =f.input :description
+  =f.input :comment
 
--field_set(:group) do
+=field_set(:group) do
   =nested_association(:memberships) do
-    -input :started_at
-    -input :stopped_at
-    -association :product
+    =f.input :started_at
+    =f.input :stopped_at
+    =f.association :product

@@ -1,9 +1,9 @@
--field_set do
-  -association :entity
-  -association :responsible
-  -association :nature
+=field_set do
+  =f.association :entity
+  =f.association :responsible
+  =f.association :nature
   -# TODO Manages refresh_depending_on
-  -input :duration, :refresh_depending_on => :nature
-  -input :location, :autocomplete => true
-  -input :reason, :field => :text
-  -input :started_at
+  =f.input :duration, :refresh_depending_on => :nature
+  =f.input :location, :autocomplete => true
+  =f.input :reason, :field => :text
+  =f.input :started_at

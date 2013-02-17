@@ -2,34 +2,34 @@
 =sales_steps unless request.xhr?
 
 -#=field_set @sale_line do
--#  -association :sale, :field => :hidden
--#  -input :price, :source => :availables_for_sales, :new => {:mode => :sales, :currency => @sale.currency} # , :controller => :interfacers, "data-dependents" => "#detail", "data-parameter-name" => "price_id"
+-#  =f.association :sale, :field => :hidden
+-#  =f.input :price, :source => :availables_for_sales, :new => {:mode => :sales, :currency => @sale.currency} # , :controller => :interfacers, "data-dependents" => "#detail", "data-parameter-name" => "price_id"
 -#  -partial(:detail, :depend_on => :price)
 -##detail{"data-refresh" => url_for(:controller => :sale_lines, :action => :detail, :sale_id => @sale.id), "data-refresh-mode" => "update"}=render :partial => "sale_lines/detail_form"
 
 -# TODO manage all new attributes
 =field_set do
-  -association :sale, :field => :hidden
-  -association :price, :source => :availables_for_sales, :new => {:mode => :sales, :currency => "sale.currency".to_sym }
-  -input :quantity
-  -association :unit, :readonly => true, :depend_on => :price, :value => "product.unit".to_sym
-  -input :annotation
+  =f.association :sale, :field => :hidden
+  =f.association :price, :source => :availables_for_sales, :new => {:mode => :sales, :currency => "sale.currency".to_sym }
+  =f.input :quantity
+  =f.association :unit, :readonly => true, :depend_on => :price, :value => "product.unit".to_sym
+  =f.input :annotation
 
 -#=field_set :stock, :depend_on => :price, :if => :stockable? do
-  -association :warehouse
-  -association :tracking, :depend_on => :warehouse, :if => :trackable?
+  =f.association :warehouse
+  =f.association :tracking, :depend_on => :warehouse, :if => :trackable?
 
 =field_set :subscriptions do
   -nested_association :subscriptions, :depend_on => :price, :if => :subscription? do
-    -association :address
-    -input :started_on, :if => "product.subscription_nature.period?".to_sym
-    -input :stopped_on, :if => "product.subscription_nature.period?".to_sym
-    -input :first_number, :if => "product.subscription_nature.quantity?".to_sym
-    -input :last_number,  :if => "product.subscription_nature.quantity?".to_sym
+    =f.association :address
+    =f.input :started_on, :if => "product.subscription_nature.period?".to_sym
+    =f.input :stopped_on, :if => "product.subscription_nature.period?".to_sym
+    =f.input :first_number, :if => "product.subscription_nature.quantity?".to_sym
+    =f.input :last_number,  :if => "product.subscription_nature.quantity?".to_sym
 
 =field_set :change_price, :grant_on => :change_prices_on_sales do
-  -input :price_amount
-  -association :tax
+  =f.input :price_amount
+  =f.association :tax
 
 =field_set :give_discount, :grant_on => :give_discounts_on_sales, :depend_on => :price, :if => "product.reduction_submissive?".to_sym do
-  -input :reduction_percentage, :size => 5
+  =f.input :reduction_percentage, :size => 5

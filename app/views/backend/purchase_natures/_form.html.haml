@@ -1,12 +1,12 @@
--field_set do
-  -input :name
-  -input :active
-  -input :currency, :source => :currencies
-  -input :with_accounting, :show => :accountancy
-  -input :comment, :field => :text
+=field_set do
+  =f.input :name
+  =f.input :active
+  =f.input :currency, :source => :currencies
+  =f.input :with_accounting, :show => :accountancy
+  =f.input :comment, :field => :text
 
--field_set :accountancy do
-  -association :journal, :source => :purchases
+=field_set :accountancy do
+  =f.association :journal, :source => :purchases
 
 
 

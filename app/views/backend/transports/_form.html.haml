@@ -1,10 +1,10 @@
 -# TODO Check
--field_set do
-  -association :transporter, :source => :necessary_transporters, :new => {:transporter => 1} # , "data-parameter-name"=>"transporter_id", "data-dependents"=>"#deliveries"
-  -association :responsible, :source => :employees
-  -input :reference_number
-  -input :transport_on
-  -input :comment, :field => :text
+=field_set do
+  =f.association :transporter, :source => :necessary_transporters, :new => {:transporter => 1} # , "data-parameter-name"=>"transporter_id", "data-dependents"=>"#deliveries"
+  =f.association :responsible, :source => :employees
+  =f.input :reference_number
+  =f.input :transport_on
+  =f.input :comment, :field => :text
 
 %h2=Transport.human_attribute_name(:deliveries)
 #deliveries{"data-refresh"=>url_for(:controller=>:transports, :action=>:new, :transport_id=>@transport.id), "data-refresh-mode"=>"update"}=render :partial=>"deliveries_form"

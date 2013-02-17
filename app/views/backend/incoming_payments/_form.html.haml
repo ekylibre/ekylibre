@@ -1,13 +1,13 @@
--field_set do
-  -association :payer
-  -input :amount
-  -input :to_bank_on
-  -input :received
-  -association :mode
+=field_set do
+  =f.association :payer
+  =f.input :amount
+  =f.input :to_bank_on
+  =f.input :received
+  =f.association :mode
 
--field_set(:depositable_options) do
-  -association :responsible, :source => :employees
-  -input :paid_on
-  -input :check_number
-  -input :account_number
-  -input :bank
+=field_set(:depositable_options) do
+  =f.association :responsible, :source => :employees
+  =f.input :paid_on
+  =f.input :check_number
+  =f.input :account_number
+  =f.input :bank

@@ -1,11 +1,11 @@
--field_set do # partie info general de l entité animal
-  -association :nature
-  -association :variety
-  -input :name
-  -input :reproductor
-  -input :born_at
-  -input :comment # affiche le champ comment formaté en zone de texte
-  -input :picture
+=field_set do # partie info general de l entité animal
+  =f.association :nature
+  =f.association :variety
+  =f.input :name
+  =f.input :reproductor
+  =f.input :born_at
+  =f.input :comment # affiche le champ comment formaté en zone de texte
+  =f.input :picture
   =image_tag(@vegetal.picture.url(:thumb))
   =custom_fields
   -#for datum in @custom_field_data

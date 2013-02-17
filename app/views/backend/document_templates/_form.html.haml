@@ -1,12 +1,12 @@
--field_set do
-  -input :name
-  -input :code
-  -input :family
-  -input :nature
-  -input :to_archive
-  -input :by_default
-  -input :active
-  -input :language, :source => :languages
-  -input :country,  :source => :countries
-  -input :filename
-  -input :source, :field => :text
+=field_set do
+  =f.input :name
+  =f.input :code
+  =f.input :family
+  =f.input :nature
+  =f.input :to_archive
+  =f.input :by_default
+  =f.input :active
+  =f.input :language, :source => :languages
+  =f.input :country,  :source => :countries
+  =f.input :filename
+  =f.input :source, :field => :text

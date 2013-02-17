@@ -3,9 +3,9 @@
 
 =field_set do
   -# TODO: Manage variables in :new parameters
-  -association :address, :source => :own_mails # , :new => {:entity_id => @purchase.supplier_id}
-  -association :mode
-  -input :planned_on
+  =f.association :address, :source => :own_mails # , :new => {:entity_id => @purchase.supplier_id}
+  =f.association :mode
+  =f.input :planned_on
 
 =field_set :incoming_delivery_lines do
   -partial :lines

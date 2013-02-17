@@ -1,7 +1,7 @@
--field_set do
-  -input :name
-  -association :cash
-  -input :with_accounting, :show => :accountancy
+=field_set do
+  =f.input :name
+  =f.association :cash
+  =f.input :with_accounting, :show => :accountancy
 
--field_set(:accountancy) do
-  -association :attorney_journal
+=field_set(:accountancy) do
+  =f.association :attorney_journal

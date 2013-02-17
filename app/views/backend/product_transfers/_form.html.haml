@@ -1,9 +1,9 @@
--field_set do
-  -input :nature, :show => {:transfer => :second_warehouse}
-  -association :product, :source => :availables
-  -association :tracking
-  -input :quantity
-  -association :warehouse
-  -association :second_warehouse
-  -input :planned_on
-  -input :comment
+=field_set do
+  =f.input :nature, :show => {:transfer => :second_warehouse}
+  =f.association :product, :source => :availables
+  =f.association :tracking
+  =f.input :quantity
+  =f.association :warehouse
+  =f.association :second_warehouse
+  =f.input :planned_on
+  =f.input :comment

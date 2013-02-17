@@ -1,8 +1,8 @@
 =field_set do
-  -association :mode, :field => :hidden
-  -association :responsible, :source => :employees
-  -input :created_on
-  -input :comment
+  =f.association :mode, :field => :hidden
+  =f.association :responsible, :source => :employees
+  =f.input :created_on
+  =f.input :comment
 
 =field_set :incoming_payments do
   -partial :depositable_payments
