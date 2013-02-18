@@ -5,7 +5,7 @@
   =f.input :quantity
   -# input :suspended
   =f.association :address
-  =f.input :comment
+  =f.input :description
 
 =field_set :interval, :depend_on => :nature do
   =f.input :started_on, :if => :period?

@@ -10,7 +10,7 @@
   =f.input :min_duration
 
 =field_set(:products) do
-  -nested_association(:lines) do
+  -nested_association(:items) do
     =f.input :direction
     =f.association :product
     =f.input :quantity

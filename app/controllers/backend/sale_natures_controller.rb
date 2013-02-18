@@ -33,7 +33,7 @@ class Backend::SaleNaturesController < BackendController
     # t.column :downpayment_percentage
     t.column :with_accounting
     t.column :name, :through=>:journal, :url=>true
-    #t.column :comment
+    #t.column :description
     t.action :edit
     t.action :destroy
   end

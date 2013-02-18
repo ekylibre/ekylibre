@@ -24,7 +24,7 @@ class Backend::ProductionChainsController < BackendController
 
   list(:order => "name") do |t|
     t.column :name, :url => true
-    t.column :comment
+    t.column :description
     t.action :edit
     t.action :destroy
   end
@@ -98,7 +98,7 @@ class Backend::ProductionChainsController < BackendController
     # t.column :name, :through => :operation_nature
     t.column :nature
     t.column :name, :through => :building, :url => true
-    t.column :comment
+    t.column :description
     t.action :edit
     t.action :destroy
   end

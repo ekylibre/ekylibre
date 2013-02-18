@@ -33,7 +33,7 @@ class Backend::LogsController < BackendController
   #   t.column :name, :through => :product, :url => true
   #   t.column :name, :through => :nature, :url => true
   #   t.column :name, :through => :watcher, :url => true
-  #   t.column :comment
+  #   t.column :description
   #   t.column :description
   #   t.action :show, :url => {:format => :pdf}, :image => :print
   #   t.action :edit

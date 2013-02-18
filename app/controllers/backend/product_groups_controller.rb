@@ -24,7 +24,7 @@ class Backend::ProductGroupsController < BackendController
 
   list do |t|
     t.column :name, :url => true
-    t.column :comment
+    t.column :description
     t.column :description
     t.action :show, :url => {:format => :pdf}, :image => :print
     t.action :edit
@@ -39,7 +39,7 @@ class Backend::ProductGroupsController < BackendController
 
   # list(:events,:model  =>  :product_group_events, :conditions => {:animal_group_id => ['session[:current_animal_group_id]']}, :order => "started_at ASC") do |t|
   #   t.column :started_at
-  #   t.column :comment
+  #   t.column :description
   # end
 
   # Show a list of animals

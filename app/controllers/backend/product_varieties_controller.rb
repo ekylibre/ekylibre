@@ -25,7 +25,7 @@ class Backend::ProductVarietiesController < BackendController
   list do |t|
     t.column :name, :url => true
     t.column :name, :through=>:parent, :url=>true
-    t.column :comment
+    t.column :description
     t.column :code
     t.column :description
     t.action :show, :url => {:format => :pdf}, :image => :print

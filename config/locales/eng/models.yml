@@ -989,7 +989,7 @@ eng:
     period_name: "Period name" #?
     phone: "Phone" #?
     # phones: "Téléphones"
-    photo: "Photo"
+    photo: "Photo" #?
     physical: "Physical"
     # picture: "Photo"
     picture_content_type: "Picture content type"

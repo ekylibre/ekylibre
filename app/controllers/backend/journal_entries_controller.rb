@@ -21,7 +21,7 @@ class Backend::JournalEntriesController < BackendController
 
   unroll_all
 
-  list(:lines, :model => :journal_entry_items, :conditions => {:entry_id => ['session[:current_journal_entry_id]']}, :order => "entry_id DESC, position") do |t|
+  list(:items, :model => :journal_entry_items, :conditions => {:entry_id => ['session[:current_journal_entry_id]']}, :order => "entry_id DESC, position") do |t|
     t.column :name
     t.column :number, :through => :account, :url => true
     t.column :name, :through => :account, :url => true
@@ -61,7 +61,7 @@ class Backend::JournalEntriesController < BackendController
     return unless @journal = find_and_check(:journal, params[:journal_id])
     session[:current_journal_id] = @journal.id
     @journal_entry = @journal.entries.build(params[:journal_entry])
-    @journal_entry_lines = (params[:lines]||{}).values
+    @journal_entry_lines = (params[:items]||{}).values
     # raise @journal_entry_lines.inspect
     if @journal_entry.save_with_lines(@journal_entry_lines)
       notify_success(:journal_entry_has_been_saved, :number => @journal_entry.number)
@@ -108,7 +108,7 @@ class Backend::JournalEntriesController < BackendController
     end
     @journal = @journal_entry.journal
     @journal_entry.attributes = params[:journal_entry]
-    @journal_entry_lines = (params[:lines]||{}).values
+    @journal_entry_lines = (params[:items]||{}).values
     if @journal_entry.save_with_lines(@journal_entry_lines)
       redirect_to_back
       return

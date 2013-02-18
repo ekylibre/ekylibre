@@ -99,7 +99,7 @@ class Backend::SettingsController < BackendController
           started_on = Date.civil(started_on[4..7].to_i, started_on[2..3].to_i, started_on[0..1].to_i)
           stopped_on = f.readline
           stopped_on = Date.civil(stopped_on[4..7].to_i, stopped_on[2..3].to_i, stopped_on[0..1].to_i)
-          ic = Iconv.new("utf-8", "cp1252")
+          # ic = Iconv.new("utf-8", "cp1252")
           begin
             ActiveRecord::Base.transaction do
               while 1
@@ -111,7 +111,7 @@ class Backend::SettingsController < BackendController
                 unless @current_company.financial_years.find_by_started_on_and_stopped_on(started_on, stopped_on)
                   @current_company.financial_years.create!(:started_on=>started_on, :stopped_on=>stopped_on)
                 end
-                line = ic.iconv(line).split(/\;/)
+                line = line.encode("UTF-8").split(/\;/)
                 if line[0] == "C"
                   unless @current_company.accounts.find_by_number(line[1])
                     @current_company.accounts.create!(:number=>line[1], :name=>line[2])

@@ -1441,7 +1441,7 @@ arb:
     period_name: "تواتري" #?
     phone: "هاتف" #?
     # phones: "Téléphones"
-    photo: "صورة"
+    photo: "صورة" #?
     physical: "الفرد الطبيعي"
     # picture: "Photo"
     # picture_content_type: "Format de photo"

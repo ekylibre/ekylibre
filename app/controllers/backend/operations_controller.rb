@@ -43,7 +43,7 @@ class Backend::OperationsController < BackendController
   #   t.column :name, :through => :tool, :url => true
   # end
 
-  # list(:lines, :model => :operation_items, :conditions => {:operation_id => ['session[:current_operation_id]']}, :order => "direction") do |t|
+  # list(:items, :model => :operation_items, :conditions => {:operation_id => ['session[:current_operation_id]']}, :order => "direction") do |t|
   #   t.column :direction
   #   # t.column :name, :through => :warehouse, :url => true
   #   t.column :name, :through => :product, :url => true
@@ -68,7 +68,7 @@ class Backend::OperationsController < BackendController
 
   # def create
   #   @operation = Operation.new(params[:operation])
-  #   @operation_lines = (params[:lines]||{}).values
+  #   @operation_lines = (params[:items]||{}).values
   #   @operation_uses = (params[:uses]||{}).values
   #   redirect_to_back and return if @operation.save_with_uses_and_lines(@operation_uses, @operation_lines)
   #   render_restfully_form
@@ -97,7 +97,7 @@ class Backend::OperationsController < BackendController
   #     session[:tool_ids] << tool.id.to_s
   #   end
   #   @operation.attributes = params[:operation]
-  #   @operation_lines = (params[:lines]||{}).values
+  #   @operation_lines = (params[:items]||{}).values
   #   @operation_uses = (params[:uses]||{}).values
   #   if @operation.save_with_uses_and_lines(@operation_uses, @operation_lines)
   #     redirect_to_back

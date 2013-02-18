@@ -50,7 +50,7 @@ class Backend::CashesController < BackendController
     t.column :payments_count
     t.column :amount, :currency => "RECORD.cash.currency"
     t.column :name, :through => :mode
-    t.column :comment
+    t.column :description
   end
 
   # Displays details of one cash selected with +params[:id]+

@@ -26,7 +26,7 @@ class Backend::EstablishmentsController < BackendController
     t.column :name
     t.column :nic
     t.column :siret
-    t.column :comment
+    t.column :description
     t.action :edit
     t.action :destroy
   end

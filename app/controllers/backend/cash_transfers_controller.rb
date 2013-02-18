@@ -29,7 +29,7 @@ class Backend::CashTransfersController < BackendController
     t.column :receiver_amount, :currency => "RECORD.receiver_cash.currency"
     t.column :name, :through => :receiver_cash, :url => true
     t.column :created_on
-    t.column :comment
+    t.column :description
     t.action :edit
     t.action :destroy
   end

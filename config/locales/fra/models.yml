@@ -283,11 +283,11 @@ fra:
       # bioproduct: "Bioproduct"
       cash: "Trésorerie"
       cash_transfer: "Virement interne"
-      company: ""
+      company: "" #?
       custom_field: "Champ complémentaire"
       custom_field_choice: "Choix de champ complémentaire"
       custom_field_datum: "Donnée complémentaire de fiche"
-      delay: ""
+      delay: "" #?
       department: "Service"
       deposit: "Remise en banque"
       deposit_item: "Ligne de remise en banque"
@@ -310,10 +310,10 @@ fra:
       incoming_delivery_mode: "Mode d’arrivage"
       incoming_payment: "Encaissement"
       incoming_payment_mode: "Mode d’encaissement"
-      incoming_payment_use: ""
+      incoming_payment_use: "" #?
       inventory: "Inventaire"
       inventory_item: "Ligne d’inventaire"
-      inventory_line: ""
+      inventory_line: "" #?
       journal: "Journal"
       journal_entry: "Écriture"
       journal_entry_item: "Ligne d’écriture"
@@ -1345,73 +1345,73 @@ fra:
       label: "%{number} - %{name}"
     cash_transfer:
       bookkeep: "[%{resource} %{number}] De %{emitter} à %{receiver} %{comment}"
-    company:
-      cant_find_document_template: "Impossible de trouver le modèle de document correspondant"
-      default:
-        category: "Par défaut"
-        delays:
-          expression:
-            expiration: "1 mois"
-            immediate: "0 jour"
-            standard: "30 jours, fin de mois"
-          name:
-            expiration: "Expiration (1 M)"
-            immediate: "Immédiat"
-            standard: "Standard (30j FDM)"
-        department_name: "Gestion/Production"
-        establishment_name: "Établissement principal"
-        event_natures:
-          purchase: "Création d’un achat"
-          sale: "Création d’un devis"
-          sales_invoice: "Création d’une facture"
-        incoming_payment_modes:
-          cash:
-            name: "Espèces"
-          check:
-            name: "Chèque"
-          transfer:
-            name: "Virement"
-        outgoing_payment_modes:
-          cash:
-            name: "Espèces"
-          check:
-            name: "Chèque"
-          transfer:
-            name: "Virement"
-        product_category_name: "Sans catégorie"
-        purchase_nature_name: "Standard"
-        role:
-          name:
-            admin: "Gérant"
-            public: "Public (sans droits)"
-        sale_nature_name: "Vente standard"
-        taxes:
-          tva0000:
-            amount: "0.0"
-            collected: "445710"
-            name: "TVA 0,00%"
-            paid: "445660"
-          tva0210:
-            amount: "2.1"
-            collected: "445711"
-            name: "TVA 2,10%"
-            paid: "445661"
-          tva0550:
-            amount: "5.5"
-            collected: "445712"
-            name: "TVA 5,50%"
-            paid: "445662"
-          tva1960:
-            amount: "19.6"
-            collected: "445713"
-            name: "TVA 19,60%"
-            paid: "445663"
-        warehouse_name: "Réserve"
-      import:
-        dont_use: "-- Ne pas utiliser --"
-        generate_string_custom_field: "-- Créer un champ personnalisé (texte) --"
+    company: #?
+      cant_find_document_template: "Impossible de trouver le modèle de document correspondant" #?
+      default: #?
+        category: "Par défaut" #?
+        delays: #?
+          expression: #?
+            expiration: "1 mois" #?
+            immediate: "0 jour" #?
+            standard: "30 jours, fin de mois" #?
+          name: #?
+            expiration: "Expiration (1 M)" #?
+            immediate: "Immédiat" #?
+            standard: "Standard (30j FDM)" #?
+        department_name: "Gestion/Production" #?
+        establishment_name: "Établissement principal" #?
+        event_natures: #?
+          purchase: "Création d’un achat" #?
+          sale: "Création d’un devis" #?
+          sales_invoice: "Création d’une facture" #?
+        incoming_payment_modes: #?
+          cash: #?
+            name: "Espèces" #?
+          check: #?
+            name: "Chèque" #?
+          transfer: #?
+            name: "Virement" #?
+        outgoing_payment_modes: #?
+          cash: #?
+            name: "Espèces" #?
+          check: #?
+            name: "Chèque" #?
+          transfer: #?
+            name: "Virement" #?
+        product_category_name: "Sans catégorie" #?
+        purchase_nature_name: "Standard" #?
+        role: #?
+          name: #?
+            admin: "Gérant" #?
+            public: "Public (sans droits)" #?
+        sale_nature_name: "Vente standard" #?
+        taxes: #?
+          tva0000: #?
+            amount: "0.0" #?
+            collected: "445710" #?
+            name: "TVA 0,00%" #?
+            paid: "445660" #?
+          tva0210: #?
+            amount: "2.1" #?
+            collected: "445711" #?
+            name: "TVA 2,10%" #?
+            paid: "445661" #?
+          tva0550: #?
+            amount: "5.5" #?
+            collected: "445712" #?
+            name: "TVA 5,50%" #?
+            paid: "445662" #?
+          tva1960: #?
+            amount: "19.6" #?
+            collected: "445713" #?
+            name: "TVA 19,60%" #?
+            paid: "445663" #?
+        warehouse_name: "Réserve" #?
+      import: #?
+        dont_use: "-- Ne pas utiliser --" #?
+        generate_string_custom_field: "-- Créer un champ personnalisé (texte) --" #?
       sales: "Ventes"
-    delay:
+    delay: #?
       error_unvalid_format_for_expression: "L’expression n’est pas au bon format"
     deposit:
       bookkeep:
@@ -1468,11 +1468,11 @@ fra:
     incoming_payment:
       bookkeep: "[%{resource} %{number}] %{mode} %{check_number} de %{payer} (%{expenses})"
       label: "%{number}. %{amount} (%{usable_amount} restants) du %{date} en %{mode} de %{payer}"
-    incoming_payment_use:
+    incoming_payment_use: #?
       bookkeep: "[%{resource}] %{mode} (%{payment_number}) reçu de %{attorney} pour %{client} (%{expense_number})"
     inventory_item:
       inventory: "Inventaire "
-    inventory_line:
+    inventory_line: #?
       inventory: "Inventaire "
     journal_entry:
       entry_cancel: "Contre-passation de l’écriture %{number}: %{name}"

@@ -81,7 +81,7 @@ class Backend::EntitiesController < BackendController
     t.column :description, :through => :entity_1, :url => true
     t.column :name_1_to_2, :through => :nature
     t.column :description, :through => :entity_2, :url => true
-    t.column :comment
+    t.column :description
     t.action :edit
     t.action :destroy
   end

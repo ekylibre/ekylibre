@@ -25,6 +25,8 @@ module Ekylibre::Record
             code << "belongs_to :#{affair}, :inverse_of => :#{self.name.underscore.pluralize}\n"
           end
 
+          code << "delegate :credit, :debit, :closed?, :to => :affair, :prefix => true\n"
+
           # Marks model as affairable
           code << "def self.affairable_options\n"
           code << "  return {:reflection => :#{affair}, :currency => :#{currency}, :third => :#{options[:role] || options[:third]}}\n"
@@ -52,11 +54,9 @@ module Ekylibre::Record
 
           # Refresh after each save
           code << "after_save do\n"
-          # code << "  if self.#{affair}\n"
-          code << "  self.#{affair}.reload\n"
-          code << "  self.#{affair}.save!\n"
-          # code << "  end\n"
+          code << "  Affair.find(self.#{affair_id}).save!\n"
           code << "  Affair.clean_deads\n"
+          code << "  self.#{affair}.reload\n"
           code << "end\n"
 
           # Return if deal is a debit for us
@@ -122,7 +122,7 @@ module Ekylibre::Record
 
           # code.split("\n").each_with_index{|x, i| puts((i+1).to_s.rjust(4)+": "+x)}
 
-          class_eval code
+          class_eval(code)
         end
       end
 

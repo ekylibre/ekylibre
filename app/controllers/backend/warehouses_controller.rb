@@ -24,7 +24,7 @@ class Backend::WarehousesController < BackendController
 
   list do |t|
     t.column :name, :url => true
-    t.column :comment
+    t.column :description
     # t.column :name, :through => :establishment
     # t.column :name, :through => :parent, :url => true
     t.column :reservoir

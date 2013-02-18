@@ -24,7 +24,7 @@ class Backend::DepartmentsController < BackendController
 
   list(:order => :name) do |t|
     t.column :name
-    t.column :comment
+    t.column :description
     t.action :edit
     t.action :destroy
   end

@@ -51,7 +51,7 @@ class Backend::AnimalsController < BackendController
     t.column :name, :url => true
     t.column :born_at
     t.column :sex
-    t.column :comment
+    t.column :description
   end
 
   # Show one animal with params_id

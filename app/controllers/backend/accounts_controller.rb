@@ -24,7 +24,7 @@ class Backend::AccountsController < BackendController
 
   def self.accounts_conditions
     code  = ""
-    code << light_search_conditions(Account.table_name => [:name, :number, :comment])
+    code << light_search_conditions(Account.table_name => [:name, :number, :description])
     code << "[0] += ' AND number LIKE ?'\n"
     code << "c << params[:prefix].to_s+'%'\n"
     code << "if params[:used_accounts].to_i == 1\n"
@@ -39,7 +39,7 @@ class Backend::AccountsController < BackendController
     t.column :number, :url => true
     t.column :name, :url => true
     t.column :reconcilable
-    t.column :comment
+    t.column :description
     t.action :edit
     t.action :destroy, :if => "RECORD.destroyable\?"
   end
@@ -87,7 +87,7 @@ class Backend::AccountsController < BackendController
   end
 
   def self.account_reconciliation_conditions
-    code  = search_conditions(:accounts, :accounts => [:name, :number, :comment], :journal_entries => [:number], JournalEntryItem.table_name => [:name, :debit, :credit])+"[0] += ' AND accounts.reconcilable = ?'\n"
+    code  = search_conditions(:accounts, :accounts => [:name, :number, :description], :journal_entries => [:number], JournalEntryItem.table_name => [:name, :debit, :credit])+"[0] += ' AND accounts.reconcilable = ?'\n"
     code << "c << true\n"
     code << "c[0] += ' AND "+JournalEntryItem.connection.length(JournalEntryItem.connection.trim("COALESCE(letter, \\'\\')"))+" = 0'\n"
     code << "c"

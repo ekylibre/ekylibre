@@ -126,6 +126,7 @@ class Affair < Ekylibre::Record::Base
     return self.reload
   end
 
+  # Returns heterogen list of deals of the affair
   def deals
     return (self.sales.to_a +
             self.purchases.to_a +

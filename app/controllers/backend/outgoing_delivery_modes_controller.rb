@@ -25,7 +25,7 @@ class Backend::OutgoingDeliveryModesController < BackendController
   list do |t|
     t.column :name
     t.column :code
-    t.column :comment
+    t.column :description
     t.action :edit
     t.action :destroy
   end

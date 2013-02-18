@@ -9,7 +9,6 @@
 # - "backend/animals#new"
 # - "backend/animals#show"
 # - "backend/animals#update"
-# - "backend/bank_statements#list_lines"
 # - "backend/cells/demo_bar_cells#show"
 # - "backend/cells/demo_pie_cells#show"
 # - "backend/cells/last_events_cells#list"
@@ -43,10 +42,6 @@
 # - "backend/interfacers#toggle_view_mode"
 # - "backend/interfacers#unroll"
 # - "backend/interfacers#unroll_options"
-# - "backend/inventories#list_lines"
-# - "backend/inventories#list_lines_create"
-# - "backend/inventories#list_lines_update"
-# - "backend/journal_entries#list_lines"
 # - "backend/logs#create"
 # - "backend/logs#destroy"
 # - "backend/logs#edit"
@@ -56,7 +51,6 @@
 # - "backend/logs#show"
 # - "backend/logs#update"
 # - "backend/operations#list_unvalidateds"
-# - "backend/outgoing_deliveries#list_lines"
 # - "backend/places#create"
 # - "backend/places#destroy"
 # - "backend/places#edit"
@@ -314,7 +308,7 @@ consult_purchases:
 - "backend/purchases#index"
 - "backend/purchases#list"
 - "backend/purchases#list_deliveries"
-- "backend/purchases#list_lines"
+- "backend/purchases#list_lines" #?
 - "backend/purchases#list_undelivered_lines"
 - "backend/purchases#show"
 
@@ -413,7 +407,7 @@ manage_bank_statements:
 - "backend/bank_statements#edit"
 - "backend/bank_statements#index"
 - "backend/bank_statements#list"
-- "backend/bank_statements#list_items" #?
+- "backend/bank_statements#list_items"
 - "backend/bank_statements#new"
 - "backend/bank_statements#point"
 - "backend/bank_statements#show"
@@ -681,9 +675,9 @@ manage_inventories:
 - "backend/inventories#edit"
 - "backend/inventories#index"
 - "backend/inventories#list"
-- "backend/inventories#list_items" #?
-- "backend/inventories#list_items_create" #?
-- "backend/inventories#list_items_update" #?
+- "backend/inventories#list_items"
+- "backend/inventories#list_items_create"
+- "backend/inventories#list_items_update"
 - "backend/inventories#new"
 - "backend/inventories#reflect"
 - "backend/inventories#show"
@@ -699,7 +693,7 @@ manage_journal_entries:
 - "backend/journal_entries#create"
 - "backend/journal_entries#destroy"
 - "backend/journal_entries#edit"
-- "backend/journal_entries#list_items" #?
+- "backend/journal_entries#list_items"
 - "backend/journal_entries#new"
 - "backend/journal_entries#show"
 - "backend/journal_entries#update"
@@ -832,7 +826,7 @@ manage_outgoing_payments:
 - "backend/outgoing_payments#new"
 - "backend/outgoing_payments#show"
 - "backend/outgoing_payments#update"
-- "backend/purchases#list_items" #?
+- "backend/purchases#list_items"
 - "backend/purchases#show"
 
 # Manage prices
@@ -915,7 +909,7 @@ manage_purchases:
 - "backend/purchases#invoice"
 - "backend/purchases#list"
 - "backend/purchases#list_deliveries"
-- "backend/purchases#list_items" #?
+- "backend/purchases#list_items"
 - "backend/purchases#list_undelivered_items" #?
 - "backend/purchases#new"
 - "backend/purchases#propose"
@@ -943,7 +937,7 @@ manage_sales:
 - "backend/outgoing_deliveries#edit"
 - "backend/outgoing_deliveries#index"
 - "backend/outgoing_deliveries#list"
-- "backend/outgoing_deliveries#list_items" #?
+- "backend/outgoing_deliveries#list_items"
 - "backend/outgoing_deliveries#new"
 - "backend/outgoing_deliveries#show"
 - "backend/outgoing_deliveries#update"

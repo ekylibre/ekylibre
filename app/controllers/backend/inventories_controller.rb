@@ -25,7 +25,7 @@ class Backend::InventoriesController < BackendController
     t.column :created_on
     t.column :changes_reflected
     t.column :label, :through => :responsible, :url => true
-    t.column :comment
+    t.column :description
     t.action :show, :url => {:format => :pdf}, :image => :print
     t.action :reflect, :if => :reflectable?, :image => "action", 'data-confirm' => :are_you_sure
     t.action :edit,  :unless => :changes_reflected?
@@ -39,7 +39,7 @@ class Backend::InventoriesController < BackendController
     end
   end
 
-  list(:lines, :model => :inventory_items, :conditions => {:inventory_id => ['params[:id]'] }, :order => :id) do |t|
+  list(:items, :model => :inventory_items, :conditions => {:inventory_id => ['params[:id]'] }, :order => :id) do |t|
     # t.column :name, :through => :warehouse, :url => true
     t.column :name, :through => :product, :url => true
     t.column :serial_number, :through => :product
@@ -58,7 +58,7 @@ class Backend::InventoriesController < BackendController
     end
   end
 
-  list(:lines_create, :model => :products, :pagination => :none, :order => "#{Warehouse.table_name}.name, #{ProductNature.table_name}.name") do |t|
+  list(:items_create, :model => :products, :pagination => :none, :order => "#{Warehouse.table_name}.name, #{ProductNature.table_name}.name") do |t|
     # t.column :name, :through => :warehouse, :url => true
     t.column :name, :url => true
     t.column :serial_number, :through => :tracking
@@ -67,7 +67,7 @@ class Backend::InventoriesController < BackendController
     t.text_field :quantity
   end
 
-  list(:lines_update, :model => :inventory_items, :conditions => {:inventory_id => ['session[:current_inventory_id]'] }, :pagination => :none, :order => "#{Warehouse.table_name}.name, #{ProductNature.table_name}.name") do |t|
+  list(:items_update, :model => :inventory_items, :conditions => {:inventory_id => ['session[:current_inventory_id]'] }, :pagination => :none, :order => "#{Warehouse.table_name}.name, #{ProductNature.table_name}.name") do |t|
     # t.column :name, :through => :warehouse, :url => true
     t.column :name, :trough => :product, :url => true
     t.column :serial_number, :through => :product
@@ -93,11 +93,11 @@ class Backend::InventoriesController < BackendController
     end
     notify_warning_now(:validates_old_inventories) if Inventory.find_all_by_changes_reflected(false).size >= 1
     @inventory = Inventory.new(params[:inventory])
-    params[:lines_create] ||= {}
-    params[:lines_create].each{|k,v| v[:stock_id]=k}
-    # raise Exception.new(params[:lines_create].inspect)
+    params[:items_create] ||= {}
+    params[:items_create].each{|k,v| v[:stock_id]=k}
+    # raise Exception.new(params[:items_create].inspect)
     if @inventory.save
-      @inventory.set_lines(params[:lines_create].values)
+      @inventory.set_lines(params[:items_create].values)
       redirect_to :action => :index
       return
     end
@@ -116,8 +116,8 @@ class Backend::InventoriesController < BackendController
     session[:current_inventory_id] = @inventory.id
     unless @inventory.changes_reflected
       if @inventory.update_attributes(params[:inventory])
-        # @inventory.set_lines(params[:lines_create].values)
-        for id, attributes in (params[:lines_update]||{})
+        # @inventory.set_lines(params[:items_create].values)
+        for id, attributes in (params[:items_update]||{})
           il = InventoryItem.find_by_id(id).update_attributes!(attributes)
         end
       end

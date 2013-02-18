@@ -9,7 +9,7 @@ def check_symlink(view, ref, log, force = false)
         FileUtils.rm(view)
         File.symlink(ref, view)
         count += 1
-        log.write " - Force creation symlink #{view.to_s} -> #{ref}\n"        
+        log.write " - Force creation symlink #{view.to_s} -> #{ref}\n"
       else
         unless target.to_s == ref.to_s
           count += 1
@@ -42,7 +42,7 @@ def check_view(view, haml, log)
         File.open(view, "wb") do |f|
           f.write(preamble)
           f.write(haml)
-        end        
+        end
       else
         count += 1
         log.write " - Do not update view #{view.to_s} because not generated\n"
@@ -64,7 +64,7 @@ end
 
 
 # Browse all directories searching for _form.html.* and links missing views
-task :forms do
+task :forms => :environment do
   log = File.open(Rails.root.join("log", "clean-forms.log"), "wb")
   count = 0
   print " - Forms: "
@@ -93,9 +93,9 @@ task :forms do
 
     count += check_view(dir.join("new.html.haml"), code, log)
     # count += check_symlink(dir.join("new.html.haml"), new_view, log)
-    
+
     # Check create.html.haml
-    count += check_symlink(dir.join("create.html.haml"), "new.html.haml", log)
+    count += check_symlink(dir.join("create.html.haml"), "new.html.haml", log, true)
 
     edit_view = Rails.root.join("app", "views", "forms", "edit.html.haml").relative_path_from(dir)
 
@@ -112,9 +112,9 @@ task :forms do
     # Check edit.html.haml
     count += check_view(dir.join("edit.html.haml"), code, log)
     # count += check_symlink(dir.join("edit.html.haml"), edit_view, log)
-    
+
     # Check update.html.haml
-    count += check_symlink(dir.join("update.html.haml"), "edit.html.haml", log)
+    count += check_symlink(dir.join("update.html.haml"), "edit.html.haml", log, true)
   end
   puts " #{count} warnings"
   log.close

@@ -21,7 +21,7 @@
   -l.attribute :confirmed_on
   -l.attribute :planned_on
   -l.attribute :currency unless @purchase.currency == Entity.of_company.currency
-  -l.attribute :comment
+  -l.attribute :description
   -l.attribute :delivery_address, :label=>:coordinate
   -l.attribute :journal_entry, :url=>true
 
@@ -31,7 +31,7 @@
   -if @purchase.draft?
     =toolbar do |t|
       -t.link(:new, :controller=>:purchase_lines, :purchase_id=>@purchase.id)
-  =list :lines do
+  =list :items do
     %tr.total
       %th{:colspan=>6}
       %td=I18n.localize(@purchase.pretax_amount, :currency=>@purchase.currency)

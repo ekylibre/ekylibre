@@ -81,13 +81,14 @@ class SaleTest < ActiveSupport::TestCase
       setup do
         @sale = sales(:sales_001)
         assert @sale.draft?
+        assert @sale.save
       end
 
       should "be invoiced" do
         assert !@sale.invoice
 
-        assert @sale.affair, "A sale must be linked to an affair"
-        assert_equal @sale.amount, @sale.affair.credit
+        assert !@sale.affair.nil?, "A sale must be linked to an affair"
+        assert_equal @sale.amount, @sale.affair_credit, "Affair amount is not the same as the sale amount (#{@sale.affair.inspect})"
 
         item = @sale.items.new(:quantity => 12, :product_id => products(:animals_001).id) # :price_id => product_nature_prices(:product_nature_prices_001).id) # , :warehouse_id => products(:warehouses_001).id)
         assert item.save, item.errors.inspect

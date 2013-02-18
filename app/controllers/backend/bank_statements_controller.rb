@@ -45,7 +45,7 @@ class Backend::BankStatementsController < BackendController
     notify_now(:x_unpointed_journal_entry_lines, :count => JournalEntryItem.where("bank_statement_id IS NULL and account_id IN (?)", cashes.map(&:account_id)).count)
   end
 
-  list(:lines, :model => :journal_entry_items, :conditions => {:bank_statement_id => ['session[:current_bank_statement_id]']}, :order => "entry_id") do |t|
+  list(:items, :model => :journal_entry_items, :conditions => {:bank_statement_id => ['session[:current_bank_statement_id]']}, :order => "entry_id") do |t|
     t.column :name, :through => :journal, :url => true
     t.column :number, :through => :entry, :url => true
     t.column :created_on, :through => :entry, :datatype => :date, :label => :column

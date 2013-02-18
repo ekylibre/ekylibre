@@ -26,7 +26,7 @@ class Backend::OutgoingDeliveriesController < BackendController
     t.column :number, :through => :transport, :url => true
     t.column :full_name, :through => :transporter, :url => true
     t.column :reference_number
-    t.column :comment
+    t.column :description
     t.column :planned_on
     t.column :moved_on
     t.column :name, :through => :mode
@@ -41,7 +41,7 @@ class Backend::OutgoingDeliveriesController < BackendController
   def index
   end
 
-  list(:lines, :model => :outgoing_delivery_items, :conditions => {:delivery_id => ['session[:current_outgoing_delivery_id]']}) do |t|
+  list(:items, :model => :outgoing_delivery_items, :conditions => {:delivery_id => ['session[:current_outgoing_delivery_id]']}) do |t|
     t.column :name, :through => :product, :url => true
     t.column :serial_number, :through => :product
     t.column :quantity

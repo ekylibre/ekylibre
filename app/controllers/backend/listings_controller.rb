@@ -24,7 +24,7 @@ class Backend::ListingsController < BackendController
   list(:order => :name) do |t|
     t.column :name, :url => {:action => :edit}
     t.column :root_model_name
-    t.column :comment
+    t.column :description
     t.action :extract, :url => {:format => :csv}, :image => :action
     t.action :extract, :url => {:format => :csv, :mode => :no_mail}, :if => 'RECORD.mail_columns.size > 0', :image => :nomail
     t.action :mail, :if => 'RECORD.mail_columns.size > 0'

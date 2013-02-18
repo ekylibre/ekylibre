@@ -28,7 +28,7 @@ class Backend::DepositsController < BackendController
     t.column :name, :through => :cash, :url => true
     t.column :label, :through => :responsible
     t.column :created_on
-    t.column :comment
+    t.column :description
     t.action :show, :url => {:format => :pdf}, :image => :print
     t.action :edit, :unless => :locked?
     t.action :destroy, :unless => :locked?

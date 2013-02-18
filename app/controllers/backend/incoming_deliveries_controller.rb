@@ -23,7 +23,7 @@ class Backend::IncomingDeliveriesController < BackendController
   list(:conditions => moved_conditions(IncomingDelivery)) do |t|
     t.column :number
     t.column :reference_number
-    t.column :comment
+    t.column :description
     t.column :weight
     t.column :planned_on
     t.column :moved_on

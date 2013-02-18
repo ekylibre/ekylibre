@@ -16,7 +16,7 @@
       -l.attribute :arrived_on
       -l.attribute :arrival_reasons
       -l.attribute :departed_on
-      -l.attribute :comment
+      -l.attribute :description
     -if @product.picture.exists?
       =image_tag(@product.picture.url(:thumb))
 

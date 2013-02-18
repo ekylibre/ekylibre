@@ -11,7 +11,7 @@
       -l.attribute :born_at
       -l.attribute :variety, :url => true
       -l.attribute :group, :url => true # on affiche l'attribut name de l'entité ProductGroup associé par l'attribut group de l'entité courante Product avec un lien vers ce groupe
-      -l.attribute :comment
+      -l.attribute :description
     -if @vegetal.picture.exists?
       =image_tag(@vegetal.picture.url(:thumb))
 

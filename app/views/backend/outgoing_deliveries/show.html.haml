@@ -16,7 +16,7 @@
   -l.attribute :moved_on
   -l.attribute :transporter, :url => true
   -l.attribute :transport, :url => true
-  -l.attribute :comment
+  -l.attribute :description
 
-%h2=OutgoingDelivery.human_attribute_name(:lines)
-=list :lines
+%h2=OutgoingDelivery.human_attribute_name(:items)
+=list :items

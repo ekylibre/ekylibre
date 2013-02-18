@@ -811,6 +811,9 @@
     <menu name="backend/accounts">
       <page to="backend/accounts#list_journal_entry_items"/>
     </menu>
+    <menu name="backend/bank_statements">
+      <page to="backend/bank_statements#list_items"/>
+    </menu>
     <menu name="backend/cells/demo_bar_cells">
       <page to="backend/cells/demo_bar_cells#show"/>
     </menu>
@@ -874,6 +877,14 @@
       <page to="backend/interfacers#unroll"/>
       <page to="backend/interfacers#unroll_options"/>
     </menu>
+    <menu name="backend/inventories">
+      <page to="backend/inventories#list_items"/>
+      <page to="backend/inventories#list_items_create"/>
+      <page to="backend/inventories#list_items_update"/>
+    </menu>
+    <menu name="backend/journal_entries">
+      <page to="backend/journal_entries#list_items"/>
+    </menu>
     <menu name="backend/journals">
       <page to="backend/journals#list_draft_items"/>
       <page to="backend/journals#list_items"/>
@@ -891,6 +902,9 @@
     <menu name="backend/myselves">
       <page to="backend/myselves#change_password"/>
       <page to="backend/myselves#statistics"/>
+    </menu>
+    <menu name="backend/outgoing_deliveries">
+      <page to="backend/outgoing_deliveries#list_items"/>
     </menu>
     <menu name="backend/places">
       <page to="backend/places#index"/>
@@ -986,6 +1000,9 @@
       <page to="backend/professions#list"/>
       <page to="backend/professions#new"/>
       <page to="backend/professions#update"/>
+    </menu>
+    <menu name="backend/purchases">
+      <page to="backend/purchases#list_items"/>
     </menu>
     <menu name="backend/sales">
       <page to="backend/sales#list_creditable_items"/>

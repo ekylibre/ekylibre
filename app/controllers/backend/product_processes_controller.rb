@@ -26,7 +26,7 @@ class Backend::ProductProcessesController < BackendController
     t.column :name, :url => true
     t.column :name, :through=>:variety, :url=>true
     t.column :nature
-    t.column :comment
+    t.column :description
     t.column :repeatable
     t.action :show, :url => {:format => :pdf}, :image => :print
     t.action :edit

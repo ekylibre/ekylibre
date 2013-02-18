@@ -20,9 +20,9 @@
 class Backend::TransportsController < BackendController
   unroll_all
 
-  list(:children => :deliveries, :conditions => light_search_conditions(:transports => [:number, :comment], :entities => [:code, :full_name])) do |t|
+  list(:children => :deliveries, :conditions => light_search_conditions(:transports => [:number, :description], :entities => [:code, :full_name])) do |t|
     t.column :number, :url => true
-    t.column :comment
+    t.column :description
     t.column :created_on, :children => :planned_on
     t.column :transport_on, :children => :moved_on
     t.column :full_name, :through => :transporter, :children => :default_mail_coordinate, :url => true
@@ -37,7 +37,7 @@ class Backend::TransportsController < BackendController
   end
 
 
-  list(:deliveries, :model => :outgoing_deliveries, :children => :lines, :conditions => {:transport_id => ['session[:current_transport_id]']}) do |t|
+  list(:deliveries, :model => :outgoing_deliveries, :children => :items, :conditions => {:transport_id => ['session[:current_transport_id]']}) do |t|
     t.column :coordinate, :through => :address, :children => :product_name
     t.column :planned_on, :children => false
     t.column :moved_on, :children => false
@@ -83,7 +83,7 @@ class Backend::TransportsController < BackendController
     return code
   end
 
-  list(:transportable_deliveries, :model => :outgoing_deliveries, :children => :lines, :conditions => transportable_deliveries_conditions, :pagination => :none, :order => :planned_on, :line_class => "(RECORD.planned_on<Date.today ? 'critic' : RECORD.planned_on == Date.today ? 'warning' : '')") do |t|
+  list(:transportable_deliveries, :model => :outgoing_deliveries, :children => :items, :conditions => transportable_deliveries_conditions, :pagination => :none, :order => :planned_on, :line_class => "(RECORD.planned_on<Date.today ? 'critic' : RECORD.planned_on == Date.today ? 'warning' : '')") do |t|
     t.check_box :selected, :value => '(session[:current_transport_id].to_i.zero? ? RECORD.planned_on <= Date.today : RECORD.transport_id == session[:current_transport_id])'
     t.column :coordinate, :through => :address, :children => :product_name
     t.column :planned_on, :children => false
