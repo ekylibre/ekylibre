@@ -79,7 +79,7 @@ class Tool < Product
   belongs_to :content_nature, :class_name => "Product"
   belongs_to :content_unit, :class_name => "Unit"
   belongs_to :asset
-  #[VALIDATORS[ Do not edit these items directly. Use `rake clean:validations`.
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :picture_file_size, :allow_nil => true, :only_integer => true
   validates_numericality_of :area_measure, :content_maximal_quantity, :maximal_quantity, :minimal_quantity, :real_quantity, :virtual_quantity, :allow_nil => true
   validates_length_of :identification_number, :name, :number, :picture_content_type, :picture_file_name, :sex, :work_number, :allow_nil => true, :maximum => 255

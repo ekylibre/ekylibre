@@ -44,7 +44,7 @@ class InventoryItem < Ekylibre::Record::Base
   belongs_to :move, :class_name => "ProductMove"
   belongs_to :unit
 
-  #[VALIDATORS[ Do not edit these items directly. Use `rake clean:validations`.
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :quantity, :theoric_quantity, :allow_nil => true
   validates_presence_of :inventory, :product, :quantity, :theoric_quantity
   #]VALIDATORS]

@@ -45,7 +45,7 @@ class Log < Ekylibre::Record::Base
   # No columns for this
   # belongs_to :quantity_unit, :class_name => "Unit"
 
-  #[VALIDATORS[ Do not edit these items directly. Use `rake clean:validations`.
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :event, :origin_type, :owner_type, :allow_nil => true, :maximum => 255
   validates_presence_of :event, :observed_at
   #]VALIDATORS]

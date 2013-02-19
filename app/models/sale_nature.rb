@@ -48,7 +48,7 @@ class SaleNature < Ekylibre::Record::Base
   belongs_to :journal
   belongs_to :payment_mode, :class_name => "IncomingPaymentMode"
   has_many :sales
-  #[VALIDATORS[ Do not edit these items directly. Use `rake clean:validations`.
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :downpayment_minimum, :downpayment_percentage, :allow_nil => true
   validates_length_of :currency, :allow_nil => true, :maximum => 3
   validates_length_of :expiration_delay, :name, :payment_delay, :allow_nil => true, :maximum => 255

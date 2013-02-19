@@ -139,7 +139,7 @@ class Entity < Ekylibre::Record::Base
   scope :transporters, -> { where(:transporter => true) }
   scope :clients,      -> { where(:client => true) }
 
-  #[VALIDATORS[ Do not edit these items directly. Use `rake clean:validations`.
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :picture_file_size, :allow_nil => true, :only_integer => true
   validates_numericality_of :discount_percentage, :reduction_percentage, :allow_nil => true
   validates_length_of :country, :allow_nil => true, :maximum => 2

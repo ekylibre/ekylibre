@@ -75,7 +75,7 @@ class SaleItem < Ekylibre::Record::Base
   acts_as_stockable :mode => :virtual, :if => :sold?
   sums :sale, :items, :pretax_amount, :amount
 
-  #[VALIDATORS[ Do not edit these items directly. Use `rake clean:validations`.
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :amount, :pretax_amount, :price_amount, :quantity, :reduction_percentage, :allow_nil => true
   validates_presence_of :amount, :pretax_amount, :price, :product, :quantity, :reduction_percentage, :sale
   #]VALIDATORS]

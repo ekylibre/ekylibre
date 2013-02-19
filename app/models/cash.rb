@@ -62,7 +62,7 @@ class Cash < Ekylibre::Record::Base
   enumerize :nature, :in => [:bank_account, :cash_box], :default => :bank_account, :predicates => true
   enumerize :mode, :in => [:iban, :bban], :default => :iban, :predicates => {:prefix => true}
 
-  #[VALIDATORS[ Do not edit these items directly. Use `rake clean:validations`.
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :country, :allow_nil => true, :maximum => 2
   validates_length_of :currency, :allow_nil => true, :maximum => 3
   validates_length_of :bank_identifier_code, :nature, :allow_nil => true, :maximum => 16

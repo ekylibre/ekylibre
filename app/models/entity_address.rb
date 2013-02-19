@@ -59,7 +59,7 @@ class EntityAddress < Ekylibre::Record::Base
   has_many :warehouses
   enumerize :canal, :in => [:mail, :email, :phone, :mobile, :fax, :website], :default => :email, :predicates => true
 
-  #[VALIDATORS[ Do not edit these items directly. Use `rake clean:validations`.
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :mail_country, :allow_nil => true, :maximum => 2
   validates_length_of :code, :allow_nil => true, :maximum => 4
   validates_length_of :canal, :allow_nil => true, :maximum => 16

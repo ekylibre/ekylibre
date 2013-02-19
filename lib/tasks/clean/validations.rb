@@ -43,7 +43,7 @@ task :validations => :environment do
   errors = []
   models_in_file.each do |model|
     begin
-      unless !model.abstract_class?
+      unless model.abstract_class?
         file = Rails.root.join("app", "models", model.name.underscore + ".rb")
 
         # Get content

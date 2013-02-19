@@ -56,7 +56,7 @@ class IncomingPaymentMode < Ekylibre::Record::Base
   has_many :entities, :dependent => :nullify, :foreign_key => :payment_mode_id
   has_many :payments, :foreign_key => :mode_id, :class_name => "IncomingPayment"
   has_many :unlocked_payments, :foreign_key => :mode_id, :class_name => "IncomingPayment", :conditions => 'journal_entry_id IN (SELECT id FROM #{JournalEntry.table_name} WHERE state=#{connection.quote("draft")})'
-  #[VALIDATORS[ Do not edit these items directly. Use `rake clean:validations`.
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :commission_base_amount, :commission_percentage, :allow_nil => true
   validates_length_of :name, :allow_nil => true, :maximum => 50
   validates_inclusion_of :detail_payments, :with_accounting, :with_commission, :with_deposit, :in => [true, false]

@@ -36,7 +36,7 @@ class Establishment < Ekylibre::Record::Base
   attr_accessible :name, :code, :description
   has_many :warehouses
   has_many :employees, :class_name => "Users"
-  #[VALIDATORS[ Do not edit these items directly. Use `rake clean:validations`.
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :code, :name, :allow_nil => true, :maximum => 255
   validates_presence_of :name
   #]VALIDATORS]

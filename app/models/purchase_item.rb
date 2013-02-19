@@ -59,7 +59,7 @@ class PurchaseItem < Ekylibre::Record::Base
   acts_as_stockable :mode => :virtual, :direction => :in, :if => :purchased?
   sums :purchase, :items, :pretax_amount, :amount
 
-  #[VALIDATORS[ Do not edit these items directly. Use `rake clean:validations`.
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :amount, :pretax_amount, :quantity, :allow_nil => true
   validates_length_of :tracking_serial, :allow_nil => true, :maximum => 255
   validates_presence_of :account, :amount, :pretax_amount, :price, :product, :purchase, :quantity, :unit

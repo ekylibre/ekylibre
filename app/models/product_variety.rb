@@ -44,7 +44,7 @@ class ProductVariety < Ekylibre::Record::Base
   has_many :processes, :class_name => "ProductProcess", :foreign_key => :variety_id
   # has_many :posologies, :class_name => "AnimalPosology", :foreign_key => :animal_race_id
   belongs_to :parent, :class_name => "ProductVariety"
-  #[VALIDATORS[ Do not edit these items directly. Use `rake clean:validations`.
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :depth, :lft, :rgt, :allow_nil => true, :only_integer => true
   validates_length_of :code, :name, :product_type, :allow_nil => true, :maximum => 255
   validates_inclusion_of :automatic, :in => [true, false]

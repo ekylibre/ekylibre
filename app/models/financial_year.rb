@@ -42,7 +42,7 @@ class FinancialYear < Ekylibre::Record::Base
   belongs_to :last_journal_entry, :class_name => "JournalEntry"
   has_many :account_balances, :class_name=>"AccountBalance", :foreign_key=>:financial_year_id, :dependent=>:delete_all
   has_many :asset_depreciations
-  #[VALIDATORS[ Do not edit these items directly. Use `rake clean:validations`.
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :currency_precision, :allow_nil => true, :only_integer => true
   validates_length_of :currency, :allow_nil => true, :maximum => 3
   validates_length_of :code, :allow_nil => true, :maximum => 12

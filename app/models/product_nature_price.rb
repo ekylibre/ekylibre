@@ -51,7 +51,7 @@ class ProductNaturePrice < Ekylibre::Record::Base
   has_many :taxes
   has_many :purchase_items, :class_name => "PurchaseItem"
   has_many :sale_items, :class_name => "SaleItem"
-  #[VALIDATORS[ Do not edit these items directly. Use `rake clean:validations`.
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :amount, :pretax_amount, :allow_nil => true
   validates_length_of :currency, :allow_nil => true, :maximum => 3
   validates_inclusion_of :active, :in => [true, false]

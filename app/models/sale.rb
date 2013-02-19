@@ -83,7 +83,7 @@ class Sale < Ekylibre::Record::Base
   has_many :deliveries, :class_name => "OutgoingDelivery", :dependent => :destroy, :inverse_of => :sale
   has_many :items, :class_name => "SaleItem", :foreign_key => :sale_id, :dependent => :destroy, :order => "position, id"
   has_many :subscriptions, :class_name => "Subscription"
-  #[VALIDATORS[ Do not edit these items directly. Use `rake clean:validations`.
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :amount, :downpayment_amount, :pretax_amount, :allow_nil => true
   validates_length_of :currency, :allow_nil => true, :maximum => 3
   validates_length_of :sum_method, :allow_nil => true, :maximum => 8

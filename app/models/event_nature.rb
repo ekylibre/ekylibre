@@ -38,7 +38,7 @@ class EventNature < Ekylibre::Record::Base
   attr_readonly :name
   has_many :events, :foreign_key => :nature_id, :class_name => "Event"
   enumerize :usage, :in => [:manual, :sale, :purchase, :sales_invoice], :defaut => :manual, :predicates => true
-  #[VALIDATORS[ Do not edit these items directly. Use `rake clean:validations`.
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :duration, :allow_nil => true, :only_integer => true
   validates_length_of :usage, :allow_nil => true, :maximum => 64
   validates_length_of :name, :allow_nil => true, :maximum => 255

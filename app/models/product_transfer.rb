@@ -41,7 +41,7 @@ class ProductTransfer < Ekylibre::Record::Base
   belongs_to :product
   belongs_to :origin, :class_name => "Product"
   belongs_to :destination, :class_name => "Product"
-  #[VALIDATORS[ Do not edit these items directly. Use `rake clean:validations`.
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_presence_of :product, :started_at, :stopped_at
   #]VALIDATORS]
   # validates_presence_of :arrival_stock_move, :if => :arrival?

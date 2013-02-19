@@ -31,9 +31,10 @@
 #  worker_id    :integer          not null
 #
 class OperationWork < Ekylibre::Record::Base
-  #[VALIDATORS[ Do not edit these items directly. Use `rake clean:validations`.
+  belongs_to :operation, :inverse_of => :works
+  belongs_to :worker, :class_name => "Entity", :inverse_of => :works
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :nature, :allow_nil => true, :maximum => 255
-  validates_presence_of :nature
+  validates_presence_of :nature, :operation, :worker
   #]VALIDATORS]
-  # attr_accessible :title, :body
 end

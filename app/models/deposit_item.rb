@@ -34,7 +34,7 @@
 
 
 class DepositItem < Ekylibre::Record::Base
-  #[VALIDATORS[ Do not edit these items directly. Use `rake clean:validations`.
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :amount, :quantity, :allow_nil => true
   validates_length_of :currency, :allow_nil => true, :maximum => 3
   validates_presence_of :amount, :currency, :quantity

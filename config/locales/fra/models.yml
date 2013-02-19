@@ -516,6 +516,7 @@ fra:
     confirmed_on: "Confirmée le"
     connected_at: "Connecté le" #?
     consumption: "Consommation (litres/heure)" #?
+    # container: "Container"
     # content: "Content"
     content_maximal_quantity: "Content maximal quantity"
     content_nature: "Content nature"
@@ -837,7 +838,7 @@ fra:
     old_password: "Mot de passe actuel"
     # operand: "Operand"
     # operand_quantity: "Operand quantity"
-    operation: "Travail" #?
+    operation: "Travail"
     operation_items: "Intrants/sortants" #?
     operation_nature: "Type d’operation" #?
     operation_natures: "Types de travail" #?
@@ -1170,6 +1171,7 @@ fra:
     with_transport: "Avec transport"
     work_center: "Centre d’opération"
     work_number: "Numéro de travail"
+    # worker: "Worker"
     # works: "Works"
     zone: "Zone" #?
   enumerize:

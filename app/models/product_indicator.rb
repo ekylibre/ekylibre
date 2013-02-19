@@ -45,7 +45,7 @@ class ProductIndicator < Ekylibre::Record::Base
   belongs_to :nature, :class_name => "ProductIndicatorNature", :inverse_of => :indicators
   belongs_to :measure_unit, :class_name => "Unit"
   belongs_to :choice_value, :class_name => "ProductIndicatorNatureChoice", :inverse_of => :data
-  #[VALIDATORS[ Do not edit these items directly. Use `rake clean:validations`.
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :decimal_value, :measure_value, :allow_nil => true
   validates_length_of :description, :allow_nil => true, :maximum => 255
   validates_inclusion_of :boolean_value, :in => [true, false]

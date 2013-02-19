@@ -38,12 +38,13 @@
 
 
 class Operation < Ekylibre::Record::Base
-  attr_accessible :description, :hour_duration, :min_duration, :planned_on, :nature_id, :started_at, :stopped_at, :target_id, :target_type, :responsible_id
+  attr_accessible :description, :nature, :started_at, :stopped_at, :target_id
+  enumerize :nature, :in => [:move_to, :consume, :produce, :separate, :merge, :attach, :detach]
   belongs_to :target, :class_name => "Product"
   belongs_to :operand, :class_name => "Product"
-  has_many :works, :class_name => "OperationWork"
+  has_many :works, :class_name => "OperationWork", :inverse_of => :operation
 
-  #[VALIDATORS[ Do not edit these items directly. Use `rake clean:validations`.
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :operand_quantity, :allow_nil => true
   validates_length_of :nature, :allow_nil => true, :maximum => 255
   validates_inclusion_of :confirmed, :in => [true, false]
@@ -52,19 +53,17 @@ class Operation < Ekylibre::Record::Base
 
   accepts_nested_attributes_for :works, :reject_if => :all_blank, :allow_destroy => true
 
-  default_scope -> { order(:planned_on, :moved_on) }
-  scope :unvalidateds, -> { where(:moved_on => nil) }
+  default_scope -> { order(:started_at) }
+  scope :unvalidateds, -> { where(:confirmed => false) }
 
   before_validation(:on => :create) do
-    self.started_at = Time.now if self.started_at.nil?
+    self.started_at ||= Time.now
   end
 
-  before_validation do
-    self.duration = (self.min_duration.to_i + (self.hour_duration.to_i)*60 )
-  end
-
-  protect(:on => :update) do
-    self.production_chain_work_center.nil?
+  after_save do
+    if self.move_to?
+      ProductLocalization.check_operation(self)
+    end
   end
 
   # def save_with_uses_and_items(uses=[], items=[])

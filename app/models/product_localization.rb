@@ -35,10 +35,26 @@
 #
 
 class ProductLocalization < Ekylibre::Record::Base
-  enumerize :nature, :in => [:transfer, :interior, :exterior], :default => :interior
-  #[VALIDATORS[ Do not edit these items directly. Use `rake clean:validations`.
+  belongs_to :container, :class_name => "Product"
+  belongs_to :product
+  enumerize :nature, :in => [:transfer, :interior, :exterior], :default => :interior, :predicates => true
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :nature, :allow_nil => true, :maximum => 255
-  validates_presence_of :nature, :started_at, :stopped_at
+  validates_presence_of :nature, :product, :started_at, :stopped_at
   #]VALIDATORS]
   validates_inclusion_of :nature, :in => self.nature.values
+  validates_presence_of :container, :if => :interior?
+
+  def self.check_operation(operation)
+    product = operation.product
+    count = self.where(:product_id => operation.product_id, :started_at => operation.started_at).count
+    if count < 1
+      # self.create!(:product_id => operation.product_id, :container_id => operation.operand_id, :started_at => operation.started_at, :stopped_at => operation.stopped_at
+    elsif count == 1
+    else # count > 1
+    end
+
+  end
+
+
 end

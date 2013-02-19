@@ -42,7 +42,7 @@ class ProductMove < Ekylibre::Record::Base
   belongs_to :origin, :polymorphic => true
   belongs_to :product
   belongs_to :unit
-  #[VALIDATORS[ Do not edit these items directly. Use `rake clean:validations`.
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :quantity, :allow_nil => true
   validates_length_of :mode, :origin_type, :allow_nil => true, :maximum => 255
   validates_inclusion_of :last_done, :in => [true, false]

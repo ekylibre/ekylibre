@@ -40,7 +40,7 @@ class ProductIndicatorNatureChoice < Ekylibre::Record::Base
   has_many :data, :class_name => "ProductIndicator", :dependent => :delete_all, :inverse_of => :choice_value
   acts_as_list
 
-  #[VALIDATORS[ Do not edit these items directly. Use `rake clean:validations`.
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :description, :name, :value, :allow_nil => true, :maximum => 255
   validates_presence_of :name, :nature
   #]VALIDATORS]

@@ -47,7 +47,7 @@ class Listing < Ekylibre::Record::Base
   has_many :nodes, :class_name => "ListingNode", :dependent => :delete_all
   has_many :reflections, :class_name => "ListingNode", :conditions => ["nature IN (?)", ["belongs_to", "has_many", "root"]]
 
-  #[VALIDATORS[ Do not edit these items directly. Use `rake clean:validations`.
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :name, :root_model, :allow_nil => true, :maximum => 255
   validates_presence_of :name, :root_model
   #]VALIDATORS]

@@ -37,7 +37,7 @@ class ProductMembership < Ekylibre::Record::Base
   attr_accessible :started_at, :stopped_at,  :group_id, :product_id
   belongs_to :group, :class_name => "ProductGroup"
   belongs_to :product, :class_name => "Product"
-  #[VALIDATORS[ Do not edit these items directly. Use `rake clean:validations`.
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_presence_of :group, :product, :started_at, :stopped_at
   #]VALIDATORS]
 end

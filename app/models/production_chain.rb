@@ -37,7 +37,7 @@ class ProductionChain < Ekylibre::Record::Base
   has_many :unused_conveyors, :class_name=>"ProductionChainConveyor", :conditions=>{:source_id=>nil, :target_id=>nil}
   has_many :input_conveyors, :class_name=>"ProductionChainConveyor", :conditions=>{:source_id=>nil}
 
-  #[VALIDATORS[ Do not edit these items directly. Use `rake clean:validations`.
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :name, :allow_nil => true, :maximum => 255
   validates_presence_of :name
   #]VALIDATORS]

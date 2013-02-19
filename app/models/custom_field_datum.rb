@@ -44,7 +44,7 @@ class CustomFieldDatum < Ekylibre::Record::Base
   belongs_to :choice_value, :class_name => "CustomFieldChoice"
   belongs_to :custom_field, :inverse_of => :data
   belongs_to :customized, :polymorphic => true, :inverse_of => :custom_field_data
-  #[VALIDATORS[ Do not edit these items directly. Use `rake clean:validations`.
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :decimal_value, :allow_nil => true
   validates_length_of :customized_type, :allow_nil => true, :maximum => 255
   validates_presence_of :custom_field, :customized, :customized_type

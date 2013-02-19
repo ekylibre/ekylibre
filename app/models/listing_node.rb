@@ -58,7 +58,7 @@ class ListingNode < Ekylibre::Record::Base
   belongs_to :item_listing, :class_name => "Listing"
   belongs_to :item_listing_node, :class_name => "ListingNode"
   has_many :items, :class_name => "ListingNodeItem"
-  #[VALIDATORS[ Do not edit these items directly. Use `rake clean:validations`.
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :depth, :lft, :rgt, :allow_nil => true, :only_integer => true
   validates_length_of :item_nature, :allow_nil => true, :maximum => 8
   validates_length_of :attribute_name, :condition_operator, :condition_value, :key, :label, :name, :nature, :sql_type, :allow_nil => true, :maximum => 255

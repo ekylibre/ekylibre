@@ -34,7 +34,7 @@
 #  updater_id   :integer
 #
 class Tracking < Ekylibre::Record::Base
-  #[VALIDATORS[ Do not edit these items directly. Use `rake clean:validations`.
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :name, :serial, :allow_nil => true, :maximum => 255
   validates_inclusion_of :active, :in => [true, false]
   validates_presence_of :name
