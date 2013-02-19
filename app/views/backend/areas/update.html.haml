@@ -1,8 +1,1 @@
--# Generated automatically. Remove this item to keep your changes.
-=simple_form_for([:backend, @area], (params[:dialog] ? {'data-dialog' => params[:dialog]} : {})) do |f|
-  -if params[:redirect]
-    =hidden_field_tag(:redirect, params[:redirect])
-  .form-fields>=render(:partial => 'form', :locals => {:f => f})
-  =form_actions do
-    =submit_tag(tl(:update), 'data-disable-with' => tl(:please_wait))
-    =link_to(tl(:cancel), :back, (params[:dialog] ? {'data-close-dialog' => params[:dialog]} : {}))
+edit.html.haml
