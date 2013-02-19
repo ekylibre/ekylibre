@@ -21,14 +21,14 @@ class Backend::EntitiesController < BackendController
 
   unroll_all
 
-  # list(:select => {[:addresses, :mail_line_6] => :line_6}, :conditions => search_conditions(:entities, :entities => [:code, :full_name], :addresses => [:coordinate]), :joins => "LEFT JOIN #{EntityAddress.table_name} AS addresses ON (entities.id = addresses.entity_id AND addresses.deleted_at IS NULL)", :order => "entities.code") do |t|
+  # list(:select => {[:addresses, :mail_line_6] => :item_6}, :conditions => search_conditions(:entities, :entities => [:code, :full_name], :addresses => [:coordinate]), :joins => "LEFT JOIN #{EntityAddress.table_name} AS addresses ON (entities.id = addresses.entity_id AND addresses.deleted_at IS NULL)", :order => "entities.code") do |t|
   list(:select => {[:addresses, :coordinate] => :coordinate}, :conditions => search_conditions(:entities, :entities => [:code, :full_name], :addresses => [:coordinate]), :joins => "LEFT JOIN #{EntityAddress.table_name} AS addresses ON (entities.id = addresses.entity_id AND addresses.deleted_at IS NULL)", :order => "entities.code") do |t|
     t.column :active, :datatype => :boolean
     t.column :code, :url => true
     t.column :title, :through => :nature
     t.column :last_name, :url => true
     t.column :first_name, :url => true
-    t.column :coordinate # :line_6
+    t.column :coordinate # :item_6
     t.action :show, :url => {:format => :pdf}, :image => :print
     t.action :edit
     # t.action :destroy, :if => :destroyable?
@@ -371,8 +371,8 @@ class Backend::EntitiesController < BackendController
         result = ActiveRecord::Base.connection.select_rows(query)
         result.insert(0, select_array.collect{|x| x[1]})
         csv_string = Ekylibre::CSV.generate do |csv|
-          for line in result
-            csv << line
+          for item in result
+            csv << item
           end
         end
         send_data(csv_string, :filename => 'export.csv', :type => Mime::CSV)
@@ -398,7 +398,7 @@ class Backend::EntitiesController < BackendController
       end
       csv = Ekylibre::CSV.open(session[:entities_import_file])
       @columns = csv.shift
-      @first_line = csv.shift
+      @first_item = csv.shift
       @options = Entity.importable_columns
       if request.post?
         all_columns = params[:columns].dup.delete_if{|k,v| v.match(/^special-dont_use/) or v.blank?}

@@ -55,7 +55,7 @@ class Backend::JournalsController < BackendController
     return code.gsub(/\s*\n\s*/, ";")
   end
 
-  list(:items, :model => :journal_entry_items, :conditions => journal_entries_conditions, :joins => :entry, :item_class => "(RECORD.position==1 ? 'first-item' : '')", :order => "entry_id DESC, #{JournalEntryItem.table_name}.position") do |t|
+  list(:items, :model => :journal_entry_items, :conditions => journal_entries_conditions, :joins => :entry, :line_class => "(RECORD.position==1 ? 'first-item' : '')", :order => "entry_id DESC, #{JournalEntryItem.table_name}.position") do |t|
     t.column :number, :through => :entry, :url => true
     t.column :printed_on, :through => :entry, :datatype => :date
     t.column :number, :through => :account, :url => true
@@ -152,7 +152,7 @@ class Backend::JournalsController < BackendController
 
 
 
-  list(:draft_items, :model => :journal_entry_items, :conditions => journal_entries_conditions(:with_journals => true, :state => :draft), :joins => :entry, :item_class => "(RECORD.position==1 ? 'first-item' : '')", :order => "entry_id DESC, #{JournalEntryItem.table_name}.position") do |t|
+  list(:draft_items, :model => :journal_entry_items, :conditions => journal_entries_conditions(:with_journals => true, :state => :draft), :joins => :entry, :line_class => "(RECORD.position==1 ? 'first-item' : '')", :order => "entry_id DESC, #{JournalEntryItem.table_name}.position") do |t|
     t.column :name, :through => :journal, :url => true
     t.column :number, :through => :entry, :url => true
     t.column :printed_on, :through => :entry, :datatype => :date

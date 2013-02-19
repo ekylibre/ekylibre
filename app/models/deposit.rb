@@ -51,7 +51,7 @@ class Deposit < Ekylibre::Record::Base
   has_many :payments, :class_name => "IncomingPayment", :dependent => :nullify, :order => "number"
   # has_many :journal_entries, :as => :resource, :dependent => :nullify, :order => "created_at"
 
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  #[VALIDATORS[ Do not edit these items directly. Use `rake clean:validations`.
   validates_numericality_of :amount, :allow_nil => true
   validates_length_of :number, :allow_nil => true, :maximum => 255
   validates_inclusion_of :in_cash, :locked, :in => [true, false]

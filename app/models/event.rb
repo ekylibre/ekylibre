@@ -41,8 +41,8 @@ class Event < Ekylibre::Record::Base
   attr_accessible :duration, :entity_id, :location, :reason, :nature_id, :responsible_id, :started_at
   belongs_to :entity
   belongs_to :nature, :class_name => "EventNature"
-  belongs_to :responsible, :class_name => "Entity"
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  belongs_to :responsible, :class_name => "User"
+  #[VALIDATORS[ Do not edit these items directly. Use `rake clean:validations`.
   validates_numericality_of :duration, :allow_nil => true, :only_integer => true
   validates_length_of :location, :allow_nil => true, :maximum => 255
   validates_presence_of :entity, :nature, :responsible, :started_at
@@ -51,7 +51,6 @@ class Event < Ekylibre::Record::Base
 
   before_validation do
     self.started_at ||= Time.now
-    self.started_sec = self.started_at.to_i
   end
 
 end

@@ -65,10 +65,10 @@ class Backend::OutgoingDeliveriesController < BackendController
       redirect_to_back
       return
     end
-    sale_lines = sale.lines.find_all_by_reduction_origin_id(nil)
-    notify_warning(:no_lines_found) if sale_lines.empty?
+    sale_items = sale.items.find_all_by_reduction_origin_id(nil)
+    notify_warning(:no_items_found) if sale_items.empty?
 
-    @outgoing_delivery_lines = sale_lines.collect{|x| OutgoingDeliveryItem.new(:sale_line_id => x.id, :quantity => x.undelivered_quantity)}
+    @outgoing_delivery_items = sale_items.collect{|x| OutgoingDeliveryItem.new(:sale_item_id => x.id, :quantity => x.undelivered_quantity)}
     @outgoing_delivery = sale.deliveries.build({:pretax_amount => sale.undelivered(:pretax_amount), :amount => sale.undelivered(:amount), :planned_on => Date.today, :transporter_id => sale.transporter_id, :address => sale.delivery_address||sale.client.default_mail_address}, :without_protection => true)
     render_restfully_form
   end
@@ -80,24 +80,24 @@ class Backend::OutgoingDeliveriesController < BackendController
       redirect_to_back
       return
     end
-    sale_lines = sale.lines.find_all_by_reduction_origin_id(nil)
-    notify_warning(:no_lines_found) if sale_lines.empty?
-    @outgoing_delivery_lines = []
+    sale_items = sale.items.find_all_by_reduction_origin_id(nil)
+    notify_warning(:no_items_found) if sale_items.empty?
+    @outgoing_delivery_items = []
     @outgoing_delivery = sale.deliveries.new(params[:outgoing_delivery])
     ActiveRecord::Base.transaction do
       if saved = @outgoing_delivery.save
         puts [saved, @outgoing_delivery.errors].inspect
 
-        for line in sale_lines
-          quantity = params[:outgoing_delivery_line][line.id.to_s][:quantity].to_f rescue 0
-          outgoing_delivery_line = @outgoing_delivery.lines.new(:sale_line_id => line.id, :quantity => quantity)
+        for item in sale_items
+          quantity = params[:outgoing_delivery_item][item.id.to_s][:quantity].to_f rescue 0
+          outgoing_delivery_item = @outgoing_delivery.items.new(:sale_item_id => item.id, :quantity => quantity)
           if quantity > 0
-            saved = false unless outgoing_delivery_line.save
-            puts [saved, outgoing_delivery_line, outgoing_delivery_line.errors.to_hash].inspect
-            @outgoing_delivery.errors.add_from_record(outgoing_delivery_line)
+            saved = false unless outgoing_delivery_item.save
+            puts [saved, outgoing_delivery_item, outgoing_delivery_item.errors.to_hash].inspect
+            @outgoing_delivery.errors.add_from_record(outgoing_delivery_item)
           end
-          @outgoing_delivery_lines << outgoing_delivery_line
-        end if params[:outgoing_delivery_line].is_a? Hash
+          @outgoing_delivery_items << outgoing_delivery_item
+        end if params[:outgoing_delivery_item].is_a? Hash
       end
       if saved
         redirect_to_back
@@ -111,7 +111,7 @@ class Backend::OutgoingDeliveriesController < BackendController
   def edit
     return unless @outgoing_delivery = find_and_check(:outgoing_delivery)
     session[:current_outgoing_delivery] = @outgoing_delivery.id
-    @outgoing_delivery_lines = @outgoing_delivery.lines
+    @outgoing_delivery_items = @outgoing_delivery.items
     t3e @outgoing_delivery.attributes
     render_restfully_form
   end
@@ -119,13 +119,13 @@ class Backend::OutgoingDeliveriesController < BackendController
   def update
     return unless @outgoing_delivery = find_and_check(:outgoing_delivery)
     session[:current_outgoing_delivery] = @outgoing_delivery.id
-    @outgoing_delivery_lines = @outgoing_delivery.lines
+    @outgoing_delivery_items = @outgoing_delivery.items
     ActiveRecord::Base.transaction do
       saved = @outgoing_delivery.update_attributes!(params[:outgoing_delivery])
       if saved
-        for line in @outgoing_delivery.lines
-          saved = false unless line.update_attributes(:quantity => params[:outgoing_delivery_line][line.sale_line.id.to_s][:quantity])
-          @outgoing_delivery.errors.add_from_record(line)
+        for item in @outgoing_delivery.items
+          saved = false unless item.update_attributes(:quantity => params[:outgoing_delivery_item][item.sale_item.id.to_s][:quantity])
+          @outgoing_delivery.errors.add_from_record(item)
         end
       end
       if saved

@@ -724,16 +724,16 @@ module ApplicationHelper
 
   def table_of(array, html_options={}, &block)
     coln = html_options.delete(:columns)||3
-    html, line, size = "", "", 0
+    html, item, size = "", "", 0
     for item in array
-      line << content_tag(:td, capture(item, &block))
+      item << content_tag(:td, capture(item, &block))
       size += 1
       if size >= coln
-        html << content_tag(:tr, line).html_safe
-        line, size = "", 0
+        html << content_tag(:tr, item).html_safe
+        item, size = "", 0
       end
     end
-    html << content_tag(:tr, line).html_safe unless line.blank?
+    html << content_tag(:tr, item).html_safe unless item.blank?
     return content_tag(:table, html, html_options).html_safe
   end
 
@@ -2113,35 +2113,35 @@ module ApplicationHelper
 
 
   # class Formalize
-  #   attr_reader :lines
+  #   attr_reader :items
 
   #   def initialize()
-  #     @lines = []
+  #     @items = []
   #   end
 
   #   def title(value = "general-informations".to_sym, options={})
-  #     @lines << options.merge({:nature => :title, :value => value})
+  #     @items << options.merge({:nature => :title, :value => value})
   #   end
 
   #   def field(*params)
-  #     line = params[2]||{}
-  #     id = line[:id]||"ff" << Time.now.to_i.to_s(36) << rand.to_s[2..-1].to_i.to_s(36)
+  #     item = params[2]||{}
+  #     id = item[:id]||"ff" << Time.now.to_i.to_s(36) << rand.to_s[2..-1].to_i.to_s(36)
   #     if params[1].is_a? Symbol
-  #       line[:model] = params[0]
-  #       line[:attribute] = params[1]
+  #       item[:model] = params[0]
+  #       item[:attribute] = params[1]
   #     else
-  #       line[:label] = params[0]
-  #       line[:field] = params[1]
+  #       item[:label] = params[0]
+  #       item[:field] = params[1]
   #     end
-  #     line[:nature] = :field
-  #     line[:id] = id
-  #     @lines << line
+  #     item[:nature] = :field
+  #     item[:id] = id
+  #     @items << item
   #     return id
   #   end
 
   #   # def error(*params)
   #   def error(object)
-  #     @lines << {:nature => :error, :object => object}
+  #     @items << {:nature => :error, :object => object}
   #   end
   # end
 
@@ -2150,46 +2150,46 @@ module ApplicationHelper
   #   raise ArgumentError.new("Missing block") unless block_given?
   #   form = Formalize.new
   #   yield form
-  #   return formalize_lines(form, options).html_safe
+  #   return formalize_items(form, options).html_safe
   # end
 
 
   # protected
 
-  # # This methods build a form line after line
-  # def formalize_lines(form, form_options)
+  # # This methods build a form item after item
+  # def formalize_items(form, form_options)
   #   code = ''
   #   controller = self.controller
   #   xcn = 2
 
   #   # build HTML
-  #   for line in form.lines
-  #     css_class = line[:nature].to_s
+  #   for item in form.items
+  #     css_class = item[:nature].to_s
 
-  #     # line
-  #     line_code = ''
-  #     case line[:nature]
+  #     # item
+  #     item_code = ''
+  #     case item[:nature]
   #     when :error
-  #       line_code << content_tag(:td, error_messages(line[:object]), :class => "error", :colspan => xcn)
+  #       item_code << content_tag(:td, error_messages(item[:object]), :class => "error", :colspan => xcn)
   #     when :title
-  #       if line[:value].is_a? Symbol
+  #       if item[:value].is_a? Symbol
   #         #calls = caller
   #         #file = calls[3].split(/\:\d+\:/)[0].split('/')[-1].split('.')[0]
-  #         options = line.dup
+  #         options = item.dup
   #         options.delete_if{|k,v| [:nature, :value].include?(k)}
-  #         line[:value] = tl(line[:value], options)
+  #         item[:value] = tl(item[:value], options)
   #       end
-  #       line_code << content_tag(:th,line[:value].to_s, :class => "title", :id => line[:value].to_s.lower_ascii, :colspan => xcn)
+  #       item_code << content_tag(:th,item[:value].to_s, :class => "title", :id => item[:value].to_s.lower_ascii, :colspan => xcn)
   #     when :field
-  #       fragments = line_fragments(line)
-  #       line_code << content_tag(:td, fragments[:label], :class => "label")
-  #       line_code << content_tag(:td, fragments[:input], :class => "input")
-  #       # line_code << content_tag(:td, fragments[:help],  :class => "help")
+  #       fragments = item_fragments(item)
+  #       item_code << content_tag(:td, fragments[:label], :class => "label")
+  #       item_code << content_tag(:td, fragments[:input], :class => "input")
+  #       # item_code << content_tag(:td, fragments[:help],  :class => "help")
   #     end
-  #     unless line_code.blank?
-  #       html_options = line[:html_options]||{}
+  #     unless item_code.blank?
+  #       html_options = item[:html_options]||{}
   #       html_options[:class] = css_class
-  #       code << content_tag(:tr, line_code.html_safe, html_options)
+  #       code << content_tag(:tr, item_code.html_safe, html_options)
   #     end
 
   #   end
@@ -2199,16 +2199,16 @@ module ApplicationHelper
 
 
 
-  # def line_fragments(line)
+  # def item_fragments(item)
   #   fragments = {}
 
 
   #   #     help_tags = [:info, :example, :hint]
   #   #     help = ''
   #   #     for hs in help_tags
-  #   #       line[hs] = translate_help(line, hs)
-  #   #       #      help << content_tag(:div,l(hs, [content_tag(:span,line[hs].to_s)]), :class => hs) if line[hs]
-  #   #       help << content_tag(:div,t(hs), :class => hs) if line[hs]
+  #   #       item[hs] = translate_help(item, hs)
+  #   #       #      help << content_tag(:div,l(hs, [content_tag(:span,item[hs].to_s)]), :class => hs) if item[hs]
+  #   #       help << content_tag(:div,t(hs), :class => hs) if item[hs]
   #   #     end
   #   #     fragments[:help] = help
 
@@ -2218,10 +2218,10 @@ module ApplicationHelper
   #   #input = content_tag(:td, input, :class => "input", :id => options[:input_id])
   #   #help  = content_tag(:td, help,  :class => "help",  :id => options[:help_id])
 
-  #   if line[:model] and line[:attribute]
-  #     record  = line.delete(:model)
-  #     method  = line.delete(:attribute)
-  #     options = line
+  #   if item[:model] and item[:attribute]
+  #     record  = item.delete(:model)
+  #     method  = item.delete(:attribute)
+  #     options = item
 
   #     record.to_sym if record.is_a?(String)
   #     object = record.is_a?(Symbol) ? instance_variable_get('@' + record.to_s) : record
@@ -2337,10 +2337,10 @@ module ApplicationHelper
 
   #     label = options[:label] || object.class.human_attribute_name(method.to_s.gsub(/_id$/, ''))
   #     label = content_tag(:label, label, :for => input_id) if object!=record
-  #   elsif line[:field]
-  #     label = line[:label]||'[NoLabel]'
-  #     if line[:field].is_a? Hash
-  #       options = line[:field].dup
+  #   elsif item[:field]
+  #     label = item[:label]||'[NoLabel]'
+  #     if item[:field].is_a? Hash
+  #       options = item[:field].dup
   #       options[:options]||={}
   #       datatype = options.delete(:datatype)
   #       name  = options.delete(:name)
@@ -2379,7 +2379,7 @@ module ApplicationHelper
   #               end
 
   #     else
-  #       input = line[:field].to_s
+  #       input = item[:field].to_s
   #     end
   #   else
   #     raise Exception.new("Unable to build fragments without :model/:attribute or :field")
@@ -2467,7 +2467,7 @@ module ApplicationHelper
   end
 
   SALES_STEPS = [
-                 {:name => :products,   :actions => [{:controller => :sales, :action => :show, :step => :products}, "sales#new", "sales#create", "sales#edit", "sales#update", "sale_lines#new", "sale_lines#create", "sale_lines#edit", "sale_lines#update", "sale_lines#destroy"], :states => ['aborted', 'draft', 'estimate', 'refused', 'order', 'invoice']},
+                 {:name => :products,   :actions => [{:controller => :sales, :action => :show, :step => :products}, "sales#new", "sales#create", "sales#edit", "sales#update", "sale_items#new", "sale_items#create", "sale_items#edit", "sale_items#update", "sale_items#destroy"], :states => ['aborted', 'draft', 'estimate', 'refused', 'order', 'invoice']},
                  {:name => :deliveries, :actions => [{:controller => :sales, :action => :show, :step => :deliveries}, "outgoing_deliveries#show", "outgoing_deliveries#new", "outgoing_deliveries#create", "outgoing_deliveries#edit", "outgoing_deliveries#update"], :states => ['order', 'invoice']},
                  {:name => :summary,    :actions => [{:controller => :sales, :action => :show, :step => :summary}], :states => ['invoice']}
                 ].collect{|s| {:name => s[:name], :actions => s[:actions].collect{|u| (u.is_a?(String) ? {:controller => u.split('#')[0].to_sym, :action => u.split('#')[1].to_sym} : u)}, :states => s[:states]}}.freeze
@@ -2478,7 +2478,7 @@ module ApplicationHelper
   end
 
   PURCHASE_STEPS = [
-                    {:name => :products,   :actions => [{:controller => :purchases, :action => :show, :step => :products}, "purchases#new", "purchases#create", "purchases#edit", "purchases#update", "purchase_lines#new", "purchase_lines#create", "purchase_lines#edit", "purchase_lines#update", "purchase_lines#destroy"], :states => ['aborted', 'draft', 'estimate', 'refused', 'order', 'invoice']},
+                    {:name => :products,   :actions => [{:controller => :purchases, :action => :show, :step => :products}, "purchases#new", "purchases#create", "purchases#edit", "purchases#update", "purchase_items#new", "purchase_items#create", "purchase_items#edit", "purchase_items#update", "purchase_items#destroy"], :states => ['aborted', 'draft', 'estimate', 'refused', 'order', 'invoice']},
                     {:name => :deliveries, :actions => [{:controller => :purchases, :action => :show, :step => :deliveries}, "incoming_deliveries#new", "incoming_deliveries#create", "incoming_deliveries#edit", "incoming_deliveries#update"], :states => ['order', 'invoice']},
                     {:name => :summary,    :actions => [{:controller => :purchases, :action => :show, :step => :summary}], :states => ['invoice']}
                    ].collect{|s| {:name => s[:name], :actions => s[:actions].collect{|u| (u.is_a?(String) ? {:controller => u.split('#')[0].to_sym, :action => u.split('#')[1].to_sym} : u)}, :states => s[:states]}}.freeze

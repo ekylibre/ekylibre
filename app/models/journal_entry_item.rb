@@ -50,7 +50,7 @@ class JournalEntryItem < Ekylibre::Record::Base
   belongs_to :journal, :inverse_of => :entry_items
   belongs_to :entry, :class_name => "JournalEntry", :inverse_of => :items
   belongs_to :bank_statement
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  #[VALIDATORS[ Do not edit these items directly. Use `rake clean:validations`.
   validates_numericality_of :balance, :credit, :debit, :original_credit, :original_debit, :allow_nil => true
   validates_length_of :letter, :allow_nil => true, :maximum => 8
   validates_length_of :state, :allow_nil => true, :maximum => 32

@@ -69,7 +69,7 @@ module Backend::JournalsHelper
     return code.html_safe
   end
 
-  # Create a widget to select states of entries (and entry lines)
+  # Create a widget to select states of entries (and entry items)
   def journal_entries_states_crit
     code = ""
     code << content_tag(:label, tc(:journal_entries_states))

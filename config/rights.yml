@@ -309,7 +309,7 @@ consult_purchases:
 - "backend/purchases#list"
 - "backend/purchases#list_deliveries"
 - "backend/purchases#list_lines" #?
-- "backend/purchases#list_undelivered_lines"
+- "backend/purchases#list_undelivered_lines" #?
 - "backend/purchases#show"
 
 # Consult the sales
@@ -910,7 +910,7 @@ manage_purchases:
 - "backend/purchases#list"
 - "backend/purchases#list_deliveries"
 - "backend/purchases#list_items"
-- "backend/purchases#list_undelivered_items" #?
+- "backend/purchases#list_undelivered_items"
 - "backend/purchases#new"
 - "backend/purchases#propose"
 - "backend/purchases#refuse"

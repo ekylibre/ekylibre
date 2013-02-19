@@ -43,7 +43,7 @@ class Operation < Ekylibre::Record::Base
   belongs_to :operand, :class_name => "Product"
   has_many :works, :class_name => "OperationWork"
 
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  #[VALIDATORS[ Do not edit these items directly. Use `rake clean:validations`.
   validates_numericality_of :operand_quantity, :allow_nil => true
   validates_length_of :nature, :allow_nil => true, :maximum => 255
   validates_inclusion_of :confirmed, :in => [true, false]

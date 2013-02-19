@@ -46,7 +46,7 @@ class ProductionChainConveyor < Ekylibre::Record::Base
   belongs_to :source, :class_name => "ProductionChainWorkCenter"
   belongs_to :target, :class_name => "ProductionChainWorkCenter"
   belongs_to :unit
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  #[VALIDATORS[ Do not edit these items directly. Use `rake clean:validations`.
   validates_numericality_of :flow, :source_quantity, :target_quantity, :allow_nil => true
   validates_inclusion_of :check_state, :unique_tracking, :in => [true, false]
   validates_presence_of :flow, :product_nature, :production_chain, :source_quantity, :target_quantity, :unit

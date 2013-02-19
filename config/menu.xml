@@ -1003,6 +1003,7 @@
     </menu>
     <menu name="backend/purchases">
       <page to="backend/purchases#list_items"/>
+      <page to="backend/purchases#list_undelivered_items"/>
     </menu>
     <menu name="backend/sales">
       <page to="backend/sales#list_creditable_items"/>

@@ -44,8 +44,8 @@ class Tax < Ekylibre::Record::Base
   belongs_to :collected_account, :class_name => "Account"
   belongs_to :paid_account, :class_name => "Account"
   has_many :prices, :class_name => "ProductNaturePrice"
-  has_many :sale_lines, :class_name => "SaleItem"
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  has_many :sale_items, :class_name => "SaleItem"
+  #[VALIDATORS[ Do not edit these items directly. Use `rake clean:validations`.
   validates_numericality_of :amount, :allow_nil => true
   validates_length_of :nature, :allow_nil => true, :maximum => 16
   validates_length_of :name, :allow_nil => true, :maximum => 255
@@ -59,7 +59,7 @@ class Tax < Ekylibre::Record::Base
   validates_numericality_of :amount, :in => 0..100, :if => :percentage?
 
   protect(:on => :destroy) do
-    self.prices.count <= 0 and self.sale_lines.count <= 0
+    self.prices.count <= 0 and self.sale_items.count <= 0
   end
 
   def compute(amount, with_taxes = false)

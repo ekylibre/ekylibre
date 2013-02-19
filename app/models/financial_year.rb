@@ -42,7 +42,7 @@ class FinancialYear < Ekylibre::Record::Base
   belongs_to :last_journal_entry, :class_name => "JournalEntry"
   has_many :account_balances, :class_name=>"AccountBalance", :foreign_key=>:financial_year_id, :dependent=>:delete_all
   has_many :asset_depreciations
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  #[VALIDATORS[ Do not edit these items directly. Use `rake clean:validations`.
   validates_numericality_of :currency_precision, :allow_nil => true, :only_integer => true
   validates_length_of :currency, :allow_nil => true, :maximum => 3
   validates_length_of :code, :allow_nil => true, :maximum => 12
@@ -188,14 +188,14 @@ class FinancialYear < Ekylibre::Record::Base
               result += balance.balance
             elsif balance.balance != 0
               # TODO: Use currencies properly in account_balances !
-              entry.lines.create!(:account_id => balance.account_id, :name => balance.account.name, :original_debit => balance.balance_debit, :original_credit => balance.balance_credit)
+              entry.items.create!(:account_id => balance.account_id, :name => balance.account.name, :original_debit => balance.balance_debit, :original_credit => balance.balance_credit)
             end
           end
 
           if result > 0
-            entry.lines.create!(:account_id => losses.id, :name => losses.name, :original_debit => result, :original_credit => 0.0)
+            entry.items.create!(:account_id => losses.id, :name => losses.name, :original_debit => result, :original_credit => 0.0)
           elsif result < 0
-            entry.lines.create!(:account_id => gains.id, :name => gains.name, :original_debit => 0.0, :original_credit => result.abs)
+            entry.items.create!(:account_id => gains.id, :name => gains.name, :original_debit => 0.0, :original_credit => result.abs)
           end
 
         end
@@ -320,7 +320,7 @@ class FinancialYear < Ekylibre::Record::Base
     end
 
     # Empty journal entry
-    self.last_journal_entry.lines.clear
+    self.last_journal_entry.items.clear
 
     if options[:assets_depreciations]
       for depreciation in self.asset_depreciations

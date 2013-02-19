@@ -37,7 +37,7 @@ class PurchaseNature < Ekylibre::Record::Base
   attr_accessible :name, :journal,  :description, :active, :currency, :with_accounting, :journal_id
   belongs_to :journal
   has_many :purchases
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  #[VALIDATORS[ Do not edit these items directly. Use `rake clean:validations`.
   validates_length_of :currency, :allow_nil => true, :maximum => 3
   validates_length_of :name, :allow_nil => true, :maximum => 255
   validates_inclusion_of :active, :with_accounting, :in => [true, false]

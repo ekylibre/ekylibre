@@ -40,7 +40,7 @@ class EntityNature < Ekylibre::Record::Base
   attr_accessible :active, :description, :full_name_format, :in_name, :name, :gender, :title
   enumerize :gender, :in => [:organization, :woman, :man, :undefined], :default => :undefined, :predicates => true
   has_many :entities, :foreign_key => :nature_id, :inverse_of => :nature
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  #[VALIDATORS[ Do not edit these items directly. Use `rake clean:validations`.
   validates_length_of :full_name_format, :gender, :name, :title, :allow_nil => true, :maximum => 255
   validates_inclusion_of :active, :in_name, :in => [true, false]
   validates_presence_of :gender, :name

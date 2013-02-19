@@ -20,19 +20,19 @@
 class Backend::JournalEntryItemsController < BackendController
 
   def new
-    @journal_entry_line = JournalEntryItem.new
-    @journal_entry_line.name = params[:name] if params[:name]
+    @journal_entry_item = JournalEntryItem.new
+    @journal_entry_item.name = params[:name] if params[:name]
     if params["entry-original-debit"] and params["entry-original-credit"]
       debit, credit = params["entry-original-debit"].to_f, params["entry-original-credit"].to_f
       if debit > credit
-        @journal_entry_line.original_credit = debit - credit
+        @journal_entry_item.original_credit = debit - credit
       else
-        @journal_entry_line.original_debit  = credit - debit
+        @journal_entry_item.original_debit  = credit - debit
       end
     end
     if params[:journal_id] and @journal = Journal.find_by_id(params[:journal_id])
       if @journal.cashes.size == 1
-        @journal_entry_line.account = @journal.cashes.first.account
+        @journal_entry_item.account = @journal.cashes.first.account
       end
     end
     params[:printed_on] = params[:printed_on].to_date rescue nil
@@ -40,7 +40,7 @@ class Backend::JournalEntryItemsController < BackendController
       @financial_year = FinancialYear.at(params[:printed_on])
     end
     if request.xhr?
-      render :partial=>"journal_entry_lines/row_form", :object=>@journal_entry_line
+      render :partial=>"journal_entry_items/row_form", :object=>@journal_entry_item
     else
       redirect_to_back
     end

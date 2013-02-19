@@ -73,11 +73,11 @@ class ProductNature < Ekylibre::Record::Base
   belongs_to :variety, :class_name => "ProductVariety"
   #has_many :available_stocks, :class_name => "ProductStock", :conditions => ["quantity > 0"], :foreign_key => :product_id
   has_many :components, :class_name => "ProductNatureComponent", :conditions => {:active => true}, :foreign_key => :product_nature_id
-  #has_many :outgoing_delivery_lines, :foreign_key => :product_id
+  #has_many :outgoing_delivery_items, :foreign_key => :product_id
   has_many :prices, :foreign_key => :product_nature_id, :class_name => "ProductNaturePrice"
-  #has_many :purchase_lines, :foreign_key => :product_id
+  #has_many :purchase_items, :foreign_key => :product_id
   #has_many :reservoirs, :conditions => {:reservoir => true}, :foreign_key => :product_id
-  #has_many :sale_lines, :foreign_key => :product_id
+  #has_many :sale_items, :foreign_key => :product_id
   #has_many :stock_moves, :foreign_key => :product_id
   #has_many :stock_transfers, :foreign_key => :product_id
   # has_many :stocks, :foreign_key => :product_id
@@ -86,7 +86,7 @@ class ProductNature < Ekylibre::Record::Base
   has_many :products, :foreign_key => :nature_id
   # has_many :warehouses, :through => :stocks
   #has_one :default_stock, :class_name => "ProductStock", :order => :name, :foreign_key => :product_id
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  #[VALIDATORS[ Do not edit these items directly. Use `rake clean:validations`.
   validates_length_of :number, :allow_nil => true, :maximum => 32
   validates_length_of :commercial_name, :name, :subscription_duration, :allow_nil => true, :maximum => 255
   validates_inclusion_of :active, :alive, :deliverable, :depreciable, :indivisible, :producible, :purchasable, :reductible, :saleable, :storable, :storage, :subscribing, :towable, :traceable, :tractive, :transferable, :in => [true, false]

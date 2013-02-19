@@ -22,10 +22,9 @@ class Backend::EstablishmentsController < BackendController
 
   unroll_all
 
-  list(:order => :nic) do |t|
+  list(:order => :name) do |t|
     t.column :name
-    t.column :nic
-    t.column :siret
+    t.column :code
     t.column :description
     t.action :edit
     t.action :destroy

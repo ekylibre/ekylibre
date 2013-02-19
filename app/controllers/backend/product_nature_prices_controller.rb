@@ -65,11 +65,11 @@ class Backend::ProductNaturePricesController < BackendController
         format.json { render :json => @price.to_json }
         format.xml  { render :xml => @price.to_xml }
       end
-    elsif !params[:purchase_line_price_id].blank?
-      return unless @price = find_and_check(:product_nature_price, params[:purchase_line_price_id])
+    elsif !params[:purchase_item_price_id].blank?
+      return unless @price = find_and_check(:product_nature_price, params[:purchase_item_price_id])
       @product = @price.product if @price
-    elsif params[:purchase_line_product_id]
-      return unless @product = find_and_check(:products, params[:purchase_line_product_id])
+    elsif params[:purchase_item_product_id]
+      return unless @product = find_and_check(:products, params[:purchase_item_product_id])
       @price = @product.prices.find_by_active_and_by_default_and_supplier_id(true, true, params[:supplier_id]||Entity.of_company.id) if @product
     end
   end
@@ -118,24 +118,24 @@ class Backend::ProductNaturePricesController < BackendController
       csv2 += ["HT","TTC","TVA"]
     end
 
-    csv_string = Ekylibre::CSV.generate_line(csv)
-    csv_string += Ekylibre::CSV.generate_line(csv2)
+    csv_string = Ekylibre::CSV.generate_item(csv)
+    csv_string += Ekylibre::CSV.generate_item(csv2)
 
     csv_string += Ekylibre::CSV.generate do |csv|
 
       @products.each do |product|
-        line = []
-        line << [product.code, product.name]
+        item = []
+        item << [product.code, product.name]
         @entity_categories.each do |category|
           price = ProductNaturePrice.find(:first, :conditions => {:active => true, :product_id => product.id, :category_id => EntityCategory.find_by_code(category.code).id})
           #raise Exception.new price.inspect
           if price.nil?
-            line << ["","",""]
+            item << ["","",""]
           else
-            line << [price.pretax_amount.to_s.gsub(/\./,","), price.amount.to_s.gsub(/\./,","), price.tax.amount]
+            item << [price.pretax_amount.to_s.gsub(/\./,","), price.amount.to_s.gsub(/\./,","), price.tax.amount]
           end
         end
-        csv << line.flatten
+        csv << item.flatten
       end
 
     end

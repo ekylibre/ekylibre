@@ -50,7 +50,7 @@ class ProductIndicatorNature < Ekylibre::Record::Base
   has_many :indicators, :class_name => "ProductIndicator" , :dependent => :delete_all, :inverse_of => :nature
   has_many :choices, :class_name => "ProductIndicatorNatureChoice", :order => :position, :dependent => :delete_all, :inverse_of => :nature
 
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  #[VALIDATORS[ Do not edit these items directly. Use `rake clean:validations`.
   validates_numericality_of :maximal_length, :minimal_length, :allow_nil => true, :only_integer => true
   validates_numericality_of :maximal_value, :minimal_value, :allow_nil => true
   validates_length_of :description, :name, :nature, :usage, :allow_nil => true, :maximum => 255

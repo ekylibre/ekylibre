@@ -41,7 +41,7 @@ class EntityLink < Ekylibre::Record::Base
   belongs_to :entity_2, :class_name => "Entity"
   belongs_to :nature, :class_name => "EntityLinkNature"
 
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  #[VALIDATORS[ Do not edit these items directly. Use `rake clean:validations`.
   validates_presence_of :entity_1, :entity_2, :nature
   #]VALIDATORS]
 

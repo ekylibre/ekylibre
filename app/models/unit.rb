@@ -39,7 +39,7 @@
 class Unit < Ekylibre::Record::Base
   attr_accessible :base, :coefficient, :label, :name, :start
   has_many :products, :class_name => "Product"
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  #[VALIDATORS[ Do not edit these items directly. Use `rake clean:validations`.
   validates_numericality_of :coefficient, :start, :allow_nil => true
   validates_length_of :name, :allow_nil => true, :maximum => 8
   validates_length_of :base, :label, :allow_nil => true, :maximum => 255

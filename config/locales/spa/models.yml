@@ -559,6 +559,7 @@ spa:
     # deliveries_conditions: "Conditions de Livraison"
     # delivery: "Livraison"
     # delivery_address: "Adresse pour la livraison"
+    # delivery_items: "Delivery items"
     # delivery_lines: "Lignes de livraison"
     # delivery_modes: "Modes de livraison"
     # density_label: "Densité"

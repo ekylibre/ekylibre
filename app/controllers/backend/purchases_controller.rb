@@ -66,7 +66,7 @@ class Backend::PurchasesController < BackendController
   #   t.action :destroy#, :if => 'RECORD.expense.shipped == false'
   # end
 
-  list(:undelivered_lines, :model => :purchase_items, :conditions => {:purchase_id => ['session[:current_purchase_id]']}) do |t|
+  list(:undelivered_items, :model => :purchase_items, :conditions => {:purchase_id => ['session[:current_purchase_id]']}) do |t|
     t.column :name, :through => :product
     t.column :pretax_amount, :currency => "RECORD.price.currency", :through => :price
     t.column :quantity
@@ -108,8 +108,8 @@ class Backend::PurchasesController < BackendController
             redirect_to :action => :new, :controller => :incoming_deliveries, :purchase_id => @purchase.id
           elsif @purchase.deliveries.size <= 0 and @purchase.invoice?
             notify(:purchase_already_invoiced)
-          elsif @purchase.lines.size <= 0
-            notify_warning(:no_lines_found)
+          elsif @purchase.items.size <= 0
+            notify_warning(:no_items_found)
             redirect_to :action => :show, :step => :products, :id => @purchase.id
           end
         end

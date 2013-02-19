@@ -22,15 +22,15 @@ class Backend::PurchaseItemsController < BackendController
   def new
     return unless @purchase = find_and_check(:purchase, params[:purchase_id])
     if Warehouse.count.zero?
-      notify_warning(:need_warehouse_to_create_purchase_line)
+      notify_warning(:need_warehouse_to_create_purchase_item)
       redirect_to :action=>:new, :controller=>:warehouses
       return
     elsif not @purchase.draft?
-      notify_warning(:impossible_to_add_lines_to_purchase)
+      notify_warning(:impossible_to_add_items_to_purchase)
       redirect_to :action=>:show, :controller=>:purchases, :step=>:products, :id=>@purchase.id
       return
     end
-    @purchase_line = @purchase.lines.new
+    @purchase_item = @purchase.items.new
     @price = ProductNaturePrice.new(:pretax_amount=>0.0, :currency => @purchase.currency)
     session[:current_currency] = @price.currency
     t3e @purchase.attributes
@@ -40,53 +40,53 @@ class Backend::PurchaseItemsController < BackendController
   def create
     return unless @purchase = find_and_check(:purchase, params[:purchase_id])
     if Warehouse.count.zero?
-      notify_warning(:need_warehouse_to_create_purchase_line)
+      notify_warning(:need_warehouse_to_create_purchase_item)
       redirect_to :action=>:new, :controller=>:warehouses
       return
     elsif not @purchase.draft?
-      notify_warning(:impossible_to_add_lines_to_purchase)
+      notify_warning(:impossible_to_add_items_to_purchase)
       redirect_to :action=>:show, :controller=>:purchases, :step=>:products, :id=>@purchase.id
       return
     end
-    return unless product = find_and_check(:product_natures, params[:purchase_line][:product_id].to_i)
+    return unless product = find_and_check(:product_natures, params[:purchase_item][:product_id].to_i)
     if params[:price]
       price_attrs = params[:price].symbolize_keys.merge(:product_id=>product.id, :entity_id=>@purchase.supplier_id)
       price = ProductNaturePrice.find(:first, :conditions=>price_attrs)
       price ||= ProductNaturePrice.create!(price_attrs.merge(:active=>true))
-      params[:purchase_line][:price_id] = price.id
+      params[:purchase_item][:price_id] = price.id
     end
-    @purchase_line = @purchase.lines.new(params[:purchase_line])
-    return if save_and_redirect(@purchase_line, :url=>{:controller=>:purchases, :action=>:show, :step=>:products, :id=>@purchase.id})
+    @purchase_item = @purchase.items.new(params[:purchase_item])
+    return if save_and_redirect(@purchase_item, :url=>{:controller=>:purchases, :action=>:show, :step=>:products, :id=>@purchase.id})
     t3e @purchase.attributes
     render_restfully_form
   end
 
   def edit
-    return unless @purchase_line = find_and_check(:purchase_item)
-    t3e @purchase_line.attributes
+    return unless @purchase_item = find_and_check(:purchase_item)
+    t3e @purchase_item.attributes
     render_restfully_form
   end
 
   def update
-    return unless @purchase_line = find_and_check(:purchase_item)
-    return unless product = find_and_check(:product_natures, params[:purchase_line][:product_id].to_i)
+    return unless @purchase_item = find_and_check(:purchase_item)
+    return unless product = find_and_check(:product_natures, params[:purchase_item][:product_id].to_i)
     if params[:price]
-      price_attrs = params[:price].symbolize_keys.merge(:product_id=>product.id, :entity_id=>@purchase_line.purchase.supplier_id)
+      price_attrs = params[:price].symbolize_keys.merge(:product_id=>product.id, :entity_id=>@purchase_item.purchase.supplier_id)
       price = ProductNaturePrice.find(:first, :conditions=>price_attrs)
       price ||= ProductNaturePrice.create!(price_attrs.merge(:active=>true))
-      params[:purchase_line][:price_id] = price.id
+      params[:purchase_item][:price_id] = price.id
     end
-    if @purchase_line.update_attributes(params[:purchase_line])
-      redirect_to :controller=>:purchases, :action=>:show, :step=>:products, :id=>@purchase_line.purchase_id
+    if @purchase_item.update_attributes(params[:purchase_item])
+      redirect_to :controller=>:purchases, :action=>:show, :step=>:products, :id=>@purchase_item.purchase_id
       return
     end
-    t3e @purchase_line.attributes
+    t3e @purchase_item.attributes
     render_restfully_form
   end
 
   def destroy
-    return unless @purchase_line = find_and_check(:purchase_item)
-    @purchase_line.destroy
+    return unless @purchase_item = find_and_check(:purchase_item)
+    @purchase_item.destroy
     redirect_to_current
   end
 

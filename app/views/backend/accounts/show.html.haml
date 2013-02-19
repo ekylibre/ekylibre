@@ -13,21 +13,21 @@
       -l.attribute :description
 
   -b.tabbox do
-    -b.cell(:journal_entry_lines) do
+    -b.cell(:journal_entry_items) do
       =kujaku do |k|
         -k.text :b
         -k.crit :journal_period, :p
         -k.crit :journal_entries_states
 
-      -lines = JournalEntryLine.joins(:entry).where(eval(controller.class.account_moves_conditions))
-      -currencies = lines.joins(:entry=>:financial_year).select("DISTINCT currency")
+      -items = JournalEntryLine.joins(:entry).where(eval(controller.class.account_moves_conditions))
+      -currencies = items.joins(:entry=>:financial_year).select("DISTINCT currency")
       -totals = {}
-      -totals[:debit]  = lines.sum(:debit)
-      -totals[:credit] = lines.sum(:credit)
+      -totals[:debit]  = items.sum(:debit)
+      -totals[:credit] = items.sum(:credit)
       -totals[:balance_debit] = totals[:balance_credit] = 0.0
       -totals["balance_#{totals[:debit]>totals[:credit] ? 'debit' : 'credit'}".to_sym] = (totals[:debit]-totals[:credit]).abs
 
-      =list(:journal_entry_lines) do
+      =list(:journal_entry_items) do
         -if currencies.size == 1
           -currency = currencies[0].currency
           %tr.total

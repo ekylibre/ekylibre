@@ -114,7 +114,7 @@ class Entity < Ekylibre::Record::Base
   has_many :outgoing_payments, :foreign_key => :payee_id
   has_many :sales_invoices, :class_name => "Sale", :foreign_key => :client_id, :order => "created_on desc", :conditions => {:state => "invoice"}
   has_many :sales, :foreign_key => :client_id, :order => "created_on desc"
-  has_many :sale_lines, :class_name => "SaleItem"
+  has_many :sale_items, :class_name => "SaleItem"
   has_many :subscriptions
   has_many :trackings, :foreign_key => :producer_id
   has_many :transfers, :foreign_key => :supplier_id
@@ -139,7 +139,7 @@ class Entity < Ekylibre::Record::Base
   scope :transporters, -> { where(:transporter => true) }
   scope :clients,      -> { where(:client => true) }
 
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  #[VALIDATORS[ Do not edit these items directly. Use `rake clean:validations`.
   validates_numericality_of :picture_file_size, :allow_nil => true, :only_integer => true
   validates_numericality_of :discount_percentage, :reduction_percentage, :allow_nil => true
   validates_length_of :country, :allow_nil => true, :maximum => 2
@@ -304,7 +304,7 @@ class Entity < Ekylibre::Record::Base
   def description
     desc = self.code+". "+self.full_name
     c = self.default_address
-    desc += " ("+c.line_6.to_s+")" unless c.nil?
+    desc += " ("+c.item_6.to_s+")" unless c.nil?
     desc
   end
 
@@ -312,7 +312,7 @@ class Entity < Ekylibre::Record::Base
     raise Exception.new("Company entity is not mergeable") if entity.of_company?
     Ekylibre::Record::Base.transaction do
       # Classics
-      for many in [:direct_links, :events, :godchildren, :indirect_links, :mandates, :observations, :prices, :purchases, :outgoing_deliveries, :outgoing_payments, :sales, :sale_lines, :incoming_payments, :subscriptions, :trackings, :transfers, :transports, :transporter_sales]
+      for many in [:direct_links, :events, :godchildren, :indirect_links, :mandates, :observations, :prices, :purchases, :outgoing_deliveries, :outgoing_payments, :sales, :sale_items, :incoming_payments, :subscriptions, :trackings, :transfers, :transports, :transporter_sales]
         ref = self.class.reflections[many]
         ref.class_name.constantize.update_all({ref.foreign_key => self.id}, {ref.foreign_key => entity.id})
       end
@@ -346,7 +346,7 @@ class Entity < Ekylibre::Record::Base
     # columns << [tc("import.generate_choice_custom_field"), "special-generate_choice_custom_field"]
     cols = Entity.content_columns.delete_if{|c| [:active, :full_name, :soundex, :lock_version, :updated_at, :created_at].include?(c.name.to_sym) or c.type == :boolean}.collect{|c| c.name}
     columns += cols.collect{|c| [Entity.model_name.human+"/"+Entity.human_attribute_name(c), "entity-"+c]}.sort
-    cols = EntityAddress.content_columns.collect{|c| c.name}.delete_if{|c| [:code, :started_at, :stopped_at, :deleted, :address, :by_default, :closed_on, :lock_version, :active,  :updated_at, :created_at].include?(c.to_sym)}+["line_6_city", "line_6_code"]
+    cols = EntityAddress.content_columns.collect{|c| c.name}.delete_if{|c| [:code, :started_at, :stopped_at, :deleted, :address, :by_default, :closed_on, :lock_version, :active,  :updated_at, :created_at].include?(c.to_sym)}+["item_6_city", "item_6_code"]
     columns += cols.collect{|c| [EntityAddress.model_name.human+"/"+EntityAddress.human_attribute_name(c), "address-"+c]}.sort
     columns += ["name", "abbreviation"].collect{|c| [EntityNature.model_name.human+"/"+EntityNature.human_attribute_name(c), "entity_nature-"+c]}.sort
     columns += ["name"].collect{|c| [EntityCategory.model_name.human+"/"+EntityCategory.human_attribute_name(c), "entity_category-"+c]}.sort
@@ -370,7 +370,7 @@ class Entity < Ekylibre::Record::Base
     sheet = Ekylibre::CSV.open(file)
     header = sheet.shift # header
     problems = {}
-    line_index = 1
+    item_index = 1
     code  = "ActiveRecord::Base.transaction do\n"
     unless cols[:entity_nature].is_a? Hash
       code += "  nature = EntityNature.where('title=? OR name=?', '-', '-').first\n"
@@ -383,22 +383,22 @@ class Entity < Ekylibre::Record::Base
     for k, v in (cols[:special]||{}).select{|k, v| v == :generate_string_custom_field}
       code += "  custom_field_#{k} = CustomField.create!(:name => #{header[k.to_i].inspect}, :active => true, :length_max => 65536, :nature => 'string', :required => false)\n"
     end
-    code += "  while line = sheet.shift\n"
-    code += "    line_index += 1\n"
-    code += "    next if #{options[:ignore].collect{|x| x.to_i}.inspect}.include?(line_index)\n" if options[:ignore]
+    code += "  while item = sheet.shift\n"
+    code += "    item_index += 1\n"
+    code += "    next if #{options[:ignore].collect{|x| x.to_i}.inspect}.include?(item_index)\n" if options[:ignore]
     if cols[:entity_nature].is_a? Hash
-      code += "    nature = EntityNature.where("+cols[:entity_nature].collect{|k,v| ":#{v} => line[#{k}]"}.join(', ')+").first\n"
+      code += "    nature = EntityNature.where("+cols[:entity_nature].collect{|k,v| ":#{v} => item[#{k}]"}.join(', ')+").first\n"
       code += "    begin\n"
-      code += "      nature = EntityNature.create!("+cols[:entity_nature].collect{|k,v| ":#{v} => line[#{k}]"}.join(', ')+")\n"
+      code += "      nature = EntityNature.create!("+cols[:entity_nature].collect{|k,v| ":#{v} => item[#{k}]"}.join(', ')+")\n"
       code += "    rescue\n"
       code += "      nature = EntityNature.where('abbreviation=? OR name=?', '-', '-').first\n"
       code += "      nature = EntityNature.create!(:abbreviation => '-', :name => '-', :physical => false, :in_name => false, :active => true) unless nature\n"
       code += "    end unless nature\n"
     end
     if cols[:entity_category].is_a? Hash
-      code += "    category = EntityCategory.where("+cols[:entity_category].collect{|k,v| ":#{v} => line[#{k}]"}.join(', ')+").first\n"
+      code += "    category = EntityCategory.where("+cols[:entity_category].collect{|k,v| ":#{v} => item[#{k}]"}.join(', ')+").first\n"
       code += "    begin\n"
-      code += "      category = EntityCategory.create!("+cols[:entity_category].collect{|k,v| ":#{v} => line[#{k}]"}.join(', ')+")\n"
+      code += "      category = EntityCategory.create!("+cols[:entity_category].collect{|k,v| ":#{v} => item[#{k}]"}.join(', ')+")\n"
       code += "    rescue\n"
       code += "      category = EntityCategory.where('name=? or code=?', '-', '-').first\n"
       code += "      category = EntityCategory.create!(:name => '-', :by_default => false) unless category\n"
@@ -407,45 +407,45 @@ class Entity < Ekylibre::Record::Base
 
     # code += "    puts [nature, category].inspect\n"
 
-    code += "    entity = Entity.build("+cols[:entity].collect{|k,v| ":#{v} => line[#{k}]"}.join(', ')+", :nature_id => nature.id, :category_id => category.id, :language => #{self.of_company.language.inspect}, :client => true)\n"
+    code += "    entity = Entity.build("+cols[:entity].collect{|k,v| ":#{v} => item[#{k}]"}.join(', ')+", :nature_id => nature.id, :category_id => category.id, :language => #{self.of_company.language.inspect}, :client => true)\n"
     code += "    if entity.save\n"
     if cols[:address].is_a? Hash
-      code += "      address = entity.addresses.build("+cols[:address].collect{|k,v| ":#{v} => line[#{k}]"}.join(', ')+")\n"
+      code += "      address = entity.addresses.build("+cols[:address].collect{|k,v| ":#{v} => item[#{k}]"}.join(', ')+")\n"
       code += "      unless address.save\n"
-      code += "        problems[line_index.to_s] ||= []\n"
-      code += "        problems[line_index.to_s] += address.errors.full_messages\n"
+      code += "        problems[item_index.to_s] ||= []\n"
+      code += "        problems[item_index.to_s] += address.errors.full_messages\n"
       code += "      end\n"
     end
     for k, v in (cols[:special]||{}).select{|k,v| v == :generate_string_custom_field}
-      code += "      datum = entity.custom_field_data.build(:custom_field_id => custom_field_#{k}.id, :string_value => line[#{k}])\n"
+      code += "      datum = entity.custom_field_data.build(:custom_field_id => custom_field_#{k}.id, :string_value => item[#{k}])\n"
       code += "      unless datum.save\n"
-      code += "        problems[line_index.to_s] ||= []\n"
-      code += "        problems[line_index.to_s] += datum.errors.full_messages\n"
+      code += "        problems[item_index.to_s] ||= []\n"
+      code += "        problems[item_index.to_s] += datum.errors.full_messages\n"
       code += "      end\n"
     end
     for k, v in cols[:custom_field]||{}
       if custom_field = CustomField.find_by_id(k.to_s[2..-1].to_i)
         if custom_field.nature == 'string'
-          code += "      datum = entity.custom_field_data.build(:custom_field_id => #{custom_field.id}, :string_value => line[#{k}])\n"
+          code += "      datum = entity.custom_field_data.build(:custom_field_id => #{custom_field.id}, :string_value => item[#{k}])\n"
           code += "      unless datum.save\n"
-          code += "        problems[line_index.to_s] ||= []\n"
-          code += "        problems[line_index.to_s] += datum.errors.full_messages\n"
+          code += "        problems[item_index.to_s] ||= []\n"
+          code += "        problems[item_index.to_s] += datum.errors.full_messages\n"
           code += "      end\n"
           # elsif custom_field.nature == 'choice'
-          #   code += "    co = entity.addresses.create("+cols[:address].collect{|k,v| ":#{v} => line[#{k}]"}.join(', ')+")\n" if cols[:address].is_a? Hash
+          #   code += "    co = entity.addresses.create("+cols[:address].collect{|k,v| ":#{v} => item[#{k}]"}.join(', ')+")\n" if cols[:address].is_a? Hash
         end
       end
     end
     code += "    else\n"
-    code += "      problems[line_index.to_s] ||= []\n"
-    code += "      problems[line_index.to_s] += entity.errors.full_messages\n"
+    code += "      problems[item_index.to_s] ||= []\n"
+    code += "      problems[item_index.to_s] += entity.errors.full_messages\n"
     code += "    end\n"
     code += "  end\n"
     code += "  raise ActiveRecord::Rollback\n" unless options[:no_simulation]
     code += "end\n"
     # list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
     eval(code)
-    return {:errors => problems, :lines_count => line_index-1}
+    return {:errors => problems, :items_count => item_index-1}
   end
 
 
@@ -456,15 +456,15 @@ class Entity < Ekylibre::Record::Base
       csv << ["Code", "Type", "Catégorie", "Nom", "Prénom", "Dest-Service", "Bat.-Res.-ZI", "N° et voie", "Lieu dit", "Code Postal", "Ville", "Téléphone", "Mobile", "Fax", "Email", "Site Web", "Taux de réduction"]
       entities.each do |entity|
         address = EntityAddress.where(:entity_id => entity.id, :by_default => true, :deleted_at => nil).first
-        line = []
-        line << ["'"+entity.code.to_s, entity.nature.name, entity.category.name, entity.name, entity.first_name]
+        item = []
+        item << ["'"+entity.code.to_s, entity.nature.name, entity.category.name, entity.name, entity.first_name]
         if !address.nil?
-          line << [address.line_2, address.line_3, address.line_4, address.line_5, address.line_6_code, address.line_6_city, address.phone, address.mobile, address.fax ,address.email, address.website]
+          item << [address.item_2, address.item_3, address.item_4, address.item_5, address.item_6_code, address.item_6_city, address.phone, address.mobile, address.fax ,address.email, address.website]
         else
-          line << [ "", "", "", "", "", "", "", "", "", "", ""]
+          item << [ "", "", "", "", "", "", "", "", "", "", ""]
         end
-        line << [ entity.reduction_percentage.to_s.gsub(/\./,",")]
-        csv << line.flatten
+        item << [ entity.reduction_percentage.to_s.gsub(/\./,",")]
+        csv << item.flatten
       end
     end
     return csv_string

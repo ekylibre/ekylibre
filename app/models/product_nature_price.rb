@@ -47,11 +47,11 @@ class ProductNaturePrice < Ekylibre::Record::Base
   belongs_to :product_nature
   belongs_to :tax
   belongs_to :supplier, :class_name => "Entity"
-  has_many :outgoing_delivery_lines, :class_name => "OutgoingDeliveryItem"
+  has_many :outgoing_delivery_items, :class_name => "OutgoingDeliveryItem"
   has_many :taxes
-  has_many :purchase_lines, :class_name => "PurchaseItem"
-  has_many :sale_lines, :class_name => "SaleItem"
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  has_many :purchase_items, :class_name => "PurchaseItem"
+  has_many :sale_items, :class_name => "SaleItem"
+  #[VALIDATORS[ Do not edit these items directly. Use `rake clean:validations`.
   validates_numericality_of :amount, :pretax_amount, :allow_nil => true
   validates_length_of :currency, :allow_nil => true, :maximum => 3
   validates_inclusion_of :active, :in => [true, false]

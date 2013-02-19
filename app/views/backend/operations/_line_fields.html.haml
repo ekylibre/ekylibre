@@ -1,29 +1,29 @@
 -# Generated automatically. Don't edit this file.
--operation_line ||= f.object
+-operation_item ||= f.object
 .nested-fields
-  =link_to_remove_association('labels.remove_line'.t, f, :class => 'nested-remove remove-line')
+  =link_to_remove_association('labels.remove_item'.t, f, :class => 'nested-remove remove-item')
   =f.input(:direction, :wrapper_html => {:id => 'direction-field'})
   #product-field.control-group.selector.required
-    %label.control-label.required{:for => 'operation_line-product-input'}
+    %label.control-label.required{:for => 'operation_item-product-input'}
       %abbr{:title => 'required'} *
       =OperationLine.human_attribute_name('product')
     .controls
-      =selector(:operation_line, :product, {:controller=>"product_natures", :action=>:unroll}, {:object => operation_line}, :id => 'operation_line-product-input', :class => 'selector required') + link_to(('<span class="icon"></span><span class="text">' + h('labels.new'.t) + '</span>').html_safe, {:controller => :product_natures, :action => :new}, 'data-new-item' => 'operation_line-product-input', :class => 'btn btn-new')
-      -for error in operation_line.errors['product']
+      =selector(:operation_item, :product, {:controller=>"product_natures", :action=>:unroll}, {:object => operation_item}, :id => 'operation_item-product-input', :class => 'selector required') + link_to(('<span class="icon"></span><span class="text">' + h('labels.new'.t) + '</span>').html_safe, {:controller => :product_natures, :action => :new}, 'data-new-item' => 'operation_item-product-input', :class => 'btn btn-new')
+      -for error in operation_item.errors['product']
         %span.help-inline=error
   =f.input(:quantity, :wrapper_html => {:id => 'quantity-field'})
   #tracking-field.control-group.selector.optional
-    %label.control-label.optional{:for => 'operation_line-tracking-input'}
+    %label.control-label.optional{:for => 'operation_item-tracking-input'}
       =OperationLine.human_attribute_name('tracking')
     .controls
-      =selector(:operation_line, :tracking, {:controller=>"trackings", :action=>:unroll}, {:object => operation_line}, :id => 'operation_line-tracking-input', :class => 'selector optional') + link_to(('<span class="icon"></span><span class="text">' + h('labels.new'.t) + '</span>').html_safe, {:controller => :trackings, :action => :new}, 'data-new-item' => 'operation_line-tracking-input', :class => 'btn btn-new')
-      -for error in operation_line.errors['tracking']
+      =selector(:operation_item, :tracking, {:controller=>"trackings", :action=>:unroll}, {:object => operation_item}, :id => 'operation_item-tracking-input', :class => 'selector optional') + link_to(('<span class="icon"></span><span class="text">' + h('labels.new'.t) + '</span>').html_safe, {:controller => :trackings, :action => :new}, 'data-new-item' => 'operation_item-tracking-input', :class => 'btn btn-new')
+      -for error in operation_item.errors['tracking']
         %span.help-inline=error
   #warehouse-field.control-group.selector.required
-    %label.control-label.required{:for => 'operation_line-warehouse-input'}
+    %label.control-label.required{:for => 'operation_item-warehouse-input'}
       %abbr{:title => 'required'} *
       =OperationLine.human_attribute_name('warehouse')
     .controls
-      =selector(:operation_line, :warehouse, {:controller=>"warehouses", :action=>:unroll}, {:object => operation_line}, :id => 'operation_line-warehouse-input', :class => 'selector required') + link_to(('<span class="icon"></span><span class="text">' + h('labels.new'.t) + '</span>').html_safe, {:controller => :warehouses, :action => :new}, 'data-new-item' => 'operation_line-warehouse-input', :class => 'btn btn-new')
-      -for error in operation_line.errors['warehouse']
+      =selector(:operation_item, :warehouse, {:controller=>"warehouses", :action=>:unroll}, {:object => operation_item}, :id => 'operation_item-warehouse-input', :class => 'selector required') + link_to(('<span class="icon"></span><span class="text">' + h('labels.new'.t) + '</span>').html_safe, {:controller => :warehouses, :action => :new}, 'data-new-item' => 'operation_item-warehouse-input', :class => 'btn btn-new')
+      -for error in operation_item.errors['warehouse']
         %span.help-inline=error

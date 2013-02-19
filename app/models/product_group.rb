@@ -44,7 +44,7 @@ class ProductGroup < Ekylibre::Record::Base
 
   accepts_nested_attributes_for :memberships,    :reject_if => :all_blank, :allow_destroy => true
 
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  #[VALIDATORS[ Do not edit these items directly. Use `rake clean:validations`.
   validates_numericality_of :depth, :lft, :rgt, :allow_nil => true, :only_integer => true
   validates_length_of :color, :name, :allow_nil => true, :maximum => 255
   validates_presence_of :depth, :name

@@ -572,8 +572,8 @@ fra:
     deliveries_conditions: "Conditions de Livraison"
     delivery: "Livraison"
     delivery_address: "Adresse pour la livraison"
-    # delivery_items: "Delivery items"
-    delivery_lines: "Lignes de livraison"
+    delivery_items: "Delivery items"
+    delivery_lines: "Lignes de livraison" #?
     delivery_modes: "Modes de livraison" #?
     density_label: "Densité" #?
     departed_at: "Parti le" #?
@@ -758,7 +758,7 @@ fra:
     letter: "Lettre"
     letter_format: "Devis au format lettre"
     lft: "Lft"
-    lines: "Lignes"
+    lines: "Lignes" #?
     listing: "Extraction"
     listing_node_items: "Éléments de nœud d’extraction" #?
     listing_nodes: "Nœuds d’extraction" #?
@@ -855,8 +855,7 @@ fra:
     original_debit: "Débit"
     original_name: "Nom original"
     outgoing_deliveries: "Livraisons sortantes"
-    outgoing_delivery_items: "Lignes de livraisons sortantes" #?
-    # outgoing_delivery_lines: "Outgoing delivery lines"
+    outgoing_delivery_items: "Lignes de livraisons sortantes"
     outgoing_delivery_modes: "Modes de livraisons sortantes" #?
     outgoing_payment_modes: "Modes de décaissement"
     outgoing_payment_uses: "Parties de décaissements" #?
@@ -952,7 +951,6 @@ fra:
     purchase_invoices: "Factures d’achats"
     purchase_item: "Ligne d’achat"
     purchase_items: "Lignes d’achat"
-    # purchase_lines: "Purchase lines"
     purchase_natures: "Types d’achats" #?
     purchased_on: "Acheté le"
     purchases: "Achats"
@@ -1012,7 +1010,7 @@ fra:
     sale: "Vente"
     sale_item: "Ligne de vente"
     sale_items: "Lignes de vente"
-    sale_lines: "Sale lines"
+    sale_lines: "Sale lines" #?
     sale_natures: "Types de vente" #?
     # saleable: "Saleable"
     sales: "Ventes"

@@ -28,37 +28,37 @@
           %th=JournalEntry.human_attribute_name("credit")
           %th=JournalEntry.human_attribute_name("debit")
           %th=JournalEntry.human_attribute_name("credit")
-      -for line in @balance
-        -d = line[0].size-1
-        -if line[1].to_i > 0
-          -account = @current_company.accounts.find(line[1])
+      -for item in @balance
+        -d = item[0].size-1
+        -if item[1].to_i > 0
+          -account = @current_company.accounts.find(item[1])
           %tr{:class=>cycle(:odd, :even)}
             %td.code=link_to(account.number, :action=>:show, :controller=>:accounts, :id=>account.id)
             %td=link_to(account.name, :action=>:show, :controller=>:accounts, :id=>account.id)
-            %td.dec=number_to_accountancy(line[2])
-            %td.dec=number_to_accountancy(line[3])
-            %td.dec=number_to_accountancy(line[4]) if line[4].to_f > 0
-            %td.dec=number_to_accountancy(-line[4].to_f) if line[4].to_f < 0
-        -elsif line[1].to_i == -1
+            %td.dec=number_to_accountancy(item[2])
+            %td.dec=number_to_accountancy(item[3])
+            %td.dec=number_to_accountancy(item[4]) if item[4].to_f > 0
+            %td.dec=number_to_accountancy(-item[4].to_f) if item[4].to_f < 0
+        -elsif item[1].to_i == -1
           %tr.total
             %th{:colspan=>2}=tg(:total)
-            %td.dec=number_to_accountancy(line[2])
-            %td.dec=number_to_accountancy(line[3])
-            %td.dec=number_to_accountancy(line[4]) if line[4].to_f > 0
-            %td.dec=number_to_accountancy(-line[4].to_f) if line[4].to_f < 0
-        -elsif line[1].to_i == -2
+            %td.dec=number_to_accountancy(item[2])
+            %td.dec=number_to_accountancy(item[3])
+            %td.dec=number_to_accountancy(item[4]) if item[4].to_f > 0
+            %td.dec=number_to_accountancy(-item[4].to_f) if item[4].to_f < 0
+        -elsif item[1].to_i == -2
           %tr.subtotal
-            %td{:colspan=>2, :style=>"padding-left: #{d*8+4}px"}=tc(:subtotal, :name=>line[0])
-            %td.dec=number_to_accountancy(line[2])
-            %td.dec=number_to_accountancy(line[3])
-            %td.dec=number_to_accountancy(line[4]) if line[4].to_f > 0
-            %td.dec=number_to_accountancy(-line[4].to_f) if line[4].to_f < 0
-        -elsif line[1].to_i == -3
+            %td{:colspan=>2, :style=>"padding-left: #{d*8+4}px"}=tc(:subtotal, :name=>item[0])
+            %td.dec=number_to_accountancy(item[2])
+            %td.dec=number_to_accountancy(item[3])
+            %td.dec=number_to_accountancy(item[4]) if item[4].to_f > 0
+            %td.dec=number_to_accountancy(-item[4].to_f) if item[4].to_f < 0
+        -elsif item[1].to_i == -3
           %tr.centralize{:class=>cycle(:odd, :even)}
-            %td=line[0]
-            %td=tc(:centralized_account, :name=>line[0])
-            %td.dec=number_to_accountancy(line[2])
-            %td.dec=number_to_accountancy(line[3])
-            %td.dec=number_to_accountancy(line[4]) if line[4].to_f > 0
-            %td.dec=number_to_accountancy(-line[4].to_f) if line[4].to_f < 0
+            %td=item[0]
+            %td=tc(:centralized_account, :name=>item[0])
+            %td.dec=number_to_accountancy(item[2])
+            %td.dec=number_to_accountancy(item[3])
+            %td.dec=number_to_accountancy(item[4]) if item[4].to_f > 0
+            %td.dec=number_to_accountancy(-item[4].to_f) if item[4].to_f < 0
 .end

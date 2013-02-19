@@ -36,19 +36,19 @@
             %td#balance-debit{"data-balance"=>"#cumul-debit - #cumul-credit"}=previous.balance_debit || 0
             %td#balance-credit{"data-balance"=>"#cumul-credit - #cumul-debit"}=previous.balance_credit || 0
       %tbody
-        - for @journal_entry_line in @journal_entry_lines
-          -checked = (@journal_entry_line.bank_statement_id==@bank_statement.id)
-          -trid, conf = "e#{@journal_entry_line.id}", {}
+        - for @journal_entry_item in @journal_entry_items
+          -checked = (@journal_entry_item.bank_statement_id==@bank_statement.id)
+          -trid, conf = "e#{@journal_entry_item.id}", {}
           %tr{:id=>trid, :class=>(checked ? "notice " : "")+cycle("even", "odd")}
             %td.chk
-              -if @journal_entry_line.bank_statement_id.nil? or checked
-                =check_box_tag("journal_entry_line[#{@journal_entry_line.id}][checked]", "1", checked, :id=>"journal_entry_line_#{@journal_entry_line.id}_checked", "data-add-class"=>"notice", "data-add-class-to"=>"##{trid}")
-                -conf = {"data-click"=>"#journal_entry_line_#{@journal_entry_line.id}_checked"}
+              -if @journal_entry_item.bank_statement_id.nil? or checked
+                =check_box_tag("journal_entry_item[#{@journal_entry_item.id}][checked]", "1", checked, :id=>"journal_entry_item_#{@journal_entry_item.id}_checked", "data-add-class"=>"notice", "data-add-class-to"=>"##{trid}")
+                -conf = {"data-click"=>"#journal_entry_item_#{@journal_entry_item.id}_checked"}
               -else
-                =link_to(@journal_entry_line.bank_statement.number, :action=>:show, :id=>@journal_entry_line.bank_statement.id)
-            %td{conf}=link_to(@journal_entry_line.entry.number, :action=>:show, :controller=>:journal_entries, :id=>@journal_entry_line.entry_id)
-            %td.date{conf}=I18n.localize(@journal_entry_line.entry.printed_on)
-            %td{conf}=@journal_entry_line.name
-            %td.dec.debit{conf}=number_to_accountancy(@journal_entry_line.debit)
-            %td.dec.credit{conf}=number_to_accountancy(@journal_entry_line.credit)
+                =link_to(@journal_entry_item.bank_statement.number, :action=>:show, :id=>@journal_entry_item.bank_statement.id)
+            %td{conf}=link_to(@journal_entry_item.entry.number, :action=>:show, :controller=>:journal_entries, :id=>@journal_entry_item.entry_id)
+            %td.date{conf}=I18n.localize(@journal_entry_item.entry.printed_on)
+            %td{conf}=@journal_entry_item.name
+            %td.dec.debit{conf}=number_to_accountancy(@journal_entry_item.debit)
+            %td.dec.credit{conf}=number_to_accountancy(@journal_entry_item.credit)
   .actions=submit_tag(tg(:save))

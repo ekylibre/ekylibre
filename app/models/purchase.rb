@@ -59,7 +59,7 @@ class Purchase < Ekylibre::Record::Base
   has_many :items, :class_name => "PurchaseItem", :foreign_key => :purchase_id
   has_many :deliveries, :class_name => "IncomingDelivery"
   has_many :products, :through => :items, :uniq => true
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  #[VALIDATORS[ Do not edit these items directly. Use `rake clean:validations`.
   validates_numericality_of :amount, :pretax_amount, :allow_nil => true
   validates_length_of :currency, :allow_nil => true, :maximum => 3
   validates_length_of :number, :state, :allow_nil => true, :maximum => 64

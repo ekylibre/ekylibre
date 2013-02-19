@@ -48,7 +48,7 @@ class CashTransfer < Ekylibre::Record::Base
   belongs_to :emitter_journal_entry, :class_name => "JournalEntry"
   belongs_to :receiver_cash, :class_name => "Cash"
   belongs_to :receiver_journal_entry, :class_name => "JournalEntry"
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  #[VALIDATORS[ Do not edit these items directly. Use `rake clean:validations`.
   validates_numericality_of :currency_rate, :emitter_amount, :receiver_amount, :allow_nil => true
   validates_length_of :number, :allow_nil => true, :maximum => 255
   validates_presence_of :currency_rate, :emitter_amount, :emitter_cash, :number, :receiver_amount, :receiver_cash

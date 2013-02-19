@@ -34,7 +34,7 @@
 class ProductionChainWorkCenterUse < Ekylibre::Record::Base
   belongs_to :work_center, :class_name=>"ProductionChainWorkCenter"
   belongs_to :tool
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  #[VALIDATORS[ Do not edit these items directly. Use `rake clean:validations`.
   validates_presence_of :tool, :work_center
   #]VALIDATORS]
 end

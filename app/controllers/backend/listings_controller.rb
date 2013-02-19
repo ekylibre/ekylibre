@@ -47,17 +47,17 @@ class Backend::ListingsController < BackendController
       # FIXME: This is dirty code to solve quickly no_mail mode
       query.gsub!(" ORDER BY ", " AND ("+@listing.mail_columns.collect{|c| "#{c.name} NOT LIKE '%@%.%'" }.join(" AND ")+") ORDER BY ") if params[:mode] == "no_mail"
       # FIXME: Manage suppression of CURRENT_COMPANY...
-      first_line = []
-      @listing.exportable_columns.each {|line| first_line << line.label}
+      first_item = []
+      @listing.exportable_columns.each {|item| first_item << item.label}
       result = ActiveRecord::Base.connection.select_rows(query)
-      result.insert(0, first_line)
+      result.insert(0, first_item)
 
       respond_to do |format|
         format.xml { render :xml => result.to_xml, :filename => @listing.name.simpleize+'.xml' }
         format.csv do
           csv_string = Ekylibre::CSV.generate do |csv|
-            for line in result
-              csv << line
+            for item in result
+              csv << item
             end
           end
           send_data(csv_string, :filename => @listing.name.simpleize+'.csv', :type => Mime::CSV)

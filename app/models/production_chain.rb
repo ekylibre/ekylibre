@@ -37,7 +37,7 @@ class ProductionChain < Ekylibre::Record::Base
   has_many :unused_conveyors, :class_name=>"ProductionChainConveyor", :conditions=>{:source_id=>nil, :target_id=>nil}
   has_many :input_conveyors, :class_name=>"ProductionChainConveyor", :conditions=>{:source_id=>nil}
 
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  #[VALIDATORS[ Do not edit these items directly. Use `rake clean:validations`.
   validates_length_of :name, :allow_nil => true, :maximum => 255
   validates_presence_of :name
   #]VALIDATORS]
@@ -54,16 +54,16 @@ class ProductionChain < Ekylibre::Record::Base
       raise ArgumentError.new("The second argument must be a Entity") unless responsible.is_a? Entity
 
       operation = Operation.create!(:name=>tc(:operation_name, :name=>from.name, :token=>token.number), :production_chain_token=>token, :nature=>from.operation_nature, :started_at=>Time.now, :planned_on=>date.today, :moved_on=>Date.today, :responsible_id=>responsible.id)
-      lines = []
+      items = []
       for k, v in inputs
         conveyor = ProductionChainConveyor.find(k.to_i)
         stock = ProductStock.find(v[:stock_id].to_i)
-        lines << {:direction=>"in", :product=>conveyor.product, :quantity=>v[:quantity], :tracking=>stock.tracking, :warehouse=>stock.warehouse}
+        items << {:direction=>"in", :product=>conveyor.product, :quantity=>v[:quantity], :tracking=>stock.tracking, :warehouse=>stock.warehouse}
       end
       for conveyor in from.output_conveyors
-        lines << {:direction=>"out", :product=>conveyor.product, :quantity=>v[:quantity], :tracking=>stock.tracking, :warehouse=>stock.warehouse}
+        items << {:direction=>"out", :product=>conveyor.product, :quantity=>v[:quantity], :tracking=>stock.tracking, :warehouse=>stock.warehouse}
       end
-      operation.save_with_uses_and_lines([], lines)
+      operation.save_with_uses_and_items([], items)
 
     end
   end

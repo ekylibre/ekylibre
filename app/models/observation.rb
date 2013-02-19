@@ -40,7 +40,7 @@ class Observation < Ekylibre::Record::Base
   enumerize :importance, :in => [:important, :normal, :notice], :default => :notice, :predicates => true
   belongs_to :subject, :polymorphic => true
   belongs_to :author, :class_name => "User"
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  #[VALIDATORS[ Do not edit these items directly. Use `rake clean:validations`.
   validates_length_of :importance, :allow_nil => true, :maximum => 10
   validates_length_of :subject_type, :allow_nil => true, :maximum => 255
   validates_presence_of :author, :content, :importance, :observed_at, :subject, :subject_type

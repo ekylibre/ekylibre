@@ -44,7 +44,7 @@ class ProductionChainWorkCenter < Ekylibre::Record::Base
   has_many :uses,  :class_name => "ProductionChainWorkCenterUse",  :foreign_key => :work_center_id
   has_many :output_conveyors, :dependent => :nullify, :class_name => "ProductionChainConveyor", :foreign_key => :source_id # :as => :source
   has_many :input_conveyors, :dependent => :nullify, :class_name => "ProductionChainConveyor", :foreign_key => :target_id # :as => :target
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  #[VALIDATORS[ Do not edit these items directly. Use `rake clean:validations`.
   validates_length_of :name, :nature, :allow_nil => true, :maximum => 255
   validates_presence_of :building, :name, :nature, :production_chain
   #]VALIDATORS]

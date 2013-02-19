@@ -36,7 +36,7 @@
 
 class ProductLocalization < Ekylibre::Record::Base
   enumerize :nature, :in => [:transfer, :interior, :exterior], :default => :interior
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  #[VALIDATORS[ Do not edit these items directly. Use `rake clean:validations`.
   validates_length_of :nature, :allow_nil => true, :maximum => 255
   validates_presence_of :nature, :started_at, :stopped_at
   #]VALIDATORS]

@@ -37,17 +37,17 @@
 
 class BankStatement < Ekylibre::Record::Base
   attr_accessible :cash_id, :number, :started_on, :stopped_on
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  #[VALIDATORS[ Do not edit these items directly. Use `rake clean:validations`.
   validates_numericality_of :credit, :debit, :allow_nil => true
   validates_length_of :number, :allow_nil => true, :maximum => 255
   validates_presence_of :cash, :credit, :debit, :number, :started_on, :stopped_on
   #]VALIDATORS]
   belongs_to :cash
-  has_many :lines, :dependent=>:nullify, :class_name=>"JournalEntryItem"
+  has_many :items, :dependent=>:nullify, :class_name=>"JournalEntryItem"
 
   before_validation do
-    self.debit  = self.lines.sum(:original_debit)
-    self.credit = self.lines.sum(:original_credit)
+    self.debit  = self.items.sum(:original_debit)
+    self.credit = self.items.sum(:original_credit)
   end
 
   # A bank account statement has to contain all the planned records.
@@ -71,7 +71,7 @@ class BankStatement < Ekylibre::Record::Base
     self.class.find(:first, :conditions=>{:started_on=>self.stopped_on+1})
   end
 
-  def eligible_lines
+  def eligible_items
     JournalEntryItem.where("bank_statement_id = ? OR (account_id = ? AND (bank_statement_id IS NULL OR journal_entries.created_on BETWEEN ? AND ?))", self.id, self.cash.account_id, self.started_on, self.stopped_on).joins("INNER JOIN #{JournalEntry.table_name} AS journal_entries ON journal_entries.id = entry_id").order("bank_statement_id DESC, #{JournalEntry.table_name}.printed_on DESC, #{JournalEntryItem.table_name}.position")
   end
 

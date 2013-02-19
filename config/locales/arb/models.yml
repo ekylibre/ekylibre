@@ -1065,7 +1065,7 @@ arb:
     delivery_contact: "عنوان للتسليم" #?
     delivery_contact_id: "عنوان للتسليم" #?
     delivery_id: "تسليم" #?
-    delivery_items: "طرق التسليم" #?
+    delivery_items: "طرق التسليم"
     # delivery_lines: "Lignes de livraison"
     delivery_modes: "اسلوب التسليم"
     density_label: "الكثافة"

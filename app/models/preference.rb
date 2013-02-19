@@ -47,7 +47,7 @@ class Preference < Ekylibre::Record::Base
   belongs_to :user, :class_name => "Entity"
   belongs_to :record_value, :polymorphic => true
   # cattr_reader :reference
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  #[VALIDATORS[ Do not edit these items directly. Use `rake clean:validations`.
   validates_numericality_of :integer_value, :allow_nil => true, :only_integer => true
   validates_numericality_of :decimal_value, :allow_nil => true
   validates_length_of :nature, :allow_nil => true, :maximum => 8

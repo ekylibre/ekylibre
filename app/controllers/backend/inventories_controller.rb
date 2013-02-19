@@ -97,7 +97,7 @@ class Backend::InventoriesController < BackendController
     params[:items_create].each{|k,v| v[:stock_id]=k}
     # raise Exception.new(params[:items_create].inspect)
     if @inventory.save
-      @inventory.set_lines(params[:items_create].values)
+      @inventory.set_items(params[:items_create].values)
       redirect_to :action => :index
       return
     end
@@ -116,7 +116,7 @@ class Backend::InventoriesController < BackendController
     session[:current_inventory_id] = @inventory.id
     unless @inventory.changes_reflected
       if @inventory.update_attributes(params[:inventory])
-        # @inventory.set_lines(params[:items_create].values)
+        # @inventory.set_items(params[:items_create].values)
         for id, attributes in (params[:items_update]||{})
           il = InventoryItem.find_by_id(id).update_attributes!(attributes)
         end

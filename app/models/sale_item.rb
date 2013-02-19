@@ -62,7 +62,7 @@ class SaleItem < Ekylibre::Record::Base
   belongs_to :tax
   belongs_to :tracking
   belongs_to :unit
-  has_many :delivery_lines, :class_name => "OutgoingDeliveryItem", :foreign_key => :sale_line_id
+  has_many :delivery_items, :class_name => "OutgoingDeliveryItem", :foreign_key => :sale_item_id
   has_one :reduction, :class_name => "SaleItem", :foreign_key => :reduction_origin_id
   has_many :credits, :class_name => "SaleItem", :foreign_key => :origin_id
   has_many :reductions, :class_name => "SaleItem", :foreign_key => :reduction_origin_id, :dependent => :delete_all
@@ -73,9 +73,9 @@ class SaleItem < Ekylibre::Record::Base
 
   acts_as_list :scope => :sale
   acts_as_stockable :mode => :virtual, :if => :sold?
-  sums :sale, :lines, :pretax_amount, :amount
+  sums :sale, :items, :pretax_amount, :amount
 
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  #[VALIDATORS[ Do not edit these items directly. Use `rake clean:validations`.
   validates_numericality_of :amount, :pretax_amount, :price_amount, :quantity, :reduction_percentage, :allow_nil => true
   validates_presence_of :amount, :pretax_amount, :price, :product, :quantity, :reduction_percentage, :sale
   #]VALIDATORS]
@@ -168,7 +168,7 @@ class SaleItem < Ekylibre::Record::Base
   end
 
   def undelivered_quantity
-    self.quantity - self.delivery_lines.sum(:quantity)
+    self.quantity - self.delivery_items.sum(:quantity)
   end
 
   def product_name
@@ -203,7 +203,7 @@ class SaleItem < Ekylibre::Record::Base
 
   def new_subscription(attributes={})
     #raise Exception.new attributes.inspect
-    subscription = Subscription.new((attributes||{}).merge(:sale_id => self.sale.id, :product_id => self.product_id, :nature_id => self.product.subscription_nature_id, :sale_line_id => self.id))
+    subscription = Subscription.new((attributes||{}).merge(:sale_id => self.sale.id, :product_id => self.product_id, :nature_id => self.product.subscription_nature_id, :sale_item_id => self.id))
     subscription.attributes = attributes
     product = subscription.product
     nature  = subscription.nature

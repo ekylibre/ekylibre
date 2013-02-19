@@ -641,7 +641,7 @@ class BackendController < BaseController
     code = ""
     code << "c = ['1=1']\n"
     code << "session[:#{model.name.underscore}_key].to_s.lower.split(/\\s+/).each{|kw| kw='%'+kw+'%';"
-    # This line is incompatible with MySQL...
+    # This item is incompatible with MySQL...
     if ActiveRecord::Base.connection.adapter_name.match(/^mysql/i)
       code << "c[0] << ' AND ("+columns.collect{|x| 'LOWER(CAST('+x.to_s+' AS CHAR)) LIKE ?'}.join(' OR ')+")';\n"
     else
@@ -664,7 +664,7 @@ class BackendController < BaseController
     code << "for kw in #{variable}.to_s.lower.split(/\\s+/)\n"
     code << "  kw = '%'+kw+'%'\n"
     filters = columns.collect do |x|
-      # This line is incompatible with MySQL...
+      # This item is incompatible with MySQL...
       if ActiveRecord::Base.connection.adapter_name.match(/^mysql/i)
         'LOWER(CAST('+x.to_s+' AS CHAR)) LIKE ?'
       else

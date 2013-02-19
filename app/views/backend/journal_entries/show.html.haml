@@ -13,5 +13,5 @@
   -l.attribute :debit, :currency=>@journal_entry.financial_year.currency
   -l.attribute :credit, :currency=>@journal_entry.financial_year.currency
 
-%h2=JournalEntry.human_attribute_name("lines")
+%h2=JournalEntry.human_attribute_name("items")
 =list(:items)

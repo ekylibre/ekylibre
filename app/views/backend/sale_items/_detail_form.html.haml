@@ -1,23 +1,23 @@
--if product = @sale_line.product
+-if product = @sale_item.product
   =formalize do |f|
-    -f.field :sale_line, :quantity
-    -f.field SaleLine.human_attribute_name("unit_id"), @sale_line.product.unit.label
-    -f.field :sale_line, :annotation, :field=>:textarea
+    -f.field :sale_item, :quantity
+    -f.field SaleLine.human_attribute_name("unit_id"), @sale_item.product.unit.label
+    -f.field :sale_item, :annotation, :field=>:textarea
   -if product.stockable?
     =formalize do |f|
-      -f.field SaleLine.human_attribute_name("stock_id"), select(:sale_line, :stock_id, product_stocks_options(product))
+      -f.field SaleLine.human_attribute_name("stock_id"), select(:sale_item, :stock_id, product_stocks_options(product))
   -if product.subscription?
-    -@subscription ||= @sale_line.new_subscription(params[:subscription])
+    -@subscription ||= @sale_item.new_subscription(params[:subscription])
     =render :partial=>"subscriptions/coordinates_form"
 
   -if current_user.can?(:change_prices_on_sales)
     =formalize do |f|
       -f.title :change_price
-      -f.field :sale_line, :price_amount
-      -f.field :sale_line, :tax_id, :choices=>{:reflection=>:taxes}, :new=>true
+      -f.field :sale_item, :price_amount
+      -f.field :sale_item, :tax_id, :choices=>{:reflection=>:taxes}, :new=>true
 
   -if current_user.can?(:give_discounts_on_sales) and product.reduction_submissive?
     =formalize do |f|
       -f.title :give_discount
-      -f.field :sale_line, :reduction_percentage, :size=>5
+      -f.field :sale_item, :reduction_percentage, :size=>5
 

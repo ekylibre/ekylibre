@@ -68,7 +68,7 @@ class DocumentTemplate < Ekylibre::Record::Base
   enumerize :family, :in => [:company, :relations, :accountancy, :management, :production], :predicates => true
   enumerize :nature, :in => self.document_natures.keys, :predicates => {:prefix => true}
   has_many :documents, :foreign_key => :template_id
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  #[VALIDATORS[ Do not edit these items directly. Use `rake clean:validations`.
   validates_length_of :country, :allow_nil => true, :maximum => 2
   validates_length_of :language, :allow_nil => true, :maximum => 3
   validates_length_of :code, :family, :allow_nil => true, :maximum => 32
@@ -310,9 +310,9 @@ class DocumentTemplate < Ekylibre::Record::Base
           p.slice do |s|
             s.text("Exception: "+exception.inspect)
           end
-          for line in exception.backtrace
+          for item in exception.backtrace
             p.slice do |s|
-              s.text(line)
+              s.text(item)
             end
           end
         else

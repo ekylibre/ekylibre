@@ -42,7 +42,7 @@ class Backend::BankStatementsController < BackendController
       redirect_to new_cash_url
       return
     end
-    notify_now(:x_unpointed_journal_entry_lines, :count => JournalEntryItem.where("bank_statement_id IS NULL and account_id IN (?)", cashes.map(&:account_id)).count)
+    notify_now(:x_unpointed_journal_entry_items, :count => JournalEntryItem.where("bank_statement_id IS NULL and account_id IN (?)", cashes.map(&:account_id)).count)
   end
 
   list(:items, :model => :journal_entry_items, :conditions => {:bank_statement_id => ['session[:current_bank_statement_id]']}, :order => "entry_id") do |t|
@@ -66,16 +66,16 @@ class Backend::BankStatementsController < BackendController
     session[:statement] = params[:id]  if request.get?
     return unless @bank_statement = find_and_check(:bank_statement)
     if request.post?
-      # raise Exception.new(params[:journal_entry_line].inspect)
-      @bank_statement.lines.clear
-      @bank_statement.line_ids = params[:journal_entry_line].select{|k, v| v[:checked]=="1" and JournalEntryItem.find_by_id(k)}.collect{|k, v| k.to_i}
+      # raise Exception.new(params[:journal_entry_item].inspect)
+      @bank_statement.items.clear
+      @bank_statement.item_ids = params[:journal_entry_item].select{|k, v| v[:checked]=="1" and JournalEntryItem.find_by_id(k)}.collect{|k, v| k.to_i}
       if @bank_statement.save
         redirect_to :action => :index
         return
       end
     end
-    @journal_entry_lines = @bank_statement.eligible_lines
-    unless @journal_entry_lines.size > 0
+    @journal_entry_items = @bank_statement.eligible_items
+    unless @journal_entry_items.size > 0
       notify_warning(:need_entries_to_point)
       redirect_to :action => :index
     end

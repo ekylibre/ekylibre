@@ -27,10 +27,10 @@
 
 
 -if ["products", "summary", ""].include? params[:step].to_s
-  %h2=Purchase.human_attribute_name("lines")
+  %h2=Purchase.human_attribute_name("items")
   -if @purchase.draft?
     =toolbar do |t|
-      -t.link(:new, :controller=>:purchase_lines, :purchase_id=>@purchase.id)
+      -t.link(:new, :controller=>:purchase_items, :purchase_id=>@purchase.id)
   =list :items do
     %tr.total
       %th{:colspan=>6}
@@ -50,7 +50,7 @@
     %h2=tc :undelivered
     =toolbar do |t|
       -t.link :new, :controller=>:incoming_deliveries, :purchase=>@purchase.id
-    =list :undelivered_lines
+    =list :undelivered_items
   %h2=Purchase.human_attribute_name("deliveries")
   =list :deliveries
 

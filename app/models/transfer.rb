@@ -44,7 +44,7 @@ class Transfer < Ekylibre::Record::Base
   attr_readonly :description
   belongs_to :client, :class_name => "Entity"
 
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  #[VALIDATORS[ Do not edit these items directly. Use `rake clean:validations`.
   validates_numericality_of :amount, :allow_nil => true
   validates_length_of :currency, :allow_nil => true, :maximum => 3
   validates_length_of :description, :label, :allow_nil => true, :maximum => 255

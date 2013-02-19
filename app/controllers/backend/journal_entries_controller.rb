@@ -47,7 +47,7 @@ class Backend::JournalEntriesController < BackendController
     @journal_entry = @journal.entries.build(params[:journal_entry])
     @journal_entry.printed_on = params[:printed_on]||Date.today
     @journal_entry.number = @journal.next_number
-    @journal_entry_lines = []
+    @journal_entry_items = []
     if request.xhr?
       render(:partial => 'journal_entries/exchange_rate_form')
     else
@@ -61,9 +61,9 @@ class Backend::JournalEntriesController < BackendController
     return unless @journal = find_and_check(:journal, params[:journal_id])
     session[:current_journal_id] = @journal.id
     @journal_entry = @journal.entries.build(params[:journal_entry])
-    @journal_entry_lines = (params[:items]||{}).values
-    # raise @journal_entry_lines.inspect
-    if @journal_entry.save_with_lines(@journal_entry_lines)
+    @journal_entry_items = (params[:items]||{}).values
+    # raise @journal_entry_items.inspect
+    if @journal_entry.save_with_items(@journal_entry_items)
       notify_success(:journal_entry_has_been_saved, :number => @journal_entry.number)
       redirect_to :controller => :journal_entries, :action => :new, :journal_id => @journal.id # , :draft_mode => (1 if @journal_entry.draft_mode)
       return
@@ -94,7 +94,7 @@ class Backend::JournalEntriesController < BackendController
       return
     end
     @journal = @journal_entry.journal
-    @journal_entry_lines = @journal_entry.lines
+    @journal_entry_items = @journal_entry.items
     t3e @journal_entry.attributes
     render_restfully_form
   end
@@ -108,8 +108,8 @@ class Backend::JournalEntriesController < BackendController
     end
     @journal = @journal_entry.journal
     @journal_entry.attributes = params[:journal_entry]
-    @journal_entry_lines = (params[:items]||{}).values
-    if @journal_entry.save_with_lines(@journal_entry_lines)
+    @journal_entry_items = (params[:items]||{}).values
+    if @journal_entry.save_with_items(@journal_entry_items)
       redirect_to_back
       return
     end
