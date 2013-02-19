@@ -56,7 +56,7 @@ class IncomingPayment < Ekylibre::Record::Base
   attr_readonly :payer_id
   attr_readonly :amount, :account_number, :bank, :check_number, :mode_id, :if => Proc.new{ self.deposit and self.deposit.locked? }
   belongs_to :commission_account, :class_name => "Account"
-  belongs_to :responsible, :class_name => "Entity"
+  belongs_to :responsible, :class_name => "User"
   belongs_to :deposit
   belongs_to :journal_entry
   belongs_to :payer, :class_name => "Entity", :inverse_of => :incoming_payments

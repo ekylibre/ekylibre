@@ -45,7 +45,7 @@ class Deposit < Ekylibre::Record::Base
   attr_accessible :cash_id, :description, :created_on, :mode_id, :number, :responsible_id
   acts_as_numbered
   belongs_to :cash
-  belongs_to :responsible, :class_name => "Entity"
+  belongs_to :responsible, :class_name => "User"
   belongs_to :journal_entry
   belongs_to :mode, :class_name => "IncomingPaymentMode"
   has_many :payments, :class_name => "IncomingPayment", :dependent => :nullify, :order => "number"

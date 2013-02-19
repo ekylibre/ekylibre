@@ -39,7 +39,7 @@
 
 class Inventory < Ekylibre::Record::Base
   attr_accessible :created_on, :number, :responsible_id
-  belongs_to :responsible, :class_name => "Entity"
+  belongs_to :responsible, :class_name => "User"
   has_many :items, :class_name => "InventoryItem", :dependent => :destroy, :inverse_of => :inventory
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.

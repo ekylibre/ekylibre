@@ -55,7 +55,7 @@ class Purchase < Ekylibre::Record::Base
   belongs_to :nature, :class_name => "PurchaseNature"
   belongs_to :payee, :class_name => "Entity", :foreign_key => :supplier_id
   belongs_to :supplier, :class_name => "Entity"
-  belongs_to :responsible, :class_name => "Entity"
+  belongs_to :responsible, :class_name => "User"
   has_many :items, :class_name => "PurchaseItem", :foreign_key => :purchase_id
   has_many :deliveries, :class_name => "IncomingDelivery"
   has_many :products, :through => :items, :uniq => true

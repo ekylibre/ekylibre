@@ -50,7 +50,7 @@ class OutgoingPayment < Ekylibre::Record::Base
   belongs_to :journal_entry
   belongs_to :mode, :class_name => "OutgoingPaymentMode"
   belongs_to :payee, :class_name => "Entity"
-  belongs_to :responsible, :class_name => "Entity"
+  belongs_to :responsible, :class_name => "User"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :amount, :allow_nil => true
   validates_length_of :currency, :allow_nil => true, :maximum => 3
