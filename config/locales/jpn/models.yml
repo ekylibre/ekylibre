@@ -1302,7 +1302,7 @@ jpn:
     account:
       # label: "%{number} - %{name}"
     cash_transfer:
-      # bookkeep: "[%{resource} %{number}] De %{emitter} à %{receiver} %{comment}"
+      # bookkeep: "[%{resource} %{number}] De %{emitter} à %{receiver} %{description}"
     company:
       # cant_find_document_template: "Impossible de trouver le modèle de document correspondant"
       default:
@@ -1373,9 +1373,9 @@ jpn:
       # error_unvalid_format_for_expression: "L’expression n’est pas au bon format"
     deposit:
       bookkeep:
-        # one: "[%{resource} %{number}] %{count} encaissement %{mode} %{comment}"
-        # other: "[%{resource} %{number}] %{count} encaissements %{mode} %{comment}"
-        # zero: "[%{resource} %{number}] Aucun encaissement %{mode} %{comment}"
+        # one: "[%{resource} %{number}] %{count} encaissement %{mode} %{description}"
+        # other: "[%{resource} %{number}] %{count} encaissements %{mode} %{description}"
+        # zero: "[%{resource} %{number}] Aucun encaissement %{mode} %{description}"
       # bookkeep_with_payment: "[%{resource} %{number}] %{mode} %{check_number} de %{payer} (%{payment})"
     document_template:
       default:

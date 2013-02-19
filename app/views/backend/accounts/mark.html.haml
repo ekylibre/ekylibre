@@ -20,14 +20,14 @@
       %table.list
         %thead
           %tr
-            %th=JournalEntryLine.human_attribute_name("letter")
+            %th=JournalEntryItem.human_attribute_name("letter")
             %th.act
             %th=JournalEntry.human_attribute_name("printed_on")
             %th=Journal.model_name.human
             %th=JournalEntry.model_name.human
-            %th=JournalEntryLine.human_attribute_name("name")
-            %th=JournalEntryLine.human_attribute_name("debit")
-            %th=JournalEntryLine.human_attribute_name("credit")
+            %th=JournalEntryItem.human_attribute_name("name")
+            %th=JournalEntryItem.human_attribute_name("debit")
+            %th=JournalEntryItem.human_attribute_name("credit")
         %tbody
           -for item in @account.reconcilable_entry_items(params[:period], params[:started_on], params[:stopped_on])
             -checked = (item.letter.blank? and (params[:journal_entry_item]||{}).keys.include?(item.id.to_s))

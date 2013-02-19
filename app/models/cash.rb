@@ -50,7 +50,7 @@ class Cash < Ekylibre::Record::Base
   BBAN_TRANSLATIONS = {
     :fr => ["abcdefghijklmonpqrstuvwxyz", "12345678912345678923456789"]
   }
-  attr_accessible :name, :nature, :account, :mode, :iban, :key, :bank_name, :bank_code, :agency_code, :number, :address, :account_id, :journal_id, :country, :currency
+  attr_accessible :name, :nature, :account, :mode, :iban, :bank_identifier_code, :bank_account_key, :bank_name, :bank_code, :bank_agency_code, :bank_account_number, :bank_agency_address, :account_id, :journal_id, :country, :currency
   attr_readonly :nature, :currency
   belongs_to :account
   belongs_to :journal
@@ -91,7 +91,7 @@ class Cash < Ekylibre::Record::Base
     if self.mode_iban?
       self.iban = self.iban.to_s.upper.gsub(/[^A-Z0-9]/, '')
     elsif self.mode_bban?
-      self.iban = self.class.generate_iban(self.country, self.bank_code+self.agency_code+self.number+self.key)
+      self.iban = self.class.generate_iban(self.country, self.bank_code + self.bank_agency_code + self.bank_account_number + self.bank_account_key)
     end
     self.spaced_iban = self.iban.split(/(\w\w\w\w)/).delete_if{|k| k.empty?}.join(" ")
   end

@@ -28,7 +28,7 @@ class Backend::ProductsController < BackendController
     t.column :born_at
     t.action :show, :url => {:format => :pdf}, :image => :print
     t.action :edit
-    t.action :destroy, :if => "RECORD.destroyable\?"
+    t.action :destroy, :if => :destroyable?
   end
 
   def index

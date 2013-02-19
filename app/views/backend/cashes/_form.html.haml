@@ -1,11 +1,11 @@
 =field_set do
   =f.input :name
-  =f.input :currency, :source => :currencies
+  =f.input :currency, :collection => currencies
   =f.input :nature, :show => {:bank_account => :bank_account_options}
 
 =field_set(:bank_account, :in => :bank_account_options) do
   =f.input :bank_name
-  =f.input :bank_address, :field => :text
+  =f.input :bank_agency_address, :field => :text
   =f.input :mode, :show => {}
 
 =field_set(:bban, :in => :bank_account_options) do
@@ -17,7 +17,7 @@
 
 =field_set(:iban, :in => :bank_account_options) do
   =f.input :iban
-  =f.input :bic
+  =f.input :bank_identifier_code
 
 =field_set(:accountancy) do
   =f.association :account, :source => {{:nature => :bank_account} => :banks, {:nature => :cash_box} => :cashes}, :new => {:number => Account.chart_number(:banks)}

@@ -35,22 +35,22 @@ class Backend::ProductNaturePricesController < BackendController
 
   def new
     @mode = (params[:mode]||"sales").to_sym
-    @price = ProductNaturePrice.new(:product_nature_id => params[:product_nature_id], :currency => params[:currency]||Entity.of_company.currency, :category_id => params[:entity_category_id]||session[:current_entity_category_id]||0)
-    @price.supplier_id = params[:supplier_id] if params[:supplier_id]
+    @product_nature_price = ProductNaturePrice.new(:product_nature_id => params[:product_nature_id], :currency => params[:currency]||Entity.of_company.currency, :category_id => params[:entity_category_id]||session[:current_entity_category_id]||0)
+    @product_nature_price.supplier_id = params[:supplier_id] if params[:supplier_id]
     # render_restfully_form
   end
 
   def create
     @mode = (params[:mode]||"sales").to_sym
-    @price = ProductNaturePrice.new(params[:price])
-    @price.supplier_id = params[:price][:supplier_id]||Entity.of_company.id
-    return if save_and_redirect(@price)
+    @product_nature_price = ProductNaturePrice.new(params[:price])
+    @product_nature_price.supplier_id = params[:product_nature_price][:supplier_id]||Entity.of_company.id
+    return if save_and_redirect(@product_nature_price)
     # render_restfully_form
   end
 
   def destroy
-    return unless @price = find_and_check
-    @price.destroy
+    return unless @product_nature_price = find_and_check
+    @product_nature_price.destroy
     redirect_to_current
   end
 
@@ -58,35 +58,35 @@ class Backend::ProductNaturePricesController < BackendController
     if params[:product_nature_id] and params[:supplier_id]
       return unless product = find_and_check(:product_natures, params[:product_nature_id])
       return unless supplier = find_and_check(:supplier, params[:supplier_id])
-      @price = product.prices.find(:first, :conditions => {:supplier_id => supplier.id, :active => true}, :order => "by_default DESC")
-      @price ||= ProductNaturePrice.new(:category_id => supplier.category_id)
+      @product_nature_price = product.prices.find(:first, :conditions => {:supplier_id => supplier.id, :active => true}, :order => "by_default DESC")
+      @product_nature_price ||= ProductNaturePrice.new(:category_id => supplier.category_id)
       respond_to do |format|
         format.html { render :partial => "amount_form" }
-        format.json { render :json => @price.to_json }
-        format.xml  { render :xml => @price.to_xml }
+        format.json { render :json => @product_nature_price.to_json }
+        format.xml  { render :xml => @product_nature_price.to_xml }
       end
     elsif !params[:purchase_item_price_id].blank?
-      return unless @price = find_and_check(:product_nature_price, params[:purchase_item_price_id])
-      @product = @price.product if @price
+      return unless @product_nature_price = find_and_check(:product_nature_price, params[:purchase_item_price_id])
+      @product = @product_nature_price.product if @product_nature_price
     elsif params[:purchase_item_product_id]
       return unless @product = find_and_check(:products, params[:purchase_item_product_id])
-      @price = @product.prices.find_by_active_and_by_default_and_supplier_id(true, true, params[:supplier_id]||Entity.of_company.id) if @product
+      @product_nature_price = @product.prices.find_by_active_and_by_default_and_supplier_id(true, true, params[:supplier_id]||Entity.of_company.id) if @product
     end
   end
 
   def edit
-    return unless @price = find_and_check
-    @mode = "purchases" if @price.supplier_id != Entity.of_company.id
-    t3e @price.attributes, :product => @price.product.name
+    return unless @product_nature_price = find_and_check
+    @mode = "purchases" if @product_nature_price.supplier_id != Entity.of_company.id
+    t3e @product_nature_price.attributes, :product => @product_nature_price.product.name
     # render_restfully_form
   end
 
   def update
-    return unless @price = find_and_check
-    @mode = "purchases" if @price.supplier_id != Entity.of_company.id
-    @price.amount = 0
-    return if save_and_redirect(@price, :attributes => params[:price])
-    t3e @price.attributes, :product => @price.product.name
+    return unless @product_nature_price = find_and_check
+    @mode = "purchases" if @product_nature_price.supplier_id != Entity.of_company.id
+    @product_nature_price.amount = 0
+    return if save_and_redirect(@product_nature_price, :attributes => params[:product_nature_price])
+    t3e @product_nature_price.attributes, :product => @product_nature_price.product.name
     # render_restfully_form
   end
 
@@ -96,9 +96,9 @@ class Backend::ProductNaturePricesController < BackendController
     @suppliers = Entity.where(:supplier => true)
     session[:supplier_id] = 0
     if request.post?
-      mode = params[:price][:mode]
+      mode = params[:product_nature_price][:mode]
       if mode == "suppliers"
-        session[:supplier_id] = params[:price][:supply].to_i
+        session[:supplier_id] = params[:product_nature_price][:supply].to_i
       elsif mode == "clients"
         session[:supplier_id] = Entity.of_company.id
       else
@@ -179,21 +179,21 @@ class Backend::ProductNaturePricesController < BackendController
               blank = true
               tax = Tax.find(:first, :conditions => {:amount => row[x+2].to_s.gsub(/\,/,".").to_f})
               tax_id = tax.nil? ? nil : tax.id
-              @price = ProductNaturePrice.find(:first, :conditions => {:product_id => @product.id, :category_id => category.id, :active => true} )
-              if @price.nil? and (!row[x].nil? or !row[x+1].nil? or !row[x+2].nil?)
-                @price = ProductNaturePrice.new(:pretax_amount => row[x].to_s.gsub(/\,/,".").to_f, :tax_id => tax_id, :amount => row[x+1].to_s.gsub(/\,/,".").to_f, :product_id => @product.id, :category_id => category.id, :supplier_id => Entity.of_company.id, :currency => Entity.of_company.currency)
+              @product_nature_price = ProductNaturePrice.find(:first, :conditions => {:product_id => @product.id, :category_id => category.id, :active => true} )
+              if @product_nature_price.nil? and (!row[x].nil? or !row[x+1].nil? or !row[x+2].nil?)
+                @product_nature_price = ProductNaturePrice.new(:pretax_amount => row[x].to_s.gsub(/\,/,".").to_f, :tax_id => tax_id, :amount => row[x+1].to_s.gsub(/\,/,".").to_f, :product_id => @product.id, :category_id => category.id, :supplier_id => Entity.of_company.id, :currency => Entity.of_company.currency)
                 blank = false
-              elsif !@price.nil?
+              elsif !@product_nature_price.nil?
                 blank = false
-                @price.pretax_amount = row[x].to_s.gsub(/\,/,".").to_f
-                @price.amount = row[x+1].to_s.gsub(/\,/,".").to_f
-                @price.tax_id = tax_id
+                @product_nature_price.pretax_amount = row[x].to_s.gsub(/\,/,".").to_f
+                @product_nature_price.amount = row[x+1].to_s.gsub(/\,/,".").to_f
+                @product_nature_price.tax_id = tax_id
               end
               if blank == false
-                if @price.valid?
-                  @available_prices << @price
+                if @product_nature_price.valid?
+                  @available_prices << @product_nature_price
                 else
-                  @unavailable_prices << [i+1, @price.errors.full_messages]
+                  @unavailable_prices << [i+1, @product_nature_price.errors.full_messages]
                 end
               end
               x += 3

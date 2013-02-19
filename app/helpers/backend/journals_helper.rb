@@ -93,7 +93,7 @@ module Backend::JournalsHelper
   # Create a widget to select some journals
   def journals_crit
     code, field = "", :journals
-    code << content_tag(:label, Company.human_attribute_name("journals"))
+    code << content_tag(:label, Backend::JournalController.human_name)
     journals = Journal.all
     params[field] = {} unless params[field].is_a? Hash
     no_journal = !journals.detect{|x| params[field].has_key?(x.id.to_s)}

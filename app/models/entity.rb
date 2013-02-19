@@ -109,7 +109,7 @@ class Entity < Ekylibre::Record::Base
   has_many :prices, :class_name => "ProductNaturePrice"
   has_many :purchase_invoices, :class_name => "Purchase", :foreign_key => :supplier_id, :order => "created_on desc", :conditions => {:state => "invoice"}
   has_many :purchases, :foreign_key => :supplier_id
-  has_many :operations, :foreign_key => :responsible_id
+  has_many :operation_works, :foreign_key => :worker_id, :inverse_of => :worker
   has_many :outgoing_deliveries, :foreign_key => :transporter_id
   has_many :outgoing_payments, :foreign_key => :payee_id
   has_many :sales_invoices, :class_name => "Sale", :foreign_key => :client_id, :order => "created_on desc", :conditions => {:state => "invoice"}

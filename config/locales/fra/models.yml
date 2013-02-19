@@ -503,7 +503,7 @@ fra:
     commissioned_incoming_payment_modes: "Modes d’encaissement avec commission"
     company: "Société" #?
     component: "Produit contenu" #?
-    components: "Composants de produit"
+    components: "Composants de produit" #?
     compute: "Dernière valeur"
     conclusion: "Conclusion"
     condition_operator: "Comparateur"
@@ -843,6 +843,7 @@ fra:
     operation_nature: "Type d’operation" #?
     operation_natures: "Types de travail" #?
     operation_uses: "Utilisations d’outil" #?
+    # operation_works: "Operation works"
     operations: "Travaux"
     order: "Vente" #?
     order_item: "Ligne de vente" #?
@@ -1344,7 +1345,7 @@ fra:
     account:
       label: "%{number} - %{name}"
     cash_transfer:
-      bookkeep: "[%{resource} %{number}] De %{emitter} à %{receiver} %{comment}"
+      bookkeep: "[%{resource} %{number}] De %{emitter} à %{receiver} %{description}"
     company: #?
       cant_find_document_template: "Impossible de trouver le modèle de document correspondant" #?
       default: #?
@@ -1415,9 +1416,9 @@ fra:
       error_unvalid_format_for_expression: "L’expression n’est pas au bon format"
     deposit:
       bookkeep:
-        one: "[%{resource} %{number}] %{count} encaissement %{mode} %{comment}"
-        other: "[%{resource} %{number}] %{count} encaissements %{mode} %{comment}"
-        zero: "[%{resource} %{number}] Aucun encaissement %{mode} %{comment}"
+        one: "[%{resource} %{number}] %{count} encaissement %{mode} %{description}"
+        other: "[%{resource} %{number}] %{count} encaissements %{mode} %{description}"
+        zero: "[%{resource} %{number}] Aucun encaissement %{mode} %{description}"
       bookkeep_with_payment: "[%{resource} %{number}] %{mode} %{check_number} de %{payer} (%{payment})"
     document_template:
       default:

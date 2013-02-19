@@ -1929,7 +1929,7 @@ arb:
         bank_account: "حساب مصرفي" #?
         cash_box: "صندوق النقدي" #?
     cash_transfer:
-      # bookkeep: "[%{resource} %{number}] De %{emitter} à %{receiver} %{comment}"
+      # bookkeep: "[%{resource} %{number}] De %{emitter} à %{receiver} %{description}"
     company:
       cant_find_document_template: "لا يمكن العثور على نموذج مطابق للوثيقة"
       default:

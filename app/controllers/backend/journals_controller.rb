@@ -186,7 +186,7 @@ class Backend::JournalsController < BackendController
   def bookkeep
     params[:stopped_on] = params[:stopped_on].to_date rescue Date.today
     params[:started_on] = params[:started_on].to_date rescue (params[:stopped_on] - 1.year).beginning_of_month
-    @natures = [:sale, :incoming_payment_use, :incoming_payment, :deposit, :purchase, :outgoing_payment_use, :outgoing_payment, :cash_transfer]
+    @natures = [:sale, :incoming_payment, :deposit, :purchase, :outgoing_payment, :cash_transfer, :affair] # , transfer
 
     if request.get?
       notify_now(:bookkeeping_works_only_with, :list => @natures.collect{|x| x.to_s.classify.constantize.model_name.human}.to_sentence)

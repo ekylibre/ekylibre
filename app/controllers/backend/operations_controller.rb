@@ -23,13 +23,13 @@ class Backend::OperationsController < BackendController
   unroll_all
 
   list(:order => "planned_on DESC, name ASC") do |t|
-    t.column :name, :url => true
+    # t.column :name, :url => true
     t.column :nature
-    t.column :planned_on
-    t.column :moved_on
-    t.column :tools_list
+    #t.column :planned_on
+    #t.column :moved_on
+    #t.column :tools_list
     t.column :name, :through => :target
-    t.column :duration
+    #t.column :duration
     t.action :edit
     t.action :destroy
   end

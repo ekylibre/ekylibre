@@ -6,7 +6,8 @@
   -t.link :merge, {}, :remote=>true, :method=>:post, "data-confirm" => tl(:are_you_sure), "data-with"=>"td.plot.selected input", "data-redirect"=>true, "data-type"=>"text"
 
 -unit = Unit.find_by_base("m2")
-=form_tag do
+-# TODO Review presentation of landparcels
+-#=form_tag do
   -LandParcelGroup.find_each do |group|
     -total_area = group.area(session[:viewed_on], unit)
     .group
@@ -30,6 +31,3 @@
               %ul.operations
                 -for operation in land_parcel.operations.find(:all, :conditions=>["COALESCE(moved_on, planned_on) < ? ", session[:viewed_on]], :limit=>5)
                   %li=link_to(operation.name, {:action=>:show, :controller=>:operations, :id=>operation.id})
-
-%h2=LandParcelGroup.human_attribute_name("land_parcels")
-=list

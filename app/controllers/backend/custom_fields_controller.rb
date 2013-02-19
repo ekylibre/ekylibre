@@ -22,8 +22,8 @@ class Backend::CustomFieldsController < BackendController
   manage_restfully_list
   unroll_all
 
-  list(:order => "used_with, position") do |t|
-    t.column :used_with
+  list(:order => "customized_type, position") do |t|
+    t.column :customized_type
     t.column :name, :url => true
     t.column :nature
     t.column :required

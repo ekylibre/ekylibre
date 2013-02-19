@@ -25,10 +25,10 @@ class Backend::EntityLinkNaturesController < BackendController
     t.column :name
     t.column :name_1_to_2
     t.column :name_2_to_1
-    t.column :propagate_contacts
+    t.column :propagate_addresses
     t.column :symmetric
     t.action :edit
-    t.action :destroy, :if=>"RECORD.destroyable\?"
+    t.action :destroy, :if => :destroyable?
   end
 
   # Displays the main page with the list of entity link natures

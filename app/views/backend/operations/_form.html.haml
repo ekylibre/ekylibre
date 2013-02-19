@@ -1,15 +1,15 @@
 =field_set do
-  =f.input :name
-  =f.association :responsible, :source => :employees
-  =f.association :nature
-  =f.input :planned_on
+  -#=f.input :name
+  -#=f.association :responsible, :source => :employees
+  -#=f.association :nature
+  -#=f.input :planned_on
   =f.input :description
 
-=field_set(:duration) do
+-#=field_set(:duration) do
   =f.input :hour_duration
   =f.input :min_duration
 
-=field_set(:products) do
+-#=field_set(:products) do
   -nested_association(:items) do
     =f.input :direction
     =f.association :product
@@ -17,7 +17,7 @@
     =f.association :tracking
     =f.association :warehouse
 
-=field_set(:tools) do
+-#=field_set(:tools) do
   -nested_association(:uses) do
     =f.association :tool
 

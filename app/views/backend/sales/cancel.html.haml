@@ -11,7 +11,7 @@
 
 =form_tag() do
   =field_set :cancellation do
-    =field Sale.human_attribute_name(:repsonsible), selector(:sale, :responsible, {:action => :unroll_employees, :controller => :entities})
+    =field Sale.human_attribute_name(:repsonsible), selector(:sale, :responsible, {:action => :unroll_employees, :controller => :users})
     =list :creditable_items
   =form_actions do
     =submit_tag(tc('validate'))

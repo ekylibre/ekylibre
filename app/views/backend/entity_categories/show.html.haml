@@ -8,5 +8,5 @@
 
 %h2=tc(:x_prices, :count=>@entity_category.active_prices.count)
 =toolbar do |t|
-  -t.link :new, :action=>:new, :controller=>:prices, :mode=>:sales
+  -t.link :new, :action=>:new, :controller=>:product_nature_prices, :mode=>:sales
 =list :prices

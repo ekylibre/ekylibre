@@ -1445,7 +1445,7 @@ eng:
     account:
       label: "%{number} - %{name}"
     cash_transfer:
-      bookkeep: "[%{resource} %{number}] From %{emitter} to %{receiver} %{comment}"
+      bookkeep: "[%{resource} %{number}] From %{emitter} to %{receiver} %{description}"
     company:
       cant_find_document_template: "Can not find document template"
       default:
@@ -1518,9 +1518,9 @@ eng:
       error_unvalid_format_for_expression: "Unvalid format for expression"
     deposit:
       bookkeep:
-        one: "[%{resource} %{number}] %{count} payment %{mode} %{comment}"
-        other: "[%{resource} %{number}] %{count} payments %{mode} %{comment}"
-        zero: "[%{resource} %{number}] No payments %{mode} %{comment}"
+        one: "[%{resource} %{number}] %{count} payment %{mode} %{description}"
+        other: "[%{resource} %{number}] %{count} payments %{mode} %{description}"
+        zero: "[%{resource} %{number}] No payments %{mode} %{description}"
       bookkeep_with_payment: "[%{resource} %{number}] %{mode} %{check_number} from %{payer} (%{payment})"
     document_template:
       default:

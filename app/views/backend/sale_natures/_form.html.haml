@@ -1,7 +1,7 @@
 =field_set do
   =f.input :name
   =f.input :active
-  =f.input :currency, :source => :currencies
+  =f.input :currency, :collection => currencies
   =f.input :downpayment, :show => :downpayment
   =f.input :with_accounting, :show => :accountancy
 

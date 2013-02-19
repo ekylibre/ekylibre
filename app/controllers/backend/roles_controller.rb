@@ -34,7 +34,7 @@ class Backend::RolesController < BackendController
 
   def new
     @role = Role.new
-    @rights = Entity.rights_list
+    @rights = User.rights_list
     # render_restfully_form
   end
 

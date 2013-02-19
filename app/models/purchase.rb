@@ -106,7 +106,6 @@ class Purchase < Ekylibre::Record::Base
 
   before_validation do
     self.created_on ||= Date.today
-    self.paid_amount = self.payment_uses.sum(:amount)||0
     if eoc = Entity.of_company
       self.currency ||= eoc.currency
     end
@@ -135,9 +134,6 @@ class Purchase < Ekylibre::Record::Base
       end
       entry.add_credit(label, self.supplier.account(:supplier).id, self.amount)
     end
-#     if use = self.uses.first
-#       use.reconciliate
-#     end
   end
 
   def dealt_on
@@ -206,13 +202,8 @@ class Purchase < Ekylibre::Record::Base
     tc('states.'+self.state.to_s)
   end
 
-  def unpaid_amount
-    self.amount - self.paid_amount
-  end
-
   def status
     status = ""
-    status = "critic" if self.paid_amount < self.amount
     status
   end
 
@@ -228,13 +219,13 @@ class Purchase < Ekylibre::Record::Base
     self.amount - self.pretax_amount
   end
 
-  # Produces some amounts about the purchase order.
-  def stats(options={})
-    array = []
-    array << [:amount, self.amount]
-    array << [:paid_amount, self.paid_amount]
-    array << [:unpaid_amount, self.unpaid_amount]
-    array
-  end
+  # # Produces some amounts about the purchase order.
+  # def stats(options={})
+  #   array = []
+  #   array << [:amount, self.amount]
+  #   array << [:paid_amount, self.paid_amount]
+  #   array << [:unpaid_amount, self.unpaid_amount]
+  #   array
+  # end
 
 end

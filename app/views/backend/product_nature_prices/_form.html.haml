@@ -1,5 +1,5 @@
 =field_set do
-  =f.association :product
+  =f.association :product_nature
   -# TODO: Cannot keep "if" in forms
   -if @mode != :sales
     =f.association :entity, :source => :suppliers
@@ -9,4 +9,4 @@
   =f.association :category
   =f.input :pretax_amount
   =f.association :tax
-  =f.input :currency, :source => :currencies
+  =f.input :currency, :collection => currencies

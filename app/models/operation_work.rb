@@ -32,7 +32,7 @@
 #
 class OperationWork < Ekylibre::Record::Base
   belongs_to :operation, :inverse_of => :works
-  belongs_to :worker, :class_name => "Entity", :inverse_of => :works
+  belongs_to :worker, :class_name => "Entity", :inverse_of => :operation_works
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :nature, :allow_nil => true, :maximum => 255
   validates_presence_of :nature, :operation, :worker

@@ -10,14 +10,14 @@
       -l.attribute :account, :url=>true
       -if @cash.bank_account?
         -l.attribute :bank_name
-        -l.attribute :address
+        -l.attribute :bank_agency_address
         -l.attribute :iban_label
-        -l.attribute :bic
+        -l.attribute :bank_identifier_code
         -if @cash.mode_bban?
           -l.attribute :bank_code
-          -l.attribute :agency_code
-          -l.attribute :number
-          -l.attribute :key
+          -l.attribute :bank_agency_code
+          -l.attribute :bank_account_number
+          -l.attribute :bank_account_key
 
   -if @cash.bank_account?
     -b.tabbox do

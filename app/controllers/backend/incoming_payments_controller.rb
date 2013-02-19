@@ -44,10 +44,9 @@ class Backend::IncomingPaymentsController < BackendController
     t.column :number, :url => true
     t.column :full_name, :through => :payer, :url => true
     t.column :paid_on
-    t.column :amount, :currency => "RECORD.mode.cash.currency", :url => true
-    t.column :used_amount, :currency => "RECORD.mode.cash.currency"
+    t.column :amount, :currency => true, :url => true
     t.column :name, :through => :mode
-    t.column :check_number
+    t.column :bank_check_number
     t.column :to_bank_on
     t.column :number, :through => :deposit, :url => true
     t.action :edit, :if => "RECORD.deposit.nil\?"

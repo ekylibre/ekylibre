@@ -37,17 +37,17 @@ class Backend::WarehousesController < BackendController
     notify_now(:need_warehouse_to_record_stock_moves) if Warehouse.count.zero?
   end
 
-  list(:product_moves, :conditions => {:warehouse_id => ['session[:current_warehouse_id]']}) do |t|
-    t.column :name
-    t.column :planned_on
-    t.column :moved_on
-    t.column :quantity
-    t.column :label, :through => :unit
-    t.column :name, :through => :product, :url => true
-    t.column :virtual
-    # t.action :edit, :if => 'RECORD.generated != true'
-    # t.action :destroy,:if => 'RECORD.generated != true'
-  end
+  # list(:product_moves, :conditions => {:warehouse_id => ['session[:current_warehouse_id]']}) do |t|
+  #   t.column :name
+  #   t.column :planned_on
+  #   t.column :moved_on
+  #   t.column :quantity
+  #   t.column :label, :through => :unit
+  #   t.column :name, :through => :product, :url => true
+  #   t.column :virtual
+  #   # t.action :edit, :if => 'RECORD.generated != true'
+  #   # t.action :destroy,:if => 'RECORD.generated != true'
+  # end
 
   # list(:product_stocks, :conditions => {:warehouse_id => ['session[:current_warehouse_id]']}, :order => "quantity DESC") do |t|
   #   t.column :name, :through => :product,:url => true

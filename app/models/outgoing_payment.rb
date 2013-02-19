@@ -46,7 +46,7 @@
 
 
 class OutgoingPayment < Ekylibre::Record::Base
-  attr_accessible :amount, :check_number, :paid_on, :to_bank_on, :responsible_id, :payee_id, :mode_id # , :used_amount
+  attr_accessible :amount, :bank_check_number, :paid_on, :to_bank_on, :responsible_id, :payee_id, :mode_id # , :used_amount
   belongs_to :journal_entry
   belongs_to :mode, :class_name => "OutgoingPaymentMode"
   belongs_to :payee, :class_name => "Entity"
@@ -59,11 +59,9 @@ class OutgoingPayment < Ekylibre::Record::Base
   validates_presence_of :amount, :currency, :mode, :payee, :responsible, :to_bank_on
   #]VALIDATORS]
   validates_numericality_of :amount, :greater_than => 0
-  validates_numericality_of :used_amount, :greater_than_or_equal_to => 0
   validates_presence_of :to_bank_on, :created_on
 
   default_scope -> { order("id DESC") }
-  scope :unbalanceds, -> { where("used_amount < amount") }
 
   delegate :currency, :to => :mode
   acts_as_numbered
@@ -74,20 +72,12 @@ class OutgoingPayment < Ekylibre::Record::Base
     true
   end
 
-  before_validation do
-    self.used_amount = self.uses.sum(:amount)
-  end
-
-  validate do
-    errors.add(:amount, :greater_than_or_equal_to, :count => self.used_amount) if self.amount < self.used_amount
-  end
-
   protect(:on => :update) do
     return (self.journal_entry ? !self.journal_entry.closed? : true)
   end
 
   protect(:on => :destroy) do
-    updateable? and self.used_amount.zero?
+    updateable?
   end
 
   # This method permits to add journal entries corresponding to the payment
@@ -109,12 +99,9 @@ class OutgoingPayment < Ekylibre::Record::Base
   end
 
   def label
-    tc(:label, :amount => I18n.localize(self.amount, :currency => self.currency), :date => I18n.localize(self.created_at.to_date), :mode => self.mode.name, :usable_amount => I18n.localize(self.unused_amount, :currency => self.mode.cash.currency), :payee => self.payee.full_name, :number => self.number)
+    tc(:label, :amount => I18n.localize(self.amount, :currency => self.currency), :date => I18n.localize(self.created_at.to_date), :mode => self.mode.name, :payee => self.payee.full_name, :number => self.number) # , :usable_amount => I18n.localize(self.unused_amount, :currency => self.mode.cash.currency)
   end
 
-  def unused_amount
-    self.amount-self.used_amount
-  end
 
 #   def attorney_amount
 #     total = 0
@@ -124,18 +111,18 @@ class OutgoingPayment < Ekylibre::Record::Base
 #     return total
 #   end
 
-  # Use the maximum available amount to pay the expense
-  def pay(expense, options={})
-    raise Exception.new("Expense must be Purchase (not #{expense.class.name})") unless expense.class.name == Purchase.name
-    # OutgoingPaymentUse.destroy_all(:expense_id => expense.id, :payment_id => self.id)
-    # self.reload
-    # use_amount = [expense.unpaid_amount, self.unused_amount].min
-    use = self.uses.create(:expense => expense, :downpayment => options[:downpayment])
-    if use.errors.size > 0
-      errors.add_from_record(use)
-      return false
-    end
-    return true
-  end
+  # # Use the maximum available amount to pay the expense
+  # def pay(expense, options={})
+  #   raise Exception.new("Expense must be Purchase (not #{expense.class.name})") unless expense.class.name == Purchase.name
+  #   # OutgoingPaymentUse.destroy_all(:expense_id => expense.id, :payment_id => self.id)
+  #   # self.reload
+  #   # use_amount = [expense.unpaid_amount, self.unused_amount].min
+  #   use = self.uses.create(:expense => expense, :downpayment => options[:downpayment])
+  #   if use.errors.size > 0
+  #     errors.add_from_record(use)
+  #     return false
+  #   end
+  #   return true
+  # end
 
 end

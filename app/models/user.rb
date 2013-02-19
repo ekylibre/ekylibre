@@ -124,6 +124,10 @@ class User < Ekylibre::Record::Base
     end
   end
 
+  def label
+    self.full_name
+  end
+
   def rights_array
     self.rights.to_s.split(/\s+/).collect{|x| x.to_sym}
   end

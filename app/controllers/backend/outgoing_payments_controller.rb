@@ -42,13 +42,12 @@ class Backend::OutgoingPaymentsController < BackendController
     t.column :full_name, :through => :payee, :url => true
     t.column :paid_on
     t.column :amount, :currency => true, :url => true
-    t.column :used_amount, :currency => true
     t.column :name, :through => :mode
-    t.column :check_number
+    t.column :bank_check_number
     t.column :to_bank_on
     # t.column :label, :through => :responsible
-    t.action :edit, :if => "RECORD.updateable\?"
-    t.action :destroy, :if => "RECORD.destroyable\?"
+    t.action :edit, :if => :updateable?
+    t.action :destroy, :if => :destroyable?
   end
 
   # Displays the main page with the list of outgoing payments

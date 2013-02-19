@@ -39,10 +39,8 @@
       %th{:colspan=>3}
 
 -if ["products", "summary", ""].include? params[:step].to_s
-  %h2=Purchase.human_attribute_name("payment_uses")
-  =toolbar do |t|
-    -t.link(:new, :controller=>:outgoing_payment_uses, :expense_type=>:purchase, :expense_id=>@purchase.id) unless @purchase.unpaid_amount.zero?
-  =list :payment_uses
+  %h2=tc(:affair)
+  =affair_of(@purchase)
 
 
 -if ["deliveries", ""].include? params[:step].to_s

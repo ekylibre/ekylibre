@@ -43,9 +43,9 @@ class Backend::DepositsController < BackendController
   list(:payments, :model => :incoming_payments, :conditions => {:deposit_id => ['session[:deposit_id]']}, :pagination => :none, :order => :number) do |t|
     t.column :number, :url => true
     t.column :full_name, :through => :payer, :url => true
-    t.column :bank
-    t.column :account_number
-    t.column :check_number
+    t.column :bank_name
+    t.column :bank_account_number
+    t.column :bank_check_number
     t.column :paid_on
     t.column :amount, :currency => "RECORD.mode.cash.currency", :url => true
   end

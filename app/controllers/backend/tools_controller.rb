@@ -33,8 +33,8 @@ class Backend::ToolsController < BackendController
   list(:order => "name") do |t|
     t.column :name, :url => true
     t.column :name, :through => :nature, :url => true
-    t.column :purchased_on, :datatype => :date
-    t.column :ceded_on, :datatype => :date
+    # t.column :purchased_on, :datatype => :date
+    # t.column :ceded_on, :datatype => :date
     t.action :edit
     t.action :destroy, :if => :destroyable?
   end

@@ -1,6 +1,6 @@
 =field_set(:major => true) do
   =f.association :nature
-  =f.input :language, :source => :languages, :field => :select
+  =f.input :language, :collection => languages, :field => :select
   =f.input :last_name
   =f.input :first_name
   =f.input :active, :hide => :dead_on
@@ -12,7 +12,7 @@
   =f.input :transporter
 
 =field_set(:details) do # , :collapsed => true
-  =f.input :country, :source => :countries
+  =f.input :country, :collection => countries
   =f.input :siren
   =f.input :activity_code
   =f.input :vat_number
@@ -56,7 +56,7 @@
     =f.input :mail_line_4
     =f.input :mail_line_5
     =f.input :mail_line_6
-    =f.input :mail_country, :source => :countries
+    =f.input :mail_country, :collection => countries
 
   =nested_association(:phones, :before => :emails) do
     =f.input :canal, :value => "phone", :field => :hidden

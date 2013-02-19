@@ -1,4 +1,3 @@
-# -*- coding: undecided -*-
 # = Informations
 #
 # == License
@@ -45,7 +44,7 @@ class ProductGroup < Ekylibre::Record::Base
   has_many :products, :through => :memberships
 
   default_scope -> { order(:name) }
-  scope :groups_of, -> { |product, viewed_at| where("id IN (SELECT group_id FROM #{ProductMembership.table_name} WHERE product_id = ? AND ? BETWEEN COALESCE(started_at, ?) AND COALESCE(stopped_at, ?))", product.id, viewed_at, viewed_at, viewed_at) }
+  scope :groups_of, lambda { |product, viewed_at| where("id IN (SELECT group_id FROM #{ProductMembership.table_name} WHERE product_id = ? AND ? BETWEEN COALESCE(started_at, ?) AND COALESCE(stopped_at, ?))", product.id, viewed_at, viewed_at, viewed_at) }
 
   accepts_nested_attributes_for :memberships,    :reject_if => :all_blank, :allow_destroy => true
 
@@ -59,15 +58,21 @@ class ProductGroup < Ekylibre::Record::Base
   # Add a product to the group
   def add(product, started_at = nil)
     raise ArgumentError.new("Product expected, got #{product.class}:#{product.inspect}") unless product.is_a?(Product)
-    self.memberships.create!(:product_id => product_id, :started_at => (started_at || Time.now))
+    unless
+      self.memberships.create!(:product_id => product_id, :started_at => (started_at || Time.now))
+    end
   end
 
   # Remove a product from the group
   def remove(product, stopped_at = nil)
     raise ArgumentError.new("Product expected, got #{product.class}:#{product.inspect}") unless product.is_a?(Product)
-    # TODO Finish remove proc
-    # membership = ProductMembership.where(group_id: self.id, product_id: product.id)
-    # self.memberships.create!(options.merge(:product_id => product_id))
+    stopped_at ||= Time.now
+    if membership = ProductMembership.where(:group_id => self.id, :product_id => product.id).where("stopped_at IS NULL AND COALESCE(started_at, ?) <= ?", stopped_at, stopped_at).order(:started_at)
+      membership.stopped_at = stopped_at
+      membership.save!
+    else
+      self.memberships.create!(:product_id => product_id, :stopped_at => stopped_at)
+    end
   end
 
 

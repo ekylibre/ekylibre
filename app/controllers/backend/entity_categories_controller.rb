@@ -35,7 +35,7 @@ class Backend::EntityCategoriesController < BackendController
   def index
   end
 
-  list(:product_nature_prices, :model => :product_nature_prices, :conditions => {:active => true, :category_id => ['session[:current_entity_category_id]']}) do |t|
+  list(:prices, :model => :product_nature_prices, :conditions => {:active => true, :category_id => ['session[:current_entity_category_id]']}) do |t|
     t.column :name, :through => :product_nature, :url => true
     t.column :pretax_amount
     t.column :amount

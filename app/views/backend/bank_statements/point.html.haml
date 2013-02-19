@@ -14,9 +14,9 @@
           %th
           %th=JournalEntry.human_attribute_name("number")
           %th=JournalEntry.human_attribute_name("printed_on")
-          %th=JournalEntryLine.human_attribute_name("name")
-          %th=JournalEntryLine.human_attribute_name("debit")
-          %th=JournalEntryLine.human_attribute_name("credit")
+          %th=JournalEntryItem.human_attribute_name("name")
+          %th=JournalEntryItem.human_attribute_name("debit")
+          %th=JournalEntryItem.human_attribute_name("credit")
       %tfoot
         %tr.total
           %th{:colspan=>4}=tg(:total)

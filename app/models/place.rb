@@ -67,7 +67,6 @@
 #  work_number              :string(255)
 #
 class Place < Product
-  has_many :product_localizations
   # TODO Removes :warehouses not the place for this
   has_many :warehouses, :class_name => "Warehouse", :foreign_key => :parent_place_id
   has_many :chidren, :foreign_key => :parent_place_id

@@ -96,7 +96,6 @@ class IncomingPayment < Ekylibre::Record::Base
       self.commission_account ||= self.mode.commission_account
       self.commission_amount ||= self.mode.commission_amount(self.amount)
     end
-    self.used_amount = self.uses.sum(:amount)
   end
 
   validate do
@@ -111,7 +110,8 @@ class IncomingPayment < Ekylibre::Record::Base
   # It depends on the preference which permit to activate the "automatic bookkeeping"
   bookkeep do |b|
     mode = self.mode
-    label = tc(:bookkeep, :resource => self.class.model_name.human, :number => self.number, :payer => self.payer.full_name, :mode => mode.name, :expenses => self.uses.collect{|p| p.expense.number}.to_sentence, :check_number => self.check_number)
+    # TODO Reviews bookkeeping without ipu
+    label = tc(:bookkeep, :resource => self.class.model_name.human, :number => self.number, :payer => self.payer.full_name, :mode => mode.name, :check_number => self.check_number) # , :expenses => "EXPENSES"
     if mode.with_deposit?
       b.journal_entry(mode.depositables_journal, :printed_on => self.to_bank_on, :unless => (!mode or !mode.with_accounting? or !self.received)) do |entry|
         entry.add_debit(label,  mode.depositables_account_id, self.amount-self.commission_amount)
@@ -136,9 +136,9 @@ class IncomingPayment < Ekylibre::Record::Base
     tc(:label, :amount => I18n.localize(self.amount, :currency => self.mode.cash.currency), :date => I18n.localize(self.to_bank_on), :mode => self.mode.name, :usable_amount => I18n.localize(self.unused_amount, :currency => self.mode.cash.currency), :payer => self.payer.full_name, :number => self.number)
   end
 
-  def unused_amount
-    self.amount-self.used_amount
-  end
+  # def unused_amount
+  #   self.amount-self.used_amount
+  # end
 
 #   def attorney_amount
 #     total = 0
@@ -148,19 +148,19 @@ class IncomingPayment < Ekylibre::Record::Base
 #     return total
 #   end
 
-  # Use the maximum available amount to pay the expense between unpaid and unused amounts
-  def pay(expense, options={})
-    raise Exception.new("Expense must be "+ IncomingPaymentUse.expense_types.collect{|x| "a "+x}.join(" or ")) unless IncomingPaymentUse.expense_types.include? expense.class.name
-    # IncomingPaymentUse.destroy_all(:expense_type => expense.class.name, :expense_id => expense.id, :payment_id => self.id)
-    # self.reload
-    # use_amount = [expense.unpaid_amount, self.unused_amount].min
-    use = self.uses.create(:expense => expense, :downpayment => options[:downpayment])
-    if use.errors.size > 0
-      errors.add_from_record(use)
-      return false
-    end
-    return true
-  end
+  # # Use the maximum available amount to pay the expense between unpaid and unused amounts
+  # def pay(expense, options={})
+  #   raise Exception.new("Expense must be "+ IncomingPaymentUse.expense_types.collect{|x| "a "+x}.join(" or ")) unless IncomingPaymentUse.expense_types.include? expense.class.name
+  #   # IncomingPaymentUse.destroy_all(:expense_type => expense.class.name, :expense_id => expense.id, :payment_id => self.id)
+  #   # self.reload
+  #   # use_amount = [expense.unpaid_amount, self.unused_amount].min
+  #   use = self.uses.create(:expense => expense, :downpayment => options[:downpayment])
+  #   if use.errors.size > 0
+  #     errors.add_from_record(use)
+  #     return false
+  #   end
+  #   return true
+  # end
 
 
 end

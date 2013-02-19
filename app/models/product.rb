@@ -79,10 +79,11 @@ class Product < Ekylibre::Record::Base
   has_many :memberships, :class_name => "ProductMembership"
   has_many :indicators, :class_name => "ProductIndicator"
   has_many :operations, :foreign_key => :target_id
+  has_many :product_localizations
   has_attached_file :picture, :styles => { :medium => "300x300>", :thumb => "100x100>" }
 
   default_scope -> { order(:name) }
-  scope :members_of, -> { |group, viewed_at| where("id IN (SELECT product_id FROM #{ProductMembership.table_name} WHERE group_id = ? AND ? BETWEEN COALESCE(started_at, ?) AND COALESCE(stopped_at, ?))", group.id, viewed_at, viewed_at, viewed_at)}
+  scope :members_of, lambda { |group, viewed_at| where("id IN (SELECT product_id FROM #{ProductMembership.table_name} WHERE group_id = ? AND ? BETWEEN COALESCE(started_at, ?) AND COALESCE(stopped_at, ?))", group.id, viewed_at, viewed_at, viewed_at)}
 
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.

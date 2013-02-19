@@ -20,7 +20,7 @@
   =f.association :tracking, :depend_on => :warehouse, :if => :trackable?
 
 =field_set :subscriptions do
-  -nested_association :subscriptions, :depend_on => :price, :if => :subscription? do
+  =nested_association :subscriptions, :depend_on => :price, :if => :subscription? do
     =f.association :address
     =f.input :started_on, :if => "product.subscription_nature.period?".to_sym
     =f.input :stopped_on, :if => "product.subscription_nature.period?".to_sym

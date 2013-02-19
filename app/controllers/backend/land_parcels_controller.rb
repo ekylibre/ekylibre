@@ -28,8 +28,8 @@ class Backend::LandParcelsController < BackendController
     t.column :area_measure, :datatype => :decimal
     t.column :name, :through => :area_unit
     t.column :description
-    t.column :started_on
-    t.column :stopped_on
+    #t.column :started_on
+    #t.column :stopped_on
     t.action :divide
     t.action :edit
     t.action :destroy

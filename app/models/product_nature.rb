@@ -72,7 +72,7 @@ class ProductNature < Ekylibre::Record::Base
   belongs_to :unit
   belongs_to :variety, :class_name => "ProductVariety"
   #has_many :available_stocks, :class_name => "ProductStock", :conditions => ["quantity > 0"], :foreign_key => :product_id
-  has_many :components, :class_name => "ProductNatureComponent", :conditions => {:active => true}, :foreign_key => :product_nature_id
+  # has_many :components, :class_name => "ProductNatureComponent", :conditions => {:active => true}, :foreign_key => :product_nature_id
   #has_many :outgoing_delivery_items, :foreign_key => :product_id
   has_many :prices, :foreign_key => :product_nature_id, :class_name => "ProductNaturePrice"
   #has_many :purchase_items, :foreign_key => :product_id
@@ -123,7 +123,7 @@ class ProductNature < Ekylibre::Record::Base
     self.traceable = false unless self.storable?
     # self.stockable = true if self.trackable?
     # self.deliverable = true if self.stockable?
-    self.producible = true if self.has_components?
+    self.producible = true
     self.commercial_name = self.name if self.commercial_name.blank?
     self.subscription_nature_id = nil unless self.subscribing?
     return true
@@ -141,10 +141,6 @@ class ProductNature < Ekylibre::Record::Base
     Unit.of_product(self)
   end
 
-  def has_components?
-    self.components.count > 0
-  end
-
   def default_price(category_id)
     self.prices.where(:category_id => category_id, :active => true, :by_default => true).first
   end
@@ -154,7 +150,7 @@ class ProductNature < Ekylibre::Record::Base
   end
 
   def informations
-    tc('informations.'+(self.has_components? ? 'with' : 'without')+'_components', :product_nature => self.name, :unit => self.unit.label, :size => self.components.size)
+    tc('informations.without_components', :product_nature => self.name, :unit => self.unit.label, :size => self.components.size)
   end
 
   def duration

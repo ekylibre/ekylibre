@@ -58,7 +58,7 @@ class Backend::InventoriesController < BackendController
     end
   end
 
-  list(:items_create, :model => :products, :pagination => :none, :order => "#{Warehouse.table_name}.name, #{ProductNature.table_name}.name") do |t|
+  list(:items_create, :model => :products, :pagination => :none, :order => "#{ProductNature.table_name}.name") do |t|
     # t.column :name, :through => :warehouse, :url => true
     t.column :name, :url => true
     t.column :serial_number, :through => :tracking
@@ -97,7 +97,8 @@ class Backend::InventoriesController < BackendController
     params[:items_create].each{|k,v| v[:stock_id]=k}
     # raise Exception.new(params[:items_create].inspect)
     if @inventory.save
-      @inventory.set_items(params[:items_create].values)
+      # TODO manage nested attributes
+      # @inventory.set_items(params[:items_create].values)
       redirect_to :action => :index
       return
     end

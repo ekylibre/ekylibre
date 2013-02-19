@@ -40,4 +40,14 @@ class ProductMembership < Ekylibre::Record::Base
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_presence_of :group, :product, :started_at, :stopped_at
   #]VALIDATORS]
+
+  validate do
+    # TODO Checks that no time overlaps can occur
+    errors.add(:started_at, :invalid) unless self.similars.where("stopped_at IS NULL AND (started_at IS NOT NULL OR started_at <=?)", self.started_at).count.zero?
+  end
+
+  def similars
+    self.class.where(:group_id => self.group_id, :product_id => self.product_id)
+  end
+
 end
