@@ -80,6 +80,11 @@ class Product < Ekylibre::Record::Base
   has_many :indicators, :class_name => "ProductIndicator"
   has_many :operations, :foreign_key => :target_id
   has_attached_file :picture, :styles => { :medium => "300x300>", :thumb => "100x100>" }
+
+  default_scope -> { order(:name) }
+  scope :members_of, -> { |group, viewed_at| where("id IN (SELECT product_id FROM #{ProductMembership.table_name} WHERE group_id = ? AND ? BETWEEN COALESCE(started_at, ?) AND COALESCE(stopped_at, ?))", group.id, viewed_at, viewed_at, viewed_at)}
+
+
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :picture_file_size, :allow_nil => true, :only_integer => true
   validates_numericality_of :area_measure, :content_maximal_quantity, :maximal_quantity, :minimal_quantity, :real_quantity, :virtual_quantity, :allow_nil => true
@@ -112,6 +117,11 @@ class Product < Ekylibre::Record::Base
       options[:operand] = operand
     end
     return self.operations.create(options)
+  end
+
+  # Returns groups of the product at a given time (or now by default)
+  def groups_at(viewed_at = nil)
+    ProductGroup.groups_of(self, viewed_at || Time.now)
   end
 
 

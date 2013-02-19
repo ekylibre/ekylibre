@@ -1,3 +1,4 @@
+# -*- coding: undecided -*-
 # = Informations
 #
 # == License
@@ -38,9 +39,13 @@
 
 class ProductGroup < Ekylibre::Record::Base
   attr_accessible :description, :description, :name, :parent_id, :memberships_attributes
+
   belongs_to :parent, :class_name => "ProductGroup"
   has_many :memberships, :class_name => "ProductMembership", :foreign_key => :group_id
   has_many :products, :through => :memberships
+
+  default_scope -> { order(:name) }
+  scope :groups_of, -> { |product, viewed_at| where("id IN (SELECT group_id FROM #{ProductMembership.table_name} WHERE product_id = ? AND ? BETWEEN COALESCE(started_at, ?) AND COALESCE(stopped_at, ?))", product.id, viewed_at, viewed_at, viewed_at) }
 
   accepts_nested_attributes_for :memberships,    :reject_if => :all_blank, :allow_destroy => true
 
@@ -50,4 +55,25 @@ class ProductGroup < Ekylibre::Record::Base
   validates_presence_of :depth, :name
   #]VALIDATORS]
   validates_uniqueness_of :name
+
+  # Add a product to the group
+  def add(product, started_at = nil)
+    raise ArgumentError.new("Product expected, got #{product.class}:#{product.inspect}") unless product.is_a?(Product)
+    self.memberships.create!(:product_id => product_id, :started_at => (started_at || Time.now))
+  end
+
+  # Remove a product from the group
+  def remove(product, stopped_at = nil)
+    raise ArgumentError.new("Product expected, got #{product.class}:#{product.inspect}") unless product.is_a?(Product)
+    # TODO Finish remove proc
+    # membership = ProductMembership.where(group_id: self.id, product_id: product.id)
+    # self.memberships.create!(options.merge(:product_id => product_id))
+  end
+
+
+  # Returns products of the group at a given time (or now by default)
+  def products_at(viewed_at = nil)
+    Product.members_of(self, viewed_at || Time.now)
+  end
+
 end

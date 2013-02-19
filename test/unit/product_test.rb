@@ -70,5 +70,7 @@ require 'test_helper'
 
 class ProductTest < ActiveSupport::TestCase
 
+  test "groups" do
+  end
 
 end

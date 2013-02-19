@@ -203,14 +203,18 @@ class Sale < Ekylibre::Record::Base
     return (self.credit? ? -self.amount : self.amount)
   end
 
+  # Save a new time
   def refresh
     self.save
   end
 
+  # Test if there is some items in the sale.
   def has_content?
     self.items.count > 0
   end
 
+  # Returns if the sale has been validated and so if it can be
+  # considered as sold.
   def sold?
     return (self.order? or self.invoice?)
   end
