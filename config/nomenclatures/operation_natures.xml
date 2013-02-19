@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<operation-natures xmlns="http://www.ekylibre.org/XML/2013/operation-natures">
+  <operation-nature code="caesarean-section" target="cattle*,horse*" type="is-being-treat" categories="veterinary,surgeon">
+    <name xml:lang="fra">Accouchement par césarienne</name>
+    <name xml:lang="eng">Caesarean section</name>
+    <code nomenclature="Nomen" value="CAESAREAN"/>
+  </operation-nature>
+  <operation-nature code="vaccination" target="animal*" type="is-being-treat" categories="veterinary">
+    <name xml:lang="fra">Vaccination</name>
+    <name xml:lang="eng">Vaccination</name>
+    <code nomenclature="Nomen" value="VACCINATION"/>
+  </operation-nature>
+</operation-natures>

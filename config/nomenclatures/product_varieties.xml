@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<varieties xmlns="http://www.ekylibre.org/XML/2013/varieties">
+  <variety code="product">
+    <name xml:lang="fra">Produit</name>
+    <name xml:lang="eng">Product</name>
+    <code nomenclature="Nomen" value="P"/>
+  </variety>
+  <variety code="bioproduct" parent="product">
+    <name xml:lang="fra">Produit vivant</name>
+    <name xml:lang="eng">Living product</name>
+    <code nomenclature="Nomen" value="P-B"/>
+  </variety>
+  <variety code="animal" parent="bioproduct">
+    <name xml:lang="fra">Animal</name>
+    <name xml:lang="eng">Animal</name>
+    <code nomenclature="Nomen" value="P-B-A"/>
+  </variety>
+  <variety code="mammal" parent="animal">
+    <name xml:lang="fra">Mammifère</name>
+    <name xml:lang="eng">Mammal</name>
+    <code nomenclature="Nomen" value="P-B-A-M"/>
+  </variety>
+  <variety code="cattle" parent="mammal">
+    <name xml:lang="fra">Bovin</name>
+    <name xml:lang="eng">Cattle</name>
+    <code nomenclature="Nomen" value="P-B-A-M-CATT"/>
+  </variety>
+  <variety code="cattle-charolais" parent="cattle">
+    <name xml:lang="fra">Bovin charolais</name>
+    <name xml:lang="fra">Charolais cattle</name>
+    <code nomenclature="Nomen" value="P-B-A-M-CATT-CHARO"/>
+  </variety>
+  <variety code="horse" parent="mammal">
+    <name xml:lang="fra">Équin</name>
+    <name xml:lang="eng">Horse</name>
+    <code nomenclature="Nomen" value="P-B-A-M-HORS"/>
+  </variety>
+  <variety code="aves" parent="animal">
+    <name xml:lang="fra">Oiseau</name>
+    <name xml:lang="eng">Bird</name>
+    <code nomenclature="Nomen" value="P-B-A-A"/>
+  </variety>
+  <variety code="gallus" parent="aves">
+    <name xml:lang="fra">Poule/Coq</name>
+    <name xml:lang="eng">Chicken</name>
+    <code nomenclature="Nomen" value="P-B-A-A-GALL"/>
+  </variety>
+</varieties>
