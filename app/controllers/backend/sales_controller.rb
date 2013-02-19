@@ -345,7 +345,7 @@ class Backend::SalesController < BackendController
       return
     end
     t3e @sale.attributes
-    render_restfully_form
+    # render_restfully_form
   end
 
   def update
@@ -360,7 +360,7 @@ class Backend::SalesController < BackendController
       return
     end
     t3e @sale.attributes
-    render_restfully_form
+    # render_restfully_form
   end
 
 

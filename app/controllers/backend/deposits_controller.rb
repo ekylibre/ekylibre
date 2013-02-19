@@ -81,7 +81,7 @@ class Backend::DepositsController < BackendController
     session[:payment_mode_id] = mode.id
     @deposit = Deposit.new(:created_on => Date.today, :mode_id => mode.id, :responsible_id => @current_user.id)
     t3e :mode => mode.name
-    render_restfully_form
+    # render_restfully_form
   end
 
   def create
@@ -97,7 +97,7 @@ class Backend::DepositsController < BackendController
       return if save_and_redirect(@deposit, :saved => true)
     end
     t3e :mode => mode.name
-    render_restfully_form
+    # render_restfully_form
   end
 
   def edit
@@ -105,7 +105,7 @@ class Backend::DepositsController < BackendController
     session[:deposit_id] = @deposit.id
     session[:payment_mode_id] = @deposit.mode_id
     t3e @deposit.attributes
-    render_restfully_form
+    # render_restfully_form
   end
 
   def update
@@ -122,7 +122,7 @@ class Backend::DepositsController < BackendController
       return if save_and_redirect(@deposit, :saved => true)
     end
     t3e @deposit.attributes
-    render_restfully_form
+    # render_restfully_form
   end
 
   def destroy

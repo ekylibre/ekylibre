@@ -35,7 +35,7 @@ class Backend::RolesController < BackendController
   def new
     @role = Role.new
     @rights = Entity.rights_list
-    render_restfully_form
+    # render_restfully_form
   end
 
   def create
@@ -43,14 +43,14 @@ class Backend::RolesController < BackendController
     @role.rights_array = (params[:rights]||{}).keys
     @rights = @role.rights_array
     return if save_and_redirect(@role)
-    render_restfully_form
+    # render_restfully_form
   end
 
   def edit
     return unless @role = find_and_check(:role)
     @rights = @role.rights_array
     t3e @role.attributes
-    render_restfully_form
+    # render_restfully_form
   end
 
   def update
@@ -60,7 +60,7 @@ class Backend::RolesController < BackendController
     @rights = @role.rights_array
     return if save_and_redirect(@role)
     t3e @role.attributes
-    render_restfully_form
+    # render_restfully_form
   end
 
   def destroy

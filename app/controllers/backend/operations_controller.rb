@@ -63,7 +63,7 @@ class Backend::OperationsController < BackendController
 
   # def new
   #   @operation = Operation.new(:planned_on => params[:planned_on]||Date.today, :target_id => params[:target_id].to_i, :responsible_id => @current_user.id, :hour_duration => 2, :min_duration => 0)
-  #   render_restfully_form
+  #   # render_restfully_form
   # end
 
   # def create
@@ -71,7 +71,7 @@ class Backend::OperationsController < BackendController
   #   @operation_items = (params[:items]||{}).values
   #   @operation_uses = (params[:uses]||{}).values
   #   redirect_to_back and return if @operation.save_with_uses_and_items(@operation_uses, @operation_items)
-  #   render_restfully_form
+  #   # render_restfully_form
   # end
 
   # def destroy
@@ -87,7 +87,7 @@ class Backend::OperationsController < BackendController
   #     session[:tool_ids] << tool.id.to_s
   #   end
   #   t3e @operation.attributes
-  #   render_restfully_form
+  #   # render_restfully_form
   # end
 
   # def update
@@ -104,7 +104,7 @@ class Backend::OperationsController < BackendController
   #     return
   #   end
   #   t3e @operation.attributes
-  #   render_restfully_form
+  #   # render_restfully_form
   # end
 
 

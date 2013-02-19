@@ -107,7 +107,7 @@ class Backend::TransportsController < BackendController
       end
       render :partial => "deliveries_form"
     else
-      render_restfully_form
+      # render_restfully_form
     end
   end
 
@@ -125,7 +125,7 @@ class Backend::TransportsController < BackendController
         end
       end
     end
-    render_restfully_form
+    # render_restfully_form
   end
 
   def edit
@@ -133,7 +133,7 @@ class Backend::TransportsController < BackendController
     session[:current_transport_id] = @transport.id
     session[:current_transporter_id] = @transport.transporter_id
     t3e @transport.attributes
-    render_restfully_form
+    # render_restfully_form
   end
 
   def update
@@ -151,7 +151,7 @@ class Backend::TransportsController < BackendController
       end
     end
     t3e @transport.attributes
-    render_restfully_form
+    # render_restfully_form
   end
 
 

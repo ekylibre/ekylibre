@@ -56,7 +56,7 @@ class Backend::IncomingDeliveriesController < BackendController
     notify_warning(:no_items_found) if purchase_items.empty?
     @incoming_delivery = IncomingDelivery.new({:pretax_amount => @purchase.undelivered("pretax_amount"), :amount => @purchase.undelivered("amount"), :planned_on => Date.today, :address_id => @purchase.delivery_address_id}, :without_protection => true)
     @incoming_delivery_items = purchase_items.collect{|x| IncomingDeliveryItem.new(:purchase_item_id => x.id, :quantity => x.undelivered_quantity)}
-    render_restfully_form
+    # render_restfully_form
   end
 
   def create
@@ -84,7 +84,7 @@ class Backend::IncomingDeliveriesController < BackendController
       return
     end
     @incoming_delivery_items = purchase_items.collect{|x| IncomingDeliveryItem.new(:purchase_item_id => x.id, :quantity => x.undelivered_quantity)}
-    render_restfully_form
+    # render_restfully_form
   end
 
   def edit
@@ -92,7 +92,7 @@ class Backend::IncomingDeliveriesController < BackendController
     session[:current_incoming_delivery] = @incoming_delivery.id
     @purchase = @incoming_delivery.purchase
     @incoming_delivery_items = @incoming_delivery.items
-    render_restfully_form(:id => @incoming_delivery_form)
+    # render_restfully_form(:id => @incoming_delivery_form)
   end
 
   def update
@@ -118,7 +118,7 @@ class Backend::IncomingDeliveriesController < BackendController
         raise ActiveRecord::Rollback
       end
     end
-    render_restfully_form(:id => @incoming_delivery_form)
+    # render_restfully_form(:id => @incoming_delivery_form)
   end
 
 

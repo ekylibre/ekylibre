@@ -70,7 +70,7 @@ class Backend::OutgoingDeliveriesController < BackendController
 
     @outgoing_delivery_items = sale_items.collect{|x| OutgoingDeliveryItem.new(:sale_item_id => x.id, :quantity => x.undelivered_quantity)}
     @outgoing_delivery = sale.deliveries.build({:pretax_amount => sale.undelivered(:pretax_amount), :amount => sale.undelivered(:amount), :planned_on => Date.today, :transporter_id => sale.transporter_id, :address => sale.delivery_address||sale.client.default_mail_address}, :without_protection => true)
-    render_restfully_form
+    # render_restfully_form
   end
 
   def create
@@ -105,7 +105,7 @@ class Backend::OutgoingDeliveriesController < BackendController
       end
       raise ActiveRecord::Rollback unless saved
     end
-    render_restfully_form
+    # render_restfully_form
   end
 
   def edit
@@ -113,7 +113,7 @@ class Backend::OutgoingDeliveriesController < BackendController
     session[:current_outgoing_delivery] = @outgoing_delivery.id
     @outgoing_delivery_items = @outgoing_delivery.items
     t3e @outgoing_delivery.attributes
-    render_restfully_form
+    # render_restfully_form
   end
 
   def update
@@ -135,7 +135,7 @@ class Backend::OutgoingDeliveriesController < BackendController
       raise ActiveRecord::Rollback unless saved
     end
     t3e @outgoing_delivery.attributes
-    render_restfully_form
+    # render_restfully_form
   end
 
   def destroy

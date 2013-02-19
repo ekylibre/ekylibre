@@ -179,7 +179,7 @@ class Backend::EntitiesController < BackendController
   #   for custom_field in @custom_fields
   #     @custom_field_data << custom_field.data.new(:entity_id => @entity.id)
   #   end
-  #   render_restfully_form
+  #   # render_restfully_form
   # end
 
   # def create
@@ -213,7 +213,7 @@ class Backend::EntitiesController < BackendController
   #     return if save_and_redirect(@entity, :saved => saved)
   #   end
 
-  #   render_restfully_form
+  #   # render_restfully_form
   # end
 
   # def edit
@@ -233,7 +233,7 @@ class Backend::EntitiesController < BackendController
   #     end
   #   end
   #   t3e @entity.attributes
-  #   render_restfully_form
+  #   # render_restfully_form
   # end
 
   # def update
@@ -278,7 +278,7 @@ class Backend::EntitiesController < BackendController
   #   end
 
   #   t3e @entity.attributes
-  #   render_restfully_form
+  #   # render_restfully_form
   # end
 
   # def destroy

@@ -62,19 +62,19 @@ class Backend::CashesController < BackendController
 
   def new
     @cash = Cash.new(:mode => Cash.mode.default_value, :currency => Entity.of_company.currency, :nature => Cash.nature.default_value)
-    render_restfully_form
+    # render_restfully_form
   end
 
   def create
     @cash = Cash.new(params[:cash])
     return if save_and_redirect(@cash)
-    render_restfully_form
+    # render_restfully_form
   end
 
   def edit
     return unless @cash = find_and_check(:cash)
     t3e @cash.attributes
-    render_restfully_form
+    # render_restfully_form
   end
 
   def update
@@ -82,7 +82,7 @@ class Backend::CashesController < BackendController
     @cash.attributes = params[:cash]
     return if save_and_redirect(@cash)
     t3e @cash.attributes
-    render_restfully_form
+    # render_restfully_form
   end
 
   def destroy

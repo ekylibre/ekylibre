@@ -28,7 +28,7 @@ class Backend::SaleItemsController < BackendController
       return
     end
     session[:current_currency] = @sale.currency
-    render_restfully_form
+    # render_restfully_form
   end
 
   def create
@@ -51,7 +51,7 @@ class Backend::SaleItemsController < BackendController
       end
       return if save_and_redirect(@sale_item, :url => {:controller => :sales, :action => :show, :id => @sale.id}, :saved => saved)
     end
-    render_restfully_form
+    # render_restfully_form
   end
 
   def destroy
@@ -79,7 +79,7 @@ class Backend::SaleItemsController < BackendController
     return unless @sale_item = find_and_check(:sale_item)
     @sale = @sale_item.sale
     t3e :product => @sale_item.product.name
-    render_restfully_form
+    # render_restfully_form
   end
 
   def update
@@ -88,7 +88,7 @@ class Backend::SaleItemsController < BackendController
     @sale_item.attributes = params[:sale_item]
     return if save_and_redirect(@sale_item)
     t3e :product => @sale_item.product.name
-    render_restfully_form
+    # render_restfully_form
   end
 
 end

@@ -52,7 +52,7 @@ class Backend::UsersController < BackendController
       role = Role.first
       @user = Entity.new(:admin => false, :role => role, :employed => params[:employed], :language => Entity.of_company.language)
       @rights = role ? role.rights_array : []
-      render_restfully_form(:model => :entity)
+      # render_restfully_form(:model => :entity)
     end
   end
 
@@ -61,14 +61,14 @@ class Backend::UsersController < BackendController
     @user.rights_array = (params[:rights]||{}).keys
     @rights = @user.rights_array
     return if save_and_redirect(@user)
-    render_restfully_form(:model => :entity)
+    # render_restfully_form(:model => :entity)
   end
 
   def edit
     return unless @user = find_and_check(:entity)
     @rights = @user.rights_array
     t3e @user.attributes
-    render_restfully_form
+    # render_restfully_form
   end
 
   def update
@@ -78,7 +78,7 @@ class Backend::UsersController < BackendController
     @rights = @user.rights_array
     return if save_and_redirect(@user, :url => {:action => :index})
     t3e @user.attributes
-    render_restfully_form
+    # render_restfully_form
   end
 
   def destroy

@@ -83,7 +83,7 @@ class Backend::InventoriesController < BackendController
     end
     notify_warning_now(:validates_old_inventories) if Inventory.find_all_by_changes_reflected(false).size >= 1
     @inventory = Inventory.new(:responsible_id => @current_user.id)
-    render_restfully_form
+    # render_restfully_form
   end
 
   def create
@@ -101,14 +101,14 @@ class Backend::InventoriesController < BackendController
       redirect_to :action => :index
       return
     end
-    render_restfully_form
+    # render_restfully_form
   end
 
   def edit
     return unless @inventory = find_and_check(:inventory)
     session[:current_inventory_id] = @inventory.id
     t3e @inventory.attributes
-    render_restfully_form
+    # render_restfully_form
   end
 
   def update
@@ -124,7 +124,7 @@ class Backend::InventoriesController < BackendController
       redirect_to :action => :index
       return
     end
-    render_restfully_form
+    # render_restfully_form
   end
 
   def destroy

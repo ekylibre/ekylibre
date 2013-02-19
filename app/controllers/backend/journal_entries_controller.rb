@@ -52,7 +52,7 @@ class Backend::JournalEntriesController < BackendController
       render(:partial => 'journal_entries/exchange_rate_form')
     else
       t3e @journal.attributes
-      render_restfully_form
+      # render_restfully_form
     end
   end
 
@@ -69,7 +69,7 @@ class Backend::JournalEntriesController < BackendController
       return
     end
     t3e @journal.attributes
-    render_restfully_form
+    # render_restfully_form
   end
 
   def destroy
@@ -96,7 +96,7 @@ class Backend::JournalEntriesController < BackendController
     @journal = @journal_entry.journal
     @journal_entry_items = @journal_entry.items
     t3e @journal_entry.attributes
-    render_restfully_form
+    # render_restfully_form
   end
 
   def update
@@ -114,7 +114,7 @@ class Backend::JournalEntriesController < BackendController
       return
     end
     t3e @journal_entry.attributes
-    render_restfully_form
+    # render_restfully_form
   end
 
 end

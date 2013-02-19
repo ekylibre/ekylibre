@@ -105,7 +105,7 @@ class Backend::ProductNaturesController < BackendController
 
   #def new
   #  @product_nature = ProductNature.new(:nature => ProductNature.nature.default_value)
-   # render_restfully_form
+   # # render_restfully_form
   #end
 
   #def create
@@ -122,7 +122,7 @@ class Backend::ProductNaturesController < BackendController
   #    raise ActiveRecord::Rollback unless saved
   #    return if save_and_redirect(@product_nature, :saved => saved)
   #  end
-  #  render_restfully_form
+  #  # render_restfully_form
   #end
 
   #def destroy
@@ -138,7 +138,7 @@ class Backend::ProductNaturesController < BackendController
   #  session[:product_nature_id] = @product_nature.id
     #@stock = @product_nature.default_stock || ProductStock.new
   #  t3e @product_nature.attributes
-  #  render_restfully_form
+  #  # render_restfully_form
   #end
 
 #  def update
@@ -161,7 +161,7 @@ class Backend::ProductNaturesController < BackendController
    # end
    # return if save_and_redirect(@product_nature, :saved => saved)
    # t3e @product_nature.attributes
-   # render_restfully_form
+   # # render_restfully_form
   #end
 
   #def change_quantities

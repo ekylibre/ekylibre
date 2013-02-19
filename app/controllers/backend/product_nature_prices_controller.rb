@@ -37,7 +37,7 @@ class Backend::ProductNaturePricesController < BackendController
     @mode = (params[:mode]||"sales").to_sym
     @price = ProductNaturePrice.new(:product_nature_id => params[:product_nature_id], :currency => params[:currency]||Entity.of_company.currency, :category_id => params[:entity_category_id]||session[:current_entity_category_id]||0)
     @price.supplier_id = params[:supplier_id] if params[:supplier_id]
-    render_restfully_form
+    # render_restfully_form
   end
 
   def create
@@ -45,7 +45,7 @@ class Backend::ProductNaturePricesController < BackendController
     @price = ProductNaturePrice.new(params[:price])
     @price.supplier_id = params[:price][:supplier_id]||Entity.of_company.id
     return if save_and_redirect(@price)
-    render_restfully_form
+    # render_restfully_form
   end
 
   def destroy
@@ -78,7 +78,7 @@ class Backend::ProductNaturePricesController < BackendController
     return unless @price = find_and_check
     @mode = "purchases" if @price.supplier_id != Entity.of_company.id
     t3e @price.attributes, :product => @price.product.name
-    render_restfully_form
+    # render_restfully_form
   end
 
   def update
@@ -87,7 +87,7 @@ class Backend::ProductNaturePricesController < BackendController
     @price.amount = 0
     return if save_and_redirect(@price, :attributes => params[:price])
     t3e @price.attributes, :product => @price.product.name
-    render_restfully_form
+    # render_restfully_form
   end
 
   # Displays the main page with the list of prices

@@ -34,7 +34,7 @@ class Backend::PurchaseItemsController < BackendController
     @price = ProductNaturePrice.new(:pretax_amount=>0.0, :currency => @purchase.currency)
     session[:current_currency] = @price.currency
     t3e @purchase.attributes
-    render_restfully_form
+    # render_restfully_form
   end
 
   def create
@@ -58,13 +58,13 @@ class Backend::PurchaseItemsController < BackendController
     @purchase_item = @purchase.items.new(params[:purchase_item])
     return if save_and_redirect(@purchase_item, :url=>{:controller=>:purchases, :action=>:show, :step=>:products, :id=>@purchase.id})
     t3e @purchase.attributes
-    render_restfully_form
+    # render_restfully_form
   end
 
   def edit
     return unless @purchase_item = find_and_check(:purchase_item)
     t3e @purchase_item.attributes
-    render_restfully_form
+    # render_restfully_form
   end
 
   def update
@@ -81,7 +81,7 @@ class Backend::PurchaseItemsController < BackendController
       return
     end
     t3e @purchase_item.attributes
-    render_restfully_form
+    # render_restfully_form
   end
 
   def destroy
