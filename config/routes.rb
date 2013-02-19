@@ -491,8 +491,8 @@ Ekylibre::Application.routes.draw do
         get :change_quantities
         get :list
         get :list_product_nature_prices
-        get :list_stocks
-        get :list_stock_moves
+        get :list_products
+        get :list_product_moves
         unroll_all
       end
     end
@@ -673,7 +673,7 @@ Ekylibre::Application.routes.draw do
     end
     resources :trackings do
       collection do
-        get :list_stocks
+        get :list_products
         get :list_sale_items
         get :list_purchase_items
         get :list_operation_items
@@ -718,8 +718,8 @@ Ekylibre::Application.routes.draw do
     resources :warehouses do
       collection do
         get :list
-        get :list_stocks
-        get :list_stock_moves
+        get :list_products
+        get :list_product_moves
         unroll_all
       end
     end

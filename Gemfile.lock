@@ -22,7 +22,7 @@ GEM
       rack-cache (~> 1.2)
       rack-test (~> 0.6.1)
       sprockets (~> 2.2.1)
-    active-list (4.1.8)
+    active-list (4.2.0)
       compass-rails (>= 1)
       fastercsv (>= 1.5)
       i18n-complements
