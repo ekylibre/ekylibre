@@ -39,8 +39,5 @@
 require 'test_helper'
 
 class FinancialYearTest < ActiveSupport::TestCase
-  # Replace this with your real tests.
-  def test_truth
-    assert true
-  end
+
 end

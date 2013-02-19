@@ -46,7 +46,7 @@ require 'test_helper'
 class DocumentTemplateTest < ActiveSupport::TestCase
 
   # Tests all templates
-  def test_compile_all_templates
+  test "compile all templates" do
     for locale in I18n.active_locales
       # Load all templates
       assert_nothing_raised do

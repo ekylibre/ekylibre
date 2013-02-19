@@ -43,7 +43,4 @@
 require 'test_helper'
 
 class AssetDepreciationTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
 end

@@ -45,7 +45,7 @@ require 'test_helper'
 class ProductNaturePriceTest < ActiveSupport::TestCase
 
   # Test if the historic is preserved on updates
-  def test_update
+  test "update" do
     price = product_nature_prices(:product_nature_prices_001)
     count = ProductNaturePrice.count
     assert !count.zero?
@@ -69,7 +69,7 @@ class ProductNaturePriceTest < ActiveSupport::TestCase
   end
 
   # Test if the historic is preserved on destructions
-  def test_destroy
+  test "destruction" do
     price = product_nature_prices(:product_nature_prices_003)
     count = ProductNaturePrice.count
     assert !count.zero?

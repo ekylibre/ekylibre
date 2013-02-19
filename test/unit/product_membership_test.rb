@@ -35,9 +35,5 @@ require 'test_helper'
 
 class ProductMembershipTest < ActiveSupport::TestCase
 
-  # Replace this with your real tests.'
-  test "the truth" do
-    assert true
-  end
 
 end

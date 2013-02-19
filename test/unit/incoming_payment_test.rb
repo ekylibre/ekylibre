@@ -54,7 +54,7 @@
 require 'test_helper'
 
 class IncomingPaymentTest < ActiveSupport::TestCase
-  # Replace this with your real tests.
+
   test "the bookkeeping of a payment" do
     payment = incoming_payments(:incoming_payments_001)
 #     assert payment.company.prefer_bookkeep_automatically?

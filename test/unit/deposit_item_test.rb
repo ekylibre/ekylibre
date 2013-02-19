@@ -36,8 +36,4 @@
 require 'test_helper'
 
 class DepositItemTest < ActiveSupport::TestCase
-  # Replace this with your real tests.
-  test "the truth" do
-    assert true
-  end
 end

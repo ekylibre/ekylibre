@@ -38,7 +38,7 @@ require 'test_helper'
 
 class JournalTest < ActiveSupport::TestCase
 
-  def test_presence_of_nature_scopes
+  test "presence of nature scopes" do
     for nature in Journal.nature.values
       scope_name = nature.to_s.pluralize.to_sym
       assert Journal.respond_to?(scope_name), "Journal must have a scope #{scope_name}"

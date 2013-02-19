@@ -33,7 +33,5 @@
 require 'test_helper'
 
 class OperationWorkTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+
 end
