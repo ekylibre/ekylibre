@@ -11,52 +11,46 @@
   -t.abort(@purchase, :method=>:post, "data-confirm" => tc(:are_you_sure)) if @purchase.can_abort?
   -t.print_purchase @purchase
 
-=attributes_list(@purchase) do |l|
-  -l.attribute :supplier, :label=>:label, :url=>true
-  -l.attribute :number
-  -l.attribute :reference_number
-  -l.attribute :state
-  -l.attribute :responsible, :label=>:full_name
-  -l.attribute :created_on
-  -l.attribute :confirmed_on
-  -l.attribute :planned_on
-  -l.attribute :currency unless @purchase.currency == Entity.of_company.currency
-  -l.attribute :description
-  -l.attribute :delivery_address, :label=>:coordinate
-  -l.attribute :journal_entry, :url=>true
+=beehive do |b|
 
+  -b.tabbox do
 
--if ["products", "summary", ""].include? params[:step].to_s
-  %h2=Purchase.human_attribute_name("items")
-  -if @purchase.draft?
-    =toolbar do |t|
-      -t.link(:new, :controller=>:purchase_items, :purchase_id=>@purchase.id)
-  =list :items do
-    %tr.total
-      %th{:colspan=>6}
-      %td=I18n.localize(@purchase.pretax_amount, :currency=>@purchase.currency)
-      %td=I18n.localize(@purchase.amount, :currency=>@purchase.currency)
-      %th{:colspan=>3}
+    -b.cell do
+      =attributes_list(@purchase) do |l|
+        -l.attribute :supplier, :label=>:label, :url=>true
+        -l.attribute :number
+        -l.attribute :reference_number
+        -l.attribute :state
+        -l.attribute :responsible, :label=>:full_name
+        -l.attribute :created_on
+        -l.attribute :confirmed_on
+        -l.attribute :planned_on
+        -l.attribute :currency unless @purchase.currency == Entity.of_company.currency
+        -l.attribute :description
+        -l.attribute :delivery_address, :label=>:coordinate
+        -l.attribute :journal_entry, :url=>true
 
--if ["products", "summary", ""].include? params[:step].to_s
-  %h2=tc(:affair)
-  =affair_of(@purchase)
+  -if ["products", "summary", ""].include? params[:step].to_s
+    -b.cell Purchase.human_attribute_name("items") do
+      -if @purchase.draft?
+        =toolbar do |t|
+          -t.link(:new, :controller=>:purchase_items, :purchase_id=>@purchase.id)
+      =list :items do
+        %tr.total
+          %th{:colspan=>6}
+          %td=I18n.localize(@purchase.pretax_amount, :currency=>@purchase.currency)
+          %td=I18n.localize(@purchase.amount, :currency=>@purchase.currency)
+          %th{:colspan=>3}
 
+  -if ["products", "summary", ""].include? params[:step].to_s
+    -b.cell tc(:affair) do
+      =affair_of(@purchase)
 
--if ["deliveries", ""].include? params[:step].to_s
-  -if @purchase.deliverable?
-    %h2=tc :undelivered
-    =toolbar do |t|
-      -t.link :new, :controller=>:incoming_deliveries, :purchase=>@purchase.id
-    =list :undelivered_items
-  %h2=Purchase.human_attribute_name("deliveries")
-  =list :deliveries
-
-
--if ["products", "summary", ""].include? params[:step].to_s
-  %h2=tc :financial_state
-  %table.list
-    -for k, v in @purchase.stats
-      %tr.total
-        %th=tc(k)
-        %td=I18n.localize(v, :currency=>@purchase.currency)
+  -if ["deliveries", ""].include? params[:step].to_s
+    -if @purchase.deliverable?
+      -b.cell tc(:undelivered) do
+        =toolbar do |t|
+          -t.link :new, :controller=>:incoming_deliveries, :purchase=>@purchase.id
+        =list :undelivered_items
+    -b.cell Purchase.human_attribute_name("deliveries") do
+      =list :deliveries

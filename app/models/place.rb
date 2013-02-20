@@ -68,7 +68,7 @@
 #
 class Place < Product
   # TODO Removes :warehouses not the place for this
-  has_many :warehouses, :class_name => "Warehouse", :foreign_key => :parent_place_id
-  has_many :chidren, :foreign_key => :parent_place_id
-  belongs_to :parent, :foreign_key => :parent_place_id
+  # has_many :warehouses, :class_name => "Warehouse", :foreign_key => :parent_place_id
+  has_many :children, :class_name => "Place", :foreign_key => :parent_place_id
+  belongs_to :parent, :class_name => "Place", :foreign_key => :parent_place_id
 end

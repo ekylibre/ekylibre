@@ -18,11 +18,11 @@
 #
 
 class Backend::OperationsController < BackendController
-  manage_restfully :planned_on => "params[:planned_on]||Date.today", :target_id => "params[:target_id].to_i", :hour_duration => "2", :min_duration => "0"
+  manage_restfully :target_id => "params[:target_id].to_i" # , :planned_on => "params[:planned_on]||Date.today", :hour_duration => "2", :min_duration => "0"
 
   unroll_all
 
-  list(:order => "planned_on DESC, name ASC") do |t|
+  list(:order => "id DESC") do |t|
     # t.column :name, :url => true
     t.column :nature
     #t.column :planned_on
@@ -109,16 +109,16 @@ class Backend::OperationsController < BackendController
 
 
   list(:unvalidateds, :model => :operations, :conditions => {:confirmed => false}, :order => "id DESC") do |t|
-    t.column :name
+    # t.column :name
     t.column :nature
     t.column :name, :through => :target
-    t.column :planned_on
+    # t.column :planned_on
     t.text_field :moved_on, :value => 'Date.today', :size => 10
-    t.check_box :validated, :value => 'RECORD.planned_on<=Date.today'
+    t.check_box :validated, :value => '!RECORD.confirmed?'
   end
 
   def unvalidateds
-    @operations = Operation.where(:moved_on  =>  nil)
+    @operations = Operation.unvalidateds
     notify_now(:no_unvalidated_operations) if @operations.count.zero?
     if request.post?
       for id, values in params[:unvalidateds]

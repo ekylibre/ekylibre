@@ -22,6 +22,8 @@ class Backend::EventsController < BackendController
 
   unroll_all
 
+  autocomplete_for :location
+
   list(:conditions=>search_conditions(:events, :events=>[:duration, :location, :reason, :started_at], :users=>[:first_name, :last_name, :name], :entities=>[:full_name], :event_natures=>[:name]), :order=>"started_at DESC") do |t| # , :joins=>{:responsible=>{}, :entity=>[:nature]}
     t.column :full_name, :through=>:entity, :url=>true
     t.column :duration

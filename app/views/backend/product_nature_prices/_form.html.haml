@@ -2,7 +2,7 @@
   =f.association :product_nature
   -# TODO: Cannot keep "if" in forms
   -if @mode != :sales
-    =f.association :entity, :source => :suppliers
+    =f.association :supplier, :source => :suppliers
   =f.input :by_default
 
 =field_set :amount do

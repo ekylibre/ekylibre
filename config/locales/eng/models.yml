@@ -1149,11 +1149,12 @@ eng:
     stock_move: "Stock move"
     stock_moves: "Stock moves"
     stock_transfers: "Stock transfers"
-    stockable: "Manage stocks"
+    stockable: "Manage stocks" #?
     stockable_products: "Stockable products"
     stocks: "Stocks"
     stopped_at: "Stopped at"
     stopped_on: "Stopped on"
+    # storable: "Gérer les stocks"
     story: "Story"
     string_value: "String value"
     subdir: "Subdir"
@@ -1240,7 +1241,7 @@ eng:
     uses: "Uses"
     value: "Value"
     # value_format: "Format de la valeur monétaire"
-    # variety: "Variety"
+    # variety: "Variété"
     vat_number: "Vat number"
     vat_submissive: "Vat submissive"
     virtual: "Virtual"
@@ -1571,8 +1572,8 @@ eng:
     incoming_payment:
       bookkeep: "[%{resource} %{number}] %{mode} %{check_number} of %{payer} (%{expenses})"
       label: "%{number}. %{usable_amount}/%{amount}, %{mode} of %{payer} on %{date}"
-    incoming_payment_use:
-      bookkeep: "[%{resource}] %{mode} (%{payment_number}) received from %{attorney} for %{client} (%{expense_number})"
+    incoming_payment_use:  #?
+      bookkeep: "[%{resource}] %{mode} (%{payment_number}) received from %{attorney} for %{client} (%{expense_number})" #?
     inventory_item:
       inventory: "Inventory"
     inventory_line:

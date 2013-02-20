@@ -3,18 +3,16 @@ def check_symlink(view, ref, log, force = false)
   # return true
   count = 0
   if view.exist?
-    if view.symlink?
+    if force
+      FileUtils.rm_f(view)
+      File.symlink(ref, view)
+      count += 1
+      log.write " - Force creation symlink #{view.to_s} -> #{ref}\n"
+    elsif view.symlink?
       target = File.readlink(view)
-      if force
-        FileUtils.rm(view)
-        File.symlink(ref, view)
+      unless target.to_s == ref.to_s
         count += 1
-        log.write " - Force creation symlink #{view.to_s} -> #{ref}\n"
-      else
-        unless target.to_s == ref.to_s
-          count += 1
-          log.write " - #{view.to_s} is symlink poiting to #{target} but not to #{ref}\n"
-        end
+        log.write " - #{view.to_s} is symlink poiting to #{target} but not to #{ref}\n"
       end
     else
       count += 1

@@ -9,7 +9,7 @@
   =f.input :mode, :show => {}
 
 =field_set(:bban, :in => :bank_account_options) do
-  =f.input :country, :field => :hidden
+  =f.input :country, :collection => countries, :field => :hidden
   =f.input :bank_code
   =f.input :bank_agency_code
   =f.input :bank_account_number

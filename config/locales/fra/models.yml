@@ -465,7 +465,7 @@ fra:
     charges_accounts: "Comptes de charge" #?
     check_number: "N°Chèque" #?
     check_state: "Vérifier l’état"
-    chidren: "Chidren"
+    chidren: "Chidren" #?
     child_kinships: "Relation enfant" #?
     child_land_parcel: "Sous-îlot" #?
     children: "Enfants"
@@ -1058,13 +1058,12 @@ fra:
     stock_move: "Mouvement de stock" #?
     stock_moves: "Mouvements de stock" #?
     stock_transfers: "Transferts ou pertes de stock" #?
-    stockable: "Gérer les stocks" #?
     stockable_products: "Produits stockables" #?
     stocks: "Stocks de produit" #?
     # stocks_products: "Stocks products"
     stopped_at: "Arrêté à"
     stopped_on: "Arrêté le"
-    # storable: "Storable"
+    storable: "Gérer les stocks"
     # storage: "Storage"
     story: "Historique"
     string_value: "Valeur textuelle"
@@ -1074,7 +1073,7 @@ fra:
     # subject_type: "Subject type"
     # subscribing: "Subscribing"
     # subscription_duration: "Subscription duration"
-    subscription_nature: "Type"
+    subscription_nature: "Type d'abonnement"
     subscription_natures: "Types d’abonnement" #?
     subscription_period: "Période" #?
     subscription_quantity: "Quantité" #?
@@ -1153,13 +1152,13 @@ fra:
     uses: "Matériels utilisés"
     value: "Valeur"
     value_format: "Format de la valeur monétaire" #?
-    variety: "Variety"
+    variety: "Variété"
     vat_number: "Numéro de TVA intra-communautaire"
     vat_submissive: "Soumis à la TVA"
     virtual: "Virtuel" #?
     virtual_quantity: "Stock virtuel"
     waiting_deliveries: "Livraisons en attente"
-    warehouse: "Lieu de stockage" #?
+    warehouse: "Lieu de stockage"
     warehouses: "Lieux de stockage"
     watcher: "Observateur" #?
     webpass: "Mot de passe web"
@@ -1467,10 +1466,8 @@ fra:
         double: "EX%{first_year}/%{second_year}"
         single: "EX%{first_year}"
     incoming_payment:
-      bookkeep: "[%{resource} %{number}] %{mode} %{check_number} de %{payer} (%{expenses})"
-      label: "%{number}. %{amount} (%{usable_amount} restants) du %{date} en %{mode} de %{payer}"
-    incoming_payment_use: #?
-      bookkeep: "[%{resource}] %{mode} (%{payment_number}) reçu de %{attorney} pour %{client} (%{expense_number})"
+      bookkeep: "[%{resource} %{number}] %{mode} %{check_number} de %{payer}"
+      label: "%{number}. %{amount} du %{date} en %{mode} de %{payer}"
     inventory_item:
       inventory: "Inventaire "
     inventory_line: #?
@@ -1524,8 +1521,8 @@ fra:
     outgoing_delivery_item:
       sale: "Vente %{number}"
     outgoing_payment:
-      bookkeep: "[%{resource} %{number}] %{mode} %{check_number} pour %{payee} (%{expenses})"
-      label: "%{number}. %{amount} (%{usable_amount} restants) du %{date} en %{mode} pour %{payee}"
+      bookkeep: "[%{resource} %{number}] %{mode} %{check_number} pour %{payee}"
+      label: "%{number}. %{amount} du %{date} en %{mode} pour %{payee}"
     product:
       informations:
         with_components: "%{product} (%{unit}) (produit transformé)"

@@ -61,7 +61,7 @@ class ProductNaturePrice < Ekylibre::Record::Base
   validates_presence_of :supplier
   validates_numericality_of :pretax_amount, :amount, :greater_than_or_equal_to => 0
 
-  delegate :storable?, :subscription?, :to => :product_nature
+  delegate :storable?, :subscribing?, :to => :product_nature
 
   scope :availables_for_sales, -> { joins(:product_nature).where("#{ProductNaturePrice.table_name}.active=? AND #{ProductNature.table_name}.active=?", true, true) }
 

@@ -52,9 +52,9 @@
 
 
 class IncomingPayment < Ekylibre::Record::Base
-  attr_accessible :account_number, :amount, :bank, :check_number, :mode_id, :paid_on, :to_bank_on, :received, :responsible_id, :payer_id
+  attr_accessible :bank_account_number, :amount, :bank_name, :bank_check_number, :mode_id, :paid_on, :to_bank_on, :received, :responsible_id, :payer_id
   attr_readonly :payer_id
-  attr_readonly :amount, :account_number, :bank, :check_number, :mode_id, :if => Proc.new{ self.deposit and self.deposit.locked? }
+  attr_readonly :amount, :account_number, :bank, :bank_check_number, :mode_id, :if => Proc.new{ self.deposit and self.deposit.locked? }
   belongs_to :commission_account, :class_name => "Account"
   belongs_to :responsible, :class_name => "User"
   belongs_to :deposit
@@ -69,18 +69,16 @@ class IncomingPayment < Ekylibre::Record::Base
   validates_presence_of :amount, :commission_amount, :currency, :mode, :to_bank_on
   #]VALIDATORS]
   validates_numericality_of :amount, :greater_than => 0
-  validates_numericality_of :used_amount, :commission_amount, :greater_than_or_equal_to => 0
+  validates_numericality_of :commission_amount, :greater_than_or_equal_to => 0
   validates_presence_of :payer, :created_on
   validates_presence_of :commission_account, :if => Proc.new{|p| p.mode.with_commission? }
 
-  delegate :currency, :to => :mode
   acts_as_numbered
   acts_as_affairable :dealt_on => :to_bank_on, :third => :payer
   autosave :deposit
 
   default_scope -> { order("id DESC") }
   scope :depositables, -> { where("deposit_id IS NULL AND to_bank_on >= ? AND mode_id IN (SELECT id FROM #{IncomingPaymentMode.table_name} WHERE with_deposit = ?)", Date.today, true) }
-  scope :unbalanceds,  -> { where("used_amount < amount") }
   scope :last_updateds, -> { order("updated_at DESC") }
 
   before_validation(:on => :create) do
@@ -95,11 +93,8 @@ class IncomingPayment < Ekylibre::Record::Base
     if self.mode
       self.commission_account ||= self.mode.commission_account
       self.commission_amount ||= self.mode.commission_amount(self.amount)
+      self.currency = self.mode.currency
     end
-  end
-
-  validate do
-    errors.add(:amount, :greater_than_or_equal_to, :count => self.used_amount) if self.used_amount > self.amount
   end
 
   protect(:on => :update) do
@@ -111,7 +106,7 @@ class IncomingPayment < Ekylibre::Record::Base
   bookkeep do |b|
     mode = self.mode
     # TODO Reviews bookkeeping without ipu
-    label = tc(:bookkeep, :resource => self.class.model_name.human, :number => self.number, :payer => self.payer.full_name, :mode => mode.name, :check_number => self.check_number) # , :expenses => "EXPENSES"
+    label = tc(:bookkeep, :resource => self.class.model_name.human, :number => self.number, :payer => self.payer.full_name, :mode => mode.name, :check_number => self.bank_check_number) # , :expenses => "EXPENSES"
     if mode.with_deposit?
       b.journal_entry(mode.depositables_journal, :printed_on => self.to_bank_on, :unless => (!mode or !mode.with_accounting? or !self.received)) do |entry|
         entry.add_debit(label,  mode.depositables_account_id, self.amount-self.commission_amount)
@@ -133,7 +128,7 @@ class IncomingPayment < Ekylibre::Record::Base
   # end
 
   def label
-    tc(:label, :amount => I18n.localize(self.amount, :currency => self.mode.cash.currency), :date => I18n.localize(self.to_bank_on), :mode => self.mode.name, :usable_amount => I18n.localize(self.unused_amount, :currency => self.mode.cash.currency), :payer => self.payer.full_name, :number => self.number)
+    tc(:label, :amount => I18n.localize(self.amount, :currency => self.mode.cash.currency), :date => I18n.localize(self.to_bank_on), :mode => self.mode.name, :payer => self.payer.full_name, :number => self.number) # , :usable_amount => I18n.localize(self.unused_amount, :currency => self.mode.cash.currency)
   end
 
   # def unused_amount

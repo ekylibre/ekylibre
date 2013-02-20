@@ -104,10 +104,10 @@
       <page to="backend/journals#general_ledger"/>
       <page to="backend/journals#import"/>
       <page to="backend/journals#list"/>
-      <page to="backend/journals#list_draft_lines"/>
+      <page to="backend/journals#list_draft_items"/>
       <page to="backend/journals#list_entries"/>
       <page to="backend/journals#list_general_ledger"/>
-      <page to="backend/journals#list_lines"/>
+      <page to="backend/journals#list_items"/>
       <page to="backend/journals#list_mixed"/>
       <page to="backend/journals#new"/>
       <page to="backend/journals#reopen"/>
@@ -117,7 +117,7 @@
       <page to="backend/journal_entries#create"/>
       <page to="backend/journal_entries#destroy"/>
       <page to="backend/journal_entries#edit"/>
-      <page to="backend/journal_entries#list_lines"/>
+      <page to="backend/journal_entries#list_items"/>
       <page to="backend/journal_entries#new"/>
       <page to="backend/journal_entries#show"/>
       <page to="backend/journal_entries#update"/>
@@ -151,7 +151,7 @@
       <page to="backend/bank_statements#destroy"/>
       <page to="backend/bank_statements#edit"/>
       <page to="backend/bank_statements#list"/>
-      <page to="backend/bank_statements#list_lines"/>
+      <page to="backend/bank_statements#list_items"/>
       <page to="backend/bank_statements#new"/>
       <page to="backend/bank_statements#point"/>
       <page to="backend/bank_statements#show"/>
@@ -220,13 +220,13 @@
       <page to="backend/sales#edit"/>
       <page to="backend/sales#invoice"/>
       <page to="backend/sales#list"/>
-      <page to="backend/sales#list_creditable_lines"/>
+      <page to="backend/sales#list_creditable_items"/>
       <page to="backend/sales#list_credits"/>
       <page to="backend/sales#list_deliveries"/>
-      <page to="backend/sales#list_lines"/>
+      <page to="backend/sales#list_items"/>
       <page to="backend/sales#list_payment_uses"/>
       <page to="backend/sales#list_subscriptions"/>
-      <page to="backend/sales#list_undelivered_lines"/>
+      <page to="backend/sales#list_undelivered_items"/>
       <page to="backend/sales#new"/>
       <page to="backend/sales#propose"/>
       <page to="backend/sales#propose_and_invoice"/>
@@ -255,9 +255,9 @@
       <page to="backend/purchases#invoice"/>
       <page to="backend/purchases#list"/>
       <page to="backend/purchases#list_deliveries"/>
-      <page to="backend/purchases#list_lines"/>
+      <page to="backend/purchases#list_items"/>
       <page to="backend/purchases#list_payment_uses"/>
-      <page to="backend/purchases#list_undelivered_lines"/>
+      <page to="backend/purchases#list_undelivered_items"/>
       <page to="backend/purchases#new"/>
       <page to="backend/purchases#propose"/>
       <page to="backend/purchases#refuse"/>
@@ -299,9 +299,9 @@
       <page to="backend/inventories#destroy"/>
       <page to="backend/inventories#edit"/>
       <page to="backend/inventories#list"/>
-      <page to="backend/inventories#list_lines"/>
-      <page to="backend/inventories#list_lines_create"/>
-      <page to="backend/inventories#list_lines_update"/>
+      <page to="backend/inventories#list_items"/>
+      <page to="backend/inventories#list_items_create"/>
+      <page to="backend/inventories#list_items_update"/>
       <page to="backend/inventories#new"/>
       <page to="backend/inventories#reflect"/>
       <page to="backend/inventories#show"/>
@@ -323,7 +323,7 @@
       <page to="backend/outgoing_deliveries#destroy"/>
       <page to="backend/outgoing_deliveries#edit"/>
       <page to="backend/outgoing_deliveries#list"/>
-      <page to="backend/outgoing_deliveries#list_lines"/>
+      <page to="backend/outgoing_deliveries#list_items"/>
       <page to="backend/outgoing_deliveries#new"/>
       <page to="backend/outgoing_deliveries#show"/>
       <page to="backend/outgoing_deliveries#update"/>
@@ -349,7 +349,7 @@
       <page to="backend/operations#destroy"/>
       <page to="backend/operations#edit"/>
       <page to="backend/operations#list"/>
-      <page to="backend/operations#list_lines"/>
+      <page to="backend/operations#list_items"/>
       <page to="backend/operations#list_unvalidateds"/>
       <page to="backend/operations#list_uses"/>
       <page to="backend/operations#new"/>
@@ -595,7 +595,7 @@
         <page to="backend/accounts#edit"/>
         <page to="backend/accounts#list"/>
         <page to="backend/accounts#list_entities"/>
-        <page to="backend/accounts#list_journal_entry_lines"/>
+        <page to="backend/accounts#list_journal_entry_items"/>
         <page to="backend/accounts#list_reconciliation"/>
         <page to="backend/accounts#load"/>
         <page to="backend/accounts#mark"/>
@@ -808,12 +808,6 @@
     <menu name="authentication/sessions">
       <page to="authentication/sessions#renew"/>
     </menu>
-    <menu name="backend/accounts">
-      <page to="backend/accounts#list_journal_entry_items"/>
-    </menu>
-    <menu name="backend/bank_statements">
-      <page to="backend/bank_statements#list_items"/>
-    </menu>
     <menu name="backend/cells/demo_bar_cells">
       <page to="backend/cells/demo_bar_cells#show"/>
     </menu>
@@ -857,12 +851,6 @@
     </menu>
     <menu name="backend/interfacers">
       <page to="backend/interfacers#autocomplete"/>
-      <page to="backend/interfacers#autocomplete_for_area_name"/>
-      <page to="backend/interfacers#autocomplete_for_entity_origin"/>
-      <page to="backend/interfacers#autocomplete_for_event_location"/>
-      <page to="backend/interfacers#autocomplete_for_mandate_family"/>
-      <page to="backend/interfacers#autocomplete_for_mandate_organization"/>
-      <page to="backend/interfacers#autocomplete_for_mandate_title"/>
       <page to="backend/interfacers#product_trackings"/>
       <page to="backend/interfacers#product_units"/>
       <page to="backend/interfacers#search_for"/>
@@ -873,18 +861,6 @@
       <page to="backend/interfacers#toggle_view_mode"/>
       <page to="backend/interfacers#unroll"/>
       <page to="backend/interfacers#unroll_options"/>
-    </menu>
-    <menu name="backend/inventories">
-      <page to="backend/inventories#list_items"/>
-      <page to="backend/inventories#list_items_create"/>
-      <page to="backend/inventories#list_items_update"/>
-    </menu>
-    <menu name="backend/journal_entries">
-      <page to="backend/journal_entries#list_items"/>
-    </menu>
-    <menu name="backend/journals">
-      <page to="backend/journals#list_draft_items"/>
-      <page to="backend/journals#list_items"/>
     </menu>
     <menu name="backend/logs">
       <page to="backend/logs#index"/>
@@ -899,9 +875,6 @@
     <menu name="backend/myselves">
       <page to="backend/myselves#change_password"/>
       <page to="backend/myselves#statistics"/>
-    </menu>
-    <menu name="backend/outgoing_deliveries">
-      <page to="backend/outgoing_deliveries#list_items"/>
     </menu>
     <menu name="backend/places">
       <page to="backend/places#index"/>
@@ -997,15 +970,6 @@
       <page to="backend/professions#list"/>
       <page to="backend/professions#new"/>
       <page to="backend/professions#update"/>
-    </menu>
-    <menu name="backend/purchases">
-      <page to="backend/purchases#list_items"/>
-      <page to="backend/purchases#list_undelivered_items"/>
-    </menu>
-    <menu name="backend/sales">
-      <page to="backend/sales#list_creditable_items"/>
-      <page to="backend/sales#list_items"/>
-      <page to="backend/sales#list_undelivered_items"/>
     </menu>
     <menu name="public">
       <page to="public#index"/>

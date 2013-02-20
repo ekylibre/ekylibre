@@ -1613,11 +1613,12 @@ arb:
     # stock_move: "Mouvement de stock"
     stock_moves: "حركات الاسهم"
     stock_transfers: "تحويل او ضياع السهم"
-    stockable: "ادارة الاسهم"
+    stockable: "ادارة الاسهم" #?
     stockable_products: "منتجات للتخزين"
     stocks: "اسهم الانتاج"
     stopped_at: "انتهى يوم"
     stopped_on: "توقف يوم"
+    # storable: "Gérer les stocks"
     story: "واقع"
     string_value: "القيمة النصية"
     subdir: "المرجع الفرعي"
@@ -1712,7 +1713,7 @@ arb:
     uses: "المعدات المستخدمة"
     value: "القيمة"
     value_format: "التصميم"
-    # variety: "Variety"
+    # variety: "Variété"
     vat_number: "عدد القيمة الضريبية المضافة داخل المجتمع المحلي"
     vat_submissive: "القيمة الضريبية المضافة التابعة"
     virtual: "عملي"
@@ -2209,8 +2210,8 @@ arb:
     incoming_payment:
       bookkeep: "[%{resource} %{number}] %{mode} %{check_number} ل %{payer} (%{expenses})"
       label: "%{number}. %{amount} (%{usable_amount} restants) من %{date} بواسطة %{mode} ل %{payer}"
-    incoming_payment_use:
-      bookkeep: "[%{resource}] %{mode} (%{payment_number}) وردت من %{attorney} ل %{client} (%{expense_number})"
+    incoming_payment_use:  #?
+      bookkeep: "[%{resource}] %{mode} (%{payment_number}) وردت من %{attorney} ل %{client} (%{expense_number})" #?
     inventory_item:
       inventory: "عملية الجرد"
     inventory_line:

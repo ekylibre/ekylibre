@@ -18,7 +18,11 @@
 #
 
 class Backend::MandatesController < BackendController
-  manage_restfully :entity_id => "params[:entity_id]"
+  manage_restfully
+
+  autocomplete_for :family
+  autocomplete_for :organization
+  autocomplete_for :title
 
   unroll_all
 

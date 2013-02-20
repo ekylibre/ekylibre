@@ -23,21 +23,21 @@ class Backend::OutgoingPaymentsController < BackendController
   unroll_all
 
   def self.outgoing_payments_conditions(options={})
-    code = search_conditions(:outgoing_payments, :outgoing_payments => [:amount, :used_amount, :check_number, :number], :entities => [:code, :full_name])+"||=[]\n"
-    code += "if session[:outgoing_payment_state] == 'undelivered'\n"
-    code += "  c[0] += ' AND delivered=?'\n"
-    code += "  c << false\n"
-    code += "elsif session[:outgoing_payment_state] == 'waiting'\n"
-    code += "  c[0] += ' AND to_bank_on > ?'\n"
-    code += "  c << Date.today\n"
-    code += "elsif session[:outgoing_payment_state] == 'unparted'\n"
-    code += "  c[0] += ' AND used_amount != amount'\n"
-    code += "end\n"
-    code += "c\n"
+    code = search_conditions(:outgoing_payments, :outgoing_payments => [:amount, :bank_check_number, :number], :entities => [:code, :full_name])+"||=[]\n"
+    code << "if session[:outgoing_payment_state] == 'undelivered'\n"
+    code << "  c[0] += ' AND delivered=?'\n"
+    code << "  c << false\n"
+    code << "elsif session[:outgoing_payment_state] == 'waiting'\n"
+    code << "  c[0] += ' AND to_bank_on > ?'\n"
+    code << "  c << Date.today\n"
+    code << "elsif session[:outgoing_payment_state] == 'unparted'\n"
+    # code << "  c[0] += ' AND used_amount != amount'\n"
+    code << "end\n"
+    code << "c\n"
     return code
   end
 
-  list(:conditions => outgoing_payments_conditions, :joins => :payee, :order => "to_bank_on DESC", :line_class => "(RECORD.used_amount.zero? ? 'critic' : RECORD.unused_amount>0 ? 'warning' : '')") do |t|
+  list(:conditions => outgoing_payments_conditions, :joins => :payee, :order => "to_bank_on DESC") do |t| # , :line_class => "(RECORD.used_amount.zero? ? 'critic' : RECORD.unused_amount>0 ? 'warning' : '')"
     t.column :number, :url => true
     t.column :full_name, :through => :payee, :url => true
     t.column :paid_on

@@ -4,7 +4,7 @@
   =f.association :product, :source => :purchaseables # , :new=>true, "data-parameter-name"=>"product_id", "data-dependents"=>"#price-amount"
   =f.input :quantity
   =f.input :annotation
-  =nested_association :price do
+  =f.nested_association :price do
     =f.association :category
     =f.input :pretax_amount
     =f.association :tax

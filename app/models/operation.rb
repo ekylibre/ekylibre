@@ -38,8 +38,8 @@
 
 
 class Operation < Ekylibre::Record::Base
-  attr_accessible :description, :nature, :started_at, :stopped_at, :target_id
-  enumerize :nature, :in => [:move_to, :consume, :produce, :separate, :merge, :attach, :detach]
+  attr_accessible :nature, :started_at, :stopped_at, :target_id
+  enumerize :nature, :in => [:move_to, :consume, :produce, :separate, :merge, :attach, :detach], :predicates => true
   belongs_to :target, :class_name => "Product"
   belongs_to :operand, :class_name => "Product"
   has_many :works, :class_name => "OperationWork", :inverse_of => :operation

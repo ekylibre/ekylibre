@@ -236,10 +236,10 @@ fra:
       edit: "Modifier une observation"
       new: "Ajouter une observation"
     backend/operations:
-      edit: "Modifier le travail %{name}"
+      edit: "Modifier le travail"
       index: "Travaux"
       new: "Créer un nouveau travail"
-      show: "Détails du travail %{name}"
+      show: "Détails du travail"
       unvalidateds: "Travaux non validés"
     backend/outgoing_deliveries:
       edit: "Modifier la livraison sortante\_: %{number}"

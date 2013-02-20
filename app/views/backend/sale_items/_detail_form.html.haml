@@ -6,7 +6,7 @@
   -if product.stockable?
     =formalize do |f|
       -f.field SaleLine.human_attribute_name("stock_id"), select(:sale_item, :stock_id, product_stocks_options(product))
-  -if product.subscription?
+  -if product.subscribing?
     -@subscription ||= @sale_item.new_subscription(params[:subscription])
     =render :partial=>"subscriptions/coordinates_form"
 

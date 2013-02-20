@@ -158,7 +158,7 @@ class Backend::TransportsController < BackendController
   def destroy
     return unless @transport = find_and_check(:transports)
     @transport.destroy if @transport.destroyable?
-    redirect_to transports_url
+    redirect_to backend_transports_url
   end
 
 end

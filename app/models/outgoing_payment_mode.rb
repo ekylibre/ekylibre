@@ -49,6 +49,8 @@ class OutgoingPaymentMode < Ekylibre::Record::Base
   #]VALIDATORS]
   validates_presence_of :attorney_journal, :if => :with_accounting?
 
+  delegate :currency, :to => :cash
+
   default_scope -> { order(:position) }
 
   protect(:on => :destroy) do

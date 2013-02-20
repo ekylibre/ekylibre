@@ -51,10 +51,12 @@ class PurchaseItem < Ekylibre::Record::Base
   belongs_to :price, :class_name => "ProductNaturePrice"
   belongs_to :product
   belongs_to :unit
+  belongs_to :warehouse
   has_many :delivery_items, :class_name => "IncomingDeliveryItem", :foreign_key => :purchase_item_id
 
   accepts_nested_attributes_for :price
-  delegate :purchased?, :to => :purchase
+  delegate :purchased?, :draft?, :order?, :to => :purchase
+  delegate :currency, :to => :price
 
   acts_as_stockable :mode => :virtual, :direction => :in, :if => :purchased?
   sums :purchase, :items, :pretax_amount, :amount
@@ -72,14 +74,14 @@ class PurchaseItem < Ekylibre::Record::Base
     check_reservoir = true
     self.warehouse_id = Warehouse.first.id if Warehouse.count == 1
     if self.price
-      product = self.price.product
-      if product.purchases_account.nil?
-        product.purchases_account = Account.find_in_chart(:charges)
-        product.save!
+      product_nature = self.price.product_nature
+      if product_nature.charge_account.nil?
+        product_nature.charge_account = Account.find_in_chart(:charges)
+        product_nature.save!
       end
-      self.account_id = product.purchases_account_id
-      self.unit_id ||= self.price.product.unit_id
-      self.product_id = self.price.product_id
+      self.account_id = product_nature.charge_account_id
+      self.unit_id ||= self.price.product_nature.unit_id
+      # self.product_id = self.price.product_nature_id
       self.pretax_amount = (self.price.pretax_amount*self.quantity).round(2)
       self.amount = (self.price.amount*self.quantity).round(2)
     end
@@ -109,6 +111,9 @@ class PurchaseItem < Ekylibre::Record::Base
     producer = self.purchase.supplier
     unless self.tracking_serial.blank?
       errors.add(:tracking_serial, :serial_already_used_with_an_other_product) if producer.has_another_tracking?(self.tracking_serial, self.product_id)
+    end
+    if self.price and self.purchase
+      errors.add(:price_id, :invalid) if self.price.currency != self.purchase.currency
     end
   end
 

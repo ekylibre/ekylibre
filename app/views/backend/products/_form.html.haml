@@ -9,6 +9,6 @@
   =f.input :description # affiche le champ description formaté en zone de texte
   =f.input :picture
   =image_tag(@product.picture.url(:thumb))
-  =custom_fields
+  =f.custom_fields
   -#for datum in @custom_field_data
     =custom_field datum.custom_field.name, {:datatype => datum.custom_field.nature.to_sym, :id => "custom_field_datum_#{datum.custom_field_id}_value", :name => "custom_field_datum[#{datum.custom_field_id}][value]", :value => datum.value, :size => datum.custom_field.length_max, :options => {:include_blank => (datum.custom_field.required ? nil : '')}, :choices => datum.custom_field.choices.collect{|x| [x.name , x.id]}  }

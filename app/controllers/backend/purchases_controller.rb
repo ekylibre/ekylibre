@@ -32,7 +32,7 @@ class Backend::PurchasesController < BackendController
     t.column :description
     # t.column :shipped
     t.column :state_label
-    t.column :paid_amount, :currency => true
+    # t.column :paid_amount, :currency => true
     t.column :amount, :currency => true
     t.action :show, :url => {:format => :pdf}, :image => :print
     t.action :edit
@@ -52,8 +52,8 @@ class Backend::PurchasesController < BackendController
     t.column :quantity, :datatype => :decimal
     t.column :pretax_amount, :currency => {:body => "RECORD.purchase.currency", :children => "RECORD.delivery.purchase.currency"}
     t.column :amount, :currency => {:body => "RECORD.purchase.currency", :children => "RECORD.delivery.purchase.currency"}
-    t.action :edit, :if => 'RECORD.purchase.order? '
-    t.action :destroy, :if => 'RECORD.purchase.order? '
+    t.action :edit, :if => :order?
+    t.action :destroy, :if => :order?
   end
 
   # list(:payment_uses, :model => :outgoing_payment_uses, :conditions => ["#{OutgoingPaymentUse.table_name}.expense_id=? ", ['session[:current_purchase_id]']]) do |t|
@@ -68,11 +68,11 @@ class Backend::PurchasesController < BackendController
 
   list(:undelivered_items, :model => :purchase_items, :conditions => {:purchase_id => ['session[:current_purchase_id]']}) do |t|
     t.column :name, :through => :product
-    t.column :pretax_amount, :currency => "RECORD.price.currency", :through => :price
+    t.column :pretax_amount, :currency => true, :through => :price
     t.column :quantity
     t.column :label, :through => :unit
-    t.column :pretax_amount, :currency => "RECORD.purchase.currency"
-    t.column :amount, :currency => "RECORD.purchase.currency"
+    t.column :pretax_amount, :currency => true
+    t.column :amount, :currency => true
     t.column :undelivered_quantity, :datatype => :decimal
   end
 
@@ -82,11 +82,11 @@ class Backend::PurchasesController < BackendController
     t.column :tracking_serial
     t.column :quantity
     t.column :label, :through => :unit
-    t.column :pretax_amount, :currency => "RECORD.purchase.currency", :through => :price
-    t.column :pretax_amount, :currency => "RECORD.purchase.currency"
-    t.column :amount, :currency => "RECORD.purchase.currency"
-    t.action :edit, :if => 'RECORD.purchase.draft? '
-    t.action :destroy, :if => 'RECORD.purchase.draft? '
+    t.column :pretax_amount, :currency => true, :through => :price
+    t.column :pretax_amount, :currency => true
+    t.column :amount, :currency => true
+    t.action :edit, :if => :draft?
+    t.action :destroy, :if => :draft?
   end
 
 

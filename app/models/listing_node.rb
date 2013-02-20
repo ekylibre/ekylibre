@@ -111,7 +111,7 @@ class ListingNode < Ekylibre::Record::Base
   before_validation do
     self.listing_id = self.parent.listing_id if self.parent
 
-    self.key = 'k'+Entity.send(:generate_password, 31, :normal) if self.key.nil? ## bef_val_on_cr
+    self.key = 'k'+User.send(:generate_password, 31, :normal) if self.key.nil? ## bef_val_on_cr
     if self.root?
       self.name = self.listing.root_model
     elsif self.reflection?
@@ -278,12 +278,18 @@ class ListingNode < Ekylibre::Record::Base
   end
 
   def duplicate(listing, parent = nil)
-    attributes = self.attributes
+    attrs = [:attribute_name, :condition_operator, :condition_value, :exportable, :item_listing_id, :item_listing_node_id, :item_nature, :item_value, :label, :name, :nature, :position]
+
+
+    attributes = self.attributes.reject{|k,v| !attrs.include?(k.to_sym)}
     attributes[:listing_id] = listing.id
     attributes[:parent_id]  = (parent ? parent.id : nil)
-    attributes.delete("key")
-    attributes.delete("id")
-    attributes.delete("lock_version")
+    # attributes.delete("key")
+    # attributes.delete("id")
+    # attributes.delete("lock_version")
+    # attributes.delete("rgt")
+    # attributes.delete("lft")
+    # attributes.delete("depth")
     node = self.class.create!(attributes, :without_protection => true)
     for child in self.children.find(:all, :order => :position)
       child.duplicate(listing, node)

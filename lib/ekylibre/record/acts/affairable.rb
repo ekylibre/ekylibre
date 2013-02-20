@@ -13,6 +13,7 @@ module Ekylibre::Record
           reflection = self.reflections[args[0] || options[:reflection] || :affair]
           currency = options[:currency] || :currency
           options[:dealt_on] ||= :created_on
+          options[:amount] ||= :amount
           options[:debit] = true unless options.has_key?(:debit)
 
           code  = ""

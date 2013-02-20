@@ -66,9 +66,9 @@ class Backend::DepositsController < BackendController
   list(:depositable_payments, :model => :incoming_payments, :conditions => ["deposit_id=? OR (mode_id=? AND deposit_id IS NULL)", ['session[:deposit_id]'], ['session[:payment_mode_id]']], :pagination => :none, :order => "to_bank_on, created_at", :line_class => "((RECORD.to_bank_on||Date.yesterday)>Date.today ? 'critic' : '')") do |t|
     t.column :number, :url => true
     t.column :full_name, :through => :payer, :url => true
-    t.column :bank
-    t.column :account_number
-    t.column :check_number
+    t.column :bank_name
+    t.column :bank_account_number
+    t.column :bank_check_number
     t.column :paid_on
     t.column :label, :through => :responsible
     t.column :amount, :currency => "RECORD.mode.cash.currency"

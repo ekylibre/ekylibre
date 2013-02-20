@@ -1,14 +1,14 @@
 %table.active-list
   %tr
-    %th=OutgoingDeliveryLine.human_attribute_name(:product)
-    %th=Price.human_attribute_name(:pretax_amount)
-    %th=Price.human_attribute_name(:amount)
+    %th=OutgoingDeliveryItem.human_attribute_name(:product)
+    %th=ProductNaturePrice.human_attribute_name(:pretax_amount)
+    %th=ProductNaturePrice.human_attribute_name(:amount)
     %th=tc(:total_quantity)
-    %th=OutgoingDeliveryLine.human_attribute_name(:unit)
+    %th=OutgoingDeliveryItem.human_attribute_name(:unit)
     %th=tc(:quantity_rest)
     %th=tc(:quantity)
-    %th=OutgoingDeliveryLine.human_attribute_name(:pretax_amount)
-    %th=OutgoingDeliveryLine.human_attribute_name(:amount)
+    %th=OutgoingDeliveryItem.human_attribute_name(:pretax_amount)
+    %th=OutgoingDeliveryItem.human_attribute_name(:amount)
   -for item in @outgoing_delivery_items
     %tr{:class => cycle('odd','even')}
       %td=item.sale_item.label

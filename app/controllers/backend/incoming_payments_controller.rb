@@ -23,20 +23,19 @@ class Backend::IncomingPaymentsController < BackendController
   unroll_all
 
   def self.incoming_payments_conditions(options={})
-    code = search_conditions(:incoming_payments, :incoming_payments => [:amount, :used_amount, :check_number, :number, :account_number
-], :entities => [:code, :full_name])+"||=[]\n"
-    code += "if session[:incoming_payment_state] == 'unreceived'\n"
-    code += "  c[0] += ' AND received=?'\n"
-    code += "  c << false\n"
-    code += "elsif session[:incoming_payment_state] == 'waiting'\n"
-    code += "  c[0] += ' AND to_bank_on > ?'\n"
-    code += "  c << Date.today\n"
-    code += "elsif session[:incoming_payment_state] == 'undeposited'\n"
-    code += "  c[0] += ' AND deposit_id IS NULL AND #{IncomingPaymentMode.table_name}.with_deposit'\n"
-    code += "elsif session[:incoming_payment_state] == 'unparted'\n"
-    code += "  c[0] += ' AND used_amount != amount'\n"
-    code += "end\n"
-    code += "c\n"
+    code = search_conditions(:incoming_payments, :incoming_payments => [:amount, :bank_check_number, :number, :bank_account_number], :entities => [:code, :full_name])+"||=[]\n"
+    code << "if session[:incoming_payment_state] == 'unreceived'\n"
+    code << "  c[0] += ' AND received=?'\n"
+    code << "  c << false\n"
+    code << "elsif session[:incoming_payment_state] == 'waiting'\n"
+    code << "  c[0] += ' AND to_bank_on > ?'\n"
+    code << "  c << Date.today\n"
+    code << "elsif session[:incoming_payment_state] == 'undeposited'\n"
+    code << "  c[0] += ' AND deposit_id IS NULL AND #{IncomingPaymentMode.table_name}.with_deposit'\n"
+    # code << "elsif session[:incoming_payment_state] == 'unparted'\n"
+    # code << "  c[0] += ' AND used_amount != amount'\n"
+    code << "end\n"
+    code << "c\n"
     return code
   end
 
@@ -50,7 +49,7 @@ class Backend::IncomingPaymentsController < BackendController
     t.column :to_bank_on
     t.column :number, :through => :deposit, :url => true
     t.action :edit, :if => "RECORD.deposit.nil\?"
-    t.action :destroy, :if => "RECORD.used_amount.to_f <= 0"
+    t.action :destroy, :if => :destroyable?
   end
 
   # Displays the main page with the list of incoming payments

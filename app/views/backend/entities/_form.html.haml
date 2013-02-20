@@ -20,7 +20,7 @@
   =f.input :dead_on
   =f.input :picture
   -# =f.input :ean13
-  =custom_fields
+  =f.custom_fields
   -#for datum in @custom_field_data
     =custom_field datum.custom_field.name, {:datatype => datum.custom_field.nature.to_sym, :id => "custom_field_datum_#{datum.custom_field_id}_value", :name => "custom_field_datum[#{datum.custom_field_id}][value]", :value => datum.value, :size => datum.custom_field.length_max, :options => {:include_blank => (datum.custom_field.required ? nil : '')}, :choices => datum.custom_field.choices.collect{|x| [x.name , x.id]}  }
 
@@ -44,11 +44,11 @@
   =f.association :attorney_account, :source => :attorney_thirds, :buttons => {:new => {:number => Account.find_in_chart(:attorney_thirds).number}}
 
 =field_set(:coordinates, :major => true) do
-  =nested_association(:emails) do
+  =f.nested_association(:emails) do
     =f.input :canal, :value => "email", :field => :hidden
     =f.input :coordinate, :field => :email, :label => "enumerize.entity_address.canal.email"
 
-  =nested_association(:mails) do
+  =f.nested_association(:mails) do
     =f.input :canal, :value => "mail", :field => :hidden
     =f.input :mail_line_1
     =f.input :mail_line_2
@@ -58,18 +58,18 @@
     =f.input :mail_line_6
     =f.input :mail_country, :collection => countries
 
-  =nested_association(:phones, :before => :emails) do
+  =f.nested_association(:phones, :before => :emails) do
     =f.input :canal, :value => "phone", :field => :hidden
     =f.input :coordinate, :field => :tel, :label => "enumerize.entity_address.canal.phone"
 
-  =nested_association(:mobiles) do
+  =f.nested_association(:mobiles) do
     =f.input :canal, :value => "mobile", :field => :hidden
     =f.input :coordinate, :field => :tel, :label => "enumerize.entity_address.canal.mobile"
 
-  =nested_association(:faxes) do
+  =f.nested_association(:faxes) do
     =f.input :canal, :value => "fax", :field => :hidden
     =f.input :coordinate, :field => :tel, :label => "enumerize.entity_address.canal.fax"
 
-  =nested_association(:websites) do
+  =f.nested_association(:websites) do
     =f.input :canal, :value => "website", :field => :hidden
     =f.input :coordinate, :field => :url, :label => "enumerize.entity_address.canal.website"

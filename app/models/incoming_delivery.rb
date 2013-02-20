@@ -59,6 +59,7 @@ class IncomingDelivery < Ekylibre::Record::Base
   #]VALIDATORS]
   validates_presence_of :planned_on
 
+  delegate :order?, :draft?, :to => :purchase
   scope :undelivereds, -> { where(:moved_on => nil) }
 
   before_validation do

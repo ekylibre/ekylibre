@@ -87,9 +87,6 @@ class SaleTest < ActiveSupport::TestCase
       should "be invoiced" do
         assert !@sale.invoice
 
-        assert !@sale.affair.nil?, "A sale must be linked to an affair"
-        assert_equal @sale.amount, @sale.affair_credit, "Affair amount is not the same as the sale amount (#{@sale.affair.inspect})"
-
         item = @sale.items.new(:quantity => 12, :product_id => products(:animals_001).id) # :price_id => product_nature_prices(:product_nature_prices_001).id) # , :warehouse_id => products(:warehouses_001).id)
         assert item.save, item.errors.inspect
         item = @sale.items.new(:quantity => 25, :product_id => products(:matters_001).id) # :price_id => product_nature_prices(:product_nature_prices_003).id) # , :warehouse_id => products(:warehouses_001).id)
@@ -120,6 +117,9 @@ class SaleTest < ActiveSupport::TestCase
         @sale = Sale.new(:client => entities(:entities_001), :nature => sale_natures(:sale_natures_001))
         assert @sale.save, @sale.errors.inspect
         assert_equal Date.today, @sale.created_on
+        assert !@sale.affair.nil?, "A sale must be linked to an affair"
+        assert_equal @sale.amount, @sale.affair_credit, "Affair amount is not the same as the sale amount (#{@sale.affair.inspect})"
+
         for y in 1..10
           item = @sale.items.new(:quantity => 1 + rand(70)*rand, :product_id => products("matters_#{(3+rand(2)).to_s.rjust(3, '0')}".to_sym).id) # , :price_id => product_nature_prices("product_nature_prices_#{(3+rand(2)).to_s.rjust(3, '0')}".to_sym).id, :warehouse_id => products(:warehouses_001).id)
           # assert item.valid?, [product.prices, item.price].inspect

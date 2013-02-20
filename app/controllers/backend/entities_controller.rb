@@ -21,6 +21,8 @@ class Backend::EntitiesController < BackendController
 
   unroll_all
 
+  autocomplete_for :origin
+
   # list(:select => {[:addresses, :mail_line_6] => :item_6}, :conditions => search_conditions(:entities, :entities => [:code, :full_name], :addresses => [:coordinate]), :joins => "LEFT JOIN #{EntityAddress.table_name} AS addresses ON (entities.id = addresses.entity_id AND addresses.deleted_at IS NULL)", :order => "entities.code") do |t|
   list(:select => {[:addresses, :coordinate] => :coordinate}, :conditions => search_conditions(:entities, :entities => [:code, :full_name], :addresses => [:coordinate]), :joins => "LEFT JOIN #{EntityAddress.table_name} AS addresses ON (entities.id = addresses.entity_id AND addresses.deleted_at IS NULL)", :order => "entities.code") do |t|
     t.column :active, :datatype => :boolean
@@ -63,18 +65,18 @@ class Backend::EntitiesController < BackendController
     t.action :destroy
   end
 
-  list(:incoming_payments, :conditions => {:payer_id => ['session[:current_entity_id]']}, :order => "created_at DESC", :line_class => "(RECORD.used_amount!=RECORD.amount ? 'warning' : nil)") do |t|
+  list(:incoming_payments, :conditions => {:payer_id => ['session[:current_entity_id]']}, :order => "created_at DESC") do |t| # , :line_class => "(RECORD.used_amount!=RECORD.amount ? 'warning' : nil)"
     t.column :number, :url => true
     t.column :paid_on
     t.column :label, :through => :responsible
     t.column :name, :through => :mode
-    t.column :bank
-    t.column :check_number
-    t.column :used_amount, :currency => "RECORD.mode.cash.currency"
-    t.column :amount, :currency => "RECORD.mode.cash.currency", :url => true
+    t.column :bank_name
+    t.column :bank_check_number
+    # t.column :used_amount, :currency => "RECORD.mode.cash.currency"
+    t.column :amount, :currency => true, :url => true
     t.column :number, :through => :deposit, :url => true
     t.action :edit, :if => "RECORD.deposit.nil\?"
-    t.action :destroy, :if => "RECORD.used_amount.to_f<=0"
+    t.action :destroy, :if => :destroyable?
   end
 
   list(:links, :model => :entity_links, :conditions => ['#{EntityLink.table_name}.stopped_at IS NULL AND (#{EntityLink.table_name}.entity_1_id = ? OR #{EntityLink.table_name}.entity_2_id = ?)', ['session[:current_entity_id]'], ['session[:current_entity_id]']], :per_page => 5) do |t|
@@ -96,23 +98,23 @@ class Backend::EntitiesController < BackendController
     t.action :destroy
   end
 
-  list(:observations, :conditions => {:subject_id => ['session[:current_entity_id]'], :subject_type => "Entity"}, :line_class => 'RECORD.status', :per_page => 5) do |t|
+  list(:observations, :conditions => {:subject_id => ['session[:current_entity_id]'], :subject_type => "Entity"}, :per_page => 5) do |t| # , :line_class => 'RECORD.status'
     t.column :content
     t.column :importance
     t.action :edit
     t.action :destroy
   end
 
-  list(:outgoing_payments, :conditions => {:payee_id => ['session[:current_entity_id]']}, :order => "created_at DESC", :line_class => "(RECORD.used_amount!=RECORD.amount ? 'warning' : nil)") do |t|
+  list(:outgoing_payments, :conditions => {:payee_id => ['session[:current_entity_id]']}, :order => "created_at DESC") do |t| # , :line_class => "(RECORD.used_amount!=RECORD.amount ? 'warning' : nil)"
     t.column :number, :url => true
     t.column :paid_on
     t.column :label, :through => :responsible
     t.column :name, :through => :mode
-    t.column :check_number
-    t.column :used_amount, :currency => "RECORD.mode.cash.currency"
-    t.column :amount, :currency => "RECORD.mode.cash.currency", :url => true
+    t.column :bank_check_number
+    # t.column :used_amount, :currency => "RECORD.mode.cash.currency"
+    t.column :amount, :currency => true, :url => true
     t.action :edit
-    t.action :destroy, :if => "RECORD.used_amount.to_f<=0"
+    t.action :destroy, :if => :destroyable?
   end
 
   list(:purchases, :model => :purchase, :conditions => {:supplier_id => ['session[:current_entity_id]']}, :line_class => 'RECORD.status') do |t|
@@ -125,7 +127,7 @@ class Backend::EntitiesController < BackendController
     t.column :amount, :currency => true
     t.action :show, :url => {:format => :pdf}, :image => :print
     t.action :edit
-    t.action :destroy, :if => "RECORD.destroyable\?"
+    t.action :destroy, :if => :destroyable?
   end
 
   list(:sales, :conditions => {:client_id => ['session[:current_entity_id]']}, :children => :items, :per_page => 5, :order => "created_on DESC") do |t| # , :line_class => 'RECORD.tags'

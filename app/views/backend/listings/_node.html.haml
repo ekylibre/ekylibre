@@ -15,14 +15,14 @@
         -else
           %td.export=check_box_tag(:exportable, "1", node.exportable, "data-remote"=>true, "data-url"=>url_for(:action=>:update, :controller=>:listing_nodes, :id=>node.id, :type=>"exportable"), "data-method"=>"put")
           %td.link.label{:id=>"#{node.key}_label"}
-            =render(:partial=>"listing_nodes/column_label", :object=>node)
+            =render(:partial=>"backend/listing_nodes/column_label", :object=>node)
 
-          %td.item-tool.comparator{:id=>"#{node.key}_comparator"}=render(:partial=>"listing_nodes/comparison", :object=>node)
+          %td.item-tool.comparator{:id=>"#{node.key}_comparator"}=render(:partial=>"backend/listing_nodes/comparison", :object=>node)
         -unless node.root?
           -unless node.reflection?
-            %td.item-tool.position{:id=>"#{node.key}_position"}=render(:partial=>"listing_nodes/position", :object=>node)
+            %td.item-tool.position{:id=>"#{node.key}_position"}=render(:partial=>"backend/listing_nodes/position", :object=>node)
           %td.item-tool.delete
             =tool_to(tg(:delete), {:action => :destroy, :controller => :listing_nodes, :id => node.id}, :method => :delete, :remote => true, "data-update" => "#" + node.parent.key, "data-type" => :html, :class=>"icon im-delete")
 
 -if node.reflection?
-  .branches{:id=>node.key}=render(:partial=>"listings/reflection", :object=>node)
+  .branches{:id=>node.key}=render(:partial=>"backend/listings/reflection", :object=>node)

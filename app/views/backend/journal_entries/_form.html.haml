@@ -2,4 +2,4 @@
   =f.association :journal, :readonly => true
   =f.input :number
   =f.input :printed_on
-  =render :partial => "exchange_rate", :depend_on => [:printed_on, :journal], :refresh_url => new_backend_journal_entry_url
+  =render :partial => "exchange_rate_form", :depend_on => [:printed_on, :journal], :refresh_url => new_backend_journal_entry_url

@@ -123,7 +123,7 @@ class Backend::SalesController < BackendController
     t.column :undelivered_quantity, :datatype => :decimal
   end
 
-  list(:items, :model => :sale_items, :conditions => {:sale_id => ['params[:id]']}, :order => :position, :export => false, :line_class => "((RECORD.product.subscription? and RECORD.subscriptions.sum(:quantity) != RECORD.quantity) ? 'warning' : '')", :include => [:product, :subscriptions]) do |t|
+  list(:items, :model => :sale_items, :conditions => {:sale_id => ['params[:id]']}, :order => :position, :export => false, :line_class => "((RECORD.product.nature.subscribing? and RECORD.subscriptions.sum(:quantity) != RECORD.quantity) ? 'warning' : '')", :include => [:product, :subscriptions]) do |t|
     #t.column :name, :through => :product
     t.column :position
     t.column :label

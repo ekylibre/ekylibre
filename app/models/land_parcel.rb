@@ -69,7 +69,7 @@
 
 
 class LandParcel < Place
-  attr_accessible :name, :number, :area_measure, :area_unit_id, :born_at
+  attr_accessible :name, :number, :area_measure, :area_unit_id, :born_at, :dead_at
   belongs_to :area_unit, :class_name => "Unit"
   belongs_to :parent_place, :class_name => "LandParcel"
   # TODO : adapt with operations

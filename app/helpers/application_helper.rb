@@ -19,6 +19,22 @@
 # ##### END LICENSE BLOCK #####
 
 # encoding: utf-8
+
+
+
+  class SimpleForm::FormBuilder
+
+    def nested_association(name, *args, &block)
+      return "Nested association #{name}"
+    end
+
+    def custom_fields(*args, &block)
+      return "Custom fields"
+    end
+
+  end
+
+
 module ApplicationHelper
 
   def absolute_controller_name
@@ -1842,7 +1858,6 @@ module ApplicationHelper
     haml << "          =#{subfields}.input(:value, :as => :string#{common_options})\n"
     return haml
   end
-
 
 
 

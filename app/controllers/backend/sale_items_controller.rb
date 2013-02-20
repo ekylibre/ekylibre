@@ -42,7 +42,7 @@ class Backend::SaleItemsController < BackendController
     @sale_item.attributes = params[:sale_item]
     ActiveRecord::Base.transaction do
       if saved = @sale_item.save
-        if @sale_item.subscription?
+        if @sale_item.subscribing?
           @subscription = @sale_item.new_subscription(params[:subscription])
           saved = false unless @subscription.save
           @subscription.errors.add_from_record(@sale_item)

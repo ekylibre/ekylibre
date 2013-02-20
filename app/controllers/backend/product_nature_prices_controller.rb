@@ -56,9 +56,9 @@ class Backend::ProductNaturePricesController < BackendController
 
   def find
     if params[:product_nature_id] and params[:supplier_id]
-      return unless product = find_and_check(:product_natures, params[:product_nature_id])
+      return unless product_nature = find_and_check(:product_natures, params[:product_nature_id])
       return unless supplier = find_and_check(:supplier, params[:supplier_id])
-      @product_nature_price = product.prices.find(:first, :conditions => {:supplier_id => supplier.id, :active => true}, :order => "by_default DESC")
+      @product_nature_price = product_nature.prices.find(:first, :conditions => {:supplier_id => supplier.id, :active => true}, :order => "by_default DESC")
       @product_nature_price ||= ProductNaturePrice.new(:category_id => supplier.category_id)
       respond_to do |format|
         format.html { render :partial => "amount_form" }
@@ -67,17 +67,18 @@ class Backend::ProductNaturePricesController < BackendController
       end
     elsif !params[:purchase_item_price_id].blank?
       return unless @product_nature_price = find_and_check(:product_nature_price, params[:purchase_item_price_id])
-      @product = @product_nature_price.product if @product_nature_price
+      @product_nature = @product_nature_price.product_nature if @product_nature_price
     elsif params[:purchase_item_product_id]
-      return unless @product = find_and_check(:products, params[:purchase_item_product_id])
-      @product_nature_price = @product.prices.find_by_active_and_by_default_and_supplier_id(true, true, params[:supplier_id]||Entity.of_company.id) if @product
+      return unless product = find_and_check(:products, params[:purchase_item_product_id])
+      @product_nature = product.nature
+      @product_nature_price = @product_nature.prices.find_by_active_and_by_default_and_supplier_id(true, true, params[:supplier_id]||Entity.of_company.id) if @product_nature
     end
   end
 
   def edit
     return unless @product_nature_price = find_and_check
     @mode = "purchases" if @product_nature_price.supplier_id != Entity.of_company.id
-    t3e @product_nature_price.attributes, :product => @product_nature_price.product.name
+    t3e @product_nature_price.attributes, :product_nature => @product_nature_price.product_nature.name
     # render_restfully_form
   end
 
@@ -86,7 +87,7 @@ class Backend::ProductNaturePricesController < BackendController
     @mode = "purchases" if @product_nature_price.supplier_id != Entity.of_company.id
     @product_nature_price.amount = 0
     return if save_and_redirect(@product_nature_price, :attributes => params[:product_nature_price])
-    t3e @product_nature_price.attributes, :product => @product_nature_price.product.name
+    t3e @product_nature_price.attributes, :product_nature => @product_nature_price.product_nature.name
     # render_restfully_form
   end
 
@@ -108,7 +109,7 @@ class Backend::ProductNaturePricesController < BackendController
   end
 
   def export
-    @products = ProductNature.availables
+    @product_natures = ProductNature.availables
     @entity_categories = EntityCategory
 
     csv = ["",""]
@@ -123,11 +124,11 @@ class Backend::ProductNaturePricesController < BackendController
 
     csv_string += Ekylibre::CSV.generate do |csv|
 
-      @products.each do |product|
+      @product_natures.each do |product_nature|
         item = []
-        item << [product.code, product.name]
+        item << [product_nature.code, product_nature.name]
         @entity_categories.each do |category|
-          price = ProductNaturePrice.find(:first, :conditions => {:active => true, :product_id => product.id, :category_id => EntityCategory.find_by_code(category.code).id})
+          price = ProductNaturePrice.find(:first, :conditions => {:active => true, :product_nature_id => product_nature.id, :category_id => EntityCategory.find_by_code(category.code).id})
           #raise Exception.new price.inspect
           if price.nil?
             item << ["","",""]
@@ -174,14 +175,14 @@ class Backend::ProductNaturePricesController < BackendController
           if i > 1
             puts i.to_s+"hhhhhhhhhhhhhhh"
             x = 2
-            @product = ProductNature.find_by_code(row[0])
+            @product_nature = ProductNature.find_by_code(row[0])
             for category in @entity_categories
               blank = true
               tax = Tax.find(:first, :conditions => {:amount => row[x+2].to_s.gsub(/\,/,".").to_f})
               tax_id = tax.nil? ? nil : tax.id
-              @product_nature_price = ProductNaturePrice.find(:first, :conditions => {:product_id => @product.id, :category_id => category.id, :active => true} )
+              @product_nature_price = ProductNaturePrice.find(:first, :conditions => {:product_nature_id => @product_nature.id, :category_id => category.id, :active => true} )
               if @product_nature_price.nil? and (!row[x].nil? or !row[x+1].nil? or !row[x+2].nil?)
-                @product_nature_price = ProductNaturePrice.new(:pretax_amount => row[x].to_s.gsub(/\,/,".").to_f, :tax_id => tax_id, :amount => row[x+1].to_s.gsub(/\,/,".").to_f, :product_id => @product.id, :category_id => category.id, :supplier_id => Entity.of_company.id, :currency => Entity.of_company.currency)
+                @product_nature_price = ProductNaturePrice.new(:pretax_amount => row[x].to_s.gsub(/\,/,".").to_f, :tax_id => tax_id, :amount => row[x+1].to_s.gsub(/\,/,".").to_f, :product_nature_id => @product_nature.id, :category_id => category.id, :supplier_id => Entity.of_company.id, :currency => Entity.of_company.currency)
                 blank = false
               elsif !@product_nature_price.nil?
                 blank = false

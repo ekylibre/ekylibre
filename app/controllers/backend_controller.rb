@@ -467,18 +467,39 @@ class BackendController < BaseController
     redirect_to_back(options.merge(:direct => true))
   end
 
+  # # Autocomplete helper
+  # def self.autocomplete_for(model_name, column)
+  #   item =  model_name.to_s
+  #   items = item.pluralize
+  #   items = "many_#{items}" if items == item
+  #   code =  "def #{__method__}_#{model_name}_#{column}\n"
+  #   code << "  if params[:term]\n"
+  #   code << "    pattern = '%'+params[:term].to_s.mb_chars.downcase.strip.gsub(/\s+/,'%').gsub(/[#{String::MINUSCULES.join}]/,'_')+'%'\n"
+  #   code << "    @#{items} = #{model_name.to_s.classify}.select('DISTINCT #{column}').where('LOWER(#{column}) LIKE ?', pattern).order('#{column} ASC').limit(80)\n"
+  #   code << "    respond_to do |format|\n"
+  #   code << "      format.html { render :inline => \"<%=content_tag(:ul, @#{items}.map { |#{item}| content_tag(:li, #{item}.#{column})) }.join.html_safe)%>\" }\n"
+  #   code << "      format.json { render :json => @#{items}.collect{|#{item}| #{item}.#{column}}.to_json }\n"
+  #   code << "    end\n"
+  #   code << "  else\n"
+  #   code << "    render :text => '', :layout => true\n"
+  #   code << "  end\n"
+  #   code << "end\n"
+  #   class_eval(code, "#{__FILE__}:#{__LINE__}")
+  # end
+
   # Autocomplete helper
-  def self.autocomplete_for(model_name, method)
-    item =  model_name.to_s
+  def self.autocomplete_for(column, options = {})
+    model = (options.delete(:model) || controller_name).to_s.classify.constantize
+    item =  model.name.underscore.to_s
     items = item.pluralize
     items = "many_#{items}" if items == item
-    code =  "def #{__method__}_#{model_name}_#{method}\n"
+    code =  "def #{__method__}_#{column}\n"
     code << "  if params[:term]\n"
     code << "    pattern = '%'+params[:term].to_s.mb_chars.downcase.strip.gsub(/\s+/,'%').gsub(/[#{String::MINUSCULES.join}]/,'_')+'%'\n"
-    code << "    @#{items} = #{model_name.to_s.classify}.select('DISTINCT #{method}').where('LOWER(#{method}) LIKE ?', pattern).order('#{method} ASC').limit(80)\n"
+    code << "    @#{items} = #{model.name}.select('DISTINCT #{column}').where('LOWER(#{column}) LIKE ?', pattern).order('#{column} ASC').limit(80)\n"
     code << "    respond_to do |format|\n"
-    code << "      format.html { render :inline => \"<%=content_tag(:ul, @#{items}.map { |#{item}| content_tag(:li, #{item}.#{method})) }.join.html_safe)%>\" }\n"
-    code << "      format.json { render :json => @#{items}.collect{|#{item}| #{item}.#{method}}.to_json }\n"
+    code << "      format.html { render :inline => \"<%=content_tag(:ul, @#{items}.map { |#{item}| content_tag(:li, #{item}.#{column})) }.join.html_safe)%>\" }\n"
+    code << "      format.json { render :json => @#{items}.collect{|#{item}| #{item}.#{column}}.to_json }\n"
     code << "    end\n"
     code << "  else\n"
     code << "    render :text => '', :layout => true\n"

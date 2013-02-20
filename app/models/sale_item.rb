@@ -197,7 +197,7 @@ class SaleItem < Ekylibre::Record::Base
     return d
   end
 
-  def subscription?
+  def subscribing?
     self.product.nature == "subscrip"
   end
 

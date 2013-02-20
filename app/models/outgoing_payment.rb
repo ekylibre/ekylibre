@@ -47,6 +47,7 @@
 
 class OutgoingPayment < Ekylibre::Record::Base
   attr_accessible :amount, :bank_check_number, :paid_on, :to_bank_on, :responsible_id, :payee_id, :mode_id # , :used_amount
+  belongs_to :cash
   belongs_to :journal_entry
   belongs_to :mode, :class_name => "OutgoingPaymentMode"
   belongs_to :payee, :class_name => "Entity"
@@ -56,20 +57,26 @@ class OutgoingPayment < Ekylibre::Record::Base
   validates_length_of :currency, :allow_nil => true, :maximum => 3
   validates_length_of :bank_check_number, :number, :allow_nil => true, :maximum => 255
   validates_inclusion_of :delivered, :downpayment, :in => [true, false]
-  validates_presence_of :amount, :currency, :mode, :payee, :responsible, :to_bank_on
+  validates_presence_of :amount, :cash, :currency, :mode, :payee, :responsible, :to_bank_on
   #]VALIDATORS]
   validates_numericality_of :amount, :greater_than => 0
   validates_presence_of :to_bank_on, :created_on
 
   default_scope -> { order("id DESC") }
 
-  delegate :currency, :to => :mode
   acts_as_numbered
   acts_as_affairable :dealt_on => :to_bank_on, :debit => false, :third => :payee
 
   before_validation(:on => :create) do
     self.created_on ||= Date.today
     true
+  end
+
+  before_validation do
+    if self.mode
+      self.cash = self.mode.cash
+      self.currency = self.mode.currency
+    end
   end
 
   protect(:on => :update) do
@@ -85,17 +92,12 @@ class OutgoingPayment < Ekylibre::Record::Base
   bookkeep do |b|
     # attorney_amount = self.attorney_amount
     supplier_amount = self.amount #  - attorney_amount
-    label = tc(:bookkeep, :resource => self.class.model_name.human, :number => self.number, :payee => self.payee.full_name, :mode => self.mode.name, :expenses => self.uses.collect{|p| p.expense.number}.to_sentence, :check_number => self.check_number)
+    label = tc(:bookkeep, :resource => self.class.model_name.human, :number => self.number, :payee => self.payee.full_name, :mode => self.mode.name, :check_number => self.bank_check_number) # , :expenses => self.uses.collect{|p| p.expense.number}.to_sentence
     b.journal_entry(self.mode.cash.journal, :printed_on => self.to_bank_on, :unless => (!self.mode.with_accounting? or !self.delivered)) do |entry|
       entry.add_debit(label, self.payee.account(:supplier).id, supplier_amount) unless supplier_amount.zero?
       # entry.add_debit(label, self.payee.account(:attorney).id, attorney_amount) unless attorney_amount.zero?
       entry.add_credit(label, self.mode.cash.account_id, self.amount)
     end
-    # self.uses.first.reconciliate if self.uses.first
-  end
-
-  def currency
-    self.mode.cash.currency
   end
 
   def label

@@ -11,7 +11,7 @@
       -if @cash.bank_account?
         -l.attribute :bank_name
         -l.attribute :bank_agency_address
-        -l.attribute :iban_label
+        -l.attribute :spaced_iban
         -l.attribute :bank_identifier_code
         -if @cash.mode_bban?
           -l.attribute :bank_code

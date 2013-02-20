@@ -98,7 +98,7 @@ product_natures_001:
   created_at: 2009-07-19 19:13:59 +02:00
   creator_id: 1
   deliverable: true
-  depreciable: true
+  depreciable: false
   id: 1
   indivisible: true
   name: "Lorem ipsum 1"
@@ -106,9 +106,9 @@ product_natures_001:
   producible: true
   purchasable: true
   reductible: true
-  saleable: true
-  storable: true
-  subscribing: true
+  saleable: false
+  storable: false
+  subscribing: false
   traceable: true
   transferable: true
   unit_id: 1
@@ -134,7 +134,7 @@ product_natures_002:
   reductible: true
   saleable: true
   storable: true
-  subscribing: true
+  subscribing: false
   traceable: true
   transferable: true
   unit_id: 2
@@ -160,7 +160,7 @@ product_natures_003:
   reductible: true
   saleable: true
   storable: true
-  subscribing: true
+  subscribing: false
   traceable: true
   transferable: true
   unit_id: 1

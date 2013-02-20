@@ -5,7 +5,7 @@
   =f.input :description
 
 =field_set(:group) do
-  =nested_association(:memberships) do
+  =f.nested_association(:memberships) do
     =f.input :started_at
     =f.input :stopped_at
     =f.association :product

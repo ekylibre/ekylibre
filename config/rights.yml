@@ -307,8 +307,8 @@ consult_purchases:
 - "backend/purchases#index"
 - "backend/purchases#list"
 - "backend/purchases#list_deliveries"
-- "backend/purchases#list_lines" #?
-- "backend/purchases#list_undelivered_lines" #?
+- "backend/purchases#list_items"
+- "backend/purchases#list_undelivered_items"
 - "backend/purchases#show"
 
 # Consult the sales
@@ -522,8 +522,8 @@ manage_entities:
 - "backend/entity_addresses#edit"
 - "backend/entity_addresses#new"
 - "backend/entity_addresses#update"
-- "backend/interfacers#autocomplete_for_area_name"
-- "backend/interfacers#autocomplete_for_entity_origin"
+- "backend/interfacers#autocomplete_for_area_name" #?
+- "backend/interfacers#autocomplete_for_entity_origin" #?
 
 # Manage people natures
 manage_entities_natures:
@@ -609,7 +609,7 @@ manage_events:
 - "backend/events#list"
 - "backend/events#new"
 - "backend/events#update"
-- "backend/interfacers#autocomplete_for_event_location"
+- "backend/interfacers#autocomplete_for_event_location" #?
 
 # Manage and close financial years
 manage_financial_years:
@@ -755,9 +755,9 @@ manage_listings:
 # Manage mandates
 manage_mandates:
 - "backend/dashboards#relationship"
-- "backend/interfacers#autocomplete_for_mandate_family"
-- "backend/interfacers#autocomplete_for_mandate_organization"
-- "backend/interfacers#autocomplete_for_mandate_title"
+- "backend/interfacers#autocomplete_for_mandate_family" #?
+- "backend/interfacers#autocomplete_for_mandate_organization" #?
+- "backend/interfacers#autocomplete_for_mandate_title" #?
 - "backend/mandates#configure"
 - "backend/mandates#create"
 - "backend/mandates#destroy"
@@ -1051,7 +1051,6 @@ manage_warehouses:
 - "backend/warehouses#edit"
 - "backend/warehouses#index"
 - "backend/warehouses#list"
-- "backend/warehouses#list_product_moves" #?
 - "backend/warehouses#new"
 - "backend/warehouses#show"
 - "backend/warehouses#update"

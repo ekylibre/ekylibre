@@ -281,10 +281,10 @@ spa:
     backend/operation_natures: #?
     backend/operation_uses: #?
     backend/operations:
-      # edit: "Modifier le travail %{name}"
+      # edit: "Modifier le travail"
       # index: "Travaux"
       # new: "Créer un nouveau travail"
-      # show: "Détails du travail %{name}"
+      # show: "Détails du travail"
       # unvalidateds: "Travaux non validés"
     backend/outgoing_deliveries:
       edit: "Modificacion de la entrega"

@@ -139,13 +139,13 @@ class User < Ekylibre::Record::Base
   end
 
   def diff_more(right_markup = 'div', separator='')
-    return '<div>&infin;</div>'.html_safe if self.admin?
+    return '<div>&infin;</div>'.html_safe if self.administrator?
     (self.rights_array-self.role.rights_array).select{|x| self.class.rights_list.include?(x)}.collect{|x| "<#{right_markup}>"+::I18n.t("rights.#{x}")+"</#{right_markup}>"}.join(separator).html_safe
   end
 
 
   def diff_less(right_markup = 'div', separator='')
-    return '' if self.admin?
+    return '' if self.administrator?
     (self.role.rights_array-self.rights_array).select{|x| self.class.rights_list.include?(x)}.collect{|x| "<#{right_markup}>"+::I18n.t("rights.#{x}")+"</#{right_markup}>"}.join(separator).html_safe
   end
 
@@ -181,14 +181,14 @@ class User < Ekylibre::Record::Base
       message = tc(:no_right_defined_for_this_part_of_the_application, :controller => controller_name, :action => action_name)
     elsif (rights = self.class.rights[controller_name.to_sym][action_name.to_sym]).nil?
       message = tc(:no_right_defined_for_this_part_of_the_application, :controller => controller_name, :action => action_name)
-    elsif (rights & [:__minimum__, :__public__]).empty? and (rights_list & rights).empty? and not self.admin?
+    elsif (rights & [:__minimum__, :__public__]).empty? and (rights_list & rights).empty? and not self.administrator?
       message = tc(:no_right_defined_for_this_part_of_the_application_and_this_user)
     end
     return message
   end
 
   def can?(right)
-    self.admin? or self.rights.match(/(^|\s)#{right}(\s|$)/)
+    self.administrator? or self.rights.match(/(^|\s)#{right}(\s|$)/)
   end
 
   protect(:on => :destroy) do

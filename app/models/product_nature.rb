@@ -95,10 +95,10 @@ class ProductNature < Ekylibre::Record::Base
   validates_presence_of :subscription_nature,   :if => :subscribing?
   validates_presence_of :subscription_period,   :if => Proc.new{|u| u.subscribing? and u.subscription_nature and u.subscription_nature.period? }
   validates_presence_of :subscription_quantity, :if => Proc.new{|u| u.subscribing? and u.subscription_nature and u.subscription_nature.quantity? }
-  validates_presence_of :product_account,     :if => :saleable?
-  validates_presence_of :charge_account, :if => :purchasable?
-  validates_presence_of :stock_account, :if => :storable?
-  validates_presence_of :asset_account, :if => :depreciable?
+  validates_presence_of :product_account, :if => :saleable?
+  validates_presence_of :charge_account,  :if => :purchasable?
+  validates_presence_of :stock_account,   :if => :storable?
+  validates_presence_of :asset_account,   :if => :depreciable?
   validates_uniqueness_of :number
   validates_uniqueness_of :name
 

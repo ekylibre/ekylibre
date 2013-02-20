@@ -234,11 +234,4 @@ class Backend::InterfacersController < BackendController
   # # search_for(:subscription_addresses, :address, :columns => ['entity.code', 'entity.full_name', :address], :joins => [:entity], :conditions => ["deleted_at IS NULL"])
   # search_for(:suppliers_accounts, :accounts, :columns => [:number, :name], :conditions => ["number LIKE ?", ["Account.find_in_chart(:supplier_thirds).number.to_s+'%'"]])
   # search_for(:suppliers, :entities, :columns => [:code, :full_name], :conditions => {:supplier => true}, :order => "active DESC, last_name, first_name")
-
-  autocomplete_for(:entity, :origin)
-  autocomplete_for(:event, :location)
-  autocomplete_for(:mandate, :family)
-  autocomplete_for(:mandate, :organization)
-  autocomplete_for(:mandate, :title)
-  autocomplete_for(:area, :name)
 end

@@ -99,6 +99,7 @@ Ekylibre::Application.routes.draw do
     resources :areas do
       collection do
         get :list
+        get :autocomplete_for_name
         unroll_all
       end
     end
@@ -254,6 +255,7 @@ Ekylibre::Application.routes.draw do
     resources :events do
       collection do
         get :list
+        get :autocomplete_for_location
         get :change_minutes
         unroll_all
       end
@@ -387,6 +389,9 @@ Ekylibre::Application.routes.draw do
     resources :mandates do
       collection do
         get :list
+        get :autocomplete_for_family
+        get :autocomplete_for_organization
+        get :autocomplete_for_title
         unroll_all
         match "configure", :via => [:get, :post]
       end
@@ -719,7 +724,6 @@ Ekylibre::Application.routes.draw do
       collection do
         get :list
         get :list_products
-        get :list_product_moves
         unroll_all
       end
     end

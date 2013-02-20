@@ -1,5 +1,5 @@
 -if @rights.is_a? Array
-  -for right in Entity.rights_list.sort{|a,b| t("rights.#{a}")<=>t("rights.#{b}")}
+  -for right in User.rights_list.sort{|a,b| t("rights.#{a}")<=>t("rights.#{b}")}
     .control-group
       .controls
         =check_box_tag("rights[#{right}]", "1", @rights.include?(right.to_sym), :id => "rights-#{right}")

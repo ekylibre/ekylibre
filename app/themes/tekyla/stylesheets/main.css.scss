@@ -16,7 +16,7 @@ a:link, a:visited, a:focus { color: $link-color; text-decoration: none;}
 
 #top {
   margin-bottom: 0;
-  @include box-shadow(0 0 $fs-normal rgba(#000, 0.7));
+  @include box-shadow(0 0 $fs-normal rgba(#000, 0.4));
 }
 
 html {
@@ -163,6 +163,8 @@ ul.side-menu {
   line-height: round(1.4*$fs-small);
   @include text-align(center);
   padding: round(0.7*$fs-small);
+  color: rgba(#000,0.6);
+  @include text-shadow(1px 1px 1px #FFF);
 }
 
 
