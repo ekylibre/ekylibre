@@ -67,9 +67,7 @@ class Backend::BankStatementsController < BackendController
     return unless @bank_statement = find_and_check(:bank_statement)
     if request.post?
       # raise Exception.new(params[:journal_entry_item].inspect)
-      @bank_statement.items.clear
-      @bank_statement.item_ids = params[:journal_entry_item].select{|k, v| v[:checked]=="1" and JournalEntryItem.find_by_id(k)}.collect{|k, v| k.to_i}
-      if @bank_statement.save
+      if @bank_statement.point(params[:journal_entry_item].select{|k, v| v[:checked]=="1" and JournalEntryItem.find_by_id(k)}.collect{|k, v| k.to_i})
         redirect_to :action => :index
         return
       end

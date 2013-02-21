@@ -519,7 +519,7 @@ class BackendController < BaseController
     record_name = name.to_s.singularize
     model = name.to_s.classify.constantize
 
-    # url = "#{record_name}_url(@#{record_name})" if url.blank?
+    url = "backend_#{record_name}_url(@#{record_name})" if url.blank?
 
     # if url.blank?
     #   named_url = "#{record_name}_url"
