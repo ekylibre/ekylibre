@@ -608,7 +608,7 @@ module ApplicationHelper
   def title_tag
     r = [] # reverse_menus
     title = if @current_user
-              code = URI::parse(request.url).host.split(".")[-3].to_s
+              code = URI::parse(request.url).host # .split(".")[-3].to_s
               if r.empty?
                 tc(:page_title_special, :company_code => code, :action => controller.human_action_name)
               else
@@ -1494,7 +1494,7 @@ module ApplicationHelper
       return nil
     else
       @object_of_current_field_set = args[-1]
-      return content_tag(:div, content_tag(:div, content_tag(:span, "", :class => :icon) + content_tag(:span, (name.is_a?(Symbol) ? name.to_s.gsub('-', '_').t(:default => ["labels.#{name.to_s.gsub('-', '_')}".to_sym, "form.legends.#{name.to_s.gsub('-', '_')}".to_sym]) : name.to_s)), :class => "fieldset-legend") + content_tag(:div, capture(&block), :class => "fieldset-fields"), :class => "fieldset")
+      return content_tag(:div, content_tag(:div, content_tag(:span, "", :class => :icon) + content_tag(:span, (name.is_a?(Symbol) ? name.to_s.gsub('-', '_').t(:default => ["labels.#{name.to_s.gsub('-', '_')}".to_sym, "form.legends.#{name.to_s.gsub('-', '_')}".to_sym]) : name.to_s)), :class => "fieldset-legend") + content_tag(:div, capture(&block), :class => "fieldset-fields"), :class => "fieldset", :id => "#{name}-fieldset")
     end
   end
 

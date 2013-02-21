@@ -27,7 +27,6 @@ class Backend::ProductVarietiesController < BackendController
     t.column :name, :through=>:parent, :url=>true
     t.column :description
     t.column :code
-    t.column :description
     t.action :show, :url => {:format => :pdf}, :image => :print
     t.action :edit
     t.action :destroy, :if => :destroyable?

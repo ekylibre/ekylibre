@@ -519,17 +519,20 @@ class BackendController < BaseController
     record_name = name.to_s.singularize
     model = name.to_s.classify.constantize
 
-    # url = "#{record_name}_url(@#{record_name})" if url.blank?
+    aname = absolute_controller_name.underscore
+    base_url = aname.gsub(/\//, "_")
 
-    # if url.blank?
-    #   named_url = "#{record_name}_url"
-    #   if respond_to?(named_url)
-    #     url = named_url+"(@#{record_name})"
-    #   elsif
-    #     named_url = "#{record_name.pluralize}_url"
-    #     url = named_url if respond_to?(named_url)
-    #   end
-    # end
+    # url = base_url.singularize + "_url(@#{record_name})" if url.blank?
+
+    if url.blank?
+      named_url = base_url.singularize + "_url"
+      if defined?(named_url.to_sym)
+        url = "{:controller => :'#{aname}', :action => :show, :id => 'id'}"
+      else
+        named_url = base_url + "_url"
+        url = named_url if defined?(named_url.to_sym)
+      end
+    end
 
 
     render_form_options = []
@@ -563,7 +566,7 @@ class BackendController < BaseController
     code << "def create\n"
     code << "  @#{record_name} = #{model.name}.new(params[:#{record_name}])\n"
     # code << "  @#{record_name}.save!\n"
-    code << "  return if save_and_redirect(@#{record_name}#{',  :url => '+url if url})\n"
+    code << "  return if save_and_redirect(@#{record_name}#{', :url => '+url if url})\n"
     code << "  #{render_form}\n"
     code << "end\n"
 
@@ -600,7 +603,7 @@ class BackendController < BaseController
     code << "  #{durl ? 'redirect_to '+durl : 'redirect_to_current'}\n"
     code << "end\n"
 
-    # code.split("\n").each_with_index{|l, x| puts((x+1).to_s.rjust(4)+": "+l)}
+    code.split("\n").each_with_index{|l, x| puts((x+1).to_s.rjust(4)+": "+l)}
     unless Rails.env.production?
       file = Rails.root.join("tmp", "auto-rest", "manage-restfully-#{controller_name}.rb")
       FileUtils.mkdir_p(file.dirname)
