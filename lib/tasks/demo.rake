@@ -64,7 +64,7 @@ namespace :db do
       fy = FinancialYear.first
       fy.started_on = Date.civil(2000,1,1)
       fy.stopped_on = Date.civil(2000,12,31)
-      fy.name = "EX2000"
+      fy.code = "EX2000"
       fy.save!
       en_org = EntityNature.where(:gender => :undefined).first
       
@@ -98,7 +98,8 @@ namespace :db do
             f = File.open(picture_undefined)
             entity = Entity.create!(:last_name => r.entity_name, :nature_id => en_org.id, :supplier_account_id => r.account_id, :picture => f)
             f.close
-            
+            entity.addresses.create!(:canal => :email, :coordinate => r.entity_name.parameterize + "@" + r.entity_name.parameterize + "." + ["fr", "com", "org", "eu"].sample)
+            entity.addresses.create!(:canal => :phone, :coordinate => "+33" + rand(10).to_s + rand(10).to_s + rand(10).to_s + rand(10).to_s + rand(10).to_s + rand(10).to_s + rand(10).to_s + rand(10).to_s + rand(10).to_s)
           end
         end
         if r.account.number.match(/^411/)
@@ -106,16 +107,45 @@ namespace :db do
             f = File.open(picture_undefined)
             entity = Entity.create!(:last_name => r.entity_name, :nature_id => en_org.id, :client_account_id => r.account_id, :picture => f)
             f.close
+            entity.addresses.create!(:canal => :email, :coordinate => r.entity_name.parameterize + "@" + r.entity_name.parameterize + "." + ["fr", "com", "org", "eu"].sample)
+            entity.addresses.create!(:canal => :phone, :coordinate => "+33" + rand(10).to_s + rand(10).to_s + rand(10).to_s + rand(10).to_s + rand(10).to_s + rand(10).to_s + rand(10).to_s + rand(10).to_s + rand(10).to_s)
           end
         end
 
         print "."
       end
 
-
       # Import synel
+      v = ProductVariety.find_by_code("cattle")
+      p = ProductVariety.find_by_code("animal")
+      v ||= ProductVariety.create!(:name => "Bovin", :code => "cattle", :product_type => "Animal", :parent_id => (p ? p.id : nil))
+      unit = Unit.find_by_base("")
+      category = ProductNatureCategory.first
+      category ||= ProductNatureCategory.create!(:name => "Défaut")
+      cow = ProductNature.find_by_number("CATTLE")
+      cow ||= ProductNature.create!(:name => "Bovin", :number => "CATTLE", :alive => true, :indivisible => true, :variety_id => v.id, :unit_id => unit.id, :category_id => category.id)
+      file = Rails.root.join("test", "fixtures", "files", "animals-synel17.csv")
+      pictures = Dir.glob(Rails.root.join("test", "fixtures", "files", "animals", "*.jpg"))
+      CSV.foreach(file, :encoding => "CP1252", :col_sep => ";", :headers => true) do |row|
+        next if row[4].blank?
+        r = OpenStruct.new(:country => row[0],
+                           :identification_number => row[1],
+                           :work_number => row[2],
+                           :name => (row[3].blank? ? Faker::Name.first_name : row[3].capitalize),
+                           :born_on => (row[4].blank? ? nil : Date.civil(*row[4].to_s.split(/\//).reverse.map(&:to_i))),
+                           :corabo => row[5],
+                           :sex => (row[6] == "F" ? :female : :male),
+                           :arrival_reason => row[7],
+                           :arrived_on => (row[8].blank? ? nil : Date.civil(*row[8].to_s.split(/\//).reverse.map(&:to_i))),
+                           :departure_reason => row[9],
+                           :departed_on => (row[10].blank? ? nil : Date.civil(*row[10].to_s.split(/\//).reverse.map(&:to_i)))
+                           )
+        f = File.open(pictures.sample)
+        Animal.create!(:name => r.name, :identification_number => r.identification_number, :work_number => r.work_number, :born_at => r.born_on.to_time, :sex => r.sex, :picture => f, :nature_id => cow.id, :number => r.work_number, :owner_id => Entity.of_company.id)
+        f.close
+        print "c"
+      end
 
-      
       puts "!"
     end
   end

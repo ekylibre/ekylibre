@@ -603,7 +603,7 @@ class BackendController < BaseController
     code << "  #{durl ? 'redirect_to '+durl : 'redirect_to_current'}\n"
     code << "end\n"
 
-    code.split("\n").each_with_index{|l, x| puts((x+1).to_s.rjust(4)+": "+l)}
+    # code.split("\n").each_with_index{|l, x| puts((x+1).to_s.rjust(4)+": "+l)}
     unless Rails.env.production?
       file = Rails.root.join("tmp", "auto-rest", "manage-restfully-#{controller_name}.rb")
       FileUtils.mkdir_p(file.dirname)

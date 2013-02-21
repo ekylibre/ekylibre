@@ -26,6 +26,8 @@ gem 'enumerize'
 gem 'nokogiri'
 gem 'turbolinks'
 gem 'devise'
+gem 'rgeo-shapefile'
+gem 'ffaker'
 
 
 # Reporting
