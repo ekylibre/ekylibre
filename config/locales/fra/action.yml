@@ -331,7 +331,7 @@ fra:
     backend/product_varieties:
       edit: "Modifier la variété\_: %{name} "
       index: "Variétés"
-      new: "Créer une variétés"
+      new: "Créer une variété"
       show: "Variété\_: %{name}"
     backend/production_chain_conveyors:
       edit: "Mettre à jour le convoyeur (%{source_id}-%{target_id})"

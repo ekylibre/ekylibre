@@ -124,12 +124,12 @@ class Entity < Ekylibre::Record::Base
   has_many :waiting_deliveries, :class_name => "OutgoingDelivery", :foreign_key => :transporter_id, :conditions => ["moved_on IS NULL AND planned_on <= CURRENT_DATE"]
   has_one :default_mail_address, :class_name => "EntityAddress", :conditions => {:by_default => true, :canal => :mail}
   has_attached_file :picture, {
-    :url => '/backend/:class/:attachment/:id/:style.:extension',
+    :url => '/backend/:class/:id/picture/:style',
     :path => ':rails_root/private/:class/:attachment/:id_partition/:style.:extension',
     :styles => {
       :thumb => ["64x64#", :jpg],
-      :identity => ["200x300#", :jpg],
-      :large => ["400x600#", :jpg]
+      :identity => ["140x180#", :jpg],
+      :large => ["490x630#", :jpg]
     }
   }
 

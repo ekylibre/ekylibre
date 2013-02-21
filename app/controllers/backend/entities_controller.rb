@@ -18,6 +18,7 @@
 #
 
 class Backend::EntitiesController < BackendController
+  manage_restfully
 
   unroll_all
 
@@ -171,7 +172,12 @@ class Backend::EntitiesController < BackendController
   end
 
 
-  manage_restfully
+  def picture
+    return unless @entity = find_and_check
+    send_file @entity.picture.path(params[:style] || :original)
+  end
+
+
 
   # def new
   #   @custom_fields = CustomField.actives

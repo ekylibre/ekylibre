@@ -220,6 +220,9 @@ Ekylibre::Application.routes.draw do
         match "export", :via => [:get, :post]
         match "merge", :via => [:get, :post]
       end
+      member do
+        match "picture(/:style)", :via => :get, :action => :picture, :as => :picture
+      end
     end
     resources :entity_addresses, :except => [:index, :show] do
       collection do

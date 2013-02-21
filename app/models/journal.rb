@@ -228,41 +228,41 @@ class Journal < Ekylibre::Record::Base
     # Total
     items = []
     query  = "SELECT '', -1, sum(COALESCE(#{journal_entry_items}.debit, 0)), sum(COALESCE(#{journal_entry_items}.credit, 0)), sum(COALESCE(#{journal_entry_items}.debit, 0)) - sum(COALESCE(#{journal_entry_items}.credit, 0)), '#{'Z'*16}' AS skey"
-    query += from_where
-    query += journal_entries_states
-    query += account_range
+    query << from_where
+    query << journal_entries_states
+    query << account_range
     items += conn.select_rows(query)
 
     # Sub-totals
     for name, value in options.select{|k, v| k.to_s.match(/^level_\d+$/) and v.to_i == 1}
       level = name.split(/\_/)[-1].to_i
       query  = "SELECT #{conn.substr(accounts+'.number', 1, level)} AS subtotal, -2, sum(COALESCE(#{journal_entry_items}.debit, 0)), sum(COALESCE(#{journal_entry_items}.credit, 0)), sum(COALESCE(#{journal_entry_items}.debit, 0)) - sum(COALESCE(#{journal_entry_items}.credit, 0)), #{conn.substr(accounts+'.number', 1, level)}||'#{'Z'*(16-level)}' AS skey"
-      query += from_where
-      query += journal_entries_states
-      query += account_range
-      query += " AND #{conn.length(accounts+'.number')} >= #{level}"
-      query += " GROUP BY subtotal"
+      query << from_where
+      query << journal_entries_states
+      query << account_range
+      query << " AND #{conn.length(accounts+'.number')} >= #{level}"
+      query << " GROUP BY subtotal"
       items += conn.select_rows(query)
     end
 
     # NOT centralized accounts (default)
     query  = "SELECT #{accounts}.number, #{accounts}.id AS account_id, sum(COALESCE(#{journal_entry_items}.debit, 0)), sum(COALESCE(#{journal_entry_items}.credit, 0)), sum(COALESCE(#{journal_entry_items}.debit, 0)) - sum(COALESCE(#{journal_entry_items}.credit, 0)), #{accounts}.number AS skey"
-    query += from_where
-    query += journal_entries_states
-    query += account_range
-    query += " AND #{conn.not_boolean(centralized)}" unless centralize.empty?
-    query += " GROUP BY #{accounts}.id, #{accounts}.number"
-    query += " ORDER BY #{accounts}.number"
+    query << from_where
+    query << journal_entries_states
+    query << account_range
+    query << " AND #{conn.not_boolean(centralized)}" unless centralize.empty?
+    query << " GROUP BY #{accounts}.id, #{accounts}.number"
+    query << " ORDER BY #{accounts}.number"
     items += conn.select_rows(query)
 
     # Centralized accounts
     for prefix in centralize
       query  = "SELECT #{conn.substr(accounts+'.number', 1, prefix.size)} AS centralize, -3, sum(COALESCE(#{journal_entry_items}.debit, 0)), sum(COALESCE(#{journal_entry_items}.credit, 0)), sum(COALESCE(#{journal_entry_items}.debit, 0)) - sum(COALESCE(#{journal_entry_items}.credit, 0)), #{conn.quote(prefix)} AS skey"
-      query += from_where
-      query += journal_entries_states
-      query += account_range
-      query += " AND #{accounts}.number LIKE #{conn.quote(prefix+'%')}"
-      query += " GROUP BY centralize"
+      query << from_where
+      query << journal_entries_states
+      query << account_range
+      query << " AND #{accounts}.number LIKE #{conn.quote(prefix+'%')}"
+      query << " GROUP BY centralize"
       items += conn.select_rows(query)
     end
 
