@@ -519,17 +519,17 @@ class BackendController < BaseController
     record_name = name.to_s.singularize
     model = name.to_s.classify.constantize
 
-    url = "backend_#{record_name}_url(@#{record_name})" if url.blank?
+    # url = "backend_#{record_name}_url(@#{record_name})" if url.blank?
 
-    # if url.blank?
-    #   named_url = "#{record_name}_url"
-    #   if respond_to?(named_url)
-    #     url = named_url+"(@#{record_name})"
-    #   elsif
-    #     named_url = "#{record_name.pluralize}_url"
-    #     url = named_url if respond_to?(named_url)
-    #   end
-    # end
+    if url.blank?
+      named_url = "backend_#{record_name}_url"
+      if respond_to?(named_url)
+        url = named_url+"(@#{record_name})"
+      elsif
+        named_url = "backend_#{record_name.pluralize}_url"
+        url = named_url if respond_to?(named_url)
+      end
+    end
 
 
     render_form_options = []
