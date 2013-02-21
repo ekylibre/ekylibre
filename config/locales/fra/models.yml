@@ -463,7 +463,7 @@ fra:
     # charge_account: "Charge account"
     charges_account: "Compte de charge"
     charges_accounts: "Comptes de charge" #?
-    check_number: "N°Chèque" #?
+    bank_check_number: "N°Chèque" #?
     check_state: "Vérifier l’état"
     chidren: "Chidren" #?
     child_kinships: "Relation enfant" #?

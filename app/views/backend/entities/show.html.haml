@@ -6,8 +6,9 @@
 
 =beehive do |b|
   -b.tabbox do
-    -if @entity.addresses.count > 0
+    -if @entity.addresses.count > 0 or @entity.picture
       -b.cell :coordinates do
+        .picture=image_tag(@entity.picture.url(:identity))
         -for address in @entity.addresses.order(:canal, :by_default)
           .topo-coordinate
             %span.canal-label{:class => "canal-"+address.canal.to_s}=address.canal.text

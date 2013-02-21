@@ -50,5 +50,10 @@ class ProductVariety < Ekylibre::Record::Base
   validates_inclusion_of :automatic, :in => [true, false]
   validates_presence_of :depth, :name, :product_type
   #]VALIDATORS]
-   validates_uniqueness_of :name
+  validates_uniqueness_of :name, :code
+
+  before_validation do
+    self.code = self.name.parameterize
+  end
+
 end
