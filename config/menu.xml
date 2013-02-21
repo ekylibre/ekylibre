@@ -707,6 +707,18 @@
         <page to="backend/product_nature_categories#show"/>
         <page to="backend/product_nature_categories#update"/>
       </menu>
+      <menu name="product_varieties">
+        <page to="backend/product_varieties#index"/>
+        <page to="backend/product_varieties#create"/>
+        <page to="backend/product_varieties#destroy"/>
+        <page to="backend/product_varieties#edit"/>
+        <page to="backend/product_varieties#export"/>
+        <page to="backend/product_varieties#find"/>
+        <page to="backend/product_varieties#import"/>
+        <page to="backend/product_varieties#list"/>
+        <page to="backend/product_varieties#new"/>
+        <page to="backend/product_varieties#update"/>
+      </menu>
       <menu name="product_nature_prices">
         <page to="backend/product_nature_prices#index"/>
         <page to="backend/product_nature_prices#create"/>

@@ -39,7 +39,7 @@
 
 
 class ProductVariety < Ekylibre::Record::Base
-  attr_accessible :name, :code, :description, :description, :parent_id
+  attr_accessible :name, :code, :description, :parent_id, :automatic, :product_type, :depth
   has_many :products, :foreign_key => :variety_id
   has_many :processes, :class_name => "ProductProcess", :foreign_key => :variety_id
   # has_many :posologies, :class_name => "AnimalPosology", :foreign_key => :animal_race_id
