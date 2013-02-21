@@ -301,12 +301,12 @@ fra:
       new: "Ajout d’une nouvelle catégorie de produits"
       show: "Détail de la catégorie\_: %{name}"
     backend/product_nature_prices:
-      # edit: "Edit backend/product nature price"
-      # export: "Export backend/product nature price"
-      # find: "Find backend/product nature price"
-      # import: "Import backend/product nature price"
-      # index: "Index backend/product nature price"
-      # new: "New backend/product nature price"
+      edit: "Modifier le tarif de %{product_nature}"
+      export: "Exporter des tarifs"
+      find: "Trouver un tarif"
+      import: "Importer des tarifs"
+      index: "Tarifs"
+      new: "Nouveau tarif"
     backend/product_natures:
       edit: "Modifier le type de produit\_: %{name}"
       index: "Type de produit"
@@ -349,8 +349,8 @@ fra:
     backend/products:
       edit: "Modifier un produit"
       index: "Produits"
-      new: "Créer un produits"
-      show: "produit\_: %{name}" #?
+      new: "Créer un produit"
+      show: "Produit\_: %{name}" #?
     backend/professions:
       edit: "Modifier la profession\_: %{name}"
       index: "Professions"
@@ -1183,11 +1183,6 @@ fra:
     product_category: "Produits"
     product_category_update: "Modifier la catégorie"
     product_name: "Produit"
-    product_tabbox:
-      components: "Composants"
-      prices: "Prix"
-      stock_moves: "Mouvements de stock"
-      stocks: "Stocks"
     product_update: "Modifier la fiche du produit"
     production: "Gestion de la production"
     productions: "Productions"

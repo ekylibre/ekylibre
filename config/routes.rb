@@ -495,7 +495,7 @@ Ekylibre::Application.routes.draw do
       collection do
         get :change_quantities
         get :list
-        get :list_product_nature_prices
+        get :list_prices
         get :list_products
         get :list_product_moves
         unroll_all

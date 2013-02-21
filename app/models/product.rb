@@ -70,6 +70,7 @@
 
 
 class Product < Ekylibre::Record::Base
+  attr_accessible :nature_id
   belongs_to :nature, :class_name => "ProductNature"
   belongs_to :variety, :class_name => "ProductVariety"
   belongs_to :unit
