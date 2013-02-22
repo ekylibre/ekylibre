@@ -34,10 +34,11 @@
 
 
       .cell-content {
-        padding: $cell-title-vertical-padding $cell-title-horizontal-padding;
+        padding: $cell-title-vertical-padding $cell-title-vertical-padding; /*$cell-title-horizontal-padding;*/
         border: $cell-border;
         border-top: none;
         background: #FFFFFF;
+        @include clearfix;
       }
     }
 

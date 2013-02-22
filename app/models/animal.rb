@@ -91,7 +91,7 @@ class Animal < Bioproduct
   validates_presence_of :content_maximal_quantity, :maximal_quantity, :minimal_quantity, :name, :nature, :number, :real_quantity, :unit, :variety, :virtual_quantity
   #]VALIDATORS]
 
-  validates_uniqueness_of :name, :identification_number
+  validates_uniqueness_of :identification_number # :name, 
   validates_inclusion_of :sex, :in => self.sex.values
 
   default_scope -> { order(:name) }

@@ -33,7 +33,7 @@ class Backend::AnimalsController < BackendController
     t.column :name, :through => :father, :url => true
     t.action :show, :url => {:format => :pdf}, :image => :print
     t.action :edit
-    t.action :destroy, :if => "RECORD.destroyable\?"
+    t.action :destroy, :if => :destroyable?
   end
 
   # Show a list of animal groups
@@ -65,6 +65,11 @@ class Backend::AnimalsController < BackendController
       format.xml {render xml: @animal, :include => [:father, :mother]}
       format.pdf {respond_with @animal, :include => [:father, :mother]}
     end
+  end
+
+  def picture
+    return unless @animal = find_and_check
+    send_file @animal.picture.path(params[:style] || :original)
   end
 
 end

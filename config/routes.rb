@@ -94,6 +94,9 @@ Ekylibre::Application.routes.draw do
         get :list_children
         unroll_all
       end
+      member do
+        match "picture(/:style)", :via => :get, :action => :picture, :as => :picture
+      end
     end
     resources :affairs
     resources :areas do
