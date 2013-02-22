@@ -360,7 +360,13 @@ arb:
     backend/product_nature_components:  #?
       edit: "تعديل عنصر المنتج %{product} " #?
       new: "اضافة عنصر الى المنتج %{product} " #?
-    backend/product_nature_prices: #?
+    backend/product_nature_prices:
+      # edit: "Modifier le tarif de %{product_nature}"
+      # export: "Exporter des tarifs"
+      # find: "Trouver un tarif"
+      # import: "Importer des tarifs"
+      # index: "Tarifs"
+      # new: "Nouveau tarif"
     backend/product_natures:
       edit: "تعديل المنتج : %{name}"
       index: "المنتجات"
@@ -383,7 +389,7 @@ arb:
     backend/product_varieties:
       # edit: "Modifier la variété\_: %{name} "
       # index: "Variétés"
-      # new: "Créer une variétés"
+      # new: "Créer une variété"
       # show: "Variété\_: %{name}"
     backend/production:  #?
       index: "ادارة الانتاج" #?
@@ -1342,11 +1348,7 @@ arb:
     product_component_create: "اضافة عنصر للمنتج" #?
     product_create: "اضافة منتج جديد" #?
     product_name: "المنتج"
-    product_tabbox:
-      # components: "Composants"
-      # prices: "Prix"
-      # stock_moves: "Mouvements de stock"
-      # stocks: "Stocks"
+    product_tabbox: #?
     product_update: "تعديل تفاصيل المنتج"
     production: "ادارة الانتاج"
     productions: "المنتجات"
@@ -1492,6 +1494,7 @@ arb:
     sequences_load: "تحميل التسلسلات المفقودة"
     # set_reconcilable_new_but_existing_third_accounts: "Rendre lettrables les nouveaux comptes tiers déjà existants"
     ship: "بشريطة"
+    # show: "Afficher"
     simplified: "نظام واقعي مبسط"
     source: "مصدر البيانات"
     start: "ابتداء من"

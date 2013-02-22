@@ -339,7 +339,13 @@ spa:
       # new: "Ajout d’une nouvelle catégorie de produits"
       # show: "Détail de la catégorie\_: %{name}"
     backend/product_nature_components: #?
-    backend/product_nature_prices: #?
+    backend/product_nature_prices:
+      # edit: "Modifier le tarif de %{product_nature}"
+      # export: "Exporter des tarifs"
+      # find: "Trouver un tarif"
+      # import: "Importer des tarifs"
+      # index: "Tarifs"
+      # new: "Nouveau tarif"
     backend/product_natures:
       # edit: "Modifier le type de produit\_: %{name}"
       # index: "Type de produit"
@@ -359,7 +365,7 @@ spa:
     backend/product_varieties:
       # edit: "Modifier la variété\_: %{name} "
       # index: "Variétés"
-      # new: "Créer une variétés"
+      # new: "Créer une variété"
       # show: "Variété\_: %{name}"
     backend/production_chain_conveyors:
       # edit: "Mettre à jour le convoyeur (%{source_id}-%{target_id})"
@@ -378,8 +384,8 @@ spa:
     backend/products:
       # edit: "Modifier un produit"
       # index: "Produits"
-      # new: "Créer un produits"
-      # show: "produit\_: %{name}"
+      # new: "Créer un produit"
+      # show: "Produit\_: %{name}"
     backend/professions:
       # edit: "Modifier la profession\_: %{name}"
       # index: "Professions"
@@ -1226,11 +1232,7 @@ spa:
     # product_category: "Produits"
     # product_category_update: "Modifier la catégorie"
     # product_name: "Produit"
-    product_tabbox:
-      # components: "Composants"
-      # prices: "Prix"
-      # stock_moves: "Mouvements de stock"
-      # stocks: "Stocks"
+    product_tabbox: #?
     # product_update: "Modifier la fiche du produit"
     production: "Administración de la producción"
     # productions: "Productions"
@@ -1364,6 +1366,7 @@ spa:
     # set_reconcilable_new_but_existing_third_accounts: "Rendre lettrables les nouveaux comptes tiers déjà existants"
     shelf: "Categoria" #?
     # ship: "Prévue le"
+    # show: "Afficher"
     simplified: "Regimen del real simplificado"
     source: "Fuente de datos"
     start: "Del"

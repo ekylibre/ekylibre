@@ -47,14 +47,14 @@ namespace :db do
         "105" => "COUT FISC CULT N-1 TERRE",
         "106" => "COUT ECO CULT N-1 TERRE"
       }
-      
+
       fy = FinancialYear.first
       fy.started_on = Date.civil(2000,1,1)
       fy.stopped_on = Date.civil(2000,12,31)
       fy.code = "EX2000"
       fy.save!
       en_org = EntityNature.where(:gender => :undefined).first
-      
+
       CSV.foreach(file, :encoding => "CP1252", :col_sep => ";") do |row|
         jname = (journals[row[1]] || row[1]).capitalize
         r = OpenStruct.new(:account => Account.get(row[0]),
@@ -70,8 +70,8 @@ namespace :db do
                            :comment => row[10],
                            :letter => row[11],
                            :what_on => row[12])
-        
-        
+
+
         fy = FinancialYear.at(r.printed_on)
         unless entry = JournalEntry.find_by_journal_id_and_number(r.journal.id, r.entry_number)
           number = r.entry_number.to_s.gsub(/[^A-Z0-9]/, '')
@@ -81,18 +81,18 @@ namespace :db do
         column = (r.debit.zero? ? :credit : :debit)
         entry.send("add_#{column}", r.entry_name, r.account, r.send(column))
         if r.account.number.match(/^401/)
-          unless Entity.find_by_supplier_account_id(r.account.id)
+          unless Entity.find_by_origin(r.entity_name)
             f = File.open(picture_undefined)
-            entity = Entity.create!(:last_name => r.entity_name.mb_chars.capitalize, :nature_id => en_org.id, :supplier_account_id => r.account_id, :picture => f)
+            entity = Entity.create!(:last_name => r.entity_name.mb_chars.capitalize, :nature_id => en_org.id, :supplier_account_id => r.account_id, :picture => f, :origin => r.entity_name)
             f.close
             entity.addresses.create!(:canal => :email, :coordinate => ["contact", "info", r.entity_name.parameterize].sample + "@" + r.entity_name.parameterize + "." + ["fr", "com", "org", "eu"].sample)
             entity.addresses.create!(:canal => :phone, :coordinate => "+33" + rand(10).to_s + rand(10).to_s + rand(10).to_s + rand(10).to_s + rand(10).to_s + rand(10).to_s + rand(10).to_s + rand(10).to_s + rand(10).to_s)
           end
         end
         if r.account.number.match(/^411/)
-          unless Entity.find_by_client_account_id(r.account.id)
+          unless Entity.find_by_origin(r.entity_name)
             f = File.open(picture_undefined)
-            entity = Entity.create!(:last_name => r.entity_name.mb_chars.capitalize, :nature_id => en_org.id, :client_account_id => r.account_id, :picture => f)
+            entity = Entity.create!(:last_name => r.entity_name.mb_chars.capitalize, :nature_id => en_org.id, :client_account_id => r.account_id, :picture => f, :origin => r.entity_name)
             f.close
             entity.addresses.create!(:canal => :email, :coordinate => ["contact", "info", r.entity_name.parameterize].sample + "@" + r.entity_name.parameterize + "." + ["fr", "com", "org", "eu"].sample)
             entity.addresses.create!(:canal => :phone, :coordinate => "+33" + rand(10).to_s + rand(10).to_s + rand(10).to_s + rand(10).to_s + rand(10).to_s + rand(10).to_s + rand(10).to_s + rand(10).to_s + rand(10).to_s)
@@ -134,18 +134,25 @@ namespace :db do
       end
 
       # Import shapefile
-      # RGeo::Shapefile::Reader.open(Rails.root.join("test", "fixtures", "files", "land_parcels-shapefile.shp").to_s) do |file|
-      #   puts "File contains #{file.num_records} records."
-      #   file.each do |record|
-      #     puts "Record number #{record.index}:"
-      #     puts "  Geometry: #{record.geometry.as_text}"
-      #     puts "  Attributes: #{record.attributes.inspect}"
-      #   end
-      #   file.rewind
-      #   record = file.next
-      #   puts "First record geometry was: #{record.geometry.as_text}"
-      # end
-      
+      v = ProductVariety.find_by_code("land_parcel")
+      p = ProductVariety.find_by_code("place")
+      v ||= ProductVariety.create!(:name => "Parcelle", :code => "land_parcel", :product_type => "LandParcel", :parent_id => (p ? p.id : nil))
+      unit = Unit.get(:m2)
+      category = ProductNatureCategory.first
+      category ||= ProductNatureCategory.create!(:name => "Défaut")
+      land_parcel = ProductNature.find_by_number("LANDPARCEL")
+      land_parcel ||= ProductNature.create!(:name => "Parcelle", :number => "LANDPARCEL", :variety_id => v.id, :unit_id => unit.id, :category_id => category.id)
+      RGeo::Shapefile::Reader.open(Rails.root.join("test", "fixtures", "files", "land_parcels-shapefile.shp").to_s) do |file|
+        # puts "File contains #{file.num_records} records."
+        file.each do |record|
+          LandParcel.create!(:shape => record.geometry, :name => Faker::Name.first_name, :number => record.attributes['PACAGE'].to_s + record.attributes['CAMPAGNE'].to_s + record.attributes['NUMERO'].to_s, :born_at => Date.civil(2000,1,1), :nature_id => land_parcel.id, :owner_id => Entity.of_company.id)
+          # puts "Record number #{record.index}:"
+          # puts "  Geometry: #{record.geometry.as_text}"
+          # puts "  Attributes: #{record.attributes.inspect}"
+          print "p"
+        end
+      end
+
       puts "!"
     end
   end

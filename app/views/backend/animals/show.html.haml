@@ -7,7 +7,7 @@
   -b.cell :details do
     -if @animal.picture.exists?
       .picture=image_tag(@animal.picture.url(:identity))
-  
+
     =attributes_list(@animal) do |l| # liste des champs à afficher
       -l.attribute :name
       -l.attribute :variety, :url => true

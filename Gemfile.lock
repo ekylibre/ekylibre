@@ -331,7 +331,7 @@ DEPENDENCIES
   exception_notification
   fastercsv
   ffaker
-  formize (~> 1.0)
+  formize (~> 1.0.0)
   foundation-icons-sass-rails
   haml
   i18n-complements
@@ -342,7 +342,7 @@ DEPENDENCIES
   oily_png
   paperclip
   pg
-  prawn (>= 0.10.0)
+  prawn (~> 0.12.0)
   pry
   quiet_assets
   rack-mini-profiler
