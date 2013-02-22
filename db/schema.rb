@@ -1498,12 +1498,14 @@ ActiveRecord::Schema.define(:version => 20130216134641) do
   add_index "product_indicators", ["updater_id"], :name => "index_product_indicators_on_updater_id"
 
   create_table "product_localizations", :force => true do |t|
-    t.integer  "transfer_id",                 :null => false
+    t.integer  "transfer_id"
     t.integer  "product_id",                  :null => false
     t.integer  "container_id"
-    t.string   "nature",                      :null => false
+    t.string   "nature"
+    t.string   "arrival_reason"
+    t.string   "departure_reason"
     t.datetime "started_at",                  :null => false
-    t.datetime "stopped_at",                  :null => false
+    t.datetime "stopped_at"
     t.datetime "created_at",                  :null => false
     t.datetime "updated_at",                  :null => false
     t.integer  "creator_id"

@@ -135,5 +135,9 @@ class AddMissingIndexes < ActiveRecord::Migration
     add_index :users, :department_id
     add_index :users, :establishment_id
     add_index :users, :profession_id
+    add_column :product_localizations, :arrival_reason, :string
+    add_column :product_localizations, :departure_reason, :string
+    change_column_null :product_localizations, :transfer_id, true
+    change_column_null :product_localizations, :stopped_at, true
   end
 end
