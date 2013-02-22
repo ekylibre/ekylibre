@@ -45,7 +45,7 @@
 class DocumentTemplate < Ekylibre::Record::Base
   # Be careful! :id is a forbidden name for parameters
   @@document_natures = {
-    :animal =>           [ [:animal, Product]],
+    :animal =>           [ [:animal, Animal]],
     :balance_sheet =>    [ [:financial_year, FinancialYear] ],
     :entity =>           [ [:entity, Entity] ],
     :deposit =>          [ [:deposit, Deposit] ],

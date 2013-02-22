@@ -96,18 +96,18 @@ namespace :db do
         if r.account.number.match(/^401/)
           unless Entity.find_by_supplier_account_id(r.account.id)
             f = File.open(picture_undefined)
-            entity = Entity.create!(:last_name => r.entity_name, :nature_id => en_org.id, :supplier_account_id => r.account_id, :picture => f)
+            entity = Entity.create!(:last_name => r.entity_name.mb_chars.capitalize, :nature_id => en_org.id, :supplier_account_id => r.account_id, :picture => f)
             f.close
-            entity.addresses.create!(:canal => :email, :coordinate => r.entity_name.parameterize + "@" + r.entity_name.parameterize + "." + ["fr", "com", "org", "eu"].sample)
+            entity.addresses.create!(:canal => :email, :coordinate => ["contact", "info", r.entity_name.parameterize].sample + "@" + r.entity_name.parameterize + "." + ["fr", "com", "org", "eu"].sample)
             entity.addresses.create!(:canal => :phone, :coordinate => "+33" + rand(10).to_s + rand(10).to_s + rand(10).to_s + rand(10).to_s + rand(10).to_s + rand(10).to_s + rand(10).to_s + rand(10).to_s + rand(10).to_s)
           end
         end
         if r.account.number.match(/^411/)
           unless Entity.find_by_client_account_id(r.account.id)
             f = File.open(picture_undefined)
-            entity = Entity.create!(:last_name => r.entity_name, :nature_id => en_org.id, :client_account_id => r.account_id, :picture => f)
+            entity = Entity.create!(:last_name => r.entity_name.mb_chars.capitalize, :nature_id => en_org.id, :client_account_id => r.account_id, :picture => f)
             f.close
-            entity.addresses.create!(:canal => :email, :coordinate => r.entity_name.parameterize + "@" + r.entity_name.parameterize + "." + ["fr", "com", "org", "eu"].sample)
+            entity.addresses.create!(:canal => :email, :coordinate => ["contact", "info", r.entity_name.parameterize].sample + "@" + r.entity_name.parameterize + "." + ["fr", "com", "org", "eu"].sample)
             entity.addresses.create!(:canal => :phone, :coordinate => "+33" + rand(10).to_s + rand(10).to_s + rand(10).to_s + rand(10).to_s + rand(10).to_s + rand(10).to_s + rand(10).to_s + rand(10).to_s + rand(10).to_s)
           end
         end
