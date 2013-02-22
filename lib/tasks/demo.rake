@@ -146,6 +146,8 @@ namespace :db do
         print "c"
       end
 
+      # Import shapefile
+
       puts "!"
     end
   end
