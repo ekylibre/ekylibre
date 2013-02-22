@@ -531,5 +531,9 @@
         $.Behave.refresh();
     });
 
+    $(document).on("page:restore", function (event) {
+        $.Behave.refresh();
+    });
+
 
 })( jQuery );
