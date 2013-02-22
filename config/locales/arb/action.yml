@@ -639,6 +639,7 @@ arb:
     # backend/product_moves: "Mouvements de stock"
     backend/product_nature: "المنتجات" #?
     backend/product_nature_categories: "فئات المنتج"
+    # backend/product_nature_prices: "Prix par type de produits"
     backend/product_natures: "المنتجات" #?
     backend/product_stocks: "وضع الاسهم" #?
     backend/product_transfers: "عمليات نقل وخسارة الاسهم"

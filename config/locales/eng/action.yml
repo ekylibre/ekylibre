@@ -522,6 +522,7 @@ eng:
     backend/product_groups: "Product groups"
     backend/product_moves: "Stock moves"
     backend/product_nature_categories: "Product categories"
+    # backend/product_nature_prices: "Prix par type de produits"
     backend/product_natures: "Product types" #?
     backend/product_transfers: "Transfers and loss"
     backend/product_varieties: "Product species"

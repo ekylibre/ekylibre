@@ -584,7 +584,8 @@ spa:
     # backend/preferences: "Préférences"
     # backend/product_groups: "Lot de produits"
     # backend/product_moves: "Mouvements de stock"
-    # backend/product_nature_categories: "Catégories de produits"
+    # backend/product_nature_categories: "Catégories de type de produits"
+    # backend/product_nature_prices: "Prix par type de produits"
     # backend/product_transfers: "Transferts et pertes de stocks"
     # backend/product_varieties: "Races"
     backend/production: "Producción" #?

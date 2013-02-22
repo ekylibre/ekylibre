@@ -123,7 +123,11 @@ namespace :db do
       # create default product to place animal
       place = Warehouse.find_by_work_number("STABU_01")
       place ||= Warehouse.create!(:name => "Stabulation principale", :identification_number => "S0001", :number => "STABU_01",:work_number => "STABU_01", :born_at => Time.now, :reservoir => true, :content_nature_id => cow.id, :variety_id => b.id, :nature_id => place_nature.id, :owner_id => Entity.of_company.id)
-      
+
+      arrival_causes = {"N" => :birth}
+      departure_causes = {"M" => :death, "B" => :consumption}
+
+
       file = Rails.root.join("test", "fixtures", "files", "animals-synel17.csv")
       pictures = Dir.glob(Rails.root.join("test", "fixtures", "files", "animals", "*.jpg"))
       CSV.foreach(file, :encoding => "CP1252", :col_sep => ";", :headers => true) do |row|
@@ -135,16 +139,16 @@ namespace :db do
                            :born_on => (row[4].blank? ? nil : Date.civil(*row[4].to_s.split(/\//).reverse.map(&:to_i))),
                            :corabo => row[5],
                            :sex => (row[6] == "F" ? :female : :male),
-                           :arrival_reason => row[7],
+                           :arrival_cause => (arrival_causes[row[7]] || row[7]),
                            :arrived_on => (row[8].blank? ? nil : Date.civil(*row[8].to_s.split(/\//).reverse.map(&:to_i))),
-                           :departure_reason => row[9],
+                           :departure_cause => (departure_causes[row[9]] ||row[9]),
                            :departed_on => (row[10].blank? ? nil : Date.civil(*row[10].to_s.split(/\//).reverse.map(&:to_i)))
                            )
         f = File.open(pictures.sample)
-        animal = Animal.create!(:name => r.name, :identification_number => r.identification_number, :work_number => r.work_number, :description => r.arrival_reason, :born_at => r.born_on, :sex => r.sex, :picture => f, :nature_id => cow.id, :number => r.work_number, :owner_id => Entity.of_company.id)
+        animal = Animal.create!(:name => r.name, :identification_number => r.identification_number, :work_number => r.work_number, :description => r.arrival_cause, :born_at => r.born_on, :sex => r.sex, :picture => f, :nature_id => cow.id, :number => r.work_number, :owner_id => Entity.of_company.id)
         f.close
         # place the current animal in the default place (stabulation) with dates
-        ProductLocalization.create!(:container_id => place.id, :product_id => animal.id, :nature => :interior, :transfer_id => place.id, :started_at => r.arrived_on, :stopped_at => r.departed_on, :arrival_reason => r.arrival_reason, :departure_reason => r.departure_reason)
+        ProductLocalization.create!(:container_id => place.id, :product_id => animal.id, :nature => :interior, :transfer_id => place.id, :started_at => r.arrived_on, :stopped_at => r.departed_on, :arrival_cause => r.arrival_cause, :departure_cause => r.departure_cause)
         print "c"
       end
 

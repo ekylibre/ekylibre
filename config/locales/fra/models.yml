@@ -401,6 +401,7 @@ fra:
     area_measure: "Superficie"
     area_unit: "Unité de surface"
     areas: "Zones postales"
+    # arrival_cause: "Arrival cause"
     arrival_reasons: "Causes d'entrée" #?
     arrived_on: "Date d'entrée"
     asset: "Immobilisation"
@@ -580,6 +581,7 @@ fra:
     departed_on: "Parti le"
     department: "Service"
     departments: "Services" #?
+    # departure_cause: "Departure cause"
     departure_reasons: "Causes de sortie" #?
     deposit: "Remise en banque"
     depositable_payments: "Encaissements encaissables"
