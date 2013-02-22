@@ -8,19 +8,6 @@ namespace :db do
     STDOUT.sync = true
     puts "Started: "
     ActiveRecord::Base.transaction do
-      # Compte,
-      # Id journal
-      # No page
-      # Date operation
-      # Id piece
-      # Nom tiers
-      # Libelle
-      # Débit
-      # Crédit
-      # TVA
-      # Commentaire
-      # Lettrage
-      # Date complémentaire
 
       # Import accountancy
       file = Rails.root.join("test", "fixtures", "files", "general_ledger-istea.txt")
@@ -162,7 +149,18 @@ namespace :db do
       end
 
       # Import shapefile
-
+      # RGeo::Shapefile::Reader.open(Rails.root.join("test", "fixtures", "files", "land_parcels-shapefile.shp").to_s) do |file|
+      #   puts "File contains #{file.num_records} records."
+      #   file.each do |record|
+      #     puts "Record number #{record.index}:"
+      #     puts "  Geometry: #{record.geometry.as_text}"
+      #     puts "  Attributes: #{record.attributes.inspect}"
+      #   end
+      #   file.rewind
+      #   record = file.next
+      #   puts "First record geometry was: #{record.geometry.as_text}"
+      # end
+      
       puts "!"
     end
   end

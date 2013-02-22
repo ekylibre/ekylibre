@@ -83,11 +83,12 @@ $modules: ();
   $modules: append($modules, (nth($modules-names, $i) nth($modules-colors, $i)));
 }
 
+$fs-ratio: 1.618;
 $fs-normal: 14px;
-$fs-small:      ceil(0.73*$fs-normal);
-$fs-large:     round(1.20*$fs-normal);
-$fs-huge:      round(1.44*$fs-normal);
-$fs-very-huge: round(1.73*$fs-normal);
+$fs-small:      ceil($fs-normal/$fs-ratio);
+$fs-large:     round($fs-ratio*$fs-normal);
+$fs-huge:      round($fs-ratio*$fs-large);
+$fs-very-huge: round($fs-ratio*$fs-huge);
 
 $neutral-color: #777;
 $base-color: #16D;

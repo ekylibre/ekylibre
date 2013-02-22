@@ -39,8 +39,8 @@ html {
         #header {
           h1 {
             &, & * {
-              font-size: $fs-very-huge;
-              line-height: round(1.6 * $fs-very-huge);
+              font-size: $fs-huge;
+              line-height: round(1.2 * $fs-huge);
 	      vertical-align: middle;
             }
           }
@@ -135,6 +135,25 @@ ul.side-menu {
   padding: 7px;
 }
 
+.topo-coordinate {
+  @include ellipsis;
+  &, & * {
+    font-size: $fs-large;
+    line-height: round($fs-large * 1.4);
+    vertical-align: baseline;
+  }
+  .canal-label {
+    width: 20%;
+    @include text-align(right);
+    color: #777;
+    // @include padding-right($default-gap);    
+  }
+  .canal-value {
+    &, & * {
+      font-weight: bold;
+    }
+  }
+}
 
 .attributes-list {
   @include column-count(3);
