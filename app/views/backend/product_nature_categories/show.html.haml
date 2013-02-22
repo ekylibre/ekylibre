@@ -10,5 +10,5 @@
       -l.attribute :catalog_name
       -l.attribute :catalog_description
 
-  -b.cell tc(:product_natures) do
+  -b.cell ProductNatureCategory.human_attribute_name(:product_natures) do
     =list :product_natures

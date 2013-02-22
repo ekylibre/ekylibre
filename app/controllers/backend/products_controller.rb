@@ -23,16 +23,18 @@ class Backend::ProductsController < BackendController
   unroll_all
 
   list do |t|
+    t.column :number, :url => true
     t.column :name, :url => true
-    t.column :work_number, :url => true
-    t.column :born_at
+    t.column :description
     t.action :show, :url => {:format => :pdf}, :image => :print
     t.action :edit
     t.action :destroy, :if => :destroyable?
   end
 
   def index
+  end
 
+  def show
   end
 
 end

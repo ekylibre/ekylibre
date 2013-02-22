@@ -70,17 +70,27 @@
 
 
 class Product < Ekylibre::Record::Base
+  attr_accessible :nature_id, :number, :identification_number, :work_number, :born_at, :sex, :picture, :owner_id
   belongs_to :nature, :class_name => "ProductNature"
   belongs_to :variety, :class_name => "ProductVariety"
   belongs_to :unit
   belongs_to :tracking
   belongs_to :father, :class_name => "Product"
   belongs_to :mother, :class_name => "Product"
+  belongs_to :owner, :class_name => "Entity"
   has_many :memberships, :class_name => "ProductMembership"
   has_many :indicators, :class_name => "ProductIndicator"
   has_many :operations, :foreign_key => :target_id
   has_many :product_localizations
-  has_attached_file :picture, :styles => { :medium => "300x300>", :thumb => "100x100>" }
+  has_attached_file :picture, {
+    :url => '/backend/:class/:id/picture/:style',
+    :path => ':rails_root/private/:class/:attachment/:id_partition/:style.:extension',
+    :styles => {
+      :thumb => ["64x64#", :jpg],
+      :identity => ["180x180#", :jpg],
+      :large => ["600x600#", :jpg]
+    }
+  }
 
   default_scope -> { order(:name) }
   scope :members_of, lambda { |group, viewed_at| where("id IN (SELECT product_id FROM #{ProductMembership.table_name} WHERE group_id = ? AND ? BETWEEN COALESCE(started_at, ?) AND COALESCE(stopped_at, ?))", group.id, viewed_at, viewed_at, viewed_at)}
@@ -93,7 +103,7 @@ class Product < Ekylibre::Record::Base
   validates_inclusion_of :active, :external, :reproductor, :reservoir, :in => [true, false]
   validates_presence_of :content_maximal_quantity, :maximal_quantity, :minimal_quantity, :name, :nature, :number, :real_quantity, :unit, :variety, :virtual_quantity
   #]VALIDATORS]
-  validates_presence_of :nature, :name, :number
+  validates_presence_of :nature, :name, :owner
 
   accepts_nested_attributes_for :memberships, :reject_if => :all_blank, :allow_destroy => true
   accepts_nested_attributes_for :indicators, :reject_if => :all_blank, :allow_destroy => true
