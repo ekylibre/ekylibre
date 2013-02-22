@@ -28,19 +28,20 @@
 #  nature       :string(255)      not null
 #  product_id   :integer          not null
 #  started_at   :datetime         not null
-#  stopped_at   :datetime         not null
-#  transfer_id  :integer          not null
+#  stopped_at   :datetime
+#  transfer_id  :integer
 #  updated_at   :datetime         not null
 #  updater_id   :integer
 #
 
 class ProductLocalization < Ekylibre::Record::Base
+  attr_accessible :container_id, :product_id, :started_at, :stopped_at, :nature, :transfer_id, :arrival_reason, :departure_reason
   belongs_to :container, :class_name => "Product"
   belongs_to :product
   enumerize :nature, :in => [:transfer, :interior, :exterior], :default => :interior, :predicates => true
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :nature, :allow_nil => true, :maximum => 255
-  validates_presence_of :nature, :product, :started_at, :stopped_at
+  validates_presence_of :nature, :product, :started_at
   #]VALIDATORS]
   validates_inclusion_of :nature, :in => self.nature.values
   validates_presence_of :container, :if => :interior?

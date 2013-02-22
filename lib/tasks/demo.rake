@@ -107,10 +107,23 @@ namespace :db do
       p = ProductVariety.find_by_code("animal")
       v ||= ProductVariety.create!(:name => "Bovin", :code => "cattle", :product_type => "Animal", :parent_id => (p ? p.id : nil))
       unit = Unit.find_by_base("")
+      # add default variety for building
+      b = ProductVariety.find_by_code("animal_house")
+      q = ProductVariety.find_by_code("building")
+      b ||= ProductVariety.create!(:name => "Batiments Animaux", :code => "animal_house", :product_type => "Warehouse", :parent_id => (q ? q.id : nil))
+      # add default category for all
       category = ProductNatureCategory.first
       category ||= ProductNatureCategory.create!(:name => "Défaut")
+      # create default product_nature to place animal
+      place_nature = ProductNature.find_by_number("CATTLE_HOUSE")
+      place_nature ||= ProductNature.create!(:name => "Stabulation", :number => "CATTLE_HOUSE", :storage => true, :indivisible => true, :variety_id => b.id, :unit_id => unit.id, :category_id => category.id)
+      # create default product_nature to create animal
       cow = ProductNature.find_by_number("CATTLE")
-      cow ||= ProductNature.create!(:name => "Bovin", :number => "CATTLE", :alive => true, :indivisible => true, :variety_id => v.id, :unit_id => unit.id, :category_id => category.id)
+      cow ||= ProductNature.create!(:name => "Bovin", :number => "CATTLE", :alive => true, :storable => true, :indivisible => true, :variety_id => v.id, :unit_id => unit.id, :category_id => category.id)
+      # create default product to place animal
+      place = Warehouse.find_by_work_number("STABU_01")
+      place ||= Warehouse.create!(:name => "Stabulation principale", :identification_number => "S0001", :number => "STABU_01",:work_number => "STABU_01", :born_at => Time.now, :reservoir => true, :content_nature_id => cow.id, :variety_id => b.id, :nature_id => place_nature.id, :owner_id => Entity.of_company.id)
+      
       file = Rails.root.join("test", "fixtures", "files", "animals-synel17.csv")
       pictures = Dir.glob(Rails.root.join("test", "fixtures", "files", "animals", "*.jpg"))
       CSV.foreach(file, :encoding => "CP1252", :col_sep => ";", :headers => true) do |row|
@@ -128,8 +141,10 @@ namespace :db do
                            :departed_on => (row[10].blank? ? nil : Date.civil(*row[10].to_s.split(/\//).reverse.map(&:to_i)))
                            )
         f = File.open(pictures.sample)
-        Animal.create!(:name => r.name, :identification_number => r.identification_number, :work_number => r.work_number, :born_at => r.born_on.to_time, :sex => r.sex, :picture => f, :nature_id => cow.id, :number => r.work_number, :owner_id => Entity.of_company.id)
+        animal = Animal.create!(:name => r.name, :identification_number => r.identification_number, :work_number => r.work_number, :description => r.arrival_reason, :born_at => r.born_on, :sex => r.sex, :picture => f, :nature_id => cow.id, :number => r.work_number, :owner_id => Entity.of_company.id)
         f.close
+        # place the current animal in the default place (stabulation) with dates
+        ProductLocalization.create!(:container_id => place.id, :product_id => animal.id, :nature => :interior, :transfer_id => place.id, :started_at => r.arrived_on, :stopped_at => r.departed_on, :arrival_reason => r.arrival_reason, :departure_reason => r.departure_reason)
         print "c"
       end
 
