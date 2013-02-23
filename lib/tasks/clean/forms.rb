@@ -72,9 +72,10 @@ task :forms => :environment do
 
     dir = path.dirname
 
-    variable = dir.relative_path_from(Rails.root.join("app", "views")).to_s.split(/\//)
-    variable = (variable.size > 1 ? "[" +variable[0..-2].map{|ns| ":"+ns}.join(", ") + ", @#{variable[-1].singularize}]" : "@" + variable[0].singularize)
+    steps = dir.relative_path_from(Rails.root.join("app", "views")).to_s.split(/\//)
+    variable = (steps.size > 1 ? "[" +steps[0..-2].map{|ns| ":"+ns}.join(", ") + ", @#{steps[-1].singularize}]" : "@" + steps[0].singularize)
     # puts variable.inspect
+
 
     # puts dir.to_s
     new_view = Rails.root.join("app", "views", "forms", "new.html.haml").relative_path_from(dir)
@@ -87,7 +88,8 @@ task :forms => :environment do
     code << "  .form-fields>=render(:partial => 'form', :locals => {:f => f})\n"
     code << "  =form_actions do\n"
     code << "    =submit_tag(tl(:create), 'data-disable-with' => tl(:please_wait))\n"
-    code << "    =link_to(tl(:cancel), :back, (params[:dialog] ? {'data-close-dialog' => params[:dialog]} : {}))\n"
+    # code << "    =link_to(tl(:cancel), :back, (params[:dialog] ? {'data-close-dialog' => params[:dialog]} : {}))\n"
+    code << "    =link_to(tl(:cancel), #{steps.join('_')}_url, (params[:dialog] ? {'data-close-dialog' => params[:dialog]} : {}))\n"
 
     count += check_view(dir.join("new.html.haml"), code, log)
     # count += check_symlink(dir.join("new.html.haml"), new_view, log)
@@ -97,6 +99,12 @@ task :forms => :environment do
 
     edit_view = Rails.root.join("app", "views", "forms", "edit.html.haml").relative_path_from(dir)
 
+    cancel = if dir.join("show.html.haml").exist?
+               (steps.size > 1 ? steps[0..-2].join("_") + "_#{steps[-1].singularize}" : steps[0].singularize) + "_url(@#{steps[-1].singularize})"
+             else
+               "#{steps.join('_')}_url"
+             end
+
     code  = ""
     code << "=simple_form_for(#{variable}, (params[:dialog] ? {'data-dialog' => params[:dialog]} : {})) do |f|\n"
     code << "  -if params[:redirect]\n"
@@ -104,7 +112,8 @@ task :forms => :environment do
     code << "  .form-fields>=render(:partial => 'form', :locals => {:f => f})\n"
     code << "  =form_actions do\n"
     code << "    =submit_tag(tl(:update), 'data-disable-with' => tl(:please_wait))\n"
-    code << "    =link_to(tl(:cancel), :back, (params[:dialog] ? {'data-close-dialog' => params[:dialog]} : {}))\n"
+    # code << "    =link_to(tl(:cancel), :back, (params[:dialog] ? {'data-close-dialog' => params[:dialog]} : {}))\n"
+    code << "    =link_to(tl(:cancel), #{cancel}, (params[:dialog] ? {'data-close-dialog' => params[:dialog]} : {}))\n"
 
 
     # Check edit.html.haml

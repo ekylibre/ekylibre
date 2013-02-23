@@ -92,7 +92,7 @@ $fs-very-huge: round($fs-ratio*$fs-huge);
 
 $neutral-color: #777;
 $base-color: #16D;
-$active-color: #DE7308; // mix(green, $base-color, 50%);
+$active-color: $base-color; // #DE7308; // mix(green, $base-color, 50%);
 $link-color:  darken($base-color, 27%);
 $link-color:  darken($base-color, 10%);
 $text-color:  #111;
@@ -145,7 +145,7 @@ $cell-background-current: mix($desktop-background, $base-color, 62%);
   @include background($menu-background);
   @include menu-shadow;
   border: $menu-border;
-  width: $menu-width;
+  // width: $menu-width;
   padding: $menu-padding;
 }
 
@@ -425,7 +425,7 @@ $mainColor: $base-color;
 
 $topBarHeight: 32px;
 $topBarBgColor: $active-color;
-$topBarDropBgColor: darken($active-color, 1%);
+$topBarDropBgColor: darken($topBarBgColor, 1%);
 
 @import "foundation";
 
