@@ -40,7 +40,7 @@ html {
           h1 {
             &, & * {
               font-size: $fs-huge;
-              line-height: round(1.2 * $fs-huge);
+              line-height: round(1.4 * $fs-huge);
 	      vertical-align: middle;
             }
           }

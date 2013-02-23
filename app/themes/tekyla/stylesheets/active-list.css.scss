@@ -12,17 +12,17 @@ $list-hover-backgrounds: ("" rgba(255, 255, 255, 0)) (":hover" $hover-mask);
   table.list {
     border-collapse: collapse;
     width: 100%;
-    border: $menu-border;
+   //   border: $menu-border;
     //@include box-shadow(0 0 7px rgba(0, 0, 0, 0.15));
-    @include incrust-shadow;
+    //@include incrust-shadow;
     thead {
       th {
-        border: $menu-border;
+        //border: $menu-border;
         padding: round($fs-normal*0.2) round($fs-normal*0.4);
         @include ellipsis;
         @include text-align(left);
-        @include background($menu-background);
-        @include background-image(linear-gradient(lighten($menu-background, $default-lightness-variation), darken($menu-background, $default-lightness-variation)));
+        // @include background($menu-background);
+        // @include background-image(linear-gradient(lighten($menu-background, $default-lightness-variation), darken($menu-background, $default-lightness-variation)));
         &[data-list-column-sort] {
           .icon {
             @include active-list-sprite(sort);
@@ -43,8 +43,8 @@ $list-hover-backgrounds: ("" rgba(255, 255, 255, 0)) (":hover" $hover-mask);
             background: none;
             .list-menu-start {
               padding: 2px;
-              width: 16px;
-              height: 16px;
+              width: 20px;
+              height: 20px;
               .icon { @include active-list-sprite(menu); display: block; }
               .text { display: none; }
             }
