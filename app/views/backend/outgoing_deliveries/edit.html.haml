@@ -5,4 +5,4 @@
   .form-fields>=render(:partial => 'form', :locals => {:f => f})
   =form_actions do
     =submit_tag(tl(:update), 'data-disable-with' => tl(:please_wait))
-    =link_to(tl(:cancel), :back, (params[:dialog] ? {'data-close-dialog' => params[:dialog]} : {}))
+    =link_to(tl(:cancel), backend_outgoing_delivery_url(@outgoing_delivery), (params[:dialog] ? {'data-close-dialog' => params[:dialog]} : {}))
