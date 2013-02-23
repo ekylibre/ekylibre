@@ -1,22 +1,29 @@
 =field_set do # partie info general de l entité animal
-  =f.association :nature
-  =f.association :variety
-  =f.input :name , :hint => "le nom de votre animal"# affiche le champ name de l entité animal avec une infos derriere
-  =f.input :sex # affiche le champ sexe sous forme de radio avec une collection de proposition (M ou F) de l entité animal
+  =f.association :nature, :collection => ProductNature.animal
+  =f.input :name # affiche le champ name de l entité animal avec une infos derriere
+  =f.input :sex, as: :radio_buttons# affiche le champ sexe sous forme de radio avec une collection de proposition (M ou F) de l entité animal
   =f.input :reproductor
-  =f.input :born_at
-  =f.input :work_number
+  =f.input :work_number, :placeholder => '4 chiffres'
   =f.input :identification_number, :placeholder => 'FR + DEPT + 8 chiffres'
-  =f.input :description # affiche le champ description formaté en zone de texte
-  =f.input :picture
-  =image_tag(@animal.picture.url(:thumb))
   =f.custom_fields
   -#for datum in @custom_field_data
     =custom_field datum.custom_field.name, {:datatype => datum.custom_field.nature.to_sym, :id => "custom_field_datum_#{datum.custom_field_id}_value", :name => "custom_field_datum[#{datum.custom_field_id}][value]", :value => datum.value, :size => datum.custom_field.length_max, :options => {:include_blank => (datum.custom_field.required ? nil : '')}, :choices => datum.custom_field.choices.collect{|x| [x.name , x.id]}  }
 
-=field_set(:genealogy) do # partie entrée sortie de l entité animal
-  =f.association :mother, :source => :mother
-  =f.association :father, :source => :father
-
 =field_set(:movement) do # partie entrée sortie de l entité animal
-  =f.input :external
+  =f.input :born_at, as: :date
+  =f.input :dead_at, as: :date, disabled: true, include_blank: true, default_value: :blank
+  =f.input :external, inline_label: "Cas des pères non présents sur l'exploitation"
+
+=field_set(:genealogy) do # partie entrée sortie de l entité animal
+  =f.association :mother, :collection => Animal.mother#, :source => :mother
+  =f.association :father, :collection => Animal.father#, :source => :father 
+  
+=field_set(:document) do
+  =f.input :picture
+  =image_tag(@animal.picture.url(:thumb))
+  =f.input :description # affiche le champ description formaté en zone de texte
+
+
+
+
+  
