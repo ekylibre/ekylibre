@@ -916,15 +916,20 @@ class NormalizeProducts < ActiveRecord::Migration
 
     # Historize differents localizations of the products
     create_table :product_localizations do |t|
-      t.belongs_to :transfer,  :null => false # RO
+      t.belongs_to :transfer # RO
+      t.belongs_to :operation
       t.belongs_to :product,   :null => false # Duplicated from transfer.product_id
       t.belongs_to :container
+      t.string :arrival_cause
+      t.string :departure_cause
       t.string   :nature,      :null => false
-      t.datetime :started_at,  :null => false
-      t.datetime :stopped_at,  :null => false
+      t.datetime :started_at
+      t.datetime :stopped_at
       t.stamps
     end
     add_stamps_indexes :product_localizations
+    add_index :product_localizations, :transfer_id
+    add_index :product_localizations, :operation_id
     add_index :product_localizations, :product_id
     add_index :product_localizations, :container_id
     add_index :product_localizations, :started_at

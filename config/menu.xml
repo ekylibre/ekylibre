@@ -820,6 +820,9 @@
     <menu name="authentication/sessions">
       <page to="authentication/sessions#renew"/>
     </menu>
+    <menu name="backend/animals">
+      <page to="backend/animals#picture"/>
+    </menu>
     <menu name="backend/cells/demo_bar_cells">
       <page to="backend/cells/demo_bar_cells#show"/>
     </menu>
@@ -850,6 +853,7 @@
     </menu>
     <menu name="backend/entities">
       <page to="backend/entities#list_addresses"/>
+      <page to="backend/entities#picture"/>
     </menu>
     <menu name="backend/entity_addresses">
       <page to="backend/entity_addresses#unroll"/>
@@ -954,6 +958,9 @@
     <menu name="backend/product_nature_categories">
       <page to="backend/product_nature_categories#list_product_natures"/>
     </menu>
+    <menu name="backend/product_natures">
+      <page to="backend/product_natures#list_prices"/>
+    </menu>
     <menu name="backend/product_process_phases">
       <page to="backend/product_process_phases#index"/>
       <page to="backend/product_process_phases#create"/>
@@ -973,6 +980,9 @@
       <page to="backend/product_processes#new"/>
       <page to="backend/product_processes#show"/>
       <page to="backend/product_processes#update"/>
+    </menu>
+    <menu name="backend/products">
+      <page to="backend/products#show"/>
     </menu>
     <menu name="backend/professions">
       <page to="backend/professions#index"/>

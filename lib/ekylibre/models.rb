@@ -500,6 +500,7 @@ module Ekylibre
     :product_localization => {
       :container_id => :product,
       :creator_id => :user,
+      :operation_id => :operation,
       :product_id => :product,
       :transfer_id => :transfer,
       :updater_id => :user

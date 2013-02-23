@@ -295,7 +295,13 @@ eng:
       index: "Product categories"
       new: "Add a new product category"
       show: "Product category: %{name}"
-    backend/product_nature_prices: #?
+    backend/product_nature_prices:
+      # edit: "Modifier le tarif de %{product_nature}"
+      # export: "Exporter des tarifs"
+      # find: "Trouver un tarif"
+      # import: "Importer des tarifs"
+      # index: "Tarifs"
+      # new: "Nouveau tarif"
     backend/product_natures:
       edit: "Edit the product type: %{name}"
       index: "Product types"
@@ -312,7 +318,7 @@ eng:
     backend/product_varieties:
       # edit: "Modifier la variété\_: %{name} "
       # index: "Variétés"
-      # new: "Créer une variétés"
+      # new: "Créer une variété"
       # show: "Variété\_: %{name}"
     backend/production_chain_conveyors:
       edit: "Edit production chain conveyor (%{source_id}-%{target_id})"
@@ -516,6 +522,7 @@ eng:
     backend/product_groups: "Product groups"
     backend/product_moves: "Stock moves"
     backend/product_nature_categories: "Product categories"
+    # backend/product_nature_prices: "Prix par type de produits"
     backend/product_natures: "Product types" #?
     backend/product_transfers: "Transfers and loss"
     backend/product_varieties: "Product species"
@@ -1150,11 +1157,11 @@ eng:
     product_category: "Product category"
     # product_category_update: "Modifier la catégorie"
     product_name: "Product name"
-    product_tabbox:
-      components: "Components"
-      prices: "Prices"
-      stock_moves: "Stock moves"
-      stocks: "Stocks"
+    product_tabbox:  #?
+      components: "Components" #?
+      prices: "Prices" #?
+      stock_moves: "Stock moves" #?
+      stocks: "Stocks" #?
     # product_update: "Modifier la fiche du produit"
     # production: "Gestion de la production"
     productions: "Productions"
@@ -1280,6 +1287,7 @@ eng:
     sequences_load: "Load missing sequences"
     set_reconcilable_new_but_existing_third_accounts: "Set reconcilable the new but existing third accounts (clients, suppliers and attorneys)"
     ship: "Ship"
+    # show: "Afficher"
     simplified: "Simplified Accounting"
     source: "Source"
     start: "From"

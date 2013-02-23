@@ -401,6 +401,7 @@ fra:
     area_measure: "Superficie"
     area_unit: "Unité de surface"
     areas: "Zones postales"
+    # arrival_cause: "Arrival cause"
     arrival_reasons: "Causes d'entrée" #?
     arrived_on: "Date d'entrée"
     asset: "Immobilisation"
@@ -431,7 +432,7 @@ fra:
     bank_account_number: "Bank account number"
     # bank_agency_address: "Bank agency address"
     bank_agency_code: "Code guichet"
-    bank_check_number: "Bank check number"
+    bank_check_number: "N°Chèque"
     bank_code: "Code banque"
     bank_identifier_code: "BIC"
     bank_journals: "Journaux de banque" #?
@@ -463,7 +464,6 @@ fra:
     # charge_account: "Charge account"
     charges_account: "Compte de charge"
     charges_accounts: "Comptes de charge" #?
-    bank_check_number: "N°Chèque" #?
     check_state: "Vérifier l’état"
     chidren: "Chidren" #?
     child_kinships: "Relation enfant" #?
@@ -581,6 +581,7 @@ fra:
     departed_on: "Parti le"
     department: "Service"
     departments: "Services" #?
+    # departure_cause: "Departure cause"
     departure_reasons: "Causes de sortie" #?
     deposit: "Remise en banque"
     depositable_payments: "Encaissements encaissables"

@@ -20,18 +20,21 @@
 #
 # == Table: product_localizations
 #
-#  container_id :integer
-#  created_at   :datetime         not null
-#  creator_id   :integer
-#  id           :integer          not null, primary key
-#  lock_version :integer          default(0), not null
-#  nature       :string(255)      not null
-#  product_id   :integer          not null
-#  started_at   :datetime         not null
-#  stopped_at   :datetime         not null
-#  transfer_id  :integer          not null
-#  updated_at   :datetime         not null
-#  updater_id   :integer
+#  arrival_cause   :string(255)
+#  container_id    :integer
+#  created_at      :datetime         not null
+#  creator_id      :integer
+#  departure_cause :string(255)
+#  id              :integer          not null, primary key
+#  lock_version    :integer          default(0), not null
+#  nature          :string(255)      not null
+#  operation_id    :integer
+#  product_id      :integer          not null
+#  started_at      :datetime
+#  stopped_at      :datetime
+#  transfer_id     :integer
+#  updated_at      :datetime         not null
+#  updater_id      :integer
 #
 require 'test_helper'
 

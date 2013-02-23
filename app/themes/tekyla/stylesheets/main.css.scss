@@ -146,7 +146,7 @@ ul.side-menu {
     width: 20%;
     @include text-align(right);
     color: #777;
-    // @include padding-right($default-gap);    
+    // @include padding-right($default-gap);
   }
   .canal-value {
     &, & * {

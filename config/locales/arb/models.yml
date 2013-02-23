@@ -911,7 +911,7 @@ arb:
     bank: "البنك" #?
     # bank_account_number: "Bank account number"
     # bank_agency_code: "Code guichet"
-    # bank_check_number: "Bank check number"
+    # bank_check_number: "N°Chèque"
     bank_code: "الرمز المصرفي"
     # bank_identifier_code: "BIC"
     bank_journals: "دفاتر يومية مصرفية"
@@ -946,7 +946,7 @@ arb:
     changes_reflected: "انعكاس التغييرات"
     # charges_account: "Compte de charge"
     charges_accounts: "حسابات الحمولة"
-    check_number: "رقم الشيك"
+    check_number: "رقم الشيك" #?
     # check_state: "Vérifier l’état"
     # chidren: "Chidren"
     # child_kinships: "Relation enfant"

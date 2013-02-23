@@ -424,6 +424,8 @@ $baseFontSize: $fs-normal;
 $mainColor: $base-color;
 
 $topBarHeight: 32px;
+$topBarBgColor: $active-color;
+$topBarDropBgColor: darken($active-color, 1%);
 
 @import "foundation";
 
@@ -431,6 +433,6 @@ $topBarHeight: 32px;
 @import "beehive.css.scss";
 @import "tables.css.scss";
 // @import "layout.css.scss";
-// @import "active-list.css.scss";
+@import "active-list.css.scss";
 @import "buttons.css.scss";
 @import "main.css.scss";

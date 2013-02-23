@@ -60,6 +60,7 @@ class Unit < Ekylibre::Record::Base
     :ha => {:base => 'm2', :coefficient => 10000},
     :a =>  {:base => 'm2', :coefficient => 100},
     :ca => {:base => 'm2'},
+    :m2 => {:base => 'm2'},
     :l =>  {:base => 'm3', :coefficient => 0.001},
     :hl => {:base => 'm3', :coefficient => 0.1},
     :m3 => {:base => 'm3'}
@@ -97,6 +98,16 @@ class Unit < Ekylibre::Record::Base
         self.create!(attributes.merge(:name => name.to_s, :label => tc('default.'+name.to_s)))
       end
     end
+  end
+
+  def self.get(name)
+    raise ArgumentError.new("#{name.inspect} is not a default unit") unless DEFAULT_UNITS[name]
+    conditions = {:start => 0}.merge(DEFAULT_UNITS[name])
+    unless unit = Unit.where(conditions).first
+      Unit.load_defaults
+      return Unit.where(conditions).first
+    end
+    return unit
   end
 
   def self.normalize(expr)

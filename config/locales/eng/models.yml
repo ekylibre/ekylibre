@@ -516,7 +516,7 @@ eng:
     bank: "Bank" #?
     # bank_account_number: "Bank account number"
     # bank_agency_code: "Code guichet"
-    # bank_check_number: "Bank check number"
+    # bank_check_number: "N°Chèque"
     bank_code: "Bank code"
     # bank_identifier_code: "BIC"
     bank_journals: "Bank journals"
@@ -549,7 +549,7 @@ eng:
     changes_reflected: "Changes reflected"
     charges_account: "Charges account"
     charges_accounts: "Charges accounts"
-    check_number: "Check number"
+    check_number: "Check number" #?
     check_state: "Check state"
     # chidren: "Chidren"
     child_kinships: "Child kinships"

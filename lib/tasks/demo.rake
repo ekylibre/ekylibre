@@ -47,14 +47,14 @@ namespace :db do
         "105" => "COUT FISC CULT N-1 TERRE",
         "106" => "COUT ECO CULT N-1 TERRE"
       }
-      
+
       fy = FinancialYear.first
       fy.started_on = Date.civil(2000,1,1)
       fy.stopped_on = Date.civil(2000,12,31)
       fy.code = "EX2000"
       fy.save!
       en_org = EntityNature.where(:gender => :undefined).first
-      
+
       CSV.foreach(file, :encoding => "CP1252", :col_sep => ";") do |row|
         jname = (journals[row[1]] || row[1]).capitalize
         r = OpenStruct.new(:account => Account.get(row[0]),
@@ -70,8 +70,8 @@ namespace :db do
                            :comment => row[10],
                            :letter => row[11],
                            :what_on => row[12])
-        
-        
+
+
         fy = FinancialYear.at(r.printed_on)
         unless entry = JournalEntry.find_by_journal_id_and_number(r.journal.id, r.entry_number)
           number = r.entry_number.to_s.gsub(/[^A-Z0-9]/, '')
@@ -81,18 +81,18 @@ namespace :db do
         column = (r.debit.zero? ? :credit : :debit)
         entry.send("add_#{column}", r.entry_name, r.account, r.send(column))
         if r.account.number.match(/^401/)
-          unless Entity.find_by_supplier_account_id(r.account.id)
+          unless Entity.find_by_origin(r.entity_name)
             f = File.open(picture_undefined)
-            entity = Entity.create!(:last_name => r.entity_name.mb_chars.capitalize, :nature_id => en_org.id, :supplier_account_id => r.account_id, :picture => f)
+            entity = Entity.create!(:last_name => r.entity_name.mb_chars.capitalize, :nature_id => en_org.id, :supplier_account_id => r.account_id, :picture => f, :origin => r.entity_name)
             f.close
             entity.addresses.create!(:canal => :email, :coordinate => ["contact", "info", r.entity_name.parameterize].sample + "@" + r.entity_name.parameterize + "." + ["fr", "com", "org", "eu"].sample)
             entity.addresses.create!(:canal => :phone, :coordinate => "+33" + rand(10).to_s + rand(10).to_s + rand(10).to_s + rand(10).to_s + rand(10).to_s + rand(10).to_s + rand(10).to_s + rand(10).to_s + rand(10).to_s)
           end
         end
         if r.account.number.match(/^411/)
-          unless Entity.find_by_client_account_id(r.account.id)
+          unless Entity.find_by_origin(r.entity_name)
             f = File.open(picture_undefined)
-            entity = Entity.create!(:last_name => r.entity_name.mb_chars.capitalize, :nature_id => en_org.id, :client_account_id => r.account_id, :picture => f)
+            entity = Entity.create!(:last_name => r.entity_name.mb_chars.capitalize, :nature_id => en_org.id, :client_account_id => r.account_id, :picture => f, :origin => r.entity_name)
             f.close
             entity.addresses.create!(:canal => :email, :coordinate => ["contact", "info", r.entity_name.parameterize].sample + "@" + r.entity_name.parameterize + "." + ["fr", "com", "org", "eu"].sample)
             entity.addresses.create!(:canal => :phone, :coordinate => "+33" + rand(10).to_s + rand(10).to_s + rand(10).to_s + rand(10).to_s + rand(10).to_s + rand(10).to_s + rand(10).to_s + rand(10).to_s + rand(10).to_s)
@@ -123,7 +123,11 @@ namespace :db do
       # create default product to place animal
       place = Warehouse.find_by_work_number("STABU_01")
       place ||= Warehouse.create!(:name => "Stabulation principale", :identification_number => "S0001", :number => "STABU_01",:work_number => "STABU_01", :born_at => Time.now, :reservoir => true, :content_nature_id => cow.id, :variety_id => b.id, :nature_id => place_nature.id, :owner_id => Entity.of_company.id)
-      
+
+      arrival_causes = {"N" => :birth}
+      departure_causes = {"M" => :death, "B" => :consumption}
+
+
       file = Rails.root.join("test", "fixtures", "files", "animals-synel17.csv")
       pictures = Dir.glob(Rails.root.join("test", "fixtures", "files", "animals", "*.jpg"))
       CSV.foreach(file, :encoding => "CP1252", :col_sep => ";", :headers => true) do |row|
@@ -135,32 +139,39 @@ namespace :db do
                            :born_on => (row[4].blank? ? nil : Date.civil(*row[4].to_s.split(/\//).reverse.map(&:to_i))),
                            :corabo => row[5],
                            :sex => (row[6] == "F" ? :female : :male),
-                           :arrival_reason => row[7],
+                           :arrival_cause => (arrival_causes[row[7]] || row[7]),
                            :arrived_on => (row[8].blank? ? nil : Date.civil(*row[8].to_s.split(/\//).reverse.map(&:to_i))),
-                           :departure_reason => row[9],
+                           :departure_cause => (departure_causes[row[9]] ||row[9]),
                            :departed_on => (row[10].blank? ? nil : Date.civil(*row[10].to_s.split(/\//).reverse.map(&:to_i)))
                            )
         f = File.open(pictures.sample)
-        animal = Animal.create!(:name => r.name, :identification_number => r.identification_number, :work_number => r.work_number, :description => r.arrival_reason, :born_at => r.born_on, :sex => r.sex, :picture => f, :nature_id => cow.id, :number => r.work_number, :owner_id => Entity.of_company.id)
+        animal = Animal.create!(:name => r.name, :identification_number => r.identification_number, :work_number => r.work_number, :description => r.arrival_cause, :born_at => r.born_on, :sex => r.sex, :picture => f, :nature_id => cow.id, :number => r.work_number, :owner_id => Entity.of_company.id)
         f.close
         # place the current animal in the default place (stabulation) with dates
-        ProductLocalization.create!(:container_id => place.id, :product_id => animal.id, :nature => :interior, :transfer_id => place.id, :started_at => r.arrived_on, :stopped_at => r.departed_on, :arrival_reason => r.arrival_reason, :departure_reason => r.departure_reason)
+        ProductLocalization.create!(:container_id => place.id, :product_id => animal.id, :nature => :interior, :transfer_id => place.id, :started_at => r.arrived_on, :stopped_at => r.departed_on, :arrival_cause => r.arrival_cause, :departure_cause => r.departure_cause)
         print "c"
       end
 
       # Import shapefile
-      # RGeo::Shapefile::Reader.open(Rails.root.join("test", "fixtures", "files", "land_parcels-shapefile.shp").to_s) do |file|
-      #   puts "File contains #{file.num_records} records."
-      #   file.each do |record|
-      #     puts "Record number #{record.index}:"
-      #     puts "  Geometry: #{record.geometry.as_text}"
-      #     puts "  Attributes: #{record.attributes.inspect}"
-      #   end
-      #   file.rewind
-      #   record = file.next
-      #   puts "First record geometry was: #{record.geometry.as_text}"
-      # end
-      
+      v = ProductVariety.find_by_code("land_parcel")
+      p = ProductVariety.find_by_code("place")
+      v ||= ProductVariety.create!(:name => "Parcelle", :code => "land_parcel", :product_type => "LandParcel", :parent_id => (p ? p.id : nil))
+      unit = Unit.get(:m2)
+      category = ProductNatureCategory.first
+      category ||= ProductNatureCategory.create!(:name => "Défaut")
+      land_parcel = ProductNature.find_by_number("LANDPARCEL")
+      land_parcel ||= ProductNature.create!(:name => "Parcelle", :number => "LANDPARCEL", :variety_id => v.id, :unit_id => unit.id, :category_id => category.id)
+      RGeo::Shapefile::Reader.open(Rails.root.join("test", "fixtures", "files", "land_parcels-shapefile.shp").to_s) do |file|
+        # puts "File contains #{file.num_records} records."
+        file.each do |record|
+          LandParcel.create!(:shape => record.geometry, :name => Faker::Name.first_name, :number => record.attributes['PACAGE'].to_s + record.attributes['CAMPAGNE'].to_s + record.attributes['NUMERO'].to_s, :born_at => Date.civil(2000,1,1), :nature_id => land_parcel.id, :owner_id => Entity.of_company.id)
+          # puts "Record number #{record.index}:"
+          # puts "  Geometry: #{record.geometry.as_text}"
+          # puts "  Attributes: #{record.attributes.inspect}"
+          print "p"
+        end
+      end
+
       puts "!"
     end
   end

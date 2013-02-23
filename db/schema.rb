@@ -1499,23 +1499,25 @@ ActiveRecord::Schema.define(:version => 20130216134641) do
 
   create_table "product_localizations", :force => true do |t|
     t.integer  "transfer_id"
-    t.integer  "product_id",                  :null => false
+    t.integer  "operation_id"
+    t.integer  "product_id",                     :null => false
     t.integer  "container_id"
-    t.string   "nature"
-    t.string   "arrival_reason"
-    t.string   "departure_reason"
-    t.datetime "started_at",                  :null => false
+    t.string   "arrival_cause"
+    t.string   "departure_cause"
+    t.string   "nature",                         :null => false
+    t.datetime "started_at"
     t.datetime "stopped_at"
-    t.datetime "created_at",                  :null => false
-    t.datetime "updated_at",                  :null => false
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version", :default => 0, :null => false
+    t.integer  "lock_version",    :default => 0, :null => false
   end
 
   add_index "product_localizations", ["container_id"], :name => "index_product_localizations_on_container_id"
   add_index "product_localizations", ["created_at"], :name => "index_product_localizations_on_created_at"
   add_index "product_localizations", ["creator_id"], :name => "index_product_localizations_on_creator_id"
+  add_index "product_localizations", ["operation_id"], :name => "index_product_localizations_on_operation_id"
   add_index "product_localizations", ["product_id"], :name => "index_product_localizations_on_product_id"
   add_index "product_localizations", ["started_at"], :name => "index_product_localizations_on_started_at"
   add_index "product_localizations", ["stopped_at"], :name => "index_product_localizations_on_stopped_at"

@@ -75,7 +75,6 @@ class AddMissingIndexes < ActiveRecord::Migration
     add_index :outgoing_payments, :mode_id
     add_index :outgoing_payments, :cash_id
     add_index :preferences, [:record_value_id, :record_value_type]
-    add_index :product_localizations, :transfer_id
     add_index :product_moves, :unit_id
     add_index :product_nature_prices, :tax_id
     add_index :product_nature_prices, :supplier_id
@@ -135,9 +134,5 @@ class AddMissingIndexes < ActiveRecord::Migration
     add_index :users, :department_id
     add_index :users, :establishment_id
     add_index :users, :profession_id
-    add_column :product_localizations, :arrival_reason, :string
-    add_column :product_localizations, :departure_reason, :string
-    change_column_null :product_localizations, :transfer_id, true
-    change_column_null :product_localizations, :stopped_at, true
   end
 end

@@ -17,6 +17,7 @@ fra:
       edit: "Modifier l'animal\_: %{name}"
       index: "Productions animales"
       new: "Nouvel animal"
+      # picture: "Picture backend/animal"
       show: "Animal\_: %{name}"
     backend/areas:
       edit: "Modifier la zone postale\_: %{name}"
@@ -117,6 +118,7 @@ fra:
       index: "Personnes"
       merge: "Fusionner un doublon à sa fiche d’origine"
       new: "Nouvelle fiche client/fournisseur"
+      # picture: "Picture backend/entity"
       show: "Fiche\_: %{full_name}"
     backend/entity_addresses:
       edit: "Modifier une coordonnée"
@@ -350,7 +352,7 @@ fra:
       edit: "Modifier un produit"
       index: "Produits"
       new: "Créer un produit"
-      show: "Produit\_: %{name}" #?
+      show: "Produit\_: %{name}"
     backend/professions:
       edit: "Modifier la profession\_: %{name}"
       index: "Professions"
@@ -1308,6 +1310,7 @@ fra:
     sequences_load: "Charger les séquences manquantes"
     set_reconcilable_new_but_existing_third_accounts: "Rendre lettrables les nouveaux comptes tiers déjà existants"
     ship: "Prévue le"
+    show: "Afficher"
     simplified: "Régime du réel simplifié"
     source: "Source de données"
     start: "Du"

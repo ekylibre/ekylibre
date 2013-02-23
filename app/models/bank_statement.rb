@@ -81,6 +81,6 @@ class BankStatement < Ekylibre::Record::Base
     JournalEntryLine.update_all({:bank_statement_id => self.id}, {:bank_statement_id => nil, :id => ids})
     return true
   end
-  
+
 
 end

@@ -128,6 +128,13 @@ $list-hover-backgrounds: ("" rgba(255, 255, 255, 0)) (":hover" $hover-mask);
     @include background(transparentize($desktop-background, 0.7));
     .pagination {
        @include text-align(left);
+      .paginator {
+        input[type="number"] {
+          width: 5ex;
+          margin: 0;
+          display: inline;
+        }
+      }
        & > * {
          margin: 0 2px;
        }

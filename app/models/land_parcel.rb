@@ -69,7 +69,7 @@
 
 
 class LandParcel < Place
-  attr_accessible :name, :number, :area_measure, :area_unit_id, :born_at, :dead_at
+  attr_accessible :name, :number, :area_measure, :area_unit_id, :born_at, :dead_at, :shape
   belongs_to :area_unit, :class_name => "Unit"
   belongs_to :parent_place, :class_name => "LandParcel"
   # TODO : adapt with operations
@@ -82,15 +82,16 @@ class LandParcel < Place
   validates_numericality_of :area_measure, :content_maximal_quantity, :maximal_quantity, :minimal_quantity, :real_quantity, :virtual_quantity, :allow_nil => true
   validates_length_of :identification_number, :name, :number, :picture_content_type, :picture_file_name, :sex, :work_number, :allow_nil => true, :maximum => 255
   validates_inclusion_of :active, :external, :reproductor, :reservoir, :in => [true, false]
-  validates_presence_of :content_maximal_quantity, :maximal_quantity, :minimal_quantity, :name, :nature, :number, :real_quantity, :unit, :variety, :virtual_quantity
+  validates_presence_of :content_maximal_quantity, :maximal_quantity, :minimal_quantity, :name, :nature, :number, :owner, :real_quantity, :unit, :variety, :virtual_quantity
   #]VALIDATORS]
-  validates_presence_of :area_measure, :area_unit, :born_at
+  validates_presence_of :born_at # :area_measure, :area_unit,
 
-  #before_validation do
-    #self.master = false if self.master.nil?
-    #self.polygon ||= "-"
-    #self.started_on ||= Date.today
-  #end
+  before_validation do
+    if self.shape
+      self.area_measure = self.shape.area
+      self.area_unit = Unit.get(:m2)
+    end
+  end
 
   # TODO : waiting for operations stabilizations
   #before_validation(:on => :update) do
