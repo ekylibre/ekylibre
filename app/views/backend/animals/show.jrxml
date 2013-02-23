@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="show" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9c1f11b7-03dd-4803-9e1b-41b87b9d23c0">
 	<property name="ireport.zoom" value="1.7715610000000124"/>
-	<property name="ireport.x" value="26"/>
-	<property name="ireport.y" value="96"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="192"/>
 	<style name="Title" fontName="DejaVu Sans" fontSize="50" isBold="true" pdfFontName="Times-Bold"/>
 	<style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18"/>
 	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
@@ -80,11 +80,8 @@
 	<queryString language="xPath">
 		<![CDATA[/animal]]>
 	</queryString>
-	<field name="born-on" class="java.lang.String">
-		<fieldDescription><![CDATA[born-on]]></fieldDescription>
-	</field>
-	<field name="comment" class="java.lang.String">
-		<fieldDescription><![CDATA[/animal/comment]]></fieldDescription>
+	<field name="born-at" class="java.util.Date">
+		<fieldDescription><![CDATA[born-at]]></fieldDescription>
 	</field>
 	<field name="creator-id" class="java.lang.String">
 		<fieldDescription><![CDATA[/animal/creator-id]]></fieldDescription>
@@ -135,7 +132,7 @@
 		<fieldDescription><![CDATA[mother/name]]></fieldDescription>
 	</field>
 	<field name="race-name" class="java.lang.String">
-		<fieldDescription><![CDATA[race/name]]></fieldDescription>
+		<fieldDescription><![CDATA[variety/name]]></fieldDescription>
 	</field>
 	<field name="departed-on" class="java.lang.String">
 		<fieldDescription><![CDATA[departed-on]]></fieldDescription>
@@ -149,16 +146,13 @@
 	<field name="arrival-reasons" class="java.lang.String">
 		<fieldDescription><![CDATA[arrival-reasons]]></fieldDescription>
 	</field>
-	<field name="group-name" class="java.lang.String">
-		<fieldDescription><![CDATA[group/name]]></fieldDescription>
-	</field>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
 		<band height="392" splitType="Stretch">
 			<staticText>
-				<reportElement uuid="762330c6-a035-463c-be4a-d3d1f4e26fd6" style="Title" mode="Opaque" x="-21" y="25" width="596" height="41" backcolor="#CAC0B5"/>
+				<reportElement uuid="762330c6-a035-463c-be4a-d3d1f4e26fd6" style="Title" mode="Opaque" x="-21" y="25" width="596" height="41" backcolor="#2BA6CB"/>
 				<textElement verticalAlignment="Middle">
 					<font pdfFontName="Times-Roman"/>
 				</textElement>
@@ -166,10 +160,11 @@
 			</staticText>
 			<image onErrorType="Blank">
 				<reportElement uuid="4df9e3cd-892d-4f2b-8e67-0a7136aed9af" x="415" y="0" width="140" height="97" isRemoveLineWhenBlank="true"/>
-				<imageExpression><![CDATA["/home/djoulin/ekylibre_dev/public/system/animals/pictures/000/000/00"+$F{id}+"/thumb/"+$F{picture-file-name}]]></imageExpression>
+				<imageExpression><![CDATA["/home/djoulin/ekylibre/private/animals/pictures/000/000/0"+$F{id}+"/identity.jpg"
+]]></imageExpression>
 			</image>
 			<rectangle radius="2">
-				<reportElement uuid="7295b3a4-1715-4584-b262-75754d9b3f4d" mode="Transparent" x="415" y="0" width="129" height="97" forecolor="#7F4D15">
+				<reportElement uuid="7295b3a4-1715-4584-b262-75754d9b3f4d" mode="Transparent" x="415" y="0" width="129" height="97" forecolor="#2BA6CB">
 					<printWhenExpression><![CDATA[$F{picture-file-name} != null]]></printWhenExpression>
 				</reportElement>
 				<graphicElement>
@@ -177,7 +172,7 @@
 				</graphicElement>
 			</rectangle>
 			<textField>
-				<reportElement uuid="662de52c-0c71-4d48-aa52-88a284773ba8" x="0" y="25" width="415" height="41"/>
+				<reportElement uuid="662de52c-0c71-4d48-aa52-88a284773ba8" x="0" y="25" width="415" height="41" forecolor="#FFFFFF"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="DejaVu Sans" size="24" isBold="false"/>
 				</textElement>
@@ -190,7 +185,7 @@
 				</graphicElement>
 			</rectangle>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="82d6a344-4d57-4408-8b15-28595d78b787" x="184" y="100" width="63" height="22"/>
+				<reportElement uuid="82d6a344-4d57-4408-8b15-28595d78b787" x="184" y="112" width="63" height="22"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="DejaVu Sans" size="10"/>
 				</textElement>
@@ -260,7 +255,7 @@
 				<textFieldExpression><![CDATA[( $F{sex} == 'female' ? "Femelle" : "Mâle" )]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="db378f31-6277-4062-adb5-ef4c3c689bcc" x="303" y="25" width="112" height="20"/>
+				<reportElement uuid="db378f31-6277-4062-adb5-ef4c3c689bcc" x="303" y="25" width="112" height="20" forecolor="#FFFFFF"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{work-number}]]></textFieldExpression>
 			</textField>
@@ -269,7 +264,7 @@
 				<textElement verticalAlignment="Middle">
 					<font fontName="DejaVu Sans"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{born-on}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{born-at}]]></textFieldExpression>
 			</textField>
 			<line>
 				<reportElement uuid="2f979903-ad88-477d-8c05-2180b503c2e7" x="261" y="66" width="1" height="89" forecolor="#CAC0B5"/>
@@ -277,37 +272,6 @@
 					<pen lineWidth="2.0"/>
 				</graphicElement>
 			</line>
-			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
-				<reportElement uuid="88523bd1-a01d-488c-98d7-866c30b2272b" x="353" y="122" width="62" height="15" forecolor="#CC3300"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="DejaVu Sans"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{departed-on}]]></textFieldExpression>
-			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement uuid="0f2828cc-d9d8-4ba8-83f7-d233cb52544a" x="415" y="122" width="129" height="15" forecolor="#CC3300"/>
-				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{departure-reasons}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement uuid="c27ca805-87fe-4787-827d-6f8e911ae85c" x="415" y="105" width="129" height="16"/>
-				<textElement/>
-				<textFieldExpression><![CDATA[$F{arrival-reasons}]]></textFieldExpression>
-			</textField>
-			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
-				<reportElement uuid="5ff7256f-0e09-4226-97b4-cc6849f2342c" x="353" y="105" width="62" height="16"/>
-				<textElement>
-					<font fontName="DejaVu Sans"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{arrived-on}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement uuid="232f1027-c305-4a71-b2c6-fb05c670ed17" x="303" y="45" width="112" height="20"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="DejaVu Sans"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{group-name}]]></textFieldExpression>
-			</textField>
 			<staticText>
 				<reportElement uuid="52d5043d-384e-4840-a3c3-eb48a3871d11" style="Column header" x="152" y="74" width="32" height="22"/>
 				<textElement verticalAlignment="Middle">
@@ -316,7 +280,7 @@
 				<text><![CDATA[sexe]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="52d5043d-384e-4840-a3c3-eb48a3871d11" style="Column header" x="152" y="100" width="32" height="22"/>
+				<reportElement uuid="52d5043d-384e-4840-a3c3-eb48a3871d11" style="Column header" x="152" y="112" width="32" height="22"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="DejaVu Sans" size="10"/>
 				</textElement>
@@ -329,26 +293,10 @@
 				</textElement>
 				<text><![CDATA[date de naissance]]></text>
 			</staticText>
-			<staticText>
-				<reportElement uuid="52d5043d-384e-4840-a3c3-eb48a3871d11" style="Column header" x="272" y="105" width="81" height="16"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="DejaVu Sans" size="10"/>
-				</textElement>
-				<text><![CDATA[date entrée]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="52d5043d-384e-4840-a3c3-eb48a3871d11" style="Column header" x="272" y="121" width="81" height="16">
-					<printWhenExpression><![CDATA[$F{departed-on} != null]]></printWhenExpression>
-				</reportElement>
-				<textElement verticalAlignment="Middle">
-					<font fontName="DejaVu Sans" size="10"/>
-				</textElement>
-				<text><![CDATA[date sortie]]></text>
-			</staticText>
 			<textField isBlankWhenNull="true">
 				<reportElement uuid="21707c3a-b932-43d3-8098-660716e50ed4" x="10" y="165" width="534" height="64"/>
 				<textElement/>
-				<textFieldExpression><![CDATA[$F{comment}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{description}]]></textFieldExpression>
 			</textField>
 			<componentElement>
 				<reportElement uuid="d009cdcc-2b4b-4055-b813-0d5aab74f1a6" key="table 1" style="table 1" x="0" y="252" width="555" height="140"/>
@@ -534,9 +482,9 @@
 	<pageFooter>
 		<band height="25" splitType="Stretch">
 			<frame>
-				<reportElement uuid="0475879f-e40d-46ef-bcee-450e0a1fc247" mode="Opaque" x="-21" y="1" width="596" height="24" forecolor="#7F4D15" backcolor="#CAC0B5"/>
+				<reportElement uuid="0475879f-e40d-46ef-bcee-450e0a1fc247" mode="Opaque" x="-21" y="1" width="596" height="24" forecolor="#7F4D15" backcolor="#2BA6CB"/>
 				<textField pattern="dd/MM/yyyy HH.mm.ss">
-					<reportElement uuid="2e0909fa-9d0c-4cd4-9e2f-2a8b1460d557" x="21" y="2" width="112" height="20"/>
+					<reportElement uuid="2e0909fa-9d0c-4cd4-9e2f-2a8b1460d557" x="21" y="2" width="112" height="20" forecolor="#FFFFFF"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 				</textField>

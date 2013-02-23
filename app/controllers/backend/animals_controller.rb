@@ -43,7 +43,7 @@ class Backend::AnimalsController < BackendController
     #parsing a parameter to Jasper for company full name
     @entity_full_name = Entity.of_company.full_name
     #respond with associated models to simplify quering in Ireport
-    respond_with @animal, :include => [:father, :mother]
+    respond_with @animal, :include => [:father, :mother, :variety, :nature]
   end
 
    # Liste des enfants de l'animal considéré
@@ -62,8 +62,8 @@ class Backend::AnimalsController < BackendController
         session[:current_animal_id] = @animal.id
         t3e @animal
       end
-      format.xml {render xml: @animal, :include => [:father, :mother]}
-      format.pdf {respond_with @animal, :include => [:father, :mother]}
+      format.xml {render xml: @animal, :include => [:father, :mother, :variety, :nature]}
+      format.pdf {respond_with @animal, :include => [:father, :mother, :variety, :nature]}
     end
   end
 
