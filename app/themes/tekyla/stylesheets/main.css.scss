@@ -358,7 +358,8 @@ ul.side-menu {
     resize: vertical;
   }
   .fieldset-fields {
-    border-top: $fieldset-border;
+    //border-top: $fieldset-border;
+    border-top: 2px solid $active-color;
     margin-top: $vertical-gap;
     padding-top: $vertical-gap;
   }
