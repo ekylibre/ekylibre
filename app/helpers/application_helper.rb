@@ -25,11 +25,11 @@
   class SimpleForm::FormBuilder
 
     def nested_association(name, *args, &block)
-      return "Nested association #{name}"
+      return "<div>Nested association #{name}</div>".html_safe
     end
 
     def custom_fields(*args, &block)
-      return "Custom fields"
+      return "<div>Custom fields</div>".html_safe
     end
 
   end
