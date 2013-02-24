@@ -18,7 +18,7 @@ fra:
       index: "Productions animales"
       new: "Nouvel animal"
       # picture: "Picture backend/animal"
-      show: "Animal\_: %{name}"
+      show: "%{nature_name}\_: %{name}"
     backend/areas:
       edit: "Modifier la zone postale\_: %{name}"
       index: "Zones postales"

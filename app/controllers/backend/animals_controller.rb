@@ -18,7 +18,7 @@
 #
 
 class Backend::AnimalsController < BackendController
-  manage_restfully
+  manage_restfully :t3e => {:nature_name => "@animal.nature_name"}
 
   respond_to :pdf, :xml, :json, :html
 
@@ -60,7 +60,7 @@ class Backend::AnimalsController < BackendController
     respond_to do |format|
       format.html do
         session[:current_animal_id] = @animal.id
-        t3e @animal
+        t3e @animal, :nature_name => @animal.nature_name
       end
       format.xml {render xml: @animal, :include => [:father, :mother, :variety, :nature]}
       format.pdf {respond_with @animal, :include => [:father, :mother, :variety, :nature]}

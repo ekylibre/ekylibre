@@ -309,7 +309,8 @@ module ApplicationHelper
     else
       #     label = object.class.human_attribute_name(attribute.to_s)
       value = object.send(attribute)
-      model_name = object.class.name.underscore
+      model = object.class
+      model_name = model.name.underscore
       default = ["activerecord.attributes.#{model_name}.#{attribute.to_s}_id".to_sym]
       default << "activerecord.attributes.#{model_name}.#{attribute.to_s[0..-7]}".to_sym if attribute.to_s.match(/_label$/)
       default << "attributes.#{attribute.to_s}".to_sym
@@ -335,6 +336,8 @@ module ApplicationHelper
     end
     if [TrueClass, FalseClass].include? value.class
       value = content_tag(:div, "", :class => "checkbox-#{value}")
+    elsif model.respond_to?(attribute) and model.send(attribute).respond_to?(:values)
+      value = value.send(:text)
     elsif attribute.to_s.match(/(^|_)currency$/)
       value = value.to_currency.label
     elsif options[:currency] and value.is_a?(Numeric)
