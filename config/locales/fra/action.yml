@@ -290,10 +290,10 @@ fra:
       # new: "New backend/product indicator"
       # show: "Show backend/product indicator"
     backend/product_localizations:
-      # edit: "Edit backend/product localization"
-      # index: "Index backend/product localization"
-      # new: "New backend/product localization"
-      # show: "Show backend/product localization"
+      edit: "Modifier une localisation d'un produit"
+      index: "Tracabilité des produits"
+      new: "Nouvelle localisation d'un produit"
+      show: "Détail d'une localisation d'un produit"
     backend/product_memberships:
       # edit: "Edit backend/product membership"
       # index: "Index backend/product membership"
@@ -551,7 +551,7 @@ fra:
     # backend/product_indicator_nature_choices: "Backend/product indicator nature choices"
     # backend/product_indicator_natures: "Backend/product indicator natures"
     # backend/product_indicators: "Backend/product indicators"
-    # backend/product_localizations: "Backend/product localizations"
+    backend/product_localizations: "Tracabilité"
     # backend/product_memberships: "Backend/product memberships"
     backend/product_moves: "Mouvements de stock"
     backend/product_nature_categories: "Catégories de type de produits"

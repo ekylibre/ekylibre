@@ -81,6 +81,12 @@ eng:
       product_category:
         children: "Sub-product_categories"
         published: "Published"
+      product_localization:
+        # arrival_cause: "Cause d'entrée"
+        # container: "Contenant"
+        # departure_cause: "Cause de sortie"
+        # started_at: "Entrée"
+        # stopped_at: "Sortie"
       product_move:
         origin: "Origine"
       product_nature:
@@ -328,7 +334,7 @@ eng:
       account: "Account"
       account_balance: "Account balance"
       # affair: "Affaire"
-      animal: "Animal" #?
+      animal: "Animal"
       animal_diagnostic: "Animal diagnostic" #?
       animal_disease: "Animal disease" #?
       animal_drug: "Animal drug" #?
@@ -416,6 +422,7 @@ eng:
       product_event: "Animal event" #?
       product_event_nature: "Animal event type" #?
       product_group: "Animal group"
+      # product_localization: "Passage d'un produit en un lieu"
       # product_membership: "Passage d'un produit dans un groupe"
       product_move: "Stock move"
       product_nature: "Product"
@@ -492,6 +499,7 @@ eng:
     area_measure: "Area measure"
     area_unit: "Area unit"
     areas: "Areas"
+    # arrival_cause: "Arrival cause"
     # arrival_reasons: "Causes d'entrée"
     arrived_on: "Arrived on"
     asset: "Asset"
@@ -660,6 +668,7 @@ eng:
     departed_on: "Departed on"
     department: "Department"
     departments: "Departments"
+    # departure_cause: "Departure cause"
     # departure_reasons: "Causes de sortie"
     deposit: "Deposit"
     depositable_payments: "Embankable payments"
@@ -1265,19 +1274,8 @@ eng:
     # work_number: "Numéro de travail"
     # zone: "Zone"
   enumerize:
-    animal:
-      arrival_reasons:
-        # birth: "Naissance"
-        # housing: "Pension"
-        # other: "Autres"
-        # purchase: "Achat"
-      departure_reasons:
-        # autoconsumption: "Autoconsommation"
-        # dead: "Décès"
-        # other: "Autres"
-        # sale: "Vente"
-      income_reasons: #?
-      outgone_reasons: #?
+    animal:  #?
+ #?
     animal_treatment: #?
     asset:
       depreciation_method:
@@ -1385,6 +1383,21 @@ eng:
         # sale: "Vente"
       income_reasons: #?
       outgone_reasons: #?
+    product_localization:
+      arrival_cause:
+        # birth: "Naissance"
+        # housing: "Pension"
+        # other: "Autres"
+        # purchase: "Achat"
+      departure_cause:
+        # consumption: "Autoconsommation"
+        # death: "Décès"
+        # other: "Autres"
+        # sale: "Vente"
+      nature:
+        # exterior: "Sortie"
+        # interior: "Entrée"
+        # transfer: "Transfert"
     product_nature:
       nature:
         product: "Product"

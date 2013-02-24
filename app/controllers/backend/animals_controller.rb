@@ -56,7 +56,7 @@ class Backend::AnimalsController < BackendController
 
   # Liste des lieux de l'animal considéré
   list(:place, :model => :product_localizations, :conditions => [" product_id = ? ",['session[:current_animal_id]']], :order => "started_at DESC") do |t|
-    t.column :container, :url => true
+    t.column :name, :through => :container, :url => true
     t.column :started_at
     t.column :nature
     t.column :arrival_cause
@@ -64,7 +64,7 @@ class Backend::AnimalsController < BackendController
 
   # Liste des groupes de l'animal considéré
   list(:group, :model => :product_memberships, :conditions => [" product_id = ? ",['session[:current_animal_id]']], :order => "started_at DESC") do |t|
-    t.column :group, :url => true
+    t.column :name, :through =>:group, :url => true
     t.column :started_at
     t.column :stopped_at
   end

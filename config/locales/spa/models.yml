@@ -70,6 +70,12 @@ spa:
       product_category:
         # children: "Sous-catégories"
         # published: "Publiée"
+      product_localization:
+        # arrival_cause: "Cause d'entrée"
+        # container: "Contenant"
+        # departure_cause: "Cause de sortie"
+        # started_at: "Entrée"
+        # stopped_at: "Sortie"
       product_move:
         # origin: "Origine"
       product_nature:
@@ -295,6 +301,7 @@ spa:
       # account: "Compte"
       # account_balance: "Balance de compte"
       # affair: "Affaire"
+      # animal: "Animal"
       # area: "Zone postale"
       # asset: "Immobilisation"
       # asset_depreciation: "Amortissement d’immobilisation"
@@ -350,6 +357,7 @@ spa:
       # preference: "Préférence"
       # product: "Produits"
       # product_group: "Groupe de produit"
+      # product_localization: "Passage d'un produit en un lieu"
       # product_membership: "Passage d'un produit dans un groupe"
       # product_move: "Mouvement de stock"
       # product_nature: "Type de produit"
@@ -407,6 +415,7 @@ spa:
     # area_measure: "Superficie"
     # area_unit: "Unité de surface"
     # areas: "Zones postales"
+    # arrival_cause: "Arrival cause"
     # arrival_reasons: "Causes d'entrée"
     # arrived_on: "Date d'entrée"
     # asset: "Immobilisation"
@@ -567,6 +576,7 @@ spa:
     # departed_on: "Parti le"
     # department: "Service"
     # departments: "Services"
+    # departure_cause: "Departure cause"
     # departure_reasons: "Causes de sortie"
     # deposit: "Remise en banque"
     # depositable_payments: "Encaissements encaissables"
@@ -1119,19 +1129,8 @@ spa:
     # work_number: "Numéro de travail"
     # zone: "Zone"
   enumerize:
-    animal:
-      arrival_reasons:
-        # birth: "Naissance"
-        # housing: "Pension"
-        # other: "Autres"
-        # purchase: "Achat"
-      departure_reasons:
-        # autoconsumption: "Autoconsommation"
-        # dead: "Décès"
-        # other: "Autres"
-        # sale: "Vente"
-      income_reasons: #?
-      outgone_reasons: #?
+    animal:  #?
+ #?
     animal_treatment: #?
     asset:
       depreciation_method:
@@ -1238,6 +1237,21 @@ spa:
         # sale: "Vente"
       income_reasons: #?
       outgone_reasons: #?
+    product_localization:
+      arrival_cause:
+        # birth: "Naissance"
+        # housing: "Pension"
+        # other: "Autres"
+        # purchase: "Achat"
+      departure_cause:
+        # consumption: "Autoconsommation"
+        # death: "Décès"
+        # other: "Autres"
+        # sale: "Vente"
+      nature:
+        # exterior: "Sortie"
+        # interior: "Entrée"
+        # transfer: "Transfert"
     product_nature:
       nature:
         # product: "Produit"
