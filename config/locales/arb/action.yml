@@ -24,7 +24,7 @@ arb:
       # edit: "Modifier l'animal\_: %{name}"
       # index: "Productions animales"
       # new: "Nouvel animal"
-      # show: "Animal\_: %{name}"
+      # show: "%{nature_name}\_: %{name}"
     backend/areas:
       edit: "تعديل العنوان البريدي : %{name}"
       index: "العناوين البريد"
@@ -1090,6 +1090,7 @@ arb:
     line: "سطر رقم%{index} :"
     line_stock: "مكان التخزين: %{warehouse}, الكمية المتوفرة: %{virtual_q}"
     lines: "تصميم خطوط البيع" #?
+    # list: "Liste"
     listing_create: "انشاء استخراج جديد" #?
     listing_extract: "قائمة الاستخراج"
     listing_mail: "ارسال البريد الالكتروني"
@@ -1112,6 +1113,7 @@ arb:
     # mandates_filters: "Vous devez saisir au moins une valeur de recherche pour un des champs"
     # mandates_new_fields: "Vous devez saisir au moins une valeur dans l’un des champs de modification"
     manual_period: "من %{start} الى %{finish}"
+    # map: "Carte"
     # medical_informations: "Informations médicales"
     meeting: "المقابلة(X)مكان"
     menu:  #?
@@ -1632,6 +1634,9 @@ arb:
       one: "مشترك واحد"
       other: "%{count} مشتركين اخرين"
       zero: "ولا مشترك"
+    x_days:
+      # one: "%{count} jour"
+      # other: "%{count} jours"
     x_depositable_payments:
       # one: "%{count} encaissement à encaisser depuis au moins 15 j."
       # other: "%{count} encaissement à encaisser depuis au moins 15 j."
@@ -1671,6 +1676,9 @@ arb:
       one: "تفويض واحد"
       other: "%{count} تفويض اخر"
       zero: "ولا اية تفويض"
+    x_months:
+      # one: "%{count} mois"
+      # other: "%{count} mois"
     x_observations:
       one: "ملاحظة واحدة"
       other: "%{count} ملاحظات اخرى"
@@ -1721,6 +1729,9 @@ arb:
     x_waiting_outgoing_deliveries:
       # one: "%{count} livraison sortante en attente"
       # other: "%{count} livraisons sortantes en attente"
+    x_years:
+      # one: "%{count} an"
+      # other: "%{count} ans"
     y: "نعم"
     yearly: "Annuelle"
   notifications:

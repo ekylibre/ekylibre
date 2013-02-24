@@ -477,6 +477,7 @@ eng:
     # administrator: "Administrateur système"
     # affair: "Affaire"
     # affairs: "Affaires"
+    # age: "Âge"
     agency_code: "Agency code" #?
     allocation_account: "Allocation account"
     amount: "Amount"

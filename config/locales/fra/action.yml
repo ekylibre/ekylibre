@@ -602,8 +602,6 @@ fra:
         one: "%{count} erreur a empêché l’enregistrement (%{model})"
         other: "%{count} erreurs ont empêché l’enregistrement (%{model})"
   labels:
-    list: "Liste"
-    map: "Carte"
     account_accruals: "Comptes de régularisation"
     account_attorney_to_create: "-- Créer automatiquement un compte mandataire --"
     account_claims_assets: "Créances"
@@ -960,6 +958,7 @@ fra:
       title: "Catégories de tiers"
     line: "Ligne n°%{index}\_:"
     line_stock: "Lieu de stockage: %{warehouse}, quantité disponible: %{virtual_q}"
+    list: "Liste"
     listing_extract: "Éxécuter l’extraction"
     listing_mail: "Envoyer un courriel"
     listings: "Extractions de données"
@@ -980,6 +979,7 @@ fra:
     mandates_filters: "Vous devez saisir au moins une valeur de recherche pour un des champs"
     mandates_new_fields: "Vous devez saisir au moins une valeur dans l’un des champs de modification"
     manual_period: "du %{start} au %{finish}"
+    map: "Carte"
     medical_informations: "Informations médicales"
     meeting: "Lieu(x) de rencontre"
     menus:
@@ -1432,6 +1432,9 @@ fra:
       one: "%{count} contact"
       other: "%{count} contacts"
       zero: "0 contact"
+    x_days:
+      one: "%{count} jour"
+      other: "%{count} jours"
     x_depositable_payments:
       one: "%{count} encaissement à encaisser depuis au moins 15 j."
       other: "%{count} encaissement à encaisser depuis au moins 15 j."
@@ -1471,6 +1474,9 @@ fra:
       one: "%{count} responsabilité"
       other: "%{count} responsabilités "
       zero: "0 responsabilité"
+    x_months:
+      one: "%{count} mois"
+      other: "%{count} mois"
     x_observations:
       one: "%{count} observation"
       other: "%{count} observations"
@@ -1523,13 +1529,7 @@ fra:
       other: "%{count} livraisons sortantes en attente"
     x_years:
       one: "%{count} an"
-      other: "%{count} ans" 
-    x_months:
-      one: "%{count} mois"
-      other: "%{count} mois" 
-    x_days:
-      one: "%{count} jour"
-      other: "%{count} jours" 
+      other: "%{count} ans"
     y: "Oui"
     yearly: "Annuelle"
   notifications:

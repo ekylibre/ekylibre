@@ -24,7 +24,7 @@ spa:
       # edit: "Modifier l'animal\_: %{name}"
       # index: "Productions animales"
       # new: "Nouvel animal"
-      # show: "Animal\_: %{name}"
+      # show: "%{nature_name}\_: %{name}"
     backend/application: #?
     backend/areas:
       # edit: "Modifier la zone postale\_: %{name}"
@@ -1004,6 +1004,7 @@ spa:
       title: "Catégorias de tercios"
     # line: "Ligne n°%{index}\_:"
     # line_stock: "Lieu de stockage: %{warehouse}, quantité disponible: %{virtual_q}"
+    # list: "Liste"
     listing_create: "Craer una nueva extracción" #?
     listing_extract: "Ejecutar la extracción"
     listing_mail: "Enviar un correo electronico"
@@ -1025,6 +1026,7 @@ spa:
     # mandates_filters: "Vous devez saisir au moins une valeur de recherche pour un des champs"
     # mandates_new_fields: "Vous devez saisir au moins une valeur dans l’un des champs de modification"
     manual_period: "del %{empezo} al %{termino}"
+    # map: "Carte"
     # medical_informations: "Informations médicales"
     # meeting: "Lieu(x) de rencontre"
     menu: #?
@@ -1493,6 +1495,9 @@ spa:
       # one: "%{count} contact"
       # other: "%{count} contacts"
       # zero: "0 contact"
+    x_days:
+      # one: "%{count} jour"
+      # other: "%{count} jours"
     x_depositable_payments:
       # one: "%{count} encaissement à encaisser depuis au moins 15 j."
       # other: "%{count} encaissement à encaisser depuis au moins 15 j."
@@ -1532,6 +1537,9 @@ spa:
       # one: "%{count} responsabilité"
       # other: "%{count} responsabilités "
       # zero: "0 responsabilité"
+    x_months:
+      # one: "%{count} mois"
+      # other: "%{count} mois"
     x_observations:
       # one: "%{count} observation"
       # other: "%{count} observations"
@@ -1582,6 +1590,9 @@ spa:
     x_waiting_outgoing_deliveries:
       # one: "%{count} livraison sortante en attente"
       # other: "%{count} livraisons sortantes en attente"
+    x_years:
+      # one: "%{count} an"
+      # other: "%{count} ans"
     # y: "Oui"
     yearly: "Anual"
   notifications:
