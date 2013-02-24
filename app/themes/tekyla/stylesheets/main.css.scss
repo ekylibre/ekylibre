@@ -135,20 +135,20 @@ ul.side-menu {
   padding: 7px;
 }
 
-.topo-coordinate {
+.info {
   @include ellipsis;
   &, & * {
     font-size: $fs-large;
     line-height: round($fs-large * 1.4);
     vertical-align: baseline;
   }
-  .canal-label {
+  span.title {
     width: 20%;
     @include text-align(right);
     color: #777;
     // @include padding-right($default-gap);
   }
-  .canal-value {
+  span.value {
     &, & * {
       font-weight: bold;
     }

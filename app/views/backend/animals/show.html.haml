@@ -5,11 +5,18 @@
 
 =beehive do |b|
   -b.tabbox do
-    -b.cell :generals do
+    -b.cell :general do
       -if @animal.picture.exists?
         .picture=image_tag(@animal.picture.url(:identity))
-        =@animal.mother
-          
+        -if @animal.mother
+          .info
+            %span.title=Animal.human_attribute_name(:mother)
+            %span.value=link_to(@animal.mother.name, {:action => :show, :id => @animal.mother.id})
+        -if @animal.father
+          .info
+            %span.title=Animal.human_attribute_name(:father)
+            %span.value=link_to(@animal.father.name, {:action => :show, :id => @animal.father.id})
+
     -b.cell :details do
       =attributes_list(@animal) do |l| # liste des champs à afficher
         -l.attribute :name

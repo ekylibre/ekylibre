@@ -16,8 +16,8 @@
 
 =field_set(:genealogy) do # partie entrée sortie de l entité animal
   =f.association :mother, :collection => Animal.mother#, :source => :mother
-  =f.association :father, :collection => Animal.father#, :source => :father 
-  
+  =f.association :father, :collection => Animal.father#, :source => :father
+
 =field_set(:document) do
   =f.input :picture
   =image_tag(@animal.picture.url(:thumb))

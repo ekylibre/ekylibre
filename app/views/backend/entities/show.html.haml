@@ -10,9 +10,9 @@
       -b.cell :coordinates do
         .picture=image_tag(@entity.picture.url(:identity))
         -for address in @entity.addresses.order(:canal, :by_default)
-          .topo-coordinate
-            %span.canal-label{:class => "canal-"+address.canal.to_s}=address.canal.text
-            %span.canal-value
+          .info
+            %span.title{:class => "canal-"+address.canal.to_s}=address.canal.text
+            %span.value
               -if address.email?
                 =mail_to(address.coordinate, address.coordinate)
               -elsif address.phone? or address.mobile?
