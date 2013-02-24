@@ -54,6 +54,21 @@ class Backend::AnimalsController < BackendController
     t.column :description
   end
 
+  # Liste des lieux de l'animal considéré
+  list(:place, :model => :product_localizations, :conditions => [" product_id = ? ",['session[:current_animal_id]']], :order => "started_at DESC") do |t|
+    t.column :container, :url => true
+    t.column :started_at
+    t.column :nature
+    t.column :arrival_cause
+  end
+
+  # Liste des groupes de l'animal considéré
+  list(:group, :model => :product_memberships, :conditions => [" product_id = ? ",['session[:current_animal_id]']], :order => "started_at DESC") do |t|
+    t.column :group, :url => true
+    t.column :started_at
+    t.column :stopped_at
+  end
+
   # Show one animal with params_id
   def show
     return unless @animal = find_and_check

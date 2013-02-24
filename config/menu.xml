@@ -821,6 +821,8 @@
       <page to="authentication/sessions#renew"/>
     </menu>
     <menu name="backend/animals">
+      <page to="backend/animals#list_group"/>
+      <page to="backend/animals#list_place"/>
       <page to="backend/animals#picture"/>
     </menu>
     <menu name="backend/cells/demo_bar_cells">

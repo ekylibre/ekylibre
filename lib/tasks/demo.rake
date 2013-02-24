@@ -103,9 +103,11 @@ namespace :db do
       end
 
       # Import synel
-      v = ProductVariety.find_by_code("cattle")
+      h = ProductVariety.find_by_code("cattle")
       p = ProductVariety.find_by_code("animal")
-      v ||= ProductVariety.create!(:name => "Bovin", :code => "cattle", :product_type => "Animal", :parent_id => (p ? p.id : nil))
+      h ||= ProductVariety.create!(:name => "Bovin", :code => "cattle", :product_type => "Animal", :parent_id => (p ? p.id : nil))
+      v = ProductVariety.find_by_code("normande")
+      v ||= ProductVariety.create!(:name => "Normande", :code => "normande", :product_type => "Animal", :parent_id => (h ? h.id : nil))
       unit = Unit.find_by_base("")
       # add default variety for building
       b = ProductVariety.find_by_code("animal_house")

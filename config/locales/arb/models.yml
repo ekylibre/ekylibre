@@ -872,6 +872,7 @@ arb:
     # administrator: "Administrateur système"
     # affair: "Affaire"
     # affairs: "Affaires"
+    # age: "Âge"
     agency_code: "رمز الوكالة" #?
     # allocation_account: "Compte de dotation"
     amount: "القيمة من دون الضرائب"

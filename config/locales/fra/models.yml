@@ -376,7 +376,6 @@ fra:
       # vegetal: "Vegetal"
       warehouse: "Lieu de stockage"
   attributes:
-    age: "Âge"
     account: "Compte comptable"
     account_balances: "Balances de compte"
     accountable: "Comptabilisable"
@@ -392,6 +391,7 @@ fra:
     administrator: "Administrateur système"
     affair: "Affaire"
     affairs: "Affaires"
+    age: "Âge" #?
     # alive: "Alive"
     allocation_account: "Compte de dotation"
     amount: "Montant"

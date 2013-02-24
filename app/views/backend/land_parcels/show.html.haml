@@ -30,7 +30,7 @@
       %td.step=@land_parcel.parent_kinships.collect{|k| link_to(k.parent_land_parcel.name, :action=>:show, :id=>k.parent_land_parcel_id).html_safe}.to_sentence.html_safe
       %td.step.active=@land_parcel.name
       %td.step=@land_parcel.child_kinships.collect{|k| link_to(k.child_land_parcel.name, :action=>:show, :id=>k.child_land_parcel_id).html_safe}.to_sentence.html_safe
-  
+
   %h2=tc :operations
   =toolbar do |t|
     -t.link :new, :controller=>:operations, :target_id=>@land_parcel.id, :target_type=>LandParcel.name

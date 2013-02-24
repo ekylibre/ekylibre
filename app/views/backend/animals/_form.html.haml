@@ -15,8 +15,8 @@
   =f.input :external, inline_label: "Cas des pères non présents sur l'exploitation"
 
 =field_set(:genealogy) do # partie entrée sortie de l entité animal
-  =f.association :mother, :collection => Animal.mother#, :source => :mother
-  =f.association :father, :collection => Animal.father#, :source => :father
+  =f.association :mother, :collection => Animal.mothers#, :source => :mother
+  =f.association :father, :collection => Animal.fathers#, :source => :father
 
 =field_set(:document) do
   =f.input :picture

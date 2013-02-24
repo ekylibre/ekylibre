@@ -855,6 +855,7 @@ eng:
     go: "Go"
     graph_statistics: "Graph statistics"
     group: "Group"
+    # groups: "Groupes"
     help: "Help"
     hint: "Hint&nbsp;: %{value}"
     home: "Back to Help home"
@@ -929,6 +930,7 @@ eng:
       # title: "Catégories de tiers"
     line: "Line #%{index}:"
     line_stock: "Warehouse: %{warehouse}, available quantity: %{virtual_q}"
+    # list: "Liste"
     listing_extract: "Extract"
     listing_mail: "Send email"
     listings: "Extract data"
@@ -949,6 +951,7 @@ eng:
     # mandates_filters: "Vous devez saisir au moins une valeur de recherche pour un des champs"
     # mandates_new_fields: "Vous devez saisir au moins une valeur dans l’un des champs de modification"
     manual_period: "from %{start} to %{finish}"
+    # map: "Carte"
     # medical_informations: "Informations médicales"
     # meeting: "Lieu(x) de rencontre"
     menus:
@@ -1135,6 +1138,7 @@ eng:
     phone: "Pho."
     # picture: "Photo"
     placeholder: "Placeholder"
+    # places: "Lieux"
     planned_on: "Planned on"
     play: "Play"
     please_wait: "Please wait..."
@@ -1407,6 +1411,9 @@ eng:
       one: "%{count} contact"
       other: "%{count} contacts"
       # zero: "0 contact"
+    x_days:
+      # one: "%{count} jour"
+      # other: "%{count} jours"
     x_depositable_payments:
       one: "1 incoming payment to deposit"
       other: "%{count} incoming payments to deposit"
@@ -1446,6 +1453,9 @@ eng:
       one: "%{count} mandate"
       other: "%{count} mandates"
       # zero: "0 responsabilité"
+    x_months:
+      # one: "%{count} mois"
+      # other: "%{count} mois"
     x_observations:
       one: "%{count} observation"
       other: "%{count} observations"
@@ -1496,6 +1506,9 @@ eng:
     x_waiting_outgoing_deliveries:
       one: "%{count} waiting outgoing delivery"
       other: "%{count} waiting outgoing deliveries"
+    x_years:
+      # one: "%{count} an"
+      # other: "%{count} ans"
     y: "Yes"
     yearly: "Yearly"
   notifications:
