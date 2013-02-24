@@ -34,11 +34,13 @@ end
 
 
 def fit(path, width, height)
-  moves = path.split(/\s/)
+  moves = path.split(/((?<=[A-Z])|\s+)/)
   # Calculate bounding box
   left, right, top, bottom = nil, nil, nil, nil
   # puts path
+  numbers = 
   for move in moves
+    move.strip!
     next unless move.match(/^.+\,.+$/)
     x, y = parse_point(move)
     left   = x if   (left||x) >= x
@@ -47,7 +49,10 @@ def fit(path, width, height)
     bottom = y if (bottom||y) >= y
   end
   
-  return false if left.nil? or top.nil?
+  if left.nil? or top.nil?
+    puts "Cannot fit: " + path.inspect
+    return false 
+  end
 
   w = right - left
   h = top - bottom
@@ -71,7 +76,8 @@ end
 
 
 # Tidy SVG
-`./svgtidy --absolute < #{name}.svg > #{name}.cleaned.svg`
+# `./svgtidy-v0 --absolute < #{name}.svg > #{name}.cleaned.svg`
+`cp #{name}.svg #{name}.cleaned.svg`
 
 
 # Open SVG
@@ -80,23 +86,32 @@ doc = Nokogiri::XML(f) do |config|
   config.strict.nonet.noblanks
 end
 f.close
-FileUtils.rm("#{name}.cleaned.svg")
+# FileUtils.rm("#{name}.cleaned.svg")
 
 # Collect glyphs
 glyphs = []
-print "Collecting"
+gnames = []
+print "Collecting (from #{doc.root.xpath('./svg:g/svg:path[@id]').size}): "
 doc.root.xpath('./svg:g/svg:path[@id]').each do |node| # and @inkscape:label
+  next if node.attr(:d).match(/(c|m|a|q)/)
   gname = node.attr(:id).gsub(/(^\s+|\s+$)/, '')
   if gname.match(/^[a-z][a-z\-]*[a-z]$/)
-    print "."
+    print gname
     if d = fit(node.attr(:d), advx, advy)
       glyphs << {:name => gname, :d => d}
+    else
+      print "!"
     end
+  else
+    print "!"
+    gnames << gname
   end
+  print ", "
 end
 glyphs.sort!{|a,b| a[:name].to_s <=> b[:name].to_s }
 
 puts "#{glyphs.size} glyphs!"
+puts "Invalid names: " + gnames.join(', ')
 
 # Rewrite SVG to a font
 builder = Nokogiri::XML::Builder.new do |xml|
