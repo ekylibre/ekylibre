@@ -1,7 +1,7 @@
 =field_set do
   -#=f.input :name
-  -#=f.association :responsible, :source => :employees
-  -#=f.association :nature
+  -#=f.referenced_association :responsible, :source => :employees
+  -#=f.referenced_association :nature
   -#=f.input :planned_on
   -#=f.input :description
 
@@ -12,12 +12,12 @@
 -#=field_set(:products) do
   =f.nested_association(:items) do
     =f.input :direction
-    =f.association :product
+    =f.referenced_association :product
     =f.input :quantity
-    =f.association :tracking
-    =f.association :warehouse
+    =f.referenced_association :tracking
+    =f.referenced_association :warehouse
 
 -#=field_set(:tools) do
   =f.nested_association(:uses) do
-    =f.association :tool
+    =f.referenced_association :tool
 

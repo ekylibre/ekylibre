@@ -7,7 +7,7 @@ class GeneralizeCustomFields < ActiveRecord::Migration
     rename_column :custom_fields, :decimal_min, :minimal_value
     rename_column :custom_fields, :decimal_max, :maximal_value
     rename_column :custom_fields, :length_max, :maximal_length
-    add_column :custom_fields, :minimal_length, :integer, :null => false, :default => 0
+    add_column :custom_fields, :minimal_length, :integer
 
     add_column :custom_field_data, :customized_type, :string
     rename_column :custom_field_data, :entity_id, :customized_id

@@ -20,5 +20,5 @@
   =f.input :bank_identifier_code
 
 =field_set(:accountancy) do
-  =f.association :account, :source => {{:nature => :bank_account} => :banks, {:nature => :cash_box} => :cashes}, :new => {:number => Account.chart_number(:banks)}
-  =f.association :journal, :source => {{:nature => :bank_account} => :banks, {:nature => :cash_box} => :cashes}, :new => {:nature => :bank}
+  =f.referenced_association :account, :source => {{:nature => :bank_account} => :banks, {:nature => :cash_box} => :cashes}, :new => {:number => Account.chart_number(:banks)}
+  =f.referenced_association :journal, :source => {{:nature => :bank_account} => :banks, {:nature => :cash_box} => :cashes}, :new => {:nature => :bank}

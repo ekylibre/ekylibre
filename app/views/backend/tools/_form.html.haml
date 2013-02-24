@@ -1,8 +1,8 @@
 =field_set do # partie info general de l entité animal
   =f.input :name # affiche le champ name de l entité animal avec une infos derriere
-  =f.association :nature # affiche un menu deroulant construit par la relation group_id vers le champ name de l entité animal_group
-  =f.association :variety
-  =f.association :parent_place
+  =f.referenced_association :nature # affiche un menu deroulant construit par la relation group_id vers le champ name de l entité animal_group
+  =f.referenced_association :variety
+  =f.referenced_association :parent_place
   =f.input :active, :hide => :dead_at
   =f.input :external, :show => :entity
   =f.input :reservoir, :show => :stock
@@ -18,9 +18,9 @@
   =f.input :dead_at
 
 =field_set(:entity) do
-  =f.association :owner
+  =f.referenced_association :owner
 
 =field_set(:stock) do
-  =f.association :content_nature
-  =f.association :content_unit
+  =f.referenced_association :content_nature
+  =f.referenced_association :content_unit
   =f.input :content_maximal_quantity

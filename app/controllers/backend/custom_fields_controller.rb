@@ -57,8 +57,8 @@ class Backend::CustomFieldsController < BackendController
 
   # Sort all choices by name
   def sort
-    return unless @custom_field = find_and_check(:custom_field)
-    @custom_field.sort_choices
+    return unless @custom_field = find_and_check
+    @custom_field.sort_choices!
     redirect_to_current
   end
 

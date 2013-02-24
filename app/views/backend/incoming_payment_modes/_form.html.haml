@@ -1,18 +1,18 @@
 =field_set do
   =f.input :name
-  =f.association :cash
+  =f.referenced_association :cash
   =f.input :with_accounting, :show => :accountancy_options
 
 =field_set(:accountancy, :in => :accountancy_options) do
-  =f.association :attorney_journal
+  =f.referenced_association :attorney_journal
   =f.input :with_deposit, :show => :deposit
   =f.input :with_commission, :show => :commission
 
 =field_set(:deposit, :in => :accountancy_options) do
-  =f.association :depositables_account, :source => :deposit_pending_payments, :new => {:number => Account.chart_number(:deposit_pending_payments)}
-  =f.association :depositables_journal
+  =f.referenced_association :depositables_account, :source => :deposit_pending_payments, :new => {:number => Account.chart_number(:deposit_pending_payments)}
+  =f.referenced_association :depositables_journal
 
 =field_set(:commission, :in => :accountancy_options) do
   =f.input :commission_base_amount
   =f.input :commission_percentage
-  =f.association :commission_account, :source => :charges, :new => {:number => Account.chart_number(:charges)}
+  =f.referenced_association :commission_account, :source => :charges, :new => {:number => Account.chart_number(:charges)}

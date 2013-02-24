@@ -1,9 +1,9 @@
 =field_set do
   =f.input :nature, :show => {:transfer => :second_warehouse}
-  =f.association :product, :source => :availables
-  =f.association :tracking
+  =f.referenced_association :product, :source => :availables
+  =f.referenced_association :tracking
   =f.input :quantity
-  =f.association :warehouse
-  =f.association :second_warehouse
+  =f.referenced_association :warehouse
+  =f.referenced_association :second_warehouse
   =f.input :planned_on
   =f.input :description

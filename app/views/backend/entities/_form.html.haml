@@ -1,5 +1,5 @@
 =field_set(:major => true) do
-  =f.association :nature
+  =f.referenced_association :nature
   =f.input :language, :collection => languages, :field => :select
   =f.input :last_name
   =f.input :first_name
@@ -25,23 +25,23 @@
     =custom_field datum.custom_field.name, {:datatype => datum.custom_field.nature.to_sym, :id => "custom_field_datum_#{datum.custom_field_id}_value", :name => "custom_field_datum[#{datum.custom_field_id}][value]", :value => datum.value, :size => datum.custom_field.length_max, :options => {:include_blank => (datum.custom_field.required ? nil : '')}, :choices => datum.custom_field.choices.collect{|x| [x.name , x.id]}  }
 
 =field_set(:client_informations) do
-  =f.association :category
+  =f.referenced_association :category
   =f.input :origin, :autocomplete => true
   =f.input :first_met_on
-  =f.association :proposer
-  =f.association :responsible, :source => :employees
+  =f.referenced_association :proposer
+  =f.referenced_association :responsible, :source => :employees
   =f.input :vat_submissive
   =f.input :reminder_submissive, :show => :reduction_percentage
   =f.input :reduction_percentage
   =f.input :authorized_payments_count
   =f.input :deliveries_conditions, :field => :text
-  =f.association :client_account, :source => :client_thirds, :buttons => {:new => {:number => Account.find_in_chart(:client_thirds).number}}
+  =f.referenced_association :client_account, :source => :client_thirds, :buttons => {:new => {:number => Account.find_in_chart(:client_thirds).number}}
 
 =field_set(:supplier_informations) do
-  =f.association :supplier_account, :source => :supplier_thirds, :buttons => {:new => {:number => Account.find_in_chart(:supplier_thirds).number}}
+  =f.referenced_association :supplier_account, :source => :supplier_thirds, :buttons => {:new => {:number => Account.find_in_chart(:supplier_thirds).number}}
 
 =field_set(:attorney_informations, :after => :client_informations) do
-  =f.association :attorney_account, :source => :attorney_thirds, :buttons => {:new => {:number => Account.find_in_chart(:attorney_thirds).number}}
+  =f.referenced_association :attorney_account, :source => :attorney_thirds, :buttons => {:new => {:number => Account.find_in_chart(:attorney_thirds).number}}
 
 =field_set(:coordinates, :major => true) do
   =f.nested_association(:emails) do

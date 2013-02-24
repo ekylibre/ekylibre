@@ -2,7 +2,7 @@
 =field_set do
   =f.input :name, :soft_copy_to => :catalog_name
   =f.input :description
-  =f.association :parent
+  =f.referenced_association :parent
 
 =field_set(:catalog) do
   =f.input :catalog_name

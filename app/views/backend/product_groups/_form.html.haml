@@ -1,5 +1,5 @@
 =field_set do
-  =f.association :parent
+  =f.referenced_association :parent
   =f.input :name
   =f.input :description
   =f.input :description
@@ -8,4 +8,4 @@
   =f.nested_association(:memberships) do
     =f.input :started_at
     =f.input :stopped_at
-    =f.association :product
+    =f.referenced_association :product

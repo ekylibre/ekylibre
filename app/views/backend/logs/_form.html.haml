@@ -1,10 +1,10 @@
 =field_set do
   =f.input :name
-  =f.association :nature, :as => :radio_buttons
-  =f.association :parent
+  =f.referenced_association :nature, :as => :radio_buttons
+  =f.referenced_association :parent
 
 =field_set(:animal) do |f|
-  =f.association :animal, :source => :here
+  =f.referenced_association :animal, :source => :here
 
 =field_set(:delay) do |f|
   =f.input :planned_at
@@ -14,16 +14,16 @@
   =f.nested_association(:diagnostics) do
     =f.input :symptoms
     =f.input :corpse_location
-    =f.association :disease
+    =f.referenced_association :disease
 
 =field_set(:treatment) do |f|
   =f.nested_association(:treatments) do
     =f.input :started_at
-    =f.association :drug
+    =f.referenced_association :drug
     =f.input :quantity
     =f.input :quantity_interval
     =f.input :quantity_delay
-    =f.association :prescription
+    =f.referenced_association :prescription
 
 =field_set(:entity) do |f|
-  =f.association :watcher, :include_blank => true, :default_value => :blank
+  =f.referenced_association :watcher, :include_blank => true, :default_value => :blank

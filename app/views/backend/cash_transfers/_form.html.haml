@@ -1,6 +1,6 @@
 =field_set do
   =f.input :created_on
-  =f.association :emitter_cash
+  =f.referenced_association :emitter_cash
   =f.input :emitter_amount
-  =f.association :receiver_cash
+  =f.referenced_association :receiver_cash
   =f.input :description, :field => :text

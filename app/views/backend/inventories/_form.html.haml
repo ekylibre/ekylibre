@@ -1,5 +1,5 @@
 =field_set do
-  =f.association :responsible, :source => :employees
+  =f.referenced_association :responsible, :source => :employees
   =f.input :description
   =render :partial => "items_form"
 

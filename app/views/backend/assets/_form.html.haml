@@ -19,7 +19,7 @@
     -f.field :asset, :stopped_on
 
 =field_set(@asset, :accountancy) do |f|
-  =f.association :journal
+  =f.referenced_association :journal
   =formalize do |f|
     -f.field :asset, :allocation_account_id, :choices=>:account, :new=>true
     -f.field :asset, :charges_account_id, :choices=>:account, :new=>true

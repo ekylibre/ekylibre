@@ -3,11 +3,11 @@
   =f.input :number
   =f.input :commercial_name
   =f.input :active
-  =f.association :variety
+  =f.referenced_association :variety
 
 =field_set :nature do
-  =f.association :category
-  =f.association :unit
+  =f.referenced_association :category
+  =f.referenced_association :unit
   -#input :nature, :show => {:subscription => :subscription}
 
 =field_set :nature do
@@ -27,7 +27,7 @@
   =f.input :tractive
 
 =field_set :subscription do
-  =f.association :subscription_nature
+  =f.referenced_association :subscription_nature
   =f.input :subscription_duration
   -#input :duration
 
@@ -42,8 +42,8 @@
 -#price=render :partial=>'price_amount_form'
 
 =field_set :accountancy do
-  =f.association :asset_account
-  =f.association :product_account #,     :source => :products
-  =f.association :charge_account #, :source => :charges
-  =f.association :stock_account
+  =f.referenced_association :asset_account
+  =f.referenced_association :product_account #,     :source => :products
+  =f.referenced_association :charge_account #, :source => :charges
+  =f.referenced_association :stock_account
 

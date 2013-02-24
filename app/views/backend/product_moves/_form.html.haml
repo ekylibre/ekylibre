@@ -3,10 +3,10 @@
   =f.input :description, :field=>:textarea
   =f.input :virtual
   -# input :input
-  =f.association :warehouse
+  =f.referenced_association :warehouse
   =f.input :planned_on
   =f.input :moved_on
-  =f.association :product
+  =f.referenced_association :product
   =f.input :quantity
   -# association :unit
 

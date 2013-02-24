@@ -1,7 +1,7 @@
 -# TODO Check
 =field_set do
-  =f.association :transporter, :source => :necessary_transporters, :new => {:transporter => 1} # , "data-parameter-name"=>"transporter_id", "data-dependents"=>"#deliveries"
-  =f.association :responsible, :source => :employees
+  =f.referenced_association :transporter, :source => :necessary_transporters, :new => {:transporter => 1} # , "data-parameter-name"=>"transporter_id", "data-dependents"=>"#deliveries"
+  =f.referenced_association :responsible, :source => :employees
   =f.input :reference_number
   =f.input :transport_on
   =f.input :description, :field => :text

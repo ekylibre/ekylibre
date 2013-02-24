@@ -2,12 +2,12 @@
 =purchase_steps
 
 =field_set do
-  =f.association :supplier, :source => :suppliers
-  =f.association :nature
-  =f.association :delivery_address, :source => :own_mails, :new => {:entity_id => Entity.of_company.id}
+  =f.referenced_association :supplier, :source => :suppliers
+  =f.referenced_association :nature
+  =f.referenced_association :delivery_address, :source => :own_mails, :new => {:entity_id => Entity.of_company.id}
   =f.input :planned_on
   =f.input :reference_number
-  =f.association :responsible, :source => :employees, :new => {:employed => 1}
+  =f.referenced_association :responsible, :source => :employees, :new => {:employed => 1}
   =f.input :description
 
 

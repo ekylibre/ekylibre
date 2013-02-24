@@ -20,19 +20,103 @@
 
 # encoding: utf-8
 
+class SimpleForm::Inputs::DateTimeInput
 
-
-  class SimpleForm::FormBuilder
-
-    def nested_association(name, *args, &block)
-      return "<div>Nested association #{name}</div>".html_safe
+  def input_html_options
+    value = object.send(attribute_name)
+    format = @options[:format] || :default
+    raise ArgumentError.new("Option :format must be a Symbol referencing a translation 'date.formats.<format>'") unless format.is_a?(Symbol)
+    if localized_value = value
+      localized_value = I18n.localize(localized_value, :format => format)
     end
-
-    def custom_fields(*args, &block)
-      return "<div>Custom fields</div>".html_safe
-    end
-
+    format = I18n.translate('date.formats.'+format.to_s)
+    Formize::DATE_FORMAT_TOKENS.each{|js, rb| format.gsub!(rb, js)}
+    options = {
+      "data-date" => format,
+      "data-date-locale" => "i18n.iso2".t,
+      "data-date-iso" => value,
+      :value => localized_value,
+      :size => @options.delete(:size) || 10
+    }
+    super.merge options
   end
+
+  def input
+    @builder.text_field(attribute_name, input_html_options)
+  end
+
+end
+
+
+class SimpleForm::FormBuilder
+
+  # Display a selector with "new" button
+  def referenced_association(association, options = {}, &block)
+    reflection = find_association_reflection(association)
+    raise "Association #{association.inspect} not found" unless reflection
+    raise ArgumentError.new("Reflection #{reflection.name} must be a belongs_to") if reflection.macro != :belongs_to
+
+
+    choices = options[:source] || {}
+    choices = {:action => "unroll_#{choices.to_s}".to_sym} unless choices.is_a?(Hash)
+    choices[:action] ||= :unroll
+    choices[:controller] ||= reflection.class_name.underscore.pluralize
+
+    new_url = {}
+    new_url[:controller] ||= choices[:controller]
+    new_url[:action] ||= :new
+
+    model = @object.class
+    input_id = model.name.underscore + "-" + association.to_s + "-input"
+
+    return input(reflection.foreign_key, options.merge(:wrapper => :append, :reflection => reflection)) do
+      self.input_field(reflection.foreign_key, 'data-selector' => @template.url_for(choices), :id => input_id) +
+        @template.link_to(('<span class="icon"></span><span class="text">' + @template.send(:h, 'labels.new'.t) + '</span>').html_safe, new_url, 'data-new-item' => input_id, :class => 'btn btn-new')
+    end
+  end
+
+  # Adds nested association support
+  def nested_association(association, *args, &block)
+    reflection = find_association_reflection(association)
+    raise "Association #{association.inspect} not found" unless reflection
+    raise ArgumentError.new("Reflection #{reflection.name} must be a has_many") if reflection.macro != :has_many
+    item = association.to_s.singularize
+    return @template.content_tag(:div,
+                                 self.simple_fields_for(association) do |nested|
+                                   @template.render("#{item}_fields", :f => nested)
+                                 end +
+                                 @template.content_tag(:div, @template.link_to_add_association("labels.add_#{item}".t, self, association, 'data-no-turbolink' => true, :class => 'nested-add add-#{item}'), :class => "links"),
+                                 :id => "#{association}-field")
+  end
+
+  # Adds custom fields
+  def custom_fields(*args, &block)
+    custom_fields = CustomField.of(@object.class.name)
+    if custom_fields.count > 0
+      return @template.content_tag(:div, :id => "custom-fields-field") do
+        data = @object.custom_field_data
+        html = "".html_safe
+        for custom_field in custom_fields
+          datum = data.select{|d| d.custom_field_id == custom_field.id}.first || custom_field.data.build({:customized => @object}, :without_protection => true)
+          html << self.simple_fields_for(:custom_field_data, datum) do |custom|
+            inner_html  = custom.hidden_field(:customized_type)
+            inner_html << custom.hidden_field(:custom_field_id)
+            if custom_field.choice?
+              inner_html << custom.association(:choice_value, :collection => custom_field.choices, :required => custom_field.required?, :label => custom_field.name)
+            else
+              inner_html << custom.input(:value, :as => custom_field.nature.to_sym, :required => custom_field.required?, :label => custom_field.name)
+            end
+            inner_html
+          end
+        end
+        # Returns HTML
+        html
+      end
+    end
+    return nil
+  end
+
+end
 
 
 module ApplicationHelper
@@ -336,7 +420,7 @@ module ApplicationHelper
     end
     if [TrueClass, FalseClass].include? value.class
       value = content_tag(:div, "", :class => "checkbox-#{value}")
-    elsif model.respond_to?(attribute) and model.send(attribute).respond_to?(:values)
+    elsif value.respond_to?(:text)
       value = value.send(:text)
     elsif attribute.to_s.match(/(^|_)currency$/)
       value = value.to_currency.label

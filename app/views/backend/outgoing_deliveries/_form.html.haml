@@ -3,10 +3,10 @@
 
 =field_set do
   -# TODO: Manage filtered source with column
-  =f.association :address, :new => {:entity_id => @outgoing_delivery.sale.client_id}
-  =f.association :mode
+  =f.referenced_association :address, :new => {:entity_id => @outgoing_delivery.sale.client_id}
+  =f.referenced_association :mode
   =f.input :planned_on
-  =f.association :transporter, :source => :transporters, :new => {:transporter => 1}
+  =f.referenced_association :transporter, :source => :transporters, :new => {:transporter => 1}
 
 =field_set :outgoing_delivery_items do
   = render :partial => "items_form"
