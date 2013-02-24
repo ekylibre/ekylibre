@@ -343,6 +343,7 @@ arb:
     backend/product_indicator_nature_choices: #?
     backend/product_indicator_natures: #?
     backend/product_indicators: #?
+    backend/product_localizations: #?
     backend/product_memberships: #?
     backend/product_moves:
       edit: "تعديل حركة سهم : %{name}"

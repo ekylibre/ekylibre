@@ -289,6 +289,11 @@ fra:
       # index: "Index backend/product indicator"
       # new: "New backend/product indicator"
       # show: "Show backend/product indicator"
+    backend/product_localizations:
+      # edit: "Edit backend/product localization"
+      # index: "Index backend/product localization"
+      # new: "New backend/product localization"
+      # show: "Show backend/product localization"
     backend/product_memberships:
       # edit: "Edit backend/product membership"
       # index: "Index backend/product membership"

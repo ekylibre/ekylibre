@@ -1,0 +1,10 @@
+=field_set do
+  =f.association :container
+  =f.association :product
+  =f.input :nature
+
+=field_set(:movement) do
+  =f.nested_association(:memberships) do
+    =f.input :started_at
+    =f.input :stopped_at
+    =f.association :product
