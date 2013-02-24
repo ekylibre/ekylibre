@@ -25,14 +25,15 @@ $list-hover-backgrounds: ("" rgba(255, 255, 255, 0)) (":hover" $hover-mask);
         // @include background-image(linear-gradient(lighten($menu-background, $default-lightness-variation), darken($menu-background, $default-lightness-variation)));
         &[data-list-column-sort] {
           .icon {
-            @include active-list-sprite(sort);
+            @include is-icon(12px);
+            @include use-icon(sort);
             @include inline-block;
             @include margin-left(round($fs-normal*0.2));
           }
           &.sor[data-list-column-sort="desc"] .icon {
-            @include active-list-sprite(sort-down); }
+            @include use-icon(sort-down); }
           &.sor[data-list-column-sort="asc"] .icon {
-            @include active-list-sprite(sort-up); }
+            @include use-icon(sort-up); }
         }
         &.spe {
           overflow: visible;
@@ -45,7 +46,11 @@ $list-hover-backgrounds: ("" rgba(255, 255, 255, 0)) (":hover" $hover-mask);
               padding: 2px;
               width: 20px;
               height: 20px;
-              .icon { @include active-list-sprite(menu); display: block; }
+              .icon {
+                @include is-icon;
+                @include use-icon(wrench);
+                display: block;
+              }
               .text { display: none; }
             }
             &:hover {
@@ -63,14 +68,17 @@ $list-hover-backgrounds: ("" rgba(255, 255, 255, 0)) (":hover" $hover-mask);
                   & { right: $menu-width; }
                   html[dir="rtl"] & { left: $menu-width; }
                 }
+
                 a {
-                  &.pages     .icon { @include active-list-sprite(pages); }
-                  &.columns   .icon { @include active-list-sprite(columns); }
+                  .icon { @include is-icon }
+                  &.pages     .icon { @include use-icon(list); }
+                  &.columns   .icon { @include use-icon(columns); }
                 }
-                &.export    .icon { @include active-list-sprite(export); }
-                &.check     .icon { @include active-list-sprite(check); }
-                &.checked   .icon { @include active-list-sprite(true); }
-                &.unchecked .icon { @include active-list-sprite(false); }
+                .icon { @include is-icon }
+                &.export    .icon { @include use-icon(download-alt); }
+                &.check     .icon { @include use-icon(ok); }
+                &.checked   .icon { @include use-icon(check); }
+                &.unchecked .icon { @include use-icon(check-empty); }
                 &:hover {
                   text-decoration: none;
                   background: $menu-background-hover;
@@ -141,18 +149,19 @@ $list-hover-backgrounds: ("" rgba(255, 255, 255, 0)) (":hover" $hover-mask);
        .first-page, .previous-page, .next-page, .last-page {
          @include inline-block;
          @include squish-text;
+         i { @include is-icon }
        }
-        html[dir="rtl"] & .last-page,  & .first-page {
-          @include active-list-sprite(first-page);
+        html[dir="rtl"] & .last-page i,  & .first-page i {
+          @include use-icon(fast-backward);
         }
-        html[dir="rtl"] & .first-page,  & .last-page {
-          @include active-list-sprite(last-page);
+        html[dir="rtl"] & .first-page i,  & .last-page i {
+          @include use-icon(fast-forward);
         }
-        html[dir="rtl"] & .next-page,  & .previous-page {
-          @include active-list-sprite(previous-page);
+        html[dir="rtl"] & .next-page i,  & .previous-page i {
+          @include use-icon(backward);
         }
-        html[dir="rtl"] & .previous-page, & .next-page {
-          @include active-list-sprite(next-page);
+        html[dir="rtl"] & .previous-page i, & .next-page i {
+          @include use-icon(forward);
         }
        .separator {
          @include inline-block;
@@ -213,56 +222,69 @@ $list-hover-backgrounds: ("" rgba(255, 255, 255, 0)) (":hover" $hover-mask);
     }
     td.act {
       width: 16px;
+//      padding-top: 0 !important;
+      padding-bottom: 0 !important;
       a {
-        color: transparent;
+        //color: transparent;
+        //display: block;
+
         font-size: 0;
-        @include icons-sprite(action);
-        display: block;
-        height: 16px;
-        width: 16px;
+        i {
+          @include is-icon(18px);
+          @include use-icon(cog);
+          color: $base-color;
+        }
+        &:focus {
+          outline: none;
+          i {
+            color: darken($base-color, 10%);
+          }
+        }
+        //height: 16px;
+        //width: 16px;
         margin: 0 auto;
         border: none;
 
-        &.show { @include icons-sprite(print); }
-        &.destroy { @include icons-sprite(destroy); }
+        &.show       i { @include use-icon(print); }
+        &.destroy    i { @include use-icon(remove); }
 
-        &.abort       { @include icons-sprite(destroy); }
-        &.action      { @include icons-sprite(action); }
-        &.backup      { @include icons-sprite(right); }
-        &.cancel      { @include icons-sprite(cancel); }
-        &.checked     { @include icons-sprite(true); }
-        &.close       { @include icons-sprite(close); }
-        &.column      { @include icons-sprite(column); }
-        &.confirm     { @include icons-sprite(validate); }
-        &.configure   { @include icons-sprite(configure); }
-        &.correct     { @include icons-sprite(edit); }
-        &.edit,        &.update { @include icons-sprite(edit); }
-        &.new,         &.create { @include icons-sprite(new); }
-        &.destroy,     &.delete { @include icons-sprite(destroy); }
-        &.divide      { @include icons-sprite(divide); }
-        &.down        { @include icons-sprite(down); }
-        &.duplicate   { @include icons-sprite(duplicate); }
-        &.extract     { @include icons-sprite(action); }
-        &.filter      { @include icons-sprite(filter); }
-        &.firefox     { @include icons-sprite(down); }
-        &.help        { @include icons-sprite(help); }
-        &.import      { @include icons-sprite(left); }
-        &.letter      { @include icons-sprite(mark); }
-        &.load        { @include icons-sprite(load); }
-        &.logout      { @include icons-sprite(logout); }
-        &.mail        { @include icons-sprite(mail); }
-        &.merge       { @include icons-sprite(merge); }
-        &.point       { @include icons-sprite(point); }
-        &.print       { @include icons-sprite(print); }
-        &.reflect     { @include icons-sprite(action); }
-        &.refuse      { @include icons-sprite(destroy); }
-        &.register    { @include icons-sprite(new); }
-        &.restore     { @include icons-sprite(left); }
-        &.sort        { @include icons-sprite(sort); }
-        &.table       { @include icons-sprite(table); }
-        &.unchecked   { @include icons-sprite(false); }
-        &.unmark      { @include icons-sprite(unmark); }
-        &.up          { @include icons-sprite(up); }
+        &.abort       i { @include use-icon(remove); }
+        &.action      i { @include use-icon(cog); }
+        &.backup      i { @include use-icon(backward); }
+        &.cancel      i { @include use-icon(cancel); }
+        &.checked     i { @include use-icon(check); }
+        &.close       i { @include use-icon(close); }
+        &.column      i { @include use-icon(column); }
+        &.confirm     i { @include use-icon(validate); }
+        &.configure   i { @include use-icon(configure); }
+        &.correct     i { @include use-icon(edit); }
+        &.edit i,    &.update i { @include use-icon(edit); }
+        &.new i,     &.create i { @include use-icon(new); }
+        &.destroy i, &.delete i { @include use-icon(remove); }
+        &.divide      i { @include use-icon(divide); }
+        &.down        i { @include use-icon(down); }
+        &.duplicate   i { @include use-icon(duplicate); }
+        &.extract     i { @include use-icon(cog); }
+        &.filter      i { @include use-icon(filter); }
+        &.firefox     i { @include use-icon(down); }
+        &.help        i { @include use-icon(help); }
+        &.import      i { @include use-icon(left); }
+        &.letter      i { @include use-icon(mark); }
+        &.load        i { @include use-icon(load); }
+        &.logout      i { @include use-icon(logout); }
+        &.mail        i { @include use-icon(mail); }
+        &.merge       i { @include use-icon(merge); }
+        &.point       i { @include use-icon(point); }
+        &.print       i { @include use-icon(print); }
+        &.reflect     i { @include use-icon(cog); }
+        &.refuse      i { @include use-icon(remove); }
+        &.register    i { @include use-icon(new); }
+        &.restore     i { @include use-icon(left); }
+        &.sort        i { @include use-icon(sort); }
+        &.table       i { @include use-icon(table); }
+        &.unchecked   i { @include use-icon(false); }
+        &.unmark      i { @include use-icon(unmark); }
+        &.up          i { @include use-icon(up); }
       }
 
     }

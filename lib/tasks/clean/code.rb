@@ -2,6 +2,9 @@ desc "Removes end spaces"
 task :code do
   files  = []
   Dir.chdir(Rails.root) do
+    files += Dir["Gemfile*"]
+    files += Dir["Rakefile"]
+    files += Dir["**/*.ru"]
     files += Dir["**/*.rb"]
     files += Dir["**/*.rake"]
     files += Dir["**/*.yml"]
