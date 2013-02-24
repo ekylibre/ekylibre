@@ -92,6 +92,8 @@ Ekylibre::Application.routes.draw do
       collection do
         get :list
         get :list_children
+        get :list_place
+        get :list_group
         unroll_all
       end
       member do
@@ -484,7 +486,12 @@ Ekylibre::Application.routes.draw do
         unroll_all
       end
     end
-    resources :product_localizations
+    resources :product_localizations do
+      collection do
+        get :list
+        unroll_all
+      end
+    end
     resources :product_processes do
       collection do
         get :list

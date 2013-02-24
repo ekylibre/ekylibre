@@ -60,6 +60,12 @@ fra:
       product_category:
         children: "Sous-catégories"
         published: "Publiée"
+      product_localization:
+        arrival_cause: "Cause d'entrée"
+        container: "Contenant"
+        departure_cause: "Cause de sortie"
+        started_at: "Entrée"
+        stopped_at: "Sortie"
       product_move:
         origin: "Origine"
       product_nature:
@@ -275,7 +281,7 @@ fra:
       account: "Compte"
       account_balance: "Balance de compte"
       affair: "Affaire"
-      # animal: "Animal"
+      animal: "Animal"
       area: "Zone postale"
       asset: "Immobilisation"
       asset_depreciation: "Amortissement d’immobilisation"
@@ -339,7 +345,7 @@ fra:
       # product_indicator: "Product indicator"
       # product_indicator_nature: "Product indicator nature"
       # product_indicator_nature_choice: "Product indicator nature choice"
-      # product_localization: "Product localization"
+      product_localization: "Passage d'un produit en un lieu"
       product_membership: "Passage d'un produit dans un groupe"
       product_move: "Mouvement de stock"
       product_nature: "Type de produit"
@@ -402,7 +408,7 @@ fra:
     area_measure: "Superficie"
     area_unit: "Unité de surface"
     areas: "Zones postales"
-    # arrival_cause: "Arrival cause"
+    arrival_cause: "Arrival cause"
     arrival_reasons: "Causes d'entrée" #?
     arrived_on: "Date d'entrée"
     asset: "Immobilisation"
@@ -582,7 +588,7 @@ fra:
     departed_on: "Parti le"
     department: "Service"
     departments: "Services" #?
-    # departure_cause: "Departure cause"
+    departure_cause: "Departure cause"
     departure_reasons: "Causes de sortie" #?
     deposit: "Remise en banque"
     depositable_payments: "Encaissements encaissables"
@@ -1177,17 +1183,6 @@ fra:
     # works: "Works"
     zone: "Zone" #?
   enumerize:
-    animal:
-      arrival_reasons:
-        birth: "Naissance"
-        housing: "Pension"
-        other: "Autres"
-        purchase: "Achat"
-      departure_reasons:
-        autoconsumption: "Autoconsommation"
-        dead: "Décès"
-        other: "Autres"
-        sale: "Vente"
     asset:
       depreciation_method:
         graduated: "Dégressive"
@@ -1284,6 +1279,21 @@ fra:
         dead: "Décès"
         other: "Autres"
         sale: "Vente"
+    product_localization:
+      arrival_cause:
+        birth: "Naissance"
+        housing: "Pension"
+        other: "Autres"
+        purchase: "Achat"
+      departure_cause:
+        consumption: "Autoconsommation"
+        death: "Décès"
+        other: "Autres"
+        sale: "Vente"
+      nature:
+        exterior: "Sortie"
+        interior: "Entrée"
+        transfer: "Transfert"
     product_nature:
       nature:
         product: "Produit"

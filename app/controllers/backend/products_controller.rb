@@ -20,10 +20,11 @@
 class Backend::ProductsController < BackendController
   manage_restfully
 
+  respond_to :pdf, :xml, :json, :html
+
   unroll_all
 
   list do |t|
-    t.column :number, :url => true
     t.column :name, :url => true
     t.column :description
     t.action :show, :url => {:format => :pdf}, :image => :print
@@ -32,9 +33,14 @@ class Backend::ProductsController < BackendController
   end
 
   def index
+    @product = Product.all
+    respond_with @product, :include => [:father, :mother, :variety]
   end
 
   def show
+    return unless @product = find_and_check
+    session[:current_product_id] = @product.id
+    t3e @product
   end
 
 end

@@ -1,14 +1,9 @@
 =field_set do # partie info general de l entité animal
-  =f.referenced_association :nature
-  =f.input :name , :hint => "le nom de votre animal"# affiche le champ name de l entité animal avec une infos derriere
-  =f.input :sex # affiche le champ sexe sous forme de radio avec une collection de proposition (M ou F) de l entité animal
-  =f.input :reproductor
+  =f.input :name
   =f.input :born_at
   =f.input :work_number
-  =f.input :number, :placeholder => 'FR + DEPT + 8 chiffres'
+  =f.input :number
   =f.input :description # affiche le champ description formaté en zone de texte
   =f.input :picture
   =image_tag(@product.picture.url(:thumb))
   =f.custom_fields
-  -#for datum in @custom_field_data
-    =custom_field datum.custom_field.name, {:datatype => datum.custom_field.nature.to_sym, :id => "custom_field_datum_#{datum.custom_field_id}_value", :name => "custom_field_datum[#{datum.custom_field_id}][value]", :value => datum.value, :size => datum.custom_field.length_max, :options => {:include_blank => (datum.custom_field.required ? nil : '')}, :choices => datum.custom_field.choices.collect{|x| [x.name , x.id]}  }

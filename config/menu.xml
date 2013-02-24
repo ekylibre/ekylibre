@@ -357,6 +357,16 @@
       <page to="backend/operations#unvalidateds"/>
       <page to="backend/operations#update"/>
     </menu>
+    <menu name="product_localizations">
+      <page to="backend/product_localizations#index"/>
+      <page to="backend/product_localizations#create"/>
+      <page to="backend/product_localizations#destroy"/>
+      <page to="backend/product_localizations#edit"/>
+      <page to="backend/product_localizations#list"/>
+      <page to="backend/product_localizations#new"/>
+      <page to="backend/product_localizations#show"/>
+      <page to="backend/product_localizations#update"/>
+    </menu>
     <menu name="product_groups">
       <page to="backend/product_groups#index"/>
       <page to="backend/product_groups#create"/>
@@ -821,6 +831,8 @@
       <page to="authentication/sessions#renew"/>
     </menu>
     <menu name="backend/animals">
+      <page to="backend/animals#list_group"/>
+      <page to="backend/animals#list_place"/>
       <page to="backend/animals#picture"/>
     </menu>
     <menu name="backend/cells/demo_bar_cells">

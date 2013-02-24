@@ -343,6 +343,11 @@ arb:
     backend/product_indicator_nature_choices: #?
     backend/product_indicator_natures: #?
     backend/product_indicators: #?
+    backend/product_localizations:
+      # edit: "Modifier une localisation d'un produit"
+      # index: "Tracabilité des produits"
+      # new: "Nouvelle localisation d'un produit"
+      # show: "Détail d'une localisation d'un produit"
     backend/product_memberships: #?
     backend/product_moves:
       edit: "تعديل حركة سهم : %{name}"
@@ -636,6 +641,7 @@ arb:
     backend/prices: "الاسعار" #?
     backend/product_categories: "فئات المنتج" #?
     # backend/product_groups: "Lot de produits"
+    # backend/product_localizations: "Tracabilité"
     # backend/product_moves: "Mouvements de stock"
     backend/product_nature: "المنتجات" #?
     backend/product_nature_categories: "فئات المنتج"
@@ -1007,6 +1013,7 @@ arb:
     go: "صلاحية"
     graph_statistics: "رسومات احصائية"
     # group: "Groupe"
+    # groups: "Groupes"
     help: "المساعدة"
     hint: "تلميح&nbsp;: %{value}"
     home: "الرجوع الى صفجة المساعدة الرئيسية"
@@ -1324,6 +1331,7 @@ arb:
     # phone: "Tél."
     # picture: "Photo"
     # placeholder: "Espace réservé"
+    # places: "Lieux"
     planned_on: "قرر يوم"
     # play: "Éxécuter"
     # please_wait: "Merci de patienter..."

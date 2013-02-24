@@ -42,6 +42,8 @@ class ProductLocalization < Ekylibre::Record::Base
   belongs_to :container, :class_name => "Product"
   belongs_to :product
   enumerize :nature, :in => [:transfer, :interior, :exterior], :default => :interior, :predicates => true
+  enumerize :arrival_cause, :in => [:birth, :housing, :other, :purchase], :default => :birth, :predicates => true
+  enumerize :departure_cause, :in => [:death, :consumption, :other, :sale], :default => :sale, :predicates => true
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :arrival_cause, :departure_cause, :nature, :allow_nil => true, :maximum => 255
   validates_presence_of :nature, :product

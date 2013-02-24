@@ -286,6 +286,11 @@ eng:
     backend/product_indicator_nature_choices: #?
     backend/product_indicator_natures: #?
     backend/product_indicators: #?
+    backend/product_localizations:
+      # edit: "Modifier une localisation d'un produit"
+      # index: "Tracabilité des produits"
+      # new: "Nouvelle localisation d'un produit"
+      # show: "Détail d'une localisation d'un produit"
     backend/product_memberships: #?
     backend/product_moves:
       edit: "Edit the stock move: %{name}"
@@ -520,6 +525,7 @@ eng:
     backend/preferences: "Preferences"
     backend/prices: "Prices" #?
     backend/product_groups: "Product groups"
+    # backend/product_localizations: "Tracabilité"
     backend/product_moves: "Stock moves"
     backend/product_nature_categories: "Product categories"
     # backend/product_nature_prices: "Prix par type de produits"
@@ -855,6 +861,7 @@ eng:
     go: "Go"
     graph_statistics: "Graph statistics"
     group: "Group"
+    # groups: "Groupes"
     help: "Help"
     hint: "Hint&nbsp;: %{value}"
     home: "Back to Help home"
@@ -1137,6 +1144,7 @@ eng:
     phone: "Pho."
     # picture: "Photo"
     placeholder: "Placeholder"
+    # places: "Lieux"
     planned_on: "Planned on"
     play: "Play"
     please_wait: "Please wait..."

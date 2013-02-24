@@ -329,6 +329,11 @@ spa:
     backend/product_indicator_nature_choices: #?
     backend/product_indicator_natures: #?
     backend/product_indicators: #?
+    backend/product_localizations:
+      # edit: "Modifier une localisation d'un produit"
+      # index: "Tracabilité des produits"
+      # new: "Nouvelle localisation d'un produit"
+      # show: "Détail d'une localisation d'un produit"
     backend/product_memberships: #?
     backend/product_moves:
       # edit: "Modifier le mouvement de stock\_: %{name}"
@@ -583,6 +588,7 @@ spa:
     # backend/outgoing_payments: "Décaissements"
     # backend/preferences: "Préférences"
     # backend/product_groups: "Lot de produits"
+    # backend/product_localizations: "Tracabilité"
     # backend/product_moves: "Mouvements de stock"
     # backend/product_nature_categories: "Catégories de type de produits"
     # backend/product_nature_prices: "Prix par type de produits"
@@ -928,6 +934,7 @@ spa:
     # go: "Valider"
     # graph_statistics: "Statistiques graphiques"
     # group: "Groupe"
+    # groups: "Groupes"
     help: "Ayuda"
     # hint: "Astuce\_: %{value}"
     home: "Vuelta a la cogida de la ayuda"
@@ -1213,6 +1220,7 @@ spa:
     # phone: "Tél."
     # picture: "Photo"
     # placeholder: "Espace réservé"
+    # places: "Lieux"
     # planned_on: "Date prévisionnelle"
     # play: "Éxécuter"
     # please_wait: "Merci de patienter..."
