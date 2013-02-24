@@ -1747,8 +1747,7 @@ arb:
     # work_number: "Numéro de travail"
     # zone: "Zone"
   enumerize:
-    animal:  #?
- #?
+    animal: #?
     animal_treatment: #?
     asset:
       depreciation_method:
