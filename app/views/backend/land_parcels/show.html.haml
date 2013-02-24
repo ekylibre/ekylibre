@@ -8,7 +8,7 @@
       .picture
         -#=@land_parcel.bounds.inspect
         %svg{:xmlns => "http://www.w3.org/2000/svg", :version => "1.1", :viewBox => @land_parcel.view_box.join(" "), :preserveAspectRatio => "xMidYMid meet", :width => "180", :height => "180"}
-          %path{:d => @land_parcel.shape_svg_path, :style => "stroke-width: 2px; stroke: red; fill: #AAA"}
+          %path{:d => @land_parcel.shape_svg_path}
       .info
         %span.title=LandParcel.human_attribute_name(:area_measure)
         %span.value=@land_parcel.area_measure.l + " " + @land_parcel.area_unit.readable_name

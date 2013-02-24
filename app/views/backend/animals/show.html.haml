@@ -7,6 +7,9 @@
     -b.cell :general do
       -if @animal.picture.exists?
         .picture=image_tag(@animal.picture.url(:identity))
+        .info
+          %span.title=Animal.human_attribute_name(:work_number)
+          %span.value=@animal.work_number
         -if @animal.born_at
           .info
             %span.title=Animal.human_attribute_name(:age)
@@ -38,6 +41,8 @@
         -l.attribute :name
         -l.attribute :variety, :url => true
         -#l.attribute :group, :url => true # on affiche l'attribut name de l'entité ProductGroup associé par l'attribut group de l'entité courante Product avec un lien vers ce groupe
+        -l.attribute :born_at
+        -l.attribute :dead_at
         -l.attribute :sex
         -l.attribute :mother, :url => true
         -l.attribute :father, :url => true

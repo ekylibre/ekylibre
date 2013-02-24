@@ -17,7 +17,7 @@ eng:
       # edit: "Modifier l'animal\_: %{name}"
       # index: "Productions animales"
       # new: "Nouvel animal"
-      # show: "Animal\_: %{name}"
+      # show: "%{nature_name}\_: %{name}"
     backend/areas:
       edit: "Edit the postal area: %{name}"
       index: "Postal areas"

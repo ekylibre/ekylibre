@@ -17,7 +17,7 @@ jpn:
       # edit: "Modifier l'animal\_: %{name}"
       # index: "Productions animales"
       # new: "Nouvel animal"
-      # show: "Animal\_: %{name}"
+      # show: "%{nature_name}\_: %{name}"
     backend/areas:
       # edit: "Modifier la zone postale\_: %{name}"
       # index: "Zones postales"

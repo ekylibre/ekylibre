@@ -24,7 +24,7 @@ arb:
       # edit: "Modifier l'animal\_: %{name}"
       # index: "Productions animales"
       # new: "Nouvel animal"
-      # show: "Animal\_: %{name}"
+      # show: "%{nature_name}\_: %{name}"
     backend/areas:
       edit: "تعديل العنوان البريدي : %{name}"
       index: "العناوين البريد"

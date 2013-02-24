@@ -665,6 +665,22 @@ span.rad, label.radio {
 
 
 
+
+
+svg {
+  fill: #EEE;
+  background: #EEE;
+  path {
+    fill: #AAA;
+  }
+  a:hover path {
+    fill: $active-color;
+  }
+}
+
+
+
+
 /* Pop overs */
 
 .kujaku.popover {
