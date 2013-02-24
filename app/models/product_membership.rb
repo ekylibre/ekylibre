@@ -38,7 +38,7 @@ class ProductMembership < Ekylibre::Record::Base
   belongs_to :group, :class_name => "ProductGroup"
   belongs_to :product, :class_name => "Product"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_presence_of :group, :product, :started_at, :stopped_at
+  validates_presence_of :group, :product, :started_at
   #]VALIDATORS]
 
   validate do

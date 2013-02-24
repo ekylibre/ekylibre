@@ -135,8 +135,8 @@ namespace :db do
       place = Warehouse.find_by_work_number("STABU_01")
       place ||= Warehouse.create!(:name => "Stabulation principale", :identification_number => "S0001", :number => "STABU_01",:work_number => "STABU_01", :born_at => Time.now, :reservoir => true, :content_nature_id => cow.id, :variety_id => b.id, :nature_id => place_nature.id, :owner_id => Entity.of_company.id)
 
-      arrival_causes = {"N" => :birth}
-      departure_causes = {"M" => :death, "B" => :consumption}
+      arrival_causes = {"N" => :birth, "A" => :purchase, "P" => :housing, "" => :other }
+      departure_causes = {"M" => :death, "B" => :sale, "" => :other, "C" => :consumption , "E" => :sale}
 
 
       file = Rails.root.join("test", "fixtures", "files", "animals-synel17.csv")
