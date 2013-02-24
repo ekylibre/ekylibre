@@ -1529,7 +1529,7 @@ ActiveRecord::Schema.define(:version => 20130216134641) do
     t.integer  "product_id",                  :null => false
     t.integer  "group_id",                    :null => false
     t.datetime "started_at",                  :null => false
-    t.datetime "stopped_at",                  :null => false
+    t.datetime "stopped_at"
     t.datetime "created_at",                  :null => false
     t.datetime "updated_at",                  :null => false
     t.integer  "creator_id"

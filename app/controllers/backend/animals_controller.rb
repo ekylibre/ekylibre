@@ -57,9 +57,11 @@ class Backend::AnimalsController < BackendController
   # Liste des lieux de l'animal considéré
   list(:place, :model => :product_localizations, :conditions => [" product_id = ? ",['session[:current_animal_id]']], :order => "started_at DESC") do |t|
     t.column :name, :through => :container, :url => true
-    t.column :started_at
     t.column :nature
+    t.column :started_at
     t.column :arrival_cause
+    t.column :stopped_at
+    t.column :departure_cause
   end
 
   # Liste des groupes de l'animal considéré

@@ -2,6 +2,7 @@ fra:
   activerecord:
     attributes:
       animal:
+        born_at: "Date de naissance"
         variety: "Race"
       asset_depreciation:
         asset_amount: "Valeur nette comptable (VNC)"
