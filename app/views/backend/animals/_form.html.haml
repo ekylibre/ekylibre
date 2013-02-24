@@ -1,5 +1,5 @@
 =field_set do # partie info general de l entité animal
-  =f.association :nature, :collection => ProductNature.animal
+  =f.referenced_association :nature, :collection => ProductNature.animal
   =f.input :name # affiche le champ name de l entité animal avec une infos derriere
   =f.input :sex, as: :radio_buttons# affiche le champ sexe sous forme de radio avec une collection de proposition (M ou F) de l entité animal
   =f.input :reproductor
@@ -15,8 +15,8 @@
   =f.input :external, inline_label: "Cas des pères non présents sur l'exploitation"
 
 =field_set(:genealogy) do # partie entrée sortie de l entité animal
-  =f.association :mother, :collection => Animal.mother#, :source => :mother
-  =f.association :father, :collection => Animal.father#, :source => :father
+  =f.referenced_association :mother, :collection => Animal.mother#, :source => :mother
+  =f.referenced_association :father, :collection => Animal.father#, :source => :father
 
 =field_set(:document) do
   =f.input :picture

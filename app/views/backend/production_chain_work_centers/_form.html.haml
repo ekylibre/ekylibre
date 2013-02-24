@@ -1,8 +1,8 @@
 =field_set do
-  =f.association :production_chain
+  =f.referenced_association :production_chain
   =f.input :name
   =f.input :nature
   -assocaition :operation_nature
-  =f.association :building, :source => "Warehouse#buildings"
+  =f.referenced_association :building, :source => "Warehouse#buildings"
   =f.input :description, :field => :text
 

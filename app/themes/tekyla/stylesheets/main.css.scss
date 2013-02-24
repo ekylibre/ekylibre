@@ -446,7 +446,7 @@ input[data-selector] {
   margin-bottom: 0;
   width: auto;
 }
-span.selector {
+span.selector, .input-append {
   @include toolbar;
 }
 
@@ -566,6 +566,84 @@ span.rad, label.radio {
   height: 100%;
   background: transparentize($base-color, 0.8);
 }
+
+
+.ui-datepicker {
+  display:none;
+  background: $menu-background;
+  padding: 4px;
+  border: 1px solid #AAA;
+  @include border-radius(3px);
+  @include box-shadow(0 0 5px rgba(0,0,0,0.3));
+  $title-line-height: 16px;
+  .ui-datepicker-prev {
+    float: left;
+    line-height: $title-line-height;
+    @include hide-text;
+    display: block;
+    width: 16px;
+    height: 16px;
+    margin: 3px;
+    @include icons-sprite(left);
+  }
+  .ui-datepicker-next {
+    float: right;
+    line-height: $title-line-height;
+    @include hide-text;
+    display: block;
+    width: 16px;
+    height: 16px;
+    margin:3px;
+    @include icons-sprite(right);
+  }
+  .ui-datepicker-title {
+    padding: 4px;
+    @include text-align(center);
+    line-height: $title-line-height;
+    * { font-weight: bold; }
+  }
+  table {
+    border-collapse: separate;
+    border-spacing: 2px;
+    th {
+      @include text-align(center);
+      font-weight: bold;
+      padding: 4px;
+    }
+    td {
+      border: 1px solid mix($base-color, #FFF, 15%);
+      padding: 0;
+      @include text-align(center);
+      &:hover {
+        border: 1px solid #FFF;
+        background: $base-color;
+        a {
+          color: white;
+        }
+      }
+      &.ui-datepicker-unselectable {
+        border: none;
+        background: transparent;
+      }
+      a {
+        display: block;
+        padding: 4px;
+        width: 4ex;
+        @include text-align(center);
+      }
+    }
+  }
+}
+
+input[data-date] {
+  @include text-align(center);
+  width: 12ex;
+}
+
+
+
+
+
 
 
 .items-menu {

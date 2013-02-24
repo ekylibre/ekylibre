@@ -2,17 +2,17 @@
 =sales_steps
 
 =field_set do
-  =f.association :client # , :source => :clients
+  =f.referenced_association :client # , :source => :clients
 
 =field_set :addresses, :depend_on => :client do
-  =f.association :address, :source => :mails
-  =f.association :delivery_address, :source => :mails
-  =f.association :invoice_address, :source => :mails
+  =f.referenced_association :address, :source => :mails
+  =f.referenced_association :delivery_address, :source => :mails
+  =f.referenced_association :invoice_address, :source => :mails
 
 =field_set :sales_conditions do
-  =f.association :nature
-  =f.association :responsible, :source => :employees, :new => {:employed => 1}
-  =f.association :transporter, :source => :transporters
+  =f.referenced_association :nature
+  =f.referenced_association :responsible, :source => :employees, :new => {:employed => 1}
+  =f.referenced_association :transporter, :source => :transporters
   =f.input :description
   =f.input :letter_format, :show => :letter_options
 

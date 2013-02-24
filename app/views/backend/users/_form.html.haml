@@ -11,11 +11,11 @@
 =field_set(:employee) do
   =f.input :employment
   -# association :profession
-  =f.association :department
-  =f.association :establishment
+  =f.referenced_association :department
+  =f.referenced_association :establishment
 
 =field_set(:rights) do
-  =f.association :role
+  =f.referenced_association :role
   -# input :reduction_percent
   -# input :free_price
   -# input :credits

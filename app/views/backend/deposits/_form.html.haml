@@ -1,6 +1,6 @@
 =field_set do
-  =f.association :mode, :field => :hidden
-  =f.association :responsible, :source => :employees
+  =f.referenced_association :mode, :field => :hidden
+  =f.referenced_association :responsible, :source => :employees
   =f.input :created_on
   =f.input :description
 

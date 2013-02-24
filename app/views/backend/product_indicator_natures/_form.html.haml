@@ -1,12 +1,12 @@
 =field_set do
-  =f.association :process
+  =f.referenced_association :process
   =f.input :usage
   =f.input :name
   =f.input :nature, :show => {:measure => :measure_options, :decimal => :decimal_options, :string => :string_options, :choice => :choice_options}
   =f.input :active
 
 =field_set(:measure_options) do
-  =f.association :unit
+  =f.referenced_association :unit
 
 =field_set(:string_options) do
   =f.input :minimal_length

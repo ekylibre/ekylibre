@@ -2,7 +2,7 @@
   =f.input :nature
   =f.input :amount
   =f.input :name
-  =f.association :collected_account, :source => :collected_taxes, :new => {:number => Account.chart_number(:collected_taxes)}
-  =f.association :paid_account, :source => :paid_taxes, :new => {:number => Account.chart_number(:paid_taxes)}
+  =f.referenced_association :collected_account, :source => :collected_taxes, :new => {:number => Account.chart_number(:collected_taxes)}
+  =f.referenced_association :paid_account, :source => :paid_taxes, :new => {:number => Account.chart_number(:paid_taxes)}
   =f.input :included
   =f.input :reductible

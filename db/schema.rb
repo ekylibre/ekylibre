@@ -312,7 +312,7 @@ ActiveRecord::Schema.define(:version => 20130216134641) do
     t.integer  "updater_id"
     t.integer  "lock_version",                                                :default => 0,     :null => false
     t.string   "customized_type",                                                                :null => false
-    t.integer  "minimal_length",                                              :default => 0,     :null => false
+    t.integer  "minimal_length"
   end
 
   add_index "custom_fields", ["created_at"], :name => "index_complements_on_created_at"

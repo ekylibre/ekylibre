@@ -1,10 +1,10 @@
 -# TODO Check
 =field_set do
-  =f.association :sale_item, :field => :hidden
-  =f.association :nature
+  =f.referenced_association :sale_item, :field => :hidden
+  =f.referenced_association :nature
   =f.input :quantity
   -# input :suspended
-  =f.association :address
+  =f.referenced_association :address
   =f.input :description
 
 =field_set :interval, :depend_on => :nature do

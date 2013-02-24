@@ -8,7 +8,7 @@
 =field_set(:payment_conditions) do
   =f.input :expiration_delay
   =f.input :payment_delay
-  =f.association :payment_mode
+  =f.referenced_association :payment_mode
   =f.input :payment_mode_complement
 
 =field_set(:downpayment) do
@@ -16,7 +16,7 @@
   =f.input :downpayment_percentage
 
 =field_set(:accountancy) do
-  =f.association :journal, :new => {:nature => 'sales'}
+  =f.referenced_association :journal, :new => {:nature => 'sales'}
 
 
 

@@ -28,7 +28,7 @@
 #  lock_version    :integer          default(0), not null
 #  maximal_length  :integer
 #  maximal_value   :decimal(19, 4)
-#  minimal_length  :integer          default(0), not null
+#  minimal_length  :integer
 #  minimal_value   :decimal(19, 4)
 #  name            :string(255)      not null
 #  nature          :string(8)        not null

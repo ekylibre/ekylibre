@@ -28,7 +28,7 @@
 #  lock_version    :integer          default(0), not null
 #  maximal_length  :integer
 #  maximal_value   :decimal(19, 4)
-#  minimal_length  :integer          default(0), not null
+#  minimal_length  :integer
 #  minimal_value   :decimal(19, 4)
 #  name            :string(255)      not null
 #  nature          :string(8)        not null
@@ -41,10 +41,10 @@
 
 class CustomField < Ekylibre::Record::Base
   acts_as_list :scope => 'customized_type = \'#{customized_type}\''
-  attr_accessible :active, :maximal_length, :minimal_length, :maximal_value, :minimal_value, :name, :nature, :position, :required, :customized_type
+  attr_accessible :active, :maximal_length, :minimal_length, :maximal_value, :minimal_value, :name, :nature, :position, :required, :customized_type, :choices_attributes
   attr_readonly :nature
   enumerize :nature, :in => [:string, :decimal, :boolean, :date, :datetime, :choice], :predicates => true
-  enumerize :customized_type, :in => Ekylibre.models.map(&:to_s).map(&:camelcase), :default_value => Ekylibre.models.first, :predicates => {:prefix => true}
+  enumerize :customized_type, :in => Ekylibre.model_names, :default_value => Ekylibre.model_names.first, :predicates => {:prefix => true}
   has_many :choices, :class_name => "CustomFieldChoice", :order => :position, :dependent => :delete_all, :inverse_of => :custom_field
   has_many :data, :class_name => "CustomFieldDatum", :dependent => :delete_all, :inverse_of => :custom_field
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
@@ -53,7 +53,7 @@ class CustomField < Ekylibre::Record::Base
   validates_length_of :nature, :allow_nil => true, :maximum => 8
   validates_length_of :customized_type, :name, :allow_nil => true, :maximum => 255
   validates_inclusion_of :active, :required, :in => [true, false]
-  validates_presence_of :customized_type, :minimal_length, :name, :nature
+  validates_presence_of :customized_type, :name, :nature
   #]VALIDATORS]
   validates_inclusion_of :nature, :in => self.nature.values
   validates_inclusion_of :customized_type, :in => self.customized_type.values
@@ -68,8 +68,8 @@ class CustomField < Ekylibre::Record::Base
     self.choices.count
   end
 
-  def sort_choices
-    self.choices.order(:name).to_a.each_with_index do |choice, index|
+  def sort_choices!
+    self.choices.reorder(:name).to_a.each_with_index do |choice, index|
       choice.position = index + 1
       choice.save!
     end

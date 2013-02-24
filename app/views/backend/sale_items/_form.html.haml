@@ -2,26 +2,26 @@
 =sales_steps unless request.xhr?
 
 -#=field_set @sale_item do
--#  =f.association :sale, :field => :hidden
+-#  =f.referenced_association :sale, :field => :hidden
 -#  =f.input :price, :source => :availables_for_sales, :new => {:mode => :sales, :currency => @sale.currency} # , :controller => :interfacers, "data-dependents" => "#detail", "data-parameter-name" => "price_id"
 -#  -partial(:detail, :depend_on => :price)
 -##detail{"data-refresh" => url_for(:controller => :sale_items, :action => :detail, :sale_id => @sale.id), "data-refresh-mode" => "update"}=render :partial => "sale_items/detail_form"
 
 -# TODO manage all new attributes
 =field_set do
-  =f.association :sale, :field => :hidden
-  =f.association :price, :source => :availables_for_sales, :new => {:mode => :sales, :currency => "sale.currency".to_sym }
+  =f.referenced_association :sale, :field => :hidden
+  =f.referenced_association :price, :source => :availables_for_sales, :new => {:mode => :sales, :currency => "sale.currency".to_sym }
   =f.input :quantity
-  =f.association :unit, :readonly => true, :depend_on => :price, :value => "product.unit".to_sym
+  =f.referenced_association :unit, :readonly => true, :depend_on => :price, :value => "product.unit".to_sym
   =f.input :annotation
 
 -#=field_set :stock, :depend_on => :price, :if => :stockable? do
-  =f.association :warehouse
-  =f.association :tracking, :depend_on => :warehouse, :if => :trackable?
+  =f.referenced_association :warehouse
+  =f.referenced_association :tracking, :depend_on => :warehouse, :if => :trackable?
 
 =field_set :subscriptions do
   =f.nested_association :subscriptions, :depend_on => :price, :if => :subscribing? do
-    =f.association :address
+    =f.referenced_association :address
     =f.input :started_on, :if => "product.subscription_nature.period?".to_sym
     =f.input :stopped_on, :if => "product.subscription_nature.period?".to_sym
     =f.input :first_number, :if => "product.subscription_nature.quantity?".to_sym
@@ -29,7 +29,7 @@
 
 =field_set :change_price, :grant_on => :change_prices_on_sales do
   =f.input :price_amount
-  =f.association :tax
+  =f.referenced_association :tax
 
 =field_set :give_discount, :grant_on => :give_discounts_on_sales, :depend_on => :price, :if => "product.reduction_submissive?".to_sym do
   =f.input :reduction_percentage, :size => 5

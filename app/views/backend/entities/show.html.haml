@@ -8,7 +8,8 @@
   -b.tabbox do
     -if @entity.addresses.count > 0 or @entity.picture
       -b.cell :coordinates do
-        .picture=image_tag(@entity.picture.url(:identity))
+        -if @entity.picture.file?
+          .picture=image_tag(@entity.picture.url(:identity))
         -for address in @entity.addresses.order(:canal, :by_default)
           .info
             %span.title{:class => "canal-"+address.canal.to_s}=address.canal.text
@@ -44,8 +45,8 @@
           -l.attribute :first_met_on unless @entity.first_met_on.blank?
           -l.attribute :proposer, :label => :full_name unless @entity.proposer.nil?
           -l.attribute :vat_submissive
-          -l.attribute :reflation_submissive
-          -l.attribute :reduction_percentage unless @entity.reflation_submissive?
+          -l.attribute :reminder_submissive unless @entity.reminder_submissive?
+          -l.attribute :reduction_percentage
           -l.attribute :authorized_payments_count unless @entity.authorized_payments_count.blank?
           -l.attribute :deliveries_conditions unless @entity.deliveries_conditions.blank?
           -l.attribute :client_account, :url => true

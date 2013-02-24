@@ -1,4 +1,4 @@
 -# TODO Manage permutations in forms ?
 =field_set do
-  =f.association :entity_1, :permute_with => :entity_2
-  =f.association :entity_2, :permute_with => :entity_1
+  =f.referenced_association :entity_1, :permute_with => :entity_2
+  =f.referenced_association :entity_2, :permute_with => :entity_1

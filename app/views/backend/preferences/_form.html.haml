@@ -8,4 +8,4 @@
   =image_tag(@prescription.picture.url(:thumb))
 
 =field_set(:entity) do
-  =f.association :prescriptor
+  =f.referenced_association :prescriptor
