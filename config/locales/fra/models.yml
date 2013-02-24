@@ -376,6 +376,7 @@ fra:
       # vegetal: "Vegetal"
       warehouse: "Lieu de stockage"
   attributes:
+    age: "Âge"
     account: "Compte comptable"
     account_balances: "Balances de compte"
     accountable: "Comptabilisable"

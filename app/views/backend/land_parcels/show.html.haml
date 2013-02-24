@@ -2,21 +2,37 @@
   -t.edit @land_parcel
   -t.divide @land_parcel
 
-=attributes_list(@land_parcel) do |l|
-  -l.attribute :name
-  -l.attribute :description
-  -l.attribute :started_on
-  -l.attribute :stopped_on
-  -l.attribute :area_measure
-  -l.attribute :area_unit
+=beehive do |b|
+  -b.tabbox do
+    -b.cell :general do
+      .picture
+        -#=@land_parcel.bounds.inspect
+        %svg{:xmlns => "http://www.w3.org/2000/svg", :version => "1.1", :viewBox => @land_parcel.view_box.join(" "), :preserveAspectRatio => "xMidYMid meet", :width => "180", :height => "180"}
+          %path{:d => @land_parcel.shape_svg_path, :style => "stroke-width: 2px; stroke: red; fill: #AAA"}
+      .info
+        %span.title=LandParcel.human_attribute_name(:area_measure)
+        %span.value=@land_parcel.area_measure.l + " " + @land_parcel.area_unit.readable_name
 
-%table.stepper
-  %tr
-    %td.step=@land_parcel.parent_kinships.collect{|k| link_to(k.parent_land_parcel.name, :action=>:show, :id=>k.parent_land_parcel_id).html_safe}.to_sentence.html_safe
-    %td.step.active=@land_parcel.name
-    %td.step=@land_parcel.child_kinships.collect{|k| link_to(k.child_land_parcel.name, :action=>:show, :id=>k.child_land_parcel_id).html_safe}.to_sentence.html_safe
 
-%h2=tc :operations
-=toolbar do |t|
-  -t.link :new, :controller=>:operations, :target_id=>@land_parcel.id, :target_type=>LandParcel.name
-=list(:operations)
+    -b.cell do
+      =attributes_list(@land_parcel) do |l|
+        -l.attribute :name
+        -# l.attribute :shape_svg_path
+        -l.attribute :description
+        -# l.attribute :started_on
+        -# l.attribute :stopped_on
+        -# l.attribute :area_measure
+        -# l.attribute :area_unit
+
+-# Not operational
+  %table.stepper
+    %tr
+      %td.step=@land_parcel.parent_kinships.collect{|k| link_to(k.parent_land_parcel.name, :action=>:show, :id=>k.parent_land_parcel_id).html_safe}.to_sentence.html_safe
+      %td.step.active=@land_parcel.name
+      %td.step=@land_parcel.child_kinships.collect{|k| link_to(k.child_land_parcel.name, :action=>:show, :id=>k.child_land_parcel_id).html_safe}.to_sentence.html_safe
+  
+  %h2=tc :operations
+  =toolbar do |t|
+    -t.link :new, :controller=>:operations, :target_id=>@land_parcel.id, :target_type=>LandParcel.name
+  =list(:operations)
+  

@@ -71,4 +71,28 @@ class Place < Product
   # has_many :warehouses, :class_name => "Warehouse", :foreign_key => :parent_place_id
   has_many :children, :class_name => "Place", :foreign_key => :parent_place_id
   belongs_to :parent, :class_name => "Place", :foreign_key => :parent_place_id
+
+  default_scope -> { select("*, ST_AsSVG(shape) AS shape_svg_path, ST_XMin(shape) AS x_min, ST_XMax(shape) AS x_max, ST_YMin(shape) AS y_min, ST_YMax(shape) AS y_max, ST_XMax(shape) - ST_XMin(shape) AS shape_width, ST_YMax(shape) - ST_YMin(shape) AS shape_height") }
+
+  # Select SVG path of shape column
+  def self.with_shape_svg_path(rel = 0, maxdecimaldigits = 15)
+    select("ST_AsSVG(shape, #{rel}, #{maxdecimaldigits}) AS shape_svg_path")
+  end
+
+  def bounds
+    return [[self.x_min, self.y_min], [self.x_max, self.y_max]]
+  end
+
+  def self.view_box
+    x_min = self.minimum("ST_XMin(shape)").to_d
+    x_max = self.maximum("ST_XMax(shape)").to_d
+    y_min = self.minimum("ST_YMin(shape)").to_d
+    y_max = self.maximum("ST_YMax(shape)").to_d
+    return [x_min, -y_max, (x_max - x_min), (y_max - y_min)]
+  end
+
+  def view_box
+    return [self.x_min, -1 * self.y_max.to_d, self.shape_width, self.shape_height]
+  end
+
 end

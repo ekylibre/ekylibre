@@ -102,7 +102,7 @@ class Unit < Ekylibre::Record::Base
 
   def self.get(name)
     raise ArgumentError.new("#{name.inspect} is not a default unit") unless DEFAULT_UNITS[name]
-    conditions = {:start => 0}.merge(DEFAULT_UNITS[name])
+    conditions = {:start => 0, :coefficient => 1}.merge(DEFAULT_UNITS[name])
     unless unit = Unit.where(conditions).first
       Unit.load_defaults
       return Unit.where(conditions).first
