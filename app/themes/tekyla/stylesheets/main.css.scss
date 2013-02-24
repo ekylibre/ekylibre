@@ -298,8 +298,15 @@ ul.side-menu {
   }
 }
 
-.checkbox-true { @include common-sprite(true); height:12px; width:12px; }
-.checkbox-false { @include common-sprite(false); height:12px; width:12px; }
+.checkbox-true, .checkbox-false {
+  @include is-icon;
+  &:hover {
+    cursor: default;
+    pointer-events: none;
+  }
+}
+.checkbox-true { @include use-icon(check); }
+.checkbox-false { @include use-icon(check-empty); }
 
 
 
@@ -324,7 +331,7 @@ ul.side-menu {
     vertical-align: middle;
     .icon {
       @include inline-block;
-      @include icons-sprite(page);
+      @include use-icon(page);
       height: 16px;
       width: 16px;
       @include margin-right(round($size/4));
@@ -349,7 +356,7 @@ ul.side-menu {
   }
   @each $field_set in care, drug, delay, document, general-informations, stock, animal, vegetable, entity, asset, genealogy, group, movement, treatment {
     &##{ $field_set }-fieldset .fieldset-legend .icon {
-      @include icons-sprite($field_set);
+      @include use-icon($field_set);
     }
   }
 
@@ -484,7 +491,13 @@ span.rad, label.radio {
   @include border-radius($default-border-radius);
   padding: $default-gap;
   margin: 0 0 $default-gap 0;
+  input, label {
+    display: inline;
+    margin-bottom: 0;
+    width: auto;
+  }
   table {
+    border: none;
     margin: 0px auto;
     .crit { border-top: $menu-border-width dotted #580; padding: round($fs-normal/6) round($fs-normal/4); vertical-align: middle; text-align:center; }
     tr:first-child .crit { border-top: none; }
@@ -495,7 +508,7 @@ span.rad, label.radio {
     display: none;
     position: absolute;
     right: $default-gap;
-    top: 40px;
+    top: 80px;
     z-index: 10000;
     margin: 0;
   }
@@ -540,7 +553,7 @@ span.rad, label.radio {
       span {
         display: block;
         @include squish-text;
-        @include icons-sprite(close);
+        @include use-icon(close);
         height: 16px;
         width: 16px;
       }
@@ -584,7 +597,7 @@ span.rad, label.radio {
     width: 16px;
     height: 16px;
     margin: 3px;
-    @include icons-sprite(left);
+    @include use-icon(left);
   }
   .ui-datepicker-next {
     float: right;
@@ -594,7 +607,7 @@ span.rad, label.radio {
     width: 16px;
     height: 16px;
     margin:3px;
-    @include icons-sprite(right);
+    @include use-icon(right);
   }
   .ui-datepicker-title {
     padding: 4px;
@@ -683,7 +696,7 @@ input[data-date] {
     @include float(right);
     position: absolute;
     @include right(0);
-    @include icons-sprite(destroy);
+    @include use-icon(remove);
     @include display(block);
     width: 16px;
     height: 16px;

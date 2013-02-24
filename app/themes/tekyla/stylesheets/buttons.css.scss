@@ -14,64 +14,25 @@ input[type="submit"], a.btn {
 }
 */
 
-@each $format in $buttons-formats {
-  $i: 0;
-  $format-image: nth($format, 1);
-  $format-interval: nth($format, 2);
-  $format-selector: nth($format, 3);
-  $format-radius: nth($format, 4);
-  @each $buttons in $buttons-names {
-    @each $icon-name in $buttons {
-      $button-name: ".#{$icon-name}";
-      @if $icon-name == default {
-        $button-name: "";
-      }
-      .btn#{$button-name}, .btn.btn-#{$icon-name} {
-        #{$format-selector} {
-          @include border-radius($format-radius);
-          padding: ($format-interval/6) ($format-interval/4);
-          .icon {
-            @include inline-block;
-            height: $format-interval*2/3;
-            width: $format-interval*2/3;
-            background: image-url($format-image) no-repeat;
-            background-position: (-$format-interval*$i) (-$format-interval*4);
-          }
-          &:hover {
-            .icon { background-position: (-$format-interval*$i) (-$format-interval*1);}
-          }
-          &:active {
-            // padding: 5px 6px 3px 6px;
-            .icon { background-position: (-$format-interval*$i) (-$format-interval*1); }
-          }
-          &[disabled] {
-            .icon { background-position: (-$format-interval*$i) (-$format-interval*3); }
-          }
-        }
-      }
-/*
-      .mn.#{$icon-name} {
-        #{$format-selector} {
-          .icon {
-            height: $format-interval*2/3;
-            width: $format-interval*2/3;
-            background: image-url($format-image) no-repeat;
-            background-position: (-$format-interval*$i) (-$format-interval*4);
-            opacity: 0.7;
-          }
-          &:hover {
-            .icon { opacity: 1; }
-          }
-          &:active {
-            .icon { opacity: 0.7; background-position: (-$format-interval*$i) (-$format-interval*1); }
-          }
-          &[disabled] {
-            .icon { opacity: 0.7; background-position: (-$format-interval*$i) (-$format-interval*3); }
-          }
-        }
-      }
-*/
-    }
-    $i: $i + 1;
+.btn {
+  padding: round($fs-normal*0.35) round($fs-normal*0.5);
+  .icon {
+    @include is-icon(18px);
+    @include inline-block;
+    @include text-shadow(1px 1px 0 white);
   }
 }
+
+@each $symbiol in $symbiols {
+  $symbol-name: nth($symbiol, 1);
+  $symbol-code: nth($symbiol, 2);
+  .btn.#{$symbol-name}, .btn.btn-#{$symbol-name} {
+    .icon {
+      @include icon($symbol-code);
+    }
+  }
+}
+
+.btn.btn-destroy .icon { @include use-icon(remove) }
+.btn.btn-down .icon { @include use-icon(chevron-down) }
+.btn.btn-new .icon { @include use-icon(plus) }

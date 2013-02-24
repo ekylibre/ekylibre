@@ -1055,9 +1055,10 @@ module ApplicationHelper
 
     id = Time.now.to_i.to_s(36)+(10000*rand).to_i.to_s(36)
 
+    # tag = content_tag(:div, nil, :class => :caret) + tag
     content_for(:popover, content_tag(:div, tag.to_s.html_safe, :class => "kujaku popover", :id => id))
 
-    tb = content_tag(:a, content_tag(:span, nil, :class => :icon) + content_tag(:span, "Rechercher", :class => :text), :class => "btn search", "data-toggle-visibility" => "##{id}")
+    tb = content_tag(:a, content_tag(:span, nil, :class => :icon) + content_tag(:span, "Rechercher", :class => :text), :class => "btn btn-search", "data-toggle-visibility" => "##{id}")
     # tb = content_tag(:a, content_tag(:div, nil, :class => :icon) + content_tag(:div, "Rechercher", :class => :text), :class => "search", "data-toggle-visibility" => "##{id}")
 
     tool(tb)
