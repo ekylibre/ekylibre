@@ -2,13 +2,13 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="animals_list" language="groovy" columnCount="2" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="401" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isTitleNewPage="true" whenResourceMissingType="Empty" uuid="9c1f11b7-03dd-4803-9e1b-41b87b9d23c0">
 	<property name="ireport.zoom" value="1.2100000000000009"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="638"/>
+	<property name="ireport.y" value="0"/>
 	<style name="Title" fontName="DejaVu Sans" fontSize="30" isBold="true" pdfFontName="Times-Bold"/>
 	<style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18"/>
 	<style name="Column header" forecolor="#666666" fontName="DejaVu Sans" fontSize="12" isBold="true"/>
 	<style name="Detail" fontName="Arial" fontSize="12">
 		<conditionalStyle>
-			<conditionExpression><![CDATA[$F{departure-reasons} == "dead"]]></conditionExpression>
+			<conditionExpression><![CDATA[$F{dead-at} != null]]></conditionExpression>
 			<style mode="Transparent" forecolor="#FF3333" fill="Solid" vAlign="Top" isBold="false" isItalic="false" isUnderline="false"/>
 		</conditionalStyle>
 		<conditionalStyle>
@@ -30,8 +30,8 @@
 	<field name="identification-number" class="java.lang.String">
 		<fieldDescription><![CDATA[identification-number]]></fieldDescription>
 	</field>
-	<field name="born-on" class="java.util.Date">
-		<fieldDescription><![CDATA[born-on]]></fieldDescription>
+	<field name="born-at" class="java.util.Date">
+		<fieldDescription><![CDATA[born-at]]></fieldDescription>
 	</field>
 	<field name="sex" class="java.lang.String">
 		<fieldDescription><![CDATA[sex]]></fieldDescription>
@@ -58,7 +58,7 @@
 		<fieldDescription><![CDATA[work-number]]></fieldDescription>
 	</field>
 	<field name="race-name" class="java.lang.String">
-		<fieldDescription><![CDATA[race/name]]></fieldDescription>
+		<fieldDescription><![CDATA[variety/name]]></fieldDescription>
 	</field>
 	<field name="father-name" class="java.lang.String">
 		<fieldDescription><![CDATA[father/name]]></fieldDescription>
@@ -66,19 +66,16 @@
 	<field name="mother-name" class="java.lang.String">
 		<fieldDescription><![CDATA[mother/name]]></fieldDescription>
 	</field>
-	<field name="departed-on" class="java.lang.String">
-		<fieldDescription><![CDATA[departed-on]]></fieldDescription>
+	<field name="dead-at" class="java.lang.String">
+		<fieldDescription><![CDATA[dead-at]]></fieldDescription>
 	</field>
-	<field name="departure-reasons" class="java.lang.String">
-		<fieldDescription><![CDATA[departure-reasons]]></fieldDescription>
-	</field>
-	<sortField name="born-on" order="Descending"/>
+	<sortField name="born-at" order="Descending"/>
 	<sortField name="work-number" order="Descending"/>
 	<variable name="id_1" class="java.lang.Integer" resetType="Group" resetGroup="year" calculation="Count">
 		<variableExpression><![CDATA[$F{id}]]></variableExpression>
 	</variable>
 	<group name="year" isStartNewPage="true">
-		<groupExpression><![CDATA[$F{born-on}.getYear()+1900]]></groupExpression>
+		<groupExpression><![CDATA[$F{born-at}.getYear()+1900]]></groupExpression>
 		<groupHeader>
 			<band height="29">
 				<textField evaluationTime="Group" evaluationGroup="year">
@@ -91,7 +88,7 @@
 						<rightPen lineWidth="0.0" lineColor="#7F4D15"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{born-on}.getYear()+1900]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{born-at}.getYear()+1900]]></textFieldExpression>
 				</textField>
 				<line>
 					<reportElement uuid="5abae6f2-281f-493a-b567-f347b80e42b3" x="-21" y="27" width="411" height="1" forecolor="#7F4D15"/>
@@ -121,7 +118,7 @@
 	<title>
 		<band height="119" splitType="Stretch">
 			<staticText>
-				<reportElement uuid="762330c6-a035-463c-be4a-d3d1f4e26fd6" style="Title" mode="Opaque" x="-21" y="1" width="843" height="41" backcolor="#CAC0B5"/>
+				<reportElement uuid="762330c6-a035-463c-be4a-d3d1f4e26fd6" style="Title" mode="Opaque" x="-21" y="1" width="843" height="41" forecolor="#FFFFFF" backcolor="#2BA6CB"/>
 				<textElement verticalAlignment="Middle">
 					<font pdfFontName="Times-Roman"/>
 				</textElement>
@@ -152,14 +149,14 @@
 				<imageExpression><![CDATA["/home/djoulin/ekylibre_dev/app/themes/tekyla/images/menus-100px/production.png"]]></imageExpression>
 			</image>
 			<textField>
-				<reportElement uuid="f7e9c2f9-de1f-48bc-a87d-ec1cffcf1db6" x="416" y="1" width="266" height="20"/>
+				<reportElement uuid="f7e9c2f9-de1f-48bc-a87d-ec1cffcf1db6" x="416" y="1" width="266" height="20" forecolor="#FFFFFF"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Droid Sans" size="11" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{entity_full_name}]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/yyyy HH.mm.ss">
-				<reportElement uuid="2e0909fa-9d0c-4cd4-9e2f-2a8b1460d557" x="416" y="21" width="266" height="20"/>
+				<reportElement uuid="2e0909fa-9d0c-4cd4-9e2f-2a8b1460d557" x="416" y="21" width="266" height="20" forecolor="#FFFFFF"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
@@ -241,7 +238,7 @@
 				<textElement verticalAlignment="Middle">
 					<font fontName="DejaVu Sans" size="9"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{born-on}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{born-at}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement uuid="e39cad02-7296-4b15-be64-83e1005f9da2" style="Detail" mode="Opaque" x="1" y="0" width="72" height="21"/>
@@ -275,23 +272,23 @@
 	<pageFooter>
 		<band height="25" splitType="Stretch">
 			<frame>
-				<reportElement uuid="0475879f-e40d-46ef-bcee-450e0a1fc247" mode="Opaque" x="-21" y="1" width="843" height="24" forecolor="#7F4D15" backcolor="#CAC0B5"/>
+				<reportElement uuid="0475879f-e40d-46ef-bcee-450e0a1fc247" mode="Opaque" x="-21" y="1" width="843" height="24" forecolor="#7F4D15" backcolor="#2BA6CB"/>
 				<textField evaluationTime="Report">
-					<reportElement uuid="0ad0e100-57e9-4de5-936d-5476fbfc5309" style="Column header" x="783" y="1" width="40" height="20" forecolor="#736343"/>
+					<reportElement uuid="0ad0e100-57e9-4de5-936d-5476fbfc5309" style="Column header" x="783" y="1" width="40" height="20" forecolor="#FFFFFF"/>
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="false"/>
 					</textElement>
 					<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement uuid="6323e977-43e9-46c7-9133-dcc26da099c7" style="Column header" x="703" y="1" width="80" height="20" forecolor="#736343"/>
+					<reportElement uuid="6323e977-43e9-46c7-9133-dcc26da099c7" style="Column header" x="703" y="1" width="80" height="20" forecolor="#FFFFFF"/>
 					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font size="10" isBold="false"/>
 					</textElement>
 					<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" /"]]></textFieldExpression>
 				</textField>
 				<textField pattern="dd/MM/yyyy">
-					<reportElement uuid="19cb2bb2-0898-440b-923b-fd1c15eb24d4" style="Column header" x="22" y="1" width="197" height="20" forecolor="#736343"/>
+					<reportElement uuid="19cb2bb2-0898-440b-923b-fd1c15eb24d4" style="Column header" x="22" y="1" width="197" height="20" forecolor="#FFFFFF"/>
 					<textElement verticalAlignment="Middle">
 						<font size="10" isBold="false"/>
 					</textElement>
@@ -345,9 +342,9 @@
 						</cellContents>
 					</crosstabTotalRowHeader>
 				</rowGroup>
-				<columnGroup name="born-on" height="30" totalPosition="End">
+				<columnGroup name="born-at" height="30" totalPosition="End">
 					<bucket class="java.lang.String">
-						<bucketExpression><![CDATA[(new SimpleDateFormat("yyyy")).format($F{born-on})]]></bucketExpression>
+						<bucketExpression><![CDATA[(new SimpleDateFormat("yyyy")).format($F{born-at})]]></bucketExpression>
 					</bucket>
 					<crosstabColumnHeader>
 						<cellContents backcolor="#FFEBCD" mode="Opaque">
@@ -357,7 +354,7 @@
 							<textField>
 								<reportElement uuid="ddd851e2-0585-4157-a264-342d71a53646" style="Crosstab Data Text" x="0" y="0" width="50" height="30"/>
 								<textElement verticalAlignment="Middle"/>
-								<textFieldExpression><![CDATA[$V{born-on}]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$V{born-at}]]></textFieldExpression>
 							</textField>
 						</cellContents>
 					</crosstabColumnHeader>
@@ -401,7 +398,7 @@
 						</textField>
 					</cellContents>
 				</crosstabCell>
-				<crosstabCell width="50" columnTotalGroup="born-on">
+				<crosstabCell width="50" columnTotalGroup="born-at">
 					<cellContents backcolor="#FFE6BF" mode="Opaque">
 						<box>
 							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
@@ -413,7 +410,7 @@
 						</textField>
 					</cellContents>
 				</crosstabCell>
-				<crosstabCell rowTotalGroup="sex" columnTotalGroup="born-on">
+				<crosstabCell rowTotalGroup="sex" columnTotalGroup="born-at">
 					<cellContents backcolor="#FFE6BF" mode="Opaque">
 						<box>
 							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
@@ -456,7 +453,7 @@
 				<categoryDataset>
 					<categorySeries>
 						<seriesExpression><![CDATA[$F{race-name}]]></seriesExpression>
-						<categoryExpression><![CDATA[$F{born-on}.getYear()+1900]]></categoryExpression>
+						<categoryExpression><![CDATA[$F{born-at}.getYear()+1900]]></categoryExpression>
 						<valueExpression><![CDATA[$V{id_1}]]></valueExpression>
 					</categorySeries>
 				</categoryDataset>
