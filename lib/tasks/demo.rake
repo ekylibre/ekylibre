@@ -116,6 +116,15 @@ namespace :db do
       # add default category for all
       category = ProductNatureCategory.first
       category ||= ProductNatureCategory.create!(:name => "Défaut")
+      # add default groups for animal
+      group1 = ProductGroup.find_by_name("VL")
+      group1 ||= ProductGroup.create!(:name => "VL", :description => "Vache Laitière")
+      group2 = ProductGroup.find_by_name("GEN")
+      group2 ||= ProductGroup.create!(:name => "GEN", :description => "Génisses")
+      group3 = ProductGroup.find_by_name("VEAU")
+      group3 ||= ProductGroup.create!(:name => "VEAU", :description => "Veaux")
+      group4 = ProductGroup.find_by_name("TAURILLON")
+      group4 ||= ProductGroup.create!(:name => "TAURILLON", :description => "Taurillons")
       # create default product_nature to place animal
       place_nature = ProductNature.find_by_number("CATTLE_HOUSE")
       place_nature ||= ProductNature.create!(:name => "Stabulation", :number => "CATTLE_HOUSE", :storage => true, :indivisible => true, :variety_id => b.id, :unit_id => unit.id, :category_id => category.id)
@@ -151,6 +160,13 @@ namespace :db do
         f.close
         # place the current animal in the default place (stabulation) with dates
         ProductLocalization.create!(:container_id => place.id, :product_id => animal.id, :nature => :interior, :transfer_id => place.id, :started_at => r.arrived_on, :stopped_at => r.departed_on, :arrival_cause => r.arrival_cause, :departure_cause => r.departure_cause)
+        # place the current animal in the default group with dates
+        # @TODO set correct group if sex M / F and age > 2 year
+        # group1 if sex = female and age > 3 years
+        # group2 if sex = female and age between 1 and 3 years
+        # group3 if  age < 3 month
+        # group4 if sex = male and age > 1 years
+        ProductMembership.create!(:product_id => animal.id, :group_id => group1.id,:started_at => r.arrived_on, :stopped_at => r.departed_on )
         print "c"
       end
 

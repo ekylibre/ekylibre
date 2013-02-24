@@ -940,7 +940,7 @@ class NormalizeProducts < ActiveRecord::Migration
       t.belongs_to :product,  :null => false # RO
       t.belongs_to :group,    :null => false # RO
       t.datetime :started_at, :null => false
-      t.datetime :stopped_at, :null => false
+      t.datetime :stopped_at
       t.stamps
     end
     add_stamps_indexes :product_memberships
