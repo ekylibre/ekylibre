@@ -1035,6 +1035,7 @@ fra:
         tax_declarations: "Déclarations de taxes"
         tools: "Outils"
       trade: "Commerce"
+    meteo: "Météo"
     merge: "Fusionner"
     missing_help: "Page inexistante"
     mistake_on_quantities_sum: "La somme des quantités n’est pas égale à la quantité totale produite"
