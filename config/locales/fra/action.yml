@@ -979,6 +979,7 @@ fra:
     locale: "Langue"
     localization: "Localisation géographique"
     lock: "Verrouiller"
+    logout: "Déconnexion"
     mail: "Envoyer un courriel"
     mailing: "Mailing"
     mails:

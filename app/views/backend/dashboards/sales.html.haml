@@ -1,1 +1,27 @@
-.note Le tableau de bord est en cours d'élaboration.
+:javascript
+  $(window).load(function() {
+      $('#featuredContent').orbit({ fluid: '16x6' });
+  });
+.container
+  .hero-unit
+    .row
+      .twelve.mobile-two.columns
+        #featuredContent
+          %div
+            %h3 Mois en cours
+            %p CA par produits vendus
+            .row
+              .six.columns
+                =beehive(:sale) do
+                  -tabbox do
+                    -cell :demo_pie
+              .six.columns
+                =beehive(:sale) do
+                  -tabbox do
+                    -cell :placeholder
+          %div
+            %h3 Commandes passées par clients
+            %p Tous produits
+          %div
+            %h3 Top 5 produits
+            %p Année 2012

@@ -20,5 +20,8 @@
 //= require cocoon
 //= require support
 //= require selector
+//= require jsapi
+//= require jquery.joyride-2.0.3
+//= require modernizr.mq
 //= require ui
 //= require_tree .
