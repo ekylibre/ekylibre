@@ -49,6 +49,7 @@ eng:
       show: "%{nature}: %{name}"
     backend/cells/demo_bar_cells: #?
     backend/cells/demo_pie_cells: #?
+    backend/cells/elevage_rss_cells: #?
     backend/cells/last_events_cells: #?
     backend/cells/last_products_cells: #?
     backend/cells/placeholder_cells: #?
@@ -801,6 +802,7 @@ eng:
     duration_in_hours_and_minutes: "%{hours}h %{minutes}min"
     edit: "Edit"
     ekylibre: "www.ekylibre.org"
+    # elevage_rss: "Actu Elevage"
     email: "Email:"
     employee_name: "Employee"
     end: "to"
@@ -922,6 +924,7 @@ eng:
     last_events: "Last Events"
     last_payment_amount: "Amount of the last payment"
     last_payment_date: "Date of the last payment"
+    # last_products: "Dernières naissances"
     left_balance_amount: "Left Balance Amount"
     letter: "Letter"
     letter_conclusion: "Please accept, Dear Madam, Dear Sir, the assurances of my highest consideration."
@@ -1165,6 +1168,7 @@ eng:
     print_on: "Print on"
     print_with_template: "Print %{name}"
     product: "Product"
+    # product_bar: "Produit par catégories"
     product_category: "Product category"
     # product_category_update: "Modifier la catégorie"
     product_name: "Product name"
@@ -1395,6 +1399,7 @@ eng:
     # vat_amount: "Taxe due"
     # vat_collected: "TVA BRUTE"
     # vat_paid: "TVA DEDUCTIBLE"
+    # video: "Vidéo"
     view: "View"
     view_modes:
       printable: "Printable mode"

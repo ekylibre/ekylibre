@@ -54,6 +54,7 @@ arb:
       show: "%{nature_label} : %{name}"
     backend/cells/demo_bar_cells: #?
     backend/cells/demo_pie_cells: #?
+    backend/cells/elevage_rss_cells: #?
     backend/cells/last_events_cells: #?
     backend/cells/last_products_cells: #?
     backend/cells/placeholder_cells: #?
@@ -940,6 +941,7 @@ arb:
     # duration_in_hours_and_minutes: "%{hours}h %{minutes}min"
     edit: "تعديل"
     ekylibre: "www.ekylibre.org"
+    # elevage_rss: "Actu Elevage"
     # email: "Email:"
     employee_name: "الموظف"
     end: "لغاية"
@@ -1082,6 +1084,7 @@ arb:
     # last_events: "Derniers Evènements"
     # last_payment_amount: "Montant du dernier encaissement"
     # last_payment_date: "Date du dernier encaissement"
+    # last_products: "Dernières naissances"
     left_balance_amount: "ارجاء الرصيد السابق غير معلق وغير مكلف"
     letter: "مراسلة"
     letter_conclusion: ".أرجو أن تتقبلوا سادتي التعبير عن فائق احترامي"
@@ -1354,6 +1357,7 @@ arb:
     print_on: "ال"
     # print_with_template: "Imprimer %{name}"
     product: "المنتج"
+    # product_bar: "Produit par catégories"
     product_category: "الفئة"
     product_category_create: "اضافة فئة جديدة للمنتج" #?
     product_category_update: "تعديل الفئة"
@@ -1618,6 +1622,7 @@ arb:
     vat_amount: "الضرائب المستحقة"
     vat_collected: "صافي قيمة الضريبة المضافة"
     vat_paid: "خصم قيمة الضريبة المضافة"
+    # video: "Vidéo"
     view: "معاينة"
     view_modes:
       # printable: "Mode «\_Imprimable\_»"

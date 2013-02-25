@@ -14,6 +14,7 @@
 # - "backend/animals#update"
 # - "backend/cells/demo_bar_cells#show"
 # - "backend/cells/demo_pie_cells#show"
+# - "backend/cells/elevage_rss_cells#show"
 # - "backend/cells/last_events_cells#list"
 # - "backend/cells/last_events_cells#show"
 # - "backend/cells/last_products_cells#list"

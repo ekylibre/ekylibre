@@ -45,7 +45,8 @@ gem 'libxml-ruby', :require => 'libxml'
 # gem 'thinreports-rails'
 # jasper_rails need rjb which need $ sudo apt-get install openjdk-7-jdk and set JAVA_HOME and add a line in environement.rb
 gem 'rjb'
-gem 'jasper-rails', :git => 'git://github.com/fortesinformatica/jasper-rails.git'
+gem 'jasper-rails'
+
 gem 'prawn', '~> 0.12.0'
 
 # Import/Export
@@ -60,6 +61,9 @@ gem 'ffaker'
 gem 'jquery-rails'
 # gem 'jquery_mobile_rails'
 
+# reading RSS Feed in dashboard
+gem 'feedzirra'
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
@@ -73,7 +77,7 @@ group :assets do
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   # gem 'libv8', '~> 3.11.8'
-  gem 'therubyracer', :platform => :ruby # , '~> 0.10.2'
+  gem 'therubyracer', '~> 0.10.2'# :platform => :ruby # , '~> 0.10.2'
 
   gem 'uglifier', '>= 1.0.3'
 end
@@ -81,6 +85,7 @@ end
 group :test do
   gem 'capybara'
   gem 'rspec-rails'
+  gem 'jasper-rails-rspec'
   gem 'cucumber-rails'
   gem 'awesome_print'
   gem 'pry'

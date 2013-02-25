@@ -841,6 +841,9 @@
     <menu name="backend/cells/demo_pie_cells">
       <page to="backend/cells/demo_pie_cells#show"/>
     </menu>
+    <menu name="backend/cells/elevage_rss_cells">
+      <page to="backend/cells/elevage_rss_cells#show"/>
+    </menu>
     <menu name="backend/cells/last_events_cells">
       <page to="backend/cells/last_events_cells#list"/>
       <page to="backend/cells/last_events_cells#show"/>
