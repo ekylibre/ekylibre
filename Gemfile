@@ -24,6 +24,7 @@ gem 'enumerize'
 
 # Authentication
 gem 'devise'
+gem 'devise-i18n-views'
 
 # Attachments
 gem 'paperclip'

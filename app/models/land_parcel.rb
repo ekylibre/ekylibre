@@ -90,6 +90,14 @@ class LandParcel < Place
     if self.shape
       self.area_measure = self.shape.area
       self.area_unit = Unit.get(:m2)
+      for unit in Unit.where(:base => "m2").order("coefficient DESC")
+        measure = unit.convert_from(self.area_measure, self.area_unit)
+        if measure >= 1
+          self.area_unit = unit
+          self.area_measure = measure
+          break
+        end
+      end
     end
   end
 

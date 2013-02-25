@@ -34,5 +34,12 @@ input[type="submit"], a.btn {
 }
 
 .btn.btn-destroy .icon { @include use-icon(remove) }
-.btn.btn-down .icon { @include use-icon(chevron-down) }
-.btn.btn-new .icon { @include use-icon(plus) }
+.btn.btn-down .icon    { @include use-icon(chevron-down) }
+.btn.btn-new .icon     { @include use-icon(plus) }
+.btn.btn-merge .icon   { @include use-icon(resize-small) }
+.btn.btn-divide .icon  { @include use-icon(resize-full) }
+.btn.btn-duplicate .icon  { @include use-icon(copy) }
+.btn.btn-load .icon       { @include use-icon(refresh) }
+.btn.btn-statistics .icon { @include use-icon(bar-chart) }
+.btn.btn-index .icon      { @include use-icon(print) }
+.btn.btn-unvalidateds .icon { @include use-icon(ok)}

@@ -2,6 +2,7 @@ spa:
   activerecord:
     attributes:
       animal:
+        # born_at: "Date de naissance"
         # variety: "Race"
       animal_group: #?
       animal_race: #?
@@ -966,6 +967,7 @@ spa:
     # reflections: "Reflections"
     # relative_humidity: "Humidité relative"
     # remaining_duration: "Durée d’utilisation prévue (heures)"
+    # remember_me: "Se souvenir de moi"
     # reproductor: "Reproducteur"
     # required: "Obligatoire"
     # reservoir: "Réservoir"

@@ -1582,7 +1582,15 @@ module ApplicationHelper
       return nil
     else
       @object_of_current_field_set = args[-1]
-      return content_tag(:div, content_tag(:div, content_tag(:span, "", :class => :icon) + content_tag(:span, (name.is_a?(Symbol) ? name.to_s.gsub('-', '_').t(:default => ["labels.#{name.to_s.gsub('-', '_')}".to_sym, "form.legends.#{name.to_s.gsub('-', '_')}".to_sym]) : name.to_s)), :class => "fieldset-legend") + content_tag(:div, capture(&block), :class => "fieldset-fields"), :class => "fieldset", :id => "#{name}-fieldset")
+      set_id = "#{name}-fields"
+      toggle_id = "#{set_id}-toggle"
+      return content_tag(:div,
+                         content_tag(:div,
+                                     content_tag(:span, "", :class => :icon) +
+                                     content_tag(:span, (name.is_a?(Symbol) ? name.to_s.gsub('-', '_').t(:default => ["labels.#{name.to_s.gsub('-', '_')}".to_sym, "form.legends.#{name.to_s.gsub('-', '_')}".to_sym]) : name.to_s)) +
+                                     content_tag(:span, "", :id => toggle_id, :class => (options[:collapsed] ? 'collapsed' : 'not-collapsed'), 'data-toggle-set' => "##{set_id}"),
+                                     :class => "fieldset-legend") +
+                         content_tag(:div, capture(&block), :class => "fieldset-fields", :id => set_id), :class => "fieldset", :id => "#{name}-fieldset")
     end
   end
 

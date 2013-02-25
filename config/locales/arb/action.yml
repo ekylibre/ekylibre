@@ -733,6 +733,7 @@ arb:
     active_fixed_sum: "مجموع الموجودات الثابتة"
     active_sum: "مجموع الموجودات"
     add: "اضافة"
+    # add_choice: "Ajouter un choix"
     add_condition: "اضافة شرط"
     add_conditions: "اضف شروط"
     add_delivery: "اضافة وسيلة نقل"

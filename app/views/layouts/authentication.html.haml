@@ -12,10 +12,9 @@
   %body
     =yield :popover
     #wrap
-      %header#header
-        %h1#title=controller.human_action_name
       #main
         #content
+          .logo=image_tag("ekylibre.png")
           =notice
           =alert
           =notifications_tag

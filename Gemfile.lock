@@ -111,6 +111,7 @@ GEM
       orm_adapter (~> 0.1)
       railties (~> 3.1)
       warden (~> 1.2.1)
+    devise-i18n-views (0.2.5)
     diff-lcs (1.2.1)
     enumerize (0.5.1)
       activesupport (>= 3.2)
@@ -329,6 +330,7 @@ DEPENDENCIES
   cucumber-rails
   database_cleaner
   devise
+  devise-i18n-views
   enumerize
   exception_notification
   fastercsv

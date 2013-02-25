@@ -2,6 +2,7 @@ eng:
   activerecord:
     attributes:
       animal:
+        # born_at: "Date de naissance"
         race: "Race" #?
         # variety: "Race"
       animal_group: #?
@@ -1098,6 +1099,7 @@ eng:
     reflections: "Reflections"
     relative_humidity: "Relative humidity"
     remaining_duration: "Remaining duration"
+    # remember_me: "Se souvenir de moi"
     # reproductor: "Reproducteur"
     required: "Required"
     reservoir: "Reservoir"

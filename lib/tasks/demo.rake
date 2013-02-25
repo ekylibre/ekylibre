@@ -102,6 +102,19 @@ namespace :db do
         print "."
       end
 
+      mails = [
+               {:mail_line_4 => "712 rue de la Mairie", :mail_line_6 => "47290 Cancon"},
+               {:mail_line_4 => "55 Rue du Faubourg Saint-Honoré", :mail_line_6 => "75008 Paris"},
+               {:mail_line_4 => "Le Bourg", :mail_line_6 => "47210 Saint-Eutrope-de-Born"},
+               {:mail_line_4 => "Avenue de la Libération", :mail_line_6 => "47150 Monflanquin"},
+               {:mail_line_4 => "Rue du port", :mail_line_6 => "47440 Casseneuil"},
+               {:mail_line_4 => "Avenue René Cassin", :mail_line_6 => "47110 Sainte-Librade-sur-Lot"},
+              ]
+
+      Entity.find_each do |entity|
+        entity.addresses.create!(mails.sample.merge(:canal => :mail))
+      end
+
       # Import synel
       h = ProductVariety.find_by_code("cattle")
       p = ProductVariety.find_by_code("animal")
@@ -112,7 +125,7 @@ namespace :db do
       # add default variety for building
       b = ProductVariety.find_by_code("animal_house")
       q = ProductVariety.find_by_code("building")
-      b ||= ProductVariety.create!(:name => "Batiments Animaux", :code => "animal_house", :product_type => "Warehouse", :parent_id => (q ? q.id : nil))
+      b ||= ProductVariety.create!(:name => "Bâtiments Animaux", :code => "animal_house", :product_type => "Warehouse", :parent_id => (q ? q.id : nil))
       # add default category for all
       category = ProductNatureCategory.first
       category ||= ProductNatureCategory.create!(:name => "Défaut")

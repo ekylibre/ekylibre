@@ -610,6 +610,7 @@ eng:
     active_fixed_sum: "Total Fixed Asset"
     active_sum: "Total Assets"
     add: "Add"
+    # add_choice: "Ajouter un choix"
     add_condition: "Add condition"
     add_conditions: "Add conditions"
     add_delivery: "Add delivery"

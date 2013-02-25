@@ -52,12 +52,15 @@ $symbiols: $font-awesome-icons;
 }
 
 @mixin use-icon($name) {
+  $i: 0;
   @each $symbiol in $symbiols {
     @if nth($symbiol, 1) == $name {
       @include icon(nth($symbiol, 2));
-    } @else {
-      @warn "Icon #{$name} is not defined";
+      $i: $i + 1;
     }
+  }
+  @if $i == 0 {
+    @warn "Icon #{$name} is not defined";
   }
 }
 
@@ -150,6 +153,10 @@ $title-color: darken($base-color, 40%);
 $invalid-color: red;
 $hover-transparency: 0.85;
 $hover-mask: transparentize($base-color, $hover-transparency);
+
+@mixin background-active-gradient {
+  @include background(linear-gradient(top, lighten($active-color, 5%), $active-color, darken($active-color, 5%)));
+}
 
 @function background-hover($background-color) {
 /*  @return mix($background-color, $base-color, 78%);*/
@@ -477,9 +484,12 @@ $mainColor: $base-color;
 
 $topBarHeight: 32px;
 $topBarBgColor: $active-color;
-$topBarDropBgColor: darken($topBarBgColor, 1%);
+$topBarDropBgColor: $topBarBgColor;
 
 @import "foundation";
+
+
+
 
 @import "active-list/minimal";
 @import "beehive.css.scss";

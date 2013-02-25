@@ -1000,6 +1000,7 @@ fra:
     relative_humidity: "Humidité relative" #?
     remaining_duration: "Durée d’utilisation prévue (heures)" #?
     # remember_created_at: "Remember created at"
+    remember_me: "Se souvenir de moi"
     # reminder_submissive: "Reminder submissive"
     # repeatable: "Repeatable"
     reproductor: "Reproducteur"

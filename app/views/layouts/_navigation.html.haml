@@ -4,8 +4,14 @@
     %li.toggle-topbar>=link_to("", "#")
   %section>
     %ul>=render(:partial => "layouts/subnavigation", :object => Ekylibre.menu.items, :locals => {:with_divider => true, :depth => 0})
-
-
+    %ul.right
+      %li.divider.show-for-medium-and-up
+      %li.has-dropdown
+        %a=Entity.of_company.full_name
+        %ul.dropdown
+          %li
+            %label=current_user.full_name
+          %li=link_to(tl("logout"), destroy_user_session_url, :method => :delete)
 -#if current_user
   .user-bar
     %a.name.root

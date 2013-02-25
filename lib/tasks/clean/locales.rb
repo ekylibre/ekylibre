@@ -285,6 +285,10 @@ task :locales => :environment do
   atotal += count
   acount += count
 
+  count = sort_yaml_file "devise.views", log
+  atotal += count
+  acount += count
+
 
 
   # puts " - Locale: #{::I18n.locale_label} (Reference)"

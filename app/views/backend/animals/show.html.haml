@@ -17,15 +17,15 @@
             %span.value
               -seconds = (@animal.dead_at||Time.now) - @animal.born_at
               -vals = []
-              -if (seconds/1.year).round > 0
-                -vals << "labels.x_years".t(:count => (seconds/1.year).round)
-                -seconds -= 1.year * (seconds/1.year).round
-              -if (seconds/1.month).round > 0
-                -vals << "labels.x_months".t(:count => (seconds/1.month).round)
-                -seconds -= 1.month * (seconds/1.month).round
-              -if (seconds/1.day).round > 0
-                -vals << "labels.x_days".t(:count => (seconds/1.day).round)
-                -seconds -= 1.day * (seconds/1.day).round
+              -if (seconds/1.year).floor > 0
+                -vals << "labels.x_years".t(:count => (seconds/1.year).floor)
+                -seconds -= 1.year * (seconds/1.year).floor
+              -if (seconds/1.month).floor > 0
+                -vals << "labels.x_months".t(:count => (seconds/1.month).floor)
+                -seconds -= 1.month * (seconds/1.month).floor
+              -if (seconds/1.day).floor > 0
+                -vals << "labels.x_days".t(:count => (seconds/1.day).floor)
+                -seconds -= 1.day * (seconds/1.day).floor
               =vals.join(", ")
         -if @animal.mother
           .info

@@ -9,9 +9,12 @@ task :code do
     files += Dir["**/*.rake"]
     files += Dir["**/*.yml"]
     files += Dir["**/*.haml"]
+    files += Dir["**/*.erb"]
+    files += Dir["**/*.rjs"]
     files += Dir["**/*.js"]
     files += Dir["**/*.coffee"]
     files += Dir["**/*.scss"]
+    files += Dir["**/*.sass"]
     files += Dir["**/*.css"]
   end
   files.sort!

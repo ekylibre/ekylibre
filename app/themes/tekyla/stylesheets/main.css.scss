@@ -14,12 +14,23 @@ a:link, a:visited, a:focus { color: $link-color; text-decoration: none;}
 // a:hover { color: $link-color; text-decoration: underline;}
 
 
+dl {
+  dt {
+    font-weight: bold;
+    margin-top: round(0.5*$fs-normal);
+  }
+  dd {
+    @include margin-left(2*$fs-normal);
+  }
+}
+
 #top {
   margin-bottom: 0;
+  @include background-active-gradient;
   @include box-shadow(0 0 $fs-normal rgba(#000, 0.4));
 }
 
-html {
+html.backend {
   background: #F7F7F7;
   body {
     background: transparent;
@@ -50,6 +61,53 @@ html {
   }
 }
 
+html.authentication {
+  background: #F7F7F7;
+  @include background(radial-gradient(top, #FFF, #F7F7F7, #C2C2C2));
+  height: 100%;
+  body {
+    background: transparent;
+    height: 100%;
+    #wrap {
+      width: 100% !important;
+      background: transparent;
+      border-top: 2px solid $active-color;
+      #main {
+        background: transparent;
+        #content {
+          background: #FFF;
+          @include incrust-shadow;
+          padding: 20px;
+          margin: 60px auto;
+          width: 40%;
+          @include respondTo(smallScreen) {
+            margin: auto;
+            width: 100%;
+          }
+          .logo {
+            text-align: center;
+          }
+          h2 {
+            font-size: $fs-large;
+            line-height: round(1.6*$fs-large);
+	    margin-bottom: round(0.4*$fs-large);
+          }
+          label {
+            display: inline;
+            line-height: round(1.6*$fs-normal);
+          }
+          input {
+            display: inline;
+            &[type="submit"] {
+	      display: block;
+              margin: 10px auto;
+            }
+          }
+        }
+      }
+    }
+  }
+}
 
 	  #main-toolbar {
             @include button-group();
@@ -61,6 +119,20 @@ html {
 	    }
 	  }
 
+#about-us {
+  .logo {
+    margin: 20px auto;
+  }
+  dl {
+    display: block;
+    margin: 0 auto;
+  }
+  width: 40%;
+  margin: 0 auto;
+  @include respondTo(smallScreen) {
+    width: 100%;
+  }
+}
 
 ul.side-menu {
   margin: $default-gap;
@@ -101,7 +173,8 @@ ul.side-menu {
         position: relative;
         z-index: 2;
         a {
-          background: $base-color;
+          //background: $base-color;
+          @include background-active-gradient;
           padding: $padding + 1;
           border: none;
           color: white;
@@ -299,7 +372,8 @@ ul.side-menu {
 }
 
 .checkbox-true, .checkbox-false {
-  @include is-icon;
+  @include is-icon(14px);
+  width: 14px;
   &:hover {
     cursor: default;
     pointer-events: none;
@@ -330,10 +404,10 @@ ul.side-menu {
     font-weight: bold;
     vertical-align: middle;
     .icon {
+      @include is-icon;
       @include inline-block;
-      @include use-icon(page);
-      height: 16px;
-      width: 16px;
+      @include use-icon(file);
+      color: $neutral-color;
       @include margin-right(round($size/4));
     }
     [data-toggle-set] {
@@ -343,20 +417,23 @@ ul.side-menu {
       $tool-size: 12px;
       width: $tool-size;
       height: $tool-size;
-      margin: round(($size - $tool-size)/2) 0 0;
-      &.collapsed {
-        @include common-sprite(toggle-show);
-        &:hover { @include common-sprite(toggle-show-hover) }
+      @include border-radius(2px);
+      @include is-icon(9px);
+      border: 1px solid $neutral-color;
+      padding: 1px 2px;
+      margin: round(($size - $tool-size - 1px)/2) 0 0;
+      @include background(linear-gradient(top, #FFF, #EEE));
+      &:hover {
+	background: $neutral-color;
+        color: white;
       }
-      &.not-collapsed {
-        @include common-sprite(toggle-hide);
-        &:hover { @include common-sprite(toggle-hide-hover) }
-      }
+      &.collapsed { @include use-icon(plus); }
+      &.not-collapsed { @include use-icon(minus); }
     }
   }
-  @each $field_set in care, drug, delay, document, general-informations, stock, animal, vegetable, entity, asset, genealogy, group, movement, treatment {
-    &##{ $field_set }-fieldset .fieldset-legend .icon {
-      @include use-icon($field_set);
+  @each $field_set in (delay time), (document briefcase), (general-informations book), (stock exchange), (group group), (movement exchange), (accountancy money), (coordinates map-marker) { // , animal, vegetable, entity, asset, genealogy
+    &##{ nth($field_set, 1) }-fieldset .fieldset-legend .icon {
+      @include use-icon(nth($field_set, 2));
     }
   }
 
@@ -551,9 +628,10 @@ span.rad, label.radio {
     .ui-dialog-titlebar-close {
       float: right;
       span {
-        display: block;
-        @include squish-text;
-        @include use-icon(close);
+        // display: block;
+        // @include squish-text;
+        @include is-icon;
+        @include use-icon(remove);
         height: 16px;
         width: 16px;
       }
@@ -597,7 +675,8 @@ span.rad, label.radio {
     width: 16px;
     height: 16px;
     margin: 3px;
-    @include use-icon(left);
+    @include is-icon;
+    @include use-icon(chevron-left);
   }
   .ui-datepicker-next {
     float: right;
@@ -607,7 +686,8 @@ span.rad, label.radio {
     width: 16px;
     height: 16px;
     margin:3px;
-    @include use-icon(right);
+    @include is-icon;
+    @include use-icon(chevron-right);
   }
   .ui-datepicker-title {
     padding: 4px;
