@@ -141,7 +141,7 @@ $fs-huge:      round($fs-ratio*$fs-large);
 $fs-very-huge: round($fs-ratio*$fs-huge);
 
 $neutral-color: #777;
-$base-color: #16D; // #7A1; //
+$base-color: #2BA6CB; // #7A1; //#2BA6CB (ZURB) // #16D (Google)
 $active-color: $base-color; // #DE7308; // mix(green, $base-color, 50%);
 $link-color:  darken($base-color, 27%);
 $link-color:  darken($base-color, 10%);
@@ -476,7 +476,7 @@ $baseFontSize: $fs-normal;
 $mainColor: $base-color;
 
 $topBarHeight: 32px;
-$topBarBgColor: $active-color;
+$topBarBgColor: #000000;//default $active-color //#000000 (ZURB)
 $topBarDropBgColor: darken($topBarBgColor, 1%);
 
 @import "foundation";
