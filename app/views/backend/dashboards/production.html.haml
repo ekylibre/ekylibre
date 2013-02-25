@@ -5,20 +5,12 @@
     %li= link_to tc('x_performed_operations', :count=>unvalidateds.count), :action=>:unvalidateds, :controller=>:operations
 
 =beehive(:production) do
-  -hbox do
-    -cell :demo_bar
-    -cell :demo_pie
-  -hbox do
-    -cell :last_events
-    -cell :product_pie
-    -cell :last_products
-  -hbox do
-    -cell :product_bar
-    -cell :placeholder
-    -cell :example do
-      %h1 Direct HTML without controller
-      %span But quite easy to manage
   -tabbox do
-    -cell :placeholder
-    -cell :demo_pie
+    -cell :last_products
+    -cell :elevage_rss
+    -cell :video do
+      %iframe{:allowfullscreen => "", :frameborder => "0", :height => "141", :mozallowfullscreen => "", :src => "http://player.vimeo.com/video/57127234?title=0&byline=0&portrait=0", :webkitallowfullscreen => "", :width => "250"}
+  -tabbox do
+    -cell :last_events
+    -cell :product_bar
     -cell :demo_bar

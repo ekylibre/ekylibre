@@ -56,6 +56,7 @@ spa:
       show: "%{nature_label} : %{name}"
     backend/cells/demo_bar_cells: #?
     backend/cells/demo_pie_cells: #?
+    backend/cells/elevage_rss_cells: #?
     backend/cells/last_events_cells: #?
     backend/cells/last_products_cells: #?
     backend/cells/placeholder_cells: #?
@@ -871,6 +872,7 @@ spa:
     # duration_in_hours_and_minutes: "%{hours}h %{minutes}min"
     # edit: "Modifier"
     ekylibre: "www.ekylibre.org"
+    # elevage_rss: "Actu Elevage"
     # email: "Email:"
     # employee_name: "Employé"
     end: "al"
@@ -996,6 +998,7 @@ spa:
     # last_events: "Derniers Evènements"
     # last_payment_amount: "Montant du dernier encaissement"
     # last_payment_date: "Date du dernier encaissement"
+    # last_products: "Dernières naissances"
     left_balance_amount: "Aplazamiento del credito anterior sin imputar ni reembolsar"
     # letter: "Lettrer"
     # letter_conclusion: "Veuillez agréer, Chère Madame, Cher Monsieur, l’expression de mes salutations distinguées."
@@ -1240,6 +1243,7 @@ spa:
     print_on: "el"
     # print_with_template: "Imprimer %{name}"
     product: "Producto"
+    # product_bar: "Produit par catégories"
     # product_category: "Produits"
     # product_category_update: "Modifier la catégorie"
     # product_name: "Produit"
@@ -1479,6 +1483,7 @@ spa:
     vat_amount: "Tasa deuda"
     vat_collected: "TVA BRUTA"
     vat_paid: "TVA DEDUCTIBLE"
+    # video: "Vidéo"
     # view: "Affichage"
     view_modes:
       # printable: "Mode «\_Imprimable\_»"

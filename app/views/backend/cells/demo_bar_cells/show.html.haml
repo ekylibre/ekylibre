@@ -1,1 +1,21 @@
-=bar_chart(@values)
+:javascript
+  $(window).load(function() {
+      $('#featuredContent').orbit({ fluid: '16x6' });
+  });
+.container
+  .hero-unit
+    -content_for(:title, "Accueil")
+    %h2.subheader Maquette de démonstration
+    .row
+      .twelve.mobile-two.columns
+        #featuredContent
+          %div
+            %h4 Suiver votre ..
+            %p Trésorerie, ...
+            .row
+              .six.columns
+                #chart
+                = render_chart(@chart, 'chart')
+              .six.columns
+                #pie
+                = render_chart(@chart1, 'pie')

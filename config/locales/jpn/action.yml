@@ -47,6 +47,7 @@ jpn:
       # show: "%{nature}\_: %{name}"
     backend/cells/demo_bar_cells: #?
     backend/cells/demo_pie_cells: #?
+    backend/cells/elevage_rss_cells: #?
     backend/cells/last_events_cells: #?
     backend/cells/last_products_cells: #?
     backend/cells/placeholder_cells: #?
@@ -774,6 +775,7 @@ jpn:
     # duration_in_hours_and_minutes: "%{hours}h %{minutes}min"
     # edit: "Modifier"
     ekylibre: "www.ekylibre.org"
+    # elevage_rss: "Actu Elevage"
     # email: "Email:"
     # employee_name: "Employé"
     # end: "au"
@@ -893,6 +895,7 @@ jpn:
     # last_events: "Derniers Evènements"
     # last_payment_amount: "Montant du dernier encaissement"
     # last_payment_date: "Date du dernier encaissement"
+    # last_products: "Dernières naissances"
     # left_balance_amount: "Report du crédit antérieur non imputé et non remboursé"
     # letter: "Lettrer"
     # letter_conclusion: "Veuillez agréer, Chère Madame, Cher Monsieur, l’expression de mes salutations distinguées."
@@ -1139,6 +1142,7 @@ jpn:
     # print_on: "Le"
     # print_with_template: "Imprimer %{name}"
     # product: "Produit"
+    # product_bar: "Produit par catégories"
     # product_category: "Produits"
     # product_category_update: "Modifier la catégorie"
     # product_name: "Produit"
@@ -1365,6 +1369,7 @@ jpn:
     # vat_amount: "Taxe due"
     # vat_collected: "TVA BRUTE"
     # vat_paid: "TVA DEDUCTIBLE"
+    # video: "Vidéo"
     # view: "Affichage"
     view_modes:
       # printable: "Mode «\_Imprimable\_»"

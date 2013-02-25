@@ -2,6 +2,7 @@ jpn:
   activerecord:
     attributes:
       animal:
+        # born_at: "Date de naissance"
         # variety: "Race"
       animal_group: #?
       animal_race: #?

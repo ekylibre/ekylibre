@@ -2,6 +2,7 @@ eng:
   activerecord:
     attributes:
       animal:
+        # born_at: "Date de naissance"
         race: "Race" #?
         # variety: "Race"
       animal_group: #?

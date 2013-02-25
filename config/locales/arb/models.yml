@@ -15,6 +15,7 @@ arb:
         financial_year: "مهنة" #?
         lock_version: "الاصدار المحلي" #?
       animal:
+        # born_at: "Date de naissance"
         # variety: "Race"
       animal_group: #?
       animal_race: #?
