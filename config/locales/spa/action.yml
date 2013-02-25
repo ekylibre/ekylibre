@@ -1383,6 +1383,7 @@ spa:
     shelf: "Categoria" #?
     # ship: "Prévue le"
     # show: "Afficher"
+    # sign_out: "Se déconnecter"
     simplified: "Regimen del real simplificado"
     source: "Fuente de datos"
     start: "Del"

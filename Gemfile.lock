@@ -134,6 +134,7 @@ GEM
     fssm (0.2.10)
     gherkin (2.11.6)
       json (>= 1.7.6)
+    google_visualr (2.1.6)
     haml (4.0.0)
       tilt
     hashery (2.1.0)
@@ -356,6 +357,7 @@ DEPENDENCIES
   ffaker
   formize (~> 1.0.0)
   foundation-icons-sass-rails
+  google_visualr
   haml
   i18n-complements
   jasper-rails

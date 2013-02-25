@@ -1327,6 +1327,7 @@ fra:
     set_reconcilable_new_but_existing_third_accounts: "Rendre lettrables les nouveaux comptes tiers déjà existants"
     ship: "Prévue le"
     show: "Afficher"
+    sign_out: "Se déconnecter"
     simplified: "Régime du réel simplifié"
     source: "Source de données"
     start: "Du"

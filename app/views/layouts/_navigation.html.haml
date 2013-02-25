@@ -11,7 +11,7 @@
         %ul.dropdown
           %li
             %label=current_user.full_name
-          %li=link_to(tl("logout"), destroy_user_session_url, :method => :delete)
+          %li=link_to(tl(:sign_out), destroy_user_session_url, :method => :delete)
 -#if current_user
   .user-bar
     %a.name.root

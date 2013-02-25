@@ -14,6 +14,7 @@ gem 'exception_notification'
 gem 'active-list'
 gem 'haml'
 gem 'turbolinks'
+gem 'google_visualr'
 
 # Models helpers
 gem 'acts_as_list'

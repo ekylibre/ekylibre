@@ -1511,6 +1511,7 @@ arb:
     # set_reconcilable_new_but_existing_third_accounts: "Rendre lettrables les nouveaux comptes tiers déjà existants"
     ship: "بشريطة"
     # show: "Afficher"
+    # sign_out: "Se déconnecter"
     simplified: "نظام واقعي مبسط"
     source: "مصدر البيانات"
     start: "ابتداء من"

@@ -27,7 +27,7 @@
 #  lock_version :integer          default(0), not null
 #  product_id   :integer          not null
 #  started_at   :datetime         not null
-#  stopped_at   :datetime
+#  stopped_at   :datetime         not null
 #  updated_at   :datetime         not null
 #  updater_id   :integer
 #
@@ -38,7 +38,7 @@ class ProductMembership < Ekylibre::Record::Base
   belongs_to :group, :class_name => "ProductGroup"
   belongs_to :product, :class_name => "Product"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_presence_of :group, :product, :started_at
+  validates_presence_of :group, :product, :started_at, :stopped_at
   #]VALIDATORS]
 
   validate do

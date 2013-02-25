@@ -27,7 +27,7 @@
 #  lock_version :integer          default(0), not null
 #  product_id   :integer          not null
 #  started_at   :datetime         not null
-#  stopped_at   :datetime
+#  stopped_at   :datetime         not null
 #  updated_at   :datetime         not null
 #  updater_id   :integer
 #
