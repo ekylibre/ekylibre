@@ -340,12 +340,36 @@ ul.side-menu {
   }
   .text-end { height: 1px; }
   .help-error {  @include text-align(center); margin: $default-gap 0; color: mix($text-color, $menu-background, 50%); @include text-shadow($menu-border-width $menu-border-width 0 $desktop-background) }
-  .content .md {
+  .md {
     display:block;
     &.md-center { margin: round($default-gap/2) auto; }
     &.md-left   { margin: round($default-gap/2); @include float(left); }
     &.md-right  { margin: round($default-gap/2); @include float(right); }
   }
+  .icon {
+    @include is-icon;
+    @include use-icon(cog);
+    @each $symbiol in $symbiols {
+      $symbol-name: nth($symbiol, 1);
+      $symbol-code: nth($symbiol, 2);
+      &.icon-#{$symbol-name} {
+        @include icon($symbol-code);
+      }
+    }
+  }
+  .icon.icon-abort { @include use-icon(trash) }
+  .icon.icon-cancel { @include use-icon(undo) }
+  .icon.icon-destroy { @include use-icon(remove) }
+  .icon.icon-down    { @include use-icon(chevron-down) }
+  .icon.icon-new     { @include use-icon(plus) }
+  .icon.icon-merge   { @include use-icon(resize-small) }
+  .icon.icon-divide  { @include use-icon(resize-full) }
+  .icon.icon-duplicate  { @include use-icon(copy) }
+  .icon.icon-load       { @include use-icon(refresh) }
+  .icon.icon-statistics { @include use-icon(bar-chart) }
+  .icon.icon-index      { @include use-icon(print) }
+  .icon.icon-unvalidateds { @include use-icon(ok)}
+  .icon.icon-close { @include use-icon(lock)}  
 }
 
 
@@ -825,6 +849,38 @@ input[data-date], input[data-datepicker] {
     padding: 8px;
     background: #EFE;
     font-style: italic;
+  }
+}
+
+.stepper {
+  width: 100%;
+  border: none;
+  margin-bottom: $default-gap;
+  .step {
+    text-align: center;
+    @include inline-block;
+    a {
+      display: block; 
+      text-align: center;
+      padding: $default-gap;
+      background: white;
+      @include border-radius(1000px);
+    }
+    &.disabled a {
+      color: $neutral-color;
+      background: $neutral-background;
+      cursor: default;
+      pointer-events: none;
+    } 
+  }
+  .transition {
+    width: 1%;
+    @include inline-block;
+  }
+  @for $i from 1 through 30 {
+    &.stepper-#{$i}-steps {
+      .step { width: (100% - (1% * ($i - 1))) / $i; }
+    }
   }
 }
 

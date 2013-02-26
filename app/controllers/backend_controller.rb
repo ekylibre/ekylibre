@@ -525,11 +525,11 @@ class BackendController < BaseController
 
     if url.blank?
       named_url = base_url.singularize + "_url"
-      if defined?(named_url.to_sym)
+      if instance_methods(true).include?(:show)
         url = "{:controller => :'#{aname}', :action => :show, :id => 'id'}"
       else
         named_url = base_url + "_url"
-        url = named_url if defined?(named_url.to_sym)
+        url = named_url if instance_methods(true).include?(named_url.to_sym)
       end
     end
 
