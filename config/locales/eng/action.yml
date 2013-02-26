@@ -1303,6 +1303,7 @@ eng:
     set_reconcilable_new_but_existing_third_accounts: "Set reconcilable the new but existing third accounts (clients, suppliers and attorneys)"
     ship: "Ship"
     # show: "Afficher"
+    # sign_out: "Se déconnecter"
     simplified: "Simplified Accounting"
     source: "Source"
     start: "From"

@@ -834,8 +834,35 @@ input[data-date] {
 
 }
 
-
-
+.rss-feed {
+  .rss-title {
+    font-size: $fs-large;
+    margin-bottom: $default-gap;
+  }
+  .rss-entries {
+    max-height: 400px;
+    overflow-y: scroll;
+    a.rss-entry {
+      display: block;
+      padding: $default-gap;
+      border-top: 2px solid $active-color;
+      &:first-child {
+        border-top: none;
+      }
+      @include background(linear-gradient(top, rgba(#FFF, 0), rgba(#000, 0.1)));
+      .rss-entry-title {
+        color: $base-color;
+        i {
+          color: $base-color;
+          @include is-icon(14px);
+          @include use-icon(external-link);
+        }
+      }
+      .rss-entry-summary { color: #777; margin-bottom: 0}
+      .rss-entry-published { font-size: $fs-small; color: #777;}
+    }
+  }
+}
 
 
 svg {
