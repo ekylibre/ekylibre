@@ -353,7 +353,7 @@ class BackendController < BaseController
     action_rights = controller_rights[self.action_name.to_sym]||[]
 
     # Search help article
-    @article = search_article
+    @article = "#{self.absolute_controller_name}-#{self.action_name}" # search_article
 
     # Returns if action is public
     return true if action_rights.include?(:__public__)
@@ -423,15 +423,14 @@ class BackendController < BaseController
 
 
 
-
   def search_article(article = nil)
     session[:help_history] = [] unless session[:help_history].is_a? [].class
-    article ||= "#{self.controller_name}-#{self.action_name}"
+    article ||= "#{self.absolute_controller_name}-#{self.action_name}"
     file = nil
     for locale in [I18n.locale, I18n.default_locale]
       for f, attrs in Ekylibre.helps
         next if attrs[:locale].to_s != locale.to_s
-        file_name = [article, article.split("-")[0].to_s+"-index"].detect{|name| attrs[:name]==name}
+        file_name = [article, article.split("-")[0] + "-index"].detect{|name| attrs[:name] == name}
         file = f and break unless file_name.blank?
       end
       break unless file.nil?

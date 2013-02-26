@@ -1,5 +1,5 @@
 -content_for(:popover) do
-  #help=render :partial => "backend/help/search", :object => @article
+  #help=render(:partial => "backend/help/search", :object => @article)
 
 -current_page = menus.page(controller.class.absolute_controller_name, action_name)
 -menu = current_page.useful_menu if current_page
@@ -7,7 +7,7 @@
 
 -side_menu do |m|
   -if request.url == root_url or request.url == backend_root_url
-    -m.link(:destroy, destroy_user_session_url, :method => :delete)
+    -#m.link(:destroy, destroy_user_session_url, :method => :delete)
   -else
     -m.link(:index, {:controller => "backend/dashboards"}, :icon => :up)
     -if menu and menu.hierarchy.size > 2

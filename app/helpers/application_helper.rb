@@ -759,7 +759,7 @@ module ApplicationHelper
         args[0] = ::I18n.t("actions.#{kontroller}.#{name}".to_sym, {:default => ["labels.#{name}".to_sym]}.merge(args[2].delete(:i18n)||{}))
       end
       if icon = args[2].delete(:icon)
-        args[0] = h(args[0]) + ' '.html_safe + content_tag(:i, '', :class => "icon-"+icon.to_s)
+        args[0] = content_tag(:i, '', :class => "icon-"+icon.to_s) + ' '.html_safe + h(args[0])
       end
       if name.is_a? Symbol and name!=:back
         args[1][:action] ||= name if args[1].is_a?(Hash)
@@ -925,15 +925,6 @@ module ApplicationHelper
   end
 
 
-  def article(file, options={})
-    content = nil
-    if File.exists?(file)
-      File.open(file, 'r'){|f| content = f.read}
-      content = content.split(/\n/)[1..-1].join("\n") if options.delete(:without_title)
-      content = wikize(content.to_s, options)
-    end
-    return content
-  end
   #   name = name.to_s
   #   content = ''
   #   file_name, locale = '', nil

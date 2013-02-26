@@ -32,18 +32,18 @@ module Backend::JournalsHelper
   end
 
   # Create a widget with all the possible periods
-  def journal_period_crit(name=:period, value=nil, options={})
+  def journal_period_crit(name = :period, value = nil, options={})
     configuration = {:custom => :interval}
     configuration.update(options) if options.is_a?(Hash)
     configuration[:id] ||= name.to_s.gsub(/\W+/, '_').gsub(/(^_|_$)/, '')
     value ||= params[name]
     list = []
     list << [tc(:all_periods), "all"]
-    FinancialYear.find_each do |year|
+    for year in FinancialYear.reorder("started_on DESC")
       list << [year.code, year.started_on.to_s << "_" << year.stopped_on.to_s]
       list2 = []
       date = year.started_on
-      while date<year.stopped_on and date < Date.today
+      while date < year.stopped_on and date < Date.today
         date2 = date.end_of_month
         list2 << [tc(:month_period, :year => date.year, :month => t("date.month_names")[date.month], :code => year.code), date.to_s << "_" << date2.to_s]
         date = date2+1
@@ -62,7 +62,7 @@ module Backend::JournalsHelper
       custom_id = "#{configuration[:id]}_#{configuration[:custom]}"
       toggle_method = "toggle#{custom_id.camelcase}"
       code << select_tag(name, options_for_select(list, value), :id => configuration[:id], "data-show-value" => "##{configuration[:id]}_")
-      code << " " << content_tag(:span, tc(:manual_period, :start => date_field_tag(:started_on, params[:started_on], :size => 8), :finish => date_field_tag(:stopped_on, params[:stopped_on], :size => 8)).html_safe, :id => custom_id)
+      code << " " << content_tag(:span, tc(:manual_period, :start => date_field_tag(:started_on, params[:started_on], :size => 10), :finish => date_field_tag(:stopped_on, params[:stopped_on], :size => 10)).html_safe, :id => custom_id)
     else
       code << select_tag(name, options_for_select(list, value), :id => configuration[:id])
     end

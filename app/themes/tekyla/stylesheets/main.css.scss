@@ -133,16 +133,18 @@ html.authentication {
 
 #journals {
   @include tab-pills;
-  dd {
-    i {
-      @include is-icon;
-      @include use-icon(book);
-    }
+  dd i {
+    @include is-icon;
+    @include use-icon(book);
   }
 }
 
 .journal-views {
   @include tab-pills;
+  dd i {
+    @include is-icon;
+    @include use-icon(eye-open);
+  }
 }
 
 ul.side-menu {
@@ -161,8 +163,16 @@ ul.side-menu {
         border: $menu-border;
         @include ellipsis;
         i {
+          @include is-icon;
+          display: block;
           @include float(right);
+          width: 16px;
+          text-align: center;
           margin: 0 -1*(round($fs-normal*0.35)+16px) 0 0;
+          &.icon-up { @include use-icon(chevron-up); }
+          &.icon-inside { @include use-icon(chevron-right); }
+          color: inherit;
+          line-height: inherit; 
         }
       }
       &:first-child {
@@ -188,7 +198,6 @@ ul.side-menu {
           @include background-active-gradient;
           padding: $padding + 1;
           border: none;
-          color: white;
         }
       }
    }
@@ -591,12 +600,13 @@ span.rad, label.radio {
       padding: round($default-gap * 0.6);
       vertical-align: middle;
       text-align:center;
+      label { color: $neutral-color; }
       &:first-child {
         border-top: none;
-        padding-top: none;
+        padding-top: 0;
       }
       &:last-child {
-        border-bottom: none;
+        padding-bottom: 0;
       }
     }
   }
@@ -713,24 +723,26 @@ span.rad, label.radio {
   .ui-datepicker-prev {
     float: left;
     line-height: $title-line-height;
-    @include hide-text;
     display: block;
     width: 16px;
     height: 16px;
-    margin: 3px;
     @include is-icon;
     @include use-icon(chevron-left);
+    cursor: default;
+    margin: 4px 3px 0;
+    .ui-icon { display: none }
   }
   .ui-datepicker-next {
     float: right;
     line-height: $title-line-height;
-    @include hide-text;
     display: block;
     width: 16px;
     height: 16px;
-    margin:3px;
     @include is-icon;
     @include use-icon(chevron-right);
+    cursor: default;
+    margin: 4px 3px 0;
+    .ui-icon { display: none }
   }
   .ui-datepicker-title {
     padding: 4px;
@@ -771,7 +783,7 @@ span.rad, label.radio {
   }
 }
 
-input[data-date] {
+input[data-date], input[data-datepicker] {
   @include text-align(center);
   width: 12ex;
 }

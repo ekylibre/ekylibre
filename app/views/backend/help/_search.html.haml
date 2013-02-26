@@ -1,11 +1,14 @@
--article = search
+-article = "#{self.controller_name}-#{self.action_name}" # search
 -base_url = {:controller=>:help, :action=>:show}
 -base_url[:dialog] = params[:dialog] if params[:dialog]
 -#cache(:controller=>:help, :action=>:show, :locale=>::I18n.locale, :id=>article.split(/[^a-z0-9\-]/)[-2]) do
+-# raise @article.inspect
+-# raise article.inspect
 -cache(article) do
-  .content.flex{:style=>'overflow:auto;'}
-    -if article.is_a? String
-      =article(article, "data-update"=>"#help", :url=>base_url)
+  .content.flex{:style => 'overflow:auto;'}
+    -if article_exist?(article)
+      =article(article, "data-update" => "#help", :url => base_url)
     -else
       %h1=tc("missing_help")
-      .help-error=tc(:error_no_file, :article=>article.to_s)
+      .help-error=tc(:error_no_file, :article => article.to_s)
+    -#=Ekylibre.helps.inspect
