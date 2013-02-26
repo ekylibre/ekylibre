@@ -2378,10 +2378,8 @@ module ApplicationHelper
       title = tc("#{name}_steps.#{step[:name]}")
       classes  = "step"
       classes << " active" if step[:actions].detect{ |url| not url.detect{|k, v| params[k].to_s != v.to_s}} # url = {:action => url.to_s} unless url.is_a? Hash
-      unless step[:states].include?(state) and record.id
-        classes << " disabled"
-      end
-      title = link_to(title, step[:actions][0].merge(:id => record.id))
+      classes << " disabled" unless step[:states].include?(state)
+      title = link_to(title, (record.id ? step[:actions][0].merge(:id => record.id) : "#"))
       code << content_tag(:div, '&nbsp;'.html_safe, :class => 'transition') unless code.blank?
       code << content_tag(:div, title, :class => classes)
     end
