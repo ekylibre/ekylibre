@@ -13,17 +13,6 @@ small, sup, sub { font-size: $fs-small; }
 a:link, a:visited, a:focus { color: $link-color; text-decoration: none;}
 // a:hover { color: $link-color; text-decoration: underline;}
 
-
-dl {
-  dt {
-    font-weight: bold;
-    margin-top: round(0.5*$fs-normal);
-  }
-  dd {
-    @include margin-left(2*$fs-normal);
-  }
-}
-
 #top {
   margin-bottom: 0;
   @include background-active-gradient;
@@ -48,6 +37,7 @@ html.backend {
         @include column(10);
         height: 100%;
         #header {
+          margin-bottom: $default-gap;
           h1 {
             &, & * {
               font-size: $fs-huge;
@@ -126,12 +116,33 @@ html.authentication {
   dl {
     display: block;
     margin: 0 auto;
+    dt {
+      font-weight: bold;
+      margin-top: round(0.5*$fs-normal);
+    }
+    dd {
+      @include margin-left(2*$fs-normal);
+    }
   }
   width: 40%;
   margin: 0 auto;
   @include respondTo(smallScreen) {
     width: 100%;
   }
+}
+
+#journals {
+  @include tab-pills;
+  dd {
+    i {
+      @include is-icon;
+      @include use-icon(book);
+    }
+  }
+}
+
+.journal-views {
+  @include tab-pills;
 }
 
 ul.side-menu {
@@ -332,12 +343,13 @@ ul.side-menu {
   border: $menu-border;
   @include border-radius($default-border-radius);
   @include incrust-shadow;
-  $icon-size: 32px;
+  $icon-size: 48px;
   .icon {
-    display: block;
-    height: $icon-size;
-    width: $icon-size;
     @include float(left);
+    @include is-icon(48px);
+    width: $icon-size;
+    display: block;
+    text-align: center;
   }
   .message {
     @include margin-left($icon-size + $default-gap);
@@ -359,14 +371,16 @@ ul.side-menu {
     clear: both;
     height: 0;
   }
-  @each $level in (error #D10), (warning #E60), (success #591), (information #777) {
+  @each $level in (error #E10 remove-circle), (warning #F81 warning-sign), (success #8B1 ok-circle), (information $active-color info-sign) {
     $level-name: nth($level, 1);
     $level-color: change-color(nth($level, 2), $lightness: 40%);
     &.#{$level-name} {
       &, & .message h3 { border-color: $level-color;}
       * { color: $level-color; }
       background-color: mix($level-color, $desktop-background, 10%);
-      .icon { @include common-sprite(notification-#{$level-name}); }
+      // .icon { @include common-sprite(notification-#{$level-name}); }
+      .icon { @include use-icon(nth($level, 3)); }
+
     }
   }
 }
@@ -562,25 +576,51 @@ span.rad, label.radio {
 
 
 .kujaku {
-  background: white;
   color: #580;
-  @include box-shadow(0 0 $fs-small rgba(#000, 0.5));
-  @include border-radius($default-border-radius);
-  padding: $default-gap;
   margin: 0 0 $default-gap 0;
-  input, label {
+  padding: $default-gap;
+  background: $neutral-background;
+  @include clearfix;
+  $search-width: 60px;
+  .crits {
+    padding: 0;
+    @include margin-right($search-width);
+    .crit {
+      border-top: $menu-border-width solid darken($neutral-background, 5%);
+      // padding: round($fs-normal/6) round($fs-normal/4);
+      padding: round($default-gap * 0.6);
+      vertical-align: middle;
+      text-align:center;
+      &:first-child {
+        border-top: none;
+        padding-top: none;
+      }
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+  }
+  .submit {
+    padding: 0;
+    width: $search-width - $default-gap;
+    text-align: center;
+    @include float(right);
+    button {
+      display: block;
+      padding: $default-gap;
+      font-size: 0;
+      i {
+        @include is-icon(24px);
+        @include use-icon(search);
+      }
+    }
+  }
+  input, label, select {
     display: inline;
     margin-bottom: 0;
     width: auto;
   }
-  table {
-    border: none;
-    margin: 0px auto;
-    .crit { border-top: $menu-border-width dotted #580; padding: round($fs-normal/6) round($fs-normal/4); vertical-align: middle; text-align:center; }
-    tr:first-child .crit { border-top: none; }
-  }
-  .label { padding: round($fs-normal/6) round($fs-normal/4); }
-  .submit { padding: round($fs-normal/6) round($fs-normal/4); width: 10*$fs-normal; text-align:center; }
+
   &.popover {
     display: none;
     position: absolute;
@@ -588,6 +628,9 @@ span.rad, label.radio {
     top: 80px;
     z-index: 10000;
     margin: 0;
+    background: white;
+    @include box-shadow(0 0 $fs-small rgba(#000, 0.5));
+    @include border-radius($default-border-radius);
   }
 }
 
@@ -776,6 +819,7 @@ input[data-date] {
     @include float(right);
     position: absolute;
     @include right(0);
+    @include is-icon;
     @include use-icon(remove);
     @include display(block);
     width: 16px;
@@ -880,10 +924,6 @@ svg {
 
 
 /* Pop overs */
-
-.kujaku.popover {
-  display: none;
-}
 
 #help {
   display: none;

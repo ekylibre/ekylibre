@@ -1111,6 +1111,7 @@ arb:
     locale: "اللغة"
     localization: "الموقع الجغرافي"
     lock: "القفل"
+    # logout: "Déconnexion"
     mail: "ارسال البريد الالكتروني"
     # mailing: "Mailing"
     mails:
@@ -1185,6 +1186,7 @@ arb:
         # tools: "Outils"
       trade: "التجارة"
     merge: "دمج"
+    # meteo: "Météo"
     missing_help: "صفحات مفقودة"
     # mistake_on_quantities_sum: "La somme des quantités n’est pas égale à la quantité totale produite"
     # mobile: "Portable"

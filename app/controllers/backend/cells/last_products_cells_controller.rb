@@ -8,9 +8,9 @@ class Backend::Cells::LastProductsCellsController < Backend::CellsController
     t.column :sex
   end
 
-   
+
   def show
- 
+
   end
 
 end

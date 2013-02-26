@@ -1025,6 +1025,7 @@ spa:
     locale: "Idioma"
     localization: "Localisación geografica"
     # lock: "Verrouiller"
+    # logout: "Déconnexion"
     # mail: "Envoyer un courriel"
     # mailing: "Mailing"
     mails:
@@ -1083,6 +1084,7 @@ spa:
         # tools: "Outils"
       # trade: "Commerce"
     # merge: "Fusionner"
+    # meteo: "Météo"
     missing_help: "La página no existe"
     # mistake_on_quantities_sum: "La somme des quantités n’est pas égale à la quantité totale produite"
     # mobile: "Portable"

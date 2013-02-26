@@ -362,7 +362,7 @@ DEPENDENCIES
   ffaker
   formize (~> 1.0.0)
   foundation-icons-sass-rails
-  google_visualr
+  google_visualr (>= 2.1)
   haml
   i18n-complements
   jasper-rails

@@ -48,8 +48,8 @@ class Backend::DashboardsController < BackendController
   #   t.column :quantity
   #   t.column :name, :through => :unit
   # end
-  
-    
+
+
   for menu in Ekylibre.menu.with_menus do
     h = menu.hierarchy.collect{|m| m.name }[1..-1]
     next if h.empty?
