@@ -77,8 +77,8 @@ class BankStatement < Ekylibre::Record::Base
 
   def point(ids)
     raise StandardError.new("A new record cannot point entry items.") if self.new_record?
-    JournalEntryLine.update_all({:bank_statement_id => nil}, {:bank_statement_id => self.id})
-    JournalEntryLine.update_all({:bank_statement_id => self.id}, {:bank_statement_id => nil, :id => ids})
+    JournalEntryItem.update_all({:bank_statement_id => nil}, {:bank_statement_id => self.id})
+    JournalEntryItem.update_all({:bank_statement_id => self.id}, {:bank_statement_id => nil, :id => ids})
     return true
   end
 

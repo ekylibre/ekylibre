@@ -444,6 +444,15 @@
         return true;
     });
 
+    $(document).on("mouseenter", "a i", function (event) {
+        var icon = $(this), link;
+        link = icon.closest("a");
+        if (link.attr("title") == null || link.attr("title") == undefined) {
+            link.attr("title", link.text());
+        }
+        return true;
+    });
+
     $(document).on("click", "a[data-target]", function (event) {
         var selector = $(this).data('target');
         $(selector).each(function (index) {

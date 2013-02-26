@@ -20,17 +20,23 @@
 =beehive do |b|
 
   -b.tabbox do
-    -b.cell tc(:financial_state) do
-      %h1 Bla bla bla
-      %h1 Bla bla bla
-      %h1 Bla bla bla
-    -#if ["products", "summary", ""].include? params[:step].to_s
-      -b.cell tc(:financial_state) do
-        %table.list
-          -for k, v in @sale.stats # (:with_balance => true)
-            %tr.total
-              %th=tc(k)
-              %td=I18n.localize(v, :currency => @sale.currency)
+    -if ["products", "summary", ""].include? params[:step].to_s
+      -b.cell Sale.human_attribute_name(:items) do
+        .select-product
+          %span.selector
+            =selector_tag("sale_item[price_id]", {:controller => :product_nature_prices, :action => :unroll_availables_for_sales}, {})
+          =button_tag(tl(:add), :class => "btn")
+        -# @sale_item = @sale.items.new
+        -# if @sale.draft?
+          =toolbar do |t|
+            -t.link(:new, :controller => :sale_items, :sale_id => @sale.id)
+          =render :partial => "backend/sale_items/row_form"
+        =list :items do
+          %tr.total
+            %th{:colspan => 7}=tc :total
+            %td=number_to_money(@sale.pretax_amount, @sale.currency)
+            %td=number_to_money(@sale.amount, @sale.currency)
+            %th{:colspan => 3}
 
     -b.cell do
       =attributes_list(@sale) do |l|
@@ -58,23 +64,6 @@
           -l.attribute :introduction, :field => :textarea
           -l.attribute :conclusion, :field => :textarea
 
-  -if ["products", "summary", ""].include? params[:step].to_s
-    -b.cell :items do
-      .select-product
-        %span.selector
-          =selector_tag("sale_item[price_id]", {:controller => :product_nature_prices, :action => :unroll_availables_for_sales}, {})
-        =button_tag(tl(:add), :class => "btn")
-      -# @sale_item = @sale.items.new
-      -# if @sale.draft?
-        =toolbar do |t|
-          -t.link(:new, :controller => :sale_items, :sale_id => @sale.id)
-        =render :partial => "backend/sale_items/row_form"
-      =list :items do
-        %tr.total
-          %th{:colspan => 7}=tc :total
-          %td=number_to_money(@sale.pretax_amount, @sale.currency)
-          %td=number_to_money(@sale.amount, @sale.currency)
-          %th{:colspan => 3}
 
 
     -if @sale.subscriptions.size>0
@@ -88,7 +77,7 @@
 
 
   -if ["products", "summary", ""].include? params[:step].to_s
-    -b.cell tc(:affair) do
+    -b.cell Sale.human_attribute_name(:affair) do
       -unless @sale.affair.closed?
         =toolbar do |t|
           -#t.link(:new, :controller => :incoming_payment_uses, :expense_type => :sale, :expense_id => @sale.id, :i18n => {:label => @sale.label})

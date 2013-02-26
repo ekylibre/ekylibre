@@ -1065,9 +1065,8 @@ module ApplicationHelper
     # end
 
     def radio(*states)
-      options = states.delete_at(-1) if states[-1].is_a? Hash
-      options = {} unless options.is_a? Hash
-      name = options.delete(:name)||:s
+      options = (states[-1].is_a?(Hash) ? states.delete_at(-1) : {})
+      name = options.delete(:name) || :s
       add_criterion :radio, :name => name, :states => states, :options => options
     end
 
@@ -2502,38 +2501,6 @@ module ApplicationHelper
 
 
 
-  def major_accounts_tabs_tag
-    majors = []
-    majors << if params[:prefix].blank?
-                content_tag(:strong, tc(:all_accounts))
-              else
-                link_to(tc(:all_accounts), params.merge(:controller => :accounts, :action => :index, :prefix => nil))
-              end
-    majors << Account.majors.collect do |account|
-      if params[:prefix] == account.number.to_s
-        content_tag(:strong, account.label)
-      else
-        link_to(account.label, params.merge(:controller => :accounts, :action => :index, :prefix => account.number))
-      end
-    end
-    if majors.size>0
-      return content_tag(:div, majors.join.html_safe, :class => 'major-accounts')
-    end
-    return ""
-  end
-
-
-
-  # Create a widget to select ranges of account
-  # See Account#range_condition
-  def accounts_range_crit
-    id = :accounts
-    params[id] = Account.clean_range_condition(params[id])
-    code = ""
-    code << content_tag(:label, tc(:accounts), :for => id)
-    code << " " << text_field_tag(id, params[id], :size => 30)
-    return code.html_safe
-  end
 
 
 

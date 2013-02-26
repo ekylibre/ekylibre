@@ -131,6 +131,10 @@ html.authentication {
   }
 }
 
+#major-accounts {
+  @include tab-pills;
+}
+
 #journals {
   @include tab-pills;
   dd i {
@@ -155,7 +159,7 @@ ul.side-menu {
   li {
     display:block;
     margin-top: -1 * $menu-border-width;
-    $padding: round($fs-normal*0.7) (round($fs-normal*0.7)+16px)  round($fs-normal*0.7) round($fs-normal*0.7);
+    $padding: round($fs-normal*0.7) (round($fs-normal*1)+16px)  round($fs-normal*0.7) round($fs-normal*0.7);
     a {
         background: white;
         display:block;
@@ -168,11 +172,11 @@ ul.side-menu {
           @include float(right);
           width: 16px;
           text-align: center;
-          margin: 0 -1*(round($fs-normal*0.35)+16px) 0 0;
+          margin: 0 -1*(round($fs-normal*0.5)+16px) 0 0;
           &.icon-up { @include use-icon(chevron-up); }
           &.icon-inside { @include use-icon(chevron-right); }
           color: inherit;
-          line-height: inherit; 
+          line-height: inherit;
         }
       }
       &:first-child {
@@ -198,6 +202,7 @@ ul.side-menu {
           @include background-active-gradient;
           padding: $padding + 1;
           border: none;
+          color: white;
         }
       }
    }
@@ -454,7 +459,7 @@ ul.side-menu {
       &.not-collapsed { @include use-icon(minus); }
     }
   }
-  @each $field_set in (delay time), (document briefcase), (general-informations book), (stock exchange), (group group), (movement exchange), (accountancy money), (coordinates map-marker), (amount money), (vegetable leaf), (genealogy sitemap), (animal github-alt), (entity user) { //asset, 
+  @each $field_set in (delay time), (document briefcase), (general-informations book), (stock exchange), (group group), (movement exchange), (accountancy money), (coordinates map-marker), (amount money), (vegetable leaf), (genealogy sitemap), (animal github-alt), (entity user) { //asset,
     &##{ nth($field_set, 1) }-fieldset .fieldset-legend .icon {
       @include use-icon(nth($field_set, 2));
     }
@@ -589,6 +594,7 @@ span.rad, label.radio {
   margin: 0 0 $default-gap 0;
   padding: $default-gap;
   background: $neutral-background;
+  @include border-radius($default-border-radius);
   @include clearfix;
   $search-width: 60px;
   .crits {

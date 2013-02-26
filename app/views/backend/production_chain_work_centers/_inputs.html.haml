@@ -3,10 +3,10 @@
   %table.list.formalize
     %thead
       %tr
-        %th=OperationLine.human_attribute_name("product")
-        %th=OperationLine.human_attribute_name("quantity")
-        %th=OperationLine.human_attribute_name("unit")
-        %th=OperationLine.human_attribute_name("stock")
+        %th=OperationItem.human_attribute_name("product")
+        %th=OperationItem.human_attribute_name("quantity")
+        %th=OperationItem.human_attribute_name("unit")
+        %th=OperationItem.human_attribute_name("stock")
     -for conveyor in work_center.input_conveyors
       -style_class = cycle("odd", "even")
       %tr{:class=>style_class}

@@ -54,7 +54,7 @@ class Backend::DashboardsController < BackendController
     h = menu.hierarchy.collect{|m| m.name }[1..-1]
     next if h.empty?
     code  = "def " + h.join("_") + "\n"
-    # code << "  render :file => 'backend/dashboards/" + h.join("/") + "', :layout => dialog_or_not\n"
+    code << "  render :file => 'backend/dashboards/" + h.join("/") + "', :layout => dialog_or_not\n"
     code << "end\n"
     class_eval code
   end
