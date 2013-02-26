@@ -18,6 +18,7 @@ input[type="submit"], a.btn {
   padding: round($fs-normal*0.35) round($fs-normal*0.5);
   .icon {
     @include is-icon(18px);
+    @include use-icon(cog);
     @include inline-block;
     @include text-shadow(1px 1px 0 white);
   }
@@ -33,6 +34,8 @@ input[type="submit"], a.btn {
   }
 }
 
+.btn.btn-abort .icon { @include use-icon(trash) }
+.btn.btn-cancel .icon { @include use-icon(undo) }
 .btn.btn-destroy .icon { @include use-icon(remove) }
 .btn.btn-down .icon    { @include use-icon(chevron-down) }
 .btn.btn-new .icon     { @include use-icon(plus) }

@@ -23,10 +23,11 @@ module Backend::JournalsHelper
     render :partial => "backend/journals/index"
   end
 
+  # Show the 3 mode of view for a journal
   def journal_view_tag
     code = content_tag(:dt, tg(:view))
     for mode in controller.journal_views
-      code << content_tag(:dd, link_to(tc("journal_view.#{mode}"), params.merge(:view => mode)), (@journal_view == mode ? {:class => :active} : nil))
+      code << content_tag(:dd, link_to(content_tag(:i) + " " + h(tc("journal_view.#{mode}")), params.merge(:view => mode)), (@journal_view == mode ? {:class => :active} : nil))
     end
     return content_tag(:dl, code, :class => "journal-views")
   end

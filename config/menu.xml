@@ -777,16 +777,6 @@
     </menu>
     <menu name="production">
       <page to="backend/dashboards#settings_production"/>
-      <menu name="product_varieties">
-        <page to="backend/product_varieties#index"/>
-        <page to="backend/product_varieties#create"/>
-        <page to="backend/product_varieties#destroy"/>
-        <page to="backend/product_varieties#edit"/>
-        <page to="backend/product_varieties#list"/>
-        <page to="backend/product_varieties#new"/>
-        <page to="backend/product_varieties#show"/>
-        <page to="backend/product_varieties#update"/>
-      </menu>
       <menu name="production_chains">
         <page to="backend/production_chains#index"/>
         <page to="backend/production_chains#create"/>
@@ -995,6 +985,9 @@
       <page to="backend/product_processes#new"/>
       <page to="backend/product_processes#show"/>
       <page to="backend/product_processes#update"/>
+    </menu>
+    <menu name="backend/product_varieties">
+      <page to="backend/product_varieties#show"/>
     </menu>
     <menu name="backend/products">
       <page to="backend/products#show"/>

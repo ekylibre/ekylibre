@@ -302,7 +302,7 @@ $cell-background-current: mix($desktop-background, $base-color, 62%);
       border: $border-width solid transparent;
       background: $neutral-background;
       padding: round($default-gap * 0.2 - $border-width) $default-gap;
-      &, & * { color: $neutral-color; }
+      &, & * { color: $neutral-color; @include text-shadow(1px 1px 0 white) }
       &:focus, &:active {
         outline: none;
         border-color: $active-color;
@@ -317,7 +317,8 @@ $cell-background-current: mix($desktop-background, $base-color, 62%);
       a {
         background-color: $mainColor;
         border: none;
-        &, & * { color: white; font-weight: bold; }
+        &, & * { color: white; font-weight: bold; @include text-shadow(1px 1px 0 $neutral-color)}
+        i { font-weight: normal; }
       }
     }
   }
@@ -334,7 +335,6 @@ $passive-bg: $menu-background;
 $active-bg: $base-color;
 
 @mixin button-normal-state($normal) {
-  font-weight: bold;
   text-decoration: none;
   border: $menu-border-width solid darken($normal, 10%);
   border-width: $menu-border-width;
@@ -364,13 +364,10 @@ $active-bg: $base-color;
         html[dir="ltr"] &:first-child, html[dir="rtl"] &:last-child { margin-left: 0; }
         html[dir="rtl"] &:first-child, html[dir="ltr"] &:last-child { margin-right: 0; }
       }
-      &, .text {
+      &, .text, .icon {
         line-height: 1em;
         color: $normal-color;
-        @include text-shadow($menu-border-width $menu-border-width 1px $normal-shadow);
-      }
-      .icon {
-        background-repeat: no-repeat;
+        @include text-shadow($menu-border-width $menu-border-width 0 white);
       }
       &:focus {
         border: $menu-border-width solid $active;
@@ -390,7 +387,7 @@ $active-bg: $base-color;
         @include background-image(linear-gradient($active, darken($active, 8%)));
         border-color: rgba(0, 0, 0, 0.25) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1);
         @include box-shadow(0 2px 2px rgba(0, 0, 0, 0.3) inset, 0 -2px 2px rgba(0, 0, 0, 0.05));
-        &, .text {
+        &, .text, .icon {
           color: #FFF;
           @include text-shadow(-1px -1px 1px $normal-color);
           text-decoration: none;
@@ -400,11 +397,11 @@ $active-bg: $base-color;
         background: #CCC;
         cursor: default;
         pointer-events: none;
-        .text {
+        .text, .icon {
           @include text-shadow(none);
         }
         &:hover {
-          .text { color: #666; }
+          .text, .icon { color: #666; }
         }
       }
     }

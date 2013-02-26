@@ -61,7 +61,7 @@ namespace :db do
                            :journal => Journal.find_by_name(jname) || Journal.create!(:name => jname, :code => row[1]),
                            :page_number => row[2], # What's that ?
                            :printed_on => Date.civil(*row[3].split(/\-/).map(&:to_i)),
-                           :entry_number => row[4],
+                           :entry_number => row[4].to_s.strip.upcase.to_s.gsub(/[^A-Z0-9]/, ''),
                            :entity_name => row[5],
                            :entry_name => row[6],
                            :debit => row[7].to_d,
@@ -74,7 +74,7 @@ namespace :db do
 
         fy = FinancialYear.at(r.printed_on)
         unless entry = JournalEntry.find_by_journal_id_and_number(r.journal.id, r.entry_number)
-          number = r.entry_number.to_s.gsub(/[^A-Z0-9]/, '')
+          number = r.entry_number
           number = r.journal.code + rand(10000000000).to_s(36) if number.blank?
           entry = r.journal.entries.create!(:printed_on => r.printed_on, :number => number.upcase)
         end

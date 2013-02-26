@@ -637,7 +637,7 @@ fra:
     account_value_previous: "BRUT N-1"
     accountancy: "Comptabilité"
     accounting_balance: "Balance comptable"
-    accounts: "Comptes comptables utilisés"
+    accounts: "Comptes comptables"
     accounts_to_load: "Plan de compte à charger"
     active: "Actif"
     active_balance_sheet: "Bilan actif"

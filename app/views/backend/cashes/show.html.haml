@@ -21,9 +21,9 @@
 
   -if @cash.bank_account?
     -b.tabbox do
-      -b.cell(:deposits) do
+      -b.cell(Cash.human_attribute_name(:deposits)) do
         =list(:deposits)
-      -b.cell(:bank_statements) do
+      -b.cell(Cash.human_attribute_name(:bank_statements)) do
         =toolbar do |t|
           -t.link(:new, :controller=>:bank_statements, :cash_id=>@cash.id)
         =list(:bank_statements)

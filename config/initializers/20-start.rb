@@ -45,7 +45,7 @@ module Ekylibre
           unless help[:title].blank?
             @@helps[locale][path.to_s.gsub(/\.txt$/, '')] = help
           end
-        end        
+        end
       end
     end
     # for file in Dir[locales_dir.join("*", "help", "**", "*.txt")].sort

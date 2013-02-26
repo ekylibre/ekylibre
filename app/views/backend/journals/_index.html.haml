@@ -22,7 +22,7 @@
 
 -#.tabbox.journals
   .tabs
-    -if JournalEntryLine.find_by_state("draft")
+    -if JournalEntryItem.find_by_state("draft")
       -name=tc("draft").html_safe
       -if action_name=="draft"
         %strong.tab.active.special=name

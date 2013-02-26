@@ -57,7 +57,7 @@ class Backend::CashesController < BackendController
   def show
     return unless @cash = find_and_check(:cash)
     session[:current_cash_id] = @cash.id
-    t3e @cash.attributes.merge(:nature => @cash.nature)
+    t3e @cash.attributes.merge(:nature => @cash.nature.text)
   end
 
   def new

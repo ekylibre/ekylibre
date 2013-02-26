@@ -369,10 +369,10 @@ class Backend::SalesController < BackendController
     params[:states] ||= {}
     mode = params[:mode] = (params[:mode]||:pretax_amount).to_s.to_sym
     source = params[:source] = (params[:source]||:sales_invoices).to_s.to_sym
-    if params[:export] == "sales"
+    if params[:utf8]
       states = [:invoice]
       states << :order if source == :sales
-      query = "SELECT product_id, sum(sol.#{mode}) AS total FROM #{SaleItem.table_name} AS sol JOIN #{Sale.table_name} AS so ON (sol.sale_id=so.id) WHERE "
+      query = "SELECT p.nature_id AS product_nature_id, sum(si.#{mode}) AS total FROM #{SaleItem.table_name} AS si JOIN #{Sale.table_name} AS s ON (si.sale_id=s.id) JOIN #{Product.table_name} AS p ON (si.product_id=p.id) WHERE "
       if params[:invoices].to_i > 0
         query << "state='invoice' AND invoiced_on BETWEEN ? AND ? "
       else
@@ -382,7 +382,7 @@ class Backend::SalesController < BackendController
         end
         query << ") AND created_on BETWEEN ? AND ? "
       end
-      query << " GROUP BY product_id"
+      query << " GROUP BY product_nature_id"
       start = (Date.today - params[:nb_years].to_i.year).beginning_of_month
       finish = Date.today.end_of_month
       date = start
@@ -391,7 +391,7 @@ class Backend::SalesController < BackendController
       while date <= finish
         period = '="'+t('date.abbr_month_names')[date.month]+" "+date.year.to_s+'"'
         months << period
-        for product in ProductNature.find(:all, :select => "products.*, total", :joins => ActiveRecord::Base.send(:sanitize_sql_array, ["LEFT JOIN (#{query}) AS sold ON (products.id=product_id)", date.beginning_of_month, date.end_of_month]), :order => "product_id")
+        for product in ProductNature.find(:all, :select => "product_natures.*, total", :joins => ActiveRecord::Base.send(:sanitize_sql_array, ["LEFT JOIN (#{query}) AS sold ON (product_natures.id=product_nature_id)", date.beginning_of_month, date.end_of_month]), :order => "product_nature_id")
           data[product.id.to_s] ||= {}
           data[product.id.to_s][period] = product.total.to_f
         end
@@ -399,7 +399,7 @@ class Backend::SalesController < BackendController
       end
 
       csv_data = Ekylibre::CSV.generate do |csv|
-        csv << [ProductNature.model_name.human, ProductNature.human_attribute_name('code'), ProductNature.human_attribute_name('sales_account_id')]+months
+        csv << [ProductNature.model_name.human, ProductNature.human_attribute_name('code'), ProductNature.human_attribute_name('product_account_id')]+months
         for product in ProductNature.order(:name)
           valid = false
           for period, amount in data[product.id.to_s]
