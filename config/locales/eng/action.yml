@@ -949,6 +949,7 @@ eng:
     locale: "Language"
     localization: "Localization"
     lock: "Lock"
+    # logout: "Déconnexion"
     mail: "Send an email"
     mailing: "Mailing"
     mails:
@@ -1006,6 +1007,7 @@ eng:
         tools: "Tools"
       trade: "Trade"
     merge: "Merge"
+    # meteo: "Météo"
     missing_help: "Missing page"
     mistake_on_quantities_sum: "The sum of the quantities are not equals to the total produced quantity"
     mobile: "Mobile"

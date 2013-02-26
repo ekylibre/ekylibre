@@ -921,6 +921,7 @@ jpn:
     locale: "言語"
     # localization: "Localisation géographique"
     # lock: "Verrouiller"
+    # logout: "Déconnexion"
     # mail: "Envoyer un courriel"
     # mailing: "Mailing"
     mails:
@@ -982,6 +983,7 @@ jpn:
         # tools: "Outils"
       # trade: "Commerce"
     # merge: "Fusionner"
+    # meteo: "Météo"
     missing_help: "無意味なページ"
     # mistake_on_quantities_sum: "La somme des quantités n’est pas égale à la quantité totale produite"
     # mobile: "Portable"

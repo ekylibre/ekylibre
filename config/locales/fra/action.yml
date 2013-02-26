@@ -979,6 +979,7 @@ fra:
     locale: "Langue"
     localization: "Localisation géographique"
     lock: "Verrouiller"
+    logout: "Déconnexion"
     mail: "Envoyer un courriel"
     mailing: "Mailing"
     mails:
@@ -1036,6 +1037,7 @@ fra:
         tools: "Outils"
       trade: "Commerce"
     merge: "Fusionner"
+    meteo: "Météo"
     missing_help: "Page inexistante"
     mistake_on_quantities_sum: "La somme des quantités n’est pas égale à la quantité totale produite"
     mobile: "Portable"

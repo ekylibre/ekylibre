@@ -43,3 +43,4 @@ input[type="submit"], a.btn {
 .btn.btn-statistics .icon { @include use-icon(bar-chart) }
 .btn.btn-index .icon      { @include use-icon(print) }
 .btn.btn-unvalidateds .icon { @include use-icon(ok)}
+.btn.btn-close .icon { @include use-icon(lock)}

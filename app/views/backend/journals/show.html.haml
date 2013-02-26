@@ -5,47 +5,48 @@
   -t.reopen @journal if @journal.reopenable?
   -t.link :new, :controller=>:journal_entries, :journal_id=>@journal.id
 
+=beehive do |b|
+  -b.tabbox do
+    -b.cell Journal.human_attribute_name(:entry_items) do
+      =kujaku({}, :popover => false) do |k|
+        -k.text
+        -k.crit :journal_entries_states
+        -k.crit :journal_period
 
-=attributes_list(@journal) do |l|
-  -l.attribute :name
-  -l.attribute :code
-  -l.attribute :nature
-  -l.attribute :currency
-  -l.attribute :closed_on
+      =journal_view_tag
 
-.search
-  =form_tag({}, :method=>:get) do
-    %table
-      %tr
-        %td.crit
-          %label{:for=>"search"}=tc(:search)
-          =text_field_tag("q", params[:q], :id=>:search)
-        %td.submit{:rowspan=>4}=submit_tag tg(:search_go), :name=>nil
-      %tr
-        %td.crit=journal_entries_states_crit
-      %tr
-        %td.crit=journal_period_crit
+      -conditions = eval(controller.class.journal_entries_conditions)
+      -totals = {}
+      -totals[:debit]  = JournalEntry.sum(:original_debit, :conditions=>conditions)
+      -totals[:credit] = JournalEntry.sum(:original_credit, :conditions=>conditions)
+      -totals[:balance_debit] = totals[:balance_credit] = 0.0
+      -totals["balance_#{totals[:debit]>totals[:credit] ? 'debit' : 'credit'}".to_sym] = (totals[:debit]-totals[:credit]).abs
 
-=journal_view_tag
+      .tab-content
+        =list(@journal_view.to_sym) do
+          -colspans = (@journal_view == "items" ? [6,1] : [3,3])
+          %tr.important.total
+            %th{:colspan=>colspans[0]}=tc :total
+            %td=number_to_money(totals[:debit], @journal.currency)
+            %td=number_to_money(totals[:credit], @journal.currency)
+            %th{:colspan=>colspans[1]}
+          -if totals[:balance_debit] != totals[:balance_credit]
+            %tr.important.total
+              %th{:colspan=>colspans[0]}=tc :balance
+              %td=number_to_money(totals[:balance_debit], @journal.currency)
+              %td=number_to_money(totals[:balance_credit], @journal.currency)
+              %th{:colspan=>colspans[1]}
 
--conditions = eval(controller.class.journal_entries_conditions)
--totals = {}
--totals[:debit]  = JournalEntry.sum(:original_debit, :conditions=>conditions)
--totals[:credit] = JournalEntry.sum(:original_credit, :conditions=>conditions)
--totals[:balance_debit] = totals[:balance_credit] = 0.0
--totals["balance_#{totals[:debit]>totals[:credit] ? 'debit' : 'credit'}".to_sym] = (totals[:debit]-totals[:credit]).abs
 
-.tab-content
-  =list(@journal_view.to_sym) do
-    -colspans = (@journal_view == "items" ? [6,1] : [3,3])
-    %tr.important.total
-      %th{:colspan=>colspans[0]}=tc :total
-      %td=number_to_money(totals[:debit], @journal.currency)
-      %td=number_to_money(totals[:credit], @journal.currency)
-      %th{:colspan=>colspans[1]}
-    -if totals[:balance_debit] != totals[:balance_credit]
-      %tr.important.total
-        %th{:colspan=>colspans[0]}=tc :balance
-        %td=number_to_money(totals[:balance_debit], @journal.currency)
-        %td=number_to_money(totals[:balance_credit], @journal.currency)
-        %th{:colspan=>colspans[1]}
+
+
+
+    -b.cell :details do
+      =attributes_list(@journal) do |l|
+        -l.attribute :name
+        -l.attribute :code
+        -l.attribute :nature
+        -l.attribute :currency
+        -l.attribute :closed_on
+
+

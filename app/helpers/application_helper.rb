@@ -79,14 +79,16 @@ class SimpleForm::FormBuilder
   def nested_association(association, *args, &block)
     reflection = find_association_reflection(association)
     raise "Association #{association.inspect} not found" unless reflection
-    raise ArgumentError.new("Reflection #{reflection.name} must be a has_many") if reflection.macro != :has_many
+    puts "DEPRECATED: Nested association don't take code block anymore. Use partial '#{association.to_s.singularize}_fields' instead." if block_given?
+    # raise ArgumentError.new("Reflection #{reflection.name} must be a has_many") if reflection.macro != :has_many
     item = association.to_s.singularize
-    return @template.content_tag(:div,
-                                 self.simple_fields_for(association) do |nested|
-                                   @template.render("#{item}_fields", :f => nested)
-                                 end +
-                                 @template.content_tag(:div, @template.link_to_add_association("labels.add_#{item}".t, self, association, 'data-no-turbolink' => true, :class => 'nested-add add-#{item}'), :class => "links"),
-                                 :id => "#{association}-field")
+    html = self.simple_fields_for(association) do |nested|
+      @template.render("#{item}_fields", :f => nested)
+    end
+    if reflection.macro == :has_many
+      html << @template.content_tag(:div, @template.link_to_add_association("labels.add_#{item}".t, self, association, 'data-no-turbolink' => true, :class => 'nested-add add-#{item}'), :class => "links")
+    end
+    return @template.content_tag(:div, html, :id => "#{association}-field")
   end
 
   # Adds custom fields
@@ -757,7 +759,7 @@ module ApplicationHelper
         args[0] = ::I18n.t("actions.#{kontroller}.#{name}".to_sym, {:default => ["labels.#{name}".to_sym]}.merge(args[2].delete(:i18n)||{}))
       end
       if icon = args[2].delete(:icon)
-        args[0] = h(args[0]) + ' '.html_safe + content_tag(:i, '', :class => "icon-"+icon.to_s)
+        args[0] = content_tag(:i, '', :class => "icon-"+icon.to_s) + ' '.html_safe + h(args[0])
       end
       if name.is_a? Symbol and name!=:back
         args[1][:action] ||= name if args[1].is_a?(Hash)
@@ -811,7 +813,7 @@ module ApplicationHelper
     if flash[:notifications].is_a?(Hash) and flash[:notifications][mode].is_a?(Array)
       for message in flash[:notifications][mode]
         message.force_encoding('UTF-8') if message.respond_to? :force_encoding
-        code << "<div class='flash #{mode}'><div class='icon'></div><div class='message'><h3>#{tg('notifications.' << mode.to_s)}</h3><p>#{h(message).gsub(/\n/, '<br/>')}</p></div><div class='end'></div></div>"
+        code << "<div class='flash #{mode}'><div class='icon'></div><div class='message'><h3>#{tg('notifications.' << mode.to_s)}</h3><p>#{h(message).gsub(/\n/, '<br/>')}</p></div></div>" # <div class='end'></div>
       end
     end
     code.html_safe
@@ -923,15 +925,6 @@ module ApplicationHelper
   end
 
 
-  def article(file, options={})
-    content = nil
-    if File.exists?(file)
-      File.open(file, 'r'){|f| content = f.read}
-      content = content.split(/\n/)[1..-1].join("\n") if options.delete(:without_title)
-      content = wikize(content.to_s, options)
-    end
-    return content
-  end
   #   name = name.to_s
   #   content = ''
   #   file_name, locale = '', nil
@@ -994,7 +987,7 @@ module ApplicationHelper
 
   # Kujaku 孔雀
   # Search bar
-  def kujaku(url={}, &block)
+  def kujaku(url_options = {}, options = {}, &block)
     k = Kujaku.new(caller[0].split(":in ")[0])
     if block_given?
       yield k
@@ -1002,14 +995,14 @@ module ApplicationHelper
       k.text
     end
     return "" if k.criteria.size.zero?
-    tag = ""
+    crits = "".html_safe
     k.criteria.each_with_index do |c, index|
-      code, options = "", c[:options]||{}
+      code, opts = "", c[:options]||{}
       if c[:type] == :mode
-        code = content_tag(:label, options[:label]||tg(:mode))
+        code = content_tag(:label, opts[:label]||tg(:mode))
         name = c[:name]||:mode
         params[name] ||= c[:modes][0].to_s
-        i18n_root = options[:i18n_root]||'labels.criterion_modes.'
+        i18n_root = opts[:i18n_root]||'labels.criterion_modes.'
         for mode in c[:modes]
           radio  = radio_button_tag(name, mode, params[name] == mode.to_s)
           radio << " "
@@ -1017,22 +1010,22 @@ module ApplicationHelper
           code << " ".html_safe << content_tag(:span, radio.html_safe, :class => :rad)
         end
       elsif c[:type] == :radio
-        code = content_tag(:label, options[:label]||tg(:state))
+        code = content_tag(:label, opts[:label]||tg(:state))
         params[c[:name]] ||= c[:states][0].to_s
-        i18n_root = options[:i18n_root]||"labels.#{controller_name}_states."
+        i18n_root = opts[:i18n_root]||"labels.#{controller_name}_states."
         for state in c[:states]
           radio  = radio_button_tag(c[:name], state, params[c[:name]] == state.to_s)
           radio << " ".html_safe << content_tag(:label, ::I18n.translate("#{i18n_root}#{state}"), :for => "#{c[:name]}_#{state}")
           code  << " ".html_safe << content_tag(:span, radio.html_safe, :class => :rad)
         end
       elsif c[:type] == :text
-        code = content_tag(:label, options[:label]||tg(:search))
+        code = content_tag(:label, opts[:label]||tg(:search))
         name = c[:name]||:q
         session[:kujaku] = {} unless session[:kujaku].is_a? Hash
         params[name] = session[:kujaku][c[:uid]] = (params[name]||session[:kujaku][c[:uid]])
         code << " ".html_safe << text_field_tag(name, params[name])
       elsif c[:type] == :date
-        code = content_tag(:label, options[:label]||tg(:select_date))
+        code = content_tag(:label, opts[:label]||tg(:select_date))
         name = c[:name]||:d
         code << " ".html_safe << date_field_tag(name, params[name])
       elsif c[:type] == :crit
@@ -1042,28 +1035,20 @@ module ApplicationHelper
       end
       html_options = (c[:html_options]||{}).merge(:class => "crit")
       html_options[:class] << " hideable" unless index.zero?
-      code = content_tag(:td, code.html_safe, html_options)
-      if index.zero?
-        launch = submit_tag(tl(:search_go), 'data-disable-with' => tg(:please_wait), :name => nil)
-        # TODO: Add link to unhide hidden criteria
-        code << content_tag(:td, launch, :rowspan => k.criteria.size, :class => :submit)
-        first = false
-      end
-      tag << content_tag(:tr, code.html_safe)
+      crits << content_tag(:div, code.html_safe, html_options)
     end
-    tag = form_tag(url, :method => :get) {content_tag(:table, tag.html_safe)}
-
+    # TODO: Add link to unhide hidden criteria
+    launch = button_tag(content_tag(:i) + h(tl(:search_go)), 'data-disable-with' => tg(:please_wait), :name => nil)
+    tag = form_tag(url_options, :method => :get) { content_tag(:div, launch, :class => :submit) + content_tag(:div, crits, :class => :crits) }
     id = Time.now.to_i.to_s(36)+(10000*rand).to_i.to_s(36)
 
-    # tag = content_tag(:div, nil, :class => :caret) + tag
-    content_for(:popover, content_tag(:div, tag.to_s.html_safe, :class => "kujaku popover", :id => id))
-
-    tb = content_tag(:a, content_tag(:span, nil, :class => :icon) + content_tag(:span, "Rechercher", :class => :text), :class => "btn btn-search", "data-toggle-visibility" => "##{id}")
-    # tb = content_tag(:a, content_tag(:div, nil, :class => :icon) + content_tag(:div, "Rechercher", :class => :text), :class => "search", "data-toggle-visibility" => "##{id}")
-
-    tool(tb)
-
-    return ""
+    if options[:popover].is_a?(FalseClass)
+      return content_tag(:div, tag.to_s.html_safe, :class => "kujaku", :id => id)
+    else
+      content_for(:popover, content_tag(:div, tag.to_s.html_safe, :class => "kujaku popover", :id => id))
+      tool(content_tag(:a, content_tag(:span, nil, :class => :icon) + content_tag(:span, "Rechercher", :class => :text), :class => "btn btn-search", "data-toggle-visibility" => "##{id}"))
+      return ""
+    end
   end
 
   class Kujaku

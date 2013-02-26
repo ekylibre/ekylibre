@@ -154,10 +154,6 @@ $invalid-color: red;
 $hover-transparency: 0.85;
 $hover-mask: transparentize($base-color, $hover-transparency);
 
-@mixin background-active-gradient {
-  @include background(linear-gradient(top, lighten($active-color, 5%), $active-color, darken($active-color, 5%)));
-}
-
 @function background-hover($background-color) {
 /*  @return mix($background-color, $base-color, 78%);*/
   @return mix($background-color, opacify($hover-mask, 1), percentage($hover-transparency));
@@ -166,6 +162,7 @@ $hover-mask: transparentize($base-color, $hover-transparency);
 //$base-color: #95b0e4;
 //$link-color: $base-color; /* #3162C0; /* 02C */
 $desktop-background: #FFFFFF;
+$neutral-background: change-color($neutral-color, $lightness: 90%);
 $input-background: $desktop-background;
 $light-color: mix($base-color, $desktop-background, 50%); /* #C9D7F1 */
 $menu-background: #F0F0F0; /* #3D5C8D F1F1F1 86a5e0 c8d3e9*/
@@ -186,6 +183,11 @@ $default-lightness-variation: 5%;
 $default-gap: round($fs-normal * 0.55);
 $cell-background: mix($desktop-background, $base-color, 82%);
 $cell-background-current: mix($desktop-background, $base-color, 62%);
+
+@mixin background-active-gradient {
+  @include background(linear-gradient(top, lighten($active-color, $default-lightness-variation), $active-color, darken($active-color, $default-lightness-variation)));
+}
+
 
 @mixin title($font-size) {
   font-size: $font-size;
@@ -264,12 +266,61 @@ $cell-background-current: mix($desktop-background, $base-color, 62%);
 
 @mixin item-label {
   &, & * {
-    color: #999;
+    color:$neutral-color;
   }
 }
 
 @mixin incrust-shadow {
   @include box-shadow(0 0 round($fs-normal/2) rgba(0,0,0,0.15));
+}
+
+@mixin tab-pills {
+  display: block;
+  @include clearfix;
+  border-bottom: none;
+  margin-bottom: 10px;
+  dt, dd {
+    @include inline-block;
+    margin-top: 0;
+    @include margin-right(10px);
+    margin-bottom: $default-gap;
+    @include margin-left(0);
+  }
+  dt {
+    font-weight: bold;
+    color: $neutral-color;
+    font-variant: small-caps;
+    padding: round($default-gap * 0.2) 0;
+  }
+  dd {
+    &:last-of-type {
+      @include margin-right(0);
+    }
+    a {
+      @include border-radius(1000px);
+      $border-width: 1px;
+      border: $border-width solid transparent;
+      background: $neutral-background;
+      padding: round($default-gap * 0.2 - $border-width) $default-gap;
+      &, & * { color: $neutral-color; }
+      &:focus, &:active {
+        outline: none;
+        border-color: $active-color;
+      }
+      &:hover {
+        @include box-shadow(0 0 $default-gap white);
+      }
+    }
+    &.active {
+      border: none;
+      margin-top: 0;
+      a {
+        background-color: $mainColor;
+        border: none;
+        &, & * { color: white; font-weight: bold; }
+      }
+    }
+  }
 }
 
 
@@ -462,12 +513,11 @@ $active-bg: $base-color;
 }
 
 
-
+/*
 $common-layout: smart;
 @import "themes/tekyla/common/*.png";
 @include all-common-sprites;
 
-/*
 $icons-layout: smart;
 @import "themes/tekyla/icons/*.png";
 @include all-icons-sprites;
@@ -489,8 +539,6 @@ $topBarDropBgColor: $topBarBgColor;
 // $topBarDropBgColor: darken($topBarBgColor, 1%);
 
 @import "foundation";
-
-
 @import "active-list/minimal";
 @import "beehive.css.scss";
 @import "tables.css.scss";

@@ -14,7 +14,7 @@ gem 'exception_notification'
 gem 'active-list'
 gem 'haml'
 gem 'turbolinks'
-gem 'google_visualr'
+gem "google_visualr", ">= 2.1"
 
 # Models helpers
 gem 'acts_as_list'
@@ -47,7 +47,6 @@ gem 'libxml-ruby', :require => 'libxml'
 # jasper_rails need rjb which need $ sudo apt-get install openjdk-7-jdk and set JAVA_HOME and add a line in environement.rb
 gem 'rjb'
 gem 'jasper-rails'
-
 gem 'prawn', '~> 0.12.0'
 
 # Import/Export

@@ -527,13 +527,13 @@
     });
 
     /* Refresh behave items */
-    $(document).on("cocoon:after-insert", function (event) {
-        $.Behave.refresh();
-    });
+    // $(document).on("cocoon:after-insert", function (event) {
+    //     $.Behave.refresh();
+    // });
 
-    $(document).on("page:restore", function (event) {
-        $.Behave.refresh();
-    });
+    // $(document).on("page:change", function (event) {
+    //     $.Behave.refresh();
+    // });
 
 
 })( jQuery );
