@@ -87,7 +87,7 @@ group :test do
   gem 'capybara'
   gem 'rspec-rails'
   gem 'jasper-rails-rspec'
-  gem 'cucumber-rails'
+  gem 'cucumber-rails', :require => false
   gem 'awesome_print'
   gem 'pry'
   # database_cleaner is not required, but highly recommended

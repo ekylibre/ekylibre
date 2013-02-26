@@ -41,18 +41,18 @@ task :menus => :environment do
   for controller, actions in ref.sort
     next unless actions.size > 0
     menu = Nokogiri::XML::Node.new('menu', doc)
-    menu[:name] = controller
+    menu['name'] = controller
     if first = actions.delete("index")
       page = Nokogiri::XML::Node.new('page', doc)
-      page[:to] = "#{controller}##{first}"
+      page['to'] = "#{controller}##{first}"
       menu.add_child(page)
-      unused_actions << page[:to]
+      unused_actions << page['to']
     end
     for action in actions.sort
       page = Nokogiri::XML::Node.new('page', doc)
-      page[:to] = "#{controller}##{action}"
+      page['to'] = "#{controller}##{action}"
       menu.add_child(page)
-      unused_actions << page[:to]
+      unused_actions << page['to']
     end
     undefined.add_child(menu)
   end
