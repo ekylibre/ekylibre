@@ -15,7 +15,7 @@ input[type="submit"], a.btn {
 */
 
 .btn {
-  padding: round($fs-normal*0.35) round($fs-normal*0.5);
+  padding: round($fs-normal*0.4) round($fs-normal*0.5);
   .icon {
     @include is-icon(18px);
     @include use-icon(cog);

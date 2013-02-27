@@ -843,146 +843,7 @@ module ApplicationHelper
   end
 
 
-  def wikize(content, options={})
-    # AJAX fails with XHTML entities because there is no DOCTYPE in AJAX response
 
-    content.gsub!(/(\w)(\?|\:)([\s$])/ , '\1~\2\3' )
-    content.gsub!(/(\w+)[\ \~]+(\?|\:)/ , '\1~\2' )
-    content.gsub!(/\~/ , '&#160;')
-
-    content.gsub!(/^\ \ \*\ +(.*)\ *$/ , '<ul><li>\1</li></ul>')
-    content.gsub!(/<\/ul>\n<ul>/ , '')
-    content.gsub!(/^\ \ \-\ +(.*)\ *$/ , '<ol><li>\1</li></ol>')
-    content.gsub!(/<\/ol>\n<ol>/ , '')
-    content.gsub!(/^\ \ \?\ +(.*)\ *$/ , '<dl><dt>\1</dt></dl>')
-    content.gsub!(/^\ \ \!\ +(.*)\ *$/ , '<dl><dd>\1</dd></dl>')
-    content.gsub!(/<\/dl>\n<dl>/ , '')
-
-    content.gsub!(/^>>>\ +(.*)\ *$/ , '<p class="notice">\1</p>')
-    content.gsub!(/<\/p>\n<p class="notice">/ , '<br/>')
-    content.gsub!(/^!!!\ +(.*)\ *$/ , '<p class="warning">\1</p>')
-    content.gsub!(/<\/p>\n<p class="warning">/ , '<br/>')
-
-    content.gsub!(/\{\{\ *[^\}\|]+\ *(\|[^\}]+)?\}\}/) do |data|
-      data = data.squeeze(' ')[2..-3].split('|')
-      align = {'  ' => 'center', ' x' => 'right', 'x ' => 'left', 'xx' => ''}[(data[0][0..0] + data[0][-1..-1]).gsub(/[^\ ]/,'x')]
-      title = data[1]||data[0].split(/[\:\\\/]+/)[-1].humanize
-      src = data[0].strip
-      if src.match(/^theme:/)
-        # src = image_path("/themes/#{@current_theme}/images/#{src.split(':')[1]}")
-        path = src.split(':')[1]
-        path.gsub!(/^buttons/, "icons")
-        src = image_path("themes/#{@current_theme}/#{path}")
-      else
-        src = image_path(src)
-      end
-      '<img class="md md-' + align + '" alt="' + title + '" title="' + title + '" src="' + src + '"/>'
-    end
-
-
-    options[:url] ||= {}
-    content = content.gsub(/\[\[>[^\|]+\|[^\]]*\]\]/) do |link|
-      link = link[3..-3].split('|')
-      url = link[0].split(/[\#\?\&]+/)
-      url = options[:url].merge(:controller => url[0], :action => (url[1]||:index))
-      (authorized?(url) ? link_to(link[1], url) : link[1])
-    end
-
-    options[:method] = :get
-    content = content.gsub(/\[\[[\w\-]+\|[^\]]*\]\]/) do |link|
-      link = link[2..-3].split('|')
-      url = url_for(options[:url].merge(:id => link[0]))
-      link_to(link[1].html_safe, url, {:remote => true, "data-type" => :html}.merge(options)) # REMOTE
-    end
-
-    content = content.gsub(/\[\[[\w\-]+\]\]/) do |link|
-      link = link[2..-3]
-      url = url_for(options[:url].merge(:id => link))
-      link_to(link.html_safe, url, {:remote => true, "data-type" => :html}.merge(options)) # REMOTE
-    end
-
-    for x in 1..6
-      n = 7-x
-      content.gsub!(/^\s*\={#{n}}\s*([^\=]+)\s*\={#{n}}/, "<h#{x}>\\1</h#{x}>")
-    end
-
-    content.gsub!(/^\ \ (.*\w+.*)$/, '  <pre>\1</pre>')
-
-    content.gsub!(/([^\:])\/\/([^\s][^\/]+)\/\//, '\1<em>\2</em>')
-    content.gsub!(/\'\'([^\s][^\']+)\'\'/, '<code>\1</code>')
-    content.gsub!(/(^)([^\s\<][^\s].*)($)/, '<p>\2</p>') unless options[:without_paragraph]
-    content.gsub!(/^\s*(\<a.*)\s*$/, '<p>\1</p>')
-
-    content.gsub!(/\*\*([^\s\*]+)\*\*/, '<strong>\1</strong>')
-    content.gsub!(/\*\*([^\s\*][^\*]*[^\s\*])\*\*/, '<strong>\1</strong>')
-    content.gsub!(/(^|[^\*])\*([^\*]|$)/, '\1&lowast;\2')
-    content.gsub!("</p>\n<p>", "\n")
-
-    content.strip!
-
-    #raise Exception.new content
-    return content.html_safe
-  end
-
-
-  #   name = name.to_s
-  #   content = ''
-  #   file_name, locale = '', nil
-  #   for locale in [I18n.locale, I18n.default_locale]
-  #     help_dir = Rails.root.join("config", "locales", locale.to_s, "help")
-  #     file_name = [name, name.split("-")[0].to_s << "-index"].detect do |pattern|
-  #       File.exists? help_dir.join(pattern << ".txt")
-  #     end
-  #     break unless file_name.blank?
-  #   end
-  #   file_text = Rails.root.join("config", "locales", locale.to_s, "help", file_name.to_s << ".txt")
-  #   if File.exists?(file_text)
-  #     File.open(file_text, 'r') do |file|
-  #       content = file.read
-  #     end
-  #     content = wikize(content, options)
-  #   end
-  #   return content
-  # end
-
-
-
-
-  # # Unagi 鰻
-  # # Flexible module management
-  # def unagi(options={})
-  #   u = Unagi.new
-  #   yield u
-  #   tag = ""
-  #   for c in u.cells
-  #     code = content_tag(:h2, tl(c.title, c.options)) << content_tag(:div, capture(&c.block).html_safe)
-  #     tag << content_tag(:div, code.html_safe, :class => :menu)
-  #   end
-  #   return content_tag(:div, tag.html_safe, :class => :unagi)
-  # end
-
-  # class Unagi
-  #   attr_reader :cells
-  #   def initialize
-  #     @cells = []
-  #   end
-  #   def cell(title, options={}, &block)
-  #     @cells << UnagiCell.new(title, options, &block)
-  #   end
-  # end
-
-  # class UnagiCell
-  #   attr_reader :title, :options, :block
-  #   def initialize(title, options={}, &block)
-  #     @title = title.to_s
-  #     @options = options
-  #     @block = block
-  #   end
-
-  #   def content
-  #     "aAAAAAAAAAAAAAAAAAA" << capture(@block).to_s
-  #   end
-  # end
 
 
   # Kujaku 孔雀
@@ -2517,16 +2378,12 @@ module ApplicationHelper
       title = tc("#{name}_steps.#{step[:name]}")
       classes  = "step"
       classes << " active" if step[:actions].detect{ |url| not url.detect{|k, v| params[k].to_s != v.to_s}} # url = {:action => url.to_s} unless url.is_a? Hash
-      if step[:states].include?(state) and record.id
-        classes << " usable"
-        title = link_to(title, step[:actions][0].merge(:id => record.id))
-      end
-      code << content_tag(:td, '&nbsp;'.html_safe, :class => 'transition') unless code.blank?
-      code << content_tag(:td, title, :class => classes)
+      classes << " disabled" unless step[:states].include?(state)
+      title = link_to(title, (record.id ? step[:actions][0].merge(:id => record.id) : "#"))
+      code << content_tag(:div, '&nbsp;'.html_safe, :class => 'transition') unless code.blank?
+      code << content_tag(:div, title, :class => classes)
     end
-    code = content_tag(:tr, code.html_safe)
-    code = content_tag(:table, code.html_safe, :class => :stepper)
-    code.html_safe
+    return content_tag(:div, code.html_safe, :class => "stepper stepper-#{steps.count}-steps")
   end
 
   SALES_STEPS = [

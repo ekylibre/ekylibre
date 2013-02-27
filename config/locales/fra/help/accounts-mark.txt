@@ -12,4 +12,4 @@ Pour lettrer, vous devez cocher toutes les écritures à lettrer puis valider. L
 Le somme des débits/crédits des écritures cochées est affichées en bas du tableau.
 
 ===== Délettrer =====
-Si vous souhaitez corriger une erreur et délettrer, cliquez sur le bouton {{theme:icons/unletter.png}} à coté de la lettre. Toutes les écritures correspondant à la lettre en question seront délettrées et à nouveau //lettrables//.
+Si vous souhaitez corriger une erreur et délettrer, cliquez sur le bouton {{icon:unletter}} à coté de la lettre. Toutes les écritures correspondant à la lettre en question seront délettrées et à nouveau //lettrables//.
