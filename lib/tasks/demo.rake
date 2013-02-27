@@ -222,16 +222,27 @@ namespace :db do
       c ||= ProductVariety.create!(:name => "CAPHORN", :code => "caphorn", :product_type => "Vegetal", :parent_id => (b ? b.id : nil))
       unit_v = Unit.find_by_name("t")
       # Create product_nature for wheat product
+      charge_account_nature_ble = Account.find_by_number("601")
+      product_account_nature_ble = Account.find_by_number("701")
       nature_ble = ProductNature.find_by_number("BLE")
-      nature_ble ||= ProductNature.create!(:name => "Blé", :number => "BLE", :alive => true, :storable => true, :variety_id => c.id, :unit_id => unit_v.id, :category_id => category1.id)
+      nature_ble ||= ProductNature.create!(:charge_account_id => charge_account_nature_ble.id,:product_account_id => product_account_nature_ble.id,:name => "Blé", :number => "BLE", :alive => true, :saleable => true, :purchasable => true, :active => true, :storable => true, :variety_id => c.id, :unit_id => unit_v.id, :category_id => category1.id)
       taxe_prix_nature_ble = Tax.find_by_amount('5.5000')
       # Create product_nature_price for wheat product
       prix_nature_ble = ProductNaturePrice.find_by_product_nature_id(nature_ble.id)
-      prix_nature_ble ||= ProductNaturePrice.create!(:amount => "211.00", :currency => "EUR", :pretax_amount => "200.00", :product_nature_id => nature_ble.id, :tax_id => taxe_prix_nature_ble.id, :category_id => entitycat.id, :supplier_id => Entity.of_company.id )
+      prix_nature_ble ||= ProductNaturePrice.create!(:amount => "211.0000", :currency => "EUR", :pretax_amount => "200.0000", :product_nature_id => nature_ble.id, :tax_id => taxe_prix_nature_ble.id, :category_id => entitycat.id, :supplier_id => Entity.of_company.id )
       # Create wheat product
       ble = Vegetal.find_by_work_number("BLE_001")
       ble = Vegetal.create!(:name => "Blé Cap Horn 2011", :identification_number => "BLE_2011_07142011", :work_number => "BLE_2011", :born_at => "2011-07-14", :nature_id => nature_ble.id, :number => "BLE_2011", :owner_id => Entity.of_company.id)
       
+      # sale_nature
+      sale_nature = SaleNature.find_by_name("Coop")
+      sale_nature ||= SaleNature.create!(:name => "Coop", :currency => "EUR")
+      # sale
+      sale = Sale.create!( :created_on => '2013-02-27', :client_id => '2', :nature_id => sale_nature.id, :number => "V201302000002", :sum_method => "wt", :state => "draft")
+      # sale_item
+      sale_item1 = SaleItem.create!(:quantity => '5.0000', :tax_id => taxe_prix_nature_ble.id, :unit_id => unit_v.id, :price_id => prix_nature_ble.id, :product_id => ble.id, :sale_id => sale.id)
+      sale_item2 = SaleItem.create!(:quantity => '15.0000', :tax_id => taxe_prix_nature_ble.id, :unit_id => unit_v.id, :price_id => prix_nature_ble.id, :product_id => ble.id, :sale_id => sale.id)
+
       puts "!"
     end
   end
