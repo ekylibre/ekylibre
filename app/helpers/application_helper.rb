@@ -207,18 +207,6 @@ module ApplicationHelper
     return text_field(object_name, reflection.foreign_key, html_options.merge('data-selector' => url_for(choices)))
   end
 
-
-
-  def authorized?(url={})
-    return true if url == "#"
-    if url.is_a?(String) and url.match(/\#/)
-      action = url.split("#")
-      url = {:controller => action[0].to_sym, :action => action[1].to_sym}
-    end
-    url[:controller] ||= controller_name if url.is_a?(Hash)
-    BackendController.authorized?(url)
-  end
-
   # It's the menu generated for the current user
   # Therefore: No current user => No menu
   def menus

@@ -369,7 +369,7 @@ ul.side-menu {
   .icon.icon-statistics { @include use-icon(bar-chart) }
   .icon.icon-index      { @include use-icon(print) }
   .icon.icon-unvalidateds { @include use-icon(ok)}
-  .icon.icon-close { @include use-icon(lock)}  
+  .icon.icon-close { @include use-icon(lock)}
 }
 
 
@@ -860,7 +860,7 @@ input[data-date], input[data-datepicker] {
     text-align: center;
     @include inline-block;
     a {
-      display: block; 
+      display: block;
       text-align: center;
       padding: $default-gap;
       background: white;
@@ -871,7 +871,7 @@ input[data-date], input[data-datepicker] {
       background: $neutral-background;
       cursor: default;
       pointer-events: none;
-    } 
+    }
   }
   .transition {
     width: 1%;

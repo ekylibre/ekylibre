@@ -18,6 +18,8 @@
 
 class Backend::HelpController < BackendController
 
+  helper_method :authorized?
+
   def show
     file = search_article(params[:id])
     if request.xhr?

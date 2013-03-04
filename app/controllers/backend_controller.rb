@@ -27,6 +27,7 @@ class BackendController < BaseController
   # after_filter  :historize
   # # attr_accessor :current_user
   layout :dialog_or_not
+  helper_method :authorized?
 
   include Userstamp
   # include ExceptionNotifiable
@@ -180,32 +181,18 @@ class BackendController < BaseController
   end
 
 
-  def accessible?(url={})
-    #puts url.inspect
+  def authorized?(url={})
+    return true if url == "#"
     if url.is_a?(Hash)
-      url[:controller]||=self.controller_name
-      url[:action]||=:index
+      url[:controller] ||= self.absolute_controller_name
+      url[:action] ||= :index
+    elsif url.is_a?(String) and url.match(/\#/)
+      action = url.split("#")
+      url = {:controller => action[0].to_sym, :action => action[1].to_sym}
     end
-    if @current_user
-      raise Exception.new(url.inspect) if url[:controller].blank? or url[:action].blank?
-      if @current_user.authorization(url[:controller], url[:action], session[:rights]).nil?
-        true
-      else
-        false
-      end
-    else
-      true
-    end
-  end
-
-  def self.authorized?(url={})
-    if url.is_a?(Hash)
-      # url[:controller]||=self.controller_name
-      url[:action]||=:index
-    end
-    if @current_user
-      raise Exception.new("Uncheckable URL: "+url.inspect) if url[:controller].blank? or url[:action].blank?
-      if @current_user.authorization(url[:controller], url[:action], session[:rights]).nil?
+    if current_user
+      raise Exception.new("Uncheckable URL: " + url.inspect) if url[:controller].blank? or url[:action].blank?
+      if current_user.authorization(url[:controller], url[:action], session[:rights]).nil?
         true
       else
         false
