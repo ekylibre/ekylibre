@@ -209,9 +209,9 @@ namespace :db do
           print "p"
         end
       end
-      
+
       #
-      #      
+      #
       #
       # Create variety for wheat product
       entitycat = EntityCategory.find_by_code("PARDEFAU")
@@ -233,7 +233,7 @@ namespace :db do
       # Create wheat product
       ble = Vegetal.find_by_work_number("BLE_001")
       ble = Vegetal.create!(:name => "Blé Cap Horn 2011", :identification_number => "BLE_2011_07142011", :work_number => "BLE_2011", :born_at => "2011-07-14", :nature_id => nature_ble.id, :number => "BLE_2011", :owner_id => Entity.of_company.id)
-      
+
       # sale_nature
       sale_nature = SaleNature.find_by_name("Coop")
       sale_nature ||= SaleNature.create!(:name => "Coop", :currency => "EUR")

@@ -62,7 +62,7 @@ gem 'jquery-rails'
 # gem 'jquery_mobile_rails'
 
 # reading RSS Feed in dashboard
-gem 'feedzirra'
+gem 'feedzirra', '~> 0.2.0.rc2'
 
 # Gems used only for assets and not required
 # in production environments by default.
