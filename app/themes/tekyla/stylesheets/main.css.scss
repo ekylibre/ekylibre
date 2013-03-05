@@ -398,10 +398,10 @@ ul.side-menu {
   border: $menu-border;
   @include border-radius($default-border-radius);
   @include incrust-shadow;
-  $icon-size: 48px;
+  $icon-size: 40px;
   .icon {
     @include float(left);
-    @include is-icon(48px);
+    @include is-icon($icon-size);
     width: $icon-size;
     display: block;
     text-align: center;
