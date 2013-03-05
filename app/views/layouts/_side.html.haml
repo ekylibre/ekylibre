@@ -29,7 +29,7 @@
   -if menu
     -unless menu.hierarchy.detect{|i| i.name == :settings}
       -expected = "settings_" + menu.hierarchy[1..-1].collect{|m| m.name}.join("_") + "_dashboard_url"
-      -url = (respond_to?(expected) ? send(expected) : backend_settings_dashboard_url)
+      -url = (respond_to?(expected) ? send(expected) : {:controller => "backend/dashboards", :action => :settings})
       -m.link("labels.menus.settings".t, url)
   -m.link(:help, "#", "data-toggle-visibility" => "#help")
 

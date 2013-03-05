@@ -181,21 +181,19 @@ class BackendController < BaseController
 
 
   def authorized?(url_options = {})
-    return true if url_options == "#"
+    return true if url_options == "#" or current_user.administrator?
     if url_options.is_a?(Hash)
-      url_options[:controller] ||= self.absolute_controller_name
+      url_options[:controller] ||= self.class.absolute_controller_name
       url_options[:action] ||= :index
     elsif url_options.is_a?(String) and url_options.match(/\#/)
       action = url_options.split("#")
       url_options = {:controller => action[0].to_sym, :action => action[1].to_sym}
+    else
+      raise ArgumentError.new("Invalid URL: " + url_options.inspect)
     end
     if current_user
-      raise Exception.new("Uncheckable URL: " + url_options.inspect) if url_options[:controller].blank? or url_options[:action].blank?
-      if current_user.authorization(url_options[:controller], url_options[:action], session[:rights]).nil?
-        true
-      else
-        false
-      end
+      raise ArgumentError.new("Uncheckable URL: " + url_options.inspect) if url_options[:controller].blank? or url_options[:action].blank?
+      return current_user.authorization(url_options[:controller], url_options[:action], session[:rights]).nil?
     else
       true
     end

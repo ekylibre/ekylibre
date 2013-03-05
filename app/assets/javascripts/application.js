@@ -25,3 +25,5 @@
 //= require modernizr.mq
 //= require ui
 //= require_tree .
+
+$(document).foundation();

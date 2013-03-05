@@ -236,6 +236,12 @@ module ApplicationHelper
     select_tag("locale", options, "data-redirect" => url_for())
   end
 
+
+  def link_to_remove_nested_association(name, f)
+    return link_to_remove_association(content_tag(:i) + h("labels.remove_#{name}".t), f, 'data-no-turbolink' => true, :class => "nested-remove remove-#{name}")
+  end
+
+
   # Re-writing of link_to helper
   def link_to(*args, &block)
     if block_given?
@@ -248,7 +254,7 @@ module ApplicationHelper
       html_options = args[2] || {}
 
       if options.is_a? Hash
-        return (html_options[:keep] ? "<a class='forbidden'>#{name}</a>".html_safe : "") unless authorized?(options)
+        return (html_options[:remove] ? "" : "<a class='forbidden' disabled='true'>#{name}</a>".html_safe) unless authorized?(options)
       end
 
       html_options = convert_options_to_data_attributes(options, html_options)

@@ -1,49 +1,113 @@
-
-input[type="submit"], a.btn {
-  cursor: pointer;
-}
-
-@include button($passive-bg, $active-bg);
-@include button(#D88E68, #D88E68, "&.important");
-
-/*
-.toolbar {
-  margin: 0 0 8px 0;
-  @include text-align(left);
-  @include button-group;
-}
-*/
-
-.btn {
-  padding: round($fs-normal*0.4) round($fs-normal*0.5);
-  .icon {
-    @include is-icon(18px);
-    @include use-icon(cog);
-    @include inline-block;
-    @include text-shadow(1px 1px 0 white);
+// General mixin for buttons
+@mixin button ($background-color: $base-color, $color: false, $focus-background-color: false, $focus-color: false, $is-input: false) {
+  @if $color == false {
+    $color: visible-color($background-color);
   }
-}
-
-@each $symbiol in $symbiols {
-  $symbol-name: nth($symbiol, 1);
-  $symbol-code: nth($symbiol, 2);
-  .btn.#{$symbol-name}, .btn.btn-#{$symbol-name} {
-    .icon {
-      @include icon($symbol-code);
+  @if $focus-background-color == false {
+    $focus-background-color: $background-color;
+  }
+  @if $focus-color == false {
+    $focus-color: visible-color($focus-background-color);
+  }
+  $shadow-color: shadow-color-of($color);
+  $focus-shadow-color: shadow-color-of($color);
+  white-space: nowrap;
+  margin: 0;
+  padding: round($fs-normal*0.3) round($fs-normal*0.4);
+  cursor: pointer;
+  text-decoration: none;
+  border: $menu-border-width solid darken($background-color, 10%);
+  border-width: $menu-border-width;
+  border-style: solid;
+  border-color: rgba(#000, 0.1) rgba(#000, 0.1) rgba(#000, 0.25);
+  background: $background-color;
+  @include background-image(linear-gradient(lighten($background-color, $default-lightness-variation), darken($background-color, $default-lightness-variation)));
+  @include box-shadow(0 1px 0 rgba(#FFF, 0.2) inset);
+  @include box-shadow(0 1px 0 rgba(#FFF, 0.2) inset, 0 1px 2px rgba(#000, 0.05));
+  @include border-radius($default-border-radius);
+  @include inline-block;
+  vertical-align: middle;
+  & > .text, & > .icon, & > i {
+    margin: 0 2px;
+    html[dir="ltr"] &:first-child, html[dir="rtl"] &:last-child { margin-left: 0; }
+    html[dir="rtl"] &:first-child, html[dir="ltr"] &:last-child { margin-right: 0; }
+  }
+  &, & > .text, & > .icon, & > i {
+    line-height: 1em;
+    color: $color;
+    @include text-shadow($menu-border-width $menu-border-width 0 $shadow-color);
+  }
+  &:focus {
+    outline: none;
+    border: $menu-border-width solid $focus-background-color;
+    @include box-shadow(0 0 round($fs-normal/2) rgba($base-color, 0.5));
+    z-index: 2;
+  }
+  &:active {
+    outline: none;
+    @include background-image(linear-gradient($focus-background-color, darken($focus-background-color, 8%)));
+    border-color: rgba(#000, 0.25) rgba(#000, 0.1) rgba(#000, 0.1);
+    @include box-shadow(0 2px 2px rgba(#000, 0.3) inset, 0 -2px 2px rgba(#000, 0.05));
+    &, & > .text, & > .icon, & > i {
+      color: $focus-color;
+      @include text-shadow(-1px -1px 1px $focus-shadow-color);
+      text-decoration: none;
+    }
+  }
+  &[disabled] {
+    background: #CCC;
+    cursor: default;
+    pointer-events: none;
+    &, & > .text, & > .icon, & > i {
+      @include text-shadow(none);
+    }
+    &:hover {
+      &, & > .text, & > .icon, & > i { color: #666; }
     }
   }
 }
 
-.btn.btn-abort .icon { @include use-icon(trash) }
-.btn.btn-cancel .icon { @include use-icon(undo) }
-.btn.btn-destroy .icon { @include use-icon(remove) }
-.btn.btn-down .icon    { @include use-icon(chevron-down) }
-.btn.btn-new .icon     { @include use-icon(plus) }
-.btn.btn-merge .icon   { @include use-icon(resize-small) }
-.btn.btn-divide .icon  { @include use-icon(resize-full) }
-.btn.btn-duplicate .icon  { @include use-icon(copy) }
-.btn.btn-load .icon       { @include use-icon(refresh) }
-.btn.btn-statistics .icon { @include use-icon(bar-chart) }
-.btn.btn-index .icon      { @include use-icon(print) }
-.btn.btn-unvalidateds .icon { @include use-icon(ok)}
-.btn.btn-close .icon { @include use-icon(lock)}
+
+
+input[type="submit"], input[type="button"], input[type="reset"], input[type="search"] {
+  @include button($is-input: true);
+  &.important {
+    @include button($background-color: $important-color, $is-input: true);
+  }
+}
+
+// @include button($passive-bg, $active-bg);
+// @include button(#D88E68, #D88E68, "&.important");
+
+a.btn, button {
+  @include button();
+  &.important {
+    @include button($background-color: $important-color);
+  }
+
+  .icon, i {
+    @include is-icon(18px);
+    @include use-icon(cog);
+    @include inline-block;
+  }
+
+  // Defines default names
+  @each $symbiol in $symbiols {
+    $symbol-name: nth($symbiol, 1);
+    $symbol-code: nth($symbiol, 2);
+    &.btn.#{$symbol-name}, &.btn-#{$symbol-name} {
+      .icon, i {
+        @include icon($symbol-code);
+      }
+    }
+  }
+
+  // Adds synonyms
+  @each $renaming in (abort trash) (cancel undo) (destroy remove) (down chevron-down) (new plus) (merge resize-small) (divide resize-full) (duplicate copy) (load refresh) (statistics bar-chart) (index print) (unvalidateds ok) (close lock) {
+    &.btn-#{nth($renaming, 1)} {
+      .icon, i {
+        @include use-icon(nth($renaming, 2));
+      }
+    }
+  }
+}

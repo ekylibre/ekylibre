@@ -1,17 +1,22 @@
-%nav#top.top-bar.contain-to-grid
-  %ul>
-    %li.name>=link_to("Ekylibre", backend_root_url)
-    %li.toggle-topbar>=link_to("", "#")
-  %section>
-    %ul>=render(:partial => "layouts/subnavigation", :object => Ekylibre.menu.items, :locals => {:with_divider => true, :depth => 0})
-    %ul.right
-      %li.divider.show-for-medium-and-up
+%nav#top.top-bar.contain-to-grid.fixed
+  %ul.title-area>
+    %li.name>
+      %h1=link_to("Ekylibre", backend_root_url)
+    %li.toggle-topbar.menu-icon>=link_to("", "#")
+
+  %section.top-bar-section>
+    %ul.left>=render(:partial => "layouts/subnavigation", :object => Ekylibre.menu.items, :locals => {:with_divider => true, :depth => 0})
+    %ul.right.hide-for-small
+      %li.divider
       %li.has-dropdown
         %a=Entity.of_company.full_name
         %ul.dropdown
           %li
             %label=current_user.full_name
           %li=link_to(tl(:sign_out), destroy_user_session_url, :method => :delete)
+
+
+
 -#if current_user
   .user-bar
     %a.name.root

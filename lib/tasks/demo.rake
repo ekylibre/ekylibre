@@ -108,7 +108,7 @@ namespace :db do
                {:mail_line_4 => "Le Bourg", :mail_line_6 => "47210 Saint-Eutrope-de-Born"},
                {:mail_line_4 => "Avenue de la Libération", :mail_line_6 => "47150 Monflanquin"},
                {:mail_line_4 => "Rue du port", :mail_line_6 => "47440 Casseneuil"},
-               {:mail_line_4 => "Avenue René Cassin", :mail_line_6 => "47110 Sainte-Librade-sur-Lot"},
+               {:mail_line_4 => "Avenue René Cassin", :mail_line_6 => "47110 Sainte-Livrade-sur-Lot"},
               ]
 
       Entity.find_each do |entity|

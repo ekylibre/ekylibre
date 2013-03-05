@@ -7,34 +7,34 @@
     -b.cell :general do
       -if @animal.picture.exists?
         .picture=image_tag(@animal.picture.url(:identity))
+      .info
+        %span.title=Animal.human_attribute_name(:work_number)
+        %span.value=@animal.work_number
+      -if @animal.born_at
         .info
-          %span.title=Animal.human_attribute_name(:work_number)
-          %span.value=@animal.work_number
-        -if @animal.born_at
-          .info
-            %span.title=Animal.human_attribute_name(:age)
-            -#%span.value=distance_of_time_in_words(@animal.born_at, (@animal.dead_at||Time.now)) rescue @animal.born_at.l
-            %span.value
-              -seconds = (@animal.dead_at||Time.now) - @animal.born_at
-              -vals = []
-              -if (seconds/1.year).floor > 0
-                -vals << "labels.x_years".t(:count => (seconds/1.year).floor)
-                -seconds -= 1.year * (seconds/1.year).floor
-              -if (seconds/1.month).floor > 0
-                -vals << "labels.x_months".t(:count => (seconds/1.month).floor)
-                -seconds -= 1.month * (seconds/1.month).floor
-              -if (seconds/1.day).floor > 0
-                -vals << "labels.x_days".t(:count => (seconds/1.day).floor)
-                -seconds -= 1.day * (seconds/1.day).floor
-              =vals.join(", ")
-        -if @animal.mother
-          .info
-            %span.title=Animal.human_attribute_name(:mother)
-            %span.value=link_to(@animal.mother.name, {:action => :show, :id => @animal.mother.id})
-        -if @animal.father
-          .info
-            %span.title=Animal.human_attribute_name(:father)
-            %span.value=link_to(@animal.father.name, {:action => :show, :id => @animal.father.id})
+          %span.title=Animal.human_attribute_name(:age)
+          -#%span.value=distance_of_time_in_words(@animal.born_at, (@animal.dead_at||Time.now)) rescue @animal.born_at.l
+          %span.value
+            -seconds = (@animal.dead_at||Time.now) - @animal.born_at
+            -vals = []
+            -if (seconds/1.year).floor > 0
+              -vals << "labels.x_years".t(:count => (seconds/1.year).floor)
+              -seconds -= 1.year * (seconds/1.year).floor
+            -if (seconds/1.month).floor > 0
+              -vals << "labels.x_months".t(:count => (seconds/1.month).floor)
+              -seconds -= 1.month * (seconds/1.month).floor
+            -if (seconds/1.day).floor > 0
+              -vals << "labels.x_days".t(:count => (seconds/1.day).floor)
+              -seconds -= 1.day * (seconds/1.day).floor
+            =vals.to_sentence
+      -if @animal.mother
+        .info
+          %span.title=Animal.human_attribute_name(:mother)
+          %span.value=link_to(@animal.mother.name, {:action => :show, :id => @animal.mother.id})
+      -if @animal.father
+        .info
+          %span.title=Animal.human_attribute_name(:father)
+          %span.value=link_to(@animal.father.name, {:action => :show, :id => @animal.father.id})
 
     -b.cell :details do
       =attributes_list(@animal) do |l| # liste des champs à afficher
