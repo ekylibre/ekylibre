@@ -123,71 +123,16 @@ end
 
 module ApplicationHelper
 
+  # Returns the absolute controller name
+  # Example: "backend/accounts"
   def absolute_controller_name
     self.controller.class.absolute_controller_name
   end
 
-  # # def options_for_unroll(options = {})
-  # #   raise ArgumentError.new("Need :reflection option (#{options.inspect})") unless options[:reflection].to_s.size > 0
-  # #   reflection = self.class.reflections[options[:reflection].to_sym]
-  # #   raise ArgumentError.new("Unknown :reflection option with an existing reflection (#{options[:reflection].inspect})") unless reflection
-  # #   model = reflection.class_name.constantize
-  # #   available_methods = (model.instance_methods+model.columns_hash.keys).collect{|x| x.to_s}
-  # #   unless label = options[:label]
-  # #     label = [:label, :native_name, :name, :code, :number, :inspect].detect{|x| available_methods.include?(x.to_s)}
-  # #     raise ArgumentError.new(":label option is needed (#{model.name}(#{available_methods.inspect}):#{options.inspect})") if label.nil?
-  # #   end
-  # #   find_options = {} # :conditions => "true"}
-  # #   if options[:order]
-  # #     find_options[:order] = options[:order]
-  # #   elsif model.columns_hash.keys.include?(options[:label].to_s)
-  # #     find_options[:order] = options[:label]
-  # #   end
-  # #   find_options[:conditions] = options[:conditions] if options[:conditions]
-  # #   list = (self.send(reflection.name).find(:all, find_options)||[]).collect do |record|
-  # #     [record.send(label), record.id]
-  # #   end
-  # #   if options[:include_blank].is_a? String
-  # #     list.insert(0, [options[:include_blank], ''])
-  # #   elsif options[:include_blank].is_a? Array
-  # #     list.insert(0, *options[:include_blank])
-  # #   end
-  # #   return list
-  # # end
-
-  # def options_for_unroll(options = {})
-  #   # TODO Manage if options[:model] is unknown!
-  #   filter = options[:filter].to_s.to_sym
-  #   reflection = nil
-  #   model = nil
-  #   source = if options[:source] == "self" and options[:model]
-  #              record_model = options[:model].to_s.classify.constantize
-  #              reflection = record_model.reflections[filter]
-  #              raise Exception.new("Need :label option for unroll self:#{filter} because '#{filter}' is not a reflection") unless reflection
-  #              model = reflection.class_name.constantize
-  #              raise Exception.new("Bad id") unless options[:id].to_i > 0
-  #              record_model.find(options[:id])
-  #            elsif options[:source]
-  #              model = options[:source].to_s.classify.constantize
-  #            end
-  #   if model
-  #     unless label = options[:label]
-  #       available_methods = (model.instance_methods + model.columns_hash.keys).collect{|x| x.to_s}
-  #       label = [:label, :native_name, :name, :code, :number, :inspect].detect{|x| available_methods.include?(x.to_s)}
-  #       raise ArgumentError.new(":label option is needed (#{model.name}(#{available_methods.inspect}):#{options.inspect})") if label.nil?
-  #     end
-  #   end
-
-  #   list = (source ? source.send(filter).collect do |record|
-  #             [record.send(label), record.id]
-  #           end : [])
-  #   if options[:include_blank].is_a? String
-  #     list.insert(0, [options[:include_blank], ''])
-  #   elsif options[:include_blank].is_a? Array
-  #     list.insert(0, *options[:include_blank])
-  #   end
-  #   return options_for_select(list, options[:selected].to_i)
-  # end
+  # Helper which check authorization of an action
+  def authorized?(url_options = {})
+    self.controller.authorized?(url_options)
+  end
 
 
   def selector_tag(name, choices = nil, options = {}, html_options = {})
@@ -695,6 +640,87 @@ module ApplicationHelper
               tc(:page_title_by_default, :action => controller.human_action_name)
             end
     return ("<title>" << h(title) << "</title>").html_safe
+  end
+
+
+
+  def wikize(content, options={})
+    # AJAX fails with XHTML entities because there is no DOCTYPE in AJAX response
+
+    content.gsub!(/(\w)(\?|\:)([\s$])/ , '\1~\2\3' )
+    content.gsub!(/(\w+)[\ \~]+(\?|\:)/ , '\1~\2' )
+    content.gsub!(/\~/ , '&#160;')
+
+    content.gsub!(/^\ \ \*\ +(.*)\ *$/ , '<ul><li>\1</li></ul>')
+    content.gsub!(/<\/ul>\n<ul>/ , '')
+    content.gsub!(/^\ \ \-\ +(.*)\ *$/ , '<ol><li>\1</li></ol>')
+    content.gsub!(/<\/ol>\n<ol>/ , '')
+    content.gsub!(/^\ \ \?\ +(.*)\ *$/ , '<dl><dt>\1</dt></dl>')
+    content.gsub!(/^\ \ \!\ +(.*)\ *$/ , '<dl><dd>\1</dd></dl>')
+    content.gsub!(/<\/dl>\n<dl>/ , '')
+
+    content.gsub!(/^>>>\ +(.*)\ *$/ , '<p class="notice">\1</p>')
+    content.gsub!(/<\/p>\n<p class="notice">/ , '<br/>')
+    content.gsub!(/^!!!\ +(.*)\ *$/ , '<p class="warning">\1</p>')
+    content.gsub!(/<\/p>\n<p class="warning">/ , '<br/>')
+
+    content.gsub!(/\{\{\ *[^\}\|]+\ *(\|[^\}]+)?\}\}/) do |data|
+      data = data.squeeze(' ')[2..-3].split('|')
+      align = {'  ' => 'center', ' x' => 'right', 'x ' => 'left', 'xx' => ''}[(data[0][0..0] + data[0][-1..-1]).gsub(/[^\ ]/,'x')]
+      title = data[1]||data[0].split(/[\:\\\/]+/)[-1].humanize
+      src = data[0].strip
+      if src.match(/^icon:/)
+        icon_name = src.split(':')[1]
+        "<i class='icon icon-#{icon_name}'></i>"
+      else
+        src = image_path(src)
+        '<img class="md md-' + align + '" alt="' + title + '" title="' + title + '" src="' + src + '"/>'
+      end
+    end
+
+
+    options[:url] ||= {}
+    content = content.gsub(/\[\[>[^\|]+\|[^\]]*\]\]/) do |link|
+      link = link[3..-3].split('|')
+      url = link[0].split(/[\#\?\&]+/)
+      url = options[:url].merge(:controller => url[0], :action => (url[1]||:index))
+      (authorized?(url) ? link_to(link[1], url) : link[1])
+    end
+
+    options[:method] = :get
+    content = content.gsub(/\[\[[\w\-]+\|[^\]]*\]\]/) do |link|
+      link = link[2..-3].split('|')
+      url = url_for(options[:url].merge(:id => link[0]))
+      link_to(link[1].html_safe, url, {:remote => true, "data-type" => :html}.merge(options)) # REMOTE
+    end
+
+    content = content.gsub(/\[\[[\w\-]+\]\]/) do |link|
+      link = link[2..-3]
+      url = url_for(options[:url].merge(:id => link))
+      link_to(link.html_safe, url, {:remote => true, "data-type" => :html}.merge(options)) # REMOTE
+    end
+
+    for x in 1..6
+      n = 7-x
+      content.gsub!(/^\s*\={#{n}}\s*([^\=]+)\s*\={#{n}}/, "<h#{x}>\\1</h#{x}>")
+    end
+
+    content.gsub!(/^\ \ (.*\w+.*)$/, '  <pre>\1</pre>')
+
+    content.gsub!(/([^\:])\/\/([^\s][^\/]+)\/\//, '\1<em>\2</em>')
+    content.gsub!(/\'\'([^\s][^\']+)\'\'/, '<code>\1</code>')
+    content.gsub!(/(^)([^\s\<][^\s].*)($)/, '<p>\2</p>') unless options[:without_paragraph]
+    content.gsub!(/^\s*(\<a.*)\s*$/, '<p>\1</p>')
+
+    content.gsub!(/\*\*([^\s\*]+)\*\*/, '<strong>\1</strong>')
+    content.gsub!(/\*\*([^\s\*][^\*]*[^\s\*])\*\*/, '<strong>\1</strong>')
+    content.gsub!(/(^|[^\*])\*([^\*]|$)/, '\1&lowast;\2')
+    content.gsub!("</p>\n<p>", "\n")
+
+    content.strip!
+
+    #raise Exception.new content
+    return content.html_safe
   end
 
 

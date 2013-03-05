@@ -20,15 +20,4 @@
 require 'test_helper'
 class Backend::HelpHelperTest < ActionView::TestCase
 
-  for file in Dir.glob(Rails.root.join("config", "locales", "*", "help", "**", "*.txt"))
-    File.open(file, "rb") do |f|
-      source = f.read
-      test "wikization of '#{file.gsub(Rails.root.to_s, '.')}'" do
-        assert_nothing_raised do
-          wikize(source, :url => {:controller => :help, :action => :show})
-        end
-      end
-    end
-  end
-
 end

@@ -42,4 +42,6 @@ class ApplicationController < ActionController::Base
     return self.class.human_action_name(action_name, @title)
   end
 
+
+
 end
