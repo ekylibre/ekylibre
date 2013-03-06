@@ -450,6 +450,9 @@ $include-html-classes: false;
     @else if $screen-size == medium {
       @media only screen and (min-width: $small-screen) and (max-width: $medium-screen) { @content; }
     }
+    @else if $screen-size == normal {
+      @media only screen and (min-width: $medium-screen) and (max-width: $large-screen) { @content; }
+    }
     @else if $screen-size == large {
       @media only screen and (min-width: $large-screen) { @content; }
     }
@@ -457,6 +460,22 @@ $include-html-classes: false;
       @warn "Assuming no @media queries for unknown screen size: #{$screen-size}";
       @content;
     }
+  }
+}
+
+@mixin respond-to-bigger-than($screen-size) {
+  @if $screen-size == small {
+    @media screen and (min-width: $small-screen) { @content; }
+  }
+  @else if $screen-size == medium {
+    @media screen and (min-width: $medium-screen) { @content; }
+  }
+  @else if $screen-size == normal {
+    @media screen and (min-width: $large-screen) { @content; }
+  }
+  @else {
+    @warn "Assuming no @media queries for unknown screen size: #{$screen-size}";
+    @content;
   }
 }
 

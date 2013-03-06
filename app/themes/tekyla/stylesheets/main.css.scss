@@ -43,19 +43,11 @@ html.backend {
     background: transparent;
     height: 100%;
     #wrap {
-      @include grid-row();
-      max-width: 100%;
       height: 100%;
-      & > #side {
-        @include grid-column(2, $float: left);
-        height: 100%;
-        padding: 0;
-      }
+      max-width: 100%;
       & > #main {
-        @include grid-column(10, $float: left);
-        height: 100%;
         #header {
-          margin-bottom: $default-gap;
+          margin: 0 $default-gap $default-gap;
           h1 {
             &, & * {
               font-weight: bold;
@@ -66,7 +58,20 @@ html.backend {
           }
         }
       }
+      @media screen and (min-width: 768px){
+        @include grid-row();
+        max-width: 100%;
+        & > #side {
+         @include grid-column(2, $float: left, $collapse: true);
+          height: 100%;
+        }
+        & > #main {
+          @include grid-column(10, $float: left, $collapse: true);
+          height: 100%;
+        }
+      }
     }
+
   }
 }
 
@@ -297,9 +302,19 @@ ul.side-menu {
 //  }
   $label-width: 40%;
   margin-bottom: 1em;
+  &:last-child {
+    margin-bottom: 0;
+  }
   dl {
+    @include inline-block;
     @include clearfix;
     margin: 0;
+    padding: 2px 0;
+    width: 100%;
+    dt, dd {
+      font-size: $fs-normal;
+      line-height: round(1.4*$fs-normal);
+    }
     dt {
       @include item-label;
       width: 0.95*$label-width;
@@ -308,6 +323,10 @@ ul.side-menu {
     }
     dd {
       @include margin-left($label-width);
+      .checkbox-true, .checkbox-false {
+        display: inline;
+        vertical-align: middle;
+      }
     }
   }
 }
@@ -402,30 +421,38 @@ ul.side-menu {
 
 
 .flash {
-  padding: $default-gap;
-  margin-bottom: $default-gap;
+  padding: round(0.6*$default-gap) $default-gap;
+  margin: 0 $default-gap $default-gap;
   vertical-align: middle;
   color: black;
-  border: $menu-border;
   @include border-radius($default-border-radius);
   @include incrust-shadow;
-  $icon-size: 40px;
+  &, & * {
+    text-shadow: 1px 1px 0 rgba(#000, 0.3);
+  }
   .icon {
-    @include float(left);
-    @include is-icon($icon-size);
-    width: $icon-size;
-    display: block;
-    text-align: center;
+    font-size: $fs-normal;
+    line-height: round(1.4*$fs-normal);
+    @include is-icon($fs-normal + 2px);
+    display: inline;
+    vertical-align: middle;
+    @include margin-right($default-gap);
   }
   .message {
-    @include margin-left($icon-size + $default-gap);
+    display: inline;
     h3 {
+      display: none;
       font-size: $fs-normal;
+      line-height: round(1.4*$fs-normal);
       font-weight: bold;
       $gap: floor(($default-gap - $menu-border-width)/2);
       padding: 0 0 $gap;
-      margin-bottom: $default-gap - $menu-border-width - $gap;
-      border-bottom: $menu-border-width dotted #999;
+      margin-right: $default-gap - $menu-border-width - $gap;
+    }
+    p {
+      display: inline;
+      font-size: $fs-normal;
+      line-height: round(1.4*$fs-normal);
     }
     ul {
       padding: round($fs-normal/4);
@@ -433,21 +460,24 @@ ul.side-menu {
       li { list-style-type: square; }
     }
   }
-  .end {
-    clear: both;
-    height: 0;
-  }
-  @each $level in (error #E10 remove-circle), (warning #F81 warning-sign), (success #8B1 ok-circle), (information $active-color info-sign) {
+  @each $level in (error #D31 remove-circle), (warning #F81 warning-sign), (success #6A0 ok-circle), (information $active-color info-sign) {
     $level-name: nth($level, 1);
-    $level-color: change-color(nth($level, 2), $lightness: 40%);
+    $level-color: nth($level, 2); // change-color(nth($level, 2), $lightness: 65%);
     &.#{$level-name} {
-      &, & .message h3 { border-color: $level-color;}
-      * { color: $level-color; }
-      background-color: mix($level-color, $desktop-background, 10%);
-      // .icon { @include common-sprite(notification-#{$level-name}); }
+      @include background(linear-gradient(top, lighten($level-color, $default-lightness-variation), $level-color, darken($level-color, $default-lightness-variation)));
+      &, & * { color: visible-color($level-color); }
       .icon { @include use-icon(nth($level, 3)); }
-
     }
+  }
+  .close {
+    opacity: 0.6;
+    display: block;
+    @include float(right);
+    font-size: 18px;
+    font-weight: bold;
+    margin-right: -4px;
+    padding: 0 4px;
+    vertical-align: middle;
   }
 }
 
