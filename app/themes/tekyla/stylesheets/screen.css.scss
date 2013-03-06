@@ -95,7 +95,7 @@ $passive-bg: $menu-background;
 $active-bg: $base-color;
 
 /*@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400italic,700,700italic);*/
-$sans-font-family: 'Open Sans', Helvetica, 'Liberation Sans', sans-serif;
+$sans-font-family: 'Open Sans', 'Droid Sans', 'Liberation Sans', Helvetica, sans-serif;
 $base-font-family: $sans-font-family;
 
 $header-font-family: $base-font-family;
@@ -326,13 +326,14 @@ $include-html-classes: false;
   @include box-shadow(0 0 round($fs-normal/2) rgba(0,0,0,0.15));
 }
 
-@mixin tab-pills {
+@mixin tab-pills($font-size: $fs-normal) {
   display: block;
   @include clearfix;
   border-bottom: none;
   margin-bottom: 10px;
   dt, dd {
-    @include inline-block;
+    display: block;
+    @include float(left);
     margin-top: 0;
     @include margin-right(10px);
     margin-bottom: $default-gap;
@@ -342,19 +343,29 @@ $include-html-classes: false;
     font-weight: bold;
     color: $neutral-color;
     font-variant: small-caps;
-    padding: round($default-gap * 0.2) 0;
+    padding: round($default-gap * 0.3) 0;
+    cursor: default;
   }
   dd {
     &:last-of-type {
       @include margin-right(0);
     }
     a {
+      @include inline-block;
       @include border-radius(1000px);
       $border-width: 1px;
       border: $border-width solid transparent;
       background: $neutral-background;
       padding: round($default-gap * 0.2 - $border-width) $default-gap;
-      &, & * { color: $neutral-color; @include text-shadow(1px 1px 0 white) }
+      &, & * { 
+        color: $neutral-color;
+        @include text-shadow(1px 1px 0 white);
+        font-size: $font-size;
+        line-height: round(1.4*$font-size);
+      }
+      &:focus {
+        @include box-shadow(0 0 round($fs-normal*0.6) rgba($base-color, 0.6));
+      }
       &:focus, &:active {
         outline: none;
         border-color: $active-color;
@@ -364,11 +375,10 @@ $include-html-classes: false;
       }
     }
     &.active {
-      border: none;
       margin-top: 0;
       a {
         background-color: $primary-color;
-        border: none;
+        border-color: $active-color;
         &, & * { color: white; font-weight: bold; @include text-shadow(1px 1px 0 $neutral-color)}
         i { font-weight: normal; }
       }
