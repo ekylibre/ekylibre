@@ -82,18 +82,21 @@ html.authentication {
       border-top: 2px solid $active-color;
       #main {
         background: transparent;
+        margin: 60px auto;
+        width: 40%;
+        @include respond-to(small) {
+          margin: auto;
+          width: 100%;
+        }
         #content {
           background: #FFF;
           @include incrust-shadow;
           padding: 20px;
-          margin: 60px auto;
-          width: 40%;
-          @include respond-to(small) {
-            margin: auto;
-            width: 100%;
-          }
           .logo {
             text-align: center;
+            img {
+              max-width: 100%;
+            }
           }
           h2 {
             font-size: $fs-large;

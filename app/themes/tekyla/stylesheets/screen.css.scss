@@ -435,13 +435,13 @@ $include-html-classes: false;
 @mixin respond-to($screen-sizes...) {
   @each $screen-size in $screen-sizes {
     @if $screen-size == small {
-      @media #{$small} { @content; }
+      @media only screen and (max-width: $small-screen) { @content; }
     }
     @else if $screen-size == medium {
-      @media #{$medium} { @content; }
+      @media only screen and (min-width: $small-screen) and (max-width: $medium-screen) { @content; }
     }
     @else if $screen-size == large {
-      @media #{$large} { @content; }
+      @media only screen and (min-width: $large-screen) { @content; }
     }
     @else {
       @warn "Assuming no @media queries for unknown screen size: #{$screen-size}";
