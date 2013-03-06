@@ -1,9 +1,3 @@
 =render :partial=>"backend/accounts/search"
 
-.menu.indicator
-  %h2= tg('indicator')
-  %ul
-    =li_link_to tc(:x_journal_entries, :count=>JournalEntry.count), :controller=>:journals
-
-%h2=tl :journals
 =journals_tag
