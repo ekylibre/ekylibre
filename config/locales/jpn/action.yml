@@ -131,6 +131,7 @@ jpn:
       # edit: "Modifier le type de fiche\_: %{name}"
       # index: "Types de fiches"
       # new: "Ajouter un nouveau type de fiche"
+    backend/equipments: #?
     backend/establishments:
       # edit: "Modifier l’établissement\_: %{name}"
       # index: "Établissements"
@@ -408,11 +409,7 @@ jpn:
       # edit: "Modifier la taxe\_: %{name}"
       # index: "Taxes"
       # new: "Ajouter une nouvelle taxe"
-    backend/tools:
-      # edit: "Modifier le matériel\_: %{name}"
-      # index: "Matériel"
-      # new: "Ajouter un matériel"
-      # show: "Matériel\_: %{name}"
+    backend/tools: #?
     backend/transports:
       # deliveries: "Livraisons du transport"
       # delivery_delete: "Retirer la livraison du transport"
@@ -529,7 +526,6 @@ jpn:
     # backend/subscriptions: "Abonnements"
     # backend/tax_declarations: "Déclaration de TVA"
     # backend/taxes: "Taxes"
-    # backend/tools: "Matériel"
     # backend/transfers: "Transferts"
     # backend/transports: "Transports"
     # backend/units: "Unités de mesure"
@@ -958,6 +954,7 @@ jpn:
         # cashes: "Trésorerie"
         # company: "Société"
         # entities: "Personnes"
+        # equipments: "Matériels"
         # events: "Évènements"
         # financial_years: "Exercices"
         # incoming_deliveries: "Réceptions"
@@ -980,7 +977,6 @@ jpn:
         # subscriptions: "Abonnements"
         # tasks: "Tâches"
         # tax_declarations: "Déclarations de taxes"
-        # tools: "Outils"
       # trade: "Commerce"
     # merge: "Fusionner"
     # meteo: "Météo"

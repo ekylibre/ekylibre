@@ -171,6 +171,7 @@ arb:
       edit: "تعديل نوع الملف : %{name}"
       index: "انواع الملفات"
       new: "اضافة نوع ملف جديد"
+    backend/equipments: #?
     backend/establishments:
       edit: "تعديل نموذج المرفق : %{name}"
       index: "مرافق"
@@ -531,11 +532,11 @@ arb:
       index: "الضرائب"
       new: "اضافة ضريبة جديدة"
     backend/tool_natures: #?
-    backend/tools:
-      edit: "تعديل المادة : %{name}"
-      index: "مادة"
-      new: "اضافة مادة"
-      show: "المادة : %{name}"
+    backend/tools:  #?
+      edit: "تعديل المادة : %{name}" #?
+      index: "مادة" #?
+      new: "اضافة مادة" #?
+      show: "المادة : %{name}" #?
     backend/tracking_states: #?
     backend/trackings:  #?
       show: "الحصة %{name}" #?
@@ -675,7 +676,7 @@ arb:
     # backend/subscriptions: "Abonnements"
     backend/tax_declarations: "تصريح عن قيمة الضريبة الاضافية"
     backend/taxes: "الضرائب"
-    backend/tools: "مادة"
+    backend/tools: "مادة" #?
     # backend/transfers: "Transferts"
     backend/transports: "وسائل النقل"
     backend/units: "وحدات القياس"
@@ -1161,6 +1162,7 @@ arb:
         # cashes: "Trésorerie"
         # company: "Société"
         # entities: "Personnes"
+        # equipments: "Matériels"
         # events: "Évènements"
         # financial_years: "Exercices"
         # incoming_deliveries: "Réceptions"
@@ -1183,7 +1185,6 @@ arb:
         # subscriptions: "Abonnements"
         # tasks: "Tâches"
         # tax_declarations: "Déclarations de taxes"
-        # tools: "Outils"
       trade: "التجارة"
     merge: "دمج"
     # meteo: "Météo"

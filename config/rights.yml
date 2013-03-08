@@ -32,7 +32,6 @@
 # - "backend/dashboards#settings_relationship"
 # - "backend/dashboards#settings_sales"
 # - "backend/dashboards#settings_stocks"
-# - "backend/entities#picture"
 # - "backend/entity_addresses#unroll"
 # - "backend/entity_natures#unroll"
 # - "backend/interfacers#autocomplete"
@@ -121,7 +120,6 @@
 # - "backend/product_memberships#show"
 # - "backend/product_memberships#update"
 # - "backend/product_nature_categories#list_product_natures"
-# - "backend/product_natures#list_prices"
 # - "backend/product_natures#show"
 # - "backend/product_process_phases#create"
 # - "backend/product_process_phases#destroy"
@@ -520,7 +518,9 @@ manage_document_templates:
 
 # Manage people
 manage_entities:
+- "backend/areas#autocomplete_for_name" #?
 - "backend/dashboards#relationship"
+- "backend/entities#autocomplete_for_origin" #?
 - "backend/entities#create"
 - "backend/entities#destroy"
 - "backend/entities#edit"
@@ -531,14 +531,13 @@ manage_entities:
 - "backend/entities#list_sales"
 - "backend/entities#list_subscriptions"
 - "backend/entities#new"
+- "backend/entities#picture"
 - "backend/entities#update"
 - "backend/entity_addresses#create"
 - "backend/entity_addresses#destroy"
 - "backend/entity_addresses#edit"
 - "backend/entity_addresses#new"
 - "backend/entity_addresses#update"
-- "backend/interfacers#autocomplete_for_area_name" #?
-- "backend/interfacers#autocomplete_for_entity_origin" #?
 
 # Manage people natures
 manage_entities_natures:
@@ -581,6 +580,18 @@ manage_entity_links:
 - "backend/entity_links#new"
 - "backend/entity_links#update"
 
+# Manage equipments
+manage_equipments:
+- "backend/dashboards#production"
+- "backend/equipments#create"
+- "backend/equipments#destroy"
+- "backend/equipments#edit"
+- "backend/equipments#index"
+- "backend/equipments#list"
+- "backend/equipments#new"
+- "backend/equipments#show"
+- "backend/equipments#update"
+
 # Create and update estimates
 manage_estimates:
 - "backend/dashboards#sales"
@@ -616,6 +627,7 @@ manage_events:
 - "backend/event_natures#list"
 - "backend/event_natures#new"
 - "backend/event_natures#update"
+- "backend/events#autocomplete_for_location" #?
 - "backend/events#change_minutes"
 - "backend/events#create"
 - "backend/events#destroy"
@@ -624,7 +636,6 @@ manage_events:
 - "backend/events#list"
 - "backend/events#new"
 - "backend/events#update"
-- "backend/interfacers#autocomplete_for_event_location" #?
 
 # Manage and close financial years
 manage_financial_years:
@@ -770,9 +781,9 @@ manage_listings:
 # Manage mandates
 manage_mandates:
 - "backend/dashboards#relationship"
-- "backend/interfacers#autocomplete_for_mandate_family" #?
-- "backend/interfacers#autocomplete_for_mandate_organization" #?
-- "backend/interfacers#autocomplete_for_mandate_title" #?
+- "backend/mandates#autocomplete_for_family" #?
+- "backend/mandates#autocomplete_for_organization" #?
+- "backend/mandates#autocomplete_for_title" #?
 - "backend/mandates#configure"
 - "backend/mandates#create"
 - "backend/mandates#destroy"
@@ -874,7 +885,7 @@ manage_products:
 - "backend/product_natures#destroy"
 - "backend/product_natures#edit"
 - "backend/product_natures#list"
-- "backend/product_natures#list_product_nature_prices" #?
+- "backend/product_natures#list_prices"
 - "backend/product_natures#new"
 - "backend/product_natures#update"
 
@@ -998,18 +1009,6 @@ manage_taxes:
 - "backend/taxes#list"
 - "backend/taxes#new"
 - "backend/taxes#update"
-
-# Manage tools of production
-manage_tools:
-- "backend/dashboards#production"
-- "backend/tools#create"
-- "backend/tools#destroy"
-- "backend/tools#edit"
-- "backend/tools#index"
-- "backend/tools#list"
-- "backend/tools#new"
-- "backend/tools#show"
-- "backend/tools#update"
 
 # Manage transports
 manage_transports:

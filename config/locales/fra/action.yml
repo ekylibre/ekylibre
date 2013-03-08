@@ -141,6 +141,11 @@ fra:
       edit: "Modifier le type de fiche\_: %{name}"
       index: "Types de fiches"
       new: "Ajouter un nouveau type de fiche"
+    backend/equipments:
+      # edit: "Edit backend/equipment"
+      # index: "Index backend/equipment"
+      # new: "New backend/equipment"
+      # show: "Show backend/equipment"
     backend/establishments:
       edit: "Modifier l’établissement\_: %{name}"
       index: "Établissements"
@@ -443,11 +448,6 @@ fra:
       edit: "Modifier la taxe\_: %{name}"
       index: "Taxes"
       new: "Ajouter une nouvelle taxe"
-    backend/tools:
-      edit: "Modifier le matériel\_: %{name}"
-      index: "Matériel"
-      new: "Ajouter un matériel"
-      show: "Matériel\_: %{name}"
     backend/transports:
       deliveries: "Livraisons du transport" #?
       delivery_delete: "Retirer la livraison du transport" #?
@@ -517,6 +517,7 @@ fra:
     backend/entity_link_natures: "Types de lien"
     backend/entity_links: "Liens entre personnes"
     backend/entity_natures: "Types de fiches"
+    # backend/equipments: "Backend/equipments"
     backend/establishments: "Établissements"
     backend/event_natures: "Types d’évènements"
     backend/events: "Évènements"
@@ -583,7 +584,6 @@ fra:
     backend/subscriptions: "Abonnements"
     backend/tax_declarations: "Déclaration de TVA"
     backend/taxes: "Taxes"
-    backend/tools: "Matériel"
     # backend/trackings: "Backend/trackings"
     backend/transfers: "Transferts"
     backend/transports: "Transports"
@@ -1012,6 +1012,7 @@ fra:
         cashes: "Trésorerie"
         company: "Société"
         entities: "Personnes"
+        equipments: "Matériels"
         events: "Évènements"
         financial_years: "Exercices"
         incoming_deliveries: "Réceptions"
@@ -1034,7 +1035,6 @@ fra:
         subscriptions: "Abonnements"
         tasks: "Tâches"
         tax_declarations: "Déclarations de taxes"
-        tools: "Outils"
       trade: "Commerce"
     merge: "Fusionner"
     meteo: "Météo"

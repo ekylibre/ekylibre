@@ -18,6 +18,5 @@
 #
 
 require 'test_helper'
-class Backend::ToolsControllerTest < ActionController::TestCase
-  test_restfully_all_actions
+class Backend::EquipmentsHelperTest < ActionView::TestCase
 end

@@ -142,6 +142,7 @@ eng:
       edit: "Edit the person type: %{name}"
       index: "Person types"
       new: "Add a new person type"
+    backend/equipments: #?
     backend/establishments:
       edit: "Edit the establishment: %{name}"
       index: "Establishments"
@@ -428,11 +429,11 @@ eng:
       edit: "Edit tax: %{name}"
       index: "Taxes"
       new: "Add a new tax"
-    backend/tools:
-      edit: "Edit tool: %{name}"
-      index: "Tools"
-      new: "Add a tool"
-      show: "Tool: %{name}"
+    backend/tools:  #?
+      edit: "Edit tool: %{name}" #?
+      index: "Tools" #?
+      new: "Add a tool" #?
+      show: "Tool: %{name}" #?
     backend/trackings:  #?
       show: "Tracking: %{name}" #?
     backend/transports:
@@ -552,7 +553,7 @@ eng:
     backend/subscriptions: "Subscriptions"
     backend/tax_declarations: "Tax declarations"
     backend/taxes: "Taxes"
-    backend/tools: "Tools"
+    backend/tools: "Tools" #?
     backend/trackings: "Trackings" #?
     backend/transfers: "Transfers"
     backend/transports: "Transports"
@@ -982,6 +983,7 @@ eng:
         cashes: "Cashes"
         company: "Company"
         entities: "People"
+        # equipments: "Matériels"
         events: "Events"
         financial_years: "Financial Years"
         incoming_deliveries: "Incoming Deliveries"
@@ -1004,7 +1006,7 @@ eng:
         subscriptions: "Subscriptions"
         tasks: "Tasks"
         tax_declarations: "Tax declarations"
-        tools: "Tools"
+        tools: "Tools" #?
       trade: "Trade"
     merge: "Merge"
     # meteo: "Météo"

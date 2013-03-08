@@ -70,7 +70,7 @@ class Operation < Ekylibre::Record::Base
   #   ActiveRecord::Base.transaction do
   #     op_saved = self.save
   #     saved = op_saved
-  #     # Tools
+  #     # Equipments
   #     self.uses.clear
   #     uses.each_index do |index|
   #       uses[index] = self.uses.build(uses[index])
@@ -80,7 +80,7 @@ class Operation < Ekylibre::Record::Base
   #     end
   #     if saved
   #       self.reload
-  #       self.update_column(:tools_list, self.tools.collect{|t| t.name}.to_sentence)
+  #       self.update_column(:equipments_list, self.equipments.collect{|t| t.name}.to_sentence)
   #     end
 
   #     # Items
@@ -101,17 +101,17 @@ class Operation < Ekylibre::Record::Base
   #   return false
   # end
 
-  # def set_tools(tools)
-  #   # Reinit tool uses
+  # def set_equipments(equipments)
+  #   # Reinit equipment uses
   #   self.operation_uses.clear
-  #   # Add new tools
-  #   unless tools.nil?
-  #     tools.each do |tool|
-  #       OperationUse.create!(:operation_id => self.id, :tool_id => tool[0].to_i)
+  #   # Add new equipments
+  #   unless equipments.nil?
+  #     equipments.each do |equipment|
+  #       OperationUse.create!(:operation_id => self.id, :equipment_id => equipment[0].to_i)
   #     end
   #   end
   #   self.reload
-  #   self.tools_list = self.tools.collect{|t| t.name}.join(", ")
+  #   self.equipments_list = self.equipments.collect{|t| t.name}.join(", ")
   #   self.save
   # end
 

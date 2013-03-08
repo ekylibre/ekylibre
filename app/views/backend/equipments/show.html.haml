@@ -1,12 +1,12 @@
 =toolbar do |t|
-  -t.edit @tool
+  -t.edit @equipment
 
-=attributes_list(@tool) do |l|
+=attributes_list(@equipment) do |l|
   -l.attribute :nature
   -l.attribute :consumption
   -l.attribute :usage_duration, :duration=>:minutes
   -l.attribute :remaining_duration, :duration=>:minutes
-  =image_tag(@tool.picture.url(:thumb))
+  =image_tag(@equipment.picture.url(:thumb))
 
-%h2=tc(:x_operations, :count=>@tool.uses.count)
+%h2=tc(:x_operations, :count=>@equipment.uses.count)
 =list(:operations)

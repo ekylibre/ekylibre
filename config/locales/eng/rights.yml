@@ -28,7 +28,6 @@ eng:
     manage_cash_transfers: "Manage cash transfers"
     manage_cashes: "Manage cashes"
     manage_custom_fields: "Manage custom fields"
-    manage_delays: "Manage delays" #?
     manage_deposits: "Manage deposits"
     manage_districts: "Manage districts"
     manage_document_templates: "Manage document templates"
@@ -36,6 +35,7 @@ eng:
     manage_entities_natures: "Manage people natures"
     manage_entity_categories: "Manage people categories"
     manage_entity_links: "Manage people links"
+    manage_equipments: "Manage equipments"
     manage_estimates: "Create and update estimates"
     manage_events: "Manage events"
     manage_financial_years: "Manage and close financial years"
@@ -45,7 +45,6 @@ eng:
     manage_inventories: "Manage inventories"
     manage_journal_entries: "Manage journal entries"
     manage_journals: "Manage, close and reopen journals"
-    manage_land_parcel_groups: "Manage groups of land parcels" #?
     manage_land_parcels: "Manage fields"
     manage_listings: "Manage listings"
     manage_mandates: "Manage mandates"
@@ -61,10 +60,8 @@ eng:
     manage_purchases: "Manage purchases"
     manage_sale_natures: "Manage sales natures"
     manage_sales: "Manages sales"
-    manage_stock_moves: "Manage stock moves" #?
     manage_subscriptions: "Manage subscriptions"
     manage_taxes: "Manage taxes"
-    manage_tools: "Manage tools of production"
     manage_transports: "Manage transports"
     manage_units: "Manage units of measure"
     manage_users: "Manage users"

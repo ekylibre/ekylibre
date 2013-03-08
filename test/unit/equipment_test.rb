@@ -70,6 +70,6 @@
 
 require 'test_helper'
 
-class ToolTest < ActiveSupport::TestCase
+class EquipmentTest < ActiveSupport::TestCase
 
 end

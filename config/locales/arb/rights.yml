@@ -38,6 +38,7 @@ arb:
     manage_entities_natures: "ادارة انواع الملفات"
     manage_entity_categories: "ادارة فئات الملفات"
     manage_entity_links: "ادارة الروابط بين الملفات"
+    # manage_equipments: "Gérer le matériel"
     manage_estimates: "انشاء وتعديل التقديرات"
     manage_events: "ادارة الاحداث"
     manage_financial_years: "ادارة وبدأ السنة المالية"
@@ -67,7 +68,7 @@ arb:
     manage_stock_moves: "ادارة حركات الاسهم" #?
     manage_subscriptions: "ادارة الاشتراكات"
     manage_taxes: "ادارة الضرائب"
-    manage_tools: "ادارة ادوات المنتجات"
+    manage_tools: "ادارة ادوات المنتجات" #?
     manage_transports: "ادارة وسائل النقل"
     manage_units: "ادارة وحدات القياس"
     manage_users: "ادارة المستخدمين"

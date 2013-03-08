@@ -179,6 +179,17 @@ arb:
         created_at: "تم انشائها في" #?
       entity_nature:  #?
         description: "المواصفات" #?
+      equipment:
+        # born_at: "Date de mise en service"
+        consumption: "(الاستهلاك (لتر / ساعة " #?
+        # content_maximal_quantity: "Capacité maximale"
+        # content_nature: "Produit contenu"
+        # content_unit: "Unité"
+        # dead_at: "Date de mise au rebut"
+        # parent_place: "Lieu de parking"
+        text_nature: "طبيغة النص" #?
+        uses: "استخدامات الادوات" #?
+        # variety: "Marque"
       establishment:  #?
         comment: "تعليق" #?
       event:
@@ -577,17 +588,10 @@ arb:
         nature: "نظام التصريح"
         # period: "Période"
         updated_at: "تم تحديثها في" #?
-      tool:
-        # born_at: "Date de mise en service"
+      tool:  #?
         consumption: "(الاستهلاك (لتر / ساعة " #?
-        # content_maximal_quantity: "Capacité maximale"
-        # content_nature: "Produit contenu"
-        # content_unit: "Unité"
-        # dead_at: "Date de mise au rebut"
-        # parent_place: "Lieu de parking"
         text_nature: "طبيغة النص" #?
         uses: "استخدامات الادوات" #?
-        # variety: "Marque"
       tracking:
         active: "مستخدم"
         company_id: "الشركة" #?
@@ -780,6 +784,7 @@ arb:
       entity_link: "رابط الفرد"
       entity_link_nature: "طبيعة الرابط بين الافراد"
       entity_nature: "نوع الفرد"
+      equipment: "الاداة"
       establishment: "المؤسسة"
       event: "الحدث"
       event_nature: "نوع الحدث"
@@ -855,7 +860,7 @@ arb:
       subscription_nature: "نوع الاشتراك"
       tax: "الضريبة"
       tax_declaration: "تصريح الضرائب"
-      tool: "الاداة"
+      tool: "الاداة" #?
       tracking: "حصة ممكن عزوها"
       transfer: "التحويل"
       transport: "وسيلة النقل"
@@ -2211,6 +2216,11 @@ arb:
         purchase: "انشاء طلب شراء" #?
         sale: "انشاء طلب بيع" #?
         sales_invoice: "انشاء فاتورة" #?
+    equipment:  #?
+      natures: #?
+        other: "اخرى" #?
+        towed: "اقتران" #?
+        tractor: "تراكتور" #?
     event_nature:  #?
       usages: #?
         mailing: "البريدي" #?

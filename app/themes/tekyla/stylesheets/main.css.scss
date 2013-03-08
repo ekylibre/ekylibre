@@ -165,7 +165,7 @@ html.authentication {
 #journals {
   @include tab-pills;
   dd {
-    a { 
+    a {
       &.special i {
         color: $important-color;
       }
@@ -453,6 +453,7 @@ ul.side-menu {
       display: inline;
       font-size: $fs-normal;
       line-height: round(1.4*$fs-normal);
+      font-weight: bold;
     }
     ul {
       padding: round($fs-normal/4);

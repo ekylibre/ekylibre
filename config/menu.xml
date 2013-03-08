@@ -803,16 +803,16 @@
         <page to="backend/production_chain_conveyors#new"/>
         <page to="backend/production_chain_conveyors#update"/>
       </menu>
-      <menu name="tools">
-        <page to="backend/tools#index"/>
-        <page to="backend/tools#create"/>
-        <page to="backend/tools#destroy"/>
-        <page to="backend/tools#edit"/>
-        <page to="backend/tools#list"/>
-        <page to="backend/tools#list_operations"/>
-        <page to="backend/tools#new"/>
-        <page to="backend/tools#show"/>
-        <page to="backend/tools#update"/>
+      <menu name="equipments">
+        <page to="backend/equipments#index"/>
+        <page to="backend/equipments#create"/>
+        <page to="backend/equipments#destroy"/>
+        <page to="backend/equipments#edit"/>
+        <page to="backend/equipments#list"/>
+        <page to="backend/equipments#list_operations"/>
+        <page to="backend/equipments#new"/>
+        <page to="backend/equipments#show"/>
+        <page to="backend/equipments#update"/>
       </menu>
     </menu>
   </menu>

@@ -80,6 +80,7 @@ Ekylibre::Application.routes.draw do
         get :list_reconciliation
         get :list_entities
         get :reconciliation
+        get :autocomplete_for_origin
         unroll_all
         match "load", :via => [:get, :post]
       end
@@ -682,7 +683,7 @@ Ekylibre::Application.routes.draw do
         unroll_all
       end
     end
-    resources :tools do
+    resources :equipments do
       collection do
         get :list
         get :list_operations

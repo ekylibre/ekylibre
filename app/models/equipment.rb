@@ -68,7 +68,7 @@
 #
 
 
-class Tool < Product
+class Equipment < Product
   attr_accessible :nature_id, :asset_id, :picture, :name, :description, :born_at, :dead_at, :active, :external, :content_unit_id, :content_nature_id, :owner_id, :parent_place_id, :variety_id, :reservoir, :content_maximal_quantity
   has_attached_file :picture, :styles => { :medium => "300x300>", :thumb => "100x100>" }
   #has_many :uses, :class_name => "OperationUse"
@@ -98,11 +98,11 @@ class Tool < Product
   #end
 
   #def usage_duration
-  #  return Operation.sum(:duration, :conditions => ["moved_on IS NOT NULL AND id IN (SELECT operation_id FROM #{OperationUse.table_name} WHERE tool_id=?)", self.id])
+  #  return Operation.sum(:duration, :conditions => ["moved_on IS NOT NULL AND id IN (SELECT operation_id FROM #{OperationUse.table_name} WHERE equipment_id=?)", self.id])
   #end
 
   #def remaining_duration
-  #  return Operation.sum(:duration, :conditions => ["moved_on IS NULL AND id IN (SELECT operation_id FROM #{OperationUse.table_name} WHERE tool_id=?)", self.id])
+  #  return Operation.sum(:duration, :conditions => ["moved_on IS NULL AND id IN (SELECT operation_id FROM #{OperationUse.table_name} WHERE equipment_id=?)", self.id])
   #end
 
 end

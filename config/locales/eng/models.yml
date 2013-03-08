@@ -29,6 +29,15 @@ eng:
         responsible: "Responsible"
       entity_event_nature:
         duration: "Duration by default (in min.)"
+      equipment:
+        # born_at: "Date de mise en service"
+        # content_maximal_quantity: "Capacité maximale"
+        # content_nature: "Produit contenu"
+        # content_unit: "Unité"
+        # dead_at: "Date de mise au rebut"
+        # parent_place: "Lieu de parking"
+        uses: "Tool uses" #?
+        # variety: "Marque"
       event:
         duration: "Duration (in minutes)"
         location: "Location"
@@ -172,15 +181,8 @@ eng:
         amount: "Total VAT"
         nature: "Régime de la déclaration"
         period: "Périod"
-      tool:
-        # born_at: "Date de mise en service"
-        # content_maximal_quantity: "Capacité maximale"
-        # content_nature: "Produit contenu"
-        # content_unit: "Unité"
-        # dead_at: "Date de mise au rebut"
-        # parent_place: "Lieu de parking"
+      tool:  #?
         uses: "Tool uses" #?
-        # variety: "Marque"
       tracking:
         active: "Used"
       transfer:
@@ -376,6 +378,7 @@ eng:
       entity_link: "Person link"
       entity_link_nature: "Person link type"
       entity_nature: "Person type"
+      equipment: "Tool"
       establishment: "Establishment"
       event: "Event"
       event_nature: "Event type"
@@ -458,7 +461,7 @@ eng:
       subscription_nature: "Subscription type"
       tax: "Tax"
       tax_declaration: "Tax declaration"
-      tool: "Tool"
+      tool: "Tool" #?
       tool_nature: "Tool type" #?
       tracking: "Tracking"
       tracking_state: "Tracking state" #?

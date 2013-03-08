@@ -27,6 +27,14 @@ jpn:
         # responsible: "Intervenant"
       entity_event_nature:
         # duration: "Durée par défaut (en min.)"
+      equipment:
+        # born_at: "Date de mise en service"
+        # content_maximal_quantity: "Capacité maximale"
+        # content_nature: "Produit contenu"
+        # content_unit: "Unité"
+        # dead_at: "Date de mise au rebut"
+        # parent_place: "Lieu de parking"
+        # variety: "Marque"
       event:
         # duration: "Durée (en minutes)"
         # location: "Lieu"
@@ -154,14 +162,7 @@ jpn:
         # amount: "TVA totale"
         # nature: "Régime de la déclaration"
         # period: "Période"
-      tool:
-        # born_at: "Date de mise en service"
-        # content_maximal_quantity: "Capacité maximale"
-        # content_nature: "Produit contenu"
-        # content_unit: "Unité"
-        # dead_at: "Date de mise au rebut"
-        # parent_place: "Lieu de parking"
-        # variety: "Marque"
+      tool: #?
       tracking:
         # active: "Utilisé"
       transfer:
@@ -326,6 +327,7 @@ jpn:
       # entity_link: "Lien de personne"
       # entity_link_nature: "Nature de lien entre personnes"
       # entity_nature: "Type de personne"
+      # equipment: "Outil"
       # establishment: "Établissement"
       # event: "Évènement"
       # event_nature: "Type d’évènement"
@@ -383,7 +385,6 @@ jpn:
       # subscription_nature: "Type d’abonnement"
       # tax: "Taxe"
       # tax_declaration: "Déclaration de taxes"
-      # tool: "Outil"
       # tracking: "Lot traçable"
       # transfer: "Transfert"
       # transport: "Transport"

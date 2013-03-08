@@ -46,7 +46,7 @@ class Backend::LandParcelsController < BackendController
   #   t.column :label, :through => :responsible, :url => true
   #   t.column :planned_on
   #   t.column :moved_on
-  #   t.column :tools_list
+  #   t.column :equipments_list
   #   t.column :duration
   #   t.action :edit
   #   t.action :destroy

@@ -17,16 +17,16 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::ToolsController < BackendController
+class Backend::EquipmentsController < BackendController
   manage_restfully
 
   unroll_all
 
-  # list(:operations, :model => :operation_uses, :conditions => {:tool_id => ['session[:current_tool_id]']}, :order => "created_at ASC") do |t|
+  # list(:operations, :model => :operation_uses, :conditions => {:equipment_id => ['session[:current_equipment_id]']}, :order => "created_at ASC") do |t|
   #   t.column :name,       :through => :operation, :label => :column, :url => true
   #   t.column :planned_on, :through => :operation, :label => :column, :datatype => :date
   #   t.column :moved_on,   :through => :operation, :label => :column
-  #   t.column :tools_list, :through => :operation, :label => :column
+  #   t.column :equipments_list, :through => :operation, :label => :column
   #   t.column :duration,   :through => :operation, :label => :column
   # end
 
@@ -39,14 +39,14 @@ class Backend::ToolsController < BackendController
     t.action :destroy, :if => :destroyable?
   end
 
-  # Displays details of one tool selected with +params[:id]+
+  # Displays details of one equipment selected with +params[:id]+
   def show
-    return unless @tool = find_and_check(:tool)
-    session[:current_tool_id] = @tool.id
-    t3e @tool.attributes
+    return unless @equipment = find_and_check(:equipment)
+    session[:current_equipment_id] = @equipment.id
+    t3e @equipment.attributes
   end
 
-  # Displays the main page with the list of tools
+  # Displays the main page with the list of equipments
   def index
   end
 

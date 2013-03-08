@@ -357,7 +357,7 @@ $include-html-classes: false;
       border: $border-width solid transparent;
       background: $neutral-background;
       padding: round($default-gap * 0.2 - $border-width) $default-gap;
-      &, & * { 
+      &, & * {
         color: $neutral-color;
         @include text-shadow(1px 1px 0 white);
         font-size: $font-size;

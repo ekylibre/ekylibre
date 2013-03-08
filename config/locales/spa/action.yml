@@ -166,6 +166,7 @@ spa:
       # edit: "Modifier le type de fiche\_: %{name}"
       # index: "Types de fiches"
       # new: "Ajouter un nouveau type de fiche"
+    backend/equipments: #?
     backend/establishments:
       edit: "Modificacion del establecimiento : %{name}"
       index: "Establecimientos"
@@ -484,11 +485,7 @@ spa:
       index: "Tasas"
       new: "Añadir nueva tarifa"
     backend/tool_natures: #?
-    backend/tools:
-      # edit: "Modifier le matériel\_: %{name}"
-      # index: "Matériel"
-      # new: "Ajouter un matériel"
-      # show: "Matériel\_: %{name}"
+    backend/tools: #?
     backend/tracking_states: #?
     backend/trackings: #?
     backend/transfers: #?
@@ -616,7 +613,6 @@ spa:
     # backend/subscriptions: "Abonnements"
     backend/tax_declarations: "Declaracion de TVA"
     backend/taxes: "Tasas"
-    # backend/tools: "Matériel"
     # backend/transfers: "Transferts"
     # backend/transports: "Transports"
     backend/units: "Unidad de medida"
@@ -1059,6 +1055,7 @@ spa:
         # cashes: "Trésorerie"
         # company: "Société"
         # entities: "Personnes"
+        # equipments: "Matériels"
         # events: "Évènements"
         # financial_years: "Exercices"
         # incoming_deliveries: "Réceptions"
@@ -1081,7 +1078,6 @@ spa:
         # subscriptions: "Abonnements"
         # tasks: "Tâches"
         # tax_declarations: "Déclarations de taxes"
-        # tools: "Outils"
       # trade: "Commerce"
     # merge: "Fusionner"
     # meteo: "Météo"
