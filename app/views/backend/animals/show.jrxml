@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="show" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9c1f11b7-03dd-4803-9e1b-41b87b9d23c0">
-	<property name="ireport.zoom" value="1.7715610000000124"/>
+	<property name="ireport.zoom" value="1.3310000000000093"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="192"/>
+	<property name="ireport.y" value="0"/>
 	<style name="Title" fontName="DejaVu Sans" fontSize="50" isBold="true" pdfFontName="Times-Bold"/>
 	<style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18"/>
 	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
@@ -33,12 +33,12 @@
 			<pen lineWidth="1.0" lineColor="#000000"/>
 		</box>
 	</style>
-	<style name="table 1_TH" mode="Opaque" backcolor="#FAEBD7">
+	<style name="table 1_TH" mode="Opaque" forecolor="#FFFFFF" backcolor="#EFF3FB">
 		<box>
 			<pen lineWidth="0.5" lineColor="#000000"/>
 		</box>
 	</style>
-	<style name="table 1_CH" mode="Opaque" backcolor="#FFE4BF">
+	<style name="table 1_CH" mode="Opaque" backcolor="#EFF3FB">
 		<box>
 			<pen lineWidth="0.5" lineColor="#000000"/>
 		</box>
@@ -52,28 +52,32 @@
 			<style backcolor="#FFF8EF"/>
 		</conditionalStyle>
 	</style>
-	<subDataset name="events" uuid="e1b74445-e266-4905-b7ca-c69a482d0793">
+	<subDataset name="localizations" uuid="e1b74445-e266-4905-b7ca-c69a482d0793">
 		<queryString language="xPath">
-			<![CDATA[/animal/events/event]]>
+			<![CDATA[/animal/product-localizations/product-localization]]>
 		</queryString>
-		<field name="started-at" class="java.lang.String">
+		<field name="arrival-cause" class="java.lang.String">
+			<fieldDescription><![CDATA[arrival-cause]]></fieldDescription>
+		</field>
+		<field name="created-at" class="java.util.Date">
+			<fieldDescription><![CDATA[created-at]]></fieldDescription>
+		</field>
+		<field name="departure-cause" class="java.lang.String">
+			<fieldDescription><![CDATA[departure-cause]]></fieldDescription>
+		</field>
+		<field name="nature" class="java.lang.String">
+			<fieldDescription><![CDATA[nature]]></fieldDescription>
+		</field>
+		<field name="started-at" class="java.util.Date">
 			<fieldDescription><![CDATA[started-at]]></fieldDescription>
 		</field>
-		<field name="planned-at" class="java.lang.String">
-			<fieldDescription><![CDATA[planned-at]]></fieldDescription>
-		</field>
-		<field name="stopped-at" class="java.lang.String">
+		<field name="stopped-at" class="java.util.Date">
 			<fieldDescription><![CDATA[stopped-at]]></fieldDescription>
 		</field>
-		<field name="moved-at" class="java.lang.String">
-			<fieldDescription><![CDATA[moved-at]]></fieldDescription>
-		</field>
-		<field name="comment" class="java.lang.String">
-			<fieldDescription><![CDATA[comment]]></fieldDescription>
-		</field>
 		<field name="name" class="java.lang.String">
-			<fieldDescription><![CDATA[name]]></fieldDescription>
+			<fieldDescription><![CDATA[container/name]]></fieldDescription>
 		</field>
+		<sortField name="started-at" order="Descending"/>
 	</subDataset>
 	<parameter name="XML_DATA_DOCUMENT" class="java.lang.String" isForPrompting="false"/>
 	<parameter name="XML_URL" class="java.lang.String" isForPrompting="false"/>
@@ -152,20 +156,21 @@
 	<title>
 		<band height="392" splitType="Stretch">
 			<staticText>
-				<reportElement uuid="762330c6-a035-463c-be4a-d3d1f4e26fd6" style="Title" mode="Opaque" x="-21" y="25" width="596" height="41" backcolor="#2BA6CB"/>
+				<reportElement uuid="762330c6-a035-463c-be4a-d3d1f4e26fd6" style="Title" mode="Opaque" x="-21" y="25" width="596" height="41" backcolor="#688ED8"/>
 				<textElement verticalAlignment="Middle">
 					<font pdfFontName="Times-Roman"/>
 				</textElement>
 				<text><![CDATA[]]></text>
 			</staticText>
 			<image onErrorType="Blank">
-				<reportElement uuid="4df9e3cd-892d-4f2b-8e67-0a7136aed9af" x="415" y="0" width="140" height="97" isRemoveLineWhenBlank="true"/>
-				<imageExpression><![CDATA["/home/djoulin/ekylibre/private/animals/pictures/000/000/0"+$F{id}+"/identity.jpg"
-]]></imageExpression>
+				<reportElement uuid="4df9e3cd-892d-4f2b-8e67-0a7136aed9af" x="415" y="0" width="140" height="97" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$F{picture-file-name} != ""]]></printWhenExpression>
+				</reportElement>
+				<imageExpression><![CDATA["/home/djoulin/ekylibre/private/animals/pictures/000/000/"+$F{id}+"/identity.jpg"]]></imageExpression>
 			</image>
 			<rectangle radius="2">
-				<reportElement uuid="7295b3a4-1715-4584-b262-75754d9b3f4d" mode="Transparent" x="415" y="0" width="129" height="97" forecolor="#2BA6CB">
-					<printWhenExpression><![CDATA[$F{picture-file-name} != null]]></printWhenExpression>
+				<reportElement uuid="7295b3a4-1715-4584-b262-75754d9b3f4d" mode="Transparent" x="415" y="0" width="129" height="97" forecolor="#688ED8">
+					<printWhenExpression><![CDATA[$F{picture-file-name} != ""]]></printWhenExpression>
 				</reportElement>
 				<graphicElement>
 					<pen lineWidth="2.0"/>
@@ -179,7 +184,7 @@
 				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
 			</textField>
 			<rectangle radius="2">
-				<reportElement uuid="7295b3a4-1715-4584-b262-75754d9b3f4d" mode="Transparent" x="0" y="155" width="555" height="88" forecolor="#CAC0B5"/>
+				<reportElement uuid="7295b3a4-1715-4584-b262-75754d9b3f4d" mode="Transparent" x="0" y="155" width="555" height="88" forecolor="#688ED8"/>
 				<graphicElement>
 					<pen lineWidth="2.0"/>
 				</graphicElement>
@@ -242,7 +247,7 @@
 				</graphicElement>
 			</line>
 			<line>
-				<reportElement uuid="2f979903-ad88-477d-8c05-2180b503c2e7" x="141" y="66" width="1" height="89" forecolor="#CAC0B5"/>
+				<reportElement uuid="2f979903-ad88-477d-8c05-2180b503c2e7" x="141" y="66" width="1" height="89" forecolor="#688ED8"/>
 				<graphicElement>
 					<pen lineWidth="2.0"/>
 				</graphicElement>
@@ -260,14 +265,14 @@
 				<textFieldExpression><![CDATA[$F{work-number}]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
-				<reportElement uuid="affdffdc-32dd-48d1-a280-349fec173194" x="353" y="74" width="62" height="29"/>
+				<reportElement uuid="affdffdc-32dd-48d1-a280-349fec173194" x="353" y="74" width="62" height="31"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="DejaVu Sans"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{born-at}]]></textFieldExpression>
 			</textField>
 			<line>
-				<reportElement uuid="2f979903-ad88-477d-8c05-2180b503c2e7" x="261" y="66" width="1" height="89" forecolor="#CAC0B5"/>
+				<reportElement uuid="2f979903-ad88-477d-8c05-2180b503c2e7" x="261" y="66" width="1" height="89" forecolor="#688ED8"/>
 				<graphicElement>
 					<pen lineWidth="2.0"/>
 				</graphicElement>
@@ -301,7 +306,7 @@
 			<componentElement>
 				<reportElement uuid="d009cdcc-2b4b-4055-b813-0d5aab74f1a6" key="table 1" style="table 1" x="0" y="252" width="555" height="140"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
-					<datasetRun subDataset="events" uuid="b31d0ef5-a78b-4761-a1cb-aee158443129">
+					<datasetRun subDataset="localizations" uuid="b31d0ef5-a78b-4761-a1cb-aee158443129">
 						<parametersMapExpression><![CDATA[$P{REPORT_PARAMETERS_MAP}]]></parametersMapExpression>
 						<datasetParameter name="XML_DATE_PATTERN">
 							<datasetParameterExpression><![CDATA[$P{XML_DATE_PATTERN}]]></datasetParameterExpression>
@@ -321,7 +326,7 @@
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font fontName="DejaVu Sans" size="12"/>
 								</textElement>
-								<text><![CDATA[Evènements]]></text>
+								<text><![CDATA[Mouvements]]></text>
 							</staticText>
 						</jr:tableHeader>
 						<jr:column width="90" uuid="b5ab197d-14be-463d-8a56-78d87c6b2e04">
@@ -333,7 +338,7 @@
 									<textElement textAlignment="Center" verticalAlignment="Middle">
 										<font fontName="DejaVu Sans"/>
 									</textElement>
-									<text><![CDATA[nom]]></text>
+									<text><![CDATA[Lieu]]></text>
 								</staticText>
 							</jr:columnHeader>
 							<jr:columnFooter style="table 1_CH" height="0" rowSpan="1"/>
@@ -356,7 +361,7 @@
 									<textElement textAlignment="Center" verticalAlignment="Middle">
 										<font fontName="DejaVu Sans"/>
 									</textElement>
-									<text><![CDATA[date début]]></text>
+									<text><![CDATA[Arrivée le ]]></text>
 								</staticText>
 							</jr:columnHeader>
 							<jr:columnFooter style="table 1_CH" height="0" rowSpan="1"/>
@@ -379,17 +384,15 @@
 									<textElement textAlignment="Center" verticalAlignment="Middle">
 										<font fontName="DejaVu Sans"/>
 									</textElement>
-									<text><![CDATA[arrêté le]]></text>
+									<text><![CDATA[Cause arrivée]]></text>
 								</staticText>
 							</jr:columnHeader>
 							<jr:columnFooter style="table 1_CH" height="0" rowSpan="1"/>
 							<jr:detailCell style="table 1_TD" height="30" rowSpan="1">
-								<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
-									<reportElement uuid="52608f16-5c71-4a31-85e0-af556a19dffe" x="0" y="0" width="90" height="30"/>
-									<textElement textAlignment="Center" verticalAlignment="Middle">
-										<font fontName="DejaVu Sans"/>
-									</textElement>
-									<textFieldExpression><![CDATA[$F{stopped-at}]]></textFieldExpression>
+								<textField isBlankWhenNull="true">
+									<reportElement uuid="38d53015-a282-44e8-b778-5f04759536f5" x="0" y="0" width="90" height="30"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle"/>
+									<textFieldExpression><![CDATA[$F{arrival-cause}]]></textFieldExpression>
 								</textField>
 							</jr:detailCell>
 						</jr:column>
@@ -402,17 +405,15 @@
 									<textElement textAlignment="Center" verticalAlignment="Middle">
 										<font fontName="DejaVu Sans"/>
 									</textElement>
-									<text><![CDATA[fait le]]></text>
+									<text><![CDATA[Parti le]]></text>
 								</staticText>
 							</jr:columnHeader>
 							<jr:columnFooter style="table 1_CH" height="0" rowSpan="1"/>
 							<jr:detailCell style="table 1_TD" height="30" rowSpan="1">
 								<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
-									<reportElement uuid="7617bf67-0ae9-478d-aeae-9c1d0c0ffa5c" x="0" y="0" width="90" height="30"/>
-									<textElement textAlignment="Center" verticalAlignment="Middle">
-										<font fontName="DejaVu Sans"/>
-									</textElement>
-									<textFieldExpression><![CDATA[$F{moved-at}]]></textFieldExpression>
+									<reportElement uuid="52a1ba5c-a3b2-471d-9f36-590383ad2ead" x="0" y="0" width="90" height="30"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle"/>
+									<textFieldExpression><![CDATA[$F{stopped-at}]]></textFieldExpression>
 								</textField>
 							</jr:detailCell>
 						</jr:column>
@@ -425,17 +426,15 @@
 									<textElement textAlignment="Center" verticalAlignment="Middle">
 										<font fontName="DejaVu Sans"/>
 									</textElement>
-									<text><![CDATA[commentaire]]></text>
+									<text><![CDATA[Cause départ]]></text>
 								</staticText>
 							</jr:columnHeader>
 							<jr:columnFooter style="table 1_CH" height="0" rowSpan="1"/>
 							<jr:detailCell style="table 1_TD" height="30" rowSpan="1">
 								<textField isBlankWhenNull="true">
-									<reportElement uuid="f68bd9c2-a63f-4347-917c-71c41ed0fa9b" x="0" y="0" width="90" height="30"/>
-									<textElement textAlignment="Center" verticalAlignment="Middle">
-										<font fontName="DejaVu Sans"/>
-									</textElement>
-									<textFieldExpression><![CDATA[$F{comment}]]></textFieldExpression>
+									<reportElement uuid="d8f36323-0a7a-4644-af99-531d9abf1afe" x="0" y="0" width="90" height="30"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle"/>
+									<textFieldExpression><![CDATA[$F{departure-cause}]]></textFieldExpression>
 								</textField>
 							</jr:detailCell>
 						</jr:column>
@@ -448,23 +447,26 @@
 									<textElement textAlignment="Center" verticalAlignment="Middle">
 										<font fontName="DejaVu Sans"/>
 									</textElement>
-									<text><![CDATA[date prévue]]></text>
+									<text><![CDATA[Type]]></text>
 								</staticText>
 							</jr:columnHeader>
 							<jr:columnFooter style="table 1_CH" height="0" rowSpan="1"/>
 							<jr:detailCell style="table 1_TD" height="30" rowSpan="1">
-								<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
-									<reportElement uuid="8f939c88-d189-4530-b5f6-5e36d756147c" x="0" y="0" width="104" height="30"/>
-									<textElement textAlignment="Center" verticalAlignment="Middle">
-										<font fontName="DejaVu Sans"/>
-									</textElement>
-									<textFieldExpression><![CDATA[$F{planned-at}]]></textFieldExpression>
+								<textField isBlankWhenNull="true">
+									<reportElement uuid="42b622c2-15a7-4712-977a-3a672d54f148" x="0" y="0" width="104" height="30"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle"/>
+									<textFieldExpression><![CDATA[$F{nature}]]></textFieldExpression>
 								</textField>
 							</jr:detailCell>
 						</jr:column>
 					</jr:columnGroup>
 				</jr:table>
 			</componentElement>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="c36f9b3c-99e9-40fc-86bb-13e31c08da7b" x="303" y="45" width="112" height="20" forecolor="#FFFFFF"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{identification-number}]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 	<pageHeader>
@@ -482,7 +484,7 @@
 	<pageFooter>
 		<band height="25" splitType="Stretch">
 			<frame>
-				<reportElement uuid="0475879f-e40d-46ef-bcee-450e0a1fc247" mode="Opaque" x="-21" y="1" width="596" height="24" forecolor="#7F4D15" backcolor="#2BA6CB"/>
+				<reportElement uuid="0475879f-e40d-46ef-bcee-450e0a1fc247" mode="Opaque" x="-21" y="1" width="596" height="24" forecolor="#7F4D15" backcolor="#688ED8"/>
 				<textField pattern="dd/MM/yyyy HH.mm.ss">
 					<reportElement uuid="2e0909fa-9d0c-4cd4-9e2f-2a8b1460d557" x="21" y="2" width="112" height="20" forecolor="#FFFFFF"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="animals_list" language="groovy" columnCount="2" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="401" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isTitleNewPage="true" whenResourceMissingType="Empty" uuid="9c1f11b7-03dd-4803-9e1b-41b87b9d23c0">
-	<property name="ireport.zoom" value="1.2100000000000009"/>
+	<property name="ireport.zoom" value="1.0000000000000009"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<style name="Title" fontName="DejaVu Sans" fontSize="30" isBold="true" pdfFontName="Times-Bold"/>
@@ -118,21 +118,21 @@
 	<title>
 		<band height="119" splitType="Stretch">
 			<staticText>
-				<reportElement uuid="762330c6-a035-463c-be4a-d3d1f4e26fd6" style="Title" mode="Opaque" x="-21" y="1" width="843" height="41" forecolor="#FFFFFF" backcolor="#2BA6CB"/>
+				<reportElement uuid="762330c6-a035-463c-be4a-d3d1f4e26fd6" style="Title" mode="Opaque" x="-21" y="1" width="843" height="41" forecolor="#FFFFFF" backcolor="#688ED8"/>
 				<textElement verticalAlignment="Middle">
 					<font pdfFontName="Times-Roman"/>
 				</textElement>
 				<text><![CDATA[   Carnet de naissance]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="b004bfbd-c2d8-47f0-9929-ae1d9a6fd03b" style="SubTitle" x="702" y="54" width="100" height="24"/>
+				<reportElement uuid="b004bfbd-c2d8-47f0-9929-ae1d9a6fd03b" style="SubTitle" x="702" y="54" width="100" height="24" forecolor="#688ED8"/>
 				<textElement textAlignment="Center">
 					<font fontName="Times New Roman" pdfFontName="Times-Roman"/>
 				</textElement>
 				<text><![CDATA[Production]]></text>
 			</staticText>
 			<rectangle radius="2">
-				<reportElement uuid="7295b3a4-1715-4584-b262-75754d9b3f4d" mode="Transparent" x="702" y="-12" width="100" height="90" forecolor="#7F4D15"/>
+				<reportElement uuid="7295b3a4-1715-4584-b262-75754d9b3f4d" mode="Transparent" x="702" y="-12" width="100" height="90" forecolor="#688ED8"/>
 				<graphicElement>
 					<pen lineWidth="2.0"/>
 				</graphicElement>
@@ -272,7 +272,7 @@
 	<pageFooter>
 		<band height="25" splitType="Stretch">
 			<frame>
-				<reportElement uuid="0475879f-e40d-46ef-bcee-450e0a1fc247" mode="Opaque" x="-21" y="1" width="843" height="24" forecolor="#7F4D15" backcolor="#2BA6CB"/>
+				<reportElement uuid="0475879f-e40d-46ef-bcee-450e0a1fc247" mode="Opaque" x="-21" y="1" width="843" height="24" forecolor="#7F4D15" backcolor="#688ED8"/>
 				<textField evaluationTime="Report">
 					<reportElement uuid="0ad0e100-57e9-4de5-936d-5476fbfc5309" style="Column header" x="783" y="1" width="40" height="20" forecolor="#FFFFFF"/>
 					<textElement verticalAlignment="Middle">
@@ -424,24 +424,24 @@
 				</crosstabCell>
 			</crosstab>
 			<staticText>
-				<reportElement uuid="b004bfbd-c2d8-47f0-9929-ae1d9a6fd03b" style="SubTitle" x="2" y="35" width="229" height="24"/>
+				<reportElement uuid="b004bfbd-c2d8-47f0-9929-ae1d9a6fd03b" style="SubTitle" x="2" y="35" width="229" height="24" forecolor="#688ED8"/>
 				<textElement textAlignment="Center">
 					<font fontName="Times New Roman" pdfFontName="Times-Roman"/>
 				</textElement>
 				<text><![CDATA[Naissance / sexe / an]]></text>
 			</staticText>
 			<line>
-				<reportElement uuid="5abae6f2-281f-493a-b567-f347b80e42b3" x="231" y="45" width="591" height="1" forecolor="#7F4D15"/>
+				<reportElement uuid="5abae6f2-281f-493a-b567-f347b80e42b3" x="231" y="45" width="591" height="1" forecolor="#688ED8"/>
 			</line>
 			<staticText>
-				<reportElement uuid="b004bfbd-c2d8-47f0-9929-ae1d9a6fd03b" style="SubTitle" positionType="Float" stretchType="RelativeToBandHeight" x="2" y="223" width="229" height="24"/>
+				<reportElement uuid="b004bfbd-c2d8-47f0-9929-ae1d9a6fd03b" style="SubTitle" positionType="Float" stretchType="RelativeToBandHeight" x="2" y="223" width="229" height="24" forecolor="#688ED8"/>
 				<textElement textAlignment="Center">
 					<font fontName="Times New Roman" pdfFontName="Times-Roman"/>
 				</textElement>
 				<text><![CDATA[Naissance / race / an]]></text>
 			</staticText>
 			<line>
-				<reportElement uuid="5abae6f2-281f-493a-b567-f347b80e42b3" positionType="Float" stretchType="RelativeToBandHeight" x="231" y="234" width="591" height="1" forecolor="#7F4D15"/>
+				<reportElement uuid="5abae6f2-281f-493a-b567-f347b80e42b3" positionType="Float" stretchType="RelativeToBandHeight" mode="Opaque" x="231" y="234" width="591" height="1" forecolor="#688ED8"/>
 			</line>
 			<stackedBarChart>
 				<chart>
