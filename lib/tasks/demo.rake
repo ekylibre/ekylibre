@@ -243,6 +243,26 @@ namespace :db do
       sale_item1 = SaleItem.create!(:quantity => '5.0000', :tax_id => taxe_prix_nature_ble.id, :unit_id => unit_v.id, :price_id => prix_nature_ble.id, :product_id => ble.id, :sale_id => sale.id)
       sale_item2 = SaleItem.create!(:quantity => '15.0000', :tax_id => taxe_prix_nature_ble.id, :unit_id => unit_v.id, :price_id => prix_nature_ble.id, :product_id => ble.id, :sale_id => sale.id)
 
+      #import Coop Order
+      #@ To finish with two level (orders and orders_lines)
+      # 
+      file = Rails.root.join("test", "fixtures", "files", "coop-appro.csv")
+      CSV.foreach(file, :encoding => "CP1252", :col_sep => ";", :headers => true) do |row|
+        next if row[8] == "Supprimé"
+        r = OpenStruct.new(:order_number => row[0],
+                           :ordered_on => row[1],
+                           :variety_group => row[2],
+                           :variety => row[3],
+                           :product_name => row[4],
+                           :product_order_quantity => row[5],
+                           :product_deliver_quantity => row[6],
+                           :product_unit_price => row[7],
+                           :order_status => row[8]
+                           )
+       
+        print "o"
+      end
+
       puts "!"
     end
   end
