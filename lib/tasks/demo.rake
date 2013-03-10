@@ -243,22 +243,46 @@ namespace :db do
       sale_item1 = SaleItem.create!(:quantity => '5.0000', :tax_id => taxe_prix_nature_ble.id, :unit_id => unit_v.id, :price_id => prix_nature_ble.id, :product_id => ble.id, :sale_id => sale.id)
       sale_item2 = SaleItem.create!(:quantity => '15.0000', :tax_id => taxe_prix_nature_ble.id, :unit_id => unit_v.id, :price_id => prix_nature_ble.id, :product_id => ble.id, :sale_id => sale.id)
 
-      #import Coop Order
-      #@ To finish with two level (orders and orders_lines)
+      #import Coop Order to make automatic purchase
+      #@ To finish with two level (purchases and purchases_lines)
       # 
+      # set the coop
+      coop = Entity.find_by_name("Kazeni")
+      # add a Coop purchase_nature
+      purchase_nature = PurchaseNature.find_by_name("Coop")
+      purchase_nature ||= PurchaseNature.create!(:name => "Coop", :currency => "EUR")
+      # status to map
+      # 2 = purchase & incoming delivery with status received
+      # 1 = purchase waiting for incoming delivery
+      # 0 = purchase with canceled status
+      status = {
+        "Liquidé" => "2",
+        "A Livrer" => "1",
+        "Supprimé" => "0"
+      }
+      
       file = Rails.root.join("test", "fixtures", "files", "coop-appro.csv")
       CSV.foreach(file, :encoding => "CP1252", :col_sep => ";", :headers => true) do |row|
         next if row[8] == "Supprimé"
-        r = OpenStruct.new(:order_number => row[0],
-                           :ordered_on => row[1],
+        r = OpenStruct.new(:order_number => Purchase.find_by_reference_number(row[0]) || Purchase.create!(:nature_id => purchase_nature.id, :reference_number => row[0], :supplier_id => coop.id, :created_on => Date.civil(*row[1].to_s.split(/\//).reverse.map(&:to_i))),
+                           :ordered_on => Date.civil(*row[1].to_s.split(/\//).reverse.map(&:to_i)),
                            :variety_group => row[2],
                            :variety => row[3],
                            :product_name => row[4],
                            :product_order_quantity => row[5],
                            :product_deliver_quantity => row[6],
                            :product_unit_price => row[7],
-                           :order_status => row[8]
+                           :order_status => status[row[8]]
                            )
+        
+        # create a product_nature_price if not exist
+             
+        # create a purchase_item
+        
+        # create an incoming_delivery if status => 2
+        
+        # create an incoming_delivery_item if status => 2
+       
        
         print "o"
       end
