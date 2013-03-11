@@ -79,13 +79,13 @@ class Backend::AnimalsController < BackendController
         session[:current_animal_id] = @animal.id
         t3e @animal, :nature_name => @animal.nature_name
       end
-      format.xml {render xml: @animal, :include => [:father, :mother, :nature,:variety,
-         :memberships,:indicators,:operations,
-         :product_localizations => {:include => [:container]}
+      format.xml {render xml: @animal, :include => [:father, :mother, :nature,:variety,:indicators,:operations,
+         {:memberships => :group},
+         {:product_localizations => :container}
           ]}
-      format.pdf {respond_with @animal, :include => [:father, :mother, :nature, :variety,
-         :memberships,:indicators,:operations,
-         :product_localizations => {:include => [:container]}
+      format.pdf {respond_with @animal, :include => [:father, :mother, :nature, :variety,:indicators,:operations,
+         {:memberships => :group},
+         {:product_localizations => :container}
           ]}
     end
   end

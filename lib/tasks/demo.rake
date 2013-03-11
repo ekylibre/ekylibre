@@ -247,38 +247,49 @@ namespace :db do
       #@ To finish with two level (purchases and purchases_lines)
       # 
       # set the coop
-      coop = Entity.find_by_name("Kazeni")
+      coop = Entity.find_by_full_name("Kazeni")
+      unit_u = Unit.find_by_name("u")
       # add a Coop purchase_nature
       purchase_nature = PurchaseNature.find_by_name("Coop")
       purchase_nature ||= PurchaseNature.create!(:name => "Coop", :currency => "EUR")
+      # Asset Code
+      charge_account_nature_coop = Account.find_by_number("6021")
+      stock_account_nature_coop = Account.find_by_number("321")
       # status to map
-      # 2 = purchase & incoming delivery with status received
-      # 1 = purchase waiting for incoming delivery
-      # 0 = purchase with canceled status
       status = {
-        "Liquidé" => "2",
-        "A Livrer" => "1",
-        "Supprimé" => "0"
+        "Liquidé" => :order,
+        "A livrer" => :estimate,
+        "Supprimé" => :aborted
       }
       
       file = Rails.root.join("test", "fixtures", "files", "coop-appro.csv")
-      CSV.foreach(file, :encoding => "CP1252", :col_sep => ";", :headers => true) do |row|
-        next if row[8] == "Supprimé"
-        r = OpenStruct.new(:order_number => Purchase.find_by_reference_number(row[0]) || Purchase.create!(:nature_id => purchase_nature.id, :reference_number => row[0], :supplier_id => coop.id, :created_on => Date.civil(*row[1].to_s.split(/\//).reverse.map(&:to_i))),
+      CSV.foreach(file, :encoding => "UTF-8", :col_sep => ";", :headers => true) do |row|
+        r = OpenStruct.new(:order_number => row[0],
                            :ordered_on => Date.civil(*row[1].to_s.split(/\//).reverse.map(&:to_i)),
-                           :variety_group => row[2],
-                           :variety => row[3],
-                           :product_name => row[4],
-                           :product_order_quantity => row[5],
-                           :product_deliver_quantity => row[6],
-                           :product_unit_price => row[7],
-                           :order_status => status[row[8]]
+                           :product_nature_category => ProductNatureCategory.find_by_name(row[2]) || ProductNatureCategory.create!(:catalog_name => row[2], :name => row[2], :published => true ) ,
+                           :product_nature_name => row[3],
+                           :matter_name => row[4],
+                           :product_order_quantity => row[5].to_d,
+                           :product_deliver_quantity => row[6].to_d,
+                           :product_unit_price => row[7].to_d,
+                           :order_status => (status[row[8]] || :draft)
                            )
-        
+        # create a purchase if not exist
+        purchase_order = Purchase.find_by_reference_number(r.order_number)
+        purchase_order ||= Purchase.create!(:state => r.order_status,:currency => "EUR", :nature_id => purchase_nature.id, :reference_number => r.order_number, :supplier_id => coop.id, :planned_on => r.ordered_on,:created_on => r.ordered_on)
+        taxe_prix_nature_appro = Tax.find_by_amount('19.6000')
+        # create a product_nature if not exist
+        product_nature_order = ProductNature.find_by_name(r.product_nature_name) 
+        product_nature_order ||= ProductNature.create!(:stock_account_id => stock_account_nature_coop.id,:charge_account_id => charge_account_nature_coop.id,:name => r.product_nature_name, :number => r.product_nature_name, :alive => false, :saleable => false, :purchasable => true, :active => true, :storable => true, :variety_id => b.id, :unit_id => unit_u.id, :category_id => r.product_nature_category.id)
+        # create a product (Matter) if not exist
+        product_order = Matter.find_by_name(r.matter_name) 
+        product_order ||= Matter.create!(:name => r.matter_name, :identification_number => r.matter_name, :work_number => r.matter_name, :born_at => Time.now, :nature_id => product_nature_order.id, :number => r.matter_name, :owner_id => Entity.of_company.id)
         # create a product_nature_price if not exist
-             
-        # create a purchase_item
-        
+        product_order_price = ProductNaturePrice.find_by_product_nature_id_and_supplier_id_and_pretax_amount(product_nature_order.id,coop.id,r.product_unit_price)
+        product_order_price ||= ProductNaturePrice.create!(:amount => ((r.product_unit_price*(taxe_prix_nature_appro.amount/100))+r.product_unit_price), :currency => "EUR", :pretax_amount => r.product_unit_price, :product_nature_id => product_nature_order.id, :tax_id => taxe_prix_nature_appro.id, :category_id => entitycat.id, :supplier_id => coop.id )
+        # create a purchase_item if not exist
+        purchase_order_item = PurchaseItem.find_by_product_id_and_purchase_id_and_price_id(product_order.id,purchase_order.id,product_order_price.id)  
+        purchase_order_item ||= PurchaseItem.create!(:quantity => r.product_order_quantity, :unit_id => unit_u.id, :price_id => product_order_price.id, :product_id => product_order.id, :purchase_id => purchase_order.id)
         # create an incoming_delivery if status => 2
         
         # create an incoming_delivery_item if status => 2
