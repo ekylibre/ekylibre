@@ -29,7 +29,7 @@ module Backend::JournalsHelper
     for mode in controller.journal_views
       code << content_tag(:dd, link_to(content_tag(:i) + " " + h(tc("journal_view.#{mode}")), params.merge(:view => mode)), (@journal_view == mode ? {:class => :active} : nil))
     end
-    return content_tag(:dl, code, :class => "journal-views")
+    return content_tag(:dl, code, :id => "journal-views")
   end
 
   # Create a widget with all the possible periods

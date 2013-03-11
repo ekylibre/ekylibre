@@ -160,10 +160,12 @@ html.authentication {
 
 #major-accounts {
   @include tab-pills;
+  margin: 0 $default-gap $default-gap;
 }
 
-#journals {
+#journals-nav {
   @include tab-pills;
+  margin: 0 $default-gap $default-gap;
   dd {
     a {
       &.special i {
@@ -177,8 +179,9 @@ html.authentication {
   }
 }
 
-.journal-views {
+#journal-views {
   @include tab-pills;
+  margin: 0 $default-gap $default-gap;
   dd i {
     @include is-icon;
     @include use-icon(eye-open);
@@ -674,7 +677,7 @@ span.rad, label.radio {
 
 .kujaku {
   color: #580;
-  margin: 0 0 $default-gap 0;
+  margin: 0 $default-gap $default-gap;
   padding: $default-gap;
   background: $neutral-background;
   @include border-radius($default-border-radius);

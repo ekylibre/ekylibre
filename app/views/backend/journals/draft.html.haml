@@ -1,19 +1,11 @@
-=form_tag(nil, {:class=>"vbox flex", :style=>'overflow:none'}) do
-  .fields.flex
-    =journals_tag
-    .search
-      %table
-        %tr
-          %td.crit
-            %label{:for=>"search"}=tc(:search)
-            =text_field_tag("q", params[:q], :id=>:search)
-          %td.submit{:rowspan=>4}=submit_tag tg(:search_go), :name=>nil
-        %tr
-          %td.crit=journal_period_crit
-        %tr
-          %td.crit=journals_crit
+=journals_tag
 
+=form_tag do
+  =form_fields do
+    =kujaku({}, :popover => false, :form => false) do |k|
+      -k.text :search
+      -k.crit :journal_period
+      -k.crit :journals
     =list(:draft_items)
-    .end
-  .actions
-    =submit_tag(tc(:validate_selected_entries), "data-confirm" => tg(:are_you_sure), :name=>:validate)
+  =form_actions do
+    =submit_tag(tc(:validate_selected_entries), "data-confirm" => tg(:are_you_sure), :name => :validate)

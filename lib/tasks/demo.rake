@@ -245,7 +245,7 @@ namespace :db do
 
       #import Coop Order
       #@ To finish with two level (orders and orders_lines)
-      # 
+      #
       file = Rails.root.join("test", "fixtures", "files", "coop-appro.csv")
       CSV.foreach(file, :encoding => "CP1252", :col_sep => ";", :headers => true) do |row|
         next if row[8] == "Supprimé"
@@ -259,7 +259,7 @@ namespace :db do
                            :product_unit_price => row[7],
                            :order_status => row[8]
                            )
-       
+
         print "o"
       end
 

@@ -920,7 +920,8 @@ module ApplicationHelper
     end
     # TODO: Add link to unhide hidden criteria
     launch = button_tag(content_tag(:i) + h(tl(:search_go)), 'data-disable-with' => tg(:please_wait), :name => nil)
-    tag = form_tag(url_options, :method => :get) { content_tag(:div, launch, :class => :submit) + content_tag(:div, crits, :class => :crits) }
+    tag = content_tag(:div, launch, :class => :submit) + content_tag(:div, crits, :class => :crits)
+    tag = form_tag(url_options, :method => :get) { tag } unless options[:form].is_a?(FalseClass)
     id = Time.now.to_i.to_s(36)+(10000*rand).to_i.to_s(36)
 
     if options[:popover].is_a?(FalseClass)
@@ -1246,6 +1247,10 @@ module ApplicationHelper
 
   def form_actions(&block)
     return content_tag(:div, capture(&block), :class => "form-actions")
+  end
+
+  def form_fields(&block)
+    return content_tag(:div, capture(&block), :class => "form-fields")
   end
 
 
