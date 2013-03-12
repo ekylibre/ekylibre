@@ -167,14 +167,12 @@ html.authentication {
   @include tab-pills;
   margin: 0 $default-gap $default-gap;
   dd {
-    a {
-      &.special i {
-        color: $important-color;
-      }
-      i {
-        @include is-icon;
-        @include use-icon(book);
-      }
+    a i {
+      @include is-icon;
+      @include use-icon(book);
+    }
+    &.special a i {
+      color: $important-color;
     }
   }
 }

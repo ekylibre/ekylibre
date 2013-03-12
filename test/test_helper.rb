@@ -3,6 +3,8 @@ ENV["RAILS_ENV"] = "test"
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 require 'capybara/rails'
+require 'coveralls'
+Coveralls.wear!
 
 # Removes use of shoulda gem until bug is not fixed for Rails >= 1.9.3
 # Use specific file lib/shoulda/context/context.rb
