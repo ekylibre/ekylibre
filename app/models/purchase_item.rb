@@ -20,7 +20,7 @@
 #
 # == Table: purchase_items
 #
-#  account_id      :integer          not null
+#  account_id      :integer          
 #  amount          :decimal(19, 4)   default(0.0), not null
 #  annotation      :text
 #  created_at      :datetime         not null
@@ -44,8 +44,7 @@
 
 class PurchaseItem < Ekylibre::Record::Base
   acts_as_list :scope => :purchase
-  attr_accessible :annotation, :price_id, :product_id, :quantity, :tracking_serial, :unit_id
-  attr_readonly :purchase_id
+  attr_accessible :annotation, :price_id, :product_id, :quantity, :tracking_serial, :unit_id, :purchase_id
   belongs_to :account
   belongs_to :purchase
   belongs_to :price, :class_name => "ProductNaturePrice"
@@ -64,7 +63,7 @@ class PurchaseItem < Ekylibre::Record::Base
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :amount, :pretax_amount, :quantity, :allow_nil => true
   validates_length_of :tracking_serial, :allow_nil => true, :maximum => 255
-  validates_presence_of :account, :amount, :pretax_amount, :price, :product, :purchase, :quantity, :unit
+  validates_presence_of :amount, :pretax_amount, :price, :product, :purchase, :quantity, :unit
   #]VALIDATORS]
   validates_presence_of :pretax_amount, :price
   validates_uniqueness_of :tracking_serial, :scope => :price_id, :allow_nil => true, :if => Proc.new{|pl| !pl.tracking_serial.blank? }
@@ -85,12 +84,13 @@ class PurchaseItem < Ekylibre::Record::Base
       self.pretax_amount = (self.price.pretax_amount*self.quantity).round(2)
       self.amount = (self.price.amount*self.quantity).round(2)
     end
-    if self.warehouse
-      if self.warehouse.reservoir && self.warehouse.product_id != self.product_id
-        check_reservoir = false
-        errors.add(:warehouse_id, :warehouse_can_not_receive_product, :warehouse => self.warehouse.name, :product => self.product.name, :contained_product => self.warehouse.product.name)
-      end
-    end
+    # @TODO : to change dixit Burisu
+    #if self.warehouse
+    # if self.warehouse.reservoir && self.warehouse.product_id != self.product_id
+    #    check_reservoir = false
+    #    errors.add(:warehouse_id, :warehouse_can_not_receive_product, :warehouse => self.warehouse.name, :product => self.product.name, :contained_product => self.warehouse.product.name)
+    #  end
+    #end
 
     self.tracking_serial = self.tracking_serial.to_s.strip
     unless self.tracking_serial.blank?
