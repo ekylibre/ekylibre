@@ -20,7 +20,7 @@
 #
 # == Table: purchase_items
 #
-#  account_id      :integer          
+#  account_id      :integer          not null
 #  amount          :decimal(19, 4)   default(0.0), not null
 #  annotation      :text
 #  created_at      :datetime         not null
@@ -63,7 +63,7 @@ class PurchaseItem < Ekylibre::Record::Base
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :amount, :pretax_amount, :quantity, :allow_nil => true
   validates_length_of :tracking_serial, :allow_nil => true, :maximum => 255
-  validates_presence_of :amount, :pretax_amount, :price, :product, :purchase, :quantity, :unit
+  validates_presence_of :account, :amount, :pretax_amount, :price, :product, :purchase, :quantity, :unit
   #]VALIDATORS]
   validates_presence_of :pretax_amount, :price
   validates_uniqueness_of :tracking_serial, :scope => :price_id, :allow_nil => true, :if => Proc.new{|pl| !pl.tracking_serial.blank? }

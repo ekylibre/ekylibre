@@ -1939,7 +1939,7 @@ ActiveRecord::Schema.define(:version => 20130216134641) do
     t.decimal  "pretax_amount",   :precision => 19, :scale => 4, :default => 0.0, :null => false
     t.decimal  "amount",          :precision => 19, :scale => 4, :default => 0.0, :null => false
     t.integer  "position"
-    t.integer  "account_id"
+    t.integer  "account_id",                                                      :null => false
     t.datetime "created_at",                                                      :null => false
     t.datetime "updated_at",                                                      :null => false
     t.integer  "creator_id"

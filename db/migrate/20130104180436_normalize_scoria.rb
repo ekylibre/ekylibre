@@ -85,6 +85,8 @@ class NormalizeScoria < ActiveRecord::Migration
 
     drop_table :product_components
 
+    change_column_null :purchase_lines, :account_id, false
+
     remove_column :professions, :rome
     change_column :professions, :commercial, :boolean, :null => false, :default => false
 
@@ -104,5 +106,7 @@ class NormalizeScoria < ActiveRecord::Migration
     add_column :products, :service_coeff, :decimal, :precision => 19, :scale => 4
     execute "UPDATE #{quoted_table_name(:products)} SET nature = 'subscrip' WHERE nature = 'subscription'"
     change_column :products, :nature, :string, :limit => 8
+
+    # TODO Reverse migration
   end
 end
