@@ -145,6 +145,7 @@ GEM
       tilt
     hashery (2.1.0)
     hike (1.2.1)
+    hpricot (0.8.6)
     i18n (0.6.4)
     i18n-complements (0.0.7)
       i18n (>= 0.6)
@@ -172,6 +173,8 @@ GEM
     mime-types (1.21)
     multi_json (1.6.1)
     nokogiri (1.5.6)
+    ofx-parser (1.1.0)
+      hpricot (>= 0.6)
     oily_png (1.1.0)
       chunky_png (~> 1.2.7)
     orm_adapter (0.4.0)
@@ -364,6 +367,7 @@ DEPENDENCIES
   jquery-rails
   libxml-ruby
   nokogiri
+  ofx-parser
   oily_png
   paperclip
   pg

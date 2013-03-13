@@ -53,6 +53,7 @@ gem 'prawn', '~> 0.12.0'
 gem 'fastercsv'
 gem 'rgeo-shapefile'
 gem 'rubyzip', :require => 'zip/zip'
+gem 'ofx-parser'
 
 # Demo data
 gem 'ffaker'
