@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<work-natures xmlns="http://www.ekylibre.org/XML/2013/work-natures">
+  <work-nature code="soil_working">
+    <name xml:lang="fra">Travail du sol</name>
+    <name xml:lang="eng">Soil working</name>
+    <code nomenclature="Nomen" value=""/>
+    <description xml:lang="fra" source="internal">Ensembles des outils et personnes utiles aux travaux du sol(labour,...)</description>
+  </work-nature>
+  <work-nature code="sowing">
+    <name xml:lang="fra">Semis</name>
+    <name xml:lang="eng">Sowing</name>
+    <code nomenclature="Nomen" value=""/>
+    <description xml:lang="fra" source="internal">Ensembles des outils et personnes utiles aux actions de semis</description>
+  </work-nature>
+  <work-nature code="mineral_fertilization">
+    <name xml:lang="fra">Fertilisation minérale</name>
+    <name xml:lang="eng">Mineral fertilization</name>
+    <code nomenclature="Nomen" value=""/>
+    <description xml:lang="fra" source="internal">Ensembles des outils et personnes utiles aux actions d'épandage d'engrais d'origines minérales</description>
+  </work-nature>
+  <work-nature code="organic_fertilization">
+    <name xml:lang="fra">Fertilisation organique</name>
+    <name xml:lang="eng">Organic fertilization</name>
+    <code nomenclature="Nomen" value=""/>
+    <description xml:lang="fra" source="internal">Ensembles des outils et personnes utiles aux actions d'épandage d'engrais d'origines organiques</description>
+  </work-nature>
+  <work-nature code="mechanical_weeding">
+    <name xml:lang="fra">Traitement mécanique</name>
+    <name xml:lang="eng">Mechanical weeding</name>
+    <code nomenclature="Nomen" value=""/>
+    <description xml:lang="fra" source="internal">Ensembles des outils et personnes utiles aux actions de traitements mécaniques et physiques des plantes</description>
+  </work-nature>
+  <work-nature code="chemical_weeding">
+    <name xml:lang="fra">Traitement chimique</name>
+    <name xml:lang="eng">Chemical weeding</name>
+    <code nomenclature="Nomen" value=""/>
+    <description xml:lang="fra" source="internal">Ensembles des outils et personnes utiles aux actions de traitements chimiques des plantes</description>
+  </work-nature>
+  <work-nature code="water">
+    <name xml:lang="fra">Irrigation</name>
+    <name xml:lang="eng">Water</name>
+    <code nomenclature="Nomen" value=""/>
+    <description xml:lang="fra" source="internal">Ensembles des outils et personnes utiles aux actions d'irrigations</description>
+  </work-nature>
+  <work-nature code="harvest">
+    <name xml:lang="fra">Recolte</name>
+    <name xml:lang="eng">Harvest</name>
+    <code nomenclature="Nomen" value=""/>
+    <description xml:lang="fra" source="internal">Ensembles des outils et personnes utiles aux actions de récoltes (moisson,fauchage,ensilage,...)</description>
+  </work-nature>
+  <work-nature code="press">
+    <name xml:lang="fra">Fenaisson</name>
+    <name xml:lang="eng">Press</name>
+    <code nomenclature="Nomen" value=""/>
+    <description xml:lang="fra" source="internal">Ensembles des outils et personnes utiles aux actions de transformation des récoltes au champ (andainage,bottelage,enrubanage,...)</description>
+  </work-nature>
+  <work-nature code="transport">
+    <name xml:lang="fra">Transport</name>
+    <name xml:lang="eng">Transport</name>
+    <code nomenclature="Nomen" value=""/>
+    <description xml:lang="fra" source="internal">Ensembles des outils et personnes utiles aux actions de transportation des récoltes</description>
+  </work-nature>
+  <work-nature code="storage">
+    <name xml:lang="fra">Stockage</name>
+    <name xml:lang="eng">Storage</name>
+    <code nomenclature="Nomen" value=""/>
+    <description xml:lang="fra" source="internal">Ensembles des outils et personnes utiles aux actions de stockage des récoltes</description>
+  </work-nature>
+</work-natures>
