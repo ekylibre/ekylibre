@@ -20,6 +20,11 @@
     <name xml:lang="eng">Plowing</name>
     <code nomenclature="Nomen" value="PLOWING"/>
   </operation-nature>
+  <operation-nature code="surperficial-plowing" target="matter" type="is-being-treat" categories="soil">
+    <name xml:lang="fra">Herser</name>
+    <name xml:lang="eng">Surperficial plowing</name>
+    <code nomenclature="Nomen" value="SUPERFICIAL-PLOWING"/>
+  </operation-nature>
   <operation-nature code="sowing" target="matter" type="is-being-treat" categories="soil">
     <name xml:lang="fra">Semer</name>
     <name xml:lang="eng">Sowing</name>

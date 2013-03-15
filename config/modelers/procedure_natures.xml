@@ -1,17 +1,18 @@
-<?xml version="1.0" encoding="UTF-8"?>
+?xml version="1.0" encoding="UTF-8"?>
 <procedure-natures xmlns="http://www.ekylibre.org/XML/2013/product-natures">
-  <procedure-nature code="annual_crop"  target-variety="organic-matter">
+  <procedure-nature code="annual_crop"  target-variety="organic-matter" target-product-type="landparcel">
     <name xml:lang="fra">Culture annuelle</name>
     <name xml:lang="eng">Annual crop</name>
     <code nomenclature="Nomen" value="C-A"/>
     <description xml:lang="fra" source="internal">Procédure modèle permettant de décrire les opérations successives pour cultiver une sole annuelle de produit végétaux</description>
-		<operation-nature code="fertilize" required="false" target-product-nature="land-parcel" target-pre-indicators-state="production::empty" working-set="organic_fertilization" intrants="organic-matter"/>
-		<operation-nature code="plowing" required="true" target-product-nature="land-parcel" target-pre-indicators-state="production::empty" working-set="soil-working" intrants=""/>
-	    <operation-nature code="sowing" required="true" target-product-nature="land-parcel" target-pre-indicators-state="production::empty" target-post-indicators-state="production::growth" working-set="sowing" intrants=""/>
-	
+		<operation-nature code="fertilize" required="false" target-product-nature="land-parcel" target-pre-indicators-state="production::empty" working-set="organic_fertilization" intrants-conditions="variety-code::organic-matter&&product-nature-code::manure"/>
+		<operation-nature code="plowing" required="true" target-product-nature="land-parcel" target-pre-indicators-state="production::empty" working-set="soil-working"/>
+	    <operation-nature code="surperficial-plowing" required="true" target-product-nature="land-parcel" target-pre-indicators-state="sowable::false" target-post-indicators-state="sowable::true" working-set="soil-working"/>
+	    <operation-nature code="sowing" required="true" target-product-nature="land-parcel" target-pre-indicators-state="production::empty" target-post-indicators-state="production::growth" working-set="sowing" intrants-conditions="variety-code::organic-matter&&product-nature-code::seed"/>
+		<operation-nature code="fertilize" required="true" target-product-nature="land-parcel" target-pre-indicators-state="production::empty" target-post-indicators-state="production::growth" working-set="sowing" intrants-conditions="variety-code::organic-matter&&product-nature-code::seed"/>
+
 	<operation-natures>
-		<operation-nature code="" step="0" required="false" work-nature="organic_fertilization" intrants="organic-matter*"/>
-		<operation-nature code="semis" step="1" work-nature="semis"/>
+
 	</operation-natures>
   </procedure-nature>
 </procedure-natures>
