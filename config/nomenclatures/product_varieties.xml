@@ -5,6 +5,11 @@
     <name xml:lang="eng">Product</name>
     <code nomenclature="Nomen" value="P"/>
   </variety>
+  <variety code="matter" parent="product" class="Matter">
+    <name xml:lang="fra">Matière</name>
+    <name xml:lang="eng">matter</name>
+    <code nomenclature="Nomen" value="P-M"/>
+  </variety>
   <variety code="bioproduct" parent="product" class="Bioproduct">
     <name xml:lang="fra">Produit vivant</name>
     <name xml:lang="eng">Living product</name>
@@ -44,5 +49,20 @@
     <name xml:lang="fra">Poule/Coq</name>
     <name xml:lang="eng">Chicken</name>
     <code nomenclature="Nomen" value="P-B-A-A-GALL"/>
+  </variety>
+  <variety code="vegetal" parent="bioproduct" class="Vegetal">
+    <name xml:lang="fra">Vegetal</name>
+    <name xml:lang="eng">Vegetal</name>
+    <code nomenclature="Nomen" value="P-B-V"/>
+  </variety>
+  <variety code="organic-matter" parent="matter" class="Matter">
+    <name xml:lang="fra">Matière organique</name>
+    <name xml:lang="eng">Organic matter</name>
+    <code nomenclature="Nomen" value="P-M-O"/>
+  </variety>
+  <variety code="mineral-matter" parent="matter" class="Matter">
+    <name xml:lang="fra">Matière minérale</name>
+    <name xml:lang="eng">Mineral matter</name>
+    <code nomenclature="Nomen" value="P-M-M"/>
   </variety>
 </varieties>
