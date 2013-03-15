@@ -5,8 +5,18 @@
     <name xml:lang="eng">Annual crop</name>
     <code nomenclature="Nomen" value="C-A"/>
     <description xml:lang="fra" source="internal">Procédure modèle permettant de décrire les opérations successives pour cultiver une sole annuelle de produit végétaux</description>
-		<operation-nature code="fertilize" required="false" target-product-nature="land-parcel" target-pre-indicators-state="production::empty" working-set="organic_fertilization" intrants-conditions="variety-code::organic-matter&&product-nature-code::manure"/>
-		<operation-nature code="plowing" required="true" target-product-nature="land-parcel" target-pre-indicators-state="production::empty" working-set="soil-working"/>
+	<parameters>
+    	<parameter code=[l1] type="landparcel" properties="producible" pre-indicators-state="production::empty" label="Parcelle"/>
+    	<parameter code=[m1] type="matter" nature="manure" properties="producible,divisible" variety="organic-matter" label="Fumier"/>
+    	<parameter type="place" name="hangar" properties="storage" label="Emplacement de la remorque"/>
+    	<parameter type="tool" name="remorque" properties="towable,storage,empty" label="Remorque"/>
+	</parameters>
+		<operation-nature code="fertilize" required="false" working-set="organic_fertilization">
+			<operation-task>[l1] consumes [m1]</operation-task>
+		</operation-nature>
+		<operation-nature code="plowing" required="true" working-set="soil-working">
+			<operation-task>[soil-working] acts-on [l1]</operation-task>
+		</operation-nature>	
 	    <operation-nature code="surperficial-plowing" required="true" target-product-nature="land-parcel" target-pre-indicators-state="sowable::false" target-post-indicators-state="sowable::true" working-set="soil-working"/>
 	    <operation-nature code="sowing" required="true" target-product-nature="land-parcel" target-pre-indicators-state="production::empty" target-post-indicators-state="production::growth" working-set="sowing" intrants-conditions="variety-code::organic-matter&&product-nature-code::seed"/>
 		<operation-nature code="fertilize" required="true" target-product-nature="land-parcel" target-pre-indicators-state="production::empty" target-post-indicators-state="production::growth" working-set="sowing" intrants-conditions="variety-code::organic-matter&&product-nature-code::seed"/>
