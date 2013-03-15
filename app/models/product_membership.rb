@@ -20,25 +20,26 @@
 #
 # == Table: product_memberships
 #
-#  created_at   :datetime         not null
-#  creator_id   :integer
-#  group_id     :integer          not null
-#  id           :integer          not null, primary key
-#  lock_version :integer          default(0), not null
-#  product_id   :integer          not null
-#  started_at   :datetime         not null
-#  stopped_at   :datetime
-#  updated_at   :datetime         not null
-#  updater_id   :integer
+#  created_at        :datetime         not null
+#  creator_id        :integer
+#  group_id          :integer          not null
+#  id                :integer          not null, primary key
+#  lock_version      :integer          default(0), not null
+#  member_id         :integer          not null
+#  operation_task_id :integer
+#  started_at        :datetime         not null
+#  stopped_at        :datetime
+#  updated_at        :datetime         not null
+#  updater_id        :integer
 #
 
 
 class ProductMembership < Ekylibre::Record::Base
-  attr_accessible :started_at, :stopped_at, :group_id, :product_id
+  attr_accessible :started_at, :stopped_at, :group_id, :member_id
   belongs_to :group, :class_name => "ProductGroup"
-  belongs_to :product, :class_name => "Product"
+  belongs_to :member, :class_name => "Product"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_presence_of :group, :product, :started_at
+  validates_presence_of :group, :member, :started_at
   #]VALIDATORS]
 
   validate do
@@ -47,7 +48,7 @@ class ProductMembership < Ekylibre::Record::Base
   end
 
   def similars
-    self.class.where(:group_id => self.group_id, :product_id => self.product_id)
+    self.class.where(:group_id => self.group_id, :member_id => self.member_id)
   end
 
 end

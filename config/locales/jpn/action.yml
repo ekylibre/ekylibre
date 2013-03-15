@@ -230,6 +230,8 @@ jpn:
     backend/observations:
       # edit: "Modifier une observation"
       # new: "Ajouter une observation"
+    backend/operation_natures: #?
+    backend/operation_tasks: #?
     backend/operations:
       # edit: "Modifier le travail"
       # index: "Travaux"
@@ -261,6 +263,9 @@ jpn:
       # new: "Nouvelle préférence"
       # show: "Préférence"
     backend/prices: #?
+    backend/procedure_natures: #?
+    backend/procedures: #?
+    backend/product_abilities: #?
     backend/product_groups:
       # edit: "Modifier le lot\_: %{name} "
       # index: "Lots de produits"
@@ -269,6 +274,7 @@ jpn:
     backend/product_indicator_nature_choices: #?
     backend/product_indicator_natures: #?
     backend/product_indicators: #?
+    backend/product_links: #?
     backend/product_localizations:
       # edit: "Modifier une localisation d'un produit"
       # index: "Tracabilité des produits"
@@ -439,6 +445,7 @@ jpn:
       # index: "Lieux de stockage"
       # new: "Ajout d’un lieu de stockage"
       # show: "Détail du lieu de stockage\_: %{name}"
+    backend/working_sets: #?
     public:
       # index: "Accueil"
   controllers:

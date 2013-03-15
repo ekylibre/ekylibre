@@ -1,0 +1,17 @@
+Description:
+    This generator provides a scaffold for Ekylibre
+
+Example:
+    rails generate backend_scaffold MyModel
+
+    This will create: 
+        route
+        app/models/my_model.rb
+        app/controllers/backend/my_models_controller.rb
+        app/view/backend/my_models/_form.html.haml
+        app/view/backend/my_models/index.html.haml
+        app/view/backend/my_models/show.html.haml
+        test/fixtures/my_models.yml
+        test/unit/my_model_test.rb
+        test/functionals/backend/my_models_controller_test.rb
+  

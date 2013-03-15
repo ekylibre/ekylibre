@@ -244,12 +244,22 @@ fra:
     backend/observations:
       edit: "Modifier une observation"
       new: "Ajouter une observation"
+    backend/operation_natures:
+      # edit: "Edit backend/operation nature"
+      # index: "Index backend/operation nature"
+      # new: "New backend/operation nature"
+      # show: "Show backend/operation nature"
+    backend/operation_tasks:
+      # edit: "Edit backend/operation task"
+      # index: "Index backend/operation task"
+      # new: "New backend/operation task"
+      # show: "Show backend/operation task"
     backend/operations:
       edit: "Modifier le travail"
       index: "Travaux"
       new: "Créer un nouveau travail"
       show: "Détails du travail"
-      unvalidateds: "Travaux non validés"
+      unvalidateds: "Travaux non validés" #?
     backend/outgoing_deliveries:
       edit: "Modifier la livraison sortante\_: %{number}"
       index: "Livraisons sortantes"
@@ -278,6 +288,21 @@ fra:
       index: "Préfénces"
       new: "Nouvelle préférence"
       show: "Préférence"
+    backend/procedure_natures:
+      # edit: "Edit backend/procedure nature"
+      # index: "Index backend/procedure nature"
+      # new: "New backend/procedure nature"
+      # show: "Show backend/procedure nature"
+    backend/procedures:
+      # edit: "Edit backend/procedure"
+      # index: "Index backend/procedure"
+      # new: "New backend/procedure"
+      # show: "Show backend/procedure"
+    backend/product_abilities:
+      # edit: "Edit backend/product ability"
+      # index: "Index backend/product ability"
+      # new: "New backend/product ability"
+      # show: "Show backend/product ability"
     backend/product_groups:
       edit: "Modifier le lot\_: %{name} "
       index: "Lots de produits"
@@ -296,6 +321,11 @@ fra:
       # index: "Index backend/product indicator"
       # new: "New backend/product indicator"
       # show: "Show backend/product indicator"
+    backend/product_links:
+      # edit: "Edit backend/product link"
+      # index: "Index backend/product link"
+      # new: "New backend/product link"
+      # show: "Show backend/product link"
     backend/product_localizations:
       edit: "Modifier une localisation d'un produit"
       index: "Tracabilité des produits"
@@ -477,6 +507,11 @@ fra:
       index: "Lieux de stockage"
       new: "Ajout d’un lieu de stockage"
       show: "Détail du lieu de stockage\_: %{name}"
+    backend/working_sets:
+      # edit: "Edit backend/working set"
+      # index: "Index backend/working set"
+      # new: "New backend/working set"
+      # show: "Show backend/working set"
     public:
       index: "Accueil"
   controllers:
@@ -542,7 +577,8 @@ fra:
     backend/mandates: "Responsabilités"
     backend/myselves: "Mon compte"
     backend/observations: "Observations"
-    # backend/operation_works: "Backend/operation works"
+    # backend/operation_natures: "Backend/operation natures"
+    # backend/operation_tasks: "Backend/operation tasks"
     backend/operations: "Travaux"
     backend/outgoing_deliveries: "Livraisons sortantes"
     backend/outgoing_delivery_items: "Lignes de livraisons sortantes"
@@ -551,10 +587,14 @@ fra:
     backend/outgoing_payments: "Décaissements"
     # backend/places: "Backend/places"
     backend/preferences: "Préférences"
+    # backend/procedure_natures: "Backend/procedure natures"
+    # backend/procedures: "Backend/procedures"
+    # backend/product_abilities: "Backend/product abilities"
     backend/product_groups: "Lot de produits"
     # backend/product_indicator_nature_choices: "Backend/product indicator nature choices"
     # backend/product_indicator_natures: "Backend/product indicator natures"
     # backend/product_indicators: "Backend/product indicators"
+    # backend/product_links: "Backend/product links"
     backend/product_localizations: "Tracabilité"
     # backend/product_memberships: "Backend/product memberships"
     backend/product_moves: "Mouvements de stock"
@@ -591,6 +631,7 @@ fra:
     backend/users: "Utilisateurs"
     # backend/vegetals: "Backend/vegetals"
     backend/warehouses: "Lieux de stockage"
+    # backend/working_sets: "Backend/working sets"
     # backend: "Backend"
     # base: "Base"
     # public: "Public"

@@ -20,38 +20,33 @@
 #
 # == Table: operations
 #
-#  confirmed        :boolean          not null
-#  created_at       :datetime         not null
-#  creator_id       :integer
-#  id               :integer          not null, primary key
-#  lock_version     :integer          default(0), not null
-#  nature           :string(255)      not null
-#  operand_id       :integer
-#  operand_quantity :decimal(19, 4)
-#  operand_unit_id  :integer
-#  started_at       :datetime         not null
-#  stopped_at       :datetime         not null
-#  target_id        :integer          not null
-#  updated_at       :datetime         not null
-#  updater_id       :integer
+#  created_at                      :datetime         not null
+#  creator_id                      :integer
+#  id                              :integer          not null, primary key
+#  lock_version                    :integer          default(0), not null
+#  nature_id                       :integer
+#  procedure_id                    :integer
+#  production_chain_work_center_id :integer
+#  started_at                      :datetime         not null
+#  stopped_at                      :datetime
+#  updated_at                      :datetime         not null
+#  updater_id                      :integer
 #
 
 
 class Operation < Ekylibre::Record::Base
-  attr_accessible :nature, :started_at, :stopped_at, :target_id
-  enumerize :nature, :in => [:move_to, :consume, :produce, :separate, :merge, :attach, :detach], :predicates => true
-  belongs_to :target, :class_name => "Product"
-  belongs_to :operand, :class_name => "Product"
-  has_many :works, :class_name => "OperationWork", :inverse_of => :operation
+  attr_accessible :nature_id, :started_at, :stopped_at, :target_id
+  # enumerize :nature, :in => [:move_to, :consume, :produce, :separate, :merge, :attach, :detach], :predicates => true
+  belongs_to :nature, :class_name => "OperationNature"
+  # belongs_to :target, :class_name => "Product"
+  # belongs_to :operand, :class_name => "Product"
+  # has_many :works, :class_name => "OperationWork", :inverse_of => :operation
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :operand_quantity, :allow_nil => true
-  validates_length_of :nature, :allow_nil => true, :maximum => 255
-  validates_inclusion_of :confirmed, :in => [true, false]
-  validates_presence_of :nature, :started_at, :stopped_at, :target
+  validates_presence_of :started_at
   #]VALIDATORS]
 
-  accepts_nested_attributes_for :works, :reject_if => :all_blank, :allow_destroy => true
+  # accepts_nested_attributes_for :works, :reject_if => :all_blank, :allow_destroy => true
 
   default_scope -> { order(:started_at) }
   scope :unvalidateds, -> { where(:confirmed => false) }

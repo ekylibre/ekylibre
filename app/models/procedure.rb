@@ -18,23 +18,23 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: operation_works
+# == Table: procedures
 #
 #  created_at   :datetime         not null
 #  creator_id   :integer
 #  id           :integer          not null, primary key
 #  lock_version :integer          default(0), not null
-#  nature       :string(255)      not null
-#  operation_id :integer          not null
+#  name         :string(255)      not null
+#  nature_id    :integer          not null
+#  parent_id    :integer
+#  started_at   :datetime
+#  stopped_at   :datetime
 #  updated_at   :datetime         not null
 #  updater_id   :integer
-#  worker_id    :integer          not null
 #
-class OperationWork < Ekylibre::Record::Base
-  belongs_to :operation, :inverse_of => :works
-  belongs_to :worker, :class_name => "Entity", :inverse_of => :operation_works
+class Procedure < Ekylibre::Record::Base
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_length_of :nature, :allow_nil => true, :maximum => 255
-  validates_presence_of :nature, :operation, :worker
+  validates_length_of :name, :allow_nil => true, :maximum => 255
+  validates_presence_of :name
   #]VALIDATORS]
 end

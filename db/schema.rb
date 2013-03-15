@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130216134641) do
+ActiveRecord::Schema.define(:version => 20130314131032) do
 
   create_table "account_balances", :force => true do |t|
     t.integer  "account_id",                                                        :null => false
@@ -1197,33 +1197,36 @@ ActiveRecord::Schema.define(:version => 20130216134641) do
   add_index "observations", ["updated_at"], :name => "index_observations_on_updated_at"
   add_index "observations", ["updater_id"], :name => "index_observations_on_updater_id"
 
-  create_table "operation_works", :force => true do |t|
-    t.integer  "operation_id",                :null => false
-    t.integer  "worker_id",                   :null => false
-    t.string   "nature",                      :null => false
-    t.datetime "created_at",                  :null => false
-    t.datetime "updated_at",                  :null => false
+  create_table "operation_natures", :force => true do |t|
+    t.string   "name",                          :null => false
+    t.text     "description"
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version", :default => 0, :null => false
+    t.integer  "lock_version",   :default => 0, :null => false
+    t.string   "nomen"
+    t.integer  "working_set_id"
   end
 
-  add_index "operation_works", ["created_at"], :name => "index_operation_works_on_created_at"
-  add_index "operation_works", ["creator_id"], :name => "index_operation_works_on_creator_id"
-  add_index "operation_works", ["operation_id"], :name => "index_operation_works_on_operation_id"
-  add_index "operation_works", ["updated_at"], :name => "index_operation_works_on_updated_at"
-  add_index "operation_works", ["updater_id"], :name => "index_operation_works_on_updater_id"
-  add_index "operation_works", ["worker_id"], :name => "index_operation_works_on_worker_id"
+  add_index "operation_natures", ["created_at"], :name => "index_operation_natures_on_created_at"
+  add_index "operation_natures", ["creator_id"], :name => "index_operation_natures_on_creator_id"
+  add_index "operation_natures", ["nomen"], :name => "index_operation_natures_on_nomen"
+  add_index "operation_natures", ["updated_at"], :name => "index_operation_natures_on_updated_at"
+  add_index "operation_natures", ["updater_id"], :name => "index_operation_natures_on_updater_id"
+  add_index "operation_natures", ["working_set_id"], :name => "index_operation_natures_on_working_set_id"
 
-  create_table "operations", :force => true do |t|
-    t.integer  "target_id",                                                          :null => false
-    t.string   "nature",                                                             :null => false
+  create_table "operation_tasks", :force => true do |t|
+    t.integer  "operation_id",                                                       :null => false
+    t.integer  "parent_id"
+    t.boolean  "detailled",                                       :default => false, :null => false
+    t.integer  "subject_id",                                                         :null => false
+    t.string   "verb",                                                               :null => false
+    t.string   "string",                                                             :null => false
     t.integer  "operand_id"
     t.integer  "operand_unit_id"
     t.decimal  "operand_quantity", :precision => 19, :scale => 4
-    t.datetime "started_at",                                                         :null => false
-    t.datetime "stopped_at",                                                         :null => false
-    t.boolean  "confirmed",                                       :default => false, :null => false
+    t.integer  "indicator_id"
     t.datetime "created_at",                                                         :null => false
     t.datetime "updated_at",                                                         :null => false
     t.integer  "creator_id"
@@ -1231,11 +1234,33 @@ ActiveRecord::Schema.define(:version => 20130216134641) do
     t.integer  "lock_version",                                    :default => 0,     :null => false
   end
 
+  add_index "operation_tasks", ["created_at"], :name => "index_operation_tasks_on_created_at"
+  add_index "operation_tasks", ["creator_id"], :name => "index_operation_tasks_on_creator_id"
+  add_index "operation_tasks", ["indicator_id"], :name => "index_operation_tasks_on_indicator_id"
+  add_index "operation_tasks", ["operand_id"], :name => "index_operation_tasks_on_operand_id"
+  add_index "operation_tasks", ["operand_unit_id"], :name => "index_operation_tasks_on_operand_unit_id"
+  add_index "operation_tasks", ["operation_id"], :name => "index_operation_tasks_on_operation_id"
+  add_index "operation_tasks", ["parent_id"], :name => "index_operation_tasks_on_parent_id"
+  add_index "operation_tasks", ["subject_id"], :name => "index_operation_tasks_on_subject_id"
+  add_index "operation_tasks", ["updated_at"], :name => "index_operation_tasks_on_updated_at"
+  add_index "operation_tasks", ["updater_id"], :name => "index_operation_tasks_on_updater_id"
+
+  create_table "operations", :force => true do |t|
+    t.integer  "nature_id"
+    t.datetime "started_at",                                     :null => false
+    t.datetime "stopped_at"
+    t.datetime "created_at",                                     :null => false
+    t.datetime "updated_at",                                     :null => false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version",                    :default => 0, :null => false
+    t.integer  "production_chain_work_center_id"
+    t.integer  "procedure_id"
+  end
+
   add_index "operations", ["created_at"], :name => "index_operations_on_created_at"
   add_index "operations", ["creator_id"], :name => "index_operations_on_creator_id"
-  add_index "operations", ["nature"], :name => "index_operations_on_nature"
-  add_index "operations", ["operand_id"], :name => "index_operations_on_operand_id"
-  add_index "operations", ["target_id"], :name => "index_operations_on_target_id"
+  add_index "operations", ["procedure_id"], :name => "index_operations_on_procedure_id"
   add_index "operations", ["updated_at"], :name => "index_operations_on_updated_at"
   add_index "operations", ["updater_id"], :name => "index_operations_on_updater_id"
 
@@ -1402,14 +1427,13 @@ ActiveRecord::Schema.define(:version => 20130216134641) do
   add_index "preferences", ["updater_id"], :name => "index_parameters_on_updater_id"
   add_index "preferences", ["user_id"], :name => "index_parameters_on_user_id"
 
-  create_table "product_groups", :force => true do |t|
+  create_table "procedure_natures", :force => true do |t|
     t.string   "name",                        :null => false
-    t.text     "description"
-    t.string   "color"
+    t.string   "nomen"
     t.integer  "parent_id"
     t.integer  "lft"
     t.integer  "rgt"
-    t.integer  "depth",        :default => 0, :null => false
+    t.integer  "depth"
     t.datetime "created_at",                  :null => false
     t.datetime "updated_at",                  :null => false
     t.integer  "creator_id"
@@ -1417,13 +1441,49 @@ ActiveRecord::Schema.define(:version => 20130216134641) do
     t.integer  "lock_version", :default => 0, :null => false
   end
 
-  add_index "product_groups", ["created_at"], :name => "index_product_groups_on_created_at"
-  add_index "product_groups", ["creator_id"], :name => "index_product_groups_on_creator_id"
-  add_index "product_groups", ["lft"], :name => "index_product_groups_on_lft"
-  add_index "product_groups", ["parent_id"], :name => "index_product_groups_on_parent_id"
-  add_index "product_groups", ["rgt"], :name => "index_product_groups_on_rgt"
-  add_index "product_groups", ["updated_at"], :name => "index_product_groups_on_updated_at"
-  add_index "product_groups", ["updater_id"], :name => "index_product_groups_on_updater_id"
+  add_index "procedure_natures", ["created_at"], :name => "index_procedure_natures_on_created_at"
+  add_index "procedure_natures", ["creator_id"], :name => "index_procedure_natures_on_creator_id"
+  add_index "procedure_natures", ["nomen"], :name => "index_procedure_natures_on_nomen"
+  add_index "procedure_natures", ["parent_id"], :name => "index_procedure_natures_on_parent_id"
+  add_index "procedure_natures", ["updated_at"], :name => "index_procedure_natures_on_updated_at"
+  add_index "procedure_natures", ["updater_id"], :name => "index_procedure_natures_on_updater_id"
+
+  create_table "procedures", :force => true do |t|
+    t.integer  "nature_id",                   :null => false
+    t.integer  "parent_id"
+    t.string   "name",                        :null => false
+    t.datetime "started_at"
+    t.datetime "stopped_at"
+    t.datetime "created_at",                  :null => false
+    t.datetime "updated_at",                  :null => false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version", :default => 0, :null => false
+  end
+
+  add_index "procedures", ["created_at"], :name => "index_procedures_on_created_at"
+  add_index "procedures", ["creator_id"], :name => "index_procedures_on_creator_id"
+  add_index "procedures", ["nature_id"], :name => "index_procedures_on_nature_id"
+  add_index "procedures", ["parent_id"], :name => "index_procedures_on_parent_id"
+  add_index "procedures", ["updated_at"], :name => "index_procedures_on_updated_at"
+  add_index "procedures", ["updater_id"], :name => "index_procedures_on_updater_id"
+
+  create_table "product_abilities", :force => true do |t|
+    t.integer  "product_id",                  :null => false
+    t.string   "name",                        :null => false
+    t.string   "nomen"
+    t.datetime "created_at",                  :null => false
+    t.datetime "updated_at",                  :null => false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version", :default => 0, :null => false
+  end
+
+  add_index "product_abilities", ["created_at"], :name => "index_product_abilities_on_created_at"
+  add_index "product_abilities", ["creator_id"], :name => "index_product_abilities_on_creator_id"
+  add_index "product_abilities", ["nomen"], :name => "index_product_abilities_on_nomen"
+  add_index "product_abilities", ["updated_at"], :name => "index_product_abilities_on_updated_at"
+  add_index "product_abilities", ["updater_id"], :name => "index_product_abilities_on_updater_id"
 
   create_table "product_indicator_nature_choices", :force => true do |t|
     t.integer  "nature_id",                   :null => false
@@ -1497,50 +1557,73 @@ ActiveRecord::Schema.define(:version => 20130216134641) do
   add_index "product_indicators", ["updated_at"], :name => "index_product_indicators_on_updated_at"
   add_index "product_indicators", ["updater_id"], :name => "index_product_indicators_on_updater_id"
 
+  create_table "product_links", :force => true do |t|
+    t.integer  "carrier_id",                       :null => false
+    t.integer  "carried_id",                       :null => false
+    t.datetime "started_at"
+    t.datetime "stopped_at"
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version",      :default => 0, :null => false
+    t.integer  "operation_task_id"
+  end
+
+  add_index "product_links", ["carried_id"], :name => "index_product_links_on_carried_id"
+  add_index "product_links", ["carrier_id"], :name => "index_product_links_on_carrier_id"
+  add_index "product_links", ["created_at"], :name => "index_product_links_on_created_at"
+  add_index "product_links", ["creator_id"], :name => "index_product_links_on_creator_id"
+  add_index "product_links", ["operation_task_id"], :name => "index_product_links_on_operation_task_id"
+  add_index "product_links", ["started_at"], :name => "index_product_links_on_started_at"
+  add_index "product_links", ["stopped_at"], :name => "index_product_links_on_stopped_at"
+  add_index "product_links", ["updated_at"], :name => "index_product_links_on_updated_at"
+  add_index "product_links", ["updater_id"], :name => "index_product_links_on_updater_id"
+
   create_table "product_localizations", :force => true do |t|
-    t.integer  "transfer_id"
-    t.integer  "operation_id"
-    t.integer  "product_id",                     :null => false
+    t.integer  "product_id",                       :null => false
     t.integer  "container_id"
     t.string   "arrival_cause"
     t.string   "departure_cause"
-    t.string   "nature",                         :null => false
+    t.string   "nature",                           :null => false
     t.datetime "started_at"
     t.datetime "stopped_at"
-    t.datetime "created_at",                     :null => false
-    t.datetime "updated_at",                     :null => false
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",    :default => 0, :null => false
+    t.integer  "lock_version",      :default => 0, :null => false
+    t.integer  "operation_task_id"
   end
 
   add_index "product_localizations", ["container_id"], :name => "index_product_localizations_on_container_id"
   add_index "product_localizations", ["created_at"], :name => "index_product_localizations_on_created_at"
   add_index "product_localizations", ["creator_id"], :name => "index_product_localizations_on_creator_id"
-  add_index "product_localizations", ["operation_id"], :name => "index_product_localizations_on_operation_id"
+  add_index "product_localizations", ["operation_task_id"], :name => "index_product_localizations_on_operation_task_id"
   add_index "product_localizations", ["product_id"], :name => "index_product_localizations_on_product_id"
   add_index "product_localizations", ["started_at"], :name => "index_product_localizations_on_started_at"
   add_index "product_localizations", ["stopped_at"], :name => "index_product_localizations_on_stopped_at"
-  add_index "product_localizations", ["transfer_id"], :name => "index_product_localizations_on_transfer_id"
   add_index "product_localizations", ["updated_at"], :name => "index_product_localizations_on_updated_at"
   add_index "product_localizations", ["updater_id"], :name => "index_product_localizations_on_updater_id"
 
   create_table "product_memberships", :force => true do |t|
-    t.integer  "product_id",                  :null => false
-    t.integer  "group_id",                    :null => false
-    t.datetime "started_at",                  :null => false
+    t.integer  "member_id",                        :null => false
+    t.integer  "group_id",                         :null => false
+    t.datetime "started_at",                       :null => false
     t.datetime "stopped_at"
-    t.datetime "created_at",                  :null => false
-    t.datetime "updated_at",                  :null => false
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version", :default => 0, :null => false
+    t.integer  "lock_version",      :default => 0, :null => false
+    t.integer  "operation_task_id"
   end
 
   add_index "product_memberships", ["created_at"], :name => "index_product_memberships_on_created_at"
   add_index "product_memberships", ["creator_id"], :name => "index_product_memberships_on_creator_id"
   add_index "product_memberships", ["group_id"], :name => "index_product_memberships_on_group_id"
-  add_index "product_memberships", ["product_id"], :name => "index_product_memberships_on_product_id"
+  add_index "product_memberships", ["member_id"], :name => "index_product_memberships_on_member_id"
+  add_index "product_memberships", ["operation_task_id"], :name => "index_product_memberships_on_operation_task_id"
   add_index "product_memberships", ["started_at"], :name => "index_product_memberships_on_started_at"
   add_index "product_memberships", ["stopped_at"], :name => "index_product_memberships_on_stopped_at"
   add_index "product_memberships", ["updated_at"], :name => "index_product_memberships_on_updated_at"
@@ -1855,7 +1938,6 @@ ActiveRecord::Schema.define(:version => 20130216134641) do
     t.integer  "nature_id",                                                                                                           :null => false
     t.integer  "unit_id",                                                                                                             :null => false
     t.integer  "tracking_id"
-    t.integer  "tractor_id"
     t.integer  "asset_id"
     t.integer  "current_place_id"
     t.datetime "born_at"
@@ -1884,7 +1966,7 @@ ActiveRecord::Schema.define(:version => 20130216134641) do
     t.integer  "content_nature_id"
     t.integer  "content_unit_id"
     t.decimal  "content_maximal_quantity",                                          :precision => 19, :scale => 4, :default => 0.0,   :null => false
-    t.integer  "parent_place_id"
+    t.integer  "parent_id"
     t.datetime "created_at",                                                                                                          :null => false
     t.datetime "updated_at",                                                                                                          :null => false
     t.integer  "creator_id"
@@ -1905,14 +1987,21 @@ ActiveRecord::Schema.define(:version => 20130216134641) do
   add_index "products", ["nature_id"], :name => "index_products_on_nature_id"
   add_index "products", ["number"], :name => "index_products_on_number", :unique => true
   add_index "products", ["owner_id"], :name => "index_products_on_owner_id"
-  add_index "products", ["parent_place_id"], :name => "index_products_on_parent_place_id"
+  add_index "products", ["parent_id"], :name => "index_products_on_parent_id"
   add_index "products", ["tracking_id"], :name => "index_products_on_tracking_id"
-  add_index "products", ["tractor_id"], :name => "index_products_on_tractor_id"
   add_index "products", ["type"], :name => "index_products_on_type"
   add_index "products", ["unit_id"], :name => "index_products_on_unit_id"
   add_index "products", ["updated_at"], :name => "index_products_on_updated_at"
   add_index "products", ["updater_id"], :name => "index_products_on_updater_id"
   add_index "products", ["variety_id"], :name => "index_products_on_variety_id"
+
+  create_table "products_working_sets", :id => false, :force => true do |t|
+    t.integer "product_id"
+    t.integer "working_set_id"
+  end
+
+  add_index "products_working_sets", ["product_id"], :name => "index_products_working_sets_on_product_id"
+  add_index "products_working_sets", ["working_set_id"], :name => "index_products_working_sets_on_working_set_id"
 
   create_table "professions", :force => true do |t|
     t.string   "name",                            :null => false
@@ -2461,5 +2550,21 @@ ActiveRecord::Schema.define(:version => 20130216134641) do
   add_index "users", ["unlock_token"], :name => "index_users_on_unlock_token", :unique => true
   add_index "users", ["updated_at"], :name => "index_users_on_updated_at"
   add_index "users", ["updater_id"], :name => "index_users_on_updater_id"
+
+  create_table "working_sets", :force => true do |t|
+    t.string   "name",                        :null => false
+    t.string   "nomen"
+    t.datetime "created_at",                  :null => false
+    t.datetime "updated_at",                  :null => false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version", :default => 0, :null => false
+  end
+
+  add_index "working_sets", ["created_at"], :name => "index_working_sets_on_created_at"
+  add_index "working_sets", ["creator_id"], :name => "index_working_sets_on_creator_id"
+  add_index "working_sets", ["nomen"], :name => "index_working_sets_on_nomen"
+  add_index "working_sets", ["updated_at"], :name => "index_working_sets_on_updated_at"
+  add_index "working_sets", ["updater_id"], :name => "index_working_sets_on_updater_id"
 
 end

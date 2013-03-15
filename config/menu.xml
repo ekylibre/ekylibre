@@ -897,6 +897,29 @@
       <page to="backend/myselves#change_password"/>
       <page to="backend/myselves#statistics"/>
     </menu>
+    <menu name="backend/operation_natures">
+      <page to="backend/operation_natures#index"/>
+      <page to="backend/operation_natures#create"/>
+      <page to="backend/operation_natures#destroy"/>
+      <page to="backend/operation_natures#edit"/>
+      <page to="backend/operation_natures#list"/>
+      <page to="backend/operation_natures#new"/>
+      <page to="backend/operation_natures#show"/>
+      <page to="backend/operation_natures#update"/>
+    </menu>
+    <menu name="backend/operation_tasks">
+      <page to="backend/operation_tasks#index"/>
+      <page to="backend/operation_tasks#create"/>
+      <page to="backend/operation_tasks#destroy"/>
+      <page to="backend/operation_tasks#edit"/>
+      <page to="backend/operation_tasks#list"/>
+      <page to="backend/operation_tasks#new"/>
+      <page to="backend/operation_tasks#show"/>
+      <page to="backend/operation_tasks#update"/>
+    </menu>
+    <menu name="backend/operations">
+      <page to="backend/operations#unroll"/>
+    </menu>
     <menu name="backend/places">
       <page to="backend/places#index"/>
       <page to="backend/places#create"/>
@@ -916,6 +939,36 @@
       <page to="backend/preferences#new"/>
       <page to="backend/preferences#show"/>
       <page to="backend/preferences#update"/>
+    </menu>
+    <menu name="backend/procedure_natures">
+      <page to="backend/procedure_natures#index"/>
+      <page to="backend/procedure_natures#create"/>
+      <page to="backend/procedure_natures#destroy"/>
+      <page to="backend/procedure_natures#edit"/>
+      <page to="backend/procedure_natures#list"/>
+      <page to="backend/procedure_natures#new"/>
+      <page to="backend/procedure_natures#show"/>
+      <page to="backend/procedure_natures#update"/>
+    </menu>
+    <menu name="backend/procedures">
+      <page to="backend/procedures#index"/>
+      <page to="backend/procedures#create"/>
+      <page to="backend/procedures#destroy"/>
+      <page to="backend/procedures#edit"/>
+      <page to="backend/procedures#list"/>
+      <page to="backend/procedures#new"/>
+      <page to="backend/procedures#show"/>
+      <page to="backend/procedures#update"/>
+    </menu>
+    <menu name="backend/product_abilities">
+      <page to="backend/product_abilities#index"/>
+      <page to="backend/product_abilities#create"/>
+      <page to="backend/product_abilities#destroy"/>
+      <page to="backend/product_abilities#edit"/>
+      <page to="backend/product_abilities#list"/>
+      <page to="backend/product_abilities#new"/>
+      <page to="backend/product_abilities#show"/>
+      <page to="backend/product_abilities#update"/>
     </menu>
     <menu name="backend/product_groups">
       <page to="backend/product_groups#list_products"/>
@@ -950,6 +1003,16 @@
       <page to="backend/product_indicators#new"/>
       <page to="backend/product_indicators#show"/>
       <page to="backend/product_indicators#update"/>
+    </menu>
+    <menu name="backend/product_links">
+      <page to="backend/product_links#index"/>
+      <page to="backend/product_links#create"/>
+      <page to="backend/product_links#destroy"/>
+      <page to="backend/product_links#edit"/>
+      <page to="backend/product_links#list"/>
+      <page to="backend/product_links#new"/>
+      <page to="backend/product_links#show"/>
+      <page to="backend/product_links#update"/>
     </menu>
     <menu name="backend/product_memberships">
       <page to="backend/product_memberships#index"/>
@@ -1000,6 +1063,16 @@
       <page to="backend/professions#list"/>
       <page to="backend/professions#new"/>
       <page to="backend/professions#update"/>
+    </menu>
+    <menu name="backend/working_sets">
+      <page to="backend/working_sets#index"/>
+      <page to="backend/working_sets#create"/>
+      <page to="backend/working_sets#destroy"/>
+      <page to="backend/working_sets#edit"/>
+      <page to="backend/working_sets#list"/>
+      <page to="backend/working_sets#new"/>
+      <page to="backend/working_sets#show"/>
+      <page to="backend/working_sets#update"/>
     </menu>
     <menu name="public">
       <page to="public#index"/>

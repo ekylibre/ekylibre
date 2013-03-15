@@ -9,7 +9,7 @@ class CreateAffairs < ActiveRecord::Migration
       t.decimal  :debit, :precision => 19, :scale => 4, :null => false, :default => 0.0
       t.decimal  :credit, :precision => 19, :scale => 4, :null => false, :default => 0.0
       t.datetime :accounted_at
-      t.belongs_to :journal_entry
+      t.references :journal_entry
       t.stamps
     end
     add_stamps_indexes :affairs

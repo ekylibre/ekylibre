@@ -334,7 +334,8 @@ fra:
       # matter: "Matter"
       observation: "Observation"
       operation: "Travail"
-      # operation_work: "Operation work"
+      # operation_nature: "Operation nature"
+      # operation_task: "Operation task"
       outgoing_delivery: "Livraison"
       outgoing_delivery_item: "Ligne de livraison"
       outgoing_delivery_mode: "Mode de livraison"
@@ -342,11 +343,15 @@ fra:
       outgoing_payment_mode: "Mode de décaissement"
       # place: "Place"
       preference: "Préférence"
+      # procedure: "Procedure"
+      # procedure_nature: "Procedure nature"
       product: "Produits"
+      # product_ability: "Product ability"
       product_group: "Groupe de produit"
       # product_indicator: "Product indicator"
       # product_indicator_nature: "Product indicator nature"
       # product_indicator_nature_choice: "Product indicator nature choice"
+      # product_link: "Product link"
       product_localization: "Passage d'un produit en un lieu"
       product_membership: "Passage d'un produit dans un groupe"
       product_move: "Mouvement de stock"
@@ -382,6 +387,7 @@ fra:
       user: "Utilisateur"
       # vegetal: "Vegetal"
       warehouse: "Lieu de stockage"
+      # working_set: "Working set"
   attributes:
     account: "Compte comptable"
     account_balances: "Balances de compte"
@@ -498,7 +504,7 @@ fra:
     collected_account: "TVA collectée"
     collected_amount: "TVA brute"
     collected_taxes: "TVA collectées"
-    color: "Couleur"
+    color: "Couleur" #?
     columns: "Colonnes"
     comment: "Commentaire" #?
     commercial: "Activité commerciale"
@@ -519,7 +525,6 @@ fra:
     conditions: "Conditions (SQL)"
     # confirmation_sent_at: "Confirmation sent at"
     # confirmation_token: "Confirmation token"
-    # confirmed: "Confirmed"
     # confirmed_at: "Confirmed at"
     confirmed_on: "Confirmée le"
     connected_at: "Connecté le" #?
@@ -608,6 +613,7 @@ fra:
     description: "Description"
     # destination: "Destination"
     detail_payments: "Détailler les paiements"
+    # detailled: "Detailled"
     diagnostics: "Diagnostics" #?
     diff_less: "Droits enlevés"
     diff_more: "Droits rajoutés"
@@ -813,6 +819,8 @@ fra:
     measure_unit: "Unité de mesure"
     measure_value: "Valeur de la mesure"
     measured_at: "Mesuré à"
+    # member: "Member"
+    # members: "Members"
     memberships: "Memberships"
     min_duration: "Minute(s)" #?
     minimal_length: "Longueur minimale"
@@ -836,6 +844,7 @@ fra:
     nic: "NIC (Numéro Interne de Classement)" #?
     node: "Nœud"
     nodes: "Nœuds d’extraction"
+    nomen: "Nomen"
     number: "Numéro"
     number_format: "Format du numéro"
     number_increment: "Incrément"
@@ -845,9 +854,8 @@ fra:
     of_company: "Dossier basé sur cette entreprise"
     office: "Bureau/Atelier"
     old_password: "Mot de passe actuel"
-    # operand: "Operand"
     # operand_quantity: "Operand quantity"
-    operation: "Travail"
+    operation: "Travail" #?
     operation_items: "Intrants/sortants" #?
     operation_nature: "Type d’operation" #?
     operation_natures: "Types de travail" #?
@@ -883,7 +891,7 @@ fra:
     parent: "Parent"
     parent_kinships: "Relation parent" #?
     parent_land_parcel: "Sur-îlot" #?
-    parent_place: "Parent place"
+    parent_place: "Parent place" #?
     parts: "Affectations" #?
     parts_amount: "Montant utilisé" #?
     passages: "Passages" #?
@@ -1076,6 +1084,7 @@ fra:
     storable: "Gérer les stocks"
     # storage: "Storage"
     story: "Historique"
+    # string: "String"
     string_value: "Valeur textuelle"
     subdir: "Sous-répertoire"
     subdivision: "Position Y" #?
@@ -1165,6 +1174,7 @@ fra:
     variety: "Variété"
     vat_number: "Numéro de TVA intra-communautaire"
     vat_submissive: "Soumis à la TVA"
+    # verb: "Verb"
     virtual: "Virtuel" #?
     virtual_quantity: "Stock virtuel"
     waiting_deliveries: "Livraisons en attente"
@@ -1181,8 +1191,6 @@ fra:
     with_transport: "Avec transport"
     work_center: "Centre d’opération"
     work_number: "Numéro de travail"
-    # worker: "Worker"
-    # works: "Works"
     zone: "Zone" #?
   enumerize:
     asset:

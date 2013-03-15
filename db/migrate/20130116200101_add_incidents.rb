@@ -3,9 +3,9 @@ class AddIncidents < ActiveRecord::Migration
   def change
 
     create_table :incidents do |t|
-       t.belongs_to :target, :polymorphic => true, :null => false # product / product_group / entity / sale / purchase / incoming_delivery / outgoing_delivery
-       t.belongs_to :nature,  :null => false # incident_nature
-       t.belongs_to :watcher, :null => false # entity
+       t.references :target, :polymorphic => true, :null => false # product / product_group / entity / sale / purchase / incoming_delivery / outgoing_delivery
+       t.references :nature,  :null => false # incident_nature
+       t.references :watcher, :null => false # entity
        t.datetime   :observed_at, :null => false
        t.integer    :priority # range (1..10)
        t.integer    :gravity  # range (1..10)

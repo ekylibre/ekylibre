@@ -416,6 +416,21 @@ Ekylibre::Application.routes.draw do
         match "unvalidateds", :via => [:get, :post]
       end
     end
+
+    resources :operation_tasks do
+      collection do
+        get :list
+        unroll_all
+      end
+    end
+
+    resources :operation_natures do
+      collection do
+        get :list
+        unroll_all
+      end
+    end
+
     resources :operation_works, :only => [:new, :create]
     resources :outgoing_deliveries do
       collection do
@@ -471,6 +486,23 @@ Ekylibre::Application.routes.draw do
         unroll_all
       end
     end
+
+
+
+    resources :procedure_natures do
+      collection do
+        get :list
+        unroll_all
+      end
+    end
+
+    resources :procedures do
+      collection do
+        get :list
+        unroll_all
+      end
+    end
+
     resources :products do
       collection do
         get :list
@@ -479,6 +511,14 @@ Ekylibre::Application.routes.draw do
         unroll_all
       end
     end
+
+    resources :product_abilities do
+      collection do
+        get :list
+        unroll_all
+      end
+    end
+
     resources :product_groups do
       collection do
         get :list
@@ -487,6 +527,14 @@ Ekylibre::Application.routes.draw do
         unroll_all
       end
     end
+
+    resources :product_links do
+      collection do
+        get :list
+        unroll_all
+      end
+    end
+
     resources :product_localizations do
       collection do
         get :list
@@ -738,6 +786,12 @@ Ekylibre::Application.routes.draw do
       collection do
         get :list
         get :list_products
+        unroll_all
+      end
+    end
+    resources :working_sets do
+      collection do
+        get :list
         unroll_all
       end
     end

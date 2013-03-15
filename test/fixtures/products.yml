@@ -46,7 +46,7 @@
 #  nature_id                :integer          not null
 #  number                   :string(255)      not null
 #  owner_id                 :integer          not null
-#  parent_place_id          :integer
+#  parent_id                :integer
 #  picture_content_type     :string(255)
 #  picture_file_name        :string(255)
 #  picture_file_size        :integer
@@ -57,7 +57,6 @@
 #  sex                      :string(255)
 #  shape                    :spatial({:srid=>
 #  tracking_id              :integer
-#  tractor_id               :integer
 #  type                     :string(255)      not null
 #  unit_id                  :integer          not null
 #  updated_at               :datetime         not null
@@ -328,4 +327,49 @@ matters_005:
   unit_id: 1
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
+  variety_id: 1
+
+product_groups_001:
+  created_at: 2009-07-19 19:13:59 +02:00
+  creator_id: 1
+  id: 17
+  name: "Troupeau 1"
+  nature_id: 1
+  number: "0017"
+  owner_id: 1
+  type: 'ProductGroup'
+  unit_id: 1
+  updated_at: 2009-07-19 19:13:59 +02:00
+  updater_id: 1
+  parent_id: 1
+  variety_id: 1
+
+product_groups_001:
+  created_at: 2009-07-19 19:13:59 +02:00
+  creator_id: 1
+  id: 18
+  name: "Troupeau 1"
+  nature_id: 1
+  number: "0018"
+  owner_id: 1
+  type: 'ProductGroup'
+  unit_id: 1
+  updated_at: 2009-07-19 19:13:59 +02:00
+  updater_id: 1
+  parent_id: 1
+  variety_id: 1
+
+product_groups_001:
+  created_at: 2009-07-19 19:13:59 +02:00
+  creator_id: 1
+  id: 19
+  name: "Troupeau 1"
+  nature_id: 1
+  number: "0019"
+  owner_id: 1
+  type: 'ProductGroup'
+  unit_id: 1
+  updated_at: 2009-07-19 19:13:59 +02:00
+  updater_id: 1
+  parent_id: 1
   variety_id: 1
