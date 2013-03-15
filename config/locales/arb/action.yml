@@ -290,6 +290,7 @@ arb:
       edit: "تعديل نوع العمل : %{name}" #?
       index: "اواع العمل" #?
       new: "انشاء نوع جديد من العمل" #?
+    backend/operation_tasks: #?
     backend/operations:
       edit: "تعدل العمل %{name}"
       index: "اعمال"
@@ -329,6 +330,9 @@ arb:
       import: "CSV استيراد بيان التعرفة ضمن" #?
       index: "الاسعار" #?
       new: "اضافة سعر جديد" #?
+    backend/procedure_natures: #?
+    backend/procedures: #?
+    backend/product_abilities: #?
     backend/product_categories:  #?
       edit: "تعديل فئة المنتج : %{name}" #?
       index: "فئات المنتج" #?
@@ -345,6 +349,7 @@ arb:
     backend/product_indicator_nature_choices: #?
     backend/product_indicator_natures: #?
     backend/product_indicators: #?
+    backend/product_links: #?
     backend/product_localizations:
       # edit: "Modifier une localisation d'un produit"
       # index: "Tracabilité des produits"
@@ -571,6 +576,7 @@ arb:
       index: "مواقع التخزين"
       new: "اضافة موقع للتخزين"
       show: "تفاصيل عن مواقع التخزين : %{name}"
+    backend/working_sets: #?
     public:
       # index: "Accueil"
   controllers:

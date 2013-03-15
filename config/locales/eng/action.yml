@@ -243,6 +243,8 @@ eng:
     backend/observations:
       edit: "Edit the observation"
       new: "Add a new observation"
+    backend/operation_natures: #?
+    backend/operation_tasks: #?
     backend/operations:
       edit: "Edit operation %{name}"
       index: "Operations"
@@ -280,6 +282,9 @@ eng:
       import: "Import prices" #?
       index: "Prices" #?
       new: "Add a new price" #?
+    backend/procedure_natures: #?
+    backend/procedures: #?
+    backend/product_abilities: #?
     backend/product_groups:
       # edit: "Modifier le lot\_: %{name} "
       # index: "Lots de produits"
@@ -288,6 +293,7 @@ eng:
     backend/product_indicator_nature_choices: #?
     backend/product_indicator_natures: #?
     backend/product_indicators: #?
+    backend/product_links: #?
     backend/product_localizations:
       # edit: "Modifier une localisation d'un produit"
       # index: "Tracabilité des produits"
@@ -465,6 +471,7 @@ eng:
       index: "Warehouses"
       new: "Add a new warehouse"
       show: "Warehouse: %{name}"
+    backend/working_sets: #?
     public:
       index: "Home"
   controllers:

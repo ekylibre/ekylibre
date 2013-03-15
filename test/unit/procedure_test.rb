@@ -18,20 +18,26 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: operation_works
+# == Table: procedures
 #
 #  created_at   :datetime         not null
 #  creator_id   :integer
 #  id           :integer          not null, primary key
 #  lock_version :integer          default(0), not null
-#  nature       :string(255)      not null
-#  operation_id :integer          not null
+#  name         :string(255)      not null
+#  nature_id    :integer          not null
+#  parent_id    :integer
+#  started_at   :datetime
+#  stopped_at   :datetime
 #  updated_at   :datetime         not null
 #  updater_id   :integer
-#  worker_id    :integer          not null
 #
 require 'test_helper'
 
-class OperationWorkTest < ActiveSupport::TestCase
+class ProcedureTest < ActiveSupport::TestCase
+
+  test "presence of fixtures" do
+    assert_equals 2, Procedure.count
+  end
 
 end

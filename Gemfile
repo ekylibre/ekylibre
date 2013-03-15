@@ -5,7 +5,8 @@ gem 'rails', '3.2.12'
 # Database adapters
 gem 'pg' # Needed for some tasks
 gem 'activerecord-postgis-adapter'
-gem 'activerecord-spatialite-adapter'
+# gem 'activerecord-spatialite-adapter'
+gem 'squeel'
 
 # General
 gem 'exception_notification'
@@ -38,9 +39,13 @@ gem 'cocoon'
 # I18n
 gem 'i18n-complements'
 
-# XML Parsing/Writing
+# XML Parsing/Writing, HTML extraction
 gem 'nokogiri'
 gem 'libxml-ruby', :require => 'libxml'
+gem 'mechanize'
+
+# Security
+gem 'strong_parameters'
 
 # Reporting
 # gem 'thinreports-rails'

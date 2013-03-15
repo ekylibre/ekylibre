@@ -741,7 +741,7 @@ class NormalizeProducts < ActiveRecord::Migration
     rename_table_and_co :stock_transfers, :old_stock_transfers
 
     # Prevents errors by renaming table operations
-    rename_table_and_co :operations, :old_operations
+    # rename_table_and_co :operations, :old_operations
 
     # Adds concept of product variety
     create_table :product_varieties do |t|
@@ -750,7 +750,7 @@ class NormalizeProducts < ActiveRecord::Migration
       t.text :comment
       t.string :product_type, :null => false # Contains the class of product of this nature
       t.string :code
-      t.belongs_to :parent
+      t.references :parent
       t.integer :lft
       t.integer :rgt
       t.integer :depth, :null => false, :default => 0
@@ -768,13 +768,13 @@ class NormalizeProducts < ActiveRecord::Migration
     create_table :product_natures do |t|
       t.string :name, :null => false
       t.string :number, :null => false, :limit => 32
-      t.belongs_to :unit, :null => false
+      t.references :unit, :null => false
       t.text :description
       t.text :comment
       t.string :commercial_name, :null => false
       t.text :commercial_description
-      t.belongs_to :variety,   :null => false
-      t.belongs_to :category,  :null => false
+      t.references :variety,   :null => false
+      t.references :category,  :null => false
       t.boolean :active,       :null => false, :default => false
       t.boolean :alive,        :null => false, :default => false
       t.boolean :depreciable,  :null => false, :default => false
@@ -791,12 +791,12 @@ class NormalizeProducts < ActiveRecord::Migration
       t.boolean :reductible,   :null => false, :default => false
       t.boolean :indivisible , :null => false, :default => false
       t.boolean :subscribing,  :null => false, :default => false
-      t.belongs_to :subscription_nature
+      t.references :subscription_nature
       t.string :subscription_duration
-      t.belongs_to :charge_account
-      t.belongs_to :product_account
-      t.belongs_to :asset_account
-      t.belongs_to :stock_account
+      t.references :charge_account
+      t.references :product_account
+      t.references :asset_account
+      t.references :stock_account
       t.stamps
     end
     add_stamps_indexes :product_natures
@@ -815,13 +815,13 @@ class NormalizeProducts < ActiveRecord::Migration
       t.string :name, :null => false
       t.string :number, :null => false
       t.boolean :active, :null => false, :default => false
-      t.belongs_to :variety, :null => false
-      t.belongs_to :nature, :null => false
-      t.belongs_to :unit, :null => false # Same as nature.unit_id
-      t.belongs_to :tracking
-      t.belongs_to :tractor
-      t.belongs_to :asset
-      t.belongs_to :current_place
+      t.references :variety, :null => false
+      t.references :nature, :null => false
+      t.references :unit, :null => false # Same as nature.unit_id
+      t.references :tracking
+      # t.references :tractor
+      t.references :asset
+      t.references :current_place
       t.datetime :born_at
       t.datetime :dead_at
       t.text :description
@@ -832,26 +832,27 @@ class NormalizeProducts < ActiveRecord::Migration
       t.decimal    :real_quantity, :precision => 19, :scale => 4, :null => false, :default => 0.0
       t.decimal :virtual_quantity, :precision => 19, :scale => 4, :null => false, :default => 0.0
       t.boolean :external, :null => false, :default => false # true if owner == Entity.of_company
-      t.belongs_to :owner, :null => false
+      t.references :owner, :null => false
       # Animal specific columns
       t.string :sex
       t.string :identification_number # replaceable by serial_number ? No, for now
       t.string :work_number           # replaceable by number ?        No, for now
       t.boolean :reproductor, :null => false, :default => false
-      t.belongs_to :father
-      t.belongs_to :mother
+      t.references :father
+      t.references :mother
       # Place specific columns
-      t.belongs_to :address
+      t.references :address
       # LandParcel specific columns
       t.geometry   :shape
       t.decimal    :area_measure, :precision => 19, :scale => 4
-      t.belongs_to :area_unit
+      t.references :area_unit
       # Warehouse specific columns
       t.boolean :reservoir, :null => false, :default => false
-      t.belongs_to :content_nature
-      t.belongs_to :content_unit
+      t.references :content_nature
+      t.references :content_unit
       t.decimal :content_maximal_quantity, :precision => 19, :scale => 4, :null => false, :default => 0.0
-      t.belongs_to :parent_place
+      # Hierarchy column (for Place, Group)
+      t.references :parent
       # Stamps
       t.stamps
     end
@@ -862,7 +863,7 @@ class NormalizeProducts < ActiveRecord::Migration
     add_index :products, :tracking_id
     add_index :products, :variety_id
     add_index :products, :unit_id
-    add_index :products, :tractor_id
+    # add_index :products, :tractor_id
     add_index :products, :asset_id
     add_index :products, :owner_id
     # Animal specific indexes
@@ -875,19 +876,19 @@ class NormalizeProducts < ActiveRecord::Migration
     # Warehouse specific indexes
     add_index :products, :content_nature_id
     add_index :products, :content_unit_id
-    add_index :products, :parent_place_id
+    add_index :products, :parent_id
     @@references[:product] ||= {}
     @@references[:product][:current_place_id] = :warehouse
 
     # Contains all moves of the stock of the product
     create_table :product_moves do |t|
-      t.belongs_to :product,   :null => false
+      t.references :product,   :null => false
       t.decimal :quantity, :precision => 19, :scale => 4, :null => false
-      t.belongs_to :unit,      :null => false # Duplicated from product.unit_id
+      t.references :unit,      :null => false # Duplicated from product.unit_id
       t.datetime :started_at,  :null => false
       t.datetime :stopped_at,  :null => false
       t.string :mode,          :null => false
-      t.belongs_to :origin, :polymorphic => true
+      t.references :origin, :polymorphic => true
       t.boolean :last_done, :null => false, :default => false
       t.stamps
     end
@@ -901,9 +902,9 @@ class NormalizeProducts < ActiveRecord::Migration
 
     # Contains all transfers
     create_table :product_transfers do |t|
-      t.belongs_to :product,  :null => false # RO
-      t.belongs_to :origin
-      t.belongs_to :destination              # nil => exterior
+      t.references :product,  :null => false # RO
+      t.references :origin
+      t.references :destination              # nil => exterior
       t.datetime :started_at, :null => false
       t.datetime :stopped_at, :null => false
       t.stamps
@@ -916,10 +917,10 @@ class NormalizeProducts < ActiveRecord::Migration
 
     # Historize differents localizations of the products
     create_table :product_localizations do |t|
-      t.belongs_to :transfer # RO
-      t.belongs_to :operation
-      t.belongs_to :product,   :null => false # Duplicated from transfer.product_id
-      t.belongs_to :container
+      # t.references :transfer # RO
+      # t.references :operation
+      t.references :product,   :null => false # Duplicated from transfer.product_id
+      t.references :container
       t.string :arrival_cause
       t.string :departure_cause
       t.string   :nature,      :null => false
@@ -928,51 +929,65 @@ class NormalizeProducts < ActiveRecord::Migration
       t.stamps
     end
     add_stamps_indexes :product_localizations
-    add_index :product_localizations, :transfer_id
-    add_index :product_localizations, :operation_id
+    # add_index :product_localizations, :transfer_id
+    # add_index :product_localizations, :operation_id
     add_index :product_localizations, :product_id
     add_index :product_localizations, :container_id
     add_index :product_localizations, :started_at
     add_index :product_localizations, :stopped_at
 
+    # Historize differents catches/releases between products
+    create_table :product_links do |t|
+      t.references :carrier, :null => false
+      t.references :carried, :null => false
+      t.datetime :started_at
+      t.datetime :stopped_at
+      t.stamps
+    end
+    add_stamps_indexes :product_links
+    add_index :product_links, :carrier_id
+    add_index :product_links, :carried_id
+    add_index :product_links, :started_at
+    add_index :product_links, :stopped_at
+
     # Trace all memberships for products
     create_table :product_memberships do |t|
-      t.belongs_to :product,  :null => false # RO
-      t.belongs_to :group,    :null => false # RO
+      t.references :member,   :null => false # RO
+      t.references :group,    :null => false # RO
       t.datetime :started_at, :null => false
       t.datetime :stopped_at
       t.stamps
     end
     add_stamps_indexes :product_memberships
-    add_index :product_memberships, :product_id
+    add_index :product_memberships, :member_id
     add_index :product_memberships, :group_id
     add_index :product_memberships, :started_at
     add_index :product_memberships, :stopped_at
 
-    # Permits to group product to enhances ergonomy
-    create_table :product_groups do |t|
-      t.string :name, :null => false
-      t.text :description
-      t.text :comment
-      t.string :color
-      t.belongs_to :parent
-      t.integer :lft
-      t.integer :rgt
-      t.integer :depth, :null => false, :default => 0
-      t.stamps
-    end
-    add_stamps_indexes :product_groups
-    add_index :product_groups, :parent_id
-    add_index :product_groups, :lft
-    add_index :product_groups, :rgt
+    # # Permits to group product to enhances ergonomy
+    # create_table :product_groups do |t|
+    #   t.string :name, :null => false
+    #   t.text :description
+    #   t.text :comment
+    #   t.string :color
+    #   t.references :parent
+    #   t.integer :lft
+    #   t.integer :rgt
+    #   t.integer :depth, :null => false, :default => 0
+    #   t.stamps
+    # end
+    # add_stamps_indexes :product_groups
+    # add_index :product_groups, :parent_id
+    # add_index :product_groups, :lft
+    # add_index :product_groups, :rgt
 
     # Trace all activities
     create_table :logs do |t|
       t.string :event, :null => false
-      t.belongs_to :owner, :polymorphic => true
+      t.references :owner, :polymorphic => true
       t.text :owner_object
       t.datetime :observed_at, :null => false
-      t.belongs_to :origin, :polymorphic => true
+      t.references :origin, :polymorphic => true
       t.text :origin_object
       t.text :description
       t.stamps
@@ -984,32 +999,32 @@ class NormalizeProducts < ActiveRecord::Migration
     add_index :logs, :description
 
     # Create new table operations mono-target and mono-operand
-    create_table :operations do |t|
-      t.belongs_to :target, :null => false
-      t.string :nature, :null => false
-      t.belongs_to :operand
-      t.belongs_to :operand_unit
-      t.decimal    :operand_quantity, :precision => 19, :scale => 4
-      t.datetime :started_at, :null => false
-      t.datetime :stopped_at, :null => false
-      t.boolean :confirmed,   :null => false, :default => false
-      t.stamps
-    end
-    add_stamps_indexes :operations
-    add_index :operations, :target_id
-    add_index :operations, :operand_id
-    add_index :operations, :nature
+    # create_table :operations do |t|
+    #   t.references :target, :null => false
+    #   t.string :nature, :null => false
+    #   t.references :operand
+    #   t.references :operand_unit
+    #   t.decimal    :operand_quantity, :precision => 19, :scale => 4
+    #   t.datetime :started_at, :null => false
+    #   t.datetime :stopped_at, :null => false
+    #   t.boolean :confirmed,   :null => false, :default => false
+    #   t.stamps
+    # end
+    # add_stamps_indexes :operations
+    # add_index :operations, :target_id
+    # add_index :operations, :operand_id
+    # add_index :operations, :nature
 
-    # Define workers on given operations
-    create_table :operation_works do |t|
-      t.belongs_to :operation, :null => false
-      t.belongs_to :worker, :null => false
-      t.string :nature, :null => false
-      t.stamps
-    end
-    add_stamps_indexes :operation_works
-    add_index :operation_works, :operation_id
-    add_index :operation_works, :worker_id
+    # # Define workers on given operations
+    # create_table :operation_works do |t|
+    #   t.references :operation, :null => false
+    #   t.references :worker, :null => false
+    #   t.string :nature, :null => false
+    #   t.stamps
+    # end
+    # add_stamps_indexes :operation_works
+    # add_index :operation_works, :operation_id
+    # add_index :operation_works, :worker_id
 
     # Rename table in order to be more logical
     rename_table_and_co :product_categories, :product_nature_categories
@@ -1204,11 +1219,11 @@ class NormalizeProducts < ActiveRecord::Migration
     drop_table :tools
     drop_table :warehouses
 
-    drop_table :operation_uses
-    drop_table :operation_lines
-    drop_table :operation_natures
+    # drop_table :operation_uses
+    # drop_table :operation_lines
+    # drop_table :operation_natures
 
-    drop_table :old_operations
+    # drop_table :old_operations
     drop_table :old_stock_transfers
     drop_table :old_stock_moves
     drop_table :old_stocks
@@ -1227,9 +1242,9 @@ end
 
     # Contains all the emplacement ever used to stock the product
     # create_table :product_stocks do |t|
-    #   t.belongs_to :product,   :null => false # RO
-    #   t.belongs_to :warehouse, :null => false # RO
-    #   t.belongs_to :unit,      :null => false # Duplicated from product.unit_id if possible
+    #   t.references :product,   :null => false # RO
+    #   t.references :warehouse, :null => false # RO
+    #   t.references :unit,      :null => false # Duplicated from product.unit_id if possible
     #   t.decimal    :real_quantity, :precision => 19, :scale => 4, :null => false, :default => 0.0
     #   t.decimal :virtual_quantity, :precision => 19, :scale => 4, :null => false, :default => 0.0
     #   t.decimal :minimal_quantity, :precision => 19, :scale => 4, :null => false, :default => 0.0
@@ -1243,14 +1258,14 @@ end
 
     # # Contains all moves of the stock of the product
     # create_table :product_stock_moves do |t|
-    #   t.belongs_to :stock,     :null => false # RO
-    #   t.belongs_to :product,   :null => false # Duplicated from stock.product_id
-    #   t.belongs_to :warehouse, :null => false # Duplicated from stock.warehouse_id
-    #   t.belongs_to :unit,      :null => false # Duplicated from stock.unit_id
+    #   t.references :stock,     :null => false # RO
+    #   t.references :product,   :null => false # Duplicated from stock.product_id
+    #   t.references :warehouse, :null => false # Duplicated from stock.warehouse_id
+    #   t.references :unit,      :null => false # Duplicated from stock.unit_id
     #   t.decimal :quantity, :precision => 19, :scale => 4, :null => false
     #   t.datetime :moved_at
     #   t.string :mode, :null => false
-    #   t.belongs_to :origin, :polymorphic => true
+    #   t.references :origin, :polymorphic => true
     #   t.stamps
     # end
     # add_stamps_indexes :product_stock_moves
@@ -1264,11 +1279,11 @@ end
 
     # # Contains all the historic of quantities for a given product_stock
     # create_table :product_stock_periods do |t|
-    #   t.belongs_to :move,      :null => false # RO
-    #   t.belongs_to :stock,     :null => false # Duplicated from move.stock_id
-    #   t.belongs_to :product,   :null => false # Duplicated from move.stock.product_id
-    #   t.belongs_to :warehouse, :null => false # Duplicated from move.stock.warehouse_id
-    #   t.belongs_to :unit,      :null => false # Duplicated from move.stock.unit_id
+    #   t.references :move,      :null => false # RO
+    #   t.references :stock,     :null => false # Duplicated from move.stock_id
+    #   t.references :product,   :null => false # Duplicated from move.stock.product_id
+    #   t.references :warehouse, :null => false # Duplicated from move.stock.warehouse_id
+    #   t.references :unit,      :null => false # Duplicated from move.stock.unit_id
     #   t.decimal :quantity, :decimal, :precision => 19, :scale => 4, :null => false, :default => 0
     #   t.string :mode, :limit => 32, :null => false
     #   t.datetime :started_at
@@ -1287,17 +1302,17 @@ end
     # # Contains all stocks transfers
     # create_table :product_transfers do |t|
     #   t.string :number, :null => false
-    #   t.belongs_to :product, :null => false # RO
-    #   t.belongs_to :unit,    :null => false # Duplicated from product.unit_id if possible
+    #   t.references :product, :null => false # RO
+    #   t.references :unit,    :null => false # Duplicated from product.unit_id if possible
     #   t.decimal  :quantity, :precision => 19, :scale => 4, :null => false
     #   t.string   :nature, :null => false
     #   t.datetime :moved_at, :null => false
-    #   t.belongs_to :departure_stock
-    #   t.belongs_to :departure_move
-    #   t.belongs_to :departure_warehouse # Duplicated from departure_stock.warehouse_id
-    #   t.belongs_to :arrival_stock
-    #   t.belongs_to :arrival_move
-    #   t.belongs_to :arrival_warehouse   # Duplicated from arrival_stock.warehouse_id
+    #   t.references :departure_stock
+    #   t.references :departure_move
+    #   t.references :departure_warehouse # Duplicated from departure_stock.warehouse_id
+    #   t.references :arrival_stock
+    #   t.references :arrival_move
+    #   t.references :arrival_warehouse   # Duplicated from arrival_stock.warehouse_id
     #   t.text :comment
     #   t.stamps
     # end

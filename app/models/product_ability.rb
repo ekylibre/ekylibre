@@ -18,58 +18,21 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: product_groups
+# == Table: product_abilities
 #
-#  color        :string(255)
 #  created_at   :datetime         not null
 #  creator_id   :integer
-#  depth        :integer          default(0), not null
-#  description  :text
 #  id           :integer          not null, primary key
-#  lft          :integer
 #  lock_version :integer          default(0), not null
 #  name         :string(255)      not null
-#  parent_id    :integer
-#  rgt          :integer
+#  nomen        :string(255)
+#  product_id   :integer          not null
 #  updated_at   :datetime         not null
 #  updater_id   :integer
 #
-#
-# == Fixture: product_groups
-#
-# product_groups_001:
-#   created_at: 2009-07-19 19:13:59 +02:00
-#   creator_id: 1
-#   depth: 0
-#   id: 1
-#   name: "Lorem ipsum"
-#   updated_at: 2009-07-19 19:13:59 +02:00
-#   updater_id: 1
-#
-
-product_groups_001:
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  id: 1
-  name: "VACHE"
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
-  parent_id: 1
-
-product_groups_002:
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  id: 2
-  name: "VACHE TARIE (to destroy)"
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
-  parent_id: 1
-
-product_groups_003:
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  id: 3
-  name: "VACHE LAITIERE"
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
-  parent_id: 1
+class ProductAbility < Ekylibre::Record::Base
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_length_of :name, :nomen, :allow_nil => true, :maximum => 255
+  validates_presence_of :name
+  #]VALIDATORS]
+end

@@ -46,7 +46,7 @@
 #  nature_id                :integer          not null
 #  number                   :string(255)      not null
 #  owner_id                 :integer          not null
-#  parent_place_id          :integer
+#  parent_id                :integer
 #  picture_content_type     :string(255)
 #  picture_file_name        :string(255)
 #  picture_file_size        :integer
@@ -57,7 +57,6 @@
 #  sex                      :string(255)
 #  shape                    :spatial({:srid=>
 #  tracking_id              :integer
-#  tractor_id               :integer
 #  type                     :string(255)      not null
 #  unit_id                  :integer          not null
 #  updated_at               :datetime         not null
@@ -69,8 +68,8 @@
 class Place < Product
   # TODO Removes :warehouses not the place for this
   # has_many :warehouses, :class_name => "Warehouse", :foreign_key => :parent_place_id
-  has_many :children, :class_name => "Place", :foreign_key => :parent_place_id
-  belongs_to :parent, :class_name => "Place", :foreign_key => :parent_place_id
+  has_many :children, :class_name => "Place", :foreign_key => :parent_id
+  belongs_to :parent, :class_name => "Place"
 
   default_scope -> { select("*, ST_AsSVG(shape) AS shape_svg_path, ST_XMin(shape) AS x_min, ST_XMax(shape) AS x_max, ST_YMin(shape) AS y_min, ST_YMax(shape) AS y_max, ST_XMax(shape) - ST_XMin(shape) AS shape_width, ST_YMax(shape) - ST_YMin(shape) AS shape_height") }
 

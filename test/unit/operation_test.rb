@@ -20,20 +20,17 @@
 #
 # == Table: operations
 #
-#  confirmed        :boolean          not null
-#  created_at       :datetime         not null
-#  creator_id       :integer
-#  id               :integer          not null, primary key
-#  lock_version     :integer          default(0), not null
-#  nature           :string(255)      not null
-#  operand_id       :integer
-#  operand_quantity :decimal(19, 4)
-#  operand_unit_id  :integer
-#  started_at       :datetime         not null
-#  stopped_at       :datetime         not null
-#  target_id        :integer          not null
-#  updated_at       :datetime         not null
-#  updater_id       :integer
+#  created_at                      :datetime         not null
+#  creator_id                      :integer
+#  id                              :integer          not null, primary key
+#  lock_version                    :integer          default(0), not null
+#  nature_id                       :integer
+#  procedure_id                    :integer
+#  production_chain_work_center_id :integer
+#  started_at                      :datetime         not null
+#  stopped_at                      :datetime
+#  updated_at                      :datetime         not null
+#  updater_id                      :integer
 #
 
 

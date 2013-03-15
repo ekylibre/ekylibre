@@ -281,6 +281,7 @@ spa:
     backend/operation_items: #?
     backend/operation_lines: #?
     backend/operation_natures: #?
+    backend/operation_tasks: #?
     backend/operation_uses: #?
     backend/operations:
       # edit: "Modifier le travail"
@@ -317,6 +318,9 @@ spa:
       # show: "Préférence"
     backend/prescriptions: #?
     backend/prices: #?
+    backend/procedure_natures: #?
+    backend/procedures: #?
+    backend/product_abilities: #?
     backend/product_categories: #?
     backend/product_components: #?
     backend/product_event_natures: #?
@@ -331,6 +335,7 @@ spa:
     backend/product_indicator_nature_choices: #?
     backend/product_indicator_natures: #?
     backend/product_indicators: #?
+    backend/product_links: #?
     backend/product_localizations:
       # edit: "Modifier une localisation d'un produit"
       # index: "Tracabilité des produits"
@@ -519,6 +524,7 @@ spa:
       index: "Lugar de deposito"
       new: "Añadir un lugar de deposito"
       show: "Detaile del lugar de deposito : %{name}"
+    backend/working_sets: #?
     public:
       # index: "Accueil"
   controllers:

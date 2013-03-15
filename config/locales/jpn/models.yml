@@ -818,6 +818,7 @@ jpn:
     # nic: "NIC (Numéro Interne de Classement)"
     # node: "Nœud"
     # nodes: "Nœuds d’extraction"
+    # nomen: "Nomen"
     number: "番号"
     # number_format: "Format du numéro"
     # number_increment: "Incrément"

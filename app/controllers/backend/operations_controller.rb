@@ -18,17 +18,19 @@
 #
 
 class Backend::OperationsController < BackendController
-  manage_restfully :target_id => "params[:target_id].to_i" # , :planned_on => "params[:planned_on]||Date.today", :hour_duration => "2", :min_duration => "0"
+  manage_restfully # :target_id => "params[:target_id].to_i" # , :planned_on => "params[:planned_on]||Date.today", :hour_duration => "2", :min_duration => "0"
 
-  unroll_all
+  unroll_all :label => '{id}'
 
   list(:order => "id DESC") do |t|
     # t.column :name, :url => true
-    t.column :nature
+    t.column :name, :through => :nature
+    t.column :started_at
+    t.column :stopped_at
     #t.column :planned_on
     #t.column :moved_on
     #t.column :tools_list
-    t.column :name, :through => :target
+    # t.column :name, :through => :target
     #t.column :duration
     t.action :edit
     t.action :destroy
@@ -108,27 +110,27 @@ class Backend::OperationsController < BackendController
   # end
 
 
-  list(:unvalidateds, :model => :operations, :conditions => {:confirmed => false}, :order => "id DESC") do |t|
-    # t.column :name
-    t.column :nature
-    t.column :name, :through => :target
-    # t.column :planned_on
-    t.text_field :moved_on, :value => 'Date.today', :size => 10
-    t.check_box :validated, :value => '!RECORD.confirmed?'
-  end
+  # list(:unvalidateds, :model => :operations, :conditions => {:confirmed => false}, :order => "id DESC") do |t|
+  #   # t.column :name
+  #   t.column :name, :through => :nature
+  #   # t.column :name, :through => :target
+  #   # t.column :planned_on
+  #   t.text_field :moved_on, :value => 'Date.today', :size => 10
+  #   t.check_box :validated, :value => '!RECORD.confirmed?'
+  # end
 
-  def unvalidateds
-    @operations = Operation.unvalidateds
-    notify_now(:no_unvalidated_operations) if @operations.count.zero?
-    if request.post?
-      for id, values in params[:unvalidateds]
-        operation = Operation.find_by_id(id)
-        operation.make((values[:moved_on].to_date rescue Date.today)) if operation and values[:validated].to_i == 1
-        #operation.update_attributes!(:moved_on => Date.today) if operation and values[:validated].to_i == 1
-      end
-      redirect_to :action => :unvalidateds
-    end
-  end
+  # def unvalidateds
+  #   @operations = Operation.unvalidateds
+  #   notify_now(:no_unvalidated_operations) if @operations.count.zero?
+  #   if request.post?
+  #     for id, values in params[:unvalidateds]
+  #       operation = Operation.find_by_id(id)
+  #       operation.make((values[:moved_on].to_date rescue Date.today)) if operation and values[:validated].to_i == 1
+  #       #operation.update_attributes!(:moved_on => Date.today) if operation and values[:validated].to_i == 1
+  #     end
+  #     redirect_to :action => :unvalidateds
+  #   end
+  # end
 
 
 end

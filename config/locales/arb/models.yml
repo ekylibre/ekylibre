@@ -1380,6 +1380,7 @@ arb:
     node: "العقدة"
     node_id: "عقدة" #?
     nodes: "عقد الاستخراج"
+    # nomen: "Nomen"
     number: "الرقم"
     number_format: "التصميم"
     number_increment: "الاضافة"

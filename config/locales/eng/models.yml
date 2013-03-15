@@ -932,6 +932,7 @@ eng:
     nic: "Nic"
     node: "Node"
     nodes: "Nodes"
+    # nomen: "Nomen"
     number: "Number"
     number_format: "Number format"
     number_increment: "Number increment"

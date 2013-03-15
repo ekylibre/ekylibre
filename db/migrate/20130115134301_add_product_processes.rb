@@ -4,13 +4,13 @@ class AddProductProcesses< ActiveRecord::Migration
   def change
 
     create_table :product_indicators do |t|
-       t.belongs_to :product, :null => false
-       t.belongs_to :nature,  :null => false
+       t.references :product, :null => false
+       t.references :nature,  :null => false
        t.datetime   :measured_at, :null => false
        t.string     :comment
        t.decimal    :decimal_value,   :precision => 19, :scale => 4
        t.decimal    :measure_value,   :precision => 19, :scale => 4
-       t.belongs_to :measure_unit # Nécessaire pour l'historique, permet de recouper les donner en cas de crash
+       t.references :measure_unit # Nécessaire pour l'historique, permet de recouper les donner en cas de crash
        t.text       :string_value
        t.boolean    :boolean_value, :null => false, :default => false
        t.integer    :choice_value_id
@@ -24,11 +24,11 @@ class AddProductProcesses< ActiveRecord::Migration
 
 
      create_table :product_indicator_natures do |t|
-       t.belongs_to :process, :null => false
+       t.references :process, :null => false
        t.string     :name,   :null => false
        t.string     :nature, :null => false  # decimal, measure, string, boolean ou choice
        t.string     :usage,  :null => false  # notion métiers avec enumerize
-       t.belongs_to :unit
+       t.references :unit
        t.integer    :minimal_length
        t.integer    :maximal_length
        t.decimal    :minimal_value,   :precision => 19, :scale => 4
@@ -42,7 +42,7 @@ class AddProductProcesses< ActiveRecord::Migration
     add_index :product_indicator_natures, :unit_id
 
     create_table :product_indicator_nature_choices do |t|
-       t.belongs_to :nature, :null => false
+       t.references :nature, :null => false
        t.string     :name, :null => false
        t.string     :value # valeur de l'indicateur si besoin (coefficient)
        t.integer    :position
@@ -53,7 +53,7 @@ class AddProductProcesses< ActiveRecord::Migration
     add_index :product_indicator_nature_choices, :nature_id
 
     create_table :product_process_phases do |t|
-       t.belongs_to :process, :null => false
+       t.references :process, :null => false
        t.string     :name,    :null => false
        t.string     :nature,  :null => false  # Work notion
        t.integer    :position
@@ -65,7 +65,7 @@ class AddProductProcesses< ActiveRecord::Migration
     add_index :product_process_phases, :process_id
 
     create_table :product_processes do |t|
-       t.belongs_to :variety, :null => false
+       t.references :variety, :null => false
        t.string     :name,   :null => false
        t.string     :nature, :null => false # Work notion
        t.string     :comment

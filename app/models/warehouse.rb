@@ -46,7 +46,7 @@
 #  nature_id                :integer          not null
 #  number                   :string(255)      not null
 #  owner_id                 :integer          not null
-#  parent_place_id          :integer
+#  parent_id                :integer
 #  picture_content_type     :string(255)
 #  picture_file_name        :string(255)
 #  picture_file_size        :integer
@@ -57,7 +57,6 @@
 #  sex                      :string(255)
 #  shape                    :spatial({:srid=>
 #  tracking_id              :integer
-#  tractor_id               :integer
 #  type                     :string(255)      not null
 #  unit_id                  :integer          not null
 #  updated_at               :datetime         not null
@@ -75,7 +74,6 @@ class Warehouse < Place
   attr_readonly :reservoir
   # belongs_to :address, :class_name => "EntityAddress"
   # belongs_to :establishment
-  belongs_to :parent_place, :class_name => "Place"
   belongs_to :content_nature, :class_name => "ProductNature"
   # has_many :purchase_items, :class_name => "PurchaseItem"
   # has_many :sale_items, :class_name => "SaleItem"

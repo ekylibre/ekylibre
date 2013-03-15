@@ -297,10 +297,10 @@ namespace :db do
 
         print "o"
       end
-      
-      
+
+
       # import Bank Cash from CRCA
-      #   
+      #
       #@ TODO : retrieve data and put it into bank_statement
       #
       file = Rails.root.join("test", "fixtures", "files", "bank-rb.ofx")
@@ -313,7 +313,7 @@ namespace :db do
         bank_account.balance.amount # => "100.00"
         bank_account.balance.amount_in_pennies # => "10000"
       end
-      
+
       puts "!"
     end
   end

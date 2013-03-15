@@ -1,0 +1,11 @@
+
+
+# # Empty samples of <%= table_name -%>
+
+# <%= table_name -%>_001:
+#   id: 1
+#   name: '<%= class_name -%> 1'
+
+# <%= table_name -%>_002:
+#   id: 2
+#   name: '<%= class_name -%> 2'
