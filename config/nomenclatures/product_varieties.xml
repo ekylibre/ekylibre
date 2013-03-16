@@ -55,10 +55,30 @@
     <name xml:lang="eng">Vegetal</name>
     <code nomenclature="Nomen" value="P-B-V"/>
   </variety>
+  <variety code="wheat" parent="vegetal" class="Vegetal">
+    <name xml:lang="fra">Blé</name>
+    <name xml:lang="eng">Wheat</name>
+    <code nomenclature="Nomen" value="P-B-V-W"/>
+  </variety>
   <variety code="organic-matter" parent="matter" class="Matter">
     <name xml:lang="fra">Matière organique</name>
     <name xml:lang="eng">Organic matter</name>
     <code nomenclature="Nomen" value="P-M-O"/>
+  </variety>
+  <variety code="wheat" parent="organic-matter" class="Matter">
+    <name xml:lang="fra">Blé</name>
+    <name xml:lang="eng">Wheat</name>
+    <code nomenclature="Nomen" value="P-B-OM-W"/>
+  </variety>
+  <variety code="herbicide" parent="matter" class="Matter">
+    <name xml:lang="fra">Herbicide</name>
+    <name xml:lang="eng">Herbicide</name>
+    <code nomenclature="Nomen" value="P-M-H"/>
+  </variety>
+  <variety code="fungicide" parent="matter" class="Matter">
+    <name xml:lang="fra">Fongicide</name>
+    <name xml:lang="eng">Fungicide</name>
+    <code nomenclature="Nomen" value="P-M-F"/>
   </variety>
   <variety code="mineral-matter" parent="matter" class="Matter">
     <name xml:lang="fra">Matière minérale</name>
