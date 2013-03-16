@@ -24,17 +24,23 @@
     <code nomenclature="Nomen" value=""/>
     <description xml:lang="fra" source="internal">Ensembles des outils et personnes utiles aux actions d'épandage d'engrais d'origines organiques</description>
   </working-set>
-  <working-set code="mechanical-weeding">
+  <working-set code="mechanical-treatment">
     <name xml:lang="fra">Traitement mécanique</name>
     <name xml:lang="eng">Mechanical weeding</name>
     <code nomenclature="Nomen" value=""/>
     <description xml:lang="fra" source="internal">Ensembles des outils et personnes utiles aux actions de traitements mécaniques et physiques des plantes</description>
   </working-set>
-  <working-set code="chemical-weeding">
+  <working-set code="chemical-treatment">
     <name xml:lang="fra">Traitement chimique</name>
     <name xml:lang="eng">Chemical weeding</name>
     <code nomenclature="Nomen" value=""/>
     <description xml:lang="fra" source="internal">Ensembles des outils et personnes utiles aux actions de traitements chimiques des plantes</description>
+  </working-set>
+  <working-set code="phytosanitary-treatment">
+    <name xml:lang="fra">Traitement phytosanitaire</name>
+    <name xml:lang="eng">Phytosanitary weeding</name>
+    <code nomenclature="Nomen" value=""/>
+    <description xml:lang="fra" source="internal">Ensembles des outils et personnes utiles aux actions de traitements phytosanitaires des plantes</description>
   </working-set>
   <working-set code="water">
     <name xml:lang="fra">Irrigation</name>

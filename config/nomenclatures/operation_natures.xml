@@ -14,8 +14,10 @@
     <name xml:lang="fra">Fertilisation</name>
     <name xml:lang="eng">Fertilize</name>
     <code nomenclature="Nomen" value="FERTILIZE"/>
+    	<operation-task>[working-set] moves-to [target]</operation-task>
+		<operation-task>[target] consumes [intrant]</operation-task>
   </operation-nature>
-  <operation-nature code="plowing" target="matter" type="is-being-treat" categories="soil">
+  <operation-nature code="plowing" target="matter" type="modify" categories="soil">
     <name xml:lang="fra">Labourer</name>
     <name xml:lang="eng">Plowing</name>
     <code nomenclature="Nomen" value="PLOWING"/>
@@ -25,7 +27,7 @@
     <name xml:lang="eng">Surperficial plowing</name>
     <code nomenclature="Nomen" value="SUPERFICIAL-PLOWING"/>
   </operation-nature>
-  <operation-nature code="sowing" target="matter" type="is-being-treat" categories="soil">
+  <operation-nature code="sowing" target="landparcel,matter" type="is-being-treat" categories="soil">
     <name xml:lang="fra">Semer</name>
     <name xml:lang="eng">Sowing</name>
     <code nomenclature="Nomen" value="SOWING"/>
