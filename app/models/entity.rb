@@ -109,7 +109,6 @@ class Entity < Ekylibre::Record::Base
   has_many :prices, :class_name => "ProductNaturePrice"
   has_many :purchase_invoices, :class_name => "Purchase", :foreign_key => :supplier_id, :order => "created_on desc", :conditions => {:state => "invoice"}
   has_many :purchases, :foreign_key => :supplier_id
-  has_many :operation_works, :foreign_key => :worker_id, :inverse_of => :worker
   has_many :outgoing_deliveries, :foreign_key => :transporter_id
   has_many :outgoing_payments, :foreign_key => :payee_id
   has_many :sales_invoices, :class_name => "Sale", :foreign_key => :client_id, :order => "created_on desc", :conditions => {:state => "invoice"}
@@ -122,7 +121,7 @@ class Entity < Ekylibre::Record::Base
   has_many :transporter_sales, :foreign_key => :transporter_id, :order => "created_on desc", :class_name => "Sale"
   has_many :usable_incoming_payments, :conditions => ["used_amount < amount"], :class_name => "IncomingPayment", :foreign_key => :payer_id
   has_many :waiting_deliveries, :class_name => "OutgoingDelivery", :foreign_key => :transporter_id, :conditions => ["moved_on IS NULL AND planned_on <= CURRENT_DATE"]
-  has_one :default_mail_address, :class_name => "EntityAddress", :conditions => {:by_default => true, :canal => :mail}
+  has_one :default_mail_address, :class_name => "EntityAddress", :conditions => {:by_default => true, :canal => "mail"}
   has_attached_file :picture, {
     :url => '/backend/:class/:id/picture/:style',
     :path => ':rails_root/private/:class/:attachment/:id_partition/:style.:extension',
@@ -287,8 +286,8 @@ class Entity < Ekylibre::Record::Base
 
   def add_event(usage, user_id)
     if user = Entity.find_by_id(user_id)
-      EventNature.find_all_by_usage(usage).each do |nature|
-        nature.events.create!(:started_at => Time.now, :duration => event_nature.duration, :entity_id => self.id, :responsible_id => user.id)
+      EventNature.find_all_by_usage(usage.to_s).each do |nature|
+        nature.events.create!(:started_at => Time.now, :duration => event_nature.duration.to_s, :entity_id => self.id, :responsible_id => user.id)
       end
     end
   end

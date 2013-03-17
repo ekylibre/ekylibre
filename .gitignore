@@ -42,3 +42,6 @@ public/system/*
 # Ignore compass sprites
 app/themes/tekyla/images/common-s*.png
 app/themes/tekyla/images/icons-s*.png
+
+# Coveralls
+coverage

@@ -53,7 +53,7 @@ class DocumentTemplateTest < ActiveSupport::TestCase
         DocumentTemplate.load_defaults(:locale => locale)
       end
       # Compile all templates
-      DocumentTemplate.where(:language => locale).find_each do |template|
+      DocumentTemplate.where(:language => locale.to_s).find_each do |template|
         assert_not_nil template.nature, template.inspect
         if DocumentTemplate.document_natures[template.nature.to_sym].size > 0
           assert_raise ArgumentError do

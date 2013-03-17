@@ -33,4 +33,10 @@
 #  updater_id        :integer
 #
 class ProductLink < Ekylibre::Record::Base
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_presence_of :carried, :carrier
+  #]VALIDATORS]
+  belongs_to :carrier, :class_name => 'Product'
+  belongs_to :carried, :class_name => 'Product'
+  belongs_to :operation_task
 end

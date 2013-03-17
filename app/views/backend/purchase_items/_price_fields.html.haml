@@ -3,7 +3,7 @@
   #category-field.control-group.selector.required
     %label.control-label.required{:for => 'price-category-input'}
       %abbr{:title => 'required'} *
-      =Price.human_attribute_name('category')
+      =ProductNaturePrice.human_attribute_name('category')
     .controls
       =selector(:price, :category, {:controller=>"entity_categories", :action=>:unroll}, {:object => price}, :id => 'price-category-input', :class => 'selector required') + link_to(('<span class="icon"></span><span class="text">' + h('labels.new'.t) + '</span>').html_safe, {:controller => :entity_categories, :action => :new}, 'data-new-item' => 'price-category-input', :class => 'btn btn-new')
       -for error in price.errors['category']
@@ -12,7 +12,7 @@
   #tax-field.control-group.selector.required
     %label.control-label.required{:for => 'price-tax-input'}
       %abbr{:title => 'required'} *
-      =Price.human_attribute_name('tax')
+      =ProductNaturePrice.human_attribute_name('tax')
     .controls
       =selector(:price, :tax, {:controller=>"taxes", :action=>:unroll}, {:object => price}, :id => 'price-tax-input', :class => 'selector required') + link_to(('<span class="icon"></span><span class="text">' + h('labels.new'.t) + '</span>').html_safe, {:controller => :taxes, :action => :new}, 'data-new-item' => 'price-tax-input', :class => 'btn btn-new')
       -for error in price.errors['tax']

@@ -32,7 +32,7 @@ class Backend::EquipmentsController < BackendController
 
   list(:order => "name") do |t|
     t.column :name, :url => true
-    t.column :name, :through => :nature, :url => true
+    t.column :name, :through => :nature # , :url => true
     # t.column :purchased_on, :datatype => :date
     # t.column :ceded_on, :datatype => :date
     t.action :edit
@@ -41,7 +41,7 @@ class Backend::EquipmentsController < BackendController
 
   # Displays details of one equipment selected with +params[:id]+
   def show
-    return unless @equipment = find_and_check(:equipment)
+    return unless @equipment = find_and_check
     session[:current_equipment_id] = @equipment.id
     t3e @equipment.attributes
   end

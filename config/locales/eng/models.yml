@@ -947,6 +947,7 @@ eng:
     operation_lines: "Operation lines" #?
     operation_nature: "Operation type"
     operation_natures: "Operation types"
+    # operation_tasks: "Operation tasks"
     operation_uses: "Tool uses"
     operations: "Operations"
     # order: "Vente"

@@ -69,7 +69,7 @@
 
 
 class Product < Ekylibre::Record::Base
-  attr_accessible :nature_id, :number, :identification_number, :work_number, :born_at, :sex, :picture, :owner_id
+  attr_accessible :nature_id, :number, :identification_number, :work_number, :born_at, :sex, :picture, :owner_id, :parent_id
   belongs_to :nature, :class_name => "ProductNature"
   belongs_to :variety, :class_name => "ProductVariety"
   belongs_to :unit
@@ -77,9 +77,9 @@ class Product < Ekylibre::Record::Base
   belongs_to :father, :class_name => "Product"
   belongs_to :mother, :class_name => "Product"
   belongs_to :owner, :class_name => "Entity"
-  has_many :memberships, :class_name => "ProductMembership"
+  has_many :memberships, :class_name => "ProductMembership", :foreign_key => :member_id
   has_many :indicators, :class_name => "ProductIndicator"
-  has_many :operations, :foreign_key => :target_id
+  has_many :operation_tasks, :foreign_key => :subject_id
   has_many :product_localizations
   has_attached_file :picture, {
     :url => '/backend/:class/:id/picture/:style',
@@ -92,7 +92,7 @@ class Product < Ekylibre::Record::Base
   }
 
   default_scope -> { order(:name) }
-  scope :members_of, lambda { |group, viewed_at| where("id IN (SELECT product_id FROM #{ProductMembership.table_name} WHERE group_id = ? AND ? BETWEEN COALESCE(started_at, ?) AND COALESCE(stopped_at, ?))", group.id, viewed_at, viewed_at, viewed_at)}
+  scope :members_of, lambda { |group, viewed_at| where("id IN (SELECT member_id FROM #{ProductMembership.table_name} WHERE group_id = ? AND ? BETWEEN COALESCE(started_at, ?) AND COALESCE(stopped_at, ?))", group.id, viewed_at, viewed_at, viewed_at)}
 
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.

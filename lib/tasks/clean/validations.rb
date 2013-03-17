@@ -65,7 +65,7 @@ task :validations => :environment do
 
         # Create tag if it's necessary
         unless tag
-          content.sub!(/(class\s#{model.name}\s*<\s*(CompanyRecord|Ekylibre::Record::Base|ActiveRecord::Base))/, '\1'+"\n  #{tag_start}\n  #{tag_end}")
+          content.sub!(/(class\s#{model.name}\s*<\s*(Ekylibre::Record::Base|ActiveRecord::Base))/, '\1'+"\n  #{tag_start}\n  #{tag_end}")
         end
 
         # Update tag

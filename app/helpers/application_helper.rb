@@ -56,6 +56,7 @@ class SimpleForm::FormBuilder
     raise "Association #{association.inspect} not found" unless reflection
     raise ArgumentError.new("Reflection #{reflection.name} must be a belongs_to") if reflection.macro != :belongs_to
 
+    return self.association(association) if options[:field] == :hidden
 
     choices = options[:source] || {}
     choices = {:action => "unroll_#{choices.to_s}".to_sym} unless choices.is_a?(Hash)
@@ -79,7 +80,7 @@ class SimpleForm::FormBuilder
   def nested_association(association, *args, &block)
     reflection = find_association_reflection(association)
     raise "Association #{association.inspect} not found" unless reflection
-    puts "DEPRECATED: Nested association don't take code block anymore. Use partial '#{association.to_s.singularize}_fields' instead." if block_given?
+    ActiveSupport::Deprecation.warn "Nested association don't take code block anymore. Use partial '#{association.to_s.singularize}_fields' instead." if block_given?
     # raise ArgumentError.new("Reflection #{reflection.name} must be a has_many") if reflection.macro != :has_many
     item = association.to_s.singularize
     html = self.simple_fields_for(association) do |nested|
@@ -441,7 +442,7 @@ module ApplicationHelper
     end
 
     def custom_fields(*args)
-      for datum in @object.custom_field_data.joins("JOIN custom_fields ON (custom_fields.id = custom_field_id AND active)").order(:position)
+      for datum in @object.custom_field_data.joins(:custom_field).where("custom_fields.active").order("custom_fields.position")
         unless datum.value.to_s.blank?
           self.custom datum.custom_field.name, datum.value
         end
@@ -650,7 +651,7 @@ module ApplicationHelper
 
 
 
-  def wikize(content, options={})
+  def wikize(content, options = {})
     # AJAX fails with XHTML entities because there is no DOCTYPE in AJAX response
 
     content.gsub!(/(\w)(\?|\:)([\s$])/ , '\1~\2\3' )
@@ -690,7 +691,9 @@ module ApplicationHelper
       link = link[3..-3].split('|')
       url = link[0].split(/[\#\?\&]+/)
       url = options[:url].merge(:controller => url[0], :action => (url[1]||:index))
-      (authorized?(url) ? link_to(link[1], url) : link[1])
+      # TODO clean authorization system
+      surl = url_for(url) # Permit to test URL
+      (options[:no_link] || !authorized?(url) ? link[1] : link_to(link[1], surl))
     end
 
     options[:method] = :get

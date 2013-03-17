@@ -464,6 +464,8 @@ fra:
     by_default: "Par défaut"
     cache: "Cache"
     canal: "Canal"
+    # carried: "Carried"
+    # carrier: "Carrier"
     cash: "Trésorerie"
     cash_journals: "Journaux de caisse" #?
     cash_transfers: "Virements internes" #?
@@ -859,8 +861,9 @@ fra:
     operation_items: "Intrants/sortants" #?
     operation_nature: "Type d’operation" #?
     operation_natures: "Types de travail" #?
+    # operation_task: "Operation task"
+    operation_tasks: "Operation tasks"
     operation_uses: "Utilisations d’outil" #?
-    # operation_works: "Operation works"
     operations: "Travaux"
     order: "Vente" #?
     order_item: "Ligne de vente" #?

@@ -832,6 +832,7 @@ spa:
     # operation_items: "Intrants/sortants"
     # operation_nature: "Type d’operation"
     # operation_natures: "Types de travail"
+    # operation_tasks: "Operation tasks"
     # operation_uses: "Utilisations d’outil"
     # operations: "Travaux"
     # order: "Vente"

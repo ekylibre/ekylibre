@@ -208,9 +208,9 @@ class DocumentTemplate < Ekylibre::Record::Base
   def self.print(nature, options = {})
     template ||= options[:template]
     template = if template.is_a? String or template.is_a? Symbol
-                 self.find_by_active_and_nature_and_code(true, nature, template)
+                 self.find_by_active_and_nature_and_code(true, nature.to_s, template.to_s)
                else
-                 self.find_by_active_and_nature_and_by_default(true, nature, true)
+                 self.find_by_active_and_nature_and_by_default(true, nature.to_s, true)
                end
     raise ArgumentError.new("Unfound template") unless template
     parameters = []

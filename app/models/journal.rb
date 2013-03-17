@@ -56,12 +56,12 @@ class Journal < Ekylibre::Record::Base
     raise ArgumentError.new("Journal#used_for must be one of these: #{self.nature.values.join(', ')}") unless self.nature.values.include?(nature.to_s)
     where(:nature => nature.to_s)
   }
-  scope :sales,     -> { where(:nature => :sales) }
-  scope :purchases, -> { where(:nature => :purchases) }
-  scope :banks,     -> { where(:nature => :bank) }
-  scope :forwards,  -> { where(:nature => :forward) }
-  scope :various,   -> { where(:nature => :various) }
-  scope :cashes,    -> { where(:nature => :cashes) }
+  scope :sales,     -> { where(:nature => "sales") }
+  scope :purchases, -> { where(:nature => "purchases") }
+  scope :banks,     -> { where(:nature => "bank") }
+  scope :forwards,  -> { where(:nature => "forward") }
+  scope :various,   -> { where(:nature => "various") }
+  scope :cashes,    -> { where(:nature => "cashes") }
 
   before_validation(:on => :create) do
     if year = FinancialYear.first

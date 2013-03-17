@@ -24,7 +24,7 @@ class ApplicationHelperTest < ActionView::TestCase
     File.open(file, "rb") do |f|
       source = f.read
       test "wikization of '#{file.gsub(Rails.root.to_s, '.')}'" do
-        wikize(source, :url => {:controller => :help, :action => :show})
+        wikize(source, :url => {:controller => :help, :action => :show}, :no_link => true)
       end
     end
   end

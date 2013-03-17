@@ -221,6 +221,7 @@ Ekylibre::Application.routes.draw do
         get :list_addresses
         get :list_cashes
         get :list_links
+        get :autocomplete_for_origin
         unroll_all
         match "import", :via => [:get, :post]
         match "export", :via => [:get, :post]

@@ -20,12 +20,7 @@
   =f.referenced_association :tracking, :depend_on => :warehouse, :if => :trackable?
 
 =field_set :subscriptions do
-  =f.nested_association :subscriptions, :depend_on => :price, :if => :subscribing? do
-    =f.referenced_association :address
-    =f.input :started_on, :if => "product.subscription_nature.period?".to_sym
-    =f.input :stopped_on, :if => "product.subscription_nature.period?".to_sym
-    =f.input :first_number, :if => "product.subscription_nature.quantity?".to_sym
-    =f.input :last_number,  :if => "product.subscription_nature.quantity?".to_sym
+  =f.nested_association :subscriptions, :depend_on => :price, :if => :subscribing?
 
 =field_set :change_price, :grant_on => :change_prices_on_sales do
   =f.input :price_amount

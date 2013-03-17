@@ -11,13 +11,13 @@
   =f.input :moved_at
 
 =field_set(:care) do |f|
-  =f.nested_association(:diagnostics) do
+  -#f.nested_association(:diagnostics) do
     =f.input :symptoms
     =f.input :corpse_location
     =f.referenced_association :disease
 
 =field_set(:treatment) do |f|
-  =f.nested_association(:treatments) do
+  -# f.nested_association(:treatments) do
     =f.input :started_at
     =f.referenced_association :drug
     =f.input :quantity

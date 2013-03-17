@@ -106,7 +106,7 @@ class Warehouse < Place
   protect(:on => :destroy) do
     dependencies = 0
     for k, v in self.class.reflections.select{|k, v| v.macro == :has_many}
-      dependencies += self.send(k).size
+      dependencies += self.send(k).count
     end
     return dependencies <= 0
   end

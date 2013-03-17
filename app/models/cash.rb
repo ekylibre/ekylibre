@@ -78,8 +78,8 @@ class Cash < Ekylibre::Record::Base
   validates_uniqueness_of :account_id
 
   default_scope -> { order(:name) }
-  scope :bank_accounts, -> { where(:nature => :bank_account) }
-  scope :cash_boxes,    -> { where(:nature => :cash_box) }
+  scope :bank_accounts, -> { where(:nature => "bank_account") }
+  scope :cash_boxes,    -> { where(:nature => "cash_box") }
 
   # before create a bank account, this computes automatically code iban.
   before_validation do

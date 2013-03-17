@@ -44,32 +44,9 @@
   =f.referenced_association :attorney_account, :source => :attorney_thirds, :buttons => {:new => {:number => Account.find_in_chart(:attorney_thirds).number}}
 
 =field_set(:coordinates, :major => true) do
-  =f.nested_association(:emails) do
-    =f.input :canal, :value => "email", :field => :hidden
-    =f.input :coordinate, :field => :email, :label => "enumerize.entity_address.canal.email"
-
-  =f.nested_association(:mails) do
-    =f.input :canal, :value => "mail", :field => :hidden
-    =f.input :mail_line_1
-    =f.input :mail_line_2
-    =f.input :mail_line_3
-    =f.input :mail_line_4
-    =f.input :mail_line_5
-    =f.input :mail_line_6
-    =f.input :mail_country, :collection => countries
-
-  =f.nested_association(:phones, :before => :emails) do
-    =f.input :canal, :value => "phone", :field => :hidden
-    =f.input :coordinate, :field => :tel, :label => "enumerize.entity_address.canal.phone"
-
-  =f.nested_association(:mobiles) do
-    =f.input :canal, :value => "mobile", :field => :hidden
-    =f.input :coordinate, :field => :tel, :label => "enumerize.entity_address.canal.mobile"
-
-  =f.nested_association(:faxes) do
-    =f.input :canal, :value => "fax", :field => :hidden
-    =f.input :coordinate, :field => :tel, :label => "enumerize.entity_address.canal.fax"
-
-  =f.nested_association(:websites) do
-    =f.input :canal, :value => "website", :field => :hidden
-    =f.input :coordinate, :field => :url, :label => "enumerize.entity_address.canal.website"
+  =f.nested_association(:emails)
+  =f.nested_association(:mails)
+  =f.nested_association(:phones)
+  =f.nested_association(:mobiles)
+  =f.nested_association(:faxes)
+  =f.nested_association(:websites)
