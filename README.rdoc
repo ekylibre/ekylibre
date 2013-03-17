@@ -3,14 +3,6 @@
 Ekylibre is a simple enterprise management web application written with Ruby on Rails framework.
 More details can be found at in the doc directory or on the official website http://www.ekylibre.org
 
-== Maps
-
-http://www.mindmeister.com/fr/233765234/ekylibre-1-0-2013
-
-== Forum
-
-https://www.ekylibre.org/forum/
-
 == Guides
 
 You can learn how to contribute in Ekylibre by following our official guide
@@ -31,9 +23,15 @@ We encourage you to contribute to Ekylibre.
 
 == Code status
 
-* {<img src="https://api.travis-ci.org/ekylibre/ekylibre.png?branch=master"/>}[https://travis-ci.org/ekylibre/ekylibre]
-* {<img src="https://gemnasium.com/ekylibre/ekylibre.png"/>}[https://gemnasium.com/ekylibre/ekylibre]
-* {<img src="https://codeclimate.com/github/ekylibre/ekylibre.png" />}[https://codeclimate.com/github/ekylibre/ekylibre]
+{<img src="https://api.travis-ci.org/ekylibre/ekylibre.png?branch=master"/>}[https://travis-ci.org/ekylibre/ekylibre]
+{<img src="https://gemnasium.com/ekylibre/ekylibre.png"/>}[https://gemnasium.com/ekylibre/ekylibre]
+{<img src="https://codeclimate.com/github/ekylibre/ekylibre.png" />}[https://codeclimate.com/github/ekylibre/ekylibre]
+{<img src="https://coveralls.io/repos/ekylibre/ekylibre/badge.png?branch=master" alt="Coverage Status" />}[https://coveralls.io/r/ekylibre/ekylibre]
+
+== See also
+
+* Forum: https://www.ekylibre.org/forum
+* Map: http://www.mindmeister.com/fr/233765234/ekylibre-1-0-2013
 
 == License
 
