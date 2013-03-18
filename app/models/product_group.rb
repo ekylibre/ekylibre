@@ -68,7 +68,7 @@
 
 
 class ProductGroup < Product
-  attr_accessible :description, :description, :name, :parent_id, :memberships_attributes
+  attr_accessible :active, :external, :description, :name, :variety_id, :unit_id, :nature_id, :reproductor, :reservoir, :parent_id, :memberships_attributes
 
   belongs_to :parent, :class_name => "ProductGroup"
   has_many :memberships, :class_name => "ProductMembership", :foreign_key => :group_id

@@ -110,12 +110,12 @@ class Product < Ekylibre::Record::Base
   delegate :serial_number, :producer, :to => :tracking
   delegate :name, :to => :nature, :prefix => true
 
-  before_validation do
-    if self.nature
-      self.variety_id = self.nature.variety_id
-      self.unit_id = self.nature.unit_id
-    end
-  end
+ # before_validation do
+ #   if self.nature
+ #     self.variety_id = self.nature.variety_id
+ #     self.unit_id = self.nature.unit_id
+ #   end
+ # end
 
   def default_price(category_id)
     self.nature.default_price(category_id)
