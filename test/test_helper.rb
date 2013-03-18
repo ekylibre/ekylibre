@@ -93,7 +93,7 @@ class ActionController::TestCase
         action_name = action.to_s
         mode = if action_name.match(/^(index|new)$/) # GET without ID
                  :index
-               elsif action_name.match(/^(show|edit)$/) # GET with ID
+               elsif action_name.match(/^(show|edit|picture)$/) # GET with ID
                  :show
                elsif action_name.match(/^(create|load)$/) # POST without ID
                  :create

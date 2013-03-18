@@ -49,7 +49,7 @@
 
 
 class ListingNode < Ekylibre::Record::Base
-  acts_as_list :scope => :listing_id
+  acts_as_list :scope => :listing
   acts_as_nested_set
   attr_accessible :attribute_name, :condition_operator, :condition_value, :exportable, :label, :listing_id, :nature, :parent_id, :position, :sql_type
   attr_readonly :listing_id, :nature
@@ -111,7 +111,7 @@ class ListingNode < Ekylibre::Record::Base
   before_validation do
     self.listing_id = self.parent.listing_id if self.parent
 
-    self.key = 'k'+User.send(:generate_password, 31, :normal) if self.key.nil? ## bef_val_on_cr
+    self.key = 'k'+User.send(:generate_password, 31, :normal) if self.key.blank?
     if self.root?
       self.name = self.listing.root_model
     elsif self.reflection?
@@ -280,8 +280,11 @@ class ListingNode < Ekylibre::Record::Base
   def duplicate(listing, parent = nil)
     attrs = [:attribute_name, :condition_operator, :condition_value, :exportable, :item_listing_id, :item_listing_node_id, :item_nature, :item_value, :label, :name, :nature, :position]
 
-
-    attributes = self.attributes.reject{|k,v| !attrs.include?(k.to_sym)}
+    attributes = self.attributes.inject({}) do |hash, pair|
+      key = pair[0].to_sym
+      hash[key] = pair[1] if attrs.include?(key)
+      hash
+    end
     attributes[:listing_id] = listing.id
     attributes[:parent_id]  = (parent ? parent.id : nil)
     # attributes.delete("key")

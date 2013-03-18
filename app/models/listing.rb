@@ -98,11 +98,13 @@ class Listing < Ekylibre::Record::Base
     return c
   end
 
+  # Fully duplicate a listing
   def duplicate
     listing = self.class.create!(self.attributes.merge(:name => tg(:copy_of, :source => self.name)).delete_if{|a| ["id", "lock_version"].include?(a.to_s)}, :without_protection => true)
+    listing.save
+    listing.reload
     self.root.duplicate(listing)
     listing.reload
-    listing.save
     return listing
   end
 

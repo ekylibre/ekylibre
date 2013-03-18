@@ -35,7 +35,7 @@
 
 
 class Operation < Ekylibre::Record::Base
-  attr_accessible :nature_id, :started_at, :stopped_at, :target_id
+  attr_accessible :nature_id, :started_at, :stopped_at
   # enumerize :nature, :in => [:move_to, :consume, :produce, :separate, :merge, :attach, :detach], :predicates => true
   belongs_to :nature, :class_name => "OperationNature"
   # belongs_to :target, :class_name => "Product"
@@ -53,12 +53,6 @@ class Operation < Ekylibre::Record::Base
 
   before_validation(:on => :create) do
     self.started_at ||= Time.now
-  end
-
-  after_save do
-    if self.move_to?
-      ProductLocalization.check_operation(self)
-    end
   end
 
   # def save_with_uses_and_items(uses=[], items=[])

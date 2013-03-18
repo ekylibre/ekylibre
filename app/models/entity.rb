@@ -206,7 +206,7 @@ class Entity < Ekylibre::Record::Base
   end
 
   protect(:on => :destroy) do
-    return false if self.id == self.of_company? or self.sales_invoices.count > 0 or self.events.count > 0 and self.sales.count > 0 and self.operation_works.count > 0 and self.transports.count > 0
+    return false if self.id == self.of_company? or self.sales_invoices.count > 0 or self.events.count > 0 and self.sales.count > 0 and self.transports.count > 0
     return true
   end
 

@@ -535,7 +535,6 @@ fra:
     # content: "Content"
     content_maximal_quantity: "Content maximal quantity"
     content_nature: "Content nature"
-    # content_unit: "Content unit"
     conveyors: "Convoyeurs"
     coordinate: "Coordonnée"
     country: "Pays"

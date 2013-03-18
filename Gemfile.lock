@@ -123,6 +123,11 @@ GEM
       actionmailer (>= 3.0.4)
     execjs (1.4.0)
       multi_json (~> 1.0)
+    factory_girl (4.2.0)
+      activesupport (>= 3.0.0)
+    factory_girl_rails (4.2.1)
+      factory_girl (~> 4.2.0)
+      railties (>= 3.0.0)
     fastercsv (1.5.5)
     feedzirra (0.2.0.rc2)
       curb (~> 0.8.0)
@@ -179,10 +184,10 @@ GEM
       webrobots (~> 0.0, >= 0.0.9)
     method_source (0.8.1)
     mime-types (1.21)
-    multi_json (1.7.0)
+    multi_json (1.7.1)
     net-http-digest_auth (1.2.1)
     net-http-persistent (2.8)
-    nokogiri (1.5.6)
+    nokogiri (1.5.7)
     ntlm-http (0.1.1)
     ofx-parser (1.1.0)
       hpricot (>= 0.6)
@@ -256,7 +261,7 @@ GEM
     rake (10.0.3)
     rdoc (3.12.2)
       json (~> 1.4)
-    ref (1.0.2)
+    ref (1.0.3)
     rest-client (1.6.7)
       mime-types (>= 1.16)
     rgeo (0.3.20)
@@ -325,7 +330,7 @@ GEM
     therubyracer (0.11.4)
       libv8 (~> 3.11.8.12)
       ref
-    thin (1.5.0)
+    thin (1.5.1)
       daemons (>= 1.0.9)
       eventmachine (>= 0.12.6)
       rack (>= 1.0.0)
@@ -378,6 +383,7 @@ DEPENDENCIES
   devise-i18n-views
   enumerize
   exception_notification
+  factory_girl_rails
   fastercsv
   feedzirra (~> 0.2.0.rc2)
   ffaker
@@ -407,7 +413,6 @@ DEPENDENCIES
   rubyzip
   sass-rails (~> 3.2.3)
   simple_form
-  simplecov
   squeel
   state_machine
   strong_parameters

@@ -68,15 +68,15 @@
 
 
 class Equipment < Product
-  attr_accessible :nature_id, :asset_id, :picture, :name, :description, :born_at, :dead_at, :active, :external, :content_unit_id, :content_nature_id, :owner_id, :parent_place_id, :variety_id, :reservoir, :content_maximal_quantity
+  attr_accessible :nature_id, :asset_id, :picture, :name, :description, :born_at, :dead_at, :active, :external, :content_unit_id, :content_nature_id, :owner_id, :parent_id, :variety_id, :reservoir, :content_maximal_quantity
   has_attached_file :picture, :styles => { :medium => "300x300>", :thumb => "100x100>" }
-  #has_many :uses, :class_name => "OperationUse"
-  belongs_to :nature, :class_name => "ProductNature"
-  belongs_to :variety, :class_name => "ProductVariety"
+  # has_many :uses, :class_name => "OperationUse"
+  # belongs_to :nature, :class_name => "ProductNature"
+  # belongs_to :variety, :class_name => "ProductVariety"
   # belongs_to :parent_place, :class_name => "Place"
   belongs_to :owner, :class_name => "Entity"
-  belongs_to :content_nature, :class_name => "Product"
-  belongs_to :content_unit, :class_name => "Unit"
+  # belongs_to :content_nature, :class_name => "Product"
+  # belongs_to :content_unit, :class_name => "Unit"
   belongs_to :asset
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :picture_file_size, :allow_nil => true, :only_integer => true

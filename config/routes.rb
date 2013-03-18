@@ -256,6 +256,13 @@ Ekylibre::Application.routes.draw do
         get :list
       end
     end
+    resources :equipments do
+      collection do
+        get :list
+        get :list_operations
+        unroll_all
+      end
+    end
     resources :establishments do
       collection do
         get :list
@@ -729,13 +736,6 @@ Ekylibre::Application.routes.draw do
     resources :taxes do
       collection do
         get :list
-        unroll_all
-      end
-    end
-    resources :equipments do
-      collection do
-        get :list
-        get :list_operations
         unroll_all
       end
     end

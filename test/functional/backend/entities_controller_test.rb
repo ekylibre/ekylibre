@@ -19,5 +19,16 @@
 
 require 'test_helper'
 class Backend::EntitiesControllerTest < ActionController::TestCase
-  test_restfully_all_actions
+
+  test_restfully_all_actions :except => :picture
+
+  test "picture" do
+    assert_nothing_raised do
+      get :picture, :id => 'NaID'
+    end
+    entity = entities(:entities_001)
+    get :picture, :id => entity.id
+    assert_response :redirect
+  end
+
 end

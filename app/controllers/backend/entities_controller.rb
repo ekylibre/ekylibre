@@ -175,7 +175,11 @@ class Backend::EntitiesController < BackendController
 
   def picture
     return unless @entity = find_and_check
-    send_file @entity.picture.path(params[:style] || :original)
+    if @entity.picture.file?
+      send_file(@entity.picture.path(params[:style] || :original))
+    else
+      head :not_found
+    end
   end
 
 

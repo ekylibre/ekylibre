@@ -32,11 +32,15 @@ class Backend::EquipmentsController < BackendController
 
   list(:order => "name") do |t|
     t.column :name, :url => true
-    t.column :name, :through => :nature # , :url => true
+    # t.column :name, :through => :nature # , :url => true
     # t.column :purchased_on, :datatype => :date
     # t.column :ceded_on, :datatype => :date
     t.action :edit
     t.action :destroy, :if => :destroyable?
+  end
+
+  # Displays the main page with the list of equipments
+  def index
   end
 
   # Displays details of one equipment selected with +params[:id]+
@@ -46,8 +50,5 @@ class Backend::EquipmentsController < BackendController
     t3e @equipment.attributes
   end
 
-  # Displays the main page with the list of equipments
-  def index
-  end
 
 end

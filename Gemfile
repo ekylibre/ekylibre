@@ -87,19 +87,6 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
-group :test do
-  gem 'capybara'
-  gem 'rspec-rails'
-  gem 'jasper-rails-rspec'
-  gem 'cucumber-rails', :require => false
-  gem 'awesome_print'
-  gem 'pry'
-  # database_cleaner is not required, but highly recommended
-  gem 'database_cleaner'
-  gem 'simplecov', :require => false
-  gem 'coveralls', :require => false
-end
-
 group :development do
   gem 'rack-mini-profiler'
   gem 'rails-erd'
@@ -111,3 +98,20 @@ group :development do
 
   gem 'thin'
 end
+
+group :development, :test do
+  gem 'factory_girl_rails'
+end
+
+group :test do
+  gem 'capybara'
+  gem 'rspec-rails'
+  gem 'jasper-rails-rspec'
+  gem 'cucumber-rails', :require => false
+  gem 'awesome_print'
+  gem 'pry'
+  # database_cleaner is not required, but highly recommended
+  gem 'database_cleaner'
+  gem 'coveralls', :require => false
+end
+

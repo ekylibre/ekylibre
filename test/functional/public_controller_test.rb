@@ -1,4 +1,9 @@
 require 'test_helper'
 class PublicControllerTest < ActionController::TestCase
-  test_restfully_all_actions
+
+  test "index" do
+    get :index
+    assert_response :redirect
+  end
+
 end

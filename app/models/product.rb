@@ -106,6 +106,7 @@ class Product < Ekylibre::Record::Base
 
   accepts_nested_attributes_for :memberships, :reject_if => :all_blank, :allow_destroy => true
   accepts_nested_attributes_for :indicators, :reject_if => :all_blank, :allow_destroy => true
+  acts_as_numbered
   delegate :serial_number, :producer, :to => :tracking
   delegate :name, :to => :nature, :prefix => true
 

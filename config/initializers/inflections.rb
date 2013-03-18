@@ -18,6 +18,9 @@
 ActiveSupport::Inflector.inflections do |inflect|
   inflect.irregular 'tax', 'taxes'
   inflect.irregular 'fax', 'faxes'
+  # Although Equipment is always uncountable, we need to have a different for
+  # better understanding in code
+  inflect.irregular 'equipment', 'equipments'
 end
 
 # Set pluralization active with the algorithms defined in [locale]/i18n.rb
