@@ -67,7 +67,7 @@
 #
 
 class Animal < Bioproduct
-  attr_accessible :variety_id, :nature_id, :reproductor, :external, :born_at, :dead_at, :description, :description, :father_id, :mother_id, :identification_number, :name, :picture, :sex, :work_number
+  attr_accessible :unit_id, :variety_id, :nature_id, :reproductor, :external, :born_at, :dead_at, :description, :description, :father_id, :mother_id, :identification_number, :name, :picture, :sex, :work_number
   enumerize :sex, :in => [:male, :female]
   #enumerize :arrival_reasons, :in => [:birth, :purchase, :housing, :other], :default=> :birth
   #enumerize :departure_reasons, :in => [:dead, :sale, :autoconsumption, :other], :default=> :sale

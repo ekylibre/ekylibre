@@ -53,7 +53,7 @@ namespace :db do
       fy.stopped_on = Date.civil(2000,12,31)
       fy.code = "EX2000"
       fy.save!
-      en_org = EntityNature.where(:gender => :undefined).first
+      en_org = EntityNature.where(:gender => "undefined").first
 
       CSV.foreach(file, :encoding => "CP1252", :col_sep => ";") do |row|
         jname = (journals[row[1]] || row[1]).capitalize
@@ -129,24 +129,25 @@ namespace :db do
       # add default category for all
       category = ProductNatureCategory.first
       category ||= ProductNatureCategory.create!(:name => "Défaut")
-      # add default groups for animal
-      group1 = ProductGroup.find_by_name("VL")
-      group1 ||= ProductGroup.create!(:name => "VL", :description => "Vache Laitière")
-      group2 = ProductGroup.find_by_name("GEN")
-      group2 ||= ProductGroup.create!(:name => "GEN", :description => "Génisses")
-      group3 = ProductGroup.find_by_name("VEAU")
-      group3 ||= ProductGroup.create!(:name => "VEAU", :description => "Veaux")
-      group4 = ProductGroup.find_by_name("TAURILLON")
-      group4 ||= ProductGroup.create!(:name => "TAURILLON", :description => "Taurillons")
-      # create default product_nature to place animal
-      place_nature = ProductNature.find_by_number("CATTLE_HOUSE")
-      place_nature ||= ProductNature.create!(:name => "Stabulation", :number => "CATTLE_HOUSE", :storage => true, :indivisible => true, :variety_id => b.id, :unit_id => unit.id, :category_id => category.id)
       # create default product_nature to create animal
       cow = ProductNature.find_by_number("CATTLE")
       cow ||= ProductNature.create!(:name => "Bovin", :number => "CATTLE", :alive => true, :storable => true, :indivisible => true, :variety_id => v.id, :unit_id => unit.id, :category_id => category.id)
+      # add default groups for animal
+      group1 = ProductGroup.find_by_name("VL")
+      group1 ||= ProductGroup.create!(:name => "VL", :active => true, :external => false, :reproductor => false, :reservoir => false, :number => "VL",:description => "Vache Laitière", :nature_id => cow.id, :unit_id => unit.id, :variety_id => v.id, :owner_id => Entity.of_company.id)
+      group2 = ProductGroup.find_by_name("GEN")
+      group2 ||= ProductGroup.create!(:name => "GEN", :active => true, :external => false, :reproductor => false, :reservoir => false, :number => "GEN",:description => "Génisses", :nature_id => cow.id, :unit_id => unit.id, :variety_id => v.id, :owner_id => Entity.of_company.id)
+      group3 = ProductGroup.find_by_name("VEAU")
+      group3 ||= ProductGroup.create!(:name => "VEAU", :active => true, :external => false, :reproductor => false, :reservoir => false, :number => "VEAU",:description => "Veaux", :nature_id => cow.id, :unit_id => unit.id, :variety_id => v.id, :owner_id => Entity.of_company.id)
+      group4 = ProductGroup.find_by_name("TAURILLON")
+      group4 ||= ProductGroup.create!(:name => "TAURILLON", :active => true, :external => false, :reproductor => false, :reservoir => false, :number => "TAURILLON",:description => "Taurillons", :nature_id => cow.id, :unit_id => unit.id, :variety_id => v.id, :owner_id => Entity.of_company.id)
+      # create default product_nature to place animal
+      place_nature = ProductNature.find_by_number("CATTLE_HOUSE")
+      place_nature ||= ProductNature.create!(:name => "Stabulation", :number => "CATTLE_HOUSE", :storage => true, :indivisible => true, :variety_id => b.id, :unit_id => unit.id, :category_id => category.id)
+
       # create default product to place animal
       place = Warehouse.find_by_work_number("STABU_01")
-      place ||= Warehouse.create!(:name => "Stabulation principale", :identification_number => "S0001", :number => "STABU_01",:work_number => "STABU_01", :born_at => Time.now, :reservoir => true, :content_nature_id => cow.id, :variety_id => b.id, :nature_id => place_nature.id, :owner_id => Entity.of_company.id)
+      place ||= Warehouse.create!(:name => "Stabulation principale", :identification_number => "S0001", :number => "STABU_01",:work_number => "STABU_01", :born_at => Time.now, :reservoir => true, :unit_id => unit.id, :content_nature_id => cow.id, :variety_id => b.id, :nature_id => place_nature.id, :owner_id => Entity.of_company.id)
 
       arrival_causes = {"N" => :birth, "A" => :purchase, "P" => :housing, "" => :other }
       departure_causes = {"M" => :death, "B" => :sale, "" => :other, "C" => :consumption , "E" => :sale}
@@ -169,17 +170,17 @@ namespace :db do
                            :departed_on => (row[10].blank? ? nil : Date.civil(*row[10].to_s.split(/\//).reverse.map(&:to_i)))
                            )
         f = File.open(pictures.sample)
-        animal = Animal.create!(:name => r.name, :identification_number => r.identification_number, :work_number => r.work_number, :born_at => r.born_on, :sex => r.sex, :picture => f, :nature_id => cow.id, :number => r.work_number, :owner_id => Entity.of_company.id, :reproductor => (r.sex == :male ? rand(2).zero? : false))
+        animal = Animal.create!(:name => r.name, :unit_id => unit.id, :variety_id => v.id,:identification_number => r.identification_number, :work_number => r.work_number, :born_at => r.born_on, :sex => r.sex, :picture => f, :nature_id => cow.id, :number => r.work_number, :owner_id => Entity.of_company.id, :reproductor => (r.sex == :male ? rand(2).zero? : false))
         f.close
         # place the current animal in the default place (stabulation) with dates
-        ProductLocalization.create!(:container_id => place.id, :product_id => animal.id, :nature => :interior, :transfer_id => place.id, :started_at => r.arrived_on, :stopped_at => r.departed_on, :arrival_cause => r.arrival_cause, :departure_cause => r.departure_cause)
+        ProductLocalization.create!(:container_id => place.id, :product_id => animal.id, :nature => :interior, :started_at => r.arrived_on, :stopped_at => r.departed_on, :arrival_cause => r.arrival_cause, :departure_cause => r.departure_cause)
         # place the current animal in the default group with dates
         # @TODO set correct group if sex M / F and age > 2 year
         # group1 if sex = female and age > 3 years
         # group2 if sex = female and age between 1 and 3 years
         # group3 if  age < 3 month
         # group4 if sex = male and age > 1 years
-        ProductMembership.create!(:product_id => animal.id, :group_id => group1.id,:started_at => r.arrived_on, :stopped_at => r.departed_on )
+        ProductMembership.create!(:member_id => animal.id, :group_id => group1.id,:started_at => r.arrived_on, :stopped_at => r.departed_on )
         print "c"
       end
 
@@ -202,7 +203,7 @@ namespace :db do
       RGeo::Shapefile::Reader.open(Rails.root.join("test", "fixtures", "files", "land_parcels-shapefile.shp").to_s) do |file|
         # puts "File contains #{file.num_records} records."
         file.each do |record|
-          LandParcel.create!(:shape => record.geometry, :name => Faker::Name.first_name, :number => record.attributes['PACAGE'].to_s + record.attributes['CAMPAGNE'].to_s + record.attributes['NUMERO'].to_s, :born_at => Date.civil(2000,1,1), :nature_id => land_parcel.id, :owner_id => Entity.of_company.id)
+          LandParcel.create!(:shape => record.geometry, :name => Faker::Name.first_name,:variety_id => v.id, :unit_id => unit.id, :number => record.attributes['PACAGE'].to_s + record.attributes['CAMPAGNE'].to_s + record.attributes['NUMERO'].to_s, :born_at => Date.civil(2000,1,1), :nature_id => land_parcel.id, :owner_id => Entity.of_company.id)
           # puts "Record number #{record.index}:"
           # puts "  Geometry: #{record.geometry.as_text}"
           # puts "  Attributes: #{record.attributes.inspect}"
@@ -232,7 +233,7 @@ namespace :db do
       prix_nature_ble ||= ProductNaturePrice.create!(:amount => "211.0000", :currency => "EUR", :pretax_amount => "200.0000", :product_nature_id => nature_ble.id, :tax_id => taxe_prix_nature_ble.id, :category_id => entitycat.id, :supplier_id => Entity.of_company.id )
       # Create wheat product
       ble = Vegetal.find_by_work_number("BLE_001")
-      ble = Vegetal.create!(:name => "Blé Cap Horn 2011", :identification_number => "BLE_2011_07142011", :work_number => "BLE_2011", :born_at => "2011-07-14", :nature_id => nature_ble.id, :number => "BLE_2011", :owner_id => Entity.of_company.id)
+      ble = Vegetal.create!(:name => "Blé Cap Horn 2011",:variety_id => c.id, :unit_id => unit_v.id, :identification_number => "BLE_2011_07142011", :work_number => "BLE_2011", :born_at => "2011-07-14", :nature_id => nature_ble.id, :number => "BLE_2011", :owner_id => Entity.of_company.id)
 
       # sale_nature
       sale_nature = SaleNature.find_by_name("Coop")

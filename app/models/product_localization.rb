@@ -37,7 +37,7 @@
 #
 
 class ProductLocalization < Ekylibre::Record::Base
-  attr_accessible :container_id, :product_id, :started_at, :stopped_at, :nature, :transfer_id, :arrival_cause, :departure_cause
+  attr_accessible :container_id, :product_id, :started_at, :stopped_at, :nature, :arrival_cause, :departure_cause
   belongs_to :container, :class_name => "Product"
   belongs_to :product
   enumerize :nature, :in => [:transfer, :interior, :exterior], :default => :interior, :predicates => true
