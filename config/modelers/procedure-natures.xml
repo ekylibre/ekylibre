@@ -5,12 +5,6 @@
     <name xml:lang="eng">Annual wheat crop</name>
     <description xml:lang="fra" source="internal">Procédure modèle permettant de décrire les opérations successives pour cultiver une sole annuelle de produit végétaux</description>
     <parameters>
-      <parameter name="activity" type="activity" nature="production">
-	<name xml:lang="fra">Activité</name>
-      </parameter>
-      <parameter name="campaign" type="campaign">
-	<name xml:lang="fra">Campagne</name>
-      </parameter>
       <parameter name="land_parcel" type="land-parcel" properties="producible" pre-indicators-state="production::empty">
 	<name xml:lang="fra">Parcelle</name>
       </parameter>
@@ -42,9 +36,6 @@
 	<name xml:lang="fra">Épandeur</name>
       </parameter>
     </parameters>
-    <conditions>
-      <condition>in=[activity] and [campaign]</condition>
-    </conditions>
     <operations>
       <operation name="fertilizing" required="false" working-set="organic-fertilization">
 	<tasks>

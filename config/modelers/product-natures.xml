@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <product-natures xmlns="http://www.ekylibre.org/XML/2013/product-natures">
-  <product-nature code="cow">
+  <product-nature name="cow">
     <name xml:lang="fra">Vache</name>
     <name xml:lang="eng">Cow</name>
     <code nomenclature="Nomen" value="ANI-P"/>
@@ -18,7 +18,7 @@
     <attribute name="deliverable" value="true"/>
     <attribute name="unit_id" value="unit()"/>
   </product-nature>
-  <product-nature code="manure">
+  <product-nature name="manure">
     <name xml:lang="fra">Fumier</name>
     <name xml:lang="eng">Manure</name>
     <code nomenclature="Nomen" value="MAT-E"/>
@@ -35,7 +35,7 @@
     <attribute name="deliverable" value="true"/>
     <attribute name="unit_id" value="unit()"/>
   </product-nature>
-  <product-nature code="fertilizer">
+  <product-nature name="fertilizer">
     <name xml:lang="fra">Engrais</name>
     <name xml:lang="eng">Fertilizer</name>
     <code nomenclature="Nomen" value="VEG-E"/>
@@ -52,7 +52,7 @@
     <attribute name="deliverable" value="true"/>
     <attribute name="unit_id" value="unit()"/>
   </product-nature>
-  <product-nature code="phytosanitary">
+  <product-nature name="phytosanitary">
     <name xml:lang="fra">Produits phytosanitaires</name>
     <name xml:lang="eng">Phytosanitary products</name>
     <code nomenclature="Nomen" value="VEG-T"/>
@@ -68,7 +68,7 @@
     <attribute name="deliverable" value="true"/>
     <attribute name="unit_id" value="unit()"/>
   </product-nature>
-  <product-nature code="seed">
+  <product-nature name="seed">
     <name xml:lang="fra">Semence</name>
     <name xml:lang="eng">Seed</name>
     <code nomenclature="Nomen" value="VEG-S"/>
@@ -85,7 +85,7 @@
     <attribute name="deliverable" value="true"/>
     <attribute name="unit_id" value="unit()"/>
   </product-nature>
-  <product-nature code="crop">
+  <product-nature name="crop">
     <name xml:lang="fra">Culture</name>
     <name xml:lang="eng">Crop</name>
     <code nomenclature="Nomen" value="VEG-C"/>

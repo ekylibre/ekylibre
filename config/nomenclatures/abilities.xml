@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<abilities xmlns="http://www.ekylibre.org/XML/2013/operation-natures">
+  <ability name="passive-spreader">
+    <name xml:lang="fra">Épandeur tracté</name>
+  </ability>
+  <ability name="tractor">
+    <name xml:lang="fra">Tracteur</name>
+  </ability>
+  <ability name="spreader">
+    <name xml:lang="fra">Épandeur</name>
+    <composition>
+      <compound name="tractor"/>
+      <compound name="passive-spreader"/>
+    </composition>
+  </ability>
+</abilities>
