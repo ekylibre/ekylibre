@@ -32,7 +32,16 @@
       <parameter name="herbicide" type="matter" nature="phytosanitary" variety="herbicide">
 		<name xml:lang="fra">Herbicide</name>
       </parameter>
+      <parameter name="herbicide-to-spray" type="matter" nature="phytosanitary" variety="herbicide">
+		<name xml:lang="fra">Herbicide à pulvériser</name>
+      </parameter>
+      <parameter name="water" type="matter" nature="" variety="">
+		<name xml:lang="fra">Eau</name>
+      </parameter>
       <parameter name="fungicide" type="matter" nature="phytosanitary" variety="fungicide">
+		<name xml:lang="fra">Fongicide</name>
+      </parameter>
+      <parameter name="fungicide-to-spray" type="matter" nature="phytosanitary" variety="fungicide">
 		<name xml:lang="fra">Fongicide</name>
       </parameter>
       <parameter name="grains" type="matter" nature="--" variety="[seeds]">
@@ -55,6 +64,9 @@
       </parameter>
       <parameter name="seeder" type="equipment" abilities="sowing" ><!-- paramètre réprésentant des objets qui possede la compétence "Semer"  -->
 		<name xml:lang="fra">Semoir</name>
+      </parameter>
+      <parameter name="sprayer" type="equipment" abilities="spray" ><!-- paramètre réprésentant des objets qui possede la compétence "Semer"  -->
+		<name xml:lang="fra">Pulvérisateur</name>
       </parameter>
       <parameter name="tractor" type="equipment" abilities="tow"><!-- paramètre réprésentant des objets qui possede la compétence "Tracter"  -->
 		<name xml:lang="fra">Tracteur</name>
@@ -187,19 +199,62 @@
       </operation>
       <!-- #################### TRAITER CHIMIQUEMENT LA CULTURE CONTRE LES MAUVAISES HERBES ####################### -->
       <operation name="treating" level="1" required="false" working-set="chemical-treatment">
-	<tasks>
-	  <task do="working-set moves-to [culture]"/>
-	  <task do="working-set acts-on [culture]"/>
-	  <task do="[culture] consumes [herbicide]"/>
-	</tasks>
-      </operation>
-      <operation name="treating" required="false" working-set="phytosanitary-treatment">
-	<tasks>
-	  <task do="working-set moves-to [culture]"/>
-	  <task do="working-set acts-on [culture]"/>
-	  <task do="[culture] consumes [fungicide]"/>
-	</tasks>
-      </operation>
+		<operation level="2" name="transport">
+			<tasks>
+				<task do="[driver] moves-to [tractor]"/><!-- le chauffeur se déplace vers le tracteur et rentre dedant (?) -->
+	  			<task do="[tractor] moves-to [sprayer].product_localizations.current"/><!-- le chauffeur et le tracteur se déplace vers le lieu actuel du pulvérisateur-->
+	  			<task do="[tractor] catches [sprayer]"/><!-- le chauffeur attache le pulvérisateur au tracteur -->
+			</tasks>
+		</operation>
+		<operation level="2" name="loading">
+			<tasks>
+	  			<task do="[tractor] moves-to [herbicide].product_localizations.current"/><!-- le chauffeur, tracteur et le pulvé se déplacent vers le lieu actuel du stock des produits phyto-->
+	  			<task do="[herbicide] parts-with [herbicide-to-spray](quantity::?, unit::?, variety::[herbicide].variety)"/><!--  on sépare l'herbicide que l'on va mettre dans le pulvé du stock global selectionné --> 
+	  			<task do="[herbicide-to-spray] moves-to [sprayer]"/><!-- le chauffeur charge de l'herbicide et de l'eau dans le pulvérisateur qui est un lieu de stockage temporaire (normalement plus complexe que cela)-->
+	  			<task do="[tractor] moves-to [culture]"/><!-- le chauffeur + son tracteur et son pulvérisateur chargé du traitement (eau + herbicide) se déplace vers la sole de blé et rentre dedant (?) -->
+			</tasks>
+		</operation>
+		<operation level="2" name="spray">
+			<tasks>
+				<task do="[tractor] acts-on [culture]"><!-- tant que le [tractor] travaille (? = sous-entendu le tracteur tourne,le conducteur roule, le pulvé tourne) les sub-task tournent -->
+					<sub-task do="[herbicide-to-spray] moves-to [culture]"/><!-- le traitement tombe sur la sole de blé car le pulvé tourne (?) -->
+					<sub-task do="[culture] consumes [herbicide-to-spray]"/><!-- la sole de blé consomme le traitement épandu car il se dépose sur les feuilles des plants de blé -->
+				<!-- le bioprocess lié doit faire l'action suivante : [culture] consumes [fertilizer] in [land_parcel] -->
+				</task><!-- a terme, on devrait être capable de faire IF l'épandeur est vide alors j'arrete de travailler -->
+				<!-- et je retourne charger de l'engrais sur le tas global-->
+			</tasks>
+		</operation>
+		</operation>
+	<!-- #################### TRAITER CHIMIQUEMENT LA CULTURE CONTRE LES MALADIES FONGIQUES ####################### -->
+      <operation name="treating" level="1" required="false" working-set="phytosanitary-treatment">
+		<operation level="2" name="transport">
+			<tasks>
+				<task do="[driver] moves-to [tractor]"/><!-- le chauffeur se déplace vers le tracteur et rentre dedant (?) -->
+	  			<task do="[tractor] moves-to [sprayer].product_localizations.current"/><!-- le chauffeur et le tracteur se déplace vers le lieu actuel du pulvérisateur-->
+	  			<task do="[tractor] catches [sprayer]"/><!-- le chauffeur attache le pulvérisateur au tracteur -->
+			</tasks>
+		</operation>
+		<operation level="2" name="loading">
+			<tasks>
+	  			<task do="[tractor] moves-to [fungicide].product_localizations.current"/><!-- le chauffeur, tracteur et le pulvé se déplacent vers le lieu actuel du stock des produits phyto-->
+	  			<task do="[fungicide] parts-with [fungicide-to-spray](quantity::?, unit::?, variety::[herbicide].variety)"/><!--  on sépare l'herbicide que l'on va mettre dans le pulvé du stock global selectionné --> 
+	  			<task do="[fungicide-to-spray] moves-to [sprayer]"/><!-- le chauffeur charge de l'herbicide et de l'eau dans le pulvérisateur qui est un lieu de stockage temporaire (normalement plus complexe que cela)-->
+	  			<task do="[tractor] moves-to [culture]"/><!-- le chauffeur + son tracteur et son pulvérisateur chargé du traitement (eau + herbicide) se déplace vers la sole de blé et rentre dedant (?) -->
+			</tasks>
+		</operation>
+		<operation level="2" name="spray">
+			<tasks>
+				<task do="[tractor] acts-on [culture]"><!-- tant que le [tractor] travaille (? = sous-entendu le tracteur tourne,le conducteur roule, le pulvé tourne) les sub-task tournent -->
+					<sub-task do="[fungicide-to-spray] moves-to [culture]"/><!-- le traitement tombe sur la sole de blé car le pulvé tourne (?) -->
+					<sub-task do="[culture] consumes [fungicide-to-spray]"/><!-- la sole de blé consomme le traitement épandu car il se dépose sur les feuilles des plants de blé -->
+				<!-- le bioprocess lié doit faire l'action suivante : [culture] consumes [fertilizer] in [land_parcel] -->
+				</task><!-- a terme, on devrait être capable de faire IF l'épandeur est vide alors j'arrete de travailler -->
+			</tasks>
+		</operation>
+		</operation>
+	<!-- #################### MOISSONNER LE BLE ####################### -->
+	
+
       <operation name="seed-harvest" required="true" working-set="harvest">
 	<tasks>
 	  <task do="working-set moves-to [culture]"/>
