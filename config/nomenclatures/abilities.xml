@@ -6,14 +6,27 @@
   <ability name="precision-spreading"><!-- @QUID : niveau de compétence (normal,précision)  -->
     <name xml:lang="fra">Épandre avec précision</name>
   </ability>
+  <ability name="plowing">
+    <name xml:lang="fra">Labourer</name>
+  </ability>
+  <ability name="sowing">
+    <name xml:lang="fra">Semer</name>
+  </ability>
+  <ability name="superficial-plowing">
+    <name xml:lang="fra">Travailler le sol en surface</name>
+  </ability>
   <ability name="tow">
-    <name xml:lang="fra">Tracter</name>
+    <name xml:lang="fra">Tracter</name><!-- @QUID : niveau de compétence (charge 4T , 10T ?)  -->
   </ability>
   <ability name="tractor-driving"><!-- @QUID : compétence lié à un outil (conduire un tracteur,conduire un tracteur + un semoir, conduire une moissonneusse, etc ) -->
     <name xml:lang="fra">Conduire</name>
   </ability>
   <ability name="spread-driving" required="tractor-driving">
   	<!-- @QUID : compétence cumulé (pour conduire un ensemble tracteur + semoir, je dois savoir conduire d'abord un tracteur)) -->
-    <name xml:lang="fra">Conduire</name>
+    <name xml:lang="fra">Conduire un ensemble d'épandage</name>
+  </ability>
+  <ability name="plow-driving" required="tractor-driving">
+  	<!-- @QUID : compétence cumulé (pour conduire un ensemble tracteur + semoir, je dois savoir conduire d'abord un tracteur)) -->
+    <name xml:lang="fra">Conduire un ensemble de labour</name>
   </ability>
 </abilities>

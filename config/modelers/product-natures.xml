@@ -14,7 +14,6 @@
     <attribute name="saleable" value="true"/>
     <attribute name="purchasable" value="true"/>
     <attribute name="producible" value="true"/>
-    <attribute name="purchasable" value="true"/>
     <attribute name="deliverable" value="true"/>
     <attribute name="unit_id" value="unit()"/>
   </product-nature>
@@ -31,7 +30,6 @@
     <attribute name="saleable" value="true"/>
     <attribute name="purchasable" value="true"/>
     <attribute name="producible" value="true"/>
-    <attribute name="purchasable" value="true"/>
     <attribute name="deliverable" value="true"/>
     <attribute name="unit_id" value="unit()"/>
   </product-nature>
@@ -48,7 +46,6 @@
     <attribute name="saleable" value="true"/>
     <attribute name="purchasable" value="true"/>
     <attribute name="producible" value="true"/>
-    <attribute name="purchasable" value="true"/>
     <attribute name="deliverable" value="true"/>
     <attribute name="unit_id" value="unit()"/>
   </product-nature>
@@ -64,7 +61,6 @@
     <attribute name="saleable" value="true"/>
     <attribute name="purchasable" value="true"/>
     <attribute name="producible" value="true"/>
-    <attribute name="purchasable" value="true"/>
     <attribute name="deliverable" value="true"/>
     <attribute name="unit_id" value="unit()"/>
   </product-nature>
@@ -81,7 +77,22 @@
     <attribute name="saleable" value="true"/>
     <attribute name="purchasable" value="true"/>
     <attribute name="producible" value="true"/>
+    <attribute name="deliverable" value="true"/>
+    <attribute name="unit_id" value="unit()"/>
+  </product-nature>
+  <product-nature name="fuel">
+    <name xml:lang="fra">Carburant</name>
+    <name xml:lang="eng">Fuel</name>
+    <code nomenclature="Nomen" value="INT-C"/>
+    <description xml:lang="fra" source="wikipedia">Carburant permettant de faire fonctionner les moteurs diesels</description>
+    <attribute name="variety" value="organic-matter"/>
+    <attribute name="alive" value="false"/>
+    <attribute name="indivisible" value="false"/>
+    <attribute name="storable" value="true"/>
+    <attribute name="transferable" value="true"/>
+    <attribute name="saleable" value="true"/>
     <attribute name="purchasable" value="true"/>
+    <attribute name="producible" value="false"/>
     <attribute name="deliverable" value="true"/>
     <attribute name="unit_id" value="unit()"/>
   </product-nature>
@@ -98,7 +109,6 @@
     <attribute name="saleable" value="true"/>
     <attribute name="purchasable" value="true"/>
     <attribute name="producible" value="true"/>
-    <attribute name="purchasable" value="true"/>
     <attribute name="deliverable" value="true"/>
     <attribute name="unit_id" value="unit()"/>
   </product-nature>
