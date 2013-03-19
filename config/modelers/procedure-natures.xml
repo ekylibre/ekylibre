@@ -6,43 +6,64 @@
     <description xml:lang="fra" source="internal">Procédure modèle permettant de décrire les opérations successives pour cultiver une sole annuelle de produit végétaux</description>
     <parameters>
       <parameter name="land_parcel" type="land-parcel" properties="producible" pre-indicators-state="production::empty">
-	<name xml:lang="fra">Parcelle</name>
+		<name xml:lang="fra">Parcelle</name>
       </parameter>
       <parameter name="manure" type="matter" nature="manure" variety="organic-matter">
-	<name xml:lang="fra">Fumier</name>
+		<name xml:lang="fra">Fumier</name>
+      </parameter>
+      <parameter name="manure-to-spread" type="matter" nature="manure" variety="organic-matter">
+		<name xml:lang="fra">Fumier à épandre</name>
       </parameter>
       <parameter name="seeds" type="matter" nature="seed" variety="wheat">
-	<name xml:lang="fra">Semence</name>
+		<name xml:lang="fra">Semence</name>
       </parameter>
       <parameter name="fertilizer" type="matter" nature="fertilizer" variety="mineral-matter">
-	<name xml:lang="fra">Engrais</name>
+		<name xml:lang="fra">Engrais</name>
       </parameter>
       <parameter name="herbicide" type="matter" nature="phytosanitary" variety="herbicide">
-	<name xml:lang="fra">Herbicide</name>
+		<name xml:lang="fra">Herbicide</name>
       </parameter>
       <parameter name="fungicide" type="matter" nature="phytosanitary" variety="fungicide">
-	<name xml:lang="fra">Fongicide</name>
+		<name xml:lang="fra">Fongicide</name>
       </parameter>
       <parameter name="grains" type="matter" nature="--" variety="[seeds]">
-	<name xml:lang="fra">Grain de blé</name>
+		<name xml:lang="fra">Grain de blé</name>
       </parameter>
       <parameter name="straw" type="matter" nature="--" variety="[seeds]">
-	<name xml:lang="fra">Paille de blé</name>
+		<name xml:lang="fra">Paille de blé</name>
       </parameter>
       <parameter name="culture" type="vegetal" nature="crop" variety="vegetal">
-	<name xml:lang="fra">Sole de blé</name>
+		<name xml:lang="fra">Sole de blé</name>
       </parameter>
-      <parameter name="spreader" abilities="spreader">
-	<name xml:lang="fra">Épandeur</name>
+      <parameter name="spreader" type="equipment" abilities="normal-spreading" working-set="organic-fertilization"><!-- paramètre réprésentant des objets membres du working-set="organic-fertilization" qui possede la compétence "Epandre"  -->
+		<name xml:lang="fra">Épandeur</name>
+      </parameter>
+      <parameter name="tractor" type="equipment" abilities="tow" working-set="organic-fertilization"><!-- paramètre réprésentant des objets membres du working-set="organic-fertilization" qui possede la compétence "Tracter"  -->
+		<name xml:lang="fra">Tracteur</name>
+      </parameter>
+      <parameter name="driver" type="human" abilities="spread-driving" working-set="organic-fertilization"><!-- paramètre réprésentant des objets de type Humain membres du working-set="organic-fertilization" qui possede la compétence "Conduire un tracteur"  -->
+		<name xml:lang="fra">Conducteur de tracteur</name>
       </parameter>
     </parameters>
     <operations>
-      <operation name="fertilizing" required="false" working-set="organic-fertilization">
-	<tasks>
-	  <task do="[spreader] moves-to [land_parcel]"/>
-	  <task do="[spreader] acts-on [land_parcel]"/>
-	  <task do="[land_parcel] consumes [manure]"/>
-	</tasks>
+      <operation level="1" name="fertilizing" required="false">
+		<operation level="2" name="transport" required="true">
+			<tasks>
+				<task do="[driver] moves-to [tractor]"/><!-- le chauffeur se déplace vers le tracteur et rentre dedant (?) -->
+	  			<task do="[tractor] moves-to [spreader].product_localizations.current"/><!-- le chauffeur et le tracteur se déplace vers le lieu actuel de l'épandeur-->
+	  			<task do="[tractor] catches [spreader]"/><!-- le chauffeur attache l'épandeur au tracteur -->
+	  			<task do="[tractor] moves-to [manure].product_localizations.current"/><!-- le chauffeur, tracteur et épandeur se déplacent vers le lieu actuel du tas de fumier-->
+	  			<task do="[manure] parts-with [manure-to-spread](quantity::?, unit::?, variety::[manure].variety)"/><!--  on sépare le fumier que l'on va mettre dans l'épandeur du tas global --> 
+	  			<task do="[manure-to-spread] moves-to [spreader]"/><!-- le chauffeur charge du fumier dans l'épandeur qui est un lieu de stockage temporaire (normalement plus complexe que cela)-->
+	  			<task do="[tractor] moves-to [land_parcel]"/><!-- le chauffeur + son tracteur et son épandeur chargé de fumier se déplace vers la parcelle et rentre dedant (?) -->
+			</tasks>
+		</operation>
+	    <operation level="2" name="spreading" required="true">
+			<tasks>
+				<task do="[tractor] acts-on [land_parcel]"/><!-- le chauffeur épand du fumier (?) -->
+				<task do="[land_parcel] consumes [manure-to-spread]"/><!-- la parcelle consomme le fumier mis dans l'épandeur -->
+			</tasks>
+		</operation>
       </operation>
       <operation name="plowing" required="true" target="[land_parcel].indicator(ground-appearance) == raw" working-set="soil-working">
 	<tasks>

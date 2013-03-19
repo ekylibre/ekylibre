@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <abilities xmlns="http://www.ekylibre.org/XML/2013/operation-natures">
-  <ability name="passive-spreader">
-    <name xml:lang="fra">Épandeur tracté</name>
+  <ability name="normal-spreading">
+    <name xml:lang="fra">Épandre</name>
   </ability>
-  <ability name="tractor">
-    <name xml:lang="fra">Tracteur</name>
+  <ability name="precision-spreading"><!-- @QUID : niveau de compétence (normal,précision)  -->
+    <name xml:lang="fra">Épandre avec précision</name>
   </ability>
-  <ability name="spreader">
-    <name xml:lang="fra">Épandeur</name>
-    <composition>
-      <compound name="tractor"/>
-      <compound name="passive-spreader"/>
-    </composition>
+  <ability name="tow">
+    <name xml:lang="fra">Tracter</name>
+  </ability>
+  <ability name="tractor-driving"><!-- @QUID : compétence lié à un outil (conduire un tracteur,conduire un tracteur + un semoir, conduire une moissonneusse, etc ) -->
+    <name xml:lang="fra">Conduire</name>
+  </ability>
+  <ability name="spread-driving" required="tractor-driving">
+  	<!-- @QUID : compétence cumulé (pour conduire un ensemble tracteur + semoir, je dois savoir conduire d'abord un tracteur)) -->
+    <name xml:lang="fra">Conduire</name>
   </ability>
 </abilities>
