@@ -55,10 +55,15 @@
     <name xml:lang="eng">Vegetal</name>
     <code nomenclature="Nomen" value="P-B-V"/>
   </variety>
-  <variety code="wheat" parent="vegetal" class="Vegetal">
+  <variety code="straw_cereal" parent="vegetal" class="Vegetal">
+    <name xml:lang="fra">Céréales à paille</name>
+    <name xml:lang="eng">Straw cereals</name>
+    <code nomenclature="Nomen" value="P-B-V-SC"/>
+  </variety>
+  <variety code="wheat" parent="straw_cereal" class="Vegetal">
     <name xml:lang="fra">Blé</name>
     <name xml:lang="eng">Wheat</name>
-    <code nomenclature="Nomen" value="P-B-V-W"/>
+    <code nomenclature="Nomen" value="P-B-V-SC-W"/>
   </variety>
   <variety code="organic-matter" parent="matter" class="Matter">
     <name xml:lang="fra">Matière organique</name>
