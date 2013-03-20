@@ -6,6 +6,9 @@
   <ability name="precision-spreading"><!-- @QUID : niveau de compétence (normal,précision)  -->
     <name xml:lang="fra">Épandre avec précision</name>
   </ability>
+  <ability name="spray"><!-- @QUID : niveau de compétence (normal,précision)  -->
+    <name xml:lang="fra">Pulvériser</name>
+  </ability>
   <ability name="plowing">
     <name xml:lang="fra">Labourer</name>
   </ability>
