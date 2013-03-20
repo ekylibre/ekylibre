@@ -7,17 +7,17 @@
     =attributes_list(@warehouse) do |l|
       -l.attribute :name
       -l.attribute :description
-      -l.attribute :establishment
-      -l.attribute :division
-      -l.attribute :subdivision
-      -l.attribute :subsubdivision
-      -if @warehouse.reservoir
+      -#l.attribute :establishment
+      -#l.attribute :division
+      -#l.attribute :subdivision
+      -#l.attribute :subsubdivision
+      -#if @warehouse.reservoir
         -l.attribute :product, :label => :name, :url => true
         -l.attribute :number
         -l.attribute :quantity_max
 
-  -b.tabbox do
-    -#b.cell :stocks do
+  -# b.tabbox do
+    -b.cell :stocks do
       =list(:stocks)
-    -#b.cell :stock_moves do
+    -b.cell :stock_moves do
       =list(:stock_moves)

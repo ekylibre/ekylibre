@@ -105,6 +105,7 @@ class Sequence < Ekylibre::Record::Base
     end
   end
 
+  # Produces the next value of the sequence and update last value in DB
   def next_value
     self.reload
     today = Date.today

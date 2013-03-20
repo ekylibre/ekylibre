@@ -631,7 +631,7 @@ class NormalizeProducts < ActiveRecord::Migration
         :warehouse => nil,
         :land_parcel => nil
       },
-      :tool => nil,
+      :equipment => nil,
       :matter => nil,
       :service => nil
     }

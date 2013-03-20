@@ -49,8 +49,8 @@ namespace :db do
       }
 
       fy = FinancialYear.first
-      fy.started_on = Date.civil(2000,1,1)
-      fy.stopped_on = Date.civil(2000,12,31)
+      fy.started_on = Date.civil(2000, 1, 1)
+      fy.stopped_on = Date.civil(2000, 12, 31)
       fy.code = "EX2000"
       fy.save!
       en_org = EntityNature.where(:gender => "undefined").first
@@ -134,20 +134,20 @@ namespace :db do
       cow ||= ProductNature.create!(:name => "Bovin", :number => "CATTLE", :alive => true, :storable => true, :indivisible => true, :variety_id => v.id, :unit_id => unit.id, :category_id => category.id)
       # add default groups for animal
       group1 = ProductGroup.find_by_name("VL")
-      group1 ||= ProductGroup.create!(:name => "VL", :active => true, :external => false, :reproductor => false, :reservoir => false, :number => "VL",:description => "Vache Laitière", :nature_id => cow.id, :unit_id => unit.id, :variety_id => v.id, :owner_id => Entity.of_company.id)
+      group1 ||= ProductGroup.create!(:name => "VL", :active => true, :external => false, :reproductor => false, :reservoir => false, :description => "Vache Laitière", :nature_id => cow.id, :unit_id => unit.id, :variety_id => v.id, :owner_id => Entity.of_company.id, :number => "VL")
       group2 = ProductGroup.find_by_name("GEN")
-      group2 ||= ProductGroup.create!(:name => "GEN", :active => true, :external => false, :reproductor => false, :reservoir => false, :number => "GEN",:description => "Génisses", :nature_id => cow.id, :unit_id => unit.id, :variety_id => v.id, :owner_id => Entity.of_company.id)
+      group2 ||= ProductGroup.create!(:name => "GEN", :active => true, :external => false, :reproductor => false, :reservoir => false, :description => "Génisses", :nature_id => cow.id, :unit_id => unit.id, :variety_id => v.id, :owner_id => Entity.of_company.id, :number => "GEN")
       group3 = ProductGroup.find_by_name("VEAU")
-      group3 ||= ProductGroup.create!(:name => "VEAU", :active => true, :external => false, :reproductor => false, :reservoir => false, :number => "VEAU",:description => "Veaux", :nature_id => cow.id, :unit_id => unit.id, :variety_id => v.id, :owner_id => Entity.of_company.id)
+      group3 ||= ProductGroup.create!(:name => "VEAU", :active => true, :external => false, :reproductor => false, :reservoir => false, :description => "Veaux", :nature_id => cow.id, :unit_id => unit.id, :variety_id => v.id, :owner_id => Entity.of_company.id, :number => "VEAU")
       group4 = ProductGroup.find_by_name("TAURILLON")
-      group4 ||= ProductGroup.create!(:name => "TAURILLON", :active => true, :external => false, :reproductor => false, :reservoir => false, :number => "TAURILLON",:description => "Taurillons", :nature_id => cow.id, :unit_id => unit.id, :variety_id => v.id, :owner_id => Entity.of_company.id)
+      group4 ||= ProductGroup.create!(:name => "TAURILLON", :active => true, :external => false, :reproductor => false, :reservoir => false, :description => "Taurillons", :nature_id => cow.id, :unit_id => unit.id, :variety_id => v.id, :owner_id => Entity.of_company.id, :number => "TAURILLON")
       # create default product_nature to place animal
       place_nature = ProductNature.find_by_number("CATTLE_HOUSE")
       place_nature ||= ProductNature.create!(:name => "Stabulation", :number => "CATTLE_HOUSE", :storage => true, :indivisible => true, :variety_id => b.id, :unit_id => unit.id, :category_id => category.id)
 
       # create default product to place animal
       place = Warehouse.find_by_work_number("STABU_01")
-      place ||= Warehouse.create!(:name => "Stabulation principale", :identification_number => "S0001", :number => "STABU_01",:work_number => "STABU_01", :born_at => Time.now, :reservoir => true, :unit_id => unit.id, :content_nature_id => cow.id, :variety_id => b.id, :nature_id => place_nature.id, :owner_id => Entity.of_company.id)
+      place ||= Warehouse.create!(:name => "Stabulation principale", :identification_number => "S0001", :work_number => "STABU_01", :born_at => Time.now, :reservoir => true, :unit_id => unit.id, :content_nature_id => cow.id, :variety_id => b.id, :nature_id => place_nature.id, :owner_id => Entity.of_company.id , :number => "STABU_01")
 
       arrival_causes = {"N" => :birth, "A" => :purchase, "P" => :housing, "" => :other }
       departure_causes = {"M" => :death, "B" => :sale, "" => :other, "C" => :consumption , "E" => :sale}
@@ -170,7 +170,7 @@ namespace :db do
                            :departed_on => (row[10].blank? ? nil : Date.civil(*row[10].to_s.split(/\//).reverse.map(&:to_i)))
                            )
         f = File.open(pictures.sample)
-        animal = Animal.create!(:name => r.name, :unit_id => unit.id, :variety_id => v.id,:identification_number => r.identification_number, :work_number => r.work_number, :born_at => r.born_on, :sex => r.sex, :picture => f, :nature_id => cow.id, :number => r.work_number, :owner_id => Entity.of_company.id, :reproductor => (r.sex == :male ? rand(2).zero? : false))
+        animal = Animal.create!(:name => r.name, :unit_id => unit.id, :variety_id => v.id, :identification_number => r.identification_number, :work_number => r.work_number, :born_at => r.born_on, :sex => r.sex, :picture => f, :nature_id => cow.id, :owner_id => Entity.of_company.id, :reproductor => (r.sex == :male ? rand(2).zero? : false), :number => r.work_number)
         f.close
         # place the current animal in the default place (stabulation) with dates
         ProductLocalization.create!(:container_id => place.id, :product_id => animal.id, :nature => :interior, :started_at => r.arrived_on, :stopped_at => r.departed_on, :arrival_cause => r.arrival_cause, :departure_cause => r.departure_cause)
@@ -180,7 +180,7 @@ namespace :db do
         # group2 if sex = female and age between 1 and 3 years
         # group3 if  age < 3 month
         # group4 if sex = male and age > 1 years
-        ProductMembership.create!(:member_id => animal.id, :group_id => group1.id,:started_at => r.arrived_on, :stopped_at => r.departed_on )
+        ProductMembership.create!(:member_id => animal.id, :group_id => group1.id, :started_at => r.arrived_on, :stopped_at => r.departed_on )
         print "c"
       end
 
@@ -203,7 +203,7 @@ namespace :db do
       RGeo::Shapefile::Reader.open(Rails.root.join("test", "fixtures", "files", "land_parcels-shapefile.shp").to_s) do |file|
         # puts "File contains #{file.num_records} records."
         file.each do |record|
-          LandParcel.create!(:shape => record.geometry, :name => Faker::Name.first_name,:variety_id => v.id, :unit_id => unit.id, :number => record.attributes['PACAGE'].to_s + record.attributes['CAMPAGNE'].to_s + record.attributes['NUMERO'].to_s, :born_at => Date.civil(2000,1,1), :nature_id => land_parcel.id, :owner_id => Entity.of_company.id)
+          LandParcel.create!(:shape => record.geometry, :name => Faker::Name.first_name, :variety_id => v.id, :unit_id => unit.id, :born_at => Date.civil(2000, 1, 1), :nature_id => land_parcel.id, :owner_id => Entity.of_company.id, :number => record.attributes['PACAGE'].to_s + record.attributes['CAMPAGNE'].to_s + record.attributes['NUMERO'].to_s)
           # puts "Record number #{record.index}:"
           # puts "  Geometry: #{record.geometry.as_text}"
           # puts "  Attributes: #{record.attributes.inspect}"
@@ -226,14 +226,14 @@ namespace :db do
       charge_account_nature_ble = Account.find_by_number("601")
       product_account_nature_ble = Account.find_by_number("701")
       nature_ble = ProductNature.find_by_number("BLE")
-      nature_ble ||= ProductNature.create!(:charge_account_id => charge_account_nature_ble.id,:product_account_id => product_account_nature_ble.id,:name => "Blé", :number => "BLE", :alive => true, :saleable => true, :purchasable => true, :active => true, :storable => true, :variety_id => c.id, :unit_id => unit_v.id, :category_id => category1.id)
+      nature_ble ||= ProductNature.create!(:charge_account_id => charge_account_nature_ble.id, :product_account_id => product_account_nature_ble.id, :name => "Blé", :number => "BLE", :alive => true, :saleable => true, :purchasable => true, :active => true, :storable => true, :variety_id => c.id, :unit_id => unit_v.id, :category_id => category1.id)
       taxe_prix_nature_ble = Tax.find_by_amount('5.5000')
       # Create product_nature_price for wheat product
       prix_nature_ble = ProductNaturePrice.find_by_product_nature_id(nature_ble.id)
       prix_nature_ble ||= ProductNaturePrice.create!(:amount => "211.0000", :currency => "EUR", :pretax_amount => "200.0000", :product_nature_id => nature_ble.id, :tax_id => taxe_prix_nature_ble.id, :category_id => entitycat.id, :supplier_id => Entity.of_company.id )
       # Create wheat product
       ble = Vegetal.find_by_work_number("BLE_001")
-      ble = Vegetal.create!(:name => "Blé Cap Horn 2011",:variety_id => c.id, :unit_id => unit_v.id, :identification_number => "BLE_2011_07142011", :work_number => "BLE_2011", :born_at => "2011-07-14", :nature_id => nature_ble.id, :number => "BLE_2011", :owner_id => Entity.of_company.id)
+      ble = Vegetal.create!(:name => "Blé Cap Horn 2011", :variety_id => c.id, :unit_id => unit_v.id, :identification_number => "BLE_2011_07142011", :work_number => "BLE_2011", :born_at => "2011-07-14", :nature_id => nature_ble.id, :owner_id => Entity.of_company.id, :number => "BLE_2011") #
 
       # sale_nature
       sale_nature = SaleNature.find_by_name("Coop")
@@ -277,19 +277,19 @@ namespace :db do
                            )
         # create a purchase if not exist
         purchase_order = Purchase.find_by_reference_number(r.order_number)
-        purchase_order ||= Purchase.create!(:state => r.order_status,:currency => "EUR", :nature_id => purchase_nature.id, :reference_number => r.order_number, :supplier_id => coop.id, :planned_on => r.ordered_on,:created_on => r.ordered_on)
+        purchase_order ||= Purchase.create!(:state => r.order_status, :currency => "EUR", :nature_id => purchase_nature.id, :reference_number => r.order_number, :supplier_id => coop.id, :planned_on => r.ordered_on, :created_on => r.ordered_on)
         taxe_prix_nature_appro = Tax.find_by_amount('19.6000')
         # create a product_nature if not exist
         product_nature_order = ProductNature.find_by_name(r.product_nature_name)
-        product_nature_order ||= ProductNature.create!(:stock_account_id => stock_account_nature_coop.id,:charge_account_id => charge_account_nature_coop.id,:name => r.product_nature_name, :number => r.product_nature_name, :alive => false, :saleable => false, :purchasable => true, :active => true, :storable => true, :variety_id => b.id, :unit_id => unit_u.id, :category_id => r.product_nature_category.id)
+        product_nature_order ||= ProductNature.create!(:stock_account_id => stock_account_nature_coop.id, :charge_account_id => charge_account_nature_coop.id, :name => r.product_nature_name, :number => r.product_nature_name, :alive => false, :saleable => false, :purchasable => true, :active => true, :storable => true, :variety_id => b.id, :unit_id => unit_u.id, :category_id => r.product_nature_category.id)
         # create a product (Matter) if not exist
         product_order = Matter.find_by_name(r.matter_name)
-        product_order ||= Matter.create!(:name => r.matter_name, :identification_number => r.matter_name, :work_number => r.matter_name, :born_at => Time.now, :nature_id => product_nature_order.id, :number => r.matter_name, :owner_id => Entity.of_company.id)
+        product_order ||= Matter.create!(:name => r.matter_name, :identification_number => r.matter_name, :work_number => r.matter_name, :born_at => Time.now, :nature_id => product_nature_order.id, :owner_id => Entity.of_company.id, :number => r.matter_name) #
         # create a product_nature_price if not exist
-        product_order_price = ProductNaturePrice.find_by_product_nature_id_and_supplier_id_and_pretax_amount(product_nature_order.id,coop.id,r.product_unit_price)
+        product_order_price = ProductNaturePrice.find_by_product_nature_id_and_supplier_id_and_pretax_amount(product_nature_order.id, coop.id, r.product_unit_price)
         product_order_price ||= ProductNaturePrice.create!(:amount => ((r.product_unit_price*(taxe_prix_nature_appro.amount/100))+r.product_unit_price), :currency => "EUR", :pretax_amount => r.product_unit_price, :product_nature_id => product_nature_order.id, :tax_id => taxe_prix_nature_appro.id, :category_id => entitycat.id, :supplier_id => coop.id )
         # create a purchase_item if not exist
-        purchase_order_item = PurchaseItem.find_by_product_id_and_purchase_id_and_price_id(product_order.id,purchase_order.id,product_order_price.id)
+        purchase_order_item = PurchaseItem.find_by_product_id_and_purchase_id_and_price_id(product_order.id, purchase_order.id, product_order_price.id)
         purchase_order_item ||= PurchaseItem.create!(:quantity => r.product_order_quantity, :unit_id => unit_u.id, :price_id => product_order_price.id, :product_id => product_order.id, :purchase_id => purchase_order.id)
         # create an incoming_delivery if status => 2
 
@@ -302,18 +302,19 @@ namespace :db do
 
       # import Bank Cash from CRCA
       #
-      #@ TODO : retrieve data and put it into bank_statement
+      # TODO : Retrieve data and put it into bank_statement
       #
       file = Rails.root.join("test", "fixtures", "files", "bank-rb.ofx")
-      ofx = OfxParser::OfxParser.parse(open(file))
-      ofx.bank_accounts.each do |bank_account|
-        bank_account.id # => "492108"
-        bank_account.bank_id # => "1837"
-        bank_account.currency # => "GBP"
-        bank_account.type # => :checking
-        bank_account.balance.amount # => "100.00"
-        bank_account.balance.amount_in_pennies # => "10000"
-      end
+      # FIXME OfxParser don't work....
+      # ofx = OfxParser::OfxParser.parse(open(file))
+      # ofx.bank_accounts.each do |bank_account|
+      #   bank_account.id # => "492108"
+      #   bank_account.bank_id # => "1837"
+      #   bank_account.currency # => "GBP"
+      #   bank_account.type # => :checking
+      #   bank_account.balance.amount # => "100.00"
+      #   bank_account.balance.amount_in_pennies # => "10000"
+      # end
 
       puts "!"
     end

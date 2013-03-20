@@ -2,11 +2,12 @@
   -t.edit @equipment
 
 =attributes_list(@equipment) do |l|
-  -l.attribute :nature
-  -l.attribute :consumption
-  -l.attribute :usage_duration, :duration=>:minutes
-  -l.attribute :remaining_duration, :duration=>:minutes
-  =image_tag(@equipment.picture.url(:thumb))
+  -l.attribute :name
+  -# l.attribute :nature
+  -# l.attribute :consumption
+  -# l.attribute :usage_duration, :duration=>:minutes
+  -# l.attribute :remaining_duration, :duration=>:minutes
+  =image_tag(@equipment.picture.url(:thumb)) if @equipment.picture.file?
 
-%h2=tc(:x_operations, :count=>@equipment.uses.count)
-=list(:operations)
+-#%h2=tc(:x_operations, :count=>@equipment.uses.count)
+-#=list(:operations)

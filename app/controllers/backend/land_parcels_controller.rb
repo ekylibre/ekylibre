@@ -71,7 +71,7 @@ class Backend::LandParcelsController < BackendController
         redirect_to :action => :index
       end
     end
-    @land_parcel.stopped_on ||= (session[:viewed_on].to_date rescue Date.today) - 1
+    # @land_parcel.stopped_on ||= (session[:viewed_on].to_date rescue Date.today) - 1
     t3e @land_parcel.attributes
   end
 

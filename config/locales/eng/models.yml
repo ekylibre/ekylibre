@@ -1801,6 +1801,8 @@ eng:
         outgoing_payments:
           number_format: "D[year|4][number|4]"
           period: "year"
+        products:
+          # number_format: "P[number|11]"
         purchases:
           number_format: "PO[year|4][month|2][number|4]"
           period: "month"

@@ -102,7 +102,8 @@ class ProductNature < Ekylibre::Record::Base
   validates_uniqueness_of :number
   validates_uniqueness_of :name
 
-  #accepts_nested_attributes_for :stocks, :reject_if => :all_blank, :allow_destroy => true
+  # accepts_nested_attributes_for :stocks, :reject_if => :all_blank, :allow_destroy => true
+  # acts_as_numbered
 
   default_scope -> { order(:name) }
   scope :availables, -> { where(:active => true).order(:name) }
