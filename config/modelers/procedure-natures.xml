@@ -68,10 +68,19 @@
       <parameter name="sprayer" type="equipment" abilities="spray" ><!-- paramètre réprésentant des objets qui possede la compétence "Semer"  -->
 		<name xml:lang="fra">Pulvérisateur</name>
       </parameter>
+      <parameter name="trailer" type="equipment" abilities="grain-transport"><!-- paramètre réprésentant des objets qui possede la compétence "Tracter"  -->
+		<name xml:lang="fra">Remorque</name>
+      </parameter>
       <parameter name="tractor" type="equipment" abilities="tow"><!-- paramètre réprésentant des objets qui possede la compétence "Tracter"  -->
 		<name xml:lang="fra">Tracteur</name>
       </parameter>
+      <parameter name="cropper" type="equipment" abilities="grain-harvest"><!-- paramètre réprésentant des objets qui possede la compétence "Récolter des grains"  -->
+		<name xml:lang="fra">Moissoneuse-batteuse</name>
+      </parameter>
       <parameter name="driver" type="human" abilities="spread-driving,plow-driving" ><!-- paramètre réprésentant des objets de type Humain qui possede la compétence "Conduire un ensemble de semis"  -->
+		<name xml:lang="fra">Conducteur de tracteur</name>
+      </parameter>
+      <parameter name="cropper-driver" type="human" abilities="cropper-driving" ><!-- paramètre réprésentant des objets de type Humain qui possede la compétence "Conduire un ensemble de semis"  -->
 		<name xml:lang="fra">Conducteur de tracteur</name>
       </parameter>
     </parameters>
@@ -163,6 +172,7 @@
 					<sub-task do="[seeds-to-sow] moves-to [land_parcel]"/><!-- les semences tombe par terre car le semoir tourne  -->
 					<sub-task do="[land_parcel] consumes [seeds-to-sow]"/><!-- la parcelle consomme les semences épandues -->
 					<sub-task do="[land_parcel] produce [culture](quantity::?, unit::[land_parcel].unit, variety::[seeds-to-sow].variety)"/><!-- les semences tombées sur le sol produise une sole de blé -->
+	  				<!-- A terme, on doit pouvoir aussi créer le bioprocessus "Végétation" lié à [culture] et le positionner dans la phase "Germination" puisque l'on vient de semer (le semis est un déclencheur de changement de phase) -->
 	  				<sub-task do="[driver] measure [land_parcel] at production"/><!-- le chauffeur du tracteur mesure / observe l'état de la parcelle au niveau de son passage en production (valeur attendue = true)-->
 				</task><!-- a terme, on devrait être capable de faire IF le semoir est vide alors j'arrete de semer -->
 				<!-- et je retourne charger des semences sur le tas global-->
@@ -171,6 +181,7 @@
       </operation>
      <!-- #################### EPANDRE DE L'AMMONITRATE ####################### -->
       <operation name="fertilizing" level="1" required="true" working-set="mineral-fertilization">
+      <!-- A terme, on doit pouvoir mettre comme condition que [culture] doit être au moins dans la phase "Tallage" de son bioprocessus "Végétation" -->
       	<operation level="2" name="transport">
 			<tasks>
 				<task do="[driver] moves-to [tractor]"/><!-- le chauffeur se déplace vers le tracteur et rentre dedant (?) -->
@@ -227,6 +238,7 @@
 		</operation>
 	<!-- #################### TRAITER CHIMIQUEMENT LA CULTURE CONTRE LES MALADIES FONGIQUES ####################### -->
       <operation name="treating" level="1" required="false" working-set="phytosanitary-treatment">
+      	<!-- A terme, on doit pouvoir mettre comme condition que [culture] doit être dans la phase "Malade" de son bioprocessus "Maladie" par exemple -->
 		<operation level="2" name="transport">
 			<tasks>
 				<task do="[driver] moves-to [tractor]"/><!-- le chauffeur se déplace vers le tracteur et rentre dedant (?) -->
@@ -253,23 +265,27 @@
 		</operation>
 		</operation>
 	<!-- #################### MOISSONNER LE BLE ####################### -->
-	
-
-      <operation name="seed-harvest" required="true" working-set="harvest">
-	<tasks>
-	  <task do="working-set moves-to [culture]"/>
-	  <task do="working-set acts-on [culture]"/>
-	  <task do="[culture] produce [grains](quantity::?, unit::?, variety::[culture].variety)"/>
-	  <task do="[culture] produce [straw](quantity::?, unit::?, variety::[culture].variety)"/>			
-	</tasks>
+	   <operation name="seed-harvest" level="1" required="true" conditions="[land_parcel].indicator(production) == true && [culture].indicator(to-harvest) == true" working-set="harvest">
+	   	<!-- A terme, on doit pouvoir mettre comme condition que [culture] doit être dans la phase "Senescence du grain" de son bioprocessus "Reproduction"-->
+		<operation level="2" name="transport">
+			<tasks>
+				<task do="[cropper-driver] moves-to [cropper]"/><!-- le chauffeur se déplace vers la moissonneuse et rentre dedant (?) -->
+	  			<task do="[cropper] moves-to [culture]"/><!-- le chauffeur et la moissonneuse se déplace vers le lieu à récolter -->
+			</tasks>
+		</operation>
+		<operation level="2" name="seed-harvest">
+			<tasks>
+				<task do="[cropper] acts-on [culture]"/><!-- tant que le [cropper] travaille (? = sous-entendu la moissonneuse tourne,le conducteur roule, le batteur tourne) les sub-task tournent -->
+	  				<sub-task do="[culture] produce [grains](quantity::?, unit::?, variety::[culture].variety)"/><!-- le traitement tombe sur la sole de blé car le pulvé tourne (?) -->
+					<sub-task do="[grains] moves-to [cropper]"/>
+					<sub-task do="[culture] produce [straw](quantity::?, unit::?, variety::[culture].variety)"/><!-- la sole de blé consomme le traitement épandu car il se dépose sur les feuilles des plants de blé -->
+					<sub-task do="[straw] moves-to [culture]"/>
+			</tasks>
+		</operation>
       </operation>
-      <operation name="seed-transport" required="true" working-set="transport">
-	<tasks>
-	  <task do="working-set moves-to [grains]"/>
-	  <task do="working-set catches [grains]"/>
-	  <task do="[grains] moves-to [l2]"/>
-	</tasks>
-      </operation>
-    </operations>
+      <!-- #################### BOTTELLER LA PAILLE ####################### -->
+      
+      <!-- #################### TRANSPORTER LA PAILLE ####################### -->
+     </operations>
   </procedure-nature>
 </procedure-natures>
