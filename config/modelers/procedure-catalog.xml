@@ -8,6 +8,9 @@
       <parameter name="land_parcel" type="land-parcel" properties="producible" pre-indicators-state="production::empty">
 	<name xml:lang="fra">Parcelle</name>
       </parameter>
+      <parameter name="silo" type="warehouse" properties="storage" pre-indicators-state="production::empty" abilities="grain-storage">
+	<name xml:lang="fra"></name>
+      </parameter>
       <parameter name="seeds" type="matter" nature="seed" variety="wheat">
 	<name xml:lang="fra">Semence</name>
       </parameter>
@@ -57,6 +60,9 @@
 	<name xml:lang="fra">Semoir</name>
       </parameter>
       <parameter name="sprayer" type="equipment" abilities="spray" ><!-- paramètre réprésentant des objets qui possede la compétence "Semer"  -->
+	<name xml:lang="fra">Pulvérisateur</name>
+      </parameter>
+      <parameter name="trailer" type="equipment" abilities="grain-transport" ><!-- paramètre réprésentant des objets qui possede la compétence "Semer"  -->
 	<name xml:lang="fra">Pulvérisateur</name>
       </parameter>
       <parameter name="tractor" type="equipment" abilities="tow"><!-- paramètre réprésentant des objets qui possede la compétence "Tracter"  -->
@@ -230,25 +236,39 @@
 	      <!-- le bioprocess lié doit faire l'action suivante : [culture] consumes [fertilizer] in [land_parcel] -->
 	    </task><!-- a terme, on devrait être capable de faire IF l'épandeur est vide alors j'arrete de travailler -->
 	  </operation>
-	</operations>	
+		</operations>	
       </procedure>
       <!-- #################### MOISSONNER LE BLE ####################### -->
-      	   <procedure name="seed-harvest" level="1" required="true" conditions="[land_parcel].indicator(production) == true && [culture].indicator(to-harvest) == true" working-set="harvest">
-
+      	<procedure name="seed-harvest" required="true" conditions="[land_parcel].indicator(production) == true && [culture].indicator(to-harvest) == true" working-set="harvest">
       	   	<!-- A terme, on doit pouvoir mettre comme condition que [culture] doit être dans la phase "Senescence du grain" de son bioprocessus "Reproduction"-->
-		<operation level="2" name="transport">
+		<operation name="transport">
 			<tasks>
 				<task do="[cropper-driver] moves-to [cropper]"/><!-- le chauffeur se déplace vers la moissonneuse et rentre dedant (?) -->
 	  			<task do="[cropper] moves-to [culture]"/><!-- le chauffeur et la moissonneuse se déplace vers le lieu à récolter -->
 			</tasks>
 		</operation>
-		<operation level="2" name="seed-harvest">
+		<operation name="seed-harvest">
 			<tasks>
 				<task do="[cropper] acts-on [culture]"/><!-- tant que le [cropper] travaille (? = sous-entendu la moissonneuse tourne,le conducteur roule, le batteur tourne) les sub-task tournent -->
-	  				<sub-task do="[culture] produce [grains](quantity::?, unit::?, variety::[culture].variety)"/><!-- le traitement tombe sur la sole de blé car le pulvé tourne (?) -->
-					<sub-task do="[grains] moves-to [cropper]"/>
-					<sub-task do="[culture] produce [straw](quantity::?, unit::?, variety::[culture].variety)"/><!-- la sole de blé consomme le traitement épandu car il se dépose sur les feuilles des plants de blé -->
-					<sub-task do="[straw] moves-to [culture]"/>
+	  				<task do="[culture] produce [grains](quantity::?, unit::?, variety::[culture].variety)"/><!-- le traitement tombe sur la sole de blé car le pulvé tourne (?) -->
+					<task do="[grains] moves-to [cropper]"/>
+					<task do="[culture] produce [straw](quantity::?, unit::?, variety::[culture].variety)"/><!-- la sole de blé consomme le traitement épandu car il se dépose sur les feuilles des plants de blé -->
+					<task do="[straw] moves-to [culture]"/>
+			</tasks>
+		</operation>
+		<operation name="transport">
+	    	<task do="[driver] moves-to [tractor]"/><!-- le chauffeur se déplace vers le tracteur et rentre dedant (?) -->
+	    	<task do="[tractor] moves-to [trailer].product_localizations.current"/><!-- le chauffeur et le tracteur se déplace vers le lieu actuel de la remorque-->
+	    	<task do="[tractor] catches [trailer]"/><!-- le chauffeur attache la remorque au tracteur -->
+	        <task do="[tractor] moves-to [culture]"/><!-- déplacement dans la culture -->
+	    </operation>
+		<operation name="transfert">
+			 <!-- Le transfert doit pouvoir se faire autant de fois que necessaire notions d' aller/retour -->
+			<tasks>
+				<task do="[cropper] moves-to [tractor].product_localizations.current"/><!-- la moissoneuse se déplace vers le tracteur et la remorque -->
+				<task do="[grains] moves-to [trailer]"/><!-- la moissoneuse vide ses grains dans la remorque -->
+				<task do="[tractor] moves-to [silo].product_localizations.current"/><!-- le tracteur avec sa remorque pleine va au silo -->
+				<task do="[grains] moves-to [silo]"/><!-- le tracteur vide ses grains dans le silo -->
 			</tasks>
 		</operation>
 		</procedure>

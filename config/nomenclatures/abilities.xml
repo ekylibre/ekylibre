@@ -21,6 +21,9 @@
   <ability name="grain-transport">
     <name xml:lang="fra">Transporter des graines</name>
   </ability>
+  <ability name="grain-storage">
+    <name xml:lang="fra">Stocker des graines</name>
+  </ability>
   <ability name="superficial-plowing">
     <name xml:lang="fra">Travailler le sol en surface</name>
   </ability>
