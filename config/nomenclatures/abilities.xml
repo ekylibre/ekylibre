@@ -15,6 +15,15 @@
   <ability name="sowing">
     <name xml:lang="fra">Semer</name>
   </ability>
+  <ability name="grain-harvest">
+    <name xml:lang="fra">Récolter des graines</name>
+  </ability>
+  <ability name="grain-transport">
+    <name xml:lang="fra">Transporter des graines</name>
+  </ability>
+  <ability name="grain-storage">
+    <name xml:lang="fra">Stocker des graines</name>
+  </ability>
   <ability name="superficial-plowing">
     <name xml:lang="fra">Travailler le sol en surface</name>
   </ability>
@@ -31,5 +40,9 @@
   <ability name="plow-driving" required="tractor-driving">
   	<!-- @QUID : compétence cumulé (pour conduire un ensemble tracteur + semoir, je dois savoir conduire d'abord un tracteur)) -->
     <name xml:lang="fra">Conduire un ensemble de labour</name>
+  </ability>
+    <ability name="cropper-driving" required="tractor-driving">
+  	<!-- @QUID : compétence cumulé (pour conduire un ensemble tracteur + semoir, je dois savoir conduire d'abord un tracteur)) -->
+    <name xml:lang="fra">Conduire une moissonneuse batteuse</name>
   </ability>
 </abilities>
