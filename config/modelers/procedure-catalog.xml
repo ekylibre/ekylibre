@@ -233,19 +233,30 @@
 	</operations>	
       </procedure>
       <!-- #################### MOISSONNER LE BLE ####################### -->
+      	   <procedure name="seed-harvest" level="1" required="true" conditions="[land_parcel].indicator(production) == true && [culture].indicator(to-harvest) == true" working-set="harvest">
+
+      	   	<!-- A terme, on doit pouvoir mettre comme condition que [culture] doit être dans la phase "Senescence du grain" de son bioprocessus "Reproduction"-->
+		<operation level="2" name="transport">
+			<tasks>
+				<task do="[cropper-driver] moves-to [cropper]"/><!-- le chauffeur se déplace vers la moissonneuse et rentre dedant (?) -->
+	  			<task do="[cropper] moves-to [culture]"/><!-- le chauffeur et la moissonneuse se déplace vers le lieu à récolter -->
+			</tasks>
+		</operation>
+		<operation level="2" name="seed-harvest">
+			<tasks>
+				<task do="[cropper] acts-on [culture]"/><!-- tant que le [cropper] travaille (? = sous-entendu la moissonneuse tourne,le conducteur roule, le batteur tourne) les sub-task tournent -->
+	  				<sub-task do="[culture] produce [grains](quantity::?, unit::?, variety::[culture].variety)"/><!-- le traitement tombe sur la sole de blé car le pulvé tourne (?) -->
+					<sub-task do="[grains] moves-to [cropper]"/>
+					<sub-task do="[culture] produce [straw](quantity::?, unit::?, variety::[culture].variety)"/><!-- la sole de blé consomme le traitement épandu car il se dépose sur les feuilles des plants de blé -->
+					<sub-task do="[straw] moves-to [culture]"/>
+			</tasks>
+		</operation>
+		</procedure>
+            <!-- #################### BOTTELLER LA PAILLE ####################### -->
+      
+      		<!-- #################### TRANSPORTER LA PAILLE ####################### -->
       
 
-      <operation name="seed-harvest" required="true" working-set="harvest">
-	<task do="working-set moves-to [culture]"/>
-	<task do="working-set acts-on [culture]"/>
-	<task do="[culture] produce [grains](quantity::?, unit::?, variety::[culture].variety)"/>
-	<task do="[culture] produce [straw](quantity::?, unit::?, variety::[culture].variety)"/>			
-      </operation>
-      <operation name="seed-transport" required="true" working-set="transport">
-	<task do="working-set moves-to [grains]"/>
-	<task do="working-set catches [grains]"/>
-	<task do="[grains] moves-to [l2]"/>
-      </operation>
     </procedures>
   </procedure>
 </procedure-catalog>
