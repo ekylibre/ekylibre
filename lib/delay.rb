@@ -38,7 +38,7 @@ class Delay
   }
   KEYS = TRANSLATIONS.keys.join("|").freeze
 
-  def initialize(expression)
+  def initialize(expression = nil)
     expression ||= []
     expression = expression.to_s.mb_chars.downcase.split(/\s*\,\s*/) if expression.is_a?(String)
     raise ArgumentError.new("String or Array expected (got #{expression.class.name}:#{expression.inspect})") unless expression.is_a?(Array)

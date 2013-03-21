@@ -17,7 +17,7 @@ module Ekylibre
       root[:name] = Entity.of_company.full_name
       n = 0
       start = Time.now.to_i
-      for model in Ekylibre.models
+      for model in Ekylibre.models.select{|m| m.to_s.pluralize.classify.constantize.superclass == Ekylibre::Record::Base }
         klass = model.to_s.pluralize.classify.constantize.unscoped
         rows_count = klass.count
         n += rows_count
@@ -106,7 +106,8 @@ module Ekylibre
           model.columns_hash.keys.each do |attr|
             code << "  #{model_name}.#{attr} = row.attr('#{attr}')\n"
           end
-          code << "  #{model_name}.send(:create_strictly)\n"
+          # code << "  #{model_name}.send(:create_strictly)\n"
+          code << "  #{model_name}.sneaky_save\n"
           code << "end\n"
         end
         # list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}

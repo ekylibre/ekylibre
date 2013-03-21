@@ -525,7 +525,7 @@ module Ekylibre
       :tracking_id => :tracking,
       :unit_id => :unit,
       :updater_id => :user,
-      :variety_id => :variety
+      :variety_id => :product_variety
     },
     :product_indicator => {
       :choice_value_id => :product_indicator_nature_choice,
