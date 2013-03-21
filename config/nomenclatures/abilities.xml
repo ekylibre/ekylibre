@@ -31,15 +31,15 @@
     <name xml:lang="fra">Conduire</name>
   </ability>
   <ability name="spread-driving" required="tractor-driving">
-  	<!-- @QUID : compétence cumulé (pour conduire un ensemble tracteur + semoir, je dois savoir conduire d'abord un tracteur)) -->
+    <!-- @QUID : compétence cumulé (pour conduire un ensemble tracteur + semoir, je dois savoir conduire d'abord un tracteur)) -->
     <name xml:lang="fra">Conduire un ensemble d'épandage</name>
   </ability>
   <ability name="plow-driving" required="tractor-driving">
-  	<!-- @QUID : compétence cumulé (pour conduire un ensemble tracteur + semoir, je dois savoir conduire d'abord un tracteur)) -->
+    <!-- @QUID : compétence cumulé (pour conduire un ensemble tracteur + semoir, je dois savoir conduire d'abord un tracteur)) -->
     <name xml:lang="fra">Conduire un ensemble de labour</name>
   </ability>
-    <ability name="cropper-driving" required="tractor-driving">
-  	<!-- @QUID : compétence cumulé (pour conduire un ensemble tracteur + semoir, je dois savoir conduire d'abord un tracteur)) -->
+  <ability name="cropper-driving" required="tractor-driving">
+    <!-- @QUID : compétence cumulé (pour conduire un ensemble tracteur + semoir, je dois savoir conduire d'abord un tracteur)) -->
     <name xml:lang="fra">Conduire une moissonneuse batteuse</name>
   </ability>
 </abilities>
