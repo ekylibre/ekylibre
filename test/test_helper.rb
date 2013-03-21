@@ -18,6 +18,8 @@ end
 
 class CapybaraIntegrationTest < ActionController::IntegrationTest
   include Capybara::DSL
+  include Warden::Test::Helpers
+  Warden.test_mode!
 end
 
 
@@ -138,6 +140,8 @@ class ActionController::TestCase
         end.join(", ")+ "}"
       end
       table_name = (model ? model.table_name : "unknown_table")
+      fixture_name = record.pluralize
+      fixture_table = table_name
 
       if options[action].is_a? Hash
         code << "    get :#{action}, #{options[action].inspect[1..-2]}\n"
@@ -149,12 +153,13 @@ class ActionController::TestCase
         code << "    assert_nothing_raised do\n"
         code << "      get :#{action}, :id => 'NaID'\n"
         code << "    end\n"
-        code << "    #{record} = #{table_name}(:#{table_name}_001)\n"
+        code << "    #{record} = #{fixture_table}(:#{fixture_name}_001)\n"
+        code << "    assert_equal 1, #{model_name}.where(id: #{record}.id).count\n"
         code << "    get :#{action}, :id => #{record}.id\n"
         code << "    assert_response :success, \"Flash: \#{flash.inspect}\"\n"
         code << "    assert_not_nil assigns(:#{record})\n"
       elsif mode == :create
-        code << "    #{record} = #{table_name}(:#{table_name}_001)\n"
+        code << "    #{record} = #{fixture_table}(:#{fixture_name}_001)\n"
         code << "    post :#{action}, :#{record} => #{attributes}\n"
         # if restricted
         #   code << "    assert_raise(ActiveModel::MassAssignmentSecurity::Error, 'POST #{controller}/#{action}') do\n"
@@ -162,7 +167,7 @@ class ActionController::TestCase
         #   code << "    end\n"
         # end
       elsif mode == :update
-        code << "    #{record} = #{table_name}(:#{table_name}_001)\n"
+        code << "    #{record} = #{fixture_table}(:#{fixture_name}_001)\n"
         code << "    put :#{action}, :id => #{record}.id, :#{record} => #{attributes}\n"
         # if restricted
         #   code << "    assert_raise(ActiveModel::MassAssignmentSecurity::Error, 'PUT #{controller}/#{action}/:id') do\n"
@@ -170,7 +175,7 @@ class ActionController::TestCase
         #   code << "    end\n"
         # end
       elsif mode == :destroy
-        code << "    #{record} = #{table_name}(:#{table_name}_002)\n"
+        code << "    #{record} = #{fixture_table}(:#{fixture_name}_002)\n"
         code << "    assert_nothing_raised do\n"
         code << "      delete :#{action}, :id => #{record}.id\n"
         code << "    end\n"
@@ -187,7 +192,7 @@ class ActionController::TestCase
         # code << "      post :#{action}\n"
         # code << "    end\n"
         code << "    post :#{action}, :id => 'NaID'\n"
-        code << "    #{record} = #{table_name}(:#{table_name}_001)\n"
+        code << "    #{record} = #{fixture_table}(:#{fixture_name}_001)\n"
         code << "    post :#{action}, :id => #{record}.id\n"
         code << "    assert_response :redirect\n"
       elsif mode == :get_and_post # with ID
@@ -195,7 +200,7 @@ class ActionController::TestCase
         # code << "      get :#{action}\n"
         # code << "    end\n"
         code << "    get :#{action}, :id => 'NaID'\n"
-        code << "    #{record} = #{table_name}(:#{table_name}_001)\n"
+        code << "    #{record} = #{fixture_table}(:#{fixture_name}_001)\n"
         code << "    get :#{action}, :id => #{record}.id\n"
         code << '    assert_response :success, "Flash: #{flash.inspect}"'+"\n"
       elsif mode == :index_xhr
@@ -204,7 +209,7 @@ class ActionController::TestCase
         code << "    xhr :get, :#{action}\n"
         code << '    assert_response :success, "Flash: #{flash.inspect}"'+"\n"
       elsif mode == :show_xhr
-        code << "    #{record} = #{table_name}(:#{table_name}_001)\n"
+        code << "    #{record} = #{fixture_table}(:#{fixture_name}_001)\n"
         code << "    get :#{action}, :id => #{record}.id\n"
         code << "    assert_response :redirect\n"
         code << "    xhr :get, :#{action}, :id => #{record}.id\n"

@@ -1518,7 +1518,7 @@ spa:
       informations:
         # with_components: "%{product} (%{unit}) (produit transformé)"
         # without_components: "%{product} (%{unit}) (matière première)"
-      # label: "%{product} (%{unit})"
+      # label: "%{product_nature} (%{unit})"
       # stock_move: "%{origin} (%{code})"
       subscription_label:
         # period: "Abonnement %{subscription_nature} pour %{entity} à l’adresse %{address} du %{start} au %{finish}"
@@ -1602,6 +1602,8 @@ spa:
         outgoing_payments:
           # number_format: "D[year|4][number|4]"
           # period: "year"
+        products:
+          # number_format: "P[number|11]"
         purchases:
           # number_format: "A[year|4][month|2][number|6]"
           # period: "month"

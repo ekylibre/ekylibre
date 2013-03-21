@@ -47,7 +47,7 @@ class Unit < Ekylibre::Record::Base
   #]VALIDATORS]
   validates_format_of :name, :with => /^[a-zA-Z][a-zA-Z0-9]*([\.\/][a-zA-Z][a-zA-Z0-9]*)?$/
   validates_uniqueness_of :name
-  scope :of_product, lambda { |product| where(:base => product.unit.base).order(:coefficient, :label) }
+  scope :of_product, lambda { |product| where(:base => product.unit.base.to_s).order(:coefficient, :label) }
 
   SI_UNITS = ["m", "kg", "s", "A", "K", "mol", "cd"]
 
@@ -102,9 +102,9 @@ class Unit < Ekylibre::Record::Base
 
   def self.get(name)
     raise ArgumentError.new("#{name.inspect} is not a default unit") unless DEFAULT_UNITS.has_key?(name)
-    unless unit = Unit.where(:name => name).first
+    unless unit = Unit.where(:name => name.to_s).first
       Unit.load_defaults
-      return Unit.where(:name => name).first
+      return Unit.where(:name => name.to_s).first
     end
     return unit
   end

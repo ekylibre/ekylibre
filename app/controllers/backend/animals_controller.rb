@@ -65,7 +65,7 @@ class Backend::AnimalsController < BackendController
   end
 
   # Liste des groupes de l'animal considéré
-  list(:group, :model => :product_memberships, :conditions => [" product_id = ? ",['session[:current_animal_id]']], :order => "started_at DESC") do |t|
+  list(:group, :model => :product_memberships, :conditions => [" member_id = ? ",['session[:current_animal_id]']], :order => "started_at DESC") do |t|
     t.column :name, :through =>:group, :url => true
     t.column :started_at
     t.column :stopped_at
