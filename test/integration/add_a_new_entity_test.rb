@@ -2,16 +2,17 @@ require 'test_helper'
 
 class AddANewEntityTest < CapybaraIntegrationTest
 
+
   test "adding an entity" do
-    visit('/session/new')
-    fill_in('name', :with => 'gendo')
-    fill_in('password', :with => 'secret')
-    click_button(I18n.translate('labels.connect'))
-    visit('/entities')
-    visit('/subscriptions')
-    visit('/accounts')
-    visit('/sales')
-    visit('/purchases')
+    visit('/authentication/sign_in')
+    fill_in('user_email', :with => 'gendo@nerv.jp')
+    fill_in('user_password', :with => 'secret')
+    click_button(I18n.translate('devise.sessions.new.sign_in'))
+    visit('/backend/entities')
+    visit('/backend/subscriptions')
+    visit('/backend/accounts')
+    visit('/backend/sales')
+    visit('/backend/purchases')
   end
 
 end

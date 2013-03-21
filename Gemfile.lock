@@ -136,7 +136,7 @@ GEM
       nokogiri (~> 1.5.3)
       sax-machine (~> 0.2.0.rc1)
     ffaker (1.15.0)
-    ffi (1.4.0)
+    ffi (1.5.0)
     formize (1.0.1)
       jquery-rails
       rails (>= 3.2)
@@ -146,7 +146,7 @@ GEM
     google_visualr (2.1.7)
     gorillib (0.1.11)
       json
-    haml (4.0.0)
+    haml (4.0.1)
       tilt
     hashery (2.1.0)
     hike (1.2.1)
@@ -313,6 +313,8 @@ GEM
       simplecov-html (~> 0.7.1)
     simplecov-html (0.7.1)
     slop (3.4.4)
+    sneaky-save (0.0.4)
+      activerecord (>= 3.2.0)
     sprockets (2.2.2)
       hike (~> 1.2)
       multi_json (~> 1.0)
@@ -413,6 +415,7 @@ DEPENDENCIES
   rubyzip
   sass-rails (~> 3.2.3)
   simple_form
+  sneaky-save
   squeel
   state_machine
   strong_parameters

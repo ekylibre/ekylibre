@@ -22,6 +22,7 @@ gem 'acts_as_list'
 gem 'state_machine'
 gem 'awesome_nested_set'
 gem 'enumerize'
+gem 'sneaky-save'
 # gem 'paper_trail'
 
 # Authentication
