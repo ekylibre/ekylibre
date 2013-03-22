@@ -101,16 +101,18 @@ module Ekylibre
           model_name = rows.attr('model').to_sym
           all_rows[model_name] = rows
           model = model_name.to_s.pluralize.classify.constantize
-          code << "all_rows[:#{model_name}].element_children.each do |row|\n"
-          code << "  #{model_name} = #{model.name}.new\n"
-          model.columns_hash.keys.each do |attr|
-            code << "  #{model_name}.#{attr} = row.attr('#{attr}')\n"
+          columns = model.columns_hash.keys.map(&:to_sym)
+          if model.methods.include?(:acts_as_nested_set_options)
+            columns.delete(model.acts_as_nested_set_options[:left_column].to_sym)
+            columns.delete(model.acts_as_nested_set_options[:right_column].to_sym)
+            columns.delete(model.acts_as_nested_set_options[:depth_column].to_sym)
           end
-          # code << "  #{model_name}.send(:create_strictly)\n"
-          code << "  #{model_name}.sneaky_save\n"
+          code << "all_rows[:#{model_name}].element_children.each do |row|\n"
+          code << "  #{model.name}.new({" + columns.collect{|a| ":#{a} => row.attr('#{a}')"}.join(", ") + "}, :validate => false, :without_protection => true).sneaky_save\n"
           code << "end\n"
+          code << "#{model.name}.rebuild!\n" if model.methods.include?(:acts_as_nested_set_options)
         end
-        # list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
+        # code.split("\n").each_with_index{|l, x| puts((x+1).to_s.rjust(4)+": "+l)}
         eval(code)
 
         # Place files
