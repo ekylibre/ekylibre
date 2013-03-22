@@ -48,7 +48,11 @@ class ProductLocalization < Ekylibre::Record::Base
   validates_presence_of :nature, :product
   #]VALIDATORS]
   validates_inclusion_of :nature, :in => self.nature.values
-  validates_presence_of :container, :if => :interior?
+  validates_presence_of :container, :if => :nature_is_interior?
+
+  def nature_is_interior?
+    :nature == "interior"
+  end
 
   def self.check_operation(operation)
     product = operation.product
