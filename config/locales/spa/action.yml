@@ -166,7 +166,11 @@ spa:
       # edit: "Modifier le type de fiche\_: %{name}"
       # index: "Types de fiches"
       # new: "Ajouter un nouveau type de fiche"
-    backend/equipments: #?
+    backend/equipments:
+      # edit: "Modifier l'equipement\_: %{name}"
+      # index: "Equipements"
+      # new: "Ajouter un nouvel equipement"
+      # show: "Equipement %{name}"
     backend/establishments:
       edit: "Modificacion del establecimiento : %{name}"
       index: "Establecimientos"
@@ -320,7 +324,11 @@ spa:
     backend/prices: #?
     backend/procedure_natures: #?
     backend/procedures: #?
-    backend/product_abilities: #?
+    backend/product_abilities:
+      # edit: "Modifier la compétence\_: %{name}"
+      # index: "Compétences / Capacités"
+      # new: "Nouvelle compétence"
+      # show: "Compétence %{name}"
     backend/product_categories: #?
     backend/product_components: #?
     backend/product_event_natures: #?
@@ -524,7 +532,11 @@ spa:
       index: "Lugar de deposito"
       new: "Añadir un lugar de deposito"
       show: "Detaile del lugar de deposito : %{name}"
-    backend/working_sets: #?
+    backend/working_sets:
+      # edit: "Modifier l'unité fonctionnelle\_: %{name}"
+      # index: "Unité fonctionnelle / de travail"
+      # new: "Nouvelle unité fonctionnelle / de travail"
+      # show: "Unité fonctionnelle %{name}"
     public:
       # index: "Accueil"
   controllers:
@@ -1772,7 +1784,7 @@ spa:
     animal_prescriptions: #?
     animals: #?
     backend/animals:
-      # all: "{name} - {number}"
+      # all: "{name} - {work_number}"
     backend/entity_links:
       # all: "{started_at}"
     backend/events:
@@ -1792,7 +1804,7 @@ spa:
     backend/product_transfers:
       # all: "{id}"
     backend/products:
-      # all: "{number} {name}"
+      # all: "{work_number} {name}"
     backend/units:
       # all: "{label} ({name})"
     backend/users:

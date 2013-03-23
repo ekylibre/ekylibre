@@ -171,7 +171,11 @@ arb:
       edit: "تعديل نوع الملف : %{name}"
       index: "انواع الملفات"
       new: "اضافة نوع ملف جديد"
-    backend/equipments: #?
+    backend/equipments:
+      # edit: "Modifier l'equipement\_: %{name}"
+      # index: "Equipements"
+      # new: "Ajouter un nouvel equipement"
+      # show: "Equipement %{name}"
     backend/establishments:
       edit: "تعديل نموذج المرفق : %{name}"
       index: "مرافق"
@@ -332,7 +336,11 @@ arb:
       new: "اضافة سعر جديد" #?
     backend/procedure_natures: #?
     backend/procedures: #?
-    backend/product_abilities: #?
+    backend/product_abilities:
+      # edit: "Modifier la compétence\_: %{name}"
+      # index: "Compétences / Capacités"
+      # new: "Nouvelle compétence"
+      # show: "Compétence %{name}"
     backend/product_categories:  #?
       edit: "تعديل فئة المنتج : %{name}" #?
       index: "فئات المنتج" #?
@@ -576,7 +584,11 @@ arb:
       index: "مواقع التخزين"
       new: "اضافة موقع للتخزين"
       show: "تفاصيل عن مواقع التخزين : %{name}"
-    backend/working_sets: #?
+    backend/working_sets:
+      # edit: "Modifier l'unité fonctionnelle\_: %{name}"
+      # index: "Unité fonctionnelle / de travail"
+      # new: "Nouvelle unité fonctionnelle / de travail"
+      # show: "Unité fonctionnelle %{name}"
     public:
       # index: "Accueil"
   controllers:
@@ -1961,7 +1973,7 @@ arb:
     animal_prescriptions: #?
     animals: #?
     backend/animals:
-      # all: "{name} - {number}"
+      # all: "{name} - {work_number}"
     backend/entity_links:
       # all: "{started_at}"
     backend/events:
@@ -1981,7 +1993,7 @@ arb:
     backend/product_transfers:
       # all: "{id}"
     backend/products:
-      # all: "{number} {name}"
+      # all: "{work_number} {name}"
     backend/units:
       # all: "{label} ({name})"
     backend/users:

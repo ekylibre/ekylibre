@@ -24,6 +24,7 @@
 # - "backend/cells/product_pie_cells#show"
 # - "backend/dashboards#list_my_future_events"
 # - "backend/dashboards#list_recent_events"
+# - "backend/dashboards#production_equipments"
 # - "backend/dashboards#settings_accountancy"
 # - "backend/dashboards#settings_base"
 # - "backend/dashboards#settings_production"

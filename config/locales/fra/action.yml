@@ -77,6 +77,7 @@ fra:
       general: "Tableau de bord général" #?
       index: "Menu principal"
       production: "Tableau de bord de la production"
+      # production_equipments: "Production equipments backend/dashboard"
       purchases: "Tableau de bord des achats"
       relationship: "Tableau de bord de la gestion des relations"
       sales: "Tableau de bord des ventes"
@@ -142,10 +143,10 @@ fra:
       index: "Types de fiches"
       new: "Ajouter un nouveau type de fiche"
     backend/equipments:
-      # edit: "Edit backend/equipment"
-      # index: "Index backend/equipment"
-      # new: "New backend/equipment"
-      # show: "Show backend/equipment"
+      edit: "Modifier l'equipement\_: %{name}"
+      index: "Equipements"
+      new: "Ajouter un nouvel equipement"
+      show: "Equipement %{name}"
     backend/establishments:
       edit: "Modifier l’établissement\_: %{name}"
       index: "Établissements"
@@ -299,10 +300,10 @@ fra:
       # new: "New backend/procedure"
       # show: "Show backend/procedure"
     backend/product_abilities:
-      # edit: "Edit backend/product ability"
-      # index: "Index backend/product ability"
-      # new: "New backend/product ability"
-      # show: "Show backend/product ability"
+      edit: "Modifier la compétence\_: %{name}"
+      index: "Compétences / Capacités"
+      new: "Nouvelle compétence"
+      show: "Compétence %{name}"
     backend/product_groups:
       edit: "Modifier le lot\_: %{name} "
       index: "Lots de produits"
@@ -508,10 +509,10 @@ fra:
       new: "Ajout d’un lieu de stockage"
       show: "Détail du lieu de stockage\_: %{name}"
     backend/working_sets:
-      # edit: "Edit backend/working set"
-      # index: "Index backend/working set"
-      # new: "New backend/working set"
-      # show: "Show backend/working set"
+      edit: "Modifier l'unité fonctionnelle\_: %{name}"
+      index: "Unité fonctionnelle / de travail"
+      new: "Nouvelle unité fonctionnelle / de travail"
+      show: "Unité fonctionnelle %{name}"
     public:
       index: "Accueil"
   controllers:
@@ -552,7 +553,7 @@ fra:
     backend/entity_link_natures: "Types de lien"
     backend/entity_links: "Liens entre personnes"
     backend/entity_natures: "Types de fiches"
-    # backend/equipments: "Backend/equipments"
+    backend/equipments: "Equipements"
     backend/establishments: "Établissements"
     backend/event_natures: "Types d’évènements"
     backend/events: "Évènements"
@@ -589,7 +590,7 @@ fra:
     backend/preferences: "Préférences"
     # backend/procedure_natures: "Backend/procedure natures"
     # backend/procedures: "Backend/procedures"
-    # backend/product_abilities: "Backend/product abilities"
+    backend/product_abilities: "Compétences"
     backend/product_groups: "Lot de produits"
     # backend/product_indicator_nature_choices: "Backend/product indicator nature choices"
     # backend/product_indicator_natures: "Backend/product indicator natures"
@@ -629,9 +630,9 @@ fra:
     backend/transports: "Transports"
     backend/units: "Unités de mesure"
     backend/users: "Utilisateurs"
-    # backend/vegetals: "Backend/vegetals"
+    backend/vegetals: "Productions végétales"
     backend/warehouses: "Lieux de stockage"
-    # backend/working_sets: "Backend/working sets"
+    backend/working_sets: "Unité de travail"
     # backend: "Backend"
     # base: "Base"
     # public: "Public"
@@ -1727,7 +1728,7 @@ fra:
     various_journal: "Journal des opérations diverses par défaut"
   unroll:
     backend/animals:
-      all: "{name} - {number}"
+      all: "{name} - {work_number}"
     backend/entity_links:
       all: "{started_at}"
     backend/events:
@@ -1747,7 +1748,7 @@ fra:
     backend/product_transfers:
       all: "{id}"
     backend/products:
-      all: "{number} {name}"
+      all: "{work_number} {name}"
     backend/units:
       all: "{label} ({name})"
     backend/users:

@@ -131,7 +131,11 @@ jpn:
       # edit: "Modifier le type de fiche\_: %{name}"
       # index: "Types de fiches"
       # new: "Ajouter un nouveau type de fiche"
-    backend/equipments: #?
+    backend/equipments:
+      # edit: "Modifier l'equipement\_: %{name}"
+      # index: "Equipements"
+      # new: "Ajouter un nouvel equipement"
+      # show: "Equipement %{name}"
     backend/establishments:
       # edit: "Modifier l’établissement\_: %{name}"
       # index: "Établissements"
@@ -265,7 +269,11 @@ jpn:
     backend/prices: #?
     backend/procedure_natures: #?
     backend/procedures: #?
-    backend/product_abilities: #?
+    backend/product_abilities:
+      # edit: "Modifier la compétence\_: %{name}"
+      # index: "Compétences / Capacités"
+      # new: "Nouvelle compétence"
+      # show: "Compétence %{name}"
     backend/product_groups:
       # edit: "Modifier le lot\_: %{name} "
       # index: "Lots de produits"
@@ -445,7 +453,11 @@ jpn:
       # index: "Lieux de stockage"
       # new: "Ajout d’un lieu de stockage"
       # show: "Détail du lieu de stockage\_: %{name}"
-    backend/working_sets: #?
+    backend/working_sets:
+      # edit: "Modifier l'unité fonctionnelle\_: %{name}"
+      # index: "Unité fonctionnelle / de travail"
+      # new: "Nouvelle unité fonctionnelle / de travail"
+      # show: "Unité fonctionnelle %{name}"
     public:
       # index: "Accueil"
   controllers:
@@ -1641,7 +1653,7 @@ jpn:
     animal_prescriptions: #?
     animals: #?
     backend/animals:
-      # all: "{name} - {number}"
+      # all: "{name} - {work_number}"
     backend/entity_links:
       # all: "{started_at}"
     backend/events:
@@ -1661,7 +1673,7 @@ jpn:
     backend/product_transfers:
       # all: "{id}"
     backend/products:
-      # all: "{number} {name}"
+      # all: "{work_number} {name}"
     backend/units:
       # all: "{label} ({name})"
     backend/users:

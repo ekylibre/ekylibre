@@ -42,11 +42,12 @@
 #
 
 
-# # Empty samples of working_sets
-# working_sets_001:
-#   id: 1
-#   name: 'WorkingSet 1'
+working_sets_001:
+  id: 1
+  name: 'Fertilisation minérale'
+  nomen: 'mineral-fertilization'
 
-# working_sets_002:
-#   id: 2
-#   name: 'WorkingSet 2'
+working_sets_002:
+  id: 2
+  name: 'Fertilisation organique'
+  nomen: 'organic-fertilization'
