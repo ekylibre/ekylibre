@@ -13,7 +13,10 @@
   $focus-shadow-color: shadow-color-of($color);
   white-space: nowrap;
   margin: 0;
-  padding: round($fs-normal*0.3) round($fs-normal*0.4);
+  @include box-sizing(content-box);
+  padding: round($fs-normal*0.20) round($fs-normal*0.35);
+  height: round(1.4 * $fs-normal);
+  line-height: round(1.4 * $fs-normal);
   cursor: pointer;
   text-decoration: none;
   border: $menu-border-width solid darken($background-color, 10%);
@@ -33,9 +36,11 @@
     html[dir="rtl"] &:first-child, html[dir="ltr"] &:last-child { margin-right: 0; }
   }
   &, & > .text, & > .icon, & > i {
-    line-height: 1em;
     color: $color;
     @include text-shadow($menu-border-width $menu-border-width 0 $shadow-color);
+  }
+  & > .icon, & > i {
+    vertical-align: top;
   }
   &:focus {
     outline: none;
@@ -86,7 +91,7 @@ a.btn, button {
   }
 
   .icon, i {
-    @include is-icon(18px);
+    @include is-icon(round(1.4 * $fs-normal));
     @include use-icon(cog);
     @include inline-block;
   }

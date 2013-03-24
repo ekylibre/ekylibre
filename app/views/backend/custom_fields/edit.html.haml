@@ -1,5 +1,5 @@
 -# Generated automatically. Remove this line to keep your changes.
-=simple_form_for([:backend, @custom_field], (params[:dialog] ? {'data-dialog' => params[:dialog]} : {})) do |f|
+=backend_form_for([:backend, @custom_field], (params[:dialog] ? {'data-dialog' => params[:dialog]} : {})) do |f|
   -if params[:redirect]
     =hidden_field_tag(:redirect, params[:redirect])
   .form-fields>=render(:partial => 'form', :locals => {:f => f})

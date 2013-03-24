@@ -21,7 +21,7 @@ ActiveSupport::Inflector.inflections do |inflect|
   # Although Equipment is always uncountable, we need to have a different for
   # better understanding in code
   inflect.irregular 'equipment', 'equipments'
-  inflect.irregular 'fungus', 'fungi'  
+  inflect.irregular 'fungus', 'fungi'
 end
 
 # Set pluralization active with the algorithms defined in [locale]/i18n.rb

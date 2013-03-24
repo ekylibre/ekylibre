@@ -83,7 +83,7 @@ class BackendController < BaseController
       haml << "-if items.count > 0\n"
       haml << "  %ul.items-list\n"
       haml << "    -for item in items.limit(items.count > #{(max*1.5).round} ? #{max} : #{max*2})\n"
-      haml << "      %li{'data-item-label' => #{item_label}, 'data-item-id' => item.id}\n"
+      haml << "      %li.item{'data-item-label' => #{item_label}, 'data-item-id' => item.id}\n"
       if options[:partial]
         haml << "        =render :partial => '#{partial}', :object => item\n"
       else
@@ -93,8 +93,12 @@ class BackendController < BaseController
       haml << "    %span.items-status.items-status-too-many-records\n"
       haml << "      =I18n.t('labels.x_items_remain_on_y', :count => (items.count - #{max}))\n"
       haml << "-else\n"
-      haml << "  %span.items-status.items-status-empty\n"
-      haml << "    =I18n.t('labels.no_results')\n"
+      haml << "  %ul.items-list\n"
+      haml << "    -unless search.blank?\n"
+      haml << "      %li.item.special{'data-new-item' => search}=I18n.t('labels.add_x', :x => content_tag(:strong, search)).html_safe\n"
+      haml << "    %li.item.special{'data-new-item' => ''}=I18n.t('labels.add_#{model.name.underscore}', :default => [:'labels.add_new_record'])\n"
+      # haml << "  %span.items-status.items-status-empty\n"
+      # haml << "    =I18n.t('labels.no_results')\n"
 
       # Write haml in cache
       file_name = (name || "__default__").to_s
@@ -130,7 +134,7 @@ class BackendController < BaseController
       code << "  items = #{model.name}#{'.' + scope_name.to_s if scope_name}.where(conditions)\n"
 
       code << "  respond_to do |format|\n"
-      code << "    format.html { render :file => '#{dir.join(file_name).relative_path_from(Rails.root)}', :locals => { :items => items, :keys => keys }, :layout => false }\n"
+      code << "    format.html { render :file => '#{dir.join(file_name).relative_path_from(Rails.root)}', :locals => { :items => items, :keys => keys, :search => params[:q].to_s.capitalize }, :layout => false }\n"
       code << "    format.json { render :json => items.collect{|item| {:label => #{item_label}, :id => item.id}}.to_json }\n"
       code << "    format.xml  { render  :xml => items.collect{|item| {:label => #{item_label}, :id => item.id}}.to_xml }\n"
       code << "  end\n"

@@ -15,7 +15,9 @@
   %body{:data => expiration}
     =navigation_tag
     #wrap
-      %aside#side.visible=side_tag
+      %aside#side.visible
+        =side_tag
+        %footer#legals=legals_sentence
       #main
         %header#header
           =main_toolbar_tag
@@ -24,5 +26,4 @@
         #content
           =notifications_tag
           =yield
-    %footer#legals=legals_sentence
     =yield :popover

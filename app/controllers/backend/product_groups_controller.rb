@@ -25,7 +25,6 @@ class Backend::ProductGroupsController < BackendController
   list do |t|
     t.column :name, :url => true
     t.column :description
-    t.column :description
     t.action :show, :url => {:format => :pdf}, :image => :print
     t.action :edit
     t.action :destroy, :if => "RECORD.destroyable\?"

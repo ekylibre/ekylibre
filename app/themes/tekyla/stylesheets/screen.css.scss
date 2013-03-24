@@ -36,7 +36,7 @@ $modules: ();
 }
 
 $fs-ratio: 1.4; // 1.618;
-$fs-normal: 14px;
+$fs-normal: 13px;
 $fs-small:      ceil($fs-normal/$fs-ratio);
 $fs-large:     round($fs-ratio*$fs-normal);
 $fs-huge:      round($fs-ratio*$fs-large);
@@ -133,9 +133,17 @@ $include-html-classes: false;
 
 
 
+@mixin calc($property, $expression) {
+  #{$property}: -webkit-calc(#{$expression});
+  #{$property}: -moz-calc(#{$expression});
+  #{$property}: -ms-calc(#{$expression});
+  #{$property}: -o-calc(#{$expression});
+  #{$property}: calc(#{$expression});
+}
 
 
-@mixin is-icon($size: 16px) {
+
+@mixin is-icon($size: round(1.2 * $fs-normal)) {
   font-family: FontAwesome;
   font-weight: normal;
   font-style: normal;
@@ -326,12 +334,12 @@ $include-html-classes: false;
   @include box-shadow(0 0 round($fs-normal/2) rgba(0,0,0,0.15));
 }
 
-@mixin tab-pills($font-size: $fs-normal) {
+@mixin tab-pills($font-size: $fs-normal, $title_selector: "dt", $tab_selector: "dd") {
   display: block;
   @include clearfix;
   border-bottom: none;
   margin-bottom: 10px;
-  dt, dd {
+  #{$title_selector}, #{$tab_selector} {
     display: block;
     @include float(left);
     margin-top: 0;
@@ -339,14 +347,14 @@ $include-html-classes: false;
     margin-bottom: $default-gap;
     @include margin-left(0);
   }
-  dt {
+  #{$title_selector} {
     font-weight: bold;
     color: $neutral-color;
     font-variant: small-caps;
     padding: round($default-gap * 0.3) 0;
     cursor: default;
   }
-  dd {
+  #{$tab_selector} {
     &:last-of-type {
       @include margin-right(0);
     }
@@ -358,7 +366,7 @@ $include-html-classes: false;
       background: $neutral-background;
       padding: round($default-gap * 0.2 - $border-width) $default-gap;
       &, & * {
-        color: $neutral-color;
+        color: $base-font-color;
         @include text-shadow(1px 1px 0 white);
         font-size: $font-size;
         line-height: round(1.4*$font-size);
@@ -381,6 +389,15 @@ $include-html-classes: false;
         border-color: $active-color;
         &, & * { color: white; font-weight: bold; @include text-shadow(1px 1px 0 $neutral-color)}
         i { font-weight: normal; }
+      }
+    }
+    &.disabled {
+      a {
+        opacity: 0.9;
+        color: $neutral-color;
+        background: $neutral-background;
+        cursor: default;
+        pointer-events: none;
       }
     }
   }
