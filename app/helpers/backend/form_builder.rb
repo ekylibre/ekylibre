@@ -114,7 +114,7 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
     if block_given?
       return @template.content_tag(:div, capture(&block), options)
     else
-      return @template.content_tag(:div, @template.render(:partial => "#{name}_form", :locals => {:f => self}), options)
+      return @template.content_tag(:div, @template.render(:partial => "#{name}_form", :locals => {:f => self, :object => @object}), options)
     end
   end
 
