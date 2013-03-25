@@ -1,13 +1,18 @@
 =field_set do
   =f.input :name
-  =f.referenced_association :parent
+  =f.input :work_number
+  =f.input :born_at
+  =f.input :identification_number
+  =f.referenced_association :nature
+  =f.referenced_association :variety
   =f.input :description, :field => :text
-  =f.input :reservoir, :show => :reservoir_options
+  =f.input :reservoir, :show => :reservoir
+  
 
-=field_set(:reservoir_options) do
-  -#association :product, :source => :availables
-  =f.input :maximal_quantity
-  =f.input :number
+=field_set(:reservoir) do
+  =f.referenced_association :content_nature
+  =f.input :content_maximal_quantity
+
 
 -#field_set :localization do
   -#association :establishment

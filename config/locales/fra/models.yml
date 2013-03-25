@@ -55,6 +55,9 @@ fra:
         number: "Numéro PAC ou numéro de parcelle"
       mandate:
         family: "Famille"
+      matter:
+        born_at: "Date de création"
+        dead_at: "Date de consommation/destruction"
       operation:
         consumption: "Consommation"
       outgoing_delivery:
@@ -165,8 +168,11 @@ fra:
         reproductor: "Multiplication"
         variety: "Variété"
       warehouse:
+        born_at: "Date de construction"
         children: "Sous lieu de stockage"
-        product: "Produit contenu"
+        content_maximal_quantity: "Quantité maximale supportée"
+        content_nature: "Type de Produit contenu"
+        variety: "Genre"
     errors:
       messages:
         accepted: "%{attribute} doit être accepté"

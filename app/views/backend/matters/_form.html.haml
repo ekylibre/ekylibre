@@ -1,0 +1,22 @@
+=field_set do # partie info general de l entité animal
+  =f.referenced_association :nature, :source => :matters
+  =f.input :name # affiche le champ name de l entité animal avec une infos derriere
+  =f.input :reproductor
+  =f.input :work_number
+  =f.custom_fields
+  -#for datum in @custom_field_data
+    =custom_field datum.custom_field.name, {:datatype => datum.custom_field.nature.to_sym, :id => "custom_field_datum_#{datum.custom_field_id}_value", :name => "custom_field_datum[#{datum.custom_field_id}][value]", :value => datum.value, :size => datum.custom_field.length_max, :options => {:include_blank => (datum.custom_field.required ? nil : '')}, :choices => datum.custom_field.choices.collect{|x| [x.name , x.id]}  }
+
+=field_set(:movement) do # partie entrée sortie de l entité animal
+  =f.input :born_at, as: :date
+  =f.input :dead_at, as: :date, disabled: true, include_blank: true, default_value: :blank
+
+=field_set(:document) do
+  =f.input :picture
+  =image_tag(@matter.picture.url(:thumb))
+  =f.input :description # affiche le champ description formaté en zone de texte
+
+
+
+
+  

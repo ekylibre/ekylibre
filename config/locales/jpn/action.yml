@@ -228,6 +228,11 @@ jpn:
       # edit: "Modifier la responsabilité"
       # index: "Responsabilités"
       # new: "Créer une responsabilité"
+    backend/matters:
+      # edit: "Modifier la matière\_: %{name}"
+      # index: "Matières"
+      # new: "Nouvelle matière"
+      # show: "Matière\_: %{name}"
     backend/myselves:
       # change_password: "Changer de mot de passe"
       # statistics: "Mes statistiques"
@@ -449,10 +454,10 @@ jpn:
       # new: "Nouvelle production végétale"
       # show: "Production végétale\_: %{name} %{area_measure} %{area_unit.name}"
     backend/warehouses:
-      # edit: "Modifier un lieu de stockage"
-      # index: "Lieux de stockage"
-      # new: "Ajout d’un lieu de stockage"
-      # show: "Détail du lieu de stockage\_: %{name}"
+      # edit: "Modifier une installation"
+      # index: "Installations (bâtiments, réservoir)"
+      # new: "Ajout d’une installation"
+      # show: "Détail de l'installation\_: %{name}"
     backend/working_sets:
       # edit: "Modifier l'unité fonctionnelle\_: %{name}"
       # index: "Unité fonctionnelle / de travail"
@@ -552,8 +557,8 @@ jpn:
     # backend/units: "Unités de mesure"
     # backend/users: "Utilisateurs"
     # backend/vegetals: "Productions végétales"
-    # backend/warehouses: "Lieux de stockage"
-    # backend/working_sets: "Unité de travail"
+    # backend/warehouses: "Installations"
+    # backend/working_sets: "Unités de travail"
   errors:
     messages:
       # already_confirmed: "a déjà été validé(e)"
@@ -1667,6 +1672,8 @@ jpn:
       # all: "{reason}"
     backend/logs:
       # all: "{observed_at}"
+    backend/matters:
+      # all: "{name} - {work_number}"
     backend/observations:
       # all: "{content}"
     backend/operations:

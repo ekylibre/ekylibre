@@ -413,6 +413,17 @@ Ekylibre::Application.routes.draw do
         match "configure", :via => [:get, :post]
       end
     end
+    resources :matters do
+      collection do
+        get :list
+        get :list_place
+        get :list_group
+        unroll_all
+      end
+      member do
+        match "picture(/:style)", :via => :get, :action => :picture, :as => :picture
+      end
+    end
     resources :observations
     resources :operations do
       collection do
@@ -494,9 +505,6 @@ Ekylibre::Application.routes.draw do
         unroll_all
       end
     end
-
-
-
     resources :procedure_natures do
       collection do
         get :list

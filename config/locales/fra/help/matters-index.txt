@@ -1,0 +1,15 @@
+====== Matières ======
+
+===== Liste des matières =====
+
+==== Qu'est ce qu'une matière ? ====
+
+Une matière représente des produits non vivants pouvant être stockés et/ou utilisés dans des opérations de transformation
+
+>>> Ex 1 : Engrais, produits phytosanitaires
+
+>>> Ex 2 : Grains de blé, paille, lait de vache.
+
+Ici, vous pouvez [[>backend/products#new|créer]] {{icon:new|ajouter}} , modifier {{icon:edit|modifier}} et supprimer {{icon:destroy|supprimer}} des matières.
+
+

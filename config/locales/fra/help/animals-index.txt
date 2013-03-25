@@ -1,0 +1,13 @@
+====== Animaux ======
+
+===== Liste des animaux =====
+
+Ici, vous pouvez [[>backend/products#new|créer]] et modifier des animaux.
+
+!!! Lors d'une naissance , il faut [[>backend/products#new|créer]] un nouvel animal
+
+!!! Lors d'une sortie ( vente / décès /  ) , il faut sortir l'animal en question et non pas le supprimer
+
+>>> Editions =  [[>backend/animals|Carnet de naissance]]
+
+
