@@ -9,6 +9,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 }
 
 td, th, a, p, input, textarea, select, div { font-size: $fs-normal;}
+textarea { height: 3em; }
 small, sup, sub { font-size: $fs-small; }
 a:link, a:visited, a:focus { color: $link-color; text-decoration: none;}
 // a:hover { color: $link-color; text-decoration: underline;}
@@ -18,9 +19,13 @@ a:link, a:visited, a:focus { color: $link-color; text-decoration: none;}
 // input[type="button"], input[type="checkbox"], input[type="color"], input[type="date"], input[type="datetime"], input[type="datetime-local"], input[type="email"], input[type="file"], input[type="hidden"], input[type="image"], input[type="month"], input[type="number"], input[type="password"], input[type="radio"], input[type="range"], input[type="reset"], input[type="search"], input[type="submit"], input[type="tel"], input[type="text"], input[type="time"], input[type="url"], input[type="week"]
 input[type="color"], input[type="date"], input[type="datetime"], input[type="datetime-local"], input[type="email"], input[type="file"], input[type="image"], input[type="month"], input[type="number"], input[type="password"], input[type="range"], input[type="tel"], input[type="text"], input[type="time"], input[type="url"], input[type="week"], textarea, select {
   border: $menu-border;
-  padding: round($fs-normal / 5);
+  padding: round($fs-normal * 0.2);
   @include border-radius($default-border-radius);
   background: #F8F8F8;
+  font-size: $fs-normal;
+  line-height: round(1.4 * $fs-normal);
+  height: round(1.4 * $fs-normal);
+  vertical-align: middle;
   @include box-shadow(0 2px round($fs-normal/2) rgba(black, 0.1) inset);
   &:focus {
     background: #FFF;
@@ -39,13 +44,16 @@ input[type="color"], input[type="date"], input[type="datetime"], input[type="dat
 
 html.backend {
   background: #F7F7F7;
+  height: 100%;
   body {
     background: transparent;
-    height: 100%;
+    height: inherit;
+    overflow: hidden;
     #wrap {
-      height: 100%;
+      @include calc(height, "100% - 32px");
       max-width: 100%;
       & > #main {
+        overflow: auto;
         #header {
           margin: 0 $default-gap $default-gap;
           h1 {
@@ -57,6 +65,10 @@ html.backend {
             }
           }
         }
+      }
+      & > #side {
+        height: 100%;
+        @include background(rgba(black, 0.05));
       }
       @media screen and (min-width: 768px){
         @include grid-row();
@@ -500,7 +512,7 @@ ul.side-menu {
   @include border-radius($default-border-radius);
   $vertical-gap: round($default-gap*0.7);
   padding: $vertical-gap $default-gap;
-  margin: 0 0 $default-gap;
+  margin: 0 $default-gap $default-gap;
   $fieldset-border: $menu-border;
   border: $fieldset-border;
   @include incrust-shadow;
@@ -526,21 +538,17 @@ ul.side-menu {
       cursor: default;
       @include inline-block;
       @include float(right);
-      $tool-size: 12px;
+      $tool-size: round(0.95 * $fs-normal);
       width: $tool-size;
       height: $tool-size;
-      @include border-radius(2px);
-      @include is-icon(9px);
-      border: 1px solid $neutral-color;
-      padding: 1px 2px;
-      margin: round(($size - $tool-size - 1px)/2) 0 0;
-      @include background(linear-gradient(top, #FFF, #EEE));
+      @include is-icon();
+      margin: round(($size - $tool-size)/2) 0 0;
+      color: $base-color;
       &:hover {
-	background: $neutral-color;
-        color: white;
+        color: $neutral-color;
       }
-      &.collapsed { @include use-icon(plus); }
-      &.not-collapsed { @include use-icon(minus); }
+      &.collapsed { @include use-icon(plus-sign); }
+      &.not-collapsed { @include use-icon(minus-sign); }
     }
   }
   @each $field_set in (delay time), (document briefcase), (general-informations book), (stock exchange), (group group), (movement exchange), (accountancy money), (coordinates map-marker), (amount money), (vegetable leaf), (genealogy sitemap), (animal github-alt), (entity user) { //asset,
@@ -643,6 +651,7 @@ input[data-selector] {
   width: auto;
 }
 span.selector, .input-append {
+  @include inline-block;
   @include toolbar;
 }
 
@@ -667,7 +676,7 @@ span.rad, label.radio {
     &:first-child { @include margin-left(0) }
   }
   padding: round($fs-normal) !important;
-  background: $menu-background;
+  @include background(linear-gradient(rgba(black, 0.05), rgba(black, 0), rgba(black, 0.06)));
   /*border-top: $menu-border;*/
   margin: 0;
 }
@@ -893,57 +902,76 @@ input[data-date], input[data-datepicker] {
   @include float(left);
   background: white;
   border: 1px solid #AAA;
-  z-index: 2;
+  z-index: 4;
+  @include incrust-shadow;
   .items-list {
-    max-height: 400px;
+    $height: $fs-normal * 1.2;
+    max-height: ($height + 2 * $default-gap) * 12;
     min-width: 350px;
     overflow-y: auto;
     li {
-      padding: 8px;
+      height: $height;
+      line-height: $height;
+      padding: $default-gap;
+      @include ellipsis;
       *, & * { vertical-align: baseline; }
       strong { font-weight: bold }
       &.selected {
         background: rgba($base-color, 0.2);
         cursor: pointer;
       }
+      &.special {
+        font-style: italic;
+      }
     }
   }
   .items-status {
     display: block;
-    padding: 8px;
+    padding: $default-gap;
     background: #EFE;
     font-style: italic;
   }
 }
 
 .stepper {
-  width: 100%;
+  display: block;
   border: none;
-  margin-bottom: $default-gap;
+  background: $base-color;
+  $step-padding:round($default-gap * 0.8);
+  padding: round($fs-normal * 0.15) (round($fs-normal * 0.45));
+  margin: 0 0 $default-gap;
   .step {
     text-align: center;
     @include inline-block;
+    margin-right: 0;
     a {
       display: block;
       text-align: center;
-      padding: $default-gap;
+      line-height: round(1.4 * $fs-normal);
+      height: round(1.4 * $fs-normal);
+      padding: round($step-padding * 0.2);
       background: white;
-      @include border-radius(1000px);
     }
     &.disabled a {
       color: $neutral-color;
-      background: $neutral-background;
       cursor: default;
       pointer-events: none;
     }
   }
+  $height: round(1.4 * $fs-normal) + 2 * $step-padding;
   .transition {
-    width: 1%;
+    width: 0px;
+    height: 0px;
+
     @include inline-block;
+    border: $height/2 solid $base-color;
+    border-left-color: white;
   }
   @for $i from 1 through 30 {
     &.stepper-#{$i}-steps {
-      .step { width: (100% - (1% * ($i - 1))) / $i; }
+      .step {
+        @include calc(width, "(100% - #{($i - 1)*$height}) / #{$i}");
+      }
     }
   }
 }

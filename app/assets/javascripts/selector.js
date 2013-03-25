@@ -95,6 +95,7 @@
             hidden = selector.prop("hiddenInput");
             selector.prop("lastSearch", label);
             selector.val(label);
+            selector.attr("size", (label.length < 20 ? 20 : label.length > 64 ? 64 : label.length));
             hidden.prop("itemLabel", label);
             hidden.val(id);
             if (menu.is(":visible")) {
@@ -142,9 +143,11 @@
             }
             selector.prop("lastSearch", search);
         } else {
-            selected = menu.find("ul li.selected[data-item-label][data-item-id]").first();
-            if (selected[0] === null || selected[0] === undefined) {
-                selected = menu.find("ul li[data-item-label][data-item-id]").first();
+            selected = menu.find("ul li.selected.item").first();
+            if (code === 27) { // Escape
+                menu.hide();
+            } else if (selected[0] === null || selected[0] === undefined) {
+                selected = menu.find("ul li.item").first();
                 selected.addClass("selected");
             } else {
                 if (code === 40) { // Down
@@ -157,8 +160,6 @@
                         selected.removeClass("selected");
                         selected.prev().addClass("selected");
                     }
-                } else if (code === 27) { // Escape
-                    menu.hide();
                 }
             }
         }
@@ -169,14 +170,21 @@
         var selector = $(this), menu, code = (event.keyCode || event.which), selected;
         menu = selector.prop("dropDownMenu");
         if (code === 13 || code === 10) { // Enter
-            selected = menu.find("ul li.selected[data-item-label][data-item-id]").first();
+            selected = menu.find("ul li.selected.item").first();
             if (selected[0] !== null && selected[0] !== undefined) {
-                $.Selector.select(selector, selected.data("item-id"), selected.data("item-label"));
-                return false;
+                //[data-item-label][data-item-id]
+                if (selected.is("[data-item-label][data-item-id]")) {
+                    $.Selector.select(selector, selected.data("item-id"), selected.data("item-label"));
+                    return false;
+                } else {
+                    alert("Don't known how to manage this option");
+                    console.log("Don't known how to manage this option");
+                    return false;
+                }
             }
         } else if (code === 40) { // Down
             if (menu.is(":hidden")) {
-                $.Selector.openMenu(selector);
+                $.Selector.openMenu(selector, selector.val());
             }
         }
         return true;
@@ -202,10 +210,10 @@
         return false;
     });
 
-    $(document).on("mouseenter hover", '.items-menu ul li[data-item-label][data-item-id]', function (event) {
+    $(document).on("mouseenter hover", '.items-menu ul li.item', function (event) {
         var element = $(this), list;
         list = element.closest("ul");
-        list.find("li.selected[data-item-label][data-item-id]").removeClass("selected");
+        list.find("li.item.selected").removeClass("selected");
         element.addClass("selected");
         return false;
     });

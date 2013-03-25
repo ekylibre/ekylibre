@@ -48,7 +48,7 @@ class SimpleForm::Inputs::DateTimeInput
 end
 
 
-class SimpleForm::FormBuilder
+class BackendFormBuilder < SimpleForm::FormBuilder
 
   # Display a selector with "new" button
   def referenced_association(association, options = {}, &block)
@@ -119,6 +119,30 @@ class SimpleForm::FormBuilder
     return nil
   end
 
+  # Updates default input method
+  def input(attribute_name, options = {}, &block)
+    if targets = options.delete(:show)
+      options[:input_html] ||= {}
+      options[:input_html]["data-show"] = clean_targets(targets)
+    end
+    if targets = options.delete(:hide)
+      options[:input_html] ||= {}
+      options[:input_html]["data-hide"] = clean_targets(targets)
+    end
+    return super(attribute_name, options, &block)
+  end
+
+  protected
+
+  def clean_targets(targets)
+    if targets.is_a?(Symbol)
+      return "##{targets}"
+    elsif targets.is_a?(Array)
+      return targets.collect{|t| clean_targets(t)}.join(", ")
+    end
+    return targets
+  end
+
 end
 
 
@@ -171,7 +195,8 @@ module ApplicationHelper
 
   def legals_sentence
     # "Ekylibre " << Ekylibre.version << " - Ruby on Rails " << Rails.version << " - Ruby #{RUBY_VERSION} - " << ActiveRecord::Base.connection.adapter_name << " - " << ActiveRecord::Migrator.current_version.to_s
-    return [h("Ekylibre " + Ekylibre.version),  h("Ruby on Rails " + Rails.version),  h("Ruby "+ RUBY_VERSION.to_s), h("HTML 5"), h("CSS 3")].join(" &ndash; ").html_safe
+    nbsp = "&nbsp;".html_safe # ,  h("Ruby on Rails") + nbsp + Rails.version, ("HTML" + nbsp + "5").html_sa, h("CSS 3")
+    return [h("Ekylibre") + nbsp + Ekylibre.version,  h("Ruby") + nbsp + RUBY_VERSION.to_s].join(" &ndash; ").html_safe
   end
 
   def choices_yes_no
@@ -1256,6 +1281,12 @@ module ApplicationHelper
     return content_tag(:div, capture(&block), :class => "form-fields")
   end
 
+  def backend_form_for(object, *args, &block)
+    options = args.extract_options!
+    simple_form_for(object, *(args << options.merge(builder: BackendFormBuilder)), &block)
+  end
+
+
 
   # Build the master form using all form through modules and assemblies them in one
   # Auto manage dialog use
@@ -1463,9 +1494,18 @@ module ApplicationHelper
                                      content_tag(:span, (name.is_a?(Symbol) ? name.to_s.gsub('-', '_').t(:default => ["labels.#{name.to_s.gsub('-', '_')}".to_sym, "form.legends.#{name.to_s.gsub('-', '_')}".to_sym]) : name.to_s)) +
                                      content_tag(:span, "", :id => toggle_id, :class => (options[:collapsed] ? 'collapsed' : 'not-collapsed'), 'data-toggle-set' => "##{set_id}"),
                                      :class => "fieldset-legend") +
-                         content_tag(:div, capture(&block), :class => "fieldset-fields", :id => set_id), :class => "fieldset", :id => "#{name}-fieldset")
+                         content_tag(:div, capture(&block), :class => "fieldset-fields", :id => set_id), :class => "fieldset", :id => name) # "#{name}-fieldset"
     end
   end
+
+  def field_subset(name, options = {}, &block)
+    options[:id] ||= name
+    if options[:depend_on]
+      options['data-depend-on'] = options.delete(:depend_on)
+    end
+    return content_tag(:div, capture(&block), options)
+  end
+
 
   def input(name, options = {})
     check_field_name_before_push(name, __method__)

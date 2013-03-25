@@ -110,6 +110,7 @@ class ProductNature < Ekylibre::Record::Base
   scope :stockables, -> { where(:storable => true).order(:name) }
   scope :purchaseables, -> { where(:purchasable => true).order(:name) }
   scope :animals, -> { where(:alive => true, :indivisible => true).order(:name) }
+  scope :equipments, -> { where(:towable => true).order(:name) }
 
   before_validation do
     self.number = self.name.codeize.upper if !self.name.blank? and self.number.blank?

@@ -82,7 +82,7 @@ task :forms => :environment do
 
     # Check new.html.haml
     code  = ""
-    code << "=simple_form_for(#{variable}, (params[:dialog] ? {'data-dialog' => params[:dialog]} : {})) do |f|\n"
+    code << "=backend_form_for(#{variable}, (params[:dialog] ? {'data-dialog' => params[:dialog]} : {})) do |f|\n"
     code << "  -if params[:redirect]\n"
     code << "    =hidden_field_tag(:redirect, params[:redirect])\n"
     code << "  .form-fields>=render(:partial => 'form', :locals => {:f => f})\n"
@@ -106,7 +106,7 @@ task :forms => :environment do
              end
 
     code  = ""
-    code << "=simple_form_for(#{variable}, (params[:dialog] ? {'data-dialog' => params[:dialog]} : {})) do |f|\n"
+    code << "=backend_form_for(#{variable}, (params[:dialog] ? {'data-dialog' => params[:dialog]} : {})) do |f|\n"
     code << "  -if params[:redirect]\n"
     code << "    =hidden_field_tag(:redirect, params[:redirect])\n"
     code << "  .form-fields>=render(:partial => 'form', :locals => {:f => f})\n"

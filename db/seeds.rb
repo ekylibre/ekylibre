@@ -15,6 +15,7 @@ unless user[:password] = ENV["password"]
   puts "Password is: #{user[:password]}"
 end
 user[:password_confirmation] = user[:password]
+user[:employed] = true
 user = User.new(user)
 
 company = ENV["company"] || "My Company"

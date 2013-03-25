@@ -25,7 +25,7 @@ $list-hover-backgrounds: ("" rgba(255, 255, 255, 0)) (":hover" $hover-mask);
         // @include background-image(linear-gradient(lighten($menu-background, $default-lightness-variation), darken($menu-background, $default-lightness-variation)));
         &[data-list-column-sort] {
           .icon {
-            @include is-icon(12px);
+            @include is-icon(round(0.85 * $fs-normal));
             @include use-icon(sort);
             @include inline-block;
             @include margin-left(round($fs-normal*0.2));

@@ -413,6 +413,40 @@
       <page to="backend/land_parcels#show"/>
       <page to="backend/land_parcels#update"/>
     </menu>
+    <menu name="equipments">
+      <page to="backend/equipments#index"/>
+      <menu name="equipments">
+        <page to="backend/equipments#index"/>
+        <page to="backend/equipments#create"/>
+        <page to="backend/equipments#destroy"/>
+        <page to="backend/equipments#edit"/>
+        <page to="backend/equipments#list"/>
+        <page to="backend/equipments#list_operations"/>
+        <page to="backend/equipments#new"/>
+        <page to="backend/equipments#show"/>
+        <page to="backend/equipments#update"/>
+      </menu>
+      <menu name="working_sets">
+        <page to="backend/working_sets#index"/>
+        <page to="backend/working_sets#create"/>
+        <page to="backend/working_sets#destroy"/>
+        <page to="backend/working_sets#edit"/>
+        <page to="backend/working_sets#list"/>
+        <page to="backend/working_sets#new"/>
+        <page to="backend/working_sets#show"/>
+        <page to="backend/working_sets#update"/>
+      </menu>
+      <menu name="product_abilities">
+        <page to="backend/product_abilities#index"/>
+        <page to="backend/product_abilities#create"/>
+        <page to="backend/product_abilities#destroy"/>
+        <page to="backend/product_abilities#edit"/>
+        <page to="backend/product_abilities#list"/>
+        <page to="backend/product_abilities#new"/>
+        <page to="backend/product_abilities#show"/>
+        <page to="backend/product_abilities#update"/>
+      </menu>
+    </menu>
   </menu>
   <menu name="settings">
     <page to="backend/dashboards#settings"/>
@@ -803,17 +837,6 @@
         <page to="backend/production_chain_conveyors#new"/>
         <page to="backend/production_chain_conveyors#update"/>
       </menu>
-      <menu name="equipments">
-        <page to="backend/equipments#index"/>
-        <page to="backend/equipments#create"/>
-        <page to="backend/equipments#destroy"/>
-        <page to="backend/equipments#edit"/>
-        <page to="backend/equipments#list"/>
-        <page to="backend/equipments#list_operations"/>
-        <page to="backend/equipments#new"/>
-        <page to="backend/equipments#show"/>
-        <page to="backend/equipments#update"/>
-      </menu>
     </menu>
   </menu>
   <undefined>
@@ -854,6 +877,7 @@
     <menu name="backend/dashboards">
       <page to="backend/dashboards#list_my_future_events"/>
       <page to="backend/dashboards#list_recent_events"/>
+      <page to="backend/dashboards#production_equipments"/>
       <page to="backend/dashboards#welcome"/>
     </menu>
     <menu name="backend/entities">
@@ -960,16 +984,6 @@
       <page to="backend/procedures#show"/>
       <page to="backend/procedures#update"/>
     </menu>
-    <menu name="backend/product_abilities">
-      <page to="backend/product_abilities#index"/>
-      <page to="backend/product_abilities#create"/>
-      <page to="backend/product_abilities#destroy"/>
-      <page to="backend/product_abilities#edit"/>
-      <page to="backend/product_abilities#list"/>
-      <page to="backend/product_abilities#new"/>
-      <page to="backend/product_abilities#show"/>
-      <page to="backend/product_abilities#update"/>
-    </menu>
     <menu name="backend/product_groups">
       <page to="backend/product_groups#list_products"/>
     </menu>
@@ -1063,16 +1077,6 @@
       <page to="backend/professions#list"/>
       <page to="backend/professions#new"/>
       <page to="backend/professions#update"/>
-    </menu>
-    <menu name="backend/working_sets">
-      <page to="backend/working_sets#index"/>
-      <page to="backend/working_sets#create"/>
-      <page to="backend/working_sets#destroy"/>
-      <page to="backend/working_sets#edit"/>
-      <page to="backend/working_sets#list"/>
-      <page to="backend/working_sets#new"/>
-      <page to="backend/working_sets#show"/>
-      <page to="backend/working_sets#update"/>
     </menu>
     <menu name="public">
       <page to="public#index"/>

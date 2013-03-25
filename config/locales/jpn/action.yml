@@ -131,7 +131,11 @@ jpn:
       # edit: "Modifier le type de fiche\_: %{name}"
       # index: "Types de fiches"
       # new: "Ajouter un nouveau type de fiche"
-    backend/equipments: #?
+    backend/equipments:
+      # edit: "Modifier l'équipement\_: %{name}"
+      # index: "Équipements"
+      # new: "Ajouter un nouvel équipement"
+      # show: "Équipement %{name}"
     backend/establishments:
       # edit: "Modifier l’établissement\_: %{name}"
       # index: "Établissements"
@@ -265,7 +269,11 @@ jpn:
     backend/prices: #?
     backend/procedure_natures: #?
     backend/procedures: #?
-    backend/product_abilities: #?
+    backend/product_abilities:
+      # edit: "Modifier la compétence\_: %{name}"
+      # index: "Compétences / Capacités"
+      # new: "Nouvelle compétence"
+      # show: "Compétence %{name}"
     backend/product_groups:
       # edit: "Modifier le lot\_: %{name} "
       # index: "Lots de produits"
@@ -445,7 +453,11 @@ jpn:
       # index: "Lieux de stockage"
       # new: "Ajout d’un lieu de stockage"
       # show: "Détail du lieu de stockage\_: %{name}"
-    backend/working_sets: #?
+    backend/working_sets:
+      # edit: "Modifier l'unité fonctionnelle\_: %{name}"
+      # index: "Unité fonctionnelle / de travail"
+      # new: "Nouvelle unité fonctionnelle / de travail"
+      # show: "Unité fonctionnelle %{name}"
     public:
       # index: "Accueil"
   controllers:
@@ -476,6 +488,7 @@ jpn:
     # backend/entity_link_natures: "Types de lien"
     # backend/entity_links: "Liens entre personnes"
     # backend/entity_natures: "Types de fiches"
+    # backend/equipments: "Équipements"
     # backend/establishments: "Établissements"
     # backend/event_natures: "Types d’évènements"
     # backend/events: "Évènements"
@@ -507,6 +520,7 @@ jpn:
     # backend/outgoing_payment_modes: "Modes de décaissement"
     # backend/outgoing_payments: "Décaissements"
     # backend/preferences: "Préférences"
+    # backend/product_abilities: "Compétences"
     # backend/product_groups: "Lot de produits"
     # backend/product_localizations: "Tracabilité"
     # backend/product_moves: "Mouvements de stock"
@@ -537,7 +551,9 @@ jpn:
     # backend/transports: "Transports"
     # backend/units: "Unités de mesure"
     # backend/users: "Utilisateurs"
+    # backend/vegetals: "Productions végétales"
     # backend/warehouses: "Lieux de stockage"
+    # backend/working_sets: "Unité de travail"
   errors:
     messages:
       # already_confirmed: "a déjà été validé(e)"
@@ -598,6 +614,7 @@ jpn:
     # add_fax: "Ajouter un n° de fax"
     # add_mail: "Ajouter une adresse postale"
     # add_mobile: "Ajouter un n° de portable"
+    # add_new_record: "Ajouter un nouveau enregistrement"
     # add_passage: "Ajouter un produit"
     # add_payment: "Ajouter un encaissement"
     # add_phone: "Ajouter un n° de téléphone"
@@ -606,6 +623,8 @@ jpn:
     # add_subscription_for_sale_line: "Ajouter un abonnement pour la ligne N°%{position}"
     # add_treatment: "Ajouter un traitement"
     # add_website: "Ajouter un site Web"
+    # add_x: "Ajouter «\_%{x}\_»"
+    # add_x_html: "Ajouter «\_%{x}\_»"
     # address: "Adresse"
     # all: "Tous"
     # all_accounts: "Tous les comptes"
@@ -1641,7 +1660,7 @@ jpn:
     animal_prescriptions: #?
     animals: #?
     backend/animals:
-      # all: "{name} - {number}"
+      # all: "{name} - {work_number}"
     backend/entity_links:
       # all: "{started_at}"
     backend/events:
@@ -1661,7 +1680,7 @@ jpn:
     backend/product_transfers:
       # all: "{id}"
     backend/products:
-      # all: "{number} {name}"
+      # all: "{work_number} {name}"
     backend/units:
       # all: "{label} ({name})"
     backend/users:
