@@ -232,7 +232,7 @@ class Backend::SalesController < BackendController
         address_id = (address ? address.id : client.default_mail_address.id)
       end
       @sale = Sale.find_by_id(params[:sale_id])||Sale.new(:address_id => address_id, :delivery_address_id => address_id, :invoice_address_id => address_id)
-      render :partial => 'contacts_form', :locals => {:client => client}
+      render :partial => 'addresses_form', :locals => {:client => client}, :object => @sale
     else
       redirect_to :action => :index
     end

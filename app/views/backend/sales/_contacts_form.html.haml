@@ -1,6 +1,0 @@
--client ||= @sale.client
--if client
-  =formalize do |f|
-    -f.field :sale, :contact_id,          :choices=>{:reflection=>:contacts, :conditions=>{:entity_id=>client.id}}, :new=>{:entity_id=>client.id}, :update=>:contacts
-    -f.field :sale, :delivery_contact_id, :choices=>{:reflection=>:contacts, :conditions=>{:entity_id=>client.id}}, :new=>{:entity_id=>client.id}, :update=>:contacts
-    -f.field :sale, :invoice_contact_id,  :choices=>{:reflection=>:contacts, :conditions=>{:entity_id=>client.id}}, :new=>{:entity_id=>client.id}, :update=>:contacts

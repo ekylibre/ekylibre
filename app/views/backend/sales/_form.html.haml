@@ -1,12 +1,8 @@
--# TODO Form
-=sales_steps
+=sale_steps
 
 =field_set do
   =f.referenced_association :client # , :source => :clients
-  =field_subset :addresses, :depend_on => :client do
-    =f.referenced_association :address, :source => :mails
-    =f.referenced_association :delivery_address, :source => :mails
-    =f.referenced_association :invoice_address, :source => :mails
+  =f.subset :addresses, :depend_on => :client
 
 =field_set :sales_conditions do
   =f.referenced_association :nature

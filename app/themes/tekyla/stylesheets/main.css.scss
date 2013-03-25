@@ -9,7 +9,6 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 }
 
 td, th, a, p, input, textarea, select, div { font-size: $fs-normal;}
-textarea { height: 3em; }
 small, sup, sub { font-size: $fs-small; }
 a:link, a:visited, a:focus { color: $link-color; text-decoration: none;}
 // a:hover { color: $link-color; text-decoration: underline;}
@@ -20,6 +19,7 @@ a:link, a:visited, a:focus { color: $link-color; text-decoration: none;}
 input[type="color"], input[type="date"], input[type="datetime"], input[type="datetime-local"], input[type="email"], input[type="file"], input[type="image"], input[type="month"], input[type="number"], input[type="password"], input[type="range"], input[type="tel"], input[type="text"], input[type="time"], input[type="url"], input[type="week"], textarea, select {
   border: $menu-border;
   padding: round($fs-normal * 0.2);
+  @include box-sizing(content-box);
   @include border-radius($default-border-radius);
   background: #F8F8F8;
   font-size: $fs-normal;
@@ -32,6 +32,9 @@ input[type="color"], input[type="date"], input[type="datetime"], input[type="dat
     border-color: $base-color;
     @include box-shadow(0 0 round($fs-normal*0.6) rgba($base-color, 0.6));
   }
+}
+textarea {
+  min-height: 3em;
 }
 
 // , input[type="radio"], input[type="hidden"], input[type="button"], input[type="checkbox"], input[type="reset"], input[type="search"], input[type="submit"]
