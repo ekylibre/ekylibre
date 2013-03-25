@@ -551,7 +551,7 @@ ul.side-menu {
       &.not-collapsed { @include use-icon(minus-sign); }
     }
   }
-  @each $field_set in (delay time), (document briefcase), (general-informations book), (stock exchange), (group group), (movement exchange), (accountancy money), (coordinates map-marker), (amount money), (vegetable leaf), (genealogy sitemap), (animal github-alt), (entity user), (reservoir beaker) { //asset,
+  @each $field_set in (delay time), (document briefcase), (general-informations book), (stock exchange), (group group), (movement exchange), (accountancy money), (coordinates map-marker), (amount money), (vegetable leaf), (genealogy sitemap), (animal github-alt), (entity user), (reservoir beaker), (indicator dashboard){ //asset,
     &##{ nth($field_set, 1) }.fieldset .fieldset-legend .icon {
       @include use-icon(nth($field_set, 2));
     }
