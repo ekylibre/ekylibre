@@ -17,7 +17,7 @@ fra:
       edit: "Modifier l'animal\_: %{name}"
       index: "Productions animales"
       new: "Nouvel animal"
-      # picture: "Picture backend/animal"
+      picture: "Photo"
       show: "%{nature_name}\_: %{name}"
     backend/areas:
       edit: "Modifier la zone postale\_: %{name}"
@@ -121,7 +121,7 @@ fra:
       index: "Personnes"
       merge: "Fusionner un doublon à sa fiche d’origine"
       new: "Nouvelle fiche client/fournisseur"
-      # picture: "Picture backend/entity"
+      picture: "Portrait"
       show: "Fiche\_: %{full_name}"
     backend/entity_addresses:
       edit: "Modifier une coordonnée"
@@ -239,6 +239,12 @@ fra:
       edit: "Modifier la responsabilité"
       index: "Responsabilités"
       new: "Créer une responsabilité"
+    backend/matters:
+      edit: "Modifier la matière\_: %{name}"
+      index: "Matières"
+      new: "Nouvelle matière"
+      picture: "Visuel"
+      show: "Matière\_: %{name}"
     backend/myselves:
       change_password: "Changer de mot de passe"
       statistics: "Mes statistiques"
@@ -504,10 +510,10 @@ fra:
       new: "Nouvelle production végétale"
       show: "Production végétale\_: %{name} %{area_measure} %{area_unit.name}"
     backend/warehouses:
-      edit: "Modifier un lieu de stockage"
-      index: "Lieux de stockage"
-      new: "Ajout d’un lieu de stockage"
-      show: "Détail du lieu de stockage\_: %{name}"
+      edit: "Modifier une installation"
+      index: "Installations (bâtiments, réservoir)"
+      new: "Ajout d’une installation"
+      show: "Détail de l'installation\_: %{name}"
     backend/working_sets:
       edit: "Modifier l'unité fonctionnelle\_: %{name}"
       index: "Unité fonctionnelle / de travail"
@@ -576,6 +582,7 @@ fra:
     backend/listings: "Exportations et mailings"
     backend/logs: "Evenements des Animaux"
     backend/mandates: "Responsabilités"
+    # backend/matters: "Backend/matters"
     backend/myselves: "Mon compte"
     backend/observations: "Observations"
     # backend/operation_natures: "Backend/operation natures"
@@ -631,8 +638,8 @@ fra:
     backend/units: "Unités de mesure"
     backend/users: "Utilisateurs"
     backend/vegetals: "Productions végétales"
-    backend/warehouses: "Lieux de stockage"
-    backend/working_sets: "Unité de travail"
+    backend/warehouses: "Installations"
+    backend/working_sets: "Unités de travail"
     # backend: "Backend"
     # base: "Base"
     # public: "Public"
@@ -1738,6 +1745,8 @@ fra:
       all: "{reason}"
     backend/logs:
       all: "{observed_at}"
+    backend/matters:
+      all: "{name} - {work_number}"
     backend/observations:
       all: "{content}"
     backend/operations:

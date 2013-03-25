@@ -70,6 +70,9 @@ eng:
         number: "CAP Number or plot number"
       mandate:
         family: "Family"
+      matter:
+        # born_at: "Date de création"
+        # dead_at: "Date de consommation/destruction"
       operation:
         consumption: "Consumption"
         lines: "Incoming and outgoing products" #?
@@ -201,8 +204,12 @@ eng:
         # reproductor: "Multiplication"
         # variety: "Variété"
       warehouse:
+        # born_at: "Date de construction"
         children: "Sub-warehouse"
-        product: "Contained product"
+        # content_maximal_quantity: "Quantité maximale supportée"
+        # content_nature: "Type de Produit contenu"
+        product: "Contained product" #?
+        # variety: "Genre"
     errors:
       messages:
         accepted: "%{attribute} must be accepted"

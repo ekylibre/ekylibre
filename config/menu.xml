@@ -400,6 +400,16 @@
       <page to="backend/vegetals#show"/>
       <page to="backend/vegetals#update"/>
     </menu>
+    <menu name="matters">
+      <page to="backend/matters#index"/>
+      <page to="backend/matters#create"/>
+      <page to="backend/matters#destroy"/>
+      <page to="backend/matters#edit"/>
+      <page to="backend/matters#list"/>
+      <page to="backend/matters#new"/>
+      <page to="backend/matters#show"/>
+      <page to="backend/matters#update"/>
+    </menu>
     <menu name="land_parcels">
       <page to="backend/land_parcels#index"/>
       <page to="backend/land_parcels#create"/>
@@ -916,6 +926,11 @@
       <page to="backend/logs#new"/>
       <page to="backend/logs#show"/>
       <page to="backend/logs#update"/>
+    </menu>
+    <menu name="backend/matters">
+      <page to="backend/matters#list_group"/>
+      <page to="backend/matters#list_place"/>
+      <page to="backend/matters#picture"/>
     </menu>
     <menu name="backend/myselves">
       <page to="backend/myselves#change_password"/>
