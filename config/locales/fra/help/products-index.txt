@@ -2,12 +2,13 @@
 
 ===== Liste des produits =====
 
-Ici, vous pouvez [[>backend/products#new|créer]] et modifier des produits.
+==== Qu'est ce qu'un produit ? ====
 
-!!! Lors d'une naissance , il faut [[>backend/products#new|créer]] un nouvel animal
+Un produit est un objet réel (produit) ou virtuel (service) de l'entreprise.
 
-!!! Lors d'une sortie ( vente / décès /  ) , il faut sortir l'animal en question et non pas le supprimer
+Les produits sont gérés via leur type ([[>backend/animals|animal]] , [[>backend/vegetals|végétal]], [[>backend/matters|matière]], [[>backend/equipments|équipement]],
+ [[>backend/land_parcels|parcelle]], [[>backend/warehouses|installation]], travailleurs)
 
->>> Editions =  [[>backend/products|Carnet de naissance]]
+>>> Ex 1 : Engrais, produits phytosanitaires
 
-
+Ici, vous pouvez [[>backend/products#new|créer]] {{icon:new|ajouter}} , modifier {{icon:edit|modifier}} et supprimer {{icon:destroy|supprimer}} des produits.
