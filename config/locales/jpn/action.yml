@@ -17,6 +17,7 @@ jpn:
       # edit: "Modifier l'animal\_: %{name}"
       # index: "Productions animales"
       # new: "Nouvel animal"
+      # picture: "Photo"
       # show: "%{nature_name}\_: %{name}"
     backend/areas:
       # edit: "Modifier la zone postale\_: %{name}"
@@ -111,6 +112,7 @@ jpn:
       # index: "Personnes"
       # merge: "Fusionner un doublon à sa fiche d’origine"
       # new: "Nouvelle fiche client/fournisseur"
+      # picture: "Portrait"
       # show: "Fiche\_: %{full_name}"
     backend/entity_addresses:
       # edit: "Modifier une coordonnée"
@@ -232,6 +234,7 @@ jpn:
       # edit: "Modifier la matière\_: %{name}"
       # index: "Matières"
       # new: "Nouvelle matière"
+      # picture: "Visuel"
       # show: "Matière\_: %{name}"
     backend/myselves:
       # change_password: "Changer de mot de passe"
@@ -1246,6 +1249,12 @@ jpn:
     # sale_deliveries: "Livraisons"
     # sale_item_create: "Ajouter un produit au devis (Mode complet)"
     # sale_items: "Lignes de la vente"
+    sale_steps:
+      # deliveries: "Planification des livraisons"
+      # estimate: "Création du devis"
+      # general: "Description"
+      # products: "Produits"
+      # summary: "Facture et encaissements"
     # sale_update: "Modifier les informations du devis"
     # sales: "Ventes"
     # sales_conditions: "Conditions de vente"
@@ -1265,12 +1274,6 @@ jpn:
       # all: "Toutes"
       # current: "En cours"
       # unpaid: "Impayées"
-    sales_steps:
-      # deliveries: "Planification des livraisons"
-      # estimate: "Création du devis"
-      # general: "Description"
-      # products: "Produits"
-      # summary: "Facture et encaissements"
     # save: "Enregistrer"
     # save_in_draft: "Sauvegarder dans le brouillard"
     # scheduled: "Échéance"

@@ -24,6 +24,7 @@ arb:
       # edit: "Modifier l'animal\_: %{name}"
       # index: "Productions animales"
       # new: "Nouvel animal"
+      # picture: "Photo"
       # show: "%{nature_name}\_: %{name}"
     backend/areas:
       edit: "تعديل العنوان البريدي : %{name}"
@@ -143,6 +144,7 @@ arb:
       index: "سجلات الاشخاص"
       merge: "دمج التكرار مع المافات الاصلية"
       new: "انشاء ملف جديد للعميل / للممول"
+      # picture: "Portrait"
       show: "ملف: %{full_name}"
     backend/entity_addresses:
       # edit: "Modifier une coordonnée"
@@ -288,6 +290,7 @@ arb:
       # edit: "Modifier la matière\_: %{name}"
       # index: "Matières"
       # new: "Nouvelle matière"
+      # picture: "Visuel"
       # show: "Matière\_: %{name}"
     backend/myselves:
       # change_password: "Changer de mot de passe"
@@ -1483,6 +1486,12 @@ arb:
     sale_nature_create: "انشاء نوع بيع جديد" #?
     sale_price_create: "اضافة سعر البيع" #?
     sale_print: "طباعة طلب البيع" #?
+    sale_steps:
+      deliveries: "جدولة عمليات التسليم"
+      estimate: "انشاء تقييم"
+      general: "الوصف"
+      products: "المنتجات"
+      summary: "فواتير وايصالات"
     sale_update: "تعديل معلومات الطلب"
     sales: "تم تسديد دفعات طلب البيع"
     # sales_conditions: "Conditions de vente"
@@ -1504,12 +1513,6 @@ arb:
       # all: "Toutes"
       # current: "En cours"
       # unpaid: "Impayées"
-    sales_steps:
-      deliveries: "جدولة عمليات التسليم"
-      estimate: "انشاء تقييم"
-      general: "الوصف"
-      products: "المنتجات"
-      summary: "فواتير وايصالات"
     save: "حفظ"
     save_in_draft: "حفظ في المسودات"
     # scheduled: "Échéance"

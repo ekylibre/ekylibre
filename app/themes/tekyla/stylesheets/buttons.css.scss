@@ -29,7 +29,9 @@
   @include box-shadow(0 1px 0 rgba(#FFF, 0.2) inset, 0 1px 2px rgba(#000, 0.05));
   @include border-radius($default-border-radius);
   @include inline-block;
-  vertical-align: middle;
+  &, & > .text {
+    vertical-align: middle;
+  }
   & > .text, & > .icon, & > i {
     margin: 0 2px;
     html[dir="ltr"] &:first-child, html[dir="rtl"] &:last-child { margin-left: 0; }
@@ -40,7 +42,7 @@
     @include text-shadow($menu-border-width $menu-border-width 0 $shadow-color);
   }
   & > .icon, & > i {
-    vertical-align: top;
+    vertical-align: top !important;
   }
   &:focus {
     outline: none;

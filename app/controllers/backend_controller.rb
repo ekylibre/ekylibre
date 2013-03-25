@@ -134,7 +134,7 @@ class BackendController < BaseController
       code << "  items = #{model.name}#{'.' + scope_name.to_s if scope_name}.where(conditions)\n"
 
       code << "  respond_to do |format|\n"
-      code << "    format.html { render :file => '#{dir.join(file_name).relative_path_from(Rails.root)}', :locals => { :items => items, :keys => keys, :search => params[:q].to_s.capitalize }, :layout => false }\n"
+      code << "    format.html { render :file => '#{dir.join(file_name).relative_path_from(Rails.root)}', :locals => { :items => items, :keys => keys, :search => params[:q].to_s.capitalize.strip }, :layout => false }\n"
       code << "    format.json { render :json => items.collect{|item| {:label => #{item_label}, :id => item.id}}.to_json }\n"
       code << "    format.xml  { render  :xml => items.collect{|item| {:label => #{item_label}, :id => item.id}}.to_xml }\n"
       code << "  end\n"

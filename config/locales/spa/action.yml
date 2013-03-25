@@ -24,6 +24,7 @@ spa:
       # edit: "Modifier l'animal\_: %{name}"
       # index: "Productions animales"
       # new: "Nouvel animal"
+      # picture: "Photo"
       # show: "%{nature_name}\_: %{name}"
     backend/application: #?
     backend/areas:
@@ -146,6 +147,7 @@ spa:
       # index: "Personnes"
       # merge: "Fusionner un doublon à sa fiche d’origine"
       # new: "Nouvelle fiche client/fournisseur"
+      # picture: "Portrait"
       # show: "Fiche\_: %{full_name}"
     backend/entity_addresses:
       # edit: "Modifier une coordonnée"
@@ -280,6 +282,7 @@ spa:
       # edit: "Modifier la matière\_: %{name}"
       # index: "Matières"
       # new: "Nouvelle matière"
+      # picture: "Visuel"
       # show: "Matière\_: %{name}"
     backend/myselves:
       # change_password: "Changer de mot de passe"
@@ -1350,6 +1353,12 @@ spa:
     # sale_deliveries: "Livraisons"
     # sale_item_create: "Ajouter un produit au devis (Mode complet)"
     # sale_items: "Lignes de la vente"
+    sale_steps:
+      deliveries: "Planificación de las entregas"
+      estimate: "Creación del presupuesto"
+      general: "Descripción"
+      products: "Productos"
+      summary: "Factura y encajonamientos"
     # sale_update: "Modifier les informations du devis"
     sales: "Exportar un cuadro de ventas al formato CSV"
     # sales_conditions: "Conditions de vente"
@@ -1370,12 +1379,6 @@ spa:
       # all: "Toutes"
       # current: "En cours"
       # unpaid: "Impayées"
-    sales_steps:
-      deliveries: "Planificación de las entregas"
-      estimate: "Creación del presupuesto"
-      general: "Descripción"
-      products: "Productos"
-      summary: "Factura y encajonamientos"
     # save: "Enregistrer"
     save_in_draft: "Salvar en la niebla"
     # scheduled: "Échéance"
