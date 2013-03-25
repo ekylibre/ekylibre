@@ -24,6 +24,7 @@ spa:
       # edit: "Modifier l'animal\_: %{name}"
       # index: "Productions animales"
       # new: "Nouvel animal"
+      # picture: "Photo"
       # show: "%{nature_name}\_: %{name}"
     backend/application: #?
     backend/areas:
@@ -146,6 +147,7 @@ spa:
       # index: "Personnes"
       # merge: "Fusionner un doublon à sa fiche d’origine"
       # new: "Nouvelle fiche client/fournisseur"
+      # picture: "Portrait"
       # show: "Fiche\_: %{full_name}"
     backend/entity_addresses:
       # edit: "Modifier une coordonnée"
@@ -280,6 +282,7 @@ spa:
       # edit: "Modifier la matière\_: %{name}"
       # index: "Matières"
       # new: "Nouvelle matière"
+      # picture: "Visuel"
       # show: "Matière\_: %{name}"
     backend/myselves:
       # change_password: "Changer de mot de passe"

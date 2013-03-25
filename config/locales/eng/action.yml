@@ -17,6 +17,7 @@ eng:
       # edit: "Modifier l'animal\_: %{name}"
       # index: "Productions animales"
       # new: "Nouvel animal"
+      # picture: "Photo"
       # show: "%{nature_name}\_: %{name}"
     backend/areas:
       edit: "Edit the postal area: %{name}"
@@ -113,6 +114,7 @@ eng:
       index: "People"
       merge: "Merge two people"
       new: "Add a new person"
+      # picture: "Portrait"
       show: "Person: %{full_name}"
     backend/entity_addresses:
       edit: "Edit a coordinate"
@@ -245,6 +247,7 @@ eng:
       # edit: "Modifier la matière\_: %{name}"
       # index: "Matières"
       # new: "Nouvelle matière"
+      # picture: "Visuel"
       # show: "Matière\_: %{name}"
     backend/myselves:
       change_password: "Change my password"
