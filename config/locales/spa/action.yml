@@ -1808,6 +1808,8 @@ spa:
       # all: "{started_at}"
     backend/product_nature_prices:
       # all: "{amount} {currency} / {pretax_amount} {currency}"
+    backend/product_natures:
+      # all: "{name}"
     backend/product_transfers:
       # all: "{id}"
     backend/products:
