@@ -166,7 +166,10 @@ fra:
         variety: "Variété"
       warehouse:
         children: "Sous lieu de stockage"
-        product: "Produit contenu"
+        content_nature: "Type de Produit contenu"
+        content_maximal_quantity: "Quantité maximale supportée"
+        born_at: "Date de construction"
+        variety: "Genre"
     errors:
       messages:
         accepted: "%{attribute} doit être accepté"
