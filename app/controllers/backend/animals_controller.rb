@@ -83,10 +83,10 @@ class Backend::AnimalsController < BackendController
          {:memberships => :group},
          {:product_localizations => :container}
           ]}
-      format.pdf {respond_with @animal, :include => [:father, :mother, :nature, :variety,:indicators,:operations,
-         {:memberships => :group},
-         {:product_localizations => :container}
-          ]}
+      format.pdf {respond_with @animal, :include => [:father, :mother, :nature, :variety,:indicators, # :operations,
+                                                     {:memberships => {:group => nil}},
+                                                     {:product_localizations => {:container => nil}}
+                                                    ] }
     end
   end
 
