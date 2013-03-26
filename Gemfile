@@ -6,7 +6,7 @@ gem 'rails', '3.2.13'
 gem 'pg' # Needed for some tasks
 gem 'activerecord-postgis-adapter'
 # gem 'activerecord-spatialite-adapter'
-gem 'squeel'
+# gem 'squeel'
 
 # General
 gem 'exception_notification'
