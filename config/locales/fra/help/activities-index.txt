@@ -27,4 +27,4 @@ Une activité peut être PRINCIPALE (processus productif) ou AUXILIAIRE (process
 Elles interviennent :
 
 	* lors de la saisie des opérations et procédures
-	* lors de la [[>backend/journals/draft|saisie comptables]] si vous n'utilisez pas les opérations
+	* lors de la [[>backend/journals#draft|saisie comptables]] si vous n'utilisez pas les opérations

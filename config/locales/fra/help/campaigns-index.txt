@@ -22,4 +22,4 @@ Une procédure peut déclencher un bioprocessus qui s'éxécute sur plusieurs ca
 Elles interviennent :
 
 	* lors de la saisie des opérations et procédures
-	* lors de la [[>backend/journals/draft|saisie comptables]] si vous n'utilisez pas les opérations
+	* lors de la [[>backend/journals#draft|saisie comptables]] si vous n'utilisez pas les opérations
