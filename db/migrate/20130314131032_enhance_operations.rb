@@ -118,6 +118,41 @@ class EnhanceOperations < ActiveRecord::Migration
     end
     add_stamps_indexes :product_abilities
     add_index :product_abilities, :nomen
+    
+    # Campaigns
+    create_table :campaigns do |t|
+      t.string :name, :null => false
+      t.string :description
+      t.string :nomen #code ou nomenclature si XML
+      t.boolean :closed, :null => false, :default => false # Flag pour dire si une campagne est clôturé ou non
+      t.stamps
+    end
+    add_stamps_indexes :campaigns
+    add_index :campaigns, :name
+    
+    # Activities
+    create_table :activities do |t|
+      t.string :name, :null => false
+      t.string :description
+      t.string :nomen #code ou nomenclature si XML
+      t.string :family, :null => false #classification ( végétal, animal, mecanisation)
+      t.string :analytical_center_type, :null => false # PRINCIPAL / AUXILIAIRE / NON AFFECTE
+      t.boolean :net_margin, :null => false, :default => false # Flag pour le calcul de la marge nette
+      t.boolean :closed, :null => false, :default => false # Flag pour dire si une activité est clôturé ou non
+      t.references :work_unit #unité d'oeuvre
+      t.references :area_unit #unité de surface
+      t.references :favored_product_nature # Si Flag pour le calcul de la marge nette =1 alors on demande un product_nature de reference
+      t.references :parent #activité parente
+      t.stamps
+    end
+    add_stamps_indexes :activities
+    add_index :activities, :name
+    add_index :activities, :parent_id
+    add_index :activities, :work_unit_id
+    add_index :activities, :area_unit_id
+    add_index :activities, :favored_product_nature_id
+    
+    
   end
 
   def down

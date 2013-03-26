@@ -1,0 +1,30 @@
+====== Activité ======
+
+===== Qu'est ce qu'une activité ? =====
+
+Une activité regroupe des ensembles de produits, de services qui concourent à l'achevement de ses procédures et procéssus métiers.
+Une acticité est établie pour plusieurs années et correspond à un choix organisationnel.
+Elle peut être active ou inactive (clôturée).
+
+Une activité se caractérise par un code, une famille, un objectif et une unité d'oeuvre / de surface.
+
+>>> Ex: L'activité BLE TENDRE possède l'unité d'oeuvre : QT et une unité de surface : HA
+>>> les indicateurs de gestion seront exprimés à l'aide de ces unités 
+
+Une activité peut posséder une activité parente (parfois appellé ATELIER).
+
+>>> Ex: L'activité BLE regroupe les activités BLE TENDRE & BLE DUR
+
+Une activité peut être PRINCIPALE (processus productif) ou AUXILIAIRE (processus support) selon son objectif premier.
+
+>>> Ex: L'activité BLE est PRINCIPALE car son objectif premier est de produire.
+
+>>> Ex: L'activité MECANISATION est AUXILIAIRE car son objectif premier est d'aider les autres activités.
+>>> l'activité BLE se verra donc affecter des charges dites indirectes provenant de l'activité MECANISATION selon la sollicitation de l'une vers l'autre.
+
+===== Quand est ce que les activités interviennent ? =====
+
+Elles interviennent :
+
+	* lors de la saisie des opérations et procédures
+	* lors de la [[>backend/journals/draft|saisie comptables]] si vous n'utilisez pas les opérations

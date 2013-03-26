@@ -1,0 +1,25 @@
+====== Campagne (de production) ======
+
+===== Qu'est ce qu'une campagne ? =====
+
+La campagne est une période de temps délimitée au cours de laquelle une entreprise enregistre tous les faits techniques qui concourent à l'achevement de ses procédures et procéssus métiers.
+Cela correspond le plus souvent à l'année où sont récoltés les produits.
+Une campagne se caractérise par un code (indiquant en général l'année d'éxécution/récolte ).
+Elle peut être active ou inactive (clôturée).
+
+>>> Ex : Campagne 2013 / BLE = Recolte de Juillet 2013
+>>> Je peux avoir un chevauchement entre une campagne de production et un exercice comptable
+>>> et donc utiliser des intrants pour la campagne 2013 alors que je suis sur un exercice fiscal 2012.
+
+!!! cf. Avances aux cultures
+
+Une procédure peut déclencher un bioprocessus qui s'éxécute sur plusieurs campagnes (cultures perennes, productions animales)
+
+!!! cf. Immobilisations
+
+===== Quand est ce que les campagnes interviennent ? =====
+
+Elles interviennent :
+
+	* lors de la saisie des opérations et procédures
+	* lors de la [[>backend/journals/draft|saisie comptables]] si vous n'utilisez pas les opérations
