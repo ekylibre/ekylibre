@@ -124,7 +124,7 @@ $include-html-classes: false;
 
 @function shadow-color-of($color) {
   @if lightness($color) > 50% {
-    @return rgba(#222, 0.6);
+    @return rgba(#222, 0.5);
   }
   @else {
     @return rgba(#FFF, 0.8);

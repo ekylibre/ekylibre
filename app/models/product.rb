@@ -111,6 +111,10 @@ class Product < Ekylibre::Record::Base
   delegate :name, :to => :nature, :prefix => true
   before_validation :set_variety_and_unit
 
+  validate do
+    # TODO: Check variety is the variety or a sub-variety of the (product) nature.
+  end
+
   def set_variety_and_unit
     if self.nature
       self.variety_id = self.nature.variety_id

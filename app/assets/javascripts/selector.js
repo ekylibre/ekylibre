@@ -23,7 +23,7 @@
             selector.closest("form").prepend(hidden);
             selector.prop("hiddenInput", hidden);
             selector.attr("autocomplete", "off");
-            selector.after($("<a href='#" + selector.attr("id") + "' rel='dropdown' class='btn btn-down'><span class='icon'></span></a>"));
+            selector.after($("<a href='#" + selector.attr("id") + "' rel='dropdown' class='btn btn-caret-down'><span class='icon'></span></a>"));
             selector.prop("lastSearch", selector.val());
             menu = $('<div class="items-menu"></div>');
             menu.hide();

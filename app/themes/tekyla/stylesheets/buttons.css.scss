@@ -39,7 +39,7 @@
   }
   &, & > .text, & > .icon, & > i {
     color: $color;
-    @include text-shadow($menu-border-width $menu-border-width 0 $shadow-color);
+    @include text-shadow(-1px -1px 0 $shadow-color);
   }
   & > .icon, & > i {
     vertical-align: top !important;
