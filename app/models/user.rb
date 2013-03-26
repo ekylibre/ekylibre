@@ -67,7 +67,7 @@
 #
 
 class User < Ekylibre::Record::Base
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :first_name, :last_name
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :first_name, :last_name, :employed
   attr_readonly :entity_id
   belongs_to :department
   belongs_to :establishment

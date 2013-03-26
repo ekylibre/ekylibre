@@ -96,10 +96,10 @@ class EnhanceOperations < ActiveRecord::Migration
     drop_table :operation_lines
 
     # ProductLocalization
-    for table in [:product_localizations, :product_memberships, :product_links]
+   for table in [:product_localizations, :product_memberships, :product_links]
       add_column table, :operation_task_id, :integer
       add_index table, :operation_task_id
-    end
+   end
 
     # Product <-> WorkingSet
     create_table :products_working_sets, :id => false do |t|
@@ -109,7 +109,7 @@ class EnhanceOperations < ActiveRecord::Migration
     add_index :products_working_sets, :product_id
     add_index :products_working_sets, :working_set_id
 
-    # ProductCapabilities
+    # ProductAapabilities
     create_table :product_abilities do |t|
       t.references :product, :null => false
       t.string :name, :null => false
@@ -118,7 +118,7 @@ class EnhanceOperations < ActiveRecord::Migration
     end
     add_stamps_indexes :product_abilities
     add_index :product_abilities, :nomen
-    
+
     # Campaigns
     create_table :campaigns do |t|
       t.string :name, :null => false
@@ -129,7 +129,7 @@ class EnhanceOperations < ActiveRecord::Migration
     end
     add_stamps_indexes :campaigns
     add_index :campaigns, :name
-    
+
     # Activities
     create_table :activities do |t|
       t.string :name, :null => false
@@ -151,10 +151,18 @@ class EnhanceOperations < ActiveRecord::Migration
     add_index :activities, :work_unit_id
     add_index :activities, :area_unit_id
     add_index :activities, :favored_product_nature_id
-    
-    
+
+
   end
 
   def down
+    drop_table :activities
+    drop_table :campaigns
+    drop_table :product_abilities
+    drop_table :products_working_sets
+    drop_table :operation_tasks
+    drop_table :procedures
+    drop_table :procedure_natures
+    drop_table :working_sets
   end
 end

@@ -2,7 +2,7 @@
 module Ekylibre
   mattr_reader :models, :references
   # List of all models
-  @@models = [:account, :account_balance, :affair, :animal, :area, :asset, :asset_depreciation, :bank_statement, :bioproduct, :cash, :cash_transfer, :custom_field, :custom_field_choice, :custom_field_datum, :department, :deposit, :deposit_item, :district, :document, :document_template, :entity, :entity_address, :entity_category, :entity_link, :entity_link_nature, :entity_nature, :equipment, :establishment, :event, :event_nature, :financial_year, :fungus, :incoming_delivery, :incoming_delivery_item, :incoming_delivery_mode, :incoming_payment, :incoming_payment_mode, :inventory, :inventory_item, :journal, :journal_entry, :journal_entry_item, :land_parcel, :listing, :listing_node, :listing_node_item, :log, :mandate, :matter, :observation, :operation, :operation_nature, :operation_task, :outgoing_delivery, :outgoing_delivery_item, :outgoing_delivery_mode, :outgoing_payment, :outgoing_payment_mode, :place, :preference, :procedure, :procedure_nature, :product, :product_ability, :product_group, :product_indicator, :product_indicator_nature, :product_indicator_nature_choice, :product_link, :product_localization, :product_membership, :product_move, :product_nature, :product_nature_category, :product_nature_price, :product_process, :product_process_phase, :product_transfer, :product_variety, :production_chain, :production_chain_conveyor, :production_chain_work_center, :production_chain_work_center_use, :profession, :purchase, :purchase_item, :purchase_nature, :role, :sale, :sale_item, :sale_nature, :sequence, :service, :subscription, :subscription_nature, :tax, :tax_declaration, :tracking, :transfer, :transport, :unit, :user, :vegetal, :warehouse, :working_set]
+  @@models = [:account, :account_balance, :activity, :affair, :animal, :area, :asset, :asset_depreciation, :bank_statement, :bioproduct, :campaign, :cash, :cash_transfer, :custom_field, :custom_field_choice, :custom_field_datum, :department, :deposit, :deposit_item, :district, :document, :document_template, :entity, :entity_address, :entity_category, :entity_link, :entity_link_nature, :entity_nature, :equipment, :establishment, :event, :event_nature, :financial_year, :fungus, :incoming_delivery, :incoming_delivery_item, :incoming_delivery_mode, :incoming_payment, :incoming_payment_mode, :inventory, :inventory_item, :journal, :journal_entry, :journal_entry_item, :land_parcel, :listing, :listing_node, :listing_node_item, :log, :mandate, :matter, :observation, :operation, :operation_nature, :operation_task, :outgoing_delivery, :outgoing_delivery_item, :outgoing_delivery_mode, :outgoing_payment, :outgoing_payment_mode, :place, :preference, :procedure, :procedure_nature, :product, :product_ability, :product_group, :product_indicator, :product_indicator_nature, :product_indicator_nature_choice, :product_link, :product_localization, :product_membership, :product_move, :product_nature, :product_nature_category, :product_nature_price, :product_process, :product_process_phase, :product_transfer, :product_variety, :production_chain, :production_chain_conveyor, :production_chain_work_center, :production_chain_work_center_use, :profession, :purchase, :purchase_item, :purchase_nature, :role, :sale, :sale_item, :sale_nature, :sequence, :service, :subscription, :subscription_nature, :tax, :tax_declaration, :tracking, :transfer, :transport, :unit, :user, :vegetal, :warehouse, :working_set]
 
   # List of all references
   @@references = {
@@ -15,6 +15,14 @@ module Ekylibre
       :creator_id => :user,
       :financial_year_id => :financial_year,
       :updater_id => :user
+    },
+    :activity => {
+      :area_unit_id => :unit,
+      :creator_id => :user,
+      :favored_product_nature_id => :product_nature,
+      :parent_id => :activity,
+      :updater_id => :user,
+      :work_unit_id => :unit
     },
     :affair => {
       :creator_id => :user,
@@ -84,6 +92,10 @@ module Ekylibre
       :unit_id => :unit,
       :updater_id => :user,
       :variety_id => :product_variety
+    },
+    :campaign => {
+      :creator_id => :user,
+      :updater_id => :user
     },
     :cash => {
       :account_id => :account,

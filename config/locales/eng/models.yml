@@ -1,6 +1,14 @@
 eng:
   activerecord:
     attributes:
+      activity:
+        # analytical_center_type: "Type de centre analytique"
+        # family: "Famille"
+        # favored_product_nature: "Produit de référence"
+        # net_margin: "Marge nette"
+        # nomen: "Code analytique"
+        # parent: "Activité parente"
+        # work_unit: "Unité d'oeuvre"
       animal:
         # born_at: "Date de naissance"
         race: "Race" #?
@@ -10,6 +18,8 @@ eng:
       animal_treatment_use: #?
       asset_depreciation:
         asset_amount: "Accountable value"
+      campaign:
+        # nomen: "Code nomenclature"
       cash:
         key: "BBAN key"
         mode: "Mode"
@@ -343,6 +353,7 @@ eng:
     models:
       account: "Account"
       account_balance: "Account balance"
+      # activity: "Activité"
       # affair: "Affaire"
       animal: "Animal"
       animal_diagnostic: "Animal diagnostic" #?
@@ -361,6 +372,7 @@ eng:
       asset: "Asset"
       asset_depreciation: "Asset depreciation"
       bank_statement: "Bank statement"
+      # campaign: "Campagne"
       cash: "Cash"
       cash_transfer: "Cash transfer"
       company: "Company"
@@ -412,6 +424,7 @@ eng:
       listing_node_item: "Listing node item"
       log: "Animal event"
       mandate: "Mandate"
+      # matter: "Matière"
       observation: "Observation"
       operation: "Operation"
       operation_item: "Operation line" #?
@@ -499,6 +512,7 @@ eng:
     agency_code: "Agency code" #?
     allocation_account: "Allocation account"
     amount: "Amount"
+    # analytical_center_type: "Analytical center type"
     animal: "Animal" #?
     animal_drugs: "Animal drugs"
     animal_events: "Animal events" #?
@@ -1288,6 +1302,16 @@ eng:
     # work_number: "Numéro de travail"
     # zone: "Zone"
   enumerize:
+    activity:
+      analytical_center_type:
+        # ancillary: "Auxiliaire"
+        # main: "Principal"
+      family:
+        # animal: "Animale"
+        # perenne_vegetal: "Culture perenne"
+        # processing: "Transformation"
+        # service: "Service"
+        # vegetal: "Culture annuelle"
     animal: #?
     animal_treatment: #?
     asset:

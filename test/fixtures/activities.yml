@@ -1,0 +1,65 @@
+# = Informations
+#
+# == License
+#
+# Ekylibre - Simple ERP
+# Copyright (C) 2009-2013 Brice Texier, Thibaud Merigon
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see http://www.gnu.org/licenses.
+#
+# == Table: activities
+#
+#  analytical_center_type    :string(255)      not null
+#  area_unit_id              :integer
+#  closed                    :boolean          not null
+#  created_at                :datetime         not null
+#  creator_id                :integer
+#  description               :string(255)
+#  family                    :string(255)      not null
+#  favored_product_nature_id :integer
+#  id                        :integer          not null, primary key
+#  lock_version              :integer          default(0), not null
+#  name                      :string(255)      not null
+#  net_margin                :boolean          not null
+#  nomen                     :string(255)
+#  parent_id                 :integer
+#  updated_at                :datetime         not null
+#  updater_id                :integer
+#  work_unit_id              :integer
+#
+#
+# == Fixture: activities
+#
+# activities_001:
+#   analytical_center_type: "Lorem ipsum"
+#   closed: true
+#   created_at: 2009-07-19 19:13:59 +02:00
+#   creator_id: 1
+#   family: "Lorem ipsum"
+#   id: 1
+#   name: "Lorem ipsum"
+#   net_margin: true
+#   updated_at: 2009-07-19 19:13:59 +02:00
+#   updater_id: 1
+#
+
+
+# # Empty samples of activities
+# activities_001:
+#   id: 1
+#   name: 'Activity 1'
+
+# activities_002:
+#   id: 2
+#   name: 'Activity 2'
