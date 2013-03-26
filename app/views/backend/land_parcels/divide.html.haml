@@ -1,6 +1,6 @@
 =form_tag({}) do
-  =field_set :division, @land_parcel do
-    =field :stopped_on
+  =field_set :division do
+    -#=field LandParcel.human_attribute_name("stopped_on"), date_field(:land_parcel, :stopped_on)
     %table.list
       %thead
         %tr

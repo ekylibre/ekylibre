@@ -1000,6 +1000,11 @@ module ApplicationHelper
     simple_form_for(object, *(args << options.merge(builder: Backend::FormBuilder)), &block)
   end
 
+  def backend_fields_for(object, *args, &block)
+    options = args.extract_options!
+    simple_fields_for(object, *(args << options.merge(builder: Backend::FormBuilder)), &block)
+  end
+
 
   # Wraps a label and its input in a standard wrapper
   def field(label, input, options = {}, &block)
