@@ -11,7 +11,7 @@
       });
     */
 
-    $.Selector = {
+    $.EkylibreSelector = {
         init: function (element) {
             var selector = $(element), name, hidden, menu;
             if (selector.prop("selectorLoaded") != "true") {
@@ -32,7 +32,7 @@
                 selector.after(menu);
                 selector.prop("dropDownMenu", menu);
                 selector.prop("selectorLoaded", "true");
-                $.Selector.set(selector, selector.val());
+                $.EkylibreSelector.set(selector, selector.val());
                 console.log("Selector " + selector.attr("id") + " initialized with " + menu[0] + "!");
             }
             return selector;
@@ -40,7 +40,7 @@
 
         initAll: function () {
             $("input[data-selector]").each(function (index) {
-                $.Selector.init($(this));
+                $.EkylibreSelector.init($(this));
             });
             return true;
         },
@@ -83,7 +83,7 @@
             if (search !== undefined) {
                 data = {q: search};
             }
-            $.ajax($.Selector.getSourceURL(selector), {
+            $.ajax($.EkylibreSelector.getSourceURL(selector), {
                 dataType: "html",
                 data: data,
                 success: function (data, status, request) {
@@ -119,12 +119,12 @@
         set: function (element, id) {
             var selector = element;
             if (id !== undefined && id !== "") {
-                $.ajax($.Selector.getSourceURL(selector), {
+                $.ajax($.EkylibreSelector.getSourceURL(selector), {
                     dataType: "json",
                     data: {id: id},
                     success: function (data, status, request) {
                         var item = $.parseJSON(request.responseText)[0];
-                        $.Selector.select(selector, item.id, item.label);
+                        $.EkylibreSelector.select(selector, item.id, item.label);
                     },
                     error: function (request, status, error) {
                         alert("Cannot get details of item on " + selector.data('selector') + " (" + status + "): " + error);
@@ -142,7 +142,7 @@
             }
             if (selected[0] !== null && selected[0] !== undefined) {
                 if (selected.is("[data-item-label][data-item-id]")) {
-                    $.Selector.select(selector, selected.data("item-id"), selected.data("item-label"));
+                    $.EkylibreSelector.select(selector, selected.data("item-id"), selected.data("item-label"));
                 } else if (selected.is("[data-new-item]")) {
                     parameters = {};
                     if (selected.data('new-item').length > 0) {
@@ -153,7 +153,7 @@
                         returns: {
                             success: function (frame, data, status, request) {
                                 var record_id = request.getResponseHeader("X-Saved-Record-Id");
-                                $.Selector.set(selector, record_id);
+                                $.EkylibreSelector.set(selector, record_id);
                                 frame.dialog("close");
                             },
                             invalid: function (frame, data, textStatus, request) {
@@ -185,12 +185,12 @@
         console.log(menu);
         if (selector.prop("lastSearch") !== search) {
             if (search.length > 0) {
-                $.Selector.openMenu(selector, search);
+                $.EkylibreSelector.openMenu(selector, search);
             } else {
                 menu.hide();
             }
             selector.prop("lastSearch", search);
-        } else {
+        } else if (menu.is(":visible")) {
             selected = menu.find("ul li.selected.item").first();
             if (code === 27) { // Escape
                 menu.hide();
@@ -210,7 +210,6 @@
                     }
                 }
             }
-            return false;
         }
         console.log("You pressed " + code);
         return true;
@@ -221,12 +220,12 @@
         menu = selector.prop("dropDownMenu");
         if (code === 13 || code === 10) { // Enter
             if (menu.is(":visible")) {
-                $.Selector.choose(selector);
+                $.EkylibreSelector.choose(selector);
                 return false;
             }
         } else if (code === 40) { // Down
             if (menu.is(":hidden")) {
-                $.Selector.openMenu(selector, selector.val());
+                $.EkylibreSelector.openMenu(selector, selector.val());
                 return false;
             }
         }
@@ -236,7 +235,7 @@
     $(document).on("blur focusout", "input[data-selector]", function (event) {
         var selector = $(this);
         setTimeout(function () {
-            $.Selector.closeMenu(selector);
+            $.EkylibreSelector.closeMenu(selector);
         }, 300);
         return true;
     });
@@ -248,7 +247,7 @@
         if (menu.is(":visible")) {
             menu.hide();
         } else {
-            $.Selector.openMenu(selector);
+            $.EkylibreSelector.openMenu(selector);
         }
         return false;
     });
@@ -256,7 +255,7 @@
     $(document).on("blur focusout", 'a.selector-dropdown[rel="dropdown"][href]', function (event) {
         var selector = $(this);
         setTimeout(function () {
-            $.Selector.closeMenu(selector);
+            $.EkylibreSelector.closeMenu(selector);
         }, 300);
         return true;
     });
@@ -272,19 +271,19 @@
 
     $(document).on("click", '.items-menu ul li.item', function (event) {
         var selected = $(this), selector = selected.closest(".items-menu").prop("selectorOfMenu");
-        $.Selector.choose(selector, selected);
+        $.EkylibreSelector.choose(selector, selected);
         return false;
     });
 
 
     // First initialization
-    $(document).ready($.Selector.initAll);
-    $(document).ajaxComplete($.Selector.initAll);
+    $(document).ready($.EkylibreSelector.initAll);
+    $(document).ajaxComplete($.EkylibreSelector.initAll);
 
 
     // Other initializations
     $(document).on("cocoon:after-insert", "input[data-selector]", function (event) {
-        $.Selector.init($(this));
+        $.EkylibreSelector.init($(this));
         return true;
     });
 
