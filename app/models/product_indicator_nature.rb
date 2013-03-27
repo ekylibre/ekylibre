@@ -62,7 +62,7 @@ class ProductIndicatorNature < Ekylibre::Record::Base
 
   accepts_nested_attributes_for :choices, :reject_if => :all_blank, :allow_destroy => true
   accepts_nested_attributes_for :indicators, :reject_if => :all_blank, :allow_destroy => true
-  
+
   default_scope -> { order(:name) }
   scope :actives, -> { where(:active => true).order(:name) }
 

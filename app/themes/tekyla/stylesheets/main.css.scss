@@ -816,10 +816,10 @@ span.rad, label.radio {
   .ui-dialog-content {
     background: #F7F7F7;
     clear: both;
-    position: relative; 
-    border: 0; 
+    position: relative;
+    border: 0;
     overflow: auto;
-    zoom: 1; 
+    zoom: 1;
     padding: 0; // $default-gap;
     & > *:first-child {
       margin-top: $default-gap;
