@@ -1740,7 +1740,7 @@ eng:
     backend/analytic_repartitions:
       # all: "{id}"
     backend/animals:
-      # all: "{name} - {work_number}"
+      all: "{name} ({sex})"
     backend/campaigns:
       # all: "{name}"
     backend/entity_links:
@@ -1770,10 +1770,6 @@ eng:
     backend/products:
       # all: "{work_number} {name}"
     backend/units:
-      # all: "{label} ({name})"
+      all: "{label} ({name})"
     backend/users:
       # all: "{first_name} {last_name}"
-    backend/animals:  #?
-      all: "{name} ({sex})" #?
-    backend/units:  #?
-      all: "{label} ({name})" #?
