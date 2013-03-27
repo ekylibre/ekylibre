@@ -89,7 +89,7 @@ module Ekylibre
         # Delete all existing data
         puts "R> Removing existing data..."  if verbose
         for model in Ekylibre.models
-          model.to_s.pluralize.classify.constantize.delete_all
+          model.to_s.pluralize.classify.constantize.unscoped.delete_all
         end
 
         # Load all data
