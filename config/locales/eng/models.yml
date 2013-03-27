@@ -9,6 +9,13 @@ eng:
         # nomen: "Code analytique"
         # parent: "Activité parente"
         # work_unit: "Unité d'oeuvre"
+      analytic_repartition:
+        # activity: "Activité"
+        # affected_on: "Affecté le"
+        # campaign: "Campagne"
+        # journal_entry_item: "Ligne comptable concernée"
+        # product_nature: "Type de produit concerné"
+        # repartition_percentage: "Pourcentage d'affectation"
       animal:
         # born_at: "Date de naissance"
         race: "Race" #?
@@ -1126,6 +1133,7 @@ eng:
     relative_humidity: "Relative humidity"
     remaining_duration: "Remaining duration"
     # remember_me: "Se souvenir de moi"
+    # repartitions: "Repartitions"
     # reproductor: "Reproducteur"
     required: "Required"
     reservoir: "Reservoir"
@@ -1878,6 +1886,7 @@ eng:
         km: "Kilometre"
         l: "Litre"
         m: "Metre"
+        # m2: "Mètre carré"
         m3: "Cubic metre"
         t: "Ton"
         u: "Unit"

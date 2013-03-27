@@ -1,0 +1,7 @@
+=toolbar do |t|
+  -t.edit @analytic_repartition
+
+=beehive do |b|
+  -b.cell do
+    =attributes_list(@analytic_repartition) do |l|
+      -l.attribute :name

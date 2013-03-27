@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130314131032) do
+ActiveRecord::Schema.define(:version => 20130327141101) do
 
   create_table "account_balances", :force => true do |t|
     t.integer  "account_id",                                                        :null => false
@@ -107,6 +107,31 @@ ActiveRecord::Schema.define(:version => 20130314131032) do
   add_index "affairs", ["journal_entry_id"], :name => "index_affairs_on_journal_entry_id"
   add_index "affairs", ["updated_at"], :name => "index_affairs_on_updated_at"
   add_index "affairs", ["updater_id"], :name => "index_affairs_on_updater_id"
+
+  create_table "analytic_repartitions", :force => true do |t|
+    t.integer  "activity_id",                                                          :null => false
+    t.integer  "journal_entry_item_id",                                                :null => false
+    t.integer  "product_nature_id"
+    t.integer  "campaign_id"
+    t.decimal  "repartition_percentage", :precision => 16, :scale => 2,                :null => false
+    t.date     "affected_on",                                                          :null => false
+    t.text     "description"
+    t.string   "state",                                                                :null => false
+    t.datetime "created_at",                                                           :null => false
+    t.datetime "updated_at",                                                           :null => false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version",                                          :default => 0, :null => false
+  end
+
+  add_index "analytic_repartitions", ["activity_id"], :name => "index_analytic_repartitions_on_activity_id"
+  add_index "analytic_repartitions", ["campaign_id"], :name => "index_analytic_repartitions_on_campaign_id"
+  add_index "analytic_repartitions", ["created_at"], :name => "index_analytic_repartitions_on_created_at"
+  add_index "analytic_repartitions", ["creator_id"], :name => "index_analytic_repartitions_on_creator_id"
+  add_index "analytic_repartitions", ["journal_entry_item_id"], :name => "index_analytic_repartitions_on_journal_entry_item_id"
+  add_index "analytic_repartitions", ["product_nature_id"], :name => "index_analytic_repartitions_on_product_nature_id"
+  add_index "analytic_repartitions", ["updated_at"], :name => "index_analytic_repartitions_on_updated_at"
+  add_index "analytic_repartitions", ["updater_id"], :name => "index_analytic_repartitions_on_updater_id"
 
   create_table "areas", :force => true do |t|
     t.string   "postcode",                                    :null => false
@@ -596,8 +621,8 @@ ActiveRecord::Schema.define(:version => 20130314131032) do
     t.string   "coordinate",       :limit => 511,                                           :null => false
     t.string   "name"
     t.string   "mail_line_1"
-    t.spatial  "mail_geolocation", :limit => {:srid=>0, :type=>"point"}
     t.boolean  "mail_auto_update",                                       :default => false, :null => false
+    t.spatial  "mail_geolocation", :limit => {:srid=>0, :type=>"point"}
   end
 
   add_index "entity_addresses", ["by_default"], :name => "index_entity_addresses_on_by_default"

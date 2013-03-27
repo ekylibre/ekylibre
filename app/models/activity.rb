@@ -47,7 +47,7 @@ class Activity < Ekylibre::Record::Base
   belongs_to :work_unit, :class_name => "Unit"
   belongs_to :parent, :class_name => "Activity"
   belongs_to :favored_product_nature, :class_name => "ProductNature"
-
+  has_many :repartitions, :class_name => "AnalyticRepartition", :foreign_key => :activity_id
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :analytical_center_type, :description, :family, :name, :nomen, :allow_nil => true, :maximum => 255

@@ -10,6 +10,9 @@ class Backend::ActivitiesController < BackendController
     t.column :family
     t.column :area_unit
     t.column :work_unit
+    t.action :show, :url => {:format => :pdf}, :image => :print
+    t.action :edit
+    t.action :destroy, :if => :destroyable?
   end
 
   # Displays the main page with the list of activities.

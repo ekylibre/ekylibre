@@ -14,10 +14,15 @@ jpn:
       # show: "Compte\_: %{number} - %{name}"
       # unmark: "Délettrer un compte"
     backend/activities:
-      # edit: "Modifier une activité\_: %{name}"
+      # edit: "Modifier une activité\_: %{name} "
       # index: "Activités"
       # new: "Nouvelle activité"
       # show: "%{name}"
+    backend/analytic_repartitions:
+      # edit: "Modifier la répartion analytique\_: %{id} "
+      # index: "Répartitions analytiques"
+      # new: "Nouvelle répartition analytique"
+      # show: "Répartition %{id}"
     backend/animals:
       # edit: "Modifier l'animal\_: %{name}"
       # index: "Productions animales"
@@ -483,11 +488,14 @@ jpn:
     # authentication/sessions: "Sessions"
     # backend/account_balances: "Soldes de comptes"
     # backend/accounts: "Plan de comptes"
+    # backend/activities: "Activités"
     # backend/affairs: "Affaires"
+    # backend/analytic_repartitions: "Répartitions analytiques"
     # backend/animals: "Animaux"
     # backend/areas: "Zones postales"
     # backend/assets: "Immobilisations"
     # backend/bank_statements: "Relevés de compte bancaire"
+    # backend/campaigns: "Campagnes"
     # backend/cash_transfers: "Virements internes"
     # backend/cashes: "Trésoreries"
     # backend/custom_field_choices: "Choix de champs personnalisés"
@@ -529,6 +537,7 @@ jpn:
     # backend/listings: "Exportations et mailings"
     # backend/logs: "Evenements des Animaux"
     # backend/mandates: "Responsabilités"
+    # backend/matters: "Matières"
     # backend/myselves: "Mon compte"
     # backend/observations: "Observations"
     # backend/operations: "Travaux"
@@ -544,6 +553,7 @@ jpn:
     # backend/product_moves: "Mouvements de stock"
     # backend/product_nature_categories: "Catégories de type de produits"
     # backend/product_nature_prices: "Prix par type de produits"
+    # backend/product_natures: "Types de produits"
     # backend/product_transfers: "Transferts et pertes de stocks"
     # backend/product_varieties: "Races"
     # backend/production_chain_conveyors: "Convoyeurs de chaînes de production"
@@ -654,6 +664,7 @@ jpn:
     # amount_to_add: "Sommes à ajouter, exprimées en euros, y compris acompte congés"
     # amount_to_reduce: "Sommes à imputer, exprimées en euros, y compris acompte congés"
     # amount_with_taxes: "Montant TTC"
+    # analytics: "Activités"
     # animal: "Animal"
     # animal_bar: "Animaux par lot"
     animal_group_tabbox:
@@ -1679,12 +1690,18 @@ jpn:
     animals: #?
     backend/activities:
       # all: "{name} - {nomen} - {family} - {analytical_center_type}"
+    backend/analytic_repartitions:
+      # all: "{id}"
     backend/animals:
       # all: "{name} - {work_number}"
+    backend/campaigns:
+      # all: "{name}"
     backend/entity_links:
       # all: "{started_at}"
     backend/events:
       # all: "{reason}"
+    backend/journal_entry_items:
+      # all: "{name}"
     backend/logs:
       # all: "{observed_at}"
     backend/matters:

@@ -14,10 +14,15 @@ eng:
       show: "Account: %{number} - %{name}"
       unmark: "Unmark account"
     backend/activities:
-      # edit: "Modifier une activité\_: %{name}"
+      # edit: "Modifier une activité\_: %{name} "
       # index: "Activités"
       # new: "Nouvelle activité"
       # show: "%{name}"
+    backend/analytic_repartitions:
+      # edit: "Modifier la répartion analytique\_: %{id} "
+      # index: "Répartitions analytiques"
+      # new: "Nouvelle répartition analytique"
+      # show: "Répartition %{id}"
     backend/animals:
       # edit: "Modifier l'animal\_: %{name}"
       # index: "Productions animales"
@@ -508,11 +513,14 @@ eng:
     # authentication/sessions: "Sessions"
     backend/account_balances: "Account balances"
     backend/accounts: "Plan of accounts"
+    # backend/activities: "Activités"
     # backend/affairs: "Affaires"
+    # backend/analytic_repartitions: "Répartitions analytiques"
     backend/animals: "Animals"
     backend/areas: "Postal areas"
     backend/assets: "Assets"
     backend/bank_statements: "Bank statements"
+    # backend/campaigns: "Campagnes"
     backend/cash_transfers: "Cash transfers"
     backend/cashes: "Cashes"
     backend/custom_field_choices: "Custom field choices"
@@ -554,6 +562,7 @@ eng:
     backend/listings: "Listings and mailings"
     backend/logs: "Animal's events"
     backend/mandates: "Mandates"
+    # backend/matters: "Matières"
     backend/myselves: "Myself"
     backend/observations: "Observations"
     backend/operations: "Operations"
@@ -570,7 +579,7 @@ eng:
     backend/product_moves: "Stock moves"
     backend/product_nature_categories: "Product categories"
     # backend/product_nature_prices: "Prix par type de produits"
-    backend/product_natures: "Product types" #?
+    backend/product_natures: "Product types"
     backend/product_transfers: "Transfers and loss"
     backend/product_varieties: "Product species"
     backend/production_chain_conveyors: "Production chain conveyors"
@@ -685,6 +694,7 @@ eng:
     amount_to_add: "Total to add"
     amount_to_reduce: "Total to reduce"
     # amount_with_taxes: "Montant TTC"
+    # analytics: "Activités"
     # animal: "Animal"
     animal_bar: "Animals by category"
     animal_group_tabbox:
@@ -1730,12 +1740,18 @@ eng:
       all: "{name} ({sex})" #?
     backend/activities:
       # all: "{name} - {nomen} - {family} - {analytical_center_type}"
+    backend/analytic_repartitions:
+      # all: "{id}"
     backend/animals:
       # all: "{name} - {work_number}"
+    backend/campaigns:
+      # all: "{name}"
     backend/entity_links:
       # all: "{started_at}"
     backend/events:
       # all: "{reason}"
+    backend/journal_entry_items:
+      # all: "{name}"
     backend/logs:
       # all: "{observed_at}"
     backend/matters:
