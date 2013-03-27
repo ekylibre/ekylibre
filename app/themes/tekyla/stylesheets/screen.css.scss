@@ -330,16 +330,20 @@ $include-html-classes: false;
   }
 }
 
-@mixin incrust-shadow {
-  @include box-shadow(0 0 round($fs-normal/2) rgba(0,0,0,0.15));
+@mixin normal-shadow {
+  @include box-shadow(0 0 $default-gap rgba(black, 0.32));
 }
 
-@mixin tab-pills($font-size: $fs-normal, $title_selector: "dt", $tab_selector: "dd") {
+@mixin incrust-shadow {
+  @include box-shadow(0 0 round($fs-normal/2) rgba(black, 0.15));
+}
+
+@mixin tab-pills($font-size: $fs-normal, $title-selector: "dt", $tab-selector: "dd") {
   display: block;
   @include clearfix;
   border-bottom: none;
   margin-bottom: 10px;
-  #{$title_selector}, #{$tab_selector} {
+  #{$title-selector}, #{$tab-selector} {
     display: block;
     @include float(left);
     margin-top: 0;
@@ -347,14 +351,14 @@ $include-html-classes: false;
     margin-bottom: $default-gap;
     @include margin-left(0);
   }
-  #{$title_selector} {
+  #{$title-selector} {
     font-weight: bold;
     color: $neutral-color;
     font-variant: small-caps;
     padding: round($default-gap * 0.3) 0;
     cursor: default;
   }
-  #{$tab_selector} {
+  #{$tab-selector} {
     &:last-of-type {
       @include margin-right(0);
     }
@@ -435,15 +439,19 @@ $include-html-classes: false;
   & > * {
     display: none;
   }
+  @include inline-block;
   & > input, & > a, & > span {
-    display: inline-block;
+    @include inline-block;
     @include border-radius(0);
     @include margin-left(-1px);
     @include margin-right(0);
+
+    // Disabled for now because produces errors on AJAX content...
     &:focus, &:active, &:hover {
-      position: relative;
+      // position: relative;
       z-index: 2;
     }
+
     &:first-child {
       @include margin-left(0);
       @include border-left-radius($default-border-radius);

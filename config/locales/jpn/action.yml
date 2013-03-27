@@ -1677,6 +1677,8 @@ jpn:
     animal_events: #?
     animal_prescriptions: #?
     animals: #?
+    backend/accounts:
+      # all: "{number}. {name}"
     backend/animals:
       # all: "{name} - {work_number}"
     backend/entity_links:

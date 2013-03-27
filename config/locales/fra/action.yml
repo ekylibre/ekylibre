@@ -1749,6 +1749,8 @@ fra:
     use_entity_codes_for_account_numbers: "Utiliser le code personne pour composer les numéros de compte"
     various_journal: "Journal des opérations diverses par défaut"
   unroll:
+    backend/accounts:
+      all: "{number}. {name}"
     backend/animals:
       all: "{name} - {work_number}"
     backend/entity_links:

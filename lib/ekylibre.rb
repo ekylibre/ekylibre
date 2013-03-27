@@ -8,4 +8,8 @@ require File.join(File.dirname(__FILE__), 'ekylibre', 'backup')
 module Ekylibre
   mattr_reader :model_names
   @@model_names = @@models.collect{|m| m.to_s.camelcase.to_sym}.sort.freeze
+
+  def self.migrating?
+    return !!(File.basename($0) == "rake" && ARGV.include?("db:migrate"))
+  end
 end

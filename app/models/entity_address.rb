@@ -76,7 +76,7 @@ class EntityAddress < Ekylibre::Record::Base
 
   # Defines test and scope methods for all canals
   self.canal.values.each do |canal|
-    scope canal.to_s.pluralize, -> {where(canal: canal)}
+    scope canal.to_s.pluralize, -> { where(canal: canal.to_s) }
     scope "own_#{canal.to_s.pluralize}", -> { where("canal = ? AND entity_id = ?", canal, Entity.of_company.id) }
   end
 

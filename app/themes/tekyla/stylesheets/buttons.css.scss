@@ -1,5 +1,5 @@
 // General mixin for buttons
-@mixin button ($background-color: $base-color, $color: false, $focus-background-color: false, $focus-color: false, $is-input: false) {
+@mixin button ($background-color: $neutral-background, $color: false, $focus-background-color: $base-color, $focus-color: false, $is-input: false) {
   @if $color == false {
     $color: visible-color($background-color);
   }
@@ -29,6 +29,7 @@
   @include box-shadow(0 1px 0 rgba(#FFF, 0.2) inset, 0 1px 2px rgba(#000, 0.05));
   @include border-radius($default-border-radius);
   @include inline-block;
+  @include transition-duration(0.15s);
   &, & > .text {
     vertical-align: middle;
   }
@@ -40,6 +41,7 @@
   &, & > .text, & > .icon, & > i {
     color: $color;
     @include text-shadow(-1px -1px 0 $shadow-color);
+    @include transition-duration(0.15s);
   }
   & > .icon, & > i {
     vertical-align: top !important;
@@ -50,17 +52,18 @@
   &:focus {
     outline: none;
     border: $menu-border-width solid $focus-background-color;
-    @include box-shadow(0 0 round($fs-normal/2) rgba($base-color, 0.5));
+    @include box-shadow(0 0 round($fs-normal/2) rgba($focus-background-color, 0.5));
     z-index: 2;
   }
   &:active {
     outline: none;
-    @include background-image(linear-gradient($focus-background-color, darken($focus-background-color, 8%)));
+    @include background-image(linear-gradient($background-color, darken($background-color, 8%)));
     border-color: rgba(#000, 0.25) rgba(#000, 0.1) rgba(#000, 0.1);
-    @include box-shadow(0 2px 2px rgba(#000, 0.3) inset, 0 -2px 2px rgba(#000, 0.05));
+    border: $menu-border-width solid $focus-background-color;
+    @include box-shadow(0 2px 3px rgba(#000, 0.3) inset, 0 -2px 2px rgba(#000, 0.05), 0 0 round($fs-normal/2) rgba($focus-background-color, 0.5));
     &, & > .text, & > .icon, & > i {
-      color: $focus-color;
-      @include text-shadow(-1px -1px 1px $focus-shadow-color);
+      // color: $focus-color;
+      @include text-shadow(-1px -1px 1px $shadow-color);
       text-decoration: none;
     }
   }
@@ -77,6 +80,7 @@
   }
 }
 
+$button-height: round($fs-normal*0.20) * 2 + round(1.4 * $fs-normal) + $menu-border-width * 2;
 
 
 input[type="submit"], input[type="button"], input[type="reset"], input[type="search"] {

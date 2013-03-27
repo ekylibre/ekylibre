@@ -1017,41 +1017,14 @@ module ApplicationHelper
 
   def field_set(*args, &block)
     options = (args[-1].is_a?(Hash) ? args.delete_at(-1) : {})
-    name  = (args[0].is_a?(Symbol) ? args.delete_at(0) : "general-informations").to_sym
-    # Test if we are building a field_set with master_form
-    if @field_sets
-      if @field_sets[name]
-        if options.size > 0 or args.size > 0
-          raise ArgumentError.new("This field_set is already defined. You can not give other parameters.")
-        end
-      else
-        options[:name] = name
-        options[:wrapper_id] = name.to_s.gsub(/\_/, '-') + "-fieldset"
-        if options[:before] and options[:after]
-          raise Exception.new("Cannot be before something and after other thing")
-        end
-        options[:object] = (args[-1] ? args.delete_at(-1) : (options[:object] || instance_variable_get('@' + controller.controller_name.to_s.singularize)))
-        options[:in] = normalize_groups(options[:in])
-        @field_sets[name] = options
-      end
-      if block_given?
-        @current_field_set = name
-        yield
-        @current_field_set = nil
-      end
-      return nil
-    else
-      @object_of_current_field_set = args[-1]
-      set_id = "#{name}-fields"
-      toggle_id = "#{set_id}-toggle"
-      return content_tag(:div,
-                         content_tag(:div,
-                                     content_tag(:span, "", :class => :icon) +
-                                     content_tag(:span, (name.is_a?(Symbol) ? name.to_s.gsub('-', '_').t(:default => ["labels.#{name.to_s.gsub('-', '_')}".to_sym, "form.legends.#{name.to_s.gsub('-', '_')}".to_sym]) : name.to_s)) +
-                                     content_tag(:span, "", :id => toggle_id, :class => (options[:collapsed] ? 'collapsed' : 'not-collapsed'), 'data-toggle-set' => "##{set_id}"),
-                                     :class => "fieldset-legend") +
-                         content_tag(:div, capture(&block), :class => "fieldset-fields", :id => set_id), :class => "fieldset", :id => name) # "#{name}-fieldset"
-    end
+    name = args.delete_at(0) || "general-informations".to_sym
+    return content_tag(:div,
+                       content_tag(:div,
+                                   content_tag(:span, "", :class => :icon) +
+                                   content_tag(:span, (name.is_a?(Symbol) ? name.to_s.gsub('-', '_').t(:default => ["labels.#{name.to_s.gsub('-', '_')}".to_sym, "form.legends.#{name.to_s.gsub('-', '_')}".to_sym]) : name.to_s)) +
+                                   content_tag(:span, "", :class => :toggle),
+                                   :class => "fieldset-legend " + (options[:collapsed] ? 'collapsed' : 'not-collapsed'), 'data-toggle-set' => ".fieldset-fields") +
+                       content_tag(:div, capture(&block), :class => "fieldset-fields"), :class => "fieldset", :id => name) # "#{name}-fieldset"
   end
 
 

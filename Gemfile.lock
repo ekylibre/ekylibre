@@ -127,7 +127,7 @@ GEM
       sax-machine (~> 0.2.0.rc1)
     ffaker (1.15.0)
     ffi (1.6.0)
-    formize (1.0.1)
+    formize (1.0.2)
       jquery-rails
       rails (>= 3.2)
     fssm (0.2.10)

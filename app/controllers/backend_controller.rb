@@ -69,14 +69,22 @@ class BackendController < BaseController
         end
       end
 
+
       columns = []
       item_label = label.inspect.gsub(/\{[a-z\_]+(\:\%?X\%?)?\}/) do |word|
         ca = word[1..-2].split(":")
         column = model.columns_hash[ca[0]]
         raise Exception.new("Unknown column #{ca[0]} for #{model.name}") unless column
-        columns << {column: column, name: column.name, filter: ca[1]|| "X%"}
+        columns << {column: column, name: column.name.to_sym, filter: ca[1]|| "X%"}
         i = "item.#{column.name}"
         "\" + (#{i}.nil? ? '' : #{i}.l) + \""
+      end
+
+      fill_in = (options.has_key?(:fill_in) ? options[:fill_in] : columns.size == 1 ? columns.first[:name] : model.columns_hash["name"] ? :name : nil)
+      fill_in = fill_in.to_sym unless fill_in.nil?
+
+      if !fill_in.nil? and !columns.detect{|c| c[:name] == fill_in }
+        raise StandardError.new("Label (#{label}, #{columns.inspect}) of unroll must include the primary column: #{fill_in.inspect}")
       end
 
       haml  = ""
@@ -94,8 +102,10 @@ class BackendController < BaseController
       haml << "      =I18n.t('labels.x_items_remain_on_y', :count => (items.count - #{max}))\n"
       haml << "-else\n"
       haml << "  %ul.items-list\n"
-      haml << "    -unless search.blank?\n"
-      haml << "      %li.item.special{'data-new-item' => search}=I18n.t('labels.add_x', :x => content_tag(:strong, search)).html_safe\n"
+      unless fill_in.nil?
+        haml << "    -unless search.blank?\n"
+        haml << "      %li.item.special{'data-new-item' => search, 'data-new-item-parameter' => '#{fill_in}'}=I18n.t('labels.add_x', :x => content_tag(:strong, search)).html_safe\n"
+      end
       haml << "    %li.item.special{'data-new-item' => ''}=I18n.t('labels.add_#{model.name.underscore}', :default => [:'labels.add_new_record'])\n"
       # haml << "  %span.items-status.items-status-empty\n"
       # haml << "    =I18n.t('labels.no_results')\n"

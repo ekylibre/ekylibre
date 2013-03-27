@@ -1728,6 +1728,8 @@ eng:
       all: "#{prescription_number} on {prescripted_on}" #?
     animals:  #?
       all: "{name} ({sex})" #?
+    backend/accounts:
+      # all: "{number}. {name}"
     backend/animals:
       # all: "{name} - {work_number}"
     backend/entity_links:

@@ -145,7 +145,7 @@
                         var record_id = request.getResponseHeader("X-Saved-Record-Id"), combo_box, parameter, parameters, refresh_url;
                         // Reload selector with new record as default selection
                         // alert(list);
-                        $.Selector.set(list, record_id);
+                        $.EkylibreSelector.set(list, record_id);
                         // // Updates manually fields like before
                         // combo_box = $('input[data-value-container="' + list.attr("id") + '"]');
                         // if (combo_box[0] !== undefined) {
@@ -418,7 +418,7 @@
     });
 
     $(document).on("click", "[data-toggle-set]", function (event) {
-        var element = $(this), target = $(element.data("toggle-set")), shown;
+        var element = $(this), target = element.closest('.fieldset').find(element.data("toggle-set")), shown;
         if (element.hasClass("collapsed")) {
             element.removeClass("collapsed");
             element.addClass("not-collapsed");

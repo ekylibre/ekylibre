@@ -3,18 +3,10 @@
 (function ($) {
     "use strict";
 
-    /*
-      $.widget("ekylibre.selector", {
-      _create: function () {
-
-      }
-      });
-    */
-
     $.EkylibreSelector = {
         init: function (element) {
-            var selector = $(element), name, hidden, menu;
-            if (selector.prop("selectorLoaded") != "true") {
+            var selector = $(element), name, hidden, menu, button;
+            if (selector.prop("hiddenInput") === undefined) {
                 name = selector.attr("name");
                 selector.removeAttr("name");
                 hidden = $("<input type='hidden' name='" + name + "'/>");
@@ -23,18 +15,23 @@
                 }
                 selector.closest("form").prepend(hidden);
                 selector.prop("hiddenInput", hidden);
-                selector.attr("autocomplete", "off");
-                selector.after($("<a href='#" + selector.attr("id") + "' rel='dropdown' class='selector-dropdown'><span class='icon'></span></a>"));
+            }
+            selector.attr("autocomplete", "off");
+            if (selector.prop("dropDownButton") === undefined) {
+                button = $("<a href='#" + selector.attr("id") + "' rel='dropdown' class='selector-dropdown'><span class='icon'></span></a>");
+                selector.after(button);
                 selector.prop("lastSearch", selector.val());
+                selector.prop("dropDownButton", button);
+            }
+            if (selector.prop("dropDownMenu") === undefined) {
                 menu = $('<div class="items-menu"></div>');
                 menu.hide();
                 menu.prop("selectorOfMenu", selector);
                 selector.after(menu);
                 selector.prop("dropDownMenu", menu);
-                selector.prop("selectorLoaded", "true");
-                $.EkylibreSelector.set(selector, selector.val());
-                console.log("Selector " + selector.attr("id") + " initialized with " + menu[0] + "!");
             }
+            $.EkylibreSelector.set(selector, selector.val());
+            console.log("Selector " + selector.attr("id") + " initialized with " + menu[0] + "!");
             return selector;
         },
 
@@ -83,7 +80,7 @@
             if (search !== undefined) {
                 data = {q: search};
             }
-            $.ajax($.EkylibreSelector.getSourceURL(selector), {
+            return $.ajax($.EkylibreSelector.getSourceURL(selector), {
                 dataType: "html",
                 data: data,
                 success: function (data, status, request) {
@@ -171,10 +168,24 @@
             return selector;
         }
 
-
-
     };
 
+    $(document).on("keypress", "input[data-selector]", function (event) {
+        var selector = $(this), menu, code = (event.keyCode || event.which);
+        menu = selector.prop("dropDownMenu");
+        if (code === 13 || code === 10) { // Enter
+            if (menu.is(":visible")) {
+                $.EkylibreSelector.choose(selector);
+                return false;
+            }
+        } else if (code === 40) { // Down
+            if (menu.is(":hidden")) {
+                $.EkylibreSelector.openMenu(selector, selector.val());
+                return false;
+            }
+        }
+        return true;
+    });
 
     $(document).on("keyup", "input[data-selector]", function (event) {
         var selector = $(this), search, menu, code = (event.keyCode || event.which), selected;
@@ -215,23 +226,6 @@
         return true;
     });
 
-    $(document).on("keypress", "input[data-selector]", function (event) {
-        var selector = $(this), menu, code = (event.keyCode || event.which);
-        menu = selector.prop("dropDownMenu");
-        if (code === 13 || code === 10) { // Enter
-            if (menu.is(":visible")) {
-                $.EkylibreSelector.choose(selector);
-                return false;
-            }
-        } else if (code === 40) { // Down
-            if (menu.is(":hidden")) {
-                $.EkylibreSelector.openMenu(selector, selector.val());
-                return false;
-            }
-        }
-        return true;
-    });
-
     $(document).on("blur focusout", "input[data-selector]", function (event) {
         var selector = $(this);
         setTimeout(function () {
@@ -239,6 +233,7 @@
         }, 300);
         return true;
     });
+
 
     $(document).on("click", 'a.selector-dropdown[rel="dropdown"][href]', function (event) {
         var element = $(this), selector, menu;
@@ -277,16 +272,15 @@
 
 
     // First initialization
-    $(document).ready($.EkylibreSelector.initAll);
-    $(document).ajaxComplete($.EkylibreSelector.initAll);
-
+    // $(document).ready($.EkylibreSelector.initAll);
+    // $(document).ajaxComplete($.EkylibreSelector.initAll);
 
     // Other initializations
-    $(document).on("cocoon:after-insert", "input[data-selector]", function (event) {
+    $(document).behave("load", "input[data-selector]", function (event) {
         $.EkylibreSelector.init($(this));
         return true;
     });
 
-    console.log("Selector.js loaded");
+    console.log("selector.js loaded");
 
 })(jQuery);

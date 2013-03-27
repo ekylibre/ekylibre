@@ -16,17 +16,21 @@ a:link, a:visited, a:focus { color: $link-color; text-decoration: none;}
 
 //color, date, datetime, datetime-local, email, month, number, range, search, tel, time, url, week,
 // input[type="button"], input[type="checkbox"], input[type="color"], input[type="date"], input[type="datetime"], input[type="datetime-local"], input[type="email"], input[type="file"], input[type="hidden"], input[type="image"], input[type="month"], input[type="number"], input[type="password"], input[type="radio"], input[type="range"], input[type="reset"], input[type="search"], input[type="submit"], input[type="tel"], input[type="text"], input[type="time"], input[type="url"], input[type="week"]
-input[type="color"], input[type="date"], input[type="datetime"], input[type="datetime-local"], input[type="email"], input[type="file"], input[type="image"], input[type="month"], input[type="number"], input[type="password"], input[type="range"], input[type="tel"], input[type="text"], input[type="time"], input[type="url"], input[type="week"], textarea, select {
+
+// , input[type="file"]
+
+input[type="color"], input[type="date"], input[type="datetime"], input[type="datetime-local"], input[type="email"], input[type="image"], input[type="month"], input[type="number"], input[type="password"], input[type="range"], input[type="tel"], input[type="text"], input[type="time"], input[type="url"], input[type="week"], textarea, select {
   border: $menu-border;
   padding: round($fs-normal * 0.2);
   @include box-sizing(content-box);
   @include border-radius($default-border-radius);
-  background: #F8F8F8;
+  background: #F9F9F9;
   font-size: $fs-normal;
   line-height: round(1.4 * $fs-normal);
   height: round(1.4 * $fs-normal);
   vertical-align: middle;
-  @include box-shadow(0 2px round($fs-normal/2) rgba(black, 0.1) inset);
+  @include box-shadow(0 2px round($fs-normal/2) rgba(black, 0.1) inset, 0 0 round($fs-normal*0.6) rgba(white, 0.6));
+  @include transition(box-shadow 0.2s, border-color 0.2s);
   &:focus {
     background: #FFF;
     border-color: $base-color;
@@ -243,6 +247,7 @@ ul.side-menu {
       &:hover a {
         background: mix(white, $menu-border-color, 80%);
         text-decoration: none;
+        @include transition(background 0.2s linear);
       }
       &.current, &.active {
         position: relative;
@@ -514,7 +519,7 @@ ul.side-menu {
 .fieldset {
   @include border-radius($default-border-radius);
   $vertical-gap: round($default-gap*0.7);
-  padding: $vertical-gap $default-gap;
+  padding: 0;
   margin: 0 $default-gap $default-gap;
   $fieldset-border: $menu-border;
   border: $fieldset-border;
@@ -522,7 +527,8 @@ ul.side-menu {
   $size: $fs-normal;
   background: white;
   .fieldset-legend {
-    padding: 0;
+    padding: $vertical-gap $default-gap;
+    cursor: pointer;
     label, span {
       color: $neutral-color;
       font-size: $size;
@@ -537,8 +543,7 @@ ul.side-menu {
       color: $neutral-color;
       @include margin-right(round($size/4));
     }
-    [data-toggle-set] {
-      cursor: default;
+    .toggle {
       @include inline-block;
       @include float(right);
       $tool-size: round(0.95 * $fs-normal);
@@ -546,12 +551,12 @@ ul.side-menu {
       height: $tool-size;
       @include is-icon();
       margin: round(($size - $tool-size)/2) 0 0;
+    }
+    &.collapsed .toggle     { @include use-icon(plus-sign); }
+    &.not-collapsed .toggle { @include use-icon(minus-sign); }
+    &:hover span {
       color: $base-color;
-      &:hover {
-        color: $neutral-color;
-      }
-      &.collapsed { @include use-icon(plus-sign); }
-      &.not-collapsed { @include use-icon(minus-sign); }
+      @include transition(color 0.2s linear);
     }
   }
   @each $field_set in (delay time), (document briefcase), (general-informations book), (stock exchange), (group group), (movement exchange), (accountancy money), (coordinates map-marker), (amount money), (vegetable leaf), (genealogy sitemap), (animal github-alt), (entity user), (reservoir beaker), (indicator dashboard){ //asset,
@@ -560,37 +565,38 @@ ul.side-menu {
     }
   }
 
-  textarea {
-    width: 70%;
-    resize: vertical;
-  }
   .fieldset-fields {
     //border-top: $fieldset-border;
     border-top: 2px solid $active-color;
-    margin-top: $vertical-gap;
-    padding-top: $vertical-gap;
-  }
-  .actions { border-left: none; border-right: none; border-bottom: none; margin-top: 8px}
-  .input {
-    padding: round($fs-normal*0.2) 0;
-    margin: round($fs-normal*0.1) 0;
+    margin: 0 $default-gap $vertical-gap;
+    padding: 0;
 
-    .control-label {
-      width: 25%;
-      @include float(left);
-      line-height: 1.4*$fs-normal;
-      @include inline-block;
-      @include margin-right(round($fs-normal/2));
-      &.required {
-        abbr {
-          color: red;
-          float: right;
+    .input {
+      padding: round($fs-normal*0.2) 0;
+      margin: round($fs-normal*0.1) 0;
+
+      .control-label {
+        width: 25%;
+        @include float(left);
+        line-height: 1.4*$fs-normal;
+        @include inline-block;
+        @include margin-right(round($fs-normal/2));
+        &.required {
+          abbr {
+            color: red;
+            float: right;
+          }
         }
       }
+    }
+    textarea {
+      width: 70%;
+      resize: vertical;
     }
     input{
       max-width: 65%;
     }
+
   }
 }
 
@@ -603,6 +609,11 @@ ul.side-menu {
   color:  rgb(237, 0, 78);
 }
 
+input[data-selector] {
+  display: inline;
+  margin-bottom: 0;
+}
+
 
 a.selector-dropdown {
   @include button();
@@ -611,13 +622,8 @@ a.selector-dropdown {
   }
 }
 
-input[data-selector] {
-  display: inline;
-  margin-bottom: 0;
-}
-
 span.selector, .input-append {
-  @include inline-block;
+  // @include inline-block;
   @include toolbar;
 }
 
@@ -653,9 +659,9 @@ $controls-margin-left: round($label-width * 1.1);
       .text { display: none; }
     }
   }
-  &.selector .controls .input {
-    @include toolbar;
-  }
+//  &.selector .controls .input {
+//    @include toolbar;
+//   }
 }
 
 .input-append {
@@ -681,17 +687,45 @@ span.rad, label.radio {
 }
 
 
+$form-actions-height: 48px;
 .form-actions {
+  margin: 0;
+  padding: 0;
+  $padding-top: round(($form-actions-height - 1px - $button-height) / 2);
+  padding-top: $padding-top;
+  height: $form-actions-height - $padding-top - 1px;
+  border-top: 1px solid rgba(black, 0.10);
   @include text-align(center);
+  vertical-align: middle;
   input, a, span {
     @include text-align(center);
     @include margin-left($fs-normal);
     &:first-child { @include margin-left(0) }
   }
-  padding: round($fs-normal) !important;
   @include background(linear-gradient(rgba(black, 0.05), rgba(black, 0), rgba(black, 0.06)));
-  /*border-top: $menu-border;*/
-  margin: 0;
+}
+
+
+.ui-dialog {
+  .ui-dialog-content {
+    & > form {
+      margin: 0;
+      padding: 0;
+      height: inherit;
+      overflow: hidden;
+      & > .form-fields {
+        @include calc(height, "100% - #{$form-actions-height + 2 * $default-gap}");
+        overflow: auto;
+        margin: 0;
+        padding: $default-gap 0;
+      }
+      & > .form-actions {
+        position: relative;
+        z-index: 3;
+        @include normal-shadow;
+      }
+    }
+  }
 }
 
 
@@ -783,6 +817,9 @@ span.rad, label.radio {
   overflow: hidden;
   .ui-dialog-titlebar {
     padding: 4px;
+    position: relative;
+    z-index: 3;
+    @include normal-shadow;
     //height: 16px;
     //background: $base-color;
     @include background-active-gradient;
@@ -821,9 +858,6 @@ span.rad, label.radio {
     overflow: auto;
     zoom: 1;
     padding: 0; // $default-gap;
-    & > *:first-child {
-      margin-top: $default-gap;
-    }
   }
 }
 
@@ -1109,6 +1143,7 @@ svg {
   }
   a:hover path {
     fill: $active-color;
+    @include transition(fill 0.2s linear);
   }
 }
 
