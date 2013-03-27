@@ -248,7 +248,8 @@
     });
 
     $(document).on("blur focusout", 'a.selector-dropdown[rel="dropdown"][href]', function (event) {
-        var selector = $(this);
+        var element = $(this), selector, menu;
+        selector = $(element.attr("href"));
         setTimeout(function () {
             $.EkylibreSelector.closeMenu(selector);
         }, 300);

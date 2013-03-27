@@ -719,11 +719,6 @@ $form-actions-height: 48px;
         margin: 0;
         padding: $default-gap 0;
       }
-      & > .form-actions {
-        position: relative;
-        z-index: 3;
-        @include normal-shadow;
-      }
     }
   }
 }
@@ -817,9 +812,6 @@ $form-actions-height: 48px;
   overflow: hidden;
   .ui-dialog-titlebar {
     padding: 4px;
-    position: relative;
-    z-index: 3;
-    @include normal-shadow;
     //height: 16px;
     //background: $base-color;
     @include background-active-gradient;
