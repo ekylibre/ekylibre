@@ -1,37 +1,48 @@
 /* -*- mode: javascript; indent-tabs-mode: nil; -*- */
 /*jslint browser: true, devel: true */
-(function ($, undefined) {
+(function ($) {
     "use strict";
 
-/*
-    $.widget("ekylibre.selector", {
-        _create: function () {
+    /*
+      $.widget("ekylibre.selector", {
+      _create: function () {
 
-        }
-    });
-*/
+      }
+      });
+    */
 
     $.Selector = {
         init: function (element) {
-            var selector = element, name, hidden, menu;
-            name = selector.attr("name");
-            selector.removeAttr("name");
-            hidden = $("<input type='hidden' name='" + name + "'/>");
-            if (selector.attr("required") === "true") {
-                hidden.attr("required", "true");
+            var selector = $(element), name, hidden, menu;
+            if (selector.prop("selectorLoaded") != "true") {
+                name = selector.attr("name");
+                selector.removeAttr("name");
+                hidden = $("<input type='hidden' name='" + name + "'/>");
+                if (selector.attr("required") === "true") {
+                    hidden.attr("required", "true");
+                }
+                selector.closest("form").prepend(hidden);
+                selector.prop("hiddenInput", hidden);
+                selector.attr("autocomplete", "off");
+                selector.after($("<a href='#" + selector.attr("id") + "' rel='dropdown' class='selector-dropdown'><span class='icon'></span></a>"));
+                selector.prop("lastSearch", selector.val());
+                menu = $('<div class="items-menu"></div>');
+                menu.hide();
+                menu.prop("selectorOfMenu", selector);
+                selector.after(menu);
+                selector.prop("dropDownMenu", menu);
+                selector.prop("selectorLoaded", "true");
+                $.Selector.set(selector, selector.val());
+                console.log("Selector " + selector.attr("id") + " initialized with " + menu[0] + "!");
             }
-            selector.closest("form").prepend(hidden);
-            selector.prop("hiddenInput", hidden);
-            selector.attr("autocomplete", "off");
-            selector.after($("<a href='#" + selector.attr("id") + "' rel='dropdown' class='btn btn-caret-down'><span class='icon'></span></a>"));
-            selector.prop("lastSearch", selector.val());
-            menu = $('<div class="items-menu"></div>');
-            menu.hide();
-            menu.prop("selectorOfMenu", selector);
-            selector.after(menu);
-            selector.prop("dropDownMenu", menu);
-            $.Selector.set(selector, selector.val());
             return selector;
+        },
+
+        initAll: function () {
+            $("input[data-selector]").each(function (index) {
+                $.Selector.init($(this));
+            });
+            return true;
         },
 
         getSourceURL: function (element) {
@@ -90,12 +101,13 @@
         },
 
         select: function (element, id, label) {
-            var selector = element, menu, hidden;
+            var selector = element, menu, hidden, len;
             menu = selector.prop("dropDownMenu");
             hidden = selector.prop("hiddenInput");
             selector.prop("lastSearch", label);
             selector.val(label);
-            selector.attr("size", (label.length < 20 ? 20 : label.length > 64 ? 64 : label.length));
+            len = 10 * Math.round(Math.round(1.5 * label.length) / 10);
+            selector.attr("size", (len < 20 ? 20 : len > 80 ? 80 : len));
             hidden.prop("itemLabel", label);
             hidden.val(id);
             if (menu.is(":visible")) {
@@ -111,7 +123,7 @@
                     dataType: "json",
                     data: {id: id},
                     success: function (data, status, request) {
-                    var item = $.parseJSON(request.responseText)[0];
+                        var item = $.parseJSON(request.responseText)[0];
                         $.Selector.select(selector, item.id, item.label);
                     },
                     error: function (request, status, error) {
@@ -120,21 +132,57 @@
                 });
             }
             return selector;
+        },
+
+        choose: function (element, selected) {
+            var selector = element, parameters, menu;
+            if (selected === undefined) {
+                menu = selector.prop('dropDownMenu');
+                selected = menu.find("ul li.selected.item").first();
+            }
+            if (selected[0] !== null && selected[0] !== undefined) {
+                if (selected.is("[data-item-label][data-item-id]")) {
+                    $.Selector.select(selector, selected.data("item-id"), selected.data("item-label"));
+                } else if (selected.is("[data-new-item]")) {
+                    parameters = {};
+                    if (selected.data('new-item').length > 0) {
+                        parameters = {name: selected.data('new-item')};
+                    }
+                    $.ajaxDialog(selector.data('selector-new-item'), {
+                        data: parameters,
+                        returns: {
+                            success: function (frame, data, status, request) {
+                                var record_id = request.getResponseHeader("X-Saved-Record-Id");
+                                $.Selector.set(selector, record_id);
+                                frame.dialog("close");
+                            },
+                            invalid: function (frame, data, textStatus, request) {
+                                frame.html(request.responseText);
+                            }
+                        }
+                    });
+                } else {
+                    alert("Don't known how to manage this option");
+                    console.log("Don't known how to manage this option");
+                }
+            } else {
+                console.log("No selected item to choose...");
+            }
+            return selector;
         }
+
+        
 
     };
 
 
-    $(document).behave("load cocoon:after-insert", "input[data-selector]", function (event) {
-        $.Selector.init($(this));
-        return false;
-    });
-
-
     $(document).on("keyup", "input[data-selector]", function (event) {
         var selector = $(this), search, menu, code = (event.keyCode || event.which), selected;
+        console.log("You press " + code);
         search = selector.val();
+        console.log(search);
         menu = selector.prop("dropDownMenu");
+        console.log(menu);
         if (selector.prop("lastSearch") !== search) {
             if (search.length > 0) {
                 $.Selector.openMenu(selector, search);
@@ -162,29 +210,24 @@
                     }
                 }
             }
+            return false;
         }
-        return false;
+        console.log("You pressed " + code);
+        return true;
     });
 
     $(document).on("keypress", "input[data-selector]", function (event) {
-        var selector = $(this), menu, code = (event.keyCode || event.which), selected;
+        var selector = $(this), menu, code = (event.keyCode || event.which);
         menu = selector.prop("dropDownMenu");
         if (code === 13 || code === 10) { // Enter
-            selected = menu.find("ul li.selected.item").first();
-            if (selected[0] !== null && selected[0] !== undefined) {
-                //[data-item-label][data-item-id]
-                if (selected.is("[data-item-label][data-item-id]")) {
-                    $.Selector.select(selector, selected.data("item-id"), selected.data("item-label"));
-                    return false;
-                } else {
-                    alert("Don't known how to manage this option");
-                    console.log("Don't known how to manage this option");
-                    return false;
-                }
+            if (menu.is(":visible")) {
+                $.Selector.choose(selector);
+                return false;
             }
         } else if (code === 40) { // Down
             if (menu.is(":hidden")) {
                 $.Selector.openMenu(selector, selector.val());
+                return false;
             }
         }
         return true;
@@ -198,7 +241,7 @@
         return true;
     });
 
-    $(document).behave("click", 'a[rel="dropdown"][href]', function (event) {
+    $(document).on("click", 'a.selector-dropdown[rel="dropdown"][href]', function (event) {
         var element = $(this), selector, menu;
         selector = $(element.attr("href"));
         menu = selector.prop("dropDownMenu");
@@ -210,6 +253,15 @@
         return false;
     });
 
+    $(document).on("blur focusout", 'a.selector-dropdown[rel="dropdown"][href]', function (event) {
+        var selector = $(this);
+        setTimeout(function () {
+            $.Selector.closeMenu(selector);
+        }, 300);
+        return true;
+    });
+
+
     $(document).on("mouseenter hover", '.items-menu ul li.item', function (event) {
         var element = $(this), list;
         list = element.closest("ul");
@@ -218,11 +270,24 @@
         return false;
     });
 
-    $(document).on("click", '.items-menu ul li[data-item-label][data-item-id]', function (event) {
+    $(document).on("click", '.items-menu ul li.item', function (event) {
         var selected = $(this), selector = selected.closest(".items-menu").prop("selectorOfMenu");
-        $.Selector.select(selector, selected.data("item-id"), selected.data("item-label"));
+        $.Selector.choose(selector, selected);
         return false;
     });
 
+
+    // First initialization
+    $(document).ready($.Selector.initAll);
+    $(document).ajaxComplete($.Selector.initAll);
+
+
+    // Other initializations
+    $(document).on("cocoon:after-insert", "input[data-selector]", function (event) {
+        $.Selector.init($(this));
+        return true;
+    });
+
+    console.log("Selector.js loaded");
 
 })(jQuery);

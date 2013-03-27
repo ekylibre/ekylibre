@@ -43,6 +43,9 @@
   }
   & > .icon, & > i {
     vertical-align: top !important;
+    @include is-icon(round(1.4 * $fs-normal));
+    @include use-icon(cog);
+    @include inline-block;
   }
   &:focus {
     outline: none;
@@ -90,12 +93,6 @@ a.btn, button {
   @include button();
   &.important {
     @include button($background-color: $important-color);
-  }
-
-  .icon, i {
-    @include is-icon(round(1.4 * $fs-normal));
-    @include use-icon(cog);
-    @include inline-block;
   }
 
   // Defines default names

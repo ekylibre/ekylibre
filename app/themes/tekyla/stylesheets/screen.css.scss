@@ -431,15 +431,11 @@ $include-html-classes: false;
 
 
 
-
-
-
-
 @mixin toolbar {
   & > * {
     display: none;
   }
-  & > input, & > .btn {
+  & > input, & > a, & > span {
     display: inline-block;
     @include border-radius(0);
     @include margin-left(-1px);

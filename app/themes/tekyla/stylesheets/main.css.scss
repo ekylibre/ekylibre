@@ -603,6 +603,25 @@ ul.side-menu {
   color:  rgb(237, 0, 78);
 }
 
+
+a.selector-dropdown {
+  @include button();
+  .icon {
+    @include use-icon(caret-down);
+  }
+}
+
+input[data-selector] {
+  display: inline;
+  margin-bottom: 0;
+}
+
+span.selector, .input-append {
+  @include inline-block;
+  @include toolbar;
+}
+
+
 $controls-margin-left: round($label-width * 1.1);
 
 .control-group {
@@ -634,7 +653,7 @@ $controls-margin-left: round($label-width * 1.1);
       .text { display: none; }
     }
   }
-  &.selector .controls .input{
+  &.selector .controls .input {
     @include toolbar;
   }
 }
@@ -648,15 +667,6 @@ $controls-margin-left: round($label-width * 1.1);
 }
 
 
-input[data-selector] {
-  display: inline;
-  margin-bottom: 0;
-  width: auto;
-}
-span.selector, .input-append {
-  @include inline-block;
-  @include toolbar;
-}
 
 span.rad, label.radio {
   padding: round($fs-normal/8) 0;
@@ -765,43 +775,56 @@ span.rad, label.radio {
 
 .ui-dialog {
   position: absolute;
-  background: $menu-background;
-  border: 2px solid $base-color;
-  @include box-shadow(0 0 10px rgba(0, 0, 0, 0.3));
+  background: transparent;
+  border: $default-gap solid rgba(black, 0.5);
+  $radius: $default-gap + $default-border-radius;
+  @include border-radius($radius);
+  @include box-shadow(0 0 $radius rgba(0, 0, 0, 0.3));
   overflow: hidden;
   .ui-dialog-titlebar {
     padding: 4px;
     //height: 16px;
-    background: $base-color;
+    //background: $base-color;
+    @include background-active-gradient;
     .ui-dialog-title {
       margin: 4px;
       font-weight: bold;
       font-size: $fs-large;
+      $line-height: round($fs-large * 1.4);
+      line-height: $line-height;
+      height: $line-height;
       color: white;
       @include text-shadow(0 0 3px rgba(0,0,0,0.5));
     }
     .ui-dialog-titlebar-close {
       float: right;
-      span {
-        // display: block;
-        // @include squish-text;
-        @include is-icon;
-        @include use-icon(remove);
-        height: 16px;
-        width: 16px;
+      @include is-icon;
+      @include use-icon(remove);
+      color: black;
+      @include opacity(0.3);
+      margin-top: 3px;
+      height: 16px;
+      width: 16px;
+      span.ui-icon {
+        display: none;
       }
-      &:hover, &:focus { padding: 0; }
+      &:focus, &:active, &:hover {
+	@include opacity(0.5);
+      }
     }
   }
   .ui-dialog-content {
+    background: #F7F7F7;
     clear: both;
-    position: relative; border: 0; padding: .5em 1em; background: none; overflow: auto; zoom: 1; }
-  .ui-dialog-buttonpane {
-    text-align: left; border-width: 1px 0 0 0; background-image: none; margin: .5em 0 0 0; padding: .3em 1em .5em .4em;
-    .ui-dialog-buttonset { float: right; }
-    button { margin: .5em .4em .5em 0; cursor: pointer; }
+    position: relative; 
+    border: 0; 
+    overflow: auto;
+    zoom: 1; 
+    padding: 0; // $default-gap;
+    & > *:first-child {
+      margin-top: $default-gap;
+    }
   }
-  .ui-resizable-se { width: 14px; height: 14px; right: 3px; bottom: 3px; }
 }
 
 .ui-widget-overlay {
@@ -810,7 +833,7 @@ span.rad, label.radio {
   left: 0;
   width: 100%;
   height: 100%;
-  background: transparentize($base-color, 0.8);
+  background: rgba(black, 0.15);
 }
 
 
