@@ -1,11 +1,21 @@
 fra:
   activerecord:
     attributes:
+      activity:
+        analytical_center_type: "Type de centre analytique"
+        family: "Famille"
+        favored_product_nature: "Produit de référence"
+        net_margin: "Marge nette"
+        nomen: "Code analytique"
+        parent: "Activité parente"
+        work_unit: "Unité d'oeuvre"
       animal:
         born_at: "Date de naissance"
         variety: "Race"
       asset_depreciation:
         asset_amount: "Valeur nette comptable (VNC)"
+      campaign:
+        nomen: "Code nomenclature"
       cash:
         key: "Clé RIB"
         mode: "Mode"
@@ -287,6 +297,7 @@ fra:
     models:
       account: "Compte"
       account_balance: "Balance de compte"
+      activity: "Activité"
       affair: "Affaire"
       animal: "Animal"
       area: "Zone postale"
@@ -294,6 +305,7 @@ fra:
       asset_depreciation: "Amortissement d’immobilisation"
       bank_statement: "Relevé de compte bancaire"
       # bioproduct: "Bioproduct"
+      campaign: "Campagne"
       cash: "Trésorerie"
       cash_transfer: "Virement interne"
       company: "" #?
@@ -337,7 +349,7 @@ fra:
       listing_node_item: "Élément de nœud d’extraction"
       log: "Évènements des produits"
       mandate: "Responsabilité"
-      # matter: "Matter"
+      matter: "Matière"
       observation: "Observation"
       operation: "Travail"
       # operation_nature: "Operation nature"
@@ -414,6 +426,7 @@ fra:
     # alive: "Alive"
     allocation_account: "Compte de dotation"
     amount: "Montant"
+    analytical_center_type: "Analytical center type"
     animal_drugs: "Médicaments" #?
     animals: "Animals" #?
     annotation: "Annotation"
@@ -684,6 +697,7 @@ fra:
     # failed_attempts: "Failed attempts"
     family: "Module"
     father: "Père"
+    # favored_product_nature: "Favored product nature"
     faxes: "Fax"
     filename: "Nom de fichier"
     filesize: "Taille du fichier"
@@ -847,6 +861,7 @@ fra:
     name_aee: "Nom normalisé EDI*" #?
     nature: "Type"
     nature_code: "Code"
+    # net_margin: "Net margin"
     net_weight: "Masse nette" #?
     nic: "NIC (Numéro Interne de Classement)" #?
     node: "Nœud"
@@ -1199,8 +1214,19 @@ fra:
     with_transport: "Avec transport"
     work_center: "Centre d’opération"
     work_number: "Numéro de travail"
+    # work_unit: "Work unit"
     zone: "Zone" #?
   enumerize:
+    activity:
+      analytical_center_type:
+        ancillary: "Auxiliaire"
+        main: "Principal"
+      family:
+        animal: "Animale"
+        perenne_vegetal: "Culture perenne"
+        processing: "Transformation"
+        service: "Service"
+        vegetal: "Culture annuelle"
     asset:
       depreciation_method:
         graduated: "Dégressive"

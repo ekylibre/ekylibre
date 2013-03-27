@@ -3,5 +3,5 @@
 
 =beehive do |b|
   -b.cell do
-    =attribute_list do |l|
+    =attributes_list(@<%= singular_table_name %>) do |l|
       -l.attribute :name

@@ -596,8 +596,8 @@ ActiveRecord::Schema.define(:version => 20130314131032) do
     t.string   "coordinate",       :limit => 511,                                           :null => false
     t.string   "name"
     t.string   "mail_line_1"
-    t.spatial  "mail_geolocation", :limit => {:srid=>0, :type=>"point"}
     t.boolean  "mail_auto_update",                                       :default => false, :null => false
+    t.spatial  "mail_geolocation", :limit => {:srid=>0, :type=>"point"}
   end
 
   add_index "entity_addresses", ["by_default"], :name => "index_entity_addresses_on_by_default"
@@ -2032,7 +2032,6 @@ ActiveRecord::Schema.define(:version => 20130314131032) do
   add_index "products", ["father_id"], :name => "index_products_on_father_id"
   add_index "products", ["mother_id"], :name => "index_products_on_mother_id"
   add_index "products", ["nature_id"], :name => "index_products_on_nature_id"
-  add_index "products", ["number"], :name => "index_products_on_number", :unique => true
   add_index "products", ["owner_id"], :name => "index_products_on_owner_id"
   add_index "products", ["parent_id"], :name => "index_products_on_parent_id"
   add_index "products", ["tracking_id"], :name => "index_products_on_tracking_id"

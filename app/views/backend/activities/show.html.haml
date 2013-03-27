@@ -1,0 +1,12 @@
+=toolbar do |t|
+  -t.edit @activity
+
+=beehive do |b|
+  -b.cell :details do
+    =attributes_list(@activity) do |l|
+      -l.attribute :name
+      -l.attribute :parent
+      -l.attribute :nomen
+      -l.attribute :analytical_center_type
+      -l.attribute :closed
+      -l.attribute :family

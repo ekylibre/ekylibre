@@ -13,6 +13,11 @@ eng:
       reconciliation: "Account reconciliation"
       show: "Account: %{number} - %{name}"
       unmark: "Unmark account"
+    backend/activities:
+      # edit: "Modifier une activité\_: %{name}"
+      # index: "Activités"
+      # new: "Nouvelle activité"
+      # show: "%{name}"
     backend/animals:
       # edit: "Modifier l'animal\_: %{name}"
       # index: "Productions animales"
@@ -38,6 +43,11 @@ eng:
       point: "Bank reconciliation with bank statement %{number}"
       show: "Account statement N°%{number}"
     backend/base: #?
+    backend/campaigns:
+      # edit: "Campagne\_: %{name}"
+      # index: "Campagnes"
+      # new: "Nouvelle campagne"
+      # show: "Campagne %{name}"
     backend/cash_transfers:
       edit: "Edit cash transfer: %{number}"
       index: "Cash transfers"

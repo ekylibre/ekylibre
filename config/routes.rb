@@ -72,6 +72,9 @@ Ekylibre::Application.routes.draw do
     # Check that the id is an integer
     # constraints(:id => /[0-9]+/) do
 
+
+
+
     # resources :account_balances
     resources :accounts do
       collection do
@@ -89,6 +92,14 @@ Ekylibre::Application.routes.draw do
         post :unmark
       end
     end
+
+    resources :activities do
+      collection do
+        get :list
+        unroll_all
+      end
+    end
+
     resources :animals do
       collection do
         get :list
@@ -132,6 +143,14 @@ Ekylibre::Application.routes.draw do
         match "point", :via => [:get, :post]
       end
     end
+
+    resources :campaigns do
+      collection do
+        get :list
+        unroll_all
+      end
+    end
+
     resources :cashes do
       collection do
         get :list

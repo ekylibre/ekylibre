@@ -14,6 +14,14 @@ arb:
         company: "شركة" #?
         financial_year: "مهنة" #?
         lock_version: "الاصدار المحلي" #?
+      activity:
+        # analytical_center_type: "Type de centre analytique"
+        # family: "Famille"
+        # favored_product_nature: "Produit de référence"
+        # net_margin: "Marge nette"
+        # nomen: "Code analytique"
+        # parent: "Activité parente"
+        # work_unit: "Unité d'oeuvre"
       animal:
         # born_at: "Date de naissance"
         # variety: "Race"
@@ -30,6 +38,8 @@ arb:
         original_debit: "الدين" #?
         started_on: "من" #?
         stopped_on: "الى" #?
+      campaign:
+        # nomen: "Code nomenclature"
       cash:
         account: "كاتب الحسابات المشار اليه" #?
         account_id: "كاتب الحسابات المشار اليه" #?
@@ -758,12 +768,14 @@ arb:
     models:
       account: "الحساب"
       account_balance: "رصيد الحساب"
+      # activity: "Activité"
       # affair: "Affaire"
       # animal: "Animal"
       area: "المنطقة البريدية"
       # asset: "Immobilisation"
       # asset_depreciation: "Amortissement d’immobilisation"
       bank_statement: "بيان الحساب المصرفي"
+      # campaign: "Campagne"
       cash: "الخزينة"
       # cash_transfer: "Virement interne"
       company: "الشركة"
@@ -814,6 +826,7 @@ arb:
       listing_node_item: "عنصر غقدة الاستخراج"
       # log: "Évènements des produits"
       mandate: "التفويض"
+      # matter: "Matière"
       observation: "ملاحظة"
       operation: "العمل"
       operation_item: "الواردات/الصادرات" #?
@@ -897,6 +910,7 @@ arb:
     # allocation_account: "Compte de dotation"
     amount: "القيمة من دون الضرائب"
     amount_with_taxes: "القيمة مع كامل الضرائب" #?
+    # analytical_center_type: "Analytical center type"
     # animal_drugs: "Médicaments"
     # animals: "Animals"
     annotation: "ملاحظة"
@@ -1762,6 +1776,16 @@ arb:
     # work_number: "Numéro de travail"
     # zone: "Zone"
   enumerize:
+    activity:
+      analytical_center_type:
+        # ancillary: "Auxiliaire"
+        # main: "Principal"
+      family:
+        # animal: "Animale"
+        # perenne_vegetal: "Culture perenne"
+        # processing: "Transformation"
+        # service: "Service"
+        # vegetal: "Culture annuelle"
     animal: #?
     animal_treatment: #?
     asset:

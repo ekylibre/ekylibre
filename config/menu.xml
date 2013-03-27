@@ -343,6 +343,16 @@
   </menu>
   <menu name="production">
     <page to="backend/dashboards#production"/>
+    <menu name="activities">
+      <page to="backend/activities#index"/>
+      <page to="backend/activities#create"/>
+      <page to="backend/activities#destroy"/>
+      <page to="backend/activities#edit"/>
+      <page to="backend/activities#list"/>
+      <page to="backend/activities#new"/>
+      <page to="backend/activities#show"/>
+      <page to="backend/activities#update"/>
+    </menu>
     <menu name="operations">
       <page to="backend/operations#index"/>
       <page to="backend/operations#create"/>
@@ -821,6 +831,16 @@
     </menu>
     <menu name="production">
       <page to="backend/dashboards#settings_production"/>
+      <menu name="backend/campaigns">
+        <page to="backend/campaigns#index"/>
+        <page to="backend/campaigns#create"/>
+        <page to="backend/campaigns#destroy"/>
+        <page to="backend/campaigns#edit"/>
+        <page to="backend/campaigns#list"/>
+        <page to="backend/campaigns#new"/>
+        <page to="backend/campaigns#show"/>
+        <page to="backend/campaigns#update"/>
+      </menu>
       <menu name="production_chains">
         <page to="backend/production_chains#index"/>
         <page to="backend/production_chains#create"/>

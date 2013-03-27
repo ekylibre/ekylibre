@@ -20,6 +20,11 @@ arb:
       reconciliation: "كتابة حسابات"
       show: "الحساب : %{number} - %{name}"
       # unmark: "Délettrer un compte"
+    backend/activities:
+      # edit: "Modifier une activité\_: %{name}"
+      # index: "Activités"
+      # new: "Nouvelle activité"
+      # show: "%{name}"
     backend/animals:
       # edit: "Modifier l'animal\_: %{name}"
       # index: "Productions animales"
@@ -43,6 +48,11 @@ arb:
       new: "الاشارة لكشف حساب جديد"
       point: "رقم اعداد البيان%{number} من %{cash}"
       show: "رقم كشف الحساب%{number}"
+    backend/campaigns:
+      # edit: "Campagne\_: %{name}"
+      # index: "Campagnes"
+      # new: "Nouvelle campagne"
+      # show: "Campagne %{name}"
     backend/cash_transfers:
       # edit: "Modifier le virement interne\_: %{number}"
       # index: "Virements internes"
