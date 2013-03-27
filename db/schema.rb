@@ -58,6 +58,35 @@ ActiveRecord::Schema.define(:version => 20130314131032) do
   add_index "accounts", ["updated_at"], :name => "index_accounts_on_updated_at"
   add_index "accounts", ["updater_id"], :name => "index_accounts_on_updater_id"
 
+  create_table "activities", :force => true do |t|
+    t.string   "name",                                         :null => false
+    t.string   "description"
+    t.string   "nomen"
+    t.string   "family",                                       :null => false
+    t.string   "analytical_center_type",                       :null => false
+    t.boolean  "net_margin",                :default => false, :null => false
+    t.boolean  "closed",                    :default => false, :null => false
+    t.integer  "work_unit_id"
+    t.integer  "area_unit_id"
+    t.integer  "favored_product_nature_id"
+    t.integer  "parent_id"
+    t.datetime "created_at",                                   :null => false
+    t.datetime "updated_at",                                   :null => false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version",              :default => 0,     :null => false
+  end
+
+  add_index "activities", ["area_unit_id"], :name => "index_activities_on_area_unit_id"
+  add_index "activities", ["created_at"], :name => "index_activities_on_created_at"
+  add_index "activities", ["creator_id"], :name => "index_activities_on_creator_id"
+  add_index "activities", ["favored_product_nature_id"], :name => "index_activities_on_favored_product_nature_id"
+  add_index "activities", ["name"], :name => "index_activities_on_name"
+  add_index "activities", ["parent_id"], :name => "index_activities_on_parent_id"
+  add_index "activities", ["updated_at"], :name => "index_activities_on_updated_at"
+  add_index "activities", ["updater_id"], :name => "index_activities_on_updater_id"
+  add_index "activities", ["work_unit_id"], :name => "index_activities_on_work_unit_id"
+
   create_table "affairs", :force => true do |t|
     t.boolean  "closed",                                                       :default => false, :null => false
     t.datetime "closed_at"
@@ -191,6 +220,24 @@ ActiveRecord::Schema.define(:version => 20130314131032) do
   add_index "bank_statements", ["creator_id"], :name => "index_bank_account_statements_on_creator_id"
   add_index "bank_statements", ["updated_at"], :name => "index_bank_account_statements_on_updated_at"
   add_index "bank_statements", ["updater_id"], :name => "index_bank_account_statements_on_updater_id"
+
+  create_table "campaigns", :force => true do |t|
+    t.string   "name",                            :null => false
+    t.string   "description"
+    t.string   "nomen"
+    t.boolean  "closed",       :default => false, :null => false
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version", :default => 0,     :null => false
+  end
+
+  add_index "campaigns", ["created_at"], :name => "index_campaigns_on_created_at"
+  add_index "campaigns", ["creator_id"], :name => "index_campaigns_on_creator_id"
+  add_index "campaigns", ["name"], :name => "index_campaigns_on_name"
+  add_index "campaigns", ["updated_at"], :name => "index_campaigns_on_updated_at"
+  add_index "campaigns", ["updater_id"], :name => "index_campaigns_on_updater_id"
 
   create_table "cash_transfers", :force => true do |t|
     t.integer  "emitter_cash_id",                                                            :null => false
