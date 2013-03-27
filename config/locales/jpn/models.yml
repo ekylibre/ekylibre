@@ -9,6 +9,13 @@ jpn:
         # nomen: "Code analytique"
         # parent: "Activité parente"
         # work_unit: "Unité d'oeuvre"
+      analytic_repartition:
+        # activity: "Activité"
+        # affected_on: "Affecté le"
+        # campaign: "Campagne"
+        # journal_entry_item: "Ligne comptable concernée"
+        # product_nature: "Type de produit concerné"
+        # repartition_percentage: "Pourcentage d'affectation"
       animal:
         # born_at: "Date de naissance"
         # variety: "Race"
@@ -992,6 +999,7 @@ jpn:
     # relative_humidity: "Humidité relative"
     # remaining_duration: "Durée d’utilisation prévue (heures)"
     # remember_me: "Se souvenir de moi"
+    # repartitions: "Repartitions"
     # reproductor: "Reproducteur"
     # required: "Obligatoire"
     # reservoir: "Réservoir"
@@ -1160,8 +1168,10 @@ jpn:
       analytical_center_type:
         # ancillary: "Auxiliaire"
         # main: "Principal"
+        # none: "Aucun"
       family:
         # animal: "Animale"
+        # none: "Aucune"
         # perenne_vegetal: "Culture perenne"
         # processing: "Transformation"
         # service: "Service"
@@ -1671,6 +1681,7 @@ jpn:
         # km: "Kilomètre"
         # l: "Litre"
         # m: "Mètre"
+        # m2: "Mètre carré"
         # m3: "Mètre cube"
         # t: "Tonne"
         # u: "Unité"

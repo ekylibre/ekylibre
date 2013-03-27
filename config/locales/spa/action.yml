@@ -21,10 +21,15 @@ spa:
       show: "Compte : %{number} - %{name}"
       # unmark: "Délettrer un compte"
     backend/activities:
-      # edit: "Modifier une activité\_: %{name}"
+      # edit: "Modifier une activité\_: %{name} "
       # index: "Activités"
       # new: "Nouvelle activité"
       # show: "%{name}"
+    backend/analytic_repartitions:
+      # edit: "Modifier la répartion analytique\_: %{id} "
+      # index: "Répartitions analytiques"
+      # new: "Nouvelle répartition analytique"
+      # show: "Répartition %{id}"
     backend/animals:
       # edit: "Modifier l'animal\_: %{name}"
       # index: "Productions animales"
@@ -562,12 +567,15 @@ spa:
     # backend/account_balances: "Soldes de comptes"
     backend/accountancy: "Contabilidad" #?
     backend/accounts: "Plan de cuento"
+    # backend/activities: "Activités"
     # backend/affairs: "Affaires"
+    # backend/analytic_repartitions: "Répartitions analytiques"
     # backend/animals: "Animaux"
     backend/application: "Aplicación" #?
     # backend/areas: "Zones postales"
     # backend/assets: "Immobilisations"
     backend/bank_statements: "Levantar de cuntos bancarios"
+    # backend/campaigns: "Campagnes"
     # backend/cash_transfers: "Virements internes"
     backend/cashes: "Tresorerias"
     backend/company: "Compañía" #?
@@ -613,6 +621,7 @@ spa:
     # backend/logs: "Evenements des Animaux"
     backend/management: "Administración comercial" #?
     # backend/mandates: "Responsabilités"
+    # backend/matters: "Matières"
     # backend/myselves: "Mon compte"
     # backend/observations: "Observations"
     # backend/operations: "Travaux"
@@ -628,6 +637,7 @@ spa:
     # backend/product_moves: "Mouvements de stock"
     # backend/product_nature_categories: "Catégories de type de produits"
     # backend/product_nature_prices: "Prix par type de produits"
+    # backend/product_natures: "Types de produits"
     # backend/product_transfers: "Transferts et pertes de stocks"
     # backend/product_varieties: "Races"
     backend/production: "Producción" #?
@@ -742,6 +752,7 @@ spa:
     amount_to_add: "Sumas a añadir, exprimadas en euros, y tambien con cantidad a cuenta vacaciones"
     amount_to_reduce: "Sumas a imputar, exprimadas en euros, y tambien con cantidad a cuenta vacaciones"
     amount_with_taxes: "Total de la entrega TTC"
+    # analytics: "Activités"
     # animal: "Animal"
     # animal_bar: "Animaux par lot"
     animal_group_tabbox:
@@ -1805,17 +1816,22 @@ spa:
     # use_entity_codes_for_account_numbers: "Utiliser le code personne pour composer les numéros de compte"
     # various_journal: "Journal des opérations diverses par défaut"
   unroll:
-    animal_events: #?
-    animal_prescriptions: #?
-    animals: #?
     backend/accounts:
       # all: "{number}. {name}"
+    backend/activities:
+      # all: "{name} - {nomen} - {family} - {analytical_center_type}"
+    backend/analytic_repartitions:
+      # all: "{id}"
     backend/animals:
       # all: "{name} - {work_number}"
+    backend/campaigns:
+      # all: "{name}"
     backend/entity_links:
       # all: "{started_at}"
     backend/events:
       # all: "{reason}"
+    backend/journal_entry_items:
+      # all: "{name}"
     backend/logs:
       # all: "{observed_at}"
     backend/matters:

@@ -40,14 +40,14 @@
 #
 class Activity < Ekylibre::Record::Base
   attr_accessible :closed, :net_margin, :favored_product_nature_id, :area_unit_id, :work_unit_id, :analytical_center_type, :description, :family, :nomen, :name, :parent_id
-  enumerize :analytical_center_type, :in => [:main, :ancillary], :default=> :main
-  enumerize :family, :in => [:vegetal, :perenne_vegetal, :animal, :processing, :service]
+  enumerize :analytical_center_type, :in => [:main, :ancillary, :none], :default=> :main
+  enumerize :family, :in => [:vegetal, :perenne_vegetal, :animal, :processing, :service, :none]
 
   belongs_to :area_unit, :class_name => "Unit"
   belongs_to :work_unit, :class_name => "Unit"
   belongs_to :parent, :class_name => "Activity"
   belongs_to :favored_product_nature, :class_name => "ProductNature"
-
+  has_many :repartitions, :class_name => "AnalyticRepartition", :foreign_key => :activity_id
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :analytical_center_type, :description, :family, :name, :nomen, :allow_nil => true, :maximum => 255
@@ -55,6 +55,6 @@ class Activity < Ekylibre::Record::Base
   validates_presence_of :analytical_center_type, :family, :name
   #]VALIDATORS]
 
-  default_scope -> { order(:name) }
+  default_scope -> { where(:closed => false).order(:name) }
 
 end

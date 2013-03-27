@@ -21,10 +21,15 @@ arb:
       show: "الحساب : %{number} - %{name}"
       # unmark: "Délettrer un compte"
     backend/activities:
-      # edit: "Modifier une activité\_: %{name}"
+      # edit: "Modifier une activité\_: %{name} "
       # index: "Activités"
       # new: "Nouvelle activité"
       # show: "%{name}"
+    backend/analytic_repartitions:
+      # edit: "Modifier la répartion analytique\_: %{id} "
+      # index: "Répartitions analytiques"
+      # new: "Nouvelle répartition analytique"
+      # show: "Répartition %{id}"
     backend/animals:
       # edit: "Modifier l'animal\_: %{name}"
       # index: "Productions animales"
@@ -614,13 +619,16 @@ arb:
     # backend/account_balances: "Soldes de comptes"
     backend/accountancy: "المحاسبة" #?
     backend/accounts: "مخطط الحساب"
+    # backend/activities: "Activités"
     # backend/affairs: "Affaires"
+    # backend/analytic_repartitions: "Répartitions analytiques"
     # backend/animals: "Animaux"
     backend/application: "تطبيق" #?
     backend/areas: "العناوين البريد"
     # backend/assets: "Immobilisations"
     backend/authentication: "المصادقة" #?
     backend/bank_statements: "بيان الحساب المصرفي"
+    # backend/campaigns: "Campagnes"
     # backend/cash_transfers: "Virements internes"
     backend/cashes: "الخزينة"
     backend/company: "شركة" #?
@@ -667,6 +675,7 @@ arb:
     # backend/logs: "Evenements des Animaux"
     backend/management: "الادارة" #?
     backend/mandates: "تفويضات"
+    # backend/matters: "Matières"
     # backend/myselves: "Mon compte"
     # backend/observations: "Observations"
     backend/operation_natures: "اواع العمل" #?
@@ -686,7 +695,7 @@ arb:
     backend/product_nature: "المنتجات" #?
     backend/product_nature_categories: "فئات المنتج"
     # backend/product_nature_prices: "Prix par type de produits"
-    backend/product_natures: "المنتجات" #?
+    backend/product_natures: "المنتجات"
     backend/product_stocks: "وضع الاسهم" #?
     backend/product_transfers: "عمليات نقل وخسارة الاسهم"
     # backend/product_varieties: "Races"
@@ -806,6 +815,7 @@ arb:
     amount_to_add: "جمع واضافة القيمة باليورو، بما في ذلك ايام العطل"
     amount_to_reduce: "جمع القيمة ونسبها الى اليورو، بما في ذلك ايام العطل"
     amount_with_taxes: "مجموع قيمة التسليم مع كامل الضرائب"
+    # analytics: "Activités"
     # animal: "Animal"
     # animal_bar: "Animaux par lot"
     animal_group_tabbox:
@@ -1994,17 +2004,22 @@ arb:
     # use_entity_codes_for_account_numbers: "Utiliser le code personne pour composer les numéros de compte"
     # various_journal: "Journal des opérations diverses par défaut"
   unroll:
-    animal_events: #?
-    animal_prescriptions: #?
-    animals: #?
     backend/accounts:
       # all: "{number}. {name}"
+    backend/activities:
+      # all: "{name} - {nomen} - {family} - {analytical_center_type}"
+    backend/analytic_repartitions:
+      # all: "{id}"
     backend/animals:
       # all: "{name} - {work_number}"
+    backend/campaigns:
+      # all: "{name}"
     backend/entity_links:
       # all: "{started_at}"
     backend/events:
       # all: "{reason}"
+    backend/journal_entry_items:
+      # all: "{name}"
     backend/logs:
       # all: "{observed_at}"
     backend/matters:

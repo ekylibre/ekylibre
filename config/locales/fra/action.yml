@@ -14,10 +14,15 @@ fra:
       show: "Compte\_: %{number} - %{name}"
       unmark: "Délettrer un compte"
     backend/activities:
-      edit: "Modifier une activité\_: %{name}"
+      edit: "Modifier une activité\_: %{name} "
       index: "Activités"
       new: "Nouvelle activité"
       show: "%{name}"
+    backend/analytic_repartitions:
+      edit: "Modifier la répartion analytique\_: %{id} "
+      index: "Répartitions analytiques"
+      new: "Nouvelle répartition analytique"
+      show: "Répartition %{id}"
     backend/animals:
       edit: "Modifier l'animal\_: %{name}"
       index: "Productions animales"
@@ -537,13 +542,14 @@ fra:
     authentication/sessions: "Sessions"
     backend/account_balances: "Soldes de comptes"
     backend/accounts: "Plan de comptes"
-    # backend/activities: "Backend/activities"
+    backend/activities: "Activités"
     backend/affairs: "Affaires"
+    backend/analytic_repartitions: "Répartitions analytiques"
     backend/animals: "Animaux"
     backend/areas: "Zones postales"
     backend/assets: "Immobilisations"
     backend/bank_statements: "Relevés de compte bancaire"
-    # backend/campaigns: "Backend/campaigns"
+    backend/campaigns: "Campagnes"
     backend/cash_transfers: "Virements internes"
     backend/cashes: "Trésoreries"
     # backend/cells/demo_bar_cells: "Backend/cells/demo bar cells"
@@ -594,7 +600,7 @@ fra:
     backend/listings: "Exportations et mailings"
     backend/logs: "Evenements des Animaux"
     backend/mandates: "Responsabilités"
-    # backend/matters: "Backend/matters"
+    backend/matters: "Matières"
     backend/myselves: "Mon compte"
     backend/observations: "Observations"
     # backend/operation_natures: "Backend/operation natures"
@@ -620,7 +626,7 @@ fra:
     backend/product_moves: "Mouvements de stock"
     backend/product_nature_categories: "Catégories de type de produits"
     backend/product_nature_prices: "Prix par type de produits"
-    # backend/product_natures: "Backend/product natures"
+    backend/product_natures: "Types de produits"
     # backend/product_process_phases: "Backend/product process phases"
     # backend/product_processes: "Backend/product processes"
     backend/product_transfers: "Transferts et pertes de stocks"
@@ -737,6 +743,7 @@ fra:
     amount_to_add: "Sommes à ajouter, exprimées en euros, y compris acompte congés"
     amount_to_reduce: "Sommes à imputer, exprimées en euros, y compris acompte congés"
     amount_with_taxes: "Montant TTC"
+    analytics: "Activités"
     animal: "Animal"
     animal_bar: "Animaux par lot"
     animal_group_tabbox:
@@ -1751,12 +1758,20 @@ fra:
   unroll:
     backend/accounts:
       all: "{number}. {name}"
+    backend/activities:
+      all: "{name} - {nomen} - {family} - {analytical_center_type}"
+    backend/analytic_repartitions:
+      all: "{id}"
     backend/animals:
       all: "{name} - {work_number}"
+    backend/campaigns:
+      all: "{name}"
     backend/entity_links:
       all: "{started_at}"
     backend/events:
       all: "{reason}"
+    backend/journal_entry_items:
+      all: "{name}"
     backend/logs:
       all: "{observed_at}"
     backend/matters:

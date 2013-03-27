@@ -100,6 +100,13 @@ Ekylibre::Application.routes.draw do
       end
     end
 
+    resources :analytic_repartitions do
+      collection do
+        get :list
+        unroll_all
+      end
+    end
+
     resources :animals do
       collection do
         get :list
@@ -390,7 +397,11 @@ Ekylibre::Application.routes.draw do
         get :list_items
       end
     end
-    resources :journal_entry_items, :only => [:new, :create]
+    resources :journal_entry_items, :only => [:new, :create] do
+      collection do
+        unroll_all
+      end
+    end
     resources :land_parcels do
       collection do
         get :list

@@ -33,9 +33,15 @@
 #
 class Campaign < Ekylibre::Record::Base
   attr_accessible :description, :name, :nomen, :closed
+
+  has_many :repartitions, :class_name => "AnalyticRepartition", :foreign_key => :campaign_id
+
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :description, :name, :nomen, :allow_nil => true, :maximum => 255
   validates_inclusion_of :closed, :in => [true, false]
   validates_presence_of :name
   #]VALIDATORS]
+
+  default_scope -> { where(:closed => false).order(:name) }
+
 end
