@@ -39,6 +39,8 @@
 class Unit < Ekylibre::Record::Base
   attr_accessible :base, :coefficient, :label, :name, :start
   has_many :products, :class_name => "Product"
+  has_many :area_activities, :class_name => "Activity", :foreign_key => :area_unit_id
+  has_many :unit_activities, :class_name => "Activity", :foreign_key => :work_unit_id
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :coefficient, :start, :allow_nil => true
   validates_length_of :name, :allow_nil => true, :maximum => 8

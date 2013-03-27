@@ -1997,6 +1997,8 @@ arb:
     animal_events: #?
     animal_prescriptions: #?
     animals: #?
+    backend/activities:
+      # all: "{name} - {nomen} - {family} - {analytical_center_type}"
     backend/animals:
       # all: "{name} - {work_number}"
     backend/entity_links:

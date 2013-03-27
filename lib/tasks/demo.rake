@@ -8,7 +8,7 @@ namespace :db do
     STDOUT.sync = true
     puts "Started: "
     ActiveRecord::Base.transaction do
-
+#############################################################################
       # Import accountancy
       file = Rails.root.join("test", "fixtures", "files", "general_ledger-istea.txt")
       picture_undefined = Rails.root.join("test", "fixtures", "files", "portrait-undefined.png")
@@ -49,9 +49,9 @@ namespace :db do
       }
 
       fy = FinancialYear.first
-      fy.started_on = Date.civil(2000, 1, 1)
-      fy.stopped_on = Date.civil(2000, 12, 31)
-      fy.code = "EX2000"
+      fy.started_on = Date.civil(2007, 1, 1)
+      fy.stopped_on = Date.civil(2007, 12, 31)
+      fy.code = "EX2007"
       fy.save!
       en_org = EntityNature.where(:gender => "undefined").first
 
@@ -114,7 +114,7 @@ namespace :db do
       Entity.find_each do |entity|
         entity.addresses.create!(mails.sample.merge(:canal => :mail))
       end
-
+#############################################################################
       # Import synel
       h = ProductVariety.find_by_code("cattle")
       p = ProductVariety.find_by_code("animal")
@@ -190,7 +190,7 @@ namespace :db do
         animal.mother = Animal.mothers.where("born_at <= ?", (animal.born_at - 36.months)).to_a.sample rescue nil
         animal.save!
       end
-
+#############################################################################
       # Import shapefile
       v = ProductVariety.find_by_code("land_parcel")
       p = ProductVariety.find_by_code("place")
@@ -212,7 +212,7 @@ namespace :db do
       end
 
       #
-      #
+#############################################################################
       #
       # Create variety for wheat product
       entitycat = EntityCategory.find_by_code("PARDEFAU")
@@ -230,7 +230,7 @@ namespace :db do
       taxe_prix_nature_ble = Tax.find_by_amount('5.5000')
       # Create product_nature_price for wheat product
       prix_nature_ble = ProductNaturePrice.find_by_product_nature_id(nature_ble.id)
-      prix_nature_ble ||= ProductNaturePrice.create!(:amount => "211.0000", :currency => "EUR", :pretax_amount => "200.0000", :product_nature_id => nature_ble.id, :tax_id => taxe_prix_nature_ble.id, :category_id => entitycat.id, :supplier_id => Entity.of_company.id )
+      prix_nature_ble ||= ProductNaturePrice.create!(:amount => '211.0000', :currency => "EUR", :pretax_amount => '200.0000', :product_nature_id => nature_ble.id, :tax_id => taxe_prix_nature_ble.id, :category_id => entitycat.id, :supplier_id => Entity.of_company.id )
       # Create wheat product
       ble = Vegetal.find_by_work_number("BLE_001")
       ble = Vegetal.create!(:name => "Blé Cap Horn 2011", :variety_id => c.id, :unit_id => unit_v.id, :identification_number => "BLE_2011_07142011", :work_number => "BLE_2011", :born_at => "2011-07-14", :nature_id => nature_ble.id, :owner_id => Entity.of_company.id, :number => "BLE_2011") #
@@ -243,9 +243,9 @@ namespace :db do
       # sale_item
       sale_item1 = SaleItem.create!(:quantity => '5.0000', :tax_id => taxe_prix_nature_ble.id, :unit_id => unit_v.id, :price_id => prix_nature_ble.id, :product_id => ble.id, :sale_id => sale.id)
       sale_item2 = SaleItem.create!(:quantity => '15.0000', :tax_id => taxe_prix_nature_ble.id, :unit_id => unit_v.id, :price_id => prix_nature_ble.id, :product_id => ble.id, :sale_id => sale.id)
-
+#############################################################################
       # import Coop Order to make automatic purchase
-      # @ To finish with two level (purchases and purchases_lines)
+      # @TODO finish with two level (purchases and purchases_lines)
       #
       # set the coop
       coop = Entity.find_by_full_name("Kazeni")
@@ -298,8 +298,41 @@ namespace :db do
 
         print "o"
       end
-
-
+#############################################################################
+      # import some base activities from CSV
+      #
+      # attributes to map famille_name
+      family_name = {
+        "CEREA" => :vegetal,
+        "COPLI" => :vegetal,
+        "CUFOU" => :vegetal,
+        "ANIMX" => :animal,
+        "XXXXX" => :none,
+        "NINCO" => :none
+      }
+      # attributes to map type_act
+      center_type = {
+        "PRINC" => :main,
+        "AUX" => :ancillary,
+        "" => :none
+      }
+      # load file
+      file = Rails.root.join("test", "fixtures", "files", "activities_ref_demo.csv")
+      CSV.foreach(file, :encoding => "UTF-8", :col_sep => ",", :headers => false, :quote_char => "'") do |row|
+         r = OpenStruct.new(:code_act => row[0],
+                           :libelle_act => row[1].downcase.capitalize,
+                           :famille_name => (family_name[row[2]] || :none),
+                           :unite_surf => Unit.find_by_name("ha"),
+                           :unite_oeuvre => Unit.find_by_name("u"),
+                           :product_item_name => row[5],
+                           :type_act => (center_type[row[6]] || :none)
+                           )
+       # create an activity if not exist
+        activity_line = Activity.find_by_nomen(r.code_act)
+        activity_line ||= Activity.create!(:analytical_center_type => r.type_act, :description => "Import from reference",:family => r.famille_name, :name => r.libelle_act, :nomen => r.code_act, :work_unit_id => r.unite_oeuvre.id, :area_unit_id => r.unite_surf.id )
+        print "a"
+      end
+#############################################################################
       # import Bank Cash from CRCA
       #
       # TODO : Retrieve data and put it into bank_statement

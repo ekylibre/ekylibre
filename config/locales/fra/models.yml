@@ -431,6 +431,7 @@ fra:
     animals: "Animals" #?
     annotation: "Annotation"
     area: "Zone postale"
+    # area_activities: "Area activities"
     area_measure: "Superficie"
     area_unit: "Unité de surface"
     areas: "Zones postales"
@@ -1171,6 +1172,7 @@ fra:
     undelivered_quantity: "Reste à livrer"
     unique_tracking: "Numéro unique"
     unit: "Unité"
+    # unit_activities: "Unit activities"
     unit_quantity: "Quantité par unité de surface" #?
     units: "Unités"
     # unlock_token: "Unlock token"
@@ -1221,8 +1223,10 @@ fra:
       analytical_center_type:
         ancillary: "Auxiliaire"
         main: "Principal"
+        none: "Aucun"
       family:
         animal: "Animale"
+        none: "Aucune"
         perenne_vegetal: "Culture perenne"
         processing: "Transformation"
         service: "Service"

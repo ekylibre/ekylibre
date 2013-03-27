@@ -1306,8 +1306,10 @@ eng:
       analytical_center_type:
         # ancillary: "Auxiliaire"
         # main: "Principal"
+        # none: "Aucun"
       family:
         # animal: "Animale"
+        # none: "Aucune"
         # perenne_vegetal: "Culture perenne"
         # processing: "Transformation"
         # service: "Service"
