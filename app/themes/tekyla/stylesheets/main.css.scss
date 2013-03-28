@@ -129,6 +129,10 @@ html.authentication {
               max-width: 100%;
             }
           }
+          form {
+    	    max-width: 300px;
+            margin: $fs-large auto;
+          }
           h2 {
             font-size: $fs-large;
             line-height: round(1.6*$fs-large);
@@ -140,9 +144,13 @@ html.authentication {
           }
           input {
             display: inline;
+            width: 100%;
+              @include box-sizing(border-box);
+              height: 2 * $fs-normal;
             &[type="submit"] {
-	      display: block;
+              text-align: center;
               margin: 10px auto;
+	      display: block;
             }
           }
         }
