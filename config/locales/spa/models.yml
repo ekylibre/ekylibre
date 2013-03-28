@@ -38,12 +38,8 @@ spa:
       entity:
         # active: "Active"
         # origin: "Lieu de la première rencontre"
-      entity_event:
-        # duration: "Durée (en minutes)"
-        # location: "Lieu"
-        # responsible: "Intervenant"
-      entity_event_nature:
-        # duration: "Durée par défaut (en min.)"
+      entity_event: #?
+      entity_event_nature: #?
       equipment:
         # born_at: "Date de mise en service"
         # content_maximal_quantity: "Capacité maximale"
@@ -94,11 +90,8 @@ spa:
         # payments: "Décaissements"
       outgoing_payment_use: #?
       price: #?
-      product:
-        # race: "Race"
-      product_category:
-        # children: "Sous-catégories"
-        # published: "Publiée"
+      product: #?
+      product_category: #?
       product_localization:
         # arrival_cause: "Cause d'entrée"
         # container: "Contenant"
@@ -124,55 +117,48 @@ spa:
         # children: "Sous-catégories"
         # published: "Publiée"
       product_nature_price:
+        # amount: "Montant TTC"
         # category: "Catégorie de fiche associée"
         # entity: "Fournisseur"
-      product_specy:
-        # code: "Code race"
-      product_stock:
-        # quantity: "Stock réel"
-      product_stock_move:
-        # origin: "Origine"
+      product_specy: #?
+      product_stock: #?
+      product_stock_move: #?
       product_transfer:
         # second_warehouse: "Lieu de stockage d’arrivée"
         # warehouse: "Lieu de stockage de départ"
       product_variety:
         # code: "Code race"
-      products_nature:
-        # duration: "Nombre de numéros OU période d’abonnement"
-        # price: "Prix de revient"
+      products_nature: #?
       profession:
         # employees: "Employés"
       purchase:
+        # amount: "Montant TTC"
         # items: "Lignes d’achat"
         # label: "Commande"
         # moved_on: "Reçu le"
         # planned_on: "Réception prévue le"
-      purchase_item: #?
+      purchase_item:
+        # amount: "Montant TTC"
       purchase_line: #?
       sale:
+        # amount: "Montant TTC"
         # contact: "Adresse pour le devis"
         # has_downpayment: "Acompte à verser"
         # items: "Lignes de vente"
         # parts_amount: "Montant payé"
         # payments: "Encaissements"
       sale_item:
+        # amount: "Montant TTC"
         # label: "Produit"
         # price: "Produit tarifé"
       sale_line: #?
       sale_nature:
         # downpayment: "Avec acompte"
-      sales_invoice:
-        # credit: "Avoir"
-        # items: "Lignes de facture"
-        # origin: "Facture d’origine"
+      sales_invoice: #?
       sales_invoice_line: #?
-      stock:
-        # quantity: "Stock réel"
-      stock_move:
-        # origin: "Origine"
-      stock_transfer:
-        # second_warehouse: "Lieu de stockage d’arrivée"
-        # warehouse: "Lieu de stockage de départ"
+      stock: #?
+      stock_move: #?
+      stock_transfer: #?
       subscription:
         # entity: "Abonné"
       tax:
@@ -187,7 +173,6 @@ spa:
         # active: "Utilisé"
       transfer:
         # amount: "Montant"
-        # parts_amount: "Montant payé"
       unit:
         # start: "Valeur à l’origine"
       user:

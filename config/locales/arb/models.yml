@@ -173,18 +173,18 @@ arb:
         usable_incoming_payments: "الدفعات المستخدمة" #?
       entity_category:  #?
         description: "مواصفات" #?
-      entity_event:
+      entity_event:  #?
         created_at: "تم انشائها في" #?
-        duration: "(المدة (بالدقائق"
-        location: "الموقع"
+        duration: "(المدة (بالدقائق" #?
+        location: "الموقع" #?
         nature: "النوع" #?
         nature_id: "النوع" #?
-        responsible: "المتحدث"
+        responsible: "المتحدث" #?
         responsible_id: "المتحدث" #?
         started_at: "التاريخ والوقت" #?
         updater_id: "تحديث" #?
-      entity_event_nature:
-        duration: "(المدة الافتراضية (بالدقائق"
+      entity_event_nature:  #?
+        duration: "(المدة الافتراضية (بالدقائق" #?
         updated_at: "تم تحديثها في" #?
       entity_link:  #?
         created_at: "تم انشائها في" #?
@@ -357,24 +357,23 @@ arb:
         product_id: "الانتاج" #?
         sales_invoice_items: "طرق تسدسد الفاتورة" #?
         started_at: "ابتدأ يوم\_" #?
-      product:
+      product:  #?
         active: "قبل للاستخدام" #?
         comment: "تعليق" #?
         duration: "عدد ارقام او مدة الاشتراك" #?
         ean13: "EAN13 الرمز" #?
         published: "نشر" #?
-        # race: "Race"
         stock_moves: "حركات السهم" #?
         stocks: "اسهم المنتجات" #?
         unit: "وحدة القياس" #?
         unit_id: "وحدة قياس" #?
         warehouses: "اماكن التخزين" #?
         weight: "(الوزن(كغ" #?
-      product_category:
+      product_category:  #?
         catalog_description: "الوصف" #?
-        children: "دلائل فرعية"
+        children: "دلائل فرعية" #?
         creator_id: "المننتج" #?
-        published: "تم نشرها"
+        published: "تم نشرها" #?
         shelves: "فئات الانتاج" #?
       product_component:  #?
         comment: "تعليق" #?
@@ -430,6 +429,7 @@ arb:
         warehouse: "مكان التخزين" #?
         warehouse_id: "مكان التخزين" #?
       product_nature_price:
+        # amount: "Montant TTC"
         category: "فئة الملف المساعد"
         category_id: "فئة الملف المساعد" #?
         company_id: "الشركة" #?
@@ -438,16 +438,14 @@ arb:
         product_id: "الانتاج" #?
         sales_invoice_items: "طرق تسدسد الفاتورة" #?
         started_at: "ابتدأ يوم\_" #?
-      product_specy:
-        # code: "Code race"
-      product_stock:
+      product_specy: #?
+      product_stock:  #?
         critic_quantity_min: "الكمية المنتقدة كحد ادنى" #?
         product: "المنتج" #?
         product_id: "منتج" #?
-        quantity: "الاسهم الواقعية"
+        quantity: "الاسهم الواقعية" #?
         tracking_id: "حصة" #?
-      product_stock_move:
-        # origin: "Origine"
+      product_stock_move:  #?
         origin_id: "منشأ" #?
         product: "المنتج" #?
         second_warehouse_id: "موقع تخزين الحركة الثانية" #?
@@ -462,12 +460,11 @@ arb:
         warehouse_id: "موقع تخزين المغادرة" #?
       product_variety:
         # code: "Code race"
-      products_nature:
+      products_nature:  #?
         active: "قبل للاستخدام" #?
         comment: "تعليق" #?
-        duration: "عدد ارقام او مدة الاشتراك"
+        duration: "عدد ارقام او مدة الاشتراك" #?
         ean13: "EAN13 الرمز" #?
-        # price: "Prix de revient"
         published: "نشر" #?
         stock_moves: "حركات السهم" #?
         stocks: "اسهم المنتجات" #?
@@ -478,6 +475,7 @@ arb:
       profession:
         # employees: "Employés"
       purchase:
+        # amount: "Montant TTC"
         amount_with_taxes: "القيمة مع كل الضرائب" #?
         comment: "تعليق" #?
         created_on: "انشأت يوم" #?
@@ -489,9 +487,10 @@ arb:
         number: "رقم" #?
         planned_on: "مقرر الاستقبال يوم"
         received: "المستلم" #?
-      purchase_item:  #?
+      purchase_item:
         account: "حساب الرسوم المستخدمة" #?
         account_id: "حساب الرسوم المستخدمة" #?
+        # amount: "Montant TTC"
         annotation: "الملاحظة" #?
         order: "طلب الشراء" #?
         price: "سعر الوحدة" #?
@@ -503,7 +502,7 @@ arb:
         created_at: "انشأ في" #?
       sale:
         accounted_at: "تمت محاسبته في" #?
-        amount: "القيمة من دون تاضرائب" #?
+        amount: "القيمة من دون تاضرائب"
         client_id: "عميل" #?
         contact: "عنوان للاقتياس"
         contact_id: "عنوان للاقتباس" #?
@@ -520,6 +519,7 @@ arb:
         transporter_id: "ناقلة" #?
         updated_at: "تم تحديثها في" #?
       sale_item:
+        # amount: "Montant TTC"
         annotation: "الملاحظة" #?
         created_at: "انشأ في" #?
         label: "الانتاج"
@@ -535,14 +535,12 @@ arb:
         created_at: "انشأ في" #?
         downpayment: "مع القسط"
         payment_mode: "نمط الدفعة" #?
-      sales_invoice:
+      sales_invoice:  #?
         accounted_at: "تمت محاسبتها يوم" #?
-        # credit: "Avoir"
         currency: "العملة" #?
         downpayment_amount: "قيمة العربون" #?
-        # items: "Lignes de facture"
         nature: "طبيعي" #?
-        origin: "الفاتورة الاصلية"
+        origin: "الفاتورة الاصلية" #?
         origin_id: "الفاتورة الاصلية" #?
         payment_delay: "تأجيل تسديد الدفعة" #?
         payment_delay_id: "تأجيل تسديد الدفعة " #?
@@ -562,25 +560,23 @@ arb:
       sequence:  #?
         company_id: "الشركة" #?
         period: "تواتري" #?
-      stock:
+      stock:  #?
         critic_quantity_min: "الكمية المنتقدة كحد ادنى" #?
         product: "المنتج" #?
         product_id: "منتج" #?
-        quantity: "الاسهم الواقعية"
+        quantity: "الاسهم الواقعية" #?
         tracking_id: "حصة" #?
-      stock_move:
-        # origin: "Origine"
+      stock_move:  #?
         origin_id: "منشأ" #?
         product: "المنتج" #?
         second_warehouse_id: "موقع تخزين الحركة الثانية" #?
         tracking_id: "حصة" #?
-      stock_transfer:
+      stock_transfer:  #?
         created_at: "انشأ في" #?
         creator_id: "منتج" #?
         nature: "النوع" #?
         product: "المنتج" #?
-        # second_warehouse: "Lieu de stockage d’arrivée"
-        warehouse: "موقع تخزين المغادرة"
+        warehouse: "موقع تخزين المغادرة" #?
         warehouse_id: "موقع تخزين المغادرة" #?
       subscription:
         company_id: "الشركة" #?
@@ -622,7 +618,7 @@ arb:
       transfer:
         amount: "القيمة"
         created_at: "انشأ في" #?
-        parts_amount: "القيمة المسددة"
+        parts_amount: "القيمة المسددة" #?
         payment_uses: "اجزاء الدفعة" #?
         started_on: "ايتدأ يوم" #?
         updated_at: "تم تحديثه" #?

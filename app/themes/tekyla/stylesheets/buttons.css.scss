@@ -31,7 +31,7 @@
   @include inline-block;
   @include transition-duration(0.15s);
   &, & > .text {
-    vertical-align: middle;
+    vertical-align: top !important;
   }
   & > .text, & > .icon, & > i {
     margin: 0 2px;

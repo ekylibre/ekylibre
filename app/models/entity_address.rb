@@ -72,7 +72,7 @@ class EntityAddress < Ekylibre::Record::Base
   validates_inclusion_of :canal, :in => self.canal.values
 
   # Use unscoped to get all historic
-  default_scope -> { where("deleted_at IS NULL") }
+  default_scope -> { where("deleted_at IS NULL").order(:coordinate) }
 
   # Defines test and scope methods for all canals
   self.canal.values.each do |canal|

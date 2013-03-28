@@ -49,6 +49,9 @@ textarea {
   @include box-shadow(0 0 $fs-normal rgba(#000, 0.4));
 }
 
+$header-height: 40px;
+
+
 html.backend {
   background: #F7F7F7;
   height: 100%;
@@ -61,14 +64,23 @@ html.backend {
       & > #main {
         overflow: auto;
         #header {
-          margin: 0 $default-gap $default-gap;
+          padding: 0;
+          margin: 0;
+          height: $header-height;
+          background: #EEE;
           h1 {
+            padding: $default-gap;
+            $h1-height: $header-height - 2* $default-gap;
             @include ellipsis;
-            &, & * {
-              font-weight: bold;
-              font-size: $fs-huge;
-              line-height: round(1.4 * $fs-huge);
-	      vertical-align: middle;
+            font-weight: bold;
+            line-height: $h1-height;
+            height: $h1-height;
+            font-size: round($h1-height / 1.2);
+            vertical-align: middle;
+            * {
+              font-size: inherit;
+              line-height: inherit;
+              vertical-align: inherit;
             }
           }
         }
@@ -77,27 +89,51 @@ html.backend {
         height: 100%;
         @include background(rgba(black, 0.05));
       }
+
+      @media screen and (max-width: 768px){
+        & > #side {
+	  display: none;
+	}
+        & > #main {
+	  width: 100%;
+	}
+      }
+
       $side-width: 200px;
-      @media screen and (min-width: 768px){
+      @media screen and (min-width: 769px){
         // @include grid-row();
         @include calc(height, "100% - 32px");
         max-width: 100%;
         & > #side {
          //@include grid-column(2, $float: left, $collapse: true);
-          width: $side-width;
+          border-right: 1px solid #EEE;
+          width: $side-width - 1px;
           height: 100%;
-          float: left;
+          @include float(left);
         }
         & > #main {
           //@include grid-column(10, $float: left, $collapse: true);
+          @include float(left);
           @include calc(width, "100% - #{$side-width}");
           height: 100%;
-          float: left;
+          #content {
+            @include calc(height, "100% - #{$header-height}");
+            overflow: auto;
+          }
         }
       }
     }
 
   }
+  @media screen and (min-width: 768px){
+    &[dir="ltr"] {
+      & > body > #wrap > * { float: left }
+    }
+    &[dir="rtl"] {
+      & > body > #wrap > * { float: right }
+    }
+  }
+
 }
 
 html.authentication {
@@ -159,15 +195,16 @@ html.authentication {
   }
 }
 
-	  #main-toolbar {
-            @include button-group();
-	    @include float(right);
-            margin-top: $default-gap;
-            .btn {
-              .icon { margin: 0; }
-	      .text { display: none; }
-	    }
-	  }
+#main-toolbar {
+  @include button-group();
+  @include float(right);
+  margin-top: $default-gap;
+  @include margin-right($default-gap);
+  .btn {
+    .icon { margin: 0; }
+    .text { display: none; }
+  }
+}
 
 #about-us {
   .logo {
@@ -227,11 +264,12 @@ ul.side-menu {
   li {
     display:block;
     margin-top: -1 * $menu-border-width;
-    $padding: round($fs-normal*0.7) (round($fs-normal*1)+16px)  round($fs-normal*0.7) round($fs-normal*0.7);
+    $padding: round($fs-normal*0.7);
     a {
         background: white;
         display:block;
         padding: $padding;
+        @include padding-right(round($fs-normal*1)+16px);
         border: $menu-border;
         @include ellipsis;
         i {
@@ -983,14 +1021,15 @@ input[data-date], input[data-datepicker] {
   z-index: 4;
   @include incrust-shadow;
   .items-list {
+    $item-padding: round($default-gap / 2);
     $height: $fs-normal * 1.2;
-    max-height: ($height + 2 * $default-gap) * 12;
+    max-height: ($height + 2 * $item-padding) * 12;
     min-width: 350px;
     overflow-y: auto;
     li {
       height: $height;
       line-height: $height;
-      padding: $default-gap;
+      padding: $item-padding;
       @include ellipsis;
       *, & * { vertical-align: baseline; }
       strong { font-weight: bold }

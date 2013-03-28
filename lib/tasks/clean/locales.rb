@@ -75,7 +75,7 @@ task :locales => :environment do
   translation << "  notifications:\n"
   notifications = ::I18n.t("notifications")
   deleted_notifs = ::I18n.t("notifications").keys
-  for controller in Dir[Rails.root.join("app", "controllers", "*.rb")]
+  for controller in Dir[Rails.root.join("app", "controllers", "**", "*.rb")]
     File.open(controller, "rb").each_line do |line|
       if line.match(/([\s\W]+|^)notify(_error|_warning|_success)?(_now)?\(\s*\:\w+/)
         key = line.split(/notify\w*\(\s*\:/)[1].split(/\W/)[0]
@@ -110,7 +110,7 @@ task :locales => :environment do
     file.write(translation)
   end
   total = to_translate
-  log.write "  - #{'action.yml:'.ljust(16)} #{(100*(total-untranslated)/total).round.to_s.rjust(3)}% (#{total-untranslated}/#{total}) #{warnings.to_sentence}\n"
+  log.write "  - #{'action.yml:'.ljust(20)} #{(100*(total-untranslated)/total).round.to_s.rjust(3)}% (#{total-untranslated}/#{total}) #{warnings.to_sentence}\n"
   atotal += to_translate
   acount += total-untranslated
 
@@ -153,7 +153,7 @@ task :locales => :environment do
     file.write translation
   end
   total = to_translate
-  log.write "  - #{'currencies.yml:'.ljust(16)} #{(100*(total-untranslated)/total).round.to_s.rjust(3)}% (#{total-untranslated}/#{total})\n"
+  log.write "  - #{'currencies.yml:'.ljust(20)} #{(100*(total-untranslated)/total).round.to_s.rjust(3)}% (#{total-untranslated}/#{total})\n"
   atotal += total
   acount += total-untranslated
 
@@ -247,7 +247,7 @@ task :locales => :environment do
     file.write(translation)
   end
   total = to_translate
-  log.write "  - #{'models.yml:'.ljust(16)} #{(100*(total-untranslated)/total).round.to_s.rjust(3)}% (#{total-untranslated}/#{total}) #{warnings.to_sentence}\n"
+  log.write "  - #{'models.yml:'.ljust(20)} #{(100*(total-untranslated)/total).round.to_s.rjust(3)}% (#{total-untranslated}/#{total}) #{warnings.to_sentence}\n"
   atotal += to_translate
   acount += total-untranslated
 
@@ -270,7 +270,7 @@ task :locales => :environment do
     file.write translation
   end
   total = rights.keys.size
-  log.write "  - #{'rights.yml:'.ljust(16)} #{(100*(total-untranslated)/total).round.to_s.rjust(3)}% (#{total-untranslated}/#{total})\n"
+  log.write "  - #{'rights.yml:'.ljust(20)} #{(100*(total-untranslated)/total).round.to_s.rjust(3)}% (#{total-untranslated}/#{total})\n"
   atotal += total
   acount += total-untranslated
 
@@ -293,7 +293,7 @@ task :locales => :environment do
 
   # puts " - Locale: #{::I18n.locale_label} (Reference)"
   total, count = atotal, acount
-  log.write "  - Total:           #{(100*count/total).round.to_s.rjust(3)}% (#{count}/#{total})\n"
+  log.write "  - Total:               #{(100*count/total).round.to_s.rjust(3)}% (#{count}/#{total})\n"
   puts " - Locale: #{(100*count/total).round.to_s.rjust(3)}% of #{::I18n.locale_label} translated (Reference)"
   reference_label = ::I18n.locale_name
 
@@ -321,14 +321,14 @@ task :locales => :environment do
       translation, scount, stotal = hash_diff(target[locale], reference[::I18n.default_locale], 1)
       count += scount
       total += stotal
-      # puts "  - #{(file_name+':').ljust(16)} #{stotal} #{scount}"
-      log.write "  - #{(file_name+':').ljust(16)} #{(stotal.zero? ? 0 : 100*(stotal-scount)/stotal).round.to_s.rjust(3)}% (#{stotal-scount}/#{stotal})\n"
+      # puts "  - #{(file_name+':').ljust(20)} #{stotal} #{scount}"
+      log.write "  - #{(file_name+':').ljust(20)} #{(stotal.zero? ? 0 : 100*(stotal-scount)/stotal).round.to_s.rjust(3)}% (#{stotal-scount}/#{stotal})\n"
       File.open(target_path, "wb") do |file|
         file.write("#{locale}:\n")
         file.write(translation)
       end
     end
-    log.write "  - Total:           #{(100*(total-count)/total).round.to_s.rjust(3)}% (#{total-count}/#{total})\n"
+    log.write "  - Total:               #{(100*(total-count)/total).round.to_s.rjust(3)}% (#{total-count}/#{total})\n"
     # Missing help files
     # log.write "  - help: # Missing files\n"
     for controller, actions in useful_actions

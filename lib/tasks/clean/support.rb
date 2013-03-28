@@ -59,7 +59,7 @@ def sort_yaml_file(filename, log=nil)
     file.write translation.strip
   end
   count = 0
-  log.write "  - #{(filename.to_s+'.yml:').ljust(16)} #{(100*(total-count)/total).round.to_s.rjust(3)}% (#{total-count}/#{total})\n" if log
+  log.write "  - #{(filename.to_s+'.yml:').ljust(20)} #{(100*(total-count)/total).round.to_s.rjust(3)}% (#{total-count}/#{total})\n" if log
   return total
 end
 

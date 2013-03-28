@@ -550,13 +550,14 @@ module ApplicationHelper
 
 
   def heading_tag
-    heading = "".html_safe
-    unless (rm = reverse_menus).empty?
-      heading << link_to("labels.menus.#{rm[0]}".t, last_page(rm[0]), :class => :module)
-      heading << content_tag(:span, "/", :class => "separator")
-    end
-    heading << content_tag(:span, controller.human_action_name, :class => :leaf)
-    content_tag(:h1, heading, :id => :title)
+    return content_tag(:h1, controller.human_action_name, :id => :title)
+    # heading = "".html_safe
+    # unless (rm = reverse_menus).empty?
+    #   heading << link_to("labels.menus.#{rm[0]}".t, last_page(rm[0]), :class => :module)
+    #   heading << content_tag(:span, "/", :class => "separator")
+    # end
+    # heading << content_tag(:span, controller.human_action_name, :class => :leaf)
+    # content_tag(:h1, heading, :id => :title)
   end
 
   def subheading(i18n_key, options={})

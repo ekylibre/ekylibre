@@ -40,12 +40,12 @@ eng:
       entity:
         active: "Active"
         origin: "First meeting location"
-      entity_event:
-        duration: "Duration (in minutes)"
-        location: "Location"
-        responsible: "Responsible"
-      entity_event_nature:
-        duration: "Duration by default (in min.)"
+      entity_event:  #?
+        duration: "Duration (in minutes)" #?
+        location: "Location" #?
+        responsible: "Responsible" #?
+      entity_event_nature:  #?
+        duration: "Duration by default (in min.)" #?
       equipment:
         # born_at: "Date de mise en service"
         # content_maximal_quantity: "Capacité maximale"
@@ -106,11 +106,11 @@ eng:
       price:  #?
         category: "People category" #?
         entity: "Supplier" #?
-      product:
-        race: "Race"
-      product_category:
-        children: "Sub-product_categories"
-        published: "Published"
+      product:  #?
+        race: "Race" #?
+      product_category:  #?
+        children: "Sub-product_categories" #?
+        published: "Published" #?
       product_localization:
         # arrival_cause: "Cause d'entrée"
         # container: "Contenant"
@@ -136,36 +136,39 @@ eng:
         children: "Sub-product_categories"
         published: "Published"
       product_nature_price:
+        # amount: "Montant TTC"
         category: "People category"
         entity: "Supplier"
-      product_specy:
-        # code: "Code race"
-      product_stock:
-        quantity: "Real quantity"
-      product_stock_move:
-        origin: "Origine"
+      product_specy: #?
+      product_stock:  #?
+        quantity: "Real quantity" #?
+      product_stock_move:  #?
+        origin: "Origine" #?
       product_transfer:
         second_warehouse: "Arrival warehouse"
         warehouse: "Departure warehouse"
       product_variety:
         # code: "Code race"
-      products_nature:
-        duration: "Quantity OR period"
-        price: "Cost price"
+      products_nature:  #?
+        duration: "Quantity OR period" #?
+        price: "Cost price" #?
       profession:
         employees: "Employees"
       purchase:
+        # amount: "Montant TTC"
         # items: "Lignes d’achat"
         label: "Purchase order"
         lines: "Purhase order lines" #?
         moved_on: "Recevied on"
         payment_uses: "Parts of disbursements" #?
         planned_on: "Reception on"
-      purchase_item:  #?
+      purchase_item:
+        # amount: "Montant TTC"
         order: "Purchase order" #?
       purchase_line:  #?
         order: "Purchase order" #?
       sale:
+        # amount: "Montant TTC"
         contact: "Address for the estimate"
         has_downpayment: "Request a downpayment"
         # items: "Lignes de vente"
@@ -173,6 +176,7 @@ eng:
         # parts_amount: "Montant payé"
         payments: "Incoming payments"
       sale_item:
+        # amount: "Montant TTC"
         label: "Product"
         price: "Product"
       sale_line:  #?
@@ -180,18 +184,15 @@ eng:
         price: "Product" #?
       sale_nature:
         downpayment: "Request downpayment"
-      sales_invoice:
-        # credit: "Avoir"
-        # items: "Lignes de facture"
-        # origin: "Facture d’origine"
+      sales_invoice: #?
       sales_invoice_line: #?
-      stock:
-        quantity: "Real quantity"
-      stock_move:
-        origin: "Origine"
-      stock_transfer:
-        second_warehouse: "Arrival warehouse"
-        warehouse: "Departure warehouse"
+      stock:  #?
+        quantity: "Real quantity" #?
+      stock_move:  #?
+        origin: "Origine" #?
+      stock_transfer:  #?
+        second_warehouse: "Arrival warehouse" #?
+        warehouse: "Departure warehouse" #?
       subscription:
         entity: "Subscriber"
       tax:
@@ -207,7 +208,6 @@ eng:
         active: "Used"
       transfer:
         amount: "Amount"
-        # parts_amount: "Montant payé"
       unit:
         start: "Value at the origin"
       user:
