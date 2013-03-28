@@ -64,6 +64,7 @@ html.backend {
         #header {
           margin: 0 $default-gap $default-gap;
           h1 {
+            @include ellipsis;
             &, & * {
               font-weight: bold;
               font-size: $fs-huge;
@@ -77,16 +78,21 @@ html.backend {
         height: 100%;
         @include background(rgba(black, 0.05));
       }
+      $side-width: 200px;
       @media screen and (min-width: 768px){
-        @include grid-row();
+        // @include grid-row();
         max-width: 100%;
         & > #side {
-         @include grid-column(2, $float: left, $collapse: true);
+         //@include grid-column(2, $float: left, $collapse: true);
+          width: $side-width;
           height: 100%;
+          float: left;
         }
         & > #main {
-          @include grid-column(10, $float: left, $collapse: true);
+          //@include grid-column(10, $float: left, $collapse: true);
+          @include calc(width, "100% - #{$side-width}");
           height: 100%;
+          float: left;
         }
       }
     }
