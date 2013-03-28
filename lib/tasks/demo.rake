@@ -5,10 +5,11 @@ require 'ostruct'
 namespace :db do
   desc "Build demo data"
   task :demo => :environment do
+    start = Time.now
     STDOUT.sync = true
     puts "Started: "
     ActiveRecord::Base.transaction do
-#############################################################################
+      #############################################################################
       # Import accountancy
       file = Rails.root.join("test", "fixtures", "files", "general_ledger-istea.txt")
       picture_undefined = Rails.root.join("test", "fixtures", "files", "portrait-undefined.png")
@@ -55,6 +56,7 @@ namespace :db do
       fy.save!
       en_org = EntityNature.where(:gender => "undefined").first
 
+      print "[#{(Time.now - start).round(2).to_s.rjust(8)}s] General ledger: "
       CSV.foreach(file, :encoding => "CP1252", :col_sep => ";") do |row|
         jname = (journals[row[1]] || row[1]).capitalize
         r = OpenStruct.new(:account => Account.get(row[0]),
@@ -114,8 +116,11 @@ namespace :db do
       Entity.find_each do |entity|
         entity.addresses.create!(mails.sample.merge(:canal => :mail))
       end
-#############################################################################
+      puts "!"
+
+      #############################################################################
       # Import synel
+      print "[#{(Time.now - start).round(2).to_s.rjust(8)}s] Synel: "
       h = ProductVariety.find_by_code("cattle")
       p = ProductVariety.find_by_code("animal")
       h ||= ProductVariety.create!(:name => "Bovin", :code => "cattle", :product_type => "Animal", :parent_id => (p ? p.id : nil))
@@ -154,7 +159,7 @@ namespace :db do
 
 
       file = Rails.root.join("test", "fixtures", "files", "animals-synel17.csv")
-      pictures = Dir.glob(Rails.root.join("test", "fixtures", "files", "animals", "*.jpg"))
+      pictures = Dir.glob(Rails.root.join("test", "fixtures", "files", "animals-ld", "*.jpg"))
       CSV.foreach(file, :encoding => "CP1252", :col_sep => ";", :headers => true) do |row|
         next if row[4].blank?
         r = OpenStruct.new(:country => row[0],
@@ -181,7 +186,7 @@ namespace :db do
         # group3 if  age < 3 month
         # group4 if sex = male and age > 1 years
         ProductMembership.create!(:member_id => animal.id, :group_id => group1.id, :started_at => r.arrived_on, :stopped_at => r.departed_on )
-        print "c"
+        print "."
       end
 
       # Assign parents
@@ -190,8 +195,12 @@ namespace :db do
         animal.mother = Animal.mothers.where("born_at <= ?", (animal.born_at - 36.months)).to_a.sample rescue nil
         animal.save!
       end
-#############################################################################
+      puts "!"
+
+
+      #############################################################################
       # Import shapefile
+      print "[#{(Time.now - start).round(2).to_s.rjust(8)}s] Shapefile: "
       v = ProductVariety.find_by_code("land_parcel")
       p = ProductVariety.find_by_code("place")
       v ||= ProductVariety.create!(:name => "Parcelle", :code => "land_parcel", :product_type => "LandParcel", :parent_id => (p ? p.id : nil))
@@ -207,14 +216,15 @@ namespace :db do
           # puts "Record number #{record.index}:"
           # puts "  Geometry: #{record.geometry.as_text}"
           # puts "  Attributes: #{record.attributes.inspect}"
-          print "p"
+          print "."
         end
       end
+      puts "!"
 
-      #
-#############################################################################
-      #
+
+      #############################################################################
       # Create variety for wheat product
+      print "[#{(Time.now - start).round(2).to_s.rjust(8)}s] Sale: "
       entitycat = EntityCategory.find_by_code("PARDEFAU")
       category1 ||= ProductNatureCategory.create!(:name => "Vente")
       b = ProductVariety.find_by_code("matter")
@@ -243,11 +253,15 @@ namespace :db do
       # sale_item
       sale_item1 = SaleItem.create!(:quantity => '5.0000', :tax_id => taxe_prix_nature_ble.id, :unit_id => unit_v.id, :price_id => prix_nature_ble.id, :product_id => ble.id, :sale_id => sale.id)
       sale_item2 = SaleItem.create!(:quantity => '15.0000', :tax_id => taxe_prix_nature_ble.id, :unit_id => unit_v.id, :price_id => prix_nature_ble.id, :product_id => ble.id, :sale_id => sale.id)
-#############################################################################
+      puts "!"
+
+
+      #############################################################################
       # import Coop Order to make automatic purchase
       # @TODO finish with two level (purchases and purchases_lines)
       #
       # set the coop
+      print "[#{(Time.now - start).round(2).to_s.rjust(8)}s] Coop: "
       coop = Entity.find_by_full_name("Kazeni")
       unit_u = Unit.find_by_name("u")
       # add a Coop purchase_nature
@@ -296,13 +310,16 @@ namespace :db do
         # create an incoming_delivery_item if status => 2
 
 
-        print "o"
+        print "."
       end
-#############################################################################
+      puts "!"
+
+      #############################################################################
       # import some base activities from CSV
-      #
-      # attributes to map famille_name
-      family_name = {
+      print "[#{(Time.now - start).round(2).to_s.rjust(8)}s] Activities: "
+
+      # attributes to map family
+      families = {
         "CEREA" => :vegetal,
         "COPLI" => :vegetal,
         "CUFOU" => :vegetal,
@@ -310,34 +327,39 @@ namespace :db do
         "XXXXX" => :none,
         "NINCO" => :none
       }
-      # attributes to map type_act
-      center_type = {
+      # attributes to map nature
+      natures = {
         "PRINC" => :main,
-        "AUX" => :ancillary,
+        "AUX" => :auxiliary,
         "" => :none
       }
-      # load file
+      # Load file
       file = Rails.root.join("test", "fixtures", "files", "activities_ref_demo.csv")
       CSV.foreach(file, :encoding => "UTF-8", :col_sep => ",", :headers => false, :quote_char => "'") do |row|
-         r = OpenStruct.new(:code_act => row[0],
-                           :libelle_act => row[1].downcase.capitalize,
-                           :famille_name => (family_name[row[2]] || :none),
-                           :unite_surf => Unit.find_by_name("ha"),
-                           :unite_oeuvre => Unit.find_by_name("u"),
-                           :product_item_name => row[5],
-                           :type_act => (center_type[row[6]] || :none)
+        r = OpenStruct.new(:nomen => row[0],
+                           :name => row[1].downcase.capitalize,
+                           :family => (families[row[2]] || :none).to_s,
+                           :area_unit => Unit.get(:ha),
+                           :work_unit => Unit.get(:u),
+                           :product_nature_name => row[5],
+                           :nature => (natures[row[6]] || :none).to_s
                            )
-       # create an activity if not exist
-        activity_line = Activity.find_by_nomen(r.code_act)
-        activity_line ||= Activity.create!(:analytical_center_type => r.type_act, :description => "Import from reference",:family => r.famille_name, :name => r.libelle_act, :nomen => r.code_act, :work_unit_id => r.unite_oeuvre.id, :area_unit_id => r.unite_surf.id )
-        print "a"
+        # Create an activity if not exist
+        activity = Activity.find_by_nomen(r.nomen)
+        activity ||= Activity.create!(:nature => r.nature, :description => "Import from reference", :family => r.family, :name => r.name, :nomen => r.nomen)
+
+        # TODO: Add Watchings
+        # activity.watchings.create!(:product_nature_id => ???, :work_unit_id => r.work_unit.id, :area_unit_id => r.area_unit.id)
+        print "."
       end
-#############################################################################
+      puts "!"
+
+      #############################################################################
       # import Bank Cash from CRCA
       #
       # TODO : Retrieve data and put it into bank_statement
       #
-      file = Rails.root.join("test", "fixtures", "files", "bank-rb.ofx")
+      # file = Rails.root.join("test", "fixtures", "files", "bank-rb.ofx")
       # FIXME OfxParser don't work....
       # ofx = OfxParser::OfxParser.parse(open(file))
       # ofx.bank_accounts.each do |bank_account|
@@ -348,8 +370,10 @@ namespace :db do
       #   bank_account.balance.amount # => "100.00"
       #   bank_account.balance.amount_in_pennies # => "10000"
       # end
+      # puts "!"
 
-      puts "!"
+
+      puts "Total time: #{(Time.now - start).round(2)}s"
     end
   end
 end

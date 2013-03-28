@@ -43,6 +43,7 @@ class Activity < Ekylibre::Record::Base
   enumerize :nature, :in => [:main, :auxiliary, :none], :default => :main
   enumerize :family, :in => [:vegetal, :perenne_vegetal, :animal, :processing, :service, :none]
   has_many :repartitions, :class_name => "ActivityRepartition"
+  has_many :watchings, :class_name => "ActivityWatching"
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :depth, :lft, :rgt, :allow_nil => true, :only_integer => true
@@ -50,7 +51,7 @@ class Activity < Ekylibre::Record::Base
   validates_presence_of :family, :name, :nature
   #]VALIDATORS]
 
-  default_scope -> { where(:closed => false).order(:name) }
+  default_scope -> { where("stopped_at IS NULL OR stopped_at > ?", Time.now).order(:name) }
 
   acts_as_nested_set
 end

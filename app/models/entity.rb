@@ -127,8 +127,8 @@ class Entity < Ekylibre::Record::Base
     :path => ':rails_root/private/:class/:attachment/:id_partition/:style.:extension',
     :styles => {
       :thumb => ["64x64#", :jpg],
-      :identity => ["140x180#", :jpg],
-      :large => ["490x630#", :jpg]
+      :identity => ["140x180#", :jpg]
+      # :large => ["490x630#", :jpg] # Not used
     }
   }
 

@@ -86,8 +86,8 @@ class Product < Ekylibre::Record::Base
     :path => ':rails_root/private/:class/:attachment/:id_partition/:style.:extension',
     :styles => {
       :thumb => ["64x64#", :jpg],
-      :identity => ["180x180", :jpg],
-      :large => ["600x600", :jpg]
+      :identity => ["180x180", :jpg]
+      # :large => ["600x600", :jpg]
     }
   }
 
