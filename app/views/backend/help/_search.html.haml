@@ -5,7 +5,7 @@
 -# raise @article.inspect
 -# raise article.inspect
 -cache(article) do
-  .content.flex{:style => 'overflow:auto;'}
+  .content
     -if article_exist?(article)
       =article(article, "data-update" => "#help", :url => base_url)
     -else

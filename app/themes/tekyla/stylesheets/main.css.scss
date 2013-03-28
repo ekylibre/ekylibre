@@ -381,13 +381,21 @@ ul.side-menu {
 
 
 .content {
-  $content-font-size: round($fs-normal*0.9);
+  $content-font-size: round($fs-normal);
   clear: both;
-  * {
+  &, p, * {
     vertical-align: baseline;
-    color: $text-color; line-height: 1.2em; font-size: $content-font-size;
+    color: $text-color; 
+    line-height: 1.2em; 
+    font-size: $content-font-size;
+    text-align: justify;
   }
-  h1 { @include title($fs-normal); margin: 0px 0 8px; text-transform: uppercase; letter-spacing: 1px;}
+  text-align: justify;
+  h1 { 
+    @include title($fs-large);
+    margin: 0 0 $default-gap; 
+    font-variant: small-caps; 
+  }
   h2 { @include title($fs-normal); margin: 8px 0 4px; border-bottom: $menu-border; }
   h3 { @include title($content-font-size); margin: 4px 0 2px 10px; color: $text-color; }
   pre { font-family: "Liberation Mono", monospace; color: #777; background: #FFF; padding: $default-gap; margin: $default-gap 0; }
@@ -802,10 +810,14 @@ $form-actions-height: 48px;
   width: 30*$fs-normal;
   left:$menu-width+$fs-normal;
   top: $fs-normal;
-  padding: $fs-small;
+  padding: 0;
   z-index: 10000;
-  height: 90%;
+  @include calc(height, "100% - #{2 * $fs-normal}");
   overflow: auto;
+  .content {
+    @include calc(height, "100% - #{2 * $default-gap}");
+    padding: $default-gap round($default-gap * 1.4);
+  }
 }
 
 .ui-dialog {
