@@ -31,7 +31,6 @@
                 selector.prop("dropDownMenu", menu);
             }
             $.EkylibreSelector.set(selector, selector.val());
-            console.log("Selector " + selector.attr("id") + " initialized with " + menu[0] + "!");
             return selector;
         },
 
@@ -189,11 +188,8 @@
 
     $(document).on("keyup", "input[data-selector]", function (event) {
         var selector = $(this), search, menu, code = (event.keyCode || event.which), selected;
-        console.log("You press " + code);
         search = selector.val();
-        console.log(search);
         menu = selector.prop("dropDownMenu");
-        console.log(menu);
         if (selector.prop("lastSearch") !== search) {
             if (search.length > 0) {
                 $.EkylibreSelector.openMenu(selector, search);
@@ -222,7 +218,6 @@
                 }
             }
         }
-        console.log("You pressed " + code);
         return true;
     });
 
@@ -281,7 +276,5 @@
         $.EkylibreSelector.init($(this));
         return true;
     });
-
-    console.log("selector.js loaded");
 
 })(jQuery);
