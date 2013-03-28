@@ -75,7 +75,7 @@ class ProductNature < Ekylibre::Record::Base
   # has_many :components, :class_name => "ProductNatureComponent", :conditions => {:active => true}, :foreign_key => :product_nature_id
   #has_many :outgoing_delivery_items, :foreign_key => :product_id
   has_many :prices, :foreign_key => :product_nature_id, :class_name => "ProductNaturePrice"
-  has_many :repartitions, :class_name => "AnalyticRepartition", :foreign_key => :product_nature_id
+  has_many :repartitions, :class_name => "ActivityRepartition", :foreign_key => :product_nature_id
   #has_many :purchase_items, :foreign_key => :product_id
   #has_many :reservoirs, :conditions => {:reservoir => true}, :foreign_key => :product_id
   #has_many :sale_items, :foreign_key => :product_id

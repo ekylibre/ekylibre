@@ -1,4 +1,4 @@
-class Backend::AnalyticRepartitionsController < BackendController
+class Backend::ActivityRepartitionsController < BackendController
   manage_restfully
 
   unroll_all
@@ -15,22 +15,22 @@ class Backend::AnalyticRepartitionsController < BackendController
     t.action :destroy, :if => :destroyable?
   end
 
-  # Displays the main page with the list of analytic_repartitions.
+  # Displays the main page with the list of activity_repartitions.
   def index
     respond_to do |format|
       format.html
-      format.xml  { render :xml => AnalyticRepartition.all }
-      format.json { render :json => AnalyticRepartition.all }
+      format.xml  { render :xml => ActivityRepartition.all }
+      format.json { render :json => ActivityRepartition.all }
     end
   end
 
-  # Displays the page for one analytic_repartition.
+  # Displays the page for one activity_repartition.
   def show
-    return unless @analytic_repartition = find_and_check
+    return unless @activity_repartition = find_and_check
     respond_to do |format|
-      format.html { t3e(@analytic_repartition) }
-      format.xml  { render :xml => @analytic_repartition }
-      format.json { render :json => @analytic_repartition }
+      format.html { t3e(@activity_repartition) }
+      format.xml  { render :xml => @activity_repartition }
+      format.json { render :json => @activity_repartition }
     end
   end
 

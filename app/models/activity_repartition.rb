@@ -18,24 +18,24 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: analytic_repartitions
+# == Table: activity_repartitions
 #
-#  activity_id            :integer          not null
-#  affected_on            :date             not null
-#  campaign_id            :integer
-#  created_at             :datetime         not null
-#  creator_id             :integer
-#  description            :text
-#  id                     :integer          not null, primary key
-#  journal_entry_item_id  :integer          not null
-#  lock_version           :integer          default(0), not null
-#  product_nature_id      :integer
-#  repartition_percentage :decimal(16, 2)   not null
-#  state                  :string(255)      not null
-#  updated_at             :datetime         not null
-#  updater_id             :integer
+#  activity_id           :integer          not null
+#  affected_on           :date             not null
+#  campaign_id           :integer
+#  created_at            :datetime         not null
+#  creator_id            :integer
+#  description           :text
+#  id                    :integer          not null, primary key
+#  journal_entry_item_id :integer          not null
+#  lock_version          :integer          default(0), not null
+#  percentage            :decimal(19, 4)   not null
+#  product_nature_id     :integer
+#  state                 :string(255)      not null
+#  updated_at            :datetime         not null
+#  updater_id            :integer
 #
-class AnalyticRepartition < Ekylibre::Record::Base
+class ActivityRepartition < Ekylibre::Record::Base
   attr_accessible :state, :activity_id, :affected_on, :campaign_id, :description, :journal_entry_item_id, :product_nature_id, :repartition_percentage
   belongs_to :activity
   belongs_to :campaign
@@ -43,9 +43,9 @@ class AnalyticRepartition < Ekylibre::Record::Base
   belongs_to :journal_entry_item
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :repartition_percentage, :allow_nil => true
+  validates_numericality_of :percentage, :allow_nil => true
   validates_length_of :state, :allow_nil => true, :maximum => 255
-  validates_presence_of :activity, :affected_on, :journal_entry_item, :repartition_percentage, :state
+  validates_presence_of :activity, :affected_on, :journal_entry_item, :percentage, :state
   #]VALIDATORS]
 
   state_machine :state, :initial => :draft do

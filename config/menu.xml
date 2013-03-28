@@ -123,15 +123,15 @@
       <page to="backend/journal_entries#update"/>
       <page to="backend/journal_entry_items#new"/>
     </menu>
-    <menu name="analytic_repartitions">
-      <page to="backend/analytic_repartitions#index"/>
-      <page to="backend/analytic_repartitions#create"/>
-      <page to="backend/analytic_repartitions#destroy"/>
-      <page to="backend/analytic_repartitions#edit"/>
-      <page to="backend/analytic_repartitions#list"/>
-      <page to="backend/analytic_repartitions#new"/>
-      <page to="backend/analytic_repartitions#show"/>
-      <page to="backend/analytic_repartitions#update"/>
+    <menu name="activity_repartitions">
+      <page to="backend/activity_repartitions#index"/>
+      <page to="backend/activity_repartitions#create"/>
+      <page to="backend/activity_repartitions#destroy"/>
+      <page to="backend/activity_repartitions#edit"/>
+      <page to="backend/activity_repartitions#list"/>
+      <page to="backend/activity_repartitions#new"/>
+      <page to="backend/activity_repartitions#show"/>
+      <page to="backend/activity_repartitions#update"/>
     </menu>
     <menu name="cashes">
       <page to="backend/cashes#index"/>
@@ -882,6 +882,16 @@
   <undefined>
     <menu name="authentication/sessions">
       <page to="authentication/sessions#renew"/>
+    </menu>
+    <menu name="backend/activity_watchings">
+      <page to="backend/activity_watchings#index"/>
+      <page to="backend/activity_watchings#create"/>
+      <page to="backend/activity_watchings#destroy"/>
+      <page to="backend/activity_watchings#edit"/>
+      <page to="backend/activity_watchings#list"/>
+      <page to="backend/activity_watchings#new"/>
+      <page to="backend/activity_watchings#show"/>
+      <page to="backend/activity_watchings#update"/>
     </menu>
     <menu name="backend/animals">
       <page to="backend/animals#list_group"/>

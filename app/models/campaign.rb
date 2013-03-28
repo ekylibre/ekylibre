@@ -21,6 +21,7 @@
 # == Table: campaigns
 #
 #  closed       :boolean          not null
+#  closed_at    :datetime
 #  created_at   :datetime         not null
 #  creator_id   :integer
 #  description  :string(255)
@@ -34,7 +35,7 @@
 class Campaign < Ekylibre::Record::Base
   attr_accessible :description, :name, :nomen, :closed
 
-  has_many :repartitions, :class_name => "AnalyticRepartition", :foreign_key => :campaign_id
+  has_many :repartitions, :class_name => "ActivityRepartition", :foreign_key => :campaign_id
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :description, :name, :nomen, :allow_nil => true, :maximum => 255

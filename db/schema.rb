@@ -59,33 +59,77 @@ ActiveRecord::Schema.define(:version => 20130327141101) do
   add_index "accounts", ["updater_id"], :name => "index_accounts_on_updater_id"
 
   create_table "activities", :force => true do |t|
-    t.string   "name",                                         :null => false
+    t.string   "name",                        :null => false
     t.string   "description"
     t.string   "nomen"
-    t.string   "family",                                       :null => false
-    t.string   "analytical_center_type",                       :null => false
-    t.boolean  "net_margin",                :default => false, :null => false
-    t.boolean  "closed",                    :default => false, :null => false
-    t.integer  "work_unit_id"
-    t.integer  "area_unit_id"
-    t.integer  "favored_product_nature_id"
+    t.string   "family",                      :null => false
+    t.string   "nature",                      :null => false
+    t.datetime "started_at"
+    t.datetime "stopped_at"
     t.integer  "parent_id"
-    t.datetime "created_at",                                   :null => false
-    t.datetime "updated_at",                                   :null => false
+    t.integer  "lft"
+    t.integer  "rgt"
+    t.integer  "depth"
+    t.datetime "created_at",                  :null => false
+    t.datetime "updated_at",                  :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",              :default => 0,     :null => false
+    t.integer  "lock_version", :default => 0, :null => false
   end
 
-  add_index "activities", ["area_unit_id"], :name => "index_activities_on_area_unit_id"
   add_index "activities", ["created_at"], :name => "index_activities_on_created_at"
   add_index "activities", ["creator_id"], :name => "index_activities_on_creator_id"
-  add_index "activities", ["favored_product_nature_id"], :name => "index_activities_on_favored_product_nature_id"
   add_index "activities", ["name"], :name => "index_activities_on_name"
   add_index "activities", ["parent_id"], :name => "index_activities_on_parent_id"
   add_index "activities", ["updated_at"], :name => "index_activities_on_updated_at"
   add_index "activities", ["updater_id"], :name => "index_activities_on_updater_id"
-  add_index "activities", ["work_unit_id"], :name => "index_activities_on_work_unit_id"
+
+  create_table "activity_repartitions", :force => true do |t|
+    t.integer  "activity_id",                                                         :null => false
+    t.integer  "journal_entry_item_id",                                               :null => false
+    t.string   "state",                                                               :null => false
+    t.date     "affected_on",                                                         :null => false
+    t.integer  "product_nature_id"
+    t.integer  "campaign_id"
+    t.decimal  "percentage",            :precision => 19, :scale => 4,                :null => false
+    t.text     "description"
+    t.datetime "created_at",                                                          :null => false
+    t.datetime "updated_at",                                                          :null => false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version",                                         :default => 0, :null => false
+  end
+
+  add_index "activity_repartitions", ["activity_id"], :name => "index_activity_repartitions_on_activity_id"
+  add_index "activity_repartitions", ["campaign_id"], :name => "index_activity_repartitions_on_campaign_id"
+  add_index "activity_repartitions", ["created_at"], :name => "index_activity_repartitions_on_created_at"
+  add_index "activity_repartitions", ["creator_id"], :name => "index_activity_repartitions_on_creator_id"
+  add_index "activity_repartitions", ["journal_entry_item_id"], :name => "index_activity_repartitions_on_journal_entry_item_id"
+  add_index "activity_repartitions", ["product_nature_id"], :name => "index_activity_repartitions_on_product_nature_id"
+  add_index "activity_repartitions", ["updated_at"], :name => "index_activity_repartitions_on_updated_at"
+  add_index "activity_repartitions", ["updater_id"], :name => "index_activity_repartitions_on_updater_id"
+
+  create_table "activity_watchings", :force => true do |t|
+    t.integer  "activity_id",                      :null => false
+    t.integer  "product_nature_id",                :null => false
+    t.integer  "work_unit_id"
+    t.integer  "area_unit_id"
+    t.integer  "position"
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version",      :default => 0, :null => false
+  end
+
+  add_index "activity_watchings", ["activity_id"], :name => "index_activity_watchings_on_activity_id"
+  add_index "activity_watchings", ["area_unit_id"], :name => "index_activity_watchings_on_area_unit_id"
+  add_index "activity_watchings", ["created_at"], :name => "index_activity_watchings_on_created_at"
+  add_index "activity_watchings", ["creator_id"], :name => "index_activity_watchings_on_creator_id"
+  add_index "activity_watchings", ["product_nature_id"], :name => "index_activity_watchings_on_product_nature_id"
+  add_index "activity_watchings", ["updated_at"], :name => "index_activity_watchings_on_updated_at"
+  add_index "activity_watchings", ["updater_id"], :name => "index_activity_watchings_on_updater_id"
+  add_index "activity_watchings", ["work_unit_id"], :name => "index_activity_watchings_on_work_unit_id"
 
   create_table "affairs", :force => true do |t|
     t.boolean  "closed",                                                       :default => false, :null => false
@@ -107,31 +151,6 @@ ActiveRecord::Schema.define(:version => 20130327141101) do
   add_index "affairs", ["journal_entry_id"], :name => "index_affairs_on_journal_entry_id"
   add_index "affairs", ["updated_at"], :name => "index_affairs_on_updated_at"
   add_index "affairs", ["updater_id"], :name => "index_affairs_on_updater_id"
-
-  create_table "analytic_repartitions", :force => true do |t|
-    t.integer  "activity_id",                                                          :null => false
-    t.integer  "journal_entry_item_id",                                                :null => false
-    t.integer  "product_nature_id"
-    t.integer  "campaign_id"
-    t.decimal  "repartition_percentage", :precision => 16, :scale => 2,                :null => false
-    t.date     "affected_on",                                                          :null => false
-    t.text     "description"
-    t.string   "state",                                                                :null => false
-    t.datetime "created_at",                                                           :null => false
-    t.datetime "updated_at",                                                           :null => false
-    t.integer  "creator_id"
-    t.integer  "updater_id"
-    t.integer  "lock_version",                                          :default => 0, :null => false
-  end
-
-  add_index "analytic_repartitions", ["activity_id"], :name => "index_analytic_repartitions_on_activity_id"
-  add_index "analytic_repartitions", ["campaign_id"], :name => "index_analytic_repartitions_on_campaign_id"
-  add_index "analytic_repartitions", ["created_at"], :name => "index_analytic_repartitions_on_created_at"
-  add_index "analytic_repartitions", ["creator_id"], :name => "index_analytic_repartitions_on_creator_id"
-  add_index "analytic_repartitions", ["journal_entry_item_id"], :name => "index_analytic_repartitions_on_journal_entry_item_id"
-  add_index "analytic_repartitions", ["product_nature_id"], :name => "index_analytic_repartitions_on_product_nature_id"
-  add_index "analytic_repartitions", ["updated_at"], :name => "index_analytic_repartitions_on_updated_at"
-  add_index "analytic_repartitions", ["updater_id"], :name => "index_analytic_repartitions_on_updater_id"
 
   create_table "areas", :force => true do |t|
     t.string   "postcode",                                    :null => false
@@ -251,6 +270,7 @@ ActiveRecord::Schema.define(:version => 20130327141101) do
     t.string   "description"
     t.string   "nomen"
     t.boolean  "closed",       :default => false, :null => false
+    t.datetime "closed_at"
     t.datetime "created_at",                      :null => false
     t.datetime "updated_at",                      :null => false
     t.integer  "creator_id"

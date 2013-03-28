@@ -1,0 +1,7 @@
+=toolbar do |t|
+  -t.edit @activity_repartition
+
+=beehive do |b|
+  -b.cell do
+    =attributes_list(@activity_repartition) do |l|
+      -l.attribute :name

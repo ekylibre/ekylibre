@@ -25,11 +25,12 @@ arb:
       # index: "Activités"
       # new: "Nouvelle activité"
       # show: "%{name}"
-    backend/analytic_repartitions:
+    backend/activity_repartitions:
       # edit: "Modifier la répartion analytique\_: %{id} "
       # index: "Répartitions analytiques"
       # new: "Nouvelle répartition analytique"
       # show: "Répartition %{id}"
+    backend/activity_watchings: #?
     backend/animals:
       # edit: "Modifier l'animal\_: %{name}"
       # index: "Productions animales"
@@ -620,8 +621,8 @@ arb:
     backend/accountancy: "المحاسبة" #?
     backend/accounts: "مخطط الحساب"
     # backend/activities: "Activités"
+    # backend/activity_repartitions: "Répartitions analytiques"
     # backend/affairs: "Affaires"
-    # backend/analytic_repartitions: "Répartitions analytiques"
     # backend/animals: "Animaux"
     backend/application: "تطبيق" #?
     backend/areas: "العناوين البريد"
@@ -2007,8 +2008,8 @@ arb:
     backend/accounts:
       # all: "{number}. {name}"
     backend/activities:
-      # all: "{name} - {nomen} - {family} - {analytical_center_type}"
-    backend/analytic_repartitions:
+      # all: "{name} ({family}/{nature})"
+    backend/activity_repartitions:
       # all: "{id}"
     backend/animals:
       # all: "{name} - {work_number}"

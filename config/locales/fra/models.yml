@@ -2,14 +2,14 @@ fra:
   activerecord:
     attributes:
       activity:
-        analytical_center_type: "Type de centre analytique"
         family: "Famille"
         favored_product_nature: "Produit de référence"
+        nature: "Type de centre analytique"
         net_margin: "Marge nette"
         nomen: "Code analytique"
         parent: "Activité parente"
         work_unit: "Unité d'oeuvre"
-      analytic_repartition:
+      activity_repartition:
         activity: "Activité"
         affected_on: "Affecté le"
         campaign: "Campagne"
@@ -305,8 +305,9 @@ fra:
       account: "Compte"
       account_balance: "Balance de compte"
       activity: "Activité"
+      # activity_repartition: "Activity repartition"
+      # activity_watching: "Activity watching"
       affair: "Affaire"
-      # analytic_repartition: "Analytic repartition"
       animal: "Animal"
       area: "Zone postale"
       asset: "Immobilisation"
@@ -423,7 +424,7 @@ fra:
     acquisition_amount: "Montant des acquisition"
     active: "Utilisable"
     active_prices: "Prix en cours"
-    # activity: "Activity"
+    activity: "Activity"
     activity_code: "Code APE/NAF"
     actual_number: "Numéro en cours"
     address: "Adresse"
@@ -436,7 +437,6 @@ fra:
     # alive: "Alive"
     allocation_account: "Compte de dotation"
     amount: "Montant"
-    analytical_center_type: "Analytical center type"
     animal_drugs: "Médicaments" #?
     animals: "Animals" #?
     annotation: "Annotation"
@@ -528,7 +528,7 @@ fra:
     clients: "Clients"
     closable_financial_year: "Exercice clôturable" #?
     closed: "Clôturé"
-    # closed_at: "Closed at"
+    closed_at: "Closed at"
     closed_on: "Date de clôture"
     code: "Code"
     code2: "Code secondaire" #?
@@ -709,7 +709,6 @@ fra:
     # failed_attempts: "Failed attempts"
     family: "Module"
     father: "Père"
-    # favored_product_nature: "Favored product nature"
     faxes: "Fax"
     filename: "Nom de fichier"
     filesize: "Taille du fichier"
@@ -874,7 +873,6 @@ fra:
     name_aee: "Nom normalisé EDI*" #?
     nature: "Type"
     nature_code: "Code"
-    # net_margin: "Net margin"
     net_weight: "Masse nette" #?
     nic: "NIC (Numéro Interne de Classement)" #?
     node: "Nœud"
@@ -947,6 +945,7 @@ fra:
     payments_count: "Nb. encaissements"
     payments_to_deposit: "Encaissements à encaisser" #?
     payments_to_deposit_accounts: "Comptes des encaissements à encaisser" #?
+    # percentage: "Percentage"
     period: "Périodicité"
     # phase_delay: "Phase delay"
     phones: "Téléphones"
@@ -1046,7 +1045,6 @@ fra:
     # remember_created_at: "Remember created at"
     remember_me: "Se souvenir de moi"
     # reminder_submissive: "Reminder submissive"
-    # repartition_percentage: "Repartition percentage"
     repartitions: "Repartitions"
     # repeatable: "Repeatable"
     reproductor: "Reproducteur"
@@ -1234,17 +1232,17 @@ fra:
     zone: "Zone" #?
   enumerize:
     activity:
-      analytical_center_type:
-        ancillary: "Auxiliaire"
-        main: "Principal"
-        none: "Aucun"
       family:
         animal: "Animale"
         none: "Aucune"
-        perenne_vegetal: "Culture perenne"
+        perenne_vegetal: "Culture pérenne"
         processing: "Transformation"
         service: "Service"
         vegetal: "Culture annuelle"
+      nature:
+        ancillary: "Auxiliaire"
+        main: "Principal"
+        none: "Aucun"
     asset:
       depreciation_method:
         graduated: "Dégressive"

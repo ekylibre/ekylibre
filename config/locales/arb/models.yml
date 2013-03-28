@@ -15,14 +15,14 @@ arb:
         financial_year: "مهنة" #?
         lock_version: "الاصدار المحلي" #?
       activity:
-        # analytical_center_type: "Type de centre analytique"
         # family: "Famille"
         # favored_product_nature: "Produit de référence"
+        # nature: "Type de centre analytique"
         # net_margin: "Marge nette"
         # nomen: "Code analytique"
         # parent: "Activité parente"
         # work_unit: "Unité d'oeuvre"
-      analytic_repartition:
+      activity_repartition:
         # activity: "Activité"
         # affected_on: "Affecté le"
         # campaign: "Campagne"
@@ -904,6 +904,7 @@ arb:
     acquisition_amount: "قيمة الاقتناء"
     active: "فعال"
     # active_prices: "Prix en cours"
+    # activity: "Activity"
     activity_code: "APE/NAF رمز"
     actual_number: "الرقم الحالي"
     address: "العنوان"
@@ -917,7 +918,6 @@ arb:
     # allocation_account: "Compte de dotation"
     amount: "القيمة من دون الضرائب"
     amount_with_taxes: "القيمة مع كامل الضرائب" #?
-    # analytical_center_type: "Analytical center type"
     # animal_drugs: "Médicaments"
     # animals: "Animals"
     annotation: "ملاحظة"
@@ -1010,6 +1010,7 @@ arb:
     clients: "العملاء"
     # closable_financial_year: "Exercice clôturable"
     closed: "تم اغلاقه"
+    # closed_at: "Closed at"
     closed_on: "تاريخ الاغلاق"
     code: "الرمز"
     # code_aee: "Code normalisé EDI*"
@@ -1785,17 +1786,17 @@ arb:
     # zone: "Zone"
   enumerize:
     activity:
-      analytical_center_type:
-        # ancillary: "Auxiliaire"
-        # main: "Principal"
-        # none: "Aucun"
       family:
         # animal: "Animale"
         # none: "Aucune"
-        # perenne_vegetal: "Culture perenne"
+        # perenne_vegetal: "Culture pérenne"
         # processing: "Transformation"
         # service: "Service"
         # vegetal: "Culture annuelle"
+      nature:
+        # ancillary: "Auxiliaire"
+        # main: "Principal"
+        # none: "Aucun"
     animal: #?
     animal_treatment: #?
     asset:

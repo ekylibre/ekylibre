@@ -1,5 +1,6 @@
 Ekylibre::Application.routes.draw do
 
+
   # Authentication
   # namespace :authentication do
   #   resource :session, :only => [:new, :create, :destroy] do
@@ -100,7 +101,14 @@ Ekylibre::Application.routes.draw do
       end
     end
 
-    resources :analytic_repartitions do
+    resources :activity_repartitions do
+      collection do
+        get :list
+        unroll_all
+      end
+    end
+
+    resources :activity_watchings do
       collection do
         get :list
         unroll_all

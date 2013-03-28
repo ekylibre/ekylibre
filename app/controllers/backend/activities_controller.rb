@@ -6,7 +6,7 @@ class Backend::ActivitiesController < BackendController
   list do |t|
     t.column :name, :url => true
     t.column :parent, :url => true
-    t.column :analytical_center_type
+    t.column :nature
     t.column :family
     t.column :area_unit
     t.column :work_unit

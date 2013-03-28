@@ -20,23 +20,23 @@
 #
 # == Table: activities
 #
-#  analytical_center_type    :string(255)      not null
-#  area_unit_id              :integer
-#  closed                    :boolean          not null
-#  created_at                :datetime         not null
-#  creator_id                :integer
-#  description               :string(255)
-#  family                    :string(255)      not null
-#  favored_product_nature_id :integer
-#  id                        :integer          not null, primary key
-#  lock_version              :integer          default(0), not null
-#  name                      :string(255)      not null
-#  net_margin                :boolean          not null
-#  nomen                     :string(255)
-#  parent_id                 :integer
-#  updated_at                :datetime         not null
-#  updater_id                :integer
-#  work_unit_id              :integer
+#  created_at   :datetime         not null
+#  creator_id   :integer
+#  depth        :integer
+#  description  :string(255)
+#  family       :string(255)      not null
+#  id           :integer          not null, primary key
+#  lft          :integer
+#  lock_version :integer          default(0), not null
+#  name         :string(255)      not null
+#  nature       :string(255)      not null
+#  nomen        :string(255)
+#  parent_id    :integer
+#  rgt          :integer
+#  started_at   :datetime
+#  stopped_at   :datetime
+#  updated_at   :datetime         not null
+#  updater_id   :integer
 #
 require 'test_helper'
 

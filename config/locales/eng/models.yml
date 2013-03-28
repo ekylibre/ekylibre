@@ -2,14 +2,14 @@ eng:
   activerecord:
     attributes:
       activity:
-        # analytical_center_type: "Type de centre analytique"
         # family: "Famille"
         # favored_product_nature: "Produit de référence"
+        # nature: "Type de centre analytique"
         # net_margin: "Marge nette"
         # nomen: "Code analytique"
         # parent: "Activité parente"
         # work_unit: "Unité d'oeuvre"
-      analytic_repartition:
+      activity_repartition:
         # activity: "Activité"
         # affected_on: "Affecté le"
         # campaign: "Campagne"
@@ -507,6 +507,7 @@ eng:
     acquisition_amount: "Acquisition amount"
     active: "Active"
     active_prices: "Active prices"
+    # activity: "Activity"
     activity_code: "Activity code"
     actual_number: "Actual number"
     address: "Address"
@@ -519,7 +520,6 @@ eng:
     agency_code: "Agency code" #?
     allocation_account: "Allocation account"
     amount: "Amount"
-    # analytical_center_type: "Analytical center type"
     animal: "Animal" #?
     animal_drugs: "Animal drugs"
     animal_events: "Animal events" #?
@@ -608,6 +608,7 @@ eng:
     clients: "Clients"
     closable_financial_year: "Closable financial year"
     closed: "Closed"
+    # closed_at: "Closed at"
     closed_on: "Closed on"
     code: "Code"
     # code_aee: "Code normalisé EDI*"
@@ -1311,17 +1312,17 @@ eng:
     # zone: "Zone"
   enumerize:
     activity:
-      analytical_center_type:
-        # ancillary: "Auxiliaire"
-        # main: "Principal"
-        # none: "Aucun"
       family:
         # animal: "Animale"
         # none: "Aucune"
-        # perenne_vegetal: "Culture perenne"
+        # perenne_vegetal: "Culture pérenne"
         # processing: "Transformation"
         # service: "Service"
         # vegetal: "Culture annuelle"
+      nature:
+        # ancillary: "Auxiliaire"
+        # main: "Principal"
+        # none: "Aucun"
     animal: #?
     animal_treatment: #?
     asset:

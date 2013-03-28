@@ -393,16 +393,16 @@ ul.side-menu {
   clear: both;
   &, p, * {
     vertical-align: baseline;
-    color: $text-color; 
-    line-height: 1.2em; 
+    color: $text-color;
+    line-height: 1.2em;
     font-size: $content-font-size;
     text-align: justify;
   }
   text-align: justify;
-  h1 { 
+  h1 {
     @include title($fs-large);
-    margin: 0 0 $default-gap; 
-    font-variant: small-caps; 
+    margin: 0 0 $default-gap;
+    font-variant: small-caps;
   }
   h2 { @include title($fs-normal); margin: 8px 0 4px; border-bottom: $menu-border; }
   h3 { @include title($content-font-size); margin: 4px 0 2px 10px; color: $text-color; }
