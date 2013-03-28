@@ -359,6 +359,7 @@ fra:
       product_nature: "Type de produit"
       product_nature_category: "Catégorie de produit"
       product_nature_price: "Prix"
+      # product_price: "Product price"
       # product_process: "Product process"
       # product_process_phase: "Product process phase"
       product_transfer: "Transfert ou perte de Stock"

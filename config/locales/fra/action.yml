@@ -383,6 +383,11 @@ fra:
       index: "Type de produit"
       new: "Nouveau type de produit"
       show: "Type de produit\_: %{name}"
+    backend/product_prices:
+      # edit: "Edit backend/product price"
+      # index: "Index backend/product price"
+      # new: "New backend/product price"
+      # show: "Show backend/product price"
     backend/product_process_phases:
       # edit: "Edit backend/product process phase"
       # index: "Index backend/product process phase"
@@ -633,6 +638,7 @@ fra:
     backend/product_nature_categories: "Catégories de type de produits"
     backend/product_nature_prices: "Prix par type de produits"
     backend/product_natures: "Types de produits"
+    # backend/product_prices: "Backend/product prices"
     # backend/product_process_phases: "Backend/product process phases"
     # backend/product_processes: "Backend/product processes"
     backend/product_transfers: "Transferts et pertes de stocks"

@@ -1032,6 +1032,23 @@ class NormalizeProducts < ActiveRecord::Migration
     # Rename table in order to be more logical
     rename_table_and_indexes :prices, :product_nature_prices
 
+    create_table :product_prices do |t|
+      t.references :product, :null => false
+      t.references :supplier, :null => false
+      t.decimal :pretax_amount, :null => false, :precision => 19, :scale => 4
+      t.decimal :amount, :null => false, :precision => 19, :scale => 4
+      t.string :currency, :null => false, :null => false
+      t.references :tax
+      t.references :product_nature_price # For computed price
+      t.datetime :started_at
+      t.stamps
+    end
+    add_stamps_indexes :product_prices
+    add_index :product_prices, :product_id
+    add_index :product_prices, :supplier_id
+    add_index :product_prices, :tax_id
+    add_index :product_prices, :product_nature_price_id
+
     # Rename table in order to be more logical
     # rename_table_and_co :product_components, :product_nature_components
     # remove_column :product_nature_components, :warehouse_id

@@ -395,6 +395,7 @@ spa:
       # index: "Type de produit"
       # new: "Nouveau type de produit"
       # show: "Type de produit\_: %{name}"
+    backend/product_prices: #?
     backend/product_process_phases: #?
     backend/product_processes: #?
     backend/product_species: #?

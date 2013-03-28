@@ -528,15 +528,6 @@ Ekylibre::Application.routes.draw do
         unroll_all
       end
     end
-    resources :product_nature_prices do
-      collection do
-        get :list
-        match "export", :via => [:get, :post]
-        match "import", :via => [:get, :post]
-        get :find
-        unroll_all
-      end
-    end
     resources :preferences do
       collection do
         get :list
@@ -582,6 +573,26 @@ Ekylibre::Application.routes.draw do
       end
     end
 
+    resources :product_indicator_natures do
+      collection do
+        get :list
+        get :list_choices
+        unroll_all
+      end
+      member do
+        post :up
+        post :down
+        post :sort
+      end
+    end
+
+    resources :product_indicator_nature_choices do
+      member do
+        post :up
+        post :down
+      end
+    end
+
     resources :product_links do
       collection do
         get :list
@@ -595,18 +606,15 @@ Ekylibre::Application.routes.draw do
         unroll_all
       end
     end
-    resources :product_processes do
+
+    resources :product_nature_categories do
       collection do
         get :list
+        get :list_product_natures
         unroll_all
       end
     end
-    resources :product_process_phases do
-      collection do
-        get :list
-        unroll_all
-      end
-    end
+
     resources :product_natures do
       collection do
         get :change_quantities
@@ -617,37 +625,45 @@ Ekylibre::Application.routes.draw do
         unroll_all
       end
     end
-    resources :product_indicator_natures do
+
+    resources :product_nature_prices do
       collection do
         get :list
-        get :list_choices
-        unroll_all
-      end
-      member do
-        post :up
-        post :down
-        post :sort
-      end
-    end
-    resources :product_indicator_nature_choices do
-      member do
-        post :up
-        post :down
-      end
-    end
-    resources :product_nature_categories do
-      collection do
-        get :list
-        get :list_product_natures
+        match "export", :via => [:get, :post]
+        match "import", :via => [:get, :post]
+        get :find
         unroll_all
       end
     end
+
+    resources :product_prices do
+      collection do
+        get :list
+        unroll_all
+      end
+    end
+
+    resources :product_processes do
+      collection do
+        get :list
+        unroll_all
+      end
+    end
+
+    resources :product_process_phases do
+      collection do
+        get :list
+        unroll_all
+      end
+    end
+
     resources :product_varieties do
       collection do
         get :list
         unroll_all
       end
     end
+
     resources :production_chains do
       collection do
         get :list

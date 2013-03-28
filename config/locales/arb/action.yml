@@ -416,6 +416,7 @@ arb:
       index: "المنتجات"
       new: "اضافة منتج جديد"
       show: "المنتجات : %{name}"
+    backend/product_prices: #?
     backend/product_process_phases: #?
     backend/product_processes: #?
     backend/product_species: #?

@@ -352,6 +352,7 @@ eng:
       index: "Product types"
       new: "Add a new product type"
       show: "Product type: %{name}"
+    backend/product_prices: #?
     backend/product_process_phases: #?
     backend/product_processes: #?
     backend/product_transfers:

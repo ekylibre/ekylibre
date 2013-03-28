@@ -1,0 +1,7 @@
+=toolbar do |t|
+  -t.edit @product_price
+
+=beehive do |b|
+  -b.cell do
+    =attributes_list(@product_price) do |l|
+      -l.attribute :name

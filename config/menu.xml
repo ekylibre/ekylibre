@@ -1098,6 +1098,16 @@
     <menu name="backend/product_natures">
       <page to="backend/product_natures#list_prices"/>
     </menu>
+    <menu name="backend/product_prices">
+      <page to="backend/product_prices#index"/>
+      <page to="backend/product_prices#create"/>
+      <page to="backend/product_prices#destroy"/>
+      <page to="backend/product_prices#edit"/>
+      <page to="backend/product_prices#list"/>
+      <page to="backend/product_prices#new"/>
+      <page to="backend/product_prices#show"/>
+      <page to="backend/product_prices#update"/>
+    </menu>
     <menu name="backend/product_process_phases">
       <page to="backend/product_process_phases#index"/>
       <page to="backend/product_process_phases#create"/>

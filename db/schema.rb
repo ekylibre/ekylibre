@@ -1854,6 +1854,31 @@ ActiveRecord::Schema.define(:version => 20130327141101) do
   add_index "product_natures", ["updater_id"], :name => "index_product_natures_on_updater_id"
   add_index "product_natures", ["variety_id"], :name => "index_product_natures_on_variety_id"
 
+  create_table "product_prices", :force => true do |t|
+    t.integer  "product_id",                                                            :null => false
+    t.integer  "supplier_id",                                                           :null => false
+    t.decimal  "pretax_amount",           :precision => 19, :scale => 4,                :null => false
+    t.decimal  "amount",                  :precision => 19, :scale => 4,                :null => false
+    t.string   "currency",                                                              :null => false
+    t.integer  "tax_id"
+    t.integer  "product_nature_price_id"
+    t.datetime "started_at"
+    t.datetime "created_at",                                                            :null => false
+    t.datetime "updated_at",                                                            :null => false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version",                                           :default => 0, :null => false
+  end
+
+  add_index "product_prices", ["created_at"], :name => "index_product_prices_on_created_at"
+  add_index "product_prices", ["creator_id"], :name => "index_product_prices_on_creator_id"
+  add_index "product_prices", ["product_id"], :name => "index_product_prices_on_product_id"
+  add_index "product_prices", ["product_nature_price_id"], :name => "index_product_prices_on_product_nature_price_id"
+  add_index "product_prices", ["supplier_id"], :name => "index_product_prices_on_supplier_id"
+  add_index "product_prices", ["tax_id"], :name => "index_product_prices_on_tax_id"
+  add_index "product_prices", ["updated_at"], :name => "index_product_prices_on_updated_at"
+  add_index "product_prices", ["updater_id"], :name => "index_product_prices_on_updater_id"
+
   create_table "product_process_phases", :force => true do |t|
     t.integer  "process_id",                  :null => false
     t.string   "name",                        :null => false
