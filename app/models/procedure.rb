@@ -35,8 +35,8 @@
 class Procedure < Ekylibre::Record::Base
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :name, :allow_nil => true, :maximum => 255
-  validates_presence_of :name
+  validates_presence_of :name, :nature
   #]VALIDATORS]
   belongs_to :nature, :class_name => "ProcedureNature"
-  
+
 end

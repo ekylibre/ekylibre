@@ -45,7 +45,7 @@ class ProductPrice < Ekylibre::Record::Base
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :amount, :pretax_amount, :allow_nil => true
   validates_length_of :currency, :allow_nil => true, :maximum => 255
-  validates_presence_of :amount, :currency, :pretax_amount
+  validates_presence_of :amount, :currency, :pretax_amount, :product, :supplier
   #]VALIDATORS]
   validates_presence_of :started_at
 end

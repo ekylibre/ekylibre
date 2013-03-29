@@ -48,7 +48,7 @@ class Deposit < Ekylibre::Record::Base
   belongs_to :responsible, :class_name => "User"
   belongs_to :journal_entry
   belongs_to :mode, :class_name => "IncomingPaymentMode"
-  has_many :items, :inverse_of => :deposit
+  has_many :items, :class_name => "DepositItem", :inverse_of => :deposit
   has_many :payments, :class_name => "IncomingPayment", :dependent => :nullify, :order => "number"
   # has_many :journal_entries, :as => :resource, :dependent => :nullify, :order => "created_at"
 

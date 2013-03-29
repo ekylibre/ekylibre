@@ -133,7 +133,7 @@ class BackendController < BaseController
         code << "    conditions[0] = '('\n"
         code << "    keys.each_with_index do |key, index|\n"
         code << "      conditions[0] << ') AND (' if index > 0\n"
-        code << "      conditions[0] << " + searchable_columns.collect{|column| "LOWER(CAST(#{column[:name]} AS VARCHAR)) LIKE ?"}.join(' OR ').inspect + "\n"
+        code << "      conditions[0] << " + searchable_columns.collect{|column| "LOWER(CAST(#{model.table_name}.#{column[:name]} AS VARCHAR)) LIKE ?"}.join(' OR ').inspect + "\n"
         code << "      conditions += [" + searchable_columns.collect{|column| column[:filter].inspect.gsub('X', '" + key + "').gsub(/(^\"\"\+|\+\"\"\+|\+\"\")/, '')}.join(", ") + "]\n"
         code << "    end\n"
         code << "    conditions[0] << ')'\n"
