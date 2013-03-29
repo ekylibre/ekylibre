@@ -14,6 +14,11 @@ module Ddb #:nodoc:
     mattr_accessor :compatibility_mode
     @@compatibility_mode = false
 
+
+    def self.diagramming?
+      return !!(File.basename($0) == "rake" && ARGV.include?("erd"))
+    end
+
     # Extends the stamping functionality of ActiveRecord by automatically recording the model
     # responsible for creating, updating, and deleting the current object. See the Stamper
     # and Userstamp modules for further documentation on how the entire process works.
@@ -78,18 +83,20 @@ module Ddb #:nodoc:
           self.updater_attribute  = defaults[:updater_attribute].to_sym
           self.deleter_attribute  = defaults[:deleter_attribute].to_sym
             class_eval do
-              belongs_to(:creator, :class_name => self.stamper_class_name.to_s.singularize.camelize,
-                         :foreign_key => self.creator_attribute)
-
-              belongs_to(:updater, :class_name => self.stamper_class_name.to_s.singularize.camelize,
-                         :foreign_key => self.updater_attribute)
-
+              unless Userstamp.diagramming?
+                belongs_to(:creator, :class_name => self.stamper_class_name.to_s.singularize.camelize,
+                           :foreign_key => self.creator_attribute)
+                
+                belongs_to(:updater, :class_name => self.stamper_class_name.to_s.singularize.camelize,
+                           :foreign_key => self.updater_attribute)
+              end
+                
               before_save     :set_updater_attribute
               before_create   :set_creator_attribute
 
               if defined?(Caboose::Acts::Paranoid)
                 belongs_to(:deleter, :class_name => self.stamper_class_name.to_s.singularize.camelize,
-                           :foreign_key => self.deleter_attribute)
+                           :foreign_key => self.deleter_attribute) unless Userstamp.diagramming?
                 before_destroy  :set_deleter_attribute
               end
             end

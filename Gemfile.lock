@@ -1,3 +1,13 @@
+GIT
+  remote: git://github.com/voormedia/rails-erd.git
+  revision: d29b0c29fcfa9783c1070a915e7549a4e66d8441
+  specs:
+    rails-erd (1.1.0)
+      activerecord (>= 3.0)
+      activesupport (>= 3.0)
+      choice (~> 0.1.6)
+      ruby-graphviz (~> 1.0.4)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -225,11 +235,6 @@ GEM
       activesupport (= 3.2.13)
       bundler (~> 1.0)
       railties (= 3.2.13)
-    rails-erd (1.1.0)
-      activerecord (>= 3.0)
-      activesupport (>= 3.0)
-      choice (~> 0.1.6)
-      ruby-graphviz (~> 1.0.4)
     rails_best_practices (1.13.4)
       activesupport
       awesome_print
@@ -391,7 +396,7 @@ DEPENDENCIES
   rack-mini-profiler
   railroady
   rails (= 3.2.13)
-  rails-erd
+  rails-erd!
   rails_best_practices
   rgeo-shapefile
   rspec-rails

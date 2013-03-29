@@ -56,7 +56,7 @@ class SaleItem < Ekylibre::Record::Base
   belongs_to :entity
   belongs_to :sale
   belongs_to :origin, :class_name => "SaleItem"
-  belongs_to :price, :class_name => "ProductNaturePrice"
+  belongs_to :price, :class_name => "ProductPrice"
   belongs_to :product
   belongs_to :reduction_origin, :class_name => "SaleItem"
   belongs_to :tax

@@ -12,4 +12,5 @@ module Ekylibre
   def self.migrating?
     return !!(File.basename($0) == "rake" && ARGV.include?("db:migrate"))
   end
+
 end

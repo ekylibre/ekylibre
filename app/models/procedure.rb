@@ -37,4 +37,6 @@ class Procedure < Ekylibre::Record::Base
   validates_length_of :name, :allow_nil => true, :maximum => 255
   validates_presence_of :name
   #]VALIDATORS]
+  belongs_to :nature, :class_name => "ProcedureNature"
+  
 end

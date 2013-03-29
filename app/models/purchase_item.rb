@@ -47,7 +47,7 @@ class PurchaseItem < Ekylibre::Record::Base
   attr_accessible :annotation, :price_id, :product_id, :quantity, :tracking_serial, :unit_id, :purchase_id
   belongs_to :account
   belongs_to :purchase
-  belongs_to :price, :class_name => "ProductNaturePrice"
+  belongs_to :price, :class_name => "ProductPrice"
   belongs_to :product
   belongs_to :unit
   belongs_to :warehouse

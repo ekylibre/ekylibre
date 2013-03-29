@@ -24,7 +24,7 @@
       -b.cell Sale.human_attribute_name(:items) do
         .select-product
           %span.selector
-            =selector_tag("sale_item[price_id]", {:controller => :product_nature_prices, :action => :unroll_availables_for_sales}, {})
+            =selector_tag("sale_item[product_id]", {:controller => :products, :action => :unroll_availables_for_sales}, {})
           =button_tag(tl(:add), :class => "btn")
         -# @sale_item = @sale.items.new
         -# if @sale.draft?
@@ -56,8 +56,8 @@
         -l.attribute :address, :label => :coordinate
         -l.attribute :delivery_address, :label => :coordinate
         -l.attribute :invoice_address, :label => :coordinate
-        -l.attribute :letter_format
         -l.attribute(:journal_entry, :url => true) if @sale.journal_entry
+        -l.attribute :letter_format
         -if @sale.letter_format?
           -l.attribute :subject
           -l.attribute :function_title

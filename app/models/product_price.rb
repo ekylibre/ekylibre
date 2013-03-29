@@ -36,9 +36,16 @@
 #  updater_id              :integer
 #
 class ProductPrice < Ekylibre::Record::Base
+  belongs_to :product
+  belongs_to :product_nature_price
+  belongs_to :supplier, :class_name => "Entity"
+  belongs_to :tax
+  has_many :sale_items, :foreign_key => :price_id
+  has_many :purchase_items, :foreign_key => :price_id
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :amount, :pretax_amount, :allow_nil => true
   validates_length_of :currency, :allow_nil => true, :maximum => 255
   validates_presence_of :amount, :currency, :pretax_amount
   #]VALIDATORS]
+  validates_presence_of :started_at
 end

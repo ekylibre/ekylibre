@@ -39,4 +39,5 @@ class DepositItem < Ekylibre::Record::Base
   validates_length_of :currency, :allow_nil => true, :maximum => 3
   validates_presence_of :amount, :currency, :quantity
   #]VALIDATORS]
+  belongs_to :deposit, :inverse_of => :items
 end
