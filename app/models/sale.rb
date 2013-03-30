@@ -81,7 +81,9 @@ class Sale < Ekylibre::Record::Base
   belongs_to :transporter, :class_name => "Entity"
   has_many :credits, :class_name => "Sale", :foreign_key => :origin_id
   has_many :deliveries, :class_name => "OutgoingDelivery", :dependent => :destroy, :inverse_of => :sale
+  has_many :documents, :as => :owner
   has_many :items, :class_name => "SaleItem", :foreign_key => :sale_id, :dependent => :destroy, :order => "position, id"
+  has_many :journal_entries, :as => :resource
   has_many :subscriptions, :class_name => "Subscription"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :amount, :downpayment_amount, :pretax_amount, :allow_nil => true

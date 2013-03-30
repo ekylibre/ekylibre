@@ -25,7 +25,11 @@ class Backend::ProductsController < BackendController
   unroll_all
 
   list do |t|
+    t.column :active
+    t.column :number, :url => true
     t.column :name, :url => true
+    t.column :name, :through => :variety
+    t.column :full_name, :through => :owner
     t.column :description
     t.action :show, :url => {:format => :pdf}, :image => :print
     t.action :edit

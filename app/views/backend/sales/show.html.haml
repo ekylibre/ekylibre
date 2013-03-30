@@ -24,7 +24,7 @@
       -b.cell Sale.human_attribute_name(:items) do
         .select-product
           %span.selector
-            =selector_tag("sale_item[product_id]", {:controller => :products, :action => :unroll_availables_for_sales}, {})
+            =selector_tag("sale_item[product_id]", {:controller => :products, :action => :unroll_saleables}, {})
           =button_tag(tl(:add), :class => "btn")
         -# @sale_item = @sale.items.new
         -# if @sale.draft?

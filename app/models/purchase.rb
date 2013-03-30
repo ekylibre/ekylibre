@@ -56,8 +56,10 @@ class Purchase < Ekylibre::Record::Base
   belongs_to :payee, :class_name => "Entity", :foreign_key => :supplier_id
   belongs_to :supplier, :class_name => "Entity"
   belongs_to :responsible, :class_name => "User"
-  has_many :items, :class_name => "PurchaseItem", :foreign_key => :purchase_id
   has_many :deliveries, :class_name => "IncomingDelivery"
+  has_many :documents, :as => :owner
+  has_many :items, :class_name => "PurchaseItem", :foreign_key => :purchase_id
+  has_many :journal_entries, :as => :resource
   has_many :products, :through => :items, :uniq => true
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :amount, :pretax_amount, :allow_nil => true
