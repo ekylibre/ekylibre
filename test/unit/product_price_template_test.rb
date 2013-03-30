@@ -18,16 +18,16 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: product_nature_prices
+# == Table: product_price_templates
 #
 #  active            :boolean          default(TRUE), not null
 #  amount            :decimal(19, 4)   not null
 #  by_default        :boolean          default(TRUE)
-#  category_id       :integer
 #  created_at        :datetime         not null
 #  creator_id        :integer
 #  currency          :string(3)
 #  id                :integer          not null, primary key
+#  listing_id        :integer
 #  lock_version      :integer          default(0), not null
 #  pretax_amount     :decimal(19, 4)   not null
 #  product_nature_id :integer          not null
@@ -42,26 +42,26 @@
 
 require 'test_helper'
 
-class ProductNaturePriceTest < ActiveSupport::TestCase
+class ProductPriceTemplateTest < ActiveSupport::TestCase
 
   # Test if the historic is preserved on updates
   test "update" do
-    price = product_nature_prices(:product_nature_prices_001)
-    count = ProductNaturePrice.count
+    template = product_price_templates(:product_price_templates_001)
+    count = ProductPriceTemplate.count
     assert !count.zero?
 
     # Update
-    id, pretax_amount = price.id, price.pretax_amount
-    price.pretax_amount = pretax_amount + 50
-    saved = price.update
-    assert saved, "Price must be saved (#{price.errors.inspect})"
-    assert_equal count + 1, ProductNaturePrice.count
-    assert price.stopped_at.nil?
-    old_price = nil
+    id, pretax_amount = template.id, template.pretax_amount
+    template.pretax_amount = pretax_amount + 50
+    saved = template.update
+    assert saved, "Template must be saved (#{template.errors.inspect})"
+    assert_equal count + 1, ProductPriceTemplate.count
+    assert template.stopped_at.nil?
+    old_template = nil
     assert_nothing_raised do
-      old_price = ProductNaturePrice.find(id)
+      old_template = ProductPriceTemplate.find(id)
     end
-    assert_equal pretax_amount, old_price.pretax_amount
+    assert_equal pretax_amount, old_template.pretax_amount
     assert_nothing_raised do
       saved.reload
     end
@@ -70,24 +70,24 @@ class ProductNaturePriceTest < ActiveSupport::TestCase
 
   # Test if the historic is preserved on destructions
   test "destruction" do
-    price = product_nature_prices(:product_nature_prices_003)
-    count = ProductNaturePrice.count
+    template = product_price_templates(:product_price_templates_003)
+    count = ProductPriceTemplate.count
     assert !count.zero?
 
     # Destroy
-    price.pretax_amount = 158.20
-    assert price.save
-    assert_equal count + 1, ProductNaturePrice.count
-    assert price.stopped_at.nil?
-    id = price.id
-    assert price.destroy
-    assert_equal count + 1, ProductNaturePrice.count
+    template.pretax_amount = 158.20
+    assert template.save
+    assert_equal count + 1, ProductPriceTemplate.count
+    assert template.stopped_at.nil?
+    id = template.id
+    assert template.destroy
+    assert_equal count + 1, ProductPriceTemplate.count
     assert_nothing_raised do
-      ProductNaturePrice.find(id)
+      ProductPriceTemplate.find(id)
     end
     assert_nothing_raised do
-      price.reload
+      template.reload
     end
-    assert !price.stopped_at.nil?, "ProductNaturePrice stopped_at must be updated if price is deleted"
+    assert !template.stopped_at.nil?, "ProductPriceTemplate stopped_at must be updated if template is deleted"
   end
 end

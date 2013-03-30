@@ -33,7 +33,7 @@ eng:
     manage_document_templates: "Manage document templates"
     manage_entities: "Manage people"
     manage_entities_natures: "Manage people natures"
-    manage_entity_categories: "Manage people categories"
+    manage_entity_categories: "Manage people categories" #?
     manage_entity_links: "Manage people links"
     manage_equipments: "Manage equipments"
     manage_estimates: "Create and update estimates"
@@ -55,6 +55,7 @@ eng:
     manage_outgoing_payments: "Manage disbursements"
     manage_prices: "Manage prices"
     manage_product_categories: "Manage product categories"
+    # manage_product_price_listings: "Gérer les listes de prix"
     manage_products: "Manage products"
     manage_purchase_natures: "Manage purchase natures"
     manage_purchases: "Manage purchases"

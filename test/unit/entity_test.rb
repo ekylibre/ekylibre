@@ -26,7 +26,6 @@
 #  attorney_account_id       :integer
 #  authorized_payments_count :integer
 #  born_on                   :date
-#  category_id               :integer
 #  client                    :boolean          not null
 #  client_account_id         :integer
 #  code                      :string(64)
@@ -61,6 +60,7 @@
 #  reduction_percentage      :decimal(19, 4)
 #  reminder_submissive       :boolean          not null
 #  responsible_id            :integer
+#  sale_price_listing_id     :integer
 #  siren                     :string(9)
 #  soundex                   :string(4)
 #  supplier                  :boolean          not null

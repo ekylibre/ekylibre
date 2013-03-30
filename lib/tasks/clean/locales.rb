@@ -5,22 +5,10 @@ task :locales => :environment do
 
   missing_prompt = "# "
 
-  # Load of actions
-  all_actions = HashWithIndifferentAccess.new
-  for right, actions in YAML.load_file(User.rights_file)
-    for uniq_action in actions
-      controller, action = uniq_action.split(/\#/)[0..1]
-      all_actions[controller] ||= []
-      all_actions[controller] << action
-    end if actions.is_a? Array
-  end
-  useful_actions = all_actions.dup
-  useful_actions.delete("help")
-
   locale = ::I18n.locale = ::I18n.default_locale
   locale_dir = Rails.root.join("config", "locales", locale.to_s)
   FileUtils.makedirs(locale_dir) unless File.exist?(locale_dir)
-  for directory in ["help", "prints", "profiles"]
+  for directory in ["help", "prints"] # , "profiles"
     FileUtils.makedirs(locale_dir.join(directory)) unless File.exist?(locale_dir.join(directory))
   end
   log.write("Locale #{::I18n.locale_label}:\n")
@@ -35,10 +23,10 @@ task :locales => :environment do
   # Actions
   translation << "  actions:\n"
   # raise controllers_hash.inspect
-  for controller_name, actions in actions_hash
+  for controller_name, actions in CleanSupport.actions_hash
     existing_actions = ::I18n.translate("actions.#{controller_name}").stringify_keys.keys rescue []
     translateable_actions = []
-    translateable_actions += (actions.delete_if{|a| [:update, :create, :destroy, :up, :down, :decrement, :increment, :duplicate, :reflect].include?(a.to_sym) or a.to_s.match(/^(list|unroll)(\_|$)/)}|existing_actions).sort if controller_name != "backend/interfacers"
+    translateable_actions += (actions.delete_if{ |a| [:update, :create, :destroy, :up, :down, :decrement, :increment, :duplicate, :reflect].include?(a.to_sym) or a.to_s.match(/^(list|unroll)(\_|$)/)}|existing_actions).sort if controller_name != "backend/interfacers"
     if translateable_actions.size > 0
       translation << "    " + controller_name + ":\n"
       for action_name in translateable_actions
@@ -47,7 +35,7 @@ task :locales => :environment do
         if actions.include?(action_name)
           untranslated += 1 if name.blank?
         end
-        translation << "      #{missing_prompt if name.blank?}#{action_name}: " + yaml_value(name.blank? ? "#{action_name}#{'_'+controller_name.singularize unless action_name.match(/^list/)}".humanize : name, 3)
+        translation << "      #{missing_prompt if name.blank?}#{action_name}: " + CleanSupport.yaml_value(name.blank? ? "#{action_name}#{'_'+controller_name.singularize unless action_name.match(/^list/)}".humanize : name, 3)
         translation << " #?" unless actions.include?(action_name)
         translation << "\n"
       end
@@ -56,20 +44,20 @@ task :locales => :environment do
 
   # Controllers
   translation << "  controllers:\n"
-  for controller_name, actions in actions_hash
+  for controller_name, actions in CleanSupport.actions_hash
     name = ::I18n.hardtranslate("controllers.#{controller_name}")
     untranslated += 1 if name.blank?
     to_translate += 1
-    translation << "    #{missing_prompt if name.blank?}#{controller_name}: " + yaml_value(name.blank? ? controller_name.humanize : name, 2) + "\n"
+    translation << "    #{missing_prompt if name.blank?}#{controller_name}: " + CleanSupport.yaml_value(name.blank? ? controller_name.humanize : name, 2) + "\n"
   end
 
   # Errors
-  to_translate += hash_count(::I18n.translate("errors"))
-  translation << "  errors:"+hash_to_yaml(::I18n.translate("errors"), 2)+"\n"
+  to_translate += CleanSupport.hash_count(::I18n.translate("errors"))
+  translation << "  errors:"+CleanSupport.hash_to_yaml(::I18n.translate("errors"), 2)+"\n"
 
   # Labels
-  to_translate += hash_count(::I18n.translate("labels"))
-  translation << "  labels:"+hash_to_yaml(::I18n.translate("labels"), 2)+"\n"
+  to_translate += CleanSupport.hash_count(::I18n.translate("labels"))
+  translation << "  labels:"+CleanSupport.hash_to_yaml(::I18n.translate("labels"), 2)+"\n"
 
   # Notifications
   translation << "  notifications:\n"
@@ -85,26 +73,26 @@ task :locales => :environment do
       end
     end
   end
-  to_translate += hash_count(notifications) # .keys.size
+  to_translate += CleanSupport.hash_count(notifications) # .keys.size
   for key, trans in notifications.sort{|a,b| a[0].to_s<=>b[0].to_s}
     line = "    "
     if trans.blank?
       untranslated += 1
       line += missing_prompt
     end
-    line += "#{key}: "+yaml_value((trans.blank? ? key.to_s.humanize : trans), 2)
+    line += "#{key}: "+CleanSupport.yaml_value((trans.blank? ? key.to_s.humanize : trans), 2)
     line.gsub!(/$/, " #?") if deleted_notifs.include?(key)
     translation << line+"\n"
   end
   warnings << "#{deleted_notifs.size} bad notifications" if deleted_notifs.size > 0
 
   # Preferences
-  to_translate += hash_count(::I18n.translate("preferences"))
-  translation << "  preferences:"+hash_to_yaml(::I18n.translate("preferences"), 2) + "\n"
+  to_translate += CleanSupport.hash_count(::I18n.translate("preferences"))
+  translation << "  preferences:"+CleanSupport.hash_to_yaml(::I18n.translate("preferences"), 2) + "\n"
 
   # Unroll
-  to_translate += hash_count(::I18n.translate("unroll"))
-  translation << "  unroll:"+hash_to_yaml(::I18n.translate("unroll"), 2)
+  to_translate += CleanSupport.hash_count(::I18n.translate("unroll"))
+  translation << "  unroll:"+CleanSupport.hash_to_yaml(::I18n.translate("unroll"), 2)
 
   File.open(locale_dir.join("action.yml"), "wb") do |file|
     file.write(translation)
@@ -116,7 +104,7 @@ task :locales => :environment do
 
 
   # Countries
-  count = sort_yaml_file :countries, log
+  count = CleanSupport.sort_yaml_file :countries, log
   atotal += count
   acount += count
 
@@ -129,10 +117,10 @@ task :locales => :environment do
   for currency, details in currencies_ref.sort
     to_translate += 1
     if currencies["currencies"][currency].blank?
-      translation << "    #{missing_prompt}#{currency}: #{yaml_value(details['iso_name'])}\n"
+      translation << "    #{missing_prompt}#{currency}: #{CleanSupport.yaml_value(details['iso_name'])}\n"
       untranslated += 1
     else
-      translation << "    #{currency}: "+yaml_value(::I18n.translate("currencies.#{currency}"))+"\n"
+      translation << "    #{currency}: "+CleanSupport.yaml_value(::I18n.translate("currencies.#{currency}"))+"\n"
     end
   end
   translation << "  # Override here default formatting options for each currency IF NEEDED\n"
@@ -141,10 +129,10 @@ task :locales => :environment do
   translation << "    currency:\n"
   translation << "      formats:\n"
   for currency, details in currencies_ref.sort
-    x = hash_count(::I18n.hardtranslate("number.currency.formats.#{currency}")||{})
+    x = CleanSupport.hash_count(::I18n.hardtranslate("number.currency.formats.#{currency}")||{})
     to_translate += x
     if x > 0
-      translation << "        #{currency}:"+hash_to_yaml(::I18n.hardtranslate("number.currency.formats.#{currency}")||{}, 5)+"\n"
+      translation << "        #{currency}:"+CleanSupport.hash_to_yaml(::I18n.hardtranslate("number.currency.formats.#{currency}")||{}, 5)+"\n"
 #    else
 #      translation << "        #{missing_prompt}#{currency}:\n"
     end
@@ -159,7 +147,7 @@ task :locales => :environment do
 
 
   # Languages
-  count = sort_yaml_file :languages, log
+  count = CleanSupport.sort_yaml_file :languages, log
   atotal += count
   acount += count
 
@@ -210,15 +198,15 @@ task :locales => :environment do
 
   translation  = locale.to_s+":\n"
   translation << "  activerecord:\n"
-  to_translate += hash_count(::I18n.translate("activerecord.attributes"))
-  translation << "    attributes:"+hash_to_yaml(::I18n.translate("activerecord.attributes"), 3)+"\n"
-  to_translate += hash_count(::I18n.translate("activerecord.errors"))
-  translation << "    errors:"+hash_to_yaml(::I18n.translate("activerecord.errors"), 3)+"\n"
+  to_translate += CleanSupport.hash_count(::I18n.translate("activerecord.attributes"))
+  translation << "    attributes:"+CleanSupport.hash_to_yaml(::I18n.translate("activerecord.attributes"), 3)+"\n"
+  to_translate += CleanSupport.hash_count(::I18n.translate("activerecord.errors"))
+  translation << "    errors:"+CleanSupport.hash_to_yaml(::I18n.translate("activerecord.errors"), 3)+"\n"
   translation << "    models:\n"
   for model, definition in models.sort
     translation << "      "
     translation << missing_prompt if definition[1] == :undefined
-    translation << "#{model}: "+yaml_value(definition[0])
+    translation << "#{model}: "+CleanSupport.yaml_value(definition[0])
     translation << " #?" if definition[1] == :unused
     translation << "\n"
   end
@@ -227,20 +215,20 @@ task :locales => :environment do
     # unless attribute.to_s.match(/_id$/)
     translation << "    "
     translation << missing_prompt if definition[1] == :undefined
-    translation << "#{attribute}: "+yaml_value(definition[0])
+    translation << "#{attribute}: "+CleanSupport.yaml_value(definition[0])
     translation << " #?" if definition[1] == :unused
     translation << "\n"
     # end
   end
 
-  to_translate += hash_count(::I18n.translate("enumerize"))
-  translation << "  enumerize:"+hash_to_yaml(::I18n.translate("enumerize"), 2)+"\n"
+  to_translate += CleanSupport.hash_count(::I18n.translate("enumerize"))
+  translation << "  enumerize:"+CleanSupport.hash_to_yaml(::I18n.translate("enumerize"), 2)+"\n"
 
   translation << "  models:\n"
   for model, definition in models.sort
     next unless definition[2]
-    to_translate += hash_count(definition[2])
-    translation << "    #{model}:" + yaml_value(definition[2], 2).gsub(/\n/, (definition[1] == :unused ? " #?\n" : "\n")) + "\n"
+    to_translate += CleanSupport.hash_count(definition[2])
+    translation << "    #{model}:" + CleanSupport.yaml_value(definition[2], 2).gsub(/\n/, (definition[1] == :unused ? " #?\n" : "\n")) + "\n"
   end
 
   File.open(locale_dir.join("models.yml"), "wb") do |file|
@@ -261,9 +249,9 @@ task :locales => :environment do
     name = ::I18n.hardtranslate("rights.#{right}")
     if name.blank?
       untranslated += 1
-      translation << "    #{missing_prompt}#{right}: #{yaml_value(right.humanize, 2)}\n"
+      translation << "    #{missing_prompt}#{right}: #{CleanSupport.yaml_value(right.humanize, 2)}\n"
     else
-      translation << "    #{right}: #{yaml_value(name, 2)}\n"
+      translation << "    #{right}: #{CleanSupport.yaml_value(name, 2)}\n"
     end
   end
   File.open(locale_dir.join("rights.yml"), "wb") do |file|
@@ -276,19 +264,18 @@ task :locales => :environment do
 
 
   # Support
-  count = sort_yaml_file :support, log
+  count = CleanSupport.sort_yaml_file :support, log
   atotal += count
   acount += count
 
   # Devise
-  count = sort_yaml_file :devise, log
+  count = CleanSupport.sort_yaml_file :devise, log
   atotal += count
   acount += count
 
-  count = sort_yaml_file "devise.views", log
+  count = CleanSupport.sort_yaml_file "devise.views", log
   atotal += count
   acount += count
-
 
 
   # puts " - Locale: #{::I18n.locale_label} (Reference)"
@@ -316,12 +303,11 @@ task :locales => :environment do
           file.write("#{locale}:\n")
         end
       end
-      target = yaml_to_hash(target_path)
-      reference = yaml_to_hash(reference_path)
-      translation, scount, stotal = hash_diff(target[locale], reference[::I18n.default_locale], 1)
+      target = CleanSupport.yaml_to_hash(target_path)
+      reference = CleanSupport.yaml_to_hash(reference_path)
+      translation, scount, stotal = CleanSupport.hash_diff(target[locale], reference[::I18n.default_locale], 1)
       count += scount
       total += stotal
-      # puts "  - #{(file_name+':').ljust(20)} #{stotal} #{scount}"
       log.write "  - #{(file_name+':').ljust(20)} #{(stotal.zero? ? 0 : 100*(stotal-scount)/stotal).round.to_s.rjust(3)}% (#{stotal-scount}/#{stotal})\n"
       File.open(target_path, "wb") do |file|
         file.write("#{locale}:\n")
@@ -329,16 +315,18 @@ task :locales => :environment do
       end
     end
     log.write "  - Total:               #{(100*(total-count)/total).round.to_s.rjust(3)}% (#{total-count}/#{total})\n"
-    # Missing help files
-    # log.write "  - help: # Missing files\n"
-    for controller, actions in useful_actions
-      for action in actions
-        if File.exists?(Rails.root.join('app', 'views', controller.to_s, "#{action}.html.haml")) or (File.exists?("#{Rails.root.to_s}/app/views/#{controller}/_#{action.gsub(/_[^_]*$/,'')}_form.html.haml") and action.split("_")[-1].match(/create|update/))
-          help = "#{Rails.root.to_s}/config/locales/#{locale}/help/#{controller}-#{action}.txt"
-          # log.write "    - #{help.gsub(Rails.root.to_s,'.')}\n" unless File.exists?(help)
-        end
-      end
-    end
+
+    # # Missing help files
+    # # log.write "  - help: # Missing files\n"
+    # for controller, actions in useful_actions
+    #   for action in actions
+    #     if File.exists?(Rails.root.join('app', 'views', controller.to_s, "#{action}.html.haml")) or (File.exists?("#{Rails.root.to_s}/app/views/#{controller}/_#{action.gsub(/_[^_]*$/,'')}_form.html.haml") and action.split("_")[-1].match(/create|update/))
+    #       help = "#{Rails.root.to_s}/config/locales/#{locale}/help/#{controller}-#{action}.txt"
+    #       # log.write "    - #{help.gsub(Rails.root.to_s,'.')}\n" unless File.exists?(help)
+    #     end
+    #   end
+    # end
+
     puts " - Locale: #{(100*(total-count)/total).round.to_s.rjust(3)}% of #{::I18n.locale_label} translated from #{reference_label}" # reference
   end
 

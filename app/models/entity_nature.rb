@@ -62,4 +62,14 @@ class EntityNature < Ekylibre::Record::Base
     self.entities.count <= 0
   end
 
+  # Loads default basic entity natures
+  def self.load_defaults
+    for gender in self.gender.values
+      unless self.find_by_gender(gender)
+        attrs = "models.entity_nature.default.#{gender}".t.symbolize_keys
+        self.create!(attrs.merge(:gender => gender, :in_name => false))
+      end
+    end
+  end
+
 end

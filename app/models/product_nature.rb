@@ -74,7 +74,7 @@ class ProductNature < Ekylibre::Record::Base
   #has_many :available_stocks, :class_name => "ProductStock", :conditions => ["quantity > 0"], :foreign_key => :product_id
   # has_many :components, :class_name => "ProductNatureComponent", :conditions => {:active => true}, :foreign_key => :product_nature_id
   #has_many :outgoing_delivery_items, :foreign_key => :product_id
-  has_many :prices, :foreign_key => :product_nature_id, :class_name => "ProductNaturePrice"
+  has_many :prices, :foreign_key => :product_nature_id, :class_name => "ProductPriceTemplate"
   has_many :repartitions, :class_name => "ActivityRepartition", :foreign_key => :product_nature_id
   #has_many :purchase_items, :foreign_key => :product_id
   #has_many :reservoirs, :conditions => {:reservoir => true}, :foreign_key => :product_id
@@ -146,8 +146,8 @@ class ProductNature < Ekylibre::Record::Base
     Unit.of_product(self)
   end
 
-  def default_price(category_id)
-    self.prices.where(:category_id => category_id, :active => true, :by_default => true).first
+  def default_price(listing_id)
+    self.prices.where(:listing_id => listing_id, :active => true, :by_default => true).first
   end
 
   def label

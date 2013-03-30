@@ -17,14 +17,14 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::ProductNaturePricesController < BackendController
+class Backend::ProductPriceTemplatesController < BackendController
 
   unroll_all
 
   list(:conditions => prices_conditions, :order => :product_nature_id) do |t|
     t.column :name, :through => :product_nature, :url => true
     t.column :full_name, :through => :supplier, :url => true
-    t.column :name, :through => :category, :url => true
+    t.column :name, :through => :listing, :url => true
     t.column :pretax_amount, :currency => true
     t.column :amount, :currency => true
     t.column :by_default
@@ -35,22 +35,22 @@ class Backend::ProductNaturePricesController < BackendController
 
   def new
     @mode = (params[:mode]||"sales").to_sym
-    @product_nature_price = ProductNaturePrice.new(:product_nature_id => params[:product_nature_id], :currency => params[:currency]||Entity.of_company.currency, :category_id => params[:entity_category_id]||session[:current_entity_category_id]||0)
-    @product_nature_price.supplier_id = params[:supplier_id] if params[:supplier_id]
+    @product_price_template = ProductPriceTemplate.new(:product_nature_id => params[:product_nature_id], :currency => params[:currency]||Entity.of_company.currency, :listing_id => params[:price_listing_id]||session[:current_price_listing_id]||0)
+    @product_price_template.supplier_id = params[:supplier_id] if params[:supplier_id]
     # render_restfully_form
   end
 
   def create
     @mode = (params[:mode]||"sales").to_sym
-    @product_nature_price = ProductNaturePrice.new(params[:price])
-    @product_nature_price.supplier_id = params[:product_nature_price][:supplier_id]||Entity.of_company.id
-    return if save_and_redirect(@product_nature_price)
+    @product_price_template = ProductPriceTemplate.new(params[:price])
+    @product_price_template.supplier_id = params[:product_price_template][:supplier_id]||Entity.of_company.id
+    return if save_and_redirect(@product_price_template)
     # render_restfully_form
   end
 
   def destroy
-    return unless @product_nature_price = find_and_check
-    @product_nature_price.destroy
+    return unless @product_price_template = find_and_check
+    @product_price_template.destroy
     redirect_to_current
   end
 
@@ -58,36 +58,36 @@ class Backend::ProductNaturePricesController < BackendController
     if params[:product_nature_id] and params[:supplier_id]
       return unless product_nature = find_and_check(:product_natures, params[:product_nature_id])
       return unless supplier = find_and_check(:supplier, params[:supplier_id])
-      @product_nature_price = product_nature.prices.find(:first, :conditions => {:supplier_id => supplier.id, :active => true}, :order => "by_default DESC")
-      @product_nature_price ||= ProductNaturePrice.new(:category_id => supplier.category_id)
+      @product_price_template = product_nature.prices.find(:first, :conditions => {:supplier_id => supplier.id, :active => true}, :order => "by_default DESC")
+      @product_price_template ||= ProductPriceTemplate.new(:listing_id => supplier.listing_id)
       respond_to do |format|
         format.html { render :partial => "amount_form" }
-        format.json { render :json => @product_nature_price.to_json }
-        format.xml  { render :xml => @product_nature_price.to_xml }
+        format.json { render :json => @product_price_template.to_json }
+        format.xml  { render :xml => @product_price_template.to_xml }
       end
     elsif !params[:purchase_item_price_id].blank?
-      return unless @product_nature_price = find_and_check(:product_nature_price, params[:purchase_item_price_id])
-      @product_nature = @product_nature_price.product_nature if @product_nature_price
+      return unless @product_price_template = find_and_check(:product_price_template, params[:purchase_item_price_id])
+      @product_nature = @product_price_template.product_nature if @product_price_template
     elsif params[:purchase_item_product_id]
       return unless product = find_and_check(:products, params[:purchase_item_product_id])
       @product_nature = product.nature
-      @product_nature_price = @product_nature.prices.find_by_active_and_by_default_and_supplier_id(true, true, params[:supplier_id]||Entity.of_company.id) if @product_nature
+      @product_price_template = @product_nature.prices.find_by_active_and_by_default_and_supplier_id(true, true, params[:supplier_id]||Entity.of_company.id) if @product_nature
     end
   end
 
   def edit
-    return unless @product_nature_price = find_and_check
-    @mode = "purchases" if @product_nature_price.supplier_id != Entity.of_company.id
-    t3e @product_nature_price.attributes, :product_nature => @product_nature_price.product_nature.name
+    return unless @product_price_template = find_and_check
+    @mode = "purchases" if @product_price_template.supplier_id != Entity.of_company.id
+    t3e @product_price_template.attributes, :product_nature => @product_price_template.product_nature.name
     # render_restfully_form
   end
 
   def update
-    return unless @product_nature_price = find_and_check
-    @mode = "purchases" if @product_nature_price.supplier_id != Entity.of_company.id
-    @product_nature_price.amount = 0
-    return if save_and_redirect(@product_nature_price, :attributes => params[:product_nature_price])
-    t3e @product_nature_price.attributes, :product_nature => @product_nature_price.product_nature.name
+    return unless @product_price_template = find_and_check
+    @mode = "purchases" if @product_price_template.supplier_id != Entity.of_company.id
+    @product_price_template.amount = 0
+    return if save_and_redirect(@product_price_template, :attributes => params[:product_price_template])
+    t3e @product_price_template.attributes, :product_nature => @product_price_template.product_nature.name
     # render_restfully_form
   end
 
@@ -97,9 +97,9 @@ class Backend::ProductNaturePricesController < BackendController
     @suppliers = Entity.where(:supplier => true)
     session[:supplier_id] = 0
     if request.post?
-      mode = params[:product_nature_price][:mode]
+      mode = params[:product_price_template][:mode]
       if mode == "suppliers"
-        session[:supplier_id] = params[:product_nature_price][:supply].to_i
+        session[:supplier_id] = params[:product_price_template][:supply].to_i
       elsif mode == "clients"
         session[:supplier_id] = Entity.of_company.id
       else
@@ -110,12 +110,12 @@ class Backend::ProductNaturePricesController < BackendController
 
   def export
     @product_natures = ProductNature.availables
-    @entity_categories = EntityCategory
+    @price_listings = ProductPriceListing
 
     csv = ["",""]
     csv2 = ["Code Produit", "Nom"]
-    @entity_categories.each do |category|
-      csv += [category.code, category.name, ""]
+    @price_listings.each do |listing|
+      csv += [listing.code, listing.name, ""]
       csv2 += ["HT","TTC","TVA"]
     end
 
@@ -127,8 +127,8 @@ class Backend::ProductNaturePricesController < BackendController
       @product_natures.each do |product_nature|
         item = []
         item << [product_nature.code, product_nature.name]
-        @entity_categories.each do |category|
-          price = ProductNaturePrice.find(:first, :conditions => {:active => true, :product_nature_id => product_nature.id, :category_id => EntityCategory.find_by_code(category.code).id})
+        @price_listings.each do |listing|
+          price = ProductPriceTemplate.find(:first, :conditions => {:active => true, :product_nature_id => product_nature.id, :listing_id => ProductPriceListing.find_by_code(listing.code).id})
           #raise Exception.new price.inspect
           if price.nil?
             item << ["","",""]
@@ -156,7 +156,7 @@ class Backend::ProductNaturePricesController < BackendController
       else
         file = params[:csv_file][:path]
         name = "MES_TARIFS.csv"
-        @entity_categories = []
+        @price_listings = []
         @available_prices = []
         @unavailable_prices = []
         i = 0
@@ -165,9 +165,9 @@ class Backend::ProductNaturePricesController < BackendController
           if i == 0
             x = 2
             while !row[x].nil?
-              entity_category = EntityCategory.find_by_code(row[x])
-              entity_category = EntityCategory.create!(:code => row[x], :name => row[x+1]) if entity_category.nil?
-              @entity_categories << entity_category
+              price_listing = ProductPriceListing.find_by_code(row[x])
+              price_listing = ProductPriceListing.create!(:code => row[x], :name => row[x+1]) if price_listing.nil?
+              @price_listings << price_listing
               x += 3
             end
           end
@@ -176,25 +176,25 @@ class Backend::ProductNaturePricesController < BackendController
             puts i.to_s+"hhhhhhhhhhhhhhh"
             x = 2
             @product_nature = ProductNature.find_by_code(row[0])
-            for category in @entity_categories
+            for listing in @price_listings
               blank = true
               tax = Tax.find(:first, :conditions => {:amount => row[x+2].to_s.gsub(/\,/,".").to_f})
               tax_id = tax.nil? ? nil : tax.id
-              @product_nature_price = ProductNaturePrice.find(:first, :conditions => {:product_nature_id => @product_nature.id, :category_id => category.id, :active => true} )
-              if @product_nature_price.nil? and (!row[x].nil? or !row[x+1].nil? or !row[x+2].nil?)
-                @product_nature_price = ProductNaturePrice.new(:pretax_amount => row[x].to_s.gsub(/\,/,".").to_f, :tax_id => tax_id, :amount => row[x+1].to_s.gsub(/\,/,".").to_f, :product_nature_id => @product_nature.id, :category_id => category.id, :supplier_id => Entity.of_company.id, :currency => Entity.of_company.currency)
+              @product_price_template = ProductPriceTemplate.find(:first, :conditions => {:product_nature_id => @product_nature.id, :listing_id => listing.id, :active => true} )
+              if @product_price_template.nil? and (!row[x].nil? or !row[x+1].nil? or !row[x+2].nil?)
+                @product_price_template = ProductPriceTemplate.new(:pretax_amount => row[x].to_s.gsub(/\,/,".").to_f, :tax_id => tax_id, :amount => row[x+1].to_s.gsub(/\,/,".").to_f, :product_nature_id => @product_nature.id, :listing_id => listing.id, :supplier_id => Entity.of_company.id, :currency => Entity.of_company.currency)
                 blank = false
-              elsif !@product_nature_price.nil?
+              elsif !@product_price_template.nil?
                 blank = false
-                @product_nature_price.pretax_amount = row[x].to_s.gsub(/\,/,".").to_f
-                @product_nature_price.amount = row[x+1].to_s.gsub(/\,/,".").to_f
-                @product_nature_price.tax_id = tax_id
+                @product_price_template.pretax_amount = row[x].to_s.gsub(/\,/,".").to_f
+                @product_price_template.amount = row[x+1].to_s.gsub(/\,/,".").to_f
+                @product_price_template.tax_id = tax_id
               end
               if blank == false
-                if @product_nature_price.valid?
-                  @available_prices << @product_nature_price
+                if @product_price_template.valid?
+                  @available_prices << @product_price_template
                 else
-                  @unavailable_prices << [i+1, @product_nature_price.errors.full_messages]
+                  @unavailable_prices << [i+1, @product_price_template.errors.full_messages]
                 end
               end
               x += 3
@@ -211,7 +211,7 @@ class Backend::ProductNaturePricesController < BackendController
           for price in @available_prices
             if price.id.nil?
               puts price.inspect
-              ProductNaturePrice.create!(price.attributes)
+              ProductPriceTemplate.create!(price.attributes)
             else
               price.update_attributes(price.attributes)
             end

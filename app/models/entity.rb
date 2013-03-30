@@ -27,7 +27,6 @@
 #  attorney_account_id       :integer
 #  authorized_payments_count :integer
 #  born_on                   :date
-#  category_id               :integer
 #  client                    :boolean          not null
 #  client_account_id         :integer
 #  code                      :string(64)
@@ -62,6 +61,7 @@
 #  reduction_percentage      :decimal(19, 4)
 #  reminder_submissive       :boolean          not null
 #  responsible_id            :integer
+#  sale_price_listing_id     :integer
 #  siren                     :string(9)
 #  soundex                   :string(4)
 #  supplier                  :boolean          not null
@@ -78,11 +78,11 @@ require "digest/sha2"
 
 class Entity < Ekylibre::Record::Base
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :active, :activity_code, :attorney, :attorney_account_id, :authorized_payments_count, :born_on, :category_id, :client, :client_account_id, :code, :country, :currency, :dead_on, :deliveries_conditions, :first_met_on, :first_name, :full_name, :language, :last_name, :nature_id, :origin, :payment_delay, :payment_mode_id, :picture, :proposer_id, :prospect, :reduction_percentage, :reminder_submissive, :responsible_id, :siren, :supplier, :supplier_account_id, :transporter, :vat_number, :vat_submissive
+  attr_accessible :active, :activity_code, :attorney, :attorney_account_id, :authorized_payments_count, :born_on, :sale_price_listing_id, :client, :client_account_id, :code, :country, :currency, :dead_on, :deliveries_conditions, :first_met_on, :first_name, :full_name, :language, :last_name, :nature_id, :origin, :payment_delay, :payment_mode_id, :picture, :proposer_id, :prospect, :reduction_percentage, :reminder_submissive, :responsible_id, :siren, :supplier, :supplier_account_id, :transporter, :vat_number, :vat_submissive
   attr_accessor :password_confirmation, :old_password
   attr_protected :rights
   belongs_to :attorney_account, :class_name => "Account"
-  belongs_to :category, :class_name => "EntityCategory"
+  belongs_to :sale_price_listing, :class_name => "ProductPriceListing"
   belongs_to :client_account, :class_name => "Account"
   belongs_to :nature, :class_name => "EntityNature"
   belongs_to :payment_mode, :class_name => "IncomingPaymentMode"
@@ -106,7 +106,7 @@ class Entity < Ekylibre::Record::Base
   has_many :indirect_links, :class_name => "EntityLink", :foreign_key => :entity_2_id
   has_many :mandates
   has_many :observations, :as => :subject
-  has_many :prices, :class_name => "ProductNaturePrice"
+  has_many :prices, :class_name => "ProductPriceTemplate"
   has_many :purchase_invoices, :class_name => "Purchase", :foreign_key => :supplier_id, :order => "created_on desc", :conditions => {:state => "invoice"}
   has_many :purchases, :foreign_key => :supplier_id
   has_many :outgoing_deliveries, :foreign_key => :transporter_id
@@ -153,7 +153,7 @@ class Entity < Ekylibre::Record::Base
   validates_inclusion_of :active, :attorney, :client, :locked, :of_company, :prospect, :reminder_submissive, :supplier, :transporter, :vat_submissive, :in => [true, false]
   validates_presence_of :currency, :full_name, :language, :last_name, :nature
   #]VALIDATORS]
-  validates_presence_of :category
+  validates_presence_of :sale_price_listing
   validates_delay_format_of :payment_delay
 
   acts_as_numbered :code
@@ -174,18 +174,15 @@ class Entity < Ekylibre::Record::Base
     self.first_name = self.first_name.to_s.strip
     self.last_name  = self.last_name.to_s.strip
     self.full_name = (self.last_name.to_s + " " + self.first_name.to_s)
-    self.category = EntityCategory.by_default unless self.category
+    self.sale_price_listing ||= ProductPriceListing.by_default
     unless self.nature.nil?
-      self.full_name = (self.nature.title+' '+self.full_name).strip unless self.nature.in_name # or self.nature.abbreviation == "-")
+      self.full_name = (self.nature.title.to_s + ' ' + self.full_name).strip unless self.nature.in_name? # or self.nature.abbreviation == "-")
     end
     self.full_name.strip!
     # self.name = self.name.to_s.strip.downcase.gsub(/[^a-z0-9\.\_]/,'')
     if entity = Entity.of_company
       self.language = entity.language if self.language.blank?
       self.currency = entity.currency if self.currency.blank?
-    end
-    unless self.category
-      self.category = EntityCategory.where(:by_default => true).first
     end
     return true
   end
@@ -348,7 +345,7 @@ class Entity < Ekylibre::Record::Base
     cols = EntityAddress.content_columns.collect{|c| c.name}.delete_if{|c| [:code, :started_at, :stopped_at, :deleted, :address, :by_default, :closed_on, :lock_version, :active,  :updated_at, :created_at].include?(c.to_sym)}+["item_6_city", "item_6_code"]
     columns += cols.collect{|c| [EntityAddress.model_name.human+"/"+EntityAddress.human_attribute_name(c), "address-"+c]}.sort
     columns += ["name", "abbreviation"].collect{|c| [EntityNature.model_name.human+"/"+EntityNature.human_attribute_name(c), "entity_nature-"+c]}.sort
-    columns += ["name"].collect{|c| [EntityCategory.model_name.human+"/"+EntityCategory.human_attribute_name(c), "entity_category-"+c]}.sort
+    # columns += ["name"].collect{|c| [ProductPriceListing.model_name.human+"/"+ProductPriceListing.human_attribute_name(c), "product_price_listing-"+c]}.sort
     columns += CustomField.find(:all, :conditions => ["nature in ('string')"]).collect{|c| [CustomField.model_name.human+"/"+c.name, "custom_field-id"+c.id.to_s]}.sort
     return columns
   end
@@ -359,7 +356,7 @@ class Entity < Ekylibre::Record::Base
   #   columns += Entity.content_columns.collect{|c| [Entity.model_name.human+"/"+Entity.human_attribute_name(c.name), "entity-"+c.name]}.sort
   #   columns += EntityAddress.content_columns.collect{|c| [EntityAddress.model_name.human+"/"+EntityAddress.human_attribute_name(c.name), "address-"+c.name]}.sort
   #   columns += EntityNature.content_columns.collect{|c| [EntityNature.model_name.human+"/"+EntityNature.human_attribute_name(c.name), "entity_nature-"+c.name]}.sort
-  #   columns += EntityCategory.content_columns.collect{|c| [EntityCategory.model_name.human+"/"+EntityCategory.human_attribute_name(c.name), "entity_category-"+c.name]}.sort
+  #   columns += ProductPriceListing.content_columns.collect{|c| [ProductPriceListing.model_name.human+"/"+ProductPriceListing.human_attribute_name(c.name), "product_price_listing-"+c.name]}.sort
   #   columns += CustomField.all.collect{|c| [CustomField.model_name.human+"/"+c.name, "custom_field-id"+c.id.to_s]}.sort
   #   return columns
   # end
@@ -375,9 +372,9 @@ class Entity < Ekylibre::Record::Base
       code += "  nature = EntityNature.where('title=? OR name=?', '-', '-').first\n"
       code += "  nature = EntityNature.create!(:title => '', :name => '-', :physical => false, :in_name => false, :active => true) unless nature\n"
     end
-    unless cols[:entity_category].is_a? Hash
-      code += "  category = EntityCategory.where('name=? or code=?', '-', '-').first\n"
-      code += "  category = EntityCategory.create!(:name => '-', :by_default => false) unless category\n"
+    unless cols[:product_price_listing].is_a? Hash
+      code += "  category = ProductPriceListing.where('name=? or code=?', '-', '-').first\n"
+      code += "  category = ProductPriceListing.create!(:name => '-', :by_default => false) unless category\n"
     end
     for k, v in (cols[:special]||{}).select{|k, v| v == :generate_string_custom_field}
       code += "  custom_field_#{k} = CustomField.create!(:name => #{header[k.to_i].inspect}, :active => true, :length_max => 65536, :nature => 'string', :required => false)\n"
@@ -394,13 +391,13 @@ class Entity < Ekylibre::Record::Base
       code += "      nature = EntityNature.create!(:abbreviation => '-', :name => '-', :physical => false, :in_name => false, :active => true) unless nature\n"
       code += "    end unless nature\n"
     end
-    if cols[:entity_category].is_a? Hash
-      code += "    category = EntityCategory.where("+cols[:entity_category].collect{|k,v| ":#{v} => item[#{k}]"}.join(', ')+").first\n"
+    if cols[:product_price_listing].is_a? Hash
+      code += "    category = ProductPriceListing.where("+cols[:product_price_listing].collect{|k,v| ":#{v} => item[#{k}]"}.join(', ')+").first\n"
       code += "    begin\n"
-      code += "      category = EntityCategory.create!("+cols[:entity_category].collect{|k,v| ":#{v} => item[#{k}]"}.join(', ')+")\n"
+      code += "      category = ProductPriceListing.create!("+cols[:product_price_listing].collect{|k,v| ":#{v} => item[#{k}]"}.join(', ')+")\n"
       code += "    rescue\n"
-      code += "      category = EntityCategory.where('name=? or code=?', '-', '-').first\n"
-      code += "      category = EntityCategory.create!(:name => '-', :by_default => false) unless category\n"
+      code += "      category = ProductPriceListing.where('name=? or code=?', '-', '-').first\n"
+      code += "      category = ProductPriceListing.create!(:name => '-', :by_default => false) unless category\n"
       code += "    end unless category\n"
     end
 

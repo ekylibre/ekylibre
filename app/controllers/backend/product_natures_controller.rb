@@ -62,9 +62,9 @@ class Backend::ProductNaturesController < BackendController
   end
 
 
-  list(:prices, :model => :product_nature_price, :conditions => {:product_nature_id => ['session[:product_nature_id]'], :active => true}) do |t|
+  list(:prices, :model => :product_price_template, :conditions => {:product_nature_id => ['session[:product_nature_id]'], :active => true}) do |t|
     t.column :name, :through => :supplier, :url => true
-    t.column :name, :through => :category, :url => true
+    t.column :name, :through => :listing, :url => true
     t.column :pretax_amount, :currency  =>  true
     t.column :amount, :currency  =>  true
     t.column :by_default

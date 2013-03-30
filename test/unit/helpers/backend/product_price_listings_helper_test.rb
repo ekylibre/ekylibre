@@ -18,5 +18,5 @@
 #
 
 require 'test_helper'
-class Backend::EntityCategoriesHelperTest < ActionView::TestCase
+class Backend::ProductPriceListingsHelperTest < ActionView::TestCase
 end

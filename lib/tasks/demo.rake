@@ -225,34 +225,34 @@ namespace :db do
       #############################################################################
       # Create variety for wheat product
       print "[#{(Time.now - start).round(2).to_s.rjust(8)}s] Sale: "
-      entitycat = EntityCategory.find_by_code("PARDEFAU")
-      category1 ||= ProductNatureCategory.create!(:name => "Vente")
+      entity_category = EntityCategory.find_by_code("PARDEFAU")
+      wheat_category ||= ProductNatureCategory.create!(:name => "Produits régionaux")
       b = ProductVariety.find_by_code("matter")
       b ||= ProductVariety.create!(:name => "Matière vegetale", :code => "matter", :product_type => "Vegetal", :parent_id => (b ? b.id : nil))
       c = ProductVariety.find_by_code("caphorn")
       c ||= ProductVariety.create!(:name => "CAPHORN", :code => "caphorn", :product_type => "Vegetal", :parent_id => (b ? b.id : nil))
-      unit_v = Unit.find_by_name("t")
+      wheat_unit = Unit.get(:t)
       # Create product_nature for wheat product
-      charge_account_nature_ble = Account.find_by_number("601")
-      product_account_nature_ble = Account.find_by_number("701")
-      nature_ble = ProductNature.find_by_number("BLE")
-      nature_ble ||= ProductNature.create!(:charge_account_id => charge_account_nature_ble.id, :product_account_id => product_account_nature_ble.id, :name => "Blé", :number => "BLE", :alive => true, :saleable => true, :purchasable => true, :active => true, :storable => true, :variety_id => c.id, :unit_id => unit_v.id, :category_id => category1.id)
-      taxe_prix_nature_ble = Tax.find_by_amount('5.5000')
+      wheat_charge_account = Account.find_by_number("601")
+      wheat_product_account = Account.find_by_number("701")
+      wheat = ProductNature.find_by_number("BLE")
+      wheat ||= ProductNature.create!(:charge_account_id => wheat_charge_account.id, :product_account_id => wheat_product_account.id, :name => "Blé", :number => "BLE", :alive => true, :saleable => true, :purchasable => true, :active => true, :storable => true, :variety_id => c.id, :unit_id => wheat_unit.id, :category_id => wheat_category.id)
+      wheat_price_tax = Tax.find_by_amount(5.5)
       # Create product_nature_price for wheat product
-      prix_nature_ble = ProductNaturePrice.find_by_product_nature_id(nature_ble.id)
-      prix_nature_ble ||= ProductNaturePrice.create!(:amount => '211.0000', :currency => "EUR", :pretax_amount => '200.0000', :product_nature_id => nature_ble.id, :tax_id => taxe_prix_nature_ble.id, :category_id => entitycat.id, :supplier_id => Entity.of_company.id )
+      wheat_price = ProductNaturePrice.find_by_product_nature_id(wheat.id)
+      wheat_price ||= ProductNaturePrice.create!(:amount => 211, :currency => "EUR", :pretax_amount => 200, :product_nature_id => wheat.id, :tax_id => wheat_price_tax.id, :category_id => entity_category.id, :supplier_id => Entity.of_company.id )
       # Create wheat product
       ble = Vegetal.find_by_work_number("BLE_001")
-      ble = Vegetal.create!(:name => "Blé Cap Horn 2011", :variety_id => c.id, :unit_id => unit_v.id, :identification_number => "BLE_2011_07142011", :work_number => "BLE_2011", :born_at => "2011-07-14", :nature_id => nature_ble.id, :owner_id => Entity.of_company.id, :number => "BLE_2011") #
+      ble = Vegetal.create!(:name => "Blé Cap Horn 2011", :variety_id => c.id, :unit_id => wheat_unit.id, :identification_number => "BLE_2011_07142011", :work_number => "BLE_2011", :born_at => "2011-07-14", :nature_id => wheat.id, :owner_id => Entity.of_company.id, :number => "BLE_2011") #
 
       # sale_nature
-      sale_nature = SaleNature.find_by_name("Coop")
-      sale_nature ||= SaleNature.create!(:name => "Coop", :currency => "EUR")
+      sale_nature = SaleNature.actives.first
+      sale_nature ||= SaleNature.create!(:name => I18n.t('models.sale_nature.default.name'), :currency => "EUR", :active => true)
       # sale
-      sale = Sale.create!( :created_on => '2013-02-27', :client_id => '2', :nature_id => sale_nature.id, :number => "V201302000002", :sum_method => "wt", :state => "draft")
+      sale = Sale.create!(:created_on => Date.civil(2013, 2, 27), :client_id => Entity.where(:of_company => false).first.id, :nature_id => sale_nature.id, :number => "V201302000002", :sum_method => "wt")
       # sale_item
-      sale_item1 = SaleItem.create!(:quantity => '5.0000', :tax_id => taxe_prix_nature_ble.id, :unit_id => unit_v.id, :price_id => prix_nature_ble.id, :product_id => ble.id, :sale_id => sale.id)
-      sale_item2 = SaleItem.create!(:quantity => '15.0000', :tax_id => taxe_prix_nature_ble.id, :unit_id => unit_v.id, :price_id => prix_nature_ble.id, :product_id => ble.id, :sale_id => sale.id)
+      sale_item1 = sale.items.create!(:quantity => 5, :tax_id => wheat_price_tax.id, :unit_id => wheat_unit.price.id, :price_id => wheat_price.id, :product_id => ble.id)
+      sale_item2 = sale.items.create!(:quantity => 15, :tax_id => wheat_price_tax.id, :unit_id => wheat_unit.price.id, :price_id => wheat_price.id, :product_id => ble.id)
       puts "!"
 
 
@@ -292,7 +292,7 @@ namespace :db do
         # create a purchase if not exist
         purchase_order = Purchase.find_by_reference_number(r.order_number)
         purchase_order ||= Purchase.create!(:state => r.order_status, :currency => "EUR", :nature_id => purchase_nature.id, :reference_number => r.order_number, :supplier_id => coop.id, :planned_on => r.ordered_on, :created_on => r.ordered_on)
-        taxe_prix_nature_appro = Tax.find_by_amount('19.6000')
+        tax_price_nature_appro = Tax.find_by_amount('19.6000')
         # create a product_nature if not exist
         product_nature_order = ProductNature.find_by_name(r.product_nature_name)
         product_nature_order ||= ProductNature.create!(:stock_account_id => stock_account_nature_coop.id, :charge_account_id => charge_account_nature_coop.id, :name => r.product_nature_name, :number => r.product_nature_name, :alive => false, :saleable => false, :purchasable => true, :active => true, :storable => true, :variety_id => b.id, :unit_id => unit_u.id, :category_id => r.product_nature_category.id)
@@ -301,7 +301,7 @@ namespace :db do
         product_order ||= Matter.create!(:name => r.matter_name, :identification_number => r.matter_name, :work_number => r.matter_name, :born_at => Time.now, :nature_id => product_nature_order.id, :owner_id => Entity.of_company.id, :number => r.matter_name) #
         # create a product_nature_price if not exist
         product_order_price = ProductNaturePrice.find_by_product_nature_id_and_supplier_id_and_pretax_amount(product_nature_order.id, coop.id, r.product_unit_price)
-        product_order_price ||= ProductNaturePrice.create!(:amount => ((r.product_unit_price*(taxe_prix_nature_appro.amount/100))+r.product_unit_price), :currency => "EUR", :pretax_amount => r.product_unit_price, :product_nature_id => product_nature_order.id, :tax_id => taxe_prix_nature_appro.id, :category_id => entitycat.id, :supplier_id => coop.id )
+        product_order_price ||= ProductNaturePrice.create!(:amount => ((r.product_unit_price*(tax_price_nature_appro.amount/100))+r.product_unit_price), :currency => "EUR", :pretax_amount => r.product_unit_price, :product_nature_id => product_nature_order.id, :tax_id => tax_price_nature_appro.id, :category_id => entity_category.id, :supplier_id => coop.id )
         # create a purchase_item if not exist
         purchase_order_item = PurchaseItem.find_by_product_id_and_purchase_id_and_price_id(product_order.id, purchase_order.id, product_order_price.id)
         purchase_order_item ||= PurchaseItem.create!(:quantity => r.product_order_quantity, :unit_id => unit_u.id, :price_id => product_order_price.id, :product_id => product_order.id, :purchase_id => purchase_order.id)

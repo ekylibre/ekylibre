@@ -85,8 +85,8 @@ class SaleItem < Ekylibre::Record::Base
   before_validation do
     # check_reservoir = true
     if not self.price and self.sale and self.product
-      self.price = self.product.default_price(self.sale.client.category_id)
-      # puts [sale.client.category_id, sale].inspect unless self.price
+      self.price = self.product.default_price(self.sale.client.sale_price_listing_id)
+      # puts [sale.client.sale_price_listing_id, sale].inspect unless self.price
     end
     # self.product = self.price.product if self.price
     if self.product
@@ -102,7 +102,7 @@ class SaleItem < Ekylibre::Record::Base
     self.price_amount ||= 0
 
     if self.price_amount > 0
-      price = ProductNaturePrice.create!(:pretax_amount => self.price_amount, :tax_id => self.tax_id||0, :entity_id => Entity.of_company.id, :active => false, :product_id => self.product_id, :category_id => self.sale.client.category_id)
+      price = ProductPriceTemplate.create!(:pretax_amount => self.price_amount, :tax_id => self.tax_id||0, :entity_id => Entity.of_company.id, :active => false, :product_id => self.product_id, :listing_id => self.sale.client.sale_price_listing_id)
       self.price = price
     end
 

@@ -1030,24 +1030,32 @@ class NormalizeProducts < ActiveRecord::Migration
     rename_table_and_co :product_categories, :product_nature_categories
 
     # Rename table in order to be more logical
-    rename_table_and_indexes :prices, :product_nature_prices
+    rename_table_and_indexes :prices, :product_price_templates
+
+    # Rename table in order to be more logical
+    rename_table_and_indexes :entity_categories, :product_price_listings
+    rename_column :entities, :category_id, :sale_price_listing_id
+    rename_column :product_price_templates, :category_id, :listing_id
 
     create_table :product_prices do |t|
       t.references :product, :null => false
       t.references :supplier, :null => false
+      t.references :template, :null => false # For computed price
       t.decimal :pretax_amount, :null => false, :precision => 19, :scale => 4
       t.decimal :amount, :null => false, :precision => 19, :scale => 4
       t.string :currency, :null => false, :null => false
       t.references :tax
-      t.references :product_nature_price # For computed price
       t.datetime :started_at
+      t.datetime :stopped_at
       t.stamps
     end
     add_stamps_indexes :product_prices
     add_index :product_prices, :product_id
     add_index :product_prices, :supplier_id
     add_index :product_prices, :tax_id
-    add_index :product_prices, :product_nature_price_id
+    add_index :product_prices, :template_id
+
+    # TODO Insert new prices
 
     # Rename table in order to be more logical
     # rename_table_and_co :product_components, :product_nature_components
@@ -1219,7 +1227,7 @@ class NormalizeProducts < ActiveRecord::Migration
       table = model.to_s.tableize.to_sym
       for column, foreign_table in references
         if column == :old_product_id
-          rename_column table, column, ([:product_nature_prices, :production_chain_conveyors, :product_nature_components, :subscriptions].include?(table) ? :product_nature_id : :product_id)
+          rename_column table, column, ([:product_price_templates, :production_chain_conveyors, :product_nature_components, :subscriptions].include?(table) ? :product_nature_id : :product_id)
         elsif column == :old_stock_move_id
           rename_column table, column, :move_id
         end

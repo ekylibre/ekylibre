@@ -592,17 +592,6 @@
     </menu>
     <menu name="relationship">
       <page to="backend/dashboards#settings_relationship"/>
-      <menu name="entity_categories">
-        <page to="backend/entity_categories#index"/>
-        <page to="backend/entity_categories#create"/>
-        <page to="backend/entity_categories#destroy"/>
-        <page to="backend/entity_categories#edit"/>
-        <page to="backend/entity_categories#list"/>
-        <page to="backend/entity_categories#list_prices"/>
-        <page to="backend/entity_categories#new"/>
-        <page to="backend/entity_categories#show"/>
-        <page to="backend/entity_categories#update"/>
-      </menu>
       <menu name="entity_link_natures">
         <page to="backend/entity_link_natures#index"/>
         <page to="backend/entity_link_natures#create"/>
@@ -793,17 +782,28 @@
         <page to="backend/product_varieties#new"/>
         <page to="backend/product_varieties#update"/>
       </menu>
-      <menu name="product_nature_prices">
-        <page to="backend/product_nature_prices#index"/>
-        <page to="backend/product_nature_prices#create"/>
-        <page to="backend/product_nature_prices#destroy"/>
-        <page to="backend/product_nature_prices#edit"/>
-        <page to="backend/product_nature_prices#export"/>
-        <page to="backend/product_nature_prices#find"/>
-        <page to="backend/product_nature_prices#import"/>
-        <page to="backend/product_nature_prices#list"/>
-        <page to="backend/product_nature_prices#new"/>
-        <page to="backend/product_nature_prices#update"/>
+      <menu name="product_price_listings">
+        <page to="backend/product_price_listings#index"/>
+        <page to="backend/product_price_listings#create"/>
+        <page to="backend/product_price_listings#destroy"/>
+        <page to="backend/product_price_listings#edit"/>
+        <page to="backend/product_price_listings#list"/>
+        <page to="backend/product_price_listings#list_prices"/>
+        <page to="backend/product_price_listings#new"/>
+        <page to="backend/product_price_listings#show"/>
+        <page to="backend/product_price_listings#update"/>
+      </menu>
+      <menu name="product_price_templates">
+        <page to="backend/product_price_templates#index"/>
+        <page to="backend/product_price_templates#create"/>
+        <page to="backend/product_price_templates#destroy"/>
+        <page to="backend/product_price_templates#edit"/>
+        <page to="backend/product_price_templates#export"/>
+        <page to="backend/product_price_templates#find"/>
+        <page to="backend/product_price_templates#import"/>
+        <page to="backend/product_price_templates#list"/>
+        <page to="backend/product_price_templates#new"/>
+        <page to="backend/product_price_templates#update"/>
       </menu>
     </menu>
     <menu name="stocks">

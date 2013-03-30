@@ -763,9 +763,9 @@ class BackendController < BaseController
   def self.prices_conditions(options={})
     code = "conditions=[]\n"
     code << "if session[:supplier_id] == 0 \n "
-    code << " conditions = ['#{ProductNaturePrice.table_name}.active = ?', true] \n "
+    code << " conditions = ['#{ProductPriceTemplate.table_name}.active = ?', true] \n "
     code << "else \n "
-    code << " conditions = ['#{ProductNaturePrice.table_name}.supplier_id = ? AND #{ProductNaturePrice.table_name}.active = ?', session[:supplier_id], true]"
+    code << " conditions = ['#{ProductPriceTemplate.table_name}.supplier_id = ? AND #{ProductPriceTemplate.table_name}.active = ?', session[:supplier_id], true]"
     code << "end \n "
     code << "conditions \n "
     code

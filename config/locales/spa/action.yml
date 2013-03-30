@@ -168,11 +168,7 @@ spa:
     backend/entity_addresses:
       # edit: "Modifier une coordonnée"
       # new: "Ajouter une coordonnée"
-    backend/entity_categories:
-      # edit: "Modifier la catégorie de fiche\_: %{name}"
-      # index: "Catégories de fiche"
-      # new: "Ajout d’une nouvelle catégorie de fiche"
-      # show: "Catégorie de fiche\_: %{name}"
+    backend/entity_categories: #?
     backend/entity_link_natures:
       # edit: "Modifier le type de lien\_: %{name}"
       # index: "Types de lien"
@@ -383,18 +379,14 @@ spa:
       # new: "Ajout d’une nouvelle catégorie de produits"
       # show: "Détail de la catégorie\_: %{name}"
     backend/product_nature_components: #?
-    backend/product_nature_prices:
-      # edit: "Modifier le tarif de %{product_nature}"
-      # export: "Exporter des tarifs"
-      # find: "Trouver un tarif"
-      # import: "Importer des tarifs"
-      # index: "Tarifs"
-      # new: "Nouveau tarif"
+    backend/product_nature_prices: #?
     backend/product_natures:
       # edit: "Modifier le type de produit\_: %{name}"
       # index: "Type de produit"
       # new: "Nouveau type de produit"
       # show: "Type de produit\_: %{name}"
+    backend/product_price_listings: #?
+    backend/product_price_templates: #?
     backend/product_prices: #?
     backend/product_process_phases: #?
     backend/product_processes: #?
@@ -594,7 +586,6 @@ spa:
     # backend/documents: "Documents"
     # backend/entities: "Personnes"
     # backend/entity_addresses: "Adresses"
-    # backend/entity_categories: "Catégories de fiche"
     # backend/entity_link_natures: "Types de lien"
     # backend/entity_links: "Liens entre personnes"
     # backend/entity_natures: "Types de fiches"
@@ -638,7 +629,6 @@ spa:
     # backend/product_localizations: "Tracabilité"
     # backend/product_moves: "Mouvements de stock"
     # backend/product_nature_categories: "Catégories de type de produits"
-    # backend/product_nature_prices: "Prix par type de produits"
     # backend/product_natures: "Types de produits"
     # backend/product_transfers: "Transferts et pertes de stocks"
     # backend/product_varieties: "Races"

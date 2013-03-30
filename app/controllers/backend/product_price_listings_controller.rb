@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::EntityCategoriesController < BackendController
+class Backend::ProductPriceListingsController < BackendController
   unroll_all
 
   manage_restfully
@@ -35,7 +35,7 @@ class Backend::EntityCategoriesController < BackendController
   def index
   end
 
-  list(:prices, :model => :product_nature_prices, :conditions => {:active => true, :category_id => ['session[:current_entity_category_id]']}) do |t|
+  list(:prices, :model => :product_price_templates, :conditions => {:active => true, :category_id => ['session[:current_entity_category_id]']}) do |t|
     t.column :name, :through => :product_nature, :url => true
     t.column :pretax_amount
     t.column :amount
@@ -45,7 +45,7 @@ class Backend::EntityCategoriesController < BackendController
 
   # Displays details of one entity category selected with +params[:id]+
   def show
-    return unless @entity_category = find_and_check(:entity_category)
+    return unless @entity_category = find_and_check(:product_price_listing)
     session[:current_entity_category_id] = @entity_category.id
     t3e @entity_category.attributes
   end

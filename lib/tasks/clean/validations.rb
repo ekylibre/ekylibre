@@ -41,7 +41,7 @@ task :validations => :environment do
   print " - Valids: "
 
   errors = []
-  models_in_file.each do |model|
+  CleanSupport.models_in_file.each do |model|
     begin
       unless model.abstract_class?
         file = Rails.root.join("app", "models", model.name.underscore + ".rb")

@@ -3,12 +3,11 @@ spa:
     attributes:
       activity:
         # family: "Famille"
-        # favored_product_nature: "Produit de référence"
         # nature: "Type de centre analytique"
         # net_margin: "Marge nette"
         # nomen: "Code analytique"
         # parent: "Activité parente"
-        # work_unit: "Unité d'oeuvre"
+        # work_unit: "Unité d'œuvre"
       activity_repartition:
         # activity: "Activité"
         # affected_on: "Affecté le"
@@ -116,10 +115,11 @@ spa:
       product_nature_category:
         # children: "Sous-catégories"
         # published: "Publiée"
-      product_nature_price:
+      product_nature_price: #?
+      product_price_template:
         # amount: "Montant TTC"
-        # category: "Catégorie de fiche associée"
         # entity: "Fournisseur"
+        # listing: "Catégorie de fiche associée"
       product_specy: #?
       product_stock: #?
       product_stock_move: #?
@@ -272,6 +272,9 @@ spa:
         product_nature_price:
           # already_defined: "Un prix a déjà été défini pour cette liste de prix et ce produit"
           # range_overlap: "L’intervalle de quantité en chevauche un autre (de %{min} à %{max})"
+        product_price_template:
+          # already_defined: "Un prix a déjà été défini pour cette liste de prix et ce produit"
+          # range_overlap: "L’intervalle de quantité en chevauche un autre (de %{min} à %{max})"
         product_stock:
           # product_cannot_be_in_warehouse: "Le produit ne peut pas être stocké dans le réservoir %{warehouse}"
         product_transfer:
@@ -333,7 +336,6 @@ spa:
       # document_template: "Modèle de document"
       # entity: "Personne"
       # entity_address: "Adresse"
-      # entity_category: "Catégorie de personne"
       # entity_link: "Lien de personne"
       # entity_link_nature: "Nature de lien entre personnes"
       # entity_nature: "Type de personne"
@@ -376,7 +378,9 @@ spa:
       # product_move: "Mouvement de stock"
       # product_nature: "Type de produit"
       # product_nature_category: "Catégorie de produit"
-      # product_nature_price: "Prix"
+      # product_price: "Prix"
+      # product_price_listing: "Liste de prix"
+      # product_price_template: "Type de prix"
       # product_transfer: "Transfert ou perte de Stock"
       # product_variety: "Variété de produit"
       # production_chain: "Chaîne de production"
@@ -1364,48 +1368,14 @@ spa:
           # purchase: "Création d’un achat"
           # sale: "Création d’un devis"
           # sales_invoice: "Création d’une facture"
-        incoming_payment_modes:
-          cash:
-            # name: "Espèces"
-          check:
-            # name: "Chèque"
-          transfer:
-            # name: "Virement"
-        outgoing_payment_modes:
-          cash:
-            # name: "Espèces"
-          check:
-            # name: "Chèque"
-          transfer:
-            # name: "Virement"
+        incoming_payment_modes: #?
+        outgoing_payment_modes: #?
         # product_category_name: "Sans catégorie"
-        # purchase_nature_name: "Standard"
         role:
           name:
             # admin: "Gérant"
             # public: "Public (sans droits)"
-        # sale_nature_name: "Vente standard"
-        taxes:
-          tva0000:
-            # amount: "0.0"
-            # collected: "445710"
-            # name: "TVA 0,00%"
-            # paid: "445660"
-          tva0210:
-            # amount: "2.1"
-            # collected: "445711"
-            # name: "TVA 2,10%"
-            # paid: "445661"
-          tva0550:
-            # amount: "5.5"
-            # collected: "445712"
-            # name: "TVA 5,50%"
-            # paid: "445662"
-          tva1960:
-            # amount: "19.6"
-            # collected: "445713"
-            # name: "TVA 19,60%"
-            # paid: "445663"
+        taxes: #?
         # warehouse_name: "Réserve"
       import:
         # dont_use: "-- Ne pas utiliser --"
@@ -1460,6 +1430,18 @@ spa:
       # no_right_defined_for_this_part_of_the_application: "Aucun droit défini pour cette partie de l’application\_: %{controller}/%{action}"
       # no_right_defined_for_this_part_of_the_application_and_this_user: "Vous n’avez pas accès à cette partie de l’application"
       # supplier: "Fournisseur"
+    entity_nature:
+      default:
+        man:
+          # name: "Monsieur"
+          # title: "M"
+        organization:
+          # name: "Société"
+        undefined:
+          # name: "Indéfini"
+        woman:
+          # name: "Madame"
+          # title: "Mme"
     financial_year:
       # bookkeep: "[%{resource} %{number}] Amortissement de %{name} (%{position}/%{total})"
       code:
@@ -1468,6 +1450,14 @@ spa:
     incoming_payment:
       # bookkeep: "[%{resource} %{number}] %{mode} %{check_number} de %{payer}"
       # label: "%{number}. %{amount} du %{date} en %{mode} de %{payer}"
+    incoming_payment_mode:
+      default:
+        cash:
+          # name: "Espèces"
+        check:
+          # name: "Chèque"
+        transfer:
+          # name: "Virement"
     incoming_payment_use: #?
     inventory_item:
       # inventory: "Inventaire "
@@ -1524,6 +1514,14 @@ spa:
     outgoing_payment:
       # bookkeep: "[%{resource} %{number}] %{mode} %{check_number} pour %{payee}"
       # label: "%{number}. %{amount} du %{date} en %{mode} pour %{payee}"
+    outgoing_payment_mode:
+      default:
+        cash:
+          # name: "Espèces"
+        check:
+          # name: "Chèque"
+        transfer:
+          # name: "Virement"
     product:
       informations:
         # with_components: "%{product} (%{unit}) (produit transformé)"
@@ -1554,7 +1552,8 @@ spa:
         # purchases: "Achat"
         # rent: "Location"
         # sales: "Vente"
-    product_nature_price:
+    product_nature_price: #?
+    product_price_template:
       # label: "%{product} / %{amount} %{currency}"
       # no_range: "Pas d’intervalle"
       # range: "De %{min} à %{max}"
@@ -1573,6 +1572,9 @@ spa:
       # name: "%{product} (%{quantity}%{unit}) à %{amount}%{currency}/%{unit}"
       # name_with_tracking: "%{product}/%{tracking} (%{quantity}%{unit}) à %{amount}%{currency}/%{unit}"
       # tracking: "N°Lot\_: %{serial}"
+    purchase_nature:
+      default:
+        # name: "Standard"
     sale:
       # bookkeep: "[%{resource} %{number}] %{products} pour %{client} (%{sale})"
       label:
@@ -1604,6 +1606,8 @@ spa:
       # reduction_on: "Remise de %{percent}% sur\_: %{product}"
       # tracking: "N°Lot\_: %{serial}"
       # warehouse_can_not_transfer_product: "Le produit %{product} ne peut être sorti du réservoir %{warehouse}, celui-ci contient %{contained_product} "
+    sale_nature:
+      # sale_nature_name: "Vente standard"
     sequence:
       default:
         assets:
@@ -1646,6 +1650,28 @@ spa:
           # number_format: "ABO[number|8]"
         transports:
           # number_format: "TR[number|8]"
+    tax:
+      default:
+        tva0000:
+          # amount: "0.0"
+          # collected: "445710"
+          # name: "TVA 0,00%"
+          # paid: "445660"
+        tva0210:
+          # amount: "2.1"
+          # collected: "445711"
+          # name: "TVA 2,10%"
+          # paid: "445661"
+        tva0550:
+          # amount: "5.5"
+          # collected: "445712"
+          # name: "TVA 5,50%"
+          # paid: "445662"
+        tva1960:
+          # amount: "19.6"
+          # collected: "445713"
+          # name: "TVA 19,60%"
+          # paid: "445663"
     tax_declaration:
       # deferment: "Reporté"
       # monthly: "Mensuelle"

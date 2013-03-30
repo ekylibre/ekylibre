@@ -16,12 +16,11 @@ arb:
         lock_version: "الاصدار المحلي" #?
       activity:
         # family: "Famille"
-        # favored_product_nature: "Produit de référence"
         # nature: "Type de centre analytique"
         # net_margin: "Marge nette"
         # nomen: "Code analytique"
         # parent: "Activité parente"
-        # work_unit: "Unité d'oeuvre"
+        # work_unit: "Unité d'œuvre"
       activity_repartition:
         # activity: "Activité"
         # affected_on: "Affecté le"
@@ -428,13 +427,25 @@ arb:
         updater: "التحدبث" #?
         warehouse: "مكان التخزين" #?
         warehouse_id: "مكان التخزين" #?
-      product_nature_price:
+      product_nature_price:  #?
+        category: "فئة الملف المساعد" #?
+        category_id: "فئة الملف المساعد" #?
+        company_id: "الشركة" #?
+        entity: "الممول" #?
+        entity_id: "الممول" #?
+        product_id: "الانتاج" #?
+        sales_invoice_items: "طرق تسدسد الفاتورة" #?
+        started_at: "ابتدأ يوم\_" #?
+      product_price_listing:  #?
+        description: "مواصفات" #?
+      product_price_template:
         # amount: "Montant TTC"
-        category: "فئة الملف المساعد"
+        category: "فئة الملف المساعد" #?
         category_id: "فئة الملف المساعد" #?
         company_id: "الشركة" #?
         entity: "الممول"
         entity_id: "الممول" #?
+        # listing: "Catégorie de fiche associée"
         product_id: "الانتاج" #?
         sales_invoice_items: "طرق تسدسد الفاتورة" #?
         started_at: "ابتدأ يوم\_" #?
@@ -735,6 +746,9 @@ arb:
         product_nature_price:
           already_defined: "قد تم تحديد السعر لهذا المنتج وقائمة الاسعار سابقا"
           range_overlap: "تداخل فاصل زمني اخر للكمية (  %{min} الى\_ %{max})"
+        product_price_template:
+          already_defined: "قد تم تحديد السعر لهذا المنتج وقائمة الاسعار سابقا"
+          range_overlap: "تداخل فاصل زمني اخر للكمية (  %{min} الى\_ %{max})"
         product_stock:
           product_cannot_be_in_warehouse: "%{warehouse} لا يمكن تخزين المنتج في خزينة"
         product_transfer:
@@ -799,7 +813,7 @@ arb:
       document_template: "نموذج الوثيقة"
       entity: "الفرد"
       # entity_address: "Adresse"
-      entity_category: "فئة الفرد"
+      entity_category: "فئة الفرد" #?
       entity_event: "الحدث" #?
       entity_event_nature: "نوع الحدث" #?
       entity_link: "رابط الفرد"
@@ -854,7 +868,10 @@ arb:
       product_nature: "الانتاج"
       product_nature_category: "فئة الانتاج"
       product_nature_component: "عنصر الانتاج" #?
-      product_nature_price: "الاسعار"
+      product_nature_price: "الاسعار" #?
+      # product_price: "Prix"
+      product_price_listing: "فئة الفرد"
+      product_price_template: "الاسعار"
       product_stock: "سهم الانتاج" #?
       product_stock_move: "حركة السهم" #?
       product_transfer: "تحول او ضياع السهم"
@@ -2065,35 +2082,34 @@ arb:
           # sale: "Création d’un devis"
           # sales_invoice: "Création d’une facture"
         financial_year_code: "1A2" #?
-        incoming_payment_modes:
-          cash:
-            name: "عملة نقدية"
-          check:
-            name: "شيك"
-          transfer:
-            name: "التحويل"
+        incoming_payment_modes:  #?
+          cash: #?
+            name: "عملة نقدية" #?
+          check: #?
+            name: "شيك" #?
+          transfer: #?
+            name: "التحويل" #?
         journals:  #?
           bank: "الدفتر اليومي للبنك" #?
           cash: "الدفتر اليومي للصندوق النقدي" #?
           purchases: "دفاتر الشراء اليومية" #?
           sales: "دفاتر البيع اليومية" #?
           various: "دفاتر يومية لعمليات متنوعة" #?
-        outgoing_payment_modes:
-          cash:
-            name: "عملة نقدية"
-          check:
-            name: "شيك"
-          transfer:
-            name: "التحويل"
+        outgoing_payment_modes:  #?
+          cash: #?
+            name: "عملة نقدية" #?
+          check: #?
+            name: "شيك" #?
+          transfer: #?
+            name: "التحويل" #?
         paid_tax: "TVA خصم" #?
         price_list_name: "التسعيرة سوية" #?
         product_category_name: "من غير فئة"
-        # purchase_nature_name: "Standard"
         role:
           name:
             admin: "المدير"
             public: "(الشعب (من دون حقوق"
-        sale_nature_name: "مقياس البيع"
+        sale_nature_name: "مقياس البيع" #?
         sample_product_name: "عينة المنتج" #?
         sequences:  #?
           management: #?
@@ -2124,27 +2140,27 @@ arb:
             entities: #?
               name: "عدد الاشخاص" #?
               number_format: "[number|8]" #?
-        taxes:
-          tva0000:
-            amount: "0.0"
-            collected: "445710"
-            name: "TVA 0,00%"
-            paid: "445660"
-          tva0210:
-            amount: "0.021"
-            collected: "445711"
-            name: "TVA 2,10%"
-            paid: "445661"
-          tva0550:
-            amount: "0.055"
-            collected: "445712"
-            name: "TVA 5,50%"
-            paid: "445662"
-          tva1960:
-            amount: "0.196"
-            collected: "445713"
-            name: "TVA 19,60%"
-            paid: "445663"
+        taxes:  #?
+          tva0000: #?
+            amount: "0.0" #?
+            collected: "445710" #?
+            name: "TVA 0,00%" #?
+            paid: "445660" #?
+          tva0210: #?
+            amount: "0.021" #?
+            collected: "445711" #?
+            name: "TVA 2,10%" #?
+            paid: "445661" #?
+          tva0550: #?
+            amount: "0.055" #?
+            collected: "445712" #?
+            name: "TVA 5,50%" #?
+            paid: "445662" #?
+          tva1960: #?
+            amount: "0.196" #?
+            collected: "445713" #?
+            name: "TVA 19,60%" #?
+            paid: "445663" #?
         units:  #?
           a: "و" #?
           ca: "(m²) سنتميتر" #?
@@ -2255,6 +2271,18 @@ arb:
         purchase: "انشاء طلب شراء" #?
         sale: "انشاء طلب بيع" #?
         sales_invoice: "انشاء فاتورة" #?
+    entity_nature:
+      default:
+        man:
+          # name: "Monsieur"
+          # title: "M"
+        organization:
+          # name: "Société"
+        undefined:
+          # name: "Indéfini"
+        woman:
+          # name: "Madame"
+          # title: "Mme"
     equipment:  #?
       natures: #?
         other: "اخرى" #?
@@ -2275,6 +2303,14 @@ arb:
     incoming_payment:
       bookkeep: "[%{resource} %{number}] %{mode} %{check_number} ل %{payer} (%{expenses})"
       label: "%{number}. %{amount} (%{usable_amount} restants) من %{date} بواسطة %{mode} ل %{payer}"
+    incoming_payment_mode:
+      default:
+        cash:
+          # name: "Espèces"
+        check:
+          # name: "Chèque"
+        transfer:
+          # name: "Virement"
     incoming_payment_use:  #?
       bookkeep: "[%{resource}] %{mode} (%{payment_number}) وردت من %{attorney} ل %{client} (%{expense_number})" #?
     inventory_item:
@@ -2355,6 +2391,14 @@ arb:
     outgoing_payment:
       bookkeep: "[%{resource} %{number}] %{mode} %{check_number} ل %{payee} (%{expenses})"
       label: "%{number}. %{amount} (%{usable_amount} restants) من %{date} بواسطة %{mode} ل %{payee}"
+    outgoing_payment_mode:
+      default:
+        cash:
+          # name: "Espèces"
+        check:
+          # name: "Chèque"
+        transfer:
+          # name: "Virement"
     outgoing_payment_use:  #?
       bookkeep: "[%{resource}] %{mode} (%{payment_number}) وردت من %{attorney} ل %{supplier} (%{expense_number})" #?
     price:  #?
@@ -2413,7 +2457,11 @@ arb:
       unknown_use_of_product: "(يجب تحديد الغاية من المنتج (شراء او بيع او تأجير" #?
     product_nature_component:  #?
       of_product: "نتاج" #?
-    product_nature_price:
+    product_nature_price:  #?
+      label: "%{product} / %{amount} %{currency}" #?
+      no_range: "ليس هناك من فترة استراحة" #?
+      range: "من %{min} الى %{max}" #?
+    product_price_template:
       label: "%{product} / %{amount} %{currency}"
       no_range: "ليس هناك من فترة استراحة"
       range: "من %{min} الى %{max}"
@@ -2463,6 +2511,9 @@ arb:
       name: "%{product} (%{quantity}%{unit}) ل %{amount}%{currency}/%{unit}"
       name_with_tracking: "%{product}/%{tracking} (%{quantity}%{unit}) لل %{amount}%{currency}/%{unit}"
       tracking: "رقم الحصة : %{serial}"
+    purchase_nature:
+      default:
+        # name: "Standard"
     sale:
       # bookkeep: "[%{resource} %{number}] %{products} pour %{client} (%{sale})"
       label:
@@ -2502,6 +2553,8 @@ arb:
       reduction_on: "تخفيض بنسبة %{percent}% على : %{product}"
       tracking: "رقم الحصة : %{serial}"
       warehouse_can_not_transfer_product: "المنتج %{product} لا يأخذ خارج الخزينة %{warehouse}, هذا ويحتوي %{contained_product} "
+    sale_nature:
+      # sale_nature_name: "Vente standard"
     sales_invoice:  #?
       bookkeep: "[%{resource} %{number}] %{products} لاجل %{client} (%{sale})" #?
       label: #?
@@ -2568,9 +2621,30 @@ arb:
       natures: #?
         period: "الاشتراك وفق التاريخ" #?
         quantity: "الاشتراك حسب الكمية" #?
-    tax:  #?
+    tax:
       amount_must_be_included_between_0_and_1: "يجب ان يكون مشتمل بين 1 و 0" #?
-      natures: #?
+      default:
+        tva0000:
+          # amount: "0.0"
+          # collected: "445710"
+          # name: "TVA 0,00%"
+          # paid: "445660"
+        tva0210:
+          # amount: "2.1"
+          # collected: "445711"
+          # name: "TVA 2,10%"
+          # paid: "445661"
+        tva0550:
+          # amount: "5.5"
+          # collected: "445712"
+          # name: "TVA 5,50%"
+          # paid: "445662"
+        tva1960:
+          # amount: "19.6"
+          # collected: "445713"
+          # name: "TVA 19,60%"
+          # paid: "445663"
+      natures:  #?
         amount: "القيمة" #?
         percent: "النسبة المئوية" #?
     tax_declaration:

@@ -135,11 +135,11 @@ eng:
     backend/entity_addresses:
       edit: "Edit a coordinate"
       new: "Add a coordinate"
-    backend/entity_categories:
-      edit: "Edit the person category: %{name}"
-      index: "Person categories"
-      new: "Add a new person category"
-      show: "Person category: %{name}"
+    backend/entity_categories:  #?
+      edit: "Edit the person category: %{name}" #?
+      index: "Person categories" #?
+      new: "Add a new person category" #?
+      show: "Person category: %{name}" #?
     backend/entity_event_natures:  #?
       edit: "Edit thee event type: %{name}" #?
       index: "Event types" #?
@@ -340,18 +340,14 @@ eng:
       index: "Product categories"
       new: "Add a new product category"
       show: "Product category: %{name}"
-    backend/product_nature_prices:
-      # edit: "Modifier le tarif de %{product_nature}"
-      # export: "Exporter des tarifs"
-      # find: "Trouver un tarif"
-      # import: "Importer des tarifs"
-      # index: "Tarifs"
-      # new: "Nouveau tarif"
+    backend/product_nature_prices: #?
     backend/product_natures:
       edit: "Edit the product type: %{name}"
       index: "Product types"
       new: "Add a new product type"
       show: "Product type: %{name}"
+    backend/product_price_listings: #?
+    backend/product_price_templates: #?
     backend/product_prices: #?
     backend/product_process_phases: #?
     backend/product_processes: #?
@@ -537,7 +533,7 @@ eng:
     backend/documents: "Documents"
     backend/entities: "People"
     backend/entity_addresses: "People addresses"
-    backend/entity_categories: "Person categories"
+    backend/entity_categories: "Person categories" #?
     backend/entity_link_natures: "Link types"
     backend/entity_links: "Entity links"
     backend/entity_natures: "Person types"
@@ -580,7 +576,6 @@ eng:
     # backend/product_localizations: "Tracabilité"
     backend/product_moves: "Stock moves"
     backend/product_nature_categories: "Product categories"
-    # backend/product_nature_prices: "Prix par type de produits"
     backend/product_natures: "Product types"
     backend/product_transfers: "Transfers and loss"
     backend/product_varieties: "Product species"

@@ -20,20 +20,21 @@
 #
 # == Table: product_prices
 #
-#  amount                  :decimal(19, 4)   not null
-#  created_at              :datetime         not null
-#  creator_id              :integer
-#  currency                :string(255)      not null
-#  id                      :integer          not null, primary key
-#  lock_version            :integer          default(0), not null
-#  pretax_amount           :decimal(19, 4)   not null
-#  product_id              :integer          not null
-#  product_nature_price_id :integer
-#  started_at              :datetime
-#  supplier_id             :integer          not null
-#  tax_id                  :integer
-#  updated_at              :datetime         not null
-#  updater_id              :integer
+#  amount        :decimal(19, 4)   not null
+#  created_at    :datetime         not null
+#  creator_id    :integer
+#  currency      :string(255)      not null
+#  id            :integer          not null, primary key
+#  lock_version  :integer          default(0), not null
+#  pretax_amount :decimal(19, 4)   not null
+#  product_id    :integer          not null
+#  started_at    :datetime
+#  stopped_at    :datetime
+#  supplier_id   :integer          not null
+#  tax_id        :integer
+#  template_id   :integer          not null
+#  updated_at    :datetime         not null
+#  updater_id    :integer
 #
 require 'test_helper'
 

@@ -18,16 +18,16 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: product_nature_prices
+# == Table: product_price_templates
 #
 #  active            :boolean          default(TRUE), not null
 #  amount            :decimal(19, 4)   not null
 #  by_default        :boolean          default(TRUE)
-#  category_id       :integer
 #  created_at        :datetime         not null
 #  creator_id        :integer
 #  currency          :string(3)
 #  id                :integer          not null, primary key
+#  listing_id        :integer
 #  lock_version      :integer          default(0), not null
 #  pretax_amount     :decimal(19, 4)   not null
 #  product_nature_id :integer          not null
@@ -39,16 +39,17 @@
 #  updater_id        :integer
 #
 
-
-class ProductNaturePrice < Ekylibre::Record::Base
-  attr_accessible :active, :amount, :by_default, :category_id, :supplier_id, :pretax_amount, :product_nature_id, :tax_id, :currency
+# This model permits to manage default prices
+class ProductPriceTemplate < Ekylibre::Record::Base
+  attr_accessible :active, :amount, :by_default, :listing_id, :supplier_id, :pretax_amount, :product_nature_id, :tax_id, :currency
   after_create :set_by_default
-  belongs_to :category, :class_name => "EntityCategory"
+  belongs_to :listing, :class_name => "ProductPriceListing"
   belongs_to :product_nature
   belongs_to :tax
   belongs_to :supplier, :class_name => "Entity"
   has_many :outgoing_delivery_items, :class_name => "OutgoingDeliveryItem"
   has_many :taxes
+  has_many :prices, :class_name => "ProductPrice"
   has_many :purchase_items, :class_name => "PurchaseItem"
   has_many :sale_items, :class_name => "SaleItem"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
@@ -57,13 +58,13 @@ class ProductNaturePrice < Ekylibre::Record::Base
   validates_inclusion_of :active, :in => [true, false]
   validates_presence_of :amount, :pretax_amount, :product_nature, :tax
   #]VALIDATORS]
-  validates_presence_of :category, :if => Proc.new{|price| price.supplier_id == Entity.of_company.id}
+  validates_presence_of :listing, :if => :own?
   validates_presence_of :supplier
   validates_numericality_of :pretax_amount, :amount, :greater_than_or_equal_to => 0
 
   delegate :storable?, :subscribing?, :to => :product_nature
 
-  scope :availables_for_sales, -> { joins(:product_nature).where("#{ProductNaturePrice.table_name}.active=? AND #{ProductNature.table_name}.active=?", true, true) }
+  scope :availables_for_sales, -> { joins(:product_nature).where("#{ProductPriceTemplate.table_name}.active=? AND #{ProductNature.table_name}.active=?", true, true) }
 
 
   before_validation do
@@ -102,23 +103,28 @@ class ProductNaturePrice < Ekylibre::Record::Base
 
   def set_by_default
     if self.by_default
-      ProductNaturePrice.update_all({:by_default => false}, ["product_nature_id = ? AND id != ? AND supplier_id = ?", self.product_nature_id, self.id||0, self.supplier_id])
+      ProductPriceTemplate.update_all({:by_default => false}, ["product_nature_id = ? AND id != ? AND supplier_id = ?", self.product_nature_id, self.id||0, self.supplier_id])
     end
+  end
+
+  # Returns if the price is one of our company
+  def own?
+    return (self.supplier_id == Entity.of_company.id)
   end
 
   def refresh
     self.save
   end
 
-  def change(amount, tax_id)
-    conditions = {:product_nature_id => self.product_nature_id, :amount => amount, :tax_id => tax_id, :active => true, :supplier_id => self.supplier_id, :currency => self.currency, :category_id => self.category_id}
-    price = self.class.where(conditions).first
-    if price.nil?
-      self.update_column(:active, false)
-      price = self.class.create!(conditions)
-    end
-    price
-  end
+  # def change(amount, tax_id)
+  #   conditions = {:product_nature_id => self.product_nature_id, :amount => amount, :tax_id => tax_id, :active => true, :supplier_id => self.supplier_id, :currency => self.currency, :listing_id => self.listing_id}
+  #   price = self.class.where(conditions).first
+  #   if price.nil?
+  #     self.update_column(:active, false)
+  #     price = self.class.create!(conditions)
+  #   end
+  #   price
+  # end
 
   def label
     tc(:label, :product_nature => self.product_nature.name, :amount => self.amount, :currency => self.currency)
@@ -138,6 +144,26 @@ class ProductNaturePrice < Ekylibre::Record::Base
       raise ArgumentError.new("At least one argument must be given")
     end
     return quantity.round(4), pretax_amount.round(2), amount.round(2)
+  end
+
+
+  # Search or create the expected ProductPrice at the given moment
+  def price(computed_at = nil)
+    computed_at ||= Time.now
+    # Fixed price
+    price = self.prices.where(:pretax_amount => self.pretax_amount, :tax_id => self.tax_id).where("? BETWEEN started_at AND COALESCE(stopped_at, ?)", computed_at, computed_at)
+    price = generate_price(computed_at) unless price
+    return price
+  end
+
+  private
+
+  # Generate a price from the current template at the given moment
+  def generate_price(computed_at)
+    if self.prices.empty?
+    end
+    current_price = self.prices.where("? BETWEEN started_at AND COALESCE(stopped_at, ?)", computed_at, computed_at)
+    self.prices.new(:started_at => computed_at)
   end
 
 end

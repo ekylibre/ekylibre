@@ -34,8 +34,8 @@ task :tests => :environment do
   print " - Tests: "
   errors = {:units => 0, :fixtures => 0, :functionals => 0} # , :unit_helpers => 0
   source = nil
-  models      = models_in_file
-  controllers = controllers_in_file
+  models      = CleanSupport.models_in_file
+  controllers = CleanSupport.controllers_in_file
 
   # Check unit test files
   files = Dir.glob(Rails.root.join("test", "unit", "**", "*.rb")).delete_if{ |f| f.to_s.match(/^#{Rails.root.join('test', 'unit', 'helpers')}/) }.collect{|f| f.to_s}

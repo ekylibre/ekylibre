@@ -584,7 +584,7 @@ ActiveRecord::Schema.define(:version => 20130327141101) do
     t.integer  "payment_mode_id"
     t.integer  "invoices_count"
     t.date     "first_met_on"
-    t.integer  "category_id"
+    t.integer  "sale_price_listing_id"
     t.string   "siren",                     :limit => 9
     t.string   "origin"
     t.string   "webpass"
@@ -605,7 +605,6 @@ ActiveRecord::Schema.define(:version => 20130327141101) do
   end
 
   add_index "entities", ["attorney_account_id"], :name => "index_entities_on_attorney_account_id"
-  add_index "entities", ["category_id"], :name => "index_entities_on_category_id"
   add_index "entities", ["client_account_id"], :name => "index_entities_on_client_account_id"
   add_index "entities", ["code"], :name => "entities_codes"
   add_index "entities", ["code"], :name => "index_entities_on_code"
@@ -616,6 +615,7 @@ ActiveRecord::Schema.define(:version => 20130327141101) do
   add_index "entities", ["payment_mode_id"], :name => "index_entities_on_payment_mode_id"
   add_index "entities", ["proposer_id"], :name => "index_entities_on_proposer_id"
   add_index "entities", ["responsible_id"], :name => "index_entities_on_responsible_id"
+  add_index "entities", ["sale_price_listing_id"], :name => "index_entities_on_sale_price_listing_id"
   add_index "entities", ["supplier_account_id"], :name => "index_entities_on_supplier_account_id"
   add_index "entities", ["updated_at"], :name => "index_entities_on_updated_at"
   add_index "entities", ["updater_id"], :name => "index_entities_on_updater_id"
@@ -654,23 +654,6 @@ ActiveRecord::Schema.define(:version => 20130327141101) do
   add_index "entity_addresses", ["mail_area_id"], :name => "index_entity_addresses_on_mail_area_id"
   add_index "entity_addresses", ["updated_at"], :name => "index_entity_addresses_on_updated_at"
   add_index "entity_addresses", ["updater_id"], :name => "index_entity_addresses_on_updater_id"
-
-  create_table "entity_categories", :force => true do |t|
-    t.string   "name",                                         :null => false
-    t.text     "description"
-    t.boolean  "by_default",                :default => false, :null => false
-    t.datetime "created_at",                                   :null => false
-    t.datetime "updated_at",                                   :null => false
-    t.integer  "creator_id"
-    t.integer  "updater_id"
-    t.integer  "lock_version",              :default => 0,     :null => false
-    t.string   "code",         :limit => 8
-  end
-
-  add_index "entity_categories", ["created_at"], :name => "index_entity_categories_on_created_at"
-  add_index "entity_categories", ["creator_id"], :name => "index_entity_categories_on_creator_id"
-  add_index "entity_categories", ["updated_at"], :name => "index_entity_categories_on_updated_at"
-  add_index "entity_categories", ["updater_id"], :name => "index_entity_categories_on_updater_id"
 
   create_table "entity_link_natures", :force => true do |t|
     t.string   "name",                                   :null => false
@@ -1773,35 +1756,6 @@ ActiveRecord::Schema.define(:version => 20130327141101) do
   add_index "product_nature_categories", ["updated_at"], :name => "index_product_nature_categories_on_updated_at"
   add_index "product_nature_categories", ["updater_id"], :name => "index_product_nature_categories_on_updater_id"
 
-  create_table "product_nature_prices", :force => true do |t|
-    t.decimal  "pretax_amount",                  :precision => 19, :scale => 4,                   :null => false
-    t.decimal  "amount",                         :precision => 19, :scale => 4,                   :null => false
-    t.integer  "product_nature_id",                                                               :null => false
-    t.integer  "tax_id",                                                                          :null => false
-    t.datetime "created_at",                                                                      :null => false
-    t.datetime "updated_at",                                                                      :null => false
-    t.integer  "creator_id"
-    t.integer  "updater_id"
-    t.integer  "lock_version",                                                  :default => 0,    :null => false
-    t.integer  "supplier_id"
-    t.datetime "started_at"
-    t.datetime "stopped_at"
-    t.boolean  "active",                                                        :default => true, :null => false
-    t.boolean  "by_default",                                                    :default => true
-    t.integer  "category_id"
-    t.string   "currency",          :limit => 3
-  end
-
-  add_index "product_nature_prices", ["category_id"], :name => "index_product_nature_prices_on_category_id"
-  add_index "product_nature_prices", ["created_at"], :name => "index_product_nature_prices_on_created_at"
-  add_index "product_nature_prices", ["creator_id"], :name => "index_product_nature_prices_on_creator_id"
-  add_index "product_nature_prices", ["currency"], :name => "index_product_nature_prices_on_currency"
-  add_index "product_nature_prices", ["product_nature_id"], :name => "index_product_nature_prices_on_old_product_id"
-  add_index "product_nature_prices", ["supplier_id"], :name => "index_product_nature_prices_on_supplier_id"
-  add_index "product_nature_prices", ["tax_id"], :name => "index_product_nature_prices_on_tax_id"
-  add_index "product_nature_prices", ["updated_at"], :name => "index_product_nature_prices_on_updated_at"
-  add_index "product_nature_prices", ["updater_id"], :name => "index_product_nature_prices_on_updater_id"
-
   create_table "product_natures", :force => true do |t|
     t.string   "name",                                                    :null => false
     t.string   "number",                 :limit => 32,                    :null => false
@@ -1854,28 +1808,75 @@ ActiveRecord::Schema.define(:version => 20130327141101) do
   add_index "product_natures", ["updater_id"], :name => "index_product_natures_on_updater_id"
   add_index "product_natures", ["variety_id"], :name => "index_product_natures_on_variety_id"
 
-  create_table "product_prices", :force => true do |t|
-    t.integer  "product_id",                                                            :null => false
-    t.integer  "supplier_id",                                                           :null => false
-    t.decimal  "pretax_amount",           :precision => 19, :scale => 4,                :null => false
-    t.decimal  "amount",                  :precision => 19, :scale => 4,                :null => false
-    t.string   "currency",                                                              :null => false
-    t.integer  "tax_id"
-    t.integer  "product_nature_price_id"
-    t.datetime "started_at"
-    t.datetime "created_at",                                                            :null => false
-    t.datetime "updated_at",                                                            :null => false
+  create_table "product_price_listings", :force => true do |t|
+    t.string   "name",                                         :null => false
+    t.text     "description"
+    t.boolean  "by_default",                :default => false, :null => false
+    t.datetime "created_at",                                   :null => false
+    t.datetime "updated_at",                                   :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                           :default => 0, :null => false
+    t.integer  "lock_version",              :default => 0,     :null => false
+    t.string   "code",         :limit => 8
+  end
+
+  add_index "product_price_listings", ["created_at"], :name => "index_product_price_listings_on_created_at"
+  add_index "product_price_listings", ["creator_id"], :name => "index_product_price_listings_on_creator_id"
+  add_index "product_price_listings", ["updated_at"], :name => "index_product_price_listings_on_updated_at"
+  add_index "product_price_listings", ["updater_id"], :name => "index_product_price_listings_on_updater_id"
+
+  create_table "product_price_templates", :force => true do |t|
+    t.decimal  "pretax_amount",                  :precision => 19, :scale => 4,                   :null => false
+    t.decimal  "amount",                         :precision => 19, :scale => 4,                   :null => false
+    t.integer  "product_nature_id",                                                               :null => false
+    t.integer  "tax_id",                                                                          :null => false
+    t.datetime "created_at",                                                                      :null => false
+    t.datetime "updated_at",                                                                      :null => false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version",                                                  :default => 0,    :null => false
+    t.integer  "supplier_id"
+    t.datetime "started_at"
+    t.datetime "stopped_at"
+    t.boolean  "active",                                                        :default => true, :null => false
+    t.boolean  "by_default",                                                    :default => true
+    t.integer  "listing_id"
+    t.string   "currency",          :limit => 3
+  end
+
+  add_index "product_price_templates", ["created_at"], :name => "index_product_price_templates_on_created_at"
+  add_index "product_price_templates", ["creator_id"], :name => "index_product_price_templates_on_creator_id"
+  add_index "product_price_templates", ["currency"], :name => "index_product_price_templates_on_currency"
+  add_index "product_price_templates", ["listing_id"], :name => "index_product_price_templates_on_listing_id"
+  add_index "product_price_templates", ["product_nature_id"], :name => "index_product_price_templates_on_old_product_id"
+  add_index "product_price_templates", ["supplier_id"], :name => "index_product_price_templates_on_supplier_id"
+  add_index "product_price_templates", ["tax_id"], :name => "index_product_price_templates_on_tax_id"
+  add_index "product_price_templates", ["updated_at"], :name => "index_product_price_templates_on_updated_at"
+  add_index "product_price_templates", ["updater_id"], :name => "index_product_price_templates_on_updater_id"
+
+  create_table "product_prices", :force => true do |t|
+    t.integer  "product_id",                                                  :null => false
+    t.integer  "supplier_id",                                                 :null => false
+    t.integer  "template_id",                                                 :null => false
+    t.decimal  "pretax_amount", :precision => 19, :scale => 4,                :null => false
+    t.decimal  "amount",        :precision => 19, :scale => 4,                :null => false
+    t.string   "currency",                                                    :null => false
+    t.integer  "tax_id"
+    t.datetime "started_at"
+    t.datetime "stopped_at"
+    t.datetime "created_at",                                                  :null => false
+    t.datetime "updated_at",                                                  :null => false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version",                                 :default => 0, :null => false
   end
 
   add_index "product_prices", ["created_at"], :name => "index_product_prices_on_created_at"
   add_index "product_prices", ["creator_id"], :name => "index_product_prices_on_creator_id"
   add_index "product_prices", ["product_id"], :name => "index_product_prices_on_product_id"
-  add_index "product_prices", ["product_nature_price_id"], :name => "index_product_prices_on_product_nature_price_id"
   add_index "product_prices", ["supplier_id"], :name => "index_product_prices_on_supplier_id"
   add_index "product_prices", ["tax_id"], :name => "index_product_prices_on_tax_id"
+  add_index "product_prices", ["template_id"], :name => "index_product_prices_on_template_id"
   add_index "product_prices", ["updated_at"], :name => "index_product_prices_on_updated_at"
   add_index "product_prices", ["updater_id"], :name => "index_product_prices_on_updater_id"
 

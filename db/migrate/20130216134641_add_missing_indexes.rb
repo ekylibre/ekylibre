@@ -20,7 +20,7 @@ class AddMissingIndexes < ActiveRecord::Migration
     add_index :entities, :responsible_id
     add_index :entities, :proposer_id
     add_index :entities, :payment_mode_id
-    add_index :entities, :category_id
+    add_index :entities, :sale_price_listing_id
     add_index :entities, :attorney_account_id
     add_index :entity_addresses, :mail_area_id
     add_index :financial_years, :last_journal_entry_id
@@ -76,9 +76,9 @@ class AddMissingIndexes < ActiveRecord::Migration
     add_index :outgoing_payments, :cash_id
     add_index :preferences, [:record_value_id, :record_value_type]
     add_index :product_moves, :unit_id
-    add_index :product_nature_prices, :tax_id
-    add_index :product_nature_prices, :supplier_id
-    add_index :product_nature_prices, :category_id
+    add_index :product_price_templates, :tax_id
+    add_index :product_price_templates, :supplier_id
+    add_index :product_price_templates, :listing_id
     add_index :product_natures, :unit_id
     add_index :production_chain_conveyors, :production_chain_id
     add_index :production_chain_conveyors, :product_nature_id

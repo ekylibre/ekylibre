@@ -270,7 +270,7 @@ Ekylibre::Application.routes.draw do
         unroll_all
       end
     end
-    resources :entity_categories do
+    resources :product_price_listings do
       collection do
         unroll_all
         get :list
@@ -626,7 +626,7 @@ Ekylibre::Application.routes.draw do
       end
     end
 
-    resources :product_nature_prices do
+    resources :product_price_templates do
       collection do
         get :list
         match "export", :via => [:get, :post]

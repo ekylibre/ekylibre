@@ -415,7 +415,7 @@ consult_journal_entries:
 # Consult the prices
 consult_prices:
 - "backend/dashboards#sales"
-- "backend/product_nature_prices#index"
+- "backend/product_price_templates#index"
 
 # Consult the products
 consult_products:
@@ -658,19 +658,6 @@ manage_entities_natures:
 - "backend/entity_natures#new"
 - "backend/entity_natures#update"
 
-# Manage people categories
-manage_entity_categories:
-- "backend/dashboards#relationship"
-- "backend/entity_categories#create"
-- "backend/entity_categories#destroy"
-- "backend/entity_categories#edit"
-- "backend/entity_categories#index"
-- "backend/entity_categories#list"
-- "backend/entity_categories#list_prices"
-- "backend/entity_categories#new"
-- "backend/entity_categories#show"
-- "backend/entity_categories#update"
-
 # Manage people links
 manage_entity_links:
 - "backend/dashboards#relationship"
@@ -703,7 +690,7 @@ manage_equipments:
 # Create and update estimates
 manage_estimates:
 - "backend/dashboards#sales"
-- "backend/product_nature_prices#find"
+- "backend/product_price_templates#find"
 - "backend/sale_items#create"
 - "backend/sale_items#destroy"
 - "backend/sale_items#detail"
@@ -965,14 +952,14 @@ manage_outgoing_payments:
 # Manage prices
 manage_prices:
 - "backend/dashboards#sales"
-- "backend/product_nature_prices#create"
-- "backend/product_nature_prices#destroy"
-- "backend/product_nature_prices#edit"
-- "backend/product_nature_prices#export"
-- "backend/product_nature_prices#import"
-- "backend/product_nature_prices#list"
-- "backend/product_nature_prices#new"
-- "backend/product_nature_prices#update"
+- "backend/product_price_templates#create"
+- "backend/product_price_templates#destroy"
+- "backend/product_price_templates#edit"
+- "backend/product_price_templates#export"
+- "backend/product_price_templates#import"
+- "backend/product_price_templates#list"
+- "backend/product_price_templates#new"
+- "backend/product_price_templates#update"
 
 # Manage product categories
 manage_product_categories:
@@ -985,6 +972,19 @@ manage_product_categories:
 - "backend/product_nature_categories#new"
 - "backend/product_nature_categories#show"
 - "backend/product_nature_categories#update"
+
+# translation missing: eng.rights.manage_product_price_listings
+manage_product_price_listings:
+- "backend/dashboards#relationship"
+- "backend/product_price_listings#create"
+- "backend/product_price_listings#destroy"
+- "backend/product_price_listings#edit"
+- "backend/product_price_listings#index"
+- "backend/product_price_listings#list"
+- "backend/product_price_listings#list_prices"
+- "backend/product_price_listings#new"
+- "backend/product_price_listings#show"
+- "backend/product_price_listings#update"
 
 # Manage products
 manage_products:

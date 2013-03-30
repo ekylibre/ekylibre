@@ -18,7 +18,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: entity_categories
+# == Table: product_price_listings
 #
 #  by_default   :boolean          not null
 #  code         :string(8)
@@ -31,36 +31,9 @@
 #  updated_at   :datetime         not null
 #  updater_id   :integer
 #
-#
-# == Fixture: entity_categories
-#
-# entity_categories_001:
-#   by_default: true
-#   created_at: 2009-07-19 19:13:59 +02:00
-#   creator_id: 1
-#   id: 1
-#   name: "Lorem ipsum"
-#   updated_at: 2009-07-19 19:13:59 +02:00
-#   updater_id: 1
-#
-entity_categories_001:
-  id: 1
-  name: Default
-  code: DEFAULT
-  by_default: true
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  updated_at: 2006-07-19 19:13:59 +02:00
-  updater_id: 1
-
-entity_categories_002:
-  id: 2
-  name: Default to delete
-  code: DEFTODEL
-  by_default: false
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  updated_at: 2006-07-19 19:13:59 +02:00
-  updater_id: 1
 
 
+require 'test_helper'
+
+class ProductPriceListingTest < ActiveSupport::TestCase
+end

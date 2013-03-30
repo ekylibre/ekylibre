@@ -165,11 +165,11 @@ arb:
     backend/entity_addresses:
       # edit: "Modifier une coordonnée"
       # new: "Ajouter une coordonnée"
-    backend/entity_categories:
-      edit: "تعديل نوع الملف : %{name}"
-      index: "انواع الملف"
-      new: "اضافة نوع جديد للملف"
-      show: "نوع الملف : %{name}"
+    backend/entity_categories:  #?
+      edit: "تعديل نوع الملف : %{name}" #?
+      index: "انواع الملف" #?
+      new: "اضافة نوع جديد للملف" #?
+      show: "نوع الملف : %{name}" #?
     backend/entity_event_natures:  #?
       edit: "تعديل نوع الحدث: %{name}" #?
       index: "انواع الاحداث" #?
@@ -404,18 +404,14 @@ arb:
     backend/product_nature_components:  #?
       edit: "تعديل عنصر المنتج %{product} " #?
       new: "اضافة عنصر الى المنتج %{product} " #?
-    backend/product_nature_prices:
-      # edit: "Modifier le tarif de %{product_nature}"
-      # export: "Exporter des tarifs"
-      # find: "Trouver un tarif"
-      # import: "Importer des tarifs"
-      # index: "Tarifs"
-      # new: "Nouveau tarif"
+    backend/product_nature_prices: #?
     backend/product_natures:
       edit: "تعديل المنتج : %{name}"
       index: "المنتجات"
       new: "اضافة منتج جديد"
       show: "المنتجات : %{name}"
+    backend/product_price_listings: #?
+    backend/product_price_templates: #?
     backend/product_prices: #?
     backend/product_process_phases: #?
     backend/product_processes: #?
@@ -647,7 +643,7 @@ arb:
     # backend/documents: "Documents"
     backend/entities: "سجلات الاشخاص"
     # backend/entity_addresses: "Adresses"
-    backend/entity_categories: "انواع الملف"
+    backend/entity_categories: "انواع الملف" #?
     backend/entity_event_natures: "انواع الاحداث" #?
     backend/entity_events: "الاحداث" #?
     backend/entity_link_natures: "انواع الرابط"
@@ -696,7 +692,6 @@ arb:
     # backend/product_moves: "Mouvements de stock"
     backend/product_nature: "المنتجات" #?
     backend/product_nature_categories: "فئات المنتج"
-    # backend/product_nature_prices: "Prix par type de produits"
     backend/product_natures: "المنتجات"
     backend/product_stocks: "وضع الاسهم" #?
     backend/product_transfers: "عمليات نقل وخسارة الاسهم"

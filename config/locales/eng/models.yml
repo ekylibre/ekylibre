@@ -3,12 +3,11 @@ eng:
     attributes:
       activity:
         # family: "Famille"
-        # favored_product_nature: "Produit de référence"
         # nature: "Type de centre analytique"
         # net_margin: "Marge nette"
         # nomen: "Code analytique"
         # parent: "Activité parente"
-        # work_unit: "Unité d'oeuvre"
+        # work_unit: "Unité d'œuvre"
       activity_repartition:
         # activity: "Activité"
         # affected_on: "Affecté le"
@@ -135,10 +134,14 @@ eng:
       product_nature_category:
         children: "Sub-product_categories"
         published: "Published"
-      product_nature_price:
+      product_nature_price:  #?
+        category: "People category" #?
+        entity: "Supplier" #?
+      product_price_template:
         # amount: "Montant TTC"
-        category: "People category"
+        category: "People category" #?
         entity: "Supplier"
+        # listing: "Catégorie de fiche associée"
       product_specy: #?
       product_stock:  #?
         quantity: "Real quantity" #?
@@ -316,6 +319,9 @@ eng:
         product_nature_price:
           already_defined: "A price is already defined for this list and this product"
           range_overlap: "The range overlaps an other(from %{min} to %{max})"
+        product_price_template:
+          already_defined: "A price is already defined for this list and this product"
+          range_overlap: "The range overlaps an other(from %{min} to %{max})"
         product_stock:
           product_cannot_be_in_warehouse: "Product can not be stored in %{warehouse}"
         product_transfer:
@@ -398,7 +404,7 @@ eng:
       document_template: "Document template"
       entity: "Person"
       entity_address: "Address"
-      entity_category: "Person category"
+      entity_category: "Person category" #?
       entity_event: "Event" #?
       entity_event_nature: "Event type" #?
       entity_link: "Person link"
@@ -459,7 +465,10 @@ eng:
       product_nature: "Product"
       product_nature_category: "Product category"
       product_nature_component: "Product component" #?
-      product_nature_price: "Price"
+      product_nature_price: "Price" #?
+      # product_price: "Prix"
+      product_price_listing: "Person category"
+      product_price_template: "Price"
       product_specy: "Animal race" #?
       product_stock: "Stock" #?
       product_stock_move: "Stock move" #?
@@ -1528,48 +1537,48 @@ eng:
           purchase: "Creation of a purchase"
           sale: "Creation of a sale"
           sales_invoice: "Creation of a sales invoice"
-        incoming_payment_modes:
-          cash:
-            name: "Cash"
-          check:
-            name: "Check"
-          transfer:
-            name: "Transfer"
-        outgoing_payment_modes:
-          cash:
-            name: "Cash"
-          check:
-            name: "Check"
-          transfer:
-            name: "Transfer"
+        incoming_payment_modes:  #?
+          cash: #?
+            name: "Cash" #?
+          check: #?
+            name: "Check" #?
+          transfer: #?
+            name: "Transfer" #?
+        outgoing_payment_modes:  #?
+          cash: #?
+            name: "Cash" #?
+          check: #?
+            name: "Check" #?
+          transfer: #?
+            name: "Transfer" #?
         product_category_name: "Default category"
-        purchase_nature_name: "Standard"
+        purchase_nature_name: "Standard" #?
         role:
           name:
             admin: "Manager"
             public: "Public (no rights)"
-        sale_nature_name: "Standard"
-        taxes:
-          tva0000:
-            amount: "0.0"
-            collected: "445710"
-            name: "VAT 0,00%"
-            paid: "445660"
-          tva0210:
-            amount: "2.1"
-            collected: "445711"
-            name: "VAT 2,10%"
-            paid: "445661"
-          tva0550:
-            amount: "5.5"
-            collected: "445712"
-            name: "VAT 5,50%"
-            paid: "445662"
-          tva1960:
-            amount: "19.6"
-            collected: "445713"
-            name: "VAT 19,60%"
-            paid: "445663"
+        sale_nature_name: "Standard" #?
+        taxes:  #?
+          tva0000: #?
+            amount: "0.0" #?
+            collected: "445710" #?
+            name: "VAT 0,00%" #?
+            paid: "445660" #?
+          tva0210: #?
+            amount: "2.1" #?
+            collected: "445711" #?
+            name: "VAT 2,10%" #?
+            paid: "445661" #?
+          tva0550: #?
+            amount: "5.5" #?
+            collected: "445712" #?
+            name: "VAT 5,50%" #?
+            paid: "445662" #?
+          tva1960: #?
+            amount: "19.6" #?
+            collected: "445713" #?
+            name: "VAT 19,60%" #?
+            paid: "445663" #?
         warehouse_name: "Warehouse"
       import:
         dont_use: "-- Do not use --"
@@ -1626,6 +1635,18 @@ eng:
       no_right_defined_for_this_part_of_the_application: "No right defined for this part of the application: %{controller}%{action}"
       no_right_defined_for_this_part_of_the_application_and_this_user: "You can not access to this page"
       supplier: "Supplier"
+    entity_nature:
+      default:
+        man:
+          # name: "Monsieur"
+          # title: "M"
+        organization:
+          # name: "Société"
+        undefined:
+          # name: "Indéfini"
+        woman:
+          # name: "Madame"
+          # title: "Mme"
     financial_year:
       bookkeep: "[%{resource} %{number}] Depreciation of %{name} (%{position}/%{total})"
       code:
@@ -1634,6 +1655,14 @@ eng:
     incoming_payment:
       bookkeep: "[%{resource} %{number}] %{mode} %{check_number} of %{payer} (%{expenses})"
       label: "%{number}. %{usable_amount}/%{amount}, %{mode} of %{payer} on %{date}"
+    incoming_payment_mode:
+      default:
+        cash:
+          # name: "Espèces"
+        check:
+          # name: "Chèque"
+        transfer:
+          # name: "Virement"
     incoming_payment_use:  #?
       bookkeep: "[%{resource}] %{mode} (%{payment_number}) received from %{attorney} for %{client} (%{expense_number})" #?
     inventory_item:
@@ -1697,6 +1726,14 @@ eng:
     outgoing_payment:
       bookkeep: "[%{resource} %{number}] %{mode} %{check_number} for %{payee} (%{expenses})"
       label: "%{number}. %{usable_amount}/%{amount}, %{mode} for %{payee} on %{date}"
+    outgoing_payment_mode:
+      default:
+        cash:
+          # name: "Espèces"
+        check:
+          # name: "Chèque"
+        transfer:
+          # name: "Virement"
     outgoing_payment_use:  #?
       bookkeep: "[%{resource}] %{mode} (%{payment_number}) received from %{attorney} for %{supplier} (%{expense_number})" #?
     price:  #?
@@ -1737,7 +1774,11 @@ eng:
         sales: "Sales"
     product_nature_component:  #?
       of_product: "of product" #?
-    product_nature_price:
+    product_nature_price:  #?
+      label: "%{product} / %{amount} %{currency}" #?
+      no_range: "No range" #?
+      range: "From %{min} to %{max}" #?
+    product_price_template:
       label: "%{product} / %{amount} %{currency}"
       no_range: "No range"
       range: "From %{min} to %{max}"
@@ -1781,6 +1822,9 @@ eng:
       name: "%{product} (%{quantity}%{unit}), %{amount}%{currency}/%{unit}" #?
       name_with_tracking: "%{product}/%{tracking} (%{quantity}%{unit}), %{amount}%{currency}/%{unit}" #?
       tracking: "S/N: %{serial}" #?
+    purchase_nature:
+      default:
+        # name: "Standard"
     sale:
       bookkeep: "[%{resource} %{number}] %{products} for %{client} (%{sale})"
       label:
@@ -1819,6 +1863,8 @@ eng:
       reduction_on: "Reduction of %{percentage}%  on %{product}" #?
       tracking: "S/N: %{serial}" #?
       warehouse_can_not_transfer_product: "The product %{product} can not be used with %{warehouse}, because it contains only %{contained_product} " #?
+    sale_nature:
+      # sale_nature_name: "Vente standard"
     sequence:
       default:
         assets:
@@ -1868,6 +1914,28 @@ eng:
         without_tracking: "%{warehouse}: No serial, %{quantity}%{unit} available" #?
     stock_move:  #?
       default_name: "%{origin} (%{code})" #?
+    tax:
+      default:
+        tva0000:
+          # amount: "0.0"
+          # collected: "445710"
+          # name: "TVA 0,00%"
+          # paid: "445660"
+        tva0210:
+          # amount: "2.1"
+          # collected: "445711"
+          # name: "TVA 2,10%"
+          # paid: "445661"
+        tva0550:
+          # amount: "5.5"
+          # collected: "445712"
+          # name: "TVA 5,50%"
+          # paid: "445662"
+        tva1960:
+          # amount: "19.6"
+          # collected: "445713"
+          # name: "TVA 19,60%"
+          # paid: "445663"
     tax_declaration:
       deferment: "Deferment"
       monthly: "Monthly"

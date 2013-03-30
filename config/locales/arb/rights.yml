@@ -36,7 +36,7 @@ arb:
     manage_document_templates: "ادارة نماذج الوثائق"
     manage_entities: "ادارة ملفات العملاء / الممولين"
     manage_entities_natures: "ادارة انواع الملفات"
-    manage_entity_categories: "ادارة فئات الملفات"
+    manage_entity_categories: "ادارة فئات الملفات" #?
     manage_entity_links: "ادارة الروابط بين الملفات"
     # manage_equipments: "Gérer le matériel"
     manage_estimates: "انشاء وتعديل التقديرات"
@@ -60,6 +60,7 @@ arb:
     manage_payment_modes: "ادارة طرق الدفع" #?
     manage_prices: "ادارة الاموال"
     manage_product_categories: "ادارة فئات المنتجات"
+    # manage_product_price_listings: "Gérer les listes de prix"
     manage_products: "ادارة المنتجات"
     # manage_purchase_natures: "Gérer les types d’achat"
     manage_purchases: "ادارة المشتريات"

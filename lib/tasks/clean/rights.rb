@@ -6,7 +6,7 @@ task :rights => :environment do
   # new_right = '__not_used__'
 
   # Load list of all actions of all controllers
-  ref = actions_hash
+  ref = CleanSupport.actions_hash
 
   # Lecture du fichier existant
   rights = YAML.load_file(User.rights_file)

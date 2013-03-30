@@ -1,7 +1,8 @@
 # encoding: UTF-8
 
 # TODO: I18nize seeds !!!
-language = 'fra'
+I18n.locale = ENV["locale"] || "fra"
+language = I18n.locale
 currency = 'EUR'
 user = {}
 user[:first_name] = ENV["first_name"] || "Admin"
@@ -23,11 +24,8 @@ company = ENV["company"] || "My Company"
 ActiveRecord::Base.transaction do
   Sequence.load_defaults
   Unit.load_defaults
-
-  EntityNature.create!(:name => 'Monsieur', :title => 'M', :gender => :man)
-  EntityNature.create!(:name => 'Madame', :title => 'Mme', :gender => :woman)
-  EntityNature.create!(:name => 'Société Anonyme', :title => 'SA', :gender => :organization)
-  undefined_nature = EntityNature.create!(:name => 'Indéfini', :title => '', :in_name => false, :gender => :undefined)
+  EntityNature.load_defaults
+  undefined_nature = EntityNature.where(:gender => "undefined").first
   category = EntityCategory.create!(:name => I18n.t('models.company.default.category'))
   firm = Entity.create!(:category_id =>  category.id, :nature_id => undefined_nature.id, :language => language, :last_name => company, :currency => currency, :of_company => true)
   firm.addresses.create!(:canal => "mail", :mail_line_2 => "", :mail_line_3 => "", :mail_line_4 => "", :mail_line_5 => "", :mail_line_6 => "", :by_default => true)
@@ -43,11 +41,11 @@ ActiveRecord::Base.transaction do
   establishment = Establishment.create!(:name => I18n.t('models.company.default.establishment_name'))
   # currency = company.currency || 'EUR' # company.currencies.create!(:name => 'Euro', :code => 'EUR', :value_format => '%f €', :rate => 1)
 
-  for code, tax in I18n.t("models.company.default.taxes")
+  for code, tax in I18n.t("models.tax.default")
     Tax.create!(:name => tax[:name], :nature => (tax[:nature]||Tax.nature.default_value), :amount => tax[:amount].to_f, :collected_account_id => Account.get(tax[:collected], tax[:name]).id, :paid_account_id => Account.get(tax[:paid], tax[:name]).id)
   end
 
-  # loading of all the templates
+  # Load all the document templates
   DocumentTemplate.load_defaults
 
   journals = {}
@@ -61,17 +59,18 @@ ActiveRecord::Base.transaction do
   cash = Cash.create!(:name => I18n.t('enumerize.cash.nature.cash_box'), :nature => "cash_box", :account_id => Account.get("531101", "Caisse").id, :journal_id => journals[:cash].id)
   baac = Cash.create!(:name => I18n.t('enumerize.cash.nature.bank_account'), :nature => "bank_account", :account_id => Account.get("512101", "Compte bancaire").id, :journal_id => journals[:bank].id, :iban => "FR7611111222223333333333391", :mode => "iban")
 
-  IncomingPaymentMode.create!(:name => I18n.t('models.company.default.incoming_payment_modes.cash.name'), :cash_id => cash.id, :with_accounting => true, :attorney_journal_id => journals[:various].id)
-  IncomingPaymentMode.create!(:name => I18n.t('models.company.default.incoming_payment_modes.check.name'), :cash_id => baac.id, :with_accounting => true, :with_deposit => true, :depositables_account_id => Account.get("5112", "Chèques à encaisser").id, :depositables_journal_id => journals[:various].id, :attorney_journal_id => journals[:various].id)
-  IncomingPaymentMode.create!(:name => I18n.t('models.company.default.incoming_payment_modes.transfer.name'), :cash_id => baac.id, :with_accounting => true, :attorney_journal_id => journals[:various].id)
+  IncomingPaymentMode.create!(:name => I18n.t('models.incoming_payment_mode.default.cash.name'), :cash_id => cash.id, :with_accounting => true, :attorney_journal_id => journals[:various].id)
+  IncomingPaymentMode.create!(:name => I18n.t('models.incoming_payment_mode.default.check.name'), :cash_id => baac.id, :with_accounting => true, :with_deposit => true, :depositables_account_id => Account.get("5112", "Chèques à encaisser").id, :depositables_journal_id => journals[:various].id, :attorney_journal_id => journals[:various].id)
+  IncomingPaymentMode.create!(:name => I18n.t('models.incoming_payment_mode.default.transfer.name'), :cash_id => baac.id, :with_accounting => true, :attorney_journal_id => journals[:various].id)
 
-  OutgoingPaymentMode.create!(:name => I18n.t('models.company.default.outgoing_payment_modes.cash.name'), :cash_id => cash.id, :with_accounting => true, :attorney_journal_id => journals[:various].id)
-  OutgoingPaymentMode.create!(:name => I18n.t('models.company.default.outgoing_payment_modes.check.name'), :cash_id => baac.id, :with_accounting => true, :attorney_journal_id => journals[:various].id)
-  OutgoingPaymentMode.create!(:name => I18n.t('models.company.default.outgoing_payment_modes.transfer.name'), :cash_id => baac.id, :with_accounting => true, :attorney_journal_id => journals[:various].id)
+  OutgoingPaymentMode.create!(:name => I18n.t('models.outgoing_payment_mode.default.cash.name'), :cash_id => cash.id, :with_accounting => true, :attorney_journal_id => journals[:various].id)
+  OutgoingPaymentMode.create!(:name => I18n.t('models.outgoing_payment_mode.default.check.name'), :cash_id => baac.id, :with_accounting => true, :attorney_journal_id => journals[:various].id)
+  OutgoingPaymentMode.create!(:name => I18n.t('models.outgoing_payment_mode.default.transfer.name'), :cash_id => baac.id, :with_accounting => true, :attorney_journal_id => journals[:various].id)
 
   FinancialYear.create!(:started_on => Date.today.beginning_of_month)
-  #SaleNature.create!(:name => I18n.t('models.company.default.sale_nature_name'), :expiration_delay => "30 day", :payment_delay => "30 day", :downpayment => false, :downpayment_minimum => 300, :downpayment_percentage => 30, :currency => currency, :with_accounting => true, :journal => journals[:sales])
-  PurchaseNature.create!(:name => I18n.t('models.company.default.purchase_nature_name'), :currency => currency, :with_accounting => true, :journal_id => journals[:purchases].id)
+
+  SaleNature.create!(:name => I18n.t('models.sale_nature.default.name'), :active => true, :expiration_delay => "30 day", :payment_delay => "30 day", :downpayment => false, :downpayment_minimum => 300, :downpayment_percentage => 30, :currency => currency, :with_accounting => true, :journal_id => journals[:sales].id)
+  PurchaseNature.create!(:name => I18n.t('models.purchase_nature.default.name'), :active => true, :currency => currency, :with_accounting => true, :journal_id => journals[:purchases].id)
 
 
   # @TODO - create default products

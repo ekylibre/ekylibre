@@ -60,6 +60,8 @@ class SaleNature < Ekylibre::Record::Base
   validates_uniqueness_of :name
   validates_delay_format_of :payment_delay, :expiration_delay
 
+  scope :actives, -> { where(:active => true) }
+
 
   before_validation do
     self.expiration_delay = "0 minutes" if self.expiration_delay.blank?
