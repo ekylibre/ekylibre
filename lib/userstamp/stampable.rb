@@ -86,11 +86,11 @@ module Ddb #:nodoc:
               unless Userstamp.diagramming?
                 belongs_to(:creator, :class_name => self.stamper_class_name.to_s.singularize.camelize,
                            :foreign_key => self.creator_attribute)
-                
+
                 belongs_to(:updater, :class_name => self.stamper_class_name.to_s.singularize.camelize,
                            :foreign_key => self.updater_attribute)
               end
-                
+
               before_save     :set_updater_attribute
               before_create   :set_creator_attribute
 

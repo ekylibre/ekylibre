@@ -958,6 +958,7 @@ fra:
     product_localizations: "Product localizations"
     product_moves: "Product moves"
     product_nature: "Product nature"
+    # product_nature_price: "Product nature price"
     product_natures: "Types de produits"
     # product_type: "Product type"
     productable_products: "Produits produisibles" #?
