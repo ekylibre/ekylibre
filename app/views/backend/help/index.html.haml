@@ -8,10 +8,10 @@
         -if @results.size>0
           %ul
             -for r in @results[0..@per_page-1]
-              %li=render :partial=>'result', :locals=>{:result=>r}
+              %li=render 'result', :result => r
           -if @results.size>@per_page
             =link_to(tc(:other_results), "#", "data-toggle-visibility" => "#other-results", :class=>"icon im-more")
             %ul#other-results{:style=>'display:none'}
               -for r in @results[@per_page..-1]
-                %li=render :partial=>'result', :locals=>{:result=>r}
+                %li=render 'result', :result => r
     %td#helpage{:valign=>:top}

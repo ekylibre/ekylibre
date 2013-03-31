@@ -1031,22 +1031,31 @@ class NormalizeProducts < ActiveRecord::Migration
 
     # Rename table in order to be more logical
     rename_table_and_indexes :prices, :product_price_templates
+    add_column :product_price_templates, :pretax_amount_generation, :string, :limit => 32
+    execute "UPDATE #{quoted_table_name(:product_price_templates)} SET pretax_amount_generation = 'assignment'"
+    change_column_null :product_price_templates, :pretax_amount_generation, :null => false
+    add_column :product_price_templates, :pretax_amount_calculation_formula, :text
+    for column in [:pretax_amount, :amount]
+      change_column_null :product_price_templates, column, true
+      rename_column :product_price_templates, column, "assignment_#{column}".to_sym
+    end
+    add_column :product_price_templates, :amounts_scale, :integer, :null => false, :default => 2
 
     # Rename table in order to be more logical
     rename_table_and_indexes :entity_categories, :product_price_listings
     rename_column :entities, :category_id, :sale_price_listing_id
     rename_column :product_price_templates, :category_id, :listing_id
 
+    # This table registered all computed prices
     create_table :product_prices do |t|
       t.references :product, :null => false
       t.references :supplier, :null => false
-      t.references :template, :null => false # For computed price
+      t.references :template, :null => false
       t.decimal :pretax_amount, :null => false, :precision => 19, :scale => 4
       t.decimal :amount, :null => false, :precision => 19, :scale => 4
+      t.references :tax, :null => false, :null => false
       t.string :currency, :null => false, :null => false
-      t.references :tax
-      t.datetime :started_at
-      t.datetime :stopped_at
+      t.datetime :computed_at, :null => false
       t.stamps
     end
     add_stamps_indexes :product_prices

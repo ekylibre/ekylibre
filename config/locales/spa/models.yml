@@ -917,6 +917,7 @@ spa:
     # prescriptions: "Ordonnances"
     # prescriptor: "Vétérinaire"
     # pretax_amount: "Montant HT"
+    # pretax_amount_generation: "Pretax amount generation"
     # price: "Prix"
     # price_amount: "Montant HT"
     # prices: "Prix"
@@ -1352,7 +1353,6 @@ spa:
     company:
       # cant_find_document_template: "Impossible de trouver le modèle de document correspondant"
       default:
-        # category: "Par défaut"
         delays:
           expression:
             # expiration: "1 mois"
@@ -1553,6 +1553,9 @@ spa:
         # rent: "Location"
         # sales: "Vente"
     product_nature_price: #?
+    product_price_listing:
+      default:
+        # name: "Par défaut"
     product_price_template:
       # label: "%{product} / %{amount} %{currency}"
       # no_range: "Pas d’intervalle"

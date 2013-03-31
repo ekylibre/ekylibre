@@ -146,9 +146,14 @@ class ProductNature < Ekylibre::Record::Base
     Unit.of_product(self)
   end
 
-  def default_price(listing_id)
-    self.prices.where(:listing_id => listing_id, :active => true, :by_default => true).first
-  end
+  # # Returns the default
+  # def default_price(options)
+  #   price = nil
+  #   if template = self.templates.where(:listing_id => listing_id, :active => true, :by_default => true).first
+  #     price = template.price
+  #   end
+  #   return price
+  # end
 
   def label
     tc('label', :product_nature => self["name"], :unit => self.unit["label"])

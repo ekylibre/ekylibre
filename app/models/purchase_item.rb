@@ -72,6 +72,9 @@ class PurchaseItem < Ekylibre::Record::Base
   before_validation do
     check_reservoir = true
     self.warehouse_id = Warehouse.first.id if Warehouse.count == 1
+    if not self.price and self.product and self.purchase
+      self.price = self.product.price(:supplier => self.purchase.supplier)
+    end
     if self.price
       product_nature = self.price.product_nature
       if product_nature.charge_account.nil?

@@ -415,6 +415,7 @@ fra:
     # alive: "Alive"
     allocation_account: "Compte de dotation"
     amount: "Montant"
+    # amounts_scale: "Amounts scale"
     animal_drugs: "Médicaments" #?
     animals: "Animals" #?
     annotation: "Annotation"
@@ -431,6 +432,8 @@ fra:
     asset_amount: "Valeur nette comptable"
     asset_depreciations: "Dépréciations d’immobilisation"
     assets: "Immobilisations" #?
+    # assignment_amount: "Assignment amount"
+    # assignment_pretax_amount: "Assignment pretax amount"
     assimilated_taxes_amount: "Montant des taxes assimilées"
     atmospheric_pressure: "Pression atmosphérique" #?
     attorney: "Mandataire"
@@ -530,6 +533,7 @@ fra:
     component: "Produit contenu" #?
     components: "Composants de produit" #?
     compute: "Dernière valeur"
+    # computed_at: "Computed at"
     conclusion: "Conclusion"
     condition_operator: "Comparateur"
     condition_value: "Valeur comparée"
@@ -943,8 +947,11 @@ fra:
     prescriptions: "Ordonnances" #?
     prescriptor: "Vétérinaire" #?
     pretax_amount: "Montant HT"
+    # pretax_amount_calculation_formula: "Pretax amount calculation formula"
+    pretax_amount_generation: "Pretax amount generation"
     price: "Prix"
     price_amount: "Montant HT"
+    # price_templates: "Price templates"
     prices: "Prix"
     printed_at: "Imprimé le"
     printed_on: "Datée du"
@@ -1127,7 +1134,7 @@ fra:
     target_type: "Type de cible" #?
     tax: "Taxe"
     tax_declarations: "Déclarations de taxes" #?
-    taxes: "Taxes"
+    taxes: "Taxes" #?
     temperature: "Température" #?
     template: "Modèle"
     theoric_quantity: "Quantité théorique"
@@ -1400,7 +1407,6 @@ fra:
     company: #?
       cant_find_document_template: "Impossible de trouver le modèle de document correspondant" #?
       default: #?
-        category: "Par défaut" #?
         delays: #?
           expression: #?
             expiration: "1 mois" #?
@@ -1596,6 +1602,9 @@ fra:
         purchases: "Achat"
         rent: "Location"
         sales: "Vente"
+    product_price_listing:
+      default:
+        name: "Par défaut"
     product_price_template:
       label: "%{product} / %{amount} %{currency}"
       no_range: "Pas d’intervalle"

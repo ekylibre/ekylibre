@@ -1826,22 +1826,25 @@ ActiveRecord::Schema.define(:version => 20130327141101) do
   add_index "product_price_listings", ["updater_id"], :name => "index_product_price_listings_on_updater_id"
 
   create_table "product_price_templates", :force => true do |t|
-    t.decimal  "pretax_amount",                  :precision => 19, :scale => 4,                   :null => false
-    t.decimal  "amount",                         :precision => 19, :scale => 4,                   :null => false
-    t.integer  "product_nature_id",                                                               :null => false
-    t.integer  "tax_id",                                                                          :null => false
-    t.datetime "created_at",                                                                      :null => false
-    t.datetime "updated_at",                                                                      :null => false
+    t.decimal  "assignment_pretax_amount",                        :precision => 19, :scale => 4
+    t.decimal  "assignment_amount",                               :precision => 19, :scale => 4
+    t.integer  "product_nature_id",                                                                                :null => false
+    t.integer  "tax_id",                                                                                           :null => false
+    t.datetime "created_at",                                                                                       :null => false
+    t.datetime "updated_at",                                                                                       :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                                  :default => 0,    :null => false
+    t.integer  "lock_version",                                                                   :default => 0,    :null => false
     t.integer  "supplier_id"
     t.datetime "started_at"
     t.datetime "stopped_at"
-    t.boolean  "active",                                                        :default => true, :null => false
-    t.boolean  "by_default",                                                    :default => true
+    t.boolean  "active",                                                                         :default => true, :null => false
+    t.boolean  "by_default",                                                                     :default => true
     t.integer  "listing_id"
-    t.string   "currency",          :limit => 3
+    t.string   "currency",                          :limit => 3
+    t.string   "pretax_amount_generation",          :limit => 32
+    t.text     "pretax_amount_calculation_formula"
+    t.integer  "amounts_scale",                                                                  :default => 2,    :null => false
   end
 
   add_index "product_price_templates", ["created_at"], :name => "index_product_price_templates_on_created_at"
@@ -1860,10 +1863,9 @@ ActiveRecord::Schema.define(:version => 20130327141101) do
     t.integer  "template_id",                                                 :null => false
     t.decimal  "pretax_amount", :precision => 19, :scale => 4,                :null => false
     t.decimal  "amount",        :precision => 19, :scale => 4,                :null => false
+    t.integer  "tax_id",                                                      :null => false
     t.string   "currency",                                                    :null => false
-    t.integer  "tax_id"
-    t.datetime "started_at"
-    t.datetime "stopped_at"
+    t.datetime "computed_at",                                                 :null => false
     t.datetime "created_at",                                                  :null => false
     t.datetime "updated_at",                                                  :null => false
     t.integer  "creator_id"

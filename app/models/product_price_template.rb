@@ -20,68 +20,91 @@
 #
 # == Table: product_price_templates
 #
-#  active            :boolean          default(TRUE), not null
-#  amount            :decimal(19, 4)   not null
-#  by_default        :boolean          default(TRUE)
-#  created_at        :datetime         not null
-#  creator_id        :integer
-#  currency          :string(3)
-#  id                :integer          not null, primary key
-#  listing_id        :integer
-#  lock_version      :integer          default(0), not null
-#  pretax_amount     :decimal(19, 4)   not null
-#  product_nature_id :integer          not null
-#  started_at        :datetime
-#  stopped_at        :datetime
-#  supplier_id       :integer
-#  tax_id            :integer          not null
-#  updated_at        :datetime         not null
-#  updater_id        :integer
+#  active                            :boolean          default(TRUE), not null
+#  amounts_scale                     :integer          default(2), not null
+#  assignment_amount                 :decimal(19, 4)
+#  assignment_pretax_amount          :decimal(19, 4)
+#  by_default                        :boolean          default(TRUE)
+#  created_at                        :datetime         not null
+#  creator_id                        :integer
+#  currency                          :string(3)
+#  id                                :integer          not null, primary key
+#  listing_id                        :integer
+#  lock_version                      :integer          default(0), not null
+#  pretax_amount_calculation_formula :text
+#  pretax_amount_generation          :string(32)
+#  product_nature_id                 :integer          not null
+#  started_at                        :datetime
+#  stopped_at                        :datetime
+#  supplier_id                       :integer
+#  tax_id                            :integer          not null
+#  updated_at                        :datetime         not null
+#  updater_id                        :integer
 #
 
 # This model permits to manage default prices
 class ProductPriceTemplate < Ekylibre::Record::Base
-  attr_accessible :active, :amount, :by_default, :listing_id, :supplier_id, :pretax_amount, :product_nature_id, :tax_id, :currency
+  attr_accessible :active, :by_default, :listing_id, :supplier_id, :assignment_amount, :assignment_pretax_amount, :product_nature_id, :tax_id, :currency
   after_create :set_by_default
+  enumerize :pretax_amount_generation, :in => [:assignment], :predicates => true # , :calculation
   belongs_to :listing, :class_name => "ProductPriceListing"
   belongs_to :product_nature
   belongs_to :tax
   belongs_to :supplier, :class_name => "Entity"
   has_many :outgoing_delivery_items, :class_name => "OutgoingDeliveryItem"
-  has_many :taxes
-  has_many :prices, :class_name => "ProductPrice"
+  has_many :prices, :class_name => "ProductPrice", :foreign_key => :template_id, :inverse_of => :template
   has_many :purchase_items, :class_name => "PurchaseItem"
   has_many :sale_items, :class_name => "SaleItem"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :amount, :pretax_amount, :allow_nil => true
+  validates_numericality_of :amounts_scale, :allow_nil => true, :only_integer => true
+  validates_numericality_of :assignment_amount, :assignment_pretax_amount, :allow_nil => true
   validates_length_of :currency, :allow_nil => true, :maximum => 3
+  validates_length_of :pretax_amount_generation, :allow_nil => true, :maximum => 32
   validates_inclusion_of :active, :in => [true, false]
-  validates_presence_of :amount, :pretax_amount, :product_nature, :tax
+  validates_presence_of :amounts_scale, :product_nature, :tax
   #]VALIDATORS]
   validates_presence_of :listing, :if => :own?
   validates_presence_of :supplier
-  validates_numericality_of :pretax_amount, :amount, :greater_than_or_equal_to => 0
+  validates_numericality_of :assignment_pretax_amount, :assignment_amount, :greater_than_or_equal_to => 0, :allow_nil => true, :allow_blank => true
+  validates_presence_of :assignment_pretax_amount, :assignment_amount, :if => :assignment?
+  # validates_presence_of :calculation_formula, :if => :calculation?
+  validates_inclusion_of :pretax_amount_generation, :in => self.pretax_amount_generation.values
+  validates_inclusion_of :amounts_scale, :in => 0..4
+
 
   delegate :storable?, :subscribing?, :to => :product_nature
 
   scope :availables_for_sales, -> { joins(:product_nature).where("#{ProductPriceTemplate.table_name}.active=? AND #{ProductNature.table_name}.active=?", true, true) }
+  scope :actives_at, lambda { |at| where("? BETWEEN COALESCE(started_at, ?) AND COALESCE(stopped_at, ?)", at, at, at) }
 
+  before_validation(:on => :create) do
+    self.pretax_amount_generation ||= self.class.pretax_amount_generation.values.first
+    # self.started_at = Time.now
+  end
 
   before_validation do
     if supplier = Entity.of_company
       self.currency  ||= supplier.currency
       self.supplier_id ||= supplier.id
     end
-    if self.amount.to_f > 0
-      self.amount = self.amount.round(2)
-      tax_amount = (self.tax ? self.tax.compute(self.amount, true) : 0)
-      self.pretax_amount = self.amount - tax_amount.round(2)
-    else  # if self.amount.to_f >= 0
-      tax_amount = (self.tax ? self.tax.compute(self.pretax_amount) : 0).to_f
-      self.amount = (self.pretax_amount.to_f+tax_amount).round(2)
-      self.pretax_amount = self.amount.to_f - tax_amount.round(2)
+    if self.tax and self.assignment_pretax_amount
+      self.assignment_amount = self.tax.amount_of(self.assignment_pretax_amount)
     end
-    self.started_at = Time.now
+    # if self.amount.to_f > 0
+    #   self.amount = self.amount.round(2)
+    #   tax_amount = (self.tax ? self.tax.compute(self.amount, true) : 0)
+    #   self.pretax_amount = self.amount - tax_amount.round(2)
+    # else  # if self.amount.to_f >= 0
+    #   tax_amount = (self.tax ? self.tax.compute(self.pretax_amount) : 0).to_f
+    #   self.amount = (self.pretax_amount.to_f+tax_amount).round(2)
+    #   self.pretax_amount = self.amount.to_f - tax_amount.round(2)
+    # end
+  end
+
+  before_save do
+    self.listing = nil unless own?
+    self.by_default = true if self.class.where(:supplier_id => self.supplier_id, :product_nature_id => self.product_nature_id).count.zero?
+    return true
   end
 
 
@@ -146,24 +169,57 @@ class ProductPriceTemplate < Ekylibre::Record::Base
     return quantity.round(4), pretax_amount.round(2), amount.round(2)
   end
 
-
-  # Search or create the expected ProductPrice at the given moment
-  def price(computed_at = nil)
-    computed_at ||= Time.now
-    # Fixed price
-    price = self.prices.where(:pretax_amount => self.pretax_amount, :tax_id => self.tax_id).where("? BETWEEN started_at AND COALESCE(stopped_at, ?)", computed_at, computed_at)
-    price = generate_price(computed_at) unless price
-    return price
+  # Give a price for a given product
+  # Options are: :pretax_amount, :amount,
+  # :template, :supplier, :at, :listing
+  def self.price(product, options = {})
+    company = Entity.of_company
+    templates = self.actives_at(options[:at] || Time.now)
+      .where(:product_nature_id => product.nature_id)
+    templates = if options[:template]
+                  templates.where(:id => options[:template].id)
+                else
+                  templates.where(:by_default => true)
+                end
+    templates = if options[:supplier] and options[:supplier].id != company.id
+                  templates.where(:supplier_id => options[:supplier].id)
+                else
+                  options[:listing] = ProductPriceListing.by_default unless options[:listing]
+                  templates.where(:supplier_id => company.id, :listing_id => options[:listing].id)
+                end
+    if templates.count == 1
+      return templates.first.send(:price, product, options)
+    else
+      Rails.logger.warn("#{templates.count} price templates found for #{options}")
+      return nil
+    end
   end
 
   private
 
-  # Generate a price from the current template at the given moment
-  def generate_price(computed_at)
-    if self.prices.empty?
+  # Compute price with given parameters
+  def price(product, options = {})
+    # FIXME Check if time match template period ?
+    computed_at = options[:at] || Time.now
+    price = nil
+    if self.assignment?
+      # Assigned price
+      pretax_amount = if options[:pretax_amount]
+                        options[:pretax_amount].to_d
+                      elsif options[:amount]
+                        self.tax.pretax_amount_of(options[:amount])
+                      else
+                        self.assignment_pretax_amount
+                      end
+      amount = self.tax.amount_of(pretax_amount)
+      price = self.prices.create!(:product_id => product.id, :computed_at => computed_at, :pretax_amount => pretax_amount.round(self.amounts_scale), :amount => amount.round(self.amounts_scale))
+      # elsif self.calculation?
+      #   price = // Formula
+    else
+      raise StandardError.new("Unexpected generation: #{self.pretax_amount_generation} (#{self.class.pretax_amount_generation.values.join(', ')} are expected)")
     end
-    current_price = self.prices.where("? BETWEEN started_at AND COALESCE(stopped_at, ?)", computed_at, computed_at)
-    self.prices.new(:started_at => computed_at)
+    return price
   end
+
 
 end

@@ -3,10 +3,10 @@
     -t.edit @production_chain
     -t.link :new, :controller=>:production_chain_work_centers, :production_chain_id=>@production_chain.id
 
-  #chains=render :partial=>"work_center", :collection=>@production_chain.operations
+  #chains=render 'work_center', :collection => @production_chain.operations
   -if @production_chain.unused_conveyors.size > 0
     %h2=ProductionChain.human_attribute_name(:unused_conveyors)
     -for conveyor in @production_chain.unused_conveyors
       %table.conveyor
         %tr
-          =render :partial=>"conveyor", :object=>conveyor
+          =render 'conveyor', :object => conveyor

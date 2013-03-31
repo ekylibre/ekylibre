@@ -26,8 +26,8 @@ ActiveRecord::Base.transaction do
   Unit.load_defaults
   EntityNature.load_defaults
   undefined_nature = EntityNature.where(:gender => "undefined").first
-  category = EntityCategory.create!(:name => I18n.t('models.company.default.category'))
-  firm = Entity.create!(:category_id =>  category.id, :nature_id => undefined_nature.id, :language => language, :last_name => company, :currency => currency, :of_company => true)
+  listing = ProductPriceListing.create!(:name => I18n.t('models.product_price_listing.default.name'))
+  firm = Entity.create!(:sale_price_listing_id => listing.id, :nature_id => undefined_nature.id, :language => language, :last_name => company, :currency => currency, :of_company => true)
   firm.addresses.create!(:canal => "mail", :mail_line_2 => "", :mail_line_3 => "", :mail_line_4 => "", :mail_line_5 => "", :mail_line_6 => "", :by_default => true)
 
   user.administrator = true

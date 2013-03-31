@@ -62,6 +62,7 @@ class ProductPriceListing < Ekylibre::Record::Base
     self.entities.count <= 0 and self.prices.count <= 0
   end
 
+  # Returns the default price listing
   def self.by_default
     self.where(:by_default => true).first
   end

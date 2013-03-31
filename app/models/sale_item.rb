@@ -85,8 +85,7 @@ class SaleItem < Ekylibre::Record::Base
   before_validation do
     # check_reservoir = true
     if not self.price and self.sale and self.product
-      self.price = self.product.default_price(self.sale.client.sale_price_listing_id)
-      # puts [sale.client.sale_price_listing_id, sale].inspect unless self.price
+      self.price = self.product.price(:listing => self.sale.client.sale_price_listing)
     end
     # self.product = self.price.product if self.price
     if self.product

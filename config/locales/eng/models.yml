@@ -1062,6 +1062,7 @@ eng:
     prescriptions: "Prescriptions"
     # prescriptor: "Vétérinaire"
     pretax_amount: "Pre-tax amount"
+    # pretax_amount_generation: "Pretax amount generation"
     price: "Price"
     price_amount: "Price amount"
     prices: "Prices"
@@ -1521,7 +1522,7 @@ eng:
     company:
       cant_find_document_template: "Can not find document template"
       default:
-        category: "By default"
+        category: "By default" #?
         delays:
           expression:
             expiration: "1 month"
@@ -1778,6 +1779,9 @@ eng:
       label: "%{product} / %{amount} %{currency}" #?
       no_range: "No range" #?
       range: "From %{min} to %{max}" #?
+    product_price_listing:
+      default:
+        # name: "Par défaut"
     product_price_template:
       label: "%{product} / %{amount} %{currency}"
       no_range: "No range"

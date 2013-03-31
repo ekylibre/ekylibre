@@ -43,8 +43,10 @@ class Tax < Ekylibre::Record::Base
   enumerize :nature, :in => [:amount, :percentage], :default => :percentage, :predicates => true
   belongs_to :collected_account, :class_name => "Account"
   belongs_to :paid_account, :class_name => "Account"
-  has_many :prices, :class_name => "ProductPriceTemplate"
-  has_many :sale_items, :class_name => "SaleItem"
+  has_many :price_templates, :class_name => "ProductPriceTemplate"
+  has_many :prices, :class_name => "ProductPrice"
+  has_many :purchase_items
+  has_many :sale_items
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :amount, :allow_nil => true
   validates_length_of :nature, :allow_nil => true, :maximum => 16
@@ -58,18 +60,43 @@ class Tax < Ekylibre::Record::Base
   validates_uniqueness_of :name
   validates_numericality_of :amount, :in => 0..100, :if => :percentage?
 
+  scope :percentages, -> { where(:nature => 'percentage') }
+
   protect(:on => :destroy) do
-    self.prices.count <= 0 and self.sale_items.count <= 0
+    self.prices.count <= 0 and self.purchase_items.count <= 0 and self.sale_items.count <= 0
   end
 
+  # Compute the tax amount
+  # If +with_taxes+ is true, it's considered that the given amount
+  # is an amount with tax
   def compute(amount, with_taxes = false)
     if self.percentage? and with_taxes
-      amount.to_f / (1 + 100/self.amount.to_f)
+      amount.to_d / (1 + 100/self.amount.to_d)
     elsif self.percentage?
-      amount.to_f * self.amount.to_f/100
+      amount.to_d * self.amount.to_d/100
     elsif self.amount?
       self.amount
     end
   end
+
+
+  # Returns the pretax amount of an amount
+  def pretax_amount_of(amount)
+    return (self.percentage? ? (amount.to_d / coefficient) : (amount.to_d - self.amount.to_d))
+  end
+
+  # Returns the amount of a pretax amount
+  def amount_of(pretax_amount)
+    return (self.percentage? ? (pretax_amount.to_d * coefficient) : (pretax_amount.to_d + self.amount.to_d))
+  end
+
+  # Returns the matching coefficient k of the percentage
+  # where pretax_amount * k = amount_with_tax
+  def coefficient
+    raise StandardError("Can only use coefficient method with percentage taxes") unless self.percentage?
+    return (1.0 + 0.01*self.amount.to_d)
+  end
+
+
 
 end

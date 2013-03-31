@@ -1519,6 +1519,7 @@ arb:
     # prescriptions: "Ordonnances"
     # prescriptor: "Vétérinaire"
     # pretax_amount: "Montant HT"
+    # pretax_amount_generation: "Pretax amount generation"
     price: "سعر الكلفة"
     price_amount: "القيمة دون الضرائب"
     price_id: "سعر الوحدة" #?
@@ -2017,7 +2018,7 @@ arb:
           name: #?
             bank_account: "حساب مصرفي" #?
             cash_box: "صندوق نقدي" #?
-        category: "افتراضيا"
+        category: "افتراضيا" #?
         delays:
           expression:
             expiration: "شهر واحد"
@@ -2461,6 +2462,9 @@ arb:
       label: "%{product} / %{amount} %{currency}" #?
       no_range: "ليس هناك من فترة استراحة" #?
       range: "من %{min} الى %{max}" #?
+    product_price_listing:
+      default:
+        # name: "Par défaut"
     product_price_template:
       label: "%{product} / %{amount} %{currency}"
       no_range: "ليس هناك من فترة استراحة"
