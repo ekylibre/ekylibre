@@ -32,6 +32,7 @@ We encourage you to contribute to Ekylibre.
 
 * Forum: https://www.ekylibre.org/forum
 * Map: http://www.mindmeister.com/fr/233765234/ekylibre-1-0-2013
+* Official documentation: https://github.com/ekylibre/ekylibre-doc
 
 == License
 

@@ -1,5 +1,5 @@
 GIT
-  remote: git://github.com/voormedia/rails-erd.git
+  remote: git://github.com/burisu/rails-erd.git
   revision: d29b0c29fcfa9783c1070a915e7549a4e66d8441
   specs:
     rails-erd (1.1.0)
