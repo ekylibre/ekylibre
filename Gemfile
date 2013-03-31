@@ -96,7 +96,7 @@ group :development do
   gem 'rails_best_practices'
   # Project Management / Model
   gem 'railroady'
-  gem 'rails-erd', github: "voormedia/rails-erd"
+  gem 'rails-erd', github: "burisu/rails-erd"
 
   gem 'thin'
 end

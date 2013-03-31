@@ -34,7 +34,7 @@
 
 
 class ProductPriceListing < Ekylibre::Record::Base
-  attr_accessible :name, :description, :by_default
+  attr_accessible :name, :description, :by_default, :code
   has_many :active_price_templates, :class_name => "ProductPriceTemplate", :foreign_key => :category_id, :conditions => {:active => true}
   has_many :entities, :foreign_key => :category_id
   has_many :prices, :class_name => "ProductPriceTemplate", :foreign_key => :category_id
