@@ -25,8 +25,9 @@ class Backend::ProductPriceTemplatesController < BackendController
     t.column :name, :through => :product_nature, :url => true
     t.column :full_name, :through => :supplier, :url => true
     t.column :name, :through => :listing, :url => true
-    t.column :pretax_amount, :currency => true
-    t.column :amount, :currency => true
+    t.column :assignment_pretax_amount, :currency => true
+    t.column :name, :through => :tax
+    t.column :assignment_amount, :currency => true
     t.column :by_default
     # t.column :range
     t.action :edit
@@ -85,7 +86,7 @@ class Backend::ProductPriceTemplatesController < BackendController
   def update
     return unless @product_price_template = find_and_check
     @mode = "purchases" if @product_price_template.supplier_id != Entity.of_company.id
-    @product_price_template.amount = 0
+    # @product_price_template.amount = 0
     return if save_and_redirect(@product_price_template, :attributes => params[:product_price_template])
     t3e @product_price_template.attributes, :product_nature => @product_price_template.product_nature.name
     # render_restfully_form

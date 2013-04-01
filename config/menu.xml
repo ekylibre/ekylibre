@@ -1098,6 +1098,9 @@
     <menu name="backend/product_natures">
       <page to="backend/product_natures#list_prices"/>
     </menu>
+    <menu name="backend/product_price_listings">
+      <page to="backend/product_price_listings#list_templates"/>
+    </menu>
     <menu name="backend/product_prices">
       <page to="backend/product_prices#index"/>
       <page to="backend/product_prices#create"/>

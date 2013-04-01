@@ -213,6 +213,7 @@
 # - "backend/product_memberships#update"
 # - "backend/product_nature_categories#list_product_natures"
 # - "backend/product_natures#show"
+# - "backend/product_price_listings#list_templates"
 # - "backend/product_prices#create"
 # - "backend/product_prices#destroy"
 # - "backend/product_prices#edit"
@@ -981,7 +982,7 @@ manage_product_price_listings:
 - "backend/product_price_listings#edit"
 - "backend/product_price_listings#index"
 - "backend/product_price_listings#list"
-- "backend/product_price_listings#list_prices"
+- "backend/product_price_listings#list_prices" #?
 - "backend/product_price_listings#new"
 - "backend/product_price_listings#show"
 - "backend/product_price_listings#update"

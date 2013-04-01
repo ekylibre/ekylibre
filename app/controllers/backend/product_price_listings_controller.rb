@@ -35,19 +35,19 @@ class Backend::ProductPriceListingsController < BackendController
   def index
   end
 
-  list(:prices, :model => :product_price_templates, :conditions => {:active => true, :category_id => ['session[:current_entity_category_id]']}) do |t|
+  list(:templates, :model => :product_price_templates, :conditions => {:active => true, :listing_id => ['session[:current_product_price_listing_id]']}) do |t|
     t.column :name, :through => :product_nature, :url => true
-    t.column :pretax_amount
-    t.column :amount
+    t.column :assignment_pretax_amount
+    t.column :assignment_amount
     t.column :name, :through => :tax
     t.action :destroy
   end
 
   # Displays details of one entity category selected with +params[:id]+
   def show
-    return unless @entity_category = find_and_check(:product_price_listing)
-    session[:current_entity_category_id] = @entity_category.id
-    t3e @entity_category.attributes
+    return unless @product_price_listing = find_and_check(:product_price_listing)
+    session[:current_product_price_listing_id] = @product_price_listing.id
+    t3e @product_price_listing.attributes
   end
 
 end

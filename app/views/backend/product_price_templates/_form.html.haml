@@ -6,7 +6,7 @@
   =f.input :by_default
 
 =field_set :amount do
-  =f.referenced_association :category
-  =f.input :pretax_amount
+  =f.referenced_association :listing
+  =f.input :assignment_pretax_amount
   =f.referenced_association :tax
   =f.input :currency, :collection => currencies

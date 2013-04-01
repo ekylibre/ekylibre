@@ -31,8 +31,8 @@ class Backend::PurchaseItemsController < BackendController
       return
     end
     @purchase_item = @purchase.items.new
-    @price = ProductPriceTemplate.new(:pretax_amount=>0.0, :currency => @purchase.currency)
-    session[:current_currency] = @price.currency
+    # @price = ProductPriceTemplate.new(:pretax_amount=>0.0, :currency => @purchase.currency)
+    # session[:current_currency] = @price.currency
     t3e @purchase.attributes
     # render_restfully_form
   end

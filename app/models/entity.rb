@@ -82,12 +82,12 @@ class Entity < Ekylibre::Record::Base
   attr_accessor :password_confirmation, :old_password
   attr_protected :rights
   belongs_to :attorney_account, :class_name => "Account"
-  belongs_to :sale_price_listing, :class_name => "ProductPriceListing"
   belongs_to :client_account, :class_name => "Account"
   belongs_to :nature, :class_name => "EntityNature"
   belongs_to :payment_mode, :class_name => "IncomingPaymentMode"
   belongs_to :proposer, :class_name => "Entity"
   belongs_to :responsible, :class_name => "User"
+  belongs_to :sale_price_listing, :class_name => "ProductPriceListing"
   belongs_to :supplier_account, :class_name => "Account"
   has_many :clients, :class_name => "Entity", :foreign_key => :responsible_id, :dependent => :nullify
   has_many :addresses, :conditions => {:deleted_at => nil}, :class_name => "EntityAddress", :inverse_of => :entity
@@ -373,8 +373,8 @@ class Entity < Ekylibre::Record::Base
       code += "  nature = EntityNature.create!(:title => '', :name => '-', :physical => false, :in_name => false, :active => true) unless nature\n"
     end
     unless cols[:product_price_listing].is_a? Hash
-      code += "  category = ProductPriceListing.where('name=? or code=?', '-', '-').first\n"
-      code += "  category = ProductPriceListing.create!(:name => '-', :by_default => false) unless category\n"
+      code += "  sale_price_listing = ProductPriceListing.where('name=? or code=?', '-', '-').first\n"
+      code += "  sale_price_listing = ProductPriceListing.create!(:name => '-', :by_default => false) unless sale_price_listing\n"
     end
     for k, v in (cols[:special]||{}).select{|k, v| v == :generate_string_custom_field}
       code += "  custom_field_#{k} = CustomField.create!(:name => #{header[k.to_i].inspect}, :active => true, :length_max => 65536, :nature => 'string', :required => false)\n"
@@ -392,18 +392,18 @@ class Entity < Ekylibre::Record::Base
       code += "    end unless nature\n"
     end
     if cols[:product_price_listing].is_a? Hash
-      code += "    category = ProductPriceListing.where("+cols[:product_price_listing].collect{|k,v| ":#{v} => item[#{k}]"}.join(', ')+").first\n"
+      code += "    sale_price_listing = ProductPriceListing.where("+cols[:product_price_listing].collect{|k,v| ":#{v} => item[#{k}]"}.join(', ')+").first\n"
       code += "    begin\n"
-      code += "      category = ProductPriceListing.create!("+cols[:product_price_listing].collect{|k,v| ":#{v} => item[#{k}]"}.join(', ')+")\n"
+      code += "      sale_price_listing = ProductPriceListing.create!("+cols[:product_price_listing].collect{|k,v| ":#{v} => item[#{k}]"}.join(', ')+")\n"
       code += "    rescue\n"
-      code += "      category = ProductPriceListing.where('name=? or code=?', '-', '-').first\n"
-      code += "      category = ProductPriceListing.create!(:name => '-', :by_default => false) unless category\n"
-      code += "    end unless category\n"
+      code += "      sale_price_listing = ProductPriceListing.where('name=? or code=?', '-', '-').first\n"
+      code += "      sale_price_listing = ProductPriceListing.create!(:name => '-', :by_default => false) unless sale_price_listing\n"
+      code += "    end unless sale_price_listing\n"
     end
 
-    # code += "    puts [nature, category].inspect\n"
+    # code += "    puts [nature, sale_price_listing].inspect\n"
 
-    code += "    entity = Entity.build("+cols[:entity].collect{|k,v| ":#{v} => item[#{k}]"}.join(', ')+", :nature_id => nature.id, :category_id => category.id, :language => #{self.of_company.language.inspect}, :client => true)\n"
+    code += "    entity = Entity.build("+cols[:entity].collect{|k,v| ":#{v} => item[#{k}]"}.join(', ')+", :nature_id => nature.id, :sale_price_listing_id => sale_price_listing.id, :language => #{self.of_company.language.inspect}, :client => true)\n"
     code += "    if entity.save\n"
     if cols[:address].is_a? Hash
       code += "      address = entity.addresses.build("+cols[:address].collect{|k,v| ":#{v} => item[#{k}]"}.join(', ')+")\n"
@@ -453,7 +453,7 @@ class Entity < Ekylibre::Record::Base
       entities.each do |entity|
         address = EntityAddress.where(:entity_id => entity.id, :by_default => true, :deleted_at => nil).first
         item = []
-        item << ["'"+entity.code.to_s, entity.nature.name, entity.category.name, entity.name, entity.first_name]
+        item << ["'"+entity.code.to_s, entity.nature.name, entity.sale_price_listing.name, entity.name, entity.first_name]
         if !address.nil?
           item << [address.item_2, address.item_3, address.item_4, address.item_5, address.item_6_code, address.item_6_city, address.phone, address.mobile, address.fax ,address.email, address.website]
         else

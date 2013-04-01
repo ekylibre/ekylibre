@@ -84,7 +84,7 @@ sale_items_002:
   creator_id: 1
   id: 2
   sale_id: 1
-  price_id: 1
+  price_id: 2
   product_id: 1
   quantity: 0
   unit_id: 1
@@ -98,7 +98,7 @@ sale_items_003:
   creator_id: 1
   id: 3
   sale_id: 2
-  price_id: 1
+  price_id: 3
   product_id: 1
   quantity: 0
   unit_id: 1
@@ -112,7 +112,7 @@ sale_items_004:
   creator_id: 1
   id: 4
   sale_id: 3
-  price_id: 1
+  price_id: 4
   product_id: 1
   quantity: 5
   unit_id: 1
@@ -125,7 +125,7 @@ sale_items_005:
   creator_id: 1
   id: 5
   pretax_amount: 10
-  price_id: 1
+  price_id: 5
   product_id: 1
   quantity: 5
   reduction_percentage: 0

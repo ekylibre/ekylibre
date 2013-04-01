@@ -79,7 +79,6 @@ class SaleItem < Ekylibre::Record::Base
   validates_numericality_of :amount, :pretax_amount, :price_amount, :quantity, :reduction_percentage, :allow_nil => true
   validates_presence_of :amount, :pretax_amount, :price, :product, :quantity, :reduction_percentage, :sale
   #]VALIDATORS]
-  validates_presence_of :price
 
 
   before_validation do
@@ -100,10 +99,11 @@ class SaleItem < Ekylibre::Record::Base
     end
     self.price_amount ||= 0
 
-    if self.price_amount > 0
-      price = ProductPriceTemplate.create!(:pretax_amount => self.price_amount, :tax_id => self.tax_id||0, :entity_id => Entity.of_company.id, :active => false, :product_id => self.product_id, :listing_id => self.sale.client.sale_price_listing_id)
-      self.price = price
-    end
+    # TODO Repairs that
+    # if self.price_amount > 0
+    #   price = ProductPriceTemplate.create!(:pretax_amount => self.price_amount, :tax_id => self.tax_id||0, :entity_id => Entity.of_company.id, :active => false, :product_id => self.product_id, :listing_id => self.sale.client.sale_price_listing_id)
+    #   self.price = price
+    # end
 
     if self.price
       if self.reduction_origin_id.nil?

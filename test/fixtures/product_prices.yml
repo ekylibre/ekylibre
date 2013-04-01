@@ -55,11 +55,77 @@
 #
 
 
-# # Empty samples of product_prices
-# product_prices_001:
-#   id: 1
-#   name: 'ProductPrice 1'
+product_prices_001:
+  amount: 1196
+  computed_at: 2009-07-19 19:13:59 +02:00
+  created_at: 2009-07-19 19:13:59 +02:00
+  creator_id: 1
+  currency: "EUR"
+  id: 1
+  pretax_amount: 1000
+  product_id: 1
+  supplier_id: 1
+  tax_id: 1
+  template_id: 1
+  updated_at: 2009-07-19 19:13:59 +02:00
+  updater_id: 1
 
-# product_prices_002:
-#   id: 2
-#   name: 'ProductPrice 2'
+product_prices_002:
+  amount: 1196
+  computed_at: 2009-07-19 19:13:59 +02:00
+  created_at: 2009-07-19 19:13:59 +02:00
+  creator_id: 1
+  currency: "EUR"
+  id: 2
+  pretax_amount: 1000
+  product_id: 1
+  supplier_id: 1
+  tax_id: 1
+  template_id: 1
+  updated_at: 2009-07-19 19:13:59 +02:00
+  updater_id: 1
+
+product_prices_003:
+  amount: 1196
+  computed_at: 2009-07-19 19:13:59 +02:00
+  created_at: 2009-07-19 19:13:59 +02:00
+  creator_id: 1
+  currency: "EUR"
+  id: 3
+  pretax_amount: 1000
+  product_id: 1
+  supplier_id: 1
+  tax_id: 1
+  template_id: 1
+  updated_at: 2009-07-19 19:13:59 +02:00
+  updater_id: 1
+
+product_prices_004:
+  amount: 1196
+  computed_at: 2009-07-19 19:13:59 +02:00
+  created_at: 2009-07-19 19:13:59 +02:00
+  creator_id: 1
+  currency: "EUR"
+  id: 4
+  pretax_amount: 1000
+  product_id: 1
+  supplier_id: 1
+  tax_id: 1
+  template_id: 1
+  updated_at: 2009-07-19 19:13:59 +02:00
+  updater_id: 1
+
+product_prices_005:
+  amount: 1196
+  computed_at: 2009-07-19 19:13:59 +02:00
+  created_at: 2009-07-19 19:13:59 +02:00
+  creator_id: 1
+  currency: "EUR"
+  id: 5
+  pretax_amount: 1000
+  product_id: 1
+  supplier_id: 1
+  tax_id: 1
+  template_id: 1
+  updated_at: 2009-07-19 19:13:59 +02:00
+  updater_id: 1

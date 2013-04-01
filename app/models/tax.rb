@@ -45,7 +45,7 @@ class Tax < Ekylibre::Record::Base
   belongs_to :paid_account, :class_name => "Account"
   has_many :price_templates, :class_name => "ProductPriceTemplate"
   has_many :prices, :class_name => "ProductPrice"
-  has_many :purchase_items
+  # TODO has_many :purchase_items
   has_many :sale_items
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :amount, :allow_nil => true

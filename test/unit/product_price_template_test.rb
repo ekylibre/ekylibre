@@ -53,9 +53,11 @@ class ProductPriceTemplateTest < ActiveSupport::TestCase
     count = ProductPriceTemplate.count
     assert !count.zero?
 
+    assert template.assignment?
+
     # Update
-    id, pretax_amount = template.id, template.pretax_amount
-    template.pretax_amount = pretax_amount + 50
+    id, pretax_amount = template.id, template.assignment_pretax_amount
+    template.assignment_pretax_amount = pretax_amount + 50
     saved = template.update
     assert saved, "Template must be saved (#{template.errors.inspect})"
     assert_equal count + 1, ProductPriceTemplate.count
@@ -64,7 +66,7 @@ class ProductPriceTemplateTest < ActiveSupport::TestCase
     assert_nothing_raised do
       old_template = ProductPriceTemplate.find(id)
     end
-    assert_equal pretax_amount, old_template.pretax_amount
+    assert_equal pretax_amount, old_template.assignment_pretax_amount
     assert_nothing_raised do
       saved.reload
     end
@@ -78,7 +80,7 @@ class ProductPriceTemplateTest < ActiveSupport::TestCase
     assert !count.zero?
 
     # Destroy
-    template.pretax_amount = 158.20
+    template.assignment_pretax_amount = 158.20
     assert template.save
     assert_equal count + 1, ProductPriceTemplate.count
     assert template.stopped_at.nil?

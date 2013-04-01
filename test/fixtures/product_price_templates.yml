@@ -64,6 +64,7 @@ product_price_templates_001:
   creator_id: 1
   id: 1
   currency: 'EUR'
+  pretax_amount_generation: 'assignment'
   product_nature_id: 1
   tax_id: 1
   updated_at: 2009-07-19 19:13:59 +02:00
@@ -78,6 +79,7 @@ product_price_templates_002:
   creator_id: 1
   id: 2
   currency: 'EUR'
+  pretax_amount_generation: 'assignment'
   product_nature_id: 1
   tax_id: 1
   updated_at: 2009-07-19 19:13:59 +02:00
@@ -92,6 +94,7 @@ product_price_templates_003:
   creator_id: 1
   id: 3
   currency: 'EUR'
+  pretax_amount_generation: 'assignment'
   product_nature_id: 1
   tax_id: 1
   updated_at: 2009-07-19 19:13:59 +02:00
@@ -106,7 +109,26 @@ product_price_templates_004:
   creator_id: 1
   id: 4
   currency: 'EUR'
+  pretax_amount_generation: 'assignment'
   product_nature_id: 3
+  tax_id: 1
+  updated_at: 2009-07-19 19:13:59 +02:00
+  updater_id: 1
+
+# Used for sales
+product_price_templates_005:
+  active: true
+  assignment_amount: 209.30
+  assignment_pretax_amount: 175.0
+  by_default: true
+  listing_id: 1
+  created_at: 2009-07-19 19:13:59 +02:00
+  creator_id: 1
+  id: 5
+  currency: 'EUR'
+  pretax_amount_generation: 'assignment'
+  product_nature_id: 1
+  supplier_id: 1
   tax_id: 1
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1

@@ -140,7 +140,12 @@ class DocumentTemplate < Ekylibre::Record::Base
     end
 
     # Build the PDF data
-    # self.cache.split("\n").each_with_index{|l,x| puts((x+1).to_s.rjust(4)+": "+l)}
+    if Rails.env.test?
+      File.open(Rails.root.join("tmp", "document-template-#{self.id}.rb"), "wb") do |f|
+        # self.cache.split("\n").each_with_index{|l,x| puts((x+1).to_s.rjust(4)+": "+l)}
+        f.write self.cache.gsub(';', "\n")
+      end
+    end
     pdf = eval(self.cache)
 
     # Archive the document if necessary

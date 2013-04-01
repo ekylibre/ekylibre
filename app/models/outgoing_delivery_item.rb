@@ -44,7 +44,7 @@ class OutgoingDeliveryItem < Ekylibre::Record::Base
   attr_accessible :sale_item_id, :product_id, :price_id, :unit_id
   attr_readonly :sale_item_id, :product_id, :price_id, :unit_id
   belongs_to :delivery, :class_name => "OutgoingDelivery", :inverse_of => :items
-  belongs_to :price, :class_name => "ProductPriceTemplate"
+  belongs_to :price, :class_name => "ProductPrice"
   belongs_to :product
   belongs_to :sale_item
   belongs_to :move, :class_name => "ProductMove"

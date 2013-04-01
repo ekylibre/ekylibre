@@ -35,9 +35,9 @@
 
 class ProductPriceListing < Ekylibre::Record::Base
   attr_accessible :name, :description, :by_default, :code
-  has_many :active_price_templates, :class_name => "ProductPriceTemplate", :foreign_key => :category_id, :conditions => {:active => true}
-  has_many :entities, :foreign_key => :category_id
-  has_many :prices, :class_name => "ProductPriceTemplate", :foreign_key => :category_id
+  has_many :active_price_templates, :class_name => "ProductPriceTemplate", :foreign_key => :listing_id, :conditions => {:active => true}
+  has_many :entities, :foreign_key => :sale_price_listing_id
+  has_many :prices, :class_name => "ProductPriceTemplate", :foreign_key => :listing_id
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :code, :allow_nil => true, :maximum => 8
   validates_length_of :name, :allow_nil => true, :maximum => 255

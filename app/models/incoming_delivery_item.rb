@@ -45,7 +45,7 @@ class IncomingDeliveryItem < Ekylibre::Record::Base
   attr_accessible :delivery_id, :price_id, :product_id, :warehouse_id
   attr_readonly :purchase_item_id, :product_id, :price_id, :unit_id
   belongs_to :delivery, :class_name => "IncomingDelivery"
-  belongs_to :price, :class_name => "ProductPriceTemplate"
+  belongs_to :price, :class_name => "ProductPrice"
   belongs_to :product
   belongs_to :purchase_item, :class_name => "PurchaseItem"
   belongs_to :move, :class_name => "ProductMove"

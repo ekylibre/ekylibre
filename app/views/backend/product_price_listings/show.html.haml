@@ -1,14 +1,14 @@
 =toolbar do |t|
-  -t.edit @entity_category
+  -t.edit @product_price_listing
 
 =beehive do |b|
   -b.cell do
-    =attributes_list(@entity_category) do |l|
+    =attributes_list(@product_price_listing) do |l|
       -l.attribute :name
       -l.attribute :by_default
       -l.attribute :description
 
-  -b.cell tc(:x_prices, :count => @entity_category.active_prices.count) do
+  -b.cell tc(:x_prices, :count => @product_price_listing.active_price_templates.count) do
     =toolbar do |t|
-      -t.link :new, :action => :new, :controller => :product_nature_prices, :mode => :sales
-    =list :prices
+      -t.link :new, :action => :new, :controller => :product_price_templates, :mode => :sales
+    =list :templates
