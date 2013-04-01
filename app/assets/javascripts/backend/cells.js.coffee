@@ -2,16 +2,22 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 
-jQuery ->
-  $("*[data-cell]").each((index) ->
-    element = $(this)
-    element.addClass("loading")
-    $.ajax(element.data("cell"), {
-      dataType: "html",
-      success: (data, status, request) ->
-        element.removeClass("loading")
-        element.html(data)
-        true
-    })
+(($) ->
+  $(document).ready ->
+    $("[data-cell]").each((index) ->
+      element = $(this)
+      element.addClass("loading")
+      $.ajax(element.data("cell"), {
+        dataType: "html",
+        success: (data, status, request) ->
+          element.removeClass("loading")
+          element.html(data)
+          true
+      })
+      true
+    )
     true
-  )
+
+
+  true
+) jQuery

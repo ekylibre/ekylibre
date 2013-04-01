@@ -80,6 +80,7 @@ group :assets do
   # gem 'foundation-icons-sass-rails'
   gem 'turbo-sprockets-rails3'
   gem 'oily_png'
+  gem 'jquery-turbolinks'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   # gem 'libv8', '~> 3.11.8'

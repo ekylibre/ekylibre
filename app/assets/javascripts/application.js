@@ -13,6 +13,7 @@
 //= require jquery
 //= require jquery-ui
 //= require jquery_ujs
+//= require jquery.turbolinks
 //= require turbolinks
 //= require foundation
 //= require active-list.jquery
