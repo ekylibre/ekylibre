@@ -1868,7 +1868,8 @@ eng:
       tracking: "S/N: %{serial}" #?
       warehouse_can_not_transfer_product: "The product %{product} can not be used with %{warehouse}, because it contains only %{contained_product} " #?
     sale_nature:
-      # sale_nature_name: "Vente standard"
+      default:
+        # name: "Vente standard"
     sequence:
       default:
         assets:

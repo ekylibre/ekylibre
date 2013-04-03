@@ -2558,7 +2558,8 @@ arb:
       tracking: "رقم الحصة : %{serial}"
       warehouse_can_not_transfer_product: "المنتج %{product} لا يأخذ خارج الخزينة %{warehouse}, هذا ويحتوي %{contained_product} "
     sale_nature:
-      # sale_nature_name: "Vente standard"
+      default:
+        # name: "Vente standard"
     sales_invoice:  #?
       bookkeep: "[%{resource} %{number}] %{products} لاجل %{client} (%{sale})" #?
       label: #?

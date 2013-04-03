@@ -1659,7 +1659,8 @@ fra:
       tracking: "N°Lot\_: %{serial}"
       warehouse_can_not_transfer_product: "Le produit %{product} ne peut être sorti du réservoir %{warehouse}, celui-ci contient %{contained_product} "
     sale_nature:
-      sale_nature_name: "Vente standard"
+      default:
+        name: "Vente standard"
     sequence:
       default:
         assets:

@@ -1193,7 +1193,7 @@ input[data-date], input[data-datepicker] {
 
 ul.tree {
   $height: round(2.7 * $fs-normal);
-  $width: 2 * $fs-normal; 
+  $width: 2 * $fs-normal;
   $border-width: 2px;
   $space: round(($height - $border-width) / 2);
   $wspace: round(($width - $border-width) / 2);
@@ -1206,13 +1206,13 @@ ul.tree {
         @include clearfix;
         & > .drift {
           @include inline-block;
-          width: $wspace; 
+          width: $wspace;
           margin-left: $wspace;
           border-left: $border;
           & > .drift {
             @include inline-block;
             border-top: $border;
-            width: 100%; 
+            width: 100%;
             height: $space;
             margin-top: $space;
           }
@@ -1232,12 +1232,12 @@ ul.tree {
         }
         .attribute {
           font-style: italic;
-          color: #AAA; 
+          color: #AAA;
         }
         .tool-comparator, .tool-position, .tool-delete {
           @include float(right);
           @include margin-left(round($fs-normal * 0.2));
-        } 
+        }
       }
       &.reflection > .item > i {
         @include use-icon(share-alt);
@@ -1263,7 +1263,7 @@ ul.tree {
   }
   & > li > ul {
     margin-left: 0;
-  }  
+  }
 }
 
 

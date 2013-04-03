@@ -110,7 +110,7 @@ class Product < Ekylibre::Record::Base
   acts_as_numbered
   delegate :serial_number, :producer, :to => :tracking
   delegate :name, :to => :nature, :prefix => true
-  before_validation :set_variety_and_unit
+  before_validation :set_variety_and_unit, :on => :create
 
   validate do
     # TODO: Check variety is the variety or a sub-variety of the (product) nature.

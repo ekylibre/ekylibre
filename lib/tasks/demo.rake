@@ -249,18 +249,14 @@ namespace :db do
       ble = Vegetal.find_by_work_number("BLE_001")
       ble = Vegetal.create!(:name => "Blé Cap Horn 2011", :variety_id => c.id, :unit_id => wheat_unit.id, :identification_number => "BLE_2011_07142011", :work_number => "BLE_2011", :born_at => "2011-07-14", :nature_id => wheat.id, :owner_id => Entity.of_company.id, :number => "BLE_2011") #
 
-      # sale_nature
+      # Sale nature
       sale_nature   = SaleNature.actives.first
       sale_nature ||= SaleNature.create!(:name => I18n.t('models.sale_nature.default.name'), :currency => "EUR", :active => true)
-      # sale
+      # Sale
       sale = Sale.create!(:created_on => Date.civil(2013, 2, 27), :client_id => Entity.where(:of_company => false).first.id, :nature_id => sale_nature.id, :number => "V201302000002", :sum_method => "wt")
-      # sale_item
-      sale_item1 = sale.items.create!(:quantity =>  5,
-                                      :unit_id => wheat_unit.id,
-                                      :product_id => ble.id)
-      sale_item2 = sale.items.create!(:quantity => 15,
-                                      :unit_id => wheat_unit.id,
-                                      :product_id => ble.id)
+      # Sale items
+      sale.items.create!(:quantity =>  5, :product_id => ble.id)
+      sale.items.create!(:quantity => 15, :product_id => ble.id)
       puts "!"
 
 
@@ -269,11 +265,11 @@ namespace :db do
       # @TODO finish with two level (purchases and purchases_lines)
       #
       # set the coop
-      print "[#{(Time.now - start).round(2).to_s.rjust(8)}s] Coop: "
+      print "[#{(Time.now - start).round(2).to_s.rjust(8)}s] Purchases: "
       suppliers = Entity.where(:of_company => false).reorder(:supplier_account_id, :last_name) # .where(" IS NOT NULL")
       coop = suppliers.offset((suppliers.count/2).floor).first
 
-      unit_u = Unit.find_by_name("u")
+      unit_u = Unit.get(:u)
       # add a Coop purchase_nature
       purchase_nature   = PurchaseNature.actives.first
       purchase_nature ||= PurchaseNature.create!(:name => I18n.t('models.purchase_nature.default.name'), :currency => "EUR", :active => true)
