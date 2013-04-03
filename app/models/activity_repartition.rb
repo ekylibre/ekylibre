@@ -36,7 +36,7 @@
 #  updater_id            :integer
 #
 class ActivityRepartition < Ekylibre::Record::Base
-  attr_accessible :state, :activity_id, :affected_on, :campaign_id, :description, :journal_entry_item_id, :product_nature_id, :repartition_percentage
+  attr_accessible :state, :activity_id, :affected_on, :campaign_id, :description, :journal_entry_item_id, :product_nature_id, :percentage
   belongs_to :activity
   belongs_to :campaign
   belongs_to :product_nature
