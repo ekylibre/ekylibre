@@ -2,4 +2,4 @@
   -toolbar do |t|
     -t.extract @listing, :params=>{:format=>:csv}
     -t.link :mail, {}, :i18n=>{:name=>@listing.name} if @listing.mail_columns.size > 0
-  =render :partial=>"backend/listings/node", :object => @listing.root
+  %ul.tree=render :partial=>"backend/listings/node", :object => @listing.root

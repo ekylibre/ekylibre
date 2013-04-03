@@ -1191,6 +1191,81 @@ input[data-date], input[data-datepicker] {
   }
 }
 
+ul.tree {
+  $height: round(2.7 * $fs-normal);
+  $width: 2 * $fs-normal; 
+  $border-width: 2px;
+  $space: round(($height - $border-width) / 2);
+  $wspace: round(($width - $border-width) / 2);
+  $border: $border-width solid black;
+  ul {
+    margin-left: $width;
+    & > li {
+      .item {
+        display: block;
+        @include clearfix;
+        & > .drift {
+          @include inline-block;
+          width: $wspace; 
+          margin-left: $wspace;
+          border-left: $border;
+          & > .drift {
+            @include inline-block;
+            border-top: $border;
+            width: 100%; 
+            height: $space;
+            margin-top: $space;
+          }
+        }
+        i {
+          @include is-icon;
+          color: darken($base-color, 40%);
+          margin: 0 round($fs-normal * 0.2);
+        }
+        .tool-adder {
+          @include inline-block;
+          * { vertical-align: bottom }
+        }
+        .tool-label {
+          @include inline-block;
+          @include ellipsis;
+        }
+        .attribute {
+          font-style: italic;
+          color: #AAA; 
+        }
+        .tool-comparator, .tool-position, .tool-delete {
+          @include float(right);
+          @include margin-left(round($fs-normal * 0.2));
+        } 
+      }
+      &.reflection > .item > i {
+        @include use-icon(share-alt);
+      }
+      &.column > .item > i {
+        @include use-icon(columns);
+      }
+      &:last-child {
+        > .item {
+          & > .drift {
+            border-left: none;
+            & > .drift {
+              border-top: none;
+              border-left: $border;
+              border-bottom: $border;
+              height: $space;
+              margin: 0 0 $space 0;
+	    }
+          }
+	}
+      }
+    }
+  }
+  & > li > ul {
+    margin-left: 0;
+  }  
+}
+
 
 svg {
   fill: #EEE;
