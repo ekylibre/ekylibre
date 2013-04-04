@@ -265,7 +265,7 @@ namespace :db do
       # @TODO finish with two level (purchases and purchases_lines)
       #
       # set the coop
-      print "[#{(Time.now - start).round(2).to_s.rjust(8)}s] Purchases: "
+      print "[#{(Time.now - start).round(2).to_s.rjust(8)}s] Coop Purchases: "
       suppliers = Entity.where(:of_company => false).reorder(:supplier_account_id, :last_name) # .where(" IS NOT NULL")
       coop = suppliers.offset((suppliers.count/2).floor).first
 
@@ -298,6 +298,64 @@ namespace :db do
         # create a purchase if not exist
         purchase   = Purchase.find_by_reference_number(r.order_number)
         purchase ||= Purchase.create!(:state => r.order_status, :currency => "EUR", :nature_id => purchase_nature.id, :reference_number => r.order_number, :supplier_id => coop.id, :planned_on => r.ordered_on, :created_on => r.ordered_on)
+        tax_price_nature_appro = Tax.find_by_amount(19.6)
+        # create a product_nature if not exist
+        product_nature   = ProductNature.find_by_name(r.product_nature_name)
+        product_nature ||= ProductNature.create!(:stock_account_id => stock_account_nature_coop.id, :charge_account_id => charge_account_nature_coop.id, :name => r.product_nature_name, :number => r.product_nature_name, :alive => false, :saleable => false, :purchasable => true, :active => true, :storable => true, :variety_id => b.id, :unit_id => unit_u.id, :category_id => r.product_nature_category.id)
+        # create a product (Matter) if not exist
+        product   = Matter.find_by_name(r.matter_name)
+        product ||= Matter.create!(:name => r.matter_name, :identification_number => r.matter_name, :work_number => r.matter_name, :born_at => Time.now, :nature_id => product_nature.id, :owner_id => Entity.of_company.id, :number => r.matter_name) #
+        # create a product_price_template if not exist
+        product_price   = ProductPriceTemplate.find_by_product_nature_id_and_supplier_id_and_assignment_pretax_amount(product_nature.id, coop.id, r.product_unit_price)
+        product_price ||= ProductPriceTemplate.create!(:currency => "EUR", :assignment_pretax_amount => r.product_unit_price, :product_nature_id => product_nature.id, :tax_id => tax_price_nature_appro.id, :supplier_id => coop.id)
+        # create a purchase_item if not exist
+        # purchase_item   = PurchaseItem.find_by_product_id_and_purchase_id_and_price_id(product.id, purchase.id, product_price.id)
+        # purchase_item ||= PurchaseItem.create!(:quantity => r.quantity, :unit_id => unit_u.id, :price_id => product_price.id, :product_id => product.id, :purchase_id => purchase.id)
+        purchase.items.create!(:quantity => r.quantity, :product_id => product.id)
+        # create an incoming_delivery if status => 2
+
+        # create an incoming_delivery_item if status => 2
+
+
+        print "."
+      end
+      puts "!"
+
+      #############################################################################
+      # import Coop Deliveries to make automatic sales
+      # @TODO finish with two level (sales and sales_lines)
+      # set the coop
+      print "[#{(Time.now - start).round(2).to_s.rjust(8)}s] Coop Sales: "
+      clients = Entity.where(:of_company => false).reorder(:client_account_id, :last_name) # .where(" IS NOT NULL")
+      coop = clients.offset((clients.count/2).floor).first
+      unit_u = Unit.get(:u)
+      # add a Coop sale_nature
+      sale_nature   = SaleNature.actives.first
+      sale_nature ||= SaleNature.create!(:name => I18n.t('models.sale_nature.default.name'), :currency => "EUR", :active => true)
+      # Asset Code
+      sale_account_nature_coop = Account.find_by_number("701")
+      stock_account_nature_coop = Account.find_by_number("321")
+
+      file = Rails.root.join("test", "fixtures", "files", "coop-apport.csv")
+      CSV.foreach(file, :encoding => "UTF-8", :col_sep => ";", :headers => false, :quote_char => "'") do |row|
+        r = OpenStruct.new(:delivery_number => row[0],
+                           :delivered_on => Date.civil(*row[1].to_s.split(/\//).reverse.map(&:to_i)),
+                           :delivery_place => row[2],
+                           :product_nature_name => row[3],
+                           :product_net_weight => row[4].to_d,
+                           :product_standard_weight => row[5].to_d,
+                           :product_humidity => row[6].to_d,
+                           :product_impurity => row[7].to_d,
+                           :product_specific_weight => row[8].to_d,
+                           :product_proteins => row[9].to_d,
+                           :product_cal => row[10].to_d,
+                           :product_mad => row[11].to_d,
+                           :product_grade => row[12].to_d,
+                           :product_expansion => row[13].to_d
+                           )
+        # create a purchase if not exist
+        sale   = Sale.find_by_reference_number(r.delivery_number)
+        sale ||= Purchase.create!(:state => r.order_status, :currency => "EUR", :nature_id => purchase_nature.id, :reference_number => r.order_number, :supplier_id => coop.id, :planned_on => r.ordered_on, :created_on => r.ordered_on)
         tax_price_nature_appro = Tax.find_by_amount(19.6)
         # create a product_nature if not exist
         product_nature   = ProductNature.find_by_name(r.product_nature_name)
