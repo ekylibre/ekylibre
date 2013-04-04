@@ -41,7 +41,7 @@
 
 
 class ProductIndicatorNature < Ekylibre::Record::Base
-  attr_accessible :nature, :active, :choices, :indicators , :process_id , :unit_id , :usage, :maximal_length, :minimal_length, :maximal_value, :minimal_value
+  attr_accessible :nature, :active, :choices_attributes, :indicators , :process_id , :unit_id , :usage, :maximal_length, :minimal_length, :maximal_value, :minimal_value
   attr_readonly :nature
   enumerize :nature, :in => [:string, :decimal, :boolean, :measure, :choice], :predicates => true
   enumerize :usage, :in => [:life, :production, :environment]
@@ -60,14 +60,20 @@ class ProductIndicatorNature < Ekylibre::Record::Base
   validates_inclusion_of :nature, :in => self.nature.values
   validates_inclusion_of :usage, :in => self.usage.values
 
-  accepts_nested_attributes_for :choices, :reject_if => :all_blank, :allow_destroy => true
-  accepts_nested_attributes_for :indicators, :reject_if => :all_blank, :allow_destroy => true
+  accepts_nested_attributes_for :choices
 
   default_scope -> { order(:name) }
   scope :actives, -> { where(:active => true).order(:name) }
 
   def choices_count
     self.choices.count
+  end
+  
+  def sort_choices!
+    self.choices.reorder(:name).to_a.each_with_index do |choice, index|
+      choice.position = index + 1
+      choice.save!
+    end
   end
 
 end
