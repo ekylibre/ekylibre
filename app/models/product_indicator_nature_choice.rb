@@ -35,10 +35,10 @@
 
 
 class ProductIndicatorNatureChoice < Ekylibre::Record::Base
-  attr_accessible :name, :position
+  attr_accessible :name, :position, :nature_id
   belongs_to :nature, :class_name => "ProductIndicatorNature", :inverse_of => :choices
-  has_many :data, :class_name => "ProductIndicator", :dependent => :delete_all, :inverse_of => :choice_value
-  acts_as_list
+  has_many :data, :class_name => "ProductIndicator", :foreign_key => :choice_value_id
+  acts_as_list :scope => :nature
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :description, :name, :value, :allow_nil => true, :maximum => 255
