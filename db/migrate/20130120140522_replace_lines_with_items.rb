@@ -103,13 +103,13 @@ class ReplaceLinesWithItems < ActiveRecord::Migration
       :custom_field_id => :custom_field,
       :updater_id => :entity
     },
-    :custom_field_datum => {
-      :choice_value_id => :custom_field_choice,
-      :creator_id => :entity,
-      :custom_field_id => :custom_field,
-      :customized_id => "customized_type",
-      :updater_id => :entity
-    },
+    # :custom_field_datum => {
+    #   :choice_value_id => :custom_field_choice,
+    #   :creator_id => :entity,
+    #   :custom_field_id => :custom_field,
+    #   :customized_id => "customized_type",
+    #   :updater_id => :entity
+    # },
     :affair => {
       :creator_id => :entity,
       :journal_entry_id => :journal_entry,

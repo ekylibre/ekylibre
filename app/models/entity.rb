@@ -21,6 +21,7 @@
 #
 # == Table: entities
 #
+#  _couleur_des_yeux         :string(255)
 #  active                    :boolean          default(TRUE), not null
 #  activity_code             :string(32)
 #  attorney                  :boolean          not null
@@ -149,7 +150,7 @@ class Entity < Ekylibre::Record::Base
   validates_length_of :activity_code, :allow_nil => true, :maximum => 32
   validates_length_of :deliveries_conditions, :allow_nil => true, :maximum => 60
   validates_length_of :code, :allow_nil => true, :maximum => 64
-  validates_length_of :currency, :first_name, :full_name, :last_name, :origin, :payment_delay, :picture_content_type, :picture_file_name, :webpass, :allow_nil => true, :maximum => 255
+  validates_length_of :_couleur_des_yeux, :currency, :first_name, :full_name, :last_name, :origin, :payment_delay, :picture_content_type, :picture_file_name, :webpass, :allow_nil => true, :maximum => 255
   validates_inclusion_of :active, :attorney, :client, :locked, :of_company, :prospect, :reminder_submissive, :supplier, :transporter, :vat_submissive, :in => [true, false]
   validates_presence_of :currency, :full_name, :language, :last_name, :nature
   #]VALIDATORS]
@@ -318,11 +319,7 @@ class Entity < Ekylibre::Record::Base
       # Add observation
       observation = "Merged entity (ID=#{entity.id}) :\n"
       for attr, value in entity.attributes.sort
-        observation += " - #{Entity.human_attribute_name(attr)} : #{entity.send(attr).to_s}\n"
-      end
-      for custom_field_datum in entity.custom_field_data
-        observation += " * #{custom_field_datum.custom_field.name} : #{custom_field_datum.value.to_s}\n"
-        custom_field_datum.destroy
+        observation << " - #{Entity.human_attribute_name(attr)} : #{entity.send(attr).to_s}\n"
       end
       self.observations.create!(:description => observation, :importance => "normal")
 

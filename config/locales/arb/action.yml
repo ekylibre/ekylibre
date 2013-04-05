@@ -633,7 +633,6 @@ arb:
     backend/cashes: "الخزينة"
     backend/company: "شركة" #?
     # backend/custom_field_choices: "Choix de champs personnalisés"
-    # backend/custom_field_data: "Données de champs personnalisés"
     backend/custom_fields: "الحقول المخصصة"
     # backend/dashboards: "Tableaux de bord"
     backend/delays: "مهلة" #?

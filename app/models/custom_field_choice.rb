@@ -36,24 +36,37 @@
 class CustomFieldChoice < Ekylibre::Record::Base
   attr_accessible :name, :custom_field_id, :position
   belongs_to :custom_field, :inverse_of => :choices
-  has_many :data, :class_name => "CustomFieldDatum", :foreign_key => :choice_value_id
   acts_as_list :scope => :custom_field
-
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :name, :value, :allow_nil => true, :maximum => 255
   validates_presence_of :custom_field, :name
   #]VALIDATORS]
+  validates_presence_of :value
+  validates_uniqueness_of :value, :name, :scope => :custom_field_id
 
   before_validation do
-    self.value = self.name.to_s.codeize # if self.value.blank?
+    self.value ||= self.name.to_s.codeize # if self.value.blank?
+    self.value = self.value.mb_chars.downcase.gsub(/[[:space:]\_]+/, '-').gsub(/(^\-+|\-+$)/, '')[0..62]
+    while self.custom_field.choices.where(:value => self.value).where("id != ?", self.id || 0).count > 0
+      self.value.succ!
+    end
   end
 
+  before_update do
+    old = self.old_record
+    if self.value != old.value
+      self.custom_field.customized_model.update_all({self.custom_field.column_name => self.value}, {self.custom_field.column_name => old.value})
+    end
+  end
+
+  # Check that no records are present with this choice
   protect(:on => :destroy) do
-    return self.data.count.zero?
+    return self.records.count.zero?
   end
 
-  def to_s
-    self.name
+  # Returns all linked records for the given model
+  def records
+    return self.custom_field.customized_model.where(self.custom_field.column_name => self.value)
   end
 
 end

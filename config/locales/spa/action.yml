@@ -576,7 +576,6 @@ spa:
     backend/cashes: "Tresorerias"
     backend/company: "Compañía" #?
     # backend/custom_field_choices: "Choix de champs personnalisés"
-    # backend/custom_field_data: "Données de champs personnalisés"
     # backend/custom_fields: "Champs personnalisés"
     # backend/dashboards: "Tableaux de bord"
     backend/delays: "plazos" #?

@@ -200,7 +200,6 @@ Ekylibre::Application.routes.draw do
         post :down
       end
     end
-    # resources :custom_field_data
     resources :departments do
       collection do
         get :list

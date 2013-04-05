@@ -21,6 +21,7 @@
 # == Table: custom_fields
 #
 #  active          :boolean          default(TRUE), not null
+#  column_name     :string(255)
 #  created_at      :datetime         not null
 #  creator_id      :integer
 #  customized_type :string(255)      not null
@@ -43,26 +44,53 @@ class CustomField < Ekylibre::Record::Base
   acts_as_list :scope => 'customized_type = \'#{customized_type}\''
   attr_accessible :active, :maximal_length, :minimal_length, :maximal_value, :minimal_value, :name, :nature, :position, :required, :customized_type, :choices_attributes
   attr_readonly :nature
-  enumerize :nature, :in => [:string, :decimal, :boolean, :date, :datetime, :choice], :predicates => true
+  enumerize :nature, :in => [:text, :decimal, :boolean, :date, :datetime, :choice], :predicates => true
   enumerize :customized_type, :in => Ekylibre.model_names, :default_value => Ekylibre.model_names.first, :predicates => {:prefix => true}
   has_many :choices, :class_name => "CustomFieldChoice", :order => :position, :dependent => :delete_all, :inverse_of => :custom_field
-  has_many :data, :class_name => "CustomFieldDatum", :dependent => :delete_all, :inverse_of => :custom_field
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :maximal_length, :minimal_length, :allow_nil => true, :only_integer => true
   validates_numericality_of :maximal_value, :minimal_value, :allow_nil => true
   validates_length_of :nature, :allow_nil => true, :maximum => 8
-  validates_length_of :customized_type, :name, :allow_nil => true, :maximum => 255
+  validates_length_of :column_name, :customized_type, :name, :allow_nil => true, :maximum => 255
   validates_inclusion_of :active, :required, :in => [true, false]
   validates_presence_of :customized_type, :name, :nature
   #]VALIDATORS]
   validates_inclusion_of :nature, :in => self.nature.values
   validates_inclusion_of :customized_type, :in => self.customized_type.values
+  validates_uniqueness_of :column_name, :scope => [:customized_type]
+  validates_format_of :column_name, :with => /^(\_[a-z]+)+$/
 
   accepts_nested_attributes_for :choices
 
   default_scope -> { order(:customized_type, :position) }
   scope :actives, -> { where(:active => true).order(:position) }
-  scope :of, lambda { |model| where(:active => true, :customized_type => model) }
+  scope :of, lambda { |model| where(:active => true, :customized_type => model).order(:position) }
+
+  before_validation do
+    self.column_name = ("_" + self.name.parameterize.gsub(/[^a-z]+/, '_').gsub(/(^\_+|\_+$)/, ''))[0..62]
+    while self.class.where(:column_name => self.column_name, :customized_type => self.customized_type).where("id != ?", self.id || 0).count > 0
+      self.column_name.succ!
+    end
+  end
+
+  # Adds a new column in the given model
+  after_create do
+    self.class.connection.add_column(self.customized_table_name, self.column_name, self.column_type)
+    self.class.connection.add_index(self.customized_table_name, self.column_name) if self.choice?
+  end
+
+  # Updates name of the column if necessary
+  before_update do
+    old = self.old_record
+    if self.name != old.name
+      self.class.connection.rename_column(self.customized_table_name, old.column_name, self.column_name)
+    end
+  end
+
+  # Destroy column and its data
+  before_destroy do
+    self.class.connection.remove_column(self.customized_table_name, self.column_name)
+  end
 
   def choices_count
     self.choices.count
@@ -74,5 +102,21 @@ class CustomField < Ekylibre::Record::Base
       choice.save!
     end
   end
+
+  # Returns the data type for the column
+  def column_type
+    return (self.choice? ? :string : self.nature).to_sym
+  end
+
+  # Access to the customized model
+  def customized_model
+    return self.customized_type.constantize
+  end
+
+  # Returns to the customized table name
+  def customized_table_name
+    return self.customized_model.table_name
+  end
+
 
 end
