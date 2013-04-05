@@ -1328,6 +1328,17 @@ fra:
         dead: "Décès"
         other: "Autres"
         sale: "Vente"
+    product_indicator:
+      nature:
+        string: "Texte"
+        decimal: "Chiffre (décimal)"
+        boolean: "Case à cocher"
+        measure: "Mesure"
+        choice: "Liste de choix"
+      usage:
+        life: "Biologique"
+        production: "Production"
+        environment: "Environnement"
     product_localization:
       arrival_cause:
         birth: "Naissance"

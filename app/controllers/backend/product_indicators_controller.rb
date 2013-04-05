@@ -28,8 +28,8 @@ class Backend::ProductIndicatorsController < BackendController
     t.column :nature
     t.column :active
     t.column :choices_count, :datatype => :integer
-    t.action :up, :method => :post, :unless => :first?
-    t.action :down, :method => :post, :unless => :last?
+    t.action :up, :method => :post#, :unless => :first?
+    t.action :down, :method => :post#, :unless => :last?
     t.action :edit
     t.action :show, :image => :menulist, :if => :choice?
   end
@@ -49,7 +49,7 @@ class Backend::ProductIndicatorsController < BackendController
 
   # Displays details of one custom field selected with +params[:id]+
   def show
-    return unless @product_indicator = find_and_check
+    return unless @product_indicator = find_and_check(:product_indicator)
     session[:current_product_indicator_id] = @product_indicator.id
     t3e @product_indicator.attributes
   end

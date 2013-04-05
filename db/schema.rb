@@ -1292,26 +1292,26 @@ ActiveRecord::Schema.define(:version => 20130327141101) do
   add_index "operation_natures", ["working_set_id"], :name => "index_operation_natures_on_working_set_id"
 
   create_table "operation_tasks", :force => true do |t|
-    t.integer  "operation_id",                                                       :null => false
+    t.integer  "operation_id",                                                         :null => false
     t.integer  "parent_id"
-    t.boolean  "detailled",                                       :default => false, :null => false
-    t.integer  "subject_id",                                                         :null => false
-    t.string   "verb",                                                               :null => false
-    t.string   "string",                                                             :null => false
+    t.boolean  "detailled",                                         :default => false, :null => false
+    t.integer  "subject_id",                                                           :null => false
+    t.string   "verb",                                                                 :null => false
+    t.string   "string",                                                               :null => false
     t.integer  "operand_id"
     t.integer  "operand_unit_id"
-    t.decimal  "operand_quantity", :precision => 19, :scale => 4
-    t.integer  "indicator_id"
-    t.datetime "created_at",                                                         :null => false
-    t.datetime "updated_at",                                                         :null => false
+    t.decimal  "operand_quantity",   :precision => 19, :scale => 4
+    t.integer  "indicator_datum_id"
+    t.datetime "created_at",                                                           :null => false
+    t.datetime "updated_at",                                                           :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                    :default => 0,     :null => false
+    t.integer  "lock_version",                                      :default => 0,     :null => false
   end
 
   add_index "operation_tasks", ["created_at"], :name => "index_operation_tasks_on_created_at"
   add_index "operation_tasks", ["creator_id"], :name => "index_operation_tasks_on_creator_id"
-  add_index "operation_tasks", ["indicator_id"], :name => "index_operation_tasks_on_indicator_id"
+  add_index "operation_tasks", ["indicator_datum_id"], :name => "index_operation_tasks_on_indicator_datum_id"
   add_index "operation_tasks", ["operand_id"], :name => "index_operation_tasks_on_operand_id"
   add_index "operation_tasks", ["operand_unit_id"], :name => "index_operation_tasks_on_operand_unit_id"
   add_index "operation_tasks", ["operation_id"], :name => "index_operation_tasks_on_operation_id"

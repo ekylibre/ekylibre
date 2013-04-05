@@ -851,6 +851,30 @@
         <page to="backend/campaigns#show"/>
         <page to="backend/campaigns#update"/>
       </menu>
+      <menu name="backend/product_indicators">
+	      <page to="backend/product_indicators#index"/>
+	      <page to="backend/product_indicators#create"/>
+	      <page to="backend/product_indicators#destroy"/>
+	      <page to="backend/product_indicators#down"/>
+	      <page to="backend/product_indicators#edit"/>
+	      <page to="backend/product_indicators#list"/>
+	      <page to="backend/product_indicators#list_choices"/>
+	      <page to="backend/product_indicators#new"/>
+	      <page to="backend/product_indicators#show"/>
+	      <page to="backend/product_indicators#sort"/>
+	      <page to="backend/product_indicators#up"/>
+	      <page to="backend/product_indicators#update"/>
+   	  </menu>
+   	  <menu name="backend/procedure_natures">
+	      <page to="backend/procedure_natures#index"/>
+	      <page to="backend/procedure_natures#create"/>
+	      <page to="backend/procedure_natures#destroy"/>
+	      <page to="backend/procedure_natures#edit"/>
+	      <page to="backend/procedure_natures#list"/>
+	      <page to="backend/procedure_natures#new"/>
+	      <page to="backend/procedure_natures#show"/>
+	      <page to="backend/procedure_natures#update"/>
+      </menu>
       <menu name="production_chains">
         <page to="backend/production_chains#index"/>
         <page to="backend/production_chains#create"/>
@@ -1019,16 +1043,6 @@
       <page to="backend/preferences#show"/>
       <page to="backend/preferences#update"/>
     </menu>
-    <menu name="backend/procedure_natures">
-      <page to="backend/procedure_natures#index"/>
-      <page to="backend/procedure_natures#create"/>
-      <page to="backend/procedure_natures#destroy"/>
-      <page to="backend/procedure_natures#edit"/>
-      <page to="backend/procedure_natures#list"/>
-      <page to="backend/procedure_natures#new"/>
-      <page to="backend/procedure_natures#show"/>
-      <page to="backend/procedure_natures#update"/>
-    </menu>
     <menu name="backend/procedures">
       <page to="backend/procedures#index"/>
       <page to="backend/procedures#create"/>
@@ -1059,20 +1073,6 @@
       <page to="backend/product_indicator_data#new"/>
       <page to="backend/product_indicator_data#show"/>
       <page to="backend/product_indicator_data#update"/>
-    </menu>
-    <menu name="backend/product_indicators">
-      <page to="backend/product_indicators#index"/>
-      <page to="backend/product_indicators#create"/>
-      <page to="backend/product_indicators#destroy"/>
-      <page to="backend/product_indicators#down"/>
-      <page to="backend/product_indicators#edit"/>
-      <page to="backend/product_indicators#list"/>
-      <page to="backend/product_indicators#list_choices"/>
-      <page to="backend/product_indicators#new"/>
-      <page to="backend/product_indicators#show"/>
-      <page to="backend/product_indicators#sort"/>
-      <page to="backend/product_indicators#up"/>
-      <page to="backend/product_indicators#update"/>
     </menu>
     <menu name="backend/product_links">
       <page to="backend/product_links#index"/>
