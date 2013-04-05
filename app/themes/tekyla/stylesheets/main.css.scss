@@ -29,7 +29,8 @@ input[type="color"], input[type="date"], input[type="datetime"], input[type="dat
   line-height: round(1.4 * $fs-normal);
   height: round(1.4 * $fs-normal);
   vertical-align: middle;
-  @include box-shadow(0 2px round($fs-normal/2) rgba(black, 0.1) inset, 0 0 round($fs-normal*0.6) rgba(white, 0.6));
+  //  @include box-shadow(0 2px round($fs-normal/2) rgba(black, 0.1) inset, 0 0 round($fs-normal*0.6) rgba(white, 0.6));
+  @include box-shadow(0 2px round($fs-normal/2) rgba(black, 0.1) inset);
   @include transition(box-shadow 0.2s, border-color 0.2s);
   &:focus {
     background: #FFF;
@@ -1265,6 +1266,11 @@ ul.tree {
     margin-left: 0;
   }
 }
+
+.select-product {
+  @include box-emphasis;
+}
+
 
 
 svg {

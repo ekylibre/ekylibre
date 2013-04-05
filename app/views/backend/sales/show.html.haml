@@ -23,6 +23,7 @@
     -if ["products", "summary", ""].include? params[:step].to_s
       -b.cell Sale.human_attribute_name(:items) do
         .select-product
+          %span="labels.add_product".t
           %span.selector
             =selector_tag("sale_item[product_id]", {:controller => :products, :action => :unroll_saleables}, {})
           =button_tag(tl(:add), :class => "btn")

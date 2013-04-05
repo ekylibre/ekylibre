@@ -256,6 +256,16 @@ $include-html-classes: false;
   color: $title-color;
 }
 
+@mixin box-emphasis {
+  background: $base-color;
+  &, & > span {
+    color: white;
+  }
+  @include border-radius($default-border-radius);
+  padding: $default-gap;
+  text-align: center;
+}
+
 @mixin menu-shadow {
   @include box-shadow(0 0 ($fs-normal/4) rgba(0, 0, 0, 0.3));
 }
