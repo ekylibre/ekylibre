@@ -103,11 +103,13 @@ class Purchase < Ekylibre::Record::Base
   end
 
   before_validation(:on => :create) do
+    self.state ||= self.class.state_machine.initial_state(self)
     self.currency = self.nature.currency if self.nature
   end
 
   before_validation do
     self.created_on ||= Date.today
+    self.planned_on ||= self.created_on
     if eoc = Entity.of_company
       self.currency ||= eoc.currency
     end
