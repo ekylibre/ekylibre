@@ -41,14 +41,14 @@
 
 
 class ProductIndicatorNature < Ekylibre::Record::Base
-  attr_accessible :nature, :active, :choices_attributes, :indicators , :process_id , :unit_id , :usage, :maximal_length, :minimal_length, :maximal_value, :minimal_value
+  attr_accessible :nature, :active, :choices_attributes, :process_id , :unit_id , :usage, :maximal_length, :minimal_length, :maximal_value, :minimal_value
   attr_readonly :nature
   enumerize :nature, :in => [:string, :decimal, :boolean, :measure, :choice], :predicates => true
   enumerize :usage, :in => [:life, :production, :environment]
   belongs_to :process, :class_name => "ProductProcess"
   belongs_to :unit, :class_name => "Unit"
-  has_many :indicators, :class_name => "ProductIndicator" , :dependent => :delete_all, :inverse_of => :nature
-  has_many :choices, :class_name => "ProductIndicatorNatureChoice", :order => :position, :dependent => :delete_all, :inverse_of => :nature
+  has_many :data, :class_name => "ProductIndicator", :foreign_key => :nature_id, :dependent => :delete_all, :inverse_of => :nature
+  has_many :choices, :class_name => "ProductIndicatorNatureChoice", :foreign_key => :nature_id, :order => :position, :dependent => :delete_all, :inverse_of => :nature
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :maximal_length, :minimal_length, :allow_nil => true, :only_integer => true
