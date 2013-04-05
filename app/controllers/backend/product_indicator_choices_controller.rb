@@ -17,8 +17,8 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::ProductIndicatorNatureChoicesController < BackendController
-  manage_restfully :nature_id => 'params[:nature_id]', :destroy_to => ':controller => :product_indicator_natures, :action => :show, :id => @product_indicator_nature_choice.nature'
+class Backend::ProductIndicatorChoicesController < BackendController
+  manage_restfully :nature_id => 'params[:indicator_id]', :destroy_to => ':controller => :product_indicators, :action => :show, :id => @product_indicator_choice.indicator'
   #manage_restfully :custom_field_id => 'params[:custom_field_id]', :destroy_to => ':controller => :custom_fields, :action => :show, :id => @custom_field_choice.custom_field'
   manage_restfully_list
   unroll_all

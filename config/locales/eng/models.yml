@@ -856,6 +856,8 @@ eng:
     incoming_payment_modes: "Incoming payment modes"
     incoming_payment_uses: "Incoming payment parts"
     incoming_payments: "Incoming payments"
+    # indicator: "Indicator"
+    # indicator_data: "Indicator data"
     # indicators: "Indicators"
     indirect_links: "Indirect links"
     # indivisible: "Indivisible"

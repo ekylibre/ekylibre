@@ -351,8 +351,8 @@ fra:
       # product_ability: "Product ability"
       product_group: "Groupe de produit"
       # product_indicator: "Product indicator"
-      # product_indicator_nature: "Product indicator nature"
-      # product_indicator_nature_choice: "Product indicator nature choice"
+      # product_indicator_choice: "Product indicator choice"
+      # product_indicator_datum: "Product indicator datum"
       # product_link: "Product link"
       product_localization: "Passage d'un produit en un lieu"
       product_membership: "Passage d'un produit dans un groupe"
@@ -742,7 +742,9 @@ fra:
     incoming_payment_modes: "Modes d’encaissement"
     incoming_payment_uses: "Parties d’encaissement" #?
     incoming_payments: "Encaissements"
-    indicators: "Indicators"
+    indicator: "Indicator"
+    indicator_data: "Indicator data"
+    indicators: "Indicators" #?
     indirect_links: "Liens indirects"
     indivisible: "Indivisible"
     initial_number: "Numéro initial"

@@ -70,7 +70,6 @@ class Vegetal < Bioproduct
   #enumerize :sex, :in => [:male, :female]
   #enumerize :arrival_reasons, :in => [:birth, :purchase, :housing, :other], :default=> :birth
   #enumerize :departure_reasons, :in => [:dead, :sale, :autoconsumption, :other], :default=> :sale
-  has_many :indicators, :class_name => "ProductIndicator", :foreign_key => :product_id, :dependent => :destroy
   # has_many :groups, :class_name => "ProductGroup", :through => :passages
   #belongs_to :father, :class_name => "Animal", :conditions => {:sex => :male, :reproductor => 'true'}
   #belongs_to :mother, :class_name => "Animal", :conditions => {:sex => :female}

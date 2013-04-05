@@ -1,0 +1,14 @@
+=toolbar do |t|
+  -if @product_indicator.choice?
+    -t.link :new, :controller=>:product_indicator_choices, :nature_id=>@product_indicator.id
+    -t.sort @product_indicator, {:method=>:post}
+  -t.edit @product_indicator
+
+=attributes_list(@product_indicator) do |l|
+  -l.attribute :name
+  -l.attribute :nature
+  -l.attribute :active
+
+-if @product_indicator.choice?
+  %h2=tg(:choices)
+  =list :choices

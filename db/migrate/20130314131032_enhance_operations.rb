@@ -81,7 +81,7 @@ class EnhanceOperations < ActiveRecord::Migration
       t.references :operand
       t.references :operand_unit
       t.decimal    :operand_quantity, :precision => 19, :scale => 4
-      t.references :indicator
+      t.references :indicator_datum
       t.stamps
     end
     add_stamps_indexes :operation_tasks
@@ -90,7 +90,7 @@ class EnhanceOperations < ActiveRecord::Migration
     add_index :operation_tasks, :subject_id
     add_index :operation_tasks, :operand_id
     add_index :operation_tasks, :operand_unit_id
-    add_index :operation_tasks, :indicator_id
+    add_index :operation_tasks, :indicator_datum_id
 
     drop_table :operation_uses
     drop_table :operation_lines

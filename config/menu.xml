@@ -1042,35 +1042,36 @@
     <menu name="backend/product_groups">
       <page to="backend/product_groups#list_products"/>
     </menu>
-    <menu name="backend/product_indicator_nature_choices">
-      <page to="backend/product_indicator_nature_choices#create"/>
-      <page to="backend/product_indicator_nature_choices#destroy"/>
-      <page to="backend/product_indicator_nature_choices#down"/>
-      <page to="backend/product_indicator_nature_choices#edit"/>
-      <page to="backend/product_indicator_nature_choices#new"/>
-      <page to="backend/product_indicator_nature_choices#up"/>
-      <page to="backend/product_indicator_nature_choices#update"/>
+    <menu name="backend/product_indicator_choices">
+      <page to="backend/product_indicator_choices#create"/>
+      <page to="backend/product_indicator_choices#destroy"/>
+      <page to="backend/product_indicator_choices#down"/>
+      <page to="backend/product_indicator_choices#edit"/>
+      <page to="backend/product_indicator_choices#new"/>
+      <page to="backend/product_indicator_choices#up"/>
+      <page to="backend/product_indicator_choices#update"/>
     </menu>
-    <menu name="backend/product_indicator_natures">
-      <page to="backend/product_indicator_natures#index"/>
-      <page to="backend/product_indicator_natures#create"/>
-      <page to="backend/product_indicator_natures#destroy"/>
-      <page to="backend/product_indicator_natures#down"/>
-      <page to="backend/product_indicator_natures#edit"/>
-      <page to="backend/product_indicator_natures#list"/>
-      <page to="backend/product_indicator_natures#list_choices"/>
-      <page to="backend/product_indicator_natures#new"/>
-      <page to="backend/product_indicator_natures#show"/>
-      <page to="backend/product_indicator_natures#up"/>
-      <page to="backend/product_indicator_natures#update"/>
+    <menu name="backend/product_indicator_data">
+      <page to="backend/product_indicator_data#index"/>
+      <page to="backend/product_indicator_data#create"/>
+      <page to="backend/product_indicator_data#destroy"/>
+      <page to="backend/product_indicator_data#edit"/>
+      <page to="backend/product_indicator_data#new"/>
+      <page to="backend/product_indicator_data#show"/>
+      <page to="backend/product_indicator_data#update"/>
     </menu>
     <menu name="backend/product_indicators">
       <page to="backend/product_indicators#index"/>
       <page to="backend/product_indicators#create"/>
       <page to="backend/product_indicators#destroy"/>
+      <page to="backend/product_indicators#down"/>
       <page to="backend/product_indicators#edit"/>
+      <page to="backend/product_indicators#list"/>
+      <page to="backend/product_indicators#list_choices"/>
       <page to="backend/product_indicators#new"/>
       <page to="backend/product_indicators#show"/>
+      <page to="backend/product_indicators#sort"/>
+      <page to="backend/product_indicators#up"/>
       <page to="backend/product_indicators#update"/>
     </menu>
     <menu name="backend/product_links">

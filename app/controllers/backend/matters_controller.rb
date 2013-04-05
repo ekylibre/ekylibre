@@ -68,11 +68,11 @@ class Backend::MattersController < BackendController
         session[:current_matter_id] = @matter.id
         t3e @matter, :nature_name => @matter.nature_name
       end
-      format.xml {render xml: @matter, :include => [:nature, :variety, :indicators,
+      format.xml {render xml: @matter, :include => [:nature, :variety, :indicator_data,
                                                     {:memberships => {:group => nil}},
                                                     {:product_localizations => {:container => nil}}
                                                    ]}
-      format.pdf {respond_with @matter, :include => [:nature, :variety, :indicators,
+      format.pdf {respond_with @matter, :include => [:nature, :variety, :indicator_data,
                                                      {:memberships => {:group => nil}},
                                                      {:product_localizations => {:container => nil}}
                                                     ]}

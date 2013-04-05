@@ -78,7 +78,7 @@ class Product < Ekylibre::Record::Base
   belongs_to :mother, :class_name => "Product"
   belongs_to :owner, :class_name => "Entity"
   has_many :memberships, :class_name => "ProductMembership", :foreign_key => :member_id
-  has_many :indicators, :class_name => "ProductIndicator"
+  has_many :indicator_data, :class_name => "ProductIndicatorDatum", :dependent => :destroy
   has_many :operation_tasks, :foreign_key => :subject_id
   has_many :product_localizations
   has_attached_file :picture, {
@@ -107,7 +107,7 @@ class Product < Ekylibre::Record::Base
   validates_presence_of :nature, :name, :owner
 
   accepts_nested_attributes_for :memberships, :reject_if => :all_blank, :allow_destroy => true
-  accepts_nested_attributes_for :indicators, :reject_if => :all_blank, :allow_destroy => true
+  accepts_nested_attributes_for :indicator_data, :reject_if => :all_blank, :allow_destroy => true
   acts_as_numbered
   delegate :serial_number, :producer, :to => :tracking
   delegate :name, :to => :nature, :prefix => true

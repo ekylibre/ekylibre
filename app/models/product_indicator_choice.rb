@@ -18,15 +18,15 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: product_indicator_nature_choices
+# == Table: product_indicator_choices
 #
 #  created_at   :datetime         not null
 #  creator_id   :integer
-#  description  :string(255)
+#  description  :text
 #  id           :integer          not null, primary key
+#  indicator_id :integer          not null
 #  lock_version :integer          default(0), not null
 #  name         :string(255)      not null
-#  nature_id    :integer          not null
 #  position     :integer
 #  updated_at   :datetime         not null
 #  updater_id   :integer
@@ -34,15 +34,15 @@
 #
 
 
-class ProductIndicatorNatureChoice < Ekylibre::Record::Base
-  attr_accessible :name, :position, :nature_id
-  belongs_to :nature, :class_name => "ProductIndicatorNature", :inverse_of => :choices
-  has_many :data, :class_name => "ProductIndicator", :foreign_key => :choice_value_id
+class ProductIndicatorChoice < Ekylibre::Record::Base
+  attr_accessible :name, :position, :indicator_id
+  belongs_to :indicator, :class_name => "ProductIndicator", :inverse_of => :choices
+  has_many :data, :class_name => "ProductIndicatorDatum", :foreign_key => :choice_value_id
   acts_as_list :scope => :nature
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_length_of :description, :name, :value, :allow_nil => true, :maximum => 255
-  validates_presence_of :name, :nature
+  validates_length_of :name, :value, :allow_nil => true, :maximum => 255
+  validates_presence_of :indicator, :name
   #]VALIDATORS]
 
   before_validation do

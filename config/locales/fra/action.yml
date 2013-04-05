@@ -330,19 +330,20 @@ fra:
       index: "Lots de produits"
       new: "Créer un lot"
       show: "Lot\_: %{name}"
-    backend/product_indicator_nature_choices:
-      # edit: "Edit backend/product indicator nature choice"
-      # new: "New backend/product indicator nature choice"
-    backend/product_indicator_natures:
-      # edit: "Edit backend/product indicator nature"
-      # index: "Index backend/product indicator nature"
-      # new: "New backend/product indicator nature"
-      # show: "Show backend/product indicator nature"
+    backend/product_indicator_choices:
+      # edit: "Edit backend/product indicator choice"
+      # new: "New backend/product indicator choice"
+    backend/product_indicator_data:
+      # edit: "Edit backend/product indicator datum"
+      # index: "Index backend/product indicator datum"
+      # new: "New backend/product indicator datum"
+      # show: "Show backend/product indicator datum"
     backend/product_indicators:
       # edit: "Edit backend/product indicator"
       # index: "Index backend/product indicator"
       # new: "New backend/product indicator"
       # show: "Show backend/product indicator"
+      # sort: "Sort backend/product indicator"
     backend/product_links:
       # edit: "Edit backend/product link"
       # index: "Index backend/product link"
@@ -627,8 +628,8 @@ fra:
     # backend/procedures: "Backend/procedures"
     backend/product_abilities: "Compétences"
     backend/product_groups: "Lot de produits"
-    # backend/product_indicator_nature_choices: "Backend/product indicator nature choices"
-    # backend/product_indicator_natures: "Backend/product indicator natures"
+    # backend/product_indicator_choices: "Backend/product indicator choices"
+    # backend/product_indicator_data: "Backend/product indicator data"
     # backend/product_indicators: "Backend/product indicators"
     # backend/product_links: "Backend/product links"
     backend/product_localizations: "Tracabilité"

@@ -18,29 +18,27 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: product_indicators
+# == Table: product_indicator_data
 #
-#  active         :boolean          not null
-#  created_at     :datetime         not null
-#  creator_id     :integer
-#  description    :text
-#  id             :integer          not null, primary key
-#  lock_version   :integer          default(0), not null
-#  maximal_length :integer
-#  maximal_value  :decimal(19, 4)
-#  minimal_length :integer
-#  minimal_value  :decimal(19, 4)
-#  name           :string(255)      not null
-#  nature         :string(255)      not null
-#  process_id     :integer
-#  unit_id        :integer
-#  updated_at     :datetime         not null
-#  updater_id     :integer
-#  usage          :string(255)
+#  boolean_value   :boolean          not null
+#  choice_value_id :integer
+#  created_at      :datetime         not null
+#  creator_id      :integer
+#  decimal_value   :decimal(19, 4)
+#  description     :text
+#  id              :integer          not null, primary key
+#  indicator_id    :integer          not null
+#  lock_version    :integer          default(0), not null
+#  measure_unit_id :integer
+#  measure_value   :decimal(19, 4)
+#  measured_at     :datetime         not null
+#  product_id      :integer          not null
+#  string_value    :text
+#  updated_at      :datetime         not null
+#  updater_id      :integer
 #
 require 'test_helper'
 
-class ProductIndicatorTest < ActiveSupport::TestCase
-
+class ProductIndicatorDatumTest < ActiveSupport::TestCase
 
 end

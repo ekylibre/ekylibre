@@ -1287,6 +1287,8 @@ arb:
     incoming_payment_modes: "طرق تسديد الدفعات"
     incoming_payment_uses: "اجزاء الدفعات"
     incoming_payments: "الدفعات"
+    # indicator: "Indicator"
+    # indicator_data: "Indicator data"
     # indicators: "Indicators"
     indirect_links: "روابط مباشرة"
     # indivisible: "Indivisible"

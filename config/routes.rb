@@ -573,7 +573,7 @@ Ekylibre::Application.routes.draw do
       end
     end
 
-    resources :product_indicator_natures do
+    resources :product_indicators do
       collection do
         get :list
         get :list_choices
@@ -586,7 +586,7 @@ Ekylibre::Application.routes.draw do
       end
     end
 
-    resources :product_indicator_nature_choices do
+    resources :product_indicator_choices do
       member do
         post :up
         post :down

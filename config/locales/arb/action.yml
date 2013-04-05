@@ -378,6 +378,8 @@ arb:
       # index: "Lots de produits"
       # new: "Créer un lot"
       # show: "Lot\_: %{name}"
+    backend/product_indicator_choices: #?
+    backend/product_indicator_data: #?
     backend/product_indicator_nature_choices: #?
     backend/product_indicator_natures: #?
     backend/product_indicators: #?

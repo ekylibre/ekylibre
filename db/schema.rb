@@ -1560,12 +1560,12 @@ ActiveRecord::Schema.define(:version => 20130327141101) do
   add_index "product_abilities", ["updated_at"], :name => "index_product_abilities_on_updated_at"
   add_index "product_abilities", ["updater_id"], :name => "index_product_abilities_on_updater_id"
 
-  create_table "product_indicator_nature_choices", :force => true do |t|
-    t.integer  "nature_id",                   :null => false
+  create_table "product_indicator_choices", :force => true do |t|
+    t.integer  "indicator_id",                :null => false
     t.string   "name",                        :null => false
     t.string   "value"
     t.integer  "position"
-    t.string   "description"
+    t.text     "description"
     t.datetime "created_at",                  :null => false
     t.datetime "updated_at",                  :null => false
     t.integer  "creator_id"
@@ -1573,43 +1573,17 @@ ActiveRecord::Schema.define(:version => 20130327141101) do
     t.integer  "lock_version", :default => 0, :null => false
   end
 
-  add_index "product_indicator_nature_choices", ["created_at"], :name => "index_product_indicator_nature_choices_on_created_at"
-  add_index "product_indicator_nature_choices", ["creator_id"], :name => "index_product_indicator_nature_choices_on_creator_id"
-  add_index "product_indicator_nature_choices", ["nature_id"], :name => "index_product_indicator_nature_choices_on_nature_id"
-  add_index "product_indicator_nature_choices", ["updated_at"], :name => "index_product_indicator_nature_choices_on_updated_at"
-  add_index "product_indicator_nature_choices", ["updater_id"], :name => "index_product_indicator_nature_choices_on_updater_id"
+  add_index "product_indicator_choices", ["created_at"], :name => "index_product_indicator_choices_on_created_at"
+  add_index "product_indicator_choices", ["creator_id"], :name => "index_product_indicator_choices_on_creator_id"
+  add_index "product_indicator_choices", ["indicator_id"], :name => "index_product_indicator_choices_on_indicator_id"
+  add_index "product_indicator_choices", ["updated_at"], :name => "index_product_indicator_choices_on_updated_at"
+  add_index "product_indicator_choices", ["updater_id"], :name => "index_product_indicator_choices_on_updater_id"
 
-  create_table "product_indicator_natures", :force => true do |t|
-    t.integer  "process_id",                                                       :null => false
-    t.string   "name",                                                             :null => false
-    t.string   "nature",                                                           :null => false
-    t.string   "usage",                                                            :null => false
-    t.integer  "unit_id"
-    t.integer  "minimal_length"
-    t.integer  "maximal_length"
-    t.decimal  "minimal_value",  :precision => 19, :scale => 4
-    t.decimal  "maximal_value",  :precision => 19, :scale => 4
-    t.boolean  "active",                                        :default => false, :null => false
-    t.string   "description"
-    t.datetime "created_at",                                                       :null => false
-    t.datetime "updated_at",                                                       :null => false
-    t.integer  "creator_id"
-    t.integer  "updater_id"
-    t.integer  "lock_version",                                  :default => 0,     :null => false
-  end
-
-  add_index "product_indicator_natures", ["created_at"], :name => "index_product_indicator_natures_on_created_at"
-  add_index "product_indicator_natures", ["creator_id"], :name => "index_product_indicator_natures_on_creator_id"
-  add_index "product_indicator_natures", ["process_id"], :name => "index_product_indicator_natures_on_process_id"
-  add_index "product_indicator_natures", ["unit_id"], :name => "index_product_indicator_natures_on_unit_id"
-  add_index "product_indicator_natures", ["updated_at"], :name => "index_product_indicator_natures_on_updated_at"
-  add_index "product_indicator_natures", ["updater_id"], :name => "index_product_indicator_natures_on_updater_id"
-
-  create_table "product_indicators", :force => true do |t|
+  create_table "product_indicator_data", :force => true do |t|
     t.integer  "product_id",                                                        :null => false
-    t.integer  "nature_id",                                                         :null => false
+    t.integer  "indicator_id",                                                      :null => false
     t.datetime "measured_at",                                                       :null => false
-    t.string   "description"
+    t.text     "description"
     t.decimal  "decimal_value",   :precision => 19, :scale => 4
     t.decimal  "measure_value",   :precision => 19, :scale => 4
     t.integer  "measure_unit_id"
@@ -1623,12 +1597,38 @@ ActiveRecord::Schema.define(:version => 20130327141101) do
     t.integer  "lock_version",                                   :default => 0,     :null => false
   end
 
-  add_index "product_indicators", ["choice_value_id"], :name => "index_product_indicators_on_choice_value_id"
+  add_index "product_indicator_data", ["choice_value_id"], :name => "index_product_indicator_data_on_choice_value_id"
+  add_index "product_indicator_data", ["created_at"], :name => "index_product_indicator_data_on_created_at"
+  add_index "product_indicator_data", ["creator_id"], :name => "index_product_indicator_data_on_creator_id"
+  add_index "product_indicator_data", ["indicator_id"], :name => "index_product_indicator_data_on_indicator_id"
+  add_index "product_indicator_data", ["measure_unit_id"], :name => "index_product_indicator_data_on_measure_unit_id"
+  add_index "product_indicator_data", ["product_id"], :name => "index_product_indicator_data_on_product_id"
+  add_index "product_indicator_data", ["updated_at"], :name => "index_product_indicator_data_on_updated_at"
+  add_index "product_indicator_data", ["updater_id"], :name => "index_product_indicator_data_on_updater_id"
+
+  create_table "product_indicators", :force => true do |t|
+    t.integer  "process_id"
+    t.string   "name",                                                             :null => false
+    t.string   "nature",                                                           :null => false
+    t.string   "usage"
+    t.integer  "unit_id"
+    t.integer  "minimal_length"
+    t.integer  "maximal_length"
+    t.decimal  "minimal_value",  :precision => 19, :scale => 4
+    t.decimal  "maximal_value",  :precision => 19, :scale => 4
+    t.boolean  "active",                                        :default => false, :null => false
+    t.text     "description"
+    t.datetime "created_at",                                                       :null => false
+    t.datetime "updated_at",                                                       :null => false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version",                                  :default => 0,     :null => false
+  end
+
   add_index "product_indicators", ["created_at"], :name => "index_product_indicators_on_created_at"
   add_index "product_indicators", ["creator_id"], :name => "index_product_indicators_on_creator_id"
-  add_index "product_indicators", ["measure_unit_id"], :name => "index_product_indicators_on_measure_unit_id"
-  add_index "product_indicators", ["nature_id"], :name => "index_product_indicators_on_nature_id"
-  add_index "product_indicators", ["product_id"], :name => "index_product_indicators_on_product_id"
+  add_index "product_indicators", ["process_id"], :name => "index_product_indicators_on_process_id"
+  add_index "product_indicators", ["unit_id"], :name => "index_product_indicators_on_unit_id"
   add_index "product_indicators", ["updated_at"], :name => "index_product_indicators_on_updated_at"
   add_index "product_indicators", ["updater_id"], :name => "index_product_indicators_on_updater_id"
 
