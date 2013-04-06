@@ -341,9 +341,10 @@ module ApplicationHelper
     end
 
     def custom_fields(*args)
-      for datum in @object.custom_field_data.joins(:custom_field).where("custom_fields.active").order("custom_fields.position")
-        unless datum.value.to_s.blank?
-          self.custom datum.custom_field.name, datum.value
+      for custom_field in @object.custom_fields
+        value = @object.custom_value(custom_field)
+        unless value.blank?
+          self.custom(custom_field.name, value)
         end
       end
       @items << [:custom_fields]

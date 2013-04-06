@@ -171,6 +171,10 @@ fra:
         contains_blank_line: "%{attribute} contient une ligne vide"
         contains_blank_page: "%{attribute} contient une page vide"
         currency_does_not_match: "La devise de «\_%{attribute}\_» ne correspond pas celle attendue\_: %{currency}"
+        custom_field_is_greater_than: "%{field} est trop grand (%{maximum} maximum)"
+        custom_field_is_less_than: "%{field} est trop petit (%{minimum} minimum)"
+        custom_field_is_required: "%{field} doit être renseigné"
+        custom_field_is_too_long: "%{field} est trop long (%{length} caractères)"
         empty: "%{attribute} ne peut pas être vide"
         entry_has_been_already_validated: "La pièce a été validée et ne peut plus être modifiée"
         equal_to: "%{attribute} doit être égal à %{count}"
@@ -204,11 +208,6 @@ fra:
         cash:
           currency_does_not_match: "La monnaie du journal %{journal} est différente de celle de la trésorerie"
           unvalid_bban: "La clé ne correspond pas. Un ou plusieurs éléments du RIB sont incorrects."
-        custom_field_datum:
-          greater_than: "%{field} est trop grand (%{maximum} maximum)"
-          less_than: "%{field} est trop petit (%{minimum} minimum)"
-          required: "%{field} doit être renseigné"
-          too_long: "%{field} est trop long (%{length} caractères)"
         deposit:
           must_be_a_bank_account: "%{field} doit être un compte bancaire et non une caisse"
         entity:
@@ -296,7 +295,6 @@ fra:
       company: "" #?
       custom_field: "Champ complémentaire"
       custom_field_choice: "Choix de champ complémentaire"
-      custom_field_datum: "Donnée complémentaire de fiche"
       delay: "" #?
       department: "Service"
       deposit: "Remise en banque"
@@ -519,6 +517,7 @@ fra:
     collected_amount: "TVA brute"
     collected_taxes: "TVA collectées"
     color: "Couleur" #?
+    # column_name: "Column name"
     columns: "Colonnes"
     comment: "Commentaire" #?
     commercial: "Activité commerciale"
@@ -571,13 +570,12 @@ fra:
     # current_sign_in_ip: "Current sign in ip"
     custom_field: "Champ complémentaire"
     custom_field_choices: "Choix de champ complémentaire" #?
-    custom_field_data: "Données complémentaires de fiche"
-    custom_fields: "Champs complémentaires" #?
-    customized: "Enregistrement personnalisé"
+    custom_fields: "Champs complémentaires"
+    customized: "Enregistrement personnalisé" #?
     customized_type: "Type d'enregistrement personnalisé"
     data: "Données complémentaires"
-    date_value: "Valeur date"
-    datetime_value: "Valeur date/heure"
+    date_value: "Valeur date" #?
+    datetime_value: "Valeur date/heure" #?
     dead_at: "Dead at"
     dead_on: "Date de décès"
     debit: "Débit"
@@ -1251,7 +1249,7 @@ fra:
         date: "Date"
         datetime: "Date et heure"
         decimal: "Chiffre (décimal)"
-        string: "Texte"
+        text: "Texte"
     document_template:
       family:
         accountancy: "Comptabilité"

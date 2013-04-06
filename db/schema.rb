@@ -363,32 +363,6 @@ ActiveRecord::Schema.define(:version => 20130327141101) do
   add_index "custom_field_choices", ["updated_at"], :name => "index_complement_choices_on_updated_at"
   add_index "custom_field_choices", ["updater_id"], :name => "index_complement_choices_on_updater_id"
 
-  create_table "custom_field_data", :force => true do |t|
-    t.integer  "customized_id",                                                 :null => false
-    t.integer  "custom_field_id",                                               :null => false
-    t.decimal  "decimal_value",   :precision => 19, :scale => 4
-    t.text     "string_value"
-    t.boolean  "boolean_value"
-    t.date     "date_value"
-    t.datetime "datetime_value"
-    t.integer  "choice_value_id"
-    t.datetime "created_at",                                                    :null => false
-    t.datetime "updated_at",                                                    :null => false
-    t.integer  "creator_id"
-    t.integer  "updater_id"
-    t.integer  "lock_version",                                   :default => 0, :null => false
-    t.string   "customized_type",                                               :null => false
-  end
-
-  add_index "custom_field_data", ["choice_value_id"], :name => "index_complement_data_on_choice_value_id"
-  add_index "custom_field_data", ["created_at"], :name => "index_complement_data_on_created_at"
-  add_index "custom_field_data", ["creator_id"], :name => "index_complement_data_on_creator_id"
-  add_index "custom_field_data", ["custom_field_id"], :name => "index_custom_field_data_on_custom_field_id"
-  add_index "custom_field_data", ["customized_type", "customized_id", "custom_field_id"], :name => "index_custom_field_data_unique", :unique => true
-  add_index "custom_field_data", ["customized_type", "customized_id"], :name => "index_custom_field_data_on_customized"
-  add_index "custom_field_data", ["updated_at"], :name => "index_complement_data_on_updated_at"
-  add_index "custom_field_data", ["updater_id"], :name => "index_complement_data_on_updater_id"
-
   create_table "custom_fields", :force => true do |t|
     t.string   "name",                                                                           :null => false
     t.string   "nature",          :limit => 8,                                                   :null => false
@@ -405,6 +379,7 @@ ActiveRecord::Schema.define(:version => 20130327141101) do
     t.integer  "lock_version",                                                :default => 0,     :null => false
     t.string   "customized_type",                                                                :null => false
     t.integer  "minimal_length"
+    t.string   "column_name"
   end
 
   add_index "custom_fields", ["created_at"], :name => "index_complements_on_created_at"

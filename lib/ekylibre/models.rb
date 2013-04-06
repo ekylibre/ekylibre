@@ -2,7 +2,7 @@
 module Ekylibre
   mattr_reader :models, :references
   # List of all models
-  @@models = [:account, :account_balance, :activity, :activity_repartition, :activity_watching, :affair, :animal, :area, :asset, :asset_depreciation, :bank_statement, :bioproduct, :campaign, :cash, :cash_transfer, :custom_field, :custom_field_choice, :custom_field_datum, :department, :deposit, :deposit_item, :district, :document, :document_template, :entity, :entity_address, :entity_link, :entity_link_nature, :entity_nature, :equipment, :establishment, :event, :event_nature, :financial_year, :fungus, :incoming_delivery, :incoming_delivery_item, :incoming_delivery_mode, :incoming_payment, :incoming_payment_mode, :inventory, :inventory_item, :journal, :journal_entry, :journal_entry_item, :land_parcel, :listing, :listing_node, :listing_node_item, :log, :mandate, :matter, :observation, :operation, :operation_nature, :operation_task, :outgoing_delivery, :outgoing_delivery_item, :outgoing_delivery_mode, :outgoing_payment, :outgoing_payment_mode, :place, :preference, :procedure, :procedure_nature, :product, :product_ability, :product_group, :product_indicator, :product_indicator_choice, :product_indicator_datum, :product_link, :product_localization, :product_membership, :product_move, :product_nature, :product_nature_category, :product_price, :product_price_listing, :product_price_template, :product_process, :product_process_phase, :product_transfer, :product_variety, :production_chain, :production_chain_conveyor, :production_chain_work_center, :production_chain_work_center_use, :profession, :purchase, :purchase_item, :purchase_nature, :role, :sale, :sale_item, :sale_nature, :sequence, :service, :subscription, :subscription_nature, :tax, :tax_declaration, :tracking, :transfer, :transport, :unit, :user, :vegetal, :warehouse, :working_set]
+  @@models = [:account, :account_balance, :activity, :activity_repartition, :activity_watching, :affair, :animal, :area, :asset, :asset_depreciation, :bank_statement, :bioproduct, :campaign, :cash, :cash_transfer, :custom_field, :custom_field_choice, :department, :deposit, :deposit_item, :district, :document, :document_template, :entity, :entity_address, :entity_link, :entity_link_nature, :entity_nature, :equipment, :establishment, :event, :event_nature, :financial_year, :fungus, :incoming_delivery, :incoming_delivery_item, :incoming_delivery_mode, :incoming_payment, :incoming_payment_mode, :inventory, :inventory_item, :journal, :journal_entry, :journal_entry_item, :land_parcel, :listing, :listing_node, :listing_node_item, :log, :mandate, :matter, :observation, :operation, :operation_nature, :operation_task, :outgoing_delivery, :outgoing_delivery_item, :outgoing_delivery_mode, :outgoing_payment, :outgoing_payment_mode, :place, :preference, :procedure, :procedure_nature, :product, :product_ability, :product_group, :product_indicator, :product_indicator_choice, :product_indicator_datum, :product_link, :product_localization, :product_membership, :product_move, :product_nature, :product_nature_category, :product_price, :product_price_listing, :product_price_template, :product_process, :product_process_phase, :product_transfer, :product_variety, :production_chain, :production_chain_conveyor, :production_chain_work_center, :production_chain_work_center_use, :profession, :purchase, :purchase_item, :purchase_nature, :role, :sale, :sale_item, :sale_nature, :sequence, :service, :subscription, :subscription_nature, :tax, :tax_declaration, :tracking, :transfer, :transport, :unit, :user, :vegetal, :warehouse, :working_set]
 
   # List of all references
   @@references = {
@@ -131,13 +131,6 @@ module Ekylibre
     :custom_field_choice => {
       :creator_id => :user,
       :custom_field_id => :custom_field,
-      :updater_id => :user
-    },
-    :custom_field_datum => {
-      :choice_value_id => :custom_field_choice,
-      :creator_id => :user,
-      :custom_field_id => :custom_field,
-      :customized_id => "customized_type",
       :updater_id => :user
     },
     :department => {
@@ -423,7 +416,7 @@ module Ekylibre
     },
     :operation_task => {
       :creator_id => :user,
-      :indicator_id => :product_indicator,
+      :indicator_datum_id => :product_indicator_datum,
       :operand_id => :product,
       :operand_unit_id => :unit,
       :operation_id => :operation,

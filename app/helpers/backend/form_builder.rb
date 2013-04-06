@@ -67,25 +67,17 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
 
   # Adds custom fields
   def custom_fields(*args, &block)
-    custom_fields = CustomField.of(@object.class.name)
+    custom_fields = @object.custom_fields
     if custom_fields.count > 0
       return @template.content_tag(:div, :id => "custom-fields-field") do
-        data = @object.custom_field_data
         html = "".html_safe
         for custom_field in custom_fields
-          datum = data.select{|d| d.custom_field_id == custom_field.id}.first || custom_field.data.build({:customized => @object}, :without_protection => true)
-          html << self.simple_fields_for(:custom_field_data, datum) do |custom|
-            inner_html  = custom.hidden_field(:customized_type)
-            inner_html << custom.hidden_field(:custom_field_id)
-            if custom_field.choice?
-              inner_html << custom.association(:choice_value, :collection => custom_field.choices, :required => custom_field.required?, :label => custom_field.name)
-            else
-              inner_html << custom.input(:value, :as => custom_field.nature.to_sym, :required => custom_field.required?, :label => custom_field.name)
-            end
-            inner_html
+          options = {:as => custom_field.nature.to_sym, :required => custom_field.required?, :label => custom_field.name}
+          if custom_field.choice?
+            options[:collection] = custom_field.choices.collect{|c| [c.name, c.value] }
           end
+          html << self.input(custom_field.column_name, options)
         end
-        # Returns HTML
         html
       end
     end

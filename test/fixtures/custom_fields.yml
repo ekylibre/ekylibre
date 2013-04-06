@@ -21,6 +21,7 @@
 # == Table: custom_fields
 #
 #  active          :boolean          default(TRUE), not null
+#  column_name     :string(255)
 #  created_at      :datetime         not null
 #  creator_id      :integer
 #  customized_type :string(255)      not null

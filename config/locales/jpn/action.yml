@@ -495,7 +495,6 @@ jpn:
     # backend/cash_transfers: "Virements internes"
     # backend/cashes: "Trésoreries"
     # backend/custom_field_choices: "Choix de champs personnalisés"
-    # backend/custom_field_data: "Données de champs personnalisés"
     # backend/custom_fields: "Champs personnalisés"
     # backend/dashboards: "Tableaux de bord"
     # backend/departments: "Services"

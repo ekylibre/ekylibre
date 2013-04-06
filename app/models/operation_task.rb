@@ -20,22 +20,22 @@
 #
 # == Table: operation_tasks
 #
-#  created_at       :datetime         not null
-#  creator_id       :integer
-#  detailled        :boolean          not null
-#  id               :integer          not null, primary key
-#  indicator_id     :integer
-#  lock_version     :integer          default(0), not null
-#  operand_id       :integer
-#  operand_quantity :decimal(19, 4)
-#  operand_unit_id  :integer
-#  operation_id     :integer          not null
-#  parent_id        :integer
-#  string           :string(255)      not null
-#  subject_id       :integer          not null
-#  updated_at       :datetime         not null
-#  updater_id       :integer
-#  verb             :string(255)      not null
+#  created_at         :datetime         not null
+#  creator_id         :integer
+#  detailled          :boolean          not null
+#  id                 :integer          not null, primary key
+#  indicator_datum_id :integer
+#  lock_version       :integer          default(0), not null
+#  operand_id         :integer
+#  operand_quantity   :decimal(19, 4)
+#  operand_unit_id    :integer
+#  operation_id       :integer          not null
+#  parent_id          :integer
+#  string             :string(255)      not null
+#  subject_id         :integer          not null
+#  updated_at         :datetime         not null
+#  updater_id         :integer
+#  verb               :string(255)      not null
 #
 class OperationTask < Ekylibre::Record::Base
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.

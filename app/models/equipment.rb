@@ -69,7 +69,6 @@
 
 class Equipment < Product
   attr_accessible :nature_id, :asset_id, :picture, :name, :description, :born_at, :dead_at, :active, :external, :content_unit_id, :content_nature_id, :owner_id, :parent_id, :variety_id, :reservoir, :content_maximal_quantity
-  has_attached_file :picture, :styles => { :medium => "300x300>", :thumb => "100x100>" }
   # has_many :uses, :class_name => "OperationUse"
   # belongs_to :nature, :class_name => "ProductNature"
   # belongs_to :variety, :class_name => "ProductVariety"

@@ -263,7 +263,7 @@ $list-hover-backgrounds: ("" rgba(255, 255, 255, 0)) (":hover" $hover-mask);
         &.new i,     &.create i { @include use-icon(plus); }
         &.destroy i, &.delete i { @include use-icon(remove); }
         &.divide      i { @include use-icon(resize-full); }
-        &.down        i { @include use-icon(chevron-down); }
+        &.down        i { @include use-icon(arrow-down); }
         &.duplicate   i { @include use-icon(copy); }
         &.extract     i { @include use-icon(download-alt); }
         &.filter      i { @include use-icon(filter); }
@@ -285,7 +285,7 @@ $list-hover-backgrounds: ("" rgba(255, 255, 255, 0)) (":hover" $hover-mask);
         &.table       i { @include use-icon(table); }
         &.unchecked   i { @include use-icon(check-empty); }
         &.unmark      i { @include use-icon(remove-sign); }
-        &.up          i { @include use-icon(chevron-up); }
+        &.up          i { @include use-icon(arrow-up); }
       }
 
     }

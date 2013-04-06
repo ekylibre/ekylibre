@@ -42,18 +42,64 @@ module Ekylibre::Record
       true
     end
 
+    # Returns a relation for all other records
     def others
       self.class.where("id != ?", self.id || -1)
     end
 
-    # Defined a default relation to CustomField
-    has_many :custom_field_data, :as => :customized, :dependent => :destroy, :inverse_of => :customized
-    attr_accessible :custom_field_data_attributes
-    accepts_nested_attributes_for :custom_field_data
+    # Returns a relation for the old record in DB
+    def old_record
+      return nil if self.new_record?
+      return self.class.where(:id => self.id).first
+    end
+
+    # Returns the definition of custom fields of the object
+    def custom_fields
+      return self.class.custom_fields
+    end
+
+    # Returns the value of given custom_field
+    def custom_value(field)
+      return self[field.column_name]
+    end
+
+    validate :validate_custom_fields
+
+    def validate_custom_fields
+      for custom_field in self.custom_fields
+        value = self.custom_value(custom_field)
+        if value.blank?
+          errors.add(custom_field.column_name, :custom_field_is_required, :field => custom_field.name) if custom_field.required?
+        else
+          if custom_field.text?
+            unless custom_field.maximal_length.blank? or custom_field.maximal_length <= 0
+              errors.add(custom_field.column_name, :custom_field_is_too_long, :field => custom_field.name, :count => custom_field.length_max) if value.length > custom_field.maximal_length
+            end
+            unless custom_field.minimal_length.blank? or custom_field.minimal_length <= 0
+              errors.add(custom_field.column_name, :custom_field_is_too_short, :field => custom_field.name, :count => custom_field.length_max) if value.length < custom_field.minimal_length
+            end
+          elsif custom_field.decimal?
+            value = value.to_d unless value.is_a?(Numeric)
+            unless custom_field.minimal_value.blank?
+              errors.add(custom_field.column_name, :custom_field_is_less_than, :field => custom_field.name, :count => custom_field.minimal_value) if value < custom_field.minimal_value
+            end
+            unless custom_field.maximal_value.blank?
+              errors.add(custom_field.column_name, :custom_field_is_greater_than, :field => custom_field.name, :count => custom_field.maximal_value) if value > custom_field.maximal_value
+            end
+          end
+        end
+      end
+    end
 
     @@readonly_counter = 0
 
     class << self
+
+      # Returns the definition of custom fields of the class
+      def custom_fields
+        return CustomField.of(self.name)
+      end
+
 
       attr_reader :scopes
       @scopes = []

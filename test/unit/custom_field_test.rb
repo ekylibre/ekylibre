@@ -21,6 +21,7 @@
 # == Table: custom_fields
 #
 #  active          :boolean          default(TRUE), not null
+#  column_name     :string(255)
 #  created_at      :datetime         not null
 #  creator_id      :integer
 #  customized_type :string(255)      not null
@@ -42,4 +43,23 @@
 require 'test_helper'
 
 class CustomFieldTest < ActiveSupport::TestCase
+
+  for model in Ekylibre::Record::Base.descendants
+    test "new custom field on #{model.name}" do
+      for nature in CustomField.nature.values
+        field = CustomField.create!(:name => "A #{nature} info", :nature => nature, :customized_type => model.name)
+        assert model.connection.columns(model.table_name).detect{|c| c.name.to_s == field.column_name}
+
+        field.name = "A #{nature} info"
+        field.save
+        assert model.connection.columns(model.table_name).detect{|c| c.name.to_s == field.column_name}
+
+
+        column_name = field.column_name
+        field.destroy
+        assert !model.connection.columns(model.table_name).detect{|c| c.name.to_s == column_name}
+      end
+    end
+  end
+
 end

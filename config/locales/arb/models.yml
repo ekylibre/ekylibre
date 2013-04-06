@@ -671,6 +671,10 @@ arb:
         # contains_blank_line: "%{attribute} contient une ligne vide"
         # contains_blank_page: "%{attribute} contient une page vide"
         # currency_does_not_match: "La devise de «\_%{attribute}\_» ne correspond pas celle attendue\_: %{currency}"
+        # custom_field_is_greater_than: "%{field} est trop grand (%{maximum} maximum)"
+        # custom_field_is_less_than: "%{field} est trop petit (%{minimum} minimum)"
+        # custom_field_is_required: "%{field} doit être renseigné"
+        # custom_field_is_too_long: "%{field} est trop long (%{length} caractères)"
         empty: "%{attribute} لا يمكن أن تكون فارغة"
         # entry_has_been_already_validated: "La pièce a été validée et ne peut plus être modifiée"
         equal_to: "%{attribute} يجب أن يكون مساو ل %{count}"
@@ -705,11 +709,11 @@ arb:
         cash:
           # currency_does_not_match: "La monnaie du journal %{journal} est différente de celle de la trésorerie"
           unvalid_bban: ".مكون واحد أو اكثر من موجه قاعدة المعلومات غير صحيح"
-        custom_field_datum:
-          greater_than: "%{field} اكبر من (%{maximum} كحد اقصى)"
-          less_than: "%{field} اقل من (%{minimum} كحد ادنى)"
-          required: "%{field} يجب ان يكون معرف"
-          too_long: "%{field} طويل جدا (%{length} الاحرف)"
+        custom_field_datum:  #?
+          greater_than: "%{field} اكبر من (%{maximum} كحد اقصى)" #?
+          less_than: "%{field} اقل من (%{minimum} كحد ادنى)" #?
+          required: "%{field} يجب ان يكون معرف" #?
+          too_long: "%{field} طويل جدا (%{length} الاحرف)" #?
         deposit:
           must_be_a_bank_account: "%{field} يجب ان يكون حساب مصرفي وليس بصندوق نقدي"
         entity:
@@ -800,7 +804,7 @@ arb:
       currency: "العملة" #?
       custom_field: "الحقول التكميلية"
       custom_field_choice: "اختيار الحقل التكميلي"
-      custom_field_datum: "بيانات الملف التكميلية"
+      custom_field_datum: "بيانات الملف التكميلية" #?
       delay: "التأجيل"
       delivery: "التسليم" #?
       delivery_item: "خط التسليم" #?
@@ -1088,7 +1092,7 @@ arb:
     current_financial_year: "الفترة المحاسبية الحالية"
     custom_field: "حقول اضافية"
     custom_field_choices: "اختيارات الحقول الاضافية"
-    custom_field_data: "تكملة بيانات الملف"
+    custom_field_data: "تكملة بيانات الملف" #?
     custom_field_id: "حقول اضافية" #?
     custom_fields: "الحقول الاضافية"
     # customized: "Enregistrement personnalisé"
@@ -1836,7 +1840,7 @@ arb:
         # date: "Date"
         # datetime: "Date et heure"
         # decimal: "Chiffre (décimal)"
-        # string: "Texte"
+        # text: "Texte"
     document_template:
       family:
         # accountancy: "Comptabilité"

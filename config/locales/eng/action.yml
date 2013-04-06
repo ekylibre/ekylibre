@@ -524,7 +524,7 @@ eng:
     backend/cash_transfers: "Cash transfers"
     backend/cashes: "Cashes"
     backend/custom_field_choices: "Custom field choices"
-    backend/custom_field_data: "Custom field data"
+    backend/custom_field_data: "Custom field data" #?
     backend/custom_fields: "Custom fields"
     backend/dashboards: "Dashboards"
     backend/departments: "Departments"

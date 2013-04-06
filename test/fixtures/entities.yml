@@ -20,6 +20,7 @@
 #
 # == Table: entities
 #
+#  _couleur_des_yeux         :string(255)
 #  active                    :boolean          default(TRUE), not null
 #  activity_code             :string(32)
 #  attorney                  :boolean          not null
