@@ -322,11 +322,22 @@ eng:
       # index: "Lots de produits"
       # new: "Créer un lot"
       # show: "Lot\_: %{name}"
-    backend/product_indicator_choices: #?
-    backend/product_indicator_data: #?
+    backend/product_indicator_choices:
+      # edit: "Modifier une liste de choix pour un indicateur"
+      # new: "Nouvelle liste de choix pour un indicateur"
+    backend/product_indicator_data:
+      # edit: "Modifier la valeur d'un indicateur"
+      # index: "Indicateurs Produits"
+      # new: "Nouvelle valeur d'indicateur pour un produit"
+      # show: "Valeurs"
     backend/product_indicator_nature_choices: #?
     backend/product_indicator_natures: #?
-    backend/product_indicators: #?
+    backend/product_indicators:
+      # edit: "Modifier l'indicateur\_: %{name}"
+      # index: "Indicateurs"
+      # new: "Nouvel indicateur"
+      # show: "Indicateur %{name}"
+      # sort: "Trier"
     backend/product_links: #?
     backend/product_localizations:
       # edit: "Modifier une localisation d'un produit"
@@ -679,6 +690,7 @@ eng:
     # add_quickly_an_item: "Ajouter rapidement une ligne de produit"
     add_subscription_for_sale_line: "Add subscription for sale line #%{position}"
     add_treatment: "Add treatment"
+    # add_watching: "Ajouter un produit de référence"
     add_website: "Add website"
     # add_x: "Ajouter «\_%{x}\_»"
     # add_x_html: "Ajouter «\_%{x}\_»"
@@ -756,6 +768,7 @@ eng:
     check: "Check"
     check_fields: "You have to check at least one box in order to update"
     # childrens: "Enfants"
+    # choice_options: "Indicateur avec liste de choix"
     choices: "Choices"
     choose_mail_column: "Choose email column"
     city_name: "City name"
@@ -816,6 +829,7 @@ eng:
     dates: "Select period start date and Period end date"
     debit: "Debit"
     decimal_case: "Decimal case"
+    # decimal_options: "Indicateur de type décimal"
     default_subject: "[%{company}]"
     delay: "Delay"
     delay_update: "Edit delay"
@@ -1017,6 +1031,7 @@ eng:
     # mandates_new_fields: "Vous devez saisir au moins une valeur dans l’un des champs de modification"
     manual_period: "from %{start} to %{finish}"
     # map: "Carte"
+    # measure_options: "Indicateur de type mesure"
     # medical_informations: "Informations médicales"
     # meeting: "Lieu(x) de rencontre"
     menus:
@@ -1268,6 +1283,7 @@ eng:
     # relationship: "Gestion des relations clients/fournisseurs"
     # remove_diagnostic: "Supprimer un diagnostic"
     # remove_treatment: "Supprimer un traitement"
+    # remove_watching: "Supprimer un produit de référence"
     reopen: "Reopen"
     reopen_journal: "Reopen the journal"
     report: "Report"
@@ -1371,6 +1387,7 @@ eng:
     stocks_preferences: "Stock management"
     stop: "Stop"
     string_case: "String case"
+    # string_options: "Indicateur de type Texte"
     subject: "Subject"
     submit: "Submit"
     subscriber_period: "Subscribed on %{subscribed_on}"
@@ -1512,6 +1529,10 @@ eng:
       one: "%{count} incoming payment"
       other: "%{count} incoming payments"
       zero: "0 incoming payments"
+    x_indicators:
+      # one: "%{count} indicateur"
+      # other: "%{count} indicateurs"
+      # zero: "0 indicateur"
     x_items_remain_on_y:
       # one: "%{count} élément restant."
       # other: "%{count} éléments non visibles. Affinez votre recherche."

@@ -15,6 +15,9 @@ fra:
         journal_entry_item: "Ligne comptable concernée"
         product_nature: "Type de produit concerné"
         repartition_percentage: "Pourcentage d'affectation"
+      activity_watching:
+        product_nature: "Produit de référence"
+        work_unit: "Unité d'oeuvre"
       animal:
         born_at: "Date de naissance"
         variety: "Race"
@@ -1227,7 +1230,7 @@ fra:
         service: "Service"
         vegetal: "Culture annuelle"
       nature:
-        ancillary: "Auxiliaire"
+        auxiliary: "Auxiliaire"
         main: "Principal"
         none: "Aucun"
     asset:
@@ -1328,15 +1331,15 @@ fra:
         sale: "Vente"
     product_indicator:
       nature:
-        string: "Texte"
-        decimal: "Chiffre (décimal)"
         boolean: "Case à cocher"
-        measure: "Mesure"
         choice: "Liste de choix"
+        decimal: "Chiffre (décimal)"
+        measure: "Mesure"
+        string: "Texte"
       usage:
+        environment: "Environnement"
         life: "Biologique"
         production: "Production"
-        environment: "Environnement"
     product_localization:
       arrival_cause:
         birth: "Naissance"

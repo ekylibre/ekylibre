@@ -378,11 +378,22 @@ arb:
       # index: "Lots de produits"
       # new: "Créer un lot"
       # show: "Lot\_: %{name}"
-    backend/product_indicator_choices: #?
-    backend/product_indicator_data: #?
+    backend/product_indicator_choices:
+      # edit: "Modifier une liste de choix pour un indicateur"
+      # new: "Nouvelle liste de choix pour un indicateur"
+    backend/product_indicator_data:
+      # edit: "Modifier la valeur d'un indicateur"
+      # index: "Indicateurs Produits"
+      # new: "Nouvelle valeur d'indicateur pour un produit"
+      # show: "Valeurs"
     backend/product_indicator_nature_choices: #?
     backend/product_indicator_natures: #?
-    backend/product_indicators: #?
+    backend/product_indicators:
+      # edit: "Modifier l'indicateur\_: %{name}"
+      # index: "Indicateurs"
+      # new: "Nouvel indicateur"
+      # show: "Indicateur %{name}"
+      # sort: "Trier"
     backend/product_links: #?
     backend/product_localizations:
       # edit: "Modifier une localisation d'un produit"
@@ -799,6 +810,7 @@ arb:
     # add_quickly_an_item: "Ajouter rapidement une ligne de produit"
     # add_subscription_for_sale_line: "Ajouter un abonnement pour la ligne N°%{position}"
     # add_treatment: "Ajouter un traitement"
+    # add_watching: "Ajouter un produit de référence"
     # add_website: "Ajouter un site Web"
     # add_x: "Ajouter «\_%{x}\_»"
     # add_x_html: "Ajouter «\_%{x}\_»"
@@ -879,6 +891,7 @@ arb:
     check: "نحقق"
     # check_fields: "Vous devez cocher au moins une case pour effectuer la modification"
     # childrens: "Enfants"
+    # choice_options: "Indicateur avec liste de choix"
     choices: "خيارات"
     choose_mail_column: "الرجاء اختيار العمود المستخدم للرسالة"
     city_name: "المدينة"
@@ -945,6 +958,7 @@ arb:
     dates: "ادخل تواريخ بداية ونهاية المدة"
     debit: "الدين"
     decimal_case: "خيارات للكسر العشري"
+    # decimal_options: "Indicateur de type décimal"
     default_subject: "[%{company}]"
     # delay: "Délais"
     delay_create: "اضافة مهلة جديدة" #?
@@ -1178,6 +1192,7 @@ arb:
     # mandates_new_fields: "Vous devez saisir au moins une valeur dans l’un des champs de modification"
     manual_period: "من %{start} الى %{finish}"
     # map: "Carte"
+    # measure_options: "Indicateur de type mesure"
     # medical_informations: "Informations médicales"
     meeting: "المقابلة(X)مكان"
     menu:  #?
@@ -1460,6 +1475,7 @@ arb:
     # relationship: "Gestion des relations clients/fournisseurs"
     # remove_diagnostic: "Supprimer un diagnostic"
     # remove_treatment: "Supprimer un traitement"
+    # remove_watching: "Supprimer un produit de référence"
     reopen: "فتح الدفتر اليومي"
     # reopen_journal: "Déclôturer le journal"
     report: "Informations communes"
@@ -1578,6 +1594,7 @@ arb:
     # stocks_preferences: "Gestion des stocks"
     stop: "لغاية"
     string_case: "خيارات للنص"
+    # string_options: "Indicateur de type Texte"
     subject: "الموضوع"
     submit: "ارسال"
     subscriber_period: "تم التسجيل في %{subscribed_on}"
@@ -1734,6 +1751,10 @@ arb:
       one: "دفعة واحدة"
       other: "%{count} دفعات اخرى"
       zero: "ولااية دفعة"
+    x_indicators:
+      # one: "%{count} indicateur"
+      # other: "%{count} indicateurs"
+      # zero: "0 indicateur"
     x_items_remain_on_y:
       # one: "%{count} élément restant."
       # other: "%{count} éléments non visibles. Affinez votre recherche."
