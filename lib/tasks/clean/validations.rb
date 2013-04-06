@@ -1,5 +1,7 @@
 def validable_column?(column)
-  return ![:created_at, :creator_id, :creator, :updated_at, :updater_id, :updater, :position, :lock_version].include?(column.name.to_sym)
+  return false if [:created_at, :creator_id, :creator, :updated_at, :updater_id, :updater, :position, :lock_version].include?(column.name.to_sym)
+  return false if column.name.to_s.match(/^\_/)
+  return true
 end
 
 
