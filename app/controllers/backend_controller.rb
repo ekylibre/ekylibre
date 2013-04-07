@@ -61,7 +61,7 @@ class BackendController < BaseController
       if label = options.delete(:label)
         label = (label.is_a?(Symbol) ? "{#{label}:%X%}" : label.to_s)
       else
-        base = "unroll." + self.absolute_controller_name
+        base = "unroll." + self.controller_path
         label = I18n.translate(base + ".#{name || :all}", :default => [(base + ".all").to_sym, ""])
         if label.blank?
           available_methods = model.columns_hash.keys.collect{|x| x.to_sym}
@@ -138,7 +138,7 @@ class BackendController < BaseController
         code << "    end\n"
         code << "    conditions[0] << ')'\n"
       else
-        ActiveSupport::Deprecation.warn("No searchable columns for #{absolute_controller_name}##{method_name}")
+        ActiveSupport::Deprecation.warn("No searchable columns for #{self.controller_path}##{method_name}")
       end
       code << "  end\n"
       code << "  items = #{model.name}#{'.' + scope_name.to_s if scope_name}.where(conditions)\n"
@@ -332,7 +332,7 @@ class BackendController < BaseController
     action_rights = controller_rights[self.action_name.to_sym]||[]
 
     # Search help article
-    @article = "#{self.absolute_controller_name}-#{self.action_name}" # search_article
+    @article = "#{self.controller_path}-#{self.action_name}" # search_article
 
     # Returns if action is public
     return true if action_rights.include?(:__public__)
@@ -404,7 +404,7 @@ class BackendController < BaseController
 
   def search_article(article = nil)
     session[:help_history] = [] unless session[:help_history].is_a? [].class
-    article ||= "#{self.absolute_controller_name}-#{self.action_name}"
+    article ||= "#{self.controller_path}-#{self.action_name}"
     file = nil
     for locale in [I18n.locale, I18n.default_locale]
       for f, attrs in Ekylibre.helps
@@ -497,7 +497,7 @@ class BackendController < BaseController
     record_name = name.to_s.singularize
     model = name.to_s.classify.constantize
 
-    aname = absolute_controller_name.underscore
+    aname = self.controller_path.underscore
     base_url = aname.gsub(/\//, "_")
 
     # url = base_url.singularize + "_url(@#{record_name})" if url.blank?

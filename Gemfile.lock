@@ -54,6 +54,10 @@ GEM
       activerecord (>= 3.0.0)
     awesome_print (1.1.0)
     bcrypt-ruby (3.0.1)
+    beardley (0.1.2)
+      beardley-groovy (>= 1.7.5)
+      rjb (= 1.4.6)
+    beardley-groovy (1.7.5.0)
     better_errors (0.8.0)
       coderay (>= 1.0.0)
       erubis (>= 2.6.6)
@@ -78,6 +82,8 @@ GEM
     cocoon (1.1.2)
     code_analyzer (0.3.1)
       sexp_processor
+    codemirror-rails (3.02)
+      railties (~> 3.0)
     coderay (1.0.9)
     coffee-rails (3.2.2)
       coffee-script (>= 2.2.0)
@@ -137,14 +143,14 @@ GEM
       sax-machine (~> 0.2.0.rc1)
     ffaker (1.15.0)
     ffi (1.6.0)
-    formize (1.0.2)
+    formize (1.0.4)
       jquery-rails
       rails (>= 3.2)
     fssm (0.2.10)
     google_visualr (2.1.7)
     gorillib (0.1.11)
       json
-    haml (4.0.1)
+    haml (4.0.2)
       tilt
     hashery (2.1.0)
     hike (1.2.1)
@@ -152,8 +158,8 @@ GEM
     i18n (0.6.1)
     i18n-complements (0.0.9)
       i18n (>= 0.6)
-    jasper-rails (1.0.3)
-      rjb (= 1.4.3)
+    jasper-rails (1.0.2)
+      rjb (>= 1.4.0)
     jasper-rails-rspec (0.1.1)
       jasper-rails (>= 0.1.1)
       pdf-inspector (>= 1.0.1)
@@ -203,7 +209,7 @@ GEM
       mime-types
     pdf-inspector (1.0.2)
       pdf-reader (>= 0.9.0)
-    pdf-reader (1.3.2)
+    pdf-reader (1.3.3)
       Ascii85 (~> 1.0.0)
       afm (~> 0.2.0)
       hashery (~> 2.0)
@@ -267,7 +273,7 @@ GEM
     rgeo-shapefile (0.2.3)
       dbf (>= 1.7.0)
       rgeo (>= 0.3.3)
-    rjb (1.4.3)
+    rjb (1.4.6)
     rspec (2.13.0)
       rspec-core (~> 2.13.0)
       rspec-expectations (~> 2.13.0)
@@ -275,7 +281,7 @@ GEM
     rspec-core (2.13.1)
     rspec-expectations (2.13.0)
       diff-lcs (>= 1.1.3, < 2.0)
-    rspec-mocks (2.13.0)
+    rspec-mocks (2.13.1)
     rspec-rails (2.13.0)
       actionpack (>= 3.0)
       activesupport (>= 3.0)
@@ -339,7 +345,7 @@ GEM
     turbolinks (1.1.1)
       coffee-rails
     tzinfo (0.3.37)
-    uglifier (1.3.0)
+    uglifier (2.0.1)
       execjs (>= 0.3.0)
       multi_json (~> 1.0, >= 1.0.2)
     unf (0.1.1)
@@ -363,10 +369,12 @@ DEPENDENCIES
   acts_as_list
   awesome_nested_set
   awesome_print
+  beardley
   better_errors
   binding_of_caller
   capybara
   cocoon
+  codemirror-rails
   coffee-rails (~> 3.2.1)
   compass-rails
   coveralls

@@ -40,9 +40,9 @@ class Backend::AnimalsController < BackendController
 
   def index
     @animal = Animal.all
-    #parsing a parameter to Jasper for company full name
+    # parsing a parameter to Jasper for company full name
     @entity_full_name = Entity.of_company.full_name
-    #respond with associated models to simplify quering in Ireport
+    # respond with associated models to simplify quering in Ireport
     respond_with @animal, :include => [:father, :mother, :variety, :nature]
   end
 

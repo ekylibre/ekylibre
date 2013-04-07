@@ -1,7 +1,7 @@
 -content_for(:popover) do
   #help=render(:partial => "backend/help/search", :object => @article)
 
--current_page = menus.page(controller.class.absolute_controller_name, action_name)
+-current_page = menus.page(controller.controller_path, action_name)
 -menu = current_page.useful_menu if current_page
 
 
@@ -21,7 +21,7 @@
   -if menu
     -for item in menu
       -unless item.name == :settings
-        -attrs = {:active => item.in_path?(absolute_controller_name, action_name)}
+        -attrs = {:active => item.in_path?(controller.controller_path, action_name)}
         -attrs[:icon] = :inside if item.items.size > 0
         -m.link(item.human_name, item.default_page.url_options, attrs)
 

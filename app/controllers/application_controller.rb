@@ -19,19 +19,13 @@
 
 class ApplicationController < ActionController::Base
 
-  # Returns the full qualified name of a controller
-  # like all/my/things
-  def self.absolute_controller_name
-    self.name.to_s.gsub(/Controller$/, '').underscore
-  end
-
   def self.human_name
-    ::I18n.translate("controllers." + absolute_controller_name)
+    ::I18n.translate("controllers." + self.controller_path)
   end
 
   def self.human_action_name(action, options = {})
     options = {} unless options.is_a?(Hash)
-    root, action = "actions." + self.absolute_controller_name + ".", action.to_s
+    root, action = "actions." + self.controller_path + ".", action.to_s
     options[:default] ||= []
     options[:default] << (root + "new").to_sym  if action == "create"
     options[:default] << (root + "edit").to_sym if action == "update"
@@ -45,7 +39,7 @@ class ApplicationController < ActionController::Base
   def authorized?(url_options = {})
     return true if url_options == "#" or current_user.administrator?
     if url_options.is_a?(Hash)
-      url_options[:controller] ||= self.class.absolute_controller_name
+      url_options[:controller] ||= self.controller_path
       url_options[:action] ||= :index
     elsif url_options.is_a?(String) and url_options.match(/\#/)
       action = url_options.split("#")

@@ -52,6 +52,7 @@ gem 'strong_parameters'
 # gem 'thinreports-rails'
 # jasper_rails need rjb which need $ sudo apt-get install openjdk-7-jdk and set JAVA_HOME and add a line in environement.rb
 gem 'jasper-rails'
+gem 'beardley'
 gem 'prawn', '~> 0.12.0'
 
 # Import/Export
@@ -77,7 +78,7 @@ group :assets do
   gem 'coffee-rails', '~> 3.2.1'
   gem 'compass-rails'
   gem 'zurb-foundation'
-  # gem 'foundation-icons-sass-rails'
+  gem 'codemirror-rails'
   gem 'turbo-sprockets-rails3'
   gem 'oily_png'
   gem 'jquery-turbolinks'

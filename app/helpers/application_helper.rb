@@ -22,12 +22,6 @@
 
 module ApplicationHelper
 
-  # Returns the absolute controller name
-  # Example: "backend/accounts"
-  def absolute_controller_name
-    self.controller.class.absolute_controller_name
-  end
-
   # Helper which check authorization of an action
   def authorized?(url_options = {})
     self.controller.authorized?(url_options)

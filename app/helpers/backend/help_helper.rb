@@ -38,7 +38,7 @@ module Backend::HelpHelper
 
   def search_article(article = nil)
     session[:help_history] = [] unless session[:help_history].is_a? [].class
-    article ||= "#{self.absolute_controller_name}-#{self.action_name}"
+    article ||= "#{controller.controller_path}-#{self.action_name}"
     file = nil
     for locale in [I18n.locale, I18n.default_locale]
       for f, attrs in Ekylibre.helps
