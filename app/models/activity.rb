@@ -39,7 +39,7 @@
 #  updater_id   :integer
 #
 class Activity < Ekylibre::Record::Base
-  attr_accessible :started_at, :stopped_at, :nature, :description, :family, :nomen, :name, :parent_id
+  attr_accessible :started_at, :stopped_at, :nature, :description, :family, :nomen, :name, :parent_id, :watchings_attributes
   enumerize :nature, :in => [:main, :auxiliary, :none], :default => :main
   enumerize :family, :in => [:vegetal, :perenne_vegetal, :animal, :processing, :service, :none]
   has_many :repartitions, :class_name => "ActivityRepartition"
@@ -52,6 +52,6 @@ class Activity < Ekylibre::Record::Base
   #]VALIDATORS]
 
   default_scope -> { where("stopped_at IS NULL OR stopped_at > ?", Time.now).order(:name) }
-
+  accepts_nested_attributes_for :watchings,    :reject_if => :all_blank, :allow_destroy => true
   acts_as_nested_set
 end

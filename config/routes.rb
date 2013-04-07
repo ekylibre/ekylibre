@@ -121,6 +121,7 @@ Ekylibre::Application.routes.draw do
         get :list_children
         get :list_place
         get :list_group
+        get :list_indicator
         unroll_all
       end
       member do
@@ -589,6 +590,13 @@ Ekylibre::Application.routes.draw do
       member do
         post :up
         post :down
+      end
+    end
+    
+    resources :product_indicator_data do
+      collection do
+        get :list
+        unroll_all
       end
     end
 

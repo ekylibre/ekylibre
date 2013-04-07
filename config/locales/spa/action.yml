@@ -360,11 +360,22 @@ spa:
       # index: "Lots de produits"
       # new: "Créer un lot"
       # show: "Lot\_: %{name}"
-    backend/product_indicator_choices: #?
-    backend/product_indicator_data: #?
+    backend/product_indicator_choices:
+      # edit: "Modifier une liste de choix pour un indicateur"
+      # new: "Nouvelle liste de choix pour un indicateur"
+    backend/product_indicator_data:
+      # edit: "Modifier la valeur d'un indicateur"
+      # index: "Indicateurs Produits"
+      # new: "Nouvelle valeur d'indicateur pour un produit"
+      # show: "Valeurs"
     backend/product_indicator_nature_choices: #?
     backend/product_indicator_natures: #?
-    backend/product_indicators: #?
+    backend/product_indicators:
+      # edit: "Modifier l'indicateur\_: %{name}"
+      # index: "Indicateurs"
+      # new: "Nouvel indicateur"
+      # show: "Indicateur %{name}"
+      # sort: "Trier"
     backend/product_links: #?
     backend/product_localizations:
       # edit: "Modifier une localisation d'un produit"
@@ -731,6 +742,7 @@ spa:
     # add_quickly_an_item: "Ajouter rapidement une ligne de produit"
     # add_subscription_for_sale_line: "Ajouter un abonnement pour la ligne N°%{position}"
     # add_treatment: "Ajouter un traitement"
+    # add_watching: "Ajouter un produit de référence"
     # add_website: "Ajouter un site Web"
     # add_x: "Ajouter «\_%{x}\_»"
     # add_x_html: "Ajouter «\_%{x}\_»"
@@ -808,6 +820,7 @@ spa:
     # check: "Vérifier"
     # check_fields: "Vous devez cocher au moins une case pour effectuer la modification"
     # childrens: "Enfants"
+    # choice_options: "Indicateur avec liste de choix"
     # choices: "Choix"
     choose_mail_column: "Por favor escoge la columna a utilizar para el mailing"
     # city_name: "Ville"
@@ -869,6 +882,7 @@ spa:
     dates: "Marcar las fechas de empezo y termino por los periodos"
     debit: "Flujo"
     # decimal_case: "Options pour un décimal"
+    # decimal_options: "Indicateur de type décimal"
     default_subject: "[%{company}]"
     # delay: "Délais"
     delay_create: "Añadir un plazo" #?
@@ -1082,6 +1096,7 @@ spa:
     # mandates_new_fields: "Vous devez saisir au moins une valeur dans l’un des champs de modification"
     manual_period: "del %{empezo} al %{termino}"
     # map: "Carte"
+    # measure_options: "Indicateur de type mesure"
     # medical_informations: "Informations médicales"
     # meeting: "Lieu(x) de rencontre"
     menu: #?
@@ -1329,6 +1344,7 @@ spa:
     # relationship: "Gestion des relations clients/fournisseurs"
     # remove_diagnostic: "Supprimer un diagnostic"
     # remove_treatment: "Supprimer un traitement"
+    # remove_watching: "Supprimer un produit de référence"
     reopen: "Volver a abrir el periodico"
     # reopen_journal: "Déclôturer le journal"
     report: "Informaciones comunes"
@@ -1440,6 +1456,7 @@ spa:
     # stocks_preferences: "Gestion des stocks"
     # stop: "Jusqu’au"
     # string_case: "Options pour le texte"
+    # string_options: "Indicateur de type Texte"
     subject: "Tema"
     # submit: "Envoyer"
     # subscriber_period: "Abonné(e) le %{subscribed_on}"
@@ -1586,6 +1603,10 @@ spa:
       # one: "%{count} encaissement"
       # other: "%{count} encaissements"
       # zero: "0 encaissement"
+    x_indicators:
+      # one: "%{count} indicateur"
+      # other: "%{count} indicateurs"
+      # zero: "0 indicateur"
     x_items_remain_on_y:
       # one: "%{count} élément restant."
       # other: "%{count} éléments non visibles. Affinez votre recherche."

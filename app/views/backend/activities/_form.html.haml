@@ -4,11 +4,7 @@
   =f.input :nomen
   =f.input :description
   =f.input :nature
-  =f.input :closed
   =f.input :family
-  =f.input :net_margin, :show => :product
 
-=field_set(:product) do
-  =f.referenced_association :area_unit
-  =f.referenced_association :work_unit
-  =f.referenced_association :favored_product_nature
+=field_set(:products) do
+  =f.nested_association(:watchings)
