@@ -56,7 +56,7 @@
 #  pretax_amount       :decimal(19, 4)   default(0.0), not null
 #  reference_number    :string(255)
 #  responsible_id      :integer
-#  state               :string(64)       default("O"), not null
+#  state               :string(64)       not null
 #  subject             :string(255)
 #  sum_method          :string(8)        default("wt"), not null
 #  transporter_id      :integer

@@ -10,7 +10,7 @@ end
 for format in Ekylibre.reporting_formats
   ActionController::Renderers.add(format) do |object, options|
     # Find template
-    unless name = options[:with] 
+    unless name = options[:with]
       table = options[:prefixes].first.split(/\//).last
       name = (options[:template] == "show" ? table.singularize : table).to_sym
     end
@@ -21,13 +21,13 @@ for format in Ekylibre.reporting_formats
     end
     self.headers['Cache-Control'] = 'maxage=0'
     self.headers['Pragma'] = 'no-cache'
-    
+
     # Call it with datasource
     report = Beardley::Report.new(template.source_path!)
-    
+
     # Create datasource
     datasource = object.to_xml(options)
-    
+
     # Send data
     send_data(report.send("to_#{format}", datasource), :type => format, :disposition => "inline")
   end

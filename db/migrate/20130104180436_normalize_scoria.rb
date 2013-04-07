@@ -90,6 +90,8 @@ class NormalizeScoria < ActiveRecord::Migration
     remove_column :professions, :rome
     change_column :professions, :commercial, :boolean, :null => false, :default => false
 
+    change_column_default :sales, :state, nil
+
     change_column :subscription_natures, :nature, :string, :size => 16
 
     rename_column :transfers, :supplier_id, :client_id

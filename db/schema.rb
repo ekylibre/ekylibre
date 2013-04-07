@@ -2301,7 +2301,7 @@ ActiveRecord::Schema.define(:version => 20130327141101) do
     t.string   "sum_method",          :limit => 8,                                 :default => "wt",  :null => false
     t.decimal  "pretax_amount",                     :precision => 19, :scale => 4, :default => 0.0,   :null => false
     t.decimal  "amount",                            :precision => 19, :scale => 4, :default => 0.0,   :null => false
-    t.string   "state",               :limit => 64,                                :default => "O",   :null => false
+    t.string   "state",               :limit => 64,                                                   :null => false
     t.date     "expired_on"
     t.boolean  "has_downpayment",                                                  :default => false, :null => false
     t.decimal  "downpayment_amount",                :precision => 19, :scale => 4, :default => 0.0,   :null => false
