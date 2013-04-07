@@ -592,7 +592,7 @@ Ekylibre::Application.routes.draw do
         post :down
       end
     end
-    
+
     resources :product_indicator_data do
       collection do
         get :list

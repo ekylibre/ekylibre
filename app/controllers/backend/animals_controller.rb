@@ -70,15 +70,15 @@ class Backend::AnimalsController < BackendController
     t.column :started_at
     t.column :stopped_at
   end
-  
+
   # Liste des indicateurs de l'animal considéré
   list(:indicator, :model => :product_indicator_data, :conditions => [" product_id = ? ",['session[:current_animal_id]']], :order => "created_at DESC") do |t|
     t.column :name, :through =>:indicator, :url => true
     t.column :created_at
     t.column :decimal_value
   end
-  
-  
+
+
 
   # Show one animal with params_id
   def show

@@ -31,6 +31,7 @@
 # - "backend/animals#list"
 # - "backend/animals#list_children"
 # - "backend/animals#list_group"
+# - "backend/animals#list_indicator"
 # - "backend/animals#list_place"
 # - "backend/animals#new"
 # - "backend/animals#picture"
