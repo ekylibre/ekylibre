@@ -114,17 +114,55 @@ class DocumentTemplate < Ekylibre::Record::Base
     end
   end
 
-  def set_by_default# (by_default=nil)
-    if self.nature != 'other' and self.class.count(:conditions => {:by_default => true, :nature => self.nature}) != 1
-      self.class.update_all({:by_default => true}, {:id => self.id})
+  before_save(:on => :create) do
+    self.write_source!
+    return true
+  end
+
+  before_save(:on => :update) do
+    old = self.old_record
+    if old.code != self.code
+      FileUtils.mv(old.source_path.dirname, self.source_path.dirname)
+    end
+    if old.source != self.source
+      self.write_source!
+    end
+  end
+
+  # Set the template's nature default
+  def set_by_default
+    if self.by_default or self.class.where(:by_default => true, :nature => self.nature).count != 1
       self.class.update_all({:by_default => false}, ["id != ? and nature = ?", self.id, self.nature])
+      self.class.update_all({:by_default => true}, {:id => self.id})
     end
   end
 
   protect(:on => :destroy) do
-    self.documents.size <= 0
+    self.documents.count <= 0
   end
 
+
+  # Returns the expected path for the source file
+  def source_path
+    return Rails.root.join("private", self.class.name.underscore.pluralize, self.code.to_s, "source.jrxml")
+  end
+
+  # Returns the path to the source file
+  # Create the file if not exists
+  def source_path!
+    path = self.source_path
+    self.write_source! unless path.exist?
+    return path
+  end
+
+  # Write the source in its place
+  def write_source!
+    path = self.source_path
+    FileUtils.mkdir_p(path.dirname)
+    File.open(path, "wb") do |f|
+      f.write(self.source)
+    end
+  end
 
   # Print document without checks fast but dangerous if parameters are not checked before...
   # Use carefully

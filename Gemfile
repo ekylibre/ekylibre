@@ -51,7 +51,7 @@ gem 'strong_parameters'
 # Reporting
 # gem 'thinreports-rails'
 # jasper_rails need rjb which need $ sudo apt-get install openjdk-7-jdk and set JAVA_HOME and add a line in environement.rb
-gem 'jasper-rails'
+# gem 'jasper-rails'
 gem 'beardley'
 gem 'prawn', '~> 0.12.0'
 

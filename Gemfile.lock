@@ -391,7 +391,6 @@ DEPENDENCIES
   google_visualr (>= 2.1)
   haml
   i18n-complements
-  jasper-rails
   jasper-rails-rspec
   jquery-rails
   jquery-turbolinks

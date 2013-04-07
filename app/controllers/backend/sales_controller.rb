@@ -62,9 +62,14 @@ class Backend::SalesController < BackendController
     session[:sale_state] = params[:s] ||= params[:s]||"all"
     session[:sale_key] = params[:q]
     session[:sale_responsible_id] = params[:responsible_id].to_i
+    @sales = Sale.where("state != ?", "draft")
     respond_to do |format|
       format.html
-      format.pdf { render_print_sales(params[:established_on]||Date.today) }
+      format.xml  { render :xml => @sales }
+      # format.pdf  { render_print_sales(params[:established_on]||Date.today) }
+      format.pdf  { render :pdf => @sales, :with => params[:template] }
+      # format.odt  { render_print_sales(params[:established_on]||Date.today) }
+      # format.docx { render_print_sales(params[:established_on]||Date.today) }
     end
   end
 
@@ -161,14 +166,18 @@ class Backend::SalesController < BackendController
         end
         t3e @sale.attributes, :client => @sale.client.full_name, :state => @sale.state_label, :label => @sale.label
       end
-      format.xml { render :xml => @sale.to_xml }
-      format.pdf do
-        if @sale.invoice?
-          render_print_sales_invoice(@sale)
-        else
-          render_print_sales_order(@sale)
-        end
-      end
+      format.json { render :json => @sale, :include => {:items => {:include => :product}} }
+      format.xml  { render  :xml => @sale, :include => {:items => {:include => :product}} }
+      format.pdf  { render  :pdf => @sale, :include => {:items => {:include => :product}} }
+      format.odt  { render  :odt => @sale, :include => {:items => {:include => :product}} }
+      format.docx { render :docx => @sale, :include => {:items => {:include => :product}} }
+      # format.pdf do
+      #   if @sale.invoice?
+      #     render_print_sales_invoice(@sale)
+      #   else
+      #     render_print_sales_order(@sale)
+      #   end
+      # end
     end
 
   end

@@ -155,6 +155,12 @@ class BackendController < BaseController
     end
 
   end
+  
+
+
+
+
+
 
 
   # Generate render_print_* method which send data corresponding to a nature of

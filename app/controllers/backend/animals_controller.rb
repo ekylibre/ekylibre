@@ -20,7 +20,7 @@
 class Backend::AnimalsController < BackendController
   manage_restfully :t3e => {:nature_name => "@animal.nature_name"}
 
-  respond_to :pdf, :xml, :json, :html
+  respond_to :pdf, :odt, :docx, :xml, :json, :html, :csv
 
   unroll_all
 
@@ -39,11 +39,11 @@ class Backend::AnimalsController < BackendController
   # Show a list of animal groups
 
   def index
-    @animal = Animal.all
+    @animals = Animal.all
     # parsing a parameter to Jasper for company full name
     @entity_full_name = Entity.of_company.full_name
     # respond with associated models to simplify quering in Ireport
-    respond_with @animal, :include => [:father, :mother, :variety, :nature]
+    respond_with @animals, :include => [:variety, :nature]
   end
 
    # Liste des enfants de l'animal considéré
@@ -83,20 +83,21 @@ class Backend::AnimalsController < BackendController
   # Show one animal with params_id
   def show
     return unless @animal = find_and_check
-    respond_to do |format|
-      format.html do
-        session[:current_animal_id] = @animal.id
-        t3e @animal, :nature_name => @animal.nature_name
-      end
-      format.xml {render xml: @animal, :include => [:father, :mother, :nature, :variety, :indicator_data,
-                                                    {:memberships => {:group => nil}},
-                                                    {:product_localizations => {:container => nil}}
-                                                   ]}
-      format.pdf {respond_with @animal, :include => [:father, :mother, :nature, :variety, :indicator_data,
-                                                     {:memberships => {:group => nil}},
-                                                     {:product_localizations => {:container => nil}}
-                                                    ]}
-    end
+    respond_with(@animal, :include => [:father, :mother, :nature, :variety, :indicator_data, {:memberships => {:include => :group}, :product_localizations => {:include => :container}}])
+    # respond_to do |format|
+    #   format.html do
+    #     session[:current_animal_id] = @animal.id
+    #     t3e @animal, :nature_name => @animal.nature_name
+    #   end
+    #   format.xml {render xml: @animal, :include => [:father, :mother, :nature, :variety, :indicator_data,
+    #                                                 {:memberships => {:group => nil}},
+    #                                                 {:product_localizations => {:container => nil}}
+    #                                                ]}
+    #   format.pdf {respond_with @animal, :include => [:father, :mother, :nature, :variety, :indicator_data,
+    #                                                  {:memberships => {:group => nil}},
+    #                                                  {:product_localizations => {:container => nil}}
+    #                                                 ]}
+    # end
   end
 
   def picture

@@ -9,11 +9,10 @@ require 'delay'
 require 'safe_string'
 require 'exchanges'
 require 'templating'
+require 'reporting'
 require 'activerecord'
 require 'ekylibre'
 
-
-# require 'iconv'
 require 'csv'
 
 module Ekylibre

@@ -17,3 +17,11 @@ Mime::Type.register("application/vnd.oasis.opendocument.text-template", :ott) un
 Mime::Type.register("application/vnd.oasis.opendocument.spreadsheet-template", :ots) unless defined? Mime::OTS
 Mime::Type.register("application/vnd.oasis.opendocument.presentation-template", :otp) unless defined? Mime::OTP
 Mime::Type.register("application/vnd.oasis.opendocument.graphics-template", :otg) unless defined? Mime::OTG
+# Open XML Documents
+Mime::Type.register("application/vnd.openxmlformats-officedocument.wordprocessingml.document", :docx) unless defined? Mime::DOCX
+Mime::Type.register("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", :xlsx) unless defined? Mime::XLSX
+Mime::Type.register("application/vnd.openxmlformats-officedocument.presentationml.presentation", :pptx) unless defined? Mime::PPTX
+# Open XML Templates
+Mime::Type.register("application/vnd.openxmlformats-officedocument.wordprocessingml.template", :dotx) unless defined? Mime::DOTX
+Mime::Type.register("application/vnd.openxmlformats-officedocument.spreadsheetml.template", :xltx) unless defined? Mime::XLTX
+Mime::Type.register("application/vnd.openxmlformats-officedocument.presentationml.template", :potx) unless defined? Mime::POTX
