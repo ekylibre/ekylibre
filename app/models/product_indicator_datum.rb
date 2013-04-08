@@ -53,7 +53,7 @@ class ProductIndicatorDatum < Ekylibre::Record::Base
 
   validate do
     if self.indicator
-      errors.add(:value, :required, :field => self.indicator.name) if self.indicator.required? and self.value.blank?
+      errors.add(:value, :required, :field => self.indicator.name) if self.value.blank?
       unless self.value.blank?
         if self.indicator.string?
           unless self.indicator.maximal_length.blank? or self.indicator.maximal_length <= 0
