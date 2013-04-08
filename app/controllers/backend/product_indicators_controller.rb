@@ -41,8 +41,8 @@ class Backend::ProductIndicatorsController < BackendController
   list(:choices, :model => :product_indicator_choices, :conditions => {:nature_id => ['session[:current_product_indicator_id]']}, :order => 'position') do |t|
     t.column :name
     t.column :value
-    t.action :up, :unless => :first?, :method => :post
-    t.action :down, :unless => :last?, :method => :post
+    t.action :up, :method => :post
+    t.action :down, :method => :post
     t.action :edit
     t.action :destroy, :if => :destroyable?
   end
