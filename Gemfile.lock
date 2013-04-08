@@ -54,7 +54,7 @@ GEM
       activerecord (>= 3.0.0)
     awesome_print (1.1.0)
     bcrypt-ruby (3.0.1)
-    beardley (0.1.2)
+    beardley (0.2.0)
       beardley-groovy (>= 1.7.5)
       rjb (= 1.4.6)
     beardley-groovy (1.7.5.0)
@@ -229,7 +229,7 @@ GEM
     rack (1.4.5)
     rack-cache (1.2)
       rack (>= 0.4)
-    rack-mini-profiler (0.1.23)
+    rack-mini-profiler (0.1.25)
       rack (>= 1.1.3)
     rack-ssl (1.3.3)
       rack
