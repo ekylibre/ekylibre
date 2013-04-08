@@ -44,6 +44,7 @@
 
 class DocumentTemplate < Ekylibre::Record::Base
   # Be careful! :id is a forbidden name for parameters
+  # natures = [:animal, :animals, :sales, :sale, :balance_sheet_fr, :entity, :deposit, :income_statement_fr, :inventory, :general_journal, :general_ledger, :purchase, :products, :order_preparation]
   @@document_natures = {
     :animal =>           [ [:animal, Animal]],
     :balance_sheet =>    [ [:financial_year, FinancialYear] ],
