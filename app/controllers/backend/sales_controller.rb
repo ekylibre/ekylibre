@@ -18,6 +18,7 @@
 #
 
 class Backend::SalesController < BackendController
+  respond_to :csv, :ods, :xlsx, :pdf, :odt, :docx, :html, :xml, :json
   include ActionView::Helpers::NumberHelper
 
   unroll_all

@@ -121,11 +121,22 @@ class DocumentTemplate < Ekylibre::Record::Base
 
   before_save(:on => :update) do
     old = self.old_record
-    if old.code != self.code
-      FileUtils.mv(old.source_path.dirname, self.source_path.dirname)
+    if old.source_dir != self.source_dir
+      FileUtils.mv(old.source_dir, self.source_dir)
     end
     if old.source != self.source
       self.write_source!
+    end
+  end
+
+  protect(:on => :destroy) do
+    self.documents.count <= 0
+  end
+
+  # Always after protect on destroy
+  before_destroy do
+    if File.exist?(self.source_path)
+      FileUtils.rm_rf(self.source_path.dirname)
     end
   end
 
@@ -137,14 +148,14 @@ class DocumentTemplate < Ekylibre::Record::Base
     end
   end
 
-  protect(:on => :destroy) do
-    self.documents.count <= 0
+  # Returns the expected dir for the source file
+  def source_dir
+    return Rails.root.join("private", "reporting", self.code.to_s)
   end
-
 
   # Returns the expected path for the source file
   def source_path
-    return Rails.root.join("private", self.class.name.underscore.pluralize, self.code.to_s, "source.jrxml")
+    return self.source_dir.join("source.jrxml")
   end
 
   # Returns the path to the source file
