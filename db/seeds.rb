@@ -46,7 +46,8 @@ ActiveRecord::Base.transaction do
   end
 
   # Load all the document templates
-  DocumentTemplate.load_defaults
+  #@TODO : waiting for new system
+  #DocumentTemplate.load_defaults
 
   journals = {}
   for journal in Journal.nature.values
