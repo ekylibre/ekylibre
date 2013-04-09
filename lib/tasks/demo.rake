@@ -380,6 +380,65 @@ namespace :db do
       # puts "!"
 
       #############################################################################
+      # import Milk result to make automatic quality indicators
+      # @TODO 
+      #
+      # set the lab
+      print "[#{(Time.now - start).round(2).to_s.rjust(8)}s] Milk tank analysis (from LILCO) "
+      # set the product if not exist
+      unit_milk = Unit.get(:l)
+      stock_account_nature_milk = Account.find_by_number("321")
+      sale_account_nature_milk = Account.find_by_number("701")
+      product_nature_milk_category = ProductNatureCategory.find_by_name("Défaut")
+      variety_milk = ProductVariety.find_by_code("normande")
+      # add a product_nature   
+      product_nature   = ProductNature.find_by_name("lait")
+      product_nature ||= ProductNature.create!(:stock_account_id => stock_account_nature_milk.id, :product_account_id => sale_account_nature_milk.id, :name => "lait", :number => "LAIT", :alive => true, :saleable => true, :purchasable => false, :active => true, :storable => true, :variety_id => variety_milk.id, :unit_id => unit_milk.id, :category_id => product_nature__milk_category.id)
+     
+      # create a generic product to link analysis_indicator
+      product   = Matter.find_by_name("lait_traite")
+      product ||= Matter.create!(:name => "lait_traite", :identification_number => "lait_2010-2013", :work_number => "lait_2011_2013", :born_at => Time.now, :nature_id => product_nature.id, :owner_id => Entity.of_company.id, :number => "L2011-2013") #
+      
+      # create all unit for indicator relative to milk_analysis_quality
+      unit_ml = Unit.find_by_name("ml")
+      unit_analysis_measure_germes = Unit.find_by_name("germes")
+      unit_analysis_measure_germes ||= Unit.create!(:name => "germes", :label => "Milliers de germes", :base => "''", :coefficient => "1000.0", :start => "0.0")
+
+      # create all indicator relative to milk_analysis_quality
+      product_indicator_germes = ProductIndicator.find_by_name("germes_totaux")
+      product_indicator_germes ||= ProductIndicator.create!(:name => "germes_totaux", :description => "Dénombrement des micro-organismes totaux obtenues à 30°C - (x1000 germes / ml)- NF EN ISO 4833",:nature => "measure", :usage => "production", :active => true, :created_at => Time.now, :unit_id => unit_ml.id, :maximal_value => "5000.0000")
+      
+      
+      file = Rails.root.join("test", "fixtures", "files", "HistoIP_V.csv")
+      CSV.foreach(file, :encoding => "UTF-8", :col_sep => "\t", :headers => true) do |row|
+        analysis_on = Date.civil(row[0], row[1], 1)
+        r = OpenStruct.new(:analysis_year => row[0],
+                           :analysis_month => row[1],
+                           :analysis_order => row[2],
+                           :analysis_quality_indicator_germes => row[3].to_d,
+                           :analysis_quality_indicator_inhib => row[4].to_s,
+                           :analysis_quality_indicator_mg => row[5].to_d,
+                           :analysis_quality_indicator_mp => row[6].to_d,
+                           :analysis_quality_indicator_cellules => row[7].to_d,
+                           :analysis_quality_indicator_buty => row[8].to_d,
+                           :analysis_quality_indicator_cryo => row[9].to_d,
+                           :analysis_quality_indicator_lipo => row[10].to_d,
+                           :analysis_quality_indicator_igg => row[11].to_d,
+                           :analysis_quality_indicator_uree => row[12].to_d,
+                           :analysis_quality_indicator_salmon => row[13],
+                           :analysis_quality_indicator_listeria => row[14],
+                           :analysis_quality_indicator_staph => row[15],
+                           :analysis_quality_indicator_coli => row[16],
+                           :analysis_quality_indicator_pseudo => row[17],
+                           :analysis_quality_indicator_ecoli => row[18]
+                           )
+        # create a product if not exist
+        product.indicator_data.create!(:measure_value => r.analysis_quality_indicator_germes ,:measure_unit_id => unit_analysis_measure_germes.id ,:measured_at => analysis_on, :product_id => product.id, :indicator_id => product_indicator_germes.id ,:boolean_value => false )
+        print "."
+      end
+      puts "!"
+
+      #############################################################################
       # import some base activities from CSV
       print "[#{(Time.now - start).round(2).to_s.rjust(8)}s] Activities: "
 

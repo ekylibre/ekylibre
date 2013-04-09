@@ -63,6 +63,7 @@ class Unit < Ekylibre::Record::Base
     :a =>  {:base => 'm2', :coefficient => 100},
     :ca => {:base => 'm2'},
     :m2 => {:base => 'm2'},
+    :ml => {:base => 'm3', :coefficient => 0.000001},
     :l =>  {:base => 'm3', :coefficient => 0.001},
     :hl => {:base => 'm3', :coefficient => 0.1},
     :m3 => {:base => 'm3'}
