@@ -159,16 +159,13 @@ class BackendController < BaseController
 
 
 
-
-
-
-
   # Generate render_print_* method which send data corresponding to a nature of
   # document template. It use special method +print_fastly!+.
   for nature, parameters in DocumentTemplate.document_natures
     method_name = "render_print_#{nature}"
     code  = "" # "hide_action :#{method_name}\n"
     code << "def #{method_name}("+parameters.collect{|p| p[0]}.join(', ')+", template=nil)\n"
+    code << "  ActiveSupport::Deprecation.warn('Dont use render_print_*. Use render(:pdf => @record) instead.')\n"
     code << "  template ||= params[:template]\n"
     code << "  template = if template.is_a? String or template.is_a? Symbol\n"
     code << "    DocumentTemplate.find_by_active_and_nature_and_code(true, '#{nature}', template.to_s)\n"

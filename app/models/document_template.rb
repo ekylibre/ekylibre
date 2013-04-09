@@ -44,7 +44,6 @@
 
 class DocumentTemplate < Ekylibre::Record::Base
   # Be careful! :id is a forbidden name for parameters
-  # natures = [:animal, :animals, :sales, :sale, :balance_sheet_fr, :entity, :deposit, :income_statement_fr, :inventory, :general_journal, :general_ledger, :purchase, :products, :order_preparation]
   @@document_natures = {
     :animal =>           [ [:animal, Animal]],
     :balance_sheet =>    [ [:financial_year, FinancialYear] ],
@@ -67,6 +66,8 @@ class DocumentTemplate < Ekylibre::Record::Base
   cattr_reader :document_natures
   # TODO Do we keep DocumentTemplate families ?
   enumerize :family, :in => [:company, :relations, :accountancy, :management, :production], :predicates => true
+  # natures = [:animal, :animals, :sales, :sale, :balance_sheet_fr, :entity, :deposit, :income_statement_fr, :inventory, :general_journal, :general_ledger, :purchase, :products, :order_preparation]
+  # enumerize :nature, :in => [:animal, :animals, :sales, :sale, :trial_balance, :entity, :deposit, :inventory, :general_ledger, :purchase, :products, :transport], :predicates => true
   enumerize :nature, :in => self.document_natures.keys, :predicates => {:prefix => true}
   has_many :documents, :foreign_key => :template_id
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
@@ -176,106 +177,130 @@ class DocumentTemplate < Ekylibre::Record::Base
     end
   end
 
-  # Print document without checks fast but dangerous if parameters are not checked before...
-  # Use carefully
-  def print_fastly!(*args)
-    # Refresh cache if needed
-    self.save! unless self.cache.starts_with?(Templating.preamble)
-
-    # Try to find an existing archive
-    owner = args[0].class.ancestors.include?(ActiveRecord::Base) ? args[0] : Company.first
-    if self.to_archive and owner.is_a?(ActiveRecord::Base)
-      document = Document.where(:nature_code => self.code, :owner_id => owner.id, :owner_type => owner.class.name).order("created_at DESC").first
-      return document.data, document.original_name if document
-    end
-
-    # Build the PDF data
-    if Rails.env.test?
-      File.open(Rails.root.join("tmp", "document-template-#{self.id}.rb"), "wb") do |f|
-        # self.cache.split("\n").each_with_index{|l,x| puts((x+1).to_s.rjust(4)+": "+l)}
-        f.write self.cache.gsub(';', "\n")
-      end
-    end
-    pdf = eval(self.cache)
-
-    # Archive the document if necessary
-    document = self.archive(owner, pdf, :extension => 'pdf') if self.to_archive
-
-    return pdf, self.compute_filename(owner) + ".pdf"
-  end
-
-
-
-
-  # Print document raising Exceptions if necessary
-  def print!(*args)
-    # Refresh cache if needed
-    self.save! unless self.cache.starts_with?(Templating.preamble)
-
-    # Analyze and cleans parameters
-    parameters = self.class.document_natures[self.nature.to_sym]
-    raise StandardError.new(tc(:unvalid_nature)) if parameters.nil?
-    if args[0].is_a? Hash
-      hash = args[0]
-      parameters.each_index do |i|
-        args[i] = hash[parameters[i][0]]||hash["p"+i.to_s]
-      end
-    end
-    raise ArgumentError.new("Bad number of arguments, #{args.size} for #{parameters.size}") if args.size != parameters.size
-
-    parameters.each_index do |i|
-      args[i] = parameters[i][1].find_by_id(args[i].to_s.to_i) if parameters[i][1].ancestors.include?(ActiveRecord::Base) and not args[i].is_a? parameters[i][1]
-      args[i] = args[i].to_date if args[i].class == String and parameters[i][1] == Date
-      raise ArgumentError.new("#{parameters[i][1].name} expected, got #{args[i].inspect}") unless args[i].class == parameters[i][1]
-    end
-
-    # Try to find an existing archive
-    if self.to_archive and args[0].class.ancestors.include?(ActiveRecord::Base)
-      document = Document.where(:nature_code => self.code, :owner_id => owner.id, :owner_type => owner.class.name).order("created_at DESC").first
-      return document.data, document.original_name if document
-    end
-
-    # Build the PDF data
-    begin
-      pdf = eval(self.cache)
-    rescue Exception => e
-      puts e.message+"\nCache:\n"+self.cache
-      raise e
-    end
-
-    # Archive the document if necessary
-    document = self.archive(owner, pdf, :extension => 'pdf') if self.to_archive
-
-    return pdf, self.compute_filename(owner)+".pdf"
-  end
-
-
-  # Print document or exception if necessary
+  # Print a document with the given datasource
+  # Store if needed by template
   def print(*args)
-    begin
-      return self.print!(*args)
-    rescue Exception => e
-      return self.class.error_document(e)
-    end
-  end
+    options = (args[-1].is_a?(Hash) ? args.delete_at(-1) : {})
+    object = args.shift
+    format = args.shift || :pdf
 
-  # Print! a document
-  def self.print(nature, options = {})
-    template ||= options[:template]
-    template = if template.is_a? String or template.is_a? Symbol
-                 self.find_by_active_and_nature_and_code(true, nature.to_s, template.to_s)
-               else
-                 self.find_by_active_and_nature_and_by_default(true, nature.to_s, true)
-               end
-    raise ArgumentError.new("Unfound template") unless template
-    parameters = []
-    for p in self.document_natures[nature.to_sym]
-      x = options[p[0]]
-      raise ArgumentError.new("options[:#{p[0]}] must be a #{p[1].name} (got #{x.class.name})") if x.class != p[1]
-      parameters << x
-    end
-    return template.print_fastly!(*parameters)
+    # Load the report
+    report = Beardley::Report.new(self.source_path!)
+
+    # Create datasource
+    datasource = object.to_xml(options)
+
+    # Call it with datasource
+    data = report.send("to_#{format}", datasource)
+    
+    # Archive if needed
+    self.archive(object, data, :format => format) if self.to_archive?
+
+    # Returns the data with the filename
+    return data, self.filename_for(owner, :format => format)
   end
+  
+
+  # # Print document without checks fast but dangerous if parameters are not checked before...
+  # # Use carefully
+  # def print_fastly!(*args)
+  #   # Refresh cache if needed
+  #   self.save! unless self.cache.starts_with?(Templating.preamble)
+
+  #   # Try to find an existing archive
+  #   owner = args[0].class.ancestors.include?(ActiveRecord::Base) ? args[0] : Company.first
+  #   if self.to_archive and owner.is_a?(ActiveRecord::Base)
+  #     document = Document.where(:nature_code => self.code, :owner_id => owner.id, :owner_type => owner.class.name).order("created_at DESC").first
+  #     return document.data, document.original_name if document
+  #   end
+
+  #   # Build the PDF data
+  #   if Rails.env.test?
+  #     File.open(Rails.root.join("tmp", "document-template-#{self.id}.rb"), "wb") do |f|
+  #       # self.cache.split("\n").each_with_index{|l,x| puts((x+1).to_s.rjust(4)+": "+l)}
+  #       f.write self.cache.gsub(';', "\n")
+  #     end
+  #   end
+  #   pdf = eval(self.cache)
+
+  #   # Archive the document if necessary
+  #   document = self.archive(owner, pdf, :extension => 'pdf') if self.to_archive
+
+  #   return pdf, self.compute_filename(owner) + ".pdf"
+  # end
+
+
+
+
+  # # Print document raising Exceptions if necessary
+  # def print!(*args)
+  #   # Refresh cache if needed
+  #   self.save! unless self.cache.starts_with?(Templating.preamble)
+
+  #   # Analyze and cleans parameters
+  #   parameters = self.class.document_natures[self.nature.to_sym]
+  #   raise StandardError.new(tc(:unvalid_nature)) if parameters.nil?
+  #   if args[0].is_a? Hash
+  #     hash = args[0]
+  #     parameters.each_index do |i|
+  #       args[i] = hash[parameters[i][0]]||hash["p"+i.to_s]
+  #     end
+  #   end
+  #   raise ArgumentError.new("Bad number of arguments, #{args.size} for #{parameters.size}") if args.size != parameters.size
+
+  #   parameters.each_index do |i|
+  #     args[i] = parameters[i][1].find_by_id(args[i].to_s.to_i) if parameters[i][1].ancestors.include?(ActiveRecord::Base) and not args[i].is_a? parameters[i][1]
+  #     args[i] = args[i].to_date if args[i].class == String and parameters[i][1] == Date
+  #     raise ArgumentError.new("#{parameters[i][1].name} expected, got #{args[i].inspect}") unless args[i].class == parameters[i][1]
+  #   end
+
+  #   # Try to find an existing archive
+  #   if self.to_archive and args[0].class.ancestors.include?(ActiveRecord::Base)
+  #     document = Document.where(:nature_code => self.code, :owner_id => owner.id, :owner_type => owner.class.name).order("created_at DESC").first
+  #     return document.data, document.original_name if document
+  #   end
+
+  #   # Build the PDF data
+  #   begin
+  #     pdf = eval(self.cache)
+  #   rescue Exception => e
+  #     puts e.message+"\nCache:\n"+self.cache
+  #     raise e
+  #   end
+
+  #   # Archive the document if necessary
+  #   document = self.archive(owner, pdf, :extension => 'pdf') if self.to_archive
+
+  #   return pdf, self.compute_filename(owner)+".pdf"
+  # end
+
+
+  # # Print document or exception if necessary
+  # def print(*args)
+  #   begin
+  #     return self.print!(*args)
+  #   rescue Exception => e
+  #     return self.class.error_document(e)
+  #   end
+  # end
+
+  # # Print! a document
+  # def self.print(nature, options = {})
+  #   template ||= options[:template]
+  #   template = if template.is_a? String or template.is_a? Symbol
+  #                self.find_by_active_and_nature_and_code(true, nature.to_s, template.to_s)
+  #              else
+  #                self.find_by_active_and_nature_and_by_default(true, nature.to_s, true)
+  #              end
+  #   raise ArgumentError.new("Unfound template") unless template
+  #   parameters = []
+  #   for p in self.document_natures[nature.to_sym]
+  #     x = options[p[0]]
+  #     raise ArgumentError.new("options[:#{p[0]}] must be a #{p[1].name} (got #{x.class.name})") if x.class != p[1]
+  #     parameters << x
+  #   end
+  #   return template.print_fastly!(*parameters)
+  # end
 
 
   def filename_errors
@@ -295,24 +320,17 @@ class DocumentTemplate < Ekylibre::Record::Base
     return errors
   end
 
-  def compute_filename(object)
-    if self.nature == "other" #||"card"
-      filename = self.filename
-    elsif self.filename_errors.empty?
-      filename = self.filename.gsub(/\[\w+\]/) do |word|
-        #raise Exception.new "2"+filename.inspect
-        object.attributes[word[1..-2]].to_s rescue ""
-      end
-    else
-      return tc(:invalid_filename)
-    end
+  # Generate a valid filename for a produced document
+  def filename_for(object, options = {})
+    filename = (object.respond_to?(:attributes) ? self.filename.gsub(/\[\w+\]/) { |word| object.attributes[word[1..-2]].to_s } : self.filename)
+    filename << "." + options[:format].to_s if options[:format]
     return filename
   end
 
   def archive(owner, data, attributes={})
     document = self.documents.build
     document.owner = owner
-    document.extension = attributes[:extension] || "bin"
+    document.extension = attributes[:format] || "pdf"
     method_name = [:document_name, :number, :code, :name, :id].detect{|x| owner.respond_to?(x)}
     document.printed_at = Time.now
     document.subdir = Date.today.strftime('%Y-%m')
@@ -330,19 +348,18 @@ class DocumentTemplate < Ekylibre::Record::Base
     return document
   end
 
-
-  def sample
-    self.save!
-    code = Templating.compile(self.source, :xil, :mode => :debug)
-    pdf = nil
-    # code.split("\n").each_with_index{|l,x| puts((x+1).to_s.rjust(4)+": "+l)}
-    begin
-      pdf = eval(code)
-    rescue Exception => e
-      pdf = self.class.error_document(e)
-    end
-    pdf
-  end
+  # def sample
+  #   self.save!
+  #   code = Templating.compile(self.source, :xil, :mode => :debug)
+  #   pdf = nil
+  #   # code.split("\n").each_with_index{|l,x| puts((x+1).to_s.rjust(4)+": "+l)}
+  #   begin
+  #     pdf = eval(code)
+  #   rescue Exception => e
+  #     pdf = self.class.error_document(e)
+  #   end
+  #   pdf
+  # end
 
   # Generate a copy of the template with a different code.
   def duplicate
@@ -357,27 +374,27 @@ class DocumentTemplate < Ekylibre::Record::Base
   end
 
 
-  # Produces a generic document with the trace of the thrown exception
-  def self.error_document(exception)
-    Templating::Writer.generate do |doc|
-      doc.page(:size => "A4", :margin => 15.mm) do |p|
-        if exception.is_a? Exception
-          p.slice do |s|
-            s.text("Exception: "+exception.inspect)
-          end
-          for item in exception.backtrace
-            p.slice do |s|
-              s.text(item)
-            end
-          end
-        else
-          p.slice do |s|
-            s.text("Error: "+exception.inspect, :width => 180.mm)
-          end
-        end
-      end
-    end
-  end
+  # # Produces a generic document with the trace of the thrown exception
+  # def self.error_document(exception)
+  #   Templating::Writer.generate do |doc|
+  #     doc.page(:size => "A4", :margin => 15.mm) do |p|
+  #       if exception.is_a? Exception
+  #         p.slice do |s|
+  #           s.text("Exception: "+exception.inspect)
+  #         end
+  #         for item in exception.backtrace
+  #           p.slice do |s|
+  #             s.text(item)
+  #           end
+  #         end
+  #       else
+  #         p.slice do |s|
+  #           s.text("Error: "+exception.inspect, :width => 180.mm)
+  #         end
+  #       end
+  #     end
+  #   end
+  # end
 
 
   # Loads in DB all default document templates
