@@ -57,6 +57,7 @@ class Unit < Ekylibre::Record::Base
     :u =>  {},
     :kg => {:base => 'kg'},
     :t =>  {:base => 'kg', :coefficient => 1000},
+    :g =>  {:base => 'kg', :coefficient => 0.001},
     :m =>  {:base => 'm'},
     :km => {:base => 'm',  :coefficient => 1000},
     :ha => {:base => 'm2', :coefficient => 10000},

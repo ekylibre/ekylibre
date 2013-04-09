@@ -1752,6 +1752,7 @@ fra:
       default:
         a: "Are"
         ca: "Centiare (m²)"
+        g: "Gramme"
         ha: "Hectare"
         hl: "Hectolitre"
         kg: "Kilogramme"

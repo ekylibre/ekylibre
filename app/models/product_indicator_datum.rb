@@ -40,7 +40,7 @@
 
 
 class ProductIndicatorDatum < Ekylibre::Record::Base
-  attr_accessible :created_at, :product_id, :indicator_id, :measured_at, :description, :decimal_value, :measure_value, :string_value, :boolean_value, :choice_value_id
+  attr_accessible :value, :created_at, :product_id, :indicator_id, :measured_at, :description, :decimal_value, :measure_unit_id, :measure_value, :string_value, :boolean_value, :choice_value_id
   belongs_to :product
   belongs_to :indicator, :class_name => "ProductIndicator", :inverse_of => :data
   belongs_to :measure_unit, :class_name => "Unit"
@@ -55,14 +55,14 @@ class ProductIndicatorDatum < Ekylibre::Record::Base
     if self.indicator
       errors.add(:value, :required, :field => self.indicator.name) if self.value.blank?
       unless self.value.blank?
-        if self.indicator.string?
+        if self.indicator.nature == "string"
           unless self.indicator.maximal_length.blank? or self.indicator.maximal_length <= 0
             errors.add(:value, :too_long, :field => self.indicator.name, :length => self.indicator.length_max) if self.string_value.length > self.indicator.maximal_length
           end
           unless self.indicator.minimal_length.blank? or self.indicator.minimal_length <= 0
             errors.add(:value, :too_short, :field => self.indicator.name, :length => self.indicator.length_max) if self.string_value.length < self.indicator.minimal_length
           end
-        elsif self.indicator.decimal?
+        elsif self.indicator.nature == "decimal"
           unless self.indicator.minimal_value.blank?
             errors.add(:value, :less_than, :field => self.indicator.name, :minimum => self.indicator.minimal_value) if self.decimal_value < self.indicator.minimal_value
           end
@@ -75,20 +75,16 @@ class ProductIndicatorDatum < Ekylibre::Record::Base
   end
 
   def value
-    self.send(self.indicator.nature + '_value')
+    self.send(self.indicator.nature.to_s + '_value')
   end
 
   def value=(object)
-    if self.indicator.choice?
+    if self.indicator.nature.to_s == "choice"
       begin
         self.choice_value_id = object.to_i
       rescue
         self.choice_value_id = nil
       end
-    elsif self.indicator.date? and object.is_a? Hash
-      self.date_value = Date.civil(object["(1i)"].to_i, object["(2i)"].to_i, object["(3i)"].to_i)
-    elsif self.indicator.datetime? and object.is_a? Hash
-       self.datetime_value = Time.utc(object["(1i)"].to_i, object["(2i)"].to_i, object["(3i)"].to_i, object["(4i)"].to_i, object["(5i)"].to_i, object["(6i)"].to_i )
     else
       self.send(self.indicator.nature.to_s + '_value=',object)
     end
