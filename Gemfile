@@ -71,6 +71,9 @@ gem 'jquery-rails'
 # Reading RSS feeds
 gem 'feedzirra', '~> 0.2.0.rc2'
 
+# Syntaxic/semantic parser
+gem 'treetop'
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
