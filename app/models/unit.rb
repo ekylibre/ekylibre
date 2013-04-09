@@ -39,6 +39,7 @@
 class Unit < Ekylibre::Record::Base
   attr_accessible :base, :coefficient, :label, :name, :start
   has_many :products, :class_name => "Product"
+  # enumerize :physical_quantity, :in => [:none, :length, :time, :volume, :mass, :temperature, :entropy, :pressure, :energy, :power, :luminous_intensity, :illuminance, :plane_angle, :solid_angle, :surface_area, :electric_current, :voltage, :resistance, :inductance, :capacitance], :default => :none, :predicates => true
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :coefficient, :start, :allow_nil => true
   validates_length_of :name, :allow_nil => true, :maximum => 8
@@ -48,6 +49,7 @@ class Unit < Ekylibre::Record::Base
   validates_format_of :name, :with => /^[a-zA-Z][a-zA-Z0-9]*([\.\/][a-zA-Z][a-zA-Z0-9]*)?$/
   validates_uniqueness_of :name
   scope :of_product, lambda { |product| where(:base => product.unit.base.to_s).order(:coefficient, :label) }
+  scope :of_base, lambda { |base| where(:base => base.to_s).order(:coefficient, :label) }
 
   SI_UNITS = ["m", "kg", "s", "A", "K", "mol", "cd"]
 
