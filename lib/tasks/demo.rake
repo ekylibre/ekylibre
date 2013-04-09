@@ -400,6 +400,7 @@ namespace :db do
       product ||= Matter.create!(:name => "lait_traite", :identification_number => "lait_2010-2013", :work_number => "lait_2011_2013", :born_at => Time.now, :nature_id => product_nature.id, :owner_id => Entity.of_company.id, :number => "L2011-2013") #
 
       # create all unit for indicator relative to milk_analysis_quality
+      unit_u = Unit.find_by_name("u")
       unit_ml = Unit.find_by_name("ml")
       unit_l = Unit.find_by_name("l")
       unit_g = Unit.find_by_name("g")
@@ -419,6 +420,17 @@ namespace :db do
       product_indicator_mp = ProductIndicator.find_by_name("matieres_proteique")
       product_indicator_mp ||= ProductIndicator.create!(:name => "matieres_proteique", :description => "Détermination de la teneur en protéine par la méthode au Noir Amido - (g / L)- NF AFNOR V 04-216",:nature => "measure", :usage => "production", :active => true, :created_at => Time.now, :unit_id => unit_l.id, :maximal_value => "60.0000")
 
+      product_indicator_cellules = ProductIndicator.find_by_name("cellules")
+      product_indicator_cellules ||= ProductIndicator.create!(:name => "cellules", :description => "Dénombrement des cellules somatiques - (x1000 cellules / ml)- ISO 13366-2",:nature => "measure", :usage => "production", :active => true, :created_at => Time.now, :unit_id => unit_ml.id, :maximal_value => "8000.0000")
+
+      product_indicator_buty = ProductIndicator.find_by_name("butyriques")
+      product_indicator_buty ||= ProductIndicator.create!(:name => "butyriques", :description => "Dénombrement microbiologique des spores de Clostridia  - (spores / L)- protocole CNIEL BUTY",:nature => "measure", :usage => "production", :active => true, :created_at => Time.now, :unit_id => unit_l.id, :maximal_value => "50000.0000")
+
+      product_indicator_cryo = ProductIndicator.find_by_name("cryoscopie")
+      product_indicator_cryo ||= ProductIndicator.create!(:name => "cryoscopie", :description => "Détermination du point de congélation par cryoscopie - (°C)- NF EN ISO 5764",:nature => "decimal", :usage => "production", :active => true, :created_at => Time.now, :unit_id => unit_u.id, :maximal_value => "0.580", :minimal_value => "0.500")
+
+
+
       file = Rails.root.join("test", "fixtures", "files", "HistoIP_V.csv")
       CSV.foreach(file, :encoding => "CP1252", :col_sep => "\t", :headers => true) do |row|
         analysis_on = Date.civil(row[0].to_i, row[1].to_i, 1)
@@ -429,9 +441,9 @@ namespace :db do
                            :analysis_quality_indicator_inhib => (row[4].blank? ? "NEG" : row[4].to_s),
                            :analysis_quality_indicator_mg => (row[5].blank? ? 0 : (row[5].to_d)/100),
                            :analysis_quality_indicator_mp => (row[6].blank? ? 0 : (row[6].to_d)/100),
-                           :analysis_quality_indicator_cellules => row[7],
-                           :analysis_quality_indicator_buty => row[8],
-                           :analysis_quality_indicator_cryo => row[9],
+                           :analysis_quality_indicator_cellules => (row[7].blank? ? 0 : row[7].to_i),
+                           :analysis_quality_indicator_buty => (row[8].blank? ? 0 : row[8].to_i),
+                           :analysis_quality_indicator_cryo => (row[9].blank? ? 0.00 : row[9].to_d),
                            :analysis_quality_indicator_lipo => row[10],
                            :analysis_quality_indicator_igg => row[11],
                            :analysis_quality_indicator_uree => row[12],
@@ -447,6 +459,9 @@ namespace :db do
         product.indicator_data.create!(:indicator_id => product_indicator_inhib.id, :value => r.analysis_quality_indicator_inhib ,:measured_at => analysis_on )
         product.indicator_data.create!(:indicator_id => product_indicator_mg.id, :value => r.analysis_quality_indicator_mg ,:measure_unit_id => unit_g.id, :measured_at => analysis_on )
         product.indicator_data.create!(:indicator_id => product_indicator_mp.id, :value => r.analysis_quality_indicator_mp ,:measure_unit_id => unit_g.id, :measured_at => analysis_on )
+        product.indicator_data.create!(:indicator_id => product_indicator_cellules.id, :value => r.analysis_quality_indicator_cellules ,:measure_unit_id => unit_analysis_measure_germes.id, :measured_at => analysis_on )
+        product.indicator_data.create!(:indicator_id => product_indicator_buty.id, :value => r.analysis_quality_indicator_buty ,:measure_unit_id => unit_u.id, :measured_at => analysis_on )
+        product.indicator_data.create!(:indicator_id => product_indicator_cryo.id, :value => r.analysis_quality_indicator_cryo , :measured_at => analysis_on )
 
         print "."
       end
