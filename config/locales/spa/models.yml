@@ -1703,6 +1703,7 @@ spa:
       default:
         # a: "Are"
         # ca: "Centiare (m²)"
+        # g: "Gramme"
         # ha: "Hectare"
         # hl: "Hectolitre"
         # kg: "Kilogramme"
@@ -1711,5 +1712,6 @@ spa:
         # m: "Mètre"
         # m2: "Mètre carré"
         # m3: "Mètre cube"
+        # ml: "Millilitre"
         # t: "Tonne"
         # u: "Unité"
