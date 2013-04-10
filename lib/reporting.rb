@@ -2,11 +2,11 @@
 # Adds new renderers for the internal template system
 module Ekylibre
   def self.reporting_formats
-    return [:pdf, :odt, :docx]
+    return [:pdf, :odt, :ods, :csv, :docx, :xlsx]
   end
 end
 
-# Adds renderers for PDF
+# Adds renderers for all formats
 for format in Ekylibre.reporting_formats
   ActionController::Renderers.add(format) do |object, options|
     # Find template
@@ -21,12 +21,14 @@ for format in Ekylibre.reporting_formats
     end
     self.headers['Cache-Control'] = 'maxage=0'
     self.headers['Pragma'] = 'no-cache'
-    
+
+    options[:filename] ||= "#{controller.human_action_name}.#{format}"
+
     # Get document data
-    data, filename = template.print(object, format, options)
+    data = template.print(object, format, options)
 
     # Send data
-    send_data(data, :filename => filename, :type => format, :disposition => "inline")
+    send_data(data, :filename => options[:filename], :type => format, :disposition => "inline")
   end
 end
 

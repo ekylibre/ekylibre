@@ -157,7 +157,7 @@ module Ekylibre
     },
     :document => {
       :creator_id => :user,
-      :owner_id => "owner_type",
+      :origin_id => "origin_type",
       :template_id => :document_template,
       :updater_id => :user
     },

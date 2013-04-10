@@ -20,39 +20,38 @@
 #
 # == Table: documents
 #
-#  created_at    :datetime         not null
-#  creator_id    :integer
-#  crypt_key     :binary
-#  crypt_mode    :string(255)      not null
-#  extension     :string(255)
-#  filename      :string(255)
-#  filesize      :integer
-#  id            :integer          not null, primary key
-#  lock_version  :integer          default(0), not null
-#  nature_code   :string(255)
-#  original_name :string(255)      not null
-#  owner_id      :integer
-#  owner_type    :string(255)
-#  printed_at    :datetime
-#  sha256        :string(255)      not null
-#  subdir        :string(255)
-#  template_id   :integer
-#  updated_at    :datetime         not null
-#  updater_id    :integer
+#  archived_at       :datetime
+#  created_at        :datetime         not null
+#  creator_id        :integer
+#  file_content_type :string(255)
+#  file_file_name    :string(255)
+#  file_file_size    :integer
+#  file_fingerprint  :string(255)
+#  file_updated_at   :datetime
+#  id                :integer          not null, primary key
+#  lock_version      :integer          default(0), not null
+#  name              :string(255)      not null
+#  nature            :string(63)       not null
+#  origin_id         :integer
+#  origin_type       :string(255)
+#  template_id       :integer
+#  updated_at        :datetime         not null
+#  updater_id        :integer
 #
 
 class Document < Ekylibre::Record::Base
-  belongs_to :owner, :polymorphic => true
+  belongs_to :origin, :polymorphic => true
   belongs_to :template, :class_name => "DocumentTemplate"
 
   attr_accessor :archive
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :filesize, :allow_nil => true, :only_integer => true
-  validates_length_of :crypt_mode, :extension, :filename, :nature_code, :original_name, :owner_type, :sha256, :subdir, :allow_nil => true, :maximum => 255
-  validates_presence_of :crypt_mode, :original_name, :sha256
+  validates_numericality_of :file_file_size, :allow_nil => true, :only_integer => true
+  validates_length_of :nature, :allow_nil => true, :maximum => 63
+  validates_length_of :file_content_type, :file_file_name, :file_fingerprint, :name, :origin_type, :allow_nil => true, :maximum => 255
+  validates_presence_of :name, :nature
   #]VALIDATORS]
-  validates_presence_of :template, :subdir, :extension, :owner
+  validates_presence_of :template, :subdir, :extension, :origin
 
   before_validation do
     self.nature_code = self.template.code if self.template

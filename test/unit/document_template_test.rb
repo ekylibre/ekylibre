@@ -21,21 +21,17 @@
 # == Table: document_templates
 #
 #  active       :boolean          not null
+#  archiving    :string(63)       not null
 #  by_default   :boolean          default(TRUE), not null
-#  cache        :text
-#  code         :string(32)
 #  country      :string(2)
 #  created_at   :datetime         not null
 #  creator_id   :integer
-#  family       :string(32)
-#  filename     :string(255)
 #  id           :integer          not null, primary key
 #  language     :string(3)        default("???"), not null
 #  lock_version :integer          default(0), not null
 #  name         :string(255)      not null
-#  nature       :string(64)
+#  nature       :string(63)       not null
 #  source       :text
-#  to_archive   :boolean
 #  updated_at   :datetime         not null
 #  updater_id   :integer
 #

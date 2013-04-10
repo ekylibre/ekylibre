@@ -22,21 +22,17 @@
 # == Table: document_templates
 #
 #  active       :boolean          not null
+#  archiving    :string(63)       not null
 #  by_default   :boolean          default(TRUE), not null
-#  cache        :text
-#  code         :string(32)
 #  country      :string(2)
 #  created_at   :datetime         not null
 #  creator_id   :integer
-#  family       :string(32)
-#  filename     :string(255)
 #  id           :integer          not null, primary key
 #  language     :string(3)        default("???"), not null
 #  lock_version :integer          default(0), not null
 #  name         :string(255)      not null
-#  nature       :string(64)
+#  nature       :string(63)       not null
 #  source       :text
-#  to_archive   :boolean
 #  updated_at   :datetime         not null
 #  updater_id   :integer
 #
@@ -73,11 +69,10 @@ class DocumentTemplate < Ekylibre::Record::Base
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :country, :allow_nil => true, :maximum => 2
   validates_length_of :language, :allow_nil => true, :maximum => 3
-  validates_length_of :code, :family, :allow_nil => true, :maximum => 32
-  validates_length_of :nature, :allow_nil => true, :maximum => 64
-  validates_length_of :filename, :name, :allow_nil => true, :maximum => 255
+  validates_length_of :archiving, :nature, :allow_nil => true, :maximum => 63
+  validates_length_of :name, :allow_nil => true, :maximum => 255
   validates_inclusion_of :active, :by_default, :in => [true, false]
-  validates_presence_of :language, :name
+  validates_presence_of :archiving, :language, :name, :nature
   #]VALIDATORS]
   validates_presence_of :filename, :nature, :family, :code
   validates_uniqueness_of :code
@@ -192,14 +187,14 @@ class DocumentTemplate < Ekylibre::Record::Base
 
     # Call it with datasource
     data = report.send("to_#{format}", datasource)
-    
+
     # Archive if needed
     self.archive(object, data, :format => format) if self.to_archive?
 
     # Returns the data with the filename
-    return data, self.filename_for(owner, :format => format)
+    return data
   end
-  
+
 
   # # Print document without checks fast but dangerous if parameters are not checked before...
   # # Use carefully
@@ -302,31 +297,7 @@ class DocumentTemplate < Ekylibre::Record::Base
   #   return template.print_fastly!(*parameters)
   # end
 
-
-  def filename_errors
-    errors = []
-    begin
-      klass = self.class.document_natures[self.nature.to_sym][0][1]
-      columns = klass.content_columns.collect{|x| x.name.to_s}.sort
-      self.filename.gsub(/\[\w+\]/) do |word|
-        unless columns.include?(word[1..-2])
-          errors << tc(:error_attribute, :value => word, :possibilities => columns.collect { |column| column+" ("+klass.human_attribute_name(column)+")" }.join(", "))
-        end
-        "*"
-      end
-    rescue
-      #   errors << tc(:nature_do_not_allow_to_use_attributes)
-    end
-    return errors
-  end
-
-  # Generate a valid filename for a produced document
-  def filename_for(object, options = {})
-    filename = (object.respond_to?(:attributes) ? self.filename.gsub(/\[\w+\]/) { |word| object.attributes[word[1..-2]].to_s } : self.filename)
-    filename << "." + options[:format].to_s if options[:format]
-    return filename
-  end
-
+  # Archive the document
   def archive(owner, data, attributes={})
     document = self.documents.build
     document.owner = owner

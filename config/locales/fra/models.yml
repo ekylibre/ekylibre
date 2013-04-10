@@ -420,8 +420,9 @@ fra:
     animal_drugs: "Médicaments" #?
     animals: "Animals" #?
     annotation: "Annotation"
+    # archived_at: "Archived at"
+    # archiving: "Archiving"
     area: "Zone postale"
-    # area_activities: "Area activities"
     area_measure: "Superficie"
     area_unit: "Unité de surface"
     areas: "Zones postales"
@@ -474,7 +475,7 @@ fra:
     building: "Bâtiment"
     buildings: "Bâtiments" #?
     by_default: "Par défaut"
-    cache: "Cache"
+    cache: "Cache" #?
     # campaign: "Campaign"
     canal: "Canal"
     # carried: "Carried"
@@ -562,8 +563,8 @@ fra:
     credits: "Avoirs"
     critic_quantity_min: "Quantité minimum critique" #?
     critic_stocks: "Stocks critiques" #?
-    crypt_key: "Clé de cryptage"
-    crypt_mode: "Mode de cryptage"
+    crypt_key: "Clé de cryptage" #?
+    crypt_mode: "Mode de cryptage" #?
     currency: "Devise"
     currency_precision: "Nombre de décimales"
     currency_rate: "Taux de change"
@@ -687,14 +688,19 @@ fra:
     exportable: "Exportable"
     exportable_columns: "Colonnes exportables"
     expression: "Expression" #?
-    extension: "Extension"
+    extension: "Extension" #?
     external: "Externe à l'exploitation"
     # failed_attempts: "Failed attempts"
     family: "Module"
     father: "Père"
     faxes: "Fax"
-    filename: "Nom de fichier"
-    filesize: "Taille du fichier"
+    # file_content_type: "File content type"
+    # file_file_name: "File file name"
+    # file_file_size: "File file size"
+    # file_fingerprint: "File fingerprint"
+    # file_updated_at: "File updated at"
+    filename: "Nom de fichier" #?
+    filesize: "Taille du fichier" #?
     filtered_columns: "Colonnes filtrées"
     financial_year: "Exercice"
     financial_year_as_last: "Exercice (en tant que écriture de fin d’exercice)"
@@ -857,7 +863,7 @@ fra:
     name_2_to_1: "Nom «\_Personne 2 vers Personne 1\_»"
     name_aee: "Nom normalisé EDI*" #?
     nature: "Type"
-    nature_code: "Code"
+    nature_code: "Code" #?
     net_weight: "Masse nette" #?
     nic: "NIC (Numéro Interne de Classement)" #?
     node: "Nœud"
@@ -891,7 +897,7 @@ fra:
     original_currency: "Monnaie d’origine"
     original_currency_rate: "Taux de convertion à partir de la monnaie d’origine"
     original_debit: "Débit"
-    original_name: "Nom original"
+    original_name: "Nom original" #?
     outgoing_deliveries: "Livraisons sortantes"
     outgoing_delivery_items: "Lignes de livraisons sortantes"
     outgoing_delivery_modes: "Modes de livraisons sortantes" #?
@@ -956,7 +962,7 @@ fra:
     price_amount: "Montant HT"
     # price_templates: "Price templates"
     prices: "Prix"
-    printed_at: "Imprimé le"
+    printed_at: "Imprimé le" #?
     printed_on: "Datée du"
     process: "Process"
     # processes: "Processes"
@@ -1078,7 +1084,7 @@ fra:
     serial_number: "Serial number"
     service_coeff: "Coefficient (de quantité) de service" #?
     sex: "Sexe"
-    sha256: "SHA256"
+    sha256: "SHA256" #?
     shape: "Contour"
     shipped: "Reçu" #?
     shipped_on: "Envoyé le" #?
@@ -1111,7 +1117,7 @@ fra:
     story: "Historique"
     # string: "String"
     string_value: "Valeur textuelle"
-    subdir: "Sous-répertoire"
+    subdir: "Sous-répertoire" #?
     subdivision: "Position Y" #?
     subject: "Objet"
     # subject_type: "Subject type"
@@ -1143,7 +1149,7 @@ fra:
     theoric_quantity: "Quantité théorique"
     title: "Titre"
     to: "Pour"
-    to_archive: "Archiver les documents"
+    to_archive: "Archiver les documents" #?
     to_bank_on: "À décaisser le"
     to_deposit: "À remettre" #?
     tool: "Outil"
@@ -1173,7 +1179,6 @@ fra:
     undelivered_quantity: "Reste à livrer"
     unique_tracking: "Numéro unique"
     unit: "Unité"
-    # unit_activities: "Unit activities"
     unit_quantity: "Quantité par unité de surface" #?
     units: "Unités"
     # unlock_token: "Unlock token"

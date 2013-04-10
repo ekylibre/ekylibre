@@ -31,6 +31,7 @@ gem 'devise-i18n-views'
 
 # Attachments
 gem 'paperclip'
+gem 'docsplit-paperclip-processor'
 
 # Forms
 gem 'simple_form'
@@ -70,9 +71,6 @@ gem 'jquery-rails'
 
 # Reading RSS feeds
 gem 'feedzirra', '~> 0.2.0.rc2'
-
-# Syntaxic/semantic parser
-gem 'treetop'
 
 # Gems used only for assets and not required
 # in production environments by default.

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document-classification xmlns="http://www.ekylibre.org/XML/2013/document-classification">
+  <document-categories>
+
+    <document-category name="vegetal-crops">
+      <document-category name="straw-cereal-crops"/>
+      <document-category name="maize-crops"/>
+      <document-category name="oilseed-crops"/>
+      <document-category name="protein-crops"/>
+      <document-category name="potato-crops"/>
+      <document-category name="beet-crops"/>
+      <document-category name="aromatic-and-medicinal-plants"/>
+      <document-category name="vine-wine"/>
+      <document-category name="prairie"/>
+    </document-category>
+
+    <document-category name="animal-farming">
+      <document-category name="cattle-farming"/>
+      <document-category name="sheep-farming"/>
+      <document-category name="goat-farming"/>
+      <document-category name="pig-farming"/>
+      <document-category name="poultry-farming">
+	<document-category name="palmiped-farming"/>
+      </document-category>
+      <document-category name="rabbit-farming"/>
+      <document-category name="fish-farming"/>
+      <document-category name="beekeeping"/>
+    </document-category>
+
+    
+    <document-category name="trade">
+      <document-category name="sales"/>
+      <document-category name="purchases"/>
+      <document-category name="relationship"/>
+    </document-category>
+
+    <document-category name="finances">
+    </document-category>
+
+    <document-category name="accountancy">
+    </document-category>
+
+    <document-category name="stocks">
+    </document-category>
+      
+    <document-category name="conduct"/>
+    <document-category name="implantation"/>
+    <document-category name="fertilization"/>
+    <document-category name="phytosanitary-protection"/>
+    <document-category name="irrigation"/>
+    <document-category name="harvest"/>
+    <document-category name="winemaking"/>
+    <document-category name="tracking"/>
+    <document-category name="nutrition"/>
+    <document-category name="health"/>
+    <document-category name="hygiene"/>
+    <document-category name="identification"/>
+    <document-category name="reproduction"/>
+    <document-category name="product-processing"/>
+
+  </document-categories>
+
+  <document-types>
+
+    <document-type name="sales-order" categories="sales" input="sale"/>
+    <document-type name="sales-estimate" categories="sales" input="sale"/>
+    <document-type name="sales-invoice" categories="sales" input="sale"/>
+
+    <document-type name="purchase-order" categories="purchases" input="purchase"/>
+    <document-type name="purchase-estimate" categories="purchases" input="purchase"/>
+    <document-type name="purchase-invoice" categories="purchases" input="purchase"/>
+
+    <document-type name="deposit" categories="finances" input="deposit"/>
+
+    <document-type name="balance-sheet" categories="accountancy" input="trial-balance"/>
+    <document-type name="income-statement" categories="accountancy" input="trial-balance"/>
+    <document-type name="journal" categories="accountancy" input="full-journal"/>
+    <document-type name="general-journal" categories="accountancy" input="general-journal"/>
+    <document-type name="general-ledger" categories="accountancy" input="general-ledger"/>
+
+    <document-type name="inventory" categories="stocks" input="products"/>
+    <document-type name="stocks" categories="stocks" input="products"/>
+    <document-type name="incoming-delivery-docket" categories="stocks identification" input="incoming-delivery"/>
+    <document-type name="outgoing-delivery-docket" categories="stocks identification" input="outgoing-delivery"/>
+
+    <document-type name="animal-sheet" categories="animal-farming" input="animal"/>
+
+    <document-type name="entity-sheet" categories="relationship" input="entity"/>
+
+  </document-types>
+
+</document-classification>

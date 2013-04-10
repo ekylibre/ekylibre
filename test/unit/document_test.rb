@@ -20,25 +20,23 @@
 #
 # == Table: documents
 #
-#  created_at    :datetime         not null
-#  creator_id    :integer
-#  crypt_key     :binary
-#  crypt_mode    :string(255)      not null
-#  extension     :string(255)
-#  filename      :string(255)
-#  filesize      :integer
-#  id            :integer          not null, primary key
-#  lock_version  :integer          default(0), not null
-#  nature_code   :string(255)
-#  original_name :string(255)      not null
-#  owner_id      :integer
-#  owner_type    :string(255)
-#  printed_at    :datetime
-#  sha256        :string(255)      not null
-#  subdir        :string(255)
-#  template_id   :integer
-#  updated_at    :datetime         not null
-#  updater_id    :integer
+#  archived_at       :datetime
+#  created_at        :datetime         not null
+#  creator_id        :integer
+#  file_content_type :string(255)
+#  file_file_name    :string(255)
+#  file_file_size    :integer
+#  file_fingerprint  :string(255)
+#  file_updated_at   :datetime
+#  id                :integer          not null, primary key
+#  lock_version      :integer          default(0), not null
+#  name              :string(255)      not null
+#  nature            :string(63)       not null
+#  origin_id         :integer
+#  origin_type       :string(255)
+#  template_id       :integer
+#  updated_at        :datetime         not null
+#  updater_id        :integer
 #
 require 'test_helper'
 

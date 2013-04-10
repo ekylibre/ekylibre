@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130327141101) do
+ActiveRecord::Schema.define(:version => 20130410143823) do
 
   create_table "account_balances", :force => true do |t|
     t.integer  "account_id",                                                        :null => false
@@ -475,20 +475,16 @@ ActiveRecord::Schema.define(:version => 20130327141101) do
     t.string   "name",                                          :null => false
     t.boolean  "active",                     :default => false, :null => false
     t.text     "source"
-    t.text     "cache"
     t.string   "country",      :limit => 2
     t.datetime "created_at",                                    :null => false
     t.datetime "updated_at",                                    :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.integer  "lock_version",               :default => 0,     :null => false
-    t.string   "code",         :limit => 32
-    t.string   "family",       :limit => 32
-    t.boolean  "to_archive"
     t.boolean  "by_default",                 :default => true,  :null => false
-    t.string   "nature",       :limit => 64
-    t.string   "filename"
+    t.string   "nature",       :limit => 63,                    :null => false
     t.string   "language",     :limit => 3,  :default => "???", :null => false
+    t.string   "archiving",    :limit => 63,                    :null => false
   end
 
   add_index "document_templates", ["created_at"], :name => "index_document_templates_on_created_at"
@@ -497,31 +493,28 @@ ActiveRecord::Schema.define(:version => 20130327141101) do
   add_index "document_templates", ["updater_id"], :name => "index_document_templates_on_updater_id"
 
   create_table "documents", :force => true do |t|
-    t.string   "filename"
-    t.string   "original_name",                :null => false
-    t.integer  "filesize"
-    t.binary   "crypt_key"
-    t.string   "crypt_mode",                   :null => false
-    t.string   "sha256",                       :null => false
-    t.datetime "printed_at"
-    t.datetime "created_at",                   :null => false
-    t.datetime "updated_at",                   :null => false
+    t.string   "file_file_name"
+    t.integer  "file_file_size"
+    t.datetime "archived_at"
+    t.datetime "created_at",                                     :null => false
+    t.datetime "updated_at",                                     :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",  :default => 0, :null => false
-    t.string   "subdir"
-    t.string   "extension"
-    t.integer  "owner_id"
-    t.string   "owner_type"
+    t.integer  "lock_version",                    :default => 0, :null => false
+    t.integer  "origin_id"
+    t.string   "origin_type"
     t.integer  "template_id"
-    t.string   "nature_code"
+    t.string   "nature",            :limit => 63,                :null => false
+    t.string   "name",                                           :null => false
+    t.string   "file_content_type"
+    t.datetime "file_updated_at"
+    t.string   "file_fingerprint"
   end
 
   add_index "documents", ["created_at"], :name => "index_documents_on_created_at"
   add_index "documents", ["creator_id"], :name => "index_documents_on_creator_id"
-  add_index "documents", ["owner_id"], :name => "index_documents_on_owner_id"
-  add_index "documents", ["owner_type"], :name => "index_documents_on_owner_type"
-  add_index "documents", ["sha256"], :name => "index_documents_on_sha256"
+  add_index "documents", ["origin_id"], :name => "index_documents_on_owner_id"
+  add_index "documents", ["origin_type"], :name => "index_documents_on_owner_type"
   add_index "documents", ["template_id"], :name => "index_documents_on_template_id"
   add_index "documents", ["updated_at"], :name => "index_documents_on_updated_at"
   add_index "documents", ["updater_id"], :name => "index_documents_on_updater_id"
