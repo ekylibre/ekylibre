@@ -21,15 +21,12 @@ for format in Ekylibre.reporting_formats
     end
     self.headers['Cache-Control'] = 'maxage=0'
     self.headers['Pragma'] = 'no-cache'
-
-    # Call it with datasource
-    report = Beardley::Report.new(template.source_path!)
-
-    # Create datasource
-    datasource = object.to_xml(options)
+    
+    # Get document data
+    data, filename = template.print(object, format, options)
 
     # Send data
-    send_data(report.send("to_#{format}", datasource), :type => format, :disposition => "inline")
+    send_data(data, :filename => filename, :type => format, :disposition => "inline")
   end
 end
 
