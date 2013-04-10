@@ -85,6 +85,7 @@ class ProductNature < Ekylibre::Record::Base
   has_many :subscriptions, :foreign_key => :product_nature_id
   #has_many :trackings, :foreign_key => :product_id
   has_many :products, :foreign_key => :nature_id
+  has_many :product_indicators, :foreign_key => :product_nature_id
   # has_many :warehouses, :through => :stocks
   #has_one :default_stock, :class_name => "ProductStock", :order => :name, :foreign_key => :product_id
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.

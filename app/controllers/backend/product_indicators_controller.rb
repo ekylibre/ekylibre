@@ -25,6 +25,7 @@ class Backend::ProductIndicatorsController < BackendController
   list(:order => "name") do |t|
     t.column :usage
     t.column :name, :url => true
+    t.column :name, :through => :product_nature, :url => true
     t.column :nature
     t.column :active
     t.column :choices_count, :datatype => :integer

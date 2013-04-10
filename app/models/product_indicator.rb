@@ -41,11 +41,12 @@
 
 
 class ProductIndicator < Ekylibre::Record::Base
-  attr_accessible :created_at, :description, :name, :nature, :active, :choices_attributes, :process_id , :unit_id , :usage, :maximal_length, :minimal_length, :maximal_value, :minimal_value
+  attr_accessible :product_nature_id, :created_at, :description, :name, :nature, :active, :choices_attributes, :process_id , :unit_id , :usage, :maximal_length, :minimal_length, :maximal_value, :minimal_value
   attr_readonly :nature
   enumerize :nature, :in => [:string, :decimal, :boolean, :measure, :choice], :predicates => true
   enumerize :usage, :in => [:life, :production, :environment]
   belongs_to :process, :class_name => "ProductProcess"
+  belongs_to :product_nature, :class_name => "ProductNature"
   belongs_to :unit, :class_name => "Unit"
   has_many :data, :class_name => "ProductIndicatorDatum", :foreign_key => :indicator_id, :dependent => :delete_all, :inverse_of => :indicator
   has_many :choices, :class_name => "ProductIndicatorChoice", :foreign_key => :indicator_id, :order => :position, :dependent => :delete_all, :inverse_of => :indicator
