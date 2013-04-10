@@ -1075,6 +1075,9 @@
       <page to="backend/product_indicator_data#show"/>
       <page to="backend/product_indicator_data#update"/>
     </menu>
+    <menu name="backend/product_indicators">
+      <page to="backend/product_indicators#list_indicator_values"/>
+    </menu>
     <menu name="backend/product_links">
       <page to="backend/product_links#index"/>
       <page to="backend/product_links#create"/>

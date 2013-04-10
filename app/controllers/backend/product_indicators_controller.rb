@@ -25,6 +25,7 @@ class Backend::ProductIndicatorsController < BackendController
   list(:order => "name") do |t|
     t.column :usage
     t.column :name, :url => true
+    t.column :name, :through => :product_nature, :url => true
     t.column :nature
     t.column :active
     t.column :choices_count, :datatype => :integer
@@ -43,6 +44,14 @@ class Backend::ProductIndicatorsController < BackendController
     t.column :value
     t.action :up, :method => :post
     t.action :down, :method => :post
+    t.action :edit
+    t.action :destroy, :if => :destroyable?
+  end
+
+  list(:indicator_values, :model => :product_indicator_data, :conditions => {:indicator_id => ['session[:current_product_indicator_id]']}, :order => 'created_at') do |t|
+    t.column :name, :through => :product, :url => true
+    t.column :measured_at
+    t.column :value
     t.action :edit
     t.action :destroy, :if => :destroyable?
   end

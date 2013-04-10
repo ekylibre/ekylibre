@@ -65,7 +65,11 @@ class AddActivities < ActiveRecord::Migration
     add_index :activity_repartitions, :journal_entry_item_id
     add_index :activity_repartitions, :product_nature_id
     add_index :activity_repartitions, :campaign_id
-
+    
+    # add a link between product_indicators and product_nature
+    add_column :product_indicators, :product_nature_id, :integer
+    add_index :product_indicators, :product_nature_id
+    
   end
 
 end

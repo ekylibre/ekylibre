@@ -609,8 +609,8 @@ ActiveRecord::Schema.define(:version => 20130410143823) do
     t.string   "coordinate",       :limit => 511,                                           :null => false
     t.string   "name"
     t.string   "mail_line_1"
-    t.spatial  "mail_geolocation", :limit => {:srid=>0, :type=>"point"}
     t.boolean  "mail_auto_update",                                       :default => false, :null => false
+    t.spatial  "mail_geolocation", :limit => {:srid=>0, :type=>"point"}
   end
 
   add_index "entity_addresses", ["by_default"], :name => "index_entity_addresses_on_by_default"
@@ -1576,26 +1576,28 @@ ActiveRecord::Schema.define(:version => 20130410143823) do
 
   create_table "product_indicators", :force => true do |t|
     t.integer  "process_id"
-    t.string   "name",                                                             :null => false
-    t.string   "nature",                                                           :null => false
+    t.string   "name",                                                                :null => false
+    t.string   "nature",                                                              :null => false
     t.string   "usage"
     t.integer  "unit_id"
     t.integer  "minimal_length"
     t.integer  "maximal_length"
-    t.decimal  "minimal_value",  :precision => 19, :scale => 4
-    t.decimal  "maximal_value",  :precision => 19, :scale => 4
-    t.boolean  "active",                                        :default => false, :null => false
+    t.decimal  "minimal_value",     :precision => 19, :scale => 4
+    t.decimal  "maximal_value",     :precision => 19, :scale => 4
+    t.boolean  "active",                                           :default => false, :null => false
     t.text     "description"
-    t.datetime "created_at",                                                       :null => false
-    t.datetime "updated_at",                                                       :null => false
+    t.datetime "created_at",                                                          :null => false
+    t.datetime "updated_at",                                                          :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                  :default => 0,     :null => false
+    t.integer  "lock_version",                                     :default => 0,     :null => false
+    t.integer  "product_nature_id"
   end
 
   add_index "product_indicators", ["created_at"], :name => "index_product_indicators_on_created_at"
   add_index "product_indicators", ["creator_id"], :name => "index_product_indicators_on_creator_id"
   add_index "product_indicators", ["process_id"], :name => "index_product_indicators_on_process_id"
+  add_index "product_indicators", ["product_nature_id"], :name => "index_product_indicators_on_product_nature_id"
   add_index "product_indicators", ["unit_id"], :name => "index_product_indicators_on_unit_id"
   add_index "product_indicators", ["updated_at"], :name => "index_product_indicators_on_updated_at"
   add_index "product_indicators", ["updater_id"], :name => "index_product_indicators_on_updater_id"

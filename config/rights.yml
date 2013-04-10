@@ -185,6 +185,7 @@
 # - "backend/product_indicators#index"
 # - "backend/product_indicators#list"
 # - "backend/product_indicators#list_choices"
+# - "backend/product_indicators#list_indicator_values"
 # - "backend/product_indicators#new"
 # - "backend/product_indicators#show"
 # - "backend/product_indicators#sort"

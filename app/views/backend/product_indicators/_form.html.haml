@@ -1,9 +1,10 @@
 =field_set do
-  =f.referenced_association :process
+  =f.referenced_association :product_nature
   =f.input :usage
   =f.input :name
   =f.input :nature, :show => {:measure => :measure_options, :decimal => :decimal_options, :string => :string_options, :choice => :choice_options}
   =f.input :active
+  =f.input :description
 
 =field_set(:measure_options) do
   =f.referenced_association :unit
