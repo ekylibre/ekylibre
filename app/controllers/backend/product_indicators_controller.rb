@@ -47,6 +47,14 @@ class Backend::ProductIndicatorsController < BackendController
     t.action :destroy, :if => :destroyable?
   end
 
+  list(:indicator_values, :model => :product_indicator_data, :conditions => {:indicator_id => ['session[:current_product_indicator_id]']}, :order => 'created_at') do |t|
+    t.column :name, :through => :product, :url => true
+    t.column :measured_at
+    t.column :value
+    t.action :edit
+    t.action :destroy, :if => :destroyable?
+  end
+
   # Displays details of one custom field selected with +params[:id]+
   def show
     return unless @product_indicator = find_and_check(:product_indicator)

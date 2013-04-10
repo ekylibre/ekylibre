@@ -24,7 +24,7 @@ class Backend::LandParcelsController < BackendController
 
   list(:conditions => ["? BETWEEN #{LandParcel.table_name}.born_at AND COALESCE(#{LandParcel.table_name}.dead_at, ?)", ['session[:viewed_on]'], ['session[:viewed_on]']], :order => "name") do |t|
     t.column :name, :url => true
-    t.column :number
+    t.column :identification_number
     t.column :area_measure, :datatype => :decimal
     t.column :name, :through => :area_unit
     t.column :description

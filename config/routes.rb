@@ -577,6 +577,7 @@ Ekylibre::Application.routes.draw do
       collection do
         get :list
         get :list_choices
+        get :list_indicator_values
         unroll_all
       end
       member do
