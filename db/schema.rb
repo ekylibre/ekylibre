@@ -609,8 +609,8 @@ ActiveRecord::Schema.define(:version => 20130410143823) do
     t.string   "coordinate",       :limit => 511,                                           :null => false
     t.string   "name"
     t.string   "mail_line_1"
-    t.boolean  "mail_auto_update",                                       :default => false, :null => false
     t.spatial  "mail_geolocation", :limit => {:srid=>0, :type=>"point"}
+    t.boolean  "mail_auto_update",                                       :default => false, :null => false
   end
 
   add_index "entity_addresses", ["by_default"], :name => "index_entity_addresses_on_by_default"

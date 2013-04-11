@@ -42,20 +42,13 @@
 class Document < Ekylibre::Record::Base
   belongs_to :origin, :polymorphic => true
   belongs_to :template, :class_name => "DocumentTemplate"
-
-  attr_accessor :archive
-
+  has_attached_file :file
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :file_file_size, :allow_nil => true, :only_integer => true
   validates_length_of :nature, :allow_nil => true, :maximum => 63
   validates_length_of :file_content_type, :file_file_name, :file_fingerprint, :name, :origin_type, :allow_nil => true, :maximum => 255
   validates_presence_of :name, :nature
   #]VALIDATORS]
-  validates_presence_of :template, :subdir, :extension, :origin
-
-  before_validation do
-    self.nature_code = self.template.code if self.template
-  end
 
   def data
     path = self.file_path

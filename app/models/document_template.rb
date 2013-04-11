@@ -39,32 +39,9 @@
 
 
 class DocumentTemplate < Ekylibre::Record::Base
-  # Be careful! :id is a forbidden name for parameters
-  @@document_natures = {
-    :animal =>           [ [:animal, Animal]],
-    :balance_sheet =>    [ [:financial_year, FinancialYear] ],
-    :entity =>           [ [:entity, Entity] ],
-    :deposit =>          [ [:deposit, Deposit] ],
-    :income_statement => [ [:financial_year, FinancialYear] ],
-    :inventory =>        [ [:inventory, Inventory] ],
-    :sales_invoice =>    [ [:sales_invoice, Sale] ],
-    :journal =>          [ [:journal, Journal], [:started_on, Date], [:stopped_on, Date] ],
-    :general_journal =>  [ [:started_on, Date], [:stopped_on, Date] ],
-    :general_ledger =>   [ [:started_on, Date], [:stopped_on, Date] ],
-    :purchase =>         [ [:purchase, Purchase] ],
-    :sales =>            [ [:established_on, Date] ],
-    :sales_order =>      [ [:sales_order, Sale] ],
-    :stocks =>           [ [:established_on, Date] ],
-    :transport =>        [ [:transport, Transport] ]
-  }
-  attr_accessible :active, :by_default, :code, :country, :family, :filename, :language, :name, :nature, :source, :to_archive
-  after_save :set_by_default
-  cattr_reader :document_natures
-  # TODO Do we keep DocumentTemplate families ?
-  enumerize :family, :in => [:company, :relations, :accountancy, :management, :production], :predicates => true
-  # natures = [:animal, :animals, :sales, :sale, :balance_sheet_fr, :entity, :deposit, :income_statement_fr, :inventory, :general_journal, :general_ledger, :purchase, :products, :order_preparation]
-  # enumerize :nature, :in => [:animal, :animals, :sales, :sale, :trial_balance, :entity, :deposit, :inventory, :general_ledger, :purchase, :products, :transport], :predicates => true
-  enumerize :nature, :in => self.document_natures.keys, :predicates => {:prefix => true}
+  attr_accessible :active, :by_default, :code, :country, :family, :filename, :language, :name, :nature, :source, :archiving
+  enumerize :archiving, :in => [:none, :first, :last, :all], :default => :none, :predicates => {:prefix => true}
+  enumerize :nature, :in => Nomenclature::DocumentClassification.document_natures.map(&:name), :predicates => {:prefix => true}
   has_many :documents, :foreign_key => :template_id
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :country, :allow_nil => true, :maximum => 2
@@ -74,20 +51,9 @@ class DocumentTemplate < Ekylibre::Record::Base
   validates_inclusion_of :active, :by_default, :in => [true, false]
   validates_presence_of :archiving, :language, :name, :nature
   #]VALIDATORS]
-  validates_presence_of :filename, :nature, :family, :code
-  validates_uniqueness_of :code
-  validates_inclusion_of :family, :in => self.family.values
   validates_inclusion_of :nature, :in => self.nature.values
 
-  include ActionView::Helpers::NumberHelper
-
-  # @@families = [:company, :relations, :accountancy, :management, :production] # :resources,
-
-
-  # [:balance, :sales_invoice, :sale, :purchase, :inventory, :transport, :deposit, :entity, :journal, :ledger, :other]
-
-  # include ActionView::Helpers::NumberHelper
-
+  after_save :set_by_default
 
   default_scope order(:name)
   scope :of_nature, lambda { |nature|
