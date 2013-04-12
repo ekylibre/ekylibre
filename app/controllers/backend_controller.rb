@@ -159,42 +159,42 @@ class BackendController < BaseController
 
 
 
-  # Generate render_print_* method which send data corresponding to a nature of
-  # document template. It use special method +print_fastly!+.
-  for nature, parameters in DocumentTemplate.document_natures
-    method_name = "render_print_#{nature}"
-    code  = "" # "hide_action :#{method_name}\n"
-    code << "def #{method_name}("+parameters.collect{|p| p[0]}.join(', ')+", template=nil)\n"
-    code << "  ActiveSupport::Deprecation.warn('Dont use render_print_*. Use render(:pdf => @record) instead.')\n"
-    code << "  template ||= params[:template]\n"
-    code << "  template = if template.is_a? String or template.is_a? Symbol\n"
-    code << "    DocumentTemplate.find_by_active_and_nature_and_code(true, '#{nature}', template.to_s)\n"
-    code << "  else\n"
-    code << "    DocumentTemplate.find_by_active_and_nature_and_by_default(true, '#{nature}', true)\n"
-    code << "  end\n"
-    code << "  unless template\n"
-    code << "    notify_error(:cannot_find_document_template, :nature => '#{nature}', :template => template.inspect)\n"
-    code << "    redirect_to_back\n"
-    code << "    return\n"
-    code << "  end\n"
-    code << "  headers['Cache-Control'] = 'maxage=3600'\n"
-    code << "  headers['Pragma'] = 'public'\n"
-    code << "  begin\n"
-    for p in parameters
-      code << "    #{p[0]} = #{p[1].name}.find_by_id(#{p[0]}.to_s.to_i) unless #{p[0]}.is_a? #{p[1].name}\n" if p[1].ancestors.include?(ActiveRecord::Base)
-      code << "    #{p[0]} = #{p[0]}.to_date if #{p[0]}.is_a?(String)\n" if p[1] == Date
-      code << "    raise ArgumentError.new('#{p[1].name} expected, got '+#{p[0]}.class.name+':'+#{p[0]}.inspect) unless #{p[0]}.is_a?(#{p[1].name})\n"
-    end
-    code << "    data, filename = template.print_fastly!("+parameters.collect{|p| p[0]}.join(', ')+")\n"
-    code << "    send_data(data, :filename => filename, :type => Mime::PDF, :disposition => 'inline')\n"
-    code << "  rescue Exception => e\n"
-    code << "    notify_error(:print_failure, :class => e.class.to_s, :error => e.message.to_s, :cache => template.cache.to_s)\n"
-    code << "    redirect_to_back\n"
-    code << "  end\n"
-    code << "end\n"
-    # raise code
-    eval(code)
-  end
+  # # Generate render_print_* method which send data corresponding to a nature of
+  # # document template. It use special method +print_fastly!+.
+  # for nature, parameters in DocumentTemplate.document_natures
+  #   method_name = "render_print_#{nature}"
+  #   code  = "" # "hide_action :#{method_name}\n"
+  #   code << "def #{method_name}("+parameters.collect{|p| p[0]}.join(', ')+", template=nil)\n"
+  #   code << "  ActiveSupport::Deprecation.warn('Dont use render_print_*. Use render(:pdf => @record) instead.')\n"
+  #   code << "  template ||= params[:template]\n"
+  #   code << "  template = if template.is_a? String or template.is_a? Symbol\n"
+  #   code << "    DocumentTemplate.find_by_active_and_nature_and_code(true, '#{nature}', template.to_s)\n"
+  #   code << "  else\n"
+  #   code << "    DocumentTemplate.find_by_active_and_nature_and_by_default(true, '#{nature}', true)\n"
+  #   code << "  end\n"
+  #   code << "  unless template\n"
+  #   code << "    notify_error(:cannot_find_document_template, :nature => '#{nature}', :template => template.inspect)\n"
+  #   code << "    redirect_to_back\n"
+  #   code << "    return\n"
+  #   code << "  end\n"
+  #   code << "  headers['Cache-Control'] = 'maxage=3600'\n"
+  #   code << "  headers['Pragma'] = 'public'\n"
+  #   code << "  begin\n"
+  #   for p in parameters
+  #     code << "    #{p[0]} = #{p[1].name}.find_by_id(#{p[0]}.to_s.to_i) unless #{p[0]}.is_a? #{p[1].name}\n" if p[1].ancestors.include?(ActiveRecord::Base)
+  #     code << "    #{p[0]} = #{p[0]}.to_date if #{p[0]}.is_a?(String)\n" if p[1] == Date
+  #     code << "    raise ArgumentError.new('#{p[1].name} expected, got '+#{p[0]}.class.name+':'+#{p[0]}.inspect) unless #{p[0]}.is_a?(#{p[1].name})\n"
+  #   end
+  #   code << "    data, filename = template.print_fastly!("+parameters.collect{|p| p[0]}.join(', ')+")\n"
+  #   code << "    send_data(data, :filename => filename, :type => Mime::PDF, :disposition => 'inline')\n"
+  #   code << "  rescue Exception => e\n"
+  #   code << "    notify_error(:print_failure, :class => e.class.to_s, :error => e.message.to_s, :cache => template.cache.to_s)\n"
+  #   code << "    redirect_to_back\n"
+  #   code << "  end\n"
+  #   code << "end\n"
+  #   # raise code
+  #   eval(code)
+  # end
 
 
   protected

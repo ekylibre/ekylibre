@@ -60,33 +60,33 @@
 
   </document-categories>
 
-  <document-types>
+  <document-natures>
 
-    <document-type name="sales-order" categories="sales" input="sale"/>
-    <document-type name="sales-estimate" categories="sales" input="sale"/>
-    <document-type name="sales-invoice" categories="sales" input="sale"/>
+    <document-nature name="sales-order" categories="sales" datasource="sale"/>
+    <document-nature name="sales-estimate" categories="sales" datasource="sale"/>
+    <document-nature name="sales-invoice" categories="sales" datasource="sale"/>
 
-    <document-type name="purchase-order" categories="purchases" input="purchase"/>
-    <document-type name="purchase-estimate" categories="purchases" input="purchase"/>
-    <document-type name="purchase-invoice" categories="purchases" input="purchase"/>
+    <document-nature name="purchase-order" categories="purchases" datasource="purchase"/>
+    <document-nature name="purchase-estimate" categories="purchases" datasource="purchase"/>
+    <document-nature name="purchase-invoice" categories="purchases" datasource="purchase"/>
 
-    <document-type name="deposit" categories="finances" input="deposit"/>
+    <document-nature name="deposit" categories="finances" datasource="deposit"/>
 
-    <document-type name="balance-sheet" categories="accountancy" input="trial-balance"/>
-    <document-type name="income-statement" categories="accountancy" input="trial-balance"/>
-    <document-type name="journal" categories="accountancy" input="full-journal"/>
-    <document-type name="general-journal" categories="accountancy" input="general-journal"/>
-    <document-type name="general-ledger" categories="accountancy" input="general-ledger"/>
+    <document-nature name="balance-sheet" categories="accountancy" datasource="trial-balance"/>
+    <document-nature name="income-statement" categories="accountancy" datasource="trial-balance"/>
+    <document-nature name="journal" categories="accountancy" datasource="full-journal"/>
+    <document-nature name="general-journal" categories="accountancy" datasource="general-journal"/>
+    <document-nature name="general-ledger" categories="accountancy" datasource="general-ledger"/>
 
-    <document-type name="inventory" categories="stocks" input="products"/>
-    <document-type name="stocks" categories="stocks" input="products"/>
-    <document-type name="incoming-delivery-docket" categories="stocks identification" input="incoming-delivery"/>
-    <document-type name="outgoing-delivery-docket" categories="stocks identification" input="outgoing-delivery"/>
+    <document-nature name="inventory" categories="stocks" datasource="products"/>
+    <document-nature name="stocks" categories="stocks" datasource="products"/>
+    <document-nature name="incoming-delivery-docket" categories="stocks identification" datasource="incoming-delivery"/>
+    <document-nature name="outgoing-delivery-docket" categories="stocks identification" datasource="outgoing-delivery"/>
 
-    <document-type name="animal-sheet" categories="animal-farming" input="animal"/>
+    <document-nature name="animal-sheet" categories="animal-farming" datasource="animal"/>
 
-    <document-type name="entity-sheet" categories="relationship" input="entity"/>
+    <document-nature name="entity-sheet" categories="relationship" datasource="entity"/>
 
-  </document-types>
+  </document-natures>
 
 </document-classification>

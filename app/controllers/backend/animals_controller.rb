@@ -83,6 +83,7 @@ class Backend::AnimalsController < BackendController
   # Show one animal with params_id
   def show
     return unless @animal = find_and_check
+    t3e @animal, :nature_name => @animal.nature_name
     respond_with(@animal, :include => [:father, :mother, :nature, :variety, :indicator_data, {:memberships => {:include => :group}, :product_localizations => {:include => :container}}])
     # respond_to do |format|
     #   format.html do
