@@ -74,6 +74,8 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
+    capybara-screenshot (0.3.4)
+      capybara (>= 1.0, < 3)
     choice (0.1.6)
     chunky_png (1.2.8)
     climate_control (0.0.3)
@@ -374,6 +376,7 @@ DEPENDENCIES
   better_errors
   binding_of_caller
   capybara
+  capybara-screenshot
   cocoon
   codemirror-rails
   coffee-rails (~> 3.2.1)

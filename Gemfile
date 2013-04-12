@@ -110,6 +110,7 @@ end
 
 group :test do
   gem 'capybara'
+  gem 'capybara-screenshot'
   gem 'rspec-rails'
   gem 'jasper-rails-rspec'
   gem 'awesome_print'
