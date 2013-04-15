@@ -238,7 +238,7 @@ class BackendController < BaseController
         response.headers["X-Return-Code"] = "success"
         response.headers["X-Saved-Record-Id"] = record.id.to_s
         if params[:dialog]
-          render :json => {:id => record.id}
+          head :success
         else
           # TODO: notify if success
           if url == :back
@@ -527,6 +527,10 @@ class BackendController < BaseController
 
     code = ''
 
+    code << "respond_to :html, :xml, :json\n"
+    # code << "respond_to :pdf, :odt, :ods, :csv, :docx, :xlsx, :only => [:show, :index]\n"
+
+
     code << "def new\n"
     values = model.accessible_attributes.to_a.inject({}) do |hash, attr|
       hash[attr] = "params[:#{attr}]" unless attr.blank? or attr.to_s.match(/_attributes$/)
@@ -569,9 +573,10 @@ class BackendController < BaseController
     # this action deletes or hides an existing record.
     code << "def destroy\n"
     code << "  return unless @#{record_name} = find_and_check(:#{name})\n"
-    if model.instance_methods.include?("destroyable?")
+    if model.instance_methods.include?(:destroyable?)
       code << "  if @#{record_name}.destroyable?\n"
-      code << "    #{model.name}.destroy(@#{record_name}.id)\n"
+      # code << "    #{model.name}.destroy(@#{record_name}.id)\n"
+      code << "    @#{record_name}.destroy\n"
       code << "    notify_success(:record_has_been_correctly_removed)\n"
       code << "  else\n"
       code << "    notify_error(:record_cannot_be_removed)\n"

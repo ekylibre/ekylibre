@@ -686,6 +686,7 @@ a.selector-dropdown {
 span.selector, .input-append {
   // @include inline-block;
   @include toolbar;
+  position: relative;
 }
 
 

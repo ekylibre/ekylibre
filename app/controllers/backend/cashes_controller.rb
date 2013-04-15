@@ -19,6 +19,9 @@
 
 class Backend::CashesController < BackendController
 
+  manage_restfully :mode => 'Cash.mode.default_value', :currency => 'Entity.of_company.currency', :nature => 'Cash.nature.default_value'
+
+
   unroll_all
 
   list(:order => :name) do |t|
@@ -58,37 +61,6 @@ class Backend::CashesController < BackendController
     return unless @cash = find_and_check(:cash)
     session[:current_cash_id] = @cash.id
     t3e @cash.attributes.merge(:nature => @cash.nature.text)
-  end
-
-  def new
-    @cash = Cash.new(:mode => Cash.mode.default_value, :currency => Entity.of_company.currency, :nature => Cash.nature.default_value)
-    # render_restfully_form
-  end
-
-  def create
-    @cash = Cash.new(params[:cash])
-    return if save_and_redirect(@cash)
-    # render_restfully_form
-  end
-
-  def edit
-    return unless @cash = find_and_check(:cash)
-    t3e @cash.attributes
-    # render_restfully_form
-  end
-
-  def update
-    return unless @cash = find_and_check(:cash)
-    @cash.attributes = params[:cash]
-    return if save_and_redirect(@cash)
-    t3e @cash.attributes
-    # render_restfully_form
-  end
-
-  def destroy
-    return unless @cash = find_and_check(:cash)
-    @cash.destroy if @cash.destroyable?
-    redirect_to :action => :index
   end
 
 end

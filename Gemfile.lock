@@ -119,14 +119,14 @@ GEM
       railties (~> 3.1)
       warden (~> 1.2.1)
     devise-i18n-views (0.2.5)
-    diff-lcs (1.2.2)
+    diff-lcs (1.2.3)
     docsplit (0.7.2)
     docsplit-paperclip-processor (0.2.2)
       docsplit
       paperclip
       paperclip (~> 3.1)
       ruby-filemagic
-    domain_name (0.5.10)
+    domain_name (0.5.11)
       unf (>= 0.0.5, < 1.0.0)
     enumerize (0.5.1)
       activesupport (>= 3.2)

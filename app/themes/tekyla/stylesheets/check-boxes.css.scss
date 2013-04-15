@@ -1,0 +1,68 @@
+/**
+ * iOS 6 style switch checkboxes
+ * by Lea Verou http://lea.verou.me
+ */
+	
+:root { // :root here acting as a filter for older browsers
+  input[type="checkbox"].switch { 
+    position: absolute;
+    opacity: 0;
+    & + div {
+      display: inline-block;
+      vertical-align: middle;
+      width: 3em;
+      height: 1em;
+      border: 1px solid rgba(0,0,0,.3);
+      border-radius: 999px;
+      margin: 0 .5em;
+      background: white;
+      background-image: linear-gradient(rgba(black, 0.1), transparent), linear-gradient(90deg, hsl(210, 90%, 60%) 50%, transparent 50%);
+      background-size: 200% 100%;
+      background-position: 100% 0;
+      background-origin: border-box;
+      background-clip: border-box;
+      overflow: hidden;
+      transition-duration: .4s;
+      transition-property: padding, width, background-position, text-indent;
+      box-shadow: 0 .1em .1em rgba(black, .2) inset, 0 .45em 0 .1em rgba(black, .05) inset;
+      font-size: 150%; /* change this and see how they adjust! */
+    }
+    &:checked + div {
+      padding-left: 2em;
+      width: 1em;
+      background-position: 0 0;
+    }
+    & + div:before {
+      content: 'On';
+      float: left;
+      width: 1.65em;
+      height: 1.65em;
+      margin: -.1em;
+      border: 1px solid rgba(0,0,0,.35);
+      border-radius: inherit;
+      background: white;
+      @include background(linear-gradient(rgba(black, .2), transparent));
+      @include box-shadow(0 .1em .1em .1em hsla(0,0%,100%,.8) inset, 0 0 .5em rgba(black, .3));
+      color: white;
+      @include text-shadow(0 -1px 1px rgba(0,0,0,.3));
+      text-indent: -2.5em;
+    }
+    &:active + div:before {
+      background-color: #eee;
+    }
+    &:focus + div {
+      @include box-shadow(0 .1em .1em rgba(0,0,0,.2) inset, 0 .45em 0 .1em rgba(0,0,0,.05) inset, 0 0 .4em 1px rgba(255,0,0,.5));
+    }
+    & + div:before, & + div:after {
+      font: bold 60%/1.9 $base-font-family;
+      text-transform: uppercase;
+    }
+    & + div:after {
+      content: 'Off';
+      float: left;
+      text-indent: .5em;
+      color: rgba(0,0,0,.45);
+      @include text-shadow(none);
+    }
+  }
+}
