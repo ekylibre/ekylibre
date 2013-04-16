@@ -45,3 +45,6 @@ app/themes/tekyla/images/icons-s*.png
 
 # Coveralls
 coverage
+
+# Capybara screenshot test files
+capybara*.html
