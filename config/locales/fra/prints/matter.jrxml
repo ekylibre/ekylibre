@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="matter" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9c1f11b7-03dd-4803-9e1b-41b87b9d23c0">
+	<property name="ireport.zoom" value="1.3310000000000093"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="DejaVu Sans" fontSize="50" isBold="true" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<style name="Row" mode="Transparent"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TH" mode="Opaque" forecolor="#FFFFFF" backcolor="#EFF3FB">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_CH" mode="Opaque" backcolor="#EFF3FB">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean($V{REPORT_COUNT}.intValue()%2==0)]]></conditionExpression>
+			<style backcolor="#FFF8EF"/>
+		</conditionalStyle>
+	</style>
+	<style name="Crosstab Data Text" hAlign="Center"/>
+	<subDataset name="indicators" uuid="e1b74445-e266-4905-b7ca-c69a482d0793">
+		<queryString language="xPath">
+			<![CDATA[/matter/indicator-data/indicator-datum[descendant::name='germes_totaux' or descendant::name='butyriques' or descendant::name='cellules']]]>
+		</queryString>
+		<field name="measured-at" class="java.util.Date">
+			<fieldDescription><![CDATA[measured-at]]></fieldDescription>
+		</field>
+		<field name="name" class="java.lang.String">
+			<fieldDescription><![CDATA[indicator/name]]></fieldDescription>
+		</field>
+		<field name="nature" class="java.lang.String">
+			<fieldDescription><![CDATA[indicator/nature]]></fieldDescription>
+		</field>
+		<field name="usage" class="java.lang.String">
+			<fieldDescription><![CDATA[indicator/usage]]></fieldDescription>
+		</field>
+		<field name="measure-value" class="java.lang.Double">
+			<fieldDescription><![CDATA[measure-value]]></fieldDescription>
+		</field>
+		<sortField name="measured-at"/>
+	</subDataset>
+	<parameter name="XML_DATA_DOCUMENT" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="XML_URL" class="java.lang.String" isForPrompting="false"/>
+	<queryString language="xPath">
+		<![CDATA[/matter]]>
+	</queryString>
+	<field name="born-at" class="java.util.Date">
+		<fieldDescription><![CDATA[born-at]]></fieldDescription>
+	</field>
+	<field name="creator-id" class="java.lang.String">
+		<fieldDescription><![CDATA[/animal/creator-id]]></fieldDescription>
+	</field>
+	<field name="description" class="java.lang.String">
+		<fieldDescription><![CDATA[/animal/description]]></fieldDescription>
+	</field>
+	<field name="father-id" class="java.lang.String">
+		<fieldDescription><![CDATA[/animal/father-id]]></fieldDescription>
+	</field>
+	<field name="group-id" class="java.lang.String">
+		<fieldDescription><![CDATA[/animal/group-id]]></fieldDescription>
+	</field>
+	<field name="id" class="java.lang.String">
+		<fieldDescription><![CDATA[/animal/id]]></fieldDescription>
+	</field>
+	<field name="identification-number" class="java.lang.String">
+		<fieldDescription><![CDATA[/animal/identification-number]]></fieldDescription>
+	</field>
+	<field name="lock-version" class="java.lang.String">
+		<fieldDescription><![CDATA[/animal/lock-version]]></fieldDescription>
+	</field>
+	<field name="arrived-on" class="java.util.Date">
+		<fieldDescription><![CDATA[arrived-on]]></fieldDescription>
+	</field>
+	<field name="name" class="java.lang.String">
+		<fieldDescription><![CDATA[name]]></fieldDescription>
+	</field>
+	<field name="picture-file-name" class="java.lang.String">
+		<fieldDescription><![CDATA[/animal/picture-file-name]]></fieldDescription>
+	</field>
+	<field name="race-id" class="java.lang.String">
+		<fieldDescription><![CDATA[/animal/race-id]]></fieldDescription>
+	</field>
+	<field name="sex" class="java.lang.String">
+		<fieldDescription><![CDATA[/animal/sex]]></fieldDescription>
+	</field>
+	<field name="updated-at" class="java.lang.String">
+		<fieldDescription><![CDATA[/animal/updated-at]]></fieldDescription>
+	</field>
+	<field name="updater-id" class="java.lang.String">
+		<fieldDescription><![CDATA[/animal/updater-id]]></fieldDescription>
+	</field>
+	<field name="father-name" class="java.lang.String">
+		<fieldDescription><![CDATA[father/name]]></fieldDescription>
+	</field>
+	<field name="mother-name" class="java.lang.String">
+		<fieldDescription><![CDATA[mother/name]]></fieldDescription>
+	</field>
+	<field name="race-name" class="java.lang.String">
+		<fieldDescription><![CDATA[variety/name]]></fieldDescription>
+	</field>
+	<field name="departed-on" class="java.lang.String">
+		<fieldDescription><![CDATA[departed-on]]></fieldDescription>
+	</field>
+	<field name="departure-reasons" class="java.lang.String">
+		<fieldDescription><![CDATA[departure-reasons]]></fieldDescription>
+	</field>
+	<field name="work-number" class="java.lang.String">
+		<fieldDescription><![CDATA[work-number]]></fieldDescription>
+	</field>
+	<field name="arrival-reasons" class="java.lang.String">
+		<fieldDescription><![CDATA[arrival-reasons]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="588" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="762330c6-a035-463c-be4a-d3d1f4e26fd6" style="Title" mode="Opaque" x="-21" y="25" width="596" height="41" backcolor="#688ED8"/>
+				<textElement verticalAlignment="Middle">
+					<font pdfFontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="662de52c-0c71-4d48-aa52-88a284773ba8" x="0" y="25" width="415" height="41" forecolor="#FFFFFF"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="24" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+			</textField>
+			<rectangle radius="2">
+				<reportElement uuid="7295b3a4-1715-4584-b262-75754d9b3f4d" mode="Transparent" x="0" y="155" width="555" height="88" forecolor="#688ED8"/>
+				<graphicElement>
+					<pen lineWidth="2.0"/>
+				</graphicElement>
+			</rectangle>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="82d6a344-4d57-4408-8b15-28595d78b787" x="52" y="74" width="88" height="22"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{race-name}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement uuid="2f979903-ad88-477d-8c05-2180b503c2e7" x="141" y="66" width="1" height="89" forecolor="#688ED8"/>
+				<graphicElement>
+					<pen lineWidth="2.0"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement uuid="db378f31-6277-4062-adb5-ef4c3c689bcc" x="303" y="25" width="112" height="20" forecolor="#FFFFFF"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{work-number}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement uuid="affdffdc-32dd-48d1-a280-349fec173194" x="282" y="74" width="62" height="22"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{born-at}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement uuid="2f979903-ad88-477d-8c05-2180b503c2e7" x="415" y="66" width="1" height="89" forecolor="#688ED8"/>
+				<graphicElement>
+					<pen lineWidth="2.0"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement uuid="52d5043d-384e-4840-a3c3-eb48a3871d11" style="Column header" x="0" y="74" width="53" height="22"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<text><![CDATA[variété]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="52d5043d-384e-4840-a3c3-eb48a3871d11" style="Column header" x="160" y="74" width="122" height="22"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<text><![CDATA[date de production]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="21707c3a-b932-43d3-8098-660716e50ed4" x="10" y="165" width="534" height="64"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{description}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="c36f9b3c-99e9-40fc-86bb-13e31c08da7b" x="443" y="26" width="112" height="20" forecolor="#FFFFFF"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{identification-number}]]></textFieldExpression>
+			</textField>
+			<lineChart>
+				<chart renderType="svg">
+					<reportElement uuid="67b7a7f3-97cf-4498-9515-cdc202e8419c" x="0" y="254" width="555" height="334"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<categoryDataset>
+					<dataset>
+						<datasetRun subDataset="indicators" uuid="b9a4bd78-85c7-4523-87b2-1f1782860d0b">
+							<parametersMapExpression><![CDATA[$P{REPORT_PARAMETERS_MAP}]]></parametersMapExpression>
+							<datasetParameter name="XML_DATE_PATTERN">
+								<datasetParameterExpression><![CDATA[$P{XML_DATE_PATTERN}]]></datasetParameterExpression>
+							</datasetParameter>
+							<datasetParameter name="XML_NUMBER_PATTERN">
+								<datasetParameterExpression><![CDATA[$P{XML_NUMBER_PATTERN}]]></datasetParameterExpression>
+							</datasetParameter>
+							<datasetParameter name="XML_LOCALE">
+								<datasetParameterExpression><![CDATA[$P{XML_LOCALE}]]></datasetParameterExpression>
+							</datasetParameter>
+							<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+						</datasetRun>
+					</dataset>
+					<categorySeries>
+						<seriesExpression><![CDATA[$F{name}]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{measured-at}]]></categoryExpression>
+						<valueExpression><![CDATA[$F{measure-value}]]></valueExpression>
+					</categorySeries>
+				</categoryDataset>
+				<linePlot>
+					<plot/>
+				</linePlot>
+			</lineChart>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="16" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="6" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="25" splitType="Stretch">
+			<frame>
+				<reportElement uuid="0475879f-e40d-46ef-bcee-450e0a1fc247" mode="Opaque" x="-21" y="1" width="596" height="24" forecolor="#7F4D15" backcolor="#688ED8"/>
+				<textField pattern="dd/MM/yyyy HH.mm.ss">
+					<reportElement uuid="2e0909fa-9d0c-4cd4-9e2f-2a8b1460d557" x="21" y="2" width="112" height="20" forecolor="#FFFFFF"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="802" splitType="Stretch"/>
+	</summary>
+</jasperReport>

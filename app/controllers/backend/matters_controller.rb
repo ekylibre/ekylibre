@@ -20,7 +20,7 @@
 class Backend::MattersController < BackendController
   manage_restfully :t3e => {:nature_name => "@matter.nature_name"}
 
-  respond_to :pdf, :xml, :json, :html
+  respond_to :pdf, :odt, :docx, :xml, :json, :html, :csv
 
   unroll_all
 
@@ -63,20 +63,12 @@ class Backend::MattersController < BackendController
   # Show one matter with params_id
   def show
     return unless @matter = find_and_check
-    respond_to do |format|
-      format.html do
         session[:current_matter_id] = @matter.id
         t3e @matter, :nature_name => @matter.nature_name
-      end
-      format.xml {render xml: @matter, :include => [:nature, :variety, :indicator_data,
-                                                    {:memberships => {:group => nil}},
-                                                    {:product_localizations => {:container => nil}}
-                                                   ]}
-      format.pdf {respond_with @matter, :include => [:nature, :variety, :indicator_data,
-                                                     {:memberships => {:group => nil}},
-                                                     {:product_localizations => {:container => nil}}
-                                                    ]}
-    end
+        respond_with(@matter, :include => [:father, :mother, :nature, :variety,
+                                                   {:indicator_data => {:include => :indicator}},
+                                                   {:memberships => {:include =>:group}},
+                                                    {:product_localizations => {:include =>:container}}])
   end
 
   def picture
