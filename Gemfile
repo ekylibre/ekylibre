@@ -31,7 +31,7 @@ gem 'devise-i18n-views'
 
 # Attachments
 gem 'paperclip'
-gem 'docsplit-paperclip-processor'
+gem 'paperclip-document'
 
 # Forms
 gem 'simple_form'
