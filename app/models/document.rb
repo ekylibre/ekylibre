@@ -42,6 +42,7 @@
 class Document < Ekylibre::Record::Base
   belongs_to :origin, :polymorphic => true
   belongs_to :template, :class_name => "DocumentTemplate"
+  enumerize :nature, :in => Nomenclature::DocumentClassification.document_natures.map(&:name), :predicates => {:prefix => true}
   has_attached_file :file
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :file_file_size, :allow_nil => true, :only_integer => true
