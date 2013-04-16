@@ -20,7 +20,7 @@
 class Backend::ProductsController < BackendController
   manage_restfully
 
-  respond_to :pdf, :xml, :json, :html
+  respond_to :pdf, :odt, :docx, :xml, :json, :html, :csv
 
   unroll_all
 
@@ -45,6 +45,8 @@ class Backend::ProductsController < BackendController
     return unless @product = find_and_check
     session[:current_product_id] = @product.id
     t3e @product
+    respond_with(@product, :include => [:father, :mother, :nature, :variety, {:memberships => {:include => :group},:indicator_data => {:include => :indicator}, :product_localizations => {:include => :container}}])
+
   end
 
 end
