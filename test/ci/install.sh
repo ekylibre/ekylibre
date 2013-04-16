@@ -11,3 +11,5 @@ if [[ "$DB" == "postgis" ]]; then
 	sudo apt-get install -qq libgeos++-dev
     fi
 fi
+
+sudo apt-get install libmagic-dev
