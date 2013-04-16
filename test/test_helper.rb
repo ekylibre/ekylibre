@@ -19,6 +19,7 @@ end
 
 class CapybaraIntegrationTest < ActionController::IntegrationTest
   include Capybara::DSL
+  include Capybara::Screenshot
   include Warden::Test::Helpers
   Warden.test_mode!
 end

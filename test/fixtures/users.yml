@@ -102,6 +102,8 @@ users_001:
   creator_id: 1
   updated_at: 2006-07-19 19:13:59 +02:00
   updater_id: 1
+  encrypted_password: $2a$10$RjR/w.qqEZZUwmAI0WkYUO/tFfu/HAPPpyJHwDx370tvaE3NHF0Ea
+  confirmed_at: <%= Time.now %>
 
 users_002:
   administrator: false
@@ -119,3 +121,5 @@ users_002:
   creator_id: 1
   updated_at: 2006-07-19 19:13:59 +02:00
   updater_id: 1
+  encrypted_password: $2a$10$RjR/w.qqEZZUwmAI0WkYUO/tFfu/HAPPpyJHwDx370tvaE3NHF0Ea
+  confirmed_at: <%= Time.now %>

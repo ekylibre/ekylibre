@@ -67,6 +67,7 @@ gem 'ffaker'
 
 # Javascript framework
 gem 'jquery-rails'
+
 # gem 'jquery_mobile_rails'
 
 # Reading RSS feeds
@@ -110,6 +111,8 @@ end
 
 group :test do
   gem 'capybara'
+  gem 'capybara-screenshot'
+  gem "launchy"
   gem 'rspec-rails'
   gem 'jasper-rails-rspec'
   gem 'awesome_print'

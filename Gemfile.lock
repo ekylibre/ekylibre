@@ -48,6 +48,7 @@ GEM
       multi_json (~> 1.0)
     acts_as_list (0.2.0)
       activerecord (>= 3.0)
+    addressable (2.3.2)
     afm (0.2.0)
     arel (3.0.2)
     awesome_nested_set (2.1.6)
@@ -74,6 +75,8 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
+    capybara-screenshot (0.3.4)
+      capybara (>= 1.0, < 3)
     choice (0.1.6)
     chunky_png (1.2.8)
     climate_control (0.0.3)
@@ -179,6 +182,8 @@ GEM
       railties (>= 3.1.0)
       turbolinks
     json (1.7.7)
+    launchy (2.1.2)
+      addressable (~> 2.3)
     libv8 (3.11.8.17)
     libxml-ruby (2.6.0)
     loofah (1.2.1)
@@ -374,6 +379,7 @@ DEPENDENCIES
   better_errors
   binding_of_caller
   capybara
+  capybara-screenshot
   cocoon
   codemirror-rails
   coffee-rails (~> 3.2.1)
@@ -396,6 +402,7 @@ DEPENDENCIES
   jasper-rails-rspec
   jquery-rails
   jquery-turbolinks
+  launchy
   libxml-ruby
   mechanize
   nokogiri
