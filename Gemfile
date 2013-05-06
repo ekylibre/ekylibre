@@ -119,6 +119,6 @@ group :test do
   gem 'pry'
   # database_cleaner is not required, but highly recommended
   gem 'database_cleaner'
-  gem 'coveralls', :require => false
+  gem 'coveralls', '>= 0.6', :require => false
 end
 

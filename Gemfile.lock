@@ -38,7 +38,7 @@ GEM
       activesupport (= 3.2.13)
       arel (~> 3.0.2)
       tzinfo (~> 0.3.29)
-    activerecord-postgis-adapter (0.6.2)
+    activerecord-postgis-adapter (0.6.3)
       rgeo-activerecord (~> 0.5.0)
     activeresource (3.2.13)
       activemodel (= 3.2.13)
@@ -61,7 +61,7 @@ GEM
       beardley-groovy (>= 1.7.5)
       rjb (= 1.4.6)
     beardley-barcode (0.0.1)
-    beardley-core (5.0.0.0)
+    beardley-core (5.0.4.0)
     beardley-groovy (1.7.5.1)
     better_errors (0.8.0)
       coderay (>= 1.0.0)
@@ -104,7 +104,7 @@ GEM
       sass (~> 3.1)
     compass-rails (1.0.3)
       compass (>= 0.12.2, < 0.14)
-    coveralls (0.6.6)
+    coveralls (0.6.7)
       colorize
       multi_json (~> 1.3)
       rest-client
@@ -121,7 +121,7 @@ GEM
       orm_adapter (~> 0.1)
       railties (~> 3.1)
       warden (~> 1.2.1)
-    devise-i18n-views (0.2.5)
+    devise-i18n-views (0.2.6)
     diff-lcs (1.2.4)
     docsplit (0.7.2)
     domain_name (0.5.11)
@@ -146,7 +146,7 @@ GEM
       loofah (~> 1.2.1)
       nokogiri (~> 1.5.3)
       sax-machine (~> 0.2.0.rc1)
-    ffaker (1.15.0)
+    ffaker (1.16.1)
     formize (1.0.4)
       jquery-rails
       rails (>= 3.2)
@@ -197,7 +197,7 @@ GEM
       webrobots (>= 0.0.9, < 0.2)
     method_source (0.8.1)
     mime-types (1.23)
-    multi_json (1.7.2)
+    multi_json (1.7.3)
     net-http-digest_auth (1.3)
     net-http-persistent (2.8)
     nokogiri (1.5.9)
@@ -254,7 +254,7 @@ GEM
       activesupport (= 3.2.13)
       bundler (~> 1.0)
       railties (= 3.2.13)
-    rails_best_practices (1.13.4)
+    rails_best_practices (1.13.5)
       activesupport
       awesome_print
       code_analyzer
@@ -292,7 +292,7 @@ GEM
     rspec-expectations (2.13.0)
       diff-lcs (>= 1.1.3, < 2.0)
     rspec-mocks (2.13.1)
-    rspec-rails (2.13.0)
+    rspec-rails (2.13.1)
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       railties (>= 3.0)
@@ -300,7 +300,7 @@ GEM
       rspec-expectations (~> 2.13.0)
       rspec-mocks (~> 2.13.0)
     ruby-filemagic (0.4.2)
-    ruby-graphviz (1.0.8)
+    ruby-graphviz (1.0.9)
     ruby-progressbar (1.0.2)
     ruby-rc4 (0.1.5)
     rubyzip (0.9.9)
@@ -340,7 +340,7 @@ GEM
       eventmachine (>= 0.12.6)
       rack (>= 1.0.0)
     thor (0.18.1)
-    tilt (1.3.7)
+    tilt (1.4.0)
     treetop (1.4.12)
       polyglot
       polyglot (>= 0.3.1)
@@ -362,7 +362,7 @@ GEM
     webrobots (0.1.1)
     xpath (2.0.0)
       nokogiri (~> 1.3)
-    zurb-foundation (4.1.2)
+    zurb-foundation (4.1.5)
       sass (>= 3.2.0)
 
 PLATFORMS
@@ -383,7 +383,7 @@ DEPENDENCIES
   codemirror-rails
   coffee-rails (~> 3.2.1)
   compass-rails
-  coveralls
+  coveralls (>= 0.6)
   database_cleaner
   devise
   devise-i18n-views
