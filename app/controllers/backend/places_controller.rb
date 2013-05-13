@@ -31,13 +31,13 @@ class Backend::PlacesController < BackendController
     t.action :destroy
   end
 
-  # Displays the main page with the list of warehouses
+  # Displays the main page with the list of buildings
   def index
 
   end
 
 
-  # Displays details of one warehouse selected with +params[:id]+
+  # Displays details of one building selected with +params[:id]+
   def show
     return unless @place = find_and_check(:place)
     session[:current_place_id] = @place.id

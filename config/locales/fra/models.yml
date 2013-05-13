@@ -23,6 +23,12 @@ fra:
         variety: "Race"
       asset_depreciation:
         asset_amount: "Valeur nette comptable (VNC)"
+      building:
+        born_at: "Date de construction"
+        children: "Sous lieu de stockage"
+        content_maximal_quantity: "Quantité maximale supportée"
+        content_nature: "Type de Produit contenu"
+        variety: "Genre"
       campaign:
         nomen: "Code nomenclature"
       cash:
@@ -109,8 +115,8 @@ fra:
         entity: "Fournisseur"
         listing: "Catégorie de fiche associée"
       product_transfer:
-        second_warehouse: "Lieu de stockage d’arrivée"
-        warehouse: "Lieu de stockage de départ"
+        building: "Lieu de stockage de départ"
+        second_building: "Lieu de stockage d’arrivée"
       product_variety:
         code: "Code race"
       profession:
@@ -160,12 +166,6 @@ fra:
         nature: "Nature de la culture"
         reproductor: "Multiplication"
         variety: "Variété"
-      warehouse:
-        born_at: "Date de construction"
-        children: "Sous lieu de stockage"
-        content_maximal_quantity: "Quantité maximale supportée"
-        content_nature: "Type de Produit contenu"
-        variety: "Genre"
     errors:
       messages:
         accepted: "%{attribute} doit être accepté"
@@ -247,27 +247,27 @@ fra:
           already_defined: "Un prix a déjà été défini pour cette liste de prix et ce produit"
           range_overlap: "L’intervalle de quantité en chevauche un autre (de %{min} à %{max})"
         product_stock:
-          product_cannot_be_in_warehouse: "Le produit ne peut pas être stocké dans le réservoir %{warehouse}"
+          product_cannot_be_in_building: "Le produit ne peut pas être stocké dans le réservoir %{building}"
         product_transfer:
-          warehouse_can_not_receive_product: "Le lieu de stockage %{warehouse} ne peut recevoir le produit %{product}, il contient déjà le produit %{contained_product}"
-          warehouse_can_not_transfer_product: "Vous ne pouvez pas tranférer le produit %{product} depuis le lieu de stockage %{warehouse}, celui-ci contient le produit %{contained_product}"
-          warehouse_can_not_waste_product: "Vous ne pouvez pas enregistrer de perte pour  le produit %{product} depuis le lieu de stockage %{warehouse}, celui-ci contient le produit %{contained_product}"
-          warehouses_can_not_be_identical: "Les lieux de stockage (départ et arrivée) ne peuvent pas être identiques"
+          building_can_not_receive_product: "Le lieu de stockage %{building} ne peut recevoir le produit %{product}, il contient déjà le produit %{contained_product}"
+          building_can_not_transfer_product: "Vous ne pouvez pas tranférer le produit %{product} depuis le lieu de stockage %{building}, celui-ci contient le produit %{contained_product}"
+          building_can_not_waste_product: "Vous ne pouvez pas enregistrer de perte pour  le produit %{product} depuis le lieu de stockage %{building}, celui-ci contient le produit %{contained_product}"
+          buildings_can_not_be_identical: "Les lieux de stockage (départ et arrivée) ne peuvent pas être identiques"
         purchase_item:
+          building_can_not_receive_product: "Le réservoir %{building} ne peut pas recevoir le produit %{product}, il contient déjà le produit %{contained_product}."
           serial_already_used_with_an_other_product: "%{attribute} a déjà été utilisé pour un autre type de produit du même fournisseur"
-          warehouse_can_not_receive_product: "Le réservoir %{warehouse} ne peut pas recevoir le produit %{product}, il contient déjà le produit %{contained_product}."
         sale_item:
+          building_can_not_transfer_product: "Le produit %{product} ne peut être sorti du réservoir %{building}, celui-ci contient %{contained_product}."
           can_not_use_this_tracking: "Vous ne  pouvez pas utiliser le lot %{tracking}, la quantité commandée est supérieure à la quantité disponible"
           currency_is_not_sale_currency: "La devise du prix du produit ne correspond pas celle définie pour la vente"
           error_no_found_price: "Aucun prix n’ a pu être trouvé pour ce produit et cette liste de tarif"
-          warehouse_can_not_transfer_product: "Le produit %{product} ne peut être sorti du réservoir %{warehouse}, celui-ci contient %{contained_product}."
         stock:
-          product_cannot_be_in_warehouse: "Le produit ne peut pas être stocké dans le réservoir %{warehouse}"
+          product_cannot_be_in_building: "Le produit ne peut pas être stocké dans le réservoir %{building}"
         stock_transfer:
-          warehouse_can_not_receive_product: "Le lieu de stockage %{warehouse} ne peut recevoir le produit %{product}, il contient déjà le produit %{contained_product}"
-          warehouse_can_not_transfer_product: "Vous ne pouvez pas tranférer le produit %{product} depuis le lieu de stockage %{warehouse}, celui-ci contient le produit %{contained_product}"
-          warehouse_can_not_waste_product: "Vous ne pouvez pas enregistrer de perte pour  le produit %{product} depuis le lieu de stockage %{warehouse}, celui-ci contient le produit %{contained_product}"
-          warehouses_can_not_be_identical: "Les lieux de stockage (départ et arrivée) ne peuvent pas être identiques"
+          building_can_not_receive_product: "Le lieu de stockage %{building} ne peut recevoir le produit %{product}, il contient déjà le produit %{contained_product}"
+          building_can_not_transfer_product: "Vous ne pouvez pas tranférer le produit %{product} depuis le lieu de stockage %{building}, celui-ci contient le produit %{contained_product}"
+          building_can_not_waste_product: "Vous ne pouvez pas enregistrer de perte pour  le produit %{product} depuis le lieu de stockage %{building}, celui-ci contient le produit %{contained_product}"
+          buildings_can_not_be_identical: "Les lieux de stockage (départ et arrivée) ne peuvent pas être identiques"
         subscription:
           entity_must_be_the_same_as_the_contact_entity: "La personne de l’abonnement doit être la même que celle du contact"
         tax_declaration:
@@ -287,11 +287,14 @@ fra:
       # activity_watching: "Activity watching"
       affair: "Affaire"
       animal: "Animal"
+      # animal_group: "Animal group"
       area: "Zone postale"
       asset: "Immobilisation"
       asset_depreciation: "Amortissement d’immobilisation"
       bank_statement: "Relevé de compte bancaire"
       # bioproduct: "Bioproduct"
+      building: "Lieu de stockage"
+      # building_room: "Building room"
       campaign: "Campagne"
       cash: "Trésorerie"
       cash_transfer: "Virement interne"
@@ -316,6 +319,7 @@ fra:
       event_nature: "Type d’évènement"
       financial_year: "Exercice"
       # fungus: "Fungus"
+      # immatter: "Immatter"
       incoming_delivery: "Arrivage"
       incoming_delivery_item: "Ligne d’arrivage"
       incoming_delivery_mode: "Mode d’arrivage"
@@ -329,6 +333,8 @@ fra:
       journal_entry: "Écriture"
       journal_entry_item: "Ligne d’écriture"
       land_parcel: "Îlot"
+      # land_parcel_division: "Land parcel division"
+      # land_parcel_group: "Land parcel group"
       listing: "Extraction"
       listing_node: "Nœud d’extraction"
       listing_node_item: "Élément de nœud d’extraction"
@@ -346,6 +352,7 @@ fra:
       outgoing_payment_mode: "Mode de décaissement"
       # place: "Place"
       preference: "Préférence"
+      # primary_zone: "Primary zone"
       # procedure: "Procedure"
       # procedure_nature: "Procedure nature"
       product: "Produits"
@@ -372,6 +379,7 @@ fra:
       production_chain_work_center: "Centre d’opérations de chaîne de production"
       production_chain_work_center_use: "Utilisation d’outil de centre d’opérations"
       profession: "Profession"
+      # property_title: "Property title"
       purchase: "Achat"
       purchase_item: "Ligne d’achat"
       purchase_nature: "Type d’achat"
@@ -381,6 +389,8 @@ fra:
       sale_nature: "Type de vente"
       sequence: "Séquence"
       # service: "Service"
+      # settlement: "Settlement"
+      # sub_zone: "Sub zone"
       subscription: "Abonnement"
       subscription_nature: "Type d’abonnement"
       tax: "Taxe"
@@ -391,8 +401,9 @@ fra:
       unit: "Unité"
       user: "Utilisateur"
       # vegetal: "Vegetal"
-      warehouse: "Lieu de stockage"
       # working_set: "Working set"
+      # zone: "Zone"
+      # zone_property_title: "Zone property title"
   attributes:
     account: "Compte comptable"
     account_balances: "Balances de compte"
@@ -421,7 +432,7 @@ fra:
     animals: "Animals" #?
     annotation: "Annotation"
     # archived_at: "Archived at"
-    # archiving: "Archiving"
+    archiving: "Archiving"
     area: "Zone postale"
     area_measure: "Superficie"
     area_unit: "Unité de surface"
@@ -472,8 +483,8 @@ fra:
     boolean_value: "Valeur booléenne"
     born_at: "Born at"
     born_on: "Date de naissance"
-    building: "Bâtiment"
-    buildings: "Bâtiments" #?
+    building: "Lieu de stockage"
+    buildings: "Lieux de stockage"
     by_default: "Par défaut"
     cache: "Cache" #?
     # campaign: "Campaign"
@@ -844,7 +855,7 @@ fra:
     measure_value: "Valeur de la mesure"
     measured_at: "Mesuré à"
     # member: "Member"
-    # members: "Members"
+    members: "Members"
     memberships: "Memberships"
     min_duration: "Minute(s)" #?
     minimal_length: "Longueur minimale"
@@ -974,6 +985,7 @@ fra:
     product_components: "Composants de produit" #?
     # product_events: "Product events"
     product_group: "Groupe de produits" #?
+    # product_indicators: "Product indicators"
     product_localizations: "Product localizations"
     product_moves: "Product moves"
     product_nature: "Product nature"
@@ -1074,9 +1086,9 @@ fra:
     sales_products: "Produits de vente"
     salt: "Sel" #?
     scheduled: "Encaissement programmé"
+    second_building: "Lieu de stockage du second mouvement" #?
     second_move: "Second mouvement" #?
     second_stock_move: "Second mouvement de stock" #?
-    second_warehouse: "Lieu de stockage du second mouvement" #?
     self_cashes: "Caisses en propre" #?
     self_contacts: "Contacts en propre" #?
     sequences: "Séquences" #?
@@ -1209,8 +1221,6 @@ fra:
     virtual: "Virtuel" #?
     virtual_quantity: "Stock virtuel"
     waiting_deliveries: "Livraisons en attente"
-    warehouse: "Lieu de stockage"
-    warehouses: "Lieux de stockage"
     watcher: "Observateur" #?
     # watchings: "Watchings"
     webpass: "Mot de passe web"
@@ -1426,6 +1436,7 @@ fra:
     company: #?
       cant_find_document_template: "Impossible de trouver le modèle de document correspondant" #?
       default: #?
+        building_name: "Réserve" #?
         delays: #?
           expression: #?
             expiration: "1 mois" #?
@@ -1446,7 +1457,6 @@ fra:
           name: #?
             admin: "Gérant" #?
             public: "Public (sans droits)" #?
-        warehouse_name: "Réserve" #?
       import: #?
         dont_use: "-- Ne pas utiliser --" #?
         generate_string_custom_field: "-- Créer un champ personnalisé (texte) --" #?
@@ -1671,12 +1681,12 @@ fra:
         order: "Commande"
         refused: "Devis refusé"
     sale_item:
+      building_can_not_transfer_product: "Le produit %{product} ne peut être sorti du réservoir %{building}, celui-ci contient %{contained_product} "
       can_not_use_this_tracking: "Vous ne  pouvez pas utiliser le lot %{name}, la quantité commandée est supérieure à la quantité disponible "
       currency_is_not_sale_currency: "Le prix du produit ne correspond pas à la monnaie définie pour la vente"
       no_product: "[Pas de produit]"
       reduction_on: "Remise de %{percent}% sur\_: %{product}"
       tracking: "N°Lot\_: %{serial}"
-      warehouse_can_not_transfer_product: "Le produit %{product} ne peut être sorti du réservoir %{warehouse}, celui-ci contient %{contained_product} "
     sale_nature:
       default:
         name: "Vente standard"

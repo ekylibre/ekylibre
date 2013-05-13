@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::WarehousesController < BackendController
+class Backend::BuildingsController < BackendController
   manage_restfully
 
   unroll_all
@@ -32,12 +32,12 @@ class Backend::WarehousesController < BackendController
     t.action :destroy
   end
 
-  # Displays the main page with the list of warehouses
+  # Displays the main page with the list of buildings
   def index
-    notify_now(:need_warehouse_to_record_stock_moves) if Warehouse.count.zero?
+    notify_now(:need_building_to_record_stock_moves) if Building.count.zero?
   end
 
-  # list(:product_moves, :conditions => {:warehouse_id => ['session[:current_warehouse_id]']}) do |t|
+  # list(:product_moves, :conditions => {:building_id => ['session[:current_building_id]']}) do |t|
   #   t.column :name
   #   t.column :planned_on
   #   t.column :moved_on
@@ -49,7 +49,7 @@ class Backend::WarehousesController < BackendController
   #   # t.action :destroy,:if => 'RECORD.generated != true'
   # end
 
-  # list(:product_stocks, :conditions => {:warehouse_id => ['session[:current_warehouse_id]']}, :order => "quantity DESC") do |t|
+  # list(:product_stocks, :conditions => {:building_id => ['session[:current_building_id]']}, :order => "quantity DESC") do |t|
   #   t.column :name, :through => :product,:url => true
   #   # t.column :name, :through => :tracking, :url => true
   #   t.column :weight, :through => :product, :label => :column
@@ -60,11 +60,11 @@ class Backend::WarehousesController < BackendController
   #   t.column :quantity
   # end
 
-  # Displays details of one warehouse selected with +params[:id]+
+  # Displays details of one building selected with +params[:id]+
   def show
-    return unless @warehouse = find_and_check(:warehouse)
-    session[:current_warehouse_id] = @warehouse.id
-    t3e @warehouse.attributes
+    return unless @building = find_and_check(:building)
+    session[:current_building_id] = @building.id
+    t3e @building.attributes
   end
 
 end

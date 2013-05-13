@@ -91,9 +91,9 @@ class SaleItem < Ekylibre::Record::Base
       self.account_id = self.product.nature.product_account_id
       self.unit_id = self.product.unit_id
       if self.product.nature.storable
-      #   self.warehouse_id ||= self.product.stocks.first.warehouse_id if self.product.stocks.count > 0
+      #   self.building_id ||= self.product.stocks.first.building_id if self.product.stocks.count > 0
       # else
-      #   self.warehouse_id = nil
+      #   self.building_id = nil
       end
       self.label ||= self.product.nature.commercial_name
     end
@@ -126,9 +126,9 @@ class SaleItem < Ekylibre::Record::Base
 
     end
 
-    #     if self.warehouse.reservoir && self.warehouse.product_id != self.product_id
+    #     if self.building.reservoir && self.building.product_id != self.product_id
     #       check_reservoir = false
-    #       errors.add(:warehouse_id, :warehouse_can_not_transfer_product, :warehouse => self.warehouse.name, :product => self.product.name, :contained_product => self.warehouse.product.name, :account_id => 0, :unit_id => self.unit_id)
+    #       errors.add(:building_id, :building_can_not_transfer_product, :building => self.building.name, :product => self.product.name, :contained_product => self.building.product.name, :account_id => 0, :unit_id => self.unit_id)
     #     end
     #     check_reservoir
     return false if self.pretax_amount.zero? and self.amount.zero? and self.quantity.zero?
@@ -136,11 +136,11 @@ class SaleItem < Ekylibre::Record::Base
 
 
   validate do
-    # if self.warehouse
-    #   errors.add(:warehouse_id, :warehouse_can_not_transfer_product, :warehouse => self.warehouse.name, :product => self.product.name, :contained_product => self.warehouse.product.name) unless self.warehouse.can_receive?(self.product_id)
+    # if self.building
+    #   errors.add(:building_id, :building_can_not_transfer_product, :building => self.building.name, :product => self.product.name, :contained_product => self.building.product.name) unless self.building.can_receive?(self.product_id)
     #   if self.tracking
-    #     stock = Stocks.where(:product_id => self.product_id, :warehouse_id => self.warehouse_id, :tracking_id => self.tracking_id).first
-    #     errors.add(:warehouse_id, :can_not_use_this_tracking, :tracking => self.tracking.name) if stock and stock.virtual_quantity < self.quantity
+    #     stock = Stocks.where(:product_id => self.product_id, :building_id => self.building_id, :tracking_id => self.tracking_id).first
+    #     errors.add(:building_id, :can_not_use_this_tracking, :tracking => self.tracking.name) if stock and stock.virtual_quantity < self.quantity
     #   end
     # end
     if self.price
@@ -159,7 +159,7 @@ class SaleItem < Ekylibre::Record::Base
   def set_reduction
     if self.reduction_percentage > 0 and self.product.reduction_submissive and self.reduction_origin_id.nil?
       reduction = self.reduction || self.build_reduction
-      reduction.attributes = {:reduction_origin_id => self.id, :price_id => self.price_id, :product_id => self.product_id, :sale_id => self.sale_id, :warehouse_id => self.warehouse_id, :quantity => -self.quantity*reduction_percentage/100, :label => tc('reduction_on', :product => self.product.commercial_name, :percentage => self.reduction_percentage)}
+      reduction.attributes = {:reduction_origin_id => self.id, :price_id => self.price_id, :product_id => self.product_id, :sale_id => self.sale_id, :building_id => self.building_id, :quantity => -self.quantity*reduction_percentage/100, :label => tc('reduction_on', :product => self.product.commercial_name, :percentage => self.reduction_percentage)}
       reduction.save!
     elsif self.reduction
       self.reduction.destroy
@@ -175,17 +175,17 @@ class SaleItem < Ekylibre::Record::Base
   end
 
   def stock_id
-    ProductStock.find_by_warehouse_id_and_product_id_and_tracking_id(self.warehouse_id, self.product_id, self.tracking_id).id rescue nil
+    ProductStock.find_by_building_id_and_product_id_and_tracking_id(self.building_id, self.product_id, self.tracking_id).id rescue nil
   end
 
   def stock_id=(value)
     value = value.to_i
     if value > 0 and stock = ProductStock.find_by_id(value)
-      self.warehouse_id = stock.warehouse_id
+      self.building_id = stock.building_id
       self.tracking_id = stock.tracking_id
       self.product_id  = stock.product_id
-    elsif value < 0 and warehouse = Warehouse.find_by_id(value.abs)
-      self.warehouse_id = value.abs
+    elsif value < 0 and building = Building.find_by_id(value.abs)
+      self.building_id = value.abs
     end
   end
 

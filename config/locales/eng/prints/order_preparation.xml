@@ -32,7 +32,7 @@
 	<column label="Quantité" property="quantity" width="20mm"/>
 	<column label="Produit" property="product.name" width="60mm"/>
 	<column label="Montant" property="price.amount_with_taxes" width="40mm"/>
-	<column label="Lieu de stockage" property="order_line.warehouse/name" width="50mm"/>
+	<column label="Lieu de stockage" property="order_line.building/name" width="50mm"/>
       </table>
 
 

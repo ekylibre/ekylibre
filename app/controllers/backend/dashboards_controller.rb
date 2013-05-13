@@ -39,7 +39,7 @@ class Backend::DashboardsController < BackendController
 
   # list(:critic_stocks, :model => :product_stocks, :conditions => ['#{ProductStock.table_name}.virtual_quantity <= #{ProductStock.table_name}.quantity_min AND NOT (#{ProductStock.table_name}.virtual_quantity=0 AND #{ProductStock.table_name}.quantity=0 AND #{ProductStock.table_name}.tracking_id IS NOT NULL)'] , :line_class => 'RECORD.state', :order => 'virtual_quantity/(2*quantity_min+0.01)') do |t|
   #   t.column :name, :through => :product, :url => true
-  #   t.column :name, :through => :warehouse, :url => true
+  #   t.column :name, :through => :building, :url => true
   #   t.column :serial_number, :through => :product, :url => true
   #   t.column :critic_quantity_min
   #   t.column :quantity_min

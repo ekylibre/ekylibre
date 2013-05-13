@@ -58,10 +58,10 @@ class ProductionChain < Ekylibre::Record::Base
       for k, v in inputs
         conveyor = ProductionChainConveyor.find(k.to_i)
         stock = ProductStock.find(v[:stock_id].to_i)
-        items << {:direction=>"in", :product=>conveyor.product, :quantity=>v[:quantity], :tracking=>stock.tracking, :warehouse=>stock.warehouse}
+        items << {:direction=>"in", :product=>conveyor.product, :quantity=>v[:quantity], :tracking=>stock.tracking, :building=>stock.building}
       end
       for conveyor in from.output_conveyors
-        items << {:direction=>"out", :product=>conveyor.product, :quantity=>v[:quantity], :tracking=>stock.tracking, :warehouse=>stock.warehouse}
+        items << {:direction=>"out", :product=>conveyor.product, :quantity=>v[:quantity], :tracking=>stock.tracking, :building=>stock.building}
       end
       operation.save_with_uses_and_items([], items)
 

@@ -50,7 +50,6 @@ class PurchaseItem < Ekylibre::Record::Base
   belongs_to :price, :class_name => "ProductPrice"
   belongs_to :product
   belongs_to :unit
-  belongs_to :warehouse
   has_many :delivery_items, :class_name => "IncomingDeliveryItem", :foreign_key => :purchase_item_id
 
   accepts_nested_attributes_for :price
@@ -71,7 +70,7 @@ class PurchaseItem < Ekylibre::Record::Base
 
   before_validation do
     check_reservoir = true
-    self.warehouse_id = Warehouse.first.id if Warehouse.count == 1
+    self.building_id = Building.first.id if Building.count == 1
     if not self.price and self.product and self.purchase
       self.price = self.product.price(:supplier => self.purchase.supplier)
     end
@@ -88,10 +87,10 @@ class PurchaseItem < Ekylibre::Record::Base
       self.amount = (self.price.amount*self.quantity).round(2)
     end
     # @TODO : to change dixit Burisu
-    #if self.warehouse
-    # if self.warehouse.reservoir && self.warehouse.product_id != self.product_id
+    #if self.building
+    # if self.building.reservoir && self.building.product_id != self.product_id
     #    check_reservoir = false
-    #    errors.add(:warehouse_id, :warehouse_can_not_receive_product, :warehouse => self.warehouse.name, :product => self.product.name, :contained_product => self.warehouse.product.name)
+    #    errors.add(:building_id, :building_can_not_receive_product, :building => self.building.name, :product => self.product.name, :contained_product => self.building.product.name)
     #  end
     #end
 

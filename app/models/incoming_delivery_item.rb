@@ -42,7 +42,7 @@
 
 
 class IncomingDeliveryItem < Ekylibre::Record::Base
-  attr_accessible :delivery_id, :price_id, :product_id, :warehouse_id
+  attr_accessible :delivery_id, :price_id, :product_id, :building_id
   attr_readonly :purchase_item_id, :product_id, :price_id, :unit_id
   belongs_to :delivery, :class_name => "IncomingDelivery"
   belongs_to :price, :class_name => "ProductPrice"
@@ -64,7 +64,7 @@ class IncomingDeliveryItem < Ekylibre::Record::Base
       self.product_id  = self.purchase_item.product_id
       self.price_id    = self.purchase_item.price.id
       self.unit_id     = self.purchase_item.unit_id
-      self.warehouse_id = self.purchase_item.warehouse_id
+      self.building_id = self.purchase_item.building_id
     end
     self.pretax_amount = self.purchase_item.price.pretax_amount*self.quantity
     self.amount = self.purchase_item.price.amount*self.quantity

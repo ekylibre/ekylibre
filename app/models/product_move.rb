@@ -60,12 +60,12 @@ class ProductMove < Ekylibre::Record::Base
       self.name ||= tc('default_name', :origin => (origin ? origin.class.model_name.human : "*"), :code => (origin ? origin.send(code) : "*"))
     end
     unless self.stock
-      conditions = {:product_id => self.product_id, :warehouse_id => self.warehouse_id, :tracking_id => self.tracking_id}
-      self.stock = ProductStock.find_by_product_id_and_warehouse_id_and_tracking_id(self.product_id, self.warehouse_id, self.tracking_id)
+      conditions = {:product_id => self.product_id, :building_id => self.building_id, :tracking_id => self.tracking_id}
+      self.stock = ProductStock.find_by_product_id_and_building_id_and_tracking_id(self.product_id, self.building_id, self.tracking_id)
       self.stock = ProductStock.create!(conditions) if stock.nil?
     end
     self.product ||= self.stock.product
-    self.warehouse ||= self.stock.warehouse
+    self.building ||= self.stock.building
     self.tracking ||= self.stock.tracking
     self.generated = false if self.generated.nil?
     self.virtual = moved_on.nil?

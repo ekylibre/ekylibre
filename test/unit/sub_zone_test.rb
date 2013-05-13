@@ -65,10 +65,13 @@
 #  virtual_quantity         :decimal(19, 4)   default(0.0), not null
 #  work_number              :string(255)
 #
-
-
 require 'test_helper'
 
-class WarehouseTest < ActiveSupport::TestCase
+class SubZoneTest < ActiveSupport::TestCase
+
+  # Replace this with your real tests.'
+  test "the truth" do
+    assert true
+  end
 
 end

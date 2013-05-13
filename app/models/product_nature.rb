@@ -86,7 +86,7 @@ class ProductNature < Ekylibre::Record::Base
   #has_many :trackings, :foreign_key => :product_id
   has_many :products, :foreign_key => :nature_id
   has_many :product_indicators, :foreign_key => :product_nature_id
-  # has_many :warehouses, :through => :stocks
+  # has_many :buildings, :through => :stocks
   #has_one :default_stock, :class_name => "ProductStock", :order => :name, :foreign_key => :product_id
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :number, :allow_nil => true, :maximum => 32
@@ -242,14 +242,14 @@ class ProductNature < Ekylibre::Record::Base
   #  if origin.is_a? ActiveRecord::Base
   #    code = [:number, :code, :name, :id].detect{|x| origin.respond_to? x}
   #    attributes[:name] = tc('stock_move', :origin => (origin ? ::I18n.t("activerecord.models.#{origin.class.name.underscore}") : "*"), :code => (origin ? origin.send(code) : "*"))
-  #    for attribute in [:quantity, :unit_id, :tracking_id, :warehouse_id, :product_id]
+  #    for attribute in [:quantity, :unit_id, :tracking_id, :building_id, :product_id]
   #      unless attributes.keys.include? attribute
   #        attributes[attribute] ||= origin.send(attribute) rescue nil
   #      end
   #    end
   #  end
   #  attributes[:quantity] = -attributes[:quantity] unless incoming
-  #  attributes[:warehouse_id] ||= self.stocks.first.warehouse_id if self.stocks.size > 0
+  #  attributes[:building_id] ||= self.stocks.first.building_id if self.stocks.size > 0
   #  attributes[:planned_on] ||= Date.today
   #  attributes[:moved_on] ||= attributes[:planned_on] unless attributes.keys.include? :moved_on
   #  self.stock_moves.create!(attributes)

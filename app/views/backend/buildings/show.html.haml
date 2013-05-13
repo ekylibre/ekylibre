@@ -1,17 +1,17 @@
 =toolbar do |t|
-  -t.edit @warehouse
+  -t.edit @building
 
 
 =beehive do |b|
   -b.cell :details do
-    =attributes_list(@warehouse) do |l|
+    =attributes_list(@building) do |l|
       -l.attribute :name
       -l.attribute :description
       -#l.attribute :establishment
       -#l.attribute :division
       -#l.attribute :subdivision
       -#l.attribute :subsubdivision
-      -#if @warehouse.reservoir
+      -#if @building.reservoir
         -l.attribute :product, :label => :name, :url => true
         -l.attribute :number
         -l.attribute :quantity_max

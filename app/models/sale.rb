@@ -305,7 +305,7 @@ class Sale < Ekylibre::Record::Base
       # Items
       items = {}
       for item in self.items.find(:all, :conditions => ["quantity>0"])
-        l = copy.items.create! :sale_id => copy.id, :product_id => item.product_id, :quantity => item.quantity, :warehouse_id => item.warehouse_id
+        l = copy.items.create! :sale_id => copy.id, :product_id => item.product_id, :quantity => item.quantity, :building_id => item.building_id
         items[item.id] = l.id
       end
       # Subscriptions

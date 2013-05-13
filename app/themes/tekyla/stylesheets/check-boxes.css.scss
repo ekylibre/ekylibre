@@ -2,9 +2,9 @@
  * iOS 6 style switch checkboxes
  * by Lea Verou http://lea.verou.me
  */
-	
+
 :root { // :root here acting as a filter for older browsers
-  input[type="checkbox"].switch { 
+  input[type="checkbox"].switch {
     position: absolute;
     opacity: 0;
     & + div {

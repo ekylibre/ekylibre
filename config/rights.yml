@@ -538,6 +538,18 @@ manage_bank_statements:
 - "backend/bank_statements#update"
 - "backend/dashboards#accountancy"
 
+# Manage buildings
+manage_buildings:
+- "backend/buildings#create"
+- "backend/buildings#destroy"
+- "backend/buildings#edit"
+- "backend/buildings#index"
+- "backend/buildings#list"
+- "backend/buildings#new"
+- "backend/buildings#show"
+- "backend/buildings#update"
+- "backend/dashboards#sales"
+
 # Manage cash transfers
 manage_cash_transfers:
 - "backend/cash_transfers#create"
@@ -1168,18 +1180,6 @@ manage_users:
 - "backend/users#show"
 - "backend/users#unlock"
 - "backend/users#update"
-
-# Manage warehouses
-manage_warehouses:
-- "backend/dashboards#sales"
-- "backend/warehouses#create"
-- "backend/warehouses#destroy"
-- "backend/warehouses#edit"
-- "backend/warehouses#index"
-- "backend/warehouses#list"
-- "backend/warehouses#new"
-- "backend/warehouses#show"
-- "backend/warehouses#update"
 
 # Merge people
 merge_entities:

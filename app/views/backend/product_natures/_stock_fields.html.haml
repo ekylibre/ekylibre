@@ -5,11 +5,11 @@
   =f.input(:critic_quantity_min, :wrapper_html => {:id => 'critic-quantity-min-field'})
   =f.input(:quantity_min, :wrapper_html => {:id => 'quantity-min-field'})
   =f.input(:quantity_max, :wrapper_html => {:id => 'quantity-max-field'})
-  #warehouse-field.control-group.selector.required
-    %label.control-label.required{:for => 'stock-warehouse-input'}
+  #building-field.control-group.selector.required
+    %label.control-label.required{:for => 'stock-building-input'}
       %abbr{:title => 'required'} *
-      =Stock.human_attribute_name('warehouse')
+      =Stock.human_attribute_name('building')
     .controls
-      =selector(:stock, :warehouse, {:controller=>"warehouses", :action=>:unroll}, {:object => stock}, :id => 'stock-warehouse-input', :class => 'selector required') + link_to(('<span class="icon"></span><span class="text">' + h('labels.new'.t) + '</span>').html_safe, {:controller => :warehouses, :action => :new}, 'data-new-item' => 'stock-warehouse-input', :class => 'btn btn-new')
-      -for error in stock.errors['warehouse']
+      =selector(:stock, :building, {:controller=>"buildings", :action=>:unroll}, {:object => stock}, :id => 'stock-building-input', :class => 'selector required') + link_to(('<span class="icon"></span><span class="text">' + h('labels.new'.t) + '</span>').html_safe, {:controller => :buildings, :action => :new}, 'data-new-item' => 'stock-building-input', :class => 'btn btn-new')
+      -for error in stock.errors['building']
         %span.help-inline=error

@@ -93,7 +93,7 @@ class OutgoingDelivery < Ekylibre::Record::Base
     # self.confirm_transfer(shipped_on)
     # self.items.each{|l| l.confirm_move}
     for item in self.items.find(:all, :conditions => ["quantity>0"])
-      item.product.move_outgoing_stock(:origin => item, :warehouse_id => item.sale_item.warehouse_id, :planned_on => self.planned_on, :moved_on => shipped_on)
+      item.product.move_outgoing_stock(:origin => item, :building_id => item.sale_item.building_id, :planned_on => self.planned_on, :moved_on => shipped_on)
     end
     self.moved_on = shipped_on if self.moved_on.nil?
     self.save

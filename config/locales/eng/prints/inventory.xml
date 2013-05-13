@@ -16,7 +16,7 @@
       </part>
       
       <table collection="inventory.lines" fixed="true">
-	<column label="Lieu de stockage" property="warehouse/name" width="40mm"/>
+	<column label="Lieu de stockage" property="building/name" width="40mm"/>
 	<column label="Produit" property="product/name" width="53mm"/>
 	<!--<column label="Catégorie" property="product/shelf_name" width="30mm"/>-->
 	<column label="N°Lot" property="tracking_name" width="30mm"/>

@@ -20,23 +20,24 @@
 #
 # == Table: product_indicators
 #
-#  active         :boolean          not null
-#  created_at     :datetime         not null
-#  creator_id     :integer
-#  description    :text
-#  id             :integer          not null, primary key
-#  lock_version   :integer          default(0), not null
-#  maximal_length :integer
-#  maximal_value  :decimal(19, 4)
-#  minimal_length :integer
-#  minimal_value  :decimal(19, 4)
-#  name           :string(255)      not null
-#  nature         :string(255)      not null
-#  process_id     :integer
-#  unit_id        :integer
-#  updated_at     :datetime         not null
-#  updater_id     :integer
-#  usage          :string(255)
+#  active            :boolean          not null
+#  created_at        :datetime         not null
+#  creator_id        :integer
+#  description       :text
+#  id                :integer          not null, primary key
+#  lock_version      :integer          default(0), not null
+#  maximal_length    :integer
+#  maximal_value     :decimal(19, 4)
+#  minimal_length    :integer
+#  minimal_value     :decimal(19, 4)
+#  name              :string(255)      not null
+#  nature            :string(255)      not null
+#  process_id        :integer
+#  product_nature_id :integer
+#  unit_id           :integer
+#  updated_at        :datetime         not null
+#  updater_id        :integer
+#  usage             :string(255)
 #
 
 

@@ -21,9 +21,9 @@ class Backend::PurchaseItemsController < BackendController
 
   def new
     return unless @purchase = find_and_check(:purchase, params[:purchase_id])
-    if Warehouse.count.zero?
-      notify_warning(:need_warehouse_to_create_purchase_item)
-      redirect_to :action=>:new, :controller=>:warehouses
+    if Building.count.zero?
+      notify_warning(:need_building_to_create_purchase_item)
+      redirect_to :action=>:new, :controller=>:buildings
       return
     elsif not @purchase.draft?
       notify_warning(:impossible_to_add_items_to_purchase)
@@ -39,9 +39,9 @@ class Backend::PurchaseItemsController < BackendController
 
   def create
     return unless @purchase = find_and_check(:purchase, params[:purchase_id])
-    if Warehouse.count.zero?
-      notify_warning(:need_warehouse_to_create_purchase_item)
-      redirect_to :action=>:new, :controller=>:warehouses
+    if Building.count.zero?
+      notify_warning(:need_building_to_create_purchase_item)
+      redirect_to :action=>:new, :controller=>:buildings
       return
     elsif not @purchase.draft?
       notify_warning(:impossible_to_add_items_to_purchase)

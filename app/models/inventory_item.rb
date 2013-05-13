@@ -38,7 +38,7 @@
 
 
 class InventoryItem < Ekylibre::Record::Base
-  attr_accessible :product_id, :quantity, :unit_id, :warehouse_id
+  attr_accessible :product_id, :quantity, :unit_id, :building_id
   belongs_to :inventory, :inverse_of => :items
   belongs_to :product
   belongs_to :move, :class_name => "ProductMove"
@@ -54,7 +54,7 @@ class InventoryItem < Ekylibre::Record::Base
   # def stock_id=(id)
   #   if s = ProductStock.find_by_id(id)
   #     self.product_id  = s.product_id
-  #     self.warehouse_id = s.warehouse_id
+  #     self.building_id = s.building_id
   #     self.theoric_quantity = s.quantity||0
   #     self.unit_id     = s.unit_id
   #   end

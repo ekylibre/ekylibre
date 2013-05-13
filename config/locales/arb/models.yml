@@ -47,6 +47,12 @@ arb:
         original_debit: "الدين" #?
         started_on: "من" #?
         stopped_on: "الى" #?
+      building:
+        # born_at: "Date de construction"
+        # children: "Sous lieu de stockage"
+        # content_maximal_quantity: "Quantité maximale supportée"
+        # content_nature: "Type de Produit contenu"
+        # variety: "Genre"
       campaign:
         # nomen: "Code nomenclature"
       cash:
@@ -85,10 +91,10 @@ arb:
         trackings: "حصص يمكن عزوها" #?
         updater_id: "تحديث" #?
       contact:  #?
+        buildings: "مواقع للتخزين" #?
         created_at: "انشأ في" #?
         entity: "الملف" #?
         entity_id: "ملف" #?
-        warehouses: "مواقع للتخزين" #?
         website: "موقع على الانترنت" #?
       currency:  #?
         cashes: "الخزينة" #?
@@ -125,11 +131,11 @@ arb:
         transporter_id: "الناقلة" #?
       delivery_item:  #?
         amount: "القيمة من غير الضرائب" #?
+        building_id: "موقع للتخزين" #?
         price: "الاسعار" #?
         price_id: "الاسعار" #?
         product: "المنتج" #?
         updater_id: "تحديث" #?
-        warehouse_id: "موقع للتخزين" #?
       delivery_mode:  #?
         updater_id: "تحديث" #?
       department:  #?
@@ -361,6 +367,7 @@ arb:
         started_at: "ابتدأ يوم\_" #?
       product:  #?
         active: "قبل للاستخدام" #?
+        buildings: "اماكن التخزين" #?
         comment: "تعليق" #?
         duration: "عدد ارقام او مدة الاشتراك" #?
         ean13: "EAN13 الرمز" #?
@@ -369,7 +376,6 @@ arb:
         stocks: "اسهم المنتجات" #?
         unit: "وحدة القياس" #?
         unit_id: "وحدة قياس" #?
-        warehouses: "اماكن التخزين" #?
         weight: "(الوزن(كغ" #?
       product_category:  #?
         catalog_description: "الوصف" #?
@@ -378,11 +384,11 @@ arb:
         published: "تم نشرها" #?
         shelves: "فئات الانتاج" #?
       product_component:  #?
+        building: "مكان التخزين" #?
+        building_id: "مكان التخزين" #?
         comment: "تعليق" #?
         product_id: "الانتاج" #?
         updater: "التحدبث" #?
-        warehouse: "مكان التخزين" #?
-        warehouse_id: "مكان التخزين" #?
       product_localization:
         # arrival_cause: "Cause d'entrée"
         # container: "Contenant"
@@ -393,11 +399,12 @@ arb:
         # origin: "Origine"
         origin_id: "منشأ" #?
         product: "المنتج" #?
-        second_warehouse_id: "موقع تخزين الحركة الثانية" #?
+        second_building_id: "موقع تخزين الحركة الثانية" #?
         tracking_id: "حصة" #?
       product_nature:
         active: "قبل للاستخدام" #?
         # asset_account: "Compte d'immobilisation"
+        buildings: "اماكن التخزين" #?
         # charge_account: "Compte d'achat"
         comment: "تعليق" #?
         # commercial_name: "Nom Catalogue"
@@ -416,7 +423,6 @@ arb:
         # storable: "Stockable"
         unit: "وحدة القياس" #?
         unit_id: "وحدة قياس" #?
-        warehouses: "اماكن التخزين" #?
         weight: "(الوزن(كغ" #?
       product_nature_category:
         catalog_description: "الوصف" #?
@@ -425,11 +431,11 @@ arb:
         published: "تم نشرها"
         shelves: "فئات الانتاج" #?
       product_nature_component:  #?
+        building: "مكان التخزين" #?
+        building_id: "مكان التخزين" #?
         comment: "تعليق" #?
         product_id: "الانتاج" #?
         updater: "التحدبث" #?
-        warehouse: "مكان التخزين" #?
-        warehouse_id: "مكان التخزين" #?
       product_nature_price:  #?
         category: "فئة الملف المساعد" #?
         category_id: "فئة الملف المساعد" #?
@@ -462,20 +468,21 @@ arb:
       product_stock_move:  #?
         origin_id: "منشأ" #?
         product: "المنتج" #?
-        second_warehouse_id: "موقع تخزين الحركة الثانية" #?
+        second_building_id: "موقع تخزين الحركة الثانية" #?
         tracking_id: "حصة" #?
       product_transfer:
+        building: "موقع تخزين المغادرة"
+        building_id: "موقع تخزين المغادرة" #?
         created_at: "انشأ في" #?
         creator_id: "منتج" #?
         nature: "النوع" #?
         product: "المنتج" #?
-        # second_warehouse: "Lieu de stockage d’arrivée"
-        warehouse: "موقع تخزين المغادرة"
-        warehouse_id: "موقع تخزين المغادرة" #?
+        # second_building: "Lieu de stockage d’arrivée"
       product_variety:
         # code: "Code race"
       products_nature:  #?
         active: "قبل للاستخدام" #?
+        buildings: "اماكن التخزين" #?
         comment: "تعليق" #?
         duration: "عدد ارقام او مدة الاشتراك" #?
         ean13: "EAN13 الرمز" #?
@@ -484,7 +491,6 @@ arb:
         stocks: "اسهم المنتجات" #?
         unit: "وحدة القياس" #?
         unit_id: "وحدة قياس" #?
-        warehouses: "اماكن التخزين" #?
         weight: "(الوزن(كغ" #?
       profession:
         # employees: "Employés"
@@ -583,15 +589,15 @@ arb:
       stock_move:  #?
         origin_id: "منشأ" #?
         product: "المنتج" #?
-        second_warehouse_id: "موقع تخزين الحركة الثانية" #?
+        second_building_id: "موقع تخزين الحركة الثانية" #?
         tracking_id: "حصة" #?
       stock_transfer:  #?
+        building: "موقع تخزين المغادرة" #?
+        building_id: "موقع تخزين المغادرة" #?
         created_at: "انشأ في" #?
         creator_id: "منتج" #?
         nature: "النوع" #?
         product: "المنتج" #?
-        warehouse: "موقع تخزين المغادرة" #?
-        warehouse_id: "موقع تخزين المغادرة" #?
       subscription:
         company_id: "الشركة" #?
         contact: "عنوان المشترك" #?
@@ -660,12 +666,6 @@ arb:
         # nature: "Nature de la culture"
         # reproductor: "Multiplication"
         # variety: "Variété"
-      warehouse:
-        # born_at: "Date de construction"
-        # children: "Sous lieu de stockage"
-        # content_maximal_quantity: "Quantité maximale supportée"
-        # content_nature: "Type de Produit contenu"
-        # variety: "Genre"
     errors:
       messages:
         accepted: "%{attribute} يجب أن تكون مقبولة"
@@ -757,27 +757,27 @@ arb:
           already_defined: "قد تم تحديد السعر لهذا المنتج وقائمة الاسعار سابقا"
           range_overlap: "تداخل فاصل زمني اخر للكمية (  %{min} الى\_ %{max})"
         product_stock:
-          product_cannot_be_in_warehouse: "%{warehouse} لا يمكن تخزين المنتج في خزينة"
+          product_cannot_be_in_building: "%{building} لا يمكن تخزين المنتج في خزينة"
         product_transfer:
-          warehouse_can_not_receive_product: "لا يمكن لموقع التخزين%{warehouse} استقبال المنتج %{product}, لاحتوائه مسبقا على منتج %{contained_product}"
-          warehouse_can_not_transfer_product: "لا يمكنك تحويل المنتج %{product} من موقع التخزين %{warehouse}, لاحتوائه على منتج %{contained_product}"
-          warehouse_can_not_waste_product: "لا يمكنك تسجيل الخسارة للمنتج %{product} من موقع التخزين %{warehouse}, هذا ويحتوي المنتج %{contained_product}"
-          warehouses_can_not_be_identical: "مواقع التخزين (المغادرة والواصلة) قد لا تكون متطابقة"
+          building_can_not_receive_product: "لا يمكن لموقع التخزين%{building} استقبال المنتج %{product}, لاحتوائه مسبقا على منتج %{contained_product}"
+          building_can_not_transfer_product: "لا يمكنك تحويل المنتج %{product} من موقع التخزين %{building}, لاحتوائه على منتج %{contained_product}"
+          building_can_not_waste_product: "لا يمكنك تسجيل الخسارة للمنتج %{product} من موقع التخزين %{building}, هذا ويحتوي المنتج %{contained_product}"
+          buildings_can_not_be_identical: "مواقع التخزين (المغادرة والواصلة) قد لا تكون متطابقة"
         purchase_item:
+          building_can_not_receive_product: "لا يمكن للخزينة %{building} استقبال النتج %{product}, لاحتوائها منتج سابق %{contained_product}."
           serial_already_used_with_an_other_product: "%{attribute} تم استخدامها لنوع اخر من المنتج من نفس الممون"
-          warehouse_can_not_receive_product: "لا يمكن للخزينة %{warehouse} استقبال النتج %{product}, لاحتوائها منتج سابق %{contained_product}."
         sale_item:
+          building_can_not_transfer_product: "لا يمكن تحويل المنتج %{product} من خزينة %{building}, لاحتوائه على %{contained_product}."
           can_not_use_this_tracking: "لا يمكنك الاستفادة من الحصة %{tracking}, لان الكمية المطلوبة اكبر من الكمية المتاحة"
           currency_is_not_sale_currency: "لا يطابق سعر عملة المنتج مجموعة البيع"
           error_no_found_price: "لم يتم العثور على اي سعر لهذا المنتج وقائمة الاسعار"
-          warehouse_can_not_transfer_product: "لا يمكن تحويل المنتج %{product} من خزينة %{warehouse}, لاحتوائه على %{contained_product}."
         stock:
-          product_cannot_be_in_warehouse: "%{warehouse} لا يمكن تخزين المنتج في خزينة"
+          product_cannot_be_in_building: "%{building} لا يمكن تخزين المنتج في خزينة"
         stock_transfer:
-          warehouse_can_not_receive_product: "لا يمكن لموقع التخزين%{warehouse} استقبال المنتج %{product}, لاحتوائه مسبقا على منتج %{contained_product}"
-          warehouse_can_not_transfer_product: "لا يمكنك تحويل المنتج %{product} من موقع التخزين %{warehouse}, لاحتوائه على منتج %{contained_product}"
-          warehouse_can_not_waste_product: "لا يمكنك تسجيل الخسارة للمنتج %{product} من موقع التخزين %{warehouse}, هذا ويحتوي المنتج %{contained_product}"
-          warehouses_can_not_be_identical: "مواقع التخزين (المغادرة والواصلة) قد لا تكون متطابقة"
+          building_can_not_receive_product: "لا يمكن لموقع التخزين%{building} استقبال المنتج %{product}, لاحتوائه مسبقا على منتج %{contained_product}"
+          building_can_not_transfer_product: "لا يمكنك تحويل المنتج %{product} من موقع التخزين %{building}, لاحتوائه على منتج %{contained_product}"
+          building_can_not_waste_product: "لا يمكنك تسجيل الخسارة للمنتج %{product} من موقع التخزين %{building}, هذا ويحتوي المنتج %{contained_product}"
+          buildings_can_not_be_identical: "مواقع التخزين (المغادرة والواصلة) قد لا تكون متطابقة"
         subscription:
           entity_must_be_the_same_as_the_contact_entity: "يجب على الشخص المشترك ان يكون نفس الشخص المراد الاتصال به"
         tax_declaration:
@@ -799,6 +799,7 @@ arb:
       # asset: "Immobilisation"
       # asset_depreciation: "Amortissement d’immobilisation"
       bank_statement: "بيان الحساب المصرفي"
+      building: "موقع التخزين"
       # campaign: "Campagne"
       cash: "الخزينة"
       # cash_transfer: "Virement interne"
@@ -912,7 +913,6 @@ arb:
       transport: "وسيلة النقل"
       unit: "الوحدة"
       user: "المستخدم"
-      warehouse: "موقع التخزين"
   attributes:
     account: "الحساب"
     account_balances: "ارصدة الحسابات"
@@ -941,6 +941,7 @@ arb:
     # animal_drugs: "Médicaments"
     # animals: "Animals"
     annotation: "ملاحظة"
+    # archiving: "Archiving"
     area: "المنطقة البريدية"
     area_id: "العنوان البريدي" #?
     area_measure: "المساحة"
@@ -989,8 +990,9 @@ arb:
     boolean_value: "القيمة المنطقية"
     # born_at: "Born at"
     born_on: "تاريخ الميلاد"
-    # building: "Bâtiment"
-    # buildings: "Bâtiments"
+    building: "موقع التخزين"
+    building_id: "موقع التخزين" #?
+    buildings: "مواقع التخزين"
     by_default: "افتراضيا"
     cache: "مخبأ"
     # canal: "Canal"
@@ -1403,6 +1405,7 @@ arb:
     # measure_unit: "Unité de mesure"
     # measure_value: "Valeur de la mesure"
     # measured_at: "Mesuré à"
+    # members: "Members"
     # memberships: "Memberships"
     min_duration: "(دقيقة (دقائق"
     # minimal_length: "Longueur minimale"
@@ -1651,11 +1654,11 @@ arb:
     # sales_products: "Produits de vente"
     salt: "الملح"
     scheduled: "الدفعة المبرمجة"
+    second_building: "موقع تخزين الوصول"
+    second_building_id: "موقع تخزين الوصول" #?
     # second_move: "Second mouvement"
     second_move_id: "الحركة الثانية" #?
     # second_stock_move: "Second mouvement de stock"
-    second_warehouse: "موقع تخزين الوصول"
-    second_warehouse_id: "موقع تخزين الوصول" #?
     self_bank_accounts: "الحسابات المصرفية الخاصة" #?
     self_cashes: "الصناديق النقدية الخاصة"
     self_contacts: "الاتصالات الخاصة"
@@ -1791,9 +1794,6 @@ arb:
     virtual: "عملي"
     virtual_quantity: "الاسهم العملية"
     # waiting_deliveries: "Livraisons en attente"
-    warehouse: "موقع التخزين"
-    warehouse_id: "موقع التخزين" #?
-    warehouses: "مواقع التخزين"
     # watcher: "Observateur"
     webpass: "كلمة مرور الموقع الااكتروني"
     website: "الموقع الالكتروني" #?
@@ -2034,6 +2034,7 @@ arb:
       default:
         admin: "المدير" #?
         bank_journal_nature_name: "البنك" #?
+        building_name: "المخزون"
         cash:  #?
           name: #?
             bank_account: "حساب مصرفي" #?
@@ -2194,7 +2195,6 @@ arb:
           m3: "متر مكعب" #?
           t: "طن" #?
           u: "وحدة قياس" #?
-        warehouse_name: "المخزون"
       import:
         dont_use: "-- لعدم الاسعمال--"
         generate_string_custom_field: "--(انشاء حقل مخصص (للنص--"
@@ -2491,8 +2491,8 @@ arb:
       range: "من %{min} الى %{max}"
     product_stock:  #?
       label: #?
-        with_tracking: "%{warehouse} : الحصة %{tracking}, %{quantity}%{unit} المتوفرة" #?
-        without_tracking: "%{warehouse} : غير متتبع, %{quantity}%{unit} متاح" #?
+        with_tracking: "%{building} : الحصة %{tracking}, %{quantity}%{unit} المتوفرة" #?
+        without_tracking: "%{building} : غير متتبع, %{quantity}%{unit} متاح" #?
     product_transfer:  #?
       natures: #?
         transfer: "التحويل" #?
@@ -2570,13 +2570,13 @@ arb:
         # order: "Commande"
         # refused: "Devis refusé"
     sale_item:
+      building_can_not_transfer_product: "المنتج %{product} لا يأخذ خارج الخزينة %{building}, هذا ويحتوي %{contained_product} "
       can_not_use_this_tracking: "لا يمكنك استخدام حصة %{name}, ان الكمية المطلوبة تتجاوز الكمية المتاحة "
       currency_is_not_sale_currency: "لا يتطابق سعر المنتج مع العملة المحددة للبيع"
       error_no_found_price: "لم يتم العثور على اي سعر لهذا المنتج من قائمة الرسوم الجمركية" #?
       # no_product: "[Pas de produit]"
       reduction_on: "تخفيض بنسبة %{percent}% على : %{product}"
       tracking: "رقم الحصة : %{serial}"
-      warehouse_can_not_transfer_product: "المنتج %{product} لا يأخذ خارج الخزينة %{warehouse}, هذا ويحتوي %{contained_product} "
     sale_nature:
       default:
         # name: "Vente standard"
@@ -2636,8 +2636,8 @@ arb:
         year: "السنة" #?
     stock:  #?
       label: #?
-        with_tracking: "%{warehouse} : الحصة %{tracking}, %{quantity}%{unit} المتوفرة" #?
-        without_tracking: "%{warehouse} : غير متتبع, %{quantity}%{unit} متاح" #?
+        with_tracking: "%{building} : الحصة %{tracking}, %{quantity}%{unit} المتوفرة" #?
+        without_tracking: "%{building} : غير متتبع, %{quantity}%{unit} متاح" #?
     stock_transfer:  #?
       natures: #?
         transfer: "التحويل" #?

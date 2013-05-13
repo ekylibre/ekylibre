@@ -826,17 +826,17 @@
         <page to="backend/outgoing_delivery_modes#new"/>
         <page to="backend/outgoing_delivery_modes#update"/>
       </menu>
-      <menu name="warehouses">
-        <page to="backend/warehouses#index"/>
-        <page to="backend/warehouses#create"/>
-        <page to="backend/warehouses#destroy"/>
-        <page to="backend/warehouses#edit"/>
-        <page to="backend/warehouses#list"/>
-        <page to="backend/warehouses#list_stock_moves"/>
-        <page to="backend/warehouses#list_stocks"/>
-        <page to="backend/warehouses#new"/>
-        <page to="backend/warehouses#show"/>
-        <page to="backend/warehouses#update"/>
+      <menu name="buildings">
+        <page to="backend/buildings#index"/>
+        <page to="backend/buildings#create"/>
+        <page to="backend/buildings#destroy"/>
+        <page to="backend/buildings#edit"/>
+        <page to="backend/buildings#list"/>
+        <page to="backend/buildings#list_stock_moves"/>
+        <page to="backend/buildings#list_stocks"/>
+        <page to="backend/buildings#new"/>
+        <page to="backend/buildings#show"/>
+        <page to="backend/buildings#update"/>
       </menu>
     </menu>
     <menu name="production">

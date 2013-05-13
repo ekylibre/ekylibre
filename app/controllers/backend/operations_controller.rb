@@ -47,7 +47,7 @@ class Backend::OperationsController < BackendController
 
   # list(:items, :model => :operation_items, :conditions => {:operation_id => ['session[:current_operation_id]']}, :order => "direction") do |t|
   #   t.column :direction
-  #   # t.column :name, :through => :warehouse, :url => true
+  #   # t.column :name, :through => :building, :url => true
   #   t.column :name, :through => :product, :url => true
   #   t.column :quantity
   #   t.column :label, :through => :unit

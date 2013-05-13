@@ -18,5 +18,5 @@
 #
 
 require 'test_helper'
-class Backend::WarehousesHelperTest < ActionView::TestCase
+class Backend::BuildingsHelperTest < ActionView::TestCase
 end

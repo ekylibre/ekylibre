@@ -54,6 +54,11 @@ arb:
       new: "الاشارة لكشف حساب جديد"
       point: "رقم اعداد البيان%{number} من %{cash}"
       show: "رقم كشف الحساب%{number}"
+    backend/buildings:
+      edit: "تعديل موقع التخزين"
+      index: "مواقع التخزين"
+      new: "اضافة موقع للتخزين"
+      show: "تفاصيل عن مواقع التخزين : %{name}"
     backend/campaigns:
       # edit: "Campagne\_: %{name}"
       # index: "Campagnes"
@@ -613,11 +618,6 @@ arb:
       # index: "Productions végétales"
       # new: "Nouvelle production végétale"
       # show: "Production végétale\_: %{name} %{area_measure} %{area_unit.name}"
-    backend/warehouses:
-      edit: "تعديل موقع التخزين"
-      index: "مواقع التخزين"
-      new: "اضافة موقع للتخزين"
-      show: "تفاصيل عن مواقع التخزين : %{name}"
     backend/working_sets:
       # edit: "Modifier l'unité fonctionnelle\_: %{name}"
       # index: "Unité fonctionnelle / de travail"
@@ -639,6 +639,7 @@ arb:
     # backend/assets: "Immobilisations"
     backend/authentication: "المصادقة" #?
     backend/bank_statements: "بيان الحساب المصرفي"
+    backend/buildings: "مواقع التخزين"
     # backend/campaigns: "Campagnes"
     # backend/cash_transfers: "Virements internes"
     backend/cashes: "الخزينة"
@@ -738,7 +739,6 @@ arb:
     backend/units: "وحدات القياس"
     backend/users: "المستخدمين"
     # backend/vegetals: "Productions végétales"
-    backend/warehouses: "مواقع التخزين"
     # backend/working_sets: "Unités de travail"
   errors:
     messages:
@@ -871,6 +871,14 @@ arb:
     bank_statement_update: "تعديل الكشف المصرفي"
     # begins: "Commence par"
     body: "هيكل الرسالة"
+    building: "مكان التخزين"
+    building_create: "اضافة موقع تخزين" #?
+    building_name: "انتاج"
+    building_tabbox:
+      # stock_moves: "Mouvements de stock"
+      # stocks: "Stocks"
+    building_update: "تعديل موقع التخزين"
+    buildings: "النظر بقائمة مواقع التخزين"
     canals: "التنسيق"
     cancel: "الغاء"
     cancelled: "تم الالغاء"
@@ -1165,7 +1173,7 @@ arb:
       suppliers: "الممولون"
       title: "العنصر الثالث"
     line: "سطر رقم%{index} :"
-    line_stock: "مكان التخزين: %{warehouse}, الكمية المتوفرة: %{virtual_q}"
+    line_stock: "مكان التخزين: %{building}, الكمية المتوفرة: %{virtual_q}"
     lines: "تصميم خطوط البيع" #?
     # list: "Liste"
     listing_create: "انشاء استخراج جديد" #?
@@ -1288,8 +1296,8 @@ arb:
       # other: "%{count} achats en attente de reception"
       # zero: "Aucun achat en attente de reception"
     nb_years: "عدد السنوات عامة"
+    # need_building_to_create_production: "Vous devez créer un lieu de stockage pour pouvoir enregistrer vos productions"
     # need_entities_to_consult_mandates: "Vous devez créer des fiches clients/fournisseurs avant"
-    # need_warehouse_to_create_production: "Vous devez créer un lieu de stockage pour pouvoir enregistrer vos productions"
     net_vat_amount: "صافي قيمة الضريبة الاضافية المستحقة"
     new: "انشاء دفعة جديدة"
     new_deposit:
@@ -1555,11 +1563,12 @@ arb:
     # search_for_available_prices: "%{code} - %{name}%s: %{pretax_amount}/%{amount} (HT/TTC)"
     search_go: "بدء البحث"
     search_sales: "البحث عن طلبات البيع"
+    second_building_name: "ادخال الاسم"
     # second_contact: "Adresse secondaire"
-    second_warehouse_name: "ادخال الاسم"
     select_account_client: "كتابة حسابات"
     select_account_supplier: "كتابة حسابات"
     select_area: "عنوان بريدي"
+    select_building: "اختر مكان التخزين"
     select_closure_date: "اختيار تاريخ الاغلاق"
     select_columns: "ضع علامة على العمود الذي ترغب باظهاره في الجدول"
     select_date: "ادخل تاريخ"
@@ -1572,7 +1581,6 @@ arb:
     select_number_or_date: "ادخل رقم او تاريخ"
     select_organization: "منظمة"
     select_renew_journal: "استخدام الدفاتر اليومية لتقارير جديدة"
-    select_warehouse: "اختر مكان التخزين"
     send: "ارسل الرسالة"
     send_test: "ارسال رسالة تجريبية"
     sequence_create: "اضافة تسلسل" #?
@@ -1701,14 +1709,6 @@ arb:
       # resized: "Mode «\_Tout à l’écran\_»"
     virtual_quantity: "الكمية العملية"
     waiting: "أ€ التسدسد لاحقا" #?
-    warehouse: "مكان التخزين"
-    warehouse_create: "اضافة موقع تخزين" #?
-    warehouse_name: "انتاج"
-    warehouse_tabbox:
-      # stock_moves: "Mouvements de stock"
-      # stocks: "Stocks"
-    warehouse_update: "تعديل موقع التخزين"
-    warehouses: "النظر بقائمة مواقع التخزين"
     weight: "الوزن"
     # with_assets_depreciations: "Inclure les amortissements des immobilisations"
     with_prints: "(وتشمل الطباعة (الفواتير والاوامر"
@@ -1865,6 +1865,11 @@ arb:
     journal_reopened_on: "%{journal} تم اعادة فتحه في %{closed_on} بشكل صحيح."
     mails_are_sent: "تم ارسال رسائل البريد الالكتروني"
     need_balanced_journal_to_tax_declaration: "يجب ان تكون جميع دفاتركم اليومية مغلقة ومتوازنة مع هذا التاريخ"
+    # need_building_to_create_purchase_item: "Vous devez créer un lieu de stockage pour pouvoir réaliser un achat"
+    need_building_to_create_purchase_line: "يجب عليك انشاء موقع للتخزين لتتمكن من اجراء عملية الشراء" #?
+    # need_building_to_create_sale_item: "Vous devez créer un lieu de stockage pour pouvoir réaliser une vente"
+    need_building_to_create_sale_line: "يجب عليك انشاء موقع للتخزين لتتمكن من اجراء عملية البيع" #?
+    need_building_to_record_stock_moves: "يجب عليك تسجيل مواقعك للتخزين لتتمكن من ادارة اسهمك"
     need_cash_to_record_statements: "يجب عليك مشاء حساب مصرفي واحد كحد ادنى لاستلاء على بيانات الحساب"
     need_closed_financial_year_to_declaration: "يجب عليك اغلاق السنة المالية لانشاء تصريح لقيمة الضريبة المضافة"
     need_company_code_to_login: "يجب عليك اختيار شركتك لتتمكن من الاتصال باسم المستخدم"
@@ -1873,17 +1878,13 @@ arb:
     need_payment_mode_to_create_deposit: "يجب عليك تحديد طريقة الدفع لتنفيذ عملية الاقتطاع المصرفي"
     # need_quantities_to_cancel_an_sale: "Vous devez spécifier une quantité pour pouvoir faire un avoir"
     need_quantities_to_cancel_an_sales_invoice: "يجب عليك تحديد الكمية لتتمكن من اجراءات الفاتورة" #?
+    need_stocks_building_to_create_products: "يجب عليك انشاء موقع للتخزين لتتمكن من انشاء منتج"
     need_stocks_to_create_inventories: "يجب عليك ادارة الاسهم لمنتج واحد كحد ادنى لتتمكن من اجراء عمليات الجرد"
-    need_stocks_warehouse_to_create_products: "يجب عليك انشاء موقع للتخزين لتتمكن من انشاء منتج"
     need_to_create_subscription_nature: "يجب عليك انشاء نوع اشتراك لتتمكن من ادارة اشتراكاتك"
-    # need_warehouse_to_create_purchase_item: "Vous devez créer un lieu de stockage pour pouvoir réaliser un achat"
-    need_warehouse_to_create_purchase_line: "يجب عليك انشاء موقع للتخزين لتتمكن من اجراء عملية الشراء" #?
-    # need_warehouse_to_create_sale_item: "Vous devez créer un lieu de stockage pour pouvoir réaliser une vente"
-    need_warehouse_to_create_sale_line: "يجب عليك انشاء موقع للتخزين لتتمكن من اجراء عملية البيع" #?
-    need_warehouse_to_record_stock_moves: "يجب عليك تسجيل مواقعك للتخزين لتتمكن من ادارة اسهمك"
     new_actual_number: "الرقم الجديد الحالي هو %{actual_number}"
     no_authenticated: "ليس بامكانك ان تكون محدد، ان اسم المستخدم او كلمة المرور غير صحيحة"
     no_balance_template: "ليس هناك من نموذج لوثيقة الرصيد"
+    no_building: "لم يتم التعرف على اي موقع للتخزين، الرجاء انشاء واحد لتتمكن من ادارة اسهمك"
     no_closable_financial_year: "ليس لديك اي سنة مالية قابلة للاغلاق "
     no_closable_journal: "ليس باستطاعتك اغلاق هذا الدفتر اليومي"
     no_depositable_payments: "لا يوجد دفعات لتقديمها للبنك"
@@ -1898,7 +1899,6 @@ arb:
     no_template_journal_by_id: "ليس هنالك من نموذج للدفتر اليومي"
     # no_unconfirmed_stock_transfers: "Aucun transfert de stocks non-confirmé"
     no_unvalidated_operations: "لم يتم تحقيق اية اجراء"
-    no_warehouse: "لم يتم التعرف على اي موقع للتخزين، الرجاء انشاء واحد لتتمكن من ادارة اسهمك"
     password_successfully_changed: "تم تغيير كلمة المرور الخاصة بك بنجاح"
     prices_import_succeeded: "تم استيراد بياناتك بشكل صحيح"
     print_failure: " غير قابل للطباعة، حاول تحديث نماذج الوئائق لتصحيح المشكلة%{error} (%{class})."

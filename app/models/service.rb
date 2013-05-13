@@ -65,5 +65,5 @@
 #  virtual_quantity         :decimal(19, 4)   default(0.0), not null
 #  work_number              :string(255)
 #
-class Service < Product
+class Service < Immatter
 end

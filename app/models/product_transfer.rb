@@ -35,7 +35,7 @@
 
 
 class ProductTransfer < Ekylibre::Record::Base
-  attr_accessible :description, :nature, :planned_on, :product_id, :quantity, :second_warehouse_id, :tracking_id, :unit_id, :warehouse_id
+  attr_accessible :description, :nature, :planned_on, :product_id, :quantity, :second_building_id, :tracking_id, :unit_id, :building_id
   # attr_readonly :nature
   # enumerize :nature, :in => [:loss, :transfer, :gain], :default => :transfer, :predicates => true
   belongs_to :product
@@ -61,7 +61,7 @@ class ProductTransfer < Ekylibre::Record::Base
     if self.planned_on
       self.moved_on = Date.today if self.planned_on <= Date.today
     end
-    self.second_warehouse_id = nil unless self.transfer? # if self.nature == "loss"
+    self.second_building_id = nil unless self.transfer? # if self.nature == "loss"
   end
 
   validate do
@@ -71,14 +71,14 @@ class ProductTransfer < Ekylibre::Record::Base
     if self.unit
       errors.add(:unit_id, :invalid) unless self.unit.convertible_to? self.product.unit
     end
-    if !self.second_warehouse.nil?
-      errors.add(:warehouse_id, :warehouse_can_not_receive_product, :warehouse => self.second_warehouse.name, :product => self.product.name, :contained_product => self.second_warehouse.product.name) unless self.second_warehouse.can_receive?(self.product_id)
+    if !self.second_building.nil?
+      errors.add(:building_id, :building_can_not_receive_product, :building => self.second_building.name, :product => self.product.name, :contained_product => self.second_building.product.name) unless self.second_building.can_receive?(self.product_id)
     end
-    unless self.warehouse.can_receive?(self.product_id)
-      errors.add(:warehouse_id, :warehouse_can_not_transfer_product, :warehouse => self.warehouse.name, :product => self.product.name, :contained_product => self.warehouse.product.name) if self.transfer?
-      errors.add(:warehouse_id, :warehouse_can_not_loss_product, :warehouse => self.warehouse.name, :product => self.product.name, :contained_product => self.warehouse.product.name) if self.loss?
+    unless self.building.can_receive?(self.product_id)
+      errors.add(:building_id, :building_can_not_transfer_product, :building => self.building.name, :product => self.product.name, :contained_product => self.building.product.name) if self.transfer?
+      errors.add(:building_id, :building_can_not_loss_product, :building => self.building.name, :product => self.product.name, :contained_product => self.building.product.name) if self.loss?
     end
-    errors.add(:warehouse_id, :warehouses_can_not_be_identical) if self.warehouse_id == self.second_warehouse_id
+    errors.add(:building_id, :buildings_can_not_be_identical) if self.building_id == self.second_building_id
   end
 
   def execute(moved_on = Date.today)

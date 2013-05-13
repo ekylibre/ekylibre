@@ -817,8 +817,8 @@ module ApplicationHelper
 
   # Build the main toolbar
   def main_toolbar_tag
-    content_tag(:div, 
-                content_for(:main_toolbar), 
+    content_tag(:div,
+                content_for(:main_toolbar),
                 :id => "main-toolbar")
   end
 
@@ -1048,7 +1048,7 @@ module ApplicationHelper
   def product_stocks_options(product)
     options = []
     options += product.stocks.collect{|x| [x.label, x.id]}
-    options += Warehouse.of_product(product).collect{|x| [x.name, -x.id]}
+    options += Building.of_product(product).collect{|x| [x.name, -x.id]}
     return options
   end
 

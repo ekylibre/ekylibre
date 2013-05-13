@@ -248,7 +248,7 @@
       <procedure name="seed-harvest" required="true" conditions="[land_parcel].indicator(production) == true && [culture].indicator(to-harvest) == true" working-set="harvest">
 	<!-- A terme, on doit pouvoir mettre comme condition que [culture] doit être dans la phase "Senescence du grain" de son bioprocessus "Reproduction"-->
 	<parameters>
-	  <parameter name="silo" type="warehouse" properties="storage" pre-indicators-state="production::empty" abilities="grain-storage">
+	  <parameter name="silo" type="building" properties="storage" pre-indicators-state="production::empty" abilities="grain-storage">
 	    <name xml:lang="fra">Silo</name>
 	  </parameter>
 	  <parameter name="trailer" type="equipment" properties="storage" abilities="grain-transport" ><!-- paramètre réprésentant des objets qui possede la compétence "Semer"  -->

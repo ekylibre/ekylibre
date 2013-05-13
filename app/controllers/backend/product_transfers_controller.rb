@@ -28,8 +28,8 @@ class Backend::ProductTransfersController < BackendController
     t.column :name, :through => :product, :url => true
     # t.column :quantity
     # t.column :label, :through => :unit
-    # t.column :name, :through => :warehouse, :url => true
-    # t.column :name, :through => :second_warehouse, :url => true
+    # t.column :name, :through => :building, :url => true
+    # t.column :name, :through => :second_building, :url => true
     # t.column :planned_on
     t.column :started_at
     t.column :stopped_at
@@ -54,8 +54,8 @@ class Backend::ProductTransfersController < BackendController
     t.column :nature
     t.column :name, :through => :product
     t.column :quantity, :datatype => :decimal
-    # t.column :name, :through => :warehouse
-    # t.column :name, :through => :second_warehouse
+    # t.column :name, :through => :building
+    # t.column :name, :through => :second_building
     t.column :planned_on, :children => false
     t.check_box :executed, :value => 'RECORD.planned_on<=Date.today'
   end

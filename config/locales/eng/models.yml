@@ -27,6 +27,13 @@ eng:
       animal_treatment_use: #?
       asset_depreciation:
         asset_amount: "Accountable value"
+      building:
+        # born_at: "Date de construction"
+        children: "Sub-building"
+        # content_maximal_quantity: "Quantité maximale supportée"
+        # content_nature: "Type de Produit contenu"
+        product: "Contained product" #?
+        # variety: "Genre"
       campaign:
         # nomen: "Code nomenclature"
       cash:
@@ -151,8 +158,8 @@ eng:
       product_stock_move:  #?
         origin: "Origine" #?
       product_transfer:
-        second_warehouse: "Arrival warehouse"
-        warehouse: "Departure warehouse"
+        building: "Departure building"
+        second_building: "Arrival building"
       product_variety:
         # code: "Code race"
       products_nature:  #?
@@ -197,8 +204,8 @@ eng:
       stock_move:  #?
         origin: "Origine" #?
       stock_transfer:  #?
-        second_warehouse: "Arrival warehouse" #?
-        warehouse: "Departure warehouse" #?
+        building: "Departure building" #?
+        second_building: "Arrival building" #?
       subscription:
         entity: "Subscriber"
       tax:
@@ -226,13 +233,6 @@ eng:
         # nature: "Nature de la culture"
         # reproductor: "Multiplication"
         # variety: "Variété"
-      warehouse:
-        # born_at: "Date de construction"
-        children: "Sub-warehouse"
-        # content_maximal_quantity: "Quantité maximale supportée"
-        # content_nature: "Type de Produit contenu"
-        product: "Contained product" #?
-        # variety: "Genre"
     errors:
       messages:
         accepted: "%{attribute} must be accepted"
@@ -330,35 +330,35 @@ eng:
           already_defined: "A price is already defined for this list and this product"
           range_overlap: "The range overlaps an other(from %{min} to %{max})"
         product_stock:
-          product_cannot_be_in_warehouse: "Product can not be stored in %{warehouse}"
+          product_cannot_be_in_building: "Product can not be stored in %{building}"
         product_transfer:
-          warehouse_can_not_receive_product: "%{warehouse} can not receive %{product}, it already contains %{contained_product}"
-          warehouse_can_not_transfer_product: "You can not transfer %{product} in %{warehouse}, it already contains %{contained_product}"
-          warehouse_can_not_waste_product: "You can not register a loss of %{product} in %{warehouse}, it already contains %{contained_product}"
-          warehouses_can_not_be_identical: "Warehouses can not be identical"
+          building_can_not_receive_product: "%{building} can not receive %{product}, it already contains %{contained_product}"
+          building_can_not_transfer_product: "You can not transfer %{product} in %{building}, it already contains %{contained_product}"
+          building_can_not_waste_product: "You can not register a loss of %{product} in %{building}, it already contains %{contained_product}"
+          buildings_can_not_be_identical: "Buildings can not be identical"
         purchase_item:
+          building_can_not_receive_product: "The building %{building} can not receive %{product}, it already contains %{contained_product}."
           serial_already_used_with_an_other_product: "%{attribute} has been already used for an other product of the same supplier"
-          warehouse_can_not_receive_product: "The warehouse %{warehouse} can not receive %{product}, it already contains %{contained_product}."
         purchase_line:  #?
+          building_can_not_receive_product: "The building %{building} can not receive %{product}, it already contains %{contained_product}." #?
           serial_already_used_with_an_other_product: "%{attribute} has been already used for an other product of the same supplier" #?
-          warehouse_can_not_receive_product: "The warehouse %{warehouse} can not receive %{product}, it already contains %{contained_product}." #?
         sale_item:
+          building_can_not_transfer_product: "%{product} can not be found in %{building}, it only contains %{contained_product}."
           can_not_use_this_tracking: "You can not user the S/N %{tracking}, the quantity is greater than the available quantity"
           currency_is_not_sale_currency: "Currency is not identical to the sale currency"
           error_no_found_price: "No found price"
-          warehouse_can_not_transfer_product: "%{product} can not be found in %{warehouse}, it only contains %{contained_product}."
         sale_line:  #?
+          building_can_not_transfer_product: "%{product} can not be found in %{building}, it only contains %{contained_product}." #?
           can_not_use_this_tracking: "You can not user the S/N %{tracking}, the quantity is greater than the available quantity" #?
           currency_is_not_sale_currency: "Currency is not identical to the sale currency" #?
           error_no_found_price: "No found price" #?
-          warehouse_can_not_transfer_product: "%{product} can not be found in %{warehouse}, it only contains %{contained_product}." #?
         stock:
-          product_cannot_be_in_warehouse: "Product can not be stored in %{warehouse}"
+          product_cannot_be_in_building: "Product can not be stored in %{building}"
         stock_transfer:
-          warehouse_can_not_receive_product: "%{warehouse} can not receive %{product}, it already contains %{contained_product}"
-          warehouse_can_not_transfer_product: "You can not transfer %{product} in %{warehouse}, it already contains %{contained_product}"
-          warehouse_can_not_waste_product: "You can not register a loss of %{product} in %{warehouse}, it already contains %{contained_product}"
-          warehouses_can_not_be_identical: "Warehouses can not be identical"
+          building_can_not_receive_product: "%{building} can not receive %{product}, it already contains %{contained_product}"
+          building_can_not_transfer_product: "You can not transfer %{product} in %{building}, it already contains %{contained_product}"
+          building_can_not_waste_product: "You can not register a loss of %{product} in %{building}, it already contains %{contained_product}"
+          buildings_can_not_be_identical: "Buildings can not be identical"
         subscription:
           entity_must_be_the_same_as_the_contact_entity: "Person must be the same as the contact person"
         tax_declaration:
@@ -392,6 +392,7 @@ eng:
       asset: "Asset"
       asset_depreciation: "Asset depreciation"
       bank_statement: "Bank statement"
+      building: "Building"
       # campaign: "Campagne"
       cash: "Cash"
       cash_transfer: "Cash transfer"
@@ -512,7 +513,6 @@ eng:
       transport: "Transport"
       unit: "Unit"
       user: ""
-      warehouse: "Warehouse"
   attributes:
     account: "Account"
     account_balances: "Account balances"
@@ -543,6 +543,7 @@ eng:
     animal_race_nature: "Animal race nature" #?
     animals: "Animals"
     annotation: "Annotation"
+    # archiving: "Archiving"
     area: "Area"
     area_measure: "Area measure"
     area_unit: "Area unit"
@@ -955,6 +956,7 @@ eng:
     # measure_unit: "Unité de mesure"
     # measure_value: "Valeur de la mesure"
     # measured_at: "Mesuré à"
+    # members: "Members"
     # memberships: "Memberships"
     min_duration: "Min duration"
     # minimal_length: "Longueur minimale"
@@ -1184,9 +1186,9 @@ eng:
     sales_products: "Sales products"
     salt: "Salt"
     scheduled: "Scheduled"
+    second_building: "Second building"
     # second_move: "Second mouvement"
     second_stock_move: "Second stock move"
-    second_warehouse: "Second warehouse"
     self_bank_accounts: "Self bank accounts" #?
     self_cashes: "Self cashes"
     self_contacts: "Self contacts"
@@ -1314,8 +1316,6 @@ eng:
     virtual_quantity: "Virtual quantity"
     waiting_deliveries: "Waiting deliveries"
     waiting_transporters: "Waiting transporters" #?
-    warehouse: "Warehouse"
-    warehouses: "Warehouses"
     # watcher: "Observateur"
     webpass: "Webpass"
     website: "Website" #?
@@ -1543,6 +1543,7 @@ eng:
     company:
       cant_find_document_template: "Can not find document template"
       default:
+        building_name: "Building"
         category: "By default" #?
         delays:
           expression:
@@ -1601,7 +1602,6 @@ eng:
             collected: "445713" #?
             name: "VAT 19,60%" #?
             paid: "445663" #?
-        warehouse_name: "Warehouse"
       import:
         dont_use: "-- Do not use --"
         generate_string_custom_field: "-- Create a personalized field (text) --"
@@ -1808,10 +1808,10 @@ eng:
       no_range: "No range"
       range: "From %{min} to %{max}"
     product_stock:  #?
-      default_name: "%{warehouse}/%{product}/%{tracking}" #?
+      default_name: "%{building}/%{product}/%{tracking}" #?
       label: #?
-        with_tracking: "%{warehouse}: S/N%{tracking}, %{quantity}%{unit} available" #?
-        without_tracking: "%{warehouse}: No serial, %{quantity}%{unit} available" #?
+        with_tracking: "%{building}: S/N%{tracking}, %{quantity}%{unit} available" #?
+        without_tracking: "%{building}: No serial, %{quantity}%{unit} available" #?
     product_stock_move:  #?
       default_name: "%{origin} (%{code})" #?
     products_nature:  #?
@@ -1875,19 +1875,19 @@ eng:
         order: "Order"
         refused: "Refused estimate"
     sale_item:
+      building_can_not_transfer_product: "The product %{product} can not be used with %{building}, because it contains only %{contained_product} "
       can_not_use_this_tracking: "You can not use the tracking %{name}, the requested quantity is greater than the available quantity"
       currency_is_not_sale_currency: "The currency of the price differs from the sale currency"
       no_product: "[No product]"
       reduction_on: "Reduction of %{percentage}%  on %{product}"
       tracking: "S/N: %{serial}"
-      warehouse_can_not_transfer_product: "The product %{product} can not be used with %{warehouse}, because it contains only %{contained_product} "
     sale_line:  #?
+      building_can_not_transfer_product: "The product %{product} can not be used with %{building}, because it contains only %{contained_product} " #?
       can_not_use_this_tracking: "You can not use the tracking %{name}, the requested quantity is greater than the available quantity" #?
       currency_is_not_sale_currency: "The currency of the price differs from the sale currency" #?
       no_product: "[No product]" #?
       reduction_on: "Reduction of %{percentage}%  on %{product}" #?
       tracking: "S/N: %{serial}" #?
-      warehouse_can_not_transfer_product: "The product %{product} can not be used with %{warehouse}, because it contains only %{contained_product} " #?
     sale_nature:
       default:
         # name: "Vente standard"
@@ -1934,10 +1934,10 @@ eng:
         transports:
           number_format: "SH[number|8]"
     stock:  #?
-      default_name: "%{warehouse}/%{product}/%{tracking}" #?
+      default_name: "%{building}/%{product}/%{tracking}" #?
       label: #?
-        with_tracking: "%{warehouse}: S/N%{tracking}, %{quantity}%{unit} available" #?
-        without_tracking: "%{warehouse}: No serial, %{quantity}%{unit} available" #?
+        with_tracking: "%{building}: S/N%{tracking}, %{quantity}%{unit} available" #?
+        without_tracking: "%{building}: No serial, %{quantity}%{unit} available" #?
     stock_move:  #?
       default_name: "%{origin} (%{code})" #?
     tax:

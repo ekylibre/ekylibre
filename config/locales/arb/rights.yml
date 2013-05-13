@@ -27,6 +27,7 @@ arb:
     manage_areas: "ادارة المناطق"
     # manage_assets: "Gérer les immobilisations"
     manage_bank_statements: "كشوفات البيانات الحسابية"
+    manage_buildings: "ادارة مواقع التخزين"
     # manage_cash_transfers: "Gérer les virements internes"
     manage_cashes: "ادارة حسابات الخزينة"
     manage_custom_fields: "ادارة الحقول المتخصصة"
@@ -73,7 +74,6 @@ arb:
     manage_transports: "ادارة وسائل النقل"
     manage_units: "ادارة وحدات القياس"
     manage_users: "ادارة المستخدمين"
-    manage_warehouses: "ادارة مواقع التخزين"
     merge_entities: "دمج ملفات العملاء / الممولين"
     __minimum__: "بلوغ الفاعلية كحد ادنى"
     __not_used__: "(الحق الافتراضي (متعذر بلوغه" #?

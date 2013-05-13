@@ -39,7 +39,7 @@
 class ProductionChainWorkCenter < Ekylibre::Record::Base
   acts_as_list :scope => :production_chain
   enumerize :nature, :in => [:input, :output], :default => :input, :predicates => true
-  belongs_to :building, :class_name => "Warehouse"
+  belongs_to :building, :class_name => "Building"
   belongs_to :production_chain
   has_many :uses,  :class_name => "ProductionChainWorkCenterUse",  :foreign_key => :work_center_id
   has_many :output_conveyors, :dependent => :nullify, :class_name => "ProductionChainConveyor", :foreign_key => :source_id # :as => :source

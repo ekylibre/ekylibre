@@ -2,7 +2,7 @@
 module Ekylibre
   mattr_reader :models, :references
   # List of all models
-  @@models = [:account, :account_balance, :activity, :activity_repartition, :activity_watching, :affair, :animal, :area, :asset, :asset_depreciation, :bank_statement, :bioproduct, :campaign, :cash, :cash_transfer, :custom_field, :custom_field_choice, :department, :deposit, :deposit_item, :district, :document, :document_template, :entity, :entity_address, :entity_link, :entity_link_nature, :entity_nature, :equipment, :establishment, :event, :event_nature, :financial_year, :fungus, :incoming_delivery, :incoming_delivery_item, :incoming_delivery_mode, :incoming_payment, :incoming_payment_mode, :inventory, :inventory_item, :journal, :journal_entry, :journal_entry_item, :land_parcel, :listing, :listing_node, :listing_node_item, :log, :mandate, :matter, :observation, :operation, :operation_nature, :operation_task, :outgoing_delivery, :outgoing_delivery_item, :outgoing_delivery_mode, :outgoing_payment, :outgoing_payment_mode, :place, :preference, :procedure, :procedure_nature, :product, :product_ability, :product_group, :product_indicator, :product_indicator_choice, :product_indicator_datum, :product_link, :product_localization, :product_membership, :product_move, :product_nature, :product_nature_category, :product_price, :product_price_listing, :product_price_template, :product_process, :product_process_phase, :product_transfer, :product_variety, :production_chain, :production_chain_conveyor, :production_chain_work_center, :production_chain_work_center_use, :profession, :purchase, :purchase_item, :purchase_nature, :role, :sale, :sale_item, :sale_nature, :sequence, :service, :subscription, :subscription_nature, :tax, :tax_declaration, :tracking, :transfer, :transport, :unit, :user, :vegetal, :warehouse, :working_set]
+  @@models = [:account, :account_balance, :activity, :activity_repartition, :activity_watching, :affair, :animal, :animal_group, :area, :asset, :asset_depreciation, :bank_statement, :bioproduct, :building, :building_room, :campaign, :cash, :cash_transfer, :custom_field, :custom_field_choice, :department, :deposit, :deposit_item, :district, :document, :document_template, :entity, :entity_address, :entity_link, :entity_link_nature, :entity_nature, :equipment, :establishment, :event, :event_nature, :financial_year, :fungus, :immatter, :incoming_delivery, :incoming_delivery_item, :incoming_delivery_mode, :incoming_payment, :incoming_payment_mode, :inventory, :inventory_item, :journal, :journal_entry, :journal_entry_item, :land_parcel, :land_parcel_division, :land_parcel_group, :listing, :listing_node, :listing_node_item, :log, :mandate, :matter, :observation, :operation, :operation_nature, :operation_task, :outgoing_delivery, :outgoing_delivery_item, :outgoing_delivery_mode, :outgoing_payment, :outgoing_payment_mode, :place, :preference, :primary_zone, :procedure, :procedure_nature, :product, :product_ability, :product_group, :product_indicator, :product_indicator_choice, :product_indicator_datum, :product_link, :product_localization, :product_membership, :product_move, :product_nature, :product_nature_category, :product_price, :product_price_listing, :product_price_template, :product_process, :product_process_phase, :product_transfer, :product_variety, :production_chain, :production_chain_conveyor, :production_chain_work_center, :production_chain_work_center_use, :profession, :property_title, :purchase, :purchase_item, :purchase_nature, :role, :sale, :sale_item, :sale_nature, :sequence, :service, :settlement, :sub_zone, :subscription, :subscription_nature, :tax, :tax_declaration, :tracking, :transfer, :transport, :unit, :user, :vegetal, :working_set, :zone, :zone_property_title]
 
   # List of all references
   @@references = {
@@ -60,6 +60,24 @@ module Ekylibre
       :updater_id => :user,
       :variety_id => :product_variety
     },
+    :animal_group => {
+      :address_id => :entity_address,
+      :area_unit_id => :unit,
+      :asset_id => :asset,
+      :content_nature_id => :product_nature,
+      :content_unit_id => :unit,
+      :creator_id => :user,
+      :current_place_id => :product,
+      :father_id => :product,
+      :mother_id => :product,
+      :nature_id => :product_nature,
+      :owner_id => :entity,
+      :parent_id => :animal_group,
+      :tracking_id => :tracking,
+      :unit_id => :unit,
+      :updater_id => :user,
+      :variety_id => :product_variety
+    },
     :area => {
       :creator_id => :user,
       :district_id => :district,
@@ -101,6 +119,42 @@ module Ekylibre
       :nature_id => :product_nature,
       :owner_id => :entity,
       :parent_id => :bioproduct,
+      :tracking_id => :tracking,
+      :unit_id => :unit,
+      :updater_id => :user,
+      :variety_id => :product_variety
+    },
+    :building => {
+      :address_id => :entity_address,
+      :area_unit_id => :unit,
+      :asset_id => :asset,
+      :content_nature_id => :product_nature,
+      :content_unit_id => :unit,
+      :creator_id => :user,
+      :current_place_id => :product,
+      :father_id => :product,
+      :mother_id => :product,
+      :nature_id => :product_nature,
+      :owner_id => :entity,
+      :parent_id => :building,
+      :tracking_id => :tracking,
+      :unit_id => :unit,
+      :updater_id => :user,
+      :variety_id => :product_variety
+    },
+    :building_room => {
+      :address_id => :entity_address,
+      :area_unit_id => :unit,
+      :asset_id => :asset,
+      :content_nature_id => :product_nature,
+      :content_unit_id => :unit,
+      :creator_id => :user,
+      :current_place_id => :product,
+      :father_id => :product,
+      :mother_id => :product,
+      :nature_id => :product_nature,
+      :owner_id => :entity,
+      :parent_id => :building_room,
       :tracking_id => :tracking,
       :unit_id => :unit,
       :updater_id => :user,
@@ -254,6 +308,24 @@ module Ekylibre
       :updater_id => :user,
       :variety_id => :product_variety
     },
+    :immatter => {
+      :address_id => :entity_address,
+      :area_unit_id => :unit,
+      :asset_id => :asset,
+      :content_nature_id => :product_nature,
+      :content_unit_id => :unit,
+      :creator_id => :user,
+      :current_place_id => :product,
+      :father_id => :product,
+      :mother_id => :product,
+      :nature_id => :product_nature,
+      :owner_id => :entity,
+      :parent_id => :immatter,
+      :tracking_id => :tracking,
+      :unit_id => :unit,
+      :updater_id => :user,
+      :variety_id => :product_variety
+    },
     :incoming_delivery => {
       :address_id => :entity_address,
       :creator_id => :user,
@@ -345,6 +417,42 @@ module Ekylibre
       :nature_id => :product_nature,
       :owner_id => :entity,
       :parent_id => :land_parcel,
+      :tracking_id => :tracking,
+      :unit_id => :unit,
+      :updater_id => :user,
+      :variety_id => :product_variety
+    },
+    :land_parcel_division => {
+      :address_id => :entity_address,
+      :area_unit_id => :unit,
+      :asset_id => :asset,
+      :content_nature_id => :product_nature,
+      :content_unit_id => :unit,
+      :creator_id => :user,
+      :current_place_id => :product,
+      :father_id => :product,
+      :mother_id => :product,
+      :nature_id => :product_nature,
+      :owner_id => :entity,
+      :parent_id => :land_parcel_division,
+      :tracking_id => :tracking,
+      :unit_id => :unit,
+      :updater_id => :user,
+      :variety_id => :product_variety
+    },
+    :land_parcel_group => {
+      :address_id => :entity_address,
+      :area_unit_id => :unit,
+      :asset_id => :asset,
+      :content_nature_id => :product_nature,
+      :content_unit_id => :unit,
+      :creator_id => :user,
+      :current_place_id => :product,
+      :father_id => :product,
+      :mother_id => :product,
+      :nature_id => :product_nature,
+      :owner_id => :entity,
+      :parent_id => :land_parcel_group,
       :tracking_id => :tracking,
       :unit_id => :unit,
       :updater_id => :user,
@@ -489,6 +597,24 @@ module Ekylibre
       :updater_id => :user,
       :user_id => :user
     },
+    :primary_zone => {
+      :address_id => :entity_address,
+      :area_unit_id => :unit,
+      :asset_id => :asset,
+      :content_nature_id => :product_nature,
+      :content_unit_id => :unit,
+      :creator_id => :user,
+      :current_place_id => :product,
+      :father_id => :product,
+      :mother_id => :product,
+      :nature_id => :product_nature,
+      :owner_id => :entity,
+      :parent_id => :primary_zone,
+      :tracking_id => :tracking,
+      :unit_id => :unit,
+      :updater_id => :user,
+      :variety_id => :product_variety
+    },
     :procedure => {
       :creator_id => :user,
       :nature_id => :procedure_nature,
@@ -544,6 +670,7 @@ module Ekylibre
     :product_indicator => {
       :creator_id => :user,
       :process_id => :process,
+      :product_nature_id => :product_nature,
       :unit_id => :unit,
       :updater_id => :user
     },
@@ -661,7 +788,7 @@ module Ekylibre
       :updater_id => :user
     },
     :production_chain_work_center => {
-      :building_id => :warehouse,
+      :building_id => :building,
       :creator_id => :user,
       :operation_nature_id => :operation_nature,
       :production_chain_id => :production_chain,
@@ -676,6 +803,24 @@ module Ekylibre
     :profession => {
       :creator_id => :user,
       :updater_id => :user
+    },
+    :property_title => {
+      :address_id => :entity_address,
+      :area_unit_id => :unit,
+      :asset_id => :asset,
+      :content_nature_id => :product_nature,
+      :content_unit_id => :unit,
+      :creator_id => :user,
+      :current_place_id => :product,
+      :father_id => :product,
+      :mother_id => :product,
+      :nature_id => :product_nature,
+      :owner_id => :entity,
+      :parent_id => :property_title,
+      :tracking_id => :tracking,
+      :unit_id => :unit,
+      :updater_id => :user,
+      :variety_id => :product_variety
     },
     :purchase => {
       :affair_id => :affair,
@@ -764,6 +909,42 @@ module Ekylibre
       :updater_id => :user,
       :variety_id => :product_variety
     },
+    :settlement => {
+      :address_id => :entity_address,
+      :area_unit_id => :unit,
+      :asset_id => :asset,
+      :content_nature_id => :product_nature,
+      :content_unit_id => :unit,
+      :creator_id => :user,
+      :current_place_id => :product,
+      :father_id => :product,
+      :mother_id => :product,
+      :nature_id => :product_nature,
+      :owner_id => :entity,
+      :parent_id => :settlement,
+      :tracking_id => :tracking,
+      :unit_id => :unit,
+      :updater_id => :user,
+      :variety_id => :product_variety
+    },
+    :sub_zone => {
+      :address_id => :entity_address,
+      :area_unit_id => :unit,
+      :asset_id => :asset,
+      :content_nature_id => :product_nature,
+      :content_unit_id => :unit,
+      :creator_id => :user,
+      :current_place_id => :product,
+      :father_id => :product,
+      :mother_id => :product,
+      :nature_id => :product_nature,
+      :owner_id => :entity,
+      :parent_id => :sub_zone,
+      :tracking_id => :tracking,
+      :unit_id => :unit,
+      :updater_id => :user,
+      :variety_id => :product_variety
+    },
     :subscription => {
       :address_id => :entity_address,
       :creator_id => :user,
@@ -842,7 +1023,11 @@ module Ekylibre
       :updater_id => :user,
       :variety_id => :product_variety
     },
-    :warehouse => {
+    :working_set => {
+      :creator_id => :user,
+      :updater_id => :user
+    },
+    :zone => {
       :address_id => :entity_address,
       :area_unit_id => :unit,
       :asset_id => :asset,
@@ -854,15 +1039,29 @@ module Ekylibre
       :mother_id => :product,
       :nature_id => :product_nature,
       :owner_id => :entity,
-      :parent_id => :warehouse,
+      :parent_id => :zone,
       :tracking_id => :tracking,
       :unit_id => :unit,
       :updater_id => :user,
       :variety_id => :product_variety
     },
-    :working_set => {
+    :zone_property_title => {
+      :address_id => :entity_address,
+      :area_unit_id => :unit,
+      :asset_id => :asset,
+      :content_nature_id => :product_nature,
+      :content_unit_id => :unit,
       :creator_id => :user,
-      :updater_id => :user
+      :current_place_id => :product,
+      :father_id => :product,
+      :mother_id => :product,
+      :nature_id => :product_nature,
+      :owner_id => :entity,
+      :parent_id => :zone_property_title,
+      :tracking_id => :tracking,
+      :unit_id => :unit,
+      :updater_id => :user,
+      :variety_id => :product_variety
     }
   }
 

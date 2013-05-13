@@ -48,7 +48,7 @@ class Backend::OutgoingDeliveriesController < BackendController
     t.column :name, :through => :unit
     t.column :pretax_amount
     t.column :amount
-    # t.column :name, :through => :warehouse, :url => true
+    # t.column :name, :through => :building, :url => true
   end
 
   # Displays details of one outgoind delivery selected with +params[:id]+

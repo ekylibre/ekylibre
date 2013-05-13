@@ -33,7 +33,7 @@ class Backend::ProductionChainsController < BackendController
   def index
     if params[:generate] == "sample"
       ActiveRecord::Base.transaction do
-        building = Warehouse.where(:reservoir => false).first
+        building = Building.where(:reservoir => false).first
         name = "Sample production chain (手本)"
         pc = ProductionChain.find_by_name(name)
         pc.destroy if pc

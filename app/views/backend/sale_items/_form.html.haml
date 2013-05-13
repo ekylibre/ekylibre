@@ -16,8 +16,8 @@
   =f.input :annotation
 
 -#=field_set :stock, :depend_on => :price, :if => :stockable? do
-  =f.referenced_association :warehouse
-  =f.referenced_association :tracking, :depend_on => :warehouse, :if => :trackable?
+  =f.referenced_association :building
+  =f.referenced_association :tracking, :depend_on => :building, :if => :trackable?
 
 =field_set :subscriptions do
   =f.nested_association :subscriptions, :depend_on => :price, :if => :subscribing?

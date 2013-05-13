@@ -853,7 +853,7 @@ Ekylibre::Application.routes.draw do
         unroll_all
       end
     end
-    resources :warehouses do
+    resources :buildings do
       collection do
         get :list
         get :list_products

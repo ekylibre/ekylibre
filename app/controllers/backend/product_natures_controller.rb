@@ -76,7 +76,7 @@ class Backend::ProductNaturesController < BackendController
   #list(:product_moves, :conditions => {:product_id  => ['session[:product_id]']}, :line_class => 'RECORD.state', :order => "updated_at DESC") do |t|
     #t.column :name
     # t.column :name, :through => :origin
-    # t.column :name, :through => :warehouse, :url => true
+    # t.column :name, :through => :building, :url => true
     # t.column :name, :through => :tracking, :url => true
     #t.column :quantity
     #t.column :label, :through => :unit
@@ -87,7 +87,7 @@ class Backend::ProductNaturesController < BackendController
   #end
 
   # list(:product_stocks, :conditions => ['#{ProductStock.table_name}.product_id = ?', ['session[:product_id]']], :line_class => 'RECORD.state', :order => "updated_at DESC") do |t|
-  #   # t.column :name, :through => :warehouse, :url => true
+  #   # t.column :name, :through => :building, :url => true
   #   t.column :name, :through => :product, :url => true
   #   t.column :minimal_quantity
   #   t.column :maximal_quantity
@@ -152,7 +152,7 @@ class Backend::ProductNaturesController < BackendController
    #       @stock = ProductStock.new(params[:stock])
   #        @stock.product_id = @product_nature.id
    #       save = false unless @stock.save
-  #      elsif !@stock.new_record? and Warehouse.count > 0
+  #      elsif !@stock.new_record? and Building.count > 0
   #        save = false unless @stock.add_or_update(params[:stock], @product_nature.id)
   #      end
   #      @product_nature.errors.add_from_record(@stock)
@@ -165,7 +165,7 @@ class Backend::ProductNaturesController < BackendController
   #end
 
   #def change_quantities
-   # @stock = ProductStock.find(:first, :conditions => {:warehouse_id => params[:warehouse_id], :product_nature_id => session[:product_nature_id]})
+   # @stock = ProductStock.find(:first, :conditions => {:building_id => params[:building_id], :product_nature_id => session[:product_nature_id]})
     #if @stock.nil?
      # @stock = ProductStock.new(:quantity_min => 1, :quantity_max => 0, :critic_quantity_min => 0)
     #end

@@ -67,7 +67,7 @@
 #
 
 
-class LandParcel < Place
+class LandParcel < PrimaryZone
   attr_accessible :name, :area_measure, :area_unit_id, :born_at, :dead_at, :shape, :unit_id, :variety_id
   belongs_to :area_unit, :class_name => "Unit"
   # TODO : adapt with operations

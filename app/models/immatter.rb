@@ -65,20 +65,19 @@
 #  virtual_quantity         :decimal(19, 4)   default(0.0), not null
 #  work_number              :string(255)
 #
+class Immatter < Product
+  attr_accessible :unit_id, :variety_id, :nature_id, :reproductor, :external, :born_at, :dead_at, :description, :description, :identification_number, :name, :picture, :work_number
+  #enumerize :sex, :in => [:male, :female]
+  #enumerize :arrival_reasons, :in => [:birth, :purchase, :housing, :other], :default=> :birth
+  #enumerize :departure_reasons, :in => [:dead, :sale, :autoconsumption, :other], :default=> :sale
+  # has_many :groups, :class_name => "ProductGroup", :through => :passages
+  belongs_to :nature, :class_name => "ProductNature"
+  belongs_to :variety, :class_name => "ProductVariety"
 
+  # @TODO waiting for events and operations stabilizations
+  #has_many :events, :class_name => "Log"
+  #has_many :operations, :class_name => "Operation"
 
-class Warehouse < Place
-  # TODO: Use acts_as_nested_set
-  # acts_as_tree
-  attr_accessible :name, :address_id, :description, :nature_id, :owner_id, :reservoir, :unit_id, :content_maximal_quantity, :content_nature_id, :maximal_quantity, :variety_id, :identification_number, :born_at, :work_number
-  attr_readonly :reservoir
-  # belongs_to :address, :class_name => "EntityAddress"
-  # belongs_to :establishment
-  belongs_to :content_nature, :class_name => "ProductNature"
-  # has_many :purchase_items, :class_name => "PurchaseItem"
-  # has_many :sale_items, :class_name => "SaleItem"
-  # has_many :stock_moves, :class_name => "ProductMove"
-  # has_many :stock_transfers, :class_name => "ProductTransfer"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :picture_file_size, :allow_nil => true, :only_integer => true
   validates_numericality_of :area_measure, :content_maximal_quantity, :maximal_quantity, :minimal_quantity, :real_quantity, :virtual_quantity, :allow_nil => true
@@ -86,76 +85,8 @@ class Warehouse < Place
   validates_inclusion_of :active, :external, :reproductor, :reservoir, :in => [true, false]
   validates_presence_of :content_maximal_quantity, :maximal_quantity, :minimal_quantity, :name, :nature, :number, :owner, :real_quantity, :unit, :variety, :virtual_quantity
   #]VALIDATORS]
-  validates_presence_of :content_nature, :if => :reservoir?
 
-  default_scope order(:name)
-  scope :of_product, lambda { |product|
-    where("(product_id = ? AND reservoir = ?) OR reservoir = ?", product.id, true, false)
-  }
+  validates_uniqueness_of :name, :identification_number
 
-  validate do
-    # TODO: Describe errors more precisely
-    # if self.parent
-    #   errors.add(:parent_id, :invalid) if self.parent.reservoir?
-    #   if self.parent_id == self.id or self.parent_ids.include?(self.id) or self.child_ids.include?(self.id)
-    #     errors.add(:parent_id, :invalid)
-    #   end
-    # end
-  end
-
-  protect(:on => :destroy) do
-    dependencies = 0
-    for k, v in self.class.reflections.select{|k, v| v.macro == :has_many}
-      dependencies += self.send(k).count
-    end
-    return dependencies <= 0
-  end
-
-
-  def can_receive?(product_id)
-    #raise Exception.new product_id.inspect+self.reservoir.inspect
-    reception = true
-    if self.reservoir
-      stocks = ProductStock.where(:product_id => self.product_id, :warehouse_id => self.id)
-      if !stocks.first.nil?
-        reception = ((self.product_id == product_id) || (stocks.first.quantity <= 0))
-        self.update_attributes!(:product_id => product_id) if stocks.first.quantity <= 0
-        #if stocks.first.quantity <= 0
-        for ps in stocks
-          ps.destroy if ps.product_id != product_id and ps.quantity <=0
-        end
-        #end
-      else
-        self.update_attributes!(:product_id=>product_id)
-      end
-    end
-    reception
-  end
-
-  # # obsolete
-  # def can_receive(product_id)
-  #   self.can_receive?(product_id)
-  # end
-
-  # TODO : adapt method to parent_place
-  # Returns parent ids
-  def parent_ids
-    if self.parent
-      return [self.parent_id] + self.parent.parent_ids
-    else
-      return []
-    end
-  end
-
-  # Return child ids
-  def child_ids
-    ids = []
-    for child in self.children
-      ids << child.id
-      ids += child.child_ids
-    end
-    return ids
-  end
-
-
+  default_scope -> { order(:name) }
 end

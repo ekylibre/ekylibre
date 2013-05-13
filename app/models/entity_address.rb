@@ -56,7 +56,7 @@ class EntityAddress < Ekylibre::Record::Base
   has_many :purchases
   has_many :sales
   has_many :subscriptions
-  has_many :warehouses
+  has_many :buildings
   enumerize :canal, :in => [:mail, :email, :phone, :mobile, :fax, :website], :default => :email, :predicates => true
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
