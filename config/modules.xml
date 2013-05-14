@@ -1,0 +1,921 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<modules>
+  <page to="backend/dashboards#index"/>
+  <module name="relationship">
+    <page to="backend/dashboards#relationship"/>
+    <group name="group">
+	    <item name="entities">
+	      <page to="backend/entities#index"/>
+	      <page to="backend/entities#create"/>
+	      <page to="backend/entities#destroy"/>
+	      <page to="backend/entities#edit"/>
+	      <page to="backend/entities#export"/>
+	      <page to="backend/entities#import"/>
+	      <page to="backend/entities#list"/>
+	      <page to="backend/entities#list_cashes"/>
+	      <page to="backend/entities#list_contacts"/>
+	      <page to="backend/entities#list_events"/>
+	      <page to="backend/entities#list_incoming_payments"/>
+	      <page to="backend/entities#list_links"/>
+	      <page to="backend/entities#list_mandates"/>
+	      <page to="backend/entities#list_observations"/>
+	      <page to="backend/entities#list_outgoing_payments"/>
+	      <page to="backend/entities#list_purchases"/>
+	      <page to="backend/entities#list_sales"/>
+	      <page to="backend/entities#list_subscriptions"/>
+	      <page to="backend/entities#merge"/>
+	      <page to="backend/entities#new"/>
+	      <page to="backend/entities#show"/>
+	      <page to="backend/entities#update"/>
+	      <page to="backend/entity_links#create"/>
+	      <page to="backend/entity_links#destroy"/>
+	      <page to="backend/entity_links#edit"/>
+	      <page to="backend/entity_links#new"/>
+	      <page to="backend/entity_links#update"/>
+	      <page to="backend/entity_addresses#create"/>
+	      <page to="backend/entity_addresses#destroy"/>
+	      <page to="backend/entity_addresses#edit"/>
+	      <page to="backend/entity_addresses#new"/>
+	      <page to="backend/entity_addresses#update"/>
+	      <page to="backend/observations#create"/>
+	      <page to="backend/observations#destroy"/>
+	      <page to="backend/observations#edit"/>
+	      <page to="backend/observations#new"/>
+	      <page to="backend/observations#update"/>
+	    </item>
+	</group>
+	<group name="tasks">
+	    <item name="events">
+	      <page to="backend/events#index"/>
+	      <page to="backend/events#change_minutes"/>
+	      <page to="backend/events#create"/>
+	      <page to="backend/events#destroy"/>
+	      <page to="backend/events#edit"/>
+	      <page to="backend/events#list"/>
+	      <page to="backend/events#new"/>
+	      <page to="backend/events#update"/>
+	    </item>
+	    <item name="subscriptions">
+	      <page to="backend/subscriptions#index"/>
+	      <page to="backend/subscriptions#coordinates"/>
+	      <page to="backend/subscriptions#create"/>
+	      <page to="backend/subscriptions#destroy"/>
+	      <page to="backend/subscriptions#edit"/>
+	      <page to="backend/subscriptions#list"/>
+	      <page to="backend/subscriptions#new"/>
+	      <page to="backend/subscriptions#update"/>
+	    </item>
+	    <item name="mandates">
+	      <page to="backend/mandates#index"/>
+	      <page to="backend/mandates#configure"/>
+	      <page to="backend/mandates#create"/>
+	      <page to="backend/mandates#destroy"/>
+	      <page to="backend/mandates#edit"/>
+	      <page to="backend/mandates#list"/>
+	      <page to="backend/mandates#new"/>
+	      <page to="backend/mandates#update"/>
+	    </item>
+	    <item name="listings">
+	      <page to="backend/listings#index"/>
+	      <page to="backend/listing_nodes#create"/>
+	      <page to="backend/listing_nodes#destroy"/>
+	      <page to="backend/listing_nodes#edit"/>
+	      <page to="backend/listing_nodes#new"/>
+	      <page to="backend/listing_nodes#update"/>
+	      <page to="backend/listings#create"/>
+	      <page to="backend/listings#destroy"/>
+	      <page to="backend/listings#duplicate"/>
+	      <page to="backend/listings#edit"/>
+	      <page to="backend/listings#extract"/>
+	      <page to="backend/listings#list"/>
+	      <page to="backend/listings#mail"/>
+	      <page to="backend/listings#new"/>
+	      <page to="backend/listings#update"/>
+	    </item>
+	</group>
+  </module>
+  <module name="accountancy">
+    <page to="backend/dashboards#accountancy"/>
+    <group name="list">
+	    <item name="journals">
+	      <page to="backend/journals#index"/>
+	      <page to="backend/journals#balance"/>
+	      <page to="backend/journals#bookkeep"/>
+	      <page to="backend/journals#close"/>
+	      <page to="backend/journals#create"/>
+	      <page to="backend/journals#destroy"/>
+	      <page to="backend/journals#draft"/>
+	      <page to="backend/journals#edit"/>
+	      <page to="backend/journals#general_ledger"/>
+	      <page to="backend/journals#import"/>
+	      <page to="backend/journals#list"/>
+	      <page to="backend/journals#list_draft_items"/>
+	      <page to="backend/journals#list_entries"/>
+	      <page to="backend/journals#list_general_ledger"/>
+	      <page to="backend/journals#list_items"/>
+	      <page to="backend/journals#list_mixed"/>
+	      <page to="backend/journals#new"/>
+	      <page to="backend/journals#reopen"/>
+	      <page to="backend/journals#reports"/>
+	      <page to="backend/journals#show"/>
+	      <page to="backend/journals#update"/>
+	      <page to="backend/journal_entries#create"/>
+	      <page to="backend/journal_entries#destroy"/>
+	      <page to="backend/journal_entries#edit"/>
+	      <page to="backend/journal_entries#list_items"/>
+	      <page to="backend/journal_entries#new"/>
+	      <page to="backend/journal_entries#show"/>
+	      <page to="backend/journal_entries#update"/>
+	      <page to="backend/journal_entry_items#new"/>
+	    </item>
+	    <item name="activity_repartitions">
+	      <page to="backend/activity_repartitions#index"/>
+	      <page to="backend/activity_repartitions#create"/>
+	      <page to="backend/activity_repartitions#destroy"/>
+	      <page to="backend/activity_repartitions#edit"/>
+	      <page to="backend/activity_repartitions#list"/>
+	      <page to="backend/activity_repartitions#new"/>
+	      <page to="backend/activity_repartitions#show"/>
+	      <page to="backend/activity_repartitions#update"/>
+	    </item>
+	    <item name="assets">
+	      <page to="backend/assets#index"/>
+	      <page to="backend/assets#create"/>
+	      <page to="backend/assets#destroy"/>
+	      <page to="backend/assets#edit"/>
+	      <page to="backend/assets#list"/>
+	      <page to="backend/assets#list_depreciations"/>
+	      <page to="backend/assets#new"/>
+	      <page to="backend/assets#show"/>
+	      <page to="backend/assets#update"/>
+	    </item>
+	  </group>
+	  <group name="money">
+	    <item name="cashes">
+	      <page to="backend/cashes#index"/>
+	      <page to="backend/cashes#create"/>
+	      <page to="backend/cashes#destroy"/>
+	      <page to="backend/cashes#edit"/>
+	      <page to="backend/cashes#list"/>
+	      <page to="backend/cashes#list_bank_statements"/>
+	      <page to="backend/cashes#list_deposits"/>
+	      <page to="backend/cashes#new"/>
+	      <page to="backend/cashes#show"/>
+	      <page to="backend/cashes#update"/>
+	    </item>
+	    <item name="cash_transfers">
+	      <page to="backend/cash_transfers#index"/>
+	      <page to="backend/cash_transfers#create"/>
+	      <page to="backend/cash_transfers#destroy"/>
+	      <page to="backend/cash_transfers#edit"/>
+	      <page to="backend/cash_transfers#list"/>
+	      <page to="backend/cash_transfers#new"/>
+	      <page to="backend/cash_transfers#show"/>
+	      <page to="backend/cash_transfers#update"/>
+	    </item>
+	    <item name="bank_statements">
+	      <page to="backend/bank_statements#index"/>
+	      <page to="backend/bank_statements#create"/>
+	      <page to="backend/bank_statements#destroy"/>
+	      <page to="backend/bank_statements#edit"/>
+	      <page to="backend/bank_statements#list"/>
+	      <page to="backend/bank_statements#list_items"/>
+	      <page to="backend/bank_statements#new"/>
+	      <page to="backend/bank_statements#point"/>
+	      <page to="backend/bank_statements#show"/>
+	      <page to="backend/bank_statements#update"/>
+	    </item>
+	    <item name="incoming_payments">
+	      <page to="backend/incoming_payments#index"/>
+	      <page to="backend/incoming_payments#create"/>
+	      <page to="backend/incoming_payments#destroy"/>
+	      <page to="backend/incoming_payments#edit"/>
+	      <page to="backend/incoming_payments#list"/>
+	      <page to="backend/incoming_payments#list_sales"/>
+	      <page to="backend/incoming_payments#new"/>
+	      <page to="backend/incoming_payments#show"/>
+	      <page to="backend/incoming_payments#update"/>
+	    </item>
+	    <item name="outgoing_payments">
+	      <page to="backend/outgoing_payments#index"/>
+	      <page to="backend/outgoing_payments#create"/>
+	      <page to="backend/outgoing_payments#destroy"/>
+	      <page to="backend/outgoing_payments#edit"/>
+	      <page to="backend/outgoing_payments#list"/>
+	      <page to="backend/outgoing_payments#list_purchases"/>
+	      <page to="backend/outgoing_payments#new"/>
+	      <page to="backend/outgoing_payments#show"/>
+	      <page to="backend/outgoing_payments#update"/>
+	    </item>
+	    <item name="deposits">
+	      <page to="backend/deposits#index"/>
+	      <page to="backend/deposits#create"/>
+	      <page to="backend/deposits#destroy"/>
+	      <page to="backend/deposits#edit"/>
+	      <page to="backend/deposits#list"/>
+	      <page to="backend/deposits#list_depositable_payments"/>
+	      <page to="backend/deposits#list_payments"/>
+	      <page to="backend/deposits#list_unvalidateds"/>
+	      <page to="backend/deposits#new"/>
+	      <page to="backend/deposits#show"/>
+	      <page to="backend/deposits#unvalidateds"/>
+	      <page to="backend/deposits#update"/>
+	    </item>
+	 </group>
+  </module>
+  <module name="sales">
+    <page to="backend/dashboards#sales"/>
+    <item name="sales">
+      <page to="backend/sales#index"/>
+      <page to="backend/sales#abort"/>
+      <page to="backend/sales#cancel"/>
+      <page to="backend/sales#confirm"/>
+      <page to="backend/sales#contacts"/>
+      <page to="backend/sales#correct"/>
+      <page to="backend/sales#create"/>
+      <page to="backend/sales#destroy"/>
+      <page to="backend/sales#duplicate"/>
+      <page to="backend/sales#edit"/>
+      <page to="backend/sales#invoice"/>
+      <page to="backend/sales#list"/>
+      <page to="backend/sales#list_creditable_items"/>
+      <page to="backend/sales#list_credits"/>
+      <page to="backend/sales#list_deliveries"/>
+      <page to="backend/sales#list_items"/>
+      <page to="backend/sales#list_payment_uses"/>
+      <page to="backend/sales#list_subscriptions"/>
+      <page to="backend/sales#list_undelivered_items"/>
+      <page to="backend/sales#new"/>
+      <page to="backend/sales#propose"/>
+      <page to="backend/sales#propose_and_invoice"/>
+      <page to="backend/sales#refuse"/>
+      <page to="backend/sales#show"/>
+      <page to="backend/sales#statistics"/>
+      <page to="backend/sales#update"/>
+      <page to="backend/sale_items#create"/>
+      <page to="backend/sale_items#destroy"/>
+      <page to="backend/sale_items#detail"/>
+      <page to="backend/sale_items#edit"/>
+      <page to="backend/sale_items#new"/>
+      <page to="backend/sale_items#update"/>
+    </item>
+  </module>
+  <module name="purchases">
+    <page to="backend/dashboards#purchases"/>
+    <item name="purchases">
+      <page to="backend/purchases#index"/>
+      <page to="backend/purchases#abort"/>
+      <page to="backend/purchases#confirm"/>
+      <page to="backend/purchases#correct"/>
+      <page to="backend/purchases#create"/>
+      <page to="backend/purchases#destroy"/>
+      <page to="backend/purchases#edit"/>
+      <page to="backend/purchases#invoice"/>
+      <page to="backend/purchases#list"/>
+      <page to="backend/purchases#list_deliveries"/>
+      <page to="backend/purchases#list_items"/>
+      <page to="backend/purchases#list_payment_uses"/>
+      <page to="backend/purchases#list_undelivered_items"/>
+      <page to="backend/purchases#new"/>
+      <page to="backend/purchases#propose"/>
+      <page to="backend/purchases#refuse"/>
+      <page to="backend/purchases#show"/>
+      <page to="backend/purchases#update"/>
+      <page to="backend/purchase_items#create"/>
+      <page to="backend/purchase_items#destroy"/>
+      <page to="backend/purchase_items#edit"/>
+      <page to="backend/purchase_items#new"/>
+      <page to="backend/purchase_items#update"/>
+    </item>
+  </module>
+  <module name="stocks">
+    <page to="backend/dashboards#stocks"/>
+    <group name="th">
+	    <item name="stocks">
+	      <page to="backend/products#index"/>
+	      <page to="backend/products#create"/>
+	      <page to="backend/products#destroy"/>
+	      <page to="backend/products#edit"/>
+	      <page to="backend/products#list"/>
+	      <page to="backend/products#new"/>
+	      <page to="backend/products#update"/>
+	    </item>
+	    <item name="stock_transfers">
+	      <page to="backend/product_transfers#index"/>
+	      <page to="backend/product_transfers#confirm"/>
+	      <page to="backend/product_transfers#confirm_all"/>
+	      <page to="backend/product_transfers#create"/>
+	      <page to="backend/product_transfers#destroy"/>
+	      <page to="backend/product_transfers#edit"/>
+	      <page to="backend/product_transfers#list"/>
+	      <page to="backend/product_transfers#list_confirm"/>
+	      <page to="backend/product_transfers#new"/>
+	      <page to="backend/product_transfers#update"/>
+	    </item>
+	    <item name="inventories">
+	      <page to="backend/inventories#index"/>
+	      <page to="backend/inventories#create"/>
+	      <page to="backend/inventories#destroy"/>
+	      <page to="backend/inventories#edit"/>
+	      <page to="backend/inventories#list"/>
+	      <page to="backend/inventories#list_items"/>
+	      <page to="backend/inventories#list_items_create"/>
+	      <page to="backend/inventories#list_items_update"/>
+	      <page to="backend/inventories#new"/>
+	      <page to="backend/inventories#reflect"/>
+	      <page to="backend/inventories#show"/>
+	      <page to="backend/inventories#update"/>
+	    </item>
+	</group>    
+	<group name="truck">
+	    <item name="incoming_deliveries">
+	      <page to="backend/incoming_deliveries#index"/>
+	      <page to="backend/incoming_deliveries#confirm"/>
+	      <page to="backend/incoming_deliveries#create"/>
+	      <page to="backend/incoming_deliveries#destroy"/>
+	      <page to="backend/incoming_deliveries#edit"/>
+	      <page to="backend/incoming_deliveries#list"/>
+	      <page to="backend/incoming_deliveries#new"/>
+	      <page to="backend/incoming_deliveries#update"/>
+	    </item>
+	    <item name="outgoing_deliveries">
+	      <page to="backend/outgoing_deliveries#index"/>
+	      <page to="backend/outgoing_deliveries#create"/>
+	      <page to="backend/outgoing_deliveries#destroy"/>
+	      <page to="backend/outgoing_deliveries#edit"/>
+	      <page to="backend/outgoing_deliveries#list"/>
+	      <page to="backend/outgoing_deliveries#list_items"/>
+	      <page to="backend/outgoing_deliveries#new"/>
+	      <page to="backend/outgoing_deliveries#show"/>
+	      <page to="backend/outgoing_deliveries#update"/>
+	    </item>
+	    <item name="transports">
+	      <page to="backend/transports#index"/>
+	      <page to="backend/transports#create"/>
+	      <page to="backend/transports#destroy"/>
+	      <page to="backend/transports#edit"/>
+	      <page to="backend/transports#list"/>
+	      <page to="backend/transports#list_deliveries"/>
+	      <page to="backend/transports#list_transportable_deliveries"/>
+	      <page to="backend/transports#new"/>
+	      <page to="backend/transports#show"/>
+	      <page to="backend/transports#update"/>
+	    </item>
+	</group>
+  </module>
+  <module name="production">
+    <page to="backend/dashboards#production"/>
+    <group name="cogs">
+    <item name="activities">
+      <page to="backend/activities#index"/>
+      <page to="backend/activities#create"/>
+      <page to="backend/activities#destroy"/>
+      <page to="backend/activities#edit"/>
+      <page to="backend/activities#list"/>
+      <page to="backend/activities#new"/>
+      <page to="backend/activities#show"/>
+      <page to="backend/activities#update"/>
+    </item>
+    <item name="operations">
+      <page to="backend/operations#index"/>
+      <page to="backend/operations#create"/>
+      <page to="backend/operations#destroy"/>
+      <page to="backend/operations#edit"/>
+      <page to="backend/operations#list"/>
+      <page to="backend/operations#list_items"/>
+      <page to="backend/operations#list_unvalidateds"/>
+      <page to="backend/operations#list_uses"/>
+      <page to="backend/operations#new"/>
+      <page to="backend/operations#show"/>
+      <page to="backend/operations#unvalidateds"/>
+      <page to="backend/operations#update"/>
+    </item>
+    <item name="product_localizations">
+      <page to="backend/product_localizations#index"/>
+      <page to="backend/product_localizations#create"/>
+      <page to="backend/product_localizations#destroy"/>
+      <page to="backend/product_localizations#edit"/>
+      <page to="backend/product_localizations#list"/>
+      <page to="backend/product_localizations#new"/>
+      <page to="backend/product_localizations#show"/>
+      <page to="backend/product_localizations#update"/>
+    </item>
+    <item name="product_groups">
+      <page to="backend/product_groups#index"/>
+      <page to="backend/product_groups#create"/>
+      <page to="backend/product_groups#destroy"/>
+      <page to="backend/product_groups#edit"/>
+      <page to="backend/product_groups#list"/>
+      <page to="backend/product_groups#list_children"/>
+      <page to="backend/product_groups#new"/>
+      <page to="backend/product_groups#show"/>
+      <page to="backend/product_groups#update"/>
+    </item>
+    </group>
+    <group name="leaf">
+	    <item name="animals">
+	      <page to="backend/animals#index"/>
+	      <page to="backend/animals#create"/>
+	      <page to="backend/animals#destroy"/>
+	      <page to="backend/animals#edit"/>
+	      <page to="backend/animals#list"/>
+	      <page to="backend/animals#list_children"/>
+	      <page to="backend/animals#new"/>
+	      <page to="backend/animals#show"/>
+	      <page to="backend/animals#update"/>
+	    </item>
+	    <item name="vegetals">
+	      <paundefinedge to="backend/vegetals#index"/>
+	      <page to="backend/vegetals#create"/>
+	      <page to="backend/vegetals#destroy"/>
+	      <page to="backend/vegetals#edit"/>
+	      <page to="backend/vegetals#list"/>
+	      <page to="backend/vegetals#list_children"/>
+	      <page to="backend/vegetals#new"/>
+	      <page to="backend/vegetals#show"/>
+	      <page to="backend/vegetals#update"/>
+	    </item>
+	    <item name="matters">
+	      <page to="backend/matters#index"/>
+	      <page to="backend/matters#create"/>
+	      <page to="backend/matters#destroy"/>
+	      <page to="backend/matters#edit"/>
+	      <page to="backend/matters#list"/>
+	      <page to="backend/matters#new"/>
+	      <page to="backend/matters#show"/>
+	      <page to="backend/matters#update"/>
+	    </item>
+	    <item name="land_parcels">
+	      <page to="backend/land_parcels#index"/>
+	      <page to="backend/land_parcels#create"/>
+	      <page to="backend/land_parcels#destroy"/>
+	      <page to="backend/land_parcels#divide"/>
+	      <page to="backend/land_parcels#edit"/>
+	      <page to="backend/land_parcels#list"/>
+	      <page to="backend/land_parcels#list_operations"/>
+	      <page to="backend/land_parcels#merge"/>
+	      <page to="backend/land_parcels#new"/>
+	      <page to="backend/land_parcels#show"/>
+	      <page to="backend/land_parcels#update"/>
+	    </item>
+    </group>
+    <group name="wrench">
+      <item name="equipments">
+        <page to="backend/equipments#index"/>
+        <page to="backend/equipments#create"/>
+        <page to="backend/equipments#destroy"/>
+        <page to="backend/equipments#edit"/>
+        <page to="backend/equipments#list"/>
+        <page to="backend/equipments#list_operations"/>
+        <page to="backend/equipments#new"/>
+        <page to="backend/equipments#show"/>
+        <page to="backend/equipments#update"/>
+      </item>
+      <item name="working_sets">
+        <page to="backend/working_sets#index"/>
+        <page to="backend/working_sets#create"/>
+        <page to="backend/working_sets#destroy"/>
+        <page to="backend/working_sets#edit"/>
+        <page to="backend/working_sets#list"/>
+        <page to="backend/working_sets#new"/>
+        <page to="backend/working_sets#show"/>
+        <page to="backend/working_sets#update"/>
+      </item>
+      <item name="product_abilities">
+        <page to="backend/product_abilities#index"/>
+        <page to="backend/product_abilities#create"/>
+        <page to="backend/product_abilities#destroy"/>
+        <page to="backend/product_abilities#edit"/>
+        <page to="backend/product_abilities#list"/>
+        <page to="backend/product_abilities#new"/>
+        <page to="backend/product_abilities#show"/>
+        <page to="backend/product_abilities#update"/>
+      </item>
+    </group>
+  </module>
+  <module name="settings">
+    <page to="backend/dashboards#settings"/>
+    <group name="home">
+      <page to="backend/dashboards#settings_base"/>
+      <item name="settings">
+        <page to="backend/settings#edit"/>
+        <page to="backend/settings#update"/>
+      </item>
+      <item name="import">
+        <page to="backend/settings#import"/>
+      </item>
+      <item name="backups">
+        <page to="backend/settings#backups"/>
+        <page to="backend/settings#backup"/>
+        <page to="backend/settings#restore"/>
+      </item>
+      <item name="sequences">
+        <page to="backend/sequences#index"/>
+        <page to="backend/sequences#create"/>
+        <page to="backend/sequences#destroy"/>
+        <page to="backend/sequences#edit"/>
+        <page to="backend/sequences#list"/>
+        <page to="backend/sequences#load"/>
+        <page to="backend/sequences#new"/>
+        <page to="backend/sequences#update"/>
+      </item>
+      <item name="units">
+        <page to="backend/units#index"/>
+        <page to="backend/units#create"/>
+        <page to="backend/units#destroy"/>
+        <page to="backend/units#edit"/>
+        <page to="backend/units#list"/>
+        <page to="backend/units#load"/>
+        <page to="backend/units#new"/>
+        <page to="backend/units#update"/>
+      </item>
+      <item name="roles">
+        <page to="backend/roles#index"/>
+        <page to="backend/roles#create"/>
+        <page to="backend/roles#destroy"/>
+        <page to="backend/roles#edit"/>
+        <page to="backend/roles#list"/>
+        <page to="backend/roles#new"/>
+        <page to="backend/roles#update"/>
+      </item>
+      <item name="users">
+        <page to="backend/users#index"/>
+        <page to="backend/users#create"/>
+        <page to="backend/users#destroy"/>
+        <page to="backend/users#edit"/>
+        <page to="backend/users#list"/>
+        <page to="backend/users#lock"/>
+        <page to="backend/users#new"/>
+        <page to="backend/users#show"/>
+        <page to="backend/users#unlock"/>
+        <page to="backend/users#update"/>
+      </item>
+      <item name="custom_fields">
+        <page to="backend/custom_fields#index"/>
+        <page to="backend/custom_fields#create"/>
+        <page to="backend/custom_fields#destroy"/>
+        <undefinedpage to="backend/custom_fields#down"/>
+        <page to="backend/custom_fields#edit"/>
+        <page to="backend/custom_fields#list"/>
+        <page to="backend/custom_fields#list_choices"/>
+        <page to="backend/custom_fields#new"/>
+        <page to="backend/custom_fields#show"/>
+        <page to="backend/custom_fields#sort"/>
+        <page to="backend/custom_fields#up"/>
+        <page to="backend/custom_fields#update"/>
+        <page to="backend/custom_field_choices#create"/>
+        <page to="backend/custom_field_choices#destroy"/>
+        <page to="backend/custom_field_choices#down"/>
+        <page to="backend/custom_field_choices#edit"/>
+        <page to="backend/custom_field_choices#new"/>
+        <page to="backend/custom_field_choices#up"/>
+        <page to="backend/custom_field_choices#update"/>
+      </item>
+      <item name="departments">
+        <page to="backend/departments#index"/>
+        <page to="backend/departments#create"/>
+        <page to="backend/departments#destroy"/>
+        <page to="backend/departments#edit"/>
+        <page to="backend/departments#list"/>
+        <page to="backend/departments#new"/>
+        <page to="backend/departments#update"/>
+      </item>
+      <item name="establishments">
+        <page to="backend/establishments#index"/>
+        <page to="backend/establishments#create"/>
+        <page to="backend/establishments#destroy"/>
+        <page to="backend/establishments#edit"/>
+        <page to="backend/establishments#list"/>
+        <page to="backend/establishments#new"/>
+        <page to="backend/establishments#update"/>
+      </item>
+      <item name="document_templates">
+        <page to="backend/document_templates#index"/>
+        <undefinedpage to="backend/document_templates#create"/>
+        <page to="backend/document_templates#destroy"/>
+        <page to="backend/document_templates#duplicate"/>
+        <page to="backend/document_templates#edit"/>
+        <page to="backend/document_templates#list"/>
+        <page to="backend/document_templates#load"/>
+        <page to="backend/document_templates#new"/>
+        <page to="backend/document_templates#print"/>
+        <page to="backend/document_templates#update"/>
+      </item>
+      <item name="about">
+        <page to="backend/settings#about"/>
+      </item>
+    </group>
+    <group name="group">
+      <page to="backend/dashboards#settings_relationship"/>
+      <item name="entity_link_natures">
+        <page to="backend/entity_link_natures#index"/>
+        <page to="backend/entity_link_natures#create"/>
+        <page to="backend/entity_link_natures#destroy"/>
+        <page to="backend/entity_link_natures#edit"/>
+        <page to="backend/entity_link_natures#list"/>
+        <page to="backend/entity_link_natures#new"/>
+        <page to="backend/entity_link_natures#update"/>
+      </item>
+      <item name="entity_natures">
+        <page to="backend/entity_natures#index"/>
+        <page to="backend/entity_natures#create"/>
+        <page to="backend/entity_natures#destroy"/>
+        <page to="backend/entity_natures#edit"/>
+        <page to="backend/entity_natures#list"/>
+        <page to="backend/entity_natures#new"/>
+        <page to="backend/entity_natures#update"/>
+      </item>
+      <item name="event_natures">
+        <page to="backend/event_natures#index"/>
+        <page to="backend/event_natures#create"/>
+        <page to="backend/event_natures#destroy"/>
+        <page to="backend/event_natures#edit"/>
+        <page to="backend/event_natures#list"/>
+        <page to="backend/event_natures#new"/>
+        <page to="backend/event_natures#update"/>
+      </item>
+      <item name="subscription_natures">
+        <page to="backend/subscription_natures#index"/>
+        <page to="backend/subscription_natures#create"/>
+        <page to="backend/subscription_natures#decrement"/>
+        <page to="backend/subscription_natures#destroy"/>
+        <page to="backend/subscription_natures#edit"/>
+        <page to="backend/subscription_natures#increment"/>
+        <page to="backend/subscription_natures#list"/>
+        <page to="backend/subscription_natures#new"/>
+        <page to="backend/subscription_natures#update"/>
+      </item>
+      <item name="areas">
+        <page to="backend/areas#index"/>
+        <page to="backend/areas#create"/>
+        <page to="backend/areas#destroy"/>
+        <page to="backend/areas#edit"/>
+        <page to="backend/areas#list"/>
+        <page to="backend/areas#new"/>
+        <page to="backend/areas#update"/>
+      </item>
+      <item name="districts">
+        <undefinedpage to="backend/districts#index"/>
+        <page to="backend/districts#create"/>
+        <page to="backend/districts#destroy"/>
+        <page to="backend/districts#edit"/>
+        <page to="backend/districts#list"/>
+        <page to="backend/districts#new"/>
+        <page to="backend/districts#update"/>
+      </item>
+    </group>
+    <group name="money">
+      <page to="backend/dashboards#settings_accountancy"/>
+      <item name="accounts">
+        <page to="backend/accounts#index"/>
+        <page to="backend/accounts#create"/>
+        <page to="backend/accounts#destroy"/>
+        <page to="backend/accounts#edit"/>
+        <page to="backend/accounts#list"/>
+        <page to="backend/accounts#list_entities"/>
+        <page to="backend/accounts#list_journal_entry_items"/>
+        <page to="backend/accounts#list_reconciliation"/>
+        <page to="backend/accounts#load"/>
+        <page to="backend/accounts#mark"/>
+        <page to="backend/accounts#new"/>
+        <page to="backend/accounts#reconciliation"/>
+        <page to="backend/accounts#show"/>
+        <page to="backend/accounts#unmark"/>
+        <page to="backend/accounts#update"/>
+      </item>
+      <item name="financial_years">
+        <page to="backend/financial_years#index"/>
+        <page to="backend/financial_years#close"/>
+        <page to="backend/financial_years#compute_balances"/>
+        <page to="backend/financial_years#create"/>
+        <page to="backend/financial_years#destroy"/>
+        <page to="backend/financial_years#edit"/>
+        <page to="backend/financial_years#generate_last_journal_entry"/>
+        <page to="backend/financial_years#list"/>
+        <page to="backend/financial_years#list_account_balances"/>
+        <page to="backend/financial_years#list_asset_depreciations"/>
+        <page to="backend/financial_years#new"/>
+        <page to="backend/financial_years#show"/>
+        <page to="backend/financial_years#update"/>
+      </item>
+      <item name="taxes">
+        <page to="backend/taxes#index"/>
+        <page to="backend/taxes#create"/>
+        <page to="backend/taxes#destroy"/>
+        <page to="backend/taxes#edit"/>
+        <page to="backend/taxes#list"/>
+        <page to="backend/taxes#new"/>
+        <page to="backend/taxes#update"/>
+      </item>
+      <item name="incoming_payment_modes">
+        <page to="backend/incoming_payment_modes#index"/>
+        <page to="backend/incoming_payment_modes#create"/>
+        <page to="backend/incoming_payment_modes#destroy"/>
+        <page to="backend/incoming_payment_modes#down"/>
+        <page to="backend/incoming_payment_modes#edit"/>
+        <page to="backend/incoming_payment_modes#list"/>
+        <page to="backend/incoming_payment_modes#new"/>
+        <page to="backend/incoming_payment_modes#reflect"/>
+        <page to="backend/incoming_payment_modes#up"/>
+        <page to="backend/incoming_payment_modes#update"/>
+      </item>
+      <item name="outgoing_payment_modes">
+        <pundefinedage to="backend/outgoing_payment_modes#index"/>
+        <page to="backend/outgoing_payment_modes#create"/>
+        <page to="backend/outgoing_payment_modes#destroy"/>
+        <page to="backend/outgoing_payment_modes#down"/>
+        <page to="backend/outgoing_payment_modes#edit"/>
+        <page to="backend/outgoing_payment_modes#list"/>
+        <page to="backend/outgoing_payment_modes#new"/>
+        <page to="backend/outgoing_payment_modes#up"/>
+        <page to="backend/outgoing_payment_modes#update"/>
+      </item>
+    </group>
+    <group name="bar-chart">
+      <page to="backend/dashboards#settings_sales"/>
+      <item name="sale_natures">
+        <page to="backend/sale_natures#index"/>
+        <page to="backend/sale_natures#create"/>
+        <page to="backend/sale_natures#destroy"/>
+        <page to="backend/sale_natures#edit"/>
+        <page to="backend/sale_natures#list"/>
+        <page to="backend/sale_natures#new"/>
+        <page to="backend/sale_natures#show"/>
+        <page to="backend/sale_natures#update"/>
+      </item>
+    </group>
+    <group name="shopping-cart">
+      <page to="backend/dashboards#settings_purchases"/>
+      <item name="purchase_natures">
+        <page to="backend/purchase_natures#index"/>
+        <page to="backend/purchase_natures#create"/>
+        <page to="backend/purchase_natures#destroy"/>
+        <page to="backend/purchase_natures#edit"/>
+        <page to="backend/purchase_natures#list"/>
+        <page to="backend/purchase_natures#new"/>
+        <page to="backend/purchase_natures#show"/>
+        <page to="backend/purchase_natures#update"/>
+      </item>
+    </group>
+    <group name="leaf">
+      <page to="backend/dashboards#settings_products"/>
+      <item name="products">
+        <page to="backend/product_natures#index"/>
+        <page to="backend/product_natures#change_quantities"/>
+        <page to="backend/product_natures#create"/>
+        <page to="backend/product_natures#destroy"/>
+        <page to="backend/product_natures#edit"/>
+        <page to="backend/product_natures#list"/>
+        <page to="backend/product_natures#list_components"/>
+        <page to="backend/product_natures#list_product_nature_prices"/>
+        <page to="backend/product_natures#list_stock_moves"/>
+        <page to="backend/product_natures#list_stocks"/>
+        <page to="backend/product_natures#new"/>
+        <page to="backend/product_natures#show"/>
+        <page to="backend/product_natures#update"/>
+      </item>
+      <item name="product_categories">
+        <page to="backend/product_nature_categories#index"/>
+        <page to="backend/product_nature_categories#create"/>
+        <page to="backend/product_nature_categories#destroy"/>
+        <page to="backend/product_nature_categories#edit"/>
+        <page to="backend/product_nature_categories#list"/>
+        <page to="backend/product_nature_categories#list_products"/>
+        <page to="backend/product_nature_categories#new"/>
+        <page to="backend/product_nature_categories#show"/>
+        <page to="backend/product_nature_categories#update"/>
+      </item>
+      <item name="product_varieties">
+        <page to="backend/product_varieties#index"/>
+        <page to="backend/product_varieties#create"/>
+        <page to="backend/product_varieties#destroy"/>
+        <page to="backend/product_varieties#edit"/>
+        <page to="backend/product_varieties#export"/>
+        <page to="backend/product_varieties#find"/>
+        <page to="backend/product_varieties#import"/>
+        <page to="backend/product_varieties#list"/>
+        <page to="backend/product_varieties#new"/>
+        <page to="backend/product_varieties#update"/>
+      </item>
+      <item name="product_price_listings">
+        <page to="backend/product_price_listings#index"/>
+        <page to="backend/product_price_listings#create"/>
+        <page to="backend/product_price_listings#destroy"/>
+        <page to="backend/product_price_listings#edit"/>
+        <page to="backend/product_price_listings#list"/>
+        <page to="backend/product_price_listings#list_prices"/>
+        <page to="backend/product_price_listings#new"/>
+        <page to="backend/product_price_listings#show"/>
+        <page to="backend/product_price_listings#update"/>
+      </item>
+      <item name="product_price_templates">
+        <page to="backend/product_price_templates#index"/>
+        <page to="backend/product_price_templates#create"/>
+        <page to="backend/product_price_templates#destroy"/>
+        <page to="backend/product_price_templates#edit"/>
+        <page to="backend/product_price_templates#export"/>
+        <page to="backend/product_price_templates#find"/>
+        <page to="backend/product_price_templates#import"/>
+        <page to="backend/product_price_templates#list"/>
+        <page to="backend/product_price_templates#new"/>
+        <page to="backend/product_price_templates#update"/>
+      </item>
+    </group>
+    <group name="truck">
+      <page to="backend/dashboards#settings_stocks"/>
+      <item name="incoming_delivery_modes">
+        <page to="backend/incoming_delivery_modes#index"/>
+        <page to="backend/incoming_delivery_modes#create"/>
+        <page to="backend/incoming_delivery_modes#destroy"/>
+        <page to="backend/incoming_delivery_modes#edit"/>
+        <page to="backend/incoming_delivery_modes#list"/>
+        <page to="backend/incoming_delivery_modes#new"/>
+        <page to="backend/incoming_delivery_modes#update"/>
+      </item>
+      <item name="outgoing_delivery_modes">
+        <page to="backend/outgoing_delivery_modes#index"/>
+        <page to="backend/outgoing_delivery_modes#create"/>
+        <page to="backend/outgoing_delivery_modes#destroy"/>
+        <page to="backend/outgoing_delivery_modes#edit"/>
+        <page to="backend/outgoing_delivery_modes#list"/>
+        <page to="backend/outgoing_delivery_modes#new"/>
+        <page to="backend/outgoing_delivery_modes#update"/>
+      </item>
+      <item name="buildings">
+        <page to="backend/buildings#index"/>
+        <page to="backend/buildings#create"/>
+        <page to="backend/buildings#destroy"/>
+        <page to="backend/buildings#edit"/>
+        <page to="backend/buildings#list"/>
+        <page to="backend/buildings#list_stock_moves"/>
+        <page to="backend/buildings#list_stocks"/>
+        <page to="backend/buildings#new"/>
+        <page to="backend/buildings#show"/>
+        <page to="backend/buildings#update"/>
+      </item>
+    </group>
+    <group name="cogs">
+      <page to="backend/dashboards#settings_production"/>
+      <item name="backend/campaigns">
+        <page to="backend/campaigns#index"/>
+        <page to="backend/campaigns#create"/>
+        <page to="backend/campaigns#destroy"/>
+        <page to="backend/campaigns#edit"/>
+        <page to="backend/campaigns#list"/>
+        <page to="backend/campaigns#new"/>
+        <page to="backend/campaigns#show"/>
+        <page to="backend/campaigns#update"/>
+      </item>
+      <item name="backend/product_indicators">
+        <page to="backend/product_indicators#index"/>
+        <page to="backend/product_indicators#create"/>
+        <page to="backend/product_indicators#destroy"/>
+        <page to="backend/product_indicators#down"/>
+        <page to="backend/product_indicators#edit"/>
+        <page to="backend/product_indicators#list"/>
+        <page to="backend/product_indicators#list_choices"/>
+        <page to="backend/product_indicators#new"/>
+        <page to="backend/product_indicators#show"/>
+        <page to="backend/product_indicators#sort"/>
+        <page to="backend/product_indicators#up"/>
+        <page to="backend/product_indicators#update"/>
+      </item>
+      <item name="backend/procedure_natures">
+        <page to="backend/procedure_natures#index"/>
+        <page to="backend/procedure_natures#create"/>
+        <page to="backend/procedure_natures#destroy"/>
+        <page to="backend/procedure_natures#edit"/>
+        <page to="backend/procedure_natures#list"/>
+        <page to="backend/procedure_natures#new"/>
+        <page to="backend/procedure_natures#show"/>
+        <page to="backend/procedure_natures#update"/>
+      </item>
+      <item name="production_chains">
+        <page to="backend/production_chains#index"/>
+        <page to="backend/production_chains#create"/>
+        <page to="backend/production_chains#destroy"/>
+        <page to="backend/production_chains#edit"/>
+        <page to="backend/production_chains#list"/>
+        <page to="backend/production_chains#list_conveyors"/>
+        <page to="backend/production_chains#list_work_centers"/>
+        <page to="backend/production_chains#new"/>
+        <page to="backend/production_chains#show"/>
+        <page to="backend/production_chains#update"/>
+        <page to="backend/production_chain_work_centers#create"/>
+        <page to="backend/production_chain_work_centers#destroy"/>
+        <page to="backend/production_chain_work_centers#down"/>
+        <page to="backend/production_chain_work_centers#edit"/>
+        <page to="backend/production_chain_work_centers#new"/>
+        <page to="backend/production_chain_work_centers#play"/>
+        <page to="backend/production_chain_work_centers#show"/>
+        <page to="backend/production_chain_work_centers#up"/>
+        <page to="backend/production_chain_work_centers#update"/>
+        <page to="backend/production_chain_conveyors#create"/>
+        <page to="backend/production_chain_conveyors#destroy"/>
+        <page to="backend/production_chain_conveyors#edit"/>
+        <page to="backend/production_chain_conveyors#new"/>
+        <page to="backend/production_chain_conveyors#update"/>
+      </item>
+    </group>
+  </module>
+</modules>
