@@ -91,28 +91,20 @@ class AnimalGroup < ProductGroup
 
   # Add a member to the group
   def add(member, started_at = nil)
-    raise ArgumentError.new("Product expected, got #{member.class}:#{member.inspect}") unless member.is_a?(Product)
-    unless
-      self.memberships.create!(:member_id => member.id, :started_at => (started_at || Time.now))
-    end
+    raise ArgumentError.new("Animal expected, got #{member.class}:#{member.inspect}") unless member.is_a?(Animal)
+    super(member, started_at)
   end
 
   # Remove a member from the group
   def remove(member, stopped_at = nil)
-    raise ArgumentError.new("Product expected, got #{member.class}:#{member.inspect}") unless member.is_a?(Product)
-    stopped_at ||= Time.now
-    if membership = ProductMembership.where(:group_id => self.id, :member_id => member.id).where("stopped_at IS NULL AND COALESCE(started_at, ?) <= ?", stopped_at, stopped_at).order(:started_at)
-      membership.stopped_at = stopped_at
-      membership.save!
-    else
-      self.memberships.create!(:member_id => member.id, :stopped_at => stopped_at)
-    end
+    raise ArgumentError.new("Animal expected, got #{member.class}:#{member.inspect}") unless member.is_a?(Animal)
+    super(member, stopped_at)
   end
 
 
   # Returns members of the group at a given time (or now by default)
   def members_at(viewed_at = nil)
-    Product.members_of(self, viewed_at || Time.now)
+    Animal.members_of(self, viewed_at || Time.now)
   end
 
 end

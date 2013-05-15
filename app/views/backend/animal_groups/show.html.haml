@@ -1,0 +1,7 @@
+=toolbar do |t|
+  -t.edit @animal_group
+
+=beehive do |b|
+  -b.cell do
+    =attributes_list(@animal_group) do |l|
+      -l.attribute :name

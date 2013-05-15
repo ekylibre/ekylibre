@@ -28,6 +28,11 @@ fra:
       # index: "Index backend/activity watching"
       # new: "New backend/activity watching"
       # show: "Show backend/activity watching"
+    backend/animal_groups:
+      # edit: "Edit backend/animal group"
+      # index: "Index backend/animal group"
+      # new: "New backend/animal group"
+      # show: "Show backend/animal group"
     backend/animals:
       edit: "Modifier l'animal\_: %{name}"
       index: "Productions animales"
@@ -233,6 +238,11 @@ fra:
       reopen: "Déclôturer le journal\_: %{name}"
       reports: "Impression, exportation"
       show: "Journal\_: %{name} (%{code})"
+    backend/land_parcel_groups:
+      # edit: "Edit backend/land parcel group"
+      # index: "Index backend/land parcel group"
+      # new: "New backend/land parcel group"
+      # show: "Show backend/land parcel group"
     backend/land_parcels:
       divide: "Diviser la parcelle\_: %{name}"
       edit: "Modifier la parcelle\_: %{name}"
@@ -557,6 +567,7 @@ fra:
     backend/activity_repartitions: "Répartitions analytiques"
     # backend/activity_watchings: "Backend/activity watchings"
     backend/affairs: "Affaires"
+    # backend/animal_groups: "Backend/animal groups"
     backend/animals: "Animaux"
     backend/areas: "Zones postales"
     backend/assets: "Immobilisations"
@@ -605,6 +616,7 @@ fra:
     backend/journal_entries: "Écritures comptables"
     backend/journal_entry_items: "Lignes d’écritures comptables"
     backend/journals: "Journaux"
+    # backend/land_parcel_groups: "Backend/land parcel groups"
     backend/land_parcels: "Îlots"
     backend/listing_node_items: "Élement de nœuds d’extractions"
     backend/listing_nodes: "Nœuds d’extractions"

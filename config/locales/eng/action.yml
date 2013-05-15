@@ -24,6 +24,7 @@ eng:
       # new: "Nouvelle répartition analytique"
       # show: "Répartition %{id}"
     backend/activity_watchings: #?
+    backend/animal_groups: #?
     backend/animals:
       # edit: "Modifier l'animal\_: %{name}"
       # index: "Productions animales"
@@ -238,6 +239,7 @@ eng:
       reopen: "Reopen journal : %{name}"
       reports: "Prints, exportations"
       show: "Journal: %{name} (%{code})"
+    backend/land_parcel_groups: #?
     backend/land_parcels:
       divide: "Divide land parcel: %{name}"
       edit: "Edit land parcel: %{name}"

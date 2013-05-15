@@ -917,6 +917,16 @@
       <page to="backend/activity_watchings#show"/>
       <page to="backend/activity_watchings#update"/>
     </menu>
+    <menu name="backend/animal_groups">
+      <page to="backend/animal_groups#index"/>
+      <page to="backend/animal_groups#create"/>
+      <page to="backend/animal_groups#destroy"/>
+      <page to="backend/animal_groups#edit"/>
+      <page to="backend/animal_groups#list"/>
+      <page to="backend/animal_groups#new"/>
+      <page to="backend/animal_groups#show"/>
+      <page to="backend/animal_groups#update"/>
+    </menu>
     <menu name="backend/animals">
       <page to="backend/animals#list_group"/>
       <page to="backend/animals#list_indicator"/>
@@ -981,6 +991,16 @@
       <page to="backend/interfacers#toggle_view_mode"/>
       <page to="backend/interfacers#unroll"/>
       <page to="backend/interfacers#unroll_options"/>
+    </menu>
+    <menu name="backend/land_parcel_groups">
+      <page to="backend/land_parcel_groups#index"/>
+      <page to="backend/land_parcel_groups#create"/>
+      <page to="backend/land_parcel_groups#destroy"/>
+      <page to="backend/land_parcel_groups#edit"/>
+      <page to="backend/land_parcel_groups#list"/>
+      <page to="backend/land_parcel_groups#new"/>
+      <page to="backend/land_parcel_groups#show"/>
+      <page to="backend/land_parcel_groups#update"/>
     </menu>
     <menu name="backend/logs">
       <page to="backend/logs#index"/>

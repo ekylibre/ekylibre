@@ -69,9 +69,8 @@ require 'test_helper'
 
 class AnimalGroupTest < ActiveSupport::TestCase
 
-  # Replace this with your real tests.'
-  test "the truth" do
-    assert true
+  test "presence of fixtures" do
+    # assert_equal 2, AnimalGroup.count
   end
 
 end

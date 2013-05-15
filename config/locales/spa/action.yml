@@ -31,6 +31,7 @@ spa:
       # new: "Nouvelle répartition analytique"
       # show: "Répartition %{id}"
     backend/activity_watchings: #?
+    backend/animal_groups: #?
     backend/animals:
       # edit: "Modifier l'animal\_: %{name}"
       # index: "Productions animales"
