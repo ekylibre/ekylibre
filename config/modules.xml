@@ -233,9 +233,6 @@
   </module>
   <module name="sales">
     <group name="sales" icon="bar-chart">
-	    <item name="new sale" icon="plus">
-	      <page to="backend/sales#new"/>
-	    </item>
 	    <item name="sales">
 	      <page to="backend/sales#index"/>
 	      <page to="backend/sales#abort"/>
@@ -260,6 +257,7 @@
 	      <page to="backend/sales#propose_and_invoice"/>
 	      <page to="backend/sales#refuse"/>
 	      <page to="backend/sales#show"/>
+	      <page to="backend/sales#new"/>
 	      <page to="backend/sales#statistics"/>
 	      <page to="backend/sales#update"/>
 	      <page to="backend/sale_items#create"/>
@@ -273,9 +271,6 @@
   </module>
   <module name="purchases">
     <group name="purchases" icon="shopping-cart">
-    	<item name="new purchase" icon="plus">
-	      <page to="backend/purchases#new"/>
-	    </item>
 	    <item name="purchases">
 	      <page to="backend/purchases#index"/>
 	      <page to="backend/purchases#abort"/>
@@ -294,6 +289,7 @@
 	      <page to="backend/purchases#refuse"/>
 	      <page to="backend/purchases#show"/>
 	      <page to="backend/purchases#update"/>
+	      <page to="backend/purchases#new"/>
 	      <page to="backend/purchase_items#create"/>
 	      <page to="backend/purchase_items#destroy"/>
 	      <page to="backend/purchase_items#edit"/>
@@ -425,7 +421,7 @@
       <page to="backend/product_groups#update"/>
     </item>
     </group>
-    <group name="product" icon="leaf">
+    <group name="product" icon="wheat"><!-- @TODO : wheat icon -->
 	    <item name="animals">
 	      <page to="backend/animals#index"/>
 	      <page to="backend/animals#create"/>
