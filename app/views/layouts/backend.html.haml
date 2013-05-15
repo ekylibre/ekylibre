@@ -13,7 +13,7 @@
   -expiration = {}
   -expiration = {"timeout" => session[:expiration], "timeout-href" => renew_session_url(:user_name => current_user.user_name)} if current_user and session[:expiration].to_i>0
   %body{:data => expiration}
-    =navigation_tag
+    -#=navigation_tag
     #wrap
       %aside#side.visible
         =side_tag

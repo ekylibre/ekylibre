@@ -2,8 +2,7 @@
 <modules>
   <page to="backend/dashboards#index"/>
   <module name="relationship">
-    <page to="backend/dashboards#relationship"/>
-    <group name="group">
+    <group name="people" icon="group">
 	    <item name="entities">
 	      <page to="backend/entities#index"/>
 	      <page to="backend/entities#create"/>
@@ -44,7 +43,7 @@
 	      <page to="backend/observations#update"/>
 	    </item>
 	</group>
-	<group name="tasks">
+	<group name="event" icon="calendar">
 	    <item name="events">
 	      <page to="backend/events#index"/>
 	      <page to="backend/events#change_minutes"/>
@@ -55,6 +54,8 @@
 	      <page to="backend/events#new"/>
 	      <page to="backend/events#update"/>
 	    </item>
+	 </group>
+	 <group name="adhesions" icon="tags">
 	    <item name="subscriptions">
 	      <page to="backend/subscriptions#index"/>
 	      <page to="backend/subscriptions#coordinates"/>
@@ -75,6 +76,8 @@
 	      <page to="backend/mandates#new"/>
 	      <page to="backend/mandates#update"/>
 	    </item>
+	 </group>
+	 <group name="extraction" icon="share">
 	    <item name="listings">
 	      <page to="backend/listings#index"/>
 	      <page to="backend/listing_nodes#create"/>
@@ -95,8 +98,7 @@
 	</group>
   </module>
   <module name="accountancy">
-    <page to="backend/dashboards#accountancy"/>
-    <group name="list">
+     <group name="journal" icon="book">
 	    <item name="journals">
 	      <page to="backend/journals#index"/>
 	      <page to="backend/journals#balance"/>
@@ -128,6 +130,8 @@
 	      <page to="backend/journal_entries#update"/>
 	      <page to="backend/journal_entry_items#new"/>
 	    </item>
+	 </group>
+	 <group name="activity_affectation" icon="tasks">
 	    <item name="activity_repartitions">
 	      <page to="backend/activity_repartitions#index"/>
 	      <page to="backend/activity_repartitions#create"/>
@@ -138,6 +142,8 @@
 	      <page to="backend/activity_repartitions#show"/>
 	      <page to="backend/activity_repartitions#update"/>
 	    </item>
+	 </group>
+	 <group name="asset" icon="home">
 	    <item name="assets">
 	      <page to="backend/assets#index"/>
 	      <page to="backend/assets#create"/>
@@ -150,7 +156,7 @@
 	      <page to="backend/assets#update"/>
 	    </item>
 	  </group>
-	  <group name="money">
+	  <group name="cashes" icon="money">
 	    <item name="cashes">
 	      <page to="backend/cashes#index"/>
 	      <page to="backend/cashes#create"/>
@@ -185,6 +191,8 @@
 	      <page to="backend/bank_statements#show"/>
 	      <page to="backend/bank_statements#update"/>
 	    </item>
+	  </group>
+	  <group name="payments" icon="credit-card">
 	    <item name="incoming_payments">
 	      <page to="backend/incoming_payments#index"/>
 	      <page to="backend/incoming_payments#create"/>
@@ -224,73 +232,78 @@
 	 </group>
   </module>
   <module name="sales">
-    <page to="backend/dashboards#sales"/>
-    <item name="sales">
-      <page to="backend/sales#index"/>
-      <page to="backend/sales#abort"/>
-      <page to="backend/sales#cancel"/>
-      <page to="backend/sales#confirm"/>
-      <page to="backend/sales#contacts"/>
-      <page to="backend/sales#correct"/>
-      <page to="backend/sales#create"/>
-      <page to="backend/sales#destroy"/>
-      <page to="backend/sales#duplicate"/>
-      <page to="backend/sales#edit"/>
-      <page to="backend/sales#invoice"/>
-      <page to="backend/sales#list"/>
-      <page to="backend/sales#list_creditable_items"/>
-      <page to="backend/sales#list_credits"/>
-      <page to="backend/sales#list_deliveries"/>
-      <page to="backend/sales#list_items"/>
-      <page to="backend/sales#list_payment_uses"/>
-      <page to="backend/sales#list_subscriptions"/>
-      <page to="backend/sales#list_undelivered_items"/>
-      <page to="backend/sales#new"/>
-      <page to="backend/sales#propose"/>
-      <page to="backend/sales#propose_and_invoice"/>
-      <page to="backend/sales#refuse"/>
-      <page to="backend/sales#show"/>
-      <page to="backend/sales#statistics"/>
-      <page to="backend/sales#update"/>
-      <page to="backend/sale_items#create"/>
-      <page to="backend/sale_items#destroy"/>
-      <page to="backend/sale_items#detail"/>
-      <page to="backend/sale_items#edit"/>
-      <page to="backend/sale_items#new"/>
-      <page to="backend/sale_items#update"/>
-    </item>
+    <group name="sales" icon="bar-chart">
+	    <item name="new sale" icon="plus">
+	      <page to="backend/sales#new"/>
+	    </item>
+	    <item name="sales">
+	      <page to="backend/sales#index"/>
+	      <page to="backend/sales#abort"/>
+	      <page to="backend/sales#cancel"/>
+	      <page to="backend/sales#confirm"/>
+	      <page to="backend/sales#contacts"/>
+	      <page to="backend/sales#correct"/>
+	      <page to="backend/sales#create"/>
+	      <page to="backend/sales#destroy"/>
+	      <page to="backend/sales#duplicate"/>
+	      <page to="backend/sales#edit"/>
+	      <page to="backend/sales#invoice"/>
+	      <page to="backend/sales#list"/>
+	      <page to="backend/sales#list_creditable_items"/>
+	      <page to="backend/sales#list_credits"/>
+	      <page to="backend/sales#list_deliveries"/>
+	      <page to="backend/sales#list_items"/>
+	      <page to="backend/sales#list_payment_uses"/>
+	      <page to="backend/sales#list_subscriptions"/>
+	      <page to="backend/sales#list_undelivered_items"/>
+	      <page to="backend/sales#propose"/>
+	      <page to="backend/sales#propose_and_invoice"/>
+	      <page to="backend/sales#refuse"/>
+	      <page to="backend/sales#show"/>
+	      <page to="backend/sales#statistics"/>
+	      <page to="backend/sales#update"/>
+	      <page to="backend/sale_items#create"/>
+	      <page to="backend/sale_items#destroy"/>
+	      <page to="backend/sale_items#detail"/>
+	      <page to="backend/sale_items#edit"/>
+	      <page to="backend/sale_items#new"/>
+	      <page to="backend/sale_items#update"/>
+	    </item>
+	  </group>
   </module>
   <module name="purchases">
-    <page to="backend/dashboards#purchases"/>
-    <item name="purchases">
-      <page to="backend/purchases#index"/>
-      <page to="backend/purchases#abort"/>
-      <page to="backend/purchases#confirm"/>
-      <page to="backend/purchases#correct"/>
-      <page to="backend/purchases#create"/>
-      <page to="backend/purchases#destroy"/>
-      <page to="backend/purchases#edit"/>
-      <page to="backend/purchases#invoice"/>
-      <page to="backend/purchases#list"/>
-      <page to="backend/purchases#list_deliveries"/>
-      <page to="backend/purchases#list_items"/>
-      <page to="backend/purchases#list_payment_uses"/>
-      <page to="backend/purchases#list_undelivered_items"/>
-      <page to="backend/purchases#new"/>
-      <page to="backend/purchases#propose"/>
-      <page to="backend/purchases#refuse"/>
-      <page to="backend/purchases#show"/>
-      <page to="backend/purchases#update"/>
-      <page to="backend/purchase_items#create"/>
-      <page to="backend/purchase_items#destroy"/>
-      <page to="backend/purchase_items#edit"/>
-      <page to="backend/purchase_items#new"/>
-      <page to="backend/purchase_items#update"/>
-    </item>
+    <group name="purchases" icon="shopping-cart">
+    	<item name="new purchase" icon="plus">
+	      <page to="backend/purchases#new"/>
+	    </item>
+	    <item name="purchases">
+	      <page to="backend/purchases#index"/>
+	      <page to="backend/purchases#abort"/>
+	      <page to="backend/purchases#confirm"/>
+	      <page to="backend/purchases#correct"/>
+	      <page to="backend/purchases#create"/>
+	      <page to="backend/purchases#destroy"/>
+	      <page to="backend/purchases#edit"/>
+	      <page to="backend/purchases#invoice"/>
+	      <page to="backend/purchases#list"/>
+	      <page to="backend/purchases#list_deliveries"/>
+	      <page to="backend/purchases#list_items"/>
+	      <page to="backend/purchases#list_payment_uses"/>
+	      <page to="backend/purchases#list_undelivered_items"/>
+	      <page to="backend/purchases#propose"/>
+	      <page to="backend/purchases#refuse"/>
+	      <page to="backend/purchases#show"/>
+	      <page to="backend/purchases#update"/>
+	      <page to="backend/purchase_items#create"/>
+	      <page to="backend/purchase_items#destroy"/>
+	      <page to="backend/purchase_items#edit"/>
+	      <page to="backend/purchase_items#new"/>
+	      <page to="backend/purchase_items#update"/>
+	    </item>
+    </group>
   </module>
   <module name="stocks">
-    <page to="backend/dashboards#stocks"/>
-    <group name="th">
+    <group name="stock" icon="box"><!-- @TODO : box icon -->
 	    <item name="stocks">
 	      <page to="backend/products#index"/>
 	      <page to="backend/products#create"/>
@@ -327,7 +340,7 @@
 	      <page to="backend/inventories#update"/>
 	    </item>
 	</group>    
-	<group name="truck">
+	<group name="product_move" icon="truck">
 	    <item name="incoming_deliveries">
 	      <page to="backend/incoming_deliveries#index"/>
 	      <page to="backend/incoming_deliveries#confirm"/>
@@ -365,7 +378,7 @@
   </module>
   <module name="production">
     <page to="backend/dashboards#production"/>
-    <group name="cogs">
+    <group name="activity" icon="cogs">
     <item name="activities">
       <page to="backend/activities#index"/>
       <page to="backend/activities#create"/>
@@ -412,7 +425,7 @@
       <page to="backend/product_groups#update"/>
     </item>
     </group>
-    <group name="leaf">
+    <group name="product" icon="leaf">
 	    <item name="animals">
 	      <page to="backend/animals#index"/>
 	      <page to="backend/animals#create"/>
@@ -459,7 +472,7 @@
 	      <page to="backend/land_parcels#update"/>
 	    </item>
     </group>
-    <group name="wrench">
+    <group name="tools" icon="cog">
       <item name="equipments">
         <page to="backend/equipments#index"/>
         <page to="backend/equipments#create"/>
@@ -494,8 +507,7 @@
     </group>
   </module>
   <module name="settings">
-    <page to="backend/dashboards#settings"/>
-    <group name="home">
+    <group name="parameter" icon="wrench">
       <page to="backend/dashboards#settings_base"/>
       <item name="settings">
         <page to="backend/settings#edit"/>
@@ -605,7 +617,7 @@
         <page to="backend/settings#about"/>
       </item>
     </group>
-    <group name="group">
+    <group name="people" icon="group">
       <page to="backend/dashboards#settings_relationship"/>
       <item name="entity_link_natures">
         <page to="backend/entity_link_natures#index"/>
@@ -664,7 +676,7 @@
         <page to="backend/districts#update"/>
       </item>
     </group>
-    <group name="money">
+    <group name="accountancy" name="money">
       <page to="backend/dashboards#settings_accountancy"/>
       <item name="accounts">
         <page to="backend/accounts#index"/>
@@ -731,7 +743,7 @@
         <page to="backend/outgoing_payment_modes#update"/>
       </item>
     </group>
-    <group name="bar-chart">
+    <group name="sale" icon="bar-chart">
       <page to="backend/dashboards#settings_sales"/>
       <item name="sale_natures">
         <page to="backend/sale_natures#index"/>
@@ -744,7 +756,7 @@
         <page to="backend/sale_natures#update"/>
       </item>
     </group>
-    <group name="shopping-cart">
+    <group name="purchase" icon="shopping-cart">
       <page to="backend/dashboards#settings_purchases"/>
       <item name="purchase_natures">
         <page to="backend/purchase_natures#index"/>
@@ -757,7 +769,7 @@
         <page to="backend/purchase_natures#update"/>
       </item>
     </group>
-    <group name="leaf">
+    <group name="product" icon="leaf">
       <page to="backend/dashboards#settings_products"/>
       <item name="products">
         <page to="backend/product_natures#index"/>
@@ -821,7 +833,7 @@
         <page to="backend/product_price_templates#update"/>
       </item>
     </group>
-    <group name="truck">
+    <group name="stock" icon="truck">
       <page to="backend/dashboards#settings_stocks"/>
       <item name="incoming_delivery_modes">
         <page to="backend/incoming_delivery_modes#index"/>
@@ -854,7 +866,7 @@
         <page to="backend/buildings#update"/>
       </item>
     </group>
-    <group name="cogs">
+    <group name="production" icon="cogs">
       <page to="backend/dashboards#settings_production"/>
       <item name="backend/campaigns">
         <page to="backend/campaigns#index"/>
