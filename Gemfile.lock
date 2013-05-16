@@ -126,7 +126,7 @@ GEM
     docsplit (0.7.2)
     domain_name (0.5.11)
       unf (>= 0.0.5, < 1.0.0)
-    enumerize (0.5.1)
+    enumerize (0.6.0)
       activesupport (>= 3.2)
     erubis (2.7.0)
     eventmachine (1.0.3)

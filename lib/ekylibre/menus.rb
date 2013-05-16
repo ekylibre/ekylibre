@@ -1,6 +1,34 @@
 # encoding: utf-8
 module Ekylibre
 
+  def self.modules_file
+    Rails.root.join("config", "modules.xml")
+  end
+
+  mattr_reader :modules
+  File.open(modules_file) do |f|
+    doc = Nokogiri::XML(f) do |config|
+      config.strict.nonet.noblanks
+    end
+    @@modules = doc.xpath('/modules/module').inject(ActiveSupport::OrderedHash.new) do |modules, element|
+      modules[element.attr("name").to_s.to_sym] = element.xpath('group').inject(ActiveSupport::OrderedHash.new) do |groups, elem|
+        groups[elem.attr("name").to_s.to_sym] = elem.xpath('item').inject(ActiveSupport::OrderedHash.new) do |items, e|
+          items[e.attr("name")] = e.xpath('page').collect do |e| 
+            url = e.attr("to").to_s.split('#')
+            {:controller => url[0], :action => url[1]}
+          end
+          items
+        end
+        groups
+      end
+      modules
+    end
+  end
+
+
+
+
+
   def self.menu_file
     Rails.root.join("config", "menu.xml")
   end
@@ -190,6 +218,7 @@ module Ekylibre
 
   mattr_reader :menu
   @@menu = Navigation::Menu.load_file(menu_file)
+
   # Adds dashboards
 
 

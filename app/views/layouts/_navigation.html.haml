@@ -1,8 +1,9 @@
 %nav#top
-  %ul.title-area>
+  %ul>
     %li.name>
       %h1=link_to("Ekylibre", backend_root_url)
-    %li.toggle-topbar.menu-icon>=link_to("", "#")
+    -for module in Ekylibre.modules.keys
+      %li=link_to("modules.roots.#{module}", :controller => :dashboards, :action => module)
 
   -#%section>
     %ul.left>=render(:partial => "layouts/subnavigation", :object => Ekylibre.menu.items, :locals => {:with_divider => true, :depth => 0})

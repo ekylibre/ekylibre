@@ -133,7 +133,7 @@ namespace :db do
       # add default variety for building
       b = ProductVariety.find_by_code("animal_house")
       q = ProductVariety.find_by_code("building")
-      b ||= ProductVariety.create!(:name => "Bâtiments Animaux", :code => "animal_house", :product_type => "Warehouse", :parent_id => (q ? q.id : nil))
+      b ||= ProductVariety.create!(:name => "Bâtiments Animaux", :code => "animal_house", :product_type => "Building", :parent_id => (q ? q.id : nil))
       # add default category for all
       category = ProductNatureCategory.first
       category ||= ProductNatureCategory.create!(:name => "Défaut")
@@ -154,8 +154,8 @@ namespace :db do
       place_nature ||= ProductNature.create!(:name => "Stabulation", :number => "CATTLE_HOUSE", :storage => true, :indivisible => true, :variety_id => b.id, :unit_id => unit.id, :category_id => category.id)
 
       # create default product to place animal
-      place = Warehouse.find_by_work_number("STABU_01")
-      place ||= Warehouse.create!(:name => "Stabulation principale", :identification_number => "S0001", :work_number => "STABU_01", :born_at => Time.now, :reservoir => true, :unit_id => unit.id, :content_nature_id => cow.id, :variety_id => b.id, :nature_id => place_nature.id, :owner_id => Entity.of_company.id , :number => "STABU_01")
+      place = Building.find_by_work_number("STABU_01")
+      place ||= Building.create!(:name => "Stabulation principale", :identification_number => "S0001", :work_number => "STABU_01", :born_at => Time.now, :reservoir => true, :unit_id => unit.id, :content_nature_id => cow.id, :variety_id => b.id, :nature_id => place_nature.id, :owner_id => Entity.of_company.id , :number => "STABU_01")
 
       arrival_causes = {"N" => :birth, "A" => :purchase, "P" => :housing, "" => :other }
       departure_causes = {"M" => :death, "B" => :sale, "" => :other, "C" => :consumption , "E" => :sale}
