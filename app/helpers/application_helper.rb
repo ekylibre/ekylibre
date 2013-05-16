@@ -519,11 +519,6 @@ module ApplicationHelper
     return (session[:view_mode] == "resized" ? true : false)
   end
 
-  def navigation_tag
-    session[:last_page] ||= {}
-    render :partial => "layouts/navigation"
-  end
-
   def meta_viewport_tag
     tag(:meta, :name => "viewport", :content => "width=device-width, initial-scale=1.0, maximum-scale=1.0")
   end

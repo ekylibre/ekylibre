@@ -40,7 +40,7 @@ desc "Adds default validations in models based on the schema"
 task :validations => :environment do
   log = File.open(Rails.root.join("log", "clean-validations.log"), "wb")
 
-  print " - Valids: "
+  print " - Validations: "
 
   errors = []
   CleanSupport.models_in_file.each do |model|

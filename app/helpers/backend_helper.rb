@@ -46,4 +46,9 @@ module BackendHelper
     Ekylibre.references.keys.collect{|a| [::I18n.t("activerecord.models.#{a.to_s.singularize}"), a.to_s.singularize]}.sort{|a,b| a[0].ascii <=> b[0].ascii}
   end
 
+  def navigation_tag
+    session[:last_page] ||= {}
+    render :partial => "layouts/navigation"
+  end
+
 end

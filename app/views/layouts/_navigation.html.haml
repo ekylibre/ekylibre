@@ -1,10 +1,10 @@
-%nav#top.top-bar.contain-to-grid.fixed
+%nav#top
   %ul.title-area>
     %li.name>
       %h1=link_to("Ekylibre", backend_root_url)
     %li.toggle-topbar.menu-icon>=link_to("", "#")
 
-  %section.top-bar-section>
+  -#%section>
     %ul.left>=render(:partial => "layouts/subnavigation", :object => Ekylibre.menu.items, :locals => {:with_divider => true, :depth => 0})
     %ul.right.hide-for-small
       %li.divider

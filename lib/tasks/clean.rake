@@ -1,5 +1,5 @@
 require File.join(File.expand_path(File.dirname(__FILE__)), "clean", "support")
-cleans = [:forms, :tests, :rights, :menus, :models, :validations, :annotations, :locales, :code, :diagrams]
+cleans = [:forms, :tests, :rights, :modules, :models, :validations, :annotations, :locales, :code, :diagrams]
 namespace :clean do
   for clean in cleans
     require File.join(File.expand_path(File.dirname(__FILE__)), "clean", clean.to_s)
