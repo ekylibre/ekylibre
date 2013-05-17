@@ -2,8 +2,8 @@
   %ul>
     %li.name>
       %h1=link_to("Ekylibre", backend_root_url)
-    -for module in Ekylibre.modules.keys
-      %li=link_to("modules.roots.#{module}", :controller => :dashboards, :action => module)
+    -for mod in Ekylibre.modules.keys
+      %li=link_to("modules.roots.#{mod}", :controller => :dashboards, :action => mod)
 
   -#%section>
     %ul.left>=render(:partial => "layouts/subnavigation", :object => Ekylibre.menu.items, :locals => {:with_divider => true, :depth => 0})
