@@ -5,16 +5,61 @@ module Ekylibre
     Rails.root.join("config", "modules.xml")
   end
 
-  mattr_reader :modules
+  module Modules
+    class Hash < ActiveSupport::OrderedHash
+      def initialize(name, *args)
+        @name = name
+        super(args)
+      end
+    end
+    class Module < Hash
+      def groups
+        
+      end
+    end
+    class Group < Array
+      def module
+        @module
+      end
+      def items
+        self
+      end
+    end
+    class Item < Array
+      def group
+        @group
+      end
+      def module
+        group.module
+      end
+      def human_name
+        p = default_page
+        ::I18n.translate(("menus." + self.hierarchy.collect{|m| m.name}.join(".")).to_sym, :default => ["menus.#{@name}".to_sym, "labels.menus.#{@name}".to_sym, "actions.#{p.controller}.#{p.action}".to_sym, "labels.#{@name}".to_sym])        
+      end
+      def pages
+        self
+      end      
+      alias :first :default_page
+    end
+  end
+
+
+  mattr_reader :modules, :reverses
+  @@reverses = {}
   File.open(modules_file) do |f|
     doc = Nokogiri::XML(f) do |config|
       config.strict.nonet.noblanks
     end
     @@modules = doc.xpath('/modules/module').inject(ActiveSupport::OrderedHash.new) do |modules, element|
-      modules[element.attr("name").to_s.to_sym] = element.xpath('group').inject(ActiveSupport::OrderedHash.new) do |groups, elem|
-        groups[elem.attr("name").to_s.to_sym] = elem.xpath('item').inject(ActiveSupport::OrderedHash.new) do |items, e|
-          items[e.attr("name")] = e.xpath('page').collect do |e| 
+      module_name = element.attr("name").to_s.to_sym
+      modules[module_name] = element.xpath('group').inject(ActiveSupport::OrderedHash.new) do |groups, elem|
+        group_name = elem.attr("name").to_s.to_sym
+        groups[group_name] = elem.xpath('item').inject(ActiveSupport::OrderedHash.new) do |items, e|
+          item_name = e.attr("name")
+          items[item_name] = e.xpath('page').collect do |e| 
             url = e.attr("to").to_s.split('#')
+            @@reverses[url[0]] ||= {}
+            @@reverses[url[0]][url[1]] = [module_name, group_name, item_name]
             {:controller => url[0], :action => url[1]}
           end
           items
@@ -24,6 +69,28 @@ module Ekylibre
       modules
     end
   end
+
+
+  def self.module_of(controller, action)
+    controller = controller.to_s
+    if controller == "backend/dashboards"
+      return action.to_sym
+    elsif reverses[controller] and r = reverses[controller][action.to_s]
+      return r[0]
+    end
+    return nil
+  end
+
+  def self.groups_of(controller, action)
+    return modules[module_of(controller, action)]
+  end
+  
+  def self.item_human_name()
+    p = default_page
+    ::I18n.translate(("menus." + self.hierarchy.collect{|m| m.name}.join(".")).to_sym, :default => ["menus.#{@name}".to_sym, "labels.menus.#{@name}".to_sym, "actions.#{p.controller}.#{p.action}".to_sym, "labels.#{@name}".to_sym])
+  end
+
+
 
 
 

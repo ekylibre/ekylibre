@@ -570,10 +570,13 @@ module ApplicationHelper
     render(:partial => 'layouts/side', :locals => {:path => path})
   end
 
-  def side_menu(options={}, &block)
+  def side_menu(*args, &block)
     return "" unless block_given?
+    options = (args[-1].is_a?(Hash) ? args.delete_at(-1) : {})
     menu = Menu.new
     yield menu
+
+    name = args[0]
 
     html = "".html_safe
     for args in menu.items
@@ -596,8 +599,10 @@ module ApplicationHelper
       end
       html << content_tag(:li, link_to(*args), li_options) if authorized?(args[1])
     end
+    html = content_tag(:ul, html) unless html.blank?
+    html = content_tag(:h3, content_tag(:i) + h(name.is_a?(Symbol) ? tl("menus.#{name}", :default => name.to_s.humanize) : name.to_s)) + html unless html.blank?
 
-    content_for(:aside, content_tag(:ul, html.html_safe, :class => "side-menu"))
+    content_for(:aside, content_tag(:div, html.html_safe, :class => "side-menu side-menu-#{name}")) unless html.blank?
 
     return nil
   end

@@ -48,6 +48,39 @@ textarea {
   margin-bottom: 0;
   @include background-active-gradient;
   @include box-shadow(0 0 $fs-normal rgba(#000, 0.4));
+  ul {
+    @include clearfix;
+    li { 
+      @include float(left);
+      display: block;
+      height: $topbar-height;
+      a {
+        display: block;
+        height: $topbar-height;
+        line-height: $topbar-height;
+        vertical-align: middle;
+        padding: 0 round($fs-normal * 1);
+        color: white;
+        font-weight: bold;
+        &:hover {
+	  @include background(rgba(black, 0.07));
+          // @include box-shadow(0 0 round($fs-normal *0.7) rgba(black, 0.5) inset);
+          @include transition(background 0.4s, box-shadow 0.4s);
+        }
+      }
+      &.separator {
+        width: 0;
+	@include border-right(1px solid lighten($active-color, $default-lightness-variation));
+	@include border-left(1px solid darken($active-color, $default-lightness-variation));
+      }
+      &.active {
+        a {
+	  @include background(rgba(black, 0.2));
+          @include box-shadow(0 0 round($fs-normal *0.7) rgba(black, 0.2) inset);
+        }
+      }  
+    }
+  }
 }
 
 $header-height: 40px;
@@ -107,9 +140,10 @@ html.backend {
         max-width: 100%;
         & > #side {
          //@include grid-column(2, $float: left, $collapse: true);
-          border-right: 1px solid #EEE;
+          border-right: 1px solid #AAA;
           width: $side-width - 1px;
           height: 100%;
+          overflow-y: auto;
           @include float(left);
         }
         & > #main {
@@ -257,80 +291,82 @@ html.authentication {
   }
 }
 
-ul.side-menu {
-  margin: $default-gap;
-  $transp: 40%;
-  @include incrust-shadow;
-  @include border-radius($default-border-radius);
-  li {
-    display:block;
-    margin-top: -1 * $menu-border-width;
-    $padding: round($fs-normal*0.7);
-    a {
-        background: white;
-        display:block;
-        padding: $padding;
-        @include padding-right(round($fs-normal*1)+16px);
-        border: $menu-border;
-        @include ellipsis;
-        i {
-          @include is-icon;
-          display: block;
-          @include float(right);
-          width: 16px;
-          text-align: center;
-          margin: 0 -1*(round($fs-normal*0.5)+16px) 0 0;
-          &.icon-up { @include use-icon(chevron-up); }
-          &.icon-inside { @include use-icon(chevron-right); }
-          color: inherit;
-          line-height: inherit;
-        }
-      }
-      &:first-child {
-        margin-top: 0;
-        a {
-          @include border-top-left-radius($default-border-radius);
-          @include border-top-right-radius($default-border-radius);
-        }
-      }
-      &:last-child a {
-        @include border-bottom-left-radius($default-border-radius);
-        @include border-bottom-right-radius($default-border-radius);
-      }
-      &:hover a {
-        background: mix(white, $menu-border-color, 80%);
-        text-decoration: none;
-        @include transition(background 0.2s linear);
-      }
-      &.current, &.active {
-        position: relative;
-        z-index: 2;
-        a {
-          //background: $base-color;
-          @include background-active-gradient;
-          padding: $padding + 1;
-          border: none;
-          color: white;
-        }
-      }
-   }
-}
-
-/*
-ul.side-menu {
-  margin-top: $fs-normal;
-  li {
-    a {
-      display: block;
-      padding: round(0.5*$fs-normal) $fs-normal;
-    }
-    &.active {
-      a {
-        background: $active-color;
-      }
+.side-menu {
+  h3 {
+    $fs: $fs-large;
+    font-weight: bold;
+    font-size: $fs;
+    padding: round($fs * 0.3) round($fs * 0.4);
+    line-height: 1.4*$fs;
+    @include ellipsis;
+    i {
+      @include is-icon;
+      @include use-icon(cog);
+      @include margin-right($default-gap * 0.5)
     }
   }
-}*/
+
+  margin-top: $default-gap;
+  &:first-child {
+    margin-top: none;
+  }
+
+  ul {
+    $transp: 40%;
+    li {
+      display:block;
+      margin-top: -1 * $menu-border-width;
+      $padding: round($fs-normal*0.7);
+      a {
+          background: white;
+          display:block;
+          padding: $padding;
+          @include padding-right(round($fs-normal*1)+16px);
+          border: $menu-border;
+          border-left: none; 
+          border-right: none; 
+          @include ellipsis;
+          i {
+            @include is-icon;
+            display: block;
+            @include float(right);
+            width: 16px;
+            text-align: center;
+            margin: 0 -1*(round($fs-normal*0.5)+16px) 0 0;
+            &.icon-up { @include use-icon(chevron-up); }
+            &.icon-inside { @include use-icon(chevron-right); }
+            color: inherit;
+            line-height: inherit;
+          }
+        }
+        &:first-child {
+          margin-top: 0;
+          a {
+	    // @include border-top-radius($default-border-radius);
+          }
+        }
+        &:last-child a {
+	  // @include border-bottom-radius($default-border-radius);
+        }
+        &:hover a {
+          background: mix(white, $menu-border-color, 80%);
+          text-decoration: none;
+          @include transition(background 0.2s linear);
+        }
+        &.current, &.active {
+          position: relative;
+          z-index: 2;
+          a {
+            //background: $base-color;
+            @include background-active-gradient;
+            padding: $padding + 1;
+            border: none;
+            color: white;
+          }
+        }
+     }
+   }
+}
 
 .picture {
   background: white;
