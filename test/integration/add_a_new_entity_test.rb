@@ -8,7 +8,6 @@ class AddANewEntityTest < CapybaraIntegrationTest
     fill_in('user_email', :with => 'gendo@nerv.jp')
     fill_in('user_password', :with => '12345678')
     click_button('Connexion')
-    Capybara::Screenshot.screenshot_and_save_page
     #visit('/backend/entities')
     #visit('/backend/subscriptions')
     #visit('/backend/accounts')

@@ -6,6 +6,9 @@ ENV["RAILS_ENV"] = "test"
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 require 'capybara/rails'
+require 'capybara/rspec'
+require 'capybara-screenshot/rspec'
+
 
 # Removes use of shoulda gem until bug is not fixed for Rails >= 1.9.3
 # Use specific file lib/shoulda/context/context.rb
@@ -16,6 +19,16 @@ class Test::Unit::TestCase
   extend Shoulda::Context::ClassMethods
 end
 
+
+# Choix du driver par défaut : selenium pour le Javascript
+#
+Capybara.default_driver = :selenium
+#Capybara.default_driver = :webkit
+
+class ActionDispatch::IntegrationTest
+  # Intégration de Capybara dans tout les tests d'intégration.
+  include Capybara::DSL
+end
 
 class CapybaraIntegrationTest < ActionController::IntegrationTest
   include Capybara::DSL
