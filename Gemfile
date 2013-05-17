@@ -93,7 +93,7 @@ group :assets do
 end
 
 group :development do
-  #gem 'rack-mini-profiler'
+  # gem 'rack-mini-profiler'
   gem 'quiet_assets'
   gem 'better_errors'
   gem 'binding_of_caller'

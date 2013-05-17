@@ -1,9 +1,14 @@
 -content_for(:popover) do
   #help=render(:partial => "backend/help/search", :object => @article)
 
--current_page = menus.page(controller.controller_path, action_name)
--menu = current_page.useful_menu if current_page
+-# current_page = menus.page(controller.controller_path, action_name)
+-# menu = current_page.useful_menu if current_page
 
+-for group, items in Ekylibre.groups_of(controller.controller_path, action_name)
+  -side_menu(group) do |m|
+    -for item, pages in items
+      -m.link(item, pages.first)
+  
 
 -#side_menu do |m|
   -if request.url == root_url or request.url == backend_root_url
@@ -17,7 +22,7 @@
       -item = menu
       -m.link(item.human_name, item.default_page.url_options, :icon => :up)
 
--side_menu do |m|
+-#side_menu do |m|
   -if menu
     -for item in menu
       -unless item.name == :settings
@@ -25,7 +30,7 @@
         -attrs[:icon] = :inside if item.items.size > 0
         -m.link(item.human_name, item.default_page.url_options, attrs)
 
--side_menu do |m|
+-#side_menu do |m|
   -if menu
     -unless menu.hierarchy.detect{|i| i.name == :settings}
       -expected = "settings_" + menu.hierarchy[1..-1].collect{|m| m.name}.join("_") + "_dashboard_url"
