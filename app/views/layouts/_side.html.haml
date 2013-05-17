@@ -1,13 +1,11 @@
--content_for(:popover) do
-  #help=render(:partial => "backend/help/search", :object => @article)
-
 -# current_page = menus.page(controller.controller_path, action_name)
 -# menu = current_page.useful_menu if current_page
 
 -for group, items in Ekylibre.groups_of(controller.controller_path, action_name)
   -side_menu(group) do |m|
     -for item, pages in items
-      -m.link(item, pages.first)
+      -attrs = {}
+      -m.link(tl(item), pages.first, attrs)
   
 
 -#side_menu do |m|

@@ -39,7 +39,7 @@ module Ekylibre
       def pages
         self
       end      
-      alias :first :default_page
+      alias :default_page :first
     end
   end
 
@@ -82,7 +82,7 @@ module Ekylibre
   end
 
   def self.groups_of(controller, action)
-    return modules[module_of(controller, action)]
+    return modules[module_of(controller, action)] || []
   end
   
   def self.item_human_name()
