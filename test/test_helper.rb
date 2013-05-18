@@ -23,6 +23,7 @@ end
 # Choix du driver par défaut : selenium pour le Javascript
 #
 Capybara.default_driver = :selenium
+Capybara.default_wait_time = 5
 #Capybara.default_driver = :webkit
 
 class ActionDispatch::IntegrationTest
@@ -35,6 +36,18 @@ class CapybaraIntegrationTest < ActionController::IntegrationTest
   include Capybara::Screenshot
   include Warden::Test::Helpers
   Warden.test_mode!
+  
+  #add a method to test unroll in form
+  def fill_unroll(field, options = {})
+    fill_in field, :with => options[:with]
+  
+    page.execute_script %Q{ $('##{field}').trigger("focus") }
+    page.execute_script %Q{ $('##{field}').trigger("keydown") }
+    selector = "input##{field} + .items-menu .items-list .item[data-item-label='#{options[:select]}']"
+    #page.has_selector?('\"#{selector}\"')
+    page.execute_script "$(\"#{selector}\").mouseenter().click()"
+  end
+  
 end
 
 
