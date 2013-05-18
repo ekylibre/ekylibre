@@ -26,4 +26,6 @@
           =subheading_tag
           =notifications_tag
           =yield
+          -content_for(:popover) do
+            #help=render(:partial => "backend/help/search", :object => @article)
     =yield :popover

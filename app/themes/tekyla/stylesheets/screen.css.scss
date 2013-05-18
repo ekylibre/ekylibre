@@ -36,7 +36,7 @@ $modules: ();
 }
 
 $fs-ratio: 1.4; // 1.618;
-$fs-normal: 13px;
+$fs-normal: 14px;
 $fs-small:      ceil($fs-normal/$fs-ratio);
 $fs-large:     round($fs-ratio*$fs-normal);
 $fs-huge:      round($fs-ratio*$fs-large);

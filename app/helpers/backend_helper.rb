@@ -51,4 +51,92 @@ module BackendHelper
     render :partial => "layouts/navigation"
   end
 
+
+  def side_tag # (submenu = self.controller.controller_name.to_sym)
+    path = reverse_menus
+    return '' if path.nil?
+    render(:partial => 'layouts/side', :locals => {:path => path})
+  end
+
+  def side_menu(*args, &block)
+    return "" unless block_given?
+    options = (args[-1].is_a?(Hash) ? args.delete_at(-1) : {})
+    menu = Menu.new
+    yield menu
+
+    name = args[0]
+
+    html = "".html_safe
+    for args in menu.items
+      name = args[0]
+      args[1] ||= {}
+      args[2] ||= {}
+      li_options = {}
+      if args[2].delete(:active)
+        li_options[:class] = 'active'
+      end
+      if name.is_a?(Symbol)
+        kontroller = (args[1].is_a?(Hash) ? args[1][:controller] : nil) || controller_name
+        args[0] = ::I18n.t("actions.#{kontroller}.#{name}".to_sym, {:default => ["labels.#{name}".to_sym]}.merge(args[2].delete(:i18n)||{}))
+      end
+      if icon = args[2].delete(:icon)
+        args[0] = content_tag(:i, '', :class => "icon-"+icon.to_s) + ' '.html_safe + h(args[0])
+      end
+      if name.is_a? Symbol and name!=:back
+        args[1][:action] ||= name if args[1].is_a?(Hash)
+      end
+      html << content_tag(:li, link_to(*args), li_options) if authorized?(args[1])
+    end
+    html = content_tag(:ul, html) unless html.blank?
+
+    content_for(:aside) do
+      snippet(name) do
+        html
+      end
+    end unless html.blank?
+
+
+    # html = content_tag(:h3, content_tag(:i) + h(name.is_a?(Symbol) ? tl("menus.#{name}", :default => name.to_s.humanize) : name.to_s)) + html unless html.blank?
+
+    # content_for(:aside, content_tag(:div, html.html_safe, :class => "side-menu side-menu-#{name}")) unless html.blank?
+
+    return nil
+  end
+
+  class Menu
+    attr_reader :items
+
+    def initialize
+      @items = []
+    end
+
+    def link(name, *args)
+      @items << [name, *args]
+    end
+  end
+
+
+  def snippet(name, options={}, &block)
+    session[:snippets] ||= {}
+    session[:snippets][name.to_s] = true unless [TrueClass, FalseClass].include?(session[:snippets][name.to_s].class)
+    shown = session[:snippets][name]
+    html = ""
+    html << "<div class='snippet#{' '+options[:class].to_s if options[:class]}#{' collapsed' unless shown}'>"
+    html << "<div class='snippet-title'>"
+    html << link_to("", "#", "data-toggle-snippet" => name, :class => (shown ? :hide : :show))
+    # html << link_to("", {:action => :toggle_snippet, :controller => :interfacers}, "data-toggle-snippet" => name, :class => (shown ? :hide : :show))
+    html << "<h3><i></i>" + (options[:title]||tl(name)) + "</h3>"
+    html << "</div>"
+    html << "<div class='snippet-content'" + (shown ? '' : ' style="display: none"') + ">"
+    begin
+      html << capture(&block)
+    rescue Exception => e
+      html << content_tag(:small, "#{e.class.name}: #{e.message}")
+    end
+    html << "</div>"
+    html << "</div>"
+    return html.html_safe
+  end
+
+
 end

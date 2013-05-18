@@ -49,7 +49,8 @@ textarea {
   @include background-active-gradient;
   @include box-shadow(0 0 $fs-normal rgba(#000, 0.4));
   ul {
-    @include clearfix;
+    height: $topbar-height;
+    overflow: hidden;
     li { 
       @include float(left);
       display: block;
@@ -291,26 +292,33 @@ html.authentication {
   }
 }
 
-.side-menu {
-  h3 {
-    $fs: $fs-large;
-    font-weight: bold;
-    font-size: $fs;
-    padding: round($fs * 0.3) round($fs * 0.4);
-    line-height: 1.4*$fs;
-    @include ellipsis;
-    i {
+.snippet {
+  .snippet-title {
+    [data-toggle-snippet] {
       @include is-icon;
-      @include use-icon(cog);
-      @include margin-right($default-gap * 0.5)
+      @include use-icon(expand-alt);
+    }
+    h3 {
+      $fs: $fs-normal;
+      font-weight: bold;
+      font-size: $fs;
+      padding: round($fs * 0.3) round($fs * 0.4);
+      line-height: 1.4*$fs;
+      @include ellipsis;
+      i {
+        @include is-icon;
+        @include use-icon(cog);
+        @include margin-right($default-gap * 0.5)
+      }
     }
   }
 
   margin-top: $default-gap;
   &:first-child {
-    margin-top: none;
+    margin-top: round($default-gap * 0.5);
   }
-
+  
+  .snippet-content {
   ul {
     $transp: 40%;
     li {
@@ -321,23 +329,10 @@ html.authentication {
           background: white;
           display:block;
           padding: $padding;
-          @include padding-right(round($fs-normal*1)+16px);
           border: $menu-border;
           border-left: none; 
           border-right: none; 
           @include ellipsis;
-          i {
-            @include is-icon;
-            display: block;
-            @include float(right);
-            width: 16px;
-            text-align: center;
-            margin: 0 -1*(round($fs-normal*0.5)+16px) 0 0;
-            &.icon-up { @include use-icon(chevron-up); }
-            &.icon-inside { @include use-icon(chevron-right); }
-            color: inherit;
-            line-height: inherit;
-          }
         }
         &:first-child {
           margin-top: 0;
@@ -366,6 +361,7 @@ html.authentication {
         }
      }
    }
+  }
 }
 
 .picture {
