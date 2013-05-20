@@ -1,0 +1,302 @@
+#!/usr/bin/env ruby
+# Dependencies: fontforge-nox
+require 'rubygems'
+require 'pathname'
+require 'fileutils'
+require 'yaml'
+require 'nokogiri'
+
+def command(cmds)
+  puts "$ " + cmds
+  system(cmds)
+end
+
+SVG_NAMESPACES = {
+  :dc => "http://purl.org/dc/elements/1.1/",
+  :cc => "http://creativecommons.org/ns#",
+  :rdf => "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+  :svg => "http://www.w3.org/2000/svg",
+  :sodipodi => "http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd",
+  :inkscape => "http://www.inkscape.org/namespaces/inkscape"
+}
+
+
+here = Pathname.new(File.expand_path(__FILE__)).dirname
+sources = here.join("source-fonts")
+output_file = here.join("tekyla.svg")
+font_awesome_dir = here.join("font-awesome")
+
+# Get latest Font-Awesome
+FileUtils.mkdir_p(font_awesome_dir.dirname)
+if font_awesome_dir.join(".git").exist?
+  Dir.chdir(font_awesome_dir) do
+    command("git pull")
+  end
+else
+  command("git clone git@github.com:FortAwesome/Font-Awesome.git #{font_awesome_dir}")
+end
+
+# Normalize Font-Awesome
+awesome_dir = sources.join("001-awesome")
+FileUtils.rm_rf(awesome_dir)
+FileUtils.mkdir_p(awesome_dir)
+# FileUtils.cp(font_awesome_dir.join("build", "icons.yml"), awesome_dir.join("config.yml"))
+File.open(awesome_dir.join("config.yml"), "wb") do |f|
+  icons = YAML.load_file(font_awesome_dir.join("build", "icons.yml"))
+  # raise icons.inspect
+  config = {"glyphs" => icons["icons"].collect{|h| {"css" => h["id"], "from" => "0x" + h["unicode"]} } }
+  f.write(config.to_yaml)
+end
+
+forgotten_names = {
+  "_279" => "info",
+  "_283" => "eraser",
+  "_303" => "rss_sign",
+  "_312" => "external_link_sign"
+}
+
+# FileUtils.cp(font_awesome_dir.join("build", "assets", "font-awesome", "font", "fontawesome-webfont.svg"), awesome_dir.join("font.svg"))
+source = font_awesome_dir.join("build", "assets", "font-awesome", "font", "FontAwesome.otf")
+command("fontforge -script font-convert.pe #{source.to_s} svg")
+interm = source.dirname.join("FontAwesome.svg")
+File.open(interm) do |i|
+  doc = Nokogiri::XML(i) do |config|
+    config.nonet.strict.noblanks
+  end
+  doc.root.xpath("//glyph[@d]").each do |glyph|
+    name = glyph.attr("glyph-name")
+    name = forgotten_names[name] || name
+    puts "   !Weird name: #{name}" unless name =~ /^[a-z0-9]+((\_|\-)[a-z0-9]+)*$/
+    name.gsub!(/[^a-z0-9]+/, '-')
+    glyph["glyph-name"] = name
+  end
+  doc.root.default_namespace = SVG_NAMESPACES[:svg]
+  for name, url in SVG_NAMESPACES
+    doc.root.add_namespace(name.to_s, url)
+  end
+  File.open(awesome_dir.join("font.svg"), "wb") do |f|
+    f.write doc.to_s
+  end
+end
+
+puts "-" * 80
+
+glyphs = here.join("glyphs")
+
+
+# Explodes all font characters in one dir
+FileUtils.rm_rf(glyphs)
+FileUtils.mkdir_p(glyphs)
+Dir.chdir(sources) do
+  for font_fullname in Dir["*"].sort
+    font_dir = sources.join(font_fullname)
+    font_name = font_fullname.split("-")[1..-1].join("-")
+    font_file = font_dir.join("font.svg")
+    config_file = font_dir.join("config.yml")
+    if font_file.exist? and config_file.exist?
+      command("svg-font-dump -n -c #{config_file} -f -i #{font_file} -o #{glyphs} ")
+    end
+  end
+end
+
+config_file = here.join('config.yml')
+config = {
+  "font" => {
+    "version" => "1.0",
+    "fontname" => "tekyla",
+    "fullname" => "Tekyla",
+    "familyname" => "Tekyla",
+    "copyright" => "Copyright (C) 2013 by Ekylibre",
+    "ascent" => 850,
+    "descent" => 150,
+    "weight" => "Regular"
+  }
+}
+# last  = "e000" # all_icons.collect{|k,v| v[:unicode]}.compact.sort.last
+# for id, icon in icons
+#   icons[id]["unicode"] = last
+#   
+Dir.chdir(glyphs) do
+  last = "f000".to_i(16)
+  config["glyphs"] = Dir.glob("*.svg").sort.collect do |cf|
+    name = cf.split(/\./).first
+    last = last.succ # to_i(16).succ.to_s(16)
+    {"css" => name, "code" => last}
+  end
+end
+
+File.open(config_file, "wb") do |f|
+  f.write config.to_yaml
+end
+
+# Recompose font
+command("svg-font-create -c #{config_file} -s #{here.join('svgo.yml')} -i #{glyphs} -o #{output_file}")
+# Convert SVG font to all needed format
+command("fontforge -script font-convert.pe #{output_file} otf")
+command("fontforge -script font-convert.pe #{output_file} ttf")
+command("fontforge -script font-convert.pe #{output_file} woff")
+command("fontforge -script font-convert.pe #{output_file} eot")
+
+
+# # Merge all icons file (Awesome, Agri and AgriBrand) to Tekyla font.
+# icons = {}
+# Dir.chdir(sources) do
+#   for font_fullname in Dir["*"].sort
+#     font_dir = sources.join(font_fullname)
+#     font_name = font_fullname.split("-")[1..-1].join("-")
+#     font_file = font_dir.join("font.svg")
+#     if font_file.exist?
+#       puts "Analyze #{font_name} glyphs"
+#       f = File.open(font_file)
+#       doc = Nokogiri::XML(f) do |config|
+#         config.nonet.strict.noblanks
+#       end
+#       f.close
+#       doc.xpath('/svg:svg/svg:defs/svg:font').each do |font|
+#         glyphs = font.xpath("svg:glyph[@d and @unicode]")
+#         puts " - Inspect #{font.attr('id')} (#{glyphs.size} glyphs)"
+#         font_attributes = font.attributes
+#         for glyph in glyphs
+#           name = glyph.attr("glyph-name")
+#           name = forgotten_names[name] || name
+#           puts "   !Weird name: #{name}" unless name =~ /^[a-z0-9]+((\_|\-)[a-z0-9]+)*$/
+#           name.gsub!(/[^a-z0-9]+/, '-')
+#           if icons[name]
+#             puts "Warning: Icon #{name} of #{icons[name][:origin]} will be overriden by its homonym in #{font_name} font"
+#           end
+#           icons[name] = font_attributes.merge(glyph.attributes.merge("glyph-name" => name, "origin" => font.attr('id'))).delete_if{|k,v| ["id", "label"].include?(k)}
+#         end
+#       end
+#       # icons = YAML.load_file(icons_file)
+#       # for icon in icons["icons"]
+#       #   id = icon["id"].to_sym
+#       #   if all_icons[id]
+#       #     puts "Warning: Icon #{id} of #{all_icons[id][:origin]} will be overriden by its homonym in #{font} font"
+#       #   end
+#       #   name = icon["name"]|| id.to_s
+#       #   name.gsub!(/[\-\_]+/, ' ')
+#       #   name.capitalize!
+#       #   name.gsub!(/\salt$/, ' (alternative)')
+#       #   all_icons[id] = {:name => name, :origin => font + (icon["created"] ? "-" + icon["created"] : "")}
+#       # end
+#     else
+#       puts "Skip #{font_name}. (#{font_file.to_s} unfound)"
+#     end
+#   end
+# end
+
+# # Normalizes UTF-8 codes
+# last  = "e000" # all_icons.collect{|k,v| v[:unicode]}.compact.sort.last
+# for id, icon in icons
+#   icons[id]["unicode"] = last
+#   last = last.to_i(16).succ.to_s(16)
+# end
+
+# puts "Notice #{icons.size} icons"
+
+# puts "-" * 80
+
+# # puts icons.inspect
+
+# # Write main icons.yml
+# File.open(here.join("icons.yml"), "wb") do |f|
+#   f.write("icons:\n")
+#   for name, icon in icons
+#     f.write("  - name:    #{name}\n")
+#     f.write("    unicode: #{icon['unicode']}\n")
+#     f.write("    origin:  #{icon['origin']}\n")
+#   end
+# end
+
+
+# class Nokogiri::XML::Builder
+#   def entity(code)
+#     doc = Nokogiri::XML("<?xml version='1.0'?><root u='&#x#{code};'/>") do |config|
+#       config.nonet.strict.noent.noblanks
+#     end
+#     return doc.root.attr('u')
+#   end
+# end
+
+# # Merge SVG glyphs
+# builder = Nokogiri::XML::Builder.new do |xml|
+#   namespaces = SVG_NAMESPACES.inject({}) do |hash, pair|
+#     hash["xmlns:#{pair[0]}"] = pair[1]
+#     hash
+#   end
+#   xml.svg(namespaces.merge(:xmlns => SVG_NAMESPACES[:svg], :version => "1.1")) {
+#     xml.defs {
+#       xml.font(:id => "Tekyla", "horiz-adv-x" => 1536) {
+#         xml.send("font-face", 'font-family' => "Tekyla", 'font-weight' => "normal", 'units-per-em' => 1792) {
+#         }
+#         xml.send("missing-glyph", :d => icons['warning-sign']["d"])
+#         for name, attributes in icons
+#           attrs = attributes.inject({}) do |hash, pair|
+#             hash[pair[0]] = pair[1].to_s
+#             hash
+#           end
+#           attrs["unicode"] = xml.entity(attrs['unicode'])
+#           xml.glyph(attrs)
+#         end
+#       }
+#     }
+#   }
+# end
+
+# source_font = here.join("tekyla.svg")
+# File.open(source_font, "wb") do |f|
+#   f.write builder.to_xml
+# end
+
+# woff_font = source_font.dirname.join("tekyla.woff")
+
+# File.open(here.join("showcase.rb"), "wb") do |f|
+#   f.write "require 'sinatra'
+
+# get '/' do
+#   \"<!DOCTYPE html>\n<html><head><meta charset='UTF-8'/><title>Test of the font</title><style type='text/css'>@font-face { font-family: 'Tekyla'; font-style: normal; font-weight: normal; src: url('/font') format('woff'); }\ntd.icon { font-family: 'Tekyla'; font-size: 28px; }</style></head><body><h1>List of entities</h1><table>"
+#   for name, icon in icons
+#     f.write("<tr>")
+#     f.write("<td>#{name}</td>")
+#     f.write("<td>#{icon['unicode']}</td>")
+#     f.write("<td>&#x#{icon['unicode']};</td>")
+#     f.write("<td class='icon'>&#x#{icon['unicode']};</td>")
+#     f.write("</tr>")
+#   end
+#   f.write("</table></body></html>")
+#   f.write "\"\n"
+#   f.write "
+# end
+
+# get '/font' do
+#   send_file '#{woff_font}'
+# end"
+# end
+
+
+# File.open(here.join("sample.html"), "wb") do |f|
+#   # f.write("<?xml version='1.0' encoding='UTF-8'?>\n")
+#   f.write("<!DOCTYPE html>\n")
+#   f.write("<html>")
+#   f.write("<head>")
+#   f.write("<meta charset='UTF-8'/>")
+#   f.write("<title>Test of the font</title>")
+#   f.write("<style>")
+#   f.write("@font-face { font-family: Tekyla; src: url('file://#{source_font}'); }\n")
+#   f.write("td.icon { font-family: Tekyla; font-size: 28px; }")
+#   f.write("</style>")
+#   f.write("</head>")
+#   f.write("<body>")
+#   f.write("<h1>List of entities</h1>")
+#   f.write("<table>")
+#   for name, icon in icons
+#     f.write("<tr>")
+#     f.write("<td>#{name}</td>")
+#     f.write("<td>#{icon['unicode']}</td>")
+#     f.write("<td class='icon'>&#x#{icon['unicode']};</td>")
+#     f.write("</tr>")
+#   end
+#   f.write("</table>")
+#   f.write("</body>")
+#   f.write("</html>")
+# end
