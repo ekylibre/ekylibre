@@ -5,7 +5,12 @@ Coveralls.wear!('rails')
 ENV["RAILS_ENV"] = "test"
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
+require 'rspec/rails'
+require 'rspec/autorun'
 require 'capybara/rails'
+require 'capybara/rspec'
+require 'capybara-screenshot/rspec'
+
 
 # Removes use of shoulda gem until bug is not fixed for Rails >= 1.9.3
 # Use specific file lib/shoulda/context/context.rb
@@ -17,11 +22,34 @@ class Test::Unit::TestCase
 end
 
 
+# Choix du driver par défaut : selenium pour le Javascript
+#
+Capybara.default_driver = :selenium
+Capybara.default_wait_time = 5
+#Capybara.default_driver = :webkit
+
+class ActionDispatch::IntegrationTest
+  # Intégration de Capybara dans tout les tests d'intégration.
+  include Capybara::DSL
+end
+
 class CapybaraIntegrationTest < ActionController::IntegrationTest
   include Capybara::DSL
   include Capybara::Screenshot
   include Warden::Test::Helpers
   Warden.test_mode!
+  
+  #add a method to test unroll in form
+  def fill_unroll(field, options = {})
+    fill_in field, :with => options[:with]
+  
+    page.execute_script %Q{ $('##{field}').trigger("focus") }
+    page.execute_script %Q{ $('##{field}').trigger("keydown") }
+    selector = "input##{field} + .items-menu .items-list .item[data-item-label='#{options[:select]}']"
+    #page.has_selector?('\"#{selector}\"')
+    page.execute_script "$(\"#{selector}\").mouseenter().click()"
+  end
+  
 end
 
 

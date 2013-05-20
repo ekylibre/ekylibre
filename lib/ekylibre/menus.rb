@@ -38,7 +38,7 @@ module Ekylibre
       end
       def pages
         self
-      end      
+      end
       alias :default_page :first
     end
   end

@@ -111,6 +111,8 @@ end
 
 group :test do
   gem 'capybara'
+  gem 'capybara-webkit'
+  gem 'selenium-webdriver'
   gem 'capybara-screenshot'
   gem "launchy"
   gem 'rspec-rails'
