@@ -67,6 +67,6 @@
 #
 require 'test_helper'
 
-class VegetalTest < ActiveSupport::TestCase
+class PlantTest < ActiveSupport::TestCase
 
 end

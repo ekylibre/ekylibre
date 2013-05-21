@@ -354,6 +354,7 @@ arb:
       new: "اضافة دفعة"
       show: "رقم الدفعة%{number} من اجل %{payee}"
     backend/places: #?
+    backend/plants: #?
     backend/posologies: #?
     backend/preferences:
       # edit: "Modifier les préférences"
@@ -615,11 +616,7 @@ arb:
       show: "المستخدم : %{first_name} %{last_name} (%{name})"
       statistics: "احصائياتي" #?
       # unlock: "Déverrouiller l’utilisateur"
-    backend/vegetals:
-      # edit: "Modifier une production végétale"
-      # index: "Productions végétales"
-      # new: "Nouvelle production végétale"
-      # show: "Production végétale\_: %{name} %{area_measure} %{area_unit.name}"
+    backend/vegetals: #?
     backend/working_sets:
       # edit: "Modifier l'unité fonctionnelle\_: %{name}"
       # index: "Unité fonctionnelle / de travail"
@@ -740,7 +737,6 @@ arb:
     backend/transports: "وسائل النقل"
     backend/units: "وحدات القياس"
     backend/users: "المستخدمين"
-    # backend/vegetals: "Productions végétales"
     # backend/working_sets: "Unités de travail"
   errors:
     messages:
@@ -1407,6 +1403,7 @@ arb:
     payments_count: "عدد %{mode}"
     payments_number: "عدد الدفعات"
     payments_total: "جميع الدفعات"
+    # people: "Personnes"
     period: "المدة المحددة مسبقا"
     permute: "مقايضة الملفات"
     personalized_mail: "ارسال بريد الكتروني شخصي"

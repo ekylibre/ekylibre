@@ -112,6 +112,11 @@ eng:
         payments: "Disbursements"
       outgoing_payment_use:  #?
         amount: "Used amount" #?
+      plant:
+        # born_at: "Date création"
+        # nature: "Nature de la culture"
+        # reproductor: "Multiplication"
+        # variety: "Variété"
       price:  #?
         category: "People category" #?
         entity: "Supplier" #?

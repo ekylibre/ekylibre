@@ -232,9 +232,9 @@ namespace :db do
       price_listing = ProductPriceListing.find_by_code("PARDEFAU")
       wheat_category ||= ProductNatureCategory.create!(:name => "Produits régionaux")
       b = ProductVariety.find_by_code("matter")
-      b ||= ProductVariety.create!(:name => "Matière vegetale", :code => "matter", :product_type => "Vegetal", :parent_id => (b ? b.id : nil))
+      b ||= ProductVariety.create!(:name => "Matière vegetale", :code => "matter", :product_type => "Plant", :parent_id => (b ? b.id : nil))
       c = ProductVariety.find_by_code("caphorn")
-      c ||= ProductVariety.create!(:name => "CAPHORN", :code => "caphorn", :product_type => "Vegetal", :parent_id => (b ? b.id : nil))
+      c ||= ProductVariety.create!(:name => "CAPHORN", :code => "caphorn", :product_type => "Plant", :parent_id => (b ? b.id : nil))
       wheat_unit = Unit.get(:t)
       # Create product_nature for wheat product
       wheat_charge_account = Account.find_by_number("601")
@@ -246,8 +246,8 @@ namespace :db do
       wheat_price_template   = ProductPriceTemplate.find_by_product_nature_id(wheat.id)
       wheat_price_template ||= ProductPriceTemplate.create!(:assignment_amount => 211, :currency => "EUR", :assignment_pretax_amount => 200, :product_nature_id => wheat.id, :tax_id => wheat_price_template_tax.id, :listing_id => price_listing.id, :supplier_id => Entity.of_company.id )
       # Create wheat product
-      ble = Vegetal.find_by_work_number("BLE_001")
-      ble = Vegetal.create!(:name => "Blé Cap Horn 2011", :variety_id => c.id, :unit_id => wheat_unit.id, :identification_number => "BLE_2011_07142011", :work_number => "BLE_2011", :born_at => "2011-07-14", :nature_id => wheat.id, :owner_id => Entity.of_company.id, :number => "BLE_2011") #
+      ble = Plant.find_by_work_number("BLE_001")
+      ble = Plant.create!(:name => "Blé Cap Horn 2011", :variety_id => c.id, :unit_id => wheat_unit.id, :identification_number => "BLE_2011_07142011", :work_number => "BLE_2011", :born_at => "2011-07-14", :nature_id => wheat.id, :owner_id => Entity.of_company.id, :number => "BLE_2011") #
 
       # Sale nature
       sale_nature   = SaleNature.actives.first
@@ -484,9 +484,9 @@ namespace :db do
 
       # attributes to map family
       families = {
-        "CEREA" => :vegetal,
-        "COPLI" => :vegetal,
-        "CUFOU" => :vegetal,
+        "CEREA" => :plant,
+        "COPLI" => :plant,
+        "CUFOU" => :plant,
         "ANIMX" => :animal,
         "XXXXX" => :none,
         "NINCO" => :none

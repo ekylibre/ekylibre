@@ -448,14 +448,14 @@
       </item>
       <item name="vegetals">
         <paundefinedge to="backend/vegetals#index"/>
-        <page to="backend/vegetals#create"/>
-        <page to="backend/vegetals#destroy"/>
-        <page to="backend/vegetals#edit"/>
-        <page to="backend/vegetals#list"/>
-        <page to="backend/vegetals#list_children"/>
-        <page to="backend/vegetals#new"/>
-        <page to="backend/vegetals#show"/>
-        <page to="backend/vegetals#update"/>
+        <page to="backend/vegetals#create" deletable="true"/>
+        <page to="backend/vegetals#destroy" deletable="true"/>
+        <page to="backend/vegetals#edit" deletable="true"/>
+        <page to="backend/vegetals#list" deletable="true"/>
+        <page to="backend/vegetals#list_children" deletable="true"/>
+        <page to="backend/vegetals#new" deletable="true"/>
+        <page to="backend/vegetals#show" deletable="true"/>
+        <page to="backend/vegetals#update" deletable="true"/>
       </item>
       <item name="matters">
         <page to="backend/matters#index"/>
@@ -1094,6 +1094,16 @@
         <page to="backend/places#show"/>
         <page to="backend/places#update"/>
       </item>
+      <item name="plants">
+        <page to="backend/plants#index"/>
+        <page to="backend/plants#create"/>
+        <page to="backend/plants#destroy"/>
+        <page to="backend/plants#edit"/>
+        <page to="backend/plants#list"/>
+        <page to="backend/plants#new"/>
+        <page to="backend/plants#show"/>
+        <page to="backend/plants#update"/>
+      </item>
       <item name="preferences">
         <page to="backend/preferences#index"/>
         <page to="backend/preferences#create"/>
@@ -1210,9 +1220,6 @@
         <page to="backend/professions#list"/>
         <page to="backend/professions#new"/>
         <page to="backend/professions#update"/>
-      </item>
-      <item name="vegetals">
-        <page to="backend/vegetals#index"/>
       </item>
       <item name="public">
         <page to="public#index"/>

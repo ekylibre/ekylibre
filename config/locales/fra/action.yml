@@ -320,6 +320,11 @@ fra:
       # index: "Index backend/place"
       # new: "New backend/place"
       # show: "Show backend/place"
+    backend/plants:
+      # edit: "Edit backend/plant"
+      # index: "Index backend/plant"
+      # new: "New backend/plant"
+      # show: "Show backend/plant"
     backend/preferences:
       edit: "Modifier les préférences"
       index: "Préfénces"
@@ -545,11 +550,6 @@ fra:
       new: "Création d’un nouvel utilisateur"
       show: "Utilisateur\_: %{first_name} %{last_name} (%{name})"
       unlock: "Déverrouiller l’utilisateur"
-    backend/vegetals:
-      edit: "Modifier une production végétale"
-      index: "Productions végétales"
-      new: "Nouvelle production végétale"
-      show: "Production végétale\_: %{name} %{area_measure} %{area_unit.name}"
     backend/working_sets:
       edit: "Modifier l'unité fonctionnelle\_: %{name}"
       index: "Unité fonctionnelle / de travail"
@@ -635,6 +635,7 @@ fra:
     backend/outgoing_payment_modes: "Modes de décaissement"
     backend/outgoing_payments: "Décaissements"
     # backend/places: "Backend/places"
+    # backend/plants: "Backend/plants"
     backend/preferences: "Préférences"
     # backend/procedure_natures: "Backend/procedure natures"
     # backend/procedures: "Backend/procedures"
@@ -680,7 +681,6 @@ fra:
     backend/transports: "Transports"
     backend/units: "Unités de mesure"
     backend/users: "Utilisateurs"
-    backend/vegetals: "Productions végétales"
     backend/working_sets: "Unités de travail"
     # backend: "Backend"
     # base: "Base"
@@ -1278,6 +1278,7 @@ fra:
     payments_count: "Nombre de %{mode}"
     payments_number: "Nombre de règlements"
     payments_total: "Total encaissements"
+    people: "Personnes"
     period: "Période prédéfinie"
     permute: "Permuter les fiches"
     personalized_mail: "Envoyer un mail personnalisé"

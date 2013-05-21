@@ -86,6 +86,11 @@ fra:
         delivered: "Remis au bénéficiaire"
       outgoing_payment_mode:
         payments: "Décaissements"
+      plant:
+        born_at: "Date création"
+        nature: "Nature de la culture"
+        reproductor: "Multiplication"
+        variety: "Variété"
       product_localization:
         arrival_cause: "Cause d'entrée"
         container: "Contenant"
@@ -351,6 +356,7 @@ fra:
       outgoing_payment: "Décaissement"
       outgoing_payment_mode: "Mode de décaissement"
       # place: "Place"
+      # plant: "Plant"
       preference: "Préférence"
       # primary_zone: "Primary zone"
       # procedure: "Procedure"
@@ -400,7 +406,6 @@ fra:
       transport: "Transport"
       unit: "Unité"
       user: "Utilisateur"
-      # vegetal: "Vegetal"
       # working_set: "Working set"
       # zone: "Zone"
       # zone_property_title: "Zone property title"

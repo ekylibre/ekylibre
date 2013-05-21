@@ -97,6 +97,11 @@ spa:
       outgoing_payment_mode:
         # payments: "Décaissements"
       outgoing_payment_use: #?
+      plant:
+        # born_at: "Date création"
+        # nature: "Nature de la culture"
+        # reproductor: "Multiplication"
+        # variety: "Variété"
       price: #?
       product: #?
       product_category: #?

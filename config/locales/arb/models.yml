@@ -356,6 +356,11 @@ arb:
         updater_id: "التعديل" #?
       parameter:  #?
         updated_at: "تم تحديثها في" #?
+      plant:
+        # born_at: "Date création"
+        # nature: "Nature de la culture"
+        # reproductor: "Multiplication"
+        # variety: "Variété"
       price:  #?
         category: "فئة الملف المساعد" #?
         category_id: "فئة الملف المساعد" #?

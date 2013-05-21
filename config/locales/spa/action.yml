@@ -340,6 +340,7 @@ spa:
       # new: "Ajout d’un décaissement"
       # show: "Décaissement n°%{number} pour %{payee}"
     backend/places: #?
+    backend/plants: #?
     backend/posologies: #?
     backend/preferences:
       # edit: "Modifier les préférences"
@@ -558,11 +559,7 @@ spa:
       show: "Utilizador : %{first_name} %{last_name} (%{name})"
       statistics: "Mis estadisticas" #?
       # unlock: "Déverrouiller l’utilisateur"
-    backend/vegetals:
-      # edit: "Modifier une production végétale"
-      # index: "Productions végétales"
-      # new: "Nouvelle production végétale"
-      # show: "Production végétale\_: %{name} %{area_measure} %{area_unit.name}"
+    backend/vegetals: #?
     backend/working_sets:
       # edit: "Modifier l'unité fonctionnelle\_: %{name}"
       # index: "Unité fonctionnelle / de travail"
@@ -671,7 +668,6 @@ spa:
     # backend/transports: "Transports"
     backend/units: "Unidad de medida"
     backend/users: "Utilizador"
-    # backend/vegetals: "Productions végétales"
     # backend/working_sets: "Unités de travail"
   errors:
     messages:
@@ -1286,6 +1282,7 @@ spa:
     payments_count: "Nombre de %{mode}"
     # payments_number: "Nombre de règlements"
     # payments_total: "Total encaissements"
+    # people: "Personnes"
     period: "Intervalo de periodo"
     # permute: "Permuter les fiches"
     personalized_mail: "Enviar un correo electronico personalizado"

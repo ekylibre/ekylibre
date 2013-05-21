@@ -305,6 +305,7 @@ eng:
       new: "Add a new disbursement"
       show: "Disbursement %{number} for %{payee}"
     backend/places: #?
+    backend/plants: #?
     backend/preferences:
       # edit: "Modifier les préférences"
       # index: "Préfénces"
@@ -510,11 +511,7 @@ eng:
       new: "Add a new user"
       show: "User: %{first_name} %{last_name} (%{name})"
       unlock: "Unlock user"
-    backend/vegetals:
-      # edit: "Modifier une production végétale"
-      # index: "Productions végétales"
-      # new: "Nouvelle production végétale"
-      # show: "Production végétale\_: %{name} %{area_measure} %{area_unit.name}"
+    backend/vegetals: #?
     backend/working_sets:
       # edit: "Modifier l'unité fonctionnelle\_: %{name}"
       # index: "Unité fonctionnelle / de travail"
@@ -620,7 +617,6 @@ eng:
     backend/transports: "Transports"
     backend/units: "Units of measure"
     backend/users: "Users"
-    # backend/vegetals: "Productions végétales"
     # backend/working_sets: "Unités de travail"
   errors:
     messages:
@@ -1222,6 +1218,7 @@ eng:
     payments_count: "Payments count"
     payments_number: "Payments number"
     payments_total: "Payments total"
+    # people: "Personnes"
     period: "Period"
     permute: "Permute"
     personalized_mail: "Send a personalized mail"

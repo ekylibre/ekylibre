@@ -860,7 +860,7 @@ Ekylibre::Application.routes.draw do
         post :unlock
       end
     end
-    resources :vegetals do
+    resources :plants do
       collection do
         get :list
         unroll_all
