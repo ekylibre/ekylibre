@@ -1,53 +1,53 @@
 # = Informations
-# 
+#
 # == License
-# 
+#
 # Ekylibre - Simple ERP
 # Copyright (C) 2009-2013 Brice Texier, Thibaud Merigon
-# 
+#
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
-# 
+#
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
-# 
+#
 # == Table: incoming_payments
 #
-#  accounted_at          :datetime         
-#  affair_id             :integer          
+#  accounted_at          :datetime
+#  affair_id             :integer
 #  amount                :decimal(19, 4)   not null
-#  bank_account_number   :string(255)      
-#  bank_check_number     :string(255)      
-#  bank_name             :string(255)      
-#  commission_account_id :integer          
+#  bank_account_number   :string(255)
+#  bank_check_number     :string(255)
+#  bank_name             :string(255)
+#  commission_account_id :integer
 #  commission_amount     :decimal(19, 4)   default(0.0), not null
 #  created_at            :datetime         not null
-#  created_on            :date             
-#  creator_id            :integer          
+#  created_on            :date
+#  creator_id            :integer
 #  currency              :string(3)        not null
-#  deposit_id            :integer          
+#  deposit_id            :integer
 #  downpayment           :boolean          default(TRUE), not null
 #  id                    :integer          not null, primary key
-#  journal_entry_id      :integer          
+#  journal_entry_id      :integer
 #  lock_version          :integer          default(0), not null
 #  mode_id               :integer          not null
-#  number                :string(255)      
-#  paid_on               :date             
-#  payer_id              :integer          
-#  receipt               :text             
+#  number                :string(255)
+#  paid_on               :date
+#  payer_id              :integer
+#  receipt               :text
 #  received              :boolean          default(TRUE), not null
-#  responsible_id        :integer          
+#  responsible_id        :integer
 #  scheduled             :boolean          not null
 #  to_bank_on            :date             default(CURRENT_DATE), not null
 #  updated_at            :datetime         not null
-#  updater_id            :integer          
+#  updater_id            :integer
 #
 
 

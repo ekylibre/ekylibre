@@ -10,6 +10,7 @@ task :themes do
         FileUtils.mkdir_p(assets_dir.join(dir, "themes"))
         # raise [theme_dir.join(dir), assets_dir.join(dir, "themes", theme).relative_path_from(theme_dir.join(dir))].inspect
         Dir.chdir(assets_dir.join(dir, "themes")) do
+	  FileUtils.rm_f(theme)
           FileUtils.ln_sf(theme_dir.join(dir).relative_path_from(assets_dir.join(dir, "themes")), theme)
         end
         # FileUtils.ln_sf(theme_dir.join(dir), assets_dir.join(dir, "themes", theme).relative_path_from(theme_dir.join(dir)))
