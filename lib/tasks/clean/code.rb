@@ -19,6 +19,7 @@ task :code do
   end
   files.sort!
   for file in files
+    next unless File.directory?(file)
     original = nil
     File.open(file, "rb") do |f|
       original = f.read

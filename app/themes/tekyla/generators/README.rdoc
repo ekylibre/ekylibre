@@ -4,6 +4,6 @@ Tekyla font is composed of many fonts. To merge them in one consistent set, many
 
   sudo apt-get install nodejs npm fontforge
   cd <here>
-  npm install svg-font-dump svg-font-create svgo
+  sudo npm install -g svg-font-dump svg-font-create svgo
 
 If you don't have Node JS in your distribution you can compile it easily from its sources.
