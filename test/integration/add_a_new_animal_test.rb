@@ -11,7 +11,7 @@ class AddANewAnimalTest < CapybaraIntegrationTest
     click_button('Connexion')
     visit('/backend/animals/new')
     #FIXME : add an AJAX helpers to capybara for testing unroll field
-    # http://stackoverflow.com/questions/13187753/rails3-jquery-autocomplete-how-to-test-with-rspec-and-capybara/13213185#13213185 
+    # http://stackoverflow.com/questions/13187753/rails3-jquery-autocomplete-how-to-test-with-rspec-and-capybara/13213185#13213185
     # http://jackhq.tumblr.com/post/3728330919/testing-jquery-autocomplete-using-capybara
     fill_unroll "animal-nature-input", with: "1", select: "Bovin"
     fill_in('animal[name]', :with => 'MARGUERITTE')

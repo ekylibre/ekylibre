@@ -51,7 +51,7 @@ textarea {
   ul {
     height: $topbar-height;
     overflow: hidden;
-    li { 
+    li {
       @include float(left);
       display: block;
       height: $topbar-height;
@@ -79,7 +79,7 @@ textarea {
 	  @include background(rgba(black, 0.2));
           @include box-shadow(0 0 round($fs-normal *0.7) rgba(black, 0.2) inset);
         }
-      }  
+      }
     }
   }
 }
@@ -317,7 +317,7 @@ html.authentication {
   &:first-child {
     margin-top: round($default-gap * 0.5);
   }
-  
+
   .snippet-content {
   ul {
     $transp: 40%;
@@ -330,8 +330,8 @@ html.authentication {
           display:block;
           padding: $padding;
           border: $menu-border;
-          border-left: none; 
-          border-right: none; 
+          border-left: none;
+          border-right: none;
           @include ellipsis;
         }
         &:first-child {

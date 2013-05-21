@@ -14,7 +14,7 @@ module Ekylibre
     end
     class Module < Hash
       def groups
-        
+
       end
     end
     class Group < Array
@@ -34,7 +34,7 @@ module Ekylibre
       end
       def human_name
         p = default_page
-        ::I18n.translate(("menus." + self.hierarchy.collect{|m| m.name}.join(".")).to_sym, :default => ["menus.#{@name}".to_sym, "labels.menus.#{@name}".to_sym, "actions.#{p.controller}.#{p.action}".to_sym, "labels.#{@name}".to_sym])        
+        ::I18n.translate(("menus." + self.hierarchy.collect{|m| m.name}.join(".")).to_sym, :default => ["menus.#{@name}".to_sym, "labels.menus.#{@name}".to_sym, "actions.#{p.controller}.#{p.action}".to_sym, "labels.#{@name}".to_sym])
       end
       def pages
         self
@@ -56,7 +56,7 @@ module Ekylibre
         group_name = elem.attr("name").to_s.to_sym
         groups[group_name] = elem.xpath('item').inject(ActiveSupport::OrderedHash.new) do |items, e|
           item_name = e.attr("name")
-          items[item_name] = e.xpath('page').collect do |e| 
+          items[item_name] = e.xpath('page').collect do |e|
             url = e.attr("to").to_s.split('#')
             @@reverses[url[0]] ||= {}
             @@reverses[url[0]][url[1]] = [module_name, group_name, item_name]
@@ -84,7 +84,7 @@ module Ekylibre
   def self.groups_of(controller, action)
     return modules[module_of(controller, action)] || []
   end
-  
+
   def self.item_human_name()
     p = default_page
     ::I18n.translate(("menus." + self.hierarchy.collect{|m| m.name}.join(".")).to_sym, :default => ["menus.#{@name}".to_sym, "labels.menus.#{@name}".to_sym, "actions.#{p.controller}.#{p.action}".to_sym, "labels.#{@name}".to_sym])
