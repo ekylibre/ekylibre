@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<varieties xmlns="http://www.ekylibre.org/XML/2013/varieties">
+  <variety name="product">
+    <variety name="matter">
+  	  <variety name="bioproduct">
+  	    <variety name="animal"/>
+  	    <variety name="plant"/>  
+  	    <variety name="fungus"/>
+  	  </variety>
+  	  <variety name="equipment">
+  	    <variety name="worker"/>
+  	  </variety>
+  	  <variety name="zone">
+  	    <variety name="primary-zone">
+  	      <variety name="settlement"/>
+  	      <variety name="land-parcel"/>
+  	      <variety name="building"/>
+  	    </variety>
+  	    <variety name="sub-zone">
+          <variety name="building-room"/>
+          <variety name="land-parcel-division"/>
+        </variety>
+      </variety>  
+    </variety>
+    <variety name="immatter">
+      <variety name="service"/>
+      <variety name="property-title">
+        <variety name="zone-property-title"/>
+      </variety>
+    </variety>
+  </variety>
+</varieties>

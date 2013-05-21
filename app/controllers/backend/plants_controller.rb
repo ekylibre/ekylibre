@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::VegetalsController < BackendController
+class Backend::PlantsController < BackendController
   manage_restfully
 
   respond_to :pdf, :xml, :json, :html
@@ -35,7 +35,7 @@ class Backend::VegetalsController < BackendController
   # Show a list of animal groups
 
   def index
-    @vegetal = Vegetal.all
+    @vegetal = Plant.all
     #parsing a parameter to Jasper for company full name
     @entity_full_name = Entity.of_company.full_name
     #respond with associated models to simplify quering in Ireport

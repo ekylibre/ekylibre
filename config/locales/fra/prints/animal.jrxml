@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="show" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9c1f11b7-03dd-4803-9e1b-41b87b9d23c0">
 	<property name="ireport.zoom" value="1.3310000000000093"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="810"/>
 	<style name="Title" fontName="DejaVu Sans" fontSize="50" isBold="true" pdfFontName="Times-Bold"/>
 	<style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18"/>
 	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
@@ -151,7 +151,12 @@
 		<fieldDescription><![CDATA[arrival-reasons]]></fieldDescription>
 	</field>
 	<background>
-		<band splitType="Stretch"/>
+		<band height="802" splitType="Stretch">
+			<image>
+				<reportElement uuid="1a87bc23-8687-4eeb-9e01-51a127d9256b" x="202" y="80" width="164" height="142"/>
+				<imageExpression><![CDATA["/home/djoulin/commun/Images/vache.jpg"]]></imageExpression>
+			</image>
+		</band>
 	</background>
 	<title>
 		<band height="392" splitType="Stretch">
