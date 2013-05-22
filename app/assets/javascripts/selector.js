@@ -276,5 +276,14 @@
         $.EkylibreSelector.init($(this));
         return true;
     });
+    
+    // don't remove for instancve because of Capybara navigation and other
+    // see @burisu for authorization
+    
+     $(document).ready(function() {
+       $("input[data-selector]").each(function (){
+       	$.EkylibreSelector.init($(this));
+       });
+     })
 
 })(jQuery);
