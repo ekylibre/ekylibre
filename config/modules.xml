@@ -446,16 +446,16 @@
         <page to="backend/animals#show"/>
         <page to="backend/animals#update"/>
       </item>
-      <item name="vegetals">
-        <paundefinedge to="backend/vegetals#index"/>
-        <page to="backend/vegetals#create" deletable="true"/>
-        <page to="backend/vegetals#destroy" deletable="true"/>
-        <page to="backend/vegetals#edit" deletable="true"/>
-        <page to="backend/vegetals#list" deletable="true"/>
-        <page to="backend/vegetals#list_children" deletable="true"/>
-        <page to="backend/vegetals#new" deletable="true"/>
-        <page to="backend/vegetals#show" deletable="true"/>
-        <page to="backend/vegetals#update" deletable="true"/>
+      <item name="plants">
+        <paundefinedge to="backend/plants#index"/>
+        <page to="backend/plants#create" deletable="true"/>
+        <page to="backend/plants#destroy" deletable="true"/>
+        <page to="backend/plants#edit" deletable="true"/>
+        <page to="backend/plants#list" deletable="true"/>
+        <page to="backend/plants#list_children" deletable="true"/>
+        <page to="backend/plants#new" deletable="true"/>
+        <page to="backend/plants#show" deletable="true"/>
+        <page to="backend/plants#update" deletable="true"/>
       </item>
       <item name="matters">
         <page to="backend/matters#index"/>
