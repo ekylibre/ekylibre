@@ -2,12 +2,12 @@
   %ul>
     %li.name>
       %h1=link_to("Ekylibre", backend_root_url)
-    -for mod in Ekylibre.modules.keys
+    -for mod in Ekylibre::Modules.hash.keys
       %li.separator
       :ruby
         attrs = {}
-        attrs[:class] = :active if Ekylibre.module_of(controller.controller_path, action_name) == mod
-      %li{attrs}=link_to("labels.menus.#{mod}".t, {:controller => :dashboards, :action => mod})
+        attrs[:class] = :active if Ekylibre::Modules.module_of(controller.controller_path, action_name) == mod
+      %li{attrs}=link_to(Ekylibre::Modules.human_name(mod), {:controller => :dashboards, :action => mod})
 
   -#%section>
     %ul.left>=render(:partial => "layouts/subnavigation", :object => Ekylibre.menu.items, :locals => {:with_divider => true, :depth => 0})

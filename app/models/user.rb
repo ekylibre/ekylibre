@@ -150,9 +150,9 @@ class User < Ekylibre::Record::Base
   end
 
 
+  # Find or create preference for given name
   def preference(name, value = nil, nature = :string)
-    p = self.preferences.find(:first, :order => :id, :conditions => {:name => name})
-    if p.nil?
+    unless p = self.preferences.where(:name => name).reorder(:id).first
       p = self.preferences.build
       p.name   = name
       p.nature = nature.to_s

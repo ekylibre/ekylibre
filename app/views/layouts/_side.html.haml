@@ -1,11 +1,17 @@
 -# current_page = menus.page(controller.controller_path, action_name)
 -# menu = current_page.useful_menu if current_page
+-# raise Ekylibre.groups_of(controller.controller_path, action_name).inspect
 
--for group, items in Ekylibre.groups_of(controller.controller_path, action_name)
-  -side_menu(group) do |m|
+-snippet :search, :title => false do
+  .input-append
+    =text_field_tag(:search)
+
+-mod = Ekylibre::Modules.module_of(controller.controller_path, action_name)
+-for group, items in Ekylibre::Modules.groups_in(mod)
+  -side_menu(group, :title => Ekylibre::Modules.human_name(mod, group), :icon => Ekylibre::Modules.icon(mod, group)) do |m|
     -for item, pages in items
-      -attrs = {}
-      -m.link(tl(item), pages.first, attrs)
+      -attrs = {:title => Ekylibre::Modules.human_name(mod, group, item)}
+      -m.link(item, pages.first, attrs)
 
 
 -#side_menu do |m|

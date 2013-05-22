@@ -1,8 +1,5 @@
 Ekylibre::Application.routes.draw do
 
-
-
-
   # Authentication
   # namespace :authentication do
   #   resource :session, :only => [:new, :create, :destroy] do
@@ -47,7 +44,7 @@ Ekylibre::Application.routes.draw do
     end
     # # get "dashboards", :to => "dashboards#index", :as => :dashboard
     # # match '/dashboards/:action', :controller => "dashboards", :via => :get, :as => :dashboard
-    # match '/toggle/side' => "interfacers#toggle_side"
+    # match '/snippets/:id/toggle' => "interfacers#toggle_snippet"
     # match '/toggle/submenu/:id' => "interfacers#toggle_submenu", :as => :toggle_submenu
     # match '/toggle/tab/:id' => "interfacers#toggle_tab"
 
@@ -795,6 +792,11 @@ Ekylibre::Application.routes.draw do
       end
       member do
         match "confirm", :via => [:get, :post]
+      end
+    end
+    resources :snippets, :only => [] do
+      member do
+        post :toggle
       end
     end
     resources :subscription_natures do
