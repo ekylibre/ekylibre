@@ -881,6 +881,9 @@ Ekylibre::Application.routes.draw do
         unroll_all
       end
     end
+
+    get :search, :controller => :dashboards, :as => :search
+
     root :to => "dashboards#index"
   end
 

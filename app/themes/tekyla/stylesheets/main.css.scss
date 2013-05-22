@@ -47,7 +47,7 @@ textarea {
 #top {
   margin-bottom: 0;
   @include background-active-gradient;
-  @include box-shadow(0 0 $fs-normal rgba(#000, 0.4));
+  @include box-shadow(0 0 $fs-normal rgba(#000, 0.2));
   ul {
     height: $topbar-height;
     overflow: hidden;
@@ -326,6 +326,13 @@ html.authentication {
       }
     }
   }
+  &.active {
+    .snippet-title {
+      h3, i {
+        color: mix(black, $active-color);
+      }
+    }
+  } 
   @each $icon in $icon-names {
     &.snippet-#{$icon} > .snippet-title > h3 > i {
       @include use-icon($icon);
@@ -380,6 +387,20 @@ html.authentication {
         }
      }
    }
+  }
+}
+
+form.search {
+  display: block;
+  padding: 0 round($fs-normal * 0.30);
+  input {
+    $padding: 0.8em;
+    padding-left: $padding;
+    padding-right: $padding;
+    @include border-radius(1000px);
+    width: 100%;
+    @include calc(width, "100% - #{2 * $padding} - #{2 * $menu-border-width}");
+    display: block;
   }
 }
 

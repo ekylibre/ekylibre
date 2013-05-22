@@ -66,4 +66,12 @@ class Backend::DashboardsController < BackendController
     redirect_to :action => :index
   end
 
+
+  # Global search method is put there for now waiting for a better place
+  # This action permits to search across all the main data of the application
+  def search
+    # Search for data and
+    
+  end
+
 end

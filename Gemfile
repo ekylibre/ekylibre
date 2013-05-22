@@ -72,6 +72,9 @@ gem 'jquery-rails'
 # Reading RSS feeds
 gem 'feedzirra', '~> 0.2.0.rc2'
 
+# Search engine
+
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
@@ -79,7 +82,7 @@ group :assets do
   gem 'coffee-rails', '~> 3.2.1'
   gem 'compass-rails'
   gem 'zurb-foundation'
-  gem 'codemirror-rails'
+  # gem 'codemirror-rails'
   gem 'turbo-sprockets-rails3'
   gem 'oily_png'
   gem 'jquery-turbolinks'
