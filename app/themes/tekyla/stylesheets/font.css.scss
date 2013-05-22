@@ -4,8 +4,9 @@ $icons: ((adjust "\f001") (align-center "\f002") (align-justify "\f003") (align-
   font-family: 'Tekyla';
   font-weight: normal;
   font-style: normal;
-  src: font-url('tekyla.eot');
-  src: font-url('tekyla.eot?#iefix') format("embedded-opentype"),
-    font-url('tekyla.woff') format("woff"),
-    font-url('tekyla.ttf') format("truetype");
+  src: font-url('themes/tekyla/webfont.eot?v=0.0.0');
+  src: font-url('themes/tekyla/webfont.eot?#iefix&v=0.0.0') format('embedded-opentype'),
+    font-url('themes/tekyla/webfont.woff?v=0.0.0') format('woff'),
+    font-url('themes/tekyla/webfont.ttf?v=0.0.0') format('truetype'),
+    font-url('themes/tekyla/webfont.svg?v=0.0.0') format('svg');
 }
