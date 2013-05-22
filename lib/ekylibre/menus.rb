@@ -1,94 +1,122 @@
 # encoding: utf-8
 module Ekylibre
 
-  def self.modules_file
-    Rails.root.join("config", "modules.xml")
-  end
-
   module Modules
-    class Hash < ActiveSupport::OrderedHash
-      def initialize(name, *args)
-        @name = name
-        super(args)
-      end
-    end
-    class Module < Hash
-      def groups
 
-      end
+    class ReverseImpossible < StandardError
     end
-    class Group < Array
-      def module
-        @module
-      end
-      def items
-        self
-      end
-    end
-    class Item < Array
-      def group
-        @group
-      end
-      def module
-        group.module
-      end
-      def human_name
-        p = default_page
-        ::I18n.translate(("menus." + self.hierarchy.collect{|m| m.name}.join(".")).to_sym, :default => ["menus.#{@name}".to_sym, "labels.menus.#{@name}".to_sym, "actions.#{p.controller}.#{p.action}".to_sym, "labels.#{@name}".to_sym])
-      end
-      def pages
-        self
-      end
-      alias :default_page :first
-    end
-  end
 
-
-  mattr_reader :modules, :reverses
-  @@reverses = {}
-  File.open(modules_file) do |f|
-    doc = Nokogiri::XML(f) do |config|
-      config.strict.nonet.noblanks
+    def self.file
+      Rails.root.join("config", "modules.xml")
     end
-    @@modules = doc.xpath('/modules/module').inject(ActiveSupport::OrderedHash.new) do |modules, element|
-      module_name = element.attr("name").to_s.to_sym
-      modules[module_name] = element.xpath('group').inject(ActiveSupport::OrderedHash.new) do |groups, elem|
-        group_name = elem.attr("name").to_s.to_sym
-        groups[group_name] = elem.xpath('item').inject(ActiveSupport::OrderedHash.new) do |items, e|
-          item_name = e.attr("name")
-          items[item_name] = e.xpath('page').collect do |e|
-            url = e.attr("to").to_s.split('#')
-            @@reverses[url[0]] ||= {}
-            @@reverses[url[0]][url[1]] = [module_name, group_name, item_name]
-            {:controller => url[0], :action => url[1]}
+
+    mattr_reader :hash, :reversions, :icons
+    @@reversions = {}
+    @@icons = ActiveSupport::OrderedHash.new
+    File.open(file) do |f|
+      doc = Nokogiri::XML(f) do |config|
+        config.strict.nonet.noblanks
+      end
+      @@hash = doc.xpath('/modules/module').inject(ActiveSupport::OrderedHash.new) do |modules, element|
+        module_name = element.attr("name").to_s.to_sym
+        @@icons[module_name] = {:children => ActiveSupport::OrderedHash.new}
+        @@icons[module_name][:icon] = element.attr("icon").to_s if element.attr("icon")
+        modules[module_name] = element.xpath('group').inject(ActiveSupport::OrderedHash.new) do |groups, elem|
+          group_name = elem.attr("name").to_s.to_sym
+          @@icons[module_name][:children][group_name] = {:children => ActiveSupport::OrderedHash.new}
+          @@icons[module_name][:children][group_name][:icon] = elem.attr("icon").to_s if elem.attr("icon")
+          groups[group_name] = elem.xpath('item').inject(ActiveSupport::OrderedHash.new) do |items, e|
+            item_name = e.attr("name")
+            @@icons[module_name][:children][group_name][:children][item_name] = {:children => []}
+            @@icons[module_name][:children][group_name][:children][item_name][:icon] = e.attr("icon").to_s if e.attr("icon")
+            items[item_name] = e.xpath('page').collect do |p|
+              url = p.attr("to").to_s.split('#')
+              @@reversions[url[0]] ||= {}
+              @@reversions[url[0]][url[1]] = [module_name, group_name, item_name]
+              @@icons[module_name][:children][group_name][:children][item_name][:children] << {:controller => url[0], :action => url[1]}
+              {:controller => url[0], :action => url[1]}
+            end
+            items
           end
-          items
+          groups
         end
-        groups
+        modules
       end
-      modules
     end
-  end
 
-
-  def self.module_of(controller, action)
-    controller = controller.to_s
-    if controller == "backend/dashboards"
-      return action.to_sym
-    elsif reverses[controller] and r = reverses[controller][action.to_s]
-      return r[0]
+    # Returns the path (module, group, item) from an action
+    def self.reverse(controller, action)
+      return reversions[controller][action.to_s]
+    rescue
+      raise ReserveImpossible.new("Cannot reverse action #{controller}##{action}")
     end
-    return nil
+
+    # Returns the name of the module corresponding to an URL
+    def self.module_of(controller, action)
+      return action.to_sym if controller.to_s == "backend/dashboards"
+      return reverse(controller, action)[0]
+    end
+
+    # Returns the name of the group corresponding to an URL
+    def self.group_of(controller, action)
+      return reverse(controller, action)[1]
+    end
+
+    # Returns the name of the item corresponding to an URL
+    def self.item_of(controller, action)
+      return reverse(controller, action)[2]
+    end
+
+    # Returns the group hash corresponding to the current module
+    def self.groups_of(controller, action)
+      return hash[module_of(controller, action)] || {}
+    end
+
+    # Reutns the group hash corresponding to the module
+    def self.groups_in(mod)
+      return hash[mod] || {}
+    end
+
+    # Returns a human name corresponding to the arguments
+    # 1: module
+    # 2: group
+    # 3: item
+    def self.human_name(*args)
+      levels = [nil, :module, :group, :item]
+      return self.send("#{levels[args.count]}_human_name", *args)
+    end
+
+    # Returns the human name of a group
+    def self.module_human_name(mod)
+      ::I18n.translate("menus.#{mod}".to_sym, :default => ["labels.menus.#{mod}".to_sym, "labels.#{mod}".to_sym])
+    end
+
+    # Returns the human name of a group
+    def self.group_human_name(mod, group)
+      ::I18n.translate(("menus." + [mod, group].join(".")).to_sym, :default => ["menus.#{group}".to_sym, "labels.menus.#{group}".to_sym, "labels.#{group}".to_sym])
+    end
+
+    # Returns the human name of an item
+    def self.item_human_name(mod, group, item)
+      p = hash[mod][group][item].first
+      ::I18n.translate(("menus." + [mod, group, item].join(".")).to_sym, :default => ["menus.#{item}".to_sym, "labels.menus.#{item}".to_sym, "actions.#{p[:controller]}.#{p[:action]}".to_sym, "labels.#{item}".to_sym])
+    end
+
+
+    def self.icon(*args)
+      arg = args.shift
+      h = @@icons[arg]
+      begin
+        arg = args.shift
+        h = h[:children][arg]
+      end while args.size > 0
+      return h[:icon] || arg
+    end
+
+
   end
 
-  def self.groups_of(controller, action)
-    return modules[module_of(controller, action)] || []
-  end
 
-  def self.item_human_name()
-    p = default_page
-    ::I18n.translate(("menus." + self.hierarchy.collect{|m| m.name}.join(".")).to_sym, :default => ["menus.#{@name}".to_sym, "labels.menus.#{@name}".to_sym, "actions.#{p.controller}.#{p.action}".to_sym, "labels.#{@name}".to_sym])
-  end
 
 
 

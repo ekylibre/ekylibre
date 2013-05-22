@@ -26,16 +26,6 @@ class Backend::InterfacersController < BackendController
     render :text => ''
   end
 
-  # Saves the state of the side bar
-  def toggle_module
-    # Explicit conversion
-    shown = (params[:shown].to_i>0 ? true : false)
-    session[:modules] ||= {}
-    session[:modules][params[:module]] = shown
-    @current_user.preference("interface.show_modules.#{params[:module]}", true, :boolean).set(shown)
-    render :text => ''
-  end
-
   # Saves the last selected tab in a tabbox
   def toggle_tab
     session[:tabbox] ||= {}

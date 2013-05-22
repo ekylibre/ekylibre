@@ -51,8 +51,7 @@ gem 'strong_parameters'
 
 # Reporting
 # gem 'thinreports-rails'
-# jasper_rails need rjb which need $ sudo apt-get install openjdk-7-jdk and set JAVA_HOME and add a line in environement.rb
-# gem 'jasper-rails'
+# Need rjb which need $ sudo apt-get install openjdk-7-jdk and set JAVA_HOME and add a line in environement.rb
 gem 'beardley'
 gem 'prawn', '~> 0.12.0'
 
@@ -116,7 +115,6 @@ group :test do
   gem 'capybara-screenshot'
   gem "launchy"
   gem 'rspec-rails'
-  gem 'jasper-rails-rspec'
   gem 'awesome_print'
   gem 'pry'
   # database_cleaner is not required, but highly recommended

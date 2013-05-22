@@ -125,7 +125,7 @@ class Preference < Ekylibre::Record::Base
   end
 
   def value
-    self.send(self.nature+'_value')
+    self.send(self.nature + '_value')
   end
 
   def value=(object)
@@ -149,6 +149,11 @@ class Preference < Ekylibre::Record::Base
   def set(object)
     self.value = object
     self.save
+  end
+
+  def set!(object)
+    self.value = object
+    self.save!
   end
 
   def label(locale=nil)

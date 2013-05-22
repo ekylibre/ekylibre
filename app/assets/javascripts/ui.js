@@ -361,6 +361,26 @@
     });
 
 
+    // Toggle side menu
+    $(document).on("click", "a[data-toggle-snippet]", function () {
+        var element = $(this), snippet = element.closest(".snippet"), target = snippet.find(".snippet-content"), collapsed;
+        if (snippet.hasClass("collapsed")) {
+            snippet.removeClass("collapsed");
+            target.slideDown();
+            collapsed = 0;
+        } else {
+            snippet.addClass("collapsed");
+            target.slideUp();
+            collapsed = 1;
+        }
+        $.ajax(element.attr("href"), {
+            data: { collapsed: collapsed },
+            type: 'POST'
+        });
+        return false;
+    });
+
+
     // Live copy
     $(document).behave("keyup change emulated:change", "input[data-live-copy-to]", function () {
         var element = $(this);

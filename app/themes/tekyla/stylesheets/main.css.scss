@@ -294,9 +294,15 @@ html.authentication {
 
 .snippet {
   .snippet-title {
-    [data-toggle-snippet] {
+    display: block;
+    outline: none;
+    i.collapser {
       @include is-icon;
-      @include use-icon(expand-alt);
+      @include use-icon(collapse-alt);
+      @include float(right);
+      margin-top: round(0.36 * $fs-normal);
+      @include margin-right(round(0.3 * $fs-normal));
+      display: none;
     }
     h3 {
       $fs: $fs-normal;
@@ -308,8 +314,21 @@ html.authentication {
       i {
         @include is-icon;
         @include use-icon(cog);
-        @include margin-right($default-gap * 0.5)
+        @include margin-right($default-gap * 0.5);
       }
+    }
+  }
+  &.collapsed {
+    > .snippet-title {
+      > i.collapser {
+        display: block;
+        @include use-icon(caret-down);
+      }
+    }
+  }
+  @each $icon in $icon-names {
+    &.snippet-#{$icon} > .snippet-title > h3 > i {
+      @include use-icon($icon);
     }
   }
 
