@@ -116,6 +116,8 @@ Ekylibre::Application.routes.draw do
     resources :animal_groups do
       collection do
         get :list
+        get :list_animals
+        get :list_place
         unroll_all
       end
     end

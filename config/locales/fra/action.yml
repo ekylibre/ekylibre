@@ -29,13 +29,13 @@ fra:
       # new: "New backend/activity watching"
       # show: "Show backend/activity watching"
     backend/animal_groups:
-      # edit: "Edit backend/animal group"
-      # index: "Index backend/animal group"
-      # new: "New backend/animal group"
-      # show: "Show backend/animal group"
+      edit: "Modifier le groupe d'animaux\_: %{name}"
+      index: "Groupes d'animaux"
+      new: "Nouveau groupe d'animaux"
+      show: "Groupe\_: %{name}"
     backend/animals:
       edit: "Modifier l'animal\_: %{name}"
-      index: "Productions animales"
+      index: "Animaux"
       new: "Nouvel animal"
       picture: "Photo"
       show: "%{nature_name}\_: %{name}"
@@ -239,10 +239,10 @@ fra:
       reports: "Impression, exportation"
       show: "Journal\_: %{name} (%{code})"
     backend/land_parcel_groups:
-      # edit: "Edit backend/land parcel group"
-      # index: "Index backend/land parcel group"
-      # new: "New backend/land parcel group"
-      # show: "Show backend/land parcel group"
+      edit: "Modifier l'ilôt\_: %{name}"
+      index: "Ilôts"
+      new: "Ajouter un nouvel ilôt"
+      show: "Ilôt %{name}"
     backend/land_parcels:
       divide: "Diviser la parcelle\_: %{name}"
       edit: "Modifier la parcelle\_: %{name}"
@@ -321,10 +321,10 @@ fra:
       # new: "New backend/place"
       # show: "Show backend/place"
     backend/plants:
-      # edit: "Edit backend/plant"
-      # index: "Index backend/plant"
-      # new: "New backend/plant"
-      # show: "Show backend/plant"
+      edit: "Modifier la culture\_: %{name}"
+      index: "Cutures"
+      new: "Nouvelle culture"
+      show: "Culture\_: %{name} "
     backend/preferences:
       edit: "Modifier les préférences"
       index: "Préfénces"

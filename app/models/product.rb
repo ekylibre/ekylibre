@@ -78,6 +78,7 @@ class Product < Ekylibre::Record::Base
   belongs_to :mother, :class_name => "Product"
   belongs_to :owner, :class_name => "Entity"
   has_many :memberships, :class_name => "ProductMembership", :foreign_key => :member_id
+  has_many :groups, :through => :memberships
   has_many :indicator_data, :class_name => "ProductIndicatorDatum", :dependent => :destroy
   has_many :operation_tasks, :foreign_key => :subject_id
   has_many :product_localizations

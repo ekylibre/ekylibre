@@ -21,6 +21,8 @@ fra:
       animal:
         born_at: "Date de naissance"
         variety: "Race"
+      animal_group:
+        born_at: "Date de création"
       asset_depreciation:
         asset_amount: "Valeur nette comptable (VNC)"
       building:
@@ -292,12 +294,12 @@ fra:
       # activity_watching: "Activity watching"
       affair: "Affaire"
       animal: "Animal"
-      # animal_group: "Animal group"
+      animal_group: "Groupe d'animaux"
       area: "Zone postale"
       asset: "Immobilisation"
       asset_depreciation: "Amortissement d’immobilisation"
       bank_statement: "Relevé de compte bancaire"
-      # bioproduct: "Bioproduct"
+      bioproduct: "Produit vivant"
       building: "Lieu de stockage"
       # building_room: "Building room"
       campaign: "Campagne"
@@ -323,7 +325,7 @@ fra:
       event: "Évènement"
       event_nature: "Type d’évènement"
       financial_year: "Exercice"
-      # fungus: "Fungus"
+      fungus: "Champignon"
       # immatter: "Immatter"
       incoming_delivery: "Arrivage"
       incoming_delivery_item: "Ligne d’arrivage"
@@ -337,9 +339,9 @@ fra:
       journal: "Journal"
       journal_entry: "Écriture"
       journal_entry_item: "Ligne d’écriture"
-      land_parcel: "Îlot"
-      # land_parcel_division: "Land parcel division"
-      # land_parcel_group: "Land parcel group"
+      land_parcel: "Parcelle"
+      land_parcel_division: "Division de parcelle"
+      land_parcel_group: "Ilôt"
       listing: "Extraction"
       listing_node: "Nœud d’extraction"
       listing_node_item: "Élément de nœud d’extraction"
@@ -356,7 +358,7 @@ fra:
       outgoing_payment: "Décaissement"
       outgoing_payment_mode: "Mode de décaissement"
       # place: "Place"
-      # plant: "Plant"
+      plant: "Plante"
       preference: "Préférence"
       # primary_zone: "Primary zone"
       # procedure: "Procedure"
@@ -1375,12 +1377,6 @@ fra:
         exterior: "Sortie"
         interior: "Entrée"
         transfer: "Transfert"
-    product_nature:
-      nature:
-        product: "Produit"
-        service: "Service"
-        subscription: "Abonnement"
-        transfer: "Transfert"
     product_transfer:
       nature:
         gain: "Gain"
@@ -1420,6 +1416,7 @@ fra:
     sex:
       female: "Femelle"
       male: "Mâle"
+      mixt: "Mixte"
     stock_transfer:
       nature:
         gain: "Gain"
