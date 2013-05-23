@@ -66,12 +66,117 @@ class Backend::DashboardsController < BackendController
     redirect_to :action => :index
   end
 
+  SIMILAR_LETTERS = [
+                     %w(C Ç),
+                     %w(A Á À Â Ä Ǎ Ă Ā Ã Å),
+                     %w(Æ Ǽ Ǣ),
+                     %w(E É È Ė Ê Ë Ě Ĕ Ē),
+                     %w(I Í Ì İ Î Ï Ǐ Ĭ Ī Ĩ),
+                     %w(O Ó Ò Ô Ö Ǒ Ŏ Ō Õ Ő),
+                     %w(U Ú Ù Û Ü Ǔ Ŭ Ū Ũ Ű Ů),
+                     %w(Y Ý Ỳ Ŷ Ÿ Ȳ Ỹ),
+                     %w(c ç),
+                     %w(a á à â ä ǎ ă ā ã å),
+                     %w(æ ǽ ǣ),
+                     %w(e é è ė ê ë ě ĕ ē),
+                     %w(i í ì i î ï ǐ ĭ ī ĩ),
+                     %w(o ó ò ô ö ǒ ŏ ō õ ő),
+                     %w(u ú ù û ü ǔ ŭ ū ũ ű ů),
+                     %w(ý ỳ ŷ ÿ ȳ ỹ)
+  ]
+
 
   # Global search method is put there for now waiting for a better place
   # This action permits to search across all the main data of the application
+  # TODO: Clean this!!!
   def search
-    # Search for data and
-    
+    per_page = 10
+    page = params[:page].to_i
+    page = 1 if page.zero?
+    # Create filter
+    words = params[:q].to_s.strip.split(/\s+/).collect do |w|
+      for group in SIMILAR_LETTERS
+        exp = "(" + group.join("|") + ")"
+        w.gsub!(Regexp.new(exp), exp)
+      end
+      w
+    end
+
+    filtered = "SELECT record_id, record_type, title, indexer, (" + words.collect do |word|
+      "(array_length(regexp_split_to_array(indexer, E'#{word}', 'i'), 1) - 1)"
+    end.join(" + ") + " + " + words.collect do |word|
+      "(array_length(regexp_split_to_array(indexer, E'#{word}\\\\M', 'i'), 1) - 1) * 2"
+    end.join(" + ") + " + " + words.collect do |word|
+      "(array_length(regexp_split_to_array(indexer, E'\\\\m#{word}', 'i'), 1) - 1) * 3"
+    end.join(" + ") + " + " + words.collect do |word|
+      "(array_length(regexp_split_to_array(indexer, E'\\\\m#{word}\\\\M', 'i'), 1) - 1) * 4"
+    end.join(" + ") + ") AS pertinence FROM (#{@@centralizing_query}) AS centralizer GROUP BY record_type, record_id, title, indexer"
+
+    filter  = " FROM (#{filtered}) AS filtered"
+    filter << " WHERE filtered.pertinence > 0"
+
+    @search = {}
+
+    # Count results
+    query = "SELECT count(filtered.record_id) AS total_count #{filter}"
+    @search[:count] = Ekylibre::Record::Base.connection.select_value(query).to_i
+    @search[:last_page] = (@search[:count].to_f / per_page).ceil
+
+    # Select results
+    query = "SELECT record_id, record_type, title, indexer, pertinence #{filter}"
+    query << " ORDER BY filtered.pertinence DESC, title"
+    query << " LIMIT #{per_page}"
+    query << " OFFSET #{per_page * (page - 1)}"
+    @search[:records] = Ekylibre::Record::Base.connection.select_all(query)
+
+    @search[:query] = query
+
+    @search[:words] = words
+
+    if @search[:count].zero? and page > 1
+      redirect_to(:action => :search, :q => params[:q], :page => 1)
+    end
+    params[:page] = page
+    t3e :searched => params[:q]
   end
+
+
+  private
+
+  def self.build_centralizing_query
+    excluded = [:account_balance, :affair, :asset_depreciation, :custom_field_choice, :deposit_item, :inventory_item, :listing_node_item, :preference, :product_ability, :production_chain_conveyor, :production_chain, :production_chain_work_center, :production_chain_work_center_use, :tax_declaration, :transfer]
+
+    queries = []
+    for model_name in Ekylibre.models
+      next if excluded.include?(model_name)
+      model = model_name.to_s.camelcase.constantize
+      next unless model.superclass == Ekylibre::Record::Base
+      cols = model.columns_hash.keys
+      title = [:label, :name, :full_name, :reason, :code, :number].detect{|x| cols.include?(x.to_s)}
+      next unless title
+      columns = model.columns.dup.delete_if do |c|
+        [:created_at, :creator_id, :depth, :id, :lft, :lock_version,
+         :position, :rights, :rgt, :type, :updated_at, :updater_id].include?(c.name.to_sym) or
+          [:boolean, :spatial].include? c.type or
+          c.name.to_s =~ /\_file_size$/ or
+          c.name.to_s =~ /\_type$/ or
+          c.name.to_s =~ /\_id$/
+      end.collect do |c|
+        if model.respond_to?(c.name) and model.send(c.name).respond_to?(:options) and options = model.send(c.name).send(:options) and options.size > 0
+          "CASE " + options.collect{|l, v| "WHEN #{c.name} = '#{v}' THEN '#{l} '"}.join(" ") + " ELSE '' END"
+        else
+          "COALESCE(#{c.name} || ' ', '')"
+        end
+      end
+      if columns.size > 0
+        query =  "SELECT '#{model.model_name.human} ' || " + columns.join(" || ") + " AS indexer, #{title} AS title, " + (model.columns_hash['type'] ? 'type' : "'#{model.name}'") + " AS record_type, id AS record_id FROM #{model.table_name}"
+        queries << query
+      end
+    end
+
+    @@centralizing_query = "(" + queries.join(") UNION ALL (") + ")"
+  end
+
+  build_centralizing_query
 
 end

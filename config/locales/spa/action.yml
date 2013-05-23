@@ -119,6 +119,7 @@ spa:
       # purchases: "Tableau de bord des achats"
       # relationship: "Tableau de bord de la gestion des relations"
       # sales: "Tableau de bord des ventes"
+      # search: "Recherche de\_: %{searched}"
       # settings: "Configuration"
       # settings_accountancy: "Configuration de la comptabilité"
       # settings_base: "Configuration de base"
@@ -512,6 +513,7 @@ spa:
       # edit: "Configuration"
       import: "Importacion"
       # restore: "Restaurer une sauvegarde"
+    backend/snippets: #?
     backend/stock_moves: #?
     backend/stock_transfers: #?
     backend/stocks: #?
@@ -796,6 +798,7 @@ spa:
     balance: "Saldo"
     bank_statement_point: "Despuntar el levantar"
     bank_statement_update: "Modificar el leventar"
+    # beginning: "Début"
     # begins: "Commence par"
     body: "Cuerpo del mensaje"
     # building: "Lieu de stockage"
@@ -1422,6 +1425,7 @@ spa:
     # search_account: "Rechercher un compte"
     # search_for_available_prices: "%{code} - %{name}%s: %{pretax_amount}/%{amount} (HT/TTC)"
     # search_go: "Lancer la recherche"
+    # search_placeholder: "Rechercher..."
     # search_sales: "Rechercher des ventes"
     # second_building_name: "Entrée de"
     # second_contact: "Adresse secondaire"
@@ -1643,6 +1647,10 @@ spa:
       # one: "%{count} achat"
       # other: "%{count} achats"
       # zero: "0 achat"
+    x_results:
+      # one: "%{count} résultat trouvé"
+      # other: "%{count} résultats trouvés"
+      # zero: "Aucun résultat trouvé"
     x_sales:
       # one: "%{count} vente"
       # other: "%{count} ventes"

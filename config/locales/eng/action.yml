@@ -96,6 +96,7 @@ eng:
       purchases: "Purchases dashboard"
       relationship: "Relationship dashboard"
       sales: "Sales dashboard"
+      # search: "Recherche de\_: %{searched}"
       settings: "Settings dashboard"
       settings_accountancy: "Accountancy settings  dashboard"
       settings_base: "Base settings dashboard"
@@ -466,6 +467,7 @@ eng:
       edit: "Configuration"
       import: "Import data"
       restore: "Restore data"
+    backend/snippets: #?
     backend/subscription_natures:
       edit: "Edit the subscription type: %{name}"
       index: "Subscription types"
@@ -745,6 +747,7 @@ eng:
     balance: "Balance"
     # bank_statement_point: "Pointer le relevé"
     # bank_statement_update: "Modifier le relevé"
+    # beginning: "Début"
     begins: "Starts with"
     body: "Body of the message"
     building: "Building"
@@ -1357,6 +1360,7 @@ eng:
     search_account: "Search for accounts"
     search_for_available_prices: "%{code} - %{name}, %{pretax_amount}"
     search_go: "Search!"
+    # search_placeholder: "Rechercher..."
     search_sales: "Search sales"
     second_building_name: "Second building name"
     second_contact: "Second address"
@@ -1570,6 +1574,10 @@ eng:
       one: "1 purchase"
       other: "%{count} purchases"
       zero: "0 purchases"
+    x_results:
+      # one: "%{count} résultat trouvé"
+      # other: "%{count} résultats trouvés"
+      # zero: "Aucun résultat trouvé"
     x_sales:
       one: "1 sale"
       other: "%{count} sales"

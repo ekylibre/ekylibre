@@ -86,7 +86,7 @@ module BackendHelper
     unless html.blank?
       html = content_tag(:ul, html)
       snippet(main_name, main_options) { html }
-    end 
+    end
 
     return nil
   end

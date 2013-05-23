@@ -90,4 +90,9 @@ class Backend::PurchaseItemsController < BackendController
     redirect_to_current
   end
 
+  def show
+    item = PurchaseItem.find(params[:id])
+    redirect_to :controller => :purchases, :id => item.purchase_id
+  end
+
 end

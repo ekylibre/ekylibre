@@ -33,5 +33,5 @@ class Backend::SnippetsController < BackendController
       render :text => "" # head :success
     end
   end
-  
+
 end

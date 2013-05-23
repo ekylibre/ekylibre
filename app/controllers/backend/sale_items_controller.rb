@@ -91,4 +91,9 @@ class Backend::SaleItemsController < BackendController
     # render_restfully_form
   end
 
+  def show
+    item = SaleItem.find(params[:id])
+    redirect_to :controller => :sales, :id => item.sale_id
+  end
+
 end

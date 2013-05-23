@@ -94,6 +94,7 @@ jpn:
       # purchases: "Tableau de bord des achats"
       # relationship: "Tableau de bord de la gestion des relations"
       # sales: "Tableau de bord des ventes"
+      # search: "Recherche de\_: %{searched}"
       # settings: "Configuration"
       # settings_accountancy: "Configuration de la comptabilité"
       # settings_base: "Configuration de base"
@@ -442,6 +443,7 @@ jpn:
       # edit: "Configuration"
       # import: "Importer des données"
       # restore: "Restaurer une sauvegarde"
+    backend/snippets: #?
     backend/subscription_natures:
       # edit: "Modifier le type d’abonnement\_: %{name}"
       # index: "Types d’abonnements"
@@ -709,6 +711,7 @@ jpn:
     # balance: "Solde"
     # bank_statement_point: "Pointer le relevé"
     # bank_statement_update: "Modifier le relevé"
+    # beginning: "Début"
     # begins: "Commence par"
     # body: "Corps du message"
     # building: "Lieu de stockage"
@@ -1317,6 +1320,7 @@ jpn:
     # search_account: "Rechercher un compte"
     # search_for_available_prices: "%{code} - %{name}%s: %{pretax_amount}/%{amount} (HT/TTC)"
     # search_go: "Lancer la recherche"
+    # search_placeholder: "Rechercher..."
     # search_sales: "Rechercher des ventes"
     # second_building_name: "Entrée de"
     # second_contact: "Adresse secondaire"
@@ -1530,6 +1534,10 @@ jpn:
       # one: "%{count} achat"
       # other: "%{count} achats"
       # zero: "0 achat"
+    x_results:
+      # one: "%{count} résultat trouvé"
+      # other: "%{count} résultats trouvés"
+      # zero: "Aucun résultat trouvé"
     x_sales:
       # one: "%{count} vente"
       # other: "%{count} ventes"

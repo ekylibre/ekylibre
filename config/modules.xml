@@ -448,14 +448,14 @@
       </item>
       <item name="plants">
         <paundefinedge to="backend/plants#index"/>
-        <page to="backend/plants#create" deletable="true"/>
-        <page to="backend/plants#destroy" deletable="true"/>
-        <page to="backend/plants#edit" deletable="true"/>
-        <page to="backend/plants#list" deletable="true"/>
-        <page to="backend/plants#list_children" deletable="true"/>
-        <page to="backend/plants#new" deletable="true"/>
-        <page to="backend/plants#show" deletable="true"/>
-        <page to="backend/plants#update" deletable="true"/>
+        <page to="backend/plants#create"/>
+        <page to="backend/plants#destroy"/>
+        <page to="backend/plants#edit"/>
+        <page to="backend/plants#list"/>
+        <page to="backend/plants#list_children"/>
+        <page to="backend/plants#new"/>
+        <page to="backend/plants#show"/>
+        <page to="backend/plants#update"/>
       </item>
       <item name="matters">
         <page to="backend/matters#index"/>
@@ -998,6 +998,7 @@
         <page to="backend/dashboards#purchases"/>
         <page to="backend/dashboards#relationship"/>
         <page to="backend/dashboards#sales"/>
+        <page to="backend/dashboards#search"/>
         <page to="backend/dashboards#settings"/>
         <page to="backend/dashboards#stocks"/>
         <page to="backend/dashboards#welcome"/>
@@ -1010,7 +1011,11 @@
         <page to="backend/entities#picture"/>
       </item>
       <item name="entity_addresses">
+        <page to="backend/entity_addresses#show"/>
         <page to="backend/entity_addresses#unroll"/>
+      </item>
+      <item name="entity_links">
+        <page to="backend/entity_links#show"/>
       </item>
       <item name="entity_natures">
         <page to="backend/entity_natures#unroll"/>
@@ -1025,7 +1030,6 @@
         <page to="backend/interfacers#product_units"/>
         <page to="backend/interfacers#search_for"/>
         <page to="backend/interfacers#select_options"/>
-        <page to="backend/interfacers#toggle_module"/>
         <page to="backend/interfacers#toggle_side"/>
         <page to="backend/interfacers#toggle_tab"/>
         <page to="backend/interfacers#toggle_view_mode"/>
@@ -1096,13 +1100,6 @@
       </item>
       <item name="plants">
         <page to="backend/plants#index"/>
-        <page to="backend/plants#create"/>
-        <page to="backend/plants#destroy"/>
-        <page to="backend/plants#edit"/>
-        <page to="backend/plants#list"/>
-        <page to="backend/plants#new"/>
-        <page to="backend/plants#show"/>
-        <page to="backend/plants#update"/>
       </item>
       <item name="preferences">
         <page to="backend/preferences#index"/>
@@ -1220,6 +1217,15 @@
         <page to="backend/professions#list"/>
         <page to="backend/professions#new"/>
         <page to="backend/professions#update"/>
+      </item>
+      <item name="purchase_items">
+        <page to="backend/purchase_items#show"/>
+      </item>
+      <item name="sale_items">
+        <page to="backend/sale_items#show"/>
+      </item>
+      <item name="snippets">
+        <page to="backend/snippets#toggle"/>
       </item>
       <item name="public">
         <page to="public#index"/>

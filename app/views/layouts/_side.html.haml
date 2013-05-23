@@ -1,7 +1,6 @@
 -snippet :search, :title => false do
   =form_tag(backend_search_url, :method => :get, :class => "search") do
-    =text_field_tag(:q, params[:q], :placeholder => tl(:search_placeholder))
-
+    =search_field_tag(:q, params[:q], :placeholder => tl(:search_placeholder))
 
 -mod = Ekylibre::Modules.module_of(controller.controller_path, action_name)
 -current = Ekylibre::Modules.reverse(controller.controller_path, action_name) rescue []
