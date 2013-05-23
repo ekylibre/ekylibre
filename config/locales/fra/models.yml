@@ -752,7 +752,7 @@ fra:
     global_debit: "Débit global"
     godchildren: "Filleul"
     group: "Groupe"
-    groups: "Groupes" #?
+    groups: "Groupes"
     has_downpayment: "A un acompte"
     hashed_password: "Mot de passe crypté" #?
     hour_duration: "Heure(s)" #?

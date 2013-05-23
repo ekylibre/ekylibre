@@ -24,10 +24,14 @@ eng:
       # new: "Nouvelle répartition analytique"
       # show: "Répartition %{id}"
     backend/activity_watchings: #?
-    backend/animal_groups: #?
+    backend/animal_groups:
+      # edit: "Modifier le groupe d'animaux\_: %{name}"
+      # index: "Groupes d'animaux"
+      # new: "Nouveau groupe d'animaux"
+      # show: "Groupe\_: %{name}"
     backend/animals:
       # edit: "Modifier l'animal\_: %{name}"
-      # index: "Productions animales"
+      # index: "Animaux"
       # new: "Nouvel animal"
       # picture: "Photo"
       # show: "%{nature_name}\_: %{name}"
@@ -239,7 +243,11 @@ eng:
       reopen: "Reopen journal : %{name}"
       reports: "Prints, exportations"
       show: "Journal: %{name} (%{code})"
-    backend/land_parcel_groups: #?
+    backend/land_parcel_groups:
+      # edit: "Modifier l'ilôt\_: %{name}"
+      # index: "Ilôts"
+      # new: "Ajouter un nouvel ilôt"
+      # show: "Ilôt %{name}"
     backend/land_parcels:
       divide: "Divide land parcel: %{name}"
       edit: "Edit land parcel: %{name}"
@@ -305,7 +313,11 @@ eng:
       new: "Add a new disbursement"
       show: "Disbursement %{number} for %{payee}"
     backend/places: #?
-    backend/plants: #?
+    backend/plants:
+      # edit: "Modifier la culture\_: %{name}"
+      # index: "Cutures"
+      # new: "Nouvelle culture"
+      # show: "Culture\_: %{name} "
     backend/preferences:
       # edit: "Modifier les préférences"
       # index: "Préfénces"
@@ -466,6 +478,7 @@ eng:
       edit: "Configuration"
       import: "Import data"
       restore: "Restore data"
+    backend/snippets: #?
     backend/subscription_natures:
       edit: "Edit the subscription type: %{name}"
       index: "Subscription types"
@@ -1658,6 +1671,7 @@ eng:
     need_quantities_to_cancel_an_sale: "You must specify a quantity in order to cancel the sales invoice"
     need_stocks_building_to_create_products: "You must create a building to be able to create a product"
     need_stocks_to_create_inventories: "You have to manage some stocks in order to manage inventories"
+    # need_to_create_activity: "Vous devez créer des activités pour pouvoir affecter vos écritures comptables"
     need_to_create_subscription_nature: "You must create a type of subscription to manage your subscriptions"
     new_actual_number: "The new number is being %{actual_number}"
     no_authenticated: "You could not be identified. The user_name or password must be incorrect."
