@@ -71,8 +71,6 @@ class LandParcelGroup < ProductGroup
   attr_accessible :active, :external, :description, :name, :variety_id, :unit_id, :nature_id, :reproductor, :reservoir, :parent_id, :memberships_attributes
 
   belongs_to :parent, :class_name => "ProductGroup"
-  has_many :memberships, :class_name => "ProductMembership", :foreign_key => :group_id
-  has_many :members, :through => :memberships
 
   default_scope -> { order(:name) }
   scope :groups_of, lambda { |member, viewed_at| where("id IN (SELECT group_id FROM #{ProductMembership.table_name} WHERE member_id = ? AND ? BETWEEN COALESCE(started_at, ?) AND COALESCE(stopped_at, ?))", member.id, viewed_at, viewed_at, viewed_at) }
@@ -85,7 +83,7 @@ class LandParcelGroup < ProductGroup
   validates_numericality_of :area_measure, :content_maximal_quantity, :maximal_quantity, :minimal_quantity, :real_quantity, :virtual_quantity, :allow_nil => true
   validates_length_of :identification_number, :name, :number, :picture_content_type, :picture_file_name, :sex, :work_number, :allow_nil => true, :maximum => 255
   validates_inclusion_of :active, :external, :reproductor, :reservoir, :in => [true, false]
-  validates_presence_of :content_maximal_quantity, :maximal_quantity, :minimal_quantity, :name, :nature, :number, :owner, :real_quantity, :unit, :variety, :virtual_quantity
+  validates_presence_of :name, :number
   #]VALIDATORS]
   validates_uniqueness_of :name
 

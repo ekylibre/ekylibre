@@ -72,8 +72,13 @@ fra:
       land_parcel:
         area_measure: "Surface"
         born_at: "Date de création"
-        children: "Sous-îlots"
+        children: "Sous-parcelle"
         number: "Numéro PAC ou numéro de parcelle"
+      land_parcel_group:
+        area_measure: "Surface"
+        born_at: "Date de création"
+        children: "Sous-îlots"
+        identification_number: "Numéro PAC ou numéro d'ilôts"
       mandate:
         family: "Famille"
       matter:
