@@ -130,7 +130,7 @@
         <page to="backend/journal_entry_items#new"/>
       </item>
     </group>
-    <group name="activity_repartitions" icon="tasks">
+    <group name="analytics" icon="tasks">
       <item name="activity_repartitions">
         <page to="backend/activity_repartitions#index"/>
         <page to="backend/activity_repartitions#create"/>
@@ -155,7 +155,7 @@
         <page to="backend/assets#update"/>
       </item>
     </group>
-    <group name="cashes" icon="money">
+    <group name="cash" icon="money">
       <item name="cashes">
         <page to="backend/cashes#index"/>
         <page to="backend/cashes#create"/>
@@ -191,7 +191,7 @@
         <page to="backend/bank_statements#update"/>
       </item>
     </group>
-    <group name="payments" icon="credit-card">
+    <group name="paids" icon="credit-card">
       <item name="incoming_payments">
         <page to="backend/incoming_payments#index"/>
         <page to="backend/incoming_payments#create"/>
@@ -300,7 +300,7 @@
     </group>
   </module>
   <module name="stocks">
-    <group name="stock" icon="box">
+    <group name="stocks" icon="box">
       <!-- @TODO : box icon -->
       <item name="stocks">
         <page to="backend/products#index"/>
@@ -338,7 +338,7 @@
         <page to="backend/inventories#update"/>
       </item>
     </group>
-    <group name="product_move" icon="truck">
+    <group name="movement" icon="truck">
       <item name="incoming_deliveries">
         <page to="backend/incoming_deliveries#index"/>
         <page to="backend/incoming_deliveries#confirm"/>
@@ -574,7 +574,7 @@
         <page to="backend/custom_fields#index"/>
         <page to="backend/custom_fields#create"/>
         <page to="backend/custom_fields#destroy"/>
-        <undefinedpage to="backend/custom_fields#down"/>
+        <page to="backend/custom_fields#down"/>
         <page to="backend/custom_fields#edit"/>
         <page to="backend/custom_fields#list"/>
         <page to="backend/custom_fields#list_choices"/>
@@ -675,7 +675,7 @@
         <page to="backend/areas#update"/>
       </item>
       <item name="districts">
-        <undefinedpage to="backend/districts#index"/>
+        <page to="backend/districts#index"/>
         <page to="backend/districts#create"/>
         <page to="backend/districts#destroy"/>
         <page to="backend/districts#edit"/>
