@@ -8,6 +8,8 @@ end
 def search_missing_validations(model)
   code = ""
 
+  return code unless model.superclass == Ekylibre::Record::Base
+
   columns = model.content_columns.delete_if{|c| !validable_column?(c)}.sort{|a,b| a.name.to_s <=> b.name.to_s}
 
   cs = columns.select{|c| c.type == :integer}
@@ -71,7 +73,7 @@ task :validations => :environment do
         end
 
         # Update tag
-        content.sub!(regexp, "  "+tag_start+" Do not edit these lines directly. Use `rake clean:validations`.\n"+validations.to_s+"  "+tag_end)
+        content.sub!(regexp, "  "+tag_start+" Do not edit these lines directly. Use `rake clean:validations`.\n" + validations.to_s + "  "+tag_end)
 
         # Save file
         File.open(file, "wb") do |f|

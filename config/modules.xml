@@ -1212,6 +1212,12 @@
         <page to="backend/professions#new"/>
         <page to="backend/professions#update"/>
       </item>
+      <item name="purchase_items">
+        <page to="backend/purchase_items#show"/>
+      </item>
+      <item name="sale_items">
+        <page to="backend/sale_items#show"/>
+      </item>
       <item name="snippets">
         <page to="backend/snippets#toggle"/>
       </item>

@@ -837,7 +837,7 @@ arb:
     amount_to_add: "جمع واضافة القيمة باليورو، بما في ذلك ايام العطل"
     amount_to_reduce: "جمع القيمة ونسبها الى اليورو، بما في ذلك ايام العطل"
     amount_with_taxes: "مجموع قيمة التسليم مع كامل الضرائب"
-    # analytics: "Activités"
+    # analytics: "Analytiques"
     # animal: "Animal"
     # animal_bar: "Animaux par lot"
     animal_group_tabbox:
@@ -858,6 +858,7 @@ arb:
     area_create: "اضافة عنوان بريدي" #?
     area_x: "%{name} (%{postcode})"
     assessable_operations: "الاجراءات الضريبية (H.T)"
+    # assets: "Immo. - Emprunts"
     assimilated_tax: "A3310 حساب الضرائب المماثلة على جدول رقم"
     # attach_an_incoming_payment_to_expense: "Rattacher un encaissement\_: %{type} N°%{number}"
     # attach_an_outgoing_payment_to_expense: "Rattacher un décaissement\_: %{type} N°%{number}"
@@ -1399,6 +1400,7 @@ arb:
     page_title_special: "%{company_code} - %{action}"
     paid_amount: "القيمة المسدودة"
     paid_on: "تم التسديد في"
+    # paids: "Réglements"
     parameters: "عامل متغير"
     # parts_amount: "Montant réglé"
     passive_balance_sheet: "رصيد ثابت"
