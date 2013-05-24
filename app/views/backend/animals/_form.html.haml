@@ -11,6 +11,7 @@
   =f.input :born_at, as: :date
   =f.input :dead_at, as: :date, disabled: true, include_blank: true, default_value: :blank
   =f.input :external, inline_label: "Cas des pères non présents sur l'exploitation"
+  =f.referenced_association :owner
 
 =field_set(:genealogy) do # partie entrée sortie de l entité animal
   =f.referenced_association :mother, :source => :mothers

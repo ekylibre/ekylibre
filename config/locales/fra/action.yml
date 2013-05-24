@@ -29,13 +29,13 @@ fra:
       # new: "New backend/activity watching"
       # show: "Show backend/activity watching"
     backend/animal_groups:
-      # edit: "Edit backend/animal group"
-      # index: "Index backend/animal group"
-      # new: "New backend/animal group"
-      # show: "Show backend/animal group"
+      edit: "Modifier le groupe d'animaux\_: %{name}"
+      index: "Groupes d'animaux"
+      new: "Nouveau groupe d'animaux"
+      show: "Groupe\_: %{name}"
     backend/animals:
       edit: "Modifier l'animal\_: %{name}"
-      index: "Productions animales"
+      index: "Animaux"
       new: "Nouvel animal"
       picture: "Photo"
       show: "%{nature_name}\_: %{name}"
@@ -242,10 +242,10 @@ fra:
       reports: "Impression, exportation"
       show: "Journal\_: %{name} (%{code})"
     backend/land_parcel_groups:
-      # edit: "Edit backend/land parcel group"
-      # index: "Index backend/land parcel group"
-      # new: "New backend/land parcel group"
-      # show: "Show backend/land parcel group"
+      edit: "Modifier l'ilôt\_: %{name}"
+      index: "Ilôts"
+      new: "Ajouter un nouvel ilôt"
+      show: "Ilôt %{name}"
     backend/land_parcels:
       divide: "Diviser la parcelle\_: %{name}"
       edit: "Modifier la parcelle\_: %{name}"
@@ -324,10 +324,10 @@ fra:
       # new: "New backend/place"
       # show: "Show backend/place"
     backend/plants:
-      # edit: "Edit backend/plant"
-      # index: "Index backend/plant"
-      # new: "New backend/plant"
-      # show: "Show backend/plant"
+      edit: "Modifier la culture\_: %{name}"
+      index: "Cutures"
+      new: "Nouvelle culture"
+      show: "Culture\_: %{name} "
     backend/preferences:
       edit: "Modifier les préférences"
       index: "Préfénces"
@@ -776,7 +776,7 @@ fra:
     amount_to_add: "Sommes à ajouter, exprimées en euros, y compris acompte congés"
     amount_to_reduce: "Sommes à imputer, exprimées en euros, y compris acompte congés"
     amount_with_taxes: "Montant TTC"
-    analytics: "Activités"
+    analytics: "Analytiques"
     animal: "Animal"
     animal_bar: "Animaux par lot"
     animal_group_tabbox:
@@ -795,6 +795,7 @@ fra:
     are_you_sure_you_want_to_invoice: "Êtes-vous sûr(e) de vouloir facturer la vente ?"
     are_you_sure_you_want_to_send_mails: "Êtes-vous sûr(e) de vouloir envoyer les mails ?"
     area_x: "%{name} (%{postcode})"
+    assets: "Immo. - Emprunts"
     assessable_operations: "Opérations imposables (H.T)"
     assimilated_tax: "Taxes assimilées calculées sur annexe n°3310A"
     attach_an_incoming_payment_to_expense: "Rattacher un encaissement\_: %{type} N°%{number}"
@@ -1266,6 +1267,7 @@ fra:
     page_title: "%{company_code} - %{menu} - %{action}"
     page_title_by_default: "Ekylibre - %{action}"
     page_title_special: "%{company_code} - %{action}"
+    paids: "Réglements"
     paid_amount: "Montant réglé"
     paid_on: "Réglé le"
     parameters: "Paramètres"
@@ -1717,6 +1719,8 @@ fra:
     need_quantities_to_cancel_an_sale: "Vous devez spécifier une quantité pour pouvoir faire un avoir"
     need_stocks_building_to_create_products: "Vous devez créer un lieu de stockage pour pouvoir créer un produit" #?
     need_stocks_to_create_inventories: "Vous devez gérer les stocks d’au moins un produit pour pouvoir faire un inventaire"
+    # need_to_create_activities: "Need to create activities"
+    need_to_create_activity: "Vous devez créer des activités pour pouvoir affecter vos écritures comptables" #?
     need_to_create_subscription_nature: "Vous devez créer un type d’abonnement pour pouvoir gérer vos abonnements"
     new_actual_number: "Le nouveau numéro en cours est %{actual_number}"
     no_authenticated: "Vous n’avez pas pu être identifié. Le nom d’utilisateur ou le mot de passe doit être incorrect."

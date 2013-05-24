@@ -31,10 +31,14 @@ arb:
       # new: "Nouvelle répartition analytique"
       # show: "Répartition %{id}"
     backend/activity_watchings: #?
-    backend/animal_groups: #?
+    backend/animal_groups:
+      # edit: "Modifier le groupe d'animaux\_: %{name}"
+      # index: "Groupes d'animaux"
+      # new: "Nouveau groupe d'animaux"
+      # show: "Groupe\_: %{name}"
     backend/animals:
       # edit: "Modifier l'animal\_: %{name}"
-      # index: "Productions animales"
+      # index: "Animaux"
       # new: "Nouvel animal"
       # picture: "Photo"
       # show: "%{nature_name}\_: %{name}"
@@ -274,7 +278,11 @@ arb:
       reopen: "فتح %{name}"
       # reports: "Impression, exportation"
       show: "الدفتر اليومي : %{name} (%{code})"
-    backend/land_parcel_groups: #?
+    backend/land_parcel_groups:
+      # edit: "Modifier l'ilôt\_: %{name}"
+      # index: "Ilôts"
+      # new: "Ajouter un nouvel ilôt"
+      # show: "Ilôt %{name}"
     backend/land_parcels:
       # divide: "Diviser la parcelle\_: %{name}"
       edit: "تعديل النظام : %{name}"
@@ -355,7 +363,11 @@ arb:
       new: "اضافة دفعة"
       show: "رقم الدفعة%{number} من اجل %{payee}"
     backend/places: #?
-    backend/plants: #?
+    backend/plants:
+      # edit: "Modifier la culture\_: %{name}"
+      # index: "Cutures"
+      # new: "Nouvelle culture"
+      # show: "Culture\_: %{name} "
     backend/posologies: #?
     backend/preferences:
       # edit: "Modifier les préférences"
@@ -1887,6 +1899,7 @@ arb:
     need_quantities_to_cancel_an_sales_invoice: "يجب عليك تحديد الكمية لتتمكن من اجراءات الفاتورة" #?
     need_stocks_building_to_create_products: "يجب عليك انشاء موقع للتخزين لتتمكن من انشاء منتج"
     need_stocks_to_create_inventories: "يجب عليك ادارة الاسهم لمنتج واحد كحد ادنى لتتمكن من اجراء عمليات الجرد"
+    # need_to_create_activity: "Vous devez créer des activités pour pouvoir affecter vos écritures comptables"
     need_to_create_subscription_nature: "يجب عليك انشاء نوع اشتراك لتتمكن من ادارة اشتراكاتك"
     new_actual_number: "الرقم الجديد الحالي هو %{actual_number}"
     no_authenticated: "ليس بامكانك ان تكون محدد، ان اسم المستخدم او كلمة المرور غير صحيحة"

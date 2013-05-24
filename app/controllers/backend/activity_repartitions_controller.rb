@@ -17,6 +17,11 @@ class Backend::ActivityRepartitionsController < BackendController
 
   # Displays the main page with the list of activity_repartitions.
   def index
+    if Activity.count.zero?
+      notify(:need_to_create_activities)
+      redirect_to :controller => :activities
+      return
+    end
     respond_to do |format|
       format.html
       format.xml  { render :xml => ActivityRepartition.all }

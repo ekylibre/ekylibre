@@ -24,10 +24,14 @@ jpn:
       # new: "Nouvelle répartition analytique"
       # show: "Répartition %{id}"
     backend/activity_watchings: #?
-    backend/animal_groups: #?
+    backend/animal_groups:
+      # edit: "Modifier le groupe d'animaux\_: %{name}"
+      # index: "Groupes d'animaux"
+      # new: "Nouveau groupe d'animaux"
+      # show: "Groupe\_: %{name}"
     backend/animals:
       # edit: "Modifier l'animal\_: %{name}"
-      # index: "Productions animales"
+      # index: "Animaux"
       # new: "Nouvel animal"
       # picture: "Photo"
       # show: "%{nature_name}\_: %{name}"
@@ -223,7 +227,11 @@ jpn:
       # reopen: "Déclôturer le journal\_: %{name}"
       # reports: "Impression, exportation"
       # show: "Journal\_: %{name} (%{code})"
-    backend/land_parcel_groups: #?
+    backend/land_parcel_groups:
+      # edit: "Modifier l'ilôt\_: %{name}"
+      # index: "Ilôts"
+      # new: "Ajouter un nouvel ilôt"
+      # show: "Ilôt %{name}"
     backend/land_parcels:
       # divide: "Diviser la parcelle\_: %{name}"
       # edit: "Modifier la parcelle\_: %{name}"
@@ -289,7 +297,11 @@ jpn:
       # new: "Ajout d’un décaissement"
       # show: "Décaissement n°%{number} pour %{payee}"
     backend/places: #?
-    backend/plants: #?
+    backend/plants:
+      # edit: "Modifier la culture\_: %{name}"
+      # index: "Cutures"
+      # new: "Nouvelle culture"
+      # show: "Culture\_: %{name} "
     backend/preferences:
       # edit: "Modifier les préférences"
       # index: "Préfénces"
@@ -1617,6 +1629,7 @@ jpn:
     # need_quantities_to_cancel_an_sale: "Vous devez spécifier une quantité pour pouvoir faire un avoir"
     # need_stocks_building_to_create_products: "Vous devez créer un lieu de stockage pour pouvoir créer un produit"
     # need_stocks_to_create_inventories: "Vous devez gérer les stocks d’au moins un produit pour pouvoir faire un inventaire"
+    # need_to_create_activity: "Vous devez créer des activités pour pouvoir affecter vos écritures comptables"
     # need_to_create_subscription_nature: "Vous devez créer un type d’abonnement pour pouvoir gérer vos abonnements"
     # new_actual_number: "Le nouveau numéro en cours est %{actual_number}"
     # no_authenticated: "Vous n’avez pas pu être identifié. Le nom d’utilisateur ou le mot de passe doit être incorrect."

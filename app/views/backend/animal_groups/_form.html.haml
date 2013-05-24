@@ -1,2 +1,18 @@
-=field_set do
-  =f.input :name
+=field_set(:major => true) do # partie info general de l entité animal_group
+  =f.referenced_association :nature, :source => :animals
+  =f.input :name # affiche le champ name de l entité animal avec une infos derriere
+  =f.input :sex, as: :radio_buttons# affiche le champ sexe sous forme de radio avec une collection de proposition (M ou F) de l entité animal
+  =f.input :reproductor
+  =f.input :work_number
+  =f.custom_fields
+
+=field_set(:details) do # partie entrée sortie de l entité animal
+  =f.input :born_at, as: :date
+  =f.input :description # affiche le champ description formaté en zone de texte
+  =f.input :external, inline_label: "Cas des groupes / troupeaux non présents sur l'exploitation"
+  =f.referenced_association :owner
+
+
+
+
+  

@@ -29,6 +29,8 @@
 # - "backend/animal_groups#edit"
 # - "backend/animal_groups#index"
 # - "backend/animal_groups#list"
+# - "backend/animal_groups#list_animals"
+# - "backend/animal_groups#list_place"
 # - "backend/animal_groups#new"
 # - "backend/animal_groups#show"
 # - "backend/animal_groups#update"

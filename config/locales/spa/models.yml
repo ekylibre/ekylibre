@@ -21,7 +21,8 @@ spa:
       animal:
         # born_at: "Date de naissance"
         # variety: "Race"
-      animal_group: #?
+      animal_group:
+        # born_at: "Date de création"
       animal_race: #?
       animal_treatment_use: #?
       asset_depreciation:
@@ -80,8 +81,13 @@ spa:
       land_parcel:
         # area_measure: "Surface"
         # born_at: "Date de création"
-        # children: "Sous-îlots"
+        # children: "Sous-parcelle"
         # number: "Numéro PAC ou numéro de parcelle"
+      land_parcel_group:
+        # area_measure: "Surface"
+        # born_at: "Date de création"
+        # children: "Sous-îlots"
+        # identification_number: "Numéro PAC ou numéro d'ilôts"
       mandate:
         # family: "Famille"
       matter:
@@ -324,10 +330,12 @@ spa:
       # activity: "Activité"
       # affair: "Affaire"
       # animal: "Animal"
+      # animal_group: "Groupe d'animaux"
       # area: "Zone postale"
       # asset: "Immobilisation"
       # asset_depreciation: "Amortissement d’immobilisation"
       # bank_statement: "Relevé de compte bancaire"
+      # bioproduct: "Produit vivant"
       # building: "Lieu de stockage"
       # campaign: "Campagne"
       # cash: "Trésorerie"
@@ -352,6 +360,7 @@ spa:
       # event: "Évènement"
       # event_nature: "Type d’évènement"
       # financial_year: "Exercice"
+      # fungus: "Champignon"
       # incoming_delivery: "Arrivage"
       # incoming_delivery_item: "Ligne d’arrivage"
       # incoming_delivery_mode: "Mode d’arrivage"
@@ -364,7 +373,9 @@ spa:
       # journal: "Journal"
       # journal_entry: "Écriture"
       # journal_entry_item: "Ligne d’écriture"
-      # land_parcel: "Îlot"
+      # land_parcel: "Parcelle"
+      # land_parcel_division: "Division de parcelle"
+      # land_parcel_group: "Ilôt"
       # listing: "Extraction"
       # listing_node: "Nœud d’extraction"
       # listing_node_item: "Élément de nœud d’extraction"
@@ -378,6 +389,7 @@ spa:
       # outgoing_delivery_mode: "Mode de livraison"
       # outgoing_payment: "Décaissement"
       # outgoing_payment_mode: "Mode de décaissement"
+      # plant: "Plante"
       # preference: "Préférence"
       # product: "Produits"
       # product_group: "Groupe de produit"
@@ -1306,12 +1318,8 @@ spa:
         # exterior: "Sortie"
         # interior: "Entrée"
         # transfer: "Transfert"
-    product_nature:
-      nature:
-        # product: "Produit"
-        # service: "Service"
-        # subscription: "Abonnement"
-        # transfer: "Transfert"
+    product_nature:  #?
+ #?
     product_transfer:
       nature:
         # gain: "Gain"
@@ -1351,6 +1359,7 @@ spa:
     sex:
       # female: "Femelle"
       # male: "Mâle"
+      # mixt: "Mixte"
     stock_transfer:
       nature:
         # gain: "Gain"

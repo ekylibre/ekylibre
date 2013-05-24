@@ -34,7 +34,8 @@ arb:
       animal:
         # born_at: "Date de naissance"
         # variety: "Race"
-      animal_group: #?
+      animal_group:
+        # born_at: "Date de création"
       animal_race: #?
       animal_treatment_use: #?
       area:  #?
@@ -289,6 +290,11 @@ arb:
         children: "شبه كتل"
         number: "رقم المساحة او رقم الحزمة"
         updated_at: "تم تحديثه" #?
+      land_parcel_group:
+        # area_measure: "Surface"
+        # born_at: "Date de création"
+        # children: "Sous-îlots"
+        # identification_number: "Numéro PAC ou numéro d'ilôts"
       listing:  #?
         created_at: "أنشأت في" #?
       listing_node:  #?
@@ -800,10 +806,12 @@ arb:
       # activity: "Activité"
       # affair: "Affaire"
       # animal: "Animal"
+      # animal_group: "Groupe d'animaux"
       area: "المنطقة البريدية"
       # asset: "Immobilisation"
       # asset_depreciation: "Amortissement d’immobilisation"
       bank_statement: "بيان الحساب المصرفي"
+      # bioproduct: "Produit vivant"
       building: "موقع التخزين"
       # campaign: "Campagne"
       cash: "الخزينة"
@@ -837,6 +845,7 @@ arb:
       event: "الحدث"
       event_nature: "نوع الحدث"
       financial_year: "السنة المالية"
+      # fungus: "Champignon"
       # incoming_delivery: "Arrivage"
       # incoming_delivery_item: "Ligne d’arrivage"
       # incoming_delivery_mode: "Mode d’arrivage"
@@ -851,6 +860,8 @@ arb:
       # journal_entry_item: "Ligne d’écriture"
       journal_record: "سجل المحاسبة" #?
       land_parcel: "الكتلة"
+      # land_parcel_division: "Division de parcelle"
+      # land_parcel_group: "Ilôt"
       listing: "الاستخراج"
       listing_node: "عقدة الاستخراج"
       listing_node_item: "عنصر غقدة الاستخراج"
@@ -869,6 +880,7 @@ arb:
       outgoing_payment_mode: "نوع الدفعة"
       outgoing_payment_use: "تأثير الدفعة" #?
       parameter: "الاعدادات" #?
+      # plant: "Plante"
       # preference: "Préférence"
       price: "الاسعار" #?
       product: "الانتاج"
@@ -1957,12 +1969,8 @@ arb:
         # exterior: "Sortie"
         # interior: "Entrée"
         # transfer: "Transfert"
-    product_nature:
-      nature:
-        # product: "Produit"
-        # service: "Service"
-        # subscription: "Abonnement"
-        # transfer: "Transfert"
+    product_nature:  #?
+ #?
     product_transfer:
       nature:
         # gain: "Gain"
@@ -2002,6 +2010,7 @@ arb:
     sex:
       # female: "Femelle"
       # male: "Mâle"
+      # mixt: "Mixte"
     stock_transfer:
       nature:
         # gain: "Gain"

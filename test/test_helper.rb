@@ -40,14 +40,16 @@ class CapybaraIntegrationTest < ActionController::IntegrationTest
   Warden.test_mode!
 
   #add a method to test unroll in form
+  #FIXME : add an AJAX helpers to capybara for testing unroll field
+    # http://stackoverflow.com/questions/13187753/rails3-jquery-autocomplete-how-to-test-with-rspec-and-capybara/13213185#13213185
+    # http://jackhq.tumblr.com/post/3728330919/testing-jquery-autocomplete-using-capybara
   def fill_unroll(field, options = {})
     fill_in field, :with => options[:with]
-
+    sleep(3)
     page.execute_script %Q{ $('##{field}').trigger("focus") }
     page.execute_script %Q{ $('##{field}').trigger("keydown") }
-    selector = "input##{field} + .items-menu .items-list .item[data-item-label='#{options[:select]}']"
-    #page.has_selector?('\"#{selector}\"')
-    page.execute_script "$(\"#{selector}\").mouseenter().click()"
+    selector = "input##{field} + .items-menu .items-list .item.selected[data-item-label='#{options[:select]}']"
+    page.execute_script " $('#{selector}').trigger(\"mouseenter\").click();"
   end
 
 end

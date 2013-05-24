@@ -69,15 +69,17 @@
 
 
 class Product < Ekylibre::Record::Base
-  attr_accessible :nature_id, :number, :identification_number, :work_number, :born_at, :sex, :picture, :owner_id, :parent_id
+  attr_accessible :area_unit_id, :area_measure, :nature_id, :number, :identification_number, :work_number, :born_at, :sex, :picture, :owner_id, :parent_id
   belongs_to :nature, :class_name => "ProductNature"
   belongs_to :variety, :class_name => "ProductVariety"
   belongs_to :unit
+  belongs_to :area_unit, :class_name => "Unit"
   belongs_to :tracking
   belongs_to :father, :class_name => "Product"
   belongs_to :mother, :class_name => "Product"
   belongs_to :owner, :class_name => "Entity"
   has_many :memberships, :class_name => "ProductMembership", :foreign_key => :member_id
+  has_many :groups, :through => :memberships
   has_many :indicator_data, :class_name => "ProductIndicatorDatum", :dependent => :destroy
   has_many :operation_tasks, :foreign_key => :subject_id
   has_many :product_localizations

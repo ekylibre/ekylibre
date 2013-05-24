@@ -69,16 +69,11 @@
 
 class AnimalGroup < ProductGroup
   attr_accessible :active, :external, :description, :name, :variety_id, :unit_id, :nature_id, :reproductor, :reservoir, :parent_id, :memberships_attributes
-
+  enumerize :sex, :in => [:male, :female, :mixt]
   belongs_to :parent, :class_name => "ProductGroup"
-  has_many :memberships, :class_name => "ProductMembership", :foreign_key => :group_id
-  has_many :members, :through => :memberships
 
   default_scope -> { order(:name) }
   scope :groups_of, lambda { |member, viewed_at| where("id IN (SELECT group_id FROM #{ProductMembership.table_name} WHERE member_id = ? AND ? BETWEEN COALESCE(started_at, ?) AND COALESCE(stopped_at, ?))", member.id, viewed_at, viewed_at, viewed_at) }
-
-  # FIXME
-  # accepts_nested_attributes_for :memberships, :reject_if => :all_blank, :allow_destroy => true
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :picture_file_size, :allow_nil => true, :only_integer => true
