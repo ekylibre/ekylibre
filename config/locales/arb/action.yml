@@ -379,8 +379,10 @@ arb:
       import: "CSV استيراد بيان التعرفة ضمن" #?
       index: "الاسعار" #?
       new: "اضافة سعر جديد" #?
-    backend/procedure_natures: #?
-    backend/procedures: #?
+    backend/procedure_natures:
+      # index: "Types de procédures"
+    backend/procedures:
+      # index: "Procédures"
     backend/product_abilities:
       # edit: "Modifier la compétence\_: %{name}"
       # index: "Compétences / Capacités"
@@ -444,9 +446,12 @@ arb:
       index: "المنتجات"
       new: "اضافة منتج جديد"
       show: "المنتجات : %{name}"
-    backend/product_price_listings: #?
-    backend/product_price_templates: #?
-    backend/product_prices: #?
+    backend/product_price_listings:
+      # index: "Listes de prix"
+    backend/product_price_templates:
+      # index: "Types de prix"
+    backend/product_prices:
+      # index: "Prix des produits"
     backend/product_process_phases: #?
     backend/product_processes: #?
     backend/product_species: #?
@@ -719,6 +724,9 @@ arb:
     backend/product_nature: "المنتجات" #?
     backend/product_nature_categories: "فئات المنتج"
     backend/product_natures: "المنتجات"
+    # backend/product_price_listings: "Listes de prix"
+    # backend/product_price_templates: "Types de prix"
+    # backend/product_prices: "Prix des produits"
     backend/product_stocks: "وضع الاسهم" #?
     backend/product_transfers: "عمليات نقل وخسارة الاسهم"
     # backend/product_varieties: "Races"
@@ -804,6 +812,7 @@ arb:
     active_current_sum: "مجموع الموجودات المتداولة"
     active_fixed_sum: "مجموع الموجودات الثابتة"
     active_sum: "مجموع الموجودات"
+    # activity: "Activités"
     add: "اضافة"
     # add_choice: "Ajouter un choix"
     add_condition: "اضافة شرط"
@@ -1449,6 +1458,7 @@ arb:
     print: "طباعة"
     print_on: "ال"
     # print_with_template: "Imprimer %{name}"
+    # procedure_natures: "Types de procédures"
     product: "المنتج"
     # product_bar: "Produit par catégories"
     product_category: "الفئة"
@@ -1457,6 +1467,8 @@ arb:
     product_component_create: "اضافة عنصر للمنتج" #?
     product_create: "اضافة منتج جديد" #?
     product_name: "المنتج"
+    # product_price_listings: "Listes de prix"
+    # product_price_templates: "Types de prix"
     product_tabbox: #?
     product_update: "تعديل تفاصيل المنتج"
     production: "ادارة الانتاج"

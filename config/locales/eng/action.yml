@@ -331,8 +331,10 @@ eng:
       import: "Import prices" #?
       index: "Prices" #?
       new: "Add a new price" #?
-    backend/procedure_natures: #?
-    backend/procedures: #?
+    backend/procedure_natures:
+      # index: "Types de procédures"
+    backend/procedures:
+      # index: "Procédures"
     backend/product_abilities:
       # edit: "Modifier la compétence\_: %{name}"
       # index: "Compétences / Capacités"
@@ -380,9 +382,12 @@ eng:
       index: "Product types"
       new: "Add a new product type"
       show: "Product type: %{name}"
-    backend/product_price_listings: #?
-    backend/product_price_templates: #?
-    backend/product_prices: #?
+    backend/product_price_listings:
+      # index: "Listes de prix"
+    backend/product_price_templates:
+      # index: "Types de prix"
+    backend/product_prices:
+      # index: "Prix des produits"
     backend/product_process_phases: #?
     backend/product_processes: #?
     backend/product_transfers:
@@ -604,6 +609,9 @@ eng:
     backend/product_moves: "Stock moves"
     backend/product_nature_categories: "Product categories"
     backend/product_natures: "Product types"
+    # backend/product_price_listings: "Listes de prix"
+    # backend/product_price_templates: "Types de prix"
+    # backend/product_prices: "Prix des produits"
     backend/product_transfers: "Transfers and loss"
     backend/product_varieties: "Product species"
     backend/production_chain_conveyors: "Production chain conveyors"
@@ -683,6 +691,7 @@ eng:
     active_current_sum: "Total Financial Asset"
     active_fixed_sum: "Total Fixed Asset"
     active_sum: "Total Assets"
+    # activity: "Activités"
     add: "Add"
     # add_choice: "Ajouter un choix"
     add_condition: "Add condition"
@@ -1262,11 +1271,14 @@ eng:
     print: "Print"
     print_on: "Print on"
     print_with_template: "Print %{name}"
+    # procedure_natures: "Types de procédures"
     product: "Product"
     # product_bar: "Produit par catégories"
     product_category: "Product category"
     # product_category_update: "Modifier la catégorie"
     product_name: "Product name"
+    # product_price_listings: "Listes de prix"
+    # product_price_templates: "Types de prix"
     product_tabbox:  #?
       components: "Components" #?
       prices: "Prices" #?

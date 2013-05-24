@@ -362,8 +362,10 @@ spa:
       # show: "Préférence"
     backend/prescriptions: #?
     backend/prices: #?
-    backend/procedure_natures: #?
-    backend/procedures: #?
+    backend/procedure_natures:
+      # index: "Types de procédures"
+    backend/procedures:
+      # index: "Procédures"
     backend/product_abilities:
       # edit: "Modifier la compétence\_: %{name}"
       # index: "Compétences / Capacités"
@@ -418,9 +420,12 @@ spa:
       # index: "Type de produit"
       # new: "Nouveau type de produit"
       # show: "Type de produit\_: %{name}"
-    backend/product_price_listings: #?
-    backend/product_price_templates: #?
-    backend/product_prices: #?
+    backend/product_price_listings:
+      # index: "Listes de prix"
+    backend/product_price_templates:
+      # index: "Types de prix"
+    backend/product_prices:
+      # index: "Prix des produits"
     backend/product_process_phases: #?
     backend/product_processes: #?
     backend/product_species: #?
@@ -655,6 +660,9 @@ spa:
     # backend/product_moves: "Mouvements de stock"
     # backend/product_nature_categories: "Catégories de type de produits"
     # backend/product_natures: "Types de produits"
+    # backend/product_price_listings: "Listes de prix"
+    # backend/product_price_templates: "Types de prix"
+    # backend/product_prices: "Prix des produits"
     # backend/product_transfers: "Transferts et pertes de stocks"
     # backend/product_varieties: "Races"
     backend/production: "Producción" #?
@@ -735,6 +743,7 @@ spa:
     active_current_sum: "Total activos circulandos"
     active_fixed_sum: "Total activos inmobilisados"
     active_sum: "Total activos"
+    # activity: "Activités"
     # add: "Ajouter"
     # add_choice: "Ajouter un choix"
     # add_condition: "Ajouter la condition"
@@ -1326,11 +1335,14 @@ spa:
     print: "Impresion de documentos"
     print_on: "el"
     # print_with_template: "Imprimer %{name}"
+    # procedure_natures: "Types de procédures"
     product: "Producto"
     # product_bar: "Produit par catégories"
     # product_category: "Produits"
     # product_category_update: "Modifier la catégorie"
     # product_name: "Produit"
+    # product_price_listings: "Listes de prix"
+    # product_price_templates: "Types de prix"
     product_tabbox: #?
     # product_update: "Modifier la fiche du produit"
     production: "Administración de la producción"

@@ -1013,6 +1013,7 @@
         <page to="backend/dashboards#accountancy"/>
         <page to="backend/dashboards#list_my_future_events"/>
         <page to="backend/dashboards#list_recent_events"/>
+        <page to="backend/dashboards#production"/>
         <page to="backend/dashboards#production_equipments"/>
         <page to="backend/dashboards#purchases"/>
         <page to="backend/dashboards#relationship"/>
