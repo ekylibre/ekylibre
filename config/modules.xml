@@ -447,7 +447,7 @@
         <page to="backend/animals#update"/>
       </item>
       <item name="plants">
-        <paundefinedge to="backend/plants#index"/>
+        <page to="backend/plants#index"/>
         <page to="backend/plants#create"/>
         <page to="backend/plants#destroy"/>
         <page to="backend/plants#edit"/>
@@ -575,7 +575,7 @@
         <page to="backend/custom_fields#index"/>
         <page to="backend/custom_fields#create"/>
         <page to="backend/custom_fields#destroy"/>
-        <undefinedpage to="backend/custom_fields#down"/>
+        <page to="backend/custom_fields#down"/>
         <page to="backend/custom_fields#edit"/>
         <page to="backend/custom_fields#list"/>
         <page to="backend/custom_fields#list_choices"/>
@@ -676,7 +676,7 @@
         <page to="backend/areas#update"/>
       </item>
       <item name="districts">
-        <undefinedpage to="backend/districts#index"/>
+        <page to="backend/districts#index"/>
         <page to="backend/districts#create"/>
         <page to="backend/districts#destroy"/>
         <page to="backend/districts#edit"/>
@@ -986,9 +986,6 @@
       <item name="product_pie_cells">
         <page to="backend/cells/product_pie_cells#show"/>
       </item>
-      <item name="custom_fields">
-        <page to="backend/custom_fields#down"/>
-      </item>
       <item name="dashboards">
         <page to="backend/dashboards#index"/>
         <page to="backend/dashboards#accountancy"/>
@@ -1002,9 +999,6 @@
         <page to="backend/dashboards#settings"/>
         <page to="backend/dashboards#stocks"/>
         <page to="backend/dashboards#welcome"/>
-      </item>
-      <item name="districts">
-        <page to="backend/districts#index"/>
       </item>
       <item name="entities">
         <page to="backend/entities#list_addresses"/>
@@ -1097,9 +1091,6 @@
         <page to="backend/places#new"/>
         <page to="backend/places#show"/>
         <page to="backend/places#update"/>
-      </item>
-      <item name="plants">
-        <page to="backend/plants#index"/>
       </item>
       <item name="preferences">
         <page to="backend/preferences#index"/>
