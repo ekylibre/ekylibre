@@ -63,7 +63,7 @@ GEM
     beardley-barcode (0.0.1)
     beardley-core (5.0.4.0)
     beardley-groovy (1.7.5.1)
-    better_errors (0.8.0)
+    better_errors (0.9.0)
       coderay (>= 1.0.0)
       erubis (>= 2.6.6)
     binding_of_caller (0.7.1)
