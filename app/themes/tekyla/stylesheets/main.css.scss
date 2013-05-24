@@ -55,6 +55,15 @@ textarea {
       @include float(left);
       display: block;
       height: $topbar-height;
+      &.name {
+        i {
+          @include is-icon(24px);
+          @include use-icon(ekylibre);
+          color: white;
+          vertical-align: middle;
+        }
+        h1 { display: none; }
+      }
       a {
         display: block;
         height: $topbar-height;
