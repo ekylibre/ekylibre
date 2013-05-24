@@ -1318,8 +1318,7 @@ spa:
         # exterior: "Sortie"
         # interior: "Entrée"
         # transfer: "Transfert"
-    product_nature:  #?
- #?
+    product_nature: #?
     product_transfer:
       nature:
         # gain: "Gain"

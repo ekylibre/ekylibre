@@ -1009,9 +1009,6 @@
       <item name="product_pie_cells">
         <page to="backend/cells/product_pie_cells#show"/>
       </item>
-      <item name="custom_fields">
-        <page to="backend/custom_fields#down"/>
-      </item>
       <item name="dashboards">
         <page to="backend/dashboards#index"/>
         <page to="backend/dashboards#accountancy"/>
@@ -1025,9 +1022,6 @@
         <page to="backend/dashboards#settings"/>
         <page to="backend/dashboards#stocks"/>
         <page to="backend/dashboards#welcome"/>
-      </item>
-      <item name="districts">
-        <page to="backend/districts#index"/>
       </item>
       <item name="entities">
         <page to="backend/entities#list_addresses"/>
@@ -1227,6 +1221,12 @@
         <page to="backend/professions#list"/>
         <page to="backend/professions#new"/>
         <page to="backend/professions#update"/>
+      </item>
+      <item name="purchase_items">
+        <page to="backend/purchase_items#show"/>
+      </item>
+      <item name="sale_items">
+        <page to="backend/sale_items#show"/>
       </item>
       <item name="snippets">
         <page to="backend/snippets#toggle"/>
