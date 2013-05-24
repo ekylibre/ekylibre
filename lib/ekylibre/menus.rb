@@ -106,10 +106,10 @@ module Ekylibre
     def self.icon(*args)
       arg = args.shift
       h = @@icons[arg]
-      begin
+      while args.size > 0
         arg = args.shift
         h = h[:children][arg]
-      end while args.size > 0
+      end
       return h[:icon] || arg
     end
 

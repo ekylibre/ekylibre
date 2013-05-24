@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <modules>
-  <module name="relationship">
+  <module name="relationship" icon="group">
     <group name="people" icon="group">
       <item name="entities">
         <page to="backend/entities#index"/>
@@ -96,7 +96,7 @@
       </item>
     </group>
   </module>
-  <module name="accountancy">
+  <module name="accountancy" icon="money">
     <group name="journals" icon="book">
       <item name="journals">
         <page to="backend/journals#index"/>
@@ -230,7 +230,7 @@
       </item>
     </group>
   </module>
-  <module name="sales">
+  <module name="sales" icon="bar-chart">
     <group name="sales" icon="bar-chart">
       <item name="sales">
         <page to="backend/sales#index"/>
@@ -270,7 +270,7 @@
       </item>
     </group>
   </module>
-  <module name="purchases">
+  <module name="purchases" icon="shopping-cart">
     <group name="purchases" icon="shopping-cart">
       <item name="purchases">
         <page to="backend/purchases#index"/>
@@ -299,7 +299,7 @@
       </item>
     </group>
   </module>
-  <module name="stocks">
+  <module name="stocks" icon="truck">
     <group name="stocks" icon="box">
       <!-- @TODO : box icon -->
       <item name="stocks">
@@ -374,8 +374,7 @@
       </item>
     </group>
   </module>
-  <module name="production">
-    <page to="backend/dashboards#production"/>
+  <module name="production" icon="cogs">
     <group name="activity" icon="cogs">
       <item name="activities">
         <page to="backend/activities#index"/>
@@ -514,7 +513,7 @@
       </item>
     </group>
   </module>
-  <module name="settings">
+  <module name="settings" icon="wrench">
     <group name="parameter" icon="wrench">
       <page to="backend/dashboards#settings_base"/>
       <item name="settings">
@@ -777,7 +776,7 @@
         <page to="backend/purchase_natures#update"/>
       </item>
     </group>
-    <group name="product" icon="leaf">
+    <group name="product" icon="wheat">
       <page to="backend/dashboards#settings_products"/>
       <item name="products">
         <page to="backend/product_natures#index"/>

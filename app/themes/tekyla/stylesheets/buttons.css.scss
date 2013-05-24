@@ -118,4 +118,20 @@ a.btn, button {
       }
     }
   }
+  &.btn-big {
+    padding: $default-gap;
+    margin: $default-gap;
+    height: auto;
+    text-align: center;
+    .icon, i {
+      display: block;
+      $size: 64px;
+      font-size: $size;
+      line-height: $size;
+      height: $size;
+      text-align: center;
+      min-width: $size;     
+    }
+  }
 }
+

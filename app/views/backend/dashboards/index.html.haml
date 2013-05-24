@@ -1,6 +1,5 @@
 #main-menu
-  -for menu in menus
-    -next if menu.name == :settings
-    =link_to(menu.default_page.url_options, :class=>"big-button #{menu.name}", :title => tl("menus.#{menu.name}")) do
+  -for mod in Ekylibre::Modules.hash.keys
+    =link_to({:action => mod}, :class=>"btn btn-big btn-#{Ekylibre::Modules.icon(mod)}", :title => Ekylibre::Modules.human_name(mod)) do
       %span.icon
-      %span.text=tl("menus.#{menu.name}")
+      %span.text=Ekylibre::Modules.human_name(mod)
