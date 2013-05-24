@@ -228,6 +228,7 @@ fra:
       show: "Écriture\_: %{number}"
     backend/journal_entry_items:
       new: "Ajouter une nouvelle ligne d’écriture"
+      # show: "Show backend/journal entry item"
     backend/journals:
       balance: "Balance"
       bookkeep: "Bascule comptable"

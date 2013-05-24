@@ -44,54 +44,153 @@ textarea {
 
 // , input[type="radio"], input[type="hidden"], input[type="button"], input[type="checkbox"], input[type="reset"], input[type="search"], input[type="submit"]
 
+
+
 #top {
   margin-bottom: 0;
   @include background-active-gradient;
   @include box-shadow(0 0 $fs-normal rgba(#000, 0.2));
-  ul {
+  height: $topbar-height;
+
+  a {
+    display: block;
     height: $topbar-height;
-    overflow: hidden;
+    line-height: $topbar-height;
+    vertical-align: middle;
+    padding: 0 round($fs-normal * 1);
+    &, i {
+      color: white;
+    }
+    font-weight: bold;
+    &:hover {
+      @include background(rgba(black, 0.07));
+      // @include box-shadow(0 0 round($fs-normal *0.7) rgba(black, 0.5) inset);
+      @include transition(background 0.4s, box-shadow 0.4s);
+    }
+  }
+
+  .collapse {
+    > ul {
+      @include float(left);
+      height: $topbar-height;
+    }
+  }
+
+  ul {
     li {
       @include float(left);
       display: block;
       height: $topbar-height;
-      &.name {
-        i {
-          @include is-icon(24px);
-          @include use-icon(ekylibre);
-          color: white;
-          vertical-align: middle;
-        }
-        h1 { display: none; }
-      }
-      a {
-        display: block;
-        height: $topbar-height;
-        line-height: $topbar-height;
-        vertical-align: middle;
-        padding: 0 round($fs-normal * 1);
-        color: white;
-        font-weight: bold;
-        &:hover {
-	  @include background(rgba(black, 0.07));
-          // @include box-shadow(0 0 round($fs-normal *0.7) rgba(black, 0.5) inset);
-          @include transition(background 0.4s, box-shadow 0.4s);
-        }
-      }
       &.separator {
         width: 0;
 	@include border-right(1px solid lighten($active-color, $default-lightness-variation));
 	@include border-left(1px solid darken($active-color, $default-lightness-variation));
       }
-      &.active {
-        a {
-	  @include background(rgba(black, 0.2));
-          @include box-shadow(0 0 round($fs-normal *0.7) rgba(black, 0.2) inset);
-        }
-      }
     }
   }
+
+  li.active > a, a.active{
+    @include background(rgba(black, 0.2));
+    @include box-shadow(0 0 round($fs-normal *0.7) rgba(black, 0.2) inset);
+  }
+
+  li.dropdown {
+    position: relative;
+  }
+
+  ul.dropdown-menu {
+    @include menu;
+    position: absolute;
+    display: none;
+    li {
+      @include float(none);
+      display: block;
+      min-width: 25ex;
+      &.separator {
+        display: none !important;
+      }
+    }
+    right: 0;
+    z-index: 5;
+  }
+
+
+  #home {
+    @include float(left);
+    display: none;
+    i {
+      @include is-icon(21px);
+      @include use-icon(home);
+    }
+  }
+
+  #brand {
+    @include float(left);
+    i {
+      @include is-icon(24px);
+      @include use-icon(ekylibre);
+      color: white;
+      vertical-align: middle;
+    }
+    h1 { display: none; }
+  }
+
+  #module {
+    @include ellipsis;
+    display: none;
+    text-align: center;
+    font-size: round($fs-normal * 1.1);
+  }
+
+  #menu {
+    @include float(right);
+    display: none;
+    i {
+      @include is-icon(21px);
+      @include use-icon(reorder);
+    }
+  }
+
+
+  #user {
+    @include float(right);
+    > li > a > i {
+      @include is-icon;
+      @include use-icon(caret-down);
+    }
+    #user-menu {
+      i { @include is-icon };
+      .user    i { @include use-icon(user) };
+      .signout i { @include use-icon(signout) };
+    }
+  }
+
+  #modules {
+    overflow: hidden;
+  }
+
+  @media only screen and (max-width: $mini-screen){
+    overflow: hidden;
+    .collapse {
+      display: none;
+    }
+    #home, #menu, #module {
+      display: block;
+    }
+
+    #brand > i {
+      @include is-icon(21px);
+      @include use-icon(ekylibre-alt);
+    }
+  }
+
 }
+
+
+
+
+
+
 
 $header-height: 40px;
 
@@ -102,7 +201,9 @@ html.backend {
   body {
     background: transparent;
     height: inherit;
-    overflow: hidden;
+    @media only screen and (min-width: $mini-screen + 1px){
+      overflow: hidden;
+    }
     #wrap {
       max-width: 100%;
       & > #main {
@@ -126,25 +227,44 @@ html.backend {
               line-height: inherit;
               vertical-align: inherit;
             }
+            @media only screen and (max-width: $mini-screen){
+              text-align: center;
+            }
           }
         }
       }
       & > #side {
         height: 100%;
         @include background(rgba(black, 0.05));
+        #user {
+          display: none;
+        }
       }
 
-      @media screen and (max-width: 768px){
+      @media only screen and (max-width: $mini-screen){
         & > #side {
 	  display: none;
 	}
         & > #main {
 	  width: 100%;
 	}
+        &.mini-screen-show-side {
+          & > #side {
+            display: block;
+            border-right: none;
+            width: 100%;
+            #user {
+              display: block;
+            }
+          }
+          & > #main {
+	    display: none;
+          }
+        }
       }
 
       $side-width: 200px;
-      @media screen and (min-width: 769px){
+      @media screen and (min-width: $mini-screen + 1px){
         // @include grid-row();
         @include calc(height, "100% - 32px");
         max-width: 100%;
@@ -170,7 +290,7 @@ html.backend {
     }
 
   }
-  @media screen and (min-width: 768px){
+  @media screen and (min-width: $mini-screen){
     &[dir="ltr"] {
       & > body > #wrap > * { float: left }
     }
@@ -347,7 +467,7 @@ html.authentication {
   &.active {
     .snippet-title {
       h3, i {
-        color: mix(black, $active-color);
+        color: mix($text-color, $active-color);
       }
     }
   }
@@ -596,7 +716,7 @@ form.search {
   padding: round(0.6*$default-gap) $default-gap;
   margin: 0 $default-gap $default-gap;
   vertical-align: middle;
-  color: black;
+  color: $text-color;
   @include border-radius($default-border-radius);
   @include incrust-shadow;
   &, & * {
@@ -985,7 +1105,7 @@ $form-actions-height: 48px;
       float: right;
       @include is-icon;
       @include use-icon(remove);
-      color: black;
+      color: $text-color;
       @include opacity(0.3);
       margin-top: 3px;
       height: 16px;

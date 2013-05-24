@@ -123,15 +123,18 @@ a.btn, button {
     margin: $default-gap;
     height: auto;
     text-align: center;
+    @include inline-block;
+    $size: 64px;
     .icon, i {
       display: block;
-      $size: 64px;
       font-size: $size;
       line-height: $size;
       height: $size;
       text-align: center;
       min-width: $size;
+      margin: 0 0 $default-gap;
     }
+    min-width: round($size * 1.7);
   }
 }
 

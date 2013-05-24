@@ -275,6 +275,10 @@ $include-html-classes: false;
   border: $menu-border;
   // width: $menu-width;
   padding: $menu-padding;
+  &, * {
+    font-weight: normal;
+    color: $text-color;
+  }
 }
 
 @mixin menu-item {
@@ -478,13 +482,13 @@ $include-html-classes: false;
       @media only screen and (max-width: $small-screen) { @content; }
     }
     @else if $screen-size == medium {
-      @media only screen and (min-width: $small-screen) and (max-width: $medium-screen) { @content; }
+      @media only screen and (min-width: $small-screen + 1px) and (max-width: $medium-screen) { @content; }
     }
     @else if $screen-size == normal {
-      @media only screen and (min-width: $medium-screen) and (max-width: $large-screen) { @content; }
+      @media only screen and (min-width: $medium-screen + 1px) and (max-width: $large-screen) { @content; }
     }
     @else if $screen-size == large {
-      @media only screen and (min-width: $large-screen) { @content; }
+      @media only screen and (min-width: $large-screen + 1px) { @content; }
     }
     @else {
       @warn "Assuming no @media queries for unknown screen size: #{$screen-size}";
@@ -509,6 +513,13 @@ $include-html-classes: false;
   }
 }
 
+
+
+$small-screen: 768px;
+$medium-screen: 1280px;
+$large-screen: 1440px;
+
+$mini-screen: 1024px;
 
 
 @import "foundation/components/global";

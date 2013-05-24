@@ -1,15 +1,41 @@
+-current_module = Ekylibre::Modules.module_of(controller.controller_path, action_name)
 %nav#top
-  %ul>
-    %li.name>
-      =link_to(backend_root_url) do
-        %i
-        %h1="Ekylibre"
-    -for mod in Ekylibre::Modules.hash.keys
+
+  =link_to("#side", :id => "menu", "data-toggle" => "side") do
+    %i
+
+  =link_to(backend_root_url, :id => "brand") do
+    %i
+    %h1="Ekylibre"
+
+  =link_to(Ekylibre::Modules.human_name(current_module), {:controller => :dashboards, :action => current_module}, :id => "module")
+
+  .collapse
+
+    %ul#modules
+      -for mod in Ekylibre::Modules.hash.keys
+        %li.separator
+        :ruby
+          attrs = {}
+          attrs[:class] = :active if current_module == mod
+        %li{attrs}=link_to(Ekylibre::Modules.human_name(mod), {:controller => :dashboards, :action => mod})
+
+    %ul#user
       %li.separator
-      :ruby
-        attrs = {}
-        attrs[:class] = :active if Ekylibre::Modules.module_of(controller.controller_path, action_name) == mod
-      %li{attrs}=link_to(Ekylibre::Modules.human_name(mod), {:controller => :dashboards, :action => mod})
+      %li.dropdown
+        =link_to("#", "data-toggle" => "dropdown") do
+          =Entity.of_company.full_name
+          %i
+        %ul#user-menu.dropdown-menu
+          %li
+            =link_to(backend_root_url, :class => :user) do
+              %i
+              =current_user.entity.full_name
+          %li.separator
+          %li
+            =link_to(destroy_user_session_url, :method => :delete, :class => :signout) do
+              %i
+              =Authentication::SessionsController.human_action_name(:destroy)
 
   -#%section>
     %ul.left>=render(:partial => "layouts/subnavigation", :object => Ekylibre.menu.items, :locals => {:with_divider => true, :depth => 0})

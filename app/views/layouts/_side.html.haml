@@ -11,5 +11,9 @@
       -attrs[:active] = true if item == current[2]
       -m.link(item, pages.first, attrs)
 
+-snippet :user, :title => current_user.entity.full_name do
+  %ul
+    %li=link_to(Authentication::SessionsController.human_action_name(:destroy), destroy_user_session_url, :method => :delete)
+
 -if content_for?(:aside)
   =content_for(:aside)

@@ -324,6 +324,41 @@
         } else {
             element.addClass(classes);
         }
+        return false;
+    });
+
+
+    $(document).on("click", "a[data-toggle='dropdown']", function () {
+        var element = $(this), menu = element.next();
+        if (menu.is(':visible')) {
+            menu.hide();
+        } else {
+            menu.show();
+        }
+        return false;
+    });
+
+    $(document).on("focusout blur", "a[data-toggle='dropdown']", function () {
+        var element = $(this), menu = element.next();
+        if (menu.is(':visible')) {
+            window.setTimeout(function () {
+                element.next().hide();
+            }, 300);
+        }
+        return true;
+    });
+
+
+    $(document).on("click", "a[data-toggle='side']", function () {
+        var element = $(this), wrap = $('#wrap');
+        if (wrap.hasClass('mini-screen-show-side')) {
+            element.removeClass('active');
+            wrap.removeClass('mini-screen-show-side');
+        } else {
+            element.addClass('active');
+            wrap.addClass('mini-screen-show-side');
+        }
+        return false;
     });
 
 

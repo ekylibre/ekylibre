@@ -1053,6 +1053,9 @@
         <page to="backend/interfacers#unroll"/>
         <page to="backend/interfacers#unroll_options"/>
       </item>
+      <item name="journal_entry_items">
+        <page to="backend/journal_entry_items#show"/>
+      </item>
       <item name="logs">
         <page to="backend/logs#index"/>
         <page to="backend/logs#create"/>

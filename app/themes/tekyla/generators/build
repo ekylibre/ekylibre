@@ -23,7 +23,7 @@ SVG_NAMESPACES = {
 meta = {
   :filename => "webfont",
   :family => "Tekyla",
-  :version => "0.0.0",
+  :version => "0.0.2",
   :name => "tekyla",
   :theme => "tekyla"
 }

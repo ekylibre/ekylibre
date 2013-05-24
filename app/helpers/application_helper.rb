@@ -64,7 +64,7 @@ module ApplicationHelper
   def legals_sentence
     # "Ekylibre " << Ekylibre.version << " - Ruby on Rails " << Rails.version << " - Ruby #{RUBY_VERSION} - " << ActiveRecord::Base.connection.adapter_name << " - " << ActiveRecord::Migrator.current_version.to_s
     nbsp = "&nbsp;".html_safe # ,  h("Ruby on Rails") + nbsp + Rails.version, ("HTML" + nbsp + "5").html_sa, h("CSS 3")
-    return [h("Ekylibre") + nbsp + Ekylibre.version,  h("Ruby") + nbsp + RUBY_VERSION.to_s].join(" &ndash; ").html_safe
+    return [h("Ekylibre") + nbsp + Ekylibre.version].join(" &ndash; ").html_safe # ,  h("Ruby") + nbsp + RUBY_VERSION.to_s
   end
 
   def choices_yes_no
