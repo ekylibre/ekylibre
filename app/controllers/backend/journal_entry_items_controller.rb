@@ -48,4 +48,9 @@ class Backend::JournalEntryItemsController < BackendController
     end
   end
 
+  def show
+    journal_entry_item = JournalEntryItem.find(params[:id])
+    redirect_to :controller => :journal_entries, :id => journal_entry_item.entry_id
+  end
+
 end

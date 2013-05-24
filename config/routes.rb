@@ -418,7 +418,7 @@ Ekylibre::Application.routes.draw do
         get :list_items
       end
     end
-    resources :journal_entry_items, :only => [:new, :create] do
+    resources :journal_entry_items, :only => [:new, :show] do
       collection do
         unroll_all
       end
