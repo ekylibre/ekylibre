@@ -106,12 +106,12 @@ module BackendHelper
 
   def snippet(name, options={}, &block)
     collapsed = current_user.preference("interface.snippets.#{name}.collapsed", false, :boolean).value
-    # raise collapsed.value.inspect unless options[:title].is_a?(FalseClass)
-      # .value
     collapsed = false if collapsed and options[:title].is_a?(FalseClass)
 
     options[:class] ||= ""
+    options[:icon] ||= name
     options[:class] << " snippet-#{options[:icon]}"
+    options[:class] << " active" if options[:active]
 
     html = ""
     html << "<div id='#{name}' class='snippet#{' ' + options[:class].to_s if options[:class]}#{' collapsed' if collapsed}'>"

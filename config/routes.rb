@@ -154,7 +154,7 @@ Ekylibre::Application.routes.draw do
         get :list_depreciations
       end
     end
-    resources :asset_depreciations, :except => [:index, :show]
+    # resources :asset_depreciations # , :except => [:index]
     resources :bank_statements do
       collection do
         get :list
@@ -271,7 +271,7 @@ Ekylibre::Application.routes.draw do
         match "picture(/:style)", :via => :get, :action => :picture, :as => :picture
       end
     end
-    resources :entity_addresses, :except => [:index, :show] do
+    resources :entity_addresses, :except => [:index] do
       collection do
         unroll_all
       end
@@ -283,7 +283,7 @@ Ekylibre::Application.routes.draw do
         get :list_prices
       end
     end
-    resources :entity_links, :except => [:index, :show]
+    resources :entity_links, :except => [:index]
     resources :entity_link_natures do
       collection do
         unroll_all
@@ -706,7 +706,7 @@ Ekylibre::Application.routes.draw do
         unroll_all
       end
     end
-    resources :purchase_items, :except => [:index, :show]
+    resources :purchase_items, :except => [:index]
     resources :purchase_natures do
       collection do
         get :list
@@ -737,7 +737,7 @@ Ekylibre::Application.routes.draw do
         unroll_all
       end
     end
-    resources :sale_items, :except => [:index, :show] do
+    resources :sale_items, :except => [:index] do
       collection do
         get :list
         get :detail
@@ -883,6 +883,9 @@ Ekylibre::Application.routes.draw do
         unroll_all
       end
     end
+
+    get :search, :controller => :dashboards, :as => :search
+
     root :to => "dashboards#index"
   end
 

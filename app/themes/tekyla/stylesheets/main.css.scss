@@ -19,7 +19,7 @@ a:link, a:visited, a:focus { color: $link-color; text-decoration: none;}
 
 // , input[type="file"]
 
-input[type="color"], input[type="date"], input[type="datetime"], input[type="datetime-local"], input[type="email"], input[type="image"], input[type="month"], input[type="number"], input[type="password"], input[type="range"], input[type="tel"], input[type="text"], input[type="time"], input[type="url"], input[type="week"], textarea, select {
+input[type="color"], input[type="date"], input[type="datetime"], input[type="datetime-local"], input[type="email"], input[type="image"], input[type="month"], input[type="number"], input[type="password"], input[type="range"], input[type="tel"], input[type="text"], input[type="time"], input[type="url"], input[type="week"], input[type="search"], textarea, select {
   border: $menu-border;
   padding: round($fs-normal * 0.2);
   @include box-sizing(content-box);
@@ -47,7 +47,7 @@ textarea {
 #top {
   margin-bottom: 0;
   @include background-active-gradient;
-  @include box-shadow(0 0 $fs-normal rgba(#000, 0.4));
+  @include box-shadow(0 0 $fs-normal rgba(#000, 0.2));
   ul {
     height: $topbar-height;
     overflow: hidden;
@@ -292,6 +292,15 @@ html.authentication {
   }
 }
 
+#subtitle {
+  padding: $default-gap;
+  font-weight: bold;
+  line-height: 1.4 * $fs-large;
+  font-size: $fs-large;
+  color: #777;
+}
+
+
 .snippet {
   .snippet-title {
     display: block;
@@ -323,6 +332,13 @@ html.authentication {
       > i.collapser {
         display: block;
         @include use-icon(caret-down);
+      }
+    }
+  }
+  &.active {
+    .snippet-title {
+      h3, i {
+        color: mix(black, $active-color);
       }
     }
   }
@@ -380,6 +396,20 @@ html.authentication {
         }
      }
    }
+  }
+}
+
+form.search {
+  display: block;
+  padding: round($fs-normal * 0.20) round($fs-normal * 0.50);
+  input {
+    $padding: 0.8em;
+    padding-left: $padding;
+    padding-right: $padding;
+    @include border-radius(1000px);
+    width: 100%;
+    @include calc(width, "100% - #{2 * $padding} - #{2 * $menu-border-width}");
+    display: block;
   }
 }
 
@@ -1323,7 +1353,54 @@ ul.tree {
   @include box-emphasis;
 }
 
+.search-results {
+  padding: $default-gap;
+  li {
+    border-top: 2px solid $active-color;
+    @include background(linear-gradient(top, rgba(#FFF, 0), rgba(#000, 0.1)));
+    padding: $default-gap;
+    display: block;
+    * { line-height: round(1.4 * $fs-normal); }
+    h3 {
+      a {
+      }
+      small {
+        color: #AAA;
+      }
+    }
+    p {
+      &, * {
+        color: #777;
+      }
+    }
+    &:first-child {
+      border-top: none;
+    }
+  }
+}
 
+.pagination {
+  padding: $default-gap;
+  span, a {
+    @include inline-block;
+    padding: $default-gap * 0.75;
+    margin: $default-gap * 0.2;
+    @include border-radius(1000px);
+    &.active {
+      font-weight: bold;
+      @include box-shadow(0 0 $default-gap rgba(black, 0.1) inset);
+    }
+  }
+  a {
+    background: #DDD;
+    &.beginning {
+      i {
+        @include is-icon;
+        @include use-icon(bullseye);
+      }
+    }
+  }
+}
 
 svg {
   fill: #EEE;

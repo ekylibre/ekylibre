@@ -860,17 +860,17 @@ module ApplicationHelper
       raise ArgumentError.new("Block can not be accepted") if block_given?
       if method_name.to_s.match(/^print_\w+$/)
         nature = method_name.to_s.gsub(/^print_/, '').to_sym
-        raise Exception.new("Cannot use method :print_#{nature} because nature '#{nature}' does not exist.") unless parameters = DocumentTemplate.document_natures[nature]
-        url = args.delete_at(-1) if args[-1].is_a?(Hash)
-        raise ArgumentError.new("Parameters don't match. #{parameters.size} expected, got #{args.size} (#{[args, options].inspect}") unless args.size == parameters.size
+        raise Exception.new("Cannot use method :print_#{nature} because nature '#{nature}' is not defined.") unless DocumentTemplate.nature.values.include?(nature)
+        # url = args.delete_at(-1) if args[-1].is_a?(Hash)
+        # raise ArgumentError.new("Parameters don't match. #{parameters.size} expected, got #{args.size} (#{[args, options].inspect}") unless args.size == parameters.size
         url ||= {}
         url[:action] ||= :show
         url[:format] = :pdf
         url[:id] ||= args[0].id if args[0].respond_to?(:id) and args[0].class.ancestors.include?(ActiveRecord::Base)
         url[:n] = nature
-        parameters.each_index do |i|
-          url[parameters[i][0]] = args[i]
-        end
+        # parameters.each_index do |i|
+        #   url[parameters[i][0]] = args[i]
+        # end
         @tools << [:print, nature, args, url]
       else
         raise ArgumentError.new("First argument must be an ActiveRecord::Base. (#{method_name})") unless args[0].class.ancestors.include? ActiveRecord::Base

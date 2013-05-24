@@ -449,7 +449,7 @@ $include-html-classes: false;
     display: none;
   }
   @include inline-block;
-  & > input, & > a, & > span {
+  & > input, & > a, & > span, & > button {
     @include inline-block;
     @include border-radius(0);
     @include margin-left(-1px);

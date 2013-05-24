@@ -1011,6 +1011,7 @@
         <page to="backend/dashboards#purchases"/>
         <page to="backend/dashboards#relationship"/>
         <page to="backend/dashboards#sales"/>
+        <page to="backend/dashboards#search"/>
         <page to="backend/dashboards#settings"/>
         <page to="backend/dashboards#stocks"/>
         <page to="backend/dashboards#welcome"/>
@@ -1023,7 +1024,11 @@
         <page to="backend/entities#picture"/>
       </item>
       <item name="entity_addresses">
+        <page to="backend/entity_addresses#show"/>
         <page to="backend/entity_addresses#unroll"/>
+      </item>
+      <item name="entity_links">
+        <page to="backend/entity_links#show"/>
       </item>
       <item name="entity_natures">
         <page to="backend/entity_natures#unroll"/>

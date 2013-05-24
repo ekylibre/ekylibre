@@ -123,6 +123,7 @@ arb:
       # purchases: "Tableau de bord des achats"
       # relationship: "Tableau de bord de la gestion des relations"
       # sales: "Tableau de bord des ventes"
+      # search: "Recherche de\_: %{searched}"
       # settings: "Configuration"
       # settings_accountancy: "Configuration de la comptabilité"
       # settings_base: "Configuration de base"
@@ -880,6 +881,7 @@ arb:
     bank_accounts: "" #?
     bank_statement_point: "الاشارة للكشف المصرفي"
     bank_statement_update: "تعديل الكشف المصرفي"
+    # beginning: "Début"
     # begins: "Commence par"
     body: "هيكل الرسالة"
     building: "مكان التخزين"
@@ -1574,6 +1576,7 @@ arb:
     # search_account: "Rechercher un compte"
     # search_for_available_prices: "%{code} - %{name}%s: %{pretax_amount}/%{amount} (HT/TTC)"
     search_go: "بدء البحث"
+    # search_placeholder: "Rechercher..."
     search_sales: "البحث عن طلبات البيع"
     second_building_name: "ادخال الاسم"
     # second_contact: "Adresse secondaire"
@@ -1805,6 +1808,10 @@ arb:
       # one: "%{count} achat"
       # other: "%{count} achats"
       # zero: "0 achat"
+    x_results:
+      # one: "%{count} résultat trouvé"
+      # other: "%{count} résultats trouvés"
+      # zero: "Aucun résultat trouvé"
     x_sales:
       # one: "%{count} vente"
       # other: "%{count} ventes"

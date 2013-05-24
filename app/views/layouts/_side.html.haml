@@ -1,46 +1,15 @@
--# current_page = menus.page(controller.controller_path, action_name)
--# menu = current_page.useful_menu if current_page
--# raise Ekylibre.groups_of(controller.controller_path, action_name).inspect
-
 -snippet :search, :title => false do
-  .input-append
-    =text_field_tag(:search)
+  =form_tag(backend_search_url, :method => :get, :class => "search") do
+    =search_field_tag(:q, params[:q], :placeholder => tl(:search_placeholder))
 
 -mod = Ekylibre::Modules.module_of(controller.controller_path, action_name)
+-current = Ekylibre::Modules.reverse(controller.controller_path, action_name) rescue []
 -for group, items in Ekylibre::Modules.groups_in(mod)
-  -side_menu(group, :title => Ekylibre::Modules.human_name(mod, group), :icon => Ekylibre::Modules.icon(mod, group)) do |m|
+  -side_menu(group, :title => Ekylibre::Modules.human_name(mod, group), :icon => Ekylibre::Modules.icon(mod, group), :active => !!(group == current[1])) do |m|
     -for item, pages in items
       -attrs = {:title => Ekylibre::Modules.human_name(mod, group, item)}
+      -attrs[:active] = true if item == current[2]
       -m.link(item, pages.first, attrs)
-
-
--#side_menu do |m|
-  -if request.url == root_url or request.url == backend_root_url
-    -#m.link(:destroy, destroy_user_session_url, :method => :delete)
-  -else
-    -m.link(:index, {:controller => "backend/dashboards"}, :icon => :up)
-    -if menu and menu.hierarchy.size > 2
-      -for item in menu.hierarchy[1..-2]
-        -m.link(item.human_name, item.default_page.url_options, :icon => :up)
-    -if menu and menu.default_page != current_page
-      -item = menu
-      -m.link(item.human_name, item.default_page.url_options, :icon => :up)
-
--#side_menu do |m|
-  -if menu
-    -for item in menu
-      -unless item.name == :settings
-        -attrs = {:active => item.in_path?(controller.controller_path, action_name)}
-        -attrs[:icon] = :inside if item.items.size > 0
-        -m.link(item.human_name, item.default_page.url_options, attrs)
-
--#side_menu do |m|
-  -if menu
-    -unless menu.hierarchy.detect{|i| i.name == :settings}
-      -expected = "settings_" + menu.hierarchy[1..-1].collect{|m| m.name}.join("_") + "_dashboard_url"
-      -url = (respond_to?(expected) ? send(expected) : {:controller => "backend/dashboards", :action => :settings})
-      -m.link("labels.menus.settings".t, url)
-  -m.link(:help, "#", "data-toggle-visibility" => "#help")
 
 -if content_for?(:aside)
   =content_for(:aside)
