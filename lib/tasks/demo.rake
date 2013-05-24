@@ -204,7 +204,7 @@ namespace :db do
 
       #############################################################################
       # Import shapefile
-      print "[#{(Time.now - start).round(2).to_s.rjust(8)}s] Shapefile ( from TELEPAC 2013 ) : "
+      print "[#{(Time.now - start).round(2).to_s.rjust(8)}s] Shapefile (from TelePAC 2013): "
       v = ProductVariety.find_by_code("land_parcel")
       p = ProductVariety.find_by_code("place")
       v ||= ProductVariety.create!(:name => "Parcelle", :code => "land_parcel", :product_type => "LandParcel", :parent_id => (p ? p.id : nil))

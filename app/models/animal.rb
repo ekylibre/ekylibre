@@ -83,7 +83,7 @@ class Animal < Bioproduct
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   #]VALIDATORS]
 
-  validates_uniqueness_of :identification_number # :name,
+  validates_uniqueness_of :identification_number
   validates_inclusion_of :sex, :in => self.sex.values
 
   default_scope -> { order(:name) }

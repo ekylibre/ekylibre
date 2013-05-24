@@ -81,7 +81,7 @@ class Matter < Product
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   #]VALIDATORS]
 
-  validates_uniqueness_of :name, :identification_number
+  # validates_uniqueness_of :name, :identification_number
 
   default_scope -> { order(:name) }
 end
