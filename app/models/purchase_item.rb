@@ -70,7 +70,7 @@ class PurchaseItem < Ekylibre::Record::Base
 
   before_validation do
     check_reservoir = true
-    self.building_id = Building.first.id if Building.count == 1
+    #self.building_id = Building.first.id if Building.count == 1
     if not self.price and self.product and self.purchase
       self.price = self.product.price(:supplier => self.purchase.supplier)
     end
