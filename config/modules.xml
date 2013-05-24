@@ -514,7 +514,7 @@
     </group>
   </module>
   <module name="settings" icon="wrench">
-    <group name="parameter" icon="wrench">
+    <group name="parameters" icon="wrench">
       <page to="backend/dashboards#settings_base"/>
       <item name="settings">
         <page to="backend/settings#edit"/>
@@ -840,7 +840,7 @@
         <page to="backend/product_price_templates#update"/>
       </item>
     </group>
-    <group name="stock" icon="truck">
+    <group name="stocks" icon="truck">
       <page to="backend/dashboards#settings_stocks"/>
       <item name="incoming_delivery_modes">
         <page to="backend/incoming_delivery_modes#index"/>
@@ -905,7 +905,7 @@
         <page to="backend/buildings#show"/>
         <page to="backend/buildings#update"/>
       </item>
-      <item name="backend/product_indicators">
+      <item name="product_indicators">
         <page to="backend/product_indicators#index"/>
         <page to="backend/product_indicators#create"/>
         <page to="backend/product_indicators#destroy"/>
@@ -919,7 +919,7 @@
         <page to="backend/product_indicators#up"/>
         <page to="backend/product_indicators#update"/>
       </item>
-      <item name="backend/procedure_natures">
+      <item name="procedure_natures">
         <page to="backend/procedure_natures#index"/>
         <page to="backend/procedure_natures#create"/>
         <page to="backend/procedure_natures#destroy"/>

@@ -14,8 +14,8 @@ class Backend::AnimalGroupsController < BackendController
   end
 
   # Liste des animaux d'un groupe d'animaux considéré
-  list(:animals, :model => :product_memberships, :conditions => [" group_id = ? ",['session[:current_animal_group_id]']], :order => "name ASC") do |t|
-    t.column :name, :through =>:member, :url => true
+  list(:animals, :model => :product_memberships, :conditions => [" group_id = ? ",['session[:current_animal_group_id]']], :order => "started_at ASC") do |t|
+    t.column :name, :through => :member, :url => true
     t.column :started_at
     t.column :stopped_at
   end
@@ -42,6 +42,7 @@ class Backend::AnimalGroupsController < BackendController
   # Displays the page for one animal_group.
   def show
     return unless @animal_group = find_and_check
+    session[:current_animal_group_id] = @animal_group.id
     respond_to do |format|
       format.html { t3e(@animal_group) }
       format.xml  { render :xml => @animal_group }
