@@ -1,3 +1,4 @@
+= @building.errors.inspect
 =field_set do
   =f.input :name
   =f.input :work_number
@@ -7,7 +8,8 @@
   =f.referenced_association :variety
   =f.input :description, :field => :text
   =f.input :reservoir, :show => :reservoir
-
+  =f.input :external, inline_label: "Cas des constructions utiles mais non présentes sur l'exploitation"
+  =f.referenced_association :owner
 
 =field_set(:reservoir) do
   =f.referenced_association :content_nature

@@ -484,9 +484,9 @@ namespace :db do
 
       # attributes to map family
       families = {
-        "CEREA" => :plant,
-        "COPLI" => :plant,
-        "CUFOU" => :plant,
+        "CEREA" => :vegetal,
+        "COPLI" => :vegetal,
+        "CUFOU" => :vegetal,
         "ANIMX" => :animal,
         "XXXXX" => :none,
         "NINCO" => :none

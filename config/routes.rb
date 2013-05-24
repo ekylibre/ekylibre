@@ -166,6 +166,13 @@ Ekylibre::Application.routes.draw do
       end
     end
 
+    resources :buildings do
+      collection do
+        get :list
+        unroll_all
+      end
+    end
+
     resources :campaigns do
       collection do
         get :list

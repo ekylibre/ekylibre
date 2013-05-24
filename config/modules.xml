@@ -896,6 +896,16 @@
         <page to="backend/land_parcel_groups#show"/>
         <page to="backend/land_parcel_groups#update"/>
       </item>
+      <item name="buildings">
+        <page to="backend/buildings#index"/>
+        <page to="backend/buildings#create"/>
+        <page to="backend/buildings#destroy"/>
+        <page to="backend/buildings#edit"/>
+        <page to="backend/buildings#list"/>
+        <page to="backend/buildings#new"/>
+        <page to="backend/buildings#show"/>
+        <page to="backend/buildings#update"/>
+      </item>
       <item name="backend/product_indicators">
         <page to="backend/product_indicators#index"/>
         <page to="backend/product_indicators#create"/>
