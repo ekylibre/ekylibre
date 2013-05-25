@@ -562,6 +562,8 @@ fra:
       index: "Unité fonctionnelle / de travail"
       new: "Nouvelle unité fonctionnelle / de travail"
       show: "Unité fonctionnelle %{name}"
+    backend:
+      # themize: "Themize backend"
     public:
       index: "Accueil"
   controllers:

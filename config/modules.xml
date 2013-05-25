@@ -962,6 +962,9 @@
       <item name="sessions">
         <page to="authentication/sessions#renew"/>
       </item>
+      <item name="backend">
+        <page to="backend#themize"/>
+      </item>
       <item name="activity_watchings">
         <page to="backend/activity_watchings#index"/>
         <page to="backend/activity_watchings#create"/>

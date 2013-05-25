@@ -240,6 +240,10 @@ html.backend {
           display: none;
         }
       }
+      & > #help {
+        height: 100%;
+        display: none;
+      }
 
       @media only screen and (max-width: $mini-screen){
         & > #side {
@@ -1374,8 +1378,13 @@ input[data-date], input[data-datepicker] {
 }
 
 #cell-date {
-  span {
+  display: block;
+  padding: 0;
+  margin: $default-gap;
+  > span {
     display: block;
+    padding: 0;
+    margin: 0;
     text-transform: lowercase;
     text-align: center;
     &.day-name {

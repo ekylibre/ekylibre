@@ -23,7 +23,7 @@ class BackendController < BaseController
   # before_filter :i18nize
   before_filter :authenticate_user!
   # # before_filter :identify
-  # before_filter :authorize
+  before_filter :themize
   # after_filter  :historize
   # # attr_accessor :current_user
   layout :dialog_or_not
@@ -326,6 +326,10 @@ class BackendController < BaseController
     @current_user = User.find(:first, :conditions => {:id => session[:user_id]}, :readonly => true) if session[:user_id]
   end
 
+  def themize
+    # TODO: Dynamic theme choosing
+    @current_theme = "tekyla"
+  end
 
 
   # Controls access to every view in Ekylibre.
@@ -352,8 +356,6 @@ class BackendController < BaseController
     if request.get? and not request.xhr? and not [:sessions, :help].include?(self.controller_name.to_sym)
       session[:last_url] = request.path
     end
-    # TODO: Dynamic theme choosing
-    @current_theme = "tekyla" # "zenky"
 
     # # Check expiration
     # if !session[:last_query].is_a?(Integer)

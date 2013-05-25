@@ -10,29 +10,10 @@ $experimental-support-for-svg: true;
 @import "compass/reset";
 @import "compass/css3";
 @import "compass/utilities";
+@import "colors.css.scss";
 @import "font.css.scss";
 
 $symbiols: $icons;
-
-@font-face {
-  font-family: 'FontAwesome';
-  src: font-url('fontawesome-webfont.eot');
-  src: font-url('fontawesome-webfont.eot?#iefix') format("embedded-opentype"),
-    font-url('fontawesome-webfont.woff') format("woff"),
-    font-url('fontawesome-webfont.ttf') format("truetype");
-  font-weight: normal;
-  font-style: normal;
-}
-
-
-/* 37E */
-/*##############|                   |                   |                   |                   |                   |                   |*/
-$modules-names:  relationship        accountancy         sales               purchases           stocks              production         ;
-$modules-colors: #07D                #380                #BB4                #c60                #B00                #741               ;
-$modules: ();
-@for $i from 1 through length($modules-names) {
-  $modules: append($modules, (nth($modules-names, $i) nth($modules-colors, $i)));
-}
 
 $fs-ratio: 1.4; // 1.618;
 $fs-normal: 14px;
@@ -41,9 +22,6 @@ $fs-large:     round($fs-ratio*$fs-normal);
 $fs-huge:      round($fs-ratio*$fs-large);
 $fs-very-huge: round($fs-ratio*$fs-huge);
 
-$neutral-color: #777;
-$base-color: #688ED8; //#2BA6CB; // #7A1; //#2BA6CB (ZURB) // #16D (Google)
-$active-color: $base-color; // #DE7308; // mix(green, $base-color, 50%);
 $link-color:  darken($base-color, 27%);
 $link-color:  darken($base-color, 10%);
 $text-color:  #111;

@@ -4,6 +4,7 @@ arb:
       destroy: "الخروج"
       new: "الدخول"
       # renew: "Renouveller la session"
+    backend: #?
     backend/account_balances: #?
     backend/accountancy:  #?
       balance: "رصيد الحساب" #?

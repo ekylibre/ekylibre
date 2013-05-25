@@ -4,6 +4,7 @@ eng:
       destroy: "Log out"
       new: "New session"
       renew: "Renew session"
+    backend: #?
     backend/accounts:
       edit: "Edit account: %{number} - %{name}"
       index: "Plan of accounts"

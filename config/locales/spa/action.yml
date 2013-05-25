@@ -4,6 +4,7 @@ spa:
       # destroy: "Se déconnecter"
       new: "Conexión"
       # renew: "Renouveller la session"
+    backend: #?
     backend/account_balances: #?
     backend/accountancy:  #?
       balance: "Equilibrio" #?

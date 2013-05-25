@@ -1,5 +1,6 @@
 # Unused actions in rights
 # - "authentication/sessions#renew"
+# - "backend#themize"
 # - "backend/activities#create"
 # - "backend/activities#destroy"
 # - "backend/activities#edit"

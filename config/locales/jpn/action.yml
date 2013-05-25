@@ -4,6 +4,7 @@ jpn:
       destroy: "ログアウト"
       new: "ログイン"
       # renew: "Renouveller la session"
+    backend: #?
     backend/accounts:
       # edit: "Modifier le compte\_: %{number} - %{name}"
       # index: "Plan de comptes"

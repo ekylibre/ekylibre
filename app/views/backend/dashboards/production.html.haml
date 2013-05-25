@@ -1,17 +1,11 @@
--unvalidateds = Operation.unvalidateds
--#.menu.indicator
-  %h2= tc('indicator')
-  %ul
-    %li= link_to tc('x_performed_operations', :count=>unvalidateds.count), :action=>:unvalidateds, :controller=>:operations
-
 =beehive(:production) do
   -tabbox do
     -cell :last_products
-    -cell :elevage_rss
+    -cell :meteo do
+      %img{:alt => "Météo Saint-Porchaire heure par heure", :border => "0", :src => "http://meteorologic.net/vignette-previ-1h/6026.png", :style => "margin: 0 auto; display: block"}
     -cell :video do
-      %iframe{:allowfullscreen => "", :frameborder => "0", :height => "400", :mozallowfullscreen => "", :src => "http://player.vimeo.com/video/57127234?title=0&byline=0&portrait=0", :webkitallowfullscreen => "", :width => "100%"}
+      %iframe{:allowfullscreen => "", :frameborder => "0", :height => "280", :mozallowfullscreen => "", :src => "http://player.vimeo.com/video/57127234?title=0&byline=0&portrait=0", :webkitallowfullscreen => "", :width => "100%"}
   -tabbox do
     -cell :last_events
     -cell :product_bar
-    -cell :meteo do
-      %img{:alt => "météo Saint-Porchaire heure par heure", :border => "0", :src => "http://meteorologic.net/vignette-previ-1h/6026.png"}
+    -cell :elevage_rss
