@@ -117,8 +117,7 @@ arb:
     backend/dashboards:
       # accountancy: "Tableau de bord comptable"
       # finances: "Tableau de bord financier"
-      # general: "Tableau de bord général"
-      # index: "Menu principal"
+      # index: "Tableau de bord général"
       # production: "Tableau de bord de la production"
       # purchases: "Tableau de bord des achats"
       # relationship: "Tableau de bord de la gestion des relations"
@@ -1038,7 +1037,7 @@ arb:
     # duration_in_hours_and_minutes: "%{hours}h %{minutes}min"
     edit: "تعديل"
     ekylibre: "www.ekylibre.org"
-    # elevage_rss: "Actu Elevage"
+    # elevage_rss: "Actualité élevage"
     # email: "Email:"
     employee_name: "الموظف"
     end: "لغاية"
@@ -1246,6 +1245,7 @@ arb:
       finances: "المالية"
       general: "شركة"
       home: "إستقبال"
+      # index: "Ekylibre"
       production: "المنتج"
       # purchases: "Achats"
       relations: "العلاقات" #?
@@ -1660,6 +1660,7 @@ arb:
     to_date: "الى تاريخ"
     to_deliver: "للتسليم"
     # to_deposit: "À encaisser"
+    # today: "Aujourd'hui"
     tool_create: "اضافة مادة" #?
     tool_update: "تعديل المادة"
     tools: "مادة مستخدمة"

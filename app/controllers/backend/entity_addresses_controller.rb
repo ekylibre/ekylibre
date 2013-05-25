@@ -23,7 +23,7 @@ class Backend::EntityAddressesController < BackendController
 
   def show
     address = EntityAddress.find(params[:id])
-    redirect_to :controller => :entities, :id => address.entity_id
+    redirect_to :controller => "backend/entities", :id => address.entity_id
   end
 
 end

@@ -104,8 +104,7 @@ fra:
     backend/dashboards:
       accountancy: "Tableau de bord comptable"
       finances: "Tableau de bord financier" #?
-      general: "Tableau de bord général" #?
-      index: "Menu principal"
+      index: "Tableau de bord général"
       production: "Tableau de bord de la production"
       # production_equipments: "Production equipments backend/dashboard"
       purchases: "Tableau de bord des achats"
@@ -951,7 +950,7 @@ fra:
     duration_in_hours_and_minutes: "%{hours}h %{minutes}min"
     edit: "Modifier"
     ekylibre: "www.ekylibre.org"
-    elevage_rss: "Actu Elevage"
+    elevage_rss: "Actualité élevage"
     email: "Email:"
     employee_name: "Employé"
     end: "au"
@@ -1118,6 +1117,7 @@ fra:
       finances: "Finances"
       general: "Général"
       home: "Accueil"
+      index: "Ekylibre"
       production: "Production"
       purchases: "Achats"
       relationship: "Tiers"
@@ -1491,6 +1491,7 @@ fra:
     to_date: "Au"
     to_deliver: "Livrer"
     to_deposit: "À encaisser"
+    today: "Aujourd'hui"
     tool_update: "Modifier le matériel"
     tools: "Matériel utilisé"
     tools_list: "Matériel"

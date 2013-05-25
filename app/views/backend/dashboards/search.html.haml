@@ -1,31 +1,32 @@
 -subheading("x_results", :count => @search[:count])
 
 -if @search[:count] > 0
-  %ul.search-results
-    -for result in @search[:records]
-      %li
-        %h3
-          =link_to(result["title"], :controller => result["record_type"].tableize, :action => :show, :id => result["record_id"])
-          %small=result["pertinence"]
-        %p=truncate(result["indexer"], :length => 300)
+  .search
+    %ul.results
+      -for result in @search[:records]
+        %li
+          %h3
+            =link_to(result["title"], :controller => result["record_type"].tableize, :action => :show, :id => result["record_id"])
+            %small=result["pertinence"]
+          %p=truncate(result["indexer"], :length => 300)
 
-  -if @search[:last_page] > 1
-    %span.pagination
-      -padding, gap = 9, 4
-      -page_min = params[:page].to_i - padding
-      -page_min = 1 if page_min < gap
-      -page_max = params[:page].to_i + padding
-      -page_max = @search[:last_page] if page_max > @search[:last_page]
-      -if page_min > 1
-        =link_to({:q => params[:q], :page => 1}, :class => :beginning) do
-          %i
-          =tl(:beginning)
-        -if page_min >= gap
+    -if @search[:last_page] > 1
+      %span.pagination
+        -padding, gap = 9, 4
+        -page_min = params[:page].to_i - padding
+        -page_min = 1 if page_min < gap
+        -page_max = params[:page].to_i + padding
+        -page_max = @search[:last_page] if page_max > @search[:last_page]
+        -if page_min > 1
+          =link_to({:q => params[:q], :page => 1}, :class => :beginning) do
+            %i
+            =tl(:beginning)
+          -if page_min >= gap
+            %span="&hellip;".html_safe
+        -for p in page_min..page_max
+          -attrs = {}
+          -attrs[:class] = "active" if p == params[:page]
+          =link_to("#{p}", {:q => params[:q], :page => p}, attrs)
+        -if page_max < @search[:last_page]
           %span="&hellip;".html_safe
-      -for p in page_min..page_max
-        -attrs = {}
-        -attrs[:class] = "active" if p == params[:page]
-        =link_to("#{p}", {:q => params[:q], :page => p}, attrs)
-      -if page_max < @search[:last_page]
-        %span="&hellip;".html_safe
 

@@ -1,6 +1,6 @@
 .beehive {
   .box {
-    $min-width: 300px;
+    $min-width: round($mini-screen / 3);
     $min-height: 200px;
     $cell-border-width: 1px;
     $cell-border: $cell-border-width solid #DDD;
@@ -34,17 +34,40 @@
 
 
       .cell-content {
-        padding: $cell-title-vertical-padding $cell-title-vertical-padding; /*$cell-title-horizontal-padding;*/
+	padding: $cell-title-vertical-padding $cell-title-vertical-padding; /*$cell-title-horizontal-padding;*/
+        // margin: $cell-title-vertical-padding $cell-title-vertical-padding;
         border: $cell-border;
         border-top: none;
         background: #FFFFFF;
+        overflow: auto;
         @include clearfix;
+        height: auto;
       }
     }
 
     @for $i from 1 through 30 {
       &.box-#{ $i }-cells {
-        @media screen and (min-width: round(0.9*$i*$min-width) + 1px) {
+        @media screen and (min-width: round($i*$min-width) + 1px) {
+          &.box-h {
+            .cells {
+              @include clearfix;
+              .cell {
+                $space: 1%;
+                width: (100% - (($i - 1) * $space)) / $i;
+                @include float(left);
+                margin-top: 0;
+                @include margin-left($space);
+                &:first-child {
+                  @include margin-left(0);
+                }
+                .cell-content {
+                  @if $i > 1 {
+                    height: 20em;
+                  }
+                }
+              }
+            }
+          }
           &.box-tab {
             ul.cell-titles {
 	      display: block;

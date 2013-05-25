@@ -823,14 +823,14 @@ form.search {
       @include is-icon();
       margin: round(($size - $tool-size)/2) 0 0;
     }
-    &.collapsed .toggle     { @include use-icon(plus-sign); }
-    &.not-collapsed .toggle { @include use-icon(minus-sign); }
+    &.collapsed .toggle     { @include use-icon(expand-alt); }
+    &.not-collapsed .toggle { @include use-icon(collapse-alt); }
     &:hover span {
       color: $base-color;
       @include transition(color 0.2s linear);
     }
   }
-  @each $field_set in (delay time), (document briefcase), (general-informations book), (stock exchange), (group group), (movement exchange), (accountancy money), (coordinates map-marker), (amount money), (vegetable leaf), (genealogy sitemap), (animal github-alt), (entity user), (reservoir beaker), (indicator dashboard), (analytics cogs), (measure_options dashboard), (string_options comment), (decimal_options list-ol), (choice_options list), (products leaf){ //asset,
+  @each $field_set in (delay time), (document briefcase), (general-informations book), (stock exchange), (group group), (movement exchange), (accountancy money), (coordinates map-marker), (amount money), (vegetable wheat), (genealogy sitemap), (animal cow), (entity user), (reservoir beaker), (indicator dashboard), (analytics cogs), (measure_options dashboard), (string_options comment), (decimal_options list-ol), (choice_options list), (products wheat){ //asset,
     &##{ nth($field_set, 1) }.fieldset .fieldset-legend .icon {
       @include use-icon(nth($field_set, 2));
     }
@@ -1373,14 +1373,35 @@ input[data-date], input[data-datepicker] {
 
 }
 
+#cell-date {
+  span {
+    display: block;
+    text-transform: lowercase;
+    text-align: center;
+    &.day-name {
+      font-size: 3 * $fs-normal;
+    }
+    &.day {
+      font-size: 8 * $fs-normal;
+    }
+    &.month {
+      font-size: 3 * $fs-normal;
+    }
+    &.year {
+      font-size: 4 * $fs-normal;
+    }
+  }
+}
+
+
 .rss-feed {
   .rss-title {
     font-size: $fs-large;
     margin-bottom: $default-gap;
   }
   .rss-entries {
-    max-height: 400px;
-    overflow-y: scroll;
+    // max-height: 400px;
+    // overflow-y: scroll;
     a.rss-entry {
       display: block;
       padding: $default-gap;
@@ -1482,53 +1503,53 @@ ul.tree {
   @include box-emphasis;
 }
 
-.search-results {
-  padding: $default-gap;
-  li {
-    border-top: 2px solid $active-color;
-    @include background(linear-gradient(top, rgba(#FFF, 0), rgba(#000, 0.1)));
+
+.search {
+  .results {
     padding: $default-gap;
-    display: block;
-    * { line-height: round(1.4 * $fs-normal); }
-    h3 {
-      a {
+    li {
+      border-top: 2px solid $active-color;
+      @include background(linear-gradient(top, rgba(#FFF, 0.1), rgba(#777, 0), rgba(#000, 0.1)));
+      padding: $default-gap;
+      display: block;
+      * { line-height: round(1.4 * $fs-normal); }
+      h3 {
+        a {
+        }
+        small {
+          color: #AAA;
+        }
       }
-      small {
-        color: #AAA;
+      p {
+        &, * {
+          color: #777;
+        }
       }
-    }
-    p {
-      &, * {
-        color: #777;
+      &:first-child {
+        border-top: none;
       }
-    }
-    &:first-child {
-      border-top: none;
     }
   }
-}
 
-.big-button {
-}
-
-.pagination {
-  padding: $default-gap;
-  span, a {
-    @include inline-block;
-    padding: $default-gap * 0.75;
-    margin: $default-gap * 0.2;
-    @include border-radius(1000px);
-    &.active {
-      font-weight: bold;
-      @include box-shadow(0 0 $default-gap rgba(black, 0.1) inset);
+  .pagination {
+    padding: $default-gap;
+    span, a {
+      @include inline-block;
+      padding: $default-gap * 0.75;
+      margin: $default-gap * 0.2;
+      @include border-radius(1000px);
+      &.active {
+        font-weight: bold;
+        @include box-shadow(0 0 $default-gap rgba(black, 0.1) inset);
+      }
     }
-  }
-  a {
-    background: #DDD;
-    &.beginning {
-      i {
-        @include is-icon;
-        @include use-icon(bullseye);
+    a {
+      background: #DDD;
+      &.beginning {
+        i {
+          @include is-icon;
+          @include use-icon(bullseye);
+        }
       }
     }
   }

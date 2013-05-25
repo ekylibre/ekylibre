@@ -213,7 +213,7 @@ namespace :db do
       category ||= ProductNatureCategory.create!(:name => "Défaut")
       land_parcel = ProductNature.find_by_number("LANDPARCEL")
       land_parcel ||= ProductNature.create!(:name => "Parcelle", :number => "LANDPARCEL", :variety_id => v.id, :unit_id => unit.id, :category_id => category.id)
-      RGeo::Shapefile::Reader.open(Rails.root.join("test", "fixtures", "files", "ilot_017005218.shp").to_s) do |file|
+      RGeo::Shapefile::Reader.open(Rails.root.join("test", "fixtures", "files", "ilot_017005218.shp").to_s, :srid => 2154) do |file|
         # puts "File contains #{file.num_records} records."
         file.each do |record|
           LandParcel.create!(:shape => record.geometry, :name => Faker::Name.first_name, :variety_id => v.id, :unit_id => unit.id, :born_at => Date.civil(2000, 1, 1), :nature_id => land_parcel.id, :owner_id => Entity.of_company.id, :identification_number => record.attributes['PACAGE'].to_s + record.attributes['CAMPAGNE'].to_s + record.attributes['NUMERO'].to_s)

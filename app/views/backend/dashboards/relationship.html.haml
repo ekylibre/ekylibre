@@ -1,15 +1,17 @@
 =render :partial => "backend/entities/search"
+=beehive do |b|
+  -b.hbox do
+    -b.cell :last_clients do
+      -for client in Entity.reorder("client DESC, updated_at DESC").limit(10)
+        %ul.list
+          =li_link_to(client.full_name, :controller => "backend/entities", :action => :show, :id => client.id)
+      -#=li_link_to tc('x_entities', :count => Entity.count), :controller => :entities, :action => :index
 
-.menu
-  %h2= tg('indicator')
-  %ul
-    =li_link_to tc('x_entities',:count => Entity.count), :controller => :entities, :action => :index
+    -if current_user.future_events.count > 0
+      -b.cell :future_events do
+        =list(:my_future_events)
 
--if current_user.future_events.count > 0
-  %h2=tc(:future_events)
-  =list(:my_future_events)
-
--if Event.count > 0
-  %h2=tc(:recent_events)
-  =list(:recent_events)
+    -if Event.count > 0
+      -b.cell :recent_events do
+        =list(:recent_events)
 

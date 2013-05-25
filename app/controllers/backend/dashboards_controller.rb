@@ -50,11 +50,9 @@ class Backend::DashboardsController < BackendController
   # end
 
 
-  for menu in Ekylibre.menu.with_menus do
-    h = menu.hierarchy.collect{|m| m.name }[1..-1]
-    next if h.empty?
-    code  = "def " + h.join("_") + "\n"
-    code << "  render :file => 'backend/dashboards/" + h.join("/") + "', :layout => dialog_or_not\n"
+  for menu in Ekylibre::Modules.hash.keys
+    code  = "def #{menu}\n"
+    # code << "  render :file => 'backend/dashboards/#{menu}', :layout => dialog_or_not\n"
     code << "end\n"
     class_eval code
   end
@@ -129,7 +127,13 @@ class Backend::DashboardsController < BackendController
     query << " OFFSET #{per_page * (page - 1)}"
     @search[:records] = Ekylibre::Record::Base.connection.select_all(query)
 
-    @search[:query] = query
+    if @search[:count] == 1
+      record = @search[:records].first
+      redirect_to :controller => record['record_type'].tableize, :action => :show, :id => record['record_id'].to_i, :q => params[:q]
+      return
+    end
+
+    # @search[:query] = query
 
     @search[:words] = words
 

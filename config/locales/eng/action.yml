@@ -94,7 +94,7 @@ eng:
     backend/dashboards:
       accountancy: "Accountancy dashboard"
       finances: "Finances dashboard"
-      general: "General dashboard"
+      general: "General dashboard" #?
       index: "General dashboard"
       production: "Production dashboard"
       purchases: "Purchases dashboard"
@@ -900,7 +900,7 @@ eng:
     duration_in_hours_and_minutes: "%{hours}h %{minutes}min"
     edit: "Edit"
     ekylibre: "www.ekylibre.org"
-    # elevage_rss: "Actu Elevage"
+    # elevage_rss: "Actualité élevage"
     email: "Email:"
     employee_name: "Employee"
     end: "to"
@@ -1069,6 +1069,7 @@ eng:
       finances: "Finances"
       general: "General"
       home: "Home"
+      # index: "Ekylibre"
       production: "Production"
       purchases: "Purchases"
       relationship: "Relationship"
@@ -1449,6 +1450,7 @@ eng:
     to_date: "To date"
     to_deliver: "To deliver"
     to_deposit: "To deposit"
+    # today: "Aujourd'hui"
     tool_update: "Update tool"
     tools: "Used tools"
     tools_list: "Tools"
