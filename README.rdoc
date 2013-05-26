@@ -11,7 +11,7 @@ https://github.com/ekylibre/ekylibre/wiki/Une-semaine-en-Ekylibre
 == Installation
 This a short explanation on installation steps:
 * Before all, install all distribution dependencies:
-    aptitude install postgresql-9.1 postgresql-server-dev-9.1 libpq-dev tesseract-ocr tesseract-ocr-fra tesseract-ocr-eng tesseract-spa graphicsmagick pdftk openjdk-6-jdk libreoffice libxml2-dev libxlst1-dev poppler-utils poppler-data ghostscript libgdal1-dev libjson0-dev build-essential wget zlib1g-dev
+    aptitude install postgresql-9.1 postgresql-server-dev-9.1 libpq-dev tesseract-ocr tesseract-ocr-fra tesseract-ocr-eng tesseract-ocr-spa graphicsmagick pdftk openjdk-6-jdk libreoffice libxml2-dev libxslt1-dev poppler-utils poppler-data ghostscript libgdal1-dev libjson0-dev build-essential wget zlib1g-dev
 * Install PostGIS >= 2.0:
   * Download and install Geos (~> 3.3.8) from http://trac.osgeo.org/geos:
       wget http://download.osgeo.org/geos/geos-3.3.8.tar.bz2 && tar xjvf geos-3.3.8.tar.bz2 && cd geos-3.3.8 && ./configure && make && sudo make install
