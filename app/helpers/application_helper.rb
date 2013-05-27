@@ -367,45 +367,45 @@ module ApplicationHelper
 
     return render(:partial => "backend/beehive", :object => board)
 
-    html << "<div class=\"beehive beehive-#{board.name}\">"
-    for box in board.boxes
-      count = box.size
-      next if count.zero?
+    # html << "<div class=\"beehive beehive-#{board.name}\">"
+    # for box in board.boxes
+    #   count = box.size
+    #   next if count.zero?
 
-      if box.is_a?(Beehive::HorizontalBox)
-        html << "<div class=\"box box-h box-#{count}-cells\">"
-        box.each_with_index do |cell, index|
-          html << "<div class=\"cell cell-#{index+1}\">"
-          html << "<span class=\"cell-title\">" + cell.title + "</span>"
-          if cell.block?
-            html << content_tag(:div, capture(&cell.block), :class => "cell-inner")
-          else
-            html << "<div class=\"cell-inner\" data-cell=\""+ url_for(:controller => "backend/cells/#{cell.name}_cells", :action => :show)+"\"></div>"
-          end
-          html << "</div>"
-        end
-        html << "</div>"
-      elsif box.is_a?(Beehive::TabBox)
-        html << "<div class=\"box box-tab box-#{count}-cells\">"
-        panes = "<div class=\"box-panes\">"
-        html << "<ul>"
-        box.each_with_index do |cell, index|
-          html << "<li class=\"cell cell-#{index+1}\"><a href=\"#\">Tab</a></li>"
-          if cell.block?
-            panes << content_tag(:div, capture(&cell.block), :class => "box-pane")
-          else
-            panes << "<div class=\"box-pane\" data-cell=\""+ url_for(:controller => "backend/cells/#{cell.name}_cells", :action => :show)+"\"></div>"
-          end
-        end
-        html << "</ul>"
-        panes << "</div>"
-        html << panes
-        html << "</div>"
-      end
+    #   if box.is_a?(Beehive::HorizontalBox)
+    #     html << "<div class=\"box box-h box-#{count}-cells\">"
+    #     box.each_with_index do |cell, index|
+    #       html << "<div class=\"cell cell-#{index+1}\">"
+    #       html << "<span class=\"cell-title\">" + h(cell.title) + "</span>"
+    #       if cell.block?
+    #         html << content_tag(:div, capture(&cell.block), :class => "cell-inner")
+    #       else
+    #         html << "<div class=\"cell-inner\" data-cell=\""+ h(url_for(cell.options.merge(:controller => "backend/cells/#{cell.name}_cells", :action => :show)))+"\"></div>"
+    #       end
+    #       html << "</div>"
+    #     end
+    #     html << "</div>"
+    #   elsif box.is_a?(Beehive::TabBox)
+    #     html << "<div class=\"box box-tab box-#{count}-cells\">"
+    #     panes = "<div class=\"box-panes\">"
+    #     html << "<ul>"
+    #     box.each_with_index do |cell, index|
+    #       html << "<li class=\"cell cell-#{index+1}\"><a href=\"#\">Tab</a></li>"
+    #       if cell.block?
+    #         panes << content_tag(:div, capture(&cell.block), :class => "box-pane")
+    #       else
+    #         panes << "<div class=\"box-pane\" data-cell=\""+ h(url_for(cell.options.merge(:controller => "backend/cells/#{cell.name}_cells", :action => :show)))+"\"></div>"
+    #       end
+    #     end
+    #     html << "</ul>"
+    #     panes << "</div>"
+    #     html << panes
+    #     html << "</div>"
+    #   end
 
-    end
-    html << "</div>"
-    return html.html_safe
+    # end
+    # html << "</div>"
+    # return html.html_safe
   end
 
   class Beehive
@@ -424,7 +424,7 @@ module ApplicationHelper
     end
 
     class Cell
-      attr_reader :block, :name
+      attr_reader :block, :name, :options
       def initialize(name, options = {}, &block)
         @name = name
         @options = options
@@ -460,7 +460,7 @@ module ApplicationHelper
     end
 
     def hbox(&block)
-      raise Exception.new("Cannot define box in othre box") if @current_box
+      raise Exception.new("Cannot define box in other box") if @current_box
       @current_box = HorizontalBox.new
       block[self] if block_given?
       @boxes << @current_box unless @current_box.empty?
