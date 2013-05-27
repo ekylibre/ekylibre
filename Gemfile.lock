@@ -1,13 +1,3 @@
-GIT
-  remote: git://github.com/burisu/rails-erd.git
-  revision: d29b0c29fcfa9783c1070a915e7549a4e66d8441
-  specs:
-    rails-erd (1.1.0)
-      activerecord (>= 3.0)
-      activesupport (>= 3.0)
-      choice (~> 0.1.6)
-      ruby-graphviz (~> 1.0.4)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -82,7 +72,6 @@ GEM
       json
     childprocess (0.3.9)
       ffi (~> 1.0, >= 1.0.11)
-    choice (0.1.6)
     chunky_png (1.2.8)
     climate_control (0.0.3)
       activesupport (>= 3.0)
@@ -291,7 +280,6 @@ GEM
       rspec-expectations (~> 2.13.0)
       rspec-mocks (~> 2.13.0)
     ruby-filemagic (0.4.2)
-    ruby-graphviz (1.0.9)
     ruby-progressbar (1.0.2)
     ruby-rc4 (0.1.5)
     rubyzip (0.9.9)
@@ -410,7 +398,6 @@ DEPENDENCIES
   quiet_assets
   railroady
   rails (= 3.2.13)
-  rails-erd!
   rails_best_practices
   rgeo-shapefile
   rspec-rails

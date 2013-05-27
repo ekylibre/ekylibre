@@ -84,6 +84,8 @@ fra:
       # show: "Show backend/cells/demo map cell"
     backend/cells/demo_pie_cells:
       # show: "Show backend/cells/demo pie cell"
+    backend/cells/expense_chart_cells:
+      # show: "Show backend/cells/expense chart cell"
     backend/cells/last_events_cells:
       # show: "Show backend/cells/last events cell"
     backend/cells/last_milk_result_cells:
@@ -593,6 +595,7 @@ fra:
     # backend/cells/demo_bar_cells: "Backend/cells/demo bar cells"
     # backend/cells/demo_map_cells: "Backend/cells/demo map cells"
     # backend/cells/demo_pie_cells: "Backend/cells/demo pie cells"
+    # backend/cells/expense_chart_cells: "Backend/cells/expense chart cells"
     # backend/cells/last_events_cells: "Backend/cells/last events cells"
     # backend/cells/last_milk_result_cells: "Backend/cells/last milk result cells"
     # backend/cells/last_products_cells: "Backend/cells/last products cells"
@@ -827,7 +830,7 @@ fra:
         opera: "Opéra"
         safari: "Safari"
     balance: "Solde"
-    bank_chart: "Recettes & dépenses"
+    bank_chart: "Évolution du solde de banque"
     bank_statement_point: "Pointer le relevé"
     bank_statement_update: "Modifier le relevé"
     beginning: "Début"
@@ -931,8 +934,8 @@ fra:
     delivery_natural_gas_and_electricity_assessable: "Livraisons de gaz naturel ou d’électricité imposables en France"
     delivery_natural_gas_and_electricity_not_assessable: "Livraisons de gaz naturel ou d’électricité non imposables en France"
     demo_bar: "Histogramme"
-    demo_map: "Carte"
-    demo_pie: "Camembert"
+    demo_map: "Répartition géographique des ventes"
+    demo_pie: "Ventes par type de produit"
     departments: "Services"
     deposit: "Remise en banque"
     deposit_update: "Modifier la remise en banque"
@@ -991,7 +994,7 @@ fra:
     executed: "Réalisé"
     existing_part: "Utiliser un encaissement non affecté"
     expedier: "Expéditeur"
-    expense_chart: "Dépenses"
+    expense_chart: "Évolution des dépenses"
     export: "Exporter"
     export_backup: "Export d’un fichier de sauvegarde"
     exportation: "Exportation"
@@ -1078,6 +1081,7 @@ fra:
     land_parcel_update: "Modifier l’îlot"
     land_parcels: "Îlots"
     last_animals: "Dernières naissances"
+    last_clients: "Derniers clients"
     last_computed_balance: "Dernière balance calculée"
     last_events: "Derniers évènements"
     last_milk_result: "Dernières analyses de lait"

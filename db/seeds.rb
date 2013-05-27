@@ -5,8 +5,8 @@ I18n.locale = ENV["locale"] || "fra"
 language = I18n.locale
 currency = 'EUR'
 user = {}
-user[:first_name] = ENV["first_name"] || "Admin"
-user[:last_name] = ENV["last_name"] || "STRATOR"
+user[:first_name] = ENV["first_name"] || "Jean"
+user[:last_name] = ENV["last_name"] || "DUPONT"
 unless user[:email] = ENV["email"]
   user[:email] = "admin@ekylibre.org"
   puts "Username is: #{user[:email]}"

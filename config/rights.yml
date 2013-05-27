@@ -59,6 +59,7 @@
 # - "backend/cells/demo_bar_cells#show"
 # - "backend/cells/demo_map_cells#show"
 # - "backend/cells/demo_pie_cells#show"
+# - "backend/cells/expense_chart_cells#show"
 # - "backend/cells/last_events_cells#list"
 # - "backend/cells/last_events_cells#show"
 # - "backend/cells/last_milk_result_cells#list"
