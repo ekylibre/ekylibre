@@ -52,6 +52,7 @@ class Backend::DashboardsController < BackendController
 
   for menu in Ekylibre::Modules.hash.keys
     code  = "def #{menu}\n"
+    code << " notify_warning_now(:dashboard_is_being_developed)"
     # code << "  render :file => 'backend/dashboards/#{menu}', :layout => dialog_or_not\n"
     code << "end\n"
     class_eval code
@@ -148,7 +149,7 @@ class Backend::DashboardsController < BackendController
   private
 
   def self.build_centralizing_query
-    excluded = [:account_balance, :affair, :asset_depreciation, :custom_field_choice, :deposit_item, :inventory_item, :listing_node_item, :preference, :product_ability, :production_chain_conveyor, :production_chain, :production_chain_work_center, :production_chain_work_center_use, :tax_declaration, :transfer]
+    excluded = [:account_balance, :affair, :asset_depreciation, :custom_field_choice, :deposit_item, :document_template, :inventory_item, :listing_node_item, :preference, :product_ability, :production_chain_conveyor, :production_chain, :production_chain_work_center, :production_chain_work_center_use, :tax_declaration, :transfer]
 
     queries = []
     for model_name in Ekylibre.models

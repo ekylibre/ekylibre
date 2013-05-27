@@ -75,14 +75,18 @@ eng:
       index: "Cashes"
       new: "Add a new cash"
       show: "%{nature}: %{name}"
+    backend/cells/bank_chart_cells: #?
     backend/cells/demo_bar_cells: #?
+    backend/cells/demo_map_cells: #?
     backend/cells/demo_pie_cells: #?
     backend/cells/elevage_rss_cells: #?
     backend/cells/last_events_cells: #?
+    backend/cells/last_milk_result_cells: #?
     backend/cells/last_products_cells: #?
     backend/cells/placeholder_cells: #?
     backend/cells/product_bar_cells: #?
     backend/cells/product_pie_cells: #?
+    backend/cells/rss_cells: #?
     backend/custom_field_choices:
       edit: "Edit the option: %{name}"
       new: "Add a new option for a choices list"
@@ -768,6 +772,7 @@ eng:
         opera: "Opera"
         safari: "Safari"
     balance: "Balance"
+    # bank_chart: "Recettes & dépenses"
     # bank_statement_point: "Pointer le relevé"
     # bank_statement_update: "Modifier le relevé"
     # beginning: "Début"
@@ -872,6 +877,7 @@ eng:
     # delivery_natural_gas_and_electricity_assessable: "Livraisons de gaz naturel ou d’électricité imposables en France"
     # delivery_natural_gas_and_electricity_not_assessable: "Livraisons de gaz naturel ou d’électricité non imposables en France"
     demo_bar: "Bar"
+    # demo_map: "Carte"
     demo_pie: "Pie"
     departments: "Departments"
     deposit: "Deposit"
@@ -931,6 +937,7 @@ eng:
     executed: "Executed"
     existing_part: "Existing part"
     expedier: "Expedier"
+    # expense_chart: "Dépenses"
     export: "Export documents"
     export_backup: "Export backup"
     exportation: "Exportation"
@@ -1021,6 +1028,7 @@ eng:
     last_animals: "Last Birth"
     last_computed_balance: "Last computed balance"
     last_events: "Last Events"
+    # last_milk_result: "Dernières analyses de lait"
     last_payment_amount: "Amount of the last payment"
     last_payment_date: "Date of the last payment"
     # last_products: "Dernières naissances"
@@ -1653,6 +1661,7 @@ eng:
     changes_have_not_been_reflected: "The changes have not been reflected in the stocks state"
     closed_financial_years: "The financial year has been closed successfully"
     columns_are_already_uses: "One or many columns are selected many times"
+    # dashboard_is_being_developed: "Les tableaux de bord sont en cours d'élaboration"
     draft_entry_items_are_validated:
       # one: "%{count} ligne de brouillard validée"
       # other: "%{count} lignes de brouillard validées"

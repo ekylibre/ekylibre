@@ -958,7 +958,7 @@ arb:
     # animal_drugs: "Médicaments"
     # animals: "Animals"
     annotation: "ملاحظة"
-    # archiving: "Archiving"
+    # archiving: "Méthode d'archivage"
     area: "المنطقة البريدية"
     area_id: "العنوان البريدي" #?
     area_measure: "المساحة"
@@ -1278,6 +1278,7 @@ arb:
     for_purchases: "منتجات الشراء"
     for_sales: "منتجات البيع"
     format: "التصميم" #?
+    # formats: "Formats"
     # frequency: "Frequency"
     full_name: "الاسم بالكامل"
     full_name_format: "التصميم"
@@ -1862,13 +1863,12 @@ arb:
         # decimal: "Chiffre (décimal)"
         # text: "Texte"
     document_template:
-      family:
-        # accountancy: "Comptabilité"
-        # company: "Société"
-        # management: "Gestion commerciale"
-        # production: "Production"
-        # relations: "Personnes"
-        # resources: "Resources"
+      archiving:
+        # all: "Toutes les impressions"
+        # first: "Premier imprimé"
+        # last: "Dernier imprimé"
+        # none: "Aucune"
+      family: #?
       nature:
         # animal: "Animal"
         # balance: "Balance"
@@ -1882,9 +1882,10 @@ arb:
         # inventory: "Inventaire"
         # journal: "Journal"
         # other: "Auter"
-        # purchase: "Achat"
+        # purchase_order: "Achat"
+        # sales_estimate: "Devis de vente"
         # sales_invoice: "Facture de vente"
-        # sales_order: "Vente"
+        # sales_order: "Commande de vente"
         # stocks: "Stocks"
         # transport: "Transport"
     drug_admission_path: #?

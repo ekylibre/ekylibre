@@ -80,14 +80,18 @@ arb:
       index: "الخزينة"
       new: "التسجيل لخزينة جديدة"
       show: "%{nature_label} : %{name}"
+    backend/cells/bank_chart_cells: #?
     backend/cells/demo_bar_cells: #?
+    backend/cells/demo_map_cells: #?
     backend/cells/demo_pie_cells: #?
     backend/cells/elevage_rss_cells: #?
     backend/cells/last_events_cells: #?
+    backend/cells/last_milk_result_cells: #?
     backend/cells/last_products_cells: #?
     backend/cells/placeholder_cells: #?
     backend/cells/product_bar_cells: #?
     backend/cells/product_pie_cells: #?
+    backend/cells/rss_cells: #?
     backend/companies:  #?
       register: "تسجيل شركة" #?
     backend/company:  #?
@@ -889,6 +893,7 @@ arb:
         safari: "سفاري رحلة قنص"
     balance: "رصيد الحساب"
     bank_accounts: "" #?
+    # bank_chart: "Recettes & dépenses"
     bank_statement_point: "الاشارة للكشف المصرفي"
     bank_statement_update: "تعديل الكشف المصرفي"
     # beginning: "Début"
@@ -1002,6 +1007,7 @@ arb:
     delivery_natural_gas_and_electricity_assessable: "وتخضع امدادات الغاز الطبيعي والكهرباء للضريبة في فرنسا"
     delivery_natural_gas_and_electricity_not_assessable: "لا تخضع امدادات الغاز الطبيعي والكهرباء للضريبة في فرنسا"
     # demo_bar: "Histogramme"
+    # demo_map: "Carte"
     # demo_pie: "Camembert"
     department_create: "اضافة وظيفة جديدة" #?
     departments: "وظائف/مهام"
@@ -1079,6 +1085,7 @@ arb:
     executed: "انجز"
     existing_part: "استخدام الدفعات الغير متضررة"
     # expedier: "Expéditeur"
+    # expense_chart: "Dépenses"
     export: "اصدار الوثائق"
     # export_backup: "Export d’un fichier de sauvegarde"
     # exportation: "Exportation"
@@ -1178,7 +1185,8 @@ arb:
     land_parcels: "قائمة بالنظام"
     # last_animals: "Dernières naissances"
     # last_computed_balance: "Dernière balance calculée"
-    # last_events: "Derniers Evènements"
+    # last_events: "Derniers évènements"
+    # last_milk_result: "Dernières analyses de lait"
     # last_payment_amount: "Montant du dernier encaissement"
     # last_payment_date: "Date du dernier encaissement"
     # last_products: "Dernières naissances"
@@ -1873,6 +1881,7 @@ arb:
     changes_have_not_been_reflected: "لم تكن تنعكس هذه التغييرات بشكل صحيح على الوضع الحالي للأسهم"
     closed_financial_years: "تم اغلاق السنة المالية بشكل صحيح"
     columns_are_already_uses: "تم اخيار عامود او اكثر للتحميل لمرات عدة"
+    # dashboard_is_being_developed: "Les tableaux de bord sont en cours d'élaboration"
     draft_entry_items_are_validated:
       # one: "%{count} ligne de brouillard validée"
       # other: "%{count} lignes de brouillard validées"

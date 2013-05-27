@@ -1,5 +1,5 @@
 =toolbar do |t|
-  -t.export
+  -t.export :entity, @entity
   -t.edit @entity
   -t.destroy(@entity, :method => :delete, "data-confirm" => tg(:are_you_sure_you_want_to_delete)) if @entity.destroyable?
 

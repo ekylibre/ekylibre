@@ -558,7 +558,7 @@ eng:
     animal_race_nature: "Animal race nature" #?
     animals: "Animals"
     annotation: "Annotation"
-    # archiving: "Archiving"
+    # archiving: "Méthode d'archivage"
     area: "Area"
     area_measure: "Area measure"
     area_unit: "Area unit"
@@ -843,6 +843,7 @@ eng:
     for_productions: "For productions"
     for_purchases: "For purchases"
     for_sales: "For sales"
+    # formats: "Formats"
     frequency: "Frequency"
     full_name: "Full name"
     full_name_format: "Full name format"
@@ -1381,13 +1382,18 @@ eng:
         string: "Text" #?
         # text: "Texte"
     document_template:
-      family:
-        accountancy: "Accountancy"
-        company: "Company"
-        management: "Management"
-        production: "Production"
-        relations: "Relationships"
-        resources: "Resources"
+      archiving:
+        # all: "Toutes les impressions"
+        # first: "Premier imprimé"
+        # last: "Dernier imprimé"
+        # none: "Aucune"
+      family:  #?
+        accountancy: "Accountancy" #?
+        company: "Company" #?
+        management: "Management" #?
+        production: "Production" #?
+        relations: "Relationships" #?
+        resources: "Resources" #?
       nature:
         animal: "Animal card"
         balance: "Balance"
@@ -1401,7 +1407,9 @@ eng:
         inventory: "Inventory"
         journal: "Journal"
         other: "Other"
-        purchase: "Purchase order"
+        purchase: "Purchase order" #?
+        # purchase_order: "Achat"
+        # sales_estimate: "Devis de vente"
         sales_invoice: "Sales invoice"
         sales_order: "Sales order"
         stocks: "Stocks"

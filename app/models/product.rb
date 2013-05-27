@@ -119,6 +119,11 @@ class Product < Ekylibre::Record::Base
     # TODO: Check variety is the variety or a sub-variety of the (product) nature.
   end
 
+  # TODO: Removes this ASAP
+  def deliverable?
+    false
+  end
+
   def set_variety_and_unit
     if self.nature
       self.variety_id = self.nature.variety_id

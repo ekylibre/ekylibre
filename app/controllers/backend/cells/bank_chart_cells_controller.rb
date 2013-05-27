@@ -23,7 +23,7 @@ class Backend::Cells::BankChartCellsController < Backend::CellsController
       data_table.set_cell(3, 2, 45540)
 
         # set options
-    options = { width: 330, height: 280, :hAxis => { :title => 'Trésorerie'}}
+    options = { width: 380, height: 280, :hAxis => { :title => 'Trésorerie'}}
     # creating the chart
     # @chart = ::GoogleVisualr::Interactive::AreaChart.new(data_table, options)
     @chart = ::GoogleVisualr::Interactive::BarChart.new(data_table, options)

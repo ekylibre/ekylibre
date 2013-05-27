@@ -326,7 +326,7 @@ class BackendController < BaseController
     @current_user = User.find(:first, :conditions => {:id => session[:user_id]}, :readonly => true) if session[:user_id]
   end
 
-  def themize
+  def themize()
     # TODO: Dynamic theme choosing
     @current_theme = "tekyla"
   end

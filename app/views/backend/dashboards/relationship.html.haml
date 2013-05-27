@@ -1,6 +1,6 @@
 =beehive do |b|
   -b.hbox do
-    -b.cell :last_clients do
+    -#b.cell :last_clients do
       -for client in Entity.reorder("client DESC, updated_at DESC").limit(10)
         %ul.list
           =li_link_to(client.full_name, :controller => "backend/entities", :action => :show, :id => client.id)

@@ -82,14 +82,18 @@ spa:
       index: "Tresorerias"
       new: "Registrar una nueva tresoreria"
       show: "%{nature_label} : %{name}"
+    backend/cells/bank_chart_cells: #?
     backend/cells/demo_bar_cells: #?
+    backend/cells/demo_map_cells: #?
     backend/cells/demo_pie_cells: #?
     backend/cells/elevage_rss_cells: #?
     backend/cells/last_events_cells: #?
+    backend/cells/last_milk_result_cells: #?
     backend/cells/last_products_cells: #?
     backend/cells/placeholder_cells: #?
     backend/cells/product_bar_cells: #?
     backend/cells/product_pie_cells: #?
+    backend/cells/rss_cells: #?
     backend/companies:  #?
       register: "Registrar la sociedad" #?
     backend/company:  #?
@@ -818,6 +822,7 @@ spa:
         opera: "Opéra"
         safari: "Safari"
     balance: "Saldo"
+    # bank_chart: "Recettes & dépenses"
     bank_statement_point: "Despuntar el levantar"
     bank_statement_update: "Modificar el leventar"
     # beginning: "Début"
@@ -924,6 +929,7 @@ spa:
     delivery_natural_gas_and_electricity_assessable: "Entrega de gaz natural ou elctricidad imponible en Francia"
     delivery_natural_gas_and_electricity_not_assessable: "Entrega de gaz natural ou elctricidad no imponible en Francia"
     # demo_bar: "Histogramme"
+    # demo_map: "Carte"
     # demo_pie: "Camembert"
     department_create: "Añadir un nuevo servicio" #?
     departments: "Servicios"
@@ -991,6 +997,7 @@ spa:
     # executed: "Réalisé"
     # existing_part: "Utiliser un encaissement non affecté"
     # expedier: "Expéditeur"
+    # expense_chart: "Dépenses"
     export: "Exportación de un fichero de salvaguardia"
     # export_backup: "Export d’un fichier de sauvegarde"
     # exportation: "Exportation"
@@ -1083,7 +1090,8 @@ spa:
     # land_parcels: "Îlots"
     # last_animals: "Dernières naissances"
     # last_computed_balance: "Dernière balance calculée"
-    # last_events: "Derniers Evènements"
+    # last_events: "Derniers évènements"
+    # last_milk_result: "Dernières analyses de lait"
     # last_payment_amount: "Montant du dernier encaissement"
     # last_payment_date: "Date du dernier encaissement"
     # last_products: "Dernières naissances"
@@ -1724,6 +1732,7 @@ spa:
     changes_have_not_been_reflected: "Los cambios no han sido repercutidos correctamente sobre el estatuto de depósitos actua"
     closed_financial_years: "El ejercicio ha sido correctamente cerrado"
     columns_are_already_uses: "Una o varias columnas que hay que importar son seleccionados muchas veces"
+    # dashboard_is_being_developed: "Les tableaux de bord sont en cours d'élaboration"
     draft_entries_are_validated:  #?
       one: "La pieza ha sido validada y es sacada de la niebla" #?
       other: "Las %{cuentos} han sido validadas y son sacadas de la niebla" #?

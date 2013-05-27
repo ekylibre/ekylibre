@@ -245,7 +245,7 @@
 	</operations>	
       </procedure>
       <!-- ######################################## MOISSONNER LE BLE ########################################### -->
-      <procedure name="seed-harvest" required="true" conditions="[land_parcel].indicator(production) == true && [culture].indicator(to-harvest) == true" working-set="harvest">
+      <procedure name="seed-harvest" required="true" conditions="[land_parcel].indicator(production) == true AND [culture].indicator(to-harvest) == true" working-set="harvest">
 	<!-- A terme, on doit pouvoir mettre comme condition que [culture] doit être dans la phase "Senescence du grain" de son bioprocessus "Reproduction"-->
 	<parameters>
 	  <parameter name="silo" type="building" properties="storage" pre-indicators-state="production::empty" abilities="grain-storage">

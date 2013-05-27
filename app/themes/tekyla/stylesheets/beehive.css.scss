@@ -79,6 +79,8 @@
               }
             }
           }
+        }
+        @media screen and (min-width: round($i*$min-width*0.7) + 1px) {
           &.box-tab {
             ul.cell-titles {
 	      display: block;

@@ -448,7 +448,7 @@ spa:
     # animal_drugs: "Médicaments"
     # animals: "Animals"
     # annotation: "Annotation"
-    # archiving: "Archiving"
+    # archiving: "Méthode d'archivage"
     # area: "Zone postale"
     # area_measure: "Superficie"
     # area_unit: "Unité de surface"
@@ -710,6 +710,7 @@ spa:
     # for_productions: "Produit fabriqué ou récolté"
     # for_purchases: "Produit acheté"
     # for_sales: "Produit vendu"
+    # formats: "Formats"
     # frequency: "Frequency"
     # full_name: "Nom complet"
     # full_name_format: "Format du nom complet"
@@ -1210,13 +1211,12 @@ spa:
         # decimal: "Chiffre (décimal)"
         # text: "Texte"
     document_template:
-      family:
-        # accountancy: "Comptabilité"
-        # company: "Société"
-        # management: "Gestion commerciale"
-        # production: "Production"
-        # relations: "Personnes"
-        # resources: "Resources"
+      archiving:
+        # all: "Toutes les impressions"
+        # first: "Premier imprimé"
+        # last: "Dernier imprimé"
+        # none: "Aucune"
+      family: #?
       nature:
         # animal: "Animal"
         # balance: "Balance"
@@ -1230,9 +1230,10 @@ spa:
         # inventory: "Inventaire"
         # journal: "Journal"
         # other: "Auter"
-        # purchase: "Achat"
+        # purchase_order: "Achat"
+        # sales_estimate: "Devis de vente"
         # sales_invoice: "Facture de vente"
-        # sales_order: "Vente"
+        # sales_order: "Commande de vente"
         # stocks: "Stocks"
         # transport: "Transport"
     drug_admission_path: #?

@@ -756,19 +756,18 @@ module ApplicationHelper
             # for dt in DocumentTemplate.of_nature(dn)
             #   items << tool_to(tc(:print_with_template, :name => dt.name), url.merge(:template => dt.code), :tool => :print) if authorized?(url)
             # end
-            items << content_tag(:div, :class => "btn-export btn-group") do
-              link_to(content_tag(:i), "#", :class => "btn btn-print") + 
-              link_to(content_tag(:i), "#", :class => "btn btn-dropdown", 'data-toggle' => 'dropdown') + 
-              content_tag(:ul,
-                          content_tag(:li, link_to(content_tag(:i) + h("Devis"), '#')) +
-                          content_tag(:li, link_to(content_tag(:i) + h("Devis"), '#')) +
-                          content_tag(:li, link_to(content_tag(:i) + h("Devis"), '#')) +
-                          DocumentTemplate.all.collect do |template| # of_nature(dn)
-                            content_tag(:li) do
-                              link_to(content_tag(:i) + h(template.name), '#')
-                            end
-                          end.join,
-                          :class => 'dropdown-menu')
+            datasource = tool[1].to_s
+            templates = DocumentTemplate.with_datasource(datasource)
+            if templates.count > 0
+              items << content_tag(:div, :class => "btn-export btn-group") do
+                link_to(content_tag(:i), "#", :class => "btn btn-print") +
+                  link_to(content_tag(:i), "#", :class => "btn btn-dropdown", 'data-toggle' => 'dropdown') +
+                  content_tag(:ul,
+                              templates.collect do |template| # of_nature(dn)
+                                content_tag(:li, link_to(content_tag(:i) + h(template.name), '#'))
+                              end.join.html_safe,
+                              :class => 'dropdown-menu')
+              end
             end
 
           elsif nature == :mail

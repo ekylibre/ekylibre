@@ -76,14 +76,18 @@ fra:
       index: "Trésoreries"
       new: "Enregistrer une nouvelle trésorerie"
       show: "%{nature}\_: %{name}"
+    backend/cells/bank_chart_cells:
+      # show: "Show backend/cells/bank chart cell"
     backend/cells/demo_bar_cells:
       # show: "Show backend/cells/demo bar cell"
+    backend/cells/demo_map_cells:
+      # show: "Show backend/cells/demo map cell"
     backend/cells/demo_pie_cells:
       # show: "Show backend/cells/demo pie cell"
-    backend/cells/elevage_rss_cells:
-      # show: "Show backend/cells/elevage rss cell"
     backend/cells/last_events_cells:
       # show: "Show backend/cells/last events cell"
+    backend/cells/last_milk_result_cells:
+      # show: "Show backend/cells/last milk result cell"
     backend/cells/last_products_cells:
       # show: "Show backend/cells/last products cell"
     backend/cells/placeholder_cells:
@@ -92,6 +96,8 @@ fra:
       # show: "Show backend/cells/product bar cell"
     backend/cells/product_pie_cells:
       # show: "Show backend/cells/product pie cell"
+    backend/cells/rss_cells:
+      # show: "Show backend/cells/rss cell"
     backend/custom_field_choices:
       edit: "Modifier l’option\_: %{name}"
       new: " Création d’une option pour une liste de choix"
@@ -142,7 +148,7 @@ fra:
       index: "Modèles de document"
       load: "Charger les modèles de document par défaut"
       new: "Création d’un modèle de document"
-      print: "Imprimer un exemple"
+      print: "Imprimer un exemple" #?
     backend/entities:
       destroy: "Supprimer la fiche" #?
       edit: "Modifier la fiche\_: %{full_name}"
@@ -562,8 +568,6 @@ fra:
       index: "Unité fonctionnelle / de travail"
       new: "Nouvelle unité fonctionnelle / de travail"
       show: "Unité fonctionnelle %{name}"
-    backend:
-      # themize: "Themize backend"
     public:
       index: "Accueil"
   controllers:
@@ -585,14 +589,17 @@ fra:
     backend/campaigns: "Campagnes"
     backend/cash_transfers: "Virements internes"
     backend/cashes: "Trésoreries"
+    # backend/cells/bank_chart_cells: "Backend/cells/bank chart cells"
     # backend/cells/demo_bar_cells: "Backend/cells/demo bar cells"
+    # backend/cells/demo_map_cells: "Backend/cells/demo map cells"
     # backend/cells/demo_pie_cells: "Backend/cells/demo pie cells"
-    # backend/cells/elevage_rss_cells: "Backend/cells/elevage rss cells"
     # backend/cells/last_events_cells: "Backend/cells/last events cells"
+    # backend/cells/last_milk_result_cells: "Backend/cells/last milk result cells"
     # backend/cells/last_products_cells: "Backend/cells/last products cells"
     # backend/cells/placeholder_cells: "Backend/cells/placeholder cells"
     # backend/cells/product_bar_cells: "Backend/cells/product bar cells"
     # backend/cells/product_pie_cells: "Backend/cells/product pie cells"
+    # backend/cells/rss_cells: "Backend/cells/rss cells"
     # backend/cells: "Backend/cells"
     backend/custom_field_choices: "Choix de champs personnalisés"
     backend/custom_fields: "Champs personnalisés"
@@ -820,6 +827,7 @@ fra:
         opera: "Opéra"
         safari: "Safari"
     balance: "Solde"
+    bank_chart: "Recettes & dépenses"
     bank_statement_point: "Pointer le relevé"
     bank_statement_update: "Modifier le relevé"
     beginning: "Début"
@@ -923,6 +931,7 @@ fra:
     delivery_natural_gas_and_electricity_assessable: "Livraisons de gaz naturel ou d’électricité imposables en France"
     delivery_natural_gas_and_electricity_not_assessable: "Livraisons de gaz naturel ou d’électricité non imposables en France"
     demo_bar: "Histogramme"
+    demo_map: "Carte"
     demo_pie: "Camembert"
     departments: "Services"
     deposit: "Remise en banque"
@@ -982,6 +991,7 @@ fra:
     executed: "Réalisé"
     existing_part: "Utiliser un encaissement non affecté"
     expedier: "Expéditeur"
+    expense_chart: "Dépenses"
     export: "Exporter"
     export_backup: "Export d’un fichier de sauvegarde"
     exportation: "Exportation"
@@ -1695,6 +1705,7 @@ fra:
     changes_have_not_been_reflected: "Les changements n’ont pas pu être correctement répercutés sur l’état des stocks actuel"
     closed_financial_years: "L’exercice a été correctement clôturé"
     columns_are_already_uses: "Une ou plusieurs colonnes à importer sont sélectionnées plusieurs fois"
+    dashboard_is_being_developed: "Les tableaux de bord sont en cours d'élaboration"
     draft_entry_items_are_validated:
       one: "%{count} ligne de brouillard validée"
       other: "%{count} lignes de brouillard validées"

@@ -373,7 +373,7 @@ html.authentication {
   @include margin-right($default-gap);
   .btn-group-default {
     .btn {
-      font-size: 0; 
+      font-size: 0;
       .icon, i { margin: 0; }
       .text { display: none; }
     }
@@ -1582,7 +1582,14 @@ svg.map {
 }
 
 
-
+#demo-pie, #demo-map, #product-bar-chart, #bank-chart, #expense-chart {
+  text-align: center;
+  > *, embed {
+    margin: 0 auto;
+    text-align: center;
+    max-width: 100%;
+  }
+}
 
 /* Pop overs */
 

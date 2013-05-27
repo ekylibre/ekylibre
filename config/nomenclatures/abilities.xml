@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<abilities xmlns="http://www.ekylibre.org/XML/2013/operation-natures">
+<abilities xmlns="http://www.ekylibre.org/XML/2013/abilities">
   <ability name="normal-spreading">
     <name xml:lang="fra">Épandre</name>
   </ability>

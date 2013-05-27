@@ -3,14 +3,29 @@ class UnifyDocuments < ActiveRecord::Migration
     # Templates
     change_column :document_templates, :nature, :string, :limit => 63, :null => false
     add_column :document_templates, :archiving, :string, :limit => 63
+    add_column :document_templates, :managed, :boolean, :null => false, :default => false
+    add_column :document_templates, :formats, :string
     execute "UPDATE #{quoted_table_name(:document_templates)} SET archiving = CASE WHEN to_archive THEN 'last' ELSE 'nothing' END"
     change_column_null :document_templates, :archiving, false
+    change_column_default :document_templates, :language, nil
+    change_column_default :document_templates, :by_default, false
 
+    root = Rails.root.join("private", "reporting")
+    for template in select_all("SELECT id, source FROM #{quoted_table_name(:document_templates)}")
+      file = root.join(template["id"], "content.xml")
+      FileUtils.mkdir_p(file.dirname)
+      File.open(file, "rb") do |f|
+        f.write(template["source"])
+      end
+    end
+
+    remove_column :document_templates, :country
     remove_column :document_templates, :to_archive
     remove_column :document_templates, :family
     remove_column :document_templates, :cache
     remove_column :document_templates, :code
     remove_column :document_templates, :filename
+    remove_column :document_templates, :source
 
     # Documents
     # TODO Move documents

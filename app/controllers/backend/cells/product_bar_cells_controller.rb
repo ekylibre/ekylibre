@@ -8,7 +8,7 @@ class Backend::Cells::ProductBarCellsController < Backend::CellsController
     data_table.new_column('number', 'Male')
     data_table.new_column('number', 'Femelle')
     # Add Rows and Values
-    
+
     for year in (Date.today.year-5)..Date.today.year
       animals = Animal.where("EXTRACT(year from born_at) = ?", year)
       data_table.add_rows([[year.to_s, animals.where(:sex => "male").count, animals.where(:sex => "female").count]])

@@ -17,7 +17,7 @@ class Backend::Cells::DemoPieCellsController < Backend::CellsController
     data_table.set_cell(3, 1, 2 )
     data_table.set_cell(4, 0, 'Autres' )
     data_table.set_cell(4, 1, 7 )
-    
+
         # set options
     options = { width: 390, height: 280}
     # creating the chart

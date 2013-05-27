@@ -1,6 +1,13 @@
 =sale_steps if params[:step]
 
 =toolbar do |t|
+  -if @sale.invoice?
+    -t.export :sales_invoice, @sale
+    -t.cancel(@sale) if @sale.cancelable?
+  -elsif @sale.order?
+    -t.export :sales_order, @sale
+  -elsif @sale.estimate?
+    -t.export :sales_estimate, @sale
   -t.edit @sale if @sale.draft?
   -if @sale.can_confirm?
     -t.confirm @sale, :method => :post, "data-confirm" => tc(:are_you_sure_you_want_to_confirm)
@@ -11,18 +18,13 @@
   -for event in [:propose, :correct, :refuse]
     -t.send(event, @sale, :method => :post, "data-confirm" => tc(:are_you_sure)) if @sale.send("can_#{event}?")
   -t.abort(@sale, :method => :post, "data-confirm" => tc(:are_you_sure)) if @sale.can_abort?
-  -if @sale.invoice?
-    -t.print_sales_invoice @sale
-    -t.cancel(@sale) if @sale.cancelable?
-  -else
-    -t.print_sales_order @sale
 
 =beehive do |b|
 
   -b.tabbox do
     -if ["products", "summary", ""].include? params[:step].to_s
       -b.cell Sale.human_attribute_name(:items) do
-        .select-product
+        -#.select-product
           %span="labels.add_product".t
           %span.selector
             =selector_tag("sale_item[product_id]", {:controller => :products, :action => :unroll_saleables}, {})
@@ -79,7 +81,7 @@
 
   -if ["products", "summary", ""].include? params[:step].to_s
     -b.cell Sale.human_attribute_name(:affair) do
-      -unless @sale.affair.closed?
+      -#unless @sale.affair.closed?
         =toolbar do |t|
           -#t.link(:new, :controller => :incoming_payment_uses, :expense_type => :sale, :expense_id => @sale.id, :i18n => {:label => @sale.label})
           -for payment in @sale.usable_payments

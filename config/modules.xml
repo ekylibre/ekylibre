@@ -127,6 +127,7 @@
         <page to="backend/journal_entries#new"/>
         <page to="backend/journal_entries#show"/>
         <page to="backend/journal_entries#update"/>
+        <page to="backend/journal_entry_items#show"/>
         <page to="backend/journal_entry_items#new"/>
       </item>
     </group>
@@ -258,6 +259,7 @@
         <page to="backend/sales#show"/>
         <page to="backend/sales#new"/>
         <page to="backend/sales#update"/>
+        <page to="backend/sale_items#show"/>
         <page to="backend/sale_items#create"/>
         <page to="backend/sale_items#destroy"/>
         <page to="backend/sale_items#detail"/>
@@ -291,6 +293,7 @@
         <page to="backend/purchases#show"/>
         <page to="backend/purchases#update"/>
         <page to="backend/purchases#new"/>
+        <page to="backend/purchase_items#show"/>
         <page to="backend/purchase_items#create"/>
         <page to="backend/purchase_items#destroy"/>
         <page to="backend/purchase_items#edit"/>
@@ -304,6 +307,7 @@
       <!-- @TODO : box icon -->
       <item name="stocks">
         <page to="backend/products#index"/>
+        <page to="backend/products#show"/>
         <page to="backend/products#create"/>
         <page to="backend/products#destroy"/>
         <page to="backend/products#edit"/>
@@ -815,6 +819,7 @@
         <page to="backend/product_varieties#list"/>
         <page to="backend/product_varieties#new"/>
         <page to="backend/product_varieties#update"/>
+        <page to="backend/product_varieties#show"/>
       </item>
       <item name="product_price_listings">
         <page to="backend/product_price_listings#index"/>
@@ -962,9 +967,6 @@
       <item name="sessions">
         <page to="authentication/sessions#renew"/>
       </item>
-      <item name="backend">
-        <page to="backend#themize"/>
-      </item>
       <item name="activity_watchings">
         <page to="backend/activity_watchings#index"/>
         <page to="backend/activity_watchings#create"/>
@@ -985,18 +987,25 @@
         <page to="backend/animals#list_place"/>
         <page to="backend/animals#picture"/>
       </item>
+      <item name="bank_chart_cells">
+        <page to="backend/cells/bank_chart_cells#show"/>
+      </item>
       <item name="demo_bar_cells">
         <page to="backend/cells/demo_bar_cells#show"/>
+      </item>
+      <item name="demo_map_cells">
+        <page to="backend/cells/demo_map_cells#show"/>
       </item>
       <item name="demo_pie_cells">
         <page to="backend/cells/demo_pie_cells#show"/>
       </item>
-      <item name="elevage_rss_cells">
-        <page to="backend/cells/elevage_rss_cells#show"/>
-      </item>
       <item name="last_events_cells">
         <page to="backend/cells/last_events_cells#list"/>
         <page to="backend/cells/last_events_cells#show"/>
+      </item>
+      <item name="last_milk_result_cells">
+        <page to="backend/cells/last_milk_result_cells#list"/>
+        <page to="backend/cells/last_milk_result_cells#show"/>
       </item>
       <item name="last_products_cells">
         <page to="backend/cells/last_products_cells#list"/>
@@ -1010,6 +1019,9 @@
       </item>
       <item name="product_pie_cells">
         <page to="backend/cells/product_pie_cells#show"/>
+      </item>
+      <item name="rss_cells">
+        <page to="backend/cells/rss_cells#show"/>
       </item>
       <item name="dashboards">
         <page to="backend/dashboards#index"/>
@@ -1055,9 +1067,6 @@
         <page to="backend/interfacers#toggle_view_mode"/>
         <page to="backend/interfacers#unroll"/>
         <page to="backend/interfacers#unroll_options"/>
-      </item>
-      <item name="journal_entry_items">
-        <page to="backend/journal_entry_items#show"/>
       </item>
       <item name="logs">
         <page to="backend/logs#index"/>
@@ -1213,12 +1222,6 @@
         <page to="backend/product_processes#show"/>
         <page to="backend/product_processes#update"/>
       </item>
-      <item name="product_varieties">
-        <page to="backend/product_varieties#show"/>
-      </item>
-      <item name="products">
-        <page to="backend/products#show"/>
-      </item>
       <item name="professions">
         <page to="backend/professions#index"/>
         <page to="backend/professions#create"/>
@@ -1227,12 +1230,6 @@
         <page to="backend/professions#list"/>
         <page to="backend/professions#new"/>
         <page to="backend/professions#update"/>
-      </item>
-      <item name="purchase_items">
-        <page to="backend/purchase_items#show"/>
-      </item>
-      <item name="sale_items">
-        <page to="backend/sale_items#show"/>
       </item>
       <item name="snippets">
         <page to="backend/snippets#toggle"/>

@@ -255,10 +255,6 @@ Ekylibre::Application.routes.draw do
         post :load
         unroll_all
       end
-      member do
-        get :print
-        post :duplicate
-      end
     end
     resources :documents do
       collection do

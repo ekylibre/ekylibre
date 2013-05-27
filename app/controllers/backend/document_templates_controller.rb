@@ -18,22 +18,17 @@
 #
 
 class Backend::DocumentTemplatesController < BackendController
-  manage_restfully :country => "Entity.of_company.country", :language => "Entity.of_company.language"
+  manage_restfully :language => "Entity.of_company.language"
 
   unroll_all
 
-  list(:order => "nature, name") do |t|
+  list(:order => :name) do |t|
     t.column :active
     t.column :name
-    t.column :code
-    t.column :family
     t.column :nature
     t.column :by_default
-    t.column :to_archive
+    t.column :archiving
     t.column :language
-    t.column :country
-    t.action :print, :format => :pdf
-    t.action :duplicate, :method => :post
     t.action :edit
     t.action :destroy, :if => :destroyable?
   end
@@ -42,17 +37,7 @@ class Backend::DocumentTemplatesController < BackendController
   def index
   end
 
-  def duplicate
-    return unless document_template = find_and_check(:document_template)
-    copy = document_template.duplicate
-    redirect_to :action => :edit, :id => copy.id
-  end
-
-  def print
-    return unless @document_template = find_and_check(:document_template)
-    send_data @document_template.sample, :filename => @document_template.name.simpleize, :type => Mime::PDF, :disposition => 'inline'
-  end
-
+  # Loads ou reloads all managed document templates
   def load
     DocumentTemplate.load_defaults
     notify_success(:update_is_done)

@@ -13,4 +13,5 @@ module Ekylibre
     return !!(File.basename($0) == "rake" && ARGV.include?("db:migrate"))
   end
 
+  autoload :Reporting, 'ekylibre/reporting'
 end

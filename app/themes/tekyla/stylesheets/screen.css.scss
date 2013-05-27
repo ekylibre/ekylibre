@@ -266,7 +266,7 @@ $include-html-classes: false;
   &:hover a {
     outline: none;
     background: $menu-background-hover;
-    @include transition(background 0.4s, box-shadow 0.4s);
+    @include transition(background 0.2s, box-shadow 0.2s);
   }
   &.disabled, &[disabled] {
     background: transparent;
@@ -275,10 +275,10 @@ $include-html-classes: false;
   }
   &.separator {
     @include menu-separator;
-  }   
+  }
   a {
     $vertical-padding: ($menu-height - $menu-text-height)/2;
-    $horizontal-padding: round(1.2 * $vertical-padding);
+    $horizontal-padding: round(1.4 * $vertical-padding);
     display: block;
     padding: $vertical-padding $horizontal-padding;
     font-size: $fs-normal;
@@ -442,7 +442,7 @@ $include-html-classes: false;
     @include button-group;
     @include margin-left($default-gap);
     &:first-child {
-      @include margin-left(0);      
+      @include margin-left(0);
     }
   }
   & #{$group}, & {

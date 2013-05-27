@@ -474,17 +474,17 @@ ActiveRecord::Schema.define(:version => 20130513165730) do
   create_table "document_templates", :force => true do |t|
     t.string   "name",                                          :null => false
     t.boolean  "active",                     :default => false, :null => false
-    t.text     "source"
-    t.string   "country",      :limit => 2
     t.datetime "created_at",                                    :null => false
     t.datetime "updated_at",                                    :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.integer  "lock_version",               :default => 0,     :null => false
-    t.boolean  "by_default",                 :default => true,  :null => false
+    t.boolean  "by_default",                 :default => false, :null => false
     t.string   "nature",       :limit => 63,                    :null => false
-    t.string   "language",     :limit => 3,  :default => "???", :null => false
+    t.string   "language",     :limit => 3,                     :null => false
     t.string   "archiving",    :limit => 63,                    :null => false
+    t.boolean  "managed",                    :default => false, :null => false
+    t.string   "formats"
   end
 
   add_index "document_templates", ["created_at"], :name => "index_document_templates_on_created_at"

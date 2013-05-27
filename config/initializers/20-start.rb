@@ -12,7 +12,7 @@ require 'templating'
 require 'reporting'
 require 'activerecord'
 require 'ekylibre'
-require 'nomenclature'
+require 'nomenclatures'
 
 require 'csv'
 

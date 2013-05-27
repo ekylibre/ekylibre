@@ -252,11 +252,38 @@ namespace :db do
       # Sale nature
       sale_nature   = SaleNature.actives.first
       sale_nature ||= SaleNature.create!(:name => I18n.t('models.sale_nature.default.name'), :currency => "EUR", :active => true)
-      # Sale
-      sale = Sale.create!(:created_on => Date.civil(2013, 2, 27), :client_id => Entity.where(:of_company => false).first.id, :nature_id => sale_nature.id, :number => "V201302000002", :sum_method => "wt")
-      # Sale items
-      sale.items.create!(:quantity =>  5, :product_id => ble.id)
-      sale.items.create!(:quantity => 15, :product_id => ble.id)
+      150.times do |i|
+        # Sale
+        d = Date.today - (3*i - rand(4)).days
+        sale = Sale.create!(:created_on => d, :client_id => Entity.where(:of_company => false).all.sample.id, :nature_id => sale_nature.id, :sum_method => "wt")
+        # Sale items
+        (rand(5) + 1).times do
+          sale.items.create!(:quantity => rand(12.5)+0.5, :product_id => ble.id)
+        end
+        if !rand(20).zero?
+          Sale.update_all({:created_on => d}, {:id => sale.id})
+          sale.propose
+          if rand(5).zero?
+            sale.abort
+          elsif !rand(4).zero?
+            d += rand(15).days
+            sale.confirm(d)
+            Sale.update_all({:confirmed_on => d}, {:id => sale.id})
+            if !rand(15).zero?
+              sale.deliver
+              if !rand(25).zero?
+                d += rand(5).days
+                sale.invoice
+                Sale.update_all({:invoiced_on => d}, {:id => sale.id})
+              end
+            end
+          end
+        else
+          sale.save
+        end
+        print "."
+      end
+
       puts "!"
 
 

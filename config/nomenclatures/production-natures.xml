@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
+  <nomenclature name="production-natures" hierarchical="true">
+    <items>
+      <item name="vegetal-crops">
+	<item name="straw-cereal-crops"/>
+	<item name="maize-crops"/>
+	<item name="oilseed-crops"/>
+	<item name="protein-crops"/>
+	<item name="potato-crops"/>
+	<item name="beet-crops"/>
+	<item name="aromatic-and-medicinal-plants"/>
+	<item name="vine-wine"/>
+	<item name="prairie"/>
+      </item>
+
+      <item name="animal-farming">
+	<item name="cattle-farming"/>
+	<item name="sheep-farming"/>
+	<item name="goat-farming"/>
+	<item name="pig-farming"/>
+	<item name="poultry-farming">
+	  <item name="palmiped-farming"/>
+	</item>
+	<item name="rabbit-farming"/>
+	<item name="fish-farming"/>
+	<item name="beekeeping"/>
+      </item>
+
+      <item name="handicraft">
+      </item>
+	
+    </items>
+  </nomenclature>
+</nomenclatures>
