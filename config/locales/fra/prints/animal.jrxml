@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="show" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9c1f11b7-03dd-4803-9e1b-41b87b9d23c0">
-	<property name="ireport.zoom" value="2.5937424601000214"/>
-	<property name="ireport.x" value="87"/>
-	<property name="ireport.y" value="21"/>
+	<property name="ireport.zoom" value="1.9487171000000187"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
 	<style name="Title" fontName="DejaVu Sans" fontSize="50" isBold="true" pdfFontName="Times-Bold"/>
 	<style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18"/>
 	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
@@ -465,11 +465,11 @@
 				<textFieldExpression><![CDATA[$F{identification-number}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="c1f076cc-62b6-4895-a9f4-9a7e1b57ab1d" x="34" y="-5" width="24" height="30"/>
+				<reportElement uuid="c1f076cc-62b6-4895-a9f4-9a7e1b57ab1d" x="0" y="-5" width="228" height="30" forecolor="#000000"/>
 				<textElement>
 					<font fontName="Font Awesome" size="24"/>
 				</textElement>
-				<text><![CDATA[]]></text>
+				<text><![CDATA[ ]]></text>
 			</staticText>
 		</band>
 	</title>

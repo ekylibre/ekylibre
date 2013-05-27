@@ -75,14 +75,19 @@ eng:
       index: "Cashes"
       new: "Add a new cash"
       show: "%{nature}: %{name}"
+    backend/cells/bank_chart_cells: #?
     backend/cells/demo_bar_cells: #?
+    backend/cells/demo_map_cells: #?
     backend/cells/demo_pie_cells: #?
     backend/cells/elevage_rss_cells: #?
+    backend/cells/expense_chart_cells: #?
     backend/cells/last_events_cells: #?
+    backend/cells/last_milk_result_cells: #?
     backend/cells/last_products_cells: #?
     backend/cells/placeholder_cells: #?
     backend/cells/product_bar_cells: #?
     backend/cells/product_pie_cells: #?
+    backend/cells/rss_cells: #?
     backend/custom_field_choices:
       edit: "Edit the option: %{name}"
       new: "Add a new option for a choices list"
@@ -768,6 +773,7 @@ eng:
         opera: "Opera"
         safari: "Safari"
     balance: "Balance"
+    # bank_chart: "Evolution du solde de banque"
     # bank_statement_point: "Pointer le relevé"
     # bank_statement_update: "Modifier le relevé"
     # beginning: "Début"
@@ -872,6 +878,7 @@ eng:
     # delivery_natural_gas_and_electricity_assessable: "Livraisons de gaz naturel ou d’électricité imposables en France"
     # delivery_natural_gas_and_electricity_not_assessable: "Livraisons de gaz naturel ou d’électricité non imposables en France"
     demo_bar: "Bar"
+    # demo_map: "Répartition géographique des ventes"
     demo_pie: "Pie"
     departments: "Departments"
     deposit: "Deposit"
@@ -931,6 +938,7 @@ eng:
     executed: "Executed"
     existing_part: "Existing part"
     expedier: "Expedier"
+    # expense_chart: "Evolution des dépenses"
     export: "Export documents"
     export_backup: "Export backup"
     exportation: "Exportation"
@@ -1019,8 +1027,10 @@ eng:
     land_parcel_update: "Update land parcel"
     land_parcels: "Land parcels"
     last_animals: "Last Birth"
+    # last_clients: "Derniers clients"
     last_computed_balance: "Last computed balance"
     last_events: "Last Events"
+    # last_milk_result: "Dernières analyses de lait"
     last_payment_amount: "Amount of the last payment"
     last_payment_date: "Date of the last payment"
     # last_products: "Dernières naissances"

@@ -757,8 +757,8 @@ module ApplicationHelper
             #   items << tool_to(tc(:print_with_template, :name => dt.name), url.merge(:template => dt.code), :tool => :print) if authorized?(url)
             # end
             items << content_tag(:div, :class => "btn-export btn-group") do
-              link_to(content_tag(:i), "#", :class => "btn btn-print") + 
-              link_to(content_tag(:i), "#", :class => "btn btn-dropdown", 'data-toggle' => 'dropdown') + 
+              link_to(content_tag(:i), "#", :class => "btn btn-print") +
+              link_to(content_tag(:i), "#", :class => "btn btn-dropdown", 'data-toggle' => 'dropdown') +
               content_tag(:ul,
                           content_tag(:li, link_to(content_tag(:i) + h("Devis"), '#')) +
                           content_tag(:li, link_to(content_tag(:i) + h("Devis"), '#')) +

@@ -275,7 +275,7 @@ $include-html-classes: false;
   }
   &.separator {
     @include menu-separator;
-  }   
+  }
   a {
     $vertical-padding: ($menu-height - $menu-text-height)/2;
     $horizontal-padding: round(1.2 * $vertical-padding);
@@ -442,7 +442,7 @@ $include-html-classes: false;
     @include button-group;
     @include margin-left($default-gap);
     &:first-child {
-      @include margin-left(0);      
+      @include margin-left(0);
     }
   }
   & #{$group}, & {

@@ -985,18 +985,28 @@
         <page to="backend/animals#list_place"/>
         <page to="backend/animals#picture"/>
       </item>
+      <item name="bank_chart_cells">
+        <page to="backend/cells/bank_chart_cells#show"/>
+      </item>
       <item name="demo_bar_cells">
         <page to="backend/cells/demo_bar_cells#show"/>
+      </item>
+      <item name="demo_map_cells">
+        <page to="backend/cells/demo_map_cells#show"/>
       </item>
       <item name="demo_pie_cells">
         <page to="backend/cells/demo_pie_cells#show"/>
       </item>
-      <item name="elevage_rss_cells">
-        <page to="backend/cells/elevage_rss_cells#show"/>
+      <item name="expense_chart_cells">
+        <page to="backend/cells/expense_chart_cells#show"/>
       </item>
       <item name="last_events_cells">
         <page to="backend/cells/last_events_cells#list"/>
         <page to="backend/cells/last_events_cells#show"/>
+      </item>
+      <item name="last_milk_result_cells">
+        <page to="backend/cells/last_milk_result_cells#list"/>
+        <page to="backend/cells/last_milk_result_cells#show"/>
       </item>
       <item name="last_products_cells">
         <page to="backend/cells/last_products_cells#list"/>
@@ -1010,6 +1020,9 @@
       </item>
       <item name="product_pie_cells">
         <page to="backend/cells/product_pie_cells#show"/>
+      </item>
+      <item name="rss_cells">
+        <page to="backend/cells/rss_cells#show"/>
       </item>
       <item name="dashboards">
         <page to="backend/dashboards#index"/>

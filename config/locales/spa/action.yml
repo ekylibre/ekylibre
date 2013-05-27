@@ -82,14 +82,19 @@ spa:
       index: "Tresorerias"
       new: "Registrar una nueva tresoreria"
       show: "%{nature_label} : %{name}"
+    backend/cells/bank_chart_cells: #?
     backend/cells/demo_bar_cells: #?
+    backend/cells/demo_map_cells: #?
     backend/cells/demo_pie_cells: #?
     backend/cells/elevage_rss_cells: #?
+    backend/cells/expense_chart_cells: #?
     backend/cells/last_events_cells: #?
+    backend/cells/last_milk_result_cells: #?
     backend/cells/last_products_cells: #?
     backend/cells/placeholder_cells: #?
     backend/cells/product_bar_cells: #?
     backend/cells/product_pie_cells: #?
+    backend/cells/rss_cells: #?
     backend/companies:  #?
       register: "Registrar la sociedad" #?
     backend/company:  #?
@@ -818,6 +823,7 @@ spa:
         opera: "Opéra"
         safari: "Safari"
     balance: "Saldo"
+    # bank_chart: "Evolution du solde de banque"
     bank_statement_point: "Despuntar el levantar"
     bank_statement_update: "Modificar el leventar"
     # beginning: "Début"
@@ -924,7 +930,8 @@ spa:
     delivery_natural_gas_and_electricity_assessable: "Entrega de gaz natural ou elctricidad imponible en Francia"
     delivery_natural_gas_and_electricity_not_assessable: "Entrega de gaz natural ou elctricidad no imponible en Francia"
     # demo_bar: "Histogramme"
-    # demo_pie: "Camembert"
+    # demo_map: "Répartition géographique des ventes"
+    # demo_pie: "Ventes par type de produit"
     department_create: "Añadir un nuevo servicio" #?
     departments: "Servicios"
     deposit: "Aposto en banco del"
@@ -991,6 +998,7 @@ spa:
     # executed: "Réalisé"
     # existing_part: "Utiliser un encaissement non affecté"
     # expedier: "Expéditeur"
+    # expense_chart: "Evolution des dépenses"
     export: "Exportación de un fichero de salvaguardia"
     # export_backup: "Export d’un fichier de sauvegarde"
     # exportation: "Exportation"
@@ -1082,8 +1090,10 @@ spa:
     # land_parcel_update: "Modifier l’îlot"
     # land_parcels: "Îlots"
     # last_animals: "Dernières naissances"
+    # last_clients: "Derniers clients"
     # last_computed_balance: "Dernière balance calculée"
-    # last_events: "Derniers Evènements"
+    # last_events: "Derniers évènements"
+    # last_milk_result: "Dernières analyses de lait"
     # last_payment_amount: "Montant du dernier encaissement"
     # last_payment_date: "Date du dernier encaissement"
     # last_products: "Dernières naissances"

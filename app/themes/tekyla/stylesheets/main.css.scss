@@ -373,7 +373,7 @@ html.authentication {
   @include margin-right($default-gap);
   .btn-group-default {
     .btn {
-      font-size: 0; 
+      font-size: 0;
       .icon, i { margin: 0; }
       .text { display: none; }
     }

@@ -76,14 +76,20 @@ fra:
       index: "Trésoreries"
       new: "Enregistrer une nouvelle trésorerie"
       show: "%{nature}\_: %{name}"
+    backend/cells/bank_chart_cells:
+      # show: "Show backend/cells/bank chart cell"
     backend/cells/demo_bar_cells:
       # show: "Show backend/cells/demo bar cell"
+    backend/cells/demo_map_cells:
+      # show: "Show backend/cells/demo map cell"
     backend/cells/demo_pie_cells:
       # show: "Show backend/cells/demo pie cell"
-    backend/cells/elevage_rss_cells:
-      # show: "Show backend/cells/elevage rss cell"
+    backend/cells/expense_chart_cells:
+      # show: "Show backend/cells/expense chart cell"
     backend/cells/last_events_cells:
       # show: "Show backend/cells/last events cell"
+    backend/cells/last_milk_result_cells:
+      # show: "Show backend/cells/last milk result cell"
     backend/cells/last_products_cells:
       # show: "Show backend/cells/last products cell"
     backend/cells/placeholder_cells:
@@ -92,6 +98,8 @@ fra:
       # show: "Show backend/cells/product bar cell"
     backend/cells/product_pie_cells:
       # show: "Show backend/cells/product pie cell"
+    backend/cells/rss_cells:
+      # show: "Show backend/cells/rss cell"
     backend/custom_field_choices:
       edit: "Modifier l’option\_: %{name}"
       new: " Création d’une option pour une liste de choix"
@@ -585,14 +593,18 @@ fra:
     backend/campaigns: "Campagnes"
     backend/cash_transfers: "Virements internes"
     backend/cashes: "Trésoreries"
+    # backend/cells/bank_chart_cells: "Backend/cells/bank chart cells"
     # backend/cells/demo_bar_cells: "Backend/cells/demo bar cells"
+    # backend/cells/demo_map_cells: "Backend/cells/demo map cells"
     # backend/cells/demo_pie_cells: "Backend/cells/demo pie cells"
-    # backend/cells/elevage_rss_cells: "Backend/cells/elevage rss cells"
+    # backend/cells/expense_chart_cells: "Backend/cells/expense chart cells"
     # backend/cells/last_events_cells: "Backend/cells/last events cells"
+    # backend/cells/last_milk_result_cells: "Backend/cells/last milk result cells"
     # backend/cells/last_products_cells: "Backend/cells/last products cells"
     # backend/cells/placeholder_cells: "Backend/cells/placeholder cells"
     # backend/cells/product_bar_cells: "Backend/cells/product bar cells"
     # backend/cells/product_pie_cells: "Backend/cells/product pie cells"
+    # backend/cells/rss_cells: "Backend/cells/rss cells"
     # backend/cells: "Backend/cells"
     backend/custom_field_choices: "Choix de champs personnalisés"
     backend/custom_fields: "Champs personnalisés"
@@ -820,6 +832,7 @@ fra:
         opera: "Opéra"
         safari: "Safari"
     balance: "Solde"
+    bank_chart: "Evolution du solde de banque"
     bank_statement_point: "Pointer le relevé"
     bank_statement_update: "Modifier le relevé"
     beginning: "Début"
@@ -923,7 +936,8 @@ fra:
     delivery_natural_gas_and_electricity_assessable: "Livraisons de gaz naturel ou d’électricité imposables en France"
     delivery_natural_gas_and_electricity_not_assessable: "Livraisons de gaz naturel ou d’électricité non imposables en France"
     demo_bar: "Histogramme"
-    demo_pie: "Camembert"
+    demo_map: "Répartition géographique des ventes"
+    demo_pie: "Ventes par type de produit"
     departments: "Services"
     deposit: "Remise en banque"
     deposit_update: "Modifier la remise en banque"
@@ -982,6 +996,7 @@ fra:
     executed: "Réalisé"
     existing_part: "Utiliser un encaissement non affecté"
     expedier: "Expéditeur"
+    expense_chart: "Evolution des dépenses"
     export: "Exporter"
     export_backup: "Export d’un fichier de sauvegarde"
     exportation: "Exportation"
@@ -1068,6 +1083,7 @@ fra:
     land_parcel_update: "Modifier l’îlot"
     land_parcels: "Îlots"
     last_animals: "Dernières naissances"
+    last_clients: "Derniers clients"
     last_computed_balance: "Dernière balance calculée"
     last_events: "Derniers évènements"
     last_milk_result: "Dernières analyses de lait"

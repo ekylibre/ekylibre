@@ -80,14 +80,19 @@ arb:
       index: "الخزينة"
       new: "التسجيل لخزينة جديدة"
       show: "%{nature_label} : %{name}"
+    backend/cells/bank_chart_cells: #?
     backend/cells/demo_bar_cells: #?
+    backend/cells/demo_map_cells: #?
     backend/cells/demo_pie_cells: #?
     backend/cells/elevage_rss_cells: #?
+    backend/cells/expense_chart_cells: #?
     backend/cells/last_events_cells: #?
+    backend/cells/last_milk_result_cells: #?
     backend/cells/last_products_cells: #?
     backend/cells/placeholder_cells: #?
     backend/cells/product_bar_cells: #?
     backend/cells/product_pie_cells: #?
+    backend/cells/rss_cells: #?
     backend/companies:  #?
       register: "تسجيل شركة" #?
     backend/company:  #?
@@ -889,6 +894,7 @@ arb:
         safari: "سفاري رحلة قنص"
     balance: "رصيد الحساب"
     bank_accounts: "" #?
+    # bank_chart: "Evolution du solde de banque"
     bank_statement_point: "الاشارة للكشف المصرفي"
     bank_statement_update: "تعديل الكشف المصرفي"
     # beginning: "Début"
@@ -1002,7 +1008,8 @@ arb:
     delivery_natural_gas_and_electricity_assessable: "وتخضع امدادات الغاز الطبيعي والكهرباء للضريبة في فرنسا"
     delivery_natural_gas_and_electricity_not_assessable: "لا تخضع امدادات الغاز الطبيعي والكهرباء للضريبة في فرنسا"
     # demo_bar: "Histogramme"
-    # demo_pie: "Camembert"
+    # demo_map: "Répartition géographique des ventes"
+    # demo_pie: "Ventes par type de produit"
     department_create: "اضافة وظيفة جديدة" #?
     departments: "وظائف/مهام"
     deposit: "اقتطاعات البنك"
@@ -1079,6 +1086,7 @@ arb:
     executed: "انجز"
     existing_part: "استخدام الدفعات الغير متضررة"
     # expedier: "Expéditeur"
+    # expense_chart: "Evolution des dépenses"
     export: "اصدار الوثائق"
     # export_backup: "Export d’un fichier de sauvegarde"
     # exportation: "Exportation"
@@ -1177,8 +1185,10 @@ arb:
     land_parcel_update: "تعديل النظام"
     land_parcels: "قائمة بالنظام"
     # last_animals: "Dernières naissances"
+    # last_clients: "Derniers clients"
     # last_computed_balance: "Dernière balance calculée"
-    # last_events: "Derniers Evènements"
+    # last_events: "Derniers évènements"
+    # last_milk_result: "Dernières analyses de lait"
     # last_payment_amount: "Montant du dernier encaissement"
     # last_payment_date: "Date du dernier encaissement"
     # last_products: "Dernières naissances"

@@ -73,14 +73,19 @@ jpn:
       # index: "Trésoreries"
       # new: "Enregistrer une nouvelle trésorerie"
       # show: "%{nature}\_: %{name}"
+    backend/cells/bank_chart_cells: #?
     backend/cells/demo_bar_cells: #?
+    backend/cells/demo_map_cells: #?
     backend/cells/demo_pie_cells: #?
     backend/cells/elevage_rss_cells: #?
+    backend/cells/expense_chart_cells: #?
     backend/cells/last_events_cells: #?
+    backend/cells/last_milk_result_cells: #?
     backend/cells/last_products_cells: #?
     backend/cells/placeholder_cells: #?
     backend/cells/product_bar_cells: #?
     backend/cells/product_pie_cells: #?
+    backend/cells/rss_cells: #?
     backend/custom_field_choices:
       # edit: "Modifier l’option\_: %{name}"
       # new: " Création d’une option pour une liste de choix"
@@ -731,6 +736,7 @@ jpn:
         # opera: "Opéra"
         # safari: "Safari"
     # balance: "Solde"
+    # bank_chart: "Evolution du solde de banque"
     # bank_statement_point: "Pointer le relevé"
     # bank_statement_update: "Modifier le relevé"
     # beginning: "Début"
@@ -834,7 +840,8 @@ jpn:
     # delivery_natural_gas_and_electricity_assessable: "Livraisons de gaz naturel ou d’électricité imposables en France"
     # delivery_natural_gas_and_electricity_not_assessable: "Livraisons de gaz naturel ou d’électricité non imposables en France"
     # demo_bar: "Histogramme"
-    # demo_pie: "Camembert"
+    # demo_map: "Répartition géographique des ventes"
+    # demo_pie: "Ventes par type de produit"
     # departments: "Services"
     # deposit: "Remise en banque"
     deposit_create: #?
@@ -894,6 +901,7 @@ jpn:
     # executed: "Réalisé"
     # existing_part: "Utiliser un encaissement non affecté"
     # expedier: "Expéditeur"
+    # expense_chart: "Evolution des dépenses"
     # export: "Exporter"
     # export_backup: "Export d’un fichier de sauvegarde"
     # exportation: "Exportation"
@@ -980,8 +988,10 @@ jpn:
     # land_parcel_update: "Modifier l’îlot"
     # land_parcels: "Îlots"
     # last_animals: "Dernières naissances"
+    # last_clients: "Derniers clients"
     # last_computed_balance: "Dernière balance calculée"
-    # last_events: "Derniers Evènements"
+    # last_events: "Derniers évènements"
+    # last_milk_result: "Dernières analyses de lait"
     # last_payment_amount: "Montant du dernier encaissement"
     # last_payment_date: "Date du dernier encaissement"
     # last_products: "Dernières naissances"
