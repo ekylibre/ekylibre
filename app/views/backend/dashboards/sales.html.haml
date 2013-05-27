@@ -1,7 +1,7 @@
 =beehive(:production) do
   -hbox do
     -cell :demo_pie
-    -cell :demo_map
+    -cell :rss, :title => "Tendances Céréales", :params => {:url => "http://www.lafranceagricole.fr/Rss/cours-et-marches/cultures/cereales-153.html"}
   -hbox do
-    -cell :demo_pie
-    -cell :placeholder
+    -cell :rss, :title => "Tendances Bovins de boucherie", :params => {:url => "http://www.lafranceagricole.fr/Rss/cours-et-marches/elevage/bovins-de-boucherie-157.html"}
+    -cell :demo_map
