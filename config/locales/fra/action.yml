@@ -1069,7 +1069,7 @@ fra:
     land_parcels: "Îlots"
     last_animals: "Dernières naissances"
     last_computed_balance: "Dernière balance calculée"
-    last_events: "Derniers Evènements"
+    last_events: "Derniers évènements"
     last_milk_result: "Dernières analyses de lait"
     last_payment_amount: "Montant du dernier encaissement"
     last_payment_date: "Date du dernier encaissement"

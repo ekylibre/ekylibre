@@ -365,13 +365,16 @@ html.authentication {
 }
 
 #main-toolbar {
-  @include button-group();
+  @include toolbar();
   @include float(right);
-  margin-top: $default-gap;
+  margin-top: round(($header-height - $button-height) / 2);
   @include margin-right($default-gap);
-  .btn {
-    .icon { margin: 0; }
-    .text { display: none; }
+  .btn-group-default {
+    .btn {
+      font-size: 0; 
+      .icon, i { margin: 0; }
+      .text { display: none; }
+    }
   }
 }
 

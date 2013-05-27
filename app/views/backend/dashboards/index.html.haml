@@ -12,4 +12,4 @@
         %span.day=date.day
         %span.month=date.l(:format => '%B')
         %span.year=date.year
-    -b.cell :elevage_rss
+    -b.cell(:rss, :params => {:url => 'http://www.lafranceagricole.fr/Rss/elevage/actu-elevage-14652.html'}, :title => "Actualité élevage")
