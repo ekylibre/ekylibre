@@ -409,13 +409,11 @@ $include-html-classes: false;
     &:first-child {
       @include margin-left(0);
     }
-    html[dir="ltr"] &:first-child, html[dir="rtl"] &:last-child {
-      @include border-top-left-radius($buttons-radius);
-      @include border-bottom-left-radius($buttons-radius);
+    html[dir="ltr"] &:first-of-type, html[dir="rtl"] &:last-of-type {
+      @include border-left-radius($buttons-radius);
     }
-    html[dir="ltr"] &:last-child, html[dir="rtl"] &:first-child {
-      @include border-top-right-radius($buttons-radius);
-      @include border-bottom-right-radius($buttons-radius);
+    html[dir="ltr"] &:last-of-type, html[dir="rtl"] &:first-of-type {
+      @include border-right-radius($buttons-radius);
     }
     &:focus, &:hover, &:active {
       position: relative;
@@ -426,30 +424,23 @@ $include-html-classes: false;
 
 
 
-@mixin toolbar {
+@mixin toolbar($group: ".btn-group") {
+  @include inline-block;
   & > * {
     display: none;
   }
-  @include inline-block;
-  & > input, & > a, & > span, & > button {
+  & > #{$group} {
+    display: block;
     @include inline-block;
-    @include border-radius(0);
-    @include margin-left(-1px);
-    @include margin-right(0);
-
-    // Disabled for now because produces errors on AJAX content...
-    &:focus, &:active, &:hover {
-      // position: relative;
-      z-index: 2;
-    }
-
+    @include button-group;
+    @include margin-left($default-gap);
     &:first-child {
-      @include margin-left(0);
-      @include border-left-radius($default-border-radius);
+      @include margin-left(0);      
     }
-    &:last-child {
-      @include border-right-radius($default-border-radius);
-    }
+  }
+  & > #{$group}, & {
+    @include button-group;
+    @include inline-block;
   }
 }
 

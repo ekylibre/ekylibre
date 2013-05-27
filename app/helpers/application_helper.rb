@@ -660,13 +660,13 @@ module ApplicationHelper
     tag = form_tag(url_options, :method => :get) { tag } unless options[:form].is_a?(FalseClass)
     id = Time.now.to_i.to_s(36)+(10000*rand).to_i.to_s(36)
 
-    if options[:popover].is_a?(FalseClass)
-      return content_tag(:div, tag.to_s.html_safe, :class => "kujaku", :id => id)
-    else
-      content_for(:popover, content_tag(:div, tag.to_s.html_safe, :class => "kujaku popover", :id => id))
-      tool(content_tag(:a, content_tag(:span, nil, :class => :icon) + content_tag(:span, "Rechercher", :class => :text), :class => "btn btn-search", "data-toggle-visibility" => "##{id}"))
-      return ""
-    end
+    # if options[:popover].is_a?(FalseClass)
+    return content_tag(:div, tag.to_s.html_safe, :class => "kujaku", :id => id)
+    # else
+    #   content_for(:popover, content_tag(:div, tag.to_s.html_safe, :class => "kujaku popover", :id => id))
+    #   tool(content_tag(:a, content_tag(:span, nil, :class => :icon) + content_tag(:span, "Rechercher", :class => :text), :class => "btn btn-search", "data-toggle-visibility" => "##{id}"))
+    #   return ""
+    # end
   end
 
   class Kujaku
@@ -729,12 +729,12 @@ module ApplicationHelper
   end
 
 
-  def tool(code = nil, &block)
-    raise ArgumentError.new("Arguments XOR block code are accepted, but not together.") if (code and block_given?) or (code.blank? and !block_given?)
-    code = capture(&block) if block_given?
-    content_for(:main_toolbar, code)
-    return true
-  end
+  # def tool(code = nil, &block)
+  #   raise ArgumentError.new("Arguments XOR block code are accepted, but not together.") if (code and block_given?) or (code.blank? and !block_given?)
+  #   code = capture(&block) if block_given?
+  #   content_for(:main_toolbar, code)
+  #   return true
+  # end
 
   # Build the main toolbar
   def main_toolbar_tag
@@ -758,7 +758,7 @@ module ApplicationHelper
   end
 
   def toolbar(options={}, &block)
-    code = '[EmptyToolbarError]'
+    html = '[EmptyToolbarError]'
     if block_given?
       toolbar = Toolbar.new
       if block
@@ -773,60 +773,76 @@ module ApplicationHelper
       end
       toolbar.link :back if options[:back]
       # To HTML
-      code = ''
-      items = []
+      html = ''.html_safe
       # call = 'views.' << caller.detect{|x| x.match(/\/app\/views\//)}.split(/\/app\/views\//)[1].split('.')[0].gsub(/\//,'.') << '.'
-      for tool in toolbar.tools
-        nature, args = tool[0], tool[1]
-        if nature == :link
-          name = args[0]
-          args[1] ||= {}
-          args[2] ||= {}
-          if name.is_a? Symbol
-            args[0] = ::I18n.t("actions.#{args[1][:controller]||controller_name}.#{name}".to_sym, {:default => "labels.#{name}".to_sym}.merge(args[2].delete(:i18n)||{}))
+      for group, tools in toolbar.tools
+        items = []
+        for tool in tools
+          nature, args = tool[0], tool[1..-1]
+          if nature == :link
+            name = args[0]
+            args[1] ||= {}
+            args[2] ||= {}
+            if name.is_a? Symbol
+              args[0] = ::I18n.t("actions.#{args[1][:controller]||controller_name}.#{name}".to_sym, {:default => "labels.#{name}".to_sym}.merge(args[2].delete(:i18n)||{}))
+            end
+            if name.is_a? Symbol and name!=:back
+              args[1][:action] ||= name
+            end
+            items << tool_to(*args) if authorized?(args[1])
+          elsif nature == :export
+            # dn, args, url = tool[1], tool[2], tool[3]
+            # url[:controller] ||= controller_name
+            # for dt in DocumentTemplate.of_nature(dn)
+            #   items << tool_to(tc(:print_with_template, :name => dt.name), url.merge(:template => dt.code), :tool => :print) if authorized?(url)
+            # end
+            items << # content_tag(:div, :class => "btn-group") do
+              link_to(content_tag(:i), "#", :class => "btn btn-print") + 
+                link_to(content_tag(:i), "#", :class => "btn btn-dropdown", 'data-toggle' => 'dropdown') + 
+                content_tag(:ul, :class => 'dropdown-menu') do
+                DocumentTemplate.all.collect do |template| # of_nature(dn)
+                  content_tag(:li) do
+                    link_to(content_tag(i) + h(template.name), '#')
+                  end
+                end.join
+            end
+            # end
+
+          elsif nature == :mail
+            args[2] ||= {}
+            email_address = ERB::Util.html_escape(args[0])
+            extras = %w{ cc bcc body subject }.map { |item|
+              option = args[2].delete(item) || next
+              "#{item}=#{Rack::Utils.escape(option).gsub("+", "%20")}"
+            }.compact
+            extras = extras.empty? ? '' : '?' + ERB::Util.html_escape(extras.join('&'))
+            items << tool_to(args[1], "mailto:#{email_address}#{extras}".html_safe, :tool => :mail)
+          elsif nature == :missing
+            action, record, tag_options = tool[1], tool[2], tool[3]
+            tag_options = {} unless tag_options.is_a? Hash
+            url = {}
+            url.update(tag_options.delete(:params)) if tag_options[:params].is_a? Hash
+            url[:controller] ||= controller_name
+            url[:action] = action
+            url[:id] = record.id
+            items << tool_to(t("actions.#{url[:controller]}.#{action}".to_sym, {:default => "labels.#{action}".to_sym}.merge(record.attributes.symbolize_keys)), url, tag_options) if authorized?(url)
           end
-          if name.is_a? Symbol and name!=:back
-            args[1][:action] ||= name
-          end
-          items << tool_to(*args) if authorized?(args[1])
-        elsif nature == :print
-          dn, args, url = tool[1], tool[2], tool[3]
-          url[:controller] ||= controller_name
-          for dt in DocumentTemplate.of_nature(dn)
-            items << tool_to(tc(:print_with_template, :name => dt.name), url.merge(:template => dt.code), :tool => :print) if authorized?(url)
-          end
-        elsif nature == :mail
-          args[2] ||= {}
-          email_address = ERB::Util.html_escape(args[0])
-          extras = %w{ cc bcc body subject }.map { |item|
-            option = args[2].delete(item) || next
-            "#{item}=#{Rack::Utils.escape(option).gsub("+", "%20")}"
-          }.compact
-          extras = extras.empty? ? '' : '?' + ERB::Util.html_escape(extras.join('&'))
-          items << tool_to(args[1], "mailto:#{email_address}#{extras}".html_safe, :tool => :mail)
-        elsif nature == :missing
-          action, record, tag_options = tool[1], tool[2], tool[3]
-          tag_options = {} unless tag_options.is_a? Hash
-          url = {}
-          url.update(tag_options.delete(:params)) if tag_options[:params].is_a? Hash
-          url[:controller] ||= controller_name
-          url[:action] = action
-          url[:id] = record.id
-          items << tool_to(t("actions.#{url[:controller]}.#{action}".to_sym, {:default => "labels.#{action}".to_sym}.merge(record.attributes.symbolize_keys)), url, tag_options) if authorized?(url)
         end
+        if items.size > 0
+          html << content_tag(:div, items.join.html_safe, :class => "btn-group btn-group-#{group}")
+        end
+
       end
     else
       raise Exception.new('No block given for toolbar')
     end
     if @not_first_toolbar
-      if items.size > 0
-        code = content_tag(:div, items.join.html_safe, :class => 'toolbar' + (options[:class].nil? ? '' : ' ' << options[:class].to_s)) + content_tag(:div, nil, :class => :clearfix)
+      unless html.blank?
+        html = content_tag(:div, html, :class => 'toolbar' << (options[:class] ? ' ' << options[:class].to_s : ''))
       end
-      return code.html_safe
+      return html.html_safe
     else
-      for item in items
-        tool(item)
-      end
+      content_for(:main_toolbar, html)
       @not_first_toolbar = true
       return ""
     end
@@ -836,47 +852,47 @@ module ApplicationHelper
     attr_reader :tools
 
     def initialize()
-      @tools = []
+      @tools = {}
     end
 
     def link(*args)
-      @tools << [:link, args]
+      add(:link, *args)
     end
 
     def mail(*args)
-      @tools << [:mail, args]
+      add(:mail, *args)
     end
 
-    def print(*args)
-      # TODO reactive print
-      # @tools << [:print, args]
+    def export(*args)
+      args << {} unless args[-1].is_a?(Hash)
+      args[-1][:group] ||= :export
+      add(:export, *args)
     end
+
+    def method_missing(method_name, *args, &block)
+      raise ArgumentError.new("Block can not be accepted") if block_given?
+      raise ArgumentError.new("First argument must be an Ekylibre::Record::Base. (#{method_name})") unless args[0].class.ancestors.include? Ekylibre::Record::Base
+      add(:missing, method_name, *args)
+    end
+
+    # def print(*args)
+    #   # TODO reactive print
+    #   # @tools << [:print, args]
+    # end
 
     #     def update(record, url={})
     #       @tools << [:update, record, url]
     #     end
 
-    def method_missing(method_name, *args, &block)
-      raise ArgumentError.new("Block can not be accepted") if block_given?
-      if method_name.to_s.match(/^print_\w+$/)
-        nature = method_name.to_s.gsub(/^print_/, '').to_sym
-        raise Exception.new("Cannot use method :print_#{nature} because nature '#{nature}' is not defined.") unless DocumentTemplate.nature.values.include?(nature)
-        # url = args.delete_at(-1) if args[-1].is_a?(Hash)
-        # raise ArgumentError.new("Parameters don't match. #{parameters.size} expected, got #{args.size} (#{[args, options].inspect}") unless args.size == parameters.size
-        url ||= {}
-        url[:action] ||= :show
-        url[:format] = :pdf
-        url[:id] ||= args[0].id if args[0].respond_to?(:id) and args[0].class.ancestors.include?(ActiveRecord::Base)
-        url[:n] = nature
-        # parameters.each_index do |i|
-        #   url[parameters[i][0]] = args[i]
-        # end
-        @tools << [:print, nature, args, url]
-      else
-        raise ArgumentError.new("First argument must be an ActiveRecord::Base. (#{method_name})") unless args[0].class.ancestors.include? ActiveRecord::Base
-        @tools << [:missing, method_name, args[0], args[1]]
-      end
+    private
+
+    def add(type, *args)
+      options = args[-1].is_a?(Hash) ? args[-1] : {}
+      group = (options.delete(:group) || "default").to_sym
+      @tools[group] ||= []
+      @tools[group] << [type, *args]
     end
+
   end
 
 

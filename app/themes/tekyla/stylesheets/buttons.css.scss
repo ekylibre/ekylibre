@@ -118,6 +118,13 @@ a.btn, button {
       }
     }
   }
+  &.btn-dropdown {
+    .icon, i {
+      font-size: $fs-normal;
+      @include use-icon(caret-down);
+    }
+  }
+
   &.btn-big {
     padding: $default-gap;
     margin: $default-gap;
