@@ -16,4 +16,4 @@
               -if cell.block?
                 .cell-content=capture(&cell.block)
               -else
-                .cell-content{"data-cell" => url_for(cell.options[:params].merge(:controller => "backend/cells/#{cell.name}_cells", :action => :show))}
+                .cell-content{"data-cell" => url_for((cell.options[:params]||{}).merge(:controller => "backend/cells/#{cell.name}_cells", :action => :show))}
