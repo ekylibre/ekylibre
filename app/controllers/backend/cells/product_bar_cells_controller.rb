@@ -8,16 +8,17 @@ class Backend::Cells::ProductBarCellsController < Backend::CellsController
     data_table.new_column('number', 'Male')
     data_table.new_column('number', 'Femelle')
     # Add Rows and Values
-    data_table.add_rows([
-      ['2010', 32, 33],
-      ['2011', 30, 33],
-      ['2012', 35, 28]
-    ])
+    
+    for year in (Date.today.year-5)..Date.today.year
+      animals = Animal.where("EXTRACT(year from born_at) = ?", year)
+      data_table.add_rows([[year.to_s, animals.where(:sex => "male").count, animals.where(:sex => "female").count]])
+    end
+
         # set options
-    options = { width: 400, height: 240, title: "Product bar chart" }
+    options = { width: 330, height: 280, :hAxis => { :title => 'Année'}, :vAxis => { :title => 'Nombre de naissance'}}
     # creating the chart
     # @chart = ::GoogleVisualr::Interactive::AreaChart.new(data_table, options)
-    @chart = ::GoogleVisualr::Interactive::PieChart.new(data_table, options)
+    @chart = ::GoogleVisualr::Interactive::ColumnChart.new(data_table, options)
   end
 
 end

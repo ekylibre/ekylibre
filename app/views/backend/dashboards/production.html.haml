@@ -1,11 +1,11 @@
 =beehive(:production) do
-  -tabbox do
+  -hbox do
+    -cell :last_milk_result
+    -cell :product_bar
     -cell :last_products
+  -tabbox do
     -cell :meteo do
       %img{:alt => "Météo Saint-Porchaire heure par heure", :border => "0", :src => "http://meteorologic.net/vignette-previ-1h/6026.png", :style => "margin: 0 auto; display: block"}
-    -cell :video do
-      %iframe{:allowfullscreen => "", :frameborder => "0", :height => "280", :mozallowfullscreen => "", :src => "http://player.vimeo.com/video/57127234?title=0&byline=0&portrait=0", :webkitallowfullscreen => "", :width => "100%"}
-  -tabbox do
-    -cell :last_events
-    -cell :product_bar
-    -cell :elevage_rss
+    -cell :elevage_rss    
+    -#-cell :video do
+      -#%iframe{:allowfullscreen => "", :frameborder => "0", :height => "280", :mozallowfullscreen => "", :src => "http://player.vimeo.com/video/57127234?title=0&byline=0&portrait=0", :webkitallowfullscreen => "", :width => "100%"}
