@@ -31,7 +31,6 @@
             =link_to(backend_root_url, :class => :user) do
               %i
               =current_user.entity.full_name
-          %li.separator
           %li
             =link_to(destroy_user_session_url, :method => :delete, :class => :signout) do
               %i

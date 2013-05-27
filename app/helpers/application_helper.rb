@@ -366,46 +366,6 @@ module ApplicationHelper
     end
 
     return render(:partial => "backend/beehive", :object => board)
-
-    # html << "<div class=\"beehive beehive-#{board.name}\">"
-    # for box in board.boxes
-    #   count = box.size
-    #   next if count.zero?
-
-    #   if box.is_a?(Beehive::HorizontalBox)
-    #     html << "<div class=\"box box-h box-#{count}-cells\">"
-    #     box.each_with_index do |cell, index|
-    #       html << "<div class=\"cell cell-#{index+1}\">"
-    #       html << "<span class=\"cell-title\">" + h(cell.title) + "</span>"
-    #       if cell.block?
-    #         html << content_tag(:div, capture(&cell.block), :class => "cell-inner")
-    #       else
-    #         html << "<div class=\"cell-inner\" data-cell=\""+ h(url_for(cell.options.merge(:controller => "backend/cells/#{cell.name}_cells", :action => :show)))+"\"></div>"
-    #       end
-    #       html << "</div>"
-    #     end
-    #     html << "</div>"
-    #   elsif box.is_a?(Beehive::TabBox)
-    #     html << "<div class=\"box box-tab box-#{count}-cells\">"
-    #     panes = "<div class=\"box-panes\">"
-    #     html << "<ul>"
-    #     box.each_with_index do |cell, index|
-    #       html << "<li class=\"cell cell-#{index+1}\"><a href=\"#\">Tab</a></li>"
-    #       if cell.block?
-    #         panes << content_tag(:div, capture(&cell.block), :class => "box-pane")
-    #       else
-    #         panes << "<div class=\"box-pane\" data-cell=\""+ h(url_for(cell.options.merge(:controller => "backend/cells/#{cell.name}_cells", :action => :show)))+"\"></div>"
-    #       end
-    #     end
-    #     html << "</ul>"
-    #     panes << "</div>"
-    #     html << panes
-    #     html << "</div>"
-    #   end
-
-    # end
-    # html << "</div>"
-    # return html.html_safe
   end
 
   class Beehive
@@ -796,17 +756,20 @@ module ApplicationHelper
             # for dt in DocumentTemplate.of_nature(dn)
             #   items << tool_to(tc(:print_with_template, :name => dt.name), url.merge(:template => dt.code), :tool => :print) if authorized?(url)
             # end
-            items << # content_tag(:div, :class => "btn-group") do
+            items << content_tag(:div, :class => "btn-export btn-group") do
               link_to(content_tag(:i), "#", :class => "btn btn-print") + 
-                link_to(content_tag(:i), "#", :class => "btn btn-dropdown", 'data-toggle' => 'dropdown') + 
-                content_tag(:ul, :class => 'dropdown-menu') do
-                DocumentTemplate.all.collect do |template| # of_nature(dn)
-                  content_tag(:li) do
-                    link_to(content_tag(i) + h(template.name), '#')
-                  end
-                end.join
+              link_to(content_tag(:i), "#", :class => "btn btn-dropdown", 'data-toggle' => 'dropdown') + 
+              content_tag(:ul,
+                          content_tag(:li, link_to(content_tag(:i) + h("Devis"), '#')) +
+                          content_tag(:li, link_to(content_tag(:i) + h("Devis"), '#')) +
+                          content_tag(:li, link_to(content_tag(:i) + h("Devis"), '#')) +
+                          DocumentTemplate.all.collect do |template| # of_nature(dn)
+                            content_tag(:li) do
+                              link_to(content_tag(:i) + h(template.name), '#')
+                            end
+                          end.join,
+                          :class => 'dropdown-menu')
             end
-            # end
 
           elsif nature == :mail
             args[2] ||= {}

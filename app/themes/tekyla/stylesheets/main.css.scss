@@ -69,6 +69,14 @@ textarea {
     }
   }
 
+  li.dropdown {
+    position: relative;
+  }
+
+  ul.dropdown-menu {
+    @include dropdown-menu;
+  }
+
   .collapse {
     > ul {
       @include float(left);
@@ -93,27 +101,6 @@ textarea {
     @include background(rgba(black, 0.2));
     @include box-shadow(0 0 round($fs-normal *0.7) rgba(black, 0.2) inset);
   }
-
-  li.dropdown {
-    position: relative;
-  }
-
-  ul.dropdown-menu {
-    @include menu;
-    position: absolute;
-    display: none;
-    li {
-      @include float(none);
-      display: block;
-      min-width: 25ex;
-      &.separator {
-        display: none !important;
-      }
-    }
-    right: 0;
-    z-index: 5;
-  }
-
 
   #home {
     @include float(left);
@@ -154,12 +141,12 @@ textarea {
 
   #user {
     @include float(right);
-    > li > a > i {
+    & > li:first-child > a > i {
       @include is-icon;
       @include use-icon(caret-down);
     }
     #user-menu {
-      i { @include is-icon };
+      // i { @include is-icon };
       .user    i { @include use-icon(user) };
       .signout i { @include use-icon(signout) };
     }
@@ -187,6 +174,21 @@ textarea {
 }
 
 
+
+li.dropdown {
+  position: relative;
+}
+
+ul.dropdown-menu {
+  @include dropdown-menu;
+}
+
+.btn-export {
+  position: relative;
+  i {
+    @include use-icon(print);
+  }
+}
 
 
 
