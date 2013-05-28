@@ -23,6 +23,10 @@ La méthode d'archivage permet de piloter le comportement du logiciel vis à vis
 Par défaut, le format "PDF" est utilisé.Vous pouvez utilisé les formats suivants :
 PDF,ODT,ODS,XLS,DOC,DOCX,TXT,CSV
 
+**Source** (fichier source de définition du modèle):
+Fichier de type XML créé par un outil externe.
+
+
 ===== Personnalisation des modèles =====
 
-Les modèles sont personnalisables via un outil externe (Ireport)
+Les modèles sont personnalisables en modifiant la source via un outil externe (Ireport)

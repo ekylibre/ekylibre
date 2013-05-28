@@ -1,9 +1,12 @@
 =field_set do
   =f.input :name
-  =f.input :nature
+  -if @document_template.new_record?
+    =f.input :nature
   =f.input :archiving
-  =f.input :by_default
   =f.input :active
-  =f.input :managed
-  =f.input :language, :collection => languages
+  =f.input :by_default
   =f.input :formats, :placeholder => 'pdf,odt,...'
+  -unless @document_template.managed?
+    =f.input :language, :collection => languages
+    =f.input :source, :as => :file  
+  
