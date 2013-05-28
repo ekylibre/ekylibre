@@ -98,17 +98,16 @@ class Backend::DashboardsController < BackendController
         exp = "(" + group.join("|") + ")"
         w.gsub!(Regexp.new(exp), exp)
       end
-      w
+      w.gsub("'", "\\\\'")
     end
 
+
     filtered = "SELECT record_id, record_type, title, indexer, (" + words.collect do |word|
-      "(array_length(regexp_split_to_array(indexer, E'#{word}', 'i'), 1) - 1)"
-    end.join(" + ") + " + " + words.collect do |word|
-      "(array_length(regexp_split_to_array(indexer, E'#{word}\\\\M', 'i'), 1) - 1) * 2"
-    end.join(" + ") + " + " + words.collect do |word|
-      "(array_length(regexp_split_to_array(indexer, E'\\\\m#{word}', 'i'), 1) - 1) * 3"
-    end.join(" + ") + " + " + words.collect do |word|
-      "(array_length(regexp_split_to_array(indexer, E'\\\\m#{word}\\\\M', 'i'), 1) - 1) * 4"
+      points = "(array_length(regexp_split_to_array(indexer, E'#{word}', 'i'), 1) - 1) + " + 
+        "(array_length(regexp_split_to_array(indexer, E'#{word}\\\\M', 'i'), 1) - 1) * 2 + " + 
+        "(array_length(regexp_split_to_array(indexer, E'\\\\m#{word}', 'i'), 1) - 1) * 3 + " +
+        "(array_length(regexp_split_to_array(indexer, E'\\\\m#{word}\\\\M', 'i'), 1) - 1) * 4"
+      "CASE WHEN (#{points}) = 0 THEN -40 ELSE (#{points}) END"
     end.join(" + ") + ") AS pertinence FROM (#{@@centralizing_query}) AS centralizer GROUP BY record_type, record_id, title, indexer"
 
     filter  = " FROM (#{filtered}) AS filtered"
@@ -174,7 +173,7 @@ class Backend::DashboardsController < BackendController
         end
       end
       if columns.size > 0
-        query =  "SELECT '#{model.model_name.human} ' || " + columns.join(" || ") + " AS indexer, #{title} AS title, " + (model.columns_hash['type'] ? 'type' : "'#{model.name}'") + " AS record_type, id AS record_id FROM #{model.table_name}"
+        query =  "SELECT #{Ekylibre::Record::Base.connection.quote(model.model_name.human)} || ' ' || " + columns.join(" || ") + " AS indexer, #{title} AS title, " + (model.columns_hash['type'] ? 'type' : "'#{model.name}'") + " AS record_type, id AS record_id FROM #{model.table_name}"
         queries << query
       end
     end
