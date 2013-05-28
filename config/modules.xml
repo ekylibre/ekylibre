@@ -1087,8 +1087,7 @@
         <page to="backend/matters#picture"/>
       </item>
       <item name="myselves">
-        <page to="backend/myselves#change_password"/>
-        <page to="backend/myselves#statistics"/>
+        <page to="backend/myselves#show"/>
       </item>
       <item name="operation_natures">
         <page to="backend/operation_natures#index"/>

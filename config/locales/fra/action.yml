@@ -287,8 +287,9 @@ fra:
       picture: "Visuel"
       show: "Matière\_: %{name}"
     backend/myselves:
-      change_password: "Changer de mot de passe"
-      statistics: "Mes statistiques"
+      change_password: "Changer de mot de passe" #?
+      # show: "Show backend/myself"
+      statistics: "Mes statistiques" #?
     backend/observations:
       edit: "Modifier une observation"
       new: "Ajouter une observation"

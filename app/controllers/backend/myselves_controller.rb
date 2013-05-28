@@ -19,26 +19,26 @@
 
 class Backend::MyselvesController < BackendController
 
-  def statistics
+  def show
     params[:stopped_on] = params[:stopped_on].to_date rescue Date.today
     params[:started_on] = params[:started_on].to_date rescue params[:stopped_on] << 12
   end
 
-  def change_password
-    @user = Entity.find(session[:user_id])
-    if request.post?
-      if @user.authenticated? params[:user][:old_password]
-        @user.password = params[:user][:password]
-        @user.password_confirmation = params[:user][:password_confirmation]
-        if @user.save
-          notify_success(:password_successfully_changed)
-          redirect_to :controller=>:dashboards, :action=>:general
-        end
-        @user.password = @user.password_confirmation = ''
-      else
-        @user.errors.add(:old_password, :invalid)
-      end
-    end
-  end
+  #def change_password
+    #@user = Entity.find(session[:user_id])
+    #if request.post?
+      #if @user.authenticated? params[:user][:old_password]
+        #@user.password = params[:user][:password]
+        #@user.password_confirmation = params[:user][:password_confirmation]
+        #if @user.save
+          #notify_success(:password_successfully_changed)
+          #redirect_to :controller=>:dashboards, :action=>:general
+        #end
+        #@user.password = @user.password_confirmation = ''
+      #else
+        #@user.errors.add(:old_password, :invalid)
+      #end
+    #end
+  #end
 
 end

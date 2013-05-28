@@ -16,12 +16,7 @@ Ekylibre::Application.routes.draw do
   # Backend
   namespace :backend do
 
-    resource :myself, :path => "me", :only => [] do
-      member do
-        get :statistics
-        match "change_password", :via => [:get, :post]
-      end
-    end
+    resource :myself, :path => "me", :only => [:show]
     resource :settings, :only => [:edit, :update] do
       member do
         get :about

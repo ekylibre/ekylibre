@@ -124,6 +124,7 @@
 # - "backend/matters#picture"
 # - "backend/matters#show"
 # - "backend/matters#update"
+# - "backend/myselves#show"
 # - "backend/operation_natures#create"
 # - "backend/operation_natures#destroy"
 # - "backend/operation_natures#edit"
@@ -348,8 +349,8 @@ __minimum__:
 - "backend/dashboards#welcome"
 - "backend/help#index"
 - "backend/help#show"
-- "backend/myselves#change_password"
-- "backend/myselves#statistics"
+- "backend/myselves#change_password" #?
+- "backend/myselves#statistics" #?
 - "backend/settings#about"
 
 # Public access

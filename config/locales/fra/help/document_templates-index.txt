@@ -2,7 +2,7 @@
 
 Les modèles de document contiennent la définition de vos documents et servent à les imprimer (devis, factures, fiche client...). Il est possible d'archiver les impressions (au format PDF).
 
->>> Il existe des **modèles de document par défaut** comme la facture de vente ou le devis/commande, lesquels peuvent être (re)chargés à tout moment en utilisant [[>backend/document_templates#load|]]
+>>> Il existe des **modèles de document par défaut** comme la facture de vente ou le devis/commande, lesquels peuvent être (re)chargés à tout moment en utilisant [[>backend/document_templates#load|&refresh;]]
 
 ===== Gestion des modèles =====
 
@@ -25,7 +25,6 @@ PDF,ODT,ODS,XLS,DOC,DOCX,TXT,CSV
 
 **Source** (fichier source de définition du modèle):
 Fichier de type XML créé par un outil externe.
-
 
 ===== Personnalisation des modèles =====
 

@@ -28,7 +28,7 @@
           %i
         %ul#user-menu.dropdown-menu
           %li
-            =link_to(backend_root_url, :class => :user) do
+            =link_to(backend_myself_url, :class => :user) do
               %i
               =current_user.entity.full_name
           %li
