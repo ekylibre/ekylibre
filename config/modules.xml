@@ -573,6 +573,19 @@
         <page to="backend/users#unlock"/>
         <page to="backend/users#update"/>
       </item>
+      <item name="myselves">
+        <page to="backend/myselves#show"/>
+      </item>
+      <item name="preferences">
+        <page to="backend/preferences#index"/>
+        <page to="backend/preferences#create"/>
+        <page to="backend/preferences#destroy"/>
+        <page to="backend/preferences#edit"/>
+        <page to="backend/preferences#list"/>
+        <page to="backend/preferences#new"/>
+        <page to="backend/preferences#show"/>
+        <page to="backend/preferences#update"/>
+      </item>
       <item name="custom_fields">
         <page to="backend/custom_fields#index"/>
         <page to="backend/custom_fields#create"/>
@@ -1086,9 +1099,6 @@
         <page to="backend/matters#list_place"/>
         <page to="backend/matters#picture"/>
       </item>
-      <item name="myselves">
-        <page to="backend/myselves#show"/>
-      </item>
       <item name="operation_natures">
         <page to="backend/operation_natures#index"/>
         <page to="backend/operation_natures#create"/>
@@ -1121,16 +1131,6 @@
         <page to="backend/places#new"/>
         <page to="backend/places#show"/>
         <page to="backend/places#update"/>
-      </item>
-      <item name="preferences">
-        <page to="backend/preferences#index"/>
-        <page to="backend/preferences#create"/>
-        <page to="backend/preferences#destroy"/>
-        <page to="backend/preferences#edit"/>
-        <page to="backend/preferences#list"/>
-        <page to="backend/preferences#new"/>
-        <page to="backend/preferences#show"/>
-        <page to="backend/preferences#update"/>
       </item>
       <item name="procedures">
         <page to="backend/procedures#index"/>

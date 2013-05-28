@@ -13,7 +13,7 @@
     %table.list
       %tr.total
         %th=Sale.human_attribute_name(:pretax_amount)
-        %td=number_to_management current_user.sales.sum(:pretax_amount, :conditions=>conditions[:invoiced_on])
+        %td=number_to_management current_user.sales.sum(:pretax_amount)
       %tr.total
         %th=Sale.human_attribute_name(:amount)
         %td=number_to_management(invoiced_amount = current_user.sales.sum(:amount, :conditions=>conditions[:invoiced_on]))

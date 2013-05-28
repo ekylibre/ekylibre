@@ -48,7 +48,7 @@ module Ekylibre
     def self.reverse(controller, action)
       return reversions[controller][action.to_s]
     rescue
-      raise ReserveImpossible.new("Cannot reverse action #{controller}##{action}")
+      raise ReverseImpossible.new("Cannot reverse action #{controller}##{action}")
     end
 
     # Returns the name of the module corresponding to an URL

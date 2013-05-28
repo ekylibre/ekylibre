@@ -288,7 +288,7 @@ fra:
       show: "Matière\_: %{name}"
     backend/myselves:
       change_password: "Changer de mot de passe" #?
-      # show: "Show backend/myself"
+      show: "Mes informations"
       statistics: "Mes statistiques" #?
     backend/observations:
       edit: "Modifier une observation"
@@ -339,7 +339,7 @@ fra:
       show: "Culture\_: %{name} "
     backend/preferences:
       edit: "Modifier les préférences"
-      index: "Préfénces"
+      index: "Préférences"
       new: "Nouvelle préférence"
       show: "Préférence"
     backend/procedure_natures:
