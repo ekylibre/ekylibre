@@ -1,12 +1,9 @@
 =field_set do
   =f.input :name
-  =f.input :code
-  =f.input :family
   =f.input :nature
-  =f.input :to_archive
+  =f.input :archiving
   =f.input :by_default
   =f.input :active
+  =f.input :managed
   =f.input :language, :collection => languages
-  =f.input :country,  :collection => countries
-  =f.input :filename
-  =f.input :source, :field => :text
+  =f.input :formats, :placeholder => 'pdf,odt,...'

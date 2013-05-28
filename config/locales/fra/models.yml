@@ -41,6 +41,8 @@ fra:
         amount: "Montant"
       document:
         filename: "Fichier"
+      document_template:
+        managed: "Géré par le système"
       entity:
         active: "Active"
         origin: "Lieu de la première rencontre"
@@ -295,7 +297,7 @@ fra:
       account: "Compte"
       account_balance: "Balance de compte"
       activity: "Activité"
-      # activity_repartition: "Activity repartition"
+      activity_repartition: "Répartition analytique"
       # activity_watching: "Activity watching"
       affair: "Affaire"
       animal: "Animal"
@@ -306,14 +308,14 @@ fra:
       bank_statement: "Relevé de compte bancaire"
       bioproduct: "Produit vivant"
       building: "Lieu de stockage"
-      # building_room: "Building room"
+      building_room: "Pièce"
       campaign: "Campagne"
       cash: "Trésorerie"
       cash_transfer: "Virement interne"
-      company: "" #?
+      company: "Entreprise" #?
       custom_field: "Champ complémentaire"
       custom_field_choice: "Choix de champ complémentaire"
-      delay: "" #?
+      delay: "Délais" #?
       department: "Service"
       deposit: "Remise en banque"
       deposit_item: "Ligne de remise en banque"
@@ -331,7 +333,7 @@ fra:
       event_nature: "Type d’évènement"
       financial_year: "Exercice"
       fungus: "Champignon"
-      # immatter: "Immatter"
+      immatter: "Immatériel"
       incoming_delivery: "Arrivage"
       incoming_delivery_item: "Ligne d’arrivage"
       incoming_delivery_mode: "Mode d’arrivage"
@@ -354,24 +356,24 @@ fra:
       mandate: "Responsabilité"
       matter: "Matière"
       observation: "Observation"
-      operation: "Travail"
-      # operation_nature: "Operation nature"
-      # operation_task: "Operation task"
+      operation: "Opération"
+      operation_nature: "Type d'opération"
+      operation_task: "Tâche"
       outgoing_delivery: "Livraison"
       outgoing_delivery_item: "Ligne de livraison"
       outgoing_delivery_mode: "Mode de livraison"
       outgoing_payment: "Décaissement"
       outgoing_payment_mode: "Mode de décaissement"
-      # place: "Place"
+      place: "Lieu"
       plant: "Plante"
       preference: "Préférence"
-      # primary_zone: "Primary zone"
-      # procedure: "Procedure"
-      # procedure_nature: "Procedure nature"
+      primary_zone: "Zone primaire"
+      procedure: "Procédure"
+      procedure_nature: "Type de procédure"
       product: "Produits"
-      # product_ability: "Product ability"
+      product_ability: "Compétence"
       product_group: "Groupe de produit"
-      # product_indicator: "Product indicator"
+      product_indicator: "Indicateur"
       # product_indicator_choice: "Product indicator choice"
       # product_indicator_datum: "Product indicator datum"
       # product_link: "Product link"
@@ -401,9 +403,9 @@ fra:
       sale_item: "Ligne de vente"
       sale_nature: "Type de vente"
       sequence: "Séquence"
-      # service: "Service"
-      # settlement: "Settlement"
-      # sub_zone: "Sub zone"
+      service: "Service"
+      settlement: "Installation"
+      sub_zone: "Sous-zone"
       subscription: "Abonnement"
       subscription_nature: "Type d’abonnement"
       tax: "Taxe"
@@ -414,7 +416,7 @@ fra:
       unit: "Unité"
       user: "Utilisateur"
       # working_set: "Working set"
-      # zone: "Zone"
+      zone: "Zone"
       # zone_property_title: "Zone property title"
   attributes:
     account: "Compte comptable"
@@ -436,7 +438,7 @@ fra:
     affairs: "Affaires"
     # affected_on: "Affected on"
     age: "Âge" #?
-    # alive: "Alive"
+    alive: "En vie"
     allocation_account: "Compte de dotation"
     amount: "Montant"
     # amounts_scale: "Amounts scale"
@@ -471,7 +473,7 @@ fra:
     # author: "Author"
     authorized_payments_count: "Nombre d’encaissements autorisés"
     auto_updateable_addresses: "Adresses mises à jour automatiquement"
-    # automatic: "Automatic"
+    automatic: "Automatique"
     available_prices: "Prix disponibles" #?
     available_products: "Produits disponibles" #?
     available_stocks: "Stocks disponibles" #?
@@ -499,7 +501,7 @@ fra:
     buildings: "Lieux de stockage"
     by_default: "Par défaut"
     cache: "Cache" #?
-    # campaign: "Campaign"
+    campaign: "Campagne"
     canal: "Canal"
     # carried: "Carried"
     # carrier: "Carrier"
@@ -514,11 +516,10 @@ fra:
     ceded: "Cédé"
     ceded_on: "Cédé le"
     changes_reflected: "Refléter les changements"
-    # charge_account: "Charge account"
-    charges_account: "Compte de charge"
+    charge_account: "Compte de charge"
+    charges_account: "Comptes de charge"
     charges_accounts: "Comptes de charge" #?
     check_state: "Vérifier l’état"
-    chidren: "Chidren" #?
     child_kinships: "Relation enfant" #?
     child_land_parcel: "Sous-îlot" #?
     children: "Enfants"
@@ -544,7 +545,7 @@ fra:
     collected_amount: "TVA brute"
     collected_taxes: "TVA collectées"
     color: "Couleur" #?
-    # column_name: "Column name"
+    column_name: "Nom de colone"
     columns: "Colonnes"
     comment: "Commentaire" #?
     commercial: "Activité commerciale"
@@ -570,8 +571,8 @@ fra:
     confirmed_on: "Confirmée le"
     connected_at: "Connecté le" #?
     consumption: "Consommation (litres/heure)" #?
-    # container: "Container"
-    # content: "Content"
+    container: "Contenant"
+    content: "Contenu"
     content_maximal_quantity: "Content maximal quantity"
     content_nature: "Content nature"
     conveyors: "Convoyeurs"
@@ -641,7 +642,7 @@ fra:
     depositables_incoming_payment_modes: "Modes de paiement avec remises en banque"
     depositables_journal: "Journal des remises en banque"
     deposits: "Remises en banque"
-    # depreciable: "Depreciable"
+    depreciable: "Amortissable"
     depreciable_amount: "Montant amortissable"
     depreciated_amount: "Montant amorti"
     depreciation: "Amortissement" #?
@@ -681,7 +682,7 @@ fra:
     employed: "Employé par la société"
     employees: "employés"
     employment: "Emploi/Rôle"
-    # encrypted_password: "Encrypted password"
+    encrypted_password: "Mot de passe crypté"
     end_on: "Fin le" #?
     entered_at: "Arrivé at" #?
     entities: "Personnes"
@@ -815,8 +816,8 @@ fra:
     last_month: "Dernier mois"
     last_name: "Nom de famille"
     last_number: "Dernier numéro"
-    # last_sign_in_at: "Last sign in at"
-    # last_sign_in_ip: "Last sign in ip"
+    last_sign_in_at: "Dernière connexion à"
+    last_sign_in_ip: "Dernière IP de connexion"
     last_year: "Dernière année"
     left_on: "Parti le" #?
     letter: "Lettre"
@@ -834,7 +835,7 @@ fra:
     location: "Location"
     lock_version: "Version"
     locked: "Verrouillé"
-    # locked_at: "Locked at"
+    locked_at: "Verrouillé à"
     log: "Journal d'évènements" #?
     loggable: "Peut se connecter" #?
     lost: "En perte" #?
@@ -854,7 +855,7 @@ fra:
     mail_line_6: "Code postal ET ville"
     mails: "Emails"
     major_accounts: "Classes comptables" #?
-    # managed: "Managed"
+    managed: "Géré par le système"
     managed_events: "Évènements gérés" #?
     managed_sales: "Ventes gérées" #?
     managed_sales_invoices: "Factures gérées" #?
@@ -868,9 +869,9 @@ fra:
     measure_unit: "Unité de mesure"
     measure_value: "Valeur de la mesure"
     measured_at: "Mesuré à"
-    # member: "Member"
-    members: "Members"
-    memberships: "Memberships"
+    member: "Membre"
+    members: "Membres"
+    memberships: "Membres du groupe"
     min_duration: "Minute(s)" #?
     minimal_length: "Longueur minimale"
     minimal_quantity: "Minimal quantity"

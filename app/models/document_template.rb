@@ -40,7 +40,7 @@
 # Sources are stored in private/document_templates/:id/content.xml
 class DocumentTemplate < Ekylibre::Record::Base
   cattr_reader :datasources
-  attr_accessible :active, :archiving, :by_default, :language, :name, :nature, :managed, :source
+  attr_accessible :active, :archiving, :by_default, :language, :name, :nature, :managed, :source, :formats
   enumerize :archiving, :in => [:none, :first, :last, :all], :default => :none, :predicates => {:prefix => true}
   enumerize :nature, :in => Nomenclatures["document-natures"].items.values.select{|i| i.attributes["datasource"]}.map(&:name).map(&:underscore), :predicates => {:prefix => true}
   has_many :documents, :foreign_key => :template_id

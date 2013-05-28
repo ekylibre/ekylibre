@@ -1,8 +1,28 @@
 ====== Modèles de document ======
 
-Les modèles de document contiennent la définition de vos documents à imprimer (devis, factures, fiche client...). Il est possible d'archiver les impressions (au format PDF).
+Les modèles de document contiennent la définition de vos documents et servent à les imprimer (devis, factures, fiche client...). Il est possible d'archiver les impressions (au format PDF).
 
->>> Il existe des **modèles de document par défaut** comme la facture de vente ou le devis/commande, lesquels peuvent être (re)chargés à tout moment en utilisant le lien **Charger les modèles par défaut**.
+>>> Il existe des **modèles de document par défaut** comme la facture de vente ou le devis/commande, lesquels peuvent être (re)chargés à tout moment en utilisant [[>backend/document_templates#load|]]
 
 ===== Gestion des modèles =====
-Pour l'instant, il faut directement manipuler les données au format XML pour personnaliser entièrement son modèle.
+
+**Type** (contexte d'utilisation et de production du document):
+Le type est rattaché à une nomenclature et permet au logiciel de produire un document à partir d'un modèle typé.
+Un document "externe" ne possedera pas de type.
+
+**Méthode d'archivage** (copie automatique vers la GED) :
+La méthode d'archivage permet de piloter le comportement du logiciel vis à vis de l'archivage.
+- Aucune : pas d'archivage automatique
+- Premier imprimé : c'est le premier document qui est archivé
+- Dernier imprimé : c'est le premier document qui est archivé
+- Toutes les impressions : tous les documents de ce modèle sont archivés automatiquement vers la GED
+
+**Géré par le système** : le logiciel a la main sur la mise à jour du modèle de document
+
+**Formats** (format des documents générés):
+Par défaut, le format "PDF" est utilisé.Vous pouvez utilisé les formats suivants :
+PDF,ODT,ODS,XLS,DOC,DOCX,TXT,CSV
+
+===== Personnalisation des modèles =====
+
+Les modèles sont personnalisables via un outil externe (Ireport)
