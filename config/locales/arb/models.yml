@@ -160,9 +160,10 @@ arb:
       document:
         # filename: "Fichier"
         updater_id: "تحديث" #?
-      document_template:  #?
+      document_template:
         created_at: "انشأ في" #?
         filename: "اسم الملف" #?
+        # managed: "Géré par le système"
         nature: "طبيعية" #?
         nature_label: "طبيعة" #?
       entity:
@@ -804,6 +805,7 @@ arb:
       account: "الحساب"
       account_balance: "رصيد الحساب"
       # activity: "Activité"
+      # activity_repartition: "Répartition analytique"
       # affair: "Affaire"
       # animal: "Animal"
       # animal_group: "Groupe d'animaux"
@@ -813,6 +815,7 @@ arb:
       bank_statement: "بيان الحساب المصرفي"
       # bioproduct: "Produit vivant"
       building: "موقع التخزين"
+      # building_room: "Pièce"
       # campaign: "Campagne"
       cash: "الخزينة"
       # cash_transfer: "Virement interne"
@@ -846,6 +849,7 @@ arb:
       event_nature: "نوع الحدث"
       financial_year: "السنة المالية"
       # fungus: "Champignon"
+      # immatter: "Immatériel"
       # incoming_delivery: "Arrivage"
       # incoming_delivery_item: "Ligne d’arrivage"
       # incoming_delivery_mode: "Mode d’arrivage"
@@ -871,7 +875,8 @@ arb:
       observation: "ملاحظة"
       operation: "العمل"
       operation_item: "الواردات/الصادرات" #?
-      operation_nature: "نوع العمل" #?
+      operation_nature: "نوع العمل"
+      # operation_task: "Tâche"
       operation_use: "الاداة المستخدمة" #?
       # outgoing_delivery: "Livraison"
       # outgoing_delivery_item: "Ligne de livraison"
@@ -880,13 +885,19 @@ arb:
       outgoing_payment_mode: "نوع الدفعة"
       outgoing_payment_use: "تأثير الدفعة" #?
       parameter: "الاعدادات" #?
+      # place: "Lieu"
       # plant: "Plante"
       # preference: "Préférence"
       price: "الاسعار" #?
+      # primary_zone: "Zone primaire"
+      # procedure: "Procédure"
+      # procedure_nature: "Type de procédure"
       product: "الانتاج"
+      # product_ability: "Compétence"
       product_category: "فئة الانتاج" #?
       product_component: "عنصر الانتاج" #?
       # product_group: "Groupe de produit"
+      # product_indicator: "Indicateur"
       # product_localization: "Passage d'un produit en un lieu"
       # product_membership: "Passage d'un produit dans un groupe"
       product_move: "حركة السهم"
@@ -917,9 +928,12 @@ arb:
       sales_invoice: "الفاتورة" #?
       sales_invoice_item: "طريقة تسديد الفاتورة" #?
       sequence: "التسلسل"
+      # service: "Service"
+      # settlement: "Installation"
       stock: "سهم الانتاج" #?
       stock_move: "حركة السهم" #?
       stock_transfer: "تحول او ضياع السهم" #?
+      # sub_zone: "Sous-zone"
       subscription: "الاشتراك"
       subscription_nature: "نوع الاشتراك"
       tax: "الضريبة"
@@ -930,6 +944,7 @@ arb:
       transport: "وسيلة النقل"
       unit: "الوحدة"
       user: "المستخدم"
+      # zone: "Zone"
   attributes:
     account: "الحساب"
     account_balances: "ارصدة الحسابات"
@@ -952,6 +967,7 @@ arb:
     # affairs: "Affaires"
     # age: "Âge"
     agency_code: "رمز الوكالة" #?
+    # alive: "En vie"
     # allocation_account: "Compte de dotation"
     amount: "القيمة من دون الضرائب"
     amount_with_taxes: "القيمة مع كامل الضرائب" #?
@@ -983,6 +999,7 @@ arb:
     attribute_name: "اسم الصفة المميزة"
     authorized_payments_count: "عدد الدفعات المصرحة بها"
     # auto_updateable_addresses: "Adresses mises à jour automatiquement"
+    # automatic: "Automatique"
     available_prices: "الاسعار المتوفرة"
     available_products: "المنتجات المتوفرة"
     # available_stocks: "Stocks disponibles"
@@ -1012,6 +1029,7 @@ arb:
     buildings: "مواقع التخزين"
     by_default: "افتراضيا"
     cache: "مخبأ"
+    # campaign: "Campagne"
     # canal: "Canal"
     cash: "الحسابات المصرفية المستخدمة"
     cash_id: "الحسابات المصرفية المستخدمة" #?
@@ -1026,11 +1044,11 @@ arb:
     # ceded: "Cédé"
     # ceded_on: "Cédé le"
     changes_reflected: "انعكاس التغييرات"
-    # charges_account: "Compte de charge"
+    # charge_account: "Compte de charge"
+    # charges_account: "Comptes de charge"
     charges_accounts: "حسابات الحمولة"
     check_number: "رقم الشيك" #?
     # check_state: "Vérifier l’état"
-    # chidren: "Chidren"
     # child_kinships: "Relation enfant"
     # child_land_parcel: "Sous-îlot"
     children: "مواقع فرعية للتخزين"
@@ -1060,6 +1078,7 @@ arb:
     collected_amount: "قيمة الضريبة الاضافية الاجمالية"
     # collected_taxes: "TVA collectées"
     # color: "Couleur"
+    # column_name: "Nom de colone"
     # columns: "Colonnes"
     comment: "التعليق"
     commercial: "نشاط تجاري"
@@ -1086,6 +1105,8 @@ arb:
     contact: "العنوان" #?
     contact_id: "العنوان" #?
     contacts: "الاتصالات" #?
+    # container: "Contenant"
+    # content: "Contenu"
     # content_maximal_quantity: "Content maximal quantity"
     # content_nature: "Content nature"
     # conveyors: "Convoyeurs"
@@ -1169,6 +1190,7 @@ arb:
     depositer: "الجابي" #?
     depositer_id: "الجابي" #?
     deposits: "اقتطاعات البنك"
+    # depreciable: "Amortissable"
     # depreciable_amount: "Montant amortissable"
     # depreciated_amount: "Montant amorti"
     # depreciation: "Amortissement"
@@ -1214,6 +1236,7 @@ arb:
     employed: "وظف من قبل الشركة"
     employees: "الموظفين"
     employment: "الوظيفة"
+    # encrypted_password: "Mot de passe crypté"
     # end_on: "Fin le"
     # entered_at: "Arrivé at"
     entities: "الافراد"
@@ -1361,6 +1384,8 @@ arb:
     last_month: "الشهر السابق"
     last_name: "اسم العائلة"
     last_number: "الرقم الاخير"
+    # last_sign_in_at: "Dernière connexion à"
+    # last_sign_in_ip: "Dernière IP de connexion"
     last_year: "السنة السابقة"
     latitude: "خطوط العرض" #?
     # left_on: "Parti le"
@@ -1388,6 +1413,7 @@ arb:
     # location: "Location"
     lock_version: "الاصدار"
     locked: "مقفل"
+    # locked_at: "Verrouillé à"
     # log: "Journal d'évènements"
     # loggable: "Peut se connecter"
     longitude: "خطوط الطول" #?
@@ -1408,6 +1434,7 @@ arb:
     # mail_line_6: "Code postal ET ville"
     # mails: "Emails"
     major_accounts: "الحسابات الئيسية"
+    # managed: "Géré par le système"
     # managed_events: "Évènements gérés"
     # managed_sales: "Ventes gérées"
     # managed_sales_invoices: "Factures gérées"
@@ -1423,8 +1450,9 @@ arb:
     # measure_unit: "Unité de mesure"
     # measure_value: "Valeur de la mesure"
     # measured_at: "Mesuré à"
-    # members: "Members"
-    # memberships: "Memberships"
+    # member: "Membre"
+    # members: "Membres"
+    # memberships: "Membres du groupe"
     min_duration: "(دقيقة (دقائق"
     # minimal_length: "Longueur minimale"
     # minimal_quantity: "Minimal quantity"

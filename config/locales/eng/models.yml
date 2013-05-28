@@ -47,6 +47,8 @@ eng:
         amount: "Amount"
       document:
         filename: "File"
+      document_template:
+        # managed: "Géré par le système"
       entity:
         active: "Active"
         origin: "First meeting location"
@@ -385,6 +387,7 @@ eng:
       account: "Account"
       account_balance: "Account balance"
       # activity: "Activité"
+      # activity_repartition: "Répartition analytique"
       # affair: "Affaire"
       animal: "Animal"
       animal_diagnostic: "Animal diagnostic" #?
@@ -405,6 +408,7 @@ eng:
       bank_statement: "Bank statement"
       # bioproduct: "Produit vivant"
       building: "Building"
+      # building_room: "Pièce"
       # campaign: "Campagne"
       cash: "Cash"
       cash_transfer: "Cash transfer"
@@ -436,6 +440,7 @@ eng:
       event_nature: "Event type"
       financial_year: "Financial year"
       # fungus: "Champignon"
+      # immatter: "Immatériel"
       incoming_delivery: "Purchase delivery"
       incoming_delivery_item: "Purchase delivery line"
       incoming_delivery_line: "Purchase delivery line" #?
@@ -464,7 +469,8 @@ eng:
       operation: "Operation"
       operation_item: "Operation line" #?
       operation_line: "Operation line" #?
-      operation_nature: "Operation type" #?
+      operation_nature: "Operation type"
+      # operation_task: "Tâche"
       operation_use: "Tool use" #?
       outgoing_delivery: "Delivery"
       outgoing_delivery_item: "Delivery line"
@@ -473,15 +479,21 @@ eng:
       outgoing_payment: "Disbursement"
       outgoing_payment_mode: "Disbursement mode"
       outgoing_payment_use: "Disbursement part" #?
+      # place: "Lieu"
       # plant: "Plante"
       preference: "Preference"
       price: "Price" #?
+      # primary_zone: "Zone primaire"
+      # procedure: "Procédure"
+      # procedure_nature: "Type de procédure"
       product: "Animal"
+      # product_ability: "Compétence"
       product_category: "Product category" #?
       product_component: "Product component" #?
       product_event: "Animal event" #?
       product_event_nature: "Animal event type" #?
       product_group: "Animal group"
+      # product_indicator: "Indicateur"
       # product_localization: "Passage d'un produit en un lieu"
       # product_membership: "Passage d'un produit dans un groupe"
       product_move: "Stock move"
@@ -513,9 +525,12 @@ eng:
       sale_line: "sale line" #?
       sale_nature: "sale type"
       sequence: "Sequence"
+      # service: "Service"
+      # settlement: "Installation"
       stock: "Stock" #?
       stock_move: "Stock move" #?
       stock_transfer: "Stock transfer" #?
+      # sub_zone: "Sous-zone"
       subscription: "Subscription"
       subscription_nature: "Subscription type"
       tax: "Tax"
@@ -528,6 +543,7 @@ eng:
       transport: "Transport"
       unit: "Unit"
       user: ""
+      # zone: "Zone"
   attributes:
     account: "Account"
     account_balances: "Account balances"
@@ -549,6 +565,7 @@ eng:
     # affairs: "Affaires"
     # age: "Âge"
     agency_code: "Agency code" #?
+    # alive: "En vie"
     allocation_account: "Allocation account"
     amount: "Amount"
     animal: "Animal" #?
@@ -580,6 +597,7 @@ eng:
     attribute_name: "Attribute name"
     authorized_payments_count: "Authorized payments count"
     # auto_updateable_addresses: "Adresses mises à jour automatiquement"
+    # automatic: "Automatique"
     available_prices: "Available prices"
     available_products: "Available products"
     available_stocks: "Available stocks"
@@ -607,6 +625,7 @@ eng:
     buildings: "Buildings"
     by_default: "By default"
     cache: "Cache"
+    # campaign: "Campagne"
     canal: "Canal"
     cares: "Cares" #?
     cash: "Cash"
@@ -620,11 +639,11 @@ eng:
     ceded: "Ceded"
     ceded_on: "Ceded on"
     changes_reflected: "Changes reflected"
+    # charge_account: "Compte de charge"
     charges_account: "Charges account"
     charges_accounts: "Charges accounts"
     check_number: "Check number" #?
     check_state: "Check state"
-    # chidren: "Chidren"
     child_kinships: "Child kinships"
     child_land_parcel: "Child land parcel"
     children: "Children"
@@ -650,6 +669,7 @@ eng:
     collected_amount: "Collected amount"
     collected_taxes: "Collected taxes"
     color: "Color"
+    # column_name: "Nom de colone"
     columns: "Columns"
     comment: "Comment"
     commercial: "Commercial"
@@ -671,6 +691,8 @@ eng:
     consumption: "Consumption"
     contact: "Contact" #?
     contacts: "Contacts" #?
+    # container: "Contenant"
+    # content: "Contenu"
     # content_maximal_quantity: "Content maximal quantity"
     # content_nature: "Content nature"
     conveyors: "Conveyors"
@@ -741,6 +763,7 @@ eng:
     depositables_incoming_payment_modes: "Depositables incoming payment modes"
     depositables_journal: "Depositables journal"
     deposits: "Deposits"
+    # depreciable: "Amortissable"
     depreciable_amount: "Depreciable amount"
     depreciated_amount: "Depreciated amount"
     depreciation: "Depreciation"
@@ -789,6 +812,7 @@ eng:
     employed: "Employed"
     employees: "Employees"
     employment: "Employment"
+    # encrypted_password: "Mot de passe crypté"
     # end_on: "Fin le"
     # entered_at: "Arrivé at"
     entities: "People"
@@ -922,6 +946,8 @@ eng:
     last_month: "Last month"
     last_name: "Last name"
     last_number: "Last number"
+    # last_sign_in_at: "Dernière connexion à"
+    # last_sign_in_ip: "Dernière IP de connexion"
     last_year: "Last year"
     # left_on: "Parti le"
     letter: "Letter"
@@ -939,6 +965,7 @@ eng:
     location: "Location"
     lock_version: "Version"
     locked: "Locked"
+    # locked_at: "Verrouillé à"
     # log: "Journal d'évènements"
     loggable: "Loggable"
     longitude: "Longitude" #?
@@ -959,6 +986,7 @@ eng:
     mail_line_6: "Postal code and city"
     mails: "Mails"
     major_accounts: "Major accounts"
+    # managed: "Géré par le système"
     # managed_events: "Évènements gérés"
     # managed_sales: "Ventes gérées"
     # managed_sales_invoices: "Factures gérées"
@@ -972,8 +1000,9 @@ eng:
     # measure_unit: "Unité de mesure"
     # measure_value: "Valeur de la mesure"
     # measured_at: "Mesuré à"
-    # members: "Members"
-    # memberships: "Memberships"
+    # member: "Membre"
+    # members: "Membres"
+    # memberships: "Membres du groupe"
     min_duration: "Min duration"
     # minimal_length: "Longueur minimale"
     # minimal_quantity: "Minimal quantity"
