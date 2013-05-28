@@ -52,6 +52,8 @@ Ekylibre::Application.routes.draw do
     namespace :cells do
       resource :product_pie_cell, :only => :show
       resource :product_bar_cell, :only => :show
+      resource :purchases_bar_cell, :only => :show
+      resource :purchases_expense_bar_cell, :only => :show
       resource :demo_bar_cell, :only => :show
       resource :demo_pie_cell, :only => :show
       resource :placeholder_cell, :only => :show

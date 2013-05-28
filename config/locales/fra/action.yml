@@ -1361,6 +1361,8 @@ fra:
       summary: "Décaissements"
     purchase_update: "Modifier les informations de la commande"
     purchases: "Achats"
+    purchases_bar: "Achats par type"
+    purchases_expense_bar: "Dépenses par mois"
     purchases_price_create: "Ajouter un prix d’achat"
     quantity: "Quantité"
     quantity_rest: "Quantité restante"
