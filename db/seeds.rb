@@ -19,7 +19,7 @@ user[:password_confirmation] = user[:password]
 user[:employed] = true
 user = User.new(user)
 
-company = ENV["company"] || "My Company"
+company = ENV["company"] || "GAEC DUPONT"
 
 ActiveRecord::Base.transaction do
   Sequence.load_defaults
