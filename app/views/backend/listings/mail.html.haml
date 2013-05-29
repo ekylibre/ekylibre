@@ -6,8 +6,8 @@
       =radio_button(:node, :mail ,node.key, :checked=>true)+"&nbsp;"+content_tag(:label, node.label+" ("+node.name+")", :for=>'node_'+node.key)
     =submit_tag(tg(:validate))
 -else
-  =toolbar do |t|
-    -t.mail '?'+@mails.uniq.collect{|m| 'bcc='+m}.join('&')+"&body=--%0A#{current_user.label}%0A#{Entity.of_company.full_name}", tc(:click_to_mail)
+  =main_toolbar do |t|
+    -t.mail_to '?'+@mails.uniq.collect{|m| 'bcc='+m}.join('&')+"&body=--%0A#{current_user.label}%0A#{Entity.of_company.full_name}", tc(:click_to_mail)
 
   %h2=tc(:personalized_mail)
   .count=tc(:mails, :count=>@mails.size)

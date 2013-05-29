@@ -83,6 +83,7 @@ spa:
       new: "Registrar una nueva tresoreria"
       show: "%{nature_label} : %{name}"
     backend/cells/bank_chart_cells: #?
+    backend/cells/calendar_cells: #?
     backend/cells/demo_bar_cells: #?
     backend/cells/demo_map_cells: #?
     backend/cells/demo_pie_cells: #?
@@ -94,6 +95,8 @@ spa:
     backend/cells/placeholder_cells: #?
     backend/cells/product_bar_cells: #?
     backend/cells/product_pie_cells: #?
+    backend/cells/purchases_bar_cells: #?
+    backend/cells/purchases_expense_bar_cells: #?
     backend/cells/rss_cells: #?
     backend/companies:  #?
       register: "Registrar la sociedad" #?
@@ -318,6 +321,7 @@ spa:
       # show: "Matière\_: %{name}"
     backend/myselves:
       # change_password: "Changer de mot de passe"
+      # show: "Mes informations"
       # statistics: "Mes statistiques"
     backend/observations:
       # edit: "Modifier une observation"
@@ -362,7 +366,7 @@ spa:
     backend/posologies: #?
     backend/preferences:
       # edit: "Modifier les préférences"
-      # index: "Préfénces"
+      # index: "Préférences"
       # new: "Nouvelle préférence"
       # show: "Préférence"
     backend/prescriptions: #?
@@ -1372,6 +1376,8 @@ spa:
       summary: "Desembolsos"
     # purchase_update: "Modifier les informations de la commande"
     # purchases: "Achats"
+    # purchases_bar: "Achats par type"
+    # purchases_expense_bar: "Dépenses par mois"
     # purchases_price_create: "Ajouter un prix d’achat"
     quantity: "Quantidades"
     quantity_rest: "Quantidad restante"

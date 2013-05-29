@@ -1,4 +1,4 @@
-=toolbar do |t|
+=main_toolbar do |t|
   -t.edit @product_nature
 
 =beehive do |b|
@@ -25,12 +25,12 @@
 
     -#b.cell :components do
       =toolbar do |t|
-        -t.link :new, :controller => :product_components, :product_nature_id => @product_nature.id
+        -t.new :controller => :product_components, :product_nature_id => @product_nature.id
       =list :components
 
     -#b.cell :stocks do
       =toolbar do |t|
-        -t.link :new, :controller => :stocks, :product_nature_id => @product_nature.id
+        -t.new :controller => :stocks, :product_nature_id => @product_nature.id
       =list(:stocks)
 
     -#b.cell :stock_moves do

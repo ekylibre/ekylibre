@@ -74,6 +74,7 @@ jpn:
       # new: "Enregistrer une nouvelle trésorerie"
       # show: "%{nature}\_: %{name}"
     backend/cells/bank_chart_cells: #?
+    backend/cells/calendar_cells: #?
     backend/cells/demo_bar_cells: #?
     backend/cells/demo_map_cells: #?
     backend/cells/demo_pie_cells: #?
@@ -85,6 +86,8 @@ jpn:
     backend/cells/placeholder_cells: #?
     backend/cells/product_bar_cells: #?
     backend/cells/product_pie_cells: #?
+    backend/cells/purchases_bar_cells: #?
+    backend/cells/purchases_expense_bar_cells: #?
     backend/cells/rss_cells: #?
     backend/custom_field_choices:
       # edit: "Modifier l’option\_: %{name}"
@@ -271,6 +274,7 @@ jpn:
       # show: "Matière\_: %{name}"
     backend/myselves:
       # change_password: "Changer de mot de passe"
+      # show: "Mes informations"
       # statistics: "Mes statistiques"
     backend/observations:
       # edit: "Modifier une observation"
@@ -309,7 +313,7 @@ jpn:
       # show: "Culture\_: %{name} "
     backend/preferences:
       # edit: "Modifier les préférences"
-      # index: "Préfénces"
+      # index: "Préférences"
       # new: "Nouvelle préférence"
       # show: "Préférence"
     backend/prices: #?
@@ -1272,6 +1276,8 @@ jpn:
       # summary: "Décaissements"
     # purchase_update: "Modifier les informations de la commande"
     # purchases: "Achats"
+    # purchases_bar: "Achats par type"
+    # purchases_expense_bar: "Dépenses par mois"
     # purchases_price_create: "Ajouter un prix d’achat"
     # quantity: "Quantité"
     # quantity_rest: "Quantité restante"

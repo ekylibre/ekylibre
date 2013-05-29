@@ -1,4 +1,4 @@
-=toolbar do |t|
+=main_toolbar do |t|
   -for mode in IncomingPaymentMode.depositers
     -count=mode.depositable_payments.count
     -if count > 0

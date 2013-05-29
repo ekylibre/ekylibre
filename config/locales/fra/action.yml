@@ -78,6 +78,8 @@ fra:
       show: "%{nature}\_: %{name}"
     backend/cells/bank_chart_cells:
       # show: "Show backend/cells/bank chart cell"
+    backend/cells/calendar_cells:
+      # show: "Show backend/cells/calendar cell"
     backend/cells/demo_bar_cells:
       # show: "Show backend/cells/demo bar cell"
     backend/cells/demo_map_cells:
@@ -98,6 +100,10 @@ fra:
       # show: "Show backend/cells/product bar cell"
     backend/cells/product_pie_cells:
       # show: "Show backend/cells/product pie cell"
+    backend/cells/purchases_bar_cells:
+      # show: "Show backend/cells/purchases bar cell"
+    backend/cells/purchases_expense_bar_cells:
+      # show: "Show backend/cells/purchases expense bar cell"
     backend/cells/rss_cells:
       # show: "Show backend/cells/rss cell"
     backend/custom_field_choices:
@@ -593,6 +599,7 @@ fra:
     backend/cash_transfers: "Virements internes"
     backend/cashes: "Trésoreries"
     # backend/cells/bank_chart_cells: "Backend/cells/bank chart cells"
+    # backend/cells/calendar_cells: "Backend/cells/calendar cells"
     # backend/cells/demo_bar_cells: "Backend/cells/demo bar cells"
     # backend/cells/demo_map_cells: "Backend/cells/demo map cells"
     # backend/cells/demo_pie_cells: "Backend/cells/demo pie cells"
@@ -603,6 +610,8 @@ fra:
     # backend/cells/placeholder_cells: "Backend/cells/placeholder cells"
     # backend/cells/product_bar_cells: "Backend/cells/product bar cells"
     # backend/cells/product_pie_cells: "Backend/cells/product pie cells"
+    # backend/cells/purchases_bar_cells: "Backend/cells/purchases bar cells"
+    # backend/cells/purchases_expense_bar_cells: "Backend/cells/purchases expense bar cells"
     # backend/cells/rss_cells: "Backend/cells/rss cells"
     # backend/cells: "Backend/cells"
     backend/custom_field_choices: "Choix de champs personnalisés"

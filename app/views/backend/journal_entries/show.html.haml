@@ -1,5 +1,5 @@
 =journals_tag
-=toolbar do |t|
+=main_toolbar do |t|
   -t.edit @journal_entry if @journal_entry.updateable?
   -t.destroy @journal_entry, :method => :delete, "data-confirm" => tg(:are_you_sure) if @journal_entry.destroyable?
 

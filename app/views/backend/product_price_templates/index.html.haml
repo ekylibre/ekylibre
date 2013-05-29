@@ -6,9 +6,9 @@
         =radio_button(:price, :mode , mode, :checked=>( mode=="all" ? true : false))+" "+content_tag(:label, tc("prices_for_"+mode), :for=>'price_mode_'+mode)
       =select(:price, :supply, @suppliers.collect{|x| [x.full_name,x.id]})
       =submit_tag tg('filter')
-=toolbar do |t|
-  -t.link :new_sales_price, {:action=>:new, :mode=>:sales}
-  -t.link :new_purchase_price, {:action=>:new, :mode=>:purchases}
+=main_toolbar do |t|
+  -t.new_sales_price, {:action=>:new, :mode=>:sales}
+  -t.new_purchase_price, {:action=>:new, :mode=>:purchases}
   -t.link :export
   -t.link :import
 =list

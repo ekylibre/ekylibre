@@ -1,6 +1,6 @@
 =sale_steps(@outgoing_delivery.sale)
 
-=toolbar do |t|
+=main_toolbar do |t|
   -t.edit @outgoing_delivery if @outgoing_delivery.updateable?
 
 =attributes_list(@outgoing_delivery) do |l|

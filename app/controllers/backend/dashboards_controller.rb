@@ -93,22 +93,29 @@ class Backend::DashboardsController < BackendController
     page = params[:page].to_i
     page = 1 if page.zero?
     # Create filter
-    words = params[:q].to_s.strip.split(/\s+/).collect do |w|
+    words = params[:q].to_s.gsub(/[\'\"\(\)\[\]\=\-\|\{\}]+/, ' ').strip.split(/\s+/).collect do |w|
       for group in SIMILAR_LETTERS
         exp = "(" + group.join("|") + ")"
         w.gsub!(Regexp.new(exp), exp)
       end
-      w.gsub("'", "\\\\'")
+      w
     end
 
+    pertinence = "1"
+    if words.count > 0
+      # max is the maximal points count that can be obtained for a key word
+      # here it's equivalent to find 5 times the sole word.
+      max = 4 * 5
+      pertinence = "ROUND(100.0 * CAST((" + words.collect do |word|
+        points = [word, "#{word}\\\\M", "#{word}\\\\M", "\\\\M#{word}\\\\M"].collect do |exp|
+          # Count occurrences
+          "ARRAY_LENGTH(REGEXP_SPLIT_TO_ARRAY(indexer, E'#{exp}', 'i'), 1)-1"
+        end.join("+")
+        "(CASE WHEN (#{points}) > #{max} THEN #{max} ELSE (#{points}) END)"
+      end.join(" * ") + ") AS FLOAT)/#{max ** words.count}.0)"
+    end
 
-    filtered = "SELECT record_id, record_type, title, indexer, (" + words.collect do |word|
-      points = "(array_length(regexp_split_to_array(indexer, E'#{word}', 'i'), 1) - 1) + " + 
-        "(array_length(regexp_split_to_array(indexer, E'#{word}\\\\M', 'i'), 1) - 1) * 2 + " + 
-        "(array_length(regexp_split_to_array(indexer, E'\\\\m#{word}', 'i'), 1) - 1) * 3 + " +
-        "(array_length(regexp_split_to_array(indexer, E'\\\\m#{word}\\\\M', 'i'), 1) - 1) * 4"
-      "CASE WHEN (#{points}) = 0 THEN -40 ELSE (#{points}) END"
-    end.join(" + ") + ") AS pertinence FROM (#{@@centralizing_query}) AS centralizer GROUP BY record_type, record_id, title, indexer"
+    filtered = "SELECT record_id, record_type, title, indexer, (" + pertinence + ") AS pertinence FROM (#{@@centralizing_query}) AS centralizer GROUP BY record_type, record_id, title, indexer"
 
     filter  = " FROM (#{filtered}) AS filtered"
     filter << " WHERE filtered.pertinence > 0"

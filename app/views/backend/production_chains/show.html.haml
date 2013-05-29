@@ -1,7 +1,7 @@
 -if current_user.can? :build_production_chains
   =toolbar do |t|
     -t.edit @production_chain
-    -t.link :new, :controller=>:production_chain_work_centers, :production_chain_id=>@production_chain.id
+    -t.new :controller=>:production_chain_work_centers, :production_chain_id=>@production_chain.id
 
   #chains=render 'work_center', :collection => @production_chain.operations
   -if @production_chain.unused_conveyors.size > 0

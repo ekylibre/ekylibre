@@ -81,6 +81,7 @@ arb:
       new: "التسجيل لخزينة جديدة"
       show: "%{nature_label} : %{name}"
     backend/cells/bank_chart_cells: #?
+    backend/cells/calendar_cells: #?
     backend/cells/demo_bar_cells: #?
     backend/cells/demo_map_cells: #?
     backend/cells/demo_pie_cells: #?
@@ -92,6 +93,8 @@ arb:
     backend/cells/placeholder_cells: #?
     backend/cells/product_bar_cells: #?
     backend/cells/product_pie_cells: #?
+    backend/cells/purchases_bar_cells: #?
+    backend/cells/purchases_expense_bar_cells: #?
     backend/cells/rss_cells: #?
     backend/companies:  #?
       register: "تسجيل شركة" #?
@@ -331,6 +334,7 @@ arb:
       # show: "Matière\_: %{name}"
     backend/myselves:
       # change_password: "Changer de mot de passe"
+      # show: "Mes informations"
       statistics: "احصائياتي"
     backend/observations:
       edit: "تعديل الملاحظة"
@@ -376,7 +380,7 @@ arb:
     backend/posologies: #?
     backend/preferences:
       # edit: "Modifier les préférences"
-      # index: "Préfénces"
+      # index: "Préférences"
       # new: "Nouvelle préférence"
       # show: "Préférence"
     backend/prescriptions: #?
@@ -1503,6 +1507,8 @@ arb:
       summary: "النفقات"
     purchase_update: "تعديل معلومات الطلب"
     purchases: "المشتريات"
+    # purchases_bar: "Achats par type"
+    # purchases_expense_bar: "Dépenses par mois"
     purchases_number: "" #?
     purchases_price_create: "اضافة سعر الشراء"
     quantity: "الكمية"

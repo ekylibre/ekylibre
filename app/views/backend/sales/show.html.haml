@@ -1,6 +1,6 @@
 =sale_steps if params[:step]
 
-=toolbar do |t|
+=main_toolbar do |t|
   -if @sale.invoice?
     -t.export :sales_invoice, @sale
     -t.cancel(@sale) if @sale.cancelable?
@@ -32,7 +32,7 @@
         -# @sale_item = @sale.items.new
         -# if @sale.draft?
           =toolbar do |t|
-            -t.link(:new, :controller => :sale_items, :sale_id => @sale.id)
+            -t.new(:controller => :sale_items, :sale_id => @sale.id)
           =render :partial => "backend/sale_items/row_form"
         =list :items do
           %tr.total
@@ -83,7 +83,7 @@
     -b.cell Sale.human_attribute_name(:affair) do
       -#unless @sale.affair.closed?
         =toolbar do |t|
-          -#t.link(:new, :controller => :incoming_payment_uses, :expense_type => :sale, :expense_id => @sale.id, :i18n => {:label => @sale.label})
+          -#t.new(:controller => :incoming_payment_uses, :expense_type => :sale, :expense_id => @sale.id, :i18n => {:label => @sale.label})
           -for payment in @sale.usable_payments
             -#t.link(tl("use_incoming_payment", :payment => payment.label), {:action => :create, :controller => :incoming_payment_uses, :incoming_payment_use => {:expense_type => @sale.class.name, :expense_id => @sale.id, :payment_id => payment.id}}, :method => :post)
       =affair_of(@sale)
@@ -93,7 +93,7 @@
     -if @sale.deliverable?
       -b.cell tc(:undelivered) do
         =toolbar do |t|
-          -t.link :new, :controller => :outgoing_deliveries, :sale_id => @sale.id
+          -t.new :controller => :outgoing_deliveries, :sale_id => @sale.id
         =list :undelivered_items
       -if @sale.deliveries.count > 0
         -b.cell Sale.human_attribute_name("deliveries") do

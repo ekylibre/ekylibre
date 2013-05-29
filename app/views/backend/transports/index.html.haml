@@ -1,7 +1,7 @@
 =kujaku do |k|
   -k.text
   -# k.radio :all, :waiting, :making, :ready, :shipped
-=toolbar do |t|
+=main_toolbar do |t|
   -waiting_transporters = Entity.necessary_transporters
   -unless (count = OutgoingDelivery.without_transporter.count).zero?
     -t.link tl(:new_transport_of_x_deliveries, :count=>count), :action=>:new

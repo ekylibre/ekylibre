@@ -1,4 +1,4 @@
-=toolbar do |t|
+=main_toolbar do |t|
   -t.edit @product_price_listing
 
 =beehive do |b|
@@ -10,5 +10,5 @@
 
   -b.cell tc(:x_prices, :count => @product_price_listing.active_price_templates.count) do
     =toolbar do |t|
-      -t.link :new, :action => :new, :controller => :product_price_templates, :mode => :sales
+      -t.new :action => :new, :controller => :product_price_templates, :mode => :sales
     =list :templates

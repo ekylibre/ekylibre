@@ -5,8 +5,8 @@
     %label=Sale.human_attribute_name(:responsible)
     =select_tag(:responsible_id, options_for_select([[]] + Entity.all.collect{|u| [u.label, u.id]}, params[:responsible_id]))
 
-=toolbar do |t|
-  -t.link :new
+=main_toolbar do |t|
+  -t.new
   -t.link :statistics
   -# t.print_sales Date.today.to_s, :action=>:index, :controller=>:sales
 

@@ -76,6 +76,7 @@ eng:
       new: "Add a new cash"
       show: "%{nature}: %{name}"
     backend/cells/bank_chart_cells: #?
+    backend/cells/calendar_cells: #?
     backend/cells/demo_bar_cells: #?
     backend/cells/demo_map_cells: #?
     backend/cells/demo_pie_cells: #?
@@ -87,6 +88,8 @@ eng:
     backend/cells/placeholder_cells: #?
     backend/cells/product_bar_cells: #?
     backend/cells/product_pie_cells: #?
+    backend/cells/purchases_bar_cells: #?
+    backend/cells/purchases_expense_bar_cells: #?
     backend/cells/rss_cells: #?
     backend/custom_field_choices:
       edit: "Edit the option: %{name}"
@@ -289,6 +292,7 @@ eng:
       # show: "Matière\_: %{name}"
     backend/myselves:
       change_password: "Change my password"
+      # show: "Mes informations"
       statistics: "My statistics"
     backend/observations:
       edit: "Edit the observation"
@@ -327,7 +331,7 @@ eng:
       # show: "Culture\_: %{name} "
     backend/preferences:
       # edit: "Modifier les préférences"
-      # index: "Préfénces"
+      # index: "Préférences"
       # new: "Nouvelle préférence"
       # show: "Préférence"
     backend/prices:  #?
@@ -1313,6 +1317,8 @@ eng:
       summary: "Disbursements"
     # purchase_update: "Modifier les informations de la commande"
     purchases: "Purchases"
+    # purchases_bar: "Achats par type"
+    # purchases_expense_bar: "Dépenses par mois"
     # purchases_price_create: "Ajouter un prix d’achat"
     quantity: "Quantity"
     quantity_rest: "Remaining quantity"

@@ -1,4 +1,4 @@
-=toolbar do |t|
+=main_toolbar do |t|
   -t.edit @cash
 
 =beehive do |b|
@@ -25,5 +25,5 @@
         =list(:deposits)
       -b.cell(Cash.human_attribute_name(:bank_statements)) do
         =toolbar do |t|
-          -t.link(:new, :controller=>:bank_statements, :cash_id=>@cash.id)
+          -t.new(:controller=>:bank_statements, :cash_id=>@cash.id)
         =list(:bank_statements)

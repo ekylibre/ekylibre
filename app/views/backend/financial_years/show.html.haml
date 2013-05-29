@@ -1,4 +1,4 @@
-=toolbar do |t|
+=main_toolbar do |t|
   -t.compute_balances @financial_year, :method=>:post
   -attrs = {}
   -attrs["data-confirm"] = "labels.are_you_sure".t if @financial_year.last_journal_entry

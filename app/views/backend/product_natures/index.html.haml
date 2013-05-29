@@ -5,7 +5,7 @@
     %label=tl(:category)
     =select_tag(:category_id, options_for_select([[]] + ProductNatureCategory.all.collect{|s| [s.name, s.id]}, :selected => params[:category_id]))
 
-=toolbar do |t|
-  -t.link :new
+=main_toolbar do |t|
+  -t.new
 =list
 

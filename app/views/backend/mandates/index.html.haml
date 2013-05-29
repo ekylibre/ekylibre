@@ -5,7 +5,7 @@
     %label=tc(:select_organization)
     =select_tag("organization", options_for_select([""]+@organizations.collect{|e| [e.organization.to_s, e.organization.to_s]}, session[:mandates][:organization].to_s))
 
-=toolbar do |t|
-  -t.link :new
+=main_toolbar do |t|
+  -t.new
   -t.link :configure
 =list

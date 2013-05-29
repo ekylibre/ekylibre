@@ -3,6 +3,9 @@
   @if $color == false {
     $color: visible-color($background-color);
   }
+  @else {
+    color: $color;
+  }
   @if $focus-background-color == false {
     $focus-background-color: $background-color;
   }

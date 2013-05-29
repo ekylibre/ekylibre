@@ -190,7 +190,12 @@ ul.dropdown-menu {
   }
 }
 
-
+.btn-help {
+  position: relative;
+  i {
+    @include use-icon(print);
+  }
+}
 
 
 
@@ -371,8 +376,8 @@ html.authentication {
   @include float(right);
   margin-top: round(($header-height - $button-height) / 2);
   @include margin-right($default-gap);
-  .btn-group-default {
-    .btn {
+  > .btn-group {
+    > .btn {
       font-size: 0;
       .icon, i { margin: 0; }
       .text { display: none; }

@@ -1,5 +1,5 @@
-=toolbar do |t|
-  -t.link :new if Product.count > 0
+=main_toolbar do |t|
+  -t.new if Product.count > 0
   -t.print_stocks Date.today.to_s, :action=>:index, :controller=>:products
 
 =list

@@ -1003,6 +1003,9 @@
       <item name="bank_chart_cells">
         <page to="backend/cells/bank_chart_cells#show"/>
       </item>
+      <item name="calendar_cells">
+        <page to="backend/cells/calendar_cells#show"/>
+      </item>
       <item name="demo_bar_cells">
         <page to="backend/cells/demo_bar_cells#show"/>
       </item>
@@ -1035,6 +1038,12 @@
       </item>
       <item name="product_pie_cells">
         <page to="backend/cells/product_pie_cells#show"/>
+      </item>
+      <item name="purchases_bar_cells">
+        <page to="backend/cells/purchases_bar_cells#show"/>
+      </item>
+      <item name="purchases_expense_bar_cells">
+        <page to="backend/cells/purchases_expense_bar_cells#show"/>
       </item>
       <item name="rss_cells">
         <page to="backend/cells/rss_cells#show"/>

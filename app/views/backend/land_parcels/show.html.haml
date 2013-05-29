@@ -1,4 +1,4 @@
-=toolbar do |t|
+=main_toolbar do |t|
   -t.edit @land_parcel
   -t.divide @land_parcel
 
@@ -33,6 +33,6 @@
 
   %h2=tc :operations
   =toolbar do |t|
-    -t.link :new, :controller=>:operations, :target_id=>@land_parcel.id, :target_type=>LandParcel.name
+    -t.new :controller=>:operations, :target_id=>@land_parcel.id, :target_type=>LandParcel.name
   =list(:operations)
   

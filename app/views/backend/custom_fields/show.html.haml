@@ -1,6 +1,6 @@
-=toolbar do |t|
+=main_toolbar do |t|
   -if @custom_field.choice?
-    -t.link :new, :controller=>:custom_field_choices, :custom_field_id=>@custom_field.id
+    -t.new :controller=>:custom_field_choices, :custom_field_id=>@custom_field.id
     -t.sort @custom_field, {:method=>:post}
   -t.edit @custom_field
 

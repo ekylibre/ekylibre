@@ -692,159 +692,151 @@ module ApplicationHelper
   # def tool(code = nil, &block)
   #   raise ArgumentError.new("Arguments XOR block code are accepted, but not together.") if (code and block_given?) or (code.blank? and !block_given?)
   #   code = capture(&block) if block_given?
-  #   content_for(:main_toolbar, code)
+  #   content_for(:main_toolbar_default, code)
   #   return true
   # end
-
-  # Build the main toolbar
-  def main_toolbar_tag
-    content_tag(:div,
-                content_for(:main_toolbar),
-                :id => "main-toolbar")
-  end
-
 
   def tool_to(name, url, options={})
     raise ArgumentError.new("##{__method__} cannot use blocks") if block_given?
     icon = (options.has_key?(:tool) ? options.delete(:tool) : url.is_a?(Hash) ? url[:action] : nil)
-    sprite = options.delete(:sprite) || "icons-16"
-    options[:class] = ''
     options[:class] = (options[:class].blank? ? 'btn' : options[:class].to_s+' btn')
-    options[:class] += ' btn-'+icon.to_s if icon
-    options[:class] += ' '+options.delete(:size).to_s if options.has_key?(:size)
+    options[:class] << ' btn-' + icon.to_s if icon
     link_to(url, options) do
-      (icon ? content_tag(:span, '', :class => "icon")+content_tag(:span, name, :class => "text") : content_tag(:span, name, :class => "text"))
+      # (icon ? content_tag(:span, '', :class => "icon")+content_tag(:span, name, :class => "text") : content_tag(:span, name, :class => "text"))
+      (icon ? content_tag(:i) + h(name) : h(name))
     end
   end
 
+
+
+
+  # def toolbar_link(*args)
+  #   name = args[0]
+  #   args[1] ||= {}
+  #   args[2] ||= {}
+  #   if name.is_a? Symbol
+  #     args[0] = ::I18n.t("actions.#{args[1][:controller]||controller_name}.#{name}".to_sym, {:default => "labels.#{name}".to_sym}.merge(args[2].delete(:i18n)||{}))
+  #   end
+  #   if name.is_a? Symbol and name!=:back
+  #     args[1][:action] ||= name
+  #   end
+  #   return tool_to(*args) if authorized?(args[1])
+  #   return nil
+  # end
+
+  def toolbar_tool_to(name, url, options={})
+    return tool_to(name, url, options) if authorized?(url)
+    return nil
+  end
+  def toolbar_export(datasource, record = nil, options = {})
+    templates = DocumentTemplate.with_datasource(datasource)
+    if templates.count > 0
+      return content_tag(:div, :class => "btn-export btn-group") do
+        link_to(content_tag(:i), "#", :class => "btn btn-print") +
+          link_to(content_tag(:i), "#", :class => "btn btn-dropdown", 'data-toggle' => 'dropdown') +
+          content_tag(:ul,
+                      templates.collect do |template| # of_nature(dn)
+                        content_tag(:li, link_to(content_tag(:i) + h(template.name), '#'))
+                      end.join.html_safe,
+                      :class => 'dropdown-menu')
+      end
+    end
+    return nil
+  end
+
+  def toolbar_mail_to(*args)
+    args[2] ||= {}
+    email_address = ERB::Util.html_escape(args[0])
+    extras = %w{ cc bcc body subject }.map { |item|
+      option = args[2].delete(item) || next
+      "#{item}=#{Rack::Utils.escape(option).gsub("+", "%20")}"
+    }.compact
+    extras = extras.empty? ? '' : '?' + ERB::Util.html_escape(extras.join('&'))
+    return tool_to(args[1], "mailto:#{email_address}#{extras}".html_safe, :tool => :mail)
+  end
+
+  def toolbar_missing(action, record = nil, tag_options = {})
+    tag_options = {} unless tag_options.is_a? Hash
+    url = {}
+    url.update(tag_options.delete(:params)) if tag_options[:params].is_a? Hash
+    url[:controller] ||= controller_name
+    url[:action] = action
+    url[:id] = record.id if record
+    return tool_to(t("actions.#{url[:controller]}.#{action}".to_sym, {:default => "labels.#{action}".to_sym}.merge(record ? record.attributes.symbolize_keys : {})), url, tag_options) if authorized?(url)
+    return nil
+  end
+
+
+  # Build the main toolbar
+  def main_toolbar_tag
+    content_tag(:div, content_for(:main_toolbar), :id => "main-toolbar")
+  end
+
+  # Create the main toolbar with the same API as toolbar
+  def main_toolbar(options = {}, &block)
+    # TODO: Adds help
+
+    content_for(:main_toolbar, toolbar(options.merge(:wrap => false), &Proc.new{ |t|
+                                         block[t]
+                                         t.tool_to(content_tag(:i) + h(tl(:help)), '#help', 'data-toggle' => 'help', :class => "btn") # , :group => :help
+                                       }))
+    return nil
+  end
+
+  # Build a tool bar composed of tool groups composed of tool
   def toolbar(options={}, &block)
     html = '[EmptyToolbarError]'
-    if block_given?
-      toolbar = Toolbar.new
-      if block
-        if block.arity < 1
-          self.instance_values.each do |k,v|
-            toolbar.instance_variable_set("@" + k.to_s, v)
-          end
-          toolbar.instance_eval(&block)
-        else
-          block[toolbar]
-        end
-      end
-      toolbar.link :back if options[:back]
-      # To HTML
-      html = ''.html_safe
-      # call = 'views.' << caller.detect{|x| x.match(/\/app\/views\//)}.split(/\/app\/views\//)[1].split('.')[0].gsub(/\//,'.') << '.'
-      for group, tools in toolbar.tools
-        items = []
-        for tool in tools
-          nature, args = tool[0], tool[1..-1]
-          if nature == :link
-            name = args[0]
-            args[1] ||= {}
-            args[2] ||= {}
-            if name.is_a? Symbol
-              args[0] = ::I18n.t("actions.#{args[1][:controller]||controller_name}.#{name}".to_sym, {:default => "labels.#{name}".to_sym}.merge(args[2].delete(:i18n)||{}))
-            end
-            if name.is_a? Symbol and name!=:back
-              args[1][:action] ||= name
-            end
-            items << tool_to(*args) if authorized?(args[1])
-          elsif nature == :export
-            # dn, args, url = tool[1], tool[2], tool[3]
-            # url[:controller] ||= controller_name
-            # for dt in DocumentTemplate.of_nature(dn)
-            #   items << tool_to(tc(:print_with_template, :name => dt.name), url.merge(:template => dt.code), :tool => :print) if authorized?(url)
-            # end
-            datasource = tool[1].to_s
-            templates = DocumentTemplate.with_datasource(datasource)
-            if templates.count > 0
-              items << content_tag(:div, :class => "btn-export btn-group") do
-                link_to(content_tag(:i), "#", :class => "btn btn-print") +
-                  link_to(content_tag(:i), "#", :class => "btn btn-dropdown", 'data-toggle' => 'dropdown') +
-                  content_tag(:ul,
-                              templates.collect do |template| # of_nature(dn)
-                                content_tag(:li, link_to(content_tag(:i) + h(template.name), '#'))
-                              end.join.html_safe,
-                              :class => 'dropdown-menu')
-              end
-            end
+    toolbar = Toolbar.new
+    yield toolbar if block_given?
 
-          elsif nature == :mail
-            args[2] ||= {}
-            email_address = ERB::Util.html_escape(args[0])
-            extras = %w{ cc bcc body subject }.map { |item|
-              option = args[2].delete(item) || next
-              "#{item}=#{Rack::Utils.escape(option).gsub("+", "%20")}"
-            }.compact
-            extras = extras.empty? ? '' : '?' + ERB::Util.html_escape(extras.join('&'))
-            items << tool_to(args[1], "mailto:#{email_address}#{extras}".html_safe, :tool => :mail)
-          elsif nature == :missing
-            action, record, tag_options = tool[1], tool[2], tool[3]
-            tag_options = {} unless tag_options.is_a? Hash
-            url = {}
-            url.update(tag_options.delete(:params)) if tag_options[:params].is_a? Hash
-            url[:controller] ||= controller_name
-            url[:action] = action
-            url[:id] = record.id
-            items << tool_to(t("actions.#{url[:controller]}.#{action}".to_sym, {:default => "labels.#{action}".to_sym}.merge(record.attributes.symbolize_keys)), url, tag_options) if authorized?(url)
-          end
-        end
-        if items.size > 0
-          html << content_tag(:div, items.join.html_safe, :class => "btn-group btn-group-#{group}")
-        end
+    # To HTML
+    html = ''.html_safe
+    for group, tools in toolbar.tools
+      tools_html = tools.collect{|t| send("toolbar_#{t[0]}", *t[1..-1]) }.compact.join.html_safe
+      unless tools_html.blank?
+        html << content_tag(:div, tools_html.html_safe, :class => "btn-group btn-group-#{group}")
+      end
+    end
 
-      end
-    else
-      raise Exception.new('No block given for toolbar')
+    unless options[:wrap].is_a?(FalseClass)
+      html = content_tag(:div, html, :class => 'toolbar' << (options[:class] ? ' ' << options[:class].to_s : ''))
     end
-    if @not_first_toolbar
-      unless html.blank?
-        html = content_tag(:div, html, :class => 'toolbar' << (options[:class] ? ' ' << options[:class].to_s : ''))
-      end
-      return html.html_safe
-    else
-      content_for(:main_toolbar, html)
-      @not_first_toolbar = true
-      return ""
-    end
+    return html
   end
 
+  # This class permit to register the composition of a toolbar
   class Toolbar
     attr_reader :tools
 
     def initialize()
       @tools = {}
+      @group = "0"
     end
 
-    def link(*args)
-      add(:link, *args)
+    # def link(*args)
+    #   add(:link, *args)
+    # end
+
+    def tool_to(*args)
+      add(:tool_to, *args)
     end
 
-    def mail(*args)
-      add(:mail, *args)
+    def mail_to(*args)
+      add(:mail_to, *args)
     end
 
     def export(*args)
       args << {} unless args[-1].is_a?(Hash)
-      args[-1][:group] ||= :export
+      args[-1][:group] ||= new_group
+      @export = true
       add(:export, *args)
     end
 
     def method_missing(method_name, *args, &block)
       raise ArgumentError.new("Block can not be accepted") if block_given?
-      raise ArgumentError.new("First argument must be an Ekylibre::Record::Base. (#{method_name})") unless args[0].class.ancestors.include? Ekylibre::Record::Base
+      # raise ArgumentError.new("First argument must be an Ekylibre::Record::Base. (#{method_name})") unless args[0].class.ancestors.include? Ekylibre::Record::Base
       add(:missing, method_name, *args)
     end
-
-    # def print(*args)
-    #   # TODO reactive print
-    #   # @tools << [:print, args]
-    # end
-
-    #     def update(record, url={})
-    #       @tools << [:update, record, url]
-    #     end
 
     private
 
@@ -853,6 +845,12 @@ module ApplicationHelper
       group = (options.delete(:group) || "default").to_sym
       @tools[group] ||= []
       @tools[group] << [type, *args]
+    end
+
+    # Build an return a new group name
+    def new_group
+      @group.succ!
+      "g#{@group}".to_sym
     end
 
   end
