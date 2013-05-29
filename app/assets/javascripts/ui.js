@@ -361,6 +361,18 @@
         return false;
     });
 
+    $(document).on("click", "a[data-toggle='help']", function () {
+        var element = $(this), wrap = $('#wrap');
+        if (wrap.hasClass('show-help')) {
+            element.removeClass('active');
+            wrap.removeClass('show-help');
+        } else {
+            element.addClass('active');
+            wrap.addClass('show-help');
+        }
+        return false;
+    });
+
 
     // Toggle side menu
     $(document).behave("click", "a[data-toggle-view-mode]", function () {

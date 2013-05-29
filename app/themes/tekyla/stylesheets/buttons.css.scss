@@ -58,7 +58,7 @@
     @include box-shadow(0 0 round($fs-normal/2) rgba($focus-background-color, 0.5));
     z-index: 2;
   }
-  &:active {
+  &:active, &.active {
     outline: none;
     @include background-image(linear-gradient($background-color, darken($background-color, 8%)));
     border-color: rgba(#000, 0.25) rgba(#000, 0.1) rgba(#000, 0.1);

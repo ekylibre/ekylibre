@@ -200,6 +200,7 @@ ul.dropdown-menu {
 
 
 $header-height: 40px;
+$side-width: 200px;
 
 
 html.backend {
@@ -251,6 +252,16 @@ html.backend {
         height: 100%;
         display: none;
       }
+      &.show-help {
+        & > #help {
+          display: block;
+          width: $side-width;
+        }
+        & > #main {
+          @include calc(width, "100% - #{2 * $side-width}");
+        }
+        
+      }
 
       @media only screen and (max-width: $mini-screen){
         & > #side {
@@ -262,19 +273,26 @@ html.backend {
         &.mini-screen-show-side {
           & > #side {
             display: block;
-            border-right: none;
+            @include border-right(none);
             width: 100%;
             #user {
               display: block;
             }
           }
           & > #main {
-	    display: none;
+            display: none;
+          }
+          &.show-help {
+            & > #side {
+              display: none;
+            }
+            & > #help {
+              width: 100%;
+            }
           }
         }
       }
 
-      $side-width: 200px;
       @media screen and (min-width: $mini-screen + 1px){
         // @include grid-row();
         @include calc(height, "100% - 32px");
@@ -1072,7 +1090,7 @@ $form-actions-height: 48px;
 }
 
 
-
+/*
 #help {
   display: none;
   float: left;
@@ -1091,6 +1109,7 @@ $form-actions-height: 48px;
     padding: $default-gap round($default-gap * 1.4);
   }
 }
+*/
 
 .ui-dialog {
   position: absolute;
