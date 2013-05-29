@@ -16,6 +16,7 @@ gem 'active-list'
 gem 'haml'
 gem 'turbolinks'
 gem "google_visualr", ">= 2.1"
+gem "calendar_helper", "~> 0.2.5"
 
 # Models helpers
 gem 'acts_as_list'

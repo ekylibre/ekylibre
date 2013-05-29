@@ -76,6 +76,9 @@ Ekylibre::Application.routes.draw do
       resource :last_products_cell, :only => :show do
         get :list, :on => :collection
       end
+      resource :calendar_cell, :only => :show do
+        get :list, :on => :collection
+      end
     end
 
     # Check that the id is an integer

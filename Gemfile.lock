@@ -59,6 +59,8 @@ GEM
     binding_of_caller (0.7.1)
       debug_inspector (>= 0.0.1)
     builder (3.0.4)
+    calendar_helper (0.2.5)
+      open4
     capybara (2.1.0)
       mime-types (>= 1.16)
       nokogiri (>= 1.3.3)
@@ -194,6 +196,7 @@ GEM
       hpricot (>= 0.6)
     oily_png (1.1.0)
       chunky_png (~> 1.2.7)
+    open4 (1.3.0)
     orm_adapter (0.4.0)
     paperclip (3.4.2)
       activemodel (>= 3.0.0)
@@ -362,6 +365,7 @@ DEPENDENCIES
   beardley
   better_errors
   binding_of_caller
+  calendar_helper (~> 0.2.5)
   capybara
   capybara-screenshot
   capybara-webkit

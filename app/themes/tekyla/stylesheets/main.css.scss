@@ -1597,3 +1597,77 @@ svg.map {
   display: none;
 }
 
+/* Calendar */
+/* @FIXME : need to be update ! */
+
+.calendar {
+  margin: auto;
+}
+
+.monthName th {
+  font-weight: normal;
+  text-align: right;
+  padding-top: 1em;
+  padding-bottom: 0.7em;
+}
+
+.dayName th {
+  font-size: 0.7em;
+  padding-top: 0.6em;
+  padding-bottom: 0.3em;
+  background-color: #303030;
+  color: white;
+}
+
+.otherMonth, .day, .specialDay {
+  padding: 0.7em 1em;
+  border-right: 1px solid white;
+}
+
+.otherMonth {
+  color: #eeeeee;
+  background-color: white;
+}
+
+.day {
+  text-align: center;
+  border-bottom: 1px dotted #bbbbbb;
+  background-color: #bbccff;
+}
+
+.specialDay {
+  text-align: center;
+  border-bottom: 1px dotted #bbbbbb;
+  background-color: #bbccff;
+  background-color: #003355;
+  color: white;
+  a {
+    color: white;
+    text-decoration: none;
+    padding: 1em;
+    &:visited {
+      color: white;
+      text-decoration: none;
+      padding: 1em;
+    }
+    &:hover {
+      color: white;
+      text-decoration: none;
+      padding: 1em;
+      color: white;
+      background-color: black;
+    }
+  }
+}
+
+.weekendDay {
+  background-color: #ffffdd;
+}
+
+.today {
+  background-color: #4682b4;
+}
+
+.weekNumber {
+  background-color: #dedede;
+}
