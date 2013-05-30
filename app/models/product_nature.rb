@@ -36,7 +36,7 @@
 #  indivisible            :boolean          not null
 #  lock_version           :integer          default(0), not null
 #  name                   :string(255)      not null
-#  number                 :string(32)       not null
+#  number                 :string(31)       not null
 #  producible             :boolean          not null
 #  product_account_id     :integer
 #  purchasable            :boolean          not null
@@ -55,13 +55,13 @@
 #  unit_id                :integer          not null
 #  updated_at             :datetime         not null
 #  updater_id             :integer
-#  variety_id             :integer          not null
+#  variety                :string(127)      not null
 #
 
 
 class ProductNature < Ekylibre::Record::Base
   # attr_accessible :active, :commercial_description, :commercial_name, :category_id, :deliverable, :description, :for_immobilizations, :for_productions, :for_purchases, :for_sales, :asset_account_id, :name, :nature, :number, :charge_account_id, :reduction_submissive, :product_account_id, :stockable, :subscription_nature_id, :subscription_period, :subscription_quantity, :trackable, :unit_id, :unquantifiable, :weight
-  attr_accessible :active, :commercial_description, :commercial_name, :category_id, :deliverable, :description, :depreciable, :producible, :purchasable, :saleable, :asset_account_id, :name, :number,:stock_account_id ,:charge_account_id, :product_account_id, :storable, :subscription_nature_id, :subscription_duration, :traceable, :unit_id, :reductible, :indivisible, :alive, :storage, :subscribing, :towable, :tractive, :variety_id
+  attr_accessible :active, :commercial_description, :commercial_name, :category_id, :deliverable, :description, :depreciable, :producible, :purchasable, :saleable, :asset_account_id, :name, :number,:stock_account_id ,:charge_account_id, :product_account_id, :storable, :subscription_nature_id, :subscription_duration, :traceable, :unit_id, :reductible, :indivisible, :alive, :storage, :subscribing, :towable, :tractive, :variety
   #enumerize :nature, :in => [:product, :service, :subscription], :default => :product, :predicates => true
   belongs_to :asset_account, :class_name => "Account"
   belongs_to :charge_account, :class_name => "Account"
@@ -70,8 +70,8 @@ class ProductNature < Ekylibre::Record::Base
   belongs_to :subscription_nature
   belongs_to :category, :class_name => "ProductNatureCategory"
   belongs_to :unit
-  belongs_to :variety, :class_name => "ProductVariety"
-  #has_many :available_stocks, :class_name => "ProductStock", :conditions => ["quantity > 0"], :foreign_key => :product_id
+  # belongs_to :variety, :class_name => "ProductVariety"
+  # has_many :available_stocks, :class_name => "ProductStock", :conditions => ["quantity > 0"], :foreign_key => :product_id
   # has_many :components, :class_name => "ProductNatureComponent", :conditions => {:active => true}, :foreign_key => :product_nature_id
   #has_many :outgoing_delivery_items, :foreign_key => :product_id
   has_many :prices, :foreign_key => :product_nature_id, :class_name => "ProductPriceTemplate"
@@ -89,7 +89,8 @@ class ProductNature < Ekylibre::Record::Base
   # has_many :buildings, :through => :stocks
   #has_one :default_stock, :class_name => "ProductStock", :order => :name, :foreign_key => :product_id
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_length_of :number, :allow_nil => true, :maximum => 32
+  validates_length_of :number, :allow_nil => true, :maximum => 31
+  validates_length_of :variety, :allow_nil => true, :maximum => 127
   validates_length_of :commercial_name, :name, :subscription_duration, :allow_nil => true, :maximum => 255
   validates_inclusion_of :active, :alive, :deliverable, :depreciable, :indivisible, :producible, :purchasable, :reductible, :saleable, :storable, :storage, :subscribing, :towable, :traceable, :tractive, :transferable, :in => [true, false]
   validates_presence_of :category, :commercial_name, :name, :number, :unit, :variety

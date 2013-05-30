@@ -61,14 +61,14 @@
 #  unit_id                  :integer          not null
 #  updated_at               :datetime         not null
 #  updater_id               :integer
-#  variety_id               :integer          not null
+#  variety                  :string(127)      not null
 #  virtual_quantity         :decimal(19, 4)   default(0.0), not null
 #  work_number              :string(255)
 #
 
 
 class LandParcelDivision < SubZone
-  attr_accessible :name, :area_measure, :area_unit_id, :born_at, :dead_at, :shape, :unit_id, :variety_id
+  attr_accessible :name, :area_measure, :area_unit_id, :born_at, :dead_at, :shape, :unit_id, :variety
   belongs_to :area_unit, :class_name => "Unit"
   # TODO : adapt with operations
   #has_many :operations, :as => :target

@@ -445,11 +445,7 @@ spa:
       # edit: "Modifier l’un transfert de stock"
       # index: "Transferts et pertes de stocks"
       # new: "Ajouter un transfert ou une perte de stocks"
-    backend/product_varieties:
-      # edit: "Modifier la variété\_: %{name} "
-      # index: "Variétés"
-      # new: "Créer une variété"
-      # show: "Variété\_: %{name}"
+    backend/product_varieties: #?
     backend/production_chain_conveyors:
       # edit: "Mettre à jour le convoyeur (%{source_id}-%{target_id})"
       # new: "Ajouter un nouveau convoyeur dans la chaîne de production"
@@ -672,7 +668,6 @@ spa:
     # backend/product_price_templates: "Types de prix"
     # backend/product_prices: "Prix des produits"
     # backend/product_transfers: "Transferts et pertes de stocks"
-    # backend/product_varieties: "Races"
     backend/production: "Producción" #?
     # backend/production_chain_conveyors: "Convoyeurs de chaînes de production"
     # backend/production_chain_work_center_uses: "Utilisation des ateliers de chaînes de production"

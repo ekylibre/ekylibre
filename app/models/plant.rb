@@ -61,20 +61,20 @@
 #  unit_id                  :integer          not null
 #  updated_at               :datetime         not null
 #  updater_id               :integer
-#  variety_id               :integer          not null
+#  variety                  :string(127)      not null
 #  virtual_quantity         :decimal(19, 4)   default(0.0), not null
 #  work_number              :string(255)
 #
 class Plant < Bioproduct
-  attr_accessible :unit_id, :variety_id, :nature_id, :reproductor, :external, :born_at, :dead_at, :description, :description, :identification_number, :name, :picture, :work_number
-  #enumerize :sex, :in => [:male, :female]
-  #enumerize :arrival_reasons, :in => [:birth, :purchase, :housing, :other], :default=> :birth
-  #enumerize :departure_reasons, :in => [:dead, :sale, :autoconsumption, :other], :default=> :sale
+  attr_accessible :unit_id, :variety, :nature_id, :reproductor, :external, :born_at, :dead_at, :description, :description, :identification_number, :name, :picture, :work_number
+  # enumerize :sex, :in => [:male, :female]
+  # enumerize :arrival_reasons, :in => [:birth, :purchase, :housing, :other], :default=> :birth
+  # enumerize :departure_reasons, :in => [:dead, :sale, :autoconsumption, :other], :default=> :sale
   # has_many :groups, :class_name => "ProductGroup", :through => :passages
-  #belongs_to :father, :class_name => "Animal", :conditions => {:sex => :male, :reproductor => 'true'}
-  #belongs_to :mother, :class_name => "Animal", :conditions => {:sex => :female}
-  belongs_to :nature, :class_name => "ProductNature"
-  belongs_to :variety, :class_name => "ProductVariety"
+  # belongs_to :father, :class_name => "Animal", :conditions => {:sex => :male, :reproductor => 'true'}
+  # belongs_to :mother, :class_name => "Animal", :conditions => {:sex => :female}
+  # belongs_to :nature, :class_name => "ProductNature"
+  # belongs_to :variety, :class_name => "ProductVariety"
 
   # @TODO waiting for events and operations stabilizations
   #has_many :events, :class_name => "Log"

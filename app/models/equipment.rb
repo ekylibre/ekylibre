@@ -61,14 +61,14 @@
 #  unit_id                  :integer          not null
 #  updated_at               :datetime         not null
 #  updater_id               :integer
-#  variety_id               :integer          not null
+#  variety                  :string(127)      not null
 #  virtual_quantity         :decimal(19, 4)   default(0.0), not null
 #  work_number              :string(255)
 #
 
 
 class Equipment < Matter
-  attr_accessible :nature_id, :asset_id, :picture, :name, :description, :born_at, :dead_at, :active, :external, :content_unit_id, :content_nature_id, :owner_id, :parent_id, :variety_id, :reservoir, :content_maximal_quantity
+  attr_accessible :nature_id, :asset_id, :picture, :name, :description, :born_at, :dead_at, :active, :external, :content_unit_id, :content_nature_id, :owner_id, :parent_id, :variety, :reservoir, :content_maximal_quantity
   # has_many :uses, :class_name => "OperationUse"
   # belongs_to :nature, :class_name => "ProductNature"
   # belongs_to :variety, :class_name => "ProductVariety"

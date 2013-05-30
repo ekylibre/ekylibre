@@ -49,7 +49,7 @@ class Backend::ProductNaturesController < BackendController
     t.column :purchasable
     t.column :saleable
     t.column :storable
-    t.column :name, :through => :variety
+    t.column :variety
     t.column :label, :through => :unit
     t.action :edit
     t.action :destroy

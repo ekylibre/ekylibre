@@ -61,7 +61,7 @@
 #  unit_id                  :integer          not null
 #  updated_at               :datetime         not null
 #  updater_id               :integer
-#  variety_id               :integer          not null
+#  variety                  :string(127)      not null
 #  virtual_quantity         :decimal(19, 4)   default(0.0), not null
 #  work_number              :string(255)
 #

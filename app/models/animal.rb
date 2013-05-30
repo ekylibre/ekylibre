@@ -61,13 +61,13 @@
 #  unit_id                  :integer          not null
 #  updated_at               :datetime         not null
 #  updater_id               :integer
-#  variety_id               :integer          not null
+#  variety                  :string(127)      not null
 #  virtual_quantity         :decimal(19, 4)   default(0.0), not null
 #  work_number              :string(255)
 #
 
 class Animal < Bioproduct
-  attr_accessible :unit_id, :variety_id, :nature_id, :reproductor, :external, :born_at, :dead_at, :description, :description, :father_id, :mother_id, :identification_number, :name, :picture, :sex, :work_number
+  attr_accessible :unit_id, :variety, :nature_id, :reproductor, :external, :born_at, :dead_at, :description, :description, :father_id, :mother_id, :identification_number, :name, :picture, :sex, :work_number
   enumerize :sex, :in => [:male, :female]
   #enumerize :arrival_reasons, :in => [:birth, :purchase, :housing, :other], :default=> :birth
   #enumerize :departure_reasons, :in => [:dead, :sale, :autoconsumption, :other], :default=> :sale

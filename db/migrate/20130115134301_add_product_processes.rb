@@ -65,7 +65,7 @@ class AddProductProcesses< ActiveRecord::Migration
     add_index :product_process_phases, :process_id
 
     create_table :product_processes do |t|
-      t.references :variety, :null => false
+      t.string     :variety, :null => false, :limit => 127
       t.string     :name,   :null => false
       t.string     :nature, :null => false # Work notion
       t.string     :comment
@@ -73,7 +73,7 @@ class AddProductProcesses< ActiveRecord::Migration
       t.stamps
     end
     add_stamps_indexes :product_processes
-    add_index :product_processes, :variety_id
+    add_index :product_processes, :variety
 
   end
 

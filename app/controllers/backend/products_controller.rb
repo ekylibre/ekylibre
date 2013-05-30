@@ -28,7 +28,7 @@ class Backend::ProductsController < BackendController
     t.column :active
     t.column :number, :url => true
     t.column :name, :url => true
-    t.column :name, :through => :variety
+    t.column :variety
     t.column :full_name, :through => :owner
     t.column :description
     t.action :show, :url => {:format => :pdf}, :image => :print
@@ -38,14 +38,14 @@ class Backend::ProductsController < BackendController
 
   def index
     @product = Product.all
-    respond_with @product, :include => [:father, :mother, :variety]
+    respond_with @product, :include => [:father, :mother]
   end
 
   def show
     return unless @product = find_and_check
     session[:current_product_id] = @product.id
     t3e @product
-    respond_with(@product, :include => [:father, :mother, :nature, :variety, {:memberships => {:include => :group},:indicator_data => {:include => :indicator}, :product_localizations => {:include => :container}}])
+    respond_with(@product, :include => [:father, :mother, :nature, {:memberships => {:include => :group},:indicator_data => {:include => :indicator}, :product_localizations => {:include => :container}}])
 
   end
 

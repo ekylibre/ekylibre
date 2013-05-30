@@ -407,11 +407,7 @@ eng:
       edit: "Edit the stock transfer/loss"
       index: "Transfers and loss"
       new: "Add a new stock transfer or loss"
-    backend/product_varieties:
-      # edit: "Modifier la variété\_: %{name} "
-      # index: "Variétés"
-      # new: "Créer une variété"
-      # show: "Variété\_: %{name}"
+    backend/product_varieties: #?
     backend/production_chain_conveyors:
       edit: "Edit production chain conveyor (%{source_id}-%{target_id})"
       new: "Add a new conveyor in the production chain"
@@ -624,7 +620,7 @@ eng:
     # backend/product_price_templates: "Types de prix"
     # backend/product_prices: "Prix des produits"
     backend/product_transfers: "Transfers and loss"
-    backend/product_varieties: "Product species"
+    backend/product_varieties: "Product species" #?
     backend/production_chain_conveyors: "Production chain conveyors"
     backend/production_chain_work_center_uses: "Production chain work center uses"
     backend/production_chain_work_centers: "Production chain work centers"

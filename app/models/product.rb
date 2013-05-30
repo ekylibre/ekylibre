@@ -62,7 +62,7 @@
 #  unit_id                  :integer          not null
 #  updated_at               :datetime         not null
 #  updater_id               :integer
-#  variety_id               :integer          not null
+#  variety                  :string(127)      not null
 #  virtual_quantity         :decimal(19, 4)   default(0.0), not null
 #  work_number              :string(255)
 #
@@ -71,7 +71,7 @@
 class Product < Ekylibre::Record::Base
   attr_accessible :area_unit_id, :area_measure, :nature_id, :number, :identification_number, :work_number, :born_at, :sex, :picture, :owner_id, :parent_id
   belongs_to :nature, :class_name => "ProductNature"
-  belongs_to :variety, :class_name => "ProductVariety"
+  # belongs_to :variety, :class_name => "ProductVariety"
   belongs_to :unit
   belongs_to :area_unit, :class_name => "Unit"
   belongs_to :tracking
@@ -102,6 +102,7 @@ class Product < Ekylibre::Record::Base
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :picture_file_size, :allow_nil => true, :only_integer => true
   validates_numericality_of :area_measure, :content_maximal_quantity, :maximal_quantity, :minimal_quantity, :real_quantity, :virtual_quantity, :allow_nil => true
+  validates_length_of :variety, :allow_nil => true, :maximum => 127
   validates_length_of :identification_number, :name, :number, :picture_content_type, :picture_file_name, :sex, :work_number, :allow_nil => true, :maximum => 255
   validates_inclusion_of :active, :external, :reproductor, :reservoir, :in => [true, false]
   validates_presence_of :content_maximal_quantity, :maximal_quantity, :minimal_quantity, :name, :nature, :number, :owner, :real_quantity, :unit, :variety, :virtual_quantity
@@ -126,7 +127,7 @@ class Product < Ekylibre::Record::Base
 
   def set_variety_and_unit
     if self.nature
-      self.variety_id = self.nature.variety_id
+      self.variety = self.nature.variety
       self.unit_id = self.nature.unit_id
     end
   end

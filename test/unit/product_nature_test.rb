@@ -36,7 +36,7 @@
 #  indivisible            :boolean          not null
 #  lock_version           :integer          default(0), not null
 #  name                   :string(255)      not null
-#  number                 :string(32)       not null
+#  number                 :string(31)       not null
 #  producible             :boolean          not null
 #  product_account_id     :integer
 #  purchasable            :boolean          not null
@@ -55,7 +55,7 @@
 #  unit_id                :integer          not null
 #  updated_at             :datetime         not null
 #  updater_id             :integer
-#  variety_id             :integer          not null
+#  variety                :string(127)      not null
 #
 require 'test_helper'
 

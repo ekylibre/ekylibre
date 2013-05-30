@@ -620,22 +620,6 @@ class NormalizeProducts < ActiveRecord::Migration
     }
   }
 
-  VARIETIES = {
-    :product => {
-      :bioproduct => {
-        :animal => nil,
-        :vegetal => nil,
-        :fungus => nil
-      },
-      :place => {
-        :warehouse => nil,
-        :land_parcel => nil
-      },
-      :equipment => nil,
-      :matter => nil,
-      :service => nil
-    }
-  }
 
   # Returns tables
   def references_of(table)
@@ -698,16 +682,6 @@ class NormalizeProducts < ActiveRecord::Migration
   end
 
 
-  def insert_varieties(types, parent_id = nil)
-    for type, children in types
-      execute("INSERT INTO #{quoted_table_name(:product_varieties)} (name, code, product_type, automatic, parent_id, created_at, updated_at) SELECT '#{type.to_s.humanize}', '#{type}', '#{type.to_s.camelcase}', #{quoted_true}, #{parent_id || 'NULL'}, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP")
-      unless children.nil?
-        new_parent_id = select_value("SELECT id FROM #{quoted_table_name(:product_varieties)} WHERE code = '#{type}'")
-        insert_varieties(children, new_parent_id)
-      end
-    end
-  end
-
   def update_depending_records(old_table, new_table, new_table_key)
     # puts "References of #{old_table}:\n" + references_of(old_table).inspect
     for table, links in references_of(old_table)
@@ -743,37 +717,16 @@ class NormalizeProducts < ActiveRecord::Migration
     # Prevents errors by renaming table operations
     # rename_table_and_co :operations, :old_operations
 
-    # Adds concept of product variety
-    create_table :product_varieties do |t|
-      t.string :name, :null => false
-      t.text :description
-      t.text :comment
-      t.string :product_type, :null => false # Contains the class of product of this nature
-      t.string :code
-      t.references :parent
-      t.integer :lft
-      t.integer :rgt
-      t.integer :depth, :null => false, :default => 0
-      t.boolean :automatic, :null => false, :default => false
-      t.stamps
-    end
-    add_stamps_indexes :product_varieties
-    add_index :product_varieties, :code, :unique => true
-    add_index :product_varieties, :parent_id
-    add_index :product_varieties, :lft
-    add_index :product_varieties, :rgt
-
-
     # Types of product: define behaviours
     create_table :product_natures do |t|
       t.string :name, :null => false
-      t.string :number, :null => false, :limit => 32
+      t.string :number, :null => false, :limit => 31
       t.references :unit, :null => false
       t.text :description
       t.text :comment
       t.string :commercial_name, :null => false
       t.text :commercial_description
-      t.references :variety,   :null => false
+      t.string :variety, :null => false, :limit => 127
       t.references :category,  :null => false
       t.boolean :active,       :null => false, :default => false
       t.boolean :alive,        :null => false, :default => false
@@ -801,7 +754,7 @@ class NormalizeProducts < ActiveRecord::Migration
     end
     add_stamps_indexes :product_natures
     add_index :product_natures, :number, :unique => true
-    add_index :product_natures, :variety_id
+    add_index :product_natures, :variety
     add_index :product_natures, :category_id
     add_index :product_natures, :subscription_nature_id
     add_index :product_natures, :charge_account_id
@@ -815,7 +768,7 @@ class NormalizeProducts < ActiveRecord::Migration
       t.string :name, :null => false
       t.string :number, :null => false
       t.boolean :active, :null => false, :default => false
-      t.references :variety, :null => false
+      t.string :variety, :null => false, :limit => 127
       t.references :nature, :null => false
       t.references :unit, :null => false # Same as nature.unit_id
       t.references :tracking
@@ -861,7 +814,7 @@ class NormalizeProducts < ActiveRecord::Migration
     add_index :products, :number, :unique => true
     add_index :products, :nature_id
     add_index :products, :tracking_id
-    add_index :products, :variety_id
+    add_index :products, :variety
     add_index :products, :unit_id
     # add_index :products, :tractor_id
     add_index :products, :asset_id
@@ -1070,9 +1023,6 @@ class NormalizeProducts < ActiveRecord::Migration
     # rename_table_and_co :product_components, :product_nature_components
     # remove_column :product_nature_components, :warehouse_id
 
-
-    # Insert master varieties
-    insert_varieties(VARIETIES)
 
     # TODO: Make data migration
 

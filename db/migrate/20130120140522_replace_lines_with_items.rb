@@ -25,7 +25,6 @@ class ReplaceLinesWithItems < ActiveRecord::Migration
       :producer_id => :entity,
       :unit_id => :unit,
       :updater_id => :entity,
-      :variety_id => :product_variety
     },
     :area => {
       :creator_id => :entity,
@@ -70,7 +69,6 @@ class ReplaceLinesWithItems < ActiveRecord::Migration
       :producer_id => :entity,
       :unit_id => :unit,
       :updater_id => :entity,
-      :variety_id => :product_variety
     },
     :cash => {
       :account_id => :account,
@@ -228,7 +226,6 @@ class ReplaceLinesWithItems < ActiveRecord::Migration
       :producer_id => :entity,
       :unit_id => :unit,
       :updater_id => :entity,
-      :variety_id => :product_variety
     },
     :incoming_delivery => {
       :address_id => :entity_address,
@@ -323,7 +320,6 @@ class ReplaceLinesWithItems < ActiveRecord::Migration
       :producer_id => :entity,
       :unit_id => :unit,
       :updater_id => :entity,
-      :variety_id => :product_variety
     },
     :land_parcel_kinship => {
       :child_land_parcel_id => :land_parcel,
@@ -374,7 +370,6 @@ class ReplaceLinesWithItems < ActiveRecord::Migration
       :producer_id => :entity,
       :unit_id => :unit,
       :updater_id => :entity,
-      :variety_id => :product_variety
     },
     :observation => {
       :creator_id => :entity,
@@ -453,7 +448,6 @@ class ReplaceLinesWithItems < ActiveRecord::Migration
       :producer_id => :entity,
       :unit_id => :unit,
       :updater_id => :entity,
-      :variety_id => :product_variety
     },
     :preference => {
       :creator_id => :entity,
@@ -485,7 +479,6 @@ class ReplaceLinesWithItems < ActiveRecord::Migration
       :producer_id => :entity,
       :unit_id => :unit,
       :updater_id => :entity,
-      :variety_id => :product_variety
     },
     :product_group => {
       :creator_id => :entity,
@@ -526,7 +519,6 @@ class ReplaceLinesWithItems < ActiveRecord::Migration
       :subscription_nature_id => :subscription_nature,
       :unit_id => :unit,
       :updater_id => :entity,
-      :variety_id => :product_variety
     },
     :product_nature_category => {
       :creator_id => :entity,
@@ -542,7 +534,6 @@ class ReplaceLinesWithItems < ActiveRecord::Migration
     :product_process => {
       :creator_id => :entity,
       :updater_id => :entity,
-      :variety_id => :product_variety
     },
     :product_process_phase => {
       :creator_id => :entity,
@@ -567,11 +558,6 @@ class ReplaceLinesWithItems < ActiveRecord::Migration
       :container_id => :place,
       :creator_id => :entity,
       :product_id => :product,
-      :updater_id => :entity
-    },
-    :product_variety => {
-      :creator_id => :entity,
-      :parent_id => :product_variety,
       :updater_id => :entity
     },
     :production_chain => {
@@ -692,7 +678,6 @@ class ReplaceLinesWithItems < ActiveRecord::Migration
       :producer_id => :entity,
       :unit_id => :unit,
       :updater_id => :entity,
-      :variety_id => :product_variety
     },
     :subscription => {
       :address_id => :entity_address,
@@ -736,7 +721,6 @@ class ReplaceLinesWithItems < ActiveRecord::Migration
       :producer_id => :entity,
       :unit_id => :unit,
       :updater_id => :entity,
-      :variety_id => :product_variety
     },
     :transfer => {
       :creator_id => :entity,
@@ -771,7 +755,6 @@ class ReplaceLinesWithItems < ActiveRecord::Migration
       :producer_id => :entity,
       :unit_id => :unit,
       :updater_id => :entity,
-      :variety_id => :product_variety
     },
     :warehouse => {
       :address_id => :entity_address,
@@ -788,7 +771,6 @@ class ReplaceLinesWithItems < ActiveRecord::Migration
       :producer_id => :entity,
       :unit_id => :unit,
       :updater_id => :entity,
-      :variety_id => :product_variety
     }
   }
 

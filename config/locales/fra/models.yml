@@ -388,7 +388,7 @@ fra:
       # product_process: "Product process"
       # product_process_phase: "Product process phase"
       product_transfer: "Transfert ou perte de Stock"
-      product_variety: "Variété de produit"
+      product_variety: "Variété de produit" #?
       production_chain: "Chaîne de production"
       production_chain_conveyor: "Convoyeur de chaîne de production"
       production_chain_work_center: "Centre d’opérations de chaîne de production"
@@ -473,7 +473,7 @@ fra:
     # author: "Author"
     authorized_payments_count: "Nombre d’encaissements autorisés"
     auto_updateable_addresses: "Adresses mises à jour automatiquement"
-    automatic: "Automatique"
+    automatic: "Automatique" #?
     available_prices: "Prix disponibles" #?
     available_products: "Produits disponibles" #?
     available_stocks: "Stocks disponibles" #?
@@ -991,7 +991,6 @@ fra:
     printed_at: "Imprimé le" #?
     printed_on: "Datée du"
     process: "Process"
-    # processes: "Processes"
     producer: "Producteur"
     # producible: "Producible"
     product: "Produit"
@@ -1005,7 +1004,6 @@ fra:
     product_moves: "Product moves"
     product_nature: "Product nature"
     product_natures: "Types de produits"
-    # product_type: "Product type"
     productable_products: "Produits produisibles" #?
     production_chain: "Chaîne de production"
     production_chain_conveyor: "Convoyeur de chaîne de production" #?

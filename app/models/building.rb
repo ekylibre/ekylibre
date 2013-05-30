@@ -61,7 +61,7 @@
 #  unit_id                  :integer          not null
 #  updated_at               :datetime         not null
 #  updater_id               :integer
-#  variety_id               :integer          not null
+#  variety                  :string(127)      not null
 #  virtual_quantity         :decimal(19, 4)   default(0.0), not null
 #  work_number              :string(255)
 #
@@ -70,7 +70,7 @@
 class Building < PrimaryZone
   # TODO: Use acts_as_nested_set
   # acts_as_tree
-  attr_accessible :name, :address_id, :description, :nature_id, :owner_id, :reservoir, :unit_id, :content_maximal_quantity, :content_nature_id, :maximal_quantity, :variety_id, :identification_number, :born_at, :work_number
+  attr_accessible :name, :address_id, :description, :nature_id, :owner_id, :reservoir, :unit_id, :content_maximal_quantity, :content_nature_id, :maximal_quantity, :variety, :identification_number, :born_at, :work_number
   attr_readonly :reservoir
   # belongs_to :address, :class_name => "EntityAddress"
   # belongs_to :establishment

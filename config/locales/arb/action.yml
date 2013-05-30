@@ -474,11 +474,7 @@ arb:
       edit: "تعديل عملية نقل الاسهم"
       index: "عمليات نقل وخسارة الاسهم"
       new: "اضافة عملية نقل او خسارة الاسهم"
-    backend/product_varieties:
-      # edit: "Modifier la variété\_: %{name} "
-      # index: "Variétés"
-      # new: "Créer une variété"
-      # show: "Variété\_: %{name}"
+    backend/product_varieties: #?
     backend/production:  #?
       index: "ادارة الانتاج" #?
       unvalidated_operations: "تحقيق الاعمال" #?
@@ -737,7 +733,6 @@ arb:
     # backend/product_prices: "Prix des produits"
     backend/product_stocks: "وضع الاسهم" #?
     backend/product_transfers: "عمليات نقل وخسارة الاسهم"
-    # backend/product_varieties: "Races"
     backend/production: "المنتج" #?
     # backend/production_chain_conveyors: "Convoyeurs de chaînes de production"
     # backend/production_chain_work_center_uses: "Utilisation des ateliers de chaînes de production"

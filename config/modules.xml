@@ -821,19 +821,6 @@
         <page to="backend/product_nature_categories#show"/>
         <page to="backend/product_nature_categories#update"/>
       </item>
-      <item name="product_varieties">
-        <page to="backend/product_varieties#index"/>
-        <page to="backend/product_varieties#create"/>
-        <page to="backend/product_varieties#destroy"/>
-        <page to="backend/product_varieties#edit"/>
-        <page to="backend/product_varieties#export"/>
-        <page to="backend/product_varieties#find"/>
-        <page to="backend/product_varieties#import"/>
-        <page to="backend/product_varieties#list"/>
-        <page to="backend/product_varieties#new"/>
-        <page to="backend/product_varieties#update"/>
-        <page to="backend/product_varieties#show"/>
-      </item>
       <item name="product_price_listings">
         <page to="backend/product_price_listings#index"/>
         <page to="backend/product_price_listings#create"/>

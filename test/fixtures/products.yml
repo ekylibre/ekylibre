@@ -61,7 +61,7 @@
 #  unit_id                  :integer          not null
 #  updated_at               :datetime         not null
 #  updater_id               :integer
-#  variety_id               :integer          not null
+#  variety                  :string(127)      not null
 #  virtual_quantity         :decimal(19, 4)   default(0.0), not null
 #  work_number              :string(255)
 #
@@ -88,7 +88,7 @@
 #   unit_id: 1
 #   updated_at: 2009-07-19 19:13:59 +02:00
 #   updater_id: 1
-#   variety_id: 1
+#   variety: "Lorem ipsum"
 #   virtual_quantity: 0
 #
 
@@ -109,7 +109,7 @@ products_001:
   sex: "female"
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
-  variety_id: 1
+  variety: "product"
 
 products_002:
   created_at: 2009-07-19 19:13:59 +02:00
@@ -127,49 +127,49 @@ products_002:
   sex: "male"
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
-  variety_id: 1
+  variety: "product"
 
-warehouses_001:
+buildings_001:
   created_at: 2009-07-19 19:13:59 +02:00
   creator_id: 1
   id: 3
   name: "Dock"
-  type: 'Warehouse'
+  type: 'Building'
   nature_id: 1
   number: "0003"
   owner_id: 1
   unit_id: 1
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
-  variety_id: 1
+  variety: "building"
 
-warehouses_002:
+buildings_002:
   created_at: 2009-07-19 19:13:59 +02:00
   creator_id: 1
   id: 4
   name: "Cabanon"
-  type: 'Warehouse'
+  type: 'Building'
   nature_id: 1
   number: "0004"
   owner_id: 1
   unit_id: 1
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
-  variety_id: 1
+  variety: "building"
 
-warehouses_003:
+buildings_003:
   created_at: 2009-07-19 19:13:59 +02:00
   creator_id: 1
   id: 5
   name: "Grange"
-  type: 'Warehouse'
+  type: 'Building'
   nature_id: 1
   number: "0005"
   owner_id: 1
   unit_id: 1
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
-  variety_id: 1
+  variety: "building"
 
 land_parcels_001:
   area_measure: 17.12
@@ -186,7 +186,7 @@ land_parcels_001:
   type: 'LandParcel'
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
-  variety_id: 1
+  variety: "land-parcel"
 
 land_parcels_002:
   area_measure: 15.2
@@ -203,7 +203,7 @@ land_parcels_002:
   type: 'LandParcel'
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
-  variety_id: 1
+  variety: "land-parcel"
 
 equipments_001:
   created_at: 2009-07-19 19:13:59 +02:00
@@ -217,7 +217,7 @@ equipments_001:
   type: 'Equipment'
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
-  variety_id: 1
+  variety: "equipment"
 
 equipments_002:
   created_at: 2009-07-19 19:13:59 +02:00
@@ -231,7 +231,7 @@ equipments_002:
   unit_id: 1
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
-  variety_id: 1
+  variety: "equipment"
 
 animals_001:
   created_at: 2009-07-19 19:13:59 +02:00
@@ -245,7 +245,7 @@ animals_001:
   type: 'Animal'
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
-  variety_id: 1
+  variety: "animal"
 
 animals_002:
   created_at: 2009-07-19 19:13:59 +02:00
@@ -259,7 +259,7 @@ animals_002:
   unit_id: 1
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
-  variety_id: 1
+  variety: "animal"
 
 matters_001:
   created_at: 2009-07-19 19:13:59 +02:00
@@ -273,7 +273,7 @@ matters_001:
   unit_id: 1
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
-  variety_id: 1
+  variety: "matter"
 
 matters_002:
   created_at: 2009-07-19 19:13:59 +02:00
@@ -287,7 +287,7 @@ matters_002:
   unit_id: 1
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
-  variety_id: 1
+  variety: "matter"
 
 matters_003:
   created_at: 2009-07-19 19:13:59 +02:00
@@ -301,7 +301,7 @@ matters_003:
   unit_id: 1
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
-  variety_id: 1
+  variety: "matter"
 
 matters_004:
   created_at: 2009-07-19 19:13:59 +02:00
@@ -315,7 +315,7 @@ matters_004:
   unit_id: 1
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
-  variety_id: 1
+  variety: "matter"
 
 matters_005:
   created_at: 2009-07-19 19:13:59 +02:00
@@ -329,7 +329,7 @@ matters_005:
   unit_id: 1
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
-  variety_id: 1
+  variety: "matter"
 
 product_groups_001:
   created_at: 2009-07-19 19:13:59 +02:00
@@ -344,7 +344,7 @@ product_groups_001:
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
   parent_id: 1
-  variety_id: 1
+  variety: "product-group"
 
 product_groups_001:
   created_at: 2009-07-19 19:13:59 +02:00
@@ -359,7 +359,7 @@ product_groups_001:
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
   parent_id: 1
-  variety_id: 1
+  variety: "product-group"
 
 product_groups_001:
   created_at: 2009-07-19 19:13:59 +02:00
@@ -374,4 +374,4 @@ product_groups_001:
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
   parent_id: 1
-  variety_id: 1
+  variety: "product-group"

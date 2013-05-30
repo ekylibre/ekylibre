@@ -30,7 +30,7 @@
 #  repeatable   :boolean          not null
 #  updated_at   :datetime         not null
 #  updater_id   :integer
-#  variety_id   :integer          not null
+#  variety      :string(127)      not null
 #
 require 'test_helper'
 

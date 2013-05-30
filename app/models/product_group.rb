@@ -61,14 +61,14 @@
 #  unit_id                  :integer          not null
 #  updated_at               :datetime         not null
 #  updater_id               :integer
-#  variety_id               :integer          not null
+#  variety                  :string(127)      not null
 #  virtual_quantity         :decimal(19, 4)   default(0.0), not null
 #  work_number              :string(255)
 #
 
 
 class ProductGroup < Product
-  attr_accessible :active, :external, :description, :name, :variety_id, :unit_id, :nature_id, :reproductor, :reservoir, :parent_id, :memberships_attributes
+  attr_accessible :active, :external, :description, :name, :variety, :unit_id, :nature_id, :reproductor, :reservoir, :parent_id, :memberships_attributes
 
   belongs_to :parent, :class_name => "ProductGroup"
   has_many :memberships, :class_name => "ProductMembership", :foreign_key => :group_id

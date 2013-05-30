@@ -1727,41 +1727,41 @@ ActiveRecord::Schema.define(:version => 20130513165730) do
   add_index "product_nature_categories", ["updater_id"], :name => "index_product_nature_categories_on_updater_id"
 
   create_table "product_natures", :force => true do |t|
-    t.string   "name",                                                    :null => false
-    t.string   "number",                 :limit => 32,                    :null => false
-    t.integer  "unit_id",                                                 :null => false
+    t.string   "name",                                                     :null => false
+    t.string   "number",                 :limit => 31,                     :null => false
+    t.integer  "unit_id",                                                  :null => false
     t.text     "description"
-    t.string   "commercial_name",                                         :null => false
+    t.string   "commercial_name",                                          :null => false
     t.text     "commercial_description"
-    t.integer  "variety_id",                                              :null => false
-    t.integer  "category_id",                                             :null => false
-    t.boolean  "active",                               :default => false, :null => false
-    t.boolean  "alive",                                :default => false, :null => false
-    t.boolean  "depreciable",                          :default => false, :null => false
-    t.boolean  "saleable",                             :default => false, :null => false
-    t.boolean  "purchasable",                          :default => false, :null => false
-    t.boolean  "producible",                           :default => false, :null => false
-    t.boolean  "deliverable",                          :default => false, :null => false
-    t.boolean  "storable",                             :default => false, :null => false
-    t.boolean  "storage",                              :default => false, :null => false
-    t.boolean  "towable",                              :default => false, :null => false
-    t.boolean  "tractive",                             :default => false, :null => false
-    t.boolean  "traceable",                            :default => false, :null => false
-    t.boolean  "transferable",                         :default => false, :null => false
-    t.boolean  "reductible",                           :default => false, :null => false
-    t.boolean  "indivisible",                          :default => false, :null => false
-    t.boolean  "subscribing",                          :default => false, :null => false
+    t.string   "variety",                :limit => 127,                    :null => false
+    t.integer  "category_id",                                              :null => false
+    t.boolean  "active",                                :default => false, :null => false
+    t.boolean  "alive",                                 :default => false, :null => false
+    t.boolean  "depreciable",                           :default => false, :null => false
+    t.boolean  "saleable",                              :default => false, :null => false
+    t.boolean  "purchasable",                           :default => false, :null => false
+    t.boolean  "producible",                            :default => false, :null => false
+    t.boolean  "deliverable",                           :default => false, :null => false
+    t.boolean  "storable",                              :default => false, :null => false
+    t.boolean  "storage",                               :default => false, :null => false
+    t.boolean  "towable",                               :default => false, :null => false
+    t.boolean  "tractive",                              :default => false, :null => false
+    t.boolean  "traceable",                             :default => false, :null => false
+    t.boolean  "transferable",                          :default => false, :null => false
+    t.boolean  "reductible",                            :default => false, :null => false
+    t.boolean  "indivisible",                           :default => false, :null => false
+    t.boolean  "subscribing",                           :default => false, :null => false
     t.integer  "subscription_nature_id"
     t.string   "subscription_duration"
     t.integer  "charge_account_id"
     t.integer  "product_account_id"
     t.integer  "asset_account_id"
     t.integer  "stock_account_id"
-    t.datetime "created_at",                                              :null => false
-    t.datetime "updated_at",                                              :null => false
+    t.datetime "created_at",                                               :null => false
+    t.datetime "updated_at",                                               :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                         :default => 0,     :null => false
+    t.integer  "lock_version",                          :default => 0,     :null => false
   end
 
   add_index "product_natures", ["asset_account_id"], :name => "index_product_natures_on_asset_account_id"
@@ -1776,7 +1776,7 @@ ActiveRecord::Schema.define(:version => 20130513165730) do
   add_index "product_natures", ["unit_id"], :name => "index_product_natures_on_unit_id"
   add_index "product_natures", ["updated_at"], :name => "index_product_natures_on_updated_at"
   add_index "product_natures", ["updater_id"], :name => "index_product_natures_on_updater_id"
-  add_index "product_natures", ["variety_id"], :name => "index_product_natures_on_variety_id"
+  add_index "product_natures", ["variety"], :name => "index_product_natures_on_variety"
 
   create_table "product_price_listings", :force => true do |t|
     t.string   "name",                                         :null => false
@@ -1873,23 +1873,23 @@ ActiveRecord::Schema.define(:version => 20130513165730) do
   add_index "product_process_phases", ["updater_id"], :name => "index_product_process_phases_on_updater_id"
 
   create_table "product_processes", :force => true do |t|
-    t.integer  "variety_id",                      :null => false
-    t.string   "name",                            :null => false
-    t.string   "nature",                          :null => false
+    t.string   "variety",      :limit => 127,                    :null => false
+    t.string   "name",                                           :null => false
+    t.string   "nature",                                         :null => false
     t.string   "description"
-    t.boolean  "repeatable",   :default => false, :null => false
-    t.datetime "created_at",                      :null => false
-    t.datetime "updated_at",                      :null => false
+    t.boolean  "repeatable",                  :default => false, :null => false
+    t.datetime "created_at",                                     :null => false
+    t.datetime "updated_at",                                     :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version", :default => 0,     :null => false
+    t.integer  "lock_version",                :default => 0,     :null => false
   end
 
   add_index "product_processes", ["created_at"], :name => "index_product_processes_on_created_at"
   add_index "product_processes", ["creator_id"], :name => "index_product_processes_on_creator_id"
   add_index "product_processes", ["updated_at"], :name => "index_product_processes_on_updated_at"
   add_index "product_processes", ["updater_id"], :name => "index_product_processes_on_updater_id"
-  add_index "product_processes", ["variety_id"], :name => "index_product_processes_on_variety_id"
+  add_index "product_processes", ["variety"], :name => "index_product_processes_on_variety"
 
   create_table "product_transfers", :force => true do |t|
     t.integer  "product_id",                    :null => false
@@ -1911,32 +1911,6 @@ ActiveRecord::Schema.define(:version => 20130513165730) do
   add_index "product_transfers", ["product_id"], :name => "index_product_transfers_on_product_id"
   add_index "product_transfers", ["updated_at"], :name => "index_product_transfers_on_updated_at"
   add_index "product_transfers", ["updater_id"], :name => "index_product_transfers_on_updater_id"
-
-  create_table "product_varieties", :force => true do |t|
-    t.string   "name",                            :null => false
-    t.text     "description"
-    t.string   "product_type",                    :null => false
-    t.string   "code"
-    t.integer  "parent_id"
-    t.integer  "lft"
-    t.integer  "rgt"
-    t.integer  "depth",        :default => 0,     :null => false
-    t.boolean  "automatic",    :default => false, :null => false
-    t.datetime "created_at",                      :null => false
-    t.datetime "updated_at",                      :null => false
-    t.integer  "creator_id"
-    t.integer  "updater_id"
-    t.integer  "lock_version", :default => 0,     :null => false
-  end
-
-  add_index "product_varieties", ["code"], :name => "index_product_varieties_on_code", :unique => true
-  add_index "product_varieties", ["created_at"], :name => "index_product_varieties_on_created_at"
-  add_index "product_varieties", ["creator_id"], :name => "index_product_varieties_on_creator_id"
-  add_index "product_varieties", ["lft"], :name => "index_product_varieties_on_lft"
-  add_index "product_varieties", ["parent_id"], :name => "index_product_varieties_on_parent_id"
-  add_index "product_varieties", ["rgt"], :name => "index_product_varieties_on_rgt"
-  add_index "product_varieties", ["updated_at"], :name => "index_product_varieties_on_updated_at"
-  add_index "product_varieties", ["updater_id"], :name => "index_product_varieties_on_updater_id"
 
   create_table "production_chain_conveyors", :force => true do |t|
     t.integer  "production_chain_id",                                                   :null => false
@@ -2024,7 +1998,7 @@ ActiveRecord::Schema.define(:version => 20130513165730) do
     t.string   "name",                                                                                                                :null => false
     t.string   "number",                                                                                                              :null => false
     t.boolean  "active",                                                                                           :default => false, :null => false
-    t.integer  "variety_id",                                                                                                          :null => false
+    t.string   "variety",                  :limit => 127,                                                                             :null => false
     t.integer  "nature_id",                                                                                                           :null => false
     t.integer  "unit_id",                                                                                                             :null => false
     t.integer  "tracking_id"
@@ -2083,7 +2057,7 @@ ActiveRecord::Schema.define(:version => 20130513165730) do
   add_index "products", ["unit_id"], :name => "index_products_on_unit_id"
   add_index "products", ["updated_at"], :name => "index_products_on_updated_at"
   add_index "products", ["updater_id"], :name => "index_products_on_updater_id"
-  add_index "products", ["variety_id"], :name => "index_products_on_variety_id"
+  add_index "products", ["variety"], :name => "index_products_on_variety"
 
   create_table "products_working_sets", :id => false, :force => true do |t|
     t.integer "product_id"

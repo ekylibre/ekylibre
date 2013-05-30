@@ -24,7 +24,7 @@ class Backend::ProductProcessesController < BackendController
 
   list do |t|
     t.column :name, :url => true
-    t.column :name, :through=>:variety, :url=>true
+    t.column :variety
     t.column :nature
     t.column :description
     t.column :repeatable
