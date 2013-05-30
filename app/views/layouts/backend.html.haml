@@ -11,20 +11,25 @@
     =javascript_include_tag :application
     %script{:src => "http://www.google.com/jsapi"}
   -expiration = {}
-  -expiration = {"timeout" => session[:expiration], "timeout-href" => renew_session_url(:user_name => current_user.user_name)} if current_user and session[:expiration].to_i>0
+  -expiration = {"timeout" => session[:expiration], "timeout-href" => renew_session_url(:user_name => current_user.user_name)} if current_user and session[:expiration].to_i > 0
   %body{:data => expiration}
     =navigation_tag
-    #wrap
+    -attrs = (help_shown? ? {:class => "show-help"} : {})
+    #wrap{attrs}
       %aside#side.visible
-        =side_tag
-        %footer#legals=legals_sentence
+        .inner
+          =side_tag
+          %footer#legals=legals_sentence
       #main
-        %header#header
+        %header.header
+          -main_toolbar do |t|
+            -t.tool_to(content_tag(:i) + h(tl(:help)), toggle_backend_helps_url, 'data-toggle' => 'help', :class => "btn", :group => :help)
           =main_toolbar_tag
           =heading_tag
         #content
           =subheading_tag
           =notifications_tag
           =yield
-      #help=render(:partial => "backend/help/search", :object => @article)
+      #help
+        .inner=render(:partial => "backend/helps/search", :object => @article)
     =yield :popover

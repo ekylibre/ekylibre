@@ -190,17 +190,34 @@ ul.dropdown-menu {
   }
 }
 
-.btn-help {
+a.btn[data-toggle='help'] {
   position: relative;
   i {
-    @include use-icon(print);
+    @include use-icon(question);
   }
 }
 
 
 
 $header-height: 40px;
-$side-width: 200px;
+$side-width: 204px;
+$help-width: round(1.4 * $side-width);
+
+
+#side, #help {
+  .inner {
+    height: 100%;
+    overflow-y: auto;
+  }
+}
+
+#side .inner {
+  @include border-right(1px solid #AAA);
+}
+
+#help .inner {
+  @include border-left(1px solid #AAA);
+}
 
 
 html.backend {
@@ -214,9 +231,16 @@ html.backend {
     }
     #wrap {
       max-width: 100%;
-      & > #main {
+      & > #side {
+        height: 100%;
+        @include background(rgba(black, 0.05));
+        #user {
+          display: none;
+        }
+      }
+      & > #main, & > #help {
         overflow: auto;
-        #header {
+        .header {
           padding: 0;
           margin: 0;
           height: $header-height;
@@ -241,26 +265,12 @@ html.backend {
           }
         }
       }
-      & > #side {
-        height: 100%;
-        @include background(rgba(black, 0.05));
-        #user {
-          display: none;
-        }
-      }
       & > #help {
         height: 100%;
         display: none;
-      }
-      &.show-help {
-        & > #help {
-          display: block;
-          width: $side-width;
+        .content {
+          padding: $default-gap;
         }
-        & > #main {
-          @include calc(width, "100% - #{2 * $side-width}");
-        }
-        
       }
 
       @media only screen and (max-width: $mini-screen){
@@ -270,10 +280,10 @@ html.backend {
         & > #main {
 	  width: 100%;
 	}
-        &.mini-screen-show-side {
+        &.mini-screen-show-side, &.mini-screen-show-side.show-help {
           & > #side {
             display: block;
-            @include border-right(none);
+            & > .inner { @include border-right(none); }
             width: 100%;
             #user {
               display: block;
@@ -282,31 +292,30 @@ html.backend {
           & > #main {
             display: none;
           }
-          &.show-help {
-            & > #side {
-              display: none;
-            }
-            & > #help {
-              width: 100%;
-            }
+        }
+        &.show-help {
+          & > #side {
+            display: none;
+          }
+          & > #main {
+            display: none;
+          }
+          & > #help {
+            display: block;
+            width: 100%;
+            & > .inner { @include border-left(none); }
           }
         }
       }
 
       @media screen and (min-width: $mini-screen + 1px){
-        // @include grid-row();
-        @include calc(height, "100% - 32px");
+        @include calc(height, "100% - #{$topbar-height}");
         max-width: 100%;
         & > #side {
-         //@include grid-column(2, $float: left, $collapse: true);
-          border-right: 1px solid #AAA;
-          width: $side-width - 1px;
-          height: 100%;
-          overflow-y: auto;
           @include float(left);
+          width: $side-width;
         }
         & > #main {
-          //@include grid-column(10, $float: left, $collapse: true);
           @include float(left);
           @include calc(width, "100% - #{$side-width}");
           height: 100%;
@@ -315,6 +324,23 @@ html.backend {
             overflow: auto;
           }
         }
+        & > #help {
+          @include float(left);
+          width: $side-width;
+        }
+        &.show-help {
+          & > #help {
+            display: block;
+            width: $help-width;
+          }
+          & > #main {
+            @include calc(width, "100% - #{$help-width + $side-width}");
+            .header .btn-group-help {
+              display: none;
+            }
+          }
+        }
+
       }
     }
 
@@ -389,7 +415,7 @@ html.authentication {
   }
 }
 
-#main-toolbar {
+.main-toolbar {
   @include toolbar();
   @include float(right);
   margin-top: round(($header-height - $button-height) / 2);
@@ -397,8 +423,11 @@ html.authentication {
   > .btn-group {
     > .btn {
       font-size: 0;
-      .icon, i { margin: 0; }
-      .text { display: none; }
+      i {
+        margin: 0;
+        min-width: 18px;
+        text-align: center;
+      }
     }
   }
 }
@@ -661,11 +690,16 @@ form.search {
 
 
 
-
-
-
-
-
+#help {
+  background: #EEE;
+  padding: 0;
+  .header {
+    height: $header-height;
+  }
+  .content {
+    padding: $default-gap round($default-gap * 1.4);
+  }
+}
 
 
 
@@ -684,6 +718,7 @@ form.search {
     @include title($fs-large);
     margin: 0 0 $default-gap;
     font-variant: small-caps;
+    display: none;
   }
   h2 { @include title($fs-normal); margin: 8px 0 4px; border-bottom: $menu-border; }
   h3 { @include title($content-font-size); margin: 4px 0 2px 10px; color: $text-color; }
@@ -1090,26 +1125,7 @@ $form-actions-height: 48px;
 }
 
 
-/*
-#help {
-  display: none;
-  float: left;
-  @include box-shadow(0 0 15px rgba(#000, 0.3));
-  background: white;
-  position: absolute;
-  width: 30*$fs-normal;
-  left:$menu-width+$fs-normal;
-  top: $fs-normal;
-  padding: 0;
-  z-index: 10000;
-  @include calc(height, "100% - #{2 * $fs-normal}");
-  overflow: auto;
-  .content {
-    @include calc(height, "100% - #{2 * $default-gap}");
-    padding: $default-gap round($default-gap * 1.4);
-  }
-}
-*/
+
 
 .ui-dialog {
   position: absolute;
@@ -1626,72 +1642,72 @@ svg.map {
 
 .calendar {
   margin: auto;
-}
 
-.monthName th {
-  font-weight: normal;
-  text-align: right;
-  padding-top: 1em;
-  padding-bottom: 0.7em;
-}
+  .monthName th {
+    font-weight: normal;
+    text-align: right;
+    padding-top: 1em;
+    padding-bottom: 0.7em;
+  }
 
-.dayName th {
-  font-size: 0.7em;
-  padding-top: 0.6em;
-  padding-bottom: 0.3em;
-  background-color: #303030;
-  color: white;
-}
-
-.otherMonth, .day, .specialDay {
-  padding: 0.7em 1em;
-  border-right: 1px solid white;
-}
-
-.otherMonth {
-  color: #eeeeee;
-  background-color: white;
-}
-
-.day {
-  text-align: center;
-  border-bottom: 1px dotted #bbbbbb;
-  background-color: #bbccff;
-}
-
-.specialDay {
-  text-align: center;
-  border-bottom: 1px dotted #bbbbbb;
-  background-color: #bbccff;
-  background-color: #003355;
-  color: white;
-  a {
+  .dayName th {
+    font-size: 0.7em;
+    padding-top: 0.6em;
+    padding-bottom: 0.3em;
+    background-color: #303030;
     color: white;
-    text-decoration: none;
-    padding: 1em;
-    &:visited {
+  }
+
+  .otherMonth, .day, .specialDay {
+    padding: 0.7em 1em;
+    border-right: 1px solid white;
+  }
+
+  .otherMonth {
+    color: #eeeeee;
+    background-color: white;
+  }
+
+  .day {
+    text-align: center;
+    border-bottom: 1px dotted #bbbbbb;
+    background-color: #bbccff;
+  }
+
+  .specialDay {
+    text-align: center;
+    border-bottom: 1px dotted #bbbbbb;
+    background-color: #bbccff;
+    background-color: #003355;
+    color: white;
+    a {
       color: white;
       text-decoration: none;
       padding: 1em;
-    }
-    &:hover {
-      color: white;
-      text-decoration: none;
-      padding: 1em;
-      color: white;
-      background-color: black;
+      &:visited {
+        color: white;
+        text-decoration: none;
+        padding: 1em;
+      }
+      &:hover {
+        color: white;
+        text-decoration: none;
+        padding: 1em;
+        color: white;
+        background-color: black;
+      }
     }
   }
-}
 
-.weekendDay {
-  background-color: #ffffdd;
-}
+  .weekendDay {
+    background-color: #ffffdd;
+  }
 
-.today {
-  background-color: #4682b4;
-}
+  .today {
+    background-color: #4682b4;
+  }
 
-.weekNumber {
-  background-color: #dedede;
+  .weekNumber {
+    background-color: #dedede;
+  }
 }

@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-module Backend::HelpHelper
+module Backend::HelpsHelper
 
   def find_article(name)
     if Ekylibre.helps[I18n.locale]
@@ -65,7 +65,9 @@ module Backend::HelpHelper
     return content
   end
 
-
+  def help_shown?
+    !current_user.preference("interface.helps.collapsed", false, :boolean).value
+  end
 
   # Transforms text to HTML like in wikis.
   def wikize(content, options = {})
@@ -110,7 +112,7 @@ module Backend::HelpHelper
       url = options[:url].merge(:controller => url[0], :action => (url[1]||:index))
       # TODO clean authorization system
       surl = url_for(url) # Permit to test URL
-      (options[:no_link] || !authorized?(url) ? link[1] : link_to(link[1], surl))
+      (options[:no_link] || !authorized?(url) ? link[1] : link_to(link[1].html_safe, surl))
     end
 
     options[:method] = :get

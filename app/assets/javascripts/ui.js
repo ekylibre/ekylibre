@@ -362,14 +362,20 @@
     });
 
     $(document).on("click", "a[data-toggle='help']", function () {
-        var element = $(this), wrap = $('#wrap');
+        var element = $(this), wrap = $('#wrap'), collapsed;
         if (wrap.hasClass('show-help')) {
-            element.removeClass('active');
+            $('a[data-toggle="help"]').removeClass('active');
             wrap.removeClass('show-help');
+            collapsed = 1;
         } else {
-            element.addClass('active');
+            $('a[data-toggle="help"]').addClass('active');
             wrap.addClass('show-help');
+            collapsed = 0;
         }
+        $.ajax(element.attr("href"), {
+            data: { collapsed: collapsed },
+            type: 'POST'
+        });
         return false;
     });
 

@@ -16,9 +16,17 @@
 # along with this program.x  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::HelpController < BackendController
+class Backend::HelpsController < BackendController
 
   helper_method :authorized?
+
+  # Save the shown/hidden state of the help
+  def toggle
+    collapsed = !params[:collapsed].to_i.zero?
+    p = current_user.preference("interface.helps.collapsed", false, :boolean)
+    p.set!(collapsed)
+    render :text => "" # head :success
+  end
 
   def show
     file = search_article(params[:id])
@@ -28,7 +36,7 @@ class Backend::HelpController < BackendController
     else
       @help = file
     end
-    t3e :title=>Ekylibre.helps[file][:title]
+    t3e :title => Ekylibre.helps[file][:title]
   end
 
   def index

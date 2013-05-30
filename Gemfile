@@ -36,7 +36,6 @@ gem 'paperclip-document'
 
 # Forms
 gem 'simple_form'
-gem 'formize', '~> 1.0.0'
 gem 'cocoon'
 
 # I18n
@@ -67,7 +66,8 @@ gem 'ffaker'
 
 # Javascript framework
 gem 'jquery-rails'
-
+gem 'jquery-ui-rails'
+gem 'formize', :path => "../formize" # '~> 1.0.0',
 # gem 'jquery_mobile_rails'
 
 # Reading RSS feeds

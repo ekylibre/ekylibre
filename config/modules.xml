@@ -1077,9 +1077,10 @@
       <item name="entity_natures">
         <page to="backend/entity_natures#unroll"/>
       </item>
-      <item name="help">
-        <page to="backend/help#index"/>
-        <page to="backend/help#show"/>
+      <item name="helps">
+        <page to="backend/helps#index"/>
+        <page to="backend/helps#show"/>
+        <page to="backend/helps#toggle"/>
       </item>
       <item name="interfacers">
         <page to="backend/interfacers#autocomplete"/>

@@ -1,3 +1,11 @@
+PATH
+  remote: ../formize
+  specs:
+    formize (1.1.0)
+      jquery-rails (>= 3)
+      jquery-ui-rails (>= 4)
+      rails (>= 3.2)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -142,9 +150,6 @@ GEM
       sax-machine (~> 0.2.0.rc1)
     ffaker (1.16.1)
     ffi (1.8.1)
-    formize (1.0.4)
-      jquery-rails
-      rails (>= 3.2)
     fssm (0.2.10)
     google_visualr (2.1.7)
     gorillib (0.1.11)
@@ -166,6 +171,9 @@ GEM
     jquery-turbolinks (1.0.0)
       railties (>= 3.1.0)
       turbolinks
+    jquery-ui-rails (4.0.3)
+      jquery-rails
+      railties (>= 3.1.0)
     json (1.8.0)
     launchy (2.3.0)
       addressable (~> 2.3)
@@ -382,12 +390,13 @@ DEPENDENCIES
   fastercsv
   feedzirra (~> 0.2.0.rc2)
   ffaker
-  formize (~> 1.0.0)
+  formize!
   google_visualr (>= 2.1)
   haml
   i18n-complements
   jquery-rails
   jquery-turbolinks
+  jquery-ui-rails
   launchy
   libxml-ruby
   mechanize

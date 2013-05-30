@@ -5,6 +5,13 @@
 -# raise @article.inspect
 -# raise article.inspect
 -cache(article) do
+  .header
+    .main-toolbar
+      .btn-group.btn-group-help
+        =link_to(toggle_backend_helps_url, 'data-toggle' => 'help', :class => "btn active") do
+          %i
+          =tl(:close)
+    %h1=tc(:help)
   .content
     -if article_exist?(article)
       =article(article, "data-update" => "#help", :url => base_url)

@@ -209,9 +209,10 @@ fra:
       index: "Exercices comptables"
       new: "Créer un nouvel exercice"
       show: "Exercice comptable %{code}"
-    backend/help:
-      index: "Aide"
-      show: "Aide: %{title}"
+    backend/helps:
+      # index: "Index backend/help"
+      # show: "Show backend/help"
+      # toggle: "Toggle backend/help"
     backend/incoming_deliveries:
       confirm: "Confirmer l’arrivée de la livraison"
       edit: "Modifier l’arrivage: %{number}"
@@ -633,7 +634,7 @@ fra:
     backend/event_natures: "Types d’évènements"
     backend/events: "Évènements"
     backend/financial_years: "Exercices comptables"
-    backend/help: "Aide"
+    # backend/helps: "Backend/helps"
     backend/incoming_deliveries: "Livraisons entrantes"
     backend/incoming_delivery_items: "Lignes de livraison entrante"
     backend/incoming_delivery_modes: "Modes de réception d’arrivage"

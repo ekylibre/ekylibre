@@ -755,8 +755,9 @@ module ApplicationHelper
     return tool_to(args[1], "mailto:#{email_address}#{extras}".html_safe, :tool => :mail)
   end
 
-  def toolbar_missing(action, record = nil, tag_options = {})
-    tag_options = {} unless tag_options.is_a? Hash
+  def toolbar_missing(action, *args)
+    tag_options = (args[-1].is_a?(Hash) ? args.delete_at(-1) : {})
+    record = args[0]
     url = {}
     url.update(tag_options.delete(:params)) if tag_options[:params].is_a? Hash
     url[:controller] ||= controller_name
@@ -769,17 +770,12 @@ module ApplicationHelper
 
   # Build the main toolbar
   def main_toolbar_tag
-    content_tag(:div, content_for(:main_toolbar), :id => "main-toolbar")
+    content_tag(:div, content_for(:main_toolbar), :class => "main-toolbar")
   end
 
   # Create the main toolbar with the same API as toolbar
   def main_toolbar(options = {}, &block)
-    # TODO: Adds help
-
-    content_for(:main_toolbar, toolbar(options.merge(:wrap => false), &Proc.new{ |t|
-                                         block[t]
-                                         t.tool_to(content_tag(:i) + h(tl(:help)), '#help', 'data-toggle' => 'help', :class => "btn") # , :group => :help
-                                       }))
+    content_for(:main_toolbar, toolbar(options.merge(:wrap => false), &block))
     return nil
   end
 
@@ -835,7 +831,7 @@ module ApplicationHelper
     def method_missing(method_name, *args, &block)
       raise ArgumentError.new("Block can not be accepted") if block_given?
       # raise ArgumentError.new("First argument must be an Ekylibre::Record::Base. (#{method_name})") unless args[0].class.ancestors.include? Ekylibre::Record::Base
-      add(:missing, method_name, *args)
+      add(:missing, method_name.to_s.gsub(/\_+$/, '').to_sym, *args)
     end
 
     private

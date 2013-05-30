@@ -206,9 +206,10 @@ eng:
       index: "Financial years"
       new: "Open a new financial year"
       show: "Financial year %{code}"
-    backend/help:
-      index: "Help"
-      show: "Help: %{title}"
+    backend/help:  #?
+      index: "Help" #?
+      show: "Help: %{title}" #?
+    backend/helps: #?
     backend/incoming_deliveries:
       confirm: "Confirm incoming delivery"
       edit: "Edit the incoming delivery"
@@ -584,7 +585,7 @@ eng:
     backend/event_natures: "Event types"
     backend/events: "Events"
     backend/financial_years: "Financial years"
-    backend/help: "Help"
+    backend/help: "Help" #?
     backend/incoming_deliveries: "Incoming deliveries"
     backend/incoming_delivery_items: "Incoming delivery lines"
     backend/incoming_delivery_modes: "Incoming delivery modes"

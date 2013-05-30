@@ -47,7 +47,11 @@ Ekylibre::Application.routes.draw do
     # match '/autocomplete/:model/:property' => "interfacers#autocomplete", :via => :get, :as => :autocomplete
     # match '/intf/:action', :controller => :interfacers, :via => :get
 
-    resources :help, :only => [:index, :show]
+    resources :helps, :only => [:index, :show] do
+      collection do
+        post :toggle
+      end
+    end
 
     namespace :cells do
       resource :product_pie_cell, :only => :show

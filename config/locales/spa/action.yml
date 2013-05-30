@@ -226,9 +226,8 @@ spa:
       index: "Exercicios contables"
       new: "Crear un nuevo ejercicio"
       show: "Exercicio contable %{code}"
-    backend/help:
-      # index: "Aide"
-      # show: "Aide: %{title}"
+    backend/help: #?
+    backend/helps: #?
     backend/incoming_deliveries:
       # confirm: "Confirmer l’arrivée de la livraison"
       # edit: "Modifier l’arrivage: %{number}"
@@ -634,7 +633,7 @@ spa:
     # backend/events: "Évènements"
     backend/finances: "Finanzas" #?
     backend/financial_years: "Exercicios contables"
-    backend/help: "Ayuda"
+    backend/help: "Ayuda" #?
     # backend/incoming_deliveries: "Livraisons entrantes"
     # backend/incoming_delivery_items: "Lignes de livraison entrante"
     # backend/incoming_delivery_modes: "Modes de réception d’arrivage"

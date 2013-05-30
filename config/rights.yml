@@ -89,6 +89,9 @@
 # - "backend/entity_addresses#unroll"
 # - "backend/entity_links#show"
 # - "backend/entity_natures#unroll"
+# - "backend/helps#index"
+# - "backend/helps#show"
+# - "backend/helps#toggle"
 # - "backend/interfacers#autocomplete"
 # - "backend/interfacers#product_trackings"
 # - "backend/interfacers#product_units"
@@ -350,8 +353,8 @@
 __minimum__:
 - "backend/dashboards#index"
 - "backend/dashboards#welcome"
-- "backend/help#index"
-- "backend/help#show"
+- "backend/help#index" #?
+- "backend/help#show" #?
 - "backend/myselves#change_password" #?
 - "backend/myselves#statistics" #?
 - "backend/settings#about"

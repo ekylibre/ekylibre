@@ -236,9 +236,8 @@ arb:
       index: "ممارسة المحاسبة"
       new: "انشاء مهنة جديدة"
       show: "ممارسة المحاسبة %{code}"
-    backend/help:
-      # index: "Aide"
-      # show: "Aide: %{title}"
+    backend/help: #?
+    backend/helps: #?
     backend/incoming_deliveries:
       # confirm: "Confirmer l’arrivée de la livraison"
       # edit: "Modifier l’arrivage: %{number}"
@@ -694,7 +693,7 @@ arb:
     backend/event_natures: "انواع الاحداث"
     backend/events: "الاحداث"
     backend/financial_years: "ممارسة المحاسبة"
-    backend/help: "المساعدة"
+    backend/help: "المساعدة" #?
     # backend/incoming_deliveries: "Livraisons entrantes"
     # backend/incoming_delivery_items: "Lignes de livraison entrante"
     # backend/incoming_delivery_modes: "Modes de réception d’arrivage"

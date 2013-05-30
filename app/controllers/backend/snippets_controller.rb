@@ -27,8 +27,6 @@ class Backend::SnippetsController < BackendController
       head :not_found
     else
       p = current_user.preference("interface.snippets.#{snippet}.collapsed", false, :boolean)
-      puts "***"*80
-      puts collapsed.inspect
       p.set!(collapsed)
       render :text => "" # head :success
     end
