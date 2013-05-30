@@ -67,7 +67,7 @@ gem 'ffaker'
 # Javascript framework
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
-gem 'formize', :path => "../formize" # '~> 1.0.0',
+gem 'formize', '~> 1.1.0'
 # gem 'jquery_mobile_rails'
 
 # Reading RSS feeds
