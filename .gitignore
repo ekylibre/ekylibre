@@ -48,3 +48,6 @@ coverage
 
 # Capybara screenshot test files
 capybara*.html
+
+#localeapp
+.localeapp

@@ -4,10 +4,22 @@
 
 Ici, vous pouvez [[>backend/products#new|créer]] et modifier des animaux.
 
-!!! Lors d'une naissance , il faut [[>backend/products#new|créer]] un nouvel animal
+!!! Lors d'une naissance , il faut [[>backend/animals#new|créer]] {{icon:plus}} un nouvel animal
 
 !!! Lors d'une sortie ( vente / décès /  ) , il faut sortir l'animal en question et non pas le supprimer
 
->>> Editions =  [[>backend/animals|Carnet de naissance]]
+===== Fiche animal =====
+
+==== Informations générales ====
+
+**Type** = nature de l'animal (Vache laitière, Génisse, Veau,...)
+
+**Race** = la race de l'animal est automatiquement conditionné par son type.
+
+**Reproducteur** = si l'animal va se reproduire
+
+**Numéro de travail** = numéro de boucle
+
+**Numéro d'identification** = numéro national d'identification
 
 
