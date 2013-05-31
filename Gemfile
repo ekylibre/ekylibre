@@ -38,8 +38,11 @@ gem 'paperclip-document'
 gem 'simple_form'
 gem 'cocoon'
 
-# I18n
+# I18n and localeapp
 gem 'i18n-complements'
+#gem "jeweler", "> 1.6.4"
+#gem 'i18n-spec'
+#gem 'localeapp'
 
 # XML Parsing/Writing, HTML extraction
 gem 'nokogiri'

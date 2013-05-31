@@ -1,32 +1,75 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<varieties xmlns="http://www.ekylibre.org/XML/2013/varieties">
-  <variety name="product">
-    <variety name="matter">
-  	  <variety name="bioproduct">
-  	    <variety name="animal"/>
-  	    <variety name="plant"/>  
-  	    <variety name="fungus"/>
-  	  </variety>
-  	  <variety name="equipment">
-  	    <variety name="worker"/>
-  	  </variety>
-  	  <variety name="zone">
-  	    <variety name="primary-zone">
-  	      <variety name="settlement"/>
-  	      <variety name="land-parcel"/>
-  	      <variety name="building"/>
-  	    </variety>
-  	    <variety name="sub-zone">
-          <variety name="building-room"/>
-          <variety name="land-parcel-division"/>
-        </variety>
-      </variety>  
-    </variety>
-    <variety name="immatter">
-      <variety name="service"/>
-      <variety name="property-title">
-        <variety name="zone-property-title"/>
-      </variety>
-    </variety>
-  </variety>
-</varieties>
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
+  
+  <!-- root -->
+  <nomenclature name="varieties:root">
+  <items>
+    <item name="product"/>
+  </items>
+  </nomenclature>
+  <!-- level 1 -->
+  <nomenclature name="varieties:product">
+    <items>
+      <item name="matter"/>
+      <item name="immatter"/>
+    </items>
+  </nomenclature>
+  <!-- level 2 - branch 1 -->
+  <nomenclature name="varieties:matter">
+    <items>
+       <item name="bioproduct"/>
+       <item name="equipment"/>
+       <item name="zone"/>
+    </items>
+  </nomenclature>
+  <!-- level 2 - branch 2 -->
+  <nomenclature name="varieties:immatter">
+    <items>
+      <item name="service"/>
+      <item name="property-title"/>
+    </items>
+  </nomenclature>
+  <!-- level 2 - branch 1 - sub-branch 1 -->
+  <nomenclature name="varieties:bioproduct">
+    <items>
+      <item name="animal"/>
+      <item name="plant"/>  
+      <item name="fungus"/>
+    </items>
+  </nomenclature>
+  <!-- level 2 - branch 1 - sub-branch 2 -->
+    <nomenclature name="varieties:equipment">
+    <items>
+      <item name="worker"/>
+    </items>
+  </nomenclature>
+  <!-- level 2 - branch 1 - sub-branch 3 -->
+    <nomenclature name="varieties:zone">
+    <items>
+      <item name="primary-zone"/>
+      <item name="sub-zone"/>
+    </items>
+  </nomenclature>
+   <!-- level 2 - branch 2 - sub-branch 1-->
+  <nomenclature name="varieties:property-title">
+    <items>
+      <item name="zone-property-title"/>
+    </items>
+  </nomenclature>  
+    <!-- level 2 - branch 1 - sub-branch 3 - leaf 1 -->
+    <nomenclature name="varieties:primary-zone">
+    <items>
+      <item name="settlement"/>
+      <item name="land-parcel"/>
+      <item name="building"/>
+    </items>
+  </nomenclature>
+  <!-- level 2 - branch 1 - sub-branch 3 - leaf 2 -->
+  <nomenclature name="varieties:sub-zone">
+    <items>
+      <item name="building-room"/>
+      <item name="land-parcel-division"/>
+    </items>
+  </nomenclature>
+
+</nomenclatures>
