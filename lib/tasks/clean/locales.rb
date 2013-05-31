@@ -299,6 +299,7 @@ task :locales => :environment do
       next if file_name.match(/accounting/)
       target_path = Rails.root.join("config", "locales", locale.to_s, file_name)
       unless File.exist?(target_path)
+        FileUtils.mkdir_p(target_path.dirname)
         File.open(target_path, "wb") do |file|
           file.write("#{locale}:\n")
         end
