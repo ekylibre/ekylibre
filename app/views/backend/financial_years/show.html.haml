@@ -1,10 +1,9 @@
 =main_toolbar do |t|
+  -t.export :trial_balance, @financial_year
   -t.compute_balances @financial_year, :method=>:post
   -attrs = {}
   -attrs["data-confirm"] = "labels.are_you_sure".t if @financial_year.last_journal_entry
   -t.generate_last_journal_entry @financial_year, attrs
-  -t.print_balance_sheet @financial_year
-  -t.print_income_statement @financial_year
   -if @financial_year == FinancialYear.closable
     -t.close @financial_year
 
