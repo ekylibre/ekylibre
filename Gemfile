@@ -76,8 +76,8 @@ gem 'formize', '~> 1.1.0'
 # Reading RSS feeds
 gem 'feedzirra', '~> 0.2.0.rc2'
 
-# Search engine
 
+gem 'ruby-progressbar', '~> 1.0.2'
 
 # Gems used only for assets and not required
 # in production environments by default.
