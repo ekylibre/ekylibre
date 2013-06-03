@@ -168,7 +168,7 @@ class Backend::SalesController < BackendController
         t3e @sale.attributes, :client => @sale.client.full_name, :state => @sale.state_label, :label => @sale.label
       end
       format.json { render :json => @sale, :include => {:items => {:include => :product}} }
-      format.xml  { render  :xml => @sale, :include => {:items => {:include => :product}} }
+      format.xml  { render  :xml => @sale, :include => {:invoice_address => {}, :items => {:include => :product}} }
       format.pdf  { render  :pdf => @sale, :include => {:items => {:include => :product}} }
       format.odt  { render  :odt => @sale, :include => {:items => {:include => :product}} }
       format.docx { render :docx => @sale, :include => {:items => {:include => :product}} }
