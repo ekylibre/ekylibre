@@ -69,7 +69,8 @@
 class Animal < Bioproduct
   attr_accessible :unit_id, :variety, :nature_id, :reproductor, :external, :born_at, :dead_at, :description, :description, :father_id, :mother_id, :identification_number, :name, :picture, :sex, :work_number
   enumerize :sex, :in => [:male, :female]
-  #enumerize :variety, :in => Nomenclatures["varieties"].items.keys, :predicates => {:prefix => true}
+  # TODO: write config/nomenclatures/varieties-animal.xml
+  # enumerize :variety, :in => Nomenclatures["varieties:animal"].children.keys, :predicates => {:prefix => true}
   #enumerize :arrival_reasons, :in => [:birth, :purchase, :housing, :other], :default=> :birth
   #enumerize :departure_reasons, :in => [:dead, :sale, :autoconsumption, :other], :default=> :sale
   belongs_to :father, :class_name => "Animal", :conditions => {:sex => "male", :reproductor => true}
