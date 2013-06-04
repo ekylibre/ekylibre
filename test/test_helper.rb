@@ -45,11 +45,12 @@ class CapybaraIntegrationTest < ActionController::IntegrationTest
     # http://jackhq.tumblr.com/post/3728330919/testing-jquery-autocomplete-using-capybara
   def fill_unroll(field, options = {})
     fill_in field, :with => options[:with]
-    sleep(3)
-    page.execute_script %Q{ $('##{field}').trigger("focus") }
-    page.execute_script %Q{ $('##{field}').trigger("keydown") }
-    selector = "input##{field} + .items-menu .items-list .item.selected[data-item-label='#{options[:select]}']"
-    page.execute_script " $('#{selector}').trigger(\"mouseenter\").click();"
+    sleep(1)
+    #page.execute_script %Q{ $('##{field}').trigger("focus") }
+    #page.execute_script %Q{ $('##{field}').trigger("keydown") }
+    selector = "input##{field} + .items-menu .items-list .item[data-item-label=\"#{options[:select]}\"]"
+    #page.should have_xpath(selector)
+    page.execute_script "$('#{selector}').trigger('mouseenter').click();"
   end
 
 end
