@@ -786,6 +786,7 @@ spa:
     animal_group_tabbox:
       # animals: "Animaux du lot"
       # cares: "Soins réalisés sur le lot"
+    # animal_identification: "Identification animale"
     # animal_pie: "Animaux par lot"
     animal_tabbox:
       # cares: "Soins"

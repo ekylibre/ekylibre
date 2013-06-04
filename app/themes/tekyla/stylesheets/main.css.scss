@@ -897,7 +897,7 @@ form.search {
       @include transition(color 0.2s linear);
     }
   }
-  @each $field_set in (delay time), (document briefcase), (general-informations book), (stock exchange), (group group), (movement exchange), (accountancy money), (coordinates map-marker), (amount money), (vegetable wheat), (genealogy sitemap), (animal cow), (entity user), (reservoir beaker), (indicator dashboard), (analytics cogs), (measure_options dashboard), (string_options comment), (decimal_options list-ol), (choice_options list), (products wheat){ //asset,
+  @each $field_set in (delay time), (document briefcase), (general-informations book), (stock exchange), (group group), (movement exchange), (accountancy money), (coordinates map-marker), (amount money), (vegetable wheat), (genealogy sitemap), (animal cow), (entity user), (reservoir beaker), (indicator dashboard), (analytics cogs), (measure_options dashboard), (string_options comment), (decimal_options list-ol), (choice_options list), (products wheat), (animal_identification barcode){ //asset,
     &##{ nth($field_set, 1) }.fieldset .fieldset-legend .icon {
       @include use-icon(nth($field_set, 2));
     }

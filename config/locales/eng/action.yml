@@ -739,6 +739,7 @@ eng:
     animal_group_tabbox:
       animals: "Animal"
       cares: "Cares on animal"
+    # animal_identification: "Identification animale"
     animal_pie: "Animals by category"
     animal_tabbox:
       cares: "Cares"

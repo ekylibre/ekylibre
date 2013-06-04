@@ -2,24 +2,9 @@
 
 ===== Liste des animaux =====
 
-Ici, vous pouvez [[>backend/products#new|créer]] et modifier des animaux.
+Ici, vous pouvez [[>backend/animals#new|créer]] , modifier et visualiser vos animaux.
 
-!!! Lors d'une naissance , il faut [[>backend/animals#new|créer]] {{icon:plus}} un nouvel animal
+>>> Pour enregistrer un évènement lié à un animal (naissance, pesée, traitement, achat, vente, décès,...), il faut [[>backend/operations#new|créer]]
+>>> {{icon:plus}} une nouvelle opération
 
-!!! Lors d'une sortie ( vente / décès /  ) , il faut sortir l'animal en question et non pas le supprimer
-
-===== Fiche animal =====
-
-==== Informations générales ====
-
-**Type** = nature de l'animal (Vache laitière, Génisse, Veau,...)
-
-**Race** = la race de l'animal est automatiquement conditionné par son type.
-
-**Reproducteur** = si l'animal va se reproduire
-
-**Numéro de travail** = numéro de boucle
-
-**Numéro d'identification** = numéro national d'identification
-
-
+!!! Tant qu'un animal n'intervient dans aucuns indicateurs , procédures, achats, ventes,...il peut être supprimé.

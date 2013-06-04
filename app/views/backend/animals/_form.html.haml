@@ -2,17 +2,15 @@
   =f.referenced_association :nature, :source => :animals
   =f.input :variety
   =f.input :name # affiche le champ name de l entité animal avec une infos derriere
-  =f.input :sex, as: :radio_buttons# affiche le champ sexe sous forme de radio avec une collection de proposition (M ou F) de l entité animal
-  =f.input :reproductor
-  =f.input :work_number, :placeholder => '4 chiffres'
-  =f.input :identification_number, :placeholder => 'FR + DEPT + 8 chiffres'
+  =f.input :sex, :as => :radio_buttons# affiche le champ sexe sous forme de radio avec une collection de proposition (M ou F) de l entité animal
   =f.custom_fields
 
-=field_set(:move) do # partie entrée sortie de l entité animal
-  =f.input :born_at, as: :date
-  =f.input :dead_at, as: :date, disabled: true, include_blank: true, default_value: :blank
-  =f.input :external, inline_label: "Cas des pères non présents sur l'exploitation"
-  =f.referenced_association :owner
+=field_set(:animal_identification) do # partie entrée sortie de l entité animal
+  =f.input :work_number
+  =f.input :identification_number
+  =f.input :born_at, :as => :date
+  =f.input :external
+  =f.referenced_association :owner, :selected => Entity.of_company
 
 =field_set(:genealogy) do # partie entrée sortie de l entité animal
   =f.referenced_association :mother, :source => :mothers
