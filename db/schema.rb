@@ -471,6 +471,30 @@ ActiveRecord::Schema.define(:version => 20130513165730) do
   add_index "districts", ["updated_at"], :name => "index_districts_on_updated_at"
   add_index "districts", ["updater_id"], :name => "index_districts_on_updater_id"
 
+  create_table "document_archives", :force => true do |t|
+    t.string   "file_file_name"
+    t.integer  "file_file_size"
+    t.datetime "archived_at"
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version",      :default => 0, :null => false
+    t.integer  "template_id"
+    t.integer  "position"
+    t.string   "file_content_type"
+    t.datetime "file_updated_at"
+    t.string   "file_fingerprint"
+    t.integer  "document_id",                      :null => false
+  end
+
+  add_index "document_archives", ["created_at"], :name => "index_document_archives_on_created_at"
+  add_index "document_archives", ["creator_id"], :name => "index_document_archives_on_creator_id"
+  add_index "document_archives", ["document_id"], :name => "index_document_archives_on_document_id"
+  add_index "document_archives", ["template_id"], :name => "index_document_archives_on_template_id"
+  add_index "document_archives", ["updated_at"], :name => "index_document_archives_on_updated_at"
+  add_index "document_archives", ["updater_id"], :name => "index_document_archives_on_updater_id"
+
   create_table "document_templates", :force => true do |t|
     t.string   "name",                                          :null => false
     t.boolean  "active",                     :default => false, :null => false
@@ -493,29 +517,27 @@ ActiveRecord::Schema.define(:version => 20130513165730) do
   add_index "document_templates", ["updater_id"], :name => "index_document_templates_on_updater_id"
 
   create_table "documents", :force => true do |t|
-    t.string   "file_file_name"
-    t.integer  "file_file_size"
-    t.datetime "archived_at"
-    t.datetime "created_at",                                     :null => false
-    t.datetime "updated_at",                                     :null => false
+    t.string   "number",                :limit => 63,                :null => false
+    t.string   "name",                                               :null => false
+    t.string   "nature",                :limit => 63,                :null => false
+    t.integer  "archives_count",                      :default => 0, :null => false
+    t.integer  "template_id"
+    t.string   "template_type"
+    t.string   "datasource",            :limit => 63
+    t.text     "datasource_parameters"
+    t.datetime "created_at",                                         :null => false
+    t.datetime "updated_at",                                         :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                    :default => 0, :null => false
-    t.integer  "origin_id"
-    t.string   "origin_type"
-    t.integer  "template_id"
-    t.string   "nature",            :limit => 63,                :null => false
-    t.string   "name",                                           :null => false
-    t.string   "file_content_type"
-    t.datetime "file_updated_at"
-    t.string   "file_fingerprint"
+    t.integer  "lock_version",                        :default => 0, :null => false
   end
 
   add_index "documents", ["created_at"], :name => "index_documents_on_created_at"
   add_index "documents", ["creator_id"], :name => "index_documents_on_creator_id"
-  add_index "documents", ["origin_id"], :name => "index_documents_on_owner_id"
-  add_index "documents", ["origin_type"], :name => "index_documents_on_owner_type"
-  add_index "documents", ["template_id"], :name => "index_documents_on_template_id"
+  add_index "documents", ["datasource"], :name => "index_documents_on_datasource"
+  add_index "documents", ["name"], :name => "index_documents_on_name"
+  add_index "documents", ["nature"], :name => "index_documents_on_nature"
+  add_index "documents", ["number"], :name => "index_documents_on_number"
   add_index "documents", ["updated_at"], :name => "index_documents_on_updated_at"
   add_index "documents", ["updater_id"], :name => "index_documents_on_updater_id"
 

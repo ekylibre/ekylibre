@@ -23,21 +23,23 @@ module Backend::JournalsHelper
     render :partial => "backend/journals/index"
   end
 
-  # Show the 3 mode of view for a journal
+  # Show the 3 modes of view for a journal
   def journal_view_tag
     code = content_tag(:dt, tg(:view))
     for mode in controller.journal_views
-      code << content_tag(:dd, link_to(content_tag(:i) + " " + h(tc("journal_view.#{mode}")), params.merge(:view => mode)), (@journal_view == mode ? {:class => :active} : nil))
+      code << content_tag(:dd, link_to(h(tc("journal_view.#{mode}")), params.merge(:view => mode)), (@journal_view == mode ? {:class => :active} : nil)) # content_tag(:i) + " " +
     end
     return content_tag(:dl, code, :id => "journal-views")
   end
 
   # Create a widget with all the possible periods
-  def journal_period_crit(name = :period, value = nil, options={})
-    configuration = {:custom => :interval}
-    configuration.update(options) if options.is_a?(Hash)
+  def journal_period_crit(*args)
+    options = (args[-1].is_a?(Hash) ? args.delete_at(-1) : {})
+    name = args.shift || :period
+    value = args.shift
+    configuration = {:custom => :interval}.merge(options)
     configuration[:id] ||= name.to_s.gsub(/\W+/, '_').gsub(/(^_|_$)/, '')
-    value ||= params[name]
+    value ||= params[name] || options[:default]
     list = []
     list << [tc(:all_periods), "all"]
     for year in FinancialYear.reorder("started_on DESC")
@@ -47,25 +49,31 @@ module Backend::JournalsHelper
       while date < year.stopped_on and date < Date.today
         date2 = date.end_of_month
         list2 << [tc(:month_period, :year => date.year, :month => t("date.month_names")[date.month], :code => year.code), date.to_s << "_" << date2.to_s]
-        date = date2+1
+        date = date2 + 1
       end
       list += list2.reverse
     end
     code = ""
-    code << content_tag(:label, tc(:period), :for => configuration[:id]) + " "
+    code << content_tag(:label, options[:label] || tc(:period), :for => configuration[:id]) + " "
     fy = FinancialYear.current
-    params[:period] = value = value || (fy ? fy.started_on.to_s + "_" + fy.stopped_on.to_s : :all)
+    params[:period] = value = value || :all # (fy ? fy.started_on.to_s + "_" + fy.stopped_on.to_s : :all)
+    custom_id = "#{configuration[:id]}_#{configuration[:custom]}"
+    toggle_method = "toggle#{custom_id.camelcase}"
     if configuration[:custom]
       params[:started_on] = params[:started_on].to_date rescue (fy ? fy.started_on : Date.today)
       params[:stopped_on] = params[:stopped_on].to_date rescue (fy ? fy.stopped_on : Date.today)
       params[:stopped_on] = params[:started_on] if params[:started_on] > params[:stopped_on]
       list.insert(0, [tc(configuration[:custom]), configuration[:custom]])
-      custom_id = "#{configuration[:id]}_#{configuration[:custom]}"
-      toggle_method = "toggle#{custom_id.camelcase}"
-      code << select_tag(name, options_for_select(list, value), :id => configuration[:id], "data-show-value" => "##{configuration[:id]}_")
+    end
+
+    if replacement = options.delete(:include_blank)
+      list.insert(0, [(replacement.is_a?(Symbol) ? tl(replacement) : replacement.to_s), ""])
+    end
+
+    code << select_tag(name, options_for_select(list, value), :id => configuration[:id], "data-show-value" => "##{configuration[:id]}_")
+
+    if configuration[:custom]
       code << " " << content_tag(:span, tc(:manual_period, :start => date_field_tag(:started_on, params[:started_on], :size => 10), :finish => date_field_tag(:stopped_on, params[:stopped_on], :size => 10)).html_safe, :id => custom_id)
-    else
-      code << select_tag(name, options_for_select(list, value), :id => configuration[:id])
     end
     return code.html_safe
   end

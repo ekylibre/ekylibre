@@ -321,6 +321,7 @@ fra:
       deposit_item: "Ligne de remise en banque"
       district: "Zone administrative"
       document: "Document"
+      # document_archive: "Document archive"
       document_template: "Modèle de document"
       entity: "Personne"
       entity_address: "Adresse"
@@ -446,6 +447,8 @@ fra:
     animals: "Animals" #?
     annotation: "Annotation"
     # archived_at: "Archived at"
+    # archives: "Archives"
+    # archives_count: "Archives count"
     archiving: "Méthode d'archivage"
     area: "Zone postale"
     area_measure: "Superficie"
@@ -602,6 +605,8 @@ fra:
     customized: "Enregistrement personnalisé" #?
     customized_type: "Type d'enregistrement personnalisé"
     data: "Données complémentaires"
+    # datasource: "Datasource"
+    # datasource_parameters: "Datasource parameters"
     date_value: "Valeur date" #?
     datetime_value: "Valeur date/heure" #?
     dead_at: "Dead at"
@@ -662,6 +667,7 @@ fra:
     discount_percentage: "Pourcentage d’escompte"
     district: "Zone administrative"
     districts: "Zones administratives" #?
+    # document: "Document"
     document_templates: "Modèles de document" #?
     documents: "Documents"
     downpayment: "Acompte"
@@ -1171,6 +1177,7 @@ fra:
     taxes: "Taxes" #?
     temperature: "Température" #?
     template: "Modèle"
+    # template_type: "Template type"
     theoric_quantity: "Quantité théorique"
     title: "Titre"
     to: "Pour"

@@ -262,7 +262,7 @@ Ekylibre::Application.routes.draw do
     end
     resources :documents do
       collection do
-        get :print
+        get :list
         unroll_all
       end
     end
@@ -433,6 +433,11 @@ Ekylibre::Application.routes.draw do
     resources :journal_entry_items, :only => [:new, :show] do
       collection do
         unroll_all
+      end
+    end
+    resources :kujakus, :only => [] do
+      member do
+        post :toggle
       end
     end
     resources :land_parcel_groups do

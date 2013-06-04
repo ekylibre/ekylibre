@@ -65,6 +65,8 @@
         <page to="backend/subscriptions#new"/>
         <page to="backend/subscriptions#update"/>
       </item>
+    </group>
+    <group name="mandates" icon="trophy">
       <item name="mandates">
         <page to="backend/mandates#index"/>
         <page to="backend/mandates#configure"/>
@@ -74,25 +76,6 @@
         <page to="backend/mandates#list"/>
         <page to="backend/mandates#new"/>
         <page to="backend/mandates#update"/>
-      </item>
-    </group>
-    <group name="listings" icon="share">
-      <item name="listings">
-        <page to="backend/listings#index"/>
-        <page to="backend/listing_nodes#create"/>
-        <page to="backend/listing_nodes#destroy"/>
-        <page to="backend/listing_nodes#edit"/>
-        <page to="backend/listing_nodes#new"/>
-        <page to="backend/listing_nodes#update"/>
-        <page to="backend/listings#create"/>
-        <page to="backend/listings#destroy"/>
-        <page to="backend/listings#duplicate"/>
-        <page to="backend/listings#edit"/>
-        <page to="backend/listings#extract"/>
-        <page to="backend/listings#list"/>
-        <page to="backend/listings#mail"/>
-        <page to="backend/listings#new"/>
-        <page to="backend/listings#update"/>
       </item>
     </group>
   </module>
@@ -517,20 +500,52 @@
       </item>
     </group>
   </module>
-  <module name="settings" icon="wrench">
-    <group name="parameters" icon="wrench">
-      <page to="backend/dashboards#settings_base"/>
-      <item name="settings">
-        <page to="backend/settings#edit"/>
-        <page to="backend/settings#update"/>
-      </item>
-      <item name="import">
-        <page to="backend/settings#import"/>
+  <module name="tools" icon="magic">
+    <group name="archives" icon="save">
+      <item name="documents">
+        <page to="backend/documents#index"/>
+        <page to="backend/documents#create"/>
+        <page to="backend/documents#destroy"/>
+        <page to="backend/documents#edit"/>
+        <page to="backend/documents#list"/>
+        <page to="backend/documents#new"/>
+        <page to="backend/documents#show"/>
+        <page to="backend/documents#update"/>
       </item>
       <item name="backups">
         <page to="backend/settings#backups"/>
         <page to="backend/settings#backup"/>
         <page to="backend/settings#restore"/>
+      </item>
+    </group>
+    <group name="exchange">
+      <item name="listings">
+        <page to="backend/listings#index"/>
+        <page to="backend/listing_nodes#create"/>
+        <page to="backend/listing_nodes#destroy"/>
+        <page to="backend/listing_nodes#edit"/>
+        <page to="backend/listing_nodes#new"/>
+        <page to="backend/listing_nodes#update"/>
+        <page to="backend/listings#create"/>
+        <page to="backend/listings#destroy"/>
+        <page to="backend/listings#duplicate"/>
+        <page to="backend/listings#edit"/>
+        <page to="backend/listings#extract"/>
+        <page to="backend/listings#list"/>
+        <page to="backend/listings#mail"/>
+        <page to="backend/listings#new"/>
+        <page to="backend/listings#update"/>
+      </item>
+      <item name="import">
+        <page to="backend/settings#import"/>
+      </item>
+    </group>
+  </module>
+  <module name="settings" icon="wrench">
+    <group name="parameters" icon="wrench">
+      <item name="settings">
+        <page to="backend/settings#edit"/>
+        <page to="backend/settings#update"/>
       </item>
       <item name="sequences">
         <page to="backend/sequences#index"/>
@@ -701,7 +716,6 @@
       </item>
     </group>
     <group name="accountancy" icon="money">
-      <page to="backend/dashboards#settings_accountancy"/>
       <item name="accounts">
         <page to="backend/accounts#index"/>
         <page to="backend/accounts#create"/>
@@ -768,7 +782,6 @@
       </item>
     </group>
     <group name="sale" icon="bar-chart">
-      <page to="backend/dashboards#settings_sales"/>
       <item name="sale_natures">
         <page to="backend/sale_natures#index"/>
         <page to="backend/sale_natures#create"/>
@@ -781,7 +794,6 @@
       </item>
     </group>
     <group name="purchase" icon="shopping-cart">
-      <page to="backend/dashboards#settings_purchases"/>
       <item name="purchase_natures">
         <page to="backend/purchase_natures#index"/>
         <page to="backend/purchase_natures#create"/>
@@ -794,7 +806,6 @@
       </item>
     </group>
     <group name="product" icon="wheat">
-      <page to="backend/dashboards#settings_products"/>
       <item name="products">
         <page to="backend/product_natures#index"/>
         <page to="backend/product_natures#change_quantities"/>
@@ -846,7 +857,6 @@
       </item>
     </group>
     <group name="stocks" icon="truck">
-      <page to="backend/dashboards#settings_stocks"/>
       <item name="incoming_delivery_modes">
         <page to="backend/incoming_delivery_modes#index"/>
         <page to="backend/incoming_delivery_modes#create"/>
@@ -879,7 +889,6 @@
       </item>
     </group>
     <group name="production" icon="cogs">
-      <page to="backend/dashboards#settings_production"/>
       <item name="backend/campaigns">
         <page to="backend/campaigns#index"/>
         <page to="backend/campaigns#create"/>
@@ -1047,6 +1056,13 @@
         <page to="backend/dashboards#sales"/>
         <page to="backend/dashboards#search"/>
         <page to="backend/dashboards#settings"/>
+        <page to="backend/dashboards#settings_accountancy"/>
+        <page to="backend/dashboards#settings_base"/>
+        <page to="backend/dashboards#settings_production"/>
+        <page to="backend/dashboards#settings_products"/>
+        <page to="backend/dashboards#settings_purchases"/>
+        <page to="backend/dashboards#settings_sales"/>
+        <page to="backend/dashboards#settings_stocks"/>
         <page to="backend/dashboards#stocks"/>
         <page to="backend/dashboards#welcome"/>
       </item>
@@ -1080,6 +1096,9 @@
         <page to="backend/interfacers#toggle_view_mode"/>
         <page to="backend/interfacers#unroll"/>
         <page to="backend/interfacers#unroll_options"/>
+      </item>
+      <item name="kujakus">
+        <page to="backend/kujakus#toggle"/>
       </item>
       <item name="logs">
         <page to="backend/logs#index"/>

@@ -27,7 +27,7 @@ class Backend::AccountsController < BackendController
     code << light_search_conditions(Account.table_name => [:name, :number, :description])
     code << "[0] += ' AND number LIKE ?'\n"
     code << "c << params[:prefix].to_s+'%'\n"
-    code << "if params[:used_accounts].to_i == 1\n"
+    code << "unless params[:period].blank?\n"
     code << "  c[0] += ' AND id IN (SELECT account_id FROM #{JournalEntryItem.table_name} AS jel JOIN #{JournalEntry.table_name} AS je ON (entry_id=je.id) WHERE '+JournalEntry.period_condition(params[:period], params[:started_on], params[:stopped_on], 'je')+')'\n"
     code << "end\n"
     code << "c\n"

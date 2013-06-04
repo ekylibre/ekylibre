@@ -16,9 +16,12 @@
       -for mod in Ekylibre::Modules.hash.keys
         %li.separator
         :ruby
-          attrs = {}
+          attrs = {:id => "#{mod}-module"}
           attrs[:class] = :active if current_module == mod
-        %li{attrs}=link_to(Ekylibre::Modules.human_name(mod), {:controller => :dashboards, :action => mod})
+        %li{attrs}
+          =link_to({:controller => :dashboards, :action => mod}) do
+            %i
+            =Ekylibre::Modules.human_name(mod)
 
     %ul#user
       %li.separator

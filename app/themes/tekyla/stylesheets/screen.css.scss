@@ -368,7 +368,7 @@ $include-html-classes: false;
       background: $neutral-background;
       padding: round($default-gap * 0.2 - $border-width) $default-gap;
       &, & * {
-        color: $base-font-color;
+        color: mix($base-font-color, $active-color);
         @include text-shadow(1px 1px 0 white);
         font-size: $font-size;
         line-height: round(1.4*$font-size);

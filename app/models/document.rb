@@ -20,85 +20,77 @@
 #
 # == Table: documents
 #
-#  archived_at       :datetime
-#  created_at        :datetime         not null
-#  creator_id        :integer
-#  file_content_type :string(255)
-#  file_file_name    :string(255)
-#  file_file_size    :integer
-#  file_fingerprint  :string(255)
-#  file_updated_at   :datetime
-#  id                :integer          not null, primary key
-#  lock_version      :integer          default(0), not null
-#  name              :string(255)      not null
-#  nature            :string(63)       not null
-#  origin_id         :integer
-#  origin_type       :string(255)
-#  template_id       :integer
-#  updated_at        :datetime         not null
-#  updater_id        :integer
+#  archives_count        :integer          default(0), not null
+#  created_at            :datetime         not null
+#  creator_id            :integer
+#  datasource            :string(63)
+#  datasource_parameters :text
+#  id                    :integer          not null, primary key
+#  lock_version          :integer          default(0), not null
+#  name                  :string(255)      not null
+#  nature                :string(63)       not null
+#  number                :string(63)       not null
+#  template_id           :integer
+#  template_type         :string(255)
+#  updated_at            :datetime         not null
+#  updater_id            :integer
 #
 
 class Document < Ekylibre::Record::Base
-  belongs_to :origin, :polymorphic => true
+  # belongs_to :origin, :polymorphic => true
   belongs_to :template, :class_name => "DocumentTemplate"
+  has_many :archives, :class_name => "DocumentArchive"
   enumerize :nature, :in => Nomenclatures["document-natures"].items.keys.map(&:underscore), :predicates => {:prefix => true}
-  has_attached_file :file
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :file_file_size, :allow_nil => true, :only_integer => true
-  validates_length_of :nature, :allow_nil => true, :maximum => 63
-  validates_length_of :file_content_type, :file_file_name, :file_fingerprint, :name, :origin_type, :allow_nil => true, :maximum => 255
-  validates_presence_of :name, :nature
+  validates_length_of :datasource, :nature, :number, :allow_nil => true, :maximum => 63
+  validates_length_of :name, :template_type, :allow_nil => true, :maximum => 255
+  validates_presence_of :name, :nature, :number
   #]VALIDATORS]
 
-  def data
-    path = self.file_path
-    file_data = nil
-    if File.exists? path
-      File.open(path, "rb") do |file|
-        file_data = file.read
+  acts_as_numbered
+
+
+  before_validation(:on => :create) do
+    if self.name.blank? and self.template
+      if self.origin.nil?
+        self.name = tc('name_without_origin', :template => self.template)
+      else
+        self.name = tc('name_with_origin', :template => self.template, :origin => self.origin.name)
       end
+    end
+  end
+
+
+  def archive(data, options = {})
+
+    self.archives.create!(:file => f)
+
+
+    document = self.documents.build
+    document.owner = owner
+    document.extension = attributes[:format] || "pdf"
+    method_name = [:document_name, :number, :code, :name, :id].detect{|x| owner.respond_to?(x)}
+    document.printed_at = Time.now
+    document.subdir = Date.today.strftime('%Y-%m')
+    document.original_name = owner.send(method_name).to_s.simpleize+'.'+document.extension.to_s
+    document.filename = owner.send(method_name).to_s.codeize+'-'+document.printed_at.to_i.to_s(36).upper+'-'+Document.generate_key+'.'+document.extension.to_s
+    document.filesize = data.length
+    document.sha256 = Digest::SHA256.hexdigest(data)
+    document.crypt_mode = 'none'
+    if document.save
+      FileUtils.mkdir_p(document.path)
+      File.open(document.file_path, 'wb') {|f| f.write(data) }
     else
-      raise Exception.new("Archive (#{path}) does not exists!")
+      raise Exception.new(document.errors.inspect)
     end
-    file_data
-  end
-
-  def path(strict=true)
-    code = self.nature_code
-    code.gsub!(/\*/, '') unless strict
-    File.join(self.class.private_directory, "documents", code, self.subdir)
-  end
-
-  def file_path(strict=true)
-    File.join(self.path(strict), self.filename)
-  end
 
 
-  def self.missing_files(update=false)
-    count = 0
-    for document in Document.all
-      unless File.exists?(document.file_path(false))
-        if update
-          document.nature_code += '*'
-          document.save(false)
-        end
-        count += 1
-      end
-    end
-    return count
   end
 
-  def self.generate_key(password_length=8)
-    letters = %w(A B C D E F G H I J K L M N O P Q R S T U V W Y X Z)
-    letters_length = letters.length
-    password = ''
-    password_length.times{password+=letters[(letters_length*rand).to_i]}
-    password
-  end
 
   def self.private_directory
-    Ekylibre.private_directory
+    Ekylibre.private_directory.join('document-archives')
   end
+
 
 end

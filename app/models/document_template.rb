@@ -137,7 +137,7 @@ class DocumentTemplate < Ekylibre::Record::Base
     data = report.send("to_#{format}", datasource)
 
     # Archive if needed
-    self.archive(object, data, :format => format) if self.to_archive?
+    self.archive(data, :owner => object, :format => format) if self.to_archive?
 
     # Returns the data with the filename
     return data
@@ -150,32 +150,19 @@ class DocumentTemplate < Ekylibre::Record::Base
 
 
   # Archive the document
-  # TODO: Review document archivage by template
-  def archive(owner, data, attributes={})
-    document = self.documents.build
-    document.owner = owner
-    document.extension = attributes[:format] || "pdf"
-    method_name = [:document_name, :number, :code, :name, :id].detect{|x| owner.respond_to?(x)}
-    document.printed_at = Time.now
-    document.subdir = Date.today.strftime('%Y-%m')
-    document.original_name = owner.send(method_name).to_s.simpleize+'.'+document.extension.to_s
-    document.filename = owner.send(method_name).to_s.codeize+'-'+document.printed_at.to_i.to_s(36).upper+'-'+Document.generate_key+'.'+document.extension.to_s
-    document.filesize = data.length
-    document.sha256 = Digest::SHA256.hexdigest(data)
-    document.crypt_mode = 'none'
-    if document.save
-      FileUtils.mkdir_p(document.path)
-      File.open(document.file_path, 'wb') {|f| f.write(data) }
-    else
-      raise Exception.new(document.errors.inspect)
-    end
+  def archive(data, options = {})
+    document = self.documents.create!(options[:origin] ? options.delete(:origin) : nil)
+    document.archive(data, options)
     return document
   end
+
 
   # Returns the root directory for the document templates's sources
   def self.sources_root
     Ekylibre.private_directory.join("reporting")
   end
+
+
 
   # Loads in DB all default document templates
   def self.load_defaults(options = {})

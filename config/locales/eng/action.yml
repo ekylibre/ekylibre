@@ -142,6 +142,8 @@ eng:
       load: "Load default document templates (overwrite the old templates)"
       new: "Add a new document template"
       print: "Print document template"
+    backend/documents:
+      # index: "Gestion électronique des documents"
     backend/entities:
       destroy: "Remove person"
       edit: "Edit person: %{full_name}"
@@ -254,6 +256,7 @@ eng:
       reopen: "Reopen journal : %{name}"
       reports: "Prints, exportations"
       show: "Journal: %{name} (%{code})"
+    backend/kujakus: #?
     backend/land_parcel_groups:
       # edit: "Modifier l'ilôt\_: %{name}"
       # index: "Ilôts"
@@ -692,6 +695,7 @@ eng:
     # accountancy: "Comptabilité"
     accounting_balance: "Accounting balance"
     accounts: "Accounts"
+    # accounts_only_used_on: "Comptes utilisés seulement sur"
     accounts_to_load: "Accounts to load"
     active: "Active"
     active_balance_sheet: "Active Bilance"
@@ -1078,45 +1082,48 @@ eng:
     # meeting: "Lieu(x) de rencontre"
     menus:
       accountancy: "Accountancy"
+      # archives: "Archives"
+      # documents: "GED"
+      # exchange: "Échange de données"
       finances: "Finances"
       general: "General"
       home: "Home"
       # index: "Ekylibre"
+      # mandates: "Responsabilités"
       production: "Production"
       purchases: "Purchases"
       relationship: "Relationship"
       sales: "Sales"
       settings: "Settings"
       stocks: "Stocks"
-      submenus:
-        accounts: "Accounts"
-        assets: "Assets"
-        cashes: "Cashes"
-        company: "Company"
-        entities: "People"
-        # equipments: "Matériels"
-        events: "Events"
-        financial_years: "Financial Years"
-        incoming_deliveries: "Incoming Deliveries"
-        incoming_payments: "Incoming Payments"
-        informations: "Informations"
-        journals: "Journals"
-        land_parcels: "Land Parcels"
-        mandates: "Mandates"
-        my_account: "My Account"
-        outgoing_deliveries: "Outgoing Deliveries"
-        outgoing_payments: "Outgoing Payments"
-        parameters: "Parameters"
-        production_chains: "Production chains"
-        products: "Products"
-        purchases: "Purchases"
-        reporting: "Reporting"
-        rights: "Access Rights"
-        sales: "Sales"
-        stocks: "Stocks"
-        subscriptions: "Subscriptions"
-        tasks: "Tasks"
-        tax_declarations: "Tax declarations"
+      submenus:  #?
+        accounts: "Accounts" #?
+        assets: "Assets" #?
+        cashes: "Cashes" #?
+        company: "Company" #?
+        entities: "People" #?
+        events: "Events" #?
+        financial_years: "Financial Years" #?
+        incoming_deliveries: "Incoming Deliveries" #?
+        incoming_payments: "Incoming Payments" #?
+        informations: "Informations" #?
+        journals: "Journals" #?
+        land_parcels: "Land Parcels" #?
+        mandates: "Mandates" #?
+        my_account: "My Account" #?
+        outgoing_deliveries: "Outgoing Deliveries" #?
+        outgoing_payments: "Outgoing Payments" #?
+        parameters: "Parameters" #?
+        production_chains: "Production chains" #?
+        products: "Products" #?
+        purchases: "Purchases" #?
+        reporting: "Reporting" #?
+        rights: "Access Rights" #?
+        sales: "Sales" #?
+        stocks: "Stocks" #?
+        subscriptions: "Subscriptions" #?
+        tasks: "Tasks" #?
+        tax_declarations: "Tax declarations" #?
         tools: "Tools" #?
       trade: "Trade"
     merge: "Merge"
@@ -1188,6 +1195,7 @@ eng:
     no_filters: "--- No filters ---"
     no_javascript: "Your web browser don't support javascript. You need to activate it in order to use Ekylibre."
     no_origin: "No origin"
+    # no_particular_periods: "Aucune période en particulier"
     no_products: "No products"
     no_proposer: "No proposer"
     no_purchases: "No purchases"
@@ -1513,7 +1521,7 @@ eng:
     usage: "Usage"
     use_incoming_payment: "Add incoming payment %{payment}"
     use_renew: "Select the journal to carry over"
-    used_accounts: "Used accounts only"
+    used_accounts: "Used accounts only" #?
     user_name: "Username"
     # user_update: "Modifier les informations de l’utilisateur"
     # users: "Compte utilisateur"

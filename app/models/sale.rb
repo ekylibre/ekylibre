@@ -361,9 +361,10 @@ class Sale < Ekylibre::Record::Base
   # end
 
   # Label of the sales order depending on the state and the number
-  def label
-    tc('label.'+self.state, :number => self.number)
+  def name
+    tc('label.' + self.state, :number => self.number)
   end
+  alias :label :name
 
   # Alias for letter_format? method
   def letter?
