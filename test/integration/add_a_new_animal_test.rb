@@ -10,6 +10,7 @@ class AddANewAnimalTest < CapybaraIntegrationTest
     click_button('Connexion')
     visit('/backend/animals/new')
     fill_unroll("animal-nature-input", with: "bov", select: "Bovin")
+    select('Bos', :from => 'animal[variety]')
     fill_in('animal[name]', :with => 'MARGUERITTE')
     choose("animal_sex_female")
     check("animal[reproductor]")
@@ -24,6 +25,7 @@ class AddANewAnimalTest < CapybaraIntegrationTest
 
   test "view an animal" do
     visit ('/backend/animals')
+    page.should have_content('MARGUERITTE')
     save_screenshot 'tmp/capybara/animal_view.png'
   end
 

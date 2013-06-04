@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE jasperTemplate PUBLIC "-//JasperReports//DTD Template//EN" "http://jasperreports.sourceforge.net/dtds/jaspertemplate.dtd">
+
+<jasperTemplate>
+	<style name="Base" mode="Transparent" hAlign="Center" vAlign="Middle" fontName="Open Sans" fontSize="10" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false">
+		<box padding="4" topPadding="4" leftPadding="4" bottomPadding="4" rightPadding="4"/>
+	</style>
+	<style name="Emphasis" style="Base" mode="Opaque" fontName="Open Sans Light" isBold="false" isItalic="true" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica-Oblique"/>
+	<style name="Strong" style="Base" fontSize="12" isBold="true" pdfFontName="Helvetica-Bold">
+		<pen lineColor="#7C9DDD"/>
+	</style>
+	<style name="Very Strong" style="Strong" mode="Opaque" forecolor="#FFFFFF" backcolor="#7C9DDD"/>
+	<style name="column_header" style="Base" mode="Transparent" fill="Solid" fontName="Open Sans Semibold" fontSize="12" isBold="true" isItalic="true" pdfFontName="Helvetica-Bold">
+		<pen lineWidth="1.0" lineStyle="Solid" lineColor="#7C9DDD"/>
+	</style>
+	<style name="column_detail" style="Base" mode="Transparent" fill="Solid" fontName="Open Sans Semibold" fontSize="12" isBold="true" isItalic="true" pdfFontName="Helvetica-Bold">
+		<pen lineWidth="1.0" lineStyle="Solid" lineColor="#7C9DDD"/>
+		<box topPadding="4" leftPadding="4" bottomPadding="4" rightPadding="4">
+			<pen lineWidth="1.0"/>
+			<topPen lineWidth="1.0"/>
+			<leftPen lineWidth="1.0"/>
+			<bottomPen lineWidth="1.0"/>
+			<rightPen lineWidth="1.0"/>
+		</box>
+	</style>
+</jasperTemplate>

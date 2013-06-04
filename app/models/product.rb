@@ -127,8 +127,8 @@ class Product < Ekylibre::Record::Base
 
   def set_variety_and_unit
     if self.nature
-      self.variety = self.nature.variety
-      self.unit_id = self.nature.unit_id
+      self.variety ||= self.nature.variety
+      self.unit_id ||= self.nature.unit_id
     end
   end
 

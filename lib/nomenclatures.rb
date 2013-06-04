@@ -23,7 +23,7 @@ module Nomenclatures
 
     # Returns all items recursively
     def children
-      @children ||= @items.inject({}) do |hash, item|
+      @children ||= @items.values.inject({}) do |hash, item|
         hash[item.name] = item
         hash.merge(item.children) unless item.children.empty?
         hash
