@@ -40,7 +40,7 @@ class Document < Ekylibre::Record::Base
   # belongs_to :origin, :polymorphic => true
   belongs_to :template, :class_name => "DocumentTemplate"
   has_many :archives, :class_name => "DocumentArchive"
-  enumerize :nature, :in => Nomenclatures["document-natures"].items.keys.map(&:underscore), :predicates => {:prefix => true}
+  enumerize :nature, :in => Nomenclatures["document_natures"].items.keys.map(&:underscore), :predicates => {:prefix => true}
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :datasource, :nature, :number, :allow_nil => true, :maximum => 63
   validates_length_of :name, :template_type, :allow_nil => true, :maximum => 255

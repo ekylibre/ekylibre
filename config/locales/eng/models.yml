@@ -34,7 +34,7 @@ eng:
         # content_maximal_quantity: "Quantité maximale supportée"
         # content_nature: "Type de Produit contenu"
         product: "Contained product" #?
-        # variety: "Genre"
+        # variety: "Type"
       campaign:
         # nomen: "Code nomenclature"
       cash:
@@ -241,11 +241,7 @@ eng:
         # maximal_grantable_reduction_percentage: "Taux de réduction autorisé (%)"
         name: "User name"
         reduction_percent: "Authorized percentage of discount (%)" #?
-      vegetal:
-        # born_at: "Date création"
-        # nature: "Nature de la culture"
-        # reproductor: "Multiplication"
-        # variety: "Variété"
+      vegetal: #?
     errors:
       messages:
         accepted: "%{attribute} must be accepted"

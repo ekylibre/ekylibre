@@ -5,16 +5,16 @@ module Nomenclatures
   # This class represent a nomenclature
   class Nomenclature
 
-    attr_reader :items, :namespace
+    attr_reader :items, :name, :namespace
 
-    def initialize(element)
+    def initialize(element, options = {})
       name = element.attr("name").to_s.split(':')
       if name.size == 2
-        @namespace = name.shift.to_sym
+        @namespace = name.shift.gsub('-', '_').to_sym
       elsif name.size != 1
         raise ArgumentError.new("Bad name of nomenclature: #{element.attr("name").to_s.inspect}")
       end
-      @name = name.shift.to_sym
+      @name = name.shift.to_s.gsub('-', '_').to_sym
       @items = element.xpath("xmlns:items/xmlns:item").inject({}) do |hash, item|
         hash[item.attr("name").to_s] = Item.new(self, item)
         hash
@@ -25,9 +25,19 @@ module Nomenclatures
     def children
       @children ||= @items.values.inject({}) do |hash, item|
         hash[item.name] = item
-        hash.merge(item.children) unless item.children.empty?
+        # puts ">>> " + item.name + ": " + item.children.keys.join(", ")
+        hash.update(item.children) unless item.children.empty?
         hash
       end
+    end
+
+    # Returns list of name
+    def list
+      return [@name.to_s] + children.keys
+    end
+
+    def full_name
+      (namespace ? namespace.to_s + ":" + name.to_s : name.to_s)
     end
 
   end
@@ -38,7 +48,7 @@ module Nomenclatures
     # New item
     def initialize(nomenclature, element)
       @nomenclature = nomenclature
-      @name = element.attr("name")
+      @name = element.attr("name").gsub('-', '_')
       @child_nomenclature = element.attr("nomenclature")
       @namespace = nomenclature.namespace
       @tags = element.attr("tags").to_s.strip.split(/[\s\,]+/)
@@ -70,7 +80,7 @@ module Nomenclatures
     end
 
     def full_name
-      namespace.to_s + ":" + name.to_s
+      (namespace ? namespace.to_s + ":" + name.to_s : name.to_s)
     end
   end
 
@@ -100,7 +110,8 @@ module Nomenclatures
         if document.root.namespace.href.to_s == XMLNS
           document.root.xpath('xmlns:nomenclature').each do |nomenclature|
             name = nomenclature.attr("name").to_s
-            @@list[name] = Nomenclature.new(nomenclature)
+            n = Nomenclature.new(nomenclature)
+            @@list[n.full_name] = n
           end
         else
           Rails.logger.info("File #{path} is not a nomenclature as defined by #{XMLNS}")
@@ -117,6 +128,7 @@ module Nomenclatures
 
   # Load all nomenclatures
   load
+
 end
 
 
