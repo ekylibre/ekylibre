@@ -135,7 +135,7 @@ module Backend::HelpsHelper
 
     for x in 1..6
       n = 7-x
-      content.gsub!(/^\s*\={#{n}}\s*([^\=]+)\s*\={#{n}}/, "<h#{x}>\\1</h#{x}>")
+      content.gsub!(/^\s*\={#{n}}\s*([^\=]+)\s*\=*/, "<h#{x}>\\1</h#{x}>")
     end
 
     content.gsub!(/^\ \ (.*\w+.*)$/, '  <pre>\1</pre>')

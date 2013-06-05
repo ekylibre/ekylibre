@@ -26,7 +26,7 @@ class Backend::SalesController < BackendController
   # management -> sales_conditions
   def self.sales_conditions
     code = ""
-    code = search_conditions(:sale, :sales => [:pretax_amount, :amount, :number, :initial_number, :description], :entities => [:code, :full_name])+"||=[]\n"
+    code = search_conditions(:sale, :sales => [:pretax_amount, :amount, :number, :initial_number, :description], :entities => [:code, :full_name]) + "||=[]\n"
     code << "unless session[:sale_state].blank?\n"
     code << "  if session[:sale_state] == 'current'\n"
     code << "    c[0] += \" AND state IN ('estimate', 'order', 'invoice')\"\n"
@@ -377,21 +377,17 @@ class Backend::SalesController < BackendController
   def statistics
     data = {}
     params[:states] ||= {}
-    mode = params[:mode] = (params[:mode]||:pretax_amount).to_s.to_sym
-    source = params[:source] = (params[:source]||:sales_invoices).to_s.to_sym
+    params[:states][:invoice] = 1 if params[:states].empty?
+    params[:mode] ||= "pretax_amount"
+    mode = params[:mode].to_s.to_sym
     if params[:utf8]
-      states = [:invoice]
-      states << :order if source == :sales
+      states = params[:states].collect{|state, checked| state.to_sym if !checked.to_i.zero?}.compact
       query = "SELECT p.nature_id AS product_nature_id, sum(si.#{mode}) AS total FROM #{SaleItem.table_name} AS si JOIN #{Sale.table_name} AS s ON (si.sale_id=s.id) JOIN #{Product.table_name} AS p ON (si.product_id=p.id) WHERE "
-      if params[:invoices].to_i > 0
-        query << "state='invoice' AND invoiced_on BETWEEN ? AND ? "
-      else
-        query << "(state IS NULL"
-        unless params[:states].empty?
-          query << " OR state IN ("+params[:states].collect{|k,v| "'#{k.to_s.ascii}'"}.join(', ')+")"
-        end
-        query << ") AND created_on BETWEEN ? AND ? "
-      end
+      values = []
+      cursors = {:invoice => :invoiced_on, :order => :confirmed_on}
+      query << "(" + states.collect do |state|
+        "(state = '#{state}' AND #{cursors[state] || :created_on} BETWEEN ? AND ?)"
+      end.join(" OR ") + ")"
       query << " GROUP BY product_nature_id"
       start = (Date.today - params[:nb_years].to_i.year).beginning_of_month
       finish = Date.today.end_of_month
@@ -401,7 +397,7 @@ class Backend::SalesController < BackendController
       while date <= finish
         period = '="'+t('date.abbr_month_names')[date.month]+" "+date.year.to_s+'"'
         months << period
-        for product in ProductNature.find(:all, :select => "product_natures.*, total", :joins => ActiveRecord::Base.send(:sanitize_sql_array, ["LEFT JOIN (#{query}) AS sold ON (product_natures.id=product_nature_id)", date.beginning_of_month, date.end_of_month]), :order => "product_nature_id")
+        for product in ProductNature.find(:all, :select => "product_natures.*, total", :joins => ActiveRecord::Base.send(:sanitize_sql_array, ["LEFT JOIN (#{query}) AS sold ON (product_natures.id=product_nature_id)"] + [date.beginning_of_month, date.end_of_month] * states.size), :order => "product_nature_id")
           data[product.id.to_s] ||= {}
           data[product.id.to_s][period] = product.total.to_f
         end
@@ -409,14 +405,14 @@ class Backend::SalesController < BackendController
       end
 
       csv_data = Ekylibre::CSV.generate do |csv|
-        csv << [ProductNature.model_name.human, ProductNature.human_attribute_name('code'), ProductNature.human_attribute_name('product_account_id')]+months
+        csv << [ProductNature.model_name.human, ProductNature.human_attribute_name(:number), ProductNature.human_attribute_name('product_account_id')]+months
         for product in ProductNature.order(:name)
           valid = false
           for period, amount in data[product.id.to_s]
             valid = true if amount != 0
           end
           if product.active or valid
-            row = [product.name, product.code, (product.sales_account ? product.sales_account.number : "?")]
+            row = [product.name, product.number, (product.product_account ? product.product_account.number : "?")]
             months.size.times do |i|
               if data[product.id.to_s][months[i]].zero?
                 row << ''
@@ -429,7 +425,7 @@ class Backend::SalesController < BackendController
         end
       end
 
-      send_data csv_data, :type => Mime::CSV, :disposition => 'inline', :filename => tl(source)+'.csv'
+      send_data csv_data, :type => Mime::CSV, :disposition => 'inline', :filename => "#{human_action_name}.csv"
     end
   end
 
