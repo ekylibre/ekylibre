@@ -109,7 +109,7 @@
 <procedure name="sowing" natures="">
 	<variables>
 	  <variable name="seeds" variety="plant" abilities="germinate"/>
-	  <variable name="seeds-to-sow" same-nature-of="seeds" parameter="false"/>
+	  <variable name="seeds_to_sow" same-nature-of="seeds" parameter="false"/>
 	  <variable name="seeder" variety="equipment" abilities="sowing" /><!-- paramètre réprésentant des objets qui possede la compétence "Semer"  -->
 	  <variable name="driver" variety="worker"/><!-- paramètre réprésentant des objets de type Humain qui possede la compétence "Conduire un ensemble tracteur + épandeur"  -->
    <variable name="tractor" variety="equipment" abilities="tow,catch"/><!-- paramètre réprésentant des objets qui possede la compétence "Tracter"  -->
@@ -130,18 +130,18 @@
 	    <task do="[tractor] moves-to [seeds]"/><!-- le chauffeur, tracteur et le semoir se déplacent vers le lieu actuel des semences-->
 	  </operation>
     <operation name="internal_0500">
-	    <task do="[seeds] parts-with [seeds-to-sow](quantity::?)"/><!--  on sépare les semences que l'on va mettre dans le semoir du stock --> 
+	    <task do="[seeds] parts-with [seeds_to_sow](quantity::?)"/><!--  on sépare les semences que l'on va mettre dans le semoir du stock --> 
 	  </operation>
     <operation name="loading_0600">
-	    <task do="[seeds-to-sow] moves-in [seeder]"/><!-- le chauffeur charge des semences dans le semoir qui est un lieu de stockage temporaire de semences (normalement plus complexe que cela)-->
+	    <task do="[seeds_to_sow] moves-in [seeder]"/><!-- le chauffeur charge des semences dans le semoir qui est un lieu de stockage temporaire de semences (normalement plus complexe que cela)-->
 	  </operation>
     <operation name="transport_0700">
 	    <task do="[tractor] moves-to [land_parcel]"/><!-- le chauffeur + son tracteur et son semoir chargé de semences se déplace vers la parcelle et rentre dedant (?) -->
 	  </operation>
 	  <operation name="sowing_0800">
 	    <!-- tant que le [tractor] travaille (? = sous-entendu le tracteur tourne,le conducteur roule, le semoir sème) les task tournent -->
-	      <task do="[seeds-to-sow] moves-in [land_parcel]"/><!-- les semences tombe par terre car le semoir tourne  -->
-	      <task do="[land_parcel] consumes [seeds-to-sow]"/><!-- la parcelle consomme les semences épandues -->
+	      <task do="[seeds_to_sow] moves-in [land_parcel]"/><!-- les semences tombe par terre car le semoir tourne  -->
+	      <task do="[land_parcel] consumes [seeds_to_sow]"/><!-- la parcelle consomme les semences épandues -->
 	      <task do="[land_parcel] produce [culture](quantity::?, unit::[land_parcel].unit)"/><!-- les semences tombées sur le sol produise une sole de blé -->
 	      <task do="[driver] measure [land_parcel] at in_production"/><!-- le chauffeur du tracteur mesure / observe l'état de la parcelle au niveau de son passage en production (valeur attendue = true)-->
 	    <!-- a terme, on devrait être capable de faire IF le semoir est vide alors j'arrete de semer -->
@@ -190,119 +190,98 @@
       </operation><!-- a terme, on devrait être capable de faire une boucle WHILE tant que la parcelle n'a pas eu la dose de fumier , je continue de charger et épandre  -->
     </operations> 
   </procedure>
-  <!-- ######################################## TRAITER CHIMIQUEMENT LA CULTURE CONTRE LES MAUVAISES HERBES ########################################### -->
+  <!-- ######################################## TRAITER CHIMIQUEMENT LA CULTURE AVEC UNE MOLECULE ########################################### -->
   <procedure name="chemical_treatment">
   	<variables>
-  	  <variable name="water" variety="water"/>
-  	  <variable name="herbicide" variety="herbicide"/>
-  	  <variable name="herbicide_to_spray" same-nature-of="herbicide" parameter="false"/>
+  	  <variable name="driver" variety="worker"/><!-- paramètre réprésentant des objets de type Humain qui possede la compétence "Conduire un ensemble tracteur + épandeur"  -->
+      <variable name="tractor" variety="equipment" abilities="tow,catch"/><!-- paramètre réprésentant des objets qui possede la compétence "Tracter"  -->
+  	  <variable name="molecule" variety="phytosanitary"/>
+  	  <variable name="molecule_to_spray" same-nature-of="molecule" parameter="false"/>
   	  <variable name="sprayer" variety="equipment" abilities="spray" />
+  	  <variable name="culture" variety="plant"/>
   	</variables>
 	<operations>
-	  <operation name="transport">
-	    <task do="[driver] moves-in [tractor]"/><!-- le chauffeur se déplace vers le tracteur et rentre dedant (?) -->
-	    <task do="[tractor] moves-to [sprayer]"/><!-- le chauffeur et le tracteur se déplace vers le lieu actuel du pulvérisateur-->
-	    <task do="[tractor] catches [sprayer]"/><!-- le chauffeur attache le pulvérisateur au tracteur -->
-	  </operation>
-	  <operation name="loading">
-	    <task do="[tractor] moves-to [herbicide]"/><!-- le chauffeur, tracteur et le pulvé se déplacent vers le lieu actuel du stock des produits phyto-->
-	    <task do="[herbicide] parts-with [herbicide-to-spray](quantity::?, unit::?, variety::[herbicide].variety)"/><!--  on sépare l'herbicide que l'on va mettre dans le pulvé du stock global selectionné --> 
-	    <task do="[herbicide-to-spray] moves-in [sprayer]"/><!-- le chauffeur charge de l'herbicide et de l'eau dans le pulvérisateur qui est un lieu de stockage temporaire (normalement plus complexe que cela)-->
-	    <task do="[tractor] moves-to [culture]"/><!-- le chauffeur + son tracteur et son pulvérisateur chargé du traitement (eau + herbicide) se déplace vers la sole de blé et rentre dedant (?) -->
-	  </operation>
-	  <operation name="spray">
-	    <task do="[tractor] acts-on [culture]"><!-- tant que le [tractor] travaille (? = sous-entendu le tracteur tourne,le conducteur roule, le pulvé tourne) les task tournent -->
-	      <task do="[herbicide-to-spray] moves-in [culture]"/><!-- le traitement tombe sur la sole de blé car le pulvé tourne (?) -->
-	      <task do="[culture] consumes [herbicide-to-spray]"/><!-- la sole de blé consomme le traitement épandu car il se dépose sur les feuilles des plants de blé -->
+      <operation name="transport_0100">
+        <task do="[driver] moves-in [tractor]"/><!-- le chauffeur se déplace vers le tracteur et rentre dedans (?) -->
+      </operation>
+      <operation name="transport_0200">
+        <task do="[tractor] moves-to [sprayer]"/><!-- le chauffeur et le tracteur se déplace vers le lieu actuel de l'épandeur-->
+      </operation>
+      <operation name="catch_0300">
+        <task do="[tractor] catches [sprayer]"/><!-- le chauffeur attache l'épandeur au tracteur -->
+      </operation>
+      <operation name="transport_0400">
+        <task do="[tractor] moves-to [molecule]"/><!-- le chauffeur, tracteur et épandeur se déplacent vers le lieu actuel du tas de fumier-->
+      </operation>
+      <operation name="internal_0500">
+        <task do="[molecule] parts-with [molecule_to_spray](quantity::?)"/><!--  on sépare le fumier que l'on va mettre dans l'épandeur du tas global --> 
+      </operation>
+      <operation name="transport_0600">
+        <task do="[molecule_to_spray] moves-in [sprayer]"/><!-- le chauffeur charge du fumier dans l'épandeur qui est un lieu de stockage temporaire (normalement plus complexe que cela)-->
+      </operation>
+      <operation name="transport_0700">
+        <task do="[tractor] moves-to [culture]"/><!-- le chauffeur + son tracteur et son épandeur chargé de fumier se déplace vers la parcelle et rentre dedant (?) -->
+      </operation>
+	  <operation name="spraying_0800">
+	      <!-- tant que le [tractor] travaille (? = sous-entendu le tracteur tourne,le conducteur roule, le pulvé tourne) les task tournent -->
+	      <task do="[molecule_to_spray] moves-in [culture]"/><!-- le traitement tombe sur la sole de blé car le pulvé tourne (?) -->
+	      <task do="[culture] consumes [molecule_to_spray]"/><!-- la sole de blé consomme le traitement épandu car il se dépose sur les feuilles des plants de blé -->
 	      <!-- le bioprocess lié doit faire l'action suivante : [culture] consumes [fertilizer] in [land_parcel] -->
-	    </task><!-- a terme, on devrait être capable de faire IF l'épandeur est vide alors j'arrete de travailler -->
+	      <!-- a terme, on devrait être capable de faire IF l'épandeur est vide alors j'arrete de travailler -->
 	    <!-- et je retourne charger de l'engrais sur le tas global-->
 	  </operation>
 	</operations>	
       </procedure>
-      <!-- ######################################## TRAITER CHIMIQUEMENT LA CULTURE CONTRE LES MALADIES FONGIQUES ########################################### -->
-      <procedure name="treating" required="false" working-set="phytosanitary-treatment">
+      <!-- ######################################## MOISSONNER ########################################### -->
+      <procedure name="seed_harvest">
 	<variables>
-	  <variable name="water" type="matter" nature="" variety="">
-	    <name xml:lang="fra">Eau</name>
-	  </variable>
-	  <variable name="fungicide" type="matter" nature="phytosanitary" variety="fungicide">
-	    <name xml:lang="fra">Fongicide</name>
-	  </variable>
-	  <variable name="fungicide-to-spray" type="matter" nature="phytosanitary" variety="fungicide">
-	    <name xml:lang="fra">Fongicide à pulvériser</name>
-	  </variable>
-	  <variable name="sprayer" type="equipment" abilities="spray" >
-	    <name xml:lang="fra">Pulvérisateur</name>
-	  </variable>
+	  <variable name="silo" variety="settlement" abilities="store(plant)"/>
+	  <variable name="driver" variety="worker"/><!-- paramètre réprésentant des objets de type Humain qui possede la compétence "Conduire un ensemble tracteur + épandeur"  -->
+    <variable name="tractor" variety="equipment" abilities="tow,catch"/><!-- paramètre réprésentant des objets qui possede la compétence "Tracter"  -->
+	  <variable name="trailer" variety="equipment" abilities="catch,store(plant),transport(plant)"/><!-- paramètre réprésentant des objets qui possede la compétence "Semer"  -->
+	  <variable name="cropper_driver" variety="worker" abilities="cropper_driving" /><!-- paramètre réprésentant des objets de type Humain qui possede la compétence "Conduire un ensemble de semis"  -->
+	  <variable name="cropper" type="equipment" abilities="harvest(plant)" /><!-- paramètre réprésentant des objets de type Humain qui possede la compétence "Conduire un ensemble de semis"  -->
+	  <variable name="culture" variety="plant"/>
+	  <variable name="grains" same-variety-of="culture"/>
+	  <variable name="straw" same-variety-of="culture"/>
 	</variables>
-	<operations>
-	  <operation name="transport">
-	    <task do="[driver] moves-in [tractor]"/><!-- le chauffeur se déplace vers le tracteur et rentre dedant (?) -->
-	    <task do="[tractor] moves-to [sprayer]"/><!-- le chauffeur et le tracteur se déplace vers le lieu actuel du pulvérisateur-->
-	    <task do="[tractor] catches [sprayer]"/><!-- le chauffeur attache le pulvérisateur au tracteur -->
-	  </operation>
-	  <operation name="loading">
-	    <task do="[tractor] moves-to [fungicide]"/><!-- le chauffeur, tracteur et le pulvé se déplacent vers le lieu actuel du stock des produits phyto-->
-	    <task do="[fungicide] parts-with [fungicide-to-spray](quantity::?, unit::?, variety::[herbicide].variety)"/><!--  on sépare l'herbicide que l'on va mettre dans le pulvé du stock global selectionné --> 
-	    <task do="[fungicide-to-spray] moves-in [sprayer]"/><!-- le chauffeur charge de l'herbicide et de l'eau dans le pulvérisateur qui est un lieu de stockage temporaire (normalement plus complexe que cela)-->
-	    <task do="[tractor] moves-to [culture]"/><!-- le chauffeur + son tracteur et son pulvérisateur chargé du traitement (eau + herbicide) se déplace vers la sole de blé et rentre dedant (?) -->
-	  </operation>
-	  <operation name="spray">
-	    <task do="[tractor] acts-on [culture]"><!-- tant que le [tractor] travaille (? = sous-entendu le tracteur tourne,le conducteur roule, le pulvé tourne) les task tournent -->
-	      <task do="[fungicide-to-spray] moves-in [culture]"/><!-- le traitement tombe sur la sole de blé car le pulvé tourne (?) -->
-	      <task do="[culture] consumes [fungicide-to-spray]"/><!-- la sole de blé consomme le traitement épandu car il se dépose sur les feuilles des plants de blé -->
-	      <!-- le bioprocess lié doit faire l'action suivante : [culture] consumes [fertilizer] in [land_parcel] -->
-	    </task><!-- a terme, on devrait être capable de faire IF l'épandeur est vide alors j'arrete de travailler -->
-	  </operation>
-	</operations>	
-      </procedure>
-      <!-- ######################################## MOISSONNER LE BLE ########################################### -->
-      <procedure name="seed-harvest" required="true" conditions="[land_parcel].indicator(production) == true AND [culture].indicator(to-harvest) == true" working-set="harvest">
-	<!-- A terme, on doit pouvoir mettre comme condition que [culture] doit être dans la phase "Senescence du grain" de son bioprocessus "Reproduction"-->
-	<variables>
-	  <variable name="silo" type="building" properties="storage" pre-indicators-state="production::empty" abilities="grain-storage">
-	    <name xml:lang="fra">Silo</name>
-	  </variable>
-	  <variable name="trailer" type="equipment" properties="storage" abilities="grain-transport" ><!-- paramètre réprésentant des objets qui possede la compétence "Semer"  -->
-	    <name xml:lang="fra">Remorque</name>
-	  </variable>
-	  <variable name="cropper-driver" type="human" abilities="cropper-driving" ><!-- paramètre réprésentant des objets de type Humain qui possede la compétence "Conduire un ensemble de semis"  -->
-	    <name xml:lang="fra">Conducteur de moissonneuse</name>
-	  </variable>
-	  <variable name="cropper" type="equipment" properties="storage" abilities="grain-harvest" ><!-- paramètre réprésentant des objets de type Humain qui possede la compétence "Conduire un ensemble de semis"  -->
-	    <name xml:lang="fra">Moissonneuse</name>
-	  </variable>
-	  <variable name="grains" type="matter" nature="--" variety="[seeds].variety">
-	    <name xml:lang="fra">Grain de blé</name>
-	  </variable>
-	  <variable name="straw" type="matter" nature="--" variety="[seeds].variety">
-	    <name xml:lang="fra">Paille de blé</name>
-	  </variable>
-	</variables>
-	<operation name="transport">
+	<operation name="transport_0100">
 	  <task do="[cropper-driver] moves-in [cropper]"/><!-- le chauffeur se déplace vers la moissonneuse et rentre dedant (?) -->
+	</operation>
+	<operation name="transport_0200">
 	  <task do="[cropper] moves-to [culture]"/><!-- le chauffeur et la moissonneuse se déplace vers le lieu à récolter -->
 	</operation>
-	<operation name="seed-harvest">
+	<operation name="seed_harvest_0300">
 	  <task do="[cropper] acts-on [culture]"><!-- tant que le [cropper] travaille (? = sous-entendu la moissonneuse tourne,le conducteur roule, le batteur tourne) les sub-task tournent -->
-	    <task do="[culture] produce [grains](quantity::?, unit::?, variety::[culture].variety)"/><!-- le traitement tombe sur la sole de blé car le pulvé tourne (?) -->
+	    <task do="[culture] produce [grains](quantity::?, unit::?)"/><!-- le traitement tombe sur la sole de blé car le pulvé tourne (?) -->
 	    <task do="[grains] moves-in [cropper]"/>
-	    <task do="[culture] produce [straw](quantity::?, unit::?, variety::[culture].variety)"/><!-- la sole de blé consomme le traitement épandu car il se dépose sur les feuilles des plants de blé -->
+	    <task do="[culture] produce [straw](quantity::?, unit::?)"/><!-- la sole de blé consomme le traitement épandu car il se dépose sur les feuilles des plants de blé -->
 	    <task do="[straw] moves-in [culture]"/>
 	  </task>
-	</operation>
-	<operation name="transport">
+  </operation>
+  <operation name="transport_0400">
 	  <task do="[driver] moves-in [tractor]"/><!-- le chauffeur se déplace vers le tracteur et rentre dedant (?) -->
+	</operation>
+  <operation name="transport_0500">
 	  <task do="[tractor] moves-to [trailer]"/><!-- le chauffeur et le tracteur se déplace vers le lieu actuel de la remorque-->
+	</operation>
+  <operation name="catch_0600">
 	  <task do="[tractor] catches [trailer]"/><!-- le chauffeur attache la remorque au tracteur -->
+	</operation>
+  <operation name="transport_0700">
 	  <task do="[tractor] moves-to [culture]"/><!-- déplacement dans la culture -->
 	</operation>
-	<operation name="transfert">
+	<operation name="transport_0800">
 	  <!-- Le transfert doit pouvoir se faire autant de fois que necessaire notions d' aller/retour -->
 	  <task do="[cropper] moves-to [tractor]"/><!-- la moissoneuse se déplace vers le tracteur et la remorque -->
+	</operation>
+  <operation name="transfert_1000">
 	  <task do="[grains] moves-in [trailer]"/><!-- la moissoneuse vide ses grains dans la remorque -->
+	   </operation>
+  <operation name="transport_1100">
 	  <task do="[tractor] moves-to [silo]"/><!-- le tracteur avec sa remorque pleine va au silo -->
+	   </operation>
+  <operation name="transfert_1200">
 	  <task do="[grains] moves-in [silo]"/><!-- le tracteur vide ses grains dans le silo -->
 	</operation>
       </procedure>
