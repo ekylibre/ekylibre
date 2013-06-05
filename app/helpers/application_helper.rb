@@ -453,6 +453,49 @@ module ApplicationHelper
 
 
 
+
+  def search_results(search, options = {}, &block)
+    html = content_tag(:div, :class => :search) {
+      # Show results
+      content_tag(:ul, :class => :results) {
+        counter = "a"
+        search[:records].collect do |result|
+          id = "result-" + counter
+          counter.succ!
+          content_tag(:li, :class => "result", :id => id) {
+            (block.arity == 2 ? capture(result, id, &block) : capture(result, &block)).html_safe
+          }
+        end.join.html_safe
+      } +
+
+      # Pagination
+      content_tag(:span, :class => :pagination) {
+        padding, gap = 9, 4
+        page_min = params[:page].to_i - padding
+        page_min = 1 if page_min < gap
+        page_max = params[:page].to_i + padding
+        page_max = search[:last_page] if page_max > search[:last_page]
+
+        pagination = ""
+        if page_min > 1
+          pagination << link_to(content_tag(:i) + tl(:beginning), {:q => params[:q], :page => 1}, :class => :beginning)
+          pagination << content_tag(:span, "&hellip;".html_safe) if page_min >= gap
+        end
+        for p in page_min..page_max
+          attrs = {}
+          attrs[:class] = "active" if p == params[:page]
+          pagination << link_to("#{p}", {:q => params[:q], :page => p}, attrs)
+        end
+        pagination << content_tag(:span, "&hellip;".html_safe) if page_max < search[:last_page]
+        pagination.html_safe
+      } if search[:last_page] > 1
+    }
+  end
+
+
+
+
+
   # Permits to use themes for Ekylibre
   #  stylesheet_link_tag 'application', 'list', 'list-colors'
   #  stylesheet_link_tag 'print', :media => 'print'
@@ -512,12 +555,16 @@ module ApplicationHelper
 
   def subheading(i18n_key, options={})
     raise Exception.new("A subheading has already been given.") if content_for?(:subheading)
-    content_for(:subheading, tl(i18n_key, options))
+    if options[:here]
+      return subheading_tag(tl(i18n_key, options))
+    else
+      content_for(:subheading, tl(i18n_key, options))
+    end
   end
 
-  def subheading_tag
-    if content_for?(:subheading)
-      return content_tag(:h2, content_for(:subheading), :id => :subtitle)
+  def subheading_tag(title = nil)
+    if content_for?(:subheading) or title
+      return content_tag(:h2, title || content_for(:subheading), :id => :subtitle)
     end
     return nil
   end
@@ -619,8 +666,8 @@ module ApplicationHelper
     templates = DocumentTemplate.with_datasource(datasource)
     if templates.count > 0
       return content_tag(:div, :class => "btn-export btn-group") do
-        link_to(content_tag(:i), "#", :class => "btn btn-print") +
-          link_to(content_tag(:i), "#", :class => "btn btn-dropdown", 'data-toggle' => 'dropdown') +
+        link_to(content_tag(:i), {:action => :show, :format => :pdf}, :class => "btn btn-print") +
+          link_to(content_tag(:i), "#dropdown", :class => "btn btn-dropdown", 'data-toggle' => 'dropdown') +
           content_tag(:ul,
                       templates.collect do |template| # of_nature(dn)
                         content_tag(:li, link_to(content_tag(:i) + h(template.name), '#'))

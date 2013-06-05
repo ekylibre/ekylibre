@@ -142,6 +142,7 @@ spa:
       # settings_sales: "Configuration des ventes"
       # settings_stocks: "Configuration des stocks"
       # stocks: "Tableau de bord des stocks"
+      # tools: "Tableau de bord des outils"
       # trade: "Tableau de bord de la gestion commerciale"
       # welcome: "Bienvenue dans Ekylibre"
     backend/delays:  #?
@@ -228,7 +229,8 @@ spa:
       new: "Crear un nuevo ejercicio"
       show: "Exercicio contable %{code}"
     backend/help: #?
-    backend/helps: #?
+    backend/helps:
+      # index: "Aide"
     backend/incoming_deliveries:
       # confirm: "Confirmer l’arrivée de la livraison"
       # edit: "Modifier l’arrivage: %{number}"
@@ -1500,6 +1502,7 @@ spa:
     # supplier_code: "Code fournisseur"
     # supplier_informations: "Informations fournisseur"
     # supply: "Livraison"
+    # support: "Support"
     synthesis: "Documentos de sintesis"
     # target: "Cible"
     tax_create: "Añadir una nueva tasa" #?

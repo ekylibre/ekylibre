@@ -1582,20 +1582,20 @@ ul.tree {
 .search {
   .results {
     padding: $default-gap;
-    li {
+    > li {
       border-top: 2px solid $active-color;
       @include background(linear-gradient(top, rgba(#FFF, 0.1), rgba(#777, 0), rgba(#000, 0.1)));
       padding: $default-gap;
       display: block;
       * { line-height: round(1.4 * $fs-normal); }
-      h3 {
+      > h3 {
         a {
         }
         small {
           color: #AAA;
         }
       }
-      p {
+      > p {
         &, * {
           color: #777;
         }
@@ -1603,11 +1603,24 @@ ul.tree {
       &:first-child {
         border-top: none;
       }
+      .content {
+        background: white;
+        margin-top: $default-gap;
+        padding: $default-gap;
+        @include box-shadow(0 0 $default-gap rgba(black, 0.18));
+        @include border-radius($default-border-radius);
+        *:first-child { margin-top: 0; padding-top: 0; }
+        *:last-child { margin-bottom: 0; padding-bottom: 0}
+        &.collapsed {
+          display: none;
+        }
+      }
     }
   }
 
   .pagination {
-    padding: $default-gap;
+    padding: 0 $default-gap $default-gap;
+    display: block;
     span, a {
       @include inline-block;
       padding: $default-gap * 0.75;

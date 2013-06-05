@@ -155,10 +155,8 @@ module CleanSupport
         end
       end
       if controller.to_s == "backend/dashboards"
-        for menu in Ekylibre.menu.with_menus do
-          h = menu.hierarchy.collect{|m| m.name }[1..-1]
-          next if h.empty?
-          actions << h.join("_")
+        for mod in Ekylibre::Modules.hash.keys
+          actions << mod.to_s
         end
       end
 

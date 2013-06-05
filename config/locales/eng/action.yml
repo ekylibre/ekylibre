@@ -120,6 +120,7 @@ eng:
       settings_sales: "Sales settings dashboard"
       settings_stocks: "Stocks settings dashboard"
       stocks: "Stocks dashboard"
+      # tools: "Tableau de bord des outils"
       trade: "Trade dashboard"
       welcome: "Welcome on Ekylibre"
     backend/departments:
@@ -211,7 +212,8 @@ eng:
     backend/help:  #?
       index: "Help" #?
       show: "Help: %{title}" #?
-    backend/helps: #?
+    backend/helps:
+      # index: "Aide"
     backend/incoming_deliveries:
       confirm: "Confirm incoming delivery"
       edit: "Edit the incoming delivery"
@@ -1463,6 +1465,7 @@ eng:
     supplier_code: "Supplier code"
     supplier_informations: "Supplier informations "
     supply: "Supply"
+    # support: "Support"
     synthesis: "Synthesis Documents"
     target: "Target"
     # tax_declaration_create: "Ajouter une nouvelle déclaration"
