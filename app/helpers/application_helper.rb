@@ -666,8 +666,8 @@ module ApplicationHelper
     templates = DocumentTemplate.with_datasource(datasource)
     if templates.count > 0
       return content_tag(:div, :class => "btn-export btn-group") do
-        link_to(content_tag(:i), "#", :class => "btn btn-print") +
-          link_to(content_tag(:i), "#", :class => "btn btn-dropdown", 'data-toggle' => 'dropdown') +
+        link_to(content_tag(:i), {:action => :show, :format => :pdf}, :class => "btn btn-print") +
+          link_to(content_tag(:i), "#dropdown", :class => "btn btn-dropdown", 'data-toggle' => 'dropdown') +
           content_tag(:ul,
                       templates.collect do |template| # of_nature(dn)
                         content_tag(:li, link_to(content_tag(:i) + h(template.name), '#'))
