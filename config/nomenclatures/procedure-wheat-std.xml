@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
+  <procedure name="wheat_crop_std">
+    <variables>
+      <variable name="land_parcel" variety="land_parcel" pre-indicators-state="production::empty"/>
+      <variable name="seeds" variety="triticum"/>
+      <variable name="culture" variety="triticum"/>
+    </variables>
+    <sub-procedures>
+      <!-- ############################## EPANDRE DU FUMIER ######################################## -->
+      <sub-procedure name="organic_fertilizing" required="false" >
+	       <parameter name="land_parcel"/>
+      </sub-procedure>
+      <!-- ######################################### LABOURER ########################################## -->
+      <sub-procedure name="plowing" required="true" conditions="[land_parcel].indicator(ground_appearance) == covered">
+         <parameter name="land_parcel"/>
+      </sub-procedure>
+      <!-- ######################################### HERSER ########################################## -->
+      <sub-procedure name="superficial_plowing" required="true" conditions="[land_parcel].indicator(sowable) == false and [land_parcel].indicator(ground_appearance) == raw">
+         <parameter name="land_parcel"/>
+      </sub-procedure>
+      <!-- ######################################### SEMER ########################################## -->
+      <sub-procedure name="sowing" required="true" cconditions="[land_parcel].indicator(sowable) == true and [land_parcel].indicator(in_production) == false">
+         <parameter name="land_parcel"/>
+         <parameter name="seeds"/>
+         <parameter name="culture"/>
+      </sub-procedure>
+      <!-- ############################## EPANDRE DE L'ENGRAIS ######################################## -->
+      <sub-procedure name="mineral_fertilizing" required="false" >
+         <parameter name="land_parcel"/>
+      </sub-procedure>
+      <!-- ############################## TRAITER CHIMIQUEMENT ######################################## -->
+      <sub-procedure name="chemical_treatment" required="false" >
+         <parameter name="culture"/>
+      </sub-procedure>
+      </sub-procedures>
+  </procedure>
+</procedures>
+     

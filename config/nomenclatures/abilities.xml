@@ -1,48 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<abilities xmlns="http://www.ekylibre.org/XML/2013/abilities">
-  <ability name="normal-spreading">
-    <name xml:lang="fra">Épandre</name>
-  </ability>
-  <ability name="precision-spreading"><!-- @QUID : niveau de compétence (normal,précision)  -->
-    <name xml:lang="fra">Épandre avec précision</name>
-  </ability>
-  <ability name="spray"><!-- @QUID : niveau de compétence (normal,précision)  -->
-    <name xml:lang="fra">Pulvériser</name>
-  </ability>
-  <ability name="plowing">
-    <name xml:lang="fra">Labourer</name>
-  </ability>
-  <ability name="sowing">
-    <name xml:lang="fra">Semer</name>
-  </ability>
-  <ability name="grain-harvest">
-    <name xml:lang="fra">Récolter des graines</name>
-  </ability>
-  <ability name="grain-transport">
-    <name xml:lang="fra">Transporter des graines</name>
-  </ability>
-  <ability name="grain-storage">
-    <name xml:lang="fra">Stocker des graines</name>
-  </ability>
-  <ability name="superficial-plowing">
-    <name xml:lang="fra">Travailler le sol en surface</name>
-  </ability>
-  <ability name="tow">
-    <name xml:lang="fra">Tracter</name><!-- @QUID : niveau de compétence (charge 4T , 10T ?)  -->
-  </ability>
-  <ability name="tractor-driving"><!-- @QUID : compétence lié à un outil (conduire un tracteur,conduire un tracteur + un semoir, conduire une moissonneusse, etc ) -->
-    <name xml:lang="fra">Conduire</name>
-  </ability>
-  <ability name="spread-driving" required="tractor-driving">
-    <!-- @QUID : compétence cumulé (pour conduire un ensemble tracteur + semoir, je dois savoir conduire d'abord un tracteur)) -->
-    <name xml:lang="fra">Conduire un ensemble d'épandage</name>
-  </ability>
-  <ability name="plow-driving" required="tractor-driving">
-    <!-- @QUID : compétence cumulé (pour conduire un ensemble tracteur + semoir, je dois savoir conduire d'abord un tracteur)) -->
-    <name xml:lang="fra">Conduire un ensemble de labour</name>
-  </ability>
-  <ability name="cropper-driving" required="tractor-driving">
-    <!-- @QUID : compétence cumulé (pour conduire un ensemble tracteur + semoir, je dois savoir conduire d'abord un tracteur)) -->
-    <name xml:lang="fra">Conduire une moissonneuse batteuse</name>
-  </ability>
-</abilities>
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
+  <nomenclature name="abilities">
+  <item name="germinate"/>
+  <item name="spreading"/>
+  <item name="fertilize"/>  
+  <item name="catch"/><!-- @QUID : niveau de compétence (normal,précision)  -->
+  <item name="spray"/><!-- @QUID : niveau de compétence (normal,précision)  -->
+  <item name="plowing"/>
+  <item name="sowing"/>
+  <item name="harvest"/>
+  <item name="transport"/>
+  <item name="store"/>
+  <item name="tow"/><!-- @QUID : niveau de compétence (charge 4T , 10T ?)  -->
+  <item name="driving"/><!-- @QUID : compétence lié à un outil (conduire un tracteur,conduire un tracteur + un semoir, conduire une moissonneusse, etc ) -->
+  <item name="spread_driving"/><!-- @QUID : compétence cumulé (pour conduire un ensemble tracteur + semoir, je dois savoir conduire d'abord un tracteur)) -->
+  <item name="plow_driving"/><!-- @QUID : compétence cumulé (pour conduire un ensemble tracteur + semoir, je dois savoir conduire d'abord un tracteur)) -->
+  <item name="cropper_driving"/><!-- @QUID : compétence cumulé (pour conduire un ensemble tracteur + semoir, je dois savoir conduire d'abord un tracteur)) -->
+</nomenclature>
+</nomenclatures>
