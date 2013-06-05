@@ -12,6 +12,7 @@
     <items>
       <item name="matter"/>
       <item name="immatter"/>
+      <item name="product-group"/>
     </items>
   </nomenclature>
   <!-- level 2 - branch 1 -->
@@ -27,6 +28,13 @@
     <items>
       <item name="service"/>
       <item name="property-title"/>
+    </items>
+  </nomenclature>
+  <!-- level 2 - branch 3 -->
+  <nomenclature name="varieties:product-group">
+    <items>
+       <item name="animal-group"/>
+       <item name="land-parcel-group"/>
     </items>
   </nomenclature>
   <!-- level 2 - branch 1 - sub-branch 1 -->

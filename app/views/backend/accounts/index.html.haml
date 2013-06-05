@@ -1,16 +1,10 @@
 =kujaku do |k|
-  -k.criterion do
-    =hidden_field_tag(:prefix, params[:prefix])
-    %label{:for=>:search_account}=tc("search_account")
-    =text_field_tag(:q, params[:q], :id=>:search_account)
-    %label{:for=>:used_accounts}=tc(:used_accounts)
-    =check_box_tag("used_accounts", "1", params[:used_accounts], "data-show"=>"#used-period")
-  -k.criterion(:id=>"used-period") do
-    =journal_period_crit
+  -k.text
+  -k.crit :journal_period, :label => tc(:accounts_only_used_on), :default => "", :include_blank => :no_particular_periods
 
 =main_toolbar do |t|
   -t.new
-  -t.link :load
+  -t.load_
 
 =major_accounts_tabs_tag
 =list

@@ -19,7 +19,7 @@
 
 class Backend::SnippetsController < BackendController
 
-  # Saves the state of the side bar
+  # Saves the state of the side snippets
   def toggle
     collapsed = !params[:collapsed].to_i.zero?
     snippet = params[:id].to_s.strip

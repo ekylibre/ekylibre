@@ -120,13 +120,17 @@
         window.location.replace($.buildURL(element.data("redirect"), params));
     });
 
-
-    $(document).behave("load change keypress", "select[data-show-value]", function () {
+    $.fn.showValueElements = function () {
         var element = $(this), prefix = element.data("show-value");
         element.find("option").each(function () {
             $(prefix + $(this).val()).hide();
         });
         $(prefix + element.val()).show();
+    }
+
+    $(document).on("change keypress", "select[data-show-value]", $.fn.showValueElements);
+    $(document).ready(function () {
+        $("select[data-show-value]").showValueElements();
     });
 
 
@@ -371,6 +375,22 @@
             $('a[data-toggle="help"]').addClass('active');
             wrap.addClass('show-help');
             collapsed = 0;
+        }
+        $.ajax(element.attr("href"), {
+            data: { collapsed: collapsed },
+            type: 'POST'
+        });
+        return false;
+    });
+
+    $(document).on("click", "a[data-toggle='kujaku']", function () {
+        var element = $(this), wrap = element.closest('.kujaku'), collapsed;
+        if (wrap.hasClass('collapsed')) {
+            wrap.removeClass('collapsed');
+            collapsed = 0;
+        } else {
+            wrap.addClass('collapsed');
+            collapsed = 1;
         }
         $.ajax(element.attr("href"), {
             data: { collapsed: collapsed },

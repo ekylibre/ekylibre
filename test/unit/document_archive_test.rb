@@ -18,24 +18,31 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: documents
+# == Table: document_archives
 #
-#  archives_count        :integer          default(0), not null
-#  created_at            :datetime         not null
-#  creator_id            :integer
-#  datasource            :string(63)
-#  datasource_parameters :text
-#  id                    :integer          not null, primary key
-#  lock_version          :integer          default(0), not null
-#  name                  :string(255)      not null
-#  nature                :string(63)       not null
-#  number                :string(63)       not null
-#  template_id           :integer
-#  template_type         :string(255)
-#  updated_at            :datetime         not null
-#  updater_id            :integer
+#  archived_at       :datetime
+#  created_at        :datetime         not null
+#  creator_id        :integer
+#  document_id       :integer          not null
+#  file_content_type :string(255)
+#  file_file_name    :string(255)
+#  file_file_size    :integer
+#  file_fingerprint  :string(255)
+#  file_updated_at   :datetime
+#  id                :integer          not null, primary key
+#  lock_version      :integer          default(0), not null
+#  position          :integer
+#  template_id       :integer
+#  updated_at        :datetime         not null
+#  updater_id        :integer
 #
 require 'test_helper'
 
-class DocumentTest < ActiveSupport::TestCase
+class DocumentArchiveTest < ActiveSupport::TestCase
+
+  # Replace this with your real tests.'
+  test "the truth" do
+    assert true
+  end
+
 end

@@ -17,17 +17,19 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::DocumentsController < BackendController
+class Backend::KujakusController < BackendController
 
-  list do |t|
-    t.column :name
-    t.column :nature
-    # t.column :name, :through => :origin
-    # t.column :name, :through => :template
-  end
-
-  def index
-
+  # Saves the state of the kujakus クジャク（孔雀）
+  def toggle
+    collapsed = !params[:collapsed].to_i.zero?
+    kujaku = params[:id].to_s.strip
+    if kujaku.blank?
+      head :not_found
+    else
+      p = current_user.preference("interface.kujakus.#{kujaku}.collapsed", false, :boolean)
+      p.set!(collapsed)
+      render :text => "" # head :success
+    end
   end
 
 end

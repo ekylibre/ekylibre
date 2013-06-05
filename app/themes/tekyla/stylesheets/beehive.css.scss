@@ -127,6 +127,10 @@
                   margin-left : 0;
                   .cell-title { display: none; }
                   .cell-content {
+                    @if $i > 1 {
+                      padding-left: 0;
+                      padding-right: 0;
+                    }
                     border-bottom: $cell-border;
                     border-top: none;
                     max-height: 20em;

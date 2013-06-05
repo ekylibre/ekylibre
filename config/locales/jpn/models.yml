@@ -32,7 +32,7 @@ jpn:
         # children: "Sous lieu de stockage"
         # content_maximal_quantity: "Quantité maximale supportée"
         # content_nature: "Type de Produit contenu"
-        # variety: "Genre"
+        # variety: "Type"
       campaign:
         # nomen: "Code nomenclature"
       cash:
@@ -201,11 +201,7 @@ jpn:
         # locked: "Compte verrouillé"
         # maximal_grantable_reduction_percentage: "Taux de réduction autorisé (%)"
         # name: "Nom d’utilisateur"
-      vegetal:
-        # born_at: "Date création"
-        # nature: "Nature de la culture"
-        # reproductor: "Multiplication"
-        # variety: "Variété"
+      vegetal: #?
     errors:
       messages:
         # accepted: "%{attribute} doit être accepté"

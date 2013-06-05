@@ -70,6 +70,8 @@
 
 class Product < Ekylibre::Record::Base
   attr_accessible :area_unit_id, :area_measure, :nature_id, :number, :identification_number, :work_number, :born_at, :sex, :picture, :owner_id, :parent_id
+  # raise Nomenclatures["varieties:root"].children.keys.inspect
+  enumerize :variety, :in => Nomenclatures["varieties:product"].list, :predicates => {:prefix => true}
   belongs_to :nature, :class_name => "ProductNature"
   # belongs_to :variety, :class_name => "ProductVariety"
   belongs_to :unit

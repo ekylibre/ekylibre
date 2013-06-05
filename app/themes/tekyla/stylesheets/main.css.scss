@@ -108,6 +108,7 @@ textarea {
     i {
       @include is-icon(21px);
       @include use-icon(home);
+      line-height: $topbar-height;
     }
   }
 
@@ -116,6 +117,7 @@ textarea {
     i {
       @include is-icon(24px);
       @include use-icon(ekylibre);
+      line-height: $topbar-height;
       color: white;
       vertical-align: middle;
     }
@@ -135,15 +137,17 @@ textarea {
     i {
       @include is-icon(21px);
       @include use-icon(reorder);
+      line-height: $topbar-height;
     }
   }
 
 
   #user {
     @include float(right);
-    & > li:first-child > a > i {
+    & > li.dropdown > a > i {
       @include is-icon;
       @include use-icon(caret-down);
+      line-height: $topbar-height;
     }
     #user-menu {
       // i { @include is-icon };
@@ -154,6 +158,16 @@ textarea {
 
   #modules {
     overflow: hidden;
+    li#settings-module {
+      a {
+        font-size: 0;
+        i {
+          @include is-icon(21px);
+          @include use-icon(wrench);
+          line-height: $topbar-height;
+        }
+      }
+    }
   }
 
   @media only screen and (max-width: $mini-screen){
@@ -456,12 +470,12 @@ html.authentication {
 
 #major-accounts {
   @include tab-pills;
-  margin: 0 $default-gap $default-gap;
+  margin: $default-gap $default-gap 0;
 }
 
 #journals-nav {
   @include tab-pills;
-  margin: 0 $default-gap $default-gap;
+  margin: $default-gap $default-gap 0;
   dd {
     a i {
       @include is-icon;
@@ -475,7 +489,7 @@ html.authentication {
 
 #journal-views {
   @include tab-pills;
-  margin: 0 $default-gap $default-gap;
+  margin: $default-gap $default-gap 0;
   dd i {
     @include is-icon;
     @include use-icon(eye-open);
@@ -646,7 +660,7 @@ form.search {
 //    @include column-count(4);
 //  }
   $label-width: 40%;
-  margin-bottom: 1em;
+  margin: 0 $default-gap 1em;
   &:last-child {
     margin-bottom: 0;
   }
@@ -709,7 +723,7 @@ form.search {
   &, p, * {
     vertical-align: baseline;
     color: $text-color;
-    line-height: 1.2em;
+    line-height: 1.25em;
     font-size: $content-font-size;
     text-align: justify;
   }
@@ -720,7 +734,11 @@ form.search {
     font-variant: small-caps;
     display: none;
   }
-  h2 { @include title($fs-normal); margin: 8px 0 4px; border-bottom: $menu-border; }
+  h2 {
+    @include title($fs-normal);
+    margin: round(1.25 * $default-gap) 0;
+    // border-bottom: $menu-border;
+  }
   h3 { @include title($content-font-size); margin: 4px 0 2px 10px; color: $text-color; }
   pre { font-family: "Liberation Mono", monospace; color: #777; background: #FFF; padding: $default-gap; margin: $default-gap 0; }
   strong { font-weight: bold; }
@@ -1064,63 +1082,66 @@ $form-actions-height: 48px;
 
 
 .kujaku {
-  color: #580;
-  margin: 0 $default-gap $default-gap;
+  $color: #580;
+  $background-color: #CE8;
+  color: $color;
+  margin: 0;
   padding: $default-gap;
-  background: $neutral-background;
-  @include border-radius($default-border-radius);
+  background: $background-color; // mix(white, #CE0, 80%);
   @include clearfix;
-  $search-width: 60px;
+  $line-height: round(1.4*$fs-normal);
   .crits {
     padding: 0;
-    @include margin-right($search-width);
     .crit {
-      border-top: $menu-border-width solid darken($neutral-background, 5%);
+      border-top: $menu-border-width solid darken($background-color, 20%);
       // padding: round($fs-normal/6) round($fs-normal/4);
-      padding: round($default-gap * 0.6);
+      padding: round($default-gap * 0.6) 0 0;
+      margin-top: round($default-gap * 0.6);
       vertical-align: middle;
-      text-align:center;
-      label { color: $neutral-color; }
+      text-align: center;
+      line-height: $line-height;
+      min-height: $line-height;
+      label { color: $color; }
       &:first-child {
         border-top: none;
+        margin-top: 0;
         padding-top: 0;
-      }
-      &:last-child {
-        padding-bottom: 0;
       }
     }
   }
-  .submit {
-    padding: 0;
-    width: $search-width - $default-gap;
-    text-align: center;
+  $icon-size: 21px;
+  button.filter {
+    // padding: round($default-gap * 0.4);
+    font-size: 0;
+    @include margin-left($default-gap);
+    i {
+      @include is-icon;
+      @include use-icon(filter);
+      // line-height: $icon-size;
+    }
+  }
+  a[data-toggle="kujaku"] {
     @include float(right);
-    button {
-      display: block;
-      padding: $default-gap;
-      font-size: 0;
-      i {
-        @include is-icon(24px);
-        @include use-icon(search);
-      }
+    i {
+      @include is-icon;
+      @include use-icon(collapse-alt);
+      color: $color;
+      line-height: $line-height;
+      vertical-align: middle;
+    }
+  }
+  &.collapsed {
+    a[data-toggle="kujaku"] i {
+      @include use-icon(expand-alt);
+    }
+    .crit.crit-other {
+      display: none;
     }
   }
   input, label, select {
     display: inline;
     margin-bottom: 0;
     width: auto;
-  }
-
-  &.popover {
-    display: none;
-    position: absolute;
-    right: $default-gap;
-    top: 80px;
-    z-index: 10000;
-    margin: 0;
-    background: white;
-    @include box-shadow(0 0 $fs-small rgba(#000, 0.5));
-    @include border-radius($default-border-radius);
   }
 }
 

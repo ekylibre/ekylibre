@@ -137,4 +137,122 @@ module BackendHelper
   end
 
 
+
+
+
+
+  # Kujaku 孔雀
+  # Search bar
+  def kujaku(url_options = {}, options = {}, &block)
+    k = Kujaku.new(caller[0].split(":in ")[0])
+    if block_given?
+      yield k
+    else
+      k.text
+    end
+    return "" if k.criteria.size.zero?
+    id = options[:id] || ("#{controller_path}-#{action_name}-" + caller.first.split(/\:/).second).parameterize # callerTime.now.to_i.to_s(36) + (10000*rand).to_i.to_s(36)
+
+    crits = "".html_safe
+    k.criteria.each_with_index do |c, index|
+      code, opts = "", c[:options]||{}
+      if c[:type] == :mode
+        code = content_tag(:label, opts[:label]||tg(:mode))
+        name = c[:name]||:mode
+        params[name] ||= c[:modes][0].to_s
+        i18n_root = opts[:i18n_root]||'labels.criterion_modes.'
+        for mode in c[:modes]
+          radio  = radio_button_tag(name, mode, params[name] == mode.to_s)
+          radio << " "
+          radio << content_tag(:label, ::I18n.translate("#{i18n_root}#{mode}"), :for => "#{name}_#{mode}")
+          code << " ".html_safe << content_tag(:span, radio.html_safe, :class => :rad)
+        end
+      elsif c[:type] == :radio
+        code = content_tag(:label, opts[:label]||tg(:state))
+        params[c[:name]] ||= c[:states][0].to_s
+        i18n_root = opts[:i18n_root]||"labels.#{controller_name}_states."
+        for state in c[:states]
+          radio  = radio_button_tag(c[:name], state, params[c[:name]] == state.to_s)
+          radio << " ".html_safe << content_tag(:label, ::I18n.translate("#{i18n_root}#{state}"), :for => "#{c[:name]}_#{state}")
+          code  << " ".html_safe << content_tag(:span, radio.html_safe, :class => :rad)
+        end
+      elsif c[:type] == :text
+        code = content_tag(:label, opts[:label]||tg(:search))
+        name = c[:name]||:q
+        session[:kujaku] = {} unless session[:kujaku].is_a? Hash
+        params[name] = session[:kujaku][c[:uid]] = (params[name]||session[:kujaku][c[:uid]])
+        code << " ".html_safe << text_field_tag(name, params[name])
+      elsif c[:type] == :date
+        code = content_tag(:label, opts[:label]||tg(:select_date))
+        name = c[:name]||:d
+        code << " ".html_safe << date_field_tag(name, params[name])
+      elsif c[:type] == :crit
+        code << send("#{c[:name]}_crit", *c[:args])
+      elsif c[:type] == :criterion
+        code << capture(&c[:block])
+      end
+      html_options = (c[:html_options]||{}).merge(:class => "crit crit-#{c[:type]}")
+      if index.zero?
+        html_options[:class] << " crit-main"
+        code = link_to(content_tag(:i), toggle_backend_kujaku_url(id), 'data-toggle' => 'kujaku') + code.html_safe if k.criteria.size > 1
+        code << button_tag(content_tag(:i) + h(tl(:filter)), 'data-disable' => true, :name => nil, :class => "filter")
+      else
+        html_options[:class] << " crit-other"
+      end
+      crits << content_tag(:div, code.html_safe, html_options)
+    end
+    tag = content_tag(:div, crits, :class => :crits)
+    tag = form_tag(url_options, :method => :get) { tag } unless options[:form].is_a?(FalseClass)
+
+
+    return content_tag(:div, tag.to_s.html_safe, :class => "kujaku" + (current_user.preference("interface.kujakus.#{id}.collapsed", (options.has_key?(:collapsed) ? !!options[:collapsed] : true), :boolean).value ? " collapsed" : ""), :id => id)
+  end
+
+  class Kujaku
+    attr_reader :criteria
+    def initialize(uid)
+      @uid = uid
+      @criteria = []
+    end
+
+    # def mode(*modes)
+    #   options = modes.delete_at(-1) if modes[-1].is_a? Hash
+    #   options = {} unless options.is_a? Hash
+    #   @criteria << {:type => :mode, :modes => modes, :options => options}
+    # end
+
+    def radio(*states)
+      options = (states[-1].is_a?(Hash) ? states.delete_at(-1) : {})
+      name = options.delete(:name) || :s
+      add_criterion :radio, :name => name, :states => states, :options => options
+    end
+
+    def text(name=nil, options={})
+      name ||= :q
+      add_criterion :text, :name => name, :options => options
+    end
+
+    def date(name=nil, options={})
+      name ||= :d
+      add_criterion :date, :name => name, :options => options
+    end
+
+    def crit(name=nil, *args)
+      add_criterion :crit, :name => name, :args => args
+    end
+
+    def criterion(html_options={}, &block)
+      raise ArgumentError.new("No block given") unless block_given?
+      add_criterion :criterion, :block => block, :html_options => html_options
+    end
+
+    private
+
+    def add_criterion(type=nil, options={})
+      @criteria << options.merge(:type => type, :uid => "#{@uid}:"+@criteria.size.to_s)
+    end
+  end
+
+
+
 end

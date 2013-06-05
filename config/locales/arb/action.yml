@@ -169,7 +169,8 @@ arb:
       load: "تحميل نموذج الوثيقة افتراضيا"
       new: "انشاء نموذج للوثيقة"
       # print: "Imprimer un exemple"
-    backend/documents:  #?
+    backend/documents:
+      # index: "Gestion électronique des documents"
       print: "طباعة وتصدير" #?
     backend/entities:
       # destroy: "Supprimer la fiche"
@@ -285,6 +286,7 @@ arb:
       reopen: "فتح %{name}"
       # reports: "Impression, exportation"
       show: "الدفتر اليومي : %{name} (%{code})"
+    backend/kujakus: #?
     backend/land_parcel_groups:
       # edit: "Modifier l'ilôt\_: %{name}"
       # index: "Ilôts"
@@ -809,6 +811,7 @@ arb:
     accountancy: "المحاسبة"
     # accounting_balance: "Balance comptable"
     accounts: "حسابات المحاسب المستخدمة"
+    # accounts_only_used_on: "Comptes utilisés seulement sur"
     # accounts_to_load: "Plan de compte à charger"
     active: "فعال"
     active_balance_sheet: "رصيد دائر"
@@ -1252,10 +1255,14 @@ arb:
       tools: "الادوات" #?
     menus:
       accountancy: "المحاسبة"
+      # archives: "Archives"
+      # documents: "GED"
+      # exchange: "Échange de données"
       finances: "المالية"
       general: "شركة"
       home: "إستقبال"
       # index: "Ekylibre"
+      # mandates: "Responsabilités"
       production: "المنتج"
       # purchases: "Achats"
       relations: "العلاقات" #?
@@ -1263,35 +1270,7 @@ arb:
       # sales: "Ventes"
       # settings: "Configuration"
       # stocks: "Stocks"
-      submenus:
-        # accounts: "Comptes"
-        # assets: "Immobilisations"
-        # cashes: "Trésorerie"
-        # company: "Société"
-        # entities: "Personnes"
-        # equipments: "Matériels"
-        # events: "Évènements"
-        # financial_years: "Exercices"
-        # incoming_deliveries: "Réceptions"
-        # incoming_payments: "Encaissements"
-        # informations: "Informations"
-        # journals: "Journaux"
-        # land_parcels: "Îlots et travaux"
-        # mandates: "Responsabilités"
-        # my_account: "Mon compte"
-        # outgoing_deliveries: "Expéditions"
-        # outgoing_payments: "Décaissements"
-        # parameters: "Paramètres"
-        # production_chains: "Chaînes de production"
-        # products: "Produits"
-        # purchases: "Achats"
-        # reporting: "États"
-        # rights: "Droits d’accès"
-        # sales: "Ventes"
-        # stocks: "Stocks"
-        # subscriptions: "Abonnements"
-        # tasks: "Tâches"
-        # tax_declarations: "Déclarations de taxes"
+      submenus: #?
       trade: "التجارة"
     merge: "دمج"
     # meteo: "Météo"
@@ -1363,6 +1342,7 @@ arb:
     # no_filters: "--- Pas de filtre ---"
     no_javascript: "ان متصفح الويب الخاص بك لا يدعم نسخة الجافا، لذا تحتاج الى تفعيله من اجل استخدام ايكيليبغ."
     no_origin: "-- بدون مصدر --"
+    # no_particular_periods: "Aucune période en particulier"
     no_products: "Sans produit"
     no_proposer: "-- دون راعي او كفيل --"
     no_purchases: "لا شراء في انتظار الاستلام"
@@ -1676,7 +1656,7 @@ arb:
     tool_create: "اضافة مادة" #?
     tool_update: "تعديل المادة"
     tools: "مادة مستخدمة"
-    # tools_list: "Matériel"
+    # tools_list: "Liste d'outils"
     total: "المجموع"
     total_amount: "صافي اجمالي الكمية"
     # total_in_currency: "Total (%{currency})"
@@ -1730,7 +1710,7 @@ arb:
     # usage: "Utilisation"
     # use_incoming_payment: "Rattacher l’encaissement %{payment}"
     use_renew: "اختر دفتر يومي للتقارير الجديدة"
-    used_accounts: "الحسابات المستخدمة فقط"
+    used_accounts: "الحسابات المستخدمة فقط" #?
     user_create: "اضافة مستخدم جديد" #?
     user_name: "اسم المستخدم"
     user_update: "تعديل معلومات المستخدم"
