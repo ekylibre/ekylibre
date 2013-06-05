@@ -75,25 +75,14 @@
 # - "backend/cells/rss_cells#show"
 # - "backend/dashboards#list_my_future_events"
 # - "backend/dashboards#list_recent_events"
-# - "backend/dashboards#production_equipments"
 # - "backend/dashboards#search"
-# - "backend/dashboards#settings_accountancy"
-# - "backend/dashboards#settings_base"
-# - "backend/dashboards#settings_production"
-# - "backend/dashboards#settings_products"
-# - "backend/dashboards#settings_purchases"
-# - "backend/dashboards#settings_relationship"
-# - "backend/dashboards#settings_sales"
-# - "backend/dashboards#settings_stocks"
+# - "backend/dashboards#tools"
 # - "backend/documents#index"
 # - "backend/documents#list"
 # - "backend/entity_addresses#show"
 # - "backend/entity_addresses#unroll"
 # - "backend/entity_links#show"
 # - "backend/entity_natures#unroll"
-# - "backend/helps#index"
-# - "backend/helps#show"
-# - "backend/helps#toggle"
 # - "backend/interfacers#autocomplete"
 # - "backend/interfacers#product_trackings"
 # - "backend/interfacers#product_units"
@@ -133,7 +122,6 @@
 # - "backend/matters#picture"
 # - "backend/matters#show"
 # - "backend/matters#update"
-# - "backend/myselves#show"
 # - "backend/operation_natures#create"
 # - "backend/operation_natures#destroy"
 # - "backend/operation_natures#edit"
@@ -348,10 +336,10 @@
 __minimum__:
 - "backend/dashboards#index"
 - "backend/dashboards#welcome"
-- "backend/help#index" #?
-- "backend/help#show" #?
-- "backend/myselves#change_password" #?
-- "backend/myselves#statistics" #?
+- "backend/helps#index"
+- "backend/helps#show"
+- "backend/helps#toggle"
+- "backend/myselves#show"
 - "backend/settings#about"
 
 # Public access

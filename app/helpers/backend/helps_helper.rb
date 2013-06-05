@@ -21,11 +21,13 @@ module Backend::HelpsHelper
 
   def find_article(name)
     if Ekylibre.helps[I18n.locale]
-      if Ekylibre.helps[I18n.locale].has_key?(name.to_s)
-        return name.to_s
-      else
-        index = name.to_s.gsub(/\-\w+$/, '-index')
-        return index if Ekylibre.helps[I18n.locale].has_key?(index)
+      kontroller, aktion = name.to_s.split("-")[0..1]
+      possibilities = [name]
+      possibilities << kontroller + "-edit" if aktion == "update"
+      possibilities << kontroller + "-new" if ["create", "update", "edit"].include?(aktion)
+      possibilities << kontroller + "-index"
+      return possibilities.detect do |p|
+        Ekylibre.helps[I18n.locale].has_key?(p)
       end
     end
     return nil
@@ -36,24 +38,29 @@ module Backend::HelpsHelper
     return !find_article(name).nil?
   end
 
-  def search_article(article = nil)
-    session[:help_history] = [] unless session[:help_history].is_a? [].class
-    article ||= "#{controller.controller_path}-#{self.action_name}"
-    file = nil
-    for locale in [I18n.locale, I18n.default_locale]
-      for f, attrs in Ekylibre.helps
-        next if attrs[:locale].to_s != locale.to_s
-        file_name = [article, article.split("-")[0].to_s+"-index"].detect{|name| attrs[:name]==name}
-        file = f and break unless file_name.blank?
-      end
-      break unless file.nil?
-    end
-    if file and session[:side] and article != session[:help_history].last
-      session[:help_history] << file
-    end
-    file ||= article.to_sym
-    return file
-  end
+  # def search_article(article = nil)
+  #   session[:help_history] = [] unless session[:help_history].is_a? [].class
+  #   article ||= "#{controller.controller_path}-#{self.action_name}"
+  #   file = nil
+  #   for locale in [I18n.locale, I18n.default_locale]
+  #     for f, attrs in Ekylibre.helps
+  #       next if attrs[:locale].to_s != locale.to_s
+  #       kontroller, aktion = article.to_s.split("-")[0..1]
+  #       possibilities = [article]
+  #       possibilities << kontroller + "-edit" if action == "update"
+  #       possibilities << kontroller + "-new" if ["create", "update", "edit"].include?(action)
+  #       possibilities << kontroller + "-index"
+  #       file_name = possibilities.detect{|name| attrs[:name]==name}
+  #       file = f and break unless file_name.blank?
+  #     end
+  #     break unless file.nil?
+  #   end
+  #   if file and session[:side] and article != session[:help_history].last
+  #     session[:help_history] << file
+  #   end
+  #   file ||= article.to_sym
+  #   return file
+  # end
 
 
   def article(name, options = {})
@@ -67,6 +74,15 @@ module Backend::HelpsHelper
 
   def help_shown?
     !current_user.preference("interface.helps.collapsed", false, :boolean).value
+  end
+
+
+  # Open an help file and returns corresponding HTML
+  def help(file)
+    f = File.open(file, "rb:UTF-8")
+    content = f.read
+    f.close
+    return wikize(content)
   end
 
   # Transforms text to HTML like in wikis.
@@ -137,6 +153,7 @@ module Backend::HelpsHelper
       n = 7-x
       content.gsub!(/^\s*\={#{n}}\s*([^\=]+)\s*\=*/, "<h#{x}>\\1</h#{x}>")
     end
+    content.gsub!(/\<h1\>.*\<\/h1\>/, "")
 
     content.gsub!(/^\ \ (.*\w+.*)$/, '  <pre>\1</pre>')
 

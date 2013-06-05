@@ -117,6 +117,7 @@ jpn:
       # settings_sales: "Configuration des ventes"
       # settings_stocks: "Configuration des stocks"
       # stocks: "Tableau de bord des stocks"
+      # tools: "Tableau de bord des outils"
       # trade: "Tableau de bord de la gestion commerciale"
       # welcome: "Bienvenue dans Ekylibre"
     backend/departments:
@@ -193,7 +194,8 @@ jpn:
       # new: "Créer un nouvel exercice"
       # show: "Exercice comptable %{code}"
     backend/help: #?
-    backend/helps: #?
+    backend/helps:
+      # index: "Aide"
     backend/incoming_deliveries:
       # confirm: "Confirmer l’arrivée de la livraison"
       # edit: "Modifier l’arrivage: %{number}"
@@ -1391,6 +1393,7 @@ jpn:
     # supplier_code: "Code fournisseur"
     # supplier_informations: "Informations fournisseur"
     # supply: "Livraison"
+    # support: "Support"
     # synthesis: "Documents de synthèse"
     # target: "Cible"
     # tax_declaration_create: "Ajouter une nouvelle déclaration"

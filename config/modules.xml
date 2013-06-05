@@ -540,6 +540,13 @@
         <page to="backend/settings#import"/>
       </item>
     </group>
+    <group name="support" icon="question">
+      <item name="help">
+        <page to="backend/helps#index"/>
+        <page to="backend/helps#show"/>
+        <page to="backend/helps#toggle"/>
+      </item>
+    </group>
   </module>
   <module name="settings" icon="wrench">
     <group name="parameters" icon="wrench">
@@ -943,32 +950,6 @@
         <page to="backend/procedure_natures#show"/>
         <page to="backend/procedure_natures#update"/>
       </item>
-      <item name="production_chains">
-        <page to="backend/production_chains#index"/>
-        <page to="backend/production_chains#create"/>
-        <page to="backend/production_chains#destroy"/>
-        <page to="backend/production_chains#edit"/>
-        <page to="backend/production_chains#list"/>
-        <page to="backend/production_chains#list_conveyors"/>
-        <page to="backend/production_chains#list_work_centers"/>
-        <page to="backend/production_chains#new"/>
-        <page to="backend/production_chains#show"/>
-        <page to="backend/production_chains#update"/>
-        <page to="backend/production_chain_work_centers#create"/>
-        <page to="backend/production_chain_work_centers#destroy"/>
-        <page to="backend/production_chain_work_centers#down"/>
-        <page to="backend/production_chain_work_centers#edit"/>
-        <page to="backend/production_chain_work_centers#new"/>
-        <page to="backend/production_chain_work_centers#play"/>
-        <page to="backend/production_chain_work_centers#show"/>
-        <page to="backend/production_chain_work_centers#up"/>
-        <page to="backend/production_chain_work_centers#update"/>
-        <page to="backend/production_chain_conveyors#create"/>
-        <page to="backend/production_chain_conveyors#destroy"/>
-        <page to="backend/production_chain_conveyors#edit"/>
-        <page to="backend/production_chain_conveyors#new"/>
-        <page to="backend/production_chain_conveyors#update"/>
-      </item>
     </group>
   </module>
   <undefined-module>
@@ -1050,20 +1031,13 @@
         <page to="backend/dashboards#list_my_future_events"/>
         <page to="backend/dashboards#list_recent_events"/>
         <page to="backend/dashboards#production"/>
-        <page to="backend/dashboards#production_equipments"/>
         <page to="backend/dashboards#purchases"/>
         <page to="backend/dashboards#relationship"/>
         <page to="backend/dashboards#sales"/>
         <page to="backend/dashboards#search"/>
         <page to="backend/dashboards#settings"/>
-        <page to="backend/dashboards#settings_accountancy"/>
-        <page to="backend/dashboards#settings_base"/>
-        <page to="backend/dashboards#settings_production"/>
-        <page to="backend/dashboards#settings_products"/>
-        <page to="backend/dashboards#settings_purchases"/>
-        <page to="backend/dashboards#settings_sales"/>
-        <page to="backend/dashboards#settings_stocks"/>
         <page to="backend/dashboards#stocks"/>
+        <page to="backend/dashboards#tools"/>
         <page to="backend/dashboards#welcome"/>
       </item>
       <item name="entities">
@@ -1079,11 +1053,6 @@
       </item>
       <item name="entity_natures">
         <page to="backend/entity_natures#unroll"/>
-      </item>
-      <item name="helps">
-        <page to="backend/helps#index"/>
-        <page to="backend/helps#show"/>
-        <page to="backend/helps#toggle"/>
       </item>
       <item name="interfacers">
         <page to="backend/interfacers#autocomplete"/>
@@ -1239,6 +1208,36 @@
         <page to="backend/product_processes#new"/>
         <page to="backend/product_processes#show"/>
         <page to="backend/product_processes#update"/>
+      </item>
+      <item name="production_chain_conveyors">
+        <page to="backend/production_chain_conveyors#create"/>
+        <page to="backend/production_chain_conveyors#destroy"/>
+        <page to="backend/production_chain_conveyors#edit"/>
+        <page to="backend/production_chain_conveyors#new"/>
+        <page to="backend/production_chain_conveyors#update"/>
+      </item>
+      <item name="production_chain_work_centers">
+        <page to="backend/production_chain_work_centers#create"/>
+        <page to="backend/production_chain_work_centers#destroy"/>
+        <page to="backend/production_chain_work_centers#down"/>
+        <page to="backend/production_chain_work_centers#edit"/>
+        <page to="backend/production_chain_work_centers#new"/>
+        <page to="backend/production_chain_work_centers#play"/>
+        <page to="backend/production_chain_work_centers#show"/>
+        <page to="backend/production_chain_work_centers#up"/>
+        <page to="backend/production_chain_work_centers#update"/>
+      </item>
+      <item name="production_chains">
+        <page to="backend/production_chains#index"/>
+        <page to="backend/production_chains#create"/>
+        <page to="backend/production_chains#destroy"/>
+        <page to="backend/production_chains#edit"/>
+        <page to="backend/production_chains#list"/>
+        <page to="backend/production_chains#list_conveyors"/>
+        <page to="backend/production_chains#list_work_centers"/>
+        <page to="backend/production_chains#new"/>
+        <page to="backend/production_chains#show"/>
+        <page to="backend/production_chains#update"/>
       </item>
       <item name="professions">
         <page to="backend/professions#index"/>

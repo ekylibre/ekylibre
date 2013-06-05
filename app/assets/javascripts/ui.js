@@ -400,6 +400,17 @@
     });
 
 
+    $(document).on("click", "a[data-toggle='result']", function () {
+        var element = $(this), content = element.closest('.result').find('.content'), collapsed;
+        if (content.hasClass('collapsed')) {
+            content.removeClass('collapsed');
+        } else {
+            content.addClass('collapsed');
+        }
+        return false;
+    });
+
+
     // Toggle side menu
     $(document).behave("click", "a[data-toggle-view-mode]", function () {
         var element = $(this);
