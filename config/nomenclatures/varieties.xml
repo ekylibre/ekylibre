@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<nomenclatures xmlns="http-//www.ekylibre.org/XML/2013/nomenclatures">
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
   <!-- root -->
   <nomenclature name="varieties-root">
-  <items>
-    <item name="product"/>
-  </items>
+    <items>
+      <item name="product"/>
+    </items>
   </nomenclature>
   <!-- level 1 -->
   <nomenclature name="varieties-product">
@@ -17,11 +17,11 @@
   <!-- level 2 - branch 1 -->
   <nomenclature name="varieties-matter">
     <items>
-       <item name="bioproduct"/>
-       <item name="equipment"/>
-       <item name="mineral_matter"/>
-       <item name="organic_matter"/>
-       <item name="zone"/>
+      <item name="bioproduct"/>
+      <item name="equipment"/>
+      <item name="mineral_matter"/>
+      <item name="organic_matter"/>
+      <item name="zone"/>
     </items>
   </nomenclature>
   <!-- level 2 - branch 2 -->
@@ -34,8 +34,8 @@
   <!-- level 2 - branch 3 -->
   <nomenclature name="varieties-product_group">
     <items>
-       <item name="animal_group"/>
-       <item name="land_parcel_group"/>
+      <item name="animal_group"/>
+      <item name="land_parcel_group"/>
     </items>
   </nomenclature>
   <!-- level 2 - branch 1 - sub-branch 1 -->
@@ -53,26 +53,26 @@
     </items>
   </nomenclature>
   <!-- level 2 - branch 1 - sub-branch 2 -->
-    <nomenclature name="varieties-equipment">
+  <nomenclature name="varieties-equipment">
     <items>
       <item name="worker"/>
     </items>
   </nomenclature>
   <!-- level 2 - branch 1 - sub-branch 3 -->
-    <nomenclature name="varieties-zone">
+  <nomenclature name="varieties-zone">
     <items>
       <item name="primary_zone"/>
       <item name="sub_zone"/>
     </items>
   </nomenclature>
-   <!-- level 2 - branch 2 - sub-branch 1-->
+  <!-- level 2 - branch 2 - sub-branch 1-->
   <nomenclature name="varieties-property_title">
     <items>
       <item name="zone_property_title"/>
     </items>
   </nomenclature>  
-    <!-- level 2 - branch 1 - sub-branch 3 - leaf 1 -->
-    <nomenclature name="varieties-primary_zone">
+  <!-- level 2 - branch 1 - sub-branch 3 - leaf 1 -->
+  <nomenclature name="varieties-primary_zone">
     <items>
       <item name="settlement"/>
       <item name="land_parcel"/>
@@ -86,5 +86,4 @@
       <item name="land_parcel_division"/>
     </items>
   </nomenclature>
-
 </nomenclatures>

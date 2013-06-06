@@ -1,75 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
-  <nomenclature name="document-natures">
+  <nomenclature name="document_natures">
     <taggers>
-      <tagger name="production-natures" prefix="p" file="production-natures.xml"/>
-      <tagger name="management-aspects" prefix="m" file="management-aspects.xml"/>
+      <tagger name="production_natures" prefix="p" file="production-natures.xml"/>
+      <tagger name="management_aspects" prefix="m" file="management-aspects.xml"/>
     </taggers>
     <attributes>
       <attribute name="datasource" type="string"/>
     </attributes>
 
     <items>
-      <item name="sales-order" tags="m:sales">
-	<attribute name="datasource" value="sales-order"/>
-      </item>
-      <item name="sales-estimate" tags="m:sales">
-	<attribute name="datasource" value="sales-estimate"/>
-      </item>
-      <item name="sales-invoice" tags="m:sales">
-	<attribute name="datasource" value="sales-invoice"/>
-      </item>
+      <item name="sales_order" tags="m:sales"/>
+      <item name="sales_estimate" tags="m:sales"/>
+      <item name="sales_invoice" tags="m:sales"/>
+      <item name="purchase_order" tags="m:purchases"/>
+      <item name="purchase_estimate" tags="m:purchases"/>
+      <item name="purchase_invoice" tags="m:purchases"/>
 
-      <item name="purchase-order" tags="m:purchases">
-	<attribute name="datasource" value="purchase-order"/>
-      </item>
-      <item name="purchase-estimate" tags="m:purchases">
-	<attribute name="datasource" value="purchase-estimate"/>
-      </item>
-      <item name="purchase-invoice" tags="m:purchases">
-	<attribute name="datasource" value="purchase-invoice"/>
-      </item>
+      <item name="deposit" tags="m:finances"/>
 
-      <item name="deposit" tags="m:finances">
-	<attribute name="datasource" value="deposit"/>
-      </item>
+      <item name="balance_sheet" tags="m:accountancy"/>
+      <item name="income_statement" tags="m:accountancy"/>
+      <item name="journal" tags="m:accountancy"/>
+      <item name="general_journal" tags="m:accountancy"/>
+      <item name="general_ledger" tags="m:accountancy"/>
 
-      <item name="balance-sheet" tags="m:accountancy">
-	<attribute name="datasource" value="trial-balance"/>
-      </item>
-      <item name="income-statement" tags="m:accountancy">
-	<attribute name="datasource" value="trial-balance"/>
-      </item>
-      <item name="journal" tags="m:accountancy">
-	<attribute name="datasource" value="full-journal"/>
-      </item>
-      <item name="general-journal" tags="m:accountancy">
-	<attribute name="datasource" value="general-journal"/>
-      </item>
-      <item name="general-ledger" tags="m:accountancy">
-	<attribute name="datasource" value="general-ledger"/>
-      </item>
+      <item name="inventory" tags="m:stocks"/>
+      <item name="stocks" tags="m:stocks"/>
+      <item name="incoming_delivery_docket" tags="m:stocks, m:identification"/>
+      <item name="outgoing_delivery_docket" tags="m:stocks, m:identification"/>
 
-      <item name="inventory" tags="m:stocks">
-	<attribute name="datasource" value="products"/>
-      </item>
-      <item name="stocks" tags="m:stocks">
-	<attribute name="datasource" value="products"/>
-      </item>
-      <item name="incoming-delivery-docket" tags="m:stocks, m:identification">
-	<attribute name="datasource" value="incoming-delivery"/>
-      </item>
-      <item name="outgoing-delivery-docket" tags="m:stocks, m:identification">
-	<attribute name="datasource" value="outgoing-delivery"/>
-      </item>
+      <item name="animal_sheet" tags="m:production, p:animal_farming"/>
 
-      <item name="animal-sheet" tags="m:production, p:animal-farming">
-	<attribute name="datasource" value="animal"/>
-      </item>
-
-      <item name="entity-sheet" tags="m:relationship">
-	<attribute name="datasource" value="entity"/>
-      </item>
+      <item name="entity_sheet" tags="m:relationship"/>
 
     </items>
   </nomenclature>

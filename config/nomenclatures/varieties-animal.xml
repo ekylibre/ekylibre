@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
-  <nomenclature name="varieties:animal">
+  <nomenclature name="varieties-animal">
     <items>
       <item name="capra"/>
       <item name="ovis"/>
