@@ -1,40 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
   <nomenclature name="document_natures">
-    <taggers>
-      <tagger name="production_natures" prefix="p" file="production-natures.xml"/>
-      <tagger name="management_aspects" prefix="m" file="management-aspects.xml"/>
-    </taggers>
     <attributes>
-      <attribute name="datasource" type="string"/>
+      <attribute name="production_natures" type="list" source="production_natures"/>
+      <attribute name="management_aspects" type="list" source="management_aspects"/>
     </attributes>
-
     <items>
-      <item name="sales_order" tags="m:sales"/>
-      <item name="sales_estimate" tags="m:sales"/>
-      <item name="sales_invoice" tags="m:sales"/>
-      <item name="purchase_order" tags="m:purchases"/>
-      <item name="purchase_estimate" tags="m:purchases"/>
-      <item name="purchase_invoice" tags="m:purchases"/>
+      <item name="sales_order" management_aspects="sales"/>
+      <item name="sales_estimate" management_aspects="sales"/>
+      <item name="sales_invoice" management_aspects="sales"/>
+      <item name="purchase_order" management_aspects="purchases"/>
+      <item name="purchase_estimate" management_aspects="purchases"/>
+      <item name="purchase_invoice" management_aspects="purchases"/>
 
-      <item name="deposit" tags="m:finances"/>
+      <item name="deposit" management_aspects="finances"/>
 
-      <item name="balance_sheet" tags="m:accountancy"/>
-      <item name="income_statement" tags="m:accountancy"/>
-      <item name="journal" tags="m:accountancy"/>
-      <item name="general_journal" tags="m:accountancy"/>
-      <item name="general_ledger" tags="m:accountancy"/>
+      <item name="balance_sheet" management_aspects="accountancy"/>
+      <item name="income_statement" management_aspects="accountancy"/>
+      <item name="journal" management_aspects="accountancy"/>
+      <item name="general_journal" management_aspects="accountancy"/>
+      <item name="general_ledger" management_aspects="accountancy"/>
 
-      <item name="inventory" tags="m:stocks"/>
-      <item name="stocks" tags="m:stocks"/>
-      <item name="incoming_delivery_docket" tags="m:stocks, m:identification"/>
-      <item name="outgoing_delivery_docket" tags="m:stocks, m:identification"/>
+      <item name="inventory" management_aspects="stocks"/>
+      <item name="stocks" management_aspects="stocks"/>
+      <item name="incoming_delivery_docket" management_aspects="stocks, identification"/>
+      <item name="outgoing_delivery_docket" management_aspects="stocks, identification"/>
 
-      <item name="animal_sheet" tags="m:production, p:animal_farming"/>
+      <item name="animal_sheet" management_aspects="production" production_natures="animal_farming"/>
 
-      <item name="entity_sheet" tags="m:relationship"/>
-
+      <item name="entity_sheet" management_aspects="relationship"/>
     </items>
   </nomenclature>
-  
 </nomenclatures>

@@ -39,10 +39,9 @@
 
 # Sources are stored in private/document_templates/:id/content.xml
 class DocumentTemplate < Ekylibre::Record::Base
-  cattr_reader :datasources
   attr_accessible :active, :archiving, :by_default, :language, :name, :nature, :managed, :source, :formats
   enumerize :archiving, :in => [:none, :first, :last, :all], :default => :none, :predicates => {:prefix => true}
-  enumerize :nature, :in => Nomenclatures["document_natures"].items.values.select{|i| i.attributes["datasource"]}.map(&:name).map(&:underscore), :predicates => {:prefix => true}
+  enumerize :nature, :in => Nomenclatures["document_natures"].items.values.map(&:name), :predicates => {:prefix => true}
   has_many :documents, :foreign_key => :template_id
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :language, :allow_nil => true, :maximum => 3
@@ -60,10 +59,10 @@ class DocumentTemplate < Ekylibre::Record::Base
     raise ArgumentError.new("Unknown nature for a DocumentTemplate (got #{nature.inspect}:#{nature.class})") unless self.nature.values.include?(nature.to_s)
     where(:nature => nature.to_s, :active => true).order(:name)
   }
-  scope :with_datasource, lambda { |datasource|
-    raise ArgumentError.new("Unknown datasource (got #{datasource.inspect}:#{datasource.class}, #{self.datasources.keys.join(', ')} expected)") unless self.datasources.keys.include?(datasource.to_s)
-    where(:nature => self.datasources[datasource.to_s], :active => true).order(:name)
-  }
+  # scope :with_datasource, lambda { |datasource|
+  #   raise ArgumentError.new("Unknown datasource (got #{datasource.inspect}:#{datasource.class}, #{self.datasources.keys.join(', ')} expected)") unless self.datasources.keys.include?(datasource.to_s)
+  #   where(:nature => self.datasources[datasource.to_s], :active => true).order(:name)
+  # }
 
 
   protect(:on => :destroy) do
@@ -191,20 +190,20 @@ class DocumentTemplate < Ekylibre::Record::Base
     return true
   end
 
-  # Load reverse hash from datasource to document nature
-  def self.load_datasources
-    @@datasources = HashWithIndifferentAccess.new
-    for item in Nomenclatures["document_natures"].items.values
-      if ds = item.attributes["datasource"]
-        ds = ds.to_s.underscore.to_sym
-        @@datasources[ds] ||= []
-        @@datasources[ds] << item.name.underscore
-      end
-    end
-  end
+  # # Load reverse hash from datasource to document nature
+  # def self.load_datasources
+  #   @@datasources = HashWithIndifferentAccess.new
+  #   for item in Nomenclatures["document_natures"].items.values
+  #     if ds = item.attributes["datasource"]
+  #       ds = ds.to_s.underscore.to_sym
+  #       @@datasources[ds] ||= []
+  #       @@datasources[ds] << item.name.underscore
+  #     end
+  #   end
+  # end
 
-  # Load datasources now!
-  load_datasources
+  # # Load datasources now!
+  # load_datasources
 
 
 end

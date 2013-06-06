@@ -662,7 +662,8 @@ module ApplicationHelper
     return tool_to(name, url, options) if authorized?(url)
     return nil
   end
-  def toolbar_export(datasource, record = nil, options = {})
+  def toolbar_export(datasource, record = nil, options = {}, &block)
+    yield "to"
     templates = DocumentTemplate.with_datasource(datasource)
     if templates.count > 0
       return content_tag(:div, :class => "btn-export btn-group") do
@@ -722,7 +723,7 @@ module ApplicationHelper
     # To HTML
     html = ''.html_safe
     for group, tools in toolbar.tools
-      tools_html = tools.collect{|t| send("toolbar_#{t[0]}", *t[1..-1]) }.compact.join.html_safe
+      tools_html = tools.collect{|t| (t[:block] ? send("toolbar_#{t[:type]}", *t[:args], &t[:block]) : send("toolbar_#{t[:type]}", *t[:args])) }.compact.join.html_safe
       unless tools_html.blank?
         html << content_tag(:div, tools_html.html_safe, :class => "btn-group btn-group-#{group}")
       end
@@ -755,11 +756,11 @@ module ApplicationHelper
       add(:mail_to, *args)
     end
 
-    def export(*args)
+    def export(*args, &block)
       args << {} unless args[-1].is_a?(Hash)
       args[-1][:group] ||= new_group
       @export = true
-      add(:export, *args)
+      add(:export, *args, &block)
     end
 
     def method_missing(method_name, *args, &block)
@@ -770,11 +771,13 @@ module ApplicationHelper
 
     private
 
-    def add(type, *args)
+    def add(type, *args, &block)
       options = args[-1].is_a?(Hash) ? args[-1] : {}
       group = (options.delete(:group) || "default").to_sym
+      button = {:type => type, :args => args}
+      button[:block] = block if block_given?
       @tools[group] ||= []
-      @tools[group] << [type, *args]
+      @tools[group] << button
     end
 
     # Build an return a new group name
