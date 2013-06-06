@@ -2,9 +2,12 @@
 <nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
   <!-- root -->
   <nomenclature name="varieties-root">
-    <items>
-      <item name="product"/>
-    </items>
+  <attributes>
+    <attribute name="derivatives" type="list" required="false" inherit="true" merge="true"/>
+  </attributes>
+   <items>
+    <item name="product" derivatives="itself"/>
+  </items>
   </nomenclature>
   <!-- level 1 -->
   <nomenclature name="varieties-product">

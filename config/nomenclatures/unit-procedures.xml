@@ -238,12 +238,12 @@
 	  <variable name="silo" variety="settlement" abilities="store(plant)"/>
 	  <variable name="driver" variety="worker"/><!-- paramètre réprésentant des objets de type Humain qui possede la compétence "Conduire un ensemble tracteur + épandeur"  -->
     <variable name="tractor" variety="equipment" abilities="tow,catch"/><!-- paramètre réprésentant des objets qui possede la compétence "Tracter"  -->
-	  <variable name="trailer" variety="equipment" abilities="catch,store(plant),transport(plant)"/><!-- paramètre réprésentant des objets qui possede la compétence "Semer"  -->
+	  <variable name="trailer" variety="equipment" abilities="store_fluid,transport"/><!-- paramètre réprésentant des objets qui possede la compétence "Semer"  -->
 	  <variable name="cropper_driver" variety="worker" abilities="cropper_driving" /><!-- paramètre réprésentant des objets de type Humain qui possede la compétence "Conduire un ensemble de semis"  -->
 	  <variable name="cropper" type="equipment" abilities="harvest(plant)" /><!-- paramètre réprésentant des objets de type Humain qui possede la compétence "Conduire un ensemble de semis"  -->
 	  <variable name="culture" variety="plant"/>
-	  <variable name="grains" same-variety-of="culture"/>
-	  <variable name="straw" same-variety-of="culture"/>
+	  <variable name="grains" same-variety-of="culture" derivative="grain"/>
+	  <variable name="straw" same-variety-of="culture" derivative= "straw"/>
 	</variables>
 	<operation name="transport_0100">
 	  <task do="[cropper-driver] moves-in [cropper]"/><!-- le chauffeur se déplace vers la moissonneuse et rentre dedant (?) -->
@@ -275,13 +275,13 @@
 	  <!-- Le transfert doit pouvoir se faire autant de fois que necessaire notions d' aller/retour -->
 	  <task do="[cropper] moves-to [tractor]"/><!-- la moissoneuse se déplace vers le tracteur et la remorque -->
 	</operation>
-  <operation name="transfert_1000">
+  <operation name="transfert_0900">
 	  <task do="[grains] moves-in [trailer]"/><!-- la moissoneuse vide ses grains dans la remorque -->
 	   </operation>
-  <operation name="transport_1100">
+  <operation name="transport_1000">
 	  <task do="[tractor] moves-to [silo]"/><!-- le tracteur avec sa remorque pleine va au silo -->
 	   </operation>
-  <operation name="transfert_1200">
+  <operation name="transfert_1100">
 	  <task do="[grains] moves-in [silo]"/><!-- le tracteur vide ses grains dans le silo -->
 	</operation>
       </procedure>

@@ -2,15 +2,20 @@
 <nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
   <nomenclature name="varieties-animal">
     <items>
+      <item name="mammalia" derivatives="milk"/>
+      <item name="gallus"/>
+      <item name="salmo"/>
+      <item name="apis"/>
+    </items>
+  </nomenclature>
+  <nomenclature name="varieties-mammalia">
+    <items>
       <item name="capra"/>
       <item name="ovis"/>
       <item name="bos"/>
-      <item name="gallus"/>
       <item name="anas"/>
       <item name="sus"/>
       <item name="lepus"/>
-      <item name="salmo"/>
-      <item name="apis"/>
     </items>
   </nomenclature>
 </nomenclatures>
