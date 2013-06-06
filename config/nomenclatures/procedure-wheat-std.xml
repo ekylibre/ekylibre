@@ -2,11 +2,8 @@
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
   <procedure name="wheat_crop_std">
     <variables>
-      <variable name="land_parcel" variety="land_parcel" pre-indicators-state="production::empty"/>
-      <variable name="seeds" variety="triticum"/>
-      <variable name="culture" variety="triticum"/>
-      <variable name="herbicide" variety="herbicide" abilities="kill(plant)" />
-      <variable name="fungicide" variety="fungicide" abilities="kill(fungus)" />
+      <variable name="land_parcel" variety="land_parcel"/>
+      <variable name="culture" variety="triticum" new="true"/>
     </variables>
     <sub-procedures>
       <!-- ############################## EPANDRE DU FUMIER ######################################## -->
@@ -24,8 +21,8 @@
       <!-- ######################################### SEMER ########################################## -->
       <sub-procedure name="sowing" required="true" conditions="[land_parcel].indicator(sowable) == true and [land_parcel].indicator(in_production) == false">
          <parameter name="land_parcel"/>
-         <parameter name="seeds"/>
-         <parameter name="culture"/>
+         <parameter name="seeds" variety="triticum"/>
+         <parameter name="culture" />
       </sub-procedure>
       <!-- ############################## EPANDRE DE L'ENGRAIS ######################################## -->
       <sub-procedure name="mineral_fertilizing" required="false" >
@@ -34,12 +31,12 @@
       <!-- ############################## TRAITER CHIMIQUEMENT LA CULTURE CONTRE LES MAUVAISES HERBES ######################################## -->
       <sub-procedure name="chemical_treatment" required="false" >
          <parameter name="culture"/>
-         <parameter name="herbicide" value="molecule"/>
+         <parameter name="molecule" variety="phytosanitary" abilities="kill(plant)"/>
       </sub-procedure>
       <!-- ######################################## TRAITER CHIMIQUEMENT LA CULTURE CONTRE LES MALADIES FONGIQUES ########################################### -->
       <sub-procedure name="chemical_treatment" required="false" >
          <parameter name="culture"/>
-         <parameter name="fungicide" value="molecule"/>
+         <parameter name="molecule" variety="phytosanitary" abilities="kill(fungus)"/>
       </sub-procedure>
       <!-- ######################################## MOISSONNER ########################################### -->
       <sub-procedure name="seed_harvest" required="true" conditions="[land_parcel].indicator(in_production) == true AND [culture].indicator(reproduction_state) == grain_senescence">
