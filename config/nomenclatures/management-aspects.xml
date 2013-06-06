@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
-  <nomenclature name="management-aspects" hierarchical="true">
+  <nomenclature name="management_aspects" hierarchical="true">
     <items>
       <item name="trade">
 	<item name="sales"/>
@@ -32,7 +32,7 @@
 	<item name="identification"/>
 	<item name="reproduction"/>
 	<item name="product-processing"/>
-
+  <item name="milk"/>
       </item>
 
     </items>
