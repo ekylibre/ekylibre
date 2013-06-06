@@ -1,6 +1,7 @@
 module Nomenclatures
 
   XMLNS = "http://www.ekylibre.org/XML/2013/nomenclatures".freeze
+  NS_SEPARATOR = "-"
 
   # This class represent a nomenclature
   class Nomenclature
@@ -8,13 +9,13 @@ module Nomenclatures
     attr_reader :items, :name, :namespace
 
     def initialize(element, options = {})
-      name = element.attr("name").to_s.split(':')
+      name = element.attr("name").to_s.split(NS_SEPARATOR)
       if name.size == 2
-        @namespace = name.shift.gsub('-', '_').to_sym
+        @namespace = name.shift.to_sym
       elsif name.size != 1
         raise ArgumentError.new("Bad name of nomenclature: #{element.attr("name").to_s.inspect}")
       end
-      @name = name.shift.to_s.gsub('-', '_').to_sym
+      @name = name.shift.to_s.to_sym
       @items = element.xpath("xmlns:items/xmlns:item").inject({}) do |hash, item|
         hash[item.attr("name").to_s] = Item.new(self, item)
         hash
@@ -37,7 +38,7 @@ module Nomenclatures
     end
 
     def full_name
-      (namespace ? namespace.to_s + ":" + name.to_s : name.to_s)
+      (namespace ? namespace.to_s + NS_SEPARATOR + name.to_s : name.to_s)
     end
 
   end
@@ -48,7 +49,7 @@ module Nomenclatures
     # New item
     def initialize(nomenclature, element)
       @nomenclature = nomenclature
-      @name = element.attr("name").gsub('-', '_')
+      @name = element.attr("name")
       @child_nomenclature = element.attr("nomenclature")
       @namespace = nomenclature.namespace
       @tags = element.attr("tags").to_s.strip.split(/[\s\,]+/)
@@ -69,7 +70,7 @@ module Nomenclatures
 
     def child_nomenclature_name
       if @child_nomenclature
-        if @child_nomenclature.to_s.split(':').size == 2
+        if @child_nomenclature.to_s.split(NS_SEPARATOR).size == 2
           return @child_nomenclature
         else
           return full_name
@@ -80,7 +81,7 @@ module Nomenclatures
     end
 
     def full_name
-      (namespace ? namespace.to_s + ":" + name.to_s : name.to_s)
+      (namespace ? namespace.to_s + NS_SEPARATOR + name.to_s : name.to_s)
     end
   end
 
@@ -128,6 +129,8 @@ module Nomenclatures
 
   # Load all nomenclatures
   load
+
+  puts "Loaded nomenclatures: " + names.to_sentence
 
 end
 
