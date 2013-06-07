@@ -2,7 +2,7 @@
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
 <!-- ############################## EPANDRE DU FUMIER ######################################## -->
        <!-- name avec namespace séparé par ; natures appelle les noms de procedure fichier procedure-nature-->
-   <procedure name="organic_fertilizing" natures="">
+   <procedure name="organic_fertilizing" natures="enrichment">
        <!-- les variables non transmises seront obligatoirement demandées lors de l'utilisation de la procédure-->
        <!-- parameter = false , alors la variable ne sera pas demandée et peut servir de variable interne -->
 	     <!-- same-nature-of = "parameter" quand une variable interne est issue d'un objet passé en paramètre -->
@@ -52,7 +52,7 @@
 	  Journal des temps de travaux [driver] à la fin : le 01/01/2013 = J'ai épandu du fumier pendant YY Heures dans la parcelle 1
       -->
 <!-- ######################################### LABOURER ########################################## -->
-<procedure name="plowing" natures="">
+<procedure name="plowing" natures="tillage">
 	<variables>
 	 <variable name="driver" variety="worker"/><!-- paramètre réprésentant des objets de type Humain qui possede la compétence "Conduire un ensemble tracteur + épandeur"  -->
    <variable name="tractor" variety="equipment" abilities="tow,catch"/><!-- paramètre réprésentant des objets qui possede la compétence "Tracter"  -->
@@ -79,7 +79,7 @@
 	</operations>	
 </procedure>
 <!-- ########################################## HERSER ######################################### -->
-<procedure name="surperficial-plowing" natures="">
+<procedure name="surperficial-plowing" natures="tillage">
 	<variables>
 	 <variable name="driver" variety="worker"/><!-- paramètre réprésentant des objets de type Humain qui possede la compétence "Conduire un ensemble tracteur + épandeur"  -->
    <variable name="tractor" variety="equipment" abilities="tow,catch"/><!-- paramètre réprésentant des objets qui possede la compétence "Tracter"  -->
@@ -106,7 +106,7 @@
 	</operations>	
 </procedure>
 <!-- ######################################### SEMER ########################################## -->
-<procedure name="sowing" natures="">
+<procedure name="sowing" natures="tillage">
 	<variables>
 	  <variable name="seeds" variety="plant" abilities="germinate"/>
 	  <variable name="seeds_to_sow" same-nature-of="seeds" parameter="false"/>
@@ -150,7 +150,7 @@
 	</operations>	
       </procedure>
       <!-- ######################################## EPANDRE DE L'ENGRAIS ########################################### -->
-  <procedure name="mineral_fertilizing" natures="">
+  <procedure name="mineral_fertilizing" natures="enrichment">
      <variables>
       <variable name="fertilizer" variety="mineral_matter" abilities="fertilize(plant)"/>
       <variable name="fertilizer_to_spread" same-nature-of="fertilizer" parameter="false"/>
@@ -191,7 +191,7 @@
     </operations> 
   </procedure>
   <!-- ######################################## TRAITER CHIMIQUEMENT LA CULTURE AVEC UNE MOLECULE ########################################### -->
-  <procedure name="chemical_treatment">
+  <procedure name="chemical_treatment" natures="treatment">
   	<variables>
   	  <variable name="driver" variety="worker"/><!-- paramètre réprésentant des objets de type Humain qui possede la compétence "Conduire un ensemble tracteur + épandeur"  -->
       <variable name="tractor" variety="equipment" abilities="tow,catch"/><!-- paramètre réprésentant des objets qui possede la compétence "Tracter"  -->
@@ -233,7 +233,7 @@
 	</operations>	
       </procedure>
       <!-- ######################################## MOISSONNER ########################################### -->
-      <procedure name="seed_harvest">
+      <procedure name="seed_harvest" natures="production">
 	<variables>
 	  <variable name="silo" variety="settlement" abilities="store(plant)"/>
 	  <variable name="driver" variety="worker"/><!-- paramètre réprésentant des objets de type Humain qui possede la compétence "Conduire un ensemble tracteur + épandeur"  -->

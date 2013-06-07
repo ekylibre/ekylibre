@@ -4,23 +4,168 @@ fra:
       attributes:
       choices:
       items:
+        consume: "Consommer"
         catch: "Atteler"
-        cropper_driving: "Conduire une moissonneuse batteuse"
-        driving: "Conduire"
+        drive: "Conduire"
         fertilize: "Fertiliser"
         germinate: "Germer"
         harvest: "Récolter"
         kill: "Tuer"
-        plow_driving: "Conduire un ensemble de labour"
-        plowing: "Labourer"
-        sowing: "Semer"
+        produce: "Produire"
+        plow: "Labourer"
+        sow: "Semer"
         spray: "Pulvériser"
-        spread_driving: "Conduire un ensemble d'épandage"
-        spreading: "Épandre"
+        spread: "Épandre"
         store: "Stocker"
+        store_fluid: "Stocker du vrac"
+        store_liquid: "Stocker du liquide"
+        store_gaz: "Stocker du gaz"
         tow: "Tracter"
-        transport: "Transporter"
+        move: "Se déplacer"
       name: "Compétences"
+      taggers:
+    accounts:
+      attributes:
+        fr_pcg82: "Plan comptable général de 1982 - Arrêté du 14/12/2007 "
+        fr_pcga: "Plan comptable agricole - Arrêté du 11/12/1986"
+      choices:
+      items:
+        land_parcel_asset: "Terrains nus"
+        building_asset: "Bâtiments"
+        equipment_asset: "Matériels"
+        adult_animal_asset: "Animaux reproducteurs (adulte)"
+        young_animal_asset: "Animaux reproducteurs (jeune de renouvellement)"
+        service_animal_asset: "Animaux de service"
+        long_time_animal_stock: "Animaux (cycle long)"
+        short_time_animal_stock: "Animaux (cycle court)"
+        short_time_crop_stock: "Avances aux cultures (cycle court)"
+        plant_derivative_stock: "Produits finis végétaux"
+        animal_derivative_stock: "Produits finis animaux"
+        raw_material_charge: "Matières premières"
+        adult_animal_charge: "Animaux reproducteurs (adultes)"
+        young_animal_charge: "Animaux reproducteurs (jeunes de renouvellement)"
+        other_animal_charge: "Autres animaux"
+        land_parcel_rent_charge: "Fermages et loyers du foncier"
+        equipment_rent_charge: "Location de matériel"
+        plant_derivatives_product: "Vente de produits végétaux"
+        animal_derivatives_product: "Vente de produits animaux"
+        short_time_plant_crop_variation: "Végéaux en terre (cycle court)"
+        adult_animal_product: "Animaux reproducteurs (adultes)"
+        young_animal_product: "Animaux reproducteurs (jeunes de renouvellement)"
+        other_animal_product: "Autres animaux"
+        land_parcel_sell_product: "Immobilisations corporelles (hors biens vivants)"
+      name: "Code comptable"
+      taggers:
+    indicators:
+      attributes:
+        type: "Type"
+        choice: "Choix"
+      choices:
+        choices:
+          covered: "Sol couvert"
+          raw: "Sol nu"
+          first_growth: "Croissance initiale"
+          second_growth: "Croissance"
+          aging: "Vieillissement"
+          back_heat: "Retour de chaleurs"
+          heat: "Chaleurs"
+          pregnancy: "Pleine"
+          lactation: "En lactation"
+          depletion: "Tarie"
+          healthy: "Sain"
+          sick: "Malade"
+          germination: "Germination"
+          tillering: "Tallage"
+          bolting: "Montaison"
+          maturity: "Maturation"
+          senescence: "Senescence"
+          swelling: "Gonflement"
+          heading: "Epiason"
+          flowering: "Floraison"
+          grain_maturity: "Maturation du grain"
+          gain_senescence: "Senescence du grain"
+      items:
+        temperature: "Température"
+        sowable: "Semable"
+        in_production: "En production"
+        ground_appearance: "Aspect du sol"
+        animal_life_state: "Phases du bioprocessus de vie d'un animal"
+        mammalia_reproduction_state: "Phases du bioprocessus de reproduction d'un mammifère"
+        mammalia_lactation_state: "Phases du bioprocessus de lactation d'un mammifère"
+        animal_disease_state: "Phases du bioprocessus de maladie d'un animal"
+        plant_life_state: "Phases du bioprocessus de vie d'un végétal"
+        plant_reproduction_state: "Phases du bioprocessus de reproduction d'un végétal"
+      name: "Indicateurs"
+      taggers:
+    procedure_natures:
+      attributes:
+      choices:
+      items:
+        animal_cares: "Soin animaliers"
+        feeding: "Alimentation"
+        production: "Production"
+        reproduction: "Reproduction"
+        treatment: "Traitement"
+        technical_guide: "Itinéraire technique"
+        tillage: "Travail du sol"
+        enrichment: "Amendement"
+      name: "Type de procédures"
+      taggers:
+    production_natures:
+      attributes:
+      choices:
+      items:
+        vegetal_crops: "Productions végétales"
+        vegetal_global_documentation: "Documentation globale végétale"
+        landparcel_management: "Conduite de la parcelle"
+        stock_management: "Conduite des produits recoltés"
+        marketing: "Commercialisation"
+        vinification: "Vinification"
+        animal_farming: "Production animales"
+        animal_global_documentation: "Documentation globale animale"
+        sanitary: "Santé - Hygiène"
+        identification: "Identification"
+        feeding: "Alimentation"
+        production: "Production"
+        reproduction: "Reproduction"
+        transformation: "Transformation"
+      name: "Type de procédures"
+      taggers:
+    product_natures:
+      attributes:
+        active: "Actif"
+        asset_account: "Compte d'immobilisation"
+        category: "Category"
+        charge_account: "Compte de charge"
+        number: "Numéro"
+        product_account: "Compte de produit"
+        stock_account: "Compte de stock"
+        unit: "Unité"
+        variety: "Variété"
+        derivative: "Dérivé de la vaiété"
+        purchasable: "Achetable"
+        saleable: "Vendable"
+        depreciable: "Immobilisable"
+        storable: "Stockable"
+        atomic: "Irreductible"
+        reductible: "Peut présenter des réductions"
+        abilities: "Compétences"
+        indicators: "Indicateurs"
+      choices:
+      items:
+        adult_cow: "Vache adulte"
+        calf: "Veau"
+        milk: "Lait"
+        young_cow: "Génisse"
+        wheat_crop: "Culture de graminés"
+        grain: "Grain"
+        straw: "Paille"
+        land_parcel: "Parcelle"
+        building: "Batiments"
+        tractor: "Tracteur"
+        trail: "Remorque"
+        all_in_one_equipment: "Equipement tout en un"
+      name: "Type de produits"
       taggers:
     varieties:
       attributes:
@@ -43,6 +188,22 @@ fra:
         worker: "Travailleur"
         zone: "Zone physique"
       name: "Compétences"
+      taggers:
+    varieties-animal:
+      attributes:
+      choices:
+      items:
+        bos: "Bovins"
+        capra: "Caprins"
+        ovis: "Ovins"
+        gallus: "Galinacées"
+        anas: "Palmipèdes"
+        sus: "Porcins"
+        lepus: "Lagomorphes"
+        mammalia: "Mammifères"
+        salmo: "Salmonidés"
+        apis: "Apidés"
+      name: "Animaux"
       taggers:
   procedures:
     chemical_treatment: "Traitement chimique"

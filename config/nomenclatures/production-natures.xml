@@ -1,30 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
-  <nomenclature name="production-natures" hierarchical="true">
+  <nomenclature name="production_natures" hierarchical="true">
+    <attributes>
+      <attribute name="letter" type="choice" choices="A,B,C,D,E,F,G,H,I,J,K,L,M" required="false"/>
+    </attributes>
     <items>
-      <item name="vegetal-crops">
-	<item name="straw-cereal-crops"/>
-	<item name="maize-crops"/>
-	<item name="oilseed-crops"/>
-	<item name="protein-crops"/>
-	<item name="potato-crops"/>
-	<item name="beet-crops"/>
-	<item name="aromatic-and-medicinal-plants"/>
-	<item name="vine-wine"/>
-	<item name="prairie"/>
+      <item name="exploitation">
+        <item name="exploitation_global_documentation" letter="A"/>
+      </item>
+      <item name="vegetal_crops">
+        <item name="vegetal_global_documentation" letter="B"/>
+        <item name="landparcel_management" letter="C"/>
+        <item name="stock_management" letter="D"/>
+        <item name="marketing" letter="E"/>
+        <item name="vinification" letter="F"/>
+      	<item name="straw_cereal_crops"/>
+      	<item name="maize_crops"/>
+      	<item name="oilseed_crops"/>
+      	<item name="protein_crops"/>
+      	<item name="potato_crops"/>
+      	<item name="beet_crops"/>
+      	<item name="aromatic_and_medicinal_plants"/>
+      	<item name="vine_wine"/>
+      	<item name="prairie"/>
       </item>
 
-      <item name="animal-farming">
-	<item name="cattle-farming"/>
-	<item name="sheep-farming"/>
-	<item name="goat-farming"/>
-	<item name="pig-farming"/>
-	<item name="poultry-farming">
-	  <item name="palmiped-farming"/>
-	</item>
-	<item name="rabbit-farming"/>
-	<item name="fish-farming"/>
-	<item name="beekeeping"/>
+      <item name="animal_farming">
+        <item name="animal_global_documentation" letter="G"/>
+        <item name="sanitary" letter="H"/>
+        <item name="identification" letter="I"/>
+        <item name="feeding" letter="J"/>
+        <item name="production" letter="K"/>
+        <item name="reproduction" letter="L"/>
+        <item name="transformation" letter="M"/>
+      	<item name="cattle_farming"/>
+      	<item name="sheep_farming"/>
+      	<item name="goat_farming"/>
+      	<item name="pig_farming"/>
+      	<item name="poultry_farming">
+      	<item name="palmiped_farming"/>
+        <item name="rabbit_farming"/>
+        <item name="fish_farming"/>
+        <item name="beekeeping"/>
       </item>
 
       <item name="handicraft">
