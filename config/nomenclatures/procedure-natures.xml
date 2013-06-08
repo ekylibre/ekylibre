@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
-  <!-- root -->
   <nomenclature name="procedure_natures">
-   <items>
-    <item name="animal_cares"/>
-    <item name="reproduction"/>
-    <item name="production"/>
-    <item name="feeding"/>
-    <item name="technical_guide"/>
-    <item name="tillage"/>
-    <item name="enrichment"/>
-  </items>
+    <items>
+      <item name="animal_cares"/>
+      <item name="reproduction"/>
+      <item name="production"/>
+      <item name="feeding"/>
+      <item name="technical_guide"/>
+      <item name="tillage"/>
+      <item name="enrichment"/>
+    </items>
   </nomenclature>
 </nomenclatures>

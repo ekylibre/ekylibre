@@ -26,7 +26,7 @@ fra:
       taggers:
     accounts:
       attributes:
-        fr_pcg82: "Plan comptable général de 1982 - Arrêté du 14/12/2007 "
+        fr_pcg82: "Plan comptable général de 1982 - Arrêté du 14/12/2007"
         fr_pcga: "Plan comptable agricole - Arrêté du 11/12/1986"
       choices:
       items:

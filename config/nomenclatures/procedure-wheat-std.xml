@@ -8,42 +8,42 @@
     <sub-procedures>
       <!-- ############################## EPANDRE DU FUMIER ######################################## -->
       <sub-procedure name="organic_fertilizing" required="false" >
-	       <parameter name="land_parcel"/>
+        <parameter name="land_parcel"/>
       </sub-procedure>
       <!-- ######################################### LABOURER ########################################## -->
       <sub-procedure name="plowing" required="true" conditions="[land_parcel].indicator(ground_appearance) == covered">
-         <parameter name="land_parcel"/>
+        <parameter name="land_parcel"/>
       </sub-procedure>
       <!-- ######################################### HERSER ########################################## -->
       <sub-procedure name="superficial_plowing" required="true" conditions="[land_parcel].indicator(sowable) == false and [land_parcel].indicator(ground_appearance) == raw">
-         <parameter name="land_parcel"/>
+        <parameter name="land_parcel"/>
       </sub-procedure>
       <!-- ######################################### SEMER ########################################## -->
       <sub-procedure name="sowing" required="true" conditions="[land_parcel].indicator(sowable) == true and [land_parcel].indicator(in_production) == false">
-         <parameter name="land_parcel"/>
-         <parameter name="seeds" variety="triticum"/>
-         <parameter name="culture" />
+        <parameter name="land_parcel"/>
+        <parameter name="seeds" variety="triticum"/>
+        <parameter name="culture" />
       </sub-procedure>
       <!-- ############################## EPANDRE DE L'ENGRAIS ######################################## -->
       <sub-procedure name="mineral_fertilizing" required="false" >
-         <parameter name="land_parcel"/>
+        <parameter name="land_parcel"/>
       </sub-procedure>
       <!-- ############################## TRAITER CHIMIQUEMENT LA CULTURE CONTRE LES MAUVAISES HERBES ######################################## -->
       <sub-procedure name="chemical_treatment" required="false" >
-         <parameter name="culture"/>
-         <parameter name="molecule" variety="phytosanitary" abilities="kill(plant)"/>
+        <parameter name="culture"/>
+        <parameter name="molecule" variety="phytosanitary" abilities="kill(plant)"/>
       </sub-procedure>
       <!-- ######################################## TRAITER CHIMIQUEMENT LA CULTURE CONTRE LES MALADIES FONGIQUES ########################################### -->
       <sub-procedure name="chemical_treatment" required="false" >
-         <parameter name="culture"/>
-         <parameter name="molecule" variety="phytosanitary" abilities="kill(fungus)"/>
+        <parameter name="culture"/>
+        <parameter name="molecule" variety="phytosanitary" abilities="kill(fungus)"/>
       </sub-procedure>
       <!-- ######################################## MOISSONNER ########################################### -->
       <sub-procedure name="seed_harvest" required="true" conditions="[land_parcel].indicator(in_production) == true AND [culture].indicator(reproduction_state) == grain_senescence">
-         <!-- A terme, on doit pouvoir mettre comme condition que [culture] doit être dans la phase "Senescence du grain" de son bioprocessus "Reproduction"-->
-         <parameter name="culture"/>
+        <!-- A terme, on doit pouvoir mettre comme condition que [culture] doit être dans la phase "Senescence du grain" de son bioprocessus "Reproduction"-->
+        <parameter name="culture"/>
       </sub-procedure>
     </sub-procedures>
   </procedure>
 </procedures>
-     
+

@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
-  
-  <!-- root -->
   <nomenclature name="indicators">
     <attributes>
       <attribute name="type" type="choice" choices="string,decimal,boolean,choice" required="true"/>
