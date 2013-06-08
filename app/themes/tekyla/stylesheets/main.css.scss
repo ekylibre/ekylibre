@@ -370,6 +370,7 @@ html.backend {
 
 }
 
+
 html.authentication {
   background: #F7F7F7;
   @include background(radial-gradient(top, #FFF, #F7F7F7, #C2C2C2));
@@ -445,6 +446,15 @@ html.authentication {
     }
   }
 }
+
+div[data-deck] > div {
+  display: none;
+}
+
+div[data-deck] > div#default {
+  display: block;
+}
+
 
 #about-us {
   .logo {
@@ -978,10 +988,8 @@ a.selector-dropdown {
   }
 }
 
-span.selector, .input-append {
-  // @include inline-block;
-  @include toolbar;
-  position: relative;
+span.selector, .input-append, .btn-group-dropdown {
+  @include button-group;
 }
 
 
@@ -1047,19 +1055,17 @@ span.rad, label.radio {
 $form-actions-height: 48px;
 .form-actions {
   margin: 0;
-  padding: 0;
-  $padding-top: round(($form-actions-height - 1px - $button-height) / 2);
-  padding-top: $padding-top;
-  height: $form-actions-height - $padding-top - 1px;
-  border-top: 1px solid rgba(black, 0.10);
-  @include text-align(center);
+  padding: $fs-normal;
+  // height: $form-actions-height;
+  // line-height: $form-actions-height;
   vertical-align: middle;
-  input, a, span {
-    @include text-align(center);
-    @include margin-left($fs-normal);
-    &:first-child { @include margin-left(0) }
-  }
+  @include text-align(center);
   @include background(linear-gradient(rgba(black, 0.05), rgba(black, 0), rgba(black, 0.06)));
+  border-top: 1px solid rgba(black, 0.10);
+  &:first-child {
+    border-top: none;
+  }
+  @include button-toolbar;
 }
 
 

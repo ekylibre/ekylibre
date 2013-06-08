@@ -32,6 +32,12 @@ class BackendController < BaseController
   # include ExceptionNotifiable
   # local_addresses.clear
 
+  def respond_with(*resources, &block)
+    resources << {} unless resources.last.is_a?(Hash)
+    resources[-1][:with] = (params[:template].match(/^\d+$/) ? params[:template].to_i : params[:template].to_s) if params[:template]
+    super(*resources, &block)
+  end
+
 
   class << self
     attr_reader :unrolls
@@ -153,6 +159,8 @@ class BackendController < BaseController
       class_eval(code)
       return method_name
     end
+
+
 
   end
 

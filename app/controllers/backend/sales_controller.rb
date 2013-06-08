@@ -147,7 +147,7 @@ class Backend::SalesController < BackendController
   # Displays details of one sale selected with +params[:id]+
   def show
     return unless @sale = find_and_check(:sale)
-    respond_to do |format|
+    respond_with(@sale, :include => {:invoice_address => {}, :items => {:include => :product}}) do |format|
       format.html do
         session[:current_sale_id] = @sale.id
         session[:current_currency] = @sale.currency
@@ -167,18 +167,18 @@ class Backend::SalesController < BackendController
         end
         t3e @sale.attributes, :client => @sale.client.full_name, :state => @sale.state_label, :label => @sale.label
       end
-      format.json { render :json => @sale, :include => {:items => {:include => :product}} }
-      format.xml  { render  :xml => @sale, :include => {:invoice_address => {}, :items => {:include => :product}} }
-      format.pdf  { render  :pdf => @sale, :include => {:items => {:include => :product}} }
-      format.odt  { render  :odt => @sale, :include => {:items => {:include => :product}} }
-      format.docx { render :docx => @sale, :include => {:items => {:include => :product}} }
-      # format.pdf do
-      #   if @sale.invoice?
-      #     render_print_sales_invoice(@sale)
-      #   else
-      #     render_print_sales_order(@sale)
-      #   end
-      # end
+      # format.json { render :json => @sale, :include => {:items => {:include => :product}} }
+      # format.xml  { render  :xml => @sale, :include => {:invoice_address => {}, :items => {:include => :product}} }
+      # format.pdf  { render  :pdf => @sale, :include => {:items => {:include => :product}} }
+      # format.odt  { render  :odt => @sale, :include => {:items => {:include => :product}} }
+      # format.docx { render :docx => @sale, :include => {:items => {:include => :product}} }
+      # # format.pdf do
+      # #   if @sale.invoice?
+      # #     render_print_sales_invoice(@sale)
+      # #   else
+      # #     render_print_sales_order(@sale)
+      # #   end
+      # # end
     end
 
   end

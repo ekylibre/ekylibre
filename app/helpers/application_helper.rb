@@ -22,6 +22,27 @@
 
 module ApplicationHelper
 
+  class Lister
+    Item = Struct.new(:name, :args, :block)
+
+    def initialize(type = :items)
+      @items = []
+      @type = type
+      code  = "def #{@type.to_s}\n"
+      code << "  @items\n"
+      code << "end"
+      eval(code)
+    end
+
+    def method_missing(method_name, *args, &block)
+      @items << Item.new(method_name.to_sym, args, block)
+      return nil
+    end
+  end
+
+
+
+
   # Helper which check authorization of an action
   def authorized?(url_options = {})
     self.controller.authorized?(url_options)
@@ -353,6 +374,29 @@ module ApplicationHelper
 
 
 
+
+  def dropdown_button(*args, &block)
+    return content_tag(:div, :class => "btn-group btn-group-dropdown") do
+      args[2]= {} unless args[2].is_a?(Hash)
+      args[2][:class] ||= "btn"
+      html = link_to(*args)
+      l = Lister.new(:links)
+      yield l
+      if l.links.size > 0
+        html << link_to(content_tag(:i), "#dropdown", :class => "btn btn-dropdown", 'data-toggle' => 'dropdown')
+        html << content_tag(:ul, :class => "dropdown-menu") do
+          l.links.collect do |link|
+            content_tag(:li, send(link.name, *link.args, &link.block))
+          end.join.html_safe
+        end
+      end
+      html
+    end
+  end
+
+
+
+
   # 巣 Beehive permits to create modular interface organized in cells
   def beehive(name = nil, &block)
     html = ""
@@ -644,36 +688,69 @@ module ApplicationHelper
 
 
 
-  # def toolbar_link(*args)
-  #   name = args[0]
-  #   args[1] ||= {}
-  #   args[2] ||= {}
-  #   if name.is_a? Symbol
-  #     args[0] = ::I18n.t("actions.#{args[1][:controller]||controller_name}.#{name}".to_sym, {:default => "labels.#{name}".to_sym}.merge(args[2].delete(:i18n)||{}))
+  # class Exporter
+  #   attr_reader :natures
+
+  #   def initialize
+  #     @natures = []
   #   end
-  #   if name.is_a? Symbol and name!=:back
-  #     args[1][:action] ||= name
+
+  #   def method_missing(method_name, *args, &block)
+  #     @natures << {:name => method_name.to_sym, :args => args, :criterias => block, :deck => "export-#{method_name}"}
   #   end
-  #   return tool_to(*args) if authorized?(args[1])
-  #   return nil
   # end
+
+
+
 
   def toolbar_tool_to(name, url, options={})
     return tool_to(name, url, options) if authorized?(url)
     return nil
   end
-  def toolbar_export(datasource, record = nil, options = {}, &block)
-    yield "to"
-    templates = DocumentTemplate.with_datasource(datasource)
-    if templates.count > 0
-      return content_tag(:div, :class => "btn-export btn-group") do
-        link_to(content_tag(:i), {:action => :show, :format => :pdf}, :class => "btn btn-print") +
-          link_to(content_tag(:i), "#dropdown", :class => "btn btn-dropdown", 'data-toggle' => 'dropdown') +
-          content_tag(:ul,
-                      templates.collect do |template| # of_nature(dn)
-                        content_tag(:li, link_to(content_tag(:i) + h(template.name), '#'))
-                      end.join.html_safe,
-                      :class => 'dropdown-menu')
+
+
+  def toolbar_export(nature, record = nil, options = {}, &block)
+    exporter = Lister.new(:natures)
+    yield exporter
+    if exporter.natures.size > 0
+
+      for nature in exporter.natures
+        add_deck(nature.name) do
+          beehive do |b|
+            b.tabbox do |t|
+              t.cell :print do
+                html = "".html_safe
+                # if block_given?
+                #   html = kujaku(&block)
+                # end
+                html << form_actions do
+                  DocumentTemplate.of_nature(nature.name.to_s).collect do |template|
+                    formats = template.formats
+                    dropdown_button(template.name, :format => formats.first) do |l|
+                      for format in formats
+                        l.link_to(format, :format => format)
+                      end
+                    end
+                  end.join.html_safe
+                end
+                html
+              end
+              t.cell :archives do
+                "Print"
+              end
+              t.cell :upload do
+                "Print"
+              end
+            end
+          end
+        end
+      end
+
+      default = exporter.natures.first
+      return dropdown_button(content_tag(:i), '#' + default.name.to_s, :class => "btn btn-print", 'data-select-deck' => default.name) do |l|
+        for nature in exporter.natures
+          l.link_to(content_tag(:i) + h(nature.name.to_s), '#' + nature.name.to_s, 'data-select-deck' => nature.name)
+        end if exporter.natures.size > 1
       end
     end
     return nil

@@ -10,12 +10,9 @@ end
 for format in Ekylibre.reporting_formats
   ActionController::Renderers.add(format) do |object, options|
     # Find template
-    unless name = options[:with]
-      table = options[:prefixes].first.split(/\//).last
-      name = (options[:template] == "show" ? table.singularize : table).to_sym
-    end
+    name = options[:with]
     unless template = DocumentTemplate.where(:active => true)
-        .where(name.is_a?(Symbol) ? {:by_default => true, :nature => name.to_s} : {:code => name.to_s})
+        .where(name.is_a?(Integer) ? {:id => name.to_i} : {:by_default => true, :nature => name.to_s})
         .first
       raise StandardError.new("Could not find template for #{name.inspect}")
     end

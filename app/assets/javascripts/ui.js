@@ -331,6 +331,20 @@
         return false;
     });
 
+    $(document).on("click", "*[data-select-deck]", function () {
+        var element = $(this), deck = element.data('select-deck'), container = $('div[data-deck]');
+        // We need to use attr to make CSS working
+        if (container.attr('data-deck') === deck) {
+            deck = 'default';
+        }
+        container.attr('data-deck', deck);
+        container.find('> div').hide();
+        container.find('> #' + deck).show();
+        $('a[data-select-deck]').removeClass('active');
+        $('a[data-select-deck="' + deck + '"]').addClass('active');
+        return false;
+    });
+
 
     $(document).on("click", "a[data-toggle='dropdown']", function () {
         var element = $(this), menu = element.next();

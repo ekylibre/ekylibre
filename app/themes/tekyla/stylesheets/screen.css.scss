@@ -306,11 +306,17 @@ $include-html-classes: false;
   @include menu;
   position: absolute;
   display: none;
+  @if $hpos == end {
+    right: 0;
+    @include float(right);
+  } @else {
+    left: 0;
+    @include float(left);
+  }
   li {
     @include float(none);
     @include menu-item;
   }
-  right: 0;
   z-index: 5;
 }
 
@@ -407,49 +413,6 @@ $include-html-classes: false;
 
 
 
-/*@mixin button-group { */
-@mixin button-group() {
-  > button, > a.button, > a.btn, > input, > select {
-    @include border-radius(0);
-    @include margin-left(-1 * $menu-border-width);
-    z-index: 1;
-    &:first-child {
-      @include margin-left(0);
-    }
-    html[dir="ltr"] &:first-of-type, html[dir="rtl"] &:last-of-type {
-      @include border-left-radius($buttons-radius);
-    }
-    html[dir="ltr"] &:last-of-type, html[dir="rtl"] &:first-of-type {
-      @include border-right-radius($buttons-radius);
-    }
-    &:focus, &:hover, &:active {
-      position: relative;
-      z-index: 2;
-    }
-  }
-}
-
-
-
-@mixin toolbar($group: ".btn-group") {
-  @include inline-block;
-  & > * {
-    display: none;
-  }
-  & #{$group} {
-    display: block;
-    @include inline-block;
-    @include button-group;
-    @include margin-left($default-gap);
-    &:first-child {
-      @include margin-left(0);
-    }
-  }
-  & #{$group}, & {
-    @include button-group;
-    @include inline-block;
-  }
-}
 
 // Permits to define properly media queries
 @mixin respond-to($screen-sizes...) {

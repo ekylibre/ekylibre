@@ -39,8 +39,9 @@
         // border: $cell-border;
         // border-top: none;
         background: #FFFFFF;
-        overflow: auto;
-        @include clearfix;
+	// needed for dropdown menus
+        // overflow: auto;
+        // @include clearfix;
         height: auto;
       }
     }

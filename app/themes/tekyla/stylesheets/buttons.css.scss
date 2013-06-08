@@ -4,7 +4,7 @@
     $color: visible-color($background-color);
   }
   @else {
-    color: $color;
+    $color: $color;
   }
   @if $focus-background-color == false {
     $focus-background-color: $background-color;
@@ -33,26 +33,21 @@
   @include border-radius($default-border-radius);
   @include inline-block;
   @include transition-duration(0.15s);
-  &, & > .text {
+  & {
     vertical-align: top !important;
   }
-  & > .text, & > .icon, & > i {
-    margin: 0 2px;
-    html[dir="ltr"] &:first-child, html[dir="rtl"] &:last-child { margin-left: 0; }
-    html[dir="rtl"] &:first-child, html[dir="ltr"] &:last-child { margin-right: 0; }
-  }
-  &, & > .text, & > .icon, & > i {
+  &, &:link, & > i {
     color: $color;
     @include text-shadow(-1px -1px 0 $shadow-color);
     @include transition-duration(0.15s);
   }
-  & > .icon, & > i {
+  & > i {
     vertical-align: top !important;
     @include is-icon(round(1.4 * $fs-normal));
     @include use-icon(cog);
     @include inline-block;
   }
-  &:focus {
+  &:focus, &.focus {
     outline: none;
     border: $menu-border-width solid $focus-background-color;
     @include box-shadow(0 0 round($fs-normal/2) rgba($focus-background-color, 0.5));
@@ -64,21 +59,21 @@
     border-color: rgba(#000, 0.25) rgba(#000, 0.1) rgba(#000, 0.1);
     border: $menu-border-width solid $focus-background-color;
     @include box-shadow(0 2px 3px rgba(#000, 0.3) inset, 0 -2px 2px rgba(#000, 0.05), 0 0 round($fs-normal/2) rgba($focus-background-color, 0.5));
-    &, & > .text, & > .icon, & > i {
+    &, & > i {
       // color: $focus-color;
       @include text-shadow(-1px -1px 1px $shadow-color);
       text-decoration: none;
     }
   }
-  &[disabled] {
+  &[disabled], &.disabled {
     background: #CCC;
     cursor: default;
     pointer-events: none;
-    &, & > .text, & > .icon, & > i {
+    &, & > i {
       @include text-shadow(none);
     }
     &:hover {
-      &, & > .text, & > .icon, & > i { color: #666; }
+      &, & > i { color: #666; }
     }
   }
 }
@@ -148,3 +143,57 @@ a.btn, button {
   }
 }
 
+@mixin button-group() {
+  @include inline-block;
+  font-size: 0;
+  position: relative;
+  vertical-align: middle;
+  white-space: nowrap;
+  height: $button-height;
+  & + & {
+    margin-left: $default-gap;
+  }
+  > button, > a.button, > a.btn, > input, > select {
+    @include border-radius(0);
+    @include margin-left(-1 * $menu-border-width);
+    z-index: 1;
+    &:first-child {
+      @include margin-left(0);
+    }
+    html[dir="ltr"] &:first-of-type, html[dir="rtl"] &:last-of-type {
+      @include border-left-radius($buttons-radius);
+    }
+    html[dir="ltr"] &:last-of-type, html[dir="rtl"] &:first-of-type {
+      @include border-right-radius($buttons-radius);
+    }
+    &:focus, &:hover, &:active {
+      position: relative;
+      z-index: 2;
+    }
+  }
+}
+
+@mixin button-toolbar($group: ".btn-group") {
+}
+
+
+
+@mixin toolbar($group: ".btn-group") {
+  @include inline-block;
+  & > * {
+    display: none;
+  }
+  & #{$group} {
+    display: block;
+    @include inline-block;
+    @include button-group;
+    @include margin-left($default-gap);
+    &:first-child {
+      @include margin-left(0);
+    }
+  }
+  & #{$group}, & {
+    @include button-group;
+    @include inline-block;
+  }
+}

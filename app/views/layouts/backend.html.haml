@@ -26,7 +26,7 @@
             -t.tool_to(content_tag(:i) + h(tl(:help)), toggle_backend_helps_url, 'data-toggle' => 'help', :class => "btn", :group => :help)
           =main_toolbar_tag
           =heading_tag
-        #content
+        =deck(:id => :content) do
           =subheading_tag
           =notifications_tag
           =yield
