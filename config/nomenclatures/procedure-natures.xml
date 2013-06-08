@@ -1,36 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<operation-natures xmlns="http://www.ekylibre.org/XML/2013/operation-natures">
-  <operation-nature code="caesarean-section" target="cattle,horse" type="is-being-treat" categories="veterinary,surgeon">
-    <name xml:lang="fra">Accouchement par césarienne</name>
-    <name xml:lang="eng">Caesarean section</name>
-    <code nomenclature="Nomen" value="CAESAREAN"/>
-  </operation-nature>
-  <operation-nature code="vaccination" target="animal" type="is-being-treat" categories="veterinary">
-    <name xml:lang="fra">Vaccination</name>
-    <name xml:lang="eng">Vaccination</name>
-    <code nomenclature="Nomen" value="VACCINATION"/>
-  </operation-nature>
-  <operation-nature code="fertilize" target="matter,vegetal" type="is-being-treat" categories="soil">
-    <name xml:lang="fra">Fertilisation</name>
-    <name xml:lang="eng">Fertilize</name>
-    <code nomenclature="Nomen" value="FERTILIZE"/>
-    	<operation-task>[working-set] moves-to [target]</operation-task>
-		<operation-task>[target] consumes [intrant]</operation-task>
-  </operation-nature>
-  <operation-nature code="plowing" target="matter" type="modify" categories="soil">
-    <name xml:lang="fra">Labourer</name>
-    <name xml:lang="eng">Plowing</name>
-    <code nomenclature="Nomen" value="PLOWING"/>
-  </operation-nature>
-  <operation-nature code="surperficial-plowing" target="matter" type="is-being-treat" categories="soil">
-    <name xml:lang="fra">Herser</name>
-    <name xml:lang="eng">Surperficial plowing</name>
-    <code nomenclature="Nomen" value="SUPERFICIAL-PLOWING"/>
-  </operation-nature>
-  <operation-nature code="sowing" target="landparcel,matter" type="is-being-treat" categories="soil">
-    <name xml:lang="fra">Semer</name>
-    <name xml:lang="eng">Sowing</name>
-    <code nomenclature="Nomen" value="SOWING"/>
-  </operation-nature>
-  
-</operation-natures>
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
+  <nomenclature name="procedure_natures">
+    <items>
+      <item name="animal_cares"/>
+      <item name="reproduction"/>
+      <item name="production"/>
+      <item name="feeding"/>
+      <item name="technical_guide"/>
+      <item name="tillage"/>
+      <item name="enrichment"/>
+    </items>
+  </nomenclature>
+</nomenclatures>

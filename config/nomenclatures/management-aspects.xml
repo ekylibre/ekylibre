@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
-  <nomenclature name="management_aspects" hierarchical="true">
+  <nomenclature name="management_aspects">
+    <!-- FIXME Make hierarchy through sub-nomenclatures -->
     <items>
       <item name="trade">
-	<item name="sales"/>
-	<item name="purchases"/>
-	<item name="relationship"/>
+        <item name="sales"/>
+        <item name="purchases"/>
+        <item name="relationship"/>
       </item>
 
       <item name="finances">
@@ -18,21 +19,21 @@
       </item>
 
       <item name="production">
-	<item name="conduct"/>
-	<item name="implantation"/>
-	<item name="fertilization"/>
-	<item name="phytosanitary-protection"/>
-	<item name="irrigation"/>
-	<item name="harvest"/>
-	<item name="winemaking"/>
-	<item name="tracking"/>
-	<item name="nutrition"/>
-	<item name="health"/>
-	<item name="hygiene"/>
-	<item name="identification"/>
-	<item name="reproduction"/>
-	<item name="product-processing"/>
-  <item name="milk"/>
+        <item name="conduct"/>
+        <item name="implantation"/>
+        <item name="fertilization"/>
+        <item name="phytosanitary-protection"/>
+        <item name="irrigation"/>
+        <item name="harvest"/>
+        <item name="winemaking"/>
+        <item name="tracking"/>
+        <item name="nutrition"/>
+        <item name="health"/>
+        <item name="hygiene"/>
+        <item name="identification"/>
+        <item name="reproduction"/>
+        <item name="product-processing"/>
+        <item name="milk"/>
       </item>
 
     </items>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
+  <nomenclature name="indicators">
+    <attributes>
+      <attribute name="type" type="choice" choices="string,decimal,boolean,choice" required="true"/>
+      <attribute name="choices" type="list" required="false"/>
+    </attributes>
+    <items>
+      <item name="temperature" type="decimal"/>
+      <item name="sowable" type="boolean"/>
+      <item name="in_production" type="boolean"/>
+      <item name="ground_appearance" type="choice" choices="covered,raw"/>
+      <item name="animal_life_state" type="choice" choices="first_growth,second_growth,aging"/>
+      <item name="mammalia_reproduction_state" type="choice" choices="back_heat,heat,pregnancy"/>
+      <item name="mammalia_lactation_state" type="choice" choices="lactation,depletion"/>
+      <item name="animal_disease_state" type="choice" choices="healthy,sick"/>
+      <item name="plant_life_state" type="choice" choices="germination,tillering,bolting,maturity,senescence"/>
+      <item name="plant_reproduction_state" type="choice" choices="swelling,heading,flowering,grain_maturity,grain_senescence"/>
+    </items>
+  </nomenclature>
+</nomenclatures>

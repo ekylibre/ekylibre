@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
+  <!-- root -->
+  <nomenclature name="product_natures">
+    <attributes>
+      <!-- attribut dans le model-->
+      <attribute name="active" type="boolean" required="true" default="true"/>
+      <attribute name="asset_account" type="choice" source="accounts" required="false"/>
+      <attribute name="category" type="list" source="management_aspects" required="true"/>
+      <attribute name="charge_account" type="choice" source="accounts" required="false"/>
+      <attribute name="number" type="string" required="true"/>
+      <attribute name="product_account" type="choice" source="accounts" required="false"/>
+      <attribute name="stock_account" type="choice" source="accounts" required="false"/>
+      <attribute name="unit" type="choice" choices="u,kg,t,l,m2,m3,ha,qt" required="true"/>
+      <attribute name="variety" type="choice" source="varieties" required="true"/>
+      <attribute name="derivative" type="string" required="true" default="itself" />
+      <attribute name="purchasable" type="boolean" required="true"/>
+      <attribute name="saleable" type="boolean" required="true"/>
+      <attribute name="depreciable" type="boolean" required="true"/>
+      <attribute name="storable" type="boolean" required="true"/>
+      <attribute name="atomic" type="boolean" required="true"/>
+      <attribute name="reductible" type="boolean" required="true"/>
+      <!-- <attribute name="subscribing" type="boolean" required="true"/> -->
+      <!-- attribut dans le model et à dégager dans une migration-->
+      <attribute name="alive" type="boolean" required="true"/>
+      <attribute name="deliverable" type="boolean" required="true"/>
+      <attribute name="producible" type="boolean" required="true"/>
+      <attribute name="storage" type="boolean" required="true"/>
+      <attribute name="towable" type="boolean" required="true"/>
+      <attribute name="tractive" type="boolean" required="true"/>
+      <attribute name="traceable" type="boolean" required="true"/>
+      <attribute name="transferable" type="boolean" required="true"/>
+      <!-- attribut dans le model-->
+      <attribute name="abilities" type="list" source="abilities" required="false"/>
+      <attribute name="indicators" type="list" source="indicators" required="false"/>
+    </attributes>
+    <items>
+      <item name="adult_cow"
+            asset_account="adult_animal_asset"
+            category="milk"
+            charge_account="adult_animal_charge"
+            product_account="adult_animal_product"
+            stock_account="long_time_animal_stock"
+            unit="u"
+            variety="bos"
+            purchasable="true"
+            saleable="true"
+            depreciable="true"
+            storable="true"
+            atomic="true"
+            abilities="consume(water), consume(poaceae), produce(/excrement), produce(/milk), move"
+            indicators="animal_life_state, mammalia_reproduction_state, mammalia_lactation_state, animal_disease_state"
+            />
+      <item name="milk"
+            category="milk"
+            charge_account="raw_material_charge"
+            product_account="animal_derivatives_product"
+            stock_account="animal_derivative_stock"
+            unit="l"
+            variety="bos"
+            derivative="milk"
+            purchasable="true"
+            saleable="true"
+            storable="true"
+            atomic="false"
+            indicators="temperature"
+            />
+      <item name="young_cow"
+            asset_account="young_animal_asset"
+            category="milk"
+            charge_account="young_animal_charge"
+            product_account="young_animal_product"
+            stock_account="long_time_animal_stock"
+            unit="u"
+            variety="bos"
+            purchasable="true"
+            saleable="true"
+            depreciable="true"
+            storable="true"
+            atomic="true"
+            abilities="consume(water), consume(poaceae), produce(/excrement), move"
+            indicators="animal_life_state, mammalia_reproduction_state, animal_disease_state"
+            />
+      <item name="calf"
+            category="milk"
+            charge_account="young_animal_charge"
+            product_account="young_animal_product"
+            stock_account="short_time_animal_stock"
+            unit="u"
+            variety="bos"
+            purchasable="true"
+            depreciable="false"
+            saleable="true"
+            storable="true"
+            atomic="true"
+            abilities="consume(water), consume(poaceae), produce(/excrement), consume(/milk), move"
+            indicators="animal_life_state, animal_disease_state"
+            />
+      <item name="wheat_crop"
+            category="crop"
+            product_account="plant_derivatives_product"
+            stock_account="short_time_crop_stock"
+            unit="ha"
+            variety="poaceae"
+            purchasable="false"
+            saleable="true"
+            depreciable="false"
+            storable="true"
+            atomic="false"
+            abilities="consume(water), consume(phytosanitary), produce(/grain), produce(/straw)"
+            indicators="plant_life_state, plant_reproduction_state"
+            />
+      <item name="grain"
+            category="crop"
+            product_account="plant_derivatives_product"
+            stock_account="plant_derivative_stock"
+            unit="qt"
+            variety="poaceae"
+            purchasable="false"
+            saleable="true"
+            depreciable="false"
+            storable="true"
+            atomic="false"
+            />
+      <item name="straw"
+            category="crop"
+            product_account="plant_derivatives_product"
+            stock_account="plant_derivative_stock"
+            unit="t"
+            variety="poaceae"
+            purchasable="false"
+            saleable="true"
+            depreciable="false"
+            storable="true"
+            atomic="false"
+            />
+      <item name="land_parcel"
+            asset_account="land_parcel_asset"
+            category="crop"
+            charge_account="land_parcel_rent_charge"
+            product_account="land_parcel_sell_product"
+            unit="u"
+            variety="landparcel"
+            purchasable="true"
+            saleable="true"
+            depreciable="true"
+            storable="false"
+            atomic="true"
+            abilities="consume(water), consume(/seed), produce(plant)"
+            indicators="sowable, in_production, ground_appearance"
+            />
+      <item name="building"
+            asset_account="building_asset"
+            category="crop"
+            charge_account="land_parcel_rent_charge"
+            product_account="land_parcel_sell_product"
+            unit="m2"
+            variety="building"
+            purchasable="true"
+            saleable="true"
+            depreciable="true"
+            storable="false"
+            atomic="true"
+            abilities="store(equipment)"
+            />
+      <item name="tractor"
+            asset_account="equipment_asset"
+            category="crop"
+            charge_account="equipment_rent_charge"
+            product_account="land_parcel_sell_product"
+            unit="u"
+            variety="equipment"
+            purchasable="true"
+            saleable="true"
+            depreciable="true"
+            storable="false"
+            atomic="true"
+            abilities="catch(equipment), move, tow(equipment)"
+            />
+      <item name="trail"
+            asset_account="equipment_asset"
+            category="crop"
+            charge_account="equipment_rent_charge"
+            product_account="land_parcel_sell_product"
+            unit="u"
+            variety="equipment"
+            purchasable="true"
+            saleable="true"
+            depreciable="true"
+            storable="false"
+            atomic="true"
+            abilities="store(plant), move"
+            />
+      <item name="all_in_one_equipment"
+            asset_account="equipment_asset"
+            category="crop"
+            charge_account="equipment_rent_charge"
+            product_account="land_parcel_sell_product"
+            unit="u"
+            variety="equipment"
+            purchasable="true"
+            saleable="true"
+            depreciable="true"
+            storable="false"
+            atomic="true"
+            abilities="fertilize(plant), catch, spread, plow, sow, harvest, store"
+            />
+    </items> 
+    
+  </nomenclature>
+  
+</nomenclatures>
