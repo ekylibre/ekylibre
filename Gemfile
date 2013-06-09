@@ -77,7 +77,7 @@ gem 'formize', '~> 1.1.0'
 gem 'feedzirra', '~> 0.2.0.rc2'
 
 
-gem 'ruby-progressbar', '~> 1.0.2'
+# gem 'ruby-progressbar', '~> 1.0.2'
 
 # Gems used only for assets and not required
 # in production environments by default.

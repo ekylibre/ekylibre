@@ -24,14 +24,15 @@
 #  created_at        :datetime         not null
 #  creator_id        :integer
 #  document_id       :integer          not null
+#  file_content_text :text
 #  file_content_type :string(255)
 #  file_file_name    :string(255)
 #  file_file_size    :integer
 #  file_fingerprint  :string(255)
+#  file_pages_count  :integer
 #  file_updated_at   :datetime
 #  id                :integer          not null, primary key
 #  lock_version      :integer          default(0), not null
-#  position          :integer
 #  template_id       :integer
 #  updated_at        :datetime         not null
 #  updater_id        :integer

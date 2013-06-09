@@ -66,20 +66,21 @@ class Backend::HelpsController < BackendController
           end
           details[:count].zero?
         end
-      end
+
+      @search[:count] = results.size
 
       if results.size > 0
         results.sort!{|a,b| b[:count] <=> a[:count]}
-        max = results.first[:count]
-        results.each{|r| r[:pertinence] = (100*r[:count]/max).to_i}
+        max = results.first[:count].to_i
+        results.each{|r| r[:pertinence] = (max.zero? ? 0 : (100*r[:count]/max).to_i)}
       end
 
       @search[:records] = results[((page-1) * per_page)..(page * per_page - 1)]
-      @search[:count] = results.size
       @search[:last_page] = (@search[:count].to_f / per_page).ceil
 
       if @search[:records].size.zero? and page > 1
         redirect_to(:q => params[:q], :page => 1)
+      end
       end
       params[:page] = page
     end

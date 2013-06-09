@@ -349,6 +349,7 @@ jpn:
       # deposit_item: "Ligne de remise en banque"
       # district: "Zone administrative"
       # document: "Document"
+      # document_archive: "Archive de document"
       # document_template: "Modèle de document"
       # entity: "Personne"
       # entity_address: "Adresse"
@@ -459,7 +460,6 @@ jpn:
     # alive: "En vie"
     # allocation_account: "Compte de dotation"
     # amount: "Montant"
-    # animal_drugs: "Médicaments"
     # animals: "Animals"
     # annotation: "Annotation"
     # archiving: "Méthode d'archivage"
@@ -467,15 +467,13 @@ jpn:
     # area_measure: "Superficie"
     # area_unit: "Unité de surface"
     # areas: "Zones postales"
-    # arrival_cause: "Arrival cause"
-    # arrival_reasons: "Causes d'entrée"
+    # arrival_cause: "Cause d'entrée"
     # arrived_on: "Date d'entrée"
     # asset: "Immobilisation"
     # asset_amount: "Valeur nette comptable"
     # asset_depreciations: "Dépréciations d’immobilisation"
     # assets: "Immobilisations"
     # assimilated_taxes_amount: "Montant des taxes assimilées"
-    # atmospheric_pressure: "Pression atmosphérique"
     # attorney: "Mandataire"
     # attorney_account: "Compte mandataire associé"
     # attorney_accounts: "Comptes mandataires"
@@ -563,8 +561,6 @@ jpn:
     # commissioned_incoming_payment_modes: "Modes d’encaissement avec commission"
     company: "会社"
     company_id: "会社" #?
-    # component: "Produit contenu"
-    # components: "Composants de produit"
     # compute: "Dernière valeur"
     # conclusion: "Conclusion"
     # condition_operator: "Comparateur"
@@ -590,8 +586,6 @@ jpn:
     # credits: "Avoirs"
     # critic_quantity_min: "Quantité minimum critique"
     # critic_stocks: "Stocks critiques"
-    # crypt_key: "Clé de cryptage"
-    # crypt_mode: "Mode de cryptage"
     # currency: "Devise"
     # currency_precision: "Nombre de décimales"
     # currency_rate: "Taux de change"
@@ -738,7 +732,6 @@ jpn:
     # function_title: "Civilités"
     # future_events: "Evènements futurs"
     # gender: "Gender"
-    # genealogy: "Généalogie"
     # generated: "Généré"
     # global_balance: "Solde global"
     # global_count: "Population globale"
@@ -1135,14 +1128,13 @@ jpn:
     # theoric_quantity: "Quantité théorique"
     # title: "Titre"
     # to: "Pour"
-    # to_archive: "Archiver les documents"
     # to_bank_on: "À décaisser le"
     # to_deposit: "À remettre"
     # tool: "Outil"
     # tools: "Outils"
     # tools_list: "Matériel"
     # total_weight: "Masse totale"
-    # trackable: "Traçable"
+    # traceable: "Traçable"
     # tracking: "Lot"
     # tracking_serial: "Numéro de lot"
     # trackings: "Lots traçables"
@@ -1153,9 +1145,6 @@ jpn:
     # transporter_sales: "Ventes de transporteurs"
     # transporters: "Transporteurs"
     # transports: "Transports"
-    # treatment: "Traitement"
-    # treatment_uses: "Treatment uses"
-    # treatments: "Treatments"
     # type: "Type"
     # undelivered_quantity: "Reste à livrer"
     # unique_tracking: "Numéro unique"
@@ -1175,7 +1164,6 @@ jpn:
     # usage: "Utilisation"
     # usage_duration: "Durée d’utilisation (heures)"
     # used_amount: "Montant utilisé"
-    # used_with: "Used with"
     # useful_items: "Lignes utiles"
     # user: "Utilisateur"
     # user_name: "Identifiant"
@@ -1240,10 +1228,14 @@ jpn:
         # text: "Texte"
     document_template:
       archiving:
-        # all: "Toutes les impressions"
-        # first: "Premier imprimé"
-        # last: "Dernier imprimé"
-        # none: "Aucune"
+        # all: "Tous du type"
+        # all_of_template: "Tous du modèle"
+        # first: "Premier du type"
+        # first_of_template: "Premier du modèle"
+        # last: "Dernier du type"
+        # last_of_template: "Dernier du modèle"
+        # none: "Aucun du type"
+        # none_of_template: "Aucun du modèle"
       family: #?
       nature:
         # animal: "Animal"
@@ -1408,37 +1400,12 @@ jpn:
       # bookkeep: "[%{resource} %{number}] De %{emitter} à %{receiver} %{description}"
     company:
       # cant_find_document_template: "Impossible de trouver le modèle de document correspondant"
-      default:
-        # building_name: "Réserve"
-        delays:
-          expression:
-            # expiration: "1 mois"
-            # immediate: "0 jour"
-            # standard: "30 jours, fin de mois"
-          name:
-            # expiration: "Expiration (1 M)"
-            # immediate: "Immédiat"
-            # standard: "Standard (30j FDM)"
-        # department_name: "Gestion/Production"
-        # establishment_name: "Établissement principal"
-        event_natures:
-          # purchase: "Création d’un achat"
-          # sale: "Création d’un devis"
-          # sales_invoice: "Création d’une facture"
-        incoming_payment_modes: #?
-        outgoing_payment_modes: #?
-        # product_category_name: "Sans catégorie"
-        role:
-          name:
-            # admin: "Gérant"
-            # public: "Public (sans droits)"
-        taxes: #?
+      default: #?
       import:
         # dont_use: "-- Ne pas utiliser --"
         # generate_string_custom_field: "-- Créer un champ personnalisé (texte) --"
       # sales: "Ventes"
-    delay:
-      # error_unvalid_format_for_expression: "L’expression n’est pas au bon format"
+    delay: #?
     deposit:
       bookkeep:
         # one: "[%{resource} %{number}] %{count} encaissement %{mode} %{description}"
@@ -1446,37 +1413,8 @@ jpn:
         # zero: "[%{resource} %{number}] Aucun encaissement %{mode} %{description}"
       # bookkeep_with_payment: "[%{resource} %{number}] %{mode} %{check_number} de %{payer} (%{payment})"
     document_template:
-      default:
-        accountancy:
-          balance_sheet:
-            # filename: "Bilan de l’exercice [code]"
-          general_journal:
-            # filename: "Journal général"
-          general_ledger:
-            # filename: "Grand livre"
-          income_statement:
-            # filename: "Compte de résultat de l’exercice [code]"
-          journal:
-            # filename: "[name] (Journal)"
-        management:
-          deposit:
-            # filename: "Remise en banque [number]"
-          inventory:
-            # filename: "Inventaire [number]"
-          purchase:
-            # filename: "Achat [number]"
-          sales_invoice:
-            # filename: "Facture [number]"
-            # to_archive: "true"
-          sales_order:
-            # filename: "Vente [number]"
-          stocks:
-            # filename: "État des stocks"
-          transport:
-            # filename: "Transport du [created_on]"
-        relations:
-          entity:
-            # filename: "Fiche de [full_name]"
+      default: #?
+      # document_name: "%{nature} %{key}"
       # error_attribute: "Le champ %{value} est incorrect. Les possibilités sont\_: %{possibilities}"
       # invalid_filename: "Fichier"
       # nature_do_not_allow_to_use_attributes: "La nature du modèle ne permet pas d’utiliser d’attributs"
@@ -1517,8 +1455,7 @@ jpn:
     incoming_payment_use: #?
     inventory_item:
       # inventory: "Inventaire "
-    inventory_line:
-      # inventory: "Inventaire "
+    inventory_line: #?
     journal_entry:
       # entry_cancel: "Contre-passation de l’écriture %{number}: %{name}"
       states:

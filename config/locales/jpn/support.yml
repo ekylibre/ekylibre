@@ -63,7 +63,7 @@ jpn:
     # export_as: "Exporter en %{exported}"
     # items_per_page: "Éléments par page"
     menu: "メニュー"
-    next: "次へ"
+    next: "次へ" #?
     no_records: "空"
     pagination:
       # first: "Début"
@@ -71,7 +71,7 @@ jpn:
       # next: "Suivant"
       # previous: "Précédent"
       # showing_x_to_y_of_total: "Enregistrements %{x} à %{y} sur %{total}"
-    previous: "前へ"
+    previous: "前へ" #?
     x_per_page:
       one: "ページあたり%{count}行"
       other: "ページあたり%{count}行"

@@ -1040,6 +1040,12 @@
         <page to="backend/dashboards#tools"/>
         <page to="backend/dashboards#welcome"/>
       </item>
+      <item name="document_archives">
+        <page to="backend/document_archives#show"/>
+      </item>
+      <item name="documents">
+        <page to="backend/documents#list_archives"/>
+      </item>
       <item name="entities">
         <page to="backend/entities#list_addresses"/>
         <page to="backend/entities#picture"/>

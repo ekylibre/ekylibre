@@ -17,7 +17,7 @@ $symbiols: $icons;
 
 $fs-ratio: 1.4; // 1.618;
 $fs-normal: 14px;
-$fs-small:      ceil($fs-normal/$fs-ratio);
+$fs-small:      ceil($fs-normal * 0.846);
 $fs-large:     round($fs-ratio*$fs-normal);
 $fs-huge:      round($fs-ratio*$fs-large);
 $fs-very-huge: round($fs-ratio*$fs-huge);
@@ -261,7 +261,7 @@ $include-html-classes: false;
   display: block;
   padding: 0;
   height: $menu-height;
-  width: $menu-width;
+  min-width: $menu-width;
   list-style-type: none;
   &:hover a {
     outline: none;

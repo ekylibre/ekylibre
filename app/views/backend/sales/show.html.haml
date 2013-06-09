@@ -3,7 +3,7 @@
 =main_toolbar do |t|
   -if @sale.invoice?
     -t.export do |e|
-      -e.sales_invoice @sale
+      -e.sales_invoice @sale.number, @sale
     -t.cancel(@sale) if @sale.cancelable?
   -elsif @sale.order?
     -t.export :sales_order, @sale

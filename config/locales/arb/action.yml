@@ -125,7 +125,6 @@ arb:
       # sort: "Trier les choix du champ personnalisé"
     backend/dashboards:
       # accountancy: "Tableau de bord comptable"
-      # finances: "Tableau de bord financier"
       # index: "Tableau de bord général"
       # production: "Tableau de bord de la production"
       # purchases: "Tableau de bord des achats"
@@ -133,17 +132,8 @@ arb:
       # sales: "Tableau de bord des ventes"
       # search: "Recherche de\_: %{searched}"
       # settings: "Configuration"
-      # settings_accountancy: "Configuration de la comptabilité"
-      # settings_base: "Configuration de base"
-      # settings_production: "Configuration des productions"
-      # settings_products: "Configuration des produits"
-      # settings_purchases: "Configuration des achats"
-      # settings_relationship: "Configuration des tiers"
-      # settings_sales: "Configuration des ventes"
-      # settings_stocks: "Configuration des stocks"
       # stocks: "Tableau de bord des stocks"
       # tools: "Tableau de bord des outils"
-      # trade: "Tableau de bord de la gestion commerciale"
       # welcome: "Bienvenue dans Ekylibre"
     backend/delays:  #?
       edit: "تعديل المهلة : %{name}" #?
@@ -164,6 +154,7 @@ arb:
       edit: "تعديل عنوان بريدي : %{name}"
       index: "المناطق الادارية"
       new: "اضافة عنوان بريدي"
+    backend/document_archives: #?
     backend/document_templates:
       edit: "تعديل نموذج الوثيقة : %{name}"
       index: "نماذج الوثيقة"
@@ -173,6 +164,7 @@ arb:
     backend/documents:
       # index: "Gestion électronique des documents"
       print: "طباعة وتصدير" #?
+      # show: "Document\_: %{name}"
     backend/entities:
       # destroy: "Supprimer la fiche"
       edit: "تعديل الملف : %{full_name}"
@@ -867,6 +859,7 @@ arb:
       # childrens: "Enfants"
     # animals: "Animaux"
     apply: "تطبيق"
+    # archives: "Archives"
     are_you_sure: "هل انت متأكد من رغبتك بالقيام به؟"
     are_you_sure_you_want_to_confirm: "هل انت متأكد من رغبتك بالمضي بطلب الشراء؟"
     are_you_sure_you_want_to_delete: "هل انت متاكد من رغبتك بالقيام به؟"
@@ -1341,7 +1334,7 @@ arb:
     no_deliveries: "ليس هناك من تسليم بالانتظار"
     no_deliveries_for_this_sale: "لم يتم التسليم لهذا الطلب من البيع"
     no_deposits: "التأكد من عدم اقتطاعات البنك"
-    # no_filters: "--- Pas de filtre ---"
+    # no_filters: "— Pas de filtre —"
     no_javascript: "ان متصفح الويب الخاص بك لا يدعم نسخة الجافا، لذا تحتاج الى تفعيله من اجل استخدام ايكيليبغ."
     no_origin: "-- بدون مصدر --"
     # no_particular_periods: "Aucune période en particulier"
@@ -1709,7 +1702,7 @@ arb:
     up: "يرتفع"
     update: "تعديل"
     update_params: "تعديل البحث"
-    upload: "تحميل الملفات" #?
+    upload: "تحميل الملفات"
     # usage: "Utilisation"
     # use_incoming_payment: "Rattacher l’encaissement %{payment}"
     use_renew: "اختر دفتر يومي للتقارير الجديدة"

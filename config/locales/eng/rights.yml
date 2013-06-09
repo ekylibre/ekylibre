@@ -56,7 +56,7 @@ eng:
     manage_outgoing_payments: "Manage disbursements"
     manage_prices: "Manage prices"
     manage_product_categories: "Manage product categories"
-    # manage_product_price_listings: "Gérer les listes de prix"
+    manage_product_price_listings: "Manage product price listings"
     manage_products: "Manage products"
     manage_purchase_natures: "Manage purchase natures"
     manage_purchases: "Manage purchases"

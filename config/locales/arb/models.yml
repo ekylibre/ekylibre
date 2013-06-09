@@ -830,6 +830,7 @@ arb:
       # deposit_item: "Ligne de remise en banque"
       district: "مقاطعة"
       document: "الوثيقة"
+      # document_archive: "Archive de document"
       document_template: "نموذج الوثيقة"
       entity: "الفرد"
       # entity_address: "Adresse"
@@ -967,7 +968,6 @@ arb:
     # allocation_account: "Compte de dotation"
     amount: "القيمة من دون الضرائب"
     amount_with_taxes: "القيمة مع كامل الضرائب" #?
-    # animal_drugs: "Médicaments"
     # animals: "Animals"
     annotation: "ملاحظة"
     # archiving: "Méthode d'archivage"
@@ -977,15 +977,13 @@ arb:
     area_unit: "وحدة المساحة"
     area_unit_id: "وحدة مساحة" #?
     areas: "الرموز البريدية"
-    # arrival_cause: "Arrival cause"
-    # arrival_reasons: "Causes d'entrée"
+    # arrival_cause: "Cause d'entrée"
     arrived_on: "وصل يوم"
     # asset: "Immobilisation"
     # asset_amount: "Valeur nette comptable"
     # asset_depreciations: "Dépréciations d’immobilisation"
     # assets: "Immobilisations"
     assimilated_taxes_amount: "قيمة الضرائب المماثلة"
-    # atmospheric_pressure: "Pression atmosphérique"
     attorney: "الوكيل"
     attorney_account: "حساب مساعد الوكيل"
     attorney_account_id: "حساب مساعد الوكيل" #?
@@ -1087,9 +1085,9 @@ arb:
     # commissioned_incoming_payment_modes: "Modes d’encaissement avec commission"
     company: "الشركة"
     company_id: "شركة" #?
-    component: "محتوى العبوة"
+    component: "محتوى العبوة" #?
     component_id: "محتوى العبوة" #?
-    components: "مكونات المنتج"
+    components: "مكونات المنتج" #?
     compute: "القيمة الاخيرة"
     conclusion: "الاستنتاج"
     condition_operator: "المقارنة"
@@ -1121,8 +1119,8 @@ arb:
     credits: "الائتمانات"
     critic_quantity_min: "الكمية المنتفدة كحد ادنى"
     # critic_stocks: "Stocks critiques"
-    crypt_key: "مفتاح التشفير"
-    crypt_mode: "طؤيقة التشفير"
+    crypt_key: "مفتاح التشفير" #?
+    crypt_mode: "طؤيقة التشفير" #?
     currencies: "العملات" #?
     currency: "عملة"
     # currency_precision: "Nombre de décimales"
@@ -1304,7 +1302,6 @@ arb:
     function_title: "الكياسة"
     future_events: "احداث المستقبل"
     # gender: "Gender"
-    # genealogy: "Généalogie"
     generated: "ولدت"
     global_balance: "الرصيد العالمي"
     global_count: "مجموع السكان"
@@ -1775,7 +1772,7 @@ arb:
     theoric_quantity: "الكمية النظرية"
     title: "اللقب"
     to: "ل"
-    to_archive: "وثائق للارشفة"
+    to_archive: "وثائق للارشفة" #?
     to_bank_on: "يسدد يوم"
     # to_deposit: "À remettre"
     tool: "الاداة"
@@ -1783,7 +1780,7 @@ arb:
     tools: "الادوات"
     tools_list: "معدات"
     # total_weight: "Masse totale"
-    # trackable: "Traçable"
+    # traceable: "Traçable"
     tracking: "الحصة"
     tracking_id: "الحصة" #?
     tracking_serial: "رقم الحصة"
@@ -1797,9 +1794,6 @@ arb:
     # transporter_sales: "Ventes de transporteurs"
     transporters: "ناقلات الشحن"
     transports: "وسائل النقل"
-    # treatment: "Traitement"
-    # treatment_uses: "Treatment uses"
-    # treatments: "Treatments"
     type: "النوع"
     undelivered_quantity: "يبقى للتسليم"
     # unique_tracking: "Numéro unique"
@@ -1821,7 +1815,6 @@ arb:
     usage_duration: "(مدة الاستخدام (ساعات"
     use_range: "استخدام الكمية الفاصلة" #?
     # used_amount: "Montant utilisé"
-    # used_with: "Used with"
     # useful_items: "Lignes utiles"
     user: "المستخدم"
     user_id: "المستخدم" #?
@@ -1888,10 +1881,14 @@ arb:
         # text: "Texte"
     document_template:
       archiving:
-        # all: "Toutes les impressions"
-        # first: "Premier imprimé"
-        # last: "Dernier imprimé"
-        # none: "Aucune"
+        # all: "Tous du type"
+        # all_of_template: "Tous du modèle"
+        # first: "Premier du type"
+        # first_of_template: "Premier du modèle"
+        # last: "Dernier du type"
+        # last_of_template: "Dernier du modèle"
+        # none: "Aucun du type"
+        # none_of_template: "Aucun du modèle"
       family: #?
       nature:
         # animal: "Animal"
@@ -2069,31 +2066,31 @@ arb:
       # bookkeep: "[%{resource} %{number}] De %{emitter} à %{receiver} %{description}"
     company:
       cant_find_document_template: "لا يمكن العثور على نموذج مطابق للوثيقة"
-      default:
+      default:  #?
         admin: "المدير" #?
         bank_journal_nature_name: "البنك" #?
-        building_name: "المخزون"
-        cash:  #?
+        building_name: "المخزون" #?
+        cash: #?
           name: #?
             bank_account: "حساب مصرفي" #?
             cash_box: "صندوق نقدي" #?
         category: "افتراضيا" #?
-        delays:
-          expression:
-            expiration: "شهر واحد"
-            immediate: "يوم 0"
-            standard: "ثلاثون يوم، باخر كل شهر"
-          name:
-            expiration: " (نهاية المدة (شهر واحد "
-            immediate: "فوري"
-            standard: "(FDM ثلاثون يوم) "
-        department_name: "الادارة / الانتاج"
-        document_natures:  #?
+        delays: #?
+          expression: #?
+            expiration: "شهر واحد" #?
+            immediate: "يوم 0" #?
+            standard: "ثلاثون يوم، باخر كل شهر" #?
+          name: #?
+            expiration: " (نهاية المدة (شهر واحد " #?
+            immediate: "فوري" #?
+            standard: "(FDM ثلاثون يوم) " #?
+        department_name: "الادارة / الانتاج" #?
+        document_natures: #?
           journal: "الدفتر اليومي" #?
           journals: "ادفاتر اليومية" #?
           sale: "البيع" #?
           sales_invoice: "فاتورة" #?
-        document_templates:  #?
+        document_templates: #?
           accountancy: #?
             balance_sheet: #?
               filename: "[code] عرض عام" #?
@@ -2124,7 +2121,7 @@ arb:
           relations: #?
             entity: #?
               filename: " [full_name] ملف ال" #?
-        document_templates_filenames:  #?
+        document_templates_filenames: #?
           balance_sheet: "[code]الميزانية العمومية" #?
           deposit: "[created_on] الاقتطاع البنكي ل" #?
           entity: "[full_name] ملف" #?
@@ -2136,26 +2133,22 @@ arb:
           sale: "[number] بيع" #?
           sales_invoice: "[number] فاتورة" #?
           transport: "[created_on] توصيل ل" #?
-        establishment_name: "المؤسسة الرئيسية"
-        event_natures:
-          # purchase: "Création d’un achat"
-          # sale: "Création d’un devis"
-          # sales_invoice: "Création d’une facture"
+        establishment_name: "المؤسسة الرئيسية" #?
         financial_year_code: "1A2" #?
-        incoming_payment_modes:  #?
+        incoming_payment_modes: #?
           cash: #?
             name: "عملة نقدية" #?
           check: #?
             name: "شيك" #?
           transfer: #?
             name: "التحويل" #?
-        journals:  #?
+        journals: #?
           bank: "الدفتر اليومي للبنك" #?
           cash: "الدفتر اليومي للصندوق النقدي" #?
           purchases: "دفاتر الشراء اليومية" #?
           sales: "دفاتر البيع اليومية" #?
           various: "دفاتر يومية لعمليات متنوعة" #?
-        outgoing_payment_modes:  #?
+        outgoing_payment_modes: #?
           cash: #?
             name: "عملة نقدية" #?
           check: #?
@@ -2164,14 +2157,14 @@ arb:
             name: "التحويل" #?
         paid_tax: "TVA خصم" #?
         price_list_name: "التسعيرة سوية" #?
-        product_category_name: "من غير فئة"
-        role:
-          name:
-            admin: "المدير"
-            public: "(الشعب (من دون حقوق"
+        product_category_name: "من غير فئة" #?
+        role: #?
+          name: #?
+            admin: "المدير" #?
+            public: "(الشعب (من دون حقوق" #?
         sale_nature_name: "مقياس البيع" #?
         sample_product_name: "عينة المنتج" #?
-        sequences:  #?
+        sequences: #?
           management: #?
             deposits: #?
               name: "عدد الاقتطاعات البنكية" #?
@@ -2200,7 +2193,7 @@ arb:
             entities: #?
               name: "عدد الاشخاص" #?
               number_format: "[number|8]" #?
-        taxes:  #?
+        taxes: #?
           tva0000: #?
             amount: "0.0" #?
             collected: "445710" #?
@@ -2221,7 +2214,7 @@ arb:
             collected: "445713" #?
             name: "TVA 19,60%" #?
             paid: "445663" #?
-        units:  #?
+        units: #?
           a: "و" #?
           ca: "(m²) سنتميتر" #?
           ha: "هكتار" #?
@@ -2250,8 +2243,8 @@ arb:
         datetime: "التاريخ والوقت" #?
         decimal: "عشري" #?
         string: "نص" #?
-    delay:
-      error_unvalid_format_for_expression: "الاسلوب ليس بالشكل الصحيح"
+    delay:  #?
+      error_unvalid_format_for_expression: "الاسلوب ليس بالشكل الصحيح" #?
     deposit:
       bookkeep:
         one: "[%{resource} %{number}] %{count} دفعة %{mode} %{comment}"
@@ -2259,37 +2252,8 @@ arb:
         zero: "[%{resource} %{number}] ولا اية دفعة %{mode} %{comment}"
       bookkeep_with_payment: "[%{resource} %{number}] %{mode} %{check_number} من %{payer} (%{payment})"
     document_template:
-      default:
-        accountancy:
-          balance_sheet:
-            # filename: "Bilan de l’exercice [code]"
-          general_journal:
-            # filename: "Journal général"
-          general_ledger:
-            # filename: "Grand livre"
-          income_statement:
-            # filename: "Compte de résultat de l’exercice [code]"
-          journal:
-            # filename: "[name] (Journal)"
-        management:
-          deposit:
-            # filename: "Remise en banque [number]"
-          inventory:
-            # filename: "Inventaire [number]"
-          purchase:
-            # filename: "Achat [number]"
-          sales_invoice:
-            # filename: "Facture [number]"
-            # to_archive: "true"
-          sales_order:
-            # filename: "Vente [number]"
-          stocks:
-            # filename: "État des stocks"
-          transport:
-            # filename: "Transport du [created_on]"
-        relations:
-          entity:
-            # filename: "Fiche de [full_name]"
+      default: #?
+      # document_name: "%{nature} %{key}"
       error_attribute: "الحقل %{value} غير صحيح.الاحتمالات هم%{possibilities}"
       families:  #?
         accountancy: "المحاسبة" #?
@@ -2374,8 +2338,7 @@ arb:
       bookkeep: "[%{resource}] %{mode} (%{payment_number}) وردت من %{attorney} ل %{client} (%{expense_number})" #?
     inventory_item:
       inventory: "عملية الجرد"
-    inventory_line:
-      # inventory: "Inventaire "
+    inventory_line: #?
     journal:  #?
       natures: #?
         bank: "البنك" #?

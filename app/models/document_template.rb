@@ -40,9 +40,9 @@
 # Sources are stored in private/document_templates/:id/content.xml
 class DocumentTemplate < Ekylibre::Record::Base
   attr_accessible :active, :archiving, :by_default, :language, :name, :nature, :managed, :source, :formats
-  enumerize :archiving, :in => [:none, :first, :last, :all], :default => :none, :predicates => {:prefix => true}
+  enumerize :archiving, :in => [:none_of_template, :first_of_template, :last_of_template, :all_of_template, :none, :first, :last, :all], :default => :none, :predicates => {:prefix => true}
   enumerize :nature, :in => Nomenclatures["document_natures"].items.values.map(&:name), :predicates => {:prefix => true}
-  has_many :documents, :foreign_key => :template_id
+  has_many :document_archives, :foreign_key => :template_id, :dependent => :nullify
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :language, :allow_nil => true, :maximum => 3
   validates_length_of :archiving, :nature, :allow_nil => true, :maximum => 63
@@ -59,14 +59,9 @@ class DocumentTemplate < Ekylibre::Record::Base
     raise ArgumentError.new("Unknown nature for a DocumentTemplate (got #{nature.inspect}:#{nature.class})") unless self.nature.values.include?(nature.to_s)
     where(:nature => nature.to_s, :active => true).order(:name)
   }
-  # scope :with_datasource, lambda { |datasource|
-  #   raise ArgumentError.new("Unknown datasource (got #{datasource.inspect}:#{datasource.class}, #{self.datasources.keys.join(', ')} expected)") unless self.datasources.keys.include?(datasource.to_s)
-  #   where(:nature => self.datasources[datasource.to_s], :active => true).order(:name)
-  # }
-
 
   protect(:on => :destroy) do
-    self.documents.count <= 0
+    self.document_archives.count <= 0
   end
 
   before_validation do
@@ -83,8 +78,34 @@ class DocumentTemplate < Ekylibre::Record::Base
     if @source
       FileUtils.mkdir_p(self.source_path.dirname)
       File.open(self.source_path, "wb") do |f|
-        f.write(@source.read)
+        # Updates source to make it working
+        document = Nokogiri::XML(@source) do |config|
+          config.noblanks.nonet.strict
+        end
+        if document.root.namespace and document.root.namespace.href == "http://jasperreports.sourceforge.net/jasperreports"
+          # raise document.root.inspect if self.nature == "sales_invoice"
+          if template = document.root.xpath('xmlns:template').first
+            puts ">>> #{self.nature}: Template found !"
+            template.children.remove
+            template.add_child(Nokogiri::XML::CDATA.new(document, Rails.root.join("config", "corporate-identity", "reports-style.xml").relative_path_from(self.source_path.dirname).to_s.inspect))
+          else
+            puts ">>> #{self.nature}: Template not found !"
+          end
+        end
+
+        # Write source
+        # f.write(@source.read)
+        f.write(document.to_s)
       end
+    end
+  end
+
+  # Updates archiving methods of other templates of same nature
+  after_save do
+    if self.archiving.to_s =~ /\_of\_template$/
+      self.class.update_all("archiving = archiving || '_of_template'", ["nature = ? AND NOT archiving LIKE ? AND id != ?", self.nature, "%_of_template", self.id])
+    else
+      self.class.update_all({:archiving => self.archiving}, ["nature = ? AND id != ?", self.nature, self.id])
     end
   end
 
@@ -126,6 +147,9 @@ class DocumentTemplate < Ekylibre::Record::Base
     object = args.shift
     format = args.shift || :pdf
 
+    # Get key of the document
+    key = options.delete(:key)
+
     # Load the report
     report = Beardley::Report.new(self.source_path)
 
@@ -135,8 +159,8 @@ class DocumentTemplate < Ekylibre::Record::Base
     # Call it with datasource
     data = report.send("to_#{format}", datasource)
 
-    # Archive if needed
-    self.archive(data, :owner => object, :format => format) if self.to_archive?
+    # Archive the document according to archiving method. See #archive method.
+    self.archive(data, key, format, options)
 
     # Returns the data with the filename
     return data
@@ -148,10 +172,32 @@ class DocumentTemplate < Ekylibre::Record::Base
   end
 
 
-  # Archive the document
-  def archive(data, options = {})
-    document = self.documents.create!(options[:origin] ? options.delete(:origin) : nil)
-    document.archive(data, options)
+  # Archive the document using the given archiving method
+  def archive(data, key, format, options = {})
+    document = nil
+    unless self.archiving_none? or self.archiving_none_of_template?
+      # Find exisiting document
+      document = Document.where(:nature => self.nature, :key => key).first
+      # Create document if not exist
+      document ||= Document.create!({:nature => self.nature, :key => key, :name => (options[:name] || tc('document_name', :nature => self.nature.text, :key => key))}, :without_protection => true)
+
+      # Removes old archives if only keepping last archive
+      if self.archiving_last? or self.archiving_last_of_template?
+        filter = ["template_id IS NOT NULL AND document_id = ?", document.id]
+        if self.archiving_last_of_template?
+          filter[0] << " AND template_id = ?"
+          filter << self.id
+        end
+        DocumentArchive.destroy_all(filter)
+      end
+
+      # Adds the new archive if expected
+      if (self.archiving_first? and document.archives.where("template_id IS NOT NULL").count.zero?) or
+          (self.archiving_first_of_template? and document.archives.where(:template_id => self.id).count.zero?) or
+          self.archiving.to_s =~ /^(last|all)(\_of\_template)?$/
+        document.archive(data, format, options.merge(:template_id => self.id))
+      end
+    end
     return document
   end
 
@@ -189,21 +235,6 @@ class DocumentTemplate < Ekylibre::Record::Base
     end
     return true
   end
-
-  # # Load reverse hash from datasource to document nature
-  # def self.load_datasources
-  #   @@datasources = HashWithIndifferentAccess.new
-  #   for item in Nomenclatures["document_natures"].items.values
-  #     if ds = item.attributes["datasource"]
-  #       ds = ds.to_s.underscore.to_sym
-  #       @@datasources[ds] ||= []
-  #       @@datasources[ds] << item.name.underscore
-  #     end
-  #   end
-  # end
-
-  # # Load datasources now!
-  # load_datasources
 
 
 end

@@ -20,20 +20,17 @@
 #
 # == Table: documents
 #
-#  archives_count        :integer          default(0), not null
-#  created_at            :datetime         not null
-#  creator_id            :integer
-#  datasource            :string(63)
-#  datasource_parameters :text
-#  id                    :integer          not null, primary key
-#  lock_version          :integer          default(0), not null
-#  name                  :string(255)      not null
-#  nature                :string(63)       not null
-#  number                :string(63)       not null
-#  template_id           :integer
-#  template_type         :string(255)
-#  updated_at            :datetime         not null
-#  updater_id            :integer
+#  archives_count :integer          default(0), not null
+#  created_at     :datetime         not null
+#  creator_id     :integer
+#  id             :integer          not null, primary key
+#  key            :string(255)      not null
+#  lock_version   :integer          default(0), not null
+#  name           :string(255)      not null
+#  nature         :string(63)       not null
+#  number         :string(63)       not null
+#  updated_at     :datetime         not null
+#  updater_id     :integer
 #
 require 'test_helper'
 

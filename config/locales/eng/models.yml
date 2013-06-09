@@ -421,6 +421,7 @@ eng:
       deposit_line: "Deposit line" #?
       district: "District"
       document: "Document"
+      # document_archive: "Archive de document"
       document_template: "Document template"
       entity: "Person"
       entity_address: "Address"
@@ -565,7 +566,7 @@ eng:
     allocation_account: "Allocation account"
     amount: "Amount"
     animal: "Animal" #?
-    animal_drugs: "Animal drugs"
+    animal_drugs: "Animal drugs" #?
     animal_events: "Animal events" #?
     animal_group: "Animal group" #?
     animal_race_nature: "Animal race nature" #?
@@ -576,15 +577,14 @@ eng:
     area_measure: "Area measure"
     area_unit: "Area unit"
     areas: "Areas"
-    # arrival_cause: "Arrival cause"
-    # arrival_reasons: "Causes d'entrée"
+    # arrival_cause: "Cause d'entrée"
     arrived_on: "Arrived on"
     asset: "Asset"
     asset_amount: "Accountable value"
     asset_depreciations: "Asset depreciations"
     assets: "Assets"
     assimilated_taxes_amount: "Assimilated taxes amount"
-    atmospheric_pressure: "Atmospheric pressure"
+    atmospheric_pressure: "Atmospheric pressure" #?
     attorney: "Attorney"
     attorney_account: "Attorney account"
     attorney_accounts: "Attorney accounts"
@@ -675,8 +675,8 @@ eng:
     commission_percentage: "Commission percentage"
     commissioned_incoming_payment_modes: "Commissioned incoming payment modes"
     company: "Company"
-    component: "Component"
-    components: "Components"
+    component: "Component" #?
+    components: "Components" #?
     compute: "Compute"
     conclusion: "Conclusion"
     condition_operator: "Condition operator"
@@ -703,8 +703,8 @@ eng:
     credits: "Credits"
     critic_quantity_min: "Critic quantity min"
     critic_stocks: "Critic stocks"
-    crypt_key: "Crypt key"
-    crypt_mode: "Crypt mode"
+    crypt_key: "Crypt key" #?
+    crypt_mode: "Crypt mode" #?
     currency: "Currency"
     currency_precision: "Currency precision"
     currency_rate: "Currency rate"
@@ -870,7 +870,6 @@ eng:
     function_title: "Function title"
     future_events: "Future events"
     # gender: "Gender"
-    # genealogy: "Généalogie"
     generated: "Generated"
     global_balance: "Global balance"
     global_count: "Global count"
@@ -1297,14 +1296,15 @@ eng:
     theoric_quantity: "Theoric quantity"
     title: "Title"
     to: "To"
-    to_archive: "To archive"
+    to_archive: "To archive" #?
     to_bank_on: "To bank on"
     to_deposit: "To deposit"
     tool: "Tool"
     tools: "Tools"
     tools_list: "Tools list"
     total_weight: "Total weight (kg)"
-    trackable: "Trackable"
+    # traceable: "Traçable"
+    trackable: "Trackable" #?
     tracking: "Tracking"
     tracking_serial: "Tracking serial"
     trackings: "Trackings"
@@ -1315,9 +1315,7 @@ eng:
     transporter_sales: "Transporter sales"
     transporters: "Transporters"
     transports: "Transports"
-    # treatment: "Traitement"
-    # treatment_uses: "Treatment uses"
-    treatments: "Treatments"
+    treatments: "Treatments" #?
     type: "Type"
     unconfirmed_stock_transfers: "Unconfirmed stock transfers" #?
     undelivered_incoming_deliveries: "Undelivered incoming deliveries" #?
@@ -1341,7 +1339,7 @@ eng:
     usage_duration: "Usage duration"
     use_range: "Use range" #?
     used_amount: "Used amount"
-    used_with: "Used with"
+    used_with: "Used with" #?
     # useful_items: "Lignes utiles"
     useful_lines: "Useful lines" #?
     user: "User"
@@ -1408,10 +1406,14 @@ eng:
         # text: "Texte"
     document_template:
       archiving:
-        # all: "Toutes les impressions"
-        # first: "Premier imprimé"
-        # last: "Dernier imprimé"
-        # none: "Aucune"
+        # all: "Tous du type"
+        # all_of_template: "Tous du modèle"
+        # first: "Premier du type"
+        # first_of_template: "Premier du modèle"
+        # last: "Dernier du type"
+        # last_of_template: "Dernier du modèle"
+        # none: "Aucun du type"
+        # none_of_template: "Aucun du modèle"
       family:  #?
         accountancy: "Accountancy" #?
         company: "Company" #?
@@ -1591,46 +1593,46 @@ eng:
       bookkeep: "[%{resource} %{number}] From %{emitter} to %{receiver} %{description}"
     company:
       cant_find_document_template: "Can not find document template"
-      default:
-        building_name: "Building"
+      default:  #?
+        building_name: "Building" #?
         category: "By default" #?
-        delays:
-          expression:
-            expiration: "1 month"
-            immediate: "0 day"
-            standard: "30 days, end of month"
-          name:
-            expiration: "Expiration (1 M)"
-            immediate: "Immediatly"
-            standard: "Standard (30d EOM)"
-        department_name: "Default department"
-        establishment_name: "Default establishment"
-        event_natures:
-          purchase: "Creation of a purchase"
-          sale: "Creation of a sale"
-          sales_invoice: "Creation of a sales invoice"
-        incoming_payment_modes:  #?
+        delays: #?
+          expression: #?
+            expiration: "1 month" #?
+            immediate: "0 day" #?
+            standard: "30 days, end of month" #?
+          name: #?
+            expiration: "Expiration (1 M)" #?
+            immediate: "Immediatly" #?
+            standard: "Standard (30d EOM)" #?
+        department_name: "Default department" #?
+        establishment_name: "Default establishment" #?
+        event_natures: #?
+          purchase: "Creation of a purchase" #?
+          sale: "Creation of a sale" #?
+          sales_invoice: "Creation of a sales invoice" #?
+        incoming_payment_modes: #?
           cash: #?
             name: "Cash" #?
           check: #?
             name: "Check" #?
           transfer: #?
             name: "Transfer" #?
-        outgoing_payment_modes:  #?
+        outgoing_payment_modes: #?
           cash: #?
             name: "Cash" #?
           check: #?
             name: "Check" #?
           transfer: #?
             name: "Transfer" #?
-        product_category_name: "Default category"
+        product_category_name: "Default category" #?
         purchase_nature_name: "Standard" #?
-        role:
-          name:
-            admin: "Manager"
-            public: "Public (no rights)"
+        role: #?
+          name: #?
+            admin: "Manager" #?
+            public: "Public (no rights)" #?
         sale_nature_name: "Standard" #?
-        taxes:  #?
+        taxes: #?
           tva0000: #?
             amount: "0.0" #?
             collected: "445710" #?
@@ -1657,8 +1659,8 @@ eng:
       sales: "sales"
     contact:  #?
       error_modify_contact: "The contact can not be updated." #?
-    delay:
-      error_unvalid_format_for_expression: "Unvalid format for expression"
+    delay:  #?
+      error_unvalid_format_for_expression: "Unvalid format for expression" #?
     deposit:
       bookkeep:
         one: "[%{resource} %{number}] %{count} payment %{mode} %{description}"
@@ -1666,37 +1668,38 @@ eng:
         zero: "[%{resource} %{number}] No payments %{mode} %{description}"
       bookkeep_with_payment: "[%{resource} %{number}] %{mode} %{check_number} from %{payer} (%{payment})"
     document_template:
-      default:
-        accountancy:
-          balance_sheet:
-            filename: "Balance sheet [code]"
-          general_journal:
-            filename: "General journal"
-          general_ledger:
-            filename: "General ledger"
-          income_statement:
-            filename: "Income statement [code]"
-          journal:
-            filename: "[name] (Journal)"
-        management:
-          deposit:
-            filename: "Deposit [number]"
-          inventory:
-            filename: "Inventory [number]"
-          purchase:
-            filename: "Purchase order [number]"
-          sales_invoice:
-            filename: "Sales invoice [number]"
-            to_archive: "true"
-          sales_order:
-            filename: "sale [number]"
-          stocks:
-            filename: "Stocks"
-          transport:
-            filename: "Transport [created_on]"
-        relations:
-          entity:
-            filename: "[full_name]"
+      default:  #?
+        accountancy: #?
+          balance_sheet: #?
+            filename: "Balance sheet [code]" #?
+          general_journal: #?
+            filename: "General journal" #?
+          general_ledger: #?
+            filename: "General ledger" #?
+          income_statement: #?
+            filename: "Income statement [code]" #?
+          journal: #?
+            filename: "[name] (Journal)" #?
+        management: #?
+          deposit: #?
+            filename: "Deposit [number]" #?
+          inventory: #?
+            filename: "Inventory [number]" #?
+          purchase: #?
+            filename: "Purchase order [number]" #?
+          sales_invoice: #?
+            filename: "Sales invoice [number]" #?
+            to_archive: "true" #?
+          sales_order: #?
+            filename: "sale [number]" #?
+          stocks: #?
+            filename: "Stocks" #?
+          transport: #?
+            filename: "Transport [created_on]" #?
+        relations: #?
+          entity: #?
+            filename: "[full_name]" #?
+      # document_name: "%{nature} %{key}"
       error_attribute: "The key word %{value} is incorrect. The possibilities are: %{possibilities}"
       invalid_filename: "File"
       nature_do_not_allow_to_use_attributes: "The type does not allow to use attributes"
@@ -1738,8 +1741,8 @@ eng:
       bookkeep: "[%{resource}] %{mode} (%{payment_number}) received from %{attorney} for %{client} (%{expense_number})" #?
     inventory_item:
       inventory: "Inventory"
-    inventory_line:
-      inventory: "Inventory"
+    inventory_line:  #?
+      inventory: "Inventory" #?
     journal_entry:
       entry_cancel: "Cancel of entry %{number}: %{name}"
       states:

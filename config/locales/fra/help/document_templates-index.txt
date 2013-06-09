@@ -1,31 +1,32 @@
 ====== Modèles de document ======
 
-Les modèles de document contiennent la définition de vos documents et servent à les imprimer (devis, factures, fiche client...). Il est possible d'archiver les impressions (au format PDF).
+Les modèles de document contiennent la définition de vos documents et servent à les imprimer (devis, factures, fiche client...). Il est possible d'archiver les impressions.
 
 >>> Il existe des **modèles de document par défaut** comme la facture de vente ou le devis/commande, lesquels peuvent être (re)chargés à tout moment en utilisant le bouton {{icon:refresh}}.
 
 ===== Gestion des modèles =====
 
-**Type** (contexte d'utilisation et de production du document)~:
-Le type est rattaché à une nomenclature et permet au logiciel de produire un document à partir d'un modèle typé.
-Un document "externe" ne possedera pas de type.
+**Type**~:
+Le type de document définit ce que le modèle est sensé produire.
+Pour plus d'informations sur cette notion, il vous faut vous rendre dans l'[[>backend/documents|espace GED]].
 
-**Méthode d'archivage** (copie automatique vers la GED)~:
+**Méthode d'archivage** (vers la GED)~:
 La méthode d'archivage permet de piloter le comportement du logiciel vis à vis de l'archivage.
-  * Aucune~: pas d'archivage automatique
-  * Premier imprimé~: c'est le premier document qui est archivé
-  * Dernier imprimé~: c'est le premier document qui est archivé
-  * Toutes les impressions~: tous les documents de ce modèle sont archivés automatiquement vers la GED
+  * **Aucun du type**~: Aucun document du type n'est archivé (tous modèles confondus)
+  * **Premier du type**~: Seul le premier document du type est archivé (tous modèles confondus)
+  * **Dernier du type**~: Seul le dernier document du type est archivé (tous modèles confondus)
+  * **Tous du type**~: L'ensemble des documents du type est archivé (tous modèles confondus)
+  * **Aucun du modèle**~: Aucun document du modèle n'est archivé
+  * **Premier du modèle**~: Seul le premier document du modèle est archivé
+  * **Dernier du modèle**~: Seul le dernier document du modèle est archivé
+  * **Tous du modèle**~: L'ensemble des documents du modèle est archivé
 
-**Géré par le système**~: le logiciel a la main sur la mise à jour du modèle de document
+!!! En sélectionnant une des 4 premières méthodes d'archivage pour un modèle donné, vous mettrez à jour automatiquement les autres modèles du même type.
 
-**Formats** (format des documents générés)~:
-Par défaut, le format "PDF" est utilisé.Vous pouvez utiliser les formats suivants~:
-PDF, ODT, ODS, DOCX, XLSX, CSV, XLS, DOC
+Les archives déjà enregistrées sont conservées si vous choisissez de ne plus archiver les documents d'un modèle ou d'un type donné.
 
-**Source** (fichier source de définition du modèle)~:
-Fichier de type XML créé par un outil externe.
+>>> Tous les documents **téléversés** sont conservés indépendamment de la méthode d'archivage sélectionnée.
 
 ===== Personnalisation des modèles =====
 
-Les modèles sont personnalisables en modifiant la source via un outil externe (iReport).
+Il est possible de créer/modifier des modèles via le logiciel libre //Jasper iReport//.

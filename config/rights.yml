@@ -77,8 +77,16 @@
 # - "backend/dashboards#list_recent_events"
 # - "backend/dashboards#search"
 # - "backend/dashboards#tools"
+# - "backend/document_archives#show"
+# - "backend/documents#create"
+# - "backend/documents#destroy"
+# - "backend/documents#edit"
 # - "backend/documents#index"
 # - "backend/documents#list"
+# - "backend/documents#list_archives"
+# - "backend/documents#new"
+# - "backend/documents#show"
+# - "backend/documents#update"
 # - "backend/entity_addresses#show"
 # - "backend/entity_addresses#unroll"
 # - "backend/entity_links#show"
@@ -1008,7 +1016,7 @@ manage_product_categories:
 - "backend/product_nature_categories#show"
 - "backend/product_nature_categories#update"
 
-# translation missing: eng.rights.manage_product_price_listings
+# Manage product price listings
 manage_product_price_listings:
 - "backend/dashboards#relationship"
 - "backend/product_price_listings#create"

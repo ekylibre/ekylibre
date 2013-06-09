@@ -1,0 +1,9 @@
+=beehive do |b|
+  -b.tabbox do
+    -b.cell :archives do
+      =list :archives
+    -b.cell :details do
+      =attributes_list(@document) do |l|
+        -l.attribute :name
+        -l.attribute :nature
+        -l.attribute :key

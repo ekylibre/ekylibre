@@ -146,6 +146,12 @@ task :locales => :environment do
   acount += total-untranslated
 
 
+  # Formats
+  count = CleanSupport.sort_yaml_file :formats, log
+  atotal += count
+  acount += count
+
+
   # Languages
   count = CleanSupport.sort_yaml_file :languages, log
   atotal += count
@@ -222,7 +228,7 @@ task :locales => :environment do
   end
 
   to_translate += CleanSupport.hash_count(::I18n.translate("enumerize"))
-  translation << "  enumerize:"+CleanSupport.hash_to_yaml(::I18n.translate("enumerize"), 2)+"\n"
+  translation << "  enumerize:" + CleanSupport.hash_to_yaml(::I18n.translate("enumerize"), 2)+"\n"
 
   translation << "  models:\n"
   for model, definition in models.sort
@@ -238,6 +244,12 @@ task :locales => :environment do
   log.write "  - #{'models.yml:'.ljust(20)} #{(100*(total-untranslated)/total).round.to_s.rjust(3)}% (#{total-untranslated}/#{total}) #{warnings.to_sentence}\n"
   atotal += to_translate
   acount += total-untranslated
+
+  # Nomenclatures
+  count = CleanSupport.sort_yaml_file :nomenclatures, log
+  atotal += count
+  acount += count
+
 
 
   # Rights

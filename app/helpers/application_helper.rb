@@ -499,9 +499,9 @@ module ApplicationHelper
 
 
   def search_results(search, options = {}, &block)
-    html = content_tag(:div, :class => :search) {
+    return content_tag(:div, :class => :search) {
       # Show results
-      content_tag(:ul, :class => :results) {
+      html = content_tag(:ul, :class => :results) {
         counter = "a"
         search[:records].collect do |result|
           id = "result-" + counter
@@ -510,10 +510,10 @@ module ApplicationHelper
             (block.arity == 2 ? capture(result, id, &block) : capture(result, &block)).html_safe
           }
         end.join.html_safe
-      } +
+      }
 
       # Pagination
-      content_tag(:span, :class => :pagination) {
+      html << content_tag(:span, :class => :pagination) {
         padding, gap = 9, 4
         page_min = params[:page].to_i - padding
         page_min = 1 if page_min < gap
@@ -532,7 +532,10 @@ module ApplicationHelper
         end
         pagination << content_tag(:span, "&hellip;".html_safe) if page_max < search[:last_page]
         pagination.html_safe
-      } if search[:last_page] > 1
+      } if search[:last_page] and search[:last_page] > 1
+
+      # Return HTML
+      html
     }
   end
 
@@ -687,22 +690,6 @@ module ApplicationHelper
 
 
 
-
-  # class Exporter
-  #   attr_reader :natures
-
-  #   def initialize
-  #     @natures = []
-  #   end
-
-  #   def method_missing(method_name, *args, &block)
-  #     @natures << {:name => method_name.to_sym, :args => args, :criterias => block, :deck => "export-#{method_name}"}
-  #   end
-  # end
-
-
-
-
   def toolbar_tool_to(name, url, options={})
     return tool_to(name, url, options) if authorized?(url)
     return nil
@@ -711,38 +698,51 @@ module ApplicationHelper
 
   def toolbar_export(nature, record = nil, options = {}, &block)
     exporter = Lister.new(:natures)
-    yield exporter
+    yield exporter if block_given?
     if exporter.natures.size > 0
 
       for nature in exporter.natures
+        key = nature.args.shift
+        unless key.is_a?(String)
+          raise ArgumentError.new("Expected String for document key: #{key.class.name}:#{key.inspect}")
+        end
         add_deck(nature.name) do
-          beehive do |b|
-            b.tabbox do |t|
-              t.cell :print do
-                html = "".html_safe
-                # if block_given?
-                #   html = kujaku(&block)
-                # end
-                html << form_actions do
-                  DocumentTemplate.of_nature(nature.name.to_s).collect do |template|
-                    formats = template.formats
-                    dropdown_button(template.name, :format => formats.first) do |l|
-                      for format in formats
-                        l.link_to(format, :format => format)
-                      end
-                    end
-                  end.join.html_safe
+          html = "".html_safe
+          # if block_given?
+          #   html = kujaku(&block)
+          # end
+          html << form_actions do
+            DocumentTemplate.of_nature(nature.name.to_s).collect do |template|
+              formats = template.formats
+              dropdown_button(template.name, :format => formats.first, :template => template.id, :key => key) do |l|
+                for format in formats
+                  l.link_to("formats.#{format}".t, :format => format, :template => template.id, :key => key)
                 end
-                html
               end
-              t.cell :archives do
-                "Print"
+            end.join.html_safe
+          end
+          html << beehive do |b|
+            b.tabbox do
+              if document = Document.of(nature.name, key)
+                b.cell :archives, :counter => document.archives_count do
+                  # list(:archives, :controller => :documents, :id => document.id)
+                  content_tag(:div, :class => :content) {
+                    content_tag(:ul) {
+                      document.archives.collect do |archive|
+                        content_tag(:li, link_to(archive.archived_at.l, backend_document_archive_url(archive)) + " ".html_safe + archive.template_name)
+                      end.join.html_safe
+                    }
+                  }
+                end
               end
-              t.cell :upload do
-                "Print"
-              end
+              # b.cell :upload do
+              #   form_tag({:controller => :document_archives, :action => :create, :document_id => document.id}, {:multipart => true}) {
+              #     file_field_tag(:file) + submit_tag
+              #   }
+              # end
             end
           end
+          html
         end
       end
 

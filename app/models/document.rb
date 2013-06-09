@@ -20,77 +20,50 @@
 #
 # == Table: documents
 #
-#  archives_count        :integer          default(0), not null
-#  created_at            :datetime         not null
-#  creator_id            :integer
-#  datasource            :string(63)
-#  datasource_parameters :text
-#  id                    :integer          not null, primary key
-#  lock_version          :integer          default(0), not null
-#  name                  :string(255)      not null
-#  nature                :string(63)       not null
-#  number                :string(63)       not null
-#  template_id           :integer
-#  template_type         :string(255)
-#  updated_at            :datetime         not null
-#  updater_id            :integer
+#  archives_count :integer          default(0), not null
+#  created_at     :datetime         not null
+#  creator_id     :integer
+#  id             :integer          not null, primary key
+#  key            :string(255)      not null
+#  lock_version   :integer          default(0), not null
+#  name           :string(255)      not null
+#  nature         :string(63)       not null
+#  number         :string(63)       not null
+#  updated_at     :datetime         not null
+#  updater_id     :integer
 #
 
 class Document < Ekylibre::Record::Base
-  # belongs_to :origin, :polymorphic => true
-  belongs_to :template, :class_name => "DocumentTemplate"
-  has_many :archives, :class_name => "DocumentArchive"
-  enumerize :nature, :in => Nomenclatures["document_natures"].items.keys.map(&:underscore), :predicates => {:prefix => true}
+  attr_accessible :name
+  has_many :archives, :class_name => "DocumentArchive", :dependent => :destroy, :inverse_of => :document
+  enumerize :nature, :in => Nomenclatures["document_natures"].items.keys, :predicates => {:prefix => true}
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_length_of :datasource, :nature, :number, :allow_nil => true, :maximum => 63
-  validates_length_of :name, :template_type, :allow_nil => true, :maximum => 255
-  validates_presence_of :name, :nature, :number
+  validates_length_of :nature, :number, :allow_nil => true, :maximum => 63
+  validates_length_of :key, :name, :allow_nil => true, :maximum => 255
+  validates_presence_of :key, :name, :nature, :number
   #]VALIDATORS]
+  validates_uniqueness_of :key, :scope => :nature
+  validates_inclusion_of :nature, :in => self.nature.values
 
   acts_as_numbered
 
-
-  before_validation(:on => :create) do
-    if self.name.blank? and self.template
-      if self.origin.nil?
-        self.name = tc('name_without_origin', :template => self.template)
-      else
-        self.name = tc('name_with_origin', :template => self.template, :origin => self.origin.name)
-      end
+  # Create an archive with the given data
+  def archive(data, format, options = {})
+    tmp_dir = Rails.root.join('tmp', 'archiving')
+    # FileUtils.mkdir_p(tmp_dir)
+    Tempfile.open([self.name.parameterize, "." + format.to_s], tmp_dir, :encoding => 'ascii-8bit') do |f|
+      f.print(data)
+      f.flush
+      f.rewind
+      self.archives.create!({:file => f, :template_id => options[:template_id]}, :without_protection => true)
+      self.updated_at = Time.now
+      self.save!
     end
   end
 
-
-  def archive(data, options = {})
-
-    self.archives.create!(:file => f)
-
-
-    document = self.documents.build
-    document.owner = owner
-    document.extension = attributes[:format] || "pdf"
-    method_name = [:document_name, :number, :code, :name, :id].detect{|x| owner.respond_to?(x)}
-    document.printed_at = Time.now
-    document.subdir = Date.today.strftime('%Y-%m')
-    document.original_name = owner.send(method_name).to_s.simpleize+'.'+document.extension.to_s
-    document.filename = owner.send(method_name).to_s.codeize+'-'+document.printed_at.to_i.to_s(36).upper+'-'+Document.generate_key+'.'+document.extension.to_s
-    document.filesize = data.length
-    document.sha256 = Digest::SHA256.hexdigest(data)
-    document.crypt_mode = 'none'
-    if document.save
-      FileUtils.mkdir_p(document.path)
-      File.open(document.file_path, 'wb') {|f| f.write(data) }
-    else
-      raise Exception.new(document.errors.inspect)
-    end
-
-
+  # Returns the matching unique document for the given nature and key
+  def self.of(nature, key)
+    return self.where(:nature => nature.to_s, :key => key.to_s).first
   end
-
-
-  def self.private_directory
-    Ekylibre.private_directory.join('document-archives')
-  end
-
 
 end

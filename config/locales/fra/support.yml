@@ -63,7 +63,6 @@ fra:
     export_as: "Exporter en %{exported}"
     items_per_page: "Éléments par page"
     menu: "Menu"
-    next: "Suivant"
     no_records: "Aucun enregistrement"
     pagination:
       first: "Début"
@@ -71,7 +70,6 @@ fra:
       next: "Suivant"
       previous: "Précédent"
       showing_x_to_y_of_total: "Enregistrements %{x} à %{y} sur %{total}"
-    previous: "Précédent"
     x_per_page:
       one: "%{count} par page"
       other: "%{count} par page"

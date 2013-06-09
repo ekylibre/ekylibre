@@ -1751,3 +1751,19 @@ svg.map {
     background-color: #dedede;
   }
 }
+
+
+.badge {
+  background: $neutral-color;
+  @include border-radius(1000px);
+  @include inline-block;
+  @include text-shadow(0 -1px round($fs-small*0.2) rgba(black,0.25));
+  font-size: $fs-small;
+  font-weight: bold;
+  padding: 0 round(0.45*$fs-small) ($fs-normal - $fs-small);
+  vertical-align: baseline;
+  line-height: $fs-normal;
+  height: $fs-small;
+  color: white;
+  white-space: nowrap;
+}

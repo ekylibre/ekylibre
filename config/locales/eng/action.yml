@@ -102,7 +102,7 @@ eng:
       sort: "Sort custom field choices"
     backend/dashboards:
       accountancy: "Accountancy dashboard"
-      finances: "Finances dashboard"
+      finances: "Finances dashboard" #?
       general: "General dashboard" #?
       index: "General dashboard"
       production: "Production dashboard"
@@ -111,17 +111,17 @@ eng:
       sales: "Sales dashboard"
       # search: "Recherche de\_: %{searched}"
       settings: "Settings dashboard"
-      settings_accountancy: "Accountancy settings  dashboard"
-      settings_base: "Base settings dashboard"
-      settings_production: "Production settings dashboard"
-      settings_products: "Products settings dashboard"
-      settings_purchases: "Purchases settings dashboard"
-      settings_relationship: "Relationship settings dashboard"
-      settings_sales: "Sales settings dashboard"
-      settings_stocks: "Stocks settings dashboard"
+      settings_accountancy: "Accountancy settings  dashboard" #?
+      settings_base: "Base settings dashboard" #?
+      settings_production: "Production settings dashboard" #?
+      settings_products: "Products settings dashboard" #?
+      settings_purchases: "Purchases settings dashboard" #?
+      settings_relationship: "Relationship settings dashboard" #?
+      settings_sales: "Sales settings dashboard" #?
+      settings_stocks: "Stocks settings dashboard" #?
       stocks: "Stocks dashboard"
       # tools: "Tableau de bord des outils"
-      trade: "Trade dashboard"
+      trade: "Trade dashboard" #?
       welcome: "Welcome on Ekylibre"
     backend/departments:
       edit: "Edit the department: %{name}"
@@ -137,6 +137,7 @@ eng:
       edit: "Edit the district: %{name}"
       index: "Districts"
       new: "Add a new district"
+    backend/document_archives: #?
     backend/document_templates:
       edit: "Edit the document template: %{name}"
       index: "Document templates"
@@ -145,6 +146,7 @@ eng:
       print: "Print document template"
     backend/documents:
       # index: "Gestion électronique des documents"
+      # show: "Document\_: %{name}"
     backend/entities:
       destroy: "Remove person"
       edit: "Edit person: %{full_name}"
@@ -669,9 +671,9 @@ eng:
         other: "%{count} errors prohibited this %{model} from being saved"
   labels:
     # account_accruals: "Comptes de régularisation"
-    # account_attorney_to_create: "-- Créer automatiquement un compte mandataire --"
+    # account_attorney_to_create: "— Créer automatiquement un compte mandataire —"
     # account_claims_assets: "Créances"
-    # account_client_to_create: "-- Créer automatiquement un compte client --"
+    # account_client_to_create: "— Créer automatiquement un compte client —"
     # account_current_assets: "Actif circulant"
     # account_debt: "Dettes"
     # account_equity: "Capitaux propres"
@@ -683,7 +685,7 @@ eng:
     account_number: "Account number"
     # account_others_assets: "Divers"
     # account_provision: "Provisions pour risques et charges"
-    # account_supplier_to_create: "-- Créer automatiquement un compte fournisseur --"
+    # account_supplier_to_create: "— Créer automatiquement un compte fournisseur —"
     account_tabbox:
       children: "Children Account"
       entities: "People"
@@ -692,8 +694,8 @@ eng:
     # account_tangible_fixed_assets: "Immobilisations corporelles"
     # account_untangible_fixed_assets: "Immobilisations incorporelles"
     # account_update: "Modifier le compte"
-    # account_value_current: "BRUT"
-    # account_value_previous: "BRUT N-1"
+    # account_value_current: "Brut"
+    # account_value_previous: "Brut N-1"
     # accountancy: "Comptabilité"
     accounting_balance: "Accounting balance"
     accounts: "Accounts"
@@ -752,6 +754,7 @@ eng:
       childrens: "Childs"
     # animals: "Animaux"
     apply: "Apply"
+    # archives: "Archives"
     are_you_sure: "Are you sure you want to do this?"
     are_you_sure_you_want_to_confirm: "Are you sure you want to order"
     are_you_sure_you_want_to_delete: "Are you sure you want to delete this record?"
@@ -1522,6 +1525,7 @@ eng:
     up: "Up"
     update: "Update"
     update_params: "Update params"
+    # upload: "Téléversement"
     usage: "Usage"
     use_incoming_payment: "Add incoming payment %{payment}"
     use_renew: "Select the journal to carry over"

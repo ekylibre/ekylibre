@@ -44,22 +44,23 @@ class UnifyDocuments < ActiveRecord::Migration
       t.string :number, :null => false, :limit => 63
       t.string :name,   :null => false
       t.string :nature, :null => false, :limit => 63
+      t.string :key,    :null => false
       t.integer :archives_count, :null => false, :default => 0
-      t.references :template, :polymorphic => true
-      t.string     :datasource, :limit => 63
-      t.text       :datasource_parameters
+      # t.references :template
+      # t.string     :datasource, :limit => 63
+      # t.text       :datasource_parameters
       t.stamps
     end
     add_stamps_indexes :documents
     add_index :documents, :number
     add_index :documents, :name
     add_index :documents, :nature
-    add_index :documents, :datasource
+    add_index :documents, [:nature, :key], :unique => true
 
 
     # Documents
     # TODO Move documents to the new dir
-    add_column :document_archives, :position, :integer
+    # add_column :document_archives, :position, :integer
     # add_column :document_archives, :nature, :string, :limit => 63
     # change_column_null :document_archives, :nature, false
     rename_column :document_archives, :printed_at, :archived_at
@@ -71,14 +72,18 @@ class UnifyDocuments < ActiveRecord::Migration
     rename_column :document_archives, :filesize, :file_file_size
     add_column :document_archives, :file_updated_at, :datetime
     add_column :document_archives, :file_fingerprint, :string
+    add_column :document_archives, :file_pages_count, :integer
+    add_column :document_archives, :file_content_text, :text
+
+
     add_column :document_archives, :document_id, :integer
-    add_index :document_archives, :document_id
+    add_index  :document_archives, :document_id
 
     add_column :documents, :archive_id, :integer
     execute("UPDATE #{quoted_table_name(:documents)} SET archives_count = 1")
-    # TODO Adds a good datasource conversion
-    execute "INSERT INTO #{quoted_table_name(:documents)} (datasource, datasource_parameters, name, archive_id, created_at, creator_id, updated_at, updater_id) SELECT owner_type, owner_id, original_name, id, created_at, creator_id, updated_at, updater_id FROM #{quoted_table_name(:document_archives)}"
-    execute "UPDATE #{quoted_table_name(:document_archives)} SET document_id = d.id, position = 1 FROM #{quoted_table_name(:documents)} AS d WHERE d.archive_id = #{quoted_table_name(:document_archives)}.id"
+    # TODO Adds a good datasource => nature conversion
+    execute "INSERT INTO #{quoted_table_name(:documents)} (nature, key, name, archive_id, created_at, creator_id, updated_at, updater_id) SELECT owner_type, owner_id, original_name, id, created_at, creator_id, updated_at, updater_id FROM #{quoted_table_name(:document_archives)}"
+    execute "UPDATE #{quoted_table_name(:document_archives)} SET document_id = d.id FROM #{quoted_table_name(:documents)} AS d WHERE d.archive_id = #{quoted_table_name(:document_archives)}.id"
     remove_column :documents, :archive_id
     change_column_null :document_archives, :document_id, false
 

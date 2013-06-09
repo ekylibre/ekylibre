@@ -316,7 +316,7 @@ fra:
       deposit_item: "Ligne de remise en banque"
       district: "Zone administrative"
       document: "Document"
-      # document_archive: "Document archive"
+      document_archive: "Archive de document"
       document_template: "Modèle de document"
       entity: "Personne"
       entity_address: "Adresse"
@@ -438,7 +438,6 @@ fra:
     allocation_account: "Compte de dotation"
     amount: "Montant"
     # amounts_scale: "Amounts scale"
-    animal_drugs: "Médicaments" #?
     animals: "Animals" #?
     annotation: "Annotation"
     # archived_at: "Archived at"
@@ -449,8 +448,7 @@ fra:
     area_measure: "Superficie"
     area_unit: "Unité de surface"
     areas: "Zones postales"
-    arrival_cause: "Arrival cause"
-    arrival_reasons: "Causes d'entrée" #?
+    arrival_cause: "Cause d'entrée"
     arrived_on: "Date d'entrée"
     asset: "Immobilisation"
     # asset_account: "Asset account"
@@ -460,7 +458,6 @@ fra:
     # assignment_amount: "Assignment amount"
     # assignment_pretax_amount: "Assignment pretax amount"
     assimilated_taxes_amount: "Montant des taxes assimilées"
-    atmospheric_pressure: "Pression atmosphérique" #?
     attorney: "Mandataire"
     attorney_account: "Compte mandataire associé"
     attorney_accounts: "Comptes mandataires" #?
@@ -555,8 +552,6 @@ fra:
     commission_percentage: "Pourcentage de commission"
     commissioned_incoming_payment_modes: "Modes d’encaissement avec commission"
     company: "Société" #?
-    component: "Produit contenu" #?
-    components: "Composants de produit" #?
     compute: "Dernière valeur"
     # computed_at: "Computed at"
     conclusion: "Conclusion"
@@ -585,8 +580,6 @@ fra:
     credits: "Avoirs"
     critic_quantity_min: "Quantité minimum critique" #?
     critic_stocks: "Stocks critiques" #?
-    crypt_key: "Clé de cryptage" #?
-    crypt_mode: "Mode de cryptage" #?
     currency: "Devise"
     currency_precision: "Nombre de décimales"
     currency_rate: "Taux de change"
@@ -600,8 +593,6 @@ fra:
     customized: "Enregistrement personnalisé" #?
     customized_type: "Type d'enregistrement personnalisé"
     data: "Données complémentaires"
-    # datasource: "Datasource"
-    # datasource_parameters: "Datasource parameters"
     date_value: "Valeur date" #?
     datetime_value: "Valeur date/heure" #?
     dead_at: "Dead at"
@@ -663,6 +654,7 @@ fra:
     district: "Zone administrative"
     districts: "Zones administratives" #?
     # document: "Document"
+    # document_archives: "Document archives"
     document_templates: "Modèles de document" #?
     documents: "Documents"
     downpayment: "Acompte"
@@ -719,10 +711,12 @@ fra:
     family: "Module"
     father: "Père"
     faxes: "Fax"
+    # file_content_text: "File content text"
     # file_content_type: "File content type"
     # file_file_name: "File file name"
     # file_file_size: "File file size"
     # file_fingerprint: "File fingerprint"
+    # file_pages_count: "File pages count"
     # file_updated_at: "File updated at"
     filename: "Nom de fichier" #?
     filesize: "Taille du fichier" #?
@@ -747,7 +741,6 @@ fra:
     function_title: "Civilités"
     future_events: "Evènements futurs"
     gender: "Gender"
-    genealogy: "Généalogie" #?
     generated: "Généré" #?
     global_balance: "Solde global"
     global_count: "Population globale"
@@ -1172,11 +1165,9 @@ fra:
     taxes: "Taxes" #?
     temperature: "Température" #?
     template: "Modèle"
-    # template_type: "Template type"
     theoric_quantity: "Quantité théorique"
     title: "Titre"
     to: "Pour"
-    to_archive: "Archiver les documents" #?
     to_bank_on: "À décaisser le"
     to_deposit: "À remettre" #?
     tool: "Outil"
@@ -1184,8 +1175,7 @@ fra:
     tools_list: "Matériel" #?
     total_weight: "Masse totale" #?
     # towable: "Towable"
-    # traceable: "Traceable"
-    trackable: "Traçable" #?
+    traceable: "Traçable"
     tracking: "Lot"
     tracking_serial: "Numéro de lot"
     trackings: "Lots traçables"
@@ -1198,9 +1188,6 @@ fra:
     transporter_sales: "Ventes de transporteurs"
     transporters: "Transporteurs" #?
     transports: "Transports"
-    treatment: "Traitement" #?
-    treatment_uses: "Treatment uses" #?
-    treatments: "Treatments" #?
     type: "Type"
     # unconfirmed_email: "Unconfirmed email"
     undelivered_quantity: "Reste à livrer"
@@ -1221,7 +1208,6 @@ fra:
     usage: "Utilisation"
     usage_duration: "Durée d’utilisation (heures)" #?
     used_amount: "Montant utilisé" #?
-    used_with: "Used with" #?
     useful_items: "Lignes utiles"
     user: "Utilisateur"
     user_name: "Identifiant" #?
@@ -1285,10 +1271,14 @@ fra:
         text: "Texte"
     document_template:
       archiving:
-        all: "Toutes les impressions"
-        first: "Premier imprimé"
-        last: "Dernier imprimé"
-        none: "Aucune"
+        all: "Tous du type"
+        all_of_template: "Tous du modèle"
+        first: "Premier du type"
+        first_of_template: "Premier du modèle"
+        last: "Dernier du type"
+        last_of_template: "Dernier du modèle"
+        none: "Aucun du type"
+        none_of_template: "Aucun du modèle"
       nature:
         animal: "Animal"
         balance: "Balance"
@@ -1444,34 +1434,10 @@ fra:
       bookkeep: "[%{resource} %{number}] De %{emitter} à %{receiver} %{description}"
     company: #?
       cant_find_document_template: "Impossible de trouver le modèle de document correspondant" #?
-      default: #?
-        building_name: "Réserve" #?
-        delays: #?
-          expression: #?
-            expiration: "1 mois" #?
-            immediate: "0 jour" #?
-            standard: "30 jours, fin de mois" #?
-          name: #?
-            expiration: "Expiration (1 M)" #?
-            immediate: "Immédiat" #?
-            standard: "Standard (30j FDM)" #?
-        department_name: "Gestion/Production" #?
-        establishment_name: "Établissement principal" #?
-        event_natures: #?
-          purchase: "Création d’un achat" #?
-          sale: "Création d’un devis" #?
-          sales_invoice: "Création d’une facture" #?
-        product_category_name: "Sans catégorie" #?
-        role: #?
-          name: #?
-            admin: "Gérant" #?
-            public: "Public (sans droits)" #?
       import: #?
         dont_use: "-- Ne pas utiliser --" #?
         generate_string_custom_field: "-- Créer un champ personnalisé (texte) --" #?
       sales: "Ventes"
-    delay: #?
-      error_unvalid_format_for_expression: "L’expression n’est pas au bon format"
     deposit:
       bookkeep:
         one: "[%{resource} %{number}] %{count} encaissement %{mode} %{description}"
@@ -1479,37 +1445,7 @@ fra:
         zero: "[%{resource} %{number}] Aucun encaissement %{mode} %{description}"
       bookkeep_with_payment: "[%{resource} %{number}] %{mode} %{check_number} de %{payer} (%{payment})"
     document_template:
-      default:
-        accountancy:
-          balance_sheet:
-            filename: "Bilan de l’exercice [code]"
-          general_journal:
-            filename: "Journal général"
-          general_ledger:
-            filename: "Grand livre"
-          income_statement:
-            filename: "Compte de résultat de l’exercice [code]"
-          journal:
-            filename: "[name] (Journal)"
-        management:
-          deposit:
-            filename: "Remise en banque [number]"
-          inventory:
-            filename: "Inventaire [number]"
-          purchase:
-            filename: "Achat [number]"
-          sales_invoice:
-            filename: "Facture [number]"
-            to_archive: "true"
-          sales_order:
-            filename: "Vente [number]"
-          stocks:
-            filename: "État des stocks"
-          transport:
-            filename: "Transport du [created_on]"
-        relations:
-          entity:
-            filename: "Fiche de [full_name]"
+      document_name: "%{nature} %{key}"
       error_attribute: "Le champ %{value} est incorrect. Les possibilités sont\_: %{possibilities}"
       invalid_filename: "Fichier"
       nature_do_not_allow_to_use_attributes: "La nature du modèle ne permet pas d’utiliser d’attributs"
@@ -1548,8 +1484,6 @@ fra:
         transfer:
           name: "Virement"
     inventory_item:
-      inventory: "Inventaire "
-    inventory_line: #?
       inventory: "Inventaire "
     journal_entry:
       entry_cancel: "Contre-passation de l’écriture %{number}: %{name}"

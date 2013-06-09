@@ -63,7 +63,7 @@ spa:
     export_as: "Exportar a %{exported}..."
     # items_per_page: "Éléments par page"
     menu: "Menú"
-    next: "Siguiente"
+    next: "Siguiente" #?
     no_records: "Vacío"
     pagination:
       # first: "Début"
@@ -71,7 +71,7 @@ spa:
       # next: "Suivant"
       # previous: "Précédent"
       # showing_x_to_y_of_total: "Enregistrements %{x} à %{y} sur %{total}"
-    previous: "Anterior"
+    previous: "Anterior" #?
     x_per_page:
       one: "%{count} por página"
       other: "%{count} por página"

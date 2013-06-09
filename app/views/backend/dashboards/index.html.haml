@@ -3,8 +3,8 @@
     -b.cell :modules do
       -for mod in Ekylibre::Modules.hash.keys
         =link_to({:action => mod}, :class=>"btn btn-big btn-#{Ekylibre::Modules.icon(mod)}", :title => Ekylibre::Modules.human_name(mod)) do
-          %span.icon
-          %span.text=Ekylibre::Modules.human_name(mod)
+          %i
+          =Ekylibre::Modules.human_name(mod)
     -b.cell :today do
       -date = Date.today
       %span#cell-date.date

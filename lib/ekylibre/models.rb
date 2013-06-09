@@ -206,7 +206,6 @@ module Ekylibre
     },
     :document => {
       :creator_id => :user,
-      :template_id => "template_type",
       :updater_id => :user
     },
     :document_archive => {

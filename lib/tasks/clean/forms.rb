@@ -89,7 +89,7 @@ task :forms => :environment do
     code << "  =form_actions do\n"
     code << "    =submit_tag(tl(:create), 'data-disable-with' => tl(:please_wait))\n"
     # code << "    =link_to(tl(:cancel), :back, (params[:dialog] ? {'data-close-dialog' => params[:dialog]} : {}))\n"
-    code << "    =link_to(tl(:cancel), #{steps.join('_')}_url, (params[:dialog] ? {'data-close-dialog' => params[:dialog]} : {}))\n"
+    code << "    =link_to(tl(:cancel), #{steps.join('_')}_url, (params[:dialog] ? {:class => 'btn', 'data-close-dialog' => params[:dialog]} : {:class => 'btn'}))\n"
 
     count += check_view(dir.join("new.html.haml"), code, log)
     # count += check_symlink(dir.join("new.html.haml"), new_view, log)
@@ -113,7 +113,7 @@ task :forms => :environment do
     code << "  =form_actions do\n"
     code << "    =submit_tag(tl(:update), 'data-disable-with' => tl(:please_wait))\n"
     # code << "    =link_to(tl(:cancel), :back, (params[:dialog] ? {'data-close-dialog' => params[:dialog]} : {}))\n"
-    code << "    =link_to(tl(:cancel), #{cancel}, (params[:dialog] ? {'data-close-dialog' => params[:dialog]} : {}))\n"
+    code << "    =link_to(tl(:cancel), #{cancel}, (params[:dialog] ? {:class => 'btn', 'data-close-dialog' => params[:dialog]} : {:class => 'btn'}))\n"
 
 
     # Check edit.html.haml

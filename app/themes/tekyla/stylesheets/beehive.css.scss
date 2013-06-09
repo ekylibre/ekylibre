@@ -73,6 +73,7 @@
                     border: $cell-border;
                     border-top: none;
                     height: 20em;
+                    overflow: auto;
                   }
                   &:first-child .cell-content { border-left: none }
                   &:last-child  .cell-content { border-right: none }
@@ -135,6 +136,7 @@
                     border-bottom: $cell-border;
                     border-top: none;
                     max-height: 20em;
+                    overflow: auto;
 
                   }
 		}

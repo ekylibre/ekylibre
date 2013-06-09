@@ -253,6 +253,7 @@ Ekylibre::Application.routes.draw do
         unroll_all
       end
     end
+    resources :document_archives
     resources :document_templates do
       collection do
         get :list
@@ -261,6 +262,9 @@ Ekylibre::Application.routes.draw do
       end
     end
     resources :documents do
+      member do
+        get :list_archives
+      end
       collection do
         get :list
         unroll_all

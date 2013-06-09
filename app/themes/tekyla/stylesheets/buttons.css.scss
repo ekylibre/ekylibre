@@ -36,8 +36,8 @@
   & {
     vertical-align: top !important;
   }
-  &, &:link, & > i {
-    color: $color;
+  &, &:link, &:focus, &:active, &:hover, & > i {
+    color: $color !important;
     @include text-shadow(-1px -1px 0 $shadow-color);
     @include transition-duration(0.15s);
   }
@@ -130,7 +130,7 @@ a.btn, button {
     text-align: center;
     @include inline-block;
     $size: 64px;
-    .icon, i {
+    i {
       display: block;
       font-size: $size;
       line-height: $size;
