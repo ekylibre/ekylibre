@@ -4,6 +4,7 @@ require File.join(File.dirname(__FILE__), 'ekylibre', 'export')
 require File.join(File.dirname(__FILE__), 'ekylibre', 'menus')
 require File.join(File.dirname(__FILE__), 'ekylibre', 'routes')
 require File.join(File.dirname(__FILE__), 'ekylibre', 'backup')
+require File.join(File.dirname(__FILE__), 'ekylibre', 'reporting')
 
 module Ekylibre
   mattr_reader :model_names
@@ -12,6 +13,4 @@ module Ekylibre
   def self.migrating?
     return !!(File.basename($0) == "rake" && ARGV.include?("db:migrate"))
   end
-
-  autoload :Reporting, 'ekylibre/reporting'
 end

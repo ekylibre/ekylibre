@@ -8,10 +8,10 @@ require 'delay'
 
 require 'safe_string'
 require 'exchanges'
-require 'reporting'
 require 'activerecord'
 require 'ekylibre'
 require 'nomenclatures'
+require 'reporting'
 
 require 'csv'
 
