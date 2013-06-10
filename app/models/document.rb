@@ -50,7 +50,7 @@ class Document < Ekylibre::Record::Base
   # Create an archive with the given data
   def archive(data, format, options = {})
     tmp_dir = Rails.root.join('tmp', 'archiving')
-    # FileUtils.mkdir_p(tmp_dir)
+    FileUtils.mkdir_p(tmp_dir)
     Tempfile.open([self.name.parameterize, "." + format.to_s], tmp_dir, :encoding => 'ascii-8bit') do |f|
       f.print(data)
       f.flush
