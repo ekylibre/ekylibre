@@ -56,8 +56,8 @@ class Document < Ekylibre::Record::Base
       f.flush
       f.rewind
       self.archives.create!({:file => f, :template_id => options[:template_id]}, :without_protection => true)
-      self.updated_at = Time.now
-      self.save!
+      # self.updated_at = Time.now
+      # self.save!
     end
   end
 
