@@ -408,7 +408,6 @@ module ApplicationHelper
     else
       block[board]
     end
-
     return render(:partial => "backend/beehive", :object => board)
   end
 

@@ -1,18 +1,22 @@
 =sale_steps
 
-=field_set do
-  =f.referenced_association :client # , :source => :clients
-  =f.subset :addresses, :depend_on => :client
-
-=field_set :sales_conditions do
-  =f.referenced_association :nature
-  =f.referenced_association :responsible, :source => :employees, :new => {:employed => 1}
-  =f.referenced_association :transporter, :source => :transporters
-  =f.input :description
-  =f.input :letter_format, :show => :letter_options
-
-=field_set :letter_options do
-  =f.input :subject
-  =f.input :function_title
-  =f.input :introduction
-  =f.input :conclusion
+=beehive do |b|
+  -b.tabbox do
+    -b.cell do
+      =f.referenced_association :client # , :source => :clients
+      =f.subset :addresses, :depend_on => :client
+  
+    -b.cell :sales_conditions do
+      =f.referenced_association :nature
+      =f.referenced_association :responsible, :source => :employees, :new => {:employed => 1}
+      =f.referenced_association :transporter, :source => :transporters
+      =f.input :description
+      =f.input :letter_format, :show => :letter_options
+  
+    -b.cell :letter_options do
+      =f.input :subject
+      =f.input :function_title
+      =f.input :introduction
+      =f.input :conclusion
+  -b.cell :items do
+    %span items array

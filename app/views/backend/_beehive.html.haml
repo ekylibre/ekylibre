@@ -9,6 +9,7 @@
           -activeness = (cid.zero? ? {:class => 'active'} : {})
           %li{activeness}>
             =link_to("#b#{bid}c#{cid}", :class => "cell-title") do
+              %i
               =cell.title
               -if cell.options[:counter]
                 %span.badge=cell.options[:counter]
@@ -18,9 +19,11 @@
           .cell{:id => "b#{bid}c#{cid}", :class => (cid.zero? ? ' active' : nil)}
             .cell-inner
               .cell-title
+                %i
                 =cell.title
                 -if cell.options[:counter]
                   %span.badge=cell.options[:counter]
+                %span{"data-toggle" => "cell"}
               -if cell.block?
                 .cell-content=capture(&cell.block)
               -else

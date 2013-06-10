@@ -235,7 +235,7 @@ $help-width: round(1.4 * $side-width);
 
 
 html.backend {
-  background: #F7F7F7;
+  background: $desktop-background;
   height: 100%;
   body {
     background: transparent;
@@ -949,7 +949,7 @@ form.search {
         @include margin-right(round($fs-normal/2));
         &.required {
           abbr {
-            color: red;
+            color: $invalid-color;
             float: right;
           }
         }
@@ -972,7 +972,7 @@ form.search {
   padding-left: 5px;
   vertical-align: middle;
   *zoom: 1;
-  color:  rgb(237, 0, 78);
+  color: $invalid-color;
 }
 
 input[data-selector] {
@@ -983,12 +983,12 @@ input[data-selector] {
 
 a.selector-dropdown {
   @include button();
-  .icon {
+  i {
     @include use-icon(caret-down);
   }
 }
 
-span.selector, .input-append, .btn-group-dropdown {
+.input-append, .btn-group-dropdown {
   @include button-group;
 }
 
@@ -1008,7 +1008,7 @@ $controls-margin-left: round($label-width * 1.1);
     @include ellipsis;
     &.required {
       abbr {
-        color: red;
+        color: $invalid-color;
         float: right;
       }
     }
@@ -1019,10 +1019,6 @@ $controls-margin-left: round($label-width * 1.1);
     input, select, textarea {
       max-width: 100% - $controls-margin-left;
     }
-    .btn-new {
-      .icon { @include margin-right(0); }
-      .text { display: none; }
-    }
   }
 //  &.selector .controls .input {
 //    @include toolbar;
@@ -1030,10 +1026,13 @@ $controls-margin-left: round($label-width * 1.1);
 }
 
 .input-append {
-  // @include button-group;
+   @include button-group;
   .btn {
-    .text { display: none; }
-    .icon { margin-left: 0; margin-right: 0; }
+    font-size: 0;
+    i {
+       margin-left: 0;
+        margin-right: 0; 
+    }
   }
 }
 
@@ -1341,10 +1340,18 @@ input[data-date], input[data-datepicker] {
 .stepper {
   display: block;
   border: none;
-  background: $base-color;
-  $step-padding:round($default-gap * 0.8);
-  padding: round($fs-normal * 0.15) (round($fs-normal * 0.45));
+  background: $desktop-background;
+  $step-padding:round($default-gap);
+  padding: round($fs-normal * 0.15) 0;
   margin: 0 0 $default-gap;
+  $height: round(1.4 * $fs-normal) + 2 * $step-padding;
+  .transition {
+    width: 0px;
+    height: 0px;
+    @include inline-block;
+    border: $height/2 solid $desktop-background;
+    border-left-color: $base-color;
+  }
   .step {
     text-align: center;
     @include inline-block;
@@ -1354,23 +1361,25 @@ input[data-date], input[data-datepicker] {
       text-align: center;
       line-height: round(1.4 * $fs-normal);
       height: round(1.4 * $fs-normal);
-      padding: round($step-padding * 0.2);
-      background: white;
+      padding: round($step-padding * 0.3);
+      background: $base-color;
+      vertical-align: middle;
+      color: white;
     }
-    &.disabled a {
-      color: $neutral-color;
-      cursor: default;
-      pointer-events: none;
+    &.active {
+      font-weight: bold;
     }
-  }
-  $height: round(1.4 * $fs-normal) + 2 * $step-padding;
-  .transition {
-    width: 0px;
-    height: 0px;
-
-    @include inline-block;
-    border: $height/2 solid $base-color;
-    border-left-color: white;
+    &.disabled {
+      a {  
+        background: $neutral-color;
+        color: $desktop-background;
+        cursor: default;
+        pointer-events: none;
+      }
+      & + .transition {
+        border-left-color: $neutral-color;
+      }
+    }
   }
   @for $i from 1 through 30 {
     &.stepper-#{$i}-steps {
@@ -1425,7 +1434,7 @@ input[data-date], input[data-datepicker] {
       .amount {
         @include text-align(right);
         &.credit {
-	  &, & * { color: red }
+	  &, & * { color: $invalid-color }
 	}
         &.debit {
           &, & * { color: green }

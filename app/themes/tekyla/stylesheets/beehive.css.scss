@@ -1,6 +1,6 @@
 .beehive {
   .box {
-    $min-width: round($mini-screen / 3);
+    $min-width: round($mini-screen * 0.3);
     $min-height: 200px;
     $cell-border-width: 1px;
     $cell-border: $cell-border-width solid #DDD;
@@ -13,20 +13,32 @@
 
     .cell-titles {
       display: none;
+      li.error {
+        a.cell-title {
+          &, i {
+            color: $invalid-color;
+          }
+        }
+      }
     }
 
-      .cell-title {
+    .cell-title {
+      color: $active-color;
+      font-weight: bold;
+      padding: $cell-title-vertical-padding $cell-title-vertical-padding; //$cell-title-horizontal-padding;
+      // border: $cell-border;
+      // border-bottom: none;
+      background: #FFF;
+      // @include background(linear-gradient(top, mix($active-color, white, 10%), white));
+      @include text-align(left);
+      border-top: 2px solid $active-color;
+      @include ellipsis;
+      i {
         color: $active-color;
-        font-weight: bold;
-        padding: $cell-title-vertical-padding $cell-title-horizontal-padding;
-        // border: $cell-border;
-        // border-bottom: none;
-        background: #FFF;
-        @include background(linear-gradient(top, mix($active-color, white, 10%), white));
-        text-align: center;
-        border-top: 2px solid $active-color;
-        @include ellipsis;
+        @include is-icon($fs-normal);
+        @include use-icon(bookmark);
       }
+    }
 
     .cell {
       // margin-top: $default-gap;
@@ -42,6 +54,7 @@
 	// needed for dropdown menus
         // overflow: auto;
         // @include clearfix;
+        overflow-x: auto;
         height: auto;
       }
     }
@@ -72,8 +85,14 @@
                   .cell-content {
                     border: $cell-border;
                     border-top: none;
-                    height: 20em;
-                    overflow: auto;
+                    min-height: 20em;
+                     
+                    // overflow: auto;
+  .rss-feed {
+    max-height: 20em;
+    overflow: auto;
+  }
+
                   }
                   &:first-child .cell-content { border-left: none }
                   &:last-child  .cell-content { border-right: none }
@@ -82,7 +101,7 @@
             }
           }
         }
-        @media screen and (min-width: round($i*$min-width*0.7) + 1px) {
+        @media screen and (min-width: round($i*$min-width*0.8) + 1px) {
           &.box-tab {
             ul.cell-titles {
 	      display: block;
@@ -111,6 +130,11 @@
                   &:first-child a { border-left: none }
                   &:last-child  a { border-right: none }
                   margin-bottom: (-1 * $cell-border-width);
+                  &.error {
+                    a {
+                      border-top-color: $invalid-color;
+                    }
+                  }
                 }
               }
 
@@ -135,8 +159,13 @@
                     }
                     border-bottom: $cell-border;
                     border-top: none;
-                    max-height: 20em;
-                    overflow: auto;
+                    // max-height: 20em;
+                    // overflow: auto;
+  .rss-feed {
+    max-height: 20em;
+    overflow: auto;
+  }
+
 
                   }
 		}
@@ -147,6 +176,8 @@
         }
       }
     }
+
+
 
   }
 }

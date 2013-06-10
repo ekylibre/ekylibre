@@ -18,7 +18,7 @@
             }
             selector.attr("autocomplete", "off");
             if (selector.prop("dropDownButton") === undefined) {
-                button = $("<a href='#" + selector.attr("id") + "' rel='dropdown' class='selector-dropdown'><span class='icon'></span></a>");
+                button = $("<a href='#" + selector.attr("id") + "' rel='dropdown' class='selector-dropdown'><i></i></a>");
                 selector.after(button);
                 selector.prop("lastSearch", selector.val());
                 selector.prop("dropDownButton", button);

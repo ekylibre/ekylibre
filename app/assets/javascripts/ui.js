@@ -84,6 +84,24 @@
         return false;
     });
 
+    $.fn.raiseContentErrorToCellTitle = function () {
+        var cells = $(this);
+        cells.each(function () {
+            var cell = $(this);
+            if (cell.find('.cell-content .error').length > 0) {
+                cell.closest('.beehive')
+                    .find('.cell-title[href="#' + cell.attr('id') + '"]')
+                    .closest('li')
+                    .addClass('error');
+            }
+        });
+    };
+    $(document).on('page:load', '.beehive .cell', $.fn.raiseContentErrorToCellTitle);
+    $(document).ready(function () {
+        $(".beehive .cell").raiseContentErrorToCellTitle();
+    });
+
+
 
     // Update DOM with new system
     $(document).behave("ajax:success", "*[data-update]", function (event, data, status, xhr) {
@@ -556,7 +574,7 @@
         if (button.attr("title") == null || button.attr("title") == undefined) {
             text = button.find(".text:hidden").first();
             if (text !== null && text !== undefined) {
-                button.attr("title", text.html());
+                button.attr("title", $.trim(text.html()));
             }
         }
         return true;
@@ -566,7 +584,7 @@
         var icon = $(this), link;
         link = icon.closest("a");
         if (link.attr("title") == null || link.attr("title") == undefined) {
-            link.attr("title", link.text());
+            link.attr("title", $.trim(link.text()));
         }
         return true;
     });
