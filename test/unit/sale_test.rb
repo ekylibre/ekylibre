@@ -73,7 +73,7 @@ class SaleTest < ActiveSupport::TestCase
 
     setup do
       DocumentTemplate.load_defaults(:locale => :fra)
-      DocumentTemplate.update_all({:to_archive => true}, {:nature => "sales_invoice"})
+      DocumentTemplate.update_all({:archiving => "last"}, {:nature => "sales_invoice"})
     end
 
     context "A sale" do
