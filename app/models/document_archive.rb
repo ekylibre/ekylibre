@@ -43,7 +43,7 @@ class DocumentArchive < Ekylibre::Record::Base
     Ekylibre.private_directory.join('document-archives')
   end
 
-  belongs_to :document, :inverse_of => :archives
+  belongs_to :document, :counter_cache => :archives_count, :inverse_of => :archives
   belongs_to :template, :class_name => "DocumentTemplate"
   has_attached_file :file, {
     :path => self.private_directory.join(':id_partition', ':style.:extension').to_s,
