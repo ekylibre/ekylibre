@@ -147,7 +147,7 @@ class Backend::SalesController < BackendController
   # Displays details of one sale selected with +params[:id]+
   def show
     return unless @sale = find_and_check(:sale)
-    respond_with(@sale, :include => {:invoice_address => {}, :items => {:include => :product}}) do |format|
+    respond_with(@sale, :methods => [:taxes_amount, :affair_closed], :include => {:address => {}, :supplier => {:include => :default_mail_address}, :credits => {}, :invoice_address => {}, :items => {:methods => [:taxes_amount],:include => [:product, :price]}}) do |format|
       format.html do
         session[:current_sale_id] = @sale.id
         session[:current_currency] = @sale.currency

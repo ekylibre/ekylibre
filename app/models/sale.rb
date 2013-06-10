@@ -102,6 +102,8 @@ class Sale < Ekylibre::Record::Base
   acts_as_affairable :debit => :credit, :third => :client
   after_create {|r| r.client.add_event(:sale, r.updater_id)}
 
+  delegate :closed, :to => :affair, :prefix => true
+
   state_machine :state, :initial => :draft do
     state :draft
     state :estimate
@@ -205,6 +207,11 @@ class Sale < Ekylibre::Record::Base
   def deal_amount
     return (self.credit? ? -self.amount : self.amount)
   end
+  
+  def supplier
+    Entity.of_company
+  end
+    
 
   # Save a new time
   def refresh
