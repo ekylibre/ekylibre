@@ -23,6 +23,9 @@
 /*/*/*/*/*/*/*~
 /*/*/*/*/*/*/*/*~
 
+config/locales/*/prints/*.jrxml
+
+
 # Ignore private files
 /private/**/*
 /config/database.yml
