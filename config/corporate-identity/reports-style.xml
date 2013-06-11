@@ -2,20 +2,27 @@
 <!DOCTYPE jasperTemplate PUBLIC "-//JasperReports//DTD Template//EN" "http://jasperreports.sourceforge.net/dtds/jaspertemplate.dtd">
 
 <jasperTemplate>
-	<style name="Base" mode="Transparent" hAlign="Center" vAlign="Middle" fontName="Open Sans" fontSize="10" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false">
-		<box padding="4" topPadding="4" leftPadding="4" bottomPadding="4" rightPadding="4"/>
+	<style name="address" forecolor="#000000" fontName="DejaVu Sans Mono"/>
+	<style name="base" isDefault="true" mode="Transparent" hAlign="Left" vAlign="Middle" fontName="Open Sans" fontSize="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+	<style name="emphasis" style="base" mode="Opaque" fontName="Open Sans Light" fontSize="10" isBold="false" isItalic="true" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica-Oblique"/>
+	<style name="strong" style="base" fontName="Open Sans Semibold" fontSize="12" isBold="true" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica-Bold">
+		<pen lineWidth="2.0" lineColor="#7C9DDD"/>
 	</style>
-	<style name="Emphasis" style="Base" mode="Opaque" fontName="Open Sans Light" isBold="false" isItalic="true" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica-Oblique"/>
-	<style name="Strong" style="Base" fontSize="12" isBold="true" pdfFontName="Helvetica-Bold">
-		<pen lineColor="#7C9DDD"/>
+	<style name="title" style="strong" mode="Transparent" forecolor="#7C9DDD" fill="Solid" fontName="Open Sans Extrabold" fontSize="16" isItalic="false">
+		<box topPadding="1" leftPadding="4" bottomPadding="1" rightPadding="4"/>
+		<paragraph leftIndent="20" rightIndent="20"/>
 	</style>
-	<style name="Very Strong" style="Strong" mode="Opaque" forecolor="#FFFFFF" backcolor="#7C9DDD"/>
-	<style name="column_header" style="Base" mode="Transparent" fill="Solid" fontName="Open Sans Semibold" fontSize="12" isBold="true" isItalic="true" pdfFontName="Helvetica-Bold">
-		<pen lineWidth="1.0" lineStyle="Solid" lineColor="#7C9DDD"/>
+	<style name="table-th" mode="Transparent" fill="Solid" radius="0" hAlign="Center" vAlign="Middle" fontName="Open Sans" fontSize="12" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false">
+		<box padding="4" topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+			<pen lineWidth="2.0"/>
+			<topPen lineWidth="2.0"/>
+			<leftPen lineWidth="2.0"/>
+			<bottomPen lineWidth="2.0"/>
+			<rightPen lineWidth="2.0"/>
+		</box>
 	</style>
-	<style name="column_detail" style="Base" mode="Transparent" fill="Solid" fontName="Open Sans Semibold" fontSize="12" isBold="true" isItalic="true" pdfFontName="Helvetica-Bold">
-		<pen lineWidth="1.0" lineStyle="Solid" lineColor="#7C9DDD"/>
-		<box topPadding="4" leftPadding="4" bottomPadding="4" rightPadding="4">
+	<style name="table-td" mode="Transparent" hAlign="Center" vAlign="Middle" fontName="Open Sans" fontSize="10" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false">
+		<box padding="4" topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
 			<pen lineWidth="1.0"/>
 			<topPen lineWidth="1.0"/>
 			<leftPen lineWidth="1.0"/>

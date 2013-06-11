@@ -211,6 +211,11 @@ class Sale < Ekylibre::Record::Base
   def supplier
     Entity.of_company
   end
+  
+  def code_client
+    self.client.code
+  end
+  
     
 
   # Save a new time
