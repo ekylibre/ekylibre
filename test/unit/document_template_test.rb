@@ -48,26 +48,7 @@ class DocumentTemplateTest < ActiveSupport::TestCase
       assert_nothing_raised do
         DocumentTemplate.load_defaults(:locale => locale)
       end
-      # Compile all templates
-      DocumentTemplate.where(:language => locale.to_s).find_each do |template|
-        assert_not_nil template.nature, template.inspect
-        if DocumentTemplate.document_natures[template.nature.to_sym].size > 0
-          assert_raise ArgumentError do
-            DocumentTemplate.print(template.nature)
-          end
-        else
-          assert_nothing_raised do
-            DocumentTemplate.print(template.nature)
-          end
-        end
-        code = ""
-        assert_nothing_raised(template.source) do
-          code = Templating.compile(template.source, :xil, :mode => :debug)
-        end
-        # assert_nothing_raised(code) do
-        #   eval(code)
-        # end
-      end
+      # TODO: Check that XML are good to use
     end
   end
 

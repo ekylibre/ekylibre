@@ -85,11 +85,11 @@ class DocumentTemplate < Ekylibre::Record::Base
         if document.root.namespace and document.root.namespace.href == "http://jasperreports.sourceforge.net/jasperreports"
           # raise document.root.inspect if self.nature == "sales_invoice"
           if template = document.root.xpath('xmlns:template').first
-            puts ">>> #{self.nature}: Template found !"
+            logger.info "NOTICE: Update <template> for document template #{self.nature}"
             template.children.remove
             template.add_child(Nokogiri::XML::CDATA.new(document, Rails.root.join("config", "corporate-identity", "reports-style.xml").relative_path_from(self.source_path.dirname).to_s.inspect))
           else
-            puts ">>> #{self.nature}: Template not found !"
+            logger.info "WARNING: Cannot find and update <template> in document template #{self.nature}"
           end
         end
 
@@ -140,11 +140,23 @@ class DocumentTemplate < Ekylibre::Record::Base
     return self.source_dir.join("content.xml")
   end
 
+
+  # Print document with default template
+  # Returns nil if no template found.
+  def self.print(nature, *args)
+    if template = self.where(:nature => nature, :by_default => true).first
+      return template.print(*args)
+    end
+    return nil
+  end
+
+
   # Print a document with the given datasource
   # Store if needed by template
+  # @param datasource XML representation of data used by the template
   def print(*args)
     options = (args[-1].is_a?(Hash) ? args.delete_at(-1) : {})
-    object = args.shift
+    datasource = args.shift
     format = args.shift || :pdf
 
     # Get key of the document
@@ -153,16 +165,13 @@ class DocumentTemplate < Ekylibre::Record::Base
     # Load the report
     report = Beardley::Report.new(self.source_path)
 
-    # Create datasource
-    datasource = object.to_xml(options)
-
     # Call it with datasource
     data = report.send("to_#{format}", datasource)
 
     # Archive the document according to archiving method. See #archive method.
     self.archive(data, key, format, options)
 
-    # Returns the data with the filename
+    # Returns the data without filename
     return data
   end
 
@@ -207,8 +216,6 @@ class DocumentTemplate < Ekylibre::Record::Base
     Ekylibre.private_directory.join("reporting")
   end
 
-
-
   # Loads in DB all default document templates
   def self.load_defaults(options = {})
     locale = (options[:locale] || Entity.of_company.language || I18n.locale).to_s
@@ -226,9 +233,9 @@ class DocumentTemplate < Ekylibre::Record::Base
             template.name ||= template.nature.text
             template.save!
           end
+          logger.info "NOTICE: Load a default document template #{nature}"
         else
-          puts "Cannot load a default document template #{nature}: No file found at #{source}"
-          logger.info "Cannot load a default document template #{nature}: No file found at #{source}"
+          logger.info "WARNING: Cannot load a default document template #{nature}: No file found at #{source}"
         end
       end
       self.destroy(manageds)

@@ -130,7 +130,7 @@ module Nomenclatures
   # Load all nomenclatures
   load
 
-  puts "Loaded nomenclatures: " + names.to_sentence
+  Rails.logger.info "Loaded nomenclatures: " + names.to_sentence
 
 end
 
