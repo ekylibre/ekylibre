@@ -51,4 +51,8 @@
 		</box>
 		<paragraph leftIndent="5"/>
 	</style>
+	<style name="sub-title" style="strong" mode="Transparent" forecolor="#7C9DDD" fill="Solid" hAlign="Center" fontName="Open Sans Semibold" fontSize="14" isBold="false" isItalic="false" isStrikeThrough="false">
+		<box topPadding="1" leftPadding="4" bottomPadding="1" rightPadding="4"/>
+		<paragraph leftIndent="20" rightIndent="20"/>
+	</style>
 </jasperTemplate>
