@@ -11,12 +11,31 @@
       =f.referenced_association :responsible, :source => :employees, :new => {:employed => 1}
       =f.referenced_association :transporter, :source => :transporters
       =f.input :description
-      =f.input :letter_format, :show => :letter_options
 
     -b.cell :letter_options do
+      =f.input :letter_format, :show => :letter_options
       =f.input :subject
       =f.input :function_title
       =f.input :introduction
       =f.input :conclusion
-  -b.cell :items do
-    %span items array
+  -b.cell :itemsss do
+    -#=f.nested_association(:items)
+    =link_to_add_association "add_item".l, f, :items, :partial => 'item_form', 'data-association-insertion-node' => '#items', 'data-association-insertion-method' => :append
+    %table
+      %thead
+        %tr
+          %th=SaleItem.human_attribute_name(:product_and_price)
+          %th=SaleItem.human_attribute_name(:quantity)
+          %th=SaleItem.human_attribute_name(:price) # Custom price
+          %th=SaleItem.human_attribute_name(:pretax_amount)
+          %th=SaleItem.human_attribute_name(:amount)
+          %th
+      %tfoot
+        %tr.total
+          %th{:colspan => 3}="total".tl
+          %td#pretax-amount.decimal=@sale.pretax_amount.l :currency => @sale.currency
+          %td#amount.decimal=@sale.amount.l :currency => @sale.currency
+      %tbody#items
+        =f.simple_fields_for :items do |item|
+          =render 'item_form', :f => item
+        -#=render :partial => 'item_form', :collection => @sale.items

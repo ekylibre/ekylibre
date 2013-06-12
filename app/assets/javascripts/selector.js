@@ -119,8 +119,12 @@
                     dataType: "json",
                     data: {id: id},
                     success: function (data, status, request) {
-                        var item = $.parseJSON(request.responseText)[0];
-                        $.EkylibreSelector.select(selector, item.id, item.label);
+                        var list_item = $.parseJSON(request.responseText)[0];
+                        if (list_item === undefined || list_item === null) {
+                            console.log("JSON cannot be parsed. Get: " + request.responseText);
+                        } else {
+                            $.EkylibreSelector.select(selector, list_item.id, list_item.label);
+                        }
                     },
                     error: function (request, status, error) {
                         alert("Cannot get details of item on " + selector.data('selector') + " (" + status + "): " + error);

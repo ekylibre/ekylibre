@@ -376,19 +376,25 @@ module ApplicationHelper
 
 
   def dropdown_button(*args, &block)
+    l = Lister.new(:links)
+    yield l
+    minimum = 0
+    if args[1].nil?
+      return nil unless l.links.size > 0
+      minimum = 1
+      args = l.links.first.args
+    end
+    # args[2] = {} unless args[2].is_a?(Hash)
+    # args[2][:class] ||= "btn"
     return content_tag(:div, :class => "btn-group btn-group-dropdown") do
-      args[2]= {} unless args[2].is_a?(Hash)
-      args[2][:class] ||= "btn"
-      html = link_to(*args)
-      l = Lister.new(:links)
-      yield l
-      if l.links.size > 0
-        html << link_to(content_tag(:i), "#dropdown", :class => "btn btn-dropdown", 'data-toggle' => 'dropdown')
+      html = tool_to(*args)
+      if l.links.size > minimum
         html << content_tag(:ul, :class => "dropdown-menu") do
           l.links.collect do |link|
             content_tag(:li, send(link.name, *link.args, &link.block))
           end.join.html_safe
         end
+        html << link_to(content_tag(:i), "#dropdown", :class => "btn btn-dropdown", 'data-toggle' => 'dropdown')
       end
       html
     end
@@ -683,7 +689,7 @@ module ApplicationHelper
     options[:class] << ' btn-' + icon.to_s if icon
     link_to(url, options) do
       # (icon ? content_tag(:span, '', :class => "icon")+content_tag(:span, name, :class => "text") : content_tag(:span, name, :class => "text"))
-      (icon ? content_tag(:i) + h(name) : h(name))
+      (icon ? content_tag(:i) + h(" ") + h(name) : h(name))
     end
   end
 
@@ -748,7 +754,7 @@ module ApplicationHelper
       default = exporter.natures.first
       return dropdown_button(content_tag(:i), '#' + default.name.to_s, :class => "btn btn-print", 'data-select-deck' => default.name) do |l|
         for nature in exporter.natures
-          l.link_to(content_tag(:i) + h(nature.name.to_s), '#' + nature.name.to_s, 'data-select-deck' => nature.name)
+          l.link_to(content_tag(:i) + h(nature.name.to_s.humanize), '#' + nature.name.to_s, 'data-select-deck' => nature.name)
         end if exporter.natures.size > 1
       end
     end
@@ -767,15 +773,23 @@ module ApplicationHelper
   end
 
   def toolbar_missing(action, *args)
-    tag_options = (args[-1].is_a?(Hash) ? args.delete_at(-1) : {})
-    record = args[0]
+    options = (args[-1].is_a?(Hash) ? args.delete_at(-1) : {})
+    record = args.shift
     url = {}
-    url.update(tag_options.delete(:params)) if tag_options[:params].is_a? Hash
+    url.update(options.delete(:params)) if options[:params].is_a? Hash
     url[:controller] ||= controller_name
     url[:action] = action
     url[:id] = record.id if record
-    return tool_to(t("actions.#{url[:controller]}.#{action}".to_sym, {:default => "labels.#{action}".to_sym}.merge(record ? record.attributes.symbolize_keys : {})), url, tag_options) if authorized?(url)
-    return nil
+    variants = options[:variants]
+    variants ||= {"actions.#{url[:controller]}.#{action}".to_sym.t({:default => "labels.#{action}".to_sym}.merge(record ? record.attributes.symbolize_keys : {})) => url} if authorized?(url)
+    return dropdown_button do |l|
+      for name, url_options in variants
+        variant_url = url.merge(url_options)
+        l.link_to(name, variant_url) if authorized?(variant_url)
+      end
+    end
+    # return tool_to(t("actions.#{url[:controller]}.#{action}".to_sym, {:default => "labels.#{action}".to_sym}.merge(record ? record.attributes.symbolize_keys : {})), url, tag_options) if authorized?(url)
+    # return nil
   end
 
 
@@ -841,7 +855,8 @@ module ApplicationHelper
 
     def method_missing(method_name, *args, &block)
       raise ArgumentError.new("Block can not be accepted") if block_given?
-      # raise ArgumentError.new("First argument must be an Ekylibre::Record::Base. (#{method_name})") unless args[0].class.ancestors.include? Ekylibre::Record::Base
+      args << {} unless args[-1].is_a?(Hash)
+      args[-1][:group] ||= new_group if args[-1][:variants]
       add(:missing, method_name.to_s.gsub(/\_+$/, '').to_sym, *args)
     end
 

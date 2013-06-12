@@ -100,6 +100,7 @@ class Sale < Ekylibre::Record::Base
 
   acts_as_numbered :number, :readonly => false
   acts_as_affairable :debit => :credit, :third => :client
+  accepts_nested_attributes_for :items, :reject_if => :all_blank, :allow_destroy => true
   after_create {|r| r.client.add_event(:sale, r.updater_id)}
 
   delegate :closed, :to => :affair, :prefix => true
@@ -212,11 +213,14 @@ class Sale < Ekylibre::Record::Base
     Entity.of_company
   end
 
-  def code_client
+  def client_number
     self.client.code
   end
 
-
+  def nature=(value)
+    super(value)
+    self.currency = self.nature.currency
+  end
 
   # Save a new time
   def refresh

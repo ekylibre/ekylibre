@@ -79,6 +79,7 @@ class SaleItem < Ekylibre::Record::Base
   validates_numericality_of :amount, :pretax_amount, :price_amount, :quantity, :reduction_percentage, :allow_nil => true
   validates_presence_of :amount, :pretax_amount, :price, :product, :quantity, :reduction_percentage, :sale
   #]VALIDATORS]
+  validates_presence_of :tax
 
 
   before_validation do

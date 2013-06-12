@@ -60,7 +60,7 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
       @template.render("#{item}_fields", :f => nested)
     end
     if reflection.macro == :has_many
-      html << @template.content_tag(:div, @template.link_to_add_association("labels.add_#{item}".t, self, association, 'data-no-turbolink' => true, :class => 'nested-add add-#{item}'), :class => "links")
+      html << @template.content_tag(:div, @template.link_to_add_association("labels.add_#{item}".t, self, association, 'data-no-turbolink' => true, :class => "nested-add add-#{item}"), :class => "links")
     end
     return @template.content_tag(:div, html, :id => "#{association}-field")
   end

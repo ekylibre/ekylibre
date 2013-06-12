@@ -13,8 +13,9 @@ for format in Ekylibre::Reporting.formats
   code << "  self.headers['Cache-Control'] = 'maxage=0'\n"
   code << "  self.headers['Pragma'] = 'no-cache'\n"
   code << "  filename = options.delete(:filename) || (options[:name] ? (options[:name] + '.#{format}') : 'report.#{format}')\n"
+  code << "  key = options.delete(:key)\n"
   # Get document data
-  code << "  data = template.print(object.to_xml(options), :#{format})\n"
+  code << "  data = template.print(object.to_xml(options), key, :#{format}, options)\n"
   # Send data
   code << "  send_data(data, :filename => filename, :type => Mime::#{format.to_s.upcase}, :disposition => 'inline')\n"
   code << "end\n"

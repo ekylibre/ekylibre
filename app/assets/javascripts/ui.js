@@ -365,7 +365,7 @@
 
 
     $(document).on("click", "a[data-toggle='dropdown']", function () {
-        var element = $(this), menu = element.next();
+        var element = $(this), menu = element.prev();
         if (menu.is(':visible')) {
             menu.hide();
         } else {
@@ -375,10 +375,10 @@
     });
 
     $(document).on("focusout blur", "a[data-toggle='dropdown']", function () {
-        var element = $(this), menu = element.next();
+        var element = $(this), menu = element.prev();
         if (menu.is(':visible')) {
             window.setTimeout(function () {
-                element.next().hide();
+                menu.hide();
             }, 300);
         }
         return true;

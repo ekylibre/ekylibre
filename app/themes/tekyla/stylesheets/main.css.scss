@@ -42,6 +42,48 @@ textarea {
   min-height: 3em;
 }
 
+table {
+  border-collapse: collapse;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  th, td {
+    padding: round($default-gap * 0.4);
+    font-size: $fs-normal;
+    line-height: $lh-normal;
+    min-height: $lh-normal;
+  }
+  th {
+    font-weight: bold;
+    color: $base-font-color;
+  }
+  td {
+    font-weight: normal;
+    color: $base-font-color;
+    &.decimal {
+      @include text-align(right);
+    }
+  }
+  thead {
+    tr:last-child {
+      th, td {
+        border-bottom: 1px solid $base-color;
+      }
+    }
+  }
+  tbody {
+    td {
+      border-top: 1px solid #AAA;
+    }
+    tr:first-child {
+      td {
+        border: none;
+      }
+    }
+  }
+}
+
+
 // , input[type="radio"], input[type="hidden"], input[type="button"], input[type="checkbox"], input[type="reset"], input[type="search"], input[type="submit"]
 
 
@@ -435,12 +477,12 @@ html.authentication {
   @include float(right);
   margin-top: round(($header-height - $button-height) / 2);
   @include margin-right($default-gap);
-  > .btn-group {
+  .btn-group {
     > .btn {
       font-size: 0;
       i {
         margin: 0;
-        min-width: 18px;
+        // min-width: 18px;
         text-align: center;
       }
     }

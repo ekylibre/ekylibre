@@ -22,6 +22,13 @@ $fs-large:     round($fs-ratio*$fs-normal);
 $fs-huge:      round($fs-ratio*$fs-large);
 $fs-very-huge: round($fs-ratio*$fs-huge);
 
+$lh-ratio: 1.4;
+$lh-small:     round($lh-ratio*$fs-small);
+$lh-normal:    round($lh-ratio*$fs-normal);
+$lh-large:     round($lh-ratio*$fs-large);
+$lh-huge:      round($lh-ratio*$fs-huge);
+$lh-very-huge: round($lh-ratio*$fs-very-huge);
+
 $fingertip-height: 32px !default;
 $fingertip-height: 2 * round($fingertip-height / 2);
 

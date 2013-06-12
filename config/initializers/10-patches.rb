@@ -3,6 +3,23 @@ if defined? Encoding
   Encoding.default_external = Encoding::UTF_8
 end
 
+class ::String
+
+  def tl(*args)
+    ::I18n.translate('labels.' + self, *args)
+  end
+
+end
+
+class ::Symbol
+
+  def tl(*args)
+    ::I18n.translate('labels.' + self.to_s, *args)
+  end
+
+end
+
+
 module Ekylibre
   module I18n
 

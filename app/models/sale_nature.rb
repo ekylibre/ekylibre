@@ -73,12 +73,12 @@ class SaleNature < Ekylibre::Record::Base
   validate do
     if self.journal
       unless self.currency == self.journal.currency
-        errors.add(:journal, :currency_does_not_match)
+        errors.add(:journal, :currency_does_not_match, :currency => self.currency)
       end
     end
     if self.payment_mode
-      unless self.currency == self.payment_mode.cash.currency
-        errors.add(:payment_mode, :currency_does_not_match)
+      unless self.currency == self.payment_mode.currency
+        errors.add(:payment_mode, :currency_does_not_match, :currency => self.currency)
       end
     end
   end

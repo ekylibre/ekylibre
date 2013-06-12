@@ -140,38 +140,26 @@ class DocumentTemplate < Ekylibre::Record::Base
     return self.source_dir.join("content.xml")
   end
 
-
-  # Print document with default template
+  # Print document with default active template for the given nature
   # Returns nil if no template found.
-  def self.print(nature, *args)
-    if template = self.where(:nature => nature, :by_default => true).first
-      return template.print(*args)
+  def self.print(nature, datasource, key, format = :pdf, options = {})
+    if template = self.where(:nature => nature, :by_default => true, :active => true).first
+      return template.print(datasource, key, format, options)
     end
     return nil
   end
 
-
   # Print a document with the given datasource
   # Store if needed by template
   # @param datasource XML representation of data used by the template
-  def print(*args)
-    options = (args[-1].is_a?(Hash) ? args.delete_at(-1) : {})
-    datasource = args.shift
-    format = args.shift || :pdf
-
-    # Get key of the document
-    key = options.delete(:key)
-
+  def print(datasource, key, format = :pdf, options = {})
     # Load the report
     report = Beardley::Report.new(self.source_path)
-
     # Call it with datasource
     data = report.send("to_#{format}", datasource)
-
     # Archive the document according to archiving method. See #archive method.
     self.archive(data, key, format, options)
-
-    # Returns the data without filename
+    # Returns only the data (without filename)
     return data
   end
 
@@ -179,7 +167,6 @@ class DocumentTemplate < Ekylibre::Record::Base
   def formats
     (self["formats"].blank? ? Ekylibre::Reporting.formats : self["formats"].strip.split(/[\s\,]+/))
   end
-
 
   # Archive the document using the given archiving method
   def archive(data, key, format, options = {})
