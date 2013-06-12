@@ -44,6 +44,20 @@ class BackendController < BaseController
   end
 
 
+  # def send_datasource(name = nil, options = {}, &block)
+  #   if name.blank?
+  #     name = (action_name == "index" ? controller_name : action_name == "show" ? controller_name.singularize : action_name)
+  #   end
+
+  #   # resources << {} unless resources.last.is_a?(Hash)
+  #   # resources[-1][:with] = (params[:template].match(/^\d+$/) ? params[:template].to_i : params[:template].to_s) if params[:template]
+  #   # for param in [:key, :name]
+  #   #   resources[-1][param] = params[param] if params[param]
+  #   # end
+  #   # super(*resources, &block)
+  # end
+
+
   class << self
     attr_reader :unrolls
 

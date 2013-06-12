@@ -5,14 +5,14 @@
     -b.cell do
       =f.referenced_association :client # , :source => :clients
       =f.subset :addresses, :depend_on => :client
-  
+
     -b.cell :sales_conditions do
       =f.referenced_association :nature
       =f.referenced_association :responsible, :source => :employees, :new => {:employed => 1}
       =f.referenced_association :transporter, :source => :transporters
       =f.input :description
       =f.input :letter_format, :show => :letter_options
-  
+
     -b.cell :letter_options do
       =f.input :subject
       =f.input :function_title

@@ -12,11 +12,11 @@ for format in Ekylibre::Reporting.formats
   code << "  end\n"
   code << "  self.headers['Cache-Control'] = 'maxage=0'\n"
   code << "  self.headers['Pragma'] = 'no-cache'\n"
-  code << "  options[:filename] ||= (options[:name] ? (options[:name] + '.#{format}') : 'report.#{format}')\n"
+  code << "  filename = options.delete(:filename) || (options[:name] ? (options[:name] + '.#{format}') : 'report.#{format}')\n"
   # Get document data
-  code << "  data = template.print(object, :#{format}, options)\n"
+  code << "  data = template.print(object.to_xml(options), :#{format})\n"
   # Send data
-  code << "  send_data(data, :filename => options[:filename], :type => Mime::#{format.to_s.upcase}, :disposition => 'inline')\n"
+  code << "  send_data(data, :filename => filename, :type => Mime::#{format.to_s.upcase}, :disposition => 'inline')\n"
   code << "end\n"
   eval(code)
 end
