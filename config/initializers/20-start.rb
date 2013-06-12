@@ -12,6 +12,7 @@ require 'activerecord'
 require 'ekylibre'
 require 'nomenclatures'
 require 'reporting'
+require 'xml-enumerize'
 
 require 'csv'
 
