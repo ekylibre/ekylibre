@@ -40,6 +40,7 @@ fra:
       picture: "Photo"
       show: "%{nature_name}\_: %{name}"
     backend/areas:
+      # autocomplete_for_name: "Autocomplete for name backend/area"
       edit: "Modifier la zone postale\_: %{name}"
       index: "Zones postales"
       new: "Ajouter une zone postale"
@@ -155,6 +156,7 @@ fra:
       # new: "New backend/document"
       show: "Document\_: %{name}"
     backend/entities:
+      # autocomplete_for_origin: "Autocomplete for origin backend/entity"
       destroy: "Supprimer la fiche" #?
       edit: "Modifier la fiche\_: %{full_name}"
       export: "Exportation de fiches"
@@ -194,6 +196,7 @@ fra:
       index: "Types d’évènements"
       new: "Ajouter un type d’évènement"
     backend/events:
+      # autocomplete_for_location: "Autocomplete for location backend/event"
       change_minutes: "Changer la durée de l’évènement"
       edit: "Modifier l’un évènement"
       index: "Évènements"
@@ -251,7 +254,7 @@ fra:
       index: "Journaux"
       new: "Créer un nouveau journal"
       reopen: "Déclôturer le journal\_: %{name}"
-      reports: "Impression, exportation"
+      reports: "Impression, exportation" #?
       show: "Journal\_: %{name} (%{code})"
     backend/kujakus:
       # toggle: "Toggle backend/kujaku"
@@ -282,6 +285,9 @@ fra:
       new: "Créer un évènement"
       show: "évènement %{name} commencé le %{started_at}"
     backend/mandates:
+      # autocomplete_for_family: "Autocomplete for family backend/mandate"
+      # autocomplete_for_organization: "Autocomplete for organization backend/mandate"
+      # autocomplete_for_title: "Autocomplete for title backend/mandate"
       configure: "Configuration des responsabilités"
       edit: "Modifier la responsabilité"
       index: "Responsabilités"

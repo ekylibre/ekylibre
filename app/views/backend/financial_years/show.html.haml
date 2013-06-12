@@ -1,11 +1,8 @@
 =main_toolbar do |t|
   -t.export do |e|
-    -e.balance_sheet do |k|
-      -k.crit :journal_period
-    -e.income_statement do |k|
-      -k.crit :journal_period
-    -e.trial_balance do |k|
-      -k.crit :journal_period
+    -e.balance_sheet    @financial_year.code, @financial_year
+    -e.income_statement @financial_year.code, @financial_year
+    -e.trial_balance    @financial_year.code, @financial_year
   -t.compute_balances @financial_year, :method=>:post
   -attrs = {}
   -attrs["data-confirm"] = "labels.are_you_sure".t if @financial_year.last_journal_entry

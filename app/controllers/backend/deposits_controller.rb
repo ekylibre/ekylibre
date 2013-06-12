@@ -112,7 +112,7 @@ class Backend::DepositsController < BackendController
     return unless @deposit = find_and_check(:deposit)
     session[:deposit_id] = @deposit.id
     session[:payment_mode_id] = @deposit.mode_id
-    if @deposit.update_attributes(params[:deposit])
+    if @deposit.update_attributes(params[:deposit]) and params[:depositable_payments]
       ActiveRecord::Base.transaction do
         payments = params[:depositable_payments].collect{|id, attrs| (attrs[:to_deposit].to_i==1 ? id.to_i : nil)}.compact
         IncomingPayment.update_all({:deposit_id => nil}, {:deposit_id => @deposit.id})

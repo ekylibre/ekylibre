@@ -421,7 +421,6 @@ consult_accounting_documents:
 - "backend/journals#balance"
 - "backend/journals#general_ledger"
 - "backend/journals#list_general_ledger"
-- "backend/journals#reports"
 
 # Consult the people
 consult_entities:
@@ -658,20 +657,18 @@ manage_document_templates:
 - "backend/dashboards#settings"
 - "backend/document_templates#create"
 - "backend/document_templates#destroy"
-- "backend/document_templates#duplicate" #?
 - "backend/document_templates#edit"
 - "backend/document_templates#index"
 - "backend/document_templates#list"
 - "backend/document_templates#load"
 - "backend/document_templates#new"
-- "backend/document_templates#print" #?
 - "backend/document_templates#update"
 
 # Manage people
 manage_entities:
-- "backend/areas#autocomplete_for_name" #?
+- "backend/areas#autocomplete_for_name"
 - "backend/dashboards#relationship"
-- "backend/entities#autocomplete_for_origin" #?
+- "backend/entities#autocomplete_for_origin"
 - "backend/entities#create"
 - "backend/entities#destroy"
 - "backend/entities#edit"
@@ -765,7 +762,7 @@ manage_events:
 - "backend/event_natures#list"
 - "backend/event_natures#new"
 - "backend/event_natures#update"
-- "backend/events#autocomplete_for_location" #?
+- "backend/events#autocomplete_for_location"
 - "backend/events#change_minutes"
 - "backend/events#create"
 - "backend/events#destroy"
@@ -919,9 +916,9 @@ manage_listings:
 # Manage mandates
 manage_mandates:
 - "backend/dashboards#relationship"
-- "backend/mandates#autocomplete_for_family" #?
-- "backend/mandates#autocomplete_for_organization" #?
-- "backend/mandates#autocomplete_for_title" #?
+- "backend/mandates#autocomplete_for_family"
+- "backend/mandates#autocomplete_for_organization"
+- "backend/mandates#autocomplete_for_title"
 - "backend/mandates#configure"
 - "backend/mandates#create"
 - "backend/mandates#destroy"
@@ -951,7 +948,6 @@ manage_operations:
 - "backend/operations#list"
 - "backend/operations#new"
 - "backend/operations#show"
-- "backend/operations#unvalidateds" #?
 - "backend/operations#update"
 
 # Manage outgoing delivery modes
@@ -1024,7 +1020,6 @@ manage_product_price_listings:
 - "backend/product_price_listings#edit"
 - "backend/product_price_listings#index"
 - "backend/product_price_listings#list"
-- "backend/product_price_listings#list_prices" #?
 - "backend/product_price_listings#new"
 - "backend/product_price_listings#show"
 - "backend/product_price_listings#update"

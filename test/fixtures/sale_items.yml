@@ -72,7 +72,8 @@ sale_items_001:
   sale_id: 1
   price_id: 1
   product_id: 1
-  quantity: 0
+  quantity: 1
+  tax_id: 1
   unit_id: 1
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
@@ -86,7 +87,8 @@ sale_items_002:
   sale_id: 1
   price_id: 2
   product_id: 1
-  quantity: 0
+  quantity: 2
+  tax_id: 1
   unit_id: 1
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
@@ -100,7 +102,8 @@ sale_items_003:
   sale_id: 2
   price_id: 3
   product_id: 1
-  quantity: 0
+  quantity: 30
+  tax_id: 1
   unit_id: 1
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
@@ -115,6 +118,7 @@ sale_items_004:
   price_id: 4
   product_id: 1
   quantity: 5
+  tax_id: 1
   unit_id: 1
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
@@ -127,8 +131,9 @@ sale_items_005:
   pretax_amount: 10
   price_id: 5
   product_id: 1
-  quantity: 5
+  quantity: 500
   reduction_percentage: 0
   sale_id: 4
+  tax_id: 1
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1

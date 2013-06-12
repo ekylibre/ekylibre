@@ -219,7 +219,7 @@ class Sale < Ekylibre::Record::Base
 
   def nature=(value)
     super(value)
-    self.currency = self.nature.currency
+    self.currency = self.nature.currency if self.nature
   end
 
   # Save a new time

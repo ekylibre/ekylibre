@@ -105,6 +105,7 @@ class ActionController::TestCase
     code << "    @user = users(:users_001)\n"
     # code << "    login('gendo', 'secret')\n"
     code << "    sign_in(@user)\n"
+    code << "    CustomField.all.each(&:save)\n"
     code << "  end\n"
     # code << "  teardown do\n"
     # code << "    @user = nil\n"
@@ -188,11 +189,13 @@ class ActionController::TestCase
         code << "    end\n"
         code << "    #{record} = #{fixture_table}(:#{fixture_name}_001)\n"
         code << "    assert_equal 1, #{model_name}.where(id: #{record}.id).count\n"
+        code << "    assert #{record}.valid?, '#{fixture_name}_001 must be valid:' + #{record}.errors.inspect\n"
         code << "    get :#{action}, :id => #{record}.id\n"
         code << "    assert_response :success, \"Flash: \#{flash.inspect}\"\n"
         code << "    assert_not_nil assigns(:#{record})\n"
       elsif mode == :create
         code << "    #{record} = #{fixture_table}(:#{fixture_name}_001)\n"
+        code << "    assert #{record}.valid?, '#{fixture_name}_001 must be valid:' + #{record}.errors.inspect\n"
         code << "    post :#{action}, :#{record} => #{attributes}\n"
         # if restricted
         #   code << "    assert_raise(ActiveModel::MassAssignmentSecurity::Error, 'POST #{controller}/#{action}') do\n"
@@ -201,6 +204,7 @@ class ActionController::TestCase
         # end
       elsif mode == :update
         code << "    #{record} = #{fixture_table}(:#{fixture_name}_001)\n"
+        code << "    assert #{record}.valid?, '#{fixture_name}_001 must be valid:' + #{record}.errors.inspect\n"
         code << "    put :#{action}, :id => #{record}.id, :#{record} => #{attributes}\n"
         # if restricted
         #   code << "    assert_raise(ActiveModel::MassAssignmentSecurity::Error, 'PUT #{controller}/#{action}/:id') do\n"
@@ -226,6 +230,7 @@ class ActionController::TestCase
         # code << "    end\n"
         code << "    post :#{action}, :id => 'NaID'\n"
         code << "    #{record} = #{fixture_table}(:#{fixture_name}_001)\n"
+        code << "    assert #{record}.valid?, '#{fixture_name}_001 must be valid:' + #{record}.errors.inspect\n"
         code << "    post :#{action}, :id => #{record}.id\n"
         code << "    assert_response :redirect\n"
       elsif mode == :get_and_post # with ID
@@ -234,6 +239,7 @@ class ActionController::TestCase
         # code << "    end\n"
         code << "    get :#{action}, :id => 'NaID'\n"
         code << "    #{record} = #{fixture_table}(:#{fixture_name}_001)\n"
+        code << "    assert #{record}.valid?, '#{fixture_name}_001 must be valid:' + #{record}.errors.inspect\n"
         code << "    get :#{action}, :id => #{record}.id\n"
         code << '    assert_response :success, "Flash: #{flash.inspect}"'+"\n"
       elsif mode == :index_xhr
@@ -243,6 +249,7 @@ class ActionController::TestCase
         code << '    assert_response :success, "Flash: #{flash.inspect}"'+"\n"
       elsif mode == :show_xhr
         code << "    #{record} = #{fixture_table}(:#{fixture_name}_001)\n"
+        code << "    assert #{record}.valid?, '#{fixture_name}_001 must be valid:' + #{record}.errors.inspect\n"
         code << "    get :#{action}, :id => #{record}.id\n"
         code << "    assert_response :redirect\n"
         code << "    xhr :get, :#{action}, :id => #{record}.id\n"

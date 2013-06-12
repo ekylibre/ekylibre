@@ -8,7 +8,7 @@
       -l.attribute :by_default
       -l.attribute :description
 
-  -b.cell tc(:x_prices, :count => @product_price_listing.active_price_templates.count) do
+  -#b.cell tc(:x_prices, :count => @product_price_listing.active_price_templates.count) do
     =toolbar do |t|
       -t.new :action => :new, :controller => :product_price_templates, :mode => :sales
     =list :templates

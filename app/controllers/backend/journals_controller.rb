@@ -252,49 +252,50 @@ class Backend::JournalsController < BackendController
   def general_ledger
   end
 
-  def reports
-    # redirect_to :action => :index
-    @document_templates = DocumentTemplate.where(:family => "accountancy", :nature => ["journal", "general_journal", "general_ledger"]).order(:name)
-    @document_template = DocumentTemplate.find_by_family_and_code("accountancy", params[:code])
-    if request.xhr?
-      render :partial => 'options'
-      return
-    end
-    if params[:export] == "balance"
-      query  = "SELECT ''''||accounts.number, accounts.name, sum(COALESCE(journal_entry_items.debit, 0)), sum(COALESCE(journal_entry_items.credit, 0)), sum(COALESCE(journal_entry_items.debit, 0)) - sum(COALESCE(journal_entry_items.credit, 0))"
-      query += " FROM #{JournalEntryItem.table_name} AS journal_entry_items JOIN #{Account.table_name} AS accounts ON (account_id=accounts.id) JOIN #{JournalEntry.table_name} AS journal_entries ON (entry_id=journal_entries.id)"
-      query += " WHERE printed_on BETWEEN #{ActiveRecord::Base.connection.quote(params[:started_on].to_date)} AND #{ActiveRecord::Base.connection.quote(params[:stopped_on].to_date)}"
-      query += " GROUP BY accounts.name, accounts.number"
-      query += " ORDER BY accounts.number"
-      begin
-        result = ActiveRecord::Base.connection.select_rows(query)
-        result.insert(0, ["N°Compte", "Libellé du compte", "Débit", "Crédit", "Solde"])
-        result.insert(0, ["Balance du #{params[:started_on]} au #{params[:stopped_on]}"])
-        csv_string = Ekylibre::CSV.generate do |csv|
-          for item in result
-            csv << item
-          end
-        end
-        send_data(csv_string, :filename => 'export.csv', :type => Mime::CSV)
-      rescue Exception => e
-        notify_error_now(:exception_raised, :message => e.message)
-      end
-    elsif params[:export] == "isaquare"
-      path = Ekylibre::Export::AccountancySpreadsheet.generate(params[:started_on].to_date, params[:stopped_on].to_date, Entity.of_company.full_name.simpleize+".ECC")
-      send_file(path, :filename => path.basename, :type => Mime::ZIP)
-    elsif params[:template]
-      template = DocumentTemplate.find_by_code(params[:template])
-      nature = template.nature.to_sym
-      if [:balance_sheet, :income_statement].include?(nature)
-        send("render_print_#{nature}", FinancialYear.find_by_id(params[:financial_year_id]))
-      elsif [:general_journal, :general_ledger].include?(nature)
-        send("render_print_#{nature}", params[:started_on], params[:stopped_on])
-      elsif [:journal].include?(nature)
-        send("render_print_#{nature}", Journal.find_by_id(params[:journal_id]), params[:started_on], params[:stopped_on])
-      end
-    end
-    @document_template ||= @document_templates[0]
-  end
+  # TODO: Removes totally this old action in next buug cleaning
+  # def reports()
+  #   # redirect_to :action => :index
+  #   @document_templates = DocumentTemplate.where(:family => "accountancy", :nature => ["journal", "general_journal", "general_ledger"]).order(:name)
+  #   @document_template = DocumentTemplate.find_by_family_and_code("accountancy", params[:code])
+  #   if request.xhr?
+  #     render :partial => 'options'
+  #     return
+  #   end
+  #   if params[:export] == "balance"
+  #     query  = "SELECT ''''||accounts.number, accounts.name, sum(COALESCE(journal_entry_items.debit, 0)), sum(COALESCE(journal_entry_items.credit, 0)), sum(COALESCE(journal_entry_items.debit, 0)) - sum(COALESCE(journal_entry_items.credit, 0))"
+  #     query += " FROM #{JournalEntryItem.table_name} AS journal_entry_items JOIN #{Account.table_name} AS accounts ON (account_id=accounts.id) JOIN #{JournalEntry.table_name} AS journal_entries ON (entry_id=journal_entries.id)"
+  #     query += " WHERE printed_on BETWEEN #{ActiveRecord::Base.connection.quote(params[:started_on].to_date)} AND #{ActiveRecord::Base.connection.quote(params[:stopped_on].to_date)}"
+  #     query += " GROUP BY accounts.name, accounts.number"
+  #     query += " ORDER BY accounts.number"
+  #     begin
+  #       result = ActiveRecord::Base.connection.select_rows(query)
+  #       result.insert(0, ["N°Compte", "Libellé du compte", "Débit", "Crédit", "Solde"])
+  #       result.insert(0, ["Balance du #{params[:started_on]} au #{params[:stopped_on]}"])
+  #       csv_string = Ekylibre::CSV.generate do |csv|
+  #         for item in result
+  #           csv << item
+  #         end
+  #       end
+  #       send_data(csv_string, :filename => 'export.csv', :type => Mime::CSV)
+  #     rescue Exception => e
+  #       notify_error_now(:exception_raised, :message => e.message)
+  #     end
+  #   elsif params[:export] == "isaquare"
+  #     path = Ekylibre::Export::AccountancySpreadsheet.generate(params[:started_on].to_date, params[:stopped_on].to_date, Entity.of_company.full_name.simpleize+".ECC")
+  #     send_file(path, :filename => path.basename, :type => Mime::ZIP)
+  #   elsif params[:template]
+  #     template = DocumentTemplate.find_by_code(params[:template])
+  #     nature = template.nature.to_sym
+  #     if [:balance_sheet, :income_statement].include?(nature)
+  #       send("render_print_#{nature}", FinancialYear.find_by_id(params[:financial_year_id]))
+  #     elsif [:general_journal, :general_ledger].include?(nature)
+  #       send("render_print_#{nature}", params[:started_on], params[:stopped_on])
+  #     elsif [:journal].include?(nature)
+  #       send("render_print_#{nature}", Journal.find_by_id(params[:journal_id]), params[:started_on], params[:stopped_on])
+  #     end
+  #   end
+  #   @document_template ||= @document_templates[0]
+  # end
 
 
 

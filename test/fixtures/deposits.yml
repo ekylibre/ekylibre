@@ -65,7 +65,9 @@ deposits_001:
   id: 1
   locked: false
   mode_id: 1
+  number: "DEPO01"
   payments_count: 0
+  responsible_id: 1
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
 
@@ -78,7 +80,9 @@ deposits_002:
   id: 2
   locked: false
   mode_id: 1
+  number: "DEPO02"
   payments_count: 0
+  responsible_id: 1
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
 
@@ -92,6 +96,8 @@ deposits_003:
   in_cash: true
   locked: false
   mode_id: 2
+  number: "DEPO03"
   payments_count: 0
+  responsible_id: 1
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1

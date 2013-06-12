@@ -5,6 +5,7 @@
       <item name="entities">
         <page to="backend/entities#index"/>
         <page to="backend/entities#create"/>
+        <page to="backend/entities#autocomplete_for_origin"/>
         <page to="backend/entities#destroy"/>
         <page to="backend/entities#edit"/>
         <page to="backend/entities#export"/>
@@ -40,6 +41,12 @@
         <page to="backend/observations#edit"/>
         <page to="backend/observations#new"/>
         <page to="backend/observations#update"/>
+        <page to="backend/entities#list_addresses"/>
+        <page to="backend/entities#picture"/>
+        <page to="backend/entity_addresses#show"/>
+        <page to="backend/entity_addresses#unroll"/>
+        <page to="backend/entity_links#show"/>
+        <page to="backend/entity_natures#unroll"/>
       </item>
     </group>
     <group name="events" icon="calendar">
@@ -51,6 +58,7 @@
         <page to="backend/events#edit"/>
         <page to="backend/events#list"/>
         <page to="backend/events#new"/>
+        <page to="backend/events#autocomplete_for_location"/>
         <page to="backend/events#update"/>
       </item>
     </group>
@@ -72,6 +80,9 @@
         <page to="backend/mandates#configure"/>
         <page to="backend/mandates#create"/>
         <page to="backend/mandates#destroy"/>
+        <page to="backend/mandates#autocomplete_for_family"/>
+        <page to="backend/mandates#autocomplete_for_organization"/>
+        <page to="backend/mandates#autocomplete_for_title"/>
         <page to="backend/mandates#edit"/>
         <page to="backend/mandates#list"/>
         <page to="backend/mandates#new"/>
@@ -100,7 +111,6 @@
         <page to="backend/journals#list_mixed"/>
         <page to="backend/journals#new"/>
         <page to="backend/journals#reopen"/>
-        <page to="backend/journals#reports"/>
         <page to="backend/journals#show"/>
         <page to="backend/journals#update"/>
         <page to="backend/journal_entries#create"/>
@@ -401,12 +411,20 @@
         <page to="backend/product_groups#index"/>
         <page to="backend/product_groups#create"/>
         <page to="backend/product_groups#destroy"/>
+        <page to="backend/product_groups#list_products"/>
         <page to="backend/product_groups#edit"/>
         <page to="backend/product_groups#list"/>
         <page to="backend/product_groups#list_children"/>
         <page to="backend/product_groups#new"/>
         <page to="backend/product_groups#show"/>
         <page to="backend/product_groups#update"/>
+        <page to="backend/product_memberships#index"/>
+        <page to="backend/product_memberships#create"/>
+        <page to="backend/product_memberships#destroy"/>
+        <page to="backend/product_memberships#edit"/>
+        <page to="backend/product_memberships#new"/>
+        <page to="backend/product_memberships#show"/>
+        <page to="backend/product_memberships#update"/>
       </item>
       <item name="animal_groups">
         <page to="backend/animal_groups#index"/>
@@ -417,6 +435,8 @@
         <page to="backend/animal_groups#new"/>
         <page to="backend/animal_groups#show"/>
         <page to="backend/animal_groups#update"/>
+        <page to="backend/animal_groups#list_animals"/>
+        <page to="backend/animal_groups#list_place"/>
       </item>
     </group>
     <group name="product" icon="wheat">
@@ -430,6 +450,10 @@
         <page to="backend/animals#new"/>
         <page to="backend/animals#show"/>
         <page to="backend/animals#update"/>
+        <page to="backend/animals#list_group"/>
+        <page to="backend/animals#list_indicator"/>
+        <page to="backend/animals#list_place"/>
+        <page to="backend/animals#picture"/>
       </item>
       <item name="plants">
         <page to="backend/plants#index"/>
@@ -511,6 +535,8 @@
         <page to="backend/documents#new"/>
         <page to="backend/documents#show"/>
         <page to="backend/documents#update"/>
+        <page to="backend/document_archives#show"/>
+        <page to="backend/documents#list_archives"/>
       </item>
       <item name="backups">
         <page to="backend/settings#backups"/>
@@ -651,12 +677,10 @@
         <page to="backend/document_templates#index"/>
         <page to="backend/document_templates#create"/>
         <page to="backend/document_templates#destroy"/>
-        <page to="backend/document_templates#duplicate"/>
         <page to="backend/document_templates#edit"/>
         <page to="backend/document_templates#list"/>
         <page to="backend/document_templates#load"/>
         <page to="backend/document_templates#new"/>
-        <page to="backend/document_templates#print"/>
         <page to="backend/document_templates#update"/>
       </item>
       <item name="about">
@@ -710,6 +734,7 @@
         <page to="backend/areas#edit"/>
         <page to="backend/areas#list"/>
         <page to="backend/areas#new"/>
+        <page to="backend/areas#autocomplete_for_name"/>
         <page to="backend/areas#update"/>
       </item>
       <item name="districts">
@@ -827,6 +852,7 @@
         <page to="backend/product_natures#new"/>
         <page to="backend/product_natures#show"/>
         <page to="backend/product_natures#update"/>
+        <page to="backend/product_natures#list_prices"/>
       </item>
       <item name="product_categories">
         <page to="backend/product_nature_categories#index"/>
@@ -835,6 +861,7 @@
         <page to="backend/product_nature_categories#edit"/>
         <page to="backend/product_nature_categories#list"/>
         <page to="backend/product_nature_categories#list_products"/>
+        <page to="backend/product_nature_categories#list_product_natures"/>
         <page to="backend/product_nature_categories#new"/>
         <page to="backend/product_nature_categories#show"/>
         <page to="backend/product_nature_categories#update"/>
@@ -844,6 +871,7 @@
         <page to="backend/product_price_listings#create"/>
         <page to="backend/product_price_listings#destroy"/>
         <page to="backend/product_price_listings#edit"/>
+        <page to="backend/product_price_listings#list_templates"/>
         <page to="backend/product_price_listings#list"/>
         <page to="backend/product_price_listings#list_prices"/>
         <page to="backend/product_price_listings#new"/>
@@ -967,16 +995,6 @@
         <page to="backend/activity_watchings#show"/>
         <page to="backend/activity_watchings#update"/>
       </item>
-      <item name="animal_groups">
-        <page to="backend/animal_groups#list_animals"/>
-        <page to="backend/animal_groups#list_place"/>
-      </item>
-      <item name="animals">
-        <page to="backend/animals#list_group"/>
-        <page to="backend/animals#list_indicator"/>
-        <page to="backend/animals#list_place"/>
-        <page to="backend/animals#picture"/>
-      </item>
       <item name="bank_chart_cells">
         <page to="backend/cells/bank_chart_cells#show"/>
       </item>
@@ -1039,26 +1057,6 @@
         <page to="backend/dashboards#stocks"/>
         <page to="backend/dashboards#tools"/>
         <page to="backend/dashboards#welcome"/>
-      </item>
-      <item name="document_archives">
-        <page to="backend/document_archives#show"/>
-      </item>
-      <item name="documents">
-        <page to="backend/documents#list_archives"/>
-      </item>
-      <item name="entities">
-        <page to="backend/entities#list_addresses"/>
-        <page to="backend/entities#picture"/>
-      </item>
-      <item name="entity_addresses">
-        <page to="backend/entity_addresses#show"/>
-        <page to="backend/entity_addresses#unroll"/>
-      </item>
-      <item name="entity_links">
-        <page to="backend/entity_links#show"/>
-      </item>
-      <item name="entity_natures">
-        <page to="backend/entity_natures#unroll"/>
       </item>
       <item name="interfacers">
         <page to="backend/interfacers#autocomplete"/>
@@ -1133,9 +1131,6 @@
         <page to="backend/procedures#show"/>
         <page to="backend/procedures#update"/>
       </item>
-      <item name="product_groups">
-        <page to="backend/product_groups#list_products"/>
-      </item>
       <item name="product_indicator_choices">
         <page to="backend/product_indicator_choices#create"/>
         <page to="backend/product_indicator_choices#destroy"/>
@@ -1166,24 +1161,6 @@
         <page to="backend/product_links#new"/>
         <page to="backend/product_links#show"/>
         <page to="backend/product_links#update"/>
-      </item>
-      <item name="product_memberships">
-        <page to="backend/product_memberships#index"/>
-        <page to="backend/product_memberships#create"/>
-        <page to="backend/product_memberships#destroy"/>
-        <page to="backend/product_memberships#edit"/>
-        <page to="backend/product_memberships#new"/>
-        <page to="backend/product_memberships#show"/>
-        <page to="backend/product_memberships#update"/>
-      </item>
-      <item name="product_nature_categories">
-        <page to="backend/product_nature_categories#list_product_natures"/>
-      </item>
-      <item name="product_natures">
-        <page to="backend/product_natures#list_prices"/>
-      </item>
-      <item name="product_price_listings">
-        <page to="backend/product_price_listings#list_templates"/>
       </item>
       <item name="product_prices">
         <page to="backend/product_prices#index"/>

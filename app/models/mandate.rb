@@ -42,5 +42,5 @@ class Mandate < Ekylibre::Record::Base
   validates_length_of :family, :organization, :title, :allow_nil => true, :maximum => 255
   validates_presence_of :entity, :family, :organization, :title
   #]VALIDATORS]
-  validates_presence_of :started_on, :stopped_on
+  # validates_presence_of :started_on, :stopped_on
 end

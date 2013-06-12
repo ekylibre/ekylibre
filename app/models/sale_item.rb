@@ -71,7 +71,7 @@ class SaleItem < Ekylibre::Record::Base
   accepts_nested_attributes_for :subscriptions
   delegate :sold?, :to => :sale
   delegate :name, :to => :tax, :prefix => true
-  
+
 
   acts_as_list :scope => :sale
   acts_as_stockable :mode => :virtual, :if => :sold?
@@ -127,14 +127,16 @@ class SaleItem < Ekylibre::Record::Base
         self.amount = (self.price.amount*self.quantity).round(2)
       end
 
+      self.tax ||= self.price.tax
+      return true
     end
+
 
     #     if self.building.reservoir && self.building.product_id != self.product_id
     #       check_reservoir = false
     #       errors.add(:building_id, :building_can_not_transfer_product, :building => self.building.name, :product => self.product.name, :contained_product => self.building.product.name, :account_id => 0, :unit_id => self.unit_id)
     #     end
     #     check_reservoir
-    return false if self.pretax_amount.zero? and self.amount.zero? and self.quantity.zero?
   end
 
 
@@ -146,6 +148,9 @@ class SaleItem < Ekylibre::Record::Base
     #     errors.add(:building_id, :can_not_use_this_tracking, :tracking => self.tracking.name) if stock and stock.virtual_quantity < self.quantity
     #   end
     # end
+
+    # return false if self.pretax_amount.zero? and self.amount.zero? and self.quantity.zero?
+    errors.add(:quantity, :invalid) if self.quantity.zero?
     if self.price
       errors.add(:price_id, :currency_is_not_sale_currency) if self.price.currency != self.sale.currency
       if self.product

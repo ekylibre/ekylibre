@@ -53,11 +53,12 @@
 #   updater_id: 1
 #
 subscriptions_001:
-  address_id: 1
+  address_id: 3
   entity_id: 1
   created_at: 2009-07-19 19:13:59 +02:00
   creator_id: 1
   id: 1
+  number: "SUB0001"
   suspended: true
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
@@ -66,11 +67,12 @@ subscriptions_001:
   nature_id: 1
 
 subscriptions_002:
-  address_id: 1
+  address_id: 3
   entity_id: 1
   created_at: 2009-07-19 19:13:59 +02:00
   creator_id: 1
   id: 2
+  number: "SUB0002"
   suspended: true
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
@@ -79,11 +81,12 @@ subscriptions_002:
   nature_id: 1
 
 subscriptions_003:
-  address_id: 1
+  address_id: 3
   entity_id: 1
   created_at: 2009-07-19 19:13:59 +02:00
   creator_id: 1
   id: 3
+  number: "SUB0003"
   suspended: true
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1

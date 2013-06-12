@@ -45,7 +45,7 @@ class CustomField < Ekylibre::Record::Base
   attr_accessible :active, :maximal_length, :minimal_length, :maximal_value, :minimal_value, :name, :nature, :position, :required, :customized_type, :choices_attributes
   attr_readonly :nature
   enumerize :nature, :in => [:text, :decimal, :boolean, :date, :datetime, :choice], :predicates => true
-  enumerize :customized_type, :in => Ekylibre.model_names, :default_value => Ekylibre.model_names.first, :predicates => {:prefix => true}
+  enumerize :customized_type, :in => Ekylibre.model_names, :predicates => {:prefix => true}
   has_many :choices, :class_name => "CustomFieldChoice", :order => :position, :dependent => :delete_all, :inverse_of => :custom_field
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :maximal_length, :minimal_length, :allow_nil => true, :only_integer => true
@@ -59,6 +59,7 @@ class CustomField < Ekylibre::Record::Base
   validates_inclusion_of :customized_type, :in => self.customized_type.values
   validates_uniqueness_of :column_name, :scope => [:customized_type]
   validates_format_of :column_name, :with => /^(\_[a-z]+)+$/
+  validates_presence_of :column_name
 
   accepts_nested_attributes_for :choices
 
@@ -74,22 +75,31 @@ class CustomField < Ekylibre::Record::Base
   end
 
   # Adds a new column in the given model
-  after_create do
-    self.class.connection.add_column(self.customized_table_name, self.column_name, self.column_type)
-    self.class.connection.add_index(self.customized_table_name, self.column_name) if self.choice?
+  after_save do
+    unless self.column_exists?
+      self.class.connection.add_column(self.customized_table_name, self.column_name, self.column_type)
+      if self.choice? and !self.index_exists?
+        self.class.connection.add_index(self.customized_table_name, self.column_name)
+      end
+    end
   end
 
   # Updates name of the column if necessary
   before_update do
     old = self.old_record
-    if self.name != old.name
+    if self.column_name != old.column_name and old.column_exists?
       self.class.connection.rename_column(self.customized_table_name, old.column_name, self.column_name)
     end
   end
 
   # Destroy column and its data
   before_destroy do
-    self.class.connection.remove_column(self.customized_table_name, self.column_name)
+    if self.column_exists?
+      if self.index_exists?
+        self.class.connection.remove_index(self.customized_table_name, self.column_name)
+      end
+      self.class.connection.remove_column(self.customized_table_name, self.column_name)
+    end
   end
 
   def choices_count
@@ -106,6 +116,17 @@ class CustomField < Ekylibre::Record::Base
   # Returns the data type for the column
   def column_type
     return (self.choice? ? :string : self.nature).to_sym
+  end
+
+  # Check if column exists in DB
+  def column_exists?
+    self.class.connection.column_exists?(self.customized_table_name, self.column_name)
+  end
+
+  # Check if index exists in DB
+  def index_exists?
+    return false unless self.column_exists?
+    self.class.connection.index_exists?(self.customized_table_name, self.column_name)
   end
 
   # Access to the customized model

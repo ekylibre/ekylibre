@@ -130,6 +130,11 @@ class DocumentTemplate < Ekylibre::Record::Base
     @source = file
   end
 
+  # Returns source value
+  def source
+    @source
+  end
+
   # Returns the expected dir for the source file
   def source_dir
     return self.class.sources_root.join(self.id.to_s)
@@ -166,6 +171,10 @@ class DocumentTemplate < Ekylibre::Record::Base
   # Returns the list of formats of the templates
   def formats
     (self["formats"].blank? ? Ekylibre::Reporting.formats : self["formats"].strip.split(/[\s\,]+/))
+  end
+
+  def formats=(value)
+    self["formats"] = (value.is_a?(Array) ? value.join(", ") : value.to_s)
   end
 
   # Archive the document using the given archiving method

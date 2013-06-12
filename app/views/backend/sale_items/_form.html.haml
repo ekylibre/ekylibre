@@ -10,7 +10,7 @@
 -# TODO manage all new attributes
 =field_set do
   =f.referenced_association :sale, :field => :hidden
-  =f.referenced_association :price, :source => :availables_for_sales, :new => {:mode => :sales, :currency => "sale.currency".to_sym }
+  -# FIXME =f.referenced_association :price, :source => :availables_for_sales, :new => {:mode => :sales, :currency => "sale.currency".to_sym }
   =f.input :quantity
   =f.referenced_association :unit, :readonly => true, :depend_on => :price, :value => "product.unit".to_sym
   =f.input :annotation

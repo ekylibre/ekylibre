@@ -506,7 +506,8 @@ module ApplicationHelper
   def search_results(search, options = {}, &block)
     return content_tag(:div, :class => :search) {
       # Show results
-      html = content_tag(:ul, :class => :results) {
+      html = "".html_safe
+      html << content_tag(:ul, :class => :results) {
         counter = "a"
         search[:records].collect do |result|
           id = "result-" + counter
@@ -515,7 +516,7 @@ module ApplicationHelper
             (block.arity == 2 ? capture(result, id, &block) : capture(result, &block)).html_safe
           }
         end.join.html_safe
-      }
+      } if search[:records]
 
       # Pagination
       html << content_tag(:span, :class => :pagination) {

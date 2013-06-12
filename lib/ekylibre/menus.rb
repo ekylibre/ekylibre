@@ -54,7 +54,10 @@ module Ekylibre
     # Returns the name of the module corresponding to an URL
     def self.module_of(controller, action)
       return action.to_sym if controller.to_s == "backend/dashboards"
-      return reverse(controller, action)[0]
+      if r = reverse(controller, action)
+        return r[0]
+      end
+      return nil
     end
 
     # Returns the name of the group corresponding to an URL

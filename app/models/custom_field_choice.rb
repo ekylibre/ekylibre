@@ -54,7 +54,7 @@ class CustomFieldChoice < Ekylibre::Record::Base
 
   before_update do
     old = self.old_record
-    if self.value != old.value
+    if self.value != old.value and self.custom_field.column_exists?
       self.custom_field.customized_model.update_all({self.custom_field.column_name => self.value}, {self.custom_field.column_name => old.value})
     end
   end

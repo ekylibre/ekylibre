@@ -20,6 +20,7 @@
       <item name="journal" management_aspects="accountancy"/>
       <item name="general_journal" management_aspects="accountancy"/>
       <item name="general_ledger" management_aspects="accountancy"/>
+      <item name="trial_balance" management_aspects="accountancy"/>
 
       <item name="inventory" management_aspects="stocks"/>
       <item name="stocks" management_aspects="stocks"/>

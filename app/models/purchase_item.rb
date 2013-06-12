@@ -46,6 +46,7 @@ class PurchaseItem < Ekylibre::Record::Base
   acts_as_list :scope => :purchase
   attr_accessible :annotation, :price_id, :product_id, :quantity, :tracking_serial, :unit_id, :purchase_id
   belongs_to :account
+  belongs_to :building, :foreign_key => :warehouse_id
   belongs_to :purchase
   belongs_to :price, :class_name => "ProductPrice"
   belongs_to :product
@@ -117,6 +118,7 @@ class PurchaseItem < Ekylibre::Record::Base
     if self.price and self.purchase
       errors.add(:price_id, :invalid) if self.price.currency != self.purchase.currency
     end
+    errors.add(:quantity, :invalid) if self.quantity.zero?
   end
 
   def name

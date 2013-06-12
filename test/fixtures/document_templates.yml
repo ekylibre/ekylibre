@@ -55,7 +55,7 @@
 
 document_templates_001:
   active: true
-  archiving: "document"
+  archiving: "last"
   created_at: 2009-07-19 19:13:59 +02:00
   creator_id: 1
   by_default: true
@@ -68,7 +68,7 @@ document_templates_001:
 
 document_templates_002:
   active: true
-  archiving: "document"
+  archiving: "all"
   created_at: 2009-07-19 19:13:59 +02:00
   creator_id: 1
   by_default: true

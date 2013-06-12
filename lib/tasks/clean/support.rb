@@ -135,6 +135,9 @@ module CleanSupport
         elsif line.match(/^\s*autocomplete_for[\s\(]+\:\w+\s*\,\s*\:\w+/)
           list = line.split(/[\s\(\)\,\:]+/)
           actions << "autocomplete_for_#{list[1]}_#{list[2]}"
+        elsif line.match(/^\s*autocomplete_for\s*\(?\s*\:\w+/)
+          list = line.split(/[\s\(\)\,\:]+/)
+          actions << "autocomplete_for_#{list[1]}"
         elsif line.match(/^\s*list[\s\(]+\:\w+\s*\,/)
           list = line.split(/[\s\(\)\,\:]+/)
           actions << 'list_'+list[1]
