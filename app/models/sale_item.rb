@@ -70,6 +70,8 @@ class SaleItem < Ekylibre::Record::Base
 
   accepts_nested_attributes_for :subscriptions
   delegate :sold?, :to => :sale
+  delegate :name, :to => :tax, :prefix => true
+  
 
   acts_as_list :scope => :sale
   acts_as_stockable :mode => :virtual, :if => :sold?

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="show" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9c1f11b7-03dd-4803-9e1b-41b87b9d23c0">
 	<property name="ireport.zoom" value="1.9487171000000187"/>
-	<property name="ireport.x" value="0"/>
+	<property name="ireport.x" value="313"/>
 	<property name="ireport.y" value="0"/>
 	<style name="Title" fontName="DejaVu Sans" fontSize="50" isBold="true" pdfFontName="Times-Bold"/>
 	<style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18"/>
@@ -150,6 +150,9 @@
 	<field name="arrival-reasons" class="java.lang.String">
 		<fieldDescription><![CDATA[arrival-reasons]]></fieldDescription>
 	</field>
+	<field name="picture-path" class="java.lang.String">
+		<fieldDescription><![CDATA[picture-path]]></fieldDescription>
+	</field>
 	<title>
 		<band height="392" splitType="Stretch">
 			<staticText>
@@ -160,15 +163,11 @@
 				<text><![CDATA[]]></text>
 			</staticText>
 			<image onErrorType="Blank">
-				<reportElement uuid="4df9e3cd-892d-4f2b-8e67-0a7136aed9af" x="415" y="0" width="140" height="97" isRemoveLineWhenBlank="true">
-					<printWhenExpression><![CDATA[$F{picture-file-name} != ""]]></printWhenExpression>
-				</reportElement>
-				<imageExpression><![CDATA["/home/djoulin/ekylibre/private/animals/pictures/000/000/"+$F{id}+"/identity.jpg"]]></imageExpression>
+				<reportElement uuid="4df9e3cd-892d-4f2b-8e67-0a7136aed9af" x="415" y="0" width="140" height="97" isRemoveLineWhenBlank="true"/>
+				<imageExpression><![CDATA[$F{picture-path}]]></imageExpression>
 			</image>
 			<rectangle radius="2">
-				<reportElement uuid="7295b3a4-1715-4584-b262-75754d9b3f4d" mode="Transparent" x="415" y="0" width="129" height="97" forecolor="#688ED8">
-					<printWhenExpression><![CDATA[$F{picture-file-name} != ""]]></printWhenExpression>
-				</reportElement>
+				<reportElement uuid="7295b3a4-1715-4584-b262-75754d9b3f4d" mode="Transparent" x="415" y="0" width="129" height="97" forecolor="#688ED8"/>
 				<graphicElement>
 					<pen lineWidth="2.0"/>
 				</graphicElement>
@@ -464,13 +463,6 @@
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{identification-number}]]></textFieldExpression>
 			</textField>
-			<staticText>
-				<reportElement uuid="c1f076cc-62b6-4895-a9f4-9a7e1b57ab1d" x="0" y="-5" width="228" height="30" forecolor="#000000"/>
-				<textElement>
-					<font fontName="Font Awesome" size="24"/>
-				</textElement>
-				<text><![CDATA[ ]]></text>
-			</staticText>
 		</band>
 	</title>
 	<pageHeader>

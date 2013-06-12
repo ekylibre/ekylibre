@@ -154,5 +154,8 @@ class Product < Ekylibre::Record::Base
     ProductGroup.groups_of(self, viewed_at || Time.now)
   end
 
+  def picture_path(style=:original)
+    self.picture.path(style)
+  end
 
 end
