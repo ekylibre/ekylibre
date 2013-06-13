@@ -193,6 +193,7 @@ class Entity < Ekylibre::Record::Base
         errors.add(:last_name, :missing_title, :title => self.nature.title)
       end
     end
+    return true
   end
 
   after_save do
