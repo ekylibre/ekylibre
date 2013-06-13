@@ -104,7 +104,7 @@ namespace :db do
         end
 
         print "."
-        break if Entity.count > max
+        break if Entity.count >= max
       end
 
       mails = [
@@ -190,7 +190,7 @@ namespace :db do
         # group4 if sex = male and age > 1 years
         ProductMembership.create!(:member_id => animal.id, :group_id => group1.id, :started_at => r.arrived_on, :stopped_at => r.departed_on )
         print "."
-        break if Animal.count > max
+        break if Animal.count >= max
       end
 
       # Assign parents
@@ -252,9 +252,10 @@ namespace :db do
       # Sale nature
       sale_nature   = SaleNature.actives.first
       sale_nature ||= SaleNature.create!(:name => I18n.t('models.sale_nature.default.name'), :currency => "EUR", :active => true)
-      150.times do |i|
+      (140 + rand(20)).times do |i|
+        break if i >= max
         # Sale
-        d = Date.today - (3*i - rand(4)).days
+        d = Date.today - (5*i - rand(4)).days
         sale = Sale.create!(:created_on => d, :client_id => Entity.where(:of_company => false).all.sample.id, :nature_id => sale_nature.id, :sum_method => "wt")
         # Sale items
         (rand(5) + 1).times do
@@ -338,7 +339,8 @@ namespace :db do
         # create a purchase_item if not exist
         # purchase_item   = PurchaseItem.find_by_product_id_and_purchase_id_and_price_id(product.id, purchase.id, product_price.id)
         # purchase_item ||= PurchaseItem.create!(:quantity => r.quantity, :unit_id => unit_u.id, :price_id => product_price.id, :product_id => product.id, :purchase_id => purchase.id)
-        purchase.items.create!(:quantity => r.quantity, :product_id => product.id)
+        # puts "Default PPT: " + ProductPriceTemplate.by_default.class.name # (coop.id, product.nature_id).inspect
+        purchase.items.create!(:quantity => r.quantity, :product_id => product.id) unless r.quantity.zero?
         # create an incoming_delivery if status => 2
 
         # create an incoming_delivery_item if status => 2

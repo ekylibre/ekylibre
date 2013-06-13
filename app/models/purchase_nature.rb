@@ -20,7 +20,8 @@
 #
 # == Table: purchase_natures
 #
-#  active          :boolean          not null
+#  active          :boolean          default(TRUE), not null
+#  by_default      :boolean          not null
 #  created_at      :datetime         not null
 #  creator_id      :integer
 #  currency        :string(3)
@@ -41,14 +42,14 @@ class PurchaseNature < Ekylibre::Record::Base
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :currency, :allow_nil => true, :maximum => 3
   validates_length_of :name, :allow_nil => true, :maximum => 255
-  validates_inclusion_of :active, :with_accounting, :in => [true, false]
+  validates_inclusion_of :active, :by_default, :with_accounting, :in => [true, false]
   #]VALIDATORS]
   validates_presence_of :journal, :if => :with_accounting?
   validates_presence_of :currency
   validates_uniqueness_of :name
 
   has_default
-  
+
   default_scope -> { order(:by_default, :name) }
   scope :actives, -> { where(:active => true) }
 

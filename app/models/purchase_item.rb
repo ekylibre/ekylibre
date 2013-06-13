@@ -65,7 +65,7 @@ class PurchaseItem < Ekylibre::Record::Base
   validates_length_of :tracking_serial, :allow_nil => true, :maximum => 255
   validates_presence_of :account, :amount, :pretax_amount, :price, :product, :purchase, :quantity, :unit
   #]VALIDATORS]
-  validates_presence_of :pretax_amount, :price
+  # validates_presence_of :pretax_amount, :price # Already defined in auto-validators
   validates_uniqueness_of :tracking_serial, :scope => :price_id, :allow_nil => true, :if => Proc.new{|pl| !pl.tracking_serial.blank? }
 
 

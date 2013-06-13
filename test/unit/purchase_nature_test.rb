@@ -20,7 +20,8 @@
 #
 # == Table: purchase_natures
 #
-#  active          :boolean          not null
+#  active          :boolean          default(TRUE), not null
+#  by_default      :boolean          not null
 #  created_at      :datetime         not null
 #  creator_id      :integer
 #  currency        :string(3)

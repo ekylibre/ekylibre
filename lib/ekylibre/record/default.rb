@@ -7,24 +7,23 @@ module Ekylibre::Record
 
       module ClassMethods
 
-        # Manage 
+        # Manage
         def has_default(*args)
           options = (args[-1].is_a?(Hash) ? args.delete_at(-1) : {})
           column  = args.shift || :by_default
-
           code  = ""
-          
+
           scope = "self.class"
           scope_columns = []
           if s = options[:scope]
             s = [s] if s.is_a?(Symbol)
             unless s.is_a?(Symbol) or s.is_a?(Array)
               raise ArgumentError.new("Scope must be given as a Symbol or an Array of Symbol")
-              scope << ".where(" + s.collect do |c|
-                scope_columns << c.to_sym
-                ":#{c} => self.#{c}"
-              end.join(", ") + ")"
             end
+            scope << ".where(" + s.collect do |c|
+              scope_columns << c.to_sym
+              ":#{c} => self.#{c}"
+            end.join(", ") + ")"
           end
 
           code << "before_save(:set_#{column}_if_first, :on => :create)\n"
@@ -57,12 +56,12 @@ module Ekylibre::Record
 
           code << "def self.#{column}(" + scope_columns.collect{|c| "#{c} = nil"}.join(', ') + ")\n"
           if scope_columns.size > 0
-            code << "  raise ArgumentError.new('#{scope_columns.size} arguments expected: " + scope_columns.keys.join(", ") + "') if " + scope_columns.collect{|c| "#{c}.nil?"}.join(" or ") + "\n"
+            code << "  raise ArgumentError.new('#{scope_columns.size} arguments expected: " + scope_columns.join(", ") + "') if " + scope_columns.collect{|c| "#{c}.nil?"}.join(" or ") + "\n"
           end
           code << "  self.where(" + scope_columns.collect{|c| ":#{c} => #{c}, "}.join("") + ":#{column} => true).first\n"
           code << "end\n"
 
-          # puts code
+          # code.split(/\n/).each_with_index{|l,i| puts i.to_s.rjust(4) + ": " + l}
           class_eval code
         end
       end

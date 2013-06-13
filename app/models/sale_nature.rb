@@ -21,6 +21,7 @@
 # == Table: sale_natures
 #
 #  active                  :boolean          default(TRUE), not null
+#  by_default              :boolean          not null
 #  created_at              :datetime         not null
 #  creator_id              :integer
 #  currency                :string(3)
@@ -53,7 +54,7 @@ class SaleNature < Ekylibre::Record::Base
   validates_numericality_of :downpayment_minimum, :downpayment_percentage, :allow_nil => true
   validates_length_of :currency, :allow_nil => true, :maximum => 3
   validates_length_of :expiration_delay, :name, :payment_delay, :allow_nil => true, :maximum => 255
-  validates_inclusion_of :active, :downpayment, :with_accounting, :in => [true, false]
+  validates_inclusion_of :active, :by_default, :downpayment, :with_accounting, :in => [true, false]
   validates_presence_of :downpayment_minimum, :downpayment_percentage, :expiration_delay, :name, :payment_delay
   #]VALIDATORS]
   validates_presence_of :journal, :if => :with_accounting?
