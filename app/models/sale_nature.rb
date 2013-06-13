@@ -48,6 +48,7 @@ class SaleNature < Ekylibre::Record::Base
   belongs_to :journal
   belongs_to :payment_mode, :class_name => "IncomingPaymentMode"
   has_many :sales
+
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :downpayment_minimum, :downpayment_percentage, :allow_nil => true
   validates_length_of :currency, :allow_nil => true, :maximum => 3
@@ -60,8 +61,10 @@ class SaleNature < Ekylibre::Record::Base
   validates_uniqueness_of :name
   validates_delay_format_of :payment_delay, :expiration_delay
 
-  scope :actives, -> { where(:active => true) }
+  has_default
 
+  default_scope -> { order(:by_default, :name) }
+  scope :actives, -> { where(:active => true) }
 
   before_validation do
     self.expiration_delay = "0 minutes" if self.expiration_delay.blank?

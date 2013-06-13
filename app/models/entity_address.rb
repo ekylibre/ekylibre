@@ -71,6 +71,8 @@ class EntityAddress < Ekylibre::Record::Base
   validates_format_of :coordinate, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i, :if => :email?
   validates_inclusion_of :canal, :in => self.canal.values
 
+  has_default :scope => [:entity_id, :canal]
+
   # Use unscoped to get all historic
   default_scope -> { where("deleted_at IS NULL").order(:coordinate) }
 
@@ -82,9 +84,6 @@ class EntityAddress < Ekylibre::Record::Base
 
 
   before_validation do
-    if self.entity
-      self.by_default = true if self.entity.addresses.where(:canal => self.canal, :by_default => true).count.zero?
-    end
     if self.coordinate.is_a?(String)
       self.coordinate.strip!
       self.coordinate.downcase!
@@ -116,13 +115,6 @@ class EntityAddress < Ekylibre::Record::Base
       end
     end
   end
-
-  after_save do
-    if self.by_default
-      self.class.update_all({:by_default => false}, ["entity_id = ? AND canal = ? AND id != ?", self.entity_id, self.canal, self.id])
-    end
-  end
-
 
   def update # _without_callbacks
     # raise Exception.new "UPDAAAAAAAAAAAATE"

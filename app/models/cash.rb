@@ -77,6 +77,8 @@ class Cash < Ekylibre::Record::Base
   validates_inclusion_of :nature, :in => self.nature.values
   validates_uniqueness_of :account_id
 
+  has_default
+
   default_scope -> { order(:name) }
   scope :bank_accounts, -> { where(:nature => "bank_account") }
   scope :cash_boxes,    -> { where(:nature => "cash_box") }

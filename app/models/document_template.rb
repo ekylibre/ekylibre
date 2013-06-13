@@ -52,7 +52,7 @@ class DocumentTemplate < Ekylibre::Record::Base
   #]VALIDATORS]
   validates_inclusion_of :nature, :in => self.nature.values
 
-  after_save :set_by_default
+  has_default :scope => :nature
 
   default_scope order(:name)
   scope :of_nature, lambda { |nature|
@@ -113,14 +113,6 @@ class DocumentTemplate < Ekylibre::Record::Base
   after_destroy do
     if File.exist?(self.source_dir)
       FileUtils.rm_rf(self.source_dir)
-    end
-  end
-
-  # Set the template's nature default
-  def set_by_default
-    if self.by_default or self.class.where(:by_default => true, :nature => self.nature).count != 1
-      self.class.update_all({:by_default => false}, ["id != ? and nature = ?", self.id, self.nature])
-      self.class.update_all({:by_default => true}, {:id => self.id})
     end
   end
 

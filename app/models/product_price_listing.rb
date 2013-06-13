@@ -46,25 +46,15 @@ class ProductPriceListing < Ekylibre::Record::Base
   #]VALIDATORS]
   validates_uniqueness_of :code
 
+  has_default
+
   before_validation do
-    self.by_default = true if self.class.where(:by_default => true).where("id != ?", self.id || 0).count.zero?
     self.code = self.name.to_s.codeize if self.code.blank?
     self.code = self.code[0..7]
   end
 
-  after_save do
-    if self.by_default
-      self.class.update_all({:by_default => false}, ["id != ?", self.id])
-    end
-  end
-
   protect(:on => :destroy) do
     self.entities.count <= 0 and self.prices.count <= 0
-  end
-
-  # Returns the default price listing
-  def self.by_default
-    self.where(:by_default => true).first
   end
 
 end
