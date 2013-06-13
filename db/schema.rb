@@ -2136,7 +2136,7 @@ ActiveRecord::Schema.define(:version => 20130513165730) do
   add_index "purchase_items", ["updater_id"], :name => "index_purchase_items_on_updater_id"
 
   create_table "purchase_natures", :force => true do |t|
-    t.boolean  "active",                       :default => false, :null => false
+    t.boolean  "active",                       :default => true,  :null => false
     t.string   "name"
     t.text     "description"
     t.string   "currency",        :limit => 3
@@ -2147,6 +2147,7 @@ ActiveRecord::Schema.define(:version => 20130513165730) do
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.integer  "lock_version",                 :default => 0,     :null => false
+    t.boolean  "by_default",                   :default => false, :null => false
   end
 
   add_index "purchase_natures", ["created_at"], :name => "index_purchase_natures_on_created_at"
@@ -2271,6 +2272,7 @@ ActiveRecord::Schema.define(:version => 20130513165730) do
     t.string   "currency",                :limit => 3
     t.integer  "journal_id"
     t.text     "sales_conditions"
+    t.boolean  "by_default",                                                          :default => false, :null => false
     t.string   "expiration_delay",                                                                       :null => false
     t.string   "payment_delay",                                                                          :null => false
   end

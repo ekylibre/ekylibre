@@ -45,7 +45,6 @@
 # This model permits to manage default prices
 class ProductPriceTemplate < Ekylibre::Record::Base
   attr_accessible :active, :by_default, :listing_id, :supplier_id, :assignment_amount, :assignment_pretax_amount, :product_nature_id, :tax_id, :currency
-  after_create :set_by_default
   enumerize :pretax_amount_generation, :in => [:assignment], :predicates => true # , :calculation
   belongs_to :listing, :class_name => "ProductPriceListing"
   belongs_to :product_nature
@@ -71,6 +70,7 @@ class ProductPriceTemplate < Ekylibre::Record::Base
   validates_inclusion_of :pretax_amount_generation, :in => self.pretax_amount_generation.values
   validates_inclusion_of :amounts_scale, :in => 0..4
 
+  has_default :scope => [:supplier_id, :product_nature_id]
 
   delegate :storable?, :subscribing?, :to => :product_nature
 
@@ -103,7 +103,6 @@ class ProductPriceTemplate < Ekylibre::Record::Base
 
   before_save do
     self.listing = nil unless own?
-    self.by_default = true if self.class.where(:supplier_id => self.supplier_id, :product_nature_id => self.product_nature_id).count.zero?
     return true
   end
 
@@ -113,7 +112,7 @@ class ProductPriceTemplate < Ekylibre::Record::Base
     stamper_id = self.class.stamper_class.stamper.id rescue nil
     nc = self.class.create!(self.attributes.merge(:started_at => current_time, :created_at => current_time, :updated_at => current_time, :creator_id => stamper_id, :updater_id => stamper_id, :active => true).delete_if{|k,v| k.to_s == "id"}, :without_protection => true)
     self.class.update_all({:stopped_at => current_time, :active => false}, {:id => self.id})
-    nc.set_by_default
+    # nc.set_by_default
     return nc
   end
 
@@ -121,12 +120,6 @@ class ProductPriceTemplate < Ekylibre::Record::Base
     unless self.new_record?
       current_time = Time.now
       self.class.update_all({:stopped_at => current_time, :active => false}, {:id => self.id})
-    end
-  end
-
-  def set_by_default
-    if self.by_default
-      ProductPriceTemplate.update_all({:by_default => false}, ["product_nature_id = ? AND id != ? AND supplier_id = ?", self.product_nature_id, self.id||0, self.supplier_id])
     end
   end
 

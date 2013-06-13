@@ -38,8 +38,6 @@ class PurchaseNature < Ekylibre::Record::Base
   belongs_to :journal
   has_many :purchases
 
-  scope :actives, -> { where(:active => true) }
-
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :currency, :allow_nil => true, :maximum => 3
   validates_length_of :name, :allow_nil => true, :maximum => 255
@@ -49,10 +47,16 @@ class PurchaseNature < Ekylibre::Record::Base
   validates_presence_of :currency
   validates_uniqueness_of :name
 
+  has_default
+  
+  default_scope -> { order(:by_default, :name) }
+  scope :actives, -> { where(:active => true) }
+
   validate do
     self.journal = nil unless self.with_accounting?
     if self.journal
       errors.add(:journal, :currency_does_not_match) if self.currency != self.journal.currency
     end
   end
+
 end
