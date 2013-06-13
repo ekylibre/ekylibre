@@ -384,8 +384,8 @@ module ApplicationHelper
       minimum = 1
       args = l.links.first.args
     end
-    args[-2] ||= {}
-    return content_tag(:div, :class => "btn-group btn-group-dropdown #{args[-2][:class]}") do
+    args[2] ||= {}
+    return content_tag(:div, :class => "btn-group btn-group-dropdown #{args[2][:class]}") do
       html = "".html_safe
       if l.links.size > minimum
         html << content_tag(:ul, :class => "dropdown-menu") do
