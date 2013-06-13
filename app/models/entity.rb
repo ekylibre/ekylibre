@@ -242,7 +242,7 @@ class Entity < Ekylibre::Record::Base
   end
 
   def has_another_tracking?(serial, product_id)
-    self.trackings.find(:all, :conditions => ["serial=? AND product_id!=? ", serial, product_id]).size > 0
+    self.trackings.where("serial=? AND product_id!=? ", serial, product_id).count > 0
   end
 
 
