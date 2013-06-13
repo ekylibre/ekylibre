@@ -53,7 +53,7 @@ if ARGV[0] != "g"
   FileUtils.mkdir_p(awesome_dir)
   # FileUtils.cp(font_awesome_dir.join("build", "icons.yml"), awesome_dir.join("config.yml"))
   File.open(awesome_dir.join("config.yml"), "wb") do |f|
-    icons = YAML.load_file(font_awesome_dir.join("build", "icons.yml"))
+    icons = YAML.load_file(font_awesome_dir.join("src", "icons.yml"))
     # raise icons.inspect
     config = {"glyphs" => icons["icons"].collect{|h| {"css" => h["id"], "from" => "0x" + h["unicode"]} } }
     f.write(config.to_yaml)
@@ -63,11 +63,16 @@ if ARGV[0] != "g"
     "_279" => "info",
     "_283" => "eraser",
     "_303" => "rss_sign",
-    "_312" => "external_link_sign"
+    "_312" => "external_link_sign",
+    "_317" => "expand",
+    "_329" => "sort_by_alphabet_alt",
+    "_334" => "thumbs_up",
+    "_335" => "thumbs_down",
+    "_366" => "moon"
   }
 
   # FileUtils.cp(font_awesome_dir.join("build", "assets", "font-awesome", "font", "fontawesome-webfont.svg"), awesome_dir.join("font.svg"))
-  source = font_awesome_dir.join("build", "assets", "font-awesome", "font", "FontAwesome.otf")
+  source = font_awesome_dir.join("src", "assets", "font-awesome", "font", "FontAwesome.otf")
   command("fontforge -script font-convert.pe #{source.to_s} svg")
   interm = source.dirname.join("FontAwesome.svg")
   File.open(interm) do |i|
