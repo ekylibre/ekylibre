@@ -384,16 +384,15 @@ module ApplicationHelper
       minimum = 1
       args = l.links.first.args
     end
-    # args[2] = {} unless args[2].is_a?(Hash)
-    # args[2][:class] ||= "btn"
     return content_tag(:div, :class => "btn-group btn-group-dropdown") do
-      html = tool_to(*args)
+      html = "".html_safe
       if l.links.size > minimum
         html << content_tag(:ul, :class => "dropdown-menu") do
           l.links.collect do |link|
             content_tag(:li, send(link.name, *link.args, &link.block))
           end.join.html_safe
         end
+        html = tool_to(*args) + html
         html << link_to(content_tag(:i), "#dropdown", :class => "btn btn-dropdown", 'data-toggle' => 'dropdown')
       end
       html
@@ -780,9 +779,9 @@ module ApplicationHelper
     url.update(options.delete(:params)) if options[:params].is_a? Hash
     url[:controller] ||= controller_name
     url[:action] = action
-    url[:id] = record.id if record and record < ActiveRecord::Base
-    variants = options[:variants]
-    variants ||= {"actions.#{url[:controller]}.#{action}".to_sym.t({:default => "labels.#{action}".to_sym}.merge(record ? record.attributes.symbolize_keys : {})) => url} if authorized?(url)
+    url[:id] = record.id if record and record.class < ActiveRecord::Base
+    variants = options.delete(:variants)
+    variants ||= {"actions.#{url[:controller]}.#{action}".to_sym.t({:default => "labels.#{action}".to_sym}.merge((record and record.class < ActiveRecord::Base) ? record.attributes.symbolize_keys : {})) => url} if authorized?(url)
     return dropdown_button do |l|
       for name, url_options in variants
         variant_url = url.merge(url_options)
