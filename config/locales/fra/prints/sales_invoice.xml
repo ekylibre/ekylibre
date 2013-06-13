@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="sale_invoice" language="groovy" pageWidth="595" pageHeight="842" columnWidth="545" leftMargin="25" rightMargin="25" topMargin="25" bottomMargin="25" isFloatColumnFooter="true" uuid="9c1f11b7-03dd-4803-9e1b-41b87b9d23c0">
 	<property name="ireport.zoom" value="1.4019755979255695"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="48"/>
 	<template><![CDATA["/home/djoulin/ekylibre/config/corporate-identity/reports-style.xml"]]></template>
 	<style name="Title" fontName="DejaVu Sans" fontSize="50" isBold="true" pdfFontName="Times-Bold"/>
 	<style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18"/>
@@ -145,6 +145,12 @@
 	<field name="picture-path" class="java.lang.String">
 		<fieldDescription><![CDATA[supplier/picture-path]]></fieldDescription>
 	</field>
+	<field name="supplier-mail-coordinate" class="java.lang.String">
+		<fieldDescription><![CDATA[supplier/default-mail-address/mail-coordinate]]></fieldDescription>
+	</field>
+	<field name="client-mail-coordinate" class="java.lang.String">
+		<fieldDescription><![CDATA[invoice-address/mail-coordinate]]></fieldDescription>
+	</field>
 	<background>
 		<band height="132">
 			<staticText>
@@ -155,116 +161,22 @@
 		</band>
 	</background>
 	<title>
-		<band height="368" splitType="Stretch">
-			<textField isBlankWhenNull="true">
-				<reportElement uuid="73838c95-a607-4f37-9108-5a9838b24e27" style="base" positionType="Float" stretchType="RelativeToTallestObject" isPrintRepeatedValues="false" x="0" y="79" width="173" height="16" isRemoveLineWhenBlank="true"/>
-				<textElement>
-					<font fontName="Open Sans" size="10"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{mail-line-1_1}]]></textFieldExpression>
-			</textField>
+		<band height="203" splitType="Stretch">
 			<image onErrorType="Blank">
-				<reportElement uuid="2d16fc74-a19d-4df0-a5d6-06465493c786" isPrintRepeatedValues="false" x="0" y="0" width="117" height="77" isRemoveLineWhenBlank="true">
+				<reportElement uuid="2d16fc74-a19d-4df0-a5d6-06465493c786" isPrintRepeatedValues="false" x="0" y="0" width="157" height="53" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[$F{picture-path}.isEmpty() == false]]></printWhenExpression>
 				</reportElement>
 				<imageExpression><![CDATA[$F{picture-path}]]></imageExpression>
 			</image>
-			<textField isBlankWhenNull="true">
-				<reportElement uuid="0efecc6b-6b94-4cd6-81ae-a57c7040d7fa" style="base" positionType="Float" stretchType="RelativeToTallestObject" isPrintRepeatedValues="false" x="0" y="96" width="173" height="16" isRemoveLineWhenBlank="true">
-					<printWhenExpression><![CDATA[$F{mail-line-2_1}.isEmpty() == false]]></printWhenExpression>
-				</reportElement>
-				<textElement>
-					<font fontName="Open Sans"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{mail-line-2_1}]]></textFieldExpression>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="e3405f7a-d77a-4973-8477-7c5f4db54cc9" style="base" x="0" y="59" width="157" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{supplier-mail-coordinate}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement uuid="ebd2470c-faf9-4853-8a3d-569e866a048a" style="base" positionType="Float" stretchType="RelativeToTallestObject" isPrintRepeatedValues="false" mode="Transparent" x="0" y="113" width="173" height="16" isRemoveLineWhenBlank="true" backcolor="#FFFFFF">
-					<printWhenExpression><![CDATA[$F{mail-line-3_1}.isEmpty() == false]]></printWhenExpression>
-				</reportElement>
-				<textElement>
-					<font fontName="Open Sans"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{mail-line-3_1}]]></textFieldExpression>
-			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement uuid="bf9c384f-04fe-41be-9fd9-a25b78848a79" style="base" positionType="Float" stretchType="RelativeToTallestObject" isPrintRepeatedValues="false" x="0" y="130" width="173" height="16" isRemoveLineWhenBlank="true">
-					<printWhenExpression><![CDATA[$F{mail-line-4_1}.isEmpty() == false]]></printWhenExpression>
-				</reportElement>
-				<textElement>
-					<font fontName="Open Sans"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{mail-line-4_1}]]></textFieldExpression>
-			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement uuid="15e6995c-6fce-4498-86cb-0a9c882f414c" style="base" positionType="Float" stretchType="RelativeToTallestObject" isPrintRepeatedValues="false" x="0" y="147" width="173" height="16" isRemoveLineWhenBlank="true">
-					<printWhenExpression><![CDATA[$F{mail-line-5_1}.isEmpty() == false]]></printWhenExpression>
-				</reportElement>
-				<textElement>
-					<font fontName="Open Sans"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{mail-line-5_1}]]></textFieldExpression>
-			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement uuid="3eee4d18-8a50-4603-a294-202070db410a" style="base" positionType="Float" stretchType="RelativeToTallestObject" isPrintRepeatedValues="false" x="0" y="164" width="173" height="18" isRemoveLineWhenBlank="true">
-					<printWhenExpression><![CDATA[$F{mail-line-6_1}.isEmpty() == false]]></printWhenExpression>
-				</reportElement>
-				<textElement>
-					<font fontName="Open Sans"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{mail-line-6_1}.toUpperCase()]]></textFieldExpression>
-			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement uuid="0e799a81-d2e5-4bc7-8cef-1d187d94c250" style="address" positionType="Float" stretchType="RelativeToTallestObject" isPrintRepeatedValues="false" x="284" y="217" width="173" height="15" isRemoveLineWhenBlank="true">
-					<printWhenExpression><![CDATA[$F{mail-line-2}.isEmpty() == false]]></printWhenExpression>
-				</reportElement>
-				<textElement>
-					<font fontName="DejaVu Sans Mono"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{mail-line-2}.toUpperCase()]]></textFieldExpression>
-			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement uuid="caea26c9-7502-4ba2-adef-364340336b23" style="address" positionType="FixRelativeToBottom" isPrintRepeatedValues="false" x="284" y="202" width="173" height="15" isRemoveLineWhenBlank="true"/>
-				<textElement>
-					<font fontName="DejaVu Sans Mono"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{mail-line-1}.toUpperCase()]]></textFieldExpression>
-			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement uuid="81c3effe-5ac0-4949-9d6e-63795a833075" style="address" positionType="Float" stretchType="RelativeToTallestObject" isPrintRepeatedValues="false" x="284" y="280" width="173" height="15" isRemoveLineWhenBlank="true">
-					<printWhenExpression><![CDATA[$F{mail-line-6}.isEmpty() == false]]></printWhenExpression>
-				</reportElement>
-				<textElement>
-					<font fontName="DejaVu Sans Mono"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{mail-line-6}.toUpperCase()]]></textFieldExpression>
-			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement uuid="d66a6713-20f5-4a70-98f9-09f46eedd20a" style="address" positionType="Float" stretchType="RelativeToTallestObject" isPrintRepeatedValues="false" mode="Transparent" x="284" y="233" width="173" height="15" isRemoveLineWhenBlank="true" backcolor="#FFFFFF">
-					<printWhenExpression><![CDATA[$F{mail-line-3}.isEmpty() == false]]></printWhenExpression>
-				</reportElement>
-				<textElement>
-					<font fontName="DejaVu Sans Mono"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{mail-line-3}.toUpperCase()]]></textFieldExpression>
-			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement uuid="9f81aee3-ce36-448a-8c43-c9e1d681bec2" style="address" positionType="Float" stretchType="RelativeToTallestObject" isPrintRepeatedValues="false" x="284" y="264" width="173" height="15" isRemoveLineWhenBlank="true">
-					<printWhenExpression><![CDATA[$F{mail-line-5}.isEmpty() == false]]></printWhenExpression>
-				</reportElement>
-				<textElement>
-					<font fontName="DejaVu Sans Mono"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{mail-line-5}.toUpperCase()]]></textFieldExpression>
-			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement uuid="8fd6037d-3b16-4394-ad7f-6f66073bcf82" style="address" positionType="Float" stretchType="RelativeToTallestObject" isPrintRepeatedValues="false" x="284" y="249" width="173" height="15" isRemoveLineWhenBlank="true">
-					<printWhenExpression><![CDATA[$F{mail-line-4}.isEmpty() == false]]></printWhenExpression>
-				</reportElement>
-				<textElement>
-					<font fontName="DejaVu Sans Mono"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{mail-line-4}.toUpperCase()]]></textFieldExpression>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="26697e66-338b-4015-ae81-9e889924a3a0" style="address" x="298" y="110" width="164" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{client-mail-coordinate}.toUpperCase()]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>

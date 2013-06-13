@@ -43,7 +43,7 @@ class Backend::AnimalsController < BackendController
     # parsing a parameter to Jasper for company full name
     @entity_full_name = Entity.of_company.full_name
     # respond with associated models to simplify quering in Ireport
-    respond_with @animals, :include => [:variety, :nature]
+    respond_with @animals, :include => [:father, :mother, :variety, :nature]
   end
 
    # Liste des enfants de l'animal considéré
