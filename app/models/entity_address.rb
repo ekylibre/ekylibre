@@ -83,7 +83,7 @@ class EntityAddress < Ekylibre::Record::Base
 
   before_validation do
     if self.entity
-      self.by_default = true if self.entity.addresses.where(:canal => self.canal).count.zero?
+      self.by_default = true if self.entity.addresses.where(:canal => self.canal, :by_default => true).count.zero?
     end
     if self.coordinate.is_a?(String)
       self.coordinate.strip!
