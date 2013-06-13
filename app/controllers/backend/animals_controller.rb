@@ -43,7 +43,7 @@ class Backend::AnimalsController < BackendController
     # parsing a parameter to Jasper for company full name
     @entity_full_name = Entity.of_company.full_name
     # respond with associated models to simplify quering in Ireport
-    respond_with @animals, :include => [:variety, :nature]
+    respond_with @animals, :include => [:father, :mother, :variety, :nature]
   end
 
    # Liste des enfants de l'animal considéré
@@ -84,7 +84,7 @@ class Backend::AnimalsController < BackendController
   def show
     return unless @animal = find_and_check
     t3e @animal, :nature_name => @animal.nature_name
-           respond_with(@animal, :methods => :picture_path, :include => [:father, :mother, :nature, :variety,
+           respond_with(@animal, :methods => :picture_path, :include => [:father, :mother, :nature, :variety, :owner,
                                                    {:indicator_data => {:include => :indicator}},
                                                    {:memberships => {:include =>:group}},
                                                     {:product_localizations => {:include =>:container}}])
