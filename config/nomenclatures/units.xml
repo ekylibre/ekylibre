@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
+  <nomenclature name="units">
+    <attributes>
+      <attribute name="dimension" type="choice" nomenclature="dimensions" required="true"/>
+      <attribute name="symbol" type="string" required="true"/>
+      <attribute name="coefficient" type="decimal" required="true" default="1"/>
+      <attribute name="start" type="decimal" required="true" default="0"/>
+    </attributes>
+    <items>
+      <!--
+        temperature
+      -->
+      <item name="celsius" dimension="temperature" symbol="°C" start="-273.15"/>
+      <!--
+        weight
+      -->
+      <item name="kilogram" dimension="weight" symbol="kg"/>
+      <item name="quintal" dimension="weight" symbol="qt" coefficient="100"/>
+      <item name="ton" dimension="weight" symbol="t" coefficient="1000"/>
+      <!--
+        length
+      -->
+      <item name="meter" dimension="length" symbol="m"/>
+      <item name="kilometer" dimension="length" symbol="m" coefficient="1000"/>
+      <!--
+        surface_area
+      -->
+      <item name="square_meter" dimension="surface_area" symbol="m2"/>
+      <item name="hectare" dimension="surface_area" symbol="ha" coefficient="10000"/>
+      <!--
+        volume
+      -->
+      <item name="cubic_meter" dimension="volume" symbol="m3"/>
+      <item name="hectoliter" dimension="volume" symbol="hl" coefficient="0.1"/>
+      <item name="liter" dimension="volume" symbol="l" coefficient="0.001"/>
+       <!--
+        time
+      -->
+      <item name="second" dimension="time" symbol="s"/>
+      <item name="minute" dimension="time" symbol="min" coefficient="60"/>
+      <item name="hour" dimension="time" symbol="h" coefficient="3600"/>
+      <!--
+        electric_current
+      -->
+      <item name="ampere" dimension="A" symbol="A"/>
+      
+      
+      
+      <item name="substance_amount" dimension="mol" symbol="mol"/>
+      <item name="luminous_intensity" dimension="cd" symbol="cd"/>
+      <item name="mass_density" dimension="kg.m-3" symbol="kg/m3"/>   
+    </items>
+  </nomenclature>
+</nomenclatures>

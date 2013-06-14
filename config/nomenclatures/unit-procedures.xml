@@ -289,4 +289,51 @@
   
   <!-- @TODO ######################################## TRANSPORTER LA PAILLE ######################################### -->
 
+
+<!-- ######################################## VELAGE PRODUISANT UN VEAU ########################################### -->
+
+<procedure name="calving_one" natures="calving">
+    <variables>
+      <variable name="mother_animal" variety="bos" abilities="produce"/>
+      <variable name="child_animal" variety="bos" new="true"/>
+      <variable name="person" variety="worker"/>
+    </variables>
+    <operations>
+      <operation name="calving_0100">
+        <task do="[mother_animal] produce [child_animal](mother=[mother_animal], father=?, quantity=1, unit=u, mammalia_twins_condition=none)"/><!-- une vache produit un veau -->
+        <task do="[person] measure [child_animal] at mammalia_born_condition"/>
+        <task do="[person] measure [mother_animal] at mammalia_born_cycle"/>
+        <task do="[person] measure [mother_animal] at mammalia_reproduction_method_embryo_transplant"/>
+        <task do="[person] measure [mother_animal] at mammalia_reproduction_event_abortion"/>  
+       </operation>
+    </operations>        
+  </procedure>
+
+<!-- ######################################## VELAGE PRODUISANT DES JUMEAUX ########################################### -->
+
+<procedure name="calving_twice" natures="calving">
+    <variables>
+      <variable name="mother_animal" variety="bos" abilities="produce"/>
+      <variable name="child_animal_first" variety="bos" new="true"/>
+      <variable name="child_animal_second" variety="bos" new="true"/>
+      <variable name="person" variety="worker"/>
+    </variables>
+    <operations>
+      <operation name="calving_0100">
+        <task do="[mother_animal] produce [child_animal_first](mother=[mother_animal], father=?, quantity=1, unit=u, mammalia_twins_condition=twins)"/><!-- une vache produit le premier veau -->
+        <task do="[person] measure [child_animal_first] at mammalia_born_condition"/>
+      </operation>
+      <operation name="calving_0200">
+        <task do="[mother_animal] produce [child_animal_second](mother=[mother_animal], father=?, quantity=1, unit=u, mammalia_twins_condition=twins)"/><!-- une vache produit le second veau -->
+        <task do="[person] measure [child_animal_second] at mammalia_born_condition"/>
+      </operation>
+      <operation name="calving_0300">
+        <task do="[person] measure [mother_animal] at mammalia_born_cycle"/>
+        <task do="[person] measure [mother_animal] at mammalia_reproduction_method_embryo_transplant"/>
+        <task do="[person] measure [mother_animal] at mammalia_reproduction_event_abortion"/>      
+      </operation>
+    </operations>        
+  </procedure>
+
+
 </procedures>

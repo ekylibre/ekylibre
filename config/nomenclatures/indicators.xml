@@ -2,15 +2,22 @@
 <nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
   <nomenclature name="indicators">
     <attributes>
-      <attribute name="type" type="choice" choices="string,decimal,boolean,choice" required="true"/>
+      <attribute name="type" type="choice" choices="string,decimal,boolean,choice,measure" required="true"/>
+      <attribute name="unit" type="choice" nomenclature="units" required="false"/>
       <attribute name="choices" type="list" required="false"/>
     </attributes>
     <items>
-      <item name="temperature" type="decimal"/>
+      <item name="temperature" type="measure" unit="celsius"/>
+      <item name="weight" type="measure" unit="kilogram"/>
       <item name="sowable" type="boolean"/>
       <item name="in_production" type="boolean"/>
       <item name="ground_appearance" type="choice" choices="covered,raw"/>
       <item name="animal_life_state" type="choice" choices="first_growth,second_growth,aging"/>
+      <item name="mammalia_born_condition" type="choice" choices="without_help,few_help,great_help,caesarean,cutting_calf"/><!-- nomenclature EDE à terme -->
+      <item name="mammalia_twins_condition" type="choice" choices="none,twins,triplets"/><!-- nomenclature EDE à terme -->
+      <item name="mammalia_born_cycle" type="decimal" /><!-- nomenclature EDE à terme -->
+      <item name="mammalia_reproduction_method_embryo_transplant" type="boolean" /><!-- nomenclature EDE à terme -->
+      <item name="mammalia_reproduction_event_abortion" type="boolean" /><!-- nomenclature EDE à terme -->
       <item name="mammalia_reproduction_state" type="choice" choices="back_heat,heat,pregnancy"/>
       <item name="mammalia_lactation_state" type="choice" choices="lactation,depletion"/>
       <item name="animal_disease_state" type="choice" choices="healthy,sick"/>

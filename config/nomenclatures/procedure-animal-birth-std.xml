@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
+  <procedure name="animal_birth_std">
+    <variables>
+      <variable name="mother_animal" variety="bos"/>
+    </variables>
+    <sub-procedures>
+      <!-- ######################################### LABOURER ########################################## -->
+      <sub-procedure nature="calving" required="true" conditions="[mother_animal].indicator(mammalia_reproduction_state) == pregnancy">
+        <parameter name="mother_animal"/>
+      </sub-procedure>
+    </sub-procedures>
+  </procedure>
+</procedures>
+

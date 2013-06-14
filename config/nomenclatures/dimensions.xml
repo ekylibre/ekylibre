@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
+  <nomenclature name="dimensions">
+    <attributes>
+      <attribute name="expression" type="string" required="true"/>
+      <attribute name="symbol" type="string" required="true"/>
+    </attributes>
+    <items>
+      <!--
+        SI unit
+      -->
+      <item name="temperature" expression="K" symbol="K"/>
+      <item name="weight" expression="kg" symbol="kg"/>
+      <item name="length" expression="m" symbol="m"/>
+      <item name="time" expression="s" symbol="s"/>
+      <item name="electric_current" expression="A" symbol="A"/>
+      <item name="substance_amount" expression="mol" symbol="mol"/>
+      <item name="luminous_intensity" expression="cd" symbol="cd"/>
+      <!--
+        Compound unit
+      -->
+      <item name="surface_area" expression="m2" symbol="m2"/>
+      <item name="volume" expression="m3" symbol="m3"/>
+      <item name="mass_density" expression="kg.m-3" symbol="kg/m3"/>   
+    </items>
+  </nomenclature>
+</nomenclatures>

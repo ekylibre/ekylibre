@@ -11,7 +11,7 @@
       <attribute name="number" type="string" required="true"/>
       <attribute name="product_account" type="choice" source="accounts" required="false"/>
       <attribute name="stock_account" type="choice" source="accounts" required="false"/>
-      <attribute name="unit" type="choice" choices="u,kg,t,l,m2,m3,ha,qt" required="true"/>
+      <attribute name="unit" type="choice" nomenclature="units" required="true"/>
       <attribute name="variety" type="choice" source="varieties" required="true"/>
       <attribute name="derivative" type="string" required="true" default="itself" />
       <attribute name="purchasable" type="boolean" required="true"/>
@@ -49,7 +49,7 @@
             storable="true"
             atomic="true"
             abilities="consume(water), consume(poaceae), produce(/excrement), produce(/milk), move"
-            indicators="animal_life_state, mammalia_reproduction_state, mammalia_lactation_state, animal_disease_state"
+            indicators="weight, animal_life_state, mammalia_reproduction_event_abortion, mammalia_reproduction_method_embryo_transplant, mammalia_born_cycle, mammalia_reproduction_state, mammalia_twins_condition, mammalia_lactation_state, animal_disease_state"
             />
       <item name="milk"
             category="milk"
@@ -79,7 +79,7 @@
             storable="true"
             atomic="true"
             abilities="consume(water), consume(poaceae), produce(/excrement), move"
-            indicators="animal_life_state, mammalia_reproduction_state, animal_disease_state"
+            indicators="weight, animal_life_state, mammalia_reproduction_event_abortion, mammalia_reproduction_state, mammalia_reproduction_method_embryo_transplant, mammalia_twins_condition, mammalia_born_cycle, animal_disease_state"
             />
       <item name="calf"
             category="milk"
@@ -94,7 +94,7 @@
             storable="true"
             atomic="true"
             abilities="consume(water), consume(poaceae), produce(/excrement), consume(/milk), move"
-            indicators="animal_life_state, animal_disease_state"
+            indicators="weight, animal_life_state, animal_disease_state, mammalia_born_condition"
             />
       <item name="wheat_crop"
             category="crop"
