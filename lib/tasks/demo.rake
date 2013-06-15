@@ -158,15 +158,17 @@ namespace :db do
       place ||= Building.create!(:name => "Stabulation principale", :identification_number => "S0001", :work_number => "STABU_01", :born_at => Time.now, :reservoir => true, :unit_id => unit.id, :content_nature_id => cow.id, :variety => "building", :nature_id => place_nature.id, :owner_id => Entity.of_company.id, :number => "STABU_01")
       
       # create default animal indicator (like in XML nomenclature)
-      animal_indicator_life = ProductIndicator.find_by_name("animal_life_state")
-      animal_indicator_life ||= ProductIndicator.create!(:product_nature_id => cow.id, :name => "animal_life_state", :description => "Phase du bioprocessus de vie d'un animal",:nature => "choice", :usage => "life", :active => true, :created_at => Time.now)
-      animal_indicator_life.choices.create!(:name => "first_growth", :position => 1)
-      animal_indicator_life.choices.create!(:name => "second_growth", :position => 2)
-      animal_indicator_life.choices.create!(:name => "aging", :position => 3)
-      animal_indicator_disease = ProductIndicator.find_by_name("animal_disease_state")
-      animal_indicator_disease ||= ProductIndicator.create!(:product_nature_id => cow.id, :name => "animal_disease_state", :description => "Phase du bioprocessus de maladie d'un animal",:nature => "choice", :usage => "life", :active => true, :created_at => Time.now)
-      animal_indicator_disease.choices.create!(:name => "healthy", :position => 1)
-      animal_indicator_disease.choices.create!(:name => "sick", :position => 2)
+
+      # animal_indicator_life = ProductIndicator.find_by_name("animal_life_state")
+      # animal_indicator_life ||= ProductIndicator.create!(:product_nature_id => cow.id, :name => "animal_life_state", :description => "Phase du bioprocessus de vie d'un animal",:nature => "choice", :usage => "life", :active => true, :created_at => Time.now)
+      # animal_indicator_life.choices.create!(:name => "first_growth", :position => 1)
+      # animal_indicator_life.choices.create!(:name => "second_growth", :position => 2)
+      # animal_indicator_life.choices.create!(:name => "aging", :position => 3)
+      # animal_indicator_disease = ProductIndicator.find_by_name("animal_disease_state")
+      # animal_indicator_disease ||= ProductIndicator.create!(:product_nature_id => cow.id, :name => "animal_disease_state", :description => "Phase du bioprocessus de maladie d'un animal",:nature => "choice", :usage => "life", :active => true, :created_at => Time.now)
+      # animal_indicator_disease.choices.create!(:name => "healthy", :position => 1)
+      # animal_indicator_disease.choices.create!(:name => "sick", :position => 2)
+
       
       
       arrival_causes = {"N" => :birth, "A" => :purchase, "P" => :housing, "" => :other }

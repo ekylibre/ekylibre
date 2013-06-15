@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="animals_list" language="groovy" columnCount="2" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="401" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isTitleNewPage="true" whenResourceMissingType="Empty" uuid="9c1f11b7-03dd-4803-9e1b-41b87b9d23c0">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="animals_list" language="groovy" columnCount="2" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="401" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" whenResourceMissingType="Empty" uuid="9c1f11b7-03dd-4803-9e1b-41b87b9d23c0">
 	<property name="ireport.zoom" value="1.0000000000000009"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="288"/>
+	<template><![CDATA["/home/djoulin/ekylibre/config/corporate-identity/reports-style.jrtx"]]></template>
 	<style name="Title" fontName="DejaVu Sans" fontSize="30" isBold="true" pdfFontName="Times-Bold"/>
 	<style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18"/>
 	<style name="Column header" forecolor="#666666" fontName="DejaVu Sans" fontSize="12" isBold="true"/>
@@ -20,7 +21,6 @@
 	<style name="Crosstab Data Text" hAlign="Center"/>
 	<parameter name="XML_DATA_DOCUMENT" class="java.lang.String" isForPrompting="false"/>
 	<parameter name="XML_URL" class="java.lang.String" isForPrompting="false"/>
-	<parameter name="entity_full_name" class="java.lang.String"/>
 	<queryString language="xPath">
 		<![CDATA[/animals/animal[external='false']]]>
 	</queryString>
@@ -34,7 +34,7 @@
 		<fieldDescription><![CDATA[born-at]]></fieldDescription>
 	</field>
 	<field name="sex" class="java.lang.String">
-		<fieldDescription><![CDATA[sex]]></fieldDescription>
+		<fieldDescription><![CDATA[sex/@name]]></fieldDescription>
 	</field>
 	<field name="picture-file-name" class="java.lang.String">
 		<fieldDescription><![CDATA[picture-file-name]]></fieldDescription>
@@ -58,7 +58,7 @@
 		<fieldDescription><![CDATA[work-number]]></fieldDescription>
 	</field>
 	<field name="race-name" class="java.lang.String">
-		<fieldDescription><![CDATA[variety/name]]></fieldDescription>
+		<fieldDescription><![CDATA[variety/@name]]></fieldDescription>
 	</field>
 	<field name="father-name" class="java.lang.String">
 		<fieldDescription><![CDATA[father/name]]></fieldDescription>
@@ -79,7 +79,7 @@
 		<groupHeader>
 			<band height="29">
 				<textField evaluationTime="Group" evaluationGroup="year">
-					<reportElement uuid="33c30a13-a8f4-405d-82fc-26f60aad7e10" style="SubTitle" mode="Opaque" x="2" y="2" width="100" height="26"/>
+					<reportElement uuid="33c30a13-a8f4-405d-82fc-26f60aad7e10" style="label-strong" mode="Opaque" x="2" y="2" width="100" height="26"/>
 					<box>
 						<pen lineWidth="0.0" lineColor="#7F4D15"/>
 						<topPen lineWidth="0.0" lineColor="#7F4D15"/>
@@ -98,14 +98,14 @@
 		<groupFooter>
 			<band height="88">
 				<staticText>
-					<reportElement uuid="52d5043d-384e-4840-a3c3-eb48a3871d11" style="Column header" x="10" y="10" width="121" height="20"/>
+					<reportElement uuid="52d5043d-384e-4840-a3c3-eb48a3871d11" style="label-strong" x="10" y="10" width="121" height="20"/>
 					<textElement verticalAlignment="Middle">
 						<font fontName="DejaVu Sans"/>
 					</textElement>
 					<text><![CDATA[Total naissance :]]></text>
 				</staticText>
 				<textField evaluationTime="Group" evaluationGroup="year">
-					<reportElement uuid="9272f55e-4ea7-4a42-9e94-e425cbe67701" x="131" y="10" width="77" height="20"/>
+					<reportElement uuid="9272f55e-4ea7-4a42-9e94-e425cbe67701" style="strong" x="131" y="10" width="77" height="20"/>
 					<textElement verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$V{id_1}]]></textFieldExpression>
 				</textField>
@@ -116,50 +116,21 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="119" splitType="Stretch">
+		<band height="39" splitType="Stretch">
 			<staticText>
-				<reportElement uuid="762330c6-a035-463c-be4a-d3d1f4e26fd6" style="Title" mode="Opaque" x="-21" y="1" width="843" height="41" forecolor="#FFFFFF" backcolor="#688ED8"/>
+				<reportElement uuid="5b202e71-e4a3-4be8-8dcb-f735cc04164a" style="strong" mode="Opaque" x="2" y="29" width="800" height="2" backcolor="#7C9DDD"/>
 				<textElement verticalAlignment="Middle">
 					<font pdfFontName="Times-Roman"/>
 				</textElement>
-				<text><![CDATA[   Carnet de naissance]]></text>
+				<text><![CDATA[]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="b004bfbd-c2d8-47f0-9929-ae1d9a6fd03b" style="SubTitle" x="702" y="54" width="100" height="24" forecolor="#688ED8"/>
-				<textElement textAlignment="Center">
-					<font fontName="Times New Roman" pdfFontName="Times-Roman"/>
+				<reportElement uuid="dc35e306-d03e-4288-b40e-74e3bb33d471" style="title" x="0" y="0" width="425" height="29"/>
+				<textElement>
+					<font fontName="Open Sans" size="16" pdfFontName="Times-Roman"/>
 				</textElement>
-				<text><![CDATA[Production]]></text>
+				<text><![CDATA[Inventaire animal]]></text>
 			</staticText>
-			<rectangle radius="2">
-				<reportElement uuid="7295b3a4-1715-4584-b262-75754d9b3f4d" mode="Transparent" x="702" y="-12" width="100" height="90" forecolor="#688ED8"/>
-				<graphicElement>
-					<pen lineWidth="2.0"/>
-				</graphicElement>
-			</rectangle>
-			<staticText>
-				<reportElement uuid="b004bfbd-c2d8-47f0-9929-ae1d9a6fd03b" style="SubTitle" x="2" y="42" width="100" height="24"/>
-				<textElement textAlignment="Center">
-					<font fontName="Times New Roman" pdfFontName="Times-Roman"/>
-				</textElement>
-				<text><![CDATA[Animaux]]></text>
-			</staticText>
-			<image>
-				<reportElement uuid="a71f0297-336f-4988-a9e8-f29e2f7e811d" x="730" y="-1" width="52" height="43"/>
-				<imageExpression><![CDATA["/home/djoulin/ekylibre_dev/app/themes/tekyla/images/menus-100px/production.png"]]></imageExpression>
-			</image>
-			<textField>
-				<reportElement uuid="f7e9c2f9-de1f-48bc-a87d-ec1cffcf1db6" x="416" y="1" width="266" height="20" forecolor="#FFFFFF"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Droid Sans" size="11" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{entity_full_name}]]></textFieldExpression>
-			</textField>
-			<textField pattern="dd/MM/yyyy HH.mm.ss">
-				<reportElement uuid="2e0909fa-9d0c-4cd4-9e2f-2a8b1460d557" x="416" y="21" width="266" height="20" forecolor="#FFFFFF"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
-			</textField>
 		</band>
 	</title>
 	<pageHeader>
@@ -168,9 +139,9 @@
 	<columnHeader>
 		<band height="22" splitType="Stretch">
 			<staticText>
-				<reportElement uuid="52d5043d-384e-4840-a3c3-eb48a3871d11" style="Column header" x="113" y="0" width="54" height="22"/>
+				<reportElement uuid="52d5043d-384e-4840-a3c3-eb48a3871d11" style="label-strong" x="113" y="0" width="54" height="22"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="DejaVu Sans"/>
+					<font fontName="Open Sans"/>
 				</textElement>
 				<text><![CDATA[né(e) le]]></text>
 			</staticText>
@@ -181,37 +152,37 @@
 				</graphicElement>
 			</line>
 			<staticText>
-				<reportElement uuid="52d5043d-384e-4840-a3c3-eb48a3871d11" style="Column header" x="0" y="0" width="73" height="22"/>
+				<reportElement uuid="52d5043d-384e-4840-a3c3-eb48a3871d11" style="label-strong" x="0" y="0" width="73" height="22"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="DejaVu Sans"/>
+					<font fontName="Open Sans"/>
 				</textElement>
 				<text><![CDATA[nom]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="52d5043d-384e-4840-a3c3-eb48a3871d11" style="Column header" x="73" y="0" width="40" height="22"/>
+				<reportElement uuid="52d5043d-384e-4840-a3c3-eb48a3871d11" style="label-strong" x="73" y="0" width="40" height="22"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="DejaVu Sans"/>
+					<font fontName="Open Sans"/>
 				</textElement>
 				<text><![CDATA[n°]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="52d5043d-384e-4840-a3c3-eb48a3871d11" style="Column header" x="167" y="0" width="41" height="22"/>
+				<reportElement uuid="52d5043d-384e-4840-a3c3-eb48a3871d11" style="label-strong" x="167" y="0" width="41" height="22"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="DejaVu Sans"/>
+					<font fontName="Open Sans"/>
 				</textElement>
 				<text><![CDATA[sexe]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="52d5043d-384e-4840-a3c3-eb48a3871d11" style="Column header" x="208" y="0" width="92" height="22"/>
+				<reportElement uuid="52d5043d-384e-4840-a3c3-eb48a3871d11" style="label-strong" x="208" y="0" width="92" height="22"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="DejaVu Sans"/>
+					<font fontName="Open Sans"/>
 				</textElement>
 				<text><![CDATA[mère]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="52d5043d-384e-4840-a3c3-eb48a3871d11" style="Column header" x="300" y="0" width="90" height="22"/>
+				<reportElement uuid="52d5043d-384e-4840-a3c3-eb48a3871d11" style="label-strong" x="300" y="0" width="90" height="22"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="DejaVu Sans"/>
+					<font fontName="Open Sans"/>
 				</textElement>
 				<text><![CDATA[père]]></text>
 			</staticText>
@@ -220,46 +191,46 @@
 	<detail>
 		<band height="21" splitType="Stretch">
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="dba1a483-6562-4082-a5d2-a0dd845fe182" style="Detail" mode="Opaque" x="300" y="0" width="90" height="21"/>
+				<reportElement uuid="dba1a483-6562-4082-a5d2-a0dd845fe182" style="base" mode="Opaque" x="300" y="0" width="90" height="21"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="DejaVu Sans" size="9"/>
+					<font fontName="Open Sans" size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{father-name}.toLowerCase()]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="42865504-0435-4a06-9df0-2151563c4fea" style="Detail" mode="Opaque" x="208" y="0" width="92" height="21"/>
+				<reportElement uuid="42865504-0435-4a06-9df0-2151563c4fea" style="base" mode="Opaque" x="208" y="0" width="92" height="21"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="DejaVu Sans" size="9"/>
+					<font fontName="Open Sans" size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{mother-name}.toLowerCase()]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
-				<reportElement uuid="b8637e72-0dab-486c-980e-630dbe469547" style="Detail" mode="Opaque" x="113" y="0" width="54" height="21"/>
+				<reportElement uuid="b8637e72-0dab-486c-980e-630dbe469547" style="base" mode="Opaque" x="113" y="0" width="54" height="21"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="DejaVu Sans" size="9"/>
+					<font fontName="Open Sans" size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{born-at}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="e39cad02-7296-4b15-be64-83e1005f9da2" style="Detail" mode="Opaque" x="1" y="0" width="72" height="21"/>
+				<reportElement uuid="e39cad02-7296-4b15-be64-83e1005f9da2" style="base" mode="Opaque" x="1" y="0" width="72" height="21"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="DejaVu Sans" size="9"/>
+					<font fontName="Open Sans" size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{name}.toLowerCase()]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="14106f98-080d-4ea6-9add-6ce992833746" style="Detail" mode="Opaque" x="73" y="0" width="40" height="21"/>
+				<reportElement uuid="14106f98-080d-4ea6-9add-6ce992833746" style="base" mode="Opaque" x="73" y="0" width="40" height="21"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="DejaVu Sans" size="9"/>
+					<font fontName="Open Sans" size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{work-number}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="a38d906a-cdce-41e6-8ec3-ca0b9b9f65b6" style="Detail" mode="Opaque" x="167" y="0" width="41" height="21"/>
+				<reportElement uuid="a38d906a-cdce-41e6-8ec3-ca0b9b9f65b6" style="base" mode="Opaque" x="167" y="0" width="41" height="21"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="DejaVu Sans" size="9"/>
+					<font fontName="Open Sans" size="9"/>
 				</textElement>
-				<textFieldExpression><![CDATA[( $F{sex} == 'female' ? "F" : "M" )]]></textFieldExpression>
+				<textFieldExpression><![CDATA[( $F{sex} == "female" ? "F" : "M" )]]></textFieldExpression>
 			</textField>
 			<line>
 				<reportElement uuid="09a03d97-1c8c-4a8b-85a3-1868d25e2f8a" x="2" y="20" width="388" height="1"/>
@@ -270,45 +241,79 @@
 		<band height="6" splitType="Stretch"/>
 	</columnFooter>
 	<pageFooter>
-		<band height="25" splitType="Stretch">
-			<frame>
-				<reportElement uuid="0475879f-e40d-46ef-bcee-450e0a1fc247" mode="Opaque" x="-21" y="1" width="843" height="24" forecolor="#7F4D15" backcolor="#688ED8"/>
-				<textField evaluationTime="Report">
-					<reportElement uuid="0ad0e100-57e9-4de5-936d-5476fbfc5309" style="Column header" x="783" y="1" width="40" height="20" forecolor="#FFFFFF"/>
-					<textElement verticalAlignment="Middle">
-						<font size="10" isBold="false"/>
-					</textElement>
-					<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
-				</textField>
-				<textField>
-					<reportElement uuid="6323e977-43e9-46c7-9133-dcc26da099c7" style="Column header" x="703" y="1" width="80" height="20" forecolor="#FFFFFF"/>
-					<textElement textAlignment="Right" verticalAlignment="Middle">
-						<font size="10" isBold="false"/>
-					</textElement>
-					<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" /"]]></textFieldExpression>
-				</textField>
-				<textField pattern="dd/MM/yyyy">
-					<reportElement uuid="19cb2bb2-0898-440b-923b-fd1c15eb24d4" style="Column header" x="22" y="1" width="197" height="20" forecolor="#FFFFFF"/>
-					<textElement verticalAlignment="Middle">
-						<font size="10" isBold="false"/>
-					</textElement>
-					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
-				</textField>
-				<staticText>
-					<reportElement uuid="572665e0-a042-44c7-b043-305939d63f18" mode="Opaque" x="321" y="2" width="90" height="20" backcolor="#FFFF00"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<text><![CDATA[Race croisée]]></text>
-				</staticText>
-				<staticText>
-					<reportElement uuid="572665e0-a042-44c7-b043-305939d63f18" mode="Transparent" x="437" y="2" width="95" height="20" forecolor="#FF3333" backcolor="#FFFF00"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font size="9" isBold="true"/>
-					</textElement>
-					<text><![CDATA[mort naissance]]></text>
-				</staticText>
-			</frame>
+		<band height="26" splitType="Stretch">
+			<textField evaluationTime="Report">
+				<reportElement uuid="50272410-1b25-4669-88c3-3be64f156f82" style="base" x="761" y="3" width="40" height="22" forecolor="#000000"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Open Sans"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy HH.mm.ss">
+				<reportElement uuid="ebf60a3b-b81b-4ee3-b94d-a83ae04dd811" style="base" mode="Transparent" x="2" y="4" width="115" height="22" forecolor="#000000"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Open Sans"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="342f7ef7-5da8-4d85-baf2-2c7968aecaed" style="base" x="708" y="3" width="54" height="22" forecolor="#000000"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Open Sans"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}+" /"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="3740387f-1656-45d4-b5a7-a671b9df52d6" style="strong" mode="Opaque" x="117" y="13" width="591" height="2" backcolor="#7C9DDD"/>
+				<textElement verticalAlignment="Middle">
+					<font pdfFontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="09502309-a48d-4de7-a65d-8e0643856d5d" mode="Opaque" x="300" y="5" width="90" height="20" backcolor="#FFFF00"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Race croisée]]></text>
+			</staticText>
 		</band>
 	</pageFooter>
+	<lastPageFooter>
+		<band height="26">
+			<staticText>
+				<reportElement uuid="6a745fd5-25a2-4de3-87b6-1d920ef1a4c0" style="strong" mode="Opaque" x="117" y="13" width="591" height="2" backcolor="#7C9DDD"/>
+				<textElement verticalAlignment="Middle">
+					<font pdfFontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<textField evaluationTime="Report">
+				<reportElement uuid="c5669d5d-31af-4dd7-bf88-534422b21b01" style="base" x="761" y="3" width="40" height="22" forecolor="#000000"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Open Sans"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy HH.mm.ss">
+				<reportElement uuid="a98f0540-b3f2-4380-aab0-f9d96ea72b6e" style="base" mode="Transparent" x="2" y="4" width="115" height="22" forecolor="#000000"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Open Sans"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="5de70a0c-bd99-4937-84fa-c172a5df272f" style="base" x="708" y="3" width="54" height="22" forecolor="#000000"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Open Sans"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}+" /"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="572665e0-a042-44c7-b043-305939d63f18" mode="Opaque" x="300" y="5" width="90" height="20" backcolor="#FFFF00"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Race croisée]]></text>
+			</staticText>
+		</band>
+	</lastPageFooter>
 	<summary>
 		<band height="555" splitType="Stretch">
 			<crosstab>
@@ -324,7 +329,9 @@
 							</box>
 							<textField>
 								<reportElement uuid="a2d756c8-f47d-4ced-a84a-21170fb52af5" style="Crosstab Data Text" x="0" y="0" width="70" height="25"/>
-								<textElement verticalAlignment="Middle"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="Open Sans"/>
+								</textElement>
 								<textFieldExpression><![CDATA[( $V{sex} == 'female' ? "Femelle" : "Mâle" )]]></textFieldExpression>
 							</textField>
 						</cellContents>
@@ -336,7 +343,9 @@
 							</box>
 							<staticText>
 								<reportElement uuid="437902e2-e4b9-4923-8319-f041f225affd" x="0" y="0" width="70" height="25"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Open Sans"/>
+								</textElement>
 								<text><![CDATA[Total]]></text>
 							</staticText>
 						</cellContents>
@@ -353,7 +362,9 @@
 							</box>
 							<textField>
 								<reportElement uuid="ddd851e2-0585-4157-a264-342d71a53646" style="Crosstab Data Text" x="0" y="0" width="50" height="30"/>
-								<textElement verticalAlignment="Middle"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="Open Sans"/>
+								</textElement>
 								<textFieldExpression><![CDATA[$V{born-at}]]></textFieldExpression>
 							</textField>
 						</cellContents>
@@ -365,7 +376,9 @@
 							</box>
 							<staticText>
 								<reportElement uuid="c40a9a5b-89fd-4c7f-871d-c85718aaddf6" x="0" y="0" width="50" height="30"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Open Sans"/>
+								</textElement>
 								<text><![CDATA[Total]]></text>
 							</staticText>
 						</cellContents>
@@ -381,7 +394,9 @@
 						</box>
 						<textField>
 							<reportElement uuid="2b2fb7f5-9b00-4c5b-9672-475d3974fb99" style="Crosstab Data Text" x="0" y="0" width="50" height="25"/>
-							<textElement verticalAlignment="Middle"/>
+							<textElement verticalAlignment="Middle">
+								<font fontName="Open Sans"/>
+							</textElement>
 							<textFieldExpression><![CDATA[$V{idMeasure}]]></textFieldExpression>
 						</textField>
 					</cellContents>
@@ -393,7 +408,9 @@
 						</box>
 						<textField>
 							<reportElement uuid="80f81929-7eb7-485c-b86b-8c948e2af9ca" style="Crosstab Data Text" x="0" y="0" width="50" height="25"/>
-							<textElement verticalAlignment="Middle"/>
+							<textElement verticalAlignment="Middle">
+								<font fontName="Open Sans"/>
+							</textElement>
 							<textFieldExpression><![CDATA[$V{idMeasure}]]></textFieldExpression>
 						</textField>
 					</cellContents>
@@ -405,7 +422,9 @@
 						</box>
 						<textField>
 							<reportElement uuid="2d32c978-f3cf-4e5f-b146-9406a6af543c" style="Crosstab Data Text" x="0" y="0" width="50" height="25"/>
-							<textElement verticalAlignment="Middle"/>
+							<textElement verticalAlignment="Middle">
+								<font fontName="Open Sans"/>
+							</textElement>
 							<textFieldExpression><![CDATA[$V{idMeasure}]]></textFieldExpression>
 						</textField>
 					</cellContents>
@@ -417,32 +436,28 @@
 						</box>
 						<textField>
 							<reportElement uuid="3db008a7-8475-49b9-b985-e38f04715a42" style="Crosstab Data Text" x="0" y="0" width="50" height="25"/>
-							<textElement verticalAlignment="Middle"/>
+							<textElement verticalAlignment="Middle">
+								<font fontName="Open Sans"/>
+							</textElement>
 							<textFieldExpression><![CDATA[$V{idMeasure}]]></textFieldExpression>
 						</textField>
 					</cellContents>
 				</crosstabCell>
 			</crosstab>
 			<staticText>
-				<reportElement uuid="b004bfbd-c2d8-47f0-9929-ae1d9a6fd03b" style="SubTitle" x="2" y="35" width="229" height="24" forecolor="#688ED8"/>
-				<textElement textAlignment="Center">
-					<font fontName="Times New Roman" pdfFontName="Times-Roman"/>
+				<reportElement uuid="b004bfbd-c2d8-47f0-9929-ae1d9a6fd03b" style="sub-title" x="2" y="29" width="229" height="24" forecolor="#688ED8"/>
+				<textElement>
+					<font fontName="Open Sans" pdfFontName="Times-Roman"/>
 				</textElement>
 				<text><![CDATA[Naissance / sexe / an]]></text>
 			</staticText>
-			<line>
-				<reportElement uuid="5abae6f2-281f-493a-b567-f347b80e42b3" x="231" y="45" width="591" height="1" forecolor="#688ED8"/>
-			</line>
 			<staticText>
-				<reportElement uuid="b004bfbd-c2d8-47f0-9929-ae1d9a6fd03b" style="SubTitle" positionType="Float" stretchType="RelativeToBandHeight" x="2" y="223" width="229" height="24" forecolor="#688ED8"/>
-				<textElement textAlignment="Center">
-					<font fontName="Times New Roman" pdfFontName="Times-Roman"/>
+				<reportElement uuid="b004bfbd-c2d8-47f0-9929-ae1d9a6fd03b" style="sub-title" positionType="Float" stretchType="RelativeToBandHeight" x="2" y="223" width="229" height="24" forecolor="#688ED8"/>
+				<textElement>
+					<font fontName="Open Sans" pdfFontName="Times-Roman"/>
 				</textElement>
 				<text><![CDATA[Naissance / race / an]]></text>
 			</staticText>
-			<line>
-				<reportElement uuid="5abae6f2-281f-493a-b567-f347b80e42b3" positionType="Float" stretchType="RelativeToBandHeight" mode="Opaque" x="231" y="234" width="591" height="1" forecolor="#688ED8"/>
-			</line>
 			<stackedBarChart>
 				<chart>
 					<reportElement uuid="35ef500d-73e4-42e9-8281-62216ff62942" positionType="Float" stretchType="RelativeToBandHeight" x="1" y="268" width="801" height="262"/>
@@ -460,8 +475,28 @@
 				<barPlot>
 					<plot/>
 					<itemLabel/>
+					<categoryAxisFormat>
+						<axisFormat/>
+					</categoryAxisFormat>
+					<valueAxisFormat>
+						<axisFormat/>
+					</valueAxisFormat>
 				</barPlot>
 			</stackedBarChart>
+			<staticText>
+				<reportElement uuid="898b506b-f8e9-4577-90d6-3887f2e6553a" style="strong" mode="Opaque" x="2" y="53" width="799" height="2" backcolor="#7C9DDD"/>
+				<textElement verticalAlignment="Middle">
+					<font pdfFontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a5102868-7f30-42b0-8965-4bd359da71e6" style="strong" positionType="Float" mode="Opaque" x="2" y="247" width="800" height="2" backcolor="#7C9DDD"/>
+				<textElement verticalAlignment="Middle">
+					<font pdfFontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
 		</band>
 	</summary>
 </jasperReport>
