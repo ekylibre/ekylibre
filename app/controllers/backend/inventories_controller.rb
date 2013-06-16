@@ -45,7 +45,7 @@ class Backend::InventoriesController < BackendController
     t.column :serial_number, :through => :product
     t.column :theoric_quantity, :precision => 3
     t.column :quantity, :precision => 3
-    t.column :name, :through => :unit
+    t.column :unit
   end
 
   # Displays details of one inventory selected with +params[:id]+
@@ -63,7 +63,7 @@ class Backend::InventoriesController < BackendController
     t.column :name, :url => true
     t.column :serial_number, :through => :tracking
     t.column :quantity, :precision => 3
-    t.column :label, :through => :unit
+    t.column :unit
     t.text_field :quantity
   end
 

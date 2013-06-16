@@ -21,7 +21,7 @@
 # == Table: activity_watchings
 #
 #  activity_id       :integer          not null
-#  area_unit_id      :integer
+#  area_unit         :string(255)
 #  created_at        :datetime         not null
 #  creator_id        :integer
 #  id                :integer          not null, primary key
@@ -30,15 +30,16 @@
 #  product_nature_id :integer          not null
 #  updated_at        :datetime         not null
 #  updater_id        :integer
-#  work_unit_id      :integer
+#  work_unit         :string(255)
 #
 class ActivityWatching < Ekylibre::Record::Base
   attr_accessible :activity_id, :product_nature_id, :area_unit_id, :work_unit_id
   belongs_to :activity
-  belongs_to :area_unit, :class_name => "Unit"
+  # belongs_to :area_unit, :class_name => "Unit"
   belongs_to :product_nature
-  belongs_to :work_unit, :class_name => "Unit"
+  # belongs_to :work_unit, :class_name => "Unit"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_length_of :area_unit, :work_unit, :allow_nil => true, :maximum => 255
   validates_presence_of :activity, :product_nature
   #]VALIDATORS]
 end

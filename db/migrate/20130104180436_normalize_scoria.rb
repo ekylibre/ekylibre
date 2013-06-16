@@ -21,9 +21,11 @@ class NormalizeScoria < ActiveRecord::Migration
     add_column :departments, :rgt, :integer
     add_column :departments, :depth, :integer, :null => false, :default => 0
 
+
     add_column :deposit_lines, :currency, :string, :limit => 3, :null => false
 
     rename_column :entities, :reflation_submissive, :reminder_submissive
+    rename_column :entities, :code, :number
     remove_column :entities, :ean13
     remove_column :entities, :excise
     remove_column :entities, :name
@@ -34,23 +36,57 @@ class NormalizeScoria < ActiveRecord::Migration
     add_column    :entities, :picture_content_type, :string
     add_column    :entities, :picture_updated_at, :datetime
     remove_column :entities, :photo
+    add_column    :entities, :type, :string
+    add_column    :entities, :nature, :string
+    execute("UPDATE #{quoted_table_name(:entities)} SET type = CASE WHEN NOT physical THEN 'LegalEntity' WHEN name LIKE '%dam%' OR name LIKE '%si%r' THEN 'Person' ELSE 'Entity' END, nature = CASE WHEN NOT physical AND en.name LIKE '%asso%' THEN 'association' WHEN NOT physical THEN 'company' WHEN name LIKE '%dam%' THEN 'madam' WHEN name LIKE '%si%r' THEN 'sir' ELSE 'undefined' END FROM #{quoted_table_name(:entity_natures)} AS en WHERE en.id = nature_id")
+    change_column_null :entities, :type, false
+    change_column_null :entities, :nature, false
+    remove_column :entities, :nature_id
 
     change_column :entity_links, :started_on, :datetime
     rename_column :entity_links, :started_on, :started_at
     change_column :entity_links, :stopped_on, :datetime
     rename_column :entity_links, :stopped_on, :stopped_at
+    add_column :entity_links, :nature, :string
+    execute("UPDATE entity_links SET nature = 'undefined'")
 
-    add_column :entity_natures, :gender, :string
-    execute("UPDATE #{quoted_table_name(:entity_natures)} SET gender = CASE WHEN NOT physical THEN 'organization' WHEN name LIKE '%dam%' THEN 'woman' WHEN name LIKE '%si%r' THEN 'man' ELSE 'undefined' END")
-    change_column_null :entity_natures, :gender, false
-    remove_column :entity_natures, :physical
+    drop_table :entity_link_natures
+
+    drop_table :entity_natures
+    # add_column :entity_natures, :gender, :string
+    # execute("UPDATE #{quoted_table_name(:entity_natures)} SET gender = CASE WHEN NOT physical THEN 'organization' WHEN name LIKE '%dam%' THEN 'woman' WHEN name LIKE '%si%r' THEN 'man' ELSE 'undefined' END")
+    # change_column_null :entity_natures, :gender, false
+    # remove_column :entity_natures, :physical
 
     remove_column :establishments, :nic
     rename_column :establishments, :siret, :code
     change_column_null :establishments, :code, true
 
-    remove_column :events, :started_sec
+    rename_table :event_natures, :meeting_natures
+
+    create_table :meeting_participants do |t|
+      t.references :meeting, :null => false
+      t.references :entity,  :null => false
+      t.string :status
+      t.stamps
+    end
+    add_stamps_indexes :meeting_participants
+    add_index :meeting_participants, :meeting_id
+    add_index :meeting_participants, :entity_id
+
+
+    rename_column :events, :reason, :name
+    rename_column :events, :location, :place
+    add_column :events, :description, :text
     add_column :events, :stopped_at, :datetime
+    add_column :events, :type, :string
+    execute("UPDATE #{quoted_table_name(:events)} SET type = 'Meeting', stopped_at = CASE WHEN duration IS NOT NULL THEN started_at + (duration || ' minutes')::INTERVAL ELSE stopped_at END")
+    change_column_null :events, :type, false
+    rename_column :events, :nature_id, :meeting_nature_id
+    change_column_null :events, :meeting_nature_id, true
+    remove_column :events, :started_sec
+    remove_column :events, :responsible_id
+    remove_column :events, :entity_id
 
     rename_column :incoming_payment_modes, :published, :active
 

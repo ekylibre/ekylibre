@@ -13,7 +13,7 @@
         <page to="backend/entities#list"/>
         <page to="backend/entities#list_cashes"/>
         <page to="backend/entities#list_contacts"/>
-        <page to="backend/entities#list_events"/>
+        <page to="backend/entities#list_meetings"/>
         <page to="backend/entities#list_incoming_payments"/>
         <page to="backend/entities#list_links"/>
         <page to="backend/entities#list_mandates"/>
@@ -46,20 +46,19 @@
         <page to="backend/entity_addresses#show"/>
         <page to="backend/entity_addresses#unroll"/>
         <page to="backend/entity_links#show"/>
-        <page to="backend/entity_natures#unroll"/>
       </item>
     </group>
-    <group name="events" icon="calendar">
-      <item name="events">
-        <page to="backend/events#index"/>
-        <page to="backend/events#change_minutes"/>
-        <page to="backend/events#create"/>
-        <page to="backend/events#destroy"/>
-        <page to="backend/events#edit"/>
-        <page to="backend/events#list"/>
-        <page to="backend/events#new"/>
-        <page to="backend/events#autocomplete_for_location"/>
-        <page to="backend/events#update"/>
+    <group name="meetings" icon="calendar">
+      <item name="meetings">
+        <page to="backend/meetings#index"/>
+        <page to="backend/meetings#change_minutes"/>
+        <page to="backend/meetings#create"/>
+        <page to="backend/meetings#destroy"/>
+        <page to="backend/meetings#edit"/>
+        <page to="backend/meetings#list"/>
+        <page to="backend/meetings#new"/>
+        <page to="backend/meetings#autocomplete_for_location"/>
+        <page to="backend/meetings#update"/>
       </item>
     </group>
     <group name="subscriptions" icon="tags">
@@ -502,26 +501,6 @@
         <page to="backend/equipments#show"/>
         <page to="backend/equipments#update"/>
       </item>
-      <item name="working_sets">
-        <page to="backend/working_sets#index"/>
-        <page to="backend/working_sets#create"/>
-        <page to="backend/working_sets#destroy"/>
-        <page to="backend/working_sets#edit"/>
-        <page to="backend/working_sets#list"/>
-        <page to="backend/working_sets#new"/>
-        <page to="backend/working_sets#show"/>
-        <page to="backend/working_sets#update"/>
-      </item>
-      <item name="product_abilities">
-        <page to="backend/product_abilities#index"/>
-        <page to="backend/product_abilities#create"/>
-        <page to="backend/product_abilities#destroy"/>
-        <page to="backend/product_abilities#edit"/>
-        <page to="backend/product_abilities#list"/>
-        <page to="backend/product_abilities#new"/>
-        <page to="backend/product_abilities#show"/>
-        <page to="backend/product_abilities#update"/>
-      </item>
     </group>
   </module>
   <module name="tools" icon="magic">
@@ -589,16 +568,6 @@
         <page to="backend/sequences#load"/>
         <page to="backend/sequences#new"/>
         <page to="backend/sequences#update"/>
-      </item>
-      <item name="units">
-        <page to="backend/units#index"/>
-        <page to="backend/units#create"/>
-        <page to="backend/units#destroy"/>
-        <page to="backend/units#edit"/>
-        <page to="backend/units#list"/>
-        <page to="backend/units#load"/>
-        <page to="backend/units#new"/>
-        <page to="backend/units#update"/>
       </item>
       <item name="roles">
         <page to="backend/roles#index"/>
@@ -689,32 +658,14 @@
     </group>
     <group name="people" icon="group">
       <page to="backend/dashboards#settings_relationship"/>
-      <item name="entity_link_natures">
-        <page to="backend/entity_link_natures#index"/>
-        <page to="backend/entity_link_natures#create"/>
-        <page to="backend/entity_link_natures#destroy"/>
-        <page to="backend/entity_link_natures#edit"/>
-        <page to="backend/entity_link_natures#list"/>
-        <page to="backend/entity_link_natures#new"/>
-        <page to="backend/entity_link_natures#update"/>
-      </item>
-      <item name="entity_natures">
-        <page to="backend/entity_natures#index"/>
-        <page to="backend/entity_natures#create"/>
-        <page to="backend/entity_natures#destroy"/>
-        <page to="backend/entity_natures#edit"/>
-        <page to="backend/entity_natures#list"/>
-        <page to="backend/entity_natures#new"/>
-        <page to="backend/entity_natures#update"/>
-      </item>
-      <item name="event_natures">
-        <page to="backend/event_natures#index"/>
-        <page to="backend/event_natures#create"/>
-        <page to="backend/event_natures#destroy"/>
-        <page to="backend/event_natures#edit"/>
-        <page to="backend/event_natures#list"/>
-        <page to="backend/event_natures#new"/>
-        <page to="backend/event_natures#update"/>
+      <item name="meeting_natures">
+        <page to="backend/meeting_natures#index"/>
+        <page to="backend/meeting_natures#create"/>
+        <page to="backend/meeting_natures#destroy"/>
+        <page to="backend/meeting_natures#edit"/>
+        <page to="backend/meeting_natures#list"/>
+        <page to="backend/meeting_natures#new"/>
+        <page to="backend/meeting_natures#update"/>
       </item>
       <item name="subscription_natures">
         <page to="backend/subscription_natures#index"/>
@@ -954,30 +905,6 @@
         <page to="backend/buildings#show"/>
         <page to="backend/buildings#update"/>
       </item>
-      <item name="product_indicators">
-        <page to="backend/product_indicators#index"/>
-        <page to="backend/product_indicators#create"/>
-        <page to="backend/product_indicators#destroy"/>
-        <page to="backend/product_indicators#down"/>
-        <page to="backend/product_indicators#edit"/>
-        <page to="backend/product_indicators#list"/>
-        <page to="backend/product_indicators#list_choices"/>
-        <page to="backend/product_indicators#new"/>
-        <page to="backend/product_indicators#show"/>
-        <page to="backend/product_indicators#sort"/>
-        <page to="backend/product_indicators#up"/>
-        <page to="backend/product_indicators#update"/>
-      </item>
-      <item name="procedure_natures">
-        <page to="backend/procedure_natures#index"/>
-        <page to="backend/procedure_natures#create"/>
-        <page to="backend/procedure_natures#destroy"/>
-        <page to="backend/procedure_natures#edit"/>
-        <page to="backend/procedure_natures#list"/>
-        <page to="backend/procedure_natures#new"/>
-        <page to="backend/procedure_natures#show"/>
-        <page to="backend/procedure_natures#update"/>
-      </item>
     </group>
   </module>
   <undefined-module>
@@ -1088,16 +1015,6 @@
         <page to="backend/matters#list_place"/>
         <page to="backend/matters#picture"/>
       </item>
-      <item name="operation_natures">
-        <page to="backend/operation_natures#index"/>
-        <page to="backend/operation_natures#create"/>
-        <page to="backend/operation_natures#destroy"/>
-        <page to="backend/operation_natures#edit"/>
-        <page to="backend/operation_natures#list"/>
-        <page to="backend/operation_natures#new"/>
-        <page to="backend/operation_natures#show"/>
-        <page to="backend/operation_natures#update"/>
-      </item>
       <item name="operation_tasks">
         <page to="backend/operation_tasks#index"/>
         <page to="backend/operation_tasks#create"/>
@@ -1131,15 +1048,6 @@
         <page to="backend/procedures#show"/>
         <page to="backend/procedures#update"/>
       </item>
-      <item name="product_indicator_choices">
-        <page to="backend/product_indicator_choices#create"/>
-        <page to="backend/product_indicator_choices#destroy"/>
-        <page to="backend/product_indicator_choices#down"/>
-        <page to="backend/product_indicator_choices#edit"/>
-        <page to="backend/product_indicator_choices#new"/>
-        <page to="backend/product_indicator_choices#up"/>
-        <page to="backend/product_indicator_choices#update"/>
-      </item>
       <item name="product_indicator_data">
         <page to="backend/product_indicator_data#index"/>
         <page to="backend/product_indicator_data#create"/>
@@ -1148,9 +1056,6 @@
         <page to="backend/product_indicator_data#new"/>
         <page to="backend/product_indicator_data#show"/>
         <page to="backend/product_indicator_data#update"/>
-      </item>
-      <item name="product_indicators">
-        <page to="backend/product_indicators#list_indicator_values"/>
       </item>
       <item name="product_links">
         <page to="backend/product_links#index"/>
@@ -1161,6 +1066,28 @@
         <page to="backend/product_links#new"/>
         <page to="backend/product_links#show"/>
         <page to="backend/product_links#update"/>
+      </item>
+      <item name="product_nature_abilities">
+        <page to="backend/product_nature_abilities#index"/>
+        <page to="backend/product_nature_abilities#create"/>
+        <page to="backend/product_nature_abilities#destroy"/>
+        <page to="backend/product_nature_abilities#edit"/>
+        <page to="backend/product_nature_abilities#list"/>
+        <page to="backend/product_nature_abilities#new"/>
+        <page to="backend/product_nature_abilities#show"/>
+        <page to="backend/product_nature_abilities#update"/>
+      </item>
+      <item name="product_nature_indicators">
+        <page to="backend/product_nature_indicators#index"/>
+        <page to="backend/product_nature_indicators#create"/>
+        <page to="backend/product_nature_indicators#destroy"/>
+        <page to="backend/product_nature_indicators#down"/>
+        <page to="backend/product_nature_indicators#edit"/>
+        <page to="backend/product_nature_indicators#list"/>
+        <page to="backend/product_nature_indicators#new"/>
+        <page to="backend/product_nature_indicators#show"/>
+        <page to="backend/product_nature_indicators#up"/>
+        <page to="backend/product_nature_indicators#update"/>
       </item>
       <item name="product_prices">
         <page to="backend/product_prices#index"/>

@@ -170,18 +170,10 @@ fra:
       edit: "Modifier une coordonnée"
       new: "Ajouter une coordonnée"
       # show: "Show backend/entity address"
-    backend/entity_link_natures:
-      edit: "Modifier le type de lien\_: %{name}"
-      index: "Types de lien"
-      new: "Ajout d’un nouveau type de lien"
     backend/entity_links:
       edit: "Modifier le lien"
       new: "Ajout d’un nouveau lien"
       # show: "Show backend/entity link"
-    backend/entity_natures:
-      edit: "Modifier le type de fiche\_: %{name}"
-      index: "Types de fiches"
-      new: "Ajouter un nouveau type de fiche"
     backend/equipments:
       edit: "Modifier l'équipement\_: %{name}"
       index: "Équipements"
@@ -191,16 +183,6 @@ fra:
       edit: "Modifier l’établissement\_: %{name}"
       index: "Établissements"
       new: "Ajout d’un nouvel etablissement"
-    backend/event_natures:
-      edit: "Modifier le type d’évènement\_: %{name}"
-      index: "Types d’évènements"
-      new: "Ajouter un type d’évènement"
-    backend/events:
-      # autocomplete_for_location: "Autocomplete for location backend/event"
-      change_minutes: "Changer la durée de l’évènement"
-      edit: "Modifier l’un évènement"
-      index: "Évènements"
-      new: "Ajout d’un évènement"
     backend/financial_years:
       close: "Clôturer l’exercice %{code}"
       compute_balances: "Calculer la balance de l’exercice"
@@ -298,6 +280,16 @@ fra:
       new: "Nouvelle matière"
       picture: "Visuel"
       show: "Matière\_: %{name}"
+    backend/meeting_natures:
+      # edit: "Edit backend/meeting nature"
+      # index: "Index backend/meeting nature"
+      # new: "New backend/meeting nature"
+    backend/meetings:
+      # autocomplete_for_location: "Autocomplete for location backend/meeting"
+      # change_minutes: "Change minutes backend/meeting"
+      # edit: "Edit backend/meeting"
+      # index: "Index backend/meeting"
+      # new: "New backend/meeting"
     backend/myselves:
       change_password: "Changer de mot de passe" #?
       show: "Mes informations"
@@ -305,11 +297,6 @@ fra:
     backend/observations:
       edit: "Modifier une observation"
       new: "Ajouter une observation"
-    backend/operation_natures:
-      # edit: "Edit backend/operation nature"
-      # index: "Index backend/operation nature"
-      # new: "New backend/operation nature"
-      # show: "Show backend/operation nature"
     backend/operation_tasks:
       # edit: "Edit backend/operation task"
       # index: "Index backend/operation task"
@@ -354,40 +341,21 @@ fra:
       index: "Préférences"
       new: "Nouvelle préférence"
       show: "Préférence"
-    backend/procedure_natures:
-      # edit: "Edit backend/procedure nature"
-      index: "Types de procédures"
-      # new: "New backend/procedure nature"
-      # show: "Show backend/procedure nature"
     backend/procedures:
       # edit: "Edit backend/procedure"
       index: "Procédures"
       # new: "New backend/procedure"
       # show: "Show backend/procedure"
-    backend/product_abilities:
-      edit: "Modifier la compétence\_: %{name}"
-      index: "Compétences / Capacités"
-      new: "Nouvelle compétence"
-      show: "Compétence %{name}"
     backend/product_groups:
       edit: "Modifier le lot\_: %{name} "
       index: "Lots de produits"
       new: "Créer un lot"
       show: "Lot\_: %{name}"
-    backend/product_indicator_choices:
-      edit: "Modifier une liste de choix pour un indicateur"
-      new: "Nouvelle liste de choix pour un indicateur"
     backend/product_indicator_data:
       edit: "Modifier la valeur d'un indicateur"
       index: "Indicateurs Produits"
       new: "Nouvelle valeur d'indicateur pour un produit"
       show: "Valeurs"
-    backend/product_indicators:
-      edit: "Modifier l'indicateur\_: %{name}"
-      index: "Indicateurs"
-      new: "Nouvel indicateur"
-      show: "Indicateur %{name}"
-      sort: "Trier"
     backend/product_links:
       # edit: "Edit backend/product link"
       # index: "Index backend/product link"
@@ -406,11 +374,21 @@ fra:
     backend/product_moves:
       edit: "Modifier le mouvement de stock\_: %{name}" #?
       new: "Enregistrement d’un mouvement de stock" #?
+    backend/product_nature_abilities:
+      # edit: "Edit backend/product nature ability"
+      # index: "Index backend/product nature ability"
+      # new: "New backend/product nature ability"
+      # show: "Show backend/product nature ability"
     backend/product_nature_categories:
       edit: "Modifier la catégorie de produits\_: %{name}"
       index: "Catégories de produits"
       new: "Ajout d’une nouvelle catégorie de produits"
       show: "Détail de la catégorie\_: %{name}"
+    backend/product_nature_indicators:
+      # edit: "Edit backend/product nature indicator"
+      # index: "Index backend/product nature indicator"
+      # new: "New backend/product nature indicator"
+      # show: "Show backend/product nature indicator"
     backend/product_natures:
       edit: "Modifier le type de produit\_: %{name}"
       index: "Type de produit"
@@ -561,11 +539,6 @@ fra:
       index: "Transports"
       new: "Ajout d’un nouveau transport"
       show: "Transport %{number}"
-    backend/units:
-      edit: "Modifier l’unité\_: %{label}"
-      index: "Unités de mesure"
-      load: "Charger les unités de mesure par défaut"
-      new: "Ajout d’une nouvelle unité de mesure"
     backend/users:
       edit: "Modifier l’utilisateur\_: %{first_name} %{last_name} (%{name})"
       index: "Utilisateurs"
@@ -573,11 +546,6 @@ fra:
       new: "Création d’un nouvel utilisateur"
       show: "Utilisateur\_: %{first_name} %{last_name} (%{name})"
       unlock: "Déverrouiller l’utilisateur"
-    backend/working_sets:
-      edit: "Modifier l'unité fonctionnelle\_: %{name}"
-      index: "Unité fonctionnelle / de travail"
-      new: "Nouvelle unité fonctionnelle / de travail"
-      show: "Unité fonctionnelle %{name}"
     public:
       index: "Accueil"
   controllers:
@@ -627,13 +595,9 @@ fra:
     backend/documents: "Documents"
     backend/entities: "Personnes"
     backend/entity_addresses: "Adresses"
-    backend/entity_link_natures: "Types de lien"
     backend/entity_links: "Liens entre personnes"
-    backend/entity_natures: "Types de fiches"
     backend/equipments: "Équipements"
     backend/establishments: "Établissements"
-    backend/event_natures: "Types d’évènements"
-    backend/events: "Évènements"
     backend/financial_years: "Exercices comptables"
     # backend/helps: "Backend/helps"
     backend/incoming_deliveries: "Livraisons entrantes"
@@ -656,9 +620,10 @@ fra:
     backend/logs: "Evenements des Animaux"
     backend/mandates: "Responsabilités"
     backend/matters: "Matières"
+    # backend/meeting_natures: "Backend/meeting natures"
+    # backend/meetings: "Backend/meetings"
     backend/myselves: "Mon compte"
     backend/observations: "Observations"
-    # backend/operation_natures: "Backend/operation natures"
     # backend/operation_tasks: "Backend/operation tasks"
     backend/operations: "Travaux"
     backend/outgoing_deliveries: "Livraisons sortantes"
@@ -669,18 +634,16 @@ fra:
     # backend/places: "Backend/places"
     # backend/plants: "Backend/plants"
     backend/preferences: "Préférences"
-    # backend/procedure_natures: "Backend/procedure natures"
     # backend/procedures: "Backend/procedures"
-    backend/product_abilities: "Compétences"
     backend/product_groups: "Lot de produits"
-    # backend/product_indicator_choices: "Backend/product indicator choices"
     # backend/product_indicator_data: "Backend/product indicator data"
-    # backend/product_indicators: "Backend/product indicators"
     # backend/product_links: "Backend/product links"
     backend/product_localizations: "Tracabilité"
     # backend/product_memberships: "Backend/product memberships"
     backend/product_moves: "Mouvements de stock"
+    # backend/product_nature_abilities: "Backend/product nature abilities"
     backend/product_nature_categories: "Catégories de type de produits"
+    # backend/product_nature_indicators: "Backend/product nature indicators"
     backend/product_natures: "Types de produits"
     backend/product_price_listings: "Listes de prix"
     backend/product_price_templates: "Types de prix"
@@ -711,9 +674,7 @@ fra:
     # backend/trackings: "Backend/trackings"
     backend/transfers: "Transferts"
     backend/transports: "Transports"
-    backend/units: "Unités de mesure"
     backend/users: "Utilisateurs"
-    backend/working_sets: "Unités de travail"
     # backend: "Backend"
     # base: "Base"
     # public: "Public"

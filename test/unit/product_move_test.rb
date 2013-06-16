@@ -32,7 +32,7 @@
 #  quantity     :decimal(19, 4)   not null
 #  started_at   :datetime         not null
 #  stopped_at   :datetime         not null
-#  unit_id      :integer          not null
+#  unit         :string(255)      not null
 #  updated_at   :datetime         not null
 #  updater_id   :integer
 #

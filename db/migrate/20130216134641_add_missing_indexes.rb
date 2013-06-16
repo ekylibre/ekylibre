@@ -14,7 +14,7 @@ class AddMissingIndexes < ActiveRecord::Migration
     add_index :deposits, :responsible_id
     add_index :deposits, :journal_entry_id
     add_index :documents, :template_id
-    add_index :entities, :nature_id
+    # add_index :entities, :nature_id
     add_index :entities, :client_account_id
     add_index :entities, :supplier_account_id
     add_index :entities, :responsible_id
@@ -31,7 +31,7 @@ class AddMissingIndexes < ActiveRecord::Migration
     add_index :incoming_delivery_items, :purchase_item_id
     add_index :incoming_delivery_items, :product_id
     add_index :incoming_delivery_items, :price_id
-    add_index :incoming_delivery_items, :unit_id
+    # add_index :incoming_delivery_items, :unit_id
     add_index :incoming_delivery_items, :tracking_id
     add_index :incoming_delivery_items, :move_id
     add_index :incoming_payment_modes, :depositables_account_id
@@ -50,7 +50,7 @@ class AddMissingIndexes < ActiveRecord::Migration
     add_index :inventory_items, :product_id
     add_index :inventory_items, :inventory_id
     add_index :inventory_items, :tracking_id
-    add_index :inventory_items, :unit_id
+    # add_index :inventory_items, :unit_id
     add_index :inventory_items, :move_id
     add_index :journal_entries, [:resource_id, :resource_type]
     add_index :journal_entries, :financial_year_id
@@ -64,7 +64,7 @@ class AddMissingIndexes < ActiveRecord::Migration
     add_index :outgoing_delivery_items, :sale_item_id
     add_index :outgoing_delivery_items, :product_id
     add_index :outgoing_delivery_items, :price_id
-    add_index :outgoing_delivery_items, :unit_id
+    # add_index :outgoing_delivery_items, :unit_id
     add_index :outgoing_delivery_items, :tracking_id
     add_index :outgoing_delivery_items, :move_id
     add_index :outgoing_payment_modes, :cash_id
@@ -75,21 +75,21 @@ class AddMissingIndexes < ActiveRecord::Migration
     add_index :outgoing_payments, :mode_id
     add_index :outgoing_payments, :cash_id
     add_index :preferences, [:record_value_id, :record_value_type]
-    add_index :product_moves, :unit_id
+    # add_index :product_moves, :unit_id
     add_index :product_price_templates, :tax_id
     add_index :product_price_templates, :supplier_id
     add_index :product_price_templates, :listing_id
-    add_index :product_natures, :unit_id
+    #add_index :product_natures, :unit_id
     add_index :production_chain_conveyors, :production_chain_id
     add_index :production_chain_conveyors, :product_nature_id
-    add_index :production_chain_conveyors, :unit_id
+#    add_index :production_chain_conveyors, :unit_id
     add_index :production_chain_conveyors, :source_id
     add_index :production_chain_conveyors, :target_id
     add_index :production_chain_work_center_uses, :work_center_id
     add_index :production_chain_work_centers, :production_chain_id
     add_index :purchase_items, :purchase_id
     add_index :purchase_items, :product_id
-    add_index :purchase_items, :unit_id
+ #   add_index :purchase_items, :unit_id
     add_index :purchase_items, :price_id
     add_index :purchase_items, :account_id
     add_index :purchase_items, :tracking_id
@@ -101,7 +101,7 @@ class AddMissingIndexes < ActiveRecord::Migration
     add_index :sale_items, :sale_id
     add_index :sale_items, :product_id
     add_index :sale_items, :price_id
-    add_index :sale_items, :unit_id
+    #add_index :sale_items, :unit_id
     add_index :sale_items, :account_id
     add_index :sale_items, :tax_id
     add_index :sale_items, :entity_id

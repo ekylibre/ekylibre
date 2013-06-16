@@ -185,6 +185,7 @@ Ekylibre::Application.routes.draw do
     resources :buildings do
       collection do
         get :list
+        get :list_products
         unroll_all
       end
     end
@@ -299,26 +300,19 @@ Ekylibre::Application.routes.draw do
         unroll_all
       end
     end
-    resources :product_price_listings do
-      collection do
-        unroll_all
-        get :list
-        get :list_prices
-      end
-    end
     resources :entity_links, :except => [:index]
-    resources :entity_link_natures do
-      collection do
-        unroll_all
-        get :list
-      end
-    end
-    resources :entity_natures do
-      collection do
-        unroll_all
-        get :list
-      end
-    end
+    # resources :entity_link_natures do
+    #   collection do
+    #     unroll_all
+    #     get :list
+    #   end
+    # end
+    # resources :entity_natures do
+    #   collection do
+    #     unroll_all
+    #     get :list
+    #   end
+    # end
     resources :equipments do
       collection do
         get :list
@@ -332,7 +326,7 @@ Ekylibre::Application.routes.draw do
         unroll_all
       end
     end
-    resources :events do
+    resources :meetings do
       collection do
         get :list
         get :autocomplete_for_location
@@ -340,7 +334,7 @@ Ekylibre::Application.routes.draw do
         unroll_all
       end
     end
-    resources :event_natures do
+    resources :meeting_natures do
       collection do
         get :list
         unroll_all
@@ -521,14 +515,14 @@ Ekylibre::Application.routes.draw do
       end
     end
 
-    resources :operation_natures do
-      collection do
-        get :list
-        unroll_all
-      end
-    end
+    # resources :operation_natures do
+    #   collection do
+    #     get :list
+    #     unroll_all
+    #   end
+    # end
 
-    resources :operation_works, :only => [:new, :create]
+    # resources :operation_works, :only => [:new, :create]
     resources :outgoing_deliveries do
       collection do
         get :list
@@ -568,18 +562,24 @@ Ekylibre::Application.routes.draw do
         unroll_all
       end
     end
+    resources :plants do
+      collection do
+        get :list
+        unroll_all
+      end
+    end
     resources :preferences do
       collection do
         get :list
         unroll_all
       end
     end
-    resources :procedure_natures do
-      collection do
-        get :list
-        unroll_all
-      end
-    end
+    # resources :procedure_natures do
+    #   collection do
+    #     get :list
+    #     unroll_all
+    #   end
+    # end
 
     resources :procedures do
       collection do
@@ -597,13 +597,6 @@ Ekylibre::Application.routes.draw do
       end
     end
 
-    resources :product_abilities do
-      collection do
-        get :list
-        unroll_all
-      end
-    end
-
     resources :product_groups do
       collection do
         get :list
@@ -613,26 +606,12 @@ Ekylibre::Application.routes.draw do
       end
     end
 
-    resources :product_indicators do
-      collection do
-        get :list
-        get :list_choices
-        get :list_indicator_values
-        unroll_all
-      end
-      member do
-        post :up
-        post :down
-        post :sort
-      end
-    end
-
-    resources :product_indicator_choices do
-      member do
-        post :up
-        post :down
-      end
-    end
+    # resources :product_indicator_choices do
+    #   member do
+    #     post :up
+    #     post :down
+    #   end
+    # end
 
     resources :product_indicator_data do
       collection do
@@ -655,11 +634,32 @@ Ekylibre::Application.routes.draw do
       end
     end
 
+    resources :product_nature_abilities do
+      collection do
+        get :list
+        unroll_all
+      end
+    end
+
     resources :product_nature_categories do
       collection do
         get :list
         get :list_product_natures
         unroll_all
+      end
+    end
+
+    resources :product_nature_indicators do
+      collection do
+        get :list
+        # get :list_choices
+        get :list_indicator_values
+        unroll_all
+      end
+      member do
+        post :up
+        post :down
+        post :sort
       end
     end
 
@@ -671,6 +671,14 @@ Ekylibre::Application.routes.draw do
         get :list_products
         get :list_product_moves
         unroll_all
+      end
+    end
+
+    resources :product_price_listings do
+      collection do
+        unroll_all
+        get :list
+        get :list_prices
       end
     end
 
@@ -868,13 +876,13 @@ Ekylibre::Application.routes.draw do
       end
     end
     # resources :transfers
-    resources :units do
-      collection do
-        get :list
-        post :load
-        unroll_all
-      end
-    end
+    # resources :units do
+    #   collection do
+    #     get :list
+    #     post :load
+    #     unroll_all
+    #   end
+    # end
     resources :users do
       collection do
         get :list
@@ -885,25 +893,12 @@ Ekylibre::Application.routes.draw do
         post :unlock
       end
     end
-    resources :plants do
-      collection do
-        get :list
-        unroll_all
-      end
-    end
-    resources :buildings do
-      collection do
-        get :list
-        get :list_products
-        unroll_all
-      end
-    end
-    resources :working_sets do
-      collection do
-        get :list
-        unroll_all
-      end
-    end
+    # resources :working_sets do
+    #   collection do
+    #     get :list
+    #     unroll_all
+    #   end
+    # end
 
     get :search, :controller => :dashboards, :as => :search
 

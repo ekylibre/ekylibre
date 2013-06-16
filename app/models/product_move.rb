@@ -32,7 +32,7 @@
 #  quantity     :decimal(19, 4)   not null
 #  started_at   :datetime         not null
 #  stopped_at   :datetime         not null
-#  unit_id      :integer          not null
+#  unit         :string(255)      not null
 #  updated_at   :datetime         not null
 #  updater_id   :integer
 #
@@ -41,10 +41,11 @@
 class ProductMove < Ekylibre::Record::Base
   belongs_to :origin, :polymorphic => true
   belongs_to :product
-  belongs_to :unit
+  # FIXME enumerize :unit, :in => ???
+  # belongs_to :unit
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :quantity, :allow_nil => true
-  validates_length_of :mode, :origin_type, :allow_nil => true, :maximum => 255
+  validates_length_of :mode, :origin_type, :unit, :allow_nil => true, :maximum => 255
   validates_inclusion_of :last_done, :in => [true, false]
   validates_presence_of :mode, :product, :quantity, :started_at, :stopped_at, :unit
   #]VALIDATORS]

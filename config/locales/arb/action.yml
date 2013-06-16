@@ -191,17 +191,17 @@ arb:
       edit: "تعديل الحدث" #?
       index: "الاحداث" #?
       new: "اضافة حدث" #?
-    backend/entity_link_natures:
-      edit: "تعديل نوع الرابط : %{name}"
-      index: "انواع الرابط"
-      new: "اضافة نوع رابط جديد"
+    backend/entity_link_natures:  #?
+      edit: "تعديل نوع الرابط : %{name}" #?
+      index: "انواع الرابط" #?
+      new: "اضافة نوع رابط جديد" #?
     backend/entity_links:
       edit: "تعديل الرابط"
       new: "اضافة رابط جديد"
-    backend/entity_natures:
-      edit: "تعديل نوع الملف : %{name}"
-      index: "انواع الملفات"
-      new: "اضافة نوع ملف جديد"
+    backend/entity_natures:  #?
+      edit: "تعديل نوع الملف : %{name}" #?
+      index: "انواع الملفات" #?
+      new: "اضافة نوع ملف جديد" #?
     backend/equipments:
       # edit: "Modifier l'équipement\_: %{name}"
       # index: "Équipements"
@@ -211,15 +211,14 @@ arb:
       edit: "تعديل نموذج المرفق : %{name}"
       index: "مرافق"
       new: "اضافة مرفق جديد"
-    backend/event_natures:
-      edit: "تعديل نوع الحدث: %{name}"
-      index: "انواع الاحداث"
-      new: "اضافة نوع الحدث"
-    backend/events:
-      # change_minutes: "Changer la durée de l’évènement"
-      edit: "تعديل الحدث"
-      index: "الاحداث"
-      new: "اضافة حدث"
+    backend/event_natures:  #?
+      edit: "تعديل نوع الحدث: %{name}" #?
+      index: "انواع الاحداث" #?
+      new: "اضافة نوع الحدث" #?
+    backend/events:  #?
+      edit: "تعديل الحدث" #?
+      index: "الاحداث" #?
+      new: "اضافة حدث" #?
     backend/finances:  #?
       unvalidated_deposits: "التأكد من اقتطاعات البنك" #?
     backend/financial_years:
@@ -327,6 +326,8 @@ arb:
       # new: "Nouvelle matière"
       # picture: "Visuel"
       # show: "Matière\_: %{name}"
+    backend/meeting_natures: #?
+    backend/meetings: #?
     backend/myselves:
       # change_password: "Changer de mot de passe"
       # show: "Mes informations"
@@ -383,15 +384,10 @@ arb:
       import: "CSV استيراد بيان التعرفة ضمن" #?
       index: "الاسعار" #?
       new: "اضافة سعر جديد" #?
-    backend/procedure_natures:
-      # index: "Types de procédures"
+    backend/procedure_natures: #?
     backend/procedures:
       # index: "Procédures"
-    backend/product_abilities:
-      # edit: "Modifier la compétence\_: %{name}"
-      # index: "Compétences / Capacités"
-      # new: "Nouvelle compétence"
-      # show: "Compétence %{name}"
+    backend/product_abilities: #?
     backend/product_categories:  #?
       edit: "تعديل فئة المنتج : %{name}" #?
       index: "فئات المنتج" #?
@@ -405,9 +401,7 @@ arb:
       # index: "Lots de produits"
       # new: "Créer un lot"
       # show: "Lot\_: %{name}"
-    backend/product_indicator_choices:
-      # edit: "Modifier une liste de choix pour un indicateur"
-      # new: "Nouvelle liste de choix pour un indicateur"
+    backend/product_indicator_choices: #?
     backend/product_indicator_data:
       # edit: "Modifier la valeur d'un indicateur"
       # index: "Indicateurs Produits"
@@ -415,12 +409,7 @@ arb:
       # show: "Valeurs"
     backend/product_indicator_nature_choices: #?
     backend/product_indicator_natures: #?
-    backend/product_indicators:
-      # edit: "Modifier l'indicateur\_: %{name}"
-      # index: "Indicateurs"
-      # new: "Nouvel indicateur"
-      # show: "Indicateur %{name}"
-      # sort: "Trier"
+    backend/product_indicators: #?
     backend/product_links: #?
     backend/product_localizations:
       # edit: "Modifier une localisation d'un produit"
@@ -436,6 +425,7 @@ arb:
       index: "المنتجات" #?
       new: "اضافة منتج جديد" #?
       show: "المنتجات : %{name}" #?
+    backend/product_nature_abilities: #?
     backend/product_nature_categories:
       edit: "تعديل فئة المنتج : %{name}"
       index: "فئات المنتج"
@@ -444,6 +434,7 @@ arb:
     backend/product_nature_components:  #?
       edit: "تعديل عنصر المنتج %{product} " #?
       new: "اضافة عنصر الى المنتج %{product} " #?
+    backend/product_nature_indicators: #?
     backend/product_nature_prices: #?
     backend/product_natures:
       edit: "تعديل المنتج : %{name}"
@@ -622,11 +613,10 @@ arb:
       index: "وسائل النقل"
       new: "اضافة وسيلة نقل جديدة"
       show: "نقلت من %{created_on}"
-    backend/units:
-      edit: "تعديل الوحدة : %{label}"
-      index: "وحدات القياس"
-      # load: "Charger les unités de mesure par défaut"
-      new: "اضافة وحدة قياس جديدة"
+    backend/units:  #?
+      edit: "تعديل الوحدة : %{label}" #?
+      index: "وحدات القياس" #?
+      new: "اضافة وحدة قياس جديدة" #?
     backend/users:
       edit: "تعديل المستخدم"
       index: "المستخدمين"
@@ -636,11 +626,7 @@ arb:
       statistics: "احصائياتي" #?
       # unlock: "Déverrouiller l’utilisateur"
     backend/vegetals: #?
-    backend/working_sets:
-      # edit: "Modifier l'unité fonctionnelle\_: %{name}"
-      # index: "Unité fonctionnelle / de travail"
-      # new: "Nouvelle unité fonctionnelle / de travail"
-      # show: "Unité fonctionnelle %{name}"
+    backend/working_sets: #?
     public:
       # index: "Accueil"
   controllers:
@@ -677,13 +663,13 @@ arb:
     backend/entity_categories: "انواع الملف" #?
     backend/entity_event_natures: "انواع الاحداث" #?
     backend/entity_events: "الاحداث" #?
-    backend/entity_link_natures: "انواع الرابط"
+    backend/entity_link_natures: "انواع الرابط" #?
     # backend/entity_links: "Liens entre personnes"
-    backend/entity_natures: "انواع الملفات"
+    backend/entity_natures: "انواع الملفات" #?
     # backend/equipments: "Équipements"
     backend/establishments: "مرافق"
-    backend/event_natures: "انواع الاحداث"
-    backend/events: "الاحداث"
+    backend/event_natures: "انواع الاحداث" #?
+    backend/events: "الاحداث" #?
     backend/financial_years: "ممارسة المحاسبة"
     backend/help: "المساعدة" #?
     # backend/incoming_deliveries: "Livraisons entrantes"
@@ -716,7 +702,6 @@ arb:
     backend/outgoing_payments: "دفعات"
     # backend/preferences: "Préférences"
     backend/prices: "الاسعار" #?
-    # backend/product_abilities: "Compétences"
     backend/product_categories: "فئات المنتج" #?
     # backend/product_groups: "Lot de produits"
     # backend/product_localizations: "Tracabilité"
@@ -756,9 +741,8 @@ arb:
     backend/tools: "مادة" #?
     # backend/transfers: "Transferts"
     backend/transports: "وسائل النقل"
-    backend/units: "وحدات القياس"
+    backend/units: "وحدات القياس" #?
     backend/users: "المستخدمين"
-    # backend/working_sets: "Unités de travail"
   errors:
     messages:
       # already_confirmed: "a déjà été validé(e)"

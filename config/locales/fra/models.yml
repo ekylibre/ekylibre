@@ -86,6 +86,12 @@ fra:
       matter:
         born_at: "Date de création"
         dead_at: "Date de consommation/destruction"
+      meeting:
+        duration: "Durée (en minutes)"
+        location: "Lieu"
+        responsible: "Intervenant"
+      meeting_nature:
+        duration: "Durée par défaut (en min.)"
       operation:
         consumption: "Consommation"
       outgoing_delivery:
@@ -321,12 +327,12 @@ fra:
       entity: "Personne"
       entity_address: "Adresse"
       entity_link: "Lien de personne"
-      entity_link_nature: "Nature de lien entre personnes"
-      entity_nature: "Type de personne"
+      entity_link_nature: "Nature de lien entre personnes" #?
+      entity_nature: "Type de personne" #?
       equipment: "Outil"
       establishment: "Établissement"
       event: "Évènement"
-      event_nature: "Type d’évènement"
+      event_nature: "Type d’évènement" #?
       financial_year: "Exercice"
       fungus: "Champignon"
       immatter: "Immatériel"
@@ -345,39 +351,44 @@ fra:
       land_parcel: "Parcelle"
       land_parcel_division: "Division de parcelle"
       land_parcel_group: "Ilôt"
+      # legal_entity: "Legal entity"
       listing: "Extraction"
       listing_node: "Nœud d’extraction"
       listing_node_item: "Élément de nœud d’extraction"
       log: "Évènements des produits"
       mandate: "Responsabilité"
       matter: "Matière"
+      meeting: "Évènement"
+      meeting_nature: "Type d’évènement"
       observation: "Observation"
       operation: "Opération"
-      operation_nature: "Type d'opération"
+      operation_nature: "Type d'opération" #?
       operation_task: "Tâche"
       outgoing_delivery: "Livraison"
       outgoing_delivery_item: "Ligne de livraison"
       outgoing_delivery_mode: "Mode de livraison"
       outgoing_payment: "Décaissement"
       outgoing_payment_mode: "Mode de décaissement"
+      # person: "Person"
       place: "Lieu"
       plant: "Plante"
       preference: "Préférence"
       primary_zone: "Zone primaire"
       procedure: "Procédure"
-      procedure_nature: "Type de procédure"
+      procedure_nature: "Type de procédure" #?
       product: "Produits"
-      product_ability: "Compétence"
+      product_ability: "Compétence" #?
       product_group: "Groupe de produit"
-      product_indicator: "Indicateur"
-      # product_indicator_choice: "Product indicator choice"
+      product_indicator: "Indicateur" #?
       # product_indicator_datum: "Product indicator datum"
       # product_link: "Product link"
       product_localization: "Passage d'un produit en un lieu"
       product_membership: "Passage d'un produit dans un groupe"
       product_move: "Mouvement de stock"
       product_nature: "Type de produit"
+      product_nature_ability: "Compétence"
       product_nature_category: "Catégorie de produit"
+      product_nature_indicator: "Indicateur"
       product_price: "Prix"
       product_price_listing: "Liste de prix"
       product_price_template: "Type de prix"
@@ -409,9 +420,8 @@ fra:
       tracking: "Lot traçable"
       transfer: "Transfert"
       transport: "Transport"
-      unit: "Unité"
+      unit: "Unité" #?
       user: "Utilisateur"
-      # working_set: "Working set"
       zone: "Zone"
       # zone_property_title: "Zone property title"
   attributes:
@@ -434,7 +444,7 @@ fra:
     affairs: "Affaires"
     # affected_on: "Affected on"
     age: "Âge" #?
-    alive: "En vie"
+    alive: "En vie" #?
     allocation_account: "Compte de dotation"
     amount: "Montant"
     # amounts_scale: "Amounts scale"
@@ -458,6 +468,7 @@ fra:
     # assignment_amount: "Assignment amount"
     # assignment_pretax_amount: "Assignment pretax amount"
     assimilated_taxes_amount: "Montant des taxes assimilées"
+    # atomic: "Atomic"
     attorney: "Mandataire"
     attorney_account: "Compte mandataire associé"
     attorney_accounts: "Comptes mandataires" #?
@@ -487,7 +498,7 @@ fra:
     bank_statement: "Relevé de compte bancaire"
     bank_statements: "Relevés de compte bancaire"
     banks_accounts: "Comptes comptables de banque" #?
-    base: "Base"
+    base: "Base" #?
     bban: "RIB" #?
     boolean_value: "Valeur booléenne"
     born_at: "Born at"
@@ -568,6 +579,7 @@ fra:
     content: "Contenu"
     content_maximal_quantity: "Content maximal quantity"
     content_nature: "Content nature"
+    content_unit: "Content unit"
     conveyors: "Convoyeurs"
     coordinate: "Coordonnée"
     country: "Pays"
@@ -610,7 +622,7 @@ fra:
     deferred_payment: "Crédit à reporter"
     delays: "Délais" #?
     deleted_at: "Supprimé le"
-    deliverable: "Livrable"
+    deliverable: "Livrable" #?
     delivered: "Livré"
     delivered_on: "Reçu le" #?
     deliveries: "Livraisons"
@@ -641,6 +653,7 @@ fra:
     depreciation_percentage: "Pourcentage d’amortissement"
     depreciations: "Amortissements"
     depth: "Depth"
+    # derivative: "Derivative"
     description: "Description"
     # destination: "Destination"
     detail_payments: "Détailler les paiements"
@@ -685,7 +698,7 @@ fra:
     entity_categories: "Catégories de personne" #?
     entity_link_nature: "Type de lien permettant d’étendre l’abonnement"
     entity_link_natures: "Natures de lien entre personnes" #?
-    entity_links: "Liens de personne"
+    entity_links: "Liens de personne" #?
     entity_name: "Nom de l’abonné"
     entity_natures: "Types de personne" #?
     entries: "Écritures"
@@ -737,10 +750,10 @@ fra:
     formats: "Formats"
     frequency: "Frequency" #?
     full_name: "Nom complet"
-    full_name_format: "Format du nom complet"
+    full_name_format: "Format du nom complet" #?
     function_title: "Civilités"
     future_events: "Evènements futurs"
-    gender: "Gender"
+    gender: "Gender" #?
     generated: "Généré" #?
     global_balance: "Solde global"
     global_count: "Population globale"
@@ -760,7 +773,7 @@ fra:
     immobilizations_products: "Produits d’immobilizations"
     importance: "Importance"
     in_cash: "En espèce"
-    in_name: "Abréviation incluse dans le nom de la personne"
+    in_name: "Abréviation incluse dans le nom de la personne" #?
     included: "Incluse"
     incoming_deliveries: "Livraisons entrantes"
     incoming_delivery_items: "Lignes de livraisons entrantes"
@@ -770,9 +783,9 @@ fra:
     incoming_payments: "Encaissements"
     indicator: "Indicator"
     indicator_data: "Indicator data"
-    indicators: "Indicators" #?
+    indicators: "Indicators"
     indirect_links: "Liens indirects"
-    indivisible: "Indivisible"
+    indivisible: "Indivisible" #?
     initial_number: "Numéro initial"
     input_conveyors: "Convoyeur entrant"
     integer_value: "Valeur entière"
@@ -826,7 +839,7 @@ fra:
     local_count: "Population"
     local_credit: "Crédit"
     local_debit: "Débit"
-    location: "Location"
+    location: "Location" #?
     lock_version: "Version"
     locked: "Verrouillé"
     locked_at: "Verrouillé à"
@@ -863,6 +876,7 @@ fra:
     measure_unit: "Unité de mesure"
     measure_value: "Valeur de la mesure"
     measured_at: "Mesuré à"
+    # meeting_nature: "Meeting nature"
     member: "Membre"
     members: "Membres"
     memberships: "Membres du groupe"
@@ -879,8 +893,8 @@ fra:
     moved_on: "Fait le"
     moves: "Mouvements" #?
     name: "Nom"
-    name_1_to_2: "Nom «\_Personne 1 vers Personne 2\_»"
-    name_2_to_1: "Nom «\_Personne 2 vers Personne 1\_»"
+    name_1_to_2: "Nom «\_Personne 1 vers Personne 2\_»" #?
+    name_2_to_1: "Nom «\_Personne 2 vers Personne 1\_»" #?
     name_aee: "Nom normalisé EDI*" #?
     nature: "Type"
     nature_code: "Code" #?
@@ -958,6 +972,7 @@ fra:
     payments_to_deposit_accounts: "Comptes des encaissements à encaisser" #?
     # percentage: "Percentage"
     period: "Périodicité"
+    # person: "Person"
     # phase_delay: "Phase delay"
     phones: "Téléphones"
     physical: "Personne physique" #?
@@ -966,6 +981,7 @@ fra:
     picture_file_name: "Nom du fichier photo"
     picture_file_size: "Taille du fichier photo"
     picture_updated_at: "Fichier photo mis à jour le"
+    place: "Place"
     planned_at: "Prévu à" #?
     planned_depreciations: "Amortissements prévus"
     planned_on: "Prévu le"
@@ -986,14 +1002,12 @@ fra:
     printed_on: "Datée du"
     process: "Process"
     producer: "Producteur"
-    # producible: "Producible"
     product: "Produit"
     # product_account: "Product account"
     product_categories: "Catégories de produit" #?
     product_components: "Composants de produit" #?
-    # product_events: "Product events"
+    product_events: "Product events"
     product_group: "Groupe de produits" #?
-    # product_indicators: "Product indicators"
     product_localizations: "Product localizations"
     product_moves: "Product moves"
     product_nature: "Product nature"
@@ -1006,7 +1020,6 @@ fra:
     products_accounts: "Comptes produits" #?
     profession: "Profession"
     professions: "Professions" #?
-    # propagate_addresses: "Propagate addresses"
     propagate_contacts: "Propager les contacts" #?
     proposer: "Parrain"
     prospect: "Prospect"
@@ -1034,7 +1047,7 @@ fra:
     races: "Races" #?
     range: "Intervalle" #?
     real_quantity: "Real quantity"
-    reason: "Motif"
+    reason: "Motif" #?
     receipt: "Reçu électronique"
     received: "Reçue"
     receiver_amount: "Montant reçu"
@@ -1057,7 +1070,7 @@ fra:
     remaining_duration: "Durée d’utilisation prévue (heures)" #?
     # remember_created_at: "Remember created at"
     remember_me: "Se souvenir de moi"
-    # reminder_submissive: "Reminder submissive"
+    reminder_submissive: "Reminder submissive"
     repartitions: "Repartitions"
     # repeatable: "Repeatable"
     reproductor: "Reproducteur"
@@ -1081,7 +1094,7 @@ fra:
     sale_items: "Lignes de vente"
     sale_lines: "Sale lines" #?
     sale_natures: "Types de vente" #?
-    # sale_price_listing: "Sale price listing"
+    sale_price_listing: "Sale price listing"
     # saleable: "Saleable"
     sales: "Ventes"
     sales_account: "Compte comptable de produits" #?
@@ -1132,7 +1145,6 @@ fra:
     stopped_at: "Arrêté à"
     stopped_on: "Arrêté le"
     storable: "Gérer les stocks"
-    # storage: "Storage"
     story: "Historique"
     # string: "String"
     string_value: "Valeur textuelle"
@@ -1156,7 +1168,7 @@ fra:
     surface_units: "Unités de surface" #?
     suspended: "Suspendu"
     symbol: "Symbole" #?
-    symmetric: "Symétrique"
+    symmetric: "Symétrique" #?
     target: "Parcelle"
     target_quantity: "Quantité cible"
     target_type: "Type de cible" #?
@@ -1174,13 +1186,10 @@ fra:
     tools: "Outils" #?
     tools_list: "Matériel" #?
     total_weight: "Masse totale" #?
-    # towable: "Towable"
-    traceable: "Traçable"
+    traceable: "Traçable" #?
     tracking: "Lot"
     tracking_serial: "Numéro de lot"
     trackings: "Lots traçables"
-    # tractive: "Tractive"
-    # transferable: "Transferable"
     transfers: "Transferts"
     transport: "Transport"
     transport_on: "Transport le"
@@ -1328,6 +1337,13 @@ fra:
         purchases: "Achats"
         sales: "Ventes"
         various: "Opérations diverses"
+    meeting_nature:
+      usage:
+        mailing: "Mailing"
+        manual: "Manuelle"
+        purchase: "Création d’un achat"
+        sale: "Création d’un devis"
+        sales_invoice: "Création d’une facture"
     observation:
       importance:
         important: "Importante"
@@ -1374,6 +1390,17 @@ fra:
         exterior: "Sortie"
         interior: "Entrée"
         transfer: "Transfert"
+    product_nature_indicator:
+      nature:
+        boolean: "Case à cocher"
+        choice: "Liste de choix"
+        decimal: "Chiffre (décimal)"
+        measure: "Mesure"
+        string: "Texte"
+      usage:
+        environment: "Environnement"
+        life: "Biologique"
+        production: "Production"
     product_transfer:
       nature:
         gain: "Gain"
@@ -1455,17 +1482,17 @@ fra:
       no_right_defined_for_this_part_of_the_application: "Aucun droit défini pour cette partie de l’application\_: %{controller}/%{action}"
       no_right_defined_for_this_part_of_the_application_and_this_user: "Vous n’avez pas accès à cette partie de l’application"
       supplier: "Fournisseur"
-    entity_nature:
-      default:
-        man:
-          name: "Monsieur"
-          title: "M"
-        organization:
-          name: "Société"
-        undefined:
-          name: "Indéfini"
-        woman:
-          name: "Madame"
+    entity_nature: #?
+      default: #?
+        man: #?
+          name: "Monsieur" #?
+          title: "M" #?
+        organization: #?
+          name: "Société" #?
+        undefined: #?
+          name: "Indéfini" #?
+        woman: #?
+          name: "Madame" #?
           title: "Mme"
     financial_year:
       bookkeep: "[%{resource} %{number}] Amortissement de %{name} (%{position}/%{total})"
@@ -1706,19 +1733,19 @@ fra:
       quarterly: "Trimestrielle"
       simplified: "Réel simplifié"
       yearly: "Annuelle"
-    unit:
-      default:
-        a: "Are"
-        ca: "Centiare (m²)"
-        g: "Gramme"
-        ha: "Hectare"
-        hl: "Hectolitre"
-        kg: "Kilogramme"
-        km: "Kilomètre"
-        l: "Litre"
-        m: "Mètre"
-        m2: "Mètre carré"
-        m3: "Mètre cube"
-        ml: "Millilitre"
-        t: "Tonne"
+    unit: #?
+      default: #?
+        a: "Are" #?
+        ca: "Centiare (m²)" #?
+        g: "Gramme" #?
+        ha: "Hectare" #?
+        hl: "Hectolitre" #?
+        kg: "Kilogramme" #?
+        km: "Kilomètre" #?
+        l: "Litre" #?
+        m: "Mètre" #?
+        m2: "Mètre carré" #?
+        m3: "Mètre cube" #?
+        ml: "Millilitre" #?
+        t: "Tonne" #?
         u: "Unité"

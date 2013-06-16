@@ -29,7 +29,6 @@
 #  born_on                   :date
 #  client                    :boolean          not null
 #  client_account_id         :integer
-#  code                      :string(64)
 #  country                   :string(2)
 #  created_at                :datetime         not null
 #  creator_id                :integer
@@ -47,7 +46,8 @@
 #  last_name                 :string(255)      not null
 #  lock_version              :integer          default(0), not null
 #  locked                    :boolean          not null
-#  nature_id                 :integer          not null
+#  nature                    :string(255)      not null
+#  number                    :string(64)
 #  of_company                :boolean          not null
 #  origin                    :string(255)
 #  payment_delay             :string(255)
@@ -67,6 +67,7 @@
 #  supplier                  :boolean          not null
 #  supplier_account_id       :integer
 #  transporter               :boolean          not null
+#  type                      :string(255)      not null
 #  updated_at                :datetime         not null
 #  updater_id                :integer
 #  vat_number                :string(15)
@@ -78,12 +79,12 @@ require "digest/sha2"
 
 class Entity < Ekylibre::Record::Base
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :active, :activity_code, :attorney, :attorney_account_id, :authorized_payments_count, :born_on, :sale_price_listing_id, :client, :client_account_id, :code, :country, :currency, :dead_on, :deliveries_conditions, :first_met_on, :first_name, :full_name, :language, :last_name, :nature_id, :origin, :payment_delay, :payment_mode_id, :picture, :proposer_id, :prospect, :reduction_percentage, :reminder_submissive, :responsible_id, :siren, :supplier, :supplier_account_id, :transporter, :vat_number, :vat_submissive
+  attr_accessible :active, :activity_code, :attorney, :attorney_account_id, :authorized_payments_count, :born_on, :sale_price_listing_id, :client, :client_account_id, :number, :country, :currency, :dead_on, :deliveries_conditions, :first_met_on, :first_name, :full_name, :language, :last_name, :nature, :origin, :payment_delay, :payment_mode_id, :picture, :proposer_id, :prospect, :reduction_percentage, :reminder_submissive, :responsible_id, :siren, :supplier, :supplier_account_id, :transporter, :vat_number, :vat_submissive
   attr_accessor :password_confirmation, :old_password
   attr_protected :rights
   belongs_to :attorney_account, :class_name => "Account"
   belongs_to :client_account, :class_name => "Account"
-  belongs_to :nature, :class_name => "EntityNature"
+  # belongs_to :nature, :class_name => "EntityNature"
   belongs_to :payment_mode, :class_name => "IncomingPaymentMode"
   belongs_to :proposer, :class_name => "Entity"
   belongs_to :responsible, :class_name => "User"
@@ -99,7 +100,7 @@ class Entity < Ekylibre::Record::Base
   has_many :websites,  :conditions => {:canal => "website", :deleted_at => nil}, :class_name => "EntityAddress", :inverse_of => :entity
   has_many :auto_updateable_addresses, :conditions => {:deleted_at => nil, :mail_auto_update => true}, :class_name => "EntityAddress"
   has_many :direct_links, :class_name => "EntityLink", :foreign_key => :entity_1_id
-  has_many :events, :class_name => "Event"
+  has_many :events, :class_name => "Meeting"
   has_many :product_events, :class_name => "Log", :foreign_key => :watcher_id
   has_many :godchildren, :class_name => "Entity", :foreign_key => "proposer_id"
   has_many :incoming_payments, :foreign_key => :payer_id, :inverse_of => :payer
@@ -148,15 +149,15 @@ class Entity < Ekylibre::Record::Base
   validates_length_of :vat_number, :allow_nil => true, :maximum => 15
   validates_length_of :activity_code, :allow_nil => true, :maximum => 32
   validates_length_of :deliveries_conditions, :allow_nil => true, :maximum => 60
-  validates_length_of :code, :allow_nil => true, :maximum => 64
-  validates_length_of :currency, :first_name, :full_name, :last_name, :origin, :payment_delay, :picture_content_type, :picture_file_name, :webpass, :allow_nil => true, :maximum => 255
+  validates_length_of :number, :allow_nil => true, :maximum => 64
+  validates_length_of :currency, :first_name, :full_name, :last_name, :nature, :origin, :payment_delay, :picture_content_type, :picture_file_name, :webpass, :allow_nil => true, :maximum => 255
   validates_inclusion_of :active, :attorney, :client, :locked, :of_company, :prospect, :reminder_submissive, :supplier, :transporter, :vat_submissive, :in => [true, false]
   validates_presence_of :currency, :full_name, :language, :last_name, :nature
   #]VALIDATORS]
   validates_presence_of :sale_price_listing
   validates_delay_format_of :payment_delay
 
-  acts_as_numbered :code
+  acts_as_numbered :number
   accepts_nested_attributes_for :mails,    :reject_if => :all_blank, :allow_destroy => true
   accepts_nested_attributes_for :emails,   :reject_if => :all_blank, :allow_destroy => true
   accepts_nested_attributes_for :phones,   :reject_if => :all_blank, :allow_destroy => true
@@ -219,7 +220,7 @@ class Entity < Ekylibre::Record::Base
   end
 
   def label
-    self.code.to_s + '. ' + self.full_name.to_s
+    self.number.to_s + '. ' + self.full_name.to_s
   end
 
   #
@@ -255,7 +256,7 @@ class Entity < Ekylibre::Record::Base
     if valid_account.nil?
       prefix = Account.find_in_chart("#{nature}_thirds").number
       if Preference[:use_entity_codes_for_account_numbers]
-        number = prefix.to_s+self.code.to_s
+        number = prefix.to_s+self.number.to_s
         valid_account = Account.find_by_number(number)
         valid_account = Account.create(:number => number, :name => self.full_name, :reconcilable => true) unless valid_account
       else
@@ -284,7 +285,7 @@ class Entity < Ekylibre::Record::Base
 
   def add_event(usage, user_id)
     if user = Entity.find_by_id(user_id)
-      EventNature.find_all_by_usage(usage.to_s).each do |nature|
+      MeetingNature.find_all_by_usage(usage.to_s).each do |nature|
         nature.events.create!(:started_at => Time.now, :duration => event_nature.duration.to_s, :entity_id => self.id, :responsible_id => user.id)
       end
     end
@@ -304,7 +305,7 @@ class Entity < Ekylibre::Record::Base
 
 
   def description
-    desc = self.code+". "+self.full_name
+    desc = self.number+". "+self.full_name
     c = self.default_mail_address
     desc += " ("+c.mail_line_6.to_s+")" unless c.nil?
     desc
@@ -344,7 +345,7 @@ class Entity < Ekylibre::Record::Base
     # columns << [tc("import.generate_choice_custom_field"), "special-generate_choice_custom_field"]
     cols = Entity.content_columns.delete_if{|c| [:active, :full_name, :soundex, :lock_version, :updated_at, :created_at].include?(c.name.to_sym) or c.type == :boolean}.collect{|c| c.name}
     columns += cols.collect{|c| [Entity.model_name.human+"/"+Entity.human_attribute_name(c), "entity-"+c]}.sort
-    cols = EntityAddress.content_columns.collect{|c| c.name}.delete_if{|c| [:code, :started_at, :stopped_at, :deleted, :address, :by_default, :closed_on, :lock_version, :active,  :updated_at, :created_at].include?(c.to_sym)}+["item_6_city", "item_6_code"]
+    cols = EntityAddress.content_columns.collect{|c| c.name}.delete_if{|c| [:number, :started_at, :stopped_at, :deleted, :address, :by_default, :closed_on, :lock_version, :active,  :updated_at, :created_at].include?(c.to_sym)}+["item_6_city", "item_6_code"]
     columns += cols.collect{|c| [EntityAddress.model_name.human+"/"+EntityAddress.human_attribute_name(c), "address-"+c]}.sort
     columns += ["name", "abbreviation"].collect{|c| [EntityNature.model_name.human+"/"+EntityNature.human_attribute_name(c), "entity_nature-"+c]}.sort
     # columns += ["name"].collect{|c| [ProductPriceListing.model_name.human+"/"+ProductPriceListing.human_attribute_name(c), "product_price_listing-"+c]}.sort
@@ -455,7 +456,7 @@ class Entity < Ekylibre::Record::Base
       entities.each do |entity|
         address = EntityAddress.where(:entity_id => entity.id, :by_default => true, :deleted_at => nil).first
         item = []
-        item << ["'"+entity.code.to_s, entity.nature.name, entity.sale_price_listing.name, entity.name, entity.first_name]
+        item << ["'"+entity.number.to_s, entity.nature.name, entity.sale_price_listing.name, entity.name, entity.first_name]
         if !address.nil?
           item << [address.item_2, address.item_3, address.item_4, address.item_5, address.item_6_code, address.item_6_city, address.phone, address.mobile, address.fax ,address.email, address.website]
         else

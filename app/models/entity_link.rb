@@ -27,6 +27,7 @@
 #  entity_2_id  :integer          not null
 #  id           :integer          not null, primary key
 #  lock_version :integer          default(0), not null
+#  nature       :string(255)
 #  nature_id    :integer          not null
 #  started_at   :datetime
 #  stopped_at   :datetime
@@ -39,11 +40,14 @@ class EntityLink < Ekylibre::Record::Base
   attr_accessible :description, :entity_1_id, :entity_2_id, :nature_id, :started_at, :stopped_at
   belongs_to :entity_1, :class_name => "Entity"
   belongs_to :entity_2, :class_name => "Entity"
-  belongs_to :nature, :class_name => "EntityLinkNature"
+  # belongs_to :nature, :class_name => "EntityLinkNature"
+  enumerize :nature, :in => Nomenclatures["entity_link_natures"].list
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_presence_of :entity_1, :entity_2, :nature
+  validates_length_of :nature, :allow_nil => true, :maximum => 255
+  validates_presence_of :entity_1, :entity_2
   #]VALIDATORS]
+  validates_inclusion_of :nature, :in => self.nature.values
 
   default_scope -> { where(:stopped_at => nil) }
   scope :of_entity, lambda { |entity| where("stopped_at IS NULL AND ? IN (entity_1_id, entity_2_id)", entity.id) }

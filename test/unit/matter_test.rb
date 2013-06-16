@@ -23,12 +23,12 @@
 #  active                   :boolean          not null
 #  address_id               :integer
 #  area_measure             :decimal(19, 4)
-#  area_unit_id             :integer
+#  area_unit                :string(255)
 #  asset_id                 :integer
 #  born_at                  :datetime
 #  content_maximal_quantity :decimal(19, 4)   default(0.0), not null
 #  content_nature_id        :integer
-#  content_unit_id          :integer
+#  content_unit             :string(255)
 #  created_at               :datetime         not null
 #  creator_id               :integer
 #  current_place_id         :integer
@@ -58,7 +58,7 @@
 #  shape                    :spatial({:srid=>
 #  tracking_id              :integer
 #  type                     :string(255)      not null
-#  unit_id                  :integer          not null
+#  unit                     :string(255)      not null
 #  updated_at               :datetime         not null
 #  updater_id               :integer
 #  variety                  :string(127)      not null

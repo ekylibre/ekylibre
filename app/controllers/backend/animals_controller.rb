@@ -73,9 +73,9 @@ class Backend::AnimalsController < BackendController
 
   # Liste des indicateurs de l'animal considéré
   list(:indicator, :model => :product_indicator_data, :conditions => [" product_id = ? ",['session[:current_animal_id]']], :order => "created_at DESC") do |t|
-    t.column :name, :through =>:indicator, :url => true
+    t.column :indicator
     t.column :created_at
-    t.column :decimal_value
+    t.column :value
   end
 
 

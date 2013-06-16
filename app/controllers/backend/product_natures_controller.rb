@@ -50,7 +50,7 @@ class Backend::ProductNaturesController < BackendController
     t.column :saleable
     t.column :storable
     t.column :variety
-    t.column :label, :through => :unit
+    t.column :unit
     t.action :edit
     t.action :destroy
   end

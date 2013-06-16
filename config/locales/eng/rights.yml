@@ -33,12 +33,12 @@ eng:
     manage_districts: "Manage districts"
     manage_document_templates: "Manage document templates"
     manage_entities: "Manage people"
-    manage_entities_natures: "Manage people natures"
+    manage_entities_natures: "Manage people natures" #?
     manage_entity_categories: "Manage people categories" #?
     manage_entity_links: "Manage people links"
     manage_equipments: "Manage equipments"
     manage_estimates: "Create and update estimates"
-    manage_events: "Manage events"
+    manage_events: "Manage events" #?
     manage_financial_years: "Manage and close financial years"
     manage_incoming_delivery_modes: "Manage incoming delivery modes"
     manage_incoming_payment_modes: "Manage incoming payment modes"
@@ -65,7 +65,7 @@ eng:
     manage_subscriptions: "Manage subscriptions"
     manage_taxes: "Manage taxes"
     manage_transports: "Manage transports"
-    manage_units: "Manage units of measure"
+    manage_units: "Manage units of measure" #?
     manage_users: "Manage users"
     merge_entities: "Merge people"
     __minimum__: "Access to the minimum"

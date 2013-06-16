@@ -37,16 +37,16 @@ class AddActivities < ActiveRecord::Migration
     create_table :activity_watchings do |t|
       t.references :activity, :null => false
       t.references :product_nature, :null => false
-      t.references :work_unit # fr: unit d'œuvre
-      t.references :area_unit # fr: unité de surface
+      t.string :work_unit # fr: unit d'œuvre
+      t.string :area_unit # fr: unité de surface
       t.integer :position
       t.stamps
     end
     add_stamps_indexes :activity_watchings
     add_index :activity_watchings, :activity_id
     add_index :activity_watchings, :product_nature_id
-    add_index :activity_watchings, :work_unit_id
-    add_index :activity_watchings, :area_unit_id
+    add_index :activity_watchings, :work_unit
+    add_index :activity_watchings, :area_unit
 
     # ActivityRepartition
     create_table :activity_repartitions do |t|
@@ -67,8 +67,8 @@ class AddActivities < ActiveRecord::Migration
     add_index :activity_repartitions, :campaign_id
 
     # add a link between product_indicators and product_nature
-    add_column :product_indicators, :product_nature_id, :integer
-    add_index :product_indicators, :product_nature_id
+    # add_column :product_nature_indicators, :product_nature_id, :integer
+    # add_index  :product_nature_indicators, :product_nature_id
 
   end
 

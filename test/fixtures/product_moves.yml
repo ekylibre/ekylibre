@@ -32,7 +32,7 @@
 #  quantity     :decimal(19, 4)   not null
 #  started_at   :datetime         not null
 #  stopped_at   :datetime         not null
-#  unit_id      :integer          not null
+#  unit         :string(255)      not null
 #  updated_at   :datetime         not null
 #  updater_id   :integer
 #
@@ -49,7 +49,7 @@
 #   quantity: 0
 #   started_at: 2009-07-19 19:13:59 +02:00
 #   stopped_at: 2009-07-19 19:13:59 +02:00
-#   unit_id: 1
+#   unit: "Lorem ipsum"
 #   updated_at: 2009-07-19 19:13:59 +02:00
 #   updater_id: 1
 #
@@ -61,7 +61,7 @@ product_moves_001:
   stopped_at: 2009-07-19 19:13:59 +02:00
   product_id: 1
   quantity: 0
-  unit_id: 1
+  unit: "unity"
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
   mode: "real"
@@ -74,7 +74,7 @@ product_moves_002:
   stopped_at: 2009-07-19 19:13:59 +02:00
   product_id: 1
   quantity: 0
-  unit_id: 1
+  unit: "unity"
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
   mode: "virtual"
@@ -87,7 +87,7 @@ product_moves_003:
   stopped_at: 2009-07-19 19:13:59 +02:00
   product_id: 1
   quantity: -15
-  unit_id: 1
+  unit: "unity"
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
   mode: "real"

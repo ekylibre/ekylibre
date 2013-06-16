@@ -20,35 +20,37 @@
 #
 # == Table: product_indicator_data
 #
-#  boolean_value   :boolean          not null
-#  choice_value_id :integer
-#  created_at      :datetime         not null
-#  creator_id      :integer
-#  decimal_value   :decimal(19, 4)
-#  description     :text
-#  id              :integer          not null, primary key
-#  indicator_id    :integer          not null
-#  lock_version    :integer          default(0), not null
-#  measure_unit_id :integer
-#  measure_value   :decimal(19, 4)
-#  measured_at     :datetime         not null
-#  product_id      :integer          not null
-#  string_value    :text
-#  updated_at      :datetime         not null
-#  updater_id      :integer
+#  boolean_value :boolean          not null
+#  choice_value  :string(255)
+#  created_at    :datetime         not null
+#  creator_id    :integer
+#  decimal_value :decimal(19, 4)
+#  id            :integer          not null, primary key
+#  indicator     :string(255)      not null
+#  lock_version  :integer          default(0), not null
+#  measure_unit  :string(255)
+#  measure_value :decimal(19, 4)
+#  measured_at   :datetime
+#  product_id    :integer          not null
+#  string_value  :text
+#  updated_at    :datetime         not null
+#  updater_id    :integer
 #
 
 
 class ProductIndicatorDatum < Ekylibre::Record::Base
-  attr_accessible :value, :created_at, :product_id, :indicator_id, :measured_at, :description, :decimal_value, :measure_unit_id, :measure_value, :string_value, :boolean_value, :choice_value_id
+  attr_accessible :value, :created_at, :product_id, :indicator_id, :measured_at, :description, :decimal_value, :measure_unit_id, :measure_value, :string_value, :boolean_value, :choice_value
   belongs_to :product
-  belongs_to :indicator, :class_name => "ProductIndicator", :inverse_of => :data
-  belongs_to :measure_unit, :class_name => "Unit"
-  belongs_to :choice_value, :class_name => "ProductIndicatorChoice"
+  # TODO: enumerize :indicator, :in => Nomenclatures["indicators"].list
+  # belongs_to :indicator, :class_name => "ProductNatureIndicator", :inverse_of => :data
+  # belongs_to :measure_unit, :class_name => "Unit"
+  # TODO: enumerize :choice_value dynamicly
+  # belongs_to :choice_value, :class_name => "ProductIndicatorChoice"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :decimal_value, :measure_value, :allow_nil => true
+  validates_length_of :choice_value, :indicator, :measure_unit, :allow_nil => true, :maximum => 255
   validates_inclusion_of :boolean_value, :in => [true, false]
-  validates_presence_of :indicator, :measured_at, :product
+  validates_presence_of :indicator, :product
   #]VALIDATORS]
 
   validate do

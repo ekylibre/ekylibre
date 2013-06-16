@@ -27,6 +27,7 @@
 #  entity_2_id  :integer          not null
 #  id           :integer          not null, primary key
 #  lock_version :integer          default(0), not null
+#  nature       :string(255)
 #  nature_id    :integer          not null
 #  started_at   :datetime
 #  stopped_at   :datetime

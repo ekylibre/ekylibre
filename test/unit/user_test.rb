@@ -38,7 +38,6 @@
 #  employed                               :boolean          not null
 #  employment                             :string(255)
 #  encrypted_password                     :string(255)      default(""), not null
-#  entity_id                              :integer
 #  establishment_id                       :integer
 #  failed_attempts                        :integer          default(0)
 #  first_name                             :string(255)      not null
@@ -52,6 +51,7 @@
 #  locked_at                              :datetime
 #  maximal_grantable_reduction_percentage :decimal(19, 4)   default(5.0), not null
 #  office                                 :string(255)
+#  person_id                              :integer
 #  profession_id                          :integer
 #  remember_created_at                    :datetime
 #  reset_password_sent_at                 :datetime

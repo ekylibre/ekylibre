@@ -36,12 +36,12 @@ arb:
     manage_districts: "ادارة المقطعات"
     manage_document_templates: "ادارة نماذج الوثائق"
     manage_entities: "ادارة ملفات العملاء / الممولين"
-    manage_entities_natures: "ادارة انواع الملفات"
+    manage_entities_natures: "ادارة انواع الملفات" #?
     manage_entity_categories: "ادارة فئات الملفات" #?
     manage_entity_links: "ادارة الروابط بين الملفات"
     # manage_equipments: "Gérer le matériel"
     manage_estimates: "انشاء وتعديل التقديرات"
-    manage_events: "ادارة الاحداث"
+    manage_events: "ادارة الاحداث" #?
     manage_financial_years: "ادارة وبدأ السنة المالية"
     # manage_incoming_delivery_modes: "Gérer les modes de livraisons entrantes"
     # manage_incoming_payment_modes: "Gérer les modes d’encaissement"
@@ -72,7 +72,7 @@ arb:
     manage_taxes: "ادارة الضرائب"
     manage_tools: "ادارة ادوات المنتجات" #?
     manage_transports: "ادارة وسائل النقل"
-    manage_units: "ادارة وحدات القياس"
+    manage_units: "ادارة وحدات القياس" #?
     manage_users: "ادارة المستخدمين"
     merge_entities: "دمج ملفات العملاء / الممولين"
     __minimum__: "بلوغ الفاعلية كحد ادنى"

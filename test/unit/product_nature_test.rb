@@ -21,38 +21,31 @@
 # == Table: product_natures
 #
 #  active                 :boolean          not null
-#  alive                  :boolean          not null
 #  asset_account_id       :integer
+#  atomic                 :boolean          not null
 #  category_id            :integer          not null
 #  charge_account_id      :integer
 #  commercial_description :text
 #  commercial_name        :string(255)      not null
 #  created_at             :datetime         not null
 #  creator_id             :integer
-#  deliverable            :boolean          not null
 #  depreciable            :boolean          not null
+#  derivative             :string(127)      default("itself"), not null
 #  description            :text
 #  id                     :integer          not null, primary key
-#  indivisible            :boolean          not null
 #  lock_version           :integer          default(0), not null
 #  name                   :string(255)      not null
 #  number                 :string(31)       not null
-#  producible             :boolean          not null
 #  product_account_id     :integer
 #  purchasable            :boolean          not null
 #  reductible             :boolean          not null
 #  saleable               :boolean          not null
 #  stock_account_id       :integer
 #  storable               :boolean          not null
-#  storage                :boolean          not null
 #  subscribing            :boolean          not null
 #  subscription_duration  :string(255)
 #  subscription_nature_id :integer
-#  towable                :boolean          not null
-#  traceable              :boolean          not null
-#  tractive               :boolean          not null
-#  transferable           :boolean          not null
-#  unit_id                :integer          not null
+#  unit                   :string(255)      not null
 #  updated_at             :datetime         not null
 #  updater_id             :integer
 #  variety                :string(127)      not null

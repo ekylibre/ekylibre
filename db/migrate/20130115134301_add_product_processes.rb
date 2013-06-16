@@ -3,54 +3,53 @@ class AddProductProcesses< ActiveRecord::Migration
 
   def change
 
-    create_table :product_indicators do |t|
-      t.references :process
-      t.string     :name,   :null => false
-      t.string     :nature, :null => false  # decimal, measure, string, boolean ou choice
-      t.string     :usage                   # notion métiers avec enumerize
-      t.references :unit
-      t.integer    :minimal_length
-      t.integer    :maximal_length
-      t.decimal    :minimal_value,   :precision => 19, :scale => 4
-      t.decimal    :maximal_value,   :precision => 19, :scale => 4
-      t.boolean    :active, :null => false, :default => false
-      t.text       :comment
+    create_table :product_nature_indicators do |t|
+      t.references :product_nature, :null => false
+      # t.references :process
+      t.string     :nature,   :null => false
+      # t.string     :nature, :null => false  # decimal, measure, string, boolean ou choice
+      # t.string     :usage                   # notion métiers avec enumerize
+      # t.string :unit
+      # t.integer    :minimal_length
+      # t.integer    :maximal_length
+      # t.decimal    :minimal_value,   :precision => 19, :scale => 4
+      # t.decimal    :maximal_value,   :precision => 19, :scale => 4
+      # t.boolean    :active, :null => false, :default => false
+      # t.text       :comment
       t.stamps
     end
-    add_stamps_indexes :product_indicators
-    add_index :product_indicators, :process_id
-    add_index :product_indicators, :unit_id
+    add_stamps_indexes :product_nature_indicators
+    add_index :product_nature_indicators, :product_nature_id
+    add_index :product_nature_indicators, :nature
 
-    create_table :product_indicator_choices do |t|
-      t.references :indicator, :null => false
-      t.string     :name, :null => false
-      t.string     :value # valeur de l'indicateur si besoin (coefficient)
-      t.integer    :position
-      t.text       :comment
-      t.stamps
-    end
-    add_stamps_indexes :product_indicator_choices
-    add_index :product_indicator_choices, :indicator_id
+    # create_table :product_indicator_choices do |t|
+    #   t.references :indicator, :null => false
+    #   t.string     :name, :null => false
+    #   t.string     :value # valeur de l'indicateur si besoin (coefficient)
+    #   t.integer    :position
+    #   t.text       :comment
+    #   t.stamps
+    # end
+    # add_stamps_indexes :product_indicator_choices
+    # add_index :product_indicator_choices, :indicator_id
 
     create_table :product_indicator_data do |t|
-      t.references :product, :null => false
-      t.references :indicator,  :null => false
-      t.datetime   :measured_at, :null => false
-      t.text       :comment
+      t.references :product,   :null => false
+      t.string     :indicator, :null => false
+      t.datetime   :measured_at
+      # t.text       :comment
       t.decimal    :decimal_value,   :precision => 19, :scale => 4
       t.decimal    :measure_value,   :precision => 19, :scale => 4
-      t.references :measure_unit # Nécessaire pour l'historique, permet de recouper les donner en cas de crash
+      t.string     :measure_unit      # Needed for historic
       t.text       :string_value
       t.boolean    :boolean_value, :null => false, :default => false
-      t.integer    :choice_value_id
+      t.string     :choice_value
       t.stamps
     end
     add_stamps_indexes :product_indicator_data
     add_index :product_indicator_data, :product_id
-    add_index :product_indicator_data, :indicator_id
-    add_index :product_indicator_data, :measure_unit_id
-    add_index :product_indicator_data, :choice_value_id
-
+    add_index :product_indicator_data, :indicator
+    add_index :product_indicator_data, :measure_unit
 
     create_table :product_process_phases do |t|
       t.references :process, :null => false

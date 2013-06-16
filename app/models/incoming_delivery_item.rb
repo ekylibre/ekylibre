@@ -49,7 +49,7 @@ class IncomingDeliveryItem < Ekylibre::Record::Base
   belongs_to :product
   belongs_to :purchase_item, :class_name => "PurchaseItem"
   belongs_to :move, :class_name => "ProductMove"
-  belongs_to :unit
+  enumerize :unit, :in => Nomenclatures["units"].list
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :amount, :pretax_amount, :quantity, :weight, :allow_nil => true
   validates_presence_of :amount, :delivery, :pretax_amount, :price, :product, :purchase_item, :quantity, :unit

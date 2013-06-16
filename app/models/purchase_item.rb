@@ -50,7 +50,7 @@ class PurchaseItem < Ekylibre::Record::Base
   belongs_to :purchase
   belongs_to :price, :class_name => "ProductPrice"
   belongs_to :product
-  belongs_to :unit
+  enumerize :unit, :in => Nomenclatures["units"].list
   has_many :delivery_items, :class_name => "IncomingDeliveryItem", :foreign_key => :purchase_item_id
 
   accepts_nested_attributes_for :price

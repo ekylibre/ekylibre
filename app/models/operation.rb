@@ -18,32 +18,37 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: operations
+# == Table: events
 #
-#  created_at                      :datetime         not null
-#  creator_id                      :integer
-#  id                              :integer          not null, primary key
-#  lock_version                    :integer          default(0), not null
-#  nature_id                       :integer
-#  procedure_id                    :integer
-#  production_chain_work_center_id :integer
-#  started_at                      :datetime         not null
-#  stopped_at                      :datetime
-#  updated_at                      :datetime         not null
-#  updater_id                      :integer
+#  created_at        :datetime         not null
+#  creator_id        :integer
+#  description       :text
+#  duration          :integer
+#  id                :integer          not null, primary key
+#  lock_version      :integer          default(0), not null
+#  meeting_nature_id :integer
+#  name              :text
+#  nomen             :string(255)
+#  parent_id         :integer
+#  place             :string(255)
+#  procedure_id      :integer
+#  started_at        :datetime         not null
+#  stopped_at        :datetime
+#  type              :string(255)      not null
+#  updated_at        :datetime         not null
+#  updater_id        :integer
 #
 
 
-class Operation < Ekylibre::Record::Base
+class Operation < Event
   attr_accessible :nature_id, :started_at, :stopped_at
   # enumerize :nature, :in => [:move_to, :consume, :produce, :separate, :merge, :attach, :detach], :predicates => true
-  belongs_to :nature, :class_name => "OperationNature"
+  # belongs_to :nature, :class_name => "OperationNature"
   # belongs_to :target, :class_name => "Product"
   # belongs_to :operand, :class_name => "Product"
   # has_many :works, :class_name => "OperationWork", :inverse_of => :operation
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_presence_of :started_at
   #]VALIDATORS]
 
   # accepts_nested_attributes_for :works, :reject_if => :all_blank, :allow_destroy => true

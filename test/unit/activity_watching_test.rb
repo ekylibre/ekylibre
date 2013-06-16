@@ -21,7 +21,7 @@
 # == Table: activity_watchings
 #
 #  activity_id       :integer          not null
-#  area_unit_id      :integer
+#  area_unit         :string(255)
 #  created_at        :datetime         not null
 #  creator_id        :integer
 #  id                :integer          not null, primary key
@@ -30,7 +30,7 @@
 #  product_nature_id :integer          not null
 #  updated_at        :datetime         not null
 #  updater_id        :integer
-#  work_unit_id      :integer
+#  work_unit         :string(255)
 #
 require 'test_helper'
 

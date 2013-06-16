@@ -105,15 +105,15 @@ class AddDeviseToUsers < ActiveRecord::Migration
     add_index :users, :unlock_token,         :unique => true
     add_index :users, :authentication_token, :unique => true
 
-    add_column :users, :entity_id, :integer
+    add_column :users, :person_id, :integer
     add_column :entities, :old_user_id, :integer
-    en_id = select_value("SELECT id FROM  #{quoted_table_name(:entity_natures)} ORDER BY gender DESC") || '0'
+    # en_id = select_value("SELECT id FROM #{quoted_table_name(:entity_natures)} ORDER BY gender DESC") || '0'
     ca = [:first_name, :last_name, :created_at, :updated_at, :creator_id, :updater_id, :lock_version]
-    da = {:nature_id => en_id, :old_user_id => :id}
+    da = {:nature => "'sir'", :old_user_id => :id}
     execute("INSERT INTO #{quoted_table_name(:entities)} (" + ca.join(", ") + ", " + da.keys.join(", ") + ") SELECT " + ca.join(", ") + ", " + da.values.join(", ") + " FROM #{quoted_table_name(:users)}")
-    execute("UPDATE #{quoted_table_name(:users)} SET entity_id = e.id FROM #{quoted_table_name(:entities)} AS e WHERE e.old_user_id = #{quoted_table_name(:users)}.id")
-    # change_column_null :users, :entity_id, false
-    add_index :users, :entity_id, :unique => true
+    execute("UPDATE #{quoted_table_name(:users)} SET person_id = e.id FROM #{quoted_table_name(:entities)} AS e WHERE e.old_user_id = #{quoted_table_name(:users)}.id")
+    # change_column_null :users, :person_id, false
+    add_index :users, :person_id, :unique => true
     remove_column :entities, :old_user_id
   end
 

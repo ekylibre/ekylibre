@@ -20,22 +20,21 @@
 #
 # == Table: product_indicator_data
 #
-#  boolean_value   :boolean          not null
-#  choice_value_id :integer
-#  created_at      :datetime         not null
-#  creator_id      :integer
-#  decimal_value   :decimal(19, 4)
-#  description     :text
-#  id              :integer          not null, primary key
-#  indicator_id    :integer          not null
-#  lock_version    :integer          default(0), not null
-#  measure_unit_id :integer
-#  measure_value   :decimal(19, 4)
-#  measured_at     :datetime         not null
-#  product_id      :integer          not null
-#  string_value    :text
-#  updated_at      :datetime         not null
-#  updater_id      :integer
+#  boolean_value :boolean          not null
+#  choice_value  :string(255)
+#  created_at    :datetime         not null
+#  creator_id    :integer
+#  decimal_value :decimal(19, 4)
+#  id            :integer          not null, primary key
+#  indicator     :string(255)      not null
+#  lock_version  :integer          default(0), not null
+#  measure_unit  :string(255)
+#  measure_value :decimal(19, 4)
+#  measured_at   :datetime
+#  product_id    :integer          not null
+#  string_value  :text
+#  updated_at    :datetime         not null
+#  updater_id    :integer
 #
 require 'test_helper'
 

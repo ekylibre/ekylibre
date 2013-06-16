@@ -28,7 +28,6 @@
 #  born_on                   :date
 #  client                    :boolean          not null
 #  client_account_id         :integer
-#  code                      :string(64)
 #  country                   :string(2)
 #  created_at                :datetime         not null
 #  creator_id                :integer
@@ -46,7 +45,8 @@
 #  last_name                 :string(255)      not null
 #  lock_version              :integer          default(0), not null
 #  locked                    :boolean          not null
-#  nature_id                 :integer          not null
+#  nature                    :string(255)      not null
+#  number                    :string(64)
 #  of_company                :boolean          not null
 #  origin                    :string(255)
 #  payment_delay             :string(255)
@@ -66,6 +66,7 @@
 #  supplier                  :boolean          not null
 #  supplier_account_id       :integer
 #  transporter               :boolean          not null
+#  type                      :string(255)      not null
 #  updated_at                :datetime         not null
 #  updater_id                :integer
 #  vat_number                :string(15)

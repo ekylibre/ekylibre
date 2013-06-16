@@ -61,7 +61,7 @@ class SaleItem < Ekylibre::Record::Base
   belongs_to :reduction_origin, :class_name => "SaleItem"
   belongs_to :tax
   belongs_to :tracking
-  belongs_to :unit
+  enumerize :unit, :in => Nomenclatures["units"].list
   has_many :delivery_items, :class_name => "OutgoingDeliveryItem", :foreign_key => :sale_item_id
   has_one :reduction, :class_name => "SaleItem", :foreign_key => :reduction_origin_id
   has_many :credits, :class_name => "SaleItem", :foreign_key => :origin_id

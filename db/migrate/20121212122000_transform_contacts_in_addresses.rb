@@ -11,48 +11,6 @@ class TransformContactsInAddresses < ActiveRecord::Migration
       :financial_year_id => :financial_year,
       :updater_id => :user
     },
-    :animal => {
-      :creator_id => :user,
-      :father_id => :animal,
-      :group_id => :animal_group,
-      :mother_id => :animal,
-      :race_id => :animal_race,
-      :updater_id => :user
-    },
-    :animal_event => {
-      :animal_group_id => :animal_group,
-      :animal_id => :animal,
-      :creator_id => :user,
-      :nature_id => :animal_event_nature,
-      :treatment_id => :animal_treatment,
-      :updater_id => :user,
-      :watcher_id => :entity
-    },
-    :animal_event_nature => {
-      :creator_id => :user,
-      :updater_id => :user
-    },
-    :animal_group => {
-      :creator_id => :user,
-      :updater_id => :user
-    },
-    :animal_race => {
-      :creator_id => :user,
-      :nature_id => :animal_race_nature,
-      :updater_id => :user
-    },
-    :animal_race_nature => {
-      :creator_id => :user,
-      :updater_id => :user
-    },
-    :animal_treatment => {
-      :creator_id => :user,
-      :disease_id => :disease,
-      :drug_id => :drug,
-      :prescriptor_id => :entity,
-      :unit_id => :unit,
-      :updater_id => :user
-    },
     :area => {
       :creator_id => :user,
       :district_id => :district,

@@ -24,7 +24,7 @@ class Backend::OperationsController < BackendController
 
   list(:order => "id DESC") do |t|
     # t.column :name, :url => true
-    t.column :name, :through => :nature
+    # t.column :name, :through => :nature
     t.column :started_at
     t.column :stopped_at
     #t.column :planned_on

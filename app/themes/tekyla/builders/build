@@ -32,7 +32,7 @@ meta = {
 here = Pathname.new(File.expand_path(__FILE__)).dirname
 sources = here.join("source-fonts")
 output_file = here.join("..", "fonts", "#{meta[:filename]}.svg")
-font_awesome_dir = here.join("font-awesome")
+font_awesome_dir = Pathname.new(Dir.home).join(".font-awesome")
 glyphs = here.join("glyphs")
 
 # Get latest Font-Awesome

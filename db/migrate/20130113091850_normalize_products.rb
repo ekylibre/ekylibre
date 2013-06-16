@@ -702,6 +702,17 @@ class NormalizeProducts < ActiveRecord::Migration
 
 
   def up
+    # Normalize units with nomenclatures
+    for table in [:sale_lines, :purchase_lines, :incoming_delivery_lines, :outgoing_delivery_lines, :inventory_lines]
+      add_column table, :unit, :string
+      add_index table, :unit
+      if index_exists?(table, :unit_id)
+        remove_index table, :unit_id
+      end
+      remove_column table, :unit_id
+    end
+    drop_table :units
+
     # Prevents errors by renaming table products
     rename_table_and_co :products, :old_products
 
@@ -721,28 +732,29 @@ class NormalizeProducts < ActiveRecord::Migration
     create_table :product_natures do |t|
       t.string :name, :null => false
       t.string :number, :null => false, :limit => 31
-      t.references :unit, :null => false
+      t.string :unit, :null => false
       t.text :description
-      t.text :comment
+      # t.text :comment
       t.string :commercial_name, :null => false
       t.text :commercial_description
-      t.string :variety, :null => false, :limit => 127
+      t.string :variety,    :null => false, :limit => 127
+      t.string :derivative, :null => false, :limit => 127, :default => 'itself'
       t.references :category,  :null => false
       t.boolean :active,       :null => false, :default => false
-      t.boolean :alive,        :null => false, :default => false
+      # t.boolean :alive,        :null => false, :default => false
       t.boolean :depreciable,  :null => false, :default => false
       t.boolean :saleable,     :null => false, :default => false
       t.boolean :purchasable,  :null => false, :default => false
-      t.boolean :producible,   :null => false, :default => false
-      t.boolean :deliverable,  :null => false, :default => false
+      # t.boolean :producible,   :null => false, :default => false
+      # t.boolean :deliverable,  :null => false, :default => false
       t.boolean :storable,     :null => false, :default => false
-      t.boolean :storage,      :null => false, :default => false
-      t.boolean :towable,      :null => false, :default => false
-      t.boolean :tractive,     :null => false, :default => false
-      t.boolean :traceable,    :null => false, :default => false
-      t.boolean :transferable, :null => false, :default => false
+      # t.boolean :storage,      :null => false, :default => false
+      # t.boolean :towable,      :null => false, :default => false
+      # t.boolean :tractive,     :null => false, :default => false
+      # t.boolean :traceable,    :null => false, :default => false
+      # t.boolean :transferable, :null => false, :default => false
       t.boolean :reductible,   :null => false, :default => false
-      t.boolean :indivisible , :null => false, :default => false
+      t.boolean :atomic,       :null => false, :default => false
       t.boolean :subscribing,  :null => false, :default => false
       t.references :subscription_nature
       t.string :subscription_duration
@@ -755,6 +767,7 @@ class NormalizeProducts < ActiveRecord::Migration
     add_stamps_indexes :product_natures
     add_index :product_natures, :number, :unique => true
     add_index :product_natures, :variety
+    add_index :product_natures, :unit
     add_index :product_natures, :category_id
     add_index :product_natures, :subscription_nature_id
     add_index :product_natures, :charge_account_id
@@ -770,7 +783,7 @@ class NormalizeProducts < ActiveRecord::Migration
       t.boolean :active, :null => false, :default => false
       t.string :variety, :null => false, :limit => 127
       t.references :nature, :null => false
-      t.references :unit, :null => false # Same as nature.unit_id
+      t.string :unit, :null => false    # Same as nature.unit
       t.references :tracking
       # t.references :tractor
       t.references :asset
@@ -798,11 +811,11 @@ class NormalizeProducts < ActiveRecord::Migration
       # LandParcel specific columns
       t.geometry   :shape
       t.decimal    :area_measure, :precision => 19, :scale => 4
-      t.references :area_unit
+      t.string     :area_unit
       # Warehouse specific columns
-      t.boolean :reservoir, :null => false, :default => false
+      t.boolean    :reservoir, :null => false, :default => false
       t.references :content_nature
-      t.references :content_unit
+      t.string     :content_unit
       t.decimal :content_maximal_quantity, :precision => 19, :scale => 4, :null => false, :default => 0.0
       # Hierarchy column (for Place, Group)
       t.references :parent
@@ -815,7 +828,7 @@ class NormalizeProducts < ActiveRecord::Migration
     add_index :products, :nature_id
     add_index :products, :tracking_id
     add_index :products, :variety
-    add_index :products, :unit_id
+    add_index :products, :unit
     # add_index :products, :tractor_id
     add_index :products, :asset_id
     add_index :products, :owner_id
@@ -825,10 +838,10 @@ class NormalizeProducts < ActiveRecord::Migration
     # Place specific columns
     add_index :products, :address_id
     # LandParcel specific indexes
-    add_index :products, :area_unit_id
+    add_index :products, :area_unit
     # Warehouse specific indexes
     add_index :products, :content_nature_id
-    add_index :products, :content_unit_id
+    add_index :products, :content_unit
     add_index :products, :parent_id
     @@references[:product] ||= {}
     @@references[:product][:current_place_id] = :warehouse
@@ -837,7 +850,7 @@ class NormalizeProducts < ActiveRecord::Migration
     create_table :product_moves do |t|
       t.references :product,   :null => false
       t.decimal :quantity, :precision => 19, :scale => 4, :null => false
-      t.references :unit,      :null => false # Duplicated from product.unit_id
+      t.string :unit,      :null => false # Duplicated from product.unit_id
       t.datetime :started_at,  :null => false
       t.datetime :stopped_at,  :null => false
       t.string :mode,          :null => false
@@ -846,6 +859,7 @@ class NormalizeProducts < ActiveRecord::Migration
       t.stamps
     end
     add_stamps_indexes :product_moves
+    add_index :product_moves, :unit
     add_index :product_moves, :product_id
     add_index :product_moves, :mode
     add_index :product_moves, :started_at

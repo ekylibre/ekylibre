@@ -107,6 +107,12 @@ eng:
       matter:
         # born_at: "Date de création"
         # dead_at: "Date de consommation/destruction"
+      meeting:
+        duration: "Duration (in minutes)"
+        location: "Location"
+        responsible: "Responsible"
+      meeting_nature:
+        duration: "Duration by default (in min.)"
       operation:
         consumption: "Consumption"
         lines: "Incoming and outgoing products" #?
@@ -462,6 +468,8 @@ eng:
       log: "Animal event"
       mandate: "Mandate"
       # matter: "Matière"
+      meeting: "Event"
+      meeting_nature: "Event type"
       observation: "Observation"
       operation: "Operation"
       operation_item: "Operation line" #?
@@ -495,8 +503,10 @@ eng:
       # product_membership: "Passage d'un produit dans un groupe"
       product_move: "Stock move"
       product_nature: "Product"
+      # product_nature_ability: "Compétence"
       product_nature_category: "Product category"
       product_nature_component: "Product component" #?
+      # product_nature_indicator: "Indicateur"
       product_nature_price: "Price" #?
       # product_price: "Prix"
       product_price_listing: "Person category"
@@ -691,6 +701,7 @@ eng:
     # content: "Contenu"
     # content_maximal_quantity: "Content maximal quantity"
     # content_nature: "Content nature"
+    # content_unit: "Content unit"
     conveyors: "Conveyors"
     coordinate: "Coordinate"
     country: "Country"
@@ -1102,6 +1113,7 @@ eng:
     picture_file_name: "Picture file name"
     picture_file_size: "Picture file size"
     picture_updated_at: "Picture updated at"
+    # place: "Place"
     # planned_at: "Prévu à"
     planned_depreciations: "Planned depreciations"
     planned_on: "Planned on"
@@ -1124,6 +1136,7 @@ eng:
     product: "Product"
     product_categories: "Product categories"
     product_components: "Product components"
+    # product_events: "Product events"
     # product_group: "Groupe de produits"
     # product_localizations: "Product localizations"
     # product_moves: "Product moves"
@@ -1195,6 +1208,7 @@ eng:
     relative_humidity: "Relative humidity"
     remaining_duration: "Remaining duration"
     # remember_me: "Se souvenir de moi"
+    # reminder_submissive: "Reminder submissive"
     # repartitions: "Repartitions"
     # reproductor: "Reproducteur"
     required: "Required"
@@ -1216,6 +1230,7 @@ eng:
     sale_line: "Sale line" #?
     sale_lines: "sale lines"
     sale_natures: "sale types"
+    # sale_price_listing: "Sale price listing"
     sales: "sales"
     sales_account: "Sales account"
     sales_conditions: "Sales conditions"
@@ -1472,6 +1487,13 @@ eng:
         purchases: "Purchases"
         sales: "Sales"
         various: "Various operations"
+    meeting_nature:
+      usage:
+        # mailing: "Mailing"
+        manual: "Manual"
+        purchase: "Creation of a purchase"
+        sale: "Creation of a sale"
+        sales_invoice: "Creation of a sales invoice"
     observation:
       importance:
         important: "Important"
@@ -1533,6 +1555,17 @@ eng:
         service: "Service" #?
         subscription: "Subcription" #?
         transfer: "Transfer" #?
+    product_nature_indicator:
+      nature:
+        # boolean: "Case à cocher"
+        # choice: "Liste de choix"
+        # decimal: "Chiffre (décimal)"
+        # measure: "Mesure"
+        # string: "Texte"
+      usage:
+        # environment: "Environnement"
+        # life: "Biologique"
+        # production: "Production"
     product_transfer:
       nature:
         gain: "Gain"

@@ -24,12 +24,12 @@
 #  active                   :boolean          not null
 #  address_id               :integer
 #  area_measure             :decimal(19, 4)
-#  area_unit_id             :integer
+#  area_unit                :string(255)
 #  asset_id                 :integer
 #  born_at                  :datetime
 #  content_maximal_quantity :decimal(19, 4)   default(0.0), not null
 #  content_nature_id        :integer
-#  content_unit_id          :integer
+#  content_unit             :string(255)
 #  created_at               :datetime         not null
 #  creator_id               :integer
 #  current_place_id         :integer
@@ -59,7 +59,7 @@
 #  shape                    :spatial({:srid=>
 #  tracking_id              :integer
 #  type                     :string(255)      not null
-#  unit_id                  :integer          not null
+#  unit                     :string(255)      not null
 #  updated_at               :datetime         not null
 #  updater_id               :integer
 #  variety                  :string(127)      not null
@@ -69,13 +69,13 @@
 
 
 class Product < Ekylibre::Record::Base
-  attr_accessible :area_unit_id, :area_measure, :nature_id, :number, :identification_number, :work_number, :born_at, :sex, :picture, :owner_id, :parent_id
+  attr_accessible :area_unit, :area_measure, :nature_id, :number, :identification_number, :work_number, :born_at, :sex, :picture, :owner_id, :parent_id
   # raise Nomenclatures["varieties:root"].children.keys.inspect
   enumerize :variety, :in => Nomenclatures["varieties-product"].list, :predicates => {:prefix => true}
   belongs_to :nature, :class_name => "ProductNature"
   # belongs_to :variety, :class_name => "ProductVariety"
-  belongs_to :unit
-  belongs_to :area_unit, :class_name => "Unit"
+  # belongs_to :unit
+  # belongs_to :area_unit, :class_name => "Unit"
   belongs_to :tracking
   belongs_to :father, :class_name => "Product"
   belongs_to :mother, :class_name => "Product"
@@ -105,7 +105,7 @@ class Product < Ekylibre::Record::Base
   validates_numericality_of :picture_file_size, :allow_nil => true, :only_integer => true
   validates_numericality_of :area_measure, :content_maximal_quantity, :maximal_quantity, :minimal_quantity, :real_quantity, :virtual_quantity, :allow_nil => true
   validates_length_of :variety, :allow_nil => true, :maximum => 127
-  validates_length_of :identification_number, :name, :number, :picture_content_type, :picture_file_name, :sex, :work_number, :allow_nil => true, :maximum => 255
+  validates_length_of :area_unit, :content_unit, :identification_number, :name, :number, :picture_content_type, :picture_file_name, :sex, :unit, :work_number, :allow_nil => true, :maximum => 255
   validates_inclusion_of :active, :external, :reproductor, :reservoir, :in => [true, false]
   validates_presence_of :content_maximal_quantity, :maximal_quantity, :minimal_quantity, :name, :nature, :number, :owner, :real_quantity, :unit, :variety, :virtual_quantity
   #]VALIDATORS]
@@ -130,7 +130,7 @@ class Product < Ekylibre::Record::Base
   def set_variety_and_unit
     if self.nature
       self.variety ||= self.nature.variety
-      self.unit_id ||= self.nature.unit_id
+      self.unit    ||= self.nature.unit
     end
   end
 

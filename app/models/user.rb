@@ -39,7 +39,6 @@
 #  employed                               :boolean          not null
 #  employment                             :string(255)
 #  encrypted_password                     :string(255)      default(""), not null
-#  entity_id                              :integer
 #  establishment_id                       :integer
 #  failed_attempts                        :integer          default(0)
 #  first_name                             :string(255)      not null
@@ -53,6 +52,7 @@
 #  locked_at                              :datetime
 #  maximal_grantable_reduction_percentage :decimal(19, 4)   default(5.0), not null
 #  office                                 :string(255)
+#  person_id                              :integer
 #  profession_id                          :integer
 #  remember_created_at                    :datetime
 #  reset_password_sent_at                 :datetime
@@ -68,14 +68,14 @@
 
 class User < Ekylibre::Record::Base
   attr_accessible :email, :password, :password_confirmation, :remember_me, :first_name, :last_name, :employed
-  attr_readonly :entity_id
+  attr_readonly :person_id
   belongs_to :department
   belongs_to :establishment
-  belongs_to :entity
+  belongs_to :person
   belongs_to :role
   belongs_to :profession
-  has_many :events, :class_name => "Event", :foreign_key => :responsible_id
-  has_many :future_events, :class_name => "Event", :foreign_key => :responsible_id, :conditions => ["started_at >= CURRENT_TIMESTAMP"]
+  has_many :events, :class_name => "Meeting", :foreign_key => :responsible_id
+  has_many :future_events, :class_name => "Meeting", :foreign_key => :responsible_id, :conditions => ["started_at >= CURRENT_TIMESTAMP"]
   has_many :preferences, :dependent => :destroy, :foreign_key => :user_id
   has_many :sales_invoices, :foreign_key => :responsible_id, :class_name => "Sale", :conditions => {:state => :invoice}
   has_many :sales, :class_name => "Sale", :foreign_key => :responsible_id
@@ -103,7 +103,7 @@ class User < Ekylibre::Record::Base
   # :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :recoverable, :rememberable, :trackable, :validatable
   model_stamper # Needed to stamp all records
-  delegate :picture, :full_name, :to => :entity
+  delegate :picture, :full_name, :to => :person
 
   class << self
     def rights_file; Rails.root.join("config", "rights.yml"); end
@@ -118,9 +118,9 @@ class User < Ekylibre::Record::Base
   end
 
   before_save do
-    unless self.entity
-      entity = Entity.create!(:first_name => self.first_name, :last_name => self.last_name, :nature_id => EntityNature.order("in_name DESC, gender DESC").first.id)
-      self.entity_id = entity.id
+    unless self.person
+      person = Person.create!(:first_name => self.first_name, :last_name => self.last_name, :nature => Person.nature.default_value)
+      self.person_id = person.id
     end
   end
 
@@ -161,8 +161,6 @@ class User < Ekylibre::Record::Base
     end
     return p
   end
-
-
 
   # # Find and check user account
   # def self.authenticate(user_name, password)

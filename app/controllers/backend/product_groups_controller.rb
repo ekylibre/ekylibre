@@ -36,7 +36,7 @@ class Backend::ProductGroupsController < BackendController
     t.column :born_at
   end
 
-  # list(:events,:model  =>  :product_group_events, :conditions => {:animal_group_id => ['session[:current_animal_group_id]']}, :order => "started_at ASC") do |t|
+  # list(:meetings,:model  =>  :product_group_events, :conditions => {:animal_group_id => ['session[:current_animal_group_id]']}, :order => "started_at ASC") do |t|
   #   t.column :started_at
   #   t.column :description
   # end

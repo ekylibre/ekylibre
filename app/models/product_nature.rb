@@ -21,38 +21,31 @@
 # == Table: product_natures
 #
 #  active                 :boolean          not null
-#  alive                  :boolean          not null
 #  asset_account_id       :integer
+#  atomic                 :boolean          not null
 #  category_id            :integer          not null
 #  charge_account_id      :integer
 #  commercial_description :text
 #  commercial_name        :string(255)      not null
 #  created_at             :datetime         not null
 #  creator_id             :integer
-#  deliverable            :boolean          not null
 #  depreciable            :boolean          not null
+#  derivative             :string(127)      default("itself"), not null
 #  description            :text
 #  id                     :integer          not null, primary key
-#  indivisible            :boolean          not null
 #  lock_version           :integer          default(0), not null
 #  name                   :string(255)      not null
 #  number                 :string(31)       not null
-#  producible             :boolean          not null
 #  product_account_id     :integer
 #  purchasable            :boolean          not null
 #  reductible             :boolean          not null
 #  saleable               :boolean          not null
 #  stock_account_id       :integer
 #  storable               :boolean          not null
-#  storage                :boolean          not null
 #  subscribing            :boolean          not null
 #  subscription_duration  :string(255)
 #  subscription_nature_id :integer
-#  towable                :boolean          not null
-#  traceable              :boolean          not null
-#  tractive               :boolean          not null
-#  transferable           :boolean          not null
-#  unit_id                :integer          not null
+#  unit                   :string(255)      not null
 #  updated_at             :datetime         not null
 #  updater_id             :integer
 #  variety                :string(127)      not null
@@ -61,7 +54,7 @@
 
 class ProductNature < Ekylibre::Record::Base
   # attr_accessible :active, :commercial_description, :commercial_name, :category_id, :deliverable, :description, :for_immobilizations, :for_productions, :for_purchases, :for_sales, :asset_account_id, :name, :nature, :number, :charge_account_id, :reduction_submissive, :product_account_id, :stockable, :subscription_nature_id, :subscription_period, :subscription_quantity, :trackable, :unit_id, :unquantifiable, :weight
-  attr_accessible :active, :commercial_description, :commercial_name, :category_id, :deliverable, :description, :depreciable, :producible, :purchasable, :saleable, :asset_account_id, :name, :number,:stock_account_id ,:charge_account_id, :product_account_id, :storable, :subscription_nature_id, :subscription_duration, :traceable, :unit_id, :reductible, :indivisible, :alive, :storage, :subscribing, :towable, :tractive, :variety
+  attr_accessible :active, :commercial_description, :commercial_name, :category_id, :deliverable, :description, :depreciable, :producible, :purchasable, :saleable, :asset_account_id, :name, :number,:stock_account_id ,:charge_account_id, :product_account_id, :storable, :subscription_nature_id, :subscription_duration, :traceable, :unit, :reductible, :indivisible, :alive, :storage, :subscribing, :towable, :tractive, :variety
   #enumerize :nature, :in => [:product, :service, :subscription], :default => :product, :predicates => true
   belongs_to :asset_account, :class_name => "Account"
   belongs_to :charge_account, :class_name => "Account"
@@ -69,7 +62,8 @@ class ProductNature < Ekylibre::Record::Base
   belongs_to :stock_account, :class_name => "Account"
   belongs_to :subscription_nature
   belongs_to :category, :class_name => "ProductNatureCategory"
-  belongs_to :unit
+  # TODO: enumerize :unit, :in => ??
+  # belongs_to :unit
   # belongs_to :variety, :class_name => "ProductVariety"
   # has_many :available_stocks, :class_name => "ProductStock", :conditions => ["quantity > 0"], :foreign_key => :product_id
   # has_many :components, :class_name => "ProductNatureComponent", :conditions => {:active => true}, :foreign_key => :product_nature_id
@@ -85,15 +79,15 @@ class ProductNature < Ekylibre::Record::Base
   has_many :subscriptions, :foreign_key => :product_nature_id
   #has_many :trackings, :foreign_key => :product_id
   has_many :products, :foreign_key => :nature_id
-  has_many :product_indicators, :foreign_key => :product_nature_id
+  has_many :indicators, :class_name => "ProductNatureIndicator"
   # has_many :buildings, :through => :stocks
   #has_one :default_stock, :class_name => "ProductStock", :order => :name, :foreign_key => :product_id
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :number, :allow_nil => true, :maximum => 31
-  validates_length_of :variety, :allow_nil => true, :maximum => 127
-  validates_length_of :commercial_name, :name, :subscription_duration, :allow_nil => true, :maximum => 255
-  validates_inclusion_of :active, :alive, :deliverable, :depreciable, :indivisible, :producible, :purchasable, :reductible, :saleable, :storable, :storage, :subscribing, :towable, :traceable, :tractive, :transferable, :in => [true, false]
-  validates_presence_of :category, :commercial_name, :name, :number, :unit, :variety
+  validates_length_of :derivative, :variety, :allow_nil => true, :maximum => 127
+  validates_length_of :commercial_name, :name, :subscription_duration, :unit, :allow_nil => true, :maximum => 255
+  validates_inclusion_of :active, :atomic, :depreciable, :purchasable, :reductible, :saleable, :storable, :subscribing, :in => [true, false]
+  validates_presence_of :category, :commercial_name, :derivative, :name, :number, :unit, :variety
   #]VALIDATORS]
   validates_presence_of :subscription_nature,   :if => :subscribing?
   validates_presence_of :subscription_period,   :if => Proc.new{|u| u.subscribing? and u.subscription_nature and u.subscription_nature.period? }

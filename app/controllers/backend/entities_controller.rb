@@ -29,7 +29,7 @@ class Backend::EntitiesController < BackendController
   list(:conditions => search_conditions(:entities, :entities => [:code, :full_name]), :order => "entities.last_name, entities.first_name") do |t| # , :joins => "LEFT JOIN #{EntityAddress.table_name} AS addresses ON (entities.id = addresses.entity_id AND addresses.deleted_at IS NULL)" # , :addresses => [:coordinate]
     t.column :active, :datatype => :boolean
     t.column :code, :url => true
-    t.column :title, :through => :nature
+    t.column :nature
     t.column :last_name, :url => true
     t.column :first_name, :url => true
     # t.column :coordinate # :item_6
@@ -43,25 +43,25 @@ class Backend::EntitiesController < BackendController
     session[:entity_key] = params[:q]
   end
 
-  list(:addresses, :model => :entity_addresses, :conditions => ['deleted_at IS NULL AND (entity_id = ? OR entity_id IN ( SELECT entity_1_id FROM #{EntityLink.table_name} INNER JOIN #{EntityLinkNature.table_name} ON (#{EntityLinkNature.table_name}.propagate_addresses = ? AND #{EntityLink.table_name}.nature_id = #{EntityLinkNature.table_name}.id AND stopped_at IS NULL) WHERE (entity_1_id = ? OR entity_2_id = ?)) OR entity_id IN (SELECT entity_2_id FROM #{EntityLink.table_name} INNER JOIN #{EntityLinkNature.table_name} ON #{EntityLinkNature.table_name}.propagate_addresses = ? AND #{EntityLink.table_name}.nature_id = #{EntityLinkNature.table_name}.id  AND stopped_at IS NULL WHERE (entity_1_id = ? OR entity_2_id = ?)))', ['session[:current_entity_id]'], true, ['session[:current_entity_id]'], ['session[:current_entity_id]'], true, ['session[:current_entity_id]'], ['session[:current_entity_id]'] ]) do |t|
-    t.column :address, :url => {:action => :edit}
-    t.column :phone
-    t.column :fax
-    t.column :mobile
-    t.column :email
-    t.column :website
-    t.column :by_default
-    t.column :code, :through => :entity, :url => true
-    t.action :edit
-    t.action :destroy
-  end
+  # list(:addresses, :model => :entity_addresses, :conditions => ['deleted_at IS NULL AND (entity_id = ? OR entity_id IN ( SELECT entity_1_id FROM #{EntityLink.table_name} INNER JOIN #{EntityLinkNature.table_name} ON (#{EntityLinkNature.table_name}.propagate_addresses = ? AND #{EntityLink.table_name}.nature_id = #{EntityLinkNature.table_name}.id AND stopped_at IS NULL) WHERE (entity_1_id = ? OR entity_2_id = ?)) OR entity_id IN (SELECT entity_2_id FROM #{EntityLink.table_name} INNER JOIN #{EntityLinkNature.table_name} ON #{EntityLinkNature.table_name}.propagate_addresses = ? AND #{EntityLink.table_name}.nature_id = #{EntityLinkNature.table_name}.id  AND stopped_at IS NULL WHERE (entity_1_id = ? OR entity_2_id = ?)))', ['session[:current_entity_id]'], true, ['session[:current_entity_id]'], ['session[:current_entity_id]'], true, ['session[:current_entity_id]'], ['session[:current_entity_id]'] ]) do |t|
+  #   t.column :address, :url => {:action => :edit}
+  #   t.column :phone
+  #   t.column :fax
+  #   t.column :mobile
+  #   t.column :email
+  #   t.column :website
+  #   t.column :by_default
+  #   t.column :code, :through => :entity, :url => true
+  #   t.action :edit
+  #   t.action :destroy
+  # end
 
-  list(:events, :model => :events, :conditions => {:entity_id => ['session[:current_entity_id]']}, :order => "created_at DESC") do |t|
-    t.column :name, :through => :nature
-    t.column :reason
-    t.column :label, :through => :responsible, :url => true
+  list(:meetings, :conditions => {:entity_id => ['session[:current_entity_id]']}, :order => "created_at DESC") do |t|
+    t.column :name, :through => :meeting_nature
+    t.column :name
+    # t.column :label, :through => :responsible, :url => true
     t.column :duration
-    t.column :location
+    t.column :place
     t.column :started_at
     t.action :edit
     t.action :destroy
@@ -83,7 +83,7 @@ class Backend::EntitiesController < BackendController
 
   list(:links, :model => :entity_links, :conditions => ['#{EntityLink.table_name}.stopped_at IS NULL AND (#{EntityLink.table_name}.entity_1_id = ? OR #{EntityLink.table_name}.entity_2_id = ?)', ['session[:current_entity_id]'], ['session[:current_entity_id]']], :per_page => 5) do |t|
     t.column :description, :through => :entity_1, :url => true
-    t.column :name_1_to_2, :through => :nature
+    t.column :nature
     t.column :description, :through => :entity_2, :url => true
     t.column :description
     t.action :edit
