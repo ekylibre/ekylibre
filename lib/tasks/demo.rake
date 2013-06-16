@@ -156,7 +156,21 @@ namespace :db do
       # create default product to place animal
       place = Building.find_by_work_number("STABU_01")
       place ||= Building.create!(:name => "Stabulation principale", :identification_number => "S0001", :work_number => "STABU_01", :born_at => Time.now, :reservoir => true, :unit_id => unit.id, :content_nature_id => cow.id, :variety => "building", :nature_id => place_nature.id, :owner_id => Entity.of_company.id, :number => "STABU_01")
+      
+      # create default animal indicator (like in XML nomenclature)
 
+      # animal_indicator_life = ProductIndicator.find_by_name("animal_life_state")
+      # animal_indicator_life ||= ProductIndicator.create!(:product_nature_id => cow.id, :name => "animal_life_state", :description => "Phase du bioprocessus de vie d'un animal",:nature => "choice", :usage => "life", :active => true, :created_at => Time.now)
+      # animal_indicator_life.choices.create!(:name => "first_growth", :position => 1)
+      # animal_indicator_life.choices.create!(:name => "second_growth", :position => 2)
+      # animal_indicator_life.choices.create!(:name => "aging", :position => 3)
+      # animal_indicator_disease = ProductIndicator.find_by_name("animal_disease_state")
+      # animal_indicator_disease ||= ProductIndicator.create!(:product_nature_id => cow.id, :name => "animal_disease_state", :description => "Phase du bioprocessus de maladie d'un animal",:nature => "choice", :usage => "life", :active => true, :created_at => Time.now)
+      # animal_indicator_disease.choices.create!(:name => "healthy", :position => 1)
+      # animal_indicator_disease.choices.create!(:name => "sick", :position => 2)
+
+      
+      
       arrival_causes = {"N" => :birth, "A" => :purchase, "P" => :housing, "" => :other }
       departure_causes = {"M" => :death, "B" => :sale, "" => :other, "C" => :consumption , "E" => :sale}
 
@@ -180,6 +194,8 @@ namespace :db do
         f = File.open(pictures.sample)
         animal = Animal.create!(:name => r.name, :unit_id => unit.id, :variety => "bos", :identification_number => r.identification_number, :work_number => r.work_number, :born_at => r.born_on, :sex => r.sex, :picture => f, :nature_id => cow.id, :owner_id => Entity.of_company.id, :reproductor => (r.sex == :male ? rand(2).zero? : false), :number => r.work_number)
         f.close
+        # set default indicators
+
         # place the current animal in the default place (stabulation) with dates
         ProductLocalization.create!(:container_id => place.id, :product_id => animal.id, :nature => :interior, :started_at => r.arrived_on, :stopped_at => r.departed_on, :arrival_cause => r.arrival_cause, :departure_cause => r.departure_cause)
         # place the current animal in the default group with dates

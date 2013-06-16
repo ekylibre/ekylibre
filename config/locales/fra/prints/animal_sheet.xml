@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="show" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9c1f11b7-03dd-4803-9e1b-41b87b9d23c0">
 	<property name="ireport.zoom" value="1.1969602468458194"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="508"/>
+	<property name="ireport.y" value="268"/>
 	<template><![CDATA["/home/djoulin/ekylibre/config/corporate-identity/reports-style.jrtx"]]></template>
 	<subDataset name="localizations" uuid="e1b74445-e266-4905-b7ca-c69a482d0793">
 		<queryString language="xPath">
@@ -269,7 +269,7 @@
 				<text><![CDATA[race]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="763790d6-d5a2-429e-9042-d82bc7823f8e" style="strong" mode="Opaque" x="0" y="139" width="555" height="2" backcolor="#7C9DDD"/>
+				<reportElement uuid="763790d6-d5a2-429e-9042-d82bc7823f8e" style="strong" mode="Opaque" x="0" y="136" width="555" height="2" backcolor="#7C9DDD"/>
 				<textElement verticalAlignment="Middle">
 					<font pdfFontName="Times-Roman"/>
 				</textElement>
@@ -477,14 +477,14 @@
 				</jr:table>
 			</componentElement>
 			<staticText>
-				<reportElement uuid="ba959643-9c8b-4cb2-a7b3-a0f2a51aff45" style="sub-title" x="0" y="0" width="115" height="22"/>
+				<reportElement uuid="ba959643-9c8b-4cb2-a7b3-a0f2a51aff45" style="sub-title" x="0" y="11" width="115" height="22"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Open Sans" size="10"/>
 				</textElement>
 				<text><![CDATA[Généalogie]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="d8e970b1-ab1e-4be5-91e5-7d6310e6eace" style="strong" mode="Opaque" x="0" y="22" width="555" height="2" backcolor="#7C9DDD"/>
+				<reportElement uuid="d8e970b1-ab1e-4be5-91e5-7d6310e6eace" style="strong" mode="Opaque" x="0" y="31" width="555" height="2" backcolor="#7C9DDD"/>
 				<textElement verticalAlignment="Middle">
 					<font pdfFontName="Times-Roman"/>
 				</textElement>
@@ -619,7 +619,7 @@
 				</graphicElement>
 			</line>
 			<staticText>
-				<reportElement uuid="71b6ea50-573a-49f2-aa29-65439441a737" style="strong" mode="Opaque" x="0" y="175" width="555" height="2" backcolor="#7C9DDD"/>
+				<reportElement uuid="71b6ea50-573a-49f2-aa29-65439441a737" style="strong" mode="Opaque" x="0" y="173" width="555" height="2" backcolor="#7C9DDD"/>
 				<textElement verticalAlignment="Middle">
 					<font pdfFontName="Times-Roman"/>
 				</textElement>
