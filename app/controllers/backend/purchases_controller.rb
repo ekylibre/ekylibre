@@ -70,7 +70,7 @@ class Backend::PurchasesController < BackendController
     t.column :name, :through => :product
     t.column :pretax_amount, :currency => true, :through => :price
     t.column :quantity
-    t.column :label, :through => :unit
+    t.column :unit
     t.column :pretax_amount, :currency => true
     t.column :amount, :currency => true
     t.column :undelivered_quantity, :datatype => :decimal
@@ -81,7 +81,7 @@ class Backend::PurchasesController < BackendController
     t.column :annotation
     t.column :tracking_serial
     t.column :quantity
-    t.column :label, :through => :unit
+    t.column :unit
     t.column :pretax_amount, :currency => true, :through => :price
     t.column :pretax_amount, :currency => true
     t.column :amount, :currency => true

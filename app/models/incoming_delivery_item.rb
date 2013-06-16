@@ -33,7 +33,7 @@
 #  purchase_item_id :integer          not null
 #  quantity         :decimal(19, 4)   default(1.0), not null
 #  tracking_id      :integer
-#  unit_id          :integer          not null
+#  unit             :string(255)
 #  updated_at       :datetime         not null
 #  updater_id       :integer
 #  warehouse_id     :integer
@@ -43,7 +43,7 @@
 
 class IncomingDeliveryItem < Ekylibre::Record::Base
   attr_accessible :delivery_id, :price_id, :product_id, :building_id
-  attr_readonly :purchase_item_id, :product_id, :price_id, :unit_id
+  attr_readonly :purchase_item_id, :product_id, :price_id, :unit
   belongs_to :delivery, :class_name => "IncomingDelivery"
   belongs_to :price, :class_name => "ProductPrice"
   belongs_to :product
@@ -52,7 +52,8 @@ class IncomingDeliveryItem < Ekylibre::Record::Base
   enumerize :unit, :in => Nomenclatures["units"].list
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :amount, :pretax_amount, :quantity, :weight, :allow_nil => true
-  validates_presence_of :amount, :delivery, :pretax_amount, :price, :product, :purchase_item, :quantity, :unit
+  validates_length_of :unit, :allow_nil => true, :maximum => 255
+  validates_presence_of :amount, :delivery, :pretax_amount, :price, :product, :purchase_item, :quantity
   #]VALIDATORS]
   validates_presence_of :product, :unit
 
@@ -63,7 +64,7 @@ class IncomingDeliveryItem < Ekylibre::Record::Base
     if self.purchase_item
       self.product_id  = self.purchase_item.product_id
       self.price_id    = self.purchase_item.price.id
-      self.unit_id     = self.purchase_item.unit_id
+      self.unit     = self.purchase_item.unit
       self.building_id = self.purchase_item.building_id
     end
     self.pretax_amount = self.purchase_item.price.pretax_amount*self.quantity

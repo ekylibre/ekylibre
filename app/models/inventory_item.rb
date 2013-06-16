@@ -30,7 +30,7 @@
 #  quantity         :decimal(19, 4)   not null
 #  theoric_quantity :decimal(19, 4)   not null
 #  tracking_id      :integer
-#  unit_id          :integer
+#  unit             :string(255)
 #  updated_at       :datetime         not null
 #  updater_id       :integer
 #  warehouse_id     :integer          not null
@@ -38,7 +38,7 @@
 
 
 class InventoryItem < Ekylibre::Record::Base
-  attr_accessible :product_id, :quantity, :unit_id, :building_id
+  attr_accessible :product_id, :quantity, :unit, :building_id
   belongs_to :inventory, :inverse_of => :items
   belongs_to :product
   belongs_to :move, :class_name => "ProductMove"
@@ -46,6 +46,7 @@ class InventoryItem < Ekylibre::Record::Base
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :quantity, :theoric_quantity, :allow_nil => true
+  validates_length_of :unit, :allow_nil => true, :maximum => 255
   validates_presence_of :inventory, :product, :quantity, :theoric_quantity
   #]VALIDATORS]
 
@@ -56,7 +57,7 @@ class InventoryItem < Ekylibre::Record::Base
   #     self.product_id  = s.product_id
   #     self.building_id = s.building_id
   #     self.theoric_quantity = s.quantity||0
-  #     self.unit_id     = s.unit_id
+  #     self.unit     = s.unit
   #   end
   # end
 

@@ -28,7 +28,7 @@
 #  lock_version       :integer          default(0), not null
 #  operand_id         :integer
 #  operand_quantity   :decimal(19, 4)
-#  operand_unit_id    :integer
+#  operand_unit       :string(255)
 #  operation_id       :integer          not null
 #  parent_id          :integer
 #  string             :string(255)      not null
@@ -40,7 +40,7 @@
 class OperationTask < Ekylibre::Record::Base
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :operand_quantity, :allow_nil => true
-  validates_length_of :string, :verb, :allow_nil => true, :maximum => 255
+  validates_length_of :operand_unit, :string, :verb, :allow_nil => true, :maximum => 255
   validates_inclusion_of :detailled, :in => [true, false]
   validates_presence_of :string, :verb
   #]VALIDATORS]

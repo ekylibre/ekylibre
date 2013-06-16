@@ -53,7 +53,7 @@
 
 
 class ProductNature < Ekylibre::Record::Base
-  # attr_accessible :active, :commercial_description, :commercial_name, :category_id, :deliverable, :description, :for_immobilizations, :for_productions, :for_purchases, :for_sales, :asset_account_id, :name, :nature, :number, :charge_account_id, :reduction_submissive, :product_account_id, :stockable, :subscription_nature_id, :subscription_period, :subscription_quantity, :trackable, :unit_id, :unquantifiable, :weight
+  # attr_accessible :active, :commercial_description, :commercial_name, :category_id, :deliverable, :description, :for_immobilizations, :for_productions, :for_purchases, :for_sales, :asset_account_id, :name, :nature, :number, :charge_account_id, :reduction_submissive, :product_account_id, :stockable, :subscription_nature_id, :subscription_period, :subscription_quantity, :trackable, :unit, :unquantifiable, :weight
   attr_accessible :active, :commercial_description, :commercial_name, :category_id, :deliverable, :description, :depreciable, :producible, :purchasable, :saleable, :asset_account_id, :name, :number,:stock_account_id ,:charge_account_id, :product_account_id, :storable, :subscription_nature_id, :subscription_duration, :traceable, :unit, :reductible, :indivisible, :alive, :storage, :subscribing, :towable, :tractive, :variety
   #enumerize :nature, :in => [:product, :service, :subscription], :default => :product, :predicates => true
   belongs_to :asset_account, :class_name => "Account"
@@ -237,7 +237,7 @@ class ProductNature < Ekylibre::Record::Base
   #  if origin.is_a? ActiveRecord::Base
   #    code = [:number, :code, :name, :id].detect{|x| origin.respond_to? x}
   #    attributes[:name] = tc('stock_move', :origin => (origin ? ::I18n.t("activerecord.models.#{origin.class.name.underscore}") : "*"), :code => (origin ? origin.send(code) : "*"))
-  #    for attribute in [:quantity, :unit_id, :tracking_id, :building_id, :product_id]
+  #    for attribute in [:quantity, :unit, :tracking_id, :building_id, :product_id]
   #      unless attributes.keys.include? attribute
   #        attributes[attribute] ||= origin.send(attribute) rescue nil
   #      end

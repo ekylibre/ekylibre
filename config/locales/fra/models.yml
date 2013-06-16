@@ -913,6 +913,7 @@ fra:
     office: "Bureau/Atelier"
     old_password: "Mot de passe actuel"
     # operand_quantity: "Operand quantity"
+    # operand_unit: "Operand unit"
     operation: "Travail" #?
     operation_items: "Intrants/sortants" #?
     operation_nature: "Type d’operation" #?

@@ -35,7 +35,7 @@
 #  quantity        :decimal(19, 4)   default(1.0), not null
 #  tracking_id     :integer
 #  tracking_serial :string(255)
-#  unit_id         :integer          not null
+#  unit            :string(255)
 #  updated_at      :datetime         not null
 #  updater_id      :integer
 #  warehouse_id    :integer
@@ -44,7 +44,7 @@
 
 class PurchaseItem < Ekylibre::Record::Base
   acts_as_list :scope => :purchase
-  attr_accessible :annotation, :price_id, :product_id, :quantity, :tracking_serial, :unit_id, :purchase_id
+  attr_accessible :annotation, :price_id, :product_id, :quantity, :tracking_serial, :unit, :purchase_id
   belongs_to :account
   belongs_to :building, :foreign_key => :warehouse_id
   belongs_to :purchase
@@ -62,8 +62,8 @@ class PurchaseItem < Ekylibre::Record::Base
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :amount, :pretax_amount, :quantity, :allow_nil => true
-  validates_length_of :tracking_serial, :allow_nil => true, :maximum => 255
-  validates_presence_of :account, :amount, :pretax_amount, :price, :product, :purchase, :quantity, :unit
+  validates_length_of :tracking_serial, :unit, :allow_nil => true, :maximum => 255
+  validates_presence_of :account, :amount, :pretax_amount, :price, :product, :purchase, :quantity
   #]VALIDATORS]
   # validates_presence_of :pretax_amount, :price # Already defined in auto-validators
   validates_uniqueness_of :tracking_serial, :scope => :price_id, :allow_nil => true, :if => Proc.new{|pl| !pl.tracking_serial.blank? }
@@ -82,7 +82,7 @@ class PurchaseItem < Ekylibre::Record::Base
         product_nature.save!
       end
       self.account_id = product_nature.charge_account_id
-      self.unit_id ||= self.price.product_nature.unit_id
+      self.unit ||= self.price.product_nature.unit
       # self.product_id = self.price.product_nature_id
       self.pretax_amount = (self.price.pretax_amount*self.quantity).round(2)
       self.amount = (self.price.amount*self.quantity).round(2)

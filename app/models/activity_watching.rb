@@ -33,7 +33,7 @@
 #  work_unit         :string(255)
 #
 class ActivityWatching < Ekylibre::Record::Base
-  attr_accessible :activity_id, :product_nature_id, :area_unit_id, :work_unit_id
+  attr_accessible :activity_id, :product_nature_id, :area_unit, :work_unit
   belongs_to :activity
   # belongs_to :area_unit, :class_name => "Unit"
   belongs_to :product_nature

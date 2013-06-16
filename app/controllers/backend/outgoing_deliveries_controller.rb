@@ -45,7 +45,7 @@ class Backend::OutgoingDeliveriesController < BackendController
     t.column :name, :through => :product, :url => true
     t.column :serial_number, :through => :product
     t.column :quantity
-    t.column :name, :through => :unit
+    t.column :unit
     t.column :pretax_amount
     t.column :amount
     # t.column :name, :through => :building, :url => true

@@ -70,7 +70,7 @@ class ProductMove < Ekylibre::Record::Base
     self.tracking ||= self.stock.tracking
     self.generated = false if self.generated.nil?
     self.virtual = moved_on.nil?
-    self.unit_id ||= self.stock.unit_id
+    self.unit ||= self.stock.unit
     # Add validation on unit correspondance
     return true
   end

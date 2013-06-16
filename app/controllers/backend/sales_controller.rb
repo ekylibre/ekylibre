@@ -123,7 +123,7 @@ class Backend::SalesController < BackendController
     t.column :name, :through => :product
     t.column :pretax_amount, :currency => "RECORD.price.currency", :through => :price
     t.column :quantity
-    t.column :label, :through => :unit
+    t.column :unit
     t.column :pretax_amount, :currency => "RECORD.price.currency"
     t.column :amount
     t.column :undelivered_quantity, :datatype => :decimal
@@ -136,7 +136,7 @@ class Backend::SalesController < BackendController
     t.column :annotation
     t.column :serial_number, :through => :product, :url => true
     t.column :quantity
-    t.column :label, :through => :unit
+    t.column :unit
     t.column :pretax_amount, :through => :price, :label => "unit_price_amount", :currency => "RECORD.price.currency"
     t.column :pretax_amount, :currency => "RECORD.sale.currency"
     t.column :amount, :currency => "RECORD.sale.currency"

@@ -39,7 +39,7 @@
 
 
 class ProductIndicatorDatum < Ekylibre::Record::Base
-  attr_accessible :value, :created_at, :product_id, :indicator_id, :measured_at, :description, :decimal_value, :measure_unit_id, :measure_value, :string_value, :boolean_value, :choice_value
+  attr_accessible :value, :created_at, :product_id, :indicator_id, :measured_at, :description, :decimal_value, :measure_unit, :measure_value, :string_value, :boolean_value, :choice_value
   belongs_to :product
   # TODO: enumerize :indicator, :in => Nomenclatures["indicators"].list
   # belongs_to :indicator, :class_name => "ProductNatureIndicator", :inverse_of => :data

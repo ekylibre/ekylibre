@@ -41,7 +41,7 @@
 #  sale_id              :integer          not null
 #  tax_id               :integer
 #  tracking_id          :integer
-#  unit_id              :integer
+#  unit                 :string(255)
 #  updated_at           :datetime         not null
 #  updater_id           :integer
 #  warehouse_id         :integer

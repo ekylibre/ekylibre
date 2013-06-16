@@ -156,7 +156,7 @@ namespace :db do
       # create default product to place animal
       place = Building.find_by_work_number("STABU_01")
       place ||= Building.create!(:name => "Stabulation principale", :identification_number => "S0001", :work_number => "STABU_01", :born_at => Time.now, :reservoir => true, :unit_id => unit.id, :content_nature_id => cow.id, :variety => "building", :nature_id => place_nature.id, :owner_id => Entity.of_company.id, :number => "STABU_01")
-      
+
       # create default animal indicator (like in XML nomenclature)
 
       # animal_indicator_life = ProductIndicator.find_by_name("animal_life_state")
@@ -169,8 +169,8 @@ namespace :db do
       # animal_indicator_disease.choices.create!(:name => "healthy", :position => 1)
       # animal_indicator_disease.choices.create!(:name => "sick", :position => 2)
 
-      
-      
+
+
       arrival_causes = {"N" => :birth, "A" => :purchase, "P" => :housing, "" => :other }
       departure_causes = {"M" => :death, "B" => :sale, "" => :other, "C" => :consumption , "E" => :sale}
 

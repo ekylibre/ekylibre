@@ -35,7 +35,7 @@
 
 
 class ProductTransfer < Ekylibre::Record::Base
-  attr_accessible :description, :nature, :planned_on, :product_id, :quantity, :second_building_id, :tracking_id, :unit_id, :building_id
+  attr_accessible :description, :nature, :planned_on, :product_id, :quantity, :second_building_id, :tracking_id, :unit, :building_id
   # attr_readonly :nature
   # enumerize :nature, :in => [:loss, :transfer, :gain], :default => :transfer, :predicates => true
   belongs_to :product
@@ -57,7 +57,7 @@ class ProductTransfer < Ekylibre::Record::Base
 
 
   before_validation do
-    self.unit_id = self.product.unit_id if self.product
+    self.unit = self.product.unit if self.product
     if self.planned_on
       self.moved_on = Date.today if self.planned_on <= Date.today
     end
@@ -69,7 +69,7 @@ class ProductTransfer < Ekylibre::Record::Base
       errors.add(:tracking_id, :invalid) if self.tracking.product_id != self.product_id
     end
     if self.unit
-      errors.add(:unit_id, :invalid) unless self.unit.convertible_to? self.product.unit
+      errors.add(:unit, :invalid) unless self.unit.convertible_to? self.product.unit
     end
     if !self.second_building.nil?
       errors.add(:building_id, :building_can_not_receive_product, :building => self.second_building.name, :product => self.product.name, :contained_product => self.second_building.product.name) unless self.second_building.can_receive?(self.product_id)

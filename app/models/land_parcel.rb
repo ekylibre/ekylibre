@@ -100,7 +100,7 @@ class LandParcel < PrimaryZone
       # We can't change the area of a parcel if operations has been made on it
       #old = self.class.find(self.id)
       #self.area_measure = old.area_measure
-      #self.area_unit_id = old.area_unit_id
+      #self.area_unit = old.area_unit
     #end
   #end
 
@@ -113,7 +113,7 @@ class LandParcel < PrimaryZone
   #  return false unless divided_on.is_a? Date
   #  return false unless divided_on > self.started_on
   #  for subdivision in subdivisions
-  #    child = LandParcel.create!(subdivision.merge(:started_on => divided_on+1, :area_unit_id => self.area_unit_id))
+  #    child = LandParcel.create!(subdivision.merge(:started_on => divided_on+1, :area_unit => self.area_unit))
   #    LandParcelKinship.create!(:parent_land_parcel => self, :child_land_parcel => child, :nature => "divide")
   #  end
   #  self.update_column(:stopped_on, divided_on)
@@ -126,7 +126,7 @@ class LandParcel < PrimaryZone
   #  return false unless merged_on > self.started_on
   #  parcels, area = [self]+other_parcels, 0.0
   # parcels.each{|p| area += p.area(self.area_unit) }
-  # child = LandParcel.create!(:name => parcels.collect{|p| p.name}.join("+"), :started_on => merged_on+1, :area_unit_id => self.area_unit_id, :area_measure => area)
+  # child = LandParcel.create!(:name => parcels.collect{|p| p.name}.join("+"), :started_on => merged_on+1, :area_unit => self.area_unit, :area_measure => area)
   #  for parcel in parcels
   #    LandParcelKinship.create!(:parent_land_parcel => parcel, :child_land_parcel => child, :nature => "merge")
   #   parcel.update_column(:stopped_on, merged_on)

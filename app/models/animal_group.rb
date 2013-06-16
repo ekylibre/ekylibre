@@ -68,7 +68,7 @@
 
 
 class AnimalGroup < ProductGroup
-  attr_accessible :active, :external, :description, :name, :variety, :unit_id, :nature_id, :reproductor, :reservoir, :parent_id, :memberships_attributes
+  attr_accessible :active, :external, :description, :name, :variety, :unit, :nature_id, :reproductor, :reservoir, :parent_id, :memberships_attributes
   enumerize :sex, :in => [:male, :female, :mixt]
   belongs_to :parent, :class_name => "ProductGroup"
 

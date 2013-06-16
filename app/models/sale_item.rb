@@ -41,7 +41,7 @@
 #  sale_id              :integer          not null
 #  tax_id               :integer
 #  tracking_id          :integer
-#  unit_id              :integer
+#  unit                 :string(255)
 #  updated_at           :datetime         not null
 #  updater_id           :integer
 #  warehouse_id         :integer
@@ -50,7 +50,7 @@
 
 class SaleItem < Ekylibre::Record::Base
   after_save :set_reduction
-  attr_accessible :annotation, :price_amount, :price_id, :product_id, :quantity, :reduction_percentage, :sale_id, :tax_id, :unit_id
+  attr_accessible :annotation, :price_amount, :price_id, :product_id, :quantity, :reduction_percentage, :sale_id, :tax_id, :unit
   attr_readonly :sale_id
   belongs_to :account
   belongs_to :entity
@@ -79,6 +79,7 @@ class SaleItem < Ekylibre::Record::Base
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :amount, :pretax_amount, :price_amount, :quantity, :reduction_percentage, :allow_nil => true
+  validates_length_of :unit, :allow_nil => true, :maximum => 255
   validates_presence_of :amount, :pretax_amount, :price, :product, :quantity, :reduction_percentage, :sale
   #]VALIDATORS]
   validates_presence_of :tax
@@ -92,7 +93,7 @@ class SaleItem < Ekylibre::Record::Base
     # self.product = self.price.product if self.price
     if self.product
       self.account_id = self.product.nature.product_account_id
-      self.unit_id = self.product.unit_id
+      self.unit = self.product.unit
       if self.product.nature.storable
       #   self.building_id ||= self.product.stocks.first.building_id if self.product.stocks.count > 0
       # else
@@ -134,7 +135,7 @@ class SaleItem < Ekylibre::Record::Base
 
     #     if self.building.reservoir && self.building.product_id != self.product_id
     #       check_reservoir = false
-    #       errors.add(:building_id, :building_can_not_transfer_product, :building => self.building.name, :product => self.product.name, :contained_product => self.building.product.name, :account_id => 0, :unit_id => self.unit_id)
+    #       errors.add(:building_id, :building_can_not_transfer_product, :building => self.building.name, :product => self.product.name, :contained_product => self.building.product.name, :account_id => 0, :unit => self.unit)
     #     end
     #     check_reservoir
   end

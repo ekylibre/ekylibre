@@ -35,7 +35,7 @@
 #  quantity        :decimal(19, 4)   default(1.0), not null
 #  tracking_id     :integer
 #  tracking_serial :string(255)
-#  unit_id         :integer          not null
+#  unit            :string(255)
 #  updated_at      :datetime         not null
 #  updater_id      :integer
 #  warehouse_id    :integer
