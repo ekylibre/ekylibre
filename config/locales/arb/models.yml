@@ -1259,6 +1259,7 @@ arb:
     entity_2_id: "الملف الثاني" #?
     entity_categories: "فئة الفرد"
     entity_id: "الفرد" #?
+    # entity_link_direction: "Entity link direction"
     entity_link_nature: "نوع رابط تمديد الاشتراك"
     entity_link_nature_id: "نوع الرابط لتمديد الاشتراك" #?
     entity_link_natures: "طبيعة الرابط بين الافراد"
@@ -1542,6 +1543,7 @@ arb:
     # parent_kinships: "Relation parent"
     # parent_land_parcel: "Sur-îlot"
     # parent_place: "Parent place"
+    # participations: "Participations"
     parts: "الاجزاء"
     parts_amount: "القيمة المستخدمة"
     # passages: "Passages"
@@ -1744,6 +1746,7 @@ arb:
     started_sec: "(التاريخ والوقت (بالثواني"
     state: "الحالة"
     state_label: "حالة النص"
+    # status: "Status"
     stock: "انتاج السهم"
     stock_id: "انتاج سهم" #?
     # stock_move: "Mouvement de stock"

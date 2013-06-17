@@ -646,7 +646,6 @@ ActiveRecord::Schema.define(:version => 20130513165730) do
   create_table "entity_links", :force => true do |t|
     t.integer  "entity_1_id",                 :null => false
     t.integer  "entity_2_id",                 :null => false
-    t.integer  "nature_id",                   :null => false
     t.datetime "started_at"
     t.datetime "stopped_at"
     t.text     "description"
@@ -655,14 +654,13 @@ ActiveRecord::Schema.define(:version => 20130513165730) do
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.integer  "lock_version", :default => 0, :null => false
-    t.string   "nature"
+    t.string   "nature",                      :null => false
   end
 
   add_index "entity_links", ["created_at"], :name => "index_entity_links_on_created_at"
   add_index "entity_links", ["creator_id"], :name => "index_entity_links_on_creator_id"
   add_index "entity_links", ["entity_1_id"], :name => "index_entity_links_on_entity1_id"
   add_index "entity_links", ["entity_2_id"], :name => "index_entity_links_on_entity2_id"
-  add_index "entity_links", ["nature_id"], :name => "index_entity_links_on_nature_id"
   add_index "entity_links", ["updated_at"], :name => "index_entity_links_on_updated_at"
   add_index "entity_links", ["updater_id"], :name => "index_entity_links_on_updater_id"
 
@@ -1201,23 +1199,23 @@ ActiveRecord::Schema.define(:version => 20130513165730) do
   add_index "meeting_natures", ["updated_at"], :name => "index_event_natures_on_updated_at"
   add_index "meeting_natures", ["updater_id"], :name => "index_event_natures_on_updater_id"
 
-  create_table "meeting_participants", :force => true do |t|
-    t.integer  "meeting_id",                  :null => false
-    t.integer  "entity_id",                   :null => false
-    t.string   "status"
-    t.datetime "created_at",                  :null => false
-    t.datetime "updated_at",                  :null => false
+  create_table "meeting_participations", :force => true do |t|
+    t.integer  "meeting_id",                    :null => false
+    t.integer  "participant_id",                :null => false
+    t.string   "state"
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version", :default => 0, :null => false
+    t.integer  "lock_version",   :default => 0, :null => false
   end
 
-  add_index "meeting_participants", ["created_at"], :name => "index_meeting_participants_on_created_at"
-  add_index "meeting_participants", ["creator_id"], :name => "index_meeting_participants_on_creator_id"
-  add_index "meeting_participants", ["entity_id"], :name => "index_meeting_participants_on_entity_id"
-  add_index "meeting_participants", ["meeting_id"], :name => "index_meeting_participants_on_meeting_id"
-  add_index "meeting_participants", ["updated_at"], :name => "index_meeting_participants_on_updated_at"
-  add_index "meeting_participants", ["updater_id"], :name => "index_meeting_participants_on_updater_id"
+  add_index "meeting_participations", ["created_at"], :name => "index_meeting_participations_on_created_at"
+  add_index "meeting_participations", ["creator_id"], :name => "index_meeting_participations_on_creator_id"
+  add_index "meeting_participations", ["meeting_id"], :name => "index_meeting_participations_on_meeting_id"
+  add_index "meeting_participations", ["participant_id"], :name => "index_meeting_participations_on_participant_id"
+  add_index "meeting_participations", ["updated_at"], :name => "index_meeting_participations_on_updated_at"
+  add_index "meeting_participations", ["updater_id"], :name => "index_meeting_participations_on_updater_id"
 
   create_table "observations", :force => true do |t|
     t.string   "importance",   :limit => 10,                :null => false
@@ -1905,8 +1903,6 @@ ActiveRecord::Schema.define(:version => 20130513165730) do
     t.integer  "father_id"
     t.integer  "mother_id"
     t.integer  "address_id"
-    t.decimal  "area_measure",                                                      :precision => 19, :scale => 4
-    t.string   "area_unit"
     t.boolean  "reservoir",                                                                                        :default => false, :null => false
     t.integer  "content_nature_id"
     t.string   "content_unit"
@@ -1921,7 +1917,6 @@ ActiveRecord::Schema.define(:version => 20130513165730) do
   end
 
   add_index "products", ["address_id"], :name => "index_products_on_address_id"
-  add_index "products", ["area_unit"], :name => "index_products_on_area_unit"
   add_index "products", ["asset_id"], :name => "index_products_on_asset_id"
   add_index "products", ["content_nature_id"], :name => "index_products_on_content_nature_id"
   add_index "products", ["content_unit"], :name => "index_products_on_content_unit"
@@ -2231,22 +2226,22 @@ ActiveRecord::Schema.define(:version => 20130513165730) do
   add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
 
   create_table "subscription_natures", :force => true do |t|
-    t.string   "name",                                                                :null => false
+    t.string   "name",                                                                               :null => false
     t.integer  "actual_number"
-    t.string   "nature",                                                              :null => false
+    t.string   "nature",                                                                             :null => false
     t.text     "description"
-    t.datetime "created_at",                                                          :null => false
-    t.datetime "updated_at",                                                          :null => false
+    t.datetime "created_at",                                                                         :null => false
+    t.datetime "updated_at",                                                                         :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                         :default => 0, :null => false
-    t.decimal  "reduction_percentage",  :precision => 19, :scale => 4
-    t.integer  "entity_link_nature_id"
+    t.integer  "lock_version",                                                        :default => 0, :null => false
+    t.decimal  "reduction_percentage",                 :precision => 19, :scale => 4
+    t.string   "entity_link_nature",    :limit => 127
+    t.string   "entity_link_direction", :limit => 31
   end
 
   add_index "subscription_natures", ["created_at"], :name => "index_subscription_natures_on_created_at"
   add_index "subscription_natures", ["creator_id"], :name => "index_subscription_natures_on_creator_id"
-  add_index "subscription_natures", ["entity_link_nature_id"], :name => "index_subscription_natures_on_entity_link_nature_id"
   add_index "subscription_natures", ["updated_at"], :name => "index_subscription_natures_on_updated_at"
   add_index "subscription_natures", ["updater_id"], :name => "index_subscription_natures_on_updater_id"
 

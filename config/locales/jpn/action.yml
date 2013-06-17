@@ -230,6 +230,7 @@ jpn:
       # merge: "Fusionner des parcelles"
       # new: "Ajouter une nouvelle parcelle"
       # show: "Parcelle %{name}"
+    backend/legal_entities: #?
     backend/listing_nodes:
       # edit: "Modifier le nœud"
       # new: "Nouveau nœud"
@@ -290,6 +291,7 @@ jpn:
       # index: "Décaissements"
       # new: "Ajout d’un décaissement"
       # show: "Décaissement n°%{number} pour %{payee}"
+    backend/people: #?
     backend/places: #?
     backend/plants:
       # edit: "Modifier la culture\_: %{name}"

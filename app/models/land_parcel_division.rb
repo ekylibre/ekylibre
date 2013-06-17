@@ -22,8 +22,6 @@
 #
 #  active                   :boolean          not null
 #  address_id               :integer
-#  area_measure             :decimal(19, 4)
-#  area_unit                :string(255)
 #  asset_id                 :integer
 #  born_at                  :datetime
 #  content_maximal_quantity :decimal(19, 4)   default(0.0), not null
@@ -68,8 +66,8 @@
 
 
 class LandParcelDivision < SubZone
-  attr_accessible :name, :area_measure, :area_unit, :born_at, :dead_at, :shape, :unit, :variety
-  belongs_to :area_unit, :class_name => "Unit"
+  attr_accessible :name, :born_at, :dead_at, :shape, :unit, :variety
+  # belongs_to :area_unit, :class_name => "Unit"
   # TODO : adapt with operations
   #has_many :operations, :as => :target
   # TODO : waiting for "merge" operation type
@@ -78,21 +76,6 @@ class LandParcelDivision < SubZone
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   #]VALIDATORS]
   validates_presence_of :born_at # :area_measure, :area_unit,
-
-  before_validation do
-    if self.shape
-      self.area_measure = self.shape.area
-      self.area_unit = Unit.get(:m2)
-      for unit in Unit.where(:base => "m2").order("coefficient DESC")
-        measure = unit.convert_from(self.area_measure, self.area_unit)
-        if measure >= 1
-          self.area_unit = unit
-          self.area_measure = measure
-          break
-        end
-      end
-    end
-  end
 
   # TODO : waiting for operations stabilizations
   #before_validation(:on => :update) do
@@ -135,10 +118,10 @@ class LandParcelDivision < SubZone
   #end
 
 
-  def area(unit=nil)
-    # return Unit.convert(self.area_measure, self.area_unit, unit)
-    return self.area_unit.convert_to(self.area_measure, unit)
-  end
+  # def area(unit=nil)
+  #   # return Unit.convert(self.area_measure, self.area_unit, unit)
+  #   return self.area_unit.convert_to(self.area_measure, unit)
+  # end
 
   # TODO : waiting for operations
   #def operations_on(viewed_on=Date.today)

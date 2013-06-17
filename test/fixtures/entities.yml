@@ -99,7 +99,6 @@
 #   vat_submissive: true
 #
 
-
 legal_entities_001:
   sale_price_listing_id: 1
   language: fra
@@ -150,6 +149,40 @@ legal_entities_003:
   updated_at: 2006-07-19 19:13:59 +02:00
   updater_id: 1
 
+entities_001:
+  sale_price_listing_id: 1
+  language: fra
+  currency: EUR
+  client: false
+  number: 00201
+  full_name: Ferstivall LTD
+  last_name: C. Ferstivall LTD
+  language: 'eng'
+  nature: "entity"
+  of_company: true
+  type: "Entity"
+  id: 201
+  created_at: 2009-07-19 19:13:59 +02:00
+  creator_id: 1
+  updated_at: 2006-07-19 19:13:59 +02:00
+  updater_id: 1
+
+entities_002:
+  sale_price_listing_id: 1
+  currency: EUR
+  language: fra
+  client: false
+  nature: entity
+  number: 00202
+  full_name: Toley LTD
+  last_name: Toley LTD
+  type: "Entity"
+  id: 202
+  created_at: 2009-07-19 19:13:59 +02:00
+  creator_id: 1
+  updated_at: 2006-07-19 19:13:59 +02:00
+  updater_id: 1
+
 people_001:
   active: true
   sale_price_listing_id: 1
@@ -157,7 +190,7 @@ people_001:
   language: fra
   client: true
   nature: sir
-  number: 00004
+  number: 00301
   full_name: Gendo IKARI
   first_name: Gendo
   last_name: IKARI
@@ -167,3 +200,22 @@ people_001:
   creator_id: 1
   updated_at: 2006-07-19 19:13:59 +02:00
   updater_id: 1
+
+people_002:
+  active: true
+  sale_price_listing_id: 1
+  currency: EUR
+  language: fra
+  client: true
+  nature: sir
+  number: 00302
+  full_name: Kozo FUYUTSUKI
+  first_name: Kozo
+  last_name: FUYUTSUKI
+  type: Person
+  id: 302
+  created_at: 2009-07-19 19:13:59 +02:00
+  creator_id: 1
+  updated_at: 2006-07-19 19:13:59 +02:00
+  updater_id: 1
+

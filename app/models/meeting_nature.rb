@@ -36,7 +36,7 @@
 class MeetingNature < Ekylibre::Record::Base
   attr_accessible :name, :duration, :active, :usage
   attr_readonly :name
-  has_many :events, :foreign_key => :nature_id, :class_name => "Meeting"
+  has_many :meetings, :foreign_key => :meeting_nature_id, :class_name => "Meeting"
   enumerize :usage, :in => [:manual, :sale, :purchase, :sales_invoice], :defaut => :manual, :predicates => true
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :duration, :allow_nil => true, :only_integer => true
@@ -49,7 +49,7 @@ class MeetingNature < Ekylibre::Record::Base
   default_scope -> { order(:name) }
 
   protect(:on => :destroy) do
-    self.events.count <= 0
+    self.meetings.count <= 0
   end
 
 end

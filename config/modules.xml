@@ -1000,6 +1000,16 @@
       <item name="kujakus">
         <page to="backend/kujakus#toggle"/>
       </item>
+      <item name="legal_entities">
+        <page to="backend/legal_entities#index"/>
+        <page to="backend/legal_entities#create"/>
+        <page to="backend/legal_entities#destroy"/>
+        <page to="backend/legal_entities#edit"/>
+        <page to="backend/legal_entities#list"/>
+        <page to="backend/legal_entities#new"/>
+        <page to="backend/legal_entities#show"/>
+        <page to="backend/legal_entities#update"/>
+      </item>
       <item name="logs">
         <page to="backend/logs#index"/>
         <page to="backend/logs#create"/>
@@ -1015,6 +1025,9 @@
         <page to="backend/matters#list_place"/>
         <page to="backend/matters#picture"/>
       </item>
+      <item name="meetings">
+        <page to="backend/meetings#autocomplete_for_place"/>
+      </item>
       <item name="operation_tasks">
         <page to="backend/operation_tasks#index"/>
         <page to="backend/operation_tasks#create"/>
@@ -1027,6 +1040,16 @@
       </item>
       <item name="operations">
         <page to="backend/operations#unroll"/>
+      </item>
+      <item name="people">
+        <page to="backend/people#index"/>
+        <page to="backend/people#create"/>
+        <page to="backend/people#destroy"/>
+        <page to="backend/people#edit"/>
+        <page to="backend/people#list"/>
+        <page to="backend/people#new"/>
+        <page to="backend/people#show"/>
+        <page to="backend/people#update"/>
       </item>
       <item name="places">
         <page to="backend/places#index"/>

@@ -49,6 +49,8 @@ class NormalizeScoria < ActiveRecord::Migration
     rename_column :entity_links, :stopped_on, :stopped_at
     add_column :entity_links, :nature, :string
     execute("UPDATE entity_links SET nature = 'undefined'")
+    change_column_null :entity_links, :nature, false
+    remove_column :entity_links, :nature_id
 
     drop_table :entity_link_natures
 
@@ -64,15 +66,15 @@ class NormalizeScoria < ActiveRecord::Migration
 
     rename_table :event_natures, :meeting_natures
 
-    create_table :meeting_participants do |t|
+    create_table :meeting_participations do |t|
       t.references :meeting, :null => false
-      t.references :entity,  :null => false
-      t.string :status
+      t.references :participant,  :null => false
+      t.string :state
       t.stamps
     end
-    add_stamps_indexes :meeting_participants
-    add_index :meeting_participants, :meeting_id
-    add_index :meeting_participants, :entity_id
+    add_stamps_indexes :meeting_participations
+    add_index :meeting_participations, :meeting_id
+    add_index :meeting_participations, :participant_id
 
 
     rename_column :events, :reason, :name
@@ -136,6 +138,9 @@ class NormalizeScoria < ActiveRecord::Migration
     change_column_default :sales, :state, nil
 
     change_column :subscription_natures, :nature, :string, :size => 16
+    add_column :subscription_natures, :entity_link_nature, :string, :limit => 127
+    add_column :subscription_natures, :entity_link_direction, :string, :limit => 31
+    remove_column :subscription_natures, :entity_link_nature_id
 
     rename_column :transfers, :supplier_id, :client_id
     change_column_null :transfers, :client_id, false

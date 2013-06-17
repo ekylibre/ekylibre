@@ -27,8 +27,7 @@
 #  entity_2_id  :integer          not null
 #  id           :integer          not null, primary key
 #  lock_version :integer          default(0), not null
-#  nature       :string(255)
-#  nature_id    :integer          not null
+#  nature       :string(255)      not null
 #  started_at   :datetime
 #  stopped_at   :datetime
 #  updated_at   :datetime         not null
@@ -37,7 +36,7 @@
 
 
 class EntityLink < Ekylibre::Record::Base
-  attr_accessible :description, :entity_1_id, :entity_2_id, :nature_id, :started_at, :stopped_at
+  attr_accessible :description, :entity_1_id, :entity_2_id, :nature, :started_at, :stopped_at
   belongs_to :entity_1, :class_name => "Entity"
   belongs_to :entity_2, :class_name => "Entity"
   # belongs_to :nature, :class_name => "EntityLinkNature"
@@ -45,7 +44,7 @@ class EntityLink < Ekylibre::Record::Base
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :nature, :allow_nil => true, :maximum => 255
-  validates_presence_of :entity_1, :entity_2
+  validates_presence_of :entity_1, :entity_2, :nature
   #]VALIDATORS]
   validates_inclusion_of :nature, :in => self.nature.values
 

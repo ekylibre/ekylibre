@@ -12,7 +12,7 @@
   =f.referenced_association :sale, :field => :hidden
   -# FIXME =f.referenced_association :price, :source => :availables_for_sales, :new => {:mode => :sales, :currency => "sale.currency".to_sym }
   =f.input :quantity
-  =f.referenced_association :unit, :readonly => true, :depend_on => :price, :value => "product.unit".to_sym
+  =f.input :unit, :readonly => true, :depend_on => :price, :value => "product.unit".to_sym
   =f.input :annotation
 
 -#=field_set :stock, :depend_on => :price, :if => :stockable? do

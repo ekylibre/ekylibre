@@ -23,8 +23,6 @@
 #
 #  active                   :boolean          not null
 #  address_id               :integer
-#  area_measure             :decimal(19, 4)
-#  area_unit                :string(255)
 #  asset_id                 :integer
 #  born_at                  :datetime
 #  content_maximal_quantity :decimal(19, 4)   default(0.0), not null
@@ -69,7 +67,7 @@
 
 
 class Product < Ekylibre::Record::Base
-  attr_accessible :area_unit, :area_measure, :nature_id, :number, :identification_number, :work_number, :born_at, :sex, :picture, :owner_id, :parent_id
+  attr_accessible :nature_id, :number, :identification_number, :work_number, :born_at, :sex, :picture, :owner_id, :parent_id
   # raise Nomenclatures["varieties:root"].children.keys.inspect
   enumerize :variety, :in => Nomenclatures["varieties-product"].list, :predicates => {:prefix => true}
   belongs_to :nature, :class_name => "ProductNature"
@@ -103,9 +101,9 @@ class Product < Ekylibre::Record::Base
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :picture_file_size, :allow_nil => true, :only_integer => true
-  validates_numericality_of :area_measure, :content_maximal_quantity, :maximal_quantity, :minimal_quantity, :real_quantity, :virtual_quantity, :allow_nil => true
+  validates_numericality_of :content_maximal_quantity, :maximal_quantity, :minimal_quantity, :real_quantity, :virtual_quantity, :allow_nil => true
   validates_length_of :variety, :allow_nil => true, :maximum => 127
-  validates_length_of :area_unit, :content_unit, :identification_number, :name, :number, :picture_content_type, :picture_file_name, :sex, :unit, :work_number, :allow_nil => true, :maximum => 255
+  validates_length_of :content_unit, :identification_number, :name, :number, :picture_content_type, :picture_file_name, :sex, :unit, :work_number, :allow_nil => true, :maximum => 255
   validates_inclusion_of :active, :external, :reproductor, :reservoir, :in => [true, false]
   validates_presence_of :content_maximal_quantity, :maximal_quantity, :minimal_quantity, :name, :nature, :number, :owner, :real_quantity, :unit, :variety, :virtual_quantity
   #]VALIDATORS]

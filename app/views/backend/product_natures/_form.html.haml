@@ -7,7 +7,7 @@
 
 =field_set :nature do
   =f.referenced_association :category
-  =f.referenced_association :unit
+  =f.input :unit
   -#input :nature, :show => {:subscription => :subscription}
 
 =field_set :nature do
@@ -15,16 +15,16 @@
   =f.input :depreciable, :show => :asset_account
   =f.input :saleable, :show => :product_account
   =f.input :purchasable, :show => :charge_account
-  =f.input :producible
-  =f.input :indivisible
-  =f.input :alive
-  =f.input :deliverable # , :show => :stock_options
+  -#=f.input :producible
+  =f.input :atomic
+  -#=f.input :alive
+  -#=f.input :deliverable # , :show => :stock_options
   =f.input :storable, :show => :stock_account#, :show => :stocks, :in => :stock_options
-  =f.input :traceable
-  =f.input :storage
+  -#=f.input :traceable
+  -#=f.input :storage
   =f.input :subscribing, :show => :subscription
-  =f.input :towable
-  =f.input :tractive
+  -#=f.input :towable
+  -#=f.input :tractive
 
 =field_set :subscription do
   =f.referenced_association :subscription_nature

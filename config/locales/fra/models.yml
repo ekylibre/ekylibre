@@ -360,6 +360,7 @@ fra:
       matter: "Matière"
       meeting: "Évènement"
       meeting_nature: "Type d’évènement"
+      # meeting_participation: "Meeting participation"
       observation: "Observation"
       operation: "Opération"
       operation_nature: "Type d'opération" #?
@@ -454,8 +455,8 @@ fra:
     # archives: "Archives"
     # archives_count: "Archives count"
     archiving: "Méthode d'archivage"
-    area: "Zone postale"
-    area_measure: "Superficie"
+    area: "Zone postale" #?
+    area_measure: "Superficie" #?
     area_unit: "Unité de surface"
     areas: "Zones postales"
     arrival_cause: "Cause d'entrée"
@@ -696,6 +697,7 @@ fra:
     entity_1: "Personne 1"
     entity_2: "Personne 2"
     entity_categories: "Catégories de personne" #?
+    entity_link_direction: "Entity link direction"
     entity_link_nature: "Type de lien permettant d’étendre l’abonnement"
     entity_link_natures: "Natures de lien entre personnes" #?
     entity_links: "Liens de personne" #?
@@ -752,7 +754,7 @@ fra:
     full_name: "Nom complet"
     full_name_format: "Format du nom complet" #?
     function_title: "Civilités"
-    future_events: "Evènements futurs"
+    future_events: "Evènements futurs" #?
     gender: "Gender" #?
     generated: "Généré" #?
     global_balance: "Solde global"
@@ -876,7 +878,9 @@ fra:
     measure_unit: "Unité de mesure"
     measure_value: "Valeur de la mesure"
     measured_at: "Mesuré à"
+    # meeting: "Meeting"
     # meeting_nature: "Meeting nature"
+    # meetings: "Meetings"
     member: "Membre"
     members: "Membres"
     memberships: "Membres du groupe"
@@ -952,6 +956,9 @@ fra:
     parent_kinships: "Relation parent" #?
     parent_land_parcel: "Sur-îlot" #?
     parent_place: "Parent place" #?
+    # participant: "Participant"
+    # participants: "Participants"
+    participations: "Participations"
     parts: "Affectations" #?
     parts_amount: "Montant utilisé" #?
     passages: "Passages" #?
@@ -1135,6 +1142,7 @@ fra:
     started_sec: "Date et heure (en secondes)" #?
     state: "État"
     state_label: "État"
+    status: "Status"
     stock: "Stock de produit" #?
     # stock_account: "Stock account"
     stock_move: "Mouvement de stock" #?
