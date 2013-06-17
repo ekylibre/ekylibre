@@ -74,4 +74,6 @@
 #  webpass                   :string(255)
 #
 class LegalEntity < Entity
+    enumerize :nature, :in => Nomenclatures["entity_natures-legal_entity"].list, :default => Nomenclatures["entity_natures-legal_entity"].list.first, :predicates => {:prefix => true}
+
 end
