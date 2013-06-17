@@ -142,6 +142,12 @@ namespace :db do
       # create default product_nature to create animal
       cow = ProductNature.find_by_number("CATTLE")
       cow ||= ProductNature.create!(:name => "adult_cow", :number => "CATTLE", :storable => true, :stock_account_id => cow_stock_account.id, :saleable => true, :product_account_id => cow_product_account.id, :variety => "bos", :unit => cow_unit, :category_id => category.id)
+      # create default product_nature_indicator for cow (like in XML nomenclature)
+      for a in ["weight", "animal_life_state", "mammalia_reproduction_event_abortion", "mammalia_reproduction_method_embryo_transplant", "mammalia_born_cycle", "mammalia_reproduction_state", "mammalia_twins_condition", "mammalia_lactation_state", "animal_disease_state"]
+        product_nature_indicator = ProductNatureIndicator.where(:nature => a, :product_nature_id => cow.id ).first
+        product_nature_indicator ||= ProductNatureIndicator.create!(:product_nature_id => cow.id, :nature => a)
+      end
+      
       # add default groups for animal
       group1 = AnimalGroup.find_by_name("VL")
       group1 ||= AnimalGroup.create!(:name => "VL", :active => true, :external => false, :reproductor => false, :reservoir => false, :description => "Vache Laitière", :nature_id => cow.id, :unit => cow_unit, :variety => "bos", :owner_id => Entity.of_company.id, :number => "VL")
@@ -158,20 +164,6 @@ namespace :db do
       # create default product to place animal
       place = Building.find_by_work_number("STABU_01")
       place ||= Building.create!(:name => "Stabulation principale", :identification_number => "S0001", :work_number => "STABU_01", :born_at => Time.now, :reservoir => true, :unit => "unity", :content_nature_id => cow.id, :variety => "building", :nature_id => place_nature.id, :owner_id => Entity.of_company.id, :number => "STABU_01")
-
-      # create default animal indicator (like in XML nomenclature)
-
-      # animal_indicator_life = ProductNatureIndicator.find_by_name("animal_life_state")
-      # animal_indicator_life ||= ProductNatureIndicator.create!(:product_nature_id => cow.id, :name => "animal_life_state", :description => "Phase du bioprocessus de vie d'un animal",:nature => "choice", :usage => "life", :active => true, :created_at => Time.now)
-      # animal_indicator_life.choices.create!(:name => "first_growth", :position => 1)
-      # animal_indicator_life.choices.create!(:name => "second_growth", :position => 2)
-      # animal_indicator_life.choices.create!(:name => "aging", :position => 3)
-      # animal_indicator_disease = ProductNatureIndicator.find_by_name("animal_disease_state")
-      # animal_indicator_disease ||= ProductNatureIndicator.create!(:product_nature_id => cow.id, :name => "animal_disease_state", :description => "Phase du bioprocessus de maladie d'un animal",:nature => "choice", :usage => "life", :active => true, :created_at => Time.now)
-      # animal_indicator_disease.choices.create!(:name => "healthy", :position => 1)
-      # animal_indicator_disease.choices.create!(:name => "sick", :position => 2)
-
-
 
       arrival_causes = {"N" => :birth, "A" => :purchase, "P" => :housing, "" => :other }
       departure_causes = {"M" => :death, "B" => :sale, "" => :other, "C" => :consumption , "E" => :sale}
@@ -197,7 +189,12 @@ namespace :db do
         animal = Animal.create!(:name => r.name, :unit => cow_unit, :variety => "bos", :identification_number => r.identification_number, :work_number => r.work_number, :born_at => r.born_on, :sex => r.sex, :picture => f, :nature_id => cow.id, :owner_id => Entity.of_company.id, :reproductor => (r.sex == :male ? rand(2).zero? : false), :number => r.work_number)
         f.close
         # set default indicators
-
+        animal.indicator_data.create!(:indicator => "weight", :value => "689.50" ,:measure_unit => "kilogram" ,:measured_at => Time.now )
+        animal.indicator_data.create!(:indicator => "weight", :value => "589.50" ,:measure_unit => "kilogram" ,:measured_at => (Time.now - 6.months) )
+        animal.indicator_data.create!(:indicator => "weight", :value => "479.50" ,:measure_unit => "kilogram" ,:measured_at => (Time.now - 1.year) )
+        animal.indicator_data.create!(:indicator => "animal_disease_state", :value => "healthy" ,:measured_at => Time.now )
+        animal.indicator_data.create!(:indicator => "animal_disease_state", :value => "sick" ,:measured_at => (Time.now - 2.days) )
+        animal.indicator_data.create!(:indicator => "animal_disease_state", :value => "healthy" ,:measured_at => (Time.now - 3.days) )
         # place the current animal in the default place (stabulation) with dates
         ProductLocalization.create!(:container_id => place.id, :product_id => animal.id, :nature => :interior, :started_at => r.arrived_on, :stopped_at => r.departed_on, :arrival_cause => r.arrival_cause, :departure_cause => r.departure_cause)
         # place the current animal in the default group with dates

@@ -74,8 +74,9 @@ class Backend::AnimalsController < BackendController
   # Liste des indicateurs de l'animal considéré
   list(:indicator, :model => :product_indicator_data, :conditions => [" product_id = ? ",['session[:current_animal_id]']], :order => "created_at DESC") do |t|
     t.column :indicator
-    t.column :created_at
+    t.column :measured_at
     t.column :value
+    t.column :measure_unit
   end
 
 
@@ -83,9 +84,10 @@ class Backend::AnimalsController < BackendController
   # Show one animal with params_id
   def show
     return unless @animal = find_and_check
+    session[:current_animal_id] = @animal.id
     t3e @animal, :nature_name => @animal.nature_name
            respond_with(@animal, :methods => :picture_path, :include => [:father, :mother, :nature, :variety, :owner,
-                                                   {:indicator_data => {:include => :indicator}},
+                                                   {:indicator_data => {}},
                                                    {:memberships => {:include =>:group}},
                                                     {:product_localizations => {:include =>:container}}])
     # respond_to do |format|
