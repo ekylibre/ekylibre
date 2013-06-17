@@ -6,16 +6,6 @@
     $.EkylibreSelector = {
         init: function (element) {
             var selector = $(element), name, hidden, menu, button;
-            if (selector.prop("hiddenInput") === undefined) {
-                name = selector.attr("name");
-                selector.removeAttr("name");
-                hidden = $("<input type='hidden' name='" + name + "'/>");
-                if (selector.attr("required") === "true") {
-                    hidden.attr("required", "true");
-                }
-                selector.closest("form").prepend(hidden);
-                selector.prop("hiddenInput", hidden);
-            }
             selector.attr("autocomplete", "off");
             if (selector.prop("dropDownButton") === undefined) {
                 button = $("<a href='#" + selector.attr("id") + "' rel='dropdown' class='selector-dropdown'><i></i></a>");
@@ -29,6 +19,21 @@
                 menu.prop("selectorOfMenu", selector);
                 selector.after(menu);
                 selector.prop("dropDownMenu", menu);
+            }
+            if (selector.prop("hiddenInput") === undefined) {
+                if (element.data("value-field") !== undefined) {
+                    hidden = $(element.data("value-field"));
+                } else {
+                    name = selector.attr("name");
+                    hidden = $("<input type='hidden' name='" + name + "'/>");
+                    // selector.closest("form").prepend(hidden);
+                    selector.after(hidden);
+                }
+                selector.removeAttr("name");
+                if (selector.attr("required") === "true") {
+                    hidden.attr("required", "true");
+                }
+                selector.prop("hiddenInput", hidden);
             }
             $.EkylibreSelector.set(selector, selector.val());
             return selector;
@@ -78,6 +83,14 @@
             menu = selector.prop("dropDownMenu");
             if (search !== undefined) {
                 data = {q: search};
+            }
+            if (element.data('with')) {
+                $(element.data("with")).each(function () {
+                    var paramName = $(this).data("parameter-name") || $(this).attr("name") || $(this).attr("id");
+                    if (paramName !== null && (typeof(paramName) !== undefined)) {
+                        data[paramName] = $(this).val() || $.trim($(this).html());
+                    }
+                });
             }
             return $.ajax($.EkylibreSelector.getSourceURL(selector), {
                 dataType: "html",

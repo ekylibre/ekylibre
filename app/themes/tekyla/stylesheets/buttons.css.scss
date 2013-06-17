@@ -38,7 +38,7 @@
   }
   &, &:link, &:focus, &:active, &:hover, & > i {
     color: $color !important;
-    @include text-shadow(-1px -1px 0 $shadow-color);
+    @include text-shadow(1px 1px 0 $shadow-color);
     @include transition-duration(0.15s);
   }
   & > i {
