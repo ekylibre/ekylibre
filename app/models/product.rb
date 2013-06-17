@@ -72,6 +72,7 @@ class Product < Ekylibre::Record::Base
   enumerize :variety, :in => Nomenclatures["varieties-product"].list, :predicates => {:prefix => true}
   belongs_to :nature, :class_name => "ProductNature"
   # belongs_to :variety, :class_name => "ProductVariety"
+  enumerize :unit, :in => Nomenclatures["units"].list, :default => Nomenclatures["units"].list.first, :predicates => {:prefix => true}
   # belongs_to :unit
   # belongs_to :area_unit, :class_name => "Unit"
   belongs_to :tracking

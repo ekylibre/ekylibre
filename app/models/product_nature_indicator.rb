@@ -35,7 +35,7 @@
 class ProductNatureIndicator < Ekylibre::Record::Base
   attr_accessible :product_nature_id, :created_at, :description, :name, :nature, :active, :choices_attributes, :unit, :usage, :maximal_length, :minimal_length, :maximal_value, :minimal_value # , :process_id
   # attr_readonly :nature
-  # enumerize :nature, :in => [:string, :decimal, :boolean, :measure, :choice], :predicates => true
+  enumerize :nature, :in => Nomenclatures["indicators"].list, :default => Nomenclatures["indicators"].list.first, :predicates => {:prefix => true}
   # enumerize :usage, :in => [:life, :production, :environment]
   # belongs_to :process, :class_name => "ProductProcess"
   belongs_to :product_nature, :class_name => "ProductNature"
@@ -54,8 +54,8 @@ class ProductNatureIndicator < Ekylibre::Record::Base
 
   # accepts_nested_attributes_for :choices
 
-  default_scope -> { order(:name) }
-  scope :actives, -> { order(:name) } # where(:active => true).order(:name)
+  default_scope -> { order(:nature) }
+  scope :actives, -> { order(:nature) } # where(:active => true).order(:name)
 
   # def choices_count
   #   self.choices.count

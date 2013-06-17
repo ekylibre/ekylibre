@@ -39,9 +39,9 @@
 
 
 class ProductIndicatorDatum < Ekylibre::Record::Base
-  attr_accessible :value, :created_at, :product_id, :indicator_id, :measured_at, :description, :decimal_value, :measure_unit, :measure_value, :string_value, :boolean_value, :choice_value
+  attr_accessible :value, :created_at, :product_id, :indicator, :measured_at, :description, :decimal_value, :measure_unit, :measure_value, :string_value, :boolean_value, :choice_value
   belongs_to :product
-  # TODO: enumerize :indicator, :in => Nomenclatures["indicators"].list
+  enumerize :indicator, :in => Nomenclatures["indicators"].list, :default => Nomenclatures["indicators"].list.first, :predicates => {:prefix => true}
   # belongs_to :indicator, :class_name => "ProductNatureIndicator", :inverse_of => :data
   # belongs_to :measure_unit, :class_name => "Unit"
   # TODO: enumerize :choice_value dynamicly
@@ -52,43 +52,50 @@ class ProductIndicatorDatum < Ekylibre::Record::Base
   validates_inclusion_of :boolean_value, :in => [true, false]
   validates_presence_of :indicator, :product
   #]VALIDATORS]
-
-  validate do
-    if self.indicator
-      errors.add(:value, :required, :field => self.indicator.name) if self.value.blank?
-      unless self.value.blank?
-        if self.indicator.nature == "string"
-          unless self.indicator.maximal_length.blank? or self.indicator.maximal_length <= 0
-            errors.add(:value, :too_long, :field => self.indicator.name, :length => self.indicator.length_max) if self.string_value.length > self.indicator.maximal_length
-          end
-          unless self.indicator.minimal_length.blank? or self.indicator.minimal_length <= 0
-            errors.add(:value, :too_short, :field => self.indicator.name, :length => self.indicator.length_max) if self.string_value.length < self.indicator.minimal_length
-          end
-        elsif self.indicator.nature == "decimal"
-          unless self.indicator.minimal_value.blank?
-            errors.add(:value, :less_than, :field => self.indicator.name, :minimum => self.indicator.minimal_value) if self.decimal_value < self.indicator.minimal_value
-          end
-          unless self.indicator.maximal_value.blank?
-            errors.add(:value, :greater_than, :field => self.indicator.name, :maximum => self.indicator.maximal_value) if self.decimal_value > self.indicator.maximal_value
-          end
-        end
-      end
-    end
+    
+    
+    
+  def indicator_type
+    "string"
   end
 
+
+  # validate do
+    # if self.indicator
+      # errors.add(:value, :required, :field => self.indicator.name) if self.value.blank?
+      # unless self.value.blank?
+        # if self.indicator_type == "string"
+          # unless self.indicator.maximal_length.blank? or self.indicator.maximal_length <= 0
+            # errors.add(:value, :too_long, :field => self.indicator.name, :length => self.indicator.length_max) if self.string_value.length > self.indicator.maximal_length
+          # end
+          # unless self.indicator.minimal_length.blank? or self.indicator.minimal_length <= 0
+            # errors.add(:value, :too_short, :field => self.indicator.name, :length => self.indicator.length_max) if self.string_value.length < self.indicator.minimal_length
+          # end
+        # elsif self.indicator_type == "decimal"
+          # unless self.indicator.minimal_value.blank?
+            # errors.add(:value, :less_than, :field => self.indicator.name, :minimum => self.indicator.minimal_value) if self.decimal_value < self.indicator.minimal_value
+          # end
+          # unless self.indicator.maximal_value.blank?
+            # errors.add(:value, :greater_than, :field => self.indicator.name, :maximum => self.indicator.maximal_value) if self.decimal_value > self.indicator.maximal_value
+          # end
+        # end
+      # end
+    # end
+  # end
+
   def value
-    self.send(self.indicator.nature.to_s + '_value')
+    self.send(self.indicator_type.to_s + '_value')
   end
 
   def value=(object)
-    if self.indicator.nature.to_s == "choice"
+    if self.indicator_type.to_s == "choice"
       begin
         self.choice_value_id = object.to_i
       rescue
         self.choice_value_id = nil
       end
     else
-      self.send(self.indicator.nature.to_s + '_value=',object)
+      self.send(self.indicator_type.to_s + '_value=',object)
     end
   end
 
