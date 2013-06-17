@@ -80,7 +80,7 @@ GEM
     cocaine (0.5.1)
       climate_control (>= 0.0.3, < 1.0)
     cocoon (1.1.2)
-    code_analyzer (0.3.1)
+    code_analyzer (0.3.2)
       sexp_processor
     coderay (1.0.9)
     coffee-rails (3.2.2)
@@ -245,7 +245,7 @@ GEM
       activesupport (= 3.2.13)
       bundler (~> 1.0)
       railties (= 3.2.13)
-    rails_best_practices (1.13.5)
+    rails_best_practices (1.13.7)
       activesupport
       awesome_print
       code_analyzer

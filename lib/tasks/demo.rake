@@ -451,45 +451,45 @@ namespace :db do
       # create all indicator relative to milk_analysis_quality if not exist
       # product_indicator_germes = ProductNatureIndicator.find_by_name("germes_totaux")
       # product_indicator_germes ||= ProductNatureIndicator.create!(:product_nature_id => product_nature.id, :name => "germes_totaux", :description => "Dénombrement des micro-organismes totaux obtenues à 30°C - (x1000 germes / ml)- NF EN ISO 4833",:nature => "measure", :usage => "production", :active => true, :created_at => Time.now, :unit => unit_analysis_measure_germes, :maximal_value => "5000.0000")
-# 
+#
       # product_indicator_inhib = ProductNatureIndicator.find_by_name("inhibiteurs")
       # product_indicator_inhib ||= ProductNatureIndicator.create!(:product_nature_id => product_nature.id, :name => "inhibiteurs", :description => "Recherche des résidus d’inhibiteurs par test microbiologique - (NEGATIF / POSITIF)- protocole CNIEL INHD",:nature => "string", :usage => "production", :active => true, :created_at => Time.now, :maximal_length => 3)
-# 
+#
       # product_indicator_mg = ProductNatureIndicator.find_by_name("matieres_grasse")
       # product_indicator_mg ||= ProductNatureIndicator.create!(:product_nature_id => product_nature.id, :name => "matieres_grasse", :description => "Détermination de la teneur en matière grasse par méthode acido-butyrométrique - (g / L)- NF AFNOR V 04-210",:nature => "measure", :usage => "production", :active => true, :created_at => Time.now, :unit_id => unit_l.id, :maximal_value => "60.0000")
-# 
+#
       # product_indicator_mp = ProductNatureIndicator.find_by_name("matieres_proteique")
       # product_indicator_mp ||= ProductNatureIndicator.create!(:product_nature_id => product_nature.id, :name => "matieres_proteique", :description => "Détermination de la teneur en protéine par la méthode au Noir Amido - (g / L)- NF AFNOR V 04-216",:nature => "measure", :usage => "production", :active => true, :created_at => Time.now, :unit_id => unit_l.id, :maximal_value => "60.0000")
-# 
+#
       # product_indicator_cellules = ProductNatureIndicator.find_by_name("cellules")
       # product_indicator_cellules ||= ProductNatureIndicator.create!(:product_nature_id => product_nature.id, :name => "cellules", :description => "Dénombrement des cellules somatiques - (x1000 cellules / ml)- ISO 13366-2",:nature => "measure", :usage => "production", :active => true, :created_at => Time.now, :unit_id => unit_ml.id, :maximal_value => "8000.0000")
-# 
+#
       # product_indicator_buty = ProductNatureIndicator.find_by_name("butyriques")
       # product_indicator_buty ||= ProductNatureIndicator.create!(:product_nature_id => product_nature.id, :name => "butyriques", :description => "Dénombrement microbiologique des spores de Clostridia  - (spores / L)- protocole CNIEL BUTY",:nature => "measure", :usage => "production", :active => true, :created_at => Time.now, :unit_id => unit_l.id, :maximal_value => "50000.0000")
-# 
+#
       # product_indicator_cryo = ProductNatureIndicator.find_by_name("cryoscopie")
       # product_indicator_cryo ||= ProductNatureIndicator.create!(:product_nature_id => product_nature.id, :name => "cryoscopie", :description => "Détermination du point de congélation par cryoscopie - (°C)- NF EN ISO 5764",:nature => "decimal", :usage => "production", :active => true, :created_at => Time.now, :unit_id => unit_u.id, :maximal_value => "0.580")
-# 
+#
       # product_indicator_lipo = ProductNatureIndicator.find_by_name("lipolyse")
       # product_indicator_lipo ||= ProductNatureIndicator.create!(:product_nature_id => product_nature.id, :name => "lipolyse", :description => " Méthode aux Savons de Cuivre - ( meq /100 g de MG)- protocole CNIEL LIPO",:nature => "decimal", :usage => "production", :active => true, :created_at => Time.now, :unit_id => unit_u.id, :maximal_value => "2.0")
-# 
+#
       # product_indicator_igg = ProductNatureIndicator.find_by_name("igg")
       # product_indicator_igg ||= ProductNatureIndicator.create!(:product_nature_id => product_nature.id, :name => "igg", :description => "Dosage des IgG par immunodiffusion radiale - (u / L)- d’après D. Levieux",:nature => "string", :usage => "production", :active => true, :created_at => Time.now)
-# 
+#
       # product_indicator_uree = ProductNatureIndicator.find_by_name("uree")
       # product_indicator_uree ||= ProductNatureIndicator.create!(:product_nature_id => product_nature.id, :name => "uree", :description => "Dosage de la teneur moyenne en urée - (mg / L)",:nature => "decimal", :usage => "production", :active => true, :created_at => Time.now, :unit_id => unit_u.id, :maximal_value => "600.00")
-# 
+#
 
       trans_inhib = {
         "NEG" => "negative",
         "POS" => "positive"
       }
-     
+
      for a in ["total_bacteria_concentration", "inhibitors_presence", "fat_matters_concentration", "protein_matters_concentration", "cells_concentration", "clostridial_spores_concentration", "freezing_point_temperature", "lipolysis", "immunoglobulins_concentration", "urea_concentration"]
       product_nature_indicator = ProductNatureIndicator.where(:nature => a, :product_nature_id => product_nature.id ).first
       product_nature_indicator ||= ProductNatureIndicator.create!(:product_nature_id => product_nature.id, :nature => a)
      end
-      
+
       file = Rails.root.join("test", "fixtures", "files", "HistoIP_V.csv")
       CSV.foreach(file, :encoding => "CP1252", :col_sep => "\t", :headers => true) do |row|
         analysis_on = Date.civil(row[0].to_i, row[1].to_i, 1)
