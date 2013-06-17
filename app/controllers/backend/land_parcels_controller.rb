@@ -25,12 +25,10 @@ class Backend::LandParcelsController < BackendController
   list(:conditions => ["? BETWEEN #{LandParcel.table_name}.born_at AND COALESCE(#{LandParcel.table_name}.dead_at, ?)", ['session[:viewed_on]'], ['session[:viewed_on]']], :order => "name") do |t|
     t.column :name, :url => true
     t.column :identification_number
-    t.column :area_measure, :datatype => :decimal
-    t.column :area_unit
     t.column :description
     #t.column :started_on
     #t.column :stopped_on
-    t.action :divide
+    # t.action :divide
     t.action :edit
     t.action :destroy
   end
@@ -59,31 +57,31 @@ class Backend::LandParcelsController < BackendController
     t3e @land_parcel.attributes
   end
 
-  def divide
-    return unless @land_parcel = find_and_check(:land_parcel)
-    if request.xhr?
-      render :partial => "subdivision_form"
-      return
-    end
+  # def divide
+  #   return unless @land_parcel = find_and_check(:land_parcel)
+  #   if request.xhr?
+  #     render :partial => "subdivision_form"
+  #     return
+  #   end
 
-    if request.post?
-      if @land_parcel.divide(params[:subdivisions].values, params[:land_parcel][:stopped_on].to_date)
-        redirect_to :action => :index
-      end
-    end
-    # @land_parcel.stopped_on ||= (session[:viewed_on].to_date rescue Date.today) - 1
-    t3e @land_parcel.attributes
-  end
+  #   if request.post?
+  #     if @land_parcel.divide(params[:subdivisions].values, params[:land_parcel][:stopped_on].to_date)
+  #       redirect_to :action => :index
+  #     end
+  #   end
+  #   # @land_parcel.stopped_on ||= (session[:viewed_on].to_date rescue Date.today) - 1
+  #   t3e @land_parcel.attributes
+  # end
 
-  def merge
-    land_parcels = params[:land_parcel].select{|k, v| v.to_i == 1}.collect{|k, v| LandParcel.find(k.to_i)}
-    child = land_parcels[0].merge(land_parcels[1..-1], session[:viewed_on])
-    # redirect_to(:action => :show, :id => child.id)
-    if child
-      render :text => url_for(:action => :show, :id => child.id, :viewed_on => session[:viewed_on] + 1), :layout => false
-    else
-      render :text => url_for(:action => :index, :viewed_on => session[:viewed_on] + 1), :layout => false
-    end
-  end
+  # def merge
+  #   land_parcels = params[:land_parcel].select{|k, v| v.to_i == 1}.collect{|k, v| LandParcel.find(k.to_i)}
+  #   child = land_parcels[0].merge(land_parcels[1..-1], session[:viewed_on])
+  #   # redirect_to(:action => :show, :id => child.id)
+  #   if child
+  #     render :text => url_for(:action => :show, :id => child.id, :viewed_on => session[:viewed_on] + 1), :layout => false
+  #   else
+  #     render :text => url_for(:action => :index, :viewed_on => session[:viewed_on] + 1), :layout => false
+  #   end
+  # end
 
 end

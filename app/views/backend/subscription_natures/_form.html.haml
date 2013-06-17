@@ -2,7 +2,8 @@
   =f.input :nature, :show => {:quantity => :number_options}
   =f.input :name
   =f.input :reduction_percentage
-  =f.referenced_association :entity_link_nature
+  =f.input :entity_link_nature
+  =f.input :entity_link_direction
   =f.input :description
 
 =field_set(:number_options) do

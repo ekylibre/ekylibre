@@ -292,6 +292,7 @@ arb:
       # merge: "Fusionner des parcelles"
       new: "اضافة نظام جديد"
       show: "نظام %{name}"
+    backend/legal_entities: #?
     backend/listing_node_items: #?
     backend/listing_nodes:
       # edit: "Modifier le nœud"
@@ -367,6 +368,7 @@ arb:
       index: "دفعات"
       new: "اضافة دفعة"
       show: "رقم الدفعة%{number} من اجل %{payee}"
+    backend/people: #?
     backend/places: #?
     backend/plants:
       # edit: "Modifier la culture\_: %{name}"

@@ -1,10 +1,10 @@
 =field_set(:major => true) do
-  =f.referenced_association :nature
+  =f.input :nature
   =f.input :language, :collection => languages, :field => :select
   =f.input :last_name
   =f.input :first_name
   =f.input :active, :hide => :dead_on
-  =f.input :code
+  -# =f.input :number
   =f.input :prospect
   =f.input :client, :show => :client_informations
   =f.input :supplier, :show => :supplier_informations

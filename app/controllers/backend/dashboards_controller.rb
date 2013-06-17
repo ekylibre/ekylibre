@@ -19,7 +19,7 @@
 
 class Backend::DashboardsController < BackendController
 
-  list(:my_future_events, :model => :meetings, :conditions => ['started_at >= CURRENT_TIMESTAMP'], :order => "started_at ASC", :line_class => "(RECORD.responsible_id=@current_user.id ? 'notice' : '')", :per_page => 10) do |t|
+  list(:my_future_events, :model => :meetings, :conditions => ['started_at >= CURRENT_TIMESTAMP'], :order => "started_at ASC", :per_page => 10) do |t|
     t.column :name
     t.column :started_at
     # t.column :full_name, :through => :entity, :url => true

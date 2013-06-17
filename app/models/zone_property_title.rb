@@ -22,8 +22,6 @@
 #
 #  active                   :boolean          not null
 #  address_id               :integer
-#  area_measure             :decimal(19, 4)
-#  area_unit                :string(255)
 #  asset_id                 :integer
 #  born_at                  :datetime
 #  content_maximal_quantity :decimal(19, 4)   default(0.0), not null

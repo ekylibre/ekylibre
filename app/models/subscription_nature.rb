@@ -24,7 +24,8 @@
 #  created_at            :datetime         not null
 #  creator_id            :integer
 #  description           :text
-#  entity_link_nature_id :integer
+#  entity_link_direction :string(31)
+#  entity_link_nature    :string(127)
 #  id                    :integer          not null, primary key
 #  lock_version          :integer          default(0), not null
 #  name                  :string(255)      not null
@@ -39,13 +40,17 @@ class SubscriptionNature < Ekylibre::Record::Base
   attr_readonly :nature
   enumerize :nature, :in => [:period, :quantity], :default => :period, :predicates => true
   attr_accessible :actual_number, :description, :entity_link_nature_id, :name, :nature, :reduction_percentage
-  belongs_to :entity_link_nature
+  # belongs_to :entity_link_nature
+  enumerize :entity_link_nature, :in => Nomenclatures["entity_link_natures"].list
+  enumerize :entity_link_direction, :in => [:direct, :indirect, :all]
   has_many :products, :class_name => "ProductNature"
   has_many :subscriptions, :foreign_key => :nature_id
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :actual_number, :allow_nil => true, :only_integer => true
   validates_numericality_of :reduction_percentage, :allow_nil => true
+  validates_length_of :entity_link_direction, :allow_nil => true, :maximum => 31
+  validates_length_of :entity_link_nature, :allow_nil => true, :maximum => 127
   validates_length_of :name, :nature, :allow_nil => true, :maximum => 255
   validates_presence_of :name, :nature
   #]VALIDATORS]

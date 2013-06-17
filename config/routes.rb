@@ -1,5 +1,6 @@
 Ekylibre::Application.routes.draw do
 
+
   # Authentication
   # namespace :authentication do
   #   resource :session, :only => [:new, :create, :destroy] do
@@ -281,7 +282,7 @@ Ekylibre::Application.routes.draw do
         get :list_outgoing_payments
         get :list_mandates
         get :list_incoming_payments
-        get :list_events
+        get :list_meetings
         get :list_addresses
         get :list_cashes
         get :list_links
@@ -448,14 +449,19 @@ Ekylibre::Application.routes.draw do
       collection do
         get :list
         get :list_operations
-        post :merge
+        # post :merge
         unroll_all
       end
-      member do
-        match "divide", :via => [:get, :post]
+      # member do
+      #   match "divide", :via => [:get, :post]
+      # end
+    end
+    resources :legal_entities do
+      collection do
+        get :list
+        unroll_all
       end
     end
-    # resources :land_parcel_kinships
     # resources :listing_node_items
     resources :listing_nodes
     resources :listings do
@@ -555,13 +561,21 @@ Ekylibre::Application.routes.draw do
       end
     end
     resources :outgoing_payment_uses
-    # resources :preferences
+
+    resources :people do
+      collection do
+        get :list
+        unroll_all
+      end
+    end
+
     resources :places do
       collection do
         get :list
         unroll_all
       end
     end
+
     resources :plants do
       collection do
         get :list

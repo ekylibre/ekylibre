@@ -142,7 +142,7 @@ class EntityAddress < Ekylibre::Record::Base
   end
 
   def label
-    self.entity.code + ". " + self.coordinate
+    self.entity.number + ". " + self.coordinate
   end
 
   def mail_line_6_code

@@ -22,9 +22,9 @@ class Backend::MeetingsController < BackendController
 
   unroll_all
 
-  autocomplete_for :location
+  autocomplete_for :place
 
-  list(:conditions => search_conditions(:meetings, :meetings => [:duration, :location, :reason, :started_at], :users => [:first_name, :last_name, :name], :entities => [:full_name], :meeting_natures => [:name]), :order => "started_at DESC") do |t| # , :joins => {:responsible => {}, :entity => [:nature]}
+  list(:conditions => search_conditions(:meetings, :meetings => [:duration, :place, :name, :description, :started_at], :users => [:first_name, :last_name, :name], :entities => [:full_name], :meeting_natures => [:name]), :order => "started_at DESC") do |t| # , :joins => {:responsible => {}, :entity => [:nature]}
     # t.column :full_name, :through => :entity, :url => true
     t.column :name
     t.column :duration

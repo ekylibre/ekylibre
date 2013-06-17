@@ -93,7 +93,7 @@ users_001:
   first_name: Mikawel
   last_name: Makinous
   email: gendo@nerv.jp
-  person_id: 1
+  person_id: 301
   language: fra
   locked: false
   rights: ''
@@ -112,7 +112,7 @@ users_002:
   first_name: Nikawel
   last_name: Nakinous
   email: niknak@nanak.com
-  person_id: 2
+  person_id: 302
   language: fra
   locked: false
   rights: ''

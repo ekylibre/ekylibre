@@ -24,7 +24,8 @@
 #  created_at            :datetime         not null
 #  creator_id            :integer
 #  description           :text
-#  entity_link_nature_id :integer
+#  entity_link_direction :string(31)
+#  entity_link_nature    :string(127)
 #  id                    :integer          not null, primary key
 #  lock_version          :integer          default(0), not null
 #  name                  :string(255)      not null

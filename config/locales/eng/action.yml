@@ -273,6 +273,7 @@ eng:
       merge: "Merge land parcels"
       new: "Add a new land parcel"
       show: "Land parcel %{name}"
+    backend/legal_entities: #?
     backend/listing_nodes:
       edit: "Edit listing node"
       new: "New listing node"
@@ -333,6 +334,7 @@ eng:
       index: "Disbursements"
       new: "Add a new disbursement"
       show: "Disbursement %{number} for %{payee}"
+    backend/people: #?
     backend/places: #?
     backend/plants:
       # edit: "Modifier la culture\_: %{name}"

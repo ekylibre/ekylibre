@@ -108,6 +108,7 @@ class Entity < Ekylibre::Record::Base
   has_many :indirect_links, :class_name => "EntityLink", :foreign_key => :entity_2_id
   has_many :mandates
   has_many :observations, :as => :subject
+  has_many :participations, :class_name => "MeetingParticipation", :foreign_key => :entity_id
   has_many :prices, :class_name => "ProductPriceTemplate"
   has_many :purchase_invoices, :class_name => "Purchase", :foreign_key => :supplier_id, :order => "created_on desc", :conditions => {:state => "invoice"}
   has_many :purchases, :foreign_key => :supplier_id
@@ -297,7 +298,7 @@ class Entity < Ekylibre::Record::Base
   end
 
   def maximal_reduction_percentage(computed_on = Date.today)
-    return Subscription.maximum(:reduction_percentage, :joins => "JOIN #{SubscriptionNature.table_name} AS sn ON (#{Subscription.table_name}.nature_id = sn.id) LEFT JOIN #{EntityLink.table_name} AS el ON (el.nature_id = sn.entity_link_nature_id AND #{Subscription.table_name}.entity_id IN (entity_1_id, entity_2_id))", :conditions => ["? IN (#{Subscription.table_name}.entity_id, entity_1_id, entity_2_id) AND ? BETWEEN #{Subscription.table_name}.started_on AND #{Subscription.table_name}.stopped_on AND COALESCE(#{Subscription.table_name}.sale_id, 0) NOT IN (SELECT id FROM #{Sale.table_name} WHERE state='estimate')", self.id, computed_on]).to_f || 0.0
+    return Subscription.maximum(:reduction_percentage, :joins => "JOIN #{SubscriptionNature.table_name} AS sn ON (#{Subscription.table_name}.nature_id = sn.id) LEFT JOIN #{EntityLink.table_name} AS el ON (el.nature = sn.entity_link_nature AND #{Subscription.table_name}.entity_id IN (entity_1_id, entity_2_id))", :conditions => ["? IN (#{Subscription.table_name}.entity_id, entity_1_id, entity_2_id) AND ? BETWEEN #{Subscription.table_name}.started_on AND #{Subscription.table_name}.stopped_on AND COALESCE(#{Subscription.table_name}.sale_id, 0) NOT IN (SELECT id FROM #{Sale.table_name} WHERE state='estimate')", self.id, computed_on]).to_f || 0.0
   end
 
   def picture_path(style = :original)
@@ -407,7 +408,7 @@ class Entity < Ekylibre::Record::Base
 
     # code += "    puts [nature, sale_price_listing].inspect\n"
 
-    code += "    entity = Entity.build("+cols[:entity].collect{|k,v| ":#{v} => item[#{k}]"}.join(', ')+", :nature_id => nature.id, :sale_price_listing_id => sale_price_listing.id, :language => #{self.of_company.language.inspect}, :client => true)\n"
+    code += "    entity = Entity.build("+cols[:entity].collect{|k,v| ":#{v} => item[#{k}]"}.join(', ')+", :nature => nature, :sale_price_listing_id => sale_price_listing.id, :language => #{self.of_company.language.inspect}, :client => true)\n"
     code += "    if entity.save\n"
     if cols[:address].is_a? Hash
       code += "      address = entity.addresses.build("+cols[:address].collect{|k,v| ":#{v} => item[#{k}]"}.join(', ')+")\n"

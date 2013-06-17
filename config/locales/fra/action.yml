@@ -246,12 +246,17 @@ fra:
       new: "Ajouter un nouvel ilôt"
       show: "Ilôt %{name}"
     backend/land_parcels:
-      divide: "Diviser la parcelle\_: %{name}"
+      divide: "Diviser la parcelle\_: %{name}" #?
       edit: "Modifier la parcelle\_: %{name}"
       index: "Parcelles"
-      merge: "Fusionner des parcelles"
+      merge: "Fusionner des parcelles" #?
       new: "Ajouter une nouvelle parcelle"
       show: "Parcelle %{name}"
+    backend/legal_entities:
+      # edit: "Edit backend/legal entity"
+      # index: "Index backend/legal entity"
+      # new: "New backend/legal entity"
+      # show: "Show backend/legal entity"
     backend/listing_nodes:
       edit: "Modifier le nœud"
       new: "Nouveau nœud"
@@ -285,7 +290,7 @@ fra:
       # index: "Index backend/meeting nature"
       # new: "New backend/meeting nature"
     backend/meetings:
-      # autocomplete_for_location: "Autocomplete for location backend/meeting"
+      # autocomplete_for_place: "Autocomplete for place backend/meeting"
       # change_minutes: "Change minutes backend/meeting"
       # edit: "Edit backend/meeting"
       # index: "Index backend/meeting"
@@ -326,6 +331,11 @@ fra:
       index: "Décaissements"
       new: "Ajout d’un décaissement"
       show: "Décaissement n°%{number} pour %{payee}"
+    backend/people:
+      # edit: "Edit backend/person"
+      # index: "Index backend/person"
+      # new: "New backend/person"
+      # show: "Show backend/person"
     backend/places:
       # edit: "Edit backend/place"
       # index: "Index backend/place"
@@ -614,6 +624,7 @@ fra:
     # backend/kujakus: "Backend/kujakus"
     # backend/land_parcel_groups: "Backend/land parcel groups"
     backend/land_parcels: "Îlots"
+    # backend/legal_entities: "Backend/legal entities"
     backend/listing_node_items: "Élement de nœuds d’extractions"
     backend/listing_nodes: "Nœuds d’extractions"
     backend/listings: "Exportations et mailings"
@@ -631,6 +642,7 @@ fra:
     backend/outgoing_delivery_modes: "Modes de livraisons sortantes"
     backend/outgoing_payment_modes: "Modes de décaissement"
     backend/outgoing_payments: "Décaissements"
+    # backend/people: "Backend/people"
     # backend/places: "Backend/places"
     # backend/plants: "Backend/plants"
     backend/preferences: "Préférences"

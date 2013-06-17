@@ -1,0 +1,7 @@
+=toolbar do |t|
+  -t.edit @legal_entity
+
+=beehive do |b|
+  -b.cell do
+    =attributes_list(@legal_entity) do |l|
+      -l.attribute :name

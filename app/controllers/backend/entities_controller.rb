@@ -24,11 +24,11 @@ class Backend::EntitiesController < BackendController
 
   autocomplete_for :origin
 
-  # # list(:select => {[:addresses, :mail_line_6] => :item_6}, :conditions => search_conditions(:entities, :entities => [:code, :full_name], :addresses => [:coordinate]), :joins => "LEFT JOIN #{EntityAddress.table_name} AS addresses ON (entities.id = addresses.entity_id AND addresses.deleted_at IS NULL)", :order => "entities.code") do |t|
-  # list(:select => {[:addresses, :coordinate] => :coordinate}, :conditions => search_conditions(:entities, :entities => [:code, :full_name], :addresses => [:coordinate]), :joins => "LEFT JOIN #{EntityAddress.table_name} AS addresses ON (entities.id = addresses.entity_id AND addresses.deleted_at IS NULL)", :order => "entities.last_name, entities.first_name") do |t|
-  list(:conditions => search_conditions(:entities, :entities => [:code, :full_name]), :order => "entities.last_name, entities.first_name") do |t| # , :joins => "LEFT JOIN #{EntityAddress.table_name} AS addresses ON (entities.id = addresses.entity_id AND addresses.deleted_at IS NULL)" # , :addresses => [:coordinate]
+  # # list(:select => {[:addresses, :mail_line_6] => :item_6}, :conditions => search_conditions(:entities, :entities => [:number, :full_name], :addresses => [:coordinate]), :joins => "LEFT JOIN #{EntityAddress.table_name} AS addresses ON (entities.id = addresses.entity_id AND addresses.deleted_at IS NULL)", :order => "entities.number") do |t|
+  # list(:select => {[:addresses, :coordinate] => :coordinate}, :conditions => search_conditions(:entities, :entities => [:number, :full_name], :addresses => [:coordinate]), :joins => "LEFT JOIN #{EntityAddress.table_name} AS addresses ON (entities.id = addresses.entity_id AND addresses.deleted_at IS NULL)", :order => "entities.last_name, entities.first_name") do |t|
+  list(:conditions => search_conditions(:entities, :entities => [:number, :full_name]), :order => "entities.last_name, entities.first_name") do |t| # , :joins => "LEFT JOIN #{EntityAddress.table_name} AS addresses ON (entities.id = addresses.entity_id AND addresses.deleted_at IS NULL)" # , :addresses => [:coordinate]
     t.column :active, :datatype => :boolean
-    t.column :code, :url => true
+    t.column :number, :url => true
     t.column :nature
     t.column :last_name, :url => true
     t.column :first_name, :url => true
@@ -51,18 +51,20 @@ class Backend::EntitiesController < BackendController
   #   t.column :email
   #   t.column :website
   #   t.column :by_default
-  #   t.column :code, :through => :entity, :url => true
+  #   t.column :number, :through => :entity, :url => true
   #   t.action :edit
   #   t.action :destroy
   # end
 
-  list(:meetings, :conditions => {:entity_id => ['session[:current_entity_id]']}, :order => "created_at DESC") do |t|
+  # TODO: Filter meetings with participations , :conditions => {:entity_id => ['session[:current_entity_id]']}
+  list(:meetings, :order => "created_at DESC") do |t|
     t.column :name, :through => :meeting_nature
     t.column :name
     # t.column :label, :through => :responsible, :url => true
     t.column :duration
     t.column :place
     t.column :started_at
+    t.column :stopped_at
     t.action :edit
     t.action :destroy
   end

@@ -40,9 +40,11 @@
 #
 
 class Meeting < Event
-  attr_accessible :duration, :entity_id, :location, :name, :nature_id, :responsible_id, :started_at
+  attr_accessible :duration, :place, :name, :meeting_nature_id, :started_at, :stopped_at
   # belongs_to :entity
   belongs_to :meeting_nature
+  has_many :participations, :class_name => "MeetingParticipation"
+  has_many :participants, :class_name => "Entity", :through => :participations
   # belongs_to :responsible, :class_name => "User"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   #]VALIDATORS]

@@ -810,8 +810,8 @@ class NormalizeProducts < ActiveRecord::Migration
       t.references :address
       # LandParcel specific columns
       t.geometry   :shape
-      t.decimal    :area_measure, :precision => 19, :scale => 4
-      t.string     :area_unit
+      # t.decimal    :area_measure, :precision => 19, :scale => 4
+      # t.string     :area_unit
       # Warehouse specific columns
       t.boolean    :reservoir, :null => false, :default => false
       t.references :content_nature
@@ -838,7 +838,7 @@ class NormalizeProducts < ActiveRecord::Migration
     # Place specific columns
     add_index :products, :address_id
     # LandParcel specific indexes
-    add_index :products, :area_unit
+    # add_index :products, :area_unit
     # Warehouse specific indexes
     add_index :products, :content_nature_id
     add_index :products, :content_unit

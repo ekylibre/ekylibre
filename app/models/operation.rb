@@ -41,7 +41,7 @@
 
 
 class Operation < Event
-  attr_accessible :nature_id, :started_at, :stopped_at
+  attr_accessible :started_at, :stopped_at # :nature
   # enumerize :nature, :in => [:move_to, :consume, :produce, :separate, :merge, :attach, :detach], :predicates => true
   # belongs_to :nature, :class_name => "OperationNature"
   # belongs_to :target, :class_name => "Product"
