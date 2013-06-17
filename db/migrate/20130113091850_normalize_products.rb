@@ -1008,6 +1008,9 @@ class NormalizeProducts < ActiveRecord::Migration
     end
     add_column :product_price_templates, :amounts_scale, :integer, :null => false, :default => 2
 
+    add_column :purchase_lines, :price_template_id, :integer
+    add_column :sale_lines, :price_template_id, :integer
+
     # Rename table in order to be more logical
     rename_table_and_indexes :entity_categories, :product_price_listings
     rename_column :entities, :category_id, :sale_price_listing_id

@@ -35,7 +35,7 @@ class Backend::DashboardsController < BackendController
     # t.column :full_name, :through => :entity, :url => true
     t.column :name, :through => :meeting_nature
     t.column :duration
-    t.column :location
+    t.column :place
     # t.column :label, :through => :responsible, :url => true
   end
 

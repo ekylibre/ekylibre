@@ -71,7 +71,7 @@
 #  updated_at                :datetime         not null
 #  updater_id                :integer
 #  vat_number                :string(15)
-#  vat_submissive            :boolean          default(TRUE), not null
+#  vat_subjected             :boolean          default(TRUE), not null
 #  webpass                   :string(255)
 #
 
@@ -107,7 +107,7 @@ class Entity < Ekylibre::Record::Base
   has_many :indirect_links, :class_name => "EntityLink", :foreign_key => :entity_2_id
   has_many :mandates
   has_many :observations, :as => :subject
-  has_many :participations, :class_name => "MeetingParticipation", :foreign_key => :entity_id
+  has_many :participations, :class_name => "MeetingParticipation", :foreign_key => :participant_id
   has_many :prices, :class_name => "ProductPriceTemplate"
   has_many :purchase_invoices, :class_name => "Purchase", :foreign_key => :supplier_id, :order => "created_on desc", :conditions => {:state => "invoice"}
   has_many :purchases, :foreign_key => :supplier_id
@@ -152,7 +152,7 @@ class Entity < Ekylibre::Record::Base
   validates_length_of :deliveries_conditions, :allow_nil => true, :maximum => 60
   validates_length_of :number, :allow_nil => true, :maximum => 64
   validates_length_of :currency, :first_name, :full_name, :last_name, :nature, :origin, :payment_delay, :picture_content_type, :picture_file_name, :webpass, :allow_nil => true, :maximum => 255
-  validates_inclusion_of :active, :attorney, :client, :locked, :of_company, :prospect, :reminder_submissive, :supplier, :transporter, :vat_submissive, :in => [true, false]
+  validates_inclusion_of :active, :attorney, :client, :locked, :of_company, :prospect, :reminder_submissive, :supplier, :transporter, :vat_subjected, :in => [true, false]
   validates_presence_of :currency, :full_name, :language, :last_name, :nature
   #]VALIDATORS]
   validates_presence_of :sale_price_listing

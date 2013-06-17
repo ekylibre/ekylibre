@@ -264,7 +264,9 @@ class Backend::SalesController < BackendController
   end
 
   def new
-    @sale = Sale.new(:nature => SaleNature.where(:id => params[:nature_id]).first)
+    nature = SaleNature.where(:id => params[:nature_id]).first
+    nature ||= SaleNature.by_default
+    @sale = Sale.new(:nature => nature)
     if client = Entity.find_by_id(params[:client_id]||params[:entity_id]||session[:current_entity_id])
       if client.default_mail_address
         cid = client.default_mail_address.id

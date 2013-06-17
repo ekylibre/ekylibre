@@ -1,1 +1,9 @@
-%span TEST
+-item ||= f.object
+%tr
+  %td=f.input_field(:product_id, 'data-selector' => url_for(:controller => :products, :action => :unroll), 'data-selector-new-item' => url_for(:action => :new, :controller => :products))
+  %td=number_field_tag(:quantity, 0, :size => 7)
+  %td.decimal=f.input_field(:price_template_id, 'data-selector' => url_for(:controller => :price_templates, :action => :unroll), 'data-selector-new-item' => url_for(:action => :new, :controller => :price_templates))
+  %td.decimal=item.pretax_amount.l :currency => @sale.currency
+  %td.decimal=item.amount.l :currency => @sale.currency
+  %td.action
+    =link_to_remove_association(:remove.tl, f, 'data-no-turbolink' => true, :class => 'nested-remove remove-item')

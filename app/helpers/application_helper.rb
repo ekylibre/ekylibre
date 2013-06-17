@@ -388,12 +388,12 @@ module ApplicationHelper
     return content_tag(:div, :class => "btn-group btn-group-dropdown #{args[2][:class]}") do
       html = "".html_safe
       if l.links.size > minimum
+        html << link_to(content_tag(:i), "#dropdown", :class => "btn btn-dropdown", 'data-toggle' => 'dropdown')
         html << content_tag(:ul, :class => "dropdown-menu") do
           l.links.collect do |link|
             content_tag(:li, send(link.name, *link.args, &link.block))
           end.join.html_safe
         end
-        html << link_to(content_tag(:i), "#dropdown", :class => "btn btn-dropdown", 'data-toggle' => 'dropdown')
       end
       html = tool_to(*args) + html
       html

@@ -34,6 +34,7 @@
 #  pretax_amount        :decimal(19, 4)   default(0.0), not null
 #  price_amount         :decimal(19, 4)
 #  price_id             :integer          not null
+#  price_template_id    :integer
 #  product_id           :integer          not null
 #  quantity             :decimal(19, 4)   default(1.0), not null
 #  reduction_origin_id  :integer

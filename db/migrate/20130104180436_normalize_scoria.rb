@@ -26,6 +26,7 @@ class NormalizeScoria < ActiveRecord::Migration
 
     rename_column :entities, :reflation_submissive, :reminder_submissive
     rename_column :entities, :code, :number
+    rename_column :entities, :vat_submissive, :vat_subjected
     remove_column :entities, :ean13
     remove_column :entities, :excise
     remove_column :entities, :name

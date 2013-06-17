@@ -70,7 +70,7 @@
 #  updated_at                :datetime         not null
 #  updater_id                :integer
 #  vat_number                :string(15)
-#  vat_submissive            :boolean          default(TRUE), not null
+#  vat_subjected             :boolean          default(TRUE), not null
 #  webpass                   :string(255)
 #
 class LegalEntity < Entity

@@ -20,25 +20,26 @@
 #
 # == Table: purchase_items
 #
-#  account_id      :integer          not null
-#  amount          :decimal(19, 4)   default(0.0), not null
-#  annotation      :text
-#  created_at      :datetime         not null
-#  creator_id      :integer
-#  id              :integer          not null, primary key
-#  lock_version    :integer          default(0), not null
-#  position        :integer
-#  pretax_amount   :decimal(19, 4)   default(0.0), not null
-#  price_id        :integer          not null
-#  product_id      :integer          not null
-#  purchase_id     :integer          not null
-#  quantity        :decimal(19, 4)   default(1.0), not null
-#  tracking_id     :integer
-#  tracking_serial :string(255)
-#  unit            :string(255)
-#  updated_at      :datetime         not null
-#  updater_id      :integer
-#  warehouse_id    :integer
+#  account_id        :integer          not null
+#  amount            :decimal(19, 4)   default(0.0), not null
+#  annotation        :text
+#  created_at        :datetime         not null
+#  creator_id        :integer
+#  id                :integer          not null, primary key
+#  lock_version      :integer          default(0), not null
+#  position          :integer
+#  pretax_amount     :decimal(19, 4)   default(0.0), not null
+#  price_id          :integer          not null
+#  price_template_id :integer
+#  product_id        :integer          not null
+#  purchase_id       :integer          not null
+#  quantity          :decimal(19, 4)   default(1.0), not null
+#  tracking_id       :integer
+#  tracking_serial   :string(255)
+#  unit              :string(255)
+#  updated_at        :datetime         not null
+#  updater_id        :integer
+#  warehouse_id      :integer
 #
 
 

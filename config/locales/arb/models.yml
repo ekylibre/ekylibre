@@ -1850,6 +1850,7 @@ arb:
     value_format: "التصميم"
     # variety: "Variété"
     vat_number: "عدد القيمة الضريبية المضافة داخل المجتمع المحلي"
+    # vat_subjected: "Vat subjected"
     vat_submissive: "القيمة الضريبية المضافة التابعة"
     virtual: "عملي"
     virtual_quantity: "الاسهم العملية"

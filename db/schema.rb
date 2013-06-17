@@ -557,7 +557,7 @@ ActiveRecord::Schema.define(:version => 20130513165730) do
     t.integer  "lock_version",                                                           :default => 0,     :null => false
     t.integer  "client_account_id"
     t.integer  "supplier_account_id"
-    t.boolean  "vat_submissive",                                                         :default => true,  :null => false
+    t.boolean  "vat_subjected",                                                          :default => true,  :null => false
     t.boolean  "reminder_submissive",                                                    :default => false, :null => false
     t.string   "deliveries_conditions",     :limit => 60
     t.decimal  "discount_percentage",                     :precision => 19, :scale => 4
@@ -1952,24 +1952,25 @@ ActiveRecord::Schema.define(:version => 20130513165730) do
   add_index "professions", ["updater_id"], :name => "index_professions_on_updater_id"
 
   create_table "purchase_items", :force => true do |t|
-    t.integer  "purchase_id",                                                     :null => false
-    t.integer  "product_id",                                                      :null => false
-    t.integer  "price_id",                                                        :null => false
-    t.decimal  "quantity",        :precision => 19, :scale => 4, :default => 1.0, :null => false
-    t.decimal  "pretax_amount",   :precision => 19, :scale => 4, :default => 0.0, :null => false
-    t.decimal  "amount",          :precision => 19, :scale => 4, :default => 0.0, :null => false
+    t.integer  "purchase_id",                                                       :null => false
+    t.integer  "product_id",                                                        :null => false
+    t.integer  "price_id",                                                          :null => false
+    t.decimal  "quantity",          :precision => 19, :scale => 4, :default => 1.0, :null => false
+    t.decimal  "pretax_amount",     :precision => 19, :scale => 4, :default => 0.0, :null => false
+    t.decimal  "amount",            :precision => 19, :scale => 4, :default => 0.0, :null => false
     t.integer  "position"
-    t.integer  "account_id",                                                      :null => false
-    t.datetime "created_at",                                                      :null => false
-    t.datetime "updated_at",                                                      :null => false
+    t.integer  "account_id",                                                        :null => false
+    t.datetime "created_at",                                                        :null => false
+    t.datetime "updated_at",                                                        :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                   :default => 0,   :null => false
+    t.integer  "lock_version",                                     :default => 0,   :null => false
     t.integer  "warehouse_id"
     t.text     "annotation"
     t.integer  "tracking_id"
     t.string   "tracking_serial"
     t.string   "unit"
+    t.integer  "price_template_id"
   end
 
   add_index "purchase_items", ["account_id"], :name => "index_purchase_items_on_account_id"
@@ -2085,6 +2086,7 @@ ActiveRecord::Schema.define(:version => 20130513165730) do
     t.decimal  "reduction_percentage", :precision => 19, :scale => 4, :default => 0.0, :null => false
     t.integer  "origin_id"
     t.string   "unit"
+    t.integer  "price_template_id"
   end
 
   add_index "sale_items", ["account_id"], :name => "index_sale_items_on_account_id"

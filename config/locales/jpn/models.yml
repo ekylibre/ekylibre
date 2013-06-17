@@ -1191,6 +1191,7 @@ jpn:
     # value_format: "Format de la valeur monétaire"
     # variety: "Variété"
     # vat_number: "Numéro de TVA intra-communautaire"
+    # vat_subjected: "Vat subjected"
     # vat_submissive: "Soumis à la TVA"
     # virtual: "Virtuel"
     # virtual_quantity: "Stock virtuel"

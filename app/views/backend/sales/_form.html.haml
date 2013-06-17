@@ -7,7 +7,7 @@
       =f.subset :addresses, :depend_on => :client
 
     -b.cell :sales_conditions do
-      =f.referenced_association :nature
+      =f.association :nature, :as => :hidden
       =f.referenced_association :responsible, :source => :employees, :new => {:employed => 1}
       =f.referenced_association :transporter, :source => :transporters
       =f.input :description
@@ -20,7 +20,7 @@
       =f.input :conclusion
   -b.cell :itemsss do
     -#=f.nested_association(:items)
-    =link_to_add_association "add_item".l, f, :items, :partial => 'item_form', 'data-association-insertion-node' => '#items', 'data-association-insertion-method' => :append
+    =link_to_add_association "add_item".tl, f, :items, :partial => 'item_fields', 'data-association-insertion-node' => '#items', 'data-association-insertion-method' => :append, :class => "btn"
     %table
       %thead
         %tr
@@ -37,5 +37,5 @@
           %td#amount.decimal=@sale.amount.l :currency => @sale.currency
       %tbody#items
         =f.simple_fields_for :items do |item|
-          =render 'item_form', :f => item
+          =render 'item_fields', :f => item
         -#=render :partial => 'item_form', :collection => @sale.items

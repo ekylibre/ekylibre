@@ -1368,6 +1368,7 @@ eng:
     # value_format: "Format de la valeur monétaire"
     # variety: "Variété"
     vat_number: "Vat number"
+    # vat_subjected: "Vat subjected"
     vat_submissive: "Vat submissive"
     virtual: "Virtual"
     virtual_quantity: "Virtual quantity"

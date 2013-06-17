@@ -1235,7 +1235,8 @@ fra:
     value_format: "Format de la valeur monétaire" #?
     variety: "Variété"
     vat_number: "Numéro de TVA intra-communautaire"
-    vat_submissive: "Soumis à la TVA"
+    vat_subjected: "Vat subjected"
+    vat_submissive: "Soumis à la TVA" #?
     # verb: "Verb"
     virtual: "Virtuel" #?
     virtual_quantity: "Stock virtuel"

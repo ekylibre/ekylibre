@@ -31,6 +31,7 @@
 #  updater_id     :integer
 #
 class MeetingParticipation < Ekylibre::Record::Base
+  attr_accessible :meeting_id, :participant_id, :state
   belongs_to :meeting
   belongs_to :participant, :class_name => "Entity"
   enumerize :state, :in => [:waiting, :accepted, :refused, :informative]
