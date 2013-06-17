@@ -37,12 +37,11 @@
 
 
 class SubscriptionNature < Ekylibre::Record::Base
+  attr_accessible :actual_number, :description, :entity_link_direction, :entity_link_nature, :name, :nature, :reduction_percentage
   attr_readonly :nature
   enumerize :nature, :in => [:period, :quantity], :default => :period, :predicates => true
-  attr_accessible :actual_number, :description, :entity_link_nature_id, :name, :nature, :reduction_percentage
-  # belongs_to :entity_link_nature
   enumerize :entity_link_nature, :in => Nomenclatures["entity_link_natures"].list
-  enumerize :entity_link_direction, :in => [:direct, :indirect, :all]
+  enumerize :entity_link_direction, :in => [:direct, :indirect, :all], :default => :all, :predicates => {:prefix => true}
   has_many :products, :class_name => "ProductNature"
   has_many :subscriptions, :foreign_key => :nature_id
 

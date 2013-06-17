@@ -137,7 +137,6 @@
 # - "backend/matters#picture"
 # - "backend/matters#show"
 # - "backend/matters#update"
-# - "backend/meetings#autocomplete_for_place"
 # - "backend/operation_tasks#create"
 # - "backend/operation_tasks#destroy"
 # - "backend/operation_tasks#edit"
@@ -830,11 +829,9 @@ manage_land_parcels:
 - "backend/dashboards#production"
 - "backend/land_parcels#create"
 - "backend/land_parcels#destroy"
-- "backend/land_parcels#divide" #?
 - "backend/land_parcels#edit"
 - "backend/land_parcels#index"
 - "backend/land_parcels#list"
-- "backend/land_parcels#merge" #?
 - "backend/land_parcels#new"
 - "backend/land_parcels#show"
 - "backend/land_parcels#update"
@@ -881,7 +878,7 @@ manage_meetings:
 - "backend/meeting_natures#list"
 - "backend/meeting_natures#new"
 - "backend/meeting_natures#update"
-- "backend/meetings#autocomplete_for_location" #?
+- "backend/meetings#autocomplete_for_place"
 - "backend/meetings#change_minutes"
 - "backend/meetings#create"
 - "backend/meetings#destroy"

@@ -124,7 +124,7 @@ class ProductNature < Ekylibre::Record::Base
     # self.traceable = false unless self.storable?
     # self.stockable = true if self.trackable?
     # self.deliverable = true if self.stockable?
-    self.producible = true
+    # self.producible = true
     self.commercial_name = self.name if self.commercial_name.blank?
     self.subscription_nature_id = nil unless self.subscribing?
     return true
@@ -134,7 +134,7 @@ class ProductNature < Ekylibre::Record::Base
     to = []
     to << :sales if self.saleable?
     to << :purchases if self.purchasable?
-    to << :produce if self.producible?
+    # to << :produce if self.producible?
     to.collect{|x| tc('to.'+x.to_s)}.to_sentence
   end
 

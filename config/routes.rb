@@ -330,7 +330,7 @@ Ekylibre::Application.routes.draw do
     resources :meetings do
       collection do
         get :list
-        get :autocomplete_for_location
+        get :autocomplete_for_place
         get :change_minutes
         unroll_all
       end

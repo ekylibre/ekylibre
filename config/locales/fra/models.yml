@@ -710,7 +710,7 @@ fra:
     establishments: "Établissements" #?
     event: "Event"
     event_natures: "Types d’évènement" #?
-    events: "Évènements"
+    events: "Évènements" #?
     examinated_at: "Examiné le" #?
     expense: "Dépense" #?
     expense_type: "Type de dépense" #?
