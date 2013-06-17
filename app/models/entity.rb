@@ -85,6 +85,7 @@ class Entity < Ekylibre::Record::Base
   belongs_to :attorney_account, :class_name => "Account"
   belongs_to :client_account, :class_name => "Account"
   # belongs_to :nature, :class_name => "EntityNature"
+  enumerize :nature, :in => Nomenclatures["entity_natures-root"].list, :default => Nomenclatures["entity_natures-root"].list.first, :predicates => {:prefix => true}
   belongs_to :payment_mode, :class_name => "IncomingPaymentMode"
   belongs_to :proposer, :class_name => "Entity"
   belongs_to :responsible, :class_name => "User"
@@ -176,9 +177,9 @@ class Entity < Ekylibre::Record::Base
     self.last_name  = self.last_name.to_s.strip
     self.full_name = (self.last_name.to_s + " " + self.first_name.to_s)
     self.sale_price_listing ||= ProductPriceListing.by_default
-    unless self.nature.nil?
-      self.full_name = (self.nature.title.to_s + ' ' + self.full_name).strip unless self.nature.in_name? # or self.nature.abbreviation == "-")
-    end
+    # unless self.nature.nil?
+    # self.full_name = (self.nature.title.to_s + ' ' + self.full_name).strip unless self.nature.in_name? # or self.nature.abbreviation == "-")
+    # end
     self.full_name.strip!
     # self.name = self.name.to_s.strip.downcase.gsub(/[^a-z0-9\.\_]/,'')
     if entity = Entity.of_company
@@ -188,14 +189,14 @@ class Entity < Ekylibre::Record::Base
     return true
   end
 
-  validate do
-    if self.nature
-      if self.nature.in_name and not self.last_name.match(/( |^)#{self.nature.title}( |$)/i)
-        errors.add(:last_name, :missing_title, :title => self.nature.title)
-      end
-    end
-    return true
-  end
+  # validate do
+    # if self.nature
+      # if self.nature.in_name and not self.last_name.match(/( |^)#{self.nature.title}( |$)/i)
+        # errors.add(:last_name, :missing_title, :title => self.nature.title)
+      # end
+    # end
+    # return true
+  # end
 
   after_save do
     self.auto_updateable_addresses.find_each do |a|
@@ -371,10 +372,10 @@ class Entity < Ekylibre::Record::Base
     problems = {}
     item_index = 1
     code  = "ActiveRecord::Base.transaction do\n"
-    unless cols[:entity_nature].is_a? Hash
-      code += "  nature = EntityNature.where('title=? OR name=?', '-', '-').first\n"
-      code += "  nature = EntityNature.create!(:title => '', :name => '-', :physical => false, :in_name => false, :active => true) unless nature\n"
-    end
+    # unless cols[:entity_nature].is_a? Hash
+      # code += "  nature = EntityNature.where('title=? OR name=?', '-', '-').first\n"
+      # code += "  nature = EntityNature.create!(:title => '', :name => '-', :physical => false, :in_name => false, :active => true) unless nature\n"
+    # end
     unless cols[:product_price_listing].is_a? Hash
       code += "  sale_price_listing = ProductPriceListing.where('name=? or code=?', '-', '-').first\n"
       code += "  sale_price_listing = ProductPriceListing.create!(:name => '-', :by_default => false) unless sale_price_listing\n"
@@ -385,15 +386,15 @@ class Entity < Ekylibre::Record::Base
     code += "  while item = sheet.shift\n"
     code += "    item_index += 1\n"
     code += "    next if #{options[:ignore].collect{|x| x.to_i}.inspect}.include?(item_index)\n" if options[:ignore]
-    if cols[:entity_nature].is_a? Hash
-      code += "    nature = EntityNature.where("+cols[:entity_nature].collect{|k,v| ":#{v} => item[#{k}]"}.join(', ')+").first\n"
-      code += "    begin\n"
-      code += "      nature = EntityNature.create!("+cols[:entity_nature].collect{|k,v| ":#{v} => item[#{k}]"}.join(', ')+")\n"
-      code += "    rescue\n"
-      code += "      nature = EntityNature.where('abbreviation=? OR name=?', '-', '-').first\n"
-      code += "      nature = EntityNature.create!(:abbreviation => '-', :name => '-', :physical => false, :in_name => false, :active => true) unless nature\n"
-      code += "    end unless nature\n"
-    end
+    # if cols[:entity_nature].is_a? Hash
+      # code += "    nature = EntityNature.where("+cols[:entity_nature].collect{|k,v| ":#{v} => item[#{k}]"}.join(', ')+").first\n"
+      # code += "    begin\n"
+      # code += "      nature = EntityNature.create!("+cols[:entity_nature].collect{|k,v| ":#{v} => item[#{k}]"}.join(', ')+")\n"
+      # code += "    rescue\n"
+      # code += "      nature = EntityNature.where('abbreviation=? OR name=?', '-', '-').first\n"
+      # code += "      nature = EntityNature.create!(:abbreviation => '-', :name => '-', :physical => false, :in_name => false, :active => true) unless nature\n"
+      # code += "    end unless nature\n"
+    # end
     if cols[:product_price_listing].is_a? Hash
       code += "    sale_price_listing = ProductPriceListing.where("+cols[:product_price_listing].collect{|k,v| ":#{v} => item[#{k}]"}.join(', ')+").first\n"
       code += "    begin\n"

@@ -56,7 +56,7 @@ namespace :db do
       fy.stopped_on = Date.civil(2007, 12, 31)
       fy.code = "EX2007"
       fy.save!
-      en_org = EntityNature.where(:gender => "undefined").first
+      en_org = "entity"
 
       print "[#{(Time.now - start).round(2).to_s.rjust(8)}s] General ledger: "
       CSV.foreach(file, :encoding => "CP1252", :col_sep => ";") do |row|
@@ -87,7 +87,7 @@ namespace :db do
         if r.account.number.match(/^401/)
           unless Entity.find_by_origin(r.entity_name)
             f = File.open(picture_undefined)
-            entity = Entity.create!(:last_name => r.entity_name.mb_chars.capitalize, :nature_id => en_org.id, :supplier_account_id => r.account_id, :picture => f, :origin => r.entity_name)
+            entity = Entity.create!(:last_name => r.entity_name.mb_chars.capitalize, :nature => en_org, :supplier_account_id => r.account_id, :picture => f, :origin => r.entity_name)
             f.close
             entity.addresses.create!(:canal => :email, :coordinate => ["contact", "info", r.entity_name.parameterize].sample + "@" + r.entity_name.parameterize + "." + ["fr", "com", "org", "eu"].sample)
             entity.addresses.create!(:canal => :phone, :coordinate => "+33" + rand(10).to_s + rand(10).to_s + rand(10).to_s + rand(10).to_s + rand(10).to_s + rand(10).to_s + rand(10).to_s + rand(10).to_s + rand(10).to_s)
@@ -96,7 +96,7 @@ namespace :db do
         if r.account.number.match(/^411/)
           unless Entity.find_by_origin(r.entity_name)
             f = File.open(picture_undefined)
-            entity = Entity.create!(:last_name => r.entity_name.mb_chars.capitalize, :nature_id => en_org.id, :client_account_id => r.account_id, :picture => f, :origin => r.entity_name)
+            entity = Entity.create!(:last_name => r.entity_name.mb_chars.capitalize, :nature => en_org, :client_account_id => r.account_id, :picture => f, :origin => r.entity_name)
             f.close
             entity.addresses.create!(:canal => :email, :coordinate => ["contact", "info", r.entity_name.parameterize].sample + "@" + r.entity_name.parameterize + "." + ["fr", "com", "org", "eu"].sample)
             entity.addresses.create!(:canal => :phone, :coordinate => "+33" + rand(10).to_s + rand(10).to_s + rand(10).to_s + rand(10).to_s + rand(10).to_s + rand(10).to_s + rand(10).to_s + rand(10).to_s + rand(10).to_s)

@@ -35,7 +35,7 @@
           %li
             =link_to(backend_myself_url, :class => :user) do
               %i
-              =current_user.entity.full_name
+              =current_user.person.full_name
           %li
             =link_to(destroy_user_session_url, :method => :delete, :class => :signout) do
               %i

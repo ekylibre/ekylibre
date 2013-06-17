@@ -74,4 +74,6 @@
 #  webpass                   :string(255)
 #
 class Person < Entity
+  enumerize :nature, :in => Nomenclatures["entity_natures-person"].list, :default => Nomenclatures["entity_natures-person"].list.first, :predicates => {:prefix => true}
+
 end

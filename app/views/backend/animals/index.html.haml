@@ -1,6 +1,6 @@
 =kujaku
 =main_toolbar do |t|
   -t.export do |e|
-    -e.animal_list @animals.last.name.to_s, @animals
+    -e.animal_list @animals.map(&:id).sort.join(":"), @animals
   -t.new
 =list

@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
-  <nomenclature name="entity_natures:root">
+  <nomenclature name="entity_natures-root">
     <items>
       <item name="entity"/>
     </items>
   </nomenclature>
 
-  <nomenclature name="entity_natures:entity">
+  <nomenclature name="entity_natures-entity">
     <items>
       <item name="person"/>
       <item name="legal_entity"/>
     </items>
   </nomenclature>
 
-  <nomenclature name="entity_natures:legal_entity">
+  <nomenclature name="entity_natures-legal_entity">
     <items>
       <item name="company"/>
       <item name="civil_society"/>
@@ -27,7 +27,7 @@
     </items>
   </nomenclature>
 
-  <nomenclature name="entity_natures:person">
+  <nomenclature name="entity_natures-person">
     <items>
       <item name="sir"/>
       <item name="madam"/>
