@@ -129,7 +129,7 @@ namespace :db do
       # h ||= ProductVariety.create!(:name => "Bovin", :code => "cattle", :product_type => "Animal", :parent_id => (p ? p.id : nil))
       # v = ProductVariety.find_by_code("normande")
       # v ||= ProductVariety.create!(:name => "Normande", :code => "normande", :product_type => "Animal", :parent_id => (h ? h.id : nil))
-      unit = Unit.find_by_base("")
+      cow_unit = "head"
       # add default variety for building
       # b = ProductVariety.find_by_code("animal_house")
       # q = ProductVariety.find_by_code("building")
@@ -139,33 +139,33 @@ namespace :db do
       category ||= ProductNatureCategory.create!(:name => "Défaut")
       # create default product_nature to create animal
       cow = ProductNature.find_by_number("CATTLE")
-      cow ||= ProductNature.create!(:name => "Bovin", :number => "CATTLE", :alive => true, :storable => true, :indivisible => true, :variety => "bos", :unit_id => unit.id, :category_id => category.id)
+      cow ||= ProductNature.create!(:name => "Bovin", :number => "CATTLE", :storable => true, :variety => "bos", :unit => cow_unit, :category_id => category.id)
       # add default groups for animal
       group1 = AnimalGroup.find_by_name("VL")
-      group1 ||= AnimalGroup.create!(:name => "VL", :active => true, :external => false, :reproductor => false, :reservoir => false, :description => "Vache Laitière", :nature_id => cow.id, :unit_id => unit.id, :variety => "bos", :owner_id => Entity.of_company.id, :number => "VL")
+      group1 ||= AnimalGroup.create!(:name => "VL", :active => true, :external => false, :reproductor => false, :reservoir => false, :description => "Vache Laitière", :nature_id => cow.id, :unit => cow_unit, :variety => "bos", :owner_id => Entity.of_company.id, :number => "VL")
       group2 = AnimalGroup.find_by_name("GEN")
-      group2 ||= AnimalGroup.create!(:name => "GEN", :active => true, :external => false, :reproductor => false, :reservoir => false, :description => "Génisses", :nature_id => cow.id, :unit_id => unit.id, :variety => "bos", :owner_id => Entity.of_company.id, :number => "GEN")
+      group2 ||= AnimalGroup.create!(:name => "GEN", :active => true, :external => false, :reproductor => false, :reservoir => false, :description => "Génisses", :nature_id => cow.id, :unit => cow_unit, :variety => "bos", :owner_id => Entity.of_company.id, :number => "GEN")
       group3 = AnimalGroup.find_by_name("VEAU")
-      group3 ||= AnimalGroup.create!(:name => "VEAU", :active => true, :external => false, :reproductor => false, :reservoir => false, :description => "Veaux", :nature_id => cow.id, :unit_id => unit.id, :variety => "bos", :owner_id => Entity.of_company.id, :number => "VEAU")
+      group3 ||= AnimalGroup.create!(:name => "VEAU", :active => true, :external => false, :reproductor => false, :reservoir => false, :description => "Veaux", :nature_id => cow.id, :unit => cow_unit, :variety => "bos", :owner_id => Entity.of_company.id, :number => "VEAU")
       group4 = AnimalGroup.find_by_name("TAURILLON")
-      group4 ||= AnimalGroup.create!(:name => "TAURILLON", :active => true, :external => false, :reproductor => false, :reservoir => false, :description => "Taurillons", :nature_id => cow.id, :unit_id => unit.id, :variety => "bos", :owner_id => Entity.of_company.id, :number => "TAURILLON")
+      group4 ||= AnimalGroup.create!(:name => "TAURILLON", :active => true, :external => false, :reproductor => false, :reservoir => false, :description => "Taurillons", :nature_id => cow.id, :unit => cow_unit, :variety => "bos", :owner_id => Entity.of_company.id, :number => "TAURILLON")
       # create default product_nature to place animal
       place_nature = ProductNature.find_by_number("CATTLE_HOUSE")
-      place_nature ||= ProductNature.create!(:name => "Stabulation", :number => "CATTLE_HOUSE", :storage => true, :indivisible => true, :variety => "building", :unit_id => unit.id, :category_id => category.id)
+      place_nature ||= ProductNature.create!(:name => "Stabulation", :number => "CATTLE_HOUSE", :storage => true, :variety => "building", :unit => "unity", :category_id => category.id)
 
       # create default product to place animal
       place = Building.find_by_work_number("STABU_01")
-      place ||= Building.create!(:name => "Stabulation principale", :identification_number => "S0001", :work_number => "STABU_01", :born_at => Time.now, :reservoir => true, :unit_id => unit.id, :content_nature_id => cow.id, :variety => "building", :nature_id => place_nature.id, :owner_id => Entity.of_company.id, :number => "STABU_01")
+      place ||= Building.create!(:name => "Stabulation principale", :identification_number => "S0001", :work_number => "STABU_01", :born_at => Time.now, :reservoir => true, :unit => "unity", :content_nature_id => cow.id, :variety => "building", :nature_id => place_nature.id, :owner_id => Entity.of_company.id, :number => "STABU_01")
 
       # create default animal indicator (like in XML nomenclature)
 
-      # animal_indicator_life = ProductIndicator.find_by_name("animal_life_state")
-      # animal_indicator_life ||= ProductIndicator.create!(:product_nature_id => cow.id, :name => "animal_life_state", :description => "Phase du bioprocessus de vie d'un animal",:nature => "choice", :usage => "life", :active => true, :created_at => Time.now)
+      # animal_indicator_life = ProductNatureIndicator.find_by_name("animal_life_state")
+      # animal_indicator_life ||= ProductNatureIndicator.create!(:product_nature_id => cow.id, :name => "animal_life_state", :description => "Phase du bioprocessus de vie d'un animal",:nature => "choice", :usage => "life", :active => true, :created_at => Time.now)
       # animal_indicator_life.choices.create!(:name => "first_growth", :position => 1)
       # animal_indicator_life.choices.create!(:name => "second_growth", :position => 2)
       # animal_indicator_life.choices.create!(:name => "aging", :position => 3)
-      # animal_indicator_disease = ProductIndicator.find_by_name("animal_disease_state")
-      # animal_indicator_disease ||= ProductIndicator.create!(:product_nature_id => cow.id, :name => "animal_disease_state", :description => "Phase du bioprocessus de maladie d'un animal",:nature => "choice", :usage => "life", :active => true, :created_at => Time.now)
+      # animal_indicator_disease = ProductNatureIndicator.find_by_name("animal_disease_state")
+      # animal_indicator_disease ||= ProductNatureIndicator.create!(:product_nature_id => cow.id, :name => "animal_disease_state", :description => "Phase du bioprocessus de maladie d'un animal",:nature => "choice", :usage => "life", :active => true, :created_at => Time.now)
       # animal_indicator_disease.choices.create!(:name => "healthy", :position => 1)
       # animal_indicator_disease.choices.create!(:name => "sick", :position => 2)
 
@@ -192,7 +192,7 @@ namespace :db do
                            :departed_on => (row[10].blank? ? nil : Date.civil(*row[10].to_s.split(/\//).reverse.map(&:to_i)))
                            )
         f = File.open(pictures.sample)
-        animal = Animal.create!(:name => r.name, :unit_id => unit.id, :variety => "bos", :identification_number => r.identification_number, :work_number => r.work_number, :born_at => r.born_on, :sex => r.sex, :picture => f, :nature_id => cow.id, :owner_id => Entity.of_company.id, :reproductor => (r.sex == :male ? rand(2).zero? : false), :number => r.work_number)
+        animal = Animal.create!(:name => r.name, :unit => cow_unit, :variety => "bos", :identification_number => r.identification_number, :work_number => r.work_number, :born_at => r.born_on, :sex => r.sex, :picture => f, :nature_id => cow.id, :owner_id => Entity.of_company.id, :reproductor => (r.sex == :male ? rand(2).zero? : false), :number => r.work_number)
         f.close
         # set default indicators
 
@@ -224,15 +224,15 @@ namespace :db do
       # v = ProductVariety.find_by_code("land_parcel")
       # p = ProductVariety.find_by_code("place")
       # v ||= ProductVariety.create!(:name => "Parcelle", :code => "land_parcel", :product_type => "LandParcel", :parent_id => (p ? p.id : nil))
-      unit = Unit.get(:m2)
+      land_unit = "square_meter"
       category = ProductNatureCategory.first
       category ||= ProductNatureCategory.create!(:name => "Défaut")
       land_parcel = ProductNature.find_by_number("LANDPARCEL")
-      land_parcel ||= ProductNature.create!(:name => "Parcelle", :number => "LANDPARCEL", :variety => "land_parcel", :unit_id => unit.id, :category_id => category.id)
+      land_parcel ||= ProductNature.create!(:name => "Parcelle", :number => "LANDPARCEL", :variety => "land_parcel", :unit => land_unit, :category_id => category.id)
       RGeo::Shapefile::Reader.open(Rails.root.join("test", "fixtures", "files", "ilot_017005218.shp").to_s, :srid => 2154) do |file|
         # puts "File contains #{file.num_records} records."
         file.each do |record|
-          LandParcel.create!(:shape => record.geometry, :name => Faker::Name.first_name, :variety => "land_parcel", :unit_id => unit.id, :born_at => Date.civil(2000, 1, 1), :nature_id => land_parcel.id, :owner_id => Entity.of_company.id, :identification_number => record.attributes['PACAGE'].to_s + record.attributes['CAMPAGNE'].to_s + record.attributes['NUMERO'].to_s)
+          LandParcel.create!(:shape => record.geometry, :name => Faker::Name.first_name, :variety => "land_parcel", :unit => land_unit, :born_at => Date.civil(2000, 1, 1), :nature_id => land_parcel.id, :owner_id => Entity.of_company.id, :identification_number => record.attributes['PACAGE'].to_s + record.attributes['CAMPAGNE'].to_s + record.attributes['NUMERO'].to_s)
           # puts "Record number #{record.index}:"
           # puts "  Geometry: #{record.geometry.as_text}"
           # puts "  Attributes: #{record.attributes.inspect}"
@@ -251,19 +251,19 @@ namespace :db do
       # b ||= ProductVariety.create!(:name => "Matière vegetale", :code => "matter", :product_type => "Plant", :parent_id => (b ? b.id : nil))
       # c = ProductVariety.find_by_code("caphorn")
       # c ||= ProductVariety.create!(:name => "CAPHORN", :code => "caphorn", :product_type => "Plant", :parent_id => (b ? b.id : nil))
-      wheat_unit = Unit.get(:t)
+      wheat_unit = "ton"
       # Create product_nature for wheat product
       wheat_charge_account = Account.find_by_number("601")
       wheat_product_account = Account.find_by_number("701")
       wheat = ProductNature.find_by_number("BLE")
-      wheat ||= ProductNature.create!(:charge_account_id => wheat_charge_account.id, :product_account_id => wheat_product_account.id, :name => "Blé", :number => "BLE", :alive => true, :saleable => true, :purchasable => true, :active => true, :storable => true, :variety => "plant", :unit_id => wheat_unit.id, :category_id => wheat_category.id)
+      wheat ||= ProductNature.create!(:charge_account_id => wheat_charge_account.id, :product_account_id => wheat_product_account.id, :name => "Blé", :number => "BLE", :saleable => true, :purchasable => true, :active => true, :storable => true, :variety => "plant", :unit => wheat_unit, :category_id => wheat_category.id)
       wheat_price_template_tax = Tax.find_by_amount(5.5)
       # Create product_nature_price for wheat product
       wheat_price_template   = ProductPriceTemplate.find_by_product_nature_id(wheat.id)
       wheat_price_template ||= ProductPriceTemplate.create!(:assignment_amount => 211, :currency => "EUR", :assignment_pretax_amount => 200, :product_nature_id => wheat.id, :tax_id => wheat_price_template_tax.id, :listing_id => price_listing.id, :supplier_id => Entity.of_company.id )
       # Create wheat product
       ble = Plant.find_by_work_number("BLE_001")
-      ble = Plant.create!(:name => "Blé Cap Horn 2011", :variety => "plant", :unit_id => wheat_unit.id, :identification_number => "BLE_2011_07142011", :work_number => "BLE_2011", :born_at => "2011-07-14", :nature_id => wheat.id, :owner_id => Entity.of_company.id, :number => "BLE_2011") #
+      ble = Plant.create!(:name => "Blé Cap Horn 2011", :variety => "plant", :unit => wheat_unit, :identification_number => "BLE_2011_07142011", :work_number => "BLE_2011", :born_at => "2011-07-14", :nature_id => wheat.id, :owner_id => Entity.of_company.id, :number => "BLE_2011") #
 
       # Sale nature
       sale_nature   = SaleNature.actives.first
@@ -313,7 +313,6 @@ namespace :db do
       suppliers = Entity.where(:of_company => false).reorder(:supplier_account_id, :last_name) # .where(" IS NOT NULL")
       coop = suppliers.offset((suppliers.count/2).floor).first
 
-      unit_u = Unit.get(:u)
       # add a Coop purchase_nature
       purchase_nature   = PurchaseNature.actives.first
       purchase_nature ||= PurchaseNature.create!(:name => I18n.t('models.purchase_nature.default.name'), :currency => "EUR", :active => true)
@@ -345,7 +344,7 @@ namespace :db do
         tax_price_nature_appro = Tax.find_by_amount(19.6)
         # create a product_nature if not exist
         product_nature   = ProductNature.find_by_name(r.product_nature_name)
-        product_nature ||= ProductNature.create!(:stock_account_id => stock_account_nature_coop.id, :charge_account_id => charge_account_nature_coop.id, :name => r.product_nature_name, :number => r.product_nature_name, :alive => false, :saleable => false, :purchasable => true, :active => true, :storable => true, :variety => "building", :unit_id => unit_u.id, :category_id => r.product_nature_category.id)
+        product_nature ||= ProductNature.create!(:stock_account_id => stock_account_nature_coop.id, :charge_account_id => charge_account_nature_coop.id, :name => r.product_nature_name, :number => r.product_nature_name, :saleable => false, :purchasable => true, :active => true, :storable => true, :variety => "building", :unit => "unity", :category_id => r.product_nature_category.id)
         # create a product (Matter) if not exist
         product   = Matter.find_by_name(r.matter_name)
         product ||= Matter.create!(:name => r.matter_name, :identification_number => r.matter_name, :work_number => r.matter_name, :born_at => Time.now, :nature_id => product_nature.id, :owner_id => Entity.of_company.id, :number => r.matter_name) #
@@ -404,7 +403,7 @@ namespace :db do
       #   tax_price_nature_appro = Tax.find_by_amount(19.6)
       #   # create a product_nature if not exist
       #   product_nature   = ProductNature.find_by_name(r.product_nature_name)
-      #   product_nature ||= ProductNature.create!(:stock_account_id => stock_account_nature_coop.id, :charge_account_id => charge_account_nature_coop.id, :name => r.product_nature_name, :number => r.product_nature_name, :alive => false, :saleable => false, :purchasable => true, :active => true, :storable => true, :variety_id => b.id, :unit_id => unit_u.id, :category_id => ProductNatureCategory.by_default.id)
+      #   product_nature ||= ProductNature.create!(:stock_account_id => stock_account_nature_coop.id, :charge_account_id => charge_account_nature_coop.id, :name => r.product_nature_name, :number => r.product_nature_name,  :saleable => false, :purchasable => true, :active => true, :storable => true, :variety_id => b.id, :unit_id => unit_u.id, :category_id => ProductNatureCategory.by_default.id)
       #   # create a product (Matter) if not exist
       #   product   = Matter.find_by_name(r.matter_name)
       #   product ||= Matter.create!(:name => r.matter_name, :identification_number => r.matter_name, :work_number => r.matter_name, :born_at => Time.now, :nature_id => product_nature.id, :owner_id => Entity.of_company.id, :number => r.matter_name) #
@@ -431,59 +430,63 @@ namespace :db do
       # set the lab
       print "[#{(Time.now - start).round(2).to_s.rjust(8)}s] Milk tank analysis (from LILCO) "
       # set the product if not exist
-      unit_milk = Unit.get(:l)
+      milk_unit = "liter"
+      # @TODO = appeller la méthode des comptes comme dans la nomenclature accounts
       stock_account_nature_milk = Account.find_by_number("321")
       sale_account_nature_milk = Account.find_by_number("701")
       product_nature_milk_category = ProductNatureCategory.find_by_name("Défaut")
       # variety_milk = ProductVariety.find_by_code("normande")
       # add a product_nature
-      product_nature   = ProductNature.find_by_name("lait")
-      product_nature ||= ProductNature.create!(:stock_account_id => stock_account_nature_milk.id, :product_account_id => sale_account_nature_milk.id, :name => "lait", :number => "LAIT", :alive => true, :saleable => true, :purchasable => false, :active => true, :storable => true, :variety => "matter", :unit_id => unit_milk.id, :category_id => product_nature_milk_category.id)
+      product_nature   = ProductNature.find_by_name("lait_vache")
+      product_nature ||= ProductNature.create!(:stock_account_id => stock_account_nature_milk.id, :product_account_id => sale_account_nature_milk.id, :name => "lait", :number => "LAIT", :saleable => true, :purchasable => false, :active => true, :storable => true, :variety => "bos", :derivative => "milk", :unit => milk_unit, :category_id => product_nature_milk_category.id)
 
       # create a generic product to link analysis_indicator
-      product   = Matter.find_by_name("lait_traite")
-      product ||= Matter.create!(:name => "lait_traite", :identification_number => "lait_2010-2013", :work_number => "lait_2011_2013", :born_at => Time.now, :nature_id => product_nature.id, :owner_id => Entity.of_company.id, :number => "L2011-2013") #
+      product   = Matter.find_by_name("lait_vache")
+      product ||= Matter.create!(:name => "lait_vache", :identification_number => "lait_2010-2013", :work_number => "lait_2011_2013", :born_at => Time.now, :nature_id => product_nature.id, :owner_id => Entity.of_company.id, :number => "L2011-2013") #
 
-      # create all unit for indicator relative to milk_analysis_quality
-      unit_u = Unit.find_by_name("u")
-      unit_ml = Unit.find_by_name("ml")
-      unit_l = Unit.find_by_name("l")
-      unit_g = Unit.find_by_name("g")
-      unit_analysis_measure_germes = Unit.find_by_name("germes")
-      unit_analysis_measure_germes ||= Unit.create!(:name => "germes", :label => "Milliers de germes", :base => "", :coefficient => "1000.0", :start => "0.0")
-
+      # mention all unit for indicator relative to milk_analysis_quality
       # create all indicator relative to milk_analysis_quality if not exist
-      product_indicator_germes = ProductIndicator.find_by_name("germes_totaux")
-      product_indicator_germes ||= ProductIndicator.create!(:product_nature_id => product_nature.id, :name => "germes_totaux", :description => "Dénombrement des micro-organismes totaux obtenues à 30°C - (x1000 germes / ml)- NF EN ISO 4833",:nature => "measure", :usage => "production", :active => true, :created_at => Time.now, :unit_id => unit_ml.id, :maximal_value => "5000.0000")
+      # product_indicator_germes = ProductNatureIndicator.find_by_name("germes_totaux")
+      # product_indicator_germes ||= ProductNatureIndicator.create!(:product_nature_id => product_nature.id, :name => "germes_totaux", :description => "Dénombrement des micro-organismes totaux obtenues à 30°C - (x1000 germes / ml)- NF EN ISO 4833",:nature => "measure", :usage => "production", :active => true, :created_at => Time.now, :unit => unit_analysis_measure_germes, :maximal_value => "5000.0000")
+# 
+      # product_indicator_inhib = ProductNatureIndicator.find_by_name("inhibiteurs")
+      # product_indicator_inhib ||= ProductNatureIndicator.create!(:product_nature_id => product_nature.id, :name => "inhibiteurs", :description => "Recherche des résidus d’inhibiteurs par test microbiologique - (NEGATIF / POSITIF)- protocole CNIEL INHD",:nature => "string", :usage => "production", :active => true, :created_at => Time.now, :maximal_length => 3)
+# 
+      # product_indicator_mg = ProductNatureIndicator.find_by_name("matieres_grasse")
+      # product_indicator_mg ||= ProductNatureIndicator.create!(:product_nature_id => product_nature.id, :name => "matieres_grasse", :description => "Détermination de la teneur en matière grasse par méthode acido-butyrométrique - (g / L)- NF AFNOR V 04-210",:nature => "measure", :usage => "production", :active => true, :created_at => Time.now, :unit_id => unit_l.id, :maximal_value => "60.0000")
+# 
+      # product_indicator_mp = ProductNatureIndicator.find_by_name("matieres_proteique")
+      # product_indicator_mp ||= ProductNatureIndicator.create!(:product_nature_id => product_nature.id, :name => "matieres_proteique", :description => "Détermination de la teneur en protéine par la méthode au Noir Amido - (g / L)- NF AFNOR V 04-216",:nature => "measure", :usage => "production", :active => true, :created_at => Time.now, :unit_id => unit_l.id, :maximal_value => "60.0000")
+# 
+      # product_indicator_cellules = ProductNatureIndicator.find_by_name("cellules")
+      # product_indicator_cellules ||= ProductNatureIndicator.create!(:product_nature_id => product_nature.id, :name => "cellules", :description => "Dénombrement des cellules somatiques - (x1000 cellules / ml)- ISO 13366-2",:nature => "measure", :usage => "production", :active => true, :created_at => Time.now, :unit_id => unit_ml.id, :maximal_value => "8000.0000")
+# 
+      # product_indicator_buty = ProductNatureIndicator.find_by_name("butyriques")
+      # product_indicator_buty ||= ProductNatureIndicator.create!(:product_nature_id => product_nature.id, :name => "butyriques", :description => "Dénombrement microbiologique des spores de Clostridia  - (spores / L)- protocole CNIEL BUTY",:nature => "measure", :usage => "production", :active => true, :created_at => Time.now, :unit_id => unit_l.id, :maximal_value => "50000.0000")
+# 
+      # product_indicator_cryo = ProductNatureIndicator.find_by_name("cryoscopie")
+      # product_indicator_cryo ||= ProductNatureIndicator.create!(:product_nature_id => product_nature.id, :name => "cryoscopie", :description => "Détermination du point de congélation par cryoscopie - (°C)- NF EN ISO 5764",:nature => "decimal", :usage => "production", :active => true, :created_at => Time.now, :unit_id => unit_u.id, :maximal_value => "0.580")
+# 
+      # product_indicator_lipo = ProductNatureIndicator.find_by_name("lipolyse")
+      # product_indicator_lipo ||= ProductNatureIndicator.create!(:product_nature_id => product_nature.id, :name => "lipolyse", :description => " Méthode aux Savons de Cuivre - ( meq /100 g de MG)- protocole CNIEL LIPO",:nature => "decimal", :usage => "production", :active => true, :created_at => Time.now, :unit_id => unit_u.id, :maximal_value => "2.0")
+# 
+      # product_indicator_igg = ProductNatureIndicator.find_by_name("igg")
+      # product_indicator_igg ||= ProductNatureIndicator.create!(:product_nature_id => product_nature.id, :name => "igg", :description => "Dosage des IgG par immunodiffusion radiale - (u / L)- d’après D. Levieux",:nature => "string", :usage => "production", :active => true, :created_at => Time.now)
+# 
+      # product_indicator_uree = ProductNatureIndicator.find_by_name("uree")
+      # product_indicator_uree ||= ProductNatureIndicator.create!(:product_nature_id => product_nature.id, :name => "uree", :description => "Dosage de la teneur moyenne en urée - (mg / L)",:nature => "decimal", :usage => "production", :active => true, :created_at => Time.now, :unit_id => unit_u.id, :maximal_value => "600.00")
+# 
 
-      product_indicator_inhib = ProductIndicator.find_by_name("inhibiteurs")
-      product_indicator_inhib ||= ProductIndicator.create!(:product_nature_id => product_nature.id, :name => "inhibiteurs", :description => "Recherche des résidus d’inhibiteurs par test microbiologique - (NEGATIF / POSITIF)- protocole CNIEL INHD",:nature => "string", :usage => "production", :active => true, :created_at => Time.now, :maximal_length => 3)
-
-      product_indicator_mg = ProductIndicator.find_by_name("matieres_grasse")
-      product_indicator_mg ||= ProductIndicator.create!(:product_nature_id => product_nature.id, :name => "matieres_grasse", :description => "Détermination de la teneur en matière grasse par méthode acido-butyrométrique - (g / L)- NF AFNOR V 04-210",:nature => "measure", :usage => "production", :active => true, :created_at => Time.now, :unit_id => unit_l.id, :maximal_value => "60.0000")
-
-      product_indicator_mp = ProductIndicator.find_by_name("matieres_proteique")
-      product_indicator_mp ||= ProductIndicator.create!(:product_nature_id => product_nature.id, :name => "matieres_proteique", :description => "Détermination de la teneur en protéine par la méthode au Noir Amido - (g / L)- NF AFNOR V 04-216",:nature => "measure", :usage => "production", :active => true, :created_at => Time.now, :unit_id => unit_l.id, :maximal_value => "60.0000")
-
-      product_indicator_cellules = ProductIndicator.find_by_name("cellules")
-      product_indicator_cellules ||= ProductIndicator.create!(:product_nature_id => product_nature.id, :name => "cellules", :description => "Dénombrement des cellules somatiques - (x1000 cellules / ml)- ISO 13366-2",:nature => "measure", :usage => "production", :active => true, :created_at => Time.now, :unit_id => unit_ml.id, :maximal_value => "8000.0000")
-
-      product_indicator_buty = ProductIndicator.find_by_name("butyriques")
-      product_indicator_buty ||= ProductIndicator.create!(:product_nature_id => product_nature.id, :name => "butyriques", :description => "Dénombrement microbiologique des spores de Clostridia  - (spores / L)- protocole CNIEL BUTY",:nature => "measure", :usage => "production", :active => true, :created_at => Time.now, :unit_id => unit_l.id, :maximal_value => "50000.0000")
-
-      product_indicator_cryo = ProductIndicator.find_by_name("cryoscopie")
-      product_indicator_cryo ||= ProductIndicator.create!(:product_nature_id => product_nature.id, :name => "cryoscopie", :description => "Détermination du point de congélation par cryoscopie - (°C)- NF EN ISO 5764",:nature => "decimal", :usage => "production", :active => true, :created_at => Time.now, :unit_id => unit_u.id, :maximal_value => "0.580")
-
-      product_indicator_lipo = ProductIndicator.find_by_name("lipolyse")
-      product_indicator_lipo ||= ProductIndicator.create!(:product_nature_id => product_nature.id, :name => "lipolyse", :description => " Méthode aux Savons de Cuivre - ( meq /100 g de MG)- protocole CNIEL LIPO",:nature => "decimal", :usage => "production", :active => true, :created_at => Time.now, :unit_id => unit_u.id, :maximal_value => "2.0")
-
-      product_indicator_igg = ProductIndicator.find_by_name("igg")
-      product_indicator_igg ||= ProductIndicator.create!(:product_nature_id => product_nature.id, :name => "igg", :description => "Dosage des IgG par immunodiffusion radiale - (u / L)- d’après D. Levieux",:nature => "string", :usage => "production", :active => true, :created_at => Time.now)
-
-      product_indicator_uree = ProductIndicator.find_by_name("uree")
-      product_indicator_uree ||= ProductIndicator.create!(:product_nature_id => product_nature.id, :name => "uree", :description => "Dosage de la teneur moyenne en urée - (mg / L)",:nature => "decimal", :usage => "production", :active => true, :created_at => Time.now, :unit_id => unit_u.id, :maximal_value => "600.00")
-
-
+      trans_inhib = {
+        "NEG" => "negative",
+        "POS" => "positive"
+      }
+     
+     for a in ["total_bacteria_concentration", "inhibitors_presence", "fat_matters_concentration", "protein_matters_concentration", "cells_concentration", "clostridial_spores_concentration", "freezing_point_temperature", "lipolysis", "immunoglobulins_concentration", "urea_concentration"]
+      product_nature_indicator = ProductNatureIndicator.find_by_nature_and_product_nature(a, product_nature.id)
+      product_nature_indicator ||= ProductNatureIndicator.create!(:product_nature_id => product_nature.id, :nature => a)
+     end
+      
       file = Rails.root.join("test", "fixtures", "files", "HistoIP_V.csv")
       CSV.foreach(file, :encoding => "CP1252", :col_sep => "\t", :headers => true) do |row|
         analysis_on = Date.civil(row[0].to_i, row[1].to_i, 1)
@@ -491,7 +494,7 @@ namespace :db do
                            :analysis_month => row[1],
                            :analysis_order => row[2],
                            :analysis_quality_indicator_germes => (row[3].blank? ? 0 : row[3].to_i),
-                           :analysis_quality_indicator_inhib => (row[4].blank? ? "NEG" : row[4].to_s),
+                           :analysis_quality_indicator_inhib => (row[4].blank? ? "negative" : trans_inhib[row[4]]),
                            :analysis_quality_indicator_mg => (row[5].blank? ? 0 : (row[5].to_d)/100),
                            :analysis_quality_indicator_mp => (row[6].blank? ? 0 : (row[6].to_d)/100),
                            :analysis_quality_indicator_cellules => (row[7].blank? ? 0 : row[7].to_i),
@@ -507,17 +510,17 @@ namespace :db do
                            :analysis_quality_indicator_pseudo => row[17],
                            :analysis_quality_indicator_ecoli => row[18]
                            )
-        # create a product if not exist
-        product.indicator_data.create!(:indicator_id => product_indicator_germes.id , :value => r.analysis_quality_indicator_germes ,:measure_unit_id => unit_analysis_measure_germes.id ,:measured_at => analysis_on )
-        product.indicator_data.create!(:indicator_id => product_indicator_inhib.id, :value => r.analysis_quality_indicator_inhib ,:measured_at => analysis_on )
-        product.indicator_data.create!(:indicator_id => product_indicator_mg.id, :value => r.analysis_quality_indicator_mg ,:measure_unit_id => unit_g.id, :measured_at => analysis_on )
-        product.indicator_data.create!(:indicator_id => product_indicator_mp.id, :value => r.analysis_quality_indicator_mp ,:measure_unit_id => unit_g.id, :measured_at => analysis_on )
-        product.indicator_data.create!(:indicator_id => product_indicator_cellules.id, :value => r.analysis_quality_indicator_cellules ,:measure_unit_id => unit_analysis_measure_germes.id, :measured_at => analysis_on )
-        product.indicator_data.create!(:indicator_id => product_indicator_buty.id, :value => r.analysis_quality_indicator_buty ,:measure_unit_id => unit_u.id, :measured_at => analysis_on )
-        product.indicator_data.create!(:indicator_id => product_indicator_cryo.id, :value => r.analysis_quality_indicator_cryo , :measured_at => analysis_on )
-        product.indicator_data.create!(:indicator_id => product_indicator_lipo.id, :value => r.analysis_quality_indicator_lipo , :measured_at => analysis_on )
-        product.indicator_data.create!(:indicator_id => product_indicator_igg.id, :value => r.analysis_quality_indicator_igg , :measured_at => analysis_on )
-        product.indicator_data.create!(:indicator_id => product_indicator_uree.id, :value => r.analysis_quality_indicator_uree , :measured_at => analysis_on )
+        # create an indicator for each line of analysis (based onn milk analysis indicator in XML nomenclature)
+        product.indicator_data.create!(:indicator => "total_bacteria_concentration", :value => r.analysis_quality_indicator_germes ,:measure_unit => "thousands_per_milliliter" ,:measured_at => analysis_on )
+        product.indicator_data.create!(:indicator => "inhibitors_presence", :value => r.analysis_quality_indicator_inhib ,:measured_at => analysis_on )
+        product.indicator_data.create!(:indicator => "fat_matters_concentration", :value => r.analysis_quality_indicator_mg ,:measure_unit => "gram_per_liter", :measured_at => analysis_on )
+        product.indicator_data.create!(:indicator => "protein_matters_concentration", :value => r.analysis_quality_indicator_mp ,:measure_unit => "gram_per_liter", :measured_at => analysis_on )
+        product.indicator_data.create!(:indicator => "cells_concentration", :value => r.analysis_quality_indicator_cellules ,:measure_unit => "thousands_per_milliliter", :measured_at => analysis_on )
+        product.indicator_data.create!(:indicator => "clostridial_spores_concentration", :value => r.analysis_quality_indicator_buty ,:measure_unit => "unities_per_liter", :measured_at => analysis_on )
+        product.indicator_data.create!(:indicator => "freezing_point_temperature", :value => r.analysis_quality_indicator_cryo ,:measure_unit => "celsius", :measured_at => analysis_on )
+        product.indicator_data.create!(:indicator => "lipolysis", :value => r.analysis_quality_indicator_lipo ,:measure_unit => "thousands_eq_per_hundred_gram", :measured_at => analysis_on )
+        product.indicator_data.create!(:indicator => "immunoglobulins_concentration", :value => r.analysis_quality_indicator_igg ,:measure_unit => "unities_per_liter", :measured_at => analysis_on )
+        product.indicator_data.create!(:indicator => "urea_concentration", :value => r.analysis_quality_indicator_uree , :measure_unit => "milligram_per_liter", :measured_at => analysis_on )
 
         print "."
       end
@@ -548,8 +551,8 @@ namespace :db do
         r = OpenStruct.new(:nomen => row[0],
                            :name => row[1].downcase.capitalize,
                            :family => (families[row[2]] || :none).to_s,
-                           :area_unit => Unit.get(:ha),
-                           :work_unit => Unit.get(:u),
+                           :area_unit => "hectare",
+                           :work_unit => "unity",
                            :product_nature_name => row[5],
                            :nature => (natures[row[6]] || :none).to_s
                            )

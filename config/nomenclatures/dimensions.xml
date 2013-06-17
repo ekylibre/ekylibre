@@ -18,7 +18,10 @@
       <!-- SI next-levels dimensions -->
       <item name="surface_area" expression="m2"/>
       <item name="volume"       expression="m3"/>
-      <item name="mass_density" expression="kg.m-3"/>   
+      <item name="mass_concentration" expression="kg*m-3"/>
+      <item name="specific_volume" expression="m3*kg-1"/>
+      <item name="concentration" expression="m-3"/>
+      <item name="mass_density" expression="kg-1"/>
     </items>
   </nomenclature>
 </nomenclatures>

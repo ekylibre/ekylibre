@@ -23,6 +23,17 @@
       <item name="animal_disease_state" type="choice" choices="healthy,sick"/>
       <item name="plant_life_state" type="choice" choices="germination,tillering,bolting,maturity,senescence"/>
       <item name="plant_reproduction_state" type="choice" choices="swelling,heading,flowering,grain_maturity,grain_senescence"/>
+      <!-- for milk analysis -->
+      <item name="total_bacteria_concentration" type="measure" unit="thousands_per_milliliter"/>
+      <item name="inhibitors_presence" type="choice" choices="negative,positive"/>
+      <item name="fat_matters_concentration" type="measure" unit="gram_per_liter"/>
+      <item name="protein_matters_concentration" type="measure" unit="gram_per_liter"/>
+      <item name="cells_concentration" type="measure" unit="thousands_per_milliliter"/>
+      <item name="clostridial_spores_concentration" type="measure" unit="unities_per_liter"/>
+      <item name="freezing_point_temperature" type="measure" unit="celsius"/>
+      <item name="lipolysis" type="measure" unit="thousands_eq_per_hundred_gram"/>
+      <item name="immunoglobulins_concentration" type="measure" unit="unities_per_liter"/>
+      <item name="urea_concentration" type="measure" unit="milligram_per_liter"/>
     </items>
   </nomenclature>
 </nomenclatures>
