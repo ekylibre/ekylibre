@@ -588,7 +588,7 @@ ActiveRecord::Schema.define(:version => 20130513165730) do
     t.integer  "picture_file_size"
     t.string   "picture_content_type"
     t.datetime "picture_updated_at"
-    t.string   "type",                                                                                      :null => false
+    t.string   "type"
     t.string   "nature",                                                                                    :null => false
     t.string   "payment_delay"
   end
@@ -695,7 +695,7 @@ ActiveRecord::Schema.define(:version => 20130513165730) do
     t.integer  "lock_version",      :default => 0, :null => false
     t.text     "description"
     t.datetime "stopped_at"
-    t.string   "type",                             :null => false
+    t.string   "type"
     t.integer  "parent_id"
     t.string   "nomen"
     t.integer  "procedure_id"
@@ -1875,7 +1875,7 @@ ActiveRecord::Schema.define(:version => 20130513165730) do
   add_index "production_chains", ["updater_id"], :name => "index_production_chains_on_updater_id"
 
   create_table "products", :force => true do |t|
-    t.string   "type",                                                                                                                :null => false
+    t.string   "type"
     t.string   "name",                                                                                                                :null => false
     t.string   "number",                                                                                                              :null => false
     t.boolean  "active",                                                                                           :default => false, :null => false

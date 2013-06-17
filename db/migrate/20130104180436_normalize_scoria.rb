@@ -39,7 +39,7 @@ class NormalizeScoria < ActiveRecord::Migration
     add_column    :entities, :type, :string
     add_column    :entities, :nature, :string
     execute("UPDATE #{quoted_table_name(:entities)} SET type = CASE WHEN NOT physical THEN 'LegalEntity' WHEN name LIKE '%dam%' OR name LIKE '%si%r' THEN 'Person' ELSE 'Entity' END, nature = CASE WHEN NOT physical AND en.name LIKE '%asso%' THEN 'association' WHEN NOT physical THEN 'company' WHEN name LIKE '%dam%' THEN 'madam' WHEN name LIKE '%si%r' THEN 'sir' ELSE 'undefined' END FROM #{quoted_table_name(:entity_natures)} AS en WHERE en.id = nature_id")
-    change_column_null :entities, :type, false
+    # change_column_null :entities, :type, false
     change_column_null :entities, :nature, false
     remove_column :entities, :nature_id
 
@@ -81,7 +81,7 @@ class NormalizeScoria < ActiveRecord::Migration
     add_column :events, :stopped_at, :datetime
     add_column :events, :type, :string
     execute("UPDATE #{quoted_table_name(:events)} SET type = 'Meeting', stopped_at = CASE WHEN duration IS NOT NULL THEN started_at + (duration || ' minutes')::INTERVAL ELSE stopped_at END")
-    change_column_null :events, :type, false
+    # change_column_null :events, :type, false
     rename_column :events, :nature_id, :meeting_nature_id
     change_column_null :events, :meeting_nature_id, true
     remove_column :events, :started_sec

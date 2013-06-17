@@ -34,7 +34,7 @@
 #  procedure_id      :integer
 #  started_at        :datetime         not null
 #  stopped_at        :datetime
-#  type              :string(255)      not null
+#  type              :string(255)
 #  updated_at        :datetime         not null
 #  updater_id        :integer
 #

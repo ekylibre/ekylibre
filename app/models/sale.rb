@@ -232,19 +232,19 @@ class Sale < Ekylibre::Record::Base
     self.items.count > 0
   end
 
-  # Returns if the sale has been validated and so if it can be
-  # considered as sold.
-  def sold?
-    return (self.order? or self.invoice?)
-  end
-
   def has_content_not_deliverable?
     return false unless self.has_content?
     deliverable = false
     for item in self.items
-      deliverable = true if item.product.nature.deliverable?
+      deliverable = true if item.product_deliverable?
     end
     return !deliverable
+  end
+
+  # Returns if the sale has been validated and so if it can be
+  # considered as sold.
+  def sold?
+    return (self.order? or self.invoice?)
   end
 
 
@@ -270,7 +270,7 @@ class Sale < Ekylibre::Record::Base
     items = []
     for item in self.items.find_all_by_reduction_origin_id(nil)
       quantity = item.undelivered_quantity
-      if quantity > 0 and item.product.deliverable?
+      if quantity > 0 and item.product_deliverable?
         items << {:sale_item_id => item.id, :quantity => quantity}
       end
     end

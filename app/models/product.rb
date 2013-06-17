@@ -58,7 +58,7 @@
 #  sex                      :string(255)
 #  shape                    :spatial({:srid=>
 #  tracking_id              :integer
-#  type                     :string(255)      not null
+#  type                     :string(255)
 #  unit                     :string(255)      not null
 #  updated_at               :datetime         not null
 #  updater_id               :integer
@@ -116,6 +116,7 @@ class Product < Ekylibre::Record::Base
   acts_as_numbered
   delegate :serial_number, :producer, :to => :tracking
   delegate :name, :to => :nature, :prefix => true
+  delegate :subscribing?, :deliverable?, :to => :nature
   before_validation :set_variety_and_unit, :on => :create
 
   validate do

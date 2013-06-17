@@ -57,7 +57,7 @@
 #  sex                      :string(255)
 #  shape                    :spatial({:srid=>
 #  tracking_id              :integer
-#  type                     :string(255)      not null
+#  type                     :string(255)
 #  unit                     :string(255)      not null
 #  updated_at               :datetime         not null
 #  updater_id               :integer

@@ -95,7 +95,7 @@ class SaleTest < ActiveSupport::TestCase
         assert_equal "draft", @sale.state
         assert @sale.propose
         assert_equal "estimate", @sale.state
-        assert !@sale.can_invoice?, "Deliverables: " + @sale.items.collect{|l| l.product.attributes.inspect}.to_sentence
+        assert @sale.can_invoice?, "Deliverables: " + @sale.items.collect{|l| l.product.attributes.inspect}.to_sentence
         assert @sale.confirm
         assert @sale.invoice
         assert_equal "invoice", @sale.state
@@ -144,7 +144,7 @@ class SaleTest < ActiveSupport::TestCase
         assert_equal "draft", @sale.state
         assert @sale.propose
         assert_equal "estimate", @sale.state
-        assert !@sale.can_invoice?, "Deliverables: " + @sale.items.collect{|l| l.product.attributes.inspect}.to_sentence
+        assert @sale.can_invoice?, "Deliverables: " + @sale.items.collect{|l| l.product.attributes.inspect}.to_sentence
         assert @sale.confirm
         assert @sale.invoice
         assert_equal "invoice", @sale.state

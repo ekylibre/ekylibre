@@ -777,7 +777,7 @@ class NormalizeProducts < ActiveRecord::Migration
 
     # Re-create table product
     create_table :products do |t|
-      t.string :type, :null => false
+      t.string :type # , :null => false
       t.string :name, :null => false
       t.string :number, :null => false
       t.boolean :active, :null => false, :default => false

@@ -71,6 +71,7 @@ class SaleItem < Ekylibre::Record::Base
   accepts_nested_attributes_for :subscriptions
   delegate :sold?, :to => :sale
   delegate :name, :to => :tax, :prefix => true
+  delegate :subscribing?, :deliverable?, :to => :product, :prefix => true
 
 
   acts_as_list :scope => :sale
@@ -203,10 +204,6 @@ class SaleItem < Ekylibre::Record::Base
     d << "\n"+self.annotation.to_s unless self.annotation.blank?
     d << "\n"+tc(:tracking, :serial => self.tracking.serial.to_s) if self.tracking
     return d
-  end
-
-  def subscribing?
-    self.product.nature == "subscrip"
   end
 
   def new_subscription(attributes={})

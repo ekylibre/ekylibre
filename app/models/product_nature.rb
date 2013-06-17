@@ -142,6 +142,11 @@ class ProductNature < Ekylibre::Record::Base
     Unit.of_product(self)
   end
 
+
+  def deliverable?
+    self.storable?
+  end
+
   # # Returns the default
   # def default_price(options)
   #   price = nil
