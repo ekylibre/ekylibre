@@ -44,7 +44,7 @@ class Meeting < Event
   # belongs_to :entity
   belongs_to :meeting_nature
   has_many :participations, :class_name => "MeetingParticipation"
-  has_many :participants, :class_name => "Entity", :through => :participations
+  has_many :participants, :through => :participations
   # belongs_to :responsible, :class_name => "User"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   #]VALIDATORS]

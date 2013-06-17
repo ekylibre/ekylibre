@@ -57,7 +57,7 @@
         <page to="backend/meetings#edit"/>
         <page to="backend/meetings#list"/>
         <page to="backend/meetings#new"/>
-        <page to="backend/meetings#autocomplete_for_location"/>
+        <page to="backend/meetings#autocomplete_for_place"/>
         <page to="backend/meetings#update"/>
       </item>
     </group>
@@ -1024,9 +1024,6 @@
         <page to="backend/matters#list_group"/>
         <page to="backend/matters#list_place"/>
         <page to="backend/matters#picture"/>
-      </item>
-      <item name="meetings">
-        <page to="backend/meetings#autocomplete_for_place"/>
       </item>
       <item name="operation_tasks">
         <page to="backend/operation_tasks#index"/>

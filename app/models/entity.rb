@@ -101,7 +101,6 @@ class Entity < Ekylibre::Record::Base
   has_many :websites,  :conditions => {:canal => "website", :deleted_at => nil}, :class_name => "EntityAddress", :inverse_of => :entity
   has_many :auto_updateable_addresses, :conditions => {:deleted_at => nil, :mail_auto_update => true}, :class_name => "EntityAddress"
   has_many :direct_links, :class_name => "EntityLink", :foreign_key => :entity_1_id
-  has_many :events, :class_name => "Meeting"
   has_many :product_events, :class_name => "Log", :foreign_key => :watcher_id
   has_many :godchildren, :class_name => "Entity", :foreign_key => "proposer_id"
   has_many :incoming_payments, :foreign_key => :payer_id, :inverse_of => :payer
@@ -207,7 +206,7 @@ class Entity < Ekylibre::Record::Base
   end
 
   protect(:on => :destroy) do
-    return false if self.id == self.of_company? or self.sales_invoices.count > 0 or self.events.count > 0 and self.sales.count > 0 and self.transports.count > 0
+    return false if self.id == self.of_company? or self.sales_invoices.count > 0 or self.participations.count > 0 and self.sales.count > 0 and self.transports.count > 0
     return true
   end
 
