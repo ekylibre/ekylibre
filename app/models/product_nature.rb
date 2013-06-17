@@ -54,7 +54,7 @@
 
 class ProductNature < Ekylibre::Record::Base
   # attr_accessible :active, :commercial_description, :commercial_name, :category_id, :deliverable, :description, :for_immobilizations, :for_productions, :for_purchases, :for_sales, :asset_account_id, :name, :nature, :number, :charge_account_id, :reduction_submissive, :product_account_id, :stockable, :subscription_nature_id, :subscription_period, :subscription_quantity, :trackable, :unit, :unquantifiable, :weight
-  attr_accessible :active, :commercial_description, :commercial_name, :category_id, :description, :depreciable, :purchasable, :saleable, :asset_account_id, :name, :number, :stock_account_id, :charge_account_id, :product_account_id, :storable, :subscription_nature_id, :subscription_duration, :unit, :reductible, :atomic, :subscribing, :variety
+  attr_accessible :derivative, :active, :commercial_description, :commercial_name, :category_id, :description, :depreciable, :purchasable, :saleable, :asset_account_id, :name, :number, :stock_account_id, :charge_account_id, :product_account_id, :storable, :subscription_nature_id, :subscription_duration, :unit, :reductible, :atomic, :subscribing, :variety
   #enumerize :nature, :in => [:product, :service, :subscription], :default => :product, :predicates => true
   belongs_to :asset_account, :class_name => "Account"
   belongs_to :charge_account, :class_name => "Account"
@@ -124,7 +124,7 @@ class ProductNature < Ekylibre::Record::Base
     # self.traceable = false unless self.storable?
     # self.stockable = true if self.trackable?
     # self.deliverable = true if self.stockable?
-    self.producible = true
+    # self.producible = true
     self.commercial_name = self.name if self.commercial_name.blank?
     self.subscription_nature_id = nil unless self.subscribing?
     return true
@@ -134,7 +134,7 @@ class ProductNature < Ekylibre::Record::Base
     to = []
     to << :sales if self.saleable?
     to << :purchases if self.purchasable?
-    to << :produce if self.producible?
+    # to << :produce if self.producible?
     to.collect{|x| tc('to.'+x.to_s)}.to_sentence
   end
 

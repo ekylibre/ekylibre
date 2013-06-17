@@ -1,23 +1,20 @@
 =main_toolbar do |t|
-  -t.edit @vegetal
-  -t.print_product @vegetal
-  -t.destroy(@vegetal, :method=>:delete, "data-confirm" => tg(:are_you_sure_you_want_to_delete)) if @vegetal.destroyable?
+  -t.edit @plant
+  -t.destroy(@plant, :method=>:delete, "data-confirm" => tg(:are_you_sure_you_want_to_delete))
 
 =beehive do |b|
   -b.cell :details do
-
-    =attributes_list(@vegetal) do |l| # liste des champs à afficher
+    =attributes_list(@plant) do |l| # liste des champs à afficher
       -l.attribute :name
       -l.attribute :born_at
-      -l.attribute :variety, :url => true
-      -l.attribute :group, :url => true # on affiche l'attribut name de l'entité ProductGroup associé par l'attribut group de l'entité courante Product avec un lien vers ce groupe
+      -#-l.attribute :variety, :url => true
+      -#-l.attribute :group, :url => true # on affiche l'attribut name de l'entité ProductGroup associé par l'attribut group de l'entité courante Product avec un lien vers ce groupe
       -l.attribute :description
-    -if @vegetal.picture.exists?
-      =image_tag(@vegetal.picture.url(:thumb))
+    -if @plant.picture.exists?
+      =image_tag(@plant.picture.url(:thumb))
 
   -b.tabbox do
-
     -b.cell(:picture) do
-      -if @vegetal.picture.exists?
-        =image_tag(@vegetal.picture.url(:original))
+      -if @plant.picture.exists?
+        =image_tag(@plant.picture.url(:original))
 

@@ -54,8 +54,8 @@ class ProductNatureIndicator < Ekylibre::Record::Base
 
   # accepts_nested_attributes_for :choices
 
-  default_scope -> { order(:name) }
-  scope :actives, -> { order(:name) } # where(:active => true).order(:name)
+  default_scope -> { order(:nature) }
+  scope :actives, -> { order(:nature) } # where(:active => true).order(:name)
 
   # def choices_count
   #   self.choices.count

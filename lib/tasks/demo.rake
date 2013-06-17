@@ -130,6 +130,8 @@ namespace :db do
       # v = ProductVariety.find_by_code("normande")
       # v ||= ProductVariety.create!(:name => "Normande", :code => "normande", :product_type => "Animal", :parent_id => (h ? h.id : nil))
       cow_unit = "head"
+      cow_product_account = Account.find_in_chart(:adult_animal_product)
+      cow_stock_account = Account.find_in_chart(:long_time_animal_stock)
       # add default variety for building
       # b = ProductVariety.find_by_code("animal_house")
       # q = ProductVariety.find_by_code("building")
@@ -139,7 +141,7 @@ namespace :db do
       category ||= ProductNatureCategory.create!(:name => "Défaut")
       # create default product_nature to create animal
       cow = ProductNature.find_by_number("CATTLE")
-      cow ||= ProductNature.create!(:name => "Bovin", :number => "CATTLE", :storable => true, :variety => "bos", :unit => cow_unit, :category_id => category.id)
+      cow ||= ProductNature.create!(:name => "adult_cow", :number => "CATTLE", :storable => true, :stock_account_id => cow_stock_account.id, :saleable => true, :product_account_id => cow_product_account.id, :variety => "bos", :unit => cow_unit, :category_id => category.id)
       # add default groups for animal
       group1 = AnimalGroup.find_by_name("VL")
       group1 ||= AnimalGroup.create!(:name => "VL", :active => true, :external => false, :reproductor => false, :reservoir => false, :description => "Vache Laitière", :nature_id => cow.id, :unit => cow_unit, :variety => "bos", :owner_id => Entity.of_company.id, :number => "VL")
@@ -151,7 +153,7 @@ namespace :db do
       group4 ||= AnimalGroup.create!(:name => "TAURILLON", :active => true, :external => false, :reproductor => false, :reservoir => false, :description => "Taurillons", :nature_id => cow.id, :unit => cow_unit, :variety => "bos", :owner_id => Entity.of_company.id, :number => "TAURILLON")
       # create default product_nature to place animal
       place_nature = ProductNature.find_by_number("CATTLE_HOUSE")
-      place_nature ||= ProductNature.create!(:name => "Stabulation", :number => "CATTLE_HOUSE", :storage => true, :variety => "building", :unit => "unity", :category_id => category.id)
+      place_nature ||= ProductNature.create!(:name => "Stabulation", :number => "CATTLE_HOUSE", :variety => "building", :unit => "unity", :category_id => category.id)
 
       # create default product to place animal
       place = Building.find_by_work_number("STABU_01")
@@ -255,8 +257,9 @@ namespace :db do
       # Create product_nature for wheat product
       wheat_charge_account = Account.find_by_number("601")
       wheat_product_account = Account.find_by_number("701")
+      wheat_stock_account = Account.find_in_chart(:plant_derivative_stock)
       wheat = ProductNature.find_by_number("BLE")
-      wheat ||= ProductNature.create!(:charge_account_id => wheat_charge_account.id, :product_account_id => wheat_product_account.id, :name => "Blé", :number => "BLE", :saleable => true, :purchasable => true, :active => true, :storable => true, :variety => "plant", :unit => wheat_unit, :category_id => wheat_category.id)
+      wheat ||= ProductNature.create!(:charge_account_id => wheat_charge_account.id, :product_account_id => wheat_product_account.id, :stock_account_id => wheat_stock_account.id, :name => "Blé", :number => "BLE", :saleable => true, :purchasable => true, :active => true, :storable => true, :variety => "plant", :derivative => "grains", :unit => wheat_unit, :category_id => wheat_category.id)
       wheat_price_template_tax = Tax.find_by_amount(5.5)
       # Create product_nature_price for wheat product
       wheat_price_template   = ProductPriceTemplate.find_by_product_nature_id(wheat.id)
@@ -483,7 +486,7 @@ namespace :db do
       }
      
      for a in ["total_bacteria_concentration", "inhibitors_presence", "fat_matters_concentration", "protein_matters_concentration", "cells_concentration", "clostridial_spores_concentration", "freezing_point_temperature", "lipolysis", "immunoglobulins_concentration", "urea_concentration"]
-      product_nature_indicator = ProductNatureIndicator.find_by_nature_and_product_nature(a, product_nature.id)
+      product_nature_indicator = ProductNatureIndicator.where(:nature => a, :product_nature_id => product_nature.id ).first
       product_nature_indicator ||= ProductNatureIndicator.create!(:product_nature_id => product_nature.id, :nature => a)
      end
       
