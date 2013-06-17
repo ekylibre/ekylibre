@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="show" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9c1f11b7-03dd-4803-9e1b-41b87b9d23c0">
-	<property name="ireport.zoom" value="1.1969602468458194"/>
+	<property name="ireport.zoom" value="0.7432181401207195"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="268"/>
+	<property name="ireport.y" value="265"/>
 	<template><![CDATA["/home/djoulin/ekylibre/config/corporate-identity/reports-style.jrtx"]]></template>
-	<subDataset name="localizations" uuid="e1b74445-e266-4905-b7ca-c69a482d0793">
+	<subDataset name="product-localizations" uuid="e1b74445-e266-4905-b7ca-c69a482d0793">
 		<queryString language="xPath">
 			<![CDATA[/animal/product-localizations/product-localization]]>
 		</queryString>
@@ -45,6 +45,40 @@
 			<fieldDescription><![CDATA[member/name]]></fieldDescription>
 		</field>
 	</subDataset>
+	<subDataset name="weight" uuid="cc8022ce-12ea-4b67-a812-979a82dac442">
+		<queryString language="xPath">
+			<![CDATA[/animal/indicator-data/indicator-datum[indicator/@name="weight"]]]>
+		</queryString>
+		<field name="string-value" class="java.lang.String">
+			<fieldDescription><![CDATA[string-value]]></fieldDescription>
+		</field>
+		<field name="measured-at" class="java.util.Date">
+			<fieldDescription><![CDATA[measured-at]]></fieldDescription>
+		</field>
+		<field name="measure-unit" class="java.lang.String">
+			<fieldDescription><![CDATA[measure-unit]]></fieldDescription>
+		</field>
+		<sortField name="measured-at"/>
+		<variable name="weight" class="java.lang.Number">
+			<variableExpression><![CDATA[new Double($F{string-value})]]></variableExpression>
+		</variable>
+	</subDataset>
+	<subDataset name="animal_disease_state" uuid="c905c8ec-3a27-468e-93ba-0bd89e202ed8">
+		<queryString language="xPath">
+			<![CDATA[/animal/indicator-data/indicator-datum[indicator/@name="animal_disease_state"]]]>
+		</queryString>
+		<field name="string-value" class="java.lang.String">
+			<fieldDescription><![CDATA[string-value]]></fieldDescription>
+		</field>
+		<field name="measured-at" class="java.util.Date">
+			<fieldDescription><![CDATA[measured-at]]></fieldDescription>
+		</field>
+		<field name="measure-unit" class="java.lang.String">
+			<fieldDescription><![CDATA[measure-unit]]></fieldDescription>
+		</field>
+		<sortField name="measured-at"/>
+	</subDataset>
+	<subDataset name="dataset1" uuid="8899df0b-0c73-4ffb-b7af-4ba23f9491ec"/>
 	<parameter name="XML_DATA_DOCUMENT" class="java.lang.String" isForPrompting="false"/>
 	<parameter name="XML_URL" class="java.lang.String" isForPrompting="false"/>
 	<queryString language="xPath">
@@ -318,10 +352,319 @@
 	</title>
 	<pageHeader>
 		<band height="406" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="ba959643-9c8b-4cb2-a7b3-a0f2a51aff45" style="sub-title" x="0" y="11" width="115" height="22"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Open Sans" size="10"/>
+				</textElement>
+				<text><![CDATA[Généalogie]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d8e970b1-ab1e-4be5-91e5-7d6310e6eace" style="strong" mode="Opaque" x="0" y="31" width="212" height="2" backcolor="#7C9DDD"/>
+				<textElement verticalAlignment="Middle">
+					<font pdfFontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<frame>
+				<reportElement uuid="5122f9cb-3ff2-4738-8965-53a661fe1282" key="self-male" x="8" y="75" width="32" height="21">
+					<printWhenExpression><![CDATA[$F{sex} == "male"]]></printWhenExpression>
+				</reportElement>
+				<ellipse>
+					<reportElement uuid="8437c466-410a-4080-8f07-3cab9d73d2f6" x="0" y="7" width="13" height="11" forecolor="#CAC0B5" backcolor="#FF0033"/>
+				</ellipse>
+				<line>
+					<reportElement uuid="9d82a2bf-4b59-41f6-a6b0-f8adf89fccaa" x="23" y="-1" width="1" height="10" forecolor="#CAC0B5"/>
+					<graphicElement>
+						<pen lineWidth="2.0"/>
+					</graphicElement>
+				</line>
+				<line direction="BottomUp">
+					<reportElement uuid="048cfa44-c69b-4738-b155-0fbe52e17de9" x="11" y="1" width="12" height="9" forecolor="#CAC0B5"/>
+					<graphicElement>
+						<pen lineWidth="2.0"/>
+					</graphicElement>
+				</line>
+				<line>
+					<reportElement uuid="59849ea6-97f4-445f-b0bb-156837563a93" x="13" y="0" width="11" height="1" forecolor="#CAC0B5"/>
+					<graphicElement>
+						<pen lineWidth="2.0"/>
+					</graphicElement>
+				</line>
+			</frame>
+			<frame>
+				<reportElement uuid="ed0a75de-66f4-426b-b029-7e09bae0f944" key="self-female" x="-7" y="74" width="34" height="37">
+					<printWhenExpression><![CDATA[$F{sex} == "female"]]></printWhenExpression>
+				</reportElement>
+				<line>
+					<reportElement uuid="dfb84a6d-1011-43de-80c5-b9f30574acee" x="18" y="16" width="11" height="1" forecolor="#CAC0B5"/>
+					<graphicElement>
+						<pen lineWidth="2.0"/>
+					</graphicElement>
+				</line>
+				<line>
+					<reportElement uuid="7cae929e-33e2-4132-aa42-6e7fe409cb20" x="23" y="9" width="1" height="20" forecolor="#CAC0B5"/>
+					<graphicElement>
+						<pen lineWidth="2.0"/>
+					</graphicElement>
+				</line>
+				<ellipse>
+					<reportElement uuid="1a95ec70-40d0-4a24-a351-a69ba9f3c18e" x="18" y="0" width="11" height="10" forecolor="#CAC0B5" backcolor="#0033CC"/>
+				</ellipse>
+			</frame>
+			<frame>
+				<reportElement uuid="3622b437-f594-4f47-b4f9-a457ceb6aaca" key="mother" x="62" y="51" width="38" height="34">
+					<printWhenExpression><![CDATA[$F{mother-id} != null]]></printWhenExpression>
+				</reportElement>
+				<ellipse>
+					<reportElement uuid="f4a941db-afc1-4984-b462-1632ca90856d" x="13" y="0" width="11" height="10" forecolor="#CAC0B5" backcolor="#0033CC"/>
+				</ellipse>
+				<line>
+					<reportElement uuid="e40c4535-898b-4886-9f1c-9a77240f390b" x="18" y="10" width="1" height="20" forecolor="#CAC0B5"/>
+					<graphicElement>
+						<pen lineWidth="2.0"/>
+					</graphicElement>
+				</line>
+				<line>
+					<reportElement uuid="68128eed-2f15-4f9e-9d9c-975e5b0be4ad" x="13" y="16" width="11" height="1" forecolor="#CAC0B5"/>
+					<graphicElement>
+						<pen lineWidth="2.0"/>
+					</graphicElement>
+				</line>
+			</frame>
+			<frame>
+				<reportElement uuid="9df544c7-f011-474e-8726-c6f8ac1231ad" key="father" x="66" y="104" width="33" height="29">
+					<printWhenExpression><![CDATA[$F{father-id} != null]]></printWhenExpression>
+				</reportElement>
+				<line direction="BottomUp">
+					<reportElement uuid="6f0279d4-241a-4bb7-a9ee-5bae8c4470ca" x="16" y="3" width="12" height="9" forecolor="#CAC0B5"/>
+					<graphicElement>
+						<pen lineWidth="2.0"/>
+					</graphicElement>
+				</line>
+				<line>
+					<reportElement uuid="7a292da0-3ecf-4807-b58a-3022b207c386" x="18" y="2" width="11" height="1" forecolor="#CAC0B5"/>
+					<graphicElement>
+						<pen lineWidth="2.0"/>
+					</graphicElement>
+				</line>
+				<line>
+					<reportElement uuid="f38669a8-84e0-4308-a757-ce6fcf0c1ee4" x="28" y="2" width="1" height="10" forecolor="#CAC0B5"/>
+					<graphicElement>
+						<pen lineWidth="2.0"/>
+					</graphicElement>
+				</line>
+				<ellipse>
+					<reportElement uuid="64e56bdb-d717-4f66-a3b3-dfe3d51f1e78" x="5" y="10" width="13" height="11" forecolor="#CAC0B5" backcolor="#FF0033"/>
+				</ellipse>
+			</frame>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="5dc49098-f011-44be-ac2f-cad8d6853198" style="label-strong" x="105" y="104" width="100" height="17"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{father-name}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement uuid="1c3c60de-e63e-4fce-94e3-8f2087460154" style="base" x="105" y="120" width="100" height="24"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{father-born-at}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="e110d55b-5194-4186-b800-33bd6b0513d6" style="label-strong" x="104" y="51" width="100" height="17"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{mother-name}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement uuid="6548d048-eed3-4405-bddb-a13458e711d6" style="base" x="104" y="67" width="100" height="19"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{mother-born-at}]]></textFieldExpression>
+			</textField>
+			<line direction="BottomUp">
+				<reportElement uuid="f741c26e-fb52-425b-8bd3-f8a8ef86c4ca" x="41" y="69" width="21" height="18" forecolor="#CAC0B5">
+					<printWhenExpression><![CDATA[$F{mother-id} != null]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="2.0"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement uuid="b310d01f-c694-4cc2-b454-17b028bcc644" x="42" y="97" width="20" height="21" forecolor="#CAC0B5">
+					<printWhenExpression><![CDATA[$F{father-id} != null]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="2.0"/>
+				</graphicElement>
+			</line>
+			<lineChart>
+				<chart renderType="draw">
+					<reportElement uuid="3709b5a0-d9e9-4ca8-9977-bea704057499" x="0" y="195" width="555" height="200"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<categoryDataset>
+					<dataset>
+						<datasetRun subDataset="weight" uuid="6a335365-5460-4db5-ae42-fed9b9484727">
+							<parametersMapExpression><![CDATA[$P{REPORT_PARAMETERS_MAP}]]></parametersMapExpression>
+							<datasetParameter name="XML_DATE_PATTERN">
+								<datasetParameterExpression><![CDATA[$P{XML_DATE_PATTERN}]]></datasetParameterExpression>
+							</datasetParameter>
+							<datasetParameter name="XML_NUMBER_PATTERN">
+								<datasetParameterExpression><![CDATA[$P{XML_NUMBER_PATTERN}]]></datasetParameterExpression>
+							</datasetParameter>
+							<datasetParameter name="XML_LOCALE">
+								<datasetParameterExpression><![CDATA[$P{XML_LOCALE}]]></datasetParameterExpression>
+							</datasetParameter>
+							<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+						</datasetRun>
+					</dataset>
+					<categorySeries>
+						<seriesExpression><![CDATA["Poids"]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{measured-at}.toLocaleString()]]></categoryExpression>
+						<valueExpression><![CDATA[$V{weight}]]></valueExpression>
+						<labelExpression><![CDATA[$F{string-value}]]></labelExpression>
+					</categorySeries>
+				</categoryDataset>
+				<linePlot>
+					<plot/>
+					<categoryAxisFormat>
+						<axisFormat/>
+					</categoryAxisFormat>
+					<valueAxisLabelExpression><![CDATA["Poids en kg"]]></valueAxisLabelExpression>
+					<valueAxisFormat>
+						<axisFormat/>
+					</valueAxisFormat>
+				</linePlot>
+			</lineChart>
+			<staticText>
+				<reportElement uuid="f5580f6a-1cd4-40ff-8290-6bc465b38715" style="sub-title" positionType="Float" x="0" y="152" width="115" height="22"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Open Sans" size="10"/>
+				</textElement>
+				<text><![CDATA[Croissance]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="3d76d773-7f33-4321-97ce-9faa6a44b3e4" style="strong" mode="Opaque" x="0" y="174" width="555" height="2" backcolor="#7C9DDD"/>
+				<textElement verticalAlignment="Middle">
+					<font pdfFontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
 			<componentElement>
-				<reportElement uuid="d009cdcc-2b4b-4055-b813-0d5aab74f1a6" key="table 1" x="0" y="187" width="555" height="105"/>
+				<reportElement uuid="d10352e4-d114-4e73-ab1e-6bf1b8d2ddf6" x="291" y="46" width="253" height="24"/>
+				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="animal_disease_state" uuid="4bb70f19-302e-4d8a-a623-1d64eeb573e5">
+						<parametersMapExpression><![CDATA[$P{REPORT_PARAMETERS_MAP}]]></parametersMapExpression>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:listContents height="24" width="253">
+						<textField>
+							<reportElement uuid="885332fe-ad6f-478e-88a0-b3b4e1a74e0f" x="105" y="0" width="100" height="20"/>
+							<textElement/>
+							<textFieldExpression><![CDATA[$F{string-value} == "sick" ? "Malade" : ($F{string-value} == "healthy" ? "Sain" : "")]]></textFieldExpression>
+						</textField>
+						<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+							<reportElement uuid="8457b6ac-dc4f-4752-bdea-28bdd5238d78" x="4" y="0" width="100" height="20"/>
+							<textElement/>
+							<textFieldExpression><![CDATA[$F{measured-at}]]></textFieldExpression>
+						</textField>
+					</jr:listContents>
+				</jr:list>
+			</componentElement>
+			<staticText>
+				<reportElement uuid="118b1109-faab-46ed-8b39-cf6833b1c3e0" style="strong" positionType="Float" mode="Opaque" x="291" y="33" width="264" height="2" backcolor="#7C9DDD"/>
+				<textElement verticalAlignment="Middle">
+					<font pdfFontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="b27d7dc7-8bc1-454a-8d8d-28ecdae4419c" style="sub-title" positionType="Float" x="291" y="11" width="160" height="22"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Open Sans" size="10"/>
+				</textElement>
+				<text><![CDATA[Etat de santé]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="16" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="6" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="22" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy HH.mm.ss">
+				<reportElement uuid="c9d85840-5f16-43b3-b9d4-1dea19c021d4" style="base" mode="Transparent" x="0" y="0" width="115" height="22" forecolor="#000000"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Open Sans"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="64915433-0492-439b-ad3c-28ec72e9a5d8" style="base" x="462" y="0" width="54" height="22" forecolor="#000000"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Open Sans"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}+" /"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement uuid="c7dc921c-00c9-4166-a255-90b071beb924" style="base" x="515" y="0" width="40" height="22" forecolor="#000000"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Open Sans"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="35d5ce42-0709-465b-a34f-cc6e18657954" style="strong" mode="Opaque" x="115" y="10" width="347" height="2" backcolor="#7C9DDD"/>
+				<textElement verticalAlignment="Middle">
+					<font pdfFontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<lastPageFooter>
+		<band height="22">
+			<textField evaluationTime="Report">
+				<reportElement uuid="8f164b6b-520b-415b-8e59-f529abb5f3c6" style="base" x="515" y="0" width="40" height="22" forecolor="#000000"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Open Sans"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="dcf2f93d-5d06-4193-b15a-4ad2dcfab135" style="strong" mode="Opaque" x="115" y="10" width="347" height="2" backcolor="#7C9DDD"/>
+				<textElement verticalAlignment="Middle">
+					<font pdfFontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy HH.mm.ss">
+				<reportElement uuid="afef29f5-cd7d-4a6a-a160-63caf12d7998" style="base" mode="Transparent" x="0" y="0" width="115" height="22" forecolor="#000000"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Open Sans"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="d688ab69-c32f-490c-a97a-89cc66f85a27" style="base" x="462" y="0" width="54" height="22" forecolor="#000000"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Open Sans"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}+" /"]]></textFieldExpression>
+			</textField>
+		</band>
+	</lastPageFooter>
+	<summary>
+		<band height="260" splitType="Stretch">
+			<componentElement>
+				<reportElement uuid="d009cdcc-2b4b-4055-b813-0d5aab74f1a6" key="table 1" x="0" y="41" width="555" height="105"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
-					<datasetRun subDataset="localizations" uuid="b31d0ef5-a78b-4761-a1cb-aee158443129">
+					<datasetRun subDataset="product-localizations" uuid="2b1d9052-f768-4aac-9772-1d47dceed0b7">
 						<parametersMapExpression><![CDATA[$P{REPORT_PARAMETERS_MAP}]]></parametersMapExpression>
 						<datasetParameter name="XML_DATE_PATTERN">
 							<datasetParameterExpression><![CDATA[$P{XML_DATE_PATTERN}]]></datasetParameterExpression>
@@ -477,177 +820,35 @@
 				</jr:table>
 			</componentElement>
 			<staticText>
-				<reportElement uuid="ba959643-9c8b-4cb2-a7b3-a0f2a51aff45" style="sub-title" x="0" y="11" width="115" height="22"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="Open Sans" size="10"/>
-				</textElement>
-				<text><![CDATA[Généalogie]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="d8e970b1-ab1e-4be5-91e5-7d6310e6eace" style="strong" mode="Opaque" x="0" y="31" width="555" height="2" backcolor="#7C9DDD"/>
-				<textElement verticalAlignment="Middle">
-					<font pdfFontName="Times-Roman"/>
-				</textElement>
-				<text><![CDATA[]]></text>
-			</staticText>
-			<frame>
-				<reportElement uuid="5122f9cb-3ff2-4738-8965-53a661fe1282" key="self-male" x="8" y="75" width="32" height="21">
-					<printWhenExpression><![CDATA[$F{sex} == "male"]]></printWhenExpression>
-				</reportElement>
-				<ellipse>
-					<reportElement uuid="8437c466-410a-4080-8f07-3cab9d73d2f6" x="0" y="7" width="13" height="11" forecolor="#CAC0B5" backcolor="#FF0033"/>
-				</ellipse>
-				<line>
-					<reportElement uuid="9d82a2bf-4b59-41f6-a6b0-f8adf89fccaa" x="23" y="-1" width="1" height="10" forecolor="#CAC0B5"/>
-					<graphicElement>
-						<pen lineWidth="2.0"/>
-					</graphicElement>
-				</line>
-				<line direction="BottomUp">
-					<reportElement uuid="048cfa44-c69b-4738-b155-0fbe52e17de9" x="11" y="1" width="12" height="9" forecolor="#CAC0B5"/>
-					<graphicElement>
-						<pen lineWidth="2.0"/>
-					</graphicElement>
-				</line>
-				<line>
-					<reportElement uuid="59849ea6-97f4-445f-b0bb-156837563a93" x="13" y="0" width="11" height="1" forecolor="#CAC0B5"/>
-					<graphicElement>
-						<pen lineWidth="2.0"/>
-					</graphicElement>
-				</line>
-			</frame>
-			<frame>
-				<reportElement uuid="ed0a75de-66f4-426b-b029-7e09bae0f944" key="self-female" x="-7" y="74" width="34" height="37">
-					<printWhenExpression><![CDATA[$F{sex} == "female"]]></printWhenExpression>
-				</reportElement>
-				<line>
-					<reportElement uuid="dfb84a6d-1011-43de-80c5-b9f30574acee" x="18" y="16" width="11" height="1" forecolor="#CAC0B5"/>
-					<graphicElement>
-						<pen lineWidth="2.0"/>
-					</graphicElement>
-				</line>
-				<line>
-					<reportElement uuid="7cae929e-33e2-4132-aa42-6e7fe409cb20" x="23" y="9" width="1" height="20" forecolor="#CAC0B5"/>
-					<graphicElement>
-						<pen lineWidth="2.0"/>
-					</graphicElement>
-				</line>
-				<ellipse>
-					<reportElement uuid="1a95ec70-40d0-4a24-a351-a69ba9f3c18e" x="18" y="0" width="11" height="10" forecolor="#CAC0B5" backcolor="#0033CC"/>
-				</ellipse>
-			</frame>
-			<frame>
-				<reportElement uuid="3622b437-f594-4f47-b4f9-a457ceb6aaca" key="mother" x="62" y="51" width="38" height="34">
-					<printWhenExpression><![CDATA[$F{mother-id} != null]]></printWhenExpression>
-				</reportElement>
-				<ellipse>
-					<reportElement uuid="f4a941db-afc1-4984-b462-1632ca90856d" x="13" y="0" width="11" height="10" forecolor="#CAC0B5" backcolor="#0033CC"/>
-				</ellipse>
-				<line>
-					<reportElement uuid="e40c4535-898b-4886-9f1c-9a77240f390b" x="18" y="10" width="1" height="20" forecolor="#CAC0B5"/>
-					<graphicElement>
-						<pen lineWidth="2.0"/>
-					</graphicElement>
-				</line>
-				<line>
-					<reportElement uuid="68128eed-2f15-4f9e-9d9c-975e5b0be4ad" x="13" y="16" width="11" height="1" forecolor="#CAC0B5"/>
-					<graphicElement>
-						<pen lineWidth="2.0"/>
-					</graphicElement>
-				</line>
-			</frame>
-			<frame>
-				<reportElement uuid="9df544c7-f011-474e-8726-c6f8ac1231ad" key="father" x="66" y="104" width="33" height="29">
-					<printWhenExpression><![CDATA[$F{father-id} != null]]></printWhenExpression>
-				</reportElement>
-				<line direction="BottomUp">
-					<reportElement uuid="6f0279d4-241a-4bb7-a9ee-5bae8c4470ca" x="16" y="3" width="12" height="9" forecolor="#CAC0B5"/>
-					<graphicElement>
-						<pen lineWidth="2.0"/>
-					</graphicElement>
-				</line>
-				<line>
-					<reportElement uuid="7a292da0-3ecf-4807-b58a-3022b207c386" x="18" y="2" width="11" height="1" forecolor="#CAC0B5"/>
-					<graphicElement>
-						<pen lineWidth="2.0"/>
-					</graphicElement>
-				</line>
-				<line>
-					<reportElement uuid="f38669a8-84e0-4308-a757-ce6fcf0c1ee4" x="28" y="2" width="1" height="10" forecolor="#CAC0B5"/>
-					<graphicElement>
-						<pen lineWidth="2.0"/>
-					</graphicElement>
-				</line>
-				<ellipse>
-					<reportElement uuid="64e56bdb-d717-4f66-a3b3-dfe3d51f1e78" x="5" y="10" width="13" height="11" forecolor="#CAC0B5" backcolor="#FF0033"/>
-				</ellipse>
-			</frame>
-			<textField isBlankWhenNull="true">
-				<reportElement uuid="5dc49098-f011-44be-ac2f-cad8d6853198" style="label-strong" x="105" y="104" width="100" height="17"/>
-				<textElement/>
-				<textFieldExpression><![CDATA[$F{father-name}]]></textFieldExpression>
-			</textField>
-			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
-				<reportElement uuid="1c3c60de-e63e-4fce-94e3-8f2087460154" style="base" x="105" y="120" width="100" height="24"/>
-				<textElement/>
-				<textFieldExpression><![CDATA[$F{father-born-at}]]></textFieldExpression>
-			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement uuid="e110d55b-5194-4186-b800-33bd6b0513d6" style="label-strong" x="104" y="51" width="100" height="17"/>
-				<textElement/>
-				<textFieldExpression><![CDATA[$F{mother-name}]]></textFieldExpression>
-			</textField>
-			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
-				<reportElement uuid="6548d048-eed3-4405-bddb-a13458e711d6" style="base" x="104" y="67" width="100" height="19"/>
-				<textElement/>
-				<textFieldExpression><![CDATA[$F{mother-born-at}]]></textFieldExpression>
-			</textField>
-			<line direction="BottomUp">
-				<reportElement uuid="f741c26e-fb52-425b-8bd3-f8a8ef86c4ca" x="41" y="69" width="21" height="18" forecolor="#CAC0B5">
-					<printWhenExpression><![CDATA[$F{mother-id} != null]]></printWhenExpression>
-				</reportElement>
-				<graphicElement>
-					<pen lineWidth="2.0"/>
-				</graphicElement>
-			</line>
-			<line>
-				<reportElement uuid="b310d01f-c694-4cc2-b454-17b028bcc644" x="42" y="97" width="20" height="21" forecolor="#CAC0B5">
-					<printWhenExpression><![CDATA[$F{father-id} != null]]></printWhenExpression>
-				</reportElement>
-				<graphicElement>
-					<pen lineWidth="2.0"/>
-				</graphicElement>
-			</line>
-			<staticText>
-				<reportElement uuid="71b6ea50-573a-49f2-aa29-65439441a737" style="strong" mode="Opaque" x="0" y="173" width="555" height="2" backcolor="#7C9DDD"/>
+				<reportElement uuid="71b6ea50-573a-49f2-aa29-65439441a737" style="strong" mode="Opaque" x="0" y="27" width="555" height="2" backcolor="#7C9DDD"/>
 				<textElement verticalAlignment="Middle">
 					<font pdfFontName="Times-Roman"/>
 				</textElement>
 				<text><![CDATA[]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="16d042d4-68af-4316-b479-0ab72427e495" style="sub-title" x="0" y="153" width="115" height="22"/>
+				<reportElement uuid="16d042d4-68af-4316-b479-0ab72427e495" style="sub-title" x="0" y="7" width="115" height="22"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Open Sans" size="10"/>
 				</textElement>
 				<text><![CDATA[Mouvement]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="1d09461f-bf41-4f21-9bce-51ed4dc3d252" style="strong" positionType="Float" mode="Opaque" x="0" y="324" width="555" height="2" backcolor="#7C9DDD"/>
+				<reportElement uuid="1d09461f-bf41-4f21-9bce-51ed4dc3d252" style="strong" positionType="Float" mode="Opaque" x="0" y="178" width="555" height="2" backcolor="#7C9DDD"/>
 				<textElement verticalAlignment="Middle">
 					<font pdfFontName="Times-Roman"/>
 				</textElement>
 				<text><![CDATA[]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="8fc3074c-fe94-443a-8377-f03a4f65e188" style="sub-title" positionType="Float" x="0" y="302" width="115" height="22"/>
+				<reportElement uuid="8fc3074c-fe94-443a-8377-f03a4f65e188" style="sub-title" positionType="Float" x="0" y="156" width="115" height="22"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Open Sans" size="10"/>
 				</textElement>
 				<text><![CDATA[Groupes]]></text>
 			</staticText>
 			<componentElement>
-				<reportElement uuid="22c8b8b0-9920-4b16-aacb-56156c72a093" key="table" positionType="Float" x="0" y="337" width="555" height="69"/>
+				<reportElement uuid="22c8b8b0-9920-4b16-aacb-56156c72a093" key="table" positionType="Float" x="0" y="191" width="555" height="69"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
 					<datasetRun subDataset="memberships" uuid="3a2b0149-7b7c-40dd-88ab-3a83f9356858">
 						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
@@ -715,81 +916,5 @@
 				</jr:table>
 			</componentElement>
 		</band>
-	</pageHeader>
-	<columnHeader>
-		<band height="16" splitType="Stretch"/>
-	</columnHeader>
-	<detail>
-		<band height="20" splitType="Stretch"/>
-	</detail>
-	<columnFooter>
-		<band height="6" splitType="Stretch"/>
-	</columnFooter>
-	<pageFooter>
-		<band height="22" splitType="Stretch">
-			<textField pattern="dd/MM/yyyy HH.mm.ss">
-				<reportElement uuid="c9d85840-5f16-43b3-b9d4-1dea19c021d4" style="base" mode="Transparent" x="0" y="0" width="115" height="22" forecolor="#000000"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Open Sans"/>
-				</textElement>
-				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement uuid="64915433-0492-439b-ad3c-28ec72e9a5d8" style="base" x="462" y="0" width="54" height="22" forecolor="#000000"/>
-				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font fontName="Open Sans"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}+" /"]]></textFieldExpression>
-			</textField>
-			<textField evaluationTime="Report">
-				<reportElement uuid="c7dc921c-00c9-4166-a255-90b071beb924" style="base" x="515" y="0" width="40" height="22" forecolor="#000000"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="Open Sans"/>
-				</textElement>
-				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement uuid="35d5ce42-0709-465b-a34f-cc6e18657954" style="strong" mode="Opaque" x="115" y="10" width="347" height="2" backcolor="#7C9DDD"/>
-				<textElement verticalAlignment="Middle">
-					<font pdfFontName="Times-Roman"/>
-				</textElement>
-				<text><![CDATA[]]></text>
-			</staticText>
-		</band>
-	</pageFooter>
-	<lastPageFooter>
-		<band height="22">
-			<textField evaluationTime="Report">
-				<reportElement uuid="8f164b6b-520b-415b-8e59-f529abb5f3c6" style="base" x="515" y="0" width="40" height="22" forecolor="#000000"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="Open Sans"/>
-				</textElement>
-				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement uuid="dcf2f93d-5d06-4193-b15a-4ad2dcfab135" style="strong" mode="Opaque" x="115" y="10" width="347" height="2" backcolor="#7C9DDD"/>
-				<textElement verticalAlignment="Middle">
-					<font pdfFontName="Times-Roman"/>
-				</textElement>
-				<text><![CDATA[]]></text>
-			</staticText>
-			<textField pattern="dd/MM/yyyy HH.mm.ss">
-				<reportElement uuid="afef29f5-cd7d-4a6a-a160-63caf12d7998" style="base" mode="Transparent" x="0" y="0" width="115" height="22" forecolor="#000000"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Open Sans"/>
-				</textElement>
-				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement uuid="d688ab69-c32f-490c-a97a-89cc66f85a27" style="base" x="462" y="0" width="54" height="22" forecolor="#000000"/>
-				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font fontName="Open Sans"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}+" /"]]></textFieldExpression>
-			</textField>
-		</band>
-	</lastPageFooter>
-	<summary>
-		<band splitType="Stretch"/>
 	</summary>
 </jasperReport>

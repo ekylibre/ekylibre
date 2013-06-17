@@ -52,8 +52,6 @@
         -l.attribute :description
 
     -b.cell(tl(:x_indicators, :count => @animal.indicator_data.count)) do
-      =toolbar do |t|
-        -t.new(:controller => :product_indicator_data, :product_id => @animal.id)
       =list(:indicator)
 
   -b.tabbox do
