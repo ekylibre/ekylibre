@@ -1,0 +1,8 @@
+=main_toolbar do |t|
+  -t.edit @incident
+
+=beehive do |b|
+  -b.cell do
+    =attributes_list(@incident) do |l|
+      -l.attribute :name
+      -l.attribute :target, :url => true

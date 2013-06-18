@@ -504,7 +504,7 @@
     </group>
   </module>
   <module name="tools" icon="magic">
-    <group name="archives" icon="save">
+    <group name="archives" icon="archive">
       <item name="documents">
         <page to="backend/documents#index"/>
         <page to="backend/documents#create"/>
@@ -521,6 +521,18 @@
         <page to="backend/settings#backups"/>
         <page to="backend/settings#backup"/>
         <page to="backend/settings#restore"/>
+      </item>
+    </group>
+    <group name="incidents" icon="bug">
+      <item name="incidents">
+        <page to="backend/incidents#index"/>
+        <page to="backend/incidents#create"/>
+        <page to="backend/incidents#destroy"/>
+        <page to="backend/incidents#edit"/>
+        <page to="backend/incidents#list"/>
+        <page to="backend/incidents#new"/>
+        <page to="backend/incidents#show"/>
+        <page to="backend/incidents#update"/>
       </item>
     </group>
     <group name="exchange">
@@ -922,6 +934,9 @@
         <page to="backend/activity_watchings#show"/>
         <page to="backend/activity_watchings#update"/>
       </item>
+      <item name="animals">
+        <page to="backend/animals#list_incident"/>
+      </item>
       <item name="bank_chart_cells">
         <page to="backend/cells/bank_chart_cells#show"/>
       </item>
@@ -1108,6 +1123,9 @@
         <page to="backend/product_nature_indicators#show"/>
         <page to="backend/product_nature_indicators#up"/>
         <page to="backend/product_nature_indicators#update"/>
+      </item>
+      <item name="product_natures">
+        <page to="backend/product_natures#list_price_templates"/>
       </item>
       <item name="product_prices">
         <page to="backend/product_prices#index"/>

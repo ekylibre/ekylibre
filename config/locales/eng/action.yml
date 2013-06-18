@@ -216,6 +216,11 @@ eng:
       show: "Help: %{title}" #?
     backend/helps:
       # index: "Aide"
+    backend/incidents:
+      # edit: "Modifier l'incident\_: %{name} (%{nature})"
+      # index: "Incidents"
+      # new: "Nouvel incident"
+      # show: "Incident %{name} (%{nature})"
     backend/incoming_deliveries:
       confirm: "Confirm incoming delivery"
       edit: "Edit the incoming delivery"
@@ -983,6 +988,7 @@ eng:
     import: "Import"
     import_backup: "Import backup"
     importation_explanation: "Importation explanation"
+    # incidents: "Incidents"
     include_blank: "Include blank"
     income_statement: "Income Statement"
     incoming_payment_conditions: "Conditions of payment"

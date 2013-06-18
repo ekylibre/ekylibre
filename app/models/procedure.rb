@@ -25,6 +25,7 @@
 #  description       :text
 #  duration          :integer
 #  id                :integer          not null, primary key
+#  incident_id       :integer
 #  lock_version      :integer          default(0), not null
 #  meeting_nature_id :integer
 #  name              :text
@@ -39,6 +40,7 @@
 #  updater_id        :integer
 #
 class Procedure < Event
+  belongs_to :incident, :class_name => "Incident"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   #]VALIDATORS]
   # belongs_to :nature, :class_name => "ProcedureNature"

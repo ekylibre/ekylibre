@@ -1,6 +1,7 @@
 Ekylibre::Application.routes.draw do
 
 
+
   # Authentication
   # namespace :authentication do
   #   resource :session, :only => [:new, :create, :destroy] do
@@ -144,6 +145,7 @@ Ekylibre::Application.routes.draw do
         get :list_children
         get :list_place
         get :list_group
+        get :list_incident
         get :list_indicator
         unroll_all
       end
@@ -353,6 +355,12 @@ Ekylibre::Application.routes.draw do
         match :generate_last_journal_entry, :via => [:get, :post]
         post :compute_balances
         get :synthesis
+      end
+    end
+    resources :incidents do
+      collection do
+        get :list
+        unroll_all
       end
     end
     resources :incoming_deliveries do

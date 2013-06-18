@@ -1,6 +1,7 @@
 =main_toolbar do |t|
   -t.export do |e|
     -e.animal_sheet @animal.identification_number, @animal
+  -t.new(:params =>{:controller => :incidents, :target_id => @animal.id, :target_type => @animal.class.name})
   -t.edit @animal
   -t.destroy(@animal, :method=>:delete, "data-confirm" => tg(:are_you_sure_you_want_to_delete)) if @animal.destroyable?
 
@@ -51,8 +52,7 @@
         -l.attribute :identification_number
         -l.attribute :description
 
-    -b.cell(tl(:x_indicators, :count => @animal.indicator_data.count)) do
-      =list(:indicator)
+
 
   -b.tabbox do
 
@@ -63,4 +63,11 @@
     -b.cell(:groups) do
       =list(:group)
 
+  -b.tabbox do
+    -b.cell(:incidents) do
+      =toolbar do |t|
+        -t.new(:params =>{:controller => :incidents, :target_id => @animal.id, :target_type => @animal.class.name})
+      =list(:incident)
+    -b.cell(tl(:x_indicators, :count => @animal.indicator_data.count)) do
+      =list(:indicator)
 

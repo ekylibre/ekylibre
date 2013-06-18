@@ -4,28 +4,21 @@ class AddIncidents < ActiveRecord::Migration
 
     create_table :incidents do |t|
        t.references :target, :polymorphic => true, :null => false # product / product_group / entity / sale / purchase / incoming_delivery / outgoing_delivery
-       t.references :nature,  :null => false # incident_nature
-       t.references :watcher, :null => false # entity
+       t.string :nature , :null => false# incident_nature XML nomenclatures
        t.datetime   :observed_at, :null => false
        t.integer    :priority # range (1..10)
        t.integer    :gravity  # range (1..10)
-       t.string     :status   # enumerize (resolved / waiting / in progress / new)
-       t.string     :name
-       t.string     :description
+       t.string     :state   # enumerize (resolved / waiting / in progress / new)
+       t.string     :name, :null => false
+       t.text     :description
        t.stamps
     end
     add_stamps_indexes :incidents
     add_index :incidents, [:target_id, :target_type]
-    add_index :incidents, :nature_id
-    add_index :incidents, :watcher_id
+    add_index :incidents, :nature
+    add_index :incidents, :name
 
-    create_table :incident_natures do |t|
-       t.string     :name,   :null => false
-       t.string     :nature, :null => false # enumerize
-       t.text       :description
-       t.stamps
-    end
-    add_stamps_indexes :incident_natures
+    add_column :events, :incident_id, :integer
 
   end
 

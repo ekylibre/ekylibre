@@ -33,6 +33,7 @@ arb:
         # work_unit: "Unité d'oeuvre"
       animal:
         # born_at: "Date de naissance"
+        # dead_at: "Date de décès"
         # variety: "Race"
       animal_group:
         # born_at: "Date de création"
@@ -1327,6 +1328,7 @@ arb:
     global_credit: "الائتمان العالمي"
     global_debit: "الانتاجية الاجمالية"
     # godchildren: "Filleul"
+    # gravity: "Gravité"
     # group: "Groupe"
     # groups: "Groupes"
     has_downpayment: "لديه عربون واحد"
@@ -1342,6 +1344,7 @@ arb:
     importance: "ذو شأن"
     # in_cash: "En espèce"
     in_name: "الاختصارات تشمل اسم الملف"
+    # incidents: "Incidents"
     included: "تضمنت"
     # incoming_deliveries: "Livraisons entrantes"
     # incoming_delivery_items: "Lignes de livraisons entrantes"
@@ -1497,7 +1500,7 @@ arb:
     number_increment: "الاضافة"
     number_start: "بدأ الترقيم"
     observations: "ملاحظات"
-    # observed_at: "Observed at"
+    # observed_at: "Observé à"
     # of_company: "Dossier basé sur cette entreprise"
     office: "المكتب/الاستديو"
     old_password: "كلمة المرور الحالية"
@@ -1568,8 +1571,10 @@ arb:
     payments_count: "عدد الدفعات"
     payments_to_deposit: "دفعات الصندوق النقدي"
     payments_to_deposit_accounts: "حساب دفعات الصندوق النقدي"
+    # percentage: "Pourcentage"
     period: "الفترة"
     period_name: "تواتري" #?
+    # person: "Personne"
     phone: "هاتف" #?
     # phones: "Téléphones"
     photo: "صورة" #?
@@ -1598,6 +1603,8 @@ arb:
     prices: "الاسعار"
     printed_at: "طبعت في"
     printed_on: "طبع يوم"
+    # priority: "Priorité"
+    # procedures: "Procédures"
     # process: "Process"
     producer: "المنتج"
     producer_id: "المنتج" #?

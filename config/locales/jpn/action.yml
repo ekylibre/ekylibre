@@ -175,6 +175,11 @@ jpn:
     backend/help: #?
     backend/helps:
       # index: "Aide"
+    backend/incidents:
+      # edit: "Modifier l'incident\_: %{name} (%{nature})"
+      # index: "Incidents"
+      # new: "Nouvel incident"
+      # show: "Incident %{name} (%{nature})"
     backend/incoming_deliveries:
       # confirm: "Confirmer l’arrivée de la livraison"
       # edit: "Modifier l’arrivage: %{number}"
@@ -909,6 +914,7 @@ jpn:
     # import: "Importer"
     # import_backup: "Import de fichier de sauvegarde"
     # importation_explanation: "Pour confirmer l’importation, vous devez confirmer en cliquant sur Importer."
+    # incidents: "Incidents"
     # include_blank: "— Aucune organisation —"
     # income_statement: "Comptes de résultats"
     # incoming_payment_conditions: "Conditions d’encaissement"

@@ -20,6 +20,7 @@ eng:
         # work_unit: "Unité d'oeuvre"
       animal:
         # born_at: "Date de naissance"
+        # dead_at: "Date de décès"
         race: "Race" #?
         # variety: "Race"
       animal_group:
@@ -888,6 +889,7 @@ eng:
     global_credit: "Global credit"
     global_debit: "Global debit"
     godchildren: "Godchildren"
+    # gravity: "Gravité"
     group: "Group"
     # groups: "Groupes"
     has_downpayment: "Has downpayment"
@@ -902,6 +904,7 @@ eng:
     importance: "Importance"
     in_cash: "In cash"
     in_name: "In name"
+    # incidents: "Incidents"
     included: "Included"
     income_reasons: "Income reasons" #?
     incoming_deliveries: "Incoming deliveries"
@@ -1039,7 +1042,7 @@ eng:
     number_increment: "Number increment"
     number_start: "Number start"
     observations: "Observations"
-    # observed_at: "Observed at"
+    # observed_at: "Observé à"
     of_company: "Of the company"
     office: "Office"
     old_password: "Old password"
@@ -1104,8 +1107,10 @@ eng:
     per_animal_unit: "Per animal unit" #?
     per_duration_time_unit: "Per duration time unit" #?
     per_frequency_time_unit: "Per frequency time unit" #?
+    # percentage: "Pourcentage"
     period: "Period"
     period_name: "Period name" #?
+    # person: "Personne"
     phone: "Phone" #?
     # phones: "Téléphones"
     photo: "Photo" #?
@@ -1133,6 +1138,8 @@ eng:
     prices: "Prices"
     printed_at: "Printed at"
     printed_on: "Printed on"
+    # priority: "Priorité"
+    # procedures: "Procédures"
     # process: "Process"
     producer: "Producer"
     product: "Product"

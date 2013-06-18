@@ -84,6 +84,7 @@ class Product < Ekylibre::Record::Base
   has_many :indicator_data, :class_name => "ProductIndicatorDatum", :dependent => :destroy
   has_many :operation_tasks, :foreign_key => :subject_id
   has_many :product_localizations
+  has_many :incidents, :class_name => "Incident", :as => :target
   has_attached_file :picture, {
     :url => '/backend/:class/:id/picture/:style',
     :path => ':rails_root/private/:class/:attachment/:id_partition/:style.:extension',

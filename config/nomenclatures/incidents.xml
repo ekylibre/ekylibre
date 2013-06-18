@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
+  <!-- root -->
+  <nomenclature name="incidents-root">
+    <attributes>
+      <attribute name="target" type="list" nomenclature="varieties" required="true" inherit="true"/>
+      <attribute name="treatments" type="list" nomenclature="procedure_natures" required="false" inherit="true"/>
+    </attributes>
+    <items>
+      <item name="incident" target="product"/>
+    </items>
+  </nomenclature>
+  <!-- level 1 -->
+  <nomenclature name="incidents-incident">
+    <items>
+      <item name="pathology"/>
+      <item name="accident"/>
+      <item name="climate_incident"/>
+    </items>
+  </nomenclature>
+  <!-- level 2 - branch 1 -->
+  <nomenclature name="incidents-pathology">
+    <items>
+      <item name="mammite" target="mammalia"/>
+      <item name="fecondity_problem" target="mammalia"/>
+      <item name="diarrhea" target="mammalia"/>
+      <item name="respiratory_problem" target="mammalia"/>
+      <item name="other" target="mammalia"/>
+    </items>
+  </nomenclature>
+ 
+</nomenclatures>

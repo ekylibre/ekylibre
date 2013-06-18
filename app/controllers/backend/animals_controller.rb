@@ -79,6 +79,16 @@ class Backend::AnimalsController < BackendController
     t.column :measure_unit
   end
 
+  # Liste des incidents de l'animal considéré
+  list(:incident, :model => :incidents, :conditions => [" target_id = ? and target_type = 'Animal'",['session[:current_animal_id]']], :order => "observed_at DESC") do |t|
+    t.column :name, :url => true
+    t.column :nature
+    t.column :observed_at
+    t.column :gravity
+    t.column :priority
+    t.column :state
+  end
+
 
 
   # Show one animal with params_id

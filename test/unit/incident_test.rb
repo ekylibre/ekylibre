@@ -18,29 +18,30 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: events
+# == Table: incidents
 #
-#  created_at        :datetime         not null
-#  creator_id        :integer
-#  description       :text
-#  duration          :integer
-#  id                :integer          not null, primary key
-#  incident_id       :integer
-#  lock_version      :integer          default(0), not null
-#  meeting_nature_id :integer
-#  name              :text
-#  nomen             :string(255)
-#  parent_id         :integer
-#  place             :string(255)
-#  procedure_id      :integer
-#  started_at        :datetime         not null
-#  stopped_at        :datetime
-#  type              :string(255)
-#  updated_at        :datetime         not null
-#  updater_id        :integer
+#  created_at   :datetime         not null
+#  creator_id   :integer
+#  description  :text
+#  gravity      :integer
+#  id           :integer          not null, primary key
+#  lock_version :integer          default(0), not null
+#  name         :string(255)      not null
+#  nature       :string(255)      not null
+#  observed_at  :datetime         not null
+#  priority     :integer
+#  state        :string(255)
+#  target_id    :integer          not null
+#  target_type  :string(255)      not null
+#  updated_at   :datetime         not null
+#  updater_id   :integer
 #
 require 'test_helper'
 
-class MeetingTest < ActiveSupport::TestCase
+class IncidentTest < ActiveSupport::TestCase
+
+  test "presence of fixtures" do
+    # assert_equal 2, Incident.count
+  end
 
 end

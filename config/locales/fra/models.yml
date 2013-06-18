@@ -20,6 +20,7 @@ fra:
         work_unit: "Unité d'oeuvre"
       animal:
         born_at: "Date de naissance"
+        dead_at: "Date de décès"
         variety: "Race"
       animal_group:
         born_at: "Date de création"
@@ -336,6 +337,7 @@ fra:
       financial_year: "Exercice"
       fungus: "Champignon"
       immatter: "Immatériel"
+      # incident: "Incident"
       incoming_delivery: "Arrivage"
       incoming_delivery_item: "Ligne d’arrivage"
       incoming_delivery_mode: "Mode d’arrivage"
@@ -762,6 +764,7 @@ fra:
     global_credit: "Crédit global"
     global_debit: "Débit global"
     godchildren: "Filleul"
+    gravity: "Gravité"
     group: "Groupe"
     groups: "Groupes"
     has_downpayment: "A un acompte"
@@ -776,6 +779,8 @@ fra:
     importance: "Importance"
     in_cash: "En espèce"
     in_name: "Abréviation incluse dans le nom de la personne" #?
+    # incident: "Incident"
+    incidents: "Incidents"
     included: "Incluse"
     incoming_deliveries: "Livraisons entrantes"
     incoming_delivery_items: "Lignes de livraisons entrantes"
@@ -912,7 +917,7 @@ fra:
     number_increment: "Incrément"
     number_start: "Début de la numération"
     observations: "Observations"
-    observed_at: "Observed at"
+    observed_at: "Observé à"
     of_company: "Dossier basé sur cette entreprise"
     office: "Bureau/Atelier"
     old_password: "Mot de passe actuel"
@@ -978,9 +983,9 @@ fra:
     payments_count: "Nb. encaissements"
     payments_to_deposit: "Encaissements à encaisser" #?
     payments_to_deposit_accounts: "Comptes des encaissements à encaisser" #?
-    # percentage: "Percentage"
+    percentage: "Pourcentage"
     period: "Périodicité"
-    # person: "Person"
+    person: "Personne"
     # phase_delay: "Phase delay"
     phones: "Téléphones"
     physical: "Personne physique" #?
@@ -1008,6 +1013,8 @@ fra:
     prices: "Prix"
     printed_at: "Imprimé le" #?
     printed_on: "Datée du"
+    priority: "Priorité"
+    procedures: "Procédures"
     process: "Process"
     producer: "Producteur"
     product: "Produit"
@@ -1178,9 +1185,9 @@ fra:
     suspended: "Suspendu"
     symbol: "Symbole" #?
     symmetric: "Symétrique" #?
-    target: "Parcelle"
+    target: "Cible"
     target_quantity: "Quantité cible"
-    target_type: "Type de cible" #?
+    target_type: "Type de cible"
     tax: "Taxe"
     tax_declarations: "Déclarations de taxes" #?
     taxes: "Taxes" #?
