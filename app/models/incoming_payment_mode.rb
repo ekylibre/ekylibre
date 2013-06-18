@@ -56,6 +56,7 @@ class IncomingPaymentMode < Ekylibre::Record::Base
   has_many :entities, :dependent => :nullify, :foreign_key => :payment_mode_id
   has_many :payments, :foreign_key => :mode_id, :class_name => "IncomingPayment"
   has_many :unlocked_payments, :foreign_key => :mode_id, :class_name => "IncomingPayment", :conditions => 'journal_entry_id IN (SELECT id FROM #{JournalEntry.table_name} WHERE state=#{connection.quote("draft")})'
+
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :commission_base_amount, :commission_percentage, :allow_nil => true
   validates_length_of :name, :allow_nil => true, :maximum => 50
@@ -65,9 +66,11 @@ class IncomingPaymentMode < Ekylibre::Record::Base
   validates_numericality_of :commission_percentage, :greater_than_or_equal_to => 0, :if => :with_commission?
   validates_presence_of :attorney_journal, :if => :with_accounting?
   validates_presence_of :depositables_account, :if => :with_deposit?
+  validates_presence_of :depositables_journal, :if => :with_deposit?
   validates_presence_of :cash
 
   delegate :currency, :to => :cash
+  delegate :journal, :to => :cash, :prefix => true
 
   default_scope -> { order(:position) }
   scope :depositers, -> { where(:with_deposit => true).order(:name) }

@@ -136,7 +136,7 @@ class SaleItem < Ekylibre::Record::Base
         self.pretax_amount = (self.price.pretax_amount * self.quantity).round(2)
         self.amount = (self.price.amount * self.quantity).round(2)
       end
-
+      self.price_amount ||= self.price.pretax_amount
       self.tax ||= self.price.tax
       return true
     end

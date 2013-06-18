@@ -1,17 +1,24 @@
 .affair
   %table.deals
-    %tfoot.total
+    %tfoot
       %tr
-        %th{:colspan => 3}="labels.total".t
-        %td.sum=affair.balance.l(:currency => affair.currency)
+        %td{:colspan => 3}
+          -third_id = (affair.deals.first ? affair.deals.first.deal_third.id : nil)
+          =:attach_deal.tl
+          -for model in Affair::AFFAIRABLE_MODELS
+            =link_to("activerecord.models.#{model}".t, {:action => :select, :controller => :affairs, :id => affair.id, :deal_type => model, :third_id => third_id, :redirect => request.url})
+        %th.total=:total.tl
+        %td.total.amount.sum{:class => (affair.balance >= 0 ? "debit" : "credit")}=affair.balance.l(:currency => affair.currency)
+        %td
     %tbody
       -for deal in affair.deals
         %tr
           %td.dealt-on=deal.dealt_on.l
           %td.type=deal.class.model_name.human
+          %td.third=link_to(deal.deal_third.full_name, send("backend_#{deal.deal_third.class.name.underscore}_url", deal.deal_third))
           %td.name=link_to(deal.label, :controller => "backend/"+deal.class.table_name, :action => :show, :id => deal.id)
           %td.amount{:class => (deal.deal_debit? ? "debit" : "credit")}
             -unless deal.amount.zero?
               %span.sign=deal.deal_debit? ? "+" : "-"
             %span.value=deal.amount.l(:currency => deal.currency)
-  
+          %td

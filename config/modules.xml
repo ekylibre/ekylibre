@@ -221,6 +221,12 @@
         <page to="backend/deposits#unvalidateds"/>
         <page to="backend/deposits#update"/>
       </item>
+      <item name="affairs">
+        <page to="backend/affairs#index"/>
+        <page to="backend/affairs#attach"/>
+        <page to="backend/affairs#detach"/>
+        <page to="backend/affairs#select"/>
+      </item>
     </group>
   </module>
   <module name="sales" icon="bar-chart">

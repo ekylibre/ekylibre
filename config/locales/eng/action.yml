@@ -25,6 +25,7 @@ eng:
       # new: "Nouvelle répartition analytique"
       # show: "Répartition %{id}"
     backend/activity_watchings: #?
+    backend/affairs: #?
     backend/animal_groups:
       # edit: "Modifier le groupe d'animaux\_: %{name}"
       # index: "Groupes d'animaux"
@@ -708,6 +709,7 @@ eng:
     add_diagnostic: "Add diagnostic"
     add_email: "Add email"
     add_fax: "Add fax"
+    # add_item: "Ajouter un élément"
     add_mail: "Add postal adress"
     add_mobile: "Add mobile phone number"
     # add_new_record: "Ajouter un nouveau enregistrement"
@@ -1015,6 +1017,7 @@ eng:
     invoiced_amount: "Sales invoiced amount"
     invoices_only: "Use only invoices"
     is: "Is"
+    # items: "Éléments"
     journal: "Journal"
     journal_detail: "Closing on %{closed_on}"
     journal_entries: "Journal's entries"

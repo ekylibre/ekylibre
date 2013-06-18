@@ -71,11 +71,12 @@ class IncomingPayment < Ekylibre::Record::Base
   validates_numericality_of :amount, :greater_than => 0
   validates_numericality_of :commission_amount, :greater_than_or_equal_to => 0
   validates_presence_of :payer, :created_on
-  validates_presence_of :commission_account, :if => Proc.new{|p| p.mode.with_commission? }
+  validates_presence_of :commission_account, :if => :with_commission?
 
   acts_as_numbered
   acts_as_affairable :dealt_on => :to_bank_on, :third => :payer
   autosave :deposit
+  delegate :with_commission?, :to => :mode
 
   default_scope -> { order("id DESC") }
   scope :depositables, -> { where("deposit_id IS NULL AND to_bank_on >= ? AND mode_id IN (SELECT id FROM #{IncomingPaymentMode.table_name} WHERE with_deposit = ?)", Date.today, true) }
@@ -97,6 +98,12 @@ class IncomingPayment < Ekylibre::Record::Base
     end
   end
 
+  validate do
+    if self.mode
+      errors.add(:currency, :invalid) if self.currency != self.mode.currency
+    end
+  end
+
   protect(:on => :update) do
     self.deposit.nil? or not self.deposit.locked
   end
@@ -114,7 +121,7 @@ class IncomingPayment < Ekylibre::Record::Base
         entry.add_credit(label, self.payer.account(:client).id, self.amount) unless self.amount.zero?
       end
     else
-      b.journal_entry(mode.cash.journal, :printed_on => self.to_bank_on, :unless => (!mode or !mode.with_accounting? or !self.received)) do |entry|
+      b.journal_entry(mode.cash_journal, :printed_on => self.to_bank_on, :unless => (!mode or !mode.with_accounting? or !self.received)) do |entry|
         entry.add_debit(label,  mode.cash.account_id, self.amount-self.commission_amount)
         entry.add_debit(label,  self.commission_account_id, self.commission_amount) if self.commission_amount > 0
         entry.add_credit(label, self.payer.account(:client).id, self.amount) unless self.amount.zero?
@@ -122,40 +129,9 @@ class IncomingPayment < Ekylibre::Record::Base
     end
   end
 
-
-  # def currency
-  #   self.mode.cash.currency
-  # end
-
+  # Build and return a label for the payment
   def label
     tc(:label, :amount => I18n.localize(self.amount, :currency => self.mode.cash.currency), :date => I18n.localize(self.to_bank_on), :mode => self.mode.name, :payer => self.payer.full_name, :number => self.number) # , :usable_amount => I18n.localize(self.unused_amount, :currency => self.mode.cash.currency)
   end
-
-  # def unused_amount
-  #   self.amount-self.used_amount
-  # end
-
-#   def attorney_amount
-#     total = 0
-#     for use in self.uses
-#       total += use.amount if use.expense.client_id != use.payment.payer_id
-#     end
-#     return total
-#   end
-
-  # # Use the maximum available amount to pay the expense between unpaid and unused amounts
-  # def pay(expense, options={})
-  #   raise Exception.new("Expense must be "+ IncomingPaymentUse.expense_types.collect{|x| "a "+x}.join(" or ")) unless IncomingPaymentUse.expense_types.include? expense.class.name
-  #   # IncomingPaymentUse.destroy_all(:expense_type => expense.class.name, :expense_id => expense.id, :payment_id => self.id)
-  #   # self.reload
-  #   # use_amount = [expense.unpaid_amount, self.unused_amount].min
-  #   use = self.uses.create(:expense => expense, :downpayment => options[:downpayment])
-  #   if use.errors.size > 0
-  #     errors.add_from_record(use)
-  #     return false
-  #   end
-  #   return true
-  # end
-
 
 end

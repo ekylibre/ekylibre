@@ -130,18 +130,18 @@ class Backend::SalesController < BackendController
   end
 
   list(:items, :model => :sale_items, :conditions => {:sale_id => ['params[:id]']}, :order => :position, :export => false, :line_class => "((RECORD.product.nature.subscribing? and RECORD.subscriptions.sum(:quantity) != RECORD.quantity) ? 'warning' : '')", :include => [:product, :subscriptions]) do |t|
-    #t.column :name, :through => :product
-    t.column :position
+    # t.column :name, :through => :product
+    # t.column :position
     t.column :label
     t.column :annotation
-    t.column :serial_number, :through => :product, :url => true
+    # t.column :serial_number, :through => :product, :url => true
     t.column :quantity
     t.column :unit
     t.column :pretax_amount, :through => :price, :label => "unit_price_amount", :currency => "RECORD.price.currency"
     t.column :pretax_amount, :currency => "RECORD.sale.currency"
     t.column :amount, :currency => "RECORD.sale.currency"
-    t.action :edit, :if => 'RECORD.sale.draft? and RECORD.reduction_origin_id.nil? '
-    t.action :destroy, :if => 'RECORD.sale.draft? and RECORD.reduction_origin_id.nil? '
+    # t.action :edit, :if => 'RECORD.sale.draft? and RECORD.reduction_origin_id.nil? '
+    # t.action :destroy, :if => 'RECORD.sale.draft? and RECORD.reduction_origin_id.nil? '
   end
 
   # Displays details of one sale selected with +params[:id]+

@@ -25,6 +25,7 @@ jpn:
       # new: "Nouvelle répartition analytique"
       # show: "Répartition %{id}"
     backend/activity_watchings: #?
+    backend/affairs: #?
     backend/animal_groups:
       # edit: "Modifier le groupe d'animaux\_: %{name}"
       # index: "Groupes d'animaux"
@@ -636,6 +637,7 @@ jpn:
     # add_diagnostic: "Ajouter un diagnostic"
     # add_email: "Ajouter une adresse e-mail"
     # add_fax: "Ajouter un n° de fax"
+    # add_item: "Ajouter un élément"
     # add_mail: "Ajouter une adresse postale"
     # add_mobile: "Ajouter un n° de portable"
     # add_new_record: "Ajouter un nouveau enregistrement"
@@ -941,6 +943,7 @@ jpn:
     # invoiced_amount: "Montant facturé"
     # invoices_only: "Utiliser seulement les factures"
     # is: "Est"
+    # items: "Éléments"
     # journal: "Journal"
     # journal_detail: "Cloturé au %{closed_on}"
     # journal_entries: "Écritures"
