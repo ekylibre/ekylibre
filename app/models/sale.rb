@@ -214,7 +214,7 @@ class Sale < Ekylibre::Record::Base
   end
 
   def client_number
-    self.client.code
+    self.client.number
   end
 
   def nature=(value)

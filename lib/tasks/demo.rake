@@ -147,7 +147,7 @@ namespace :db do
         product_nature_indicator = ProductNatureIndicator.where(:nature => a, :product_nature_id => cow.id ).first
         product_nature_indicator ||= ProductNatureIndicator.create!(:product_nature_id => cow.id, :nature => a)
       end
-      
+
       # add default groups for animal
       group1 = AnimalGroup.find_by_name("VL")
       group1 ||= AnimalGroup.create!(:name => "VL", :active => true, :external => false, :reproductor => false, :reservoir => false, :description => "Vache Laitière", :nature_id => cow.id, :unit => cow_unit, :variety => "bos", :owner_id => Entity.of_company.id, :number => "VL")

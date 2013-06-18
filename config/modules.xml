@@ -1109,6 +1109,9 @@
         <page to="backend/product_nature_indicators#up"/>
         <page to="backend/product_nature_indicators#update"/>
       </item>
+      <item name="product_natures">
+        <page to="backend/product_natures#list_price_templates"/>
+      </item>
       <item name="product_prices">
         <page to="backend/product_prices#index"/>
         <page to="backend/product_prices#create"/>

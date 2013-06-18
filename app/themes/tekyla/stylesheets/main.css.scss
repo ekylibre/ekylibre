@@ -1040,6 +1040,7 @@ $controls-margin-left: round($label-width * 1.1);
 .control-group {
   margin: round($fs-normal/4) 0;
   padding: round($fs-normal/4) 0;
+
   @include clearfix;
   .control-label {
     width: $label-width;
@@ -1055,9 +1056,10 @@ $controls-margin-left: round($label-width * 1.1);
       }
     }
   }
+  width: 100%;
   .controls {
     @include margin-left($controls-margin-left);
-    width: 100% - $controls-margin-left;
+    max-width: 100% - $controls-margin-left;
     input, select, textarea {
       max-width: 100% - $controls-margin-left;
     }

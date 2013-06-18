@@ -244,6 +244,7 @@
 # - "backend/product_nature_indicators#show"
 # - "backend/product_nature_indicators#up"
 # - "backend/product_nature_indicators#update"
+# - "backend/product_natures#list_price_templates"
 # - "backend/product_natures#show"
 # - "backend/product_price_listings#list_templates"
 # - "backend/product_prices#create"
@@ -991,7 +992,7 @@ manage_products:
 - "backend/product_natures#destroy"
 - "backend/product_natures#edit"
 - "backend/product_natures#list"
-- "backend/product_natures#list_prices"
+- "backend/product_natures#list_prices" #?
 - "backend/product_natures#new"
 - "backend/product_natures#update"
 

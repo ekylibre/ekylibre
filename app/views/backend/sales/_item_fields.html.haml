@@ -1,14 +1,17 @@
 -item ||= f.object
--product_id = "item-#{item.id || rand(1000000).to_s(36)}"
-%tr
+%tr.nested-fields
   %td
-    =f.hidden_field(:product_id, 'data-parameter-name' => 'product_id', :id => product_id)
     .selector
-      =f.input_field(:product_id, 'data-selector' => url_for(:controller => :products, :action => :unroll), 'data-selector-new-item' => url_for(:action => :new, :controller => :products), 'data-value-field' => "##{product_id}")
-  %td.decimal=number_field_tag(:quantity, item.quantity, :size => 7)
+      =f.input_field(:product_id, 'data-selector' => url_for(:controller => :products, :action => :unroll), 'data-selector-new-item' => url_for(:action => :new, :controller => :products))
+    -if item.errors.count > 0
+      =item.errors.messages.inspect
+  %td.decimal=f.input_field(:quantity, :size => 7, :class => "item-pta item-wta")
   %td
-    .selector=f.input_field(:price_template_id, 'data-with' => "##{product_id}", 'data-selector' => url_for(:controller => :product_price_templates, :action => :unroll), 'data-selector-new-item' => url_for(:action => :new, :controller => :product_price_templates))
-  %td.decimal=item.pretax_amount.l :currency => @sale.currency
-  %td.decimal=item.amount.l :currency => @sale.currency
+    =f.input_field(:price_amount, :class => "item-pta item-wta")
+  %td.decimal
+    =f.select(:tax_id, Tax.all.collect{|t| [t.name, t.id, {'data-rate' => (100.0 + t.amount).to_f/100.0}]}, {}, 'data-value' => 'rate', :class => "item-wta")
+  %td.decimal.pta{'data-use' => ".item-pta", 'data-use-closest' => 'tr', 'data-calculate' => 'mul'}=item.pretax_amount.l :currency => @sale.currency
+  %td.decimal.wta{'data-use' => ".item-wta", 'data-use-closest' => 'tr', 'data-calculate' => 'mul'}=item.amount.l :currency => @sale.currency
+  %td.currency=@sale.currency
   %td.action
-    =link_to_remove_association(content_tag(:i) + h(:remove.tl), f, 'data-no-turbolink' => true, :class => 'nested-remove remove-item')
+    =link_to_remove_association(content_tag(:i) + h(:remove.tl), f, 'data-no-turbolink' => true, :class => 'remove-item')

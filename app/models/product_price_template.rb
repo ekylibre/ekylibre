@@ -63,7 +63,7 @@ class ProductPriceTemplate < Ekylibre::Record::Base
   validates_presence_of :amounts_scale, :product_nature, :tax
   #]VALIDATORS]
   validates_presence_of :listing, :if => :own?
-  validates_presence_of :supplier
+  validates_presence_of :supplier, :pretax_amount_generation
   validates_numericality_of :assignment_pretax_amount, :assignment_amount, :greater_than_or_equal_to => 0, :allow_nil => true, :allow_blank => true
   validates_presence_of :assignment_pretax_amount, :assignment_amount, :if => :assignment?
   # validates_presence_of :calculation_formula, :if => :calculation?
@@ -167,19 +167,18 @@ class ProductPriceTemplate < Ekylibre::Record::Base
   # :template, :supplier, :at, :listing
   def self.price(product, options = {})
     company = Entity.of_company
-    templates = self.actives_at(options[:at] || Time.now)
-      .where(:product_nature_id => product.nature_id)
-    templates = if options[:template]
-                  templates.where(:id => options[:template].id)
-                else
-                  templates.where(:by_default => true)
-                end
-    templates = if options[:supplier] and options[:supplier].id != company.id
-                  templates.where(:supplier_id => options[:supplier].id)
-                else
-                  options[:listing] = ProductPriceListing.by_default unless options[:listing]
-                  templates.where(:supplier_id => company.id, :listing_id => options[:listing].id)
-                end
+    filter = {
+      :supplier_id => (options.delete(:supplier) || company).id,
+      :product_nature_id => product.nature_id
+    }
+    if filter[:supplier_id] == company.id
+      filter[:listing_id] = (options.delete(:listing) || ProductPriceListing.by_default).id
+    end
+    templates = self.actives_at(options[:at] || Time.now).where(filter)
+      .where(options[:template] ? {:id => options.delete(:template).id} : {:by_default => true})
+    if templates.count.zero?
+      templates = [self.create!({:assignment_pretax_amount => 1, :tax_id => Tax.first.id}.merge(filter))]
+    end
     if templates.count == 1
       return templates.first.send(:price, product, options)
     else
@@ -195,17 +194,18 @@ class ProductPriceTemplate < Ekylibre::Record::Base
     # FIXME Check if time match template period ?
     computed_at = options[:at] || Time.now
     price = nil
+    tax = options[:tax] || self.tax
     if self.assignment?
       # Assigned price
       pretax_amount = if options[:pretax_amount]
                         options[:pretax_amount].to_d
                       elsif options[:amount]
-                        self.tax.pretax_amount_of(options[:amount])
+                        tax.pretax_amount_of(options[:amount])
                       else
                         self.assignment_pretax_amount
                       end
-      amount = self.tax.amount_of(pretax_amount)
-      price = self.prices.create!(:product_id => product.id, :computed_at => computed_at, :pretax_amount => pretax_amount.round(self.amounts_scale), :amount => amount.round(self.amounts_scale))
+      amount = tax.amount_of(pretax_amount)
+      price = self.prices.create!({:product_id => product.id, :computed_at => computed_at, :pretax_amount => pretax_amount.round(self.amounts_scale), :amount => amount.round(self.amounts_scale), :tax_id => tax.id}, :without_protection => true)
       # elsif self.calculation?
       #   price = // Formula
     else
