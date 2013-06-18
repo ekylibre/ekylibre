@@ -95,7 +95,8 @@ class SaleItem < Ekylibre::Record::Base
       # raise "Yes"
       self.price = self.product.price(:pretax_amount => self.price_amount, :tax => self.tax, :listing => self.sale.client.sale_price_listing)
     else
-      raise self.inspect
+      # raise "No price_amount/tax given..."self.inspect
+      self.price = self.product.price(:listing => self.sale.client.sale_price_listing)
     end
 
     # self.product = self.price.product if self.price
