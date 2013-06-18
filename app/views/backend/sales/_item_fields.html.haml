@@ -1,9 +1,14 @@
 -item ||= f.object
+-product_id = "item-#{item.id || rand(1000000).to_s(36)}"
 %tr
-  %td=f.input_field(:product_id, 'data-selector' => url_for(:controller => :products, :action => :unroll), 'data-selector-new-item' => url_for(:action => :new, :controller => :products))
-  %td=number_field_tag(:quantity, 0, :size => 7)
-  %td.decimal=f.input_field(:price_template_id, 'data-selector' => url_for(:controller => :price_templates, :action => :unroll), 'data-selector-new-item' => url_for(:action => :new, :controller => :price_templates))
+  %td
+    =f.hidden_field(:product_id, 'data-parameter-name' => 'product_id', :id => product_id)
+    .selector
+      =f.input_field(:product_id, 'data-selector' => url_for(:controller => :products, :action => :unroll), 'data-selector-new-item' => url_for(:action => :new, :controller => :products), 'data-value-field' => "##{product_id}")
+  %td.decimal=number_field_tag(:quantity, item.quantity, :size => 7)
+  %td
+    .selector=f.input_field(:price_template_id, 'data-with' => "##{product_id}", 'data-selector' => url_for(:controller => :product_price_templates, :action => :unroll), 'data-selector-new-item' => url_for(:action => :new, :controller => :product_price_templates))
   %td.decimal=item.pretax_amount.l :currency => @sale.currency
   %td.decimal=item.amount.l :currency => @sale.currency
   %td.action
-    =link_to_remove_association(:remove.tl, f, 'data-no-turbolink' => true, :class => 'nested-remove remove-item')
+    =link_to_remove_association(content_tag(:i) + h(:remove.tl), f, 'data-no-turbolink' => true, :class => 'nested-remove remove-item')

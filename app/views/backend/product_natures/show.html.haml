@@ -19,9 +19,9 @@
   -b.tabbox do
     -b.cell ProductNature.human_attribute_name(:prices) do
       =toolbar do |t|
-        -t.link(:new_sales_price, {:controller => :product_nature_prices, :action => :new, :mode => :sales, :product_id => session[:product_id]}) if @product_nature.saleable?
-        -t.link(:new_purchase_price, {:controller => :product_nature_prices, :action => :new, :mode => :purchases, :product_id => session[:product_id]}) if @product_nature.purchasable?
-      =list :prices
+        -t.new_sales_price(:params => {:controller => :product_price_templates, :action => :new, :mode => :sales, :product_id => session[:product_id]}) if @product_nature.saleable?
+        -t.new_purchase_price(:params => {:controller => :product_price_templates, :action => :new, :mode => :purchases, :product_id => session[:product_id]}) if @product_nature.purchasable?
+      =list :price_templates
 
     -#b.cell :components do
       =toolbar do |t|

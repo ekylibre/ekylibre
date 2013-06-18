@@ -779,7 +779,7 @@ module ApplicationHelper
     url = {}
     url.update(options.delete(:params)) if options[:params].is_a? Hash
     url[:controller] ||= controller_name
-    url[:action] = action
+    url[:action] ||= action
     url[:id] = record.id if record and record.class < ActiveRecord::Base
     variants = options.delete(:variants)
     variants ||= {"actions.#{url[:controller]}.#{action}".to_sym.t({:default => "labels.#{action}".to_sym}.merge((record and record.class < ActiveRecord::Base) ? record.attributes.symbolize_keys : {})) => url} if authorized?(url)

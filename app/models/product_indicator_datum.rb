@@ -52,9 +52,9 @@ class ProductIndicatorDatum < Ekylibre::Record::Base
   validates_inclusion_of :boolean_value, :in => [true, false]
   validates_presence_of :indicator, :product
   #]VALIDATORS]
-    
-    
-    
+
+
+
   def indicator_type
     "string"
   end
