@@ -88,10 +88,16 @@ class SaleItem < Ekylibre::Record::Base
 
 
   before_validation do
-    # check_reservoir = true
-    if not self.price and self.sale and self.product
-      self.price = self.product.price(:listing => self.sale.client.sale_price_listing)
+    # if not self.price and self.sale and self.product
+    #   self.price = self.product.price(:listing => self.sale.client.sale_price_listing)
+    # end
+    if self.price_amount and self.tax # and not self.price
+      # raise "Yes"
+      self.price = self.product.price(:pretax_amount => self.price_amount, :tax => self.tax, :listing => self.sale.client.sale_price_listing)
+    else
+      raise self.inspect
     end
+
     # self.product = self.price.product if self.price
     if self.product
       self.account_id = self.product.nature.product_account_id
@@ -126,8 +132,8 @@ class SaleItem < Ekylibre::Record::Base
           self.pretax_amount = (q*self.price.pretax_amount).round(2)
         end
       else
-        self.pretax_amount = (self.price.pretax_amount*self.quantity).round(2)
-        self.amount = (self.price.amount*self.quantity).round(2)
+        self.pretax_amount = (self.price.pretax_amount * self.quantity).round(2)
+        self.amount = (self.price.amount * self.quantity).round(2)
       end
 
       self.tax ||= self.price.tax

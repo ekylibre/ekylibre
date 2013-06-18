@@ -277,11 +277,31 @@ function toCurrency(value) {
 
 
     // Adds a plugin to jQuery to work with numerical values.
+    $.fn.extractNumericalValue = function () {
+        var element = $(this), value, option;
+        if (element.is("select[data-value]")) {
+            value = element.find('option:selected').attr('data-' + element.data('value'))
+        } else if (element.is("select")) {
+            value = element.find('option:selected').attr('value')
+        } else if (element.is("input")) {
+            value = element.val();
+        } else {
+            value = element.html();
+        }
+        if (value === undefined) {
+            value = "0.0";
+        }
+        return value;
+    }
+
+    // Adds a plugin to jQuery to work with numerical values.
     $.fn.numericalValue = function (newValue) {
-        var element = $(this.get(0));
-        if (isNaN(newValue)) {
+        var element = $(this.get(0)), value, commas, points;
+        if (isNaN(newValue) || newValue === undefined) {
             // Get
-            var value = element.val() || element.html(), commas=value.split(/\,/g), points=value.split(/\./g);
+            value  = element.extractNumericalValue();
+            commas = value.split(/\,/g);
+            points = value.split(/\./g)
             if (commas.length === 2 && points.length !== 2) { // Metric notation
                 value = value.replace(/\./g, "").replace(/\,/g, ".");
             } else if (commas.length === 2 && points.length === 2 && commas[0].length > points[0].length) {
@@ -338,19 +358,23 @@ function toCurrency(value) {
 
     // Calculate result base on markup
     $.calculate = function () {
-        var element = $(this), calculation = element.data("calculate"), use = element.data("use");
-        var result = null;
+        var element = $(this), calculation = element.data("calculate"), use = element.data("use"), result = null, closest = element.data("use-closest");
         if (use === null || use === undefined) {
             return element.numericalValue();
         }
+        if (closest === null || closest === undefined) {
+            use = $(use);
+        } else {
+            use = element.closest(closest).find(use);
+        }
         if (calculation === "multiplication" || calculation === "mul") {
             result = 1;
-            $(use).each(function () {
+            use.each(function () {
                 result = result * $.calculate.call(this);
             });
         } else { // Sum by default
             result = 0;
-            $(use).each(function () {
+            use.each(function () {
                 result = result + $.calculate.call(this);
             });
         }

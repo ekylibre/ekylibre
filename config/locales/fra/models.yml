@@ -160,7 +160,7 @@ fra:
       sale_item:
         amount: "Montant TTC"
         label: "Produit"
-        price: "Produit tarifé"
+        price: "Prix"
       sale_nature:
         downpayment: "Avec acompte"
       subscription:

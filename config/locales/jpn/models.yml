@@ -179,7 +179,7 @@ jpn:
       sale_item:
         # amount: "Montant TTC"
         # label: "Produit"
-        # price: "Produit tarifé"
+        # price: "Prix"
       sale_line: #?
       sale_nature:
         # downpayment: "Avec acompte"
