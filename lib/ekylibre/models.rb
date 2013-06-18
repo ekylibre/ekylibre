@@ -789,6 +789,7 @@ module Ekylibre
       :price_template_id => :product_price_template,
       :product_id => :product,
       :purchase_id => :purchase,
+      :tax_id => :tax,
       :tracking_id => :tracking,
       :updater_id => :user,
       :warehouse_id => :warehouse

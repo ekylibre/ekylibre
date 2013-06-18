@@ -940,6 +940,9 @@
         <page to="backend/activity_watchings#show"/>
         <page to="backend/activity_watchings#update"/>
       </item>
+      <item name="affairs">
+        <page to="backend/affairs#list"/>
+      </item>
       <item name="animals">
         <page to="backend/animals#list_incident"/>
       </item>

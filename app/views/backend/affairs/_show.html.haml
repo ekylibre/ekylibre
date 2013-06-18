@@ -2,12 +2,16 @@
   %table.deals
     %tfoot
       %tr
-        %td{:colspan => 3}
-          -third_id = (affair.deals.first ? affair.deals.first.deal_third.id : nil)
-          =:attach_deal.tl
-          -for model in Affair::AFFAIRABLE_MODELS
-            =link_to("activerecord.models.#{model}".t, {:action => :select, :controller => :affairs, :id => affair.id, :deal_type => model, :third_id => third_id, :redirect => request.url})
-        %th.total=:total.tl
+        %td
+        %td{:colspan => 2}
+          -unless affair.closed?
+            -third_id = (affair.deals.first ? affair.deals.first.deal_third.id : nil)
+            %span.btn-group<
+              -for model in Affair::AFFAIRABLE_MODELS
+                =link_to({:action => :select, :controller => :affairs, :id => affair.id, :deal_type => model, :third_id => third_id, :redirect => request.url}, :class => "btn btn-link") do
+                  %i
+                  ="activerecord.models.#{model}".t
+        %th.total=:balance.tl
         %td.total.amount.sum{:class => (affair.balance >= 0 ? "debit" : "credit")}=affair.balance.l(:currency => affair.currency)
         %td
     %tbody
@@ -21,4 +25,7 @@
             -unless deal.amount.zero?
               %span.sign=deal.deal_debit? ? "+" : "-"
             %span.value=deal.amount.l(:currency => deal.currency)
-          %td
+          %td.act
+            =link_to({:action => :detach, :controller => :affairs, :deal_type => deal.class.name.underscore, :deal_id => deal.id, :redirect => request.url}, :method => :delete, 'data-confirm' => :are_you_sure.tl, :class => "remove") do
+              %i
+              =:destroy.tl

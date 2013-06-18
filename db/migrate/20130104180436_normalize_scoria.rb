@@ -125,6 +125,12 @@ class NormalizeScoria < ActiveRecord::Migration
     drop_table :product_components
 
     change_column_null :purchase_lines, :account_id, false
+    add_column :purchase_lines, :price_amount, :decimal, :precision => 19, :scale => 4
+    add_column :purchase_lines, :tax_id, :integer
+    execute "UPDATE #{quoted_table_name(:purchase_lines)} SET price_amount = p.pretax_amount, tax_id = p.tax_id FROM #{quoted_table_name(:prices)} AS p where p.id = price_id"
+    change_column_null :purchase_lines, :price_amount, false
+    change_column_null :purchase_lines, :tax_id, false
+    add_index :purchase_lines, :tax_id
 
     remove_column :professions, :rome
     change_column :professions, :commercial, :boolean, :null => false, :default => false

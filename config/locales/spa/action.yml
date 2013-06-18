@@ -32,7 +32,8 @@ spa:
       # new: "Nouvelle répartition analytique"
       # show: "Répartition %{id}"
     backend/activity_watchings: #?
-    backend/affairs: #?
+    backend/affairs:
+      # select: "Ajouter une transaction"
     backend/animal_groups:
       # edit: "Modifier le groupe d'animaux\_: %{name}"
       # index: "Groupes d'animaux"
@@ -744,6 +745,7 @@ spa:
     # add_x: "Ajouter «\_%{x}\_»"
     # add_x_html: "Ajouter «\_%{x}\_»"
     # address: "Adresse"
+    # affair: "Affaire"
     # all: "Tous"
     # all_accounts: "Tous les comptes"
     # all_areas: "— Toutes les zones postales —"
@@ -780,6 +782,7 @@ spa:
     assimilated_tax: "Tarifas asimiladas calculadas sobre anexo n°3310A"
     # attach_an_incoming_payment_to_expense: "Rattacher un encaissement\_: %{type} N°%{number}"
     # attach_an_outgoing_payment_to_expense: "Rattacher un décaissement\_: %{type} N°%{number}"
+    # attach_deal: "Ajouter une transaction"
     attachment: "Pieza juntada"
     # attorney: "Informations mandataire"
     available_columns: "Campos disponibles : %{columns}"

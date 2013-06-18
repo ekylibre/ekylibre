@@ -32,7 +32,8 @@ arb:
       # new: "Nouvelle répartition analytique"
       # show: "Répartition %{id}"
     backend/activity_watchings: #?
-    backend/affairs: #?
+    backend/affairs:
+      # select: "Ajouter une transaction"
     backend/animal_groups:
       # edit: "Modifier le groupe d'animaux\_: %{name}"
       # index: "Groupes d'animaux"
@@ -829,6 +830,7 @@ arb:
     # add_x: "Ajouter «\_%{x}\_»"
     # add_x_html: "Ajouter «\_%{x}\_»"
     address: "العنوان"
+    # affair: "Affaire"
     all: "جميع الاسعار"
     # all_accounts: "Tous les comptes"
     all_areas: "--- جميع العناوين البريدية ---"
@@ -866,6 +868,7 @@ arb:
     assimilated_tax: "A3310 حساب الضرائب المماثلة على جدول رقم"
     # attach_an_incoming_payment_to_expense: "Rattacher un encaissement\_: %{type} N°%{number}"
     # attach_an_outgoing_payment_to_expense: "Rattacher un décaissement\_: %{type} N°%{number}"
+    # attach_deal: "Ajouter une transaction"
     attachment: "المرفق"
     attorney: "معلومات الوكيل"
     available_columns: "الحقول المتاحة : %{columns}"

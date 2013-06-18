@@ -1502,6 +1502,17 @@ input[data-date], input[data-datepicker] {
           font-weight: bold;
         }
       }
+      .act {
+        text-align: center;
+        width: 3ex;
+        .remove {
+          font-size: 0;
+          i {
+            @include is-icon;
+            @include use-icon(remove);
+          }
+        }
+      }
       td, th {
         &.total {
           &, & * {

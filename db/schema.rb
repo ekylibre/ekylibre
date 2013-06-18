@@ -1953,6 +1953,8 @@ ActiveRecord::Schema.define(:version => 20130513165730) do
     t.text     "annotation"
     t.integer  "tracking_id"
     t.string   "tracking_serial"
+    t.decimal  "price_amount",      :precision => 19, :scale => 4,                  :null => false
+    t.integer  "tax_id",                                                            :null => false
     t.string   "unit"
     t.integer  "price_template_id"
   end
@@ -1963,6 +1965,7 @@ ActiveRecord::Schema.define(:version => 20130513165730) do
   add_index "purchase_items", ["price_id"], :name => "index_purchase_items_on_price_id"
   add_index "purchase_items", ["product_id"], :name => "index_purchase_items_on_product_id"
   add_index "purchase_items", ["purchase_id"], :name => "index_purchase_items_on_purchase_id"
+  add_index "purchase_items", ["tax_id"], :name => "index_purchase_items_on_tax_id"
   add_index "purchase_items", ["tracking_id"], :name => "index_purchase_items_on_tracking_id"
   add_index "purchase_items", ["unit"], :name => "index_purchase_items_on_unit"
   add_index "purchase_items", ["updated_at"], :name => "index_purchase_items_on_updated_at"

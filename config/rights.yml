@@ -26,6 +26,8 @@
 # - "backend/activity_watchings#update"
 # - "backend/affairs#attach"
 # - "backend/affairs#detach"
+# - "backend/affairs#index"
+# - "backend/affairs#list"
 # - "backend/affairs#select"
 # - "backend/animal_groups#create"
 # - "backend/animal_groups#destroy"
@@ -256,7 +258,6 @@
 # - "backend/product_nature_indicators#show"
 # - "backend/product_nature_indicators#up"
 # - "backend/product_nature_indicators#update"
-# - "backend/product_natures#list_price_templates"
 # - "backend/product_natures#show"
 # - "backend/product_price_listings#list_templates"
 # - "backend/product_prices#create"
@@ -1004,7 +1005,7 @@ manage_products:
 - "backend/product_natures#destroy"
 - "backend/product_natures#edit"
 - "backend/product_natures#list"
-- "backend/product_natures#list_prices" #?
+- "backend/product_natures#list_price_templates"
 - "backend/product_natures#new"
 - "backend/product_natures#update"
 

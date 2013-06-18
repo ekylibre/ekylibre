@@ -31,6 +31,7 @@ fra:
     backend/affairs:
       # attach: "Attach backend/affair"
       # detach: "Detach backend/affair"
+      # index: "Index backend/affair"
       select: "Ajouter une transaction"
     backend/animal_groups:
       edit: "Modifier le groupe d'animaux\_: %{name}"
@@ -753,7 +754,6 @@ fra:
     active_sum: "Total actifs"
     activity: "Activités"
     add: "Ajouter"
-    attach_deal: "Ajouter une transaction"
     add_choice: "Ajouter un choix"
     add_condition: "Ajouter la condition"
     add_conditions: "Ajoutez des conditions"
@@ -777,6 +777,7 @@ fra:
     add_x: "Ajouter «\_%{x}\_»"
     add_x_html: "Ajouter «\_%{x}\_»"
     address: "Adresse"
+    affair: "Affaire"
     all: "Tous"
     all_accounts: "Tous les comptes"
     all_areas: "— Toutes les zones postales —"
@@ -813,6 +814,7 @@ fra:
     assimilated_tax: "Taxes assimilées calculées sur annexe n°3310A"
     attach_an_incoming_payment_to_expense: "Rattacher un encaissement\_: %{type} N°%{number}"
     attach_an_outgoing_payment_to_expense: "Rattacher un décaissement\_: %{type} N°%{number}"
+    attach_deal: "Ajouter une transaction"
     attachment: "Pièce jointe"
     attorney: "Informations mandataire"
     available_columns: "Champs disponibles\_: %{columns}"

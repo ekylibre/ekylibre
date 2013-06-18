@@ -18,11 +18,11 @@
 #
 
 class Backend::AffairsController < BackendController
-  
+
   list do |t|
     t.column :debit, :currency => true
     t.column :credit, :currency => true
-    t.column :closed    
+    t.column :closed
   end
 
   def index
@@ -39,13 +39,15 @@ class Backend::AffairsController < BackendController
   def attach
     return unless @affair = find_and_check
     deal = params[:deal_type].camelcase.constantize.where(:id => params[:deal_id]).first
-    @affair.add(deal)
+    @affair.attach(deal)
     redirect_to params[:redirect] || {:controller => params[:deal_type].pluralize, :action => :show, :id => params[:deal_id]}
   end
 
   def detach
     return unless @affair = find_and_check
-
+    deal = params[:deal_type].camelcase.constantize.where(:id => params[:deal_id]).first
+    @affair.detach(deal)
+    redirect_to params[:redirect] || {:controller => params[:deal_type].pluralize, :action => :show, :id => params[:deal_id]}
   end
 
 end

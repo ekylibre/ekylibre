@@ -25,7 +25,8 @@ jpn:
       # new: "Nouvelle répartition analytique"
       # show: "Répartition %{id}"
     backend/activity_watchings: #?
-    backend/affairs: #?
+    backend/affairs:
+      # select: "Ajouter une transaction"
     backend/animal_groups:
       # edit: "Modifier le groupe d'animaux\_: %{name}"
       # index: "Groupes d'animaux"
@@ -653,6 +654,7 @@ jpn:
     # add_x: "Ajouter «\_%{x}\_»"
     # add_x_html: "Ajouter «\_%{x}\_»"
     # address: "Adresse"
+    # affair: "Affaire"
     # all: "Tous"
     # all_accounts: "Tous les comptes"
     # all_areas: "— Toutes les zones postales —"
@@ -689,6 +691,7 @@ jpn:
     # assimilated_tax: "Taxes assimilées calculées sur annexe n°3310A"
     # attach_an_incoming_payment_to_expense: "Rattacher un encaissement\_: %{type} N°%{number}"
     # attach_an_outgoing_payment_to_expense: "Rattacher un décaissement\_: %{type} N°%{number}"
+    # attach_deal: "Ajouter une transaction"
     # attachment: "Pièce jointe"
     # attorney: "Informations mandataire"
     # available_columns: "Champs disponibles\_: %{columns}"

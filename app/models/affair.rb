@@ -118,12 +118,21 @@ class Affair < Ekylibre::Record::Base
 
   # Adds a deal in the affair
   # Checks if possible and updates amounts
-  def add(deal)
+  def attach(deal)
     if deal.currency != self.currency
       raise ArgumentError.new("The deal currency (#{deal.currency}) is different of the affair currency(#{self.currency})")
     end
     deal.affair = self
     deal.save!
+    return self.reload
+  end
+
+  # Removes a deal from the affair
+  # Checks if possible and updates amounts
+  def detach(deal)
+    deal.affair = nil
+    deal.save!
+    self.save!
     return self.reload
   end
 
