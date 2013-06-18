@@ -6,9 +6,14 @@
       -e.sales_invoice @sale.number, @sale
     -t.cancel(@sale) if @sale.cancelable?
   -elsif @sale.order?
-    -t.export :sales_order, @sale
+    -t.export do |e|
+      -e.sales_order @sale.number, @sale
   -elsif @sale.estimate?
-    -t.export :sales_estimate, @sale
+    -t.export do |e|
+      -e.sales_estimate @sale.number, @sale
+  -elsif @sale.draft?
+    -t.export do |e|
+      -e.sales_estimate @sale.number, @sale
   -t.edit @sale if @sale.draft?
   -if @sale.can_confirm?
     -t.confirm @sale, :method => :post, "data-confirm" => tc(:are_you_sure_you_want_to_confirm)

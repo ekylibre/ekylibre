@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="sale_invoice" language="groovy" pageWidth="595" pageHeight="842" columnWidth="545" leftMargin="25" rightMargin="25" topMargin="25" bottomMargin="25" isFloatColumnFooter="true" uuid="9c1f11b7-03dd-4803-9e1b-41b87b9d23c0">
 	<property name="ireport.zoom" value="1.4019755979255695"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="48"/>
+	<property name="ireport.y" value="720"/>
 	<template><![CDATA["/home/djoulin/ekylibre/config/corporate-identity/reports-style.xml"]]></template>
 	<style name="Title" fontName="DejaVu Sans" fontSize="50" isBold="true" pdfFontName="Times-Bold"/>
 	<style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18"/>
@@ -150,6 +150,15 @@
 	</field>
 	<field name="client-mail-coordinate" class="java.lang.String">
 		<fieldDescription><![CDATA[invoice-address/mail-coordinate]]></fieldDescription>
+	</field>
+	<field name="supplier-vat-number" class="java.lang.String">
+		<fieldDescription><![CDATA[supplier/vat-number]]></fieldDescription>
+	</field>
+	<field name="supplier-siren" class="java.lang.String">
+		<fieldDescription><![CDATA[supplier/siren]]></fieldDescription>
+	</field>
+	<field name="supplier-activity-code" class="java.lang.String">
+		<fieldDescription><![CDATA[supplier/activity-code]]></fieldDescription>
 	</field>
 	<background>
 		<band height="132">
@@ -434,6 +443,15 @@
 				</textElement>
 				<text><![CDATA[]]></text>
 			</staticText>
+			<textField>
+				<reportElement uuid="15199718-4f5c-4263-a4c6-d5126f8fbd80" style="address" x="118" y="0" width="332" height="25"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{supplier-vat-number} == null ? "" : "N° TVA Intracommunautaire : "+$F{supplier-vat-number})+
+($F{supplier-siren} == null ? "" : " - SIREN : "+$F{supplier-siren})+
+($F{supplier-activity-code} == null ? "" : " - Code APE : "+$F{supplier-activity-code})]]></textFieldExpression>
+			</textField>
 		</band>
 	</pageFooter>
 	<lastPageFooter>
@@ -538,6 +556,15 @@
 					<pen lineWidth="1.0" lineStyle="Dashed"/>
 				</graphicElement>
 			</line>
+			<textField>
+				<reportElement uuid="f2ed0a8a-6895-40e4-a004-5ab79e8273a4" style="address" x="118" y="60" width="332" height="21"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{supplier-vat-number} == null ? "" : "N° TVA Intracommunautaire : "+$F{supplier-vat-number})+
+($F{supplier-siren} == null ? "" : " - SIREN : "+$F{supplier-siren})+
+($F{supplier-activity-code} == null ? "" : " - Code APE : "+$F{supplier-activity-code})]]></textFieldExpression>
+			</textField>
 		</band>
 	</lastPageFooter>
 	<summary>
