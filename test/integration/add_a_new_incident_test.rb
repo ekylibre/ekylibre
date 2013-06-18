@@ -5,7 +5,7 @@ class AddANewAnimalTest < CapybaraIntegrationTest
 
   test "adding an incident" do
     visit('/backend/animal/10')
-    click_button('Nouveau...')   
+    click_button('Nouveau...')
     fill_in('incident[name]', :with => 'Test incident')
     select('Mammite', :from => 'animal[nature]')
     fill_in("incident[observed_at]", :with => '01/06/2013')
