@@ -722,7 +722,7 @@ fra:
     expired_on: "Date d’expiration"
     exportable: "Exportable"
     exportable_columns: "Colonnes exportables"
-    expression: "Expression" #?
+    expression: "Expression"
     extension: "Extension" #?
     external: "Externe à l'exploitation"
     # failed_attempts: "Failed attempts"
@@ -1164,7 +1164,6 @@ fra:
     stopped_on: "Arrêté le"
     storable: "Gérer les stocks"
     story: "Historique"
-    # string: "String"
     string_value: "Valeur textuelle"
     subdir: "Sous-répertoire" #?
     subdivision: "Position Y" #?

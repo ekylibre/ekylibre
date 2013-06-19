@@ -2,6 +2,9 @@ module Procedures
   class MissingAttribute < StandardError
   end
 
+  class MissingProcedure < StandardError
+  end
+
   XMLNS = "http://www.ekylibre.org/XML/2013/procedures".freeze
   NS_SEPARATOR = "-"
 
@@ -32,13 +35,17 @@ module Procedures
       end
     end
 
-    # Returns list of name
-    def list
-      return [@name.to_s] + children.keys
-    end
-
     def full_name
       (namespace ? namespace.to_s + NS_SEPARATOR + name.to_s : name.to_s)
+    end
+
+    def list(position = 0, prefix = nil)
+      prefix = (prefix.blank? ? "" : prefix.to_s + "-") + position.to_s
+      listing = [prefix]
+      self.sub_procedures.each_with_index do |sp, index|
+        listing += sp.foreign_procedure.list(index, prefix)
+      end
+      return listing
     end
 
   end
@@ -50,6 +57,11 @@ module Procedures
       @cally = cally
       @name = element.attr("name")
     end
+
+    def human_name
+      "variables.#{name}".t(:default => ["labels.#{name}".to_sym, "attributes.#{name}".to_sym, name.humanize])
+    end
+
   end
 
   class Task
@@ -74,6 +86,8 @@ module Procedures
     end
 
     def foreign_procedure
+      raise MissingProcedure.new("<sub-procedure> must refer to an existing procedure (not #{self.name}, but #{Procedures.names.to_sentence})") unless Procedures[self.name]
+      # puts "Call for #{self.name} in #{Procedures.names.to_sentence}"
       Procedures[self.name]
     end
   end
@@ -136,7 +150,7 @@ module Procedures
   load
 
   Rails.logger.info "Loaded procedures: " + names.to_sentence
-
+  
 end
 
 

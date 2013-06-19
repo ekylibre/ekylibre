@@ -1224,11 +1224,11 @@ ActiveRecord::Schema.define(:version => 20130513165730) do
     t.boolean  "detailled",                                         :default => false, :null => false
     t.integer  "subject_id",                                                           :null => false
     t.string   "verb",                                                                 :null => false
-    t.string   "string",                                                               :null => false
     t.integer  "operand_id"
     t.string   "operand_unit"
     t.decimal  "operand_quantity",   :precision => 19, :scale => 4
     t.integer  "indicator_datum_id"
+    t.text     "expression"
     t.datetime "created_at",                                                           :null => false
     t.datetime "updated_at",                                                           :null => false
     t.integer  "creator_id"
@@ -1430,13 +1430,16 @@ ActiveRecord::Schema.define(:version => 20130513165730) do
   add_index "procedure_variables", ["updater_id"], :name => "index_procedure_variables_on_updater_id"
 
   create_table "procedures", :force => true do |t|
-    t.integer  "parent_id"
     t.integer  "incident_id"
     t.integer  "activity_id",                        :null => false
     t.integer  "campaign_id",                        :null => false
     t.string   "nomen",                              :null => false
     t.string   "version"
     t.string   "state",        :default => "undone", :null => false
+    t.integer  "parent_id"
+    t.integer  "lft"
+    t.integer  "rgt"
+    t.integer  "depth"
     t.datetime "created_at",                         :null => false
     t.datetime "updated_at",                         :null => false
     t.integer  "creator_id"

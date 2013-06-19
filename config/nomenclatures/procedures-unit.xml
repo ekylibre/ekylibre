@@ -79,7 +79,7 @@
     </operations>        
   </procedure>
   <!-- ########################################## HERSER ######################################### -->
-  <procedure name="surperficial_plowing" natures="tillage" version="1" status="frozen">
+  <procedure name="superficial_plowing" natures="tillage" version="1" status="frozen">
     <variables>
       <variable name="driver" variety="worker"/><!-- paramètre réprésentant des objets de type Humain qui possede la compétence "Conduire un ensemble tracteur + épandeur"  -->
       <variable name="tractor" variety="equipment" abilities="tow,catch"/><!-- paramètre réprésentant des objets qui possede la compétence "Tracter"  -->

@@ -1,7 +1,16 @@
 =main_toolbar do |t|
   -t.edit @procedure
+  -t.play @procedure
 
 =beehive do |b|
-  -b.cell do
-    =attribute_list do |l|
-      -l.attribute :name
+  -b.tabbox do
+    -b.cell :graph do
+      =render @procedure
+    -b.cell do
+      =attributes_list(@procedure) do |l|
+        -l.attribute :nomen
+        -l.attribute :version
+        -l.attribute :state
+        -l.attribute :activity, :url => true
+        -l.attribute :campaign, :url => true
+

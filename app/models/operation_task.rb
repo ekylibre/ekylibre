@@ -23,6 +23,7 @@
 #  created_at         :datetime         not null
 #  creator_id         :integer
 #  detailled          :boolean          not null
+#  expression         :text
 #  id                 :integer          not null, primary key
 #  indicator_datum_id :integer
 #  lock_version       :integer          default(0), not null
@@ -31,7 +32,6 @@
 #  operand_unit       :string(255)
 #  operation_id       :integer          not null
 #  parent_id          :integer
-#  string             :string(255)      not null
 #  subject_id         :integer          not null
 #  updated_at         :datetime         not null
 #  updater_id         :integer
@@ -40,8 +40,10 @@
 class OperationTask < Ekylibre::Record::Base
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :operand_quantity, :allow_nil => true
-  validates_length_of :operand_unit, :string, :verb, :allow_nil => true, :maximum => 255
+  validates_length_of :operand_unit, :verb, :allow_nil => true, :maximum => 255
   validates_inclusion_of :detailled, :in => [true, false]
-  validates_presence_of :string, :verb
+  validates_presence_of :verb
   #]VALIDATORS]
+
+  alias_attribute :expression, :string
 end

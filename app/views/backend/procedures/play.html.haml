@@ -1,0 +1,21 @@
+-reference = @procedure.reference
+=form_tag do
+  -if reference.variables.size > 0
+    =field_set :parameters do
+      -for variable in reference.variables.values
+        .control-group
+          %label.control-label=variable.human_name
+          .controls
+            .input-append=text_field_tag("variables[#{variable.name}]", nil, 'data-selector' => url_for(:action => :unroll, :controller => :products))
+  -if reference.operations.size > 0
+    =field_set :operations do
+      OK
+
+  =form_actions do
+    =button_tag(:save.tl, :name => :redirect, :value => (@procedure.root? ? backend_procedures_url : backend_procedure_url(@procedure)))
+    -for following in @procedure.followings
+      =button_tag(:save_and_go.tl, :name => :jump_to, :value => following)
+
+    =link_to((params[:redirect] ? params[:redirect] : @procedure.root? ? backend_procedures_url : backend_procedure_url(@procedure)), :class => "btn btn-cancel") do
+      %i
+      =:cancel.tl

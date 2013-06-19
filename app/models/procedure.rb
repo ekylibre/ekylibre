@@ -24,11 +24,14 @@
 #  campaign_id  :integer          not null
 #  created_at   :datetime         not null
 #  creator_id   :integer
+#  depth        :integer
 #  id           :integer          not null, primary key
 #  incident_id  :integer
+#  lft          :integer
 #  lock_version :integer          default(0), not null
 #  nomen        :string(255)      not null
 #  parent_id    :integer
+#  rgt          :integer
 #  state        :string(255)      default("undone"), not null
 #  updated_at   :datetime         not null
 #  updater_id   :integer
@@ -41,14 +44,19 @@ class Procedure < Ekylibre::Record::Base
   belongs_to :campaign
   belongs_to :incident
   has_many :variables, :class_name => "ProcedureVariable", :inverse_of => :procedure
+  has_many :operations, :inverse_of => :procedure
   enumerize :nomen, :in => Procedures.names
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_numericality_of :depth, :lft, :rgt, :allow_nil => true, :only_integer => true
   validates_length_of :nomen, :state, :version, :allow_nil => true, :maximum => 255
   validates_presence_of :activity, :campaign, :nomen, :state
   #]VALIDATORS]
-  scope :roots, -> { where(:parent_id => nil) }
   validates_inclusion_of :nomen, :in => self.nomen.values
   validates_presence_of :version
+
+  acts_as_nested_set
+
+  scope :roots, -> { where(:parent_id => nil) }
 
   before_validation(:on => :create) do
     if self.reference
@@ -63,6 +71,20 @@ class Procedure < Ekylibre::Record::Base
   # Returns variable names
   def variables_names
     self.variables.map(&:name).sort.to_sentence
+  end
+
+  def name
+    self.nomen.text
+  end
+
+  # Return root procedure
+  def root
+    return (self.parent.nil? ? self : self.parent.root)
+  end
+
+  # Return the next procedure (depth course)
+  def followings
+    []
   end
 
 end

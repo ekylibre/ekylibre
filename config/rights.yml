@@ -198,6 +198,7 @@
 # - "backend/procedures#index"
 # - "backend/procedures#list"
 # - "backend/procedures#new"
+# - "backend/procedures#run"
 # - "backend/procedures#show"
 # - "backend/procedures#update"
 # - "backend/product_groups#create"

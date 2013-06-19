@@ -264,7 +264,10 @@ jpn:
       # picture: "Visuel"
       # show: "Matière\_: %{name}"
     backend/meeting_natures: #?
-    backend/meetings: #?
+    backend/meetings:
+      # edit: "Modifier un évènement"
+      # index: "Evènements"
+      # new: "Nouvel évènement"
     backend/myselves:
       # change_password: "Changer de mot de passe"
       # show: "Mes informations"
@@ -1011,6 +1014,7 @@ jpn:
     # measure_options: "Indicateur de type mesure"
     # medical_informations: "Informations médicales"
     # meeting: "Lieu(x) de rencontre"
+    # meetings: "Evenements"
     menu:  #?
       accountancy_tasks: "用事" #?
       parameters: "パラメーター" #?

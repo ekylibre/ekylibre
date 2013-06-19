@@ -604,7 +604,7 @@ module Ekylibre
     :procedure_variable => {
       :creator_id => :user,
       :procedure_id => :procedure,
-      :target_id => '',
+      :target_id => :product,
       :updater_id => :user
     },
     :product => {
