@@ -33,6 +33,7 @@
 #  parent_id    :integer
 #  rgt          :integer
 #  state        :string(255)      default("undone"), not null
+#  uid          :string(511)
 #  updated_at   :datetime         not null
 #  updater_id   :integer
 #  version      :string(255)

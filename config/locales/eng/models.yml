@@ -1139,6 +1139,7 @@ eng:
     printed_at: "Printed at"
     printed_on: "Printed on"
     # priority: "Priorité"
+    # procedure: "Procedure"
     # procedures: "Procédures"
     # process: "Process"
     producer: "Producer"

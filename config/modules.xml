@@ -1079,9 +1079,6 @@
         <page to="backend/places#show"/>
         <page to="backend/places#update"/>
       </item>
-      <item name="procedures">
-        <page to="backend/procedures#run"/>
-      </item>
       <item name="product_indicator_data">
         <page to="backend/product_indicator_data#index"/>
         <page to="backend/product_indicator_data#create"/>

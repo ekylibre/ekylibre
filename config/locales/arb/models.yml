@@ -1604,6 +1604,7 @@ arb:
     printed_at: "طبعت في"
     printed_on: "طبع يوم"
     # priority: "Priorité"
+    # procedure: "Procedure"
     # procedures: "Procédures"
     # process: "Process"
     producer: "المنتج"
