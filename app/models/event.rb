@@ -25,12 +25,9 @@
 #  description       :text
 #  duration          :integer
 #  id                :integer          not null, primary key
-#  incident_id       :integer
 #  lock_version      :integer          default(0), not null
 #  meeting_nature_id :integer
 #  name              :text
-#  nomen             :string(255)
-#  parent_id         :integer
 #  place             :string(255)
 #  procedure_id      :integer
 #  started_at        :datetime         not null
@@ -42,7 +39,7 @@
 class Event < Ekylibre::Record::Base
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :duration, :allow_nil => true, :only_integer => true
-  validates_length_of :nomen, :place, :allow_nil => true, :maximum => 255
+  validates_length_of :place, :allow_nil => true, :maximum => 255
   validates_presence_of :started_at
   #]VALIDATORS]
 end
