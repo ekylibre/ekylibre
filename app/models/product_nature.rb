@@ -100,7 +100,7 @@ class ProductNature < Ekylibre::Record::Base
   validates_uniqueness_of :name
 
   # accepts_nested_attributes_for :stocks, :reject_if => :all_blank, :allow_destroy => true
-  # acts_as_numbered
+  #acts_as_numbered
 
   default_scope -> { order(:name) }
   scope :availables, -> { where(:active => true).order(:name) }
@@ -111,15 +111,15 @@ class ProductNature < Ekylibre::Record::Base
   scope :matters, -> { where(:subscribing => false).order(:name) }
 
   before_validation do
-    self.number = self.name.codeize.upper if !self.name.blank? and self.number.blank?
-    self.number = self.number[0..7] unless self.number.blank?
-    if self.number.blank?
-      last = self.class.reorder('number DESC').first
-      self.number = last.nil? ? 1 : last.number+1
-    end
-    while self.class.where("number=? AND id!=?", self.number, self.id||0).first
-      self.number.succ!
-    end
+    # self.number = self.name.codeize.upper if !self.name.blank? and self.number.blank?
+    # self.number = self.number[0..7] unless self.number.blank?
+    # if self.number.blank?
+      # last = self.class.reorder('number DESC').first
+      # self.number = last.nil? ? 1 : last.number+1
+    # end
+    # while self.class.where("number=? AND id!=?", self.number, self.id||0).first
+      # self.number.succ!
+    # end
     self.storable = false unless self.deliverable?
     # self.traceable = false unless self.storable?
     # self.stockable = true if self.trackable?

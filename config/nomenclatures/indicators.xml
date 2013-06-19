@@ -34,6 +34,11 @@
       <item name="lipolysis" type="measure" unit="thousands_eq_per_hundred_gram"/>
       <item name="immunoglobulins_concentration" type="measure" unit="unities_per_liter"/>
       <item name="urea_concentration" type="measure" unit="milligram_per_liter"/>
+      <!-- for genetic animal's reproduction  -->
+      <item name="isu" type="measure" unit="unity"/>
+      <item name="inel" type="measure" unit="unity"/>
+      <item name="tp" type="measure" unit="unity"/>
+      <item name="tb" type="measure" unit="unity"/>
     </items>
   </nomenclature>
 </nomenclatures>
