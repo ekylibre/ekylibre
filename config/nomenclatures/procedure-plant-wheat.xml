@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="wheat_crop_std">
+  <procedure name="wheat_crop" version="1" status="frozen">
     <variables>
       <variable name="land_parcel" variety="land_parcel"/>
       <variable name="culture" variety="triticum" new="true"/>

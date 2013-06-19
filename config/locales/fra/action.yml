@@ -300,11 +300,9 @@ fra:
       # index: "Index backend/meeting nature"
       # new: "New backend/meeting nature"
     backend/meetings:
-      # autocomplete_for_place: "Autocomplete for place backend/meeting"
-      # change_minutes: "Change minutes backend/meeting"
-      # edit: "Edit backend/meeting"
-      # index: "Index backend/meeting"
-      # new: "New backend/meeting"
+      edit: "Modifier un évènement"
+      index: "Evènements"
+      new: "Nouvel évènement"
     backend/myselves:
       change_password: "Changer de mot de passe" #?
       show: "Mes informations"
@@ -1133,6 +1131,7 @@ fra:
     measure_options: "Indicateur de type mesure"
     medical_informations: "Informations médicales"
     meeting: "Lieu(x) de rencontre"
+    meetings: "Evenements"
     menus:
       accountancy: "Comptabilité"
       archives: "Archives"

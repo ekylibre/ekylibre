@@ -86,7 +86,7 @@ product_natures_001:
   depreciable: false
   id: 1
   atomic: true
-  name: "Bovin"
+  name: "Vache"
   number: "LI1"
   purchasable: true
   reductible: true

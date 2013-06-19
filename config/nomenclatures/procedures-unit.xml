@@ -2,14 +2,14 @@
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
   <!-- ############################## EPANDRE DU FUMIER ######################################## -->
   <!-- name avec namespace séparé par ; natures appelle les noms de procedure fichier procedure-nature-->
-  <procedure name="organic_fertilizing" natures="enrichment">
+  <procedure name="organic_fertilizing" version="1" status="frozen" natures="enrichment">
     <!-- les variables non transmises seront obligatoirement demandées lors de l'utilisation de la procédure-->
     <!-- parameter = false , alors la variable ne sera pas demandée et peut servir de variable interne -->
     <!-- same-nature-of = "parameter" quand une variable interne est issue d'un objet passé en paramètre -->
     <!-- les compétences (abilities) sont notés sous la forme d'une compétence sur une variété : compétence(variété)-->
     <variables>
       <variable name="manure" variety="organic_matter" abilities="fertilize(plant)"/>
-      <variable name="manure_to_spread" same-nature-of="manure" parameter="false"/>
+      <variable name="manure_to_spread" same-nature-of="manure" parameter="false" new="quantity=?"/>
       <variable name="spreader" abilities="spreading(organic_matter)" /><!-- paramètre réprésentant des objets qui possede la compétence "Epandre"  un produit de la variété "organic_matter"-->
       <variable name="driver" variety="worker"/><!-- paramètre réprésentant des objets de type Humain qui possede la compétence "Conduire un ensemble tracteur + épandeur"  -->
       <variable name="tractor" variety="equipment" abilities="tow,catch"/><!-- paramètre réprésentant des objets qui possede la compétence "Tracter"  -->
@@ -29,7 +29,7 @@
         <task do="[tractor] moves-to [manure]"/><!-- le chauffeur, tracteur et épandeur se déplacent vers le lieu actuel du tas de fumier-->
       </operation>
       <operation name="internal_0500">
-        <task do="[manure] parts-with [manure_to_spread](quantity::?)"/><!--  on sépare le fumier que l'on va mettre dans l'épandeur du tas global --> 
+        <task do="[manure] parts-with [manure_to_spread]"/><!--  on sépare le fumier que l'on va mettre dans l'épandeur du tas global --> 
       </operation>
       <operation name="transport_0600">
         <task do="[manure_to_spread] moves-in [spreader]"/><!-- le chauffeur charge du fumier dans l'épandeur qui est un lieu de stockage temporaire (normalement plus complexe que cela)-->
@@ -52,7 +52,7 @@
       Journal des temps de travaux [driver] à la fin : le 01/01/2013 = J'ai épandu du fumier pendant YY Heures dans la parcelle 1
   -->
   <!-- ######################################### LABOURER ########################################## -->
-  <procedure name="plowing" natures="tillage">
+  <procedure name="plowing" natures="tillage" version="1" status="frozen">
     <variables>
       <variable name="driver" variety="worker"/><!-- paramètre réprésentant des objets de type Humain qui possede la compétence "Conduire un ensemble tracteur + épandeur"  -->
       <variable name="tractor" variety="equipment" abilities="tow,catch"/><!-- paramètre réprésentant des objets qui possede la compétence "Tracter"  -->
@@ -79,7 +79,7 @@
     </operations>        
   </procedure>
   <!-- ########################################## HERSER ######################################### -->
-  <procedure name="surperficial-plowing" natures="tillage">
+  <procedure name="surperficial_plowing" natures="tillage" version="1" status="frozen">
     <variables>
       <variable name="driver" variety="worker"/><!-- paramètre réprésentant des objets de type Humain qui possede la compétence "Conduire un ensemble tracteur + épandeur"  -->
       <variable name="tractor" variety="equipment" abilities="tow,catch"/><!-- paramètre réprésentant des objets qui possede la compétence "Tracter"  -->
@@ -106,10 +106,10 @@
     </operations>        
   </procedure>
   <!-- ######################################### SEMER ########################################## -->
-  <procedure name="sowing" natures="tillage">
+  <procedure name="sowing" natures="tillage" version="1" status="frozen">
     <variables>
       <variable name="seeds" variety="plant" abilities="germinate"/>
-      <variable name="seeds_to_sow" same-nature-of="seeds" parameter="false"/>
+      <variable name="seeds_to_sow" same-nature-of="seeds" parameter="false" new="quantity=?"/>
       <variable name="seeder" variety="equipment" abilities="sowing" /><!-- paramètre réprésentant des objets qui possede la compétence "Semer"  -->
       <variable name="driver" variety="worker"/><!-- paramètre réprésentant des objets de type Humain qui possede la compétence "Conduire un ensemble tracteur + épandeur"  -->
       <variable name="tractor" variety="equipment" abilities="tow,catch"/><!-- paramètre réprésentant des objets qui possede la compétence "Tracter"  -->
@@ -130,7 +130,7 @@
         <task do="[tractor] moves-to [seeds]"/><!-- le chauffeur, tracteur et le semoir se déplacent vers le lieu actuel des semences-->
       </operation>
       <operation name="internal_0500">
-        <task do="[seeds] parts-with [seeds_to_sow](quantity::?)"/><!--  on sépare les semences que l'on va mettre dans le semoir du stock --> 
+        <task do="[seeds] parts-with [seeds_to_sow]"/><!--  on sépare les semences que l'on va mettre dans le semoir du stock --> 
       </operation>
       <operation name="loading_0600">
         <task do="[seeds_to_sow] moves-in [seeder]"/><!-- le chauffeur charge des semences dans le semoir qui est un lieu de stockage temporaire de semences (normalement plus complexe que cela)-->
@@ -150,10 +150,10 @@
     </operations>        
   </procedure>
   <!-- ######################################## EPANDRE DE L'ENGRAIS ########################################### -->
-  <procedure name="mineral_fertilizing" natures="enrichment">
+  <procedure name="mineral_fertilizing" natures="enrichment" version="1" status="frozen">
     <variables>
       <variable name="fertilizer" variety="mineral_matter" abilities="fertilize(plant)"/>
-      <variable name="fertilizer_to_spread" same-nature-of="fertilizer" parameter="false"/>
+      <variable name="fertilizer_to_spread" same-nature-of="fertilizer" parameter="false" new="quantity=?"/>
       <variable name="spreader" abilities="spreading(mineral_matter)" /><!-- paramètre réprésentant des objets qui possede la compétence "Epandre"  un produit de la variété "organic_matter"-->
       <variable name="driver" variety="worker"/><!-- paramètre réprésentant des objets de type Humain qui possede la compétence "Conduire un ensemble tracteur + épandeur"  -->
       <variable name="tractor" variety="equipment" abilities="tow,catch"/><!-- paramètre réprésentant des objets qui possede la compétence "Tracter"  -->
@@ -173,7 +173,7 @@
         <task do="[tractor] moves-to [fertilizer]"/><!-- le chauffeur, tracteur et épandeur se déplacent vers le lieu actuel du tas de fumier-->
       </operation>
       <operation name="internal_0500">
-        <task do="[fertilizer] parts-with [fertilizer_to_spread](quantity::?)"/><!--  on sépare le fumier que l'on va mettre dans l'épandeur du tas global --> 
+        <task do="[fertilizer] parts-with [fertilizer_to_spread]"/><!--  on sépare le fumier que l'on va mettre dans l'épandeur du tas global --> 
       </operation>
       <operation name="transport_0600">
         <task do="[fertilizer_to_spread] moves-in [spreader]"/><!-- le chauffeur charge du fumier dans l'épandeur qui est un lieu de stockage temporaire (normalement plus complexe que cela)-->
@@ -191,12 +191,12 @@
     </operations> 
   </procedure>
   <!-- ######################################## TRAITER CHIMIQUEMENT LA CULTURE AVEC UNE MOLECULE ########################################### -->
-  <procedure name="chemical_treatment" natures="treatment">
+  <procedure name="chemical_treatment" natures="treatment" version="1" status="frozen">
     <variables>
       <variable name="driver" variety="worker"/><!-- paramètre réprésentant des objets de type Humain qui possede la compétence "Conduire un ensemble tracteur + épandeur"  -->
       <variable name="tractor" variety="equipment" abilities="tow,catch"/><!-- paramètre réprésentant des objets qui possede la compétence "Tracter"  -->
       <variable name="molecule" variety="phytosanitary"/>
-      <variable name="molecule_to_spray" same-nature-of="molecule" parameter="false"/>
+      <variable name="molecule_to_spray" same-nature-of="molecule" parameter="false" new="quantity=?"/>
       <variable name="sprayer" variety="equipment" abilities="spray" />
       <variable name="culture" variety="plant"/>
     </variables>
@@ -214,7 +214,7 @@
         <task do="[tractor] moves-to [molecule]"/><!-- le chauffeur, tracteur et épandeur se déplacent vers le lieu actuel du tas de fumier-->
       </operation>
       <operation name="internal_0500">
-        <task do="[molecule] parts-with [molecule_to_spray](quantity::?)"/><!--  on sépare le fumier que l'on va mettre dans l'épandeur du tas global --> 
+        <task do="[molecule] parts-with [molecule_to_spray]"/><!--  on sépare le fumier que l'on va mettre dans l'épandeur du tas global --> 
       </operation>
       <operation name="transport_0600">
         <task do="[molecule_to_spray] moves-in [sprayer]"/><!-- le chauffeur charge du fumier dans l'épandeur qui est un lieu de stockage temporaire (normalement plus complexe que cela)-->
@@ -233,7 +233,7 @@
     </operations>        
   </procedure>
   <!-- ######################################## MOISSONNER ########################################### -->
-  <procedure name="seed_harvest" natures="production">
+  <procedure name="seed_harvest" natures="production" version="1" status="frozen">
     <variables>
       <variable name="silo" variety="settlement" abilities="store(plant)"/>
       <variable name="driver" variety="worker"/><!-- paramètre réprésentant des objets de type Humain qui possede la compétence "Conduire un ensemble tracteur + épandeur"  -->
@@ -242,8 +242,8 @@
       <variable name="cropper_driver" variety="worker" abilities="cropper_driving" /><!-- paramètre réprésentant des objets de type Humain qui possede la compétence "Conduire un ensemble de semis"  -->
       <variable name="cropper" type="equipment" abilities="harvest(plant)" /><!-- paramètre réprésentant des objets de type Humain qui possede la compétence "Conduire un ensemble de semis"  -->
       <variable name="culture" variety="plant"/>
-      <variable name="grains" same-variety-of="culture" derivative="grain"/>
-      <variable name="straw" same-variety-of="culture" derivative= "straw"/>
+      <variable name="grains" same-variety-of="culture" derivative="grain" new="quantity=?, unit=?"/>
+      <variable name="straw" same-variety-of="culture" derivative= "straw" new="quantity=?, unit=?"/>
     </variables>
     <operation name="transport_0100">
       <task do="[cropper-driver] moves-in [cropper]"/><!-- le chauffeur se déplace vers la moissonneuse et rentre dedant (?) -->
@@ -253,9 +253,9 @@
     </operation>
     <operation name="seed_harvest_0300">
       <task do="[cropper] acts-on [culture]"><!-- tant que le [cropper] travaille (? = sous-entendu la moissonneuse tourne,le conducteur roule, le batteur tourne) les sub-task tournent -->
-        <task do="[culture] produce [grains](quantity::?, unit::?)"/><!-- le traitement tombe sur la sole de blé car le pulvé tourne (?) -->
+        <task do="[culture] produce [grains]"/><!-- le traitement tombe sur la sole de blé car le pulvé tourne (?) -->
         <task do="[grains] moves-in [cropper]"/>
-        <task do="[culture] produce [straw](quantity::?, unit::?)"/><!-- la sole de blé consomme le traitement épandu car il se dépose sur les feuilles des plants de blé -->
+        <task do="[culture] produce [straw]"/><!-- la sole de blé consomme le traitement épandu car il se dépose sur les feuilles des plants de blé -->
         <task do="[straw] moves-in [culture]"/>
       </task>
     </operation>
@@ -292,15 +292,15 @@
 
 <!-- ######################################## VELAGE PRODUISANT UN VEAU ########################################### -->
 
-<procedure name="calving_one" natures="calving">
+<procedure name="calving_one" natures="calving" version="1" status="frozen">
     <variables>
       <variable name="mother_animal" variety="bos" abilities="produce"/>
-      <variable name="child_animal" variety="bos" new="true"/>
+      <variable name="child_animal" variety="bos" new="mother=[mother_animal], father=?, quantity=1, unit=u, weight=?, mammalia_twins_condition=none"/>
       <variable name="person" variety="worker"/>
     </variables>
     <operations>
       <operation name="calving_0100">
-        <task do="[mother_animal] produce [child_animal](mother=[mother_animal], father=?, quantity=1, unit=u, weight=?, mammalia_twins_condition=none)"/><!-- une vache produit un veau -->
+        <task do="[mother_animal] produce [child_animal]"/><!-- une vache produit un veau -->
         <task do="[person] measure [child_animal] at mammalia_born_condition"/>
         <task do="[person] measure [mother_animal] at mammalia_born_cycle"/>
         <task do="[person] measure [mother_animal] at mammalia_reproduction_method_embryo_transplant"/>
@@ -311,20 +311,20 @@
 
 <!-- ######################################## VELAGE PRODUISANT DES JUMEAUX ########################################### -->
 
-<procedure name="calving_twice" natures="calving">
+<procedure name="calving_twin" natures="calving" version="1" status="frozen">
     <variables>
       <variable name="mother_animal" variety="bos" abilities="produce"/>
-      <variable name="child_animal_first" variety="bos" new="true"/>
-      <variable name="child_animal_second" variety="bos" new="true"/>
+      <variable name="child_animal_first" variety="bos" new="mother=[mother_animal], father=?, quantity=1, unit=u, weight=?, mammalia_twins_condition=twins"/>
+      <variable name="child_animal_second" variety="bos" new="mother=[mother_animal], father=?, quantity=1, unit=u, weight=?, mammalia_twins_condition=twins"/>
       <variable name="person" variety="worker"/>
     </variables>
     <operations>
       <operation name="calving_0100">
-        <task do="[mother_animal] produce [child_animal_first](mother=[mother_animal], father=?, quantity=1, unit=u, weight=?, mammalia_twins_condition=twins)"/><!-- une vache produit le premier veau -->
+        <task do="[mother_animal] produce [child_animal_first]"/><!-- une vache produit le premier veau -->
         <task do="[person] measure [child_animal_first] at mammalia_born_condition"/>
       </operation>
       <operation name="calving_0200">
-        <task do="[mother_animal] produce [child_animal_second](mother=[mother_animal], father=?, quantity=1, unit=u, weight=?, mammalia_twins_condition=twins)"/><!-- une vache produit le second veau -->
+        <task do="[mother_animal] produce [child_animal_second]"/><!-- une vache produit le second veau -->
         <task do="[person] measure [child_animal_second] at mammalia_born_condition"/>
       </operation>
       <operation name="calving_0300">
