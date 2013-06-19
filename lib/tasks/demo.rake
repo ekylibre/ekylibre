@@ -141,7 +141,7 @@ namespace :db do
       category ||= ProductNatureCategory.create!(:name => "Défaut")
       # create default product_nature to create animal
       cow = ProductNature.find_by_number("CATTLE")
-      cow ||= ProductNature.create!(:name => "adult_cow", :number => "CATTLE", :storable => true, :stock_account_id => cow_stock_account.id, :saleable => true, :product_account_id => cow_product_account.id, :variety => "bos", :unit => cow_unit, :category_id => category.id)
+      cow ||= ProductNature.create!(:name => "vache", :number => "CATTLE", :storable => true, :stock_account_id => cow_stock_account.id, :saleable => true, :atomic => true, :product_account_id => cow_product_account.id, :variety => "bos", :unit => cow_unit, :category_id => category.id)
       # create default product_nature_indicator for cow (like in XML nomenclature)
       for a in ["weight", "animal_life_state", "mammalia_reproduction_event_abortion", "mammalia_reproduction_method_embryo_transplant", "mammalia_born_cycle", "mammalia_reproduction_state", "mammalia_twins_condition", "mammalia_lactation_state", "animal_disease_state"]
         product_nature_indicator = ProductNatureIndicator.where(:nature => a, :product_nature_id => cow.id ).first
