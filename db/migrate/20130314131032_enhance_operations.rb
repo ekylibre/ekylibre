@@ -36,20 +36,38 @@ class EnhanceOperations < ActiveRecord::Migration
     # raise "Stop"
 
     # Procedure
-    add_column :events, :parent_id, :integer
-    add_index  :events, :parent_id
-    add_column :events, :nomen, :string
-    # create_table :procedures do |t|
-    #   # t.references :nature, :null => false
-    #   t.references :parent
-    #   t.string :name, :null => false
-    #   t.datetime :started_at
-    #   t.datetime :stopped_at
-    #   t.stamps
-    # end
-    # add_stamps_indexes :procedures
-    # add_index :procedures, :parent_id
-    # add_index :procedures, :nature_id
+    # add_column :events, :parent_id, :integer
+    # add_index  :events, :parent_id
+    # add_column :events, :nomen, :string
+    create_table :procedures do |t|
+      # t.references :nature, :null => false
+      t.references :parent
+      t.references :incident
+      t.references :activity, :null => false
+      t.references :campaign, :null => false
+      t.string :nomen,   :null => false
+      t.string :version, :null => false
+      t.string :state,   :null => false, :default => "undone"
+      t.stamps
+    end
+    add_stamps_indexes :procedures
+    add_index :procedures, :parent_id
+    add_index :procedures, :activity_id
+    add_index :procedures, :campaign_id
+    add_index :procedures, :incident_id
+    add_index :procedures, [:nomen, :version]
+
+    create_table :procedure_variables do |t|
+      # t.references :nature, :null => false
+      t.references :procedure, :null => false
+      t.references :target, :null => false
+      t.string :nomen, :null => false
+      t.stamps
+    end
+    add_stamps_indexes :procedure_variables
+    add_index :procedure_variables, :procedure_id
+    add_index :procedure_variables, :target_id
+    add_index :procedure_variables, :nomen
 
 
     # Operation

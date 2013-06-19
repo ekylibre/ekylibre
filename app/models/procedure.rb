@@ -18,30 +18,27 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: events
+# == Table: procedures
 #
-#  created_at        :datetime         not null
-#  creator_id        :integer
-#  description       :text
-#  duration          :integer
-#  id                :integer          not null, primary key
-#  incident_id       :integer
-#  lock_version      :integer          default(0), not null
-#  meeting_nature_id :integer
-#  name              :text
-#  nomen             :string(255)
-#  parent_id         :integer
-#  place             :string(255)
-#  procedure_id      :integer
-#  started_at        :datetime         not null
-#  stopped_at        :datetime
-#  type              :string(255)
-#  updated_at        :datetime         not null
-#  updater_id        :integer
+#  activity_id  :integer          not null
+#  campaign_id  :integer          not null
+#  created_at   :datetime         not null
+#  creator_id   :integer
+#  id           :integer          not null, primary key
+#  incident_id  :integer
+#  lock_version :integer          default(0), not null
+#  nomen        :string(255)      not null
+#  parent_id    :integer
+#  state        :string(255)      default("undone"), not null
+#  updated_at   :datetime         not null
+#  updater_id   :integer
+#  version      :string(255)      not null
 #
-class Procedure < Event
+class Procedure < Ekylibre::Record::Base
   belongs_to :incident, :class_name => "Incident"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_length_of :nomen, :state, :version, :allow_nil => true, :maximum => 255
+  validates_presence_of :nomen, :state, :version
   #]VALIDATORS]
   # belongs_to :nature, :class_name => "ProcedureNature"
 

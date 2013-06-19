@@ -46,6 +46,22 @@
         <page to="backend/entity_addresses#show"/>
         <page to="backend/entity_addresses#unroll"/>
         <page to="backend/entity_links#show"/>
+        <page to="backend/legal_entities#index"/>
+        <page to="backend/legal_entities#create"/>
+        <page to="backend/legal_entities#destroy"/>
+        <page to="backend/legal_entities#edit"/>
+        <page to="backend/legal_entities#list"/>
+        <page to="backend/legal_entities#new"/>
+        <page to="backend/legal_entities#show"/>
+        <page to="backend/legal_entities#update"/>
+        <page to="backend/people#index"/>
+        <page to="backend/people#create"/>
+        <page to="backend/people#destroy"/>
+        <page to="backend/people#edit"/>
+        <page to="backend/people#list"/>
+        <page to="backend/people#new"/>
+        <page to="backend/people#show"/>
+        <page to="backend/people#update"/>
       </item>
     </group>
     <group name="meetings" icon="calendar">
@@ -125,6 +141,14 @@
     </group>
     <group name="analytics" icon="tasks">
       <item name="activity_repartitions">
+        <page to="backend/activity_watchings#index"/>
+        <page to="backend/activity_watchings#create"/>
+        <page to="backend/activity_watchings#destroy"/>
+        <page to="backend/activity_watchings#edit"/>
+        <page to="backend/activity_watchings#list"/>
+        <page to="backend/activity_watchings#new"/>
+        <page to="backend/activity_watchings#show"/>
+        <page to="backend/activity_watchings#update"/>
         <page to="backend/activity_repartitions#index"/>
         <page to="backend/activity_repartitions#create"/>
         <page to="backend/activity_repartitions#destroy"/>
@@ -226,6 +250,7 @@
         <page to="backend/affairs#attach"/>
         <page to="backend/affairs#detach"/>
         <page to="backend/affairs#select"/>
+        <page to="backend/affairs#list"/>
       </item>
     </group>
   </module>
@@ -389,6 +414,14 @@
         <page to="backend/activities#update"/>
       </item>
       <item name="operations">
+        <page to="backend/procedures#index"/>
+        <page to="backend/procedures#create"/>
+        <page to="backend/procedures#destroy"/>
+        <page to="backend/procedures#edit"/>
+        <page to="backend/procedures#list"/>
+        <page to="backend/procedures#new"/>
+        <page to="backend/procedures#show"/>
+        <page to="backend/procedures#update"/>
         <page to="backend/operations#index"/>
         <page to="backend/operations#create"/>
         <page to="backend/operations#destroy"/>
@@ -401,6 +434,14 @@
         <page to="backend/operations#show"/>
         <page to="backend/operations#unvalidateds"/>
         <page to="backend/operations#update"/>
+        <page to="backend/operation_tasks#index"/>
+        <page to="backend/operation_tasks#create"/>
+        <page to="backend/operation_tasks#destroy"/>
+        <page to="backend/operation_tasks#edit"/>
+        <page to="backend/operation_tasks#list"/>
+        <page to="backend/operation_tasks#new"/>
+        <page to="backend/operation_tasks#show"/>
+        <page to="backend/operation_tasks#update"/>
       </item>
       <item name="product_localizations">
         <page to="backend/product_localizations#index"/>
@@ -480,6 +521,9 @@
         <page to="backend/matters#new"/>
         <page to="backend/matters#show"/>
         <page to="backend/matters#update"/>
+        <page to="backend/matters#list_group"/>
+        <page to="backend/matters#list_place"/>
+        <page to="backend/matters#picture"/>
       </item>
       <item name="land_parcels">
         <page to="backend/land_parcels#index"/>
@@ -930,19 +974,6 @@
       <item name="sessions">
         <page to="authentication/sessions#renew"/>
       </item>
-      <item name="activity_watchings">
-        <page to="backend/activity_watchings#index"/>
-        <page to="backend/activity_watchings#create"/>
-        <page to="backend/activity_watchings#destroy"/>
-        <page to="backend/activity_watchings#edit"/>
-        <page to="backend/activity_watchings#list"/>
-        <page to="backend/activity_watchings#new"/>
-        <page to="backend/activity_watchings#show"/>
-        <page to="backend/activity_watchings#update"/>
-      </item>
-      <item name="affairs">
-        <page to="backend/affairs#list"/>
-      </item>
       <item name="animals">
         <page to="backend/animals#list_incident"/>
       </item>
@@ -1024,16 +1055,6 @@
       <item name="kujakus">
         <page to="backend/kujakus#toggle"/>
       </item>
-      <item name="legal_entities">
-        <page to="backend/legal_entities#index"/>
-        <page to="backend/legal_entities#create"/>
-        <page to="backend/legal_entities#destroy"/>
-        <page to="backend/legal_entities#edit"/>
-        <page to="backend/legal_entities#list"/>
-        <page to="backend/legal_entities#new"/>
-        <page to="backend/legal_entities#show"/>
-        <page to="backend/legal_entities#update"/>
-      </item>
       <item name="logs">
         <page to="backend/logs#index"/>
         <page to="backend/logs#create"/>
@@ -1044,33 +1065,8 @@
         <page to="backend/logs#show"/>
         <page to="backend/logs#update"/>
       </item>
-      <item name="matters">
-        <page to="backend/matters#list_group"/>
-        <page to="backend/matters#list_place"/>
-        <page to="backend/matters#picture"/>
-      </item>
-      <item name="operation_tasks">
-        <page to="backend/operation_tasks#index"/>
-        <page to="backend/operation_tasks#create"/>
-        <page to="backend/operation_tasks#destroy"/>
-        <page to="backend/operation_tasks#edit"/>
-        <page to="backend/operation_tasks#list"/>
-        <page to="backend/operation_tasks#new"/>
-        <page to="backend/operation_tasks#show"/>
-        <page to="backend/operation_tasks#update"/>
-      </item>
       <item name="operations">
         <page to="backend/operations#unroll"/>
-      </item>
-      <item name="people">
-        <page to="backend/people#index"/>
-        <page to="backend/people#create"/>
-        <page to="backend/people#destroy"/>
-        <page to="backend/people#edit"/>
-        <page to="backend/people#list"/>
-        <page to="backend/people#new"/>
-        <page to="backend/people#show"/>
-        <page to="backend/people#update"/>
       </item>
       <item name="places">
         <page to="backend/places#index"/>
@@ -1081,16 +1077,6 @@
         <page to="backend/places#new"/>
         <page to="backend/places#show"/>
         <page to="backend/places#update"/>
-      </item>
-      <item name="procedures">
-        <page to="backend/procedures#index"/>
-        <page to="backend/procedures#create"/>
-        <page to="backend/procedures#destroy"/>
-        <page to="backend/procedures#edit"/>
-        <page to="backend/procedures#list"/>
-        <page to="backend/procedures#new"/>
-        <page to="backend/procedures#show"/>
-        <page to="backend/procedures#update"/>
       </item>
       <item name="product_indicator_data">
         <page to="backend/product_indicator_data#index"/>

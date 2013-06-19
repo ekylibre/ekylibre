@@ -25,12 +25,9 @@
 #  description       :text
 #  duration          :integer
 #  id                :integer          not null, primary key
-#  incident_id       :integer
 #  lock_version      :integer          default(0), not null
 #  meeting_nature_id :integer
 #  name              :text
-#  nomen             :string(255)
-#  parent_id         :integer
 #  place             :string(255)
 #  procedure_id      :integer
 #  started_at        :datetime         not null

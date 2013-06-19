@@ -244,9 +244,7 @@ module Ekylibre
     },
     :event => {
       :creator_id => :user,
-      :incident_id => :incident,
       :meeting_nature_id => :meeting_nature,
-      :parent_id => :event,
       :procedure_id => :procedure,
       :updater_id => :user
     },
@@ -461,9 +459,7 @@ module Ekylibre
     },
     :meeting => {
       :creator_id => :user,
-      :incident_id => :incident,
       :meeting_nature_id => :meeting_nature,
-      :parent_id => :meeting,
       :procedure_id => :procedure,
       :updater_id => :user
     },
@@ -485,9 +481,7 @@ module Ekylibre
     },
     :operation => {
       :creator_id => :user,
-      :incident_id => :incident,
       :meeting_nature_id => :meeting_nature,
-      :parent_id => :operation,
       :procedure_id => :procedure,
       :updater_id => :user
     },
@@ -600,11 +594,11 @@ module Ekylibre
       :updater_id => :user
     },
     :procedure => {
+      :activity_id => :activity,
+      :campaign_id => :campaign,
       :creator_id => :user,
       :incident_id => :incident,
-      :meeting_nature_id => :meeting_nature,
       :parent_id => :procedure,
-      :procedure_id => :procedure,
       :updater_id => :user
     },
     :product => {

@@ -18,8 +18,8 @@ class AddIncidents < ActiveRecord::Migration
     add_index :incidents, :nature
     add_index :incidents, :name
 
-    add_column :events, :incident_id, :integer
-
+    # add_column :procedures, :incident_id, :integer
+    # add_index :procedures, :incident_id
   end
 
 end
