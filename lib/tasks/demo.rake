@@ -282,7 +282,7 @@ namespace :db do
           ProductMembership.create!(:member_id => animal.id, :group_id => group_v.id, :started_at => r.arrived_on, :stopped_at => r.departed_on )
                 
         # case = GENISSE 1
-        elsif r.born_on > (Date.today - 12.months) and r.born_on < (Date.today - 2.months) and r.sex == "female"
+        elsif r.born_on > (Date.today - 12.months) and r.born_on < (Date.today - 2.months) and r.sex == :female
           f = File.open(pictures.sample)
           animal = Animal.create!(:name => r.name, :unit => cow_unit, :variety => "bos", :identification_number => r.identification_number, :work_number => r.work_number, :born_at => r.born_on, :sex => r.sex, :picture => f, :nature_id => cow_v.id, :owner_id => Entity.of_company.id, :reproductor => false)
           f.close
@@ -290,7 +290,7 @@ namespace :db do
           animal.indicator_data.create!(:indicator => "weight", :value => "55.45" ,:measure_unit => "kilogram" ,:measured_at => r.born_on.to_datetime )
           animal.indicator_data.create!(:indicator => "weight", :value => "75.89" ,:measure_unit => "kilogram" ,:measured_at => (r.born_on.to_datetime + 2.months) )
           animal.indicator_data.create!(:indicator => "weight", :value => "89.56" ,:measure_unit => "kilogram" ,:measured_at => (r.born_on.to_datetime + 4.months) )
-          animal.indicator_data.create!(:indicator => "weight", :value => "159.56" ,:measure_unit => "kilogram" ,:measured_at => (r.born_on.to_datetime + 8.months) )
+          animal.indicator_data.create!(:indicator => "weight", :value => "129.56" ,:measure_unit => "kilogram" ,:measured_at => (r.born_on.to_datetime + 8.months) )
           animal.indicator_data.create!(:indicator => "animal_disease_state", :value => "healthy" ,:measured_at => Time.now )
           animal.indicator_data.create!(:indicator => "animal_disease_state", :value => "sick" ,:measured_at => (Time.now - 2.days) )
           animal.indicator_data.create!(:indicator => "animal_disease_state", :value => "healthy" ,:measured_at => (Time.now - 3.days) )
@@ -299,7 +299,7 @@ namespace :db do
           ProductMembership.create!(:member_id => animal.id, :group_id => group_gen1.id, :started_at => r.arrived_on, :stopped_at => r.departed_on )
                
         # case = GENISSE 3
-        elsif r.born_on > (Date.today - 28.months) and r.born_on < (Date.today - 12.months) and r.sex == "female"
+        elsif r.born_on > (Date.today - 28.months) and r.born_on < (Date.today - 12.months) and r.sex == :female
           f = File.open(pictures.sample)
           animal = Animal.create!(:name => r.name, :unit => cow_unit, :variety => "bos", :identification_number => r.identification_number, :work_number => r.work_number, :born_at => r.born_on, :sex => r.sex, :picture => f, :nature_id => cow_v.id, :owner_id => Entity.of_company.id, :reproductor => true)
           f.close
@@ -307,7 +307,7 @@ namespace :db do
           animal.indicator_data.create!(:indicator => "weight", :value => "55.45" ,:measure_unit => "kilogram" ,:measured_at => r.born_on.to_datetime )
           animal.indicator_data.create!(:indicator => "weight", :value => "75.89" ,:measure_unit => "kilogram" ,:measured_at => (r.born_on.to_datetime + 2.months) )
           animal.indicator_data.create!(:indicator => "weight", :value => "89.56" ,:measure_unit => "kilogram" ,:measured_at => (r.born_on.to_datetime + 4.months) )
-          animal.indicator_data.create!(:indicator => "weight", :value => "159.56" ,:measure_unit => "kilogram" ,:measured_at => (r.born_on.to_datetime + 8.months) )
+          animal.indicator_data.create!(:indicator => "weight", :value => "129.56" ,:measure_unit => "kilogram" ,:measured_at => (r.born_on.to_datetime + 8.months) )
           animal.indicator_data.create!(:indicator => "weight", :value => "159.56" ,:measure_unit => "kilogram" ,:measured_at => (r.born_on.to_datetime + 12.months) )
           animal.indicator_data.create!(:indicator => "animal_disease_state", :value => "healthy" ,:measured_at => Time.now )
           animal.indicator_data.create!(:indicator => "animal_disease_state", :value => "sick" ,:measured_at => (Time.now - 2.days) )
@@ -317,7 +317,7 @@ namespace :db do
           ProductMembership.create!(:member_id => animal.id, :group_id => group_gen3.id, :started_at => r.arrived_on, :stopped_at => r.departed_on )
                 
         # case = VL
-        elsif r.born_on > (Date.today - 10.years) and r.born_on < (Date.today - 28.months) and r.sex == "female"
+        elsif r.born_on > (Date.today - 10.years) and r.born_on < (Date.today - 28.months) and r.sex == :female
           f = File.open(pictures.sample)
           animal = Animal.create!(:name => r.name, :unit => cow_unit, :variety => "bos", :identification_number => r.identification_number, :work_number => r.work_number, :born_at => r.born_on, :sex => r.sex, :picture => f, :nature_id => cow_vl.id, :owner_id => Entity.of_company.id, :reproductor => true)
           f.close
@@ -325,7 +325,7 @@ namespace :db do
           animal.indicator_data.create!(:indicator => "weight", :value => "55.45" ,:measure_unit => "kilogram" ,:measured_at => r.born_on.to_datetime )
           animal.indicator_data.create!(:indicator => "weight", :value => "75.89" ,:measure_unit => "kilogram" ,:measured_at => (r.born_on.to_datetime + 2.months) )
           animal.indicator_data.create!(:indicator => "weight", :value => "89.56" ,:measure_unit => "kilogram" ,:measured_at => (r.born_on.to_datetime + 4.months) )
-          animal.indicator_data.create!(:indicator => "weight", :value => "259.16" ,:measure_unit => "kilogram" ,:measured_at => (r.born_on.to_datetime + 12.months) )
+          animal.indicator_data.create!(:indicator => "weight", :value => "159.16" ,:measure_unit => "kilogram" ,:measured_at => (r.born_on.to_datetime + 12.months) )
           animal.indicator_data.create!(:indicator => "weight", :value => "389.56" ,:measure_unit => "kilogram" ,:measured_at => (r.born_on.to_datetime + 24.months) )
           animal.indicator_data.create!(:indicator => "animal_disease_state", :value => "healthy" ,:measured_at => Time.now )
           animal.indicator_data.create!(:indicator => "animal_disease_state", :value => "sick" ,:measured_at => (Time.now - 2.days) )
@@ -336,7 +336,7 @@ namespace :db do
         
         
         # case = TAURILLON
-        elsif r.born_on > (Date.today - 10.years) and r.born_on < (Date.today - 3.months) and r.sex == "male"
+        elsif r.born_on > (Date.today - 10.years) and r.born_on < (Date.today - 3.months) and r.sex == :male
           f = File.open(photo_taur)
           animal = Animal.create!(:name => r.name, :unit => cow_unit, :variety => "bos", :identification_number => r.identification_number, :work_number => r.work_number, :born_at => r.born_on, :sex => r.sex, :picture => f, :nature_id => cow_vl.id, :owner_id => Entity.of_company.id)
           f.close
