@@ -420,6 +420,7 @@
         <page to="backend/procedures#edit"/>
         <page to="backend/procedures#list"/>
         <page to="backend/procedures#new"/>
+        <page to="backend/procedures#play"/>
         <page to="backend/procedures#show"/>
         <page to="backend/procedures#update"/>
         <page to="backend/operations#index"/>
@@ -1077,6 +1078,9 @@
         <page to="backend/places#new"/>
         <page to="backend/places#show"/>
         <page to="backend/places#update"/>
+      </item>
+      <item name="procedures">
+        <page to="backend/procedures#run"/>
       </item>
       <item name="product_indicator_data">
         <page to="backend/product_indicator_data#index"/>

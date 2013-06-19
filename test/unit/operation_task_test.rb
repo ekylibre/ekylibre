@@ -23,6 +23,7 @@
 #  created_at         :datetime         not null
 #  creator_id         :integer
 #  detailled          :boolean          not null
+#  expression         :text
 #  id                 :integer          not null, primary key
 #  indicator_datum_id :integer
 #  lock_version       :integer          default(0), not null
@@ -31,7 +32,6 @@
 #  operand_unit       :string(255)
 #  operation_id       :integer          not null
 #  parent_id          :integer
-#  string             :string(255)      not null
 #  subject_id         :integer          not null
 #  updated_at         :datetime         not null
 #  updater_id         :integer

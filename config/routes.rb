@@ -613,6 +613,9 @@ Ekylibre::Application.routes.draw do
     # end
 
     resources :procedures do
+      member do
+        get :play
+      end
       collection do
         get :list
         unroll_all

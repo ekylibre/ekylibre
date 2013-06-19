@@ -307,7 +307,10 @@ eng:
       # picture: "Visuel"
       # show: "Matière\_: %{name}"
     backend/meeting_natures: #?
-    backend/meetings: #?
+    backend/meetings:
+      # edit: "Modifier un évènement"
+      # index: "Evènements"
+      # new: "Nouvel évènement"
     backend/myselves:
       change_password: "Change my password"
       # show: "Mes informations"
@@ -1086,6 +1089,7 @@ eng:
     # measure_options: "Indicateur de type mesure"
     # medical_informations: "Informations médicales"
     # meeting: "Lieu(x) de rencontre"
+    # meetings: "Evenements"
     menus:
       accountancy: "Accountancy"
       # archives: "Archives"

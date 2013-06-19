@@ -275,6 +275,7 @@ $list-hover-backgrounds: ("" rgba(255, 255, 255, 0)) (":hover" $hover-mask);
         &.logout      i { @include use-icon(off); }
         &.mail        i { @include use-icon(envelope); }
         &.merge       i { @include use-icon(resize-small); }
+        &.play        i { @include use-icon(play); }
         &.point       i { @include use-icon(ok); }
         &.print       i { @include use-icon(print); }
         &.reflect     i { @include use-icon(cog); }

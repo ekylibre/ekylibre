@@ -18,31 +18,23 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: procedures
+# == Table: procedure_variables
 #
-#  activity_id  :integer          not null
-#  campaign_id  :integer          not null
 #  created_at   :datetime         not null
 #  creator_id   :integer
-#  depth        :integer
 #  id           :integer          not null, primary key
-#  incident_id  :integer
-#  lft          :integer
 #  lock_version :integer          default(0), not null
 #  nomen        :string(255)      not null
-#  parent_id    :integer
-#  rgt          :integer
-#  state        :string(255)      default("undone"), not null
+#  procedure_id :integer          not null
+#  target_id    :integer          not null
 #  updated_at   :datetime         not null
 #  updater_id   :integer
-#  version      :string(255)
 #
-require 'test_helper'
-
-class ProcedureTest < ActiveSupport::TestCase
-
-  test "presence of fixtures" do
-    # assert_equal 2, Procedure.count
-  end
-
+class ProcedureVariable < Ekylibre::Record::Base
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_length_of :nomen, :allow_nil => true, :maximum => 255
+  validates_presence_of :nomen, :procedure, :target
+  #]VALIDATORS]
+  belongs_to :procedure, :inverse_of => :variables
+  belongs_to :target, :class_name => "Product"
 end

@@ -300,6 +300,8 @@ fra:
       # index: "Index backend/meeting nature"
       # new: "New backend/meeting nature"
     backend/meetings:
+      # autocomplete_for_place: "Autocomplete for place backend/meeting"
+      # change_minutes: "Change minutes backend/meeting"
       edit: "Modifier un évènement"
       index: "Evènements"
       new: "Nouvel évènement"
@@ -363,6 +365,7 @@ fra:
       # edit: "Edit backend/procedure"
       index: "Procédures"
       # new: "New backend/procedure"
+      # run: "Run backend/procedure"
       # show: "Show backend/procedure"
     backend/product_groups:
       edit: "Modifier le lot\_: %{name} "

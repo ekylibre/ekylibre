@@ -27,11 +27,11 @@ class AddANewAnimalTest < CapybaraIntegrationTest
     page.should have_content('MARGUERITTE')
     save_screenshot 'tmp/capybara/animal_view.png'
   end
-  
+
   test "adding an incident" do
     #visit('/backend/animals/10')
     #click_button('Nouveau...')
-    visit('/backend/incidents/new?target_id=10&target_type=Animal')  
+    visit('/backend/incidents/new?target_id=10&target_type=Animal')
     fill_in('incident[name]', :with => 'Test incident')
     select('Mammite', :from => 'incident[nature]')
     fill_in("incident[observed_at]", :with => '01/06/2013')

@@ -310,7 +310,10 @@ spa:
       # picture: "Visuel"
       # show: "Matière\_: %{name}"
     backend/meeting_natures: #?
-    backend/meetings: #?
+    backend/meetings:
+      # edit: "Modifier un évènement"
+      # index: "Evènements"
+      # new: "Nouvel évènement"
     backend/myselves:
       # change_password: "Changer de mot de passe"
       # show: "Mes informations"
@@ -1118,6 +1121,7 @@ spa:
     # measure_options: "Indicateur de type mesure"
     # medical_informations: "Informations médicales"
     # meeting: "Lieu(x) de rencontre"
+    # meetings: "Evenements"
     menu: #?
     menus:
       # accountancy: "Comptabilité"

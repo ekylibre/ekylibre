@@ -379,6 +379,7 @@ fra:
       primary_zone: "Zone primaire"
       procedure: "Procédure"
       procedure_nature: "Type de procédure" #?
+      # procedure_variable: "Procedure variable"
       product: "Produits"
       product_ability: "Compétence" #?
       product_group: "Groupe de produit"
@@ -721,7 +722,7 @@ fra:
     expired_on: "Date d’expiration"
     exportable: "Exportable"
     exportable_columns: "Colonnes exportables"
-    expression: "Expression" #?
+    expression: "Expression"
     extension: "Extension" #?
     external: "Externe à l'exploitation"
     # failed_attempts: "Failed attempts"
@@ -1014,6 +1015,7 @@ fra:
     printed_at: "Imprimé le" #?
     printed_on: "Datée du"
     priority: "Priorité"
+    # procedure: "Procedure"
     procedures: "Procédures"
     process: "Process"
     producer: "Producteur"
@@ -1162,7 +1164,6 @@ fra:
     stopped_on: "Arrêté le"
     storable: "Gérer les stocks"
     story: "Historique"
-    # string: "String"
     string_value: "Valeur textuelle"
     subdir: "Sous-répertoire" #?
     subdivision: "Position Y" #?
@@ -1240,6 +1241,7 @@ fra:
     uses: "Matériels utilisés"
     value: "Valeur"
     value_format: "Format de la valeur monétaire" #?
+    # variables: "Variables"
     variety: "Variété"
     vat_number: "Numéro de TVA intra-communautaire"
     vat_subjected: "Vat subjected"

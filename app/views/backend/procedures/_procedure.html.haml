@@ -1,0 +1,7 @@
+.procedure{:class => procedure.state}
+  .detail
+    %h3=procedure.name
+  -if procedure.operations.count > 0
+    .operations=render 'operation', :collection => procedure.operations
+  -if procedure.children.count > 0
+    .sub-procedures=render 'procedure', :collection => procedure.children

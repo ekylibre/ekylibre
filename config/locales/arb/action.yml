@@ -335,7 +335,10 @@ arb:
       # picture: "Visuel"
       # show: "Matière\_: %{name}"
     backend/meeting_natures: #?
-    backend/meetings: #?
+    backend/meetings:
+      # edit: "Modifier un évènement"
+      # index: "Evènements"
+      # new: "Nouvel évènement"
     backend/myselves:
       # change_password: "Changer de mot de passe"
       # show: "Mes informations"
@@ -1231,6 +1234,7 @@ arb:
     # measure_options: "Indicateur de type mesure"
     # medical_informations: "Informations médicales"
     meeting: "المقابلة(X)مكان"
+    # meetings: "Evenements"
     menu:  #?
       accountancy_tasks: "أعمال المحاسبة" #?
       bank_statements: "بيانات الحساب" #?
