@@ -46,7 +46,7 @@ class EnhanceOperations < ActiveRecord::Migration
       t.references :activity, :null => false
       t.references :campaign, :null => false
       t.string :nomen,   :null => false
-      t.string :version, :null => false
+      t.string :version
       t.string :state,   :null => false, :default => "undone"
       t.stamps
     end
@@ -55,7 +55,7 @@ class EnhanceOperations < ActiveRecord::Migration
     add_index :procedures, :activity_id
     add_index :procedures, :campaign_id
     add_index :procedures, :incident_id
-    add_index :procedures, [:nomen, :version]
+    add_index :procedures, :nomen
 
     create_table :procedure_variables do |t|
       # t.references :nature, :null => false

@@ -11,6 +11,7 @@ require 'exchanges'
 require 'activerecord'
 require 'ekylibre'
 require 'nomenclatures'
+require 'procedures'
 require 'reporting'
 require 'xml-enumerize'
 

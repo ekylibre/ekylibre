@@ -3,8 +3,15 @@ class Backend::ProceduresController < BackendController
 
   unroll_all
 
-  list do |t|
-    t.column :name, :url => true
+  list :conditions => {:parent_id => nil} do |t|
+    t.column :nomen, :url => true
+    t.column :name, :through => :activity, :url => true
+    t.column :name, :through => :campaign, :url => true
+    t.column :name, :through => :incident, :url => true
+    t.column :state
+    t.column :variables_names
+    t.action :run
+    t.action :destroy, :if => :destroyable?
   end
 
   # Displays the main page with the list of procedures

@@ -32,14 +32,37 @@
 #  state        :string(255)      default("undone"), not null
 #  updated_at   :datetime         not null
 #  updater_id   :integer
-#  version      :string(255)      not null
+#  version      :string(255)
 #
 class Procedure < Ekylibre::Record::Base
-  belongs_to :incident, :class_name => "Incident"
+  attr_accessible :nomen, :activity_id, :campaign_id
+  attr_readonly :nomen, :activity_id, :campaign_id
+  belongs_to :activity
+  belongs_to :campaign
+  belongs_to :incident
+  has_many :variables, :class_name => "ProcedureVariable", :inverse_of => :procedure
+  enumerize :nomen, :in => Procedures.names
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :nomen, :state, :version, :allow_nil => true, :maximum => 255
-  validates_presence_of :nomen, :state, :version
+  validates_presence_of :activity, :campaign, :nomen, :state
   #]VALIDATORS]
-  # belongs_to :nature, :class_name => "ProcedureNature"
+  scope :roots, -> { where(:parent_id => nil) }
+  validates_inclusion_of :nomen, :in => self.nomen.values
+  validates_presence_of :version
+
+  before_validation(:on => :create) do
+    if self.reference
+      self.version = self.reference.version
+    end
+  end
+
+  def reference
+    Procedures[self.nomen]
+  end
+
+  # Returns variable names
+  def variables_names
+    self.variables.map(&:name).sort.to_sentence
+  end
 
 end

@@ -1435,7 +1435,7 @@ ActiveRecord::Schema.define(:version => 20130513165730) do
     t.integer  "activity_id",                        :null => false
     t.integer  "campaign_id",                        :null => false
     t.string   "nomen",                              :null => false
-    t.string   "version",                            :null => false
+    t.string   "version"
     t.string   "state",        :default => "undone", :null => false
     t.datetime "created_at",                         :null => false
     t.datetime "updated_at",                         :null => false
@@ -1449,7 +1449,7 @@ ActiveRecord::Schema.define(:version => 20130513165730) do
   add_index "procedures", ["created_at"], :name => "index_procedures_on_created_at"
   add_index "procedures", ["creator_id"], :name => "index_procedures_on_creator_id"
   add_index "procedures", ["incident_id"], :name => "index_procedures_on_incident_id"
-  add_index "procedures", ["nomen", "version"], :name => "index_procedures_on_nomen_and_version"
+  add_index "procedures", ["nomen"], :name => "index_procedures_on_nomen"
   add_index "procedures", ["parent_id"], :name => "index_procedures_on_parent_id"
   add_index "procedures", ["updated_at"], :name => "index_procedures_on_updated_at"
   add_index "procedures", ["updater_id"], :name => "index_procedures_on_updater_id"
