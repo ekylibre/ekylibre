@@ -1,4 +1,3 @@
--# TODO: Manage extra content in forms ?
 =purchase_steps
 
 =field_set do
@@ -10,4 +9,26 @@
   =f.referenced_association :responsible, :source => :employees, :new => {:employed => 1}
   =f.input :description
 
-
+=field_set :items do
+  %table
+    %thead
+      %tr
+        %th=PurchaseItem.human_attribute_name(:product)
+        %th=PurchaseItem.human_attribute_name(:quantity)
+        %th=PurchaseItem.human_attribute_name(:price) # Custom price
+        %th=PurchaseItem.human_attribute_name(:tax) # Custom price
+        %th=PurchaseItem.human_attribute_name(:pretax_amount)
+        %th=PurchaseItem.human_attribute_name(:amount)
+        %th=PurchaseItem.human_attribute_name(:currency)
+        %th
+    %tbody#items
+      =f.simple_fields_for :items, @purchase.items do |item|
+        =render 'item_fields', :f => item
+    %tfoot
+      %tr.total
+        %td=link_to_add_association "add_item".tl, f, :items, :partial => 'item_fields', 'data-association-insertion-node' => '#items', 'data-association-insertion-method' => :append, :class => "btn"
+        %th{:colspan => 3}="total".tl
+        %td#pta.decimal{'data-use' => '.pta', 'data-calculate' => 'sum'}=@purchase.pretax_amount
+        %td#wta.decimal{'data-use' => '.wta', 'data-calculate' => 'sum'}=@purchase.amount
+        %td=@purchase.currency
+        %th

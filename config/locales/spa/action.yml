@@ -32,6 +32,8 @@ spa:
       # new: "Nouvelle répartition analytique"
       # show: "Répartition %{id}"
     backend/activity_watchings: #?
+    backend/affairs:
+      # select: "Ajouter une transaction"
     backend/animal_groups:
       # edit: "Modifier le groupe d'animaux\_: %{name}"
       # index: "Groupes d'animaux"
@@ -727,6 +729,7 @@ spa:
     # add_diagnostic: "Ajouter un diagnostic"
     # add_email: "Ajouter une adresse e-mail"
     # add_fax: "Ajouter un n° de fax"
+    # add_item: "Ajouter un élément"
     # add_mail: "Ajouter une adresse postale"
     # add_mobile: "Ajouter un n° de portable"
     # add_new_record: "Ajouter un nouveau enregistrement"
@@ -742,6 +745,7 @@ spa:
     # add_x: "Ajouter «\_%{x}\_»"
     # add_x_html: "Ajouter «\_%{x}\_»"
     # address: "Adresse"
+    # affair: "Affaire"
     # all: "Tous"
     # all_accounts: "Tous les comptes"
     # all_areas: "— Toutes les zones postales —"
@@ -778,6 +782,7 @@ spa:
     assimilated_tax: "Tarifas asimiladas calculadas sobre anexo n°3310A"
     # attach_an_incoming_payment_to_expense: "Rattacher un encaissement\_: %{type} N°%{number}"
     # attach_an_outgoing_payment_to_expense: "Rattacher un décaissement\_: %{type} N°%{number}"
+    # attach_deal: "Ajouter une transaction"
     attachment: "Pieza juntada"
     # attorney: "Informations mandataire"
     available_columns: "Campos disponibles : %{columns}"
@@ -1044,6 +1049,7 @@ spa:
     # invoiced_amount: "Montant facturé"
     # invoices_only: "Utiliser seulement les factures"
     # is: "Est"
+    # items: "Éléments"
     journal: "Periodico"
     journal_detail: "Cerrado al %{fecha de cerrado}"
     journal_entries: "Escrituras"

@@ -173,6 +173,10 @@ a.btn, button {
   }
 }
 
+.btn-group {
+  @include button-group;
+}
+
 @mixin button-toolbar($group: ".btn-group") {
 }
 

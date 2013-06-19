@@ -265,7 +265,7 @@ class BackendController < BaseController
         response.headers["X-Return-Code"] = "success"
         response.headers["X-Saved-Record-Id"] = record.id.to_s
         if params[:dialog]
-          head :success
+          head :ok
         else
           # TODO: notify if success
           if url == :back

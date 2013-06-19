@@ -48,7 +48,7 @@
 
 
 class Purchase < Ekylibre::Record::Base
-  attr_accessible :description, :delivery_address_id, :nature_id, :planned_on, :reference_number, :responsible_id, :supplier_id, :created_on, :currency, :state
+  attr_accessible :description, :delivery_address_id, :items_attributes, :nature_id, :planned_on, :reference_number, :responsible_id, :supplier_id, :created_on, :currency, :state
   attr_readonly :currency
   belongs_to :delivery_address, :class_name => "EntityAddress"
   belongs_to :journal_entry
@@ -58,7 +58,7 @@ class Purchase < Ekylibre::Record::Base
   belongs_to :responsible, :class_name => "User"
   has_many :deliveries, :class_name => "IncomingDelivery"
   has_many :documents, :as => :owner
-  has_many :items, :class_name => "PurchaseItem", :foreign_key => :purchase_id
+  has_many :items, :class_name => "PurchaseItem", :foreign_key => :purchase_id, :inverse_of => :purchase
   has_many :journal_entries, :as => :resource
   has_many :products, :through => :items, :uniq => true
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
@@ -73,6 +73,7 @@ class Purchase < Ekylibre::Record::Base
 
   acts_as_numbered
   acts_as_affairable :third => :supplier
+  accepts_nested_attributes_for :items
   after_create {|r| r.supplier.add_event(:purchase, r.updater_id)}
   state_machine :state, :initial => :draft do
     state :draft

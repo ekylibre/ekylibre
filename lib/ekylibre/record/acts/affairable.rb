@@ -41,6 +41,7 @@ module Ekylibre::Record
           code << "      errors.add(:#{affair_id}, :invalid_currency, :got => self.#{currency}, :expected => self.#{affair}.currency)\n"
           code << "    end\n"
           code << "  end\n"
+          code << "  return true\n"
           code << "end\n"
 
           # Create "empty" affair if missing before every save
@@ -51,13 +52,16 @@ module Ekylibre::Record
           code << "    #{affair}.save!\n"
           code << "    self.#{affair_id} = #{affair}.id\n"
           code << "  end\n"
+          code << "  return true\n"
           code << "end\n"
 
           # Refresh after each save
           code << "after_save do\n"
           code << "  Affair.find(self.#{affair_id}).save!\n"
           code << "  Affair.clean_deads\n"
-          code << "  self.#{affair}.reload\n"
+          # code << "  self.#{affair}.reload\n"
+          # code << "  self.reload.#{affair}.reload\n"
+          code << "  return true\n"
           code << "end\n"
 
           # Return if deal is a debit for us

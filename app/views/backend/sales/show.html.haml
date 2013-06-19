@@ -42,7 +42,7 @@
           =render :partial => "backend/sale_items/row_form"
         =list :items do
           %tr.total
-            %th{:colspan => 7}=tc :total
+            %th{:colspan => 5}=tc :total
             %td=number_to_money(@sale.pretax_amount, @sale.currency)
             %td=number_to_money(@sale.amount, @sale.currency)
             %th{:colspan => 3}

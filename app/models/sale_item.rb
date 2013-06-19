@@ -92,10 +92,8 @@ class SaleItem < Ekylibre::Record::Base
     #   self.price = self.product.price(:listing => self.sale.client.sale_price_listing)
     # end
     if self.price_amount and self.tax # and not self.price
-      # raise "Yes"
       self.price = self.product.price(:pretax_amount => self.price_amount, :tax => self.tax, :listing => self.sale.client.sale_price_listing)
     else
-      # raise "No price_amount/tax given..."self.inspect
       self.price = self.product.price(:listing => self.sale.client.sale_price_listing)
     end
 
@@ -136,7 +134,7 @@ class SaleItem < Ekylibre::Record::Base
         self.pretax_amount = (self.price.pretax_amount * self.quantity).round(2)
         self.amount = (self.price.amount * self.quantity).round(2)
       end
-
+      self.price_amount ||= self.price.pretax_amount
       self.tax ||= self.price.tax
       return true
     end

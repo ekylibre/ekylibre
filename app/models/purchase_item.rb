@@ -29,11 +29,13 @@
 #  lock_version      :integer          default(0), not null
 #  position          :integer
 #  pretax_amount     :decimal(19, 4)   default(0.0), not null
+#  price_amount      :decimal(19, 4)   not null
 #  price_id          :integer          not null
 #  price_template_id :integer
 #  product_id        :integer          not null
 #  purchase_id       :integer          not null
 #  quantity          :decimal(19, 4)   default(1.0), not null
+#  tax_id            :integer          not null
 #  tracking_id       :integer
 #  tracking_serial   :string(255)
 #  unit              :string(255)
@@ -45,37 +47,45 @@
 
 class PurchaseItem < Ekylibre::Record::Base
   acts_as_list :scope => :purchase
-  attr_accessible :annotation, :price_id, :product_id, :quantity, :tracking_serial, :unit, :purchase_id
+  attr_accessible :annotation, :price_id, :product_id, :quantity, :tracking_serial, :price_amount, :purchase_id, :tax_id, :unit
   belongs_to :account
   belongs_to :building, :foreign_key => :warehouse_id
-  belongs_to :purchase
+  belongs_to :purchase, :inverse_of => :items
   belongs_to :price, :class_name => "ProductPrice"
   belongs_to :product
+  belongs_to :tax
   enumerize :unit, :in => Nomenclatures["units"].list
   has_many :delivery_items, :class_name => "IncomingDeliveryItem", :foreign_key => :purchase_item_id
 
   accepts_nested_attributes_for :price
-  delegate :purchased?, :draft?, :order?, :to => :purchase
+  delegate :purchased?, :draft?, :order?, :supplier, :to => :purchase
   delegate :currency, :to => :price
 
   acts_as_stockable :mode => :virtual, :direction => :in, :if => :purchased?
   sums :purchase, :items, :pretax_amount, :amount
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :amount, :pretax_amount, :quantity, :allow_nil => true
+  validates_numericality_of :amount, :pretax_amount, :price_amount, :quantity, :allow_nil => true
   validates_length_of :tracking_serial, :unit, :allow_nil => true, :maximum => 255
-  validates_presence_of :account, :amount, :pretax_amount, :price, :product, :purchase, :quantity
+  validates_presence_of :account, :amount, :pretax_amount, :price, :price_amount, :product, :purchase, :quantity, :tax
   #]VALIDATORS]
   # validates_presence_of :pretax_amount, :price # Already defined in auto-validators
-  validates_uniqueness_of :tracking_serial, :scope => :price_id, :allow_nil => true, :if => Proc.new{|pl| !pl.tracking_serial.blank? }
+  validates_uniqueness_of :tracking_serial, :scope => :price_id, :allow_nil => true, :if => Proc.new{|pl| !pl.tracking_serial.blank? }, :allow_blank => true
 
 
   before_validation do
     check_reservoir = true
-    #self.building_id = Building.first.id if Building.count == 1
-    if not self.price and self.product and self.purchase
-      self.price = self.product.price(:supplier => self.purchase.supplier)
+    # self.building_id = Building.first.id if Building.count == 1
+
+    # if not self.price and self.product and self.purchase
+    #   self.price = self.product.price(:supplier => self.purchase.supplier)
+    # end
+    if self.price_amount and self.tax # and not self.price
+      self.price = self.product.price(:pretax_amount => self.price_amount, :tax => self.tax, :supplier => self.supplier)
+    else
+      self.price = self.product.price(:supplier => self.supplier)
     end
+
     if self.price
       product_nature = self.price.product_nature
       if product_nature.charge_account.nil?
@@ -87,6 +97,8 @@ class PurchaseItem < Ekylibre::Record::Base
       # self.product_id = self.price.product_nature_id
       self.pretax_amount = (self.price.pretax_amount*self.quantity).round(2)
       self.amount = (self.price.amount*self.quantity).round(2)
+      self.price_amount ||= self.price.pretax_amount
+      self.tax ||= self.price.tax
     end
     # @TODO : to change dixit Burisu
     #if self.building

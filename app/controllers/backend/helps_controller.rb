@@ -25,7 +25,7 @@ class Backend::HelpsController < BackendController
     collapsed = !params[:collapsed].to_i.zero?
     p = current_user.preference("interface.helps.collapsed", false, :boolean)
     p.set!(collapsed)
-    render :text => "" # head :success
+    head :ok
   end
 
   def show

@@ -12,6 +12,6 @@
     =f.select(:tax_id, Tax.all.collect{|t| [t.name, t.id, {'data-rate' => (100.0 + t.amount).to_f/100.0}]}, {}, 'data-value' => 'rate', :class => "item-wta")
   %td.decimal.pta{'data-use' => ".item-pta", 'data-use-closest' => 'tr', 'data-calculate' => 'mul'}=item.pretax_amount
   %td.decimal.wta{'data-use' => ".item-wta", 'data-use-closest' => 'tr', 'data-calculate' => 'mul'}=item.amount
-  %td.currency=@sale.currency
+  %td.currency=item.purchase.currency
   %td.action
     =link_to_remove_association(content_tag(:i) + h(:destroy.tl), f, 'data-no-turbolink' => true, :class => 'remove-item')

@@ -15,9 +15,9 @@ $experimental-support-for-svg: true;
 
 $symbiols: $icons;
 
-$fs-ratio: 1.4; // 1.618;
+$fs-ratio: 1.2; // 1.618;
 $fs-normal: 14px;
-$fs-small:      ceil($fs-normal * 0.846);
+$fs-small:      ceil($fs-normal / $fs-ratio);
 $fs-large:     round($fs-ratio*$fs-normal);
 $fs-huge:      round($fs-ratio*$fs-large);
 $fs-very-huge: round($fs-ratio*$fs-huge);

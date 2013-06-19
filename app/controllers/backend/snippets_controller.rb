@@ -28,7 +28,7 @@ class Backend::SnippetsController < BackendController
     else
       p = current_user.preference("interface.snippets.#{snippet}.collapsed", false, :boolean)
       p.set!(collapsed)
-      render :text => "" # head :success
+      head :ok
     end
   end
 
