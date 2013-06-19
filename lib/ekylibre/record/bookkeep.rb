@@ -41,8 +41,8 @@ module Ekylibre::Record  #:nodoc:
           journal_entry = JournalEntry.find_by_id(@resource.send(column)) rescue nil
 
           # Cancel the existing journal_entry
-          if journal_entry and journal_entry.draft? and condition and (attributes[:journal].id == journal_entry.journal_id)
-            journal_entry.lines.destroy_all
+          if journal_entry and journal_entry.draft? and condition and (attributes[:journal_id] == journal_entry.journal_id)
+            journal_entry.items.destroy_all
             journal_entry.reload
             journal_entry.update_attributes!(attributes)
           elsif journal_entry
@@ -50,7 +50,7 @@ module Ekylibre::Record  #:nodoc:
             journal_entry = nil
           end
 
-          # Add journal lines
+          # Add journal items
           if block_given? and condition and @action != :destroy
             journal_entry ||= JournalEntry.create!(attributes)
             yield(journal_entry)

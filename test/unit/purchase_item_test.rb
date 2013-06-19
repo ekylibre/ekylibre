@@ -29,11 +29,13 @@
 #  lock_version      :integer          default(0), not null
 #  position          :integer
 #  pretax_amount     :decimal(19, 4)   default(0.0), not null
+#  price_amount      :decimal(19, 4)   not null
 #  price_id          :integer          not null
 #  price_template_id :integer
 #  product_id        :integer          not null
 #  purchase_id       :integer          not null
 #  quantity          :decimal(19, 4)   default(1.0), not null
+#  tax_id            :integer          not null
 #  tracking_id       :integer
 #  tracking_serial   :string(255)
 #  unit              :string(255)

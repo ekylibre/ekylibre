@@ -2,7 +2,8 @@
   -for mode in IncomingPaymentMode.depositers
     -count=mode.depositable_payments.count
     -if count > 0
-      -t.link(tc(:new_deposit, :count=>count, :mode=>mode.name), {:action=>:new, :mode_id=>mode.id})
+      -#t.link(tc(:new_deposit, :count=>count, :mode=>mode.name), {:action=>:new, :mode_id=>mode.id})
+      -t.new_deposit :params => {:action=>:new, :mode_id=>mode.id}, :count => count, :mode => mode.name
 =list
 
 

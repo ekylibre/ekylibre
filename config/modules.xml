@@ -221,6 +221,12 @@
         <page to="backend/deposits#unvalidateds"/>
         <page to="backend/deposits#update"/>
       </item>
+      <item name="affairs">
+        <page to="backend/affairs#index"/>
+        <page to="backend/affairs#attach"/>
+        <page to="backend/affairs#detach"/>
+        <page to="backend/affairs#select"/>
+      </item>
     </group>
   </module>
   <module name="sales" icon="bar-chart">
@@ -933,6 +939,9 @@
         <page to="backend/activity_watchings#new"/>
         <page to="backend/activity_watchings#show"/>
         <page to="backend/activity_watchings#update"/>
+      </item>
+      <item name="affairs">
+        <page to="backend/affairs#list"/>
       </item>
       <item name="animals">
         <page to="backend/animals#list_incident"/>

@@ -81,6 +81,13 @@ table {
       }
     }
   }
+  tr.total {
+    td, th {
+      font-size: $fs-large;
+      line-height: $lh-large;
+      min-height: $lh-large;
+    }
+  }
 }
 
 
@@ -1451,6 +1458,14 @@ input[data-date], input[data-datepicker] {
     }
   }
 }
+.remove-item {
+  font-size: 0;
+  i {
+    @include is-icon;
+    @include use-icon(remove);
+  }
+}
+
 .links {
   margin-bottom: $fs-normal;
   .nested-add {
@@ -1487,16 +1502,30 @@ input[data-date], input[data-datepicker] {
           font-weight: bold;
         }
       }
-    }
-    tfoot.total {
-      &, & * {
-        @include text-align(right);
-        font-weight: bold;
-        background: none;
+      .act {
+        text-align: center;
+        width: 3ex;
+        .remove {
+          font-size: 0;
+          i {
+            @include is-icon;
+            @include use-icon(remove);
+          }
+        }
       }
-      .sum {
-        border-top: 1px solid #777;
+      td, th {
+        &.total {
+          &, & * {
+            @include text-align(right);
+            font-weight: bold;
+            background: none;
+          }
+        }
+        &.sum {
+          border-top: 1px solid #777;
+        }
       }
+
     }
   }
 

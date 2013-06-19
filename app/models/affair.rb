@@ -46,7 +46,8 @@
 # Transfer        |         |    X    |
 #
 class Affair < Ekylibre::Record::Base
-  AFFAIRABLE_TYPES = ["Sale", "Purchase", "IncomingPayment", "OutgoingPayment", "Transfer"]
+  AFFAIRABLE_TYPES = ["Sale", "Purchase", "IncomingPayment", "OutgoingPayment", "Transfer"].freeze
+  AFFAIRABLE_MODELS = AFFAIRABLE_TYPES.map(&:underscore).freeze
   belongs_to :journal_entry
   has_many :sales, :inverse_of => :affair, :dependent => :nullify
   has_many :purchases, :inverse_of => :affair, :dependent => :nullify
@@ -105,7 +106,7 @@ class Affair < Ekylibre::Record::Base
   def self.clean_deads
     self.where("journal_entry_id NOT IN (SELECT id FROM #{connection.quote_table_name(:journal_entries)})" + AFFAIRABLE_TYPES.collect do |type|
                  model = type.constantize
-                 "AND id NOT IN (SELECT #{model.reflections[model.affairable_options[:reflection]].foreign_key} FROM #{connection.quote_table_name(model.table_name)})"
+                 " AND id NOT IN (SELECT #{model.reflections[model.affairable_options[:reflection]].foreign_key} FROM #{connection.quote_table_name(model.table_name)})"
                end.join).delete_all
   end
 
@@ -117,12 +118,21 @@ class Affair < Ekylibre::Record::Base
 
   # Adds a deal in the affair
   # Checks if possible and updates amounts
-  def add(deal)
+  def attach(deal)
     if deal.currency != self.currency
       raise ArgumentError.new("The deal currency (#{deal.currency}) is different of the affair currency(#{self.currency})")
     end
     deal.affair = self
     deal.save!
+    return self.reload
+  end
+
+  # Removes a deal from the affair
+  # Checks if possible and updates amounts
+  def detach(deal)
+    deal.affair = nil
+    deal.save!
+    self.save!
     return self.reload
   end
 

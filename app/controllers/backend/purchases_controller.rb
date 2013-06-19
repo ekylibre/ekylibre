@@ -18,7 +18,7 @@
 #
 
 class Backend::PurchasesController < BackendController
-  manage_restfully :supplier_id => "params[:supplier_id]", :planned_on => "Date.today+2", :redirect_to => '{:action => :show, :step => :products, :id => "id"}'
+  manage_restfully :planned_on => "Date.today+2", :redirect_to => '{:action => :show, :step => :products, :id => "id"}'
 
   unroll_all
 

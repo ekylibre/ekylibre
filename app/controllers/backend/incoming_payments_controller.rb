@@ -18,7 +18,7 @@
 #
 
 class Backend::IncomingPaymentsController < BackendController
-  manage_restfully :to_bank_on => "Date.today", :paid_on => "Date.today", :responsible_id => "current_user.id", :payer_id => "(Entity.find(params[:payer_id]).id rescue 0)", :amount => "params[:amount].to_f"
+  manage_restfully :to_bank_on => "Date.today", :paid_on => "Date.today", :responsible_id => "current_user.id"
 
   unroll_all
 
