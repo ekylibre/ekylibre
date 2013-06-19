@@ -129,9 +129,22 @@ namespace :db do
       # h ||= ProductVariety.create!(:name => "Bovin", :code => "cattle", :product_type => "Animal", :parent_id => (p ? p.id : nil))
       # v = ProductVariety.find_by_code("normande")
       # v ||= ProductVariety.create!(:name => "Normande", :code => "normande", :product_type => "Animal", :parent_id => (h ? h.id : nil))
+      
+      # add default product_nature for animals
+           
       cow_unit = "head"
       cow_product_account = Account.find_in_chart(:adult_animal_product)
       cow_stock_account = Account.find_in_chart(:long_time_animal_stock)
+      
+      for attributes in [{:name => "Vache Laitière",:number => "VACHE_LAITIERE", :description => "Vache Laitière"},
+                         {:name => "Génisse Laitière",:number => "GENISSE", :description => "Génisse Laitière"},
+                         {:name => "Taurillon",:number => "TAURILLON", :description => "Taurillon"},
+                         {:name => "Veau",:number => "VEAU", :description => "Veau laitier 8-15j"}
+                        ]
+        unless ProductNature.find_by_number(attributes[:number])
+        ProductNature.create!({:unit => cow_unit, :category_id => category.id, :atomic => true, :product_account_id => cow_product_account.id, :variety => "bos", :storable => true, :stock_account_id => cow_stock_account.id, :saleable => true}.merge(attributes) )
+      end
+      
       # add default variety for building
       # b = ProductVariety.find_by_code("animal_house")
       # q = ProductVariety.find_by_code("building")
@@ -140,31 +153,82 @@ namespace :db do
       category = ProductNatureCategory.first
       category ||= ProductNatureCategory.create!(:name => "Défaut")
       # create default product_nature to create animal
-      cow = ProductNature.find_by_number("CATTLE")
-      cow ||= ProductNature.create!(:name => "vache", :number => "CATTLE", :storable => true, :stock_account_id => cow_stock_account.id, :saleable => true, :atomic => true, :product_account_id => cow_product_account.id, :variety => "bos", :unit => cow_unit, :category_id => category.id)
+      
       # create default product_nature_indicator for cow (like in XML nomenclature)
+      cow_vl = ProductNature.find_by_number("VACHE_LAITIERE")
       for a in ["weight", "animal_life_state", "mammalia_reproduction_event_abortion", "mammalia_reproduction_method_embryo_transplant", "mammalia_born_cycle", "mammalia_reproduction_state", "mammalia_twins_condition", "mammalia_lactation_state", "animal_disease_state"]
-        product_nature_indicator = ProductNatureIndicator.where(:nature => a, :product_nature_id => cow.id ).first
-        product_nature_indicator ||= ProductNatureIndicator.create!(:product_nature_id => cow.id, :nature => a)
+        product_nature_indicator = ProductNatureIndicator.where(:nature => a, :product_nature_id => cow_vl.id ).first
+        product_nature_indicator ||= ProductNatureIndicator.create!(:product_nature_id => cow_vl.id, :nature => a)
+      end
+      
+      cow_gen = ProductNature.find_by_number("GENISSE")
+      for a in ["weight", "animal_life_state", "mammalia_reproduction_event_abortion", "mammalia_reproduction_method_embryo_transplant", "mammalia_born_cycle", "mammalia_reproduction_state", "mammalia_twins_condition", "mammalia_lactation_state", "animal_disease_state"]
+        product_nature_indicator = ProductNatureIndicator.where(:nature => a, :product_nature_id => cow_gen.id ).first
+        product_nature_indicator ||= ProductNatureIndicator.create!(:product_nature_id => cow_gen.id, :nature => a)
+      end
+      
+      cow_taur = ProductNature.find_by_number("TAURILLON")
+      for a in ["weight", "animal_life_state", "animal_disease_state"]
+        product_nature_indicator = ProductNatureIndicator.where(:nature => a, :product_nature_id => cow_taur.id ).first
+        product_nature_indicator ||= ProductNatureIndicator.create!(:product_nature_id => cow_taur.id, :nature => a)
+      end
+      
+       cow_v = ProductNature.find_by_number("VEAU")
+      for a in ["weight", "animal_life_state", "animal_disease_state", "mammalia_born_condition"]
+        product_nature_indicator = ProductNatureIndicator.where(:nature => a, :product_nature_id => cow_v1.id ).first
+        product_nature_indicator ||= ProductNatureIndicator.create!(:product_nature_id => cow_v1.id, :nature => a)
       end
 
+      
       # add default groups for animal
-      group1 = AnimalGroup.find_by_name("VL")
-      group1 ||= AnimalGroup.create!(:name => "VL", :active => true, :external => false, :reproductor => false, :reservoir => false, :description => "Vache Laitière", :nature_id => cow.id, :unit => cow_unit, :variety => "bos", :owner_id => Entity.of_company.id, :number => "VL")
-      group2 = AnimalGroup.find_by_name("GEN")
-      group2 ||= AnimalGroup.create!(:name => "GEN", :active => true, :external => false, :reproductor => false, :reservoir => false, :description => "Génisses", :nature_id => cow.id, :unit => cow_unit, :variety => "bos", :owner_id => Entity.of_company.id, :number => "GEN")
-      group3 = AnimalGroup.find_by_name("VEAU")
-      group3 ||= AnimalGroup.create!(:name => "VEAU", :active => true, :external => false, :reproductor => false, :reservoir => false, :description => "Veaux", :nature_id => cow.id, :unit => cow_unit, :variety => "bos", :owner_id => Entity.of_company.id, :number => "VEAU")
-      group4 = AnimalGroup.find_by_name("TAURILLON")
-      group4 ||= AnimalGroup.create!(:name => "TAURILLON", :active => true, :external => false, :reproductor => false, :reservoir => false, :description => "Taurillons", :nature_id => cow.id, :unit => cow_unit, :variety => "bos", :owner_id => Entity.of_company.id, :number => "TAURILLON")
+      
+      for attributes in [{:name => "Vaches Latières", :description => "Vaches Laitières", :number => "VL", :nature_id => cow_vl.id},
+                         {:name => "Génisses 3", :description => "Génisses 3", :number => "GEN_3", :nature_id => cow_gen.id},
+                         {:name => "Génisses 2", :description => "Génisses 2", :number => "GEN_2", :nature_id => cow_gen.id},
+                         {:name => "Génisses 1", :description => "Génisses 2", :number => "GEN_1", :nature_id => cow_gen.id},
+                         {:name => "Veaux Niche", :description => "Veaux en niche individuel", :number => "VEAU_NICHE", :nature_id => cow_v.id},
+                         {:name => "Veaux Poulailler 1", :description => "Veaux Poulailler 1", :number => "VEAU_1", :nature_id => cow_v.id},
+                         {:name => "Veaux Poulailler 2", :description => "Veaux Poulailler 2", :number => "VEAU_2", :nature_id => cow_v.id},
+                         {:name => "Taurillons case 7", :description => "Taurillon case 7 (côté Hangar)", :number => "TAUR_7", :nature_id => cow_taur.id},
+                         {:name => "Taurillons case 6", :description => "Taurillon case 6", :number => "TAUR_6", :nature_id => cow_taur.id},
+                         {:name => "Taurillons case 5", :description => "Taurillon case 5", :number => "TAUR_5", :nature_id => cow_taur.id},
+                         {:name => "Taurillons case 4", :description => "Taurillon case 4", :number => "TAUR_4", :nature_id => cow_taur.id},
+                         {:name => "Taurillons case 3", :description => "Taurillon case 3", :number => "TAUR_3", :nature_id => cow_taur.id},
+                         {:name => "Taurillons case 2", :description => "Taurillon case 2", :number => "TAUR_2", :nature_id => cow_taur.id},
+                         {:name => "Taurillons case 1", :description => "Taurillon case 1", :number => "TAUR_1", :nature_id => cow_taur.id}
+                        ]
+        unless AnimalGroup.find_by_number(attributes[:number])
+        AnimalGroup.create!({:active => true, :unit => cow_unit, :variety => "bos", :owner_id => Entity.of_company.id}.merge(attributes) )
+      end
+      
       # create default product_nature to place animal
-      place_nature = ProductNature.find_by_number("CATTLE_HOUSE")
-      place_nature ||= ProductNature.create!(:name => "Stabulation", :number => "CATTLE_HOUSE", :variety => "building", :unit => "unity", :category_id => category.id)
-
-      # create default product to place animal
-      place = Building.find_by_work_number("STABU_01")
-      place ||= Building.create!(:name => "Stabulation principale", :identification_number => "S0001", :work_number => "STABU_01", :born_at => Time.now, :reservoir => true, :unit => "unity", :content_nature_id => cow.id, :variety => "building", :nature_id => place_nature.id, :owner_id => Entity.of_company.id, :number => "STABU_01")
-
+      place_nature_animal = ProductNature.find_by_number("BATIMENT_ANIMAUX")
+      place_nature_animal ||= ProductNature.create!(:name => "Bâtiment accueillant des animaux", :number => "BATIMENT_ANIMAUX", :variety => "building", :unit => "unity", :category_id => category.id)
+                  
+      # create default building to place animal
+      
+      for attributes in [{:name => "Stabulation principale", :work_number => "STABULATION", :nature_id => place_nature_animal.id, :content_nature_id => cow_vl.id},
+                         {:name => "Batiment Taurillons Bois 7 cases", :work_number => "BAT_TAURILLON", :nature_id => place_nature_animal.id, :content_nature_id => cow_taur.id},
+                         {:name => "Batiment Bouquet en L Genisse", :work_number => "BAT_GEN", :nature_id => place_nature_animal.id, :content_nature_id => cow_gen.id},
+                         {:name => "Batiment Bois Nurserie 2 cases", :work_number => "BAT_BOIS_VEAU", :nature_id => place_nature_animal.id, :content_nature_id => cow_v.id},
+                         {:name => "Poulailler 1 (côté Jardin)", :work_number => "BAT_POULAILLER_1", :nature_id => place_nature_animal.id, :content_nature_id => cow_v.id},
+                         {:name => "Poulailler 2 (côté Forêt)", :work_number => "BAT_POULAILLER_2", :nature_id => place_nature_animal.id, :content_nature_id => cow_v.id}
+                        ]
+        unless Building.find_by_work_number(attributes[:work_number])
+        Building.create!({:owner_id => Entity.of_company.id, :variety => "building", :born_at => Time.now, :reservoir => true, :unit => "unity"}.merge(attributes) )
+      end      
+      
+      
+      # set finder for creating animal
+      place_v = Building.find_by_work_number("BAT_BOIS_VEAU")
+      group_v = AnimalGroup.find_by_number("VEAU_1")
+      place_gen = Building.find_by_work_number("BAT_GEN")
+      group_gen = AnimalGroup.find_by_number("GEN_1")
+      place_taur = Building.find_by_work_number("BAT_TAURILLON")
+      group_taur = AnimalGroup.find_by_number("TAUR_7")
+      place_vl = Building.find_by_work_number("STABULATION")
+      group_vl = AnimalGroup.find_by_number("VL")
+      
       arrival_causes = {"N" => :birth, "A" => :purchase, "P" => :housing, "" => :other }
       departure_causes = {"M" => :death, "B" => :sale, "" => :other, "C" => :consumption , "E" => :sale}
 
@@ -185,31 +249,86 @@ namespace :db do
                            :departure_cause => (departure_causes[row[9]] ||row[9]),
                            :departed_on => (row[10].blank? ? nil : Date.civil(*row[10].to_s.split(/\//).reverse.map(&:to_i)))
                            )
-        f = File.open(pictures.sample)
-        animal = Animal.create!(:name => r.name, :unit => cow_unit, :variety => "bos", :identification_number => r.identification_number, :work_number => r.work_number, :born_at => r.born_on, :sex => r.sex, :picture => f, :nature_id => cow.id, :owner_id => Entity.of_company.id, :reproductor => (r.sex == :male ? rand(2).zero? : false), :number => r.work_number)
-        f.close
-        # set default indicators
-        animal.indicator_data.create!(:indicator => "weight", :value => "689.50" ,:measure_unit => "kilogram" ,:measured_at => Time.now )
-        animal.indicator_data.create!(:indicator => "weight", :value => "589.50" ,:measure_unit => "kilogram" ,:measured_at => (Time.now - 6.months) )
-        animal.indicator_data.create!(:indicator => "weight", :value => "479.50" ,:measure_unit => "kilogram" ,:measured_at => (Time.now - 1.year) )
-        animal.indicator_data.create!(:indicator => "animal_disease_state", :value => "healthy" ,:measured_at => Time.now )
-        animal.indicator_data.create!(:indicator => "animal_disease_state", :value => "sick" ,:measured_at => (Time.now - 2.days) )
-        animal.indicator_data.create!(:indicator => "animal_disease_state", :value => "healthy" ,:measured_at => (Time.now - 3.days) )
-        # place the current animal in the default place (stabulation) with dates
-        ProductLocalization.create!(:container_id => place.id, :product_id => animal.id, :nature => :interior, :started_at => r.arrived_on, :stopped_at => r.departed_on, :arrival_cause => r.arrival_cause, :departure_cause => r.departure_cause)
-        # place the current animal in the default group with dates
-        # @TODO set correct group if sex M / F and age > 2 year
-        # group1 if sex = female and age > 3 years
-        # group2 if sex = female and age between 1 and 3 years
-        # group3 if  age < 3 month
-        # group4 if sex = male and age > 1 years
-        ProductMembership.create!(:member_id => animal.id, :group_id => group1.id, :started_at => r.arrived_on, :stopped_at => r.departed_on )
+        
+        
+        # case = VEAU
+        if r.born_on.between?((Time.now - 2.months),(Time.now))
+          f = File.open(pictures.sample)
+          animal = Animal.create!(:name => r.name, :unit => cow_unit, :variety => "bos", :identification_number => r.identification_number, :work_number => r.work_number, :born_at => r.born_on, :sex => r.sex, :picture => f, :nature_id => cow_v.id, :owner_id => Entity.of_company.id, :reproductor => false, :number => r.work_number)
+          f.close
+          # set default indicators
+          animal.indicator_data.create!(:indicator => "weight", :value => "55.45" ,:measure_unit => "kilogram" ,:measured_at => r.born_at )
+          animal.indicator_data.create!(:indicator => "weight", :value => "75.89" ,:measure_unit => "kilogram" ,:measured_at => (r.born_at + 2.months) )
+          animal.indicator_data.create!(:indicator => "weight", :value => "89.56" ,:measure_unit => "kilogram" ,:measured_at => (r.born_at + 4.months) )
+          animal.indicator_data.create!(:indicator => "animal_disease_state", :value => "healthy" ,:measured_at => Time.now )
+          animal.indicator_data.create!(:indicator => "animal_disease_state", :value => "sick" ,:measured_at => (Time.now - 2.days) )
+          animal.indicator_data.create!(:indicator => "animal_disease_state", :value => "healthy" ,:measured_at => (Time.now - 3.days) )
+          # place the current animal in the default group with born_at
+          ProductLocalization.create!(:container_id => place_v.id, :product_id => animal.id, :nature => :interior, :started_at => r.arrived_on, :stopped_at => r.departed_on, :arrival_cause => r.arrival_cause, :departure_cause => r.departure_cause)
+          ProductMembership.create!(:member_id => animal.id, :group_id => group_v.id, :started_at => r.arrived_on, :stopped_at => r.departed_on )
+        end
+        
+        # case = GENISSE
+        if r.born_on.between?((Time.now - 24.months),(Time.now - 2.months)) and r.sex == "female"
+          f = File.open(pictures.sample)
+          animal = Animal.create!(:name => r.name, :unit => cow_unit, :variety => "bos", :identification_number => r.identification_number, :work_number => r.work_number, :born_at => r.born_on, :sex => r.sex, :picture => f, :nature_id => cow_gen.id, :owner_id => Entity.of_company.id, :reproductor => true, :number => r.work_number)
+          f.close
+          # set default indicators
+          animal.indicator_data.create!(:indicator => "weight", :value => "55.45" ,:measure_unit => "kilogram" ,:measured_at => r.born_at )
+          animal.indicator_data.create!(:indicator => "weight", :value => "75.89" ,:measure_unit => "kilogram" ,:measured_at => (r.born_at + 2.months) )
+          animal.indicator_data.create!(:indicator => "weight", :value => "89.56" ,:measure_unit => "kilogram" ,:measured_at => (r.born_at + 4.months) )
+          animal.indicator_data.create!(:indicator => "weight", :value => "189.56" ,:measure_unit => "kilogram" ,:measured_at => (r.born_at + 12.months) )
+          animal.indicator_data.create!(:indicator => "animal_disease_state", :value => "healthy" ,:measured_at => Time.now )
+          animal.indicator_data.create!(:indicator => "animal_disease_state", :value => "sick" ,:measured_at => (Time.now - 2.days) )
+          animal.indicator_data.create!(:indicator => "animal_disease_state", :value => "healthy" ,:measured_at => (Time.now - 3.days) )
+          # place the current animal in the default group with born_at
+          ProductLocalization.create!(:container_id => place_gen.id, :product_id => animal.id, :nature => :interior, :started_at => r.arrived_on, :stopped_at => r.departed_on, :arrival_cause => r.arrival_cause, :departure_cause => r.departure_cause)
+          ProductMembership.create!(:member_id => animal.id, :group_id => group_gen.id, :started_at => r.arrived_on, :stopped_at => r.departed_on )
+        end
+        
+        # case = TAURILLON
+        if r.born_on.between?((Time.now - 24.months),(Time.now - 2.months)) and r.sex == "male"
+          f = File.open(pictures.sample)
+          animal = Animal.create!(:name => r.name, :unit => cow_unit, :variety => "bos", :identification_number => r.identification_number, :work_number => r.work_number, :born_at => r.born_on, :sex => r.sex, :picture => f, :nature_id => cow_taur.id, :owner_id => Entity.of_company.id, :reproductor => false, :number => r.work_number)
+          f.close
+          # set default indicators
+          animal.indicator_data.create!(:indicator => "weight", :value => "55.45" ,:measure_unit => "kilogram" ,:measured_at => r.born_at )
+          animal.indicator_data.create!(:indicator => "weight", :value => "75.89" ,:measure_unit => "kilogram" ,:measured_at => (r.born_at + 2.months) )
+          animal.indicator_data.create!(:indicator => "weight", :value => "89.56" ,:measure_unit => "kilogram" ,:measured_at => (r.born_at + 4.months) )
+          animal.indicator_data.create!(:indicator => "weight", :value => "189.56" ,:measure_unit => "kilogram" ,:measured_at => (r.born_at + 12.months) )
+          animal.indicator_data.create!(:indicator => "animal_disease_state", :value => "healthy" ,:measured_at => Time.now )
+          animal.indicator_data.create!(:indicator => "animal_disease_state", :value => "sick" ,:measured_at => (Time.now - 2.days) )
+          animal.indicator_data.create!(:indicator => "animal_disease_state", :value => "healthy" ,:measured_at => (Time.now - 3.days) )
+          # place the current animal in the default group with born_at
+          ProductLocalization.create!(:container_id => place_taur.id, :product_id => animal.id, :nature => :interior, :started_at => r.arrived_on, :stopped_at => r.departed_on, :arrival_cause => r.arrival_cause, :departure_cause => r.departure_cause)
+          ProductMembership.create!(:member_id => animal.id, :group_id => group_taur.id, :started_at => r.arrived_on, :stopped_at => r.departed_on )
+        end
+        
+        # case = VL
+        if r.born_on.between?((Time.now - 10.years),(Time.now - 24.months)) and r.sex == "female"
+          f = File.open(pictures.sample)
+          animal = Animal.create!(:name => r.name, :unit => cow_unit, :variety => "bos", :identification_number => r.identification_number, :work_number => r.work_number, :born_at => r.born_on, :sex => r.sex, :picture => f, :nature_id => cow_vl.id, :owner_id => Entity.of_company.id, :reproductor => true, :number => r.work_number)
+          f.close
+          # set default indicators
+          animal.indicator_data.create!(:indicator => "weight", :value => "55.45" ,:measure_unit => "kilogram" ,:measured_at => r.born_at )
+          animal.indicator_data.create!(:indicator => "weight", :value => "75.89" ,:measure_unit => "kilogram" ,:measured_at => (r.born_at + 2.months) )
+          animal.indicator_data.create!(:indicator => "weight", :value => "89.56" ,:measure_unit => "kilogram" ,:measured_at => (r.born_at + 4.months) )
+          animal.indicator_data.create!(:indicator => "weight", :value => "259.16" ,:measure_unit => "kilogram" ,:measured_at => (r.born_at + 12.months) )
+          animal.indicator_data.create!(:indicator => "weight", :value => "389.56" ,:measure_unit => "kilogram" ,:measured_at => (r.born_at + 24.months) )
+          animal.indicator_data.create!(:indicator => "animal_disease_state", :value => "healthy" ,:measured_at => Time.now )
+          animal.indicator_data.create!(:indicator => "animal_disease_state", :value => "sick" ,:measured_at => (Time.now - 2.days) )
+          animal.indicator_data.create!(:indicator => "animal_disease_state", :value => "healthy" ,:measured_at => (Time.now - 3.days) )
+          # place the current animal in the default group with born_at
+          ProductLocalization.create!(:container_id => place_vl.id, :product_id => animal.id, :nature => :interior, :started_at => r.arrived_on, :stopped_at => r.departed_on, :arrival_cause => r.arrival_cause, :departure_cause => r.departure_cause)
+          ProductMembership.create!(:member_id => animal.id, :group_id => group_vl.id, :started_at => r.arrived_on, :stopped_at => r.departed_on )
+        end       
+
         print "."
         break if Animal.count >= max
       end
 
       # Assign parents
-      Animal.where(:nature_id => cow.id).find_each do |animal|
+      Animal.find_each do |animal|
         animal.father = Animal.fathers.where("born_at <= ?", (animal.born_at - 45.months)).to_a.sample rescue nil
         animal.mother = Animal.mothers.where("born_at <= ?", (animal.born_at - 36.months)).to_a.sample rescue nil
         animal.save!
@@ -244,26 +363,46 @@ namespace :db do
       #############################################################################
       # Create variety for wheat product
       print "[#{(Time.now - start).round(2).to_s.rjust(8)}s] Sale: "
-      price_listing = ProductPriceListing.find_by_code("PARDEFAU")
-      wheat_category ||= ProductNatureCategory.create!(:name => "Produits régionaux")
-      # b = ProductVariety.find_by_code("matter")
-      # b ||= ProductVariety.create!(:name => "Matière vegetale", :code => "matter", :product_type => "Plant", :parent_id => (b ? b.id : nil))
-      # c = ProductVariety.find_by_code("caphorn")
-      # c ||= ProductVariety.create!(:name => "CAPHORN", :code => "caphorn", :product_type => "Plant", :parent_id => (b ? b.id : nil))
-      wheat_unit = "ton"
-      # Create product_nature for wheat product
+      price_listing = ProductPriceListing.find_by_code("STD")
+      wheat_category ||= ProductNatureCategory.create!(:name => "Produits végétaux")
+      grain_unit = "qt"
+      sole_unit = "hectare"
       wheat_charge_account = Account.find_by_number("601")
       wheat_product_account = Account.find_by_number("701")
       wheat_stock_account = Account.find_in_chart(:plant_derivative_stock)
-      wheat = ProductNature.find_by_number("BLE")
-      wheat ||= ProductNature.create!(:charge_account_id => wheat_charge_account.id, :product_account_id => wheat_product_account.id, :stock_account_id => wheat_stock_account.id, :name => "Blé", :number => "BLE", :saleable => true, :purchasable => true, :active => true, :storable => true, :variety => "plant", :derivative => "grains", :unit => wheat_unit, :category_id => wheat_category.id)
       wheat_price_template_tax = Tax.find_by_amount(5.5)
+      
+      # Create product_nature for plant product
+      for attributes in [{:atomic => false, :unit => grain_unit, :name => "Grain de Blé", :number => "GRAIN_BLE", :derivative => "grains", :saleable => true, :purchasable => true},
+                         {:atomic => false, :unit => grain_unit, :name => "Paille de Blé", :number => "PAILLE_BLE", :derivative => "stem", :saleable => true, :purchasable => true},
+                         {:atomic => true, :unit => sole_unit, :name => "Sole de Blé", :number => "SOLE_BLE"},
+                         {:atomic => false, :unit => grain_unit, :name => "Grain de Maïs", :number => "GRAIN_MAIS", :derivative => "grains", :saleable => true, :purchasable => true},
+                         {:atomic => true, :unit => sole_unit, :name => "Sole de Maïs", :number => "SOLE_MAIS"},
+                         {:atomic => false, :unit => grain_unit, :name => "Grain de Blé dur", :number => "GRAIN_BLE_DUR", :derivative => "grains", :saleable => true, :purchasable => true},
+                         {:atomic => false, :unit => grain_unit, :name => "Paille de Blé dur", :number => "PAILLE_BLE_DUR", :derivative => "stem", :saleable => true, :purchasable => true},
+                         {:atomic => true, :unit => sole_unit, :name => "Sole de Blé dur", :number => "SOLE_BLE_DUR"},
+                         {:atomic => false, :unit => grain_unit, :name => "Grain de Triticale", :number => "GRAIN_TRITICALE", :derivative => "grains", :saleable => true, :purchasable => true},
+                         {:atomic => false, :unit => grain_unit, :name => "Paille de Triticale", :number => "PAILLE_TRITICALE", :derivative => "stem", :saleable => true, :purchasable => true},
+                         {:atomic => true, :unit => sole_unit, :name => "Sole de Triticale", :number => "SOLE_TRITICALE"},
+                         {:atomic => false, :unit => grain_unit, :name => "Grain de Tournesol", :number => "GRAIN_TOURNESOL", :derivative => "grains", :saleable => true, :purchasable => true},
+                         {:atomic => true, :unit => sole_unit, :name => "Sole de Tournesol", :number => "SOLE_TOURNESOL"},
+                         {:atomic => true, :unit => sole_unit, :name => "Sole de Prairie", :number => "SOLE_PRAIRIE"},
+                         {:atomic => false, :unit => grain_unit, :name => "Herbe sur pied de Prairie", :number => "HERBE_PRAIRIE", :saleable => false, :purchasable => false},
+                         {:atomic => false, :unit => grain_unit, :name => "Foin de Prairie", :number => "FOIN_PRAIRIE", :saleable => true, :purchasable => true},
+                         {:atomic => false, :unit => grain_unit, :name => "Ensilage de Prairie", :number => "ENSILAGE_PRAIRIE", :saleable => false, :purchasable => false}
+                        ]
+        unless ProductNature.find_by_number(attributes[:number])
+        ProductNature.create!({:active => true, :category_id => wheat_category.id, :storable => true, :variety => "plant", :stock_account_id => wheat_stock_account.id, :charge_account_id => wheat_charge_account.id, :product_account_id => wheat_product_account.id,}.merge(attributes) )
+      end          
+      
       # Create product_nature_price for wheat product
-      wheat_price_template   = ProductPriceTemplate.find_by_product_nature_id(wheat.id)
-      wheat_price_template ||= ProductPriceTemplate.create!(:assignment_amount => 211, :currency => "EUR", :assignment_pretax_amount => 200, :product_nature_id => wheat.id, :tax_id => wheat_price_template_tax.id, :listing_id => price_listing.id, :supplier_id => Entity.of_company.id )
+      #wheat_price_template   = ProductPriceTemplate.find_by_product_nature_id(wheat.id)
+      #wheat_price_template ||= ProductPriceTemplate.create!(:assignment_amount => 211, :currency => "EUR", :assignment_pretax_amount => 200, :product_nature_id => wheat.id, :tax_id => wheat_price_template_tax.id, :listing_id => price_listing.id, :supplier_id => Entity.of_company.id )
       # Create wheat product
+      wheat = ProductNature.find_by_number("GRAIN_BLE")
+      
       ble = Plant.find_by_work_number("BLE_001")
-      ble = Plant.create!(:name => "Blé Cap Horn 2011", :variety => "plant", :unit => wheat_unit, :identification_number => "BLE_2011_07142011", :work_number => "BLE_2011", :born_at => "2011-07-14", :nature_id => wheat.id, :owner_id => Entity.of_company.id, :number => "BLE_2011") #
+      ble = Plant.create!(:name => "Blé Cap Horn 2011", :variety => "plant", :unit => grain_unit, :identification_number => "BLE_2011_07142011", :work_number => "BLE_2011", :born_at => "2011-07-14", :nature_id => wheat.id, :owner_id => Entity.of_company.id, :number => "BLE_2011") #
 
       # Sale nature
       sale_nature   = SaleNature.actives.first
@@ -437,12 +576,12 @@ namespace :db do
       product_nature_milk_category = ProductNatureCategory.find_by_name("Défaut")
       # variety_milk = ProductVariety.find_by_code("normande")
       # add a product_nature
-      product_nature   = ProductNature.find_by_name("lait_vache")
+      product_nature   = ProductNature.find_by_number("LAIT")
       product_nature ||= ProductNature.create!(:stock_account_id => stock_account_nature_milk.id, :product_account_id => sale_account_nature_milk.id, :name => "lait", :number => "LAIT", :saleable => true, :purchasable => false, :active => true, :storable => true, :variety => "bos", :derivative => "milk", :unit => milk_unit, :category_id => product_nature_milk_category.id)
 
       # create a generic product to link analysis_indicator
       product   = Matter.find_by_name("lait_vache")
-      product ||= Matter.create!(:name => "lait_vache", :identification_number => "lait_2010-2013", :work_number => "lait_2011_2013", :born_at => Time.now, :nature_id => product_nature.id, :owner_id => Entity.of_company.id, :number => "L2011-2013") #
+      product ||= Matter.create!(:name => "lait_vache", :identification_number => "MILK_FR_2010-2013", :work_number => "lait_2013", :born_at => Time.now, :nature_id => product_nature.id, :owner_id => Entity.of_company.id, :number => "L2011-2013") #
 
       # mention all unit for indicator relative to milk_analysis_quality
       # create all indicator relative to milk_analysis_quality if not exist
@@ -551,17 +690,15 @@ namespace :db do
         r = OpenStruct.new(:nomen => row[0],
                            :name => row[1].downcase.capitalize,
                            :family => (families[row[2]] || :none).to_s,
-                           :area_unit => "hectare",
-                           :work_unit => "unity",
                            :product_nature_name => row[5],
                            :nature => (natures[row[6]] || :none).to_s
                            )
         # Create an activity if not exist
         activity = Activity.find_by_nomen(r.nomen)
         activity ||= Activity.create!(:nature => r.nature, :description => "Import from reference", :family => r.family, :name => r.name, :nomen => r.nomen)
-
-        # TODO: Add Watchings
-        # activity.watchings.create!(:product_nature_id => ???, :work_unit_id => r.work_unit.id, :area_unit_id => r.area_unit.id)
+        product_nature = ProductNature.find_by_number(r.product_nature_name)
+        # Add Watchings
+        activity.watchings.create!(:product_nature_id => product_nature.id, :work_unit_id => r.work_unit.id, :area_unit_id => r.area_unit.id)
         print "."
       end
       puts "!"
