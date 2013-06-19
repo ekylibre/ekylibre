@@ -1015,7 +1015,7 @@ fra:
     printed_at: "Imprimé le" #?
     printed_on: "Datée du"
     priority: "Priorité"
-    # procedure: "Procedure"
+    procedure: "Procedure"
     procedures: "Procédures"
     process: "Process"
     producer: "Producteur"
@@ -1189,6 +1189,7 @@ fra:
     target: "Cible"
     target_quantity: "Quantité cible"
     target_type: "Type de cible"
+    # tasks: "Tasks"
     tax: "Taxe"
     tax_declarations: "Déclarations de taxes" #?
     taxes: "Taxes" #?
@@ -1215,6 +1216,7 @@ fra:
     transporters: "Transporteurs" #?
     transports: "Transports"
     type: "Type"
+    # uid: "Uid"
     # unconfirmed_email: "Unconfirmed email"
     undelivered_quantity: "Reste à livrer"
     unique_tracking: "Numéro unique"

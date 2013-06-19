@@ -365,7 +365,7 @@ fra:
       # edit: "Edit backend/procedure"
       index: "Procédures"
       # new: "New backend/procedure"
-      # run: "Run backend/procedure"
+      # play: "Play backend/procedure"
       # show: "Show backend/procedure"
     backend/product_groups:
       edit: "Modifier le lot\_: %{name} "

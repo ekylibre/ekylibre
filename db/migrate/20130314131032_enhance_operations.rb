@@ -47,6 +47,7 @@ class EnhanceOperations < ActiveRecord::Migration
       t.string :nomen,   :null => false
       t.string :version
       t.string :state,   :null => false, :default => "undone"
+      t.string :uid, :limit => 511
       t.references :parent
       t.integer :lft
       t.integer :rgt

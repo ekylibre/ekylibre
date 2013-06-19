@@ -1431,20 +1431,21 @@ ActiveRecord::Schema.define(:version => 20130513165730) do
 
   create_table "procedures", :force => true do |t|
     t.integer  "incident_id"
-    t.integer  "activity_id",                        :null => false
-    t.integer  "campaign_id",                        :null => false
-    t.string   "nomen",                              :null => false
+    t.integer  "activity_id",                                       :null => false
+    t.integer  "campaign_id",                                       :null => false
+    t.string   "nomen",                                             :null => false
     t.string   "version"
-    t.string   "state",        :default => "undone", :null => false
+    t.string   "state",                       :default => "undone", :null => false
+    t.string   "uid",          :limit => 511
     t.integer  "parent_id"
     t.integer  "lft"
     t.integer  "rgt"
     t.integer  "depth"
-    t.datetime "created_at",                         :null => false
-    t.datetime "updated_at",                         :null => false
+    t.datetime "created_at",                                        :null => false
+    t.datetime "updated_at",                                        :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version", :default => 0,        :null => false
+    t.integer  "lock_version",                :default => 0,        :null => false
   end
 
   add_index "procedures", ["activity_id"], :name => "index_procedures_on_activity_id"

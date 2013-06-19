@@ -6,7 +6,7 @@
     </variables>
     <sub-procedures>
       <!-- ######################################### LABOURER ########################################## -->
-      <sub-procedure name="calving_one" required="true" conditions="[mother_animal].indicator(mammalia_reproduction_state) == pregnancy">
+      <sub-procedure name="calving_one" id="100" required="true" conditions="[mother_animal].indicator(mammalia_reproduction_state) == pregnancy">
         <parameter name="mother_animal"/>
       </sub-procedure>
     </sub-procedures>
