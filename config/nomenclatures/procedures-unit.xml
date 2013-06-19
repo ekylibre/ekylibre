@@ -79,7 +79,7 @@
     </operations>        
   </procedure>
   <!-- ########################################## HERSER ######################################### -->
-  <procedure name="surperficial-plowing" natures="tillage" version="1" status="frozen">
+  <procedure name="surperficial_plowing" natures="tillage" version="1" status="frozen">
     <variables>
       <variable name="driver" variety="worker"/><!-- paramètre réprésentant des objets de type Humain qui possede la compétence "Conduire un ensemble tracteur + épandeur"  -->
       <variable name="tractor" variety="equipment" abilities="tow,catch"/><!-- paramètre réprésentant des objets qui possede la compétence "Tracter"  -->
@@ -311,7 +311,7 @@
 
 <!-- ######################################## VELAGE PRODUISANT DES JUMEAUX ########################################### -->
 
-<procedure name="calving_twice" natures="calving" version="1" status="frozen">
+<procedure name="calving_twin" natures="calving" version="1" status="frozen">
     <variables>
       <variable name="mother_animal" variety="bos" abilities="produce"/>
       <variable name="child_animal_first" variety="bos" new="mother=[mother_animal], father=?, quantity=1, unit=u, weight=?, mammalia_twins_condition=twins"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="animal_birth_std" version="1" status="frozen">
+  <procedure name="animal_birth" version="1" status="frozen">
     <variables>
       <variable name="mother_animal" variety="bos"/>
     </variables>
