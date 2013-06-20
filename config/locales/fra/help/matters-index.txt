@@ -4,7 +4,7 @@
 
 ==== Qu'est ce qu'une matière ? ====
 
-Une matière représente des produits non vivants pouvant être stockés et/ou utilisés dans des opérations de transformation
+Une matière représente un produits au sens large.
 
 >>> Ex 1 : Engrais, produits phytosanitaires
 

@@ -66,6 +66,7 @@
 class Plant < Bioproduct
   attr_accessible :unit, :variety, :nature_id, :reproductor, :external, :born_at, :dead_at, :description, :description, :identification_number, :name, :picture, :work_number
   # enumerize :sex, :in => [:male, :female]
+  enumerize :variety, :in => Nomenclatures["varieties-plant"].list, :predicates => {:prefix => true}
   # enumerize :arrival_reasons, :in => [:birth, :purchase, :housing, :other], :default=> :birth
   # enumerize :departure_reasons, :in => [:dead, :sale, :autoconsumption, :other], :default=> :sale
   # has_many :groups, :class_name => "ProductGroup", :through => :passages

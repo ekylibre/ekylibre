@@ -1,0 +1,9 @@
+====== Cultures ======
+
+Vous avez accès au récapitulatifs de toutes vos cultures que vous avez enregistrés.
+
+Les conduites de cultures s'effectuent via des procédures.
+
+!!! Une culture s'implante sur une parcelle ou un support de culture.
+
+

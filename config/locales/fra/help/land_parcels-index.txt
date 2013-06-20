@@ -1,4 +1,7 @@
-====== Îlots ======
+====== Parcelles ======
 
-Vous avez accès au récapitulatifs de tous les îlots, les parcelles que vous avez enregistrés.
+Vous avez accès au récapitulatifs de toutes les parcelles que vous avez enregistrés ou importés.
+
+!!! Une parcelle n'est pas une culture, ni un acte de propriété,ni un ilôt.
+!!! C'est la surface physique sur laquelle s'implante une culture.
 

@@ -27,7 +27,6 @@ class Backend::PlantsController < BackendController
   list do |t|
     t.column :name, :url => true
     t.column :born_at
-    t.action :show, :url => {:format => :pdf}, :image => :print
     t.action :edit
     t.action :destroy, :if => "RECORD.destroyable\?"
   end
@@ -37,7 +36,6 @@ class Backend::PlantsController < BackendController
   def index
     @vegetal = Plant.all
     #parsing a parameter to Jasper for company full name
-    @entity_full_name = Entity.of_company.full_name
     #respond with associated models to simplify quering in Ireport
     respond_with @vegetal
   end
