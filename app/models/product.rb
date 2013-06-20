@@ -76,6 +76,7 @@ class Product < Ekylibre::Record::Base
   # belongs_to :unit
   # belongs_to :area_unit, :class_name => "Unit"
   belongs_to :tracking
+  belongs_to :content_nature, :class_name => "ProductNature"
   belongs_to :father, :class_name => "Product"
   belongs_to :mother, :class_name => "Product"
   belongs_to :owner, :class_name => "Entity"
