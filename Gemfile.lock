@@ -92,10 +92,10 @@ GEM
     coffee-script-source (1.6.2)
     colored (1.2)
     colorize (0.5.8)
-    compass (0.12.2)
+    compass (0.13.alpha.4)
       chunky_png (~> 1.2)
-      fssm (>= 0.2.7)
-      sass (~> 3.1)
+      listen (<= 0.9.9)
+      sass (~> 3.2.5)
     compass-rails (1.0.3)
       compass (>= 0.12.2, < 0.14)
     coveralls (0.6.7)
@@ -146,7 +146,6 @@ GEM
       jquery-rails (>= 3)
       jquery-ui-rails (>= 4)
       rails (>= 3.2)
-    fssm (0.2.10)
     google_visualr (2.1.7)
     gorillib (0.1.11)
       json
@@ -175,6 +174,7 @@ GEM
       addressable (~> 2.3)
     libv8 (3.11.8.17)
     libxml-ruby (2.6.0)
+    listen (0.7.3)
     loofah (1.2.1)
       nokogiri (>= 1.4.4)
     mail (2.5.4)
@@ -375,6 +375,7 @@ DEPENDENCIES
   capybara-webkit
   cocoon
   coffee-rails (~> 3.2.1)
+  compass (~> 0.13.alpha.4)
   compass-rails
   coveralls (>= 0.6)
   database_cleaner

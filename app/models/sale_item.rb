@@ -55,7 +55,7 @@ class SaleItem < Ekylibre::Record::Base
   attr_readonly :sale_id
   belongs_to :account
   belongs_to :entity
-  belongs_to :sale
+  belongs_to :sale, :inverse_of => :items
   belongs_to :origin, :class_name => "SaleItem"
   belongs_to :price, :class_name => "ProductPrice"
   belongs_to :product
@@ -91,10 +91,11 @@ class SaleItem < Ekylibre::Record::Base
     # if not self.price and self.sale and self.product
     #   self.price = self.product.price(:listing => self.sale.client.sale_price_listing)
     # end
+    listing = (self.sale.nil? ? nil : self.sale.client.sale_price_listing)
     if self.price_amount and self.tax # and not self.price
-      self.price = self.product.price(:pretax_amount => self.price_amount, :tax => self.tax, :listing => self.sale.client.sale_price_listing)
+      self.price = self.product.price(:pretax_amount => self.price_amount, :tax => self.tax, :listing => listing)
     else
-      self.price = self.product.price(:listing => self.sale.client.sale_price_listing)
+      self.price = self.product.price(:listing => listing)
     end
 
     # self.product = self.price.product if self.price
@@ -159,7 +160,7 @@ class SaleItem < Ekylibre::Record::Base
 
     # return false if self.pretax_amount.zero? and self.amount.zero? and self.quantity.zero?
     errors.add(:quantity, :invalid) if self.quantity.zero?
-    if self.price
+    if self.price and self.sale
       errors.add(:price_id, :currency_is_not_sale_currency) if self.price.currency != self.sale.currency
       if self.product
         errors.add(:price_id, :invalid) unless self.price.product_nature_id == self.product.nature_id

@@ -2,3 +2,5 @@
   =f.input :nomen
   =f.referenced_association :activity
   =f.referenced_association :campaign
+-if @procedure.errors.count > 0
+  =@procedure.errors.messages.inspect

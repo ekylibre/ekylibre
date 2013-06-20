@@ -12,7 +12,7 @@
                   %i
                   ="activerecord.models.#{model}".t
         %th.total=:balance.tl
-        %td.total.amount.sum{:class => (affair.balance >= 0 ? "debit" : "credit")}=affair.balance.l(:currency => affair.currency)
+        %td.total.amount.sum{:class => (affair.balance == 0 ? "debit" : "credit")}=affair.balance.l(:currency => affair.currency)
         %td
     %tbody
       -for deal in affair.deals

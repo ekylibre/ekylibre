@@ -288,6 +288,32 @@ class Backend::SalesController < BackendController
     return if save_and_redirect(@sale, :url => {:action => :show, :step => :products, :id => "id"})
   end
 
+  def edit
+    return unless @sale = find_and_check(:sale)
+    unless @sale.draft?
+      notify_error(:sale_cannot_be_updated)
+      redirect_to :action => :show, :step => :products, :id => @sale.id
+      return
+    end
+    t3e @sale.attributes
+    # render_restfully_form
+  end
+
+  def update
+    return unless @sale = find_and_check(:sale)
+    unless @sale.draft?
+      notify_error(:sale_cannot_be_updated)
+      redirect_to :action => :show, :step => :products, :id => @sale.id
+      return
+    end
+    if @sale.update_attributes(params[:sale])
+      redirect_to :action => :show, :step => :products, :id => @sale.id
+      return
+    end
+    t3e @sale.attributes
+    # render_restfully_form
+  end
+
   def destroy
     return unless @sale = find_and_check(:sale)
     if request.post? or request.delete?
@@ -354,32 +380,6 @@ class Backend::SalesController < BackendController
       @sale.refuse
     end
     redirect_to :action => :show, :step => :products, :id => @sale.id
-  end
-
-  def edit
-    return unless @sale = find_and_check(:sale)
-    unless @sale.draft?
-      notify_error(:sale_cannot_be_updated)
-      redirect_to :action => :show, :step => :products, :id => @sale.id
-      return
-    end
-    t3e @sale.attributes
-    # render_restfully_form
-  end
-
-  def update
-    return unless @sale = find_and_check(:sale)
-    unless @sale.draft?
-      notify_error(:sale_cannot_be_updated)
-      redirect_to :action => :show, :step => :products, :id => @sale.id
-      return
-    end
-    if @sale.update_attributes(params[:sale])
-      redirect_to :action => :show, :step => :products, :id => @sale.id
-      return
-    end
-    t3e @sale.attributes
-    # render_restfully_form
   end
 
 

@@ -1,4 +1,41 @@
 eng:
+  enumerize:
+    entity:
+      nature:
+        # association: "Association"
+        # civil_society: "Société civile"
+        # collectivity: "Collectivité"
+        # company: "Société"
+        # doctor: "Docteur"
+        # economic_interest_group: "Groupement d'intérêt économique"
+        # entity: "Entité"
+        # foundation: "Fondation"
+        # legal_entity: "Personne morale"
+        # madam: "Madame"
+        # person: "Personne"
+        # professor: "Professeur"
+        # public_establisment: "Établissement public"
+        # public_interest_group: "Groupement d'intérêt public"
+        # sir: "Monsieur"
+        # syndicate: "Syndicat"
+    procedure:
+      nomen:
+        # animal_birth: "Naissance d'un animal"
+        # calving_one: "Vêlage unique"
+        # calving_twin: "Vêlage jumeaux"
+        # chemical_treatment: "Traitement chimique"
+        # mineral_fertilizing: "Fertilisation minérale"
+        # organic_fertilizing: "Fertilisation organique"
+        # plowing: "Labour"
+        # seed_harvest: "Moisson"
+        # sowing: "Semis"
+        # superficial_plowing: "Hersage"
+        # wheat_crop: "Culture de blé (standard)"
+    product:
+      unit:
+        # celsius: "celsius"
+        # square_meter: "mètre carré"
+        # unity: "unité"
   nomenclatures:
     abilities:
       items:
@@ -51,6 +88,24 @@ eng:
         # young_animal_charge: "Animaux reproducteurs (jeunes de renouvellement)"
         # young_animal_product: "Animaux reproducteurs (jeunes de renouvellement)"
       # name: "Code comptable"
+    entity_natures:
+      items:
+        # association: "Association"
+        # civil_society: "Société civile"
+        # collectivity: "Collectivité"
+        # company: "Société"
+        # doctor: "Docteur"
+        # economic_interest_group: "Groupement d'intérêt économique"
+        # entity: "Entité"
+        # foundation: "Fondation"
+        # legal_entity: "Personne morale"
+        # madam: "Madame"
+        # person: "Personne"
+        # professor: "Professeur"
+        # public_establisment: "Établissement public"
+        # public_interest_group: "Groupement d'intérêt public"
+        # sir: "Monsieur"
+        # syndicate: "Syndicat"
     indicators:
       attributes:
         # choice: "Choix"
@@ -165,6 +220,12 @@ eng:
         # vegetal_global_documentation: "Documentation globale végétale"
         # vinification: "Vinification"
       # name: "Type de procédures"
+    units:
+      items:
+        # celsius: "celsius"
+        # square_meter: "mètre carré"
+        # unity: "unité"
+      # name: "Unités de mesure"
     varieties:
       items:
         # animal: "Animaux"
@@ -198,6 +259,9 @@ eng:
         # sus: "Porcins"
       # name: "Animaux"
   procedures:
+    # animal_birth: "Naissance d'un animal"
+    # calving_one: "Vêlage unique"
+    # calving_twin: "Vêlage jumeaux"
     # chemical_treatment: "Traitement chimique"
     # mineral_fertilizing: "Fertilisation minérale"
     # organic_fertilizing: "Fertilisation organique"
@@ -205,7 +269,7 @@ eng:
     # seed_harvest: "Moisson"
     # sowing: "Semis"
     # superficial_plowing: "Hersage"
-    # wheat_crop_std: "Culture de blé standard"
+    # wheat_crop: "Culture de blé (standard)"
   variables:
     # cropper: "Moissonneuse batteuse"
     # cropper_driver: "Conducteur de moissonneuse batteuse"

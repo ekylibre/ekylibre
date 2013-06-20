@@ -13,7 +13,7 @@
 
 -snippet :user, :title => Entity.of_company.full_name do
   %ul
-    %li=link_to(current_user.entity.full_name, backend_myself_url, :class => :user)
+    %li=link_to(current_user.person.full_name, backend_myself_url, :class => :user)
     %li=link_to(Authentication::SessionsController.human_action_name(:destroy), destroy_user_session_url, :method => :delete)
 
 -if content_for?(:aside)

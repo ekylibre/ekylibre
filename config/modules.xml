@@ -1041,6 +1041,9 @@
         <page to="backend/dashboards#tools"/>
         <page to="backend/dashboards#welcome"/>
       </item>
+      <item name="entities">
+        <page to="backend/entities#list_meeting_participations"/>
+      </item>
       <item name="interfacers">
         <page to="backend/interfacers#autocomplete"/>
         <page to="backend/interfacers#product_trackings"/>
@@ -1078,6 +1081,9 @@
         <page to="backend/places#new"/>
         <page to="backend/places#show"/>
         <page to="backend/places#update"/>
+      </item>
+      <item name="procedures">
+        <page to="backend/procedures#jump"/>
       </item>
       <item name="product_indicator_data">
         <page to="backend/product_indicator_data#index"/>
@@ -1182,6 +1188,9 @@
         <page to="backend/production_chains#new"/>
         <page to="backend/production_chains#show"/>
         <page to="backend/production_chains#update"/>
+      </item>
+      <item name="products">
+        <page to="backend/products#unroll"/>
       </item>
       <item name="professions">
         <page to="backend/professions#index"/>

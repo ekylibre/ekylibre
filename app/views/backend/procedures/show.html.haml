@@ -4,8 +4,8 @@
 
 =beehive do |b|
   -b.tabbox do
-    -b.cell :graph do
-      =render @procedure
+    -b.cell :operations do
+      =render :partial => @procedure, :locals => {:root => @procedure, :reference => @procedure.reference}
     -b.cell do
       =attributes_list(@procedure) do |l|
         -l.attribute :nomen

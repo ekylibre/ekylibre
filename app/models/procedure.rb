@@ -46,7 +46,8 @@ class Procedure < Ekylibre::Record::Base
   belongs_to :incident
   has_many :variables, :class_name => "ProcedureVariable", :inverse_of => :procedure
   has_many :operations, :inverse_of => :procedure
-  enumerize :nomen, :in => Procedures.names
+  enumerize :nomen, :in => Procedures.names.sort
+  enumerize :state, :in => [:undone, :squeezed, :in_progress, :done]
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :depth, :lft, :rgt, :allow_nil => true, :only_integer => true
   validates_length_of :nomen, :state, :version, :allow_nil => true, :maximum => 255
@@ -54,39 +55,84 @@ class Procedure < Ekylibre::Record::Base
   validates_presence_of :activity, :campaign, :nomen, :state
   #]VALIDATORS]
   validates_inclusion_of :nomen, :in => self.nomen.values
-  validates_presence_of :version
+  validates_presence_of :version, :uid
 
   acts_as_nested_set
 
-  scope :roots, -> { where(:parent_id => nil) }
-
   before_validation(:on => :create) do
+    unless self.root?
+      if root = self.root
+        self.activity = root.activity
+        self.campaign = root.campaign
+        self.incident = root.incident
+      end
+    end
+    if self.root?
+      self.uid ||= Procedures[self.nomen.to_s].id
+    end
     if self.reference
       self.version = self.reference.version
+      self.uid = self.reference.id
+    end
+    if self.children.where(:state => ["undone", "in_progress"]).count > 0 or self.children.count != self.reference.children.size
+      self.state = "in_progress"
+    else self.children.count.zero? or self.children.where(:state => ["undone", "in_progress"]).count.zero?
+      self.state = "done"
     end
   end
 
+  # Reference
   def reference
-    Procedures[self.nomen]
+    ref.hash[self.uid]
+  end
+
+  # Main reference
+  def ref
+    Procedures[self.root.nomen.to_s]
   end
 
   # Returns variable names
   def variables_names
-    self.variables.map(&:name).sort.to_sentence
+    self.variables.map(&:target_name).sort.to_sentence
   end
 
   def name
-    self.nomen.text
-  end
-
-  # Return root procedure
-  def root
-    return (self.parent.nil? ? self : self.parent.root)
+    self.root.reference.hash[self.uid].human_name
   end
 
   # Return the next procedure (depth course)
   def followings
-    []
+    reference.followings_of(self.uid)
+  end
+
+  def playing
+    return self.root.playing unless self.root
+    for p in ref.tree
+      if self.children.where(:uid => p.id)
+      end
+    end
+  end
+
+  def get(refp)
+    return self.root.get(refp) unless self.root?
+    return self.children.where(:uid => refp.id).first
+  end
+
+
+  # Create a procedure from the reference with given refp
+  def load(refp, state = :undone)
+    return self.root.load(refp, state) unless self.root?
+    raise "What this proc?" unless refp.parent
+    parent = self.self_and_descendants.where(:uid => refp.parent.id).first || self.load(refp.parent)
+    unless p = self.self_and_descendants.where(:uid => refp.id).first
+      p = self.class.create!({:parent_id => parent.id, :nomen => refp.name.to_s, :state => state, :version => refp.version, :uid => refp.id}, :without_protection => true)
+    end
+    return p
+  end
+
+  # Set a procedure as squeezed
+  def squeeze(refp)
+    load(refp, :squeezed)
   end
 
 end

@@ -1,4 +1,4 @@
-class Backend::LegalEntitiesController < BackendController
+class Backend::LegalEntitiesController < Backend::EntitiesController
   manage_restfully
 
   unroll_all

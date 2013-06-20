@@ -24,8 +24,10 @@ eng:
       # index: "Répartitions analytiques"
       # new: "Nouvelle répartition analytique"
       # show: "Répartition %{id}"
-    backend/activity_watchings: #?
+    backend/activity_watchings:
+      # index: "Activité surveillées"
     backend/affairs:
+      # index: "Transactions"
       # select: "Ajouter une transaction"
     backend/animal_groups:
       # edit: "Modifier le groupe d'animaux\_: %{name}"
@@ -309,7 +311,7 @@ eng:
     backend/meeting_natures: #?
     backend/meetings:
       # edit: "Modifier un évènement"
-      # index: "Evènements"
+      # index: "Évènements"
       # new: "Nouvel évènement"
     backend/myselves:
       change_password: "Change my password"
@@ -365,7 +367,11 @@ eng:
       new: "Add a new price" #?
     backend/procedure_natures: #?
     backend/procedures:
+      # edit: "Modifier la procédure\_: %{nomen}"
       # index: "Procédures"
+      # new: "Nouvelle procédure"
+      # play: "Effectuer la procédure\_: %{name}"
+      # show: "Procédure\_: %{name}"
     backend/product_abilities: #?
     backend/product_groups:
       # edit: "Modifier le lot\_: %{name} "
@@ -798,6 +804,7 @@ eng:
       stocks: "Stocks"
     # building_update: "Modifier le lieu de stockage"
     buildings: "Buildings"
+    # calendar: "Calendrier"
     canals: "Canals"
     cancel: "Cancel"
     cancelled: "Cancelled"
@@ -1089,7 +1096,7 @@ eng:
     # measure_options: "Indicateur de type mesure"
     # medical_informations: "Informations médicales"
     # meeting: "Lieu(x) de rencontre"
-    # meetings: "Evenements"
+    # meetings: "Évènements"
     menus:
       accountancy: "Accountancy"
       # archives: "Archives"
@@ -1413,6 +1420,7 @@ eng:
       current: "Current"
       unpaid: "Unpaid"
     save: "Save"
+    # save_and_go_to_x: "Enregistrer et passer à «\_%{x}\_»"
     save_in_draft: "Save as draft"
     scheduled: "Scheduled"
     search: "Search"
@@ -1582,10 +1590,10 @@ eng:
       one: "%{count} link"
       other: "%{count} links"
       # zero: "0 lien"
-    x_events:
-      one: "1 event"
-      other: "%{count} events"
-      zero: "0 events"
+    x_events:  #?
+      one: "1 event" #?
+      other: "%{count} events" #?
+      zero: "0 events" #?
     x_events_of_nature_y:
       one: "One event %{nature} for a total duration of %{duration} minutes"
       other: "%{count} events %{nature} for a total duration of %{duration} minutes"
@@ -1609,6 +1617,10 @@ eng:
       one: "%{count} mandate"
       other: "%{count} mandates"
       # zero: "0 responsabilité"
+    x_meetings:
+      # one: "%{count} évènement"
+      # other: "%{count} évènements"
+      # zero: "0 évènement"
     x_months:
       # one: "%{count} mois"
       # other: "%{count} mois"

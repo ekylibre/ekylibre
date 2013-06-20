@@ -287,16 +287,16 @@ arb:
         created_at: "انشأت ففي" #?
         original_credit: "ائتمان" #?
       land_parcel:
-        # area_measure: "Surface"
         # born_at: "Date de création"
         children: "شبه كتل"
         number: "رقم المساحة او رقم الحزمة"
+        # real_quantity: "Surface"
         updated_at: "تم تحديثه" #?
       land_parcel_group:
-        # area_measure: "Surface"
         # born_at: "Date de création"
         # children: "Sous-îlots"
         # identification_number: "Numéro PAC ou numéro d'ilôts"
+        # real_quantity: "Surface"
       listing:  #?
         created_at: "أنشأت في" #?
       listing_node:  #?
@@ -971,7 +971,7 @@ arb:
     acquisition_amount: "قيمة الاقتناء"
     active: "فعال"
     # active_prices: "Prix en cours"
-    # activity: "Activity"
+    # activity: "Activité"
     activity_code: "APE/NAF رمز"
     actual_number: "الرقم الحالي"
     address: "العنوان"
@@ -1494,7 +1494,7 @@ arb:
     node: "العقدة"
     node_id: "عقدة" #?
     nodes: "عقد الاستخراج"
-    # nomen: "Nomen"
+    # nomen: "Référence"
     number: "الرقم"
     number_format: "التصميم"
     number_increment: "الاضافة"
@@ -1944,6 +1944,24 @@ arb:
         # stocks: "Stocks"
         # transport: "Transport"
     drug_admission_path: #?
+    entity:
+      nature:
+        # association: "Association"
+        # civil_society: "Société civile"
+        # collectivity: "Collectivité"
+        # company: "Société"
+        # doctor: "Docteur"
+        # economic_interest_group: "Groupement d'intérêt économique"
+        # entity: "Entité"
+        # foundation: "Fondation"
+        # legal_entity: "Personne morale"
+        # madam: "Madame"
+        # person: "Personne"
+        # professor: "Professeur"
+        # public_establisment: "Établissement public"
+        # public_interest_group: "Groupement d'intérêt public"
+        # sir: "Monsieur"
+        # syndicate: "Syndicat"
     entity_address:
       canal:
         # email: "E-mail"
@@ -1993,6 +2011,24 @@ arb:
     per_animal_unit: #?
     per_duration_time_unit: #?
     per_frequency_time_unit: #?
+    procedure:
+      nomen:
+        # animal_birth: "Naissance d'un animal"
+        # calving_one: "Vêlage unique"
+        # calving_twin: "Vêlage jumeaux"
+        # chemical_treatment: "Traitement chimique"
+        # mineral_fertilizing: "Fertilisation minérale"
+        # organic_fertilizing: "Fertilisation organique"
+        # plowing: "Labour"
+        # seed_harvest: "Moisson"
+        # sowing: "Semis"
+        # superficial_plowing: "Hersage"
+        # wheat_crop: "Culture de blé (standard)"
+      state:
+        # done: "Réalisée"
+        # in_progress: "En cours"
+        # squeezed: "Non réalisée"
+        # undone: "Pas encore réalisée"
     product:
       arrival_reasons:
         # birth: "Naissance"
@@ -2006,6 +2042,10 @@ arb:
         # sale: "Vente"
       income_reasons: #?
       outgone_reasons: #?
+      unit:
+        # celsius: "celsius"
+        # square_meter: "mètre carré"
+        # unity: "unité"
     product_indicator:
       nature:
         # boolean: "Case à cocher"

@@ -5,6 +5,7 @@
         =link_to({:action => mod}, :class=>"btn btn-big btn-#{Ekylibre::Modules.icon(mod)}", :title => Ekylibre::Modules.human_name(mod)) do
           %i
           =Ekylibre::Modules.human_name(mod)
+  -b.hbox do
     -b.cell :today do
       -date = Date.today
       %span#cell-date.date

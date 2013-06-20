@@ -73,15 +73,15 @@ fra:
       journal_entry_item:
         closed: "Cloturée"
       land_parcel:
-        area_measure: "Surface"
         born_at: "Date de création"
         children: "Sous-parcelle"
         number: "Numéro PAC ou numéro de parcelle"
+        real_quantity: "Surface"
       land_parcel_group:
-        area_measure: "Surface"
         born_at: "Date de création"
         children: "Sous-îlots"
         identification_number: "Numéro PAC ou numéro d'ilôts"
+        real_quantity: "Surface"
       mandate:
         family: "Famille"
       matter:
@@ -438,7 +438,7 @@ fra:
     active: "Utilisable"
     # active_price_templates: "Active price templates"
     active_prices: "Prix en cours" #?
-    activity: "Activity"
+    activity: "Activité"
     activity_code: "Code APE/NAF"
     actual_number: "Numéro en cours"
     address: "Adresse"
@@ -912,7 +912,7 @@ fra:
     nic: "NIC (Numéro Interne de Classement)" #?
     node: "Nœud"
     nodes: "Nœuds d’extraction"
-    nomen: "Nomen"
+    nomen: "Référence"
     number: "Numéro"
     number_format: "Format du numéro"
     number_increment: "Incrément"
@@ -1329,6 +1329,24 @@ fra:
         sales_order: "Commande de vente"
         stocks: "Stocks"
         transport: "Transport"
+    entity:
+      nature:
+        association: "Association"
+        civil_society: "Société civile"
+        collectivity: "Collectivité"
+        company: "Société"
+        doctor: "Docteur"
+        economic_interest_group: "Groupement d'intérêt économique"
+        entity: "Entité"
+        foundation: "Fondation"
+        legal_entity: "Personne morale"
+        madam: "Madame"
+        person: "Personne"
+        professor: "Professeur"
+        public_establisment: "Établissement public"
+        public_interest_group: "Groupement d'intérêt public"
+        sir: "Monsieur"
+        syndicate: "Syndicat"
     entity_address:
       canal:
         email: "E-mail"
@@ -1375,6 +1393,24 @@ fra:
       direction:
         in: "Intrant"
         out: "Sortant"
+    procedure:
+      nomen:
+        animal_birth: "Naissance d'un animal"
+        calving_one: "Vêlage unique"
+        calving_twin: "Vêlage jumeaux"
+        chemical_treatment: "Traitement chimique"
+        mineral_fertilizing: "Fertilisation minérale"
+        organic_fertilizing: "Fertilisation organique"
+        plowing: "Labour"
+        seed_harvest: "Moisson"
+        sowing: "Semis"
+        superficial_plowing: "Hersage"
+        wheat_crop: "Culture de blé (standard)"
+      state:
+        done: "Réalisée"
+        in_progress: "En cours"
+        squeezed: "Non réalisée"
+        undone: "Pas encore réalisée"
     product:
       arrival_reasons:
         birth: "Naissance"
@@ -1386,6 +1422,10 @@ fra:
         dead: "Décès"
         other: "Autres"
         sale: "Vente"
+      unit:
+        celsius: "celsius"
+        square_meter: "mètre carré"
+        unity: "unité"
     product_indicator:
       nature:
         boolean: "Case à cocher"

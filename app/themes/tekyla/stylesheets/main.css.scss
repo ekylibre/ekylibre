@@ -1834,6 +1834,52 @@ svg.map {
   }
 }
 
+@include keyframes(spin) {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.procedure {
+  .detail {
+    padding: $default-gap;
+    h3 {
+      font-weight: bold;
+      i {
+        @include is-icon;
+        @include use-icon(cog);
+      }
+    }
+  }
+  &.done > .detail i {
+    @include use-icon(ok);
+    color: green;
+  }
+  &.in_progress > .detail i {
+    color: $active-color;
+    @include animation(spin 5s linear infinite);
+    @include inline-block;
+    width: 17px;
+    heigth: 17px;
+    text-align: center;
+    vertical-align: middle;
+  }
+  &.undone  {
+    > .detail i {
+      @include use-icon(time);
+    }
+  }
+  &.squeezed  {
+    > .detail i {
+      @include use-icon(ellipsis-horizontal);
+    }
+    opacity: 0.8;
+  }
+
+  > .procedures {
+    @include padding-left(2 * $fs-normal);
+  }
+}
+
 
 .badge {
   background: $neutral-color;

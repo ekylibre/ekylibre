@@ -31,8 +31,10 @@ spa:
       # index: "Répartitions analytiques"
       # new: "Nouvelle répartition analytique"
       # show: "Répartition %{id}"
-    backend/activity_watchings: #?
+    backend/activity_watchings:
+      # index: "Activité surveillées"
     backend/affairs:
+      # index: "Transactions"
       # select: "Ajouter une transaction"
     backend/animal_groups:
       # edit: "Modifier le groupe d'animaux\_: %{name}"
@@ -312,7 +314,7 @@ spa:
     backend/meeting_natures: #?
     backend/meetings:
       # edit: "Modifier un évènement"
-      # index: "Evènements"
+      # index: "Évènements"
       # new: "Nouvel évènement"
     backend/myselves:
       # change_password: "Changer de mot de passe"
@@ -369,7 +371,11 @@ spa:
     backend/prices: #?
     backend/procedure_natures: #?
     backend/procedures:
+      # edit: "Modifier la procédure\_: %{nomen}"
       # index: "Procédures"
+      # new: "Nouvelle procédure"
+      # play: "Effectuer la procédure\_: %{name}"
+      # show: "Procédure\_: %{name}"
     backend/product_abilities: #?
     backend/product_categories: #?
     backend/product_components: #?
@@ -623,7 +629,7 @@ spa:
     # backend/listing_node_items: "Élement de nœuds d’extractions"
     # backend/listing_nodes: "Nœuds d’extractions"
     backend/listings: "Exportacion y mailing"
-    # backend/logs: "Evenements des Animaux"
+    # backend/logs: "Historique"
     backend/management: "Administración comercial" #?
     # backend/mandates: "Responsabilités"
     # backend/matters: "Matières"
@@ -817,6 +823,7 @@ spa:
       # stocks: "Stocks"
     building_update: "Modifiar el lugar de deposito"
     buildings: "Ver la lista de los lugares de deposito"
+    # calendar: "Calendrier"
     # canals: "Coordonnées"
     # cancel: "Annuler"
     cancelled: "Pasar en activos"
@@ -1121,7 +1128,7 @@ spa:
     # measure_options: "Indicateur de type mesure"
     # medical_informations: "Informations médicales"
     # meeting: "Lieu(x) de rencontre"
-    # meetings: "Evenements"
+    # meetings: "Évènements"
     menu: #?
     menus:
       # accountancy: "Comptabilité"
@@ -1418,6 +1425,7 @@ spa:
       # current: "En cours"
       # unpaid: "Impayées"
     # save: "Enregistrer"
+    # save_and_go_to_x: "Enregistrer et passer à «\_%{x}\_»"
     save_in_draft: "Salvar en la niebla"
     # scheduled: "Échéance"
     search: "buscars piezas/escrituras"
@@ -1594,10 +1602,7 @@ spa:
       # one: "%{count} lien"
       # other: "%{count} liens"
       # zero: "0 lien"
-    x_events:
-      # one: "%{count} évènement"
-      # other: "%{count} évènements"
-      # zero: "0 évènement"
+    x_events: #?
     x_events_of_nature_y:
       # one: " %{count} évènement de type %{nature} d’une durée de %{duration} minutes"
       # other: " %{count} évènements de type %{nature} pour une durée totale de %{duration} minutes"
@@ -1621,6 +1626,10 @@ spa:
       # one: "%{count} responsabilité"
       # other: "%{count} responsabilités "
       # zero: "0 responsabilité"
+    x_meetings:
+      # one: "%{count} évènement"
+      # other: "%{count} évènements"
+      # zero: "0 évènement"
     x_months:
       # one: "%{count} mois"
       # other: "%{count} mois"

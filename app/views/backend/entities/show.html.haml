@@ -28,7 +28,7 @@
         -l.attribute :last_name
         -l.attribute :first_name unless @entity.first_name.blank?
         -l.attribute :nature if @entity.nature
-        -l.attribute :code
+        -l.attribute :number
         -l.attribute :active
         -l.custom Entity.human_attribute_name("country"), image_tag("countries/"+@entity.country+".png")+" "+t("countries."+@entity.country) unless @entity.country.blank?
         -l.attribute :siren unless @entity.siren.blank?
@@ -57,26 +57,26 @@
           -l.attribute :attorney_account, :url => true
         -l.attribute :transporter
 
+    -b.cell(tl(:x_observations, :count => @entity.observations.count)) do
+      =toolbar do |t|
+        -t.new :controller => :observations, :entity_id => @entity.id
+      =list(:observations)
+
   -b.tabbox do
     -b.cell(tl(:x_subscriptions, :count => @entity.subscriptions.count)) do
       =toolbar do |t|
         -t.new(:controller => :subscriptions, :entity_id => @entity.id)
       =list(:subscriptions)
 
-    -b.cell(tl(:x_meetings, :count => @entity.meetings.count)) do
-      =toolbar do |t|
+    -b.cell(tl(:x_meetings, :count => @entity.participations.count)) do
+      -#=toolbar do |t|
         -t.new :controller => :meetings, :entity_id => @entity.id
-      =list(:meetings)
+      =list(:meeting_participations)
 
     -b.cell(tl(:x_entity_links, :count => EntityLink.of_entity(@entity).count)) do
       =toolbar do |t|
         -t.new :controller => :entity_links, :entity_id => @entity.id
       =list(:links)
-
-    -b.cell(tl(:x_observations, :count => @entity.observations.count)) do
-      =toolbar do |t|
-        -t.new :controller => :observations, :entity_id => @entity.id
-      =list(:observations)
 
     -b.cell(tl(:x_mandates, :count => @entity.mandates.count)) do
       =toolbar do |t|

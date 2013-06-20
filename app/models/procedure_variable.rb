@@ -31,10 +31,19 @@
 #  updater_id   :integer
 #
 class ProcedureVariable < Ekylibre::Record::Base
+  attr_accessible :nomen, :target_id
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :nomen, :allow_nil => true, :maximum => 255
   validates_presence_of :nomen, :procedure, :target
   #]VALIDATORS]
   belongs_to :procedure, :inverse_of => :variables
   belongs_to :target, :class_name => "Product"
+
+  delegate :name, :to => :target, :prefix => true
+
+  def name
+    self.procedure.reference.hash[self.procedure.uid].variables[self.nomen].human_name
+  end
+
+
 end

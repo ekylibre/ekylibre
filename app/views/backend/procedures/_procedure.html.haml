@@ -1,7 +1,11 @@
-.procedure{:class => procedure.state}
+.procedure{:class => (procedure ? procedure.state : "undone")}
   .detail
-    %h3=procedure.name
-  -if procedure.operations.count > 0
+    %h3
+      %i
+      =reference.human_name
+  -if procedure and procedure.operations.count > 0
     .operations=render 'operation', :collection => procedure.operations
-  -if procedure.children.count > 0
-    .sub-procedures=render 'procedure', :collection => procedure.children
+  -if reference.children.count > 0
+    .procedures
+      -for refp in reference.children
+        =render :partial => 'procedure', :object => root.get(refp), :locals => {:root => procedure.root, :reference => refp}

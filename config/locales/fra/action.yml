@@ -25,13 +25,13 @@ fra:
       show: "Répartition %{id}"
     backend/activity_watchings:
       # edit: "Edit backend/activity watching"
-      # index: "Index backend/activity watching"
+      index: "Activité surveillées"
       # new: "New backend/activity watching"
       # show: "Show backend/activity watching"
     backend/affairs:
       # attach: "Attach backend/affair"
       # detach: "Detach backend/affair"
-      # index: "Index backend/affair"
+      index: "Transactions"
       select: "Ajouter une transaction"
     backend/animal_groups:
       edit: "Modifier le groupe d'animaux\_: %{name}"
@@ -303,7 +303,7 @@ fra:
       # autocomplete_for_place: "Autocomplete for place backend/meeting"
       # change_minutes: "Change minutes backend/meeting"
       edit: "Modifier un évènement"
-      index: "Evènements"
+      index: "Évènements"
       new: "Nouvel évènement"
     backend/myselves:
       change_password: "Changer de mot de passe" #?
@@ -362,11 +362,12 @@ fra:
       new: "Nouvelle préférence"
       show: "Préférence"
     backend/procedures:
-      # edit: "Edit backend/procedure"
+      edit: "Modifier la procédure\_: %{nomen}"
       index: "Procédures"
-      # new: "New backend/procedure"
-      # play: "Play backend/procedure"
-      # show: "Show backend/procedure"
+      # jump: "Jump backend/procedure"
+      new: "Nouvelle procédure"
+      play: "Effectuer la procédure\_: %{name}"
+      show: "Procédure\_: %{name}"
     backend/product_groups:
       edit: "Modifier le lot\_: %{name} "
       index: "Lots de produits"
@@ -640,7 +641,7 @@ fra:
     backend/listing_node_items: "Élement de nœuds d’extractions"
     backend/listing_nodes: "Nœuds d’extractions"
     backend/listings: "Exportations et mailings"
-    backend/logs: "Evenements des Animaux"
+    backend/logs: "Historique"
     backend/mandates: "Responsabilités"
     backend/matters: "Matières"
     # backend/meeting_natures: "Backend/meeting natures"
@@ -846,6 +847,7 @@ fra:
       stocks: "Stocks"
     building_update: "Modifier le lieu de stockage"
     buildings: "Voir la liste des lieux de stockage"
+    calendar: "Calendrier"
     canals: "Coordonnées"
     cancel: "Annuler"
     cancelled: "Passées en avoir"
@@ -1134,7 +1136,7 @@ fra:
     measure_options: "Indicateur de type mesure"
     medical_informations: "Informations médicales"
     meeting: "Lieu(x) de rencontre"
-    meetings: "Evenements"
+    meetings: "Évènements"
     menus:
       accountancy: "Comptabilité"
       archives: "Archives"
@@ -1423,6 +1425,7 @@ fra:
       current: "En cours"
       unpaid: "Impayées"
     save: "Enregistrer"
+    save_and_go_to_x: "Enregistrer et passer à «\_%{x}\_»"
     save_in_draft: "Sauvegarder dans le brouillard"
     scheduled: "Échéance"
     search: "Rechercher"
@@ -1591,10 +1594,6 @@ fra:
       one: "%{count} lien"
       other: "%{count} liens"
       zero: "0 lien"
-    x_events:
-      one: "%{count} évènement"
-      other: "%{count} évènements"
-      zero: "0 évènement"
     x_events_of_nature_y:
       one: " %{count} évènement de type %{nature} d’une durée de %{duration} minutes"
       other: " %{count} évènements de type %{nature} pour une durée totale de %{duration} minutes"
@@ -1618,6 +1617,10 @@ fra:
       one: "%{count} responsabilité"
       other: "%{count} responsabilités "
       zero: "0 responsabilité"
+    x_meetings:
+      one: "%{count} évènement"
+      other: "%{count} évènements"
+      zero: "0 évènement"
     x_months:
       one: "%{count} mois"
       other: "%{count} mois"

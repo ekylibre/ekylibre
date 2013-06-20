@@ -11,7 +11,7 @@ module Procedures
   # This class represent a procedure
   class Procedure
 
-    attr_reader :name, :namespace, :id, :version, :variables, :procedures, :operations, :parent
+    attr_reader :id, :name, :namespace, :operations, :parent, :position, :procedures, :variables, :version
 
     def initialize(element, options = {})
       name = element.attr("name").to_s.split(NS_SEPARATOR)
@@ -21,7 +21,9 @@ module Procedures
         raise ArgumentError.new("Bad name of procedure: #{element.attr("name").to_s.inspect}")
       end
       @name = name.shift.to_s.to_sym
+      @required = (element.attr('required').to_s == "true" ? true : false)
       @parent = options[:parent] if options[:parent]
+      @position = options[:position] || 0
       @id = element.attr("id").to_s
       raise MissingAttribute.new("Attribute 'id' must be given for a <procedure>") if @id.blank?
       @version = element.attr("version").to_s
@@ -30,29 +32,44 @@ module Procedures
         hash[variable.attr("name").to_s] = Variable.new(self, variable)
         hash
       end
-      @procedures = element.xpath("xmlns:procedures/xmlns:procedure").collect do |procedure|
-        Procedure.new(procedure, :parent => self)
+      @procedures = []
+      element.xpath("xmlns:procedures/xmlns:procedure").each_with_index do |procedure, position|
+        @procedures << Procedure.new(procedure, :parent => self, :position => position)
       end
       @operations = element.xpath("xmlns:operations/xmlns:operation").collect do |operation|
         Operation.new(self, operation)
       end
     end
 
+    alias :children :procedures
+
     # Returns a fully-qualified name for the procedure
     def full_name
       (namespace ? namespace.to_s + NS_SEPARATOR + name.to_s : name.to_s)
     end
 
+    # Returns if the procedure is required
+    def required?
+      @required
+    end
+
+    # Returns if the procedure is root
+    def root?
+      @parent.nil?
+    end
+
     # Returns self with children recursively as an array
     def tree
-      list = [self]
-      self.procedures.collect{|p| list += p.tree}
-      return list
+      return procedures.inject([self]) do |array, procedure|
+        array += procedure.tree
+        array
+      end
     end
 
     # Returns the full hash of procedured
     def hash
-      self.root.tree.inject({}) do |hash, procedure|
+      return self.root.hash unless root?
+      return self.tree.inject({}) do |hash, procedure|
         hash[procedure.id] = procedure
         hash
       end
@@ -60,21 +77,67 @@ module Procedures
 
     # Returns the root procedure
     def root
-      return (self.parent ? self.parent.root : self)
+      @root ||= (self.parent ? self.parent.root : self)
+    end
+
+    # Returns the next procedure from a given uid
+    def followings_of(uid)
+      p = self.hash[uid]
+      raise ArgumentError.new("Unknown UID: #{uid.inspect}") unless p
+      list = self.root.tree
+      if i = list.index(p)
+        return [] if (i + 1 == list.size)
+        valids = []
+        begin
+          i += 1
+          valids << list[i]
+        end while !valids.last.required?
+        return valids
+      else
+        raise StandardError.new("What???")
+      end
+    end
+
+    # Return next sibling if exists
+    def next_sibling
+      @next_sibling ||= self.parent.children[self.position + 1]
+    end
+
+    # Return previous sibling if exist
+    def previous_sibling
+      return nil if self.position <= 0
+      @next_sibling ||= self.parent.children[self.position - 1]
+    end
+
+    # Returns human_name of the procedure
+    def human_name
+      "procedures.#{name}".t(:default => ["labels.procedures.#{name}".to_sym, "labels.#{name}".to_sym, name.to_s.humanize])
     end
 
   end
 
   class Variable
-    attr_reader :name, :procedure
+    attr_reader :name, :procedure, :value, :abilities, :variety
 
     def initialize(procedure, element)
       @procedure = procedure
-      @name = element.attr("name")
+      @name = element.attr("name").to_sym
+      @new = !element.attr("new").blank?
+      @value = element.attr("value").to_s
+      @abilities = element.attr("abilities").to_s
+      @variety = element.attr("variety").to_s
     end
 
     def human_name
-      "variables.#{name}".t(:default => ["labels.#{name}".to_sym, "attributes.#{name}".to_sym, name.humanize])
+      "variables.#{name}".t(:default => ["labels.#{name}".to_sym, "attributes.#{name}".to_sym, name.to_s.humanize])
+    end
+
+    def given?
+      !@value.blank?
+    end
+
+    def new?
+      @new
     end
 
   end
@@ -86,6 +149,7 @@ module Procedures
       @operation = operation
       @expression = element.attr("do")
     end
+
   end
 
   class Operation
@@ -93,14 +157,14 @@ module Procedures
 
     def initialize(procedure, element)
       @procedure = procedure
-      @name = element.attr("name")
+      @name = element.attr("name").to_sym
       @tasks = element.xpath('xmlns:task').collect do |task|
         Task.new(self, task)
       end
     end
   end
 
-  @@list = {}
+  @@list = HashWithIndifferentAccess.new
 
   class << self
 

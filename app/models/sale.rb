@@ -66,7 +66,7 @@
 
 
 class Sale < Ekylibre::Record::Base
-  attr_accessible :address_id, :annotation, :client_id, :description, :conclusion, :delivery_address_id, :function_title, :introduction, :invoice_address_id, :letter_format, :nature_id, :reference_number, :responsible_id, :subject, :sum_method, :transporter_id
+  attr_accessible :address_id, :annotation, :client_id, :description, :conclusion, :delivery_address_id, :function_title, :introduction, :invoice_address_id, :items_attributes, :letter_format, :nature_id, :reference_number, :responsible_id, :subject, :sum_method, :transporter_id
   attr_readonly :created_on, :currency
   attr_protected :pretax_amount, :amount
   belongs_to :client, :class_name => "Entity"
@@ -82,7 +82,7 @@ class Sale < Ekylibre::Record::Base
   has_many :credits, :class_name => "Sale", :foreign_key => :origin_id
   has_many :deliveries, :class_name => "OutgoingDelivery", :dependent => :destroy, :inverse_of => :sale
   has_many :documents, :as => :owner
-  has_many :items, :class_name => "SaleItem", :foreign_key => :sale_id, :dependent => :destroy, :order => "position, id"
+  has_many :items, :class_name => "SaleItem", :foreign_key => :sale_id, :dependent => :destroy, :order => "position, id", :inverse_of => :sale
   has_many :journal_entries, :as => :resource
   has_many :subscriptions, :class_name => "Subscription"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
@@ -100,7 +100,7 @@ class Sale < Ekylibre::Record::Base
 
   acts_as_numbered :number, :readonly => false
   acts_as_affairable :debit => :credit, :third => :client
-  accepts_nested_attributes_for :items, :reject_if => :all_blank, :allow_destroy => true
+  accepts_nested_attributes_for :items # , :reject_if => :all_blank, :allow_destroy => true
   after_create {|r| r.client.add_event(:sale, r.updater_id)}
 
   delegate :closed, :to => :affair, :prefix => true
@@ -140,6 +140,7 @@ class Sale < Ekylibre::Record::Base
   before_validation(:on => :create) do
     self.state ||= self.class.state_machine.initial_state(self)
     self.currency = self.nature.currency if self.nature
+    self.created_on = Date.today
   end
 
   before_validation do
@@ -150,7 +151,7 @@ class Sale < Ekylibre::Record::Base
     self.delivery_address_id ||= self.address_id
     self.invoice_address_id  ||= self.delivery_address_id
     self.created_on ||= Date.today
-    self.nature ||= SaleNature.first if self.nature.nil? and SaleNature.count == 1
+    self.nature ||= SaleNature.by_default if self.nature.nil?
     if self.nature
       self.expiration_delay ||= self.nature.expiration_delay
       self.expired_on ||= Delay.new(self.expiration_delay).compute(self.created_on)
@@ -160,10 +161,6 @@ class Sale < Ekylibre::Record::Base
     end
     self.sum_method = 'wt'
     true
-  end
-
-  before_validation(:on => :create) do
-    self.created_on = Date.today
   end
 
   before_update do

@@ -11,7 +11,7 @@
           %path{:d => @land_parcel.shape_svg_path}
       .info
         %span.title=LandParcel.human_attribute_name(:real_quantity)
-        %span.value=@land_parcel.real_quantity.l + " " + @land_parcel.unit.text
+        %span.value=@land_parcel.real_quantity.l + " (" + @land_parcel.unit.text + ")"
 
 
     -b.cell do

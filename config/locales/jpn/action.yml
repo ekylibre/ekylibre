@@ -24,8 +24,10 @@ jpn:
       # index: "Répartitions analytiques"
       # new: "Nouvelle répartition analytique"
       # show: "Répartition %{id}"
-    backend/activity_watchings: #?
+    backend/activity_watchings:
+      # index: "Activité surveillées"
     backend/affairs:
+      # index: "Transactions"
       # select: "Ajouter une transaction"
     backend/animal_groups:
       # edit: "Modifier le groupe d'animaux\_: %{name}"
@@ -266,7 +268,7 @@ jpn:
     backend/meeting_natures: #?
     backend/meetings:
       # edit: "Modifier un évènement"
-      # index: "Evènements"
+      # index: "Évènements"
       # new: "Nouvel évènement"
     backend/myselves:
       # change_password: "Changer de mot de passe"
@@ -316,7 +318,11 @@ jpn:
     backend/prices: #?
     backend/procedure_natures: #?
     backend/procedures:
+      # edit: "Modifier la procédure\_: %{nomen}"
       # index: "Procédures"
+      # new: "Nouvelle procédure"
+      # play: "Effectuer la procédure\_: %{name}"
+      # show: "Procédure\_: %{name}"
     backend/product_abilities: #?
     backend/product_groups:
       # edit: "Modifier le lot\_: %{name} "
@@ -538,7 +544,7 @@ jpn:
     # backend/listing_node_items: "Élement de nœuds d’extractions"
     # backend/listing_nodes: "Nœuds d’extractions"
     # backend/listings: "Exportations et mailings"
-    # backend/logs: "Evenements des Animaux"
+    # backend/logs: "Historique"
     # backend/mandates: "Responsabilités"
     # backend/matters: "Matières"
     # backend/myselves: "Mon compte"
@@ -725,6 +731,7 @@ jpn:
       # stocks: "Stocks"
     # building_update: "Modifier le lieu de stockage"
     # buildings: "Voir la liste des lieux de stockage"
+    # calendar: "Calendrier"
     # canals: "Coordonnées"
     cancel: "取り消す"
     # cancelled: "Passées en avoir"
@@ -1014,7 +1021,7 @@ jpn:
     # measure_options: "Indicateur de type mesure"
     # medical_informations: "Informations médicales"
     # meeting: "Lieu(x) de rencontre"
-    # meetings: "Evenements"
+    # meetings: "Évènements"
     menu:  #?
       accountancy_tasks: "用事" #?
       parameters: "パラメーター" #?
@@ -1309,6 +1316,7 @@ jpn:
       # current: "En cours"
       # unpaid: "Impayées"
     # save: "Enregistrer"
+    # save_and_go_to_x: "Enregistrer et passer à «\_%{x}\_»"
     # save_in_draft: "Sauvegarder dans le brouillard"
     # scheduled: "Échéance"
     search: "探す"
@@ -1477,10 +1485,7 @@ jpn:
       # one: "%{count} lien"
       # other: "%{count} liens"
       # zero: "0 lien"
-    x_events:
-      # one: "%{count} évènement"
-      # other: "%{count} évènements"
-      # zero: "0 évènement"
+    x_events: #?
     x_events_of_nature_y:
       # one: " %{count} évènement de type %{nature} d’une durée de %{duration} minutes"
       # other: " %{count} évènements de type %{nature} pour une durée totale de %{duration} minutes"
@@ -1504,6 +1509,10 @@ jpn:
       # one: "%{count} responsabilité"
       # other: "%{count} responsabilités "
       # zero: "0 responsabilité"
+    x_meetings:
+      # one: "%{count} évènement"
+      # other: "%{count} évènements"
+      # zero: "0 évènement"
     x_months:
       # one: "%{count} mois"
       # other: "%{count} mois"

@@ -64,4 +64,10 @@
 #  work_number              :string(255)
 #
 class PrimaryZone < Zone
+
+  after_save do
+    area = compute("ST_Area(shape)").to_f
+    self.class.update_all({:real_quantity => area, :virtual_quantity => area, :unit => :square_meter}, {:id => self.id})
+  end
+
 end

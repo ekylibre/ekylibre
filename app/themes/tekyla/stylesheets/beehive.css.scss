@@ -53,7 +53,7 @@
         background: #FFFFFF;
 	// needed for dropdown menus
         // overflow: auto;
-        // @include clearfix;
+        @include clearfix;
 	// overflow-x: auto;
         height: auto;
       }

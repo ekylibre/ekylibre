@@ -149,7 +149,7 @@ class BackendController < BaseController
       code  = "def #{method_name}\n"
       code << "  conditions = []\n"
       code << "  keys = params[:q].to_s.strip.mb_chars.downcase.normalize.split(/[\\s\\,]+/)\n"
-      code << "  # " + columns.collect{|c| c[:column].name}.to_sentence + "\n"
+      # code << "  # " + columns.collect{|c| c[:column].name}.to_sentence + "\n"
       code << "  if params[:id]\n"
       code << "    conditions = {:id => params[:id]}\n"
       searchable_columns = columns.delete_if{ |c| c[:column].type == :boolean }
@@ -587,13 +587,13 @@ class BackendController < BaseController
     # this action updates an existing record with a form.
     code << "def edit\n"
     code << "  return unless @#{record_name} = find_and_check(:#{name})\n"
-    code << "  t3e(@#{record_name}.attributes"+(t3e ? ".merge("+t3e.collect{|k,v| ":#{k} => (#{v})"}.join(", ")+")" : "")+")\n"
+    code << "  t3e(@#{record_name}.attributes"+(t3e ? ".merge("+t3e.collect{|k,v| ":#{k} => (#{v.gsub(/RECORD/, '@' + record_name)})"}.join(", ")+")" : "")+")\n"
     code << "  #{render_form}\n"
     code << "end\n"
 
     code << "def update\n"
     code << "  return unless @#{record_name} = find_and_check(:#{name})\n"
-    code << "  t3e(@#{record_name}.attributes"+(t3e ? ".merge("+t3e.collect{|k,v| ":#{k} => (#{v})"}.join(", ")+")" : "")+")\n"
+    code << "  t3e(@#{record_name}.attributes"+(t3e ? ".merge("+t3e.collect{|k,v| ":#{k} => (#{v.gsub(/RECORD/, '@' + record_name)})"}.join(", ")+")" : "")+")\n"
     code << "  @#{record_name}.attributes = params[:#{record_name}]\n"
     code << "  return if save_and_redirect(@#{record_name}#{', :url => ('+url+')' if url})\n"
     code << "  #{render_form}\n"

@@ -57,14 +57,13 @@ class Backend::EntitiesController < BackendController
   # end
 
   # TODO: Filter meetings with participations , :conditions => {:entity_id => ['session[:current_entity_id]']}
-  list(:meetings, :order => "created_at DESC") do |t|
-    t.column :name, :through => :meeting_nature
-    t.column :name
+  list(:meeting_participations, :order => "created_at DESC") do |t|
+    t.column :name, :through => :meeting
+    t.column :state
     # t.column :label, :through => :responsible, :url => true
-    t.column :duration
-    t.column :place
-    t.column :started_at
-    t.column :stopped_at
+    # t.column :duration
+    # t.column :place
+    t.column :started_at, :through => :meeting
     t.action :edit
     t.action :destroy
   end

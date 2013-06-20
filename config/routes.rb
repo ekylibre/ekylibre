@@ -293,7 +293,7 @@ Ekylibre::Application.routes.draw do
         get :list_outgoing_payments
         get :list_mandates
         get :list_incoming_payments
-        get :list_meetings
+        get :list_meeting_participations
         get :list_addresses
         get :list_cashes
         get :list_links
@@ -474,6 +474,9 @@ Ekylibre::Application.routes.draw do
       # end
     end
     resources :legal_entities do
+      member do
+        match "picture(/:style)", :via => :get, :action => :picture, :as => :picture
+      end
       collection do
         get :list
         unroll_all
@@ -580,6 +583,9 @@ Ekylibre::Application.routes.draw do
     resources :outgoing_payment_uses
 
     resources :people do
+      member do
+        match "picture(/:style)", :via => :get, :action => :picture, :as => :picture
+      end
       collection do
         get :list
         unroll_all
@@ -615,6 +621,7 @@ Ekylibre::Application.routes.draw do
     resources :procedures do
       member do
         get :play
+        post :play, :action => :jump, :as => :jump
       end
       collection do
         get :list

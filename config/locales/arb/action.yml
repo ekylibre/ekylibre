@@ -31,8 +31,10 @@ arb:
       # index: "Répartitions analytiques"
       # new: "Nouvelle répartition analytique"
       # show: "Répartition %{id}"
-    backend/activity_watchings: #?
+    backend/activity_watchings:
+      # index: "Activité surveillées"
     backend/affairs:
+      # index: "Transactions"
       # select: "Ajouter une transaction"
     backend/animal_groups:
       # edit: "Modifier le groupe d'animaux\_: %{name}"
@@ -337,7 +339,7 @@ arb:
     backend/meeting_natures: #?
     backend/meetings:
       # edit: "Modifier un évènement"
-      # index: "Evènements"
+      # index: "Évènements"
       # new: "Nouvel évènement"
     backend/myselves:
       # change_password: "Changer de mot de passe"
@@ -398,7 +400,11 @@ arb:
       new: "اضافة سعر جديد" #?
     backend/procedure_natures: #?
     backend/procedures:
+      # edit: "Modifier la procédure\_: %{nomen}"
       # index: "Procédures"
+      # new: "Nouvelle procédure"
+      # play: "Effectuer la procédure\_: %{name}"
+      # show: "Procédure\_: %{name}"
     backend/product_abilities: #?
     backend/product_categories:  #?
       edit: "تعديل فئة المنتج : %{name}" #?
@@ -699,7 +705,7 @@ arb:
     # backend/listing_node_items: "Élement de nœuds d’extractions"
     # backend/listing_nodes: "Nœuds d’extractions"
     backend/listings: "الصادرات وارسال الرسائل"
-    # backend/logs: "Evenements des Animaux"
+    # backend/logs: "Historique"
     backend/management: "الادارة" #?
     backend/mandates: "تفويضات"
     # backend/matters: "Matières"
@@ -904,6 +910,7 @@ arb:
       # stocks: "Stocks"
     building_update: "تعديل موقع التخزين"
     buildings: "النظر بقائمة مواقع التخزين"
+    # calendar: "Calendrier"
     canals: "التنسيق"
     cancel: "الغاء"
     cancelled: "تم الالغاء"
@@ -1234,7 +1241,7 @@ arb:
     # measure_options: "Indicateur de type mesure"
     # medical_informations: "Informations médicales"
     meeting: "المقابلة(X)مكان"
-    # meetings: "Evenements"
+    # meetings: "Évènements"
     menu:  #?
       accountancy_tasks: "أعمال المحاسبة" #?
       bank_statements: "بيانات الحساب" #?
@@ -1573,6 +1580,7 @@ arb:
       # current: "En cours"
       # unpaid: "Impayées"
     save: "حفظ"
+    # save_and_go_to_x: "Enregistrer et passer à «\_%{x}\_»"
     save_in_draft: "حفظ في المسودات"
     # scheduled: "Échéance"
     search: "البحث عن الشراء"
@@ -1759,10 +1767,7 @@ arb:
       one: "رابط واحد"
       other: "%{count} روابط اخرى"
       zero: "ولا رابط"
-    x_events:
-      # one: "%{count} évènement"
-      # other: "%{count} évènements"
-      # zero: "0 évènement"
+    x_events: #?
     x_events_of_nature_y:
       # one: " %{count} évènement de type %{nature} d’une durée de %{duration} minutes"
       # other: " %{count} évènements de type %{nature} pour une durée totale de %{duration} minutes"
@@ -1786,6 +1791,10 @@ arb:
       one: "تفويض واحد"
       other: "%{count} تفويض اخر"
       zero: "ولا اية تفويض"
+    x_meetings:
+      # one: "%{count} évènement"
+      # other: "%{count} évènements"
+      # zero: "0 évènement"
     x_months:
       # one: "%{count} mois"
       # other: "%{count} mois"
