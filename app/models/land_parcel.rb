@@ -66,7 +66,7 @@
 
 
 class LandParcel < PrimaryZone
-  attr_accessible :name, :born_at, :dead_at, :shape, :unit, :variety
+  attr_accessible :real_quantity, :work_number, :identification_number, :name, :born_at, :dead_at, :shape, :unit, :variety
   # belongs_to :area_unit, :class_name => "Unit"
   # TODO : adapt with operations
   #has_many :operations, :as => :target

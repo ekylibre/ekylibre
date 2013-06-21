@@ -8,7 +8,7 @@ class Backend::ActivityWatchingsController < BackendController
     t.column :name,:through => :product_nature, :url => true
     t.column :area_unit
     t.column :work_unit
-    
+
   end
 
   # Displays the main page with the list of activity_watchings.

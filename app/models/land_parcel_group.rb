@@ -66,7 +66,7 @@
 
 
 class LandParcelGroup < ProductGroup
-  attr_accessible :active, :external, :description, :name, :variety, :unit, :nature_id, :reproductor, :reservoir, :parent_id, :memberships_attributes
+  attr_accessible :real_quantity, :born_at, :dead_at, :shape, :active, :external, :description, :name, :variety, :unit, :nature_id, :reproductor, :reservoir, :parent_id, :memberships_attributes
 
   belongs_to :parent, :class_name => "ProductGroup"
 
@@ -78,7 +78,7 @@ class LandParcelGroup < ProductGroup
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   #]VALIDATORS]
-  validates_uniqueness_of :name
+  #validates_uniqueness_of :name
 
   # Add a member to the group
   def add(member, started_at = nil)
