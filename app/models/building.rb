@@ -65,14 +65,14 @@
 #
 
 
-class Building < PrimaryZone
+class Building < ProductGroup
   # TODO: Use acts_as_nested_set
   # acts_as_tree
   attr_accessible :name, :address_id, :description, :nature_id, :owner_id, :reservoir, :unit, :content_maximal_quantity, :content_nature_id, :maximal_quantity, :variety, :identification_number, :born_at, :work_number
   attr_readonly :reservoir
   # belongs_to :address, :class_name => "EntityAddress"
   # belongs_to :establishment
-  belongs_to :content_nature, :class_name => "ProductNature"
+  # belongs_to :content_nature, :class_name => "ProductNature"
   # has_many :purchase_items, :class_name => "PurchaseItem"
   # has_many :sale_items, :class_name => "SaleItem"
   # has_many :stock_moves, :class_name => "ProductMove"

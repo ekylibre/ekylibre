@@ -65,7 +65,7 @@
 #
 require 'test_helper'
 
-class PrimaryZoneTest < ActiveSupport::TestCase
+class BuildingDivisionTest < ActiveSupport::TestCase
 
   # Replace this with your real tests.'
   test "the truth" do

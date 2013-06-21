@@ -825,6 +825,7 @@ arb:
       bank_statement: "بيان الحساب المصرفي"
       # bioproduct: "Produit vivant"
       building: "موقع التخزين"
+      # building_division: "Pièce"
       # building_room: "Pièce"
       # campaign: "Campagne"
       cash: "الخزينة"
@@ -846,6 +847,7 @@ arb:
       document: "الوثيقة"
       # document_archive: "Archive de document"
       document_template: "نموذج الوثيقة"
+      # easement: "Zone primaire"
       entity: "الفرد"
       # entity_address: "Adresse"
       entity_category: "فئة الفرد" #?
@@ -902,6 +904,7 @@ arb:
       # plant: "Plante"
       # preference: "Préférence"
       price: "الاسعار" #?
+      # primary_easement: "Zone primaire"
       # primary_zone: "Zone primaire"
       # procedure: "Procédure"
       # procedure_nature: "Type de procédure"

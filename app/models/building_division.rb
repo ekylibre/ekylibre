@@ -65,7 +65,7 @@
 #
 
 
-class BuildingRoom < SubZone
+class BuildingDivision < SubZone
   # TODO: Use acts_as_nested_set
   # acts_as_tree
   attr_accessible :name, :address_id, :description, :nature_id, :owner_id, :reservoir, :unit, :content_maximal_quantity, :content_nature_id, :maximal_quantity, :variety, :identification_number, :born_at, :work_number

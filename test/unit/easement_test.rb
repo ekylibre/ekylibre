@@ -65,7 +65,7 @@
 #
 require 'test_helper'
 
-class BuildingRoomTest < ActiveSupport::TestCase
+class EasementTest < ActiveSupport::TestCase
 
   # Replace this with your real tests.'
   test "the truth" do

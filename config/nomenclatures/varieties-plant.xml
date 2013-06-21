@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
   <nomenclature name="varieties-plant" hierarchical="true">
-    <attributes>
-      <attribute name="itis-tsn" type="string" required="true"/>
-    </attributes>
     <items>
-        <item name="poaceae">
-          <attribute name="itis-tsn" value="40351"/>
-        </item>
+      <item name="poaceae">
+	<attribute name="itis-tsn" value="40351"/>
+      </item>
     </items>
   </nomenclature>
 </nomenclatures>

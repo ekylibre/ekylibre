@@ -63,7 +63,7 @@
 #  virtual_quantity         :decimal(19, 4)   default(0.0), not null
 #  work_number              :string(255)
 #
-class PrimaryZone < Zone
+class Easement < Zone
 
   after_save do
     area = compute("ST_Area(shape)").to_f

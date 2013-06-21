@@ -65,7 +65,7 @@
 #
 
 
-class LandParcel < PrimaryZone
+class LandParcel < Easement
   attr_accessible :name, :born_at, :dead_at, :shape, :unit, :variety
   # belongs_to :area_unit, :class_name => "Unit"
   # TODO : adapt with operations

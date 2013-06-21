@@ -310,7 +310,8 @@ fra:
       bank_statement: "Relevé de compte bancaire"
       bioproduct: "Produit vivant"
       building: "Lieu de stockage"
-      building_room: "Pièce"
+      building_division: "Pièce"
+      building_room: "Pièce" #?
       campaign: "Campagne"
       cash: "Trésorerie"
       cash_transfer: "Virement interne"
@@ -325,6 +326,7 @@ fra:
       document: "Document"
       document_archive: "Archive de document"
       document_template: "Modèle de document"
+      easement: "Zone primaire"
       entity: "Personne"
       entity_address: "Adresse"
       entity_link: "Lien de personne"
@@ -376,7 +378,8 @@ fra:
       place: "Lieu"
       plant: "Plante"
       preference: "Préférence"
-      primary_zone: "Zone primaire"
+      primary_easement: "Zone primaire" #?
+      primary_zone: "Zone primaire" #?
       procedure: "Procédure"
       procedure_nature: "Type de procédure" #?
       # procedure_variable: "Procedure variable"

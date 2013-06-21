@@ -3,10 +3,11 @@
   <!-- root -->
   <nomenclature name="varieties-root">
     <attributes>
-      <attribute name="derivatives" type="list" required="false" inherit="true" merge="true"/>
+      <!-- <attribute name="derivatives" type="list" required="false" inherit="true" merge="true"/> -->
+      <attribute name="derivative_of" type="choice" required="false" nomenclature="varieties" inherit="true"/>
     </attributes>
     <items>
-      <item name="product" derivatives="itself"/>
+      <item name="product"/>
     </items>
   </nomenclature>
   <!-- level 1 -->
@@ -37,16 +38,25 @@
   <!-- level 2 - branch 3 -->
   <nomenclature name="varieties-product_group">
     <items>
-      <item name="animal_group"/>
-      <item name="land_parcel_group"/>
+      <item name="animal_group" derivative_of="animal"/>
+      <item name="land_parcel_group" derivative_of="land_parcel"/>
+      <item name="building"/>
     </items>
   </nomenclature>
   <!-- level 2 - branch 1 - sub-branch 1 -->
   <nomenclature name="varieties-bioproduct">
+    <attributes>
+      <attribute name="itis-tsn" type="string"/>
+    </attributes>
     <items>
       <item name="animal"/>
       <item name="plant"/>  
       <item name="fungus"/>
+      <!-- 
+	   <item name="bacteria"/>
+	   <item name="chromista"/>
+	   <item name="protozoa"/>
+      -->
     </items>
   </nomenclature>
   <!-- level 2 - branch 1 - sub-branch 1 -->
@@ -64,7 +74,7 @@
   <!-- level 2 - branch 1 - sub-branch 3 -->
   <nomenclature name="varieties-zone">
     <items>
-      <item name="primary_zone"/>
+      <item name="easement"/>
       <item name="sub_zone"/>
     </items>
   </nomenclature>
@@ -75,18 +85,16 @@
     </items>
   </nomenclature>  
   <!-- level 2 - branch 1 - sub-branch 3 - leaf 1 -->
-  <nomenclature name="varieties-primary_zone">
+  <nomenclature name="varieties-easement">
     <items>
       <item name="settlement"/>
       <item name="land_parcel"/>
-      <item name="building"/>
     </items>
   </nomenclature>
   <!-- level 2 - branch 1 - sub-branch 3 - leaf 2 -->
   <nomenclature name="varieties-sub_zone">
     <items>
       <item name="building_room"/>
-      <item name="land_parcel_division"/>
     </items>
   </nomenclature>
 </nomenclatures>
