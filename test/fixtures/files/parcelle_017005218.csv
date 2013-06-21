@@ -1,33 +1,33 @@
 ilot_work_number,CAMPAGNE,parcelle_culturale_work_number,parcelle_culturale_name,parcelle_work_number,parcelle_name,parcelle_area,culture,variety,,,
-1,2013,1,petit champ,1,petit champ,'2,68',ble dur,miradou,,,
-2,2013,2,grand champs,2,grand champs,'5,13',ble dur,miradou,,,
-3,2013,3,champ bousseau,3,champ bousseau,'1,37',mais,LG3490,,,
-4,2013,4,raguenaud,4,raguenaud,'0,61',mais,LG3490,,,
-5,2013,5,le terrier,5,le terrier,'1,19',ble tendre,EUCLIDE,,,
-6,2013,6,enclouse des chatâigniers,6,enclouse des chatâigniers,'9,36',ble tendre,CAP HORN,,,
-7,2013,7,bois granger,7,bois granger,'4,27',ble tendre,EUCLIDE,,,
-8,2013,8,Orme 5 têtes 1,8,Orme 5 têtes 1,'3,55',prairie tempo,melanges RGH – RGA – TB – Dactyle,,,
-8,2013,9,Orme 5 têtes 2,9,Orme 5 têtes 2,'3,5',prairie tempo,lofa,chailloux,,
-8,2013,10,Chaumasse,10,Chaumasse,'3,3',prairie tempo,rga,,,
-8,2013,11,parcours,11,parcours,'0,41',prairie tempo,rga,,,
-9,2013,12,grand piece,12,grand piece,'4,8',ble tendre,arezzo,le long de la route de St sulpice,,
-9,2013,13,le renanbrie,13,le renanbrie,'7,72',prairie tempo,Rgh + tv,,,
-9,2013,14,poteau edf,14,poteau edf,'4,5',prairie tempo,melanges RGH – RGA – TB – Dactyle,,,
-10,2013,15,le silo,15,le silo,'2,40',prairie tempo,dactyle,,,
-11,2013,16,les aiguilles,16,les aiguilles,'2,34',prairie tempo,rgh,,,
+1,2013,1,petit champ,1,petit champ(1),'2,68',ble dur,miradou,,,
+2,2013,2,grand champs,2,grand champs(1),'5,13',ble dur,miradou,,,
+3,2013,3,champ bousseau,3,champ bousseau(1),'1,37',mais,LG3490,,,
+4,2013,4,raguenaud,4,raguenaud(1),'0,61',mais,LG3490,,,
+5,2013,5,le terrier,5,le terrier(1),'1,19',ble tendre,EUCLIDE,,,
+6,2013,6,enclouse des chatâigniers,6,enclouse des chatâigniers(1),'9,36',ble tendre,CAP HORN,,,
+7,2013,7,bois granger,7,bois granger(1),'4,27',ble tendre,EUCLIDE,,,
+8,2013,8,Orme 5 têtes 1,8,Orme 5 têtes 1(1),'3,55',prairie tempo,melanges RGH – RGA – TB – Dactyle,,,
+8,2013,9,Orme 5 têtes 2,9,Orme 5 têtes 2(1),'3,5',prairie tempo,lofa,chailloux,,
+8,2013,10,Chaumasse,10,Chaumasse(1),'3,3',prairie tempo,rga,,,
+8,2013,11,parcours,11,parcours(1),'0,41',prairie tempo,rga,,,
+9,2013,12,grand piece,12,grand piece(1),'4,8',ble tendre,arezzo,le long de la route de St sulpice,,
+9,2013,13,le renanbrie,13,le renanbrie(1),'7,72',prairie tempo,Rgh + tv,,,
+9,2013,14,poteau edf,14,poteau edf(1),'4,5',prairie tempo,melanges RGH – RGA – TB – Dactyle,,,
+10,2013,15,le silo,15,le silo(1),'2,40',prairie tempo,dactyle,,,
+11,2013,16,les aiguilles,16,les aiguilles(1),'2,34',prairie tempo,rgh,,,
 13,2013,17,champ guillon,17,champ guillon (1),'1,88',tournesol,,,,
-14,2013,18,bernessard,18,bernessard,6,prairie tempo,Rgh + tv,,,
+14,2013,18,bernessard,18,bernessard(1),6,prairie tempo,Rgh + tv,,,
 14,2013,19,a cote de la vigne,19,a cote de la vigne (1),'3,47',mais,bergson,,,
-15,2013,20,chataigniers,20,chataigniers,'5,54',sorgho,bmr333,,,
-16,2013,21,les avoinies,21,les avoinies,'2,04',sorgho,bmr333,,,
-17,2013,22,la bouchanière,22,la bouchanière,'5,65',mais,Shanon + bergson,,,
+15,2013,20,chataigniers,20,chataigniers(1),'5,54',sorgho,bmr333,,,
+16,2013,21,les avoinies,21,les avoinies(1),'2,04',sorgho,bmr333,,,
+17,2013,22,la bouchanière,22,la bouchanière(1),'5,65',mais,Shanon + bergson,,,
 19,2013,17,champ guillon,23,champ guillon (2),'0,22',,,,,
 20,2013,19,a cote de la vigne,24,a cote de la vigne (2),'0,42',,,,,
-21,2013,23,les pommiers,25,les pommiers,'1,03',ble tendre,EUCLIDE,,,
-22,2013,24,le philippot,26,le philippot,'1,38',ble tendre,EUCLIDE,,MAET,IFT
-23,2013,25,lauriere,27,lauriere,'3,01',ble tendre,EUCLIDE,,MAET,IFT
-24,2013,26,carrefour,28,carrefour,'3,76',prairie tempo,Dactyle + luzerne,,MAET,IFT
-25,2013,27,les abaupins,29,les abaupins,'7,96',mais,Boomer + LG3490,,MAET,IFT
-26,2013,28,la baudrière,30,la baudrière,'5,73',prairie tempo,RGH + TV,,MAET,IFT
-26,2013,29,la baudrière,31,la baudrière,6,orge hiver,arturio,,MAET,IFT
-27,2013,30,menard fille,32,menard fille,'4,69',prairie tempo,luzerne,,,
+21,2013,23,les pommiers,25,les pommiers(1),'1,03',ble tendre,EUCLIDE,,,
+22,2013,24,le philippot,26,le philippot(1),'1,38',ble tendre,EUCLIDE,,MAET,IFT
+23,2013,25,lauriere,27,lauriere(1),'3,01',ble tendre,EUCLIDE,,MAET,IFT
+24,2013,26,carrefour,28,carrefour(1),'3,76',prairie tempo,Dactyle + luzerne,,MAET,IFT
+25,2013,27,les abaupins,29,les abaupins(1),'7,96',mais,Boomer + LG3490,,MAET,IFT
+26,2013,28,la baudrière,30,la baudrière(1),'5,73',prairie tempo,RGH + TV,,MAET,IFT
+26,2013,28,la baudrière,31,la baudrière(2),6,orge hiver,arturio,,MAET,IFT
+27,2013,29,menard fille,32,menard fille(1),'4,69',prairie tempo,luzerne,,,

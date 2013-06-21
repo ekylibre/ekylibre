@@ -132,7 +132,7 @@ namespace :db do
 
       # add default product_nature for animals
       animal_product_nature_category = ProductNatureCategory.find_by_name("Produits animaux")
-      animal_product_nature_category ||= ProductNatureCategory.create!(:name => "Produits animaux", :variety => "animal", :published => true)
+      animal_product_nature_category ||= ProductNatureCategory.create!(:name => "Produits animaux", :published => true)
       cow_unit = "head"
       cow_product_account = Account.find_in_chart(:adult_animal_product)
       cow_stock_account = Account.find_in_chart(:long_time_animal_stock)
@@ -211,7 +211,7 @@ namespace :db do
 
       # create default product_nature to place animal
       building_product_nature_category = ProductNatureCategory.find_by_name("Bâtiments")
-      building_product_nature_category ||= ProductNatureCategory.create!(:name => "Bâtiments", :variety => "building", :published => true)
+      building_product_nature_category ||= ProductNatureCategory.create!(:name => "Bâtiments", :published => true)
       place_nature_animal = ProductNature.find_by_number("BATIMENT_ANIMAUX")
       place_nature_animal ||= ProductNature.create!(:name => "Bâtiment accueillant des animaux", :number => "BATIMENT_ANIMAUX", :variety => "building", :unit => "unity", :category_id => building_product_nature_category.id)
 
@@ -404,13 +404,13 @@ namespace :db do
       # v ||= ProductVariety.create!(:name => "Parcelle", :code => "land_parcel", :product_type => "LandParcel", :parent_id => (p ? p.id : nil))
       land_unit = "square_meter"
       landparcel_product_nature_category = ProductNatureCategory.find_by_name("Ilôts")
-      landparcel_product_nature_category ||= ProductNatureCategory.create!(:name => "Ilôts", :variety => "land_parcel_cluster", :published => true)
+      landparcel_product_nature_category ||= ProductNatureCategory.create!(:name => "Ilôts", :published => true)
       land_parcel_group = ProductNature.find_by_number("LANDPARCELCLUSTER")
       land_parcel_group ||= ProductNature.create!(:name => "Ilôt", :number => "LANDPARCELCLUSTER", :variety => "land_parcel_cluster", :unit => land_unit, :category_id => landparcel_product_nature_category.id)
       RGeo::Shapefile::Reader.open(Rails.root.join("test", "fixtures", "files", "ilot_017005218.shp").to_s, :srid => 2154) do |file|
         # puts "File contains #{file.num_records} records."
         file.each do |record|
-          LandParcelCluster.create!(:shape => record.geometry, :name => "ilôt "+record.attributes['NUMERO'].to_s, :work_number => record.attributes['NUMERO'].to_s, :variety => "land_parcel_cluster", :unit => land_unit, :born_at => Date.civil(record.attributes['CAMPAGNE'], 1, 1), :nature_id => land_parcel_division.id, :owner_id => Entity.of_company.id, :identification_number => record.attributes['PACAGE'].to_s + record.attributes['CAMPAGNE'].to_s + record.attributes['NUMERO'].to_s)
+          LandParcelCluster.create!(:shape => record.geometry, :name => "ilôt "+record.attributes['NUMERO'].to_s, :work_number => record.attributes['NUMERO'].to_s, :variety => "land_parcel_cluster", :unit => land_unit, :born_at => Date.civil(record.attributes['CAMPAGNE'], 1, 1), :nature_id => land_parcel_group.id, :owner_id => Entity.of_company.id, :identification_number => record.attributes['PACAGE'].to_s + record.attributes['CAMPAGNE'].to_s + record.attributes['NUMERO'].to_s)
           # puts "Record number #{record.index}:"
           # puts "  Geometry: #{record.geometry.as_text}"
           # puts "  Attributes: #{record.attributes.inspect}"
@@ -427,7 +427,7 @@ namespace :db do
       # v ||= ProductVariety.create!(:name => "Parcelle", :code => "land_parcel", :product_type => "LandParcel", :parent_id => (p ? p.id : nil))
       landparcel_unit = "hectare"
       cultural_landparcel_product_nature_category = ProductNatureCategory.find_by_name("Parcelles cultivables")
-      cultural_landparcel_product_nature_category ||= ProductNatureCategory.create!(:name => "Parcelles cultivables", :variety => "land_parcel", :published => true)
+      cultural_landparcel_product_nature_category ||= ProductNatureCategory.create!(:name => "Parcelles cultivables", :published => true)
       land_parcel_group = ProductNature.find_by_number("LANDPARCEL")
       land_parcel_group ||= ProductNature.create!(:name => "Parcelle", :number => "LANDPARCEL", :variety => "land_parcel", :unit => landparcel_unit, :category_id => cultural_landparcel_product_nature_category.id)
       
@@ -440,7 +440,7 @@ namespace :db do
                            :landparcelgroup_name => row[3],
                            :landparcel_work_number => row[4],
                            :landparcel_name => row[5],
-                           :landparcel_area => row[6],
+                           :landparcel_area => row[6].to_d,
                            :landparcel_plant_name => row[7],
                            :landparcel_plant_variety => row[8]
                            )
@@ -448,10 +448,10 @@ namespace :db do
           landparcelcluster = LandParcelCluster.find_by_work_number(r.ilot_work_number)
           if landparcelcluster.present?
             landparcelgroup = LandParcelGroup.find_by_work_number(r.landparcelgroup_work_number)
-            landparcelgroup ||= LandParcelGroup.create!(:name => r.landparcelgroup_name, :work_number => r.landparcelgroup_work_number, :variety => "land_parcel_group", :unit => landparcel_unit, :born_at => Date.civil(record.attributes['CAMPAGNE'], 1, 1), :nature_id => land_parcel_group.id, :owner_id => Entity.of_company.id, :identification_number => r.landparcelgroup_work_number)
+            landparcelgroup ||= LandParcelGroup.create!(:name => r.landparcelgroup_name, :work_number => r.landparcelgroup_work_number, :variety => "land_parcel_group", :unit => landparcel_unit, :born_at => Time.now, :nature_id => land_parcel_group.id, :owner_id => Entity.of_company.id, :identification_number => r.landparcelgroup_work_number)
             if landparcelgroup.present?
             landparcel = LandParcel.find_by_work_number(r.landparcel_work_number)
-            landparcel ||= LandParcel.create!(:real_quantity =>r.landparcel_area, :name => r.landparcel_name, :work_number => r.landparcel_work_number, :variety => "land_parcel", :unit => landparcel_unit, :born_at => Date.civil(record.attributes['CAMPAGNE'], 1, 1), :nature_id => land_parcel_group.id, :owner_id => Entity.of_company.id, :identification_number => r.landparcel_work_number)
+            landparcel ||= LandParcel.create!(:real_quantity =>r.landparcel_area, :name => r.landparcel_name, :work_number => r.landparcel_work_number, :variety => "land_parcel", :unit => landparcel_unit, :born_at => Time.now, :nature_id => land_parcel_group.id, :owner_id => Entity.of_company.id, :identification_number => r.landparcel_work_number)
             end
           end
 
@@ -459,7 +459,6 @@ namespace :db do
           # puts "  Geometry: #{record.geometry.as_text}"
           # puts "  Attributes: #{record.attributes.inspect}"
           print "."
-        end
       end
       puts "!"
 
