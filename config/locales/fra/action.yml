@@ -25,7 +25,7 @@ fra:
       show: "Répartition %{id}"
     backend/activity_watchings:
       # edit: "Edit backend/activity watching"
-      index: "Activité surveillées"
+      index: "Activités surveillées"
       # new: "New backend/activity watching"
       # show: "Show backend/activity watching"
     backend/affairs:
@@ -250,6 +250,11 @@ fra:
       show: "Journal\_: %{name} (%{code})"
     backend/kujakus:
       # toggle: "Toggle backend/kujaku"
+    backend/land_parcel_clusters:
+      # edit: "Edit backend/land parcel cluster"
+      # index: "Index backend/land parcel cluster"
+      # new: "New backend/land parcel cluster"
+      # show: "Show backend/land parcel cluster"
     backend/land_parcel_groups:
       edit: "Modifier l'ilôt\_: %{name}"
       index: "Ilôts"
@@ -635,6 +640,7 @@ fra:
     backend/journal_entry_items: "Lignes d’écritures comptables"
     backend/journals: "Journaux"
     # backend/kujakus: "Backend/kujakus"
+    # backend/land_parcel_clusters: "Backend/land parcel clusters"
     # backend/land_parcel_groups: "Backend/land parcel groups"
     backend/land_parcels: "Îlots"
     # backend/legal_entities: "Backend/legal entities"

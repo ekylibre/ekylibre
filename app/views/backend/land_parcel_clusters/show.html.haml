@@ -1,0 +1,7 @@
+=main_toolbar do |t|
+  -t.edit @land_parcel_cluster
+
+=beehive do |b|
+  -b.cell do
+    =attributes_list(@land_parcel_cluster) do |l|
+      -l.attribute :name

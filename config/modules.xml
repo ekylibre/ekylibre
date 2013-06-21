@@ -1059,6 +1059,16 @@
       <item name="kujakus">
         <page to="backend/kujakus#toggle"/>
       </item>
+      <item name="land_parcel_clusters">
+        <page to="backend/land_parcel_clusters#index"/>
+        <page to="backend/land_parcel_clusters#create"/>
+        <page to="backend/land_parcel_clusters#destroy"/>
+        <page to="backend/land_parcel_clusters#edit"/>
+        <page to="backend/land_parcel_clusters#list"/>
+        <page to="backend/land_parcel_clusters#new"/>
+        <page to="backend/land_parcel_clusters#show"/>
+        <page to="backend/land_parcel_clusters#update"/>
+      </item>
       <item name="logs">
         <page to="backend/logs#index"/>
         <page to="backend/logs#create"/>

@@ -456,6 +456,12 @@ Ekylibre::Application.routes.draw do
         post :toggle
       end
     end
+    resources :land_parcel_clusters do
+      collection do
+        get :list
+        unroll_all
+      end
+    end
     resources :land_parcel_groups do
       collection do
         get :list

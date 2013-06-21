@@ -351,6 +351,7 @@ fra:
       journal_entry: "Écriture"
       journal_entry_item: "Ligne d’écriture"
       land_parcel: "Parcelle"
+      # land_parcel_cluster: "Land parcel cluster"
       land_parcel_division: "Division de parcelle"
       land_parcel_group: "Ilôt"
       # legal_entity: "Legal entity"

@@ -32,7 +32,7 @@ arb:
       # new: "Nouvelle répartition analytique"
       # show: "Répartition %{id}"
     backend/activity_watchings:
-      # index: "Activité surveillées"
+      # index: "Activités surveillées"
     backend/affairs:
       # index: "Transactions"
       # select: "Ajouter une transaction"
@@ -289,6 +289,7 @@ arb:
       # reports: "Impression, exportation"
       show: "الدفتر اليومي : %{name} (%{code})"
     backend/kujakus: #?
+    backend/land_parcel_clusters: #?
     backend/land_parcel_groups:
       # edit: "Modifier l'ilôt\_: %{name}"
       # index: "Ilôts"
