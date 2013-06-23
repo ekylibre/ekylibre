@@ -251,22 +251,24 @@ fra:
     backend/kujakus:
       # toggle: "Toggle backend/kujaku"
     backend/land_parcel_clusters:
-      # edit: "Edit backend/land parcel cluster"
-      # index: "Index backend/land parcel cluster"
-      # new: "New backend/land parcel cluster"
-      # show: "Show backend/land parcel cluster"
-    backend/land_parcel_groups:
       edit: "Modifier l'ilôt\_: %{name}"
       index: "Ilôts"
       new: "Ajouter un nouvel ilôt"
       show: "Ilôt %{name}"
+    backend/land_parcel_groups:
+      divide: "Diviser la parcelle culturale\_: %{name}" #?
+      edit: "Modifier la parcelle culturale\_: %{name}"
+      index: "Parcelles culturales"
+      merge: "Fusionner des parcelles culturales" #?
+      new: "Ajouter une nouvelle parcelle culturale"
+      show: "Parcelle culturale %{name}"
     backend/land_parcels:
-      divide: "Diviser la parcelle\_: %{name}" #?
-      edit: "Modifier la parcelle\_: %{name}"
-      index: "Parcelles"
-      merge: "Fusionner des parcelles" #?
-      new: "Ajouter une nouvelle parcelle"
-      show: "Parcelle %{name}"
+      divide: "Diviser la parcelle unitaire\_: %{name}" #?
+      edit: "Modifier la parcelle unitaire\_: %{name}"
+      index: "Parcelles unitaires"
+      merge: "Fusionner des parcelles unitaires" #?
+      new: "Ajouter une nouvelle parcelle unitaire"
+      show: "Parcelle unitaire %{name}"
     backend/legal_entities:
       # edit: "Edit backend/legal entity"
       # index: "Index backend/legal entity"
@@ -1851,6 +1853,8 @@ fra:
       all: "{content}"
     backend/operations:
       all: "{nature} ({created_at})"
+    backend/plants:
+      all: "{name} - {work_number}"
     backend/product_indicators:
       all: "{id}"
     backend/product_memberships:

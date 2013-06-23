@@ -441,17 +441,19 @@ namespace :db do
                            :landparcel_work_number => row[4],
                            :landparcel_name => row[5],
                            :landparcel_area => row[6].to_d,
-                           :landparcel_plant_name => row[7],
-                           :landparcel_plant_variety => row[8]
+                           :landparcelgroup_shape => row[7],
+                           :landparcel_shape => row[8],
+                           :landparcel_plant_name => row[9],
+                           :landparcel_plant_variety => row[10]
                            )
           
           landparcelcluster = LandParcelCluster.find_by_work_number(r.ilot_work_number)
           if landparcelcluster.present?
             landparcelgroup = LandParcelGroup.find_by_work_number(r.landparcelgroup_work_number)
-            landparcelgroup ||= LandParcelGroup.create!(:name => r.landparcelgroup_name, :work_number => r.landparcelgroup_work_number, :variety => "land_parcel_group", :unit => landparcel_unit, :born_at => Time.now, :nature_id => land_parcel_group.id, :owner_id => Entity.of_company.id, :identification_number => r.landparcelgroup_work_number)
+            landparcelgroup ||= LandParcelGroup.create!(:shape => r.landparcelgroup_shape,:name => r.landparcelgroup_name, :work_number => r.landparcelgroup_work_number, :variety => "land_parcel_group", :unit => landparcel_unit, :born_at => Time.now, :nature_id => land_parcel_group.id, :owner_id => Entity.of_company.id, :identification_number => r.landparcelgroup_work_number)
             if landparcelgroup.present?
             landparcel = LandParcel.find_by_work_number(r.landparcel_work_number)
-            landparcel ||= LandParcel.create!(:real_quantity =>r.landparcel_area, :name => r.landparcel_name, :work_number => r.landparcel_work_number, :variety => "land_parcel", :unit => landparcel_unit, :born_at => Time.now, :nature_id => land_parcel_group.id, :owner_id => Entity.of_company.id, :identification_number => r.landparcel_work_number)
+            landparcel ||= LandParcel.create!(:shape => r.landparcel_shape, :real_quantity =>r.landparcel_area, :name => r.landparcel_name, :work_number => r.landparcel_work_number, :variety => "land_parcel", :unit => landparcel_unit, :born_at => Time.now, :nature_id => land_parcel_group.id, :owner_id => Entity.of_company.id, :identification_number => r.landparcel_work_number)
             end
           end
 
@@ -461,7 +463,22 @@ namespace :db do
           print "."
       end
       puts "!"
-
+      
+      # # add shape to landparcel
+      # RGeo::Shapefile::Reader.open(Rails.root.join("test", "fixtures", "files", "parcelle_017005218.shp").to_s, :srid => 2154) do |file|
+        # # puts "File contains #{file.num_records} records."
+        # file.each do |record|
+          # lp = LandParcel.find_by_work_number(record.attributes['NUMERO'].to_s)
+          # if lp.present?
+            # lp.update_attributes!(:shape => record.geometry)
+          # end
+          # # puts "Record number #{record.index}:"
+          # # puts "  Geometry: #{record.geometry.as_text}"
+          # # puts "  Attributes: #{record.attributes.inspect}"
+          # print "."
+        # end
+      # end
+      # puts "!"
 
       #############################################################################
       # Create variety for wheat product

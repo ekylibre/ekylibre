@@ -1,9 +1,15 @@
 =field_set do # partie info general de l entité animal
-  =f.referenced_association :nature
-  =f.referenced_association :variety
-  =f.input :name
-  =f.input :reproductor
-  =f.input :born_at
-  =f.input :description # affiche le champ description formaté en zone de texte
+  =f.referenced_association :nature, :source => :plants
+  =f.input :variety
+  =f.input :name # affiche le champ name de l entité animal avec une infos derriere
+  =f.custom_fields
+
+=field_set(:animal_identification) do # partie entrée sortie de l entité animal
+  =f.input :work_number
+  =f.input :born_at, :as => :date
+  =f.referenced_association :owner, :selected => Entity.of_company
+
+=field_set(:document) do
   =f.input :picture
   =image_tag(@plant.picture.url(:thumb))
+  =f.input :description # affiche le champ description formaté en zone de texte
