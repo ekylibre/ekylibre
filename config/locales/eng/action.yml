@@ -24,8 +24,7 @@ eng:
       # index: "Répartitions analytiques"
       # new: "Nouvelle répartition analytique"
       # show: "Répartition %{id}"
-    backend/activity_watchings:
-      # index: "Activités surveillées"
+    backend/activity_watchings: #?
     backend/affairs:
       # index: "Transactions"
       # select: "Ajouter une transaction"
@@ -431,7 +430,6 @@ eng:
       edit: "Edit the stock transfer/loss"
       index: "Transfers and loss"
       new: "Add a new stock transfer or loss"
-    backend/product_varieties: #?
     backend/production_chain_conveyors:  #?
       edit: "Edit production chain conveyor (%{source_id}-%{target_id})" #?
       new: "Add a new conveyor in the production chain" #?
@@ -445,6 +443,11 @@ eng:
       index: "Production chains" #?
       new: "Add a new production chain" #?
       show: "Production chain: %{name}" #?
+    backend/productions:
+      # edit: "Modifier la production\_: %{name}"
+      # index: "Productions"
+      # new: "Nouvelle production"
+      # show: "Production\_: %{name}"
     backend/products:
       change_quantities: "Change quantities for product" #?
       edit: "Edit the product: %{name}"

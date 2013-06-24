@@ -23,8 +23,7 @@ class Backend::ProceduresController < BackendController
 
   list :conditions => {:parent_id => nil} do |t|
     t.column :nomen, :url => true
-    t.column :name, :through => :activity, :url => true
-    t.column :name, :through => :campaign, :url => true
+    t.column :name, :through => :production, :url => true
     t.column :name, :through => :incident, :url => true
     t.column :state
     t.column :variables_names

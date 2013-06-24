@@ -506,6 +506,9 @@ arb:
         # second_building: "Lieu de stockage d’arrivée"
       product_variety:
         # code: "Code race"
+      production:
+        # product_nature: "Produit de référence"
+        # work_unit: "Unité d'oeuvre"
       products_nature:  #?
         active: "قبل للاستخدام" #?
         buildings: "اماكن التخزين" #?
@@ -826,7 +829,6 @@ arb:
       # bioproduct: "Produit vivant"
       building: "موقع التخزين"
       # building_division: "Pièce"
-      # building_room: "Pièce"
       # campaign: "Campagne"
       cash: "الخزينة"
       # cash_transfer: "Virement interne"
@@ -836,7 +838,7 @@ arb:
       custom_field: "الحقول التكميلية"
       custom_field_choice: "اختيار الحقل التكميلي"
       custom_field_datum: "بيانات الملف التكميلية" #?
-      delay: "التأجيل"
+      delay: "التأجيل" #?
       delivery: "التسليم" #?
       delivery_item: "خط التسليم" #?
       delivery_mode: "نمط التسليم" #?
@@ -854,12 +856,12 @@ arb:
       entity_event: "الحدث" #?
       entity_event_nature: "نوع الحدث" #?
       entity_link: "رابط الفرد"
-      entity_link_nature: "طبيعة الرابط بين الافراد"
+      entity_link_nature: "طبيعة الرابط بين الافراد" #?
       entity_nature: "نوع الفرد"
       equipment: "الاداة"
       establishment: "المؤسسة"
       event: "الحدث"
-      event_nature: "نوع الحدث"
+      event_nature: "نوع الحدث" #?
       financial_year: "السنة المالية"
       # fungus: "Champignon"
       # immatter: "Immatériel"
@@ -868,10 +870,9 @@ arb:
       # incoming_delivery_mode: "Mode d’arrivage"
       incoming_payment: "الدفعة"
       incoming_payment_mode: "نوع الدفعة"
-      incoming_payment_use: "تأثير الدفعة"
+      incoming_payment_use: "تأثير الدفعة" #?
       inventory: "عملية الجرد"
       inventory_item: "طريقة عملية الجرد"
-      # inventory_line: ""
       journal: "الدفتر اليومي"
       journal_entry: "المدخلات"
       # journal_entry_item: "Ligne d’écriture"
@@ -890,7 +891,7 @@ arb:
       observation: "ملاحظة"
       operation: "العمل"
       operation_item: "الواردات/الصادرات" #?
-      operation_nature: "نوع العمل"
+      operation_nature: "نوع العمل" #?
       # operation_task: "Tâche"
       operation_use: "الاداة المستخدمة" #?
       # outgoing_delivery: "Livraison"
@@ -904,16 +905,11 @@ arb:
       # plant: "Plante"
       # preference: "Préférence"
       price: "الاسعار" #?
-      # primary_easement: "Zone primaire"
-      # primary_zone: "Zone primaire"
       # procedure: "Procédure"
-      # procedure_nature: "Type de procédure"
       product: "الانتاج"
-      # product_ability: "Compétence"
       product_category: "فئة الانتاج" #?
       product_component: "عنصر الانتاج" #?
       # product_group: "Groupe de produit"
-      # product_indicator: "Indicateur"
       # product_localization: "Passage d'un produit en un lieu"
       # product_membership: "Passage d'un produit dans un groupe"
       product_move: "حركة السهم"
@@ -929,11 +925,7 @@ arb:
       product_stock: "سهم الانتاج" #?
       product_stock_move: "حركة السهم" #?
       product_transfer: "تحول او ضياع السهم"
-      # product_variety: "Variété de produit"
-      # production_chain: "Chaîne de production"
-      # production_chain_conveyor: "Convoyeur de chaîne de production"
-      # production_chain_work_center: "Centre d’opérations de chaîne de production"
-      # production_chain_work_center_use: "Utilisation d’outil de centre d’opérations"
+      # production: "Production"
       products_nature: "الانتاج" #?
       profession: "المهنة"
       purchase: "الشراء"
@@ -1625,9 +1617,6 @@ arb:
     # product_nature: "Product nature"
     # product_natures: "Types de produits"
     productable_products: "المنتجات الممكن انتاجها"
-    # production_chain: "Chaîne de production"
-    # production_chain_conveyor: "Convoyeur de chaîne de production"
-    # production_chain_work_center: "Centre d’opérations de chaîne de production"
     products: "المنتجات"
     products_accounts: "حسابات المنتجات"
     profession: "المهنة"

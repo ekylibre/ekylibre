@@ -182,6 +182,9 @@ eng:
         second_building: "Arrival building"
       product_variety:
         # code: "Code race"
+      production:
+        # product_nature: "Produit de référence"
+        # work_unit: "Unité d'oeuvre"
       products_nature:  #?
         duration: "Quantity OR period" #?
         price: "Cost price" #?
@@ -412,7 +415,6 @@ eng:
       # bioproduct: "Produit vivant"
       building: "Building"
       # building_division: "Pièce"
-      # building_room: "Pièce"
       # campaign: "Campagne"
       cash: "Cash"
       cash_transfer: "Cash transfer"
@@ -422,7 +424,7 @@ eng:
       custom_field: "Complement field"
       custom_field_choice: "Complement field choice"
       custom_field_datum: "Complement datum" #?
-      delay: "Delay"
+      delay: "Delay" #?
       department: "Department"
       deposit: "Deposit"
       deposit_item: "Deposit line"
@@ -438,12 +440,12 @@ eng:
       entity_event: "Event" #?
       entity_event_nature: "Event type" #?
       entity_link: "Person link"
-      entity_link_nature: "Person link type"
+      entity_link_nature: "Person link type" #?
       entity_nature: "Person type"
       equipment: "Tool"
       establishment: "Establishment"
       event: "Event"
-      event_nature: "Event type"
+      event_nature: "Event type" #?
       financial_year: "Financial year"
       # fungus: "Champignon"
       # immatter: "Immatériel"
@@ -453,10 +455,10 @@ eng:
       incoming_delivery_mode: "Purchase delivery mode"
       incoming_payment: "Incoming payment"
       incoming_payment_mode: "Incoming payment mode"
-      incoming_payment_use: "Incoming payment part"
+      incoming_payment_use: "Incoming payment part" #?
       inventory: "Inventory"
       inventory_item: "Inventory line"
-      inventory_line: "Inventory line"
+      inventory_line: "Inventory line" #?
       journal: "Journal"
       journal_entry: "Journal entry"
       journal_entry_item: "Journal entry line"
@@ -477,7 +479,7 @@ eng:
       operation: "Operation"
       operation_item: "Operation line" #?
       operation_line: "Operation line" #?
-      operation_nature: "Operation type"
+      operation_nature: "Operation type" #?
       # operation_task: "Tâche"
       operation_use: "Tool use" #?
       outgoing_delivery: "Delivery"
@@ -491,18 +493,13 @@ eng:
       # plant: "Plante"
       preference: "Preference"
       price: "Price" #?
-      # primary_easement: "Zone primaire"
-      # primary_zone: "Zone primaire"
       # procedure: "Procédure"
-      # procedure_nature: "Type de procédure"
       product: "Animal"
-      # product_ability: "Compétence"
       product_category: "Product category" #?
       product_component: "Product component" #?
       product_event: "Animal event" #?
       product_event_nature: "Animal event type" #?
       product_group: "Animal group"
-      # product_indicator: "Indicateur"
       # product_localization: "Passage d'un produit en un lieu"
       # product_membership: "Passage d'un produit dans un groupe"
       product_move: "Stock move"
@@ -519,11 +516,12 @@ eng:
       product_stock: "Stock" #?
       product_stock_move: "Stock move" #?
       product_transfer: "Stock transfer"
-      product_variety: "Animal race"
-      production_chain: "Production chain"
-      production_chain_conveyor: "Production chain conveyor"
-      production_chain_work_center: "Production chain work center"
-      production_chain_work_center_use: "Production chain work center use"
+      product_variety: "Animal race" #?
+      # production: "Production"
+      production_chain: "Production chain" #?
+      production_chain_conveyor: "Production chain conveyor" #?
+      production_chain_work_center: "Production chain work center" #?
+      production_chain_work_center_use: "Production chain work center use" #?
       products_nature: "Product" #?
       profession: "Profession"
       purchase: "Purchase order"
@@ -1156,9 +1154,8 @@ eng:
     # product_nature: "Product nature"
     # product_natures: "Types de produits"
     productable_products: "Productable products"
-    production_chain: "Production chain"
-    # production_chain_conveyor: "Convoyeur de chaîne de production"
-    production_chain_work_center: "Production chain work center"
+    production_chain: "Production chain" #?
+    production_chain_work_center: "Production chain work center" #?
     production_chain_work_center_lines: "Production chain work center lines" #?
     production_chain_work_center_uses: "Production chain work center uses" #?
     production_chain_work_centers: "Production chain work centers" #?

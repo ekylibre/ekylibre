@@ -23,11 +23,6 @@ fra:
       index: "Répartitions analytiques"
       new: "Nouvelle répartition analytique"
       show: "Répartition %{id}"
-    backend/activity_watchings:
-      # edit: "Edit backend/activity watching"
-      index: "Activités surveillées"
-      # new: "New backend/activity watching"
-      # show: "Show backend/activity watching"
     backend/affairs:
       # attach: "Attach backend/affair"
       # detach: "Detach backend/affair"
@@ -457,6 +452,11 @@ fra:
       edit: "Modifier l’un transfert de stock"
       index: "Transferts et pertes de stocks"
       new: "Ajouter un transfert ou une perte de stocks"
+    backend/productions:
+      edit: "Modifier la production\_: %{name}"
+      index: "Productions"
+      new: "Nouvelle production"
+      show: "Production\_: %{name}"
     backend/products:
       edit: "Modifier un produit"
       index: "Produits"
@@ -573,7 +573,6 @@ fra:
     backend/accounts: "Plan de comptes"
     backend/activities: "Activités"
     backend/activity_repartitions: "Répartitions analytiques"
-    # backend/activity_watchings: "Backend/activity watchings"
     backend/affairs: "Affaires"
     # backend/animal_groups: "Backend/animal groups"
     backend/animals: "Animaux"
@@ -672,6 +671,7 @@ fra:
     # backend/product_process_phases: "Backend/product process phases"
     # backend/product_processes: "Backend/product processes"
     backend/product_transfers: "Transferts et pertes de stocks"
+    # backend/productions: "Backend/productions"
     backend/products: "Produits"
     backend/professions: "Professions"
     backend/purchase_items: "Lignes d’achat"

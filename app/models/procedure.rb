@@ -20,23 +20,21 @@
 #
 # == Table: procedures
 #
-#  activity_id  :integer          not null
-#  campaign_id  :integer          not null
-#  created_at   :datetime         not null
-#  creator_id   :integer
-#  id           :integer          not null, primary key
-#  incident_id  :integer
-#  lock_version :integer          default(0), not null
-#  nomen        :string(255)      not null
-#  state        :string(255)      default("undone"), not null
-#  updated_at   :datetime         not null
-#  updater_id   :integer
+#  created_at    :datetime         not null
+#  creator_id    :integer
+#  id            :integer          not null, primary key
+#  incident_id   :integer
+#  lock_version  :integer          default(0), not null
+#  nomen         :string(255)      not null
+#  production_id :integer          not null
+#  state         :string(255)      default("undone"), not null
+#  updated_at    :datetime         not null
+#  updater_id    :integer
 #
 class Procedure < Ekylibre::Record::Base
   attr_accessible :nomen, :activity_id, :campaign_id
   attr_readonly :nomen, :activity_id, :campaign_id
-  belongs_to :activity
-  belongs_to :campaign
+  belongs_to :production
   belongs_to :incident
   has_many :variables, :class_name => "ProcedureVariable", :inverse_of => :procedure
   has_many :operations, :inverse_of => :procedure
@@ -44,7 +42,7 @@ class Procedure < Ekylibre::Record::Base
   enumerize :state, :in => [:undone, :squeezed, :in_progress, :done]
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :nomen, :state, :allow_nil => true, :maximum => 255
-  validates_presence_of :activity, :campaign, :nomen, :state
+  validates_presence_of :nomen, :production, :state
   #]VALIDATORS]
   validates_inclusion_of :nomen, :in => self.nomen.values
   validates_presence_of :version, :uid

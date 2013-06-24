@@ -18,28 +18,30 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: activity_watchings
+# == Table: productions
 #
 #  activity_id       :integer          not null
-#  area_unit         :string(255)
+#  campaign_id       :integer          not null
 #  created_at        :datetime         not null
 #  creator_id        :integer
 #  id                :integer          not null, primary key
 #  lock_version      :integer          default(0), not null
 #  position          :integer
 #  product_nature_id :integer          not null
+#  started_at        :datetime
+#  state             :string(255)
+#  static_storage    :boolean          not null
+#  stopped_at        :datetime
+#  storage_id        :integer
 #  updated_at        :datetime         not null
 #  updater_id        :integer
-#  work_unit         :string(255)
 #
-class ActivityWatching < Ekylibre::Record::Base
-  attr_accessible :activity_id, :product_nature_id, :area_unit, :work_unit
-  belongs_to :activity
-  # belongs_to :area_unit, :class_name => "Unit"
-  belongs_to :product_nature
-  # belongs_to :work_unit, :class_name => "Unit"
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_length_of :area_unit, :work_unit, :allow_nil => true, :maximum => 255
-  validates_presence_of :activity, :product_nature
-  #]VALIDATORS]
+require 'test_helper'
+
+class ProductionTest < ActiveSupport::TestCase
+
+  test "presence of fixtures" do
+    # assert_equal 2, ActivityWatching.count
+  end
+
 end

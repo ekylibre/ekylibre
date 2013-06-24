@@ -31,8 +31,7 @@ spa:
       # index: "Répartitions analytiques"
       # new: "Nouvelle répartition analytique"
       # show: "Répartition %{id}"
-    backend/activity_watchings:
-      # index: "Activités surveillées"
+    backend/activity_watchings: #?
     backend/affairs:
       # index: "Transactions"
       # select: "Ajouter une transaction"
@@ -445,11 +444,11 @@ spa:
       # edit: "Modifier l’un transfert de stock"
       # index: "Transferts et pertes de stocks"
       # new: "Ajouter un transfert ou une perte de stocks"
-    backend/product_varieties: #?
-    backend/production_chain_conveyors: #?
-    backend/production_chain_work_center_uses: #?
-    backend/production_chain_work_centers: #?
-    backend/production_chains: #?
+    backend/productions:
+      # edit: "Modifier la production\_: %{name}"
+      # index: "Productions"
+      # new: "Nouvelle production"
+      # show: "Production\_: %{name}"
     backend/products:
       # edit: "Modifier un produit"
       # index: "Produits"
