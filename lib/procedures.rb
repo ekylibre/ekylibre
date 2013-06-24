@@ -252,6 +252,7 @@ module Procedures
         }
       end
       merger = Rails.root.join("tmp", "allinone.xml")
+      FileUtils.mkdir_p(merger.dirname)
       File.open(merger, "wb") do |f|
         f.write builder.to_xml
       end

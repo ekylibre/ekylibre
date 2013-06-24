@@ -28,7 +28,7 @@ GEM
       activesupport (= 3.2.13)
       arel (~> 3.0.2)
       tzinfo (~> 0.3.29)
-    activerecord-postgis-adapter (0.6.4)
+    activerecord-postgis-adapter (0.6.5)
       rgeo-activerecord (~> 0.5.0)
     activeresource (3.2.13)
       activemodel (= 3.2.13)
