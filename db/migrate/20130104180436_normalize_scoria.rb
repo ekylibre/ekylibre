@@ -91,6 +91,35 @@ class NormalizeScoria < ActiveRecord::Migration
     remove_column :events, :responsible_id
     remove_column :events, :entity_id
 
+    remove_column :incoming_deliveries, :currency
+    remove_column :incoming_deliveries, :amount
+    remove_column :incoming_deliveries, :pretax_amount
+    remove_column :incoming_deliveries, :comment
+    rename_column :incoming_deliveries, :moved_on, :received_at
+    change_column :incoming_deliveries, :received_at, :datetime
+    add_column :incoming_deliveries, :sender_id, :integer
+    add_index :incoming_deliveries, :sender_id
+    execute "UPDATE #{quoted_table_name(:incoming_deliveries)} SET sender_id = p.supplier_id FROM #{quoted_table_name(:purchases)} AS p WHERE p.id = purchase_id"
+    execute "UPDATE #{quoted_table_name(:incoming_deliveries)} SET sender_id = 0 WHERE sender_id IS NULL"
+    change_column_null :incoming_deliveries, :sender_id, false
+
+    remove_column :incoming_delivery_lines, :amount
+    remove_column :incoming_delivery_lines, :pretax_amount
+    remove_column :incoming_delivery_lines, :price_id
+    change_column_null :incoming_delivery_lines, :purchase_line_id, true
+    rename_column :incoming_delivery_lines, :warehouse_id, :container_id
+    # # TODO How to manage appro
+    # # TODO Build product before create
+    # rename_column :incoming_delivery_lines, :product_id, :product_nature_id
+    # # TODO Build create and create product after
+    # add_column :incoming_delivery_lines, :product_quantity, :decimal, :precision => 19, :scale => 4
+    # rename_column :incoming_delivery_lines, :product_id, :product_nature_id
+
+    remove_column :incoming_delivery_lines, :unit_id
+    remove_column :incoming_delivery_lines, :tracking_id
+
+
+
     rename_column :incoming_payment_modes, :published, :active
 
     rename_column :incoming_payments, :bank, :bank_name
@@ -100,6 +129,37 @@ class NormalizeScoria < ActiveRecord::Migration
     add_column :listing_nodes, :lft, :integer
     add_column :listing_nodes, :rgt, :integer
     add_column :listing_nodes, :depth, :integer, :null => false, :default => 0
+
+    remove_column :outgoing_deliveries, :currency
+    remove_column :outgoing_deliveries, :amount
+    remove_column :outgoing_deliveries, :pretax_amount
+    remove_column :outgoing_deliveries, :comment
+    rename_column :outgoing_deliveries, :moved_on, :sent_at
+    change_column :outgoing_deliveries, :sent_at, :datetime
+    add_column :outgoing_deliveries, :recipient_id, :integer
+    add_index :outgoing_deliveries, :recipient_id
+    execute "UPDATE #{quoted_table_name(:outgoing_deliveries)} SET recipient_id = p.entity_id FROM #{quoted_table_name(:entity_addresses)} AS p WHERE p.id = address_id"
+    execute "UPDATE #{quoted_table_name(:outgoing_deliveries)} SET recipient_id = 0 WHERE recipient_id IS NULL"
+    change_column_null :outgoing_deliveries, :recipient_id, false
+    change_column_null :outgoing_deliveries, :sale_id, true
+    # FIXME Reference number Keep or not ?
+
+    remove_column :outgoing_delivery_lines, :amount
+    remove_column :outgoing_delivery_lines, :pretax_amount
+    remove_column :outgoing_delivery_lines, :price_id
+    change_column_null :outgoing_delivery_lines, :sale_line_id, true
+    remove_column :outgoing_delivery_lines, :warehouse_id
+    remove_column :outgoing_delivery_lines, :unit_id
+    remove_column :outgoing_delivery_lines, :tracking_id
+    # # TODO How to manage appro
+    # # TODO Build product before create
+    # rename_column :outgoing_delivery_lines, :product_id, :product_nature_id
+    # # TODO Build create and create product after
+    # add_column :outgoing_delivery_lines, :product_quantity, :decimal, :precision => 19, :scale => 4
+    # rename_column :outgoing_delivery_lines, :product_id, :product_nature_id
+
+
+
 
     add_column :outgoing_payment_modes, :active, :boolean, :null => false, :default => false
     execute("UPDATE #{quoted_table_name(:outgoing_payment_modes)} SET active = #{quoted_true}")

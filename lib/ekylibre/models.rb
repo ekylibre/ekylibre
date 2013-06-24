@@ -125,15 +125,15 @@ module Ekylibre
       :updater_id => :user
     },
     :building_division => {
-      :address_id => '',
+      :address_id => :entity_address,
       :asset_id => :asset,
-      :content_nature_id => '',
+      :content_nature_id => :product_nature,
       :creator_id => :user,
-      :current_place_id => '',
-      :father_id => '',
-      :mother_id => '',
-      :nature_id => '',
-      :owner_id => '',
+      :current_place_id => :product,
+      :father_id => :product,
+      :mother_id => :product,
+      :nature_id => :product_nature,
+      :owner_id => :entity,
       :parent_id => :building_division,
       :tracking_id => :tracking,
       :updater_id => :user
@@ -305,18 +305,17 @@ module Ekylibre
       :creator_id => :user,
       :mode_id => :incoming_delivery_mode,
       :purchase_id => :purchase,
+      :sender_id => :entity,
       :updater_id => :user
     },
     :incoming_delivery_item => {
+      :container_id => :product,
       :creator_id => :user,
       :delivery_id => :incoming_delivery,
       :move_id => :product_move,
-      :price_id => :product_price,
       :product_id => :product,
       :purchase_item_id => :purchase_item,
-      :tracking_id => :tracking,
-      :updater_id => :user,
-      :warehouse_id => :warehouse
+      :updater_id => :user
     },
     :incoming_delivery_mode => {
       :creator_id => :user,
@@ -512,6 +511,7 @@ module Ekylibre
       :address_id => :entity_address,
       :creator_id => :user,
       :mode_id => :outgoing_delivery_mode,
+      :recipient_id => :entity,
       :sale_id => :sale,
       :transport_id => :transport,
       :transporter_id => :entity,
@@ -521,12 +521,9 @@ module Ekylibre
       :creator_id => :user,
       :delivery_id => :outgoing_delivery,
       :move_id => :product_move,
-      :price_id => :product_price,
       :product_id => :product,
       :sale_item_id => :sale_item,
-      :tracking_id => :tracking,
-      :updater_id => :user,
-      :warehouse_id => :warehouse
+      :updater_id => :user
     },
     :outgoing_delivery_mode => {
       :creator_id => :user,
@@ -598,7 +595,6 @@ module Ekylibre
       :campaign_id => :campaign,
       :creator_id => :user,
       :incident_id => :incident,
-      :parent_id => :procedure,
       :updater_id => :user
     },
     :procedure_variable => {

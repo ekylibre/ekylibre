@@ -26,6 +26,7 @@
 #  lock_version :integer          default(0), not null
 #  nomen        :string(255)      not null
 #  procedure_id :integer          not null
+#  roles        :string(255)
 #  target_id    :integer          not null
 #  updated_at   :datetime         not null
 #  updater_id   :integer

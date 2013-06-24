@@ -703,7 +703,7 @@ class NormalizeProducts < ActiveRecord::Migration
 
   def up
     # Normalize units with nomenclatures
-    for table in [:sale_lines, :purchase_lines, :incoming_delivery_lines, :outgoing_delivery_lines, :inventory_lines]
+    for table in [:sale_lines, :purchase_lines, :inventory_lines] # , :incoming_delivery_lines, :outgoing_delivery_lines
       add_column table, :unit, :string
       add_index table, :unit
       if index_exists?(table, :unit_id)

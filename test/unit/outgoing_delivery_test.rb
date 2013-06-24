@@ -21,20 +21,17 @@
 # == Table: outgoing_deliveries
 #
 #  address_id       :integer
-#  amount           :decimal(19, 4)   default(0.0), not null
 #  created_at       :datetime         not null
 #  creator_id       :integer
-#  currency         :string(3)
-#  description      :text
 #  id               :integer          not null, primary key
 #  lock_version     :integer          default(0), not null
 #  mode_id          :integer
-#  moved_on         :date
 #  number           :string(255)
 #  planned_on       :date
-#  pretax_amount    :decimal(19, 4)   default(0.0), not null
+#  recipient_id     :integer          not null
 #  reference_number :string(255)
-#  sale_id          :integer          not null
+#  sale_id          :integer
+#  sent_at          :datetime
 #  transport_id     :integer
 #  transporter_id   :integer
 #  updated_at       :datetime         not null

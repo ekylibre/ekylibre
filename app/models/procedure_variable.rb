@@ -26,6 +26,7 @@
 #  lock_version :integer          default(0), not null
 #  nomen        :string(255)      not null
 #  procedure_id :integer          not null
+#  roles        :string(255)
 #  target_id    :integer          not null
 #  updated_at   :datetime         not null
 #  updater_id   :integer
@@ -33,7 +34,7 @@
 class ProcedureVariable < Ekylibre::Record::Base
   attr_accessible :nomen, :target_id
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_length_of :nomen, :allow_nil => true, :maximum => 255
+  validates_length_of :nomen, :roles, :allow_nil => true, :maximum => 255
   validates_presence_of :nomen, :procedure, :target
   #]VALIDATORS]
   belongs_to :procedure, :inverse_of => :variables

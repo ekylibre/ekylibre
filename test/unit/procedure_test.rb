@@ -24,19 +24,13 @@
 #  campaign_id  :integer          not null
 #  created_at   :datetime         not null
 #  creator_id   :integer
-#  depth        :integer
 #  id           :integer          not null, primary key
 #  incident_id  :integer
-#  lft          :integer
 #  lock_version :integer          default(0), not null
 #  nomen        :string(255)      not null
-#  parent_id    :integer
-#  rgt          :integer
 #  state        :string(255)      default("undone"), not null
-#  uid          :string(511)
 #  updated_at   :datetime         not null
 #  updater_id   :integer
-#  version      :string(255)
 #
 require 'test_helper'
 
