@@ -1,13 +1,13 @@
 =field_set(:major => true) do
   =f.referenced_association :nature
   =f.input :name
-  =f.input :identification_number
+  =f.input :work_number
   =f.input :description, :field => :text
   =f.input :born_at
 
 =field_set(:details) do
-  =f.input :number
-  =f.referenced_association :unit
+  =f.input :real_quantity
+  =f.input :unit
   =f.input :active
   =f.input :external
   =f.referenced_association :owner

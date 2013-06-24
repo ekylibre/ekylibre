@@ -18,40 +18,46 @@
 #
 
 class Backend::PlantsController < BackendController
-  manage_restfully
+  manage_restfully :t3e => {:nature_name => "@plant.nature_name"}
 
-  respond_to :pdf, :xml, :json, :html
+  respond_to :pdf, :odt, :docx, :xml, :json, :html, :csv
 
   unroll_all
 
-  list do |t|
+  list(:conditions => [" external = false"]) do |t|
+    t.column :work_number, :url => true
     t.column :name, :url => true
     t.column :born_at
     t.action :edit
-    t.action :destroy, :if => "RECORD.destroyable\?"
+    t.action :destroy, :if => :destroyable?
   end
 
   # Show a list of animal groups
 
   def index
-    @vegetal = Plant.all
+    @plants = Plant.all
     #parsing a parameter to Jasper for company full name
     #respond with associated models to simplify quering in Ireport
-    respond_with @vegetal
+    respond_with @plants, :include => [:variety, :nature]
   end
 
 
   # Show one vegetal with params_id
   def show
-    return unless @vegetal = find_and_check
+    return unless @plant = find_and_check
     respond_to do |format|
       format.html do
-        session[:current_vegetal_id] = @vegetal.id
-        t3e @vegetal
+        session[:current_vegetal_id] = @plant.id
+        t3e @plant
       end
-      format.xml {render xml: @vegetal }
-      format.pdf {respond_with @vegetal }
+      format.xml {render xml: @plant }
+      format.pdf {respond_with @plant }
     end
+  end
+
+  def picture
+    return unless @plant = find_and_check
+    send_file @plant.picture.path(params[:style] || :original)
   end
 
 end

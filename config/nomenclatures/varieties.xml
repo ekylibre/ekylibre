@@ -83,7 +83,13 @@
     <items>
       <item name="zone_property_title"/>
     </items>
-  </nomenclature>  
+  </nomenclature> 
+   <!-- level 2 - branch 3 - sub-branch 1-->
+  <nomenclature name="varieties-land_parcel_group">
+    <items>
+      <item name="land_parcel_cluster"/>
+    </items>
+  </nomenclature>   
   <!-- level 2 - branch 1 - sub-branch 3 - leaf 1 -->
   <nomenclature name="varieties-easement">
     <items>

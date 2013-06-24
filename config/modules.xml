@@ -958,6 +958,16 @@
         <page to="backend/land_parcel_groups#show"/>
         <page to="backend/land_parcel_groups#update"/>
       </item>
+      <item name="land_parcel_clusters">
+        <page to="backend/land_parcel_clusters#index"/>
+        <page to="backend/land_parcel_clusters#create"/>
+        <page to="backend/land_parcel_clusters#destroy"/>
+        <page to="backend/land_parcel_clusters#edit"/>
+        <page to="backend/land_parcel_clusters#list"/>
+        <page to="backend/land_parcel_clusters#new"/>
+        <page to="backend/land_parcel_clusters#show"/>
+        <page to="backend/land_parcel_clusters#update"/>
+      </item>
       <item name="buildings">
         <page to="backend/buildings#index"/>
         <page to="backend/buildings#create"/>
@@ -1081,6 +1091,9 @@
         <page to="backend/places#new"/>
         <page to="backend/places#show"/>
         <page to="backend/places#update"/>
+      </item>
+      <item name="plants">
+        <page to="backend/plants#picture"/>
       </item>
       <item name="procedures">
         <page to="backend/procedures#jump"/>

@@ -25,7 +25,7 @@ fra:
       show: "Répartition %{id}"
     backend/activity_watchings:
       # edit: "Edit backend/activity watching"
-      index: "Activité surveillées"
+      index: "Activités surveillées"
       # new: "New backend/activity watching"
       # show: "Show backend/activity watching"
     backend/affairs:
@@ -250,18 +250,25 @@ fra:
       show: "Journal\_: %{name} (%{code})"
     backend/kujakus:
       # toggle: "Toggle backend/kujaku"
-    backend/land_parcel_groups:
+    backend/land_parcel_clusters:
       edit: "Modifier l'ilôt\_: %{name}"
       index: "Ilôts"
       new: "Ajouter un nouvel ilôt"
       show: "Ilôt %{name}"
+    backend/land_parcel_groups:
+      divide: "Diviser la parcelle culturale\_: %{name}" #?
+      edit: "Modifier la parcelle culturale\_: %{name}"
+      index: "Parcelles culturales"
+      merge: "Fusionner des parcelles culturales" #?
+      new: "Ajouter une nouvelle parcelle culturale"
+      show: "Parcelle culturale %{name}"
     backend/land_parcels:
-      divide: "Diviser la parcelle\_: %{name}" #?
-      edit: "Modifier la parcelle\_: %{name}"
-      index: "Parcelles"
-      merge: "Fusionner des parcelles" #?
-      new: "Ajouter une nouvelle parcelle"
-      show: "Parcelle %{name}"
+      divide: "Diviser la parcelle unitaire\_: %{name}" #?
+      edit: "Modifier la parcelle unitaire\_: %{name}"
+      index: "Parcelles unitaires"
+      merge: "Fusionner des parcelles unitaires" #?
+      new: "Ajouter une nouvelle parcelle unitaire"
+      show: "Parcelle unitaire %{name}"
     backend/legal_entities:
       # edit: "Edit backend/legal entity"
       # index: "Index backend/legal entity"
@@ -355,6 +362,7 @@ fra:
       edit: "Modifier la culture\_: %{name}"
       index: "Cutures"
       new: "Nouvelle culture"
+      # picture: "Picture backend/plant"
       show: "Culture\_: %{name} "
     backend/preferences:
       edit: "Modifier les préférences"
@@ -635,6 +643,7 @@ fra:
     backend/journal_entry_items: "Lignes d’écritures comptables"
     backend/journals: "Journaux"
     # backend/kujakus: "Backend/kujakus"
+    # backend/land_parcel_clusters: "Backend/land parcel clusters"
     # backend/land_parcel_groups: "Backend/land parcel groups"
     backend/land_parcels: "Îlots"
     # backend/legal_entities: "Backend/legal entities"
@@ -1845,6 +1854,8 @@ fra:
       all: "{content}"
     backend/operations:
       all: "{nature} ({created_at})"
+    backend/plants:
+      all: "{name} - {work_number}"
     backend/product_indicators:
       all: "{id}"
     backend/product_memberships:

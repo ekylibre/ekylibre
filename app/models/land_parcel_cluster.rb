@@ -65,10 +65,10 @@
 #
 
 
-class LandParcelGroup < ProductGroup
-  attr_accessible :real_quantity, :born_at, :dead_at, :shape, :active, :external, :description, :name, :variety, :unit, :nature_id, :reproductor, :reservoir, :parent_id, :memberships_attributes
+class LandParcelCluster < LandParcelGroup
+  attr_accessible :born_at, :dead_at, :shape, :active, :external, :description, :name, :variety, :unit, :nature_id, :reproductor, :real_quantity, :parent_id, :memberships_attributes
 
-  belongs_to :parent, :class_name => "ProductGroup"
+  #belongs_to :parent, :class_name => "ProductGroup"
 
   default_scope -> { order(:name) }
   scope :groups_of, lambda { |member, viewed_at| where("id IN (SELECT group_id FROM #{ProductMembership.table_name} WHERE member_id = ? AND ? BETWEEN COALESCE(started_at, ?) AND COALESCE(stopped_at, ?))", member.id, viewed_at, viewed_at, viewed_at) }
@@ -96,61 +96,6 @@ class LandParcelGroup < ProductGroup
   # Returns members of the group at a given time (or now by default)
   def members_at(viewed_at = nil)
     LandParcel.members_of(self, viewed_at || Time.now)
-  end
-
-  SRID = {
-    :wgs84 => 4326,
-    :rgf93 => 2154
-  }
-
-  default_scope -> { select("*, ST_AsSVG(shape) AS shape_svg_path, ST_XMin(shape) AS x_min, ST_XMax(shape) AS x_max, ST_YMin(shape) AS y_min, ST_YMax(shape) AS y_max, ST_XMax(shape) - ST_XMin(shape) AS shape_width, ST_YMax(shape) - ST_YMin(shape) AS shape_height") }
-
-  # Select SVG path of shape column
-  def self.with_shape_svg_path(options = {})
-    options = {:rel => 0, :scale => 15}.merge(options)
-    shape = "shape"
-    shape = "ST_Transform(#{shape}, #{srid(options[:srid])})" if options[:srid]
-    select("ST_AsSVG(#{shape}, #{options[:rel]}, #{options[:scale]}) AS shape_svg_path")
-  end
-
-  def bounds
-    return [[self.x_min, self.y_min], [self.x_max, self.y_max]]
-  end
-
-  def self.view_box(options = {})
-    shape = "shape"
-    shape = "ST_Transform(#{shape}, #{srid(options[:srid])})" if options[:srid]
-    x_min = self.minimum("ST_XMin(#{shape})").to_d
-    x_max = self.maximum("ST_XMax(#{shape})").to_d
-    y_min = self.minimum("ST_YMin(#{shape})").to_d
-    y_max = self.maximum("ST_YMax(#{shape})").to_d
-    return [x_min, -y_max, (x_max - x_min), (y_max - y_min)]
-  end
-
-  #
-  def shape_svg_path(options = {})
-    shape = "shape"
-    shape = "ST_Transform(#{shape}, #{self.class.srid(options[:srid])})" if options[:srid]
-    return self.compute("ST_AsSVG(#{shape})")
-  end
-
-  def view_box
-    return [self.x_min, -1 * self.y_max.to_d, self.shape_width, self.shape_height]
-  end
-
-  # Returns the corresponding SRID from its name or number
-  def self.srid(srname)
-    return srname if srname.is_a?(Integer)
-    unless id = SRID[srname]
-      raise ArgumentError.new("Unreferenced SRID: #{srname.inspect}")
-    end
-    return id
-  end
-
-  protected
-
-  def compute(expr)
-    self.class.connection.select_value("SELECT #{expr} FROM #{self.class.table_name} WHERE id = #{self.id}")
   end
 
 end
