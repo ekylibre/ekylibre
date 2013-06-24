@@ -24,8 +24,7 @@ jpn:
       # index: "Répartitions analytiques"
       # new: "Nouvelle répartition analytique"
       # show: "Répartition %{id}"
-    backend/activity_watchings:
-      # index: "Activités surveillées"
+    backend/activity_watchings: #?
     backend/affairs:
       # index: "Transactions"
       # select: "Ajouter une transaction"
@@ -396,6 +395,7 @@ jpn:
       # index: "Chaînes de production"
       # new: "Ajouter une nouvelle chaîne de production"
       # show: "Chaîne de production\_: %{name}"
+    backend/productions: #?
     backend/products:
       # edit: "Modifier un produit"
       # index: "Produits"

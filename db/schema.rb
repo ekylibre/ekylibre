@@ -109,28 +109,6 @@ ActiveRecord::Schema.define(:version => 20130410143823) do
   add_index "activity_repartitions", ["updated_at"], :name => "index_activity_repartitions_on_updated_at"
   add_index "activity_repartitions", ["updater_id"], :name => "index_activity_repartitions_on_updater_id"
 
-  create_table "activity_watchings", :force => true do |t|
-    t.integer  "activity_id",                      :null => false
-    t.integer  "product_nature_id",                :null => false
-    t.string   "work_unit"
-    t.string   "area_unit"
-    t.integer  "position"
-    t.datetime "created_at",                       :null => false
-    t.datetime "updated_at",                       :null => false
-    t.integer  "creator_id"
-    t.integer  "updater_id"
-    t.integer  "lock_version",      :default => 0, :null => false
-  end
-
-  add_index "activity_watchings", ["activity_id"], :name => "index_activity_watchings_on_activity_id"
-  add_index "activity_watchings", ["area_unit"], :name => "index_activity_watchings_on_area_unit"
-  add_index "activity_watchings", ["created_at"], :name => "index_activity_watchings_on_created_at"
-  add_index "activity_watchings", ["creator_id"], :name => "index_activity_watchings_on_creator_id"
-  add_index "activity_watchings", ["product_nature_id"], :name => "index_activity_watchings_on_product_nature_id"
-  add_index "activity_watchings", ["updated_at"], :name => "index_activity_watchings_on_updated_at"
-  add_index "activity_watchings", ["updater_id"], :name => "index_activity_watchings_on_updater_id"
-  add_index "activity_watchings", ["work_unit"], :name => "index_activity_watchings_on_work_unit"
-
   create_table "affairs", :force => true do |t|
     t.boolean  "closed",                                                       :default => false, :null => false
     t.datetime "closed_at"
@@ -1409,23 +1387,21 @@ ActiveRecord::Schema.define(:version => 20130410143823) do
 
   create_table "procedures", :force => true do |t|
     t.integer  "incident_id"
-    t.integer  "activity_id",                        :null => false
-    t.integer  "campaign_id",                        :null => false
-    t.string   "nomen",                              :null => false
-    t.string   "state",        :default => "undone", :null => false
-    t.datetime "created_at",                         :null => false
-    t.datetime "updated_at",                         :null => false
+    t.integer  "production_id",                       :null => false
+    t.string   "nomen",                               :null => false
+    t.string   "state",         :default => "undone", :null => false
+    t.datetime "created_at",                          :null => false
+    t.datetime "updated_at",                          :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version", :default => 0,        :null => false
+    t.integer  "lock_version",  :default => 0,        :null => false
   end
 
-  add_index "procedures", ["activity_id"], :name => "index_procedures_on_activity_id"
-  add_index "procedures", ["campaign_id"], :name => "index_procedures_on_campaign_id"
   add_index "procedures", ["created_at"], :name => "index_procedures_on_created_at"
   add_index "procedures", ["creator_id"], :name => "index_procedures_on_creator_id"
   add_index "procedures", ["incident_id"], :name => "index_procedures_on_incident_id"
   add_index "procedures", ["nomen"], :name => "index_procedures_on_nomen"
+  add_index "procedures", ["production_id"], :name => "index_procedures_on_production_id"
   add_index "procedures", ["updated_at"], :name => "index_procedures_on_updated_at"
   add_index "procedures", ["updater_id"], :name => "index_procedures_on_updater_id"
 
@@ -1870,6 +1846,32 @@ ActiveRecord::Schema.define(:version => 20130410143823) do
   add_index "production_chains", ["creator_id"], :name => "index_production_chains_on_creator_id"
   add_index "production_chains", ["updated_at"], :name => "index_production_chains_on_updated_at"
   add_index "production_chains", ["updater_id"], :name => "index_production_chains_on_updater_id"
+
+  create_table "productions", :force => true do |t|
+    t.integer  "activity_id",                          :null => false
+    t.integer  "campaign_id",                          :null => false
+    t.integer  "product_nature_id",                    :null => false
+    t.boolean  "static_storage",    :default => false, :null => false
+    t.integer  "storage_id"
+    t.datetime "started_at"
+    t.datetime "stopped_at"
+    t.integer  "position"
+    t.string   "state"
+    t.datetime "created_at",                           :null => false
+    t.datetime "updated_at",                           :null => false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version",      :default => 0,     :null => false
+  end
+
+  add_index "productions", ["activity_id"], :name => "index_productions_on_activity_id"
+  add_index "productions", ["campaign_id"], :name => "index_productions_on_campaign_id"
+  add_index "productions", ["created_at"], :name => "index_productions_on_created_at"
+  add_index "productions", ["creator_id"], :name => "index_productions_on_creator_id"
+  add_index "productions", ["product_nature_id"], :name => "index_productions_on_product_nature_id"
+  add_index "productions", ["storage_id"], :name => "index_productions_on_storage_id"
+  add_index "productions", ["updated_at"], :name => "index_productions_on_updated_at"
+  add_index "productions", ["updater_id"], :name => "index_productions_on_updater_id"
 
   create_table "products", :force => true do |t|
     t.string   "type"

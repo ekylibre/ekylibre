@@ -125,7 +125,7 @@ Ekylibre::Application.routes.draw do
       end
     end
 
-    resources :activity_watchings do
+    resources :productions do
       collection do
         get :list
         unroll_all

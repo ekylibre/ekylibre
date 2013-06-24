@@ -35,6 +35,27 @@ class EnhanceOperations < ActiveRecord::Migration
 
     # raise "Stop"
 
+    # Production
+    create_table :productions do |t|
+      # t.references :nature, :null => false
+      t.references :activity, :null => false
+      t.references :campaign, :null => false
+      t.references :product_nature, :null => false
+      t.boolean :static_storage, :null => false, :default => false
+      t.references :storage
+      t.datetime :started_at
+      t.datetime :stopped_at
+      t.integer :position
+      t.string :state
+
+      t.stamps
+    end
+    add_stamps_indexes :productions
+    add_index :productions, :activity_id
+    add_index :productions, :campaign_id
+    add_index :productions, :product_nature_id
+    add_index :productions, :storage_id
+
     # Procedure
     # add_column :events, :parent_id, :integer
     # add_index  :events, :parent_id
@@ -42,8 +63,7 @@ class EnhanceOperations < ActiveRecord::Migration
     create_table :procedures do |t|
       # t.references :nature, :null => false
       t.references :incident
-      t.references :activity, :null => false
-      t.references :campaign, :null => false
+      t.references :production, :null => false
       t.string :nomen,   :null => false
       # t.string :version
       t.string :state,   :null => false, :default => "undone"
@@ -56,8 +76,7 @@ class EnhanceOperations < ActiveRecord::Migration
     end
     add_stamps_indexes :procedures
     # add_index :procedures, :parent_id
-    add_index :procedures, :activity_id
-    add_index :procedures, :campaign_id
+    add_index :procedures, :production_id
     add_index :procedures, :incident_id
     add_index :procedures, :nomen
 

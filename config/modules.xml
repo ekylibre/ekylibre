@@ -141,14 +141,14 @@
     </group>
     <group name="analytics" icon="tasks">
       <item name="activity_repartitions">
-        <page to="backend/activity_watchings#index"/>
-        <page to="backend/activity_watchings#create"/>
-        <page to="backend/activity_watchings#destroy"/>
-        <page to="backend/activity_watchings#edit"/>
-        <page to="backend/activity_watchings#list"/>
-        <page to="backend/activity_watchings#new"/>
-        <page to="backend/activity_watchings#show"/>
-        <page to="backend/activity_watchings#update"/>
+        <page to="backend/activity_watchings#index" deletable="true"/>
+        <page to="backend/activity_watchings#create" deletable="true"/>
+        <page to="backend/activity_watchings#destroy" deletable="true"/>
+        <page to="backend/activity_watchings#edit" deletable="true"/>
+        <page to="backend/activity_watchings#list" deletable="true"/>
+        <page to="backend/activity_watchings#new" deletable="true"/>
+        <page to="backend/activity_watchings#show" deletable="true"/>
+        <page to="backend/activity_watchings#update" deletable="true"/>
         <page to="backend/activity_repartitions#index"/>
         <page to="backend/activity_repartitions#create"/>
         <page to="backend/activity_repartitions#destroy"/>
@@ -1201,6 +1201,16 @@
         <page to="backend/production_chains#new"/>
         <page to="backend/production_chains#show"/>
         <page to="backend/production_chains#update"/>
+      </item>
+      <item name="productions">
+        <page to="backend/productions#index"/>
+        <page to="backend/productions#create"/>
+        <page to="backend/productions#destroy"/>
+        <page to="backend/productions#edit"/>
+        <page to="backend/productions#list"/>
+        <page to="backend/productions#new"/>
+        <page to="backend/productions#show"/>
+        <page to="backend/productions#update"/>
       </item>
       <item name="products">
         <page to="backend/products#unroll"/>

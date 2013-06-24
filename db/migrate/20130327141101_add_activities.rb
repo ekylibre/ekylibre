@@ -33,21 +33,6 @@ class AddActivities < ActiveRecord::Migration
     add_index :activities, :name
     add_index :activities, :parent_id
 
-    # ActivityWatching
-    create_table :activity_watchings do |t|
-      t.references :activity, :null => false
-      t.references :product_nature, :null => false
-      t.string :work_unit # fr: unit d'œuvre
-      t.string :area_unit # fr: unité de surface
-      t.integer :position
-      t.stamps
-    end
-    add_stamps_indexes :activity_watchings
-    add_index :activity_watchings, :activity_id
-    add_index :activity_watchings, :product_nature_id
-    add_index :activity_watchings, :work_unit
-    add_index :activity_watchings, :area_unit
-
     # ActivityRepartition
     create_table :activity_repartitions do |t|
       t.references :activity,              :null => false # lien avec une activité

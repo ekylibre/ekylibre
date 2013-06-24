@@ -506,6 +506,9 @@ arb:
         # second_building: "Lieu de stockage d’arrivée"
       product_variety:
         # code: "Code race"
+      production:
+        # product_nature: "Produit de référence"
+        # work_unit: "Unité d'oeuvre"
       products_nature:  #?
         active: "قبل للاستخدام" #?
         buildings: "اماكن التخزين" #?

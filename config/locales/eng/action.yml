@@ -24,8 +24,7 @@ eng:
       # index: "Répartitions analytiques"
       # new: "Nouvelle répartition analytique"
       # show: "Répartition %{id}"
-    backend/activity_watchings:
-      # index: "Activités surveillées"
+    backend/activity_watchings: #?
     backend/affairs:
       # index: "Transactions"
       # select: "Ajouter une transaction"
@@ -445,6 +444,7 @@ eng:
       index: "Production chains"
       new: "Add a new production chain"
       show: "Production chain: %{name}"
+    backend/productions: #?
     backend/products:
       change_quantities: "Change quantities for product" #?
       edit: "Edit the product: %{name}"

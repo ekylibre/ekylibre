@@ -140,6 +140,9 @@ fra:
         second_building: "Lieu de stockage d’arrivée"
       product_variety:
         code: "Code race"
+      production:
+        product_nature: "Produit de référence"
+        work_unit: "Unité d'oeuvre"
       profession:
         employees: "Employés"
       purchase:
@@ -300,7 +303,6 @@ fra:
       account_balance: "Balance de compte"
       activity: "Activité"
       activity_repartition: "Répartition analytique"
-      # activity_watching: "Activity watching"
       affair: "Affaire"
       animal: "Animal"
       animal_group: "Groupe d'animaux"
@@ -404,6 +406,7 @@ fra:
       # product_process_phase: "Product process phase"
       product_transfer: "Transfert ou perte de Stock"
       product_variety: "Variété de produit" #?
+      # production: "Production"
       production_chain: "Chaîne de production"
       production_chain_conveyor: "Convoyeur de chaîne de production"
       production_chain_work_center: "Centre d’opérations de chaîne de production"
@@ -464,7 +467,7 @@ fra:
     archiving: "Méthode d'archivage"
     area: "Zone postale" #?
     area_measure: "Superficie" #?
-    area_unit: "Unité de surface"
+    area_unit: "Unité de surface" #?
     areas: "Zones postales"
     arrival_cause: "Cause d'entrée"
     arrived_on: "Date d'entrée"
@@ -1033,6 +1036,7 @@ fra:
     product_nature: "Product nature"
     product_natures: "Types de produits"
     productable_products: "Produits produisibles" #?
+    # production: "Production"
     production_chain: "Chaîne de production"
     production_chain_conveyor: "Convoyeur de chaîne de production" #?
     production_chain_work_center: "Centre d’opérations de chaîne de production" #?
@@ -1159,6 +1163,7 @@ fra:
     started_sec: "Date et heure (en secondes)" #?
     state: "État"
     state_label: "État"
+    # static_storage: "Static storage"
     status: "Status"
     stock: "Stock de produit" #?
     # stock_account: "Stock account"
@@ -1271,7 +1276,6 @@ fra:
     with_transport: "Avec transport"
     work_center: "Centre d’opération"
     work_number: "Numéro de travail"
-    # work_unit: "Work unit"
     zone: "Zone" #?
   enumerize:
     activity:

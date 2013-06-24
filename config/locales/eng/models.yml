@@ -182,6 +182,9 @@ eng:
         second_building: "Arrival building"
       product_variety:
         # code: "Code race"
+      production:
+        # product_nature: "Produit de référence"
+        # work_unit: "Unité d'oeuvre"
       products_nature:  #?
         duration: "Quantity OR period" #?
         price: "Cost price" #?

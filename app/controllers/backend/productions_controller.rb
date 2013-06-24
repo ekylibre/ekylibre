@@ -1,4 +1,4 @@
-class Backend::ActivityWatchingsController < BackendController
+class Backend::ProductionsController < BackendController
   manage_restfully
 
   unroll_all
@@ -15,8 +15,8 @@ class Backend::ActivityWatchingsController < BackendController
   def index
     respond_to do |format|
       format.html
-      format.xml  { render :xml => ActivityWatching.all }
-      format.json { render :json => ActivityWatching.all }
+      format.xml  { render :xml => Production.all }
+      format.json { render :json => Production.all }
     end
   end
 
