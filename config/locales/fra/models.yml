@@ -316,7 +316,7 @@ fra:
       campaign: "Campagne"
       cash: "Trésorerie"
       cash_transfer: "Virement interne"
-      company: ""
+      company: "" #?
       custom_field: "Champ complémentaire"
       custom_field_choice: "Choix de champ complémentaire"
       department: "Service"
@@ -330,7 +330,7 @@ fra:
       entity: "Personne"
       entity_address: "Adresse"
       entity_link: "Lien de personne"
-      entity_nature: ""
+      entity_nature: "" #?
       equipment: "Outil"
       establishment: "Établissement"
       event: "Évènement"
@@ -414,7 +414,7 @@ fra:
       tracking: "Lot traçable"
       transfer: "Transfert"
       transport: "Transport"
-      unit: ""
+      unit: "" #?
       user: "Utilisateur"
       zone: "Zone"
       # zone_property_title: "Zone property title"
@@ -1458,10 +1458,6 @@ fra:
         gain: "Gain"
         transfer: "Transfert"
         waste: "Perte"
-    production_chain_work_center:
-      nature:
-        input: "Une entrée, plusieurs sorties"
-        output: "Plusieurs entrées, une sortie"
     products_nature:
       nature:
         product: "Produit"
@@ -1511,11 +1507,11 @@ fra:
       label: "%{number} - %{name}"
     cash_transfer:
       bookkeep: "[%{resource} %{number}] De %{emitter} à %{receiver} %{description}"
-    company:
-      cant_find_document_template: "Impossible de trouver le modèle de document correspondant"
-      import:
-        dont_use: "-- Ne pas utiliser --"
-        generate_string_custom_field: "-- Créer un champ personnalisé (texte) --"
+    company: #?
+      cant_find_document_template: "Impossible de trouver le modèle de document correspondant" #?
+      import: #?
+        dont_use: "-- Ne pas utiliser --" #?
+        generate_string_custom_field: "-- Créer un champ personnalisé (texte) --" #?
       sales: "Ventes"
     deposit:
       bookkeep:
@@ -1534,17 +1530,17 @@ fra:
       no_right_defined_for_this_part_of_the_application: "Aucun droit défini pour cette partie de l’application\_: %{controller}/%{action}"
       no_right_defined_for_this_part_of_the_application_and_this_user: "Vous n’avez pas accès à cette partie de l’application"
       supplier: "Fournisseur"
-    entity_nature:
-      default:
-        man:
-          name: "Monsieur"
-          title: "M"
-        organization:
-          name: "Société"
-        undefined:
-          name: "Indéfini"
-        woman:
-          name: "Madame"
+    entity_nature: #?
+      default: #?
+        man: #?
+          name: "Monsieur" #?
+          title: "M" #?
+        organization: #?
+          name: "Société" #?
+        undefined: #?
+          name: "Indéfini" #?
+        woman: #?
+          name: "Madame" #?
           title: "Mme"
     financial_year:
       bookkeep: "[%{resource} %{number}] Amortissement de %{name} (%{position}/%{total})"
@@ -1785,19 +1781,19 @@ fra:
       quarterly: "Trimestrielle"
       simplified: "Réel simplifié"
       yearly: "Annuelle"
-    unit:
-      default:
-        a: "Are"
-        ca: "Centiare (m²)"
-        g: "Gramme"
-        ha: "Hectare"
-        hl: "Hectolitre"
-        kg: "Kilogramme"
-        km: "Kilomètre"
-        l: "Litre"
-        m: "Mètre"
-        m2: "Mètre carré"
-        m3: "Mètre cube"
-        ml: "Millilitre"
-        t: "Tonne"
+    unit: #?
+      default: #?
+        a: "Are" #?
+        ca: "Centiare (m²)" #?
+        g: "Gramme" #?
+        ha: "Hectare" #?
+        hl: "Hectolitre" #?
+        kg: "Kilogramme" #?
+        km: "Kilomètre" #?
+        l: "Litre" #?
+        m: "Mètre" #?
+        m2: "Mètre carré" #?
+        m3: "Mètre cube" #?
+        ml: "Millilitre" #?
+        t: "Tonne" #?
         u: "Unité"

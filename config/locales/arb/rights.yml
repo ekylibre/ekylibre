@@ -3,7 +3,6 @@ arb:
     administrate_accountancy: "مدخل لوحدة المحاسبة" #?
     backup_company: "تطبيق / تحديث النسخ الاحتياطية"
     bookkeep: "مبادلة الاجراءات التجارية للمحاسبة"
-    # build_production_chains: "Construire des chaînes de production"
     cancel_sales_invoices: "الاحذ بالموجودات"
     change_prices_on_sales: "تغيير اسعار البيع"
     close_journals: "فتح واغلاق الدفاتر اليومية"
@@ -52,6 +51,7 @@ arb:
     manage_land_parcels: "ادارة الهيئة"
     manage_listings: "ادارة المستخرج"
     manage_mandates: "ادارة التفويضات"
+    # manage_meetings: "Gérer les évènements"
     manage_observations: "ادارة الملاحظات"
     manage_operations: "ادارة الاجراءات"
     manage_outgoing_deliveries: "ادارة انواع التسليم" #?
@@ -62,6 +62,7 @@ arb:
     manage_prices: "ادارة الاموال"
     manage_product_categories: "ادارة فئات المنتجات"
     # manage_product_price_listings: "Gérer les listes de prix"
+    # manage_productions: "Gérer les productions"
     manage_products: "ادارة المنتجات"
     # manage_purchase_natures: "Gérer les types d’achat"
     manage_purchases: "ادارة المشتريات"
@@ -78,5 +79,4 @@ arb:
     __minimum__: "بلوغ الفاعلية كحد ادنى"
     __not_used__: "(الحق الافتراضي (متعذر بلوغه" #?
     print: "الطباعة" #?
-    # __public__: "Public access"
-    # use_production_chains: "Utiliser les chaînes de production"
+    # __public__: "Accès public"

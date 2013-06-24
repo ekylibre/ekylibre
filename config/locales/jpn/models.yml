@@ -1417,10 +1417,7 @@ jpn:
         # gain: "Gain"
         # transfer: "Transfert"
         # waste: "Perte"
-    production_chain_work_center:
-      nature:
-        # input: "Une entrée, plusieurs sorties"
-        # output: "Plusieurs entrées, une sortie"
+    production_chain_work_center: #?
     products_nature:
       nature:
         # product: "Produit"

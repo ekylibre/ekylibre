@@ -1,10 +1,9 @@
 fra:
   rights:
     __minimum__: "Accéder au minimum vital"
-    __public__: "Public access"
+    __public__: "Accès public"
     backup_company: "Effectuer/Recharger des sauvegardes"
     bookkeep: "Basculer les opérations commerciales en comptabilité"
-    build_production_chains: "Construire des chaînes de production"
     cancel_sales_invoices: "Faire des avoirs"
     change_prices_on_sales: "Changer les prix au moment des ventes"
     close_journals: "Clôturer et déclôturer des journaux"
@@ -48,7 +47,7 @@ fra:
     manage_land_parcels: "Gérer les îlots"
     manage_listings: "Gérer les extractions"
     manage_mandates: "Gérer les responsabilités"
-    # manage_meetings: "Manage meetings"
+    manage_meetings: "Gérer les évènements"
     manage_observations: "Gérer les observations"
     manage_operations: "Gérer les travaux"
     manage_outgoing_delivery_modes: "Gérer les types de livraison"
@@ -57,6 +56,7 @@ fra:
     manage_prices: "Gérer les prix"
     manage_product_categories: "Gérer les catégories de produits"
     manage_product_price_listings: "Gérer les listes de prix"
+    manage_productions: "Gérer les productions"
     manage_products: "Gérer les produits"
     manage_purchase_natures: "Gérer les types d’achat"
     manage_purchases: "Gérer les achats"
@@ -67,4 +67,3 @@ fra:
     manage_transports: "Gérer les transports"
     manage_users: "Gérer les utilisateurs"
     merge_entities: "Fusionner les fiches clients/fournisseurs"
-    use_production_chains: "Utiliser les chaînes de production"

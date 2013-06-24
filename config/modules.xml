@@ -141,14 +141,6 @@
     </group>
     <group name="analytics" icon="tasks">
       <item name="activity_repartitions">
-        <page to="backend/activity_watchings#index" deletable="true"/>
-        <page to="backend/activity_watchings#create" deletable="true"/>
-        <page to="backend/activity_watchings#destroy" deletable="true"/>
-        <page to="backend/activity_watchings#edit" deletable="true"/>
-        <page to="backend/activity_watchings#list" deletable="true"/>
-        <page to="backend/activity_watchings#new" deletable="true"/>
-        <page to="backend/activity_watchings#show" deletable="true"/>
-        <page to="backend/activity_watchings#update" deletable="true"/>
         <page to="backend/activity_repartitions#index"/>
         <page to="backend/activity_repartitions#create"/>
         <page to="backend/activity_repartitions#destroy"/>
@@ -336,6 +328,7 @@
         <page to="backend/products#edit"/>
         <page to="backend/products#list"/>
         <page to="backend/products#new"/>
+        <page to="backend/products#unroll"/>
         <page to="backend/products#update"/>
       </item>
       <item name="stock_transfers">
@@ -412,6 +405,16 @@
         <page to="backend/activities#new"/>
         <page to="backend/activities#show"/>
         <page to="backend/activities#update"/>
+      </item>
+      <item name="productions">
+        <page to="backend/productions#index"/>
+        <page to="backend/productions#create"/>
+        <page to="backend/productions#destroy"/>
+        <page to="backend/productions#edit"/>
+        <page to="backend/productions#list"/>
+        <page to="backend/productions#new"/>
+        <page to="backend/productions#show"/>
+        <page to="backend/productions#update"/>
       </item>
       <item name="operations">
         <page to="backend/procedures#index"/>
@@ -852,7 +855,7 @@
       </item>
     </group>
     <group name="product" icon="wheat">
-      <item name="products">
+      <item name="product_natures">
         <page to="backend/product_natures#index"/>
         <page to="backend/product_natures#change_quantities"/>
         <page to="backend/product_natures#create"/>
@@ -860,6 +863,7 @@
         <page to="backend/product_natures#edit"/>
         <page to="backend/product_natures#list"/>
         <page to="backend/product_natures#list_components"/>
+        <page to="backend/product_natures#list_price_templates"/>
         <page to="backend/product_natures#list_product_nature_prices"/>
         <page to="backend/product_natures#list_stock_moves"/>
         <page to="backend/product_natures#list_stocks"/>
@@ -1139,9 +1143,6 @@
         <page to="backend/product_nature_indicators#up"/>
         <page to="backend/product_nature_indicators#update"/>
       </item>
-      <item name="product_natures">
-        <page to="backend/product_natures#list_price_templates"/>
-      </item>
       <item name="product_prices">
         <page to="backend/product_prices#index"/>
         <page to="backend/product_prices#create"/>
@@ -1171,19 +1172,6 @@
         <page to="backend/product_processes#new"/>
         <page to="backend/product_processes#show"/>
         <page to="backend/product_processes#update"/>
-      </item>
-      <item name="productions">
-        <page to="backend/productions#index"/>
-        <page to="backend/productions#create"/>
-        <page to="backend/productions#destroy"/>
-        <page to="backend/productions#edit"/>
-        <page to="backend/productions#list"/>
-        <page to="backend/productions#new"/>
-        <page to="backend/productions#show"/>
-        <page to="backend/productions#update"/>
-      </item>
-      <item name="products">
-        <page to="backend/products#unroll"/>
       </item>
       <item name="professions">
         <page to="backend/professions#index"/>

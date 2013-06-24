@@ -79,7 +79,7 @@ module CleanSupport
       end
     end
 
-    def hash_diff(hash, ref, depth=0)
+    def hash_diff(hash, ref, depth=0, mode = nil)
       hash ||= {}
       ref ||= {}
       keys = (ref.keys+hash.keys).uniq.sort{|a,b| a.to_s.gsub("_"," ").strip<=>b.to_s.gsub("_"," ").strip}
@@ -88,12 +88,12 @@ module CleanSupport
         h, r = hash[key], ref[key]
         # total += 1 unless r.is_a? Hash
         if r.is_a?(Hash) and (h.is_a?(Hash) or h.nil?)
-          scode, scount, stotal = hash_diff(h, r, depth+1)
+          scode, scount, stotal = hash_diff(h, r, depth+1, mode)
           code  << "  "*depth+key.to_s+":\n"+scode
           count += scount
           total += stotal
         elsif r and h.nil?
-          code  << "  "*depth+"# "+key.to_s+": "+yaml_value(r, depth+1)+"\n"
+          code  << "  "*depth+"# "+key.to_s+": "+ (mode == :humanize ? key.to_s.humanize : yaml_value(r, depth+1))+"\n"
           count += 1
           total += 1
         elsif r and h and r.class == h.class

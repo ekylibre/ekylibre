@@ -2,7 +2,6 @@ eng:
   rights:
     backup_company: "Make and reload backups"
     bookkeep: "Transfer commercial data in accountancy"
-    build_production_chains: "Build production chains"
     cancel_sales_invoices: "Cancel sales_invoices"
     change_prices_on_sales: "Change prices on sales"
     close_journals: "Close and reopen journals"
@@ -33,12 +32,9 @@ eng:
     manage_districts: "Manage districts"
     manage_document_templates: "Manage document templates"
     manage_entities: "Manage people"
-    manage_entities_natures: "Manage people natures" #?
-    manage_entity_categories: "Manage people categories" #?
     manage_entity_links: "Manage people links"
     manage_equipments: "Manage equipments"
     manage_estimates: "Create and update estimates"
-    manage_events: "Manage events" #?
     manage_financial_years: "Manage and close financial years"
     manage_incoming_delivery_modes: "Manage incoming delivery modes"
     manage_incoming_payment_modes: "Manage incoming payment modes"
@@ -49,6 +45,7 @@ eng:
     manage_land_parcels: "Manage fields"
     manage_listings: "Manage listings"
     manage_mandates: "Manage mandates"
+    manage_meetings: "Manage meetings"
     manage_observations: "Manage observations"
     manage_operations: "Manage operations"
     manage_outgoing_delivery_modes: "Manage outgoing delivery modes"
@@ -57,6 +54,7 @@ eng:
     manage_prices: "Manage prices"
     manage_product_categories: "Manage product categories"
     manage_product_price_listings: "Manage product price listings"
+    manage_productions: "Manage productions"
     manage_products: "Manage products"
     manage_purchase_natures: "Manage purchase natures"
     manage_purchases: "Manage purchases"
@@ -65,9 +63,7 @@ eng:
     manage_subscriptions: "Manage subscriptions"
     manage_taxes: "Manage taxes"
     manage_transports: "Manage transports"
-    manage_units: "Manage units of measure" #?
     manage_users: "Manage users"
     merge_entities: "Merge people"
     __minimum__: "Access to the minimum"
     __public__: "Public access"
-    use_production_chains: "Use production chains"

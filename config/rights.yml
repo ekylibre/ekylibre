@@ -297,14 +297,6 @@
 # - "backend/product_transfers#list_confirm"
 # - "backend/product_transfers#new"
 # - "backend/product_transfers#update"
-# - "backend/productions#create"
-# - "backend/productions#destroy"
-# - "backend/productions#edit"
-# - "backend/productions#index"
-# - "backend/productions#list"
-# - "backend/productions#new"
-# - "backend/productions#show"
-# - "backend/productions#update"
 # - "backend/products#create"
 # - "backend/products#destroy"
 # - "backend/products#edit"
@@ -348,9 +340,6 @@ backup_company:
 bookkeep:
 - "backend/dashboards#accountancy"
 - "backend/journals#bookkeep"
-
-# Build production chains
-build_production_chains:
 
 # Cancel sales_invoices
 cancel_sales_invoices:
@@ -870,7 +859,7 @@ manage_mandates:
 - "backend/mandates#new"
 - "backend/mandates#update"
 
-# translation missing: eng.rights.manage_meetings
+# Manage meetings
 manage_meetings:
 - "backend/dashboards#relationship"
 - "backend/meeting_natures#create"
@@ -985,6 +974,17 @@ manage_product_price_listings:
 - "backend/product_price_listings#new"
 - "backend/product_price_listings#show"
 - "backend/product_price_listings#update"
+
+# Manage productions
+manage_productions:
+- "backend/productions#create"
+- "backend/productions#destroy"
+- "backend/productions#edit"
+- "backend/productions#index"
+- "backend/productions#list"
+- "backend/productions#new"
+- "backend/productions#show"
+- "backend/productions#update"
 
 # Manage products
 manage_products:
@@ -1158,6 +1158,3 @@ merge_entities:
 - "backend/dashboards#relationship"
 - "backend/entities#index"
 - "backend/entities#merge"
-
-# Use production chains
-use_production_chains:

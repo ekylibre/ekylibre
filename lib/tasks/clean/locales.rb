@@ -318,7 +318,7 @@ task :locales => :environment do
       end
       target = CleanSupport.yaml_to_hash(target_path)
       reference = CleanSupport.yaml_to_hash(reference_path)
-      translation, scount, stotal = CleanSupport.hash_diff(target[locale], reference[::I18n.default_locale], 1)
+      translation, scount, stotal = CleanSupport.hash_diff(target[locale], reference[::I18n.default_locale], 1, (locale == :english ? :humanize : :localize))
       count += scount
       total += stotal
       log.write "  - #{(file_name+':').ljust(20)} #{(stotal.zero? ? 0 : 100*(stotal-scount)/stotal).round.to_s.rjust(3)}% (#{stotal-scount}/#{stotal})\n"
