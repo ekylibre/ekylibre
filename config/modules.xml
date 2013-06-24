@@ -1172,36 +1172,6 @@
         <page to="backend/product_processes#show"/>
         <page to="backend/product_processes#update"/>
       </item>
-      <item name="production_chain_conveyors">
-        <page to="backend/production_chain_conveyors#create"/>
-        <page to="backend/production_chain_conveyors#destroy"/>
-        <page to="backend/production_chain_conveyors#edit"/>
-        <page to="backend/production_chain_conveyors#new"/>
-        <page to="backend/production_chain_conveyors#update"/>
-      </item>
-      <item name="production_chain_work_centers">
-        <page to="backend/production_chain_work_centers#create"/>
-        <page to="backend/production_chain_work_centers#destroy"/>
-        <page to="backend/production_chain_work_centers#down"/>
-        <page to="backend/production_chain_work_centers#edit"/>
-        <page to="backend/production_chain_work_centers#new"/>
-        <page to="backend/production_chain_work_centers#play"/>
-        <page to="backend/production_chain_work_centers#show"/>
-        <page to="backend/production_chain_work_centers#up"/>
-        <page to="backend/production_chain_work_centers#update"/>
-      </item>
-      <item name="production_chains">
-        <page to="backend/production_chains#index"/>
-        <page to="backend/production_chains#create"/>
-        <page to="backend/production_chains#destroy"/>
-        <page to="backend/production_chains#edit"/>
-        <page to="backend/production_chains#list"/>
-        <page to="backend/production_chains#list_conveyors"/>
-        <page to="backend/production_chains#list_work_centers"/>
-        <page to="backend/production_chains#new"/>
-        <page to="backend/production_chains#show"/>
-        <page to="backend/production_chains#update"/>
-      </item>
       <item name="products">
         <page to="backend/products#unroll"/>
       </item>

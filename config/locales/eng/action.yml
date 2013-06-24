@@ -432,19 +432,19 @@ eng:
       index: "Transfers and loss"
       new: "Add a new stock transfer or loss"
     backend/product_varieties: #?
-    backend/production_chain_conveyors:
-      edit: "Edit production chain conveyor (%{source_id}-%{target_id})"
-      new: "Add a new conveyor in the production chain"
-    backend/production_chain_work_centers:
-      edit: "Edit the work center: %{name}"
-      new: "Add a new work center"
-      play: "Play work center: %{name}"
-      show: "Work center: %{name}"
-    backend/production_chains:
-      edit: "Edit production chain: %{name}"
-      index: "Production chains"
-      new: "Add a new production chain"
-      show: "Production chain: %{name}"
+    backend/production_chain_conveyors:  #?
+      edit: "Edit production chain conveyor (%{source_id}-%{target_id})" #?
+      new: "Add a new conveyor in the production chain" #?
+    backend/production_chain_work_centers:  #?
+      edit: "Edit the work center: %{name}" #?
+      new: "Add a new work center" #?
+      play: "Play work center: %{name}" #?
+      show: "Work center: %{name}" #?
+    backend/production_chains:  #?
+      edit: "Edit production chain: %{name}" #?
+      index: "Production chains" #?
+      new: "Add a new production chain" #?
+      show: "Production chain: %{name}" #?
     backend/products:
       change_quantities: "Change quantities for product" #?
       edit: "Edit the product: %{name}"
@@ -640,10 +640,10 @@ eng:
     # backend/product_prices: "Prix des produits"
     backend/product_transfers: "Transfers and loss"
     backend/product_varieties: "Product species" #?
-    backend/production_chain_conveyors: "Production chain conveyors"
-    backend/production_chain_work_center_uses: "Production chain work center uses"
-    backend/production_chain_work_centers: "Production chain work centers"
-    backend/production_chains: "Production chains"
+    backend/production_chain_conveyors: "Production chain conveyors" #?
+    backend/production_chain_work_center_uses: "Production chain work center uses" #?
+    backend/production_chain_work_centers: "Production chain work centers" #?
+    backend/production_chains: "Production chains" #?
     backend/products: "Animals"
     backend/professions: "Professions"
     backend/purchase_items: "Purchase lines"

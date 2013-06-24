@@ -404,10 +404,10 @@ fra:
       # product_process_phase: "Product process phase"
       product_transfer: "Transfert ou perte de Stock"
       product_variety: "Variété de produit" #?
-      production_chain: "Chaîne de production"
-      production_chain_conveyor: "Convoyeur de chaîne de production"
-      production_chain_work_center: "Centre d’opérations de chaîne de production"
-      production_chain_work_center_use: "Utilisation d’outil de centre d’opérations"
+      production_chain: "Chaîne de production" #?
+      production_chain_conveyor: "Convoyeur de chaîne de production" #?
+      production_chain_work_center: "Centre d’opérations de chaîne de production" #?
+      production_chain_work_center_use: "Utilisation d’outil de centre d’opérations" #?
       profession: "Profession"
       # property_title: "Property title"
       purchase: "Achat"
@@ -533,7 +533,7 @@ fra:
     charge_account: "Compte de charge"
     charges_account: "Comptes de charge"
     charges_accounts: "Comptes de charge" #?
-    check_state: "Vérifier l’état"
+    check_state: "Vérifier l’état" #?
     child_kinships: "Relation enfant" #?
     child_land_parcel: "Sous-îlot" #?
     children: "Enfants"
@@ -588,7 +588,7 @@ fra:
     content_maximal_quantity: "Content maximal quantity"
     content_nature: "Content nature"
     content_unit: "Content unit"
-    conveyors: "Convoyeurs"
+    conveyors: "Convoyeurs" #?
     coordinate: "Coordonnée"
     country: "Pays"
     created_at: "Date et heure de création"
@@ -750,7 +750,7 @@ fra:
     first_met_on: "Date de la première rencontre"
     first_name: "Prénom"
     first_number: "Premier numéro"
-    flow: "Débit"
+    flow: "Débit" #?
     for_immobilizations: "Produit immobilisé" #?
     for_productions: "Produit fabriqué ou récolté" #?
     for_purchases: "Produit acheté" #?
@@ -798,7 +798,7 @@ fra:
     indirect_links: "Liens indirects"
     indivisible: "Indivisible" #?
     initial_number: "Numéro initial"
-    input_conveyors: "Convoyeur entrant"
+    input_conveyors: "Convoyeur entrant" #?
     integer_value: "Valeur entière"
     introduction: "Introduction"
     inventories: "Inventaires" #?
@@ -952,7 +952,7 @@ fra:
     outgoing_payment_modes: "Modes de décaissement"
     outgoing_payment_uses: "Parties de décaissements" #?
     outgoing_payments: "Décaissements"
-    output_conveyors: "Convoyeur sortant"
+    output_conveyors: "Convoyeur sortant" #?
     owner: "Propriétaire"
     # owner_object: "Owner object"
     owner_type: "Nature du propriétaire"
@@ -1033,7 +1033,7 @@ fra:
     product_nature: "Product nature"
     product_natures: "Types de produits"
     productable_products: "Produits produisibles" #?
-    production_chain: "Chaîne de production"
+    production_chain: "Chaîne de production" #?
     production_chain_conveyor: "Convoyeur de chaîne de production" #?
     production_chain_work_center: "Centre d’opérations de chaîne de production" #?
     products: "Produits"
@@ -1150,7 +1150,7 @@ fra:
     siret: "N° SIRET" #?
     soundex: "Soundex"
     source: "Source"
-    source_quantity: "Quantité source"
+    source_quantity: "Quantité source" #?
     # spaced_iban: "Spaced iban"
     sql_type: "Type SQL"
     start: "Début"
@@ -1195,7 +1195,7 @@ fra:
     symbol: "Symbole" #?
     symmetric: "Symétrique" #?
     target: "Cible"
-    target_quantity: "Quantité cible"
+    target_quantity: "Quantité cible" #?
     target_type: "Type de cible"
     # tasks: "Tasks"
     tax: "Taxe"
@@ -1226,7 +1226,7 @@ fra:
     type: "Type"
     # unconfirmed_email: "Unconfirmed email"
     undelivered_quantity: "Reste à livrer"
-    unique_tracking: "Numéro unique"
+    unique_tracking: "Numéro unique" #?
     unit: "Unité"
     unit_quantity: "Quantité par unité de surface" #?
     units: "Unités"
@@ -1235,7 +1235,7 @@ fra:
     unpaid_responsibles: "Responsables d'impayés" #?
     unpaid_sales: "Ventes impayées"
     unquantifiable: "Non quantifiable" #?
-    unused_conveyors: "Convoyeurs inutilisés"
+    unused_conveyors: "Convoyeurs inutilisés" #?
     updated_at: "Mis à jour le"
     updater: "Modificateur"
     usable_incoming_payments: "Encaissements utilisables"
@@ -1247,7 +1247,7 @@ fra:
     user: "Utilisateur"
     user_name: "Identifiant" #?
     users: "Utilisateurs"
-    uses: "Matériels utilisés"
+    uses: "Matériels utilisés" #?
     value: "Valeur"
     value_format: "Format de la valeur monétaire" #?
     # variables: "Variables"
@@ -1269,7 +1269,7 @@ fra:
     with_deposit: "Utiliser les remises en banque"
     with_tracking: "Avec tracabilité" #?
     with_transport: "Avec transport"
-    work_center: "Centre d’opération"
+    work_center: "Centre d’opération" #?
     work_number: "Numéro de travail"
     # work_unit: "Work unit"
     zone: "Zone" #?

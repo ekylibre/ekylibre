@@ -80,13 +80,13 @@ class AddMissingIndexes < ActiveRecord::Migration
     add_index :product_price_templates, :supplier_id
     add_index :product_price_templates, :listing_id
     #add_index :product_natures, :unit_id
-    add_index :production_chain_conveyors, :production_chain_id
-    add_index :production_chain_conveyors, :product_nature_id
-#    add_index :production_chain_conveyors, :unit_id
-    add_index :production_chain_conveyors, :source_id
-    add_index :production_chain_conveyors, :target_id
-    add_index :production_chain_work_center_uses, :work_center_id
-    add_index :production_chain_work_centers, :production_chain_id
+#     add_index :production_chain_conveyors, :production_chain_id
+#     add_index :production_chain_conveyors, :product_nature_id
+# #    add_index :production_chain_conveyors, :unit_id
+#     add_index :production_chain_conveyors, :source_id
+#     add_index :production_chain_conveyors, :target_id
+#     add_index :production_chain_work_center_uses, :work_center_id
+#     add_index :production_chain_work_centers, :production_chain_id
     add_index :purchase_items, :purchase_id
     add_index :purchase_items, :product_id
  #   add_index :purchase_items, :unit_id

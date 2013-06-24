@@ -446,20 +446,10 @@ spa:
       # index: "Transferts et pertes de stocks"
       # new: "Ajouter un transfert ou une perte de stocks"
     backend/product_varieties: #?
-    backend/production_chain_conveyors:
-      # edit: "Mettre à jour le convoyeur (%{source_id}-%{target_id})"
-      # new: "Ajouter un nouveau convoyeur dans la chaîne de production"
+    backend/production_chain_conveyors: #?
     backend/production_chain_work_center_uses: #?
-    backend/production_chain_work_centers:
-      # edit: "Modifier le centre d’opération\_: %{name}"
-      # new: "Ajouter un nouveau centre d’opération"
-      # play: "Éxécuter la chaîne de production\_: %{name}"
-      # show: "Centre d’opération\_: #{name}"
-    backend/production_chains:
-      # edit: "Modifier la chaîne de production\_: %{name}"
-      # index: "Chaînes de production"
-      # new: "Ajouter une nouvelle chaîne de production"
-      # show: "Chaîne de production\_: %{name}"
+    backend/production_chain_work_centers: #?
+    backend/production_chains: #?
     backend/products:
       # edit: "Modifier un produit"
       # index: "Produits"
@@ -659,10 +649,6 @@ spa:
     # backend/product_prices: "Prix des produits"
     # backend/product_transfers: "Transferts et pertes de stocks"
     backend/production: "Producción" #?
-    # backend/production_chain_conveyors: "Convoyeurs de chaînes de production"
-    # backend/production_chain_work_center_uses: "Utilisation des ateliers de chaînes de production"
-    # backend/production_chain_work_centers: "Atelier de chaînes de production"
-    # backend/production_chains: "Chaînes de production"
     # backend/products: "Produits"
     # backend/professions: "Professions"
     # backend/purchase_items: "Lignes d’achat"

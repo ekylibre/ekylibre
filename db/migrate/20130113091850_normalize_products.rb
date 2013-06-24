@@ -412,32 +412,32 @@ class NormalizeProducts < ActiveRecord::Migration
     #   :updater_id => :entity,
     #   :warehouse_id => :warehouse
     # },
-    :production_chain => {
-      :creator_id => :entity,
-      :updater_id => :entity
-    },
-    :production_chain_conveyor => {
-      :creator_id => :entity,
-      :product_id => :product,
-      :production_chain_id => :production_chain,
-      :source_id => :production_chain_work_center,
-      :target_id => :production_chain_work_center,
-      :unit_id => :unit,
-      :updater_id => :entity
-    },
-    :production_chain_work_center => {
-      :building_id => :warehouse,
-      :creator_id => :entity,
-      :operation_nature_id => :operation_nature,
-      :production_chain_id => :production_chain,
-      :updater_id => :entity
-    },
-    :production_chain_work_center_use => {
-      :creator_id => :entity,
-      :tool_id => :tool,
-      :updater_id => :entity,
-      :work_center_id => :production_chain_work_center
-    },
+    # :production_chain => {
+    #   :creator_id => :entity,
+    #   :updater_id => :entity
+    # },
+    # :production_chain_conveyor => {
+    #   :creator_id => :entity,
+    #   :product_id => :product,
+    #   :production_chain_id => :production_chain,
+    #   :source_id => :production_chain_work_center,
+    #   :target_id => :production_chain_work_center,
+    #   :unit_id => :unit,
+    #   :updater_id => :entity
+    # },
+    # :production_chain_work_center => {
+    #   :building_id => :warehouse,
+    #   :creator_id => :entity,
+    #   :operation_nature_id => :operation_nature,
+    #   :production_chain_id => :production_chain,
+    #   :updater_id => :entity
+    # },
+    # :production_chain_work_center_use => {
+    #   :creator_id => :entity,
+    #   :tool_id => :tool,
+    #   :updater_id => :entity,
+    #   :work_center_id => :production_chain_work_center
+    # },
     :profession => {
       :creator_id => :entity,
       :updater_id => :entity
@@ -1203,7 +1203,7 @@ class NormalizeProducts < ActiveRecord::Migration
       table = model.to_s.tableize.to_sym
       for column, foreign_table in references
         if column == :old_product_id
-          rename_column table, column, ([:product_price_templates, :production_chain_conveyors, :product_nature_components, :subscriptions].include?(table) ? :product_nature_id : :product_id)
+          rename_column table, column, ([:product_price_templates, :product_nature_components, :subscriptions].include?(table) ? :product_nature_id : :product_id) # , :production_chain_conveyors
         elsif column == :old_stock_move_id
           rename_column table, column, :move_id
         end

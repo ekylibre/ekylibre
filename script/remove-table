@@ -29,10 +29,10 @@ root = Pathname.new(".")
 records = table
 record = records.singularize
 puts "Removes #{record}"
-execute("git rm app/models/#{record}.rb")
-execute("git rm app/controllers/backend/#{records}_controller.rb")
-execute("git rm app/helpers/backend/#{records}_helper.rb")
+execute("git rm -fr app/models/#{record}.rb")
+execute("git rm -fr app/controllers/backend/#{records}_controller.rb")
+execute("git rm -fr app/helpers/backend/#{records}_helper.rb")
 execute("git rm -fr app/views/backend/#{records}")
-execute("git rm test/fixtures/#{records}.rb")
-execute("git rm test/unit/backend/#{record}_test.rb")
-execute("git rm test/functional/backend/#{records}_controller_test.rb")
+execute("git rm -fr test/fixtures/#{records}.rb")
+execute("git rm -fr test/unit/backend/#{record}_test.rb")
+execute("git rm -fr test/functional/backend/#{records}_controller_test.rb")

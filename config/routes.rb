@@ -759,23 +759,6 @@ Ekylibre::Application.routes.draw do
         unroll_all
       end
     end
-
-    resources :production_chains do
-      collection do
-        get :list
-        unroll_all
-      end
-    end
-    resources :production_chain_conveyors
-    resources :production_chain_work_centers do
-      member do
-        get :play
-        post :down
-        post :up
-        unroll_all
-      end
-    end
-    # resources :production_chain_work_centers_uses
     resources :professions do
       collection do
         get :list

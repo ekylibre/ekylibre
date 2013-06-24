@@ -182,6 +182,11 @@ class NormalizeScoria < ActiveRecord::Migration
     add_column :product_categories, :rgt, :integer
     add_column :product_categories, :depth, :integer, :null => false, :default => 0
 
+    drop_table :production_chain_conveyors
+    drop_table :production_chain_work_centers
+    drop_table :production_chain_work_center_uses
+    drop_table :production_chains
+
     drop_table :product_components
 
     change_column_null :purchase_lines, :account_id, false
