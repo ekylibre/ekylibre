@@ -45,17 +45,17 @@ class EnhanceOperations < ActiveRecord::Migration
       t.references :activity, :null => false
       t.references :campaign, :null => false
       t.string :nomen,   :null => false
-      t.string :version
+      # t.string :version
       t.string :state,   :null => false, :default => "undone"
-      t.string :uid, :limit => 511
-      t.references :parent
-      t.integer :lft
-      t.integer :rgt
-      t.integer :depth
+      # t.string :uid, :limit => 511
+      # t.references :parent
+      # t.integer :lft
+      # t.integer :rgt
+      # t.integer :depth
       t.stamps
     end
     add_stamps_indexes :procedures
-    add_index :procedures, :parent_id
+    # add_index :procedures, :parent_id
     add_index :procedures, :activity_id
     add_index :procedures, :campaign_id
     add_index :procedures, :incident_id
@@ -66,6 +66,7 @@ class EnhanceOperations < ActiveRecord::Migration
       t.references :procedure, :null => false
       t.references :target, :null => false
       t.string :nomen, :null => false
+      t.string :roles
       t.stamps
     end
     add_stamps_indexes :procedure_variables
@@ -108,7 +109,7 @@ class EnhanceOperations < ActiveRecord::Migration
     create_table :operation_tasks do |t|
       t.references :operation, :null => false
       t.references :parent
-      t.boolean    :detailled, :null => false, :default => false
+      t.boolean    :prorated, :null => false, :default => false
       t.references :subject, :null => false
       t.string     :verb, :null => false
       t.references :operand

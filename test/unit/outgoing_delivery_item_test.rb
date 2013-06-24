@@ -20,23 +20,17 @@
 #
 # == Table: outgoing_delivery_items
 #
-#  amount        :decimal(19, 4)   default(0.0), not null
-#  created_at    :datetime         not null
-#  creator_id    :integer
-#  delivery_id   :integer          not null
-#  id            :integer          not null, primary key
-#  lock_version  :integer          default(0), not null
-#  move_id       :integer
-#  pretax_amount :decimal(19, 4)   default(0.0), not null
-#  price_id      :integer          not null
-#  product_id    :integer          not null
-#  quantity      :decimal(19, 4)   default(1.0), not null
-#  sale_item_id  :integer          not null
-#  tracking_id   :integer
-#  unit          :string(255)
-#  updated_at    :datetime         not null
-#  updater_id    :integer
-#  warehouse_id  :integer
+#  created_at   :datetime         not null
+#  creator_id   :integer
+#  delivery_id  :integer          not null
+#  id           :integer          not null, primary key
+#  lock_version :integer          default(0), not null
+#  move_id      :integer
+#  product_id   :integer          not null
+#  quantity     :decimal(19, 4)   default(1.0), not null
+#  sale_item_id :integer
+#  updated_at   :datetime         not null
+#  updater_id   :integer
 #
 
 

@@ -21,20 +21,17 @@
 # == Table: incoming_deliveries
 #
 #  address_id       :integer
-#  amount           :decimal(19, 4)   default(0.0), not null
 #  created_at       :datetime         not null
 #  creator_id       :integer
-#  currency         :string(3)
-#  description      :text
 #  id               :integer          not null, primary key
 #  lock_version     :integer          default(0), not null
 #  mode_id          :integer
-#  moved_on         :date
 #  number           :string(255)
 #  planned_on       :date
-#  pretax_amount    :decimal(19, 4)   default(0.0), not null
 #  purchase_id      :integer
+#  received_at      :datetime
 #  reference_number :string(255)
+#  sender_id        :integer          not null
 #  updated_at       :datetime         not null
 #  updater_id       :integer
 #  weight           :decimal(19, 4)
@@ -48,16 +45,16 @@ class IncomingDelivery < Ekylibre::Record::Base
   belongs_to :address, :class_name => "EntityAddress"
   belongs_to :mode, :class_name => "IncomingDeliveryMode"
   belongs_to :purchase
+  belongs_to :sender, :class_name => "Entity"
   has_many :items, :class_name => "IncomingDeliveryItem", :foreign_key => :delivery_id, :dependent => :destroy
   has_many :product_moves, :as => :origin
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :amount, :pretax_amount, :weight, :allow_nil => true
-  validates_length_of :currency, :allow_nil => true, :maximum => 3
+  validates_numericality_of :weight, :allow_nil => true
   validates_length_of :number, :reference_number, :allow_nil => true, :maximum => 255
-  validates_presence_of :amount, :pretax_amount
+  validates_presence_of :sender
   #]VALIDATORS]
-  validates_presence_of :planned_on
+  validates_presence_of :planned_on, :address
 
   delegate :order?, :draft?, :to => :purchase
   scope :undelivereds, -> { where(:moved_on => nil) }

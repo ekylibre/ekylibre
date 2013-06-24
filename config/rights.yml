@@ -190,6 +190,7 @@
 # - "backend/plants#index"
 # - "backend/plants#list"
 # - "backend/plants#new"
+# - "backend/plants#picture"
 # - "backend/plants#show"
 # - "backend/plants#update"
 # - "backend/preferences#create"

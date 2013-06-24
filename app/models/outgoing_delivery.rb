@@ -21,20 +21,17 @@
 # == Table: outgoing_deliveries
 #
 #  address_id       :integer
-#  amount           :decimal(19, 4)   default(0.0), not null
 #  created_at       :datetime         not null
 #  creator_id       :integer
-#  currency         :string(3)
-#  description      :text
 #  id               :integer          not null, primary key
 #  lock_version     :integer          default(0), not null
 #  mode_id          :integer
-#  moved_on         :date
 #  number           :string(255)
 #  planned_on       :date
-#  pretax_amount    :decimal(19, 4)   default(0.0), not null
+#  recipient_id     :integer          not null
 #  reference_number :string(255)
-#  sale_id          :integer          not null
+#  sale_id          :integer
+#  sent_at          :datetime
 #  transport_id     :integer
 #  transporter_id   :integer
 #  updated_at       :datetime         not null
@@ -48,16 +45,16 @@ class OutgoingDelivery < Ekylibre::Record::Base
   attr_readonly :sale_id, :number
   belongs_to :address, :class_name => "EntityAddress"
   belongs_to :mode, :class_name => "OutgoingDeliveryMode"
+  belongs_to :recipient, :class_name => "Entity"
   belongs_to :sale, :inverse_of => :deliveries
   belongs_to :transport
   belongs_to :transporter, :class_name => "Entity"
   has_many :items, :class_name => "OutgoingDeliveryItem", :foreign_key => :delivery_id, :dependent => :destroy
   has_many :product_moves, :as => :origin, :dependent => :destroy
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :amount, :pretax_amount, :weight, :allow_nil => true
-  validates_length_of :currency, :allow_nil => true, :maximum => 3
+  validates_numericality_of :weight, :allow_nil => true
   validates_length_of :number, :reference_number, :allow_nil => true, :maximum => 255
-  validates_presence_of :amount, :pretax_amount, :sale
+  validates_presence_of :recipient
   #]VALIDATORS]
   validates_presence_of :planned_on
 

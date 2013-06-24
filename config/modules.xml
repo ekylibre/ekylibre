@@ -1092,6 +1092,9 @@
         <page to="backend/places#show"/>
         <page to="backend/places#update"/>
       </item>
+      <item name="plants">
+        <page to="backend/plants#picture"/>
+      </item>
       <item name="procedures">
         <page to="backend/procedures#jump"/>
       </item>

@@ -362,6 +362,7 @@ fra:
       edit: "Modifier la culture\_: %{name}"
       index: "Cutures"
       new: "Nouvelle culture"
+      # picture: "Picture backend/plant"
       show: "Culture\_: %{name} "
     backend/preferences:
       edit: "Modifier les préférences"

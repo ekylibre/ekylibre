@@ -20,40 +20,35 @@
 #
 # == Table: incoming_delivery_items
 #
-#  amount           :decimal(19, 4)   default(0.0), not null
+#  container_id     :integer
 #  created_at       :datetime         not null
 #  creator_id       :integer
 #  delivery_id      :integer          not null
 #  id               :integer          not null, primary key
 #  lock_version     :integer          default(0), not null
 #  move_id          :integer
-#  pretax_amount    :decimal(19, 4)   default(0.0), not null
-#  price_id         :integer          not null
 #  product_id       :integer          not null
-#  purchase_item_id :integer          not null
+#  purchase_item_id :integer
 #  quantity         :decimal(19, 4)   default(1.0), not null
-#  tracking_id      :integer
-#  unit             :string(255)
 #  updated_at       :datetime         not null
 #  updater_id       :integer
-#  warehouse_id     :integer
 #  weight           :decimal(19, 4)
 #
 
 
 class IncomingDeliveryItem < Ekylibre::Record::Base
-  attr_accessible :delivery_id, :price_id, :product_id, :building_id
+  attr_accessible :delivery_id, :price_id, :product_id, :container_id
   attr_readonly :purchase_item_id, :product_id, :price_id, :unit
   belongs_to :delivery, :class_name => "IncomingDelivery"
-  belongs_to :price, :class_name => "ProductPrice"
+  # belongs_to :price, :class_name => "ProductPrice"
+  belongs_to :container, :class_name => "Product"
   belongs_to :product
   belongs_to :purchase_item, :class_name => "PurchaseItem"
-  belongs_to :move, :class_name => "ProductMove"
+  # belongs_to :move, :class_name => "ProductMove"
   enumerize :unit, :in => Nomenclatures["units"].list
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :amount, :pretax_amount, :quantity, :weight, :allow_nil => true
-  validates_length_of :unit, :allow_nil => true, :maximum => 255
-  validates_presence_of :amount, :delivery, :pretax_amount, :price, :product, :purchase_item, :quantity
+  validates_numericality_of :quantity, :weight, :allow_nil => true
+  validates_presence_of :delivery, :product, :quantity
   #]VALIDATORS]
   validates_presence_of :product, :unit
 

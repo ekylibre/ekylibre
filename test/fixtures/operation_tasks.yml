@@ -22,7 +22,6 @@
 #
 #  created_at         :datetime         not null
 #  creator_id         :integer
-#  detailled          :boolean          not null
 #  expression         :text
 #  id                 :integer          not null, primary key
 #  indicator_datum_id :integer
@@ -32,6 +31,7 @@
 #  operand_unit       :string(255)
 #  operation_id       :integer          not null
 #  parent_id          :integer
+#  prorated           :boolean          not null
 #  subject_id         :integer          not null
 #  updated_at         :datetime         not null
 #  updater_id         :integer
@@ -43,9 +43,9 @@
 # operation_tasks_001:
 #   created_at: 2009-07-19 19:13:59 +02:00
 #   creator_id: 1
-#   detailled: true
 #   id: 1
 #   operation_id: 1
+#   prorated: true
 #   subject_id: 1
 #   updated_at: 2009-07-19 19:13:59 +02:00
 #   updater_id: 1

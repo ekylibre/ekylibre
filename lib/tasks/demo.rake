@@ -430,7 +430,7 @@ namespace :db do
       cultural_landparcel_product_nature_category ||= ProductNatureCategory.create!(:name => "Parcelles cultivables", :published => true)
       land_parcel_group = ProductNature.find_by_number("LANDPARCEL")
       land_parcel_group ||= ProductNature.create!(:name => "Parcelle", :number => "LANDPARCEL", :variety => "land_parcel", :unit => landparcel_unit, :category_id => cultural_landparcel_product_nature_category.id)
-      
+
       # Load file
       file = Rails.root.join("test", "fixtures", "files", "parcelle_017005218.csv")
       CSV.foreach(file, :encoding => "UTF-8", :col_sep => ",", :headers => true, :quote_char => "'") do |row|
@@ -446,7 +446,7 @@ namespace :db do
                            :landparcel_plant_name => row[9],
                            :landparcel_plant_variety => row[10]
                            )
-          
+
           landparcelcluster = LandParcelCluster.find_by_work_number(r.ilot_work_number)
           if landparcelcluster.present?
             landparcelgroup = LandParcelGroup.find_by_work_number(r.landparcelgroup_work_number)
@@ -463,7 +463,7 @@ namespace :db do
           print "."
       end
       puts "!"
-      
+
       # # add shape to landparcel
       # RGeo::Shapefile::Reader.open(Rails.root.join("test", "fixtures", "files", "parcelle_017005218.shp").to_s, :srid => 2154) do |file|
         # # puts "File contains #{file.num_records} records."

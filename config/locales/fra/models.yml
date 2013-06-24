@@ -310,7 +310,8 @@ fra:
       bank_statement: "Relevé de compte bancaire"
       bioproduct: "Produit vivant"
       building: "Lieu de stockage"
-      building_room: "Pièce"
+      building_division: "Pièce"
+      building_room: "Pièce" #?
       campaign: "Campagne"
       cash: "Trésorerie"
       cash_transfer: "Virement interne"
@@ -325,6 +326,7 @@ fra:
       document: "Document"
       document_archive: "Archive de document"
       document_template: "Modèle de document"
+      easement: "Zone primaire"
       entity: "Personne"
       entity_address: "Adresse"
       entity_link: "Lien de personne"
@@ -377,7 +379,8 @@ fra:
       place: "Lieu"
       plant: "Plante"
       preference: "Préférence"
-      primary_zone: "Zone primaire"
+      primary_easement: "Zone primaire" #?
+      primary_zone: "Zone primaire" #?
       procedure: "Procédure"
       procedure_nature: "Type de procédure" #?
       # procedure_variable: "Procedure variable"
@@ -662,7 +665,6 @@ fra:
     description: "Description"
     # destination: "Destination"
     detail_payments: "Détailler les paiements"
-    # detailled: "Detailled"
     diagnostics: "Diagnostics" #?
     diff_less: "Droits enlevés"
     diff_more: "Droits rajoutés"
@@ -1040,6 +1042,7 @@ fra:
     professions: "Professions" #?
     propagate_contacts: "Propager les contacts" #?
     proposer: "Parrain"
+    # prorated: "Prorated"
     prospect: "Prospect"
     protected: "Protégé"
     published: "Publié"
@@ -1068,9 +1071,11 @@ fra:
     reason: "Motif" #?
     receipt: "Reçu électronique"
     received: "Reçue"
+    # received_at: "Received at"
     receiver_amount: "Montant reçu"
     receiver_cash: "Trésorerie réceptrice"
     receiver_journal_entry: "Écriture de la réception"
+    # recipient: "Recipient"
     reconcilable: "Lettrable"
     record_value: "Enregistrement"
     record_value_type: "Type d’enregistrement"
@@ -1103,7 +1108,7 @@ fra:
     rgt: "Rgt"
     rights: "Droits"
     role: "Rôle de base"
-    roles: "Rôles" #?
+    roles: "Rôles"
     rome: "Code ROME" #?
     root_model: "Racine"
     root_model_name: "Racine"
@@ -1129,6 +1134,8 @@ fra:
     second_stock_move: "Second mouvement de stock" #?
     self_cashes: "Caisses en propre" #?
     self_contacts: "Contacts en propre" #?
+    # sender: "Sender"
+    # sent_at: "Sent at"
     sequences: "Séquences" #?
     serial: "N°Lot"
     serial_number: "Serial number"
@@ -1217,7 +1224,6 @@ fra:
     transporters: "Transporteurs" #?
     transports: "Transports"
     type: "Type"
-    # uid: "Uid"
     # unconfirmed_email: "Unconfirmed email"
     undelivered_quantity: "Reste à livrer"
     unique_tracking: "Numéro unique"
@@ -1250,7 +1256,6 @@ fra:
     vat_subjected: "Vat subjected"
     vat_submissive: "Soumis à la TVA" #?
     # verb: "Verb"
-    # version: "Version"
     virtual: "Virtuel" #?
     virtual_quantity: "Stock virtuel"
     waiting_deliveries: "Livraisons en attente"

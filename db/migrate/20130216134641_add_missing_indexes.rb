@@ -30,9 +30,9 @@ class AddMissingIndexes < ActiveRecord::Migration
     add_index :incoming_delivery_items, :delivery_id
     add_index :incoming_delivery_items, :purchase_item_id
     add_index :incoming_delivery_items, :product_id
-    add_index :incoming_delivery_items, :price_id
+    # add_index :incoming_delivery_items, :price_id
     # add_index :incoming_delivery_items, :unit_id
-    add_index :incoming_delivery_items, :tracking_id
+    # add_index :incoming_delivery_items, :tracking_id
     add_index :incoming_delivery_items, :move_id
     add_index :incoming_payment_modes, :depositables_account_id
     add_index :incoming_payment_modes, :cash_id
@@ -63,9 +63,9 @@ class AddMissingIndexes < ActiveRecord::Migration
     add_index :outgoing_delivery_items, :delivery_id
     add_index :outgoing_delivery_items, :sale_item_id
     add_index :outgoing_delivery_items, :product_id
-    add_index :outgoing_delivery_items, :price_id
+    # add_index :outgoing_delivery_items, :price_id
     # add_index :outgoing_delivery_items, :unit_id
-    add_index :outgoing_delivery_items, :tracking_id
+    # add_index :outgoing_delivery_items, :tracking_id
     add_index :outgoing_delivery_items, :move_id
     add_index :outgoing_payment_modes, :cash_id
     add_index :outgoing_payment_modes, :attorney_journal_id

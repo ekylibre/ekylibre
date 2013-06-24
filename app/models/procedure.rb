@@ -24,19 +24,13 @@
 #  campaign_id  :integer          not null
 #  created_at   :datetime         not null
 #  creator_id   :integer
-#  depth        :integer
 #  id           :integer          not null, primary key
 #  incident_id  :integer
-#  lft          :integer
 #  lock_version :integer          default(0), not null
 #  nomen        :string(255)      not null
-#  parent_id    :integer
-#  rgt          :integer
 #  state        :string(255)      default("undone"), not null
-#  uid          :string(511)
 #  updated_at   :datetime         not null
 #  updater_id   :integer
-#  version      :string(255)
 #
 class Procedure < Ekylibre::Record::Base
   attr_accessible :nomen, :activity_id, :campaign_id
@@ -49,15 +43,11 @@ class Procedure < Ekylibre::Record::Base
   enumerize :nomen, :in => Procedures.names.sort
   enumerize :state, :in => [:undone, :squeezed, :in_progress, :done]
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :depth, :lft, :rgt, :allow_nil => true, :only_integer => true
-  validates_length_of :nomen, :state, :version, :allow_nil => true, :maximum => 255
-  validates_length_of :uid, :allow_nil => true, :maximum => 511
+  validates_length_of :nomen, :state, :allow_nil => true, :maximum => 255
   validates_presence_of :activity, :campaign, :nomen, :state
   #]VALIDATORS]
   validates_inclusion_of :nomen, :in => self.nomen.values
   validates_presence_of :version, :uid
-
-  acts_as_nested_set
 
   before_validation(:on => :create) do
     unless self.root?

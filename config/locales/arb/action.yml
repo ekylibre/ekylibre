@@ -289,17 +289,23 @@ arb:
       # reports: "Impression, exportation"
       show: "الدفتر اليومي : %{name} (%{code})"
     backend/kujakus: #?
-    backend/land_parcel_clusters: #?
-    backend/land_parcel_groups:
+    backend/land_parcel_clusters:
       # edit: "Modifier l'ilôt\_: %{name}"
       # index: "Ilôts"
       # new: "Ajouter un nouvel ilôt"
       # show: "Ilôt %{name}"
+    backend/land_parcel_groups:
+      # divide: "Diviser la parcelle culturale\_: %{name}"
+      # edit: "Modifier la parcelle culturale\_: %{name}"
+      # index: "Parcelles culturales"
+      # merge: "Fusionner des parcelles culturales"
+      # new: "Ajouter une nouvelle parcelle culturale"
+      # show: "Parcelle culturale %{name}"
     backend/land_parcels:
-      # divide: "Diviser la parcelle\_: %{name}"
+      # divide: "Diviser la parcelle unitaire\_: %{name}"
       edit: "تعديل النظام : %{name}"
       index: "انظمة"
-      # merge: "Fusionner des parcelles"
+      # merge: "Fusionner des parcelles unitaires"
       new: "اضافة نظام جديد"
       show: "نظام %{name}"
     backend/legal_entities: #?
@@ -2083,6 +2089,8 @@ arb:
       # all: "{content}"
     backend/operations:
       # all: "{nature} ({created_at})"
+    backend/plants:
+      # all: "{name} - {work_number}"
     backend/product_indicators:
       # all: "{id}"
     backend/product_memberships:

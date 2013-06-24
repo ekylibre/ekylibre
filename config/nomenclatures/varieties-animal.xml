@@ -2,7 +2,7 @@
 <nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
   <nomenclature name="varieties-animal">
     <items>
-      <item name="mammalia" derivatives="milk"/>
+      <item name="mammalia"/>
       <item name="gallus"/>
       <item name="salmo"/>
       <item name="apis"/>

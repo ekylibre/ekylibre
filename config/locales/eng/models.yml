@@ -411,6 +411,7 @@ eng:
       bank_statement: "Bank statement"
       # bioproduct: "Produit vivant"
       building: "Building"
+      # building_division: "Pièce"
       # building_room: "Pièce"
       # campaign: "Campagne"
       cash: "Cash"
@@ -430,6 +431,7 @@ eng:
       document: "Document"
       # document_archive: "Archive de document"
       document_template: "Document template"
+      # easement: "Zone primaire"
       entity: "Person"
       entity_address: "Address"
       entity_category: "Person category" #?
@@ -489,6 +491,7 @@ eng:
       # plant: "Plante"
       preference: "Preference"
       price: "Price" #?
+      # primary_easement: "Zone primaire"
       # primary_zone: "Zone primaire"
       # procedure: "Procédure"
       # procedure_nature: "Type de procédure"

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130513165730) do
+ActiveRecord::Schema.define(:version => 20130410143823) do
 
   create_table "account_balances", :force => true do |t|
     t.integer  "account_id",                                                        :null => false
@@ -753,43 +753,36 @@ ActiveRecord::Schema.define(:version => 20130513165730) do
 
   create_table "incoming_deliveries", :force => true do |t|
     t.integer  "purchase_id"
-    t.decimal  "pretax_amount",                 :precision => 19, :scale => 4, :default => 0.0, :null => false
-    t.decimal  "amount",                        :precision => 19, :scale => 4, :default => 0.0, :null => false
-    t.text     "description"
     t.integer  "address_id"
     t.date     "planned_on"
-    t.date     "moved_on"
-    t.decimal  "weight",                        :precision => 19, :scale => 4
-    t.datetime "created_at",                                                                    :null => false
-    t.datetime "updated_at",                                                                    :null => false
+    t.datetime "received_at"
+    t.decimal  "weight",           :precision => 19, :scale => 4
+    t.datetime "created_at",                                                     :null => false
+    t.datetime "updated_at",                                                     :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                                 :default => 0,   :null => false
+    t.integer  "lock_version",                                    :default => 0, :null => false
     t.integer  "mode_id"
     t.string   "number"
     t.string   "reference_number"
-    t.string   "currency",         :limit => 3
+    t.integer  "sender_id",                                                      :null => false
   end
 
   add_index "incoming_deliveries", ["address_id"], :name => "index_incoming_deliveries_on_address_id"
   add_index "incoming_deliveries", ["created_at"], :name => "index_purchase_deliveries_on_created_at"
   add_index "incoming_deliveries", ["creator_id"], :name => "index_purchase_deliveries_on_creator_id"
-  add_index "incoming_deliveries", ["currency"], :name => "index_incoming_deliveries_on_currency"
   add_index "incoming_deliveries", ["mode_id"], :name => "index_incoming_deliveries_on_mode_id"
   add_index "incoming_deliveries", ["purchase_id"], :name => "index_incoming_deliveries_on_purchase_id"
+  add_index "incoming_deliveries", ["sender_id"], :name => "index_incoming_deliveries_on_sender_id"
   add_index "incoming_deliveries", ["updated_at"], :name => "index_purchase_deliveries_on_updated_at"
   add_index "incoming_deliveries", ["updater_id"], :name => "index_purchase_deliveries_on_updater_id"
 
   create_table "incoming_delivery_items", :force => true do |t|
     t.integer  "delivery_id",                                                      :null => false
-    t.integer  "purchase_item_id",                                                 :null => false
+    t.integer  "purchase_item_id"
     t.integer  "product_id",                                                       :null => false
-    t.integer  "price_id",                                                         :null => false
     t.decimal  "quantity",         :precision => 19, :scale => 4, :default => 1.0, :null => false
-    t.decimal  "pretax_amount",    :precision => 19, :scale => 4, :default => 0.0, :null => false
-    t.decimal  "amount",           :precision => 19, :scale => 4, :default => 0.0, :null => false
-    t.integer  "tracking_id"
-    t.integer  "warehouse_id"
+    t.integer  "container_id"
     t.decimal  "weight",           :precision => 19, :scale => 4
     t.datetime "created_at",                                                       :null => false
     t.datetime "updated_at",                                                       :null => false
@@ -797,18 +790,14 @@ ActiveRecord::Schema.define(:version => 20130513165730) do
     t.integer  "updater_id"
     t.integer  "lock_version",                                    :default => 0,   :null => false
     t.integer  "move_id"
-    t.string   "unit"
   end
 
   add_index "incoming_delivery_items", ["created_at"], :name => "index_incoming_delivery_items_on_created_at"
   add_index "incoming_delivery_items", ["creator_id"], :name => "index_incoming_delivery_items_on_creator_id"
   add_index "incoming_delivery_items", ["delivery_id"], :name => "index_incoming_delivery_items_on_delivery_id"
   add_index "incoming_delivery_items", ["move_id"], :name => "index_incoming_delivery_items_on_move_id"
-  add_index "incoming_delivery_items", ["price_id"], :name => "index_incoming_delivery_items_on_price_id"
   add_index "incoming_delivery_items", ["product_id"], :name => "index_incoming_delivery_items_on_product_id"
   add_index "incoming_delivery_items", ["purchase_item_id"], :name => "index_incoming_delivery_items_on_purchase_item_id"
-  add_index "incoming_delivery_items", ["tracking_id"], :name => "index_incoming_delivery_items_on_tracking_id"
-  add_index "incoming_delivery_items", ["unit"], :name => "index_incoming_delivery_items_on_unit"
   add_index "incoming_delivery_items", ["updated_at"], :name => "index_incoming_delivery_items_on_updated_at"
   add_index "incoming_delivery_items", ["updater_id"], :name => "index_incoming_delivery_items_on_updater_id"
 
@@ -1221,7 +1210,7 @@ ActiveRecord::Schema.define(:version => 20130513165730) do
   create_table "operation_tasks", :force => true do |t|
     t.integer  "operation_id",                                                         :null => false
     t.integer  "parent_id"
-    t.boolean  "detailled",                                         :default => false, :null => false
+    t.boolean  "prorated",                                          :default => false, :null => false
     t.integer  "subject_id",                                                           :null => false
     t.string   "verb",                                                                 :null => false
     t.integer  "operand_id"
@@ -1248,32 +1237,29 @@ ActiveRecord::Schema.define(:version => 20130513165730) do
   add_index "operation_tasks", ["updater_id"], :name => "index_operation_tasks_on_updater_id"
 
   create_table "outgoing_deliveries", :force => true do |t|
-    t.integer  "sale_id",                                                                       :null => false
-    t.decimal  "pretax_amount",                 :precision => 19, :scale => 4, :default => 0.0, :null => false
-    t.decimal  "amount",                        :precision => 19, :scale => 4, :default => 0.0, :null => false
-    t.text     "description"
-    t.datetime "created_at",                                                                    :null => false
-    t.datetime "updated_at",                                                                    :null => false
+    t.integer  "sale_id"
+    t.datetime "created_at",                                                     :null => false
+    t.datetime "updated_at",                                                     :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                                 :default => 0,   :null => false
+    t.integer  "lock_version",                                    :default => 0, :null => false
     t.integer  "address_id"
     t.date     "planned_on"
-    t.date     "moved_on"
+    t.datetime "sent_at"
     t.integer  "mode_id"
-    t.decimal  "weight",                        :precision => 19, :scale => 4
+    t.decimal  "weight",           :precision => 19, :scale => 4
     t.integer  "transport_id"
     t.integer  "transporter_id"
     t.string   "number"
     t.string   "reference_number"
-    t.string   "currency",         :limit => 3
+    t.integer  "recipient_id",                                                   :null => false
   end
 
   add_index "outgoing_deliveries", ["address_id"], :name => "index_outgoing_deliveries_on_address_id"
   add_index "outgoing_deliveries", ["created_at"], :name => "index_deliveries_on_created_at"
   add_index "outgoing_deliveries", ["creator_id"], :name => "index_deliveries_on_creator_id"
-  add_index "outgoing_deliveries", ["currency"], :name => "index_outgoing_deliveries_on_currency"
   add_index "outgoing_deliveries", ["mode_id"], :name => "index_outgoing_deliveries_on_mode_id"
+  add_index "outgoing_deliveries", ["recipient_id"], :name => "index_outgoing_deliveries_on_recipient_id"
   add_index "outgoing_deliveries", ["sale_id"], :name => "index_outgoing_deliveries_on_sales_order_id"
   add_index "outgoing_deliveries", ["transport_id"], :name => "index_outgoing_deliveries_on_transport_id"
   add_index "outgoing_deliveries", ["transporter_id"], :name => "index_outgoing_deliveries_on_transporter_id"
@@ -1281,33 +1267,24 @@ ActiveRecord::Schema.define(:version => 20130513165730) do
   add_index "outgoing_deliveries", ["updater_id"], :name => "index_deliveries_on_updater_id"
 
   create_table "outgoing_delivery_items", :force => true do |t|
-    t.integer  "delivery_id",                                                   :null => false
-    t.integer  "sale_item_id",                                                  :null => false
-    t.integer  "product_id",                                                    :null => false
-    t.integer  "price_id",                                                      :null => false
-    t.decimal  "quantity",      :precision => 19, :scale => 4, :default => 1.0, :null => false
-    t.decimal  "pretax_amount", :precision => 19, :scale => 4, :default => 0.0, :null => false
-    t.decimal  "amount",        :precision => 19, :scale => 4, :default => 0.0, :null => false
-    t.datetime "created_at",                                                    :null => false
-    t.datetime "updated_at",                                                    :null => false
+    t.integer  "delivery_id",                                                  :null => false
+    t.integer  "sale_item_id"
+    t.integer  "product_id",                                                   :null => false
+    t.decimal  "quantity",     :precision => 19, :scale => 4, :default => 1.0, :null => false
+    t.datetime "created_at",                                                   :null => false
+    t.datetime "updated_at",                                                   :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                 :default => 0,   :null => false
-    t.integer  "tracking_id"
-    t.integer  "warehouse_id"
+    t.integer  "lock_version",                                :default => 0,   :null => false
     t.integer  "move_id"
-    t.string   "unit"
   end
 
   add_index "outgoing_delivery_items", ["created_at"], :name => "index_outgoing_delivery_items_on_created_at"
   add_index "outgoing_delivery_items", ["creator_id"], :name => "index_outgoing_delivery_items_on_creator_id"
   add_index "outgoing_delivery_items", ["delivery_id"], :name => "index_outgoing_delivery_items_on_delivery_id"
   add_index "outgoing_delivery_items", ["move_id"], :name => "index_outgoing_delivery_items_on_move_id"
-  add_index "outgoing_delivery_items", ["price_id"], :name => "index_outgoing_delivery_items_on_price_id"
   add_index "outgoing_delivery_items", ["product_id"], :name => "index_outgoing_delivery_items_on_product_id"
   add_index "outgoing_delivery_items", ["sale_item_id"], :name => "index_outgoing_delivery_items_on_sale_item_id"
-  add_index "outgoing_delivery_items", ["tracking_id"], :name => "index_outgoing_delivery_items_on_tracking_id"
-  add_index "outgoing_delivery_items", ["unit"], :name => "index_outgoing_delivery_items_on_unit"
   add_index "outgoing_delivery_items", ["updated_at"], :name => "index_outgoing_delivery_items_on_updated_at"
   add_index "outgoing_delivery_items", ["updater_id"], :name => "index_outgoing_delivery_items_on_updater_id"
 
@@ -1414,6 +1391,7 @@ ActiveRecord::Schema.define(:version => 20130513165730) do
     t.integer  "procedure_id",                :null => false
     t.integer  "target_id",                   :null => false
     t.string   "nomen",                       :null => false
+    t.string   "roles"
     t.datetime "created_at",                  :null => false
     t.datetime "updated_at",                  :null => false
     t.integer  "creator_id"
@@ -1431,21 +1409,15 @@ ActiveRecord::Schema.define(:version => 20130513165730) do
 
   create_table "procedures", :force => true do |t|
     t.integer  "incident_id"
-    t.integer  "activity_id",                                       :null => false
-    t.integer  "campaign_id",                                       :null => false
-    t.string   "nomen",                                             :null => false
-    t.string   "version"
-    t.string   "state",                       :default => "undone", :null => false
-    t.string   "uid",          :limit => 511
-    t.integer  "parent_id"
-    t.integer  "lft"
-    t.integer  "rgt"
-    t.integer  "depth"
-    t.datetime "created_at",                                        :null => false
-    t.datetime "updated_at",                                        :null => false
+    t.integer  "activity_id",                        :null => false
+    t.integer  "campaign_id",                        :null => false
+    t.string   "nomen",                              :null => false
+    t.string   "state",        :default => "undone", :null => false
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                :default => 0,        :null => false
+    t.integer  "lock_version", :default => 0,        :null => false
   end
 
   add_index "procedures", ["activity_id"], :name => "index_procedures_on_activity_id"
@@ -1454,7 +1426,6 @@ ActiveRecord::Schema.define(:version => 20130513165730) do
   add_index "procedures", ["creator_id"], :name => "index_procedures_on_creator_id"
   add_index "procedures", ["incident_id"], :name => "index_procedures_on_incident_id"
   add_index "procedures", ["nomen"], :name => "index_procedures_on_nomen"
-  add_index "procedures", ["parent_id"], :name => "index_procedures_on_parent_id"
   add_index "procedures", ["updated_at"], :name => "index_procedures_on_updated_at"
   add_index "procedures", ["updater_id"], :name => "index_procedures_on_updater_id"
 

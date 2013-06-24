@@ -1,0 +1,8 @@
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
+  <nomenclature name="varieties-organic_matter">
+    <items>
+      <item name="meat" derivative_of="animal"/>
+      <item name="milk" derivative_of="mammalia"/>
+    </items>
+  </nomenclature>
+</nomenclatures>
