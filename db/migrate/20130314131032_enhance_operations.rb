@@ -109,7 +109,7 @@ class EnhanceOperations < ActiveRecord::Migration
     create_table :operation_tasks do |t|
       t.references :operation, :null => false
       t.references :parent
-      t.boolean    :detailled, :null => false, :default => false
+      t.boolean    :prorated, :null => false, :default => false
       t.references :subject, :null => false
       t.string     :verb, :null => false
       t.references :operand

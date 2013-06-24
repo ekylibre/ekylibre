@@ -664,7 +664,6 @@ fra:
     description: "Description"
     # destination: "Destination"
     detail_payments: "Détailler les paiements"
-    # detailled: "Detailled"
     diagnostics: "Diagnostics" #?
     diff_less: "Droits enlevés"
     diff_more: "Droits rajoutés"
@@ -1042,6 +1041,7 @@ fra:
     professions: "Professions" #?
     propagate_contacts: "Propager les contacts" #?
     proposer: "Parrain"
+    # prorated: "Prorated"
     prospect: "Prospect"
     protected: "Protégé"
     published: "Publié"

@@ -2,18 +2,18 @@
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
   <!-- ############################## EPANDRE DU FUMIER ######################################## -->
   <!-- name avec namespace séparé par ; natures appelle les noms de procedure fichier procedure-nature-->
-  <procedure name="organic_fertilizing" version="1" status="frozen" natures="enrichment">
+  <procedure name="organic_fertilizing" version="1" status="frozen" natures="soil_enrichment">
     <!-- les variables non transmises seront obligatoirement demandées lors de l'utilisation de la procédure-->
     <!-- parameter = false , alors la variable ne sera pas demandée et peut servir de variable interne -->
     <!-- same-nature-of = "parameter" quand une variable interne est issue d'un objet passé en paramètre -->
     <!-- les compétences (abilities) sont notés sous la forme d'une compétence sur une variété : compétence(variété)-->
     <variables>
       <variable name="manure" variety="organic_matter" abilities="fertilize(plant)"/>
-      <variable name="manure_to_spread" same-nature-of="manure" parameter="false" new="quantity=?"/>
+      <variable name="manure_to_spread" same-nature-of="manure" parameter="false" new="quantity=?" role="soil_enrichment-input"/>
       <variable name="spreader" abilities="spreading(organic_matter)" /><!-- paramètre réprésentant des objets qui possede la compétence "Epandre"  un produit de la variété "organic_matter"-->
       <variable name="driver" variety="worker"/><!-- paramètre réprésentant des objets de type Humain qui possede la compétence "Conduire un ensemble tracteur + épandeur"  -->
       <variable name="tractor" variety="equipment" abilities="tow,catch"/><!-- paramètre réprésentant des objets qui possede la compétence "Tracter"  -->
-      <variable name="land_parcel" variety="land_parcel"/>
+      <variable name="land_parcel" variety="land_parcel" role="soil_enrichment-target"/>
     </variables>
     <operations>        
       <operation name="transport_0100">

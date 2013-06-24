@@ -12,8 +12,8 @@
       <item name="technical_guide"/>
       <item name="tillage"/>
       <item name="enrichment"/>
-      <item name="spreading" roles="spreader, spreaded_zone"/>
-      <item name="pruning" roles="arborist+, plants+"/>
+      <item name="soil_enrichment" roles="input, target"/>
+      <item name="pruning" roles="gardener+, target+"/>
     </items>
   </nomenclature>
 </nomenclatures>

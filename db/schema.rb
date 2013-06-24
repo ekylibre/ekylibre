@@ -1210,7 +1210,7 @@ ActiveRecord::Schema.define(:version => 20130513165730) do
   create_table "operation_tasks", :force => true do |t|
     t.integer  "operation_id",                                                         :null => false
     t.integer  "parent_id"
-    t.boolean  "detailled",                                         :default => false, :null => false
+    t.boolean  "prorated",                                          :default => false, :null => false
     t.integer  "subject_id",                                                           :null => false
     t.string   "verb",                                                                 :null => false
     t.integer  "operand_id"
