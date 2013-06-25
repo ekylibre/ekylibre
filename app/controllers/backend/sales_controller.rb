@@ -110,7 +110,7 @@ class Backend::SalesController < BackendController
   list(:subscriptions, :conditions => {:sale_id => ['session[:current_sale_id]']}) do |t|
     t.column :number
     t.column :name, :through => :nature
-    t.column :full_name, :through => :entity, :url => true
+    t.column :full_name, :through => :subscriber, :url => true
     t.column :coordinate, :through => :address
     t.column :start
     t.column :finish

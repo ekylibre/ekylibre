@@ -40,7 +40,7 @@
 
 class IncomingDelivery < Ekylibre::Record::Base
   acts_as_numbered
-  attr_accessible :address_id, :description, :mode_id, :moved_on, :planned_on, :reference_number
+  attr_accessible :address_id, :sender_id, :mode_id, :received_at, :reference_number # , :description
   attr_readonly :number
   belongs_to :address, :class_name => "EntityAddress"
   belongs_to :mode, :class_name => "IncomingDeliveryMode"
@@ -57,7 +57,7 @@ class IncomingDelivery < Ekylibre::Record::Base
   validates_presence_of :planned_on, :address
 
   delegate :order?, :draft?, :to => :purchase
-  scope :undelivereds, -> { where(:moved_on => nil) }
+  scope :undelivereds, -> { where(:received_at => nil) }
 
   before_validation do
     self.planned_on ||= Date.today
@@ -75,9 +75,9 @@ class IncomingDelivery < Ekylibre::Record::Base
     nil
   end
 
-  def execute(moved_on = Date.today)
+  def execute(received_at = Time.now)
     self.class.transaction do
-      self.update_attributes(:moved_on => moved_on)
+      self.update_attributes(:received_at => received_at)
     end
   end
 

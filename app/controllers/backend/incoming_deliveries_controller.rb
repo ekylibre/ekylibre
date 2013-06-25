@@ -23,14 +23,13 @@ class Backend::IncomingDeliveriesController < BackendController
   list(:conditions => moved_conditions(IncomingDelivery)) do |t|
     t.column :number
     t.column :reference_number
-    t.column :description
+    # t.column :description
     t.column :weight
-    t.column :planned_on
-    t.column :moved_on
+    # t.column :planned_on
+    t.column :received_at
     t.column :name, :through => :mode
     t.column :number, :through => :purchase, :url => true
-    t.column :amount
-    t.action :confirm, :method => :post, :if => 'RECORD.moved_on.nil? ', 'data-confirm'  =>  :are_you_sure
+    # t.action :confirm, :method => :post, :if => :confirmable?, 'data-confirm'  =>  :are_you_sure
     t.action :edit
     t.action :destroy
   end

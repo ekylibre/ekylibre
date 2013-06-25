@@ -79,7 +79,7 @@ require "digest/sha2"
 
 class Entity < Ekylibre::Record::Base
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :active, :activity_code, :attorney, :attorney_account_id, :authorized_payments_count, :born_on, :sale_price_listing_id, :client, :client_account_id, :number, :country, :currency, :dead_on, :deliveries_conditions, :first_met_on, :first_name, :full_name, :language, :last_name, :nature, :origin, :payment_delay, :payment_mode_id, :picture, :proposer_id, :prospect, :reduction_percentage, :reminder_submissive, :responsible_id, :siren, :supplier, :supplier_account_id, :transporter, :vat_number, :vat_submissive
+  attr_accessible :active, :activity_code, :attorney, :attorney_account_id, :authorized_payments_count, :born_on, :sale_price_listing_id, :client, :client_account_id, :number, :country, :currency, :dead_on, :deliveries_conditions, :first_met_on, :first_name, :full_name, :language, :last_name, :nature, :origin, :payment_delay, :payment_mode_id, :picture, :proposer_id, :prospect, :reduction_percentage, :reminder_submissive, :responsible_id, :siren, :supplier, :supplier_account_id, :transporter, :vat_number, :vat_subjected
   attr_accessor :password_confirmation, :old_password
   attr_protected :rights
   belongs_to :attorney_account, :class_name => "Account"

@@ -24,7 +24,6 @@
 #  created_at        :datetime         not null
 #  creator_id        :integer
 #  description       :text
-#  entity_id         :integer
 #  first_number      :integer
 #  id                :integer          not null, primary key
 #  last_number       :integer
@@ -37,6 +36,7 @@
 #  sale_item_id      :integer
 #  started_on        :date
 #  stopped_on        :date
+#  subscriber_id     :integer
 #  suspended         :boolean          not null
 #  updated_at        :datetime         not null
 #  updater_id        :integer
@@ -47,7 +47,7 @@ class Subscription < Ekylibre::Record::Base
   acts_as_numbered
   attr_accessible :address_id, :description, :first_number, :last_number, :started_on, :stopped_on, :suspended, :sale_item_id, :nature_id
   belongs_to :address, :class_name => "EntityAddress"
-  belongs_to :entity
+  belongs_to :subscriber, :class_name => "Entity"
   belongs_to :nature, :class_name => "SubscriptionNature"
   belongs_to :product_nature
   belongs_to :sale
@@ -60,13 +60,13 @@ class Subscription < Ekylibre::Record::Base
   #]VALIDATORS]
   validates_presence_of :started_on, :stopped_on, :if => Proc.new{|u| u.nature and u.nature.period?}
   validates_presence_of :first_number, :last_number, :if => Proc.new{|u| u.nature and u.nature.quantity?}
-  validates_presence_of :nature, :entity
+  validates_presence_of :nature, :subscriber
   validates_presence_of :sale_item, :if => Proc.new{|s| !s.sale.nil?}, :on => :create
 
   before_validation do
     self.sale_id      = self.sale_item.sale_id if self.sale_item
     self.address_id ||= self.sale.delivery_address_id if self.sale
-    self.entity_id    = self.address.entity_id if self.address
+    self.subscriber_id    = self.address.entity_id if self.address
     self.nature_id    = self.product_nature.subscription_nature_id if self.product_nature
     return true
   end
@@ -95,8 +95,8 @@ class Subscription < Ekylibre::Record::Base
   end
 
   validate do
-    if self.address and self.entity
-      errors.add(:entity_id, :entity_must_be_the_same_as_the_contact_entity) if self.address.entity_id != self.entity_id
+    if self.address and self.subscriber
+      errors.add(:subscriber_id, :entity_must_be_the_same_as_the_contact_entity) if self.address.entity_id != self.subscriber_id
     end
     if self.address
       errors.add(:address_id, :invalid) unless self.address.mail?
@@ -104,7 +104,7 @@ class Subscription < Ekylibre::Record::Base
   end
 
 
-  def entity_name
+  def subscriber_name
     return self.address.mail_line_1
   end
 

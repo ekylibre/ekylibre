@@ -28,17 +28,16 @@
 #  id           :integer          not null, primary key
 #  lock_version :integer          default(0), not null
 #  name         :string(255)      not null
-#  nomen        :string(255)
 #  updated_at   :datetime         not null
 #  updater_id   :integer
 #
 class Campaign < Ekylibre::Record::Base
-  attr_accessible :description, :name, :nomen, :closed
+  attr_accessible :description, :name, :closed
 
   has_many :repartitions, :class_name => "ActivityRepartition", :foreign_key => :campaign_id
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_length_of :description, :name, :nomen, :allow_nil => true, :maximum => 255
+  validates_length_of :description, :name, :allow_nil => true, :maximum => 255
   validates_inclusion_of :closed, :in => [true, false]
   validates_presence_of :name
   #]VALIDATORS]

@@ -4,10 +4,9 @@ class AddActivities < ActiveRecord::Migration
   def change
     # Campaigns
     create_table :campaigns do |t|
-      t.string :name, :null => false
-      t.string :description
-      t.string :nomen # code or nomenclature if XML
-      t.boolean :closed, :null => false, :default => false # Flag pour dire si une campagne est clôturé ou non
+      t.string   :name, :null => false
+      t.string   :description
+      t.boolean  :closed, :null => false, :default => false # Flag pour dire si une campagne est clôturé ou non
       t.datetime :closed_at
       t.stamps
     end

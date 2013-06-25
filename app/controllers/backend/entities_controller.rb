@@ -146,7 +146,7 @@ class Backend::EntitiesController < BackendController
     t.action :destroy, :if => "RECORD.aborted? "
   end
 
-  list(:subscriptions, :conditions => {:entity_id => ['session[:current_entity_id]']}, :order => 'stopped_on DESC, first_number DESC', :line_class => "(RECORD.active? ? 'enough' : '')") do |t|
+  list(:subscriptions, :conditions => {:subscriber_id => ['session[:current_entity_id]']}, :order => 'stopped_on DESC, first_number DESC', :line_class => "(RECORD.active? ? 'enough' : '')") do |t|
     t.column :number
     t.column :name, :through => :nature
     t.column :start

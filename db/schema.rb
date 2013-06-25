@@ -246,7 +246,6 @@ ActiveRecord::Schema.define(:version => 20130410143823) do
   create_table "campaigns", :force => true do |t|
     t.string   "name",                            :null => false
     t.string   "description"
-    t.string   "nomen"
     t.boolean  "closed",       :default => false, :null => false
     t.datetime "closed_at"
     t.datetime "created_at",                      :null => false
@@ -2199,7 +2198,7 @@ ActiveRecord::Schema.define(:version => 20130410143823) do
     t.decimal  "quantity",          :precision => 19, :scale => 4
     t.boolean  "suspended",                                        :default => false, :null => false
     t.integer  "nature_id"
-    t.integer  "entity_id"
+    t.integer  "subscriber_id"
     t.text     "description"
     t.string   "number"
     t.integer  "sale_item_id"
@@ -2208,11 +2207,11 @@ ActiveRecord::Schema.define(:version => 20130410143823) do
   add_index "subscriptions", ["address_id"], :name => "index_subscriptions_on_address_id"
   add_index "subscriptions", ["created_at"], :name => "index_subscriptions_on_created_at"
   add_index "subscriptions", ["creator_id"], :name => "index_subscriptions_on_creator_id"
-  add_index "subscriptions", ["entity_id"], :name => "index_subscriptions_on_entity_id"
   add_index "subscriptions", ["nature_id"], :name => "index_subscriptions_on_nature_id"
   add_index "subscriptions", ["product_nature_id"], :name => "index_subscriptions_on_product_nature_id"
   add_index "subscriptions", ["sale_id"], :name => "index_subscriptions_on_sales_order_id"
   add_index "subscriptions", ["sale_item_id"], :name => "index_subscriptions_on_sale_item_id"
+  add_index "subscriptions", ["subscriber_id"], :name => "index_subscriptions_on_subscriber_id"
   add_index "subscriptions", ["updated_at"], :name => "index_subscriptions_on_updated_at"
   add_index "subscriptions", ["updater_id"], :name => "index_subscriptions_on_updater_id"
 

@@ -52,39 +52,31 @@ class IncomingDeliveryItem < Ekylibre::Record::Base
   #]VALIDATORS]
   validates_presence_of :product, :unit
 
+  accepts_nested_attributes_for :product
   acts_as_stockable :origin => :delivery
-  sums :delivery, :items, :pretax_amount, :amount, "(item.product.weight||0)*item.quantity" => :weight
+  delegate :weight, :name, :to => :product, :prefix => true
+  sums :delivery, :items, "item.product_weight.to_f * item.quantity" => :weight
 
   before_validation do
     if self.purchase_item
       self.product_id  = self.purchase_item.product_id
       self.price_id    = self.purchase_item.price.id
-      self.unit     = self.purchase_item.unit
+      self.unit        = self.purchase_item.unit
       self.building_id = self.purchase_item.building_id
     end
-    self.pretax_amount = self.purchase_item.price.pretax_amount*self.quantity
-    self.amount = self.purchase_item.price.amount*self.quantity
   end
 
-  validate(:on => :create) do
-    if self.product
-      maximum = self.undelivered_quantity
-      errors.add(:quantity, :greater_than_undelivered_quantity, :maximum => maximum, :unit => self.product.unit.name, :product => self.product_name) if (self.quantity > maximum)
-    end
-  end
+  # validate(:on => :create) do
+  #   if self.product
+  #     maximum = self.undelivered_quantity
+  #     errors.add(:quantity, :greater_than_undelivered_quantity, :maximum => maximum, :unit => self.product.unit.name, :product => self.product_name) if (self.quantity > maximum)
+  #   end
+  # end
 
-  validate(:on => :update) do
-    old_self = self.class.find(self.id)
-    maximum = self.undelivered_quantity + old_self.quantity
-    errors.add(:quantity, :greater_than_undelivered_quantity, :maximum => maximum, :unit => self.product.unit.name, :product => self.product_name) if (self.quantity > maximum)
-  end
-
-  def undelivered_quantity
-    self.purchase_item.undelivered_quantity
-  end
-
-  def product_name
-    self.product.name
-  end
+  # validate(:on => :update) do
+  #   old_self = self.class.find(self.id)
+  #   maximum = self.undelivered_quantity + old_self.quantity
+  #   errors.add(:quantity, :greater_than_undelivered_quantity, :maximum => maximum, :unit => self.product.unit.name, :product => self.product_name) if (self.quantity > maximum)
+  # end
 
 end

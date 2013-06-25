@@ -24,7 +24,6 @@
 #  created_at        :datetime         not null
 #  creator_id        :integer
 #  description       :text
-#  entity_id         :integer
 #  first_number      :integer
 #  id                :integer          not null, primary key
 #  last_number       :integer
@@ -37,6 +36,7 @@
 #  sale_item_id      :integer
 #  started_on        :date
 #  stopped_on        :date
+#  subscriber_id     :integer
 #  suspended         :boolean          not null
 #  updated_at        :datetime         not null
 #  updater_id        :integer

@@ -872,11 +872,11 @@ module Ekylibre
     :subscription => {
       :address_id => :entity_address,
       :creator_id => :user,
-      :entity_id => :entity,
       :nature_id => :subscription_nature,
       :product_nature_id => :product_nature,
       :sale_id => :sale,
       :sale_item_id => :sale_item,
+      :subscriber_id => '',
       :updater_id => :user
     },
     :subscription_nature => {

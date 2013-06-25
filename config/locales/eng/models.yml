@@ -7,41 +7,36 @@ eng:
         # net_margin: "Marge nette"
         # nomen: "Code analytique"
         # parent: "Activité parente"
-        # work_unit: "Unité d'œuvre"
+        # work_unit: "Unité d’œuvre"
       activity_repartition:
-        # activity: "Activité"
         # affected_on: "Affecté le"
-        # campaign: "Campagne"
         # journal_entry_item: "Ligne comptable concernée"
         # product_nature: "Type de produit concerné"
-        # repartition_percentage: "Pourcentage d'affectation"
-      activity_watching:
-        # product_nature: "Produit de référence"
-        # work_unit: "Unité d'oeuvre"
+        # repartition_percentage: "Pourcentage d’affectation"
+      activity_watching: #?
       animal:
         # born_at: "Date de naissance"
         # dead_at: "Date de décès"
         race: "Race" #?
         # variety: "Race"
       animal_group:
-        # born_at: "Date de création"
+        # born_at: "Créé le"
       animal_race: #?
       animal_treatment_use: #?
       asset_depreciation:
         asset_amount: "Accountable value"
       building:
-        # born_at: "Date de construction"
-        children: "Sub-building"
+        # born_at: "Construit le"
+        children: "Sub-building" #?
         # content_maximal_quantity: "Quantité maximale supportée"
         # content_nature: "Type de Produit contenu"
         product: "Contained product" #?
         # variety: "Type"
-      campaign:
-        # nomen: "Code nomenclature"
-      cash:
-        key: "BBAN key"
-        mode: "Mode"
-        number: "Bank account number"
+      campaign: #?
+      cash:  #?
+        key: "BBAN key" #?
+        mode: "Mode" #?
+        number: "Bank account number" #?
       company:  #?
         locked: "Locked" #?
       deposit:
@@ -60,22 +55,23 @@ eng:
       entity_event_nature:  #?
         duration: "Duration by default (in min.)" #?
       equipment:
-        # born_at: "Date de mise en service"
+        # born_at: "Mis en service le"
         # content_maximal_quantity: "Capacité maximale"
         # content_nature: "Produit contenu"
         # content_unit: "Unité"
-        # dead_at: "Date de mise au rebut"
+        # dead_at: "Mis au rebut le"
         # parent_place: "Lieu de parking"
         uses: "Tool uses" #?
         # variety: "Marque"
       event:
         duration: "Duration (in minutes)"
-        location: "Location"
-        responsible: "Responsible"
+        location: "Location" #?
+        # place: "Lieu"
+        responsible: "Responsible" #?
       event_nature:
         duration: "Duration by default (in min.)"
       financial_year:
-        # last_journal_entry: "Écriture de fin d'exercice"
+        # last_journal_entry: "Écriture de fin d’exercice"
         stopped_on: "Date of closing"
       incoming_payment:
         amount: "Amount"
@@ -101,7 +97,7 @@ eng:
       land_parcel_group:
         # born_at: "Date de création"
         # children: "Sous-îlots"
-        # identification_number: "Numéro PAC ou numéro d'ilôts"
+        # identification_number: "Numéro PAC ou numéro d’ilôts"
         # real_quantity: "Surface"
       mandate:
         family: "Family"
@@ -110,8 +106,9 @@ eng:
         # dead_at: "Date de consommation/destruction"
       meeting:
         duration: "Duration (in minutes)"
-        location: "Location"
-        responsible: "Responsible"
+        location: "Location" #?
+        # place: "Lieu"
+        responsible: "Responsible" #?
       meeting_nature:
         duration: "Duration by default (in min.)"
       operation:
@@ -141,7 +138,7 @@ eng:
         children: "Sub-product_categories" #?
         published: "Published" #?
       product_localization:
-        # arrival_cause: "Cause d'entrée"
+        # arrival_cause: "Cause d’entrée"
         # container: "Contenant"
         # departure_cause: "Cause de sortie"
         # started_at: "Entrée"
@@ -149,8 +146,8 @@ eng:
       product_move:
         origin: "Origine"
       product_nature:
-        # asset_account: "Compte d'immobilisation"
-        # charge_account: "Compte d'achat"
+        # asset_account: "Compte d’immobilisation"
+        # charge_account: "Compte d’achat"
         # commercial_name: "Nom Catalogue"
         # depreciable: "Ammortissable"
         duration: "Quantity OR period"
@@ -170,8 +167,8 @@ eng:
       product_price_template:
         # amount: "Montant TTC"
         category: "People category" #?
-        entity: "Supplier"
-        # listing: "Catégorie de fiche associée"
+        entity: "Supplier" #?
+        # listing: " associée"
       product_specy: #?
       product_stock:  #?
         quantity: "Real quantity" #?
@@ -180,11 +177,9 @@ eng:
       product_transfer:
         building: "Departure building"
         second_building: "Arrival building"
-      product_variety:
-        # code: "Code race"
+      product_variety: #?
       production:
         # product_nature: "Produit de référence"
-        # work_unit: "Unité d'oeuvre"
       products_nature:  #?
         duration: "Quantity OR period" #?
         price: "Cost price" #?
@@ -500,8 +495,8 @@ eng:
       product_event: "Animal event" #?
       product_event_nature: "Animal event type" #?
       product_group: "Animal group"
-      # product_localization: "Passage d'un produit en un lieu"
-      # product_membership: "Passage d'un produit dans un groupe"
+      # product_localization: "Passage d’un produit en un lieu"
+      # product_membership: "Passage d’un produit dans un groupe"
       product_move: "Stock move"
       product_nature: "Product"
       # product_nature_ability: "Compétence"
@@ -574,7 +569,6 @@ eng:
     # affairs: "Affaires"
     # age: "Âge"
     agency_code: "Agency code" #?
-    # alive: "En vie"
     allocation_account: "Allocation account"
     amount: "Amount"
     animal: "Animal" #?
@@ -584,12 +578,12 @@ eng:
     animal_race_nature: "Animal race nature" #?
     animals: "Animals"
     annotation: "Annotation"
-    # archiving: "Méthode d'archivage"
+    # archiving: "Méthode d’archivage"
     area: "Area"
-    area_measure: "Area measure"
-    area_unit: "Area unit"
+    area_measure: "Area measure" #?
+    area_unit: "Area unit" #?
     areas: "Areas"
-    # arrival_cause: "Cause d'entrée"
+    # arrival_cause: "Cause d’entrée"
     arrived_on: "Arrived on"
     asset: "Asset"
     asset_amount: "Accountable value"
@@ -613,7 +607,9 @@ eng:
     balance_amount: "Balance amount"
     balances: "Balances"
     bank: "Bank" #?
-    # bank_account_number: "Bank account number"
+    # bank_account_key: "Clé RIB"
+    # bank_account_number: "Numéro de compte bancaire"
+    # bank_agency_address: "Adresse de l'agence bancaire"
     # bank_agency_code: "Code guichet"
     # bank_check_number: "N°Chèque"
     bank_code: "Bank code"
@@ -622,9 +618,9 @@ eng:
     bank_name: "Bank name"
     bank_statement: "Bank statement"
     bank_statements: "Bank statements"
-    banks_accounts: "Banks accounts"
-    base: "Base"
-    bban: "BBAN"
+    banks_accounts: "Banks accounts" #?
+    base: "Base" #?
+    bban: "BBAN" #?
     bic: "BIC" #?
     boolean_value: "Boolean value"
     # born_at: "Born at"
@@ -632,7 +628,7 @@ eng:
     building: "Building"
     buildings: "Buildings"
     by_default: "By default"
-    cache: "Cache"
+    cache: "Cache" #?
     # campaign: "Campagne"
     canal: "Canal"
     cares: "Cares" #?
@@ -652,10 +648,10 @@ eng:
     charges_accounts: "Charges accounts"
     check_number: "Check number" #?
     check_state: "Check state"
-    child_kinships: "Child kinships"
-    child_land_parcel: "Child land parcel"
+    child_kinships: "Child kinships" #?
+    child_land_parcel: "Child land parcel" #?
     children: "Children"
-    choice_custom_fields: "Choice custom fields"
+    choice_custom_fields: "Choice custom fields" #?
     choice_value: "Choice value"
     choices: "Choices"
     choices_count: "Choices count"
@@ -677,7 +673,7 @@ eng:
     collected_amount: "Collected amount"
     collected_taxes: "Collected taxes"
     color: "Color"
-    # column_name: "Nom de colone"
+    # column_name: "Nom de colonne"
     columns: "Columns"
     comment: "Comment"
     commercial: "Commercial"
@@ -735,6 +731,7 @@ eng:
     # dead_at: "Dead at"
     dead_on: "Dead on"
     debit: "Debit"
+    # debtor: "Debiteur"
     # decimal: "Decimal"
     decimal_max: "Decimal max" #?
     decimal_min: "Decimal min" #?
@@ -759,13 +756,12 @@ eng:
     # delivery_items: "Delivery items"
     delivery_lines: "Delivery lines"
     # delivery_modes: "Modes de livraison"
-    density_label: "Density label"
+    density_label: "Density label" #?
     # departed_at: "Parti le"
     departed_on: "Departed on"
     department: "Department"
     departments: "Departments"
-    # departure_cause: "Departure cause"
-    # departure_reasons: "Causes de sortie"
+    # departure_cause: "Causes de sortie"
     deposit: "Deposit"
     depositable_payments: "Embankable payments"
     depositables_account: "Embankables account"
@@ -779,10 +775,11 @@ eng:
     depreciation_method: "Depreciation method"
     depreciation_percentage: "Depreciation percentage"
     depreciations: "Depreciations"
-    # depth: "Depth"
+    # depth: "Profondeur"
+    # derivative_of: "Dérivé de"
     description: "Description"
     detail_payments: "Detail payments"
-    diagnostics: "Diagnostics"
+    diagnostics: "Diagnostics" #?
     diff_less: "Diff less"
     diff_more: "Diff more"
     direct_links: "Direct links"
@@ -810,7 +807,7 @@ eng:
     duration_unit_wait_for_milk: "Duration unit wait for milk" #?
     duration_wait_for_meat: "Duration wait for meat" #?
     duration_wait_for_milk: "Duration wait for milk" #?
-    ean13: "Ean13"
+    ean13: "Ean13" #?
     email: "Email"
     # emails: "Courriels (e-mails)"
     emitter_amount: "Emitted amount"
@@ -822,8 +819,6 @@ eng:
     employees: "Employees"
     employment: "Employment"
     # encrypted_password: "Mot de passe crypté"
-    # end_on: "Fin le"
-    # entered_at: "Arrivé at"
     entities: "People"
     entity: "Entity"
     entity_1: "Person 1"
@@ -834,7 +829,7 @@ eng:
     entity_link_natures: "Person link types"
     entity_links: "Person links"
     entity_name: "Person name"
-    entity_natures: "Person types"
+    entity_natures: "Person types" #?
     entries: "Entries"
     entry: "Entry"
     # entry_items: "Lignes d’écritures"
@@ -846,9 +841,9 @@ eng:
     events: "Events"
     examinated_at: "Examinated at"
     excise: "Excise" #?
-    expense: "Expense"
-    expense_type: "Expense type"
-    expenses: "Expenses"
+    expense: "Expense" #?
+    expense_type: "Expense type" #?
+    expenses: "Expenses" #?
     expiration: "Expiration" #?
     # expiration_delay: "Délai d’expiration"
     expired_on: "Expired on"
@@ -856,7 +851,7 @@ eng:
     exportable_columns: "Exportable columns"
     expression: "Expression"
     extension: "Extension"
-    # external: "Externe à l'exploitation"
+    # external: "Externe à l’exploitation"
     family: "Family"
     father: "Father"
     fax: "Fax" #?
@@ -866,25 +861,24 @@ eng:
     filtered_columns: "Filtered columns"
     financial_year: "Financial year"
     financial_year_as_last: "Financial year (as last journal entry)"
-    financial_years: "Financial years"
+    financial_years: "Financial years" #?
     finish: "Finish"
     first_financial_year: "First financial year"
     first_met_on: "First met on"
     first_name: "First name"
     first_number: "First number"
-    flow: "Flow"
-    for_immobilizations: "For immobilizations"
-    for_productions: "For productions"
-    for_purchases: "For purchases"
-    for_sales: "For sales"
+    flow: "Flow" #?
+    for_immobilizations: "For immobilizations" #?
+    for_productions: "For productions" #?
+    for_purchases: "For purchases" #?
+    for_sales: "For sales" #?
     # formats: "Formats"
-    frequency: "Frequency"
+    frequency: "Frequency" #?
     full_name: "Full name"
     full_name_format: "Full name format"
     function_title: "Function title"
     future_events: "Future events"
-    # gender: "Gender"
-    generated: "Generated"
+    generated: "Generated" #?
     global_balance: "Global balance"
     global_count: "Global count"
     global_credit: "Global credit"
@@ -894,26 +888,25 @@ eng:
     group: "Group"
     # groups: "Groupes"
     has_downpayment: "Has downpayment"
-    hashed_password: "Hashed password"
-    hour_duration: "Hour duration"
+    hashed_password: "Hashed password" #?
+    hour_duration: "Hour duration" #?
     iban: "IBAN"
-    iban_label: "IBAN"
+    iban_label: "IBAN" #?
     id: "ID"
     identification_number: "Identification number"
-    # immobilizations_account: "Compte d’immobilisation"
     immobilizations_products: "Immobilizations products"
     importance: "Importance"
     in_cash: "In cash"
-    in_name: "In name"
+    in_name: "In name" #?
     # incidents: "Incidents"
     included: "Included"
     income_reasons: "Income reasons" #?
     incoming_deliveries: "Incoming deliveries"
-    # incoming_delivery_items: "Lignes de livraisons entrantes"
+    # incoming_delivery_items: "Éléments d’approvisionnement"
     incoming_delivery_lines: "Incoming delivery lines" #?
     incoming_delivery_modes: "Incoming delivery modes"
     incoming_payment_modes: "Incoming payment modes"
-    incoming_payment_uses: "Incoming payment parts"
+    incoming_payment_uses: "Incoming payment parts" #?
     incoming_payments: "Incoming payments"
     # indicator: "Indicator"
     # indicator_data: "Indicator data"
@@ -921,7 +914,7 @@ eng:
     indirect_links: "Indirect links"
     # indivisible: "Indivisible"
     initial_number: "Initial number"
-    input_conveyors: "Input conveyors"
+    input_conveyors: "Input conveyors" #?
     integer_value: "Integer value"
     introduction: "Introduction"
     inventories: "Inventories"
@@ -932,7 +925,7 @@ eng:
     # invoiced: "Facturée"
     invoiced_on: "Invoiced on"
     invoices_count: "Invoices count"
-    is_debit: "Is debit"
+    is_debit: "Is debit" #?
     item_listing: "Item listing"
     item_listing_node: "Item listing node"
     item_nature: "Item type"
@@ -947,7 +940,7 @@ eng:
     key: "Key"
     label: "Label"
     land_parcel_groups: "Land parcel groups"
-    land_parcel_kinships: "Land parcel kinships"
+    land_parcel_kinships: "Land parcel kinships" #?
     land_parcels: "Land parcels"
     language: "Language"
     last_bank_statement: "Last bank statement"
@@ -960,11 +953,10 @@ eng:
     # last_sign_in_at: "Dernière connexion à"
     # last_sign_in_ip: "Dernière IP de connexion"
     last_year: "Last year"
-    # left_on: "Parti le"
     letter: "Letter"
     letter_format: "Letter format"
-    # lft: "Lft"
-    lines: "Lines"
+    # lft: "Limite gauche"
+    lines: "Lines" #?
     listing: "Listing"
     listing_node_items: "Listing node items"
     listing_nodes: "Listing nodes"
@@ -973,15 +965,15 @@ eng:
     local_count: "Local count"
     local_credit: "Local credit"
     local_debit: "Local debit"
-    location: "Location"
+    location: "Location" #?
     lock_version: "Version"
     locked: "Locked"
     # locked_at: "Verrouillé à"
-    # log: "Journal d'évènements"
+    # log: "Journal d’évènements"
     loggable: "Loggable"
     longitude: "Longitude" #?
     lost: "Lost"
-    luminance: "Luminance"
+    luminance: "Luminance" #?
     mail: "Mail"
     # mail_addresses: "Adresses postales"
     mail_area: "Mail area"
@@ -1014,7 +1006,7 @@ eng:
     # member: "Membre"
     # members: "Membres"
     # memberships: "Membres du groupe"
-    min_duration: "Min duration"
+    min_duration: "Min duration" #?
     # minimal_length: "Longueur minimale"
     # minimal_quantity: "Minimal quantity"
     # minimal_value: "Valeur minimale"
@@ -1029,9 +1021,8 @@ eng:
     name: "Name"
     name_1_to_2: "Name 1 to 2"
     name_2_to_1: "Name 2 to 1"
-    # name_aee: "Nom normalisé EDI*"
     nature: "Nature"
-    nature_code: "Type code"
+    nature_code: "Type code" #?
     nature_label: "Type label" #?
     net_weight: "Net weight (kg)"
     nic: "Nic"
@@ -1115,7 +1106,7 @@ eng:
     phone: "Phone" #?
     # phones: "Téléphones"
     photo: "Photo" #?
-    physical: "Physical"
+    physical: "Physical" #?
     # picture: "Photo"
     picture_content_type: "Picture content type"
     picture_file_name: "Picture file name"
@@ -1126,12 +1117,11 @@ eng:
     planned_depreciations: "Planned depreciations"
     planned_on: "Planned on"
     position: "Position"
-    posologies: "Posologies"
+    posologies: "Posologies" #?
     postcode: "Postcode"
     preferences: "Preferences"
     pregnant: "Pregnant" #?
-    prescriptions: "Prescriptions"
-    # prescriptor: "Vétérinaire"
+    prescriptions: "Prescriptions" #?
     pretax_amount: "Pre-tax amount"
     # pretax_amount_generation: "Pretax amount generation"
     price: "Price"
@@ -1145,15 +1135,15 @@ eng:
     # process: "Process"
     producer: "Producer"
     product: "Product"
-    product_categories: "Product categories"
-    product_components: "Product components"
+    product_categories: "Product categories" #?
+    product_components: "Product components" #?
     # product_events: "Product events"
     # product_group: "Groupe de produits"
     # product_localizations: "Product localizations"
     # product_moves: "Product moves"
     # product_nature: "Product nature"
     # product_natures: "Types de produits"
-    productable_products: "Productable products"
+    productable_products: "Productable products" #?
     production_chain: "Production chain" #?
     production_chain_work_center: "Production chain work center" #?
     production_chain_work_center_lines: "Production chain work center lines" #?
@@ -1161,10 +1151,10 @@ eng:
     production_chain_work_centers: "Production chain work centers" #?
     production_chains: "Production chains" #?
     products: "Products"
-    products_accounts: "Products accounts"
+    products_accounts: "Products accounts" #?
     profession: "Profession"
-    professions: "Professions"
-    propagate_contacts: "Propagate contacts"
+    professions: "Professions" #?
+    propagate_contacts: "Propagate contacts" #?
     proposer: "Proposer"
     prospect: "Prospect"
     protected: "Protected"
@@ -1188,8 +1178,6 @@ eng:
     quantity_min: "Quantity min"
     quantity_unit: "Quantity unit"
     query: "Query"
-    # race: "Race"
-    # races: "Races"
     range: "Range"
     # real_quantity: "Real quantity"
     reason: "Reason"
@@ -1227,19 +1215,19 @@ eng:
     resource: "Resource"
     resource_type: "Resource type"
     responsible: "Responsible"
-    # rgt: "Rgt"
+    # rgt: "Limite droite"
     rights: "Rights"
     role: "Role"
     roles: "Roles"
-    rome: "Rome"
+    rome: "Rome" #?
     root_model: "Root model"
     root_model_name: "Root model name"
     sale: "Sale"
     # sale_item: "Ligne de vente"
     # sale_items: "Lignes de vente"
     sale_line: "Sale line" #?
-    sale_lines: "sale lines"
-    sale_natures: "sale types"
+    sale_lines: "sale lines" #?
+    sale_natures: "sale types" #?
     # sale_price_listing: "Sale price listing"
     sales: "sales"
     sales_account: "Sales account"
@@ -1249,33 +1237,31 @@ eng:
     sales_invoices: "Sales invoices"
     # sales_invoices_count: "Nombre de factures"
     sales_products: "Sales products"
-    salt: "Salt"
+    salt: "Salt" #?
     scheduled: "Scheduled"
-    second_building: "Second building"
-    # second_move: "Second mouvement"
-    second_stock_move: "Second stock move"
+    second_building: "Second building" #?
+    second_stock_move: "Second stock move" #?
     self_bank_accounts: "Self bank accounts" #?
-    self_cashes: "Self cashes"
-    self_contacts: "Self contacts"
+    self_cashes: "Self cashes" #?
+    self_contacts: "Self contacts" #?
+    # sender: "Expéditeur"
+    # sent_at: "Expédié le"
     sequences: "Sequences"
     serial: "Serial"
     # serial_number: "Serial number"
-    # service_coeff: "Coefficient (de quantité) de service"
     sex: "Sex"
-    sha256: "SHA256"
+    sha256: "SHA256" #?
     # shape: "Contour"
-    # shipped: "Reçu"
-    # shipped_on: "Envoyé le"
     siren: "Siren"
-    siret: "Siret"
+    siret: "Siret" #?
     soundex: "Soundex"
     source: "Source"
-    source_quantity: "Source quantity"
+    source_quantity: "Source quantity" #?
     sql_type: "Sql type"
     start: "Start"
     started_at: "Started at"
     started_on: "Started on"
-    started_sec: "Started sec"
+    started_sec: "Started sec" #?
     state: "State"
     state_label: "State"
     # status: "Status"
@@ -1291,15 +1277,16 @@ eng:
     # storable: "Gérer les stocks"
     story: "Story"
     string_value: "String value"
-    subdir: "Subdir"
-    subdivision: "Y"
+    subdir: "Subdir" #?
+    subdivision: "Y" #?
     subject: "Subject"
+    # subscriber: "Abonné"
     subscription_nature: "Subscription type"
     subscription_natures: "Subscription types"
     subscription_period: "Subscription period"
     subscription_quantity: "Subscription quantity"
     subscriptions: "Subscriptions"
-    subsubdivision: "Z"
+    subsubdivision: "Z" #?
     sum_method: "Sum method"
     supplier: "Supplier"
     supplier_account: "Supplier account"
@@ -1308,14 +1295,14 @@ eng:
     surface_units: "Surface units"
     suspended: "Suspended"
     # symbol: "Symbole"
-    symmetric: "Symmetric"
+    symmetric: "Symmetric" #?
     target: "Target"
     target_quantity: "Target quantity"
     target_type: "Target type"
     tax: "Tax"
     tax_declarations: "Tax declarations"
     taxes: "Taxes"
-    temperature: "Temperature"
+    temperature: "Temperature" #?
     template: "Template"
     text_importance: "Text importance" #?
     text_nature: "Text type" #?
@@ -1327,7 +1314,7 @@ eng:
     to_deposit: "To deposit"
     tool: "Tool"
     tools: "Tools"
-    tools_list: "Tools list"
+    tools_list: "Tools list" #?
     total_weight: "Total weight (kg)"
     # traceable: "Traçable"
     trackable: "Trackable" #?
@@ -1356,7 +1343,7 @@ eng:
     unpaid_sales: "Unpaid sales"
     unquantifiable: "Unquantifiable"
     untransportered_deliveries: "Untransportered deliveries" #?
-    unused_conveyors: "Unused conveyors"
+    unused_conveyors: "Unused conveyors" #?
     updated_at: "Updated at"
     updater: "Updater"
     usable_incoming_payments: "Usable incoming payments"
@@ -1369,15 +1356,15 @@ eng:
     # useful_items: "Lignes utiles"
     useful_lines: "Useful lines" #?
     user: "User"
-    user_name: "User name"
+    user_name: "User name" #?
     users: "Users"
-    uses: "Uses"
+    uses: "Uses" #?
     value: "Value"
     # value_format: "Format de la valeur monétaire"
     # variety: "Variété"
     vat_number: "Vat number"
-    # vat_subjected: "Vat subjected"
-    vat_submissive: "Vat submissive"
+    # vat_subjected: "Assujetti à la TVA"
+    vat_submissive: "Vat submissive" #?
     virtual: "Virtual"
     virtual_quantity: "Virtual quantity"
     waiting_deliveries: "Waiting deliveries"
@@ -1392,7 +1379,7 @@ eng:
     with_deposit: "With deposit"
     with_tracking: "With tracking"
     with_transport: "With transport"
-    work_center: "Work center"
+    work_center: "Work center" #?
     # work_number: "Numéro de travail"
     # zone: "Zone"
   enumerize:
@@ -1676,9 +1663,9 @@ eng:
       label: "%{number} - %{name}"
     cash_transfer:
       bookkeep: "[%{resource} %{number}] From %{emitter} to %{receiver} %{description}"
-    company:
-      cant_find_document_template: "Can not find document template"
-      default:  #?
+    company:  #?
+      cant_find_document_template: "Can not find document template" #?
+      default: #?
         building_name: "Building" #?
         category: "By default" #?
         delays: #?
@@ -1738,10 +1725,10 @@ eng:
             collected: "445713" #?
             name: "VAT 19,60%" #?
             paid: "445663" #?
-      import:
-        dont_use: "-- Do not use --"
-        generate_string_custom_field: "-- Create a personalized field (text) --"
-      sales: "sales"
+      import: #?
+        dont_use: "-- Do not use --" #?
+        generate_string_custom_field: "-- Create a personalized field (text) --" #?
+      sales: "sales" #?
     contact:  #?
       error_modify_contact: "The contact can not be updated." #?
     delay:  #?
@@ -1791,21 +1778,13 @@ eng:
       unvalid_nature: "Unvalid type of document template."
     entity:
       client: "Client"
+      import:
+        # dont_use: "— Ne pas utiliser —"
+        # generate_string_custom_field: "— Créer un champ personnalisé (texte) —"
       no_right_defined_for_this_part_of_the_application: "No right defined for this part of the application: %{controller}%{action}"
       no_right_defined_for_this_part_of_the_application_and_this_user: "You can not access to this page"
       supplier: "Supplier"
-    entity_nature:
-      default:
-        man:
-          # name: "Monsieur"
-          # title: "M"
-        organization:
-          # name: "Société"
-        undefined:
-          # name: "Indéfini"
-        woman:
-          # name: "Madame"
-          # title: "Mme"
+    entity_nature: #?
     financial_year:
       bookkeep: "[%{resource} %{number}] Depreciation of %{name} (%{position}/%{total})"
       code:
@@ -2108,19 +2087,16 @@ eng:
       quarterly: "Quarterly"
       simplified: "Simplified real"
       yearly: "Yearly"
-    unit:
-      default:
-        a: "Are"
-        ca: "Centiare (m²)"
-        # g: "Gramme"
-        ha: "Hectare"
-        hl: "Hectolitre"
-        kg: "Kilogram"
-        km: "Kilometre"
-        l: "Litre"
-        m: "Metre"
-        # m2: "Mètre carré"
-        m3: "Cubic metre"
-        # ml: "Millilitre"
-        t: "Ton"
-        u: "Unit"
+    unit:  #?
+      default: #?
+        a: "Are" #?
+        ca: "Centiare (m²)" #?
+        ha: "Hectare" #?
+        hl: "Hectolitre" #?
+        kg: "Kilogram" #?
+        km: "Kilometre" #?
+        l: "Litre" #?
+        m: "Metre" #?
+        m3: "Cubic metre" #?
+        t: "Ton" #?
+        u: "Unit" #?

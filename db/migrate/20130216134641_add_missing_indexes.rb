@@ -121,7 +121,7 @@ class AddMissingIndexes < ActiveRecord::Migration
     add_index :subscriptions, :product_nature_id
     add_index :subscriptions, :address_id
     add_index :subscriptions, :nature_id
-    add_index :subscriptions, :entity_id
+    add_index :subscriptions, :subscriber_id
     add_index :subscriptions, :sale_item_id
     add_index :tax_declarations, :financial_year_id
     add_index :tax_declarations, :journal_entry_id
