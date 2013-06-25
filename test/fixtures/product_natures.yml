@@ -96,7 +96,7 @@ product_natures_001:
   creator_id: 1
   depreciable: false
   id: 1
-  atomic: true
+  individual: true
   name: "Vache"
   number: "LI1"
   purchasable: true
@@ -117,7 +117,7 @@ product_natures_002:
   creator_id: 2
   depreciable: true
   id: 2
-  atomic: true
+  individual: true
   name: "Lorem ipsum 2"
   number: "LI2"
   purchasable: true
@@ -138,7 +138,7 @@ product_natures_003:
   creator_id: 1
   depreciable: true
   id: 3
-  atomic: true
+  individual: true
   name: "Lorem ipsum 3"
   number: "LI3"
   purchasable: true
