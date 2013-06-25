@@ -52,6 +52,8 @@ class Activity < Ekylibre::Record::Base
   #]VALIDATORS]
 
   default_scope -> { where("stopped_at IS NULL OR stopped_at > ?", Time.now).order(:name) }
+  scope :main_activity, -> { where(:nature => "main").order(:name) }
+
   accepts_nested_attributes_for :watchings,    :reject_if => :all_blank, :allow_destroy => true
   acts_as_nested_set
 end

@@ -107,9 +107,11 @@ class ProductNature < Ekylibre::Record::Base
   scope :availables, -> { where(:active => true).order(:name) }
   scope :stockables, -> { where(:storable => true).order(:name) }
   scope :purchaseables, -> { where(:purchasable => true).order(:name) }
-  scope :animals, -> { where(:atomic => true, :variety => "bos",:derivative => "itself").order(:name) }
-  scope :plants, -> { where(:atomic => true, :variety => "plant",:derivative => "itself").order(:name) }
+  scope :producibles, -> { where(:atomic => true, :variety => ["bos","animal","plant"]).order(:name) }
+  scope :animals, -> { where(:atomic => true, :variety => "bos").order(:name) }
+  scope :plants, -> { where(:atomic => true, :variety => "plant").order(:name) }
   scope :equipments, -> { where(:variety => "equipment").order(:name) }
+  scope :buildings, -> { where(:variety => "building").order(:name) }
   scope :matters, -> { where(:subscribing => false).order(:name) }
 
   before_validation do

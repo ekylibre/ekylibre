@@ -5,9 +5,9 @@ class Backend::ProductionsController < BackendController
 
   list do |t|
     t.column :name,:through => :activity, :url => true
+    t.column :name,:through => :campaign, :url => true
     t.column :name,:through => :product_nature, :url => true
-    t.column :area_unit
-    t.column :work_unit
+    t.column :name,:through => :storage, :url => true
 
   end
 

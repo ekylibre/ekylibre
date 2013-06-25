@@ -37,14 +37,20 @@
 #  updater_id        :integer
 #
 class Production < Ekylibre::Record::Base
-  attr_accessible :activity_id, :product_nature_id, :area_unit, :work_unit
+  attr_accessible :activity_id, :product_nature_id, :campaign_id, :storage_id, :static_storage, :state, :started_at, :stopped_at
   belongs_to :activity
+  belongs_to :campaign
   # belongs_to :area_unit, :class_name => "Unit"
   belongs_to :product_nature
+  belongs_to :storage, :class_name => "LandParcel"
   # belongs_to :work_unit, :class_name => "Unit"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :state, :allow_nil => true, :maximum => 255
   validates_inclusion_of :static_storage, :in => [true, false]
-  validates_presence_of :activity, :product_nature
+  validates_presence_of :activity, :campaign, :product_nature
   #]VALIDATORS]
+
+  def name
+    ["production"]
+  end
 end
