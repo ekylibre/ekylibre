@@ -736,9 +736,9 @@ class NormalizeProducts < ActiveRecord::Migration
       t.text :description
       # t.text :comment
       t.string :commercial_name, :null => false
-      t.text :commercial_description
-      t.string :variety,    :null => false, :limit => 127
-      t.string :derivative, :null => false, :limit => 127, :default => 'itself'
+      t.text   :commercial_description
+      t.string :variety,       :null => false, :limit => 127
+      t.string :derivative_of, :limit => 127
       t.references :category,  :null => false
       t.boolean :active,       :null => false, :default => false
       # t.boolean :alive,        :null => false, :default => false
@@ -754,7 +754,7 @@ class NormalizeProducts < ActiveRecord::Migration
       # t.boolean :traceable,    :null => false, :default => false
       # t.boolean :transferable, :null => false, :default => false
       t.boolean :reductible,   :null => false, :default => false
-      t.boolean :atomic,       :null => false, :default => false
+      # t.boolean :atomic,       :null => false, :default => false
       t.boolean :subscribing,  :null => false, :default => false
       t.references :subscription_nature
       t.string :subscription_duration
@@ -762,6 +762,24 @@ class NormalizeProducts < ActiveRecord::Migration
       t.references :product_account
       t.references :asset_account
       t.references :stock_account
+
+      t.string  :contour
+
+      t.boolean :individual, :null => false, :default => false
+      t.string  :individual_unit_name
+
+      t.decimal :net_weight, :precision => 19, :scale => 4
+      t.decimal :net_volume, :precision => 19, :scale => 4
+
+      t.decimal :purchase_unit_modulo, :precision => 19, :scale => 4
+      t.decimal :purchase_unit_coefficient, :precision => 19, :scale => 4
+      t.string  :purchase_unit_name
+      t.string  :purchase_unit
+
+      t.decimal :sale_unit_modulo, :precision => 19, :scale => 4
+      t.decimal :sale_unit_coefficient, :precision => 19, :scale => 4
+      t.string  :sale_unit_name
+      t.string  :sale_unit
       t.stamps
     end
     add_stamps_indexes :product_natures

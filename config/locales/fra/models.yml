@@ -462,7 +462,6 @@ fra:
     # assignment_amount: "Assignment amount"
     # assignment_pretax_amount: "Assignment pretax amount"
     assimilated_taxes_amount: "Montant des taxes assimilées"
-    # atomic: "Atomic"
     attorney: "Mandataire"
     attorney_account: "Compte mandataire associé"
     attorney_accounts: "Comptes mandataires" #?
@@ -574,6 +573,7 @@ fra:
     content_maximal_quantity: "Content maximal quantity"
     content_nature: "Content nature"
     content_unit: "Content unit"
+    # contour: "Contour"
     conveyors: "Convoyeurs" #?
     coordinate: "Coordonnée"
     country: "Pays"
@@ -647,7 +647,7 @@ fra:
     depreciation_percentage: "Pourcentage d’amortissement"
     depreciations: "Amortissements"
     depth: "Depth"
-    # derivative: "Derivative"
+    # derivative_of: "Derivative of"
     description: "Description"
     # destination: "Destination"
     detail_payments: "Détailler les paiements"
@@ -782,6 +782,8 @@ fra:
     indicator_data: "Indicator data"
     indicators: "Indicators"
     indirect_links: "Liens indirects"
+    # individual: "Individual"
+    # individual_unit_name: "Individual unit name"
     indivisible: "Indivisible" #?
     initial_number: "Numéro initial"
     input_conveyors: "Convoyeur entrant" #?
@@ -897,7 +899,8 @@ fra:
     name_aee: "Nom normalisé EDI*" #?
     nature: "Type"
     nature_code: "Code" #?
-    net_weight: "Masse nette" #?
+    # net_volume: "Net volume"
+    net_weight: "Masse nette"
     nic: "NIC (Numéro Interne de Classement)" #?
     node: "Nœud"
     nodes: "Nœuds d’extraction"
@@ -1037,6 +1040,10 @@ fra:
     purchase_item: "Ligne d’achat"
     purchase_items: "Lignes d’achat"
     purchase_natures: "Types d’achats" #?
+    # purchase_unit: "Purchase unit"
+    # purchase_unit_coefficient: "Purchase unit coefficient"
+    # purchase_unit_modulo: "Purchase unit modulo"
+    # purchase_unit_name: "Purchase unit name"
     purchased_on: "Acheté le"
     purchases: "Achats"
     purchases_account: "Compte comptable de charges" #?
@@ -1102,6 +1109,10 @@ fra:
     sale_lines: "Sale lines" #?
     sale_natures: "Types de vente" #?
     sale_price_listing: "Sale price listing"
+    # sale_unit: "Sale unit"
+    # sale_unit_coefficient: "Sale unit coefficient"
+    # sale_unit_modulo: "Sale unit modulo"
+    # sale_unit_name: "Sale unit name"
     # saleable: "Saleable"
     sales: "Ventes"
     sales_account: "Compte comptable de produits" #?
