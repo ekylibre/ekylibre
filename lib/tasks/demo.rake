@@ -791,6 +791,7 @@ namespace :db do
       # import some base activities from CSV
       print "[#{(Time.now - start).round(2).to_s.rjust(8)}s] Activities: "
 
+
       # attributes to map family
       families = {
         "CEREA" => :vegetal,
@@ -808,22 +809,31 @@ namespace :db do
       }
       # Load file
       file = Rails.root.join("test", "fixtures", "files", "activities_ref_demo_1.csv")
-      CSV.foreach(file, :encoding => "UTF-8", :col_sep => ",", :headers => false, :quote_char => "'") do |row|
+      CSV.foreach(file, :encoding => "UTF-8", :col_sep => ",", :headers => true, :quote_char => "'") do |row|
         r = OpenStruct.new(:nomen => row[0],
                            :name => row[1].downcase.capitalize,
                            :family => (families[row[2]] || :none).to_s,
                            :product_nature_name => row[3],
-                           :area_unit => row[4],
-                           :work_unit => row[5],
-                           :nature => (natures[row[6]] || :none).to_s
+                           :nature => (natures[row[4]] || :none).to_s,
+                           :campaign_name => row[5].blank? ? nil : row[5].to_s,
+                           :work_number_landparcel_storage => row[6].blank? ? nil : row[6].to_s
                            )
+        landparcel_support = LandParcel.find_by_work_number(r.work_number_landparcel_storage)
+        # Create a campaign if not exist
+        if r.campaign_name.present?
+          campaign = Campaign.find_by_name(r.campaign_name)
+          campaign ||= Campaign.create!(:name => r.campaign_name, :closed => false)
+        end
         # Create an activity if not exist
         activity = Activity.find_by_nomen(r.nomen)
         activity ||= Activity.create!(:nature => r.nature, :description => "Import from reference", :family => r.family, :name => r.name, :nomen => r.nomen)
         product_nature = ProductNature.find_by_number(r.product_nature_name)
-        if product_nature.present?
-        # Add Watchings
-        activity.watchings.create!(:product_nature_id => product_nature.id, :work_unit => r.work_unit, :area_unit => r.area_unit)
+        if product_nature.present? and landparcel_support.present?
+           # Add Watchings with static support
+            activity.watchings.create!(:product_nature_id => product_nature.id, :campaign_id => campaign.id, :static_storage => true, :storage_id => landparcel_support.id)
+        elsif product_nature.present?
+            # Add Watchings
+            activity.watchings.create!(:product_nature_id => product_nature.id, :campaign_id => campaign.id)
         end
         print "."
       end

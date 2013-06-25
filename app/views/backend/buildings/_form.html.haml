@@ -4,7 +4,7 @@
   =f.input :work_number
   =f.input :born_at
   =f.input :identification_number
-  =f.referenced_association :nature
+  =f.referenced_association :nature, :source => :buildings
   =f.input :variety
   =f.input :description, :field => :text
   =f.input :reservoir, :show => :reservoir
