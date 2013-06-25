@@ -1589,34 +1589,46 @@ ActiveRecord::Schema.define(:version => 20130410143823) do
   add_index "product_nature_indicators", ["updater_id"], :name => "index_product_nature_indicators_on_updater_id"
 
   create_table "product_natures", :force => true do |t|
-    t.string   "name",                                                        :null => false
-    t.string   "number",                 :limit => 31,                        :null => false
-    t.string   "unit",                                                        :null => false
+    t.string   "name",                                                                                       :null => false
+    t.string   "number",                    :limit => 31,                                                    :null => false
+    t.string   "unit",                                                                                       :null => false
     t.text     "description"
-    t.string   "commercial_name",                                             :null => false
+    t.string   "commercial_name",                                                                            :null => false
     t.text     "commercial_description"
-    t.string   "variety",                :limit => 127,                       :null => false
-    t.string   "derivative",             :limit => 127, :default => "itself", :null => false
-    t.integer  "category_id",                                                 :null => false
-    t.boolean  "active",                                :default => false,    :null => false
-    t.boolean  "depreciable",                           :default => false,    :null => false
-    t.boolean  "saleable",                              :default => false,    :null => false
-    t.boolean  "purchasable",                           :default => false,    :null => false
-    t.boolean  "storable",                              :default => false,    :null => false
-    t.boolean  "reductible",                            :default => false,    :null => false
-    t.boolean  "atomic",                                :default => false,    :null => false
-    t.boolean  "subscribing",                           :default => false,    :null => false
+    t.string   "variety",                   :limit => 127,                                                   :null => false
+    t.string   "derivative_of",             :limit => 127
+    t.integer  "category_id",                                                                                :null => false
+    t.boolean  "active",                                                                  :default => false, :null => false
+    t.boolean  "depreciable",                                                             :default => false, :null => false
+    t.boolean  "saleable",                                                                :default => false, :null => false
+    t.boolean  "purchasable",                                                             :default => false, :null => false
+    t.boolean  "storable",                                                                :default => false, :null => false
+    t.boolean  "reductible",                                                              :default => false, :null => false
+    t.boolean  "subscribing",                                                             :default => false, :null => false
     t.integer  "subscription_nature_id"
     t.string   "subscription_duration"
     t.integer  "charge_account_id"
     t.integer  "product_account_id"
     t.integer  "asset_account_id"
     t.integer  "stock_account_id"
-    t.datetime "created_at",                                                  :null => false
-    t.datetime "updated_at",                                                  :null => false
+    t.string   "contour"
+    t.boolean  "individual",                                                              :default => false, :null => false
+    t.string   "individual_unit_name"
+    t.decimal  "net_weight",                               :precision => 19, :scale => 4
+    t.decimal  "net_volume",                               :precision => 19, :scale => 4
+    t.decimal  "purchase_unit_modulo",                     :precision => 19, :scale => 4
+    t.decimal  "purchase_unit_coefficient",                :precision => 19, :scale => 4
+    t.string   "purchase_unit_name"
+    t.string   "purchase_unit"
+    t.decimal  "sale_unit_modulo",                         :precision => 19, :scale => 4
+    t.decimal  "sale_unit_coefficient",                    :precision => 19, :scale => 4
+    t.string   "sale_unit_name"
+    t.string   "sale_unit"
+    t.datetime "created_at",                                                                                 :null => false
+    t.datetime "updated_at",                                                                                 :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                          :default => 0,        :null => false
+    t.integer  "lock_version",                                                            :default => 0,     :null => false
   end
 
   add_index "product_natures", ["asset_account_id"], :name => "index_product_natures_on_asset_account_id"
