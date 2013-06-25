@@ -281,7 +281,7 @@ namespace :db do
           ProductLocalization.create!(:container_id => place_v.id, :product_id => animal.id, :nature => :interior, :started_at => r.arrived_on, :stopped_at => r.departed_on, :arrival_cause => r.arrival_cause, :departure_cause => r.departure_cause)
           ProductMembership.create!(:member_id => animal.id, :group_id => group_v.id, :started_at => r.arrived_on, :stopped_at => r.departed_on )
 
-        # case = GENISSE 1
+          # case = GENISSE 1
         elsif r.born_on > (Date.today - 12.months) and r.born_on < (Date.today - 2.months) and r.sex == :female
           f = File.open(pictures.sample)
           animal = Animal.create!(:name => r.name, :unit => cow_unit, :variety => "bos", :identification_number => r.identification_number, :work_number => r.work_number, :born_at => r.born_on, :sex => r.sex, :picture => f, :nature_id => cow_v.id, :owner_id => Entity.of_company.id, :reproductor => false)
@@ -298,7 +298,7 @@ namespace :db do
           ProductLocalization.create!(:container_id => place_gen.id, :product_id => animal.id, :nature => :interior, :started_at => r.arrived_on, :stopped_at => r.departed_on, :arrival_cause => r.arrival_cause, :departure_cause => r.departure_cause)
           ProductMembership.create!(:member_id => animal.id, :group_id => group_gen1.id, :started_at => r.arrived_on, :stopped_at => r.departed_on )
 
-        # case = GENISSE 3
+          # case = GENISSE 3
         elsif r.born_on > (Date.today - 28.months) and r.born_on < (Date.today - 12.months) and r.sex == :female
           f = File.open(pictures.sample)
           animal = Animal.create!(:name => r.name, :unit => cow_unit, :variety => "bos", :identification_number => r.identification_number, :work_number => r.work_number, :born_at => r.born_on, :sex => r.sex, :picture => f, :nature_id => cow_v.id, :owner_id => Entity.of_company.id, :reproductor => true)
@@ -316,7 +316,7 @@ namespace :db do
           ProductLocalization.create!(:container_id => place_gen.id, :product_id => animal.id, :nature => :interior, :started_at => r.arrived_on, :stopped_at => r.departed_on, :arrival_cause => r.arrival_cause, :departure_cause => r.departure_cause)
           ProductMembership.create!(:member_id => animal.id, :group_id => group_gen3.id, :started_at => r.arrived_on, :stopped_at => r.departed_on )
 
-        # case = VL
+          # case = VL
         elsif r.born_on > (Date.today - 10.years) and r.born_on < (Date.today - 28.months) and r.sex == :female
           f = File.open(pictures.sample)
           animal = Animal.create!(:name => r.name, :unit => cow_unit, :variety => "bos", :identification_number => r.identification_number, :work_number => r.work_number, :born_at => r.born_on, :sex => r.sex, :picture => f, :nature_id => cow_vl.id, :owner_id => Entity.of_company.id, :reproductor => true)
@@ -335,7 +335,7 @@ namespace :db do
           ProductMembership.create!(:member_id => animal.id, :group_id => group_vl.id, :started_at => r.arrived_on, :stopped_at => r.departed_on )
 
 
-        # case = TAURILLON
+          # case = TAURILLON
         elsif r.born_on > (Date.today - 10.years) and r.born_on < (Date.today - 3.months) and r.sex == :male
           f = File.open(photo_taur)
           animal = Animal.create!(:name => r.name, :unit => cow_unit, :variety => "bos", :identification_number => r.identification_number, :work_number => r.work_number, :born_at => r.born_on, :sex => r.sex, :picture => f, :nature_id => cow_vl.id, :owner_id => Entity.of_company.id)
@@ -374,13 +374,13 @@ namespace :db do
                            :tp => row[10],
                            :tb => row[11]
                            )
-      # case = TAUREAU REPRO
-          animal = Animal.create!(:name => r.name, :unit => cow_unit, :variety => "bos", :identification_number => r.identification_number, :sex => "male", :nature_id => cow_trepro.id, :reproductor => true, :external => true, :owner_id => Entity.of_company.id)
-          # set default indicators
-          animal.indicator_data.create!(:indicator => "isu", :value => r.isu ,:measure_unit => "unity" ,:measured_at => Time.now - 2.months )
-          animal.indicator_data.create!(:indicator => "inel", :value => r.inel ,:measure_unit => "unity" ,:measured_at => Time.now - 2.months )
-          animal.indicator_data.create!(:indicator => "tb", :value => r.tb ,:measure_unit => "unity" ,:measured_at => Time.now - 2.months )
-          animal.indicator_data.create!(:indicator => "tp", :value => r.tp ,:measure_unit => "unity" ,:measured_at => Time.now - 2.months )
+        # case = TAUREAU REPRO
+        animal = Animal.create!(:name => r.name, :unit => cow_unit, :variety => "bos", :identification_number => r.identification_number, :sex => "male", :nature_id => cow_trepro.id, :reproductor => true, :external => true, :owner_id => Entity.of_company.id)
+        # set default indicators
+        animal.indicator_data.create!(:indicator => "isu", :value => r.isu ,:measure_unit => "unity" ,:measured_at => Time.now - 2.months )
+        animal.indicator_data.create!(:indicator => "inel", :value => r.inel ,:measure_unit => "unity" ,:measured_at => Time.now - 2.months )
+        animal.indicator_data.create!(:indicator => "tb", :value => r.tb ,:measure_unit => "unity" ,:measured_at => Time.now - 2.months )
+        animal.indicator_data.create!(:indicator => "tp", :value => r.tp ,:measure_unit => "unity" ,:measured_at => Time.now - 2.months )
 
         print "R"
         break if Animal.count >= max
@@ -447,36 +447,36 @@ namespace :db do
                            :landparcel_plant_variety => row[10]
                            )
 
-          landparcelcluster = LandParcelCluster.find_by_work_number(r.ilot_work_number)
-          if landparcelcluster.present?
-            landparcelgroup = LandParcelGroup.find_by_work_number(r.landparcelgroup_work_number)
-            landparcelgroup ||= LandParcelGroup.create!(:shape => r.landparcelgroup_shape,:name => r.landparcelgroup_name, :work_number => r.landparcelgroup_work_number, :variety => "land_parcel_group", :unit => landparcel_unit, :born_at => Time.now, :nature_id => land_parcel_group.id, :owner_id => Entity.of_company.id, :identification_number => r.landparcelgroup_work_number)
-            if landparcelgroup.present?
+        landparcelcluster = LandParcelCluster.find_by_work_number(r.ilot_work_number)
+        if landparcelcluster.present?
+          landparcelgroup = LandParcelGroup.find_by_work_number(r.landparcelgroup_work_number)
+          landparcelgroup ||= LandParcelGroup.create!(:shape => r.landparcelgroup_shape,:name => r.landparcelgroup_name, :work_number => r.landparcelgroup_work_number, :variety => "land_parcel_group", :unit => landparcel_unit, :born_at => Time.now, :nature_id => land_parcel_group.id, :owner_id => Entity.of_company.id, :identification_number => r.landparcelgroup_work_number)
+          if landparcelgroup.present?
             landparcel = LandParcel.find_by_work_number(r.landparcel_work_number)
             landparcel ||= LandParcel.create!(:shape => r.landparcel_shape, :real_quantity =>r.landparcel_area, :name => r.landparcel_name, :work_number => r.landparcel_work_number, :variety => "land_parcel", :unit => landparcel_unit, :born_at => Time.now, :nature_id => land_parcel_group.id, :owner_id => Entity.of_company.id, :identification_number => r.landparcel_work_number)
-            end
           end
+        end
 
-          # puts "Record number #{record.index}:"
-          # puts "  Geometry: #{record.geometry.as_text}"
-          # puts "  Attributes: #{record.attributes.inspect}"
-          print "."
+        # puts "Record number #{record.index}:"
+        # puts "  Geometry: #{record.geometry.as_text}"
+        # puts "  Attributes: #{record.attributes.inspect}"
+        print "."
       end
       puts "!"
 
       # # add shape to landparcel
       # RGeo::Shapefile::Reader.open(Rails.root.join("test", "fixtures", "files", "parcelle_017005218.shp").to_s, :srid => 2154) do |file|
-        # # puts "File contains #{file.num_records} records."
-        # file.each do |record|
-          # lp = LandParcel.find_by_work_number(record.attributes['NUMERO'].to_s)
-          # if lp.present?
-            # lp.update_attributes!(:shape => record.geometry)
-          # end
-          # # puts "Record number #{record.index}:"
-          # # puts "  Geometry: #{record.geometry.as_text}"
-          # # puts "  Attributes: #{record.attributes.inspect}"
-          # print "."
-        # end
+      # # puts "File contains #{file.num_records} records."
+      # file.each do |record|
+      # lp = LandParcel.find_by_work_number(record.attributes['NUMERO'].to_s)
+      # if lp.present?
+      # lp.update_attributes!(:shape => record.geometry)
+      # end
+      # # puts "Record number #{record.index}:"
+      # # puts "  Geometry: #{record.geometry.as_text}"
+      # # puts "  Attributes: #{record.attributes.inspect}"
+      # print "."
+      # end
       # end
       # puts "!"
 
@@ -494,18 +494,18 @@ namespace :db do
       wheat_price_template_tax = Tax.find_by_amount(5.5)
 
       # Create product_nature for plant product
-      for attributes in [{:individual => false, :unit => grain_unit, :name => "Grain de Blé", :number => "GRAIN_BLE", :derivative => "grains", :saleable => true, :purchasable => true},
-                         {:individual => false, :unit => grain_unit, :name => "Paille de Blé", :number => "PAILLE_BLE", :derivative => "stem", :saleable => true, :purchasable => true},
+      for attributes in [{:individual => false, :unit => grain_unit, :name => "Grain de Blé", :number => "GRAIN_BLE", :variety => "grains", :saleable => true, :purchasable => true},
+                         {:individual => false, :unit => grain_unit, :name => "Paille de Blé", :number => "PAILLE_BLE", :variety => "stem", :saleable => true, :purchasable => true},
                          {:individual => true, :unit => sole_unit, :name => "Sole de Blé", :number => "SOLE_BLE"},
-                         {:individual => false, :unit => grain_unit, :name => "Grain de Maïs", :number => "GRAIN_MAIS", :derivative => "grains", :saleable => true, :purchasable => true},
+                         {:individual => false, :unit => grain_unit, :name => "Grain de Maïs", :number => "GRAIN_MAIS", :variety => "grains", :saleable => true, :purchasable => true},
                          {:individual => true, :unit => sole_unit, :name => "Sole de Maïs", :number => "SOLE_MAIS"},
-                         {:individual => false, :unit => grain_unit, :name => "Grain de Blé dur", :number => "GRAIN_BLE_DUR", :derivative => "grains", :saleable => true, :purchasable => true},
-                         {:individual => false, :unit => grain_unit, :name => "Paille de Blé dur", :number => "PAILLE_BLE_DUR", :derivative => "stem", :saleable => true, :purchasable => true},
+                         {:individual => false, :unit => grain_unit, :name => "Grain de Blé dur", :number => "GRAIN_BLE_DUR", :variety => "grains", :saleable => true, :purchasable => true},
+                         {:individual => false, :unit => grain_unit, :name => "Paille de Blé dur", :number => "PAILLE_BLE_DUR", :variety => "stem", :saleable => true, :purchasable => true},
                          {:individual => true, :unit => sole_unit, :name => "Sole de Blé dur", :number => "SOLE_BLE_DUR"},
-                         {:individual => false, :unit => grain_unit, :name => "Grain de Triticale", :number => "GRAIN_TRITICALE", :derivative => "grains", :saleable => true, :purchasable => true},
-                         {:individual => false, :unit => grain_unit, :name => "Paille de Triticale", :number => "PAILLE_TRITICALE", :derivative => "stem", :saleable => true, :purchasable => true},
+                         {:individual => false, :unit => grain_unit, :name => "Grain de Triticale", :number => "GRAIN_TRITICALE", :variety => "grains", :saleable => true, :purchasable => true},
+                         {:individual => false, :unit => grain_unit, :name => "Paille de Triticale", :number => "PAILLE_TRITICALE", :variety => "stem", :saleable => true, :purchasable => true},
                          {:individual => true, :unit => sole_unit, :name => "Sole de Triticale", :number => "SOLE_TRITICALE"},
-                         {:individual => false, :unit => grain_unit, :name => "Grain de Tournesol", :number => "GRAIN_TOURNESOL", :derivative => "grains", :saleable => true, :purchasable => true},
+                         {:individual => false, :unit => grain_unit, :name => "Grain de Tournesol", :number => "GRAIN_TOURNESOL", :variety => "grains", :saleable => true, :purchasable => true},
                          {:individual => true, :unit => sole_unit, :name => "Sole de Tournesol", :number => "SOLE_TOURNESOL"},
                          {:individual => true, :unit => sole_unit, :name => "Sole de Prairie", :number => "SOLE_PRAIRIE"},
                          {:individual => false, :unit => grain_unit, :name => "Herbe sur pied de Prairie", :number => "HERBE_PRAIRIE", :saleable => false, :purchasable => false},
@@ -513,7 +513,7 @@ namespace :db do
                          {:individual => false, :unit => grain_unit, :name => "Ensilage de Prairie", :number => "ENSILAGE_PRAIRIE", :saleable => false, :purchasable => false}
                         ]
         unless ProductNature.find_by_number(attributes[:number])
-          ProductNature.create!({:active => true, :category_id => wheat_category.id, :storable => true, :variety => "plant", :stock_account_id => wheat_stock_account.id, :charge_account_id => wheat_charge_account.id, :product_account_id => wheat_product_account.id,}.merge(attributes) )
+          ProductNature.create!({:active => true, :category_id => wheat_category.id, :storable => true, :derivative_of => "plant", :stock_account_id => wheat_stock_account.id, :charge_account_id => wheat_charge_account.id, :product_account_id => wheat_product_account.id,}.merge(attributes) )
         end
       end
 
@@ -589,42 +589,43 @@ namespace :db do
 
       # file = Rails.root.join("test", "fixtures", "files", "coop-appro.csv")
       # CSV.foreach(file, :encoding => "UTF-8", :col_sep => ";", :headers => true) do |row|
-        # r = OpenStruct.new(:order_number => row[0],
-                           # :ordered_on => Date.civil(*row[1].to_s.split(/\//).reverse.map(&:to_i)),
-                           # :product_nature_category => ProductNatureCategory.find_by_name(row[2]) || ProductNatureCategory.create!(:catalog_name => row[2], :name => row[2], :published => true ) ,
-                           # :product_nature_name => row[3],
-                           # :matter_name => row[4],
-                           # :quantity => row[5].to_d,
-                           # :product_deliver_quantity => row[6].to_d,
-                           # :product_unit_price => row[7].to_d,
-                           # :order_status => (status[row[8]] || :draft)
-                           # )
-        # # create a purchase if not exist
-        # purchase   = Purchase.find_by_reference_number(r.order_number)
-        # purchase ||= Purchase.create!(:state => r.order_status, :currency => "EUR", :nature_id => purchase_nature.id, :reference_number => r.order_number, :supplier_id => coop.id, :planned_on => r.ordered_on, :created_on => r.ordered_on)
-        # tax_price_nature_appro = Tax.find_by_amount(19.6)
-        # # create a product_nature if not exist
-        # product_nature   = ProductNature.find_by_name(r.product_nature_name)
-        # product_nature ||= ProductNature.create!(:stock_account_id => stock_account_nature_coop.id, :charge_account_id => charge_account_nature_coop.id, :name => r.product_nature_name, :saleable => false, :purchasable => true, :active => true, :storable => true, :variety => "building", :unit => "unity", :category_id => r.product_nature_category.id)
-        # # create a product (Matter) if not exist
-        # product   = Matter.find_by_name(r.matter_name)
-        # product ||= Matter.create!(:name => r.matter_name, :identification_number => r.matter_name, :work_number => r.matter_name, :born_at => Time.now, :nature_id => product_nature.id, :owner_id => Entity.of_company.id, :number => r.matter_name) #
-        # # create a product_price_template if not exist
-        # product_price   = ProductPriceTemplate.find_by_product_nature_id_and_supplier_id_and_assignment_pretax_amount(product_nature.id, coop.id, r.product_unit_price)
-        # product_price ||= ProductPriceTemplate.create!(:currency => "EUR", :assignment_pretax_amount => r.product_unit_price, :product_nature_id => product_nature.id, :tax_id => tax_price_nature_appro.id, :supplier_id => coop.id)
-        # # create a purchase_item if not exist
-        # # purchase_item   = PurchaseItem.find_by_product_id_and_purchase_id_and_price_id(product.id, purchase.id, product_price.id)
-        # # purchase_item ||= PurchaseItem.create!(:quantity => r.quantity, :unit_id => unit_u.id, :price_id => product_price.id, :product_id => product.id, :purchase_id => purchase.id)
-        # # puts "Default PPT: " + ProductPriceTemplate.by_default.class.name # (coop.id, product.nature_id).inspect
-        # purchase.items.create!(:quantity => r.quantity, :product_id => product.id) unless r.quantity.zero?
-        # # create an incoming_delivery if status => 2
+      # r = OpenStruct.new(:order_number => row[0],
+      # :ordered_on => Date.civil(*row[1].to_s.split(/\//).reverse.map(&:to_i)),
+      # :product_nature_category => ProductNatureCategory.find_by_name(row[2]) || ProductNatureCategory.create!(:catalog_name => row[2], :name => row[2], :published => true ) ,
+      # :product_nature_name => row[3],
+      # :matter_name => row[4],
+      # :quantity => row[5].to_d,
+      # :product_deliver_quantity => row[6].to_d,
+      # :product_unit_price => row[7].to_d,
+      # :order_status => (status[row[8]] || :draft)
+      # )
+      # # create a purchase if not exist
+      # purchase   = Purchase.find_by_reference_number(r.order_number)
+      # purchase ||= Purchase.create!(:state => r.order_status, :currency => "EUR", :nature_id => purchase_nature.id, :reference_number => r.order_number, :supplier_id => coop.id, :planned_on => r.ordered_on, :created_on => r.ordered_on)
+      # tax_price_nature_appro = Tax.find_by_amount(19.6)
+      # # create a product_nature if not exist
+      # product_nature   = ProductNature.find_by_name(r.product_nature_name)
+      # product_nature ||= ProductNature.create!(:stock_account_id => stock_account_nature_coop.id, :charge_account_id => charge_account_nature_coop.id, :name => r.product_nature_name, :saleable => false, :purchasable => true, :active => true, :storable => true, :variety => "building", :unit => "unity", :category_id => r.product_nature_category.id)
+      # # create a product (Matter) if not exist
+      # product   = Matter.find_by_name(r.matter_name)
+      # product ||= Matter.create!(:name => r.matter_name, :identification_number => r.matter_name, :work_number => r.matter_name, :born_at => Time.now, :nature_id => product_nature.id, :owner_id => Entity.of_company.id, :number => r.matter_name) #
+      # # create a product_price_template if not exist
+      # product_price   = ProductPriceTemplate.find_by_product_nature_id_and_supplier_id_and_assignment_pretax_amount(product_nature.id, coop.id, r.product_unit_price)
+      # product_price ||= ProductPriceTemplate.create!(:currency => "EUR", :assignment_pretax_amount => r.product_unit_price, :product_nature_id => product_nature.id, :tax_id => tax_price_nature_appro.id, :supplier_id => coop.id)
+      # # create a purchase_item if not exist
+      # # purchase_item   = PurchaseItem.find_by_product_id_and_purchase_id_and_price_id(product.id, purchase.id, product_price.id)
+      # # purchase_item ||= PurchaseItem.create!(:quantity => r.quantity, :unit_id => unit_u.id, :price_id => product_price.id, :product_id => product.id, :purchase_id => purchase.id)
+      # # puts "Default PPT: " + ProductPriceTemplate.by_default.class.name # (coop.id, product.nature_id).inspect
+      # purchase.items.create!(:quantity => r.quantity, :product_id => product.id) unless r.quantity.zero?
+      # # create an incoming_delivery if status => 2
 
-        # create an incoming_delivery_item if status => 2
+      # create an incoming_delivery_item if status => 2
 
 
-        #print "."
+      #print "."
       #end
-      #puts "!"
+
+      puts "!"
 
       # #############################################################################
       # # import Coop Deliveries to make automatic sales
@@ -699,7 +700,7 @@ namespace :db do
       # variety_milk = ProductVariety.find_by_code("normande")
       # add a product_nature
       product_nature   = ProductNature.find_by_number("LAIT")
-      product_nature ||= ProductNature.create!(:stock_account_id => stock_account_nature_milk.id, :product_account_id => sale_account_nature_milk.id, :name => "lait", :number => "LAIT", :saleable => true, :purchasable => false, :active => true, :storable => true, :variety => "bos", :derivative => "milk", :unit => milk_unit, :category_id => animal_product_nature_category.id)
+      product_nature ||= ProductNature.create!(:stock_account_id => stock_account_nature_milk.id, :product_account_id => sale_account_nature_milk.id, :name => "lait", :number => "LAIT", :saleable => true, :purchasable => false, :active => true, :storable => true, :variety => "milk", :derivative_of => "bos", :unit => milk_unit, :category_id => animal_product_nature_category.id)
 
       # create a generic product to link analysis_indicator
       product   = Matter.find_by_name("lait_vache")
@@ -709,44 +710,44 @@ namespace :db do
       # create all indicator relative to milk_analysis_quality if not exist
       # product_indicator_germes = ProductNatureIndicator.find_by_name("germes_totaux")
       # product_indicator_germes ||= ProductNatureIndicator.create!(:product_nature_id => product_nature.id, :name => "germes_totaux", :description => "Dénombrement des micro-organismes totaux obtenues à 30°C - (x1000 germes / ml)- NF EN ISO 4833",:nature => "measure", :usage => "production", :active => true, :created_at => Time.now, :unit => unit_analysis_measure_germes, :maximal_value => "5000.0000")
-#
+      #
       # product_indicator_inhib = ProductNatureIndicator.find_by_name("inhibiteurs")
       # product_indicator_inhib ||= ProductNatureIndicator.create!(:product_nature_id => product_nature.id, :name => "inhibiteurs", :description => "Recherche des résidus d’inhibiteurs par test microbiologique - (NEGATIF / POSITIF)- protocole CNIEL INHD",:nature => "string", :usage => "production", :active => true, :created_at => Time.now, :maximal_length => 3)
-#
+      #
       # product_indicator_mg = ProductNatureIndicator.find_by_name("matieres_grasse")
       # product_indicator_mg ||= ProductNatureIndicator.create!(:product_nature_id => product_nature.id, :name => "matieres_grasse", :description => "Détermination de la teneur en matière grasse par méthode acido-butyrométrique - (g / L)- NF AFNOR V 04-210",:nature => "measure", :usage => "production", :active => true, :created_at => Time.now, :unit_id => unit_l.id, :maximal_value => "60.0000")
-#
+      #
       # product_indicator_mp = ProductNatureIndicator.find_by_name("matieres_proteique")
       # product_indicator_mp ||= ProductNatureIndicator.create!(:product_nature_id => product_nature.id, :name => "matieres_proteique", :description => "Détermination de la teneur en protéine par la méthode au Noir Amido - (g / L)- NF AFNOR V 04-216",:nature => "measure", :usage => "production", :active => true, :created_at => Time.now, :unit_id => unit_l.id, :maximal_value => "60.0000")
-#
+      #
       # product_indicator_cellules = ProductNatureIndicator.find_by_name("cellules")
       # product_indicator_cellules ||= ProductNatureIndicator.create!(:product_nature_id => product_nature.id, :name => "cellules", :description => "Dénombrement des cellules somatiques - (x1000 cellules / ml)- ISO 13366-2",:nature => "measure", :usage => "production", :active => true, :created_at => Time.now, :unit_id => unit_ml.id, :maximal_value => "8000.0000")
-#
+      #
       # product_indicator_buty = ProductNatureIndicator.find_by_name("butyriques")
       # product_indicator_buty ||= ProductNatureIndicator.create!(:product_nature_id => product_nature.id, :name => "butyriques", :description => "Dénombrement microbiologique des spores de Clostridia  - (spores / L)- protocole CNIEL BUTY",:nature => "measure", :usage => "production", :active => true, :created_at => Time.now, :unit_id => unit_l.id, :maximal_value => "50000.0000")
-#
+      #
       # product_indicator_cryo = ProductNatureIndicator.find_by_name("cryoscopie")
       # product_indicator_cryo ||= ProductNatureIndicator.create!(:product_nature_id => product_nature.id, :name => "cryoscopie", :description => "Détermination du point de congélation par cryoscopie - (°C)- NF EN ISO 5764",:nature => "decimal", :usage => "production", :active => true, :created_at => Time.now, :unit_id => unit_u.id, :maximal_value => "0.580")
-#
+      #
       # product_indicator_lipo = ProductNatureIndicator.find_by_name("lipolyse")
       # product_indicator_lipo ||= ProductNatureIndicator.create!(:product_nature_id => product_nature.id, :name => "lipolyse", :description => " Méthode aux Savons de Cuivre - ( meq /100 g de MG)- protocole CNIEL LIPO",:nature => "decimal", :usage => "production", :active => true, :created_at => Time.now, :unit_id => unit_u.id, :maximal_value => "2.0")
-#
+      #
       # product_indicator_igg = ProductNatureIndicator.find_by_name("igg")
       # product_indicator_igg ||= ProductNatureIndicator.create!(:product_nature_id => product_nature.id, :name => "igg", :description => "Dosage des IgG par immunodiffusion radiale - (u / L)- d’après D. Levieux",:nature => "string", :usage => "production", :active => true, :created_at => Time.now)
-#
+      #
       # product_indicator_uree = ProductNatureIndicator.find_by_name("uree")
       # product_indicator_uree ||= ProductNatureIndicator.create!(:product_nature_id => product_nature.id, :name => "uree", :description => "Dosage de la teneur moyenne en urée - (mg / L)",:nature => "decimal", :usage => "production", :active => true, :created_at => Time.now, :unit_id => unit_u.id, :maximal_value => "600.00")
-#
+      #
 
       trans_inhib = {
         "NEG" => "negative",
         "POS" => "positive"
       }
 
-     for a in ["total_bacteria_concentration", "inhibitors_presence", "fat_matters_concentration", "protein_matters_concentration", "cells_concentration", "clostridial_spores_concentration", "freezing_point_temperature", "lipolysis", "immunoglobulins_concentration", "urea_concentration"]
-      product_nature_indicator = ProductNatureIndicator.where(:nature => a, :product_nature_id => product_nature.id ).first
-      product_nature_indicator ||= ProductNatureIndicator.create!(:product_nature_id => product_nature.id, :nature => a)
-     end
+      for a in ["total_bacteria_concentration", "inhibitors_presence", "fat_matters_concentration", "protein_matters_concentration", "cells_concentration", "clostridial_spores_concentration", "freezing_point_temperature", "lipolysis", "immunoglobulins_concentration", "urea_concentration"]
+        product_nature_indicator = ProductNatureIndicator.where(:nature => a, :product_nature_id => product_nature.id ).first
+        product_nature_indicator ||= ProductNatureIndicator.create!(:product_nature_id => product_nature.id, :nature => a)
+      end
 
       file = Rails.root.join("test", "fixtures", "files", "HistoIP_V.csv")
       CSV.foreach(file, :encoding => "CP1252", :col_sep => "\t", :headers => true) do |row|
@@ -829,11 +830,11 @@ namespace :db do
         activity ||= Activity.create!(:nature => r.nature, :description => "Import from reference", :family => r.family, :name => r.name, :nomen => r.nomen)
         product_nature = ProductNature.find_by_number(r.product_nature_name)
         if product_nature.present? and landparcel_support.present?
-           # Add Watchings with static support
-            activity.watchings.create!(:product_nature_id => product_nature.id, :campaign_id => campaign.id, :static_storage => true, :storage_id => landparcel_support.id)
+          # Add Watchings with static support
+          activity.watchings.create!(:product_nature_id => product_nature.id, :campaign_id => campaign.id, :static_storage => true, :storage_id => landparcel_support.id)
         elsif product_nature.present?
-            # Add Watchings
-            activity.watchings.create!(:product_nature_id => product_nature.id, :campaign_id => campaign.id)
+          # Add Watchings
+          activity.watchings.create!(:product_nature_id => product_nature.id, :campaign_id => campaign.id)
         end
         print "."
       end
