@@ -144,7 +144,7 @@ namespace :db do
                          {:name => "Veau",:number => "VEAU", :description => "Veau laitier 8-15j"}
                         ]
         unless ProductNature.find_by_number(attributes[:number])
-          ProductNature.create!({:unit => cow_unit, :category_id => animal_product_nature_category.id, :atomic => true, :product_account_id => cow_product_account.id, :variety => "bos", :storable => true, :stock_account_id => cow_stock_account.id, :saleable => true}.merge(attributes) )
+          ProductNature.create!({:unit => cow_unit, :category_id => animal_product_nature_category.id, :individual => true, :product_account_id => cow_product_account.id, :variety => "bos", :storable => true, :stock_account_id => cow_stock_account.id, :saleable => true}.merge(attributes) )
         end
       end
 
@@ -494,23 +494,23 @@ namespace :db do
       wheat_price_template_tax = Tax.find_by_amount(5.5)
 
       # Create product_nature for plant product
-      for attributes in [{:atomic => false, :unit => grain_unit, :name => "Grain de Blé", :number => "GRAIN_BLE", :derivative => "grains", :saleable => true, :purchasable => true},
-                         {:atomic => false, :unit => grain_unit, :name => "Paille de Blé", :number => "PAILLE_BLE", :derivative => "stem", :saleable => true, :purchasable => true},
-                         {:atomic => true, :unit => sole_unit, :name => "Sole de Blé", :number => "SOLE_BLE"},
-                         {:atomic => false, :unit => grain_unit, :name => "Grain de Maïs", :number => "GRAIN_MAIS", :derivative => "grains", :saleable => true, :purchasable => true},
-                         {:atomic => true, :unit => sole_unit, :name => "Sole de Maïs", :number => "SOLE_MAIS"},
-                         {:atomic => false, :unit => grain_unit, :name => "Grain de Blé dur", :number => "GRAIN_BLE_DUR", :derivative => "grains", :saleable => true, :purchasable => true},
-                         {:atomic => false, :unit => grain_unit, :name => "Paille de Blé dur", :number => "PAILLE_BLE_DUR", :derivative => "stem", :saleable => true, :purchasable => true},
-                         {:atomic => true, :unit => sole_unit, :name => "Sole de Blé dur", :number => "SOLE_BLE_DUR"},
-                         {:atomic => false, :unit => grain_unit, :name => "Grain de Triticale", :number => "GRAIN_TRITICALE", :derivative => "grains", :saleable => true, :purchasable => true},
-                         {:atomic => false, :unit => grain_unit, :name => "Paille de Triticale", :number => "PAILLE_TRITICALE", :derivative => "stem", :saleable => true, :purchasable => true},
-                         {:atomic => true, :unit => sole_unit, :name => "Sole de Triticale", :number => "SOLE_TRITICALE"},
-                         {:atomic => false, :unit => grain_unit, :name => "Grain de Tournesol", :number => "GRAIN_TOURNESOL", :derivative => "grains", :saleable => true, :purchasable => true},
-                         {:atomic => true, :unit => sole_unit, :name => "Sole de Tournesol", :number => "SOLE_TOURNESOL"},
-                         {:atomic => true, :unit => sole_unit, :name => "Sole de Prairie", :number => "SOLE_PRAIRIE"},
-                         {:atomic => false, :unit => grain_unit, :name => "Herbe sur pied de Prairie", :number => "HERBE_PRAIRIE", :saleable => false, :purchasable => false},
-                         {:atomic => false, :unit => grain_unit, :name => "Foin de Prairie", :number => "FOIN_PRAIRIE", :saleable => true, :purchasable => true},
-                         {:atomic => false, :unit => grain_unit, :name => "Ensilage de Prairie", :number => "ENSILAGE_PRAIRIE", :saleable => false, :purchasable => false}
+      for attributes in [{:individual => false, :unit => grain_unit, :name => "Grain de Blé", :number => "GRAIN_BLE", :derivative => "grains", :saleable => true, :purchasable => true},
+                         {:individual => false, :unit => grain_unit, :name => "Paille de Blé", :number => "PAILLE_BLE", :derivative => "stem", :saleable => true, :purchasable => true},
+                         {:individual => true, :unit => sole_unit, :name => "Sole de Blé", :number => "SOLE_BLE"},
+                         {:individual => false, :unit => grain_unit, :name => "Grain de Maïs", :number => "GRAIN_MAIS", :derivative => "grains", :saleable => true, :purchasable => true},
+                         {:individual => true, :unit => sole_unit, :name => "Sole de Maïs", :number => "SOLE_MAIS"},
+                         {:individual => false, :unit => grain_unit, :name => "Grain de Blé dur", :number => "GRAIN_BLE_DUR", :derivative => "grains", :saleable => true, :purchasable => true},
+                         {:individual => false, :unit => grain_unit, :name => "Paille de Blé dur", :number => "PAILLE_BLE_DUR", :derivative => "stem", :saleable => true, :purchasable => true},
+                         {:individual => true, :unit => sole_unit, :name => "Sole de Blé dur", :number => "SOLE_BLE_DUR"},
+                         {:individual => false, :unit => grain_unit, :name => "Grain de Triticale", :number => "GRAIN_TRITICALE", :derivative => "grains", :saleable => true, :purchasable => true},
+                         {:individual => false, :unit => grain_unit, :name => "Paille de Triticale", :number => "PAILLE_TRITICALE", :derivative => "stem", :saleable => true, :purchasable => true},
+                         {:individual => true, :unit => sole_unit, :name => "Sole de Triticale", :number => "SOLE_TRITICALE"},
+                         {:individual => false, :unit => grain_unit, :name => "Grain de Tournesol", :number => "GRAIN_TOURNESOL", :derivative => "grains", :saleable => true, :purchasable => true},
+                         {:individual => true, :unit => sole_unit, :name => "Sole de Tournesol", :number => "SOLE_TOURNESOL"},
+                         {:individual => true, :unit => sole_unit, :name => "Sole de Prairie", :number => "SOLE_PRAIRIE"},
+                         {:individual => false, :unit => grain_unit, :name => "Herbe sur pied de Prairie", :number => "HERBE_PRAIRIE", :saleable => false, :purchasable => false},
+                         {:individual => false, :unit => grain_unit, :name => "Foin de Prairie", :number => "FOIN_PRAIRIE", :saleable => true, :purchasable => true},
+                         {:individual => false, :unit => grain_unit, :name => "Ensilage de Prairie", :number => "ENSILAGE_PRAIRIE", :saleable => false, :purchasable => false}
                         ]
         unless ProductNature.find_by_number(attributes[:number])
           ProductNature.create!({:active => true, :category_id => wheat_category.id, :storable => true, :variety => "plant", :stock_account_id => wheat_stock_account.id, :charge_account_id => wheat_charge_account.id, :product_account_id => wheat_product_account.id,}.merge(attributes) )
