@@ -63,7 +63,7 @@ class Production < Ekylibre::Record::Base
     event :confirm do
       transition :draft => :validated, :if => :has_active_product?
     end
-    
+
     event :start do
       transition :validated => :started, :if => :has_active_product?
     end
@@ -90,7 +90,7 @@ class Production < Ekylibre::Record::Base
   def state_label
     self.class.state_label(self.state)
   end
-  
+
   def name
     if self.storage.present?
       tc('label.' + self.state, :identification => (self.product_nature.name + " " + self.campaign.name + " [ " + self.storage.name + " ] "))

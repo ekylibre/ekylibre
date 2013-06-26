@@ -928,7 +928,7 @@ fra:
     picture_file_size: "Taille du fichier photo"
     picture_updated_at: "Fichier photo mis à jour le"
     place: "Place"
-    planned_at: "Prévu à"
+    planned_at: "Prévu à" #?
     planned_depreciations: "Amortissements prévus"
     planned_on: "Prévu le"
     position: "Position"
@@ -1556,6 +1556,18 @@ fra:
       label: "%{product} / %{amount} %{currency}"
       no_range: "Pas d’intervalle"
       range: "De %{min} à %{max}"
+    production:
+      bookkeep: "[%{resource} %{number}] %{products} pour %{client} (%{sale})"
+      label:
+        aborted: "Production annulée %{identification}"
+        draft: "Production prévue %{identification}"
+        started: "Production en cours %{identification}"
+        validated: "Production validée %{identification}"
+      states:
+        aborted: "Annulée"
+        draft: "Prévue"
+        started: "En cours"
+        validated: "Validée"
     purchase:
       bookkeep: "[%{resource} %{number}] %{products} de %{supplier}"
       label: "%{supplier} à %{address}"
@@ -1574,18 +1586,6 @@ fra:
     purchase_nature:
       default:
         name: "Standard"
-    production:
-      bookkeep: "[%{resource} %{number}] %{products} pour %{client} (%{sale})"
-      label:
-        aborted: "Production annulée %{identification}"
-        draft: "Production prévue %{identification}"
-        validated: "Production validée %{identification}"
-        started: "Production en cours %{identification}"
-      states:
-        aborted: "Annulée"
-        draft: "Prévue"
-        validated: "Validée"
-        started: "En cours"
     sale:
       bookkeep: "[%{resource} %{number}] %{products} pour %{client} (%{sale})"
       label:

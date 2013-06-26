@@ -724,13 +724,13 @@ fra:
   errors:
     messages:
       already_confirmed: "a déjà été validé(e)"
-      confirmation_period_expired: "doit être confirmé sous %{period}, refaites une nouvelle demande s’il vous plait"
-      expired: "a expiré, merci d’en faire une nouvelle demande"
-      not_found: "n’a pas été trouvé(e)"
-      not_locked: "n’était pas verrouillé(e)"
+      confirmation_period_expired: "doit être confirmé sous %{period}, refaites une nouvelle demande s'il vous plait"
+      expired: "a expiré, merci d'en faire une nouvelle demande"
+      not_found: "n'a pas été trouvé(e)"
+      not_locked: "n'était pas verrouillé(e)"
       not_saved:
-        one: "1 erreur a empêché ce(tte) %{resource} d’être sauvegardé(e) :"
-        other: "%{count} erreurs ont empêché ce(tte) %{resource} d’être sauvegardé(e) :"
+        one: "1 erreur a empêché ce(tte) %{resource} d'être sauvegardé(e) :"
+        other: "%{count} erreurs ont empêché ce(tte) %{resource} d'être sauvegardé(e) :"
     template:
       body: "Il y a eu des problèmes avec les champs suivants\_:"
       header:
@@ -1351,13 +1351,13 @@ fra:
     product_price_templates: "Types de prix"
     product_update: "Modifier la fiche du produit"
     production: "Gestion de la production"
+    productions: "Productions"
     productions_states:
       aborted: "Annulées"
       all: "Toutes"
-      validated: "Validées"
       draft: "Brouillons"
       started: "En cours"
-    productions: "Productions"
+      validated: "Validées"
     products: "Produits"
     products_states:
       active: "Actifs"
