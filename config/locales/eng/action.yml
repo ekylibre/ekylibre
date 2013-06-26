@@ -540,7 +540,7 @@ eng:
       import: "Import data"
       restore: "Restore data"
     backend/settlements:
-      # edit: "Modifier l'installation\_: %{name}"
+      # edit: "Modifier l’installation\_: %{name}"
       # index: "Installations"
       # new: "Nouvelle installation"
       # show: "Installation\_: %{name}"

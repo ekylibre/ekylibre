@@ -64,6 +64,7 @@
 #  work_number              :string(255)
 #
 class Easement < Zone
+  enumerize :variety, :in => Nomen::Varieties.all(:easement), :predicates => {:prefix => true}
 
   after_save do
     area = compute("ST_Area(shape)").to_f

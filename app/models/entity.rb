@@ -85,7 +85,7 @@ class Entity < Ekylibre::Record::Base
   belongs_to :attorney_account, :class_name => "Account"
   belongs_to :client_account, :class_name => "Account"
   # belongs_to :nature, :class_name => "EntityNature"
-  enumerize :nature, :in => Nomenclatures["entity_natures-root"].list, :default => Nomenclatures["entity_natures-root"].list.first, :predicates => {:prefix => true}
+  enumerize :nature, :in => Nomen::EntityNatures.all, :default => Nomen::EntityNatures.default, :predicates => {:prefix => true}
   belongs_to :payment_mode, :class_name => "IncomingPaymentMode"
   belongs_to :proposer, :class_name => "Entity"
   belongs_to :responsible, :class_name => "User"

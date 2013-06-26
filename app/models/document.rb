@@ -36,7 +36,7 @@
 class Document < Ekylibre::Record::Base
   attr_accessible :name
   has_many :archives, :class_name => "DocumentArchive", :dependent => :destroy, :inverse_of => :document
-  enumerize :nature, :in => Nomenclatures["document_natures"].items.keys, :predicates => {:prefix => true}
+  enumerize :nature, :in => Nomen::DocumentNatures.all, :predicates => {:prefix => true}
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :nature, :number, :allow_nil => true, :maximum => 63
   validates_length_of :key, :name, :allow_nil => true, :maximum => 255

@@ -54,7 +54,7 @@ class PurchaseItem < Ekylibre::Record::Base
   belongs_to :price, :class_name => "ProductPrice"
   belongs_to :product
   belongs_to :tax
-  enumerize :unit, :in => Nomenclatures["units"].list
+  enumerize :unit, :in => Nomen::Units.all
   has_many :delivery_items, :class_name => "IncomingDeliveryItem", :foreign_key => :purchase_item_id
 
   accepts_nested_attributes_for :price

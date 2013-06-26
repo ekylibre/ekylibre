@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
   <!-- root -->
-  <nomenclature name="varieties-root">
+  <nomenclature name="varieties" hierarchical="true">
     <attributes>
       <!-- <attribute name="derivatives" type="list" required="false" inherit="true" merge="true"/> -->
       <attribute name="derivative_of" type="choice" required="false" nomenclature="varieties" inherit="true"/>
@@ -107,7 +107,7 @@
   <!-- level 2 - branch 1 - sub-branch 3 - leaf 2 -->
   <nomenclature name="varieties-sub_zone">
     <items>
-      <item name="building_room"/>
+      <item name="building_division"/>
     </items>
   </nomenclature>
 </nomenclatures>

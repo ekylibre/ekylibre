@@ -68,7 +68,7 @@ class ProductNature < Ekylibre::Record::Base
   # attr_accessible :active, :commercial_description, :commercial_name, :category_id, :deliverable, :description, :for_immobilizations, :for_productions, :for_purchases, :for_sales, :asset_account_id, :name, :nature, :number, :charge_account_id, :reduction_submissive, :product_account_id, :stockable, :subscription_nature_id, :subscription_period, :subscription_quantity, :trackable, :unit, :unquantifiable, :weight
   attr_accessible :active, :commercial_description, :commercial_name, :category_id, :derivative_of, :description, :depreciable, :purchasable, :saleable, :asset_account_id, :name, :number, :stock_account_id, :charge_account_id, :product_account_id, :storable, :subscription_nature_id, :subscription_duration, :unit, :reductible, :individual, :subscribing, :variety
   #enumerize :nature, :in => [:product, :service, :subscription], :default => :product, :predicates => true
-  enumerize :variety, :in => Nomenclatures["varieties-root"].list, :predicates => {:prefix => true}
+  enumerize :variety, :in => Nomen::Varieties.all, :predicates => {:prefix => true}
   belongs_to :asset_account, :class_name => "Account"
   belongs_to :charge_account, :class_name => "Account"
   belongs_to :product_account, :class_name => "Account"
@@ -155,8 +155,8 @@ class ProductNature < Ekylibre::Record::Base
 
   # Returns the closest matching model based on the given variety
   def self.matching_model(variety)
-    if item = Nomenclatures["varieties"].find(variety)
-      for ancestor in item.ancestors
+    if item = Nomen::Varieties.find(variety)
+      for ancestor in item.parents
         model = ancestor.name.camelcase.constantize rescue nil
         return model if model <= Product
       end

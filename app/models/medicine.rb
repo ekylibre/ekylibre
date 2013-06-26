@@ -67,7 +67,7 @@
 class Medicine < Matter
   attr_accessible :unit, :variety, :nature_id, :reproductor, :external, :born_at, :dead_at, :description, :description, :father_id, :mother_id, :identification_number, :name, :picture, :sex, :work_number
   # TODO: write config/nomenclatures/varieties-animal_medicine.xml
-  enumerize :variety, :in => Nomenclatures["varieties-medicine"].list, :predicates => {:prefix => true}
+  enumerize :variety, :in => Nomen::Varieties.all(:medicine), :predicates => {:prefix => true}
   #enumerize :arrival_reasons, :in => [:birth, :purchase, :housing, :other], :default=> :birth
   #enumerize :departure_reasons, :in => [:dead, :sale, :autoconsumption, :other], :default=> :sale
   # belongs_to :nature, :class_name => "ProductNature"

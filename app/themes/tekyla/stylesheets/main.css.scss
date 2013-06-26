@@ -679,8 +679,9 @@ form.search {
 
 .add {
   padding: $default-gap;
-  @include background(transparentize($important-color, 0.6));
+  @include background(transparentize($important-color, 0.25));
   text-align: center !important;
+  margin-bottom: $default-gap;
 }
 
 .picture {
@@ -904,7 +905,7 @@ form.search {
       li { list-style-type: square; }
     }
   }
-  @each $level in (error #D31 remove-circle), (warning #F81 warning-sign), (success #6A0 ok-circle), (information $active-color info-sign) {
+  @each $level in (error $invalid-color remove-circle), (warning $caution-color warning-sign), (success $success-color ok-circle), (information $active-color info-sign) {
     $level-name: nth($level, 1);
     $level-color: nth($level, 2); // change-color(nth($level, 2), $lightness: 65%);
     &.#{$level-name} {

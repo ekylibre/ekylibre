@@ -464,7 +464,7 @@ fra:
     balances: "Balances de compte"
     bank_account_key: "Clé RIB"
     bank_account_number: "Numéro de compte bancaire"
-    bank_agency_address: "Adresse de l'agence bancaire"
+    bank_agency_address: "Adresse de l’agence bancaire"
     bank_agency_code: "Code guichet"
     bank_check_number: "N°Chèque"
     bank_code: "Code banque"
@@ -1241,7 +1241,7 @@ fra:
         collectivity: "Collectivité"
         company: "Société"
         doctor: "Docteur"
-        economic_interest_group: "Groupement d'intérêt économique"
+        economic_interest_group: "Groupement d’intérêt économique"
         entity: "Entité"
         foundation: "Fondation"
         legal_entity: "Personne morale"
@@ -1249,7 +1249,7 @@ fra:
         person: "Personne"
         professor: "Professeur"
         public_establisment: "Établissement public"
-        public_interest_group: "Groupement d'intérêt public"
+        public_interest_group: "Groupement d’intérêt public"
         sir: "Monsieur"
         syndicate: "Syndicat"
     entity_address:
@@ -1300,7 +1300,7 @@ fra:
         out: "Sortant"
     procedure:
       nomen:
-        animal_birth: "Naissance d'un animal"
+        animal_birth: "Naissance d’un animal"
         calving_one: "Vêlage unique"
         calving_twin: "Vêlage jumeaux"
         chemical_treatment: "Traitement chimique"

@@ -603,7 +603,7 @@ arb:
       import: "الاستيراد"
       # restore: "Restaurer une sauvegarde"
     backend/settlements:
-      # edit: "Modifier l'installation\_: %{name}"
+      # edit: "Modifier l’installation\_: %{name}"
       # index: "Installations"
       # new: "Nouvelle installation"
       # show: "Installation\_: %{name}"

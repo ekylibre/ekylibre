@@ -38,7 +38,7 @@
 #
 class Incident < Ekylibre::Record::Base
   attr_accessible :name, :nature, :observed_at, :description, :priority, :gravity, :target_id, :target_type
-  enumerize :nature, :in => Nomenclatures["incidents-root"].list, :default => Nomenclatures["incidents-root"].list.first, :predicates => {:prefix => true}
+  enumerize :nature, :in => Nomen::Incidents.all, :default => Nomen::Incidents.default, :predicates => {:prefix => true}
   has_many :procedures, :class_name => "Procedure"
   belongs_to :target , :polymorphic => true
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.

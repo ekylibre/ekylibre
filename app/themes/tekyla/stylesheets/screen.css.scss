@@ -37,6 +37,9 @@ $neutral-color: #777 !default;
 $desktop-background: #F7F7F7 !default;
 $text-color: #222 !default;
 $invalid-color: #D81E08 !default;
+$caution-color: #FF8811 !default;
+$success-color: #65A907 !default;
+$important-color: $success-color !default;
 
 $hover-transparency: 0.85;
 $hover-mask: transparentize($base-color, $hover-transparency);
@@ -52,7 +55,6 @@ $link-color:  darken($base-color, 10%);
 $title-color: darken($base-color, 40%);
 $base-font-color:  $text-color;
 $base-font-reversed-color:  #FFF;
-$important-color: #D88E68;
 
 $neutral-background: change-color($neutral-color, $lightness: 90%);
 $input-background: $desktop-background;
