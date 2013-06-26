@@ -123,7 +123,7 @@ namespace :db do
 
       #############################################################################
       # Import synel
-      print "[#{(Time.now - start).round(2).to_s.rjust(8)}s] Synel and UPRA reproductor list: "
+      print "[#{(Time.now - start).round(2).to_s.rjust(8)}s] Animals - Synel animals inventory : "
       # h = ProductVariety.find_by_code("cattle")
       # p = ProductVariety.find_by_code("animal")
       # h ||= ProductVariety.create!(:name => "Bovin", :code => "cattle", :product_type => "Animal", :parent_id => (p ? p.id : nil))
@@ -359,7 +359,9 @@ namespace :db do
         break if Animal.count >= max
       end
 
+
       #add list of external male reproductor
+      print "[#{(Time.now - start).round(2).to_s.rjust(8)}s] Animals - UPRA reproductor list: "
       file = Rails.root.join("test", "fixtures", "files", "liste_males_reproducteurs_race_normande_ISU_130.txt")
       picture_trepro = Dir.glob(Rails.root.join("test", "fixtures", "files", "animals", "taurillon.jpg"))
       CSV.foreach(file, :encoding => "CP1252", :col_sep => "\t", :headers => true) do |row|
@@ -382,7 +384,7 @@ namespace :db do
         animal.indicator_data.create!(:indicator => "tb", :value => r.tb ,:measure_unit => "unity" ,:measured_at => Time.now - 2.months )
         animal.indicator_data.create!(:indicator => "tp", :value => r.tp ,:measure_unit => "unity" ,:measured_at => Time.now - 2.months )
 
-        print "R"
+        print "."
         break if Animal.count >= max
       end
 
@@ -398,7 +400,7 @@ namespace :db do
 
       #############################################################################
       # Import shapefile
-      print "[#{(Time.now - start).round(2).to_s.rjust(8)}s] Shapefile (from TelePAC 2013): "
+      print "[#{(Time.now - start).round(2).to_s.rjust(8)}s] LandParcelClusters - TelePAC Shapefile 2013 : "
       # v = ProductVariety.find_by_code("land_parcel")
       # p = ProductVariety.find_by_code("place")
       # v ||= ProductVariety.create!(:name => "Parcelle", :code => "land_parcel", :product_type => "LandParcel", :parent_id => (p ? p.id : nil))
@@ -421,7 +423,7 @@ namespace :db do
 
       #############################################################################
       # Import landparcel from Calc Sheet
-      print "[#{(Time.now - start).round(2).to_s.rjust(8)}s] Parcel sheet (from GAEC DUPONT 2013): "
+      print "[#{(Time.now - start).round(2).to_s.rjust(8)}s] LandParcels - GAEC DUPONT Parcel sheet 2013 : "
       # v = ProductVariety.find_by_code("land_parcel")
       # p = ProductVariety.find_by_code("place")
       # v ||= ProductVariety.create!(:name => "Parcelle", :code => "land_parcel", :product_type => "LandParcel", :parent_id => (p ? p.id : nil))
@@ -437,9 +439,9 @@ namespace :db do
         r = OpenStruct.new(:ilot_work_number => row[0],
                            :campaign => row[1],
                            :landparcelgroup_work_number => row[2],
-                           :landparcelgroup_name => row[3],
+                           :landparcelgroup_name => row[3].capitalize,
                            :landparcel_work_number => row[4],
-                           :landparcel_name => row[5],
+                           :landparcel_name => row[5].capitalize,
                            :landparcel_area => row[6].to_d,
                            :landparcelgroup_shape => row[7],
                            :landparcel_shape => row[8],
@@ -482,7 +484,7 @@ namespace :db do
 
       #############################################################################
       # Create variety for wheat product
-      print "[#{(Time.now - start).round(2).to_s.rjust(8)}s] Sale: "
+      print "[#{(Time.now - start).round(2).to_s.rjust(8)}s] Sales - Examples Data : "
       price_listing = ProductPriceListing.find_by_code("STD")
       wheat_category = ProductNatureCategory.find_by_name("Produits végétaux")
       wheat_category ||= ProductNatureCategory.create!(:name => "Produits végétaux")
@@ -570,7 +572,7 @@ namespace :db do
       # @TODO finish with two level (purchases and purchases_lines)
       #
       # set the coop
-      print "[#{(Time.now - start).round(2).to_s.rjust(8)}s] Coop Purchases: "
+      print "[#{(Time.now - start).round(2).to_s.rjust(8)}s] IncomingDelivery - Charentes Alliance Coop Order (Appro) 2013 : "
       suppliers = Entity.where(:of_company => false, :supplier => true).reorder(:supplier_account_id, :last_name) # .where(" IS NOT NULL")
       coop = suppliers.offset((suppliers.count/2).floor).first
 
@@ -632,7 +634,7 @@ namespace :db do
       # # @TODO finish with two level (sales and sales_lines)
       # @TODO make some correction for act_as_numbered
       # # set the coop
-      # print "[#{(Time.now - start).round(2).to_s.rjust(8)}s] Coop Sales: "
+      # print "[#{(Time.now - start).round(2).to_s.rjust(8)}s] OutgoingDelivery - Charentes Alliance Coop Delivery (Apport) 2013 : "
       # clients = Entity.where(:of_company => false).reorder(:client_account_id, :last_name) # .where(" IS NOT NULL")
       # coop = clients.offset((clients.count/2).floor).first
       # unit_u = Unit.get(:u)
@@ -691,7 +693,7 @@ namespace :db do
       # @TODO
       #
       # set the lab
-      print "[#{(Time.now - start).round(2).to_s.rjust(8)}s] Milk tank analysis (from LILCO) "
+      print "[#{(Time.now - start).round(2).to_s.rjust(8)}s] Indicators - LILCO Milk analysis 2013 :"
       # set the product if not exist
       milk_unit = "liter"
       # @TODO = appeller la méthode des comptes comme dans la nomenclature accounts

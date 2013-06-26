@@ -2548,6 +2548,18 @@ arb:
       natures: #?
         transfer: "التحويل" #?
         waste: "الضائع" #?
+    production:
+      # bookkeep: "[%{resource} %{number}] %{products} pour %{client} (%{sale})"
+      label:
+        # aborted: "Production annulée %{identification}"
+        # draft: "Production prévue %{identification}"
+        # started: "Production en cours %{identification}"
+        # validated: "Production validée %{identification}"
+      states:
+        # aborted: "Annulée"
+        # draft: "Prévue"
+        # started: "En cours"
+        # validated: "Validée"
     products_nature:  #?
       informations: #?
         with_components: "%{product} (%{unit}) (ليس هناك من فترة استراحة)" #?

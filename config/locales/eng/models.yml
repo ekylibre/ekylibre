@@ -1930,6 +1930,18 @@ eng:
         without_tracking: "%{building}: No serial, %{quantity}%{unit} available" #?
     product_stock_move:  #?
       default_name: "%{origin} (%{code})" #?
+    production:
+      # bookkeep: "[%{resource} %{number}] %{products} pour %{client} (%{sale})"
+      label:
+        # aborted: "Production annulée %{identification}"
+        # draft: "Production prévue %{identification}"
+        # started: "Production en cours %{identification}"
+        # validated: "Production validée %{identification}"
+      states:
+        # aborted: "Annulée"
+        # draft: "Prévue"
+        # started: "En cours"
+        # validated: "Validée"
     products_nature:  #?
       informations: #?
         with_components: "%{product} (%{unit}) (transformed material)" #?
