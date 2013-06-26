@@ -51,7 +51,11 @@ class Production < Ekylibre::Record::Base
   #]VALIDATORS]
 
   def name
-    ["production"]
+    if self.storage.present?
+      self.product_nature.name + " " + self.campaign.name + " - " + self.storage.name
+    else
+      self.product_nature.name + " " + self.campaign.name
+    end
   end
 
   state_machine :state, :initial => :draft do

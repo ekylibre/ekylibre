@@ -7,11 +7,15 @@ class Backend::ProductionsController < BackendController
   # management -> sales_conditions
   def self.productions_conditions
     code = ""
-    code = search_conditions(:production, :productions => [:state], :activities =>[:name]) + "||=[]\n"
+    code = search_conditions(:production, :productions => [:state], :activities =>[:name], :product_natures =>[:name]) + "||=[]\n"
     code << "unless session[:production_state].blank?\n"
     code << "  if session[:production_state] == 'current'\n"
     code << "    c[0] += \" AND state IN ('draft', 'validated', 'aborted')\"\n"
     code << "  end\n "
+    code << "  if session[:production_product_nature_id] > 0\n"
+    code << "    c[0] += \" AND \#{ProductNature.table_name}.id = ?\"\n"
+    code << "    c << session[:production_product_nature_id]\n"
+    code << "  end\n"
     code << "end\n "
     code << "c\n "
     code
@@ -19,7 +23,8 @@ class Backend::ProductionsController < BackendController
 
 
 
-  list(:conditions => productions_conditions, :joins => :activity) do |t|
+  list(:conditions => productions_conditions, :joins => [:activity,:product_nature]) do |t|
+    t.column :name, :url => true
     t.column :name,:through => :activity, :url => true
     t.column :name,:through => :campaign, :url => true
     t.column :name,:through => :product_nature, :url => true

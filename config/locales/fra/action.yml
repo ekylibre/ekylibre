@@ -1351,6 +1351,11 @@ fra:
     product_price_templates: "Types de prix"
     product_update: "Modifier la fiche du produit"
     production: "Gestion de la production"
+    productions_states:
+      aborted: "Annulées"
+      all: "Toutes"
+      validated: "Validées"
+      draft: "Brouillons"
     productions: "Productions"
     products: "Produits"
     products_states:
