@@ -153,6 +153,12 @@ Ekylibre::Application.routes.draw do
         match "picture(/:style)", :via => :get, :action => :picture, :as => :picture
       end
     end
+    resources :animal_medicines do
+      collection do
+        get :list
+        unroll_all
+      end
+    end
     resources :affairs do
       collection do
         get :list
@@ -540,6 +546,13 @@ Ekylibre::Application.routes.draw do
       end
     end
 
+    resources :organic_matters do
+      collection do
+        get :list
+        unroll_all
+      end
+    end
+
     resources :operation_tasks do
       collection do
         get :list
@@ -598,14 +611,13 @@ Ekylibre::Application.routes.draw do
       end
     end
 
-    resources :places do
+    resources :plants do
       collection do
         get :list
         unroll_all
       end
     end
-
-    resources :plants do
+    resources :plant_medicines do
       collection do
         get :list
         unroll_all

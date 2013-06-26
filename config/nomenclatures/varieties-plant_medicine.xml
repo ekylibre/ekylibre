@@ -1,0 +1,10 @@
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
+  <nomenclature name="varieties-plant_medicine">
+    <!-- http://e-phy.agriculture.gouv.fr/ -->
+    <items>
+      <item name="contact"/>
+      <item name="systémique"/>
+      <item name="anti_germinatif"/>
+    </items>
+  </nomenclature>
+</nomenclatures>

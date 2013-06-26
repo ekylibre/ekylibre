@@ -314,6 +314,7 @@ eng:
       # new: "Nouvelle matière"
       # picture: "Visuel"
       # show: "Matière\_: %{name}"
+    backend/medicines: #?
     backend/meeting_natures: #?
     backend/meetings:
       # edit: "Modifier un évènement"
@@ -334,6 +335,7 @@ eng:
       new: "Create a new operation"
       show: "Operation Details %{name}"
       unvalidateds: "Unvalidated operations"
+    backend/organic_matters: #?
     backend/outgoing_deliveries:
       edit: "Edit outgoing delivery: %{number}"
       index: "Outgoing deliveries"
@@ -1105,6 +1107,7 @@ eng:
     # map: "Carte"
     # measure_options: "Indicateur de type mesure"
     # medical_informations: "Informations médicales"
+    # medicines: "Remèdes"
     # meeting: "Lieu(x) de rencontre"
     # meetings: "Évènements"
     menus:

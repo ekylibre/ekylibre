@@ -65,11 +65,10 @@
 #
 require 'test_helper'
 
-class LandParcelDivisionTest < ActiveSupport::TestCase
+class AnimalMedicineTest < ActiveSupport::TestCase
 
-  # Replace this with your real tests.'
-  test "the truth" do
-    assert true
+  test "presence of fixtures" do
+    # assert_equal 2, AnimalMedicine.count
   end
 
 end

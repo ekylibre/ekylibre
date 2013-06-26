@@ -258,12 +258,12 @@ fra:
       new: "Ajouter une nouvelle parcelle culturale"
       show: "Parcelle culturale %{name}"
     backend/land_parcels:
-      divide: "Diviser la parcelle unitaire\_: %{name}" #?
-      edit: "Modifier la parcelle unitaire\_: %{name}"
-      index: "Parcelles unitaires"
-      merge: "Fusionner des parcelles unitaires" #?
-      new: "Ajouter une nouvelle parcelle unitaire"
-      show: "Parcelle unitaire %{name}"
+      divide: "Diviser la parcelle\_: %{name}" #?
+      edit: "Modifier la parcelle\_: %{name}"
+      index: "Parcelles"
+      merge: "Fusionner des parcelles" #?
+      new: "Ajouter une nouvelle parcelle"
+      show: "Parcelle %{name}"
     backend/legal_entities:
       # edit: "Edit backend/legal entity"
       # index: "Index backend/legal entity"
@@ -297,6 +297,11 @@ fra:
       new: "Nouvelle matière"
       picture: "Visuel"
       show: "Matière\_: %{name}"
+    backend/medicines:
+      edit: "Modifier le médicaments\_: %{name}"
+      index: "Médicaments"
+      new: "Nouveau médicaments"
+      show: "Médicament\_: %{name}"
     backend/meeting_natures:
       # edit: "Edit backend/meeting nature"
       # index: "Index backend/meeting nature"
@@ -325,6 +330,11 @@ fra:
       new: "Créer un nouveau travail"
       show: "Détails du travail"
       unvalidateds: "Travaux non validés" #?
+    backend/organic_matters:
+      edit: "Modifier la matière organique\_: %{name}"
+      index: "Matières organiques"
+      new: "Nouvelle matière organique"
+      show: "Matière organique\_: %{name}"
     backend/outgoing_deliveries:
       edit: "Modifier la livraison sortante\_: %{number}"
       index: "Livraisons sortantes"
@@ -348,11 +358,6 @@ fra:
       # index: "Index backend/person"
       # new: "New backend/person"
       # show: "Show backend/person"
-    backend/places:
-      # edit: "Edit backend/place"
-      # index: "Index backend/place"
-      # new: "New backend/place"
-      # show: "Show backend/place"
     backend/plants:
       edit: "Modifier la culture\_: %{name}"
       index: "Cutures"
@@ -575,6 +580,7 @@ fra:
     backend/activity_repartitions: "Répartitions analytiques"
     backend/affairs: "Affaires"
     # backend/animal_groups: "Backend/animal groups"
+    # backend/animal_medicines: "Backend/animal medicines"
     backend/animals: "Animaux"
     backend/areas: "Zones postales"
     backend/assets: "Immobilisations"
@@ -639,19 +645,21 @@ fra:
     backend/logs: "Historique"
     backend/mandates: "Responsabilités"
     backend/matters: "Matières"
+    # backend/medicines: "Backend/medicines"
     # backend/meeting_natures: "Backend/meeting natures"
     # backend/meetings: "Backend/meetings"
     backend/myselves: "Mon compte"
     backend/observations: "Observations"
     # backend/operation_tasks: "Backend/operation tasks"
     backend/operations: "Travaux"
+    # backend/organic_matters: "Backend/organic matters"
     backend/outgoing_deliveries: "Livraisons sortantes"
     backend/outgoing_delivery_items: "Lignes de livraisons sortantes"
     backend/outgoing_delivery_modes: "Modes de livraisons sortantes"
     backend/outgoing_payment_modes: "Modes de décaissement"
     backend/outgoing_payments: "Décaissements"
     # backend/people: "Backend/people"
-    # backend/places: "Backend/places"
+    # backend/plant_medicines: "Backend/plant medicines"
     # backend/plants: "Backend/plants"
     backend/preferences: "Préférences"
     # backend/procedures: "Backend/procedures"
@@ -790,6 +798,7 @@ fra:
       cares: "Soins réalisés sur le lot"
     animal_identification: "Identification animale"
     animal_pie: "Animaux par lot"
+    animal_production: "Productions animales"
     animal_tabbox:
       cares: "Soins"
       childrens: "Enfants"
@@ -1076,9 +1085,9 @@ fra:
       items: "Lignes d’écritures"
       mixed: "Écritures et lignes"
     journals: "Journaux"
-    land_parcel_name: "Îlot"
-    land_parcel_update: "Modifier l’îlot"
-    land_parcels: "Îlots"
+    land_parcel_name: "Parcelle"
+    land_parcel_update: "Modifier la parcelle"
+    land_parcels: "Parcellaire"
     last_animals: "Dernières naissances"
     last_clients: "Derniers clients"
     last_computed_balance: "Dernière balance calculée"
@@ -1127,6 +1136,7 @@ fra:
     map: "Carte"
     measure_options: "Indicateur de type mesure"
     medical_informations: "Informations médicales"
+    medicines: "Remèdes"
     meeting: "Lieu(x) de rencontre"
     meetings: "Évènements"
     menus:
@@ -1294,6 +1304,7 @@ fra:
     placeholder: "Espace réservé"
     places: "Lieux"
     planned_on: "Date prévisionnelle"
+    plant_production: "Productions végétales"
     play: "Éxécuter"
     please_wait: "Merci de patienter..."
     preferences: "Préférences"

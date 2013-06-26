@@ -23,8 +23,9 @@
     <items>
       <item name="bioproduct"/>
       <item name="equipment"/>
-      <item name="mineral_matter"/>
+      <item name="medicine"/>
       <item name="organic_matter"/>
+      <item name="mineral_matter"/>
       <item name="zone"/>
     </items>
   </nomenclature>
@@ -60,11 +61,10 @@
     </items>
   </nomenclature>
   <!-- level 2 - branch 1 - sub-branch 1 -->
+  <!--
   <nomenclature name="varieties-organic_matter">
-    <items>
-      <item name="phytosanitary"/>
-    </items>
   </nomenclature>
+   -->
   <!-- level 2 - branch 1 - sub-branch 2 -->
   <nomenclature name="varieties-equipment">
     <items>
@@ -76,6 +76,13 @@
     <items>
       <item name="easement"/>
       <item name="sub_zone"/>
+    </items>
+  </nomenclature>
+  <!-- level 2 - branch 1 - sub-branch 4 -->
+  <nomenclature name="varieties-medicine">
+    <items>
+      <item name="animal_medicine"/>
+      <item name="plant_medicine"/>
     </items>
   </nomenclature>
   <!-- level 2 - branch 2 - sub-branch 1-->

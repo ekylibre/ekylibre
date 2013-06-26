@@ -280,12 +280,12 @@ spa:
       # show: "Parcelle culturale %{name}"
     backend/land_parcel_kinships: #?
     backend/land_parcels:
-      # divide: "Diviser la parcelle unitaire\_: %{name}"
-      # edit: "Modifier la parcelle unitaire\_: %{name}"
-      # index: "Parcelles unitaires"
-      # merge: "Fusionner des parcelles unitaires"
-      # new: "Ajouter une nouvelle parcelle unitaire"
-      # show: "Parcelle unitaire %{name}"
+      # divide: "Diviser la parcelle\_: %{name}"
+      # edit: "Modifier la parcelle\_: %{name}"
+      # index: "Parcelles"
+      # merge: "Fusionner des parcelles"
+      # new: "Ajouter une nouvelle parcelle"
+      # show: "Parcelle %{name}"
     backend/legal_entities: #?
     backend/listing_node_items: #?
     backend/listing_nodes:
@@ -317,6 +317,7 @@ spa:
       # new: "Nouvelle matière"
       # picture: "Visuel"
       # show: "Matière\_: %{name}"
+    backend/medicines: #?
     backend/meeting_natures: #?
     backend/meetings:
       # edit: "Modifier un évènement"
@@ -340,6 +341,7 @@ spa:
       # new: "Créer un nouveau travail"
       # show: "Détails du travail"
       # unvalidateds: "Travaux non validés"
+    backend/organic_matters: #?
     backend/outgoing_deliveries:
       edit: "Modificacion de la entrega"
       # index: "Livraisons sortantes"
@@ -1067,9 +1069,9 @@ spa:
       mixed: "Piezas y Escrituras"
       records: "Piezas" #?
     journals: "Periodico general"
-    # land_parcel_name: "Îlot"
-    # land_parcel_update: "Modifier l’îlot"
-    # land_parcels: "Îlots"
+    # land_parcel_name: "Parcelle"
+    # land_parcel_update: "Modifier la parcelle"
+    # land_parcels: "Parcellaire"
     # last_animals: "Dernières naissances"
     # last_clients: "Derniers clients"
     # last_computed_balance: "Dernière balance calculée"
@@ -1119,6 +1121,7 @@ spa:
     # map: "Carte"
     # measure_options: "Indicateur de type mesure"
     # medical_informations: "Informations médicales"
+    # medicines: "Remèdes"
     # meeting: "Lieu(x) de rencontre"
     # meetings: "Évènements"
     menu: #?

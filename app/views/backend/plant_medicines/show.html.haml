@@ -1,0 +1,7 @@
+=main_toolbar do |t|
+  -t.edit @plant_medicine
+
+=beehive do |b|
+  -b.cell do
+    =attributes_list(@plant_medicine) do |l|
+      -l.attribute :name

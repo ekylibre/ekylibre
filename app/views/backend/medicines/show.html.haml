@@ -1,0 +1,7 @@
+=main_toolbar do |t|
+  -t.edit @medicine
+
+=beehive do |b|
+  -b.cell do
+    =attributes_list(@medicine) do |l|
+      -l.attribute :name

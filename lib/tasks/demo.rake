@@ -255,7 +255,7 @@ namespace :db do
         r = OpenStruct.new(:country => row[0],
                            :identification_number => row[1],
                            :work_number => row[2],
-                           :name => (row[3].blank? ? Faker::Name.first_name : row[3].capitalize),
+                           :name => (row[3].blank? ? Faker::Name.first_name+"(MN)" : row[3].capitalize),
                            :born_on => (row[4].blank? ? nil : Date.civil(*row[4].to_s.split(/\//).reverse.map(&:to_i))),
                            :corabo => row[5],
                            :sex => (row[6] == "F" ? :female : :male),
