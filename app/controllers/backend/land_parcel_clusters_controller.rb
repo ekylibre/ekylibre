@@ -5,6 +5,11 @@ class Backend::LandParcelClustersController < BackendController
 
   list do |t|
     t.column :name, :url => true
+    t.column :work_number
+    t.column :identification_number
+    t.column :real_quantity
+    t.column :unit
+    
   end
 
   # Displays the main page with the list of land_parcel_clusters.

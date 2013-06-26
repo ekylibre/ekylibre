@@ -22,10 +22,13 @@ class Backend::LandParcelsController < BackendController
 
   unroll_all
 
-  list(:conditions => ["? BETWEEN #{LandParcel.table_name}.born_at AND COALESCE(#{LandParcel.table_name}.dead_at, ?)", ['session[:viewed_on]'], ['session[:viewed_on]']], :order => "name") do |t|
+  list() do |t|
     t.column :name, :url => true
-    t.column :identification_number
-    t.column :description
+    #t.column :identification_number
+    t.column :work_number
+    #t.column :description
+    t.column :real_quantity
+    t.column :unit
     #t.column :started_on
     #t.column :stopped_on
     # t.action :divide
