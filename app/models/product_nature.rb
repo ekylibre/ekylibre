@@ -123,6 +123,8 @@ class ProductNature < Ekylibre::Record::Base
   scope :producibles, -> { where(:individual => true, :variety => ["bos","animal","plant"]).order(:name) }
   scope :animals, -> { where(:individual => true, :variety => "bos").order(:name) }
   scope :plants, -> { where(:individual => true, :variety => "plant").order(:name) }
+  scope :plant_medicines, -> { where(:individual => false, :variety => "plant_medicine").order(:name) }
+  scope :animal_medicines, -> { where(:individual => false, :variety => "animal_medicine").order(:name) }
   scope :equipments, -> { where(:variety => "equipment").order(:name) }
   scope :buildings, -> { where(:variety => "building").order(:name) }
   scope :matters, -> { where(:subscribing => false).order(:name) }

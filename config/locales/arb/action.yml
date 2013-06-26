@@ -40,6 +40,7 @@ arb:
       # index: "Groupes d'animaux"
       # new: "Nouveau groupe d'animaux"
       # show: "Groupe\_: %{name}"
+    backend/animal_medicines: #?
     backend/animals:
       # edit: "Modifier l'animal\_: %{name}"
       # index: "Animaux"
@@ -342,7 +343,11 @@ arb:
       # new: "Nouvelle matière"
       # picture: "Visuel"
       # show: "Matière\_: %{name}"
-    backend/medicines: #?
+    backend/medicines:
+      # edit: "Modifier le médicaments\_: %{name}"
+      # index: "Médicaments"
+      # new: "Nouveau médicaments"
+      # show: "Médicament\_: %{name}"
     backend/meeting_natures: #?
     backend/meetings:
       # edit: "Modifier un évènement"
@@ -366,7 +371,11 @@ arb:
       new: "انشاء عمل جديد"
       show: "تفاصيل العمل %{name}"
       unvalidateds: "تحقيق الاعمال"
-    backend/organic_matters: #?
+    backend/organic_matters:
+      # edit: "Modifier la matière organique\_: %{name}"
+      # index: "Matières organiques"
+      # new: "Nouvelle matière organique"
+      # show: "Matière organique\_: %{name}"
     backend/outgoing_deliveries:
       edit: "تعديل التسليم"
       # index: "Livraisons sortantes"
@@ -390,6 +399,7 @@ arb:
       show: "رقم الدفعة%{number} من اجل %{payee}"
     backend/people: #?
     backend/places: #?
+    backend/plant_medicines: #?
     backend/plants:
       # edit: "Modifier la culture\_: %{name}"
       # index: "Cutures"
@@ -583,6 +593,11 @@ arb:
       # edit: "Configuration"
       import: "الاستيراد"
       # restore: "Restaurer une sauvegarde"
+    backend/settlements:
+      # edit: "Modifier l'installation\_: %{name}"
+      # index: "Installations"
+      # new: "Nouvelle installation"
+      # show: "Installation\_: %{name}"
     backend/snippets: #?
     backend/stock_moves:  #?
       edit: "تعديل حركة سهم : %{name}" #?
@@ -852,7 +867,9 @@ arb:
       # animals: "Animaux du lot"
       # cares: "Soins réalisés sur le lot"
     # animal_identification: "Identification animale"
+    # animal_medicines: "Médicaments vétérinaires"
     # animal_pie: "Animaux par lot"
+    # animal_productions: "Productions animales"
     animal_tabbox:
       # cares: "Soins"
       # childrens: "Enfants"
@@ -1429,6 +1446,8 @@ arb:
     # placeholder: "Espace réservé"
     # places: "Lieux"
     planned_on: "قرر يوم"
+    # plant_medicines: "Produits phytosanitaires"
+    # plant_productions: "Productions végétales"
     # play: "Éxécuter"
     # please_wait: "Merci de patienter..."
     # preferences: "Préférences"

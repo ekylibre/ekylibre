@@ -40,6 +40,7 @@ spa:
       # index: "Groupes d'animaux"
       # new: "Nouveau groupe d'animaux"
       # show: "Groupe\_: %{name}"
+    backend/animal_medicines: #?
     backend/animals:
       # edit: "Modifier l'animal\_: %{name}"
       # index: "Animaux"
@@ -317,7 +318,11 @@ spa:
       # new: "Nouvelle matière"
       # picture: "Visuel"
       # show: "Matière\_: %{name}"
-    backend/medicines: #?
+    backend/medicines:
+      # edit: "Modifier le médicaments\_: %{name}"
+      # index: "Médicaments"
+      # new: "Nouveau médicaments"
+      # show: "Médicament\_: %{name}"
     backend/meeting_natures: #?
     backend/meetings:
       # edit: "Modifier un évènement"
@@ -341,7 +346,11 @@ spa:
       # new: "Créer un nouveau travail"
       # show: "Détails du travail"
       # unvalidateds: "Travaux non validés"
-    backend/organic_matters: #?
+    backend/organic_matters:
+      # edit: "Modifier la matière organique\_: %{name}"
+      # index: "Matières organiques"
+      # new: "Nouvelle matière organique"
+      # show: "Matière organique\_: %{name}"
     backend/outgoing_deliveries:
       edit: "Modificacion de la entrega"
       # index: "Livraisons sortantes"
@@ -364,6 +373,7 @@ spa:
       # show: "Décaissement n°%{number} pour %{payee}"
     backend/people: #?
     backend/places: #?
+    backend/plant_medicines: #?
     backend/plants:
       # edit: "Modifier la culture\_: %{name}"
       # index: "Cutures"
@@ -525,6 +535,11 @@ spa:
       # edit: "Configuration"
       import: "Importacion"
       # restore: "Restaurer une sauvegarde"
+    backend/settlements:
+      # edit: "Modifier l'installation\_: %{name}"
+      # index: "Installations"
+      # new: "Nouvelle installation"
+      # show: "Installation\_: %{name}"
     backend/snippets: #?
     backend/stock_moves: #?
     backend/stock_transfers: #?
@@ -766,7 +781,9 @@ spa:
       # animals: "Animaux du lot"
       # cares: "Soins réalisés sur le lot"
     # animal_identification: "Identification animale"
+    # animal_medicines: "Médicaments vétérinaires"
     # animal_pie: "Animaux par lot"
+    # animal_productions: "Productions animales"
     animal_tabbox:
       # cares: "Soins"
       # childrens: "Enfants"
@@ -1291,6 +1308,8 @@ spa:
     # placeholder: "Espace réservé"
     # places: "Lieux"
     # planned_on: "Date prévisionnelle"
+    # plant_medicines: "Produits phytosanitaires"
+    # plant_productions: "Productions végétales"
     # play: "Éxécuter"
     # please_wait: "Merci de patienter..."
     # preferences: "Préférences"

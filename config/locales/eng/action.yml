@@ -33,6 +33,7 @@ eng:
       # index: "Groupes d'animaux"
       # new: "Nouveau groupe d'animaux"
       # show: "Groupe\_: %{name}"
+    backend/animal_medicines: #?
     backend/animals:
       # edit: "Modifier l'animal\_: %{name}"
       # index: "Animaux"
@@ -314,7 +315,11 @@ eng:
       # new: "Nouvelle matière"
       # picture: "Visuel"
       # show: "Matière\_: %{name}"
-    backend/medicines: #?
+    backend/medicines:
+      # edit: "Modifier le médicaments\_: %{name}"
+      # index: "Médicaments"
+      # new: "Nouveau médicaments"
+      # show: "Médicament\_: %{name}"
     backend/meeting_natures: #?
     backend/meetings:
       # edit: "Modifier un évènement"
@@ -335,7 +340,11 @@ eng:
       new: "Create a new operation"
       show: "Operation Details %{name}"
       unvalidateds: "Unvalidated operations"
-    backend/organic_matters: #?
+    backend/organic_matters:
+      # edit: "Modifier la matière organique\_: %{name}"
+      # index: "Matières organiques"
+      # new: "Nouvelle matière organique"
+      # show: "Matière organique\_: %{name}"
     backend/outgoing_deliveries:
       edit: "Edit outgoing delivery: %{number}"
       index: "Outgoing deliveries"
@@ -356,6 +365,7 @@ eng:
       show: "Disbursement %{number} for %{payee}"
     backend/people: #?
     backend/places: #?
+    backend/plant_medicines: #?
     backend/plants:
       # edit: "Modifier la culture\_: %{name}"
       # index: "Cutures"
@@ -520,6 +530,11 @@ eng:
       edit: "Configuration"
       import: "Import data"
       restore: "Restore data"
+    backend/settlements:
+      # edit: "Modifier l'installation\_: %{name}"
+      # index: "Installations"
+      # new: "Nouvelle installation"
+      # show: "Installation\_: %{name}"
     backend/snippets: #?
     backend/subscription_natures:
       edit: "Edit the subscription type: %{name}"
@@ -766,7 +781,9 @@ eng:
       animals: "Animal"
       cares: "Cares on animal"
     # animal_identification: "Identification animale"
+    # animal_medicines: "Médicaments vétérinaires"
     animal_pie: "Animals by category"
+    # animal_productions: "Productions animales"
     animal_tabbox:
       cares: "Cares"
       childrens: "Childs"
@@ -1305,6 +1322,8 @@ eng:
     placeholder: "Placeholder"
     # places: "Lieux"
     planned_on: "Planned on"
+    # plant_medicines: "Produits phytosanitaires"
+    # plant_productions: "Productions végétales"
     play: "Play"
     please_wait: "Please wait..."
     preferences: "Preferences"

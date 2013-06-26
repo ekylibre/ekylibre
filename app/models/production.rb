@@ -53,4 +53,32 @@ class Production < Ekylibre::Record::Base
   def name
     ["production"]
   end
+  
+  state_machine :state, :initial => :draft do
+    state :draft
+    state :validated
+    state :aborted
+  
+    event :correct do
+      transition :validated => :draft
+    end
+    
+    event :confirm do
+      transition :draft => :validated, :if => :has_active_product?
+    end
+
+    event :abort do
+      # transition [:draft, :estimate] => :aborted # , :order
+      transition :draft => :aborted # , :order
+    end
+  end
+  
+  before_validation(:on => :create) do
+    self.state ||= self.class.state_machine.initial_state(self)
+  end
+  
+  def has_active_product?
+    self.product_nature.active?
+  end
+  
 end

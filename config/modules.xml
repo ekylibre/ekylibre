@@ -331,6 +331,17 @@
         <page to="backend/products#unroll"/>
         <page to="backend/products#update"/>
       </item>
+      <item name="product_groups">
+        <page to="backend/product_groups#index"/>
+        <page to="backend/product_groups#create"/>
+        <page to="backend/product_groups#destroy"/>
+        <page to="backend/product_groups#edit"/>
+        <page to="backend/product_groups#list"/>
+        <page to="backend/product_groups#list_products"/>
+        <page to="backend/product_groups#new"/>
+        <page to="backend/product_groups#show"/>
+        <page to="backend/product_groups#update"/>
+      </item>
       <item name="stock_transfers">
         <page to="backend/product_transfers#index"/>
         <page to="backend/product_transfers#confirm"/>
@@ -570,15 +581,15 @@
         <page to="backend/buildings#update"/>
       </item>
       <item name="settlements">
-        <page to="backend/settlements#index" deletable="true"/>
-        <page to="backend/settlements#create" deletable="true"/>
-        <page to="backend/settlements#destroy" deletable="true"/>
-        <page to="backend/settlements#edit" deletable="true"/>
-        <page to="backend/settlements#list" deletable="true"/>
-        <page to="backend/settlements#list_operations" deletable="true"/>
-        <page to="backend/settlements#new" deletable="true"/>
-        <page to="backend/settlements#show" deletable="true"/>
-        <page to="backend/settlements#update" deletable="true"/>
+        <page to="backend/settlements#index"/>
+        <page to="backend/settlements#create"/>
+        <page to="backend/settlements#destroy"/>
+        <page to="backend/settlements#edit"/>
+        <page to="backend/settlements#list"/>
+        <page to="backend/settlements#list_operations"/>
+        <page to="backend/settlements#new"/>
+        <page to="backend/settlements#show"/>
+        <page to="backend/settlements#update"/>
       </item>
     </group>
   </module>
@@ -953,18 +964,6 @@
         <page to="backend/outgoing_delivery_modes#new"/>
         <page to="backend/outgoing_delivery_modes#update"/>
       </item>
-      <item name="buildings">
-        <page to="backend/buildings#index"/>
-        <page to="backend/buildings#create"/>
-        <page to="backend/buildings#destroy"/>
-        <page to="backend/buildings#edit"/>
-        <page to="backend/buildings#list"/>
-        <page to="backend/buildings#list_stock_moves"/>
-        <page to="backend/buildings#list_stocks"/>
-        <page to="backend/buildings#new"/>
-        <page to="backend/buildings#show"/>
-        <page to="backend/buildings#update"/>
-      </item>
     </group>
     <group name="production" icon="cogs">
       <item name="backend/campaigns">
@@ -1119,17 +1118,6 @@
       </item>
       <item name="procedures">
         <page to="backend/procedures#jump"/>
-      </item>
-      <item name="product_groups">
-        <page to="backend/product_groups#index"/>
-        <page to="backend/product_groups#create"/>
-        <page to="backend/product_groups#destroy"/>
-        <page to="backend/product_groups#edit"/>
-        <page to="backend/product_groups#list"/>
-        <page to="backend/product_groups#list_products"/>
-        <page to="backend/product_groups#new"/>
-        <page to="backend/product_groups#show"/>
-        <page to="backend/product_groups#update"/>
       </item>
       <item name="product_indicator_data">
         <page to="backend/product_indicator_data#index"/>
