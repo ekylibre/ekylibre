@@ -68,7 +68,9 @@ if ARGV[0] != "g"
     "_329" => "sort_by_alphabet_alt",
     "_334" => "thumbs_up",
     "_335" => "thumbs_down",
-    "_366" => "moon"
+    "_366" => "moon",
+    "f0fe" => "plus_sign_alt",
+    "f171" => "bitbucket"
   }
 
   # FileUtils.cp(font_awesome_dir.join("build", "assets", "font-awesome", "font", "fontawesome-webfont.svg"), awesome_dir.join("font.svg"))
