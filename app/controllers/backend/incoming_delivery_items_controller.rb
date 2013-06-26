@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # == License
 # Ekylibre - Simple ERP
-# Copyright (C) 2008-2011 Brice Texier, Thibaud Merigon
+# Copyright (C) 2013 Brice Texier
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -18,4 +18,16 @@
 #
 
 class Backend::IncomingDeliveryItemsController < BackendController
+
+  def new
+    if request.xhr? and params[:nature_id]
+      return unless nature = find_and_check(:product_nature, params[:nature_id])
+      @incoming_delivery_item = IncomingDeliveryItem.new(:natue => nature)
+      render :partial => "form", :locals => {:nature => nature}
+    else
+      head :forbidden
+    end
+  end
+  
+
 end

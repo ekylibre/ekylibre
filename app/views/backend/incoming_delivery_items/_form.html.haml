@@ -1,0 +1,6 @@
+=field_set do
+  -unless nature.individual
+    =f.input :quantity, :unit => nature.unit
+
+=f.simple_fields_for nature.product.build do |p| 
+  =render "backend/#{nature.matching_model.name.tableize}/form", :f => p

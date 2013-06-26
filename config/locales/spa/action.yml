@@ -36,12 +36,12 @@ spa:
       # index: "Transactions"
       # select: "Ajouter une transaction"
     backend/animal_groups:
-      # edit: "Modifier le groupe d'animaux\_: %{name}"
-      # index: "Groupes d'animaux"
-      # new: "Nouveau groupe d'animaux"
+      # edit: "Modifier le groupe d’animaux\_: %{name}"
+      # index: "Groupes d’animaux"
+      # new: "Nouveau groupe d’animaux"
       # show: "Groupe\_: %{name}"
     backend/animals:
-      # edit: "Modifier l'animal\_: %{name}"
+      # edit: "Modifier l’animal\_: %{name}"
       # index: "Animaux"
       # new: "Nouvel animal"
       # picture: "Photo"
@@ -191,7 +191,7 @@ spa:
       # new: "Ajout d’un nouveau lien"
     backend/entity_natures: #?
     backend/equipments:
-      # edit: "Modifier l'équipement\_: %{name}"
+      # edit: "Modifier l’équipement\_: %{name}"
       # index: "Équipements"
       # new: "Ajouter un nouvel équipement"
       # show: "Équipement %{name}"
@@ -214,20 +214,20 @@ spa:
     backend/helps:
       # index: "Aide"
     backend/incidents:
-      # edit: "Modifier l'incident\_: %{name} (%{nature})"
+      # edit: "Modifier l’incident\_: %{name} (%{nature})"
       # index: "Incidents"
       # new: "Nouvel incident"
       # show: "Incident %{name} (%{nature})"
     backend/incoming_deliveries:
-      # confirm: "Confirmer l’arrivée de la livraison"
-      # edit: "Modifier l’arrivage: %{number}"
-      # index: "Livraisons entrantes"
-      # new: "Enregistrer un nouveau arrivage"
+      # confirm: "Confirmer l’arrivée de l’approvisionnement"
+      # edit: "Modifier l’approvisionnement: %{number}"
+      # index: "Approvisionnements"
+      # new: "Enregistrer un nouvel approvisionnement"
     backend/incoming_delivery_lines: #?
     backend/incoming_delivery_modes:
-      # edit: "Modifier le mode de réception d’arrivage: %{name}"
-      # index: "Modes de réception d’arrivage"
-      # new: "Créer un mode de réception d’arrivage"
+      # edit: "Modifier le mode d’approvisionnement: %{name}"
+      # index: "Modes d’approvisionnement"
+      # new: "Créer un mode d’approvisionnement"
     backend/incoming_payment_modes:
       # edit: "Modifier le mode d’encaissement\_: %{name}"
       # index: "Modes d’encaissement"
@@ -267,7 +267,7 @@ spa:
       show: "Periodico : %{name} (%{code})"
     backend/kujakus: #?
     backend/land_parcel_clusters:
-      # edit: "Modifier l'ilôt\_: %{name}"
+      # edit: "Modifier l’ilôt\_: %{name}"
       # index: "Ilôts"
       # new: "Ajouter un nouvel ilôt"
       # show: "Ilôt %{name}"
@@ -396,19 +396,19 @@ spa:
       # show: "Lot\_: %{name}"
     backend/product_indicator_choices: #?
     backend/product_indicator_data:
-      # edit: "Modifier la valeur d'un indicateur"
+      # edit: "Modifier la valeur d’un indicateur"
       # index: "Indicateurs Produits"
-      # new: "Nouvelle valeur d'indicateur pour un produit"
+      # new: "Nouvelle valeur d’indicateur pour un produit"
       # show: "Valeurs"
     backend/product_indicator_nature_choices: #?
     backend/product_indicator_natures: #?
     backend/product_indicators: #?
     backend/product_links: #?
     backend/product_localizations:
-      # edit: "Modifier une localisation d'un produit"
+      # edit: "Modifier une localisation d’un produit"
       # index: "Tracabilité des produits"
-      # new: "Nouvelle localisation d'un produit"
-      # show: "Détail d'une localisation d'un produit"
+      # new: "Nouvelle localisation d’un produit"
+      # show: "Détail d’une localisation d’un produit"
     backend/product_memberships: #?
     backend/product_moves:
       # edit: "Modifier le mouvement de stock\_: %{name}"
@@ -671,13 +671,13 @@ spa:
   errors:
     messages:
       # already_confirmed: "a déjà été validé(e)"
-      # confirmation_period_expired: "doit être confirmé sous %{period}, refaites une nouvelle demande s'il vous plait"
-      # expired: "a expiré, merci d'en faire une nouvelle demande"
-      # not_found: "n'a pas été trouvé(e)"
-      # not_locked: "n'était pas verrouillé(e)"
+      # confirmation_period_expired: "doit être confirmé sous %{period}, refaites une nouvelle demande s’il vous plait"
+      # expired: "a expiré, merci d’en faire une nouvelle demande"
+      # not_found: "n’a pas été trouvé(e)"
+      # not_locked: "n’était pas verrouillé(e)"
       not_saved:
-        # one: "1 erreur a empêché ce(tte) %{resource} d'être sauvegardé(e) :"
-        # other: "%{count} erreurs ont empêché ce(tte) %{resource} d'être sauvegardé(e) :"
+        # one: "1 erreur a empêché ce(tte) %{resource} d’être sauvegardé(e) :"
+        # other: "%{count} erreurs ont empêché ce(tte) %{resource} d’être sauvegardé(e) :"
     template:
       # body: "Il y a eu des problèmes avec les champs suivants\_:"
       header:
@@ -1493,10 +1493,10 @@ spa:
     # to_date: "Au"
     # to_deliver: "Livrer"
     # to_deposit: "À encaisser"
-    # today: "Aujourd'hui"
+    # today: "Aujourd’hui"
     # tool_update: "Modifier le matériel"
     # tools: "Outils"
-    # tools_list: "Liste d'outils"
+    # tools_list: "Liste d’outils"
     total: "Total"
     total_amount: "Total importe HT"
     # total_in_currency: "Total (%{currency})"
@@ -1698,7 +1698,7 @@ spa:
     changes_have_not_been_reflected: "Los cambios no han sido repercutidos correctamente sobre el estatuto de depósitos actua"
     closed_financial_years: "El ejercicio ha sido correctamente cerrado"
     columns_are_already_uses: "Una o varias columnas que hay que importar son seleccionados muchas veces"
-    # dashboard_is_being_developed: "Les tableaux de bord sont en cours d'élaboration"
+    # dashboard_is_being_developed: "Les tableaux de bord sont en cours d’élaboration"
     draft_entries_are_validated:  #?
       one: "La pieza ha sido validada y es sacada de la niebla" #?
       other: "Las %{cuentos} han sido validadas y son sacadas de la niebla" #?

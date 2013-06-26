@@ -20,12 +20,14 @@
 class Backend::IncomingDeliveriesController < BackendController
   unroll_all
 
-  list(:conditions => moved_conditions(IncomingDelivery)) do |t|
+  manage_restfully
+
+  list do |t|
     t.column :number
     t.column :reference_number
     # t.column :description
     t.column :weight
-    # t.column :planned_on
+    t.column :planned_at
     t.column :received_at
     t.column :name, :through => :mode
     t.column :number, :through => :purchase, :url => true
@@ -44,87 +46,86 @@ class Backend::IncomingDeliveriesController < BackendController
     redirect_to :action => :index, :mode => :unconfirmed
   end
 
-  def new
-    return unless @purchase = find_and_check(:purchase, params[:purchase_id]||params[:purchase_id]||session[:current_purchase_id])
-    unless @purchase.order?
-      notify_warning(:purchase_already_invoiced)
-      redirect_to_back
-      return
-    end
-    purchase_items = @purchase.items# .find_all_by_reduction_origin_id(nil)
-    notify_warning(:no_items_found) if purchase_items.empty?
-    @incoming_delivery = IncomingDelivery.new({:pretax_amount => @purchase.undelivered("pretax_amount"), :amount => @purchase.undelivered("amount"), :planned_on => Date.today, :address_id => @purchase.delivery_address_id}, :without_protection => true)
-    @incoming_delivery_items = purchase_items.collect{|x| IncomingDeliveryItem.new(:purchase_item_id => x.id, :quantity => x.undelivered_quantity)}
-    # render_restfully_form
-  end
+  # def new
+  #   return unless @purchase = find_and_check(:purchase, params[:purchase_id]||params[:purchase_id]||session[:current_purchase_id])
+  #   unless @purchase.order?
+  #     notify_warning(:purchase_already_invoiced)
+  #     redirect_to_back
+  #     return
+  #   end
+  #   purchase_items = @purchase.items # .find_all_by_reduction_origin_id(nil)
+  #   notify_warning(:no_items_found) if purchase_items.empty?
+  #   @incoming_delivery = IncomingDelivery.new({:pretax_amount => @purchase.undelivered("pretax_amount"), :amount => @purchase.undelivered("amount"), :planned_at => Date.today, :address_id => @purchase.delivery_address_id}, :without_protection => true)
+  #   @incoming_delivery_items = purchase_items.collect{|x| IncomingDeliveryItem.new(:purchase_item_id => x.id, :quantity => x.undelivered_quantity)}
+  #   # render_restfully_form
+  # end
 
-  def create
-    return unless @purchase = find_and_check(:purchase, params[:purchase_id]||params[:purchase_id]||session[:current_purchase_id])
-    unless @purchase.order?
-      notify_warning(:purchase_already_invoiced)
-      redirect_to_back
-    end
-    purchase_items = @purchase.items# .find_all_by_reduction_origin_id(nil)
-    notify_warning(:no_items_found) if purchase_items.empty?
+  # def create
+  #   return unless @purchase = find_and_check(:purchase, params[:purchase_id]||params[:purchase_id]||session[:current_purchase_id])
+  #   unless @purchase.order?
+  #     notify_warning(:purchase_already_invoiced)
+  #     redirect_to_back
+  #   end
+  #   purchase_items = @purchase.items# .find_all_by_reduction_origin_id(nil)
+  #   notify_warning(:no_items_found) if purchase_items.empty?
 
-    @incoming_delivery = @purchase.deliveries.new(params[:incoming_delivery])
-    ActiveRecord::Base.transaction do
-      if saved = @incoming_delivery.save
-        for item in purchase_items
-          if params[:incoming_delivery_item][item.id.to_s][:quantity].to_f > 0
-            incoming_delivery_item = @incoming_delivery.items.new(:purchase_item_id => item.id, :quantity => params[:incoming_delivery_item][item.id.to_s][:quantity].to_f)
-            saved = false unless incoming_delivery_item.save
-            @incoming_delivery.errors.add_from_record(incoming_delivery_item)
-          end
-        end
-      end
-      raise ActiveRecord::Rollback unless saved
-      redirect_to :controller => :purchases, :action => :show, :step => :deliveries, :id => @purchase.id
-      return
-    end
-    @incoming_delivery_items = purchase_items.collect{|x| IncomingDeliveryItem.new(:purchase_item_id => x.id, :quantity => x.undelivered_quantity)}
-    # render_restfully_form
-  end
+  #   @incoming_delivery = @purchase.deliveries.new(params[:incoming_delivery])
+  #   ActiveRecord::Base.transaction do
+  #     if saved = @incoming_delivery.save
+  #       for item in purchase_items
+  #         if params[:incoming_delivery_item][item.id.to_s][:quantity].to_f > 0
+  #           incoming_delivery_item = @incoming_delivery.items.new(:purchase_item_id => item.id, :quantity => params[:incoming_delivery_item][item.id.to_s][:quantity].to_f)
+  #           saved = false unless incoming_delivery_item.save
+  #           @incoming_delivery.errors.add_from_record(incoming_delivery_item)
+  #         end
+  #       end
+  #     end
+  #     raise ActiveRecord::Rollback unless saved
+  #     redirect_to :controller => :purchases, :action => :show, :step => :deliveries, :id => @purchase.id
+  #     return
+  #   end
+  #   @incoming_delivery_items = purchase_items.collect{|x| IncomingDeliveryItem.new(:purchase_item_id => x.id, :quantity => x.undelivered_quantity)}
+  #   # render_restfully_form
+  # end
 
-  def edit
-    return unless @incoming_delivery = find_and_check(:incoming_delivery)
-    session[:current_incoming_delivery] = @incoming_delivery.id
-    @purchase = @incoming_delivery.purchase
-    @incoming_delivery_items = @incoming_delivery.items
-    # render_restfully_form(:id => @incoming_delivery_form)
-  end
+  # def edit
+  #   return unless @incoming_delivery = find_and_check(:incoming_delivery)
+  #   session[:current_incoming_delivery] = @incoming_delivery.id
+  #   @purchase = @incoming_delivery.purchase
+  #   @incoming_delivery_items = @incoming_delivery.items
+  #   # render_restfully_form(:id => @incoming_delivery_form)
+  # end
 
-  def update
-    return unless @incoming_delivery = find_and_check(:incoming_delivery)
-    session[:current_incoming_delivery] = @incoming_delivery.id
-    @purchase = @incoming_delivery.purchase
-    @incoming_delivery_items = @incoming_delivery.items
-    ActiveRecord::Base.transaction do
-      saved = @incoming_delivery.update_attributes!(params[:incoming_delivery])
-      if saved and params[:incoming_delivery_item]
-        for item in @incoming_delivery.items
-          item_attrs = params[:incoming_delivery_item][item.purchase_item.id.to_s]||{}
-          if item_attrs[:quantity].to_f > 0
-            saved = false unless item.update_attributes(:quantity => item_attrs[:quantity].to_f)
-            @incoming_delivery.errors.add_from_record(item)
-          end
-        end
-      end
-      if saved
-        redirect_to :controller => :purchases, :action => :show, :step => :deliveries, :id => @purchase.id
-        return
-      else
-        raise ActiveRecord::Rollback
-      end
-    end
-    # render_restfully_form(:id => @incoming_delivery_form)
-  end
+  # def update
+  #   return unless @incoming_delivery = find_and_check(:incoming_delivery)
+  #   session[:current_incoming_delivery] = @incoming_delivery.id
+  #   @purchase = @incoming_delivery.purchase
+  #   @incoming_delivery_items = @incoming_delivery.items
+  #   ActiveRecord::Base.transaction do
+  #     saved = @incoming_delivery.update_attributes!(params[:incoming_delivery])
+  #     if saved and params[:incoming_delivery_item]
+  #       for item in @incoming_delivery.items
+  #         item_attrs = params[:incoming_delivery_item][item.purchase_item.id.to_s]||{}
+  #         if item_attrs[:quantity].to_f > 0
+  #           saved = false unless item.update_attributes(:quantity => item_attrs[:quantity].to_f)
+  #           @incoming_delivery.errors.add_from_record(item)
+  #         end
+  #       end
+  #     end
+  #     if saved
+  #       redirect_to :controller => :purchases, :action => :show, :step => :deliveries, :id => @purchase.id
+  #       return
+  #     else
+  #       raise ActiveRecord::Rollback
+  #     end
+  #   end
+  #   # render_restfully_form(:id => @incoming_delivery_form)
+  # end
 
-
-  def destroy
-    return unless @incoming_delivery = find_and_check(:incoming_delivery)
-    @incoming_delivery.destroy if @incoming_delivery.destroyable?
-    redirect_to_current
-  end
+  # def destroy
+  #   return unless @incoming_delivery = find_and_check(:incoming_delivery)
+  #   @incoming_delivery.destroy if @incoming_delivery.destroyable?
+  #   redirect_to_current
+  # end
 
 end

@@ -1,12 +1,13 @@
--# TODO: Manage extra contents in forms
-=purchase_steps
-
 =field_set do
   -# TODO: Manage variables in :new parameters
-  =f.referenced_association :address, :source => :own_mails # , :new => {:entity_id => @purchase.supplier_id}
+  =f.referenced_association :sender, :source => :suppliers
+  =f.referenced_association :address, :source => :own_mails
   =f.referenced_association :mode
-  =f.input :planned_on
+  =f.input :planned_at
 
-=field_set :incoming_delivery_items do
-  =render 'items_form'
+.add
+  %span=:add_item.tl
+  %span.input-append=text_field_tag(:nature_id, nil, 'data-selector' => url_for(:controller => :product_natures, :action => :unroll), 'data-selector-new-item' => url_for(:action => :new, :controller => :product_natures))
+  =link_to(:add.tl, {:action => :new, :controller => :incoming_delivery_items}, :class => "btn", :remote => true, 'data-update' => '#items', 'data-insert' => 'bottom')
 
+#items

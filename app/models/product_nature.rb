@@ -151,6 +151,23 @@ class ProductNature < Ekylibre::Record::Base
     return true
   end
 
+  # Returns the closest matching model based on the given variety
+  def self.matching_model(variety)
+    if item = Nomenclatures["varieties"].find(variety)
+      for ancestor in item.ancestors
+        model = ancestor.name.camelcase.constantize rescue nil
+        return model if model <= Product
+      end
+    end
+    return nil
+  end
+
+  # Returns the matching model for the record
+  def matching_model
+    return self.class.matching_model(self.variety)
+  end
+
+
   def to
     to = []
     to << :sales if self.saleable?
@@ -159,9 +176,6 @@ class ProductNature < Ekylibre::Record::Base
     to.collect{|x| tc('to.'+x.to_s)}.to_sentence
   end
 
-  def units
-    Unit.of_product(self)
-  end
 
 
   def deliverable?

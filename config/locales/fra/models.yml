@@ -924,7 +924,7 @@ fra:
     picture_file_size: "Taille du fichier photo"
     picture_updated_at: "Fichier photo mis à jour le"
     place: "Place"
-    planned_at: "Prévu à" #?
+    planned_at: "Prévu à"
     planned_depreciations: "Amortissements prévus"
     planned_on: "Prévu le"
     position: "Position"

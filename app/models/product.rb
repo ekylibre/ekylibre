@@ -136,6 +136,13 @@ class Product < Ekylibre::Record::Base
     end
   end
 
+
+  # Returns the matching model for the record
+  def matching_model
+    return ProductNature.matching_model(self.variety)
+  end
+
+
   # Returns the price for the product.
   # It's a shortcut for ProductPrice::give
   def price(options = {})

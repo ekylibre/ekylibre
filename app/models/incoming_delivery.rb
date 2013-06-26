@@ -27,7 +27,7 @@
 #  lock_version     :integer          default(0), not null
 #  mode_id          :integer
 #  number           :string(255)
-#  planned_on       :date
+#  planned_at       :datetime
 #  purchase_id      :integer
 #  received_at      :datetime
 #  reference_number :string(255)
@@ -40,7 +40,7 @@
 
 class IncomingDelivery < Ekylibre::Record::Base
   acts_as_numbered
-  attr_accessible :address_id, :sender_id, :mode_id, :received_at, :reference_number # , :description
+  attr_accessible :address_id, :sender_id, :mode_id, :received_at, :reference_number, :items_attributes # , :description
   attr_readonly :number
   belongs_to :address, :class_name => "EntityAddress"
   belongs_to :mode, :class_name => "IncomingDeliveryMode"
@@ -54,26 +54,21 @@ class IncomingDelivery < Ekylibre::Record::Base
   validates_length_of :number, :reference_number, :allow_nil => true, :maximum => 255
   validates_presence_of :sender
   #]VALIDATORS]
-  validates_presence_of :planned_on, :address
+  validates_presence_of :planned_at, :address
 
+  accepts_nested_attributes_for :items
   delegate :order?, :draft?, :to => :purchase
   scope :undelivereds, -> { where(:received_at => nil) }
 
   before_validation do
-    self.planned_on ||= Date.today
-#     self.pretax_amount = self.amount = self.weight = 0.0
-#     for item in self.items
-#       self.pretax_amount += item.pretax_amount
-#       self.amount += item.amount
-#       self.weight += (item.product.weight||0)*item.quantity
-#     end
+    self.planned_at ||= Time.now
     return true
   end
 
-  # Only used for list usage
-  def quantity
-    nil
-  end
+  # # Only used for list usage
+  # def quantity
+  #   nil
+  # end
 
   def execute(received_at = Time.now)
     self.class.transaction do

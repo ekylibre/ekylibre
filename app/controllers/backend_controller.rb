@@ -237,7 +237,8 @@ class BackendController < BaseController
   # end
 
 
-  def find_and_check(model = nil, id = nil, options={})
+  # Find a record with the current environment or given parameters and check availability of it
+  def find_and_check(model = nil, id = nil)
     model ||= self.controller_name
     model, record, klass = model.to_s, nil, nil
     id ||= params[:id]
@@ -252,6 +253,7 @@ class BackendController < BaseController
     if record.nil?
       notify_error(:unavailable_model, :model => klass.model_name.human, :id => id)
       redirect_to_current
+      return false
     end
     return record
   end

@@ -381,7 +381,7 @@ Ekylibre::Application.routes.draw do
         match "confirm", :via => [:get, :post]
       end
     end
-    # resources :incoming_delivery_items
+    resources :incoming_delivery_items, :only => [:new]
     resources :incoming_delivery_modes do
       collection do
         get :list

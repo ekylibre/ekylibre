@@ -296,7 +296,8 @@ html.backend {
       max-width: 100%;
       & > #side {
         height: 100%;
-        @include background(rgba(black, 0.05));
+        //@include background(rgba(black, 0.05));
+        @include background(#EEE);
         #user {
           display: none;
         }
@@ -307,7 +308,7 @@ html.backend {
           padding: 0;
           margin: 0;
           height: $header-height;
-          background: #EEE;
+          // background: #EEE;
           h1 {
             padding: $default-gap;
             $h1-height: $header-height - 2* $default-gap;
@@ -674,6 +675,12 @@ form.search {
     @include calc(width, "100% - #{2 * $padding} - #{2 * $menu-border-width}");
     display: block;
   }
+}
+
+.add {
+  padding: $default-gap;
+  @include background(transparentize($important-color, 0.6));
+  text-align: center !important;
 }
 
 .picture {

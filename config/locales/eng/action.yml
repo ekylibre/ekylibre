@@ -29,12 +29,12 @@ eng:
       # index: "Transactions"
       # select: "Ajouter une transaction"
     backend/animal_groups:
-      # edit: "Modifier le groupe d'animaux\_: %{name}"
-      # index: "Groupes d'animaux"
-      # new: "Nouveau groupe d'animaux"
+      # edit: "Modifier le groupe d’animaux\_: %{name}"
+      # index: "Groupes d’animaux"
+      # new: "Nouveau groupe d’animaux"
       # show: "Groupe\_: %{name}"
     backend/animals:
-      # edit: "Modifier l'animal\_: %{name}"
+      # edit: "Modifier l’animal\_: %{name}"
       # index: "Animaux"
       # new: "Nouvel animal"
       # picture: "Photo"
@@ -189,7 +189,7 @@ eng:
       index: "Person types" #?
       new: "Add a new person type" #?
     backend/equipments:
-      # edit: "Modifier l'équipement\_: %{name}"
+      # edit: "Modifier l’équipement\_: %{name}"
       # index: "Équipements"
       # new: "Ajouter un nouvel équipement"
       # show: "Équipement %{name}"
@@ -220,7 +220,7 @@ eng:
     backend/helps:
       # index: "Aide"
     backend/incidents:
-      # edit: "Modifier l'incident\_: %{name} (%{nature})"
+      # edit: "Modifier l’incident\_: %{name} (%{nature})"
       # index: "Incidents"
       # new: "Nouvel incident"
       # show: "Incident %{name} (%{nature})"
@@ -270,7 +270,7 @@ eng:
       show: "Journal: %{name} (%{code})"
     backend/kujakus: #?
     backend/land_parcel_clusters:
-      # edit: "Modifier l'ilôt\_: %{name}"
+      # edit: "Modifier l’ilôt\_: %{name}"
       # index: "Ilôts"
       # new: "Ajouter un nouvel ilôt"
       # show: "Ilôt %{name}"
@@ -386,19 +386,19 @@ eng:
       # show: "Lot\_: %{name}"
     backend/product_indicator_choices: #?
     backend/product_indicator_data:
-      # edit: "Modifier la valeur d'un indicateur"
+      # edit: "Modifier la valeur d’un indicateur"
       # index: "Indicateurs Produits"
-      # new: "Nouvelle valeur d'indicateur pour un produit"
+      # new: "Nouvelle valeur d’indicateur pour un produit"
       # show: "Valeurs"
     backend/product_indicator_nature_choices: #?
     backend/product_indicator_natures: #?
     backend/product_indicators: #?
     backend/product_links: #?
     backend/product_localizations:
-      # edit: "Modifier une localisation d'un produit"
+      # edit: "Modifier une localisation d’un produit"
       # index: "Tracabilité des produits"
-      # new: "Nouvelle localisation d'un produit"
-      # show: "Détail d'une localisation d'un produit"
+      # new: "Nouvelle localisation d’un produit"
+      # show: "Détail d’une localisation d’un produit"
     backend/product_memberships: #?
     backend/product_moves:
       edit: "Edit the stock move: %{name}"
@@ -671,13 +671,13 @@ eng:
   errors:
     messages:
       # already_confirmed: "a déjà été validé(e)"
-      # confirmation_period_expired: "doit être confirmé sous %{period}, refaites une nouvelle demande s'il vous plait"
-      # expired: "a expiré, merci d'en faire une nouvelle demande"
-      # not_found: "n'a pas été trouvé(e)"
-      # not_locked: "n'était pas verrouillé(e)"
+      # confirmation_period_expired: "doit être confirmé sous %{period}, refaites une nouvelle demande s’il vous plait"
+      # expired: "a expiré, merci d’en faire une nouvelle demande"
+      # not_found: "n’a pas été trouvé(e)"
+      # not_locked: "n’était pas verrouillé(e)"
       not_saved:
-        # one: "1 erreur a empêché ce(tte) %{resource} d'être sauvegardé(e) :"
-        # other: "%{count} erreurs ont empêché ce(tte) %{resource} d'être sauvegardé(e) :"
+        # one: "1 erreur a empêché ce(tte) %{resource} d’être sauvegardé(e) :"
+        # other: "%{count} erreurs ont empêché ce(tte) %{resource} d’être sauvegardé(e) :"
     template:
       body: "There were problems with the following fields:"
       header:
@@ -1501,7 +1501,7 @@ eng:
     to_date: "To date"
     to_deliver: "To deliver"
     to_deposit: "To deposit"
-    # today: "Aujourd'hui"
+    # today: "Aujourd’hui"
     tool_update: "Update tool"
     tools: "Used tools"
     tools_list: "Tools"
@@ -1708,7 +1708,7 @@ eng:
     changes_have_not_been_reflected: "The changes have not been reflected in the stocks state"
     closed_financial_years: "The financial year has been closed successfully"
     columns_are_already_uses: "One or many columns are selected many times"
-    # dashboard_is_being_developed: "Les tableaux de bord sont en cours d'élaboration"
+    # dashboard_is_being_developed: "Les tableaux de bord sont en cours d’élaboration"
     draft_entry_items_are_validated:
       # one: "%{count} ligne de brouillard validée"
       # other: "%{count} lignes de brouillard validées"
