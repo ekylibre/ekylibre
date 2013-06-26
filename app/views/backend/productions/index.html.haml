@@ -1,3 +1,10 @@
+=kujaku do |k|
+  -k.text
+  -k.radio :all, :validated, :draft
+  -k.criterion do
+    %label=Production.human_attribute_name(:product_nature)
+    =select_tag(:product_nature_id, options_for_select([[]] + ProductNature.all.collect{|u| [u.label, u.id]}, params[:product_nature_id]))
+
 =main_toolbar do |t|
   -t.new
 =list

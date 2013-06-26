@@ -331,6 +331,17 @@
         <page to="backend/products#unroll"/>
         <page to="backend/products#update"/>
       </item>
+      <item name="product_groups">
+        <page to="backend/product_groups#index"/>
+        <page to="backend/product_groups#create"/>
+        <page to="backend/product_groups#destroy"/>
+        <page to="backend/product_groups#edit"/>
+        <page to="backend/product_groups#list"/>
+        <page to="backend/product_groups#list_products"/>
+        <page to="backend/product_groups#new"/>
+        <page to="backend/product_groups#show"/>
+        <page to="backend/product_groups#update"/>
+      </item>
       <item name="stock_transfers">
         <page to="backend/product_transfers#index"/>
         <page to="backend/product_transfers#confirm"/>
@@ -447,35 +458,8 @@
         <page to="backend/operation_tasks#show"/>
         <page to="backend/operation_tasks#update"/>
       </item>
-      <item name="product_localizations">
-        <page to="backend/product_localizations#index"/>
-        <page to="backend/product_localizations#create"/>
-        <page to="backend/product_localizations#destroy"/>
-        <page to="backend/product_localizations#edit"/>
-        <page to="backend/product_localizations#list"/>
-        <page to="backend/product_localizations#new"/>
-        <page to="backend/product_localizations#show"/>
-        <page to="backend/product_localizations#update"/>
-      </item>
-      <item name="product_groups">
-        <page to="backend/product_groups#index"/>
-        <page to="backend/product_groups#create"/>
-        <page to="backend/product_groups#destroy"/>
-        <page to="backend/product_groups#list_products"/>
-        <page to="backend/product_groups#edit"/>
-        <page to="backend/product_groups#list"/>
-        <page to="backend/product_groups#list_children"/>
-        <page to="backend/product_groups#new"/>
-        <page to="backend/product_groups#show"/>
-        <page to="backend/product_groups#update"/>
-        <page to="backend/product_memberships#index"/>
-        <page to="backend/product_memberships#create"/>
-        <page to="backend/product_memberships#destroy"/>
-        <page to="backend/product_memberships#edit"/>
-        <page to="backend/product_memberships#new"/>
-        <page to="backend/product_memberships#show"/>
-        <page to="backend/product_memberships#update"/>
-      </item>
+    </group>
+    <group name="animal_productions" icon="cow">
       <item name="animal_groups">
         <page to="backend/animal_groups#index"/>
         <page to="backend/animal_groups#create"/>
@@ -488,8 +472,6 @@
         <page to="backend/animal_groups#list_animals"/>
         <page to="backend/animal_groups#list_place"/>
       </item>
-    </group>
-    <group name="product" icon="wheat">
       <item name="animals">
         <page to="backend/animals#index"/>
         <page to="backend/animals#create"/>
@@ -505,6 +487,19 @@
         <page to="backend/animals#list_place"/>
         <page to="backend/animals#picture"/>
       </item>
+      <item name="animal_medicines">
+        <page to="backend/animal_medicines#index"/>
+        <page to="backend/animal_medicines#create"/>
+        <page to="backend/animal_medicines#destroy"/>
+        <page to="backend/animal_medicines#edit"/>
+        <page to="backend/animal_medicines#list"/>
+        <page to="backend/animal_medicines#list_operations"/>
+        <page to="backend/animal_medicines#new"/>
+        <page to="backend/animal_medicines#show"/>
+        <page to="backend/animal_medicines#update"/>
+      </item>
+    </group>
+    <group name="plant_productions" icon="wheat">
       <item name="plants">
         <page to="backend/plants#index"/>
         <page to="backend/plants#create"/>
@@ -516,19 +511,19 @@
         <page to="backend/plants#show"/>
         <page to="backend/plants#update"/>
       </item>
-      <item name="matters">
-        <page to="backend/matters#index"/>
-        <page to="backend/matters#create"/>
-        <page to="backend/matters#destroy"/>
-        <page to="backend/matters#edit"/>
-        <page to="backend/matters#list"/>
-        <page to="backend/matters#new"/>
-        <page to="backend/matters#show"/>
-        <page to="backend/matters#update"/>
-        <page to="backend/matters#list_group"/>
-        <page to="backend/matters#list_place"/>
-        <page to="backend/matters#picture"/>
+      <item name="plant_medicines">
+        <page to="backend/plant_medicines#index"/>
+        <page to="backend/plant_medicines#create"/>
+        <page to="backend/plant_medicines#destroy"/>
+        <page to="backend/plant_medicines#edit"/>
+        <page to="backend/plant_medicines#list"/>
+        <page to="backend/plant_medicines#list_operations"/>
+        <page to="backend/plant_medicines#new"/>
+        <page to="backend/plant_medicines#show"/>
+        <page to="backend/plant_medicines#update"/>
       </item>
+    </group>
+    <group name="land_parcels" icon="land_parcels">
       <item name="land_parcels">
         <page to="backend/land_parcels#index"/>
         <page to="backend/land_parcels#create"/>
@@ -542,6 +537,26 @@
         <page to="backend/land_parcels#show"/>
         <page to="backend/land_parcels#update"/>
       </item>
+      <item name="land_parcel_clusters">
+        <page to="backend/land_parcel_clusters#index"/>
+        <page to="backend/land_parcel_clusters#create"/>
+        <page to="backend/land_parcel_clusters#destroy"/>
+        <page to="backend/land_parcel_clusters#edit"/>
+        <page to="backend/land_parcel_clusters#list"/>
+        <page to="backend/land_parcel_clusters#new"/>
+        <page to="backend/land_parcel_clusters#show"/>
+        <page to="backend/land_parcel_clusters#update"/>
+      </item>
+      <item name="land_parcel_groups">
+        <page to="backend/land_parcel_groups#index"/>
+        <page to="backend/land_parcel_groups#create"/>
+        <page to="backend/land_parcel_groups#destroy"/>
+        <page to="backend/land_parcel_groups#edit"/>
+        <page to="backend/land_parcel_groups#list"/>
+        <page to="backend/land_parcel_groups#new"/>
+        <page to="backend/land_parcel_groups#show"/>
+        <page to="backend/land_parcel_groups#update"/>
+      </item>
     </group>
     <group name="tools" icon="cog">
       <item name="equipments">
@@ -554,6 +569,27 @@
         <page to="backend/equipments#new"/>
         <page to="backend/equipments#show"/>
         <page to="backend/equipments#update"/>
+      </item>
+      <item name="buildings">
+        <page to="backend/buildings#index"/>
+        <page to="backend/buildings#create"/>
+        <page to="backend/buildings#destroy"/>
+        <page to="backend/buildings#edit"/>
+        <page to="backend/buildings#list"/>
+        <page to="backend/buildings#new"/>
+        <page to="backend/buildings#show"/>
+        <page to="backend/buildings#update"/>
+      </item>
+      <item name="settlements">
+        <page to="backend/settlements#index"/>
+        <page to="backend/settlements#create"/>
+        <page to="backend/settlements#destroy"/>
+        <page to="backend/settlements#edit"/>
+        <page to="backend/settlements#list"/>
+        <page to="backend/settlements#list_operations"/>
+        <page to="backend/settlements#new"/>
+        <page to="backend/settlements#show"/>
+        <page to="backend/settlements#update"/>
       </item>
     </group>
   </module>
@@ -928,18 +964,6 @@
         <page to="backend/outgoing_delivery_modes#new"/>
         <page to="backend/outgoing_delivery_modes#update"/>
       </item>
-      <item name="buildings">
-        <page to="backend/buildings#index"/>
-        <page to="backend/buildings#create"/>
-        <page to="backend/buildings#destroy"/>
-        <page to="backend/buildings#edit"/>
-        <page to="backend/buildings#list"/>
-        <page to="backend/buildings#list_stock_moves"/>
-        <page to="backend/buildings#list_stocks"/>
-        <page to="backend/buildings#new"/>
-        <page to="backend/buildings#show"/>
-        <page to="backend/buildings#update"/>
-      </item>
     </group>
     <group name="production" icon="cogs">
       <item name="backend/campaigns">
@@ -951,36 +975,6 @@
         <page to="backend/campaigns#new"/>
         <page to="backend/campaigns#show"/>
         <page to="backend/campaigns#update"/>
-      </item>
-      <item name="land_parcel_groups">
-        <page to="backend/land_parcel_groups#index"/>
-        <page to="backend/land_parcel_groups#create"/>
-        <page to="backend/land_parcel_groups#destroy"/>
-        <page to="backend/land_parcel_groups#edit"/>
-        <page to="backend/land_parcel_groups#list"/>
-        <page to="backend/land_parcel_groups#new"/>
-        <page to="backend/land_parcel_groups#show"/>
-        <page to="backend/land_parcel_groups#update"/>
-      </item>
-      <item name="land_parcel_clusters">
-        <page to="backend/land_parcel_clusters#index"/>
-        <page to="backend/land_parcel_clusters#create"/>
-        <page to="backend/land_parcel_clusters#destroy"/>
-        <page to="backend/land_parcel_clusters#edit"/>
-        <page to="backend/land_parcel_clusters#list"/>
-        <page to="backend/land_parcel_clusters#new"/>
-        <page to="backend/land_parcel_clusters#show"/>
-        <page to="backend/land_parcel_clusters#update"/>
-      </item>
-      <item name="buildings">
-        <page to="backend/buildings#index"/>
-        <page to="backend/buildings#create"/>
-        <page to="backend/buildings#destroy"/>
-        <page to="backend/buildings#edit"/>
-        <page to="backend/buildings#list"/>
-        <page to="backend/buildings#new"/>
-        <page to="backend/buildings#show"/>
-        <page to="backend/buildings#update"/>
       </item>
     </group>
   </module>
@@ -1058,6 +1052,9 @@
       <item name="entities">
         <page to="backend/entities#list_meeting_participations"/>
       </item>
+      <item name="incoming_delivery_items">
+        <page to="backend/incoming_delivery_items#new"/>
+      </item>
       <item name="interfacers">
         <page to="backend/interfacers#autocomplete"/>
         <page to="backend/interfacers#product_trackings"/>
@@ -1083,18 +1080,41 @@
         <page to="backend/logs#show"/>
         <page to="backend/logs#update"/>
       </item>
+      <item name="matters">
+        <page to="backend/matters#index"/>
+        <page to="backend/matters#create"/>
+        <page to="backend/matters#destroy"/>
+        <page to="backend/matters#edit"/>
+        <page to="backend/matters#list"/>
+        <page to="backend/matters#list_group"/>
+        <page to="backend/matters#list_place"/>
+        <page to="backend/matters#new"/>
+        <page to="backend/matters#picture"/>
+        <page to="backend/matters#show"/>
+        <page to="backend/matters#update"/>
+      </item>
+      <item name="medicines">
+        <page to="backend/medicines#index"/>
+        <page to="backend/medicines#create"/>
+        <page to="backend/medicines#destroy"/>
+        <page to="backend/medicines#edit"/>
+        <page to="backend/medicines#list"/>
+        <page to="backend/medicines#new"/>
+        <page to="backend/medicines#show"/>
+        <page to="backend/medicines#update"/>
+      </item>
       <item name="operations">
         <page to="backend/operations#unroll"/>
       </item>
-      <item name="places">
-        <page to="backend/places#index"/>
-        <page to="backend/places#create"/>
-        <page to="backend/places#destroy"/>
-        <page to="backend/places#edit"/>
-        <page to="backend/places#list"/>
-        <page to="backend/places#new"/>
-        <page to="backend/places#show"/>
-        <page to="backend/places#update"/>
+      <item name="organic_matters">
+        <page to="backend/organic_matters#index"/>
+        <page to="backend/organic_matters#create"/>
+        <page to="backend/organic_matters#destroy"/>
+        <page to="backend/organic_matters#edit"/>
+        <page to="backend/organic_matters#list"/>
+        <page to="backend/organic_matters#new"/>
+        <page to="backend/organic_matters#show"/>
+        <page to="backend/organic_matters#update"/>
       </item>
       <item name="plants">
         <page to="backend/plants#picture"/>
@@ -1120,6 +1140,25 @@
         <page to="backend/product_links#new"/>
         <page to="backend/product_links#show"/>
         <page to="backend/product_links#update"/>
+      </item>
+      <item name="product_localizations">
+        <page to="backend/product_localizations#index"/>
+        <page to="backend/product_localizations#create"/>
+        <page to="backend/product_localizations#destroy"/>
+        <page to="backend/product_localizations#edit"/>
+        <page to="backend/product_localizations#list"/>
+        <page to="backend/product_localizations#new"/>
+        <page to="backend/product_localizations#show"/>
+        <page to="backend/product_localizations#update"/>
+      </item>
+      <item name="product_memberships">
+        <page to="backend/product_memberships#index"/>
+        <page to="backend/product_memberships#create"/>
+        <page to="backend/product_memberships#destroy"/>
+        <page to="backend/product_memberships#edit"/>
+        <page to="backend/product_memberships#new"/>
+        <page to="backend/product_memberships#show"/>
+        <page to="backend/product_memberships#update"/>
       </item>
       <item name="product_nature_abilities">
         <page to="backend/product_nature_abilities#index"/>

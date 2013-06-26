@@ -40,6 +40,11 @@ spa:
       # index: "Groupes d’animaux"
       # new: "Nouveau groupe d’animaux"
       # show: "Groupe\_: %{name}"
+    backend/animal_medicines:
+      # edit: "Modifier le produit vétérinaire\_: %{name}"
+      # index: "Produits vétérinaires"
+      # new: "Nouveau produit vétérinaire"
+      # show: "Produit vétérinaire\_: %{name}"
     backend/animals:
       # edit: "Modifier l’animal\_: %{name}"
       # index: "Animaux"
@@ -223,6 +228,7 @@ spa:
       # edit: "Modifier l’approvisionnement: %{number}"
       # index: "Approvisionnements"
       # new: "Enregistrer un nouvel approvisionnement"
+    backend/incoming_delivery_items: #?
     backend/incoming_delivery_lines: #?
     backend/incoming_delivery_modes:
       # edit: "Modifier le mode d’approvisionnement: %{name}"
@@ -280,12 +286,12 @@ spa:
       # show: "Parcelle culturale %{name}"
     backend/land_parcel_kinships: #?
     backend/land_parcels:
-      # divide: "Diviser la parcelle unitaire\_: %{name}"
-      # edit: "Modifier la parcelle unitaire\_: %{name}"
-      # index: "Parcelles unitaires"
-      # merge: "Fusionner des parcelles unitaires"
-      # new: "Ajouter une nouvelle parcelle unitaire"
-      # show: "Parcelle unitaire %{name}"
+      # divide: "Diviser la parcelle\_: %{name}"
+      # edit: "Modifier la parcelle\_: %{name}"
+      # index: "Parcelles"
+      # merge: "Fusionner des parcelles"
+      # new: "Ajouter une nouvelle parcelle"
+      # show: "Parcelle %{name}"
     backend/legal_entities: #?
     backend/listing_node_items: #?
     backend/listing_nodes:
@@ -317,6 +323,11 @@ spa:
       # new: "Nouvelle matière"
       # picture: "Visuel"
       # show: "Matière\_: %{name}"
+    backend/medicines:
+      # edit: "Modifier le médicaments\_: %{name}"
+      # index: "Médicaments"
+      # new: "Nouveau médicaments"
+      # show: "Médicament\_: %{name}"
     backend/meeting_natures: #?
     backend/meetings:
       # edit: "Modifier un évènement"
@@ -340,6 +351,11 @@ spa:
       # new: "Créer un nouveau travail"
       # show: "Détails du travail"
       # unvalidateds: "Travaux non validés"
+    backend/organic_matters:
+      # edit: "Modifier la matière organique\_: %{name}"
+      # index: "Matières organiques"
+      # new: "Nouvelle matière organique"
+      # show: "Matière organique\_: %{name}"
     backend/outgoing_deliveries:
       edit: "Modificacion de la entrega"
       # index: "Livraisons sortantes"
@@ -362,6 +378,11 @@ spa:
       # show: "Décaissement n°%{number} pour %{payee}"
     backend/people: #?
     backend/places: #?
+    backend/plant_medicines:
+      # edit: "Modifier le produit phytosanitaire\_: %{name}"
+      # index: "Produits phytosanitaires"
+      # new: "Nouveau produit phytosanitaire"
+      # show: "Produit phytosanitaire\_: %{name}"
     backend/plants:
       # edit: "Modifier la culture\_: %{name}"
       # index: "Cutures"
@@ -523,6 +544,11 @@ spa:
       # edit: "Configuration"
       import: "Importacion"
       # restore: "Restaurer une sauvegarde"
+    backend/settlements:
+      # edit: "Modifier l'installation\_: %{name}"
+      # index: "Installations"
+      # new: "Nouvelle installation"
+      # show: "Installation\_: %{name}"
     backend/snippets: #?
     backend/stock_moves: #?
     backend/stock_transfers: #?
@@ -765,6 +791,7 @@ spa:
       # cares: "Soins réalisés sur le lot"
     # animal_identification: "Identification animale"
     # animal_pie: "Animaux par lot"
+    # animal_productions: "Productions animales"
     animal_tabbox:
       # cares: "Soins"
       # childrens: "Enfants"
@@ -1067,9 +1094,9 @@ spa:
       mixed: "Piezas y Escrituras"
       records: "Piezas" #?
     journals: "Periodico general"
-    # land_parcel_name: "Îlot"
-    # land_parcel_update: "Modifier l’îlot"
-    # land_parcels: "Îlots"
+    # land_parcel_name: "Parcelle"
+    # land_parcel_update: "Modifier la parcelle"
+    # land_parcels: "Parcellaire"
     # last_animals: "Dernières naissances"
     # last_clients: "Derniers clients"
     # last_computed_balance: "Dernière balance calculée"
@@ -1119,6 +1146,7 @@ spa:
     # map: "Carte"
     # measure_options: "Indicateur de type mesure"
     # medical_informations: "Informations médicales"
+    # medicines: "Remèdes"
     # meeting: "Lieu(x) de rencontre"
     # meetings: "Évènements"
     menu: #?
@@ -1288,6 +1316,8 @@ spa:
     # placeholder: "Espace réservé"
     # places: "Lieux"
     # planned_on: "Date prévisionnelle"
+    # plant_medicines: "Produits phytosanitaires"
+    # plant_productions: "Productions végétales"
     # play: "Éxécuter"
     # please_wait: "Merci de patienter..."
     # preferences: "Préférences"

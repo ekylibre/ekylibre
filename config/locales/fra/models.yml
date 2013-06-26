@@ -288,6 +288,7 @@ fra:
       affair: "Affaire"
       animal: "Animal"
       animal_group: "Groupe d’animaux"
+      # animal_medicine: "Animal medicine"
       area: "Zone postale"
       asset: "Immobilisation"
       asset_depreciation: "Amortissement d’immobilisation"
@@ -332,7 +333,7 @@ fra:
       journal_entry_item: "Ligne d’écriture"
       land_parcel: "Parcelle"
       # land_parcel_cluster: "Land parcel cluster"
-      land_parcel_division: "Division de parcelle"
+      land_parcel_division: "Division de parcelle" #?
       land_parcel_group: "Ilôt"
       # legal_entity: "Legal entity"
       listing: "Extraction"
@@ -341,20 +342,23 @@ fra:
       log: "Évènements des produits"
       mandate: "Responsabilité"
       matter: "Matière"
+      # medicine: "Medicine"
       meeting: "Évènement"
       meeting_nature: "Type d’évènement"
       # meeting_participation: "Meeting participation"
       observation: "Observation"
       operation: "Opération"
       operation_task: "Tâche"
+      # organic_matter: "Organic matter"
       outgoing_delivery: "Livraison"
       outgoing_delivery_item: "Ligne de livraison"
       outgoing_delivery_mode: "Mode de livraison"
       outgoing_payment: "Décaissement"
       outgoing_payment_mode: "Mode de décaissement"
       # person: "Person"
-      place: "Lieu"
+      place: "Lieu" #?
       plant: "Plante"
+      # plant_medicine: "Plant medicine"
       preference: "Préférence"
       procedure: "Procédure"
       # procedure_variable: "Procedure variable"
@@ -1130,7 +1134,7 @@ fra:
     unique_tracking: "Numéro unique" #?
     unit: "Unité"
     unit_quantity: "Quantité par unité de surface" #?
-    units: "Unités"
+    units: "Unités" #?
     # unlock_token: "Unlock token"
     unlocked_payments: "Paiement non verrouillés"
     unpaid_responsibles: "Responsables d’impayés" #?

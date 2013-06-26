@@ -64,68 +64,24 @@
 #  work_number              :string(255)
 #
 
+class AnimalMedicine < Medicine
+  attr_accessible :unit, :variety, :nature_id, :reproductor, :external, :born_at, :dead_at, :description, :description, :father_id, :mother_id, :identification_number, :name, :picture, :sex, :work_number
+  # TODO: write config/nomenclatures/varieties-animal_medicine.xml
+  enumerize :variety, :in => Nomenclatures["varieties-animal_medicine"].list, :predicates => {:prefix => true}
+  #enumerize :arrival_reasons, :in => [:birth, :purchase, :housing, :other], :default=> :birth
+  #enumerize :departure_reasons, :in => [:dead, :sale, :autoconsumption, :other], :default=> :sale
+  # belongs_to :nature, :class_name => "ProductNature"
+  # belongs_to :variety, :class_name => "ProductVariety"
 
-class LandParcelDivision < SubZone
-  attr_accessible :name, :born_at, :dead_at, :shape, :unit, :variety
-  # belongs_to :area_unit, :class_name => "Unit"
-  # TODO : adapt with operations
-  #has_many :operations, :as => :target
-  # TODO : waiting for "merge" operation type
-  #has_many :parent_kinships, :class_name => "LandParcelKinship", :foreign_key => :child_land_parcel_id, :dependent => :destroy
-  #has_many :child_kinships, :class_name => "LandParcelKinship", :foreign_key => :parent_land_parcel_id, :dependent => :destroy
+  # @TODO waiting for events and operations stabilizations
+  #has_many :events, :class_name => "Log"
+  #has_many :operations, :class_name => "Operation"
+
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   #]VALIDATORS]
-  validates_presence_of :born_at # :area_measure, :area_unit,
-
-  # TODO : waiting for operations stabilizations
-  #before_validation(:on => :update) do
-    #if self.operations.count <= 0
-      # We can't change the area of a parcel if operations has been made on it
-      #old = self.class.find(self.id)
-      #self.area_measure = old.area_measure
-      #self.area_unit = old.area_unit
-    #end
-  #end
-
-  # TODO : waiting for "merge" operation type
-  #def divide(subdivisions, divided_on)
-  #  if (total = subdivisions.collect{|s| s[:area_measure].to_f}.sum) != self.area_measure.to_f
-  #   errors.add :area_measure, :invalid, :measure => total, :expected_measure => self.area_measure, :unit => self.area_unit.name
-  #    return false
-  # end
-  #  return false unless divided_on.is_a? Date
-  #  return false unless divided_on > self.started_on
-  #  for subdivision in subdivisions
-  #    child = LandParcel.create!(subdivision.merge(:started_on => divided_on+1, :area_unit => self.area_unit))
-  #    LandParcelKinship.create!(:parent_land_parcel => self, :child_land_parcel => child, :nature => "divide")
-  #  end
-  #  self.update_column(:stopped_on, divided_on)
-  #end
-
-  # TODO : waiting for "merge" operation type
-  #def merge(other_parcels, merged_on)
-  #  return false unless other_parcels.size > 0
-  #  return false unless merged_on.is_a? Date
-  #  return false unless merged_on > self.started_on
-  #  parcels, area = [self]+other_parcels, 0.0
-  # parcels.each{|p| area += p.area(self.area_unit) }
-  # child = LandParcel.create!(:name => parcels.collect{|p| p.name}.join("+"), :started_on => merged_on+1, :area_unit => self.area_unit, :area_measure => area)
-  #  for parcel in parcels
-  #    LandParcelKinship.create!(:parent_land_parcel => parcel, :child_land_parcel => child, :nature => "merge")
-  #   parcel.update_column(:stopped_on, merged_on)
-  # end
-  #return child
-  #end
 
 
-  # def area(unit=nil)
-  #   # return Unit.convert(self.area_measure, self.area_unit, unit)
-  #   return self.area_unit.convert_to(self.area_measure, unit)
-  # end
-
-  # TODO : waiting for operations
-  #def operations_on(viewed_on=Date.today)
-    #self.operations.find(:all, :conditions => ["(moved_on IS NULL AND planned_on=?) OR (moved_on IS NOT NULL AND moved_on=?)", viewed_on, viewed_on])
-  #end
+  default_scope -> { order(:name) }
+  # scope :here, -> { where("external = ? AND (departed_on IS NULL or departed_on > ?)", false, Time.now).order(:name)
 
 end

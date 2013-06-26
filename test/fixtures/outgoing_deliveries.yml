@@ -56,7 +56,7 @@ outgoing_deliveries_001:
   creator_id: 1
   address_id: 1
   number: 'OUTDEL000001'
-  planned_on: <%=Date.today-7%>
+  planned_at: <%=Time.now-7.days %>
   recipient_id: 1
   id: 1
   updated_at: 2009-07-19 19:13:59 +02:00
@@ -68,7 +68,7 @@ outgoing_deliveries_002:
   creator_id: 1
   address_id: 1
   number: 'OUTDEL000002'
-  planned_on: <%=Date.today%>
+  planned_at: <%=Time.now%>
   recipient_id: 1
   id: 2
   updated_at: 2009-07-19 19:13:59 +02:00
@@ -80,7 +80,7 @@ outgoing_deliveries_003:
   creator_id: 1
   address_id: 1
   number: 'OUTDEL000003'
-  planned_on: <%=Date.today+7%>
+  planned_at: <%=Time.now+7.days %>
   id: 3
   recipient_id: 1
   sale_id: 3

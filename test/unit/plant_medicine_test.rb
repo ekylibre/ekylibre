@@ -65,7 +65,10 @@
 #
 require 'test_helper'
 
-class PlaceTest < ActiveSupport::TestCase
+class PlantMedicineTest < ActiveSupport::TestCase
 
+  test "presence of fixtures" do
+    # assert_equal 2, PlantMedicine.count
+  end
 
 end
