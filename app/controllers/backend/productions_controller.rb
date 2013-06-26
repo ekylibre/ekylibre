@@ -1,4 +1,5 @@
 class Backend::ProductionsController < BackendController
+  
   manage_restfully
 
   unroll_all
@@ -9,9 +10,17 @@ class Backend::ProductionsController < BackendController
     code = ""
     code = search_conditions(:production, :productions => [:state], :activities =>[:name], :product_natures =>[:name]) + "||=[]\n"
     code << "unless session[:production_state].blank?\n"
-    code << "  if session[:production_state] == 'current'\n"
-    code << "    c[0] += \" AND state IN ('draft', 'validated', 'aborted')\"\n"
+    code << "  if session[:production_state] == 'all'\n"
+    code << "    c[0] += \" AND state IN ('draft', 'validated', 'aborted', 'started')\"\n"
     code << "  end\n "
+    code << "  if session[:production_campaign_id] > 0\n"
+    code << "    c[0] += \" AND \#{Campaign.table_name}.id = ?\"\n"
+    code << "    c << session[:production_campaign_id]\n"
+    code << "  end\n"
+    code << "  if session[:production_state].present? and session[:production_state] != 'all'\n"
+    code << "    c[0] += \" AND state = ?\"\n"
+    code << "    c << session[:production_state]\n"
+    code << "  end\n"
     code << "  if session[:production_product_nature_id] > 0\n"
     code << "    c[0] += \" AND \#{ProductNature.table_name}.id = ?\"\n"
     code << "    c << session[:production_product_nature_id]\n"
@@ -23,20 +32,25 @@ class Backend::ProductionsController < BackendController
 
 
 
-  list(:conditions => productions_conditions, :joins => [:activity,:product_nature]) do |t|
+  list(:conditions => productions_conditions, :joins => [:activity,:product_nature,:campaign]) do |t|
     t.column :name, :url => true
     t.column :name,:through => :activity, :url => true
-    t.column :name,:through => :campaign, :url => true
-    t.column :name,:through => :product_nature, :url => true
+    #t.column :name,:through => :campaign, :url => true
+    #t.column :name,:through => :product_nature, :url => true
     t.column :name,:through => :storage, :url => true
+    t.column :state_label
+    t.action :edit, :if => 'RECORD.draft? '
+    #t.action :print, :if => 'RECORD.validated? '
+    t.action :destroy, :if => 'RECORD.aborted? '
 
   end
 
   # Displays the main page with the list of activity_watchings.
   def index
-    session[:production_state] = params[:s] ||= params[:s]||"all"
+    session[:production_state] = params[:s] ||="all"
     session[:production_key] = params[:q]
     session[:production_product_nature_id] = params[:product_nature_id].to_i
+    session[:production_campaign_id] = params[:campaign_id].to_i
     respond_to do |format|
       format.html
       format.xml  { render :xml => Production.all }

@@ -1356,6 +1356,7 @@ fra:
       all: "Toutes"
       validated: "Validées"
       draft: "Brouillons"
+      started: "En cours"
     productions: "Productions"
     products: "Produits"
     products_states:

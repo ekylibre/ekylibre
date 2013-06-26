@@ -1574,6 +1574,18 @@ fra:
     purchase_nature:
       default:
         name: "Standard"
+    production:
+      bookkeep: "[%{resource} %{number}] %{products} pour %{client} (%{sale})"
+      label:
+        aborted: "Production annulée %{identification}"
+        draft: "Production prévue %{identification}"
+        validated: "Production validée %{identification}"
+        started: "Production en cours %{identification}"
+      states:
+        aborted: "Annulée"
+        draft: "Prévue"
+        validated: "Validée"
+        started: "En cours"
     sale:
       bookkeep: "[%{resource} %{number}] %{products} pour %{client} (%{sale})"
       label:

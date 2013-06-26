@@ -50,17 +50,10 @@ class Production < Ekylibre::Record::Base
   validates_presence_of :activity, :campaign, :product_nature
   #]VALIDATORS]
 
-  def name
-    if self.storage.present?
-      self.product_nature.name + " " + self.campaign.name + " - " + self.storage.name
-    else
-      self.product_nature.name + " " + self.campaign.name
-    end
-  end
-
   state_machine :state, :initial => :draft do
     state :draft
     state :validated
+    state :started
     state :aborted
 
     event :correct do
@@ -69,6 +62,10 @@ class Production < Ekylibre::Record::Base
 
     event :confirm do
       transition :draft => :validated, :if => :has_active_product?
+    end
+    
+    event :start do
+      transition :validated => :started, :if => :has_active_product?
     end
 
     event :abort do
@@ -84,5 +81,24 @@ class Production < Ekylibre::Record::Base
   def has_active_product?
     self.product_nature.active?
   end
+
+  def self.state_label(state)
+    tc('states.'+state.to_s)
+  end
+
+  # Prints human name of current production
+  def state_label
+    self.class.state_label(self.state)
+  end
+  
+  def name
+    if self.storage.present?
+      tc('label.' + self.state, :identification => (self.product_nature.name + " " + self.campaign.name + " [ " + self.storage.name + " ] "))
+    else
+       tc('label.' + self.state, :identification => (self.product_nature.name + " " + self.campaign.name))
+    end
+  end
+  alias :label :name
+
 
 end
