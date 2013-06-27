@@ -1,6 +1,6 @@
 class Backend::ProductionsController < BackendController
 
-  manage_restfully
+  manage_restfully(:t3e => {:name => 'RECORD.name'})
 
   unroll_all
 
@@ -37,7 +37,6 @@ class Backend::ProductionsController < BackendController
     t.column :name,:through => :activity, :url => true
     #t.column :name,:through => :campaign, :url => true
     #t.column :name,:through => :product_nature, :url => true
-    t.column :name,:through => :storage, :url => true
     t.column :state_label
     t.action :edit, :if => 'RECORD.draft? '
     #t.action :print, :if => 'RECORD.validated? '
@@ -62,10 +61,11 @@ class Backend::ProductionsController < BackendController
   def show
     return unless @production = find_and_check
     respond_to do |format|
-      format.html { t3e(@production) }
+      format.html { t3e(@production, :name => @production.name) }
       format.xml  { render :xml => @production }
       format.json { render :json => @production }
     end
   end
+
 
 end

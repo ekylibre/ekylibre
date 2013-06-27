@@ -1,5 +1,6 @@
 Ekylibre::Application.routes.draw do
 
+
   # Authentication
   # namespace :authentication do
   #   resource :session, :only => [:new, :create, :destroy] do
@@ -769,6 +770,14 @@ Ekylibre::Application.routes.draw do
         unroll_all
       end
     end
+
+
+      resources :production_supports do
+        collection do
+          get :list
+          unroll_all
+        end
+      end
     resources :professions do
       collection do
         get :list

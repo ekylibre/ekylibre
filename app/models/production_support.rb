@@ -18,28 +18,22 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: incoming_deliveries
+# == Table: production_supports
 #
-#  address_id       :integer
-#  created_at       :datetime         not null
-#  creator_id       :integer
-#  id               :integer          not null, primary key
-#  lock_version     :integer          default(0), not null
-#  mode_id          :integer
-#  number           :string(255)
-#  planned_at       :datetime
-#  purchase_id      :integer
-#  received_at      :datetime
-#  reference_number :string(255)
-#  sender_id        :integer          not null
-#  updated_at       :datetime         not null
-#  updater_id       :integer
-#  weight           :decimal(19, 4)
+#  created_at    :datetime         not null
+#  creator_id    :integer
+#  id            :integer          not null, primary key
+#  lock_version  :integer          default(0), not null
+#  production_id :integer          not null
+#  support_id    :integer          not null
+#  updated_at    :datetime         not null
+#  updater_id    :integer
 #
-
-
-require 'test_helper'
-
-class IncomingDeliveryTest < ActiveSupport::TestCase
-
+class ProductionSupport < Ekylibre::Record::Base
+  attr_accessible :support_id, :production_id
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_presence_of :production, :support
+  #]VALIDATORS]
+  belongs_to :support, :class_name => "LandParcelGroup"
+  belongs_to :production, :class_name => "Production"
 end

@@ -1212,6 +1212,16 @@
         <page to="backend/product_processes#show"/>
         <page to="backend/product_processes#update"/>
       </item>
+      <item name="production_supports">
+        <page to="backend/production_supports#index"/>
+        <page to="backend/production_supports#create"/>
+        <page to="backend/production_supports#destroy"/>
+        <page to="backend/production_supports#edit"/>
+        <page to="backend/production_supports#list"/>
+        <page to="backend/production_supports#new"/>
+        <page to="backend/production_supports#show"/>
+        <page to="backend/production_supports#update"/>
+      </item>
       <item name="professions">
         <page to="backend/professions#index"/>
         <page to="backend/professions#create"/>

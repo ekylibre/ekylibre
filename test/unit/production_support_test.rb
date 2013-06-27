@@ -18,29 +18,23 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: productions
+# == Table: production_supports
 #
-#  activity_id       :integer          not null
-#  campaign_id       :integer          not null
-#  created_at        :datetime         not null
-#  creator_id        :integer
-#  id                :integer          not null, primary key
-#  lock_version      :integer          default(0), not null
-#  position          :integer
-#  product_nature_id :integer          not null
-#  started_at        :datetime
-#  state             :string(255)
-#  static_support    :boolean          not null
-#  stopped_at        :datetime
-#  updated_at        :datetime         not null
-#  updater_id        :integer
+#  created_at    :datetime         not null
+#  creator_id    :integer
+#  id            :integer          not null, primary key
+#  lock_version  :integer          default(0), not null
+#  production_id :integer          not null
+#  support_id    :integer          not null
+#  updated_at    :datetime         not null
+#  updater_id    :integer
 #
 require 'test_helper'
 
-class ProductionTest < ActiveSupport::TestCase
+class ProductionSupportTest < ActiveSupport::TestCase
 
   test "presence of fixtures" do
-    # assert_equal 2, ActivityWatching.count
+    # assert_equal 2, ProductionSupport.count
   end
 
 end

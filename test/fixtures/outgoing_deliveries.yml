@@ -27,7 +27,7 @@
 #  lock_version     :integer          default(0), not null
 #  mode_id          :integer
 #  number           :string(255)
-#  planned_on       :date
+#  planned_at       :datetime
 #  recipient_id     :integer          not null
 #  reference_number :string(255)
 #  sale_id          :integer

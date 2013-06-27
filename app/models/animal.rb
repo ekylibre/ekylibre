@@ -88,7 +88,7 @@ class Animal < Bioproduct
 
   default_scope -> { order(:name) }
   scope :fathers, -> { where(:sex => "male", :reproductor => true).order(:name) }
-  scope :mothers, -> { where(:sex => "female", :reproductor => true).order(:name) }
+  scope :mothers, -> { where(:sex => "female", :dead_at => nil, :reproductor => true).order(:name) }
   # scope :here, -> { where("external = ? AND (departed_on IS NULL or departed_on > ?)", false, Time.now).order(:name)
 
 end

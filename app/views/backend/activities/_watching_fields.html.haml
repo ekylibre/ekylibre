@@ -1,7 +1,7 @@
--# Generated automatically. Don't edit this file.
 -activity_watching ||= f.object
 .nested-fields
   =link_to_remove_nested_association(:watching, f)
   =f.referenced_association(:product_nature, :wrapper_html => {:id => 'product_nature-field'})
-  =f.input(:area_unit, :wrapper_html => {:id => 'area_unit-field'})
-  =f.input(:work_unit, :wrapper_html => {:id => 'work_unit-field'})
+  =f.referenced_association(:campaign, :wrapper_html => {:id => 'product_nature-field'})
+  =f.input(:started_at, :wrapper_html => {:id => 'started_at-field'})
+  =f.input(:stopped_at, :wrapper_html => {:id => 'stopped_at-field'})

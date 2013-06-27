@@ -66,7 +66,7 @@
 
 class ProductNature < Ekylibre::Record::Base
   # attr_accessible :active, :commercial_description, :commercial_name, :category_id, :deliverable, :description, :for_immobilizations, :for_productions, :for_purchases, :for_sales, :asset_account_id, :name, :nature, :number, :charge_account_id, :reduction_submissive, :product_account_id, :stockable, :subscription_nature_id, :subscription_period, :subscription_quantity, :trackable, :unit, :unquantifiable, :weight
-  attr_accessible :active, :commercial_description, :commercial_name, :category_id, :derivative_of, :description, :depreciable, :purchasable, :saleable, :asset_account_id, :name, :number, :stock_account_id, :charge_account_id, :product_account_id, :storable, :subscription_nature_id, :subscription_duration, :unit, :reductible, :individual, :subscribing, :variety
+  attr_accessible :purchase_unit, :purchase_unit_name, :purchase_unit_modulo, :purchase_unit_coefficient, :active, :commercial_description, :commercial_name, :category_id, :derivative_of, :description, :depreciable, :purchasable, :saleable, :asset_account_id, :name, :number, :stock_account_id, :charge_account_id, :product_account_id, :storable, :subscription_nature_id, :subscription_duration, :unit, :reductible, :individual, :subscribing, :variety
   #enumerize :nature, :in => [:product, :service, :subscription], :default => :product, :predicates => true
   enumerize :variety, :in => Nomen::Varieties.all, :predicates => {:prefix => true}
   belongs_to :asset_account, :class_name => "Account"

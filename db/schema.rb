@@ -1778,12 +1778,28 @@ ActiveRecord::Schema.define(:version => 20130410143823) do
   add_index "product_transfers", ["updated_at"], :name => "index_product_transfers_on_updated_at"
   add_index "product_transfers", ["updater_id"], :name => "index_product_transfers_on_updater_id"
 
+  create_table "production_supports", :force => true do |t|
+    t.integer  "production_id",                :null => false
+    t.integer  "support_id",                   :null => false
+    t.datetime "created_at",                   :null => false
+    t.datetime "updated_at",                   :null => false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version",  :default => 0, :null => false
+  end
+
+  add_index "production_supports", ["created_at"], :name => "index_production_supports_on_created_at"
+  add_index "production_supports", ["creator_id"], :name => "index_production_supports_on_creator_id"
+  add_index "production_supports", ["production_id"], :name => "index_production_supports_on_production_id"
+  add_index "production_supports", ["support_id"], :name => "index_production_supports_on_support_id"
+  add_index "production_supports", ["updated_at"], :name => "index_production_supports_on_updated_at"
+  add_index "production_supports", ["updater_id"], :name => "index_production_supports_on_updater_id"
+
   create_table "productions", :force => true do |t|
     t.integer  "activity_id",                          :null => false
     t.integer  "campaign_id",                          :null => false
     t.integer  "product_nature_id",                    :null => false
-    t.boolean  "static_storage",    :default => false, :null => false
-    t.integer  "storage_id"
+    t.boolean  "static_support",    :default => false, :null => false
     t.datetime "started_at"
     t.datetime "stopped_at"
     t.integer  "position"
@@ -1800,7 +1816,6 @@ ActiveRecord::Schema.define(:version => 20130410143823) do
   add_index "productions", ["created_at"], :name => "index_productions_on_created_at"
   add_index "productions", ["creator_id"], :name => "index_productions_on_creator_id"
   add_index "productions", ["product_nature_id"], :name => "index_productions_on_product_nature_id"
-  add_index "productions", ["storage_id"], :name => "index_productions_on_storage_id"
   add_index "productions", ["updated_at"], :name => "index_productions_on_updated_at"
   add_index "productions", ["updater_id"], :name => "index_productions_on_updater_id"
 

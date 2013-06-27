@@ -1,0 +1,4 @@
+-production_support ||= f.object
+.nested-fields
+  =link_to_remove_nested_association(:support, f)
+  =f.referenced_association(:support, :wrapper_html => {:id => 'support-field'})
