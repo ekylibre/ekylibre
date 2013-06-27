@@ -48,7 +48,7 @@
 
 
 class Purchase < Ekylibre::Record::Base
-  attr_accessible :description, :delivery_address_id, :items_attributes, :nature_id, :planned_on, :reference_number, :responsible_id, :supplier_id, :created_on, :currency, :state
+  attr_accessible :confirmed_on, :description, :delivery_address_id, :items_attributes, :nature_id, :planned_on, :reference_number, :responsible_id, :supplier_id, :created_on, :currency, :state
   attr_readonly :currency
   belongs_to :delivery_address, :class_name => "EntityAddress"
   belongs_to :journal_entry
