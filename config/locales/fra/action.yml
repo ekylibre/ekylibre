@@ -469,6 +469,11 @@ fra:
       edit: "Modifier l’un transfert de stock"
       index: "Transferts et pertes de stocks"
       new: "Ajouter un transfert ou une perte de stocks"
+    backend/production_supports:
+      # edit: "Edit backend/production support"
+      # index: "Index backend/production support"
+      # new: "New backend/production support"
+      # show: "Show backend/production support"
     backend/productions:
       edit: "Modifier la production\_: %{name}"
       index: "Productions"
@@ -696,6 +701,7 @@ fra:
     # backend/product_process_phases: "Backend/product process phases"
     # backend/product_processes: "Backend/product processes"
     backend/product_transfers: "Transferts et pertes de stocks"
+    # backend/production_supports: "Backend/production supports"
     # backend/productions: "Backend/productions"
     backend/products: "Produits"
     backend/professions: "Professions"
@@ -724,13 +730,13 @@ fra:
   errors:
     messages:
       already_confirmed: "a déjà été validé(e)"
-      confirmation_period_expired: "doit être confirmé sous %{period}, refaites une nouvelle demande s'il vous plait"
-      expired: "a expiré, merci d'en faire une nouvelle demande"
-      not_found: "n'a pas été trouvé(e)"
-      not_locked: "n'était pas verrouillé(e)"
+      confirmation_period_expired: "doit être confirmé sous %{period}, refaites une nouvelle demande s’il vous plait"
+      expired: "a expiré, merci d’en faire une nouvelle demande"
+      not_found: "n’a pas été trouvé(e)"
+      not_locked: "n’était pas verrouillé(e)"
       not_saved:
-        one: "1 erreur a empêché ce(tte) %{resource} d'être sauvegardé(e) :"
-        other: "%{count} erreurs ont empêché ce(tte) %{resource} d'être sauvegardé(e) :"
+        one: "1 erreur a empêché ce(tte) %{resource} d’être sauvegardé(e) :"
+        other: "%{count} erreurs ont empêché ce(tte) %{resource} d’être sauvegardé(e) :"
     template:
       body: "Il y a eu des problèmes avec les champs suivants\_:"
       header:

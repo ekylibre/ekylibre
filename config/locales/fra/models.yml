@@ -380,6 +380,7 @@ fra:
       # product_process_phase: "Product process phase"
       product_transfer: "Transfert ou perte de Stock"
       production: "Production"
+      # production_support: "Production support"
       profession: "Profession"
       # property_title: "Property title"
       purchase: "Achat"
@@ -928,7 +929,7 @@ fra:
     picture_file_size: "Taille du fichier photo"
     picture_updated_at: "Fichier photo mis à jour le"
     place: "Place"
-    planned_at: "Prévu à" #?
+    planned_at: "Prévu à"
     planned_depreciations: "Amortissements prévus"
     planned_on: "Prévu le"
     position: "Position"
@@ -956,7 +957,7 @@ fra:
     product_moves: "Product moves"
     product_nature: "Product nature"
     product_natures: "Types de produits"
-    # production: "Production"
+    production: "Production"
     products: "Produits"
     profession: "Profession"
     proposer: "Parrain"
@@ -1067,7 +1068,7 @@ fra:
     started_on: "Débuté le"
     state: "État"
     state_label: "État"
-    # static_storage: "Static storage"
+    # static_support: "Static support"
     status: "Status"
     stock: "Stock de produit" #?
     # stock_account: "Stock account"
@@ -1080,7 +1081,6 @@ fra:
     stopped_at: "Arrêté à"
     stopped_on: "Arrêté le"
     storable: "Gérer les stocks"
-    # storage: "Storage"
     story: "Historique"
     string_value: "Valeur textuelle"
     subject: "Objet"
@@ -1098,6 +1098,8 @@ fra:
     supplier_account: "Compte fournisseur associé"
     supplier_accounts: "Comptes fournisseurs" #?
     suppliers: "Fournisseurs"
+    # support: "Support"
+    supports: "Supports"
     surface_units: "Unités de surface" #?
     suspended: "Suspendu"
     symbol: "Symbole" #?
