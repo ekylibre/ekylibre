@@ -13,11 +13,27 @@
       <item name="adult_animal_asset" fr_pcga="241"/>
       <item name="young_animal_asset" fr_pcga="242"/>
       <item name="service_animal_asset" fr_pcga="243"/>
+      <item name="fertilizer_stock" fr_pcga="3011"/>
+      <item name="seed_stock" fr_pcga="3012"/>
+      <item name="plant_medicine_matter_stock" fr_pcga="3013"/>
+      <item name="livestock_feed_matter_stock" fr_pcga="3014"/>
+      <item name="animal_medicine_matter_stock" fr_pcga="3015"/>
+      <item name="animal_reproduction_matter_stock" fr_pcga="3016"/>
+      <item name="fuel_matter_stock" fr_pcga="3021"/>
       <item name="long_time_animal_stock" fr_pcga="31"/>
       <item name="short_time_animal_stock" fr_pcga="32"/>
       <item name="short_time_crop_stock" fr_pcga="341"/>
       <item name="plant_derivative_stock" fr_pcga="374"/>
       <item name="animal_derivative_stock" fr_pcga="375"/>
+      <item name="fertilizer_charge" fr_pcga="6011"/>
+      <item name="seed_charge" fr_pcga="6012"/>
+      <item name="plant_medicine_matter_charge" fr_pcga="6013"/>
+      <item name="livestock_feed_matter_charge" fr_pcga="6014"/>
+      <item name="animal_medicine_matter_charge" fr_pcga="6015"/>
+      <item name="animal_reproduction_matter_charge" fr_pcga="6016"/>
+      <item name="fuel_matter_charge" fr_pcga="6021"/>
+      <item name="office_supply_matter_charge" fr_pcga="6024"/>
+      <item name="other_consumable_matter_charge" fr_pcga="6027"/>
       <item name="raw_material_charge" fr_pcga="6028"/>
       <item name="adult_animal_charge" fr_pcga="6041"/>
       <item name="young_animal_charge" fr_pcga="6042"/>

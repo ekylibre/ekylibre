@@ -42,9 +42,8 @@ class Activity < Ekylibre::Record::Base
   attr_accessible :started_at, :stopped_at, :nature, :description, :family, :nomen, :name, :parent_id, :watchings_attributes
   enumerize :nature, :in => [:main, :auxiliary, :none], :default => :main
   enumerize :family, :in => [:vegetal, :perenne_vegetal, :animal, :processing, :service, :none]
-  has_many :repartitions, :class_name => "ActivityRepartition"
   has_many :watchings, :class_name => "Production"
-
+  has_many :productions
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :depth, :lft, :rgt, :allow_nil => true, :only_integer => true
   validates_length_of :description, :family, :name, :nature, :nomen, :allow_nil => true, :maximum => 255

@@ -41,8 +41,7 @@ class EnhanceOperations < ActiveRecord::Migration
       t.references :activity, :null => false
       t.references :campaign, :null => false
       t.references :product_nature, :null => false
-      t.boolean :static_storage, :null => false, :default => false
-      t.references :storage
+      t.boolean :static_support, :null => false, :default => false
       t.datetime :started_at
       t.datetime :stopped_at
       t.integer :position
@@ -54,7 +53,18 @@ class EnhanceOperations < ActiveRecord::Migration
     add_index :productions, :activity_id
     add_index :productions, :campaign_id
     add_index :productions, :product_nature_id
-    add_index :productions, :storage_id
+
+    # Production Supports can store product_nature
+    create_table :production_supports do |t|
+      # t.references :nature, :null => false
+      t.references :production, :null => false
+      t.references :support, :null => false
+
+      t.stamps
+    end
+    add_stamps_indexes :production_supports
+    add_index :production_supports, :production_id
+    add_index :production_supports, :support_id
 
     # Procedure
     # add_column :events, :parent_id, :integer

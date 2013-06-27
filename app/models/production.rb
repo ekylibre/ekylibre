@@ -30,23 +30,26 @@
 #  product_nature_id :integer          not null
 #  started_at        :datetime
 #  state             :string(255)
-#  static_storage    :boolean          not null
+#  static_support    :boolean          not null
 #  stopped_at        :datetime
-#  storage_id        :integer
 #  updated_at        :datetime         not null
 #  updater_id        :integer
 #
 class Production < Ekylibre::Record::Base
-  attr_accessible :activity_id, :product_nature_id, :campaign_id, :storage_id, :static_storage, :state, :started_at, :stopped_at
+  attr_accessible :activity_id, :product_nature_id, :campaign_id, :static_support, :state, :started_at, :stopped_at
   belongs_to :activity
   belongs_to :campaign
   # belongs_to :area_unit, :class_name => "Unit"
   belongs_to :product_nature
-  belongs_to :storage, :class_name => "LandParcel"
+  has_many :repartitions, :class_name => "ActivityRepartition"
+  has_many :supports, :class_name => "ProductionSupport", :foreign_key => :production_id
+
+  accepts_nested_attributes_for :supports, :reject_if => :all_blank, :allow_destroy => true
+  #belongs_to :storage, :class_name => "LandParcel"
   # belongs_to :work_unit, :class_name => "Unit"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :state, :allow_nil => true, :maximum => 255
-  validates_inclusion_of :static_storage, :in => [true, false]
+  validates_inclusion_of :static_support, :in => [true, false]
   validates_presence_of :activity, :campaign, :product_nature
   #]VALIDATORS]
 
@@ -92,12 +95,8 @@ class Production < Ekylibre::Record::Base
   end
 
   def name
-    if self.storage.present?
-      tc('label.' + self.state, :identification => (self.product_nature.name + " " + self.campaign.name + " [ " + self.storage.name + " ] "))
-    else
-       tc('label.' + self.state, :identification => (self.product_nature.name + " " + self.campaign.name))
-    end
-  end
+    tc('label.' + self.state, :identification => (self.product_nature.name + " " + self.campaign.name))
+   end
   alias :label :name
 
 

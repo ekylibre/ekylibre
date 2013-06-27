@@ -58,7 +58,7 @@ namespace :db do
       fy.save!
       en_org = "legal_entity"
 
-      print "[#{(Time.now - start).round(2).to_s.rjust(8)}s] General ledger: "
+      print "[#{(Time.now - start).round(2).to_s.rjust(8)}s] JournalEntryLines - CERPC General ledger: "
       CSV.foreach(file, :encoding => "CP1252", :col_sep => ";") do |row|
         jname = (journals[row[1]] || row[1]).capitalize
         r = OpenStruct.new(:account => Account.get(row[0]),
@@ -213,7 +213,7 @@ namespace :db do
       building_product_nature_category = ProductNatureCategory.find_by_name("Bâtiments")
       building_product_nature_category ||= ProductNatureCategory.create!(:name => "Bâtiments", :published => true)
       place_nature_animal = ProductNature.find_by_number("BATIMENT_ANIMAUX")
-      place_nature_animal ||= ProductNature.create!(:name => "Bâtiment accueillant des animaux", :number => "BATIMENT_ANIMAUX", :variety => "building", :unit => "unity", :category_id => building_product_nature_category.id)
+      place_nature_animal ||= ProductNature.create!(:name => "Bâtiment d'accueil animaux", :number => "BATIMENT_ANIMAUX", :variety => "building", :unit => "unity", :category_id => building_product_nature_category.id)
 
       # create default building to place animal
 
@@ -269,7 +269,7 @@ namespace :db do
         # case = VEAU
         if r.born_on > (Date.today - 3.months) and r.born_on < (Date.today)
           f = File.open(photo_v)
-          animal = Animal.create!(:name => r.name, :unit => cow_unit, :variety => "bos", :identification_number => r.identification_number, :work_number => r.work_number, :born_at => r.born_on, :sex => r.sex, :picture => f, :nature_id => cow_v.id, :owner_id => Entity.of_company.id, :reproductor => false)
+          animal = Animal.create!(:name => r.name, :unit => cow_unit, :variety => "bos", :identification_number => r.identification_number, :work_number => r.work_number, :born_at => r.born_on, :dead_at => r.departed_on, :sex => r.sex, :picture => f, :nature_id => cow_v.id, :owner_id => Entity.of_company.id, :reproductor => false)
           f.close
           # set default indicators
           animal.indicator_data.create!(:indicator => "weight", :value => "55.45" ,:measure_unit => "kilogram" ,:measured_at => r.born_on.to_datetime )
@@ -282,9 +282,9 @@ namespace :db do
           ProductMembership.create!(:member_id => animal.id, :group_id => group_v.id, :started_at => r.arrived_on, :stopped_at => r.departed_on )
 
           # case = GENISSE 1
-        elsif r.born_on > (Date.today - 12.months) and r.born_on < (Date.today - 2.months) and r.sex == :female
+        elsif r.born_on > (Date.today - 12.months) and r.born_on < (Date.today - 3.months) and r.sex == :female
           f = File.open(pictures.sample)
-          animal = Animal.create!(:name => r.name, :unit => cow_unit, :variety => "bos", :identification_number => r.identification_number, :work_number => r.work_number, :born_at => r.born_on, :sex => r.sex, :picture => f, :nature_id => cow_v.id, :owner_id => Entity.of_company.id, :reproductor => false)
+          animal = Animal.create!(:name => r.name, :unit => cow_unit, :variety => "bos", :identification_number => r.identification_number, :work_number => r.work_number, :born_at => r.born_on, :dead_at => r.departed_on, :sex => r.sex, :picture => f, :nature_id => cow_v.id, :owner_id => Entity.of_company.id, :reproductor => false)
           f.close
           # set default indicators
           animal.indicator_data.create!(:indicator => "weight", :value => "55.45" ,:measure_unit => "kilogram" ,:measured_at => r.born_on.to_datetime )
@@ -301,7 +301,7 @@ namespace :db do
           # case = GENISSE 3
         elsif r.born_on > (Date.today - 28.months) and r.born_on < (Date.today - 12.months) and r.sex == :female
           f = File.open(pictures.sample)
-          animal = Animal.create!(:name => r.name, :unit => cow_unit, :variety => "bos", :identification_number => r.identification_number, :work_number => r.work_number, :born_at => r.born_on, :sex => r.sex, :picture => f, :nature_id => cow_v.id, :owner_id => Entity.of_company.id, :reproductor => true)
+          animal = Animal.create!(:name => r.name, :unit => cow_unit, :variety => "bos", :identification_number => r.identification_number, :work_number => r.work_number, :born_at => r.born_on, :dead_at => r.departed_on, :sex => r.sex, :picture => f, :nature_id => cow_v.id, :owner_id => Entity.of_company.id, :reproductor => true)
           f.close
           # set default indicators
           animal.indicator_data.create!(:indicator => "weight", :value => "55.45" ,:measure_unit => "kilogram" ,:measured_at => r.born_on.to_datetime )
@@ -317,9 +317,9 @@ namespace :db do
           ProductMembership.create!(:member_id => animal.id, :group_id => group_gen3.id, :started_at => r.arrived_on, :stopped_at => r.departed_on )
 
           # case = VL
-        elsif r.born_on > (Date.today - 10.years) and r.born_on < (Date.today - 28.months) and r.sex == :female
+        elsif r.born_on > (Date.today - 20.years) and r.born_on < (Date.today - 28.months) and r.sex == :female
           f = File.open(pictures.sample)
-          animal = Animal.create!(:name => r.name, :unit => cow_unit, :variety => "bos", :identification_number => r.identification_number, :work_number => r.work_number, :born_at => r.born_on, :sex => r.sex, :picture => f, :nature_id => cow_vl.id, :owner_id => Entity.of_company.id, :reproductor => true)
+          animal = Animal.create!(:name => r.name, :unit => cow_unit, :variety => "bos", :identification_number => r.identification_number, :work_number => r.work_number, :born_at => r.born_on, :dead_at => r.departed_on, :sex => r.sex, :picture => f, :nature_id => cow_vl.id, :owner_id => Entity.of_company.id, :reproductor => true)
           f.close
           # set default indicators
           animal.indicator_data.create!(:indicator => "weight", :value => "55.45" ,:measure_unit => "kilogram" ,:measured_at => r.born_on.to_datetime )
@@ -338,7 +338,7 @@ namespace :db do
           # case = TAURILLON
         elsif r.born_on > (Date.today - 10.years) and r.born_on < (Date.today - 3.months) and r.sex == :male
           f = File.open(photo_taur)
-          animal = Animal.create!(:name => r.name, :unit => cow_unit, :variety => "bos", :identification_number => r.identification_number, :work_number => r.work_number, :born_at => r.born_on, :sex => r.sex, :picture => f, :nature_id => cow_vl.id, :owner_id => Entity.of_company.id)
+          animal = Animal.create!(:name => r.name, :unit => cow_unit, :variety => "bos", :identification_number => r.identification_number, :work_number => r.work_number, :born_at => r.born_on, :dead_at => r.departed_on, :sex => r.sex, :picture => f, :nature_id => cow_vl.id, :owner_id => Entity.of_company.id)
           f.close
           # set default indicators
           animal.indicator_data.create!(:indicator => "weight", :value => "55.45" ,:measure_unit => "kilogram" ,:measured_at => r.born_on.to_datetime )
@@ -358,7 +358,7 @@ namespace :db do
         print "."
         break if Animal.count >= max
       end
-
+      puts "!"
 
       #add list of external male reproductor
       print "[#{(Time.now - start).round(2).to_s.rjust(8)}s] Animals - UPRA reproductor list: "
@@ -572,7 +572,102 @@ namespace :db do
       # @TODO finish with two level (purchases and purchases_lines)
       #
       # set the coop
-      print "[#{(Time.now - start).round(2).to_s.rjust(8)}s] IncomingDelivery - Charentes Alliance Coop Order (Appro) 2013 : "
+      print "[#{(Time.now - start).round(2).to_s.rjust(8)}s] IncomingDeliveries - Charentes Alliance Coop Order (Appro) 2013 : "
+
+       # create product_nature for organic matters and others usefull for coop
+
+      price_listing = ProductPriceListing.find_by_code("STD")
+      phyto_category = ProductNatureCategory.find_by_name("Produits phytosanitaires")
+      phyto_category ||= ProductNatureCategory.create!(:name => "Produits phytosanitaires")
+      fertilizer_category = ProductNatureCategory.find_by_name("Produits fertilisants")
+      fertilizer_category ||= ProductNatureCategory.create!(:name => "Produits fertilisants")
+      seed_category = ProductNatureCategory.find_by_name("Semences")
+      seed_category ||= ProductNatureCategory.create!(:name => "Semences")
+      livestock_feed_category = ProductNatureCategory.find_by_name("Aliments")
+      livestock_feed_category ||= ProductNatureCategory.create!(:name => "Aliments")
+      other_consumable_category = ProductNatureCategory.find_by_name("Quincaillerie")
+      other_consumable_category ||= ProductNatureCategory.create!(:name => "Quincaillerie")
+
+      # charge account for product nature
+      fertilizer_charge_account = Account.find_in_chart(:fertilizer_charge)
+      seed_charge_account = Account.find_in_chart(:seed_charge)
+      plant_medicine_matter_charge_account = Account.find_in_chart(:plant_medicine_matter_charge)
+      livestock_feed_matter_charge_account = Account.find_in_chart(:livestock_feed_matter_charge)
+      animal_medicine_matter_charge_account = Account.find_in_chart(:animal_medicine_matter_charge)
+      other_consumable_matter_charge_account = Account.find_in_chart(:other_consumable_matter_charge)
+
+      # stock account for product nature
+      fertilizer_stock_account = Account.find_in_chart(:fertilizer_stock)
+      seed_stock_account = Account.find_in_chart(:seed_stock)
+      plant_medicine_matter_stock_account = Account.find_in_chart(:plant_medicine_matter_stock)
+      livestock_feed_matter_stock_account = Account.find_in_chart(:livestock_feed_matter_stock)
+      animal_medicine_matter_stock_account = Account.find_in_chart(:animal_medicine_matter_stock)
+      other_consumable_matter_stock_account = Account.find_in_chart(:other_consumable_matter_stock)
+      appro_price_template_tax = Tax.find_by_amount(5.5)
+
+      # Create product_nature for plant product
+      for attributes in [{:name => "Herbicide", :number => "HERBICIDES_1L",
+                          :purchase_unit => "liter", :purchase_unit_name => "L", :purchase_unit_modulo => "1.00", :purchase_unit_coefficient => "1",
+                          :unit => "liter",:category_id => phyto_category.id,
+                          :individual => false, :variety => "plant_medicine",
+                          :purchasable => true, :charge_account_id => plant_medicine_matter_charge_account.id,
+                          :storable => true, :stock_account_id => plant_medicine_matter_stock_account.id
+                          },
+                          {:name => "Fongicide", :number => "FONGICIDES_1L",
+                          :purchase_unit => "liter", :purchase_unit_name => "L", :purchase_unit_modulo => "1.00", :purchase_unit_coefficient => "1",
+                          :unit => "liter",:category_id => phyto_category.id,
+                          :individual => false, :variety => "plant_medicine",
+                          :purchasable => true, :charge_account_id => plant_medicine_matter_charge_account.id,
+                          :storable => true, :stock_account_id => plant_medicine_matter_stock_account.id
+                          },
+                          {:name => "Anti-limace 5KG", :number => "ANTI_LIMACE_5KG",
+                          :purchase_unit => "kilogram", :purchase_unit_name => "5KG", :purchase_unit_modulo => "5.00", :purchase_unit_coefficient => "1",
+                          :unit => "kilogram", :category_id => phyto_category.id,
+                          :individual => false, :variety => "plant_medicine",
+                          :purchasable => true, :charge_account_id => plant_medicine_matter_charge_account.id,
+                          :storable => true, :stock_account_id => plant_medicine_matter_stock_account.id
+                          },
+                          {:name => "Engrais", :number => "ENGRAIS_1T",
+                          :purchase_unit => "ton", :purchase_unit_name => "T", :purchase_unit_modulo => "0.01", :purchase_unit_coefficient => "1000",
+                          :unit => "kilogram", :category_id => fertilizer_category.id,
+                          :individual => false, :variety => "mineral_matter",
+                          :purchasable => true, :charge_account_id => fertilizer_charge_account.id,
+                          :storable => true, :stock_account_id => fertilizer_stock_account.id
+                          },
+                          {:name => "Semences", :number => "SEMENCES_1KG",
+                          :purchase_unit => "kilogram", :purchase_unit_name => "kg", :purchase_unit_modulo => "1.00", :purchase_unit_coefficient => "1",
+                          :unit => "kilogram", :category_id => seed_category.id,
+                          :individual => false, :variety => "organic_matter", :derivative_of => "plant",
+                          :purchasable => true, :charge_account_id => seed_charge_account.id,
+                          :storable => true, :stock_account_id => seed_stock_account.id
+                          },
+                          {:name => "Aliments", :number => "ALIMENT_1KG",
+                          :purchase_unit => "kilogram", :purchase_unit_name => "kg", :purchase_unit_modulo => "1.00", :purchase_unit_coefficient => "1",
+                          :unit => "kilogram", :category_id => livestock_feed_category.id,
+                          :individual => false, :variety => "organic_matter", :derivative_of => "plant",
+                          :purchasable => true, :charge_account_id => livestock_feed_matter_charge_account.id,
+                          :storable => true, :stock_account_id => livestock_feed_matter_stock_account.id
+                          },
+                          {:name => "Quincaillerie", :number => "QUINCAILLERIE_1KG",
+                          :purchase_unit => "kilogram", :purchase_unit_name => "kg", :purchase_unit_modulo => "1.00", :purchase_unit_coefficient => "1",
+                          :unit => "kilogram", :category_id => other_consumable_category.id,
+                          :individual => false, :variety => "equipment",
+                          :purchasable => true, :charge_account_id => other_consumable_matter_charge_account.id,
+                          :storable => true, :stock_account_id => other_consumable_matter_stock_account.id
+                          },
+                          {:name => "Petit Equipement", :number => "QUINCAILLERIE_1U",
+                          :purchase_unit => "unity", :purchase_unit_name => "u", :purchase_unit_modulo => "1.00", :purchase_unit_coefficient => "1",
+                          :unit => "unity", :category_id => other_consumable_category.id,
+                          :individual => false, :variety => "equipment",
+                          :purchasable => true, :charge_account_id => other_consumable_matter_charge_account.id,
+                          :storable => true, :stock_account_id => other_consumable_matter_stock_account.id
+                          }
+                         ]
+        unless ProductNature.find_by_number(attributes[:number])
+          ProductNature.create!({:active => true}.merge(attributes) )
+        end
+      end
+
       suppliers = Entity.where(:of_company => false, :supplier => true).reorder(:supplier_account_id, :last_name) # .where(" IS NOT NULL")
       coop = suppliers.offset((suppliers.count/2).floor).first
 
@@ -821,7 +916,7 @@ namespace :db do
                            :campaign_name => row[5].blank? ? nil : row[5].to_s,
                            :work_number_landparcel_storage => row[6].blank? ? nil : row[6].to_s
                            )
-        landparcel_support = LandParcel.find_by_work_number(r.work_number_landparcel_storage)
+        landparcel_support = LandParcelGroup.find_by_work_number(r.work_number_landparcel_storage)
         # Create a campaign if not exist
         if r.campaign_name.present?
           campaign = Campaign.find_by_name(r.campaign_name)
@@ -832,11 +927,12 @@ namespace :db do
         activity ||= Activity.create!(:nature => r.nature, :description => "Import from reference", :family => r.family, :name => r.name, :nomen => r.nomen)
         product_nature = ProductNature.find_by_number(r.product_nature_name)
         if product_nature.present? and landparcel_support.present?
-          # Add Watchings with static support
-          activity.watchings.create!(:product_nature_id => product_nature.id, :campaign_id => campaign.id, :static_storage => true, :storage_id => landparcel_support.id)
+          pro = Production.where(:campaign_id => campaign.id,:activity_id => activity.id, :product_nature_id => product_nature.id).first
+          pro ||= activity.productions.create!(:product_nature_id => product_nature.id, :campaign_id => campaign.id, :static_support => true)
+          pro.supports.create!(:support_id => r.landparcel_support)
         elsif product_nature.present?
-          # Add Watchings
-          activity.watchings.create!(:product_nature_id => product_nature.id, :campaign_id => campaign.id)
+          pro = Production.where(:campaign_id => campaign.id,:activity_id => activity.id, :product_nature_id => product_nature.id).first
+          pro ||= activity.productions.create!(:product_nature_id => product_nature.id, :campaign_id => campaign.id)
         end
         print "."
       end
