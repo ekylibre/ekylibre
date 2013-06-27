@@ -929,7 +929,7 @@ namespace :db do
         if product_nature.present? and landparcel_support.present?
           pro = Production.where(:campaign_id => campaign.id,:activity_id => activity.id, :product_nature_id => product_nature.id).first
           pro ||= activity.productions.create!(:product_nature_id => product_nature.id, :campaign_id => campaign.id, :static_support => true)
-          pro.supports.create!(:support_id => r.landparcel_support)
+          pro.supports.create!(:support_id => landparcel_support.id)
         elsif product_nature.present?
           pro = Production.where(:campaign_id => campaign.id,:activity_id => activity.id, :product_nature_id => product_nature.id).first
           pro ||= activity.productions.create!(:product_nature_id => product_nature.id, :campaign_id => campaign.id)
