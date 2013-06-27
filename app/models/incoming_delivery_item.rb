@@ -37,9 +37,10 @@
 
 
 class IncomingDeliveryItem < Ekylibre::Record::Base
-  attr_accessible :delivery_id, :price_id, :product_id, :container_id
+  attr_accessible :delivery_id, :price_id, :product_attributes, :quantity, :container_id, :product_nature_id
   attr_readonly :purchase_item_id, :product_id, :price_id, :unit
-  belongs_to :delivery, :class_name => "IncomingDelivery"
+  attr_accessor :product_nature_id
+  belongs_to :delivery, :class_name => "IncomingDelivery", :inverse_of => :items
   # belongs_to :price, :class_name => "ProductPrice"
   belongs_to :container, :class_name => "Product"
   belongs_to :product

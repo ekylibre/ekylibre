@@ -6,8 +6,17 @@
   =f.input :planned_at
 
 .add
+  -id = rand(1_000_000).to_s(36)
   %span=:add_item.tl
-  %span.input-append=text_field_tag(:nature_id, nil, 'data-selector' => url_for(:controller => :product_natures, :action => :unroll), 'data-selector-new-item' => url_for(:action => :new, :controller => :product_natures))
-  =link_to(:add.tl, {:action => :new, :controller => :incoming_delivery_items}, :class => "btn", :remote => true, 'data-update' => '#items', 'data-insert' => 'bottom')
+  %span.input-append=text_field_tag(:nature_id, nil, 'data-selector' => url_for(:controller => :product_natures, :action => :unroll), 'data-selector-new-item' => url_for(:action => :new, :controller => :product_natures), 'data-value-field' => "##{id}")
+  =hidden_field_tag(:nature_id, nil, :id => id)
+  =link_to(:add.tl, {:action => :new, :controller => :incoming_delivery_items}, :class => "btn", :remote => true, 'data-update' => '#items', 'data-update-at' => 'bottom', 'data-with' => "##{id}")
 
-#items
+  :ruby
+    # Trick to force form as multipart...
+    # TODO: find a better way to force multipart
+    f.input :mode, :as => :file
+
+#items.subforms
+  =f.backend_fields_for(:items) do |i|
+    =render "backend/incoming_delivery_items/form", :f => i

@@ -67,6 +67,7 @@
 
 
 class Product < Ekylibre::Record::Base
+  # attr_accessible :nature_id, :number, :identification_number, :work_number, :born_at, :sex, :picture, :owner_id, :parent_id, :variety, :name, :description, :type, :external, :father_id, :mother_id
   attr_accessible :variety, :external, :real_quantity, :unit, :name, :description, :nature_id, :number, :identification_number, :work_number, :born_at, :sex, :picture, :owner_id, :parent_id
   enumerize :variety, :in => Nomen::Varieties.all, :predicates => {:prefix => true}
   belongs_to :nature, :class_name => "ProductNature"
@@ -121,6 +122,20 @@ class Product < Ekylibre::Record::Base
 
   validate do
     # TODO: Check variety is the variety or a sub-variety of the (product) nature.
+  end
+
+
+  
+  class << self
+    # Auto-cast product to best matching class with type column
+    def new_with_cast(*attributes, &block)
+      if (h = attributes.first).is_a?(Hash) && !h.nil? && (type = h[:type] || h['type']) && type.length > 0 && (klass = type.constantize) != self
+        raise "Can not cast #{self.name} to #{klass.name}" unless klass <= self
+        return klass.new(*attributes, &block)
+      end
+      new_without_cast(*attributes, &block)
+    end
+    alias_method_chain :new, :cast  
   end
 
   # TODO: Removes this ASAP

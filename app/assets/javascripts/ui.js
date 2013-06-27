@@ -100,6 +100,20 @@
     $(document).ready(function () {
         $(".beehive .cell").raiseContentErrorToCellTitle();
     });
+    
+    $.fn.raiseContentErrorToFieldSet = function () {
+        var fss = $(this);
+        fss.each(function () {
+            var fs = $(this);
+            if (fs.find('.error').length > 0) {
+                fs.parents('.fieldset').addClass('error');
+            }
+        });
+    };
+    $(document).on('page:load', '.fieldset .fieldset-fields', $.fn.raiseContentErrorToFieldSet);
+    $(document).ready(function () {
+        $(".fieldset .fieldset-fields").raiseContentErrorToFieldSet();
+    });
 
 
 

@@ -111,6 +111,7 @@ module Nomen
       end
     end
 
+    # Returns children recursively by default
     def children(recursively = true)
       @children ||= nomenclature.items.values.select do |item|
         (item.parent == self)
@@ -121,13 +122,17 @@ module Nomen
       return @children
     end
 
+    # Returns direct parents from the closest to the farest
+    def parents
+      return (self.parent.nil? ? [] : [self.parent] + self.parent.parents)
+    end
+
     def self_and_children
       [self] + self.children
     end
 
-    # Returns direct parents from the closest to the farest
-    def parents
-      return (self.parent.nil? ? [] : self.parent + self.parent.parents)
+    def self_and_parents
+      [self] + self.parents
     end
 
     # Return human name of item
@@ -216,12 +221,6 @@ module Nomen
 
   # Load all nomenclatures
   load
-
-  # puts names.to_sentence
-
-  # puts "ALL> " + Varieties.all.to_sentence
-  # puts "EASEMENT> " + Varieties.all(:easement).to_sentence
-  # puts "ZONE> " + Varieties.all(:zone).to_sentence
 
   Rails.logger.info "Loaded nomenclatures: " + names.to_sentence
 

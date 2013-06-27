@@ -1,6 +1,14 @@
-=field_set do
-  -unless nature.individual
-    =f.input :quantity, :unit => nature.unit
-
-=f.simple_fields_for nature.product.build do |p|
-  =render "backend/#{nature.matching_model.name.tableize}/form", :f => p
+-nature = ProductNature.find(f.object.product_nature_id)
+.subform
+  .subform-title
+    %h3=nature.name
+    -unless nature.individual
+      =f.input :quantity, :unit => nature.unit
+    =f.input :product_nature_id, :as => :hidden
+  .subform-fields
+    -if model = nature.matching_model
+      -iv = "@#{model.name.underscore}".to_sym
+      -instance_variable_set(iv, f.object.product || model.new)
+      =f.backend_fields_for(:product, instance_variable_get(iv)) do |p|
+        =p.hidden_field(:type)
+        =render "backend/#{model.name.tableize}/form", :f => p

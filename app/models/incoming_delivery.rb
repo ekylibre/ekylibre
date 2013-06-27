@@ -40,13 +40,13 @@
 
 class IncomingDelivery < Ekylibre::Record::Base
   acts_as_numbered
-  attr_accessible :address_id, :sender_id, :mode_id, :received_at, :reference_number, :items_attributes # , :description
+  attr_accessible :address_id, :sender_id, :mode_id, :planned_at, :received_at, :reference_number, :items_attributes # , :description
   attr_readonly :number
   belongs_to :address, :class_name => "EntityAddress"
   belongs_to :mode, :class_name => "IncomingDeliveryMode"
   belongs_to :purchase
   belongs_to :sender, :class_name => "Entity"
-  has_many :items, :class_name => "IncomingDeliveryItem", :foreign_key => :delivery_id, :dependent => :destroy
+  has_many :items, :class_name => "IncomingDeliveryItem", :inverse_of => :delivery, :foreign_key => :delivery_id, :dependent => :destroy
   has_many :product_moves, :as => :origin
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
