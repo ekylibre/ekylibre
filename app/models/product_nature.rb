@@ -156,9 +156,10 @@ class ProductNature < Ekylibre::Record::Base
   # Returns the closest matching model based on the given variety
   def self.matching_model(variety)
     if item = Nomen::Varieties.find(variety)
-      for ancestor in item.parents
-        model = ancestor.name.camelcase.constantize rescue nil
-        return model if model <= Product
+      for ancestor in item.self_and_parents
+        if model = ancestor.name.camelcase.constantize rescue nil
+          return model if model <= Product
+        end
       end
     end
     return nil

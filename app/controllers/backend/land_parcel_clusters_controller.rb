@@ -9,7 +9,7 @@ class Backend::LandParcelClustersController < BackendController
     t.column :identification_number
     t.column :real_quantity
     t.column :unit
-    
+
   end
 
   # Displays the main page with the list of land_parcel_clusters.

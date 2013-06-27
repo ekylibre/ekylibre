@@ -21,9 +21,14 @@ class Backend::IncomingDeliveryItemsController < BackendController
 
   def new
     if request.xhr? and params[:nature_id]
+      @incoming_delivery   = IncomingDelivery.where(:id => params[:incoming_delivery_id]).first
+      @incoming_delivery ||= IncomingDelivery.new
       return unless nature = find_and_check(:product_nature, params[:nature_id])
-      @incoming_delivery_item = IncomingDeliveryItem.new(:natue => nature)
-      render :partial => "form", :locals => {:nature => nature}
+      @incoming_delivery.items.build(:product_nature_id => nature.id) # (:id => rand(1_000_000_000))
+      # id = rand(1_000_000_000)
+      # @incoming_delivery_items = @incoming_delivery.items.build(:id => id)
+      # @incoming_delivery_item = @incoming_delivery.items.build(:id => id)
+      render :partial => "nested_form"
     else
       head :forbidden
     end

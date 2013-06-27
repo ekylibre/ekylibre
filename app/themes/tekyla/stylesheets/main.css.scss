@@ -684,6 +684,19 @@ form.search {
   margin-bottom: $default-gap;
 }
 
+.subforms {
+  .subform {
+    .subform-title {
+      @include background(transparentize($important-color, 0.4));
+      padding: $default-gap;
+    }
+    .subform-fields {
+      padding-top: $default-gap;
+      @include background(transparentize($important-color, 0.95));
+    }
+  }
+}
+
 .picture {
   background: white;
   border: 1px solid #DDDDDD;
@@ -987,7 +1000,11 @@ form.search {
       @include use-icon(nth($field_set, 2));
     }
   }
-
+  &.error .fieldset-legend.collapsed {
+    label, span {
+      color: $invalid-color;
+    }
+  }
   .fieldset-fields {
     //border-top: $fieldset-border;
     border-top: 2px solid $active-color;
@@ -1020,7 +1037,14 @@ form.search {
       max-width: 65%;
     }
 
+    & > .fieldset {
+      @include margin-left(0);
+      @include margin-right(0);
+    }
+
+
   }
+
 }
 
 .help-inline {
