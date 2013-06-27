@@ -80,12 +80,13 @@ class Product < Ekylibre::Record::Base
   belongs_to :father, :class_name => "Product"
   belongs_to :mother, :class_name => "Product"
   belongs_to :owner, :class_name => "Entity"
-  has_many :memberships, :class_name => "ProductMembership", :foreign_key => :member_id
-  has_many :groups, :through => :memberships
+  has_many :incidents, :class_name => "Incident", :as => :target
   has_many :indicator_data, :class_name => "ProductIndicatorDatum", :dependent => :destroy
+  has_many :groups, :through => :memberships
+  has_many :memberships, :class_name => "ProductMembership", :foreign_key => :member_id
   has_many :operation_tasks, :foreign_key => :subject_id
   has_many :product_localizations
-  has_many :incidents, :class_name => "Incident", :as => :target
+  has_many :supports, :class_name => "ProductSupport", :foreign_key => :storage_id, :inverse_of => :storage
   has_attached_file :picture, {
     :url => '/backend/:class/:id/picture/:style',
     :path => ':rails_root/private/:class/:attachment/:id_partition/:style.:extension',
@@ -125,7 +126,7 @@ class Product < Ekylibre::Record::Base
   end
 
 
-  
+
   class << self
     # Auto-cast product to best matching class with type column
     def new_with_cast(*attributes, &block)
@@ -135,7 +136,7 @@ class Product < Ekylibre::Record::Base
       end
       new_without_cast(*attributes, &block)
     end
-    alias_method_chain :new, :cast  
+    alias_method_chain :new, :cast
   end
 
   # TODO: Removes this ASAP

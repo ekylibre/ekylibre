@@ -2,10 +2,10 @@
   =f.referenced_association :activity, :source => :main_activity
   =f.referenced_association :campaign
   =f.referenced_association :product_nature, :source => :producibles
-  =f.input :static_support, :show => :storage
+  =f.input :static_support, :show => :supports
   =f.input :state
   =f.input :started_at
   =f.input :stopped_at
 
-=field_set(:storage) do
+=field_set(:supports) do
   =f.nested_association(:supports)

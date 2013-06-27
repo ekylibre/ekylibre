@@ -25,15 +25,15 @@
 #  id            :integer          not null, primary key
 #  lock_version  :integer          default(0), not null
 #  production_id :integer          not null
-#  support_id    :integer          not null
+#  storage_id    :integer          not null
 #  updated_at    :datetime         not null
 #  updater_id    :integer
 #
 class ProductionSupport < Ekylibre::Record::Base
-  attr_accessible :support_id, :production_id
+  attr_accessible :storage_id, :production_id
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_presence_of :production, :support
+  validates_presence_of :production, :storage
   #]VALIDATORS]
-  belongs_to :support, :class_name => "LandParcelGroup"
-  belongs_to :production, :class_name => "Production"
+  belongs_to :storage, :class_name => "Product", :inverse_of => :supports
+  belongs_to :production, :inverse_of => :supports
 end

@@ -56,15 +56,13 @@ class EnhanceOperations < ActiveRecord::Migration
 
     # Production Supports can store product_nature
     create_table :production_supports do |t|
-      # t.references :nature, :null => false
       t.references :production, :null => false
-      t.references :support, :null => false
-
+      t.references :storage,    :null => false
       t.stamps
     end
     add_stamps_indexes :production_supports
     add_index :production_supports, :production_id
-    add_index :production_supports, :support_id
+    add_index :production_supports, :storage_id
 
     # Procedure
     # add_column :events, :parent_id, :integer

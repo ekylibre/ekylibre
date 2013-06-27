@@ -17,7 +17,7 @@ class AddActivities < ActiveRecord::Migration
     create_table :activities do |t|
       t.string :name, :null => false
       t.string :description
-      t.string :nomen                  # code or nomenclature if XML
+      # t.string :nomen                  # code or nomenclature if XML
       t.string :family, :null => false # classification (végétal, animal, mecanisation)
       t.string :nature, :null => false # main, auxiliary, undefined
       t.datetime :started_at

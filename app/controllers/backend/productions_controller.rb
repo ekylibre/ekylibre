@@ -44,7 +44,7 @@ class Backend::ProductionsController < BackendController
 
   end
 
-  # Displays the main page with the list of activity_watchings.
+  # Displays the main page with the list of productions.
   def index
     session[:production_state] = params[:s] ||="all"
     session[:production_key] = params[:q]
@@ -57,7 +57,7 @@ class Backend::ProductionsController < BackendController
     end
   end
 
-  # Displays the page for one activity_watching.
+  # Displays the page for one production.
   def show
     return unless @production = find_and_check
     respond_to do |format|

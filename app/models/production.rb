@@ -42,7 +42,7 @@ class Production < Ekylibre::Record::Base
   # belongs_to :area_unit, :class_name => "Unit"
   belongs_to :product_nature
   has_many :repartitions, :class_name => "ActivityRepartition"
-  has_many :supports, :class_name => "ProductionSupport", :foreign_key => :production_id
+  has_many :supports, :class_name => "ProductionSupport", :inverse_of => :production
 
   accepts_nested_attributes_for :supports, :reject_if => :all_blank, :allow_destroy => true
   #belongs_to :storage, :class_name => "LandParcel"

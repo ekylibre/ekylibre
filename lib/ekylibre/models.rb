@@ -769,7 +769,7 @@ module Ekylibre
     :production_support => {
       :creator_id => :user,
       :production_id => :production,
-      :support_id => '',
+      :storage_id => '',
       :updater_id => :user
     },
     :profession => {

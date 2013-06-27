@@ -61,7 +61,6 @@ ActiveRecord::Schema.define(:version => 20130410143823) do
   create_table "activities", :force => true do |t|
     t.string   "name",                        :null => false
     t.string   "description"
-    t.string   "nomen"
     t.string   "family",                      :null => false
     t.string   "nature",                      :null => false
     t.datetime "started_at"
@@ -1780,7 +1779,7 @@ ActiveRecord::Schema.define(:version => 20130410143823) do
 
   create_table "production_supports", :force => true do |t|
     t.integer  "production_id",                :null => false
-    t.integer  "support_id",                   :null => false
+    t.integer  "storage_id",                   :null => false
     t.datetime "created_at",                   :null => false
     t.datetime "updated_at",                   :null => false
     t.integer  "creator_id"
@@ -1791,7 +1790,7 @@ ActiveRecord::Schema.define(:version => 20130410143823) do
   add_index "production_supports", ["created_at"], :name => "index_production_supports_on_created_at"
   add_index "production_supports", ["creator_id"], :name => "index_production_supports_on_creator_id"
   add_index "production_supports", ["production_id"], :name => "index_production_supports_on_production_id"
-  add_index "production_supports", ["support_id"], :name => "index_production_supports_on_support_id"
+  add_index "production_supports", ["storage_id"], :name => "index_production_supports_on_storage_id"
   add_index "production_supports", ["updated_at"], :name => "index_production_supports_on_updated_at"
   add_index "production_supports", ["updater_id"], :name => "index_production_supports_on_updater_id"
 

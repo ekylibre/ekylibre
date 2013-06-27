@@ -100,7 +100,7 @@
     $(document).ready(function () {
         $(".beehive .cell").raiseContentErrorToCellTitle();
     });
-    
+
     $.fn.raiseContentErrorToFieldSet = function () {
         var fss = $(this);
         fss.each(function () {

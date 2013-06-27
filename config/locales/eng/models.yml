@@ -1144,6 +1144,7 @@ eng:
     # product_nature: "Product nature"
     # product_natures: "Types de produits"
     productable_products: "Productable products" #?
+    # production: "Production"
     production_chain: "Production chain" #?
     production_chain_work_center: "Production chain work center" #?
     production_chain_work_center_lines: "Production chain work center lines" #?
@@ -1292,6 +1293,7 @@ eng:
     supplier_account: "Supplier account"
     supplier_accounts: "Supplier accounts"
     suppliers: "Suppliers"
+    # supports: "Supports"
     surface_units: "Surface units"
     suspended: "Suspended"
     # symbol: "Symbole"

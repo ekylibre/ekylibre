@@ -50,12 +50,3 @@
 #   updater_id: 1
 #
 
-
-# # Empty samples of activity_watchings
-# activity_watchings_001:
-#   id: 1
-#   name: 'ActivityWatching 1'
-
-# activity_watchings_002:
-#   id: 2
-#   name: 'ActivityWatching 2'

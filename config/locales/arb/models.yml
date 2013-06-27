@@ -1594,6 +1594,7 @@ arb:
     # product_nature: "Product nature"
     # product_natures: "Types de produits"
     productable_products: "المنتجات الممكن انتاجها" #?
+    # production: "Production"
     products: "المنتجات"
     products_accounts: "حسابات المنتجات" #?
     profession: "المهنة"
@@ -1751,6 +1752,7 @@ arb:
     supplier_accounts: "حسابات المموليين"
     supplier_id: "ممول" #?
     suppliers: "الممولين"
+    # supports: "Supports"
     surface_units: "وحدات المظهر الخارجي"
     suspended: "معطل"
     symbol: "نموذج"

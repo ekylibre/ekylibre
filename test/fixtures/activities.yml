@@ -30,7 +30,6 @@
 #  lock_version :integer          default(0), not null
 #  name         :string(255)      not null
 #  nature       :string(255)      not null
-#  nomen        :string(255)
 #  parent_id    :integer
 #  rgt          :integer
 #  started_at   :datetime

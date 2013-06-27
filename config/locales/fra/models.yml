@@ -380,6 +380,7 @@ fra:
       # product_process_phase: "Product process phase"
       product_transfer: "Transfert ou perte de Stock"
       production: "Production"
+      # production_support: "Production support"
       profession: "Profession"
       # property_title: "Property title"
       purchase: "Achat"
@@ -956,7 +957,8 @@ fra:
     product_moves: "Product moves"
     product_nature: "Product nature"
     product_natures: "Types de produits"
-    # production: "Production"
+    production: "Production"
+    # productions: "Productions"
     products: "Produits"
     profession: "Profession"
     proposer: "Parrain"
@@ -1067,7 +1069,7 @@ fra:
     started_on: "Débuté le"
     state: "État"
     state_label: "État"
-    # static_storage: "Static storage"
+    # static_support: "Static support"
     status: "Status"
     stock: "Stock de produit" #?
     # stock_account: "Stock account"
@@ -1098,6 +1100,7 @@ fra:
     supplier_account: "Compte fournisseur associé"
     supplier_accounts: "Comptes fournisseurs" #?
     suppliers: "Fournisseurs"
+    supports: "Supports"
     surface_units: "Unités de surface" #?
     suspended: "Suspendu"
     symbol: "Symbole" #?
@@ -1161,7 +1164,6 @@ fra:
     virtual_quantity: "Stock virtuel"
     waiting_deliveries: "Livraisons en attente"
     watcher: "Observateur" #?
-    # watchings: "Watchings"
     webpass: "Mot de passe web"
     websites: "Sites web"
     weight: "Poids (kg)"

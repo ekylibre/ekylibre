@@ -25,7 +25,7 @@
 #  id            :integer          not null, primary key
 #  lock_version  :integer          default(0), not null
 #  production_id :integer          not null
-#  support_id    :integer          not null
+#  storage_id    :integer          not null
 #  updated_at    :datetime         not null
 #  updater_id    :integer
 #

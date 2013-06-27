@@ -405,10 +405,10 @@ namespace :db do
       # p = ProductVariety.find_by_code("place")
       # v ||= ProductVariety.create!(:name => "Parcelle", :code => "land_parcel", :product_type => "LandParcel", :parent_id => (p ? p.id : nil))
       land_unit = "square_meter"
-      landparcel_product_nature_category = ProductNatureCategory.find_by_name("Ilôts")
-      landparcel_product_nature_category ||= ProductNatureCategory.create!(:name => "Ilôts", :published => true)
+      land_parcel_product_nature_category = ProductNatureCategory.find_by_name("Ilôts")
+      land_parcel_product_nature_category ||= ProductNatureCategory.create!(:name => "Ilôts", :published => true)
       land_parcel_group = ProductNature.find_by_number("LANDPARCELCLUSTER")
-      land_parcel_group ||= ProductNature.create!(:name => "Ilôt", :number => "LANDPARCELCLUSTER", :variety => "land_parcel_cluster", :unit => land_unit, :category_id => landparcel_product_nature_category.id)
+      land_parcel_group ||= ProductNature.create!(:name => "Ilôt", :number => "LANDPARCELCLUSTER", :variety => "land_parcel_cluster", :unit => land_unit, :category_id => land_parcel_product_nature_category.id)
       RGeo::Shapefile::Reader.open(Rails.root.join("test", "fixtures", "files", "ilot_017005218.shp").to_s, :srid => 2154) do |file|
         # puts "File contains #{file.num_records} records."
         file.each do |record|
@@ -422,40 +422,39 @@ namespace :db do
       puts "!"
 
       #############################################################################
-      # Import landparcel from Calc Sheet
+      # Import land_parcel from Calc Sheet
       print "[#{(Time.now - start).round(2).to_s.rjust(8)}s] LandParcels - GAEC DUPONT Parcel sheet 2013 : "
       # v = ProductVariety.find_by_code("land_parcel")
       # p = ProductVariety.find_by_code("place")
       # v ||= ProductVariety.create!(:name => "Parcelle", :code => "land_parcel", :product_type => "LandParcel", :parent_id => (p ? p.id : nil))
-      landparcel_unit = "hectare"
-      cultural_landparcel_product_nature_category = ProductNatureCategory.find_by_name("Parcelles cultivables")
-      cultural_landparcel_product_nature_category ||= ProductNatureCategory.create!(:name => "Parcelles cultivables", :published => true)
+      land_parcel_unit = "hectare"
+      cultural_land_parcel_product_nature_category = ProductNatureCategory.find_by_name("Parcelles cultivables")
+      cultural_land_parcel_product_nature_category ||= ProductNatureCategory.create!(:name => "Parcelles cultivables", :published => true)
       land_parcel_group = ProductNature.find_by_number("LANDPARCEL")
-      land_parcel_group ||= ProductNature.create!(:name => "Parcelle", :number => "LANDPARCEL", :variety => "land_parcel", :unit => landparcel_unit, :category_id => cultural_landparcel_product_nature_category.id)
+      land_parcel_group ||= ProductNature.create!(:name => "Parcelle", :number => "LANDPARCEL", :variety => "land_parcel", :unit => land_parcel_unit, :category_id => cultural_land_parcel_product_nature_category.id)
 
       # Load file
       file = Rails.root.join("test", "fixtures", "files", "parcelle_017005218.csv")
       CSV.foreach(file, :encoding => "UTF-8", :col_sep => ",", :headers => true, :quote_char => "'") do |row|
         r = OpenStruct.new(:ilot_work_number => row[0],
                            :campaign => row[1],
-                           :landparcelgroup_work_number => row[2],
-                           :landparcelgroup_name => row[3].capitalize,
-                           :landparcel_work_number => row[4],
-                           :landparcel_name => row[5].capitalize,
-                           :landparcel_area => row[6].to_d,
-                           :landparcelgroup_shape => row[7],
-                           :landparcel_shape => row[8],
-                           :landparcel_plant_name => row[9],
-                           :landparcel_plant_variety => row[10]
+                           :land_parcel_group_work_number => row[2],
+                           :land_parcel_group_name => row[3].capitalize,
+                           :land_parcel_work_number => row[4],
+                           :land_parcel_name => row[5].capitalize,
+                           :land_parcel_area => row[6].to_d,
+                           :land_parcel_group_shape => row[7],
+                           :land_parcel_shape => row[8],
+                           :land_parcel_plant_name => row[9],
+                           :land_parcel_plant_variety => row[10]
                            )
 
-        landparcelcluster = LandParcelCluster.find_by_work_number(r.ilot_work_number)
-        if landparcelcluster.present?
-          landparcelgroup = LandParcelGroup.find_by_work_number(r.landparcelgroup_work_number)
-          landparcelgroup ||= LandParcelGroup.create!(:shape => r.landparcelgroup_shape,:name => r.landparcelgroup_name, :work_number => r.landparcelgroup_work_number, :variety => "land_parcel_group", :unit => landparcel_unit, :born_at => Time.now, :nature_id => land_parcel_group.id, :owner_id => Entity.of_company.id, :identification_number => r.landparcelgroup_work_number)
-          if landparcelgroup.present?
-            landparcel = LandParcel.find_by_work_number(r.landparcel_work_number)
-            landparcel ||= LandParcel.create!(:shape => r.landparcel_shape, :real_quantity =>r.landparcel_area, :name => r.landparcel_name, :work_number => r.landparcel_work_number, :variety => "land_parcel", :unit => landparcel_unit, :born_at => Time.now, :nature_id => land_parcel_group.id, :owner_id => Entity.of_company.id, :identification_number => r.landparcel_work_number)
+        if land_parcel_cluster = LandParcelCluster.find_by_work_number(r.ilot_work_number)
+          cultural_land_parcel = LandParcelGroup.find_by_work_number(r.land_parcel_group_work_number)
+          cultural_land_parcel ||= LandParcelGroup.create!(:shape => r.land_parcel_group_shape,:name => r.land_parcel_group_name, :work_number => r.land_parcel_group_work_number, :variety => "land_parcel_group", :unit => land_parcel_unit, :born_at => Time.now, :nature_id => land_parcel_group.id, :owner_id => Entity.of_company.id, :identification_number => r.land_parcel_group_work_number)
+          if cultural_land_parcel
+            land_parcel = LandParcel.find_by_work_number(r.land_parcel_work_number)
+            land_parcel ||= LandParcel.create!(:shape => r.land_parcel_shape, :real_quantity =>r.land_parcel_area, :name => r.land_parcel_name, :work_number => r.land_parcel_work_number, :variety => "land_parcel", :unit => land_parcel_unit, :born_at => Time.now, :nature_id => land_parcel_group.id, :owner_id => Entity.of_company.id, :identification_number => r.land_parcel_work_number)
           end
         end
 
@@ -466,7 +465,7 @@ namespace :db do
       end
       puts "!"
 
-      # # add shape to landparcel
+      # # add shape to land_parcel
       # RGeo::Shapefile::Reader.open(Rails.root.join("test", "fixtures", "files", "parcelle_017005218.shp").to_s, :srid => 2154) do |file|
       # # puts "File contains #{file.num_records} records."
       # file.each do |record|
@@ -908,30 +907,29 @@ namespace :db do
       # Load file
       file = Rails.root.join("test", "fixtures", "files", "activities_ref_demo_1.csv")
       CSV.foreach(file, :encoding => "UTF-8", :col_sep => ",", :headers => true, :quote_char => "'") do |row|
-        r = OpenStruct.new(:nomen => row[0],
+        r = OpenStruct.new(:description => row[0],
                            :name => row[1].downcase.capitalize,
                            :family => (families[row[2]] || :none).to_s,
                            :product_nature_name => row[3],
                            :nature => (natures[row[4]] || :none).to_s,
                            :campaign_name => row[5].blank? ? nil : row[5].to_s,
-                           :work_number_landparcel_storage => row[6].blank? ? nil : row[6].to_s
+                           :work_number_land_parcel_storage => row[6].blank? ? nil : row[6].to_s
                            )
-        landparcel_support = LandParcelGroup.find_by_work_number(r.work_number_landparcel_storage)
+        land_parcel_support = LandParcelGroup.find_by_work_number(r.work_number_land_parcel_storage)
         # Create a campaign if not exist
         if r.campaign_name.present?
           campaign = Campaign.find_by_name(r.campaign_name)
           campaign ||= Campaign.create!(:name => r.campaign_name, :closed => false)
         end
         # Create an activity if not exist
-        activity = Activity.find_by_nomen(r.nomen)
-        activity ||= Activity.create!(:nature => r.nature, :description => "Import from reference", :family => r.family, :name => r.name, :nomen => r.nomen)
-        product_nature = ProductNature.find_by_number(r.product_nature_name)
-        if product_nature.present? and landparcel_support.present?
+        activity   = Activity.find_by_description(r.description)
+        activity ||= Activity.create!(:nature => r.nature, :description => "Import from reference", :family => r.family, :name => r.name, :description => r.description)
+        if product_nature = ProductNature.find_by_number(r.product_nature_name) and land_parcel_support
           pro = Production.where(:campaign_id => campaign.id,:activity_id => activity.id, :product_nature_id => product_nature.id).first
           pro ||= activity.productions.create!(:product_nature_id => product_nature.id, :campaign_id => campaign.id, :static_support => true)
-          pro.supports.create!(:support_id => r.landparcel_support)
+          pro.supports.create!(:storage_id => land_parcel_support.id)
         elsif product_nature.present?
-          pro = Production.where(:campaign_id => campaign.id,:activity_id => activity.id, :product_nature_id => product_nature.id).first
+          pro = Production.where(:campaign_id => campaign.id, :activity_id => activity.id, :product_nature_id => product_nature.id).first
           pro ||= activity.productions.create!(:product_nature_id => product_nature.id, :campaign_id => campaign.id)
         end
         print "."
