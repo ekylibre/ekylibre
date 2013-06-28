@@ -127,6 +127,7 @@ Ekylibre::Application.routes.draw do
     resources :productions do
       collection do
         get :list
+        get :fertilization
         unroll_all
       end
     end

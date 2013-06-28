@@ -69,9 +69,18 @@ class LandParcelGroup < ProductGroup
   attr_accessible :real_quantity, :born_at, :dead_at, :shape, :active, :external, :description, :name, :variety, :unit, :nature_id, :reproductor, :reservoir, :parent_id, :memberships_attributes
 
   belongs_to :parent, :class_name => "ProductGroup"
-  has_many :supports, :class_name => "ProductionSupport", :foreign_key => :support_id
+  has_many :supports, :class_name => "ProductionSupport", :foreign_key => :storage_id
+  has_many :productions, :class_name => "Production", :through => :supports
   default_scope -> { order(:name) }
   scope :groups_of, lambda { |member, viewed_at| where("id IN (SELECT group_id FROM #{ProductMembership.table_name} WHERE member_id = ? AND ? BETWEEN COALESCE(started_at, ?) AND COALESCE(stopped_at, ?))", member.id, viewed_at, viewed_at, viewed_at) }
+  
+
+  scope :of_campaign, lambda { |*campaigns|
+    for campaign in campaigns
+     raise ArgumentError.new("Expected Campaign, got #{campaign.class.name}:#{campaign.inspect}") unless campaign.is_a?(Campaign)
+    end
+    joins(:productions).where('campaign_id IN (?)', campaigns.map(&:id))
+  }
 
   # FIXME
   # accepts_nested_attributes_for :memberships, :reject_if => :all_blank, :allow_destroy => true

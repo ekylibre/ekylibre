@@ -43,6 +43,8 @@ class Production < Ekylibre::Record::Base
   belongs_to :product_nature
   has_many :repartitions, :class_name => "ActivityRepartition"
   has_many :supports, :class_name => "ProductionSupport", :inverse_of => :production
+  has_many :procedures, :class_name => "Procedure"
+  has_many :land_parcel_groups, :through => :supports, :class_name => "Product"#, :conditions => {:variety => "land_parcel_group"}
 
   accepts_nested_attributes_for :supports, :reject_if => :all_blank, :allow_destroy => true
   #belongs_to :storage, :class_name => "LandParcel"
@@ -52,6 +54,13 @@ class Production < Ekylibre::Record::Base
   validates_inclusion_of :static_support, :in => [true, false]
   validates_presence_of :activity, :campaign, :product_nature
   #]VALIDATORS]
+  
+  scope :of_campaign, lambda { |*campaigns|
+    for campaign in campaigns
+      raise ArgumentError.new("Expected Campaign, got #{campaign.class.name}:#{campaign.inspect}") unless campaign.is_a?(Campaign)
+    end
+    where('campaign_id IN (?)', campaigns.map(&:id))
+  }
 
   state_machine :state, :initial => :draft do
     state :draft

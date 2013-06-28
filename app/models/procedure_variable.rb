@@ -41,10 +41,26 @@ class ProcedureVariable < Ekylibre::Record::Base
   belongs_to :target, :class_name => "Product"
 
   delegate :name, :to => :target, :prefix => true
-
+  
+   
+  scope :of_role, lambda { |*natures|
+    #for nature in natures
+      #raise ArgumentError.new("Expected ProcedureNature, got #{nature.class.name}:#{nature.inspect}") unless nature.is_a?(ProcedureNature)
+    #end
+    #where('nature IN (?)', natures)
+    where(:roles => ["input"])
+  }
+  
   def name
     self.procedure.reference.hash[self.procedure.uid].variables[self.nomen].human_name
   end
-
+  
+  def target_used_quantity
+    self.target.real_quantity
+  end
+  
+  def target_used_quantity_unit
+    self.target.unit
+  end
 
 end

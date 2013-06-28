@@ -86,7 +86,7 @@ class Product < Ekylibre::Record::Base
   has_many :memberships, :class_name => "ProductMembership", :foreign_key => :member_id
   has_many :operation_tasks, :foreign_key => :subject_id
   has_many :product_localizations
-  has_many :supports, :class_name => "ProductSupport", :foreign_key => :storage_id, :inverse_of => :storage
+  has_many :supports, :class_name => "ProductionSupport", :foreign_key => :storage_id, :inverse_of => :storage
   has_attached_file :picture, {
     :url => '/backend/:class/:id/picture/:style',
     :path => ':rails_root/private/:class/:attachment/:id_partition/:style.:extension',

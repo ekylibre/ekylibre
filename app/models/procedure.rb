@@ -47,6 +47,16 @@ class Procedure < Ekylibre::Record::Base
   validates_inclusion_of :nomen, :in => self.nomen.values
   validates_presence_of :version, :uid
 
+  # @TODO in progress - need to call parent procedure to have the name of the procedure_nature
+  
+  scope :of_nature, lambda { |*natures|
+    #for nature in natures
+      #raise ArgumentError.new("Expected ProcedureNature, got #{nature.class.name}:#{nature.inspect}") unless nature.is_a?(ProcedureNature)
+    #end
+    #where('nature IN (?)', natures)
+    order(:nomen)
+  }
+
   before_validation(:on => :create) do
     unless self.root?
       if root = self.root
@@ -67,6 +77,22 @@ class Procedure < Ekylibre::Record::Base
     else self.children.count.zero? or self.children.where(:state => ["undone", "in_progress"]).count.zero?
       self.state = "done"
     end
+  end
+
+
+  # started_at ( the first operation of the current procedure)
+  def started_at
+    if operation = self.operations.reorder(:started_at).first
+      return operation.started_at
+    end
+    return nil
+  end
+  
+  def stopped_at
+    if operation = self.operations.reorder(:stopped_at).first
+      return operation.stopped_at
+    end
+    return nil
   end
 
   # Reference

@@ -11,7 +11,6 @@
       <item name="feeding"/>
       <item name="technical_guide"/>
       <item name="tillage"/>
-      <item name="enrichment"/>
       <item name="soil_enrichment" roles="input, target"/>
       <item name="pruning" roles="gardener+, target+"/>
     </items>
