@@ -534,6 +534,12 @@ Ekylibre::Application.routes.draw do
         match "picture(/:style)", :via => :get, :action => :picture, :as => :picture
       end
     end
+    resources :mineral_matters do
+      collection do
+        get :list
+        unroll_all
+      end
+    end
     resources :observations
     resources :operations do
       collection do

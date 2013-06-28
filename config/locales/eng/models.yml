@@ -1151,6 +1151,7 @@ eng:
     production_chain_work_center_uses: "Production chain work center uses" #?
     production_chain_work_centers: "Production chain work centers" #?
     production_chains: "Production chains" #?
+    # productions: "Productions"
     products: "Products"
     products_accounts: "Products accounts" #?
     profession: "Profession"

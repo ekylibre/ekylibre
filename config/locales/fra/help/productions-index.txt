@@ -1,0 +1,8 @@
+====== Productions ======
+
+==== Qu'est ce qu'une production ? ====
+
+Un production est une intention de produire déclarée permettant de prévoir l'activité de l'exploitation en liant une activité,
+une campagne et un type de produit (optionnelement un lieu de production).
+
+>>> Ex : Assolement des céréales pour la campagne 2013, Prévision de production de légumes, ...

@@ -346,6 +346,7 @@ fra:
       meeting: "Évènement"
       meeting_nature: "Type d’évènement"
       # meeting_participation: "Meeting participation"
+      # mineral_matter: "Mineral matter"
       observation: "Observation"
       operation: "Opération"
       operation_task: "Tâche"
@@ -760,7 +761,7 @@ fra:
     journals: "Journaux" #?
     key: "Clé"
     label: "Libellé"
-    land_parcel_groups: "Groupe d’îlots" #?
+    land_parcel_groups: "Groupe d’îlots"
     land_parcels: "Îlots" #?
     language: "Langue"
     last_bank_statement: "Dernier relevé bancaire"
@@ -958,7 +959,7 @@ fra:
     product_nature: "Product nature"
     product_natures: "Types de produits"
     production: "Production"
-    # productions: "Productions"
+    productions: "Productions"
     products: "Produits"
     profession: "Profession"
     proposer: "Parrain"

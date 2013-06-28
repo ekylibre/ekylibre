@@ -319,6 +319,11 @@ fra:
       edit: "Modifier un évènement"
       index: "Évènements"
       new: "Nouvel évènement"
+    backend/mineral_matters:
+      # edit: "Edit backend/mineral matter"
+      # index: "Index backend/mineral matter"
+      # new: "New backend/mineral matter"
+      # show: "Show backend/mineral matter"
     backend/myselves:
       change_password: "Changer de mot de passe" #?
       show: "Mes informations"
@@ -476,6 +481,7 @@ fra:
       # show: "Show backend/production support"
     backend/productions:
       edit: "Modifier la production\_: %{name}"
+      # fertilization: "Fertilization backend/production"
       index: "Productions"
       new: "Nouvelle production"
       show: "Production\_: %{name}"
@@ -670,6 +676,7 @@ fra:
     # backend/medicines: "Backend/medicines"
     # backend/meeting_natures: "Backend/meeting natures"
     # backend/meetings: "Backend/meetings"
+    # backend/mineral_matters: "Backend/mineral matters"
     backend/myselves: "Mon compte"
     backend/observations: "Observations"
     # backend/operation_tasks: "Backend/operation tasks"

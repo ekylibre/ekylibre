@@ -127,6 +127,8 @@ class ProductNature < Ekylibre::Record::Base
   scope :animal_medicines, -> { where(:individual => false, :variety => "animal_medicine").order(:name) }
   scope :equipments, -> { where(:variety => "equipment").order(:name) }
   scope :buildings, -> { where(:variety => "building").order(:name) }
+  scope :organic_matters, -> { where(:variety => "organic_matter").order(:name) }
+  scope :mineral_matters, -> { where(:variety => "mineral_matter").order(:name) }
   scope :matters, -> { where(:subscribing => false).order(:name) }
 
   before_validation do

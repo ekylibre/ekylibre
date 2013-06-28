@@ -1103,6 +1103,16 @@
         <page to="backend/medicines#show"/>
         <page to="backend/medicines#update"/>
       </item>
+      <item name="mineral_matters">
+        <page to="backend/mineral_matters#index"/>
+        <page to="backend/mineral_matters#create"/>
+        <page to="backend/mineral_matters#destroy"/>
+        <page to="backend/mineral_matters#edit"/>
+        <page to="backend/mineral_matters#list"/>
+        <page to="backend/mineral_matters#new"/>
+        <page to="backend/mineral_matters#show"/>
+        <page to="backend/mineral_matters#update"/>
+      </item>
       <item name="operations">
         <page to="backend/operations#unroll"/>
       </item>
@@ -1221,6 +1231,9 @@
         <page to="backend/production_supports#new"/>
         <page to="backend/production_supports#show"/>
         <page to="backend/production_supports#update"/>
+      </item>
+      <item name="productions">
+        <page to="backend/productions#fertilization"/>
       </item>
       <item name="professions">
         <page to="backend/professions#index"/>

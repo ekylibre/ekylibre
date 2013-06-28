@@ -358,6 +358,7 @@ arb:
       # edit: "Modifier un évènement"
       # index: "Évènements"
       # new: "Nouvel évènement"
+    backend/mineral_matters: #?
     backend/myselves:
       # change_password: "Changer de mot de passe"
       # show: "Mes informations"

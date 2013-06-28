@@ -168,6 +168,14 @@
 # - "backend/medicines#new"
 # - "backend/medicines#show"
 # - "backend/medicines#update"
+# - "backend/mineral_matters#create"
+# - "backend/mineral_matters#destroy"
+# - "backend/mineral_matters#edit"
+# - "backend/mineral_matters#index"
+# - "backend/mineral_matters#list"
+# - "backend/mineral_matters#new"
+# - "backend/mineral_matters#show"
+# - "backend/mineral_matters#update"
 # - "backend/operation_tasks#create"
 # - "backend/operation_tasks#destroy"
 # - "backend/operation_tasks#edit"
@@ -330,6 +338,7 @@
 # - "backend/production_supports#new"
 # - "backend/production_supports#show"
 # - "backend/production_supports#update"
+# - "backend/productions#fertilization"
 # - "backend/products#create"
 # - "backend/products#destroy"
 # - "backend/products#edit"
@@ -445,7 +454,7 @@ consult_entities:
 - "backend/entities#list_outgoing_payments"
 - "backend/entities#list_purchases"
 - "backend/entities#list_sales"
-- "backend/entities#list_subscriptions"
+- "backend/entities#list_subscriptions" #?
 - "backend/entities#show"
 
 # Consult the journal entries
@@ -689,7 +698,7 @@ manage_entities:
 - "backend/entities#list_meeting_participations"
 - "backend/entities#list_purchases"
 - "backend/entities#list_sales"
-- "backend/entities#list_subscriptions"
+- "backend/entities#list_subscriptions" #?
 - "backend/entities#new"
 - "backend/entities#picture"
 - "backend/entities#update"

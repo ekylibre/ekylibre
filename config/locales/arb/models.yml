@@ -1595,6 +1595,7 @@ arb:
     # product_natures: "Types de produits"
     productable_products: "المنتجات الممكن انتاجها" #?
     # production: "Production"
+    # productions: "Productions"
     products: "المنتجات"
     products_accounts: "حسابات المنتجات" #?
     profession: "المهنة"
