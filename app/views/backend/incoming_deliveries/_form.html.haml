@@ -1,5 +1,6 @@
 =field_set do
   -# TODO: Manage variables in :new parameters
+  =f.input :reference_number
   =f.referenced_association :sender, :source => :suppliers
   =f.referenced_association :address, :source => :own_mails
   =f.referenced_association :mode

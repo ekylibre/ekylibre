@@ -68,7 +68,7 @@
 
 class Product < Ekylibre::Record::Base
   # attr_accessible :nature_id, :number, :identification_number, :work_number, :born_at, :sex, :picture, :owner_id, :parent_id, :variety, :name, :description, :type, :external, :father_id, :mother_id
-  attr_accessible :type, :variety, :external, :real_quantity, :unit, :name, :description, :nature_id, :number, :identification_number, :work_number, :born_at, :sex, :picture, :owner_id, :parent_id
+  attr_accessible :created_at, :type, :variety, :external, :real_quantity, :unit, :name, :description, :nature_id, :number, :identification_number, :work_number, :born_at, :sex, :picture, :owner_id, :parent_id
   enumerize :variety, :in => Nomen::Varieties.all, :predicates => {:prefix => true}
   belongs_to :nature, :class_name => "ProductNature"
   # belongs_to :variety, :class_name => "ProductVariety"

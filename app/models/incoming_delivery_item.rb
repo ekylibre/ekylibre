@@ -37,7 +37,7 @@
 
 
 class IncomingDeliveryItem < Ekylibre::Record::Base
-  attr_accessible :delivery_id, :price_id, :product_attributes, :quantity, :container_id, :product_nature_id
+  attr_accessible :delivery_id, :price_id, :product_id, :product_attributes, :quantity, :container_id, :product_nature_id
   attr_readonly :purchase_item_id, :product_id, :price_id, :unit
   attr_accessor :product_nature_id
   belongs_to :delivery, :class_name => "IncomingDelivery", :inverse_of => :items
@@ -51,12 +51,12 @@ class IncomingDeliveryItem < Ekylibre::Record::Base
   validates_numericality_of :quantity, :weight, :allow_nil => true
   validates_presence_of :delivery, :product, :quantity
   #]VALIDATORS]
-  validates_presence_of :product, :unit
+  validates_presence_of :product#, :unit
 
-  accepts_nested_attributes_for :product
+  accepts_nested_attributes_for :product 
   acts_as_stockable :origin => :delivery
-  delegate :weight, :name, :to => :product, :prefix => true
-  sums :delivery, :items, "item.product_weight.to_f * item.quantity" => :weight
+  #delegate :weight, :name, :to => :product, :prefix => true
+  #sums :delivery, :items, "item.product_weight.to_f * item.quantity" => :weight
 
   before_validation do
     if self.purchase_item

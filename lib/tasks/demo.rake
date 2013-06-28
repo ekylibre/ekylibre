@@ -654,6 +654,13 @@ namespace :db do
                           :purchasable => true, :charge_account_id => other_consumable_matter_charge_account.id,
                           :storable => true, :stock_account_id => other_consumable_matter_stock_account.id
                           },
+                          {:name => "Nettoyant", :number => "NETTOYANT_1L",
+                          :purchase_unit => "liter", :purchase_unit_name => "l", :purchase_unit_modulo => "1.00", :purchase_unit_coefficient => "1",
+                          :unit => "kilogram", :category_id => other_consumable_category.id,
+                          :individual => false, :variety => "mineral_matter",
+                          :purchasable => true, :charge_account_id => other_consumable_matter_charge_account.id,
+                          :storable => true, :stock_account_id => other_consumable_matter_stock_account.id
+                          },
                           {:name => "Petit Equipement", :number => "QUINCAILLERIE_1U",
                           :purchase_unit => "unity", :purchase_unit_name => "u", :purchase_unit_modulo => "1.00", :purchase_unit_coefficient => "1",
                           :unit => "unity", :category_id => other_consumable_category.id,
@@ -670,32 +677,72 @@ namespace :db do
       suppliers = Entity.where(:of_company => false, :supplier => true).reorder(:supplier_account_id, :last_name) # .where(" IS NOT NULL")
       coop = suppliers.offset((suppliers.count/2).floor).first
 
-      # add a Coop purchase_nature
-      purchase_nature   = PurchaseNature.actives.first
-      purchase_nature ||= PurchaseNature.create!(:name => I18n.t('models.purchase_nature.default.name'), :currency => "EUR", :active => true)
-      # Asset Code
-      charge_account_nature_coop = Account.find_by_number("6021")
-      stock_account_nature_coop = Account.find_by_number("321")
+      # add Coop incoming deliveries
+
       # status to map
       status = {
         "Liquidé" => :order,
         "A livrer" => :estimate,
         "Supprimé" => :aborted
       }
+      
+      pnature = {
+        "Maïs classe a" => "SEMENCES_1KG",
+        "Graminées fourragères" => "SEMENCES_1KG",
+        "Légumineuses fourragères" => "SEMENCES_1KG",
+        "Divers" => "SEMENCES_1KG",
+        "Blé tendre" => "SEMENCES_1KG",
+        "Blé dur" => "SEMENCES_1KG",
+        "Orge hiver escourgeon" => "SEMENCES_1KG",
+        "Couverts environnementaux enherbeme" => "SEMENCES_1KG",
+        
+        "Engrais" => "ENGRAIS_1T",
+        
+        "Fongicides céréales" => "FONGICIDES_1L",
+        "Fongicides colza" => "FONGICIDES_1L",
+        "Herbicides maïs" => "HERBICIDES_1L",
+        "Adjuvants" => "HERBICIDES_1L",
+        "Herbicides autres" => "HERBICIDES_1L",
+        "Herbicides céréales et fouragères" => "HERBICIDES_1L",
 
-      # file = Rails.root.join("test", "fixtures", "files", "coop-appro.csv")
-      # CSV.foreach(file, :encoding => "UTF-8", :col_sep => ";", :headers => true) do |row|
-      # r = OpenStruct.new(:order_number => row[0],
-      # :ordered_on => Date.civil(*row[1].to_s.split(/\//).reverse.map(&:to_i)),
-      # :product_nature_category => ProductNatureCategory.find_by_name(row[2]) || ProductNatureCategory.create!(:catalog_name => row[2], :name => row[2], :published => true ) ,
-      # :product_nature_name => row[3],
-      # :matter_name => row[4],
-      # :quantity => row[5].to_d,
-      # :product_deliver_quantity => row[6].to_d,
-      # :product_unit_price => row[7].to_d,
-      # :order_status => (status[row[8]] || :draft)
-      # )
-      # # create a purchase if not exist
+        "Céréales"  => "ALIMENT_1KG",
+        "Chevaux" => "ALIMENT_1KG",
+        "Compléments nutritionnels" => "ALIMENT_1KG",
+        "Minéraux sel blocs" => "ALIMENT_1KG",
+
+        "Anti-limaces" => "ANTI_LIMACE_5KG", 
+        
+        "Nettoyants" => "NETTOYANT_1L", 
+        
+        "Films plastiques" => "QUINCAILLERIE_1KG", 
+        "Recyclage" => "QUINCAILLERIE_1KG", 
+        "Ficelles" => "QUINCAILLERIE_1KG"
+      }
+
+        file = Rails.root.join("test", "fixtures", "files", "coop-appro.csv")
+        CSV.foreach(file, :encoding => "UTF-8", :col_sep => ";", :headers => true) do |row|
+        r = OpenStruct.new(:order_number => row[0],
+                           :ordered_on => Date.civil(*row[1].to_s.split(/\//).reverse.map(&:to_i)),
+                           :product_nature_category => ProductNatureCategory.find_by_name(row[2]) || ProductNatureCategory.create!(:catalog_name => row[2], :name => row[2], :published => true ) ,
+                           :product_nature_name => (pnature[row[3]] || "QUINCAILLERIE_1KG"),
+                           :matter_name => row[4],
+                           :quantity => row[5].to_d,
+                           :product_deliver_quantity => row[6].to_d,
+                           :product_unit_price => row[7].to_d,
+                           :order_status => (status[row[8]] || :draft)
+                           )
+      # create an incoming deliveries if not exist and status = 2
+      if r.order_status == :order
+        order = IncomingDelivery.find_by_reference_number(r.order_number)
+        order ||= IncomingDelivery.create!(:reference_number => r.order_number, :planned_at => r.ordered_on, :sender_id => coop.id, :address_id => "1")
+        # find a product_nature by mapping current sub_family of coop file
+        product_nature = ProductNature.find_by_number(r.product_nature_name)
+        incoming_item = Product.find_by_name_and_created_at(r.matter_name,r.ordered_on)
+        incoming_item ||= Product.create!(:owner_id => Entity.of_company.id, :name => r.matter_name, :nature_id => product_nature.id, :created_at => r.ordered_on)
+        if product_nature.present? and incoming_item.present?
+          order.items.create!(:product_id => incoming_item.id, :quantity => r.product_deliver_quantity)
+        end
+      end
       # purchase   = Purchase.find_by_reference_number(r.order_number)
       # purchase ||= Purchase.create!(:state => r.order_status, :currency => "EUR", :nature_id => purchase_nature.id, :reference_number => r.order_number, :supplier_id => coop.id, :planned_on => r.ordered_on, :created_on => r.ordered_on)
       # tax_price_nature_appro = Tax.find_by_amount(19.6)
@@ -716,10 +763,10 @@ namespace :db do
       # # create an incoming_delivery if status => 2
 
       # create an incoming_delivery_item if status => 2
+       
 
-
-      #print "."
-      #end
+      print "."
+      end
 
       puts "!"
 
