@@ -22,7 +22,7 @@
 	<subDataset name="land_parcel_input" uuid="655036d4-b3dc-43cf-aca7-9ea6f0a004cd">
 		<parameter name="land_parcel_group_id" class="java.lang.String"/>
 		<queryString language="xPath">
-			<![CDATA[/land_parcel_groups/land_parcel_group/production/fertilization/input]]>
+			<![CDATA[/land_parcel_groups/land_parcel_group/production/fertilization/input[ancestor::land_parcel_group/@id=$P{land_parcel_group_id}]]]>
 		</queryString>
 		<field name="input" class="java.lang.String">
 			<fieldDescription><![CDATA[@input]]></fieldDescription>
@@ -340,6 +340,11 @@
 				</textElement>
 				<text><![CDATA[]]></text>
 			</staticText>
+			<textField>
+				<reportElement uuid="92ee893d-7bd3-4e16-a070-96522f1fc0e7" style="address" x="277" y="1" width="224" height="25"/>
+				<textElement textAlignment="Center" verticalAlignment="Top"/>
+				<textFieldExpression><![CDATA[$F{entity_name}]]></textFieldExpression>
+			</textField>
 		</band>
 	</pageFooter>
 	<lastPageFooter>
