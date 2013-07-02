@@ -430,9 +430,13 @@ namespace :db do
       land_parcel_unit = "hectare"
       cultural_land_parcel_product_nature_category = ProductNatureCategory.find_by_name("Parcelles cultivables")
       cultural_land_parcel_product_nature_category ||= ProductNatureCategory.create!(:name => "Parcelles cultivables", :published => true)
-      land_parcel_group = ProductNature.find_by_number("LANDPARCEL")
-      land_parcel_group ||= ProductNature.create!(:name => "Parcelle", :number => "LANDPARCEL", :variety => "land_parcel", :unit => land_parcel_unit, :category_id => cultural_land_parcel_product_nature_category.id)
+      land_parcel_group_nature = ProductNature.find_by_number("LANDPARCELGROUP")
+      land_parcel_group_nature ||= ProductNature.create!(:name => "Parcelle culturale", :number => "LANDPARCELGROUP", :variety => "land_parcel_group", :unit => land_parcel_unit, :category_id => cultural_land_parcel_product_nature_category.id)
+      
+      land_parcel_nature = ProductNature.find_by_number("LANDPARCEL")
+      land_parcel_nature ||= ProductNature.create!(:name => "Parcelle", :number => "LANDPARCEL", :variety => "land_parcel", :unit => land_parcel_unit, :category_id => cultural_land_parcel_product_nature_category.id)
 
+      
       # Load file
       file = Rails.root.join("test", "fixtures", "files", "parcelle_017005218.csv")
       CSV.foreach(file, :encoding => "UTF-8", :col_sep => ",", :headers => true, :quote_char => "'") do |row|
@@ -451,17 +455,21 @@ namespace :db do
 
         if land_parcel_cluster = LandParcelCluster.find_by_work_number(r.ilot_work_number)
           cultural_land_parcel = LandParcelGroup.find_by_work_number(r.land_parcel_group_work_number)
-          cultural_land_parcel ||= LandParcelGroup.create!(:shape => r.land_parcel_group_shape,:name => r.land_parcel_group_name, :work_number => r.land_parcel_group_work_number, :variety => "land_parcel_group", :unit => land_parcel_unit, :born_at => Time.now, :nature_id => land_parcel_group.id, :owner_id => Entity.of_company.id, :identification_number => r.land_parcel_group_work_number)
-          if cultural_land_parcel
-            land_parcel = LandParcel.find_by_work_number(r.land_parcel_work_number)
-            land_parcel ||= LandParcel.create!(:shape => r.land_parcel_shape, :real_quantity =>r.land_parcel_area, :name => r.land_parcel_name, :work_number => r.land_parcel_work_number, :variety => "land_parcel", :unit => land_parcel_unit, :born_at => Time.now, :nature_id => land_parcel_group.id, :owner_id => Entity.of_company.id, :identification_number => r.land_parcel_work_number)
-          end
+          cultural_land_parcel ||= LandParcelGroup.create!(:shape => r.land_parcel_group_shape,:name => r.land_parcel_group_name, :work_number => r.land_parcel_group_work_number, :variety => "land_parcel_group", :unit => land_parcel_unit, :born_at => Time.now, :nature_id => land_parcel_group_nature.id, :owner_id => Entity.of_company.id, :identification_number => r.land_parcel_group_work_number)
+                 
+          land_parcel = LandParcel.find_by_work_number(r.land_parcel_work_number)
+          land_parcel ||= LandParcel.create!(:shape => r.land_parcel_shape, :real_quantity =>r.land_parcel_area, :name => r.land_parcel_name, :work_number => r.land_parcel_work_number, :variety => "land_parcel", :unit => land_parcel_unit, :born_at => Time.now, :nature_id => land_parcel_nature.id, :owner_id => Entity.of_company.id, :identification_number => r.land_parcel_work_number)
+          
+          land_parcel_cluster.add(land_parcel)
+          cultural_land_parcel.add(land_parcel)
+          
         end
 
         # puts "Record number #{record.index}:"
         # puts "  Geometry: #{record.geometry.as_text}"
         # puts "  Attributes: #{record.attributes.inspect}"
         print "."
+        #break if LandParcelGroup.count >= max
       end
       puts "!"
 
@@ -524,8 +532,8 @@ namespace :db do
       # Create wheat product
       wheat = ProductNature.find_by_number("GRAIN_BLE")
 
-      ble = Plant.find_by_work_number("BLE_001")
-      ble = Plant.create!(:name => "Blé Cap Horn 2011", :variety => "plant", :unit => grain_unit, :identification_number => "BLE_2011_07142011", :work_number => "BLE_2011", :born_at => "2011-07-14", :nature_id => wheat.id, :owner_id => Entity.of_company.id) #
+      ble = OrganicMatter.find_by_work_number("BLE_001")
+      ble = OrganicMatter.create!(:name => "Blé Cap Horn 2011", :variety => "organic_matter", :unit => grain_unit, :identification_number => "BLE_2011_07142011", :work_number => "BLE_2011", :born_at => "2011-07-14", :nature_id => wheat.id, :owner_id => Entity.of_company.id) #
 
       # Sale nature
       sale_nature   = SaleNature.actives.first
@@ -606,6 +614,7 @@ namespace :db do
 
       # Create product_nature for plant product
       for attributes in [{:name => "Herbicide", :number => "HERBICIDES_1L",
+                          :net_volume => "1.00", :net_weight => "1.00",
                           :purchase_unit => "liter", :purchase_unit_name => "L", :purchase_unit_modulo => "1.00", :purchase_unit_coefficient => "1",
                           :unit => "liter",:category_id => phyto_category.id,
                           :individual => false, :variety => "plant_medicine",
@@ -613,6 +622,7 @@ namespace :db do
                           :storable => true, :stock_account_id => plant_medicine_matter_stock_account.id
                           },
                           {:name => "Fongicide", :number => "FONGICIDES_1L",
+                          :net_volume => "1.00", :net_weight => "1.00",
                           :purchase_unit => "liter", :purchase_unit_name => "L", :purchase_unit_modulo => "1.00", :purchase_unit_coefficient => "1",
                           :unit => "liter",:category_id => phyto_category.id,
                           :individual => false, :variety => "plant_medicine",
@@ -620,6 +630,7 @@ namespace :db do
                           :storable => true, :stock_account_id => plant_medicine_matter_stock_account.id
                           },
                           {:name => "Anti-limace 5KG", :number => "ANTI_LIMACE_5KG",
+                          :net_weight => "5.00",
                           :purchase_unit => "kilogram", :purchase_unit_name => "5KG", :purchase_unit_modulo => "5.00", :purchase_unit_coefficient => "1",
                           :unit => "kilogram", :category_id => phyto_category.id,
                           :individual => false, :variety => "plant_medicine",
@@ -627,8 +638,8 @@ namespace :db do
                           :storable => true, :stock_account_id => plant_medicine_matter_stock_account.id
                           },
                           {:name => "Engrais", :number => "ENGRAIS_1T",
-                          :purchase_unit => "ton", :purchase_unit_name => "T", :purchase_unit_modulo => "0.01", :purchase_unit_coefficient => "1000",
-                          :unit => "kilogram", :category_id => fertilizer_category.id,
+                          :purchase_unit => "ton", :purchase_unit_name => "T", :purchase_unit_modulo => "0.01", :purchase_unit_coefficient => "1",
+                          :unit => "ton", :category_id => fertilizer_category.id,
                           :individual => false, :variety => "mineral_matter",
                           :purchasable => true, :charge_account_id => fertilizer_charge_account.id,
                           :storable => true, :stock_account_id => fertilizer_stock_account.id
@@ -636,14 +647,14 @@ namespace :db do
                           {:name => "Semences", :number => "SEMENCES_1KG",
                           :purchase_unit => "kilogram", :purchase_unit_name => "kg", :purchase_unit_modulo => "1.00", :purchase_unit_coefficient => "1",
                           :unit => "kilogram", :category_id => seed_category.id,
-                          :individual => false, :variety => "organic_matter", :derivative_of => "plant",
+                          :individual => false, :variety => "seed", :derivative_of => "plant",
                           :purchasable => true, :charge_account_id => seed_charge_account.id,
                           :storable => true, :stock_account_id => seed_stock_account.id
                           },
                           {:name => "Aliments", :number => "ALIMENT_1KG",
                           :purchase_unit => "kilogram", :purchase_unit_name => "kg", :purchase_unit_modulo => "1.00", :purchase_unit_coefficient => "1",
                           :unit => "kilogram", :category_id => livestock_feed_category.id,
-                          :individual => false, :variety => "organic_matter", :derivative_of => "plant",
+                          :individual => false, :variety => "plant_food", :derivative_of => "plant",
                           :purchasable => true, :charge_account_id => livestock_feed_matter_charge_account.id,
                           :storable => true, :stock_account_id => livestock_feed_matter_stock_account.id
                           },
@@ -653,6 +664,13 @@ namespace :db do
                           :individual => false, :variety => "equipment",
                           :purchasable => true, :charge_account_id => other_consumable_matter_charge_account.id,
                           :storable => true, :stock_account_id => other_consumable_matter_stock_account.id
+                          },
+                          {:name => "Location Matériel", :number => "LOCATION_MATERIEL",
+                          :purchase_unit => "hectare", :purchase_unit_name => "ha", :purchase_unit_modulo => "1.00", :purchase_unit_coefficient => "1",
+                          :unit => "hectare", :category_id => other_consumable_category.id,
+                          :individual => false, :variety => "equipment",
+                          :purchasable => true, :charge_account_id => other_consumable_matter_charge_account.id,
+                          :storable => false, :stock_account_id => other_consumable_matter_stock_account.id
                           },
                           {:name => "Nettoyant", :number => "NETTOYANT_1L",
                           :purchase_unit => "liter", :purchase_unit_name => "l", :purchase_unit_modulo => "1.00", :purchase_unit_coefficient => "1",
@@ -701,6 +719,7 @@ namespace :db do
         "Fongicides céréales" => "FONGICIDES_1L",
         "Fongicides colza" => "FONGICIDES_1L",
         "Herbicides maïs" => "HERBICIDES_1L",
+        "Herbicides totaux" => "HERBICIDES_1L",
         "Adjuvants" => "HERBICIDES_1L",
         "Herbicides autres" => "HERBICIDES_1L",
         "Herbicides céréales et fouragères" => "HERBICIDES_1L",
@@ -710,15 +729,17 @@ namespace :db do
         "Compléments nutritionnels" => "ALIMENT_1KG",
         "Minéraux sel blocs" => "ALIMENT_1KG",
 
-        "Anti-limaces" => "ANTI_LIMACE_5KG", 
+        "Anti-limaces" => "ANTI_LIMACE_5KG",
+        
+        "Location semoir" => "LOCATION_MATERIEL",
         
         "Nettoyants" => "NETTOYANT_1L", 
         
-        "Films plastiques" => "QUINCAILLERIE_1KG", 
+        "Films plastiques" => "QUINCAILLERIE_1KG",
         "Recyclage" => "QUINCAILLERIE_1KG", 
         "Ficelles" => "QUINCAILLERIE_1KG"
       }
-
+      
         file = Rails.root.join("test", "fixtures", "files", "coop-appro.csv")
         CSV.foreach(file, :encoding => "UTF-8", :col_sep => ";", :headers => true) do |row|
         r = OpenStruct.new(:order_number => row[0],
@@ -737,8 +758,9 @@ namespace :db do
         order ||= IncomingDelivery.create!(:reference_number => r.order_number, :planned_at => r.ordered_on, :sender_id => coop.id, :address_id => "1")
         # find a product_nature by mapping current sub_family of coop file
         product_nature = ProductNature.find_by_number(r.product_nature_name)
+        product_model = product_nature.matching_model
         incoming_item = Product.find_by_name_and_created_at(r.matter_name,r.ordered_on)
-        incoming_item ||= Product.create!(:owner_id => Entity.of_company.id, :name => r.matter_name, :nature_id => product_nature.id, :created_at => r.ordered_on)
+        incoming_item ||= product_model.create!(:owner_id => Entity.of_company.id, :name => r.matter_name, :nature_id => product_nature.id, :unit => product_nature.unit, :born_at => r.ordered_on, :created_at => r.ordered_on, :real_quantity => r.product_deliver_quantity)
         if product_nature.present? and incoming_item.present?
           order.items.create!(:product_id => incoming_item.id, :quantity => r.product_deliver_quantity)
         end
@@ -769,6 +791,9 @@ namespace :db do
       end
 
       puts "!"
+      
+
+      
 
       # #############################################################################
       # # import Coop Deliveries to make automatic sales
@@ -971,10 +996,12 @@ namespace :db do
         # Create an activity if not exist
         activity   = Activity.find_by_description(r.description)
         activity ||= Activity.create!(:nature => r.nature, :description => "Import from reference", :family => r.family, :name => r.name, :description => r.description)
-        if product_nature = ProductNature.find_by_number(r.product_nature_name) and land_parcel_support
+        if product_nature = ProductNature.find_by_number(r.product_nature_name) and land_parcel_support.present?
           pro = Production.where(:campaign_id => campaign.id,:activity_id => activity.id, :product_nature_id => product_nature.id).first
           pro ||= activity.productions.create!(:product_nature_id => product_nature.id, :campaign_id => campaign.id, :static_support => true)
           pro.supports.create!(:storage_id => land_parcel_support.id)
+          plant_work_nb = (r.product_nature_name + "-" + campaign.name + "-" + land_parcel_support.work_number)
+          Plant.create!(:work_number => plant_work_nb ,:nature_id => product_nature.id, :name => (r.product_nature_name + " " + campaign.name + " " + land_parcel_support.name)  ,:variety => product_nature.variety, :born_at => Time.now, :owner_id => Entity.of_company.id)
         elsif product_nature.present?
           pro = Production.where(:campaign_id => campaign.id, :activity_id => activity.id, :product_nature_id => product_nature.id).first
           pro ||= activity.productions.create!(:product_nature_id => product_nature.id, :campaign_id => campaign.id)
@@ -1000,8 +1027,65 @@ namespace :db do
       #   bank_account.balance.amount_in_pennies # => "10000"
       # end
       # puts "!"
+      
+      
+       ##############################################################################
+       ## Demo data for fertilizing 
+       ##############################################################################
+       
+       print "[#{(Time.now - start).round(2).to_s.rjust(8)}s] Procedures - demo data for fertilization reporting 2013 :"
+       fertilizer_product_nature = ProductNature.find_by_number("ENGRAIS_1T")
+       campaign = Campaign.find_by_name("2013")
+       sole_ble_nature = ProductNature.find_by_number("SOLE_BLE")
+       
+       # create some indicator nature for fertilization
+        for a in ["nitrogen_concentration", "potassium_concentration", "phosphorus_concentration"]
+          product_nature_indicator = ProductNatureIndicator.where(:nature => a, :product_nature_id => fertilizer_product_nature.id ).first
+          product_nature_indicator ||= ProductNatureIndicator.create!(:product_nature_id => fertilizer_product_nature.id, :nature => a)
+        end
+       # find some product for fertilization
+       fertilizer_product = Product.find_by_nature_id(fertilizer_product_nature.id)
+       fertilizer_product_prev = Product.where("name LIKE 'UREE%'").first
+       # set indicator on product for fertilization
+       for attributes in [{:indicator => "nitrogen_concentration", :value => "27.00"},
+                          {:indicator => "potassium_concentration", :value => "33.30"},
+                          {:indicator => "phosphorus_concentration", :value => "33.30"}
+                            ]
+       
+       fertilizer_product.indicator_data.create!({:measure_unit => "kilograms_per_hectogram", :measured_at => Time.now }.merge(attributes))
+       fertilizer_product_prev.indicator_data.create!({:measure_unit => "kilograms_per_hectogram", :measured_at => Time.now }.merge(attributes))
 
-
+       end
+       
+       production = Production.find_by_product_nature_id_and_campaign_id(sole_ble_nature.id,campaign.id)
+              
+       procedure = Procedure.find_by_production_id_and_nomen(production.id,"organic_fertilizing")
+       procedure ||= Procedure.create!(:nomen =>"organic_fertilizing", :production_id => production.id )
+      
+                          
+      Plant.find_each do |plant| 
+        # Create some procedure variable for fertilization
+        for attributes in [{:nomen => "organic_fertilization", :target_id => plant.id,
+                            :roles => "target"},
+                            {:nomen => "organic_fertilization", :target_id => fertilizer_product.id,
+                            :roles => "input"},
+                            {:nomen => "organic_fertilization", :target_id => fertilizer_product.id,
+                            :roles => "input"},
+                            {:nomen => "organic_fertilization", :target_id => plant.id,
+                            :roles => "prev_target"},
+                            {:nomen => "organic_fertilization", :target_id => fertilizer_product_prev.id,
+                            :roles => "prev_input"}
+                           ]
+         ProcedureVariable.create!({:procedure_id => procedure.id}.merge(attributes) )
+        end
+        
+        # Create some operation variable for fertilization
+        for attributes in [{:started_at => (Time.now - 2.days), :stopped_at => Time.now}]
+         procedure.operations.create!({:procedure_id => procedure.id}.merge(attributes) )
+        end
+      end
+ 
+       
       puts "Total time: #{(Time.now - start).round(2)}s"
     end
   end

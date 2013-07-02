@@ -69,6 +69,7 @@
       
       <!-- mass_density -->
       <item name="thousands_per_hectogram" dimension="mass_density" symbol="ku/hg" coefficients="1000*0.1kg-1"/>
+      <item name="kilograms_per_hectogram" dimension="mass_density" symbol="kg/100kg" coefficients="1*0.1kg-1"/>
       <!-- <item name="thousands_eq_per_hundred_gram" dimension="mass_density" symbol="meq/100g" coefficients="1000*0.1kg-1"/> -->
       
     </items>

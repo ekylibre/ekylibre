@@ -39,6 +39,10 @@
       <item name="inel" type="measure" unit="unity"/>
       <item name="tp" type="measure" unit="unity"/>
       <item name="tb" type="measure" unit="unity"/>
+      <!-- for fertilization plant's -->
+      <item name="nitrogen_concentration" type="measure" unit="kilograms_per_hectogram"/>
+      <item name="potassium_concentration" type="measure" unit="kilograms_per_hectogram"/>
+      <item name="phosphorus_concentration" type="measure" unit="kilograms_per_hectogram"/>
     </items>
   </nomenclature>
 </nomenclatures>

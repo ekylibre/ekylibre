@@ -6,6 +6,9 @@ class Backend::PlantMedicinesController < BackendController
 
   list do |t|
     t.column :name, :url => true
+    t.column :real_quantity
+    t.column :unit
+    t.column :created_at
   end
 
   # Displays the main page with the list of animal_medicines.
