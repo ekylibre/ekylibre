@@ -111,6 +111,8 @@ class Backend::ProductionsController < BackendController
                               :input_variety => input_variable.target.variety,
                               :input_quantity => input_variable.target_used_quantity,
                               :input_quantity_unit => input_variable.target_used_quantity_unit,
+                              :started_at => procedure.started_at,
+                              :stopped_at => procedure.stopped_at,
                               :input_nitrogen_concentration => input_variable.target.indicator_data.where(:indicator => "nitrogen_concentration").last.value,
                               :input_phosphorus_concentration => input_variable.target.indicator_data.where(:indicator => "phosphorus_concentration").last.value,
                               :input_potassium_concentration => input_variable.target.indicator_data.where(:indicator => "potassium_concentration").last.value
@@ -124,6 +126,8 @@ class Backend::ProductionsController < BackendController
                               :input_variety => input_variable.target.variety,
                               :input_quantity => input_variable.target_used_quantity,
                               :input_quantity_unit => input_variable.target_used_quantity_unit,
+                              :started_at => procedure.started_at,
+                              :stopped_at => procedure.stopped_at,
                               :input_nitrogen_concentration => input_variable.target.indicator_data.where(:indicator => "nitrogen_concentration").last.value,
                               :input_phosphorus_concentration => input_variable.target.indicator_data.where(:indicator => "phosphorus_concentration").last.value,
                               :input_potassium_concentration => input_variable.target.indicator_data.where(:indicator => "potassium_concentration").last.value

@@ -1045,7 +1045,7 @@ namespace :db do
         end
        # find some product for fertilization
        fertilizer_product = Product.find_by_nature_id(fertilizer_product_nature.id)
-       fertilizer_product_prev = Product.where("name LIKE 'UREE%'").first
+       fertilizer_product_prev = Product.where("name LIKE 'AMMO%'").first
        # set indicator on product for fertilization
        for attributes in [{:indicator => "nitrogen_concentration", :value => "27.00"},
                           {:indicator => "potassium_concentration", :value => "33.30"},
@@ -1063,7 +1063,7 @@ namespace :db do
        procedure ||= Procedure.create!(:nomen =>"organic_fertilizing", :production_id => production.id )
       
                           
-      Plant.find_each do |plant| 
+        plant = Plant.find_by_work_number("SOLE_BLE-2013-PC12")
         # Create some procedure variable for fertilization
         for attributes in [{:nomen => "organic_fertilization", :target_id => plant.id,
                             :roles => "target"},
@@ -1083,7 +1083,7 @@ namespace :db do
         for attributes in [{:started_at => (Time.now - 2.days), :stopped_at => Time.now}]
          procedure.operations.create!({:procedure_id => procedure.id}.merge(attributes) )
         end
-      end
+      
  
        
       puts "Total time: #{(Time.now - start).round(2)}s"
