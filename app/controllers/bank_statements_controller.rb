@@ -65,8 +65,11 @@ class BankStatementsController < ApplicationController
     return unless @bank_statement = find_and_check(:bank_statement)
     if request.post?
       # raise Exception.new(params[:journal_entry_line].inspect)
-      @bank_statement.lines.clear
-      @bank_statement.line_ids = params[:journal_entry_line].select{|k, v| v[:checked]=="1" and @current_company.journal_entry_lines.find_by_id(k)}.collect{|k, v| k.to_i}
+      # Don't care if entry line is closed
+      JournalEntryLine.update_all({:bank_statement_id => nil}, {:bank_statement_id => @bank_statement.id})
+      JournalEntryLine.update_all({:bank_statement_id => @bank_statement.id}, {:bank_statement_id => nil, :id => params[:journal_entry_line].select{|k, v| v[:checked]=="1" and @current_company.journal_entry_lines.find_by_id(k)}.collect{|k, v| k.to_i}})
+      # @bank_statement.lines.clear
+      # @bank_statement.line_ids = params[:journal_entry_line].select{|k, v| v[:checked]=="1" and @current_company.journal_entry_lines.find_by_id(k)}.collect{|k, v| k.to_i}
       if @bank_statement.save
         redirect_to :action=>:index
         return

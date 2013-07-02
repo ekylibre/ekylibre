@@ -69,7 +69,7 @@ class SaleLine < CompanyRecord
   has_one :reduction, :class_name=>"SaleLine", :foreign_key=>:reduction_origin_id
   has_many :credits, :class_name=>"SaleLine", :foreign_key=>:origin_id
   has_many :reductions, :class_name=>"SaleLine", :foreign_key=>:reduction_origin_id, :dependent=>:delete_all
-  has_many :subscriptions, :dependent=>:destroy
+  has_many :subscriptions, :dependent => :destroy
 
   sums :sale, :lines, :pretax_amount, :amount
 
