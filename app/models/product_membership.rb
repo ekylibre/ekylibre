@@ -43,8 +43,8 @@ class ProductMembership < Ekylibre::Record::Base
   #]VALIDATORS]
 
   validate do
-    # TODO Checks that no time overlaps can occur
-    errors.add(:started_at, :invalid) unless self.similars.where("stopped_at IS NULL AND (started_at IS NOT NULL OR started_at <=?)", self.started_at).count.zero?
+    # TODO Checks that no time overlaps can occur and that it works
+    #errors.add(:started_at, :invalid) unless self.similars.where("stopped_at IS NULL AND (started_at IS NOT NULL OR started_at <=?)", self.started_at).count.zero?
   end
 
   def similars

@@ -32,8 +32,8 @@
 #  updater_id    :integer
 #
 class Procedure < Ekylibre::Record::Base
-  attr_accessible :nomen, :activity_id, :campaign_id
-  attr_readonly :nomen, :activity_id, :campaign_id
+  attr_accessible :nomen, :production_id
+  attr_readonly :nomen, :production_id
   belongs_to :production
   belongs_to :incident
   has_many :variables, :class_name => "ProcedureVariable", :inverse_of => :procedure
@@ -45,10 +45,10 @@ class Procedure < Ekylibre::Record::Base
   validates_presence_of :nomen, :production, :state
   #]VALIDATORS]
   validates_inclusion_of :nomen, :in => self.nomen.values
-  validates_presence_of :version, :uid
+  #validates_presence_of :version, :uid
 
   # @TODO in progress - need to call parent procedure to have the name of the procedure_nature
-  
+
   scope :of_nature, lambda { |*natures|
     #for nature in natures
       #raise ArgumentError.new("Expected ProcedureNature, got #{nature.class.name}:#{nature.inspect}") unless nature.is_a?(ProcedureNature)
@@ -57,27 +57,27 @@ class Procedure < Ekylibre::Record::Base
     order(:nomen)
   }
 
-  before_validation(:on => :create) do
-    unless self.root?
-      if root = self.root
-        self.activity = root.activity
-        self.campaign = root.campaign
-        self.incident = root.incident
-      end
-    end
-    if self.root?
-      self.uid ||= Procedures[self.nomen.to_s].id
-    end
-    if self.reference
-      self.version = self.reference.version
-      self.uid = self.reference.id
-    end
-    if self.children.where(:state => ["undone", "in_progress"]).count > 0 or self.children.count != self.reference.children.size
-      self.state = "in_progress"
-    else self.children.count.zero? or self.children.where(:state => ["undone", "in_progress"]).count.zero?
-      self.state = "done"
-    end
-  end
+  # before_validation(:on => :create) do
+    # unless self.root?
+      # if root = self.root
+        # self.activity = root.activity
+        # self.campaign = root.campaign
+        # self.incident = root.incident
+      # end
+    # end
+    # if self.root?
+      # self.uid ||= Procedures[self.nomen.to_s].id
+    # end
+    # if self.reference
+      # self.version = self.reference.version
+      # self.uid = self.reference.id
+    # end
+    # if self.children.where(:state => ["undone", "in_progress"]).count > 0 or self.children.count != self.reference.children.size
+      # self.state = "in_progress"
+    # else self.children.count.zero? or self.children.where(:state => ["undone", "in_progress"]).count.zero?
+      # self.state = "done"
+    # end
+  # end
 
 
   # started_at ( the first operation of the current procedure)
@@ -87,7 +87,7 @@ class Procedure < Ekylibre::Record::Base
     end
     return nil
   end
-  
+
   def stopped_at
     if operation = self.operations.reorder(:stopped_at).first
       return operation.stopped_at

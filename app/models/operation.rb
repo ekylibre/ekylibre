@@ -39,7 +39,7 @@
 
 
 class Operation < Event
-  attr_accessible :started_at, :stopped_at # :nature
+  attr_accessible :started_at, :stopped_at, :procedure_id # :nature
   belongs_to :procedure
   has_many :tasks, :class_name => "OperationTask"
   # enumerize :nature, :in => [:move_to, :consume, :produce, :separate, :merge, :attach, :detach], :predicates => true

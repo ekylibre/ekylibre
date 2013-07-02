@@ -73,7 +73,7 @@ class LandParcelGroup < ProductGroup
   has_many :productions, :class_name => "Production", :through => :supports
   default_scope -> { order(:name) }
   scope :groups_of, lambda { |member, viewed_at| where("id IN (SELECT group_id FROM #{ProductMembership.table_name} WHERE member_id = ? AND ? BETWEEN COALESCE(started_at, ?) AND COALESCE(stopped_at, ?))", member.id, viewed_at, viewed_at, viewed_at) }
-  
+
 
   scope :of_campaign, lambda { |*campaigns|
     for campaign in campaigns
@@ -82,6 +82,12 @@ class LandParcelGroup < ProductGroup
     joins(:productions).where('campaign_id IN (?)', campaigns.map(&:id))
   }
 
+
+  after_save do
+    area = compute("ST_Area(shape)").to_f
+    self.class.update_all({:real_quantity => area, :virtual_quantity => area, :unit => :square_meter}, {:id => self.id})
+  end
+  
   # FIXME
   # accepts_nested_attributes_for :memberships, :reject_if => :all_blank, :allow_destroy => true
 

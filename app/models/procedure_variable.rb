@@ -32,7 +32,7 @@
 #  updater_id   :integer
 #
 class ProcedureVariable < Ekylibre::Record::Base
-  attr_accessible :nomen, :target_id
+  attr_accessible :nomen, :target_id, :procedure_id, :roles
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :nomen, :roles, :allow_nil => true, :maximum => 255
   validates_presence_of :nomen, :procedure, :target
@@ -41,8 +41,8 @@ class ProcedureVariable < Ekylibre::Record::Base
   belongs_to :target, :class_name => "Product"
 
   delegate :name, :to => :target, :prefix => true
-  
-   
+
+
   scope :of_role, lambda { |*natures|
     #for nature in natures
       #raise ArgumentError.new("Expected ProcedureNature, got #{nature.class.name}:#{nature.inspect}") unless nature.is_a?(ProcedureNature)
@@ -51,14 +51,26 @@ class ProcedureVariable < Ekylibre::Record::Base
     where(:roles => ["input"])
   }
   
+    scope :of_prev_role, lambda { |*natures|
+    #for nature in natures
+      #raise ArgumentError.new("Expected ProcedureNature, got #{nature.class.name}:#{nature.inspect}") unless nature.is_a?(ProcedureNature)
+    #end
+    #where('nature IN (?)', natures)
+    where(:roles => ["prev_input"])
+  }
+  
+  scope :of_land_parcel_group, lambda { |land_parcel|
+     where(:target_id => land_parcel.id)
+  }
+
   def name
     self.procedure.reference.hash[self.procedure.uid].variables[self.nomen].human_name
   end
-  
+
   def target_used_quantity
     self.target.real_quantity
   end
-  
+
   def target_used_quantity_unit
     self.target.unit
   end

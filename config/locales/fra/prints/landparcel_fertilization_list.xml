@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="landparcel_fertilization_list" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" whenResourceMissingType="Empty" uuid="9c1f11b7-03dd-4803-9e1b-41b87b9d23c0">
-	<property name="ireport.zoom" value="1.0000000000000009"/>
-	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="landparcel_fertilization_list" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isTitleNewPage="true" whenResourceMissingType="Empty" uuid="9c1f11b7-03dd-4803-9e1b-41b87b9d23c0">
+	<property name="ireport.zoom" value="2.0490403660952117"/>
+	<property name="ireport.x" value="32"/>
+	<property name="ireport.y" value="566"/>
 	<template><![CDATA["/home/djoulin/ekylibre/config/corporate-identity/reports-style.jrtx"]]></template>
 	<style name="Title" fontName="DejaVu Sans" fontSize="30" isBold="true" pdfFontName="Times-Bold"/>
 	<style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18"/>
@@ -19,10 +19,49 @@
 	</style>
 	<style name="Row" mode="Transparent"/>
 	<style name="Crosstab Data Text" hAlign="Center"/>
-	<subDataset name="land_parcel_input" uuid="655036d4-b3dc-43cf-aca7-9ea6f0a004cd">
+	<subDataset name="land_parcel_input_prev" uuid="655036d4-b3dc-43cf-aca7-9ea6f0a004cd">
 		<parameter name="land_parcel_group_id" class="java.lang.String"/>
 		<queryString language="xPath">
-			<![CDATA[/land_parcel_groups/land_parcel_group/production/fertilization/input[ancestor::land_parcel_group/@id=$P{land_parcel_group_id}]]]>
+			<![CDATA[/land_parcel_groups/land_parcel_group/production/fertilization_prev/input[ancestor::land_parcel_group/@id=$P{land_parcel_group_id}]]]>
+		</queryString>
+		<field name="input" class="java.lang.String">
+			<fieldDescription><![CDATA[@input]]></fieldDescription>
+		</field>
+		<field name="input_nature" class="java.lang.String">
+			<fieldDescription><![CDATA[@input_nature]]></fieldDescription>
+		</field>
+		<field name="input_quantity" class="java.lang.String">
+			<fieldDescription><![CDATA[@input_quantity]]></fieldDescription>
+		</field>
+		<field name="input_quantity_unit" class="java.lang.String">
+			<fieldDescription><![CDATA[@input_quantity_unit]]></fieldDescription>
+		</field>
+		<field name="input_variety" class="java.lang.String">
+			<fieldDescription><![CDATA[@input_variety]]></fieldDescription>
+		</field>
+		<field name="started_at" class="java.util.Date">
+			<fieldDescription><![CDATA[ancestor::fertilization/@started_at]]></fieldDescription>
+		</field>
+		<field name="stopped_at" class="java.util.Date">
+			<fieldDescription><![CDATA[ancestor::fertilization/@stopped_at]]></fieldDescription>
+		</field>
+		<field name="name" class="java.lang.String">
+			<fieldDescription><![CDATA[ancestor::production/@name]]></fieldDescription>
+		</field>
+		<field name="input_nitrogen_concentration" class="java.lang.String">
+			<fieldDescription><![CDATA[/land_parcel_groups/land_parcel_group/production/fertilization_prev/input/@input_nitrogen_concentration]]></fieldDescription>
+		</field>
+		<field name="input_phosphorus_concentration" class="java.lang.String">
+			<fieldDescription><![CDATA[/land_parcel_groups/land_parcel_group/production/fertilization_prev/input/@input_phosphorus_concentration]]></fieldDescription>
+		</field>
+		<field name="input_potassium_concentration" class="java.lang.String">
+			<fieldDescription><![CDATA[/land_parcel_groups/land_parcel_group/production/fertilization_prev/input/@input_potassium_concentration]]></fieldDescription>
+		</field>
+	</subDataset>
+	<subDataset name="land_parcel_input_real" uuid="ec5668ea-c9c2-4e0d-b4a5-1ab7de9cfcc7">
+		<parameter name="land_parcel_group_id" class="java.lang.String"/>
+		<queryString language="xPath">
+			<![CDATA[/land_parcel_groups/land_parcel_group/production/fertilization_real/input[ancestor::land_parcel_group/@id=$P{land_parcel_group_id}]]]>
 		</queryString>
 		<field name="input" class="java.lang.String">
 			<fieldDescription><![CDATA[@input]]></fieldDescription>
@@ -60,7 +99,7 @@
 	<field name="entity_name" class="java.lang.String">
 		<fieldDescription><![CDATA[ancestor::land_parcel_groups/@entity_name]]></fieldDescription>
 	</field>
-	<field name="area" class="java.lang.String">
+	<field name="area" class="java.lang.Double">
 		<fieldDescription><![CDATA[@area]]></fieldDescription>
 	</field>
 	<field name="area_unit" class="java.lang.String">
@@ -75,27 +114,54 @@
 	<field name="id" class="java.lang.String">
 		<fieldDescription><![CDATA[@id]]></fieldDescription>
 	</field>
+	<field name="shape_height" class="java.lang.String">
+		<fieldDescription><![CDATA[@shape_height]]></fieldDescription>
+	</field>
+	<field name="shape_width" class="java.lang.String">
+		<fieldDescription><![CDATA[@shape_width]]></fieldDescription>
+	</field>
+	<field name="svg" class="java.lang.String">
+		<fieldDescription><![CDATA[@svg]]></fieldDescription>
+	</field>
+	<field name="x_max" class="java.lang.String">
+		<fieldDescription><![CDATA[@x_max]]></fieldDescription>
+	</field>
+	<field name="x_min" class="java.lang.String">
+		<fieldDescription><![CDATA[@x_min]]></fieldDescription>
+	</field>
+	<field name="y_max" class="java.lang.String">
+		<fieldDescription><![CDATA[@y_max]]></fieldDescription>
+	</field>
+	<field name="y_min" class="java.lang.String">
+		<fieldDescription><![CDATA[@y_min]]></fieldDescription>
+	</field>
+	<field name="shape_svg_path" class="java.lang.String">
+		<fieldDescription><![CDATA[@shape_svg_path]]></fieldDescription>
+	</field>
+	<field name="production_name" class="java.lang.String">
+		<fieldDescription><![CDATA[production/@name]]></fieldDescription>
+	</field>
+	<variable name="svg" class="java.lang.String" resetType="Group" resetGroup="landparcelgroup">
+		<variableExpression><![CDATA["<svg version='1.1'"+
+" viewBox="+$V{viewbox}+
+" xmlns='http://www.w3.org/2000/svg'>"+
+"<path d='"+$F{svg}+
+"'></path>"+
+"</svg>"]]></variableExpression>
+	</variable>
+	<variable name="viewbox" class="java.lang.String">
+		<variableExpression><![CDATA["'"+
+$F{x_min}+
+" -"+
+$F{y_max}+
+" "+
+$F{shape_width}+
+" "+
+$F{shape_height}+
+"'"]]></variableExpression>
+	</variable>
 	<group name="campaign" isStartNewPage="true">
 		<groupExpression><![CDATA[$F{campaign}]]></groupExpression>
-		<groupHeader>
-			<band height="29">
-				<textField evaluationTime="Group" evaluationGroup="campaign">
-					<reportElement uuid="33c30a13-a8f4-405d-82fc-26f60aad7e10" style="label-strong" mode="Opaque" x="2" y="2" width="100" height="26"/>
-					<box>
-						<pen lineWidth="0.0" lineColor="#7F4D15"/>
-						<topPen lineWidth="0.0" lineColor="#7F4D15"/>
-						<leftPen lineWidth="0.0" lineColor="#7F4D15"/>
-						<bottomPen lineWidth="0.0" lineColor="#7F4D15"/>
-						<rightPen lineWidth="0.0" lineColor="#7F4D15"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{campaign}]]></textFieldExpression>
-				</textField>
-				<line>
-					<reportElement uuid="5abae6f2-281f-493a-b567-f347b80e42b3" x="-21" y="27" width="411" height="1" forecolor="#7F4D15"/>
-				</line>
-			</band>
-		</groupHeader>
 		<groupFooter>
 			<band height="5"/>
 		</groupFooter>
@@ -103,16 +169,53 @@
 	<group name="landparcelgroup" isStartNewPage="true">
 		<groupExpression><![CDATA[$F{work_number}]]></groupExpression>
 		<groupHeader>
-			<band height="50">
+			<band height="159">
 				<textField>
-					<reportElement uuid="767321ef-0cb0-45b7-9d28-e511bc11c4d2" style="sub-title" x="2" y="14" width="342" height="24"/>
-					<textElement verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA["Parcelle culturale n° "+$F{work_number}+" - "+$F{name}]]></textFieldExpression>
+					<reportElement uuid="767321ef-0cb0-45b7-9d28-e511bc11c4d2" style="sub-title" x="2" y="0" width="648" height="24"/>
+					<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA["Parcelle culturale  "+$F{work_number}+" - "+$F{name}]]></textFieldExpression>
 				</textField>
-				<textField>
-					<reportElement uuid="0ec11ce2-d1c7-401b-bd96-49234ccaafeb" style="sub-title" x="571" y="14" width="230" height="24"/>
-					<textElement textAlignment="Right" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{area}+" "+$F{area_unit}]]></textFieldExpression>
+				<image isUsingCache="false" onErrorType="Blank" evaluationTime="Group" evaluationGroup="landparcelgroup">
+					<reportElement uuid="0f80c789-f964-4200-8732-4dcca286dbc2" x="650" y="0" width="152" height="147" printWhenGroupChanges="landparcelgroup"/>
+					<imageExpression><![CDATA[net.sf.jasperreports.renderers.BatikRenderer.getInstanceFromText($V{svg})]]></imageExpression>
+				</image>
+				<staticText>
+					<reportElement uuid="3d0054b5-1969-4fcc-af4f-243f0460a2b7" style="strong" mode="Opaque" x="2" y="24" width="648" height="2" backcolor="#7C9DDD"/>
+					<textElement verticalAlignment="Middle">
+						<font pdfFontName="Times-Roman"/>
+					</textElement>
+					<text><![CDATA[]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="f13d06af-132b-4d03-b61b-84650403995b" style="label" x="2" y="37" width="69" height="22"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Open Sans" size="10"/>
+					</textElement>
+					<text><![CDATA[Surface (ha)]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="d1b6c43b-248a-475e-9f13-df52ab37325f" style="label" x="2" y="59" width="69" height="22"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Open Sans" size="10"/>
+					</textElement>
+					<text><![CDATA[Culture]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="0f22a24e-779f-4c89-b703-44e223e147c5" style="label" x="2" y="81" width="69" height="37"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Open Sans" size="10"/>
+					</textElement>
+					<text><![CDATA[Rendement prévu / réalisé]]></text>
+				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="11c956e5-65a0-4682-84fd-2b73b5f2d123" style="base" x="71" y="37" width="46" height="22"/>
+					<textElement verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{area}/10000]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="landparcelgroup" isBlankWhenNull="true">
+					<reportElement uuid="7ffc3808-a292-4169-9bac-7bf545fc238e" style="base" x="71" y="59" width="170" height="20"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[$F{production_name}]]></textFieldExpression>
 				</textField>
 			</band>
 		</groupHeader>
@@ -142,167 +245,400 @@
 		</band>
 	</title>
 	<pageHeader>
-		<band splitType="Stretch"/>
+		<band height="25" splitType="Stretch">
+			<textField>
+				<reportElement uuid="548666df-fcbc-42e7-b461-8ee8b327b70e" style="address" x="0" y="0" width="801" height="25"/>
+				<textElement textAlignment="Center" verticalAlignment="Top"/>
+				<textFieldExpression><![CDATA["Cahier d'épandage de la campagne "+$F{campaign}]]></textFieldExpression>
+			</textField>
+		</band>
 	</pageHeader>
-	<columnHeader>
-		<band height="22" splitType="Stretch"/>
-	</columnHeader>
 	<detail>
 		<band height="82" splitType="Stretch">
 			<componentElement>
-				<reportElement uuid="d34c571c-1d69-4117-be7d-a317869058ea" key="table" x="2" y="0" width="799" height="82" printWhenGroupChanges="landparcelgroup"/>
+				<reportElement uuid="d34c571c-1d69-4117-be7d-a317869058ea" key="table" x="0" y="0" width="801" height="82" printWhenGroupChanges="landparcelgroup"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
-					<datasetRun subDataset="land_parcel_input" uuid="895eb9ad-0815-4b3b-ab52-fc5a332f5892">
+					<datasetRun subDataset="land_parcel_input_prev" uuid="2a7c3c6d-adb8-4978-a77e-eb4f38cbd957">
 						<parametersMapExpression><![CDATA[$P{REPORT_PARAMETERS_MAP}]]></parametersMapExpression>
 						<datasetParameter name="land_parcel_group_id">
 							<datasetParameterExpression><![CDATA[$F{id}]]></datasetParameterExpression>
 						</datasetParameter>
 						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					</datasetRun>
-					<jr:column width="90" uuid="7e771032-04e0-45d7-9134-b4180a11b5ae">
-						<jr:tableHeader height="0" rowSpan="1"/>
-						<jr:columnHeader height="30" rowSpan="1">
-							<staticText>
-								<reportElement uuid="8802a466-f53c-4415-bd3d-781335d3522d" style="table-th" x="0" y="0" width="90" height="30"/>
-								<textElement/>
-								<text><![CDATA[intrant]]></text>
-							</staticText>
-						</jr:columnHeader>
-						<jr:columnFooter height="0" rowSpan="1"/>
-						<jr:detailCell height="20" rowSpan="1">
+					<jr:columnGroup width="712" uuid="23cf8e8f-fc33-43fc-8f4e-846016f93323">
+						<jr:tableHeader height="30" rowSpan="1">
 							<textField>
-								<reportElement uuid="55147373-74e8-488b-ab88-04f91506e478" style="table-td" x="0" y="0" width="90" height="20"/>
+								<reportElement uuid="8e8c410e-bf75-4f2b-af08-083c050a2b2a" style="sub-title" x="0" y="0" width="635" height="30"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle"/>
-								<textFieldExpression><![CDATA[$F{input}]]></textFieldExpression>
+								<textFieldExpression><![CDATA["Plan de fumure prévisionnel"]]></textFieldExpression>
 							</textField>
-						</jr:detailCell>
-					</jr:column>
-					<jr:column width="90" uuid="99cb1adb-83ad-4c1a-a89c-8702b30515f3">
-						<jr:tableHeader height="0" rowSpan="1"/>
-						<jr:columnHeader height="30" rowSpan="1">
-							<staticText>
-								<reportElement uuid="6165aea2-a096-4212-bb39-5ef6d15106f0" style="table-th" x="0" y="0" width="90" height="30"/>
-								<textElement/>
-								<text><![CDATA[nature]]></text>
-							</staticText>
-						</jr:columnHeader>
-						<jr:columnFooter height="0" rowSpan="1"/>
-						<jr:detailCell height="20" rowSpan="1">
+						</jr:tableHeader>
+						<jr:column width="90" uuid="7e771032-04e0-45d7-9134-b4180a11b5ae">
+							<jr:tableHeader height="0" rowSpan="1"/>
+							<jr:columnHeader height="30" rowSpan="1">
+								<staticText>
+									<reportElement uuid="8802a466-f53c-4415-bd3d-781335d3522d" style="table-th" x="0" y="0" width="90" height="30"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle"/>
+									<text><![CDATA[intrant]]></text>
+								</staticText>
+							</jr:columnHeader>
+							<jr:columnFooter height="30" rowSpan="1"/>
+							<jr:detailCell height="20" rowSpan="1">
+								<textField>
+									<reportElement uuid="55147373-74e8-488b-ab88-04f91506e478" style="table-td" x="0" y="0" width="90" height="20"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle"/>
+									<textFieldExpression><![CDATA[$F{input}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="90" uuid="99cb1adb-83ad-4c1a-a89c-8702b30515f3">
+							<jr:tableHeader height="0" rowSpan="1"/>
+							<jr:columnHeader height="30" rowSpan="1">
+								<staticText>
+									<reportElement uuid="6165aea2-a096-4212-bb39-5ef6d15106f0" style="table-th" x="0" y="0" width="90" height="30"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle"/>
+									<text><![CDATA[nature]]></text>
+								</staticText>
+							</jr:columnHeader>
+							<jr:columnFooter height="30" rowSpan="1"/>
+							<jr:detailCell height="20" rowSpan="1">
+								<textField>
+									<reportElement uuid="5308bb26-7282-4f17-878c-cde124745deb" style="table-td" x="0" y="0" width="90" height="20"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle"/>
+									<textFieldExpression><![CDATA[$F{input_nature}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="40" uuid="3ad9fd36-4ac0-4f7c-ab48-7e9c919931f8">
+							<jr:tableHeader height="0" rowSpan="1"/>
+							<jr:columnHeader height="30" rowSpan="1">
+								<staticText>
+									<reportElement uuid="d8f9f02a-29df-4e35-acbe-4d59eb773f71" style="table-th" x="0" y="0" width="40" height="30"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle"/>
+									<text><![CDATA[Teneur en N]]></text>
+								</staticText>
+							</jr:columnHeader>
+							<jr:columnFooter height="30" rowSpan="1"/>
+							<jr:detailCell height="20" rowSpan="1">
+								<textField pattern="###0.00;-###0.00" isBlankWhenNull="true">
+									<reportElement uuid="5d4c64b7-e551-47ea-93ac-3b3c052fa3ba" style="table-td" x="0" y="0" width="40" height="20"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle"/>
+									<textFieldExpression><![CDATA[$F{input_nitrogen_concentration}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="39" uuid="28a281bc-f94a-4174-a588-a0cac1fc15b9">
+							<jr:tableHeader height="0" rowSpan="1"/>
+							<jr:columnHeader height="30" rowSpan="1">
+								<staticText>
+									<reportElement uuid="e508ff35-f676-4fdd-9d00-13e7093801b8" style="table-th" x="0" y="0" width="39" height="30"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle"/>
+									<text><![CDATA[Teneur en P]]></text>
+								</staticText>
+							</jr:columnHeader>
+							<jr:columnFooter height="30" rowSpan="1"/>
+							<jr:detailCell height="20" rowSpan="1">
+								<textField pattern="###0.00;-###0.00" isBlankWhenNull="true">
+									<reportElement uuid="baa4bbeb-c4a7-4fc2-bd0d-8d739eb90a67" style="table-td" x="0" y="0" width="39" height="20"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle"/>
+									<textFieldExpression><![CDATA[$F{input_phosphorus_concentration}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="40" uuid="b1d00db2-b2f3-430b-a567-45e1f72df216">
+							<jr:tableHeader height="0" rowSpan="1"/>
+							<jr:columnHeader height="30" rowSpan="1">
+								<staticText>
+									<reportElement uuid="c0972d5f-ab1a-4a65-bc90-febf4aa7ac9d" style="table-th" x="0" y="0" width="40" height="30"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle"/>
+									<text><![CDATA[Teneur en K]]></text>
+								</staticText>
+							</jr:columnHeader>
+							<jr:columnFooter height="30" rowSpan="1"/>
+							<jr:detailCell height="20" rowSpan="1">
+								<textField pattern="###0.00;-###0.00" isBlankWhenNull="true">
+									<reportElement uuid="95536ab2-2f78-42cf-9287-4e6f8654662e" style="table-td" x="0" y="0" width="40" height="20"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle"/>
+									<textFieldExpression><![CDATA[$F{input_potassium_concentration}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="48" uuid="2eb0e60d-72c8-4114-b40c-926f0f6e2634">
+							<jr:tableHeader height="0" rowSpan="1"/>
+							<jr:columnHeader height="30" rowSpan="1">
+								<staticText>
+									<reportElement uuid="a1aaebd9-ebb3-4722-b670-f2007ec15ae2" style="table-th" x="0" y="0" width="48" height="30"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle"/>
+									<text><![CDATA[quantité]]></text>
+								</staticText>
+							</jr:columnHeader>
+							<jr:columnFooter height="30" rowSpan="1"/>
+							<jr:detailCell height="20" rowSpan="1">
+								<textField isBlankWhenNull="true">
+									<reportElement uuid="32aaefb7-789c-4894-b9c0-ccdb0a304cc3" style="table-td" x="0" y="0" width="48" height="20"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle"/>
+									<textFieldExpression><![CDATA[$F{input_quantity}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="45" uuid="55c73f4a-871f-4818-bcb9-eae218068f40">
+							<jr:tableHeader height="0" rowSpan="1"/>
+							<jr:columnHeader height="30" rowSpan="1">
+								<staticText>
+									<reportElement uuid="a525a963-1f00-4451-8265-83595648881e" style="table-th" x="0" y="0" width="45" height="30"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle"/>
+									<text><![CDATA[unité]]></text>
+								</staticText>
+							</jr:columnHeader>
+							<jr:columnFooter height="30" rowSpan="1"/>
+							<jr:detailCell height="20" rowSpan="1">
+								<textField isBlankWhenNull="true">
+									<reportElement uuid="8e6f1f2a-e164-4378-90e5-b7e85ab754bb" style="table-td" x="0" y="0" width="45" height="20"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle"/>
+									<textFieldExpression><![CDATA[$F{input_quantity_unit}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="50" uuid="5549b1cf-79df-4328-9013-2d8544f9bda6">
+							<jr:tableHeader height="0" rowSpan="1"/>
+							<jr:columnHeader height="30" rowSpan="1">
+								<staticText>
+									<reportElement uuid="8990adf4-d9dd-44a7-8cd4-c253df95d098" style="table-th" x="0" y="0" width="50" height="30"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle"/>
+									<text><![CDATA[variété]]></text>
+								</staticText>
+							</jr:columnHeader>
+							<jr:columnFooter height="30" rowSpan="1"/>
+							<jr:detailCell height="20" rowSpan="1">
+								<textField>
+									<reportElement uuid="1982ea66-1531-463b-bf8e-99574370cf8a" style="table-td" x="0" y="0" width="50" height="20"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle"/>
+									<textFieldExpression><![CDATA[$F{input_variety}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="90" uuid="7f497026-0c5d-40b4-bb4e-1b147f398b6a">
+							<jr:tableHeader height="0" rowSpan="1"/>
+							<jr:columnHeader height="30" rowSpan="1">
+								<staticText>
+									<reportElement uuid="40e8645c-2749-4b8c-bb2a-0573698ec0af" style="table-th" x="0" y="0" width="90" height="30"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle"/>
+									<text><![CDATA[date début apport]]></text>
+								</staticText>
+							</jr:columnHeader>
+							<jr:columnFooter height="30" rowSpan="1"/>
+							<jr:detailCell height="20" rowSpan="1">
+								<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+									<reportElement uuid="3b3124fd-7df6-465f-b849-4ba84ac22cd3" style="table-td" x="0" y="0" width="90" height="20"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle"/>
+									<textFieldExpression><![CDATA[$F{started_at}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="90" uuid="af7818d9-ac55-43cc-9683-5f072af71399">
+							<jr:tableHeader height="0" rowSpan="1"/>
+							<jr:columnHeader height="30" rowSpan="1">
+								<staticText>
+									<reportElement uuid="e78fdc87-8c43-443a-8e9a-7ffda6feae6d" style="table-th" x="0" y="0" width="90" height="30"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle"/>
+									<text><![CDATA[date fin apport]]></text>
+								</staticText>
+							</jr:columnHeader>
+							<jr:columnFooter height="30" rowSpan="1"/>
+							<jr:detailCell height="20" rowSpan="1">
+								<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+									<reportElement uuid="0f65f953-1005-4c2c-9d44-d43eff22402c" style="table-td" x="0" y="0" width="90" height="20"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle"/>
+									<textFieldExpression><![CDATA[$F{stopped_at}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="90" uuid="77b7e61e-3b2a-4559-b126-4b551cb1d91f">
+							<jr:tableHeader height="0" rowSpan="1"/>
+							<jr:columnHeader height="30" rowSpan="1">
+								<staticText>
+									<reportElement uuid="1fdb2575-0f94-428e-a8a4-3fc72ed83675" style="table-th" x="0" y="0" width="90" height="30"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle"/>
+									<text><![CDATA[production]]></text>
+								</staticText>
+							</jr:columnHeader>
+							<jr:columnFooter height="30" rowSpan="1"/>
+							<jr:detailCell height="20" rowSpan="1">
+								<textField>
+									<reportElement uuid="99eaaf7f-d104-4bb4-8b00-ff0b4c1c8560" style="table-td" x="0" y="0" width="90" height="20"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle"/>
+									<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+					</jr:columnGroup>
+				</jr:table>
+			</componentElement>
+		</band>
+		<band height="98">
+			<componentElement>
+				<reportElement uuid="31996687-4f9f-43a3-b09f-6182a66fb7c7" key="table" x="0" y="2" width="802" height="96" printWhenGroupChanges="landparcelgroup"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="land_parcel_input_real" uuid="dfda45dd-0e40-4840-b6c3-91371dcc1b9c">
+						<parametersMapExpression><![CDATA[$P{REPORT_PARAMETERS_MAP}]]></parametersMapExpression>
+						<datasetParameter name="land_parcel_group_id">
+							<datasetParameterExpression><![CDATA[$F{id}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:columnGroup width="720" uuid="26cdc66d-289a-4beb-b5a6-8b11465fcff8">
+						<jr:tableHeader height="30" rowSpan="1">
 							<textField>
-								<reportElement uuid="5308bb26-7282-4f17-878c-cde124745deb" style="table-td" x="0" y="0" width="90" height="20"/>
+								<reportElement uuid="362221a8-1150-4bba-99af-5b066ca82e82" style="sub-title" x="0" y="0" width="720" height="30"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle"/>
-								<textFieldExpression><![CDATA[$F{input_nature}]]></textFieldExpression>
+								<textFieldExpression><![CDATA["Cahier d'épandage"]]></textFieldExpression>
 							</textField>
-						</jr:detailCell>
-					</jr:column>
-					<jr:column width="90" uuid="2eb0e60d-72c8-4114-b40c-926f0f6e2634">
-						<jr:tableHeader height="0" rowSpan="1"/>
-						<jr:columnHeader height="30" rowSpan="1">
-							<staticText>
-								<reportElement uuid="a1aaebd9-ebb3-4722-b670-f2007ec15ae2" style="table-th" x="0" y="0" width="90" height="30"/>
-								<textElement/>
-								<text><![CDATA[quantité]]></text>
-							</staticText>
-						</jr:columnHeader>
-						<jr:columnFooter height="0" rowSpan="1"/>
-						<jr:detailCell height="20" rowSpan="1">
-							<textField isBlankWhenNull="true">
-								<reportElement uuid="32aaefb7-789c-4894-b9c0-ccdb0a304cc3" style="table-td" x="0" y="0" width="90" height="20"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle"/>
-								<textFieldExpression><![CDATA[$F{input_quantity}]]></textFieldExpression>
-							</textField>
-						</jr:detailCell>
-					</jr:column>
-					<jr:column width="90" uuid="55c73f4a-871f-4818-bcb9-eae218068f40">
-						<jr:tableHeader height="0" rowSpan="1"/>
-						<jr:columnHeader height="30" rowSpan="1">
-							<staticText>
-								<reportElement uuid="a525a963-1f00-4451-8265-83595648881e" style="table-th" x="0" y="0" width="90" height="30"/>
-								<textElement/>
-								<text><![CDATA[unité]]></text>
-							</staticText>
-						</jr:columnHeader>
-						<jr:columnFooter height="0" rowSpan="1"/>
-						<jr:detailCell height="20" rowSpan="1">
-							<textField isBlankWhenNull="true">
-								<reportElement uuid="8e6f1f2a-e164-4378-90e5-b7e85ab754bb" style="table-td" x="0" y="0" width="90" height="20"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle"/>
-								<textFieldExpression><![CDATA[$F{input_quantity_unit}]]></textFieldExpression>
-							</textField>
-						</jr:detailCell>
-					</jr:column>
-					<jr:column width="90" uuid="5549b1cf-79df-4328-9013-2d8544f9bda6">
-						<jr:tableHeader height="0" rowSpan="1"/>
-						<jr:columnHeader height="30" rowSpan="1">
-							<staticText>
-								<reportElement uuid="8990adf4-d9dd-44a7-8cd4-c253df95d098" style="table-th" x="0" y="0" width="90" height="30"/>
-								<textElement/>
-								<text><![CDATA[variété]]></text>
-							</staticText>
-						</jr:columnHeader>
-						<jr:columnFooter height="0" rowSpan="1"/>
-						<jr:detailCell height="20" rowSpan="1">
-							<textField>
-								<reportElement uuid="1982ea66-1531-463b-bf8e-99574370cf8a" style="table-td" x="0" y="0" width="90" height="20"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle"/>
-								<textFieldExpression><![CDATA[$F{input_variety}]]></textFieldExpression>
-							</textField>
-						</jr:detailCell>
-					</jr:column>
-					<jr:column width="90" uuid="7f497026-0c5d-40b4-bb4e-1b147f398b6a">
-						<jr:tableHeader height="0" rowSpan="1"/>
-						<jr:columnHeader height="30" rowSpan="1">
-							<staticText>
-								<reportElement uuid="40e8645c-2749-4b8c-bb2a-0573698ec0af" style="table-th" x="0" y="0" width="90" height="30"/>
-								<textElement/>
-								<text><![CDATA[date début apport]]></text>
-							</staticText>
-						</jr:columnHeader>
-						<jr:columnFooter height="0" rowSpan="1"/>
-						<jr:detailCell height="20" rowSpan="1">
-							<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
-								<reportElement uuid="3b3124fd-7df6-465f-b849-4ba84ac22cd3" style="table-td" x="0" y="0" width="90" height="20"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle"/>
-								<textFieldExpression><![CDATA[$F{started_at}]]></textFieldExpression>
-							</textField>
-						</jr:detailCell>
-					</jr:column>
-					<jr:column width="90" uuid="af7818d9-ac55-43cc-9683-5f072af71399">
-						<jr:tableHeader height="0" rowSpan="1"/>
-						<jr:columnHeader height="30" rowSpan="1">
-							<staticText>
-								<reportElement uuid="e78fdc87-8c43-443a-8e9a-7ffda6feae6d" style="table-th" x="0" y="0" width="90" height="30"/>
-								<textElement/>
-								<text><![CDATA[date fin apport]]></text>
-							</staticText>
-						</jr:columnHeader>
-						<jr:columnFooter height="0" rowSpan="1"/>
-						<jr:detailCell height="20" rowSpan="1">
-							<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
-								<reportElement uuid="0f65f953-1005-4c2c-9d44-d43eff22402c" style="table-td" x="0" y="0" width="90" height="20"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle"/>
-								<textFieldExpression><![CDATA[$F{stopped_at}]]></textFieldExpression>
-							</textField>
-						</jr:detailCell>
-					</jr:column>
-					<jr:column width="90" uuid="77b7e61e-3b2a-4559-b126-4b551cb1d91f">
-						<jr:tableHeader height="0" rowSpan="1"/>
-						<jr:columnHeader height="30" rowSpan="1">
-							<staticText>
-								<reportElement uuid="1fdb2575-0f94-428e-a8a4-3fc72ed83675" style="table-th" x="0" y="0" width="90" height="30"/>
-								<textElement/>
-								<text><![CDATA[production]]></text>
-							</staticText>
-						</jr:columnHeader>
-						<jr:columnFooter height="0" rowSpan="1"/>
-						<jr:detailCell height="20" rowSpan="1">
-							<textField>
-								<reportElement uuid="99eaaf7f-d104-4bb4-8b00-ff0b4c1c8560" style="table-td" x="0" y="0" width="90" height="20"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle"/>
-								<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
-							</textField>
-						</jr:detailCell>
-					</jr:column>
+						</jr:tableHeader>
+						<jr:column width="90" uuid="31de42cf-7ef6-4d86-8b70-65a33efa69e3">
+							<jr:tableHeader height="0" rowSpan="1"/>
+							<jr:columnHeader height="30" rowSpan="1">
+								<staticText>
+									<reportElement uuid="60037704-02e4-4c3c-a113-55472a599902" style="table-th" x="0" y="0" width="90" height="30"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle"/>
+									<text><![CDATA[intrant]]></text>
+								</staticText>
+							</jr:columnHeader>
+							<jr:columnFooter height="0" rowSpan="1"/>
+							<jr:detailCell height="20" rowSpan="1">
+								<textField>
+									<reportElement uuid="2002a2f5-be89-40d7-9c27-59148c219986" style="table-td" x="0" y="0" width="90" height="20"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle"/>
+									<textFieldExpression><![CDATA[$F{input}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="90" uuid="06bc0543-2005-412c-9070-934f01fecda7">
+							<jr:tableHeader height="0" rowSpan="1"/>
+							<jr:columnHeader height="30" rowSpan="1">
+								<staticText>
+									<reportElement uuid="6fe57dcd-f5c4-4d36-8e9f-e888cdde54e6" style="table-th" x="0" y="0" width="90" height="30"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle"/>
+									<text><![CDATA[nature]]></text>
+								</staticText>
+							</jr:columnHeader>
+							<jr:columnFooter height="0" rowSpan="1"/>
+							<jr:detailCell height="20" rowSpan="1">
+								<textField>
+									<reportElement uuid="873eb1b3-75bd-4003-b17a-a76cbefbe1b6" style="table-td" x="0" y="0" width="90" height="20"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle"/>
+									<textFieldExpression><![CDATA[$F{input_nature}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="90" uuid="b3346597-6341-4cfa-8884-c792c03b5fa5">
+							<jr:tableHeader height="0" rowSpan="1"/>
+							<jr:columnHeader height="30" rowSpan="1">
+								<staticText>
+									<reportElement uuid="cbc5b83f-6a60-4109-a16c-fc3015dbd5ff" style="table-th" x="0" y="0" width="90" height="30"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle"/>
+									<text><![CDATA[quantité]]></text>
+								</staticText>
+							</jr:columnHeader>
+							<jr:columnFooter height="0" rowSpan="1"/>
+							<jr:detailCell height="20" rowSpan="1">
+								<textField isBlankWhenNull="true">
+									<reportElement uuid="acdf2b04-3a31-4d7e-b19c-faa3590d2d0c" style="table-td" x="0" y="0" width="90" height="20"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle"/>
+									<textFieldExpression><![CDATA[$F{input_quantity}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="90" uuid="cba60ecd-e07c-4175-9110-6d4ab7a7bc68">
+							<jr:tableHeader height="0" rowSpan="1"/>
+							<jr:columnHeader height="30" rowSpan="1">
+								<staticText>
+									<reportElement uuid="273293f1-e340-440b-94d2-c9e5438bb392" style="table-th" x="0" y="0" width="90" height="30"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle"/>
+									<text><![CDATA[unité]]></text>
+								</staticText>
+							</jr:columnHeader>
+							<jr:columnFooter height="0" rowSpan="1"/>
+							<jr:detailCell height="20" rowSpan="1">
+								<textField isBlankWhenNull="true">
+									<reportElement uuid="ef0a6d23-1f12-4bd0-82e6-e3a59c222e24" style="table-td" x="0" y="0" width="90" height="20"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle"/>
+									<textFieldExpression><![CDATA[$F{input_quantity_unit}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="90" uuid="055deaec-0041-407a-a96f-847afc247f19">
+							<jr:tableHeader height="0" rowSpan="1"/>
+							<jr:columnHeader height="30" rowSpan="1">
+								<staticText>
+									<reportElement uuid="d6168cb2-55c3-4780-9492-d420006d7fec" style="table-th" x="0" y="0" width="90" height="30"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle"/>
+									<text><![CDATA[variété]]></text>
+								</staticText>
+							</jr:columnHeader>
+							<jr:columnFooter height="0" rowSpan="1"/>
+							<jr:detailCell height="20" rowSpan="1">
+								<textField>
+									<reportElement uuid="8aec5b9f-7c4f-49ba-8e3f-77fa770b23b8" style="table-td" x="0" y="0" width="90" height="20"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle"/>
+									<textFieldExpression><![CDATA[$F{input_variety}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="90" uuid="59630fee-8122-4078-ac3f-dc2f36aeec31">
+							<jr:tableHeader height="0" rowSpan="1"/>
+							<jr:columnHeader height="30" rowSpan="1">
+								<staticText>
+									<reportElement uuid="6c25d2b4-cc5e-40c6-b8fe-133e0299e974" style="table-th" x="0" y="0" width="90" height="30"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle"/>
+									<text><![CDATA[date début apport]]></text>
+								</staticText>
+							</jr:columnHeader>
+							<jr:columnFooter height="0" rowSpan="1"/>
+							<jr:detailCell height="20" rowSpan="1">
+								<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+									<reportElement uuid="777dee9c-a992-47ca-9e18-eb485776a28c" style="table-td" x="0" y="0" width="90" height="20"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle"/>
+									<textFieldExpression><![CDATA[$F{started_at}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="90" uuid="13dce77a-0c62-4680-a8e0-83467e418c93">
+							<jr:tableHeader height="0" rowSpan="1"/>
+							<jr:columnHeader height="30" rowSpan="1">
+								<staticText>
+									<reportElement uuid="b27093a3-70d6-4a74-ac85-6d8e1dde5e6d" style="table-th" x="0" y="0" width="90" height="30"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle"/>
+									<text><![CDATA[date fin apport]]></text>
+								</staticText>
+							</jr:columnHeader>
+							<jr:columnFooter height="0" rowSpan="1"/>
+							<jr:detailCell height="20" rowSpan="1">
+								<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+									<reportElement uuid="4ee1732c-ce8d-4158-90f2-7d7f45f3ea55" style="table-td" x="0" y="0" width="90" height="20"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle"/>
+									<textFieldExpression><![CDATA[$F{stopped_at}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="90" uuid="bfa4a3b9-6cd3-4c97-9a23-e4cdbf2ed335">
+							<jr:tableHeader height="0" rowSpan="1"/>
+							<jr:columnHeader height="30" rowSpan="1">
+								<staticText>
+									<reportElement uuid="8ee535db-7558-4879-bd0d-46ee3127d08c" style="table-th" x="0" y="0" width="90" height="30"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle"/>
+									<text><![CDATA[production]]></text>
+								</staticText>
+							</jr:columnHeader>
+							<jr:columnFooter height="0" rowSpan="1"/>
+							<jr:detailCell height="20" rowSpan="1">
+								<textField>
+									<reportElement uuid="af4fb416-7f81-441c-be36-8d8a74d5a6d3" style="table-td" x="0" y="0" width="90" height="20"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle"/>
+									<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+					</jr:columnGroup>
 				</jr:table>
 			</componentElement>
 		</band>

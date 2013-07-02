@@ -101,6 +101,7 @@ class Product < Ekylibre::Record::Base
   scope :members_of, lambda { |group, viewed_at| where("id IN (SELECT member_id FROM #{ProductMembership.table_name} WHERE group_id = ? AND ? BETWEEN COALESCE(started_at, ?) AND COALESCE(stopped_at, ?))", group.id, viewed_at, viewed_at, viewed_at)}
   # scope :saleables, -> { joins(:nature).where(:active => true, :product_natures => {:saleable => true}) }
   scope :saleables, -> { where(true) }
+  scope :production_supports,  -> { where(:variety =>["land_parcel_group"]) }
 
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
