@@ -24,12 +24,12 @@
 #  address_id               :integer
 #  asset_id                 :integer
 #  born_at                  :datetime
+#  content_indicator        :string(255)
+#  content_indicator_unit   :string(255)
 #  content_maximal_quantity :decimal(19, 4)   default(0.0), not null
 #  content_nature_id        :integer
-#  content_unit             :string(255)
 #  created_at               :datetime         not null
 #  creator_id               :integer
-#  current_place_id         :integer
 #  dead_at                  :datetime
 #  description              :text
 #  external                 :boolean          not null
@@ -37,8 +37,6 @@
 #  id                       :integer          not null, primary key
 #  identification_number    :string(255)
 #  lock_version             :integer          default(0), not null
-#  maximal_quantity         :decimal(19, 4)   default(0.0), not null
-#  minimal_quantity         :decimal(19, 4)   default(0.0), not null
 #  mother_id                :integer
 #  name                     :string(255)      not null
 #  nature_id                :integer          not null
@@ -49,18 +47,16 @@
 #  picture_file_name        :string(255)
 #  picture_file_size        :integer
 #  picture_updated_at       :datetime
-#  real_quantity            :decimal(19, 4)   default(0.0), not null
 #  reproductor              :boolean          not null
 #  reservoir                :boolean          not null
 #  sex                      :string(255)
 #  shape                    :spatial({:srid=>
 #  tracking_id              :integer
 #  type                     :string(255)
-#  unit                     :string(255)      not null
 #  updated_at               :datetime         not null
 #  updater_id               :integer
+#  variant_id               :integer          not null
 #  variety                  :string(127)      not null
-#  virtual_quantity         :decimal(19, 4)   default(0.0), not null
 #  work_number              :string(255)
 #
 class Zone < Matter

@@ -371,9 +371,10 @@ fra:
       product_membership: "Passage d’un produit dans un groupe"
       product_move: "Mouvement de stock"
       product_nature: "Type de produit"
-      product_nature_ability: "Compétence"
+      product_nature_ability: "Compétence" #?
       product_nature_category: "Catégorie de produit"
-      product_nature_indicator: "Indicateur"
+      product_nature_indicator: "Indicateur" #?
+      # product_nature_variant: "Product nature variant"
       product_price: "Prix"
       product_price_listing: "Liste de prix"
       product_price_template: "Type de prix"
@@ -407,6 +408,7 @@ fra:
       zone: "Zone"
       # zone_property_title: "Zone property title"
   attributes:
+    # abilities: "Abilities"
     account: "Compte comptable"
     account_balances: "Balances de compte"
     accountable: "Comptabilisable"
@@ -548,9 +550,11 @@ fra:
     consumption: "Consommation (litres/heure)" #?
     container: "Contenant"
     content: "Contenu"
+    content_indicator: "Content indicator"
+    content_indicator_unit: "Content indicator unit"
     content_maximal_quantity: "Content maximal quantity"
     content_nature: "Content nature"
-    content_unit: "Content unit"
+    content_unit: "Content unit" #?
     # contour: "Contour"
     conveyors: "Convoyeurs" #?
     coordinate: "Coordonnée"
@@ -717,6 +721,7 @@ fra:
     group: "Groupe"
     groups: "Groupes"
     has_downpayment: "A un acompte"
+    # horizontal_rotation: "Horizontal rotation"
     iban: "IBAN"
     id: "ID"
     identification_number: "Numéro d’identification"
@@ -736,7 +741,6 @@ fra:
     indicators: "Indicators"
     indirect_links: "Liens indirects"
     # individual: "Individual"
-    # individual_unit_name: "Individual unit name"
     indivisible: "Indivisible" #?
     initial_number: "Numéro initial"
     integer_value: "Valeur entière"
@@ -816,7 +820,7 @@ fra:
     mandates: "Responsabilités"
     maximal_grantable_reduction_percentage: "Pourcentage maximal autorisé à etre effectué"
     maximal_length: "Longueur maximale"
-    maximal_quantity: "Maximal quantity"
+    maximal_quantity: "Maximal quantity" #?
     maximal_value: "Valeur maximale"
     measure_unit: "Unité de mesure"
     measure_value: "Valeur de la mesure"
@@ -828,7 +832,7 @@ fra:
     members: "Membres"
     memberships: "Membres du groupe"
     minimal_length: "Longueur minimale"
-    minimal_quantity: "Minimal quantity"
+    minimal_quantity: "Minimal quantity" #?
     minimal_value: "Valeur minimale"
     mobile: "Portable" #?
     mobiles: "Portables"
@@ -842,8 +846,8 @@ fra:
     name_1_to_2: "Nom «\_Personne 1 vers Personne 2\_»" #?
     name_2_to_1: "Nom «\_Personne 2 vers Personne 1\_»" #?
     nature: "Type"
-    # net_volume: "Net volume"
-    net_weight: "Masse nette"
+    nature_name: "Nature name"
+    net_weight: "Masse nette" #?
     nic: "NIC (Numéro Interne de Classement)" #?
     node: "Nœud"
     nodes: "Nœuds d’extraction"
@@ -970,14 +974,12 @@ fra:
     # purchasable: "Purchasable"
     purchase: "Achat"
     purchase_amount: "Montant d’achat"
+    # purchase_indicator: "Purchase indicator"
+    # purchase_indicator_unit: "Purchase indicator unit"
     purchase_invoices: "Factures d’achats"
     purchase_item: "Ligne d’achat"
     purchase_items: "Lignes d’achat"
     purchase_natures: "Types d’achats" #?
-    # purchase_unit: "Purchase unit"
-    # purchase_unit_coefficient: "Purchase unit coefficient"
-    # purchase_unit_modulo: "Purchase unit modulo"
-    # purchase_unit_name: "Purchase unit name"
     purchased_on: "Acheté le"
     purchases: "Achats"
     purchases_account: "Compte comptable de charges" #?
@@ -990,7 +992,7 @@ fra:
     quantity_unit: "Unité de la quantité" #?
     query: "Requête"
     range: "Intervalle" #?
-    real_quantity: "Real quantity"
+    real_quantity: "Real quantity" #?
     reason: "Motif" #?
     receipt: "Reçu électronique"
     received: "Reçue"
@@ -1035,13 +1037,11 @@ fra:
     root_model: "Racine"
     root_model_name: "Racine"
     sale: "Vente"
+    # sale_indicator: "Sale indicator"
+    # sale_indicator_unit: "Sale indicator unit"
     sale_item: "Ligne de vente"
     sale_items: "Lignes de vente"
     sale_price_listing: "Sale price listing"
-    # sale_unit: "Sale unit"
-    # sale_unit_coefficient: "Sale unit coefficient"
-    # sale_unit_modulo: "Sale unit modulo"
-    # sale_unit_name: "Sale unit name"
     # saleable: "Saleable"
     sales: "Ventes"
     sales_account: "Compte comptable de produits" #?
@@ -1138,6 +1138,7 @@ fra:
     unique_tracking: "Numéro unique" #?
     unit: "Unité"
     unit_quantity: "Quantité par unité de surface" #?
+    # unitary: "Unitary"
     units: "Unités" #?
     # unlock_token: "Unlock token"
     unlocked_payments: "Paiement non verrouillés"
@@ -1150,19 +1151,21 @@ fra:
     usable_outgoing_payments: "Décaissements utilisables" #?
     usage: "Utilisation"
     usage_duration: "Durée d’utilisation (heures)" #?
+    # usage_indicator: "Usage indicator"
+    # usage_indicator_unit: "Usage indicator unit"
     used_amount: "Montant utilisé" #?
     useful_items: "Lignes utiles"
     user: "Utilisateur"
     users: "Utilisateurs"
     value: "Valeur"
     value_format: "Format de la valeur monétaire" #?
-    # variables: "Variables"
+    variables: "Variables"
     variety: "Variété"
     vat_number: "Numéro de TVA intra-communautaire"
     vat_subjected: "Assujetti à la TVA"
     # verb: "Verb"
     virtual: "Virtuel" #?
-    virtual_quantity: "Stock virtuel"
+    virtual_quantity: "Stock virtuel" #?
     waiting_deliveries: "Livraisons en attente"
     watcher: "Observateur" #?
     webpass: "Mot de passe web"

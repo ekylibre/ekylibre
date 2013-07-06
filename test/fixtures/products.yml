@@ -24,12 +24,12 @@
 #  address_id               :integer
 #  asset_id                 :integer
 #  born_at                  :datetime
+#  content_indicator        :string(255)
+#  content_indicator_unit   :string(255)
 #  content_maximal_quantity :decimal(19, 4)   default(0.0), not null
 #  content_nature_id        :integer
-#  content_unit             :string(255)
 #  created_at               :datetime         not null
 #  creator_id               :integer
-#  current_place_id         :integer
 #  dead_at                  :datetime
 #  description              :text
 #  external                 :boolean          not null
@@ -37,8 +37,6 @@
 #  id                       :integer          not null, primary key
 #  identification_number    :string(255)
 #  lock_version             :integer          default(0), not null
-#  maximal_quantity         :decimal(19, 4)   default(0.0), not null
-#  minimal_quantity         :decimal(19, 4)   default(0.0), not null
 #  mother_id                :integer
 #  name                     :string(255)      not null
 #  nature_id                :integer          not null
@@ -49,18 +47,16 @@
 #  picture_file_name        :string(255)
 #  picture_file_size        :integer
 #  picture_updated_at       :datetime
-#  real_quantity            :decimal(19, 4)   default(0.0), not null
 #  reproductor              :boolean          not null
 #  reservoir                :boolean          not null
 #  sex                      :string(255)
 #  shape                    :spatial({:srid=>
 #  tracking_id              :integer
 #  type                     :string(255)
-#  unit                     :string(255)      not null
 #  updated_at               :datetime         not null
 #  updater_id               :integer
+#  variant_id               :integer          not null
 #  variety                  :string(127)      not null
-#  virtual_quantity         :decimal(19, 4)   default(0.0), not null
 #  work_number              :string(255)
 #
 #
@@ -73,20 +69,16 @@
 #   creator_id: 1
 #   external: true
 #   id: 1
-#   maximal_quantity: 0
-#   minimal_quantity: 0
 #   name: "Lorem ipsum"
 #   nature_id: 1
 #   number: "Lorem ipsum"
 #   owner_id: 1
-#   real_quantity: 0
 #   reproductor: true
 #   reservoir: true
-#   unit: "Lorem ipsum"
 #   updated_at: 2009-07-19 19:13:59 +02:00
 #   updater_id: 1
+#   variant_id: 1
 #   variety: "Lorem ipsum"
-#   virtual_quantity: 0
 #
 
 
@@ -101,10 +93,10 @@ products_001:
   nature_id: 1
   number: "0001"
   owner_id: 1
-  unit: "unity"
   type: 'Product'
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
+  variant_id: 1
   variety: "product"
 
 products_002:
@@ -118,10 +110,10 @@ products_002:
   nature_id: 1
   number: "0002"
   owner_id: 1
-  unit: "unity"
   type: 'Product'
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
+  variant_id: 1
   variety: "product"
 
 buildings_001:
@@ -133,9 +125,9 @@ buildings_001:
   nature_id: 1
   number: "0003"
   owner_id: 1
-  unit: "unity"
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
+  variant_id: 1
   variety: "building"
 
 buildings_002:
@@ -147,9 +139,9 @@ buildings_002:
   nature_id: 1
   number: "0004"
   owner_id: 1
-  unit: "unity"
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
+  variant_id: 1
   variety: "building"
 
 buildings_003:
@@ -161,9 +153,9 @@ buildings_003:
   nature_id: 1
   number: "0005"
   owner_id: 1
-  unit: "unity"
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
+  variant_id: 1
   variety: "building"
 
 land_parcels_001:
@@ -175,12 +167,11 @@ land_parcels_001:
   nature_id: 1
   number: "0006"
   owner_id: 1
-  real_quantity: 17.12
-  unit: "hectare"
   shape: 'MULTIPOLYGON(((235670.354215375 894016.780856,235668.324215375 894025.050856,235681.154215375 894028.210856,235683.184215375 894019.940856,235670.354215375 894016.780856)))'
   type: 'LandParcel'
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
+  variant_id: 1
   variety: "land_parcel"
 
 land_parcels_002:
@@ -192,12 +183,11 @@ land_parcels_002:
   nature_id: 1
   number: "0007"
   owner_id: 1
-  real_quantity: 15.2
-  unit: "hectare"
   shape: 'MULTIPOLYGON(((235670.354215375 894016.780856,235668.324215375 894025.050856,235681.154215375 894028.210856,235683.184215375 894019.940856,235670.354215375 894016.780856)))'
   type: 'LandParcel'
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
+  variant_id: 1
   variety: "land_parcel"
 
 equipments_001:
@@ -208,10 +198,10 @@ equipments_001:
   nature_id: 1
   number: "0008"
   owner_id: 1
-  unit: "unity"
   type: 'Equipment'
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
+  variant_id: 1
   variety: "equipment"
 
 equipments_002:
@@ -223,9 +213,9 @@ equipments_002:
   number: "0009"
   owner_id: 1
   type: 'Equipment'
-  unit: "unity"
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
+  variant_id: 1
   variety: "equipment"
 
 animals_001:
@@ -236,10 +226,10 @@ animals_001:
   nature_id: 1
   number: "0010"
   owner_id: 1
-  unit: "unity"
   type: 'Animal'
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
+  variant_id: 1
   variety: "bos"
 
 animals_002:
@@ -251,9 +241,9 @@ animals_002:
   number: "0011"
   owner_id: 1
   type: 'Animal'
-  unit: "unity"
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
+  variant_id: 1
   variety: "bos"
 
 matters_001:
@@ -265,10 +255,9 @@ matters_001:
   number: "0012"
   owner_id: 1
   type: 'Matter'
-  real_quantity: 25.456
-  unit: "kilogram"
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
+  variant_id: 1
   variety: "matter"
 
 matters_002:
@@ -280,10 +269,9 @@ matters_002:
   number: "0013"
   owner_id: 1
   type: 'Matter'
-  real_quantity: 250
-  unit: "unity"
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
+  variant_id: 1
   variety: "matter"
 
 matters_003:
@@ -294,11 +282,10 @@ matters_003:
   nature_id: 1
   number: "0014"
   owner_id: 1
-  real_quantity: 123
   type: 'Matter'
-  unit: "unity"
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
+  variant_id: 1
   variety: "matter"
 
 matters_004:
@@ -309,11 +296,10 @@ matters_004:
   nature_id: 1
   number: "0015"
   owner_id: 1
-  real_quantity: 1.2
   type: 'Matter'
-  unit: "cubic_meter"
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
+  variant_id: 1
   variety: "matter"
 
 matters_005:
@@ -324,11 +310,10 @@ matters_005:
   nature_id: 1
   number: "0016"
   owner_id: 1
-  real_quantity: 850
   type: 'Matter'
-  unit: "liter"
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
+  variant_id: 1
   variety: "matter"
 
 product_groups_001:
@@ -340,10 +325,10 @@ product_groups_001:
   number: "0017"
   owner_id: 1
   type: 'ProductGroup'
-  unit: "unity"
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
   parent_id: 1
+  variant_id: 1
   variety: "product_group"
 
 product_groups_001:
@@ -355,10 +340,10 @@ product_groups_001:
   number: "0018"
   owner_id: 1
   type: 'ProductGroup'
-  unit: "unity"
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
   parent_id: 1
+  variant_id: 1
   variety: "product_group"
 
 product_groups_001:
@@ -370,8 +355,8 @@ product_groups_001:
   number: "0019"
   owner_id: 1
   type: 'ProductGroup'
-  unit: "unity"
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
   parent_id: 1
+  variant_id: 1
   variety: "product_group"

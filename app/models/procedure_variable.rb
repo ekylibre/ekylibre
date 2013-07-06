@@ -50,7 +50,7 @@ class ProcedureVariable < Ekylibre::Record::Base
     #where('nature IN (?)', natures)
     where(:roles => ["input"])
   }
-  
+
     scope :of_prev_role, lambda { |*natures|
     #for nature in natures
       #raise ArgumentError.new("Expected ProcedureNature, got #{nature.class.name}:#{nature.inspect}") unless nature.is_a?(ProcedureNature)
@@ -58,7 +58,7 @@ class ProcedureVariable < Ekylibre::Record::Base
     #where('nature IN (?)', natures)
     where(:roles => ["prev_input"])
   }
-  
+
   scope :of_land_parcel_group, lambda { |land_parcel|
      where(:target_id => land_parcel.id)
   }

@@ -25,12 +25,12 @@
 #  address_id               :integer
 #  asset_id                 :integer
 #  born_at                  :datetime
+#  content_indicator        :string(255)
+#  content_indicator_unit   :string(255)
 #  content_maximal_quantity :decimal(19, 4)   default(0.0), not null
 #  content_nature_id        :integer
-#  content_unit             :string(255)
 #  created_at               :datetime         not null
 #  creator_id               :integer
-#  current_place_id         :integer
 #  dead_at                  :datetime
 #  description              :text
 #  external                 :boolean          not null
@@ -38,8 +38,6 @@
 #  id                       :integer          not null, primary key
 #  identification_number    :string(255)
 #  lock_version             :integer          default(0), not null
-#  maximal_quantity         :decimal(19, 4)   default(0.0), not null
-#  minimal_quantity         :decimal(19, 4)   default(0.0), not null
 #  mother_id                :integer
 #  name                     :string(255)      not null
 #  nature_id                :integer          not null
@@ -50,18 +48,16 @@
 #  picture_file_name        :string(255)
 #  picture_file_size        :integer
 #  picture_updated_at       :datetime
-#  real_quantity            :decimal(19, 4)   default(0.0), not null
 #  reproductor              :boolean          not null
 #  reservoir                :boolean          not null
 #  sex                      :string(255)
 #  shape                    :spatial({:srid=>
 #  tracking_id              :integer
 #  type                     :string(255)
-#  unit                     :string(255)      not null
 #  updated_at               :datetime         not null
 #  updater_id               :integer
+#  variant_id               :integer          not null
 #  variety                  :string(127)      not null
-#  virtual_quantity         :decimal(19, 4)   default(0.0), not null
 #  work_number              :string(255)
 #
 
@@ -106,11 +102,11 @@ class Product < Ekylibre::Record::Base
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :picture_file_size, :allow_nil => true, :only_integer => true
-  validates_numericality_of :content_maximal_quantity, :maximal_quantity, :minimal_quantity, :real_quantity, :virtual_quantity, :allow_nil => true
+  validates_numericality_of :content_maximal_quantity, :allow_nil => true
   validates_length_of :variety, :allow_nil => true, :maximum => 127
-  validates_length_of :content_unit, :identification_number, :name, :number, :picture_content_type, :picture_file_name, :sex, :unit, :work_number, :allow_nil => true, :maximum => 255
+  validates_length_of :content_indicator, :content_indicator_unit, :identification_number, :name, :number, :picture_content_type, :picture_file_name, :sex, :work_number, :allow_nil => true, :maximum => 255
   validates_inclusion_of :active, :external, :reproductor, :reservoir, :in => [true, false]
-  validates_presence_of :content_maximal_quantity, :maximal_quantity, :minimal_quantity, :name, :nature, :number, :owner, :real_quantity, :unit, :variety, :virtual_quantity
+  validates_presence_of :content_maximal_quantity, :name, :nature, :number, :owner, :variety
   #]VALIDATORS]
   validates_presence_of :nature, :name, :owner
 

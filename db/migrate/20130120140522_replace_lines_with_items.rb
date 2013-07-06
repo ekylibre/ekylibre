@@ -485,23 +485,10 @@ class ReplaceLinesWithItems < ActiveRecord::Migration
       :parent_id => :product_group,
       :updater_id => :entity
     },
-    :product_indicator => {
-      :choice_value_id => :product_indicator_nature_choice,
+    :product_indicator_datum => {
       :creator_id => :entity,
       :measure_unit_id => :unit,
-      :nature_id => :product_indicator_nature,
       :product_id => :product,
-      :updater_id => :entity
-    },
-    :product_indicator_nature => {
-      :creator_id => :entity,
-      :process_id => :product_process,
-      :unit_id => :unit,
-      :updater_id => :entity
-    },
-    :product_indicator_nature_choice => {
-      :creator_id => :entity,
-      :nature_id => :product_indicator_nature,
       :updater_id => :entity
     },
     :product_membership => {

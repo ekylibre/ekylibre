@@ -53,7 +53,7 @@ class IncomingDeliveryItem < Ekylibre::Record::Base
   #]VALIDATORS]
   validates_presence_of :product#, :unit
 
-  accepts_nested_attributes_for :product 
+  accepts_nested_attributes_for :product
   acts_as_stockable :origin => :delivery
   #delegate :weight, :name, :to => :product, :prefix => true
   #sums :delivery, :items, "item.product_weight.to_f * item.quantity" => :weight

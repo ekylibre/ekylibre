@@ -433,6 +433,7 @@ eng:
       show: "Product category: %{name}"
     backend/product_nature_indicators: #?
     backend/product_nature_prices: #?
+    backend/product_nature_variants: #?
     backend/product_natures:
       edit: "Edit the product type: %{name}"
       index: "Product types"

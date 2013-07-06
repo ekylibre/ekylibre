@@ -1,6 +1,5 @@
 Ekylibre::Application.routes.draw do
 
-
   # Authentication
   # namespace :authentication do
   #   resource :session, :only => [:new, :create, :destroy] do
@@ -699,32 +698,11 @@ Ekylibre::Application.routes.draw do
       end
     end
 
-    resources :product_nature_abilities do
-      collection do
-        get :list
-        unroll_all
-      end
-    end
-
     resources :product_nature_categories do
       collection do
         get :list
         get :list_product_natures
         unroll_all
-      end
-    end
-
-    resources :product_nature_indicators do
-      collection do
-        get :list
-        # get :list_choices
-        get :list_indicator_values
-        unroll_all
-      end
-      member do
-        post :up
-        post :down
-        post :sort
       end
     end
 
@@ -735,6 +713,13 @@ Ekylibre::Application.routes.draw do
         get :list_price_templates
         get :list_products
         get :list_product_moves
+        unroll_all
+      end
+    end
+
+    resources :product_nature_variants do
+      collection do
+        get :list
         unroll_all
       end
     end

@@ -1107,6 +1107,8 @@ arb:
     contacts: "الاتصالات" #?
     # container: "Contenant"
     # content: "Contenu"
+    # content_indicator: "Content indicator"
+    # content_indicator_unit: "Content indicator unit"
     # content_maximal_quantity: "Content maximal quantity"
     # content_nature: "Content nature"
     # content_unit: "Content unit"
@@ -1464,6 +1466,7 @@ arb:
     nature_code: "الرمز" #?
     nature_id: "نوع" #?
     nature_label: "طبيعة الملصق" #?
+    # nature_name: "Nature name"
     # net_weight: "Masse nette"
     nic: "واجهة بطاقة الشبكة"
     node: "العقدة"
@@ -1822,6 +1825,7 @@ arb:
     uses: "المعدات المستخدمة" #?
     value: "القيمة"
     value_format: "التصميم"
+    # variables: "Variables"
     # variety: "Variété"
     vat_number: "عدد القيمة الضريبية المضافة داخل المجتمع المحلي"
     # vat_subjected: "Assujetti à la TVA"

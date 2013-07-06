@@ -384,6 +384,7 @@ jpn:
       # show: "Détail de la catégorie\_: %{name}"
     backend/product_nature_indicators: #?
     backend/product_nature_prices: #?
+    backend/product_nature_variants: #?
     backend/product_natures:
       # edit: "Modifier le type de produit\_: %{name}"
       # index: "Type de produit"

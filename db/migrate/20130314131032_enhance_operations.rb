@@ -171,20 +171,20 @@ class EnhanceOperations < ActiveRecord::Migration
     # add_index :products_working_sets, :product_id
     # add_index :products_working_sets, :working_set_id
 
-    # ProductAbility
-    create_table :product_nature_abilities do |t|
-      t.references :product_nature, :null => false
-      t.string :nature, :null => false
-      # t.string :nomen
-      t.stamps
-    end
-    add_stamps_indexes :product_nature_abilities
-    add_index :product_nature_abilities, :product_nature_id
-    add_index :product_nature_abilities, :nature
+    # # ProductAbility
+    # create_table :product_nature_abilities do |t|
+    #   t.references :product_nature, :null => false
+    #   t.string :nature, :null => false
+    #   # t.string :nomen
+    #   t.stamps
+    # end
+    # add_stamps_indexes :product_nature_abilities
+    # add_index :product_nature_abilities, :product_nature_id
+    # add_index :product_nature_abilities, :nature
   end
 
   def down
-    drop_table :product_abilities
+    # drop_table :product_abilities
     drop_table :products_working_sets
     drop_table :operation_tasks
     drop_table :procedures

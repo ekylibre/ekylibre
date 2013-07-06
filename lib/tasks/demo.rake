@@ -432,11 +432,11 @@ namespace :db do
       cultural_land_parcel_product_nature_category ||= ProductNatureCategory.create!(:name => "Parcelles cultivables", :published => true)
       land_parcel_group_nature = ProductNature.find_by_number("LANDPARCELGROUP")
       land_parcel_group_nature ||= ProductNature.create!(:name => "Parcelle culturale", :number => "LANDPARCELGROUP", :variety => "land_parcel_group", :unit => land_parcel_unit, :category_id => cultural_land_parcel_product_nature_category.id)
-      
+
       land_parcel_nature = ProductNature.find_by_number("LANDPARCEL")
       land_parcel_nature ||= ProductNature.create!(:name => "Parcelle", :number => "LANDPARCEL", :variety => "land_parcel", :unit => land_parcel_unit, :category_id => cultural_land_parcel_product_nature_category.id)
 
-      
+
       # Load file
       file = Rails.root.join("test", "fixtures", "files", "parcelle_017005218.csv")
       CSV.foreach(file, :encoding => "UTF-8", :col_sep => ",", :headers => true, :quote_char => "'") do |row|
@@ -456,13 +456,13 @@ namespace :db do
         if land_parcel_cluster = LandParcelCluster.find_by_work_number(r.ilot_work_number)
           cultural_land_parcel = LandParcelGroup.find_by_work_number(r.land_parcel_group_work_number)
           cultural_land_parcel ||= LandParcelGroup.create!(:shape => r.land_parcel_group_shape,:name => r.land_parcel_group_name, :work_number => r.land_parcel_group_work_number, :variety => "land_parcel_group", :unit => land_parcel_unit, :born_at => Time.now, :nature_id => land_parcel_group_nature.id, :owner_id => Entity.of_company.id, :identification_number => r.land_parcel_group_work_number)
-                 
+
           land_parcel = LandParcel.find_by_work_number(r.land_parcel_work_number)
           land_parcel ||= LandParcel.create!(:shape => r.land_parcel_shape, :real_quantity =>r.land_parcel_area, :name => r.land_parcel_name, :work_number => r.land_parcel_work_number, :variety => "land_parcel", :unit => land_parcel_unit, :born_at => Time.now, :nature_id => land_parcel_nature.id, :owner_id => Entity.of_company.id, :identification_number => r.land_parcel_work_number)
-          
+
           land_parcel_cluster.add(land_parcel)
           cultural_land_parcel.add(land_parcel)
-          
+
         end
 
         # puts "Record number #{record.index}:"
@@ -703,7 +703,7 @@ namespace :db do
         "A livrer" => :estimate,
         "Supprimé" => :aborted
       }
-      
+
       pnature = {
         "Maïs classe a" => "SEMENCES_1KG",
         "Graminées fourragères" => "SEMENCES_1KG",
@@ -713,9 +713,9 @@ namespace :db do
         "Blé dur" => "SEMENCES_1KG",
         "Orge hiver escourgeon" => "SEMENCES_1KG",
         "Couverts environnementaux enherbeme" => "SEMENCES_1KG",
-        
+
         "Engrais" => "ENGRAIS_1T",
-        
+
         "Fongicides céréales" => "FONGICIDES_1L",
         "Fongicides colza" => "FONGICIDES_1L",
         "Herbicides maïs" => "HERBICIDES_1L",
@@ -730,16 +730,16 @@ namespace :db do
         "Minéraux sel blocs" => "ALIMENT_1KG",
 
         "Anti-limaces" => "ANTI_LIMACE_5KG",
-        
+
         "Location semoir" => "LOCATION_MATERIEL",
-        
-        "Nettoyants" => "NETTOYANT_1L", 
-        
+
+        "Nettoyants" => "NETTOYANT_1L",
+
         "Films plastiques" => "QUINCAILLERIE_1KG",
-        "Recyclage" => "QUINCAILLERIE_1KG", 
+        "Recyclage" => "QUINCAILLERIE_1KG",
         "Ficelles" => "QUINCAILLERIE_1KG"
       }
-      
+
         file = Rails.root.join("test", "fixtures", "files", "coop-appro.csv")
         CSV.foreach(file, :encoding => "UTF-8", :col_sep => ";", :headers => true) do |row|
         r = OpenStruct.new(:order_number => row[0],
@@ -785,15 +785,15 @@ namespace :db do
       # # create an incoming_delivery if status => 2
 
       # create an incoming_delivery_item if status => 2
-       
+
 
       print "."
       end
 
       puts "!"
-      
 
-      
+
+
 
       # #############################################################################
       # # import Coop Deliveries to make automatic sales
@@ -1027,17 +1027,17 @@ namespace :db do
       #   bank_account.balance.amount_in_pennies # => "10000"
       # end
       # puts "!"
-      
-      
+
+
        ##############################################################################
-       ## Demo data for fertilizing 
+       ## Demo data for fertilizing
        ##############################################################################
-       
+
        print "[#{(Time.now - start).round(2).to_s.rjust(8)}s] Procedures - demo data for fertilization reporting 2013 :"
        fertilizer_product_nature = ProductNature.find_by_number("ENGRAIS_1T")
        campaign = Campaign.find_by_name("2013")
        sole_ble_nature = ProductNature.find_by_number("SOLE_BLE")
-       
+
        # create some indicator nature for fertilization
         for a in ["nitrogen_concentration", "potassium_concentration", "phosphorus_concentration"]
           product_nature_indicator = ProductNatureIndicator.where(:nature => a, :product_nature_id => fertilizer_product_nature.id ).first
@@ -1051,19 +1051,19 @@ namespace :db do
                           {:indicator => "potassium_concentration", :value => "33.30"},
                           {:indicator => "phosphorus_concentration", :value => "33.30"}
                             ]
-       
+
        fertilizer_product.indicator_data.create!({:measure_unit => "kilograms_per_hectogram", :measured_at => Time.now }.merge(attributes))
        fertilizer_product_prev.indicator_data.create!({:measure_unit => "kilograms_per_hectogram", :measured_at => Time.now }.merge(attributes))
 
        end
-       
+
        production = Production.find_by_product_nature_id_and_campaign_id(sole_ble_nature.id,campaign.id)
-              
+
        procedure = Procedure.find_by_production_id_and_nomen(production.id,"organic_fertilizing")
        procedure ||= Procedure.create!(:nomen =>"organic_fertilizing", :production_id => production.id )
-      
-                          
-      Plant.find_each do |plant| 
+
+
+      Plant.find_each do |plant|
         # Create some procedure variable for fertilization
         for attributes in [{:nomen => "organic_fertilization", :target_id => plant.id,
                             :roles => "target"},
@@ -1078,14 +1078,14 @@ namespace :db do
                            ]
          ProcedureVariable.create!({:procedure_id => procedure.id}.merge(attributes) )
         end
-        
+
         # Create some operation variable for fertilization
         for attributes in [{:started_at => (Time.now - 2.days), :stopped_at => Time.now}]
          procedure.operations.create!({:procedure_id => procedure.id}.merge(attributes) )
         end
       end
- 
-       
+
+
       puts "Total time: #{(Time.now - start).round(2)}s"
     end
   end
