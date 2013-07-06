@@ -697,6 +697,8 @@ eng:
     contacts: "Contacts" #?
     # container: "Contenant"
     # content: "Contenu"
+    # content_indicator: "Content indicator"
+    # content_indicator_unit: "Content indicator unit"
     # content_maximal_quantity: "Content maximal quantity"
     # content_nature: "Content nature"
     # content_unit: "Content unit"
@@ -1024,6 +1026,7 @@ eng:
     nature: "Nature"
     nature_code: "Type code" #?
     nature_label: "Type label" #?
+    # nature_name: "Nature name"
     net_weight: "Net weight (kg)"
     nic: "Nic"
     node: "Node"
@@ -1364,6 +1367,7 @@ eng:
     uses: "Uses" #?
     value: "Value"
     # value_format: "Format de la valeur monétaire"
+    # variables: "Variables"
     # variety: "Variété"
     vat_number: "Vat number"
     # vat_subjected: "Assujetti à la TVA"

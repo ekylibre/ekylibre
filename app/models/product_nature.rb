@@ -20,47 +20,35 @@
 #
 # == Table: product_natures
 #
-#  active                    :boolean          not null
-#  asset_account_id          :integer
-#  category_id               :integer          not null
-#  charge_account_id         :integer
-#  commercial_description    :text
-#  commercial_name           :string(255)      not null
-#  contour                   :string(255)
-#  created_at                :datetime         not null
-#  creator_id                :integer
-#  depreciable               :boolean          not null
-#  derivative_of             :string(127)
-#  description               :text
-#  id                        :integer          not null, primary key
-#  individual                :boolean          not null
-#  individual_unit_name      :string(255)
-#  lock_version              :integer          default(0), not null
-#  name                      :string(255)      not null
-#  net_volume                :decimal(19, 4)
-#  net_weight                :decimal(19, 4)
-#  number                    :string(31)       not null
-#  product_account_id        :integer
-#  purchasable               :boolean          not null
-#  purchase_unit             :string(255)
-#  purchase_unit_coefficient :decimal(19, 4)
-#  purchase_unit_modulo      :decimal(19, 4)
-#  purchase_unit_name        :string(255)
-#  reductible                :boolean          not null
-#  sale_unit                 :string(255)
-#  sale_unit_coefficient     :decimal(19, 4)
-#  sale_unit_modulo          :decimal(19, 4)
-#  sale_unit_name            :string(255)
-#  saleable                  :boolean          not null
-#  stock_account_id          :integer
-#  storable                  :boolean          not null
-#  subscribing               :boolean          not null
-#  subscription_duration     :string(255)
-#  subscription_nature_id    :integer
-#  unit                      :string(255)      not null
-#  updated_at                :datetime         not null
-#  updater_id                :integer
-#  variety                   :string(127)      not null
+#  abilities              :text
+#  active                 :boolean          not null
+#  asset_account_id       :integer
+#  category_id            :integer          not null
+#  charge_account_id      :integer
+#  created_at             :datetime         not null
+#  creator_id             :integer
+#  depreciable            :boolean          not null
+#  derivative_of          :string(127)
+#  description            :text
+#  id                     :integer          not null, primary key
+#  indicators             :text
+#  individual             :boolean          not null
+#  lock_version           :integer          default(0), not null
+#  name                   :string(255)      not null
+#  number                 :string(31)       not null
+#  product_account_id     :integer
+#  purchasable            :boolean          not null
+#  reductible             :boolean          not null
+#  saleable               :boolean          not null
+#  stock_account_id       :integer
+#  storable               :boolean          not null
+#  subscribing            :boolean          not null
+#  subscription_duration  :string(255)
+#  subscription_nature_id :integer
+#  unitary                :boolean          not null
+#  updated_at             :datetime         not null
+#  updater_id             :integer
+#  variety                :string(127)      not null
 #
 
 
@@ -96,12 +84,11 @@ class ProductNature < Ekylibre::Record::Base
   # has_many :buildings, :through => :stocks
   #has_one :default_stock, :class_name => "ProductStock", :order => :name, :foreign_key => :product_id
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :net_volume, :net_weight, :purchase_unit_coefficient, :purchase_unit_modulo, :sale_unit_coefficient, :sale_unit_modulo, :allow_nil => true
   validates_length_of :number, :allow_nil => true, :maximum => 31
   validates_length_of :derivative_of, :variety, :allow_nil => true, :maximum => 127
-  validates_length_of :commercial_name, :contour, :individual_unit_name, :name, :purchase_unit, :purchase_unit_name, :sale_unit, :sale_unit_name, :subscription_duration, :unit, :allow_nil => true, :maximum => 255
-  validates_inclusion_of :active, :depreciable, :individual, :purchasable, :reductible, :saleable, :storable, :subscribing, :in => [true, false]
-  validates_presence_of :category, :commercial_name, :name, :number, :unit, :variety
+  validates_length_of :name, :subscription_duration, :allow_nil => true, :maximum => 255
+  validates_inclusion_of :active, :depreciable, :individual, :purchasable, :reductible, :saleable, :storable, :subscribing, :unitary, :in => [true, false]
+  validates_presence_of :category, :name, :number, :variety
   #]VALIDATORS]
   validates_presence_of :subscription_nature,   :if => :subscribing?
   validates_presence_of :subscription_period,   :if => Proc.new{|u| u.subscribing? and u.subscription_nature and u.subscription_nature.period? }

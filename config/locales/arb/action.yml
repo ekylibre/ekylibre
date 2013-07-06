@@ -482,6 +482,7 @@ arb:
       new: "اضافة عنصر الى المنتج %{product} " #?
     backend/product_nature_indicators: #?
     backend/product_nature_prices: #?
+    backend/product_nature_variants: #?
     backend/product_natures:
       edit: "تعديل المنتج : %{name}"
       index: "المنتجات"

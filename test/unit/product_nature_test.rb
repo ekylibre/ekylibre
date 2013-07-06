@@ -20,47 +20,35 @@
 #
 # == Table: product_natures
 #
-#  active                    :boolean          not null
-#  asset_account_id          :integer
-#  category_id               :integer          not null
-#  charge_account_id         :integer
-#  commercial_description    :text
-#  commercial_name           :string(255)      not null
-#  contour                   :string(255)
-#  created_at                :datetime         not null
-#  creator_id                :integer
-#  depreciable               :boolean          not null
-#  derivative_of             :string(127)
-#  description               :text
-#  id                        :integer          not null, primary key
-#  individual                :boolean          not null
-#  individual_unit_name      :string(255)
-#  lock_version              :integer          default(0), not null
-#  name                      :string(255)      not null
-#  net_volume                :decimal(19, 4)
-#  net_weight                :decimal(19, 4)
-#  number                    :string(31)       not null
-#  product_account_id        :integer
-#  purchasable               :boolean          not null
-#  purchase_unit             :string(255)
-#  purchase_unit_coefficient :decimal(19, 4)
-#  purchase_unit_modulo      :decimal(19, 4)
-#  purchase_unit_name        :string(255)
-#  reductible                :boolean          not null
-#  sale_unit                 :string(255)
-#  sale_unit_coefficient     :decimal(19, 4)
-#  sale_unit_modulo          :decimal(19, 4)
-#  sale_unit_name            :string(255)
-#  saleable                  :boolean          not null
-#  stock_account_id          :integer
-#  storable                  :boolean          not null
-#  subscribing               :boolean          not null
-#  subscription_duration     :string(255)
-#  subscription_nature_id    :integer
-#  unit                      :string(255)      not null
-#  updated_at                :datetime         not null
-#  updater_id                :integer
-#  variety                   :string(127)      not null
+#  abilities              :text
+#  active                 :boolean          not null
+#  asset_account_id       :integer
+#  category_id            :integer          not null
+#  charge_account_id      :integer
+#  created_at             :datetime         not null
+#  creator_id             :integer
+#  depreciable            :boolean          not null
+#  derivative_of          :string(127)
+#  description            :text
+#  id                     :integer          not null, primary key
+#  indicators             :text
+#  individual             :boolean          not null
+#  lock_version           :integer          default(0), not null
+#  name                   :string(255)      not null
+#  number                 :string(31)       not null
+#  product_account_id     :integer
+#  purchasable            :boolean          not null
+#  reductible             :boolean          not null
+#  saleable               :boolean          not null
+#  stock_account_id       :integer
+#  storable               :boolean          not null
+#  subscribing            :boolean          not null
+#  subscription_duration  :string(255)
+#  subscription_nature_id :integer
+#  unitary                :boolean          not null
+#  updated_at             :datetime         not null
+#  updater_id             :integer
+#  variety                :string(127)      not null
 #
 require 'test_helper'
 

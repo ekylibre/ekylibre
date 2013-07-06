@@ -730,15 +730,16 @@ class NormalizeProducts < ActiveRecord::Migration
 
     # Types of product: define behaviours
     create_table :product_natures do |t|
-      t.string :name, :null => false
+      t.string :name,   :null => false
       t.string :number, :null => false, :limit => 31
-      t.string :unit, :null => false
       t.text :description
       # t.text :comment
-      t.string :commercial_name, :null => false
-      t.text   :commercial_description
       t.string :variety,       :null => false, :limit => 127
       t.string :derivative_of, :limit => 127
+      t.text   :abilities
+      t.text   :indicators
+      t.boolean :individual,   :null => false, :default => false # population % 1
+      t.boolean :unitary,      :null => false, :default => false # population = 1
       t.references :category,  :null => false
       t.boolean :active,       :null => false, :default => false
       # t.boolean :alive,        :null => false, :default => false
@@ -755,43 +756,52 @@ class NormalizeProducts < ActiveRecord::Migration
       # t.boolean :transferable, :null => false, :default => false
       t.boolean :reductible,   :null => false, :default => false
       # t.boolean :atomic,       :null => false, :default => false
-      t.boolean :subscribing,  :null => false, :default => false
+      t.boolean    :subscribing,  :null => false, :default => false
       t.references :subscription_nature
-      t.string :subscription_duration
+      t.string     :subscription_duration
       t.references :charge_account
       t.references :product_account
       t.references :asset_account
       t.references :stock_account
-
-      t.string  :contour
-
-      t.boolean :individual, :null => false, :default => false
-      t.string  :individual_unit_name
-
-      t.decimal :net_weight, :precision => 19, :scale => 4
-      t.decimal :net_volume, :precision => 19, :scale => 4
-
-      t.decimal :purchase_unit_modulo, :precision => 19, :scale => 4
-      t.decimal :purchase_unit_coefficient, :precision => 19, :scale => 4
-      t.string  :purchase_unit_name
-      t.string  :purchase_unit
-
-      t.decimal :sale_unit_modulo, :precision => 19, :scale => 4
-      t.decimal :sale_unit_coefficient, :precision => 19, :scale => 4
-      t.string  :sale_unit_name
-      t.string  :sale_unit
       t.stamps
     end
     add_stamps_indexes :product_natures
     add_index :product_natures, :number, :unique => true
     add_index :product_natures, :variety
-    add_index :product_natures, :unit
     add_index :product_natures, :category_id
     add_index :product_natures, :subscription_nature_id
     add_index :product_natures, :charge_account_id
     add_index :product_natures, :product_account_id
     add_index :product_natures, :asset_account_id
     add_index :product_natures, :stock_account_id
+
+
+    create_table :product_nature_variants do |t|
+      t.references :nature, :null => false
+      t.string :name
+      t.string :number
+      t.string :nature_name, :null => false # Auto
+      t.string :commercial_name, :null => false
+      t.text   :commercial_description
+      t.boolean :active,       :null => false, :default => false
+
+      t.string  :contour # enumerize
+      t.integer :horizontal_rotation, :null => false, :default => false
+
+      t.decimal :usage_indicator, :precision => 19, :scale => 4
+      t.string  :usage_indicator_unit
+
+      t.decimal :sale_indicator, :precision => 19, :scale => 4
+      t.string  :sale_indicator_unit
+
+      t.decimal :purchase_indicator, :precision => 19, :scale => 4
+      t.string  :purchase_indicator_unit
+
+      t.stamps
+    end
+    add_stamps_indexes :product_nature_variants
+    add_index :product_nature_variants, :nature_id
+
 
     # Re-create table product
     create_table :products do |t|
@@ -800,21 +810,22 @@ class NormalizeProducts < ActiveRecord::Migration
       t.string :number, :null => false
       t.boolean :active, :null => false, :default => false
       t.string :variety, :null => false, :limit => 127
-      t.references :nature, :null => false
-      t.string :unit, :null => false    # Same as nature.unit
+      t.references :variant, :null => false
+      t.references :nature, :null => false # Auto
+      # t.string :unit, :null => false    # Same as nature.unit
       t.references :tracking
       # t.references :tractor
       t.references :asset
-      t.references :current_place
+      # t.references :current_place
       t.datetime :born_at
       t.datetime :dead_at
       t.text :description
       t.text :comment
       t.attachment :picture
-      t.decimal :minimal_quantity, :precision => 19, :scale => 4, :null => false, :default => 0.0
-      t.decimal :maximal_quantity, :precision => 19, :scale => 4, :null => false, :default => 0.0
-      t.decimal    :real_quantity, :precision => 19, :scale => 4, :null => false, :default => 0.0
-      t.decimal :virtual_quantity, :precision => 19, :scale => 4, :null => false, :default => 0.0
+      # t.decimal :minimal_quantity, :precision => 19, :scale => 4, :null => false, :default => 0.0
+      # t.decimal :maximal_quantity, :precision => 19, :scale => 4, :null => false, :default => 0.0
+      # t.decimal    :real_quantity, :precision => 19, :scale => 4, :null => false, :default => 0.0
+      # t.decimal :virtual_quantity, :precision => 19, :scale => 4, :null => false, :default => 0.0
       t.boolean :external, :null => false, :default => false # true if owner == Entity.of_company
       t.references :owner, :null => false
       # Animal specific columns
@@ -833,8 +844,9 @@ class NormalizeProducts < ActiveRecord::Migration
       # Warehouse specific columns
       t.boolean    :reservoir, :null => false, :default => false
       t.references :content_nature
-      t.string     :content_unit
-      t.decimal :content_maximal_quantity, :precision => 19, :scale => 4, :null => false, :default => 0.0
+      t.string     :content_indicator # Auto
+      t.string     :content_indicator_unit # Auto
+      t.decimal    :content_maximal_quantity, :precision => 19, :scale => 4, :null => false, :default => 0.0
       # Hierarchy column (for Place, Group)
       t.references :parent
       # Stamps
@@ -844,9 +856,10 @@ class NormalizeProducts < ActiveRecord::Migration
     add_index :products, :type
     add_index :products, :number, :unique => true
     add_index :products, :nature_id
+    add_index :products, :variant_id
     add_index :products, :tracking_id
     add_index :products, :variety
-    add_index :products, :unit
+    # add_index :products, :unit
     # add_index :products, :tractor_id
     add_index :products, :asset_id
     add_index :products, :owner_id
@@ -859,7 +872,7 @@ class NormalizeProducts < ActiveRecord::Migration
     # add_index :products, :area_unit
     # Warehouse specific indexes
     add_index :products, :content_nature_id
-    add_index :products, :content_unit
+    add_index :products, :content_indicator_unit
     add_index :products, :parent_id
     @@references[:product] ||= {}
     @@references[:product][:current_place_id] = :warehouse

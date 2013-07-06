@@ -1170,27 +1170,15 @@
         <page to="backend/product_memberships#show"/>
         <page to="backend/product_memberships#update"/>
       </item>
-      <item name="product_nature_abilities">
-        <page to="backend/product_nature_abilities#index"/>
-        <page to="backend/product_nature_abilities#create"/>
-        <page to="backend/product_nature_abilities#destroy"/>
-        <page to="backend/product_nature_abilities#edit"/>
-        <page to="backend/product_nature_abilities#list"/>
-        <page to="backend/product_nature_abilities#new"/>
-        <page to="backend/product_nature_abilities#show"/>
-        <page to="backend/product_nature_abilities#update"/>
-      </item>
-      <item name="product_nature_indicators">
-        <page to="backend/product_nature_indicators#index"/>
-        <page to="backend/product_nature_indicators#create"/>
-        <page to="backend/product_nature_indicators#destroy"/>
-        <page to="backend/product_nature_indicators#down"/>
-        <page to="backend/product_nature_indicators#edit"/>
-        <page to="backend/product_nature_indicators#list"/>
-        <page to="backend/product_nature_indicators#new"/>
-        <page to="backend/product_nature_indicators#show"/>
-        <page to="backend/product_nature_indicators#up"/>
-        <page to="backend/product_nature_indicators#update"/>
+      <item name="product_nature_variants">
+        <page to="backend/product_nature_variants#index"/>
+        <page to="backend/product_nature_variants#create"/>
+        <page to="backend/product_nature_variants#destroy"/>
+        <page to="backend/product_nature_variants#edit"/>
+        <page to="backend/product_nature_variants#list"/>
+        <page to="backend/product_nature_variants#new"/>
+        <page to="backend/product_nature_variants#show"/>
+        <page to="backend/product_nature_variants#update"/>
       </item>
       <item name="product_prices">
         <page to="backend/product_prices#index"/>

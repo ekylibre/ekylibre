@@ -3,24 +3,24 @@ class AddProductProcesses< ActiveRecord::Migration
 
   def change
 
-    create_table :product_nature_indicators do |t|
-      t.references :product_nature, :null => false
-      # t.references :process
-      t.string     :nature,   :null => false
-      # t.string     :nature, :null => false  # decimal, measure, string, boolean ou choice
-      # t.string     :usage                   # notion métiers avec enumerize
-      # t.string :unit
-      # t.integer    :minimal_length
-      # t.integer    :maximal_length
-      # t.decimal    :minimal_value,   :precision => 19, :scale => 4
-      # t.decimal    :maximal_value,   :precision => 19, :scale => 4
-      # t.boolean    :active, :null => false, :default => false
-      # t.text       :comment
-      t.stamps
-    end
-    add_stamps_indexes :product_nature_indicators
-    add_index :product_nature_indicators, :product_nature_id
-    add_index :product_nature_indicators, :nature
+    # create_table :product_nature_indicators do |t|
+    #   t.references :product_nature, :null => false
+    #   # t.references :process
+    #   t.string     :nature,   :null => false
+    #   # t.string     :nature, :null => false  # decimal, measure, string, boolean ou choice
+    #   # t.string     :usage                   # notion métiers avec enumerize
+    #   # t.string :unit
+    #   # t.integer    :minimal_length
+    #   # t.integer    :maximal_length
+    #   # t.decimal    :minimal_value,   :precision => 19, :scale => 4
+    #   # t.decimal    :maximal_value,   :precision => 19, :scale => 4
+    #   # t.boolean    :active, :null => false, :default => false
+    #   # t.text       :comment
+    #   t.stamps
+    # end
+    # add_stamps_indexes :product_nature_indicators
+    # add_index :product_nature_indicators, :product_nature_id
+    # add_index :product_nature_indicators, :nature
 
     # create_table :product_indicator_choices do |t|
     #   t.references :indicator, :null => false

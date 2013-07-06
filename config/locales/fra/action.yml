@@ -421,21 +421,16 @@ fra:
     backend/product_moves:
       edit: "Modifier le mouvement de stock\_: %{name}" #?
       new: "Enregistrement d’un mouvement de stock" #?
-    backend/product_nature_abilities:
-      # edit: "Edit backend/product nature ability"
-      # index: "Index backend/product nature ability"
-      # new: "New backend/product nature ability"
-      # show: "Show backend/product nature ability"
     backend/product_nature_categories:
       edit: "Modifier la catégorie de produits\_: %{name}"
       index: "Catégories de produits"
       new: "Ajout d’une nouvelle catégorie de produits"
       show: "Détail de la catégorie\_: %{name}"
-    backend/product_nature_indicators:
-      # edit: "Edit backend/product nature indicator"
-      # index: "Index backend/product nature indicator"
-      # new: "New backend/product nature indicator"
-      # show: "Show backend/product nature indicator"
+    backend/product_nature_variants:
+      # edit: "Edit backend/product nature variant"
+      # index: "Index backend/product nature variant"
+      # new: "New backend/product nature variant"
+      # show: "Show backend/product nature variant"
     backend/product_natures:
       edit: "Modifier le type de produit\_: %{name}"
       index: "Type de produit"
@@ -698,9 +693,8 @@ fra:
     backend/product_localizations: "Tracabilité"
     # backend/product_memberships: "Backend/product memberships"
     backend/product_moves: "Mouvements de stock"
-    # backend/product_nature_abilities: "Backend/product nature abilities"
     backend/product_nature_categories: "Catégories de type de produits"
-    # backend/product_nature_indicators: "Backend/product nature indicators"
+    # backend/product_nature_variants: "Backend/product nature variants"
     backend/product_natures: "Types de produits"
     backend/product_price_listings: "Listes de prix"
     backend/product_price_templates: "Types de prix"
