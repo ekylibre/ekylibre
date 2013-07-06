@@ -48,6 +48,7 @@ gem 'i18n-complements'
 gem 'nokogiri'
 gem 'libxml-ruby', :require => 'libxml'
 gem 'mechanize'
+gem 'savon', '~> 2.2.0'
 
 # Security
 gem 'strong_parameters'

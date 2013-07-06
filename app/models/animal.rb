@@ -61,7 +61,7 @@
 #
 
 class Animal < Bioproduct
-  attr_accessible :unit, :variety, :nature_id, :reproductor, :external, :born_at, :dead_at, :description, :description, :father_id, :mother_id, :identification_number, :name, :picture, :sex, :work_number
+  attr_accessible :current_place_id, :unit, :variety, :nature_id, :reproductor, :external, :born_at, :dead_at, :description, :description, :father_id, :mother_id, :identification_number, :name, :picture, :sex, :work_number
   enumerize :sex, :in => [:male, :female]
   # TODO: write config/nomenclatures/varieties-animal.xml
   enumerize :variety, :in => Nomen::Varieties.all(:animal), :predicates => {:prefix => true}
@@ -86,5 +86,30 @@ class Animal < Bioproduct
   scope :fathers, -> { where(:sex => "male", :reproductor => true).order(:name) }
   scope :mothers, -> { where(:sex => "female", :dead_at => nil, :reproductor => true).order(:name) }
   # scope :here, -> { where("external = ? AND (departed_on IS NULL or departed_on > ?)", false, Time.now).order(:name)
+
+  # prepare method to call EDNOTIF to exchange with EDE via SOAP Webservice
+  # test with Fourniture de l’inventaire d’une exploitation
+  def call_notification
+    # 1. Contacter l'annuaire (WsAnnuaire) pour obtenir l’URL du webservice technique et du webservice métier à contacter 
+    client_ws_annuaire = Savon.client(wsdl:'http://secoiatest.arsoe-nordest.com:8080/wsannuaire/WsAnnuaire?wsdl')
+    response = client_ws_annuaire.call(:tk_get_url, ProfilDemandeur: )
+    
+    #2. Appeler le webservice technique (WsGuichet) pour authentification et obtention jeton 
+    client_ws_guichet = Savon.client(wsdl:'http://secoiatest.arsoe-nordest.com:8080/wsannuaire/WsGuichet?wsdl')
+    response = client.call(:tk_get_url)
+    
+    #3. Appeler le webservice métier muni du jeton 
+    client_ws_metier = Savon.client(wsdl: 'http://secoiatest.arsoe-nordest.com:8080/wsIpBNotif_100/wsIpBNotif?wsdl')
+    #client.operations
+    response = client.call(:ip_b_get_inventaire,
+                           message: { JetonAuthentification: 42,
+                                      Exploitation: "FR17387001",
+                                      DateDebut: "2013-01-01",
+                                      DateFin: "2013-06-01",
+                                      StockBoucles: true                                      
+                                    })
+    response.body
+    
+  end
 
 end

@@ -1045,7 +1045,7 @@ namespace :db do
         end
        # find some product for fertilization
        fertilizer_product = Product.find_by_nature_id(fertilizer_product_nature.id)
-       fertilizer_product_prev = Product.where("name LIKE 'UREE%'").first
+       fertilizer_product_prev = Product.where("name LIKE 'AMMO%'").first
        # set indicator on product for fertilization
        for attributes in [{:indicator => "nitrogen_concentration", :value => "27.00"},
                           {:indicator => "potassium_concentration", :value => "33.30"},
