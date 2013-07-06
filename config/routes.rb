@@ -66,6 +66,9 @@ Ekylibre::Application.routes.draw do
       resource :last_events_cell, :only => :show do
         get :list, :on => :collection
       end
+      resource :last_procedures_cell, :only => :show do
+        get :list, :on => :collection
+      end
       resource :bank_chart_cell, :only => :show do
         get :list, :on => :collection
       end

@@ -1120,6 +1120,7 @@ fra:
     land_parcel_update: "Modifier la parcelle"
     land_parcels: "Parcellaire"
     last_animals: "Dernières naissances"
+    last_procedures: "Dernières procédures"
     last_clients: "Derniers clients"
     last_computed_balance: "Dernière balance calculée"
     last_events: "Derniers évènements"

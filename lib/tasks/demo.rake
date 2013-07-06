@@ -269,7 +269,7 @@ namespace :db do
         # case = VEAU
         if r.born_on > (Date.today - 3.months) and r.born_on < (Date.today)
           f = File.open(photo_v)
-          animal = Animal.create!(:name => r.name, :unit => cow_unit, :variety => "bos", :identification_number => r.identification_number, :work_number => r.work_number, :born_at => r.born_on, :dead_at => r.departed_on, :sex => r.sex, :picture => f, :nature_id => cow_v.id, :owner_id => Entity.of_company.id, :reproductor => false)
+          animal = Animal.create!(:current_place_id => place_v.id, :name => r.name, :unit => cow_unit, :variety => "bos", :identification_number => r.identification_number, :work_number => r.work_number, :born_at => r.born_on, :dead_at => r.departed_on, :sex => r.sex, :picture => f, :nature_id => cow_v.id, :owner_id => Entity.of_company.id, :reproductor => false)
           f.close
           # set default indicators
           animal.indicator_data.create!(:indicator => "weight", :value => "55.45" ,:measure_unit => "kilogram" ,:measured_at => r.born_on.to_datetime )
@@ -284,7 +284,7 @@ namespace :db do
           # case = GENISSE 1
         elsif r.born_on > (Date.today - 12.months) and r.born_on < (Date.today - 3.months) and r.sex == :female
           f = File.open(pictures.sample)
-          animal = Animal.create!(:name => r.name, :unit => cow_unit, :variety => "bos", :identification_number => r.identification_number, :work_number => r.work_number, :born_at => r.born_on, :dead_at => r.departed_on, :sex => r.sex, :picture => f, :nature_id => cow_v.id, :owner_id => Entity.of_company.id, :reproductor => false)
+          animal = Animal.create!(:current_place_id => place_gen.id, :name => r.name, :unit => cow_unit, :variety => "bos", :identification_number => r.identification_number, :work_number => r.work_number, :born_at => r.born_on, :dead_at => r.departed_on, :sex => r.sex, :picture => f, :nature_id => cow_v.id, :owner_id => Entity.of_company.id, :reproductor => false)
           f.close
           # set default indicators
           animal.indicator_data.create!(:indicator => "weight", :value => "55.45" ,:measure_unit => "kilogram" ,:measured_at => r.born_on.to_datetime )
@@ -301,7 +301,7 @@ namespace :db do
           # case = GENISSE 3
         elsif r.born_on > (Date.today - 28.months) and r.born_on < (Date.today - 12.months) and r.sex == :female
           f = File.open(pictures.sample)
-          animal = Animal.create!(:name => r.name, :unit => cow_unit, :variety => "bos", :identification_number => r.identification_number, :work_number => r.work_number, :born_at => r.born_on, :dead_at => r.departed_on, :sex => r.sex, :picture => f, :nature_id => cow_v.id, :owner_id => Entity.of_company.id, :reproductor => true)
+          animal = Animal.create!(:current_place_id => place_gen.id, :name => r.name, :unit => cow_unit, :variety => "bos", :identification_number => r.identification_number, :work_number => r.work_number, :born_at => r.born_on, :dead_at => r.departed_on, :sex => r.sex, :picture => f, :nature_id => cow_v.id, :owner_id => Entity.of_company.id, :reproductor => true)
           f.close
           # set default indicators
           animal.indicator_data.create!(:indicator => "weight", :value => "55.45" ,:measure_unit => "kilogram" ,:measured_at => r.born_on.to_datetime )
@@ -319,7 +319,7 @@ namespace :db do
           # case = VL
         elsif r.born_on > (Date.today - 20.years) and r.born_on < (Date.today - 28.months) and r.sex == :female
           f = File.open(pictures.sample)
-          animal = Animal.create!(:name => r.name, :unit => cow_unit, :variety => "bos", :identification_number => r.identification_number, :work_number => r.work_number, :born_at => r.born_on, :dead_at => r.departed_on, :sex => r.sex, :picture => f, :nature_id => cow_vl.id, :owner_id => Entity.of_company.id, :reproductor => true)
+          animal = Animal.create!(:current_place_id => place_vl.id, :name => r.name, :unit => cow_unit, :variety => "bos", :identification_number => r.identification_number, :work_number => r.work_number, :born_at => r.born_on, :dead_at => r.departed_on, :sex => r.sex, :picture => f, :nature_id => cow_vl.id, :owner_id => Entity.of_company.id, :reproductor => true)
           f.close
           # set default indicators
           animal.indicator_data.create!(:indicator => "weight", :value => "55.45" ,:measure_unit => "kilogram" ,:measured_at => r.born_on.to_datetime )
@@ -338,7 +338,7 @@ namespace :db do
           # case = TAURILLON
         elsif r.born_on > (Date.today - 10.years) and r.born_on < (Date.today - 3.months) and r.sex == :male
           f = File.open(photo_taur)
-          animal = Animal.create!(:name => r.name, :unit => cow_unit, :variety => "bos", :identification_number => r.identification_number, :work_number => r.work_number, :born_at => r.born_on, :dead_at => r.departed_on, :sex => r.sex, :picture => f, :nature_id => cow_vl.id, :owner_id => Entity.of_company.id)
+          animal = Animal.create!(:current_place_id => place_taur.id, :name => r.name, :unit => cow_unit, :variety => "bos", :identification_number => r.identification_number, :work_number => r.work_number, :born_at => r.born_on, :dead_at => r.departed_on, :sex => r.sex, :picture => f, :nature_id => cow_vl.id, :owner_id => Entity.of_company.id)
           f.close
           # set default indicators
           animal.indicator_data.create!(:indicator => "weight", :value => "55.45" ,:measure_unit => "kilogram" ,:measured_at => r.born_on.to_datetime )
@@ -1001,7 +1001,7 @@ namespace :db do
           pro ||= activity.productions.create!(:product_nature_id => product_nature.id, :campaign_id => campaign.id, :static_support => true)
           pro.supports.create!(:storage_id => land_parcel_support.id)
           plant_work_nb = (r.product_nature_name + "-" + campaign.name + "-" + land_parcel_support.work_number)
-          Plant.create!(:work_number => plant_work_nb ,:nature_id => product_nature.id, :name => (r.product_nature_name + " " + campaign.name + " " + land_parcel_support.name)  ,:variety => product_nature.variety, :born_at => Time.now, :owner_id => Entity.of_company.id)
+          Plant.create!(:current_place_id => land_parcel_support.id, :work_number => plant_work_nb ,:nature_id => product_nature.id, :name => (r.product_nature_name + " " + campaign.name + " " + land_parcel_support.name)  ,:variety => product_nature.variety, :born_at => Time.now, :owner_id => Entity.of_company.id)
         elsif product_nature.present?
           pro = Production.where(:campaign_id => campaign.id, :activity_id => activity.id, :product_nature_id => product_nature.id).first
           pro ||= activity.productions.create!(:product_nature_id => product_nature.id, :campaign_id => campaign.id)
