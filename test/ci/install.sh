@@ -1,7 +1,8 @@
 if [[ "$DB" == "postgis" ]]; then
 
     if [[ "$POSTGIS" == "2.0" ]]; then
-	echo "yes" | sudo apt-add-repository ppa:ubuntugis/ubuntugis-unstable
+	sudo apt-get install python-software-properties
+	echo "yes" | sudo apt-add-repository ppa:ubuntugis/ppa
     fi
     
     sudo apt-get update
