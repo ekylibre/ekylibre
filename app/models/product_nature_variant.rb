@@ -43,6 +43,12 @@
 #  usage_indicator_unit    :string(255)
 #
 class ProductNatureVariant < Ekylibre::Record::Base
+  attr_accessible :active, :commercial_name, :nature_id, :nature_name, :name, :purchase_indicator, :purchase_indicator_unit, :sale_indicator, :sale_indicator_unit, :usage_indicator, :usage_indicator_unit
+  enumerize :sale_indicator_unit, :in => Nomen::Units.all, :predicates => {:prefix => true}
+  enumerize :purchase_indicator_unit, :in => Nomen::Units.all, :predicates => {:prefix => true}
+  enumerize :usage_indicator_unit, :in => Nomen::Units.all, :predicates => {:prefix => true}
+  belongs_to :nature, :class_name => "ProductNature"
+  has_many :products, :foreign_key => :variant_id
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :horizontal_rotation, :allow_nil => true, :only_integer => true
   validates_numericality_of :purchase_indicator, :sale_indicator, :usage_indicator, :allow_nil => true
@@ -50,4 +56,13 @@ class ProductNatureVariant < Ekylibre::Record::Base
   validates_inclusion_of :active, :in => [true, false]
   validates_presence_of :commercial_name, :horizontal_rotation, :nature_name
   #]VALIDATORS]
+  acts_as_numbered
+  before_validation :set_nature_name, :on => :create
+  
+  def set_nature_name
+    if self.nature
+      self.nature_name ||= self.nature.name
+    end
+  end
+  
 end

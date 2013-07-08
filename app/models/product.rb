@@ -64,9 +64,10 @@
 
 class Product < Ekylibre::Record::Base
   # attr_accessible :nature_id, :number, :identification_number, :work_number, :born_at, :sex, :picture, :owner_id, :parent_id, :variety, :name, :description, :type, :external, :father_id, :mother_id
-  attr_accessible :created_at, :type, :variety, :external, :real_quantity, :unit, :name, :description, :nature_id, :number, :identification_number, :work_number, :born_at, :sex, :picture, :owner_id, :parent_id
+  attr_accessible :unitary, :indicators, :variant_id, :created_at, :type, :variety, :external, :real_quantity, :unit, :name, :description, :nature_id, :number, :identification_number, :work_number, :born_at, :sex, :picture, :owner_id, :parent_id
   enumerize :variety, :in => Nomen::Varieties.all, :predicates => {:prefix => true}
   belongs_to :nature, :class_name => "ProductNature"
+  belongs_to :variant, :class_name => "ProductNatureVariant"
   # belongs_to :variety, :class_name => "ProductVariety"
   enumerize :unit, :in => Nomen::Units.all, :default => Nomen::Units.first, :predicates => {:prefix => true}
   # belongs_to :unit
@@ -108,7 +109,7 @@ class Product < Ekylibre::Record::Base
   validates_inclusion_of :active, :external, :reproductor, :reservoir, :in => [true, false]
   validates_presence_of :content_maximal_quantity, :name, :nature, :number, :owner, :variety
   #]VALIDATORS]
-  validates_presence_of :nature, :name, :owner
+  validates_presence_of :nature, :variant, :name, :owner
 
   accepts_nested_attributes_for :memberships, :reject_if => :all_blank, :allow_destroy => true
   accepts_nested_attributes_for :indicator_data, :reject_if => :all_blank, :allow_destroy => true
@@ -141,10 +142,14 @@ class Product < Ekylibre::Record::Base
     false
   end
 
+
+
   def set_variety_and_unit
-    if self.nature
+    if self.variant and self.nature
       self.variety ||= self.nature.variety
-      self.unit    ||= self.nature.unit
+    elsif self.variant
+      self.nature ||= self.variant.nature
+      self.variety ||= self.variant.nature.variety
     end
   end
 

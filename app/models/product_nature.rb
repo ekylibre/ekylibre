@@ -54,7 +54,7 @@
 
 class ProductNature < Ekylibre::Record::Base
   # attr_accessible :active, :commercial_description, :commercial_name, :category_id, :deliverable, :description, :for_immobilizations, :for_productions, :for_purchases, :for_sales, :asset_account_id, :name, :nature, :number, :charge_account_id, :reduction_submissive, :product_account_id, :stockable, :subscription_nature_id, :subscription_period, :subscription_quantity, :trackable, :unit, :unquantifiable, :weight
-  attr_accessible :net_volume, :net_weight, :purchase_unit, :purchase_unit_name, :purchase_unit_modulo, :purchase_unit_coefficient, :active, :commercial_description, :commercial_name, :category_id, :derivative_of, :description, :depreciable, :purchasable, :saleable, :asset_account_id, :name, :number, :stock_account_id, :charge_account_id, :product_account_id, :storable, :subscription_nature_id, :subscription_duration, :unit, :reductible, :individual, :subscribing, :variety
+  attr_accessible :unitary, :indicators, :active, :category_id, :derivative_of, :description, :depreciable, :purchasable, :saleable, :asset_account_id, :name, :number, :stock_account_id, :charge_account_id, :product_account_id, :storable, :subscription_nature_id, :subscription_duration, :reductible, :individual, :subscribing, :variety
   #enumerize :nature, :in => [:product, :service, :subscription], :default => :product, :predicates => true
   enumerize :variety, :in => Nomen::Varieties.all, :predicates => {:prefix => true}
   belongs_to :asset_account, :class_name => "Account"
@@ -80,7 +80,8 @@ class ProductNature < Ekylibre::Record::Base
   has_many :subscriptions, :foreign_key => :product_nature_id
   #has_many :trackings, :foreign_key => :product_id
   has_many :products, :foreign_key => :nature_id
-  has_many :indicators, :class_name => "ProductNatureIndicator"
+  has_many :variants, :class_name => "ProductNatureVariant",  :foreign_key => :nature_id
+  #has_many :indicators, :class_name => "ProductNatureIndicator"
   # has_many :buildings, :through => :stocks
   #has_one :default_stock, :class_name => "ProductStock", :order => :name, :foreign_key => :product_id
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
@@ -100,7 +101,7 @@ class ProductNature < Ekylibre::Record::Base
   validates_uniqueness_of :number
   validates_uniqueness_of :name
 
-  # accepts_nested_attributes_for :stocks, :reject_if => :all_blank, :allow_destroy => true
+  accepts_nested_attributes_for :variants, :reject_if => :all_blank, :allow_destroy => true
   #acts_as_numbered
 
   default_scope -> { order(:name) }
@@ -137,7 +138,7 @@ class ProductNature < Ekylibre::Record::Base
     # self.stockable = true if self.trackable?
     # self.deliverable = true if self.stockable?
     # self.producible = true
-    self.commercial_name = self.name if self.commercial_name.blank?
+    #self.commercial_name = self.name if self.commercial_name.blank?
     self.subscription_nature_id = nil unless self.subscribing?
     return true
   end

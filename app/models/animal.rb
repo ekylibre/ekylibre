@@ -62,7 +62,7 @@
 #
 
 class Animal < Bioproduct
-  attr_accessible :current_place_id, :unit, :variety, :nature_id, :reproductor, :external, :born_at, :dead_at, :description, :description, :father_id, :mother_id, :identification_number, :name, :picture, :sex, :work_number
+  attr_accessible :variant_id, :variety, :nature_id, :reproductor, :external, :born_at, :dead_at, :description, :description, :father_id, :mother_id, :identification_number, :name, :picture, :sex, :work_number
   enumerize :sex, :in => [:male, :female]
   # TODO: write config/nomenclatures/varieties-animal.xml
   enumerize :variety, :in => Nomen::Varieties.all(:animal), :predicates => {:prefix => true}

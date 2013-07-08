@@ -100,14 +100,14 @@ class SaleItem < Ekylibre::Record::Base
 
     # self.product = self.price.product if self.price
     if self.product
-      self.account_id = self.product.nature.product_account_id
-      self.unit = self.product.unit
+      self.account_id = self.product.variant.nature.product_account_id
+      self.unit = self.product.variant.sale_indicator_unit
       if self.product.nature.storable
       #   self.building_id ||= self.product.stocks.first.building_id if self.product.stocks.count > 0
       # else
       #   self.building_id = nil
       end
-      self.label ||= self.product.nature.commercial_name
+      self.label ||= self.product.variant.commercial_name
     end
     self.price_amount ||= 0
 
