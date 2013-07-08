@@ -503,12 +503,11 @@ arb:
       new: "التسجيل لحركة السهم" #?
     backend/product_stocks:  #?
       index: "وضع الاسهم" #?
-    backend/product_transfers:
-      confirm: "اتمام عملية نقل"
-      # confirm_all: "Confirmer tous les transferts"
-      edit: "تعديل عملية نقل الاسهم"
-      index: "عمليات نقل وخسارة الاسهم"
-      new: "اضافة عملية نقل او خسارة الاسهم"
+    backend/product_transfers:  #?
+      confirm: "اتمام عملية نقل" #?
+      edit: "تعديل عملية نقل الاسهم" #?
+      index: "عمليات نقل وخسارة الاسهم" #?
+      new: "اضافة عملية نقل او خسارة الاسهم" #?
     backend/product_varieties: #?
     backend/production:  #?
       index: "ادارة الانتاج" #?
@@ -758,7 +757,7 @@ arb:
     # backend/product_price_templates: "Types de prix"
     # backend/product_prices: "Prix des produits"
     backend/product_stocks: "وضع الاسهم" #?
-    backend/product_transfers: "عمليات نقل وخسارة الاسهم"
+    backend/product_transfers: "عمليات نقل وخسارة الاسهم" #?
     backend/production: "المنتج" #?
     backend/products: "المنتجات"
     backend/products_natures: "المنتجات" #?
@@ -1220,6 +1219,7 @@ arb:
     # last_milk_result: "Dernières analyses de lait"
     # last_payment_amount: "Montant du dernier encaissement"
     # last_payment_date: "Date du dernier encaissement"
+    # last_procedures: "Dernières procédures"
     # last_products: "Dernières naissances"
     left_balance_amount: "ارجاء الرصيد السابق غير معلق وغير مكلف"
     letter: "مراسلة"

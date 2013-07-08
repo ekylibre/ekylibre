@@ -107,7 +107,7 @@ class Product < Ekylibre::Record::Base
   validates_length_of :variety, :allow_nil => true, :maximum => 127
   validates_length_of :content_indicator, :content_indicator_unit, :identification_number, :name, :number, :picture_content_type, :picture_file_name, :sex, :work_number, :allow_nil => true, :maximum => 255
   validates_inclusion_of :active, :external, :reproductor, :reservoir, :in => [true, false]
-  validates_presence_of :content_maximal_quantity, :name, :nature, :number, :owner, :variety
+  validates_presence_of :content_maximal_quantity, :name, :nature, :number, :owner, :variant, :variety
   #]VALIDATORS]
   validates_presence_of :nature, :variant, :name, :owner
 

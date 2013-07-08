@@ -33,13 +33,13 @@
 #  nature_id               :integer          not null
 #  nature_name             :string(255)      not null
 #  number                  :string(255)
-#  purchase_indicator      :decimal(19, 4)
+#  purchase_indicator      :string(127)
 #  purchase_indicator_unit :string(255)
-#  sale_indicator          :decimal(19, 4)
+#  sale_indicator          :string(127)
 #  sale_indicator_unit     :string(255)
 #  updated_at              :datetime         not null
 #  updater_id              :integer
-#  usage_indicator         :decimal(19, 4)
+#  usage_indicator         :string(127)
 #  usage_indicator_unit    :string(255)
 #
 #

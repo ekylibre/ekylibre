@@ -20,34 +20,27 @@
 #
 # == Table: product_moves
 #
-#  created_at   :datetime         not null
-#  creator_id   :integer
-#  id           :integer          not null, primary key
-#  last_done    :boolean          not null
-#  lock_version :integer          default(0), not null
-#  mode         :string(255)      not null
-#  origin_id    :integer
-#  origin_type  :string(255)
-#  product_id   :integer          not null
-#  quantity     :decimal(19, 4)   not null
-#  started_at   :datetime         not null
-#  stopped_at   :datetime         not null
-#  unit         :string(255)      not null
-#  updated_at   :datetime         not null
-#  updater_id   :integer
+#  created_at       :datetime         not null
+#  creator_id       :integer
+#  id               :integer          not null, primary key
+#  initial          :boolean          not null
+#  lock_version     :integer          default(0), not null
+#  population_delta :decimal(19, 4)   not null
+#  product_id       :integer          not null
+#  started_at       :datetime
+#  stopped_at       :datetime
+#  updated_at       :datetime         not null
+#  updater_id       :integer
 #
 
 
 class ProductMove < Ekylibre::Record::Base
-  belongs_to :origin, :polymorphic => true
+  # belongs_to :origin, :polymorphic => true
   belongs_to :product
-  # FIXME enumerize :unit, :in => ???
-  # belongs_to :unit
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :quantity, :allow_nil => true
-  validates_length_of :mode, :origin_type, :unit, :allow_nil => true, :maximum => 255
-  validates_inclusion_of :last_done, :in => [true, false]
-  validates_presence_of :mode, :product, :quantity, :started_at, :stopped_at, :unit
+  validates_numericality_of :population_delta, :allow_nil => true
+  validates_inclusion_of :initial, :in => [true, false]
+  validates_presence_of :population_delta, :product
   #]VALIDATORS]
   validates_presence_of :product
 

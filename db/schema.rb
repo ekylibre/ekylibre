@@ -1501,31 +1501,23 @@ ActiveRecord::Schema.define(:version => 20130410143823) do
   add_index "product_memberships", ["updater_id"], :name => "index_product_memberships_on_updater_id"
 
   create_table "product_moves", :force => true do |t|
-    t.integer  "product_id",                                                     :null => false
-    t.decimal  "quantity",     :precision => 19, :scale => 4,                    :null => false
-    t.string   "unit",                                                           :null => false
-    t.datetime "started_at",                                                     :null => false
-    t.datetime "stopped_at",                                                     :null => false
-    t.string   "mode",                                                           :null => false
-    t.integer  "origin_id"
-    t.string   "origin_type"
-    t.boolean  "last_done",                                   :default => false, :null => false
-    t.datetime "created_at",                                                     :null => false
-    t.datetime "updated_at",                                                     :null => false
+    t.integer  "product_id",                                                         :null => false
+    t.decimal  "population_delta", :precision => 19, :scale => 4,                    :null => false
+    t.datetime "started_at"
+    t.datetime "stopped_at"
+    t.boolean  "initial",                                         :default => false, :null => false
+    t.datetime "created_at",                                                         :null => false
+    t.datetime "updated_at",                                                         :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                :default => 0,     :null => false
+    t.integer  "lock_version",                                    :default => 0,     :null => false
   end
 
   add_index "product_moves", ["created_at"], :name => "index_product_moves_on_created_at"
   add_index "product_moves", ["creator_id"], :name => "index_product_moves_on_creator_id"
-  add_index "product_moves", ["mode"], :name => "index_product_moves_on_mode"
-  add_index "product_moves", ["origin_id", "origin_type", "last_done"], :name => "index_product_moves_on_origin_id_and_origin_type_and_last_done"
-  add_index "product_moves", ["origin_id", "origin_type"], :name => "index_product_moves_on_origin_id_and_origin_type"
   add_index "product_moves", ["product_id"], :name => "index_product_moves_on_product_id"
   add_index "product_moves", ["started_at"], :name => "index_product_moves_on_started_at"
   add_index "product_moves", ["stopped_at"], :name => "index_product_moves_on_stopped_at"
-  add_index "product_moves", ["unit"], :name => "index_product_moves_on_unit"
   add_index "product_moves", ["updated_at"], :name => "index_product_moves_on_updated_at"
   add_index "product_moves", ["updater_id"], :name => "index_product_moves_on_updater_id"
 
@@ -1553,26 +1545,26 @@ ActiveRecord::Schema.define(:version => 20130410143823) do
   add_index "product_nature_categories", ["updater_id"], :name => "index_product_nature_categories_on_updater_id"
 
   create_table "product_nature_variants", :force => true do |t|
-    t.integer  "nature_id",                                                                 :null => false
+    t.integer  "nature_id",                                                 :null => false
     t.string   "name"
     t.string   "number"
-    t.string   "nature_name",                                                               :null => false
-    t.string   "commercial_name",                                                           :null => false
+    t.string   "nature_name",                                               :null => false
+    t.string   "commercial_name",                                           :null => false
     t.text     "commercial_description"
-    t.boolean  "active",                                                 :default => false, :null => false
+    t.boolean  "active",                                 :default => false, :null => false
     t.string   "contour"
-    t.integer  "horizontal_rotation",                                    :default => 0,     :null => false
-    t.decimal  "usage_indicator",         :precision => 19, :scale => 4
+    t.integer  "horizontal_rotation",                    :default => 0,     :null => false
+    t.string   "usage_indicator",         :limit => 127
     t.string   "usage_indicator_unit"
-    t.decimal  "sale_indicator",          :precision => 19, :scale => 4
+    t.string   "sale_indicator",          :limit => 127
     t.string   "sale_indicator_unit"
-    t.decimal  "purchase_indicator",      :precision => 19, :scale => 4
+    t.string   "purchase_indicator",      :limit => 127
     t.string   "purchase_indicator_unit"
-    t.datetime "created_at",                                                                :null => false
-    t.datetime "updated_at",                                                                :null => false
+    t.datetime "created_at",                                                :null => false
+    t.datetime "updated_at",                                                :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                           :default => 0,     :null => false
+    t.integer  "lock_version",                           :default => 0,     :null => false
   end
 
   add_index "product_nature_variants", ["created_at"], :name => "index_product_nature_variants_on_created_at"
@@ -1737,27 +1729,6 @@ ActiveRecord::Schema.define(:version => 20130410143823) do
   add_index "product_processes", ["updated_at"], :name => "index_product_processes_on_updated_at"
   add_index "product_processes", ["updater_id"], :name => "index_product_processes_on_updater_id"
   add_index "product_processes", ["variety"], :name => "index_product_processes_on_variety"
-
-  create_table "product_transfers", :force => true do |t|
-    t.integer  "product_id",                    :null => false
-    t.integer  "origin_id"
-    t.integer  "destination_id"
-    t.datetime "started_at",                    :null => false
-    t.datetime "stopped_at",                    :null => false
-    t.datetime "created_at",                    :null => false
-    t.datetime "updated_at",                    :null => false
-    t.integer  "creator_id"
-    t.integer  "updater_id"
-    t.integer  "lock_version",   :default => 0, :null => false
-  end
-
-  add_index "product_transfers", ["created_at"], :name => "index_product_transfers_on_created_at"
-  add_index "product_transfers", ["creator_id"], :name => "index_product_transfers_on_creator_id"
-  add_index "product_transfers", ["destination_id"], :name => "index_product_transfers_on_destination_id"
-  add_index "product_transfers", ["origin_id"], :name => "index_product_transfers_on_origin_id"
-  add_index "product_transfers", ["product_id"], :name => "index_product_transfers_on_product_id"
-  add_index "product_transfers", ["updated_at"], :name => "index_product_transfers_on_updated_at"
-  add_index "product_transfers", ["updater_id"], :name => "index_product_transfers_on_updater_id"
 
   create_table "production_supports", :force => true do |t|
     t.integer  "production_id",                :null => false

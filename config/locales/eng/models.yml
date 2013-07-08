@@ -1166,6 +1166,7 @@ eng:
     published: "Published"
     purchase: "Purchase"
     purchase_amount: "Purchase amount"
+    # purchase_indicator_unit: "Purchase indicator unit"
     purchase_invoices: "Purchase invoices"
     # purchase_item: "Ligne d’achat"
     # purchase_items: "Lignes d’achat"
@@ -1228,6 +1229,7 @@ eng:
     root_model: "Root model"
     root_model_name: "Root model name"
     sale: "Sale"
+    # sale_indicator_unit: "Sale indicator unit"
     # sale_item: "Ligne de vente"
     # sale_items: "Lignes de vente"
     sale_line: "Sale line" #?
@@ -1356,6 +1358,7 @@ eng:
     usable_outgoing_payments: "Usable disbursements"
     usage: "Usage"
     usage_duration: "Usage duration"
+    # usage_indicator_unit: "Usage indicator unit"
     use_range: "Use range" #?
     used_amount: "Used amount"
     used_with: "Used with" #?
@@ -1368,6 +1371,7 @@ eng:
     value: "Value"
     # value_format: "Format de la valeur monétaire"
     # variables: "Variables"
+    # variant: "Variant"
     # variety: "Variété"
     vat_number: "Vat number"
     # vat_subjected: "Assujetti à la TVA"

@@ -788,14 +788,14 @@ class NormalizeProducts < ActiveRecord::Migration
       t.string  :contour # enumerize
       t.integer :horizontal_rotation, :null => false, :default => false
 
-      t.decimal :usage_indicator, :precision => 19, :scale => 4
-      t.string  :usage_indicator_unit
+      t.string :usage_indicator, :limit => 127
+      t.string :usage_indicator_unit
 
-      t.decimal :sale_indicator, :precision => 19, :scale => 4
-      t.string  :sale_indicator_unit
+      t.string :sale_indicator, :limit => 127
+      t.string :sale_indicator_unit
 
-      t.decimal :purchase_indicator, :precision => 19, :scale => 4
-      t.string  :purchase_indicator_unit
+      t.string :purchase_indicator, :limit => 127
+      t.string :purchase_indicator_unit
 
       t.stamps
     end
@@ -880,37 +880,30 @@ class NormalizeProducts < ActiveRecord::Migration
     # Contains all moves of the stock of the product
     create_table :product_moves do |t|
       t.references :product,   :null => false
-      t.decimal :quantity, :precision => 19, :scale => 4, :null => false
-      t.string :unit,      :null => false # Duplicated from product.unit_id
-      t.datetime :started_at,  :null => false
-      t.datetime :stopped_at,  :null => false
-      t.string :mode,          :null => false
-      t.references :origin, :polymorphic => true
-      t.boolean :last_done, :null => false, :default => false
+      t.decimal :population_delta, :precision => 19, :scale => 4, :null => false
+      t.datetime :started_at
+      t.datetime :stopped_at
+      t.boolean :initial, :null => false, :default => false
       t.stamps
     end
     add_stamps_indexes :product_moves
-    add_index :product_moves, :unit
     add_index :product_moves, :product_id
-    add_index :product_moves, :mode
     add_index :product_moves, :started_at
     add_index :product_moves, :stopped_at
-    add_index :product_moves, [:origin_id, :origin_type]
-    add_index :product_moves, [:origin_id, :origin_type, :last_done]
 
-    # Contains all transfers
-    create_table :product_transfers do |t|
-      t.references :product,  :null => false # RO
-      t.references :origin
-      t.references :destination              # nil => exterior
-      t.datetime :started_at, :null => false
-      t.datetime :stopped_at, :null => false
-      t.stamps
-    end
-    add_stamps_indexes :product_transfers
-    add_index :product_transfers, :product_id
-    add_index :product_transfers, :destination_id
-    add_index :product_transfers, :origin_id
+    # # Contains all transfers
+    # create_table :product_transfers do |t|
+    #   t.references :product,  :null => false # RO
+    #   t.references :origin
+    #   t.references :destination              # nil => exterior
+    #   t.datetime :started_at, :null => false
+    #   t.datetime :stopped_at, :null => false
+    #   t.stamps
+    # end
+    # add_stamps_indexes :product_transfers
+    # add_index :product_transfers, :product_id
+    # add_index :product_transfers, :destination_id
+    # add_index :product_transfers, :origin_id
 
 
     # Historize differents localizations of the products

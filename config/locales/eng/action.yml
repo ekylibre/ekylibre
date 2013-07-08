@@ -448,12 +448,12 @@ eng:
       # index: "Prix des produits"
     backend/product_process_phases: #?
     backend/product_processes: #?
-    backend/product_transfers:
-      confirm: "Waiting stock transfers"
-      confirm_all: "Confirm all stock transfer"
-      edit: "Edit the stock transfer/loss"
-      index: "Transfers and loss"
-      new: "Add a new stock transfer or loss"
+    backend/product_transfers:  #?
+      confirm: "Waiting stock transfers" #?
+      confirm_all: "Confirm all stock transfer" #?
+      edit: "Edit the stock transfer/loss" #?
+      index: "Transfers and loss" #?
+      new: "Add a new stock transfer or loss" #?
     backend/production_chain_conveyors:  #?
       edit: "Edit production chain conveyor (%{source_id}-%{target_id})" #?
       new: "Add a new conveyor in the production chain" #?
@@ -671,7 +671,7 @@ eng:
     # backend/product_price_listings: "Listes de prix"
     # backend/product_price_templates: "Types de prix"
     # backend/product_prices: "Prix des produits"
-    backend/product_transfers: "Transfers and loss"
+    backend/product_transfers: "Transfers and loss" #?
     backend/product_varieties: "Product species" #?
     backend/production_chain_conveyors: "Production chain conveyors" #?
     backend/production_chain_work_center_uses: "Production chain work center uses" #?
@@ -1095,6 +1095,7 @@ eng:
     # last_milk_result: "Dernières analyses de lait"
     last_payment_amount: "Amount of the last payment"
     last_payment_date: "Date of the last payment"
+    # last_procedures: "Dernières procédures"
     # last_products: "Dernières naissances"
     left_balance_amount: "Left Balance Amount"
     letter: "Letter"

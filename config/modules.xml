@@ -342,18 +342,6 @@
         <page to="backend/product_groups#show"/>
         <page to="backend/product_groups#update"/>
       </item>
-      <item name="stock_transfers">
-        <page to="backend/product_transfers#index"/>
-        <page to="backend/product_transfers#confirm"/>
-        <page to="backend/product_transfers#confirm_all"/>
-        <page to="backend/product_transfers#create"/>
-        <page to="backend/product_transfers#destroy"/>
-        <page to="backend/product_transfers#edit"/>
-        <page to="backend/product_transfers#list"/>
-        <page to="backend/product_transfers#list_confirm"/>
-        <page to="backend/product_transfers#new"/>
-        <page to="backend/product_transfers#update"/>
-      </item>
       <item name="inventories">
         <page to="backend/inventories#index"/>
         <page to="backend/inventories#create"/>

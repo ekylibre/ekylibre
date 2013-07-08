@@ -33,13 +33,13 @@
 #  nature_id               :integer          not null
 #  nature_name             :string(255)      not null
 #  number                  :string(255)
-#  purchase_indicator      :decimal(19, 4)
+#  purchase_indicator      :string(127)
 #  purchase_indicator_unit :string(255)
-#  sale_indicator          :decimal(19, 4)
+#  sale_indicator          :string(127)
 #  sale_indicator_unit     :string(255)
 #  updated_at              :datetime         not null
 #  updater_id              :integer
-#  usage_indicator         :decimal(19, 4)
+#  usage_indicator         :string(127)
 #  usage_indicator_unit    :string(255)
 #
 class ProductNatureVariant < Ekylibre::Record::Base
@@ -54,18 +54,18 @@ class ProductNatureVariant < Ekylibre::Record::Base
   has_many :products, :foreign_key => :variant_id
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :horizontal_rotation, :allow_nil => true, :only_integer => true
-  validates_numericality_of :purchase_indicator, :sale_indicator, :usage_indicator, :allow_nil => true
+  validates_length_of :purchase_indicator, :sale_indicator, :usage_indicator, :allow_nil => true, :maximum => 127
   validates_length_of :commercial_name, :contour, :name, :nature_name, :number, :purchase_indicator_unit, :sale_indicator_unit, :usage_indicator_unit, :allow_nil => true, :maximum => 255
   validates_inclusion_of :active, :in => [true, false]
-  validates_presence_of :commercial_name, :horizontal_rotation, :nature_name
+  validates_presence_of :commercial_name, :horizontal_rotation, :nature, :nature_name
   #]VALIDATORS]
   acts_as_numbered
   before_validation :set_nature_name, :on => :create
-  
+
   def set_nature_name
     if self.nature
       self.nature_name ||= self.nature.name
     end
   end
-  
+
 end
