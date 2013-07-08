@@ -92,6 +92,7 @@ eng:
     backend/cells/expense_chart_cells: #?
     backend/cells/last_events_cells: #?
     backend/cells/last_milk_result_cells: #?
+    backend/cells/last_procedures_cells: #?
     backend/cells/last_products_cells: #?
     backend/cells/placeholder_cells: #?
     backend/cells/product_bar_cells: #?

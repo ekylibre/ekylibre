@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # = Informations
 #
 # == License
@@ -103,6 +104,7 @@ class Animal < Bioproduct
     token = response.header
     
     #3. Appeler le webservice métier muni du jeton 
+
     client_ws_metier = Savon.client(wsdl: 'http://secoiatest.arsoe-nordest.com:8080/wsIpBNotif_100/wsIpBNotif?wsdl')
     #client.operations
     response = client_ws_metier.call(:ip_b_get_inventaire,
@@ -110,10 +112,10 @@ class Animal < Bioproduct
                                       Exploitation: "FR17387001",
                                       DateDebut: "2013-01-01",
                                       DateFin: "2013-06-01",
-                                      StockBoucles: true                                      
+                                      StockBoucles: true
                                     })
     response.body
-    
+
   end
 
 end
