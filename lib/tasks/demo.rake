@@ -156,9 +156,9 @@ namespace :db do
         unless ProductNature.find_by_number(attributes[:number])
           cow_pn = ProductNature.create!({:unitary => true, :category_id => animal_product_nature_category.id, :individual => true, :product_account_id => cow_product_account.id, :variety => "bos", :storable => true, :stock_account_id => cow_stock_account.id, :saleable => true}.merge(attributes) )
           cow_pn.variants.create!(:active => true, :commercial_name => cow_pn.name, :name => cow_pn.name,
-                              :purchase_indicator => "1", :purchase_indicator_unit => cow_unit,
-                              :sale_indicator => "1", :sale_indicator_unit => cow_unit,
-                              :usage_indicator => "1", :usage_indicator_unit => cow_unit
+                              :purchase_indicator => "weight", :purchase_indicator_unit => "kilogram",
+                              :sale_indicator => "weight", :sale_indicator_unit => "kilogram",
+                              :usage_indicator => "weight", :usage_indicator_unit => "kilogram"
                               )
         end
       end
@@ -197,9 +197,9 @@ namespace :db do
       place_nature_animal = ProductNature.find_by_number("BATIMENT_ANIMAUX")
       place_nature_animal ||= ProductNature.create!(:name => "Bâtiment d'accueil animaux", :number => "BATIMENT_ANIMAUX", :variety => "building", :category_id => building_product_nature_category.id)
       place_nature_animal.variants.create!(:active => true, :commercial_name => place_nature_animal.name,:name => place_nature_animal.name,
-                                            :purchase_indicator => "1", :purchase_indicator_unit => "unity",
-                                            :sale_indicator => "1", :sale_indicator_unit => "unity",
-                                            :usage_indicator => "1", :usage_indicator_unit => "unity"
+                                            :purchase_indicator => "net_surperficial_area", :purchase_indicator_unit => "square_meter",
+                                            :sale_indicator => "net_surperficial_area", :sale_indicator_unit => "square_meter",
+                                            :usage_indicator => "net_surperficial_area", :usage_indicator_unit => "square_meter"
                                             )
       place_variant = ProductNatureVariant.find_by_nature_name("Bâtiment d'accueil animaux")
       
@@ -417,9 +417,9 @@ namespace :db do
       land_parcel_group = ProductNature.find_by_number("LANDPARCELCLUSTER")
       land_parcel_group ||= ProductNature.create!(:name => "Ilôt", :number => "LANDPARCELCLUSTER", :variety => "land_parcel_cluster", :category_id => land_parcel_product_nature_category.id)
       land_parcel_group_variant = land_parcel_group.variants.create!(:active => true, :commercial_name => land_parcel_group.name, :name => land_parcel_group.name,
-                                         :purchase_indicator => "1", :purchase_indicator_unit => "unity",
-                                         :sale_indicator => "1", :sale_indicator_unit => "unity",
-                                         :usage_indicator => "1", :usage_indicator_unit => "unity"
+                                         :purchase_indicator => "net_surperficial_area" :purchase_indicator_unit => "hectare",
+                                         :sale_indicator => "net_surperficial_area", :sale_indicator_unit => "hectare",
+                                         :usage_indicator => "net_surperficial_area", :usage_indicator_unit => "hectare"
                                          )
       RGeo::Shapefile::Reader.open(Rails.root.join("test", "fixtures", "files", "ilot_017005218.shp").to_s, :srid => 2154) do |file|
         # puts "File contains #{file.num_records} records."
@@ -452,17 +452,17 @@ namespace :db do
       land_parcel_group_nature = ProductNature.find_by_number("LANDPARCELGROUP")
       land_parcel_group_nature ||= ProductNature.create!(:name => "Parcelle culturale", :number => "LANDPARCELGROUP", :variety => "land_parcel_group", :category_id => cultural_land_parcel_product_nature_category.id)
       land_parcel_group_nature_variant = land_parcel_group_nature.variants.create!(:active => true, :commercial_name => land_parcel_group_nature.name, :name => land_parcel_group_nature.name,
-                                         :purchase_indicator => "1", :purchase_indicator_unit => "unity",
-                                         :sale_indicator => "1", :sale_indicator_unit => "unity",
-                                         :usage_indicator => "1", :usage_indicator_unit => "unity"
+                                         :purchase_indicator => "net_surperficial_area", :purchase_indicator_unit => "hectare",
+                                         :sale_indicator => "net_surperficial_area", :sale_indicator_unit => "hectare",
+                                         :usage_indicator => "net_surperficial_area", :usage_indicator_unit => "hectare"
                                          )
                                          
       land_parcel_nature = ProductNature.find_by_number("LANDPARCEL")
       land_parcel_nature ||= ProductNature.create!(:name => "Parcelle", :number => "LANDPARCEL", :variety => "land_parcel", :category_id => cultural_land_parcel_product_nature_category.id)
       land_parcel_nature_variant = land_parcel_nature.variants.create!(:active => true, :commercial_name => land_parcel_nature.name, :name => land_parcel_nature.name,
-                                         :purchase_indicator => "1", :purchase_indicator_unit => "unity",
-                                         :sale_indicator => "1", :sale_indicator_unit => "unity",
-                                         :usage_indicator => "1", :usage_indicator_unit => "unity"
+                                         :purchase_indicator => "net_surperficial_area", :purchase_indicator_unit => "hectare",
+                                         :sale_indicator => "net_surperficial_area", :sale_indicator_unit => "hectare",
+                                         :usage_indicator => "net_surperficial_area", :usage_indicator_unit => "hectare"
                                          )
 
       # Load file

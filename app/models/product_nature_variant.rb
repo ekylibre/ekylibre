@@ -44,6 +44,9 @@
 #
 class ProductNatureVariant < Ekylibre::Record::Base
   attr_accessible :active, :commercial_name, :nature_id, :nature_name, :name, :purchase_indicator, :purchase_indicator_unit, :sale_indicator, :sale_indicator_unit, :usage_indicator, :usage_indicator_unit
+  enumerize :sale_indicator, :in => Nomen::Indicators.all, :predicates => {:prefix => true}
+  enumerize :purchase_indicator, :in => Nomen::Indicators.all, :predicates => {:prefix => true}
+  enumerize :usage_indicator, :in => Nomen::Indicators.all, :predicates => {:prefix => true}
   enumerize :sale_indicator_unit, :in => Nomen::Units.all, :predicates => {:prefix => true}
   enumerize :purchase_indicator_unit, :in => Nomen::Units.all, :predicates => {:prefix => true}
   enumerize :usage_indicator_unit, :in => Nomen::Units.all, :predicates => {:prefix => true}
