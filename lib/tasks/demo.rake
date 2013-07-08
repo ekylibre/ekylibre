@@ -162,13 +162,13 @@ namespace :db do
                               )
         end
       end
-   
+
      cow_vl = ProductNatureVariant.find_by_nature_name("Vache Laitière")
      cow_gen = ProductNatureVariant.find_by_nature_name("Génisse Laitière")
      cow_v = ProductNatureVariant.find_by_nature_name("Veau")
      cow_taur = ProductNatureVariant.find_by_nature_name("Taurillon")
      cow_trepro = ProductNatureVariant.find_by_nature_name("Taureau")
-     
+
       # add default groups for animal
 
       for attributes in [{:name => "Vaches Latières", :description => "Vaches Laitières", :work_number => "VL", :nature_id => cow_vl.nature.id ,:variant_id => cow_vl.id},
@@ -202,7 +202,7 @@ namespace :db do
                                             :usage_indicator => "1", :usage_indicator_unit => "unity"
                                             )
       place_variant = ProductNatureVariant.find_by_nature_name("Bâtiment d'accueil animaux")
-      
+
       # create default building to place animal
 
       for attributes in [{:name => "Stabulation principale", :work_number => "STABULATION", :nature_id => place_variant.nature.id, :variant_id => place_variant.id, :content_nature_id => cow_vl.nature.id},
@@ -456,7 +456,7 @@ namespace :db do
                                          :sale_indicator => "1", :sale_indicator_unit => "unity",
                                          :usage_indicator => "1", :usage_indicator_unit => "unity"
                                          )
-                                         
+
       land_parcel_nature = ProductNature.find_by_number("LANDPARCEL")
       land_parcel_nature ||= ProductNature.create!(:name => "Parcelle", :number => "LANDPARCEL", :variety => "land_parcel", :category_id => cultural_land_parcel_product_nature_category.id)
       land_parcel_nature_variant = land_parcel_nature.variants.create!(:active => true, :commercial_name => land_parcel_nature.name, :name => land_parcel_nature.name,
@@ -485,9 +485,9 @@ namespace :db do
           cultural_land_parcel = LandParcelGroup.find_by_work_number(r.land_parcel_group_work_number)
           cultural_land_parcel ||= LandParcelGroup.create!(:variant_id => land_parcel_group_nature_variant.id,
                                                            :shape => r.land_parcel_group_shape,
-                                                           :name => r.land_parcel_group_name, 
-                                                           :work_number => r.land_parcel_group_work_number, 
-                                                           :variety => "land_parcel_group", 
+                                                           :name => r.land_parcel_group_name,
+                                                           :work_number => r.land_parcel_group_work_number,
+                                                           :variety => "land_parcel_group",
                                                            :born_at => Time.now,
                                                            :owner_id => Entity.of_company.id,
                                                            :identification_number => r.land_parcel_group_work_number)

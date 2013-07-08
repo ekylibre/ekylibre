@@ -1612,6 +1612,7 @@ arb:
     published: "تم نشره"
     # purchase: "Achat"
     # purchase_amount: "Montant d’achat"
+    # purchase_indicator_unit: "Purchase indicator unit"
     # purchase_invoices: "Factures d’achats"
     # purchase_item: "Ligne d’achat"
     purchase_items: "طرق طلب الشراء"
@@ -1678,6 +1679,7 @@ arb:
     root_model_name: "جذر"
     sale: "طلب البيع"
     sale_id: "طلب بيع" #?
+    # sale_indicator_unit: "Sale indicator unit"
     # sale_item: "Ligne de vente"
     sale_item_id: "طرق طلب البيع" #?
     sale_items: "طرق طلب البيع"
@@ -1816,6 +1818,7 @@ arb:
     usable_outgoing_payments: "مصروفات ممكن استخدامها"
     usage: "الاستخدام"
     usage_duration: "(مدة الاستخدام (ساعات"
+    # usage_indicator_unit: "Usage indicator unit"
     use_range: "استخدام الكمية الفاصلة" #?
     # used_amount: "Montant utilisé"
     # useful_items: "Lignes utiles"
@@ -1826,6 +1829,7 @@ arb:
     value: "القيمة"
     value_format: "التصميم"
     # variables: "Variables"
+    # variant: "Variant"
     # variety: "Variété"
     vat_number: "عدد القيمة الضريبية المضافة داخل المجتمع المحلي"
     # vat_subjected: "Assujetti à la TVA"

@@ -399,12 +399,7 @@ jpn:
       # index: "Prix des produits"
     backend/product_process_phases: #?
     backend/product_processes: #?
-    backend/product_transfers:
-      # confirm: "Transferts à réaliser"
-      # confirm_all: "Confirmer tous les transferts"
-      # edit: "Modifier l’un transfert de stock"
-      # index: "Transferts et pertes de stocks"
-      # new: "Ajouter un transfert ou une perte de stocks"
+    backend/product_transfers: #?
     backend/production_supports: #?
     backend/productions:
       # edit: "Modifier la production\_: %{name}"
@@ -591,7 +586,6 @@ jpn:
     # backend/product_price_listings: "Listes de prix"
     # backend/product_price_templates: "Types de prix"
     # backend/product_prices: "Prix des produits"
-    # backend/product_transfers: "Transferts et pertes de stocks"
     # backend/products: "Produits"
     # backend/professions: "Professions"
     # backend/purchase_items: "Lignes d’achat"
@@ -1003,6 +997,7 @@ jpn:
     # last_milk_result: "Dernières analyses de lait"
     # last_payment_amount: "Montant du dernier encaissement"
     # last_payment_date: "Date du dernier encaissement"
+    # last_procedures: "Dernières procédures"
     # last_products: "Dernières naissances"
     # left_balance_amount: "Report du crédit antérieur non imputé et non remboursé"
     # letter: "Lettrer"

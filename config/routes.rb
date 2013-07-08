@@ -864,17 +864,17 @@ Ekylibre::Application.routes.draw do
       end
     end
     # resources :product_moves
-    resources :product_transfers do
-      collection do
-        get :list
-        get :list_confirm
-        unroll_all
-        match "confirm_all", :via => [:get, :post]
-      end
-      member do
-        match "confirm", :via => [:get, :post]
-      end
-    end
+    # resources :product_transfers do
+    #   collection do
+    #     get :list
+    #     get :list_confirm
+    #     unroll_all
+    #     match "confirm_all", :via => [:get, :post]
+    #   end
+    #   member do
+    #     match "confirm", :via => [:get, :post]
+    #   end
+    # end
     resources :snippets, :only => [] do
       member do
         post :toggle

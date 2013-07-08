@@ -529,9 +529,7 @@ class ReplaceLinesWithItems < ActiveRecord::Migration
     },
     :product_move => {
       :creator_id => :entity,
-      :origin_id => "origin_type",
       :product_id => :product,
-      :unit_id => :unit,
       :updater_id => :entity,
     },
     :product_transfer => {

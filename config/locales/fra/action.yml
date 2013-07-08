@@ -463,12 +463,6 @@ fra:
       # index: "Index backend/product process"
       # new: "New backend/product process"
       # show: "Show backend/product process"
-    backend/product_transfers:
-      confirm: "Transferts à réaliser"
-      confirm_all: "Confirmer tous les transferts"
-      edit: "Modifier l’un transfert de stock"
-      index: "Transferts et pertes de stocks"
-      new: "Ajouter un transfert ou une perte de stocks"
     backend/production_supports:
       # edit: "Edit backend/production support"
       # index: "Index backend/production support"
@@ -701,7 +695,6 @@ fra:
     backend/product_prices: "Prix des produits"
     # backend/product_process_phases: "Backend/product process phases"
     # backend/product_processes: "Backend/product processes"
-    backend/product_transfers: "Transferts et pertes de stocks"
     # backend/production_supports: "Backend/production supports"
     # backend/productions: "Backend/productions"
     backend/products: "Produits"
@@ -1114,13 +1107,13 @@ fra:
     land_parcel_update: "Modifier la parcelle"
     land_parcels: "Parcellaire"
     last_animals: "Dernières naissances"
-    last_procedures: "Dernières procédures"
     last_clients: "Derniers clients"
     last_computed_balance: "Dernière balance calculée"
     last_events: "Derniers évènements"
     last_milk_result: "Dernières analyses de lait"
     last_payment_amount: "Montant du dernier encaissement"
     last_payment_date: "Date du dernier encaissement"
+    last_procedures: "Dernières procédures"
     last_products: "Dernières naissances"
     left_balance_amount: "Report du crédit antérieur non imputé et non remboursé"
     letter: "Lettrer"
@@ -1785,7 +1778,7 @@ fra:
     no_stocks: "Vous n’avez aucun stock. Si vous désirez gérer le stock d’un produit, veuillez cocher l’option «\_Gérer les stocks\_» dans les caractéristiques de votre produit." #?
     no_template_journal: "Pas de modèle journal" #?
     no_template_journal_by_id: "Pas de modèle journal" #?
-    no_unconfirmed_stock_transfers: "Aucun transfert de stocks non-confirmé"
+    no_unconfirmed_stock_transfers: "Aucun transfert de stocks non-confirmé" #?
     no_unvalidated_operations: "Aucun travail à réaliser"
     password_successfully_changed: "Votre mot de passe a été mis à jour avec succès"
     prices_import_succeeded: "Vos données ont été correctement importées"
