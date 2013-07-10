@@ -8,9 +8,12 @@
     </attributes>
     <items>
       <item name="temperature" type="measure" unit="celsius"/>
+      <item name="population" type="measure" unit="unity"/>
       <item name="net_weight" type="measure" unit="kilogram"/>
-      <item name="weight" type="measure" unit="kilogram"/>
+      <item name="net_volume" type="measure" unit="liter"/>
       <item name="net_surperficial_area" type="measure" unit="square_meter"/>
+      <item name="usage_duration" type="measure" unit="hour"/>
+      <item name="weight" type="measure" unit="kilogram"/>
       <item name="sowable" type="boolean"/>
       <item name="in_production" type="boolean"/>
       <item name="ground_appearance" type="choice" choices="covered,raw"/>

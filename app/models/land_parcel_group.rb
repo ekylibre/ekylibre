@@ -83,7 +83,10 @@ class LandParcelGroup < ProductGroup
   #  area = compute("ST_Area(shape)").to_f
   #  self.class.update_all({:real_quantity => area, :virtual_quantity => area, :unit => :square_meter}, {:id => self.id})
   #end
-
+  def area
+    compute("ST_Area(shape)").to_f
+  end
+  
   # FIXME
   # accepts_nested_attributes_for :memberships, :reject_if => :all_blank, :allow_destroy => true
 

@@ -1364,15 +1364,18 @@ ActiveRecord::Schema.define(:version => 20130410143823) do
   add_index "preferences", ["user_id"], :name => "index_parameters_on_user_id"
 
   create_table "procedure_variables", :force => true do |t|
-    t.integer  "procedure_id",                :null => false
-    t.integer  "target_id",                   :null => false
-    t.string   "nomen",                       :null => false
+    t.integer  "procedure_id",                                                      :null => false
+    t.integer  "target_id",                                                         :null => false
+    t.string   "nomen",                                                             :null => false
+    t.string   "procedure_indicator",                                               :null => false
+    t.string   "procedure_unit",                                                    :null => false
+    t.decimal  "procedure_quantity",  :precision => 19, :scale => 4,                :null => false
     t.string   "roles"
-    t.datetime "created_at",                  :null => false
-    t.datetime "updated_at",                  :null => false
+    t.datetime "created_at",                                                        :null => false
+    t.datetime "updated_at",                                                        :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version", :default => 0, :null => false
+    t.integer  "lock_version",                                       :default => 0, :null => false
   end
 
   add_index "procedure_variables", ["created_at"], :name => "index_procedure_variables_on_created_at"

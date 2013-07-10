@@ -32,7 +32,7 @@
 #  updater_id   :integer
 #
 class ProcedureVariable < Ekylibre::Record::Base
-  attr_accessible :nomen, :target_id, :procedure_id, :roles
+  attr_accessible :nomen, :target_id, :procedure_id, :roles, :procedure_quantity, :procedure_indicator, :procedure_unit
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :nomen, :roles, :allow_nil => true, :maximum => 255
   validates_presence_of :nomen, :procedure, :target

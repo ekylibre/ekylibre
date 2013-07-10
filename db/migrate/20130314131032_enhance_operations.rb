@@ -92,8 +92,11 @@ class EnhanceOperations < ActiveRecord::Migration
       # t.references :nature, :null => false
       t.references :procedure, :null => false
       t.references :target, :null => false
-      t.string :nomen, :null => false
-      t.string :roles
+      t.string  :nomen, :null => false
+      t.string  :procedure_indicator, :null => false
+      t.string  :procedure_unit, :null => false
+      t.decimal :procedure_quantity, :precision => 19, :scale => 4, :null => false
+      t.string  :roles
       t.stamps
     end
     add_stamps_indexes :procedure_variables
