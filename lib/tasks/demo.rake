@@ -547,6 +547,7 @@ namespace :db do
 
       # Create product_nature for grain plant product
       for attributes in [{:individual => false, :name => "Grain de Blé", :number => "GRAIN_BLE", :variety => "grains", :saleable => true, :purchasable => true},
+                         {:individual => false, :name => "Grain d'Orge", :number => "GRAIN_ORGE", :variety => "grains", :saleable => true, :purchasable => true},
                          {:individual => false, :name => "Grain de Maïs", :number => "GRAIN_MAIS", :variety => "grains", :saleable => true, :purchasable => true},
                          {:individual => false, :name => "Grain de Blé dur", :number => "GRAIN_BLE_DUR", :variety => "grains", :saleable => true, :purchasable => true},
                          {:individual => false, :name => "Grain de Triticale", :number => "GRAIN_TRITICALE", :variety => "grains", :saleable => true, :purchasable => true},
@@ -569,10 +570,13 @@ namespace :db do
             # Create product_nature for plant product
       for attributes in [
                          {:individual => true, :name => "Sole de Blé",  :number => "SOLE_BLE"},
+                         {:individual => true, :name => "Sole d'Orge",  :number => "SOLE_ORGE"},
                          {:individual => true, :name => "Sole de Maïs", :number => "SOLE_MAIS"},
                          {:individual => true, :name => "Sole de Blé dur",  :number => "SOLE_BLE_DUR"},
+                         {:individual => true, :name => "Sole de Jachère annuelle",  :number => "SOLE_JACHERE_AN"},
                          {:individual => true,  :name => "Sole de Triticale", :number => "SOLE_TRITICALE"},
                          {:individual => true, :name => "Sole de Tournesol", :number => "SOLE_TOURNESOL"},
+                         {:individual => true, :name => "Sole de Sorgho", :number => "SOLE_SORGHO"},
                          {:individual => true, :name => "Sole de Prairie", :number => "SOLE_PRAIRIE"}
                         ]
         unless ProductNature.find_by_number(attributes[:number])
@@ -592,10 +596,13 @@ namespace :db do
       # Create product_nature for raw plant product
       for attributes in [
                          {:individual => false, :name => "Paille de Blé", :number => "PAILLE_BLE", :variety => "stem", :saleable => true, :purchasable => true},
+                         {:individual => false, :name => "Paille d'Orge", :number => "PAILLE_ORGE", :variety => "stem", :saleable => true, :purchasable => true},
                          {:individual => false, :name => "Paille de Blé dur",  :number => "PAILLE_BLE_DUR", :variety => "stem", :saleable => true, :purchasable => true},
                          {:individual => false, :name => "Paille de Triticale", :number => "PAILLE_TRITICALE", :variety => "stem", :saleable => true, :purchasable => true},
                          {:individual => false, :name => "Herbe sur pied de Prairie", :number => "HERBE_PRAIRIE", :variety => "stem", :saleable => false, :purchasable => false},
                          {:individual => false, :name => "Foin de Prairie", :number => "FOIN_PRAIRIE", :variety => "stem", :saleable => true, :purchasable => true},
+                         {:individual => false, :name => "Ensilage de Sorgho", :number => "ENSILAGE_SORGHO", :variety => "stem", :saleable => false, :purchasable => false},
+                         {:individual => false, :name => "Ensilage de Maïs", :number => "ENSILAGE_MAIS", :variety => "stem", :saleable => false, :purchasable => false},
                          {:individual => false, :name => "Ensilage de Prairie", :number => "ENSILAGE_PRAIRIE", :variety => "stem", :saleable => false, :purchasable => false}
                         ]
         unless ProductNature.find_by_number(attributes[:number])
@@ -1084,18 +1091,20 @@ namespace :db do
         # Create an activity if not exist
         activity   = Activity.find_by_description(r.description)
         activity ||= Activity.create!(:nature => r.nature, :description => "Import from reference", :family => r.family, :name => r.name, :description => r.description)
-        #product_nature_sup = ProductNature.find_by_number(r.product_nature_name)
-       # product_nature_variant_sup = ProductNatureVariant.find_by_nature_id(product_nature_sup.id)
-        #if product_nature_variant_sup and land_parcel_support.present?
-       #   pro = Production.where(:campaign_id => campaign.id,:activity_id => activity.id, :product_nature_id => product_nature_sup.id).first
-        #  pro ||= activity.productions.create!(:product_nature_id => product_nature_sup.id, :campaign_id => campaign.id, :static_support => true)
-       #   pro.supports.create!(:storage_id => land_parcel_support.id)
-        #  plant_work_nb = (r.product_nature_name + "-" + campaign.name + "-" + land_parcel_support.work_number)
-      #    Plant.create!(:variant_id => product_nature_variant_sup.id, :work_number => plant_work_nb , :name => (r.product_nature_name + " " + campaign.name + " " + land_parcel_support.name)  ,:variety => product_nature.variety, :born_at => Time.now, :owner_id => Entity.of_company.id)
-      #  elsif product_nature_variant_sup
-       #   pro = Production.where(:campaign_id => campaign.id, :activity_id => activity.id, :product_nature_id => product_nature_sup.id).first
-      #    pro ||= activity.productions.create!(:product_nature_id => product_nature_sup.id, :campaign_id => campaign.id)
-       # end
+        product_nature_sup = ProductNature.find_by_number(r.product_nature_name)
+        if product_nature_sup.present?
+          product_nature_variant_sup = ProductNatureVariant.find_by_nature_id(product_nature_sup.id)
+        end
+        if product_nature_variant_sup and land_parcel_support.present?
+          pro = Production.where(:campaign_id => campaign.id,:activity_id => activity.id, :product_nature_id => product_nature_sup.id).first
+          pro ||= activity.productions.create!(:product_nature_id => product_nature_sup.id, :campaign_id => campaign.id, :static_support => true)
+          pro.supports.create!(:storage_id => land_parcel_support.id)
+          plant_work_nb = (r.product_nature_name + "-" + campaign.name + "-" + land_parcel_support.work_number)
+          Plant.create!(:variant_id => product_nature_variant_sup.id, :work_number => plant_work_nb , :name => (r.product_nature_name + " " + campaign.name + " " + land_parcel_support.name)  ,:variety => product_nature.variety, :born_at => Time.now, :owner_id => Entity.of_company.id)
+        elsif product_nature_variant_sup
+          pro = Production.where(:campaign_id => campaign.id, :activity_id => activity.id, :product_nature_id => product_nature_sup.id).first
+          pro ||= activity.productions.create!(:product_nature_id => product_nature_sup.id, :campaign_id => campaign.id)
+        end
         print "."
       end
       puts "!"
@@ -1128,9 +1137,6 @@ namespace :db do
        campaign = Campaign.find_by_name("2013")
        sole_ble_nature = ProductNature.find_by_number("SOLE_BLE")
        
-       print campaign.name
-       print sole_ble_nature.name
-
        # create some indicator nature for fertilization
        # find some product for fertilization
        fertilizer_product = Product.find_by_variant_id(fertilizer_product_nature_variant.id)
