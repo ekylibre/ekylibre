@@ -20,22 +20,26 @@
 #
 # == Table: procedure_variables
 #
-#  created_at   :datetime         not null
-#  creator_id   :integer
-#  id           :integer          not null, primary key
-#  lock_version :integer          default(0), not null
-#  nomen        :string(255)      not null
-#  procedure_id :integer          not null
-#  roles        :string(255)
-#  target_id    :integer          not null
-#  updated_at   :datetime         not null
-#  updater_id   :integer
+#  created_at          :datetime         not null
+#  creator_id          :integer
+#  id                  :integer          not null, primary key
+#  lock_version        :integer          default(0), not null
+#  nomen               :string(255)      not null
+#  procedure_id        :integer          not null
+#  procedure_indicator :string(255)      not null
+#  procedure_quantity  :decimal(19, 4)   not null
+#  procedure_unit      :string(255)      not null
+#  roles               :string(255)
+#  target_id           :integer          not null
+#  updated_at          :datetime         not null
+#  updater_id          :integer
 #
 class ProcedureVariable < Ekylibre::Record::Base
   attr_accessible :nomen, :target_id, :procedure_id, :roles, :procedure_quantity, :procedure_indicator, :procedure_unit
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_length_of :nomen, :roles, :allow_nil => true, :maximum => 255
-  validates_presence_of :nomen, :procedure, :target
+  validates_numericality_of :procedure_quantity, :allow_nil => true
+  validates_length_of :nomen, :procedure_indicator, :procedure_unit, :roles, :allow_nil => true, :maximum => 255
+  validates_presence_of :nomen, :procedure, :procedure_indicator, :procedure_quantity, :procedure_unit, :target
   #]VALIDATORS]
   belongs_to :procedure, :inverse_of => :variables
   belongs_to :target, :class_name => "Product"
@@ -65,14 +69,6 @@ class ProcedureVariable < Ekylibre::Record::Base
 
   def name
     self.procedure.reference.hash[self.procedure.uid].variables[self.nomen].human_name
-  end
-
-  def target_used_quantity
-    self.target.real_quantity
-  end
-
-  def target_used_quantity_unit
-    self.target.unit
   end
 
 end

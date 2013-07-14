@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="landparcel_fertilization_list" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isTitleNewPage="true" whenResourceMissingType="Empty" uuid="9c1f11b7-03dd-4803-9e1b-41b87b9d23c0">
-	<property name="ireport.zoom" value="0.7697371773460598"/>
+	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="448"/>
+	<property name="ireport.y" value="100"/>
 	<template><![CDATA["/home/djoulin/ekylibre/config/corporate-identity/reports-style.jrtx"]]></template>
 	<style name="Title" fontName="DejaVu Sans" fontSize="30" isBold="true" pdfFontName="Times-Bold"/>
 	<style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18"/>
@@ -162,7 +162,7 @@
 	<field name="entity_name" class="java.lang.String">
 		<fieldDescription><![CDATA[ancestor::land_parcel_groups/@entity_name]]></fieldDescription>
 	</field>
-	<field name="area" class="java.lang.Double">
+	<field name="area" class="java.lang.String">
 		<fieldDescription><![CDATA[@area]]></fieldDescription>
 	</field>
 	<field name="area_unit" class="java.lang.String">
@@ -255,7 +255,7 @@ $F{shape_height}+
 					<textElement verticalAlignment="Middle">
 						<font fontName="Open Sans" size="10"/>
 					</textElement>
-					<text><![CDATA[Surface (ha)]]></text>
+					<text><![CDATA[Surface]]></text>
 				</staticText>
 				<staticText>
 					<reportElement uuid="d1b6c43b-248a-475e-9f13-df52ab37325f" style="label" x="2" y="59" width="69" height="22"/>
@@ -271,11 +271,6 @@ $F{shape_height}+
 					</textElement>
 					<text><![CDATA[Précédent cultural]]></text>
 				</staticText>
-				<textField isBlankWhenNull="true">
-					<reportElement uuid="11c956e5-65a0-4682-84fd-2b73b5f2d123" style="base" x="71" y="37" width="46" height="22"/>
-					<textElement verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{area}*0.0001]]></textFieldExpression>
-				</textField>
 				<textField evaluationTime="Group" evaluationGroup="landparcelgroup" isBlankWhenNull="true">
 					<reportElement uuid="7ffc3808-a292-4169-9bac-7bf545fc238e" style="base" x="71" y="59" width="170" height="20"/>
 					<textElement/>
@@ -288,6 +283,16 @@ $F{shape_height}+
 					</textElement>
 					<text><![CDATA[Rendement prévu / réalisé]]></text>
 				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="5720d434-e684-4585-be81-7e7e2b20ee2d" style="base" x="134" y="37" width="107" height="22"/>
+					<textElement verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{area_unit}]]></textFieldExpression>
+				</textField>
+				<textField pattern="###0.00" isBlankWhenNull="true">
+					<reportElement uuid="b3834841-2c13-4098-90f2-dd5003f7e126" style="base" x="71" y="37" width="63" height="22"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[$F{area}]]></textFieldExpression>
+				</textField>
 			</band>
 		</groupHeader>
 		<groupFooter>
@@ -343,10 +348,10 @@ $F{shape_height}+
 						</datasetParameter>
 						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					</datasetRun>
-					<jr:columnGroup width="684" uuid="23cf8e8f-fc33-43fc-8f4e-846016f93323">
+					<jr:columnGroup width="597" uuid="23cf8e8f-fc33-43fc-8f4e-846016f93323">
 						<jr:tableHeader height="30" rowSpan="1">
 							<textField>
-								<reportElement uuid="8e8c410e-bf75-4f2b-af08-083c050a2b2a" style="sub-title" x="0" y="0" width="681" height="30"/>
+								<reportElement uuid="8e8c410e-bf75-4f2b-af08-083c050a2b2a" style="sub-title" x="0" y="0" width="596" height="30"/>
 								<textElement verticalAlignment="Middle"/>
 								<textFieldExpression><![CDATA["Plan de fumure prévisionnel"]]></textFieldExpression>
 							</textField>
@@ -516,18 +521,18 @@ $F{shape_height}+
 								</textField>
 							</jr:detailCell>
 						</jr:column>
-						<jr:column width="50" uuid="5549b1cf-79df-4328-9013-2d8544f9bda6">
+						<jr:column width="60" uuid="5549b1cf-79df-4328-9013-2d8544f9bda6">
 							<jr:tableHeader height="0" rowSpan="1"/>
-							<jr:tableFooter height="30">
+							<jr:tableFooter height="30" rowSpan="1">
 								<textField pattern="###0.00" isBlankWhenNull="true">
-									<reportElement uuid="d945fea9-0150-44f6-9162-69630bd5a715" style="strong" x="0" y="0" width="50" height="30"/>
+									<reportElement uuid="d945fea9-0150-44f6-9162-69630bd5a715" style="strong" x="0" y="0" width="60" height="30"/>
 									<textElement textAlignment="Center" verticalAlignment="Middle"/>
 									<textFieldExpression><![CDATA[$V{total_prev_phosphorus_quantity}]]></textFieldExpression>
 								</textField>
 							</jr:tableFooter>
 							<jr:columnHeader height="43" rowSpan="1">
 								<staticText>
-									<reportElement uuid="6db67626-b8cd-4338-ae6f-a0b9f5366bda" style="table-td" x="0" y="0" width="50" height="43"/>
+									<reportElement uuid="6db67626-b8cd-4338-ae6f-a0b9f5366bda" style="table-td" x="0" y="0" width="60" height="43"/>
 									<textElement textAlignment="Center" verticalAlignment="Middle"/>
 									<text><![CDATA[quantité de phosphore prévue]]></text>
 								</staticText>
@@ -535,17 +540,17 @@ $F{shape_height}+
 							<jr:columnFooter height="0" rowSpan="1"/>
 							<jr:detailCell height="20" rowSpan="1">
 								<textField pattern="###0.00" isBlankWhenNull="true">
-									<reportElement uuid="9e1e449d-05b0-4b27-a1d1-c28282f56c61" style="table-td" x="0" y="0" width="50" height="20"/>
+									<reportElement uuid="9e1e449d-05b0-4b27-a1d1-c28282f56c61" style="table-td" x="0" y="0" width="60" height="20"/>
 									<textElement textAlignment="Center" verticalAlignment="Middle"/>
 									<textFieldExpression><![CDATA[$F{input_quantity}.doubleValue()*$F{input_phosphorus_concentration}.doubleValue()*0.01]]></textFieldExpression>
 								</textField>
 							</jr:detailCell>
 						</jr:column>
-						<jr:column width="90" uuid="7f497026-0c5d-40b4-bb4e-1b147f398b6a">
+						<jr:column width="40" uuid="7f497026-0c5d-40b4-bb4e-1b147f398b6a">
 							<jr:tableHeader height="0" rowSpan="1"/>
 							<jr:columnHeader height="43" rowSpan="1">
 								<staticText>
-									<reportElement uuid="40e8645c-2749-4b8c-bb2a-0573698ec0af" style="table-td" x="0" y="0" width="90" height="43"/>
+									<reportElement uuid="40e8645c-2749-4b8c-bb2a-0573698ec0af" style="table-td" x="0" y="0" width="40" height="43"/>
 									<textElement textAlignment="Center" verticalAlignment="Middle"/>
 									<text><![CDATA[début apport]]></text>
 								</staticText>
@@ -553,17 +558,17 @@ $F{shape_height}+
 							<jr:columnFooter height="0" rowSpan="1"/>
 							<jr:detailCell height="20" rowSpan="1">
 								<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
-									<reportElement uuid="3b3124fd-7df6-465f-b849-4ba84ac22cd3" style="table-td" x="0" y="0" width="90" height="20"/>
+									<reportElement uuid="3b3124fd-7df6-465f-b849-4ba84ac22cd3" style="table-td" x="0" y="0" width="40" height="20"/>
 									<textElement textAlignment="Center" verticalAlignment="Middle"/>
 									<textFieldExpression><![CDATA[$F{started_at}]]></textFieldExpression>
 								</textField>
 							</jr:detailCell>
 						</jr:column>
-						<jr:column width="93" uuid="af7818d9-ac55-43cc-9683-5f072af71399">
+						<jr:column width="46" uuid="af7818d9-ac55-43cc-9683-5f072af71399">
 							<jr:tableHeader height="0" rowSpan="1"/>
 							<jr:columnHeader height="43" rowSpan="1">
 								<staticText>
-									<reportElement uuid="e78fdc87-8c43-443a-8e9a-7ffda6feae6d" style="table-td" x="0" y="0" width="90" height="43"/>
+									<reportElement uuid="e78fdc87-8c43-443a-8e9a-7ffda6feae6d" style="table-td" x="0" y="0" width="45" height="43"/>
 									<textElement textAlignment="Center" verticalAlignment="Middle"/>
 									<text><![CDATA[fin apport]]></text>
 								</staticText>
@@ -571,7 +576,7 @@ $F{shape_height}+
 							<jr:columnFooter height="0" rowSpan="1"/>
 							<jr:detailCell height="20" rowSpan="1">
 								<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
-									<reportElement uuid="0f65f953-1005-4c2c-9d44-d43eff22402c" style="table-td" x="0" y="0" width="90" height="20"/>
+									<reportElement uuid="0f65f953-1005-4c2c-9d44-d43eff22402c" style="table-td" x="0" y="0" width="45" height="20"/>
 									<textElement textAlignment="Center" verticalAlignment="Middle"/>
 									<textFieldExpression><![CDATA[$F{stopped_at}]]></textFieldExpression>
 								</textField>
@@ -592,10 +597,10 @@ $F{shape_height}+
 						</datasetParameter>
 						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					</datasetRun>
-					<jr:columnGroup width="684" uuid="43e16d40-953d-411d-9e83-39727ae33206">
+					<jr:columnGroup width="609" uuid="43e16d40-953d-411d-9e83-39727ae33206">
 						<jr:tableHeader height="30" rowSpan="1">
 							<textField>
-								<reportElement uuid="ca627e01-539d-4cb8-977a-3a8c56859441" style="sub-title" x="0" y="0" width="681" height="30"/>
+								<reportElement uuid="ca627e01-539d-4cb8-977a-3a8c56859441" style="sub-title" x="0" y="0" width="597" height="30"/>
 								<textElement verticalAlignment="Middle"/>
 								<textFieldExpression><![CDATA["Cahier d'épandage"]]></textFieldExpression>
 							</textField>
@@ -765,18 +770,18 @@ $F{shape_height}+
 								</textField>
 							</jr:detailCell>
 						</jr:column>
-						<jr:column width="50" uuid="ab3e0d13-b4f3-4204-b10f-f4d418504b66">
+						<jr:column width="61" uuid="ab3e0d13-b4f3-4204-b10f-f4d418504b66">
 							<jr:tableHeader height="0" rowSpan="1"/>
-							<jr:tableFooter height="30">
+							<jr:tableFooter height="30" rowSpan="1">
 								<textField pattern="###0.00" isBlankWhenNull="true">
-									<reportElement uuid="21e1afe6-b781-411b-bdf8-fb4994db3335" style="strong" x="0" y="0" width="50" height="30"/>
+									<reportElement uuid="21e1afe6-b781-411b-bdf8-fb4994db3335" style="strong" x="0" y="0" width="61" height="30"/>
 									<textElement textAlignment="Center" verticalAlignment="Middle"/>
 									<textFieldExpression><![CDATA[$V{total_prev_phosphorus_quantity}]]></textFieldExpression>
 								</textField>
 							</jr:tableFooter>
 							<jr:columnHeader height="43" rowSpan="1">
 								<staticText>
-									<reportElement uuid="338e4747-0ea6-4b9e-9e11-ffd9353ff248" style="table-td" x="0" y="0" width="50" height="43"/>
+									<reportElement uuid="338e4747-0ea6-4b9e-9e11-ffd9353ff248" style="table-td" x="0" y="0" width="61" height="43"/>
 									<textElement textAlignment="Center" verticalAlignment="Middle"/>
 									<text><![CDATA[quantité de phosphore]]></text>
 								</staticText>
@@ -784,17 +789,17 @@ $F{shape_height}+
 							<jr:columnFooter height="0" rowSpan="1"/>
 							<jr:detailCell height="20" rowSpan="1">
 								<textField pattern="###0.00" isBlankWhenNull="true">
-									<reportElement uuid="83757847-62e7-4f4a-ba30-11b58658b2d2" style="table-td" x="0" y="0" width="50" height="20"/>
+									<reportElement uuid="83757847-62e7-4f4a-ba30-11b58658b2d2" style="table-td" x="0" y="0" width="61" height="20"/>
 									<textElement textAlignment="Center" verticalAlignment="Middle"/>
 									<textFieldExpression><![CDATA[$F{input_quantity}.doubleValue()*$F{input_phosphorus_concentration}.doubleValue()*0.01]]></textFieldExpression>
 								</textField>
 							</jr:detailCell>
 						</jr:column>
-						<jr:column width="90" uuid="d781060e-8cde-4bbc-8f3e-0f18bb0f2807">
+						<jr:column width="51" uuid="d781060e-8cde-4bbc-8f3e-0f18bb0f2807">
 							<jr:tableHeader height="0" rowSpan="1"/>
 							<jr:columnHeader height="43" rowSpan="1">
 								<staticText>
-									<reportElement uuid="08966e00-edbd-4a47-9564-1819ee3394ad" style="table-td" x="0" y="0" width="90" height="43"/>
+									<reportElement uuid="08966e00-edbd-4a47-9564-1819ee3394ad" style="table-td" x="0" y="0" width="51" height="43"/>
 									<textElement textAlignment="Center" verticalAlignment="Middle"/>
 									<text><![CDATA[début apport]]></text>
 								</staticText>
@@ -802,17 +807,17 @@ $F{shape_height}+
 							<jr:columnFooter height="0" rowSpan="1"/>
 							<jr:detailCell height="20" rowSpan="1">
 								<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
-									<reportElement uuid="5707953f-6b6c-4148-856d-7cd4adf63cb6" style="table-td" x="0" y="0" width="90" height="20"/>
+									<reportElement uuid="5707953f-6b6c-4148-856d-7cd4adf63cb6" style="table-td" x="0" y="0" width="51" height="20"/>
 									<textElement textAlignment="Center" verticalAlignment="Middle"/>
 									<textFieldExpression><![CDATA[$F{started_at}]]></textFieldExpression>
 								</textField>
 							</jr:detailCell>
 						</jr:column>
-						<jr:column width="93" uuid="8b451c6f-6920-49c7-9465-4e03b7d7a783">
+						<jr:column width="46" uuid="8b451c6f-6920-49c7-9465-4e03b7d7a783">
 							<jr:tableHeader height="0" rowSpan="1"/>
 							<jr:columnHeader height="43" rowSpan="1">
 								<staticText>
-									<reportElement uuid="0e7d3433-a394-48ff-aabc-1d6165803923" style="table-td" x="0" y="0" width="90" height="43"/>
+									<reportElement uuid="0e7d3433-a394-48ff-aabc-1d6165803923" style="table-td" x="0" y="0" width="45" height="43"/>
 									<textElement textAlignment="Center" verticalAlignment="Middle"/>
 									<text><![CDATA[fin apport]]></text>
 								</staticText>
@@ -820,7 +825,7 @@ $F{shape_height}+
 							<jr:columnFooter height="0" rowSpan="1"/>
 							<jr:detailCell height="20" rowSpan="1">
 								<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
-									<reportElement uuid="9ef4114e-978e-418e-a215-a55b8ef96df9" style="table-td" x="0" y="0" width="90" height="20"/>
+									<reportElement uuid="9ef4114e-978e-418e-a215-a55b8ef96df9" style="table-td" x="0" y="0" width="45" height="20"/>
 									<textElement textAlignment="Center" verticalAlignment="Middle"/>
 									<textFieldExpression><![CDATA[$F{stopped_at}]]></textFieldExpression>
 								</textField>
