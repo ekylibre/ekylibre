@@ -10,3 +10,6 @@
   =f.input :picture
   =image_tag(@product.picture.url(:thumb))
   =f.custom_fields
+  
+=field_set(:indicator) do
+  =f.nested_association(:indicator_data)
