@@ -1612,6 +1612,7 @@ arb:
     published: "تم نشره"
     # purchase: "Achat"
     # purchase_amount: "Montant d’achat"
+    # purchase_indicator: "Purchase indicator"
     # purchase_indicator_unit: "Purchase indicator unit"
     # purchase_invoices: "Factures d’achats"
     # purchase_item: "Ligne d’achat"
@@ -1679,6 +1680,7 @@ arb:
     root_model_name: "جذر"
     sale: "طلب البيع"
     sale_id: "طلب بيع" #?
+    # sale_indicator: "Sale indicator"
     # sale_indicator_unit: "Sale indicator unit"
     # sale_item: "Ligne de vente"
     sale_item_id: "طرق طلب البيع" #?
@@ -1818,6 +1820,7 @@ arb:
     usable_outgoing_payments: "مصروفات ممكن استخدامها"
     usage: "الاستخدام"
     usage_duration: "(مدة الاستخدام (ساعات"
+    # usage_indicator: "Usage indicator"
     # usage_indicator_unit: "Usage indicator unit"
     use_range: "استخدام الكمية الفاصلة" #?
     # used_amount: "Montant utilisé"

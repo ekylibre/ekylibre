@@ -60,7 +60,7 @@
 #  work_number              :string(255)
 #
 class Plant < Bioproduct
-  attr_accessible :current_place_id, :unit, :variety, :nature_id, :reproductor, :external, :born_at, :dead_at, :description, :description, :identification_number, :name, :picture, :work_number
+  attr_accessible :variant_id, :variety, :nature_id, :reproductor, :external, :born_at, :dead_at, :description, :description, :identification_number, :name, :picture, :work_number
   # enumerize :sex, :in => [:male, :female]
   enumerize :variety, :in => Nomen::Varieties.all(:plant), :predicates => {:prefix => true}
   # enumerize :arrival_reasons, :in => [:birth, :purchase, :housing, :other], :default=> :birth

@@ -2,6 +2,17 @@
   -t.edit @land_parcel_cluster
 
 =beehive do |b|
+  -b.tabbox do
+    -b.cell :general do
+      .picture
+        -#=@land_parcel.bounds.inspect
+        %svg{:xmlns => "http://www.w3.org/2000/svg", :version => "1.1", :class => :map, :viewBox => @land_parcel_cluster.view_box.join(" "), :preserveAspectRatio => "xMidYMid meet", :width => "180", :height => "180"}
+          %path{:d => @land_parcel_cluster.shape_svg_path}
+      .info
+        %span.title=LandParcelCluster.human_attribute_name(:area_measure)
+        %span.value=@land_parcel_cluster.area_measure.value + " " + @land_parcel_cluster.area_measure.measure_unit
+
+=beehive do |b|
   -b.cell do
     =attributes_list(@land_parcel_cluster) do |l|
       -l.attribute :name

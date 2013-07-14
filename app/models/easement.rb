@@ -63,9 +63,22 @@ class Easement < Zone
   enumerize :variety, :in => Nomen::Varieties.all(:easement), :predicates => {:prefix => true}
 
   # @TODO : update method with the last area indicator of the consider product
-  #after_save do
-  #  area = compute("ST_Area(shape)").to_f
-  #  self.class.update_all({:real_quantity => area, :virtual_quantity => area, :unit => :square_meter}, {:id => self.id})
-  #end
+
+  def area_measure
+    self.indicator_data.where(:indicator => "net_surperficial_area").last
+  end
+
+  def area
+    compute("ST_Area(shape)").to_f
+  end
+
+  after_save do
+    self.indicator_data.create!(:indicator => "net_surperficial_area",
+                                :measure_unit => "square_meter",
+                                :measured_at => Time.now,
+                                :value => area)
+  end
+
+
 
 end

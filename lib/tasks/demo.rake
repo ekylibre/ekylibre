@@ -566,7 +566,7 @@ namespace :db do
                                          )
         end
       end
-      
+
             # Create product_nature for plant product
       for attributes in [
                          {:individual => true, :name => "Sole de Blé",  :number => "SOLE_BLE"},
@@ -592,7 +592,7 @@ namespace :db do
                                          )
         end
       end
-      
+
       # Create product_nature for raw plant product
       for attributes in [
                          {:individual => false, :name => "Paille de Blé", :number => "PAILLE_BLE", :variety => "stem", :saleable => true, :purchasable => true},
@@ -618,9 +618,9 @@ namespace :db do
                                          )
         end
       end
-      
-      
-      
+
+
+
 
       # Create product_nature_price for wheat product
       #wheat_price_template   = ProductPriceTemplate.find_by_product_nature_id(wheat.id)
@@ -775,7 +775,7 @@ namespace :db do
           ProductNature.create!({:active => true}.merge(attributes) )
         end
       end
-      
+
       for attributes in [
                          {:number => "HERBICIDE",:pi => "net_volume", :piu => "liter", :si => "net_volume", :siu => "liter", :ui => "net_volume", :uiu => "liter"},
                          {:number => "FONGICIDE",:pi => "net_volume", :piu => "liter", :si => "net_volume", :siu => "liter", :ui => "net_volume", :uiu => "liter"},
@@ -788,10 +788,10 @@ namespace :db do
                          {:number => "LOCATION_MATERIEL",:pi => "usage_duration", :piu => "hour", :si => "usage_duration", :siu => "hour", :ui => "usage_duration", :uiu => "hour"},
                          {:number => "PETIT_EQUIPEMENT",:pi => "population", :piu => "unity", :si => "population", :siu => "unity", :ui => "population", :uiu => "unity"}
                         ]
-                          
+
        if pn = ProductNature.find_by_number(attributes[:number])
          pn.variants.create!(
-                             :active => true, 
+                             :active => true,
                              :commercial_name => pn.name, :name => pn.name,
                              :purchase_indicator => attributes[:pi], :purchase_indicator_unit => attributes[:piu],
                              :sale_indicator => attributes[:si], :sale_indicator_unit => attributes[:siu],
@@ -981,7 +981,7 @@ namespace :db do
       # variety_milk = ProductVariety.find_by_code("normande")
       # add a product_nature
       product_nature   = ProductNature.find_by_number("LAIT")
-      product_nature ||= ProductNature.create!(:stock_account_id => stock_account_nature_milk.id, 
+      product_nature ||= ProductNature.create!(:stock_account_id => stock_account_nature_milk.id,
                                                :product_account_id => sale_account_nature_milk.id,
                                                :name => "lait",
                                                :number => "LAIT",
@@ -995,7 +995,7 @@ namespace :db do
                                                :category_id => animal_product_nature_category.id
                                                )
       product_nature_variant = product_nature.variants.create!(
-                             :active => true, 
+                             :active => true,
                              :commercial_name => product_nature.name, :name => product_nature.name,
                              :purchase_indicator => "net_volume", :purchase_indicator_unit => milk_unit,
                              :sale_indicator => "net_volume", :sale_indicator_unit => milk_unit,
@@ -1034,7 +1034,7 @@ namespace :db do
                            :analysis_quality_indicator_pseudo => row[17],
                            :analysis_quality_indicator_ecoli => row[18]
                           )
-                           
+
         # create an indicator for each line of analysis (based onn milk analysis indicator in XML nomenclature)
         product.indicator_data.create!(:indicator => "total_bacteria_concentration", :value => r.analysis_quality_indicator_germes ,:measure_unit => "thousands_per_milliliter" ,:measured_at => analysis_on )
         product.indicator_data.create!(:indicator => "inhibitors_presence", :value => r.analysis_quality_indicator_inhib ,:measured_at => analysis_on )
@@ -1136,7 +1136,7 @@ namespace :db do
        fertilizer_product_nature_variant = ProductNatureVariant.find_by_nature_name("Engrais")
        campaign = Campaign.find_by_name("2013")
        sole_ble_nature = ProductNature.find_by_number("SOLE_BLE")
-       
+
        # create some indicator nature for fertilization
        # find some product for fertilization
        fertilizer_product = Product.find_by_variant_id(fertilizer_product_nature_variant.id)

@@ -27,8 +27,8 @@ class Backend::LandParcelsController < BackendController
     #t.column :identification_number
     t.column :work_number
     #t.column :description
-    t.column :real_quantity
-    t.column :unit
+    #t.column :real_quantity
+    #t.column :unit
     #t.column :started_on
     #t.column :stopped_on
     # t.action :divide

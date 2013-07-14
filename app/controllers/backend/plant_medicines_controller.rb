@@ -6,8 +6,6 @@ class Backend::PlantMedicinesController < BackendController
 
   list do |t|
     t.column :name, :url => true
-    t.column :real_quantity
-    t.column :unit
     t.column :created_at
   end
 

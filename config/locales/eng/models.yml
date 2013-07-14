@@ -1166,6 +1166,7 @@ eng:
     published: "Published"
     purchase: "Purchase"
     purchase_amount: "Purchase amount"
+    # purchase_indicator: "Purchase indicator"
     # purchase_indicator_unit: "Purchase indicator unit"
     purchase_invoices: "Purchase invoices"
     # purchase_item: "Ligne d’achat"
@@ -1229,6 +1230,7 @@ eng:
     root_model: "Root model"
     root_model_name: "Root model name"
     sale: "Sale"
+    # sale_indicator: "Sale indicator"
     # sale_indicator_unit: "Sale indicator unit"
     # sale_item: "Ligne de vente"
     # sale_items: "Lignes de vente"
@@ -1358,6 +1360,7 @@ eng:
     usable_outgoing_payments: "Usable disbursements"
     usage: "Usage"
     usage_duration: "Usage duration"
+    # usage_indicator: "Usage indicator"
     # usage_indicator_unit: "Usage indicator unit"
     use_range: "Use range" #?
     used_amount: "Used amount"

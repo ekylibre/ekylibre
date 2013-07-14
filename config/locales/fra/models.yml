@@ -437,7 +437,7 @@ fra:
     # archives: "Archives"
     # archives_count: "Archives count"
     archiving: "Méthode d’archivage"
-    area: "Zone postale" #?
+    area: "Zone postale"
     areas: "Zones postales"
     arrival_cause: "Cause d’entrée"
     arrived_on: "Date d’entrée"
@@ -951,6 +951,9 @@ fra:
     printed_on: "Datée du"
     priority: "Priorité"
     procedure: "Procedure"
+    # procedure_indicator: "Procedure indicator"
+    # procedure_quantity: "Procedure quantity"
+    # procedure_unit: "Procedure unit"
     procedures: "Procédures"
     process: "Process"
     producer: "Producteur"
@@ -974,7 +977,7 @@ fra:
     # purchasable: "Purchasable"
     purchase: "Achat"
     purchase_amount: "Montant d’achat"
-    # purchase_indicator: "Purchase indicator"
+    purchase_indicator: "Purchase indicator"
     purchase_indicator_unit: "Purchase indicator unit"
     purchase_invoices: "Factures d’achats"
     purchase_item: "Ligne d’achat"
@@ -1037,7 +1040,7 @@ fra:
     root_model: "Racine"
     root_model_name: "Racine"
     sale: "Vente"
-    # sale_indicator: "Sale indicator"
+    sale_indicator: "Sale indicator"
     sale_indicator_unit: "Sale indicator unit"
     sale_item: "Ligne de vente"
     sale_items: "Lignes de vente"
@@ -1151,7 +1154,7 @@ fra:
     usable_outgoing_payments: "Décaissements utilisables" #?
     usage: "Utilisation"
     usage_duration: "Durée d’utilisation (heures)" #?
-    # usage_indicator: "Usage indicator"
+    usage_indicator: "Usage indicator"
     usage_indicator_unit: "Usage indicator unit"
     used_amount: "Montant utilisé" #?
     useful_items: "Lignes utiles"
@@ -1547,7 +1550,7 @@ fra:
       informations:
         with_components: "%{product} (%{unit}) (produit transformé)"
         without_components: "%{product} (%{unit}) (matière première)"
-      label: "%{product_nature} (%{unit})"
+      label: "%{product_nature})"
       stock_move: "%{origin} (%{code})"
       subscription_label:
         period: "Abonnement %{subscription_nature} pour %{entity} à l’adresse %{address} du %{start} au %{finish}"

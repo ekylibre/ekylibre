@@ -1,5 +1,5 @@
 =field_set do
-  =f.referenced_association :nature
+  =f.referenced_association :variant
   =f.input :variety
   =f.input :name
   =f.input :born_at
@@ -7,8 +7,6 @@
   =f.input :number
   =f.input :description
   =f.input :external
-  =f.input :real_quantity
-  =f.input :unit
   =f.input :picture
   =image_tag(@product.picture.url(:thumb))
   =f.custom_fields

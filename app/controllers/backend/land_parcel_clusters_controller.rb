@@ -7,8 +7,8 @@ class Backend::LandParcelClustersController < BackendController
     t.column :name, :url => true
     t.column :work_number
     t.column :identification_number
-    t.column :real_quantity
-    t.column :unit
+    #t.column :real_quantity
+    #t.column :unit
 
   end
 

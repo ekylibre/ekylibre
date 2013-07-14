@@ -62,7 +62,7 @@
 
 
 class LandParcelGroup < ProductGroup
-  attr_accessible :real_quantity, :born_at, :dead_at, :shape, :active, :external, :description, :name, :variety, :unit, :nature_id, :reproductor, :reservoir, :parent_id, :memberships_attributes
+  attr_accessible :born_at, :dead_at, :shape, :active, :external, :description, :name, :variety, :nature_id, :reproductor, :reservoir, :parent_id, :memberships_attributes
 
   belongs_to :parent, :class_name => "ProductGroup"
   has_many :supports, :class_name => "ProductionSupport", :foreign_key => :storage_id
@@ -86,7 +86,18 @@ class LandParcelGroup < ProductGroup
   def area
     compute("ST_Area(shape)").to_f
   end
-  
+
+  def area_measure
+    self.indicator_data.where(:indicator => "net_surperficial_area").last
+  end
+
+  after_save do
+    self.indicator_data.create!(:indicator => "net_surperficial_area",
+                                :measure_unit => "hectare",
+                                :measured_at => Time.now,
+                                :value => area*0.0001)
+  end
+
   # FIXME
   # accepts_nested_attributes_for :memberships, :reject_if => :all_blank, :allow_destroy => true
 

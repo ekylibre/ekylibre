@@ -62,7 +62,7 @@
 
 
 class Equipment < Matter
-  attr_accessible :nature_id, :asset_id, :picture, :name, :description, :born_at, :dead_at, :active, :external, :content_unit, :content_nature_id, :owner_id, :parent_id, :variety, :reservoir, :content_maximal_quantity
+  attr_accessible :nature_id, :asset_id, :picture, :name, :description, :born_at, :dead_at, :active, :external, :variant_id, :content_nature_id, :owner_id, :parent_id, :variety, :reservoir, :content_maximal_quantity
   # has_many :uses, :class_name => "OperationUse"
   # belongs_to :nature, :class_name => "ProductNature"
   # belongs_to :variety, :class_name => "ProductVariety"

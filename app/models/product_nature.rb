@@ -185,7 +185,7 @@ class ProductNature < Ekylibre::Record::Base
   # end
 
   def label
-    tc('label', :product_nature => self["name"], :unit => self.unit["label"])
+    tc('label', :product_nature => self["name"])
   end
 
   def informations

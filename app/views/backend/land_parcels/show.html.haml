@@ -10,8 +10,8 @@
         %svg{:xmlns => "http://www.w3.org/2000/svg", :version => "1.1", :class => :map, :viewBox => @land_parcel.view_box.join(" "), :preserveAspectRatio => "xMidYMid meet", :width => "180", :height => "180"}
           %path{:d => @land_parcel.shape_svg_path}
       .info
-        %span.title=LandParcel.human_attribute_name(:real_quantity)
-        %span.value=@land_parcel.real_quantity.l + " (" + @land_parcel.unit.text + ")"
+        %span.title=LandParcel.human_attribute_name(:area_measure)
+        %span.value=@land_parcel.area_measure.value + " " + @land_parcel.area_measure.measure_unit
 
 
     -b.cell do

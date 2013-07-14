@@ -61,7 +61,7 @@
 #
 
 class AnimalMedicine < Medicine
-  attr_accessible :unit, :variety, :nature_id, :reproductor, :external, :born_at, :dead_at, :description, :description, :father_id, :mother_id, :identification_number, :name, :picture, :sex, :work_number
+  attr_accessible :variety, :variant_id, :nature_id, :reproductor, :external, :born_at, :dead_at, :description, :description, :father_id, :mother_id, :identification_number, :name, :picture, :sex, :work_number
   # TODO: write config/nomenclatures/varieties-animal_medicine.xml
   enumerize :variety, :in => Nomen::Varieties.all(:animal_medicine), :predicates => {:prefix => true}
   #enumerize :arrival_reasons, :in => [:birth, :purchase, :housing, :other], :default=> :birth
