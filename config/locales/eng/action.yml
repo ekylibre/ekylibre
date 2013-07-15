@@ -331,7 +331,11 @@ eng:
       # edit: "Modifier un évènement"
       # index: "Évènements"
       # new: "Nouvel évènement"
-    backend/mineral_matters: #?
+    backend/mineral_matters:
+      # edit: "Modifier la matière minérale\_: %{name}"
+      # index: "Matières minérales"
+      # new: "Ajouter une matière minérale"
+      # show: "Matière minérale\_: %{name}"
     backend/myselves:
       change_password: "Change my password"
       # show: "Mes informations"
@@ -434,7 +438,11 @@ eng:
       show: "Product category: %{name}"
     backend/product_nature_indicators: #?
     backend/product_nature_prices: #?
-    backend/product_nature_variants: #?
+    backend/product_nature_variants:
+      # edit: "Modifier la variante de produit\_: %{name}"
+      # index: "Variantes de produits"
+      # new: "Nouvelle variante de produit"
+      # show: "Variante de produit\_: %{name}"
     backend/product_natures:
       edit: "Edit the product type: %{name}"
       index: "Product types"
@@ -759,6 +767,7 @@ eng:
     add_diagnostic: "Add diagnostic"
     add_email: "Add email"
     add_fax: "Add fax"
+    # add_indicator_datum: "Ajouter une mesure pour un indicateur"
     # add_item: "Ajouter un élément"
     add_mail: "Add postal adress"
     add_mobile: "Add mobile phone number"
@@ -1058,6 +1067,7 @@ eng:
       unreceived: "Unreceived"
       waiting: "To deposit later"
     indicator: "Indicators"
+    # indicators: "Indicateurs"
     info: "General parameters"
     infos: "Product and quantity"
     insert_actual_password: "Enter your actual password"
@@ -1408,6 +1418,7 @@ eng:
     # register: "Créer une nouvelle société"
     # relationship: "Gestion des relations clients/fournisseurs"
     # remove_diagnostic: "Supprimer un diagnostic"
+    # remove_indicator_datum: "Supprimer une mesure pour un indicateur"
     # remove_treatment: "Supprimer un traitement"
     # remove_watching: "Supprimer un produit de référence"
     reopen: "Reopen"

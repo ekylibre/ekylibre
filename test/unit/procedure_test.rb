@@ -20,16 +20,19 @@
 #
 # == Table: procedures
 #
-#  created_at    :datetime         not null
-#  creator_id    :integer
-#  id            :integer          not null, primary key
-#  incident_id   :integer
-#  lock_version  :integer          default(0), not null
-#  nomen         :string(255)      not null
-#  production_id :integer          not null
-#  state         :string(255)      default("undone"), not null
-#  updated_at    :datetime         not null
-#  updater_id    :integer
+#  created_at               :datetime         not null
+#  creator_id               :integer
+#  id                       :integer          not null, primary key
+#  incident_id              :integer
+#  lock_version             :integer          default(0), not null
+#  natures                  :string(255)      not null
+#  nomen                    :string(255)      not null
+#  production_id            :integer          not null
+#  provisional              :boolean          not null
+#  provisional_procedure_id :integer
+#  state                    :string(255)      default("undone"), not null
+#  updated_at               :datetime         not null
+#  updater_id               :integer
 #
 require 'test_helper'
 

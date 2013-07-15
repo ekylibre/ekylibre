@@ -70,9 +70,12 @@ class EnhanceOperations < ActiveRecord::Migration
     # add_column :events, :nomen, :string
     create_table :procedures do |t|
       # t.references :nature, :null => false
+      t.references :provisional_procedure
+      t.boolean :provisional, :null => false, :default => false
       t.references :incident
       t.references :production, :null => false
       t.string :nomen,   :null => false
+      t.string :natures, :null => false
       # t.string :version
       t.string :state,   :null => false, :default => "undone"
       # t.string :uid, :limit => 511
@@ -85,6 +88,7 @@ class EnhanceOperations < ActiveRecord::Migration
     add_stamps_indexes :procedures
     # add_index :procedures, :parent_id
     add_index :procedures, :production_id
+    add_index :procedures, :provisional_procedure_id
     add_index :procedures, :incident_id
     add_index :procedures, :nomen
 
@@ -92,17 +96,15 @@ class EnhanceOperations < ActiveRecord::Migration
       # t.references :nature, :null => false
       t.references :procedure, :null => false
       t.references :target, :null => false
-      t.string  :nomen, :null => false
-      t.string  :procedure_indicator, :null => false
-      t.string  :procedure_unit, :null => false
-      t.decimal :procedure_quantity, :precision => 19, :scale => 4, :null => false
-      t.string  :roles
+      t.string  :indicator, :null => false
+      t.string  :measure_unit, :null => false
+      t.decimal :measure_quantity, :precision => 19, :scale => 4, :null => false
+      t.string  :role, :null => false
       t.stamps
     end
     add_stamps_indexes :procedure_variables
     add_index :procedure_variables, :procedure_id
     add_index :procedure_variables, :target_id
-    add_index :procedure_variables, :nomen
 
 
     # Operation

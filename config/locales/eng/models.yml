@@ -137,6 +137,8 @@ eng:
       product_category:  #?
         children: "Sub-product_categories" #?
         published: "Published" #?
+      product_indicator_datum:
+        # indicator: "Indicateur"
       product_localization:
         # arrival_cause: "Cause d’entrée"
         # container: "Contenant"

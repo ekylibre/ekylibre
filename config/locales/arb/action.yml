@@ -359,7 +359,11 @@ arb:
       # edit: "Modifier un évènement"
       # index: "Évènements"
       # new: "Nouvel évènement"
-    backend/mineral_matters: #?
+    backend/mineral_matters:
+      # edit: "Modifier la matière minérale\_: %{name}"
+      # index: "Matières minérales"
+      # new: "Ajouter une matière minérale"
+      # show: "Matière minérale\_: %{name}"
     backend/myselves:
       # change_password: "Changer de mot de passe"
       # show: "Mes informations"
@@ -483,7 +487,11 @@ arb:
       new: "اضافة عنصر الى المنتج %{product} " #?
     backend/product_nature_indicators: #?
     backend/product_nature_prices: #?
-    backend/product_nature_variants: #?
+    backend/product_nature_variants:
+      # edit: "Modifier la variante de produit\_: %{name}"
+      # index: "Variantes de produits"
+      # new: "Nouvelle variante de produit"
+      # show: "Variante de produit\_: %{name}"
     backend/product_natures:
       edit: "تعديل المنتج : %{name}"
       index: "المنتجات"
@@ -845,6 +853,7 @@ arb:
     # add_diagnostic: "Ajouter un diagnostic"
     # add_email: "Ajouter une adresse e-mail"
     # add_fax: "Ajouter un n° de fax"
+    # add_indicator_datum: "Ajouter une mesure pour un indicateur"
     # add_item: "Ajouter un élément"
     # add_mail: "Ajouter une adresse postale"
     # add_mobile: "Ajouter un n° de portable"
@@ -1177,6 +1186,7 @@ arb:
       # waiting: "À encaisser plus tard"
     index: "العودة الى دليل ادارة الاعمال" #?
     indicator: "لوحة التحكم"
+    # indicators: "Indicateurs"
     info: "معرفة المعلومات عن وسائل النقل"
     infos: "معرفة خصائص النظام"
     insert_actual_password: "أدخل كلمة المرور الحالية"
@@ -1539,6 +1549,7 @@ arb:
     relations: "ادارة علاقات العملاء / والمموليين" #?
     # relationship: "Gestion des relations clients/fournisseurs"
     # remove_diagnostic: "Supprimer un diagnostic"
+    # remove_indicator_datum: "Supprimer une mesure pour un indicateur"
     # remove_treatment: "Supprimer un traitement"
     # remove_watching: "Supprimer un produit de référence"
     reopen: "فتح الدفتر اليومي"

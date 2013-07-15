@@ -21,7 +21,8 @@
   =image_tag(@animal.picture.url(:thumb))
   =f.input :description # affiche le champ description formaté en zone de texte
 
-=field_set(:indicator) do
-  =f.nested_association(:indicator_data)
+-if @animal.new_record?
+  =field_set(:indicator) do
+    =f.nested_association(:indicator_data)
 
   

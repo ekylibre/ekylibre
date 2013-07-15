@@ -20,41 +20,53 @@
 #
 # == Table: procedures
 #
-#  created_at    :datetime         not null
-#  creator_id    :integer
-#  id            :integer          not null, primary key
-#  incident_id   :integer
-#  lock_version  :integer          default(0), not null
-#  nomen         :string(255)      not null
-#  production_id :integer          not null
-#  state         :string(255)      default("undone"), not null
-#  updated_at    :datetime         not null
-#  updater_id    :integer
+#  created_at               :datetime         not null
+#  creator_id               :integer
+#  id                       :integer          not null, primary key
+#  incident_id              :integer
+#  lock_version             :integer          default(0), not null
+#  natures                  :string(255)      not null
+#  nomen                    :string(255)      not null
+#  production_id            :integer          not null
+#  provisional              :boolean          not null
+#  provisional_procedure_id :integer
+#  state                    :string(255)      default("undone"), not null
+#  updated_at               :datetime         not null
+#  updater_id               :integer
 #
 class Procedure < Ekylibre::Record::Base
-  attr_accessible :nomen, :production_id
+  attr_accessible :nomen, :production_id, :natures, :provisional_procedure_id, :provisional
   attr_readonly :nomen, :production_id
   belongs_to :production
   belongs_to :incident
+  belongs_to :provisional_procedure
   has_many :variables, :class_name => "ProcedureVariable", :inverse_of => :procedure
   has_many :operations, :inverse_of => :procedure
   enumerize :nomen, :in => Procedures.names.sort
   enumerize :state, :in => [:undone, :squeezed, :in_progress, :done]
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_length_of :nomen, :state, :allow_nil => true, :maximum => 255
-  validates_presence_of :nomen, :production, :state
+  validates_length_of :natures, :nomen, :state, :allow_nil => true, :maximum => 255
+  validates_inclusion_of :provisional, :in => [true, false]
+  validates_presence_of :natures, :nomen, :production, :state
   #]VALIDATORS]
   validates_inclusion_of :nomen, :in => self.nomen.values
   #validates_presence_of :version, :uid
 
   # @TODO in progress - need to call parent procedure to have the name of the procedure_nature
 
-  scope :of_nature, lambda { |*natures|
+  scope :of_natures, lambda { |*natures|
     #for nature in natures
       #raise ArgumentError.new("Expected ProcedureNature, got #{nature.class.name}:#{nature.inspect}") unless nature.is_a?(ProcedureNature)
     #end
-    #where('nature IN (?)', natures)
+    where("natures IN (?)", natures)
     order(:nomen)
+  }
+
+  scope :provisional, -> { where(:provisional => true).order(:nomen) }
+  scope :real, -> { where(:provisional => false).order(:nomen) }
+
+  scope :with_variable, lambda { |role, object|
+     where("id IN (SELECT procedure_id FROM #{ProcedureVariable.table_name} WHERE target_id = ? AND role = ?)", object.id, role)
   }
 
   # before_validation(:on => :create) do

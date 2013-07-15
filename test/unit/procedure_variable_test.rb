@@ -20,19 +20,18 @@
 #
 # == Table: procedure_variables
 #
-#  created_at          :datetime         not null
-#  creator_id          :integer
-#  id                  :integer          not null, primary key
-#  lock_version        :integer          default(0), not null
-#  nomen               :string(255)      not null
-#  procedure_id        :integer          not null
-#  procedure_indicator :string(255)      not null
-#  procedure_quantity  :decimal(19, 4)   not null
-#  procedure_unit      :string(255)      not null
-#  roles               :string(255)
-#  target_id           :integer          not null
-#  updated_at          :datetime         not null
-#  updater_id          :integer
+#  created_at       :datetime         not null
+#  creator_id       :integer
+#  id               :integer          not null, primary key
+#  indicator        :string(255)      not null
+#  lock_version     :integer          default(0), not null
+#  measure_quantity :decimal(19, 4)   not null
+#  measure_unit     :string(255)      not null
+#  procedure_id     :integer          not null
+#  role             :string(255)      not null
+#  target_id        :integer          not null
+#  updated_at       :datetime         not null
+#  updater_id       :integer
 #
 require 'test_helper'
 

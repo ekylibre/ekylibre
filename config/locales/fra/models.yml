@@ -823,6 +823,7 @@ fra:
     maximal_length: "Longueur maximale"
     maximal_quantity: "Maximal quantity" #?
     maximal_value: "Valeur maximale"
+    # measure_quantity: "Measure quantity"
     measure_unit: "Unité de mesure"
     measure_value: "Valeur de la mesure"
     measured_at: "Mesuré à"
@@ -848,6 +849,7 @@ fra:
     name_2_to_1: "Nom «\_Personne 2 vers Personne 1\_»" #?
     nature: "Type"
     nature_name: "Nature name"
+    # natures: "Natures"
     net_weight: "Masse nette" #?
     nic: "NIC (Numéro Interne de Classement)" #?
     node: "Nœud"
@@ -953,9 +955,6 @@ fra:
     printed_on: "Datée du"
     priority: "Priorité"
     procedure: "Procedure"
-    # procedure_indicator: "Procedure indicator"
-    # procedure_quantity: "Procedure quantity"
-    # procedure_unit: "Procedure unit"
     procedures: "Procédures"
     process: "Process"
     producer: "Producteur"
@@ -975,6 +974,8 @@ fra:
     # prorated: "Prorated"
     prospect: "Prospect"
     protected: "Protégé"
+    # provisional: "Provisional"
+    # provisional_procedure: "Provisional procedure"
     published: "Publié"
     # purchasable: "Purchasable"
     purchase: "Achat"
@@ -1038,7 +1039,7 @@ fra:
     rgt: "Limite droite"
     rights: "Droits"
     role: "Rôle de base"
-    roles: "Rôles"
+    roles: "Rôles" #?
     root_model: "Racine"
     root_model_name: "Racine"
     sale: "Vente"

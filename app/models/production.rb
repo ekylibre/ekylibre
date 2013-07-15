@@ -39,8 +39,8 @@ class Production < Ekylibre::Record::Base
   attr_accessible :supports_attributes, :activity_id, :product_nature_id, :campaign_id, :static_support, :state, :started_at, :stopped_at
   belongs_to :activity
   belongs_to :campaign
-  # belongs_to :area_unit, :class_name => "Unit"
   belongs_to :product_nature
+  # belongs_to :area_unit, :class_name => "Unit"
   has_many :repartitions, :class_name => "ActivityRepartition"
   has_many :supports, :class_name => "ProductionSupport", :inverse_of => :production
   has_many :procedures, :class_name => "Procedure"
@@ -105,7 +105,7 @@ class Production < Ekylibre::Record::Base
   end
 
   def name
-    tc('label.' + self.state, :identification => (self.product_nature.name + " " + self.campaign.name))
+    tc('label.' + self.state, :identification => (self.activity.name + " " + self.campaign.name))
    end
   alias :label :name
 

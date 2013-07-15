@@ -1043,7 +1043,7 @@ namespace :db do
         product.indicator_data.create!(:indicator => "cells_concentration", :value => r.analysis_quality_indicator_cellules ,:measure_unit => "thousands_per_milliliter", :measured_at => analysis_on )
         product.indicator_data.create!(:indicator => "clostridial_spores_concentration", :value => r.analysis_quality_indicator_buty ,:measure_unit => "unities_per_liter", :measured_at => analysis_on )
         product.indicator_data.create!(:indicator => "freezing_point_temperature", :value => r.analysis_quality_indicator_cryo ,:measure_unit => "celsius", :measured_at => analysis_on )
-        product.indicator_data.create!(:indicator => "lipolysis", :value => r.analysis_quality_indicator_lipo ,:measure_unit => "thousands_eq_per_hundred_gram", :measured_at => analysis_on )
+        product.indicator_data.create!(:indicator => "lipolysis", :value => r.analysis_quality_indicator_lipo ,:measure_unit => "thousands_per_hectogram", :measured_at => analysis_on )
         product.indicator_data.create!(:indicator => "immunoglobulins_concentration", :value => r.analysis_quality_indicator_igg ,:measure_unit => "unities_per_liter", :measured_at => analysis_on )
         product.indicator_data.create!(:indicator => "urea_concentration", :value => r.analysis_quality_indicator_uree , :measure_unit => "milligram_per_liter", :measured_at => analysis_on )
 
@@ -1102,7 +1102,7 @@ namespace :db do
           plant_work_nb = (r.product_nature_name + "-" + campaign.name + "-" + land_parcel_support.work_number)
           Plant.create!(:variant_id => product_nature_variant_sup.id, :work_number => plant_work_nb , :name => (r.product_nature_name + " " + campaign.name + " " + land_parcel_support.name)  ,:variety => product_nature.variety, :born_at => Time.now, :owner_id => Entity.of_company.id)
         elsif product_nature_variant_sup
-          pro = Production.where(:campaign_id => campaign.id, :activity_id => activity.id, :product_nature_id => product_nature_sup.id).first
+          pro = Production.where(:product_nature_id => product_nature_sup.id, :campaign_id => campaign.id, :activity_id => activity.id).first
           pro ||= activity.productions.create!(:product_nature_id => product_nature_sup.id, :campaign_id => campaign.id)
         end
         print "."
@@ -1154,36 +1154,55 @@ namespace :db do
 
        production = Production.find_by_product_nature_id_and_campaign_id(sole_ble_nature.id,campaign.id)
 
-       procedure = Procedure.find_by_production_id_and_nomen(production.id,"organic_fertilizing")
-       procedure ||= Procedure.create!(:nomen =>"organic_fertilizing", :production_id => production.id )
+       # provisional fertilization procedure
+      procedure_prev ||= Procedure.create!(:natures => "soil_enrichment", :nomen =>"mineral_fertilizing", :production_id => production.id, :provisional => true )
 
 
-      Plant.find_each do |plant|
+      #plant = Plant.find_by_work_number("SOLE_BLE-2013-PC23")
+      land_parcel_group_fert = LandParcelGroup.find_by_work_number("PC23")
         # Create some procedure variable for fertilization
-        for attributes in [{:nomen => "organic_fertilization", :target_id => plant.id, :roles => "target",
-                            :procedure_indicator => "net_surperficial_area",
-                            :procedure_quantity => "5.00", :procedure_unit => "hectare"},
-                            {:nomen => "organic_fertilization", :target_id => fertilizer_product.id, :roles => "input",
-                             :procedure_indicator => "net_weight",
-                             :procedure_quantity => "5.00", :procedure_unit => "ton"},
-                            {:nomen => "organic_fertilization", :target_id => fertilizer_product.id, :roles => "input",
-                             :procedure_indicator => "net_weight",
-                             :procedure_quantity => "575.00", :procedure_unit => "kilogram"},
-                            {:nomen => "organic_fertilization", :target_id => plant.id, :roles => "prev_target",
-                             :procedure_indicator => "net_surperficial_area",
-                             :procedure_quantity => "3.00", :procedure_unit => "hectare"},
-                            {:nomen => "organic_fertilization", :target_id => fertilizer_product_prev.id, :roles => "prev_input",
-                             :procedure_indicator => "net_weight",
-                             :procedure_quantity => "450.00", :procedure_unit => "kilogram"}
-                           ]
-         ProcedureVariable.create!({:procedure_id => procedure.id}.merge(attributes) )
+        for attributes in [{:target_id => land_parcel_group_fert.id, :role => "target",
+                            :indicator => "net_surperficial_area",
+                            :measure_quantity => "5.00", :measure_unit => "hectare"},
+                            {:target_id => fertilizer_product_prev.id, :role => "input",
+                             :indicator => "net_weight",
+                             :measure_quantity => "475.00", :measure_unit => "kilogram"},
+                            {:target_id => fertilizer_product_prev.id, :role => "input",
+                             :indicator => "net_weight",
+                             :measure_quantity => "275.00", :measure_unit => "kilogram"}
+                            ]
+         ProcedureVariable.create!({:procedure_id => procedure_prev.id}.merge(attributes) )
+        end
+
+        # Create some operation variable for fertilization
+        for attributes in [{:started_at => (Time.now - 15.days), :stopped_at => (Time.now - 10.days)}]
+         procedure_prev.operations.create!({:procedure_id => procedure_prev.id}.merge(attributes) )
+        end
+
+       # real fertilization procedure
+       procedure_real ||= Procedure.create!(:natures => "soil_enrichment", :nomen =>"mineral_fertilizing", :production_id => production.id, :provisional_procedure_id => procedure_prev.id)
+
+
+      #plant = Plant.find_by_work_number("SOLE_BLE-2013-PC23")
+      land_parcel_group_fert = LandParcelGroup.find_by_work_number("PC23")
+        # Create some procedure variable for fertilization
+        for attributes in [{:target_id => land_parcel_group_fert.id, :role => "target",
+                            :indicator => "net_surperficial_area",
+                            :measure_quantity => "5.00", :measure_unit => "hectare"},
+                            {:target_id => fertilizer_product.id, :role => "input",
+                             :indicator => "net_weight",
+                             :measure_quantity => "575.00", :measure_unit => "kilogram"},
+                            {:target_id => fertilizer_product.id, :role => "input",
+                             :indicator => "net_weight",
+                             :measure_quantity => "375.00", :measure_unit => "kilogram"}
+                            ]
+         ProcedureVariable.create!({:procedure_id => procedure_real.id}.merge(attributes) )
         end
 
         # Create some operation variable for fertilization
         for attributes in [{:started_at => (Time.now - 2.days), :stopped_at => Time.now}]
-         procedure.operations.create!({:procedure_id => procedure.id}.merge(attributes) )
+         procedure_real.operations.create!({:procedure_id => procedure_real.id}.merge(attributes) )
         end
-      end
 
 
       puts "Total time: #{(Time.now - start).round(2)}s"

@@ -1364,38 +1364,39 @@ ActiveRecord::Schema.define(:version => 20130410143823) do
   add_index "preferences", ["user_id"], :name => "index_parameters_on_user_id"
 
   create_table "procedure_variables", :force => true do |t|
-    t.integer  "procedure_id",                                                      :null => false
-    t.integer  "target_id",                                                         :null => false
-    t.string   "nomen",                                                             :null => false
-    t.string   "procedure_indicator",                                               :null => false
-    t.string   "procedure_unit",                                                    :null => false
-    t.decimal  "procedure_quantity",  :precision => 19, :scale => 4,                :null => false
-    t.string   "roles"
-    t.datetime "created_at",                                                        :null => false
-    t.datetime "updated_at",                                                        :null => false
+    t.integer  "procedure_id",                                                   :null => false
+    t.integer  "target_id",                                                      :null => false
+    t.string   "indicator",                                                      :null => false
+    t.string   "measure_unit",                                                   :null => false
+    t.decimal  "measure_quantity", :precision => 19, :scale => 4,                :null => false
+    t.string   "role",                                                           :null => false
+    t.datetime "created_at",                                                     :null => false
+    t.datetime "updated_at",                                                     :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                       :default => 0, :null => false
+    t.integer  "lock_version",                                    :default => 0, :null => false
   end
 
   add_index "procedure_variables", ["created_at"], :name => "index_procedure_variables_on_created_at"
   add_index "procedure_variables", ["creator_id"], :name => "index_procedure_variables_on_creator_id"
-  add_index "procedure_variables", ["nomen"], :name => "index_procedure_variables_on_nomen"
   add_index "procedure_variables", ["procedure_id"], :name => "index_procedure_variables_on_procedure_id"
   add_index "procedure_variables", ["target_id"], :name => "index_procedure_variables_on_target_id"
   add_index "procedure_variables", ["updated_at"], :name => "index_procedure_variables_on_updated_at"
   add_index "procedure_variables", ["updater_id"], :name => "index_procedure_variables_on_updater_id"
 
   create_table "procedures", :force => true do |t|
+    t.integer  "provisional_procedure_id"
+    t.boolean  "provisional",              :default => false,    :null => false
     t.integer  "incident_id"
-    t.integer  "production_id",                       :null => false
-    t.string   "nomen",                               :null => false
-    t.string   "state",         :default => "undone", :null => false
-    t.datetime "created_at",                          :null => false
-    t.datetime "updated_at",                          :null => false
+    t.integer  "production_id",                                  :null => false
+    t.string   "nomen",                                          :null => false
+    t.string   "natures",                                        :null => false
+    t.string   "state",                    :default => "undone", :null => false
+    t.datetime "created_at",                                     :null => false
+    t.datetime "updated_at",                                     :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",  :default => 0,        :null => false
+    t.integer  "lock_version",             :default => 0,        :null => false
   end
 
   add_index "procedures", ["created_at"], :name => "index_procedures_on_created_at"
@@ -1403,6 +1404,7 @@ ActiveRecord::Schema.define(:version => 20130410143823) do
   add_index "procedures", ["incident_id"], :name => "index_procedures_on_incident_id"
   add_index "procedures", ["nomen"], :name => "index_procedures_on_nomen"
   add_index "procedures", ["production_id"], :name => "index_procedures_on_production_id"
+  add_index "procedures", ["provisional_procedure_id"], :name => "index_procedures_on_provisional_procedure_id"
   add_index "procedures", ["updated_at"], :name => "index_procedures_on_updated_at"
   add_index "procedures", ["updater_id"], :name => "index_procedures_on_updater_id"
 

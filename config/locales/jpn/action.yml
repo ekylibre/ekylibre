@@ -288,7 +288,11 @@ jpn:
       # edit: "Modifier un évènement"
       # index: "Évènements"
       # new: "Nouvel évènement"
-    backend/mineral_matters: #?
+    backend/mineral_matters:
+      # edit: "Modifier la matière minérale\_: %{name}"
+      # index: "Matières minérales"
+      # new: "Ajouter une matière minérale"
+      # show: "Matière minérale\_: %{name}"
     backend/myselves:
       # change_password: "Changer de mot de passe"
       # show: "Mes informations"
@@ -385,10 +389,14 @@ jpn:
       # show: "Détail de la catégorie\_: %{name}"
     backend/product_nature_indicators: #?
     backend/product_nature_prices: #?
-    backend/product_nature_variants: #?
+    backend/product_nature_variants:
+      # edit: "Modifier la variante de produit\_: %{name}"
+      # index: "Variantes de produits"
+      # new: "Nouvelle variante de produit"
+      # show: "Variante de produit\_: %{name}"
     backend/product_natures:
       # edit: "Modifier le type de produit\_: %{name}"
-      # index: "Type de produit"
+      # index: "Type de produits"
       # new: "Nouveau type de produit"
       # show: "Type de produit\_: %{name}"
     backend/product_price_listings:
@@ -664,6 +672,7 @@ jpn:
     # add_diagnostic: "Ajouter un diagnostic"
     # add_email: "Ajouter une adresse e-mail"
     # add_fax: "Ajouter un n° de fax"
+    # add_indicator_datum: "Ajouter une mesure pour un indicateur"
     # add_item: "Ajouter un élément"
     # add_mail: "Ajouter une adresse postale"
     # add_mobile: "Ajouter un n° de portable"
@@ -960,7 +969,8 @@ jpn:
       # unparted: "Non affectés"
       # unreceived: "Non reçus"
       # waiting: "À encaisser plus tard"
-    # indicator: "Tableau de bord"
+    # indicator: "Indicateur"
+    # indicators: "Indicateurs"
     # info: "Information\_: %{value}"
     # infos: "Information générales"
     # insert_actual_password: "Saisissez votre mot de passe actuel"
@@ -1281,6 +1291,7 @@ jpn:
     # register: "Créer une nouvelle société"
     # relationship: "Gestion des relations clients/fournisseurs"
     # remove_diagnostic: "Supprimer un diagnostic"
+    # remove_indicator_datum: "Supprimer une mesure pour un indicateur"
     # remove_treatment: "Supprimer un traitement"
     # remove_watching: "Supprimer un produit de référence"
     # reopen: "Déclôturer"

@@ -20,51 +20,36 @@
 #
 # == Table: procedure_variables
 #
-#  created_at          :datetime         not null
-#  creator_id          :integer
-#  id                  :integer          not null, primary key
-#  lock_version        :integer          default(0), not null
-#  nomen               :string(255)      not null
-#  procedure_id        :integer          not null
-#  procedure_indicator :string(255)      not null
-#  procedure_quantity  :decimal(19, 4)   not null
-#  procedure_unit      :string(255)      not null
-#  roles               :string(255)
-#  target_id           :integer          not null
-#  updated_at          :datetime         not null
-#  updater_id          :integer
+#  created_at       :datetime         not null
+#  creator_id       :integer
+#  id               :integer          not null, primary key
+#  indicator        :string(255)      not null
+#  lock_version     :integer          default(0), not null
+#  measure_quantity :decimal(19, 4)   not null
+#  measure_unit     :string(255)      not null
+#  procedure_id     :integer          not null
+#  role             :string(255)      not null
+#  target_id        :integer          not null
+#  updated_at       :datetime         not null
+#  updater_id       :integer
 #
 class ProcedureVariable < Ekylibre::Record::Base
-  attr_accessible :nomen, :target_id, :procedure_id, :roles, :procedure_quantity, :procedure_indicator, :procedure_unit
+  attr_accessible :nomen, :target_id, :procedure_id, :role, :measure_quantity, :indicator, :measure_unit
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :procedure_quantity, :allow_nil => true
-  validates_length_of :nomen, :procedure_indicator, :procedure_unit, :roles, :allow_nil => true, :maximum => 255
-  validates_presence_of :nomen, :procedure, :procedure_indicator, :procedure_quantity, :procedure_unit, :target
+  validates_numericality_of :measure_quantity, :allow_nil => true
+  validates_length_of :indicator, :measure_unit, :role, :allow_nil => true, :maximum => 255
+  validates_presence_of :indicator, :measure_quantity, :measure_unit, :procedure, :role, :target
   #]VALIDATORS]
   belongs_to :procedure, :inverse_of => :variables
   belongs_to :target, :class_name => "Product"
 
   delegate :name, :to => :target, :prefix => true
 
-
-  scope :of_role, lambda { |*natures|
+  scope :of_role, lambda { |role|
     #for nature in natures
       #raise ArgumentError.new("Expected ProcedureNature, got #{nature.class.name}:#{nature.inspect}") unless nature.is_a?(ProcedureNature)
     #end
-    #where('nature IN (?)', natures)
-    where(:roles => ["input"])
-  }
-
-    scope :of_prev_role, lambda { |*natures|
-    #for nature in natures
-      #raise ArgumentError.new("Expected ProcedureNature, got #{nature.class.name}:#{nature.inspect}") unless nature.is_a?(ProcedureNature)
-    #end
-    #where('nature IN (?)', natures)
-    where(:roles => ["prev_input"])
-  }
-
-  scope :of_land_parcel_group, lambda { |land_parcel|
-     where(:target_id => land_parcel.id)
+    where("role = ?", role)
   }
 
   def name

@@ -89,28 +89,20 @@ class Backend::ProductionsController < BackendController
                                 :y_max => group.y_max,
                                 :y_min => group.y_min,
                                 :x_max => group.x_max,
-                                :x_min => group.x_min)
-          xml.land_parcel_group(:id => group.id,
-                                :work_number => group.work_number,
-                                #:shape_width => group.shape_width,
-                                #:shape_height => group.shape_height,
-                                #:y_max => group.y_max,
-                                #:y_min => group.y_min,
-                                #:x_max => group.x_max,
-                                #:x_min => group.x_min,
+                                :x_min => group.x_min,
                                 :svg => group.shape_svg_path
                                 ) do
             for production in group.productions.of_campaign(campaign)
-              xml.production(:name => production.name) do
+              xml.production(:name => production.name ) do
                 # need to get only thr procedures with the procedurevariable with one or most target = landparcelgroup
-                for procedure in production.procedures.of_nature(:soil_enrichment) #and production.variables.where(:target_id => group.id))
+                for procedure in production.procedures.real.of_natures("soil_enrichment").with_variable("target", group) #and production.variables.where(:target_id => group.id))
                   xml.fertilization_real(:started_at => procedure.started_at, :stopped_at => procedure.stopped_at) do
                     for input_variable in procedure.variables.of_role(:input)
                     xml.input(:input => input_variable.target.name,
                               :input_nature => input_variable.target.nature.name,
                               :input_variety => input_variable.target.variety,
-                              :input_quantity => input_variable.procedure_quantity,
-                              :input_quantity_unit => input_variable.procedure_unit,
+                              :input_quantity => input_variable.measure_quantity,
+                              :input_quantity_unit => input_variable.measure_unit,
                               :started_at => procedure.started_at,
                               :stopped_at => procedure.stopped_at,
                               :input_nitrogen_concentration => input_variable.target.indicator_data.where(:indicator => "nitrogen_concentration").last.value,
@@ -119,13 +111,15 @@ class Backend::ProductionsController < BackendController
                               )
                     end
                   end
+                end
+                for procedure in production.procedures.provisional.of_natures("soil_enrichment").with_variable("target", group)
                   xml.fertilization_prev(:started_at => procedure.started_at, :stopped_at => procedure.stopped_at) do
-                    for input_variable in procedure.variables.of_prev_role(:prev_input)
+                    for input_variable in procedure.variables.of_role(:input)
                     xml.input(:input => input_variable.target.name,
                               :input_nature => input_variable.target.nature.name,
                               :input_variety => input_variable.target.variety,
-                              :input_quantity => input_variable.procedure_quantity,
-                              :input_quantity_unit => input_variable.procedure_unit,
+                              :input_quantity => input_variable.measure_quantity,
+                              :input_quantity_unit => input_variable.measure_unit,
                               :started_at => procedure.started_at,
                               :stopped_at => procedure.stopped_at,
                               :input_nitrogen_concentration => input_variable.target.indicator_data.where(:indicator => "nitrogen_concentration").last.value,

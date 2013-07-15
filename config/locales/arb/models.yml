@@ -411,6 +411,8 @@ arb:
         comment: "تعليق" #?
         product_id: "الانتاج" #?
         updater: "التحدبث" #?
+      product_indicator_datum:
+        # indicator: "Indicateur"
       product_localization:
         # arrival_cause: "Cause d’entrée"
         # container: "Contenant"

@@ -109,6 +109,8 @@ spa:
       price: #?
       product: #?
       product_category: #?
+      product_indicator_datum:
+        # indicator: "Indicateur"
       product_localization:
         # arrival_cause: "Cause d’entrée"
         # container: "Contenant"
