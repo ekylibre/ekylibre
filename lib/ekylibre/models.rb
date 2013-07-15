@@ -644,7 +644,7 @@ module Ekylibre
       :creator_id => :user,
       :incident_id => :incident,
       :production_id => :production,
-      :provisional_procedure_id => '',
+      :provisional_procedure_id => :procedure,
       :updater_id => :user
     },
     :procedure_variable => {
