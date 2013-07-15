@@ -40,6 +40,8 @@ GEM
       activerecord (>= 3.0)
     addressable (2.3.5)
     afm (0.2.0)
+    agric (0.0.2)
+      compass (>= 0.12.0)
     akami (1.2.0)
       gyoku (>= 0.4.0)
       nokogiri (>= 1.4.0)
@@ -47,7 +49,7 @@ GEM
     awesome_nested_set (2.1.6)
       activerecord (>= 3.0.0)
     awesome_print (1.1.0)
-    bcrypt-ruby (3.1.0)
+    bcrypt-ruby (3.1.1)
     beardley (0.4.1)
       beardley-barcode (>= 0.0.1)
       beardley-core (>= 5.0.0)
@@ -82,7 +84,7 @@ GEM
       activesupport (>= 3.0)
     cocaine (0.5.1)
       climate_control (>= 0.0.3, < 1.0)
-    cocoon (1.1.2)
+    cocoon (1.2.0)
     code_analyzer (0.3.2)
       sexp_processor
     coderay (1.0.9)
@@ -110,14 +112,14 @@ GEM
     curb (0.8.4)
     daemons (1.1.9)
     database_cleaner (1.0.1)
-    dbf (2.0.5)
+    dbf (2.0.6)
       fastercsv (~> 1.5.4)
     debug_inspector (0.0.2)
-    devise (2.2.4)
+    devise (3.0.0)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.1)
-      railties (~> 3.1)
-      warden (~> 1.2.1)
+      railties (>= 3.2.6, < 5)
+      warden (~> 1.2.3)
     devise-i18n-views (0.2.6)
     diff-lcs (1.2.4)
     docsplit (0.7.2)
@@ -168,7 +170,7 @@ GEM
     i18n-complements (0.0.9)
       i18n (>= 0.6)
     journey (1.0.4)
-    jquery-rails (3.0.2)
+    jquery-rails (3.0.4)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
     jquery-turbolinks (1.0.0)
@@ -284,7 +286,7 @@ GEM
       dbf (>= 1.7.0)
       rgeo (>= 0.3.3)
     rjb (1.4.6)
-    rspec-core (2.14.0)
+    rspec-core (2.14.3)
     rspec-expectations (2.14.0)
       diff-lcs (>= 1.1.3, < 2.0)
     rspec-mocks (2.14.1)
@@ -356,16 +358,16 @@ GEM
     turbo-sprockets-rails3 (0.3.6)
       railties (> 3.2.8, < 4.0.0)
       sprockets (>= 2.0.0)
-    turbolinks (1.2.0)
+    turbolinks (1.3.0)
       coffee-rails
     tzinfo (0.3.37)
-    uglifier (2.1.1)
+    uglifier (2.1.2)
       execjs (>= 0.3.0)
       multi_json (~> 1.0, >= 1.0.2)
     unf (0.1.1)
       unf_ext
     unf_ext (0.0.6)
-    warden (1.2.1)
+    warden (1.2.3)
       rack (>= 1.0)
     wasabi (3.1.0)
       httpi (~> 2.0)
@@ -384,6 +386,7 @@ DEPENDENCIES
   active-list
   activerecord-postgis-adapter
   acts_as_list
+  agric
   awesome_nested_set
   awesome_print
   beardley

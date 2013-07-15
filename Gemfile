@@ -88,6 +88,7 @@ group :assets do
   gem 'compass', '~> 0.13.alpha.4'
   gem 'compass-rails'
   gem 'zurb-foundation'
+  gem 'agric'
   # gem 'codemirror-rails'
   gem 'turbo-sprockets-rails3'
   gem 'oily_png'
