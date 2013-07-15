@@ -30,6 +30,7 @@ module Ekylibre::Record
       def has_shape(*args)
         options = (args[-1].is_a?(Hash) ? args.delete_at(-1) : {})
         code = ""
+        args = [:shape] if args.empty?
         for column in args
           code << "after_create :create_#{column}_images\n"
 
@@ -45,22 +46,21 @@ module Ekylibre::Record
           for attr, value in {:class => column, :preserve_aspect_ratio => 'xMidYMid meet', :width => 180, :height => 180, :view_box => Code.new("self.#{column}_view_box.join(' ')")}
             code << " #{attr.to_s.camelcase(:lower)}=\"' + (options[:#{attr}] || #{value.inspect}).to_s + '\""
           end
-          code << "><path d=\"' + self.#{column}_as_svg + '\"/></svg>'\n"
+          code << "><path d=\"' + self.#{column}_as_svg.to_s + '\"/></svg>'\n"
           code << "end\n"
 
-          code << "def #{column}_view_box\n"
-          code << "  return [self.#{column}_x_min, -1 * self.#{column}_y_max.to_d, self.#{column}_width, self.#{column}_height]\n"
+          code << "def #{column}_view_box(options = {})\n"
+          code << "  return [self.#{column}_x_min(options), -1 * self.#{column}_y_max(options).to_d, self.#{column}_width(options), self.#{column}_height(options)]\n"
           code << "end\n"
 
           code << "def #{column}_path(format = :original)\n"
           code << "  return self.#{column}_dir.join(format.to_s + '.' + (format == :original ? 'svg' : 'png'))\n"
           code << "end\n"
 
-          for attr in [:x_min, :x_max, :y_min, :y_max, :as_svg, :as_gml, :as_kml, :as_geojson]
+          for attr in [:x_min, :x_max, :y_min, :y_max, :area, :as_svg, :as_gml, :as_kml, :as_geojson]
             code << "def #{column}_#{attr.to_s.downcase}(options = {})\n"
-            code << "  column = '#{column}'\n"
-            code << "  column = 'ST_Transform(\#{column}, \#{self.class.srid(options[:srid])})' if options[:srid]\n"
-            code << "  self.class.connection.select_value(\"SELECT ST_#{attr.to_s.camelcase}(\#{column}) FROM \#{self.class.table_name} WHERE id = \#{self.id}\")\n"
+            code << "  column = (options[:srid] ? \"ST_Transform(#{column}, \#{self.class.srid(options[:srid])})\" : '#{column}')\n"
+            code << "  self.class.connection.select_value(\"SELECT ST_#{attr.to_s.camelcase}(\#{column}) FROM \#{self.class.table_name} WHERE id = \#{self.id}\")#{'.to_d rescue 0' unless attr.to_s =~ /^as\_/}\n"
             code << "end\n"
           end
 
@@ -85,10 +85,10 @@ module Ekylibre::Record
             code <<  "  export = self.#{column}_dir.join('#{format}.png')\n"
             code <<  "  system('inkscape --export-png=' + Shellwords.escape(export.to_s)"
             for name, value in convert_options
-              code <<  " + ' --export-#{name.dasherize}=' + Shellwords.escape(#{value.to_s.inspect})"
+              code <<  " + ' --export-#{name.to_s.dasherize}=' + Shellwords.escape(#{value.to_s.inspect})"
             end
-            code <<  "+ ' ' + source.to_s)"
-          end
+            code <<  "+ ' ' + source.to_s)\n"
+          end if options[:formats]
           code << "end\n"
 
           code << "def update_#{column}_images\n"

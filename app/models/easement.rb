@@ -68,15 +68,11 @@ class Easement < Zone
     self.indicator_data.where(:indicator => "net_surperficial_area").last
   end
 
-  def area
-    compute("ST_Area(shape)").to_f
-  end
-
   after_save do
     self.indicator_data.create!(:indicator => "net_surperficial_area",
                                 :measure_unit => "square_meter",
                                 :measured_at => Time.now,
-                                :value => area)
+                                :value => self.shape_area)
   end
 
 
