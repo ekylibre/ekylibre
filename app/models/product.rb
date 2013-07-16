@@ -67,7 +67,6 @@ class Product < Ekylibre::Record::Base
   attr_accessible :variant_id, :created_at, :type, :variety, :external, :name, :description, :nature_id, :number, :identification_number, :work_number, :born_at, :sex, :picture, :owner_id, :parent_id
   enumerize :variety, :in => Nomen::Varieties.all, :predicates => {:prefix => true}
   belongs_to :nature, :class_name => "ProductNature"
-  belongs_to :variant, :class_name => "ProductNatureVariant"
   # belongs_to :variety, :class_name => "ProductVariety"
   # enumerize :unit, :in => Nomen::Units.all, :default => Nomen::Units.first, :predicates => {:prefix => true}
   # belongs_to :unit
@@ -77,6 +76,7 @@ class Product < Ekylibre::Record::Base
   belongs_to :father, :class_name => "Product"
   belongs_to :mother, :class_name => "Product"
   belongs_to :owner, :class_name => "Entity"
+  belongs_to :variant, :class_name => "ProductNatureVariant"
   has_many :incidents, :class_name => "Incident", :as => :target
   has_many :indicator_data, :class_name => "ProductIndicatorDatum", :dependent => :destroy
   has_many :groups, :through => :memberships

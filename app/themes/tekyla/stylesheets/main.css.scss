@@ -1102,6 +1102,9 @@ $controls-margin-left: round($label-width * 1.1);
     input, select, textarea {
       max-width: 100% - $controls-margin-left;
     }
+    .input-append {
+      width: 100%;
+    }
   }
 //  &.selector .controls .input {
 //    @include toolbar;

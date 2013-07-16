@@ -48,7 +48,7 @@
             depreciable="true"
             storable="true"
             atomic="true"
-            abilities="consume(water), consume(poaceae), produce(/excrement), produce(/milk), move"
+            abilities="consume(water), consume(poaceae), produce(excrement), produce(milk), move"
             indicators="weight, animal_life_state, mammalia_reproduction_event_abortion, mammalia_reproduction_method_embryo_transplant, mammalia_born_cycle, mammalia_reproduction_state, mammalia_twins_condition, mammalia_lactation_state, animal_disease_state"
             />
       <item name="milk"
@@ -78,7 +78,7 @@
             depreciable="true"
             storable="true"
             atomic="true"
-            abilities="consume(water), consume(poaceae), produce(/excrement), move"
+            abilities="consume(water), consume(poaceae), produce(excrement), move"
             indicators="weight, animal_life_state, mammalia_reproduction_event_abortion, mammalia_reproduction_state, mammalia_reproduction_method_embryo_transplant, mammalia_twins_condition, mammalia_born_cycle, animal_disease_state"
             />
       <item name="calf"
@@ -93,7 +93,7 @@
             saleable="true"
             storable="true"
             atomic="true"
-            abilities="consume(water), consume(poaceae), produce(/excrement), consume(/milk), move"
+            abilities="consume(water), consume(poaceae), produce(excrement), consume(milk), move"
             indicators="weight, animal_life_state, animal_disease_state, mammalia_born_condition"
             />
       <item name="wheat_crop"
@@ -107,7 +107,7 @@
             depreciable="false"
             storable="true"
             atomic="false"
-            abilities="consume(water), consume(phytosanitary), produce(/grain), produce(/straw)"
+            abilities="consume(water), consume(phytosanitary), produce(grain), produce(straw)"
             indicators="plant_life_state, plant_reproduction_state"
             />
       <item name="grain"
@@ -140,13 +140,13 @@
             charge_account="land_parcel_rent_charge"
             product_account="land_parcel_sell_product"
             unit="u"
-            variety="landparcel"
+            variety="land_parcel"
             purchasable="true"
             saleable="true"
             depreciable="true"
             storable="false"
             atomic="true"
-            abilities="consume(water), consume(/seed), produce(plant)"
+            abilities="consume(water), consume(seed), produce(plant)"
             indicators="sowable, in_production, ground_appearance"
             />
       <item name="building"

@@ -2,7 +2,7 @@
   =f.referenced_association :variant, :source => :animals
   =f.input :variety
   =f.input :name # affiche le champ name de l entité animal avec une infos derriere
-  =f.input :sex, :as => :radio_buttons# affiche le champ sexe sous forme de radio avec une collection de proposition (M ou F) de l entité animal
+  =f.input :sex, :as => :radio_buttons # affiche le champ sexe sous forme de radio avec une collection de proposition (M ou F) de l'entité animal
   =f.custom_fields
 
 =field_set(:animal_identification) do # partie entrée sortie de l entité animal
@@ -24,5 +24,3 @@
 -if @animal.new_record?
   =field_set(:indicator) do
     =f.nested_association(:indicator_data)
-
-  

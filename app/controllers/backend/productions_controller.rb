@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 class Backend::ProductionsController < BackendController
 
   manage_restfully(:t3e => {:name => 'RECORD.name'})
@@ -88,7 +89,7 @@ class Backend::ProductionsController < BackendController
                                 ) do
             for production in group.productions.of_campaign(campaign)
               xml.production(:name => production.name ) do
-                # need to get only thr procedures with the procedurevariable with one or most target = landparcelgroup
+                # need to get only thr procedures with the procedurevariable with one or most target = land_parcel_group
                 for procedure in production.procedures.real.of_natures("soil_enrichment").with_variable("target", group) #and production.variables.where(:target_id => group.id))
                   xml.fertilization_real(:started_at => procedure.started_at, :stopped_at => procedure.stopped_at) do
                     for input_variable in procedure.variables.of_role(:input)

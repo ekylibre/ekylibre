@@ -40,17 +40,29 @@ module Ekylibre::Record
           code << "  Ekylibre.private_directory.join('shapes', '#{self.name.underscore.pluralize}', '#{column}', self.id.to_s)\n"
           code << "end\n"
 
+          code << "def self.#{column}_view_box(options = {})\n"
+          code << "  column = (options[:srid] ? \"ST_Transform(#{column}, \#{self.class.srid(options[:srid])})\" : '#{column}')\n"
+          code << "  x_min = self.minimum(\"ST_XMin(\#{column})\").to_d\n"
+          code << "  x_max = self.maximum(\"ST_XMax(\#{column})\").to_d\n"
+          code << "  y_min = self.minimum(\"ST_YMin(\#{column})\").to_d\n"
+          code << "  y_max = self.maximum(\"ST_YMax(\#{column})\").to_d\n"
+          code << "  return [x_min, -y_max, (x_max - x_min), (y_max - y_min)]\n"
+          code << "end\n"
+
+
+
           # Return SVG as String
           code << "def #{column}_svg(options = {})\n"
-          code << "  return '<svg xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\""
+          code << "  return ('<svg xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\""
           for attr, value in {:class => column, :preserve_aspect_ratio => 'xMidYMid meet', :width => 180, :height => 180, :view_box => Code.new("self.#{column}_view_box.join(' ')")}
             code << " #{attr.to_s.camelcase(:lower)}=\"' + (options[:#{attr}] || #{value.inspect}).to_s + '\""
           end
-          code << "><path d=\"' + self.#{column}_as_svg.to_s + '\"/></svg>'\n"
+          code << "><path d=\"' + self.#{column}_as_svg.to_s + '\"/></svg>').html_safe\n"
           code << "end\n"
 
+
           code << "def #{column}_view_box(options = {})\n"
-          code << "  return [self.#{column}_x_min(options), -1 * self.#{column}_y_max(options).to_d, self.#{column}_width(options), self.#{column}_height(options)]\n"
+          code << "  return [self.#{column}_x_min(options), -self.#{column}_y_max(options), self.#{column}_width(options), self.#{column}_height(options)]\n"
           code << "end\n"
 
           code << "def #{column}_path(format = :original)\n"
@@ -100,7 +112,7 @@ module Ekylibre::Record
 
         end
 
-        code.split(/\n/).each_with_index{|l, i| puts i.to_s.rjust(4) + ": " + l}
+        # code.split(/\n/).each_with_index{|l, i| puts i.to_s.rjust(4) + ": " + l}
         class_eval code
       end
 

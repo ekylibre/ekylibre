@@ -209,7 +209,7 @@ spa:
         # animal_global_documentation: "Documentation globale animale"
         # feeding: "Alimentation"
         # identification: "Identification"
-        # landparcel_management: "Conduite de la parcelle"
+        # land_parcel_management: "Conduite de la parcelle"
         # marketing: "Commercialisation"
         # production: "Production"
         # reproduction: "Reproduction"

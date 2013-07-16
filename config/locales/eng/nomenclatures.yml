@@ -209,7 +209,7 @@ eng:
         animal_global_documentation: "Animal global documentation"
         feeding: "Feeding"
         identification: "Identification"
-        landparcel_management: "Landparcel management"
+        land_parcel_management: "Land parcel management"
         marketing: "Marketing"
         production: "Production"
         reproduction: "Reproduction"

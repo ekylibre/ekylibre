@@ -3,7 +3,7 @@
   .subform-title
     %h3=nature.name
     -unless nature.individual
-      =f.input :quantity, :unit => nature.unit
+      =f.input :quantity # , :indicator => nature.indicator
     =f.input :product_nature_id, :as => :hidden
   .subform-fields
     -if model = nature.matching_model
