@@ -12,7 +12,7 @@
       </item>
       <item name="vegetal_crops">
         <item name="vegetal_global_documentation" letter="B"/>
-        <item name="landparcel_management" letter="C"/>
+        <item name="land_parcel_management" letter="C"/>
         <item name="stock_management" letter="D"/>
         <item name="marketing" letter="E"/>
         <item name="vinification" letter="F"/>
