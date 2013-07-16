@@ -8,10 +8,10 @@
 =beehive do |b|
   -b.tabbox do
     -b.cell :map do
-      %svg{:xmlns => "http://www.w3.org/2000/svg", :version => "1.1", :class => :map, :viewBox => LandParcel.view_box.join(" "), :preserveAspectRatio => "xMidYMid meet", :width => "100%", :height => "400px", "xmlns:xlink" => "http://www.w3.org/1999/xlink"}
+      %svg{:xmlns => "http://www.w3.org/2000/svg", :version => "1.1", :class => :map, :viewBox => LandParcel.shape_view_box.join(" "), :preserveAspectRatio => "xMidYMid meet", :width => "100%", :height => "400px", "xmlns:xlink" => "http://www.w3.org/1999/xlink"}
         -LandParcel.find_each do |land_parcel|
           %a{'xlink:href' => backend_land_parcel_url(land_parcel)}
-            %path{:d => land_parcel.shape_svg_path, :title => land_parcel.name}
+            %path{:d => land_parcel.shape_as_svg, :title => land_parcel.name}
     -b.cell :list do
       =list
 

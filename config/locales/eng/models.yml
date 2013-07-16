@@ -517,6 +517,7 @@ eng:
       product_nature_component: "Product component" #?
       # product_nature_indicator: "Indicateur"
       product_nature_price: "Price" #?
+      # product_nature_variant: "Variante de type de produit"
       # product_price: "Prix"
       product_price_listing: "Person category"
       product_price_template: "Price"
@@ -715,7 +716,7 @@ eng:
     # content_maximal_quantity: "Content maximal quantity"
     # content_nature: "Content nature"
     # content_unit: "Content unit"
-    conveyors: "Conveyors"
+    conveyors: "Conveyors" #?
     coordinate: "Coordinate"
     country: "Country"
     created_at: "Created at"
@@ -1089,12 +1090,10 @@ eng:
     paid_on: "Paid on"
     paid_taxes: "Paid taxes"
     parent: "Parent"
-    parent_kinships: "Parent kinships"
-    parent_land_parcel: "Parent land parcel"
+    parent_kinships: "Parent kinships" #?
+    parent_land_parcel: "Parent land parcel" #?
     # parent_place: "Parent place"
     # participations: "Participations"
-    # parts: "Affectations"
-    # parts_amount: "Montant utilisé"
     # passages: "Passages"
     password: "Password"
     password_confirmation: "Confirmation of password"
@@ -1387,7 +1386,8 @@ eng:
     value: "Value"
     # value_format: "Format de la valeur monétaire"
     # variables: "Variables"
-    # variant: "Variant"
+    # variant: "Variante"
+    # variants: "Variantes"
     # variety: "Variété"
     vat_number: "Vat number"
     # vat_subjected: "Assujetti à la TVA"

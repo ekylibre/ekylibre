@@ -50,7 +50,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
   enumerize :sale_indicator_unit, :in => Nomen::Units.all, :predicates => {:prefix => true}
   enumerize :purchase_indicator_unit, :in => Nomen::Units.all, :predicates => {:prefix => true}
   enumerize :usage_indicator_unit, :in => Nomen::Units.all, :predicates => {:prefix => true}
-  belongs_to :nature, :class_name => "ProductNature"
+  belongs_to :nature, :class_name => "ProductNature", :inverse_of => :variants
   has_many :products, :foreign_key => :variant_id
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :horizontal_rotation, :allow_nil => true, :only_integer => true
