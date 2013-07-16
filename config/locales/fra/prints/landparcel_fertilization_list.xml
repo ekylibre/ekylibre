@@ -196,53 +196,13 @@
 	<field name="id" class="java.lang.String">
 		<fieldDescription><![CDATA[@id]]></fieldDescription>
 	</field>
-	<field name="shape_height" class="java.lang.String">
-		<fieldDescription><![CDATA[@shape_height]]></fieldDescription>
-	</field>
-	<field name="shape_width" class="java.lang.String">
-		<fieldDescription><![CDATA[@shape_width]]></fieldDescription>
-	</field>
-	<field name="svg" class="java.lang.String">
-		<fieldDescription><![CDATA[@svg]]></fieldDescription>
-	</field>
-	<field name="x_max" class="java.lang.String">
-		<fieldDescription><![CDATA[@x_max]]></fieldDescription>
-	</field>
-	<field name="x_min" class="java.lang.String">
-		<fieldDescription><![CDATA[@x_min]]></fieldDescription>
-	</field>
-	<field name="y_max" class="java.lang.String">
-		<fieldDescription><![CDATA[@y_max]]></fieldDescription>
-	</field>
-	<field name="y_min" class="java.lang.String">
-		<fieldDescription><![CDATA[@y_min]]></fieldDescription>
-	</field>
-	<field name="shape_svg_path" class="java.lang.String">
-		<fieldDescription><![CDATA[@shape_svg_path]]></fieldDescription>
+	<field name="svg_path" class="java.lang.String">
+		<fieldDescription><![CDATA[@svg_path]]></fieldDescription>
 	</field>
 	<field name="production_name" class="java.lang.String">
 		<fieldDescription><![CDATA[production/@name]]></fieldDescription>
 	</field>
 	<sortField name="work_number"/>
-	<variable name="svg" class="java.lang.String" resetType="Group" resetGroup="landparcelgroup">
-		<variableExpression><![CDATA["<svg version='1.1'"+
-" viewBox="+$V{viewbox}+
-" xmlns='http://www.w3.org/2000/svg'>"+
-"<path d='"+$F{svg}+
-"'></path>"+
-"</svg>"]]></variableExpression>
-	</variable>
-	<variable name="viewbox" class="java.lang.String">
-		<variableExpression><![CDATA["'"+
-$F{x_min}+
-" -"+
-$F{y_max}+
-" "+
-$F{shape_width}+
-" "+
-$F{shape_height}+
-"'"]]></variableExpression>
-	</variable>
 	<group name="campaign" isStartNewPage="true">
 		<groupExpression><![CDATA[$F{campaign}]]></groupExpression>
 	</group>
@@ -301,9 +261,9 @@ $F{shape_height}+
 					<textFieldExpression><![CDATA[Double.valueOf($F{area})]]></textFieldExpression>
 					<patternExpression><![CDATA["###0.00 "+$F{area_unit}]]></patternExpression>
 				</textField>
-				<image isUsingCache="false" onErrorType="Blank" evaluationTime="Group" evaluationGroup="landparcelgroup">
-					<reportElement uuid="0f80c789-f964-4200-8732-4dcca286dbc2" x="683" y="35" width="93" height="81" printWhenGroupChanges="landparcelgroup"/>
-					<imageExpression><![CDATA[net.sf.jasperreports.renderers.BatikRenderer.getInstanceFromText($V{svg})]]></imageExpression>
+				<image>
+					<reportElement uuid="76a9af81-d2a1-4946-8f26-98bfb1e1fb3a" x="632" y="37" width="144" height="81"/>
+					<imageExpression><![CDATA[net.sf.jasperreports.renderers.BatikRenderer.getInstance(new java.io.File($F{svg_path}))]]></imageExpression>
 				</image>
 			</band>
 		</groupHeader>
