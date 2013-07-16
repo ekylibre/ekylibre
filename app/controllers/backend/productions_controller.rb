@@ -42,8 +42,25 @@ class Backend::ProductionsController < BackendController
     t.action :edit, :if => 'RECORD.draft? '
     #t.action :print, :if => 'RECORD.validated? '
     t.action :destroy, :if => 'RECORD.aborted? '
-
   end
+  
+  # List supports for one production
+  list(:support, :model => :production_supports, :conditions => [" production_id = ? ",['session[:current_production_id]']], :order => "created_at DESC") do |t|
+    t.column :name, :through => :storage, :url => true
+    t.column :created_at
+  end
+  
+  # List procedures for one production
+  list(:procedure, :model => :procedures, :conditions => [" production_id = ? ",['session[:current_production_id]']], :order => "created_at DESC") do |t|
+    #t.column :name
+    t.column :nomen
+    t.column :state
+    t.column :name, :through => :incident, :url => true
+    t.column :started_at
+    t.column :stopped_at
+    t.column :provisional
+  end
+  
 
   # Displays the main page with the list of productions.
   def index
@@ -61,6 +78,7 @@ class Backend::ProductionsController < BackendController
   # Displays the page for one production.
   def show
     return unless @production = find_and_check
+    session[:current_production_id] = @production.id
     respond_to do |format|
       format.html { t3e(@production, :name => @production.name) }
       format.xml  { render :xml => @production }

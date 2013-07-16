@@ -15,8 +15,8 @@ class Backend::ActivitiesController < BackendController
 
   # List of productions for one activity
   list(:production, :model => :productions, :conditions => [" activity_id = ? ",['session[:current_activity_id]']], :order => "started_at DESC") do |t|
+    t.column :name, :url => true
     t.column :name, :through => :product_nature, :url => true
-    t.column :name, :through => :campaign, :url => true
     t.column :state
     t.column :started_at
     t.column :stopped_at

@@ -126,14 +126,6 @@ Ekylibre::Application.routes.draw do
         unroll_all
       end
     end
-
-    resources :productions do
-      collection do
-        get :list
-        get :fertilization
-        unroll_all
-      end
-    end
     resources :animal_groups do
       collection do
         get :list
@@ -766,7 +758,15 @@ Ekylibre::Application.routes.draw do
         unroll_all
       end
     end
-
+    resources :productions do
+      collection do
+        get :list
+        get :list_support
+        get :list_procedure
+        get :fertilization
+        unroll_all
+      end
+    end
 
       resources :production_supports do
         collection do
