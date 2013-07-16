@@ -62,6 +62,20 @@ class ProductNatureVariant < Ekylibre::Record::Base
   acts_as_numbered
   before_validation :set_nature_name, :on => :create
 
+  default_scope -> { order(:name) }
+  scope :animals, lambda { joins(:nature).merge(ProductNature.animals).order(:name)}
+  scope :plants, lambda { joins(:nature).merge(ProductNature.plants).order(:name)}
+  scope :plant_medicines, lambda { joins(:nature).merge(ProductNature.plant_medicines).order(:name)}
+  scope :animal_medicines, lambda { joins(:nature).merge(ProductNature.animal_medicines).order(:name)}
+  scope :equipments, lambda { joins(:nature).merge(ProductNature.equipments).order(:name)}
+  scope :buildings, lambda { joins(:nature).merge(ProductNature.buildings).order(:name)}
+  scope :organic_matters, lambda { joins(:nature).merge(ProductNature.organic_matters).order(:name)}
+  scope :mineral_matters, lambda { joins(:nature).merge(ProductNature.mineral_matters).order(:name)}
+  scope :matters, lambda { joins(:nature).merge(ProductNature.matters).order(:name)}
+  scope :land_parcels, lambda { joins(:nature).merge(ProductNature.land_parcels).order(:name)}
+  scope :land_parcel_groups, lambda { joins(:nature).merge(ProductNature.land_parcel_groups).order(:name)}
+  scope :land_parcel_clusters, lambda { joins(:nature).merge(ProductNature.land_parcel_clusters).order(:name)}
+
   def set_nature_name
     if self.nature
       self.nature_name ||= self.nature.name

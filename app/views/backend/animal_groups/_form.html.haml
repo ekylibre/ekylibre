@@ -1,5 +1,5 @@
 =field_set(:major => true) do # partie info general de l entité animal_group
-  =f.referenced_association :nature, :source => :animals
+  =f.referenced_association :variant, :source => :animals
   =f.input :name # affiche le champ name de l entité animal avec une infos derriere
   =f.input :sex, as: :radio_buttons# affiche le champ sexe sous forme de radio avec une collection de proposition (M ou F) de l entité animal
   =f.input :reproductor

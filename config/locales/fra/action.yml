@@ -94,6 +94,8 @@ fra:
       # show: "Show backend/cells/demo pie cell"
     backend/cells/expense_chart_cells:
       # show: "Show backend/cells/expense chart cell"
+    backend/cells/last_events_cells:
+      # show: "Show backend/cells/last events cell"
     backend/cells/last_milk_result_cells:
       # show: "Show backend/cells/last milk result cell"
     backend/cells/last_procedures_cells:
@@ -612,6 +614,7 @@ fra:
     # backend/cells/demo_map_cells: "Backend/cells/demo map cells"
     # backend/cells/demo_pie_cells: "Backend/cells/demo pie cells"
     # backend/cells/expense_chart_cells: "Backend/cells/expense chart cells"
+    # backend/cells/last_events_cells: "Backend/cells/last events cells"
     # backend/cells/last_milk_result_cells: "Backend/cells/last milk result cells"
     # backend/cells/last_procedures_cells: "Backend/cells/last procedures cells"
     # backend/cells/last_products_cells: "Backend/cells/last products cells"
@@ -790,6 +793,7 @@ fra:
     add_payment: "Ajouter un encaissement"
     add_phone: "Ajouter un n° de téléphone"
     add_posology: "Ajouter une posologie"
+    add_production: "Ajouter une production"
     add_quickly_an_item: "Ajouter rapidement une ligne de produit"
     add_subscription_for_sale_line: "Ajouter un abonnement pour la ligne N°%{position}"
     add_treatment: "Ajouter un traitement"

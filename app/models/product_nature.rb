@@ -108,7 +108,7 @@ class ProductNature < Ekylibre::Record::Base
   scope :availables, -> { where(:active => true).order(:name) }
   scope :stockables, -> { where(:storable => true).order(:name) }
   scope :purchaseables, -> { where(:purchasable => true).order(:name) }
-  scope :producibles, -> { where(:individual => true, :variety => ["bos","animal","plant"]).order(:name) }
+  scope :producibles, -> { where(:variety => ["bos","animal","plant","organic_matter"]).order(:name) }
   scope :animals, -> { where(:individual => true, :variety => "bos").order(:name) }
   scope :plants, -> { where(:individual => true, :variety => "plant").order(:name) }
   scope :plant_medicines, -> { where(:individual => false, :variety => "plant_medicine").order(:name) }
@@ -118,6 +118,9 @@ class ProductNature < Ekylibre::Record::Base
   scope :organic_matters, -> { where(:variety => "organic_matter").order(:name) }
   scope :mineral_matters, -> { where(:variety => "mineral_matter").order(:name) }
   scope :matters, -> { where(:subscribing => false).order(:name) }
+  scope :land_parcels, -> { where(:variety => "land_parcel").order(:name) }
+  scope :land_parcel_groups, -> { where(:variety => "land_parcel_group").order(:name) }
+  scope :land_parcel_clusters, -> { where(:variety => "land_parcel_cluster").order(:name) }
 
   before_validation do
     if self.derivative_of

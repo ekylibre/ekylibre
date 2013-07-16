@@ -1,13 +1,11 @@
 =field_set do
   =f.input :name
   =f.input :number
-  =f.input :commercial_name
   =f.input :active
   =f.input :variety
 
 =field_set :nature do
   =f.referenced_association :category
-  =f.input :unit
   -#input :nature, :show => {:subscription => :subscription}
 
 =field_set :nature do
@@ -47,3 +45,5 @@
   =f.referenced_association :charge_account #, :source => :charges
   =f.referenced_association :stock_account
 
+=field_set :variant do
+  =f.nested_association(:variants)
