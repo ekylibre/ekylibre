@@ -84,13 +84,7 @@ class Backend::ProductionsController < BackendController
                                 :name => group.name,
                                 :area => group.area_measure.value,
                                 :area_unit => group.area_measure.measure_unit,
-                                :shape_width => group.shape_width,
-                                :shape_height => group.shape_height,
-                                :y_max => group.y_max,
-                                :y_min => group.y_min,
-                                :x_max => group.x_max,
-                                :x_min => group.x_min,
-                                :svg => group.shape_svg_path
+                                :svg_path => group.shape_path
                                 ) do
             for production in group.productions.of_campaign(campaign)
               xml.production(:name => production.name ) do
