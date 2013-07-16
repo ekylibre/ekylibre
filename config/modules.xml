@@ -546,7 +546,7 @@
         <page to="backend/land_parcel_groups#update"/>
       </item>
     </group>
-    <group name="tools" icon="cog">
+    <group name="tools" icon="tractor">
       <item name="equipments">
         <page to="backend/equipments#index"/>
         <page to="backend/equipments#create"/>
@@ -896,6 +896,16 @@
         <page to="backend/product_natures#update"/>
         <page to="backend/product_natures#list_prices"/>
       </item>
+      <item name="product_nature_variants">
+        <page to="backend/product_nature_variants#index"/>
+        <page to="backend/product_nature_variants#create"/>
+        <page to="backend/product_nature_variants#destroy"/>
+        <page to="backend/product_nature_variants#edit"/>
+        <page to="backend/product_nature_variants#list"/>
+        <page to="backend/product_nature_variants#new"/>
+        <page to="backend/product_nature_variants#show"/>
+        <page to="backend/product_nature_variants#update"/>
+      </item>
       <item name="product_categories">
         <page to="backend/product_nature_categories#index"/>
         <page to="backend/product_nature_categories#create"/>
@@ -971,6 +981,9 @@
       <item name="sessions">
         <page to="authentication/sessions#renew"/>
       </item>
+      <item name="activities">
+        <page to="backend/activities#list_production"/>
+      </item>
       <item name="animals">
         <page to="backend/animals#list_incident"/>
       </item>
@@ -992,12 +1005,15 @@
       <item name="expense_chart_cells">
         <page to="backend/cells/expense_chart_cells#show"/>
       </item>
+      <item name="last_events_cells">
+        <page to="backend/cells/last_events_cells#list"/>
+        <page to="backend/cells/last_events_cells#show"/>
+      </item>
       <item name="last_milk_result_cells">
         <page to="backend/cells/last_milk_result_cells#list"/>
         <page to="backend/cells/last_milk_result_cells#show"/>
       </item>
       <item name="last_procedures_cells">
-        <page to="backend/cells/last_procedures_cells#list"/>
         <page to="backend/cells/last_procedures_cells#show"/>
       </item>
       <item name="last_products_cells">
@@ -1157,16 +1173,6 @@
         <page to="backend/product_memberships#new"/>
         <page to="backend/product_memberships#show"/>
         <page to="backend/product_memberships#update"/>
-      </item>
-      <item name="product_nature_variants">
-        <page to="backend/product_nature_variants#index"/>
-        <page to="backend/product_nature_variants#create"/>
-        <page to="backend/product_nature_variants#destroy"/>
-        <page to="backend/product_nature_variants#edit"/>
-        <page to="backend/product_nature_variants#list"/>
-        <page to="backend/product_nature_variants#new"/>
-        <page to="backend/product_nature_variants#show"/>
-        <page to="backend/product_nature_variants#update"/>
       </item>
       <item name="product_prices">
         <page to="backend/product_prices#index"/>

@@ -776,6 +776,7 @@ eng:
     add_payment: "Add payment"
     add_phone: "Add phone number"
     # add_posology: "Ajouter une posologie"
+    # add_production: "Ajouter une production"
     add_quickly_a_line: "Add quickly a line of product" #?
     # add_quickly_an_item: "Ajouter rapidement une ligne de produit"
     add_subscription_for_sale_line: "Add subscription for sale line #%{position}"

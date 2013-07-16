@@ -58,6 +58,7 @@ class Backend::ProductsController < BackendController
     t.column :active
     t.column :number, :url => true
     t.column :name, :url => true
+    t.column :name, :through => :variant
     t.column :variety
     t.column :full_name, :through => :owner
     t.column :description

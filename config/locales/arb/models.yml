@@ -469,6 +469,17 @@ arb:
         product_id: "الانتاج" #?
         sales_invoice_items: "طرق تسدسد الفاتورة" #?
         started_at: "ابتدأ يوم\_" #?
+      product_nature_variant:
+        # commercial_description: "Description Catalogue"
+        # commercial_name: "Nom Catalogue"
+        # contour: "contour de la forme"
+        # horizontal_rotation: "rotation horizontale de la forme"
+        # purchase_indicator: "Indicateur d'achat"
+        # purchase_indicator_unit: "Unité d'achat"
+        # sale_indicator: "Indicateur de vente"
+        # sale_indicator_unit: "Unité de vente"
+        # usage_indicator: "Indicateur d'usage"
+        # usage_indicator_unit: "Unité d'usage"
       product_price_listing:  #?
         description: "مواصفات" #?
       product_price_template:
