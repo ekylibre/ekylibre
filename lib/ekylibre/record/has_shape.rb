@@ -100,7 +100,7 @@ module Ekylibre::Record
 
         end
 
-        code.split(/\n/).each_with_index{|l, i| puts i.to_s.rjust(4) + ": " + l}
+        # code.split(/\n/).each_with_index{|l, i| puts i.to_s.rjust(4) + ": " + l}
         class_eval code
       end
 
