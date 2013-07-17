@@ -12,6 +12,7 @@ require 'activerecord'
 require 'ekylibre'
 require 'nomen'
 require 'procedures'
+require 'measure'
 require 'reporting'
 require 'xml-enumerize'
 

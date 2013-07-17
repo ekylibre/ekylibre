@@ -838,7 +838,7 @@ class NormalizeProducts < ActiveRecord::Migration
       # Place specific columns
       t.references :address
       # LandParcel specific columns
-      t.geometry   :shape
+      # t.geometry   :shape
       # t.decimal    :area_measure, :precision => 19, :scale => 4
       # t.string     :area_unit
       # Warehouse specific columns

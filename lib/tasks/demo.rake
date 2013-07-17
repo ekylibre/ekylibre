@@ -263,9 +263,12 @@ namespace :db do
                                  )
           f.close
           # set default indicators
-          animal.indicator_data.create!(:indicator => "weight", :value => "55.45" ,:measure_unit => "kilogram" ,:measured_at => r.born_on.to_datetime )
-          animal.indicator_data.create!(:indicator => "weight", :value => "75.89" ,:measure_unit => "kilogram" ,:measured_at => (r.born_on.to_datetime + 2.months) )
-          animal.indicator_data.create!(:indicator => "animal_disease_state", :value => "healthy" ,:measured_at => Time.now )
+          animal.is_measured!(:net_weight, 55.45.kilogram, :at => r.born_on.to_datetime)
+          animal.is_measured!(:net_weight, 75.89.kilogram, :at => (r.born_on.to_datetime + 2.months))
+          animal.is_measured!(:animal_disease_state, :healthy)
+          # animal.indicator_data.create!(:indicator => "weight", :value => "55.45" ,:measure_unit => "kilogram" ,:measured_at => r.born_on.to_datetime )
+          # animal.indicator_data.create!(:indicator => "weight", :value => "75.89" ,:measure_unit => "kilogram" ,:measured_at => (r.born_on.to_datetime + 2.months) )
+          # animal.indicator_data.create!(:indicator => "animal_disease_state", :value => "healthy" ,:measured_at => Time.now )
           animal.indicator_data.create!(:indicator => "animal_disease_state", :value => "sick" ,:measured_at => (Time.now - 2.days) )
           animal.indicator_data.create!(:indicator => "animal_disease_state", :value => "healthy" ,:measured_at => (Time.now - 3.days) )
           # place the current animal in the default group with born_at

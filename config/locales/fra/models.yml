@@ -729,6 +729,7 @@ fra:
     full_name_format: "Format du nom complet" #?
     function_title: "Civilités"
     future_events: "Evènements futurs" #?
+    # geometry_value: "Geometry value"
     global_balance: "Solde global"
     global_count: "Population globale"
     global_credit: "Crédit global"
@@ -755,6 +756,7 @@ fra:
     incoming_payments: "Encaissements"
     indicator: "Indicator"
     indicator_data: "Indicator data"
+    indicator_datatype: "Indicator datatype"
     indicators: "Indicators"
     indirect_links: "Liens indirects"
     # individual: "Individual"
@@ -842,6 +844,8 @@ fra:
     # measure_quantity: "Measure quantity"
     measure_unit: "Unité de mesure"
     measure_value: "Valeur de la mesure"
+    measure_value_unit: "Measure value unit"
+    # measure_value_value: "Measure value value"
     measured_at: "Mesuré à"
     # meeting: "Meeting"
     # meeting_nature: "Meeting nature"
@@ -1076,7 +1080,7 @@ fra:
     serial: "N°Lot"
     serial_number: "Serial number"
     sex: "Sexe"
-    shape: "Contour"
+    shape: "Contour" #?
     # sign_in_count: "Sign in count"
     siren: "N° SIREN"
     soundex: "Soundex"

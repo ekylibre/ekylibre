@@ -51,7 +51,6 @@
 #  reproductor              :boolean          not null
 #  reservoir                :boolean          not null
 #  sex                      :string(255)
-#  shape                    :spatial({:srid=>
 #  tracking_id              :integer
 #  type                     :string(255)
 #  updated_at               :datetime         not null
@@ -184,6 +183,31 @@ class Product < Ekylibre::Record::Base
 
   def picture_path(style=:original)
     self.picture.path(style)
+  end
+
+
+  # Measure a product for a given indicator
+  def is_measured!(indicator, value, options = {})
+    datum = self.indicator_data.new(:indicator => indicator, :measured_at => (options[:at] || Time.now) )
+    datum.value = value
+    datum.save!
+  end
+
+
+  # Get indicator value or datum
+  # if option :at specify at which moment
+  # if option :datum is true, it returns the ProductIndicatorDatum record
+  # if option :interpolate is true, it returns the interpolated value
+  # :interpolate and :datum options are incompatible
+  def method_missing(method_name, *args)
+    return super unless Nomen::Indicators.all.include?(method_name)
+    options = (args[-1].is_a?(Hash) ? args.delete_at(-1) : {})
+    measured_at = args.shift || options[:at] || Time.now
+    if datum = self.indicator_data.where(:indicator => method_name.to_s).where("measured_at <= ?", measured_at).reorder("measured_at DESC").first
+
+      return (options[:datum] ? datum : datum.value)
+    end
+    return nil
   end
 
 end

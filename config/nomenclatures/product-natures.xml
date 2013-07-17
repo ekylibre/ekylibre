@@ -5,14 +5,14 @@
     <attributes>
       <!-- attribut dans le model-->
       <attribute name="active" type="boolean" required="true" default="true"/>
-      <attribute name="asset_account" type="choice" source="accounts" required="false"/>
-      <attribute name="category" type="list" source="management_aspects" required="true"/>
-      <attribute name="charge_account" type="choice" source="accounts" required="false"/>
+      <attribute name="asset_account" type="choice" nomenclature="accounts" required="false"/>
+      <attribute name="category" type="list" nomenclature="management_aspects" required="true"/>
+      <attribute name="charge_account" type="choice" nomenclature="accounts" required="false"/>
       <attribute name="number" type="string" required="true"/>
-      <attribute name="product_account" type="choice" source="accounts" required="false"/>
-      <attribute name="stock_account" type="choice" source="accounts" required="false"/>
+      <attribute name="product_account" type="choice" nomenclature="accounts" required="false"/>
+      <attribute name="stock_account" type="choice" nomenclature="accounts" required="false"/>
       <attribute name="unit" type="choice" nomenclature="units" required="true"/>
-      <attribute name="variety" type="choice" source="varieties" required="true"/>
+      <attribute name="variety" type="choice" nomenclature="varieties" required="true"/>
       <attribute name="derivative" type="string" required="true" default="itself" />
       <attribute name="purchasable" type="boolean" required="true"/>
       <attribute name="saleable" type="boolean" required="true"/>
@@ -31,8 +31,8 @@
       <attribute name="traceable" type="boolean" required="true"/>
       <attribute name="transferable" type="boolean" required="true"/>
       <!-- attribut dans le model-->
-      <attribute name="abilities" type="list" source="abilities" required="false"/>
-      <attribute name="indicators" type="list" source="indicators" required="false"/>
+      <attribute name="abilities" type="list" nomenclature="abilities" required="false"/>
+      <attribute name="indicators" type="list" nomenclature="indicators" required="false"/>
     </attributes>
     <items>
       <item name="adult_cow"

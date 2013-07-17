@@ -51,7 +51,6 @@
 #  reproductor              :boolean          not null
 #  reservoir                :boolean          not null
 #  sex                      :string(255)
-#  shape                    :spatial({:srid=>
 #  tracking_id              :integer
 #  type                     :string(255)
 #  updated_at               :datetime         not null

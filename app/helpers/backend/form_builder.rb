@@ -61,7 +61,7 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
     end
     if reflection.macro == :has_many
       # TODO Cleans this very dirty code...
-      nested_partial = Pathname.new(caller.first.split(/\:/).first).relative_path_from(Rails.root.join("app", "views")).to_s.gsub(/\/\_/, '/').gsub(/(\.\w+)+$/, '') # , :partial => nested_partial
+      # nested_partial = Pathname.new(caller.first.split(/\:/).first).relative_path_from(Rails.root.join("app", "views")).to_s.gsub(/\/\_/, '/').gsub(/(\.\w+)+$/, '') # , :partial => nested_partial
       html << @template.content_tag(:div, @template.link_to_add_association("labels.add_#{item}".t, self, association, 'data-no-turbolink' => true, :class => "nested-add add-#{item}"), :class => "links")
     end
     return @template.content_tag(:div, html, :id => "#{association}-field")
