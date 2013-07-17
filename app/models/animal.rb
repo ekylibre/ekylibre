@@ -88,6 +88,7 @@ class Animal < Bioproduct
   scope :mothers, -> { where(:sex => "female", :dead_at => nil, :reproductor => true).order(:name) }
   # scope :here, -> { where("external = ? AND (departed_on IS NULL or departed_on > ?)", false, Time.now).order(:name)
 
+
   # prepare method to call EDNOTIF to exchange with EDE via SOAP Webservice
   # test with Fourniture de l’inventaire d’une exploitation
   def call_notification
