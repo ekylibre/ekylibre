@@ -59,7 +59,7 @@
 #  work_number              :string(255)
 #
 class Zone < Matter
-  has_shape
+  #has_shape
 
   # SRID = {
   #   :wgs84 => 4326,

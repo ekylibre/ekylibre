@@ -66,9 +66,6 @@ class LandParcelGroup < ProductGroup
   belongs_to :parent, :class_name => "ProductGroup"
   has_many :supports, :class_name => "ProductionSupport", :foreign_key => :storage_id
   has_many :productions, :class_name => "Production", :through => :supports
-  has_shape :formats => {
-    :default => {:dpi => 180}
-  }
   default_scope -> { order(:name) }
   scope :groups_of, lambda { |member, viewed_at| where("id IN (SELECT group_id FROM #{ProductMembership.table_name} WHERE member_id = ? AND ? BETWEEN COALESCE(started_at, ?) AND COALESCE(stopped_at, ?))", member.id, viewed_at, viewed_at, viewed_at) }
 
@@ -86,17 +83,19 @@ class LandParcelGroup < ProductGroup
   #  self.class.update_all({:real_quantity => area, :virtual_quantity => area, :unit => :square_meter}, {:id => self.id})
   #end
 
-  def area_measure
-    self.indicator_data.where(:indicator => "net_surperficial_area").last
-  end
+  # @TODO : waiting for method in has_shape
 
-
-  after_save do
-    self.indicator_data.create!(:indicator => "net_surperficial_area",
-                                :measure_unit => "hectare",
-                                :measured_at => Time.now,
-                                :value => self.shape_area*0.0001)
-  end
+  # def area_measure
+    # self.indicator_data.where(:indicator => "net_surperficial_area").last
+  # end
+# 
+# 
+  # after_save do
+    # self.indicator_data.create!(:indicator => "net_surperficial_area",
+                                # :measure_unit => "hectare",
+                                # :measured_at => Time.now,
+                                # :value => self.shape_area*0.0001)
+  # end
 
   # FIXME
   # accepts_nested_attributes_for :memberships, :reject_if => :all_blank, :allow_destroy => true

@@ -63,16 +63,17 @@ class Easement < Zone
 
   # @TODO : update method with the last area indicator of the consider product
 
-  def area_measure
-    self.indicator_data.where(:indicator => "net_surperficial_area").last
-  end
-
-  after_save do
-    self.indicator_data.create!(:indicator => "net_surperficial_area",
-                                :measure_unit => "square_meter",
-                                :measured_at => Time.now,
-                                :value => self.shape_area)
-  end
+  # @TODO : waiting for has_shape update method
+  # def area_measure
+    # self.indicator_data.where(:indicator => "net_surperficial_area").last
+  # end
+# 
+  # after_save do
+    # self.indicator_data.create!(:indicator => "net_surperficial_area",
+                                # :measure_unit => "square_meter",
+                                # :measured_at => Time.now,
+                                # :value => self.shape_area)
+  # end
 
 
 

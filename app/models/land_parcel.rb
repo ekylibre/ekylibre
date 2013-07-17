@@ -63,8 +63,7 @@
 class LandParcel < Easement
   attr_accessible :name, :born_at, :dead_at, :identification_number, :shape, :variety
 
-  has_shape
-  # belongs_to :area_unit, :class_name => "Unit"
+    # belongs_to :area_unit, :class_name => "Unit"
   # TODO : adapt with operations
   #has_many :operations, :as => :target
   # TODO : waiting for "merge" operation type

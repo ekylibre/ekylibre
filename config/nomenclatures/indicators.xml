@@ -31,15 +31,15 @@
       <item name="plant_life_state" datatype="choice" choices="germination,tillering,bolting,maturity,senescence"/>
       <item name="plant_reproduction_state" datatype="choice" choices="swelling,heading,flowering,grain_maturity,grain_senescence"/>
       <!-- for milk analysis -->
-      <item name="total_bacteria_concentration" datatype="measure" unit="thousands_per_milliliter"/>
+      <item name="total_bacteria_concentration" datatype="measure" unit="thousand_per_milliliter"/>
       <item name="inhibitors_presence" datatype="choice" choices="negative,positive"/>
       <item name="fat_matters_concentration" datatype="measure" unit="gram_per_liter"/>
       <item name="protein_matters_concentration" datatype="measure" unit="gram_per_liter"/>
-      <item name="cells_concentration" datatype="measure" unit="thousands_per_milliliter"/>
-      <item name="clostridial_spores_concentration" datatype="measure" unit="unities_per_liter"/>
+      <item name="cells_concentration" datatype="measure" unit="thousand_per_milliliter"/>
+      <item name="clostridial_spores_concentration" datatype="measure" unit="unity_per_liter"/>
       <item name="freezing_point_temperature" datatype="measure" unit="celsius"/>
-      <item name="lipolysis" datatype="measure" unit="thousands_eq_per_hundred_gram"/>
-      <item name="immunoglobulins_concentration" datatype="measure" unit="unities_per_liter"/>
+      <item name="lipolysis" datatype="measure" unit="thousand_eq_per_hundred_gram"/>
+      <item name="immunoglobulins_concentration" datatype="measure" unit="unity_per_liter"/>
       <item name="urea_concentration" datatype="measure" unit="milligram_per_liter"/>
       <!-- for genetic animal's reproduction  -->
       <item name="isu" datatype="measure" unit="unity"/>
@@ -47,9 +47,9 @@
       <item name="tp" datatype="measure" unit="unity"/>
       <item name="tb" datatype="measure" unit="unity"/>
       <!-- for fertilization plant's -->
-      <item name="nitrogen_concentration" datatype="measure" unit="kilograms_per_hectogram"/>
-      <item name="potassium_concentration" datatype="measure" unit="kilograms_per_hectogram"/>
-      <item name="phosphorus_concentration" datatype="measure" unit="kilograms_per_hectogram"/>
+      <item name="nitrogen_concentration" datatype="measure" unit="kilogram_per_hectogram"/>
+      <item name="potassium_concentration" datatype="measure" unit="kilogram_per_hectogram"/>
+      <item name="phosphorus_concentration" datatype="measure" unit="kilogram_per_hectogram"/>
     </items>
   </nomenclature>
 </nomenclatures>

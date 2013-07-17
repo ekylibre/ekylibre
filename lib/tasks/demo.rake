@@ -266,11 +266,8 @@ namespace :db do
           animal.is_measured!(:net_weight, 55.45.kilogram, :at => r.born_on.to_datetime)
           animal.is_measured!(:net_weight, 75.89.kilogram, :at => (r.born_on.to_datetime + 2.months))
           animal.is_measured!(:animal_disease_state, :healthy)
-          # animal.indicator_data.create!(:indicator => "weight", :value => "55.45" ,:measure_unit => "kilogram" ,:measured_at => r.born_on.to_datetime )
-          # animal.indicator_data.create!(:indicator => "weight", :value => "75.89" ,:measure_unit => "kilogram" ,:measured_at => (r.born_on.to_datetime + 2.months) )
-          # animal.indicator_data.create!(:indicator => "animal_disease_state", :value => "healthy" ,:measured_at => Time.now )
-          animal.indicator_data.create!(:indicator => "animal_disease_state", :value => "sick" ,:measured_at => (Time.now - 2.days) )
-          animal.indicator_data.create!(:indicator => "animal_disease_state", :value => "healthy" ,:measured_at => (Time.now - 3.days) )
+          animal.is_measured!(:animal_disease_state, :sick, :at => (Time.now - 2.days))
+          animal.is_measured!(:animal_disease_state, :healthy, :at => (Time.now - 3.days))
           # place the current animal in the default group with born_at
           ProductLocalization.create!(:container_id => place_v.id, :product_id => animal.id, :nature => :interior, :started_at => r.arrived_on, :stopped_at => r.departed_on, :arrival_cause => r.arrival_cause, :departure_cause => r.departure_cause)
           ProductMembership.create!(:member_id => animal.id, :group_id => group_v.id, :started_at => r.arrived_on, :stopped_at => r.departed_on )
@@ -285,13 +282,13 @@ namespace :db do
                                   )
           f.close
           # set default indicators
-          animal.indicator_data.create!(:indicator => "weight", :value => "55.45" ,:measure_unit => "kilogram" ,:measured_at => r.born_on.to_datetime )
-          animal.indicator_data.create!(:indicator => "weight", :value => "75.89" ,:measure_unit => "kilogram" ,:measured_at => (r.born_on.to_datetime + 2.months) )
-          animal.indicator_data.create!(:indicator => "weight", :value => "89.56" ,:measure_unit => "kilogram" ,:measured_at => (r.born_on.to_datetime + 4.months) )
-          animal.indicator_data.create!(:indicator => "weight", :value => "129.56" ,:measure_unit => "kilogram" ,:measured_at => (r.born_on.to_datetime + 8.months) )
-          animal.indicator_data.create!(:indicator => "animal_disease_state", :value => "healthy" ,:measured_at => Time.now )
-          animal.indicator_data.create!(:indicator => "animal_disease_state", :value => "sick" ,:measured_at => (Time.now - 2.days) )
-          animal.indicator_data.create!(:indicator => "animal_disease_state", :value => "healthy" ,:measured_at => (Time.now - 3.days) )
+          animal.is_measured!(:net_weight, 55.45.kilogram, :at => r.born_on.to_datetime)
+          animal.is_measured!(:net_weight, 75.89.kilogram, :at => (r.born_on.to_datetime + 2.months))
+          animal.is_measured!(:net_weight, 89.56.kilogram, :at => (r.born_on.to_datetime + 4.months))
+          animal.is_measured!(:net_weight, 129.56.kilogram, :at => (r.born_on.to_datetime + 8.months))
+          animal.is_measured!(:animal_disease_state, :healthy)
+          animal.is_measured!(:animal_disease_state, :sick, :at => (Time.now - 2.days))
+          animal.is_measured!(:animal_disease_state, :healthy, :at => (Time.now - 3.days))
           # place the current animal in the default group with born_at
           ProductLocalization.create!(:container_id => place_gen.id, :product_id => animal.id, :nature => :interior, :started_at => r.arrived_on, :stopped_at => r.departed_on, :arrival_cause => r.arrival_cause, :departure_cause => r.departure_cause)
           ProductMembership.create!(:member_id => animal.id, :group_id => group_gen1.id, :started_at => r.arrived_on, :stopped_at => r.departed_on )
@@ -306,14 +303,14 @@ namespace :db do
                                   )
           f.close
           # set default indicators
-          animal.indicator_data.create!(:indicator => "weight", :value => "55.45" ,:measure_unit => "kilogram" ,:measured_at => r.born_on.to_datetime )
-          animal.indicator_data.create!(:indicator => "weight", :value => "75.89" ,:measure_unit => "kilogram" ,:measured_at => (r.born_on.to_datetime + 2.months) )
-          animal.indicator_data.create!(:indicator => "weight", :value => "89.56" ,:measure_unit => "kilogram" ,:measured_at => (r.born_on.to_datetime + 4.months) )
-          animal.indicator_data.create!(:indicator => "weight", :value => "129.56" ,:measure_unit => "kilogram" ,:measured_at => (r.born_on.to_datetime + 8.months) )
-          animal.indicator_data.create!(:indicator => "weight", :value => "159.56" ,:measure_unit => "kilogram" ,:measured_at => (r.born_on.to_datetime + 12.months) )
-          animal.indicator_data.create!(:indicator => "animal_disease_state", :value => "healthy" ,:measured_at => Time.now )
-          animal.indicator_data.create!(:indicator => "animal_disease_state", :value => "sick" ,:measured_at => (Time.now - 2.days) )
-          animal.indicator_data.create!(:indicator => "animal_disease_state", :value => "healthy" ,:measured_at => (Time.now - 3.days) )
+          animal.is_measured!(:net_weight, 55.45.kilogram, :at => r.born_on.to_datetime)
+          animal.is_measured!(:net_weight, 75.89.kilogram, :at => (r.born_on.to_datetime + 2.months))
+          animal.is_measured!(:net_weight, 89.56.kilogram, :at => (r.born_on.to_datetime + 4.months))
+          animal.is_measured!(:net_weight, 129.56.kilogram, :at => (r.born_on.to_datetime + 8.months))
+          animal.is_measured!(:net_weight, 189.56.kilogram, :at => (r.born_on.to_datetime + 12.months))
+          animal.is_measured!(:animal_disease_state, :healthy)
+          animal.is_measured!(:animal_disease_state, :sick, :at => (Time.now - 2.days))
+          animal.is_measured!(:animal_disease_state, :healthy, :at => (Time.now - 3.days))
           # place the current animal in the default group with born_at
           ProductLocalization.create!(:container_id => place_gen.id, :product_id => animal.id, :nature => :interior, :started_at => r.arrived_on, :stopped_at => r.departed_on, :arrival_cause => r.arrival_cause, :departure_cause => r.departure_cause)
           ProductMembership.create!(:member_id => animal.id, :group_id => group_gen3.id, :started_at => r.arrived_on, :stopped_at => r.departed_on )
@@ -328,14 +325,15 @@ namespace :db do
                                   )
           f.close
           # set default indicators
-          animal.indicator_data.create!(:indicator => "weight", :value => "55.45" ,:measure_unit => "kilogram" ,:measured_at => r.born_on.to_datetime )
-          animal.indicator_data.create!(:indicator => "weight", :value => "75.89" ,:measure_unit => "kilogram" ,:measured_at => (r.born_on.to_datetime + 2.months) )
-          animal.indicator_data.create!(:indicator => "weight", :value => "89.56" ,:measure_unit => "kilogram" ,:measured_at => (r.born_on.to_datetime + 4.months) )
-          animal.indicator_data.create!(:indicator => "weight", :value => "159.16" ,:measure_unit => "kilogram" ,:measured_at => (r.born_on.to_datetime + 12.months) )
-          animal.indicator_data.create!(:indicator => "weight", :value => "389.56" ,:measure_unit => "kilogram" ,:measured_at => (r.born_on.to_datetime + 24.months) )
-          animal.indicator_data.create!(:indicator => "animal_disease_state", :value => "healthy" ,:measured_at => Time.now )
-          animal.indicator_data.create!(:indicator => "animal_disease_state", :value => "sick" ,:measured_at => (Time.now - 2.days) )
-          animal.indicator_data.create!(:indicator => "animal_disease_state", :value => "healthy" ,:measured_at => (Time.now - 3.days) )
+          animal.is_measured!(:net_weight, 55.45.kilogram, :at => r.born_on.to_datetime)
+          animal.is_measured!(:net_weight, 75.89.kilogram, :at => (r.born_on.to_datetime + 2.months))
+          animal.is_measured!(:net_weight, 89.56.kilogram, :at => (r.born_on.to_datetime + 4.months))
+          animal.is_measured!(:net_weight, 129.56.kilogram, :at => (r.born_on.to_datetime + 8.months))
+          animal.is_measured!(:net_weight, 189.56.kilogram, :at => (r.born_on.to_datetime + 12.months))
+          animal.is_measured!(:net_weight, 389.56.kilogram, :at => (r.born_on.to_datetime + 24.months))
+          animal.is_measured!(:animal_disease_state, :healthy)
+          animal.is_measured!(:animal_disease_state, :sick, :at => (Time.now - 2.days))
+          animal.is_measured!(:animal_disease_state, :healthy, :at => (Time.now - 3.days))
           # place the current animal in the default group with born_at
           ProductLocalization.create!(:container_id => place_vl.id, :product_id => animal.id, :nature => :interior, :started_at => r.arrived_on, :stopped_at => r.departed_on, :arrival_cause => r.arrival_cause, :departure_cause => r.departure_cause)
           ProductMembership.create!(:member_id => animal.id, :group_id => group_vl.id, :started_at => r.arrived_on, :stopped_at => r.departed_on )
@@ -351,14 +349,15 @@ namespace :db do
                                   )
           f.close
           # set default indicators
-          animal.indicator_data.create!(:indicator => "weight", :value => "55.45" ,:measure_unit => "kilogram" ,:measured_at => r.born_on.to_datetime )
-          animal.indicator_data.create!(:indicator => "weight", :value => "75.89" ,:measure_unit => "kilogram" ,:measured_at => (r.born_on.to_datetime + 2.months) )
-          animal.indicator_data.create!(:indicator => "weight", :value => "89.56" ,:measure_unit => "kilogram" ,:measured_at => (r.born_on.to_datetime + 4.months) )
-          animal.indicator_data.create!(:indicator => "weight", :value => "259.16" ,:measure_unit => "kilogram" ,:measured_at => (r.born_on.to_datetime + 12.months) )
-          animal.indicator_data.create!(:indicator => "weight", :value => "389.56" ,:measure_unit => "kilogram" ,:measured_at => (r.born_on.to_datetime + 24.months) )
-          animal.indicator_data.create!(:indicator => "animal_disease_state", :value => "healthy" ,:measured_at => Time.now )
-          animal.indicator_data.create!(:indicator => "animal_disease_state", :value => "sick" ,:measured_at => (Time.now - 2.days) )
-          animal.indicator_data.create!(:indicator => "animal_disease_state", :value => "healthy" ,:measured_at => (Time.now - 3.days) )
+          animal.is_measured!(:net_weight, 55.45.kilogram, :at => r.born_on.to_datetime)
+          animal.is_measured!(:net_weight, 75.89.kilogram, :at => (r.born_on.to_datetime + 2.months))
+          animal.is_measured!(:net_weight, 89.56.kilogram, :at => (r.born_on.to_datetime + 4.months))
+          animal.is_measured!(:net_weight, 129.56.kilogram, :at => (r.born_on.to_datetime + 8.months))
+          animal.is_measured!(:net_weight, 189.56.kilogram, :at => (r.born_on.to_datetime + 12.months))
+          animal.is_measured!(:net_weight, 389.56.kilogram, :at => (r.born_on.to_datetime + 24.months))
+          animal.is_measured!(:animal_disease_state, :healthy)
+          animal.is_measured!(:animal_disease_state, :sick, :at => (Time.now - 2.days))
+          animal.is_measured!(:animal_disease_state, :healthy, :at => (Time.now - 3.days))
           # place the current animal in the default group with born_at
           ProductLocalization.create!(:container_id => place_taur.id, :product_id => animal.id, :nature => :interior, :started_at => r.arrived_on, :stopped_at => r.departed_on, :arrival_cause => r.arrival_cause, :departure_cause => r.departure_cause)
           ProductMembership.create!(:member_id => animal.id, :group_id => group_taur.id, :started_at => r.arrived_on, :stopped_at => r.departed_on )
@@ -381,19 +380,19 @@ namespace :db do
                            :identification_number => row[2],
                            :father => row[3],
                            :provider => row[4],
-                           :isu => row[5],
-                           :inel => row[9],
-                           :tp => row[10],
-                           :tb => row[11]
+                           :isu => row[5].to_i,
+                           :inel => row[9].to_i,
+                           :tp => row[10].to_f,
+                           :tb => row[11].to_f
                            )
         # case = TAUREAU REPRO
         animal = Animal.create!(:variant_id => cow_trepro.id, :name => r.name, :variety => "bos", :identification_number => r.identification_number, :sex => "male", :reproductor => true, :external => true, :owner_id => Entity.of_company.id)
         # set default indicators
-        animal.indicator_data.create!(:indicator => "isu", :value => r.isu ,:measure_unit => "unity" ,:measured_at => Time.now - 2.months )
-        animal.indicator_data.create!(:indicator => "inel", :value => r.inel ,:measure_unit => "unity" ,:measured_at => Time.now - 2.months )
-        animal.indicator_data.create!(:indicator => "tb", :value => r.tb ,:measure_unit => "unity" ,:measured_at => Time.now - 2.months )
-        animal.indicator_data.create!(:indicator => "tp", :value => r.tp ,:measure_unit => "unity" ,:measured_at => Time.now - 2.months )
-
+        animal.is_measured!(:isu, r.isu.unity, :at => (Time.now - 2.months))
+        animal.is_measured!(:inel, r.inel.unity, :at => (Time.now - 2.months))
+        animal.is_measured!(:tp, r.tp.unity, :at => (Time.now - 2.months))
+        animal.is_measured!(:tb, r.tb.unity, :at => (Time.now - 2.months))
+        
         print "."
         break if Animal.count >= max
       end
@@ -427,14 +426,14 @@ namespace :db do
       RGeo::Shapefile::Reader.open(Rails.root.join("test", "fixtures", "files", "ilot_017005218.shp").to_s, :srid => 2154) do |file|
         # puts "File contains #{file.num_records} records."
         file.each do |record|
-          LandParcelCluster.create!(:variant_id => land_parcel_group_variant.id,
-                                    :shape => record.geometry,
+          land_parcel_cluster = LandParcelCluster.create!(:variant_id => land_parcel_group_variant.id,
                                     :name => "ilôt "+record.attributes['NUMERO'].to_s,
                                     :work_number => record.attributes['NUMERO'].to_s,
                                     :variety => "land_parcel_cluster",
                                     :born_at => Date.civil(record.attributes['CAMPAGNE'], 1, 1),
                                     :owner_id => Entity.of_company.id,
                                     :identification_number => record.attributes['PACAGE'].to_s + record.attributes['CAMPAGNE'].to_s + record.attributes['NUMERO'].to_s)
+          land_parcel_cluster.is_measured!(:shape, record.geometry, :at => Date.civil(record.attributes['CAMPAGNE'], 1, 1))
           # puts "Record number #{record.index}:"
           # puts "  Geometry: #{record.geometry.as_text}"
           # puts "  Attributes: #{record.attributes.inspect}"
@@ -487,24 +486,23 @@ namespace :db do
         if land_parcel_cluster = LandParcelCluster.find_by_work_number(r.ilot_work_number)
           cultural_land_parcel = LandParcelGroup.find_by_work_number(r.land_parcel_group_work_number)
           cultural_land_parcel ||= LandParcelGroup.create!(:variant_id => land_parcel_group_nature_variant.id,
-                                                           :shape => r.land_parcel_group_shape,
                                                            :name => r.land_parcel_group_name,
                                                            :work_number => r.land_parcel_group_work_number,
                                                            :variety => "land_parcel_group",
                                                            :born_at => Time.now,
                                                            :owner_id => Entity.of_company.id,
                                                            :identification_number => r.land_parcel_group_work_number)
+          cultural_land_parcel.is_measured!(:shape, r.land_parcel_group_shape, :at => Time.now)
 
           land_parcel = LandParcel.find_by_work_number(r.land_parcel_work_number)
           land_parcel ||= LandParcel.create!(:variant_id => land_parcel_nature_variant.id,
-                                             :shape => r.land_parcel_shape,
-                                             #:real_quantity =>r.land_parcel_area, (waiting for indicators)
                                              :name => r.land_parcel_name,
                                              :work_number => r.land_parcel_work_number,
                                              :variety => "land_parcel",
                                              :born_at => Time.now,
                                              :owner_id => Entity.of_company.id,
                                              :identification_number => r.land_parcel_work_number)
+          land_parcel.is_measured!(:shape, r.land_parcel_shape, :at => Time.now)
 
           land_parcel_cluster.add(land_parcel)
           cultural_land_parcel.add(land_parcel)
@@ -873,10 +871,13 @@ namespace :db do
         product_model = product_nature.matching_model
         incoming_item = Product.find_by_name_and_created_at(r.matter_name,r.ordered_on)
         incoming_item ||= product_model.create!(:owner_id => Entity.of_company.id, :name => r.matter_name, :variant_id => product_nature_variant.id, :born_at => r.ordered_on, :created_at => r.ordered_on)
-        incoming_item.indicator_data.create!(:indicator => product_nature_variant.purchase_indicator, :value => r.quantity,
-                                        :measure_unit => product_nature_variant.purchase_indicator_unit,
-                                        :measured_at => Time.now
-                                        )
+        # incoming_item.indicator_data.create!(:indicator => product_nature_variant.purchase_indicator, :value => r.quantity,
+                                        # :measure_unit => product_nature_variant.purchase_indicator_unit,
+                                        # :measured_at => Time.now
+                                        # )
+        # @FIXME undefined method `incoming_unit' for #<BigDecimal:e268410,'0.3E1',9(18)>
+        #incoming_unit = product_nature_variant.purchase_indicator_unit.to_s
+        #incoming_item.is_measured!(product_nature_variant.purchase_indicator, r.quantity.incoming_unit, :at => Time.now)                                
         if product_nature.present? and incoming_item.present?
           order.items.create!(:product_id => incoming_item.id, :quantity => r.product_deliver_quantity)
         end
@@ -1028,7 +1029,7 @@ namespace :db do
                            :analysis_quality_indicator_buty => (row[8].blank? ? 0 : row[8].to_i),
                            :analysis_quality_indicator_cryo => (row[9].blank? ? 0.00 : row[9].to_d),
                            :analysis_quality_indicator_lipo => (row[10].blank? ? 0.00 : row[10].to_d),
-                           :analysis_quality_indicator_igg => (row[11].blank? ? "0" : row[11].to_s),
+                           :analysis_quality_indicator_igg => (row[11].blank? ? 0.00 : row[11].to_d),
                            :analysis_quality_indicator_uree => (row[12].blank? ? 0 : row[12].to_i),
                            :analysis_quality_indicator_salmon => row[13],
                            :analysis_quality_indicator_listeria => row[14],
@@ -1039,17 +1040,28 @@ namespace :db do
                           )
 
         # create an indicator for each line of analysis (based onn milk analysis indicator in XML nomenclature)
-        product.indicator_data.create!(:indicator => "total_bacteria_concentration", :value => r.analysis_quality_indicator_germes ,:measure_unit => "thousands_per_milliliter" ,:measured_at => analysis_on )
-        product.indicator_data.create!(:indicator => "inhibitors_presence", :value => r.analysis_quality_indicator_inhib ,:measured_at => analysis_on )
-        product.indicator_data.create!(:indicator => "fat_matters_concentration", :value => r.analysis_quality_indicator_mg ,:measure_unit => "gram_per_liter", :measured_at => analysis_on )
-        product.indicator_data.create!(:indicator => "protein_matters_concentration", :value => r.analysis_quality_indicator_mp ,:measure_unit => "gram_per_liter", :measured_at => analysis_on )
-        product.indicator_data.create!(:indicator => "cells_concentration", :value => r.analysis_quality_indicator_cellules ,:measure_unit => "thousands_per_milliliter", :measured_at => analysis_on )
-        product.indicator_data.create!(:indicator => "clostridial_spores_concentration", :value => r.analysis_quality_indicator_buty ,:measure_unit => "unities_per_liter", :measured_at => analysis_on )
-        product.indicator_data.create!(:indicator => "freezing_point_temperature", :value => r.analysis_quality_indicator_cryo ,:measure_unit => "celsius", :measured_at => analysis_on )
-        product.indicator_data.create!(:indicator => "lipolysis", :value => r.analysis_quality_indicator_lipo ,:measure_unit => "thousands_per_hectogram", :measured_at => analysis_on )
-        product.indicator_data.create!(:indicator => "immunoglobulins_concentration", :value => r.analysis_quality_indicator_igg ,:measure_unit => "unities_per_liter", :measured_at => analysis_on )
-        product.indicator_data.create!(:indicator => "urea_concentration", :value => r.analysis_quality_indicator_uree , :measure_unit => "milligram_per_liter", :measured_at => analysis_on )
-
+        # product.indicator_data.create!(:indicator => "total_bacteria_concentration", :value => r.analysis_quality_indicator_germes ,:measure_unit => "thousands_per_milliliter" ,:measured_at => analysis_on )
+        # product.indicator_data.create!(:indicator => "inhibitors_presence", :value => r.analysis_quality_indicator_inhib ,:measured_at => analysis_on )
+        # product.indicator_data.create!(:indicator => "fat_matters_concentration", :value => r.analysis_quality_indicator_mg ,:measure_unit => "gram_per_liter", :measured_at => analysis_on )
+        # product.indicator_data.create!(:indicator => "protein_matters_concentration", :value => r.analysis_quality_indicator_mp ,:measure_unit => "gram_per_liter", :measured_at => analysis_on )
+        # product.indicator_data.create!(:indicator => "cells_concentration", :value => r.analysis_quality_indicator_cellules ,:measure_unit => "thousands_per_milliliter", :measured_at => analysis_on )
+        # product.indicator_data.create!(:indicator => "clostridial_spores_concentration", :value => r.analysis_quality_indicator_buty ,:measure_unit => "unities_per_liter", :measured_at => analysis_on )
+        # product.indicator_data.create!(:indicator => "freezing_point_temperature", :value => r.analysis_quality_indicator_cryo ,:measure_unit => "celsius", :measured_at => analysis_on )
+        # product.indicator_data.create!(:indicator => "lipolysis", :value => r.analysis_quality_indicator_lipo ,:measure_unit => "thousands_per_hectogram", :measured_at => analysis_on )
+        # product.indicator_data.create!(:indicator => "immunoglobulins_concentration", :value => r.analysis_quality_indicator_igg ,:measure_unit => "unities_per_liter", :measured_at => analysis_on )
+        # product.indicator_data.create!(:indicator => "urea_concentration", :value => r.analysis_quality_indicator_uree , :measure_unit => "milligram_per_liter", :measured_at => analysis_on )
+#         
+        product.is_measured!(:total_bacteria_concentration, r.analysis_quality_indicator_germes.thousand_per_milliliter, :at => analysis_on)
+        product.is_measured!(:inhibitors_presence, r.analysis_quality_indicator_inhib, :at => analysis_on)
+        product.is_measured!(:fat_matters_concentration, r.analysis_quality_indicator_mg.gram_per_liter, :at => analysis_on)
+        product.is_measured!(:protein_matters_concentration, r.analysis_quality_indicator_mp.gram_per_liter, :at => analysis_on)
+        product.is_measured!(:cells_concentration, r.analysis_quality_indicator_cellules.thousand_per_milliliter, :at => analysis_on)
+        product.is_measured!(:clostridial_spores_concentration, r.analysis_quality_indicator_buty.unity_per_liter, :at => analysis_on)
+        product.is_measured!(:freezing_point_temperature, r.analysis_quality_indicator_cryo.celsius, :at => analysis_on)
+        product.is_measured!(:lipolysis, r.analysis_quality_indicator_lipo.thousand_per_hectogram, :at => analysis_on)
+        product.is_measured!(:immunoglobulins_concentration, r.analysis_quality_indicator_igg.unity_per_liter, :at => analysis_on)
+        product.is_measured!(:urea_concentration, r.analysis_quality_indicator_uree.milligram_per_liter, :at => analysis_on)
+        
         print "."
       end
       puts "!"
@@ -1145,15 +1157,17 @@ namespace :db do
        fertilizer_product = Product.find_by_variant_id(fertilizer_product_nature_variant.id)
        fertilizer_product_prev = Product.where("name LIKE 'AMMO%'").first
        # set indicator on product for fertilization
-       for attributes in [{:indicator => "nitrogen_concentration", :value => "27.00"},
-                          {:indicator => "potassium_concentration", :value => "33.30"},
-                          {:indicator => "phosphorus_concentration", :value => "33.30"}
-                            ]
 
-       fertilizer_product.indicator_data.create!({:measure_unit => "kilograms_per_hectogram", :measured_at => Time.now }.merge(attributes))
-       fertilizer_product_prev.indicator_data.create!({:measure_unit => "kilograms_per_hectogram", :measured_at => Time.now }.merge(attributes))
-
-       end
+       #fertilizer_product.indicator_data.create!({:measure_unit => "kilograms_per_hectogram", :measured_at => Time.now }.merge(attributes))
+       #fertilizer_product_prev.indicator_data.create!({:measure_unit => "kilograms_per_hectogram", :measured_at => Time.now }.merge(attributes))
+        
+       fertilizer_product.is_measured!(:nitrogen_concentration, 27.00.kilogram_per_hectogram, :at => Time.now)
+       fertilizer_product.is_measured!(:potassium_concentration, 33.00.kilogram_per_hectogram, :at => Time.now)
+       fertilizer_product.is_measured!(:phosphorus_concentration, 33.00.kilogram_per_hectogram, :at => Time.now)
+       fertilizer_product_prev.is_measured!(:nitrogen_concentration, 27.00.kilogram_per_hectogram, :at => Time.now)
+       fertilizer_product_prev.is_measured!(:potassium_concentration, 33.00.kilogram_per_hectogram, :at => Time.now)
+       fertilizer_product_prev.is_measured!(:phosphorus_concentration, 33.00.kilogram_per_hectogram, :at => Time.now)
+       
 
        production = Production.find_by_product_nature_id_and_campaign_id(sole_ble_nature.id,campaign.id)
 
