@@ -6,3 +6,9 @@
     =attributes_list(@incident) do |l|
       -l.attribute :name
       -l.attribute :target, :url => true
+
+  -b.tabbox do
+    -b.cell(:procedures) do
+      =toolbar do |t|
+        -t.new(:params =>{:controller => :procedures, :incident_id => @incident.id})
+      =list(:procedure)

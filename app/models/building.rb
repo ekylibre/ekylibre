@@ -82,6 +82,24 @@ class Building < ProductGroup
     where("(product_id = ? AND reservoir = ?) OR reservoir = ?", product.id, true, false)
   }
 
+  # Add a member to the group
+  def add(member, started_at = nil)
+    raise ArgumentError.new("BuildingDivision expected, got #{member.class}:#{member.inspect}") unless member.is_a?(BuildingDivision)
+    super(member, started_at)
+  end
+
+  # Remove a member from the group
+  def remove(member, stopped_at = nil)
+    raise ArgumentError.new("BuildingDivision expected, got #{member.class}:#{member.inspect}") unless member.is_a?(BuildingDivision)
+    super(member, stopped_at)
+  end
+
+
+  # Returns members of the group at a given time (or now by default)
+  def members_at(viewed_at = nil)
+    BuildingDivision.members_of(self, viewed_at || Time.now)
+  end
+
   validate do
     # TODO: Describe errors more precisely
     # if self.parent

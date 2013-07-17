@@ -1,0 +1,9 @@
+====== Ilôts ======
+
+Vous avez accès au récapitulatif de tous vos ilôts.
+
+Les ilôts réprésentent le regroupement d'une ou plusieurs parcelles contiguës.
+
+!!! Un ilôt comporte une ou plusieurs [[>backend/land_parcels|parcelles]].
+
+

@@ -1,17 +1,6 @@
-====== Comment gérer ses stocks ? ======
+====== Bâtiments ======
 
-Vous avez accès au récapitulatif de certaines informations concernant vos lieux de stockage. **Un réservoir est un lieu de stockage ne pouvant contenir qu'un seul produit à la fois** (ex: une cuve de carburant, de vin)
+Vous avez accès au récapitulatif de certaines informations concernant vos bâtiments. 
 
-L'affichage d'un lieu de stockage/réservoir permet de consulter les mouvements de stocks. Les **mouvements de stocks** permettent de faire l'inventaire comptable permanent qui est est une organisation des comptes de stocks  permettant de connaître de façon constante, en cours d'exercice, les existants chiffrés en quantités et en valeur.
-
-
-===== Détails d'un lieu de stockage =====
-
-Vous avez accès au récapitulatif de toutes les informations concernant votre lieu de stockage. Les **mouvements de stocks** permettent de faire l'inventaire comptable permanent qui est est une organisation des comptes de stocks permettant de connaître de façon constante, en cours d'exercice, les existants chiffrés en quantités et en valeur.
-
-Lors de **ventes**, **d'achats**, d'**expeditions de livraisons**, de **réception d'achats**, des mouvements de stocks sont **créés automatiquement**.
-
-Pour créer un nouveau lieu de stockage, il vous suffit de renseigner les différents paramètres qui vous sont demandés. 
-
-**Si vous créez un réservoir, vous devrez également sélectionnez le produit contenu** ansi que sa quantité maximum.
-
+!!! Un bâtiment est implanté sur une [[>backend/settlements|emprise primaire]].
+!!! Un bâtiment est divisé en une ou plusieurs [[>backend/building_divisions|zones]].

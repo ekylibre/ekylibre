@@ -1,5 +1,6 @@
 Ekylibre::Application.routes.draw do
 
+
   # Authentication
   # namespace :authentication do
   #   resource :session, :only => [:new, :create, :destroy] do
@@ -198,7 +199,14 @@ Ekylibre::Application.routes.draw do
     resources :buildings do
       collection do
         get :list
-        get :list_products
+        get :list_building_division
+        unroll_all
+      end
+    end
+
+    resources :building_divisions do
+      collection do
+        get :list
         unroll_all
       end
     end
@@ -370,6 +378,7 @@ Ekylibre::Application.routes.draw do
     resources :incidents do
       collection do
         get :list
+        get :list_procedure
         unroll_all
       end
     end
@@ -615,6 +624,9 @@ Ekylibre::Application.routes.draw do
     resources :plants do
       collection do
         get :list
+        get :list_indicator
+        get :list_incident
+        get :list_place
         unroll_all
       end
     end

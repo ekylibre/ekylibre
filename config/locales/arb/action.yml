@@ -68,6 +68,7 @@ arb:
       new: "الاشارة لكشف حساب جديد"
       point: "رقم اعداد البيان%{number} من %{cash}"
       show: "رقم كشف الحساب%{number}"
+    backend/building_divisions: #?
     backend/buildings:
       edit: "تعديل موقع التخزين"
       index: "مواقع التخزين"
@@ -865,6 +866,7 @@ arb:
     # add_production: "Ajouter une production"
     # add_quickly_an_item: "Ajouter rapidement une ligne de produit"
     # add_subscription_for_sale_line: "Ajouter un abonnement pour la ligne N°%{position}"
+    # add_support: "Ajouter un support de production"
     # add_treatment: "Ajouter un traitement"
     # add_watching: "Ajouter un produit de référence"
     # add_website: "Ajouter un site Web"
@@ -1491,6 +1493,7 @@ arb:
     print_on: "ال"
     # print_with_template: "Imprimer %{name}"
     # procedure_natures: "Types de procédures"
+    # procedures: "Procédures"
     product: "المنتج"
     # product_bar: "Produit par catégories"
     product_category: "الفئة"
@@ -1692,6 +1695,7 @@ arb:
     # supplier_informations: "Informations fournisseur"
     supply: "التسليم"
     # support: "Support"
+    # supports: "Supports de production"
     synthesis: "تجميع الوثائق"
     # target: "Cible"
     tax_create: "اضافة ضريبة جديدة" #?

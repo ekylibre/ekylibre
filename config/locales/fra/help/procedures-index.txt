@@ -1,7 +1,9 @@
 ====== Procédures ======
 
-Les procédures permettent aux utilisateurs de saisir des opérations, évènements et indicateurs dans un cadre méthodologique et réglementaire.
+Les procédures permettent de saisir des opérations, évènements et indicateurs dans un cadre méthodologique et réglementaire.
 
-Elles utilisent diverses nomenclatures métiers et enregistrent les éléments de traçabilité précis lié aux produits
+Elles utilisent diverses nomenclatures métiers et enregistrent les éléments de traçabilité précis lié aux produits.
 
+!!! Une procédure s'effectue dans le cadre d'une [[>backend/productions|production]]
 
+>>> Ex : Semis de blé sur la parcelle culturale "Les gands pièces" dans le cadre de la production "Blé tendre 2013"

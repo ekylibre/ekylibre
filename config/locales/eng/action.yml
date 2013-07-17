@@ -63,6 +63,7 @@ eng:
       point: "Bank reconciliation with bank statement %{number}"
       show: "Account statement N°%{number}"
     backend/base: #?
+    backend/building_divisions: #?
     backend/buildings:
       edit: "Edit the building: %{name}"
       index: "Buildings"
@@ -780,6 +781,7 @@ eng:
     add_quickly_a_line: "Add quickly a line of product" #?
     # add_quickly_an_item: "Ajouter rapidement une ligne de produit"
     add_subscription_for_sale_line: "Add subscription for sale line #%{position}"
+    # add_support: "Ajouter un support de production"
     add_treatment: "Add treatment"
     # add_watching: "Ajouter un produit de référence"
     add_website: "Add website"
@@ -1366,6 +1368,7 @@ eng:
     print_on: "Print on"
     print_with_template: "Print %{name}"
     # procedure_natures: "Types de procédures"
+    # procedures: "Procédures"
     product: "Product"
     # product_bar: "Produit par catégories"
     product_category: "Product category"
@@ -1544,6 +1547,7 @@ eng:
     supplier_informations: "Supplier informations "
     supply: "Supply"
     # support: "Support"
+    # supports: "Supports de production"
     synthesis: "Synthesis Documents"
     target: "Target"
     # tax_declaration_create: "Ajouter une nouvelle déclaration"

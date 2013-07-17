@@ -105,7 +105,7 @@ class Production < Ekylibre::Record::Base
   end
 
   def name
-    tc('label.' + self.state, :identification => (self.activity.name + " " + self.campaign.name))
+    tc('label.' + self.state, :identification => (self.product_nature.name + " " + self.campaign.name))
    end
   alias :label :name
 

@@ -4,7 +4,7 @@
   =f.input :name
   =f.custom_fields
 
-=field_set(:animal_identification) do
+=field_set(:identification) do
   =f.input :work_number
   =f.input :born_at, :as => :date
   =f.referenced_association :owner, :selected => Entity.of_company

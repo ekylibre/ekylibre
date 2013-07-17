@@ -37,9 +37,10 @@ fra:
         origin: "Lieu de la première rencontre"
       equipment:
         born_at: "Mis en service le"
+        content_indicator: "Indicateur de mesure du réservoir"
+        content_indicator_unit: "Unité de mesure de l'indicateur"
         content_maximal_quantity: "Capacité maximale"
-        content_nature: "Produit contenu"
-        content_unit: "Unité"
+        content_nature: "Type de produit contenu"
         dead_at: "Mis au rebut le"
         parent_place: "Lieu de parking"
         variety: "Marque"
@@ -93,6 +94,8 @@ fra:
         nature: "Nature de la culture"
         reproductor: "Multiplication"
         variety: "Variété"
+      procedure:
+        provisional: "Prévisionnel"
       product_indicator_datum:
         indicator: "Indicateur"
       product_localization:
@@ -138,6 +141,9 @@ fra:
         second_building: "Lieu de stockage d’arrivée"
       production:
         product_nature: "Produit de référence"
+        static_support: "Support de production"
+      production_support:
+        storage: "Support"
       profession:
         employees: "Employés"
       purchase:

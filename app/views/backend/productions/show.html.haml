@@ -5,3 +5,12 @@
   -b.cell do
     =attributes_list(@production) do |l|
       -l.attribute :name
+      -l.attribute :state
+      -l.attribute :campaign
+      -l.attribute :activity
+
+  -b.tabbox do
+    -b.cell(:supports) do
+      =list(:support)
+    -b.cell(:procedures) do
+      =list(:procedure)

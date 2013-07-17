@@ -109,12 +109,13 @@ class Procedure < Ekylibre::Record::Base
 
   # Reference
   def reference
-    ref.hash[self.uid]
+  #  ref.hash[self.uid]
+  self.nomen
   end
 
   # Main reference
   def ref
-    Procedures[self.root.nomen.to_s]
+    Procedures[self.nomen.to_s]
   end
 
   # Returns variable names
@@ -123,7 +124,8 @@ class Procedure < Ekylibre::Record::Base
   end
 
   def name
-    self.root.reference.hash[self.uid].human_name
+    #self.reference.hash[self.nomen].human_name
+    self.nomen
   end
 
   # Return the next procedure (depth course)

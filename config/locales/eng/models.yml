@@ -56,9 +56,10 @@ eng:
         duration: "Duration by default (in min.)" #?
       equipment:
         # born_at: "Mis en service le"
+        # content_indicator: "Indicateur de mesure du réservoir"
+        # content_indicator_unit: "Unité de mesure de l'indicateur"
         # content_maximal_quantity: "Capacité maximale"
-        # content_nature: "Produit contenu"
-        # content_unit: "Unité"
+        # content_nature: "Type de produit contenu"
         # dead_at: "Mis au rebut le"
         # parent_place: "Lieu de parking"
         uses: "Tool uses" #?
@@ -132,6 +133,8 @@ eng:
       price:  #?
         category: "People category" #?
         entity: "Supplier" #?
+      procedure:
+        # provisional: "Prévisionnel"
       product:  #?
         race: "Race" #?
       product_category:  #?
@@ -193,6 +196,9 @@ eng:
       product_variety: #?
       production:
         # product_nature: "Produit de référence"
+        # static_support: "Support de production"
+      production_support:
+        # storage: "Support"
       products_nature:  #?
         duration: "Quantity OR period" #?
         price: "Cost price" #?

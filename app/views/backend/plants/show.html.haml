@@ -13,6 +13,17 @@
     -if @plant.picture.exists?
       =image_tag(@plant.picture.url(:thumb))
 
+
+  -b.tabbox do
+    -b.cell(:incidents) do
+      =toolbar do |t|
+        -t.new(:params =>{:controller => :incidents, :target_id => @plant.id, :target_type => @plant.class.name})
+      =list(:incident)
+    -b.cell(tl(:x_indicators, :count => @plant.indicator_data.count)) do
+      =list(:indicator)
+    -b.cell(:places) do
+      =list(:place)
+
   -b.tabbox do
     -b.cell(:picture) do
       -if @plant.picture.exists?

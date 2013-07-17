@@ -558,27 +558,6 @@
         <page to="backend/equipments#show"/>
         <page to="backend/equipments#update"/>
       </item>
-      <item name="buildings">
-        <page to="backend/buildings#index"/>
-        <page to="backend/buildings#create"/>
-        <page to="backend/buildings#destroy"/>
-        <page to="backend/buildings#edit"/>
-        <page to="backend/buildings#list"/>
-        <page to="backend/buildings#new"/>
-        <page to="backend/buildings#show"/>
-        <page to="backend/buildings#update"/>
-      </item>
-      <item name="settlements">
-        <page to="backend/settlements#index"/>
-        <page to="backend/settlements#create"/>
-        <page to="backend/settlements#destroy"/>
-        <page to="backend/settlements#edit"/>
-        <page to="backend/settlements#list"/>
-        <page to="backend/settlements#list_operations"/>
-        <page to="backend/settlements#new"/>
-        <page to="backend/settlements#show"/>
-        <page to="backend/settlements#update"/>
-      </item>
     </group>
   </module>
   <module name="tools" icon="magic">
@@ -974,6 +953,37 @@
         <page to="backend/campaigns#show"/>
         <page to="backend/campaigns#update"/>
       </item>
+      <item name="buildings">
+        <page to="backend/buildings#index"/>
+        <page to="backend/buildings#create"/>
+        <page to="backend/buildings#destroy"/>
+        <page to="backend/buildings#edit"/>
+        <page to="backend/buildings#list"/>
+        <page to="backend/buildings#new"/>
+        <page to="backend/buildings#show"/>
+        <page to="backend/buildings#update"/>
+      </item>
+      <item name="building_divisions">
+        <page to="backend/building_divisions#index"/>
+        <page to="backend/building_divisions#create"/>
+        <page to="backend/building_divisions#destroy"/>
+        <page to="backend/building_divisions#edit"/>
+        <page to="backend/building_divisions#list"/>
+        <page to="backend/building_divisions#new"/>
+        <page to="backend/building_divisions#show"/>
+        <page to="backend/building_divisions#update"/>
+      </item>
+      <item name="settlements">
+        <page to="backend/settlements#index"/>
+        <page to="backend/settlements#create"/>
+        <page to="backend/settlements#destroy"/>
+        <page to="backend/settlements#edit"/>
+        <page to="backend/settlements#list"/>
+        <page to="backend/settlements#list_operations"/>
+        <page to="backend/settlements#new"/>
+        <page to="backend/settlements#show"/>
+        <page to="backend/settlements#update"/>
+      </item>
     </group>
   </module>
   <undefined-module>
@@ -986,6 +996,9 @@
       </item>
       <item name="animals">
         <page to="backend/animals#list_incident"/>
+      </item>
+      <item name="buildings">
+        <page to="backend/buildings#list_building_division"/>
       </item>
       <item name="bank_chart_cells">
         <page to="backend/cells/bank_chart_cells#show"/>
@@ -1005,12 +1018,15 @@
       <item name="expense_chart_cells">
         <page to="backend/cells/expense_chart_cells#show"/>
       </item>
+      <item name="last_events_cells">
+        <page to="backend/cells/last_events_cells#list"/>
+        <page to="backend/cells/last_events_cells#show"/>
+      </item>
       <item name="last_milk_result_cells">
         <page to="backend/cells/last_milk_result_cells#list"/>
         <page to="backend/cells/last_milk_result_cells#show"/>
       </item>
       <item name="last_procedures_cells">
-        <page to="backend/cells/last_procedures_cells#list"/>
         <page to="backend/cells/last_procedures_cells#show"/>
       </item>
       <item name="last_products_cells">
@@ -1052,6 +1068,9 @@
       </item>
       <item name="entities">
         <page to="backend/entities#list_meeting_participations"/>
+      </item>
+      <item name="incidents">
+        <page to="backend/incidents#list_procedure"/>
       </item>
       <item name="incoming_delivery_items">
         <page to="backend/incoming_delivery_items#new"/>
@@ -1128,6 +1147,9 @@
         <page to="backend/organic_matters#update"/>
       </item>
       <item name="plants">
+        <page to="backend/plants#list_incident"/>
+        <page to="backend/plants#list_indicator"/>
+        <page to="backend/plants#list_place"/>
         <page to="backend/plants#picture"/>
       </item>
       <item name="procedures">
@@ -1213,6 +1235,8 @@
       </item>
       <item name="productions">
         <page to="backend/productions#fertilization"/>
+        <page to="backend/productions#list_procedure"/>
+        <page to="backend/productions#list_support"/>
       </item>
       <item name="professions">
         <page to="backend/professions#index"/>
