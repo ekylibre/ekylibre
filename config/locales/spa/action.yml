@@ -1346,6 +1346,7 @@ spa:
     print_on: "el"
     # print_with_template: "Imprimer %{name}"
     # procedure_natures: "Types de procédures"
+    # procedures: "Procédures"
     product: "Producto"
     # product_bar: "Produit par catégories"
     # product_category: "Produits"
@@ -1529,6 +1530,7 @@ spa:
     # supplier_informations: "Informations fournisseur"
     # supply: "Livraison"
     # support: "Support"
+    # supports: "Supports de production"
     synthesis: "Documentos de sintesis"
     # target: "Cible"
     tax_create: "Añadir una nueva tasa" #?

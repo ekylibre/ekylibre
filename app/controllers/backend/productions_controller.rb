@@ -43,13 +43,13 @@ class Backend::ProductionsController < BackendController
     #t.action :print, :if => 'RECORD.validated? '
     t.action :destroy, :if => 'RECORD.aborted? '
   end
-  
+
   # List supports for one production
   list(:support, :model => :production_supports, :conditions => [" production_id = ? ",['session[:current_production_id]']], :order => "created_at DESC") do |t|
     t.column :name, :through => :storage, :url => true
     t.column :created_at
   end
-  
+
   # List procedures for one production
   list(:procedure, :model => :procedures, :conditions => [" production_id = ? ",['session[:current_production_id]']], :order => "created_at DESC") do |t|
     #t.column :name
@@ -60,7 +60,7 @@ class Backend::ProductionsController < BackendController
     t.column :stopped_at
     t.column :provisional
   end
-  
+
 
   # Displays the main page with the list of productions.
   def index

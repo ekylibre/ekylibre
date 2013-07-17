@@ -2,52 +2,54 @@
 <nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
   <nomenclature name="indicators">
     <attributes>
-      <attribute name="type" type="choice" choices="string,decimal,boolean,choice,measure" required="true"/>
+      <attribute name="datatype" type="choice" choices="string,decimal,boolean,choice,measure,geometry" required="true"/>
+      <attribute name="interpolation" type="choice" choices="none,previous,nearest,linear,sine" default="last"/>
       <attribute name="unit" type="choice" nomenclature="units" required="false"/>
       <attribute name="choices" type="list" required="false"/>
     </attributes>
     <items>
-      <item name="temperature" type="measure" unit="celsius"/>
-      <item name="population" type="measure" unit="unity"/>
-      <item name="net_weight" type="measure" unit="kilogram"/>
-      <item name="net_volume" type="measure" unit="liter"/>
-      <item name="net_surperficial_area" type="measure" unit="square_meter"/>
-      <item name="usage_duration" type="measure" unit="hour"/>
-      <item name="weight" type="measure" unit="kilogram"/>
-      <item name="sowable" type="boolean"/>
-      <item name="in_production" type="boolean"/>
-      <item name="ground_appearance" type="choice" choices="covered,raw"/>
-      <item name="animal_life_state" type="choice" choices="first_growth,second_growth,aging"/>
-      <item name="mammalia_born_condition" type="choice" choices="without_help,few_help,great_help,caesarean,cutting_calf"/><!-- nomenclature EDE à terme -->
-      <item name="mammalia_twins_condition" type="choice" choices="none,twins,triplets"/><!-- nomenclature EDE à terme -->
-      <item name="mammalia_born_cycle" type="decimal" /><!-- nomenclature EDE à terme -->
-      <item name="mammalia_reproduction_method_embryo_transplant" type="boolean" /><!-- nomenclature EDE à terme -->
-      <item name="mammalia_reproduction_event_abortion" type="boolean" /><!-- nomenclature EDE à terme -->
-      <item name="mammalia_reproduction_state" type="choice" choices="back_heat,heat,pregnancy"/>
-      <item name="mammalia_lactation_state" type="choice" choices="lactation,depletion"/>
-      <item name="animal_disease_state" type="choice" choices="healthy,sick"/>
-      <item name="plant_life_state" type="choice" choices="germination,tillering,bolting,maturity,senescence"/>
-      <item name="plant_reproduction_state" type="choice" choices="swelling,heading,flowering,grain_maturity,grain_senescence"/>
+      <item name="temperature" datatype="measure" unit="celsius"/>
+      <item name="population" datatype="measure" unit="unity"/>
+      <item name="net_weight" datatype="measure" unit="kilogram"/>
+      <item name="net_volume" datatype="measure" unit="liter"/>
+      <item name="net_surperficial_area" datatype="measure" unit="square_meter"/>
+      <item name="shape" datatype="geometry"/>
+      <item name="usage_duration" datatype="measure" unit="hour"/>
+      <item name="weight" datatype="measure" unit="kilogram"/>
+      <item name="sowable" datatype="boolean"/>
+      <item name="in_production" datatype="boolean"/>
+      <item name="ground_appearance" datatype="choice" choices="covered,raw"/>
+      <item name="animal_life_state" datatype="choice" choices="first_growth,second_growth,aging"/>
+      <item name="mammalia_born_condition" datatype="choice" choices="without_help,few_help,great_help,caesarean,cutting_calf"/><!-- nomenclature EDE à terme -->
+      <item name="mammalia_twins_condition" datatype="choice" choices="none,twins,triplets"/><!-- nomenclature EDE à terme -->
+      <item name="mammalia_born_cycle" datatype="decimal" /><!-- nomenclature EDE à terme -->
+      <item name="mammalia_reproduction_method_embryo_transplant" datatype="boolean" /><!-- nomenclature EDE à terme -->
+      <item name="mammalia_reproduction_event_abortion" datatype="boolean" /><!-- nomenclature EDE à terme -->
+      <item name="mammalia_reproduction_state" datatype="choice" choices="back_heat,heat,pregnancy"/>
+      <item name="mammalia_lactation_state" datatype="choice" choices="lactation,depletion"/>
+      <item name="animal_disease_state" datatype="choice" choices="healthy,sick"/>
+      <item name="plant_life_state" datatype="choice" choices="germination,tillering,bolting,maturity,senescence"/>
+      <item name="plant_reproduction_state" datatype="choice" choices="swelling,heading,flowering,grain_maturity,grain_senescence"/>
       <!-- for milk analysis -->
-      <item name="total_bacteria_concentration" type="measure" unit="thousands_per_milliliter"/>
-      <item name="inhibitors_presence" type="choice" choices="negative,positive"/>
-      <item name="fat_matters_concentration" type="measure" unit="gram_per_liter"/>
-      <item name="protein_matters_concentration" type="measure" unit="gram_per_liter"/>
-      <item name="cells_concentration" type="measure" unit="thousands_per_milliliter"/>
-      <item name="clostridial_spores_concentration" type="measure" unit="unities_per_liter"/>
-      <item name="freezing_point_temperature" type="measure" unit="celsius"/>
-      <item name="lipolysis" type="measure" unit="thousands_eq_per_hundred_gram"/>
-      <item name="immunoglobulins_concentration" type="measure" unit="unities_per_liter"/>
-      <item name="urea_concentration" type="measure" unit="milligram_per_liter"/>
+      <item name="total_bacteria_concentration" datatype="measure" unit="thousands_per_milliliter"/>
+      <item name="inhibitors_presence" datatype="choice" choices="negative,positive"/>
+      <item name="fat_matters_concentration" datatype="measure" unit="gram_per_liter"/>
+      <item name="protein_matters_concentration" datatype="measure" unit="gram_per_liter"/>
+      <item name="cells_concentration" datatype="measure" unit="thousands_per_milliliter"/>
+      <item name="clostridial_spores_concentration" datatype="measure" unit="unities_per_liter"/>
+      <item name="freezing_point_temperature" datatype="measure" unit="celsius"/>
+      <item name="lipolysis" datatype="measure" unit="thousands_eq_per_hundred_gram"/>
+      <item name="immunoglobulins_concentration" datatype="measure" unit="unities_per_liter"/>
+      <item name="urea_concentration" datatype="measure" unit="milligram_per_liter"/>
       <!-- for genetic animal's reproduction  -->
-      <item name="isu" type="measure" unit="unity"/>
-      <item name="inel" type="measure" unit="unity"/>
-      <item name="tp" type="measure" unit="unity"/>
-      <item name="tb" type="measure" unit="unity"/>
+      <item name="isu" datatype="measure" unit="unity"/>
+      <item name="inel" datatype="measure" unit="unity"/>
+      <item name="tp" datatype="measure" unit="unity"/>
+      <item name="tb" datatype="measure" unit="unity"/>
       <!-- for fertilization plant's -->
-      <item name="nitrogen_concentration" type="measure" unit="kilograms_per_hectogram"/>
-      <item name="potassium_concentration" type="measure" unit="kilograms_per_hectogram"/>
-      <item name="phosphorus_concentration" type="measure" unit="kilograms_per_hectogram"/>
+      <item name="nitrogen_concentration" datatype="measure" unit="kilograms_per_hectogram"/>
+      <item name="potassium_concentration" datatype="measure" unit="kilograms_per_hectogram"/>
+      <item name="phosphorus_concentration" datatype="measure" unit="kilograms_per_hectogram"/>
     </items>
   </nomenclature>
 </nomenclatures>

@@ -9,7 +9,15 @@ module Nomen
   # This class represent a nomenclature
   class Nomenclature
 
-    attr_reader :items, :name
+    attr_reader :attributes, :items, :name
+
+    # Instanciate a new nomenclature
+    def initialize(name)
+      @name = name
+      @items = HashWithIndifferentAccess.new
+      @attributes = HashWithIndifferentAccess.new
+    end
+
 
     def self.harvest(nomenclature_name, nomenclatures)
       sets = HashWithIndifferentAccess.new
@@ -34,19 +42,20 @@ module Nomen
     def harvest(nomenclature, sets, options = {})
       # puts "Harvest #{nomenclature.attr('name')}..."
       # Attributes
-      attributes = options[:attributes] || HashWithIndifferentAccess.new
+      # attributes = options[:attributes] || HashWithIndifferentAccess.new
       for attribute in nomenclature.xpath('xmlns:attributes/xmlns:attribute')
-        n = attribute.attr("name")
-        attributes[n] = attribute.attributes.inject(HashWithIndifferentAccess.new) do |h, pair|
-          h[pair[0]] = pair[1].to_s
-          h
-        end
+        add_attribute(attribute)
+        # n = attribute.attr("name")
+        # attributes[n] = attribute.attributes.inject(HashWithIndifferentAccess.new) do |h, pair|
+        #   h[pair[0]] = pair[1].to_s
+        #   h
+        # end
       end
       # Items
       for item in nomenclature.xpath('xmlns:items/xmlns:item')
-        i = self.add_item(item, :parent => options[:parent], :attributes => attributes)
+        i = self.add_item(item, :parent => options[:parent]) # , :attributes => attributes
         if sets[i.name]
-          self.harvest(sets[i.name], sets, :parent => i, :attributes => attributes)
+          self.harvest(sets[i.name], sets, :parent => i) # , :attributes => attributes
         end
       end
       return self
@@ -59,15 +68,21 @@ module Nomen
       return i
     end
 
-    # Instanciate a new nomenclature
-    def initialize(name)
-      @name = name
-      @items = HashWithIndifferentAccess.new
+    # Add an attribute to the nomenclature
+    def add_attribute(element, options = {})
+      a = Attribute.new(self, element, options)
+      @attributes[a.name] = a
+      return a
     end
 
     # Return human name
     def human_name
       "nomenclatures.#{nomenclature.name}.name".t(:default => ["labels.#{name}".to_sym, name.humanize])
+    end
+
+    # Returns the given item
+    def [](item_name)
+      @items[item_name.to_sym]
     end
 
     # List all item names. Can filter on a given item name and its children
@@ -92,6 +107,11 @@ module Nomen
     # Return the Item for the given name
     def find(item_name)
       return @items[item_name]
+    end
+
+    # Returns Attribute descriptor
+    def method_missing(method_name)
+      @attributes[method_name]
     end
 
   end
@@ -140,7 +160,75 @@ module Nomen
       "nomenclatures.#{nomenclature.name}.items.#{name}".t(:default => ["items.#{name}".to_sym, "enumerize.#{nomenclature.name}.#{name}".to_sym, "labels.#{name}".to_sym, name.humanize])
     end
 
+    # Returns Attribute descriptor
+    def method_missing(method_name)
+      @attributes[method_name]
+    end
+
   end
+
+
+
+
+
+
+
+  class Attribute
+    attr_reader :nomenclature, :name, :type, :fallback
+
+    TYPES = [:choice, :list, :boolean, :string, :decimal]
+
+    # New item
+    def initialize(nomenclature, element, options = {})
+      @nomenclature = nomenclature
+      @name = element.attr("name").to_sym
+      @type = element.attr("type").to_sym
+      @fallback = element.attr("fallback").to_sym if element.has_attribute?("fallback")
+      @required = !!(element.attr("required").to_s == "true")
+      @inherit  = !!(element.attr("inherit").to_s == "true")
+      raise ArgumentError.new("Attribute #{@name} type is unknown") unless TYPES.include?(@type)
+      if @type == :choice or @type == :list
+        if element.has_attribute?("choices")
+          @choices = element.attr("choices").to_s.strip.split(/[\,\s]+/).map(&:to_sym)
+        elsif element.has_attribute?("nomenclature")
+          @choices = element.attr("nomenclature").to_s.strip.to_sym
+        elsif @type != :list
+          raise ArgumentError.new("[#{@nomenclature.name}] Attribute #{@name} must have choices or nomenclature attribute")
+        end
+      end
+    end
+
+    # Returns if attribute is required
+    def required?
+      @required
+    end
+
+    # Returns if attribute is required
+    def inherit?
+      @inherit
+    end
+
+    # Returns list of choices for a given attribute
+    def choices
+      if @choices.is_a?(Symbol)
+        return Nomen[@choices.to_s].all
+      else
+        return @choices || []
+      end
+    end
+
+    # Return human name of attribute
+    def human_name
+      "nomenclatures.#{nomenclature.name}.attributes.#{name}".t(:default => ["attributes.#{name}".to_sym, "enumerize.#{nomenclature.name}.#{name}".to_sym, "labels.#{name}".to_sym, name.humanize])
+    end
+
+  end
+
+
+
+
+
+
 
   @@list = HashWithIndifferentAccess.new
 

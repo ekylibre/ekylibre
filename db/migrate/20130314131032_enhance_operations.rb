@@ -58,6 +58,9 @@ class EnhanceOperations < ActiveRecord::Migration
     create_table :production_supports do |t|
       t.references :production, :null => false
       t.references :storage,    :null => false
+      t.datetime :started_at
+      t.datetime :stopped_at
+      t.boolean :exclusive, :null => false, :default => false
       t.stamps
     end
     add_stamps_indexes :production_supports

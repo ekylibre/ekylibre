@@ -1213,6 +1213,8 @@
       </item>
       <item name="productions">
         <page to="backend/productions#fertilization"/>
+        <page to="backend/productions#list_procedure"/>
+        <page to="backend/productions#list_support"/>
       </item>
       <item name="professions">
         <page to="backend/professions#index"/>

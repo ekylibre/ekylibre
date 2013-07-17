@@ -1409,26 +1409,28 @@ ActiveRecord::Schema.define(:version => 20130410143823) do
   add_index "procedures", ["updater_id"], :name => "index_procedures_on_updater_id"
 
   create_table "product_indicator_data", :force => true do |t|
-    t.integer  "product_id",                                                      :null => false
-    t.string   "indicator",                                                       :null => false
-    t.datetime "measured_at"
-    t.decimal  "decimal_value", :precision => 19, :scale => 4
-    t.decimal  "measure_value", :precision => 19, :scale => 4
-    t.string   "measure_unit"
+    t.integer  "product_id",                                                                                                     :null => false
+    t.string   "indicator",                                                                                                      :null => false
+    t.string   "indicator_datatype",                                                                                             :null => false
+    t.datetime "measured_at",                                                                                                    :null => false
+    t.decimal  "decimal_value",                                                :precision => 19, :scale => 4
+    t.decimal  "measure_value_value",                                          :precision => 19, :scale => 4
+    t.string   "measure_value_unit"
     t.text     "string_value"
-    t.boolean  "boolean_value",                                :default => false, :null => false
+    t.boolean  "boolean_value",                                                                               :default => false, :null => false
     t.string   "choice_value"
-    t.datetime "created_at",                                                      :null => false
-    t.datetime "updated_at",                                                      :null => false
+    t.datetime "created_at",                                                                                                     :null => false
+    t.datetime "updated_at",                                                                                                     :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                 :default => 0,     :null => false
+    t.integer  "lock_version",                                                                                :default => 0,     :null => false
+    t.spatial  "geometry_value",      :limit => {:srid=>0, :type=>"geometry"}
   end
 
   add_index "product_indicator_data", ["created_at"], :name => "index_product_indicator_data_on_created_at"
   add_index "product_indicator_data", ["creator_id"], :name => "index_product_indicator_data_on_creator_id"
   add_index "product_indicator_data", ["indicator"], :name => "index_product_indicator_data_on_indicator"
-  add_index "product_indicator_data", ["measure_unit"], :name => "index_product_indicator_data_on_measure_unit"
+  add_index "product_indicator_data", ["measured_at"], :name => "index_product_indicator_data_on_measured_at"
   add_index "product_indicator_data", ["product_id"], :name => "index_product_indicator_data_on_product_id"
   add_index "product_indicator_data", ["updated_at"], :name => "index_product_indicator_data_on_updated_at"
   add_index "product_indicator_data", ["updater_id"], :name => "index_product_indicator_data_on_updater_id"
@@ -1778,12 +1780,12 @@ ActiveRecord::Schema.define(:version => 20130410143823) do
 
   create_table "products", :force => true do |t|
     t.string   "type"
-    t.string   "name",                                                                                                                :null => false
-    t.string   "number",                                                                                                              :null => false
-    t.boolean  "active",                                                                                           :default => false, :null => false
-    t.string   "variety",                  :limit => 127,                                                                             :null => false
-    t.integer  "variant_id",                                                                                                          :null => false
-    t.integer  "nature_id",                                                                                                           :null => false
+    t.string   "name",                                                                                      :null => false
+    t.string   "number",                                                                                    :null => false
+    t.boolean  "active",                                                                 :default => false, :null => false
+    t.string   "variety",                  :limit => 127,                                                   :null => false
+    t.integer  "variant_id",                                                                                :null => false
+    t.integer  "nature_id",                                                                                 :null => false
     t.integer  "tracking_id"
     t.integer  "asset_id"
     t.datetime "born_at"
@@ -1793,27 +1795,26 @@ ActiveRecord::Schema.define(:version => 20130410143823) do
     t.string   "picture_content_type"
     t.integer  "picture_file_size"
     t.datetime "picture_updated_at"
-    t.boolean  "external",                                                                                         :default => false, :null => false
-    t.integer  "owner_id",                                                                                                            :null => false
+    t.boolean  "external",                                                               :default => false, :null => false
+    t.integer  "owner_id",                                                                                  :null => false
     t.string   "sex"
     t.string   "identification_number"
     t.string   "work_number"
-    t.boolean  "reproductor",                                                                                      :default => false, :null => false
+    t.boolean  "reproductor",                                                            :default => false, :null => false
     t.integer  "father_id"
     t.integer  "mother_id"
     t.integer  "address_id"
-    t.boolean  "reservoir",                                                                                        :default => false, :null => false
+    t.boolean  "reservoir",                                                              :default => false, :null => false
     t.integer  "content_nature_id"
     t.string   "content_indicator"
     t.string   "content_indicator_unit"
-    t.decimal  "content_maximal_quantity",                                          :precision => 19, :scale => 4, :default => 0.0,   :null => false
+    t.decimal  "content_maximal_quantity",                :precision => 19, :scale => 4, :default => 0.0,   :null => false
     t.integer  "parent_id"
-    t.datetime "created_at",                                                                                                          :null => false
-    t.datetime "updated_at",                                                                                                          :null => false
+    t.datetime "created_at",                                                                                :null => false
+    t.datetime "updated_at",                                                                                :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                                                                     :default => 0,     :null => false
-    t.spatial  "shape",                    :limit => {:srid=>0, :type=>"geometry"}
+    t.integer  "lock_version",                                                           :default => 0,     :null => false
   end
 
   add_index "products", ["address_id"], :name => "index_products_on_address_id"

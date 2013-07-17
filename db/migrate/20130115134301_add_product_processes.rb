@@ -34,13 +34,15 @@ class AddProductProcesses< ActiveRecord::Migration
     # add_index :product_indicator_choices, :indicator_id
 
     create_table :product_indicator_data do |t|
-      t.references :product,   :null => false
-      t.string     :indicator, :null => false
-      t.datetime   :measured_at
-      # t.text       :comment
+      t.references :product,            :null => false
+      t.string     :indicator,          :null => false
+      t.string     :indicator_datatype, :null => false
+      t.datetime   :measured_at,        :null => false
+
+      t.geometry   :geometry_value
       t.decimal    :decimal_value,   :precision => 19, :scale => 4
-      t.decimal    :measure_value,   :precision => 19, :scale => 4
-      t.string     :measure_unit      # Needed for historic
+      t.decimal    :measure_value_value,   :precision => 19, :scale => 4
+      t.string     :measure_value_unit      # Needed for historic
       t.text       :string_value
       t.boolean    :boolean_value, :null => false, :default => false
       t.string     :choice_value
@@ -49,7 +51,7 @@ class AddProductProcesses< ActiveRecord::Migration
     add_stamps_indexes :product_indicator_data
     add_index :product_indicator_data, :product_id
     add_index :product_indicator_data, :indicator
-    add_index :product_indicator_data, :measure_unit
+    add_index :product_indicator_data, :measured_at
 
     create_table :product_process_phases do |t|
       t.references :process, :null => false

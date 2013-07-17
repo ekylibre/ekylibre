@@ -320,6 +320,8 @@
 # - "backend/production_supports#show"
 # - "backend/production_supports#update"
 # - "backend/productions#fertilization"
+# - "backend/productions#list_procedure"
+# - "backend/productions#list_support"
 # - "backend/products#create"
 # - "backend/products#destroy"
 # - "backend/products#edit"

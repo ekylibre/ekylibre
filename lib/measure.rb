@@ -1,90 +1,90 @@
- class Measure
-   attr_reader :value, :unit
+require 'nomen'
 
-   @@dimensions = {
-     :length=>{:ref=>:m},
-     :angle=>{:ref=>:rad},
-   }
+class Measure
+  attr_reader :value, :unit
+  cattr_reader :dimensions
 
-   @@units = {
-     :mm=>{:dimension=>:length, :factor=>0.001},
-     :cm=>{:dimension=>:length, :factor=>0.01},
-     :dm=>{:dimension=>:length, :factor=>0.1},
-     :m=> {:dimension=>:length, :factor=>1},
-     :km=>{:dimension=>:length, :factor=>1000},
-     :pt=>{:dimension=>:length, :factor=>0.0254/72},
-     :pc=>{:dimension=>:length, :factor=>0.0254/6},
-     :in=>{:dimension=>:length, :factor=>0.0254}, # 2.54cm
-     :ft=>{:dimension=>:length, :factor=>12*0.0254}, # 12 in
-     :yd=>{:dimension=>:length, :factor=>3*12*0.0254},  # 3 ft
-     :mi=>{:dimension=>:length, :factor=>1760*3*12*0.0254}, # 1760 yd
-     :gon=>{:dimension=>:angle, :factor=>Math::PI/200},
-     :deg=>{:dimension=>:angle, :factor=>Math::PI/180},
-     :rad=>{:dimension=>:angle, :factor=>1},
-   }
+  @@dimensions = Nomen::Dimensions
+  @@units = Nomen::Units
 
-   class << self
+  class << self
 
-     def units(dimension)
-       @@units.select{|k, v| v[:dimension]==dimension}.collect{|k, v| k}
-     end
+    def units(dimension = nil)
+      return @@units.all unless dimension
+      raise ArgumentError.new("Unknown dimension #{dimension.inspect}") unless @@dimensions.all.include?(dimension)
+      @@units.items.select do |i|
+        i.dimension == dimension
+      end.map(&:dimension)
+    end
 
-     def dimension(unit)
-       @@units[unit][:dimension]
-     end
-   end
+    def dimension(unit)
+      @@units.items[unit].dimension
+    end
+  end
 
+  def initialize(value, unit)
+    raise ArgumentError.new("Value can't be converted to float: #{value.inspect}") unless value.is_a? Numeric
+    @value = value.to_d
+    @unit = unit.to_sym
+    raise ArgumentError.new("Unknown unit: #{unit.inspect}") unless @@units.items[@unit]
+  end
 
-   def initialize(value, unit)
-     raise ArgumentError.new("Value can't be converted to float: #{value.inspect}") unless value.is_a? Numeric
-     raise ArgumentError.new("Unknown unit: #{unit.inspect}") unless @@units.keys.include? unit
-     @value = value.to_f
-     @unit = unit
-     return nil
-   end
+  def convert(unit)
+    Measure.new(self.to_d(unit), unit)
+  end
 
-   def to_m(unit)
-     Measure.new(self.to_f(unit), unit)
-   end
+  def inspect
+    "#{@value.inspect}#{@unit}"
+  end
 
-   def convert(unit)
-     self.to_m(unit)
-   end
+  def to_s
+    @value.to_d.to_s + @unit.to_s
+  end
 
-   def inspect
-     self.to_s
-   end
+  # Returns the dimension of a measure
+  def dimension
+    self.class.dimension(@unit)
+  end
 
-   def to_s
-     @value.to_f.to_s+@unit.to_s
-   end
+  # Returns the dimension of a measure
+  def +(measure)
+    raise ArgumentError.new("Only measure can be added to another measure") unless measure.is_a?(Measure)
+    self.class.new(@value + measure.to_d(@unit), @unit)
+  end
 
-   def dimension
-     self.class.dimension(@unit)
-   end
+  def -(measure)
+    raise ArgumentError.new("Only measure can be substracted to another measure") unless measure.is_a?(Measure)
+    self.class.new(@value - measure.to_d(@unit), @unit)
+  end
 
-   def +(measure)
-     @value += measure.to_f(@unit)
-   end
+  def to_d(unit = nil)
+    if unit.nil?
+      return @value
+    else
+      raise Exception.new("Unknown unit: #{unit.inspect}") unless @@units.all.include? unit
+      raise Exception.new("Measure can't be converted from one dimension (#{@@units[@unit].dimension}) to an other (#{@@units[unit].dimension})") if @@units[@unit].dimension != @@units[unit].dimension
+      value = @value
+      # Reduce to base
+      # Coeff to dest
+      return value
+    end
+  end
 
-   def -(measure)
-     @value -= measure.to_f(@unit)
-   end
+  # Return
+  def to_f
+    self.to_d.to_f
+  end
 
-   def to_f(unit=nil)
-     if unit.nil?
-       @value
-     else
-       raise Exception.new("Unknown unit: #{unit.inspect}") unless @@units.keys.include? unit
-       raise Exception.new("Measure can't be converted from one dimension (#{@@units[@unit][:dimension].inspect}) to an other (#{@@units[unit][:dimension].inspect})") if @@units[@unit][:dimension]!=@@units[unit][:dimension]
-       @value*@@units[@unit][:factor]/@@units[unit][:factor]
-     end
-   end
+end
 
- end
+class ::Numeric
 
+  eval(Measure.units.inject("") do |code, unit|
+         code << "def #{unit}\n"
+         code << "  Measure.new(self, :#{unit})\n"
+         code << "end\n"
+         code
+       end)
 
+end
 
- def Measure(value, unit)
-   ::Measure.new(value, unit)
- end

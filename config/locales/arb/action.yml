@@ -1491,6 +1491,7 @@ arb:
     print_on: "ال"
     # print_with_template: "Imprimer %{name}"
     # procedure_natures: "Types de procédures"
+    # procedures: "Procédures"
     product: "المنتج"
     # product_bar: "Produit par catégories"
     product_category: "الفئة"
@@ -1692,6 +1693,7 @@ arb:
     # supplier_informations: "Informations fournisseur"
     supply: "التسليم"
     # support: "Support"
+    # supports: "Supports de production"
     synthesis: "تجميع الوثائق"
     # target: "Cible"
     tax_create: "اضافة ضريبة جديدة" #?

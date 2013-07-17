@@ -2,8 +2,8 @@
 <nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
   <nomenclature name="document_natures">
     <attributes>
-      <attribute name="production_natures" type="list" source="production_natures"/>
-      <attribute name="management_aspects" type="list" source="management_aspects"/>
+      <attribute name="production_natures" type="list" nomenclature="production_natures"/>
+      <attribute name="management_aspects" type="list" nomenclature="management_aspects"/>
     </attributes>
     <items>
       <item name="sales_order" management_aspects="sales"/>
