@@ -32,7 +32,29 @@ class Backend::PlantsController < BackendController
     t.action :destroy, :if => :destroyable?
   end
 
-  # Show a list of animal groups
+  # Liste du lieu de la plante considérée
+  list(:place, :model => :product_localizations, :conditions => [" product_id = ? ",['session[:current_plant_id]']], :order => "started_at DESC") do |t|
+    t.column :name, :through => :container, :url => true
+    t.column :nature
+  end
+
+  # Liste des indicateurs de la plante considérée
+  list(:indicator, :model => :product_indicator_data, :conditions => [" product_id = ? ",['session[:current_plant_id]']], :order => "created_at DESC") do |t|
+    t.column :indicator
+    t.column :measured_at
+    t.column :value
+    t.column :measure_unit
+  end
+
+  # Liste des incidents de la plante considérée
+  list(:incident, :model => :incidents, :conditions => [" target_id = ? and target_type = 'Plant'",['session[:current_plant_id]']], :order => "observed_at DESC") do |t|
+    t.column :name, :url => true
+    t.column :nature
+    t.column :observed_at
+    t.column :gravity
+    t.column :priority
+    t.column :state
+  end
 
   def index
     @plants = Plant.all
@@ -47,7 +69,7 @@ class Backend::PlantsController < BackendController
     return unless @plant = find_and_check
     respond_to do |format|
       format.html do
-        session[:current_vegetal_id] = @plant.id
+        session[:current_plant_id] = @plant.id
         t3e @plant
       end
       format.xml {render xml: @plant }

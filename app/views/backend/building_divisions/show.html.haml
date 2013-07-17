@@ -1,0 +1,7 @@
+=main_toolbar do |t|
+  -t.edit @building_division
+
+=beehive do |b|
+  -b.cell do
+    =attributes_list(@building_division) do |l|
+      -l.attribute :name

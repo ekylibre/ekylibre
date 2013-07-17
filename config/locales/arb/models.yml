@@ -204,9 +204,10 @@ arb:
       equipment:
         # born_at: "Mis en service le"
         consumption: "(الاستهلاك (لتر / ساعة " #?
+        # content_indicator: "Indicateur de mesure du réservoir"
+        # content_indicator_unit: "Unité de mesure de l'indicateur"
         # content_maximal_quantity: "Capacité maximale"
-        # content_nature: "Produit contenu"
-        # content_unit: "Unité"
+        # content_nature: "Type de produit contenu"
         # dead_at: "Mis au rebut le"
         # parent_place: "Lieu de parking"
         text_nature: "طبيغة النص" #?
@@ -387,6 +388,8 @@ arb:
         product_id: "الانتاج" #?
         sales_invoice_items: "طرق تسدسد الفاتورة" #?
         started_at: "ابتدأ يوم\_" #?
+      procedure:
+        # provisional: "Prévisionnel"
       product:  #?
         active: "قبل للاستخدام" #?
         buildings: "اماكن التخزين" #?
@@ -516,6 +519,9 @@ arb:
       product_variety: #?
       production:
         # product_nature: "Produit de référence"
+        # static_support: "Support de production"
+      production_support:
+        # storage: "Support"
       products_nature:  #?
         active: "قبل للاستخدام" #?
         buildings: "اماكن التخزين" #?

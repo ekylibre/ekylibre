@@ -21,7 +21,7 @@ class Backend::ProceduresController < BackendController
 
   unroll_all
 
-  list :conditions => {:parent_id => nil} do |t|
+  list do |t|
     t.column :nomen, :url => true
     t.column :name, :through => :production, :url => true
     t.column :name, :through => :incident, :url => true
@@ -43,10 +43,6 @@ class Backend::ProceduresController < BackendController
   # Displays the page for one procedure
   def show
     return unless @procedure = find_and_check
-    unless @procedure.root?
-      redirect_to backend_procedure_url(@procedure.root)
-      return
-    end
     respond_to do |format|
       format.html { t3e(@procedure, :name => @procedure.name) }
       format.xml  { render :xml => @procedure }
@@ -60,7 +56,6 @@ class Backend::ProceduresController < BackendController
     #   redirect_to :action => :play, :id => @procedure.playing.id
     #   return
     # end
-    @root = @procedure.root.reference
     t3e @procedure, :name => @procedure.name
   end
 
@@ -95,7 +90,7 @@ class Backend::ProceduresController < BackendController
     elsif params[:redirect]
       redirect_to params[:redirect]
     else
-      redirect_to @procedure.root
+      redirect_to @procedure
     end
   end
 

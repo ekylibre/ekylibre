@@ -27,9 +27,16 @@ class Backend::BuildingsController < BackendController
     t.column :description
     # t.column :name, :through => :establishment
     # t.column :name, :through => :parent, :url => true
-    t.column :reservoir
+    #t.column :reservoir
     t.action :edit
     t.action :destroy
+  end
+
+    # Liste des animaux d'un groupe d'animaux considéré
+  list(:building_division, :model => :product_memberships, :conditions => [" group_id = ? ",['session[:current_building_id]']], :order => "started_at ASC") do |t|
+    t.column :name, :through => :member, :url => true
+    t.column :started_at
+    t.column :stopped_at
   end
 
   # Displays the main page with the list of buildings

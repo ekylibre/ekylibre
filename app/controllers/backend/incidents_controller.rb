@@ -9,6 +9,7 @@ class Backend::IncidentsController < BackendController
   list do |t|
     t.column :name, :url => true
     t.column :nature
+    t.column :observed_at
     #t.column :name, :through => :target, :url => true
     t.column :gravity
     t.column :priority
@@ -16,6 +17,16 @@ class Backend::IncidentsController < BackendController
     t.action :edit
     t.action :destroy, :if => :destroyable?
   end
+
+
+  list(:procedure, :model => :procedures, :conditions => [" incident_id = ? ",['session[:current_incident_id]']], :order => "created_at DESC") do |t|
+    t.column :nomen, :url => true
+    t.column :created_at
+    t.column :natures
+    t.column :state
+  end
+
+
 
   # Displays the main page with the list of incidents.
   def index

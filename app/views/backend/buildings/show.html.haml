@@ -1,7 +1,6 @@
 =main_toolbar do |t|
   -t.edit @building
 
-
 =beehive do |b|
   -b.cell :details do
     =attributes_list(@building) do |l|
@@ -11,13 +10,7 @@
       -#l.attribute :division
       -#l.attribute :subdivision
       -#l.attribute :subsubdivision
-      -#if @building.reservoir
-        -l.attribute :product, :label => :name, :url => true
-        -l.attribute :number
-        -l.attribute :quantity_max
 
-  -# b.tabbox do
-    -b.cell :stocks do
-      =list(:stocks)
-    -b.cell :stock_moves do
-      =list(:stock_moves)
+  -b.tabbox do
+    -b.cell :building_divisions do
+      =list(:building_division)

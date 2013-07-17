@@ -70,6 +70,7 @@ spa:
       point: "Despuntar el leventar N°%{number} du %{contado}"
       show: "Leventard de cuento N°%{number}"
     backend/base: #?
+    backend/building_divisions: #?
     backend/buildings:
       edit: "Modificacion de un lugar de deposito"
       index: "Lugar de deposito"
@@ -774,6 +775,7 @@ spa:
     # add_production: "Ajouter une production"
     # add_quickly_an_item: "Ajouter rapidement une ligne de produit"
     # add_subscription_for_sale_line: "Ajouter un abonnement pour la ligne N°%{position}"
+    # add_support: "Ajouter un support de production"
     # add_treatment: "Ajouter un traitement"
     # add_watching: "Ajouter un produit de référence"
     # add_website: "Ajouter un site Web"
@@ -1054,7 +1056,7 @@ spa:
       # one: "Temps d’utilisation total\_: %{count} heure"
       # other: "Temps d’utilisation total\_: %{count} heures"
     iban: "Numero de cuento bancario internacional (IBAN)"
-    # identification: "Nom et codes du produit"
+    # identification: "Identification"
     import: "Importación de un  fichero de salvaguardia"
     # import_backup: "Import de fichier de sauvegarde"
     # importation_explanation: "Pour confirmer l’importation, vous devez confirmer en cliquant sur Importer."

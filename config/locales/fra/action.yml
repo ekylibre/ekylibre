@@ -62,6 +62,11 @@ fra:
       new: "Pointer un nouveau relevé de compte"
       point: "Pointer le relevé N°%{number}"
       show: "Relevé de compte N°%{number}"
+    backend/building_divisions:
+      edit: "Modifier la zone\_: %{name}"
+      index: "Zones de bâtiments"
+      new: "Ajout d'une zone"
+      show: "Détail d'une zone\_: %{name}"
     backend/buildings:
       edit: "Modifier un bâtiment"
       index: "Bâtiments"
@@ -94,6 +99,8 @@ fra:
       # show: "Show backend/cells/demo pie cell"
     backend/cells/expense_chart_cells:
       # show: "Show backend/cells/expense chart cell"
+    backend/cells/last_events_cells:
+      # show: "Show backend/cells/last events cell"
     backend/cells/last_milk_result_cells:
       # show: "Show backend/cells/last milk result cell"
     backend/cells/last_procedures_cells:
@@ -602,6 +609,7 @@ fra:
     backend/areas: "Zones postales"
     backend/assets: "Immobilisations"
     backend/bank_statements: "Relevés de compte bancaire"
+    # backend/building_divisions: "Backend/building divisions"
     backend/buildings: "Installations"
     backend/campaigns: "Campagnes"
     backend/cash_transfers: "Virements internes"
@@ -612,6 +620,7 @@ fra:
     # backend/cells/demo_map_cells: "Backend/cells/demo map cells"
     # backend/cells/demo_pie_cells: "Backend/cells/demo pie cells"
     # backend/cells/expense_chart_cells: "Backend/cells/expense chart cells"
+    # backend/cells/last_events_cells: "Backend/cells/last events cells"
     # backend/cells/last_milk_result_cells: "Backend/cells/last milk result cells"
     # backend/cells/last_procedures_cells: "Backend/cells/last procedures cells"
     # backend/cells/last_products_cells: "Backend/cells/last products cells"
@@ -793,6 +802,7 @@ fra:
     add_production: "Ajouter une production"
     add_quickly_an_item: "Ajouter rapidement une ligne de produit"
     add_subscription_for_sale_line: "Ajouter un abonnement pour la ligne N°%{position}"
+    add_support: "Ajouter un support de production"
     add_treatment: "Ajouter un traitement"
     add_watching: "Ajouter un produit de référence"
     add_website: "Ajouter un site Web"
@@ -1061,7 +1071,7 @@ fra:
       one: "Temps d’utilisation total\_: %{count} heure"
       other: "Temps d’utilisation total\_: %{count} heures"
     iban: "Numéro de compte bancaire internationale (IBAN)"
-    identification: "Nom et codes du produit"
+    identification: "Identification"
     import: "Importer"
     import_backup: "Import de fichier de sauvegarde"
     importation_explanation: "Pour confirmer l’importation, vous devez confirmer en cliquant sur Importer."

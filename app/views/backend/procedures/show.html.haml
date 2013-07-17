@@ -4,13 +4,11 @@
 
 =beehive do |b|
   -b.tabbox do
-    -b.cell :operations do
+    -#b.cell :operations do
       =render :partial => @procedure, :locals => {:root => @procedure, :reference => @procedure.reference}
     -b.cell do
       =attributes_list(@procedure) do |l|
         -l.attribute :nomen
-        -l.attribute :version
         -l.attribute :state
-        -l.attribute :activity, :url => true
-        -l.attribute :campaign, :url => true
+        -l.attribute :production, :url => true
 

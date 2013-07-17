@@ -1,9 +1,9 @@
 ====== Cultures ======
 
-Vous avez accès au récapitulatifs de toutes vos cultures que vous avez enregistrés.
+Vous avez accès au récapitulatif de toutes vos cultures.
 
 Les conduites de cultures s'effectuent via des procédures.
 
-!!! Une culture s'implante sur une parcelle ou un support de culture.
+!!! Une culture s'implante sur une [[>backend/land_parcel_groups|parcelle culturale]].
 
 

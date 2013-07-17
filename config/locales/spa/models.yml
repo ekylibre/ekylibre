@@ -45,9 +45,10 @@ spa:
       entity_event_nature: #?
       equipment:
         # born_at: "Mis en service le"
+        # content_indicator: "Indicateur de mesure du réservoir"
+        # content_indicator_unit: "Unité de mesure de l'indicateur"
         # content_maximal_quantity: "Capacité maximale"
-        # content_nature: "Produit contenu"
-        # content_unit: "Unité"
+        # content_nature: "Type de produit contenu"
         # dead_at: "Mis au rebut le"
         # parent_place: "Lieu de parking"
         # variety: "Marque"
@@ -107,6 +108,8 @@ spa:
         # reproductor: "Multiplication"
         # variety: "Variété"
       price: #?
+      procedure:
+        # provisional: "Prévisionnel"
       product: #?
       product_category: #?
       product_indicator_datum:
@@ -159,6 +162,9 @@ spa:
       product_variety: #?
       production:
         # product_nature: "Produit de référence"
+        # static_support: "Support de production"
+      production_support:
+        # storage: "Support"
       products_nature: #?
       profession:
         # employees: "Employés"

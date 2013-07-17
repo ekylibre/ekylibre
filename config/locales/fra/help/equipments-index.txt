@@ -4,3 +4,8 @@ Vous avez le récapitulatif de tout **le matériel de production** que vous avez
 
 Vous avez la possibilité d'accéder au **détail** d'un matériel (temps d'utilisation, usages...) en cliquant sur son nom.
 
+===== Réservoir =====
+
+**Un réservoir est un lieu de stockage ne pouvant contenir qu'un seul type de produit à la fois** (ex: une cuve de carburant, de vin)
+
+**Si vous créez un réservoir, vous devrez également sélectionnez le type de produit contenu** ansi que sa quantité maximum.

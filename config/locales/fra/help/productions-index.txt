@@ -3,6 +3,8 @@
 ==== Qu'est ce qu'une production ? ====
 
 Un production est une intention de produire déclarée permettant de prévoir l'activité de l'exploitation en liant une activité,
-une campagne et un type de produit (optionnelement un lieu de production).
+une campagne et un type de produit et optionnelement un support de production ( parcelle culturale ).
+
+!!! Il faut obligatoirement une production pour pouvoir effectuer des [[>backend/procedures|procédures]].
 
 >>> Ex : Assolement des céréales pour la campagne 2013, Prévision de production de légumes, ...

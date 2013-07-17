@@ -4,7 +4,7 @@
   =f.input :variety
   =f.input :active, :hide => :dead_at
   =f.input :external, :show => :entity
-  =f.input :reservoir, :show => :stock
+  =f.input :reservoir#, :show => :reservoir
   =f.input :description, :field => :text # affiche le champ description
   =f.input :picture, :multiple => true
   =image_tag(@equipment.picture.url(:thumb)) if @equipment.picture.file?
@@ -17,7 +17,8 @@
 =field_set(:entity) do
   =f.referenced_association :owner
 
--#=field_set(:stock) do
-  =f.referenced_association :content_nature
-  =f.referenced_association :content_unit
+-#=field_set(:reservoir) do
+  =f.referenced_association :content_nature,:source => :stockables
+  =f.input :content_indicator
+  =f.input :content_indicator_unit
   =f.input :content_maximal_quantity

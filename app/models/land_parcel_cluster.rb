@@ -61,10 +61,9 @@
 
 
 class LandParcelCluster < LandParcelGroup
-  attr_accessible :born_at, :dead_at, :shape, :active, :external, :description, :name, :variety, :unit, :nature_id, :reproductor, :real_quantity, :parent_id, :memberships_attributes
+  attr_accessible :born_at, :dead_at, :shape, :active, :external, :description, :name, :variety, :nature_id, :reproductor, :parent_id, :memberships_attributes
 
   #belongs_to :parent, :class_name => "ProductGroup"
-
   default_scope -> { order(:name) }
   scope :groups_of, lambda { |member, viewed_at| where("id IN (SELECT group_id FROM #{ProductMembership.table_name} WHERE member_id = ? AND ? BETWEEN COALESCE(started_at, ?) AND COALESCE(stopped_at, ?))", member.id, viewed_at, viewed_at, viewed_at) }
 
