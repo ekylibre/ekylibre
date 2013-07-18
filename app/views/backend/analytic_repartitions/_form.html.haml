@@ -1,12 +1,10 @@
 =field_set do
-  =f.referenced_association :campaign
   =f.input :affected_on
   =f.referenced_association :journal_entry_item
   =f.input :state
 
 =field_set(:analytics) do
-  =f.referenced_association :activity
-  =f.referenced_association :product_nature
+  =f.referenced_association :production
   =f.input :percentage
   =f.input :description
 

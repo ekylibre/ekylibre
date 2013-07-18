@@ -50,7 +50,7 @@ class JournalEntryItem < Ekylibre::Record::Base
   belongs_to :journal, :inverse_of => :entry_items
   belongs_to :entry, :class_name => "JournalEntry", :inverse_of => :items
   belongs_to :bank_statement
-  has_many :repartitions, :class_name => "ActivityRepartition", :foreign_key => :journal_entry_item_id
+  has_many :repartitions, :class_name => "AnalyticRepartition", :foreign_key => :journal_entry_item_id
   delegate :original_currency, :to => :entry
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.

@@ -41,7 +41,7 @@ class Production < Ekylibre::Record::Base
   belongs_to :campaign
   belongs_to :product_nature
   # belongs_to :area_unit, :class_name => "Unit"
-  has_many :repartitions, :class_name => "ActivityRepartition"
+  has_many :repartitions, :class_name => "AnalyticRepartition"
   has_many :supports, :class_name => "ProductionSupport", :inverse_of => :production
   has_many :procedures, :class_name => "Procedure"
   has_many :variables, :through => :procedures, :class_name => "ProcedureVariable"

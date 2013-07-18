@@ -2,7 +2,7 @@
 module Ekylibre
   mattr_reader :models, :references
   # List of all models
-  @@models = [:account, :account_balance, :activity, :activity_repartition, :affair, :animal, :animal_group, :animal_medicine, :area, :asset, :asset_depreciation, :bank_statement, :bioproduct, :building, :building_division, :campaign, :cash, :cash_transfer, :custom_field, :custom_field_choice, :department, :deposit, :deposit_item, :district, :document, :document_archive, :document_template, :easement, :entity, :entity_address, :entity_link, :equipment, :establishment, :event, :financial_year, :fungus, :immatter, :incident, :incoming_delivery, :incoming_delivery_item, :incoming_delivery_mode, :incoming_payment, :incoming_payment_mode, :inventory, :inventory_item, :journal, :journal_entry, :journal_entry_item, :land_parcel, :land_parcel_cluster, :land_parcel_group, :legal_entity, :listing, :listing_node, :listing_node_item, :log, :mandate, :matter, :medicine, :meeting, :meeting_nature, :meeting_participation, :mineral_matter, :observation, :operation, :operation_task, :organic_matter, :outgoing_delivery, :outgoing_delivery_item, :outgoing_delivery_mode, :outgoing_payment, :outgoing_payment_mode, :person, :plant, :plant_medicine, :preference, :procedure, :procedure_variable, :product, :product_group, :product_indicator_datum, :product_link, :product_localization, :product_membership, :product_move, :product_nature, :product_nature_category, :product_nature_variant, :product_price, :product_price_listing, :product_price_template, :product_process, :product_process_phase, :production, :production_support, :profession, :property_title, :purchase, :purchase_item, :purchase_nature, :role, :sale, :sale_item, :sale_nature, :sequence, :service, :settlement, :sub_zone, :subscription, :subscription_nature, :tax, :tax_declaration, :tracking, :transfer, :transport, :user, :zone, :zone_property_title]
+  @@models = [:account, :account_balance, :activity, :affair, :analytic_repartition, :animal, :animal_group, :animal_medicine, :area, :asset, :asset_depreciation, :bank_statement, :bioproduct, :building, :building_division, :campaign, :cash, :cash_transfer, :custom_field, :custom_field_choice, :department, :deposit, :deposit_item, :district, :document, :document_archive, :document_template, :easement, :entity, :entity_address, :entity_link, :equipment, :establishment, :event, :financial_year, :fungus, :immatter, :incident, :incoming_delivery, :incoming_delivery_item, :incoming_delivery_mode, :incoming_payment, :incoming_payment_mode, :inventory, :inventory_item, :journal, :journal_entry, :journal_entry_item, :land_parcel, :land_parcel_cluster, :land_parcel_group, :legal_entity, :listing, :listing_node, :listing_node_item, :log, :mandate, :matter, :medicine, :meeting, :meeting_nature, :meeting_participation, :mineral_matter, :observation, :operation, :operation_task, :organic_matter, :outgoing_delivery, :outgoing_delivery_item, :outgoing_delivery_mode, :outgoing_payment, :outgoing_payment_mode, :person, :plant, :plant_medicine, :preference, :procedure, :procedure_variable, :product, :product_group, :product_indicator_datum, :product_link, :product_localization, :product_membership, :product_move, :product_nature, :product_nature_category, :product_nature_variant, :product_price, :product_price_listing, :product_price_template, :product_process, :product_process_phase, :production, :production_support, :profession, :property_title, :purchase, :purchase_item, :purchase_nature, :role, :sale, :sale_item, :sale_nature, :sequence, :service, :settlement, :sub_zone, :subscription, :subscription_nature, :tax, :tax_declaration, :tracking, :transfer, :transport, :user, :zone, :zone_property_title]
 
   # List of all references
   @@references = {
@@ -21,17 +21,15 @@ module Ekylibre
       :parent_id => :activity,
       :updater_id => :user
     },
-    :activity_repartition => {
-      :activity_id => :activity,
-      :campaign_id => :campaign,
-      :creator_id => :user,
-      :journal_entry_item_id => :journal_entry_item,
-      :product_nature_id => :product_nature,
-      :updater_id => :user
-    },
     :affair => {
       :creator_id => :user,
       :journal_entry_id => :journal_entry,
+      :updater_id => :user
+    },
+    :analytic_repartition => {
+      :creator_id => :user,
+      :journal_entry_item_id => :journal_entry_item,
+      :production_id => :production,
       :updater_id => :user
     },
     :animal => {

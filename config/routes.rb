@@ -121,7 +121,7 @@ Ekylibre::Application.routes.draw do
       end
     end
 
-    resources :activity_repartitions do
+    resources :analytic_repartitions do
       collection do
         get :list
         unroll_all

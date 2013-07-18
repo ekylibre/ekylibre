@@ -72,6 +72,7 @@ class Product < Ekylibre::Record::Base
   # enumerize :unit, :in => Nomen::Units.all, :default => Nomen::Units.first, :predicates => {:prefix => true}
   # belongs_to :unit
   # belongs_to :area_unit, :class_name => "Unit"
+  belongs_to :asset
   belongs_to :tracking
   belongs_to :content_nature, :class_name => "ProductNature"
   belongs_to :father, :class_name => "Product"

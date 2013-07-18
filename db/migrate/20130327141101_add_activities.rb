@@ -33,22 +33,18 @@ class AddActivities < ActiveRecord::Migration
     add_index :activities, :parent_id
 
     # ActivityRepartition
-    create_table :activity_repartitions do |t|
-      t.references :activity,              :null => false # lien avec une activité
+    create_table :analytic_repartitions do |t|
+      t.references :production,              :null => false # lien avec une activité
       t.references :journal_entry_item,    :null => false # lien avec une ligne d'une écriture comptable
       t.string     :state,           :null => false       # locked, waiting, slave... etat (verouillé, en cours, en attente , esclave des opérations, maître des opérations)
       t.date       :affected_on,           :null => false # date de la repartition
-      t.references :product_nature                      # lien avec un type de produit
-      t.references :campaign                            # lien avec une campagne
       t.decimal    :percentage,    :null => false, :precision => 19, :scale => 4 # % de repartition de la ligne sur l'activité
       t.text       :description                           # description
       t.stamps
     end
-    add_stamps_indexes :activity_repartitions
-    add_index :activity_repartitions, :activity_id
-    add_index :activity_repartitions, :journal_entry_item_id
-    add_index :activity_repartitions, :product_nature_id
-    add_index :activity_repartitions, :campaign_id
+    add_stamps_indexes :analytic_repartitions
+    add_index :analytic_repartitions, :production_id
+    add_index :analytic_repartitions, :journal_entry_item_id
 
     # add a link between product_indicators and product_nature
     # add_column :product_nature_indicators, :product_nature_id, :integer

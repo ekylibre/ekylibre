@@ -83,31 +83,6 @@ ActiveRecord::Schema.define(:version => 20130410143823) do
   add_index "activities", ["updated_at"], :name => "index_activities_on_updated_at"
   add_index "activities", ["updater_id"], :name => "index_activities_on_updater_id"
 
-  create_table "activity_repartitions", :force => true do |t|
-    t.integer  "activity_id",                                                         :null => false
-    t.integer  "journal_entry_item_id",                                               :null => false
-    t.string   "state",                                                               :null => false
-    t.date     "affected_on",                                                         :null => false
-    t.integer  "product_nature_id"
-    t.integer  "campaign_id"
-    t.decimal  "percentage",            :precision => 19, :scale => 4,                :null => false
-    t.text     "description"
-    t.datetime "created_at",                                                          :null => false
-    t.datetime "updated_at",                                                          :null => false
-    t.integer  "creator_id"
-    t.integer  "updater_id"
-    t.integer  "lock_version",                                         :default => 0, :null => false
-  end
-
-  add_index "activity_repartitions", ["activity_id"], :name => "index_activity_repartitions_on_activity_id"
-  add_index "activity_repartitions", ["campaign_id"], :name => "index_activity_repartitions_on_campaign_id"
-  add_index "activity_repartitions", ["created_at"], :name => "index_activity_repartitions_on_created_at"
-  add_index "activity_repartitions", ["creator_id"], :name => "index_activity_repartitions_on_creator_id"
-  add_index "activity_repartitions", ["journal_entry_item_id"], :name => "index_activity_repartitions_on_journal_entry_item_id"
-  add_index "activity_repartitions", ["product_nature_id"], :name => "index_activity_repartitions_on_product_nature_id"
-  add_index "activity_repartitions", ["updated_at"], :name => "index_activity_repartitions_on_updated_at"
-  add_index "activity_repartitions", ["updater_id"], :name => "index_activity_repartitions_on_updater_id"
-
   create_table "affairs", :force => true do |t|
     t.boolean  "closed",                                                       :default => false, :null => false
     t.datetime "closed_at"
@@ -128,6 +103,27 @@ ActiveRecord::Schema.define(:version => 20130410143823) do
   add_index "affairs", ["journal_entry_id"], :name => "index_affairs_on_journal_entry_id"
   add_index "affairs", ["updated_at"], :name => "index_affairs_on_updated_at"
   add_index "affairs", ["updater_id"], :name => "index_affairs_on_updater_id"
+
+  create_table "analytic_repartitions", :force => true do |t|
+    t.integer  "production_id",                                                       :null => false
+    t.integer  "journal_entry_item_id",                                               :null => false
+    t.string   "state",                                                               :null => false
+    t.date     "affected_on",                                                         :null => false
+    t.decimal  "percentage",            :precision => 19, :scale => 4,                :null => false
+    t.text     "description"
+    t.datetime "created_at",                                                          :null => false
+    t.datetime "updated_at",                                                          :null => false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version",                                         :default => 0, :null => false
+  end
+
+  add_index "analytic_repartitions", ["created_at"], :name => "index_analytic_repartitions_on_created_at"
+  add_index "analytic_repartitions", ["creator_id"], :name => "index_analytic_repartitions_on_creator_id"
+  add_index "analytic_repartitions", ["journal_entry_item_id"], :name => "index_analytic_repartitions_on_journal_entry_item_id"
+  add_index "analytic_repartitions", ["production_id"], :name => "index_analytic_repartitions_on_production_id"
+  add_index "analytic_repartitions", ["updated_at"], :name => "index_analytic_repartitions_on_updated_at"
+  add_index "analytic_repartitions", ["updater_id"], :name => "index_analytic_repartitions_on_updater_id"
 
   create_table "areas", :force => true do |t|
     t.string   "postcode",                                    :null => false
