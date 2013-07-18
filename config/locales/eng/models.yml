@@ -408,7 +408,6 @@ eng:
       account: "Account"
       account_balance: "Account balance"
       # activity: "Activité"
-      # activity_repartition: "Répartition analytique"
       # affair: "Affaire"
       # analytic_repartition: "Répartition analytique"
       animal: "Animal"

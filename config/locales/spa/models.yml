@@ -342,7 +342,6 @@ spa:
       # account: "Compte"
       # account_balance: "Balance de compte"
       # activity: "Activité"
-      # activity_repartition: "Répartition analytique"
       # affair: "Affaire"
       # analytic_repartition: "Répartition analytique"
       # animal: "Animal"
