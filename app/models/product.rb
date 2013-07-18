@@ -195,7 +195,7 @@ class Product < Ekylibre::Record::Base
   end
 
 
-  # Get indicator value or datum
+  # Get indicator value
   # if option :at specify at which moment
   # if option :datum is true, it returns the ProductIndicatorDatum record
   # if option :interpolate is true, it returns the interpolated value
@@ -204,9 +204,24 @@ class Product < Ekylibre::Record::Base
     return super unless Nomen::Indicators.all.include?(method_name)
     options = (args[-1].is_a?(Hash) ? args.delete_at(-1) : {})
     measured_at = args.shift || options[:at] || Time.now
-    if datum = self.indicator_data.where(:indicator => method_name.to_s).where("measured_at <= ?", measured_at).reorder("measured_at DESC").first
-
-      return (options[:datum] ? datum : datum.value)
+    indicator = Nomen::Indicators.items[method_name]
+    
+    if options[:interpolate]
+      if [:measure, :decimal].include?(indicator.datatype)
+        raise NotImplementedError.new("Interpolation is not available for now")
+      end
+      raise StandardError("Can not use :interpolate option with #{indicator.datatype.inspect} datatype")
+    else
+      if datum = self.indicator_data.where(:indicator => method_name.to_s).where("measured_at <= ?", measured_at).reorder("measured_at DESC").first
+        x = datum.value
+        x.define_single_method(:measured_at) do
+          measured_at
+        end
+        product_id = self.id
+        x.define_single_method(:product_id) do
+          product_id
+        end
+      end
     end
     return nil
   end

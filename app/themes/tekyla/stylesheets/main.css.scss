@@ -894,6 +894,7 @@ form.search {
     display: inline;
     vertical-align: middle;
     @include margin-right($default-gap);
+    @include float(left);
   }
   .message {
     display: inline;
