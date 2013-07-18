@@ -26,15 +26,16 @@ spa:
       # index: "Activités"
       # new: "Nouvelle activité"
       # show: "%{name}"
-    backend/activity_repartitions:
-      # edit: "Modifier la répartion analytique\_: %{id} "
-      # index: "Répartitions analytiques"
-      # new: "Nouvelle répartition analytique"
-      # show: "Répartition %{id}"
+    backend/activity_repartitions: #?
     backend/activity_watchings: #?
     backend/affairs:
       # index: "Transactions"
       # select: "Ajouter une transaction"
+    backend/analytic_repartitions:
+      # edit: "Modifier la répartion analytique\_: %{id} "
+      # index: "Répartitions analytiques"
+      # new: "Nouvelle répartition analytique"
+      # show: "Répartition %{id}"
     backend/animal_groups:
       # edit: "Modifier le groupe d’animaux\_: %{name}"
       # index: "Groupes d’animaux"
@@ -70,7 +71,11 @@ spa:
       point: "Despuntar el leventar N°%{number} du %{contado}"
       show: "Leventard de cuento N°%{number}"
     backend/base: #?
-    backend/building_divisions: #?
+    backend/building_divisions:
+      # edit: "Modifier la zone\_: %{name}"
+      # index: "Zones de bâtiments"
+      # new: "Ajout d'une zone"
+      # show: "Détail d'une zone\_: %{name}"
     backend/buildings:
       edit: "Modificacion de un lugar de deposito"
       index: "Lugar de deposito"
@@ -614,8 +619,8 @@ spa:
     backend/accountancy: "Contabilidad" #?
     backend/accounts: "Plan de cuento"
     # backend/activities: "Activités"
-    # backend/activity_repartitions: "Répartitions analytiques"
     # backend/affairs: "Affaires"
+    # backend/analytic_repartitions: "Répartitions analytiques"
     # backend/animals: "Animaux"
     backend/application: "Aplicación" #?
     # backend/areas: "Zones postales"
@@ -1895,7 +1900,8 @@ spa:
       # all: "{number}. {name}"
     backend/activities:
       # all: "{name} ({family}/{nature})"
-    backend/activity_repartitions:
+    backend/activity_repartitions: #?
+    backend/analytic_repartitions:
       # all: "{id}"
     backend/animals:
       # all: "{name} - {work_number}"

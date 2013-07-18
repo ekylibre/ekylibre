@@ -392,7 +392,7 @@ namespace :db do
         animal.is_measured!(:inel, r.inel.unity, :at => (Time.now - 2.months))
         animal.is_measured!(:tp, r.tp.unity, :at => (Time.now - 2.months))
         animal.is_measured!(:tb, r.tb.unity, :at => (Time.now - 2.months))
-        
+
         print "."
         break if Animal.count >= max
       end
@@ -875,9 +875,8 @@ namespace :db do
                                         # :measure_unit => product_nature_variant.purchase_indicator_unit,
                                         # :measured_at => Time.now
                                         # )
-        # @FIXME undefined method `incoming_unit' for #<BigDecimal:e268410,'0.3E1',9(18)>
-        #incoming_unit = product_nature_variant.purchase_indicator_unit.to_s
-        #incoming_item.is_measured!(product_nature_variant.purchase_indicator, r.quantity.incoming_unit, :at => Time.now)                                
+        incoming_unit = product_nature_variant.purchase_indicator_unit.to_s
+        incoming_item.is_measured!(product_nature_variant.purchase_indicator, r.quantity.send(incoming_unit), :at => Time.now)
         if product_nature.present? and incoming_item.present?
           order.items.create!(:product_id => incoming_item.id, :quantity => r.product_deliver_quantity)
         end
@@ -1050,7 +1049,7 @@ namespace :db do
         # product.indicator_data.create!(:indicator => "lipolysis", :value => r.analysis_quality_indicator_lipo ,:measure_unit => "thousands_per_hectogram", :measured_at => analysis_on )
         # product.indicator_data.create!(:indicator => "immunoglobulins_concentration", :value => r.analysis_quality_indicator_igg ,:measure_unit => "unities_per_liter", :measured_at => analysis_on )
         # product.indicator_data.create!(:indicator => "urea_concentration", :value => r.analysis_quality_indicator_uree , :measure_unit => "milligram_per_liter", :measured_at => analysis_on )
-#         
+#
         product.is_measured!(:total_bacteria_concentration, r.analysis_quality_indicator_germes.thousand_per_milliliter, :at => analysis_on)
         product.is_measured!(:inhibitors_presence, r.analysis_quality_indicator_inhib, :at => analysis_on)
         product.is_measured!(:fat_matters_concentration, r.analysis_quality_indicator_mg.gram_per_liter, :at => analysis_on)
@@ -1061,7 +1060,7 @@ namespace :db do
         product.is_measured!(:lipolysis, r.analysis_quality_indicator_lipo.thousand_per_hectogram, :at => analysis_on)
         product.is_measured!(:immunoglobulins_concentration, r.analysis_quality_indicator_igg.unity_per_liter, :at => analysis_on)
         product.is_measured!(:urea_concentration, r.analysis_quality_indicator_uree.milligram_per_liter, :at => analysis_on)
-        
+
         print "."
       end
       puts "!"
@@ -1160,14 +1159,14 @@ namespace :db do
 
        #fertilizer_product.indicator_data.create!({:measure_unit => "kilograms_per_hectogram", :measured_at => Time.now }.merge(attributes))
        #fertilizer_product_prev.indicator_data.create!({:measure_unit => "kilograms_per_hectogram", :measured_at => Time.now }.merge(attributes))
-        
+
        fertilizer_product.is_measured!(:nitrogen_concentration, 27.00.kilogram_per_hectogram, :at => Time.now)
        fertilizer_product.is_measured!(:potassium_concentration, 33.00.kilogram_per_hectogram, :at => Time.now)
        fertilizer_product.is_measured!(:phosphorus_concentration, 33.00.kilogram_per_hectogram, :at => Time.now)
        fertilizer_product_prev.is_measured!(:nitrogen_concentration, 27.00.kilogram_per_hectogram, :at => Time.now)
        fertilizer_product_prev.is_measured!(:potassium_concentration, 33.00.kilogram_per_hectogram, :at => Time.now)
        fertilizer_product_prev.is_measured!(:phosphorus_concentration, 33.00.kilogram_per_hectogram, :at => Time.now)
-       
+
 
        production = Production.find_by_product_nature_id_and_campaign_id(sole_ble_nature.id,campaign.id)
 

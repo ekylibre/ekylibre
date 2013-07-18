@@ -22,9 +22,12 @@
 #
 #  created_at    :datetime         not null
 #  creator_id    :integer
+#  exclusive     :boolean          not null
 #  id            :integer          not null, primary key
 #  lock_version  :integer          default(0), not null
 #  production_id :integer          not null
+#  started_at    :datetime
+#  stopped_at    :datetime
 #  storage_id    :integer          not null
 #  updated_at    :datetime         not null
 #  updater_id    :integer

@@ -8,7 +8,7 @@ fra:
         nomen: "Code analytique"
         parent: "Activité parente"
         work_unit: "Unité d’œuvre"
-      activity_repartition:
+      analytic_repartition:
         affected_on: "Affecté le"
         journal_entry_item: "Ligne comptable concernée"
         product_nature: "Type de produit concerné"
@@ -303,8 +303,9 @@ fra:
       account: "Compte"
       account_balance: "Balance de compte"
       activity: "Activité"
-      activity_repartition: "Répartition analytique"
+      activity_repartition: "Répartition analytique" #?
       affair: "Affaire"
+      analytic_repartition: "Répartition analytique"
       animal: "Animal"
       animal_group: "Groupe d’animaux"
       # animal_medicine: "Animal medicine"
@@ -696,6 +697,7 @@ fra:
     event_natures: "Types d’évènement" #?
     events: "Évènements" #?
     examinated_at: "Examiné le" #?
+    # exclusive: "Exclusive"
     expiration_delay: "Délai d’expiration"
     expired_on: "Date d’expiration"
     exportable: "Exportable"

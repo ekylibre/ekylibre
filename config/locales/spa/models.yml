@@ -8,12 +8,13 @@ spa:
         # nomen: "Code analytique"
         # parent: "Activité parente"
         # work_unit: "Unité d’œuvre"
-      activity_repartition:
+      activity_repartition: #?
+      activity_watching: #?
+      analytic_repartition:
         # affected_on: "Affecté le"
         # journal_entry_item: "Ligne comptable concernée"
         # product_nature: "Type de produit concerné"
         # repartition_percentage: "Pourcentage d’affectation"
-      activity_watching: #?
       animal:
         # born_at: "Date de naissance"
         # dead_at: "Date de décès"
@@ -343,6 +344,7 @@ spa:
       # activity: "Activité"
       # activity_repartition: "Répartition analytique"
       # affair: "Affaire"
+      # analytic_repartition: "Répartition analytique"
       # animal: "Animal"
       # animal_group: "Groupe d’animaux"
       # area: "Zone postale"

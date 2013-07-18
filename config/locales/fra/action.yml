@@ -18,16 +18,16 @@ fra:
       index: "Activités"
       new: "Nouvelle activité"
       show: "%{name}"
-    backend/activity_repartitions:
-      edit: "Modifier la répartion analytique\_: %{id} "
-      index: "Répartitions analytiques"
-      new: "Nouvelle répartition analytique"
-      show: "Répartition %{id}"
     backend/affairs:
       # attach: "Attach backend/affair"
       # detach: "Detach backend/affair"
       index: "Transactions"
       select: "Ajouter une transaction"
+    backend/analytic_repartitions:
+      edit: "Modifier la répartion analytique\_: %{id} "
+      index: "Répartitions analytiques"
+      new: "Nouvelle répartition analytique"
+      show: "Répartition %{id}"
     backend/animal_groups:
       edit: "Modifier le groupe d’animaux\_: %{name}"
       index: "Groupes d’animaux"
@@ -601,8 +601,8 @@ fra:
     backend/account_balances: "Soldes de comptes"
     backend/accounts: "Plan de comptes"
     backend/activities: "Activités"
-    backend/activity_repartitions: "Répartitions analytiques"
     backend/affairs: "Affaires"
+    backend/analytic_repartitions: "Répartitions analytiques"
     # backend/animal_groups: "Backend/animal groups"
     # backend/animal_medicines: "Backend/animal medicines"
     backend/animals: "Animaux"
@@ -1776,8 +1776,8 @@ fra:
     need_quantities_to_cancel_an_sale: "Vous devez spécifier une quantité pour pouvoir faire un avoir"
     need_stocks_building_to_create_products: "Vous devez créer un lieu de stockage pour pouvoir créer un produit" #?
     need_stocks_to_create_inventories: "Vous devez gérer les stocks d’au moins un produit pour pouvoir faire un inventaire"
-    # need_to_create_activities: "Need to create activities"
     need_to_create_activity: "Vous devez créer des activités pour pouvoir affecter vos écritures comptables" #?
+    # need_to_create_productions: "Need to create productions"
     need_to_create_subscription_nature: "Vous devez créer un type d’abonnement pour pouvoir gérer vos abonnements"
     new_actual_number: "Le nouveau numéro en cours est %{actual_number}"
     no_authenticated: "Vous n’avez pas pu être identifié. Le nom d’utilisateur ou le mot de passe doit être incorrect."
@@ -1870,7 +1870,7 @@ fra:
       all: "{number}. {name}"
     backend/activities:
       all: "{name} ({family}/{nature})"
-    backend/activity_repartitions:
+    backend/analytic_repartitions:
       all: "{id}"
     backend/animals:
       all: "{name} - {work_number}"

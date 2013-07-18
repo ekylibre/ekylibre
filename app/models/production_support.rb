@@ -22,9 +22,12 @@
 #
 #  created_at    :datetime         not null
 #  creator_id    :integer
+#  exclusive     :boolean          not null
 #  id            :integer          not null, primary key
 #  lock_version  :integer          default(0), not null
 #  production_id :integer          not null
+#  started_at    :datetime
+#  stopped_at    :datetime
 #  storage_id    :integer          not null
 #  updated_at    :datetime         not null
 #  updater_id    :integer
@@ -32,6 +35,7 @@
 class ProductionSupport < Ekylibre::Record::Base
   attr_accessible :storage_id, :production_id
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_inclusion_of :exclusive, :in => [true, false]
   validates_presence_of :production, :storage
   #]VALIDATORS]
   belongs_to :storage, :class_name => "Product", :inverse_of => :supports

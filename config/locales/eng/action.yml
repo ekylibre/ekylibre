@@ -19,15 +19,16 @@ eng:
       # index: "Activités"
       # new: "Nouvelle activité"
       # show: "%{name}"
-    backend/activity_repartitions:
-      # edit: "Modifier la répartion analytique\_: %{id} "
-      # index: "Répartitions analytiques"
-      # new: "Nouvelle répartition analytique"
-      # show: "Répartition %{id}"
+    backend/activity_repartitions: #?
     backend/activity_watchings: #?
     backend/affairs:
       # index: "Transactions"
       # select: "Ajouter une transaction"
+    backend/analytic_repartitions:
+      # edit: "Modifier la répartion analytique\_: %{id} "
+      # index: "Répartitions analytiques"
+      # new: "Nouvelle répartition analytique"
+      # show: "Répartition %{id}"
     backend/animal_groups:
       # edit: "Modifier le groupe d’animaux\_: %{name}"
       # index: "Groupes d’animaux"
@@ -63,7 +64,11 @@ eng:
       point: "Bank reconciliation with bank statement %{number}"
       show: "Account statement N°%{number}"
     backend/base: #?
-    backend/building_divisions: #?
+    backend/building_divisions:
+      # edit: "Modifier la zone\_: %{name}"
+      # index: "Zones de bâtiments"
+      # new: "Ajout d'une zone"
+      # show: "Détail d'une zone\_: %{name}"
     backend/buildings:
       edit: "Edit the building: %{name}"
       index: "Buildings"
@@ -612,8 +617,8 @@ eng:
     backend/account_balances: "Account balances"
     backend/accounts: "Plan of accounts"
     # backend/activities: "Activités"
-    # backend/activity_repartitions: "Répartitions analytiques"
     # backend/affairs: "Affaires"
+    # backend/analytic_repartitions: "Répartitions analytiques"
     backend/animals: "Animals"
     backend/areas: "Postal areas"
     backend/assets: "Assets"
@@ -1907,7 +1912,8 @@ eng:
       # all: "{number}. {name}"
     backend/activities:
       # all: "{name} ({family}/{nature})"
-    backend/activity_repartitions:
+    backend/activity_repartitions: #?
+    backend/analytic_repartitions:
       # all: "{id}"
     backend/animals:
       all: "{name} ({sex})"
