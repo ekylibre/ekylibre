@@ -1,5 +1,6 @@
 Ekylibre::Application.routes.draw do
 
+  filter :locale
 
   # Authentication
   # namespace :authentication do
