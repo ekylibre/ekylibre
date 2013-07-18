@@ -27,7 +27,7 @@ class Backend::AnalyticRepartitionsController < BackendController
     end
   end
 
-  # Displays the page for one activity_repartition.
+  # Displays the page for one analytic_repartition.
   def show
     return unless @analytic_repartition = find_and_check
     respond_to do |format|

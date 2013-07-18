@@ -8,6 +8,8 @@ gem 'activerecord-postgis-adapter'
 # gem 'activerecord-spatialite-adapter'
 # gem 'squeel'
 
+gem 'routing-filter'
+
 # General
 gem 'exception_notification'
 
