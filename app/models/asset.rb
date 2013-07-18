@@ -51,13 +51,14 @@
 #
 
 class Asset < Ekylibre::Record::Base
-  attr_accessible :name, :started_on, :stopped_on, :description, :description
+  attr_accessible :name, :started_on, :stopped_on, :description, :currency, :depreciation_method
   acts_as_numbered
   enumerize :depreciation_method, :in => [:simplified_linear, :linear], :predicates => {:prefix => true} # graduated
   belongs_to :charges_account, :class_name => "Account"
   belongs_to :allocation_account, :class_name => "Account"
   belongs_to :journal, :class_name => "Journal"
   has_many :depreciations, :class_name => "AssetDepreciation", :order => :position
+  has_many :products
   has_many :planned_depreciations, :class_name => "AssetDepreciation", :order => :position, :conditions => "NOT protected OR accounted_at IS NULL", :dependent => :destroy
   has_one :tool, :class_name => "Equipment"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
@@ -68,6 +69,9 @@ class Asset < Ekylibre::Record::Base
   #]VALIDATORS]
   validates_uniqueness_of :name
   validates_inclusion_of :depreciation_method, :in => self.depreciation_method.values
+
+  accepts_nested_attributes_for :products, :reject_if => :all_blank, :allow_destroy => false
+
 
   # def self.deprecation_methods
   #   return DEPRECIATION_METHODS.collect do |key|

@@ -1,25 +1,23 @@
--# TODO Convert assets to
-=formalize do |f|
-  -f.error :asset
-  -f.field :asset, :name
-  -f.field :asset, :description, :field=>:textarea
-  -f.field :asset, :description, :field=>:textarea
+=field_set do
+  =f.input :name
+  =f.input :description, :as=>:text
 
-=field_set(@asset, :depreciation) do |f|
-  =formalize do |f|
-    -f.field :asset, :depreciable_amount
-    -f.field :asset, :currency, :choices=>currencies
-    -f.field :asset, :depreciation_method, :choices=>Asset.deprecation_methods.collect{|p| [p[0], p[1], {"data-show"=>"##{p[1]}_options"}]}, :field=>:radio
-    -f.field :asset, :started_on
+=field_set(:depreciation) do
+  =f.input :depreciable_amount
+  =f.input :currency, :choices=>currencies
+  =f.input :depreciation_method#, :choices=>Asset.deprecation_method.values.collect{|p| [p[0], p[1], {"data-show"=>"##{p[1]}_options"}]}, :field=>:radio
+  =f.input :started_on
 
-  =formalize(:id => :simplified_linear_options) do |f|
+  -#=formalize(:id => :simplified_linear_options) do |f|
     -f.field :asset, :depreciation_percentage
 
-  =formalize(:id => :linear_options) do |f|
+  -#=formalize(:id => :linear_options) do |f|
     -f.field :asset, :stopped_on
 
-=field_set(@asset, :accountancy) do |f|
+=field_set(:accountancy) do
   =f.referenced_association :journal
-  =formalize do |f|
-    -f.field :asset, :allocation_account_id, :choices=>:account, :new=>true
-    -f.field :asset, :charges_account_id, :choices=>:account, :new=>true
+  =f.referenced_association :allocation_account
+  =f.referenced_association :charges_account
+
+=field_set(:products) do
+  =f.nested_association(:products)
