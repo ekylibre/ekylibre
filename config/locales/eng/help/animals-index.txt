@@ -1,6 +1,6 @@
-====== Animaux ======
+====== Animals ======
 
-===== Liste des animaux =====
+===== Animal's list =====
 
 Ici, vous pouvez [[>backend/animals#new|créer]] , modifier et visualiser vos animaux.
 
