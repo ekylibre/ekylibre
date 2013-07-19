@@ -29,6 +29,8 @@ spa:
     backend/activity_repartitions: #?
     backend/activity_watchings: #?
     backend/affairs:
+      # attach: "Associer une transaction"
+      # detach: "Dissocier une transaction"
       # index: "Transactions"
       # select: "Ajouter une transaction"
     backend/analytic_repartitions:
@@ -172,7 +174,8 @@ spa:
       # edit: "Modifier la zone administrative\_: %{name}"
       # index: "Zones administratives"
       # new: "Ajouter une zone administrative"
-    backend/document_archives: #?
+    backend/document_archives:
+      # show: "Voir l'archive\_: %{name} "
     backend/document_templates:
       edit: "Modificacion del modelo de documento : %{name}"
       index: "Modelos de documento"
@@ -180,7 +183,9 @@ spa:
       new: "Créacion de un modelo de documento"
       # print: "Imprimer un exemple"
     backend/documents:
+      # edit: "Modifier le document"
       # index: "Gestion électronique des documents"
+      # new: "Nouveau document"
       print: "Impresion, exportacion" #?
       # show: "Document\_: %{name}"
     backend/entities:
@@ -196,11 +201,13 @@ spa:
     backend/entity_addresses:
       # edit: "Modifier une coordonnée"
       # new: "Ajouter une coordonnée"
+      # show: "Coordonnée"
     backend/entity_categories: #?
     backend/entity_link_natures: #?
     backend/entity_links:
       # edit: "Modifier le lien"
       # new: "Ajout d’un nouveau lien"
+      # show: "Lien"
     backend/entity_natures: #?
     backend/equipments:
       # edit: "Modifier l’équipement\_: %{name}"
@@ -225,6 +232,8 @@ spa:
     backend/help: #?
     backend/helps:
       # index: "Aide"
+      # show: "Voir l'aide"
+      # toggle: "Basculer l'aide"
     backend/incidents:
       # edit: "Modifier l’incident\_: %{name} (%{nature})"
       # index: "Incidents"
@@ -235,7 +244,8 @@ spa:
       # edit: "Modifier l’approvisionnement: %{number}"
       # index: "Approvisionnements"
       # new: "Enregistrer un nouvel approvisionnement"
-    backend/incoming_delivery_items: #?
+    backend/incoming_delivery_items:
+      # new: "Nouvel item"
     backend/incoming_delivery_lines: #?
     backend/incoming_delivery_modes:
       # edit: "Modifier le mode d’approvisionnement: %{name}"
@@ -335,7 +345,11 @@ spa:
       # index: "Médicaments"
       # new: "Nouveau médicaments"
       # show: "Médicament\_: %{name}"
-    backend/meeting_natures: #?
+    backend/meeting_natures:
+      # edit: "Modifier le type d'évènement\_: %{name}"
+      # index: "Types d'évènement"
+      # new: "Créer un type d'évènement"
+      # show: "Type d'évènement\_: %{name}"
     backend/meetings:
       # edit: "Modifier un évènement"
       # index: "Évènements"
@@ -388,7 +402,11 @@ spa:
       # index: "Décaissements"
       # new: "Ajout d’un décaissement"
       # show: "Décaissement n°%{number} pour %{payee}"
-    backend/people: #?
+    backend/people:
+      # edit: "Modifier la personne\_: %{name}"
+      # index: "Personnes"
+      # new: "Nouvelle personne"
+      # show: "Personne\_: %{name}"
     backend/places: #?
     backend/plant_medicines:
       # edit: "Modifier le produit phytosanitaire\_: %{name}"
