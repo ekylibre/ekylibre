@@ -1,10 +1,10 @@
-====== Groupes d'animaux ======
+====== Animals' Groups ======
 
-===== Liste des animaux =====
+===== Animal's List =====
 
-Ici, vous pouvez [[>backend/animal_groups#new|créer]] , modifier et visualiser vos groupes d'animaux.
+Here, you can [[>backend/animal_groups#new|create]] , change and view your animal's groups.
 
->>> Pour enregistrer un évènement lié à un groupe d'animaux (alimentation, pesée, traitement, achat, vente,...), il faut [[>backend/procedures#new|créer]]
->>> {{icon:plus}} une nouvelle procédure
+>>> To record an event related to an animal's group (feeding, weighing, treatment, buying, selling,...), you have to [[>backend/procedures#new|create]]
+>>> {{icon:plus}} a new procedure
 
-!!! Tant qu'un groupe d'animaux n'intervient dans aucuns indicateurs , procédures, achats, ventes,...il peut être supprimé.
+!!! While no animal's group intervene in any indicators, procedures, purchases, sales,...it could be deleted.
