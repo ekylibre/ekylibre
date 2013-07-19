@@ -193,17 +193,10 @@ eng:
       index: "Person types" #?
       new: "Add a new person type" #?
     backend/equipments:
-<<<<<<< HEAD
       edit: "Edit equipment: %{name}"
       index: "Equipments"
-      new: "Add a equipment"
-      show: "Equipment: %{name}"
-=======
-      edit: "Edit equipment\_: %{name}"
-      index: "Equipments"
       new: "Add an equipment"
-      show: "Equipment %{name}"
->>>>>>> 5bd3221250b7f24f1d7c6b29760c24a355435cfd
+      show: "Equipment: %{name}"
     backend/establishments:
       edit: "Edit the establishment: %{name}"
       index: "Establishments"
@@ -230,11 +223,8 @@ eng:
       show: "Help: %{title}" #?
     backend/helps:
       index: "Help"
-<<<<<<< HEAD
-=======
       # show: "Voir l'aide"
       # toggle: "Basculer l'aide"
->>>>>>> 5bd3221250b7f24f1d7c6b29760c24a355435cfd
     backend/incidents:
       edit: "Edit an incident\_: %{name} (%{nature})"
       index: "Incidents"
@@ -387,16 +377,11 @@ eng:
       index: "Disbursements"
       new: "Add a new disbursement"
       show: "Disbursement %{number} for %{payee}"
-<<<<<<< HEAD
-    backend/people: #?
-=======
     backend/people:
       # edit: "Modifier la personne\_: %{name}"
       # index: "Personnes"
       # new: "Nouvelle personne"
       # show: "Personne\_: %{name}"
-    backend/places: #?
->>>>>>> 5bd3221250b7f24f1d7c6b29760c24a355435cfd
     backend/plant_medicines:
       edit: "Edit plant medicine\_: %{name}"
       index: "Plant medicines"
@@ -428,43 +413,21 @@ eng:
       show: "Procedure\_: %{name}"
     backend/product_abilities: #?
     backend/product_groups:
-<<<<<<< HEAD
-      # edit: "Modifier le lot\_: %{name} "
-      # index: "Lots de produits"
-      # new: "Créer un lot"
-      # show: "Lot\_: %{name}"
-    backend/product_indicator_data:
-      # edit: "Modifier la valeur d’un indicateur"
-      # index: "Indicateurs Produits"
-      # new: "Nouvelle valeur d’indicateur pour un produit"
-      # show: "Valeurs"
-    backend/product_links: #?
-    backend/product_localizations:
-      # edit: "Modifier une localisation d’un produit"
-      # index: "Localisation des produits"
-      # new: "Nouvelle localisation d’un produit"
-      # show: "Détail d’une localisation d’un produit"
-=======
       edit: "Edit group\_: %{name} "
       index: "Product groups"
       new: "Create a group"
       show: "Group\_: %{name}"
-    backend/product_indicator_choices: #?
     backend/product_indicator_data:
       edit: "Edit product indicator data"
       index: "Product indicator data"
       new: "Create a value for a product indicator"
       show: "Indicator data"
-    backend/product_indicator_nature_choices: #?
-    backend/product_indicator_natures: #?
-    backend/product_indicators: #?
     backend/product_links: #?
     backend/product_localizations:
       edit: "Edit a product localization"
       index: "Product localizations"
       new: "Create a localization"
       show: "Product localization"
->>>>>>> 5bd3221250b7f24f1d7c6b29760c24a355435cfd
     backend/product_memberships: #?
     backend/product_moves:
       edit: "Edit the stock move: %{name}"
@@ -688,11 +651,7 @@ eng:
     backend/preferences: "Preferences"
     backend/prices: "Prices" #?
     backend/product_groups: "Product groups"
-<<<<<<< HEAD
-    backend/product_localizations: "Localizations"
-=======
     backend/product_localizations: "Product localizations"
->>>>>>> 5bd3221250b7f24f1d7c6b29760c24a355435cfd
     backend/product_moves: "Stock moves"
     backend/product_nature_categories: "Product categories"
     backend/product_natures: "Product types"
@@ -991,10 +950,6 @@ eng:
     duration_in_hours_and_minutes: "%{hours}h %{minutes}min"
     edit: "Edit"
     ekylibre: "www.ekylibre.org"
-<<<<<<< HEAD
-=======
-    elevage_rss: "RSS Farming News"
->>>>>>> 5bd3221250b7f24f1d7c6b29760c24a355435cfd
     email: "Email:"
     employee_name: "Employee"
     end: "to"
@@ -1303,10 +1258,6 @@ eng:
     page_title_special: "%{company_code} - %{action}"
     paid_amount: "Paid amount"
     paid_on: "Paid on"
-<<<<<<< HEAD
-=======
-    paids: "Paids"
->>>>>>> 5bd3221250b7f24f1d7c6b29760c24a355435cfd
     parameters: "Parameters"
     parts_amount: "Paid amount" #?
     # passive_balance_sheet: "Bilan passif"
@@ -1407,20 +1358,11 @@ eng:
     record_has_not_been_removed: "The record has not been removed"
     reflect: "Reflect"
     refresh: "Refresh"
-<<<<<<< HEAD
-    # relationship: "Gestion des relations clients/fournisseurs"
-    # remove_diagnostic: "Supprimer un diagnostic"
-    # remove_indicator_datum: "Supprimer une mesure pour un indicateur"
-    # remove_treatment: "Supprimer un traitement"
-    # remove_watching: "Supprimer un produit de référence"
-=======
-    # register: "Créer une nouvelle société"
     relationship: "Relationship management"
     remove_diagnostic: "Remove diagnostic"
     remove_indicator_datum: "Remove indicator value"
     remove_treatment: "Remove treatment"
     remove_watching: "Remove product reference"
->>>>>>> 5bd3221250b7f24f1d7c6b29760c24a355435cfd
     reopen: "Reopen"
     reopen_journal: "Reopen the journal"
     report: "Report"
@@ -1759,11 +1701,7 @@ eng:
     changes_have_not_been_reflected: "The changes have not been reflected in the stocks state"
     closed_financial_years: "The financial year has been closed successfully"
     columns_are_already_uses: "One or many columns are selected many times"
-<<<<<<< HEAD
-    dashboard_is_being_developed: "Dashboard is being developed"
-=======
     dashboard_is_being_developed: "Dashboard is under heavy development"
->>>>>>> 5bd3221250b7f24f1d7c6b29760c24a355435cfd
     draft_entry_items_are_validated:
       # one: "%{count} ligne de brouillard validée"
       # other: "%{count} lignes de brouillard validées"
@@ -1943,8 +1881,5 @@ eng:
       all: "{label} ({name})"
     backend/users:
       all: "{first_name} {last_name}"
-<<<<<<< HEAD
     bakend/entity_links:  #?
       all: "{started_at}" #?
-=======
->>>>>>> 5bd3221250b7f24f1d7c6b29760c24a355435cfd
