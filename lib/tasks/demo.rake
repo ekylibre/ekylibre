@@ -160,13 +160,13 @@ namespace :db do
                               )
         end
       end
-      
+
       cow_vl = ProductNatureVariant.find_by_nature_name("Vache Laitière")
       cow_gen = ProductNatureVariant.find_by_nature_name("Génisse Laitière")
       cow_v = ProductNatureVariant.find_by_nature_name("Veau")
       cow_taur = ProductNatureVariant.find_by_nature_name("Taurillon")
       cow_trepro = ProductNatureVariant.find_by_nature_name("Taureau")
-      
+
       # add default groups for animal
       for group in [{:name => "Vaches Latières", :description => "Vaches Laitières", :work_number => "VL", :nature_id => cow_vl.nature.id ,:variant_id => cow_vl.id},
                     {:name => "Génisses 3", :description => "Génisses 3", :work_number => "GEN_3", :nature_id => cow_gen.nature.id, :variant_id => cow_gen.id},
@@ -219,7 +219,7 @@ namespace :db do
         end
       end
       puts "!"
-      
+
       # add shape for building
       print "[#{(Time.now - start).round(2).to_s.rjust(8)}s] Add shapes to buildings: "
       RGeo::Shapefile::Reader.open(Rails.root.join("test", "fixtures", "files", "buildings_2013.shp").to_s, :srid => 2154) do |file|
@@ -242,8 +242,8 @@ namespace :db do
         end
       end
       puts "!"
-      
-      
+
+
       # add shape for building_division
       print "[#{(Time.now - start).round(2).to_s.rjust(8)}s] Add shapes to building divisions: "
       RGeo::Shapefile::Reader.open(Rails.root.join("test", "fixtures", "files", "buildings_division_2013.shp").to_s, :srid => 2154) do |file|
@@ -258,12 +258,12 @@ namespace :db do
                                     :owner_id => Entity.of_company.id,
                                     :identification_number => record.attributes['NUMERO'].to_s)
           building_division.is_measured!(:shape, record.geometry, :at => Time.now)
-          
+
           if record.attributes['CONTAINER'].to_s
             building = Building.find_by_work_number(record.attributes['CONTAINER'].to_s)
             building.add(building_division)
           end
-          
+
           # puts "Record number #{record.index}:"
           # puts "  Geometry: #{record.geometry.as_text}"
           # puts "  Attributes: #{record.attributes.inspect}"
@@ -271,11 +271,11 @@ namespace :db do
         end
       end
       puts "!"
-      
+
 
       # Import synel
       print "[#{(Time.now - start).round(2).to_s.rjust(8)}s] Animals - Synel animals inventory: "
-      
+
 
       # set finder for creating animal
       place_v = BuildingDivision.find_by_work_number("B09_D1")
@@ -907,7 +907,7 @@ namespace :db do
         "Recyclage" => "QUINCAILLERIE",
         "Ficelles" => "QUINCAILLERIE"
       }
-      
+
       file = Rails.root.join("test", "fixtures", "files", "coop-appro.csv")
       CSV.foreach(file, :encoding => "UTF-8", :col_sep => ";", :headers => true) do |row|
         r = OpenStruct.new(:order_number => row[0],
@@ -958,10 +958,10 @@ namespace :db do
         # # puts "Default PPT: " + ProductPriceTemplate.by_default.class.name # (coop.id, product.nature_id).inspect
         # purchase.items.create!(:quantity => r.quantity, :product_id => product.id) unless r.quantity.zero?
         # # create an incoming_delivery if status => 2
-        
+
         # create an incoming_delivery_item if status => 2
-        
-        
+
+
         print "."
       end
 
@@ -1123,12 +1123,12 @@ namespace :db do
         print "."
       end
       puts "!"
-      
+
       #############################################################################
       # import some base activities from CSV
       print "[#{(Time.now - start).round(2).to_s.rjust(8)}s] Activities: "
-      
-      
+
+
       # attributes to map family
       families = {
         "CEREA" => :vegetal,
@@ -1204,7 +1204,7 @@ namespace :db do
       ##############################################################################
       ## Demo data for fertilizing
       ##############################################################################
-      
+
       print "[#{(Time.now - start).round(2).to_s.rjust(8)}s] Procedures - demo data for fertilization reporting 2013: "
       fertilizer_product_nature_variant = ProductNatureVariant.find_by_nature_name("Engrais")
       campaign = Campaign.find_by_name("2013")
@@ -1273,13 +1273,13 @@ namespace :db do
                         ]
         ProcedureVariable.create!({:procedure_id => procedure_real.id}.merge(attributes) )
       end
-      
+
       # Create some operation variable for fertilization
       for attributes in [{:started_at => (Time.now - 2.days), :stopped_at => Time.now}]
         procedure_real.operations.create!({:procedure_id => procedure_real.id}.merge(attributes) )
       end
       puts "!"
-      
+
       puts "Total time: #{(Time.now - start).round(2)}s"
     end
   end
