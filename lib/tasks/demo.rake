@@ -122,8 +122,6 @@ namespace :db do
       puts "!"
 
       #############################################################################
-      # Import synel
-      print "[#{(Time.now - start).round(2).to_s.rjust(8)}s] Animals - Synel animals inventory : "
       # h = ProductVariety.find_by_code("cattle")
       # p = ProductVariety.find_by_code("animal")
       # h ||= ProductVariety.create!(:name => "Bovin", :code => "cattle", :product_type => "Animal", :parent_id => (p ? p.id : nil))
@@ -162,32 +160,31 @@ namespace :db do
                               )
         end
       end
-
-     cow_vl = ProductNatureVariant.find_by_nature_name("Vache Laitière")
-     cow_gen = ProductNatureVariant.find_by_nature_name("Génisse Laitière")
-     cow_v = ProductNatureVariant.find_by_nature_name("Veau")
-     cow_taur = ProductNatureVariant.find_by_nature_name("Taurillon")
-     cow_trepro = ProductNatureVariant.find_by_nature_name("Taureau")
-
+      
+      cow_vl = ProductNatureVariant.find_by_nature_name("Vache Laitière")
+      cow_gen = ProductNatureVariant.find_by_nature_name("Génisse Laitière")
+      cow_v = ProductNatureVariant.find_by_nature_name("Veau")
+      cow_taur = ProductNatureVariant.find_by_nature_name("Taurillon")
+      cow_trepro = ProductNatureVariant.find_by_nature_name("Taureau")
+      
       # add default groups for animal
-
-      for attributes in [{:name => "Vaches Latières", :description => "Vaches Laitières", :work_number => "VL", :nature_id => cow_vl.nature.id ,:variant_id => cow_vl.id},
-                         {:name => "Génisses 3", :description => "Génisses 3", :work_number => "GEN_3", :nature_id => cow_gen.nature.id, :variant_id => cow_gen.id},
-                         {:name => "Génisses 2", :description => "Génisses 2", :work_number => "GEN_2", :nature_id => cow_gen.nature.id, :variant_id => cow_gen.id},
-                         {:name => "Génisses 1", :description => "Génisses 2", :work_number => "GEN_1", :nature_id => cow_gen.nature.id, :variant_id => cow_gen.id},
-                         {:name => "Veaux Niche", :description => "Veaux en niche individuel", :work_number => "VEAU_NICHE", :nature_id => cow_v.nature.id, :variant_id => cow_v.id},
-                         {:name => "Veaux Poulailler 1", :description => "Veaux Poulailler 1", :work_number => "VEAU_1", :nature_id => cow_v.nature.id, :variant_id => cow_v.id},
-                         {:name => "Veaux Poulailler 2", :description => "Veaux Poulailler 2", :work_number => "VEAU_2", :nature_id => cow_v.nature.id, :variant_id => cow_v.id},
-                         {:name => "Taurillons case 7", :description => "Taurillon case 7 (côté Hangar)", :work_number => "TAUR_7", :nature_id => cow_taur.nature.id, :variant_id => cow_taur.id},
-                         {:name => "Taurillons case 6", :description => "Taurillon case 6", :work_number => "TAUR_6", :nature_id => cow_taur.nature.id, :variant_id => cow_taur.id},
-                         {:name => "Taurillons case 5", :description => "Taurillon case 5", :work_number => "TAUR_5", :nature_id => cow_taur.nature.id, :variant_id => cow_taur.id},
-                         {:name => "Taurillons case 4", :description => "Taurillon case 4", :work_number => "TAUR_4", :nature_id => cow_taur.nature.id, :variant_id => cow_taur.id},
-                         {:name => "Taurillons case 3", :description => "Taurillon case 3", :work_number => "TAUR_3", :nature_id => cow_taur.nature.id, :variant_id => cow_taur.id},
-                         {:name => "Taurillons case 2", :description => "Taurillon case 2", :work_number => "TAUR_2", :nature_id => cow_taur.nature.id, :variant_id => cow_taur.id},
-                         {:name => "Taurillons case 1", :description => "Taurillon case 1", :work_number => "TAUR_1", :nature_id => cow_taur.nature.id, :variant_id => cow_taur.id}
-                        ]
-        unless AnimalGroup.find_by_work_number(attributes[:work_number])
-          AnimalGroup.create!({:active => true, :variety => "bos", :owner_id => Entity.of_company.id}.merge(attributes) )
+      for group in [{:name => "Vaches Latières", :description => "Vaches Laitières", :work_number => "VL", :nature_id => cow_vl.nature.id ,:variant_id => cow_vl.id},
+                    {:name => "Génisses 3", :description => "Génisses 3", :work_number => "GEN_3", :nature_id => cow_gen.nature.id, :variant_id => cow_gen.id},
+                    {:name => "Génisses 2", :description => "Génisses 2", :work_number => "GEN_2", :nature_id => cow_gen.nature.id, :variant_id => cow_gen.id},
+                    {:name => "Génisses 1", :description => "Génisses 2", :work_number => "GEN_1", :nature_id => cow_gen.nature.id, :variant_id => cow_gen.id},
+                    {:name => "Veaux Niche", :description => "Veaux en niche individuel", :work_number => "VEAU_NICHE", :nature_id => cow_v.nature.id, :variant_id => cow_v.id},
+                    {:name => "Veaux Poulailler 1", :description => "Veaux Poulailler 1", :work_number => "VEAU_1", :nature_id => cow_v.nature.id, :variant_id => cow_v.id},
+                    {:name => "Veaux Poulailler 2", :description => "Veaux Poulailler 2", :work_number => "VEAU_2", :nature_id => cow_v.nature.id, :variant_id => cow_v.id},
+                    {:name => "Taurillons case 7", :description => "Taurillon case 7 (côté Hangar)", :work_number => "TAUR_7", :nature_id => cow_taur.nature.id, :variant_id => cow_taur.id},
+                    {:name => "Taurillons case 6", :description => "Taurillon case 6", :work_number => "TAUR_6", :nature_id => cow_taur.nature.id, :variant_id => cow_taur.id},
+                    {:name => "Taurillons case 5", :description => "Taurillon case 5", :work_number => "TAUR_5", :nature_id => cow_taur.nature.id, :variant_id => cow_taur.id},
+                    {:name => "Taurillons case 4", :description => "Taurillon case 4", :work_number => "TAUR_4", :nature_id => cow_taur.nature.id, :variant_id => cow_taur.id},
+                    {:name => "Taurillons case 3", :description => "Taurillon case 3", :work_number => "TAUR_3", :nature_id => cow_taur.nature.id, :variant_id => cow_taur.id},
+                    {:name => "Taurillons case 2", :description => "Taurillon case 2", :work_number => "TAUR_2", :nature_id => cow_taur.nature.id, :variant_id => cow_taur.id},
+                    {:name => "Taurillons case 1", :description => "Taurillon case 1", :work_number => "TAUR_1", :nature_id => cow_taur.nature.id, :variant_id => cow_taur.id}
+                   ]
+        unless AnimalGroup.find_by_work_number(group[:work_number])
+          AnimalGroup.create!({:active => true, :variety => "bos", :owner_id => Entity.of_company.id}.merge(group) )
         end
       end
 
@@ -204,8 +201,8 @@ namespace :db do
       place_variant = ProductNatureVariant.find_by_nature_name("Bâtiment d'accueil animaux")
 
       # create default building to place animal
-
-      for attributes in [{:name => "Batiment historique", :work_number => "B05", :identification_number => "STABULATION_05", :nature_id => place_variant.nature.id, :variant_id => place_variant.id, :content_nature_id => cow_vl.nature.id},
+      print "[#{(Time.now - start).round(2).to_s.rjust(8)}s] Add buildings: "
+      for building in [{:name => "Batiment historique", :work_number => "B05", :identification_number => "STABULATION_05", :nature_id => place_variant.nature.id, :variant_id => place_variant.id, :content_nature_id => cow_vl.nature.id},
                          {:name => "Aire bétonnée", :work_number => "B06", :identification_number => "STABULATION_06", :nature_id => place_variant.nature.id, :variant_id => place_variant.id, :content_nature_id => cow_vl.nature.id},
                          {:name => "Stabulation principale", :work_number => "B07", :identification_number => "STABULATION_07", :nature_id => place_variant.nature.id, :variant_id => place_variant.id, :content_nature_id => cow_vl.nature.id},
                          {:name => "Batiment Taurillons Bois", :work_number => "B04", :identification_number => "BAT_TAURILLON", :nature_id => place_variant.nature.id, :variant_id => place_variant.id, :content_nature_id => cow_taur.nature.id},
@@ -216,12 +213,15 @@ namespace :db do
                          {:name => "Fosse eaux brunes", :work_number => "B02", :identification_number => "FOSSE", :nature_id => place_variant.nature.id, :variant_id => place_variant.id, :content_nature_id => cow_v.nature.id},
                          {:name => "Poulailler 2 (côté Forêt)", :work_number => "B10", :identification_number => "BAT_POULAILLER_2", :nature_id => place_variant.nature.id, :variant_id => place_variant.id, :content_nature_id => cow_v.nature.id}
                         ]
-        unless Building.find_by_work_number(attributes[:work_number])
-          Building.create!({:owner_id => Entity.of_company.id, :variety => "building", :born_at => Time.now, :reservoir => false}.merge(attributes) )
+        unless Building.find_by_work_number(building[:work_number])
+          Building.create!({:owner_id => Entity.of_company.id, :variety => "building", :born_at => Time.now, :reservoir => false}.merge(building) )
+          print "."
         end
       end
+      puts "!"
       
       # add shape for building
+      print "[#{(Time.now - start).round(2).to_s.rjust(8)}s] Add shapes to buildings: "
       RGeo::Shapefile::Reader.open(Rails.root.join("test", "fixtures", "files", "buildings_2013.shp").to_s, :srid => 2154) do |file|
         # puts "File contains #{file.num_records} records."
         file.each do |record|
@@ -233,15 +233,19 @@ namespace :db do
                                     :born_at => Time.now,
                                     :owner_id => Entity.of_company.id,
                                     :identification_number => record.attributes['NUMERO'].to_s)
+          # raise record.geometry.inspect + record.geometry.methods.sort.to_sentence
           building.is_measured!(:shape, record.geometry, :at => Time.now)
           # puts "Record number #{record.index}:"
           # puts "  Geometry: #{record.geometry.as_text}"
           # puts "  Attributes: #{record.attributes.inspect}"
+          print "."
         end
       end
+      puts "!"
       
       
       # add shape for building_division
+      print "[#{(Time.now - start).round(2).to_s.rjust(8)}s] Add shapes to building divisions: "
       RGeo::Shapefile::Reader.open(Rails.root.join("test", "fixtures", "files", "buildings_division_2013.shp").to_s, :srid => 2154) do |file|
         # puts "File contains #{file.num_records} records."
         file.each do |record|
@@ -263,9 +267,14 @@ namespace :db do
           # puts "Record number #{record.index}:"
           # puts "  Geometry: #{record.geometry.as_text}"
           # puts "  Attributes: #{record.attributes.inspect}"
+          print "."
         end
       end
+      puts "!"
       
+
+      # Import synel
+      print "[#{(Time.now - start).round(2).to_s.rjust(8)}s] Animals - Synel animals inventory: "
       
 
       # set finder for creating animal
@@ -459,7 +468,7 @@ namespace :db do
 
       #############################################################################
       # Import shapefile
-      print "[#{(Time.now - start).round(2).to_s.rjust(8)}s] LandParcelClusters - TelePAC Shapefile 2013 : "
+      print "[#{(Time.now - start).round(2).to_s.rjust(8)}s] LandParcelClusters - TelePAC Shapefile 2013: "
       # v = ProductVariety.find_by_code("land_parcel")
       # p = ProductVariety.find_by_code("place")
       # v ||= ProductVariety.create!(:name => "Parcelle", :code => "land_parcel", :product_type => "LandParcel", :parent_id => (p ? p.id : nil))
@@ -494,7 +503,7 @@ namespace :db do
 
       #############################################################################
       # Import land_parcel from Calc Sheet
-      print "[#{(Time.now - start).round(2).to_s.rjust(8)}s] LandParcels - GAEC DUPONT Parcel sheet 2013 : "
+      print "[#{(Time.now - start).round(2).to_s.rjust(8)}s] LandParcels - GAEC DUPONT Parcel sheet 2013: "
       # v = ProductVariety.find_by_code("land_parcel")
       # p = ProductVariety.find_by_code("place")
       # v ||= ProductVariety.create!(:name => "Parcelle", :code => "land_parcel", :product_type => "LandParcel", :parent_id => (p ? p.id : nil))
@@ -585,7 +594,7 @@ namespace :db do
 
       #############################################################################
       # Create variety for wheat product
-      print "[#{(Time.now - start).round(2).to_s.rjust(8)}s] Sales - Examples Data : "
+      print "[#{(Time.now - start).round(2).to_s.rjust(8)}s] Sales - Examples: "
       price_listing = ProductPriceListing.find_by_code("STD")
       wheat_category = ProductNatureCategory.find_by_name("Produits végétaux")
       wheat_category ||= ProductNatureCategory.create!(:name => "Produits végétaux")
@@ -727,7 +736,7 @@ namespace :db do
       # @TODO finish with two level (purchases and purchases_lines)
       #
       # set the coop
-      print "[#{(Time.now - start).round(2).to_s.rjust(8)}s] IncomingDeliveries - Charentes Alliance Coop Order (Appro) 2013 : "
+      print "[#{(Time.now - start).round(2).to_s.rjust(8)}s] IncomingDeliveries - Charentes Alliance Coop Order (Appro) 2013: "
 
        # create product_nature for organic matters and others usefull for coop
 
@@ -898,9 +907,9 @@ namespace :db do
         "Recyclage" => "QUINCAILLERIE",
         "Ficelles" => "QUINCAILLERIE"
       }
-
-        file = Rails.root.join("test", "fixtures", "files", "coop-appro.csv")
-        CSV.foreach(file, :encoding => "UTF-8", :col_sep => ";", :headers => true) do |row|
+      
+      file = Rails.root.join("test", "fixtures", "files", "coop-appro.csv")
+      CSV.foreach(file, :encoding => "UTF-8", :col_sep => ";", :headers => true) do |row|
         r = OpenStruct.new(:order_number => row[0],
                            :ordered_on => Date.civil(*row[1].to_s.split(/\//).reverse.map(&:to_i)),
                            :product_nature_category => ProductNatureCategory.find_by_name(row[2]) || ProductNatureCategory.create!(:catalog_name => row[2], :name => row[2], :published => true ) ,
@@ -911,49 +920,49 @@ namespace :db do
                            :product_unit_price => row[7].to_d,
                            :order_status => (status[row[8]] || :draft)
                            )
-      # create an incoming deliveries if not exist and status = 2
-      if r.order_status == :order
-        order = IncomingDelivery.find_by_reference_number(r.order_number)
-        order ||= IncomingDelivery.create!(:reference_number => r.order_number, :planned_at => r.ordered_on, :sender_id => coop.id, :address_id => "1")
-        # find a product_nature by mapping current sub_family of coop file
-        product_nature = ProductNature.find_by_number(r.product_nature_name)
-        product_nature_variant = ProductNatureVariant.find_by_nature_id(product_nature.id)
-        product_model = product_nature.matching_model
-        incoming_item = Product.find_by_name_and_created_at(r.matter_name,r.ordered_on)
-        incoming_item ||= product_model.create!(:owner_id => Entity.of_company.id, :name => r.matter_name, :variant_id => product_nature_variant.id, :born_at => r.ordered_on, :created_at => r.ordered_on)
-        # incoming_item.indicator_data.create!(:indicator => product_nature_variant.purchase_indicator, :value => r.quantity,
-                                        # :measure_unit => product_nature_variant.purchase_indicator_unit,
-                                        # :measured_at => Time.now
-                                        # )
-        incoming_unit = product_nature_variant.purchase_indicator_unit.to_s
-        incoming_item.is_measured!(product_nature_variant.purchase_indicator, r.quantity.send(incoming_unit), :at => Time.now)
-        if product_nature.present? and incoming_item.present?
-          order.items.create!(:product_id => incoming_item.id, :quantity => r.product_deliver_quantity)
+        # create an incoming deliveries if not exist and status = 2
+        if r.order_status == :order
+          order = IncomingDelivery.find_by_reference_number(r.order_number)
+          order ||= IncomingDelivery.create!(:reference_number => r.order_number, :planned_at => r.ordered_on, :sender_id => coop.id, :address_id => "1")
+          # find a product_nature by mapping current sub_family of coop file
+          product_nature = ProductNature.find_by_number(r.product_nature_name)
+          product_nature_variant = ProductNatureVariant.find_by_nature_id(product_nature.id)
+          product_model = product_nature.matching_model
+          incoming_item = Product.find_by_name_and_created_at(r.matter_name,r.ordered_on)
+          incoming_item ||= product_model.create!(:owner_id => Entity.of_company.id, :name => r.matter_name, :variant_id => product_nature_variant.id, :born_at => r.ordered_on, :created_at => r.ordered_on)
+          # incoming_item.indicator_data.create!(:indicator => product_nature_variant.purchase_indicator, :value => r.quantity,
+          # :measure_unit => product_nature_variant.purchase_indicator_unit,
+          # :measured_at => Time.now
+          # )
+          incoming_unit = product_nature_variant.purchase_indicator_unit.to_s
+          incoming_item.is_measured!(product_nature_variant.purchase_indicator, r.quantity.send(incoming_unit), :at => Time.now)
+          if product_nature.present? and incoming_item.present?
+            order.items.create!(:product_id => incoming_item.id, :quantity => r.product_deliver_quantity)
+          end
         end
-      end
-      # purchase   = Purchase.find_by_reference_number(r.order_number)
-      # purchase ||= Purchase.create!(:state => r.order_status, :currency => "EUR", :nature_id => purchase_nature.id, :reference_number => r.order_number, :supplier_id => coop.id, :planned_on => r.ordered_on, :created_on => r.ordered_on)
-      # tax_price_nature_appro = Tax.find_by_amount(19.6)
-      # # create a product_nature if not exist
-      # product_nature   = ProductNature.find_by_name(r.product_nature_name)
-      # product_nature ||= ProductNature.create!(:stock_account_id => stock_account_nature_coop.id, :charge_account_id => charge_account_nature_coop.id, :name => r.product_nature_name, :saleable => false, :purchasable => true, :active => true, :storable => true, :variety => "building", :unit => "unity", :category_id => r.product_nature_category.id)
-      # # create a product (Matter) if not exist
-      # product   = Matter.find_by_name(r.matter_name)
-      # product ||= Matter.create!(:name => r.matter_name, :identification_number => r.matter_name, :work_number => r.matter_name, :born_at => Time.now, :nature_id => product_nature.id, :owner_id => Entity.of_company.id, :number => r.matter_name) #
-      # # create a product_price_template if not exist
-      # product_price   = ProductPriceTemplate.find_by_product_nature_id_and_supplier_id_and_assignment_pretax_amount(product_nature.id, coop.id, r.product_unit_price)
-      # product_price ||= ProductPriceTemplate.create!(:currency => "EUR", :assignment_pretax_amount => r.product_unit_price, :product_nature_id => product_nature.id, :tax_id => tax_price_nature_appro.id, :supplier_id => coop.id)
-      # # create a purchase_item if not exist
-      # # purchase_item   = PurchaseItem.find_by_product_id_and_purchase_id_and_price_id(product.id, purchase.id, product_price.id)
-      # # purchase_item ||= PurchaseItem.create!(:quantity => r.quantity, :unit_id => unit_u.id, :price_id => product_price.id, :product_id => product.id, :purchase_id => purchase.id)
-      # # puts "Default PPT: " + ProductPriceTemplate.by_default.class.name # (coop.id, product.nature_id).inspect
-      # purchase.items.create!(:quantity => r.quantity, :product_id => product.id) unless r.quantity.zero?
-      # # create an incoming_delivery if status => 2
-
-      # create an incoming_delivery_item if status => 2
-
-
-      print "."
+        # purchase   = Purchase.find_by_reference_number(r.order_number)
+        # purchase ||= Purchase.create!(:state => r.order_status, :currency => "EUR", :nature_id => purchase_nature.id, :reference_number => r.order_number, :supplier_id => coop.id, :planned_on => r.ordered_on, :created_on => r.ordered_on)
+        # tax_price_nature_appro = Tax.find_by_amount(19.6)
+        # # create a product_nature if not exist
+        # product_nature   = ProductNature.find_by_name(r.product_nature_name)
+        # product_nature ||= ProductNature.create!(:stock_account_id => stock_account_nature_coop.id, :charge_account_id => charge_account_nature_coop.id, :name => r.product_nature_name, :saleable => false, :purchasable => true, :active => true, :storable => true, :variety => "building", :unit => "unity", :category_id => r.product_nature_category.id)
+        # # create a product (Matter) if not exist
+        # product   = Matter.find_by_name(r.matter_name)
+        # product ||= Matter.create!(:name => r.matter_name, :identification_number => r.matter_name, :work_number => r.matter_name, :born_at => Time.now, :nature_id => product_nature.id, :owner_id => Entity.of_company.id, :number => r.matter_name) #
+        # # create a product_price_template if not exist
+        # product_price   = ProductPriceTemplate.find_by_product_nature_id_and_supplier_id_and_assignment_pretax_amount(product_nature.id, coop.id, r.product_unit_price)
+        # product_price ||= ProductPriceTemplate.create!(:currency => "EUR", :assignment_pretax_amount => r.product_unit_price, :product_nature_id => product_nature.id, :tax_id => tax_price_nature_appro.id, :supplier_id => coop.id)
+        # # create a purchase_item if not exist
+        # # purchase_item   = PurchaseItem.find_by_product_id_and_purchase_id_and_price_id(product.id, purchase.id, product_price.id)
+        # # purchase_item ||= PurchaseItem.create!(:quantity => r.quantity, :unit_id => unit_u.id, :price_id => product_price.id, :product_id => product.id, :purchase_id => purchase.id)
+        # # puts "Default PPT: " + ProductPriceTemplate.by_default.class.name # (coop.id, product.nature_id).inspect
+        # purchase.items.create!(:quantity => r.quantity, :product_id => product.id) unless r.quantity.zero?
+        # # create an incoming_delivery if status => 2
+        
+        # create an incoming_delivery_item if status => 2
+        
+        
+        print "."
       end
 
       puts "!"
@@ -966,7 +975,7 @@ namespace :db do
       # # @TODO finish with two level (sales and sales_lines)
       # @TODO make some correction for act_as_numbered
       # # set the coop
-      # print "[#{(Time.now - start).round(2).to_s.rjust(8)}s] OutgoingDelivery - Charentes Alliance Coop Delivery (Apport) 2013 : "
+      # print "[#{(Time.now - start).round(2).to_s.rjust(8)}s] OutgoingDelivery - Charentes Alliance Coop Delivery (Apport) 2013: "
       # clients = Entity.where(:of_company => false).reorder(:client_account_id, :last_name) # .where(" IS NOT NULL")
       # coop = clients.offset((clients.count/2).floor).first
       # unit_u = Unit.get(:u)
@@ -1025,7 +1034,7 @@ namespace :db do
       # @TODO
       #
       # set the lab
-      print "[#{(Time.now - start).round(2).to_s.rjust(8)}s] Indicators - LILCO Milk analysis 2013 :"
+      print "[#{(Time.now - start).round(2).to_s.rjust(8)}s] Indicators - LILCO Milk analysis 2013: "
       # set the product if not exist
       milk_unit = "liter"
       # @TODO = appeller la méthode des comptes comme dans la nomenclature accounts
@@ -1114,12 +1123,12 @@ namespace :db do
         print "."
       end
       puts "!"
-
+      
       #############################################################################
       # import some base activities from CSV
       print "[#{(Time.now - start).round(2).to_s.rjust(8)}s] Activities: "
-
-
+      
+      
       # attributes to map family
       families = {
         "CEREA" => :vegetal,
@@ -1192,85 +1201,85 @@ namespace :db do
       # puts "!"
 
 
-       ##############################################################################
-       ## Demo data for fertilizing
-       ##############################################################################
+      ##############################################################################
+      ## Demo data for fertilizing
+      ##############################################################################
+      
+      print "[#{(Time.now - start).round(2).to_s.rjust(8)}s] Procedures - demo data for fertilization reporting 2013: "
+      fertilizer_product_nature_variant = ProductNatureVariant.find_by_nature_name("Engrais")
+      campaign = Campaign.find_by_name("2013")
+      sole_ble_nature = ProductNature.find_by_number("SOLE_BLE")
 
-       print "[#{(Time.now - start).round(2).to_s.rjust(8)}s] Procedures - demo data for fertilization reporting 2013 :"
-       fertilizer_product_nature_variant = ProductNatureVariant.find_by_nature_name("Engrais")
-       campaign = Campaign.find_by_name("2013")
-       sole_ble_nature = ProductNature.find_by_number("SOLE_BLE")
+      # create some indicator nature for fertilization
+      # find some product for fertilization
+      fertilizer_product = Product.find_by_variant_id(fertilizer_product_nature_variant.id)
+      fertilizer_product_prev = Product.where("name LIKE 'AMMO%'").first
+      # set indicator on product for fertilization
 
-       # create some indicator nature for fertilization
-       # find some product for fertilization
-       fertilizer_product = Product.find_by_variant_id(fertilizer_product_nature_variant.id)
-       fertilizer_product_prev = Product.where("name LIKE 'AMMO%'").first
-       # set indicator on product for fertilization
+      #fertilizer_product.indicator_data.create!({:measure_unit => "kilograms_per_hectogram", :measured_at => Time.now }.merge(attributes))
+      #fertilizer_product_prev.indicator_data.create!({:measure_unit => "kilograms_per_hectogram", :measured_at => Time.now }.merge(attributes))
 
-       #fertilizer_product.indicator_data.create!({:measure_unit => "kilograms_per_hectogram", :measured_at => Time.now }.merge(attributes))
-       #fertilizer_product_prev.indicator_data.create!({:measure_unit => "kilograms_per_hectogram", :measured_at => Time.now }.merge(attributes))
-
-       fertilizer_product.is_measured!(:nitrogen_concentration, 27.00.kilogram_per_hectogram, :at => Time.now)
-       fertilizer_product.is_measured!(:potassium_concentration, 33.00.kilogram_per_hectogram, :at => Time.now)
-       fertilizer_product.is_measured!(:phosphorus_concentration, 33.00.kilogram_per_hectogram, :at => Time.now)
-       fertilizer_product_prev.is_measured!(:nitrogen_concentration, 27.00.kilogram_per_hectogram, :at => Time.now)
-       fertilizer_product_prev.is_measured!(:potassium_concentration, 33.00.kilogram_per_hectogram, :at => Time.now)
-       fertilizer_product_prev.is_measured!(:phosphorus_concentration, 33.00.kilogram_per_hectogram, :at => Time.now)
+      fertilizer_product.is_measured!(:nitrogen_concentration, 27.00.kilogram_per_hectogram, :at => Time.now)
+      fertilizer_product.is_measured!(:potassium_concentration, 33.00.kilogram_per_hectogram, :at => Time.now)
+      fertilizer_product.is_measured!(:phosphorus_concentration, 33.00.kilogram_per_hectogram, :at => Time.now)
+      fertilizer_product_prev.is_measured!(:nitrogen_concentration, 27.00.kilogram_per_hectogram, :at => Time.now)
+      fertilizer_product_prev.is_measured!(:potassium_concentration, 33.00.kilogram_per_hectogram, :at => Time.now)
+      fertilizer_product_prev.is_measured!(:phosphorus_concentration, 33.00.kilogram_per_hectogram, :at => Time.now)
 
 
-       production = Production.find_by_product_nature_id_and_campaign_id(sole_ble_nature.id,campaign.id)
+      production = Production.find_by_product_nature_id_and_campaign_id(sole_ble_nature.id,campaign.id)
 
-       # provisional fertilization procedure
+      # provisional fertilization procedure
       procedure_prev ||= Procedure.create!(:natures => "soil_enrichment", :nomen =>"mineral_fertilizing", :production_id => production.id, :provisional => true )
 
 
       #plant = Plant.find_by_work_number("SOLE_BLE-2013-PC23")
       land_parcel_group_fert = LandParcelGroup.find_by_work_number("PC23")
-        # Create some procedure variable for fertilization
-        for attributes in [{:target_id => land_parcel_group_fert.id, :role => "target",
-                            :indicator => "net_surperficial_area",
-                            :measure_quantity => "5.00", :measure_unit => "hectare"},
-                            {:target_id => fertilizer_product_prev.id, :role => "input",
-                             :indicator => "net_weight",
-                             :measure_quantity => "475.00", :measure_unit => "kilogram"},
-                            {:target_id => fertilizer_product_prev.id, :role => "input",
-                             :indicator => "net_weight",
-                             :measure_quantity => "275.00", :measure_unit => "kilogram"}
-                            ]
-         ProcedureVariable.create!({:procedure_id => procedure_prev.id}.merge(attributes) )
-        end
+      # Create some procedure variable for fertilization
+      for attributes in [{:target_id => land_parcel_group_fert.id, :role => "target",
+                           :indicator => "net_surperficial_area",
+                           :measure_quantity => "5.00", :measure_unit => "hectare"},
+                         {:target_id => fertilizer_product_prev.id, :role => "input",
+                           :indicator => "net_weight",
+                           :measure_quantity => "475.00", :measure_unit => "kilogram"},
+                         {:target_id => fertilizer_product_prev.id, :role => "input",
+                           :indicator => "net_weight",
+                           :measure_quantity => "275.00", :measure_unit => "kilogram"}
+                        ]
+        ProcedureVariable.create!({:procedure_id => procedure_prev.id}.merge(attributes) )
+      end
 
-        # Create some operation variable for fertilization
-        for attributes in [{:started_at => (Time.now - 15.days), :stopped_at => (Time.now - 10.days)}]
-         procedure_prev.operations.create!({:procedure_id => procedure_prev.id}.merge(attributes) )
-        end
+      # Create some operation variable for fertilization
+      for attributes in [{:started_at => (Time.now - 15.days), :stopped_at => (Time.now - 10.days)}]
+        procedure_prev.operations.create!({:procedure_id => procedure_prev.id}.merge(attributes) )
+      end
 
-       # real fertilization procedure
-       procedure_real ||= Procedure.create!(:natures => "soil_enrichment", :nomen =>"mineral_fertilizing", :production_id => production.id, :provisional_procedure_id => procedure_prev.id)
+      # real fertilization procedure
+      procedure_real ||= Procedure.create!(:natures => "soil_enrichment", :nomen =>"mineral_fertilizing", :production_id => production.id, :provisional_procedure_id => procedure_prev.id)
 
 
       #plant = Plant.find_by_work_number("SOLE_BLE-2013-PC23")
       land_parcel_group_fert = LandParcelGroup.find_by_work_number("PC23")
-        # Create some procedure variable for fertilization
-        for attributes in [{:target_id => land_parcel_group_fert.id, :role => "target",
-                            :indicator => "net_surperficial_area",
-                            :measure_quantity => "5.00", :measure_unit => "hectare"},
-                            {:target_id => fertilizer_product.id, :role => "input",
-                             :indicator => "net_weight",
-                             :measure_quantity => "575.00", :measure_unit => "kilogram"},
-                            {:target_id => fertilizer_product.id, :role => "input",
-                             :indicator => "net_weight",
-                             :measure_quantity => "375.00", :measure_unit => "kilogram"}
-                            ]
-         ProcedureVariable.create!({:procedure_id => procedure_real.id}.merge(attributes) )
-        end
-
-        # Create some operation variable for fertilization
-        for attributes in [{:started_at => (Time.now - 2.days), :stopped_at => Time.now}]
-         procedure_real.operations.create!({:procedure_id => procedure_real.id}.merge(attributes) )
-        end
-
-
+      # Create some procedure variable for fertilization
+      for attributes in [{:target_id => land_parcel_group_fert.id, :role => "target",
+                           :indicator => "net_surperficial_area",
+                           :measure_quantity => "5.00", :measure_unit => "hectare"},
+                         {:target_id => fertilizer_product.id, :role => "input",
+                           :indicator => "net_weight",
+                           :measure_quantity => "575.00", :measure_unit => "kilogram"},
+                         {:target_id => fertilizer_product.id, :role => "input",
+                           :indicator => "net_weight",
+                           :measure_quantity => "375.00", :measure_unit => "kilogram"}
+                        ]
+        ProcedureVariable.create!({:procedure_id => procedure_real.id}.merge(attributes) )
+      end
+      
+      # Create some operation variable for fertilization
+      for attributes in [{:started_at => (Time.now - 2.days), :stopped_at => Time.now}]
+        procedure_real.operations.create!({:procedure_id => procedure_real.id}.merge(attributes) )
+      end
+      puts "!"
+      
       puts "Total time: #{(Time.now - start).round(2)}s"
     end
   end

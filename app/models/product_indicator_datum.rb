@@ -48,6 +48,7 @@ class ProductIndicatorDatum < Ekylibre::Record::Base
   enumerize :measure_value_unit, :in => Nomen::Units.all, :default => Nomen::Units.default, :predicates => {:prefix => true}
 
   composed_of :measure_value, :class_name => "Measure", :mapping => [%w(measure_value_value value), %w(measure_value_unit unit)]
+  # composed_of :geometry_value, :class_name => "Geometry", :mapping => [%w(geometry_value value)]
 
   # belongs_to :indicator, :class_name => "ProductNatureIndicator", :inverse_of => :data
   # belongs_to :measure_unit, :class_name => "Unit"
@@ -65,29 +66,6 @@ class ProductIndicatorDatum < Ekylibre::Record::Base
   before_validation do
     self.indicator_datatype = self.theoric_datatype
   end
-
-  # validate do
-  #   if self.indicator
-  #     errors.add(:value, :required, :field => self.indicator.name) if self.value.blank?
-  #     unless self.value.blank?
-  #       if self.indicator_type == "string"
-  #         unless self.indicator.maximal_length.blank? or self.indicator.maximal_length <= 0
-  #           errors.add(:value, :too_long, :field => self.indicator.name, :length => self.indicator.length_max) if self.string_value.length > self.indicator.maximal_length
-  #         end
-  #         unless self.indicator.minimal_length.blank? or self.indicator.minimal_length <= 0
-  #           errors.add(:value, :too_short, :field => self.indicator.name, :length => self.indicator.length_max) if self.string_value.length < self.indicator.minimal_length
-  #         end
-  #       elsif self.indicator_type == "decimal"
-  #         unless self.indicator.minimal_value.blank?
-  #           errors.add(:value, :less_than, :field => self.indicator.name, :minimum => self.indicator.minimal_value) if self.decimal_value < self.indicator.minimal_value
-  #         end
-  #         unless self.indicator.maximal_value.blank?
-  #           errors.add(:value, :greater_than, :field => self.indicator.name, :maximum => self.indicator.maximal_value) if self.decimal_value > self.indicator.maximal_value
-  #         end
-  #       end
-  #     end
-  #   end
-  # end
 
   # Read value from good place
   def value

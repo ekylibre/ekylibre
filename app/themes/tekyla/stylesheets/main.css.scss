@@ -1051,7 +1051,7 @@ form.search {
 .help-inline {
   display: inline-block;
   *display: inline;
-  padding-left: 5px;
+  @include padding-left(5px);
   vertical-align: middle;
   *zoom: 1;
   color: $invalid-color;

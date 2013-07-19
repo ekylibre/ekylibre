@@ -86,6 +86,8 @@ class Delay
     return self.inspect
   end
 
+  # TODO Add plus/minus methods
+
 end
 
 
