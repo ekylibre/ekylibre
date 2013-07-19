@@ -205,29 +205,79 @@ namespace :db do
 
       # create default building to place animal
 
-      for attributes in [{:name => "Stabulation principale", :work_number => "STABULATION", :nature_id => place_variant.nature.id, :variant_id => place_variant.id, :content_nature_id => cow_vl.nature.id},
-                         {:name => "Batiment Taurillons Bois 7 cases", :work_number => "BAT_TAURILLON", :nature_id => place_variant.nature.id, :variant_id => place_variant.id, :content_nature_id => cow_taur.nature.id},
-                         {:name => "Batiment Bouquet en L Genisse", :work_number => "BAT_GEN", :nature_id => place_variant.nature.id, :variant_id => place_variant.id, :content_nature_id => cow_gen.nature.id},
-                         {:name => "Batiment Bois Nurserie 2 cases", :work_number => "BAT_BOIS_VEAU", :nature_id => place_variant.nature.id, :variant_id => place_variant.id, :content_nature_id => cow_v.nature.id},
-                         {:name => "Poulailler 1 (côté Jardin)", :work_number => "BAT_POULAILLER_1", :nature_id => place_variant.nature.id, :variant_id => place_variant.id, :content_nature_id => cow_v.nature.id},
-                         {:name => "Poulailler 2 (côté Forêt)", :work_number => "BAT_POULAILLER_2", :nature_id => place_variant.nature.id, :variant_id => place_variant.id, :content_nature_id => cow_v.nature.id}
+      for attributes in [{:name => "Batiment historique", :work_number => "B05", :identification_number => "STABULATION_05", :nature_id => place_variant.nature.id, :variant_id => place_variant.id, :content_nature_id => cow_vl.nature.id},
+                         {:name => "Aire bétonnée", :work_number => "B06", :identification_number => "STABULATION_06", :nature_id => place_variant.nature.id, :variant_id => place_variant.id, :content_nature_id => cow_vl.nature.id},
+                         {:name => "Stabulation principale", :work_number => "B07", :identification_number => "STABULATION_07", :nature_id => place_variant.nature.id, :variant_id => place_variant.id, :content_nature_id => cow_vl.nature.id},
+                         {:name => "Batiment Taurillons Bois", :work_number => "B04", :identification_number => "BAT_TAURILLON", :nature_id => place_variant.nature.id, :variant_id => place_variant.id, :content_nature_id => cow_taur.nature.id},
+                         {:name => "Batiment Bouquet en L Genisse", :work_number => "B03", :identification_number => "BAT_GEN", :nature_id => place_variant.nature.id, :variant_id => place_variant.id, :content_nature_id => cow_gen.nature.id},
+                         {:name => "Poulailler 1 (côté Jardin)", :work_number => "B09", :identification_number => "BAT_POULAILLER_1", :nature_id => place_variant.nature.id, :variant_id => place_variant.id, :content_nature_id => cow_v.nature.id},
+                         {:name => "Bureau", :work_number => "B08", :identification_number => "BUREAU", :nature_id => place_variant.nature.id, :variant_id => place_variant.id},
+                         {:name => "Silo bas", :work_number => "B01", :identification_number => "SILO_BAS", :nature_id => place_variant.nature.id, :variant_id => place_variant.id, :content_nature_id => cow_v.nature.id},
+                         {:name => "Fosse eaux brunes", :work_number => "B02", :identification_number => "FOSSE", :nature_id => place_variant.nature.id, :variant_id => place_variant.id, :content_nature_id => cow_v.nature.id},
+                         {:name => "Poulailler 2 (côté Forêt)", :work_number => "B10", :identification_number => "BAT_POULAILLER_2", :nature_id => place_variant.nature.id, :variant_id => place_variant.id, :content_nature_id => cow_v.nature.id}
                         ]
         unless Building.find_by_work_number(attributes[:work_number])
-          Building.create!({:owner_id => Entity.of_company.id, :variety => "building", :born_at => Time.now, :reservoir => true}.merge(attributes) )
+          Building.create!({:owner_id => Entity.of_company.id, :variety => "building", :born_at => Time.now, :reservoir => false}.merge(attributes) )
         end
       end
-
+      
+      # add shape for building
+      RGeo::Shapefile::Reader.open(Rails.root.join("test", "fixtures", "files", "buildings_2013.shp").to_s, :srid => 2154) do |file|
+        # puts "File contains #{file.num_records} records."
+        file.each do |record|
+          building = Building.find_by_work_number(record.attributes['WORK_NUMBE'])
+          building ||= Building.create!(:variant_id => place_variant.id,
+                                    :name => record.attributes['DESCRIPTION'].to_s,
+                                    :work_number => record.attributes['WORK_NUMBE'].to_s,
+                                    :variety => "building",
+                                    :born_at => Time.now,
+                                    :owner_id => Entity.of_company.id,
+                                    :identification_number => record.attributes['NUMERO'].to_s)
+          building.is_measured!(:shape, record.geometry, :at => Time.now)
+          # puts "Record number #{record.index}:"
+          # puts "  Geometry: #{record.geometry.as_text}"
+          # puts "  Attributes: #{record.attributes.inspect}"
+        end
+      end
+      
+      
+      # add shape for building_division
+      RGeo::Shapefile::Reader.open(Rails.root.join("test", "fixtures", "files", "buildings_division_2013.shp").to_s, :srid => 2154) do |file|
+        # puts "File contains #{file.num_records} records."
+        file.each do |record|
+          building_division = BuildingDivision.find_by_work_number(record.attributes['WORK_NUMBE'])
+          building_division ||= BuildingDivision.create!(:variant_id => place_variant.id,
+                                    :name => record.attributes['DECRIPTION'].to_s,
+                                    :work_number => record.attributes['WORK_NUMBE'].to_s,
+                                    :variety => "building_division",
+                                    :born_at => Time.now,
+                                    :owner_id => Entity.of_company.id,
+                                    :identification_number => record.attributes['NUMERO'].to_s)
+          building_division.is_measured!(:shape, record.geometry, :at => Time.now)
+          
+          if record.attributes['CONTAINER'].to_s
+            building = Building.find_by_work_number(record.attributes['CONTAINER'].to_s)
+            building.add(building_division)
+          end
+          
+          # puts "Record number #{record.index}:"
+          # puts "  Geometry: #{record.geometry.as_text}"
+          # puts "  Attributes: #{record.attributes.inspect}"
+        end
+      end
+      
+      
 
       # set finder for creating animal
-      place_v = Building.find_by_work_number("BAT_BOIS_VEAU")
+      place_v = BuildingDivision.find_by_work_number("B09_D1")
       group_v = AnimalGroup.find_by_work_number("VEAU_1")
-      place_gen = Building.find_by_work_number("BAT_GEN")
+      place_gen = BuildingDivision.find_by_work_number("B03_D9")
       group_gen1 = AnimalGroup.find_by_work_number("GEN_1")
       group_gen2 = AnimalGroup.find_by_work_number("GEN_2")
       group_gen3 = AnimalGroup.find_by_work_number("GEN_3")
-      place_taur = Building.find_by_work_number("BAT_TAURILLON")
+      place_taur = BuildingDivision.find_by_work_number("B04_D4")
       group_taur = AnimalGroup.find_by_work_number("TAUR_7")
-      place_vl = Building.find_by_work_number("STABULATION")
+      place_vl = BuildingDivision.find_by_work_number("B07_D2")
       group_vl = AnimalGroup.find_by_work_number("VL")
 
       arrival_causes = {"N" => :birth, "A" => :purchase, "P" => :housing, "" => :other }
