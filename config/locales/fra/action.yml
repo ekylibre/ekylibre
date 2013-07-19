@@ -19,8 +19,8 @@ fra:
       new: "Nouvelle activité"
       show: "%{name}"
     backend/affairs:
-      # attach: "Attach backend/affair"
-      # detach: "Detach backend/affair"
+      attach: "Associer une transaction"
+      detach: "Dissocier une transaction"
       index: "Transactions"
       select: "Ajouter une transaction"
     backend/analytic_repartitions:
@@ -99,6 +99,8 @@ fra:
       # show: "Show backend/cells/demo pie cell"
     backend/cells/expense_chart_cells:
       # show: "Show backend/cells/expense chart cell"
+    backend/cells/last_events_cells:
+      # show: "Show backend/cells/last events cell"
     backend/cells/last_milk_result_cells:
       # show: "Show backend/cells/last milk result cell"
     backend/cells/last_procedures_cells:
@@ -153,7 +155,7 @@ fra:
       index: "Zones administratives"
       new: "Ajouter une zone administrative"
     backend/document_archives:
-      # show: "Show backend/document archive"
+      show: "Voir l'archive\_: %{name} "
     backend/document_templates:
       edit: "Modifier le modèle de document\_: %{name}"
       index: "Modèles de document"
@@ -161,9 +163,9 @@ fra:
       new: "Création d’un modèle de document"
       print: "Imprimer un exemple" #?
     backend/documents:
-      # edit: "Edit backend/document"
+      edit: "Modifier le document"
       index: "Gestion électronique des documents"
-      # new: "New backend/document"
+      new: "Nouveau document"
       show: "Document\_: %{name}"
     backend/entities:
       # autocomplete_for_origin: "Autocomplete for origin backend/entity"
@@ -179,11 +181,11 @@ fra:
     backend/entity_addresses:
       edit: "Modifier une coordonnée"
       new: "Ajouter une coordonnée"
-      # show: "Show backend/entity address"
+      show: "Coordonnée"
     backend/entity_links:
       edit: "Modifier le lien"
       new: "Ajout d’un nouveau lien"
-      # show: "Show backend/entity link"
+      show: "Lien"
     backend/equipments:
       edit: "Modifier l’équipement\_: %{name}"
       index: "Équipements"
@@ -203,8 +205,8 @@ fra:
       show: "Exercice comptable %{code}"
     backend/helps:
       index: "Aide"
-      # show: "Show backend/help"
-      # toggle: "Toggle backend/help"
+      show: "Voir l'aide"
+      toggle: "Basculer l'aide"
     backend/incidents:
       edit: "Modifier l’incident\_: %{name} (%{nature})"
       index: "Incidents"
@@ -216,7 +218,7 @@ fra:
       index: "Approvisionnements"
       new: "Enregistrer un nouvel approvisionnement"
     backend/incoming_delivery_items:
-      # new: "New backend/incoming delivery item"
+      new: "Nouvel item"
     backend/incoming_delivery_modes:
       edit: "Modifier le mode d’approvisionnement: %{name}"
       index: "Modes d’approvisionnement"
@@ -315,9 +317,10 @@ fra:
       new: "Nouveau médicaments"
       show: "Médicament\_: %{name}"
     backend/meeting_natures:
-      # edit: "Edit backend/meeting nature"
-      # index: "Index backend/meeting nature"
-      # new: "New backend/meeting nature"
+      edit: "Modifier le type d'évènement\_: %{name}"
+      index: "Types d'évènement"
+      new: "Créer un type d'évènement"
+      show: "Type d'évènement\_: %{name}" #?
     backend/meetings:
       # autocomplete_for_place: "Autocomplete for place backend/meeting"
       # change_minutes: "Change minutes backend/meeting"
@@ -371,10 +374,10 @@ fra:
       new: "Ajout d’un décaissement"
       show: "Décaissement n°%{number} pour %{payee}"
     backend/people:
-      # edit: "Edit backend/person"
-      # index: "Index backend/person"
-      # new: "New backend/person"
-      # show: "Show backend/person"
+      edit: "Modifier la personne\_: %{name}"
+      index: "Personnes"
+      new: "Nouvelle personne"
+      show: "Personne\_: %{name}"
     backend/plant_medicines:
       edit: "Modifier le produit phytosanitaire\_: %{name}"
       index: "Produits phytosanitaires"
@@ -618,6 +621,7 @@ fra:
     # backend/cells/demo_map_cells: "Backend/cells/demo map cells"
     # backend/cells/demo_pie_cells: "Backend/cells/demo pie cells"
     # backend/cells/expense_chart_cells: "Backend/cells/expense chart cells"
+    # backend/cells/last_events_cells: "Backend/cells/last events cells"
     # backend/cells/last_milk_result_cells: "Backend/cells/last milk result cells"
     # backend/cells/last_procedures_cells: "Backend/cells/last procedures cells"
     # backend/cells/last_products_cells: "Backend/cells/last products cells"

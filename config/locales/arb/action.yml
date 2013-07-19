@@ -29,6 +29,8 @@ arb:
     backend/activity_repartitions: #?
     backend/activity_watchings: #?
     backend/affairs:
+      # attach: "Associer une transaction"
+      # detach: "Dissocier une transaction"
       # index: "Transactions"
       # select: "Ajouter une transaction"
     backend/analytic_repartitions:
@@ -169,7 +171,8 @@ arb:
       edit: "تعديل عنوان بريدي : %{name}"
       index: "المناطق الادارية"
       new: "اضافة عنوان بريدي"
-    backend/document_archives: #?
+    backend/document_archives:
+      # show: "Voir l'archive\_: %{name} "
     backend/document_templates:
       edit: "تعديل نموذج الوثيقة : %{name}"
       index: "نماذج الوثيقة"
@@ -177,7 +180,9 @@ arb:
       new: "انشاء نموذج للوثيقة"
       # print: "Imprimer un exemple"
     backend/documents:
+      # edit: "Modifier le document"
       # index: "Gestion électronique des documents"
+      # new: "Nouveau document"
       print: "طباعة وتصدير" #?
       # show: "Document\_: %{name}"
     backend/entities:
@@ -193,6 +198,7 @@ arb:
     backend/entity_addresses:
       # edit: "Modifier une coordonnée"
       # new: "Ajouter une coordonnée"
+      # show: "Coordonnée"
     backend/entity_categories:  #?
       edit: "تعديل نوع الملف : %{name}" #?
       index: "انواع الملف" #?
@@ -213,6 +219,7 @@ arb:
     backend/entity_links:
       edit: "تعديل الرابط"
       new: "اضافة رابط جديد"
+      # show: "Lien"
     backend/entity_natures:  #?
       edit: "تعديل نوع الملف : %{name}" #?
       index: "انواع الملفات" #?
@@ -247,6 +254,8 @@ arb:
     backend/help: #?
     backend/helps:
       # index: "Aide"
+      # show: "Voir l'aide"
+      # toggle: "Basculer l'aide"
     backend/incidents:
       # edit: "Modifier l’incident\_: %{name} (%{nature})"
       # index: "Incidents"
@@ -257,7 +266,8 @@ arb:
       # edit: "Modifier l’approvisionnement: %{number}"
       # index: "Approvisionnements"
       # new: "Enregistrer un nouvel approvisionnement"
-    backend/incoming_delivery_items: #?
+    backend/incoming_delivery_items:
+      # new: "Nouvel item"
     backend/incoming_delivery_modes:
       # edit: "Modifier le mode d’approvisionnement: %{name}"
       # index: "Modes d’approvisionnement"
@@ -360,7 +370,11 @@ arb:
       # index: "Médicaments"
       # new: "Nouveau médicaments"
       # show: "Médicament\_: %{name}"
-    backend/meeting_natures: #?
+    backend/meeting_natures:
+      # edit: "Modifier le type d'évènement\_: %{name}"
+      # index: "Types d'évènement"
+      # new: "Créer un type d'évènement"
+      # show: "Type d'évènement\_: %{name}"
     backend/meetings:
       # edit: "Modifier un évènement"
       # index: "Évènements"
@@ -414,7 +428,11 @@ arb:
       index: "دفعات"
       new: "اضافة دفعة"
       show: "رقم الدفعة%{number} من اجل %{payee}"
-    backend/people: #?
+    backend/people:
+      # edit: "Modifier la personne\_: %{name}"
+      # index: "Personnes"
+      # new: "Nouvelle personne"
+      # show: "Personne\_: %{name}"
     backend/places: #?
     backend/plant_medicines:
       # edit: "Modifier le produit phytosanitaire\_: %{name}"
