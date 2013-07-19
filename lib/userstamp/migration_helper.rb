@@ -1,4 +1,4 @@
-module Stamp
+module Userstamp
 
   module TableDefinition
     def self.included(base) # :nodoc:
@@ -32,5 +32,5 @@ module Stamp
   end
 
 end
-ActiveRecord::ConnectionAdapters::TableDefinition.send(:include, Stamp::TableDefinition)
-ActiveRecord::Migration.send(:include, Stamp::SchemaStatements)
+ActiveRecord::ConnectionAdapters::TableDefinition.send(:include, Userstamp::TableDefinition)
+ActiveRecord::Migration.send(:include, Userstamp::SchemaStatements)

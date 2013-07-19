@@ -151,7 +151,7 @@ a.btn, button {
   white-space: nowrap;
   height: $button-height;
   & + & {
-    margin-left: $default-gap;
+    @include margin-left($default-gap);
   }
   > button, > a, > a.button, > a.btn, > input, > select {
     @include border-radius(0);
