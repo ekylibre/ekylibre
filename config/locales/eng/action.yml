@@ -15,36 +15,36 @@ eng:
       show: "Account: %{number} - %{name}"
       unmark: "Unmark account"
     backend/activities:
-      # edit: "Modifier une activité\_: %{name} "
-      # index: "Activités"
-      # new: "Nouvelle activité"
-      # show: "%{name}"
+      edit: "Edit an activity\_: %{name} "
+      index: "Activities"
+      new: "Create an activity"
+      show: "Activity\_: %{name}"
     backend/activity_repartitions: #?
     backend/activity_watchings: #?
     backend/affairs:
-      # index: "Transactions"
+      index: "Affairs"
       # select: "Ajouter une transaction"
     backend/analytic_repartitions:
-      # edit: "Modifier la répartion analytique\_: %{id} "
-      # index: "Répartitions analytiques"
-      # new: "Nouvelle répartition analytique"
-      # show: "Répartition %{id}"
+      edit: "Edit a repartition\_: %{id} "
+      index: "Analytics repartitions"
+      new: "Create a repartition"
+      show: "Repartition %{id}"
     backend/animal_groups:
-      # edit: "Modifier le groupe d’animaux\_: %{name}"
-      # index: "Groupes d’animaux"
-      # new: "Nouveau groupe d’animaux"
-      # show: "Groupe\_: %{name}"
+      edit: "Edit animal's group\_: %{name}"
+      index: "Animal's groups"
+      new: "Create an animal's group"
+      show: "Animal's group\_: %{name}"
     backend/animal_medicines:
-      # edit: "Modifier le produit vétérinaire\_: %{name}"
-      # index: "Produits vétérinaires"
-      # new: "Nouveau produit vétérinaire"
-      # show: "Produit vétérinaire\_: %{name}"
+      edit: "Edit animal medicine\_: %{name}"
+      index: "Animal medicines"
+      new: "Create an animal medicine"
+      show: "Animal medicine\_: %{name}"
     backend/animals:
-      # edit: "Modifier l’animal\_: %{name}"
-      # index: "Animaux"
-      # new: "Nouvel animal"
-      # picture: "Photo"
-      # show: "%{nature_name}\_: %{name}"
+      edit: "Edit animal\_: %{name}"
+      index: "Animals"
+      new: "Create animal"
+      picture: "Picture"
+      show: "%{nature_name}\_: %{name}"
     backend/areas:
       edit: "Edit the postal area: %{name}"
       index: "Postal areas"
@@ -65,20 +65,20 @@ eng:
       show: "Account statement N°%{number}"
     backend/base: #?
     backend/building_divisions:
-      # edit: "Modifier la zone\_: %{name}"
-      # index: "Zones de bâtiments"
-      # new: "Ajout d'une zone"
-      # show: "Détail d'une zone\_: %{name}"
+      edit: "Edit a building division\_: %{name}"
+      index: "Building division"
+      new: "Create a building division"
+      show: "Building division\_: %{name}"
     backend/buildings:
       edit: "Edit the building: %{name}"
       index: "Buildings"
       new: "Add a new building"
       show: "Building: %{name}"
     backend/campaigns:
-      # edit: "Campagne\_: %{name}"
-      # index: "Campagnes"
-      # new: "Nouvelle campagne"
-      # show: "Campagne %{name}"
+      edit: "Edit campaign\_: %{name}"
+      index: "Campagains"
+      new: "Create campaign"
+      show: "Campaign %{name}"
     backend/cash_transfers:
       edit: "Edit cash transfer: %{number}"
       index: "Cash transfers"
@@ -160,8 +160,8 @@ eng:
       new: "Add a new document template"
       print: "Print document template"
     backend/documents:
-      # index: "Gestion électronique des documents"
-      # show: "Document\_: %{name}"
+      index: "Documents management"
+      show: "Document\_: %{name}"
     backend/entities:
       destroy: "Remove person"
       edit: "Edit person: %{full_name}"
@@ -170,7 +170,7 @@ eng:
       index: "People"
       merge: "Merge two people"
       new: "Add a new person"
-      # picture: "Portrait"
+      picture: "Picture"
       show: "Person: %{full_name}"
     backend/entity_addresses:
       edit: "Edit a coordinate"
@@ -201,10 +201,10 @@ eng:
       index: "Person types" #?
       new: "Add a new person type" #?
     backend/equipments:
-      # edit: "Modifier l’équipement\_: %{name}"
-      # index: "Équipements"
-      # new: "Ajouter un nouvel équipement"
-      # show: "Équipement %{name}"
+      edit: "Edit equipment\_: %{name}"
+      index: "Equipments"
+      new: "Add an equipment"
+      show: "Equipment %{name}"
     backend/establishments:
       edit: "Edit the establishment: %{name}"
       index: "Establishments"
@@ -230,12 +230,12 @@ eng:
       index: "Help" #?
       show: "Help: %{title}" #?
     backend/helps:
-      # index: "Aide"
+      index: "Help"
     backend/incidents:
-      # edit: "Modifier l’incident\_: %{name} (%{nature})"
-      # index: "Incidents"
-      # new: "Nouvel incident"
-      # show: "Incident %{name} (%{nature})"
+      edit: "Edit an incident\_: %{name} (%{nature})"
+      index: "Incidents"
+      new: "New incident"
+      show: "Incident %{name} (%{nature})"
     backend/incoming_deliveries:
       confirm: "Confirm incoming delivery"
       edit: "Edit the incoming delivery"
@@ -283,17 +283,17 @@ eng:
       show: "Journal: %{name} (%{code})"
     backend/kujakus: #?
     backend/land_parcel_clusters:
-      # edit: "Modifier l’ilôt\_: %{name}"
-      # index: "Ilôts"
-      # new: "Ajouter un nouvel ilôt"
-      # show: "Ilôt %{name}"
+      edit: "Edit land parcel cluster \_: %{name}"
+      index: "Land parcel clusters"
+      new: "Create a land parcel cluster"
+      show: "Land parcel cluster %{name}"
     backend/land_parcel_groups:
-      # divide: "Diviser la parcelle culturale\_: %{name}"
-      # edit: "Modifier la parcelle culturale\_: %{name}"
-      # index: "Parcelles culturales"
-      # merge: "Fusionner des parcelles culturales"
-      # new: "Ajouter une nouvelle parcelle culturale"
-      # show: "Parcelle culturale %{name}"
+      divide: "Divide land parcel group\_: %{name}"
+      edit: "Edit land parcel group\_: %{name}"
+      index: "Land parcel groups"
+      merge: "Merge land parcel groups"
+      new: "Create a Land parcel group"
+      show: "Land parcel group %{name}"
     backend/land_parcels:
       divide: "Divide land parcel: %{name}"
       edit: "Edit land parcel: %{name}"
@@ -322,11 +322,11 @@ eng:
       index: "Mandates"
       new: "Add a mandate"
     backend/matters:
-      # edit: "Modifier la matière\_: %{name}"
-      # index: "Matières"
-      # new: "Nouvelle matière"
-      # picture: "Visuel"
-      # show: "Matière\_: %{name}"
+      edit: "Edit matter\_: %{name}"
+      index: "Matters"
+      new: "Create matter"
+      picture: "Visual"
+      show: "Matter\_: %{name}"
     backend/medicines:
       # edit: "Modifier le médicaments\_: %{name}"
       # index: "Médicaments"
@@ -338,10 +338,10 @@ eng:
       # index: "Évènements"
       # new: "Nouvel évènement"
     backend/mineral_matters:
-      # edit: "Modifier la matière minérale\_: %{name}"
-      # index: "Matières minérales"
-      # new: "Ajouter une matière minérale"
-      # show: "Matière minérale\_: %{name}"
+      edit: "Edit mineral matter\_: %{name}"
+      index: "Mineral matter"
+      new: "Add mineral matter"
+      show: "Mineral matter\_: %{name}"
     backend/myselves:
       change_password: "Change my password"
       # show: "Mes informations"
@@ -358,10 +358,10 @@ eng:
       show: "Operation Details %{name}"
       unvalidateds: "Unvalidated operations"
     backend/organic_matters:
-      # edit: "Modifier la matière organique\_: %{name}"
-      # index: "Matières organiques"
-      # new: "Nouvelle matière organique"
-      # show: "Matière organique\_: %{name}"
+      edit: "Edit organic matter\_: %{name}"
+      index: "Organic matters"
+      new: "Create organic matter"
+      show: "Organic matter\_: %{name}"
     backend/outgoing_deliveries:
       edit: "Edit outgoing delivery: %{number}"
       index: "Outgoing deliveries"
@@ -383,20 +383,20 @@ eng:
     backend/people: #?
     backend/places: #?
     backend/plant_medicines:
-      # edit: "Modifier le produit phytosanitaire\_: %{name}"
-      # index: "Produits phytosanitaires"
-      # new: "Nouveau produit phytosanitaire"
-      # show: "Produit phytosanitaire\_: %{name}"
+      edit: "Edit plant medicine\_: %{name}"
+      index: "Plant medicines"
+      new: "Create plant medicine"
+      show: "Plant medicine\_: %{name}"
     backend/plants:
-      # edit: "Modifier la culture\_: %{name}"
-      # index: "Cutures"
-      # new: "Nouvelle culture"
-      # show: "Culture\_: %{name} "
+      edit: "Edit plant\_: %{name}"
+      index: "Plants"
+      new: "Create plant"
+      show: "Plant\_: %{name} "
     backend/preferences:
-      # edit: "Modifier les préférences"
-      # index: "Préférences"
-      # new: "Nouvelle préférence"
-      # show: "Préférence"
+      edit: "Edit preferences"
+      index: "Preferences"
+      new: "New preferences"
+      show: "Preference\_: %{name}"
     backend/prices:  #?
       edit: "Edit price %{pretax_amount}/%{amount} of %{product}" #?
       export: "Export prices" #?
@@ -406,32 +406,32 @@ eng:
       new: "Add a new price" #?
     backend/procedure_natures: #?
     backend/procedures:
-      # edit: "Modifier la procédure\_: %{nomen}"
-      # index: "Procédures"
-      # new: "Nouvelle procédure"
+      edit: "Edit procedure\_: %{nomen}"
+      index: "Procedures"
+      new: "Create a procedure"
       # play: "Effectuer la procédure\_: %{name}"
-      # show: "Procédure\_: %{name}"
+      show: "Procedure\_: %{name}"
     backend/product_abilities: #?
     backend/product_groups:
-      # edit: "Modifier le lot\_: %{name} "
-      # index: "Lots de produits"
-      # new: "Créer un lot"
-      # show: "Lot\_: %{name}"
+      edit: "Edit group\_: %{name} "
+      index: "Product groups"
+      new: "Create a group"
+      show: "Group\_: %{name}"
     backend/product_indicator_choices: #?
     backend/product_indicator_data:
-      # edit: "Modifier la valeur d’un indicateur"
-      # index: "Indicateurs Produits"
-      # new: "Nouvelle valeur d’indicateur pour un produit"
-      # show: "Valeurs"
+      edit: "Edit product indicator data"
+      index: "Product indicator data"
+      new: "Create a value for a product indicator"
+      show: "Indicator data"
     backend/product_indicator_nature_choices: #?
     backend/product_indicator_natures: #?
     backend/product_indicators: #?
     backend/product_links: #?
     backend/product_localizations:
-      # edit: "Modifier une localisation d’un produit"
-      # index: "Tracabilité des produits"
-      # new: "Nouvelle localisation d’un produit"
-      # show: "Détail d’une localisation d’un produit"
+      edit: "Edit a product localization"
+      index: "Product localizations"
+      new: "Create a localization"
+      show: "Product localization"
     backend/product_memberships: #?
     backend/product_moves:
       edit: "Edit the stock move: %{name}"
@@ -445,10 +445,10 @@ eng:
     backend/product_nature_indicators: #?
     backend/product_nature_prices: #?
     backend/product_nature_variants:
-      # edit: "Modifier la variante de produit\_: %{name}"
-      # index: "Variantes de produits"
-      # new: "Nouvelle variante de produit"
-      # show: "Variante de produit\_: %{name}"
+      edit: "Edit product variant\_: %{name}"
+      index: "Product variant"
+      new: "Create a product variant"
+      show: "Product variant\_: %{name}"
     backend/product_natures:
       edit: "Edit the product type: %{name}"
       index: "Product types"
@@ -483,10 +483,10 @@ eng:
       show: "Production chain: %{name}" #?
     backend/production_supports: #?
     backend/productions:
-      # edit: "Modifier la production\_: %{name}"
-      # index: "Productions"
-      # new: "Nouvelle production"
-      # show: "Production\_: %{name}"
+      edit: "Edit production\_: %{name}"
+      index: "Productions"
+      new: "Create production"
+      show: "Production\_: %{name}"
     backend/products:
       change_quantities: "Change quantities for product" #?
       edit: "Edit the product: %{name}"
@@ -558,10 +558,10 @@ eng:
       import: "Import data"
       restore: "Restore data"
     backend/settlements:
-      # edit: "Modifier l’installation\_: %{name}"
-      # index: "Installations"
-      # new: "Nouvelle installation"
-      # show: "Installation\_: %{name}"
+      edit: "Edit settlement\_: %{name}"
+      index: "Settlement"
+      new: "New settlement"
+      show: "Settlement\_: %{name}"
     backend/snippets: #?
     backend/subscription_natures:
       edit: "Edit the subscription type: %{name}"
@@ -613,18 +613,18 @@ eng:
     public:
       index: "Home"
   controllers:
-    # authentication/sessions: "Sessions"
+    authentication/sessions: "Sessions"
     backend/account_balances: "Account balances"
     backend/accounts: "Plan of accounts"
-    # backend/activities: "Activités"
-    # backend/affairs: "Affaires"
-    # backend/analytic_repartitions: "Répartitions analytiques"
+    backend/activities: "Activities"
+    backend/affairs: "Affairs"
+    backend/analytic_repartitions: "Analytics repartitions"
     backend/animals: "Animals"
     backend/areas: "Postal areas"
     backend/assets: "Assets"
     backend/bank_statements: "Bank statements"
     backend/buildings: "Buildings"
-    # backend/campaigns: "Campagnes"
+    backend/campaigns: "Campaigns"
     backend/cash_transfers: "Cash transfers"
     backend/cashes: "Cashes"
     backend/custom_field_choices: "Custom field choices"
@@ -643,7 +643,7 @@ eng:
     backend/entity_link_natures: "Link types" #?
     backend/entity_links: "Entity links"
     backend/entity_natures: "Person types" #?
-    # backend/equipments: "Équipements"
+    backend/equipments: "Equipments"
     backend/establishments: "Establishments"
     backend/event_natures: "Event types" #?
     backend/events: "Events" #?
@@ -666,7 +666,7 @@ eng:
     backend/listings: "Listings and mailings"
     backend/logs: "Animal's events"
     backend/mandates: "Mandates"
-    # backend/matters: "Matières"
+    backend/matters: "Matters"
     backend/myselves: "Myself"
     backend/observations: "Observations"
     backend/operations: "Operations"
@@ -678,7 +678,7 @@ eng:
     backend/preferences: "Preferences"
     backend/prices: "Prices" #?
     backend/product_groups: "Product groups"
-    # backend/product_localizations: "Tracabilité"
+    backend/product_localizations: "Product localizations"
     backend/product_moves: "Stock moves"
     backend/product_nature_categories: "Product categories"
     backend/product_natures: "Product types"
@@ -773,11 +773,11 @@ eng:
     add_diagnostic: "Add diagnostic"
     add_email: "Add email"
     add_fax: "Add fax"
-    # add_indicator_datum: "Ajouter une mesure pour un indicateur"
-    # add_item: "Ajouter un élément"
+    add_indicator_datum: "Add a value for an indicator"
+    add_item: "Add an element"
     add_mail: "Add postal adress"
     add_mobile: "Add mobile phone number"
-    # add_new_record: "Ajouter un nouveau enregistrement"
+    add_new_record: "Add a new record"
     # add_passage: "Ajouter un produit"
     add_payment: "Add payment"
     add_phone: "Add phone number"
@@ -810,13 +810,13 @@ eng:
     animal_group_tabbox:
       animals: "Animal"
       cares: "Cares on animal"
-    # animal_identification: "Identification animale"
+    animal_identification: "Animal identification"
     animal_pie: "Animals by category"
-    # animal_productions: "Productions animales"
+    animal_productions: "Animal productions"
     animal_tabbox:
       cares: "Cares"
       childrens: "Childs"
-    # animals: "Animaux"
+    animals: "Animals"
     apply: "Apply"
     # archives: "Archives"
     are_you_sure: "Are you sure you want to do this?"
@@ -827,11 +827,11 @@ eng:
     are_you_sure_you_want_to_send_mails: "Are you sure you want to send emails?"
     area_x: "%{name} (%{postcode})"
     # assessable_operations: "Opérations imposables (H.T)"
-    # assets: "Immo. - Emprunts"
+    assets: "Assets management"
     # assimilated_tax: "Taxes assimilées calculées sur annexe n°3310A"
     attach_an_incoming_payment_to_expense: "Attach an incoming payment to %{type} %{number}"
     attach_an_outgoing_payment_to_expense: "Attach an outgoing payment to %{type} %{number}"
-    # attach_deal: "Ajouter une transaction"
+    attach_deal: "Add a deal"
     attachment: "Attachment"
     attorney: "Attorney"
     available_columns: "Available columns: %{columns}"
