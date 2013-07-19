@@ -205,7 +205,7 @@ class Product < Ekylibre::Record::Base
     options = (args[-1].is_a?(Hash) ? args.delete_at(-1) : {})
     measured_at = args.shift || options[:at] || Time.now
     indicator = Nomen::Indicators.items[method_name]
-    
+
     if options[:interpolate]
       if [:measure, :decimal].include?(indicator.datatype)
         raise NotImplementedError.new("Interpolation is not available for now")

@@ -439,7 +439,7 @@ spa:
     backend/product_links: #?
     backend/product_localizations:
       # edit: "Modifier une localisation d’un produit"
-      # index: "Tracabilité des produits"
+      # index: "Localisation des produits"
       # new: "Nouvelle localisation d’un produit"
       # show: "Détail d’une localisation d’un produit"
     backend/product_memberships: #?
@@ -678,7 +678,7 @@ spa:
     # backend/outgoing_payments: "Décaissements"
     # backend/preferences: "Préférences"
     # backend/product_groups: "Lot de produits"
-    # backend/product_localizations: "Tracabilité"
+    # backend/product_localizations: "Localisations"
     # backend/product_moves: "Mouvements de stock"
     # backend/product_nature_categories: "Catégories de type de produits"
     # backend/product_natures: "Types de produits"
@@ -855,7 +855,7 @@ spa:
     building_tabbox:
       # stock_moves: "Mouvements de stock"
       # stocks: "Stocks"
-    building_update: "Modifiar el lugar de deposito"
+    building_update: "Modifiar el lugar de deposito" #?
     buildings: "Ver la lista de los lugares de deposito"
     # calendar: "Calendrier"
     # canals: "Coordonnées"
@@ -988,7 +988,6 @@ spa:
     # duration_in_hours_and_minutes: "%{hours}h %{minutes}min"
     # edit: "Modifier"
     ekylibre: "www.ekylibre.org"
-    # elevage_rss: "Actualité élevage"
     # email: "Email:"
     # employee_name: "Employé"
     end: "al"
@@ -1303,9 +1302,7 @@ spa:
     page_title_special: "%{company_code} - %{action}"
     # paid_amount: "Montant réglé"
     # paid_on: "Réglé le"
-    # paids: "Réglements"
     parameters: "Parametros"
-    # parts_amount: "Montant réglé"
     passive_balance_sheet: "Balance pasivo"
     passive_capital_sum: "Total capitales"
     passive_debt_sum: "Total deudas"
@@ -1400,7 +1397,7 @@ spa:
     # record_has_not_been_removed: "L’enregistrement n’a pu être supprimé."
     # reflect: "Refléter"
     # refresh: "Rafraîchir"
-    register: "Crear una nueva compañía"
+    register: "Crear una nueva compañía" #?
     relations: "Relaciones clientos/abastecedores" #?
     # relationship: "Gestion des relations clients/fournisseurs"
     # remove_diagnostic: "Supprimer un diagnostic"
@@ -1541,7 +1538,7 @@ spa:
     synthesis: "Documentos de sintesis"
     # target: "Cible"
     tax_create: "Añadir una nueva tasa" #?
-    tax_declaration_create: "Añadir una nueva declaración"
+    tax_declaration_create: "Añadir una nueva declaración" #?
     theoric_quantity: "cantidad teorica"
     # third_informations: "Informations tierces"
     to: "Al"
@@ -1603,7 +1600,7 @@ spa:
     used_accounts: "Cuentos utilozados unico" #?
     user_create: "Añadir un nuevo utilizador" #?
     user_name: "Nombre de usuario"
-    user_update: "Modificar las informaciones del utilizador"
+    user_update: "Modificar las informaciones del utilizador" #?
     # users: "Compte utilisateur"
     # uses: "Matériel"
     # valid: "Valider"

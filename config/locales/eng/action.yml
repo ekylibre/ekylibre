@@ -19,8 +19,6 @@ eng:
       # index: "Activités"
       # new: "Nouvelle activité"
       # show: "%{name}"
-    backend/activity_repartitions: #?
-    backend/activity_watchings: #?
     backend/affairs:
       # index: "Transactions"
       # select: "Ajouter une transaction"
@@ -94,9 +92,7 @@ eng:
     backend/cells/demo_bar_cells: #?
     backend/cells/demo_map_cells: #?
     backend/cells/demo_pie_cells: #?
-    backend/cells/elevage_rss_cells: #?
     backend/cells/expense_chart_cells: #?
-    backend/cells/last_events_cells: #?
     backend/cells/last_milk_result_cells: #?
     backend/cells/last_procedures_cells: #?
     backend/cells/last_products_cells: #?
@@ -117,26 +113,15 @@ eng:
       sort: "Sort custom field choices"
     backend/dashboards:
       accountancy: "Accountancy dashboard"
-      finances: "Finances dashboard" #?
-      general: "General dashboard" #?
       index: "General dashboard"
       production: "Production dashboard"
       purchases: "Purchases dashboard"
       relationship: "Relationship dashboard"
       sales: "Sales dashboard"
-      # search: "Recherche de\_: %{searched}"
+      search: "Search for: %{searched}"
       settings: "Settings dashboard"
-      settings_accountancy: "Accountancy settings  dashboard" #?
-      settings_base: "Base settings dashboard" #?
-      settings_production: "Production settings dashboard" #?
-      settings_products: "Products settings dashboard" #?
-      settings_purchases: "Purchases settings dashboard" #?
-      settings_relationship: "Relationship settings dashboard" #?
-      settings_sales: "Sales settings dashboard" #?
-      settings_stocks: "Stocks settings dashboard" #?
       stocks: "Stocks dashboard"
-      # tools: "Tableau de bord des outils"
-      trade: "Trade dashboard" #?
+      tools: "Tools dashboard"
       welcome: "Welcome on Ekylibre"
     backend/departments:
       edit: "Edit the department: %{name}"
@@ -201,10 +186,10 @@ eng:
       index: "Person types" #?
       new: "Add a new person type" #?
     backend/equipments:
-      # edit: "Modifier l’équipement\_: %{name}"
-      # index: "Équipements"
-      # new: "Ajouter un nouvel équipement"
-      # show: "Équipement %{name}"
+      edit: "Edit equipment: %{name}"
+      index: "Equipments"
+      new: "Add a equipment"
+      show: "Equipment: %{name}"
     backend/establishments:
       edit: "Edit the establishment: %{name}"
       index: "Establishments"
@@ -230,7 +215,7 @@ eng:
       index: "Help" #?
       show: "Help: %{title}" #?
     backend/helps:
-      # index: "Aide"
+      index: "Help"
     backend/incidents:
       # edit: "Modifier l’incident\_: %{name} (%{nature})"
       # index: "Incidents"
@@ -250,8 +235,6 @@ eng:
       edit: "Edit the incoming payment mode: %{name}"
       index: "Incoming payment modes"
       new: "Add a new incoming payment mode"
-    backend/incoming_payment_uses:  #?
-      new: "Attach an incoming payment" #?
     backend/incoming_payments:
       edit: "Edit the incoming payment %{number}"
       index: "Incoming payments"
@@ -381,7 +364,6 @@ eng:
       new: "Add a new disbursement"
       show: "Disbursement %{number} for %{payee}"
     backend/people: #?
-    backend/places: #?
     backend/plant_medicines:
       # edit: "Modifier le produit phytosanitaire\_: %{name}"
       # index: "Produits phytosanitaires"
@@ -417,33 +399,26 @@ eng:
       # index: "Lots de produits"
       # new: "Créer un lot"
       # show: "Lot\_: %{name}"
-    backend/product_indicator_choices: #?
     backend/product_indicator_data:
       # edit: "Modifier la valeur d’un indicateur"
       # index: "Indicateurs Produits"
       # new: "Nouvelle valeur d’indicateur pour un produit"
       # show: "Valeurs"
-    backend/product_indicator_nature_choices: #?
-    backend/product_indicator_natures: #?
-    backend/product_indicators: #?
     backend/product_links: #?
     backend/product_localizations:
       # edit: "Modifier une localisation d’un produit"
-      # index: "Tracabilité des produits"
+      # index: "Localisation des produits"
       # new: "Nouvelle localisation d’un produit"
       # show: "Détail d’une localisation d’un produit"
     backend/product_memberships: #?
     backend/product_moves:
       edit: "Edit the stock move: %{name}"
       new: "add a new stock move"
-    backend/product_nature_abilities: #?
     backend/product_nature_categories:
       edit: "Edit the product category: %{name}"
       index: "Product categories"
       new: "Add a new product category"
       show: "Product category: %{name}"
-    backend/product_nature_indicators: #?
-    backend/product_nature_prices: #?
     backend/product_nature_variants:
       # edit: "Modifier la variante de produit\_: %{name}"
       # index: "Variantes de produits"
@@ -468,19 +443,6 @@ eng:
       edit: "Edit the stock transfer/loss" #?
       index: "Transfers and loss" #?
       new: "Add a new stock transfer or loss" #?
-    backend/production_chain_conveyors:  #?
-      edit: "Edit production chain conveyor (%{source_id}-%{target_id})" #?
-      new: "Add a new conveyor in the production chain" #?
-    backend/production_chain_work_centers:  #?
-      edit: "Edit the work center: %{name}" #?
-      new: "Add a new work center" #?
-      play: "Play work center: %{name}" #?
-      show: "Work center: %{name}" #?
-    backend/production_chains:  #?
-      edit: "Edit production chain: %{name}" #?
-      index: "Production chains" #?
-      new: "Add a new production chain" #?
-      show: "Production chain: %{name}" #?
     backend/production_supports: #?
     backend/productions:
       # edit: "Modifier la production\_: %{name}"
@@ -582,11 +544,6 @@ eng:
       edit: "Edit tax: %{name}"
       index: "Taxes"
       new: "Add a new tax"
-    backend/tools:  #?
-      edit: "Edit tool: %{name}" #?
-      index: "Tools" #?
-      new: "Add a tool" #?
-      show: "Tool: %{name}" #?
     backend/trackings:  #?
       show: "Tracking: %{name}" #?
     backend/transports:
@@ -608,8 +565,6 @@ eng:
       new: "Add a new user"
       show: "User: %{first_name} %{last_name} (%{name})"
       unlock: "Unlock user"
-    backend/vegetals: #?
-    backend/working_sets: #?
     public:
       index: "Home"
   controllers:
@@ -624,7 +579,7 @@ eng:
     backend/assets: "Assets"
     backend/bank_statements: "Bank statements"
     backend/buildings: "Buildings"
-    # backend/campaigns: "Campagnes"
+    backend/campaigns: "Campaigns"
     backend/cash_transfers: "Cash transfers"
     backend/cashes: "Cashes"
     backend/custom_field_choices: "Custom field choices"
@@ -643,7 +598,7 @@ eng:
     backend/entity_link_natures: "Link types" #?
     backend/entity_links: "Entity links"
     backend/entity_natures: "Person types" #?
-    # backend/equipments: "Équipements"
+    backend/equipments: "Equipments"
     backend/establishments: "Establishments"
     backend/event_natures: "Event types" #?
     backend/events: "Events" #?
@@ -664,9 +619,9 @@ eng:
     backend/listing_node_items: "Listing node items"
     backend/listing_nodes: "Listing nodes"
     backend/listings: "Listings and mailings"
-    backend/logs: "Animal's events"
+    backend/logs: "Logs"
     backend/mandates: "Mandates"
-    # backend/matters: "Matières"
+    backend/matters: "Matters"
     backend/myselves: "Myself"
     backend/observations: "Observations"
     backend/operations: "Operations"
@@ -678,7 +633,7 @@ eng:
     backend/preferences: "Preferences"
     backend/prices: "Prices" #?
     backend/product_groups: "Product groups"
-    # backend/product_localizations: "Tracabilité"
+    backend/product_localizations: "Localizations"
     backend/product_moves: "Stock moves"
     backend/product_nature_categories: "Product categories"
     backend/product_natures: "Product types"
@@ -687,13 +642,9 @@ eng:
     # backend/product_prices: "Prix des produits"
     backend/product_transfers: "Transfers and loss" #?
     backend/product_varieties: "Product species" #?
-    backend/production_chain_conveyors: "Production chain conveyors" #?
-    backend/production_chain_work_center_uses: "Production chain work center uses" #?
-    backend/production_chain_work_centers: "Production chain work centers" #?
-    backend/production_chains: "Production chains" #?
-    backend/products: "Animals"
+    backend/products: "Products"
     backend/professions: "Professions"
-    backend/purchase_items: "Purchase lines"
+    backend/purchase_items: "Purchase items"
     backend/purchase_natures: "Purchase types"
     backend/purchases: "Purchases"
     backend/roles: "Roles"
@@ -706,11 +657,8 @@ eng:
     backend/subscriptions: "Subscriptions"
     backend/tax_declarations: "Tax declarations"
     backend/taxes: "Taxes"
-    backend/tools: "Tools" #?
-    backend/trackings: "Trackings" #?
     backend/transfers: "Transfers"
     backend/transports: "Transports"
-    backend/units: "Units of measure" #?
     backend/users: "Users"
   errors:
     messages:
@@ -860,7 +808,6 @@ eng:
     building_tabbox:
       stock_moves: "Stocks moves"
       stocks: "Stocks"
-    # building_update: "Modifier le lieu de stockage"
     buildings: "Buildings"
     # calendar: "Calendrier"
     canals: "Canals"
@@ -985,7 +932,6 @@ eng:
     duration_in_hours_and_minutes: "%{hours}h %{minutes}min"
     edit: "Edit"
     ekylibre: "www.ekylibre.org"
-    # elevage_rss: "Actualité élevage"
     email: "Email:"
     employee_name: "Employee"
     end: "to"
@@ -1010,7 +956,7 @@ eng:
     estimate_to_order: "Estimate to order"
     europe_out_export: "Export outside Country"
     events: "Events"
-    example: "Example&nbsp;: %{value}"
+    example: "Example: %{value}"
     exchange_rate_from_x_to_y: "Exchange rate from %{x} to %{y}"
     executed: "Executed"
     existing_part: "Existing part"
@@ -1050,7 +996,7 @@ eng:
     group: "Group"
     # groups: "Groupes"
     help: "Help"
-    hint: "Hint&nbsp;: %{value}"
+    hint: "Hint: %{value}"
     home: "Back to Help home"
     hour_duration:
       one: "Total used time: 1 hour"
@@ -1174,35 +1120,6 @@ eng:
       sales: "Sales"
       settings: "Settings"
       stocks: "Stocks"
-      submenus:  #?
-        accounts: "Accounts" #?
-        assets: "Assets" #?
-        cashes: "Cashes" #?
-        company: "Company" #?
-        entities: "People" #?
-        events: "Events" #?
-        financial_years: "Financial Years" #?
-        incoming_deliveries: "Incoming Deliveries" #?
-        incoming_payments: "Incoming Payments" #?
-        informations: "Informations" #?
-        journals: "Journals" #?
-        land_parcels: "Land Parcels" #?
-        mandates: "Mandates" #?
-        my_account: "My Account" #?
-        outgoing_deliveries: "Outgoing Deliveries" #?
-        outgoing_payments: "Outgoing Payments" #?
-        parameters: "Parameters" #?
-        production_chains: "Production chains" #?
-        products: "Products" #?
-        purchases: "Purchases" #?
-        reporting: "Reporting" #?
-        rights: "Access Rights" #?
-        sales: "Sales" #?
-        stocks: "Stocks" #?
-        subscriptions: "Subscriptions" #?
-        tasks: "Tasks" #?
-        tax_declarations: "Tax declarations" #?
-        tools: "Tools" #?
       trade: "Trade"
     merge: "Merge"
     # meteo: "Météo"
@@ -1323,9 +1240,8 @@ eng:
     page_title_special: "%{company_code} - %{action}"
     paid_amount: "Paid amount"
     paid_on: "Paid on"
-    # paids: "Réglements"
     parameters: "Parameters"
-    parts_amount: "Paid amount"
+    parts_amount: "Paid amount" #?
     # passive_balance_sheet: "Bilan passif"
     # passive_capital_sum: "Total capitaux"
     # passive_debt_sum: "Total dettes"
@@ -1424,7 +1340,6 @@ eng:
     record_has_not_been_removed: "The record has not been removed"
     reflect: "Reflect"
     refresh: "Refresh"
-    # register: "Créer une nouvelle société"
     # relationship: "Gestion des relations clients/fournisseurs"
     # remove_diagnostic: "Supprimer un diagnostic"
     # remove_indicator_datum: "Supprimer une mesure pour un indicateur"
@@ -1535,7 +1450,7 @@ eng:
     stocks_preferences: "Stock management"
     stop: "Stop"
     string_case: "String case"
-    # string_options: "Indicateur de type Texte"
+    string_options: "Text options"
     subject: "Subject"
     submit: "Submit"
     subscriber_period: "Subscribed on %{subscribed_on}"
@@ -1555,7 +1470,6 @@ eng:
     # supports: "Supports de production"
     synthesis: "Synthesis Documents"
     target: "Target"
-    # tax_declaration_create: "Ajouter une nouvelle déclaration"
     theoric_quantity: "Theoric quantity"
     # third_informations: "Informations tierces"
     to: "to"
@@ -1563,9 +1477,9 @@ eng:
     to_date: "To date"
     to_deliver: "To deliver"
     to_deposit: "To deposit"
-    # today: "Aujourd’hui"
+    today: "Today"
     tool_update: "Update tool"
-    tools: "Used tools"
+    tools: "Tools"
     tools_list: "Tools"
     total: "Total"
     total_amount: "Total amount"
@@ -1609,13 +1523,12 @@ eng:
     up: "Up"
     update: "Update"
     update_params: "Update params"
-    # upload: "Téléversement"
+    upload: "Upload"
     usage: "Usage"
     use_incoming_payment: "Add incoming payment %{payment}"
     use_renew: "Select the journal to carry over"
     used_accounts: "Used accounts only" #?
     user_name: "Username"
-    # user_update: "Modifier les informations de l’utilisateur"
     # users: "Compte utilisateur"
     uses: "Tools"
     valid: "Valid"
@@ -1770,7 +1683,7 @@ eng:
     changes_have_not_been_reflected: "The changes have not been reflected in the stocks state"
     closed_financial_years: "The financial year has been closed successfully"
     columns_are_already_uses: "One or many columns are selected many times"
-    # dashboard_is_being_developed: "Les tableaux de bord sont en cours d’élaboration"
+    dashboard_is_being_developed: "Dashboard is being developed"
     draft_entry_items_are_validated:
       # one: "%{count} ligne de brouillard validée"
       # other: "%{count} lignes de brouillard validées"
@@ -1909,45 +1822,46 @@ eng:
     various_journal: "Default various operations journal"
   unroll:
     backend/accounts:
-      # all: "{number}. {name}"
+      all: "{number}. {name}"
     backend/activities:
-      # all: "{name} ({family}/{nature})"
-    backend/activity_repartitions: #?
+      all: "{name} ({family}/{nature})"
     backend/analytic_repartitions:
-      # all: "{id}"
+      all: "{id}"
     backend/animals:
       all: "{name} ({sex})"
     backend/campaigns:
-      # all: "{name}"
+      all: "{name}"
     backend/entity_links:
       # all: "{started_at}"
     backend/events:
-      # all: "{reason}"
+      all: "{reason}"
     backend/journal_entry_items:
-      # all: "{name}"
+      all: "{name}"
     backend/logs:
-      # all: "{observed_at}"
+      all: "{observed_at}"
     backend/matters:
-      # all: "{name} - {work_number}"
+      all: "{name} - {work_number}"
     backend/observations:
-      # all: "{content}"
+      all: "{content}"
     backend/operations:
-      # all: "{nature} ({created_at})"
+      all: "{nature} ({created_at})"
     backend/plants:
-      # all: "{name} - {work_number}"
+      all: "{name} - {work_number}"
     backend/product_indicators:
-      # all: "{id}"
+      all: "{id}"
     backend/product_memberships:
-      # all: "{started_at}"
+      all: "{started_at}"
     backend/product_nature_prices:
-      # all: "{amount} {currency} / {pretax_amount} {currency}"
+      all: "{amount} {currency} / {pretax_amount} {currency}"
     backend/product_natures:
-      # all: "{name}"
+      all: "{name}"
     backend/product_transfers:
-      # all: "{id}"
+      all: "{id}"
     backend/products:
-      # all: "{work_number} {name}"
+      all: "{work_number} {name}"
     backend/units:
       all: "{label} ({name})"
     backend/users:
-      # all: "{first_name} {last_name}"
+      all: "{first_name} {last_name}"
+    bakend/entity_links:  #?
+      all: "{started_at}" #?
