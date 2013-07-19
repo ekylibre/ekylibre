@@ -76,7 +76,6 @@ class Backend::AnimalsController < BackendController
     t.column :indicator
     t.column :measured_at
     t.column :value
-    t.column :measure_unit
   end
 
   # Liste des incidents de l'animal considéré
