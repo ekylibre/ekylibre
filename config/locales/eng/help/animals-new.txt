@@ -1,18 +1,18 @@
-====== Animaux ======
+====== Animals ======
 
-===== Fiche animal =====
+===== Animal's index =====
 
-**Type** = Type de l'animal (Vache laitière, Veau, Volaille de chair,...).
-Le type porte notament les codes comptables, le prix par défault, la race de base.
+**Type** = Type of the animal (Dairy cow, Calf, Poultry for meat production,...).
+The type carry especially the accountant codes, the price by default, the base breed.
 
-**Race** = la race de l'animal est automatiquement conditionné par son type.
+**Breed** = the breed of the animal is automatically conditioned by his type.
 
-**Numéro de travail** = numéro de boucle
->>> Ex : Bovins : 4 chiffres
+**Work number** = loop number
+>>> Ex : Cattle : 4 numerals
 
-**Numéro d'identification** = numéro national d'identification 
->>> Ex : Bovins : FR + DEPT + 8 chiffres
+**Index number** = National index number
+>>> Ex : Cattle : UK + DEPT + 8 numerals
 
-**Externe à l'exploitation** = Tout animal que l'on doit utiliser mais qui n'est pas présent sur l'exploitation et qui ne comptera pas dans les stocks
->>> Ex : mâles reproducteurs dans le cas d'insémination artificielle.
+**External to the farm** = Any animal that you have to use but which is not present on the farm and which won't include in the stocks
+>>> Ex : reproductive males in the case of artificial insemination.
 

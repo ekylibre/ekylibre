@@ -1,10 +1,10 @@
 ====== Animals ======
 
-===== Animal's list =====
+===== Animals' list =====
 
-Ici, vous pouvez [[>backend/animals#new|créer]] , modifier et visualiser vos animaux.
+Here, you can [[>backend/animals#new|create]] , change and view your animals.
 
->>> Pour enregistrer un évènement lié à un animal (naissance, pesée, traitement, achat, vente, décès,...), il faut [[>backend/procedures#new|créer]]
->>> {{icon:plus}} une nouvelle procédure
+>>> To record an event related to an animal (birth, weighing, treatment, buying, selling, death,...), you have to [[>backend/procedures#new|create]]
+>>> {{icon:plus}} a new procedure
 
-!!! Tant qu'un animal n'intervient dans aucuns indicateurs , procédures, achats, ventes,...il peut être supprimé.
+!!! While no animal intervene in any indicators , procedures, purchases, sales,...it could be deleted.
