@@ -192,6 +192,20 @@ class Product < Ekylibre::Record::Base
     datum = self.indicator_data.new(:indicator => indicator, :measured_at => (options[:at] || Time.now) )
     datum.value = value
     datum.save!
+    return datum
+  end
+
+
+  # Return the indicator datum
+  def indicator(indicator, options = {})
+    measured_at = options[:at] || Time.now
+    return self.indicator_data.where(:indicator => indicator.to_s).where("measured_at <= ?", measured_at).reorder("measured_at DESC").first
+  end
+
+  # Returns indicators for a set of product
+  def self.indicator(name, options = {})
+    measured_at = options[:at] || Time.now
+    ProductIndicatorDatum.where("id IN (SELECT p1.id FROM #{self.indicator_table_name(name)} AS p1 LEFT OUTER JOIN #{self.indicator_table_name(name)} AS p2 ON (p1.product_id = p2.product_id AND (p1.measured_at < p2.measured_at OR (p1.measured_at = p2.measured_at AND p1.id < p2.id)) AND p2.measured_at <= ?) WHERE p1.measured_at <= ? AND p1.product_id IN (?) AND p2 IS NULL)", measured_at, measured_at, self.pluck(:id))
   end
 
 
@@ -212,7 +226,7 @@ class Product < Ekylibre::Record::Base
       end
       raise StandardError("Can not use :interpolate option with #{indicator.datatype.inspect} datatype")
     else
-      if datum = self.indicator_data.where(:indicator => method_name.to_s).where("measured_at <= ?", measured_at).reorder("measured_at DESC").first
+      if datum = self.indicator(indicator.name.to_s, :at => measured_at)
         x = datum.value
         x.define_single_method(:measured_at) do
           measured_at
@@ -224,6 +238,11 @@ class Product < Ekylibre::Record::Base
       end
     end
     return nil
+  end
+
+  # Give the indicator table name
+  def self.indicator_table_name(indicator)
+    ProductIndicatorDatum.table_name
   end
 
 end

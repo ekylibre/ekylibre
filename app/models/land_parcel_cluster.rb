@@ -63,7 +63,6 @@
 class LandParcelCluster < LandParcelGroup
   attr_accessible :born_at, :dead_at, :shape, :active, :external, :description, :name, :variety, :nature_id, :reproductor, :parent_id, :memberships_attributes
 
-  #belongs_to :parent, :class_name => "ProductGroup"
   default_scope -> { order(:name) }
   scope :groups_of, lambda { |member, viewed_at| where("id IN (SELECT group_id FROM #{ProductMembership.table_name} WHERE member_id = ? AND ? BETWEEN COALESCE(started_at, ?) AND COALESCE(stopped_at, ?))", member.id, viewed_at, viewed_at, viewed_at) }
 
@@ -85,7 +84,6 @@ class LandParcelCluster < LandParcelGroup
     raise ArgumentError.new("LandParcel expected, got #{member.class}:#{member.inspect}") unless member.is_a?(LandParcel)
     super(member, stopped_at)
   end
-
 
   # Returns members of the group at a given time (or now by default)
   def members_at(viewed_at = nil)

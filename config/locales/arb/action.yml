@@ -488,7 +488,7 @@ arb:
     backend/product_links: #?
     backend/product_localizations:
       # edit: "Modifier une localisation d’un produit"
-      # index: "Tracabilité des produits"
+      # index: "Localisation des produits"
       # new: "Nouvelle localisation d’un produit"
       # show: "Détail d’une localisation d’un produit"
     backend/product_memberships: #?
@@ -780,7 +780,7 @@ arb:
     backend/prices: "الاسعار" #?
     backend/product_categories: "فئات المنتج" #?
     # backend/product_groups: "Lot de produits"
-    # backend/product_localizations: "Tracabilité"
+    # backend/product_localizations: "Localisations"
     # backend/product_moves: "Mouvements de stock"
     backend/product_nature: "المنتجات" #?
     backend/product_nature_categories: "فئات المنتج"
@@ -966,7 +966,7 @@ arb:
     building_tabbox:
       # stock_moves: "Mouvements de stock"
       # stocks: "Stocks"
-    building_update: "تعديل موقع التخزين"
+    building_update: "تعديل موقع التخزين" #?
     buildings: "النظر بقائمة مواقع التخزين"
     # calendar: "Calendrier"
     canals: "التنسيق"
@@ -1106,7 +1106,6 @@ arb:
     # duration_in_hours_and_minutes: "%{hours}h %{minutes}min"
     edit: "تعديل"
     ekylibre: "www.ekylibre.org"
-    # elevage_rss: "Actualité élevage"
     # email: "Email:"
     employee_name: "الموظف"
     end: "لغاية"
@@ -1464,9 +1463,7 @@ arb:
     page_title_special: "%{company_code} - %{action}"
     paid_amount: "القيمة المسدودة"
     paid_on: "تم التسديد في"
-    # paids: "Réglements"
     parameters: "عامل متغير"
-    # parts_amount: "Montant réglé"
     passive_balance_sheet: "رصيد ثابت"
     passive_capital_sum: "مجموع رأس المال"
     passive_debt_sum: "مجموع الديون"
@@ -1572,7 +1569,7 @@ arb:
     record_has_not_been_removed: "لم يتم حذف السجلات"
     reflect: "يعكس"
     refresh: "تحديث"
-    register: "تسجيل شركة جديدة"
+    register: "تسجيل شركة جديدة" #?
     relations: "ادارة علاقات العملاء / والمموليين" #?
     # relationship: "Gestion des relations clients/fournisseurs"
     # remove_diagnostic: "Supprimer un diagnostic"
@@ -1722,7 +1719,7 @@ arb:
     synthesis: "تجميع الوثائق"
     # target: "Cible"
     tax_create: "اضافة ضريبة جديدة" #?
-    tax_declaration_create: "اضافة تصريح جديد"
+    tax_declaration_create: "اضافة تصريح جديد" #?
     theoric_quantity: "الكمية النظرية"
     # third_informations: "Informations tierces"
     to: "الى"
@@ -1791,7 +1788,7 @@ arb:
     used_accounts: "الحسابات المستخدمة فقط" #?
     user_create: "اضافة مستخدم جديد" #?
     user_name: "اسم المستخدم"
-    user_update: "تعديل معلومات المستخدم"
+    user_update: "تعديل معلومات المستخدم" #?
     # users: "Compte utilisateur"
     uses: "المادة"
     valid: "الصلاحية"

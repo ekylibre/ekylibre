@@ -27,92 +27,100 @@ module Ekylibre::Record
         return id
       end
 
-      def has_shape(*args)
-        options = (args[-1].is_a?(Hash) ? args.delete_at(-1) : {})
+      def has_shape(*indicators)
+        options = (indicators[-1].is_a?(Hash) ? indicators.delete_at(-1) : {})
         code = ""
-        args = [:shape] if args.empty?
-        for column in args
-          code << "after_create :create_#{column}_images\n"
+        indicators = [:shape] if indicators.empty?
+        column = :geometry_value
 
-          code << "before_update :update_#{column}_images\n"
+        for indicator in indicators
+          # code << "after_create :create_#{indicator}_images\n"
 
-          code << "def #{column}_dir\n"
-          code << "  Ekylibre.private_directory.join('shapes', '#{self.name.underscore.pluralize}', '#{column}', self.id.to_s)\n"
-          code << "end\n"
+          # code << "before_update :update_#{indicator}_images\n"
 
-          code << "def self.#{column}_view_box(options = {})\n"
-          code << "  column = (options[:srid] ? \"ST_Transform(#{column}, \#{self.class.srid(options[:srid])})\" : '#{column}')\n"
-          code << "  x_min = self.minimum(\"ST_XMin(\#{column})\").to_d\n"
-          code << "  x_max = self.maximum(\"ST_XMax(\#{column})\").to_d\n"
-          code << "  y_min = self.minimum(\"ST_YMin(\#{column})\").to_d\n"
-          code << "  y_max = self.maximum(\"ST_YMax(\#{column})\").to_d\n"
-          code << "  return [x_min, -y_max, (x_max - x_min), (y_max - y_min)]\n"
+          # code << "def #{indicator}_dir\n"
+          # code << "  Ekylibre.private_directory.join('shapes', '#{self.name.underscore.pluralize}', '#{indicator}', self.id.to_s)\n"
+          # code << "end\n"
+
+          # 
+          code << "def self.#{indicator}_view_box(options = {})\n"
+          code << "  expr = (options[:srid] ? \"ST_Transform(#{column}, \#{self.class.srid(options[:srid])})\" : '#{column}')\n"
+          code << "  ids = self.indicator(:#{indicator}, :at => options[:at]).pluck(:id)\n"
+          code << "  return [] unless ids.size > 0\n"
+          code << "  values = self.connection.select_one(\"SELECT min(ST_XMin(\#{expr})) AS x_min, min(ST_YMin(\#{expr})) AS y_min, max(ST_XMax(\#{expr})) AS x_max, max(ST_YMax(\#{expr})) AS y_max  FROM \#{Product.indicator_table_name(:#{indicator})} WHERE id IN (\#{ids.join(',')})\").symbolize_keys\n"
+          # code << "  x_min = self.minimum(\"ST_XMin(\#{indicator})\").to_d\n"
+          # code << "  x_max = self.maximum(\"ST_XMax(\#{indicator})\").to_d\n"
+          # code << "  y_min = self.minimum(\"ST_YMin(\#{indicator})\").to_d\n"
+          # code << "  y_max = self.maximum(\"ST_YMax(\#{indicator})\").to_d\n"
+          code << "  return [values[:x_min].to_d, -values[:y_max].to_d, (values[:x_max].to_d - values[:x_min].to_d), (values[:y_max].to_d - values[:y_min].to_d)]\n"
           code << "end\n"
 
 
 
           # Return SVG as String
-          code << "def #{column}_svg(options = {})\n"
+          code << "def #{indicator}_svg(options = {})\n"
+          code << "  return nil unless datum = self.indicator(:#{indicator}, :at => options[:at])\n"
           code << "  return ('<svg xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\""
-          for attr, value in {:class => column, :preserve_aspect_ratio => 'xMidYMid meet', :width => 180, :height => 180, :view_box => Code.new("self.#{column}_view_box.join(' ')")}
+          for attr, value in {:class => indicator, :preserve_aspect_ratio => 'xMidYMid meet', :width => 180, :height => 180, :view_box => Code.new("self.#{indicator}_view_box.join(' ')")}
             code << " #{attr.to_s.camelcase(:lower)}=\"' + (options[:#{attr}] || #{value.inspect}).to_s + '\""
           end
-          code << "><path d=\"' + self.#{column}_as_svg.to_s + '\"/></svg>').html_safe\n"
+          code << "><path d=\"' + self.#{indicator}_as_svg.to_s + '\"/></svg>').html_safe\n"
           code << "end\n"
 
-
-          code << "def #{column}_view_box(options = {})\n"
-          code << "  return [self.#{column}_x_min(options), -self.#{column}_y_max(options), self.#{column}_width(options), self.#{column}_height(options)]\n"
+          code << "def #{indicator}_view_box(options = {})\n"
+          code << "  return nil unless datum = self.indicator(:#{indicator}, :at => options[:at])\n"
+          code << "  return [self.#{indicator}_x_min(options), -self.#{indicator}_y_max(options), self.#{indicator}_width(options), self.#{indicator}_height(options)]\n"
           code << "end\n"
 
-          code << "def #{column}_path(format = :original)\n"
-          code << "  return self.#{column}_dir.join(format.to_s + '.' + (format == :original ? 'svg' : 'png'))\n"
-          code << "end\n"
+          # code << "def #{indicator}_path(format = :original)\n"
+          # code << "  return self.#{indicator}_dir.join(format.to_s + '.' + (format == :original ? 'svg' : 'png'))\n"
+          # code << "end\n"
 
           for attr in [:x_min, :x_max, :y_min, :y_max, :area, :as_svg, :as_gml, :as_kml, :as_geojson]
-            code << "def #{column}_#{attr.to_s.downcase}(options = {})\n"
-            code << "  column = (options[:srid] ? \"ST_Transform(#{column}, \#{self.class.srid(options[:srid])})\" : '#{column}')\n"
-            code << "  self.class.connection.select_value(\"SELECT ST_#{attr.to_s.camelcase}(\#{column}) FROM \#{self.class.table_name} WHERE id = \#{self.id}\")#{'.to_d rescue 0' unless attr.to_s =~ /^as\_/}\n"
+            code << "def #{indicator}_#{attr.to_s.downcase}(options = {})\n"
+            code << "  return nil unless datum = self.indicator(:#{indicator}, :at => options[:at])\n"
+            code << "  expr = (options[:srid] ? \"ST_Transform(#{column}, \#{self.class.srid(options[:srid])})\" : '#{column}')\n"
+            code << "  self.class.connection.select_value(\"SELECT ST_#{attr.to_s.camelcase}(\#{expr}) FROM \#{Product.indicator_table_name(:#{indicator})} WHERE id = \#{datum.id}\")#{'.to_d rescue 0' unless attr.to_s =~ /^as\_/}\n"
             code << "end\n"
           end
 
-          code << "def #{column}_width(options = {})\n"
-          code << "  return (#{column}_x_max(options) - #{column}_x_min(options))\n"
+          code << "def #{indicator}_width(options = {})\n"
+          code << "  return (self.#{indicator}_x_max(options) - self.#{indicator}_x_min(options))\n"
           code << "end\n"
 
-          code << "def #{column}_height(options = {})\n"
-          code << "  return (#{column}_y_max(options) - #{column}_y_min(options))\n"
+          code << "def #{indicator}_height(options = {})\n"
+          code << "  return (self.#{indicator}_y_max(options) - self.#{indicator}_y_min(options))\n"
           code << "end\n"
 
-          code << "def create_#{column}_images\n"
-          code << "  FileUtils.mkdir_p(self.#{column}_dir)\n"
-          code << "  source = self.#{column}_dir.join('original.svg')\n"
-          # Create SVG
-          code << "  File.open(source, 'wb') do |f|\n"
-          code << "    f.write(self.#{column}_svg)\n"
-          code << "  end\n"
+          # code << "def create_#{indicator}_images\n"
+          # code << "  FileUtils.mkdir_p(self.#{indicator}_dir)\n"
+          # code << "  source = self.#{indicator}_dir.join('original.svg')\n"
+          # # Create SVG
+          # code << "  File.open(source, 'wb') do |f|\n"
+          # code << "    f.write(self.#{indicator}_svg)\n"
+          # code << "  end\n"
 
-          for format, convert_options in options[:formats]
-            # Convert to PNG
-            code <<  "  export = self.#{column}_dir.join('#{format}.png')\n"
-            code <<  "  system('inkscape --export-png=' + Shellwords.escape(export.to_s)"
-            for name, value in convert_options
-              code <<  " + ' --export-#{name.to_s.dasherize}=' + Shellwords.escape(#{value.to_s.inspect})"
-            end
-            code <<  "+ ' ' + source.to_s)\n"
-          end if options[:formats]
-          code << "end\n"
+          # for format, convert_options in options[:formats]
+          #   # Convert to PNG
+          #   code <<  "  export = self.#{indicator}_dir.join('#{format}.png')\n"
+          #   code <<  "  system('inkscape --export-png=' + Shellwords.escape(export.to_s)"
+          #   for name, value in convert_options
+          #     code <<  " + ' --export-#{name.to_s.dasherize}=' + Shellwords.escape(#{value.to_s.inspect})"
+          #   end
+          #   code <<  "+ ' ' + source.to_s)\n"
+          # end if options[:formats]
+          # code << "end\n"
 
-          code << "def update_#{column}_images\n"
-          code << "  old = self.class.find(self.id) \n"
-          code << "  if old.#{column} != self.#{column}\n"
-          code << "    self.create_#{column}_images\n"
-          code << "  end\n"
-          code << "end\n"
+          # code << "def update_#{indicator}_images\n"
+          # code << "  old = self.class.find(self.id) \n"
+          # code << "  if old.#{indicator} != self.#{indicator}\n"
+          # code << "    self.create_#{indicator}_images\n"
+          # code << "  end\n"
+          # code << "end\n"
 
         end
 
-        # code.split(/\n/).each_with_index{|l, i| puts i.to_s.rjust(4) + ": " + l}
+        code.split(/\n/).each_with_index{|l, i| puts (i+1).to_s.rjust(4) + ": " + l}
         class_eval code
       end
 

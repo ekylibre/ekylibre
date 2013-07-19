@@ -44,8 +44,8 @@ class ProductIndicatorDatum < Ekylibre::Record::Base
   attr_accessible :value, :created_at, :product_id, :indicator, :measured_at, :description, :geometry_value, :decimal_value, :measure_value_unit, :measure_value_value, :string_value, :boolean_value, :choice_value
   belongs_to :product
   enumerize :indicator, :in => Nomen::Indicators.all, :default => Nomen::Indicators.default, :predicates => {:prefix => true}
-  enumerize :indicator_datatype, :in => Nomen::Indicators.datatype.choices
-  enumerize :measure_value_unit, :in => Nomen::Units.all, :default => Nomen::Units.default, :predicates => {:prefix => true}
+  enumerize :indicator_datatype, :in => Nomen::Indicators.datatype.choices, :predicates => {:prefix => true}
+  enumerize :measure_value_unit, :in => Nomen::Units.all, :predicates => {:prefix => true}
 
   composed_of :measure_value, :class_name => "Measure", :mapping => [%w(measure_value_value value), %w(measure_value_unit unit)]
   # composed_of :geometry_value, :class_name => "Geometry", :mapping => [%w(geometry_value value)]
@@ -65,6 +65,13 @@ class ProductIndicatorDatum < Ekylibre::Record::Base
 
   before_validation do
     self.indicator_datatype = self.theoric_datatype
+  end
+
+  validate do
+    if self.indicator_datatype_measure?
+      # TODO Check unit
+      # errors.add(:unit, :invalid) if unit.dimension != indicator.unit.dimension
+    end
   end
 
   # Read value from good place
