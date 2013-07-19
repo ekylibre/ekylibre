@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="show" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9c1f11b7-03dd-4803-9e1b-41b87b9d23c0">
 	<property name="ireport.zoom" value="0.7432181401207195"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="265"/>
+	<property name="ireport.y" value="192"/>
 	<template><![CDATA["/home/djoulin/ekylibre/config/corporate-identity/reports-style.jrtx"]]></template>
 	<subDataset name="product-localizations" uuid="e1b74445-e266-4905-b7ca-c69a482d0793">
 		<queryString language="xPath">
@@ -47,21 +47,18 @@
 	</subDataset>
 	<subDataset name="weight" uuid="cc8022ce-12ea-4b67-a812-979a82dac442">
 		<queryString language="xPath">
-			<![CDATA[/animal/indicator-data/indicator-datum[indicator/@name="weight"]]]>
+			<![CDATA[/animal/indicator-data/indicator-datum[indicator/@name="net_weight"]]]>
 		</queryString>
-		<field name="string-value" class="java.lang.String">
-			<fieldDescription><![CDATA[string-value]]></fieldDescription>
+		<field name="measure-value" class="java.lang.Double">
+			<fieldDescription><![CDATA[measure-value-value]]></fieldDescription>
 		</field>
 		<field name="measured-at" class="java.util.Date">
 			<fieldDescription><![CDATA[measured-at]]></fieldDescription>
 		</field>
 		<field name="measure-unit" class="java.lang.String">
-			<fieldDescription><![CDATA[measure-unit]]></fieldDescription>
+			<fieldDescription><![CDATA[measure-value-unit/@name]]></fieldDescription>
 		</field>
 		<sortField name="measured-at"/>
-		<variable name="weight" class="java.lang.Number">
-			<variableExpression><![CDATA[new Double($F{string-value})]]></variableExpression>
-		</variable>
 	</subDataset>
 	<subDataset name="animal_disease_state" uuid="c905c8ec-3a27-468e-93ba-0bd89e202ed8">
 		<queryString language="xPath">
@@ -74,11 +71,29 @@
 			<fieldDescription><![CDATA[measured-at]]></fieldDescription>
 		</field>
 		<field name="measure-unit" class="java.lang.String">
-			<fieldDescription><![CDATA[measure-unit]]></fieldDescription>
+			<fieldDescription><![CDATA[measure-value-unit/@name]]></fieldDescription>
+		</field>
+		<field name="choice-value" class="java.lang.String">
+			<fieldDescription><![CDATA[choice-value]]></fieldDescription>
+		</field>
+		<field name="indicator-datatype" class="java.lang.String">
+			<fieldDescription><![CDATA[indicator-datatype/@name]]></fieldDescription>
+		</field>
+		<field name="measure-value" class="java.lang.Double">
+			<fieldDescription><![CDATA[measure-value-value]]></fieldDescription>
+		</field>
+		<field name="boolean-value" class="java.lang.Boolean">
+			<fieldDescription><![CDATA[boolean-value]]></fieldDescription>
 		</field>
 		<sortField name="measured-at"/>
+		<variable name="indicator_value" class="java.lang.String">
+			<variableExpression><![CDATA[($F{indicator-datatype} == "measure" ? ($F{measure-value}.toString()+" "+$F{measure-unit}) :
+    ( $F{indicator-datatype} == "choice" ? $F{choice-value} :
+        ( $F{indicator-datatype} == "string" ? $F{string-value} : $F{boolean-value}.toString())
+    )
+)]]></variableExpression>
+		</variable>
 	</subDataset>
-	<subDataset name="dataset1" uuid="8899df0b-0c73-4ffb-b7af-4ba23f9491ec"/>
 	<parameter name="XML_DATA_DOCUMENT" class="java.lang.String" isForPrompting="false"/>
 	<parameter name="XML_URL" class="java.lang.String" isForPrompting="false"/>
 	<queryString language="xPath">
@@ -160,7 +175,7 @@
 		<fieldDescription><![CDATA[sex/@name]]></fieldDescription>
 	</field>
 	<field name="owner-description" class="java.lang.String">
-		<fieldDescription><![CDATA[owner/description]]></fieldDescription>
+		<fieldDescription><![CDATA[owner/full-name]]></fieldDescription>
 	</field>
 	<title>
 		<band height="199" splitType="Stretch">
@@ -520,8 +535,8 @@
 					<categorySeries>
 						<seriesExpression><![CDATA["Poids"]]></seriesExpression>
 						<categoryExpression><![CDATA[$F{measured-at}.toLocaleString()]]></categoryExpression>
-						<valueExpression><![CDATA[$V{weight}]]></valueExpression>
-						<labelExpression><![CDATA[$F{string-value}]]></labelExpression>
+						<valueExpression><![CDATA[$F{measure-value}]]></valueExpression>
+						<labelExpression><![CDATA[$F{measure-value}.toString()+" "+$F{measure-unit}]]></labelExpression>
 					</categorySeries>
 				</categoryDataset>
 				<linePlot>
@@ -551,7 +566,7 @@
 			</staticText>
 			<componentElement>
 				<reportElement uuid="d10352e4-d114-4e73-ab1e-6bf1b8d2ddf6" x="291" y="46" width="253" height="24"/>
-				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Vertical">
 					<datasetRun subDataset="animal_disease_state" uuid="4bb70f19-302e-4d8a-a623-1d64eeb573e5">
 						<parametersMapExpression><![CDATA[$P{REPORT_PARAMETERS_MAP}]]></parametersMapExpression>
 						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
@@ -560,7 +575,7 @@
 						<textField>
 							<reportElement uuid="885332fe-ad6f-478e-88a0-b3b4e1a74e0f" x="105" y="0" width="100" height="20"/>
 							<textElement/>
-							<textFieldExpression><![CDATA[$F{string-value} == "sick" ? "Malade" : ($F{string-value} == "healthy" ? "Sain" : "")]]></textFieldExpression>
+							<textFieldExpression><![CDATA[$V{indicator_value}]]></textFieldExpression>
 						</textField>
 						<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
 							<reportElement uuid="8457b6ac-dc4f-4752-bdea-28bdd5238d78" x="4" y="0" width="100" height="20"/>
