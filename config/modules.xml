@@ -997,6 +997,9 @@
       <item name="animals">
         <page to="backend/animals#list_incident"/>
       </item>
+      <item name="building_divisions">
+        <page to="backend/building_divisions#list_content_product"/>
+      </item>
       <item name="buildings">
         <page to="backend/buildings#list_building_division"/>
       </item>
@@ -1155,6 +1158,14 @@
       <item name="procedures">
         <page to="backend/procedures#jump"/>
       </item>
+      <item name="product_groups">
+        <page to="backend/product_groups#list_content_product"/>
+        <page to="backend/product_groups#list_group"/>
+        <page to="backend/product_groups#list_incident"/>
+        <page to="backend/product_groups#list_indicator"/>
+        <page to="backend/product_groups#list_member"/>
+        <page to="backend/product_groups#list_place"/>
+      </item>
       <item name="product_indicator_data">
         <page to="backend/product_indicator_data#index"/>
         <page to="backend/product_indicator_data#create"/>
@@ -1237,6 +1248,14 @@
         <page to="backend/productions#fertilization"/>
         <page to="backend/productions#list_procedure"/>
         <page to="backend/productions#list_support"/>
+      </item>
+      <item name="products">
+        <page to="backend/products#list_content_product"/>
+        <page to="backend/products#list_group"/>
+        <page to="backend/products#list_incident"/>
+        <page to="backend/products#list_indicator"/>
+        <page to="backend/products#list_member"/>
+        <page to="backend/products#list_place"/>
       </item>
       <item name="professions">
         <page to="backend/professions#index"/>

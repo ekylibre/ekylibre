@@ -208,6 +208,7 @@ Ekylibre::Application.routes.draw do
     resources :building_divisions do
       collection do
         get :list
+        get :list_content_product
         unroll_all
       end
     end
@@ -664,6 +665,12 @@ Ekylibre::Application.routes.draw do
     resources :products do
       collection do
         get :list
+        get :list_content_product
+        get :list_place
+        get :list_group
+        get :list_member
+        get :list_indicator
+        get :list_incident
         get :list_events
         get :list_children
         unroll_all
@@ -673,8 +680,14 @@ Ekylibre::Application.routes.draw do
     resources :product_groups do
       collection do
         get :list
-        get :list_products
+        get :list_content_product
+        get :list_place
+        get :list_group
+        get :list_member
+        get :list_indicator
+        get :list_incident
         get :list_events
+        get :list_children
         unroll_all
       end
     end

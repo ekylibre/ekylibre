@@ -12,3 +12,23 @@
       -l.attribute :description
     -if @product.picture.exists?
       =image_tag(@product.picture.url(:thumb))
+
+  -b.tabbox do
+    -b.cell(:members) do
+      =list(:member)
+    -b.cell(:groups) do
+      =list(:group)
+
+  -b.tabbox do
+    -b.cell(:content_products) do
+      =list(:content_product)
+    -b.cell(:places) do
+      =list(:place)
+
+  -b.tabbox do
+    -b.cell(:incidents) do
+      =toolbar do |t|
+        -t.new(:params =>{:controller => :incidents, :target_id => @product.id, :target_type => @product.class.name})
+      =list(:incident)
+    -b.cell(tl(:x_indicators, :count => @product.indicator_data.count)) do
+      =list(:indicator)
