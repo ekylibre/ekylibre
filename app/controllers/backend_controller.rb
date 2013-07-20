@@ -799,6 +799,19 @@ class BackendController < BaseController
     code << "c\n"
     return code
   end
+  
+  # management -> shipping_conditions
+  def self.shipping_conditions(model, state='params[:s]')
+    code = "\n"
+    code << "c||=['1=1']\n"
+    code << "if #{state}=='unconfirmed'\n"
+    code << "  c[0] += ' AND sent_at IS NULL'\n"
+    code << "elsif #{state}=='confirmed'\n"
+    code << "  c[0] += ' AND sent_at IS NOT NULL'\n"
+    code << "end\n"
+    code << "c\n"
+    return code
+  end
 
   # management -> prices_conditions
   def self.prices_conditions(options={})

@@ -56,15 +56,15 @@ class OutgoingDelivery < Ekylibre::Record::Base
   validates_length_of :number, :reference_number, :allow_nil => true, :maximum => 255
   validates_presence_of :recipient
   #]VALIDATORS]
-  validates_presence_of :planned_on
+  validates_presence_of :planned_at
 
   # autosave :transport
   acts_as_numbered
   sums :transport, :deliveries, :amount, :pretax_amount, :weight
 
-  default_scope order(:planned_on, :moved_on)
-  scope :undelivereds, where(:moved_on => nil).order(:planned_on, :entity_id)
-  scope :without_transporter, where(:moved_on => nil, :transporter_id => nil)
+  default_scope order(:planned_at, :send_at)
+  scope :undelivereds, where(:send_at => nil).order(:planned_at, :entity_id)
+  scope :without_transporter, where(:transporter_id => nil)
 
 
   before_validation do
@@ -73,7 +73,7 @@ class OutgoingDelivery < Ekylibre::Record::Base
   end
 
   protect(:on => :update) do
-    return false unless self.moved_on.nil?
+    return false unless self.send_at.nil?
     return true
   end
 
@@ -90,18 +90,18 @@ class OutgoingDelivery < Ekylibre::Record::Base
     # self.confirm_transfer(shipped_on)
     # self.items.each{|l| l.confirm_move}
     for item in self.items.find(:all, :conditions => ["quantity>0"])
-      item.product.move_outgoing_stock(:origin => item, :building_id => item.sale_item.building_id, :planned_on => self.planned_on, :moved_on => shipped_on)
+      item.product.move_outgoing_stock(:origin => item, :building_id => item.sale_item.building_id, :planned_on => self.planned_at, :moved_on => shipped_on)
     end
-    self.moved_on = shipped_on if self.moved_on.nil?
+    self.sent_at = shipped_on if self.sent_at.nil?
     self.save
   end
 
   def moment
-    if self.planned_on <= Date.today-(3)
+    if self.planned_at <= Date.today-(3)
       "verylate"
-    elsif self.planned_on <= Date.today
+    elsif self.planned_at <= Date.today
       "late"
-    elsif self.planned_on > Date.today
+    elsif self.planned_at > Date.today
       "advance"
     end
   end

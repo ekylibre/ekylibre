@@ -21,18 +21,18 @@ class Backend::OutgoingDeliveriesController < BackendController
 
   unroll_all
 
-  list(:conditions => light_search_conditions(:outgoing_deliveries => [:number, :reference_number, :weight, :amount, :pretax_amount], :entities => [:full_name, :code])+moved_conditions(OutgoingDelivery)) do |t|
+  list(:conditions => light_search_conditions(:outgoing_deliveries => [:number, :reference_number, :weight, :amount, :pretax_amount], :entities => [:full_name, :code])+shipping_conditions(OutgoingDelivery)) do |t|
     t.column :number, :url => true
     t.column :number, :through => :transport, :url => true
     t.column :full_name, :through => :transporter, :url => true
     t.column :reference_number
     t.column :description
-    t.column :planned_on
-    t.column :moved_on
+    t.column :planned_at
+    #t.column :moved_on
     t.column :name, :through => :mode
     # t.column :number, :through => :sale, :url => true
-    t.column :weight
-    t.column :amount
+    #t.column :weight
+    #t.column :amount
     t.action :edit
     t.action :destroy
   end
@@ -69,7 +69,7 @@ class Backend::OutgoingDeliveriesController < BackendController
     notify_warning(:no_items_found) if sale_items.empty?
 
     @outgoing_delivery_items = sale_items.collect{|x| OutgoingDeliveryItem.new(:sale_item_id => x.id, :quantity => x.undelivered_quantity)}
-    @outgoing_delivery = sale.deliveries.build({:pretax_amount => sale.undelivered(:pretax_amount), :amount => sale.undelivered(:amount), :planned_on => Date.today, :transporter_id => sale.transporter_id, :address => sale.delivery_address||sale.client.default_mail_address}, :without_protection => true)
+    @outgoing_delivery = sale.deliveries.build({:pretax_amount => sale.undelivered(:pretax_amount), :amount => sale.undelivered(:amount), :planned_at => Date.today, :transporter_id => sale.transporter_id, :address => sale.delivery_address||sale.client.default_mail_address}, :without_protection => true)
     # render_restfully_form
   end
 

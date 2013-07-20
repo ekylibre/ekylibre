@@ -135,7 +135,7 @@ class Entity < Ekylibre::Record::Base
   }
 
   # default_scope order(:last_name, :first_name)
-  scope :necessary_transporters, -> { where("id IN (SELECT transporter_id FROM #{OutgoingDelivery.table_name} WHERE (moved_on IS NULL AND planned_on <= CURRENT_DATE) OR transport_id IS NULL)").order(:last_name, :first_name) }
+  scope :necessary_transporters, -> { where("id IN (SELECT transporter_id FROM #{OutgoingDelivery.table_name} WHERE (sent_at IS NULL AND planned_at <= CURRENT_DATE) OR transport_id IS NULL)").order(:last_name, :first_name) }
   scope :suppliers,    -> { where(:supplier => true) }
   scope :transporters, -> { where(:transporter => true) }
   scope :clients,      -> { where(:client => true) }
