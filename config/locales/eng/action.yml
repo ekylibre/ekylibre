@@ -95,6 +95,7 @@ eng:
     backend/cells/demo_map_cells: #?
     backend/cells/demo_pie_cells: #?
     backend/cells/expense_chart_cells: #?
+    backend/cells/last_events_cells: #?
     backend/cells/last_milk_result_cells: #?
     backend/cells/last_procedures_cells: #?
     backend/cells/last_products_cells: #?
@@ -879,6 +880,7 @@ eng:
     consult: "Consult"
     contact: "At"
     contains: "Contains"
+    # content_products: "Produits contenus"
     contextual_help: "Help on current page"
     coordinates: "Coordinates"
     copy_of: "Copy of %{source}"
@@ -1122,6 +1124,7 @@ eng:
     # medicines: "Remèdes"
     meeting: "Meeting"
     meetings: "Meetings"
+    # members: "Membres"
     menus:
       accountancy: "Accountancy"
       archives: "Archives"

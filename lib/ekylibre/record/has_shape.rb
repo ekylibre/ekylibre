@@ -42,7 +42,7 @@ module Ekylibre::Record
           # code << "  Ekylibre.private_directory.join('shapes', '#{self.name.underscore.pluralize}', '#{indicator}', self.id.to_s)\n"
           # code << "end\n"
 
-          # 
+          #
           code << "def self.#{indicator}_view_box(options = {})\n"
           code << "  expr = (options[:srid] ? \"ST_Transform(#{column}, \#{self.class.srid(options[:srid])})\" : '#{column}')\n"
           code << "  ids = self.indicator(:#{indicator}, :at => options[:at]).pluck(:id)\n"

@@ -99,6 +99,8 @@ fra:
       # show: "Show backend/cells/demo pie cell"
     backend/cells/expense_chart_cells:
       # show: "Show backend/cells/expense chart cell"
+    backend/cells/last_events_cells:
+      # show: "Show backend/cells/last events cell"
     backend/cells/last_milk_result_cells:
       # show: "Show backend/cells/last milk result cell"
     backend/cells/last_procedures_cells:
@@ -400,10 +402,10 @@ fra:
       play: "Effectuer la procédure\_: %{name}"
       show: "Procédure\_: %{name}"
     backend/product_groups:
-      edit: "Modifier le lot\_: %{name} "
-      index: "Lots de produits"
-      new: "Créer un lot"
-      show: "Lot\_: %{name}"
+      edit: "Modifier le groupe\_: %{name} "
+      index: "Groupes de produits"
+      new: "Créer un groupe"
+      show: "Groupe\_: %{name}"
     backend/product_indicator_data:
       edit: "Modifier la valeur d’un indicateur"
       index: "Indicateurs Produits"
@@ -619,6 +621,7 @@ fra:
     # backend/cells/demo_map_cells: "Backend/cells/demo map cells"
     # backend/cells/demo_pie_cells: "Backend/cells/demo pie cells"
     # backend/cells/expense_chart_cells: "Backend/cells/expense chart cells"
+    # backend/cells/last_events_cells: "Backend/cells/last events cells"
     # backend/cells/last_milk_result_cells: "Backend/cells/last milk result cells"
     # backend/cells/last_procedures_cells: "Backend/cells/last procedures cells"
     # backend/cells/last_products_cells: "Backend/cells/last products cells"
@@ -927,6 +930,7 @@ fra:
     consult: "Consulter"
     contact: "à l’adresse"
     contains: "Contient"
+    content_products: "Produits contenus"
     contextual_help: "Aide contextuelle"
     coordinates: "Coordonnées"
     copy_of: "Copie de %{source}"
@@ -1167,6 +1171,7 @@ fra:
     medicines: "Remèdes"
     meeting: "Lieu(x) de rencontre"
     meetings: "Évènements"
+    members: "Membres"
     menus:
       accountancy: "Comptabilité"
       archives: "Archives"

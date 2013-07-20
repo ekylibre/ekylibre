@@ -472,10 +472,10 @@ arb:
       edit: "تعديل عنصر المنتج %{product} " #?
       new: "اضافة عنصر الى المنتج %{product} " #?
     backend/product_groups:
-      # edit: "Modifier le lot\_: %{name} "
-      # index: "Lots de produits"
-      # new: "Créer un lot"
-      # show: "Lot\_: %{name}"
+      # edit: "Modifier le groupe\_: %{name} "
+      # index: "Groupes de produits"
+      # new: "Créer un groupe"
+      # show: "Groupe\_: %{name}"
     backend/product_indicator_choices: #?
     backend/product_indicator_data:
       # edit: "Modifier la valeur d’un indicateur"
@@ -1023,6 +1023,7 @@ arb:
     contact: "العنوان"
     contact_create: "اضافة مشترك جديد" #?
     # contains: "Contient"
+    # content_products: "Produits contenus"
     # contextual_help: "Aide contextuelle"
     coordinates: "تنسيق"
     copy_of: "نسخ من %{source}"
@@ -1302,6 +1303,7 @@ arb:
     # medicines: "Remèdes"
     meeting: "المقابلة(X)مكان"
     # meetings: "Évènements"
+    # members: "Membres"
     menu:  #?
       accountancy_tasks: "أعمال المحاسبة" #?
       bank_statements: "بيانات الحساب" #?

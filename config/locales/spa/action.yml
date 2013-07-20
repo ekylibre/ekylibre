@@ -441,10 +441,10 @@ spa:
     backend/product_group_events: #?
     backend/product_group_passings: #?
     backend/product_groups:
-      # edit: "Modifier le lot\_: %{name} "
-      # index: "Lots de produits"
-      # new: "Créer un lot"
-      # show: "Lot\_: %{name}"
+      # edit: "Modifier le groupe\_: %{name} "
+      # index: "Groupes de produits"
+      # new: "Créer un groupe"
+      # show: "Groupe\_: %{name}"
     backend/product_indicator_choices: #?
     backend/product_indicator_data:
       # edit: "Modifier la valeur d’un indicateur"
@@ -928,6 +928,7 @@ spa:
     # consult: "Consulter"
     # contact: "à l’adresse"
     # contains: "Contient"
+    # content_products: "Produits contenus"
     # contextual_help: "Aide contextuelle"
     # coordinates: "Coordonnées"
     # copy_of: "Copie de %{source}"
@@ -1183,6 +1184,7 @@ spa:
     # medicines: "Remèdes"
     # meeting: "Lieu(x) de rencontre"
     # meetings: "Évènements"
+    # members: "Membres"
     menu: #?
     menus:
       # accountancy: "Comptabilité"

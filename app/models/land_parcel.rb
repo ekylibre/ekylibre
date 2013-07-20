@@ -63,7 +63,6 @@
 
 class LandParcel < Easement
   attr_accessible :name, :born_at, :dead_at, :identification_number, :shape, :variety
-  has_shape
   # belongs_to :area_unit, :class_name => "Unit"
   # TODO : adapt with operations
   # has_many :operations, :as => :target
@@ -83,7 +82,7 @@ class LandParcel < Easement
   #     self.area_unit = old.area_unit
   #   end
   # end
-  
+
   # # TODO : waiting for "merge" operation type
   # def divide(subdivisions, divided_on)
   #   if (total = subdivisions.collect{|s| s[:area_measure].to_f}.sum) != self.area_measure.to_f
@@ -98,7 +97,7 @@ class LandParcel < Easement
   #   end
   #   self.update_column(:stopped_on, divided_on)
   # end
-  
+
   # # TODO : waiting for "merge" operation type
   # def merge(other_parcels, merged_on)
   #   return false unless other_parcels.size > 0
@@ -113,16 +112,16 @@ class LandParcel < Easement
   #   end
   #   return child
   # end
-  
-  
+
+
   # def area(unit=nil)
   #   # return Unit.convert(self.area_measure, self.area_unit, unit)
   #   return self.area_unit.convert_to(self.area_measure, unit)
   # end
-  
+
   # # TODO : waiting for operations
   # def operations_on(viewed_on=Date.today)
   #   self.operations.find(:all, :conditions => ["(moved_on IS NULL AND planned_on=?) OR (moved_on IS NOT NULL AND moved_on=?)", viewed_on, viewed_on])
   # end
-  
+
 end
