@@ -486,7 +486,7 @@ fra:
       edit: "Modifier un produit"
       index: "Produits"
       new: "Créer un produit"
-      show: "Produit\_: %{name}"
+      show: "%{nature_name}\_: %{name}"
     backend/professions:
       edit: "Modifier la profession\_: %{name}"
       index: "Professions"
