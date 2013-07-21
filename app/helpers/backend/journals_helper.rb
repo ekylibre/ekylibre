@@ -27,7 +27,7 @@ module Backend::JournalsHelper
   def journal_view_tag
     code = content_tag(:dt, tg(:view))
     for mode in controller.journal_views
-      code << content_tag(:dd, link_to(h(tc("journal_view.#{mode}")), params.merge(:view => mode)), (@journal_view == mode ? {:class => :active} : nil)) # content_tag(:i) + " " +
+      code << content_tag(:dd, link_to(h("journal_view.#{mode}".tl(:default => ["labels.#{mode}".to_sym, mode.to_s.humanize])), params.merge(:view => mode)), (@journal_view == mode ? {:class => :active} : nil)) # content_tag(:i) + " " +
     end
     return content_tag(:dl, code, :id => "journal-views")
   end
