@@ -485,7 +485,7 @@ eng:
       index: "Professions"
       new: "Add a new profession"
     backend/purchase_items:
-      edit: "Edit the purhase order line"
+      edit: "Edit the purhase order item"
       new: "Add a product to the purchase"
     backend/purchase_natures:
       edit: "Edit purchase type"
@@ -509,8 +509,8 @@ eng:
       index: "Roles"
       new: "Add a new role"
     backend/sale_items:
-      detail: "Details sale's line"
-      edit: "Edit sale's line"
+      detail: "Details sale's item"
+      edit: "Edit sale's item"
       new: "Add a product to the sale"
     backend/sale_natures:
       edit: "Edit the sale type: %{name}"
@@ -630,15 +630,15 @@ eng:
     backend/financial_years: "Financial years"
     backend/help: "Help" #?
     backend/incoming_deliveries: "Incoming deliveries"
-    backend/incoming_delivery_items: "Incoming delivery lines"
+    backend/incoming_delivery_items: "Incoming delivery items"
     backend/incoming_delivery_modes: "Incoming delivery modes"
     backend/incoming_payment_modes: "Incoming payment modes"
     backend/incoming_payments: "Incoming payments"
     backend/interfacers: "Interfacers"
     backend/inventories: "Inventories"
-    backend/inventory_items: "Inventory lines"
+    backend/inventory_items: "Inventory items"
     backend/journal_entries: "Journal entries"
-    backend/journal_entry_items: "Journal entry lines"
+    backend/journal_entry_items: "Journal entry items"
     backend/journals: "Journals"
     backend/land_parcels: "Land parcels"
     backend/listing_node_items: "Listing node items"
@@ -651,7 +651,7 @@ eng:
     backend/observations: "Observations"
     backend/operations: "Operations"
     backend/outgoing_deliveries: "Outgoing deliveries"
-    backend/outgoing_delivery_items: "Outgoing delivery lines"
+    backend/outgoing_delivery_items: "Outgoing delivery items"
     backend/outgoing_delivery_modes: "Outgoing delivery modes"
     backend/outgoing_payment_modes: "Disbursement modes"
     backend/outgoing_payments: "Disbursements"
@@ -673,7 +673,7 @@ eng:
     backend/purchase_natures: "Purchase types"
     backend/purchases: "Purchases"
     backend/roles: "Roles"
-    backend/sale_items: "Sale lines"
+    backend/sale_items: "Sale items"
     backend/sale_natures: "Sale types"
     backend/sales: "Sales"
     backend/sequences: "Sequences"
@@ -721,7 +721,7 @@ eng:
       children: "Children Account"
       entities: "People"
       # journal_entry_items: "Écritures"
-      journal_entry_lines: "Journal entry lines" #?
+      journal_entry_items: "Journal entry items" #?
     # account_tangible_fixed_assets: "Immobilisations corporelles"
     # account_untangible_fixed_assets: "Immobilisations incorporelles"
     # account_value_current: "Brut"
@@ -1237,7 +1237,7 @@ eng:
     on_account: "On account"
     one_condition: "One condition"
     # operation_items: "Intrants et sortants"
-    operation_lines: "Incoming and outgoing products" #?
+    operation_items: "Incoming and outgoing products" #?
     operations: "Operations"
     order: "Order"
     order_amount_with_taxes: "Order amount with taxes"
@@ -1688,7 +1688,7 @@ eng:
     cannot_delete_entity: "This person can't be deleted because there is some accounting history."
     cannot_find_document_template: "Cant find document template"
     # cannot_mark_entry_items: "Impossible de lettrer ces lignes d’écritures ensemble"
-    cannot_mark_entry_lines: "Can not mark these entry lines" #?
+    cannot_mark_entry_items: "Can not mark these entry lines" #?
     cannot_merge_an_entity_with_itself: "It's impossible to merge a person with itself"
     cannot_merge_entities: "It's impossible to merge these people."
     changes_have_been_reflected: "The changes have been reflected in the stocks state"
@@ -1700,7 +1700,7 @@ eng:
       # one: "%{count} ligne de brouillard validée"
       # other: "%{count} lignes de brouillard validées"
       # zero: "Aucune ligne de brouillard validée"
-    draft_entry_lines_are_validated:  #?
+    draft_entry_items_are_validated:  #?
       one: "One entry has been validated" #?
       other: "%{count} entries have been validated" #?
       zero: "No entries has been validated" #?
@@ -1713,21 +1713,21 @@ eng:
     importation_finished: "The import is complete."
     # impossible_to_add_items: "Vous ne pouvez plus ajouter de produits à votre vente, le devis est passé en commande"
     # impossible_to_add_items_to_purchase: "Vous ne pouvez plus ajouter de produits à votre achat"
-    impossible_to_add_lines: "You can add more products to your sale, the estimate is passed in order" #?
-    impossible_to_add_lines_to_purchase: "You can not add products to your purchase " #?
+    impossible_to_add_items: "You can add more products to your sale, the estimate is passed in order" #?
+    impossible_to_add_items_to_purchase: "You can not add products to your purchase " #?
     invalid_file_nature: "Invalid file type"
     journal_closed_on: "The journal “%{journal}” was closed on %{closed_on}."
     journal_entry_already_validated: "The record has already been validated and can not be changed"
     journal_entry_has_been_saved: "The record %{number} has been successfully saved"
     # journal_entry_items_marked_with_letter: "Les lignes d’écritures ont été lettrées avec la lettre %{letter}"
-    journal_entry_lines_marked_with_letter: "Journal entry lines have been marked with letter %{letter}" #?
+    journal_entry_items_marked_with_letter: "Journal entry items have been marked with letter %{letter}" #?
     journal_reopened_on: "The journal “%{journal}” has been re-opened on %{closed_on}."
     mails_are_sent: "The emails were sent"
     need_balanced_journal_to_tax_declaration: "All your journals must be closed and balanced at that date."
     # need_building_to_create_purchase_item: "Vous devez créer un lieu de stockage pour pouvoir réaliser un achat"
-    need_building_to_create_purchase_line: "You must create a building to be able to create a purchase." #?
+    need_building_to_create_purchase_item: "You must create a building to be able to create a purchase." #?
     # need_building_to_create_sale_item: "Vous devez créer un lieu de stockage pour pouvoir réaliser une vente"
-    need_building_to_create_sale_line: "You must create a building to be able to create a sale" #?
+    need_building_to_create_sale_item: "You must create a building to be able to create a sale" #?
     need_building_to_record_stock_moves: "You must create a building to be able to manage stocks."
     need_cash_to_record_statements: "You must be at least create a bank account to enter a statement."
     need_closed_financial_year_to_declaration: "You must have a closed financial year to create a VAT return."
@@ -1750,7 +1750,7 @@ eng:
     no_existing_mandates: "There are no mandates"
     # no_financial_year: "Aucun exercice enregistré"
     # no_items_found: "Aucun pruduit n’a été ajouté à la commande "
-    no_lines_found: "No product has been added to the order" #?
+    no_items_found: "No product has been added to the order" #?
     no_payment_to_deposit: "There are no payment to deposit"
     no_reopenable_journal: "You can not re-open this journal."
     no_stocks: "You have no stock. If you want to manage the stock of a product, please check the option “Manage stocks” in the characteristics of your product."
@@ -1769,8 +1769,7 @@ eng:
     sale_already_invoiced: "The sale has already been invoiced: you can not define delivery "
     sale_cannot_be_updated: "The estimate is no longer editable."
     sale_cant_be_deleted: "The sale can not be deleted."
-    # select_entry_items_to_mark_together: "Sélectionnez des lignes d’écritures à lettrer ensemble"
-    select_entry_lines_to_mark_together: "Select entry lines to mark together" #?
+    select_entry_items_to_mark_together: "Select entry items to mark together" #?
     specify_filter: "You must choose at least one search filter"
     specify_updates: "You must specify at least one field to edit"
     unavailable_model: "Inexistent %{model} (%{id})"
@@ -1779,11 +1778,7 @@ eng:
     unvalid_version_for_restore: "The version of the software used to perform the backup does not match the current version of the software"
     update_is_done: "The update has been made"
     validates_old_inventories: "It is advisable to clear or validate uncommitted inventories before making a new"
-    x_unpointed_journal_entry_items:
-      # one: "Il y a une écriture à pointer"
-      # other: "Il y a %{count} écritures à pointer"
-      # zero: "Il n’y a pas d’écritures à pointer pour l’instant"
-    x_unpointed_journal_entry_lines:  #?
+    x_unpointed_journal_entry_items:  #?
       one: "There is one entry to point" #?
       other: "There are %{count} entries to point" #?
       zero: "There are no entries to point at the moment" #?
