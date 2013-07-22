@@ -3,6 +3,7 @@ db/*.sqlite3
 log/*.log
 tmp
 private/**/*
+public/assets
 config/database.yml
 *~
 installer/debian/debian/ekylibre.debhelper.log
