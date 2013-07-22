@@ -9,6 +9,8 @@ gem 'pg'
 gem 'mysql'
 gem 'sqlite3'
 
+gem 'nokogiri', '~> 1.5.7'
+
 gem 'haml'
 gem 'fastercsv'
 gem 'libxml-ruby', :require=>'libxml'
@@ -42,7 +44,7 @@ end
 gem 'jquery-rails', '~> 2.1.1'
 
 group :test do
-  gem 'capybara'
+  gem 'capybara', '~> 1.1.2'
   gem 'rspec-rails'
   gem 'cucumber-rails', :require => false
   # database_cleaner is not required, but highly recommended
