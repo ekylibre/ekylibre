@@ -99,7 +99,7 @@ GEM
     i18n-complements (0.0.9)
       i18n (>= 0.6)
     journey (1.0.4)
-    jquery-rails (3.0.4)
+    jquery-rails (2.1.4)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
     json (1.8.0)
@@ -216,7 +216,7 @@ DEPENDENCIES
   formize (~> 0.1.0)
   haml
   i18n-complements
-  jquery-rails
+  jquery-rails (~> 2.1.1)
   libxml-ruby
   mysql
   pg
