@@ -1,0 +1,14 @@
+*~
+
+# No need under rails 2.3
+app/assets
+
+config/database.yml
+log/*
+installer/debian/debian
+installer/debian/*.changes
+installer/releases
+installer/*.log
+tmp
+private/*
+public/assets
