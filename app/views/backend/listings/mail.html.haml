@@ -1,25 +1,24 @@
--if @listing.mail_columns.size > 1 and session[:listing_mail_column].nil?
-  %h2=tc(:choose_mail_column)
-  =form_tag  do
-    -for node in @listing.mail_columns
-      =#puts node.name.inspect
-      =radio_button(:node, :mail ,node.key, :checked=>true)+"&nbsp;"+content_tag(:label, node.label+" ("+node.name+")", :for=>'node_'+node.key)
-    =submit_tag(tg(:validate))
+-if @listing.coordinate_columns.count > 1 and session[:listing_coordinate_column].nil?
+
+  =form_tag do
+    =field_set :choose_mail_column do
+      =field :column.tl, @listing.coordinate_columns.collect{|node| radio_button(:node, :mail ,node.key, :checked=>true) + "&nbsp;".html_safe + content_tag(:label, node.label + " (" + node.name + ")", :for => 'node_' + node.key) }.join(" ").html_safe
+    =form_actions do   
+      =submit_tag(:validate.tl)
+
 -else
   =main_toolbar do |t|
-    -t.mail_to '?'+@mails.uniq.collect{|m| 'bcc='+m}.join('&')+"&body=--%0A#{current_user.label}%0A#{Entity.of_company.full_name}", tc(:click_to_mail)
+    -t.mail_to '?' + @mails.uniq.collect{|m| 'bcc='+m}.join('&') + "&body=--%0A#{current_user.label}%0A#{Entity.of_company.full_name}", tc(:click_to_mail)
 
-  %h2=tc(:personalized_mail)
-  .count=tc(:mails, :count=>@mails.size)
-  .count=tc(:available_columns, :columns=>@columns.collect{|x| link_to(x, "#", "data-insert-into" => "#mail_body", "data-insert" => "{{#{x}}}").html_safe}.to_sentence).html_safe
-
-  =form_tag({}, :multipart=>true) do
-    =formalize do |f|
-      -f.field tc(:expedier), text_field_tag(:from, session[:mail][:from]||current_user.email, :size=>40)
-      -f.field tc(:subject),  text_field_tag(:mail_subject, session[:mail][:subject]||tc(:default_subject, :company=>Entity.of_company.full_name), :size=>80)
-      -f.field tc(:body),     text_area_tag(:mail_body, session[:mail][:body], :cols=>80, :rows=>20)
-      -f.field tc(:attachment), file_field_tag(:attachment)
-    .actions
-      =submit_tag tc(:send_test), :name=>:send_test
-      =submit_tag tc(:send), "data-confirm" => tc(:are_you_sure_you_want_to_send_mails), :name=>:send
+  =form_tag do
+    =field_set :personalized_mail do
+      .count=tc(:mails, :count => @mails.size)
+      .count=tc(:available_columns, :columns => @columns.collect{|x| link_to(x, "#", "data-insert-into" => "#mail_body", "data-insert" => "{{#{x}}}").html_safe}.to_sentence).html_safe
+      =field tc(:expedier), text_field_tag(:from, session[:mail][:from]||current_user.email, :size=>40)
+      =field tc(:subject),  text_field_tag(:mail_subject, session[:mail][:subject]||tc(:default_subject, :company=>Entity.of_company.full_name), :size=>80)
+      =field tc(:body),     text_area_tag(:mail_body, session[:mail][:body], :cols => 80, :rows => 20)
+      =field tc(:attachment), file_field_tag(:attachment)
+    =form_actions do
+      =submit_tag tc(:send_test), :name => :send_test
+      =submit_tag tc(:send), "data-confirm" => tc(:are_you_sure_you_want_to_send_mails), :name => :send
 

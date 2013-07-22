@@ -1075,6 +1075,13 @@ a.selector-dropdown {
   @include button-group;
 }
 
+.count {
+  margin: $default-gap 0;
+  &, * {
+    font-style: italic;
+  }
+}
+
 
 $controls-margin-left: round($label-width * 1.1);
 

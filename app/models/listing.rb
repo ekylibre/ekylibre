@@ -40,10 +40,11 @@
 class Listing < Ekylibre::Record::Base
   attr_accessible :name, :root_model, :description, :conditions
   attr_readonly :root_model
+  enumerize :root_model, :in => Ekylibre.models
   has_many :columns, :class_name => "ListingNode", :conditions => ["nature = ?", "column"]
   has_many :exportable_columns, :class_name => "ListingNode", :conditions => {:nature  => "column", :exportable => true}, :order => "position"
   has_many :filtered_columns, :class_name => "ListingNode", :conditions => ["nature = ? AND condition_operator IS NOT NULL AND condition_operator != '' AND condition_operator != ? ", "column", "any"]
-  has_many :mail_columns, :class_name => "ListingNode", :conditions => ["name LIKE ? AND nature = ? ", '%.email', "column"]
+  has_many :coordinate_columns, :class_name => "ListingNode", :conditions => ["name LIKE ? AND nature = ? ", '%.coordinate', "column"]
   has_many :nodes, :class_name => "ListingNode", :dependent => :delete_all
   has_many :reflections, :class_name => "ListingNode", :conditions => ["nature IN (?)", ["belongs_to", "has_many", "root"]]
 
@@ -73,9 +74,13 @@ class Listing < Ekylibre::Record::Base
       conn = self.class.connection
       root = self.root
       query = "SELECT "+self.exportable_columns.collect{|n| "#{n.name} AS "+conn.quote_column_name(n.label)}.join(", ")
-      query += " FROM #{root.model.table_name} AS #{root.name}"+root.compute_joins
-      query += " WHERE "+self.compute_where
-      query += " ORDER BY "+self.exportable_columns.collect{|n| n.name}.join(", ")
+      query << " FROM #{root.model.table_name} AS #{root.name}"+root.compute_joins
+      unless self.compute_where.blank?
+        query << " WHERE " + self.compute_where
+      end
+      unless self.exportable_columns.size.zero?
+        query << " ORDER BY " + self.exportable_columns.collect{|n| n.name}.join(", ")
+      end
     rescue
       query = ""
     end
@@ -106,6 +111,10 @@ class Listing < Ekylibre::Record::Base
     self.root.duplicate(listing)
     listing.reload
     return listing
+  end
+
+  def can_mail?
+    !!(self.coordinate_columns.count > 0)
   end
 
 end

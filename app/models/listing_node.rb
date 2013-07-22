@@ -216,7 +216,7 @@ class ListingNode < Ekylibre::Record::Base
       self.listing.root_model
     else
       self.parent.model.reflections[self.attribute_name.to_sym].class_name
-    end.classify.constantize rescue nil
+    end.pluralize.classify.constantize rescue nil
   end
 
   def reflection
@@ -230,9 +230,12 @@ class ListingNode < Ekylibre::Record::Base
 
   def available_nodes
     nodes = []
+    # raise self.attribute_name.to_sym.inspect
+    # raise self.parent.model.reflections.keys.inspect
+    # raise self.parent.model.reflections[self.attribute_name.to_sym].class_name.inspect
     return nodes unless self.reflection? and model = self.model
     # Columns
-    nodes << [tc(:columns), [[tc(:all_columns), 'special-all_columns']]+model.content_columns.collect{|x| [model.human_attribute_name(x.name.to_s).to_s, "column-"+x.name]}.sort ]
+    nodes << [tc(:columns), [[tc(:all_columns), 'special-all_columns']] + model.content_columns.collect{|x| [model.human_attribute_name(x.name.to_s).to_s, "column-"+x.name]}.sort ]
     # Reflections
     nodes << [tc(:reflections), model.reflections.select{|k,v| [:has_many, :belongs_to].include? v.macro}.collect{|a,b| [model.human_attribute_name(a.to_s).to_s, b.macro.to_s+"-"+a.to_s]}.sort ]
     return nodes
