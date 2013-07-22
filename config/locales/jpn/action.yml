@@ -106,6 +106,11 @@ jpn:
     backend/cells/purchases_bar_cells: #?
     backend/cells/purchases_expense_bar_cells: #?
     backend/cells/rss_cells: #?
+    backend/cultivable_land_parcels:
+      # edit: "Modifier la parcelle culturale\_: %{name}"
+      # index: "Parcelles culturales"
+      # new: "Ajouter une parcelle culturale"
+      # show: "Parcelle culturale\_: %{name}"
     backend/custom_field_choices:
       # edit: "Modifier l’option\_: %{name}"
       # new: " Création d’une option pour une liste de choix"
@@ -127,6 +132,7 @@ jpn:
       # stocks: "Tableau de bord des stocks"
       # tools: "Tableau de bord des outils"
       # welcome: "Bienvenue dans Ekylibre"
+    backend/data_view/manure_management_plans: #?
     backend/departments:
       # edit: "Modifier le service\_: %{name}"
       # index: "Services"
@@ -255,12 +261,12 @@ jpn:
       # new: "Ajouter un nouvel ilôt"
       # show: "Ilôt %{name}"
     backend/land_parcel_groups:
-      # divide: "Diviser la parcelle culturale\_: %{name}"
-      # edit: "Modifier la parcelle culturale\_: %{name}"
-      # index: "Parcelles culturales"
-      # merge: "Fusionner des parcelles culturales"
-      # new: "Ajouter une nouvelle parcelle culturale"
-      # show: "Parcelle culturale %{name}"
+      # divide: "Diviser le groupe de parcelle\_: %{name}"
+      # edit: "Modifier le groupe de parcelle\_: %{name}"
+      # index: "Groupes de parcelles"
+      # merge: "Fusionner des groupes de parcelles"
+      # new: "Ajouter un nouveau groupe de parcelles"
+      # show: "Groupe de parcelles %{name}"
     backend/land_parcels:
       # divide: "Diviser la parcelle\_: %{name}"
       # edit: "Modifier la parcelle\_: %{name}"

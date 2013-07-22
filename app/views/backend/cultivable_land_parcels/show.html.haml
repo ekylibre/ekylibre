@@ -1,0 +1,16 @@
+=main_toolbar do |t|
+  -t.edit @cultivable_land_parcel
+
+=beehive do |b|
+  -b.tabbox do
+    -b.cell :general do
+      .picture
+        =@cultivable_land_parcel.shape_svg(:width => 180, :height => 180, :class => :map)
+      .info
+        %span.title=CultivableLandParcel.human_attribute_name(:area_measure)
+        %span.value=@cultivable_land_parcel.shape_area.square_meter.convert(:hectare)
+
+=beehive do |b|
+  -b.cell do
+    =attributes_list(@cultivable_land_parcel) do |l|
+      -l.attribute :name

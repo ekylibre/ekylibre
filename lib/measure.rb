@@ -61,8 +61,8 @@ class Measure
     if unit.nil?
       return @value
     else
-      raise Exception.new("Unknown unit: #{unit.inspect}") unless @@units.all.include? unit
-      raise Exception.new("Measure can't be converted from one dimension (#{@@units[@unit].dimension}) to an other (#{@@units[unit].dimension})") if @@units[@unit].dimension != @@units[unit].dimension
+      raise Exception.new("Unknown unit: #{unit.inspect}") unless @@units.all.include? unit.to_s
+      raise Exception.new("Measure can't be converted from one dimension (#{@@units[@unit].dimension}) to an other (#{@@units[unit].dimension})") if @@units[@unit.to_s].dimension != @@units[unit.to_s].dimension
       value = @value
       # Reduce to base
       # Coeff to dest

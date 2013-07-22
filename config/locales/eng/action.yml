@@ -105,6 +105,11 @@ eng:
     backend/cells/purchases_bar_cells: #?
     backend/cells/purchases_expense_bar_cells: #?
     backend/cells/rss_cells: #?
+    backend/cultivable_land_parcels:
+      # edit: "Modifier la parcelle culturale\_: %{name}"
+      # index: "Parcelles culturales"
+      # new: "Ajouter une parcelle culturale"
+      # show: "Parcelle culturale\_: %{name}"
     backend/custom_field_choices:
       edit: "Edit the option: %{name}"
       new: "Add a new option for a choices list"
@@ -126,6 +131,7 @@ eng:
       stocks: "Stocks dashboard"
       tools: "Tools dashboard"
       welcome: "Welcome on Ekylibre"
+    backend/data_view/manure_management_plans: #?
     backend/departments:
       edit: "Edit the department: %{name}"
       index: "Departments"

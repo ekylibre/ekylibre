@@ -99,6 +99,8 @@ fra:
       # show: "Show backend/cells/demo pie cell"
     backend/cells/expense_chart_cells:
       # show: "Show backend/cells/expense chart cell"
+    backend/cells/last_events_cells:
+      # show: "Show backend/cells/last events cell"
     backend/cells/last_milk_result_cells:
       # show: "Show backend/cells/last milk result cell"
     backend/cells/last_procedures_cells:
@@ -117,6 +119,11 @@ fra:
       # show: "Show backend/cells/purchases expense bar cell"
     backend/cells/rss_cells:
       # show: "Show backend/cells/rss cell"
+    backend/cultivable_land_parcels:
+      edit: "Modifier la parcelle culturale\_: %{name}"
+      index: "Parcelles culturales"
+      new: "Ajouter une parcelle culturale"
+      show: "Parcelle culturale\_: %{name}"
     backend/custom_field_choices:
       edit: "Modifier l’option\_: %{name}"
       new: " Création d’une option pour une liste de choix"
@@ -138,6 +145,8 @@ fra:
       stocks: "Tableau de bord des stocks"
       tools: "Tableau de bord des outils"
       welcome: "Bienvenue dans Ekylibre"
+    backend/data_view/manure_management_plans:
+      # show: "Show backend/data view/manure management plan"
     backend/departments:
       edit: "Modifier le service\_: %{name}"
       index: "Services"
@@ -263,12 +272,12 @@ fra:
       new: "Ajouter un nouvel ilôt"
       show: "Ilôt %{name}"
     backend/land_parcel_groups:
-      divide: "Diviser la parcelle culturale\_: %{name}" #?
-      edit: "Modifier la parcelle culturale\_: %{name}"
-      index: "Parcelles culturales"
-      merge: "Fusionner des parcelles culturales" #?
-      new: "Ajouter une nouvelle parcelle culturale"
-      show: "Parcelle culturale %{name}"
+      divide: "Diviser le groupe de parcelle\_: %{name}" #?
+      edit: "Modifier le groupe de parcelle\_: %{name}"
+      index: "Groupes de parcelles"
+      merge: "Fusionner des groupes de parcelles" #?
+      new: "Ajouter un nouveau groupe de parcelles"
+      show: "Groupe de parcelles %{name}"
     backend/land_parcels:
       divide: "Diviser la parcelle\_: %{name}" #?
       edit: "Modifier la parcelle\_: %{name}"
@@ -476,7 +485,6 @@ fra:
       # show: "Show backend/production support"
     backend/productions:
       edit: "Modifier la production\_: %{name}"
-      # fertilization: "Fertilization backend/production"
       index: "Productions"
       new: "Nouvelle production"
       show: "Production\_: %{name}"
@@ -619,6 +627,7 @@ fra:
     # backend/cells/demo_map_cells: "Backend/cells/demo map cells"
     # backend/cells/demo_pie_cells: "Backend/cells/demo pie cells"
     # backend/cells/expense_chart_cells: "Backend/cells/expense chart cells"
+    # backend/cells/last_events_cells: "Backend/cells/last events cells"
     # backend/cells/last_milk_result_cells: "Backend/cells/last milk result cells"
     # backend/cells/last_procedures_cells: "Backend/cells/last procedures cells"
     # backend/cells/last_products_cells: "Backend/cells/last products cells"
@@ -629,9 +638,12 @@ fra:
     # backend/cells/purchases_expense_bar_cells: "Backend/cells/purchases expense bar cells"
     # backend/cells/rss_cells: "Backend/cells/rss cells"
     # backend/cells: "Backend/cells"
+    # backend/cultivable_land_parcels: "Backend/cultivable land parcels"
     backend/custom_field_choices: "Choix de champs personnalisés"
     backend/custom_fields: "Champs personnalisés"
     backend/dashboards: "Tableaux de bord"
+    # backend/data_view/manure_management_plans: "Backend/data view/manure management plans"
+    # backend/data_view: "Backend/data view"
     backend/departments: "Services"
     backend/deposit_items: "Lignes de remise en banque"
     backend/deposits: "Remises en banque"

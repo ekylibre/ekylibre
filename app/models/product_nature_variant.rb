@@ -75,6 +75,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
   scope :land_parcels, lambda { joins(:nature).merge(ProductNature.land_parcels).order(:name)}
   scope :land_parcel_groups, lambda { joins(:nature).merge(ProductNature.land_parcel_groups).order(:name)}
   scope :land_parcel_clusters, lambda { joins(:nature).merge(ProductNature.land_parcel_clusters).order(:name)}
+  scope :cultivable_land_parcels, lambda { joins(:nature).merge(ProductNature.cultivable_land_parcels).order(:name)}
 
   def set_nature_name
     if self.nature

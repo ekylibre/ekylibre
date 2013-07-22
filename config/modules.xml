@@ -512,15 +512,15 @@
       </item>
     </group>
     <group name="land_parcels" icon="land_parcels">
-      <item name="land_parcel_groups">
-        <page to="backend/land_parcel_groups#index"/>
-        <page to="backend/land_parcel_groups#create"/>
-        <page to="backend/land_parcel_groups#destroy"/>
-        <page to="backend/land_parcel_groups#edit"/>
-        <page to="backend/land_parcel_groups#list"/>
-        <page to="backend/land_parcel_groups#new"/>
-        <page to="backend/land_parcel_groups#show"/>
-        <page to="backend/land_parcel_groups#update"/>
+      <item name="cultivable_land_parcels">
+        <page to="backend/cultivable_land_parcels#index"/>
+        <page to="backend/cultivable_land_parcels#create"/>
+        <page to="backend/cultivable_land_parcels#destroy"/>
+        <page to="backend/cultivable_land_parcels#edit"/>
+        <page to="backend/cultivable_land_parcels#list"/>
+        <page to="backend/cultivable_land_parcels#new"/>
+        <page to="backend/cultivable_land_parcels#show"/>
+        <page to="backend/cultivable_land_parcels#update"/>
       </item>
       <item name="land_parcel_clusters">
         <page to="backend/land_parcel_clusters#index"/>
@@ -973,6 +973,16 @@
         <page to="backend/building_divisions#show"/>
         <page to="backend/building_divisions#update"/>
       </item>
+      <item name="land_parcel_groups">
+        <page to="backend/land_parcel_groups#index"/>
+        <page to="backend/land_parcel_groups#create"/>
+        <page to="backend/land_parcel_groups#destroy"/>
+        <page to="backend/land_parcel_groups#edit"/>
+        <page to="backend/land_parcel_groups#list"/>
+        <page to="backend/land_parcel_groups#new"/>
+        <page to="backend/land_parcel_groups#show"/>
+        <page to="backend/land_parcel_groups#update"/>
+      </item>
       <item name="settlements">
         <page to="backend/settlements#index"/>
         <page to="backend/settlements#create"/>
@@ -1028,12 +1038,15 @@
       <item name="expense_chart_cells">
         <page to="backend/cells/expense_chart_cells#show"/>
       </item>
+      <item name="last_events_cells">
+        <page to="backend/cells/last_events_cells#list"/>
+        <page to="backend/cells/last_events_cells#show"/>
+      </item>
       <item name="last_milk_result_cells">
         <page to="backend/cells/last_milk_result_cells#list"/>
         <page to="backend/cells/last_milk_result_cells#show"/>
       </item>
       <item name="last_procedures_cells">
-        <page to="backend/cells/last_procedures_cells#list"/>
         <page to="backend/cells/last_procedures_cells#show"/>
       </item>
       <item name="last_products_cells">
@@ -1072,6 +1085,9 @@
         <page to="backend/dashboards#stocks"/>
         <page to="backend/dashboards#tools"/>
         <page to="backend/dashboards#welcome"/>
+      </item>
+      <item name="manure_management_plans">
+        <page to="backend/data_view/manure_management_plans#show"/>
       </item>
       <item name="entities">
         <page to="backend/entities#list_meeting_participations"/>
@@ -1249,7 +1265,6 @@
         <page to="backend/production_supports#update"/>
       </item>
       <item name="productions">
-        <page to="backend/productions#fertilization"/>
         <page to="backend/productions#list_procedure"/>
         <page to="backend/productions#list_support"/>
       </item>
