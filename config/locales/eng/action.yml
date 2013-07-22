@@ -718,7 +718,6 @@ eng:
       journal_entry_lines: "Journal entry lines" #?
     # account_tangible_fixed_assets: "Immobilisations corporelles"
     # account_untangible_fixed_assets: "Immobilisations incorporelles"
-    # account_update: "Modifier le compte"
     # account_value_current: "Brut"
     # account_value_previous: "Brut N-1"
     # accountancy: "Comptabilité"
@@ -817,8 +816,7 @@ eng:
         safari: "Safari"
     balance: "Balance"
     bank_chart: "Bank chart"
-    # bank_statement_point: "Pointer le relevé"
-    # bank_statement_update: "Modifier le relevé"
+    bban: "Basic Bank Account Number (BBAN)"
     # beginning: "Début"
     begins: "Starts with"
     body: "Body of the message"
@@ -837,7 +835,7 @@ eng:
     cash_tabbox:
       bank_statements: "Bank statements"
       deposits: "Deposits"
-    cash_update: "Update cash"
+    cash_update: "Update cash" #?
     catalog: "Catalog"
     category: "Category"
     category_name: "Category"
@@ -904,7 +902,7 @@ eng:
     currency_with_code: "%{name} (%{code})"
     current: "Current"
     current_letter: "Current letter\_: %{letter}"
-    custom_field_update: "Custom field update"
+    custom_field_update: "Custom field update" #?
     data_to_export: "Data to export"
     data_to_extract: "Data to extract"
     dates: "Select period start date and Period end date"
@@ -913,7 +911,7 @@ eng:
     # decimal_options: "Indicateur de type décimal"
     default_subject: "[%{company}]"
     delay: "Delay"
-    delay_update: "Edit delay"
+    delay_update: "Edit delay" #?
     delays: "Delays" #?
     delete: "Delete"
     deliver: "Delivered on"
@@ -926,7 +924,7 @@ eng:
     demo_pie: "Pie"
     departments: "Departments"
     deposit: "Deposit"
-    deposit_update: "Update deposit"
+    deposit_update: "Update deposit" #?
     depositable: "More informations"
     depreciation: "Depreciation"
     description: "Description"
@@ -959,11 +957,11 @@ eng:
     entities_import: "Import person in CSV"
     entities_merge: "Merge persons"
     entity: "Person"
-    entity_category_update: "Update category"
-    entity_print: "Print person"
+    entity_category_update: "Update category" #?
+    entity_print: "Print person" #?
     entity_to_delete: "Person to delete"
     entity_to_update: "Person to update"
-    entity_update: "Person update"
+    entity_update: "Person update" #?
     entries: "Entries"
     entries_to_point: "Entries pointing to"
     error_no_file: "No help is available for this part of the application (%{article}). Help has not yet been written. You can visit online website for more information."
@@ -1031,8 +1029,8 @@ eng:
     include_blank: "Include blank"
     income_statement: "Income Statement"
     incoming_payment_conditions: "Conditions of payment"
-    incoming_payment_update: "Update incoming payment"
-    incoming_payment_use_create: "Add a new incoming payment"
+    incoming_payment_update: "Update incoming payment" #?
+    incoming_payment_use_create: "Add a new incoming payment" #?
     incoming_payments: "Incoming payments"
     incoming_payments_states:
       all: "All"
@@ -1061,16 +1059,14 @@ eng:
     journal_entries: "Journal's entries"
     journal_entries_states: "States of entries"
     journal_name: "%{name}"
-    # journal_record_update: "Modifier la pièce"
-    journal_update: "Update journal"
+    journal_update: "Update journal" #?
     journal_view:
       entries: "Entries"
-      # items: "Lignes d’écritures"
-      lines: "Lines of entries" #?
-      mixed: "Entries and lines"
+      items: "Items of entries"
+      mixed: "Entries and items"
     journals: "Journals"
     land_parcel_name: "Land parcel name"
-    land_parcel_update: "Update land parcel"
+    land_parcel_update: "Update land parcel" #?
     land_parcels: "Land parcels"
     last_animals: "Last birth"
     # last_clients: "Derniers clients"
@@ -1236,8 +1232,6 @@ eng:
     one_condition: "One condition"
     # operation_items: "Intrants et sortants"
     operation_lines: "Incoming and outgoing products" #?
-    # operation_update: "Modifier le travail"
-    # operation_use_create: "Ajouter un matériel"
     operations: "Operations"
     order: "Order"
     order_amount_with_taxes: "Order amount with taxes"
@@ -1248,8 +1242,6 @@ eng:
     # others_not_assessable_operations: "Autres opérations non imposables"
     # others_services: "Autres biens et services"
     # out_vat_amount: "Base hors taxe"
-    # outgoing_payment_update: "Modifier le décaissement"
-    # outgoing_payment_use_create: "Payer l’achat"
     outgoing_payments_states:
       all: "All"
       undelivered: "Undelivered"
@@ -1274,7 +1266,7 @@ eng:
     payment_label: "Payment label"
     payment_mode: "Payment mode"
     payment_on: "Payment on"
-    payment_uses: "Payment parts"
+    payment_uses: "Payment parts" #?
     payments: "Payments"
     payments_amount: "Payments amount"
     payments_count: "Payments count"
@@ -1314,7 +1306,6 @@ eng:
     product: "Product"
     product_bar: "Product by categories"
     product_category: "Product category"
-    # product_category_update: "Modifier la catégorie"
     product_name: "Product name"
     # product_price_listings: "Listes de prix"
     # product_price_templates: "Types de prix"
@@ -1323,7 +1314,6 @@ eng:
       prices: "Prices" #?
       stock_moves: "Stock moves" #?
       stocks: "Stocks" #?
-    # product_update: "Modifier la fiche du produit"
     production: "Production management"
     productions: "Productions"
     productions_states:
@@ -1344,11 +1334,9 @@ eng:
       deliveries: "Incoming deliveries"
       products: "Purchase"
       summary: "Disbursements"
-    # purchase_update: "Modifier les informations de la commande"
     purchases: "Purchases"
     purchases_bar: "Purchase by natures"
     purchases_expense_bar: "Purchase Expenses by month"
-    # purchases_price_create: "Ajouter un prix d’achat"
     quantity: "Quantity"
     quantity_rest: "Remaining quantity"
     quantity_to_credit: "Quantity to credit"
@@ -1399,7 +1387,6 @@ eng:
     sale: "Sale"
     # sale_cancel: "Faire un avoir sur la facture"
     # sale_deliveries: "Livraisons"
-    # sale_item_create: "Ajouter un produit au devis (Mode complet)"
     # sale_items: "Lignes de la vente"
     sale_steps:
       deliveries: "Deliveries"
@@ -1407,7 +1394,6 @@ eng:
       general: "General"
       products: "Products"
       summary: "Sales invoice"
-    # sale_update: "Modifier les informations du devis"
     sales: "Sales"
     sales_conditions: "Conditions of sales"
     sales_invoice: "Invoicing"
@@ -1421,7 +1407,6 @@ eng:
       cancelled: "Cancelled"
       credits: "Credits"
     sales_invoices_total: "Sales invoices total"
-    # sales_price_create: "Ajouter un prix de vente"
     sales_states:
       all: "All"
       current: "Current"
@@ -1499,7 +1484,7 @@ eng:
     to_deliver: "To deliver"
     to_deposit: "To deposit"
     today: "Today"
-    tool_update: "Update tool"
+    tool_update: "Update tool" #?
     tools: "Tools"
     tools_list: "Tools"
     total: "Total"
@@ -1655,9 +1640,9 @@ eng:
       other: "%{count} purchases"
       zero: "0 purchases"
     x_results:
-      # one: "%{count} résultat trouvé"
-      # other: "%{count} résultats trouvés"
-      # zero: "Aucun résultat trouvé"
+      one: "%{count} result found"
+      other: "%{count} results found"
+      zero: "No results found"
     x_sales:
       one: "1 sale"
       other: "%{count} sales"

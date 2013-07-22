@@ -505,7 +505,7 @@ spa:
       # edit: "Modifier un produit"
       # index: "Produits"
       # new: "Créer un produit"
-      # show: "Produit\_: %{name}"
+      # show: "%{nature_name}\_: %{name}"
     backend/professions:
       # edit: "Modifier la profession\_: %{name}"
       # index: "Professions"
@@ -764,7 +764,7 @@ spa:
       # journal_entry_items: "Écritures"
     account_tangible_fixed_assets: "Inmobilisaciones corporales"
     account_untangible_fixed_assets: "Inmobilisacions incorporales"
-    account_update: "Modificar el cuento"
+    account_update: "Modificar el cuento" #?
     account_value_current: "BRUT"
     account_value_previous: "BRUT N-1"
     accountancy: "contabilidad"
@@ -862,8 +862,9 @@ spa:
         safari: "Safari"
     balance: "Saldo"
     # bank_chart: "Évolution du solde de banque"
-    bank_statement_point: "Despuntar el levantar"
-    bank_statement_update: "Modificar el leventar"
+    bank_statement_point: "Despuntar el levantar" #?
+    bank_statement_update: "Modificar el leventar" #?
+    # bban: "Relevé d'identité bancaire (RIB)"
     # beginning: "Début"
     # begins: "Commence par"
     body: "Cuerpo del mensaje"
@@ -884,7 +885,7 @@ spa:
     cash_tabbox:
       bank_statements: "Leventar de cuento"
       deposits: "Entregas en banca"
-    cash_update: "Modificar la tresoreria"
+    cash_update: "Modificar la tresoreria" #?
     # catalog: "Description pour catalogue"
     # category: "Catégorie"
     # category_name: "Catégorie"
@@ -952,7 +953,6 @@ spa:
     # currency_with_code: "%{code} - %{name}"
     # current: "En cours"
     current_letter: "Carta en curso : %{carta}"
-    # custom_field_update: "Modifier le champ personnalisé"
     data_to_export: "Datos a exportar"
     data_to_extract: "Datos para extraer"
     dates: "Marcar las fechas de empezo y termino por los periodos"
@@ -960,9 +960,9 @@ spa:
     # decimal_case: "Options pour un décimal"
     # decimal_options: "Indicateur de type décimal"
     default_subject: "[%{company}]"
-    # delay: "Délais"
+    # delay: "Délai"
     delay_create: "Añadir un plazo" #?
-    delay_update: "Modifiar el plazo"
+    delay_update: "Modifiar el plazo" #?
     # delete: "Supprimer"
     # deliver: "Valider l’envoi des livraisons"
     # deliveries: "Livraisons"
@@ -979,7 +979,7 @@ spa:
       one: "Hacer un aposto : %{mode} (1 encajonamiento)" #?
       other: "Hacer un aposto : %{mode} (%{count} encajonamientos)" #?
       zero: "Hacer un aposto : %{mode} (Ningun encajonamiento)" #?
-    deposit_update: "Modifiar el aposto en banco"
+    deposit_update: "Modifiar el aposto en banco" #?
     # depositable: "Complément d’information"
     # depreciation: "Ammortissement"
     description: "Descripción general"
@@ -1014,11 +1014,8 @@ spa:
     # entities_import: "Importer un fichier CSV"
     # entities_merge: "Fusionner des fiches"
     # entity: "Personne"
-    # entity_category_update: "Modifier la catégorie de fiche"
-    # entity_print: "Imprimer la fiche"
     # entity_to_delete: "Doublon à fusionner (et faire disparaitre)"
     # entity_to_update: "Fiche à mettre à jour avec les éléments du doublon"
-    # entity_update: "Modifier la fiche"
     entries: "Escrituras"
     entries_to_point: "Escrituras a despuntar"
     error_no_file: "Ninguna atyuda esta disponible para ese partido del software (%{article}). La ayuda ya no ha sido escribida. Se puede consultar el sitio en linea para mas informaciones."
@@ -1087,8 +1084,6 @@ spa:
     # include_blank: "— Aucune organisation —"
     income_statement: "cuentos de résultos"
     # incoming_payment_conditions: "Conditions d’encaissement"
-    # incoming_payment_update: "Modifier l’encaissement"
-    # incoming_payment_use_create: "Affecter un encaissement"
     # incoming_payments: "Encaissements"
     incoming_payments_states:
       # all: "Tous"
@@ -1119,8 +1114,8 @@ spa:
     # journal_entries_states: "États des écritures utilisées"
     journal_entry_lines_states: "Estado de las escrituras utilizadas" #?
     journal_name: "%{name}"
-    journal_record_update: "Modificar la pieza"
-    journal_update: "Modificar el periodico"
+    journal_record_update: "Modificar la pieza" #?
+    journal_update: "Modificar el periodico" #?
     journal_view:
       draft_entries: "Niebla" #?
       entries: "Éscrituras"
@@ -1129,7 +1124,6 @@ spa:
       records: "Piezas" #?
     journals: "Periodico general"
     # land_parcel_name: "Parcelle"
-    # land_parcel_update: "Modifier la parcelle"
     # land_parcels: "Parcellaire"
     # last_animals: "Dernières naissances"
     # last_clients: "Derniers clients"
@@ -1297,8 +1291,6 @@ spa:
     on_account: "Volver a poner sobre la cuenta"
     # one_condition: "au moins une condition"
     # operation_items: "Intrants et sortants"
-    # operation_update: "Modifier le travail"
-    # operation_use_create: "Ajouter un matériel"
     # operations: "Travaux"
     # order: "Commande"
     # order_amount_with_taxes: "Montant de la commande"
@@ -1309,8 +1301,6 @@ spa:
     others_not_assessable_operations: "Autras operaciones no imponibles"
     others_services: "Otros bienes y servicios"
     out_vat_amount: "Basa fuera de tarifa"
-    # outgoing_payment_update: "Modifier le décaissement"
-    # outgoing_payment_use_create: "Payer l’achat"
     outgoing_payments_states:
       # all: "Tous"
       # undelivered: "Non délivrés"
@@ -1334,7 +1324,6 @@ spa:
     # payment_label: "%{number}. %{amount} (%{usable_amount} restants) du %{date} par %{mode} de %{entity}"
     # payment_mode: "Mode d’encaissement"
     # payment_on: "Payé le"
-    # payment_uses: "Décaissements"
     payments: "Encajonamientos"
     # payments_amount: "Montant réglé"
     payments_count: "Nombre de %{mode}"
@@ -1374,12 +1363,10 @@ spa:
     product: "Producto"
     # product_bar: "Produit par catégories"
     # product_category: "Produits"
-    # product_category_update: "Modifier la catégorie"
     # product_name: "Produit"
     # product_price_listings: "Listes de prix"
     # product_price_templates: "Types de prix"
     product_tabbox: #?
-    # product_update: "Modifier la fiche du produit"
     production: "Administración de la producción"
     # productions: "Productions"
     productions_states:
@@ -1400,11 +1387,9 @@ spa:
       # deliveries: "Livraisons"
       products: "Creación de la compra"
       summary: "Desembolsos"
-    # purchase_update: "Modifier les informations de la commande"
     # purchases: "Achats"
     # purchases_bar: "Achats par type"
     # purchases_expense_bar: "Dépenses par mois"
-    # purchases_price_create: "Ajouter un prix d’achat"
     quantity: "Quantidades"
     quantity_rest: "Quantidad restante"
     quantity_to_credit: "Cantidad a pasar en activo"
@@ -1460,7 +1445,6 @@ spa:
     sale: "Encargos"
     sale_cancel: "Hacer un activo sobre une factura"
     # sale_deliveries: "Livraisons"
-    # sale_item_create: "Ajouter un produit au devis (Mode complet)"
     # sale_items: "Lignes de la vente"
     sale_steps:
       deliveries: "Planificación de las entregas"
@@ -1468,7 +1452,6 @@ spa:
       general: "Descripción"
       products: "Productos"
       summary: "Factura y encajonamientos"
-    # sale_update: "Modifier les informations du devis"
     sales: "Exportar un cuadro de ventas al formato CSV"
     # sales_conditions: "Conditions de vente"
     sales_invoice: "Facturas"
@@ -1483,7 +1466,6 @@ spa:
       # cancelled: "Passées en avoir"
       # credits: "Avoirs"
     # sales_invoices_total: "Total factures"
-    # sales_price_create: "Ajouter un prix de vente"
     sales_states:
       # all: "Toutes"
       # current: "En cours"
@@ -1567,7 +1549,6 @@ spa:
     # to_deliver: "Livrer"
     # to_deposit: "À encaisser"
     # today: "Aujourd’hui"
-    # tool_update: "Modifier le matériel"
     # tools: "Outils"
     # tools_list: "Liste d’outils"
     total: "Total"

@@ -112,7 +112,7 @@ class JournalEntry < Ekylibre::Record::Base
   # Build a condition for filter journal entries on period
   def self.period_condition(period, started_on, stopped_on, table_name=nil)
     table = table_name || self.table_name
-    if period == 'all'
+    if period.to_s == 'all'
       return self.connection.quoted_true
     else
       conditions = []

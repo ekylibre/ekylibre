@@ -44,20 +44,6 @@ class BackendController < BaseController
   end
 
 
-  # def send_datasource(name = nil, options = {}, &block)
-  #   if name.blank?
-  #     name = (action_name == "index" ? controller_name : action_name == "show" ? controller_name.singularize : action_name)
-  #   end
-
-  #   # resources << {} unless resources.last.is_a?(Hash)
-  #   # resources[-1][:with] = (params[:template].match(/^\d+$/) ? params[:template].to_i : params[:template].to_s) if params[:template]
-  #   # for param in [:key, :name]
-  #   #   resources[-1][param] = params[param] if params[param]
-  #   # end
-  #   # super(*resources, &block)
-  # end
-
-
   class << self
     attr_reader :unrolls
 
@@ -185,45 +171,6 @@ class BackendController < BaseController
 
 
 
-
-  # # Generate render_print_* method which send data corresponding to a nature of
-  # # document template. It use special method +print_fastly!+.
-  # for nature, parameters in DocumentTemplate.document_natures
-  #   method_name = "render_print_#{nature}"
-  #   code  = "" # "hide_action :#{method_name}\n"
-  #   code << "def #{method_name}("+parameters.collect{|p| p[0]}.join(', ')+", template=nil)\n"
-  #   code << "  ActiveSupport::Deprecation.warn('Dont use render_print_*. Use render(:pdf => @record) instead.')\n"
-  #   code << "  template ||= params[:template]\n"
-  #   code << "  template = if template.is_a? String or template.is_a? Symbol\n"
-  #   code << "    DocumentTemplate.find_by_active_and_nature_and_code(true, '#{nature}', template.to_s)\n"
-  #   code << "  else\n"
-  #   code << "    DocumentTemplate.find_by_active_and_nature_and_by_default(true, '#{nature}', true)\n"
-  #   code << "  end\n"
-  #   code << "  unless template\n"
-  #   code << "    notify_error(:cannot_find_document_template, :nature => '#{nature}', :template => template.inspect)\n"
-  #   code << "    redirect_to_back\n"
-  #   code << "    return\n"
-  #   code << "  end\n"
-  #   code << "  headers['Cache-Control'] = 'maxage=3600'\n"
-  #   code << "  headers['Pragma'] = 'public'\n"
-  #   code << "  begin\n"
-  #   for p in parameters
-  #     code << "    #{p[0]} = #{p[1].name}.find_by_id(#{p[0]}.to_s.to_i) unless #{p[0]}.is_a? #{p[1].name}\n" if p[1].ancestors.include?(ActiveRecord::Base)
-  #     code << "    #{p[0]} = #{p[0]}.to_date if #{p[0]}.is_a?(String)\n" if p[1] == Date
-  #     code << "    raise ArgumentError.new('#{p[1].name} expected, got '+#{p[0]}.class.name+':'+#{p[0]}.inspect) unless #{p[0]}.is_a?(#{p[1].name})\n"
-  #   end
-  #   code << "    data, filename = template.print_fastly!("+parameters.collect{|p| p[0]}.join(', ')+")\n"
-  #   code << "    send_data(data, :filename => filename, :type => Mime::PDF, :disposition => 'inline')\n"
-  #   code << "  rescue Exception => e\n"
-  #   code << "    notify_error(:print_failure, :class => e.class.to_s, :error => e.message.to_s, :cache => template.cache.to_s)\n"
-  #   code << "    redirect_to_back\n"
-  #   code << "  end\n"
-  #   code << "end\n"
-  #   # raise code
-  #   eval(code)
-  # end
-
-
   protected
 
   # def render_restfully_form(options = {})
@@ -304,15 +251,6 @@ class BackendController < BaseController
       end
     end
   end
-
-
-
-  protected
-
-  # def current_user
-  #   @current_user = Entity.find_by_id(session[:user_id]) unless @current_user
-  #   return @current_user
-  # end
 
   private
 
@@ -478,26 +416,6 @@ class BackendController < BaseController
   def redirect_to_current(options={})
     redirect_to_back(options.merge(:direct => true))
   end
-
-  # # Autocomplete helper
-  # def self.autocomplete_for(model_name, column)
-  #   item =  model_name.to_s
-  #   items = item.pluralize
-  #   items = "many_#{items}" if items == item
-  #   code =  "def #{__method__}_#{model_name}_#{column}\n"
-  #   code << "  if params[:term]\n"
-  #   code << "    pattern = '%'+params[:term].to_s.mb_chars.downcase.strip.gsub(/\s+/,'%').gsub(/[#{String::MINUSCULES.join}]/,'_')+'%'\n"
-  #   code << "    @#{items} = #{model_name.to_s.classify}.select('DISTINCT #{column}').where('LOWER(#{column}) LIKE ?', pattern).order('#{column} ASC').limit(80)\n"
-  #   code << "    respond_to do |format|\n"
-  #   code << "      format.html { render :inline => \"<%=content_tag(:ul, @#{items}.map { |#{item}| content_tag(:li, #{item}.#{column})) }.join.html_safe)%>\" }\n"
-  #   code << "      format.json { render :json => @#{items}.collect{|#{item}| #{item}.#{column}}.to_json }\n"
-  #   code << "    end\n"
-  #   code << "  else\n"
-  #   code << "    render :text => '', :layout => true\n"
-  #   code << "  end\n"
-  #   code << "end\n"
-  #   class_eval(code, "#{__FILE__}:#{__LINE__}")
-  # end
 
   # Autocomplete helper
   def self.autocomplete_for(column, options = {})

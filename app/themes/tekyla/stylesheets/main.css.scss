@@ -700,10 +700,11 @@ form.search {
 .picture {
   background: white;
   border: 1px solid #DDDDDD;
-  box-shadow: 0 0 7px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 $default-gap rgba(0, 0, 0, 0.15);
   @include float(left);
-  @include margin-right($default-gap);
-  padding: 7px;
+  margin: 0 $default-gap;
+  padding: $default-gap;
+
 }
 
 .info {
