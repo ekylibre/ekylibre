@@ -6,7 +6,7 @@ gem 'rails', '3.2.8'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'pg'
-gem 'mysql'
+gem 'mysql', '2.8.1'
 gem 'sqlite3'
 
 gem 'nokogiri', '~> 1.5.7'

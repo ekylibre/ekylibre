@@ -116,7 +116,7 @@ GEM
     mime-types (1.23)
     multi_json (1.7.7)
     multi_test (0.0.2)
-    mysql (2.9.1)
+    mysql (2.8.1)
     nokogiri (1.5.10)
     pdf-reader (1.3.3)
       Ascii85 (~> 1.0.0)
@@ -226,7 +226,7 @@ DEPENDENCIES
   i18n-complements
   jquery-rails (~> 2.1.1)
   libxml-ruby
-  mysql
+  mysql (= 2.8.1)
   nokogiri (~> 1.5.7)
   pg
   prawn (>= 0.10.0)
