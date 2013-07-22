@@ -40,10 +40,10 @@
         -l.attribute :prospect
         -l.attribute :client
         -if @entity.client
-          -l.attribute :category, :label => :name, :url => true
+          -#l.attribute :category, :label => :name, :url => true
           -l.attribute :first_met_on unless @entity.first_met_on.blank?
           -l.attribute :proposer, :label => :full_name unless @entity.proposer.nil?
-          -l.attribute :vat_submissive
+          -l.attribute :vat_subjected
           -l.attribute :reminder_submissive unless @entity.reminder_submissive?
           -l.attribute :reduction_percentage
           -l.attribute :authorized_payments_count unless @entity.authorized_payments_count.blank?
@@ -63,7 +63,7 @@
       =list(:observations)
 
   -b.tabbox do
-    -b.cell(tl(:x_subscriptions, :count => @entity.subscriptions.count)) do
+    -#b.cell(tl(:x_subscriptions, :count => @entity.subscriptions.count)) do
       =toolbar do |t|
         -t.new(:controller => :subscriptions, :entity_id => @entity.id)
       =list(:subscriptions)

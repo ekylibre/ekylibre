@@ -43,9 +43,9 @@ class Backend::TransportsController < BackendController
     #t.column :moved_on, :children => false
     t.column :number, :url => true, :children => false
     # t.column :number, :through => :sale, :url => true, :children => false
-    t.column :quantity
-    t.column :pretax_amount
-    t.column :amount
+    #t.column :quantity
+    #t.column :pretax_amount
+    #t.column :amount
     t.column :weight, :children => false
   end
 
@@ -83,17 +83,17 @@ class Backend::TransportsController < BackendController
     return code
   end
 
-  list(:transportable_deliveries, :model => :outgoing_deliveries, :children => :items, :conditions => transportable_deliveries_conditions, :pagination => :none, :order => :planned_on, :line_class => "(RECORD.planned_on<Date.today ? 'critic' : RECORD.planned_on == Date.today ? 'warning' : '')") do |t|
-    t.check_box :selected, :value => '(session[:current_transport_id].to_i.zero? ? RECORD.planned_on <= Date.today : RECORD.transport_id == session[:current_transport_id])'
+  list(:transportable_deliveries, :model => :outgoing_deliveries, :children => :items, :conditions => transportable_deliveries_conditions, :pagination => :none, :order => :planned_at, :line_class => "(RECORD.planned_at<Date.today ? 'critic' : RECORD.planned_at.to_date == Date.today ? 'warning' : '')") do |t|
+    t.check_box :selected, :value => '(session[:current_transport_id].to_i.zero? ? RECORD.planned_at <= Date.today : RECORD.transport_id == session[:current_transport_id])'
     t.column :coordinate, :through => :address, :children => :product_name
     t.column :planned_at, :children => false
     #t.column :moved_on, :children => false
     t.column :number, :url => true, :children => false
     # t.column :number, :through => :sale, :url => true, :children => false
     t.column :last_name, :through => :transporter, :children => false, :url => true
-    t.column :quantity
-    t.column :pretax_amount
-    t.column :amount
+    #t.column :quantity
+    #t.column :pretax_amount
+    #t.column :amount
     t.column :weight, :children => false
   end
 

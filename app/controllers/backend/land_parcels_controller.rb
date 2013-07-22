@@ -24,7 +24,7 @@ class Backend::LandParcelsController < BackendController
 
   list() do |t|
     t.column :name, :url => true
-    #t.column :identification_number
+    t.column :identification_number
     t.column :work_number
     #t.column :description
     #t.column :real_quantity
