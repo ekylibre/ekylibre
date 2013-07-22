@@ -15,7 +15,7 @@ GEM
       rack-cache (~> 1.2)
       rack-test (~> 0.6.1)
       sprockets (~> 2.1.3)
-    active-list (4.2.4)
+    active-list (4.1.8)
       compass-rails (>= 1)
       fastercsv (>= 1.5)
       i18n-complements
@@ -209,12 +209,12 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  active-list
+  active-list (~> 4.1.3)
   acts_as_list
   acts_as_tree (= 0.2.0)
   capybara (~> 1.1.2)
   coffee-rails (~> 3.2.1)
-  combo_box
+  combo_box (~> 0.0.12)
   compass-rails
   cucumber-rails
   database_cleaner
