@@ -7,8 +7,9 @@ env:
   - DB=sqlite3
 before_install:
   - "ci/setup"
+  - "gem install rake -v=0.9.6 --no-ri --no-rdoc"
   - "gem install pg mysql sqlite3 --no-ri --no-rdoc"
   - "gem install rails -v=2.3.14 --no-ri --no-rdoc"
-  - "rake gems:install --trace"
-  - "rake db:migrate"
-script: "rake test"
+  - "rake _0.9.6_ gems:install --trace"
+  - "rake _0.9.6_ db:migrate"
+script: "rake _0.9.6_ test"
