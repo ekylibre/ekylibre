@@ -116,7 +116,7 @@ class Entity < Ekylibre::Record::Base
   has_many :sales_invoices, :class_name => "Sale", :foreign_key => :client_id, :order => "created_on desc", :conditions => {:state => "invoice"}
   has_many :sales, :foreign_key => :client_id, :order => "created_on desc"
   has_many :sale_items, :class_name => "SaleItem"
-  has_many :subscriptions
+  has_many :subscriptions, :foreign_key => :subscriber_id
   has_many :trackings, :foreign_key => :producer_id
   has_many :transfers, :foreign_key => :supplier_id
   has_many :transports, :foreign_key => :transporter_id

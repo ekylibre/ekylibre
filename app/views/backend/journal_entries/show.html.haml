@@ -3,15 +3,19 @@
   -t.edit @journal_entry if @journal_entry.updateable?
   -t.destroy @journal_entry, :method => :delete, "data-confirm" => tg(:are_you_sure) if @journal_entry.destroyable?
 
-=attributes_list(@journal_entry) do |l|
-  -l.attribute :number
-  -l.attribute :printed_on
-  -l.attribute :created_on
-  -if @journal_entry.resource
-    -l.attribute :resource, :url=>true
-  -l.attribute :journal, :url=>true
-  -l.attribute :debit, :currency=>@journal_entry.financial_year.currency
-  -l.attribute :credit, :currency=>@journal_entry.financial_year.currency
+=beehive do |b|
 
-%h2=JournalEntry.human_attribute_name("items")
-=list(:items)
+  -b.cell do
+    =attributes_list(@journal_entry) do |l|
+      -l.attribute :number
+      -l.attribute :printed_on
+      -l.attribute :created_on
+      -if @journal_entry.resource
+        -l.attribute :resource, :url=>true
+      -l.attribute :journal, :url=>true
+      -l.attribute :debit, :currency=>@journal_entry.financial_year.currency
+      -l.attribute :credit, :currency=>@journal_entry.financial_year.currency
+
+  -b.cell :items, :title => JournalEntry.human_attribute_name("items") do
+    =list(:items)
+    

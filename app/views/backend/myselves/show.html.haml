@@ -1,15 +1,11 @@
-.search
-  =form_tag({}, :method=>:get) do
-    %table
-      %tr
-        %td.crit
-          %span=tc(:manual_period, :start=>date_field_tag(:started_on, params[:started_on], :size=>8), :finish=>date_field_tag(:stopped_on, params[:stopped_on], :size=>8)).html_safe
-        %td=submit_tag tg(:search_go), :name=>nil
+=kujaku do |k|
+  -k.criterion do
+    =tc(:manual_period, :start=>date_field_tag(:started_on, params[:started_on], :size=>8), :finish=>date_field_tag(:stopped_on, params[:stopped_on], :size=>8)).html_safe
 
 
 -conditions = Proc.new{|x| ["state = 'invoice' AND #{x} BETWEEN ? AND ?", params[:started_on], params[:stopped_on]]}
 =beehive do |b|
-  -b.cell :x_sales_invoices, :count=>current_user.sales.count(:id, :conditions=>conditions[:invoiced_on]) do
+  -b.cell :x_sales_invoices, :count => current_user.sales.count(:id, :conditions=>conditions[:invoiced_on]) do
     %table.list
       %tr.total
         %th=Sale.human_attribute_name(:pretax_amount)
@@ -29,7 +25,7 @@
           %td=number_to_percentage 100*(paid_amount/invoiced_amount)
   -started_at, stopped_at = params[:started_on].beginning_of_day, params[:stopped_on].end_of_day
   -cond = ["created_at BETWEEN ? AND ?", started_at, stopped_at]
-  -b.cell :x_events, :count=>current_user.events.count(:id, :conditions=>cond) do
+  -#b.cell :x_events, :count=>current_user.events.count(:id, :conditions=>cond) do
     %ul
       -#-for event_nature in EventNature
         -#-cond = ["nature_id=? AND created_at BETWEEN ? AND ?", event_nature.id, started_at, stopped_at]

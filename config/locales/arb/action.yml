@@ -855,7 +855,7 @@ arb:
       journal_entry_lines: "ادخالات الدفاتر اليومية" #?
     account_tangible_fixed_assets: "موجودات ثابتة وملموسة"
     account_untangible_fixed_assets: "موجودات ثابتة وغير ملموسة"
-    account_update: "تعديل الحسابات"
+    account_update: "تعديل الحسابات" #?
     account_value_current: "القيمة الحالية"
     account_value_previous: "القيمة السابقة"
     accountancy: "المحاسبة"
@@ -955,8 +955,9 @@ arb:
     balance: "رصيد الحساب"
     bank_accounts: "" #?
     # bank_chart: "Évolution du solde de banque"
-    bank_statement_point: "الاشارة للكشف المصرفي"
-    bank_statement_update: "تعديل الكشف المصرفي"
+    bank_statement_point: "الاشارة للكشف المصرفي" #?
+    bank_statement_update: "تعديل الكشف المصرفي" #?
+    # bban: "Relevé d'identité bancaire (RIB)"
     # beginning: "Début"
     # begins: "Commence par"
     body: "هيكل الرسالة"
@@ -978,7 +979,7 @@ arb:
     cash_tabbox:
       # bank_statements: "Relevés de compte"
       # deposits: "Remises en banque"
-    cash_update: "تعديل الخزينة"
+    cash_update: "تعديل الخزينة" #?
     catalog: "مواصفات للفهرس"
     # category: "Catégorie"
     # category_name: "Catégorie"
@@ -1050,7 +1051,7 @@ arb:
     custom_field_choice_create: "اضافة خيار جديد للقائمة" #?
     custom_field_create: "انشاء حقل مخصص جديد" #?
     custom_field_sort: "تفريزة الخيارات حسب الاسم" #?
-    custom_field_update: "تعديل الحقل المخصص"
+    custom_field_update: "تعديل الحقل المخصص" #?
     custom_fields: "الحقول المخصصة" #?
     data_to_export: "تصدير البيانات"
     data_to_extract: "استخراج البيانات"
@@ -1059,9 +1060,9 @@ arb:
     decimal_case: "خيارات للكسر العشري"
     # decimal_options: "Indicateur de type décimal"
     default_subject: "[%{company}]"
-    # delay: "Délais"
+    # delay: "Délai"
     delay_create: "اضافة مهلة جديدة" #?
-    delay_update: "تعديل المهلة"
+    delay_update: "تعديل المهلة" #?
     delays: "التأخير" #?
     delete: "حذف"
     deliver: "التأكد من ارسال التسليم"
@@ -1079,7 +1080,7 @@ arb:
       one: "يقدم بيانا : %{mode} (دفعة واحدة)" #?
       other: "يقدم بيانا : %{mode} (%{count}دفعات اخرى)" #?
       zero: "يقدم بيانا : %{mode} (ولا دفعة)" #?
-    deposit_update: "تعديل اقتطاعات البنك"
+    deposit_update: "تعديل اقتطاعات البنك" #?
     depositable: "تكملة المعلومات"
     # depreciation: "Ammortissement"
     description: "الوصف"
@@ -1115,15 +1116,15 @@ arb:
     entities_merge: "دمج السجلات"
     # entity: "Personne"
     entity_category_create: "اضافة نوع الملف" #?
-    entity_category_update: "تعديل نوع الملف"
+    entity_category_update: "تعديل نوع الملف" #?
     entity_create: "انشاء سجل جديد" #?
     entity_link_create: "اضافة رابط جديد" #?
     entity_link_nature_create: "اضافة نوع رابط جديد" #?
     entity_nature_create: "اضافة نوع ملف جديد" #?
-    entity_print: "طباعة الملف"
+    entity_print: "طباعة الملف" #?
     entity_to_delete: "( دمج التكرار (وجعله يختفي"
     entity_to_update: "وضع ملف اليوم مع العناصر المتكررة"
-    entity_update: "تعديل الملف"
+    entity_update: "تعديل الملف" #?
     entries: "السجلات"
     entries_to_point: "اعداد المدخلات"
     error_no_file: "عدم توفر المساعدة في هذا الجزء من الطلب (%{article}).لم يتم كتابة التعليمات حتى الان.يمكنك زيارة موقعنا الالكتروني للمزيد من الاستفسار."
@@ -1201,8 +1202,8 @@ arb:
     income_statement: "حسابات الناتج"
     # incoming_payment_conditions: "Conditions d’encaissement"
     incoming_payment_create: "اضافة دفعة جديدة" #?
-    incoming_payment_update: "تعديل الدفعة"
-    incoming_payment_use_create: "اضافة دفعة للشراء"
+    incoming_payment_update: "تعديل الدفعة" #?
+    incoming_payment_use_create: "اضافة دفعة للشراء" #?
     # incoming_payments: "Encaissements"
     incoming_payments_states:
       # all: "Tous"
@@ -1234,8 +1235,8 @@ arb:
     # journal_entries_states: "États des écritures utilisées"
     journal_entry_lines_states: "بيان المدخلات المستخدمة" #?
     journal_name: "%{name}"
-    journal_record_update: "تعديل العينات"
-    journal_update: "تعديل الفاتر اليومية"
+    journal_record_update: "تعديل العينات" #?
+    journal_update: "تعديل الفاتر اليومية" #?
     journal_view:
       draft: "المسودات" #?
       entries: "العينات"
@@ -1246,7 +1247,7 @@ arb:
     kame: "" #?
     land_parcel_create: "انشاء نظام جديد" #?
     land_parcel_name: "نظام"
-    land_parcel_update: "تعديل النظام"
+    land_parcel_update: "تعديل النظام" #?
     land_parcels: "قائمة بالنظام"
     # last_animals: "Dernières naissances"
     # last_clients: "Derniers clients"
@@ -1436,8 +1437,8 @@ arb:
     operation_create: "اضافة عمل" #?
     # operation_items: "Intrants et sortants"
     operation_nature_create: "انشاء نوع عمل جديد" #?
-    operation_update: "تعديل العمل"
-    operation_use_create: "اضافة مادة"
+    operation_update: "تعديل العمل" #?
+    operation_use_create: "اضافة مادة" #?
     # operations: "Travaux"
     # order: "Commande"
     order_amount_with_taxes: "قيمة الطلب مع الضرائب"
@@ -1452,8 +1453,8 @@ arb:
     outgoing_delivery: "التسليم" #?
     outgoing_delivery_create: "اضافة تسليم" #?
     outgoing_payment_create: "اضافة نفقة" #?
-    outgoing_payment_update: "تعديل دفعة الشراء"
-    outgoing_payment_use_create: "تسديد سعر الشراء"
+    outgoing_payment_update: "تعديل دفعة الشراء" #?
+    outgoing_payment_use_create: "تسديد سعر الشراء" #?
     outgoing_payments_states:
       # all: "Tous"
       # undelivered: "Non délivrés"
@@ -1477,7 +1478,7 @@ arb:
     payment_label: "%{number}. %{amount} (%{usable_amount} المتبقي)  %{date} بواسطة %{mode} لاجل %{entity}"
     payment_mode: "طريقة تسديد الدفعة"
     payment_on: "سدد في"
-    payment_uses: "الدفعات"
+    payment_uses: "الدفعات" #?
     payments: "الدفعات"
     payments_amount: "تم تسديد القيمة"
     payments_count: "عدد %{mode}"
@@ -1520,14 +1521,14 @@ arb:
     # product_bar: "Produit par catégories"
     product_category: "الفئة"
     product_category_create: "اضافة فئة جديدة للمنتج" #?
-    product_category_update: "تعديل الفئة"
+    product_category_update: "تعديل الفئة" #?
     product_component_create: "اضافة عنصر للمنتج" #?
     product_create: "اضافة منتج جديد" #?
     product_name: "المنتج"
     # product_price_listings: "Listes de prix"
     # product_price_templates: "Types de prix"
     product_tabbox: #?
-    product_update: "تعديل تفاصيل المنتج"
+    product_update: "تعديل تفاصيل المنتج" #?
     production: "ادارة الانتاج"
     productions: "المنتجات"
     productions_states:
@@ -1553,12 +1554,12 @@ arb:
       # deliveries: "Livraisons"
       products: "انشاء الصفقة"
       summary: "النفقات"
-    purchase_update: "تعديل معلومات الطلب"
+    purchase_update: "تعديل معلومات الطلب" #?
     purchases: "المشتريات"
     # purchases_bar: "Achats par type"
     # purchases_expense_bar: "Dépenses par mois"
     purchases_number: "" #?
-    purchases_price_create: "اضافة سعر الشراء"
+    purchases_price_create: "اضافة سعر الشراء" #?
     quantity: "الكمية"
     quantity_rest: "الكمية المتبقية"
     quantity_to_credit: "شمولية الكمية بالائتمانات"
@@ -1615,7 +1616,6 @@ arb:
     sale_cancel: "الغاء الفاتورة"
     sale_create: "اضافة بيعة جديدة" #?
     sale_deliveries: "تسليم الطلبات"
-    # sale_item_create: "Ajouter un produit au devis (Mode complet)"
     # sale_items: "Lignes de la vente"
     sale_line_create: "(اضافة منتج للاسعار (صيغة كاملة" #?
     sale_lines: "تعديل تصميم طلب البيع" #?
@@ -1628,7 +1628,7 @@ arb:
       general: "الوصف"
       products: "المنتجات"
       summary: "فواتير وايصالات"
-    sale_update: "تعديل معلومات الطلب"
+    sale_update: "تعديل معلومات الطلب" #?
     sales: "تم تسديد دفعات طلب البيع"
     # sales_conditions: "Conditions de vente"
     sales_invoice: "الفوترة"
@@ -1644,7 +1644,7 @@ arb:
       # credits: "Avoirs"
     sales_invoices_total: "مجموع قيمة الفاتورة"
     sales_number: "" #?
-    sales_price_create: "اضافة سعر البيع"
+    sales_price_create: "اضافة سعر البيع" #?
     sales_states:
       # all: "Toutes"
       # current: "En cours"
@@ -1731,7 +1731,7 @@ arb:
     # to_deposit: "À encaisser"
     # today: "Aujourd’hui"
     tool_create: "اضافة مادة" #?
-    tool_update: "تعديل المادة"
+    tool_update: "تعديل المادة" #?
     tools: "مادة مستخدمة"
     # tools_list: "Liste d’outils"
     total: "المجموع"

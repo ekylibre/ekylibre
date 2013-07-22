@@ -46,7 +46,7 @@
 # Transfer        |         |    X    |
 #
 class Affair < Ekylibre::Record::Base
-  AFFAIRABLE_TYPES = ["Sale", "Purchase", "IncomingPayment", "OutgoingPayment", "Transfer"].freeze
+  AFFAIRABLE_TYPES = ["Sale", "Purchase", "IncomingPayment", "OutgoingPayment"].freeze # , "Transfer"
   AFFAIRABLE_MODELS = AFFAIRABLE_TYPES.map(&:underscore).freeze
   belongs_to :journal_entry
   has_many :sales, :inverse_of => :affair, :dependent => :nullify

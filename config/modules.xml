@@ -200,7 +200,7 @@
         <page to="backend/bank_statements#update"/>
       </item>
     </group>
-    <group name="paids" icon="credit-card">
+    <group name="payments" icon="credit-card">
       <item name="incoming_payments">
         <page to="backend/incoming_payments#index"/>
         <page to="backend/incoming_payments#create"/>
@@ -237,13 +237,13 @@
         <page to="backend/deposits#unvalidateds"/>
         <page to="backend/deposits#update"/>
       </item>
-      <item name="affairs">
-        <page to="backend/affairs#index"/>
-        <page to="backend/affairs#attach"/>
-        <page to="backend/affairs#detach"/>
-        <page to="backend/affairs#select"/>
-        <page to="backend/affairs#list"/>
-      </item>
+      <!-- <item name="affairs"> -->
+      <!--   <page to="backend/affairs#index"/> -->
+      <!--   <page to="backend/affairs#attach"/> -->
+      <!--   <page to="backend/affairs#detach"/> -->
+      <!--   <page to="backend/affairs#select"/> -->
+      <!--   <page to="backend/affairs#list"/> -->
+      <!-- </item> -->
     </group>
   </module>
   <module name="sales" icon="bar-chart">
@@ -994,6 +994,13 @@
       <item name="activities">
         <page to="backend/activities#list_production"/>
       </item>
+      <item name="affairs">
+        <page to="backend/affairs#index"/>
+        <page to="backend/affairs#attach"/>
+        <page to="backend/affairs#detach"/>
+        <page to="backend/affairs#list"/>
+        <page to="backend/affairs#select"/>
+      </item>
       <item name="animals">
         <page to="backend/animals#list_incident"/>
       </item>
@@ -1021,15 +1028,12 @@
       <item name="expense_chart_cells">
         <page to="backend/cells/expense_chart_cells#show"/>
       </item>
-      <item name="last_events_cells">
-        <page to="backend/cells/last_events_cells#list"/>
-        <page to="backend/cells/last_events_cells#show"/>
-      </item>
       <item name="last_milk_result_cells">
         <page to="backend/cells/last_milk_result_cells#list"/>
         <page to="backend/cells/last_milk_result_cells#show"/>
       </item>
       <item name="last_procedures_cells">
+        <page to="backend/cells/last_procedures_cells#list"/>
         <page to="backend/cells/last_procedures_cells#show"/>
       </item>
       <item name="last_products_cells">

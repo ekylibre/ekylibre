@@ -443,7 +443,7 @@ module ApplicationHelper
         !@block.nil?
       end
       def title
-        @options[:title] || (@name.is_a?(String) ? @name : ::I18n.t("labels.#{@name}"))
+        @options[:title] || (@name.is_a?(String) ? @name : ::I18n.t("labels.#{@name}", @options.merge(:default => @name.to_s.humanize)))
       end
 
       def content
@@ -941,7 +941,7 @@ module ApplicationHelper
     return content_tag(:div,
                        content_tag(:div,
                                    content_tag(:span, "", :class => :icon) +
-                                   content_tag(:span, (name.is_a?(Symbol) ? name.to_s.gsub('-', '_').t(:default => ["labels.#{name.to_s.gsub('-', '_')}".to_sym, "form.legends.#{name.to_s.gsub('-', '_')}".to_sym]) : name.to_s)) +
+                                   content_tag(:span, (name.is_a?(Symbol) ? name.to_s.gsub('-', '_').t(:default => ["labels.#{name.to_s.gsub('-', '_')}".to_sym, "form.legends.#{name.to_s.gsub('-', '_')}".to_sym, name.to_s.humanize]) : name.to_s)) +
                                    content_tag(:span, "", :class => :toggle),
                                    :class => "fieldset-legend " + (options[:collapsed] ? 'collapsed' : 'not-collapsed'), 'data-toggle-set' => ".fieldset-fields") +
                        content_tag(:div, capture(&block), :class => "fieldset-fields"), :class => "fieldset", :id => name) # "#{name}-fieldset"

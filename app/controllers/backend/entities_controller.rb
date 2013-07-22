@@ -33,7 +33,7 @@ class Backend::EntitiesController < BackendController
     t.column :last_name, :url => true
     t.column :first_name, :url => true
     # t.column :coordinate # :item_6
-    t.action :show, :url => {:format => :pdf}, :image => :print
+    # t.action :show, :url => {:format => :pdf}, :image => :print
     t.action :edit
     # t.action :destroy, :if => :destroyable?
   end
