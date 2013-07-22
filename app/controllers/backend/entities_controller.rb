@@ -146,18 +146,18 @@ class Backend::EntitiesController < BackendController
     t.action :destroy, :if => "RECORD.aborted? "
   end
 
-  list(:subscriptions, :conditions => {:subscriber_id => ['session[:current_entity_id]']}, :order => 'stopped_on DESC, first_number DESC', :line_class => "(RECORD.active? ? 'enough' : '')") do |t|
-    t.column :number
-    t.column :name, :through => :nature
-    t.column :start
-    t.column :finish
-    t.column :number, :through => :sale, :url => true
-    t.column :coordinate, :through => :address
-    t.column :quantity, :datatype => :decimal
-    t.column :suspended
-    t.action :edit
-    t.action :destroy
-  end
+  # list(:subscriptions, :conditions => {:subscriber_id => ['session[:current_entity_id]']}, :order => 'stopped_on DESC, first_number DESC', :line_class => "(RECORD.active? ? 'enough' : '')") do |t|
+    # t.column :number
+    # t.column :name, :through => :nature
+    # t.column :start
+    # t.column :finish
+    # t.column :number, :through => :sale, :url => true
+    # t.column :coordinate, :through => :address
+    # t.column :quantity, :datatype => :decimal
+    # t.column :suspended
+    # t.action :edit
+    # t.action :destroy
+  # end
 
   # Displays details of one entity selected with +params[:id]+
   def show

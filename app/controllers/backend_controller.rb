@@ -799,7 +799,7 @@ class BackendController < BaseController
     code << "c\n"
     return code
   end
-  
+
   # management -> shipping_conditions
   def self.shipping_conditions(model, state='params[:s]')
     code = "\n"
