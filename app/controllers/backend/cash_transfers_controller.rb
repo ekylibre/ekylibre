@@ -24,9 +24,9 @@ class Backend::CashTransfersController < BackendController
 
   list do |t|
     t.column :number, :url => true
-    t.column :emitter_amount,  :currency => "RECORD.emitter_cash.currency"
+    t.column :emitter_amount,  :currency => :emitter_currency
     t.column :name, :through => :emitter_cash, :url => true
-    t.column :receiver_amount, :currency => "RECORD.receiver_cash.currency"
+    t.column :receiver_amount, :currency => :receiver_currency
     t.column :name, :through => :receiver_cash, :url => true
     t.column :created_on
     t.column :description

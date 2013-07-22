@@ -56,9 +56,17 @@ class CashTransfer < Ekylibre::Record::Base
   validates_numericality_of :emitter_amount, :receiver_amount, :greater_than => 0.0
   validates_presence_of :created_on
 
+  delegate :currency, :to => :emitter_cash, :prefix => :emitter
+  delegate :currency, :to => :receiver_cash, :prefix => :receiver
+
   before_validation do
     self.created_on ||= Date.today
-    # TODO Write test for CashTransfer
+    if self.emitter_amount and self.emitter_currency == self.receiver_currency
+      self.currency_rate = 1
+    elsif self.emitter_amount
+      self.currency_rate = I18n.currency_rate(self.emitter_currency, self.receiver_currency)
+    end
+    self.receiver_amount = self.currency_rate * self.emitter_amount 
   end
 
   validate do

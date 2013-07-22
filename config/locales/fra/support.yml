@@ -1,6 +1,6 @@
 fra:
   about:
-    authors: ["Brice Texier", "Thibaud Merigon"]
+    authors: ["Brice Texier", "Thibaud Merigon", "David Joulin"]
     dir: "ltr"
     iso2: "fr"
     name: "Français"
