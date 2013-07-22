@@ -120,7 +120,7 @@ class ProductNature < Ekylibre::Record::Base
   scope :land_parcels, -> { where(:variety => "land_parcel").order(:name) }
   scope :land_parcel_groups, -> { where(:variety => "land_parcel_group").order(:name) }
   scope :land_parcel_clusters, -> { where(:variety => "land_parcel_cluster").order(:name) }
-
+  scope :cultivable_land_parcels, -> { where(:variety => "cultivable_land_parcel").order(:name) }
   before_validation do
     if self.derivative_of
       self.variety ||= self.derivative_of

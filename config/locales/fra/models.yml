@@ -319,6 +319,7 @@ fra:
       cash: "Trésorerie"
       cash_transfer: "Virement interne"
       company: "" #?
+      # cultivable_land_parcel: "Cultivable land parcel"
       custom_field: "Champ complémentaire"
       custom_field_choice: "Choix de champ complémentaire"
       department: "Service"

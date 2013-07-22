@@ -60,35 +60,21 @@
 #
 
 
-class LandParcelGroup < ProductGroup
-  attr_accessible :born_at, :dead_at, :shape, :active, :external, :description, :name, :variety, :nature_id, :reproductor, :reservoir, :parent_id, :memberships_attributes
+class CultivableLandParcel < LandParcelGroup
+  attr_accessible :born_at, :dead_at, :shape, :active, :external, :description, :name, :variety, :nature_id, :reproductor, :parent_id, :memberships_attributes
 
-  belongs_to :parent, :class_name => "ProductGroup"
-  has_shape
+  has_many :supports, :class_name => "ProductionSupport", :foreign_key => :storage_id
+  has_many :productions, :class_name => "Production", :through => :supports
+
   default_scope -> { order(:name) }
   scope :groups_of, lambda { |member, viewed_at| where("id IN (SELECT group_id FROM #{ProductMembership.table_name} WHERE member_id = ? AND ? BETWEEN COALESCE(started_at, ?) AND COALESCE(stopped_at, ?))", member.id, viewed_at, viewed_at, viewed_at) }
+    scope :of_campaign, lambda { |*campaigns|
+    for campaign in campaigns
+     raise ArgumentError.new("Expected Campaign, got #{campaign.class.name}:#{campaign.inspect}") unless campaign.is_a?(Campaign)
+    end
+    joins(:productions).where('campaign_id IN (?)', campaigns.map(&:id))
+  }
 
-
-
-  # # @TODO : update method with the last area indicator of the consider product
-  # after_save do
-  #   area = compute("ST_Area(shape)").to_f
-  #   self.class.update_all({:real_quantity => area, :virtual_quantity => area, :unit => :square_meter}, {:id => self.id})
-  # end
-
-  # # @TODO : waiting for method in has_shape
-
-  # def area_measure
-  #   self.indicator_data.where(:indicator => "net_surperficial_area").last
-  # end
-
-
-  # after_save do
-  #   self.indicator_data.create!(:indicator => "net_surperficial_area",
-  #                               :measure_unit => "hectare",
-  #                               :measured_at => Time.now,
-  #                               :value => self.shape_area*0.0001)
-  # end
 
   # FIXME
   # accepts_nested_attributes_for :memberships, :reject_if => :all_blank, :allow_destroy => true
@@ -97,22 +83,5 @@ class LandParcelGroup < ProductGroup
   #]VALIDATORS]
   #validates_uniqueness_of :name
 
-  # Add a member to the group
-  def add(member, started_at = nil)
-    raise ArgumentError.new("LandParcel expected, got #{member.class}:#{member.inspect}") unless member.is_a?(LandParcel)
-    super(member, started_at)
-  end
-
-  # Remove a member from the group
-  def remove(member, stopped_at = nil)
-    raise ArgumentError.new("LandParcel expected, got #{member.class}:#{member.inspect}") unless member.is_a?(LandParcel)
-    super(member, stopped_at)
-  end
-
-
-  # Returns members of the group at a given time (or now by default)
-  def members_at(viewed_at = nil)
-    LandParcel.members_of(self, viewed_at || Time.now)
-  end
 
 end

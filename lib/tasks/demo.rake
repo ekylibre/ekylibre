@@ -493,6 +493,7 @@ namespace :db do
                                     :owner_id => Entity.of_company.id,
                                     :identification_number => record.attributes['PACAGE'].to_s + record.attributes['CAMPAGNE'].to_s + record.attributes['NUMERO'].to_s)
           land_parcel_cluster.is_measured!(:shape, record.geometry, :at => Date.civil(record.attributes['CAMPAGNE'], 1, 1))
+
           # puts "Record number #{record.index}:"
           # puts "  Geometry: #{record.geometry.as_text}"
           # puts "  Attributes: #{record.attributes.inspect}"
@@ -510,8 +511,8 @@ namespace :db do
       land_parcel_unit = "hectare"
       cultural_land_parcel_product_nature_category = ProductNatureCategory.find_by_name("Parcelles cultivables")
       cultural_land_parcel_product_nature_category ||= ProductNatureCategory.create!(:name => "Parcelles cultivables", :published => true)
-      land_parcel_group_nature = ProductNature.find_by_number("LANDPARCELGROUP")
-      land_parcel_group_nature ||= ProductNature.create!(:name => "Parcelle culturale", :number => "LANDPARCELGROUP", :variety => "land_parcel_group", :category_id => cultural_land_parcel_product_nature_category.id)
+      land_parcel_group_nature = ProductNature.find_by_number("CULTIVABLELANDPARCEL")
+      land_parcel_group_nature ||= ProductNature.create!(:name => "Parcelle culturale", :number => "CULTIVABLELANDPARCEL", :variety => "cultivable_land_parcel", :category_id => cultural_land_parcel_product_nature_category.id)
       land_parcel_group_nature_variant = land_parcel_group_nature.variants.create!(:active => true, :commercial_name => land_parcel_group_nature.name, :name => land_parcel_group_nature.name,
                                          :purchase_indicator => "net_surperficial_area", :purchase_indicator_unit => "hectare",
                                          :sale_indicator => "net_surperficial_area", :sale_indicator_unit => "hectare",
@@ -543,15 +544,16 @@ namespace :db do
                            )
 
         if land_parcel_cluster = LandParcelCluster.find_by_work_number(r.ilot_work_number)
-          cultural_land_parcel = LandParcelGroup.find_by_work_number(r.land_parcel_group_work_number)
-          cultural_land_parcel ||= LandParcelGroup.create!(:variant_id => land_parcel_group_nature_variant.id,
+          cultural_land_parcel = CultivableLandParcel.find_by_work_number(r.land_parcel_group_work_number)
+          cultural_land_parcel ||= CultivableLandParcel.create!(:variant_id => land_parcel_group_nature_variant.id,
                                                            :name => r.land_parcel_group_name,
                                                            :work_number => r.land_parcel_group_work_number,
-                                                           :variety => "land_parcel_group",
+                                                           :variety => "cultural_land_parcel",
                                                            :born_at => Time.now,
                                                            :owner_id => Entity.of_company.id,
                                                            :identification_number => r.land_parcel_group_work_number)
           cultural_land_parcel.is_measured!(:shape, r.land_parcel_group_shape, :at => Time.now)
+
 
           land_parcel = LandParcel.find_by_work_number(r.land_parcel_work_number)
           land_parcel ||= LandParcel.create!(:variant_id => land_parcel_nature_variant.id,
@@ -562,6 +564,7 @@ namespace :db do
                                              :owner_id => Entity.of_company.id,
                                              :identification_number => r.land_parcel_work_number)
           land_parcel.is_measured!(:shape, r.land_parcel_shape, :at => Time.now)
+
 
           land_parcel_cluster.add(land_parcel)
           cultural_land_parcel.add(land_parcel)
@@ -1155,7 +1158,7 @@ namespace :db do
                            :campaign_name => row[5].blank? ? nil : row[5].to_s,
                            :work_number_land_parcel_storage => row[6].blank? ? nil : row[6].to_s
                            )
-        land_parcel_support = LandParcelGroup.find_by_work_number(r.work_number_land_parcel_storage)
+        land_parcel_support = CultivableLandParcel.find_by_work_number(r.work_number_land_parcel_storage)
         # Create a campaign if not exist
         if r.campaign_name.present?
           campaign = Campaign.find_by_name(r.campaign_name)
@@ -1234,7 +1237,7 @@ namespace :db do
 
 
       #plant = Plant.find_by_work_number("SOLE_BLE-2013-PC23")
-      land_parcel_group_fert = LandParcelGroup.find_by_work_number("PC23")
+      land_parcel_group_fert = CultivableLandParcel.find_by_work_number("PC23")
       # Create some procedure variable for fertilization
       for attributes in [{:target_id => land_parcel_group_fert.id, :role => "target",
                            :indicator => "net_surperficial_area",
@@ -1259,7 +1262,7 @@ namespace :db do
 
 
       #plant = Plant.find_by_work_number("SOLE_BLE-2013-PC23")
-      land_parcel_group_fert = LandParcelGroup.find_by_work_number("PC23")
+      land_parcel_group_fert = CultivableLandParcel.find_by_work_number("PC23")
       # Create some procedure variable for fertilization
       for attributes in [{:target_id => land_parcel_group_fert.id, :role => "target",
                            :indicator => "net_surperficial_area",

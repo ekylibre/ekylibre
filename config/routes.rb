@@ -55,6 +55,10 @@ Ekylibre::Application.routes.draw do
       end
     end
 
+     namespace :data_view do
+      resource :manure_management_plan, :only => :show
+     end
+
     namespace :cells do
       resource :product_pie_cell, :only => :show
       resource :product_bar_cell, :only => :show
@@ -234,6 +238,15 @@ Ekylibre::Application.routes.draw do
         unroll_all
       end
     end
+
+
+    resources :cultivable_land_parcels do
+      collection do
+        get :list
+        unroll_all
+      end
+    end
+
     # resources :cultivations
     # resources :currencies
     resources :custom_fields do
