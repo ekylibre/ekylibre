@@ -1,16 +1,20 @@
+# -*- coding: utf-8 -*-
 class Mailman < ActionMailer::Base
 
-  def message(expedier, recipient, title, text, uploaded_file=nil)
-    from       expedier
-    recipients recipient
-    subject    title
-    body       :text=>text
-    if uploaded_file
-      attachment uploaded_file
-# (:content_type => uploaded_file.content_type,
-#                  :body => uploaded_file.read,
-#                  :filename=>uploaded_file.original_filename)
+  def mailing(expedier, recipient, subject, text, piece=nil)
+    # from       expedier
+    # recipients recipient
+    # subject    subject
+    # body       :text=>text
+    @text = text
+    if piece
+      attachments[piece[:filename]] = piece[:body]
+      # attachment piece
+# (:content_type => piece.content_type,
+#                  :body => piece.read,
+#                  :filename=>piece.original_filename)
     end
+    mail(:from => expedier, :to => recipient, :subject => subject)
   end
 
 end
