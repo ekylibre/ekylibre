@@ -281,6 +281,8 @@ class BackendController < BaseController
         codes[::I18n.translate("i18n.iso2", :locale => l).to_s] = l
       end
       locale = codes[request.env["HTTP_ACCEPT_LANGUAGE"].to_s.split(/[\,\;]+/).select{|x| !x.match(/^q\=/)}.detect{|x| codes[x[0..1]]}[0..1]]
+    else
+      locale = I18n.default_locale
     end
     locale ||= ::I18n.locale || ::I18n.default_locale
     ::I18n.locale = locale

@@ -102,6 +102,10 @@ class ActionController::TestCase
     code << "context 'A #{controller} controller' do\n"
     code << "\n"
     code << "  setup do\n"
+    # force locale
+    code << "    I18n.locale = I18n.default_locale\n"
+    code << "    assert_not_nil I18n.locale\n"
+    code << "    assert_equal I18n.locale, I18n.locale, I18n.locale.inspect\n"
     code << "    @user = users(:users_001)\n"
     # code << "    login('gendo', 'secret')\n"
     code << "    sign_in(@user)\n"
