@@ -746,6 +746,8 @@ namespace :db do
       price_listing = ProductPriceListing.find_by_code("STD")
       phyto_category = ProductNatureCategory.find_by_name("Produits phytosanitaires")
       phyto_category ||= ProductNatureCategory.create!(:name => "Produits phytosanitaires")
+      animal_medicine_category = ProductNatureCategory.find_by_name("Produits vétérinaires")
+      animal_medicine_category ||= ProductNatureCategory.create!(:name => "Produits vétérinaires")
       fertilizer_category = ProductNatureCategory.find_by_name("Produits fertilisants")
       fertilizer_category ||= ProductNatureCategory.create!(:name => "Produits fertilisants")
       seed_category = ProductNatureCategory.find_by_name("Semences")
@@ -809,6 +811,12 @@ namespace :db do
                           :purchasable => true, :charge_account_id => livestock_feed_matter_charge_account.id,
                           :storable => true, :stock_account_id => livestock_feed_matter_stock_account.id
                           },
+                          {:name => "Médicament vétérinaire", :number => "MEDICAMENT_VETERINAIRE",
+                          :category_id => animal_medicine_category.id,
+                          :individual => false, :variety => "animal_medicine",
+                          :purchasable => true, :charge_account_id => animal_medicine_matter_charge_account.id,
+                          :storable => true, :stock_account_id => animal_medicine_matter_stock_account.id
+                          },
                           {:name => "Quincaillerie", :number => "QUINCAILLERIE",
                           :category_id => other_consumable_category.id,
                           :individual => false, :variety => "equipment",
@@ -849,6 +857,7 @@ namespace :db do
                          {:number => "QUINCAILLERIE",:pi => "population", :piu => "unity", :si => "population", :siu => "unity", :ui => "population", :uiu => "unity"},
                          {:number => "NETTOYANT",:pi => "net_volume", :piu => "liter", :si => "net_volume", :siu => "liter", :ui => "net_volume", :uiu => "liter"},
                          {:number => "LOCATION_MATERIEL",:pi => "usage_duration", :piu => "hour", :si => "usage_duration", :siu => "hour", :ui => "usage_duration", :uiu => "hour"},
+                         {:number => "MEDICAMENT_VETERINAIRE",:pi => "population", :piu => "unity", :si => "net_weight", :siu => "gram", :ui => "net_weight", :uiu => "gram"},
                          {:number => "PETIT_EQUIPEMENT",:pi => "population", :piu => "unity", :si => "population", :siu => "unity", :ui => "population", :uiu => "unity"}
                         ]
 
@@ -1284,6 +1293,49 @@ namespace :db do
       puts "!"
 
       puts "Total time: #{(Time.now - start).round(2)}s"
+    
+    
+     ##############################################################################
+     ## Demo data for animal treatment
+     ##############################################################################
+     print "[#{(Time.now - start).round(2).to_s.rjust(8)}s] Procedures - demo data for animal sanitary treatment reporting 2013: "
+     sanitary_product_nature_variant = ProductNatureVariant.find_by_nature_name("Médicament vétérinaire")
+     campaign = Campaign.find_by_name("2013")
+     animal_group_nature = ProductNature.find_by_number("VACHE_LAITIERE")
+     animal_production = Production.find_by_product_nature_id_and_campaign_id(animal_group_nature.id,campaign.id)
+    
+     # create an animal medicine product
+     animal_medicine_product   = AnimalMedicine.find_by_name("acetal")
+     animal_medicine_product ||= AnimalMedicine.create!(:name => "acetal", :identification_number => "FR_589698256352", :work_number => "FR_589698256352", :born_at => Time.now, :variant_id => sanitary_product_nature_variant.id, :owner_id => Entity.of_company.id)
+
+      animal = Animal.last
+      
+      # treatment procedure
+      procedure ||= Procedure.create!(:natures => "animal_cares", :nomen =>"animal_treatment", :production_id => animal_production.id)
+      # plant = Plant.find_by_work_number("SOLE_BLE-2013-PC23")
+      # Create some procedure variable for fertilization
+      for attributes in [{:target_id => Entity.of_company.id, :role => "worker",
+                           :indicator => "usage_duration",
+                           :measure_quantity => "0.50", :measure_unit => "hour"},
+                         {:target_id => animal_medicine_product.id, :role => "input",
+                           :indicator => "net_weight",
+                           :measure_quantity => "50.00", :measure_unit => "gram"},
+                         {:target_id => animal.id, :role => "target",
+                           :indicator => "population",
+                           :measure_quantity => "1.00", :measure_unit => "unity"}
+                        ]
+        ProcedureVariable.create!({:procedure_id => procedure.id}.merge(attributes) )
+      end
+
+      # Create some operation variable for fertilization
+      for attributes in [{:started_at => (Time.now - 2.days), :stopped_at => Time.now}]
+        procedure.operations.create!({:procedure_id => procedure.id}.merge(attributes) )
+      end
+      
+      puts "!"
+
+      puts "Total time: #{(Time.now - start).round(2)}s"
+    
     end
   end
 end

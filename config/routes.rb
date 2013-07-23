@@ -148,6 +148,7 @@ Ekylibre::Application.routes.draw do
         get :list_group
         get :list_incident
         get :list_indicator
+        get :animal_sanitary_list
         unroll_all
       end
       member do
