@@ -85,7 +85,24 @@ class ProductNatureVariant < Ekylibre::Record::Base
   before_validation :on => :create do
     if self.nature
       self.nature_name ||= self.nature.name
+      self.name ||= self.nature_name
+      self.usage_indicator ||= self.indicators.first.name
     end
+    self.commercial_name ||= self.name
+    if item = Nomen::Indicators.find(self.usage_indicator)
+      self.usage_indicator_unit = item.unit
+      self.sale_indicator ||= self.usage_indicator
+      self.sale_indicator_unit ||= self.usage_indicator_unit
+      self.purchase_indicator ||= self.usage_indicator
+      self.purchase_indicator_unit ||= self.usage_indicator_unit
+    end
+    if item = Nomen::Indicators.find(self.sale_indicator)
+      self.sale_indicator_unit ||= item.unit
+    end
+    if item = Nomen::Indicators.find(self.purchase_indicator)
+      self.purchase_indicator_unit ||= item.unit
+    end
+
   end
 
 

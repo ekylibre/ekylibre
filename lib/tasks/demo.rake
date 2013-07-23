@@ -135,29 +135,25 @@ namespace :db do
       cow_product_account = Account.find_in_chart(:adult_animal_product)
       cow_stock_account = Account.find_in_chart(:long_time_animal_stock)
 
-      for attributes in [{:name => "Vache Laitière",:number => "VACHE_LAITIERE", :description => "Vache Laitière",
-                          :indicators => "weight, animal_life_state, mammalia_reproduction_event_abortion, mammalia_reproduction_method_embryo_transplant, mammalia_born_cycle, mammalia_reproduction_state, mammalia_twins_condition, mammalia_lactation_state, animal_disease_state"
-                          },
-                         {:name => "Génisse Laitière",:number => "GENISSE", :description => "Génisse Laitière",
-                          :indicators => "weight, animal_life_state, mammalia_reproduction_event_abortion, mammalia_reproduction_method_embryo_transplant, mammalia_born_cycle, mammalia_reproduction_state, mammalia_twins_condition, mammalia_lactation_state, animal_disease_state"
-                           },
-                         {:name => "Taurillon",:number => "TAURILLON", :description => "Taurillon",
-                          :indicators => "weight, animal_life_state, animal_disease_state"
-                           },
-                         {:name => "Taureau",:number => "TAUREAU", :description => "Taureau reproducteur",
-                          :indicators =>"isu, inel, tb, tp"
-                          },
-                         {:name => "Veau",:number => "VEAU", :description => "Veau laitier 8-15j",
-                          :indicators =>"weight, animal_life_state, animal_disease_state, mammalia_born_condition"
-                           }
-                        ]
-        unless ProductNature.find_by_number(attributes[:number])
-          cow_pn = ProductNature.create!({:unitary => true, :category_id => animal_product_nature_category.id, :individual => true, :product_account_id => cow_product_account.id, :variety => "bos", :storable => true, :stock_account_id => cow_stock_account.id, :saleable => true}.merge(attributes) )
-          cow_pn.variants.create!(:active => true, :commercial_name => cow_pn.name, :name => cow_pn.name,
-                              :purchase_indicator => "weight", :purchase_indicator_unit => "kilogram",
-                              :sale_indicator => "weight", :sale_indicator_unit => "kilogram",
-                              :usage_indicator => "weight", :usage_indicator_unit => "kilogram"
-                              )
+      for nature in [{:name => "Vache Laitière", :number => "VACHE_LAITIERE", :description => "Vache Laitière",
+                       :indicators => "net_weight, animal_life_state, mammalia_reproduction_event_abortion, mammalia_reproduction_method_embryo_transplant, mammalia_born_cycle, mammalia_reproduction_state, mammalia_twins_condition, mammalia_lactation_state, animal_disease_state"
+                     },
+                     {:name => "Génisse Laitière", :number => "GENISSE", :description => "Génisse Laitière",
+                       :indicators => "net_weight, animal_life_state, mammalia_reproduction_event_abortion, mammalia_reproduction_method_embryo_transplant, mammalia_born_cycle, mammalia_reproduction_state, mammalia_twins_condition, mammalia_lactation_state, animal_disease_state"
+                     },
+                     {:name => "Taurillon", :number => "TAURILLON", :description => "Taurillon",
+                       :indicators => "net_weight, animal_life_state, animal_disease_state"
+                     },
+                     {:name => "Taureau", :number => "TAUREAU", :description => "Taureau reproducteur",
+                       :indicators =>"isu, inel, tb, tp"
+                     },
+                     {:name => "Veau", :number => "VEAU", :description => "Veau laitier 8-15j",
+                       :indicators =>"net_weight, animal_life_state, animal_disease_state, mammalia_born_condition"
+                     }
+                    ]
+        unless ProductNature.find_by_number(nature[:number])
+          cow_pn = ProductNature.create!({:unitary => true, :category_id => animal_product_nature_category.id, :individual => true, :product_account_id => cow_product_account.id, :variety => "bos", :storable => true, :stock_account_id => cow_stock_account.id, :saleable => true}.merge(nature) )
+          cow_pn.variants.create!(:active => true, :usage_indicator => "net_weight", :usage_indicator_unit => "kilogram")
         end
       end
 
@@ -168,23 +164,26 @@ namespace :db do
       cow_trepro = ProductNatureVariant.find_by_nature_name("Taureau")
 
       # add default groups for animal
-      for group in [{:name => "Vaches Latières", :description => "Vaches Laitières", :work_number => "VL", :nature_id => cow_vl.nature.id ,:variant_id => cow_vl.id},
-                    {:name => "Génisses 3", :description => "Génisses 3", :work_number => "GEN_3", :nature_id => cow_gen.nature.id, :variant_id => cow_gen.id},
-                    {:name => "Génisses 2", :description => "Génisses 2", :work_number => "GEN_2", :nature_id => cow_gen.nature.id, :variant_id => cow_gen.id},
-                    {:name => "Génisses 1", :description => "Génisses 2", :work_number => "GEN_1", :nature_id => cow_gen.nature.id, :variant_id => cow_gen.id},
-                    {:name => "Veaux Niche", :description => "Veaux en niche individuel", :work_number => "VEAU_NICHE", :nature_id => cow_v.nature.id, :variant_id => cow_v.id},
-                    {:name => "Veaux Poulailler 1", :description => "Veaux Poulailler 1", :work_number => "VEAU_1", :nature_id => cow_v.nature.id, :variant_id => cow_v.id},
-                    {:name => "Veaux Poulailler 2", :description => "Veaux Poulailler 2", :work_number => "VEAU_2", :nature_id => cow_v.nature.id, :variant_id => cow_v.id},
-                    {:name => "Taurillons case 7", :description => "Taurillon case 7 (côté Hangar)", :work_number => "TAUR_7", :nature_id => cow_taur.nature.id, :variant_id => cow_taur.id},
-                    {:name => "Taurillons case 6", :description => "Taurillon case 6", :work_number => "TAUR_6", :nature_id => cow_taur.nature.id, :variant_id => cow_taur.id},
-                    {:name => "Taurillons case 5", :description => "Taurillon case 5", :work_number => "TAUR_5", :nature_id => cow_taur.nature.id, :variant_id => cow_taur.id},
-                    {:name => "Taurillons case 4", :description => "Taurillon case 4", :work_number => "TAUR_4", :nature_id => cow_taur.nature.id, :variant_id => cow_taur.id},
-                    {:name => "Taurillons case 3", :description => "Taurillon case 3", :work_number => "TAUR_3", :nature_id => cow_taur.nature.id, :variant_id => cow_taur.id},
-                    {:name => "Taurillons case 2", :description => "Taurillon case 2", :work_number => "TAUR_2", :nature_id => cow_taur.nature.id, :variant_id => cow_taur.id},
-                    {:name => "Taurillons case 1", :description => "Taurillon case 1", :work_number => "TAUR_1", :nature_id => cow_taur.nature.id, :variant_id => cow_taur.id}
+      nature = ProductNature.create!(:name => "Troupeau", :number => "TROUPEAU", :unitary => true, :category_id => animal_product_nature_category.id, :product_account_id => cow_product_account.id, :variety => "animal_group", :storable => true, :stock_account_id => cow_stock_account.id)
+      variant = nature.variants.create!(:usage_indicator => "population")
+
+      for group in [{:name => "Vaches Laitières", :work_number => "VL"},
+                    {:name => "Génisses 3",  :work_number => "GEN_3"},
+                    {:name => "Génisses 2",  :work_number => "GEN_2"},
+                    {:name => "Génisses 1",  :work_number => "GEN_1"},
+                    {:name => "Veaux Niche", :work_number => "VEAU_NICHE", :description => "Veaux en niche individuel"},
+                    {:name => "Veaux Poulailler 1", :work_number => "VEAU_1"},
+                    {:name => "Veaux Poulailler 2", :work_number => "VEAU_2"},
+                    {:name => "Taurillons case 7", :work_number => "TAUR_7", :description => "Côté Hangar"},
+                    {:name => "Taurillons case 6", :work_number => "TAUR_6"},
+                    {:name => "Taurillons case 5", :work_number => "TAUR_5"},
+                    {:name => "Taurillons case 4", :work_number => "TAUR_4"},
+                    {:name => "Taurillons case 3", :work_number => "TAUR_3"},
+                    {:name => "Taurillons case 2", :work_number => "TAUR_2"},
+                    {:name => "Taurillons case 1", :work_number => "TAUR_1"}
                    ]
         unless AnimalGroup.find_by_work_number(group[:work_number])
-          AnimalGroup.create!({:active => true, :variety => "bos", :owner_id => Entity.of_company.id}.merge(group) )
+          AnimalGroup.create!({:active => true, :variant_id => variant.id}.merge(group))
         end
       end
 
@@ -193,28 +192,23 @@ namespace :db do
       building_product_nature_category ||= ProductNatureCategory.create!(:name => "Bâtiments", :published => true)
       place_nature_animal = ProductNature.find_by_number("BATIMENT_ANIMAUX")
       place_nature_animal ||= ProductNature.create!(:name => "Bâtiment d'accueil animaux", :number => "BATIMENT_ANIMAUX", :variety => "building", :category_id => building_product_nature_category.id)
-      place_nature_animal.variants.create!(:active => true, :commercial_name => place_nature_animal.name,:name => place_nature_animal.name,
-                                            :purchase_indicator => "net_surperficial_area", :purchase_indicator_unit => "square_meter",
-                                            :sale_indicator => "net_surperficial_area", :sale_indicator_unit => "square_meter",
-                                            :usage_indicator => "net_surperficial_area", :usage_indicator_unit => "square_meter"
-                                            )
-      place_variant = ProductNatureVariant.find_by_nature_name("Bâtiment d'accueil animaux")
+      place_variant = place_nature_animal.variants.create!(:active => true, :usage_indicator => "net_surperficial_area", :usage_indicator_unit => "square_meter")
 
       # create default building to place animal
       print "[#{(Time.now - start).round(2).to_s.rjust(8)}s] Add buildings: "
-      for building in [{:name => "Batiment historique", :work_number => "B05", :identification_number => "STABULATION_05", :nature_id => place_variant.nature.id, :variant_id => place_variant.id, :content_nature_id => cow_vl.nature.id},
-                         {:name => "Aire bétonnée", :work_number => "B06", :identification_number => "STABULATION_06", :nature_id => place_variant.nature.id, :variant_id => place_variant.id, :content_nature_id => cow_vl.nature.id},
-                         {:name => "Stabulation principale", :work_number => "B07", :identification_number => "STABULATION_07", :nature_id => place_variant.nature.id, :variant_id => place_variant.id, :content_nature_id => cow_vl.nature.id},
-                         {:name => "Batiment Taurillons Bois", :work_number => "B04", :identification_number => "BAT_TAURILLON", :nature_id => place_variant.nature.id, :variant_id => place_variant.id, :content_nature_id => cow_taur.nature.id},
-                         {:name => "Batiment Bouquet en L Genisse", :work_number => "B03", :identification_number => "BAT_GEN", :nature_id => place_variant.nature.id, :variant_id => place_variant.id, :content_nature_id => cow_gen.nature.id},
-                         {:name => "Poulailler 1 (côté Jardin)", :work_number => "B09", :identification_number => "BAT_POULAILLER_1", :nature_id => place_variant.nature.id, :variant_id => place_variant.id, :content_nature_id => cow_v.nature.id},
-                         {:name => "Bureau", :work_number => "B08", :identification_number => "BUREAU", :nature_id => place_variant.nature.id, :variant_id => place_variant.id},
-                         {:name => "Silo bas", :work_number => "B01", :identification_number => "SILO_BAS", :nature_id => place_variant.nature.id, :variant_id => place_variant.id, :content_nature_id => cow_v.nature.id},
-                         {:name => "Fosse eaux brunes", :work_number => "B02", :identification_number => "FOSSE", :nature_id => place_variant.nature.id, :variant_id => place_variant.id, :content_nature_id => cow_v.nature.id},
-                         {:name => "Poulailler 2 (côté Forêt)", :work_number => "B10", :identification_number => "BAT_POULAILLER_2", :nature_id => place_variant.nature.id, :variant_id => place_variant.id, :content_nature_id => cow_v.nature.id}
+      for building in [{:name => "Bâtiment historique", :work_number => "B05", :identification_number => "STABULATION_05", :content_nature_id => cow_vl.nature.id},
+                       {:name => "Aire bétonnée", :work_number => "B06", :identification_number => "STABULATION_06", :content_nature_id => cow_vl.nature.id},
+                       {:name => "Stabulation principale", :work_number => "B07", :identification_number => "STABULATION_07", :content_nature_id => cow_vl.nature.id},
+                       {:name => "Bâtiment Taurillons Bois", :work_number => "B04", :identification_number => "BAT_TAURILLON", :content_nature_id => cow_taur.nature.id},
+                       {:name => "Bâtiment Bouquet en L Genisse", :work_number => "B03", :identification_number => "BAT_GEN", :content_nature_id => cow_gen.nature.id},
+                       {:name => "Poulailler 1 (côté Jardin)", :work_number => "B09", :identification_number => "BAT_POULAILLER_1", :content_nature_id => cow_v.nature.id},
+                       {:name => "Bureau", :work_number => "B08", :identification_number => "BUREAU"},
+                       {:name => "Silo bas", :work_number => "B01", :identification_number => "SILO_BAS", :content_nature_id => cow_v.nature.id},
+                       {:name => "Fosse eaux brunes", :work_number => "B02", :identification_number => "FOSSE", :content_nature_id => cow_v.nature.id},
+                       {:name => "Poulailler 2 (côté Forêt)", :work_number => "B10", :identification_number => "BAT_POULAILLER_2", :content_nature_id => cow_v.nature.id}
                         ]
         unless Building.find_by_work_number(building[:work_number])
-          Building.create!({:owner_id => Entity.of_company.id, :variety => "building", :born_at => Time.now, :reservoir => false}.merge(building) )
+          Building.create!({:owner_id => Entity.of_company.id, :variant_id => place_variant.id, :born_at => Time.now, :reservoir => false}.merge(building) )
           print "."
         end
       end
@@ -227,12 +221,10 @@ namespace :db do
         file.each do |record|
           building = Building.find_by_work_number(record.attributes['WORK_NUMBE'])
           building ||= Building.create!(:variant_id => place_variant.id,
-                                    :name => record.attributes['DESCRIPTION'].to_s,
-                                    :work_number => record.attributes['WORK_NUMBE'].to_s,
-                                    :variety => "building",
-                                    :born_at => Time.now,
-                                    :owner_id => Entity.of_company.id,
-                                    :identification_number => record.attributes['NUMERO'].to_s)
+                                        :name => record.attributes['DESCRIPTION'].to_s,
+                                        :work_number => record.attributes['WORK_NUMBE'].to_s,
+                                        :born_at => Time.now,
+                                        :identification_number => record.attributes['NUMERO'].to_s)
           # raise record.geometry.inspect + record.geometry.methods.sort.to_sentence
           building.is_measured!(:shape, record.geometry, :at => Time.now)
           # puts "Record number #{record.index}:"
@@ -246,22 +238,25 @@ namespace :db do
 
       # add shape for building_division
       print "[#{(Time.now - start).round(2).to_s.rjust(8)}s] Add shapes to building divisions: "
+      building_division   = ProductNature.find_by_number("SALLE")
+      building_division ||= ProductNature.create!(:name => "Salle", :number => "SALLE", :variety => "building_division", :category_id => building_product_nature_category.id)
+      variant = building_division.variants.create!(:active => true, :usage_indicator => "net_surperficial_area", :usage_indicator_unit => "square_meter")
+
       RGeo::Shapefile::Reader.open(Rails.root.join("test", "fixtures", "files", "buildings_division_2013.shp").to_s, :srid => 2154) do |file|
         # puts "File contains #{file.num_records} records."
+        now = Time.now - 10.years
         file.each do |record|
-          building_division = BuildingDivision.find_by_work_number(record.attributes['WORK_NUMBE'])
-          building_division ||= BuildingDivision.create!(:variant_id => place_variant.id,
-                                    :name => record.attributes['DECRIPTION'].to_s,
-                                    :work_number => record.attributes['WORK_NUMBE'].to_s,
-                                    :variety => "building_division",
-                                    :born_at => Time.now,
-                                    :owner_id => Entity.of_company.id,
-                                    :identification_number => record.attributes['NUMERO'].to_s)
-          building_division.is_measured!(:shape, record.geometry, :at => Time.now)
+          building_division   = BuildingDivision.find_by_work_number(record.attributes['WORK_NUMBE'])
+          building_division ||= BuildingDivision.create!(:variant_id => variant.id,
+                                                         :name => record.attributes['DECRIPTION'].to_s,
+                                                         :work_number => record.attributes['WORK_NUMBE'].to_s,
+                                                         :born_at => now,
+                                                         :identification_number => record.attributes['NUMERO'].to_s)
+          building_division.is_measured!(:shape, record.geometry, :at => now)
 
           if record.attributes['CONTAINER'].to_s
             building = Building.find_by_work_number(record.attributes['CONTAINER'].to_s)
-            building.add(building_division)
+            building.add(building_division, now)
           end
 
           # puts "Record number #{record.index}:"
@@ -432,6 +427,7 @@ namespace :db do
       print "[#{(Time.now - start).round(2).to_s.rjust(8)}s] Animals - UPRA reproductor list: "
       file = Rails.root.join("test", "fixtures", "files", "liste_males_reproducteurs_race_normande_ISU_130.txt")
       picture_trepro = Dir.glob(Rails.root.join("test", "fixtures", "files", "animals", "taurillon.jpg"))
+      now = Time.now - 2.months
       CSV.foreach(file, :encoding => "CP1252", :col_sep => "\t", :headers => true) do |row|
         next if row[4].blank?
         r = OpenStruct.new(:order => row[0],
@@ -445,12 +441,12 @@ namespace :db do
                            :tb => row[11].to_f
                            )
         # case = TAUREAU REPRO
-        animal = Animal.create!(:variant_id => cow_trepro.id, :name => r.name, :variety => "bos", :identification_number => r.identification_number, :sex => "male", :reproductor => true, :external => true, :owner_id => Entity.of_company.id)
+        animal = Animal.create!(:variant_id => cow_trepro.id, :name => r.name, :variety => "bos", :identification_number => r.identification_number, :sex => "male", :reproductor => true, :external => true, :owner_id => Entity.where(:of_company => false).all.sample.id)
         # set default indicators
-        animal.is_measured!(:isu, r.isu.unity, :at => (Time.now - 2.months))
-        animal.is_measured!(:inel, r.inel.unity, :at => (Time.now - 2.months))
-        animal.is_measured!(:tp, r.tp.unity, :at => (Time.now - 2.months))
-        animal.is_measured!(:tb, r.tb.unity, :at => (Time.now - 2.months))
+        animal.is_measured!(:isu, r.isu.unity,   :at => now)
+        animal.is_measured!(:inel, r.inel.unity, :at => now)
+        animal.is_measured!(:tp, r.tp.unity,     :at => now)
+        animal.is_measured!(:tb, r.tb.unity,     :at => now)
 
         print "."
         break if Animal.count >= max
@@ -644,7 +640,7 @@ namespace :db do
                         ]
         unless ProductNature.find_by_number(attributes[:number])
           plant_product_nature_s = ProductNature.create!({:active => true, :category_id => wheat_category.id,
-                                                        :storable => true,:variety => "plant",
+                                                        :storable => true, :variety => "plant",
                                                         :stock_account_id => wheat_stock_account.id,
                                                         :charge_account_id => wheat_charge_account.id,
                                                         :product_account_id => wheat_product_account.id}.merge(attributes))
@@ -692,7 +688,7 @@ namespace :db do
       wheat = ProductNatureVariant.find_by_nature_name("Grain de Blé")
 
       ble = OrganicMatter.find_by_work_number("BLE_001")
-      ble = OrganicMatter.create!(:variant_id => wheat.id, :name => "Blé Cap Horn 2011", :variety => "organic_matter", :identification_number => "BLE_2011_07142011", :work_number => "BLE_2011",
+      ble = OrganicMatter.create!(:variant_id => wheat.id, :name => "Blé Cap Horn 2011", :variety => "grains", :identification_number => "BLE_2011_07142011", :work_number => "BLE_2011",
                                   :born_at => "2011-07-14", :owner_id => Entity.of_company.id) #
 
       # Sale nature
@@ -848,17 +844,17 @@ namespace :db do
       end
 
       for attributes in [
-                         {:number => "HERBICIDE",:pi => "net_volume", :piu => "liter", :si => "net_volume", :siu => "liter", :ui => "net_volume", :uiu => "liter"},
-                         {:number => "FONGICIDE",:pi => "net_volume", :piu => "liter", :si => "net_volume", :siu => "liter", :ui => "net_volume", :uiu => "liter"},
-                         {:number => "ANTI_LIMACE",:pi => "net_weight", :piu => "kilogram", :si => "net_weight", :siu => "kilogram", :ui => "net_weight", :uiu => "kilogram"},
-                         {:number => "ENGRAIS",:pi => "net_weight", :piu => "ton", :si => "net_weight", :siu => "ton", :ui => "net_weight", :uiu => "kilogram"},
-                         {:number => "SEMENCE",:pi => "net_weight", :piu => "kilogram", :si => "net_weight", :siu => "kilogram", :ui => "net_weight", :uiu => "kilogram"},
-                         {:number => "ALIMENT",:pi => "net_weight", :piu => "ton", :si => "net_weight", :siu => "ton", :ui => "net_weight", :uiu => "kilogram"},
-                         {:number => "QUINCAILLERIE",:pi => "population", :piu => "unity", :si => "population", :siu => "unity", :ui => "population", :uiu => "unity"},
-                         {:number => "NETTOYANT",:pi => "net_volume", :piu => "liter", :si => "net_volume", :siu => "liter", :ui => "net_volume", :uiu => "liter"},
-                         {:number => "LOCATION_MATERIEL",:pi => "usage_duration", :piu => "hour", :si => "usage_duration", :siu => "hour", :ui => "usage_duration", :uiu => "hour"},
-                         {:number => "MEDICAMENT_VETERINAIRE",:pi => "population", :piu => "unity", :si => "net_weight", :siu => "gram", :ui => "net_weight", :uiu => "gram"},
-                         {:number => "PETIT_EQUIPEMENT",:pi => "population", :piu => "unity", :si => "population", :siu => "unity", :ui => "population", :uiu => "unity"}
+                         {:number => "HERBICIDE", :pi => "net_volume", :piu => "liter", :si => "net_volume", :siu => "liter", :ui => "net_volume", :uiu => "liter"},
+                         {:number => "FONGICIDE", :pi => "net_volume", :piu => "liter", :si => "net_volume", :siu => "liter", :ui => "net_volume", :uiu => "liter"},
+                         {:number => "ANTI_LIMACE", :pi => "net_weight", :piu => "kilogram", :si => "net_weight", :siu => "kilogram", :ui => "net_weight", :uiu => "kilogram"},
+                         {:number => "ENGRAIS", :pi => "net_weight", :piu => "ton", :si => "net_weight", :siu => "ton", :ui => "net_weight", :uiu => "kilogram"},
+                         {:number => "SEMENCE", :pi => "net_weight", :piu => "kilogram", :si => "net_weight", :siu => "kilogram", :ui => "net_weight", :uiu => "kilogram"},
+                         {:number => "ALIMENT", :pi => "net_weight", :piu => "ton", :si => "net_weight", :siu => "ton", :ui => "net_weight", :uiu => "kilogram"},
+                         {:number => "QUINCAILLERIE", :pi => "population", :piu => "unity", :si => "population", :siu => "unity", :ui => "population", :uiu => "unity"},
+                         {:number => "NETTOYANT", :pi => "net_volume", :piu => "liter", :si => "net_volume", :siu => "liter", :ui => "net_volume", :uiu => "liter"},
+                         {:number => "LOCATION_MATERIEL", :pi => "usage_duration", :piu => "hour", :si => "usage_duration", :siu => "hour", :ui => "usage_duration", :uiu => "hour"},
+                         {:number => "MEDICAMENT_VETERINAIRE", :pi => "population", :piu => "unity", :si => "net_weight", :siu => "gram", :ui => "net_weight", :uiu => "gram"},
+                         {:number => "PETIT_EQUIPEMENT", :pi => "population", :piu => "unity", :si => "population", :siu => "unity", :ui => "population", :uiu => "unity"}
                         ]
 
        if pn = ProductNature.find_by_number(attributes[:number])
@@ -940,7 +936,7 @@ namespace :db do
           product_nature = ProductNature.find_by_number(r.product_nature_name)
           product_nature_variant = ProductNatureVariant.find_by_nature_id(product_nature.id)
           product_model = product_nature.matching_model
-          incoming_item = Product.find_by_name_and_created_at(r.matter_name,r.ordered_on)
+          incoming_item = Product.find_by_name_and_created_at(r.matter_name, r.ordered_on)
           incoming_item ||= product_model.create!(:owner_id => Entity.of_company.id, :name => r.matter_name, :variant_id => product_nature_variant.id, :born_at => r.ordered_on, :created_at => r.ordered_on)
           # incoming_item.indicator_data.create!(:indicator => product_nature_variant.purchase_indicator, :value => r.quantity,
           # :measure_unit => product_nature_variant.purchase_indicator_unit,
@@ -1110,15 +1106,15 @@ namespace :db do
                           )
 
         # create an indicator for each line of analysis (based onn milk analysis indicator in XML nomenclature)
-        # product.indicator_data.create!(:indicator => "total_bacteria_concentration", :value => r.analysis_quality_indicator_germes ,:measure_unit => "thousands_per_milliliter" ,:measured_at => analysis_on )
-        # product.indicator_data.create!(:indicator => "inhibitors_presence", :value => r.analysis_quality_indicator_inhib ,:measured_at => analysis_on )
-        # product.indicator_data.create!(:indicator => "fat_matters_concentration", :value => r.analysis_quality_indicator_mg ,:measure_unit => "gram_per_liter", :measured_at => analysis_on )
-        # product.indicator_data.create!(:indicator => "protein_matters_concentration", :value => r.analysis_quality_indicator_mp ,:measure_unit => "gram_per_liter", :measured_at => analysis_on )
-        # product.indicator_data.create!(:indicator => "cells_concentration", :value => r.analysis_quality_indicator_cellules ,:measure_unit => "thousands_per_milliliter", :measured_at => analysis_on )
-        # product.indicator_data.create!(:indicator => "clostridial_spores_concentration", :value => r.analysis_quality_indicator_buty ,:measure_unit => "unities_per_liter", :measured_at => analysis_on )
-        # product.indicator_data.create!(:indicator => "freezing_point_temperature", :value => r.analysis_quality_indicator_cryo ,:measure_unit => "celsius", :measured_at => analysis_on )
-        # product.indicator_data.create!(:indicator => "lipolysis", :value => r.analysis_quality_indicator_lipo ,:measure_unit => "thousands_per_hectogram", :measured_at => analysis_on )
-        # product.indicator_data.create!(:indicator => "immunoglobulins_concentration", :value => r.analysis_quality_indicator_igg ,:measure_unit => "unities_per_liter", :measured_at => analysis_on )
+        # product.indicator_data.create!(:indicator => "total_bacteria_concentration", :value => r.analysis_quality_indicator_germes , :measure_unit => "thousands_per_milliliter" , :measured_at => analysis_on )
+        # product.indicator_data.create!(:indicator => "inhibitors_presence", :value => r.analysis_quality_indicator_inhib , :measured_at => analysis_on )
+        # product.indicator_data.create!(:indicator => "fat_matters_concentration", :value => r.analysis_quality_indicator_mg , :measure_unit => "gram_per_liter", :measured_at => analysis_on )
+        # product.indicator_data.create!(:indicator => "protein_matters_concentration", :value => r.analysis_quality_indicator_mp , :measure_unit => "gram_per_liter", :measured_at => analysis_on )
+        # product.indicator_data.create!(:indicator => "cells_concentration", :value => r.analysis_quality_indicator_cellules , :measure_unit => "thousands_per_milliliter", :measured_at => analysis_on )
+        # product.indicator_data.create!(:indicator => "clostridial_spores_concentration", :value => r.analysis_quality_indicator_buty , :measure_unit => "unities_per_liter", :measured_at => analysis_on )
+        # product.indicator_data.create!(:indicator => "freezing_point_temperature", :value => r.analysis_quality_indicator_cryo , :measure_unit => "celsius", :measured_at => analysis_on )
+        # product.indicator_data.create!(:indicator => "lipolysis", :value => r.analysis_quality_indicator_lipo , :measure_unit => "thousands_per_hectogram", :measured_at => analysis_on )
+        # product.indicator_data.create!(:indicator => "immunoglobulins_concentration", :value => r.analysis_quality_indicator_igg , :measure_unit => "unities_per_liter", :measured_at => analysis_on )
         # product.indicator_data.create!(:indicator => "urea_concentration", :value => r.analysis_quality_indicator_uree , :measure_unit => "milligram_per_liter", :measured_at => analysis_on )
 #
         product.is_measured!(:total_bacteria_concentration, r.analysis_quality_indicator_germes.thousand_per_milliliter, :at => analysis_on)
@@ -1181,11 +1177,11 @@ namespace :db do
           product_nature_variant_sup = ProductNatureVariant.find_by_nature_id(product_nature_sup.id)
         end
         if product_nature_variant_sup and land_parcel_support.present?
-          pro = Production.where(:campaign_id => campaign.id,:activity_id => activity.id, :product_nature_id => product_nature_sup.id).first
+          pro = Production.where(:campaign_id => campaign.id, :activity_id => activity.id, :product_nature_id => product_nature_sup.id).first
           pro ||= activity.productions.create!(:product_nature_id => product_nature_sup.id, :campaign_id => campaign.id, :static_support => true)
           pro.supports.create!(:storage_id => land_parcel_support.id)
           plant_work_nb = (r.product_nature_name + "-" + campaign.name + "-" + land_parcel_support.work_number)
-          Plant.create!(:variant_id => product_nature_variant_sup.id, :work_number => plant_work_nb , :name => (r.product_nature_name + " " + campaign.name + " " + land_parcel_support.name)  ,:variety => product_nature.variety, :born_at => Time.now, :owner_id => Entity.of_company.id)
+          Plant.create!(:variant_id => product_nature_variant_sup.id, :work_number => plant_work_nb , :name => (r.product_nature_name + " " + campaign.name + " " + land_parcel_support.name)  , :variety => product_nature.variety, :born_at => Time.now, :owner_id => Entity.of_company.id)
         elsif product_nature_variant_sup
           pro = Production.where(:product_nature_id => product_nature_sup.id, :campaign_id => campaign.id, :activity_id => activity.id).first
           pro ||= activity.productions.create!(:product_nature_id => product_nature_sup.id, :campaign_id => campaign.id)
@@ -1239,7 +1235,7 @@ namespace :db do
       fertilizer_product_prev.is_measured!(:phosphorus_concentration, 33.00.kilogram_per_hectogram, :at => Time.now)
 
 
-      production = Production.find_by_product_nature_id_and_campaign_id(sole_ble_nature.id,campaign.id)
+      production = Production.find_by_product_nature_id_and_campaign_id(sole_ble_nature.id, campaign.id)
 
       # provisional fertilization procedure
       procedure_prev ||= Procedure.create!(:natures => "soil_enrichment", :nomen =>"mineral_fertilizing", :production_id => production.id, :provisional => true )
@@ -1295,18 +1291,22 @@ namespace :db do
       puts "Total time: #{(Time.now - start).round(2)}s"
 
 
-     ##############################################################################
-     ## Demo data for animal treatment
-     ##############################################################################
-     print "[#{(Time.now - start).round(2).to_s.rjust(8)}s] Procedures - demo data for animal sanitary treatment reporting 2013: "
-     sanitary_product_nature_variant = ProductNatureVariant.find_by_nature_name("Médicament vétérinaire")
-     campaign = Campaign.find_by_name("2013")
-     animal_group_nature = ProductNature.find_by_number("VACHE_LAITIERE")
-     animal_production = Production.find_by_product_nature_id_and_campaign_id(animal_group_nature.id,campaign.id)
+      ##############################################################################
+      ## Demo data for animal treatment
+      ##############################################################################
+      print "[#{(Time.now - start).round(2).to_s.rjust(8)}s] Procedures - demo data for animal sanitary treatment reporting 2013: "
+      worker_nature = ProductNature.create!(:name => "Technicien", :number => "TECH", :indicators => "population", :variety => "worker", :category_id => animal_product_nature_category.id)
+      worker_variant = worker_nature.variants.create!(:usage_indicator => "population")
+      worker = Equipment.create!(:variant_id => worker_variant.id, :name => "Billy")
 
-     # create an animal medicine product
-     animal_medicine_product   = AnimalMedicine.find_by_name("acetal")
-     animal_medicine_product ||= AnimalMedicine.create!(:name => "acetal", :identification_number => "FR_589698256352", :work_number => "FR_589698256352", :born_at => Time.now, :variant_id => sanitary_product_nature_variant.id, :owner_id => Entity.of_company.id)
+      sanitary_product_nature_variant = ProductNatureVariant.find_by_nature_name("Médicament vétérinaire")
+      campaign = Campaign.find_by_name("2013")
+      animal_group_nature = ProductNature.find_by_number("VACHE_LAITIERE")
+      animal_production = Production.find_by_product_nature_id_and_campaign_id(animal_group_nature.id, campaign.id)
+
+      # create an animal medicine product
+      animal_medicine_product   = AnimalMedicine.find_by_name("acetal")
+      animal_medicine_product ||= AnimalMedicine.create!(:name => "acetal", :identification_number => "FR_589698256352", :work_number => "FR_589698256352", :born_at => Time.now, :variant_id => sanitary_product_nature_variant.id, :owner_id => Entity.of_company.id)
 
       animal = Animal.last
 
@@ -1314,7 +1314,7 @@ namespace :db do
       procedure ||= Procedure.create!(:natures => "animal_cares", :nomen =>"animal_treatment", :production_id => animal_production.id)
       # plant = Plant.find_by_work_number("SOLE_BLE-2013-PC23")
       # Create some procedure variable for fertilization
-      for attributes in [{:target_id => Entity.of_company.id, :role => "worker",
+      for attributes in [{:target_id => worker.id, :role => "worker",
                            :indicator => "usage_duration",
                            :measure_quantity => "0.50", :measure_unit => "hour"},
                          {:target_id => animal_medicine_product.id, :role => "input",

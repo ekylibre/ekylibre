@@ -15,7 +15,7 @@
       <item name="net_surperficial_area" datatype="measure" unit="square_meter"/>
       <item name="shape" datatype="geometry"/>
       <item name="usage_duration" datatype="measure" unit="hour"/>
-      <item name="weight" datatype="measure" unit="kilogram"/>
+      <!-- <item name="weight" datatype="measure" unit="kilogram"/> -->
       <item name="sowable" datatype="boolean"/>
       <item name="in_production" datatype="boolean"/>
       <item name="ground_appearance" datatype="choice" choices="covered, raw"/>

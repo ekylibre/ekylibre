@@ -126,7 +126,8 @@ class Product < Ekylibre::Record::Base
 
   validate do
     if self.variant
-      errors.add(:variety, :invalid) unless Nomen::Varieties.all(self.variant_variety).include?(self.variety.to_sym)
+      # puts Nomen::Varieties.all(self.variant_variety).inspect
+      errors.add(:variety, :invalid) unless Nomen::Varieties.all(self.variant_variety).include?(self.variety.to_s)
     end
     if self.external
       errors.add(:owner_id, :invalid) unless self.owner_id != Entity.of_company.id
@@ -180,7 +181,7 @@ class Product < Ekylibre::Record::Base
     end
     if self.variant
       self.nature    = self.variant.nature
-      self.variety ||= self.variant.variety
+      self.variety ||= self.variant_variety
     end
   end
 

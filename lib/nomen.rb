@@ -16,7 +16,7 @@ module Nomen
 
     # Instanciate a new nomenclature
     def initialize(name)
-      @name = name
+      @name = name.to_sym
       @items = HashWithIndifferentAccess.new
       @attributes = HashWithIndifferentAccess.new
     end
