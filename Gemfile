@@ -118,6 +118,7 @@ end
 
 group :development, :test do
   gem 'factory_girl_rails'
+  gem 'spinach-rails'
 end
 
 group :test do

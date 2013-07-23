@@ -152,6 +152,7 @@ GEM
       jquery-rails (>= 3)
       jquery-ui-rails (>= 4)
       rails (>= 3.2)
+    gherkin-ruby (0.3.0)
     google_visualr (2.1.7)
     gorillib (0.1.11)
       json
@@ -335,6 +336,13 @@ GEM
     slop (3.4.5)
     sneaky-save (0.0.4)
       activerecord (>= 3.2.0)
+    spinach (0.8.3)
+      colorize (= 0.5.8)
+      gherkin-ruby (~> 0.3.0)
+    spinach-rails (0.2.1)
+      capybara (>= 2.0.0)
+      railties (>= 3)
+      spinach (>= 0.4)
     sprockets (2.2.2)
       hike (~> 1.2)
       multi_json (~> 1.0)
@@ -444,6 +452,7 @@ DEPENDENCIES
   selenium-webdriver
   simple_form
   sneaky-save
+  spinach-rails
   state_machine
   strong_parameters
   therubyracer
