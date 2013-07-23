@@ -1,12 +1,12 @@
-=f.product_form_frame do 
+=f.product_form_frame do
   =field_set do
     =f.input :name
-  
+
   =field_set(:identification) do
     =f.input :work_number
     =f.input :born_at, :as => :date
     =f.referenced_association :owner, :selected => Entity.of_company
-  
+
   =field_set(:document) do
     =f.input :picture
     =image_tag(@plant.picture.url(:thumb))

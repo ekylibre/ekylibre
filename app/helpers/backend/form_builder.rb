@@ -136,7 +136,7 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
     variant = @object.variant || ProductNatureVariant.where(:id => @template.params[:variant_id].to_i).first
 
     if variant
-      
+
       # Add product type selector
       html << @template.field_set(:nature) do
         # Add variant selector
@@ -149,15 +149,15 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
         fs << self.custom_fields
         fs
       end
-      
-      
+
+
       # Add form body
       if block_given?
-        html << @template.capture(&block) 
+        html << @template.capture(&block)
       else
         html << @template.render(:partial => "backend/shared/product_form")
       end
-      
+
       # Add first indicators
       if @object.new_record?
         html << @template.field_set(:indicators) do
@@ -184,7 +184,7 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
           fs
         end
       end
-      
+
     else
 
       for variant in ProductNatureVariant.of_variety(@object.class.name.underscore)

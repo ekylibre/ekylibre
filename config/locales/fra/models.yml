@@ -577,6 +577,7 @@ fra:
     content_unit: "Content unit" #?
     # contour: "Contour"
     coordinate: "Coordonnée"
+    # coordinate_columns: "Coordinate columns"
     country: "Pays"
     created_at: "Date et heure de création"
     created_on: "Date de création"
@@ -671,7 +672,7 @@ fra:
     emails: "Courriels (e-mails)"
     emitter_amount: "Montant émis"
     emitter_cash: "Trésorerie émettrice"
-    emitter_currency: "Devise émise" #?
+    emitter_currency: "Devise émise"
     emitter_currency_rate: "Taux de la devise émise" #?
     emitter_journal_entry: "Écriture de l’émission"
     employed: "Employé par la société"
@@ -821,7 +822,7 @@ fra:
     mail_addresses: "Adresses postales"
     mail_area: "Zone postale"
     mail_auto_update: "Mettre à jour l’adresse automatiquement"
-    mail_columns: "Colonnes de courriel"
+    mail_columns: "Colonnes de courriel" #?
     mail_country: "Pays"
     mail_geolocation: "Geolocalisation de l’adresse"
     mail_line_1: "Nom ou Société"

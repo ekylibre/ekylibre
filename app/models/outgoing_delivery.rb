@@ -60,7 +60,7 @@ class OutgoingDelivery < Ekylibre::Record::Base
 
   # autosave :transport
   acts_as_numbered
-  sums :transport, :deliveries, :weight#, :amount, :pretax_amount, 
+  sums :transport, :deliveries, :weight#, :amount, :pretax_amount,
 
   default_scope order(:planned_at, :sent_at)
   scope :undelivereds, where(:sent_at => nil).order(:planned_at, :entity_id)

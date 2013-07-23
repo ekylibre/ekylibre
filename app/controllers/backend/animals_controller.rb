@@ -119,7 +119,7 @@ class Backend::AnimalsController < BackendController
     return unless @animal = find_and_check
     send_file @animal.picture.path(params[:style] || :original)
   end
-  
+
   def animal_sanitary_list
       #
       builder = Nokogiri::XML::Builder.new  do |xml|#(:target=>$stdout, :indent=>2)
@@ -149,9 +149,9 @@ class Backend::AnimalsController < BackendController
                               :input_quantity => input_variable.measure_quantity,
                               :input_quantity_unit => input_variable.measure_unit,
                               :started_at => procedure.started_at,
-                              :stopped_at => procedure.stopped_at                           
+                              :stopped_at => procedure.stopped_at
                               )
-             end 
+             end
            end
          end
       end

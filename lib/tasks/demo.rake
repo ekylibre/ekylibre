@@ -1293,8 +1293,8 @@ namespace :db do
       puts "!"
 
       puts "Total time: #{(Time.now - start).round(2)}s"
-    
-    
+
+
      ##############################################################################
      ## Demo data for animal treatment
      ##############################################################################
@@ -1303,13 +1303,13 @@ namespace :db do
      campaign = Campaign.find_by_name("2013")
      animal_group_nature = ProductNature.find_by_number("VACHE_LAITIERE")
      animal_production = Production.find_by_product_nature_id_and_campaign_id(animal_group_nature.id,campaign.id)
-    
+
      # create an animal medicine product
      animal_medicine_product   = AnimalMedicine.find_by_name("acetal")
      animal_medicine_product ||= AnimalMedicine.create!(:name => "acetal", :identification_number => "FR_589698256352", :work_number => "FR_589698256352", :born_at => Time.now, :variant_id => sanitary_product_nature_variant.id, :owner_id => Entity.of_company.id)
 
       animal = Animal.last
-      
+
       # treatment procedure
       procedure ||= Procedure.create!(:natures => "animal_cares", :nomen =>"animal_treatment", :production_id => animal_production.id)
       # plant = Plant.find_by_work_number("SOLE_BLE-2013-PC23")
@@ -1331,11 +1331,11 @@ namespace :db do
       for attributes in [{:started_at => (Time.now - 2.days), :stopped_at => Time.now}]
         procedure.operations.create!({:procedure_id => procedure.id}.merge(attributes) )
       end
-      
+
       puts "!"
 
       puts "Total time: #{(Time.now - start).round(2)}s"
-    
+
     end
   end
 end

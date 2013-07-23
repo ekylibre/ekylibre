@@ -8,7 +8,7 @@
     -# TODO  Translate :external inline-help with I18n
     =f.input :external, inline_label: "Cas des zones ou pieces utiles mais non présentes sur l'exploitation"
     =f.referenced_association :owner
-    
+
   =field_set(:document) do
     =f.input :picture
     =image_tag(@building_division.picture.url(:thumb))

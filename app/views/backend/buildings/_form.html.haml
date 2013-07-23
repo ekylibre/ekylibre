@@ -8,11 +8,11 @@
     -# TODO  Translate :external inline-help with I18n
     =f.input :external, inline_label: "Cas des constructions utiles mais non présentes sur l'exploitation"
     =f.referenced_association :owner
-    
+
   =field_set(:document) do
     =f.input :picture
     =image_tag(@building.picture.url(:thumb))
-  
+
   -#field_set :localization do
     -#association :establishment
     -#input :division

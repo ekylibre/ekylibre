@@ -16,12 +16,16 @@ eng:
       animal:
         born_at: "Born at"
         dead_at: "Dead at"
+        # variety: "Race"
       animal_group:
         born_at: "Created at"
       asset_depreciation:
         asset_amount: "Accountable value"
       building:
         born_at: "Build at"
+        # content_maximal_quantity: "Quantité maximale supportée"
+        # content_nature: "Type de Produit contenu"
+        # variety: "Type"
       deposit:
         amount: "Amount"
       document:
@@ -96,6 +100,7 @@ eng:
         born_at: "Created at"
         nature: "Nature"
         # reproductor: "Multiplication"
+        # variety: "Variété"
       price:  #?
         category: "People category" #?
         entity: "Supplier" #?

@@ -171,7 +171,7 @@ module Ekylibre
       :mother_id => :product,
       :nature_id => :product_nature,
       :owner_id => :entity,
-      :parent_id => :easement,
+      :parent_id => :cultivable_land_parcel,
       :tracking_id => :tracking,
       :updater_id => :user,
       :variant_id => :product_nature_variant

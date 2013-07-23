@@ -66,7 +66,7 @@ class CashTransfer < Ekylibre::Record::Base
     elsif self.emitter_amount
       self.currency_rate = I18n.currency_rate(self.emitter_currency, self.receiver_currency)
     end
-    self.receiver_amount = self.currency_rate * self.emitter_amount 
+    self.receiver_amount = self.currency_rate * self.emitter_amount
   end
 
   validate do

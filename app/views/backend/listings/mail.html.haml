@@ -3,7 +3,7 @@
   =form_tag do
     =field_set :choose_mail_column do
       =field :column.tl, @listing.coordinate_columns.collect{|node| radio_button(:node, :mail ,node.key, :checked=>true) + "&nbsp;".html_safe + content_tag(:label, node.label + " (" + node.name + ")", :for => 'node_' + node.key) }.join(" ").html_safe
-    =form_actions do   
+    =form_actions do
       =submit_tag(:validate.tl)
 
 -else

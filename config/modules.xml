@@ -1012,6 +1012,7 @@
         <page to="backend/affairs#select"/>
       </item>
       <item name="animals">
+        <page to="backend/animals#animal_sanitary_list"/>
         <page to="backend/animals#list_incident"/>
       </item>
       <item name="building_divisions">
@@ -1038,15 +1039,12 @@
       <item name="expense_chart_cells">
         <page to="backend/cells/expense_chart_cells#show"/>
       </item>
-      <item name="last_events_cells">
-        <page to="backend/cells/last_events_cells#list"/>
-        <page to="backend/cells/last_events_cells#show"/>
-      </item>
       <item name="last_milk_result_cells">
         <page to="backend/cells/last_milk_result_cells#list"/>
         <page to="backend/cells/last_milk_result_cells#show"/>
       </item>
       <item name="last_procedures_cells">
+        <page to="backend/cells/last_procedures_cells#list"/>
         <page to="backend/cells/last_procedures_cells#show"/>
       </item>
       <item name="last_products_cells">
