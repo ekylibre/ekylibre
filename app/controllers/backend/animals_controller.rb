@@ -119,5 +119,46 @@ class Backend::AnimalsController < BackendController
     return unless @animal = find_and_check
     send_file @animal.picture.path(params[:style] || :original)
   end
+  
+  def animal_sanitary_list
+      #
+      builder = Nokogiri::XML::Builder.new  do |xml|#(:target=>$stdout, :indent=>2)
+        #xml.instruct! :xml, :version => "1.0", :encoding => "UTF-8"
+        #xml.declare! :DOCTYPE, :html, :PUBLIC, "-//W3C//DTD XHTML 1.0 Strict//EN",
+        #"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"
+        campaign = Campaign.first
+        entity = Entity.of_company
+        procedures = Procedure.where("nomen = 'animal_treatment'")
+        #raise groups.inspect
+          xml.interventions(:campaign => campaign.name, :entity_name => entity.full_name) do
+            for procedure in procedures
+              xml.intervention(:id => procedure.id,
+                               :name => procedure.name,
+                               :created_at => procedure.created_at,
+                               :started_at => procedure.started_at,
+                               :stopped_at => procedure.stopped_at,
+                               :target_identification => procedure.variables.of_role(:target).first.target.identification_number,
+                               :target_name => procedure.variables.of_role(:target).first.target.name,
+                               :incident_id => procedure.incident.id,
+                               :incident_name => procedure.incident.name
+                               )
+             for input_variable in procedure.variables.of_role(:input)
+                    xml.input(:input => input_variable.target.name,
+                              :input_nature => input_variable.target.nature.name,
+                              :input_variety => input_variable.target.variety,
+                              :input_quantity => input_variable.measure_quantity,
+                              :input_quantity_unit => input_variable.measure_unit,
+                              :started_at => procedure.started_at,
+                              :stopped_at => procedure.stopped_at                           
+                              )
+             end 
+           end
+         end
+      end
+      @animal_sanitary_list = builder.to_xml
+        respond_to do |format|
+          format.xml { render :text => @animal_sanitary_list}
+      end
+   end
 
 end

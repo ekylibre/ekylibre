@@ -5,7 +5,7 @@
       <attribute name="roles" type="list" required="false"/>
     </attributes>
     <items>
-      <item name="animal_cares"/>
+      <item name="animal_cares" roles="input, target"/>
       <item name="reproduction"/>
       <item name="production"/>
       <item name="feeding"/>
