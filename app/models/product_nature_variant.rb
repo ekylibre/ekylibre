@@ -60,7 +60,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
   validates_presence_of :commercial_name, :horizontal_rotation, :nature, :nature_name
   #]VALIDATORS]
 
-  delegate :variety, :to => :nature
+  delegate :variety, :matching_model, :individual, :to => :nature
 
   acts_as_numbered
 
@@ -91,7 +91,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
 
   # Returns indicators from the nomenclature
   def indicators
-    self.nature.indicators.strip.split(/[\,\s]/).collect do |i|
+    self.nature.indicators.to_s.strip.split(/[\,\s]/).collect do |i|
       Nomen::Indicators.find(i)
     end.compact
   end

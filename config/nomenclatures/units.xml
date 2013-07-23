@@ -11,7 +11,12 @@
     <items>
       <!-- none -->
       <item name="unity" dimension="none" symbol="u"/>
-      <item name="head" dimension="none" symbol="u"/>
+      <item name="pair"  dimension="none" symbol="u" coefficients="2"/>
+      <item name="ten"   dimension="none" symbol="u" coefficients="10"/>
+      <item name="dozen" dimension="none" symbol="u" coefficients="12"/>
+      <item name="hundred"  dimension="none" symbol="u" coefficients="100"/>
+      <item name="thousand" dimension="none" symbol="u" coefficients="1000"/>
+      <item name="million"  dimension="none" symbol="u" coefficients="1000000"/>
       
       <!-- temperature -->
       <item name="kelvin"    dimension="temperature" symbol="K"/>

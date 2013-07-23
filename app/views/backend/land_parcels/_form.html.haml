@@ -2,10 +2,6 @@
   =field_set do
     =f.input :name
     =f.input :work_number
-    =f.input :description, :field => :text
     =f.input :born_at
-
-  =field_set(:details) do
-    =f.input :active
-    =f.input :external
-    =f.referenced_association :owner
+    =f.picture
+    =f.input :description

@@ -762,7 +762,7 @@ fra:
     indicator_datatype: "Indicator datatype"
     indicators: "Indicators"
     indirect_links: "Liens indirects"
-    # individual: "Individual"
+    individual: "Individual"
     indivisible: "Indivisible" #?
     # initial: "Initial"
     initial_number: "Numéro initial"

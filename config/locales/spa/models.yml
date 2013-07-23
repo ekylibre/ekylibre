@@ -746,6 +746,7 @@ spa:
     # indicator_datatype: "Indicator datatype"
     # indicators: "Indicators"
     # indirect_links: "Liens indirects"
+    # individual: "Individual"
     # indivisible: "Indivisible"
     # initial_number: "Numéro initial"
     # integer_value: "Valeur entière"

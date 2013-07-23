@@ -1713,6 +1713,16 @@ ul.tree {
   @include box-emphasis;
 }
 
+.variant-list {
+  padding: $default-gap;
+  text-align: center;
+  .btn {
+    min-width: 38ex;
+    margin: $default-gap * 0.6;
+    text-align: center;
+  }
+}
+
 
 .search {
   .results {
@@ -1789,6 +1799,7 @@ svg.map {
     @include transition(fill 0.2s linear);
   }
 }
+
 
 
 #demo-pie, #demo-map, #product-bar-chart, #bank-chart, #expense-chart {

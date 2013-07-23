@@ -906,6 +906,7 @@ eng:
     # indicator_datatype: "Indicator datatype"
     indicators: "Indicators"
     indirect_links: "Indirect links"
+    # individual: "Individual"
     indivisible: "Indivisible"
     initial_number: "Initial number"
     input_conveyors: "Input conveyors" #?

@@ -1,10 +1,11 @@
 =f.product_form_frame do
-  =field_set do
-    =f.referenced_association :parent
+  =field_set(:identification) do
+    -#=f.referenced_association :parent
     =f.input :name
+    =f.picture
     =f.input :description
 
-  =field_set(:group) do
+  -#=field_set(:group) do
     =f.nested_association(:memberships) do
       =f.input :started_at
       =f.input :stopped_at

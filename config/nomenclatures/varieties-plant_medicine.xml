@@ -3,8 +3,8 @@
     <!-- http://e-phy.agriculture.gouv.fr/ -->
     <items>
       <item name="contact"/>
-      <item name="systémique"/>
-      <item name="anti_germinatif"/>
+      <item name="systemic"/>
+      <item name="anti_germinative"/>
     </items>
   </nomenclature>
 </nomenclatures>

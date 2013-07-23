@@ -77,6 +77,12 @@ class OutgoingDelivery < Ekylibre::Record::Base
     return true
   end
 
+  after_initialize do
+    if self.new_record?
+      self.mode ||= OutgoingDeliveryMode.by_default
+    end
+  end
+
 #   transfer do |t|
 #     for item in self.items
 #       t.move(:use => item)

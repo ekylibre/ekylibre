@@ -41,4 +41,14 @@ class IncomingDeliveryMode < Ekylibre::Record::Base
   validates_presence_of :code, :name
   #]VALIDATORS]
   validates_uniqueness_of :code, :name
+
+  # Returns default outgoing delivery mode
+  def self.by_default
+    if delivery = IncomingDelivery.reorder("id DESC").first
+      return delivery.mode
+    else
+      return self.order(:name).first
+    end
+  end
+
 end

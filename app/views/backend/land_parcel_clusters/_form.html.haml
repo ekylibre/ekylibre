@@ -1,11 +1,7 @@
 =f.product_form_frame do
-  =field_set do
+  =field_set(:identification) do
     =f.input :name
     =f.input :work_number
-    =f.input :description, :field => :text
-    =f.input :born_at
-
-  =field_set(:details) do
     =f.input :active
-    =f.input :external
-    =f.referenced_association :owner
+    =f.input :born_at
+    =f.input :description

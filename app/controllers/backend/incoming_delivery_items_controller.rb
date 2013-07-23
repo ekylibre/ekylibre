@@ -20,11 +20,12 @@
 class Backend::IncomingDeliveryItemsController < BackendController
 
   def new
-    if request.xhr? and params[:nature_id]
+    if request.xhr? and params[:variant_id]
       @incoming_delivery   = IncomingDelivery.where(:id => params[:incoming_delivery_id]).first
       @incoming_delivery ||= IncomingDelivery.new
-      return unless nature = find_and_check(:product_nature, params[:nature_id])
-      @incoming_delivery.items.build(:product_nature_id => nature.id) # (:id => rand(1_000_000_000))
+      return unless variant = find_and_check(:product_nature_variant, params[:variant_id])
+      params[:external] ||= false
+      @incoming_delivery.items.build(:product_nature_variant_id => variant.id) # (:id => rand(1_000_000_000))
       # id = rand(1_000_000_000)
       # @incoming_delivery_items = @incoming_delivery.items.build(:id => id)
       # @incoming_delivery_item = @incoming_delivery.items.build(:id => id)

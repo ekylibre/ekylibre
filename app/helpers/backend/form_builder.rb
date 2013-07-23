@@ -100,6 +100,18 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
   end
 
 
+  def picture(attribute_name = :picture, options = {}, &block)
+    format = options.delete(:format) || :thumb
+    return self.input(attribute_name, options) do
+      html  = self.file_field(attribute_name)
+      if @object.send(attribute_name).file?
+        html << @template.content_tag(:div, @template.image_tag(@object.send(attribute_name).url(format)), :class => "preview picture")
+      end
+      html
+    end
+  end
+
+
   # Load a partial
   def subset(name, options = {}, &block)
     options[:id] ||= name
@@ -130,7 +142,7 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
 
 
   # Build a frame for all product _forms
-  def product_form_frame(&block)
+  def product_form_frame(options = {}, &block)
     html = "".html_safe
 
     variant = @object.variant || ProductNatureVariant.where(:id => @template.params[:variant_id].to_i).first
@@ -138,13 +150,27 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
     if variant
 
       # Add product type selector
-      html << @template.field_set(:nature) do
+      html << @template.field_set do
         # Add variant selector
         fs  = self.input(:variant_id, :value => variant.id, :as => :hidden)
         # Add variety selector
         varieties = Nomen::Varieties.all(variant.variety)
         @object.variety ||= varieties.first
         fs << self.input(:variety, :collection => varieties)
+
+        # Adds owner fields
+        external = @template.params[:external]
+        if external.is_a?(TrueClass)
+          fs << self.input(:external, :value => true, :as => :hidden)
+          fs << self.referenced_association(:owner)
+        elsif external.is_a?(FalseClass)
+          fs << self.input(:external, :value => false, :as => :hidden)
+        else
+          id = rand(1_000_000).to_s(36) + Time.now.to_i.to_s(36)
+          fs << self.input(:external, :show => "##{id}")
+          fs << self.referenced_association(:owner, :wrapper_html => {:id => id})
+        end
+
         # Add custom fields
         fs << self.custom_fields
         fs
@@ -155,11 +181,11 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
       if block_given?
         html << @template.capture(&block)
       else
-        html << @template.render(:partial => "backend/shared/product_form")
+        html << @template.render(:partial => "backend/shared/product_form", :locals => {:f => self})
       end
 
       # Add first indicators
-      if @object.new_record?
+      if @object.new_record? and variant.indicators.size > 0
         html << @template.field_set(:indicators) do
           fs = "".html_safe
           for indicator in variant.indicators
@@ -187,8 +213,14 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
 
     else
 
-      for variant in ProductNatureVariant.of_variety(@object.class.name.underscore)
-        html << @template.link_to(variant.name, {:variant_id => variant.id}, :class => "btn")
+      html << @template.subheading(:choose_a_type_of_product)
+
+      html << @template.content_tag(:div, :class => "variant-list") do
+        buttons = "".html_safe
+        for variant in ProductNatureVariant.of_variety(@object.class.name.underscore)
+          buttons << @template.link_to(variant.name, {:variant_id => variant.id}, :class => "btn")
+        end
+        buttons
       end
 
     end

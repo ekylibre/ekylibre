@@ -63,7 +63,7 @@
 
 class Product < Ekylibre::Record::Base
   # attr_accessible :nature_id, :number, :identification_number, :work_number, :born_at, :sex, :picture, :owner_id, :parent_id, :variety, :name, :description, :type, :external, :father_id, :mother_id
-  attr_accessible :variant_id, :created_at, :type, :variety, :external, :name, :description, :nature_id, :number, :identification_number, :work_number, :born_at, :sex, :picture, :owner_id, :parent_id
+  attr_accessible :created_at, :type, :variety, :external, :name, :description, :number, :identification_number, :work_number, :born_at, :sex, :picture, :owner_id, :parent_id, :variant_id # , :nature_id
   enumerize :variety, :in => Nomen::Varieties.all, :predicates => {:prefix => true}
   enumerize :content_indicator, :in => Nomen::Indicators.all, :predicates => {:prefix => true}
   enumerize :content_indicator_unit, :in => Nomen::Units.all, :predicates => {:prefix => true}
@@ -119,13 +119,19 @@ class Product < Ekylibre::Record::Base
   delegate :serial_number, :producer, :to => :tracking
   delegate :name, :to => :nature, :prefix => true
   delegate :subscribing?, :deliverable?, :to => :nature
-  before_validation :set_variety_and_unit, :on => :create
+  delegate :variety, :name, :to => :variant, :prefix => true
+
+  after_initialize :choose_default_name
+  before_validation :set_default_values, :on => :create
 
   validate do
-    # TODO: Check variety is the variety or a sub-variety of the (product) nature.
+    if self.variant
+      errors.add(:variety, :invalid) unless Nomen::Varieties.all(self.variant_variety).include?(self.variety.to_sym)
+    end
+    if self.external
+      errors.add(:owner_id, :invalid) unless self.owner_id != Entity.of_company.id
+    end
   end
-
-
 
   class << self
     # Auto-cast product to best matching class with type column
@@ -145,13 +151,36 @@ class Product < Ekylibre::Record::Base
   end
 
 
+  # Try to find the best name for the new products
+  def choose_default_name
+    if self.new_record? and self.name.blank?
+      if self.variant
+        if last = self.class.where(:variant_id => self.variant_id).reorder("id DESC").first
+          self.name = last.name
+          array = self.name.split(/\s+/)
+          if array.last.match(/^\(?\d+\)?$/)
+            self.name = array[0..-2].join(" ") + "(" + array.last.succ + ")"
+          else
+            self.name << " (1)"
+          end
+        else
+          self.name = self.variant_name
+        end
+      else
+        # By default, choose a random name
+        self.name = Faker::Name.first_name
+      end
+    end
+  end
 
-  def set_variety_and_unit
-    if self.variant and self.nature
-      self.variety ||= self.nature.variety
-    elsif self.variant
-      self.nature ||= self.variant.nature
-      self.variety ||= self.variant.nature.variety
+  # Sets nature and variety from variant
+  def set_default_values
+    unless self.external
+      self.owner_id = Entity.of_company.id
+    end
+    if self.variant
+      self.nature    = self.variant.nature
+      self.variety ||= self.variant.variety
     end
   end
 

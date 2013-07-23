@@ -1,15 +1,8 @@
 =f.product_form_frame do
-  =field_set do # partie info general de l entité animal
-    =f.input :name # affiche le champ name de l entité animal avec une infos derriere
-
-  =field_set(:identification) do # partie entrée sortie de l entité animal
+  =field_set(:identification) do
+    =f.input :name
     =f.input :work_number
     =f.input :identification_number
-    =f.input :description # affiche le champ description formaté en zone de texte
-    =f.input :born_at, :as => :date
-    =f.input :external
-    =f.referenced_association :owner, :selected => Entity.of_company
-
-  =field_set(:document) do
-    =f.input :picture
-    =image_tag(@plant_medicine.picture.url(:thumb))
+    =f.input :born_at
+    =f.picture
+    =f.input :description

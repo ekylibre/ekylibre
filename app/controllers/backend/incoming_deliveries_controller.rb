@@ -40,6 +40,8 @@ class Backend::IncomingDeliveriesController < BackendController
   def index
   end
 
+
+
   def confirm
     return unless incoming_delivery = find_and_check
     incoming_delivery.execute if request.post?

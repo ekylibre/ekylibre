@@ -58,11 +58,21 @@ class IncomingDelivery < Ekylibre::Record::Base
 
   accepts_nested_attributes_for :items
   delegate :order?, :draft?, :to => :purchase
+
+  default_scope -> { order("planned_at DESC") }
   scope :undelivereds, -> { where(:received_at => nil) }
 
   before_validation do
     self.planned_at ||= Time.now
     return true
+  end
+
+  after_initialize do
+    if self.new_record?
+      self.address ||= Entity.of_company.default_mail_address
+      self.mode    ||= IncomingDeliveryMode.by_default
+      self.planned_at ||= Time.now
+    end
   end
 
   # # Only used for list usage

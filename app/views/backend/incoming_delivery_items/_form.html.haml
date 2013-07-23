@@ -1,14 +1,17 @@
--nature = ProductNature.find(f.object.product_nature_id)
+-variant = ProductNature.find(f.object.product_nature_variant_id)
 .subform
   .subform-title
-    %h3=nature.name
-    -unless nature.individual
-      =f.input :quantity # , :indicator => nature.indicator
-    =f.input :product_nature_id, :as => :hidden
+    %h3=variant.name
+    .remove
+      =link_to("#", "data-remove-closest" => ".subform") do
+        %i.icon-remove
+    -#unless variant.individual
+      =f.input :quantity # , :indicator => variant.indicator
+    =f.input :product_nature_variant_id, :as => :hidden
   .subform-fields
-    -if model = nature.matching_model
+    -if model = variant.matching_model
       -iv = "@#{model.name.underscore}".to_sym
-      -instance_variable_set(iv, f.object.product || model.new)
+      -instance_variable_set(iv, f.object.product || model.new(:variant_id => variant.id))
       =f.backend_fields_for(:product, instance_variable_get(iv)) do |p|
         =p.hidden_field(:type)
         =render "backend/#{model.name.tableize}/form", :f => p
