@@ -5,6 +5,7 @@
       <attribute name="dimension" type="choice" nomenclature="dimensions" required="true"/>
       <attribute name="symbol" type="string" required="true"/>
       <attribute name="coefficient" type="decimal" required="true" default="1"/>
+      <attribute name="coefficients" type="string"/>
       <attribute name="start" type="decimal" required="true" default="0"/>
     </attributes>
     <items>

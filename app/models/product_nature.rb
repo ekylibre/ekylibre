@@ -105,9 +105,13 @@ class ProductNature < Ekylibre::Record::Base
 
   default_scope -> { order(:name) }
   scope :availables, -> { where(:active => true).order(:name) }
-  scope :stockables, -> { where(:storable => true, :variety => ["mineral_matter","organic_matter"]).order(:name) }
+  scope :stockables, -> { where(:storable => true).order(:name) } # , :variety => ["mineral_matter", "organic_matter"]
   scope :purchaseables, -> { where(:purchasable => true).order(:name) }
-  scope :producibles, -> { where(:variety => ["bos","animal","plant","organic_matter"]).order(:name) }
+  # scope :producibles, -> { where(:variety => ["bos", "animal", "plant", "organic_matter"]).order(:name) }
+
+  
+  scope :of_variety, Proc.new { |*varieties| where(:variety => varieties.collect{|v| Nomen::Varieties.all(v.to_sym) }.flatten.map(&:to_s).uniq) }
+
   scope :animals, -> { where(:individual => true, :variety => "bos").order(:name) }
   scope :plants, -> { where(:individual => true, :variety => "plant").order(:name) }
   scope :plant_medicines, -> { where(:individual => false, :variety => "plant_medicine").order(:name) }

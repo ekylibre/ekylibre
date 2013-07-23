@@ -3,6 +3,9 @@ module Nomen
   class MissingNomenclature < StandardError
   end
 
+  class InvalidAttribute < StandardError
+  end
+
   XMLNS = "http://www.ekylibre.org/XML/2013/nomenclatures".freeze
   NS_SEPARATOR = "-"
 
@@ -70,7 +73,7 @@ module Nomen
 
     # Add an attribute to the nomenclature
     def add_attribute(element, options = {})
-      a = Attribute.new(self, element, options)
+      a = AttributeDefinition.new(self, element, options)
       @attributes[a.name] = a
       return a
     end
@@ -79,6 +82,7 @@ module Nomen
     def human_name
       "nomenclatures.#{nomenclature.name}.name".t(:default => ["labels.#{name}".to_sym, name.humanize])
     end
+    alias :humanize :human_name
 
     # Returns the given item
     def [](item_name)
@@ -126,7 +130,7 @@ module Nomen
       @name = element.attr("name")
       @parent = options[:parent]
       @attributes = element.attributes.inject(HashWithIndifferentAccess.new) do |h, pair|
-        h[pair[0]] = pair[1].to_s
+        h[pair[0]] = cast_attribute(pair[0], pair[1].to_s)
         h
       end
     end
@@ -159,10 +163,32 @@ module Nomen
     def human_name
       "nomenclatures.#{nomenclature.name}.items.#{name}".t(:default => ["items.#{name}".to_sym, "enumerize.#{nomenclature.name}.#{name}".to_sym, "labels.#{name}".to_sym, name.humanize])
     end
+    alias :humanize :human_name
 
     # Returns Attribute descriptor
     def method_missing(method_name)
       @attributes[method_name]
+    end
+
+    private
+
+    def cast_attribute(name, value)
+      value = value.to_s
+      if attribute = @nomenclature.attributes[name]
+        if attribute.type == :choice
+          raise InvalidAttribute.new("An attribute of choice type cannot contain commas") if value =~ /\,/
+          value = value.strip.to_sym
+        elsif attribute.type == :list
+          value = value.strip.split(/[\,\s]+/).map(&:to_sym)
+        elsif attribute.type == :boolean
+          value = (value == "true" ? true : value == "false" ? false : nil)
+        elsif attribute.type == :decimal
+          value = value.to_d
+        end
+      elsif name.to_s != "name" # the only system name
+        raise ArgumentError.new("Undefined attribute #{name} in #{@nomenclature.name}")
+      end
+      return value
     end
 
   end
@@ -173,10 +199,10 @@ module Nomen
 
 
 
-  class Attribute
+  class AttributeDefinition
     attr_reader :nomenclature, :name, :type, :fallback
 
-    TYPES = [:choice, :list, :boolean, :string, :decimal]
+    TYPES = [:boolean, :choice, :decimal, :list, :string]
 
     # New item
     def initialize(nomenclature, element, options = {})
@@ -221,6 +247,7 @@ module Nomen
     def human_name
       "nomenclatures.#{nomenclature.name}.attributes.#{name}".t(:default => ["attributes.#{name}".to_sym, "enumerize.#{nomenclature.name}.#{name}".to_sym, "labels.#{name}".to_sym, name.humanize])
     end
+    alias :humanize :human_name
 
   end
 

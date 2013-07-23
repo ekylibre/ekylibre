@@ -59,10 +59,14 @@ class ProductNatureVariant < Ekylibre::Record::Base
   validates_inclusion_of :active, :in => [true, false]
   validates_presence_of :commercial_name, :horizontal_rotation, :nature, :nature_name
   #]VALIDATORS]
+
+  delegate :variety, :to => :nature
+
   acts_as_numbered
-  before_validation :set_nature_name, :on => :create
 
   default_scope -> { order(:name) }
+  scope :of_variety, Proc.new { |*varieties| where(:nature_id => ProductNature.of_variety(*varieties).pluck(:id)) }
+  # Variety scopes
   scope :animals, lambda { joins(:nature).merge(ProductNature.animals).order(:name)}
   scope :plants, lambda { joins(:nature).merge(ProductNature.plants).order(:name)}
   scope :plant_medicines, lambda { joins(:nature).merge(ProductNature.plant_medicines).order(:name)}
@@ -77,10 +81,19 @@ class ProductNatureVariant < Ekylibre::Record::Base
   scope :land_parcel_clusters, lambda { joins(:nature).merge(ProductNature.land_parcel_clusters).order(:name)}
   scope :cultivable_land_parcels, lambda { joins(:nature).merge(ProductNature.cultivable_land_parcels).order(:name)}
 
-  def set_nature_name
+
+  before_validation :on => :create do
     if self.nature
       self.nature_name ||= self.nature.name
     end
+  end
+
+
+  # Returns indicators from the nomenclature
+  def indicators
+    self.nature.indicators.strip.split(/[\,\s]/).collect do |i|
+      Nomen::Indicators.find(i)
+    end.compact
   end
 
 end

@@ -9,17 +9,25 @@ class Measure
 
   class << self
 
+    # Lists all units. Can be filtered on a given dimension
     def units(dimension = nil)
       return @@units.all unless dimension
-      raise ArgumentError.new("Unknown dimension #{dimension.inspect}") unless @@dimensions.all.include?(dimension)
-      @@units.items.select do |i|
-        i.dimension == dimension
-      end.map(&:dimension)
+      raise ArgumentError.new("Unknown dimension #{dimension.inspect}") unless @@dimensions.all.include?(dimension.to_s)
+      @@units.items.select do |n, i|
+        i.dimension.to_s == dimension.to_s
+      end.keys.map(&:to_sym)
     end
 
-    def dimension(unit)
-      @@units.items[unit].dimension
+    # Returns the units of same dimension of the given unit
+    def siblings(unit)
+      return self.units(self.dimension(unit))
     end
+
+    # Returns the dimension of the given unit
+    def dimension(unit)
+      @@units.items[unit].dimension.to_sym
+    end
+
   end
 
   def initialize(value, unit)

@@ -254,15 +254,6 @@ module BackendHelper
   end
 
 
-  
-  # Build a frame for all product _forms
-  def product_form_frame(&block)
-    html = "".html_safe
-    html << capture(&block) if block_given?
-    return html
-  end
-
-
   # Permits to use deck as XUL defines it
   # https://developer.mozilla.org/fr/docs/XUL/deck
   def deck(options = {}, &block)

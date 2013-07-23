@@ -8,8 +8,6 @@ eng:
         # nomen: "Code analytique"
         parent: "Parent Activity"
         # work_unit: "Unité d’œuvre"
-      activity_repartition: #?
-      activity_watching: #?
       analytic_repartition:
         affected_on: "Affected on"
         # journal_entry_item: "Ligne comptable concernée"
@@ -18,28 +16,12 @@ eng:
       animal:
         born_at: "Born at"
         dead_at: "Dead at"
-        race: "Race" #?
-        variety: "variety"
       animal_group:
         born_at: "Created at"
-      animal_race: #?
-      animal_treatment_use: #?
       asset_depreciation:
         asset_amount: "Accountable value"
       building:
         born_at: "Build at"
-        children: "Sub-building" #?
-        # content_maximal_quantity: "Quantité maximale supportée"
-        # content_nature: "Type de Produit contenu"
-        product: "Contained product" #?
-        variety: "variety"
-      campaign: #?
-      cash:  #?
-        key: "BBAN key" #?
-        mode: "Mode" #?
-        number: "Bank account number" #?
-      company:  #?
-        locked: "Locked" #?
       deposit:
         amount: "Amount"
       document:
@@ -49,12 +31,6 @@ eng:
       entity:
         active: "Active"
         origin: "First meeting location"
-      entity_event:  #?
-        duration: "Duration (in minutes)" #?
-        location: "Location" #?
-        responsible: "Responsible" #?
-      entity_event_nature:  #?
-        duration: "Duration by default (in min.)" #?
       equipment:
         born_at: "putting into service at"
         # content_indicator: "Indicateur de mesure du réservoir"
@@ -79,18 +55,10 @@ eng:
         amount: "Amount"
         received: "Received"
         to_bank_on: "To bank on"
-      incoming_payment_use:  #?
-        amount: "Used amount" #?
-        payment: "Incoming payment" #?
-        payment_way: "Mode of payment" #?
       inventory_item:
         quantity: "Found quantity"
-      inventory_line:  #?
-        quantity: "Found quantity" #?
       journal_entry_item:
         closed: "Closed"
-      journal_entry_line:  #?
-        closed: "Closed" #?
       land_parcel:
         born_at: "Created at"
         children: "Sub-plots"
@@ -108,9 +76,7 @@ eng:
         # dead_at: "Date de consommation/destruction"
       meeting:
         duration: "Duration (in minutes)"
-        location: "Location" #?
         place: "Place"
-        responsible: "Responsible" #?
       meeting_nature:
         duration: "Duration by default (in min.)"
       operation:
@@ -130,7 +96,6 @@ eng:
         born_at: "Created at"
         nature: "Nature"
         # reproductor: "Multiplication"
-        variety: "Variety"
       price:  #?
         category: "People category" #?
         entity: "Supplier" #?

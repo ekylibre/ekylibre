@@ -38,6 +38,9 @@ input[type="color"], input[type="date"], input[type="datetime"], input[type="dat
     @include box-shadow(0 0 round($fs-normal*0.6) rgba($base-color, 0.6));
   }
 }
+input[type="number"] {
+  @include text-align(right);
+}
 textarea {
   min-height: 3em;
 }

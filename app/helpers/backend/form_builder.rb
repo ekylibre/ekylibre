@@ -127,6 +127,78 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
     fields_for(*(args << options), &block)
   end
 
+
+
+  # Build a frame for all product _forms
+  def product_form_frame(&block)
+    html = "".html_safe
+
+    variant = @object.variant || ProductNatureVariant.where(:id => @template.params[:variant_id].to_i).first
+
+    if variant
+      
+      # Add product type selector
+      html << @template.field_set(:nature) do
+        # Add variant selector
+        fs  = self.input(:variant_id, :value => variant.id, :as => :hidden)
+        # Add variety selector
+        varieties = Nomen::Varieties.all(variant.variety)
+        @object.variety ||= varieties.first
+        fs << self.input(:variety, :collection => varieties)
+        # Add custom fields
+        fs << self.custom_fields
+        fs
+      end
+      
+      
+      # Add form body
+      if block_given?
+        html << @template.capture(&block) 
+      else
+        html << @template.render(:partial => "backend/shared/product_form")
+      end
+      
+      # Add first indicators
+      if @object.new_record?
+        html << @template.field_set(:indicators) do
+          fs = "".html_safe
+          for indicator in variant.indicators
+            datum = @object.indicator_data.new(:indicator => indicator.name)
+            fs << self.backend_fields_for(indicator.name, datum) do |indfi|
+              fsi = "".html_safe
+              if indicator.datatype == :measure
+                datum.measure_value_unit = indicator.unit
+                fsi << indfi.input("#{indicator.datatype}_value_value", :wrapper => :append, :value => 0, :class => :inline, :label => indicator.human_name) do
+                  m  = indfi.number_field("#{indicator.datatype}_value_value", :value => 0, :label => indicator.human_name)
+                  m << indfi.input_field("#{indicator.datatype}_value_unit", :label => indicator.human_name, :collection => Measure.siblings(indicator.unit))
+                  m
+                end
+              elsif indicator.datatype == :choice
+                fsi << indfi.input("#{indicator.datatype}_value", :collection => indicator.choices, :label => indicator.human_name)
+              else
+                fsi << indfi.input("#{indicator.datatype}_value", :label => indicator.human_name)
+              end
+              fsi
+            end
+          end
+          fs
+        end
+      end
+      
+    else
+
+      for variant in ProductNatureVariant.of_variety(@object.class.name.underscore)
+        html << @template.link_to(variant.name, {:variant_id => variant.id}, :class => "btn")
+      end
+
+    end
+
+    return html
+  end
+
+
+
+
   protected
 
   def clean_targets(targets)
