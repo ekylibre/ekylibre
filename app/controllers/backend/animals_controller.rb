@@ -24,7 +24,7 @@ class Backend::AnimalsController < BackendController
 
   unroll_all
 
-  list(:conditions => [" external = false"]) do |t|
+  list(:conditions => {:external => false}) do |t|
     t.column :work_number, :url => true
     t.column :name, :url => true
     t.column :born_at
