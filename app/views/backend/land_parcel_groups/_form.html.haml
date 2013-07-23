@@ -1,11 +1,11 @@
-=field_set(:major => true) do
-  =f.referenced_association :variant, :source => :land_parcel_groups
-  =f.input :name
-  =f.input :work_number
-  =f.input :description, :field => :text
-  =f.input :born_at
-
-=field_set(:details) do
-  =f.input :active
-  =f.input :external
-  =f.referenced_association :owner
+=product_form_frame do
+  =field_set do
+    =f.input :name
+    =f.input :work_number
+    =f.input :description, :field => :text
+    =f.input :born_at
+  
+  =field_set(:details) do
+    =f.input :active
+    =f.input :external
+    =f.referenced_association :owner

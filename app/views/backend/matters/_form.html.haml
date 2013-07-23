@@ -1,20 +1,3 @@
-=field_set do # partie info general de l entité animal
-  =f.referenced_association :variant, :source => :matters
-  =f.input :name # affiche le champ name de l entité animal avec une infos derriere
-  =f.input :reproductor
-  =f.input :work_number
-  =f.custom_fields
-
-=field_set(:movement) do # partie entrée sortie de l entité animal
-  =f.input :born_at, as: :date
-  =f.input :dead_at, as: :date, disabled: true, include_blank: true, default_value: :blank
-
-=field_set(:document) do
-  =f.input :picture
-  =image_tag(@matter.picture.url(:thumb))
-  =f.input :description # affiche le champ description formaté en zone de texte
-
-
-
+=product_form_frame
 
   

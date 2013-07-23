@@ -1,24 +1,22 @@
-=field_set do # partie info general de l entité animal
-  =f.input :name # affiche le champ name de l entité animal avec une infos derriere
-  =f.referenced_association :variant ,:source => :equipments# affiche un menu deroulant construit par la relation group_id vers le champ name de l entité animal_group
-  =f.input :variety
-  =f.input :active, :hide => :dead_at
-  =f.input :external, :show => :entity
-  =f.input :reservoir#, :show => :reservoir
-  =f.input :description, :field => :text # affiche le champ description
-  =f.input :picture, :multiple => true
-  =image_tag(@equipment.picture.url(:thumb)) if @equipment.picture.file?
-  =f.custom_fields
-
-=field_set(:delay) do # partie info general de l entité animal
-  =f.input :born_at
-  =f.input :dead_at
-
-=field_set(:entity) do
-  =f.referenced_association :owner
-
--#=field_set(:reservoir) do
-  =f.referenced_association :content_nature,:source => :stockables
-  =f.input :content_indicator
-  =f.input :content_indicator_unit
-  =f.input :content_maximal_quantity
+=product_form_frame do
+  =field_set do # partie info general de l entité animal
+    =f.input :name # affiche le champ name de l entité animal avec une infos derriere
+    =f.input :active, :hide => :dead_at
+    =f.input :external, :show => :entity
+    =f.input :reservoir#, :show => :reservoir
+    =f.input :description, :field => :text # affiche le champ description
+    =f.input :picture, :multiple => true
+    =image_tag(@equipment.picture.url(:thumb)) if @equipment.picture.file?
+  
+  =field_set(:delay) do # partie info general de l entité animal
+    =f.input :born_at
+    =f.input :dead_at
+  
+  =field_set(:entity) do
+    =f.referenced_association :owner
+  
+  -#=field_set(:reservoir) do
+    =f.referenced_association :content_nature,:source => :stockables
+    =f.input :content_indicator
+    =f.input :content_indicator_unit
+    =f.input :content_maximal_quantity

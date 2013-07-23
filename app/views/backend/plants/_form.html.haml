@@ -1,15 +1,13 @@
-=field_set do
-  =f.referenced_association :variant, :source => :plants
-  =f.input :variety
-  =f.input :name
-  =f.custom_fields
-
-=field_set(:identification) do
-  =f.input :work_number
-  =f.input :born_at, :as => :date
-  =f.referenced_association :owner, :selected => Entity.of_company
-
-=field_set(:document) do
-  =f.input :picture
-  =image_tag(@plant.picture.url(:thumb))
-  =f.input :description
+=product_form_frame do 
+  =field_set do
+    =f.input :name
+  
+  =field_set(:identification) do
+    =f.input :work_number
+    =f.input :born_at, :as => :date
+    =f.referenced_association :owner, :selected => Entity.of_company
+  
+  =field_set(:document) do
+    =f.input :picture
+    =image_tag(@plant.picture.url(:thumb))
+    =f.input :description

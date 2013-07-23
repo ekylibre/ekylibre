@@ -1,16 +1,10 @@
-=field_set do
-  =f.referenced_association :variant
-  =f.input :variety
-  =f.input :name
-  =f.input :born_at
-  =f.input :work_number
-  =f.input :number
-  =f.input :description
-  =f.input :external
-  =f.input :picture
-  =image_tag(@product.picture.url(:thumb))
-  =f.custom_fields
-
--if @product.new_record?
-  =field_set(:indicator) do
-    =f.nested_association(:indicator_data)
+=product_form_frame do
+  =field_set do
+    =f.input :name
+    =f.input :born_at
+    =f.input :work_number
+    =f.input :number
+    =f.input :description
+    =f.input :external
+    =f.input :picture
+    =image_tag(@product.picture.url(:thumb))
