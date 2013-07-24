@@ -404,7 +404,11 @@ eng:
       index: "Preferences"
       new: "New preferences"
       show: "Preference\_: %{name}"
-    backend/prescriptions: #?
+    backend/prescriptions:
+      # edit: "Modifier la prescription\_: %{reference_number}"
+      # index: "Prescriptions"
+      # new: "Nouvelle prescription"
+      # show: "Prescription\_: %{reference_number}"
     backend/prices:  #?
       edit: "Edit price %{pretax_amount}/%{amount} of %{product}" #?
       export: "Export prices" #?

@@ -1335,7 +1335,7 @@ $form-actions-height: 48px;
   text-align: left;
   background: white;
   border: $menu-border;
-  @include box-shadow(0 0 round($bar-size * 0.4) rgba(black, 0.1) inset); 
+  @include box-shadow(0 0 round($bar-size * 0.4) rgba(black, 0.1) inset);
   @include border-radius($default-border-radius);
   .ui-slider-handle {
     position: absolute;
@@ -1346,7 +1346,7 @@ $form-actions-height: 48px;
     border: $menu-border;
     @include border-radius(1000px);
     @include background(linear-gradient(top, #FFF, #CCC));
-    @include box-shadow(1px 1px 1px rgba(black, 0.5), 1px 1px 2px rgba(black, 0.07) inset); 
+    @include box-shadow(1px 1px 1px rgba(black, 0.5), 1px 1px 2px rgba(black, 0.07) inset);
   }
   .ui-slider-range {
     position: absolute;

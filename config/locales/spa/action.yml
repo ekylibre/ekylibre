@@ -423,14 +423,18 @@ spa:
       # edit: "Modifier la culture\_: %{name}"
       # index: "Cutures"
       # new: "Nouvelle culture"
-      # show: "Culture\_: %{name} "
+      # show: "Culture\_: %{name}"
     backend/posologies: #?
     backend/preferences:
       # edit: "Modifier les préférences"
       # index: "Préférences"
       # new: "Nouvelle préférence"
       # show: "Préférence"
-    backend/prescriptions: #?
+    backend/prescriptions:
+      # edit: "Modifier la prescription\_: %{reference_number}"
+      # index: "Prescriptions"
+      # new: "Nouvelle prescription"
+      # show: "Prescription\_: %{reference_number}"
     backend/prices: #?
     backend/procedure_natures: #?
     backend/procedures:

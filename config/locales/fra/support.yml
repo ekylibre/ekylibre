@@ -105,7 +105,6 @@ fra:
   time:
     am: "am"
     formats:
-      db: "%Y-%m-%d %H:%M"
       default: "%d/%m/%Y %H:%M"
       long: "%B %d, %Y %H:%M"
       short: "%d %b %H:%M"

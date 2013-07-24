@@ -970,7 +970,7 @@
         <page to="backend/building_divisions#show"/>
         <page to="backend/building_divisions#update"/>
       </item>
-<!--      <item name="land_parcel_groups">
+      <!--      <item name="land_parcel_groups">
         <page to="backend/land_parcel_groups#index"/>
         <page to="backend/land_parcel_groups#create"/>
         <page to="backend/land_parcel_groups#destroy"/>
@@ -1060,15 +1060,12 @@
       <item name="expense_chart_cells">
         <page to="backend/cells/expense_chart_cells#show"/>
       </item>
-      <item name="last_events_cells">
-        <page to="backend/cells/last_events_cells#list"/>
-        <page to="backend/cells/last_events_cells#show"/>
-      </item>
       <item name="last_milk_result_cells">
         <page to="backend/cells/last_milk_result_cells#list"/>
         <page to="backend/cells/last_milk_result_cells#show"/>
       </item>
       <item name="last_procedures_cells">
+        <page to="backend/cells/last_procedures_cells#list"/>
         <page to="backend/cells/last_procedures_cells#show"/>
       </item>
       <item name="last_products_cells">
@@ -1134,6 +1131,16 @@
       </item>
       <item name="kujakus">
         <page to="backend/kujakus#toggle"/>
+      </item>
+      <item name="land_parcel_groups">
+        <page to="backend/land_parcel_groups#index"/>
+        <page to="backend/land_parcel_groups#create"/>
+        <page to="backend/land_parcel_groups#destroy"/>
+        <page to="backend/land_parcel_groups#edit"/>
+        <page to="backend/land_parcel_groups#list"/>
+        <page to="backend/land_parcel_groups#new"/>
+        <page to="backend/land_parcel_groups#show"/>
+        <page to="backend/land_parcel_groups#update"/>
       </item>
       <item name="logs">
         <page to="backend/logs#index"/>

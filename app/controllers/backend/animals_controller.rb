@@ -143,7 +143,7 @@ class Backend::AnimalsController < BackendController
                       milk_min_sale_date = stopped_at + milk_withdrawal_period
                       meat_min_sale_date = stopped_at + meat_withdrawal_period
                       procedure_duration_day = (stopped_at - started_at)/(60*60*24)
-                 
+
                       xml.input(:id => input_variable.id,
                                 :target_identification => procedure.variables.of_role(:target).first.target.identification_number,
                                 :target_name => target.name,
@@ -162,7 +162,7 @@ class Backend::AnimalsController < BackendController
                                 :stopped_at => stopped_at,
                                 :procedure_duration_day => procedure_duration_day
                                 ) do
-               
+
                if procedure.incident.id > 0
                       xml.incident(:id => procedure.incident.id,
                                    :name => procedure.incident.name,
