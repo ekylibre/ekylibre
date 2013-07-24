@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <modules>
-  <module name="relationship" icon="group">
-    <group name="people" icon="group">
+  <module name="relationship" icon="people">
+    <group name="people">
       <item name="entities">
         <page to="backend/entities#index"/>
         <page to="backend/entities#create"/>
@@ -522,29 +522,6 @@
         <page to="backend/cultivable_land_parcels#show"/>
         <page to="backend/cultivable_land_parcels#update"/>
       </item>
-      <item name="land_parcel_clusters">
-        <page to="backend/land_parcel_clusters#index"/>
-        <page to="backend/land_parcel_clusters#create"/>
-        <page to="backend/land_parcel_clusters#destroy"/>
-        <page to="backend/land_parcel_clusters#edit"/>
-        <page to="backend/land_parcel_clusters#list"/>
-        <page to="backend/land_parcel_clusters#new"/>
-        <page to="backend/land_parcel_clusters#show"/>
-        <page to="backend/land_parcel_clusters#update"/>
-      </item>
-      <item name="land_parcels">
-        <page to="backend/land_parcels#index"/>
-        <page to="backend/land_parcels#create"/>
-        <page to="backend/land_parcels#destroy"/>
-        <page to="backend/land_parcels#divide"/>
-        <page to="backend/land_parcels#edit"/>
-        <page to="backend/land_parcels#list"/>
-        <page to="backend/land_parcels#list_operations"/>
-        <page to="backend/land_parcels#merge"/>
-        <page to="backend/land_parcels#new"/>
-        <page to="backend/land_parcels#show"/>
-        <page to="backend/land_parcels#update"/>
-      </item>
     </group>
     <group name="tools" icon="tractor">
       <item name="equipments">
@@ -973,7 +950,7 @@
         <page to="backend/building_divisions#show"/>
         <page to="backend/building_divisions#update"/>
       </item>
-      <item name="land_parcel_groups">
+<!--      <item name="land_parcel_groups">
         <page to="backend/land_parcel_groups#index"/>
         <page to="backend/land_parcel_groups#create"/>
         <page to="backend/land_parcel_groups#destroy"/>
@@ -982,6 +959,30 @@
         <page to="backend/land_parcel_groups#new"/>
         <page to="backend/land_parcel_groups#show"/>
         <page to="backend/land_parcel_groups#update"/>
+      </item>
+-->
+      <item name="land_parcel_clusters">
+        <page to="backend/land_parcel_clusters#index"/>
+        <page to="backend/land_parcel_clusters#create"/>
+        <page to="backend/land_parcel_clusters#destroy"/>
+        <page to="backend/land_parcel_clusters#edit"/>
+        <page to="backend/land_parcel_clusters#list"/>
+        <page to="backend/land_parcel_clusters#new"/>
+        <page to="backend/land_parcel_clusters#show"/>
+        <page to="backend/land_parcel_clusters#update"/>
+      </item>
+      <item name="land_parcels">
+        <page to="backend/land_parcels#index"/>
+        <page to="backend/land_parcels#create"/>
+        <page to="backend/land_parcels#destroy"/>
+        <page to="backend/land_parcels#divide"/>
+        <page to="backend/land_parcels#edit"/>
+        <page to="backend/land_parcels#list"/>
+        <page to="backend/land_parcels#list_operations"/>
+        <page to="backend/land_parcels#merge"/>
+        <page to="backend/land_parcels#new"/>
+        <page to="backend/land_parcels#show"/>
+        <page to="backend/land_parcels#update"/>
       </item>
       <item name="settlements">
         <page to="backend/settlements#index"/>
