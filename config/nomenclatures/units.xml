@@ -51,6 +51,7 @@
       <item name="second" dimension="time" symbol="s"/>
       <item name="minute" dimension="time" symbol="min" coefficient="60"/>
       <item name="hour"   dimension="time" symbol="h" coefficient="3600"/>
+      <item name="day"   dimension="time" symbol="d" coefficient="86400"/>
 
       <!-- electric_current -->
       <item name="ampere" dimension="electric_current" symbol="A"/>

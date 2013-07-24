@@ -486,6 +486,16 @@
         <page to="backend/animal_medicines#show"/>
         <page to="backend/animal_medicines#update"/>
       </item>
+      <item name="prescriptions">
+        <page to="backend/prescriptions#index"/>
+        <page to="backend/prescriptions#create"/>
+        <page to="backend/prescriptions#destroy"/>
+        <page to="backend/prescriptions#edit"/>
+        <page to="backend/prescriptions#list"/>
+        <page to="backend/prescriptions#new"/>
+        <page to="backend/prescriptions#show"/>
+        <page to="backend/prescriptions#update"/>
+      </item>
     </group>
     <group name="plant_productions" icon="wheat">
       <item name="plants">
@@ -930,6 +940,16 @@
         <page to="backend/campaigns#show"/>
         <page to="backend/campaigns#update"/>
       </item>
+      <item name="workers">
+        <page to="backend/workers#index"/>
+        <page to="backend/workers#create"/>
+        <page to="backend/workers#destroy"/>
+        <page to="backend/workers#edit"/>
+        <page to="backend/workers#list"/>
+        <page to="backend/workers#new"/>
+        <page to="backend/workers#show"/>
+        <page to="backend/workers#update"/>
+      </item>
       <item name="buildings">
         <page to="backend/buildings#index"/>
         <page to="backend/buildings#create"/>
@@ -1040,12 +1060,15 @@
       <item name="expense_chart_cells">
         <page to="backend/cells/expense_chart_cells#show"/>
       </item>
+      <item name="last_events_cells">
+        <page to="backend/cells/last_events_cells#list"/>
+        <page to="backend/cells/last_events_cells#show"/>
+      </item>
       <item name="last_milk_result_cells">
         <page to="backend/cells/last_milk_result_cells#list"/>
         <page to="backend/cells/last_milk_result_cells#show"/>
       </item>
       <item name="last_procedures_cells">
-        <page to="backend/cells/last_procedures_cells#list"/>
         <page to="backend/cells/last_procedures_cells#show"/>
       </item>
       <item name="last_products_cells">

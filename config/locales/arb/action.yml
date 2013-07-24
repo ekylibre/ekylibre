@@ -708,6 +708,7 @@ arb:
       statistics: "احصائياتي" #?
       # unlock: "Déverrouiller l’utilisateur"
     backend/vegetals: #?
+    backend/workers: #?
     backend/working_sets: #?
     public:
       # index: "Accueil"

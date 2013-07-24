@@ -658,6 +658,13 @@ Ekylibre::Application.routes.draw do
         unroll_all
       end
     end
+
+    resources :prescriptions do
+      collection do
+        get :list
+        unroll_all
+      end
+    end
     # resources :procedure_natures do
     #   collection do
     #     get :list
@@ -982,6 +989,13 @@ Ekylibre::Application.routes.draw do
       member do
         post :lock
         post :unlock
+      end
+    end
+
+    resources :workers do
+      collection do
+        get :list
+        unroll_all
       end
     end
     # resources :working_sets do

@@ -157,7 +157,9 @@ class Entity < Ekylibre::Record::Base
   #]VALIDATORS]
   validates_presence_of :sale_price_listing
   validates_delay_format_of :payment_delay
-
+  
+  alias_attribute :name, :full_name
+  
   acts_as_numbered :number
   accepts_nested_attributes_for :mails,    :reject_if => :all_blank, :allow_destroy => true
   accepts_nested_attributes_for :emails,   :reject_if => :all_blank, :allow_destroy => true

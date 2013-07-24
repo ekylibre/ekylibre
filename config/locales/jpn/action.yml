@@ -378,6 +378,7 @@ jpn:
       # index: "Préférences"
       # new: "Nouvelle préférence"
       # show: "Préférence"
+    backend/prescriptions: #?
     backend/prices: #?
     backend/procedure_natures: #?
     backend/procedures:
@@ -555,6 +556,7 @@ jpn:
       # show: "Utilisateur\_: %{first_name} %{last_name} (%{name})"
       # unlock: "Déverrouiller l’utilisateur"
     backend/vegetals: #?
+    backend/workers: #?
     backend/working_sets: #?
     public:
       # index: "Accueil"

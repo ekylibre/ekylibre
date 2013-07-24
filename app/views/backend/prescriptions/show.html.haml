@@ -1,0 +1,11 @@
+=main_toolbar do |t|
+  -t.edit @prescription
+
+=beehive do |b|
+  -b.cell do
+    =attributes_list(@prescription) do |l|
+      -l.attribute :reference_number
+      -l.attribute :delivered_on
+      -l.attribute :prescriptor
+      -l.attribute :document
+      -l.attribute :description

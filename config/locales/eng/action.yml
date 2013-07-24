@@ -404,6 +404,7 @@ eng:
       index: "Preferences"
       new: "New preferences"
       show: "Preference\_: %{name}"
+    backend/prescriptions: #?
     backend/prices:  #?
       edit: "Edit price %{pretax_amount}/%{amount} of %{product}" #?
       export: "Export prices" #?
@@ -590,6 +591,7 @@ eng:
       new: "Add a new user"
       show: "User: %{first_name} %{last_name} (%{name})"
       unlock: "Unlock user"
+    backend/workers: #?
     public:
       index: "Home"
   controllers:

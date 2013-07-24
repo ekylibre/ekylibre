@@ -76,6 +76,7 @@ class EnhanceOperations < ActiveRecord::Migration
       t.references :provisional_procedure
       t.boolean :provisional, :null => false, :default => false
       t.references :incident
+      t.references :prescription
       t.references :production, :null => false
       t.string :nomen,   :null => false
       t.string :natures, :null => false
@@ -93,6 +94,7 @@ class EnhanceOperations < ActiveRecord::Migration
     add_index :procedures, :production_id
     add_index :procedures, :provisional_procedure_id
     add_index :procedures, :incident_id
+    add_index :procedures, :prescription_id
     add_index :procedures, :nomen
 
     create_table :procedure_variables do |t|

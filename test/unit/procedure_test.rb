@@ -27,6 +27,7 @@
 #  lock_version             :integer          default(0), not null
 #  natures                  :string(255)      not null
 #  nomen                    :string(255)      not null
+#  prescription_id          :integer
 #  production_id            :integer          not null
 #  provisional              :boolean          not null
 #  provisional_procedure_id :integer

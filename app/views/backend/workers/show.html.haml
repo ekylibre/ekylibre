@@ -1,0 +1,7 @@
+=main_toolbar do |t|
+  -t.edit @worker
+
+=beehive do |b|
+  -b.cell do
+    =attributes_list(@worker) do |l|
+      -l.attribute :name

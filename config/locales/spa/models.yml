@@ -655,6 +655,7 @@ spa:
     # district: "Zone administrative"
     # districts: "Zones administratives"
     division: "X" #?
+    # document: "Document"
     # document_templates: "Modèles de document"
     # documents: "Documents"
     # downpayment: "Acompte"

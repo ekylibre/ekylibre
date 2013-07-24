@@ -784,6 +784,7 @@ eng:
     district: "District"
     districts: "Districts"
     division: "X" #?
+    # document: "Document"
     document_templates: "Document templates"
     documents: "Documents"
     downpayment: "Downpayment"
