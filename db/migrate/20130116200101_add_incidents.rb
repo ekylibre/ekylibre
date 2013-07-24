@@ -18,6 +18,19 @@ class AddIncidents < ActiveRecord::Migration
     add_index :incidents, :nature
     add_index :incidents, :name
 
+    create_table :prescriptions do |t|
+       t.references :document
+       t.references :prescriptor
+       t.string     :reference_number
+       t.date       :delivered_on
+       t.text       :description
+       t.stamps
+    end
+    add_stamps_indexes :prescriptions
+    add_index :prescriptions, :reference_number
+    add_index :prescriptions, :document_id
+    add_index :prescriptions, :prescriptor_id
+
     # add_column :procedures, :incident_id, :integer
     # add_index :procedures, :incident_id
   end

@@ -1238,6 +1238,7 @@ arb:
     district_id: "المنطقة الادارية" #?
     districts: "المناطق الادارية"
     division: "X الوضع" #?
+    # document: "Document"
     document_templates: "نماذج الوثائق"
     documents: "الوثائق"
     downpayment: "القسط"

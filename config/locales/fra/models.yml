@@ -381,6 +381,7 @@ fra:
       plant: "Plante"
       # plant_medicine: "Plant medicine"
       preference: "Préférence"
+      # prescription: "Prescription"
       procedure: "Procédure"
       # procedure_variable: "Procedure variable"
       product: "Produits"
@@ -425,6 +426,7 @@ fra:
       transport: "Transport"
       unit: "" #?
       user: "Utilisateur"
+      # worker: "Worker"
       zone: "Zone"
       # zone_property_title: "Zone property title"
   attributes:
@@ -620,7 +622,7 @@ fra:
     deleted_at: "Supprimé le"
     deliverable: "Livrable" #?
     delivered: "Livré"
-    delivered_on: "Reçu le" #?
+    delivered_on: "Reçu le"
     deliveries: "Livraisons"
     deliveries_conditions: "Conditions de Livraison"
     delivery: "Livraison"
@@ -657,7 +659,7 @@ fra:
     discount_percentage: "Pourcentage d’escompte"
     district: "Zone administrative"
     districts: "Zones administratives" #?
-    # document: "Document"
+    document: "Document"
     # document_archives: "Document archives"
     document_templates: "Modèles de document" #?
     documents: "Documents"
@@ -963,6 +965,8 @@ fra:
     position: "Position"
     postcode: "Code postal"
     preferences: "Préférences"
+    # prescription: "Prescription"
+    # prescriptor: "Prescriptor"
     pretax_amount: "Montant HT"
     # pretax_amount_calculation_formula: "Pretax amount calculation formula"
     pretax_amount_generation: "Pretax amount generation"

@@ -1359,6 +1359,27 @@ ActiveRecord::Schema.define(:version => 20130410143823) do
   add_index "preferences", ["updater_id"], :name => "index_parameters_on_updater_id"
   add_index "preferences", ["user_id"], :name => "index_parameters_on_user_id"
 
+  create_table "prescriptions", :force => true do |t|
+    t.integer  "document_id"
+    t.integer  "prescriptor_id"
+    t.string   "reference_number"
+    t.date     "delivered_on"
+    t.text     "description"
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version",     :default => 0, :null => false
+  end
+
+  add_index "prescriptions", ["created_at"], :name => "index_prescriptions_on_created_at"
+  add_index "prescriptions", ["creator_id"], :name => "index_prescriptions_on_creator_id"
+  add_index "prescriptions", ["document_id"], :name => "index_prescriptions_on_document_id"
+  add_index "prescriptions", ["prescriptor_id"], :name => "index_prescriptions_on_prescriptor_id"
+  add_index "prescriptions", ["reference_number"], :name => "index_prescriptions_on_reference_number"
+  add_index "prescriptions", ["updated_at"], :name => "index_prescriptions_on_updated_at"
+  add_index "prescriptions", ["updater_id"], :name => "index_prescriptions_on_updater_id"
+
   create_table "procedure_variables", :force => true do |t|
     t.integer  "procedure_id",                                                   :null => false
     t.integer  "target_id",                                                      :null => false
@@ -1384,6 +1405,7 @@ ActiveRecord::Schema.define(:version => 20130410143823) do
     t.integer  "provisional_procedure_id"
     t.boolean  "provisional",              :default => false,    :null => false
     t.integer  "incident_id"
+    t.integer  "prescription_id"
     t.integer  "production_id",                                  :null => false
     t.string   "nomen",                                          :null => false
     t.string   "natures",                                        :null => false
@@ -1399,6 +1421,7 @@ ActiveRecord::Schema.define(:version => 20130410143823) do
   add_index "procedures", ["creator_id"], :name => "index_procedures_on_creator_id"
   add_index "procedures", ["incident_id"], :name => "index_procedures_on_incident_id"
   add_index "procedures", ["nomen"], :name => "index_procedures_on_nomen"
+  add_index "procedures", ["prescription_id"], :name => "index_procedures_on_prescription_id"
   add_index "procedures", ["production_id"], :name => "index_procedures_on_production_id"
   add_index "procedures", ["provisional_procedure_id"], :name => "index_procedures_on_provisional_procedure_id"
   add_index "procedures", ["updated_at"], :name => "index_procedures_on_updated_at"

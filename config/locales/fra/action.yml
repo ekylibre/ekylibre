@@ -100,6 +100,8 @@ fra:
       # show: "Show backend/cells/demo pie cell"
     backend/cells/expense_chart_cells:
       # show: "Show backend/cells/expense chart cell"
+    backend/cells/last_events_cells:
+      # show: "Show backend/cells/last events cell"
     backend/cells/last_milk_result_cells:
       # show: "Show backend/cells/last milk result cell"
     backend/cells/last_procedures_cells:
@@ -394,12 +396,17 @@ fra:
       index: "Cutures"
       new: "Nouvelle culture"
       # picture: "Picture backend/plant"
-      show: "Culture\_: %{name} "
+      show: "Culture\_: %{name}"
     backend/preferences:
       edit: "Modifier les préférences"
       index: "Préférences"
       new: "Nouvelle préférence"
       show: "Préférence"
+    backend/prescriptions:
+      edit: "Modifier la prescription\_: %{reference_number}"
+      index: "Prescriptions"
+      new: "Nouvelle prescription"
+      show: "Prescription\_: %{reference_number}"
     backend/procedures:
       edit: "Modifier la procédure\_: %{nomen}"
       index: "Procédures"
@@ -598,6 +605,11 @@ fra:
       new: "Création d’un nouvel utilisateur"
       show: "Utilisateur\_: %{first_name} %{last_name} (%{name})"
       unlock: "Déverrouiller l’utilisateur"
+    backend/workers:
+      # edit: "Edit backend/worker"
+      # index: "Index backend/worker"
+      # new: "New backend/worker"
+      # show: "Show backend/worker"
     public:
       index: "Accueil"
   controllers:
@@ -626,6 +638,7 @@ fra:
     # backend/cells/demo_map_cells: "Backend/cells/demo map cells"
     # backend/cells/demo_pie_cells: "Backend/cells/demo pie cells"
     # backend/cells/expense_chart_cells: "Backend/cells/expense chart cells"
+    # backend/cells/last_events_cells: "Backend/cells/last events cells"
     # backend/cells/last_milk_result_cells: "Backend/cells/last milk result cells"
     # backend/cells/last_procedures_cells: "Backend/cells/last procedures cells"
     # backend/cells/last_products_cells: "Backend/cells/last products cells"
@@ -697,6 +710,7 @@ fra:
     # backend/plant_medicines: "Backend/plant medicines"
     # backend/plants: "Backend/plants"
     backend/preferences: "Préférences"
+    # backend/prescriptions: "Backend/prescriptions"
     # backend/procedures: "Backend/procedures"
     backend/product_groups: "Lot de produits"
     # backend/product_indicator_data: "Backend/product indicator data"
@@ -735,6 +749,7 @@ fra:
     backend/transfers: "Transferts"
     backend/transports: "Transports"
     backend/users: "Utilisateurs"
+    # backend/workers: "Backend/workers"
     # backend: "Backend"
     # base: "Base"
     # public: "Public"
