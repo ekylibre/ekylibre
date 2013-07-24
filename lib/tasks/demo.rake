@@ -1343,8 +1343,8 @@ namespace :db do
                                       :production_id => animal_production.id,
                                       :prescription_id => prescription.id
                                       )
-      # plant = Plant.find_by_work_number("SOLE_BLE-2013-PC23")
-      # Create some procedure variable for fertilization
+      
+      # Create some procedure variable
       for attributes in [{:target_id => worker.id, :role => "worker",
                            :indicator => "usage_duration",
                            :measure_quantity => "0.50", :measure_unit => "hour"},
@@ -1358,7 +1358,7 @@ namespace :db do
         ProcedureVariable.create!({:procedure_id => procedure.id}.merge(attributes) )
       end
 
-      # Create some operation variable for fertilization
+      # Create some operation variable
       for attributes in [{:started_at => (Time.now - 2.days), :stopped_at => Time.now}]
         procedure.operations.create!({:procedure_id => procedure.id}.merge(attributes) )
       end
