@@ -132,17 +132,8 @@ class Backend::AnimalsController < BackendController
         #raise groups.inspect
           xml.interventions(:campaign => campaign.name, :entity_name => entity.full_name) do
             for procedure in procedures
+              xml.intervention(:id => procedure.id, :name => procedure.name) do
               target = procedure.variables.of_role(:target).first.target
-              xml.intervention(:id => procedure.id,
-                               :name => procedure.name,
-                               :created_at => procedure.created_at,
-                               :started_at => procedure.started_at,
-                               :stopped_at => procedure.stopped_at,
-                               :target_identification => procedure.variables.of_role(:target).first.target.identification_number,
-                               :target_name => target.name,
-                               :target_class_name => target.class.name,
-                               :worker_name => procedure.variables.of_role(:worker).first.target.name
-                               ) do
                for input_variable in procedure.variables.of_role(:input)
                       # determine min sale date
                       started_at = procedure.started_at
@@ -151,8 +142,14 @@ class Backend::AnimalsController < BackendController
                       milk_withdrawal_period = input_variable.target.milk_withdrawal_period.to_f
                       milk_min_sale_date = stopped_at + milk_withdrawal_period
                       meat_min_sale_date = stopped_at + meat_withdrawal_period
+                      procedure_duration_day = (stopped_at - started_at)/(60*60*24)
                  
-                      xml.input(:name => input_variable.target.name,
+                      xml.input(:id => input_variable.id,
+                                :target_identification => procedure.variables.of_role(:target).first.target.identification_number,
+                                :target_name => target.name,
+                                :target_class_name => target.class.name,
+                                :worker_name => procedure.variables.of_role(:worker).first.target.name,
+                                :name => input_variable.target.name,
                                 :nature => input_variable.target.nature.name,
                                 :variety => input_variable.target.variety,
                                 :quantity => input_variable.measure_quantity,
@@ -162,9 +159,10 @@ class Backend::AnimalsController < BackendController
                                 :milk_min_sale_date => milk_min_sale_date,
                                 :meat_min_sale_date => meat_min_sale_date,
                                 :started_at => started_at,
-                                :stopped_at => stopped_at
-                                )
-               end
+                                :stopped_at => stopped_at,
+                                :procedure_duration_day => procedure_duration_day
+                                ) do
+               
                if procedure.incident.id > 0
                       xml.incident(:id => procedure.incident.id,
                                    :name => procedure.incident.name,
@@ -179,11 +177,13 @@ class Backend::AnimalsController < BackendController
                                        :prescriptor => procedure.prescription.prescriptor.name
                                        )
                end
+               end
+             end
+             end
              end
            end
          end
-      end
-      @animal_sanitary_list = builder.to_xml
+     @animal_sanitary_list = builder.to_xml
         respond_to do |format|
           format.xml { render :text => @animal_sanitary_list}
       end
