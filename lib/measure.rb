@@ -93,10 +93,10 @@ class ::Numeric
          code << "end\n"
          code
        end)
-       
+
   def in(unit)
     Measure.new(self, unit.to_sym)
   end
-  
+
 end
 

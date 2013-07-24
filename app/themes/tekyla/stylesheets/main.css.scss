@@ -41,6 +41,17 @@ input[type="color"], input[type="date"], input[type="datetime"], input[type="dat
 input[type="number"] {
   @include text-align(right);
 }
+input[type="date"], input[type="datetime"] {
+  @include text-align(center);
+}
+input[type="date"] {
+  width: 12ex;
+}
+input[type="datetime"] {
+  width: 20ex;
+}
+
+
 textarea {
   min-height: 3em;
 }
@@ -1166,6 +1177,9 @@ $form-actions-height: 48px;
 }
 
 
+
+
+
 .ui-dialog {
   .ui-dialog-content {
     & > form {
@@ -1312,6 +1326,81 @@ $form-actions-height: 48px;
 }
 
 
+.ui-slider {
+  $handle-size: 2 * round(1.2 * $fs-normal / 2);
+  $bar-size: 2 * round($default-gap * 0.6 / 2);
+  $bar-margin: round(1.7*($handle-size - $bar-size - 1px)/2);
+  margin: $bar-margin;
+  position: relative;
+  text-align: left;
+  background: white;
+  border: $menu-border;
+  @include box-shadow(0 0 round($bar-size * 0.4) rgba(black, 0.1) inset);
+  @include border-radius($default-border-radius);
+  .ui-slider-handle {
+    position: absolute;
+    z-index: 2;
+    width:  $handle-size;
+    height: $handle-size;
+    cursor: default;
+    border: $menu-border;
+    @include border-radius(1000px);
+    @include background(linear-gradient(top, #FFF, #CCC));
+    @include box-shadow(1px 1px 1px rgba(black, 0.5), 1px 1px 2px rgba(black, 0.07) inset);
+  }
+  .ui-slider-range {
+    position: absolute;
+    z-index: 1;
+    font-size: .7em;
+    display: block;
+    border: 0;
+    background-position: 0 0;
+  }
+  /* For IE8 - See #6727 */
+  &.ui-state-disabled  {
+    .ui-slider-handle, .ui-slider-range {
+      filter: inherit;
+    }
+  }
+
+  &.ui-slider-horizontal {
+    height: $bar-size;
+    .ui-slider-handle {
+      top: -($handle-size - $bar-size)/2;
+      margin-left: -$handle-size/2;
+    }
+    .ui-slider-range {
+      top: 0;
+      height: 100%;
+    }
+    .ui-slider-range-min {
+      left: 0;
+    }
+    .ui-slider-range-max {
+      right: 0;
+    }
+  }
+  &.ui-slider-vertical {
+    width: $bar-size;
+    height: 100px;
+    .ui-slider-handle {
+      left: -.3em;
+      margin-left: 0;
+      margin-bottom: -.6em;
+    }
+    .ui-slider-range {
+      left: 0;
+      width: 100%;
+    }
+    .ui-slider-range-min {
+      bottom: 0;
+    }
+    .ui-slider-range-max {
+      top: 0;
+    }
+  }
+}
+
 .ui-datepicker {
   display:none;
   background: $menu-background;
@@ -1387,10 +1476,6 @@ $form-actions-height: 48px;
   }
 }
 
-input[data-date], input[data-datepicker] {
-  @include text-align(center);
-  width: 12ex;
-}
 
 
 

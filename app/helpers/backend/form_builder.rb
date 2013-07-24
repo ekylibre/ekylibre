@@ -255,20 +255,32 @@ class SimpleForm::Inputs::DateTimeInput
     if localized_value = value
       localized_value = I18n.localize(localized_value, :format => format)
     end
-    format = I18n.translate('date.formats.'+format.to_s)
+    # format = I18n.translate("#{input_type == :datetime ? :time : input_type}.formats.#{format}")
+    format = I18n.translate("date.formats.#{format}")
     Formize::DATE_FORMAT_TOKENS.each{|js, rb| format.gsub!(rb, js)}
+    Formize::TIME_FORMAT_TOKENS.each{|js, rb| format.gsub!(rb, js)}
     options = {
-      "data-date" => format,
-      "data-date-locale" => "i18n.iso2".t,
-      "data-date-iso" => value,
-      :value => localized_value,
-      :size => @options.delete(:size) || 10
+      # "data-date" => format,
+      # "data-date-locale" => "i18n.iso2".t,
+      # "data-date-iso" => value,
+      # :value => localized_value,
+      "data-format" => format,
+      :lang => "i18n.iso2".t,
+      :value => value.to_s(:db),
+      'data-human-value' => localized_value,
+      :type => input_type,
+      :size => @options.delete(:size) || (input_type == :date  ? 10 : 16)
     }
     super.merge options
   end
 
+  def label_target
+    super
+  end
+
   def input
     @builder.text_field(attribute_name, input_html_options)
+    # @builder.send("#{input_type}_field", attribute_name, input_html_options)
   end
 
 end

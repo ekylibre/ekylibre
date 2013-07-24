@@ -1309,24 +1309,24 @@ namespace :db do
       animal_medicine_product ||= AnimalMedicine.create!(:name => "acetal", :identification_number => "FR_589698256352", :work_number => "FR_589698256352", :born_at => Time.now, :variant_id => sanitary_product_nature_variant.id, :owner_id => Entity.of_company.id)
       animal_medicine_product.is_measured!(:meat_withdrawal_period, 5.in_day, :at => Time.now)
       animal_medicine_product.is_measured!(:milk_withdrawal_period, 5.in_day, :at => Time.now)
-      
+
       # import a document "prescription paper"
       document = Document.create!(:key => "20130724_prescription_001", :name => "prescritpion_001", :nature => "prescription" )
       File.open(Rails.root.join("test", "fixtures", "files", "prescription_1.jpg"),"rb") do |f|
         document.archive(f.read,:jpg)
       end
-      
+
       # create a prescription
       prescription = Prescription.create!(:reference_number => "210000303",
                                           :prescriptor_id => Entity.last.id,
                                           :document_id => document.id,
                                           :delivered_on => "2012-10-24",
-                                          :description => "Lotagen, Cobactan, Rotavec"                                                                                 
+                                          :description => "Lotagen, Cobactan, Rotavec"
                                           )
-      
+
       # select an animal to declare on an incident
       animal = Animal.last
-      
+
       # Add an incident
       incident = animal.incidents.create!(:name => "Mammitte",
                                   :nature => "mammite",
@@ -1335,8 +1335,8 @@ namespace :db do
                                   :priority => "5",
                                   :gravity => "3"
                                   )
-      
-      
+
+
       # treatment procedure
       procedure = incident.procedures.create!(:natures => "animal_cares",
                                       :nomen =>"animal_treatment",

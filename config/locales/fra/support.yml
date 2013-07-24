@@ -105,7 +105,7 @@ fra:
   time:
     am: "am"
     formats:
-      default: "%d %b. %Y à %H:%M:%S"
+      default: "%d/%m/%Y %H:%M"
       long: "%B %d, %Y %H:%M"
       short: "%d %b %H:%M"
     pm: "pm"
