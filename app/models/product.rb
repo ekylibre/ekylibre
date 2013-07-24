@@ -245,7 +245,7 @@ class Product < Ekylibre::Record::Base
   # if option :interpolate is true, it returns the interpolated value
   # :interpolate and :datum options are incompatible
   def method_missing(method_name, *args)
-    return super unless Nomen::Indicators.all.include?(method_name)
+    return super unless Nomen::Indicators.all.include?(method_name.to_s)
     options = (args[-1].is_a?(Hash) ? args.delete_at(-1) : {})
     measured_at = args.shift || options[:at] || Time.now
     indicator = Nomen::Indicators.items[method_name]
@@ -258,11 +258,11 @@ class Product < Ekylibre::Record::Base
     else
       if datum = self.indicator(indicator.name.to_s, :at => measured_at)
         x = datum.value
-        x.define_single_method(:measured_at) do
+        x.define_singleton_method(:measured_at) do
           measured_at
         end
         product_id = self.id
-        x.define_single_method(:product_id) do
+        x.define_singleton_method(:product_id) do
           product_id
         end
       end

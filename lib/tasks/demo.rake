@@ -317,8 +317,8 @@ namespace :db do
                                  )
           f.close
           # set default indicators
-          animal.is_measured!(:net_weight, 55.45.kilogram, :at => r.born_on.to_datetime)
-          animal.is_measured!(:net_weight, 75.89.kilogram, :at => (r.born_on.to_datetime + 2.months))
+          animal.is_measured!(:net_weight, 55.45.in_kilogram, :at => r.born_on.to_datetime)
+          animal.is_measured!(:net_weight, 75.89.in_kilogram, :at => (r.born_on.to_datetime + 2.months))
           animal.is_measured!(:animal_disease_state, :healthy)
           animal.is_measured!(:animal_disease_state, :sick, :at => (Time.now - 2.days))
           animal.is_measured!(:animal_disease_state, :healthy, :at => (Time.now - 3.days))
@@ -336,10 +336,10 @@ namespace :db do
                                   )
           f.close
           # set default indicators
-          animal.is_measured!(:net_weight, 55.45.kilogram, :at => r.born_on.to_datetime)
-          animal.is_measured!(:net_weight, 75.89.kilogram, :at => (r.born_on.to_datetime + 2.months))
-          animal.is_measured!(:net_weight, 89.56.kilogram, :at => (r.born_on.to_datetime + 4.months))
-          animal.is_measured!(:net_weight, 129.56.kilogram, :at => (r.born_on.to_datetime + 8.months))
+          animal.is_measured!(:net_weight, 55.45.in_kilogram, :at => r.born_on.to_datetime)
+          animal.is_measured!(:net_weight, 75.89.in_kilogram, :at => (r.born_on.to_datetime + 2.months))
+          animal.is_measured!(:net_weight, 89.56.in_kilogram, :at => (r.born_on.to_datetime + 4.months))
+          animal.is_measured!(:net_weight, 129.56.in_kilogram, :at => (r.born_on.to_datetime + 8.months))
           animal.is_measured!(:animal_disease_state, :healthy)
           animal.is_measured!(:animal_disease_state, :sick, :at => (Time.now - 2.days))
           animal.is_measured!(:animal_disease_state, :healthy, :at => (Time.now - 3.days))
@@ -357,11 +357,11 @@ namespace :db do
                                   )
           f.close
           # set default indicators
-          animal.is_measured!(:net_weight, 55.45.kilogram, :at => r.born_on.to_datetime)
-          animal.is_measured!(:net_weight, 75.89.kilogram, :at => (r.born_on.to_datetime + 2.months))
-          animal.is_measured!(:net_weight, 89.56.kilogram, :at => (r.born_on.to_datetime + 4.months))
-          animal.is_measured!(:net_weight, 129.56.kilogram, :at => (r.born_on.to_datetime + 8.months))
-          animal.is_measured!(:net_weight, 189.56.kilogram, :at => (r.born_on.to_datetime + 12.months))
+          animal.is_measured!(:net_weight, 55.45.in_kilogram, :at => r.born_on.to_datetime)
+          animal.is_measured!(:net_weight, 75.89.in_kilogram, :at => (r.born_on.to_datetime + 2.months))
+          animal.is_measured!(:net_weight, 89.56.in_kilogram, :at => (r.born_on.to_datetime + 4.months))
+          animal.is_measured!(:net_weight, 129.56.in_kilogram, :at => (r.born_on.to_datetime + 8.months))
+          animal.is_measured!(:net_weight, 189.56.in_kilogram, :at => (r.born_on.to_datetime + 12.months))
           animal.is_measured!(:animal_disease_state, :healthy)
           animal.is_measured!(:animal_disease_state, :sick, :at => (Time.now - 2.days))
           animal.is_measured!(:animal_disease_state, :healthy, :at => (Time.now - 3.days))
@@ -379,12 +379,12 @@ namespace :db do
                                   )
           f.close
           # set default indicators
-          animal.is_measured!(:net_weight, 55.45.kilogram, :at => r.born_on.to_datetime)
-          animal.is_measured!(:net_weight, 75.89.kilogram, :at => (r.born_on.to_datetime + 2.months))
-          animal.is_measured!(:net_weight, 89.56.kilogram, :at => (r.born_on.to_datetime + 4.months))
-          animal.is_measured!(:net_weight, 129.56.kilogram, :at => (r.born_on.to_datetime + 8.months))
-          animal.is_measured!(:net_weight, 189.56.kilogram, :at => (r.born_on.to_datetime + 12.months))
-          animal.is_measured!(:net_weight, 389.56.kilogram, :at => (r.born_on.to_datetime + 24.months))
+          animal.is_measured!(:net_weight, 55.45.in_kilogram, :at => r.born_on.to_datetime)
+          animal.is_measured!(:net_weight, 75.89.in_kilogram, :at => (r.born_on.to_datetime + 2.months))
+          animal.is_measured!(:net_weight, 89.56.in_kilogram, :at => (r.born_on.to_datetime + 4.months))
+          animal.is_measured!(:net_weight, 129.56.in_kilogram, :at => (r.born_on.to_datetime + 8.months))
+          animal.is_measured!(:net_weight, 189.56.in_kilogram, :at => (r.born_on.to_datetime + 12.months))
+          animal.is_measured!(:net_weight, 389.56.in_kilogram, :at => (r.born_on.to_datetime + 24.months))
           animal.is_measured!(:animal_disease_state, :healthy)
           animal.is_measured!(:animal_disease_state, :sick, :at => (Time.now - 2.days))
           animal.is_measured!(:animal_disease_state, :healthy, :at => (Time.now - 3.days))
@@ -403,12 +403,12 @@ namespace :db do
                                   )
           f.close
           # set default indicators
-          animal.is_measured!(:net_weight, 55.45.kilogram, :at => r.born_on.to_datetime)
-          animal.is_measured!(:net_weight, 75.89.kilogram, :at => (r.born_on.to_datetime + 2.months))
-          animal.is_measured!(:net_weight, 89.56.kilogram, :at => (r.born_on.to_datetime + 4.months))
-          animal.is_measured!(:net_weight, 129.56.kilogram, :at => (r.born_on.to_datetime + 8.months))
-          animal.is_measured!(:net_weight, 189.56.kilogram, :at => (r.born_on.to_datetime + 12.months))
-          animal.is_measured!(:net_weight, 389.56.kilogram, :at => (r.born_on.to_datetime + 24.months))
+          animal.is_measured!(:net_weight, 55.45.in_kilogram, :at => r.born_on.to_datetime)
+          animal.is_measured!(:net_weight, 75.89.in_kilogram, :at => (r.born_on.to_datetime + 2.months))
+          animal.is_measured!(:net_weight, 89.56.in_kilogram, :at => (r.born_on.to_datetime + 4.months))
+          animal.is_measured!(:net_weight, 129.56.in_kilogram, :at => (r.born_on.to_datetime + 8.months))
+          animal.is_measured!(:net_weight, 189.56.in_kilogram, :at => (r.born_on.to_datetime + 12.months))
+          animal.is_measured!(:net_weight, 389.56.in_kilogram, :at => (r.born_on.to_datetime + 24.months))
           animal.is_measured!(:animal_disease_state, :healthy)
           animal.is_measured!(:animal_disease_state, :sick, :at => (Time.now - 2.days))
           animal.is_measured!(:animal_disease_state, :healthy, :at => (Time.now - 3.days))
@@ -443,10 +443,10 @@ namespace :db do
         # case = TAUREAU REPRO
         animal = Animal.create!(:variant_id => cow_trepro.id, :name => r.name, :variety => "bos", :identification_number => r.identification_number, :sex => "male", :reproductor => true, :external => true, :owner_id => Entity.where(:of_company => false).all.sample.id)
         # set default indicators
-        animal.is_measured!(:isu, r.isu.unity,   :at => now)
-        animal.is_measured!(:inel, r.inel.unity, :at => now)
-        animal.is_measured!(:tp, r.tp.unity,     :at => now)
-        animal.is_measured!(:tb, r.tb.unity,     :at => now)
+        animal.is_measured!(:isu, r.isu.in_unity,   :at => now)
+        animal.is_measured!(:inel, r.inel.in_unity, :at => now)
+        animal.is_measured!(:tp, r.tp.in_unity,     :at => now)
+        animal.is_measured!(:tb, r.tb.in_unity,     :at => now)
 
         print "."
         break if Animal.count >= max
@@ -943,7 +943,7 @@ namespace :db do
           # :measured_at => Time.now
           # )
           incoming_unit = product_nature_variant.purchase_indicator_unit.to_s
-          incoming_item.is_measured!(product_nature_variant.purchase_indicator, r.quantity.send(incoming_unit), :at => Time.now)
+          incoming_item.is_measured!(product_nature_variant.purchase_indicator, r.quantity.in(incoming_unit), :at => Time.now)
           if product_nature.present? and incoming_item.present?
             order.items.create!(:product_id => incoming_item.id, :quantity => r.product_deliver_quantity)
           end
@@ -1117,16 +1117,16 @@ namespace :db do
         # product.indicator_data.create!(:indicator => "immunoglobulins_concentration", :value => r.analysis_quality_indicator_igg , :measure_unit => "unities_per_liter", :measured_at => analysis_on )
         # product.indicator_data.create!(:indicator => "urea_concentration", :value => r.analysis_quality_indicator_uree , :measure_unit => "milligram_per_liter", :measured_at => analysis_on )
 #
-        product.is_measured!(:total_bacteria_concentration, r.analysis_quality_indicator_germes.thousand_per_milliliter, :at => analysis_on)
+        product.is_measured!(:total_bacteria_concentration, r.analysis_quality_indicator_germes.in_thousand_per_milliliter, :at => analysis_on)
         product.is_measured!(:inhibitors_presence, r.analysis_quality_indicator_inhib, :at => analysis_on)
-        product.is_measured!(:fat_matters_concentration, r.analysis_quality_indicator_mg.gram_per_liter, :at => analysis_on)
-        product.is_measured!(:protein_matters_concentration, r.analysis_quality_indicator_mp.gram_per_liter, :at => analysis_on)
-        product.is_measured!(:cells_concentration, r.analysis_quality_indicator_cellules.thousand_per_milliliter, :at => analysis_on)
-        product.is_measured!(:clostridial_spores_concentration, r.analysis_quality_indicator_buty.unity_per_liter, :at => analysis_on)
-        product.is_measured!(:freezing_point_temperature, r.analysis_quality_indicator_cryo.celsius, :at => analysis_on)
-        product.is_measured!(:lipolysis, r.analysis_quality_indicator_lipo.thousand_per_hectogram, :at => analysis_on)
-        product.is_measured!(:immunoglobulins_concentration, r.analysis_quality_indicator_igg.unity_per_liter, :at => analysis_on)
-        product.is_measured!(:urea_concentration, r.analysis_quality_indicator_uree.milligram_per_liter, :at => analysis_on)
+        product.is_measured!(:fat_matters_concentration, r.analysis_quality_indicator_mg.in_gram_per_liter, :at => analysis_on)
+        product.is_measured!(:protein_matters_concentration, r.analysis_quality_indicator_mp.in_gram_per_liter, :at => analysis_on)
+        product.is_measured!(:cells_concentration, r.analysis_quality_indicator_cellules.in_thousand_per_milliliter, :at => analysis_on)
+        product.is_measured!(:clostridial_spores_concentration, r.analysis_quality_indicator_buty.in_unity_per_liter, :at => analysis_on)
+        product.is_measured!(:freezing_point_temperature, r.analysis_quality_indicator_cryo.in_celsius, :at => analysis_on)
+        product.is_measured!(:lipolysis, r.analysis_quality_indicator_lipo.in_thousand_per_hectogram, :at => analysis_on)
+        product.is_measured!(:immunoglobulins_concentration, r.analysis_quality_indicator_igg.in_unity_per_liter, :at => analysis_on)
+        product.is_measured!(:urea_concentration, r.analysis_quality_indicator_uree.in_milligram_per_liter, :at => analysis_on)
 
         print "."
       end
@@ -1227,12 +1227,12 @@ namespace :db do
       #fertilizer_product.indicator_data.create!({:measure_unit => "kilograms_per_hectogram", :measured_at => Time.now }.merge(attributes))
       #fertilizer_product_prev.indicator_data.create!({:measure_unit => "kilograms_per_hectogram", :measured_at => Time.now }.merge(attributes))
 
-      fertilizer_product.is_measured!(:nitrogen_concentration, 27.00.kilogram_per_hectogram, :at => Time.now)
-      fertilizer_product.is_measured!(:potassium_concentration, 33.00.kilogram_per_hectogram, :at => Time.now)
-      fertilizer_product.is_measured!(:phosphorus_concentration, 33.00.kilogram_per_hectogram, :at => Time.now)
-      fertilizer_product_prev.is_measured!(:nitrogen_concentration, 27.00.kilogram_per_hectogram, :at => Time.now)
-      fertilizer_product_prev.is_measured!(:potassium_concentration, 33.00.kilogram_per_hectogram, :at => Time.now)
-      fertilizer_product_prev.is_measured!(:phosphorus_concentration, 33.00.kilogram_per_hectogram, :at => Time.now)
+      fertilizer_product.is_measured!(:nitrogen_concentration, 27.00.in_kilogram_per_hectogram, :at => Time.now)
+      fertilizer_product.is_measured!(:potassium_concentration, 33.00.in_kilogram_per_hectogram, :at => Time.now)
+      fertilizer_product.is_measured!(:phosphorus_concentration, 33.00.in_kilogram_per_hectogram, :at => Time.now)
+      fertilizer_product_prev.is_measured!(:nitrogen_concentration, 27.00.in_kilogram_per_hectogram, :at => Time.now)
+      fertilizer_product_prev.is_measured!(:potassium_concentration, 33.00.in_kilogram_per_hectogram, :at => Time.now)
+      fertilizer_product_prev.is_measured!(:phosphorus_concentration, 33.00.in_kilogram_per_hectogram, :at => Time.now)
 
 
       production = Production.find_by_product_nature_id_and_campaign_id(sole_ble_nature.id, campaign.id)
@@ -1297,7 +1297,7 @@ namespace :db do
       print "[#{(Time.now - start).round(2).to_s.rjust(8)}s] Procedures - demo data for animal sanitary treatment reporting 2013: "
       worker_nature = ProductNature.create!(:name => "Technicien", :number => "TECH", :indicators => "population", :variety => "worker", :category_id => animal_product_nature_category.id)
       worker_variant = worker_nature.variants.create!(:usage_indicator => "population")
-      worker = Equipment.create!(:variant_id => worker_variant.id, :name => "Billy")
+      worker = Worker.create!(:variant_id => worker_variant.id, :name => "Christian")
 
       sanitary_product_nature_variant = ProductNatureVariant.find_by_nature_name("Médicament vétérinaire")
       campaign = Campaign.find_by_name("2013")
@@ -1307,19 +1307,50 @@ namespace :db do
       # create an animal medicine product
       animal_medicine_product   = AnimalMedicine.find_by_name("acetal")
       animal_medicine_product ||= AnimalMedicine.create!(:name => "acetal", :identification_number => "FR_589698256352", :work_number => "FR_589698256352", :born_at => Time.now, :variant_id => sanitary_product_nature_variant.id, :owner_id => Entity.of_company.id)
-
+      animal_medicine_product.is_measured!(:meat_withdrawal_period, 5.in_day, :at => Time.now)
+      animal_medicine_product.is_measured!(:milk_withdrawal_period, 5.in_day, :at => Time.now)
+      
+      # import a document "prescription paper"
+      document = Document.create!(:key => "20130724_prescription_001", :name => "prescritpion_001", :nature => "prescription" )
+      File.open(Rails.root.join("test", "fixtures", "files", "prescription_1.jpg"),"rb") do |f|
+        document.archive(f.read,:jpg)
+      end
+      
+      # create a prescription
+      prescription = Prescription.create!(:reference_number => "210000303",
+                                          :prescriptor_id => Entity.last.id,
+                                          :document_id => document.id,
+                                          :delivered_on => "2012-10-24",
+                                          :description => "Lotagen, Cobactan, Rotavec"                                                                                 
+                                          )
+      
+      # select an animal to declare on an incident
       animal = Animal.last
-
+      
+      # Add an incident
+      incident = animal.incidents.create!(:name => "Mammitte",
+                                  :nature => "mammite",
+                                  :observed_at => "2012-10-22",
+                                  :description => "filament blanc lors de la traite",
+                                  :priority => "5",
+                                  :gravity => "3"
+                                  )
+      
+      
       # treatment procedure
-      procedure ||= Procedure.create!(:natures => "animal_cares", :nomen =>"animal_treatment", :production_id => animal_production.id)
+      procedure = incident.procedures.create!(:natures => "animal_cares",
+                                      :nomen =>"animal_treatment",
+                                      :production_id => animal_production.id,
+                                      :prescription_id => prescription.id
+                                      )
       # plant = Plant.find_by_work_number("SOLE_BLE-2013-PC23")
       # Create some procedure variable for fertilization
       for attributes in [{:target_id => worker.id, :role => "worker",
                            :indicator => "usage_duration",
                            :measure_quantity => "0.50", :measure_unit => "hour"},
                          {:target_id => animal_medicine_product.id, :role => "input",
-                           :indicator => "net_weight",
-                           :measure_quantity => "50.00", :measure_unit => "gram"},
+                           :indicator => "net_volume",
+                           :measure_quantity => "50.00", :measure_unit => "milliliter"},
                          {:target_id => animal.id, :role => "target",
                            :indicator => "population",
                            :measure_quantity => "1.00", :measure_unit => "unity"}

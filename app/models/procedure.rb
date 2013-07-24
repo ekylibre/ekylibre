@@ -27,6 +27,7 @@
 #  lock_version             :integer          default(0), not null
 #  natures                  :string(255)      not null
 #  nomen                    :string(255)      not null
+#  prescription_id          :integer
 #  production_id            :integer          not null
 #  provisional              :boolean          not null
 #  provisional_procedure_id :integer
@@ -35,10 +36,11 @@
 #  updater_id               :integer
 #
 class Procedure < Ekylibre::Record::Base
-  attr_accessible :nomen, :production_id, :natures, :provisional_procedure_id, :provisional
+  attr_accessible :nomen, :production_id, :natures, :provisional_procedure_id, :provisional, :prescription_id, :incident_id
   attr_readonly :nomen, :production_id
   belongs_to :production
   belongs_to :incident
+  belongs_to :prescription
   belongs_to :provisional_procedure
   has_many :variables, :class_name => "ProcedureVariable", :inverse_of => :procedure
   has_many :operations, :inverse_of => :procedure
