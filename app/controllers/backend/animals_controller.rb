@@ -132,25 +132,53 @@ class Backend::AnimalsController < BackendController
         #raise groups.inspect
           xml.interventions(:campaign => campaign.name, :entity_name => entity.full_name) do
             for procedure in procedures
+              target = procedure.variables.of_role(:target).first.target
               xml.intervention(:id => procedure.id,
                                :name => procedure.name,
                                :created_at => procedure.created_at,
                                :started_at => procedure.started_at,
                                :stopped_at => procedure.stopped_at,
                                :target_identification => procedure.variables.of_role(:target).first.target.identification_number,
-                               :target_name => procedure.variables.of_role(:target).first.target.name,
-                               :incident_id => procedure.incident.id,
-                               :incident_name => procedure.incident.name
-                               )
-             for input_variable in procedure.variables.of_role(:input)
-                    xml.input(:input => input_variable.target.name,
-                              :input_nature => input_variable.target.nature.name,
-                              :input_variety => input_variable.target.variety,
-                              :input_quantity => input_variable.measure_quantity,
-                              :input_quantity_unit => input_variable.measure_unit,
-                              :started_at => procedure.started_at,
-                              :stopped_at => procedure.stopped_at
-                              )
+                               :target_name => target.name,
+                               :target_class_name => target.class.name,
+                               :worker_name => procedure.variables.of_role(:worker).first.target.name
+                               ) do
+               for input_variable in procedure.variables.of_role(:input)
+                      # determine min sale date
+                      started_at = procedure.started_at
+                      stopped_at = procedure.stopped_at
+                      meat_withdrawal_period = input_variable.target.meat_withdrawal_period.to_f
+                      milk_withdrawal_period = input_variable.target.milk_withdrawal_period.to_f
+                      milk_min_sale_date = stopped_at + milk_withdrawal_period
+                      meat_min_sale_date = stopped_at + meat_withdrawal_period
+                 
+                      xml.input(:name => input_variable.target.name,
+                                :nature => input_variable.target.nature.name,
+                                :variety => input_variable.target.variety,
+                                :quantity => input_variable.measure_quantity,
+                                :quantity_unit => input_variable.measure_unit,
+                                :meat_withdrawal_period => meat_withdrawal_period,
+                                :milk_withdrawal_period => milk_withdrawal_period,
+                                :milk_min_sale_date => milk_min_sale_date,
+                                :meat_min_sale_date => meat_min_sale_date,
+                                :started_at => started_at,
+                                :stopped_at => stopped_at
+                                )
+               end
+               if procedure.incident.id > 0
+                      xml.incident(:id => procedure.incident.id,
+                                   :name => procedure.incident.name,
+                                   :observed_at => procedure.incident.observed_at,
+                                   :state =>  procedure.incident.state,
+                                   :description => procedure.incident.description
+                                   )
+               end
+              if procedure.prescription.id > 0
+                      xml.prescription(:id => procedure.prescription.id,
+                                       :reference_number => procedure.prescription.reference_number,
+                                       :prescriptor => procedure.prescription.prescriptor.name
+                                       )
+               end
              end
            end
          end
