@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <modules>
   <module name="relationship" icon="people">
-    <group name="people">
+    <group name="people" icon="group">
       <item name="entities">
         <page to="backend/entities#index"/>
         <page to="backend/entities#create"/>

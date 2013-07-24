@@ -685,6 +685,86 @@
         }
     });
 
+
+
+    // Initializes date fields
+    $(document).on("focusin click keyup change", 'input[type="date"]', function (event) {
+        var element = $(this), locale, options = {}, name, hidden;
+        if (element.attr("autocomplete") !== "off") {
+            locale = element.attr("lang");
+            if ($.datepicker.regional[locale] === null || $.datepicker.regional[locale] === undefined) {
+                locale = "en";
+            }
+            $.datepicker.setDefaults( $.datepicker.regional[locale] );
+            name = element.attr("name");
+            element.removeAttr("name");
+            hidden = $("<input type='hidden' name='" + name + "'/>");
+            hidden.val(element.val());
+            element.before(hidden);
+
+            options['dateFormat']  = element.data("format");
+            options['altField']    = hidden;
+            options['altFormat']   = 'yy-mm-dd';
+
+            // Check for dependents
+            if (hidden.data('dependents') !== undefined && hidden.data('dependents') !== null) {
+                if (hidden.data('observe') === undefined || hidden.data('observe') === null) {
+	            hidden.attr('data-observe', '1000');
+                }
+            }
+            element.datepicker(options);
+            element.datepicker("setDate", new Date(element.val()));
+            element.attr("autocomplete", "off");
+        }
+    });
+
+    // Initializes datetime fields
+    $(document).on("focusin click keyup change", 'input[type="datetime"]', function (event) {
+        var element = $(this), locale, options = {}, name, hidden;
+        if (element.attr("autocomplete") !== "off") {
+            locale = element.attr("lang");
+            if ($.timepicker.regional[locale] === null || $.timepicker.regional[locale] === undefined) {
+                locale = "en";
+            }
+            $.timepicker.setDefaults( $.timepicker.regional[locale] );
+            name = element.attr("name");
+            element.removeAttr("name");
+            hidden = $("<input type='hidden' name='" + name + "'/>");
+            hidden.val(element.val());
+            element.before(hidden);
+            element.val(element.data('human-value'));
+
+            options['dateFormat']  = element.data("format");
+            options['altFieldTimeOnly']  = false;
+            options['altField']    = hidden;
+            options['altFormat']   = 'yy-mm-dd';
+            options['altTimeFormat'] = 'HH:mm';
+            options['isRTL'] = !!($("html").attr("dir") === "rtl");
+            options['stepMinute'] = 5;
+
+            // Check for dependents
+            if (hidden.data('dependents') !== undefined && hidden.data('dependents') !== null) {
+                if (hidden.data('observe') === undefined || hidden.data('observe') === null) {
+	            hidden.attr('data-observe', '1000');
+                }
+            }
+            element.datetimepicker(options);
+            element.attr("autocomplete", "off");
+        }
+    });
+
+
+
+
+
+    $.initializeDateSelectors = function() {
+        $('input[type="date"], input[type="datetime"]').trigger('change');
+    }
+    $(document).ready($.initializeDateSelectors)
+    $(document).on("page:load cocoon:after-insert", $.initializeDateSelectors);
+
+
+
     /* Refresh behave items */
     // $(document).on("cocoon:after-insert", function (event) {
     //     $.Behave.refresh();
