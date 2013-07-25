@@ -1,3 +1,9 @@
+ekylibre (0.4.2) stable; urgency=low
+
+  * Freezes Passenger version to 3 
+
+ -- Brice Texier <brice.texier@ekylibre.org>  Thu, 25 Jul 2013 21:48:06 +0200
+
 ekylibre (0.4.1) stable; urgency=low
 
   * Changes dependencies to Ruby 1.9
