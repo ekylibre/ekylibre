@@ -190,18 +190,22 @@ eng:
         unit: "Unit"
         variety: "Variety"
       items:
-        adult_cow: "Adult cow"
+        adult_cow: "Adult cow" #?
         all_in_one_equipment: "All in one equipment"
         building: "Building"
         calf: "Calf"
+        # female_adult_cow: "Vache"
+        # female_young_cow: "Génisse"
         grain: "Grain"
         land_parcel: "Land parcel"
+        # male_adult_cow: "Taureau"
+        # male_young_cow: "Génisse"
         milk: "Milk"
         straw: "Straw"
         tractor: "Tractor"
         trail: "Trail"
         wheat_crop: "Wheat crop"
-        young_cow: "Young cow"
+        young_cow: "Young cow" #?
       name: "Name"
     production_natures:
       items:

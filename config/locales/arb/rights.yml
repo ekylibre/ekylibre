@@ -60,7 +60,7 @@ arb:
     # manage_outgoing_payments: "Gérer les décaissements"
     manage_payment_modes: "ادارة طرق الدفع" #?
     manage_prices: "ادارة الاموال"
-    manage_product_categories: "ادارة فئات المنتجات"
+    manage_product_categories: "ادارة فئات المنتجات" #?
     # manage_product_price_listings: "Gérer les listes de prix"
     # manage_productions: "Gérer les productions"
     manage_products: "ادارة المنتجات"

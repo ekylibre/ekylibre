@@ -79,10 +79,9 @@
 # - "backend/cells/demo_map_cells#show"
 # - "backend/cells/demo_pie_cells#show"
 # - "backend/cells/expense_chart_cells#show"
-# - "backend/cells/last_events_cells#list"
-# - "backend/cells/last_events_cells#show"
 # - "backend/cells/last_milk_result_cells#list"
 # - "backend/cells/last_milk_result_cells#show"
+# - "backend/cells/last_procedures_cells#list"
 # - "backend/cells/last_procedures_cells#show"
 # - "backend/cells/last_products_cells#list"
 # - "backend/cells/last_products_cells#show"
@@ -1033,18 +1032,6 @@ manage_prices:
 - "backend/product_price_templates#list"
 - "backend/product_price_templates#new"
 - "backend/product_price_templates#update"
-
-# Manage product categories
-manage_product_categories:
-- "backend/dashboards#sales"
-- "backend/product_nature_categories#create" #?
-- "backend/product_nature_categories#destroy" #?
-- "backend/product_nature_categories#edit" #?
-- "backend/product_nature_categories#index" #?
-- "backend/product_nature_categories#list" #?
-- "backend/product_nature_categories#new" #?
-- "backend/product_nature_categories#show" #?
-- "backend/product_nature_categories#update" #?
 
 # Manage product price listings
 manage_product_price_listings:

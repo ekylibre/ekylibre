@@ -617,6 +617,7 @@ fra:
     default_currency: "Devise par défaut" #?
     default_mail_address: "Adresse email par défaut"
     default_stock: "Stock par défaut" #?
+    # default_variant: "Default variant"
     deferred_payment: "Crédit à reporter"
     delays: "Délais" #?
     deleted_at: "Supprimé le"

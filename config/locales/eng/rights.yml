@@ -52,7 +52,7 @@ eng:
     manage_outgoing_payment_modes: "Manage disbursement modes"
     manage_outgoing_payments: "Manage disbursements"
     manage_prices: "Manage prices"
-    manage_product_categories: "Manage product categories"
+    manage_product_categories: "Manage product categories" #?
     manage_product_price_listings: "Manage product price listings"
     manage_productions: "Manage productions"
     manage_products: "Manage products"

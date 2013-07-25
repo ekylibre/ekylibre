@@ -30,6 +30,7 @@ ActiveRecord::Base.transaction do
   sale_price_listing = ProductPriceListing.create!(:name => I18n.t('models.product_price_listing.default.name'))
   f = File.open(picture_company)
   firm = LegalEntity.create!(:sale_price_listing_id => sale_price_listing.id, :nature => "company", :language => language, :last_name => company, :currency => currency, :of_company => true, :picture => f)
+  f.close
   firm.addresses.create!(:canal => "mail", :mail_line_2 => "", :mail_line_3 => "", :mail_line_4 => "", :mail_line_5 => "", :mail_line_6 => "", :by_default => true)
 
   user.administrator = true

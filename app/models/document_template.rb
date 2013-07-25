@@ -82,7 +82,7 @@ class DocumentTemplate < Ekylibre::Record::Base
         document = Nokogiri::XML(@source) do |config|
           config.noblanks.nonet.strict
         end
-        if document.root.namespace and document.root.namespace.href == "http://jasperreports.sourceforge.net/jasperreports"
+        if document.root and document.root.namespace and document.root.namespace.href == "http://jasperreports.sourceforge.net/jasperreports"
           # raise document.root.inspect if self.nature == "sales_invoice"
           if template = document.root.xpath('xmlns:template').first
             logger.info "NOTICE: Update <template> for document template #{self.nature}"
