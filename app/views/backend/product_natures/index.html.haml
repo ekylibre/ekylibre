@@ -1,9 +1,9 @@
 =kujaku do |k|
   -k.text
   -k.radio :all, :active, :inactive
-  -k.criterion do
-    %label=tl(:category)
-    =select_tag(:category_id, options_for_select([[]] + ProductNatureCategory.all.collect{|s| [s.name, s.id]}, :selected => params[:category_id]))
+  -#k.criterion do
+    -#%label=tl(:category)
+    -#=select_tag(:category_id, options_for_select([[]] + ProductNatureCategory.all.collect{|s| [s.name, s.id]}, :selected => params[:category_id]))
 
 =main_toolbar do |t|
   -t.new

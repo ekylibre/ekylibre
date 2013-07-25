@@ -43,6 +43,18 @@ class Backend::ProductNaturesController < BackendController
   end
 
 
+  list do |t|
+    t.column :name
+    t.column :nomen
+    t.column :active
+    t.column :variety
+    t.column :derivative_of
+    t.action :edit
+    t.action :destroy
+  end
+  
+
+
   list(:price_templates, :model => :product_price_template, :conditions => {:product_nature_id => ['session[:product_nature_id]'], :active => true}) do |t|
     t.column :name, :through => :supplier, :url => true
     t.column :name, :through => :listing, :url => true
