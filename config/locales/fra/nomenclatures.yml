@@ -190,18 +190,20 @@ fra:
         unit: "Unité"
         variety: "Variété"
       items:
-        adult_cow: "Vache adulte"
+        female_adult_cow: "Vache"
         all_in_one_equipment: "Équipement tout en un"
         building: "Batiments"
         calf: "Veau"
         grain: "Grain"
         land_parcel: "Parcelle"
         milk: "Lait"
+        male_adult_cow: "Taureau"
+        male_young_cow: "Génisse"
         straw: "Paille"
         tractor: "Tracteur"
         trail: "Remorque"
         wheat_crop: "Culture de graminés"
-        young_cow: "Génisse"
+        female_young_cow: "Génisse"
       name: "Type de produits"
     production_natures:
       items:

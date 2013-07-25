@@ -129,43 +129,13 @@ namespace :db do
       # v ||= ProductVariety.create!(:name => "Normande", :code => "normande", :product_type => "Animal", :parent_id => (h ? h.id : nil))
 
       # add default product_nature for animals
-      animal_product_nature_category = ProductNatureCategory.find_by_name("Produits animaux")
-      animal_product_nature_category ||= ProductNatureCategory.create!(:name => "Produits animaux", :published => true)
-      cow_unit = "head"
-      cow_product_account = Account.find_in_chart(:adult_animal_product)
-      cow_stock_account = Account.find_in_chart(:long_time_animal_stock)
 
-      for nature in [{:name => "Vache Laitière", :number => "VACHE_LAITIERE", :description => "Vache Laitière",
-                       :indicators => "net_weight, animal_life_state, mammalia_reproduction_event_abortion, mammalia_reproduction_method_embryo_transplant, mammalia_born_cycle, mammalia_reproduction_state, mammalia_twins_condition, mammalia_lactation_state, animal_disease_state"
-                     },
-                     {:name => "Génisse Laitière", :number => "GENISSE", :description => "Génisse Laitière",
-                       :indicators => "net_weight, animal_life_state, mammalia_reproduction_event_abortion, mammalia_reproduction_method_embryo_transplant, mammalia_born_cycle, mammalia_reproduction_state, mammalia_twins_condition, mammalia_lactation_state, animal_disease_state"
-                     },
-                     {:name => "Taurillon", :number => "TAURILLON", :description => "Taurillon",
-                       :indicators => "net_weight, animal_life_state, animal_disease_state"
-                     },
-                     {:name => "Taureau", :number => "TAUREAU", :description => "Taureau reproducteur",
-                       :indicators =>"isu, inel, tb, tp"
-                     },
-                     {:name => "Veau", :number => "VEAU", :description => "Veau laitier 8-15j",
-                       :indicators =>"net_weight, animal_life_state, animal_disease_state, mammalia_born_condition"
-                     }
-                    ]
-        unless ProductNature.find_by_number(nature[:number])
-          cow_pn = ProductNature.create!({:unitary => true, :category_id => animal_product_nature_category.id, :individual => true, :product_account_id => cow_product_account.id, :variety => "bos", :storable => true, :stock_account_id => cow_stock_account.id, :saleable => true}.merge(nature) )
-          cow_pn.variants.create!(:active => true, :usage_indicator => "net_weight", :usage_indicator_unit => "kilogram")
-        end
-      end
-
-      cow_vl = ProductNatureVariant.find_by_nature_name("Vache Laitière")
-      cow_gen = ProductNatureVariant.find_by_nature_name("Génisse Laitière")
-      cow_v = ProductNatureVariant.find_by_nature_name("Veau")
-      cow_taur = ProductNatureVariant.find_by_nature_name("Taurillon")
-      cow_trepro = ProductNatureVariant.find_by_nature_name("Taureau")
-
-      # add default groups for animal
-      nature = ProductNature.create!(:name => "Troupeau", :number => "TROUPEAU", :unitary => true, :category_id => animal_product_nature_category.id, :product_account_id => cow_product_account.id, :variety => "animal_group", :storable => true, :stock_account_id => cow_stock_account.id)
-      variant = nature.variants.create!(:usage_indicator => "population")
+      cow_vl = ProductNature.import_from_nomenclature(:female_adult_cow).default_variant
+      cow_trepro = ProductNature.import_from_nomenclature(:male_adult_cow).default_variant
+      cow_gen = ProductNature.import_from_nomenclature(:female_young_cow).default_variant
+      cow_taur = ProductNature.import_from_nomenclature(:male_young_cow).default_variant
+      cow_v = ProductNature.import_from_nomenclature(:calf).default_variant
+      herd = ProductNature.import_from_nomenclature(:cattle_herd).default_variant
 
       for group in [{:name => "Vaches Laitières", :work_number => "VL"},
                     {:name => "Génisses 3",  :work_number => "GEN_3"},
@@ -183,7 +153,7 @@ namespace :db do
                     {:name => "Taurillons case 1", :work_number => "TAUR_1"}
                    ]
         unless AnimalGroup.find_by_work_number(group[:work_number])
-          AnimalGroup.create!({:active => true, :variant_id => variant.id}.merge(group))
+          AnimalGroup.create!({:active => true, :variant_id => herd.id}.merge(group))
         end
       end
 
@@ -1296,10 +1266,10 @@ namespace :db do
       worker_nature = ProductNature.create!(:name => "Technicien", :number => "TECH", :indicators => "population", :variety => "worker", :category_id => animal_product_nature_category.id)
       worker_variant = worker_nature.variants.create!(:usage_indicator => "population")
       worker = Worker.create!(:variant_id => worker_variant.id, :name => "Christian")
-      
+
       # add some credentials in preferences
       cattling_number = Preferences.create!(:nature => :string, :name => "services.synel17.login", :value => "17387001")
-      
+
       sanitary_product_nature_variant = ProductNatureVariant.find_by_nature_name("Médicament vétérinaire")
       campaign = Campaign.find_by_name("2013")
       animal_group_nature = ProductNature.find_by_number("VACHE_LAITIERE")
@@ -1344,7 +1314,7 @@ namespace :db do
                                       :production_id => animal_production.id,
                                       :prescription_id => prescription.id
                                       )
-      
+
       # Create some procedure variable
       for attributes in [{:target_id => worker.id, :role => "worker",
                            :indicator => "usage_duration",

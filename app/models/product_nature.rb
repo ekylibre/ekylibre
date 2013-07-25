@@ -83,6 +83,7 @@ class ProductNature < Ekylibre::Record::Base
   has_many :variants, :class_name => "ProductNatureVariant", :foreign_key => :nature_id, :inverse_of => :nature
   #has_many :indicators, :class_name => "ProductNatureIndicator"
   # has_many :buildings, :through => :stocks
+  has_one :default_variant, :class_name => "ProductNatureVariant", :foreign_key => :nature_id, :order => :id
   #has_one :default_stock, :class_name => "ProductStock", :order => :name, :foreign_key => :product_id
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :number, :allow_nil => true, :maximum => 31
@@ -102,7 +103,7 @@ class ProductNature < Ekylibre::Record::Base
   validates_uniqueness_of :name
 
   accepts_nested_attributes_for :variants, :reject_if => :all_blank, :allow_destroy => true
-  #acts_as_numbered
+  acts_as_numbered
 
   default_scope -> { order(:name) }
   scope :availables, -> { where(:active => true).order(:name) }
