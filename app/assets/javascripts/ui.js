@@ -152,6 +152,14 @@
         window.location.replace($.buildURL(element.data("redirect"), params));
     });
 
+    $(document).on("change keyup", "select[data-use-redirect]", function () {
+        var element = $(this), params = {}, url;
+        url = element.find(":selected").data('redirect');
+        if (url !== null && url !== undefined) {
+            window.location.replace(url);
+        }
+    });
+
     $.fn.showValueElements = function () {
         var element = $(this), prefix = element.data("show-value");
         element.find("option").each(function () {

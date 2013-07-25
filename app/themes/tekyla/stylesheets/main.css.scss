@@ -465,7 +465,7 @@ html.authentication {
             }
           }
           form {
-    	    max-width: 300px;
+    	    max-width: 320px;
             margin: $fs-large auto;
           }
           h2 {
@@ -474,20 +474,32 @@ html.authentication {
 	    margin-bottom: round(0.4*$fs-large);
           }
           label {
-            display: inline;
+            display: block;
             line-height: round(1.6*$fs-normal);
           }
-          input {
+          input, select {
             display: inline;
             width: 100%;
-              @include box-sizing(border-box);
-              height: 2 * $fs-normal;
+            @include box-sizing(border-box);
+            height: 2 * $fs-normal;
+          }
+          input {
             &[type="submit"] {
               text-align: center;
               margin: 10px auto;
 	      display: block;
+              height: 3 * $fs-normal;
             }
           }
+	  .field {
+            margin-bottom: $default-gap;
+	    &.field-remember-me {
+              label {
+                display: inline;
+              }
+            }
+          }
+
         }
       }
     }

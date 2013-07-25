@@ -1288,8 +1288,6 @@ namespace :db do
       end
       puts "!"
 
-      puts "Total time: #{(Time.now - start).round(2)}s"
-
 
       ##############################################################################
       ## Demo data for animal treatment
@@ -1313,7 +1311,7 @@ namespace :db do
       # import a document "prescription paper"
       document = Document.create!(:key => "20130724_prescription_001", :name => "prescritpion_001", :nature => "prescription" )
       File.open(Rails.root.join("test", "fixtures", "files", "prescription_1.jpg"),"rb") do |f|
-        document.archive(f.read,:jpg)
+        document.archive(f.read, :jpg)
       end
 
       # create a prescription

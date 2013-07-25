@@ -726,7 +726,6 @@ ActiveRecord::Schema.define(:version => 20130410143823) do
   create_table "incoming_deliveries", :force => true do |t|
     t.integer  "purchase_id"
     t.integer  "address_id"
-    t.datetime "planned_at"
     t.datetime "received_at"
     t.decimal  "weight",           :precision => 19, :scale => 4
     t.datetime "created_at",                                                     :null => false
@@ -1216,7 +1215,6 @@ ActiveRecord::Schema.define(:version => 20130410143823) do
     t.integer  "updater_id"
     t.integer  "lock_version",                                    :default => 0, :null => false
     t.integer  "address_id"
-    t.datetime "planned_at"
     t.datetime "sent_at"
     t.integer  "mode_id"
     t.decimal  "weight",           :precision => 19, :scale => 4

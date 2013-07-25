@@ -1,6 +1,9 @@
 #
 desc "Update and sort translation files"
 task :locales => :environment do
+
+  stats = {}
+
   log = File.open(Rails.root.join("log", "clean-locales.log"), "wb")
 
   missing_prompt = "# "
@@ -295,6 +298,7 @@ task :locales => :environment do
   log.write "  - Total:               #{(100*count/total).round.to_s.rjust(3)}% (#{count}/#{total})\n"
   puts " - Locale: #{(100*count/total).round.to_s.rjust(3)}% of #{::I18n.locale_label} translated (Reference)"
   reference_label = ::I18n.locale_name
+  stats[::I18n.locale] = {:translation_rate => count.to_f/total}
 
 
 
@@ -341,7 +345,16 @@ task :locales => :environment do
     # end
 
     puts " - Locale: #{(100*(total-count)/total).round.to_s.rjust(3)}% of #{::I18n.locale_label} translated from #{reference_label}" # reference
+    stats[locale] = {:translation_rate => (total-count).to_f/total}
   end
 
+
+  # Write stats file
+  File.open(Rails.root.join("config", "locales", "statistics.yml"), "wb") do |f|
+    f.write "# This file contains statistics about translations"
+    for locale, stat in stats.sort{|a,b| a[0] <=> b[0]}
+      f.write CleanSupport.hash_to_yaml({locale => {:statistics => stat}})
+    end
+  end
   log.close
 end

@@ -20,7 +20,6 @@
 class BackendController < BaseController
   protect_from_forgery
   # # before_filter :no_cache
-  before_filter :i18nize
   before_filter :authenticate_user!
   # # before_filter :identify
   before_filter :themize
@@ -268,24 +267,6 @@ class BackendController < BaseController
     response.headers["Pragma"] = "no-cache"
     # HTTP 1.1 'pre-check=0, post-check=0' (IE specific)
     response.headers["Cache-Control"] = 'no-store, no-cache, must-revalidate, max-age=0, pre-check=0, post-check=0'
-  end
-
-
-  # Initialize locale with params[:locale] or HTTP_ACCEPT_LANGUAGE
-  def i18nize()
-    if (locale = params[:locale].to_s).size == 3
-      locale = locale.to_sym if ::I18n.active_locales.include?(locale.to_sym)
-    elsif not session[:locale] and not request.env["HTTP_ACCEPT_LANGUAGE"].blank?
-      codes = {}
-      for l in ::I18n.active_locales
-        codes[::I18n.translate("i18n.iso2", :locale => l).to_s] = l
-      end
-      locale = codes[request.env["HTTP_ACCEPT_LANGUAGE"].to_s.split(/[\,\;]+/).select{|x| !x.match(/^q\=/)}.detect{|x| codes[x[0..1]]}[0..1]]
-    else
-      locale = I18n.default_locale
-    end
-    locale ||= ::I18n.locale || ::I18n.default_locale
-    ::I18n.locale = locale
   end
 
   # Load @current_user

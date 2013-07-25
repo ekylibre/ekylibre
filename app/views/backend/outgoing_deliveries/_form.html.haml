@@ -5,7 +5,7 @@
   -# TODO: Manage filtered source with column
   =f.referenced_association :address, :new => {:entity_id => @outgoing_delivery.sale.client_id}
   =f.referenced_association :mode
-  =f.input :planned_on
+  =f.input :received_at
   =f.referenced_association :transporter, :source => :transporters, :new => {:transporter => 1}
 
 =field_set :outgoing_delivery_items do

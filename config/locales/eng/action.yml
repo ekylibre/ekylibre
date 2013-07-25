@@ -699,8 +699,8 @@ eng:
       # not_found: "n’a pas été trouvé(e)"
       # not_locked: "n’était pas verrouillé(e)"
       not_saved:
-        # one: "1 erreur a empêché ce(tte) %{resource} d’être sauvegardé(e) :"
-        # other: "%{count} erreurs ont empêché ce(tte) %{resource} d’être sauvegardé(e) :"
+        # one: "1 erreur a empêché ce(tte) %{resource} d’être sauvegardé(e)\_:"
+        # other: "%{count} erreurs ont empêché ce(tte) %{resource} d’être sauvegardé(e)\_:"
     template:
       body: "There were problems with the following fields:"
       header:
@@ -1489,6 +1489,7 @@ eng:
     target: "Target"
     theoric_quantity: "Theoric quantity"
     # third_informations: "Informations tierces"
+    # time_zone: "Fuseau horaire"
     to: "to"
     to_bank_on: "To bank on"
     to_date: "To date"

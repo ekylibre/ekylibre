@@ -656,8 +656,8 @@ jpn:
       # not_found: "n’a pas été trouvé(e)"
       # not_locked: "n’était pas verrouillé(e)"
       not_saved:
-        # one: "1 erreur a empêché ce(tte) %{resource} d’être sauvegardé(e) :"
-        # other: "%{count} erreurs ont empêché ce(tte) %{resource} d’être sauvegardé(e) :"
+        # one: "1 erreur a empêché ce(tte) %{resource} d’être sauvegardé(e)\_:"
+        # other: "%{count} erreurs ont empêché ce(tte) %{resource} d’être sauvegardé(e)\_:"
     template:
       # body: "Il y a eu des problèmes avec les champs suivants\_:"
       header:
@@ -1432,6 +1432,7 @@ jpn:
     # target: "Cible"
     # theoric_quantity: "Quantité théorique"
     # third_informations: "Informations tierces"
+    # time_zone: "Fuseau horaire"
     # to: "Au"
     # to_bank_on: "À encaisser le"
     # to_date: "Au"

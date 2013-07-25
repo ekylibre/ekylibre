@@ -97,8 +97,9 @@ class NormalizeScoria < ActiveRecord::Migration
     remove_column :incoming_deliveries, :comment
     rename_column :incoming_deliveries, :moved_on, :received_at
     change_column :incoming_deliveries, :received_at, :datetime
-    rename_column :incoming_deliveries, :planned_on, :planned_at
-    change_column :incoming_deliveries, :planned_at, :datetime
+    remove_column :incoming_deliveries, :planned_on
+    # rename_column :incoming_deliveries, :planned_on, :planned_at
+    # change_column :incoming_deliveries, :planned_at, :datetime
     add_column :incoming_deliveries, :sender_id, :integer
     add_index :incoming_deliveries, :sender_id
     execute "UPDATE #{quoted_table_name(:incoming_deliveries)} SET sender_id = p.supplier_id FROM #{quoted_table_name(:purchases)} AS p WHERE p.id = purchase_id"
@@ -136,10 +137,11 @@ class NormalizeScoria < ActiveRecord::Migration
     remove_column :outgoing_deliveries, :amount
     remove_column :outgoing_deliveries, :pretax_amount
     remove_column :outgoing_deliveries, :comment
-    rename_column :outgoing_deliveries, :planned_on, :planned_at
-    change_column :outgoing_deliveries, :planned_at, :datetime
     rename_column :outgoing_deliveries, :moved_on, :sent_at
     change_column :outgoing_deliveries, :sent_at, :datetime
+    remove_column :outgoing_deliveries, :planned_on
+    # rename_column :outgoing_deliveries, :planned_on, :planned_at
+    # change_column :outgoing_deliveries, :planned_at, :datetime
     add_column :outgoing_deliveries, :recipient_id, :integer
     add_index :outgoing_deliveries, :recipient_id
     execute "UPDATE #{quoted_table_name(:outgoing_deliveries)} SET recipient_id = p.entity_id FROM #{quoted_table_name(:entity_addresses)} AS p WHERE p.id = address_id"

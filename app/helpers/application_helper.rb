@@ -151,6 +151,20 @@ module ApplicationHelper
     select_tag("locale", options, "data-redirect" => url_for())
   end
 
+  def locale_selector_tag
+    # , :selected => ::I18n.locale)
+    locales = ::I18n.active_locales.sort{|a,b| a.to_s <=> b.to_s}
+    locale = nil # ::I18n.locale
+    if params[:locale].to_s.match(/^[a-z][a-z][a-z]$/)
+      locale = params[:locale].to_sym if locales.include? params[:locale].to_sym
+    end
+    locale ||= ::I18n.locale||::I18n.default_locale
+    options = locales.collect do |l|
+      content_tag(:option, ::I18n.translate("i18n.name", :locale => l), {:value => l, :dir => ::I18n.translate("i18n.dir", :locale => l), :selected => false, 'data-redirect' => url_for(:locale => l)}.merge(locale == l ? {:selected => true} : {}))
+    end.join.html_safe
+    select_tag("locale", options, "data-use-redirect" => "true")
+  end
+
 
   def link_to_remove_nested_association(name, f)
     return link_to_remove_association(content_tag(:i) + h("labels.remove_#{name}".t), f, 'data-no-turbolink' => true, :class => "nested-remove remove-#{name}")

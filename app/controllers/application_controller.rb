@@ -18,6 +18,8 @@
 #
 
 class ApplicationController < ActionController::Base
+  before_filter :set_locale
+  before_filter :set_time_zone
 
   def self.human_name
     ::I18n.translate("controllers." + self.controller_path)
@@ -55,5 +57,32 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  protected
+
+  # Initialize locale with params[:locale] or HTTP_ACCEPT_LANGUAGE
+  def set_locale()
+    if (locale = params[:locale].to_s).size == 3
+      locale = locale.to_sym if ::I18n.active_locales.include?(locale.to_sym)
+    elsif not session[:locale] and not request.env["HTTP_ACCEPT_LANGUAGE"].blank?
+      codes = {}
+      for l in ::I18n.active_locales
+        codes[::I18n.translate("i18n.iso2", :locale => l).to_s] = l
+      end
+      locale = codes[request.env["HTTP_ACCEPT_LANGUAGE"].to_s.split(/[\,\;]+/).select{|x| !x.match(/^q\=/)}.detect{|x| codes[x[0..1]]}[0..1]]
+    else
+      locale = I18n.default_locale
+    end
+    locale ||= ::I18n.locale || ::I18n.default_locale
+    ::I18n.locale = locale
+  end
+
+  # Change the time zone from the given params or reuse session variable
+  def set_time_zone()
+    if params[:time_zone]
+      session[:time_zone] = params[:time_zone]
+    end
+    session[:time_zone] ||= "UTC"
+    Time.zone = session[:time_zone]
+  end
 
 end
