@@ -1003,36 +1003,14 @@ namespace :db do
       # set the lab
       print "[#{(Time.now - start).round(2).to_s.rjust(8)}s] Indicators - LILCO Milk analysis 2013: "
       # set the product if not exist
-      milk_unit = "liter"
       # @TODO = appeller la méthode des comptes comme dans la nomenclature accounts
-      stock_account_nature_milk = Account.find_by_number("321")
-      sale_account_nature_milk = Account.find_by_number("701")
       # variety_milk = ProductVariety.find_by_code("normande")
       # add a product_nature
-      product_nature   = ProductNature.find_by_number("LAIT")
-      product_nature ||= ProductNature.create!(:stock_account_id => stock_account_nature_milk.id,
-                                               :product_account_id => sale_account_nature_milk.id,
-                                               :name => "lait",
-                                               :number => "LAIT",
-                                               :saleable => true,
-                                               :purchasable => false,
-                                               :active => true,
-                                               :storable => true,
-                                               :variety => "milk",
-                                               :derivative_of => "bos",
-                                               :indicators => "total_bacteria_concentration, inhibitors_presence, fat_matters_concentration, protein_matters_concentration, cells_concentration, clostridial_spores_concentration, freezing_point_temperature, lipolysis, immunoglobulins_concentration, urea_concentration"
-                                               )
-      product_nature_variant = product_nature.variants.create!(
-                             :active => true,
-                             :commercial_name => product_nature.name, :name => product_nature.name,
-                             :purchase_indicator => "net_volume", :purchase_indicator_unit => milk_unit,
-                             :sale_indicator => "net_volume", :sale_indicator_unit => milk_unit,
-                             :usage_indicator => "net_volume", :usage_indicator_unit => milk_unit
-                            )
+      product_nature_variant = ProductNature.import_from_nomenclature(:milk).default_variant
 
       # create a generic product to link analysis_indicator
-      product   = Matter.find_by_name("lait_vache")
-      product ||= Matter.create!(:name => "lait_vache", :identification_number => "MILK_FR_2010-2013", :work_number => "lait_2013", :born_at => Time.now, :variant_id => product_nature_variant.id, :owner_id => Entity.of_company.id, :number => "L2011-2013") #
+      product   = OrganicMatter.find_by_name("lait_vache")
+      product ||= OrganicMatter.create!(:name => "lait_vache", :identification_number => "MILK_FR_2010-2013", :work_number => "lait_2013", :born_at => Time.now, :variant_id => product_nature_variant.id, :owner_id => Entity.of_company.id) #
 
       trans_inhib = {
         "NEG" => "negative",
@@ -1129,7 +1107,7 @@ namespace :db do
         end
         # Create an activity if not exist
         activity   = Activity.find_by_description(r.description)
-        activity ||= Activity.create!(:nature => r.nature, :description => "Import from reference", :family => r.family, :name => r.name, :description => r.description)
+        activity ||= Activity.create!(:nature => r.nature, :family => r.family, :name => r.name, :description => r.description)
         product_nature_sup = ProductNature.find_by_number(r.product_nature_name)
         if product_nature_sup.present?
           product_nature_variant_sup = ProductNatureVariant.find_by_nature_id(product_nature_sup.id)
@@ -1139,7 +1117,7 @@ namespace :db do
           pro ||= activity.productions.create!(:product_nature_id => product_nature_sup.id, :campaign_id => campaign.id, :static_support => true)
           pro.supports.create!(:storage_id => land_parcel_support.id)
           plant_work_nb = (r.product_nature_name + "-" + campaign.name + "-" + land_parcel_support.work_number)
-          Plant.create!(:variant_id => product_nature_variant_sup.id, :work_number => plant_work_nb , :name => (r.product_nature_name + " " + campaign.name + " " + land_parcel_support.name)  , :variety => product_nature.variety, :born_at => Time.now, :owner_id => Entity.of_company.id)
+          Plant.create!(:variant_id => product_nature_variant_sup.id, :work_number => plant_work_nb , :name => (r.product_nature_name + " " + campaign.name + " " + land_parcel_support.name)  , :variety => product_nature_sup.variety, :born_at => Time.now, :owner_id => Entity.of_company.id)
         elsif product_nature_variant_sup
           pro = Production.where(:product_nature_id => product_nature_sup.id, :campaign_id => campaign.id, :activity_id => activity.id).first
           pro ||= activity.productions.create!(:product_nature_id => product_nature_sup.id, :campaign_id => campaign.id)
@@ -1256,13 +1234,13 @@ namespace :db do
       worker = Worker.create!(:variant_id => worker_variant.id, :name => "Christian")
 
       # add some credentials in preferences
-      cattling_number = Preferences.create!(:nature => :string, :name => "services.synel17.login", :value => "17387001")
+      cattling_number = Preference.create!(:nature => :string, :name => "services.synel17.login", :value => "17387001")
 
       sanitary_product_nature_variant = ProductNatureVariant.find_by_nature_name("Médicament vétérinaire")
       campaign = Campaign.find_by_name("2013")
-      animal_group_nature = ProductNature.find_by_number("VACHE_LAITIERE")
+      animal_group_nature = ProductNature.find_by_nomen("female_adult_cow")
       animal_production = Production.find_by_product_nature_id_and_campaign_id(animal_group_nature.id, campaign.id)
-
+      animal_production ||= Production.create!(:product_nature_id => animal_group_nature.id, :campaign_id => campaign.id, :activity_id => Activity.find_by_description("8200").id)
       # create an animal medicine product
       animal_medicine_product   = AnimalMedicine.find_by_name("acetal")
       animal_medicine_product ||= AnimalMedicine.create!(:name => "acetal", :identification_number => "FR_589698256352", :work_number => "FR_589698256352", :born_at => Time.now, :variant_id => sanitary_product_nature_variant.id, :owner_id => Entity.of_company.id)

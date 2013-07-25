@@ -13,6 +13,7 @@
       <item name="produce" variable="variety"/>
       <item name="kill" variable="variety"/>
       <item name="germinate"/>
+      <item name="feed"/>
       <item name="fertilize"/>  
       <item name="catch"/><!-- @QUID : niveau de compétence (normal,précision)  -->
       <item name="spread"/><!-- @QUID : niveau de compétence (normal,précision)  -->
