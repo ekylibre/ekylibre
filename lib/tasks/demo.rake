@@ -1298,7 +1298,10 @@ namespace :db do
       worker_nature = ProductNature.create!(:name => "Technicien", :number => "TECH", :indicators => "population", :variety => "worker", :category_id => animal_product_nature_category.id)
       worker_variant = worker_nature.variants.create!(:usage_indicator => "population")
       worker = Worker.create!(:variant_id => worker_variant.id, :name => "Christian")
-
+      
+      # add some credentials in preferences
+      cattling_number = Preferences.create!(:nature => :string, :name => "services.synel17.login", :value => "17387001")
+      
       sanitary_product_nature_variant = ProductNatureVariant.find_by_nature_name("Médicament vétérinaire")
       campaign = Campaign.find_by_name("2013")
       animal_group_nature = ProductNature.find_by_number("VACHE_LAITIERE")

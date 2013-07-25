@@ -128,12 +128,18 @@ class Backend::AnimalsController < BackendController
         #"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"
         campaign = Campaign.first
         entity = Entity.of_company
+        entity_breeding_number = Preference.find_by_name('services.synel17.login')
         procedures = Procedure.where("nomen = 'animal_treatment'")
         #raise groups.inspect
-          xml.interventions(:campaign => campaign.name, :entity_name => entity.full_name) do
+          xml.interventions(:campaign => campaign.name,
+                            :entity_name => entity.full_name,
+                            :entity_adress => entity.default_mail_address.coordinate,
+                            :entity_breeding_number => entity_breeding_number.value
+                            ) do
             for procedure in procedures
               xml.intervention(:id => procedure.id, :name => procedure.name) do
               target = procedure.variables.of_role(:target).first.target
+              worker = procedure.variables.of_role(:worker).first.target
                for input_variable in procedure.variables.of_role(:input)
                       # determine min sale date
                       started_at = procedure.started_at
@@ -145,10 +151,13 @@ class Backend::AnimalsController < BackendController
                       procedure_duration_day = (stopped_at - started_at)/(60*60*24)
 
                       xml.input(:id => input_variable.id,
-                                :target_identification => procedure.variables.of_role(:target).first.target.identification_number,
+                                :target_identification => target.identification_number,
+                                :target_id => target.id,
                                 :target_name => target.name,
                                 :target_class_name => target.class.name,
-                                :worker_name => procedure.variables.of_role(:worker).first.target.name,
+                                :worker_name => worker.name,
+                                :worker_id => worker.id,
+                                :worker_entity_id => worker.owner.id,
                                 :name => input_variable.target.name,
                                 :nature => input_variable.target.nature.name,
                                 :variety => input_variable.target.variety,
