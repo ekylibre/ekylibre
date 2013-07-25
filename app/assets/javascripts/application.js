@@ -25,7 +25,6 @@
 //= require jquery.joyride-2.0.3
 //= require modernizr.mq
 //= require ui
-//= require detect_timezone
 //= require jstz
 //= require_tree .
 
