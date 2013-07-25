@@ -23,7 +23,6 @@
 #  abilities              :text
 #  active                 :boolean          not null
 #  asset_account_id       :integer
-#  category_id            :integer          not null
 #  charge_account_id      :integer
 #  created_at             :datetime         not null
 #  creator_id             :integer
@@ -32,10 +31,11 @@
 #  description            :text
 #  id                     :integer          not null, primary key
 #  indicators             :text
-#  individual             :boolean          not null
 #  lock_version           :integer          default(0), not null
 #  name                   :string(255)      not null
+#  nomen                  :string(127)
 #  number                 :string(31)       not null
+#  population_counting    :string(255)      not null
 #  product_account_id     :integer
 #  purchasable            :boolean          not null
 #  reductible             :boolean          not null
@@ -45,7 +45,6 @@
 #  subscribing            :boolean          not null
 #  subscription_duration  :string(255)
 #  subscription_nature_id :integer
-#  unitary                :boolean          not null
 #  updated_at             :datetime         not null
 #  updater_id             :integer
 #  variety                :string(127)      not null

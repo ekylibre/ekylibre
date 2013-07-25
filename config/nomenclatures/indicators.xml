@@ -45,10 +45,10 @@
       <item name="meat_withdrawal_period" datatype="measure" unit="day"/> 
       <item name="milk_withdrawal_period" datatype="measure" unit="day"/>
       <!-- for genetic animal's reproduction  -->
-      <item name="isu" datatype="measure" unit="unity"/>
-      <item name="inel" datatype="measure" unit="unity"/>
-      <item name="tp" datatype="measure" unit="unity"/>
-      <item name="tb" datatype="measure" unit="unity"/>
+      <item name="isu_index" datatype="measure" unit="unity"/>
+      <item name="inel_index" datatype="measure" unit="unity"/>
+      <item name="tp_index" datatype="measure" unit="unity"/>
+      <item name="tb_index" datatype="measure" unit="unity"/>
       <!-- for fertilization plant's -->
       <item name="nitrogen_concentration" datatype="measure" unit="kilogram_per_hectogram"/>
       <item name="potassium_concentration" datatype="measure" unit="kilogram_per_hectogram"/>

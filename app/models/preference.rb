@@ -68,6 +68,7 @@ class Preference < Ekylibre::Record::Base
   prefer :detail_payments_in_deposit_bookkeeping, :boolean, true
   prefer :use_entity_codes_for_account_numbers, :boolean, true
   prefer :sales_conditions, :string, ""
+  prefer :chart_of_account, :string, Nomen::ChartsOfAccounts.default
 
   # TODO removes these preferences to manage charts
   prefer :capital_gains_accounts, :integer, 120

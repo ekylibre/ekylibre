@@ -33,6 +33,7 @@
 #  reconcilable :boolean          not null
 #  updated_at   :datetime         not null
 #  updater_id   :integer
+#  usage        :text
 #
 require 'test_helper'
 
