@@ -266,7 +266,7 @@ class SimpleForm::Inputs::DateTimeInput
       # :value => localized_value,
       "data-format" => format,
       :lang => "i18n.iso2".t,
-      :value => value.to_s(:db),
+      :value => value.to_s,
       'data-human-value' => localized_value,
       :type => input_type,
       :size => @options.delete(:size) || (input_type == :date  ? 10 : 16)
