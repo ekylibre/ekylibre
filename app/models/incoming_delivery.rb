@@ -39,7 +39,7 @@
 
 class IncomingDelivery < Ekylibre::Record::Base
   acts_as_numbered
-  attr_accessible :address_id, :sender_id, :mode_id, :planned_at, :received_at, :reference_number, :items_attributes # , :description
+  attr_accessible :address_id, :sender_id, :mode_id, :received_at, :reference_number, :items_attributes # , :description
   attr_readonly :number
   belongs_to :address, :class_name => "EntityAddress"
   belongs_to :mode, :class_name => "IncomingDeliveryMode"
@@ -53,16 +53,16 @@ class IncomingDelivery < Ekylibre::Record::Base
   validates_length_of :number, :reference_number, :allow_nil => true, :maximum => 255
   validates_presence_of :sender
   #]VALIDATORS]
-  validates_presence_of :planned_at, :address
+  validates_presence_of :received_at, :address
 
   accepts_nested_attributes_for :items
   delegate :order?, :draft?, :to => :purchase
 
-  default_scope -> { order("planned_at DESC") }
+  default_scope -> { order("received_at DESC") }
   scope :undelivereds, -> { where(:received_at => nil) }
 
   before_validation do
-    self.planned_at ||= Time.now
+    self.received_at ||= Time.now
     return true
   end
 
@@ -70,7 +70,7 @@ class IncomingDelivery < Ekylibre::Record::Base
     if self.new_record?
       self.address ||= Entity.of_company.default_mail_address
       self.mode    ||= IncomingDeliveryMode.by_default
-      self.planned_at ||= Time.now
+      self.received_at ||= Time.now
     end
   end
 

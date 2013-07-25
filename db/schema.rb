@@ -51,7 +51,7 @@ ActiveRecord::Schema.define(:version => 20130410143823) do
     t.integer  "updater_id"
     t.integer  "lock_version",                :default => 0,     :null => false
     t.boolean  "reconcilable",                :default => false, :null => false
-    t.text     "usage"
+    t.text     "usages"
   end
 
   add_index "accounts", ["created_at"], :name => "index_accounts_on_created_at"

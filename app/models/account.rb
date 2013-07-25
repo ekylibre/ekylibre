@@ -38,7 +38,7 @@
 
 
 class Account < Ekylibre::Record::Base
-  attr_accessible :name, :number, :reconcilable, :description, :debtor
+  attr_accessible :name, :number, :reconcilable, :description, :debtor, :usages
   @@references = []
   attr_readonly :number
   # has_many :account_balances
@@ -71,16 +71,20 @@ class Account < Ekylibre::Record::Base
 
   default_scope order(:number, :name)
   scope :majors, where("number LIKE '_'").order(:number, :name)
-  scope :deposit_pending_payments, lambda { where('number LIKE ?', self.chart_number(:deposit_pending_payments)+"%").order(:number, :name) }
-  scope :attorney_thirds,          lambda { where('number LIKE ?', self.chart_number(:attorney_thirds)+"%").order(:number, :name) }
-  scope :client_thirds,            lambda { where('number LIKE ?', self.chart_number(:client_thirds)+"%").order(:number, :name) }
-  scope :supplier_thirds,          lambda { where('number LIKE ?', self.chart_number(:supplier_thirds)+"%").order(:number, :name) }
-  scope :product_natures,          lambda { where('number LIKE ?', self.chart_number(:product_natures)+"%").order(:number, :name) }
-  scope :charges,                  lambda { where('number LIKE ?', self.chart_number(:charges)+"%").order(:number, :name) }
-  scope :banks,                    lambda { where('number LIKE ?', self.chart_number(:banks)+"%").order(:number, :name) }
-  scope :cashes,                   lambda { where('number LIKE ?', self.chart_number(:cashes)+"%").order(:number, :name) }
-  scope :collected_taxes,          lambda { where('number LIKE ?', self.chart_number(:taxes_collected)+"%").order(:number, :name) }
-  scope :paid_taxes,               lambda { where('number LIKE ?', self.chart_number(:taxes_paid)+"%").order(:number, :name) }
+  scope :of_usage, lambda { |usage| 
+    raise ArgumentError.new("Unknown usage #{usage.inspect}") unless Nomen::Accounts[usage]
+    self.where("usages ~ E'\\\\m#{usage}\\\\M'") 
+  }
+  # scope :deposit_pending_payments, lambda { where('number LIKE ?', self.chart_number(:deposit_pending_payments)+"%").order(:number, :name) }
+  # scope :attorney_thirds,          lambda { where('number LIKE ?', self.chart_number(:attorney_thirds)+"%").order(:number, :name) }
+  # scope :client_thirds,            lambda { where('number LIKE ?', self.chart_number(:client_thirds)+"%").order(:number, :name) }
+  # scope :supplier_thirds,          lambda { where('number LIKE ?', self.chart_number(:supplier_thirds)+"%").order(:number, :name) }
+  # scope :product_natures,          lambda { where('number LIKE ?', self.chart_number(:product_natures)+"%").order(:number, :name) }
+  # scope :charges,                  lambda { where('number LIKE ?', self.chart_number(:charges)+"%").order(:number, :name) }
+  # scope :banks,                    lambda { where('number LIKE ?', self.chart_number(:banks)+"%").order(:number, :name) }
+  # scope :cashes,                   lambda { where('number LIKE ?', self.chart_number(:cashes)+"%").order(:number, :name) }
+  # scope :collected_taxes,          lambda { where('number LIKE ?', self.chart_number(:taxes_collected)+"%").order(:number, :name) }
+  # scope :paid_taxes,               lambda { where('number LIKE ?', self.chart_number(:taxes_paid)+"%").order(:number, :name) }
 
 
   # This method allows to create the parent accounts if it is necessary.
@@ -97,169 +101,170 @@ class Account < Ekylibre::Record::Base
     return dependencies <= 0
   end
 
-  def self.register_usage(account)
-    account = account.to_s.underscore.to_sym
-    @@references << account unless @@references.include?(account)
-    return true
-  end
+  class << self
 
-  # Find account with its name in chart
-  def self.find_in_chart(usage)
-    return self.where("usages ~ ?", "\\\\m#{usage}\\\\M").first
-  end
-
-  # Find or create an account with its name in chart if not exist in DB
-  def self.find_or_create_in_chart(usage)
-    if account = find_in_chart(usage)
-      return account
-    elsif item = Nomen::Accounts.find(usage)
-      return self.create!(:name => item.human_name, :number => item.send(self.chart_of_account), :debtor => item.debtor, :usages => item.name)
-    else
-      raise ArgumentError.new("The usage #{usage.inspect} is not known")
+    # Create an account with its number (and name)
+    def get(number, name=nil)
+      ActiveSupport::Deprecation.warn("Account#get is deprecated. Please use Account#find_or_create_in_chart instead.")
+      number = number.to_s
+      account = find_by_number(number)
+      return account || create!(:number => number, :name => name || number.to_s)
     end
-  end
 
-  # Return the number corresponding to the name
-  #def self.chart_number(name)
-    #return ""
-  #end
+    # Find account with its usage among all existing account records
+    def find_in_chart(usage)
+      return self.of_usage(usage).first
+    end
 
-  def chart_of_account
-    return Preference[:chart_of_account]
-  end
-
-  def self.get(number, name=nil)
-    number = number.to_s
-    account = self.find_by_number(number)
-    return account || self.create!(:number => number, :name => name || number.to_s)
-  end
-
-
-  # FinancialYear
-  register_usage :financial_year_gains
-  register_usage :financial_year_losses
-  # Purchase
-  register_usage :charges
-  # Cash
-  register_usage :banks
-  register_usage :cashes
-  # CashTransfer
-  register_usage :internal_transfers
-  # Deposit/IncomingPayment
-  register_usage :deposit_pending_payments
-  # Sale
-  register_usage :product_natures
-  # TaxDeclaration
-  # register_usage :taxes_acquisition
-  # register_usage :taxes_assimilated
-  # register_usage :taxes_balance
-  # register_usage :taxes_payback
-  # Tax
-  register_usage :collected_taxes
-  register_usage :paid_taxes
-  # Entity
-  register_usage :attorney_thirds
-  register_usage :client_thirds
-  register_usage :supplier_thirds
-
-
-  # Clean ranges of accounts
-  # Example : 1-3 41 43
-  def self.clean_range_condition(range, table_name=nil)
-    expression = ""
-    unless range.blank?
-      valid_expr = /^\d(\d(\d[0-9A-Z]*)?)?$/
-      for expr in range.split(/[^0-9A-Z\-\*]+/)
-        if expr.match(/\-/)
-          start, finish = expr.split(/\-+/)[0..1]
-          next unless start < finish and start.match(valid_expr) and finish.match(valid_expr)
-          expression += " #{start}-#{finish}"
-        elsif expr.match(valid_expr)
-          expression += " #{expr}"
-        end
+    # Find or create an account with its name in chart if not exist in DB
+    def find_or_create_in_chart(usage)
+      if account = find_in_chart(usage)
+        return account
+      elsif item = Nomen::Accounts[usage]
+        return create!(:name => item.human_name, :number => item.send(chart), :debtor => !!item.debtor, :usages => item.name)
+      else
+        raise ArgumentError.new("The usage #{usage.inspect} is not known")
       end
     end
-    return expression.strip
-  end
 
-
-  # Build an SQL condition to restrein accounts to some ranges
-  # Example : 1-3 41 43
-  def self.range_condition(range, table_name=nil)
-    conn = Account.connection
-    conditions = []
-    if range.blank?
-      return conn.quoted_true
-    else
-      range = Account.clean_range_condition(range)
-      table = table_name || Account.table_name
-      for expr in range.split(/\s+/)
-        if expr.match(/\-/)
-          start, finish = expr.split(/\-+/)[0..1]
-          max = [start.length, finish.length].max
-          conditions << "#{conn.substr(table+'.number', 1, max)} BETWEEN #{conn.quote(start.ljust(max, '0'))} AND #{conn.quote(finish.ljust(max, 'Z'))}"
-        else
-          conditions << "#{table}.number LIKE #{conn.quote(expr+'%')}"
-        end
-      end
+    # Returns the name of the used chart of accounts
+    # It takes the information in preferences
+    def chart
+      return Preference[:chart_of_account]
     end
-    return '('+conditions.join(' OR ')+')'
-  end
+    alias :chart_of_accounts :chart
 
-  def self.human_chart_name(chart)
-    return ::I18n.translate("accounting_systems.#{chart}.name")
-  end
+    # Returns the human name of the chart of accounts
+    def chart_name
+      return Nomen::ChartsOfAccounts[chart].human_name
+    end
 
-  # Find all available accounting systems in all languages
-  def self.charts
-    ac = ::I18n.translate("accounting_systems")
-    return (ac.is_a?(Hash) ? ac.keys : [])
-  end
+    # Find all available accounting systems in all languages
+    def charts
+      return Nomen::ChartsOfAccounts.all
+    end
 
-  # Replace current chart of account with a new
-  def self.load_chart(name, options = {})
-    chart = ::I18n.translate("accounting_systems.#{name}")
-    if chart.is_a? Hash
+    # Load a chart of account
+    def load_chart(name, options = {})
+      unless item = Nomen::ChartsOfAccounts[name]
+        raise ArgumentError.new("Chart of accounts #{name.inspect} is unknown")
+      end
+      # TODO How to reload a new chart of accounts?
+      # Renumber existing accounts with usages
+      # -> How to do for accounts without usage? Thirds? Sub-accounts?
+      # -> How to do for accounts with many usages? prefer the shorter number?
+      return false
+    end
 
-      self.transaction do
-        # Destroy unused existing accounts
-        self.destroy_all
-
-        regexp = self.reconcilable_regexp
-
-        # Existing accounts
-        self.find_each do |account|
-          account.update_column(:reconcilable, true) if account.number.match(regexp)
-        end if options[:reconcilable]
-
-        # Create new accounts
-        for num, name in chart.to_a.sort{|a,b| a[0].to_s <=>  b[0].to_s}.select{|k, v| k.to_s.match(/^n\_/)}
-          number = num.to_s[2..-1]
-          if account = self.find_by_number(number)
-            account.update_attributes!(:name => name, :reconcilable => (options[:reconcilable] and number.match(regexp)))
-          else
-            raise number.inspect unless self.create(:number => number, :name => name, :reconcilable => (number.match(regexp) ? true : false))
+    # Clean ranges of accounts
+    # Example : 1-3 41 43
+    def clean_range_condition(range, table_name=nil)
+      expression = ""
+      unless range.blank?
+        valid_expr = /^\d(\d(\d[0-9A-Z]*)?)?$/
+        for expr in range.split(/[^0-9A-Z\-\*]+/)
+          if expr.match(/\-/)
+            start, finish = expr.split(/\-+/)[0..1]
+            next unless start < finish and start.match(valid_expr) and finish.match(valid_expr)
+            expression << " #{start}-#{finish}"
+          elsif expr.match(valid_expr)
+            expression << " #{expr}"
           end
         end
       end
-      return true
+      return expression.strip
     end
-    return false
-  end
 
 
-  # Returns list of reconcilable prefixes defined in preferences
-  def self.reconcilable_prefixes
-    return [:client, :supplier, :attorney].collect do |mode|
-      Preference["third_#{mode.to_s.pluralize}_accounts".to_sym].to_s
+    # Build an SQL condition to restrein accounts to some ranges
+    # Example : 1-3 41 43
+    def range_condition(range, table_name = nil)
+      conditions = []
+      if range.blank?
+        return connection.quoted_true
+      else
+        range = clean_range_condition(range)
+        table = table_name || table_name
+        for expr in range.split(/\s+/)
+          if expr.match(/\-/)
+            start, finish = expr.split(/\-+/)[0..1]
+            max = [start.length, finish.length].max
+            conditions << "#{connection.substr(table+'.number', 1, max)} BETWEEN #{connection.quote(start.ljust(max, '0'))} AND #{connection.quote(finish.ljust(max, 'Z'))}"
+          else
+            conditions << "#{table}.number LIKE #{connection.quote(expr + '%')}"
+          end
+        end
+      end
+      return '(' + conditions.join(' OR ') + ')'
     end
-    # return [Configuration.third_client_accounts, Configuration.third_supplier_accounts, Configuration.third_attorney_accounts]
+
+    # Returns list of reconcilable prefixes defined in preferences
+    def reconcilable_prefixes
+      return [:client, :supplier, :attorney].collect do |mode|
+        Nomen::Accounts[mode].send(chart).to_s
+      end
+    end
+
+    # Returns a RegExp based on reconcilable_prefixes
+    def reconcilable_regexp
+      return Regexp.new("^(#{self.reconcilable_prefixes.join('|')})")
+    end
+
   end
 
-  # Returns a RegExp based on reconcilable_prefixes
-  def self.reconcilable_regexp
-    return Regexp.new("^(#{self.reconcilable_prefixes.join('|')})")
-  end
+
+  # # Return the number corresponding to the name
+  # def self.chart_number(name)
+  #   return ""
+  # end
+
+  # def self.get(number, name=nil)
+  #   number = number.to_s
+  #   account = self.find_by_number(number)
+  #   return account || self.create!(:number => number, :name => name || number.to_s)
+  # end
+
+  # def self.human_chart_name(chart)
+  #   return ::I18n.translate("accounting_systems.#{chart}.name")
+  # end
+
+  # # Find all available accounting systems in all languages
+  # def self.charts
+  #   ac = ::I18n.translate("accounting_systems")
+  #   return (ac.is_a?(Hash) ? ac.keys : [])
+  # end
+
+  # # Replace current chart of account with a new
+  # def self.load_chart(name, options = {})
+  #   chart = ::I18n.translate("accounting_systems.#{name}")
+  #   if chart.is_a? Hash
+
+  #     self.transaction do
+  #       # Destroy unused existing accounts
+  #       self.destroy_all
+
+  #       regexp = self.reconcilable_regexp
+
+  #       # Existing accounts
+  #       self.find_each do |account|
+  #         account.update_column(:reconcilable, true) if account.number.match(regexp)
+  #       end if options[:reconcilable]
+
+  #       # Create new accounts
+  #       for num, name in chart.to_a.sort{|a,b| a[0].to_s <=>  b[0].to_s}.select{|k, v| k.to_s.match(/^n\_/)}
+  #         number = num.to_s[2..-1]
+  #         if account = self.find_by_number(number)
+  #           account.update_attributes!(:name => name, :reconcilable => (options[:reconcilable] and number.match(regexp)))
+  #         else
+  #           raise number.inspect unless self.create(:number => number, :name => name, :reconcilable => (number.match(regexp) ? true : false))
+  #         end
+  #       end
+  #     end
+  #     return true
+  #   end
+  #   return false
+  # end
+
 
   # Check if the account is a third account and therefore returns if it should be reconcilable
   def reconcilableable?

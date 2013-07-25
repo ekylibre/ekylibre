@@ -3,10 +3,8 @@
   <!-- root -->
   <nomenclature name="product_natures">
     <attributes>
-      <!-- attribut dans le model-->
-      <attribute name="active" type="boolean" required="true" default="true"/>
+      <!-- Inside the model-->
       <attribute name="asset_account" type="choice" nomenclature="accounts" required="false"/>
-       <!-- <attribute name="category" type="list" nomenclature="management_aspects" required="true"/> -->
       <attribute name="charge_account" type="choice" nomenclature="accounts" required="false"/>
       <attribute name="number" type="string" required="true"/>
       <attribute name="product_account" type="choice" nomenclature="accounts" required="false"/>
@@ -19,14 +17,14 @@
       <attribute name="sale_indicator_unit" type="choice" nomenclature="units" required="false"/>
       <attribute name="variety" type="choice" nomenclature="varieties" required="true"/>
       <attribute name="derivative_of" type="string" required="true" default="itself" />
-      <attribute name="purchasable" type="boolean" required="true"/>
-      <attribute name="saleable" type="boolean" required="true"/>
-      <attribute name="depreciable" type="boolean" required="true"/>
-      <attribute name="storable" type="boolean" required="true"/>
-      <attribute name="population_counting" type="choice" choices="unitary,integer,decimal" required="true"/>
-      <attribute name="reductible" type="boolean" required="true"/>
+      <attribute name="purchasable" type="boolean" required="true" default="false"/>
+      <attribute name="saleable"    type="boolean" required="true" default="false"/>
+      <attribute name="depreciable" type="boolean" required="true" default="false"/>
+      <attribute name="storable"    type="boolean" required="true" default="false"/>
+      <attribute name="population_counting" type="choice" choices="unitary, integer, decimal" required="true"/>
+      <attribute name="reductible" type="boolean" required="true" default="false"/>
       <!-- <attribute name="subscribing" type="boolean" required="true"/> -->
-      <!-- attribut dans le model-->
+      <!-- Inside the model-->
       <attribute name="abilities" type="list" nomenclature="abilities" required="false"/>
       <attribute name="indicators" type="list" nomenclature="indicators" required="false"/>
     </attributes>
@@ -38,6 +36,7 @@
             saleable="false"
             depreciable="false"
             storable="true"
+	    stock_account="stock"
             population_counting="unitary"
             usage_indicator="population"
             abilities="move"
@@ -240,7 +239,7 @@
             abilities="fertilize(plant), catch, spread, plow, sow, harvest, store"
             indicators="population"
             />
-    </items> 
+    </items>
     
   </nomenclature>
   

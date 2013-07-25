@@ -10,7 +10,10 @@ module Ekylibre::Record
 
         # Use preference to select preferred sequence to attribute number
         # in column
-        def acts_as_numbered(column = :number, options = {})
+        def acts_as_numbered(*args)
+          options = args[-1].is_a?(Hash) ? args.delete_at(-1) : {}
+          column = args.shift || :number
+
           # Bugs with MSSQL
           # raise ArgumentError.new("Method #{column.inspect} must be an existent column of the table #{self.table_name}") unless self.columns_hash.has_key? column.to_s
           options = {:start => '00000001'}.merge(options)
@@ -35,25 +38,29 @@ module Ekylibre::Record
           code << "after_validation(:load_unique_reliable_#{column}, :on => :create)\n"
 
           code << "def load_unique_predictable_#{column}\n"
-          code << "  last = #{last}\n"
-          code << "  self.#{column} = (last.nil? ? #{options[:start].inspect} : last.#{column}.blank? ? #{options[:start].inspect} : last.#{column}.succ)\n"
-          code << "  while #{class_name}.where(:#{column} => self.#{column}).count > 0 do\n"
-          code << "    self.#{column}.succ!\n"
-          code << "  end\n"
+          code << "  unless self.#{column}\n" if options[:force].is_a?(FalseClass)
+          code << "    last = #{last}\n"
+          code << "    self.#{column} = (last.nil? ? #{options[:start].inspect} : last.#{column}.blank? ? #{options[:start].inspect} : last.#{column}.succ)\n"
+          code << "    while #{class_name}.where(:#{column} => self.#{column}).count > 0 do\n"
+          code << "      self.#{column}.succ!\n"
+          code << "    end\n"
+          code << "  end\n" if options[:force].is_a?(FalseClass)
           code << "  return true\n"
           code << "end\n"
 
 
           code << "def load_unique_reliable_#{column}\n"
-          code << "  if sequence = Sequence.of('#{sequence}')\n"
-          code << "    self.#{column} = sequence.next_value\n"
-          code << "    while #{class_name}.where(:#{column} => self.#{column}).count > 0 do\n"
+          code << "  unless self.#{column}\n" if options[:force].is_a?(FalseClass)
+          code << "    if sequence = Sequence.of('#{sequence}')\n"
           code << "      self.#{column} = sequence.next_value\n"
+          code << "      while #{class_name}.where(:#{column} => self.#{column}).count > 0 do\n"
+          code << "        self.#{column} = sequence.next_value\n"
+          code << "      end\n"
+          code << "    else\n"
+          code << "      last = #{last}\n"
+          code << "      self.#{column} = (last.nil? ? #{options[:start].inspect} : last.#{column}.blank? ? #{options[:start].inspect} : last.#{column}.succ)\n"
           code << "    end\n"
-          code << "  else\n"
-          code << "    last = #{last}\n"
-          code << "    self.#{column} = (last.nil? ? #{options[:start].inspect} : last.#{column}.blank? ? #{options[:start].inspect} : last.#{column}.succ)\n"
-          code << "  end\n"
+          code << "  end\n" if options[:force].is_a?(FalseClass)
           code << "  return true\n"
           code << "end\n"
           # puts code

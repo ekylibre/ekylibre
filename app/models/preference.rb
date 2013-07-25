@@ -70,26 +70,6 @@ class Preference < Ekylibre::Record::Base
   prefer :sales_conditions, :string, ""
   prefer :chart_of_account, :string, Nomen::ChartsOfAccounts.default
 
-  # TODO removes these preferences to manage charts
-  prefer :capital_gains_accounts, :integer, 120
-  prefer :capital_losses_accounts, :integer, 129
-  prefer :charges_accounts, :integer, 6
-  prefer :financial_banks_accounts, :integer, 51
-  prefer :financial_cashes_accounts, :integer, 53
-  prefer :financial_internal_transfers_accounts, :integer, 58
-  prefer :financial_payments_to_deposit_accounts, :integer, 511
-  prefer :products_accounts, :integer, 7
-  prefer :taxes_acquisition_accounts, :integer, 4452
-  prefer :taxes_assimilated_accounts, :integer, 447
-  prefer :taxes_balance_accounts, :integer, 44567
-  prefer :taxes_payback_accounts, :integer, 44583
-  prefer :taxes_collected_accounts, :integer, 4457
-  prefer :taxes_paid_accounts, :integer, 4456
-  prefer :third_attorneys_accounts, :integer, 467
-  prefer :third_clients_accounts, :integer, 411
-  prefer :third_suppliers_accounts, :integer, 401
-
-
   def self.type_to_nature(klass)
     klass = klass.to_s
     if  ['String', 'Symbol'].include? klass

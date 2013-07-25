@@ -257,7 +257,7 @@ class Entity < Ekylibre::Record::Base
     raise ArgumentError.new("Unknown nature #{nature.inspect} (#{natures.keys.to_sentence} are accepted)") unless natures.keys.include? nature
     valid_account = self.send(natures[nature].to_s + "_account")
     if valid_account.nil?
-      prefix = Account.find_in_chart("#{nature}_thirds").number
+      prefix = Nomen::Accounts[nature].send(Account.chart)
       if Preference[:use_entity_codes_for_account_numbers]
         number = prefix.to_s+self.number.to_s
         valid_account = Account.find_by_number(number)

@@ -178,10 +178,10 @@ class FinancialYear < Ekylibre::Record::Base
         if self.account_balances.size > 0
           entry = renew_journal.entries.create!(:printed_on => to_close_on+1, :currency_id => renew_journal.currency_id)
           result   = 0
-          gains    = Account.find_in_chart(:financial_year_gains)
-          losses   = Account.find_in_chart(:financial_year_losses)
-          charges  = Account.find_in_chart(:charges)
-          products = Account.find_in_chart(:products)
+          gains    = Account.find_in_chart(:financial_year_profit)
+          losses   = Account.find_in_chart(:financial_year_loss)
+          charges  = Account.find_in_chart(:charge)
+          products = Account.find_in_chart(:product)
 
           for balance in self.account_balances.joins(:account).order("number")
             if balance.account.number.to_s.match(/^(#{charges.number}|#{products.number})/)

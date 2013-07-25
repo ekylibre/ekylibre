@@ -1,7 +1,7 @@
 class NormalizeScoria < ActiveRecord::Migration
   def up
     rename_column :accounts, :is_debit, :debtor
-    add_column :accounts, :usage, :text
+    add_column :accounts, :usages, :text
 
     remove_column :asset_depreciations, :depreciation
 

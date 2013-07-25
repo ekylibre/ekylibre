@@ -115,7 +115,7 @@ module Nomen
 
     # Returns Attribute descriptor
     def method_missing(method_name)
-      @attributes[method_name]
+      return @attributes[method_name] || super
     end
 
   end
@@ -141,7 +141,7 @@ module Nomen
         (item.parent == self)
       end
       if recursively
-        return @children + @children.map(&:children).flatten
+        return @children + [@children.map(&:children)].flatten
       end
       return @children
     end
@@ -167,7 +167,18 @@ module Nomen
 
     # Returns Attribute descriptor
     def method_missing(method_name)
-      @attributes[method_name]
+      return super unless attribute = @nomenclature.attributes[method_name]
+      value = @attributes[method_name]
+      if value.nil? and attribute.fallbacks
+        for fallback in attribute.fallbacks
+          value ||= @attributes[fallback]
+          break if value
+        end
+      end
+      if attribute.default
+        value ||= cast_attribute(method_name, attribute.default)
+      end
+      return value
     end
 
     private
@@ -200,7 +211,7 @@ module Nomen
 
 
   class AttributeDefinition
-    attr_reader :nomenclature, :name, :type, :fallback
+    attr_reader :nomenclature, :name, :type, :fallbacks, :default
 
     TYPES = [:boolean, :choice, :decimal, :list, :string]
 
@@ -209,7 +220,12 @@ module Nomen
       @nomenclature = nomenclature
       @name = element.attr("name").to_sym
       @type = element.attr("type").to_sym
-      @fallback = element.attr("fallback").to_sym if element.has_attribute?("fallback")
+      if element.has_attribute?("fallbacks")
+        @fallbacks = element.attr("fallbacks").to_s.strip.split(/[\s\,]+/).map(&:to_sym)
+      end
+      if element.has_attribute?("default")      
+        @default  = element.attr("default").to_s
+      end
       @required = !!(element.attr("required").to_s == "true")
       @inherit  = !!(element.attr("inherit").to_s == "true")
       raise ArgumentError.new("Attribute #{@name} type is unknown") unless TYPES.include?(@type)

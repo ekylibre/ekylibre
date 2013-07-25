@@ -54,7 +54,7 @@
 
 class ProductNature < Ekylibre::Record::Base
   # attr_accessible :active, :commercial_description, :commercial_name, :category_id, :deliverable, :description, :for_immobilizations, :for_productions, :for_purchases, :for_sales, :asset_account_id, :name, :nature, :number, :charge_account_id, :reduction_submissive, :product_account_id, :stockable, :subscription_nature_id, :subscription_period, :subscription_quantity, :trackable, :unit, :unquantifiable, :weight
-  attr_accessible :indicators, :active, :derivative_of, :description, :depreciable, :purchasable, :saleable, :asset_account_id, :name, :number, :stock_account_id, :charge_account_id, :product_account_id, :storable, :subscription_nature_id, :subscription_duration, :reductible, :subscribing, :variety
+  attr_accessible :abilities, :active, :derivative_of, :description, :depreciable, :indicators, :purchasable, :saleable, :asset_account_id, :name, :nomen, :number, :population_counting, :stock_account_id, :charge_account_id, :product_account_id, :storable, :subscription_nature_id, :subscription_duration, :reductible, :subscribing, :variety
   #enumerize :nature, :in => [:product, :service, :subscription], :default => :product, :predicates => true
   enumerize :variety, :in => Nomen::Varieties.all, :predicates => {:prefix => true}
   enumerize :population_counting, :in => [:unitary, :integer, :decimal], :default => :unitary
@@ -103,7 +103,7 @@ class ProductNature < Ekylibre::Record::Base
   validates_uniqueness_of :name
 
   accepts_nested_attributes_for :variants, :reject_if => :all_blank, :allow_destroy => true
-  acts_as_numbered
+  acts_as_numbered :force => false
 
   default_scope -> { order(:name) }
   scope :availables, -> { where(:active => true).order(:name) }
@@ -298,25 +298,28 @@ class ProductNature < Ekylibre::Record::Base
       raise ArgumentError.new("The product_nature #{nomen.inspect} is not known")
     end
     unless nature = ProductNature.find_by_nomen(nomen)
-      nature = self.create!(:variety => item.variety,#"bos",
-                   :abilities => item.abilities.sort.join(" "),
-                   :active => true,
-                   :asset_account_id => Account.find_or_create_in_chart(item.asset_account).id,
-                   :charge_account_id => Account.find_or_create_in_chart(item.charge_account).id,
-                   :product_account_id => Account.find_or_create_in_chart(item.product_account).id,
-                   :stock_account_id => Account.find_or_create_in_chart(item.stock_account).id,
-                   :name => item.human_name, # "Vache Laitière"
-                   :population_counting => item.population_counting, # "unitary"
-                   :number => item.number,#"VACHE_LAITIERE",
-                   :nomen => item.name,
-                   :indicators => item.indicators.sort.join(" "),#"net_weight, animal_life_state, mammalia_reproduction_event_abortion, mammalia_reproduction_method_embryo_transplant, mammalia_born_cycle, mammalia_reproduction_state, mammalia_twins_condition, mammalia_lactation_state, animal_disease_state",
-                   :derivative_of => item.derivative_of.to_s,
-                   :depreciable => item.depreciable,
-                   :purchasable => item.purchasable,
-                   :reductible => item.reductible,
-                   :saleable => item.saleable,
-                   :storable => item.storable,
-                   )
+      attributes = {
+        :variety => item.variety,
+        :abilities => item.abilities.sort.join(" "),
+        :active => true,
+        :name => item.human_name,
+        :population_counting => item.population_counting,
+        # :number => item.number,
+        :nomen => item.name,
+        :indicators => item.indicators.sort.join(" "),#"net_weight, animal_life_state, mammalia_reproduction_event_abortion, mammalia_reproduction_method_embryo_transplant, mammalia_born_cycle, mammalia_reproduction_state, mammalia_twins_condition, mammalia_lactation_state, animal_disease_state",
+        :derivative_of => item.derivative_of.to_s,
+        :depreciable => item.depreciable,
+        :purchasable => item.purchasable,
+        :reductible => item.reductible,
+        :saleable => item.saleable,
+        :storable => item.storable
+      }
+      for account in [:asset, :charge, :product, :stock]
+        if name = item.send("#{account}_account")
+          attributes[:"#{account}_account_id"] = Account.find_or_create_in_chart(name).id
+        end
+      end
+      nature = self.create!(attributes)
     end
 
     if nature.variants.count.zero?

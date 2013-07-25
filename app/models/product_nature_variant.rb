@@ -86,7 +86,9 @@ class ProductNatureVariant < Ekylibre::Record::Base
     if self.nature
       self.nature_name ||= self.nature.name
       self.name ||= self.nature_name
-      self.usage_indicator ||= self.indicators.first.name
+      if indicator = self.indicators.first
+        self.usage_indicator ||= indicator.name
+      end
     end
     self.commercial_name ||= self.name
     if item = Nomen::Indicators.find(self.usage_indicator)
@@ -108,8 +110,8 @@ class ProductNatureVariant < Ekylibre::Record::Base
 
   # Returns indicators from the nomenclature
   def indicators
-    self.nature.indicators.to_s.strip.split(/[\,\s]/).collect do |i|
-      Nomen::Indicators.find(i)
+    return self.nature.indicators.to_s.strip.split(/[\,\s]/).collect do |i|
+      Nomen::Indicators[i]
     end.compact
   end
 
