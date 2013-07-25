@@ -1,4 +1,4 @@
-{<img src="https://www.ekylibre.org/site/local/cache-vignettes/L400xH115/siteon0-9a58d.png"/>}[http://www.ekylibre.org]
+= Ekylibre
 
 Ekylibre is a simple enterprise management web application written with Ruby on Rails framework.
 More details can be found at in the doc directory or on the official website http://ekylibre.org.
