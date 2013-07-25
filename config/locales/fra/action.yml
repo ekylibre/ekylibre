@@ -100,6 +100,8 @@ fra:
       # show: "Show backend/cells/demo pie cell"
     backend/cells/expense_chart_cells:
       # show: "Show backend/cells/expense chart cell"
+    backend/cells/last_events_cells:
+      # show: "Show backend/cells/last events cell"
     backend/cells/last_milk_result_cells:
       # show: "Show backend/cells/last milk result cell"
     backend/cells/last_procedures_cells:
@@ -440,11 +442,6 @@ fra:
     backend/product_moves:
       edit: "Modifier le mouvement de stock\_: %{name}" #?
       new: "Enregistrement d’un mouvement de stock" #?
-    backend/product_nature_categories:
-      edit: "Modifier la catégorie de produits\_: %{name}"
-      index: "Catégories de produits"
-      new: "Ajout d’une nouvelle catégorie de produits"
-      show: "Détail de la catégorie\_: %{name}"
     backend/product_nature_variants:
       edit: "Modifier la variante de produit\_: %{name}"
       index: "Variantes de produits"
@@ -636,6 +633,7 @@ fra:
     # backend/cells/demo_map_cells: "Backend/cells/demo map cells"
     # backend/cells/demo_pie_cells: "Backend/cells/demo pie cells"
     # backend/cells/expense_chart_cells: "Backend/cells/expense chart cells"
+    # backend/cells/last_events_cells: "Backend/cells/last events cells"
     # backend/cells/last_milk_result_cells: "Backend/cells/last milk result cells"
     # backend/cells/last_procedures_cells: "Backend/cells/last procedures cells"
     # backend/cells/last_products_cells: "Backend/cells/last products cells"
@@ -715,7 +713,6 @@ fra:
     backend/product_localizations: "Localisations"
     # backend/product_memberships: "Backend/product memberships"
     backend/product_moves: "Mouvements de stock"
-    backend/product_nature_categories: "Catégories de type de produits"
     # backend/product_nature_variants: "Backend/product nature variants"
     backend/product_natures: "Types de produits"
     backend/product_price_listings: "Listes de prix"

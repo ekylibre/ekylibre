@@ -1589,6 +1589,7 @@ arb:
     # planned_depreciations: "Amortissements prévus"
     planned_on: "قرر يوم"
     polygon: "متناسقين" #?
+    # population_counting: "Population counting"
     position: "الوضع"
     postcode: "الرمز البريدي"
     preferences: "الاعدادات"

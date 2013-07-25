@@ -1,3 +1,4 @@
+# encoding: UTF-8
 # = Informations
 #
 # == License
@@ -23,7 +24,6 @@
 #  abilities              :text
 #  active                 :boolean          not null
 #  asset_account_id       :integer
-#  category_id            :integer          not null
 #  charge_account_id      :integer
 #  created_at             :datetime         not null
 #  creator_id             :integer
@@ -32,10 +32,11 @@
 #  description            :text
 #  id                     :integer          not null, primary key
 #  indicators             :text
-#  individual             :boolean          not null
 #  lock_version           :integer          default(0), not null
 #  name                   :string(255)      not null
+#  nomen                  :string(127)
 #  number                 :string(31)       not null
+#  population_counting    :string(255)      not null
 #  product_account_id     :integer
 #  purchasable            :boolean          not null
 #  reductible             :boolean          not null
@@ -45,7 +46,6 @@
 #  subscribing            :boolean          not null
 #  subscription_duration  :string(255)
 #  subscription_nature_id :integer
-#  unitary                :boolean          not null
 #  updated_at             :datetime         not null
 #  updater_id             :integer
 #  variety                :string(127)      not null
@@ -54,15 +54,16 @@
 
 class ProductNature < Ekylibre::Record::Base
   # attr_accessible :active, :commercial_description, :commercial_name, :category_id, :deliverable, :description, :for_immobilizations, :for_productions, :for_purchases, :for_sales, :asset_account_id, :name, :nature, :number, :charge_account_id, :reduction_submissive, :product_account_id, :stockable, :subscription_nature_id, :subscription_period, :subscription_quantity, :trackable, :unit, :unquantifiable, :weight
-  attr_accessible :unitary, :indicators, :active, :category_id, :derivative_of, :description, :depreciable, :purchasable, :saleable, :asset_account_id, :name, :number, :stock_account_id, :charge_account_id, :product_account_id, :storable, :subscription_nature_id, :subscription_duration, :reductible, :individual, :subscribing, :variety
+  attr_accessible :indicators, :active, :derivative_of, :description, :depreciable, :purchasable, :saleable, :asset_account_id, :name, :number, :stock_account_id, :charge_account_id, :product_account_id, :storable, :subscription_nature_id, :subscription_duration, :reductible, :subscribing, :variety
   #enumerize :nature, :in => [:product, :service, :subscription], :default => :product, :predicates => true
   enumerize :variety, :in => Nomen::Varieties.all, :predicates => {:prefix => true}
+  enumerize :population_counting, :in => [:unitary, :integer, :decimal], :default => :unitary
   belongs_to :asset_account, :class_name => "Account"
   belongs_to :charge_account, :class_name => "Account"
   belongs_to :product_account, :class_name => "Account"
   belongs_to :stock_account, :class_name => "Account"
   belongs_to :subscription_nature
-  belongs_to :category, :class_name => "ProductNatureCategory"
+  #belongs_to :category, :class_name => "ProductNatureCategory"
   # TODO: enumerize :unit, :in => ??
   # belongs_to :unit
   # belongs_to :variety, :class_name => "ProductVariety"
@@ -85,10 +86,10 @@ class ProductNature < Ekylibre::Record::Base
   #has_one :default_stock, :class_name => "ProductStock", :order => :name, :foreign_key => :product_id
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :number, :allow_nil => true, :maximum => 31
-  validates_length_of :derivative_of, :variety, :allow_nil => true, :maximum => 127
-  validates_length_of :name, :subscription_duration, :allow_nil => true, :maximum => 255
-  validates_inclusion_of :active, :depreciable, :individual, :purchasable, :reductible, :saleable, :storable, :subscribing, :unitary, :in => [true, false]
-  validates_presence_of :category, :name, :number, :variety
+  validates_length_of :derivative_of, :nomen, :variety, :allow_nil => true, :maximum => 127
+  validates_length_of :name, :population_counting, :subscription_duration, :allow_nil => true, :maximum => 255
+  validates_inclusion_of :active, :depreciable, :purchasable, :reductible, :saleable, :storable, :subscribing, :in => [true, false]
+  validates_presence_of :name, :number, :population_counting, :variety
   #]VALIDATORS]
   validates_presence_of :subscription_nature,   :if => :subscribing?
   validates_presence_of :subscription_period,   :if => Proc.new{|u| u.subscribing? and u.subscription_nature and u.subscription_nature.period? }
@@ -112,19 +113,20 @@ class ProductNature < Ekylibre::Record::Base
 
   scope :of_variety, Proc.new { |*varieties| where(:variety => varieties.collect{|v| Nomen::Varieties.all(v.to_sym) }.flatten.map(&:to_s).uniq) }
 
-  scope :animals, -> { where(:individual => true, :variety => "bos").order(:name) }
-  scope :plants, -> { where(:individual => true, :variety => "plant").order(:name) }
-  scope :plant_medicines, -> { where(:individual => false, :variety => "plant_medicine").order(:name) }
-  scope :animal_medicines, -> { where(:individual => false, :variety => "animal_medicine").order(:name) }
-  scope :equipments, -> { where(:variety => "equipment").order(:name) }
-  scope :buildings, -> { where(:variety => "building").order(:name) }
-  scope :organic_matters, -> { where(:variety => "organic_matter").order(:name) }
-  scope :mineral_matters, -> { where(:variety => "mineral_matter").order(:name) }
-  scope :matters, -> { where(:subscribing => false).order(:name) }
-  scope :land_parcels, -> { where(:variety => "land_parcel").order(:name) }
-  scope :land_parcel_groups, -> { where(:variety => "land_parcel_group").order(:name) }
-  scope :land_parcel_clusters, -> { where(:variety => "land_parcel_cluster").order(:name) }
-  scope :cultivable_land_parcels, -> { where(:variety => "cultivable_land_parcel").order(:name) }
+  # scope :animals, -> { where(:population_counting => "unitary", :variety => "bos").order(:name) }
+  # scope :plants, -> { where(:individual => true, :variety => "plant").order(:name) }
+  # scope :plant_medicines, -> { where(:individual => false, :variety => "plant_medicine").order(:name) }
+  # scope :animal_medicines, -> { where(:individual => false, :variety => "animal_medicine").order(:name) }
+  # scope :equipments, -> { where(:variety => "equipment").order(:name) }
+  # scope :buildings, -> { where(:variety => "building").order(:name) }
+  # scope :organic_matters, -> { where(:variety => "organic_matter").order(:name) }
+  # scope :mineral_matters, -> { where(:variety => "mineral_matter").order(:name) }
+  # scope :matters, -> { where(:subscribing => false).order(:name) }
+  # scope :land_parcels, -> { where(:variety => "land_parcel").order(:name) }
+  # scope :land_parcel_groups, -> { where(:variety => "land_parcel_group").order(:name) }
+  # scope :land_parcel_clusters, -> { where(:variety => "land_parcel_cluster").order(:name) }
+  # scope :cultivable_land_parcels, -> { where(:variety => "cultivable_land_parcel").order(:name) }
+
   before_validation do
     if self.derivative_of
       self.variety ||= self.derivative_of
@@ -288,6 +290,48 @@ class ProductNature < Ekylibre::Record::Base
   #  attributes[:moved_on] ||= attributes[:planned_on] unless attributes.keys.include? :moved_on
   #  self.stock_moves.create!(attributes)
   # end
+
+  # load a product nature from product nature nomenclature
+  def self.import_from_nomenclature(nomen)
+    unless item = Nomen::ProductNatures.find(nomen)
+      raise ArgumentError.new("The product_nature #{nomen.inspect} is not known")
+    end
+    unless nature = ProductNature.find_by_nomen(nomen)
+      nature = self.create!(:variety => item.variety,#"bos",
+                   :abilities => item.abilities.sort.join(" "),
+                   :active => true,
+                   :asset_account_id => Account.find_or_create_in_chart(item.asset_account).id,
+                   :charge_account_id => Account.find_or_create_in_chart(item.charge_account).id,
+                   :product_account_id => Account.find_or_create_in_chart(item.product_account).id,
+                   :stock_account_id => Account.find_or_create_in_chart(item.stock_account).id,
+                   :name => item.human_name, # "Vache Laitière"
+                   :population_counting => item.population_counting, # "unitary"
+                   :number => item.number,#"VACHE_LAITIERE",
+                   :nomen => item.name,
+                   :indicators => item.indicators.sort.join(" "),#"net_weight, animal_life_state, mammalia_reproduction_event_abortion, mammalia_reproduction_method_embryo_transplant, mammalia_born_cycle, mammalia_reproduction_state, mammalia_twins_condition, mammalia_lactation_state, animal_disease_state",
+                   :derivative_of => item.derivative_of.to_s,
+                   :depreciable => item.depreciable,
+                   :purchasable => item.purchasable,
+                   :reductible => item.reductible,
+                   :saleable => item.saleable,
+                   :storable => item.storable,
+                   )
+    end
+
+    if nature.variants.count.zero?
+      nature.variants.create!(:active => true,
+                              :usage_indicator => item.usage_indicator ,
+                              :usage_indicator_unit => item.usage_indicator_unit)
+    end
+    return nature
+  end
+
+  # load all product nature from product nature nomenclature
+  def self.import_all_from_nomenclature
+    for product_nature in Nomen::ProductNatures.all
+      import_from_nomenclature(product_nature)
+    end
+  end
 
 
 end

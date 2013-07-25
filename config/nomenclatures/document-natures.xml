@@ -30,6 +30,7 @@
       <item name="animal_sheet" management_aspects="production" production_natures="animal_farming"/>
       <item name="animal_list" management_aspects="production" production_natures="animal_farming"/>
       <item name="prescription" management_aspects="health" production_natures="sanitary"/>
+      <item name="animal_sanitary_list" management_aspects="health" production_natures="sanitary"/>
       <item name="land_parcel_fertilization_list" management_aspects="production" production_natures="land_parcel_management"/>
             
       <item name="entity_sheet" management_aspects="relationship"/>

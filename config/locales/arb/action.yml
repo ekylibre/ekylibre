@@ -511,11 +511,11 @@ arb:
       new: "اضافة منتج جديد" #?
       show: "المنتجات : %{name}" #?
     backend/product_nature_abilities: #?
-    backend/product_nature_categories:
-      edit: "تعديل فئة المنتج : %{name}"
-      index: "فئات المنتج"
-      new: "اضافة فئة جديدة للمنتج"
-      show: "تفاصيل فئة: %{name}"
+    backend/product_nature_categories:  #?
+      edit: "تعديل فئة المنتج : %{name}" #?
+      index: "فئات المنتج" #?
+      new: "اضافة فئة جديدة للمنتج" #?
+      show: "تفاصيل فئة: %{name}" #?
     backend/product_nature_components:  #?
       edit: "تعديل عنصر المنتج %{product} " #?
       new: "اضافة عنصر الى المنتج %{product} " #?
@@ -794,7 +794,7 @@ arb:
     # backend/product_localizations: "Localisations"
     # backend/product_moves: "Mouvements de stock"
     backend/product_nature: "المنتجات" #?
-    backend/product_nature_categories: "فئات المنتج"
+    backend/product_nature_categories: "فئات المنتج" #?
     backend/product_natures: "المنتجات"
     # backend/product_price_listings: "Listes de prix"
     # backend/product_price_templates: "Types de prix"

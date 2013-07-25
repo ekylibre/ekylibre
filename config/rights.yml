@@ -79,9 +79,10 @@
 # - "backend/cells/demo_map_cells#show"
 # - "backend/cells/demo_pie_cells#show"
 # - "backend/cells/expense_chart_cells#show"
+# - "backend/cells/last_events_cells#list"
+# - "backend/cells/last_events_cells#show"
 # - "backend/cells/last_milk_result_cells#list"
 # - "backend/cells/last_milk_result_cells#show"
-# - "backend/cells/last_procedures_cells#list"
 # - "backend/cells/last_procedures_cells#show"
 # - "backend/cells/last_products_cells#list"
 # - "backend/cells/last_products_cells#show"
@@ -313,7 +314,6 @@
 # - "backend/product_memberships#new"
 # - "backend/product_memberships#show"
 # - "backend/product_memberships#update"
-# - "backend/product_nature_categories#list_product_natures"
 # - "backend/product_nature_variants#create"
 # - "backend/product_nature_variants#destroy"
 # - "backend/product_nature_variants#edit"
@@ -1037,14 +1037,14 @@ manage_prices:
 # Manage product categories
 manage_product_categories:
 - "backend/dashboards#sales"
-- "backend/product_nature_categories#create"
-- "backend/product_nature_categories#destroy"
-- "backend/product_nature_categories#edit"
-- "backend/product_nature_categories#index"
-- "backend/product_nature_categories#list"
-- "backend/product_nature_categories#new"
-- "backend/product_nature_categories#show"
-- "backend/product_nature_categories#update"
+- "backend/product_nature_categories#create" #?
+- "backend/product_nature_categories#destroy" #?
+- "backend/product_nature_categories#edit" #?
+- "backend/product_nature_categories#index" #?
+- "backend/product_nature_categories#list" #?
+- "backend/product_nature_categories#new" #?
+- "backend/product_nature_categories#show" #?
+- "backend/product_nature_categories#update" #?
 
 # Manage product price listings
 manage_product_price_listings:
@@ -1075,7 +1075,7 @@ manage_products:
 - "backend/product_natures#create"
 - "backend/product_natures#destroy"
 - "backend/product_natures#edit"
-- "backend/product_natures#list"
+- "backend/product_natures#list" #?
 - "backend/product_natures#list_price_templates"
 - "backend/product_natures#new"
 - "backend/product_natures#update"

@@ -1296,7 +1296,10 @@ namespace :db do
       worker_nature = ProductNature.create!(:name => "Technicien", :number => "TECH", :indicators => "population", :variety => "worker", :category_id => animal_product_nature_category.id)
       worker_variant = worker_nature.variants.create!(:usage_indicator => "population")
       worker = Worker.create!(:variant_id => worker_variant.id, :name => "Christian")
-
+      
+      # add some credentials in preferences
+      cattling_number = Preferences.create!(:nature => :string, :name => "services.synel17.login", :value => "17387001")
+      
       sanitary_product_nature_variant = ProductNatureVariant.find_by_nature_name("Médicament vétérinaire")
       campaign = Campaign.find_by_name("2013")
       animal_group_nature = ProductNature.find_by_number("VACHE_LAITIERE")
@@ -1341,8 +1344,8 @@ namespace :db do
                                       :production_id => animal_production.id,
                                       :prescription_id => prescription.id
                                       )
-      # plant = Plant.find_by_work_number("SOLE_BLE-2013-PC23")
-      # Create some procedure variable for fertilization
+      
+      # Create some procedure variable
       for attributes in [{:target_id => worker.id, :role => "worker",
                            :indicator => "usage_duration",
                            :measure_quantity => "0.50", :measure_unit => "hour"},
@@ -1356,7 +1359,7 @@ namespace :db do
         ProcedureVariable.create!({:procedure_id => procedure.id}.merge(attributes) )
       end
 
-      # Create some operation variable for fertilization
+      # Create some operation variable
       for attributes in [{:started_at => (Time.now - 2.days), :stopped_at => Time.now}]
         procedure.operations.create!({:procedure_id => procedure.id}.merge(attributes) )
       end
