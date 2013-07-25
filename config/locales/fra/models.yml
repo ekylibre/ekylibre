@@ -393,7 +393,7 @@ fra:
       product_move: "Mouvement de stock"
       product_nature: "Type de produit"
       product_nature_ability: "Compétence" #?
-      product_nature_category: "Catégorie de produit"
+      product_nature_category: "Catégorie de produit" #?
       product_nature_indicator: "Indicateur" #?
       product_nature_variant: "Variante de type de produit"
       product_price: "Prix"
@@ -514,9 +514,9 @@ fra:
     cash_transfers: "Virements internes" #?
     cashes: "Trésoreries"
     cashes_accounts: "Comptes de caisse" #?
-    catalog_description: "Description pour le catalogue"
-    catalog_name: "Nom pour le catalogue"
-    category: "Catégorie"
+    catalog_description: "Description pour le catalogue" #?
+    catalog_name: "Nom pour le catalogue" #?
+    category: "Catégorie" #?
     ceded: "Cédé"
     ceded_on: "Cédé le"
     changes_reflected: "Refléter les changements"
@@ -961,6 +961,7 @@ fra:
     planned_at: "Prévu à"
     planned_depreciations: "Amortissements prévus"
     planned_on: "Prévu le"
+    population_counting: "Population counting"
     # population_delta: "Population delta"
     position: "Position"
     postcode: "Code postal"
@@ -988,7 +989,7 @@ fra:
     product_localizations: "Product localizations"
     product_moves: "Product moves"
     product_nature: "Product nature"
-    product_natures: "Types de produits"
+    product_natures: "Types de produits" #?
     production: "Production"
     productions: "Productions"
     products: "Produits"
@@ -999,7 +1000,7 @@ fra:
     protected: "Protégé"
     # provisional: "Provisional"
     # provisional_procedure: "Provisional procedure"
-    published: "Publié"
+    published: "Publié" #?
     # purchasable: "Purchasable"
     purchase: "Achat"
     purchase_amount: "Montant d’achat"
@@ -1167,7 +1168,6 @@ fra:
     unique_tracking: "Numéro unique" #?
     unit: "Unité"
     unit_quantity: "Quantité par unité de surface" #?
-    # unitary: "Unitary"
     units: "Unités" #?
     # unlock_token: "Unlock token"
     unlocked_payments: "Paiement non verrouillés"

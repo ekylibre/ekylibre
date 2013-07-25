@@ -3,6 +3,7 @@
   <nomenclature name="accounts">
     <attributes>
       <!-- These attributes permits to know the code in the matching charts of accounts -->
+      <attribute name="debtor" type="boolean" required="false" default="false"/>
       <attribute name="fr_pcg82" type="string" required="false" fallbacks="fr_pcga"/>
       <attribute name="fr_pcga" type="string" required="false" fallbacks="fr_pcg82"/>
     </attributes>  

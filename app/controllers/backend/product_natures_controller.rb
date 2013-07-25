@@ -33,31 +33,13 @@ class Backend::ProductNaturesController < BackendController
     code += "  c[0] += ' AND active = ?'\n"
     code += "  c << false\n"
     code += "end\n"
-    code += "if session[:product_nature_category_id].to_i > 0\n"
-    code += "  c[0] += ' AND category_id = ?'\n"
-    code += "  c << session[:product_nature_category_id].to_i\n"
-    code += "end\n"
     code += "c\n"
     code
-  end
-
-  list(:conditions => product_natures_conditions) do |t|
-    # t.column :number
-    t.column :name, :through => :category, :url => true
-    t.column :name, :url => true
-    t.column :number, :url => true
-    t.column :purchasable
-    t.column :saleable
-    t.column :storable
-    t.column :variety
-    t.action :edit
-    t.action :destroy
   end
 
   # Displays the main page with the list of products
   def index
     session[:product_nature_state] = params[:s]||"all"
-    session[:product_nature_category_id] = params[:category_id].to_i
   end
 
 

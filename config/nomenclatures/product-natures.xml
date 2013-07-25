@@ -6,30 +6,26 @@
       <!-- attribut dans le model-->
       <attribute name="active" type="boolean" required="true" default="true"/>
       <attribute name="asset_account" type="choice" nomenclature="accounts" required="false"/>
-      <attribute name="category" type="list" nomenclature="management_aspects" required="true"/>
+       <!-- <attribute name="category" type="list" nomenclature="management_aspects" required="true"/> -->
       <attribute name="charge_account" type="choice" nomenclature="accounts" required="false"/>
       <attribute name="number" type="string" required="true"/>
       <attribute name="product_account" type="choice" nomenclature="accounts" required="false"/>
       <attribute name="stock_account" type="choice" nomenclature="accounts" required="false"/>
-      <attribute name="unit" type="choice" nomenclature="units" required="true"/>
+      <attribute name="usage_indicator" type="choice" nomenclature="indicators" required="true"/>
+      <attribute name="usage_indicator_unit" type="choice" nomenclature="units" required="false"/>
+      <attribute name="purchase_indicator" type="choice" nomenclature="indicators" required="false"/>
+      <attribute name="purchase_indicator_unit" type="choice" nomenclature="units" required="false"/>
+      <attribute name="sale_indicator" type="choice" nomenclature="indicators" required="false"/>
+      <attribute name="sale_indicator_unit" type="choice" nomenclature="units" required="false"/>
       <attribute name="variety" type="choice" nomenclature="varieties" required="true"/>
-      <attribute name="derivative" type="string" required="true" default="itself" />
+      <attribute name="derivative_of" type="string" required="true" default="itself" />
       <attribute name="purchasable" type="boolean" required="true"/>
       <attribute name="saleable" type="boolean" required="true"/>
       <attribute name="depreciable" type="boolean" required="true"/>
       <attribute name="storable" type="boolean" required="true"/>
-      <attribute name="atomic" type="boolean" required="true"/>
+      <attribute name="population_counting" type="choice" choices="unitary,integer,decimal" required="true"/>
       <attribute name="reductible" type="boolean" required="true"/>
       <!-- <attribute name="subscribing" type="boolean" required="true"/> -->
-      <!-- attribut dans le model et à dégager dans une migration-->
-      <attribute name="alive" type="boolean" required="true"/>
-      <attribute name="deliverable" type="boolean" required="true"/>
-      <attribute name="producible" type="boolean" required="true"/>
-      <attribute name="storage" type="boolean" required="true"/>
-      <attribute name="towable" type="boolean" required="true"/>
-      <attribute name="tractive" type="boolean" required="true"/>
-      <attribute name="traceable" type="boolean" required="true"/>
-      <attribute name="transferable" type="boolean" required="true"/>
       <!-- attribut dans le model-->
       <attribute name="abilities" type="list" nomenclature="abilities" required="false"/>
       <attribute name="indicators" type="list" nomenclature="indicators" required="false"/>
@@ -37,173 +33,182 @@
     <items>
       <item name="adult_cow"
             asset_account="adult_animal_asset"
-            category="milk"
             charge_account="adult_animal_charge"
             product_account="adult_animal_product"
             stock_account="long_time_animal_stock"
-            unit="u"
+            number="ANI_ADULT_COW"
             variety="bos"
             purchasable="true"
             saleable="true"
             depreciable="true"
             storable="true"
-            atomic="true"
+            population_counting="unitary"
+            usage_indicator="population"
             abilities="consume(water), consume(poaceae), produce(excrement), produce(milk), move"
-            indicators="weight, animal_life_state, mammalia_reproduction_event_abortion, mammalia_reproduction_method_embryo_transplant, mammalia_born_cycle, mammalia_reproduction_state, mammalia_twins_condition, mammalia_lactation_state, animal_disease_state"
+            indicators="population, weight, animal_life_state, mammalia_reproduction_event_abortion, mammalia_reproduction_method_embryo_transplant, mammalia_born_cycle, mammalia_reproduction_state, mammalia_twins_condition, mammalia_lactation_state, animal_disease_state"
             />
       <item name="milk"
-            category="milk"
             charge_account="raw_material_charge"
             product_account="animal_derivatives_product"
             stock_account="animal_derivative_stock"
-            unit="l"
+            number="ORG_MAT_MILK"
             variety="bos"
-            derivative="milk"
+            derivative_of="mammalia"
             purchasable="true"
             saleable="true"
             storable="true"
-            atomic="false"
-            indicators="temperature"
+            population_counting="decimal"
+            usage_indicator="net_volume"
+            indicators="net_volume, temperature"
             />
       <item name="young_cow"
             asset_account="young_animal_asset"
-            category="milk"
             charge_account="young_animal_charge"
             product_account="young_animal_product"
             stock_account="long_time_animal_stock"
-            unit="u"
+            number="ANI_YOUNG_COW"
             variety="bos"
             purchasable="true"
             saleable="true"
             depreciable="true"
             storable="true"
-            atomic="true"
+            population_counting="unitary"
+            usage_indicator="population"
             abilities="consume(water), consume(poaceae), produce(excrement), move"
-            indicators="weight, animal_life_state, mammalia_reproduction_event_abortion, mammalia_reproduction_state, mammalia_reproduction_method_embryo_transplant, mammalia_twins_condition, mammalia_born_cycle, animal_disease_state"
+            indicators="population, weight, animal_life_state, mammalia_reproduction_event_abortion, mammalia_reproduction_state, mammalia_reproduction_method_embryo_transplant, mammalia_twins_condition, mammalia_born_cycle, animal_disease_state"
             />
       <item name="calf"
-            category="milk"
             charge_account="young_animal_charge"
             product_account="young_animal_product"
             stock_account="short_time_animal_stock"
-            unit="u"
             variety="bos"
+            number="ANI_CALF"
             purchasable="true"
             depreciable="false"
             saleable="true"
             storable="true"
-            atomic="true"
+            population_counting="unitary"
+            usage_indicator="population"
             abilities="consume(water), consume(poaceae), produce(excrement), consume(milk), move"
-            indicators="weight, animal_life_state, animal_disease_state, mammalia_born_condition"
+            indicators="population, weight, animal_life_state, animal_disease_state, mammalia_born_condition"
             />
       <item name="wheat_crop"
-            category="crop"
             product_account="plant_derivatives_product"
             stock_account="short_time_crop_stock"
-            unit="ha"
             variety="poaceae"
             purchasable="false"
+            number="VEG_WHEAT"
             saleable="true"
             depreciable="false"
             storable="true"
-            atomic="false"
+            population_counting="decimal"
+            usage_indicator="net_surface_area"
             abilities="consume(water), consume(phytosanitary), produce(grain), produce(straw)"
-            indicators="plant_life_state, plant_reproduction_state"
+            indicators="net_surface_area, plant_life_state, plant_reproduction_state"
             />
       <item name="grain"
-            category="crop"
             product_account="plant_derivatives_product"
             stock_account="plant_derivative_stock"
-            unit="qt"
             variety="poaceae"
+            number="ORG_MAT_GRAIN"
             purchasable="false"
             saleable="true"
             depreciable="false"
             storable="true"
-            atomic="false"
+            population_counting="decimal"
+            usage_indicator="net_weight"
+            indicators="net_weight"
             />
       <item name="straw"
-            category="crop"
             product_account="plant_derivatives_product"
             stock_account="plant_derivative_stock"
-            unit="t"
+            number="ORG_MAT_GRAIN"
             variety="poaceae"
             purchasable="false"
             saleable="true"
             depreciable="false"
             storable="true"
-            atomic="false"
+            population_counting="decimal"
+            usage_indicator="net_weight"
+            indicators="net_weight"
             />
       <item name="land_parcel"
             asset_account="land_parcel_asset"
-            category="crop"
             charge_account="land_parcel_rent_charge"
             product_account="land_parcel_sell_product"
-            unit="u"
             variety="land_parcel"
+            number="ZONE_LAND_PARCEL"
             purchasable="true"
             saleable="true"
             depreciable="true"
             storable="false"
-            atomic="true"
+            population_counting="decimal"
+            usage_indicator="net_surface_area"
             abilities="consume(water), consume(seed), produce(plant)"
-            indicators="sowable, in_production, ground_appearance"
+            indicators="net_surface_area, sowable, in_production, ground_appearance"
             />
       <item name="building"
             asset_account="building_asset"
-            category="crop"
             charge_account="land_parcel_rent_charge"
             product_account="land_parcel_sell_product"
-            unit="m2"
+            number="ZONE_BUILDING"
             variety="building"
             purchasable="true"
             saleable="true"
             depreciable="true"
             storable="false"
-            atomic="true"
+            usage_indicator="net_surface_area"
+            population_counting="unitary"
             abilities="store(equipment)"
+            indicators="net_surface_area"
             />
       <item name="tractor"
             asset_account="equipment_asset"
-            category="crop"
             charge_account="equipment_rent_charge"
             product_account="land_parcel_sell_product"
-            unit="u"
             variety="equipment"
+            number="EQUIPMENT_TRACTOR"
             purchasable="true"
             saleable="true"
             depreciable="true"
             storable="false"
-            atomic="true"
+            usage_indicator="population"
+            usage_indicator_unit="unity"
+            population_counting="unitary"
             abilities="catch(equipment), move, tow(equipment)"
+            indicators="population"
             />
       <item name="trail"
             asset_account="equipment_asset"
-            category="crop"
             charge_account="equipment_rent_charge"
             product_account="land_parcel_sell_product"
-            unit="u"
             variety="equipment"
+            number="EQUIPMENT_TRAIL"
             purchasable="true"
             saleable="true"
             depreciable="true"
             storable="false"
-            atomic="true"
+            usage_indicator="population"
+            usage_indicator_unit="unity"
+            population_counting="unitary"
             abilities="store(plant), move"
+            indicators="population"
             />
-      <item name="all_in_one_equipment"
+      <item name="equipment"
             asset_account="equipment_asset"
-            category="crop"
             charge_account="equipment_rent_charge"
             product_account="land_parcel_sell_product"
-            unit="u"
             variety="equipment"
+            number="EQUIPMENT"
             purchasable="true"
             saleable="true"
             depreciable="true"
             storable="false"
-            atomic="true"
+            usage_indicator="population"
+            usage_indicator_unit="unity"
+            population_counting="unitary"
             abilities="fertilize(plant), catch, spread, plow, sow, harvest, store"
+            indicators="population"
             />
     </items> 
     

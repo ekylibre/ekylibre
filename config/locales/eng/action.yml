@@ -444,11 +444,11 @@ eng:
     backend/product_moves:
       edit: "Edit the stock move: %{name}"
       new: "add a new stock move"
-    backend/product_nature_categories:
-      edit: "Edit the product category: %{name}"
-      index: "Product categories"
-      new: "Add a new product category"
-      show: "Product category: %{name}"
+    backend/product_nature_categories:  #?
+      edit: "Edit the product category: %{name}" #?
+      index: "Product categories" #?
+      new: "Add a new product category" #?
+      show: "Product category: %{name}" #?
     backend/product_nature_variants:
       edit: "Edit product variant\_: %{name}"
       index: "Product variant"
@@ -666,7 +666,7 @@ eng:
     backend/product_groups: "Product groups"
     backend/product_localizations: "Product localizations"
     backend/product_moves: "Stock moves"
-    backend/product_nature_categories: "Product categories"
+    backend/product_nature_categories: "Product categories" #?
     backend/product_natures: "Product types"
     # backend/product_price_listings: "Listes de prix"
     # backend/product_price_templates: "Types de prix"

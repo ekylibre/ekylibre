@@ -51,6 +51,7 @@ ActiveRecord::Schema.define(:version => 20130410143823) do
     t.integer  "updater_id"
     t.integer  "lock_version",                :default => 0,     :null => false
     t.boolean  "reconcilable",                :default => false, :null => false
+    t.text     "usage"
   end
 
   add_index "accounts", ["created_at"], :name => "index_accounts_on_created_at"
@@ -1547,29 +1548,6 @@ ActiveRecord::Schema.define(:version => 20130410143823) do
   add_index "product_moves", ["updated_at"], :name => "index_product_moves_on_updated_at"
   add_index "product_moves", ["updater_id"], :name => "index_product_moves_on_updater_id"
 
-  create_table "product_nature_categories", :force => true do |t|
-    t.string   "name",                                   :null => false
-    t.string   "catalog_name",                           :null => false
-    t.text     "catalog_description"
-    t.text     "description"
-    t.integer  "parent_id"
-    t.datetime "created_at",                             :null => false
-    t.datetime "updated_at",                             :null => false
-    t.integer  "creator_id"
-    t.integer  "updater_id"
-    t.integer  "lock_version",        :default => 0,     :null => false
-    t.boolean  "published",           :default => false, :null => false
-    t.integer  "lft"
-    t.integer  "rgt"
-    t.integer  "depth",               :default => 0,     :null => false
-  end
-
-  add_index "product_nature_categories", ["created_at"], :name => "index_product_nature_categories_on_created_at"
-  add_index "product_nature_categories", ["creator_id"], :name => "index_product_nature_categories_on_creator_id"
-  add_index "product_nature_categories", ["parent_id"], :name => "index_product_nature_categories_on_parent_id"
-  add_index "product_nature_categories", ["updated_at"], :name => "index_product_nature_categories_on_updated_at"
-  add_index "product_nature_categories", ["updater_id"], :name => "index_product_nature_categories_on_updater_id"
-
   create_table "product_nature_variants", :force => true do |t|
     t.integer  "nature_id",                                                 :null => false
     t.string   "name"
@@ -1605,11 +1583,10 @@ ActiveRecord::Schema.define(:version => 20130410143823) do
     t.text     "description"
     t.string   "variety",                :limit => 127,                    :null => false
     t.string   "derivative_of",          :limit => 127
+    t.string   "nomen",                  :limit => 127
     t.text     "abilities"
     t.text     "indicators"
-    t.boolean  "individual",                            :default => false, :null => false
-    t.boolean  "unitary",                               :default => false, :null => false
-    t.integer  "category_id",                                              :null => false
+    t.string   "population_counting",                                      :null => false
     t.boolean  "active",                                :default => false, :null => false
     t.boolean  "depreciable",                           :default => false, :null => false
     t.boolean  "saleable",                              :default => false, :null => false
@@ -1631,7 +1608,6 @@ ActiveRecord::Schema.define(:version => 20130410143823) do
   end
 
   add_index "product_natures", ["asset_account_id"], :name => "index_product_natures_on_asset_account_id"
-  add_index "product_natures", ["category_id"], :name => "index_product_natures_on_category_id"
   add_index "product_natures", ["charge_account_id"], :name => "index_product_natures_on_charge_account_id"
   add_index "product_natures", ["created_at"], :name => "index_product_natures_on_created_at"
   add_index "product_natures", ["creator_id"], :name => "index_product_natures_on_creator_id"

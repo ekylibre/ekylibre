@@ -33,6 +33,7 @@
 #  reconcilable :boolean          not null
 #  updated_at   :datetime         not null
 #  updater_id   :integer
+#  usage        :text
 #
 
 
@@ -103,16 +104,29 @@ class Account < Ekylibre::Record::Base
   end
 
   # Find account with its name in chart
-  def self.find_in_chart(name)
-    # TODO: Adds code to find account
-    return Account.first
+  def self.find_in_chart(usage)
+    return self.where("usages ~ ?", "\\\\m#{usage}\\\\M").first
+  end
+
+  # Find or create an account with its name in chart if not exist in DB
+  def self.find_or_create_in_chart(usage)
+    if account = find_in_chart(usage)
+      return account
+    elsif item = Nomen::Accounts.find(usage)
+      return self.create!(:name => item.human_name, :number => item.send(self.chart_of_account), :debtor => item.debtor, :usages => item.name)
+    else
+      raise ArgumentError.new("The usage #{usage.inspect} is not known")
+    end
   end
 
   # Return the number corresponding to the name
-  def self.chart_number(name)
-    return ""
-  end
+  #def self.chart_number(name)
+    #return ""
+  #end
 
+  def chart_of_account
+    return Preference[:chart_of_account]
+  end
 
   def self.get(number, name=nil)
     number = number.to_s

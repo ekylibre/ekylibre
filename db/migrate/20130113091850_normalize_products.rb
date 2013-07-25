@@ -736,11 +736,13 @@ class NormalizeProducts < ActiveRecord::Migration
       # t.text :comment
       t.string :variety,       :null => false, :limit => 127
       t.string :derivative_of, :limit => 127
+      t.string :nomen, :limit => 127
       t.text   :abilities
       t.text   :indicators
-      t.boolean :individual,   :null => false, :default => false # population % 1
-      t.boolean :unitary,      :null => false, :default => false # population = 1
-      t.references :category,  :null => false
+      t.string :population_counting,   :null => false # population management (unitary,integer,decimal)
+      #t.boolean :individual,   :null => false, :default => false # population % 1
+      #t.boolean :unitary,      :null => false, :default => false # population = 1
+      #t.references :category,  :null => false
       t.boolean :active,       :null => false, :default => false
       # t.boolean :alive,        :null => false, :default => false
       t.boolean :depreciable,  :null => false, :default => false
@@ -768,7 +770,7 @@ class NormalizeProducts < ActiveRecord::Migration
     add_stamps_indexes :product_natures
     add_index :product_natures, :number, :unique => true
     add_index :product_natures, :variety
-    add_index :product_natures, :category_id
+    #add_index :product_natures, :category_id
     add_index :product_natures, :subscription_nature_id
     add_index :product_natures, :charge_account_id
     add_index :product_natures, :product_account_id
@@ -1018,8 +1020,8 @@ class NormalizeProducts < ActiveRecord::Migration
     # add_index :operation_works, :worker_id
 
     # Rename table in order to be more logical
-    rename_table_and_co :product_categories, :product_nature_categories
-
+    #rename_table_and_co :product_categories, :product_nature_categories
+    drop_table :product_categories
     # Rename table in order to be more logical
     rename_table_and_indexes :prices, :product_price_templates
     add_column :product_price_templates, :pretax_amount_generation, :string, :limit => 32

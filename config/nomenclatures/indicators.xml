@@ -12,7 +12,7 @@
       <item name="population" datatype="measure" unit="unity"/>
       <item name="net_weight" datatype="measure" unit="kilogram"/>
       <item name="net_volume" datatype="measure" unit="liter"/>
-      <item name="net_surperficial_area" datatype="measure" unit="square_meter"/>
+      <item name="net_surface_area" datatype="measure" unit="square_meter"/>
       <item name="shape" datatype="geometry"/>
       <item name="usage_duration" datatype="measure" unit="hour"/>
       <!-- <item name="weight" datatype="measure" unit="kilogram"/> -->

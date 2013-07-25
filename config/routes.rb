@@ -741,14 +741,6 @@ Ekylibre::Application.routes.draw do
       end
     end
 
-    resources :product_nature_categories do
-      collection do
-        get :list
-        get :list_product_natures
-        unroll_all
-      end
-    end
-
     resources :product_natures do
       collection do
         get :change_quantities
