@@ -1,33 +1,31 @@
 =field_set do
   =f.input :name
-  =f.input :nomen, :disabled => true
-  =f.input :number
   =f.input :active
   =f.input :variety
 
-=field_set :nature do
+=field_set(:indicator) do
   =f.input :abilities, :disabled => true
   =f.input :indicators, :disabled => true
   -#=f.referenced_association :category
   -#input :nature, :show => {:subscription => :subscription}
 
-=field_set :nature do
+=field_set(:nature) do
   =f.input :reductible
-  =f.input :depreciable, :show => :asset_account
-  =f.input :saleable, :show => :product_account
-  =f.input :purchasable, :show => :charge_account
+  =f.input :depreciable, :show => :asset_account_field_zone
+  =f.input :saleable, :show => :product_account_field_zone
+  =f.input :purchasable, :show => :charge_account_field_zone
   -#=f.input :producible
   =f.input :population_counting
   -#=f.input :alive
   -#=f.input :deliverable # , :show => :stock_options
-  =f.input :storable, :show => :stock_account #, :show => :stocks, :in => :stock_options
+  =f.input :storable, :show => :stock_account_field_zone#, :show => :stocks, :in => :stock_options
   -#=f.input :traceable
   -#=f.input :storage
   =f.input :subscribing, :show => :subscription
   -#=f.input :towable
   -#=f.input :tractive
 
-=field_set :subscription do
+=field_set(:subscriptions) do
   =f.referenced_association :subscription_nature
   =f.input :subscription_duration
   -#input :duration
@@ -42,11 +40,11 @@
 
 -#price=render :partial=>'price_amount_form'
 
-=field_set :accountancy do
-  =f.referenced_association :asset_account
-  =f.referenced_association :product_account #,     :source => :products
-  =f.referenced_association :charge_account #, :source => :charges
-  =f.referenced_association :stock_account
+=field_set(:accountancy) do
+  =f.referenced_association :asset_account, :wrapper_html => {:id => :asset_account_field_zone}
+  =f.referenced_association :product_account, :wrapper_html => {:id => :product_account_field_zone}#,     :source => :products
+  =f.referenced_association :charge_account, :wrapper_html => {:id => :charge_account_field_zone} #, :source => :charges
+  =f.referenced_association :stock_account, :wrapper_html => {:id => :stock_account_field_zone}
 
-=field_set :variant do
+=field_set(:variant) do
   =f.nested_association(:variants)

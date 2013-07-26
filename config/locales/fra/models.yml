@@ -107,15 +107,18 @@ fra:
       product_move:
         origin: "Origine"
       product_nature:
+        abilities: "Compétences"
         asset_account: "Compte d’immobilisation"
         charge_account: "Compte d’achat"
         commercial_name: "Nom Catalogue"
         depreciable: "Ammortissable"
         duration: "Nombre de numéros OU période d’abonnement"
+        indicators: "Indicateurs"
         price: "Prix de revient"
         producible: "Produisible"
         product_account: "Compte de vente"
         purchasable: "Achetable"
+        subscribing: "Abonnement ?"
         saleable: "Vendable"
         stock_account: "Compte de stock"
         storable: "Stockable"
@@ -962,7 +965,7 @@ fra:
     planned_at: "Prévu à" #?
     planned_depreciations: "Amortissements prévus"
     planned_on: "Prévu le"
-    population_counting: "Population counting"
+    population_counting: "Gestion quantitative"
     # population_delta: "Population delta"
     position: "Position"
     postcode: "Code postal"
@@ -1121,7 +1124,7 @@ fra:
     # subject_type: "Subject type"
     subscriber: "Abonné"
     # subscribing: "Subscribing"
-    # subscription_duration: "Subscription duration"
+    subscription_duration: "Durée de l'abonnement"
     subscription_nature: "Type d’abonnement"
     subscription_natures: "Types d’abonnement" #?
     subscription_period: "Période" #?
@@ -1411,7 +1414,11 @@ fra:
         gain: "Gain"
         transfer: "Transfert"
         waste: "Perte"
-    products_nature:
+    product_nature:
+      population_counting:
+        unitary: "Unitaire"
+        decimal: "Décimal"
+        integer: "Entier"
       nature:
         product: "Produit"
         service: "Service"

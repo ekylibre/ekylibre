@@ -760,6 +760,7 @@ fra:
         one: "%{count} erreur a empêché l’enregistrement (%{model})"
         other: "%{count} erreurs ont empêché l’enregistrement (%{model})"
   labels:
+    abilities: "Compétences"
     account_accruals: "Comptes de régularisation"
     account_attorney_to_create: "— Créer automatiquement un compte mandataire —"
     account_claims_assets: "Créances"
@@ -817,6 +818,7 @@ fra:
     add_subscription_for_sale_line: "Ajouter un abonnement pour la ligne N°%{position}"
     add_support: "Ajouter un support de production"
     add_treatment: "Ajouter un traitement"
+    add_variant: "Ajouter une variante"
     add_watching: "Ajouter un produit de référence"
     add_website: "Ajouter un site Web"
     add_x: "Ajouter «\_%{x}\_»"
