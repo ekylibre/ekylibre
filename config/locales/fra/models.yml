@@ -118,10 +118,10 @@ fra:
         producible: "Produisible"
         product_account: "Compte de vente"
         purchasable: "Achetable"
-        subscribing: "Abonnement ?"
         saleable: "Vendable"
         stock_account: "Compte de stock"
         storable: "Stockable"
+        subscribing: "Abonnement ?"
       product_nature_category:
         children: "Sous-catégories"
         published: "Publiée"
@@ -1186,6 +1186,7 @@ fra:
     usage_duration: "Durée d’utilisation (heures)" #?
     usage_indicator: "Usage indicator"
     usage_indicator_unit: "Usage indicator unit"
+    # usages: "Usages"
     used_amount: "Montant utilisé" #?
     useful_items: "Lignes utiles"
     user: "Utilisateur"
@@ -1398,6 +1399,16 @@ fra:
         exterior: "Sortie"
         interior: "Entrée"
         transfer: "Transfert"
+    product_nature:
+      nature:
+        product: "Produit"
+        service: "Service"
+        subscription: "Abonnement"
+        transfer: "Transfert"
+      population_counting:
+        decimal: "Décimal"
+        integer: "Entier"
+        unitary: "Unitaire"
     product_nature_indicator:
       nature:
         boolean: "Case à cocher"
@@ -1414,16 +1425,6 @@ fra:
         gain: "Gain"
         transfer: "Transfert"
         waste: "Perte"
-    product_nature:
-      population_counting:
-        unitary: "Unitaire"
-        decimal: "Décimal"
-        integer: "Entier"
-      nature:
-        product: "Produit"
-        service: "Service"
-        subscription: "Abonnement"
-        transfer: "Transfert"
     sequence:
       period:
         cweek: "Semaine"

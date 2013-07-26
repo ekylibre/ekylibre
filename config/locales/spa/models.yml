@@ -124,11 +124,13 @@ spa:
       product_move:
         # origin: "Origine"
       product_nature:
+        # abilities: "Compétences"
         # asset_account: "Compte d’immobilisation"
         # charge_account: "Compte d’achat"
         # commercial_name: "Nom Catalogue"
         # depreciable: "Ammortissable"
         # duration: "Nombre de numéros OU période d’abonnement"
+        # indicators: "Indicateurs"
         # price: "Prix de revient"
         # producible: "Produisible"
         # product_account: "Compte de vente"
@@ -136,6 +138,7 @@ spa:
         # saleable: "Vendable"
         # stock_account: "Compte de stock"
         # storable: "Stockable"
+        # subscribing: "Abonnement ?"
       product_nature_category:
         # children: "Sous-catégories"
         # published: "Publiée"
@@ -928,7 +931,7 @@ spa:
     # planned_at: "Prévu à"
     # planned_depreciations: "Amortissements prévus"
     # planned_on: "Prévu le"
-    # population_counting: "Population counting"
+    # population_counting: "Gestion quantitative"
     # position: "Position"
     # postcode: "Code postal"
     # preferences: "Préférences"
@@ -1063,6 +1066,7 @@ spa:
     subdivision: "Y" #?
     # subject: "Objet"
     # subscriber: "Abonné"
+    # subscription_duration: "Durée de l'abonnement"
     # subscription_nature: "Type d’abonnement"
     # subscription_natures: "Types d’abonnement"
     # subscription_period: "Période"
@@ -1345,7 +1349,16 @@ spa:
         # exterior: "Sortie"
         # interior: "Entrée"
         # transfer: "Transfert"
-    product_nature: #?
+    product_nature:
+      nature:
+        # product: "Produit"
+        # service: "Service"
+        # subscription: "Abonnement"
+        # transfer: "Transfert"
+      population_counting:
+        # decimal: "Décimal"
+        # integer: "Entier"
+        # unitary: "Unitaire"
     product_nature_indicator:
       nature:
         # boolean: "Case à cocher"
@@ -1363,12 +1376,7 @@ spa:
         # transfer: "Transfert"
         # waste: "Perte"
     production_chain_work_center: #?
-    products_nature:
-      nature:
-        # product: "Produit"
-        # service: "Service"
-        # subscription: "Abonnement"
-        # transfer: "Transfert"
+    products_nature: #?
     sequence:
       period:
         # cweek: "Semaine"

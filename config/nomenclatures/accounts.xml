@@ -8,29 +8,92 @@
       <attribute name="fr_pcga" type="string" required="false" fallbacks="fr_pcg82"/>
     </attributes>  
     <items>
-      <item name="financial_year_profit" fr_pcg82="120"/>
-      <item name="financial_year_loss" fr_pcg82="129"/>
+      <!--                      CLASSE 1                -->
+      <item name="capital" fr_pcg82="101"/>
+      <item name="initial_individual_capital" fr_pcg82="1011"/>
+      <item name="initial_individual_capital_variations" fr_pcg82="1012"/>
+      <item name="reevaluation_gaps" fr_pcg82="105"/>
+      <item name="reserves" fr_pcg82="106"/>
+      <item name="legal_reserves" fr_pcg82="1061"/>
+      <item name="others_reserves" fr_pcg82="1068"/>
+      <item name="financial_year_result" fr_pcg82="12"/>
+      <item name="financial_year_result_profit" fr_pcg82="120"/>
+      <item name="financial_year_result_balance" fr_pcg82="128"/>
+      <item name="financial_year_result_loss" fr_pcg82="129"/>
+      <item name="equipment_subventions" fr_pcg82="131"/>
+      <item name="others_subventions" fr_pcg82="138"/>
+      <item name="land_loans" fr_pcg82="1641"/>
+      <item name="long_term_loans" fr_pcg82="1642"/>
+      <item name="short_term_loans" fr_pcg82="1643"/>
+      <item name="accrued_interests" fr_pcg82="1688"/>
+      <item name="accrued_interests_on_bank" fr_pcg82="16884"/>
+      <!--                      CLASSE 2                -->
+      <item name="assets" fr_pcg82="2"/>
+      <item name="others_incorporeal_asset" fr_pcga="208"/>
       <item name="land_parcel_asset" fr_pcga="2111"/>
       <item name="building_asset" fr_pcga="2141"/>
-      <item name="equipment_asset" fr_pcga="2154"/>
+      <item name="equipment_asset" fr_pcga="2154"/>    
+      <item name="general_installation_asset" fr_pcga="2181"/>
+      <item name="transport_vehicle_asset" fr_pcga="2182"/>
+      <item name="office_equipment_asset" fr_pcga="2183"/>
+      <item name="office_furniture_asset" fr_pcga="2184"/>
+      <item name="sustainable_packaging_asset" fr_pcga="2186"/>
+      <item name="others_asset" fr_pcga="2188"/>    
       <item name="adult_animal_asset" fr_pcga="241"/>
       <item name="young_animal_asset" fr_pcga="242"/>
-      <item name="service_animal_asset" fr_pcga="243"/>
-      <item name="stock" fr_pcg82="3"/>
+      <item name="service_animal_asset" fr_pcga="243"/>   
+      <item name="sustainables_plants_asset" fr_pcga="246"/>
+      <item name="sustainables_plants_on_own_landparcel_asset" fr_pcga="2461"/>
+      <item name="sustainables_plants_on_other_landparcel_asset" fr_pcga="2465"/>
+      <item name="installation_sustainable_plant_asset" fr_pcga="2467"/>
+      <item name="professional_agricultural_organization_asset" fr_pcga="262"/>
+      <item name="cooperative_participation_asset" fr_pcga="2621"/>
+      <item name="equipment_cooperative_participation_asset" fr_pcga="2622"/>
+      <item name="industrial_cooperative_participation_asset" fr_pcga="2624"/>
+      <item name="others_professional_agricultural_participation_asset" fr_pcga="2628"/>
+      <item name="ownership_asset" fr_pcga="271"/>
+      <item name="ownership_loan" fr_pcga="274"/>
+      <item name="asset_depreciations" fr_pcga="28"/>
+      <item name="incorporeal_asset_depreciations" fr_pcga="280"/>
+      <item name="others_incorporeal_asset_depreciations" fr_pcga="2808"/>
+      <item name="corporeal_asset_depreciations" fr_pcga="281"/>
+      <item name="land_parcel_asset_depreciations" fr_pcga="2811"/>
+      <item name="own_building_asset_depreciations" fr_pcga="2813"/>
+      <item name="other_building_asset_depreciations" fr_pcga="2814"/>
+      <item name="equipment_asset_depreciations" fr_pcga="2815"/>
+      <item name="general_installation_asset_depreciations" fr_pcga="28181"/>
+      <item name="transport_vehicle_asset_depreciations" fr_pcga="28182"/>
+      <item name="office_equipment_asset_depreciations" fr_pcga="28183"/>
+      <item name="office_furniture_asset_depreciations" fr_pcga="28184"/>
+      <item name="sustainable_packaging_asset_depreciations" fr_pcga="28186"/>
+      <item name="others_asset_depreciations" fr_pcga="28188"/>
+      <item name="biocorporeal_asset_depreciations" fr_pcga="284"/>
+      <item name="adult_animal_asset_depreciations" fr_pcga="2841"/>
+      <item name="service_animal_asset_depreciations" fr_pcga="2843"/>   
+      <item name="sustainables_plants_asset_depreciations" fr_pcga="2846"/>   
+      <!--                      CLASSE 3                -->
+      <item name="stocks" fr_pcg82="3"/>
       <item name="fertilizer_stock" fr_pcga="3011"/>
       <item name="seed_stock" fr_pcga="3012"/>
-      <item name="plant_medicine_matter_stock" fr_pcga="3013"/>
-      <item name="livestock_feed_matter_stock" fr_pcga="3014"/>
-      <item name="animal_medicine_matter_stock" fr_pcga="3015"/>
-      <item name="animal_reproduction_matter_stock" fr_pcga="3016"/>
-      <item name="fuel_matter_stock" fr_pcga="3021"/>
+      <item name="plant_medicine_stock" fr_pcga="3013"/>
+      <item name="livestock_feed_stock" fr_pcga="3014"/>
+      <item name="animal_medicine_stock" fr_pcga="3015"/>
+      <item name="animal_reproduction_stock" fr_pcga="3016"/>
+      <item name="fuel_stock" fr_pcga="3021"/>
+      <item name="maintenances_consumables_stock" fr_pcga="3022"/>
+      <item name="others_consumables_stock" fr_pcga="3027"/>
       <item name="long_time_animal_stock" fr_pcga="31"/>
       <item name="short_time_animal_stock" fr_pcga="32"/>
-      <item name="short_time_crop_stock" fr_pcga="341"/>
+      <item name="long_cycle_cultures_advances" fr_pcga="331"/>
+      <item name="short_cycle_cultures_advances" fr_pcga="341"/>
+      <item name="short_cycle_cultures_advances_fertilizers" fr_pcga="3411"/>
+      <item name="short_cycle_cultures_advances_seeds" fr_pcga="3412"/>
+      <item name="short_cycle_cultures_advances_plants_medicines" fr_pcga="3413"/>
+      <item name="short_cycle_cultures_advances_culturals_ways" fr_pcga="3415"/>
+      <item name="end_products_stock" fr_pcga="37"/>
       <item name="plant_derivative_stock" fr_pcga="374"/>
-      <item name="animal_derivative_stock" fr_pcga="375"/> 
-      <!-- FIXME Check account number of other_consumable_matter_stock !No idea of good value! -->
-      <item name="other_consumable_matter_stock" fr_pcga="376"/>
+      <item name="animal_derivative_stock" fr_pcga="375"/>
+      <!--                      CLASSE 4               -->
       <item name="supplier" fr_pcg82="401"/>
       <item name="client"   fr_pcg82="411"/>
       <item name="collected_tax" fr_pcg82="4457"/>

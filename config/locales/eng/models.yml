@@ -122,11 +122,13 @@ eng:
       product_move:
         origin: "Origine"
       product_nature:
+        # abilities: "Compétences"
         asset_account: "Asset account"
         charge_account: "Charge account"
         # commercial_name: "Nom Catalogue"
         depreciable: "Depreciable"
         duration: "Quantity OR period"
+        # indicators: "Indicateurs"
         price: "Cost price"
         producible: "Producible"
         product_account: "Product account"
@@ -134,6 +136,7 @@ eng:
         saleable: "Saleable"
         stock_account: "Stock account"
         storable: "Storable"
+        # subscribing: "Abonnement ?"
       product_nature_category:
         children: "Sub-product_categories"
         published: "Published"
@@ -1112,7 +1115,7 @@ eng:
     planned_at: "Planned at"
     planned_depreciations: "Planned depreciations"
     planned_on: "Planned on"
-    # population_counting: "Population counting"
+    # population_counting: "Gestion quantitative"
     position: "Position"
     posologies: "Posologies" #?
     postcode: "Postcode"
@@ -1284,6 +1287,7 @@ eng:
     subdivision: "Y" #?
     subject: "Subject"
     # subscriber: "Abonné"
+    # subscription_duration: "Durée de l'abonnement"
     subscription_nature: "Subscription type"
     subscription_natures: "Subscription types"
     subscription_period: "Subscription period"
@@ -1597,12 +1601,16 @@ eng:
         # exterior: "Sortie"
         # interior: "Entrée"
         # transfer: "Transfert"
-    product_nature:  #?
-      nature: #?
-        product: "Product" #?
-        service: "Service" #?
-        subscription: "Subcription" #?
-        transfer: "Transfer" #?
+    product_nature:
+      nature:
+        product: "Product"
+        service: "Service"
+        subscription: "Subcription"
+        transfer: "Transfer"
+      population_counting:
+        # decimal: "Décimal"
+        # integer: "Entier"
+        # unitary: "Unitaire"
     product_nature_indicator:
       nature:
         # boolean: "Case à cocher"
@@ -1623,12 +1631,12 @@ eng:
       nature: #?
         input: "One in, many out" #?
         output: "Many in, one out" #?
-    products_nature:
-      nature:
-        product: "Product"
-        service: "Service"
-        subscription: "Subcription"
-        transfer: "Transfer"
+    products_nature:  #?
+      nature: #?
+        product: "Product" #?
+        service: "Service" #?
+        subscription: "Subcription" #?
+        transfer: "Transfer" #?
     sequence:
       period:
         cweek: "Commercial week"
