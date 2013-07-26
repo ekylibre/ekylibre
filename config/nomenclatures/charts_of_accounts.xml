@@ -2,8 +2,8 @@
 <nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
   <nomenclature name="charts_of_accounts">
     <items>
-      <item name="fr_pcga"/>
       <item name="fr_pcg82"/>
+      <item name="fr_pcga"/>
       <item name="ifrs"/><!-- See IFRS Taxonomy -->
     </items>
   </nomenclature>

@@ -105,7 +105,7 @@ class Account < Ekylibre::Record::Base
 
     # Create an account with its number (and name)
     def get(number, name=nil)
-      ActiveSupport::Deprecation.warn("Account#get is deprecated. Please use Account#find_or_create_in_chart instead.")
+      ActiveSupport::Deprecation.warn("Account::get is deprecated. Please use Account::find_or_create_in_chart instead.")
       number = number.to_s
       account = find_by_number(number)
       return account || create!(:number => number, :name => name || number.to_s)
@@ -134,6 +134,16 @@ class Account < Ekylibre::Record::Base
     end
     alias :chart_of_accounts :chart
 
+    # Returns the name of the used chart of accounts
+    # It takes the information in preferences
+    def chart=(name)
+      unless item = Nomen::ChartsOfAccounts[name]
+        raise ArgumentError.new("The chart of accounts #{name.inspect} is unknown.")
+      end
+      return Preference.get(:chart_of_account).value = item.name
+    end
+    alias :chart_of_accounts= :chart=
+
     # Returns the human name of the chart of accounts
     def chart_name
       return Nomen::ChartsOfAccounts[chart].human_name
@@ -145,14 +155,14 @@ class Account < Ekylibre::Record::Base
     end
 
     # Load a chart of account
-    def load_chart(name, options = {})
+    def load # (name, options = {})
+      name = chart
       unless item = Nomen::ChartsOfAccounts[name]
         raise ArgumentError.new("Chart of accounts #{name.inspect} is unknown")
       end
-      # TODO How to reload a new chart of accounts?
-      # Renumber existing accounts with usages
-      # -> How to do for accounts without usage? Thirds? Sub-accounts?
-      # -> How to do for accounts with many usages? prefer the shorter number?
+      for item in Nomen::Acounts.all
+        find_or_create_in_chart(item.name)
+      end
       return false
     end
 
