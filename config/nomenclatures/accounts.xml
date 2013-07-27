@@ -182,10 +182,30 @@
       <item name="plant_derivatives_products" fr_pcga="701"/>
       <item name="animal_derivatives_products" fr_pcga="702"/>
       <item name="short_time_plant_crop_variation" fr_pcga="7134"/>
+      <item name="animal_products" fr_pcga="704"/>
       <item name="adult_animal_products" fr_pcga="7041"/>
       <item name="young_animal_products" fr_pcga="7042"/>
       <item name="other_animal_products" fr_pcga="7045"/>
+      <item name="fill_up_price_products" fr_pcga="7087"/>
+      <item name="inventory_variations" fr_pcga="71"/>
+      <item name="long_cycle_animals_inventory_variations" fr_pcga="7131"/>
+      <item name="short_cycle_animals_inventory_variations" fr_pcga="7132"/>
+      <item name="long_cycle_vegetals_inventory_variations" fr_pcga="7133"/>
+      <item name="short_cycle_vegetals_inventory_variations" fr_pcga="7134"/>
+      <item name="products_inventory_variations" fr_pcga="7137"/>
+      <item name="home_consumption_production" fr_pcga="726"/>
+      <item name="exploitation_subsidies_and_compensations" fr_pcga="74"/>
+      <item name="agricultural_disasters_compensations" fr_pcga="743"/>
+      <item name="others_compensations" fr_pcga="744"/>
+      <item name="subsidies" fr_pcga="745"/>
+      <item name="discount_from_cooperatives" fr_pcga="754"/>
+      <item name="others_usual_running_profits" fr_pcga="758"/>
+      <item name="financials_products" fr_pcga="76"/>
+      <item name="reductions" fr_pcga="765"/>
+      <item name="sales_assets_products" fr_pcga="775"/>
       <item name="land_parcel_sell_products" fr_pcga="7752"/>
+      <item name="share_asset_subsidies" fr_pcga="777"/>
+      <item name="exploitation_charges_transfers" fr_pcga="791"/>
     </items>
   </nomenclature>
 </nomenclatures>
