@@ -94,16 +94,34 @@
       <item name="plant_derivative_stock" fr_pcga="374"/>
       <item name="animal_derivative_stock" fr_pcga="375"/>
       <!--                      CLASSE 4               -->
-      <item name="supplier" fr_pcg82="401"/>
-      <item name="client"   fr_pcg82="411"/>
-      <item name="collected_tax" fr_pcg82="4457"/>
-      <item name="paid_tax"      fr_pcg82="4456"/>
-      <item name="attorney" fr_pcg82="467"/> <!-- Do we keep this ? Attorney won't be used anymore with the affair system -->
-      <item name="bank" fr_pcg82="51"/>
+      <item name="third_party" fr_pcg82="4"/>
+      <item name="suppliers" fr_pcg82="401"/>
+      <item name="suppliers_balance_after_compensation" fr_pcg82="402"/>
+      <item name="assets_suppliers" fr_pcg82="404"/>
+      <item name="suppliers_invoices_not_received" fr_pcg82="408"/>
+      <item name="debtors_suppliers" fr_pcg82="409"/>
+      <item name="clients"   fr_pcg82="411"/>
+      <item name="staff_due_remunerations"   fr_pcg82="421"/>
+      <item name="social_agricultural_mutuality"   fr_pcga="431"/>
+      <item name="state_taxes"   fr_pcga="445"/>
+      <item name="paid_taxes"      fr_pcg82="4456"/>
+      <item name="collected_taxes" fr_pcg82="4457"/>
+      <item name="waiting_taxes" fr_pcg82="4458"/>
+      <item name="principal_associated_accounts" fr_pcga="4551"/>
+      <item name="usual_associated_accounts" fr_pcga="4552"/>
+      <item name="locked_associated_accounts" fr_pcga="4553"/>
+      <item name="attorney" fr_pcg82="467"/>
+      <item name="compensation_operations" fr_pcg82="472"/>
+      <!--                      CLASSE 5              -->
+      <item name="banks" fr_pcg82="51"/>
       <item name="pending_deposit_payments" fr_pcg82="511"/>
+      <item name="bank" fr_pcg82="512"/>
+      <item name="accrued_bank_interests" fr_pcg82="518"/>
+      <item name="usual_bank_overdraft" fr_pcg82="519"/>
       <item name="cash" fr_pcg82="53"/>
       <item name="internal_transfer" fr_pcg82="58"/>
-      <item name="charge" fr_pcg82="6"/>
+      <!--                      CLASSE 6              -->
+      <item name="charges" fr_pcg82="6"/>
       <item name="fertilizer_charge" fr_pcga="6011"/>
       <item name="seed_charge" fr_pcga="6012"/>
       <item name="plant_medicine_matter_charge" fr_pcga="6013"/>
