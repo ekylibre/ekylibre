@@ -72,7 +72,7 @@ fra:
         adult_animal_products: "Animaux reproducteurs (adultes)"
         agricultural_disasters_compensations: "Indémnités du fonds national de garantie des calamités agricoles"
         animal_derivative_stock: "Produits finis animaux"
-        animal_derivatives_product: "Vente de produits animaux"
+        animal_derivatives_products: "Vente de produits animaux"
         animal_medicine_stock: "Stock de produits de défense des animaux"
         animal_reproduction_stock: "Stock de produits de reproduction animale"
         animals_productions_charges: "Achats pour productions animales"
@@ -409,6 +409,14 @@ fra:
         salmo: "Salmonidés"
         sus: "Porcins"
       name: "Animaux"
+    varieties-triticum_aestivum:
+      items:
+        caphorn: "Caphorn"
+      name: "Blé tendre"
+    varieties-equipment:
+      items:
+        tractor: "Tracteur"
+      name: "Equipements"
   procedures:
     animal_birth: "Naissance d’un animal"
     calving_one: "Vêlage unique"

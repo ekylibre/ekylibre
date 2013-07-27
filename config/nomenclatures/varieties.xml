@@ -48,6 +48,9 @@
   <nomenclature name="varieties-bioproduct">
     <attributes>
       <attribute name="itis-tsn" type="string"/>
+      <!-- http://www.itis.gov/ -->
+      <attribute name="europa-tsn" type="string"/>
+      <!-- http://ec.europa.eu/food/plant/propagation/catalogues/database/public/index.cfm?event=SearchForm&cat=A -->
     </attributes>
     <items>
       <item name="animal"/>

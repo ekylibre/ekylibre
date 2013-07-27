@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
-  <nomenclature name="varieties-poaceae" hierarchical="true">
+  <nomenclature name="varieties-triticum_aestivum" hierarchical="true">
     <items>
-      <item name="triticum_aestivum">
-	       <attribute name="itis-tsn" value="42237"/>
+      <item name="caphorn">
+	       <attribute name="europa-tsn" value="421"/>
       </item>
     </items>
   </nomenclature>
