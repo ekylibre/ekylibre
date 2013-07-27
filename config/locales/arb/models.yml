@@ -426,6 +426,7 @@ arb:
         second_building_id: "موقع تخزين الحركة الثانية" #?
         tracking_id: "حصة" #?
       product_nature:
+        # abilities: "Compétences"
         active: "قبل للاستخدام" #?
         # asset_account: "Compte d’immobilisation"
         buildings: "اماكن التخزين" #?
@@ -434,6 +435,7 @@ arb:
         # depreciable: "Ammortissable"
         duration: "عدد ارقام او مدة الاشتراك"
         ean13: "EAN13 الرمز" #?
+        # indicators: "Indicateurs"
         # price: "Prix de revient"
         # producible: "Produisible"
         # product_account: "Compte de vente"
@@ -444,6 +446,7 @@ arb:
         stock_moves: "حركات السهم" #?
         stocks: "اسهم المنتجات" #?
         # storable: "Stockable"
+        # subscribing: "Abonnement ?"
         unit: "وحدة القياس" #?
         unit_id: "وحدة قياس" #?
         weight: "(الوزن(كغ" #?
@@ -1597,7 +1600,7 @@ arb:
     # planned_depreciations: "Amortissements prévus"
     planned_on: "قرر يوم"
     polygon: "متناسقين" #?
-    # population_counting: "Population counting"
+    # population_counting: "Gestion quantitative"
     position: "الوضع"
     postcode: "الرمز البريدي"
     preferences: "الاعدادات"
@@ -1777,6 +1780,7 @@ arb:
     subdivision: "Y الوضع" #?
     subject: "الموضوع"
     # subscriber: "Abonné"
+    # subscription_duration: "Durée de l'abonnement"
     subscription_nature: "النوع"
     subscription_nature_id: "النوع" #?
     subscription_natures: "انواع الاشتراك"
@@ -2072,7 +2076,16 @@ arb:
         # exterior: "Sortie"
         # interior: "Entrée"
         # transfer: "Transfert"
-    product_nature: #?
+    product_nature:
+      nature:
+        # product: "Produit"
+        # service: "Service"
+        # subscription: "Abonnement"
+        # transfer: "Transfert"
+      population_counting:
+        # decimal: "Décimal"
+        # integer: "Entier"
+        # unitary: "Unitaire"
     product_nature_indicator:
       nature:
         # boolean: "Case à cocher"
@@ -2090,12 +2103,7 @@ arb:
         # transfer: "Transfert"
         # waste: "Perte"
     production_chain_work_center: #?
-    products_nature:
-      nature:
-        # product: "Produit"
-        # service: "Service"
-        # subscription: "Abonnement"
-        # transfer: "Transfert"
+    products_nature: #?
     sequence:
       period:
         # cweek: "Semaine"

@@ -738,14 +738,15 @@ spa:
       # not_found: "n’a pas été trouvé(e)"
       # not_locked: "n’était pas verrouillé(e)"
       not_saved:
-        # one: "1 erreur a empêché ce(tte) %{resource} d’être sauvegardé(e)\_:"
-        # other: "%{count} erreurs ont empêché ce(tte) %{resource} d’être sauvegardé(e)\_:"
+        # one: "1 erreur a empêché ce(tte) %{resource} d’être sauvegardé(e) :"
+        # other: "%{count} erreurs ont empêché ce(tte) %{resource} d’être sauvegardé(e) :"
     template:
       # body: "Il y a eu des problèmes avec les champs suivants\_:"
       header:
         # one: "%{count} erreur a empêché l’enregistrement (%{model})"
         # other: "%{count} erreurs ont empêché l’enregistrement (%{model})"
   labels:
+    # abilities: "Compétences"
     account_accruals: "Cuentos de regularisación"
     # account_attorney_to_create: "— Créer automatiquement un compte mandataire —"
     account_claims_assets: "Creditos"
@@ -806,6 +807,7 @@ spa:
     # add_subscription_for_sale_line: "Ajouter un abonnement pour la ligne N°%{position}"
     # add_support: "Ajouter un support de production"
     # add_treatment: "Ajouter un traitement"
+    # add_variant: "Ajouter une variante"
     # add_watching: "Ajouter un produit de référence"
     # add_website: "Ajouter un site Web"
     # add_x: "Ajouter «\_%{x}\_»"

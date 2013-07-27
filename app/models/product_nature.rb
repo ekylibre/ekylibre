@@ -233,7 +233,7 @@ class ProductNature < Ekylibre::Record::Base
   # def move_incoming_stock(options={})
   #   add_stock_move(options.merge(:virtual => false, :incoming => true))
   # end
-  
+
   # # Create virtual stock moves to reserve the products
   # def reserve_outgoing_stock(options={})
   #   add_stock_move(options.merge(:virtual => true, :incoming => false))
@@ -288,7 +288,7 @@ class ProductNature < Ekylibre::Record::Base
         :name => item.human_name,
         :population_counting => item.population_counting,
         :nomen => item.name,
-        :indicators => item.indicators.sort.join(" ")
+        :indicators => item.indicators.sort.join(" "),
         :derivative_of => item.derivative_of.to_s,
         :depreciable => item.depreciable,
         :purchasable => item.purchasable,

@@ -101,10 +101,12 @@ fra:
       product_move:
         origin: "Origine"
       product_nature:
+        abilities: "Compétences"
         asset_account: "Compte d’immobilisation"
         charge_account: "Compte d’achat"
         depreciable: "Ammortissable"
         duration: "Nombre de numéros OU période d’abonnement"
+        indicators: "Indicateurs"
         price: "Prix de revient"
         producible: "Produisible"
         product_account: "Compte de vente"
@@ -112,6 +114,7 @@ fra:
         saleable: "Vendable"
         stock_account: "Compte de stock"
         storable: "Stockable"
+        subscribing: "Abonnement ?"
       product_nature_category:
         children: "Sous-catégories"
         published: "Publiée"
@@ -899,7 +902,7 @@ fra:
     planned_at: "Prévu à" #?
     planned_depreciations: "Amortissements prévus"
     planned_on: "Prévu le"
-    population_counting: "Population counting"
+    population_counting: "Gestion quantitative"
     # population_delta: "Population delta"
     position: "Position"
     postcode: "Code postal"
@@ -1027,7 +1030,7 @@ fra:
     # subject_type: "Subject type"
     subscriber: "Abonné"
     # subscribing: "Subscribing"
-    # subscription_duration: "Subscription duration"
+    subscription_duration: "Durée de l'abonnement"
     subscription_nature: "Type d’abonnement"
     subscription_natures: "Types d’abonnement" #?
     subscription_period: "Période" #?
@@ -1277,6 +1280,16 @@ fra:
         exterior: "Sortie"
         interior: "Entrée"
         transfer: "Transfert"
+    product_nature:
+      nature:
+        product: "Produit"
+        service: "Service"
+        subscription: "Abonnement"
+        transfer: "Transfert"
+      population_counting:
+        decimal: "Décimal"
+        integer: "Entier"
+        unitary: "Unitaire"
     product_nature_indicator:
       nature:
         boolean: "Case à cocher"
@@ -1293,12 +1306,6 @@ fra:
         gain: "Gain"
         transfer: "Transfert"
         waste: "Perte"
-    products_nature:
-      nature:
-        product: "Produit"
-        service: "Service"
-        subscription: "Abonnement"
-        transfer: "Transfert"
     sequence:
       period:
         cweek: "Semaine"
