@@ -38,7 +38,9 @@ ActiveRecord::Base.transaction do
   Role.create!(:name => I18n.t('models.company.default.role.name.public'), :rights => '')
   user.save!
 
-  Account.load_chart(:fr_pcga)
+  Account.chart = ENV["chart"] || :fr_pcga
+
+  Account.load
 
   Department.create!(:name => I18n.t('models.company.default.department_name'))
   establishment = Establishment.create!(:name => I18n.t('models.company.default.establishment_name'))

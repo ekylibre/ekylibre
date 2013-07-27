@@ -61,22 +61,9 @@
 
 class Medicine < Matter
   attr_accessible :variant_id, :variety, :nature_id, :reproductor, :external, :born_at, :dead_at, :description, :description, :father_id, :mother_id, :identification_number, :name, :picture, :sex, :work_number
-  # TODO: write config/nomenclatures/varieties-animal_medicine.xml
   enumerize :variety, :in => Nomen::Varieties.all(:medicine), :predicates => {:prefix => true}
-  #enumerize :arrival_reasons, :in => [:birth, :purchase, :housing, :other], :default=> :birth
-  #enumerize :departure_reasons, :in => [:dead, :sale, :autoconsumption, :other], :default=> :sale
-  # belongs_to :nature, :class_name => "ProductNature"
-  # belongs_to :variety, :class_name => "ProductVariety"
-
-  # @TODO waiting for events and operations stabilizations
-  #has_many :events, :class_name => "Log"
-  #has_many :operations, :class_name => "Operation"
-
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   #]VALIDATORS]
 
-
   default_scope -> { order(:name) }
-  # scope :here, -> { where("external = ? AND (departed_on IS NULL or departed_on > ?)", false, Time.now).order(:name)
-
 end

@@ -104,11 +104,34 @@ class Account < Ekylibre::Record::Base
   class << self
 
     # Create an account with its number (and name)
-    def get(number, name=nil)
-      ActiveSupport::Deprecation.warn("Account#get is deprecated. Please use Account#find_or_create_in_chart instead.")
-      number = number.to_s
-      account = find_by_number(number)
-      return account || create!(:number => number, :name => name || number.to_s)
+    # Account#get(number[, name][, options])
+    def get(*args)
+      ActiveSupport::Deprecation.warn("Account::get is deprecated. Please use Account::find_or_create_in_chart instead.")
+      options = (args[-1].is_a?(Hash) ? args.delete_at(-1) : {})
+      number = args.shift.to_s.strip
+      options[:name] ||= args.shift
+      numbers = Nomen::Accounts.items.values.collect{|i| i.send(chart)} # map(&chart.to_sym)
+      while number =~ /0$/
+        break if numbers.include?(number)
+        number.gsub!(/0$/, '')
+      end unless numbers.include?(number)
+      item = Nomen::Accounts.items.values.detect{|i| i.send(chart) == number}
+      if account = find_by_number(number)
+        if item and !account.usages_array.include?(item)
+          account.usages ||= ""
+          account.usages << " " + item.name.to_s
+          account.save!
+        end
+      else
+        if item
+          options[:name] ||= item.human_name
+          options[:usages] ||= ""
+          options[:usages] << " " + item.name.to_s
+        end
+        options[:name] ||= number.to_s
+        account = create!(options.merge(:number => number))
+      end
+      return account
     end
 
     # Find account with its usage among all existing account records
@@ -134,6 +157,16 @@ class Account < Ekylibre::Record::Base
     end
     alias :chart_of_accounts :chart
 
+    # Returns the name of the used chart of accounts
+    # It takes the information in preferences
+    def chart=(name)
+      unless item = Nomen::ChartsOfAccounts[name]
+        raise ArgumentError.new("The chart of accounts #{name.inspect} is unknown.")
+      end
+      return Preference.get(:chart_of_account).value = item.name
+    end
+    alias :chart_of_accounts= :chart=
+
     # Returns the human name of the chart of accounts
     def chart_name
       return Nomen::ChartsOfAccounts[chart].human_name
@@ -145,14 +178,14 @@ class Account < Ekylibre::Record::Base
     end
 
     # Load a chart of account
-    def load_chart(name, options = {})
+    def load # (name, options = {})
+      name = chart
       unless item = Nomen::ChartsOfAccounts[name]
         raise ArgumentError.new("Chart of accounts #{name.inspect} is unknown")
       end
-      # TODO How to reload a new chart of accounts?
-      # Renumber existing accounts with usages
-      # -> How to do for accounts without usage? Thirds? Sub-accounts?
-      # -> How to do for accounts with many usages? prefer the shorter number?
+      for item in Nomen::Accounts.all
+        find_or_create_in_chart(item)
+      end
       return false
     end
 
@@ -210,6 +243,13 @@ class Account < Ekylibre::Record::Base
       return Regexp.new("^(#{self.reconcilable_prefixes.join('|')})")
     end
 
+  end
+
+  # Returns list of usages as an array of usage items from the nomenclature
+  def usages_array
+    return self.usages.to_s.strip.split(/[\,\s]/).collect do |i|
+      Nomen::Accounts[i]
+    end.compact
   end
 
 

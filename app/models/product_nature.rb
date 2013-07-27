@@ -57,34 +57,19 @@ class ProductNature < Ekylibre::Record::Base
   attr_accessible :abilities, :active, :derivative_of, :description, :depreciable, :indicators, :purchasable, :saleable, :asset_account_id, :name, :nomen, :number, :population_counting, :stock_account_id, :charge_account_id, :product_account_id, :storable, :subscription_nature_id, :subscription_duration, :reductible, :subscribing, :variety
   #enumerize :nature, :in => [:product, :service, :subscription], :default => :product, :predicates => true
   enumerize :variety, :in => Nomen::Varieties.all, :predicates => {:prefix => true}
-  enumerize :population_counting, :in => [:unitary, :integer, :decimal], :default => :unitary
+  # Be careful
+  enumerize :population_counting, :in => Nomen::ProductNatures.attributes[:population_counting].choices, :predicates => {:prefix => true}, :default => Nomen::ProductNatures.attributes[:population_counting].choices.first
   belongs_to :asset_account, :class_name => "Account"
   belongs_to :charge_account, :class_name => "Account"
   belongs_to :product_account, :class_name => "Account"
   belongs_to :stock_account, :class_name => "Account"
   belongs_to :subscription_nature
-  #belongs_to :category, :class_name => "ProductNatureCategory"
-  # TODO: enumerize :unit, :in => ??
-  # belongs_to :unit
-  # belongs_to :variety, :class_name => "ProductVariety"
   # has_many :available_stocks, :class_name => "ProductStock", :conditions => ["quantity > 0"], :foreign_key => :product_id
-  # has_many :components, :class_name => "ProductNatureComponent", :conditions => {:active => true}, :foreign_key => :product_nature_id
-  #has_many :outgoing_delivery_items, :foreign_key => :product_id
   has_many :prices, :foreign_key => :product_nature_id, :class_name => "ProductPriceTemplate"
-  #has_many :purchase_items, :foreign_key => :product_id
-  #has_many :reservoirs, :conditions => {:reservoir => true}, :foreign_key => :product_id
-  #has_many :sale_items, :foreign_key => :product_id
-  #has_many :stock_moves, :foreign_key => :product_id
-  #has_many :stock_transfers, :foreign_key => :product_id
-  # has_many :stocks, :foreign_key => :product_id
   has_many :subscriptions, :foreign_key => :product_nature_id
-  #has_many :trackings, :foreign_key => :product_id
   has_many :products, :foreign_key => :nature_id
   has_many :variants, :class_name => "ProductNatureVariant", :foreign_key => :nature_id, :inverse_of => :nature
-  #has_many :indicators, :class_name => "ProductNatureIndicator"
-  # has_many :buildings, :through => :stocks
   has_one :default_variant, :class_name => "ProductNatureVariant", :foreign_key => :nature_id, :order => :id
-  #has_one :default_stock, :class_name => "ProductStock", :order => :name, :foreign_key => :product_id
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :number, :allow_nil => true, :maximum => 31
   validates_length_of :derivative_of, :nomen, :variety, :allow_nil => true, :maximum => 127
@@ -111,43 +96,20 @@ class ProductNature < Ekylibre::Record::Base
   scope :purchaseables, -> { where(:purchasable => true).order(:name) }
   # scope :producibles, -> { where(:variety => ["bos", "animal", "plant", "organic_matter"]).order(:name) }
 
-
   scope :of_variety, Proc.new { |*varieties| where(:variety => varieties.collect{|v| Nomen::Varieties.all(v.to_sym) }.flatten.map(&:to_s).uniq) }
-
-  # scope :animals, -> { where(:population_counting => "unitary", :variety => "bos").order(:name) }
-  # scope :plants, -> { where(:individual => true, :variety => "plant").order(:name) }
-  # scope :plant_medicines, -> { where(:individual => false, :variety => "plant_medicine").order(:name) }
-  # scope :animal_medicines, -> { where(:individual => false, :variety => "animal_medicine").order(:name) }
-  # scope :equipments, -> { where(:variety => "equipment").order(:name) }
-  # scope :buildings, -> { where(:variety => "building").order(:name) }
-  # scope :organic_matters, -> { where(:variety => "organic_matter").order(:name) }
-  # scope :mineral_matters, -> { where(:variety => "mineral_matter").order(:name) }
-  # scope :matters, -> { where(:subscribing => false).order(:name) }
-  # scope :land_parcels, -> { where(:variety => "land_parcel").order(:name) }
-  # scope :land_parcel_groups, -> { where(:variety => "land_parcel_group").order(:name) }
-  # scope :land_parcel_clusters, -> { where(:variety => "land_parcel_cluster").order(:name) }
-  # scope :cultivable_land_parcels, -> { where(:variety => "cultivable_land_parcel").order(:name) }
 
   before_validation do
     if self.derivative_of
       self.variety ||= self.derivative_of
     end
     self.derivative_of = nil if self.variety.to_s == self.derivative_of.to_s
-    # self.number = self.name.codeize.upper if !self.name.blank? and self.number.blank?
-    # self.number = self.number[0..7] unless self.number.blank?
-    # if self.number.blank?
-      # last = self.class.reorder('number DESC').first
-      # self.number = last.nil? ? 1 : last.number+1
-    # end
-    # while self.class.where("number=? AND id!=?", self.number, self.id||0).first
-      # self.number.succ!
-    # end
+    unless self.indicators_array.detect{|i| i.name.to_sym == :population}
+      self.indicators ||= ""
+      self.indicators << " population"
+    end
+    self.indicators = self.indicators_array.map(&:name).sort.join(", ")
+    self.abilities  = self.abilities_array.map(&:name).sort.join(", ")
     self.storable = false unless self.deliverable?
-    # self.traceable = false unless self.storable?
-    # self.stockable = true if self.trackable?
-    # self.deliverable = true if self.stockable?
-    # self.producible = true
-    #self.commercial_name = self.name if self.commercial_name.blank?
     self.subscription_nature_id = nil unless self.subscribing?
     return true
   end
@@ -169,6 +131,29 @@ class ProductNature < Ekylibre::Record::Base
     return self.class.matching_model(self.variety)
   end
 
+  # Returns if population is frozen
+  def population_frozen?
+    return self.population_counting_unitary?
+  end
+
+  # Returns the minimum couting element
+  def population_modulo
+    return (self.population_counting_decimal? ? 0.0001 : 1)
+  end
+
+  # Returns list of indicators as an array of indicator items from the nomenclature
+  def indicators_array
+    return self.indicators.to_s.strip.split(/[\,\s]/).collect do |i|
+      Nomen::Indicators[i]
+    end.compact
+  end
+
+  # Returns list of abilities as an array of ability items from the nomenclature
+  def abilities_array
+    return self.abilities.to_s.strip.split(/[\,\s]/).collect do |i|
+      Nomen::Abilities[i]
+    end.compact
+  end
 
   def to
     to = []
@@ -177,8 +162,6 @@ class ProductNature < Ekylibre::Record::Base
     # to << :produce if self.producible?
     to.collect{|x| tc('to.'+x.to_s)}.to_sentence
   end
-
-
 
   def deliverable?
     self.storable?
@@ -241,58 +224,58 @@ class ProductNature < Ekylibre::Record::Base
     end
   end
 
-  # TODO : move stock methods in operation / product
-  # Create real stocks moves to update the real state of stocks
-  #def move_outgoing_stock(options={})
-  #  add_stock_move(options.merge(:virtual => false, :incoming => false))
-  #end
-
- # def move_incoming_stock(options={})
-  #  add_stock_move(options.merge(:virtual => false, :incoming => true))
- # end
-
-  # Create virtual stock moves to reserve the products
- # def reserve_outgoing_stock(options={})
-  #  add_stock_move(options.merge(:virtual => true, :incoming => false))
-  #end
-
-  #def reserve_incoming_stock(options={})
-  #  add_stock_move(options.merge(:virtual => true, :incoming => true))
-  #end
-
-  # Create real stocks moves to update the real state of stocks
-  #def move_stock(options={})
-   # add_stock_move(options.merge(:virtual => false))
-  #end
-
-  # Create virtual stock moves to reserve the products
-  #def reserve_stock(options={})
-  #  add_stock_move(options.merge(:virtual => true))
-  #end
-
-  # Generic method to add stock move in product's stock
-  #def add_stock_move(options={})
-  # return true unless self.stockable?
-  #  incoming = options.delete(:incoming)
-  #  attributes = options.merge(:generated => true)
-  #  origin = options[:origin]
-  #  if origin.is_a? ActiveRecord::Base
-  #    code = [:number, :code, :name, :id].detect{|x| origin.respond_to? x}
-  #    attributes[:name] = tc('stock_move', :origin => (origin ? ::I18n.t("activerecord.models.#{origin.class.name.underscore}") : "*"), :code => (origin ? origin.send(code) : "*"))
-  #    for attribute in [:quantity, :unit, :tracking_id, :building_id, :product_id]
-  #      unless attributes.keys.include? attribute
-  #        attributes[attribute] ||= origin.send(attribute) rescue nil
-  #      end
-  #    end
-  #  end
-  #  attributes[:quantity] = -attributes[:quantity] unless incoming
-  #  attributes[:building_id] ||= self.stocks.first.building_id if self.stocks.size > 0
-  #  attributes[:planned_on] ||= Date.today
-  #  attributes[:moved_on] ||= attributes[:planned_on] unless attributes.keys.include? :moved_on
-  #  self.stock_moves.create!(attributes)
+  # # TODO : move stock methods in operation / product
+  # # Create real stocks moves to update the real state of stocks
+  # def move_outgoing_stock(options={})
+  #   add_stock_move(options.merge(:virtual => false, :incoming => false))
   # end
 
-  # load a product nature from product nature nomenclature
+  # def move_incoming_stock(options={})
+  #   add_stock_move(options.merge(:virtual => false, :incoming => true))
+  # end
+
+  # # Create virtual stock moves to reserve the products
+  # def reserve_outgoing_stock(options={})
+  #   add_stock_move(options.merge(:virtual => true, :incoming => false))
+  # end
+
+  # def reserve_incoming_stock(options={})
+  #   add_stock_move(options.merge(:virtual => true, :incoming => true))
+  # end
+
+  # # Create real stocks moves to update the real state of stocks
+  # def move_stock(options={})
+  #   add_stock_move(options.merge(:virtual => false))
+  # end
+
+  # # Create virtual stock moves to reserve the products
+  # def reserve_stock(options={})
+  #   add_stock_move(options.merge(:virtual => true))
+  # end
+
+  # # Generic method to add stock move in product's stock
+  # def add_stock_move(options={})
+  #   return true unless self.stockable?
+  #   incoming = options.delete(:incoming)
+  #   attributes = options.merge(:generated => true)
+  #   origin = options[:origin]
+  #   if origin.is_a? ActiveRecord::Base
+  #     code = [:number, :code, :name, :id].detect{|x| origin.respond_to? x}
+  #     attributes[:name] = tc('stock_move', :origin => (origin ? ::I18n.t("activerecord.models.#{origin.class.name.underscore}") : "*"), :code => (origin ? origin.send(code) : "*"))
+  #     for attribute in [:quantity, :unit, :tracking_id, :building_id, :product_id]
+  #       unless attributes.keys.include? attribute
+  #         attributes[attribute] ||= origin.send(attribute) rescue nil
+  #       end
+  #     end
+  #   end
+  #   attributes[:quantity] = -attributes[:quantity] unless incoming
+  #   attributes[:building_id] ||= self.stocks.first.building_id if self.stocks.size > 0
+  #   attributes[:planned_on] ||= Date.today
+  #   attributes[:moved_on] ||= attributes[:planned_on] unless attributes.keys.include? :moved_on
+  #   self.stock_moves.create!(attributes)
+  # end
+
+  # Load a product nature from product nature nomenclature
   def self.import_from_nomenclature(nomen)
     unless item = Nomen::ProductNatures.find(nomen)
       raise ArgumentError.new("The product_nature #{nomen.inspect} is not known")
@@ -304,9 +287,8 @@ class ProductNature < Ekylibre::Record::Base
         :active => true,
         :name => item.human_name,
         :population_counting => item.population_counting,
-        # :number => item.number,
         :nomen => item.name,
-        :indicators => item.indicators.sort.join(" "),#"net_weight, animal_life_state, mammalia_reproduction_event_abortion, mammalia_reproduction_method_embryo_transplant, mammalia_born_cycle, mammalia_reproduction_state, mammalia_twins_condition, mammalia_lactation_state, animal_disease_state",
+        :indicators => item.indicators.sort.join(" "),
         :derivative_of => item.derivative_of.to_s,
         :depreciable => item.depreciable,
         :purchasable => item.purchasable,
@@ -330,12 +312,11 @@ class ProductNature < Ekylibre::Record::Base
     return nature
   end
 
-  # load all product nature from product nature nomenclature
+  # Load all product nature from product nature nomenclature
   def self.import_all_from_nomenclature
     for product_nature in Nomen::ProductNatures.all
       import_from_nomenclature(product_nature)
     end
   end
-
 
 end

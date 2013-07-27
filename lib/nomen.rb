@@ -141,7 +141,7 @@ module Nomen
         (item.parent == self)
       end
       if recursively
-        return @children + [@children.map(&:children)].flatten
+        return @children + @children.map(&:children).flatten
       end
       return @children
     end
@@ -164,6 +164,11 @@ module Nomen
       "nomenclatures.#{nomenclature.name}.items.#{name}".t(:default => ["items.#{name}".to_sym, "enumerize.#{nomenclature.name}.#{name}".to_sym, "labels.#{name}".to_sym, name.humanize])
     end
     alias :humanize :human_name
+
+
+    def inspect
+      "#{@nomenclature.name}-#{@name}"
+    end
 
     # Returns Attribute descriptor
     def method_missing(method_name)

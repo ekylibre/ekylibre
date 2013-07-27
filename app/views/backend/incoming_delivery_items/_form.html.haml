@@ -1,4 +1,4 @@
--variant = ProductNature.find(f.object.product_nature_variant_id)
+-variant = (f.object.product ? f.object.product_variant : ProductNatureVariant.find(f.object.product_nature_variant_id))
 .subform
   .subform-title
     %h3=variant.name

@@ -55,6 +55,7 @@ class IncomingDeliveryItem < Ekylibre::Record::Base
 
   accepts_nested_attributes_for :product
   acts_as_stockable :origin => :delivery
+  delegate :variant, :name, :to => :product, :prefix => true
   #delegate :weight, :name, :to => :product, :prefix => true
   #sums :delivery, :items, "item.product_weight.to_f * item.quantity" => :weight
 
