@@ -39,7 +39,7 @@ ActiveRecord::Base.transaction do
   user.save!
 
   Account.chart = ENV["chart"] || :fr_pcga
-  
+
   Account.load
 
   Department.create!(:name => I18n.t('models.company.default.department_name'))

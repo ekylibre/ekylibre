@@ -52,7 +52,7 @@ class Backend::ProductNaturesController < BackendController
     t.action :edit
     t.action :destroy
   end
-  
+
 
 
   list(:price_templates, :model => :product_price_template, :conditions => {:product_nature_id => ['session[:product_nature_id]'], :active => true}) do |t|

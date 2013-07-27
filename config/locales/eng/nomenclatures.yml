@@ -199,7 +199,7 @@ eng:
         grain: "Grain"
         land_parcel: "Land parcel"
         # male_adult_cow: "Taureau"
-        # male_young_cow: "Génisse"
+        # male_young_cow: "Taurillon"
         milk: "Milk"
         straw: "Straw"
         tractor: "Tractor"

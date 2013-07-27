@@ -33,7 +33,7 @@
 #  reconcilable :boolean          not null
 #  updated_at   :datetime         not null
 #  updater_id   :integer
-#  usage        :text
+#  usages       :text
 #
 #
 # == Fixture: accounts

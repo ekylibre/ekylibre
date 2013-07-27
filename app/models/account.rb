@@ -33,7 +33,7 @@
 #  reconcilable :boolean          not null
 #  updated_at   :datetime         not null
 #  updater_id   :integer
-#  usage        :text
+#  usages       :text
 #
 
 
@@ -71,9 +71,9 @@ class Account < Ekylibre::Record::Base
 
   default_scope order(:number, :name)
   scope :majors, where("number LIKE '_'").order(:number, :name)
-  scope :of_usage, lambda { |usage| 
+  scope :of_usage, lambda { |usage|
     raise ArgumentError.new("Unknown usage #{usage.inspect}") unless Nomen::Accounts[usage]
-    self.where("usages ~ E'\\\\m#{usage}\\\\M'") 
+    self.where("usages ~ E'\\\\m#{usage}\\\\M'")
   }
   # scope :deposit_pending_payments, lambda { where('number LIKE ?', self.chart_number(:deposit_pending_payments)+"%").order(:number, :name) }
   # scope :attorney_thirds,          lambda { where('number LIKE ?', self.chart_number(:attorney_thirds)+"%").order(:number, :name) }
@@ -104,11 +104,34 @@ class Account < Ekylibre::Record::Base
   class << self
 
     # Create an account with its number (and name)
-    def get(number, name=nil)
+    # Account#get(number[, name][, options])
+    def get(*args)
       ActiveSupport::Deprecation.warn("Account::get is deprecated. Please use Account::find_or_create_in_chart instead.")
-      number = number.to_s
-      account = find_by_number(number)
-      return account || create!(:number => number, :name => name || number.to_s)
+      options = (args[-1].is_a?(Hash) ? args.delete_at(-1) : {})
+      number = args.shift.to_s.strip
+      options[:name] ||= args.shift
+      numbers = Nomen::Accounts.items.values.collect{|i| i.send(chart)} # map(&chart.to_sym)
+      while number =~ /0$/
+        break if numbers.include?(number)
+        number.gsub!(/0$/, '')
+      end unless numbers.include?(number)
+      item = Nomen::Accounts.items.values.detect{|i| i.send(chart) == number}
+      if account = find_by_number(number)
+        if item and !account.usages_array.include?(item)
+          account.usages ||= ""
+          account.usages << " " + item.name.to_s
+          account.save!
+        end
+      else
+        if item
+          options[:name] ||= item.human_name
+          options[:usages] ||= ""
+          options[:usages] << " " + item.name.to_s
+        end
+        options[:name] ||= number.to_s
+        account = create!(options.merge(:number => number))
+      end
+      return account
     end
 
     # Find account with its usage among all existing account records
@@ -160,8 +183,8 @@ class Account < Ekylibre::Record::Base
       unless item = Nomen::ChartsOfAccounts[name]
         raise ArgumentError.new("Chart of accounts #{name.inspect} is unknown")
       end
-      for item in Nomen::Acounts.all
-        find_or_create_in_chart(item.name)
+      for item in Nomen::Accounts.all
+        find_or_create_in_chart(item)
       end
       return false
     end
@@ -220,6 +243,13 @@ class Account < Ekylibre::Record::Base
       return Regexp.new("^(#{self.reconcilable_prefixes.join('|')})")
     end
 
+  end
+
+  # Returns list of usages as an array of usage items from the nomenclature
+  def usages_array
+    return self.usages.to_s.strip.split(/[\,\s]/).collect do |i|
+      Nomen::Accounts[i]
+    end.compact
   end
 
 

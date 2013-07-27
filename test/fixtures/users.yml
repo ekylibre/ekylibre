@@ -31,7 +31,7 @@
 #  creator_id                             :integer
 #  current_sign_in_at                     :datetime
 #  current_sign_in_ip                     :string(255)
-#  departed_on                            :date
+#  departed_at                            :datetime
 #  department_id                          :integer
 #  description                            :text
 #  email                                  :string(255)      not null

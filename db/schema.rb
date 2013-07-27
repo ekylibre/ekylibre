@@ -2326,7 +2326,7 @@ ActiveRecord::Schema.define(:version => 20130410143823) do
     t.date     "arrived_on"
     t.text     "description"
     t.boolean  "commercial"
-    t.date     "departed_on"
+    t.datetime "departed_at"
     t.integer  "department_id"
     t.integer  "establishment_id"
     t.string   "office"

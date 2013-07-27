@@ -26,8 +26,7 @@ class Backend::IncomingDeliveriesController < BackendController
     t.column :number
     t.column :reference_number
     # t.column :description
-    t.column :weight
-    t.column :planned_at
+    # t.column :weight
     t.column :received_at
     t.column :name, :through => :mode
     t.column :number, :through => :purchase, :url => true
@@ -39,8 +38,6 @@ class Backend::IncomingDeliveriesController < BackendController
   # Displays the main page with the list of incoming deliveries
   def index
   end
-
-
 
   def confirm
     return unless incoming_delivery = find_and_check

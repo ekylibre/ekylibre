@@ -60,33 +60,33 @@ class ProductNatureVariant < Ekylibre::Record::Base
   validates_presence_of :commercial_name, :horizontal_rotation, :nature, :nature_name
   #]VALIDATORS]
 
-  delegate :variety, :matching_model, :individual, :to => :nature
+  delegate :variety, :matching_model, :indicators_array, :population_frozen?, :population_modulo, :to => :nature
 
   acts_as_numbered
 
   default_scope -> { order(:name) }
   scope :of_variety, Proc.new { |*varieties| where(:nature_id => ProductNature.of_variety(*varieties).pluck(:id)) }
-  # Variety scopes
-  scope :animals, lambda { joins(:nature).merge(ProductNature.animals).order(:name)}
-  scope :plants, lambda { joins(:nature).merge(ProductNature.plants).order(:name)}
-  scope :plant_medicines, lambda { joins(:nature).merge(ProductNature.plant_medicines).order(:name)}
-  scope :animal_medicines, lambda { joins(:nature).merge(ProductNature.animal_medicines).order(:name)}
-  scope :equipments, lambda { joins(:nature).merge(ProductNature.equipments).order(:name)}
-  scope :buildings, lambda { joins(:nature).merge(ProductNature.buildings).order(:name)}
-  scope :organic_matters, lambda { joins(:nature).merge(ProductNature.organic_matters).order(:name)}
-  scope :mineral_matters, lambda { joins(:nature).merge(ProductNature.mineral_matters).order(:name)}
-  scope :matters, lambda { joins(:nature).merge(ProductNature.matters).order(:name)}
-  scope :land_parcels, lambda { joins(:nature).merge(ProductNature.land_parcels).order(:name)}
-  scope :land_parcel_groups, lambda { joins(:nature).merge(ProductNature.land_parcel_groups).order(:name)}
-  scope :land_parcel_clusters, lambda { joins(:nature).merge(ProductNature.land_parcel_clusters).order(:name)}
-  scope :cultivable_land_parcels, lambda { joins(:nature).merge(ProductNature.cultivable_land_parcels).order(:name)}
+  # # Variety scopes
+  # scope :animals, lambda { joins(:nature).merge(ProductNature.animals).order(:name)}
+  # scope :plants, lambda { joins(:nature).merge(ProductNature.plants).order(:name)}
+  # scope :plant_medicines, lambda { joins(:nature).merge(ProductNature.plant_medicines).order(:name)}
+  # scope :animal_medicines, lambda { joins(:nature).merge(ProductNature.animal_medicines).order(:name)}
+  # scope :equipments, lambda { joins(:nature).merge(ProductNature.equipments).order(:name)}
+  # scope :buildings, lambda { joins(:nature).merge(ProductNature.buildings).order(:name)}
+  # scope :organic_matters, lambda { joins(:nature).merge(ProductNature.organic_matters).order(:name)}
+  # scope :mineral_matters, lambda { joins(:nature).merge(ProductNature.mineral_matters).order(:name)}
+  # scope :matters, lambda { joins(:nature).merge(ProductNature.matters).order(:name)}
+  # scope :land_parcels, lambda { joins(:nature).merge(ProductNature.land_parcels).order(:name)}
+  # scope :land_parcel_groups, lambda { joins(:nature).merge(ProductNature.land_parcel_groups).order(:name)}
+  # scope :land_parcel_clusters, lambda { joins(:nature).merge(ProductNature.land_parcel_clusters).order(:name)}
+  # scope :cultivable_land_parcels, lambda { joins(:nature).merge(ProductNature.cultivable_land_parcels).order(:name)}
 
 
   before_validation :on => :create do
     if self.nature
       self.nature_name ||= self.nature.name
       self.name ||= self.nature_name
-      if indicator = self.indicators.first
+      if indicator = self.indicators_array.first
         self.usage_indicator ||= indicator.name
       end
     end
@@ -107,12 +107,16 @@ class ProductNatureVariant < Ekylibre::Record::Base
 
   end
 
-
-  # Returns indicators from the nomenclature
-  def indicators
-    return self.nature.indicators.to_s.strip.split(/[\,\s]/).collect do |i|
-      Nomen::Indicators[i]
-    end.compact
+  validate do
+    # Check that unit match indicator's unit
+    for mode in [:usage, :sale, :purchase]
+      unit = self.send("#{mode}_indicator_unit").to_s
+      if item = Nomen::Indicators[self.send("#{mode}_indicator")] and !unit.blank?
+        if Measure.dimension(item.unit) != Measure.dimension(unit)
+          errors.add(:"#{mode}_indicator_unit", :invalid)
+        end
+      end
+    end
   end
 
 end

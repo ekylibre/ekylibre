@@ -220,7 +220,7 @@ class Product < Ekylibre::Record::Base
   # Measure a product for a given indicator
   def is_measured!(indicator, value, options = {})
     unless Nomen::Indicators[indicator]
-      raise ArgumentError.new("Unknown indicator #{indicator.inspect}") 
+      raise ArgumentError.new("Unknown indicator #{indicator.inspect}")
     end
     datum = self.indicator_data.new(:indicator => indicator, :measured_at => (options[:at] || Time.now) )
     datum.value = value

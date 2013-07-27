@@ -159,16 +159,18 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
         fs << self.input(:variety, :collection => varieties)
 
         # Adds owner fields
-        external = @template.params[:external]
-        if external.is_a?(TrueClass)
-          fs << self.input(:external, :value => true, :as => :hidden)
-          fs << self.referenced_association(:owner)
-        elsif external.is_a?(FalseClass)
-          fs << self.input(:external, :value => false, :as => :hidden)
-        else
-          id = rand(1_000_000).to_s(36) + Time.now.to_i.to_s(36)
-          fs << self.input(:external, :show => "##{id}")
-          fs << self.referenced_association(:owner, :wrapper_html => {:id => id})
+        if @object.new_record?
+          external = @template.params[:external].to_s
+          if external == "true"
+            fs << self.input(:external, :value => true, :as => :hidden)
+            fs << self.referenced_association(:owner)
+          elsif external == "false"
+            fs << self.input(:external, :value => false, :as => :hidden)
+          else
+            id = rand(1_000_000).to_s(36) + Time.now.to_i.to_s(36)
+            fs << self.input(:external, :show => "##{id}")
+            fs << self.referenced_association(:owner, :wrapper_html => {:id => id})
+          end
         end
 
         # Add custom fields
@@ -185,10 +187,16 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
       end
 
       # Add first indicators
-      if @object.new_record? and variant.indicators.size > 0
+      indicators = variant.indicators_array
+      if variant.population_frozen?
+        indicators.delete_if do |indicator|
+          indicator.name.to_sym == :population
+        end
+      end
+      if @object.new_record? and indicators.size > 0
         html << @template.field_set(:indicators) do
           fs = "".html_safe
-          for indicator in variant.indicators
+          for indicator in indicators
             datum = @object.indicator_data.new(:indicator => indicator.name)
             fs << self.backend_fields_for(indicator.name, datum) do |indfi|
               fsi = "".html_safe

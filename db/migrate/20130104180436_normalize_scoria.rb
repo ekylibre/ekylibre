@@ -225,6 +225,9 @@ class NormalizeScoria < ActiveRecord::Migration
 
     rename_column :transfers, :supplier_id, :client_id
     change_column_null :transfers, :client_id, false
+
+    rename_column :users, :departed_on, :departed_at
+    change_column :users, :departed_at, :datetime
   end
 
   def down

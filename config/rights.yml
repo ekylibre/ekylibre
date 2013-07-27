@@ -1062,7 +1062,7 @@ manage_products:
 - "backend/product_natures#create"
 - "backend/product_natures#destroy"
 - "backend/product_natures#edit"
-- "backend/product_natures#list" #?
+- "backend/product_natures#list"
 - "backend/product_natures#list_price_templates"
 - "backend/product_natures#new"
 - "backend/product_natures#update"
