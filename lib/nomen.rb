@@ -223,7 +223,7 @@ module Nomen
       if element.has_attribute?("fallbacks")
         @fallbacks = element.attr("fallbacks").to_s.strip.split(/[\s\,]+/).map(&:to_sym)
       end
-      if element.has_attribute?("default")      
+      if element.has_attribute?("default")
         @default  = element.attr("default").to_s
       end
       @required = !!(element.attr("required").to_s == "true")
