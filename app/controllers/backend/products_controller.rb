@@ -109,7 +109,7 @@ class Backend::ProductsController < BackendController
   end
 
   # incidents of the consider product
-  list(:incident, :model => :incidents, :conditions => [" target_id = ? and target_type = 'Animal'",['session[:current_product_id]']], :order => "observed_at DESC") do |t|
+  list(:incident, :model => :incidents, :conditions => [" target_id = ? and target_type = 'Product'",['session[:current_product_id]']], :order => "observed_at DESC") do |t|
     t.column :name, :url => true
     t.column :nature
     t.column :observed_at

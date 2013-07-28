@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::AnimalsController < BackendController
+class Backend::AnimalsController < Backend::ProductsController
   manage_restfully :t3e => {:nature_name => "@animal.nature_name"}
 
   respond_to :pdf, :odt, :docx, :xml, :json, :html, :csv
@@ -79,7 +79,7 @@ class Backend::AnimalsController < BackendController
   end
 
   # Liste des incidents de l'animal considéré
-  list(:incident, :model => :incidents, :conditions => [" target_id = ? and target_type = 'Animal'",['session[:current_animal_id]']], :order => "observed_at DESC") do |t|
+  list(:incident, :model => :incidents, :conditions => [" target_id = ? and target_type = 'Product'",['session[:current_animal_id]']], :order => "observed_at DESC") do |t|
     t.column :name, :url => true
     t.column :nature
     t.column :observed_at

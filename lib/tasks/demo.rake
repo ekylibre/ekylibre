@@ -567,10 +567,13 @@ namespace :db do
       price_listing = ProductPriceListing.find_by_code("STD")
       # wheat_category = ProductNatureCategory.find_by_name("Produits végétaux")
       # wheat_category ||= ProductNatureCategory.create!(:name => "Produits végétaux")
+
+      #wheat_pn     = ProductNature.import_from_nomenclature(:female_adult_cow).default_variant
+
       grain_unit = "quintal"
       sole_unit = "hectare"
-      wheat_charge_account = Account.find_or_create_in_chart(:charge) # Account.find_by_number("601")
-      wheat_product_account = Account.find_or_create_in_chart(:product) # Account.find_by_number("701")
+      wheat_charge_account = Account.find_or_create_in_chart(:vegetals_productions_charges) # Account.find_by_number("601")
+      wheat_product_account = Account.find_or_create_in_chart(:plant_derivatives_products) # Account.find_by_number("701")
       wheat_stock_account = Account.find_or_create_in_chart(:plant_derivative_stock)
       wheat_price_template_tax = Tax.find_by_amount(5.5)
 
@@ -724,20 +727,20 @@ namespace :db do
       # other_consumable_category ||= ProductNatureCategory.create!(:name => "Quincaillerie")
 
       # charge account for product nature
-      fertilizer_charge_account = Account.find_or_create_in_chart(:fertilizer_charge)
-      seed_charge_account = Account.find_or_create_in_chart(:seed_charge)
-      plant_medicine_matter_charge_account = Account.find_or_create_in_chart(:plant_medicine_matter_charge)
-      livestock_feed_matter_charge_account = Account.find_or_create_in_chart(:livestock_feed_matter_charge)
-      animal_medicine_matter_charge_account = Account.find_or_create_in_chart(:animal_medicine_matter_charge)
-      other_consumable_matter_charge_account = Account.find_or_create_in_chart(:other_consumable_matter_charge)
+      fertilizer_charge_account = Account.find_or_create_in_chart(:fertilizer_charges)
+      seed_charge_account = Account.find_or_create_in_chart(:seed_charges)
+      plant_medicine_matter_charge_account = Account.find_or_create_in_chart(:plant_medicine_matter_charges)
+      livestock_feed_matter_charge_account = Account.find_or_create_in_chart(:livestock_feed_matter_charges)
+      animal_medicine_matter_charge_account = Account.find_or_create_in_chart(:animal_medicine_matter_charges)
+      other_consumable_matter_charge_account = Account.find_or_create_in_chart(:other_consumable_matter_charges)
 
       # stock account for product nature
       fertilizer_stock_account = Account.find_or_create_in_chart(:fertilizer_stock)
       seed_stock_account = Account.find_or_create_in_chart(:seed_stock)
-      plant_medicine_matter_stock_account = Account.find_or_create_in_chart(:plant_medicine_matter_stock)
-      livestock_feed_matter_stock_account = Account.find_or_create_in_chart(:livestock_feed_matter_stock)
-      animal_medicine_matter_stock_account = Account.find_or_create_in_chart(:animal_medicine_matter_stock)
-      other_consumable_matter_stock_account = Account.find_or_create_in_chart(:other_consumable_matter_stock)
+      plant_medicine_matter_stock_account = Account.find_or_create_in_chart(:plant_medicine_stock)
+      livestock_feed_matter_stock_account = Account.find_or_create_in_chart(:livestock_feed_stock)
+      animal_medicine_matter_stock_account = Account.find_or_create_in_chart(:animal_medicine_stock)
+      other_consumable_matter_stock_account = Account.find_or_create_in_chart(:others_consumables_stock)
       appro_price_template_tax = Tax.find_by_amount(5.5)
 
       # Create product_nature for plant product
