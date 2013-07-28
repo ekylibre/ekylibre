@@ -358,7 +358,11 @@ fra:
         variety: "Variété"
       items:
         all_in_one_equipment: "Équipement tout en un"
-        building: "Batiments"
+        building: "Bâtiments"
+        building_division: "Pièce ou zone d'un bâtiment"
+        animal_building: "Bâtiment d'accueil pour les animaux"
+        office_building: "Bureau"
+        screed_building: "Construction béton (silo, chape, terrasse)"
         calf: "Veau"
         female_adult_cow: "Vache"
         female_young_cow: "Génisse"
