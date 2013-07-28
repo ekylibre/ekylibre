@@ -209,7 +209,7 @@ namespace :db do
 
       # add shape for building_division
       print "[#{(Time.now - start).round(2).to_s.rjust(8)}s] Add shapes to building divisions: "
-      
+
       building_division_variant = ProductNature.import_from_nomenclature(:building_division).default_variant
 
       RGeo::Shapefile::Reader.open(Rails.root.join("test", "fixtures", "files", "buildings_division_2013.shp").to_s, :srid => 2154) do |file|
@@ -225,7 +225,7 @@ namespace :db do
           building_division.is_measured!(:shape, record.geometry, :at => Time.now)
           ind_area = building_division.shape_area
           building_division.is_measured!(:net_surface_area, ind_area.in_square_meter, :at => Time.now)
-          
+
           if record.attributes['CONTAINER'].to_s
             building = Building.find_by_work_number(record.attributes['CONTAINER'].to_s)
             building.add(building_division, now)
@@ -437,7 +437,7 @@ namespace :db do
       #############################################################################
       # Import shapefile
       print "[#{(Time.now - start).round(2).to_s.rjust(8)}s] LandParcelClusters - TelePAC Shapefile 2013: "
-  
+
       land_parcel_group_variant = ProductNature.import_from_nomenclature(:land_parcel_cluster).default_variant
 
       RGeo::Shapefile::Reader.open(Rails.root.join("test", "fixtures", "files", "ilot_017005218.shp").to_s, :srid => 2154) do |file|
@@ -450,7 +450,7 @@ namespace :db do
                                     :born_at => Date.civil(record.attributes['CAMPAGNE'], 1, 1),
                                     :owner_id => Entity.of_company.id,
                                     :identification_number => record.attributes['PACAGE'].to_s + record.attributes['CAMPAGNE'].to_s + record.attributes['NUMERO'].to_s)
-          land_parcel_cluster.is_measured!(:shape, record.geometry, :at => Date.civil(record.attributes['CAMPAGNE'], 1, 1))      
+          land_parcel_cluster.is_measured!(:shape, record.geometry, :at => Date.civil(record.attributes['CAMPAGNE'], 1, 1))
           ind_area = land_parcel_cluster.shape_area
           land_parcel_cluster.is_measured!(:net_surface_area, ind_area.in_square_meter, :at => Date.civil(record.attributes['CAMPAGNE'], 1, 1))
           # puts "Record number #{record.index}:"
@@ -464,10 +464,10 @@ namespace :db do
       #############################################################################
       # Import land_parcel from Calc Sheet
       print "[#{(Time.now - start).round(2).to_s.rjust(8)}s] LandParcels - GAEC DUPONT Parcel sheet 2013: "
-     
+
       land_parcel_group_nature_variant = ProductNature.import_from_nomenclature(:cultivable_land_parcel).default_variant
       land_parcel_nature_variant = ProductNature.import_from_nomenclature(:land_parcel).default_variant
-      
+
       # Load file
       file = Rails.root.join("test", "fixtures", "files", "parcelle_017005218.csv")
       CSV.foreach(file, :encoding => "UTF-8", :col_sep => ",", :headers => true, :quote_char => "'") do |row|
