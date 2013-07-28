@@ -197,7 +197,7 @@ namespace :db do
           # raise record.geometry.inspect + record.geometry.methods.sort.to_sentence
           building.is_measured!(:shape, record.geometry, :at => Time.now)
           ind_area = building.shape_area
-          building.is_measured!(:net_surface_area, ind_area.in_square_meter, :at => now)
+          building.is_measured!(:net_surface_area, ind_area.in_square_meter, :at => Time.now)
           # puts "Record number #{record.index}:"
           # puts "  Geometry: #{record.geometry.as_text}"
           # puts "  Attributes: #{record.attributes.inspect}"
@@ -222,9 +222,9 @@ namespace :db do
                                                          :work_number => record.attributes['WORK_NUMBE'].to_s,
                                                          :born_at => now,
                                                          :identification_number => record.attributes['NUMERO'].to_s)
-          building_division.is_measured!(:shape, record.geometry, :at => now)
+          building_division.is_measured!(:shape, record.geometry, :at => Time.now)
           ind_area = building_division.shape_area
-          building_division.is_measured!(:net_surface_area, ind_area.in_square_meter, :at => now)
+          building_division.is_measured!(:net_surface_area, ind_area.in_square_meter, :at => Time.now)
           
           if record.attributes['CONTAINER'].to_s
             building = Building.find_by_work_number(record.attributes['CONTAINER'].to_s)
@@ -437,19 +437,9 @@ namespace :db do
       #############################################################################
       # Import shapefile
       print "[#{(Time.now - start).round(2).to_s.rjust(8)}s] LandParcelClusters - TelePAC Shapefile 2013: "
-      # v = ProductVariety.find_by_code("land_parcel")
-      # p = ProductVariety.find_by_code("place")
-      # v ||= ProductVariety.create!(:name => "Parcelle", :code => "land_parcel", :product_type => "LandParcel", :parent_id => (p ? p.id : nil))
-      land_unit = "square_meter"
-      # land_parcel_product_nature_category = ProductNatureCategory.find_by_name("Ilôts")
-      # land_parcel_product_nature_category ||= ProductNatureCategory.create!(:name => "Ilôts", :published => true)
-      land_parcel_group = ProductNature.find_by_number("LANDPARCELCLUSTER")
-      land_parcel_group ||= ProductNature.create!(:name => "Ilôt", :number => "LANDPARCELCLUSTER", :variety => "land_parcel_cluster")
-      land_parcel_group_variant = land_parcel_group.variants.create!(:active => true, :commercial_name => land_parcel_group.name, :name => land_parcel_group.name,
-                                         :purchase_indicator => "net_surface_area", :purchase_indicator_unit => "hectare",
-                                         :sale_indicator => "net_surface_area", :sale_indicator_unit => "hectare",
-                                         :usage_indicator => "net_surface_area", :usage_indicator_unit => "hectare"
-                                         )
+  
+      land_parcel_group_variant = ProductNature.import_from_nomenclature(:land_parcel_cluster).default_variant
+
       RGeo::Shapefile::Reader.open(Rails.root.join("test", "fixtures", "files", "ilot_017005218.shp").to_s, :srid => 2154) do |file|
         # puts "File contains #{file.num_records} records."
         file.each do |record|
@@ -460,8 +450,9 @@ namespace :db do
                                     :born_at => Date.civil(record.attributes['CAMPAGNE'], 1, 1),
                                     :owner_id => Entity.of_company.id,
                                     :identification_number => record.attributes['PACAGE'].to_s + record.attributes['CAMPAGNE'].to_s + record.attributes['NUMERO'].to_s)
-          land_parcel_cluster.is_measured!(:shape, record.geometry, :at => Date.civil(record.attributes['CAMPAGNE'], 1, 1))
-
+          land_parcel_cluster.is_measured!(:shape, record.geometry, :at => Date.civil(record.attributes['CAMPAGNE'], 1, 1))      
+          ind_area = land_parcel_cluster.shape_area
+          land_parcel_cluster.is_measured!(:net_surface_area, ind_area.in_square_meter, :at => Date.civil(record.attributes['CAMPAGNE'], 1, 1))
           # puts "Record number #{record.index}:"
           # puts "  Geometry: #{record.geometry.as_text}"
           # puts "  Attributes: #{record.attributes.inspect}"
@@ -473,28 +464,10 @@ namespace :db do
       #############################################################################
       # Import land_parcel from Calc Sheet
       print "[#{(Time.now - start).round(2).to_s.rjust(8)}s] LandParcels - GAEC DUPONT Parcel sheet 2013: "
-      # v = ProductVariety.find_by_code("land_parcel")
-      # p = ProductVariety.find_by_code("place")
-      # v ||= ProductVariety.create!(:name => "Parcelle", :code => "land_parcel", :product_type => "LandParcel", :parent_id => (p ? p.id : nil))
-      land_parcel_unit = "hectare"
-      # cultural_land_parcel_product_nature_category = ProductNatureCategory.find_by_name("Parcelles cultivables")
-      # cultural_land_parcel_product_nature_category ||= ProductNatureCategory.create!(:name => "Parcelles cultivables", :published => true)
-      land_parcel_group_nature = ProductNature.find_by_number("CULTIVABLELANDPARCEL")
-      land_parcel_group_nature ||= ProductNature.create!(:name => "Parcelle culturale", :number => "CULTIVABLELANDPARCEL", :variety => "cultivable_land_parcel")
-      land_parcel_group_nature_variant = land_parcel_group_nature.variants.create!(:active => true, :commercial_name => land_parcel_group_nature.name, :name => land_parcel_group_nature.name,
-                                         :purchase_indicator => "net_surface_area", :purchase_indicator_unit => "hectare",
-                                         :sale_indicator => "net_surface_area", :sale_indicator_unit => "hectare",
-                                         :usage_indicator => "net_surface_area", :usage_indicator_unit => "hectare"
-                                         )
-
-      land_parcel_nature = ProductNature.find_by_number("LANDPARCEL")
-      land_parcel_nature ||= ProductNature.create!(:name => "Parcelle", :number => "LANDPARCEL", :variety => "land_parcel")
-      land_parcel_nature_variant = land_parcel_nature.variants.create!(:active => true, :commercial_name => land_parcel_nature.name, :name => land_parcel_nature.name,
-                                         :purchase_indicator => "net_surface_area", :purchase_indicator_unit => "hectare",
-                                         :sale_indicator => "net_surface_area", :sale_indicator_unit => "hectare",
-                                         :usage_indicator => "net_surface_area", :usage_indicator_unit => "hectare"
-                                         )
-
+     
+      land_parcel_group_nature_variant = ProductNature.import_from_nomenclature(:cultivable_land_parcel).default_variant
+      land_parcel_nature_variant = ProductNature.import_from_nomenclature(:land_parcel).default_variant
+      
       # Load file
       file = Rails.root.join("test", "fixtures", "files", "parcelle_017005218.csv")
       CSV.foreach(file, :encoding => "UTF-8", :col_sep => ",", :headers => true, :quote_char => "'") do |row|
@@ -516,11 +489,13 @@ namespace :db do
           cultural_land_parcel ||= CultivableLandParcel.create!(:variant_id => land_parcel_group_nature_variant.id,
                                                            :name => r.land_parcel_group_name,
                                                            :work_number => r.land_parcel_group_work_number,
-                                                           :variety => "cultural_land_parcel",
+                                                           :variety => "cultivable_land_parcel",
                                                            :born_at => Time.now,
                                                            :owner_id => Entity.of_company.id,
                                                            :identification_number => r.land_parcel_group_work_number)
           cultural_land_parcel.is_measured!(:shape, r.land_parcel_group_shape, :at => Time.now)
+          ind_area = cultural_land_parcel.shape_area
+          cultural_land_parcel.is_measured!(:net_surface_area, ind_area.in_square_meter, :at => Time.now)
 
 
           land_parcel = LandParcel.find_by_work_number(r.land_parcel_work_number)
@@ -532,6 +507,8 @@ namespace :db do
                                              :owner_id => Entity.of_company.id,
                                              :identification_number => r.land_parcel_work_number)
           land_parcel.is_measured!(:shape, r.land_parcel_shape, :at => Time.now)
+          ind_area = land_parcel.shape_area
+          land_parcel.is_measured!(:net_surface_area, ind_area.in_square_meter, :at => Time.now)
 
 
           land_parcel_cluster.add(land_parcel)

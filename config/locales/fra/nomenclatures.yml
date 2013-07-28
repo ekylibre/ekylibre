@@ -368,6 +368,8 @@ fra:
         female_young_cow: "Génisse"
         grain: "Grain"
         land_parcel: "Parcelle"
+        land_parcel_cluster: "Ilôt"
+        cultivable_land_parcel: "Parcelle culturale"
         male_adult_cow: "Taureau"
         male_young_cow: "Taurillon"
         milk: "Lait"
