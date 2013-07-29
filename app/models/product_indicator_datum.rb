@@ -62,10 +62,17 @@ class ProductIndicatorDatum < Ekylibre::Record::Base
   #]VALIDATORS]
   validates_inclusion_of :indicator, :in => self.indicator.values
   validates_inclusion_of :indicator_datatype, :in => self.indicator_datatype.values
-
+  validates_presence_of :geometry_value, :if => :indicator_datatype_geometry?
+  validates_presence_of :string_value, :if => :indicator_datatype_string?
+  validates_presence_of :measure_value_value, :measure_value_unit, :if => :indicator_datatype_measure?
+  validates_presence_of :boolean_value, :if => :indicator_datatype_boolean?
+  validates_presence_of :choice_value, :if => :indicator_datatype_choice?
+  validates_presence_of :decimal_value, :if => :indicator_datatype_decimal?
+  
   before_validation do
     self.indicator_datatype = self.theoric_datatype
   end
+
 
   validate do
     if self.indicator_datatype_measure?
@@ -88,7 +95,7 @@ class ProductIndicatorDatum < Ekylibre::Record::Base
 
   # Retrieve datatype from nomenclature NOT from database
   def theoric_datatype
-    return nil if self.indicator.blank?
+    #return nil if self.indicator.blank?
     Nomen::Indicators.items[self.indicator].datatype.to_sym
   end
 

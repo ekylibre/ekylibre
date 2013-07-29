@@ -63,7 +63,7 @@
 
 class Product < Ekylibre::Record::Base
   # attr_accessible :nature_id, :number, :identification_number, :work_number, :born_at, :sex, :picture, :owner_id, :parent_id, :variety, :name, :description, :type, :external, :father_id, :mother_id
-  attr_accessible :created_at, :type, :variety, :external, :name, :description, :number, :identification_number, :work_number, :born_at, :sex, :picture, :owner_id, :parent_id, :variant_id # , :nature_id
+  attr_accessible :created_at, :type, :variety, :external, :name, :description, :number, :identification_number, :work_number, :born_at, :sex, :picture, :owner_id, :parent_id, :variant_id , :net_weight, :population, :indicator_data_attributes
   enumerize :variety, :in => Nomen::Varieties.all, :predicates => {:prefix => true}
   enumerize :content_indicator, :in => Nomen::Indicators.all, :predicates => {:prefix => true}
   enumerize :content_indicator_unit, :in => Nomen::Units.all, :predicates => {:prefix => true}
@@ -114,7 +114,7 @@ class Product < Ekylibre::Record::Base
   validates_presence_of :nature, :variant, :name, :owner
 
   accepts_nested_attributes_for :memberships, :reject_if => :all_blank, :allow_destroy => true
-  accepts_nested_attributes_for :indicator_data, :reject_if => :all_blank, :allow_destroy => true
+  accepts_nested_attributes_for :indicator_data, :allow_destroy => true#, :reject_if => :all_blank,
   acts_as_numbered
   delegate :serial_number, :producer, :to => :tracking
   delegate :name, :to => :nature, :prefix => true

@@ -158,6 +158,9 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
         @object.variety ||= varieties.first
         fs << self.input(:variety, :collection => varieties)
 
+        # error message for indicators
+        fs << @object.errors.inspect
+
         # Adds owner fields
         if @object.new_record?
           external = @template.params[:external].to_s
@@ -198,7 +201,9 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
           fs = "".html_safe
           for indicator in indicators
             datum = @object.indicator_data.new(:indicator => indicator.name)
-            fs << self.backend_fields_for(indicator.name, datum) do |indfi|
+            # error message for indicators
+            fs << datum.errors.inspect
+            fs << self.backend_fields_for(:indicator_data, datum) do |indfi|
               fsi = "".html_safe
               if indicator.datatype == :measure
                 datum.measure_value_unit = indicator.unit
