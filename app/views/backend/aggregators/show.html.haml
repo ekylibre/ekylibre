@@ -1,0 +1,5 @@
+=kujaku do |k|
+  -for parameter in @aggregator.parameters
+    -if parameter.nature == :list
+
+.aggregator=@aggregator.to_html

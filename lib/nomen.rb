@@ -1,13 +1,13 @@
 module Nomen
 
+  XMLNS = "http://www.ekylibre.org/XML/2013/nomenclatures".freeze
+  NS_SEPARATOR = "-"
+
   class MissingNomenclature < StandardError
   end
 
   class InvalidAttribute < StandardError
   end
-
-  XMLNS = "http://www.ekylibre.org/XML/2013/nomenclatures".freeze
-  NS_SEPARATOR = "-"
 
   # This class represent a nomenclature
   class Nomenclature

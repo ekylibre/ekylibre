@@ -39,6 +39,9 @@ class DataView
     def table(name, options = {}, &block)
     end
 
+    def title(name)
+    end
+
   end
 
 
