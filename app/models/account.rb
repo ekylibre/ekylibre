@@ -77,7 +77,9 @@ class Account < Ekylibre::Record::Base
   }
   # scope :deposit_pending_payments, lambda { where('number LIKE ?', self.chart_number(:deposit_pending_payments)+"%").order(:number, :name) }
   # scope :attorney_thirds,          lambda { where('number LIKE ?', self.chart_number(:attorney_thirds)+"%").order(:number, :name) }
-  # scope :client_thirds,            lambda { where('number LIKE ?', self.chart_number(:client_thirds)+"%").order(:number, :name) }
+  scope :clients, -> { of_usage(:clients) }
+  scope :suppliers, -> { of_usage(:suppliers) }
+  scope :attorneys, -> { of_usage(:attorneys) }
   # scope :supplier_thirds,          lambda { where('number LIKE ?', self.chart_number(:supplier_thirds)+"%").order(:number, :name) }
   # scope :product_natures,          lambda { where('number LIKE ?', self.chart_number(:product_natures)+"%").order(:number, :name) }
   # scope :charges,                  lambda { where('number LIKE ?', self.chart_number(:charges)+"%").order(:number, :name) }

@@ -1124,7 +1124,20 @@ namespace :db do
       end
 
       puts "!"
-
+      
+      ##############################################################################
+      ## Demo data for document                                                   ##
+      ##############################################################################
+      print "[#{(Time.now - start).round(2).to_s.rjust(8)}s] Documents - demo data for documents 2013: "
+      
+      # import an outgoing_deliveries_journal in PDF"
+      document = Document.create!(:key => "20130724_outgoing_001", :name => "outgoing_001", :nature => "outgoing_delivery_journal" )
+      File.open(Rails.root.join("test", "fixtures", "files", "releve_apports.pdf"),"rb") do |f|
+        document.archive(f.read, :pdf)
+      end
+      
+      puts "!"
+       
       puts "Total time: #{(Time.now - start).round(2)}s"
 
     end

@@ -49,7 +49,7 @@ class IncomingDeliveryItem < Ekylibre::Record::Base
   enumerize :unit, :in => Nomen::Units.all
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :quantity, :weight, :allow_nil => true
-  validates_presence_of :delivery, :product, :quantity
+  validates_presence_of :delivery, :product
   #]VALIDATORS]
   validates_presence_of :product#, :unit
 

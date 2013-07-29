@@ -43,7 +43,7 @@
 #  usage_indicator_unit    :string(255)
 #
 class ProductNatureVariant < Ekylibre::Record::Base
-  attr_accessible :active, :commercial_name, :nature_id, :nature_name, :name, :purchase_indicator, :purchase_indicator_unit, :sale_indicator, :sale_indicator_unit, :usage_indicator, :usage_indicator_unit
+  attr_accessible :active, :commercial_name, :nature_id, :nature_name, :name, :purchase_indicator, :purchase_indicator_unit, :sale_indicator, :sale_indicator_unit, :usage_indicator, :usage_indicator_unit, :products_attributes
   enumerize :sale_indicator, :in => Nomen::Indicators.all, :predicates => {:prefix => true}
   enumerize :purchase_indicator, :in => Nomen::Indicators.all, :predicates => {:prefix => true}
   enumerize :usage_indicator, :in => Nomen::Indicators.all, :predicates => {:prefix => true}
@@ -61,7 +61,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
   #]VALIDATORS]
 
   delegate :variety, :matching_model, :indicators_array, :population_frozen?, :population_modulo, :to => :nature
-
+  accepts_nested_attributes_for :products, :reject_if => :all_blank, :allow_destroy => true
   acts_as_numbered
 
   default_scope -> { order(:name) }
