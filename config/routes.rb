@@ -1,17 +1,7 @@
 Ekylibre::Application.routes.draw do
 
-
+  # Checks and update locale filter
   filter :locale
-
-  # Authentication
-  # namespace :authentication do
-  #   resource :session, :only => [:new, :create, :destroy] do
-  #     member do
-  #       match "renew", :via => [:get, :post]
-  #     end
-  #   end
-  #   root :to => "users#sign_in"
-  # end
 
   # No namespace because authentication is for all sides
   devise_for :users, :path => "authentication", :module => :authentication
@@ -40,25 +30,12 @@ Ekylibre::Application.routes.draw do
         get :welcome
       end
     end
-    # # get "dashboards", :to => "dashboards#index", :as => :dashboard
-    # # match '/dashboards/:action', :controller => "dashboards", :via => :get, :as => :dashboard
-    # match '/snippets/:id/toggle' => "interfacers#toggle_snippet"
-    # match '/toggle/submenu/:id' => "interfacers#toggle_submenu", :as => :toggle_submenu
-    # match '/toggle/tab/:id' => "interfacers#toggle_tab"
-
-    # get '/select-options-in/:source/:filter/for/:model/:id' => "interfacers#select_options", :as => :select_options
-    # match '/autocomplete/:model/:property' => "interfacers#autocomplete", :via => :get, :as => :autocomplete
-    # match '/intf/:action', :controller => :interfacers, :via => :get
 
     resources :helps, :only => [:index, :show] do
       collection do
         post :toggle
       end
     end
-
-     namespace :data_view do
-      resource :manure_management_plan, :only => :show
-     end
 
     namespace :cells do
       resource :product_pie_cell, :only => :show
@@ -95,11 +72,10 @@ Ekylibre::Application.routes.draw do
       end
     end
 
-    # Check that the id is an integer
-    # constraints(:id => /[0-9]+/) do
-
-
-
+    namespace :data_view do
+      resource :manure_management_plan, :only => :show
+      resource :veterinary_booklet, :only => :show
+    end
 
     # resources :account_balances
     resources :accounts do
@@ -149,7 +125,6 @@ Ekylibre::Application.routes.draw do
         get :list_group
         get :list_incident
         get :list_indicator
-        get :animal_sanitary_list
         unroll_all
       end
       member do
@@ -808,12 +783,12 @@ Ekylibre::Application.routes.draw do
       end
     end
 
-      resources :production_supports do
-        collection do
-          get :list
-          unroll_all
-        end
+    resources :production_supports do
+      collection do
+        get :list
+        unroll_all
       end
+    end
     resources :professions do
       collection do
         get :list

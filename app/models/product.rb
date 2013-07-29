@@ -161,7 +161,7 @@ class Product < Ekylibre::Record::Base
           self.name = last.name
           array = self.name.split(/\s+/)
           if array.last.match(/^\(+\d+\)+?$/)
-            self.name = array[0..-2].join(" ") + " (" + array.last.gsub(/(^\(+|\)+$)/).to_i.succ.to_s + ")"
+            self.name = array[0..-2].join(" ") + " (" + array.last.gsub(/(^\(+|\)+$)/, '').to_i.succ.to_s + ")"
           else
             self.name << " (1)"
           end

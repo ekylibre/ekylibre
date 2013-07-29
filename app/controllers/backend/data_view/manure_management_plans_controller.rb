@@ -4,7 +4,7 @@ class Backend::DataView::ManureManagementPlansController < Backend::DataViewCont
   def show
     campaign = Campaign.find_by_id(:params[campaign_id])
     campaign ||= Campaign.last
-    respond_with ManureManagementPlan.new(campaign)
+    respond_with_view(campaign)
   end
 
 end
