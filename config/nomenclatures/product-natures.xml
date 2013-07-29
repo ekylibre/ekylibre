@@ -648,6 +648,34 @@
             abilities="fertilize(plant), catch, spread, plow, sow, harvest, store"
             indicators="population"
             />
+       <item name="technician"
+            charge_account="staff_expenses"
+            product_account="revenues"
+            variety="worker"
+            purchasable="true"
+            saleable="true"
+            depreciable="false"
+            storable="false"
+            usage_indicator="population"
+            usage_indicator_unit="unity"
+            population_counting="unitary"
+            abilities="drive(equipment)"
+            indicators="population"
+            />
+       <item name="manager"
+            charge_account="staff_expenses"
+            product_account="revenues"
+            variety="worker"
+            purchasable="true"
+            saleable="true"
+            depreciable="false"
+            storable="false"
+            usage_indicator="population"
+            usage_indicator_unit="unity"
+            population_counting="unitary"
+            abilities="drive(equipment), manage(worker)"
+            indicators="population"
+            />
     </items>
     
   </nomenclature>

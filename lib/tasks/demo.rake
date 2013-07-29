@@ -1048,9 +1048,12 @@ namespace :db do
       ## Demo data for animal treatment
       ##############################################################################
       print "[#{(Time.now - start).round(2).to_s.rjust(8)}s] Procedures - demo data for animal sanitary treatment reporting 2013: "
-      worker_nature = ProductNature.create!(:name => "Technicien", :number => "TECH", :indicators => "population", :variety => "worker")
-      worker_variant = worker_nature.variants.create!(:usage_indicator => "population")
+
+      worker_variant = ProductNature.import_from_nomenclature(:manager).default_variant
       worker = Worker.create!(:variant_id => worker_variant.id, :name => "Christian")
+
+      worker_variant = ProductNature.import_from_nomenclature(:technician).default_variant
+      worker = Worker.create!(:variant_id => worker_variant.id, :name => "Yvan")
 
       # add some credentials in preferences
       cattling_number = Preference.create!(:nature => :string, :name => "services.synel17.login", :value => "17387001")

@@ -12,6 +12,7 @@
       <item name="consume" variable="variety"/>
       <item name="produce" variable="variety"/>
       <item name="kill" variable="variety"/>
+      <item name="manage" variable="variety"/>
       <item name="germinate"/>
       <item name="feed"/>
       <item name="fertilize"/>  

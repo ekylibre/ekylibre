@@ -1,0 +1,13 @@
+.picture
+  %svg{:xmlns => "http://www.w3.org/2000/svg", :version => "1.1", :class => :map, :viewBox => @container.view_box.join(" "), :preserveAspectRatio => "xMidYMid meet", :width => "100", :height => "100"}
+    %path{:d => @container.shape_svg_path}
+  %p= "Lieu : "+@container.name
+.info
+  %span.title=Procedure.human_attribute_name(:nomen)
+.info
+  %span.value="Epandage de fumier"
+.info
+  %span.value="02/07/2013 08:45"
+.info
+  %span.title=Procedure.human_attribute_name(:state)
+  %span.value="Fait"

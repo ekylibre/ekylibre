@@ -9,6 +9,7 @@
     </attributes>  
     <items>
       <!--                      CAPITAL                -->
+      <item name="capitals" fr_pcg82="1"/>
       <item name="capital" fr_pcg82="101"/>
       <item name="initial_individual_capital" fr_pcg82="1011"/>
       <item name="initial_individual_capital_variations" fr_pcg82="1012"/>
@@ -121,6 +122,7 @@
       <item name="compensation_operations" fr_pcg82="472"/>
 
       <!--                      FINANCES              -->
+      <item name="finances" fr_pcg82="5"/>
       <item name="banks_and_similar" fr_pcg82="51"/>
       <item name="pending_deposit_payments" fr_pcg82="511"/>
       <item name="banks" fr_pcg82="512"/>
