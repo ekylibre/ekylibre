@@ -133,7 +133,7 @@
       <item name="animal_medicine_matter_charges" fr_pcga="6015"/>
       <item name="animal_reproduction_matter_charges" fr_pcga="6016"/>
       <item name="fuel_matter_charges" fr_pcga="6021"/>
-      <item name="maintenances_consumables_stock" fr_pcga="6022"/>
+      <item name="maintenances_consumables_charges" fr_pcga="6022"/>
       <item name="office_supply_matter_charges" fr_pcga="6024"/>
       <item name="other_consumable_matter_charges" fr_pcga="6027"/>
       <item name="raw_material_charges" fr_pcga="6028"/>
