@@ -28,7 +28,7 @@ class Backend::SalesController < BackendController
     code = ""
     code = search_conditions(:sale, :sales => [:pretax_amount, :amount, :number, :initial_number, :description], :entities => [:code, :full_name]) + "||=[]\n"
     code << "unless session[:sale_state].blank?\n"
-    code << "  if session[:sale_state] == 'current'\n"
+    code << "  if session[:sale_state] == 'all'\n"
     code << "    c[0] += \" AND state IN ('estimate', 'order', 'invoice')\"\n"
     # code << "  elsif session[:sale_state] == 'unpaid'\n"
     # code << "    c[0] += \" AND state IN ('order', 'invoice') AND paid_amount < amount AND lost = ?\"\n"
@@ -86,8 +86,8 @@ class Backend::SalesController < BackendController
     t.column :number, :children => :product_name
     t.column :last_name, :through => :transporter, :children => false, :url => true
     t.column :coordinate, :through => :address, :children => false
-    t.column :planned_on, :children => false
-    t.column :moved_on, :children => false
+    #t.column :planned_on, :children => false
+    #t.column :moved_on, :children => false
     t.column :quantity, :datatype => :decimal
     t.column :pretax_amount, :currency => {:body => "RECORD.sale.currency", :children => "RECORD.delivery.sale.currency"}
     t.column :amount, :currency => {:body => "RECORD.sale.currency", :children => "RECORD.delivery.sale.currency"}

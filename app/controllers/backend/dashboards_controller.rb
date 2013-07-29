@@ -157,7 +157,7 @@ class Backend::DashboardsController < BackendController
   private
 
   def self.build_centralizing_query
-    excluded = [:account_balance, :affair, :asset_depreciation, :custom_field_choice, :deposit_item, :document_template, :inventory_item, :listing_node_item, :preference, :product_nature_ability, :tax_declaration, :transfer]
+    excluded = [:account_balance, :affair, :asset_depreciation, :custom_field_choice, :deposit_item, :document_template, :inventory_item, :listing_node_item, :preference, :tax_declaration, :transfer]
 
     queries = []
     for model_name in Ekylibre.models

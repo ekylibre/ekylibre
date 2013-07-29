@@ -1,5 +1,6 @@
 Ekylibre::Application.routes.draw do
 
+
   filter :locale
 
   # Authentication
@@ -894,6 +895,12 @@ Ekylibre::Application.routes.draw do
       collection do
         get :list
         post :load
+        unroll_all
+      end
+    end
+    resources :services do
+      collection do
+        get :list
         unroll_all
       end
     end

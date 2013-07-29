@@ -1048,12 +1048,15 @@
       <item name="expense_chart_cells">
         <page to="backend/cells/expense_chart_cells#show"/>
       </item>
+      <item name="last_events_cells">
+        <page to="backend/cells/last_events_cells#list"/>
+        <page to="backend/cells/last_events_cells#show"/>
+      </item>
       <item name="last_milk_result_cells">
         <page to="backend/cells/last_milk_result_cells#list"/>
         <page to="backend/cells/last_milk_result_cells#show"/>
       </item>
       <item name="last_procedures_cells">
-        <page to="backend/cells/last_procedures_cells#list"/>
         <page to="backend/cells/last_procedures_cells#show"/>
       </item>
       <item name="last_products_cells">
@@ -1301,6 +1304,16 @@
         <page to="backend/professions#list"/>
         <page to="backend/professions#new"/>
         <page to="backend/professions#update"/>
+      </item>
+      <item name="services">
+        <page to="backend/services#index"/>
+        <page to="backend/services#create"/>
+        <page to="backend/services#destroy"/>
+        <page to="backend/services#edit"/>
+        <page to="backend/services#list"/>
+        <page to="backend/services#new"/>
+        <page to="backend/services#show"/>
+        <page to="backend/services#update"/>
       </item>
       <item name="snippets">
         <page to="backend/snippets#toggle"/>
