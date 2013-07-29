@@ -469,7 +469,7 @@ namespace :db do
       land_parcel_nature_variant = ProductNature.import_from_nomenclature(:land_parcel).default_variant
 
       # Load file
-      file = Rails.root.join("test", "fixtures", "files", "parcelle_017005218.csv")
+      file = Rails.root.join("test", "fixtures", "files", "land_parcel_017005218.csv")
       CSV.foreach(file, :encoding => "UTF-8", :col_sep => ",", :headers => true, :quote_char => "'") do |row|
         r = OpenStruct.new(:ilot_work_number => row[0],
                            :campaign => row[1],
@@ -525,7 +525,7 @@ namespace :db do
       puts "!"
 
       # # add shape to land_parcel
-      # RGeo::Shapefile::Reader.open(Rails.root.join("test", "fixtures", "files", "parcelle_017005218.shp").to_s, :srid => 2154) do |file|
+      # RGeo::Shapefile::Reader.open(Rails.root.join("test", "fixtures", "files", "land_parcel_017005218.shp").to_s, :srid => 2154) do |file|
       # # puts "File contains #{file.num_records} records."
       # file.each do |record|
       # lp = LandParcel.find_by_work_number(record.attributes['NUMERO'].to_s)
