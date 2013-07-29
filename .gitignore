@@ -59,3 +59,9 @@ capybara*.html
 
 .project
 .rspec
+
+# ignore jasper file stack
+*.pdf
+*.jasper
+*.jrxml
+*.jrtx
