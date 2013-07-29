@@ -111,6 +111,7 @@ group :development do
   gem 'rails_best_practices'
   # Project Management / Model
   gem 'railroady'
+  gem 'ruby-debug-ide'
   # gem 'rails-erd', github: "burisu/rails-erd"
 
   gem 'thin'
