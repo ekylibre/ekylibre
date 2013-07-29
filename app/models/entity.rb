@@ -253,12 +253,11 @@ class Entity < Ekylibre::Record::Base
 
   # This method creates automatically an account for the entity for its usage (client, supplier...)
   def account(nature)
-    natures = {:client => :client, :payer => :client, :supplier => :supplier, :payee => :supplier, :attorney => :attorney}
+    natures = {:client => :clients, :payer => :clients, :supplier => :suppliers, :payee => :suppliers, :attorney => :attorneys}
     raise ArgumentError.new("Unknown nature #{nature.inspect} (#{natures.keys.to_sentence} are accepted)") unless natures.keys.include? nature
     valid_account = self.send(natures[nature].to_s + "_account")
     if valid_account.nil?
-      # @FIXME = undefined method `fr_pcg82' for nil:NilClass
-      prefix = Nomen::Accounts[nature]#.send(Account.chart)
+      prefix = Nomen::Accounts[nature].send(Account.chart)
       if Preference[:use_entity_codes_for_account_numbers]
         number = prefix.to_s+self.number.to_s
         valid_account = Account.find_by_number(number)
