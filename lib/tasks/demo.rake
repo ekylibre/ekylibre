@@ -707,7 +707,7 @@ namespace :db do
           # find a product_nature_variant by mapping current article of coop file
           product_nature_variant = ProductNatureVariant.find_by_name_and_nature_id(r.matter_name,product_nature.id )
           product_nature_variant ||= product_nature.variants.create!(:name => r.matter_name)
-          
+
           product_model = product_nature.matching_model
           incoming_item = Product.find_by_variant_id_and_created_at(product_nature_variant.id, r.ordered_on)
           incoming_item ||= product_model.create!(:owner_id => Entity.of_company.id, :identification_number => r.order_number, :variant_id => product_nature_variant.id, :born_at => r.ordered_on, :created_at => r.ordered_on)
@@ -923,7 +923,7 @@ namespace :db do
         activity   = Activity.find_by_description(r.description)
         activity ||= Activity.create!(:nature => r.nature, :family => r.family, :name => r.name, :description => r.description)
         if r.product_nature_nomen
-          product_nature_sup = ProductNature.find_by_nomen(r.product_nature_nomen) 
+          product_nature_sup = ProductNature.find_by_nomen(r.product_nature_nomen)
           if product_nature_sup.present?
             product_nature_variant_sup = ProductNatureVariant.find_by_nature_id(product_nature_sup.id)
           else
