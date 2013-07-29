@@ -159,8 +159,8 @@ class Product < Ekylibre::Record::Base
         if last = self.class.where(:variant_id => self.variant_id).reorder("id DESC").first
           self.name = last.name
           array = self.name.split(/\s+/)
-          if array.last.match(/^\(?\d+\)?$/)
-            self.name = array[0..-2].join(" ") + "(" + array.last.succ + ")"
+          if array.last.match(/^\(+\d+\)+?$/)
+            self.name = array[0..-2].join(" ") + " (" + array.last.gsub(/(^\(+|\)+$)/).to_i.succ.to_s + ")"
           else
             self.name << " (1)"
           end
