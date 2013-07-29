@@ -237,13 +237,6 @@
         <page to="backend/deposits#unvalidateds"/>
         <page to="backend/deposits#update"/>
       </item>
-      <!-- <item name="affairs"> -->
-      <!--   <page to="backend/affairs#index"/> -->
-      <!--   <page to="backend/affairs#attach"/> -->
-      <!--   <page to="backend/affairs#detach"/> -->
-      <!--   <page to="backend/affairs#select"/> -->
-      <!--   <page to="backend/affairs#list"/> -->
-      <!-- </item> -->
     </group>
   </module>
   <module name="sales" icon="bar-chart">
@@ -819,6 +812,13 @@
         <page to="backend/outgoing_payment_modes#up"/>
         <page to="backend/outgoing_payment_modes#update"/>
       </item>
+      <item name="affairs">
+        <page to="backend/affairs#index"/>
+        <page to="backend/affairs#attach"/>
+        <page to="backend/affairs#detach"/>
+        <page to="backend/affairs#select"/>
+        <page to="backend/affairs#list"/>
+      </item>
     </group>
     <group name="sale" icon="bar-chart">
       <item name="sale_natures">
@@ -1012,13 +1012,6 @@
       </item>
       <item name="activities">
         <page to="backend/activities#list_production"/>
-      </item>
-      <item name="affairs">
-        <page to="backend/affairs#index"/>
-        <page to="backend/affairs#attach"/>
-        <page to="backend/affairs#detach"/>
-        <page to="backend/affairs#list"/>
-        <page to="backend/affairs#select"/>
       </item>
       <item name="animals">
         <page to="backend/animals#animal_sanitary_list"/>

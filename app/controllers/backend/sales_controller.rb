@@ -86,13 +86,13 @@ class Backend::SalesController < BackendController
     t.column :number, :children => :product_name
     t.column :last_name, :through => :transporter, :children => false, :url => true
     t.column :coordinate, :through => :address, :children => false
-    t.column :planned_on, :children => false
-    t.column :moved_on, :children => false
+    # t.column :planned_on, :children => false
+    # t.column :moved_on, :children => false
     t.column :quantity, :datatype => :decimal
-    t.column :pretax_amount, :currency => {:body => "RECORD.sale.currency", :children => "RECORD.delivery.sale.currency"}
-    t.column :amount, :currency => {:body => "RECORD.sale.currency", :children => "RECORD.delivery.sale.currency"}
-    t.action :edit, :if => 'RECORD.sale.order? '
-    t.action :destroy, :if => 'RECORD.sale.order? '
+    # t.column :pretax_amount, :currency => {:body => "RECORD.sale.currency", :children => "RECORD.delivery.sale.currency"}
+    # t.column :amount, :currency => {:body => "RECORD.sale.currency", :children => "RECORD.delivery.sale.currency"}
+    t.action :edit, :if => :updateable?
+    t.action :destroy, :if => :destroyable?
   end
 
   # list(:payment_uses, :model => :incoming_payment_uses, :conditions => ["#{IncomingPaymentUse.table_name}.expense_id=? AND #{IncomingPaymentUse.table_name}.expense_type=?", ['session[:current_sale_id]'], 'Sale']) do |t|

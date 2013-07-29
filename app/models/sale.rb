@@ -83,6 +83,7 @@ class Sale < Ekylibre::Record::Base
   has_many :deliveries, :class_name => "OutgoingDelivery", :dependent => :destroy, :inverse_of => :sale
   has_many :documents, :as => :owner
   has_many :items, :class_name => "SaleItem", :foreign_key => :sale_id, :dependent => :destroy, :order => "position, id", :inverse_of => :sale
+  # has_many :undelivered_items, :class_name => "SaleItem", :foreign_key => :sale_id, :dependent => :destroy, :order => "position, id"
   has_many :journal_entries, :as => :resource
   has_many :subscriptions, :class_name => "Subscription"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
@@ -356,16 +357,18 @@ class Sale < Ekylibre::Record::Base
     self.class.state_label(self.state)
   end
 
-  # Computes an amount (with or without taxes) of the undelivered products
-  # - +column+ can be +:amount+ or +:pretax_amount+
-  def undelivered(column)
-    return (self.send(column) - self.deliveries.sum(column)).round(2)
-  end
+  # # Computes an amount (with or without taxes) of the undelivered products
+  # # - +column+ can be +:amount+ or +:pretax_amount+
+  # def undelivered(column)
+  #   return (self.items.sum(column) - self.deliveries.sum(column)).round(2)
+  # end
 
 
   # Returns true if there is some products to deliver
   def deliverable?
-    not self.undelivered(:amount).zero? and (self.invoice? or self.order?)
+    # not self.undelivered(:quantity).zero? and (self.invoice? or self.order?)
+    # !self.undelivered_items.count.zero? and (self.invoice? or self.order?)
+    true
   end
 
   # # Calculate unpaid amount

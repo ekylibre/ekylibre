@@ -168,8 +168,8 @@ class Account < Ekylibre::Record::Base
     alias :chart_of_accounts= :chart=
 
     # Returns the human name of the chart of accounts
-    def chart_name
-      return Nomen::ChartsOfAccounts[chart].human_name
+    def chart_name(name = nil)
+      return Nomen::ChartsOfAccounts[name || chart].human_name
     end
 
     # Find all available accounting systems in all languages

@@ -120,6 +120,7 @@ class Product < Ekylibre::Record::Base
   delegate :name, :to => :nature, :prefix => true
   delegate :subscribing?, :deliverable?, :to => :nature
   delegate :variety, :name, :to => :variant, :prefix => true
+  delegate :abilities, :abilities_array, :indicators, :indicators_array, :to => :variant
 
   after_initialize :choose_default_name
   before_validation :set_default_values, :on => :create
