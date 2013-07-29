@@ -2,9 +2,9 @@
   <nomenclature name="varieties-plant_medicine">
     <!-- http://e-phy.agriculture.gouv.fr/ -->
     <items>
-      <item name="contact"/>
-      <item name="systemic"/>
-      <item name="anti_germinative"/>
+      <item name="herbicide"/>
+      <item name="fungicide"/>
+      <item name="insecticide"/>
     </items>
   </nomenclature>
 </nomenclatures>

@@ -542,6 +542,7 @@ eng:
       index: "Sequences"
       load: "Load missing sequences"
       new: "Add a new sequence"
+    backend/services: #?
     backend/settings:
       about: "About Ekylibre"
       backup: "Backup data"

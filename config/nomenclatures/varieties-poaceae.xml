@@ -1,9 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
-  <nomenclature name="varieties-plant" hierarchical="true">
+  <nomenclature name="varieties-poaceae" hierarchical="true">
     <items>
-      <item name="poaceae">
-	       <attribute name="itis-tsn" value="40351"/>
+      <item name="triticum_aestivum">
+	       <attribute name="itis-tsn" value="42237"/>
+      </item>
+      <item name="triticum_durum">
+         <attribute name="itis-tsn" value="42240"/>
+      </item>
+      <item name="triticum_spelta">
+         <attribute name="itis-tsn" value="42243"/>
+      </item>
+      <item name="hordeum">
+         <attribute name="itis-tsn" value="40865"/>
+      </item>
+      <item name="zea">
+         <attribute name="itis-tsn" value="42268"/>
+      </item>
+      <item name="sorghum">
+         <attribute name="itis-tsn" value="42106"/>
       </item>
     </items>
   </nomenclature>

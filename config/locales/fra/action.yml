@@ -100,6 +100,8 @@ fra:
       # show: "Show backend/cells/demo pie cell"
     backend/cells/expense_chart_cells:
       # show: "Show backend/cells/expense chart cell"
+    backend/cells/last_events_cells:
+      # show: "Show backend/cells/last events cell"
     backend/cells/last_milk_result_cells:
       # show: "Show backend/cells/last milk result cell"
     backend/cells/last_procedures_cells:
@@ -551,6 +553,11 @@ fra:
       index: "Séquences"
       load: "Charger les séquences manquantes"
       new: "Création d’une nouvelle séquence"
+    backend/services:
+      # edit: "Edit backend/service"
+      # index: "Index backend/service"
+      # new: "New backend/service"
+      # show: "Show backend/service"
     backend/settings:
       about: "À propos..."
       backup: "Faire une copie de sauvegarde"
@@ -631,6 +638,7 @@ fra:
     # backend/cells/demo_map_cells: "Backend/cells/demo map cells"
     # backend/cells/demo_pie_cells: "Backend/cells/demo pie cells"
     # backend/cells/expense_chart_cells: "Backend/cells/expense chart cells"
+    # backend/cells/last_events_cells: "Backend/cells/last events cells"
     # backend/cells/last_milk_result_cells: "Backend/cells/last milk result cells"
     # backend/cells/last_procedures_cells: "Backend/cells/last procedures cells"
     # backend/cells/last_products_cells: "Backend/cells/last products cells"
@@ -729,6 +737,7 @@ fra:
     backend/sale_natures: "Types de ventes"
     backend/sales: "Ventes"
     backend/sequences: "Séquences"
+    # backend/services: "Backend/services"
     backend/settings: "Paramètres"
     # backend/settlements: "Backend/settlements"
     # backend/snippets: "Backend/snippets"

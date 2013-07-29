@@ -56,3 +56,6 @@ capybara*.html
 
 #localeapp
 .localeapp
+
+.project
+.rspec

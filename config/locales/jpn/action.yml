@@ -507,6 +507,7 @@ jpn:
       # index: "Séquences"
       # load: "Charger les séquences manquantes"
       # new: "Création d’une nouvelle séquence"
+    backend/services: #?
     backend/settings:
       # about: "À propos..."
       # backup: "Faire une copie de sauvegarde"

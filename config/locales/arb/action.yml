@@ -636,6 +636,7 @@ arb:
       index: "التسلسلات"
       # load: "Charger les séquences manquantes"
       new: "انشاء تسلسل جديد"
+    backend/services: #?
     backend/sessions:  #?
       destroy: "الخروج" #?
       new: "الدخول" #?

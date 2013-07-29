@@ -572,6 +572,7 @@ spa:
       index: "Sequencias"
       # load: "Charger les séquences manquantes"
       new: "Creacion de une nueva sequencia"
+    backend/services: #?
     backend/sessions: #?
     backend/settings:
       about: "A propocito de Ekylibre"

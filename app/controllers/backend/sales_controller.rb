@@ -28,7 +28,7 @@ class Backend::SalesController < BackendController
     code = ""
     code = search_conditions(:sale, :sales => [:pretax_amount, :amount, :number, :initial_number, :description], :entities => [:code, :full_name]) + "||=[]\n"
     code << "unless session[:sale_state].blank?\n"
-    code << "  if session[:sale_state] == 'current'\n"
+    code << "  if session[:sale_state] == 'all'\n"
     code << "    c[0] += \" AND state IN ('estimate', 'order', 'invoice')\"\n"
     # code << "  elsif session[:sale_state] == 'unpaid'\n"
     # code << "    c[0] += \" AND state IN ('order', 'invoice') AND paid_amount < amount AND lost = ?\"\n"

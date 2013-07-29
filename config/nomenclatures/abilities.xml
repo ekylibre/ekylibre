@@ -18,6 +18,7 @@
       <item name="catch"/><!-- @QUID : niveau de compétence (normal,précision)  -->
       <item name="spread"/><!-- @QUID : niveau de compétence (normal,précision)  -->
       <item name="plow"/>
+      <item name="clean"/>
       <item name="sow"/>
       <item name="harvest" variable="variety"/>
       <item name="move"/>

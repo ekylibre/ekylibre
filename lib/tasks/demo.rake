@@ -543,104 +543,36 @@ namespace :db do
       #############################################################################
       # Create variety for wheat product
       print "[#{(Time.now - start).round(2).to_s.rjust(8)}s] Sales - Examples: "
-      price_listing = ProductPriceListing.find_by_code("STD")
-      # wheat_category = ProductNatureCategory.find_by_name("Produits végétaux")
-      # wheat_category ||= ProductNatureCategory.create!(:name => "Produits végétaux")
 
-      #wheat_pn     = ProductNature.import_from_nomenclature(:female_adult_cow).default_variant
+      #Create product_nature for crop plant product
+      wheat_crop = ProductNature.import_from_nomenclature(:wheat_crop).default_variant
+      barley_crop = ProductNature.import_from_nomenclature(:barley_crop).default_variant
+      corn_crop = ProductNature.import_from_nomenclature(:corn_crop).default_variant
+      durum_wheat_crop = ProductNature.import_from_nomenclature(:durum_wheat_crop).default_variant
+      fallow_crop = ProductNature.import_from_nomenclature(:fallow_crop).default_variant
+      # @FIXME : find the triticale.
+      sunflower_crop = ProductNature.import_from_nomenclature(:sunflower_crop).default_variant
+      sorghum_crop = ProductNature.import_from_nomenclature(:sorghum_crop).default_variant
+      temporary_meadow_crop = ProductNature.import_from_nomenclature(:temporary_meadow_crop).default_variant
 
-      grain_unit = "quintal"
-      sole_unit = "hectare"
-      wheat_charge_account = Account.find_or_create_in_chart(:vegetals_productions_charges) # Account.find_by_number("601")
-      wheat_product_account = Account.find_or_create_in_chart(:plant_derivatives_products) # Account.find_by_number("701")
-      wheat_stock_account = Account.find_or_create_in_chart(:plant_derivative_stock)
-      wheat_price_template_tax = Tax.find_by_amount(5.5)
-
-      # Create product_nature for grain plant product
-      for attributes in [{:population_counting => "decimal", :name => "Grain de Blé", :number => "GRAIN_BLE", :variety => "grains", :saleable => true, :purchasable => true},
-                         {:population_counting => "decimal", :name => "Grain d'Orge", :number => "GRAIN_ORGE", :variety => "grains", :saleable => true, :purchasable => true},
-                         {:population_counting => "decimal", :name => "Grain de Maïs", :number => "GRAIN_MAIS", :variety => "grains", :saleable => true, :purchasable => true},
-                         {:population_counting => "decimal", :name => "Grain de Blé dur", :number => "GRAIN_BLE_DUR", :variety => "grains", :saleable => true, :purchasable => true},
-                         {:population_counting => "decimal", :name => "Grain de Triticale", :number => "GRAIN_TRITICALE", :variety => "grains", :saleable => true, :purchasable => true},
-                         {:population_counting => "decimal", :name => "Grain de Tournesol", :number => "GRAIN_TOURNESOL", :variety => "grains", :saleable => true, :purchasable => true}
-                        ]
-        unless ProductNature.find_by_number(attributes[:number])
-          plant_product_nature_g = ProductNature.create!({:active => true,
-                                                           :storable => true, :derivative_of => "plant",
-                                                           :stock_account_id => wheat_stock_account.id,
-                                                           :charge_account_id => wheat_charge_account.id,
-                                                           :product_account_id => wheat_product_account.id}.merge(attributes))
-          plant_product_nature_g.variants.create!(:active => true, :commercial_name => plant_product_nature_g.name, :name => plant_product_nature_g.name,
-                                         :purchase_indicator => "net_weight", :purchase_indicator_unit => "quintal",
-                                         :sale_indicator => "net_weight", :sale_indicator_unit => "quintal",
-                                         :usage_indicator => "net_weight", :usage_indicator_unit => "kilogram"
-                                         )
-        end
-      end
-
-            # Create product_nature for plant product
-      for attributes in [
-                         {:population_counting => "decimal", :name => "Sole de Blé",  :number => "SOLE_BLE"},
-                         {:population_counting => "decimal", :name => "Sole d'Orge",  :number => "SOLE_ORGE"},
-                         {:population_counting => "decimal", :name => "Sole de Maïs", :number => "SOLE_MAIS"},
-                         {:population_counting => "decimal", :name => "Sole de Blé dur",  :number => "SOLE_BLE_DUR"},
-                         {:population_counting => "decimal", :name => "Sole de Jachère annuelle",  :number => "SOLE_JACHERE_AN"},
-                         {:population_counting => "decimal", :name => "Sole de Triticale", :number => "SOLE_TRITICALE"},
-                         {:population_counting => "decimal", :name => "Sole de Tournesol", :number => "SOLE_TOURNESOL"},
-                         {:population_counting => "decimal", :name => "Sole de Sorgho", :number => "SOLE_SORGHO"},
-                         {:population_counting => "decimal", :name => "Sole de Prairie", :number => "SOLE_PRAIRIE"}
-                        ]
-        unless ProductNature.find_by_number(attributes[:number])
-          plant_product_nature_s = ProductNature.create!({:active => true,
-                                                        :storable => true, :variety => "plant",
-                                                        :stock_account_id => wheat_stock_account.id,
-                                                        :charge_account_id => wheat_charge_account.id,
-                                                        :product_account_id => wheat_product_account.id}.merge(attributes))
-          plant_product_nature_s.variants.create!(:active => true, :commercial_name => plant_product_nature_s.name, :name => plant_product_nature_s.name,
-                                         :purchase_indicator => "net_surface_area", :purchase_indicator_unit => "hectare",
-                                         :sale_indicator => "net_surface_area", :sale_indicator_unit => "hectare",
-                                         :usage_indicator => "net_surface_area", :usage_indicator_unit => "hectare"
-                                         )
-        end
-      end
-
-      # Create product_nature for raw plant product
-      for attributes in [
-                         {:population_counting => "decimal", :name => "Paille de Blé", :number => "PAILLE_BLE", :variety => "stem", :saleable => true, :purchasable => true},
-                         {:population_counting => "decimal", :name => "Paille d'Orge", :number => "PAILLE_ORGE", :variety => "stem", :saleable => true, :purchasable => true},
-                         {:population_counting => "decimal", :name => "Paille de Blé dur",  :number => "PAILLE_BLE_DUR", :variety => "stem", :saleable => true, :purchasable => true},
-                         {:population_counting => "decimal", :name => "Paille de Triticale", :number => "PAILLE_TRITICALE", :variety => "stem", :saleable => true, :purchasable => true},
-                         {:population_counting => "decimal", :name => "Herbe sur pied de Prairie", :number => "HERBE_PRAIRIE", :variety => "stem", :saleable => false, :purchasable => false},
-                         {:population_counting => "decimal", :name => "Foin de Prairie", :number => "FOIN_PRAIRIE", :variety => "stem", :saleable => true, :purchasable => true},
-                         {:population_counting => "decimal", :name => "Ensilage de Sorgho", :number => "ENSILAGE_SORGHO", :variety => "stem", :saleable => false, :purchasable => false},
-                         {:population_counting => "decimal", :name => "Ensilage de Maïs", :number => "ENSILAGE_MAIS", :variety => "stem", :saleable => false, :purchasable => false},
-                         {:population_counting => "decimal", :name => "Ensilage de Prairie", :number => "ENSILAGE_PRAIRIE", :variety => "stem", :saleable => false, :purchasable => false}
-                        ]
-        unless ProductNature.find_by_number(attributes[:number])
-          plant_product_nature_p = ProductNature.create!({:active => true,
-                                                        :storable => true, :derivative_of => "plant",
-                                                        :stock_account_id => wheat_stock_account.id,
-                                                        :charge_account_id => wheat_charge_account.id,
-                                                        :product_account_id => wheat_product_account.id}.merge(attributes))
-          plant_product_nature_p.variants.create!(:active => true, :commercial_name => plant_product_nature_p.name, :name => plant_product_nature_p.name,
-                                         :purchase_indicator => "net_weight", :purchase_indicator_unit => "ton",
-                                         :sale_indicator => "net_weight", :sale_indicator_unit => "ton",
-                                         :usage_indicator => "net_weight", :usage_indicator_unit => "kilogram"
-                                         )
-        end
-      end
-
-
-
+      # Create product_nature for derivative plant product
+      grain = ProductNature.import_from_nomenclature(:grain).default_variant
+      straw = ProductNature.import_from_nomenclature(:straw).default_variant
+      hay = ProductNature.import_from_nomenclature(:hay).default_variant
+      silage = ProductNature.import_from_nomenclature(:silage).default_variant
+      grass = ProductNature.import_from_nomenclature(:grass).default_variant
 
       # Create product_nature_price for wheat product
       #wheat_price_template   = ProductPriceTemplate.find_by_product_nature_id(wheat.id)
       #wheat_price_template ||= ProductPriceTemplate.create!(:assignment_amount => 211, :currency => "EUR", :assignment_pretax_amount => 200, :product_nature_id => wheat.id, :tax_id => wheat_price_template_tax.id, :listing_id => price_listing.id, :supplier_id => Entity.of_company.id )
+
       # Create wheat product
-      wheat = ProductNatureVariant.find_by_nature_name("Grain de Blé")
+      wheat = ProductNature.import_from_nomenclature(:wheat_grain).default_variant
+      price_listing = ProductPriceListing.find_by_code("STD")
+      wheat_price_template_tax = Tax.find_by_amount(5.5)
 
       ble = OrganicMatter.find_by_work_number("BLE_001")
-      ble = OrganicMatter.create!(:variant_id => wheat.id, :name => "Blé Cap Horn 2011", :variety => "grains", :identification_number => "BLE_2011_07142011", :work_number => "BLE_2011",
+      ble = OrganicMatter.create!(:variant_id => wheat.id, :name => "Blé Cap Horn 2011", :variety => "organic_matter", :identification_number => "BLE_2011_07142011", :work_number => "BLE_2011",
                                   :born_at => "2011-07-14", :owner_id => Entity.of_company.id) #
 
       # Sale nature
@@ -689,125 +621,21 @@ namespace :db do
       # set the coop
       print "[#{(Time.now - start).round(2).to_s.rjust(8)}s] IncomingDeliveries - Charentes Alliance Coop Order (Appro) 2013: "
 
-       # create product_nature for organic matters and others usefull for coop
-
       price_listing = ProductPriceListing.find_by_code("STD")
-      # phyto_category = ProductNatureCategory.find_by_name("Produits phytosanitaires")
-      # phyto_category ||= ProductNatureCategory.create!(:name => "Produits phytosanitaires")
-      # animal_medicine_category = ProductNatureCategory.find_by_name("Produits vétérinaires")
-      # animal_medicine_category ||= ProductNatureCategory.create!(:name => "Produits vétérinaires")
-      # fertilizer_category = ProductNatureCategory.find_by_name("Produits fertilisants")
-      # fertilizer_category ||= ProductNatureCategory.create!(:name => "Produits fertilisants")
-      # seed_category = ProductNatureCategory.find_by_name("Semences")
-      # seed_category ||= ProductNatureCategory.create!(:name => "Semences")
-      # livestock_feed_category = ProductNatureCategory.find_by_name("Aliments")
-      # livestock_feed_category ||= ProductNatureCategory.create!(:name => "Aliments")
-      # other_consumable_category = ProductNatureCategory.find_by_name("Quincaillerie")
-      # other_consumable_category ||= ProductNatureCategory.create!(:name => "Quincaillerie")
 
-      # charge account for product nature
-      fertilizer_charge_account = Account.find_or_create_in_chart(:fertilizer_charges)
-      seed_charge_account = Account.find_or_create_in_chart(:seed_charges)
-      plant_medicine_matter_charge_account = Account.find_or_create_in_chart(:plant_medicine_matter_charges)
-      livestock_feed_matter_charge_account = Account.find_or_create_in_chart(:livestock_feed_matter_charges)
-      animal_medicine_matter_charge_account = Account.find_or_create_in_chart(:animal_medicine_matter_charges)
-      other_consumable_matter_charge_account = Account.find_or_create_in_chart(:other_consumable_matter_charges)
+      # # create product_nature for organic matters and others usefull for coop
+      # herbicide = ProductNature.import_from_nomenclature(:herbicide).default_variant
+      # fungicide = ProductNature.import_from_nomenclature(:fungicide).default_variant
+      # insecticide = ProductNature.import_from_nomenclature(:insecticide).default_variant
+      # # @TODO = anti-limace
+      # chemical_fertilizer = ProductNature.import_from_nomenclature(:chemical_fertilizer).default_variant
+      # seed = ProductNature.import_from_nomenclature(:seed).default_variant
+      # feed = ProductNature.import_from_nomenclature(:feed).default_variant
+      # animal_medicine = ProductNature.import_from_nomenclature(:animal_medicine).default_variant
+      # spread_renting = ProductNature.import_from_nomenclature(:spread_renting).default_variant
+      # mineral_cleaner = ProductNature.import_from_nomenclature(:mineral_cleaner).default_variant
 
-      # stock account for product nature
-      fertilizer_stock_account = Account.find_or_create_in_chart(:fertilizer_stock)
-      seed_stock_account = Account.find_or_create_in_chart(:seed_stock)
-      plant_medicine_matter_stock_account = Account.find_or_create_in_chart(:plant_medicine_stock)
-      livestock_feed_matter_stock_account = Account.find_or_create_in_chart(:livestock_feed_stock)
-      animal_medicine_matter_stock_account = Account.find_or_create_in_chart(:animal_medicine_stock)
-      other_consumable_matter_stock_account = Account.find_or_create_in_chart(:others_consumables_stock)
       appro_price_template_tax = Tax.find_by_amount(5.5)
-
-      # Create product_nature for plant product
-      for attributes in [{:name => "Herbicide", :number => "HERBICIDE",
-                          :population_counting => "decimal", :variety => "plant_medicine",
-                          :purchasable => true, :charge_account_id => plant_medicine_matter_charge_account.id,
-                          :storable => true, :stock_account_id => plant_medicine_matter_stock_account.id
-                          },
-                          {:name => "Fongicide", :number => "FONGICIDE",
-                          :population_counting => "decimal", :variety => "plant_medicine",
-                          :purchasable => true, :charge_account_id => plant_medicine_matter_charge_account.id,
-                          :storable => true, :stock_account_id => plant_medicine_matter_stock_account.id
-                          },
-                          {:name => "Anti-limace", :number => "ANTI_LIMACE",
-                          :population_counting => "decimal", :variety => "plant_medicine",
-                          :purchasable => true, :charge_account_id => plant_medicine_matter_charge_account.id,
-                          :storable => true, :stock_account_id => plant_medicine_matter_stock_account.id
-                          },
-                          {:name => "Engrais", :number => "ENGRAIS",
-                          :population_counting => "decimal", :variety => "mineral_matter",
-                          :purchasable => true, :charge_account_id => fertilizer_charge_account.id,
-                          :storable => true, :stock_account_id => fertilizer_stock_account.id
-                          },
-                          {:name => "Semence", :number => "SEMENCE",
-                          :population_counting => "decimal", :variety => "seed", :derivative_of => "plant",
-                          :purchasable => true, :charge_account_id => seed_charge_account.id,
-                          :storable => true, :stock_account_id => seed_stock_account.id
-                          },
-                          {:name => "Aliment", :number => "ALIMENT",
-                          :population_counting => "decimal", :variety => "plant_food", :derivative_of => "plant",
-                          :purchasable => true, :charge_account_id => livestock_feed_matter_charge_account.id,
-                          :storable => true, :stock_account_id => livestock_feed_matter_stock_account.id
-                          },
-                          {:name => "Médicament vétérinaire", :number => "MEDICAMENT_VETERINAIRE",
-                          :population_counting => "decimal", :variety => "animal_medicine",
-                          :purchasable => true, :charge_account_id => animal_medicine_matter_charge_account.id,
-                          :storable => true, :stock_account_id => animal_medicine_matter_stock_account.id
-                          },
-                          {:name => "Quincaillerie", :number => "QUINCAILLERIE",
-                          :population_counting => "decimal", :variety => "equipment",
-                          :purchasable => true, :charge_account_id => other_consumable_matter_charge_account.id,
-                          :storable => true, :stock_account_id => other_consumable_matter_stock_account.id
-                          },
-                          {:name => "Location Matériel", :number => "LOCATION_MATERIEL",
-                          :population_counting => "decimal", :variety => "equipment",
-                          :purchasable => true, :charge_account_id => other_consumable_matter_charge_account.id,
-                          :storable => false, :stock_account_id => other_consumable_matter_stock_account.id
-                          },
-                          {:name => "Nettoyant", :number => "NETTOYANT",
-                          :population_counting => "decimal", :variety => "mineral_matter",
-                          :purchasable => true, :charge_account_id => other_consumable_matter_charge_account.id,
-                          :storable => true, :stock_account_id => other_consumable_matter_stock_account.id
-                          },
-                          {:name => "Petit Equipement", :number => "PETIT_EQUIPEMENT",
-                          :population_counting => "decimal", :variety => "equipment",
-                          :purchasable => true, :charge_account_id => other_consumable_matter_charge_account.id,
-                          :storable => true, :stock_account_id => other_consumable_matter_stock_account.id
-                          }
-                         ]
-        unless ProductNature.find_by_number(attributes[:number])
-          ProductNature.create!({:active => true}.merge(attributes) )
-        end
-      end
-
-      for attributes in [
-                         {:number => "HERBICIDE", :pi => "net_volume", :piu => "liter", :si => "net_volume", :siu => "liter", :ui => "net_volume", :uiu => "liter"},
-                         {:number => "FONGICIDE", :pi => "net_volume", :piu => "liter", :si => "net_volume", :siu => "liter", :ui => "net_volume", :uiu => "liter"},
-                         {:number => "ANTI_LIMACE", :pi => "net_weight", :piu => "kilogram", :si => "net_weight", :siu => "kilogram", :ui => "net_weight", :uiu => "kilogram"},
-                         {:number => "ENGRAIS", :pi => "net_weight", :piu => "ton", :si => "net_weight", :siu => "ton", :ui => "net_weight", :uiu => "kilogram"},
-                         {:number => "SEMENCE", :pi => "net_weight", :piu => "kilogram", :si => "net_weight", :siu => "kilogram", :ui => "net_weight", :uiu => "kilogram"},
-                         {:number => "ALIMENT", :pi => "net_weight", :piu => "ton", :si => "net_weight", :siu => "ton", :ui => "net_weight", :uiu => "kilogram"},
-                         {:number => "QUINCAILLERIE", :pi => "population", :piu => "unity", :si => "population", :siu => "unity", :ui => "population", :uiu => "unity"},
-                         {:number => "NETTOYANT", :pi => "net_volume", :piu => "liter", :si => "net_volume", :siu => "liter", :ui => "net_volume", :uiu => "liter"},
-                         {:number => "LOCATION_MATERIEL", :pi => "usage_duration", :piu => "hour", :si => "usage_duration", :siu => "hour", :ui => "usage_duration", :uiu => "hour"},
-                         {:number => "MEDICAMENT_VETERINAIRE", :pi => "population", :piu => "unity", :si => "net_weight", :siu => "gram", :ui => "net_weight", :uiu => "gram"},
-                         {:number => "PETIT_EQUIPEMENT", :pi => "population", :piu => "unity", :si => "population", :siu => "unity", :ui => "population", :uiu => "unity"}
-                        ]
-
-       if pn = ProductNature.find_by_number(attributes[:number])
-         pn.variants.create!(
-                             :active => true,
-                             :commercial_name => pn.name, :name => pn.name,
-                             :purchase_indicator => attributes[:pi], :purchase_indicator_unit => attributes[:piu],
-                             :sale_indicator => attributes[:si], :sale_indicator_unit => attributes[:siu],
-                             :usage_indicator => attributes[:ui], :usage_indicator_unit => attributes[:uiu]
-                            )
-       end
-      end
 
       suppliers = Entity.where(:of_company => false, :supplier => true).reorder(:supplier_account_id, :last_name) # .where(" IS NOT NULL")
       coop = suppliers.offset((suppliers.count/2).floor).first
@@ -822,51 +650,51 @@ namespace :db do
       }
 
       pnature = {
-        "Maïs classe a" => "SEMENCE",
-        "Graminées fourragères" => "SEMENCE",
-        "Légumineuses fourragères" => "SEMENCE",
-        "Divers" => "SEMENCE",
-        "Blé tendre" => "SEMENCE",
-        "Blé dur" => "SEMENCE",
-        "Orge hiver escourgeon" => "SEMENCE",
-        "Couverts environnementaux enherbeme" => "SEMENCE",
+        "Maïs classe a" => "seed",
+        "Graminées fourragères" => "seed",
+        "Légumineuses fourragères" => "seed",
+        "Divers" => "seed",
+        "Blé tendre" => "seed",
+        "Blé dur" => "seed",
+        "Orge hiver escourgeon" => "seed",
+        "Couverts environnementaux enherbeme" => "seed",
 
-        "Engrais" => "ENGRAIS",
+        "Engrais" => "chemical_fertilizer",
 
-        "Fongicides céréales" => "FONGICIDE",
-        "Fongicides colza" => "FONGICIDE",
-        "Herbicides maïs" => "HERBICIDE",
-        "Herbicides totaux" => "HERBICIDE",
-        "Adjuvants" => "HERBICIDE",
-        "Herbicides autres" => "HERBICIDE",
-        "Herbicides céréales et fouragères" => "HERBICIDE",
+        "Fongicides céréales" => "fungicide",
+        "Fongicides colza" => "fungicide",
+        "Herbicides maïs" => "herbicide",
+        "Herbicides totaux" => "herbicide",
+        "Adjuvants" => "herbicide",
+        "Herbicides autres" => "herbicide",
+        "Herbicides céréales et fouragères" => "herbicide",
 
-        "Céréales"  => "ALIMENT",
-        "Chevaux" => "ALIMENT",
-        "Compléments nutritionnels" => "ALIMENT",
-        "Minéraux sel blocs" => "ALIMENT",
+        "Céréales"  => "feed",
+        "Chevaux" => "feed",
+        "Compléments nutritionnels" => "feed",
+        "Minéraux sel blocs" => "feed",
 
-        "Anti-limaces" => "ANTI_LIMACE",
+        "Anti-limaces" => "insecticide",
 
-        "Location semoir" => "LOCATION_MATERIEL",
+        "Location semoir" => "spread_renting",
 
-        "Nettoyants" => "NETTOYANT",
+        "Nettoyants" => "mineral_cleaner",
 
-        "Films plastiques" => "QUINCAILLERIE",
-        "Recyclage" => "QUINCAILLERIE",
-        "Ficelles" => "QUINCAILLERIE"
+        "Films plastiques" => "small_equipment",
+        "Recyclage" => "small_equipment",
+        "Ficelles" => "small_equipment"
       }
 
-      file = Rails.root.join("test", "fixtures", "files", "coop-appro.csv")
+      file = Rails.root.join("test", "fixtures", "files", "coop_appro.csv")
       CSV.foreach(file, :encoding => "UTF-8", :col_sep => ";", :headers => true) do |row|
         r = OpenStruct.new(:order_number => row[0],
                            :ordered_on => Date.civil(*row[1].to_s.split(/\//).reverse.map(&:to_i)),
                            # :product_nature_category => ProductNatureCategory.find_by_name(row[2]) || ProductNatureCategory.create!(:catalog_name => row[2], :name => row[2], :published => true ) ,
-                           :product_nature_name => (pnature[row[3]] || "QUINCAILLERIE"),
+                           :product_nature_name => (pnature[row[3]] || "small_equipment"),
                            :matter_name => row[4],
-                           :quantity => row[5].to_d,
-                           :product_deliver_quantity => row[6].to_d,
-                           :product_unit_price => row[7].to_d,
+                           :quantity => (row[5].blank? ? nil : row[5].to_d),
+                           :product_deliver_quantity => (row[6].blank? ? nil : row[6].to_d),
+                           :product_unit_price => (row[7].blank? ? nil : row[7].to_d),
                            :order_status => (status[row[8]] || :draft)
                            )
         # create an incoming deliveries if not exist and status = 2
@@ -874,11 +702,15 @@ namespace :db do
           order = IncomingDelivery.find_by_reference_number(r.order_number)
           order ||= IncomingDelivery.create!(:reference_number => r.order_number, :received_at => r.ordered_on, :sender_id => coop.id, :address_id => "1")
           # find a product_nature by mapping current sub_family of coop file
-          product_nature = ProductNature.find_by_number(r.product_nature_name)
-          product_nature_variant = product_nature.default_variant
+          product_nature = ProductNature.find_by_nomen(r.product_nature_name)
+          product_nature ||= ProductNature.import_from_nomenclature(r.product_nature_name)
+          # find a product_nature_variant by mapping current article of coop file
+          product_nature_variant = ProductNatureVariant.find_by_name_and_nature_id(r.matter_name,product_nature.id )
+          product_nature_variant ||= product_nature.variants.create!(:name => r.matter_name)
+
           product_model = product_nature.matching_model
-          incoming_item = Product.find_by_name_and_created_at(r.matter_name, r.ordered_on)
-          incoming_item ||= product_model.create!(:owner_id => Entity.of_company.id, :name => r.matter_name, :variant_id => product_nature_variant.id, :born_at => r.ordered_on, :created_at => r.ordered_on)
+          incoming_item = Product.find_by_variant_id_and_created_at(product_nature_variant.id, r.ordered_on)
+          incoming_item ||= product_model.create!(:owner_id => Entity.of_company.id, :identification_number => r.order_number, :variant_id => product_nature_variant.id, :born_at => r.ordered_on, :created_at => r.ordered_on)
           # incoming_item.indicator_data.create!(:indicator => product_nature_variant.purchase_indicator, :value => r.quantity,
           # :measure_unit => product_nature_variant.purchase_indicator_unit,
           # :measured_at => Time.now
@@ -1071,12 +903,12 @@ namespace :db do
         "" => :none
       }
       # Load file
-      file = Rails.root.join("test", "fixtures", "files", "activities_ref_demo_1.csv")
+      file = Rails.root.join("test", "fixtures", "files", "activities_ref_demo_2.csv")
       CSV.foreach(file, :encoding => "UTF-8", :col_sep => ",", :headers => true, :quote_char => "'") do |row|
         r = OpenStruct.new(:description => row[0],
                            :name => row[1].downcase.capitalize,
                            :family => (families[row[2]] || :none).to_s,
-                           :product_nature_name => row[3],
+                           :product_nature_nomen => row[3].blank? ? nil :row[3].to_sym,
                            :nature => (natures[row[4]] || :none).to_s,
                            :campaign_name => row[5].blank? ? nil : row[5].to_s,
                            :work_number_land_parcel_storage => row[6].blank? ? nil : row[6].to_s
@@ -1090,19 +922,25 @@ namespace :db do
         # Create an activity if not exist
         activity   = Activity.find_by_description(r.description)
         activity ||= Activity.create!(:nature => r.nature, :family => r.family, :name => r.name, :description => r.description)
-        product_nature_sup = ProductNature.find_by_number(r.product_nature_name)
-        if product_nature_sup.present?
-          product_nature_variant_sup = ProductNatureVariant.find_by_nature_id(product_nature_sup.id)
-        end
-        if product_nature_variant_sup and land_parcel_support.present?
-          pro = Production.where(:campaign_id => campaign.id, :activity_id => activity.id, :product_nature_id => product_nature_sup.id).first
-          pro ||= activity.productions.create!(:product_nature_id => product_nature_sup.id, :campaign_id => campaign.id, :static_support => true)
-          pro.supports.create!(:storage_id => land_parcel_support.id)
-          plant_work_nb = (r.product_nature_name + "-" + campaign.name + "-" + land_parcel_support.work_number)
-          Plant.create!(:variant_id => product_nature_variant_sup.id, :work_number => plant_work_nb , :name => (r.product_nature_name + " " + campaign.name + " " + land_parcel_support.name)  , :variety => product_nature_sup.variety, :born_at => Time.now, :owner_id => Entity.of_company.id)
-        elsif product_nature_variant_sup
-          pro = Production.where(:product_nature_id => product_nature_sup.id, :campaign_id => campaign.id, :activity_id => activity.id).first
-          pro ||= activity.productions.create!(:product_nature_id => product_nature_sup.id, :campaign_id => campaign.id)
+        if r.product_nature_nomen
+          product_nature_sup = ProductNature.find_by_nomen(r.product_nature_nomen)
+          if product_nature_sup.present?
+            product_nature_variant_sup = ProductNatureVariant.find_by_nature_id(product_nature_sup.id)
+          else
+            product_nature_sup = ProductNature.import_from_nomenclature(r.product_nature_nomen)
+            product_nature_variant_sup = product_nature_sup.default_variant
+          end
+          if product_nature_variant_sup and land_parcel_support.present?
+            pro = Production.where(:campaign_id => campaign.id, :activity_id => activity.id, :product_nature_id => product_nature_sup.id).first
+            pro ||= activity.productions.create!(:product_nature_id => product_nature_sup.id, :campaign_id => campaign.id, :static_support => true)
+            pro.supports.create!(:storage_id => land_parcel_support.id)
+            plant_name = (Nomen::ProductNatures.find(r.product_nature_nomen).human_name + " " + campaign.name + " " + land_parcel_support.work_number)
+            plant_work_nb = (r.product_nature_nomen.to_s + "-" + campaign.name + "-" + land_parcel_support.work_number)
+            Plant.create!(:variant_id => product_nature_variant_sup.id, :work_number => plant_work_nb , :name => plant_name, :variety => product_nature_sup.variety, :born_at => Time.now, :owner_id => Entity.of_company.id)
+          elsif product_nature_variant_sup
+            pro = Production.where(:product_nature_id => product_nature_sup.id, :campaign_id => campaign.id, :activity_id => activity.id).first
+            pro ||= activity.productions.create!(:product_nature_id => product_nature_sup.id, :campaign_id => campaign.id)
+          end
         end
         print "."
       end
@@ -1132,14 +970,13 @@ namespace :db do
       ##############################################################################
 
       print "[#{(Time.now - start).round(2).to_s.rjust(8)}s] Procedures - demo data for fertilization reporting 2013: "
-      fertilizer_product_nature_variant = ProductNatureVariant.find_by_nature_name("Engrais")
       campaign = Campaign.find_by_name("2013")
-      sole_ble_nature = ProductNature.find_by_number("SOLE_BLE")
+      sole_ble_nature = ProductNature.find_by_variety("triticum_aestivum")
 
       # create some indicator nature for fertilization
       # find some product for fertilization
-      fertilizer_product = Product.find_by_variant_id(fertilizer_product_nature_variant.id)
-      fertilizer_product_prev = Product.where("name LIKE 'AMMO%'").first
+      fertilizer_product = Product.find_by_variety("organic_matter")
+      fertilizer_product_prev = Product.find_by_variety("organic_matter")
       # set indicator on product for fertilization
 
       #fertilizer_product.indicator_data.create!({:measure_unit => "kilograms_per_hectogram", :measured_at => Time.now }.merge(attributes))
@@ -1156,7 +993,7 @@ namespace :db do
       production = Production.find_by_product_nature_id_and_campaign_id(sole_ble_nature.id, campaign.id)
 
       # provisional fertilization procedure
-      procedure_prev ||= Procedure.create!(:natures => "soil_enrichment", :nomen =>"mineral_fertilizing", :production_id => production.id, :provisional => true )
+      procedure_prev = Procedure.create!(:natures => "soil_enrichment", :nomen =>"mineral_fertilizing", :production_id => production.id, :provisional => true )
 
 
       #plant = Plant.find_by_work_number("SOLE_BLE-2013-PC23")
@@ -1181,7 +1018,7 @@ namespace :db do
       end
 
       # real fertilization procedure
-      procedure_real ||= Procedure.create!(:natures => "soil_enrichment", :nomen =>"mineral_fertilizing", :production_id => production.id, :provisional_procedure_id => procedure_prev.id)
+      procedure_real = Procedure.create!(:natures => "soil_enrichment", :nomen =>"mineral_fertilizing", :production_id => production.id, :provisional_procedure_id => procedure_prev.id)
 
 
       #plant = Plant.find_by_work_number("SOLE_BLE-2013-PC23")
@@ -1218,7 +1055,8 @@ namespace :db do
       # add some credentials in preferences
       cattling_number = Preference.create!(:nature => :string, :name => "services.synel17.login", :value => "17387001")
 
-      sanitary_product_nature_variant = ProductNatureVariant.find_by_nature_name("Médicament vétérinaire")
+      #sanitary_product_nature_variant = ProductNatureVariant.find_by_nature_name("Animal medicine")
+      sanitary_product_nature_variant = ProductNature.import_from_nomenclature(:animal_medicine).default_variant
       campaign = Campaign.find_by_name("2013")
       animal_group_nature = ProductNature.find_by_nomen("female_adult_cow")
       animal_production = Production.find_by_product_nature_id_and_campaign_id(animal_group_nature.id, campaign.id)
