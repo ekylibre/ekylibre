@@ -783,27 +783,38 @@ class NormalizeProducts < ActiveRecord::Migration
       t.string :name
       t.string :number
       t.string :nature_name, :null => false # Auto
+      t.string :unit_name, :null => false
       t.string :commercial_name, :null => false
       t.text   :commercial_description
+      t.text   :frozen_indicators
+      t.text   :variable_indicators
       t.boolean :active,       :null => false, :default => false
-
+      t.attachment :picture
       t.string  :contour # enumerize
       t.integer :horizontal_rotation, :null => false, :default => false
-
-      t.string :usage_indicator, :limit => 127
-      t.string :usage_indicator_unit
-
-      t.string :sale_indicator, :limit => 127
-      t.string :sale_indicator_unit
-
-      t.string :purchase_indicator, :limit => 127
-      t.string :purchase_indicator_unit
 
       t.stamps
     end
     add_stamps_indexes :product_nature_variants
     add_index :product_nature_variants, :nature_id
 
+    create_table :product_nature_variant_indicator_data do |t|
+      t.references :variant,            :null => false
+      t.string     :indicator,          :null => false
+      t.string     :indicator_datatype, :null => false
+      t.string     :computation_method, :null => false
+      t.geometry   :geometry_value
+      t.decimal    :decimal_value,   :precision => 19, :scale => 4
+      t.decimal    :measure_value_value,   :precision => 19, :scale => 4
+      t.string     :measure_value_unit      # Needed for historic
+      t.text       :string_value
+      t.boolean    :boolean_value, :null => false, :default => false
+      t.string     :choice_value
+      t.stamps
+    end
+    add_stamps_indexes :product_nature_variant_indicator_data
+    add_index :product_nature_variant_indicator_data, :variant_id
+    add_index :product_nature_variant_indicator_data, :indicator
 
     # Re-create table product
     create_table :products do |t|
@@ -1044,21 +1055,24 @@ class NormalizeProducts < ActiveRecord::Migration
 
     # This table registered all computed prices
     create_table :product_prices do |t|
-      t.references :product, :null => false
+      t.references :product
+      t.references :variant, :null => false
+      t.references :listing
       t.references :supplier, :null => false
-      t.references :template, :null => false
       t.decimal :pretax_amount, :null => false, :precision => 19, :scale => 4
       t.decimal :amount, :null => false, :precision => 19, :scale => 4
-      t.references :tax, :null => false, :null => false
-      t.string :currency, :null => false, :null => false
-      t.datetime :computed_at, :null => false
+      t.references :tax, :null => false
+      t.string :currency, :null => false, :limit => 3
+      t.datetime :started_at
+      t.datetime :stopped_at
       t.stamps
     end
     add_stamps_indexes :product_prices
     add_index :product_prices, :product_id
+    add_index :product_prices, :listing_id
     add_index :product_prices, :supplier_id
     add_index :product_prices, :tax_id
-    add_index :product_prices, :template_id
+    add_index :product_prices, :variant_id
 
     # TODO Insert new prices
 
@@ -1236,7 +1250,7 @@ class NormalizeProducts < ActiveRecord::Migration
       end
     end
 
-
+    drop_table :product_price_templates
     # drop_table :trackings
     drop_table :tracking_states
 
@@ -1255,6 +1269,7 @@ class NormalizeProducts < ActiveRecord::Migration
     drop_table :old_stock_moves
     drop_table :old_stocks
     drop_table :old_products
+
 
 
   end

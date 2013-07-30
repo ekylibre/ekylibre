@@ -700,6 +700,7 @@ eng:
     company: "Company" #?
     component: "Component" #?
     components: "Components" #?
+    # computation_method: "Computation method"
     compute: "Compute"
     # computed_at: "Calculé le"
     conclusion: "Conclusion"
@@ -901,6 +902,7 @@ eng:
     function_title: "Function title"
     future_events: "Future events" #?
     generated: "Generated" #?
+    # geometry_value: "Geometry value"
     global_balance: "Global balance"
     global_count: "Global count"
     global_credit: "Global credit"
@@ -1028,6 +1030,7 @@ eng:
     # measure_unit: "Unité de mesure"
     # measure_value: "Valeur de la mesure"
     # measure_value_unit: "Measure value unit"
+    # measure_value_value: "Measure value value"
     # measured_at: "Mesuré à"
     member: "Member"
     members: "Members"

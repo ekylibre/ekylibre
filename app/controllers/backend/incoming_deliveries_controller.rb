@@ -22,8 +22,10 @@ class Backend::IncomingDeliveriesController < BackendController
 
   manage_restfully
 
+  respond_to :pdf, :odt, :docx, :xml, :json, :html, :csv
+
   list do |t|
-    t.column :number
+    t.column :number, :url => true
     t.column :reference_number
     # t.column :description
     # t.column :weight
@@ -35,8 +37,20 @@ class Backend::IncomingDeliveriesController < BackendController
     t.action :destroy
   end
 
+  # Liste des items d'une appro
+  list(:item, :model => :incoming_delivery_items, :conditions => [" delivery_id = ? ",['session[:current_incoming_delivery_id]']], :order => "created_at DESC") do |t|
+    t.column :name, :through => :product, :url => true
+    t.column :created_at
+  end
+
   # Displays the main page with the list of incoming deliveries
   def index
+  end
+
+  def show
+    return unless @incoming_delivery = find_and_check
+    session[:current_incoming_delivery_id] = @incoming_delivery.id
+    respond_with(@incoming_delivery, :methods => :picture_path, :include => [:address, :mode, :purchase, :sender])
   end
 
   def confirm

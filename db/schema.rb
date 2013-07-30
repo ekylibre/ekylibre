@@ -755,7 +755,6 @@ ActiveRecord::Schema.define(:version => 20130410143823) do
     t.integer  "product_id",                                                       :null => false
     t.decimal  "quantity",         :precision => 19, :scale => 4, :default => 1.0, :null => false
     t.integer  "container_id"
-    t.decimal  "weight",           :precision => 19, :scale => 4
     t.datetime "created_at",                                                       :null => false
     t.datetime "updated_at",                                                       :null => false
     t.integer  "creator_id"
@@ -1546,27 +1545,54 @@ ActiveRecord::Schema.define(:version => 20130410143823) do
   add_index "product_moves", ["updated_at"], :name => "index_product_moves_on_updated_at"
   add_index "product_moves", ["updater_id"], :name => "index_product_moves_on_updater_id"
 
-  create_table "product_nature_variants", :force => true do |t|
-    t.integer  "nature_id",                                                 :null => false
-    t.string   "name"
-    t.string   "number"
-    t.string   "nature_name",                                               :null => false
-    t.string   "commercial_name",                                           :null => false
-    t.text     "commercial_description"
-    t.boolean  "active",                                 :default => false, :null => false
-    t.string   "contour"
-    t.integer  "horizontal_rotation",                    :default => 0,     :null => false
-    t.string   "usage_indicator",         :limit => 127
-    t.string   "usage_indicator_unit"
-    t.string   "sale_indicator",          :limit => 127
-    t.string   "sale_indicator_unit"
-    t.string   "purchase_indicator",      :limit => 127
-    t.string   "purchase_indicator_unit"
-    t.datetime "created_at",                                                :null => false
-    t.datetime "updated_at",                                                :null => false
+  create_table "product_nature_variant_indicator_data", :force => true do |t|
+    t.integer  "variant_id",                                                                                                     :null => false
+    t.string   "indicator",                                                                                                      :null => false
+    t.string   "indicator_datatype",                                                                                             :null => false
+    t.string   "computation_method",                                                                                             :null => false
+    t.decimal  "decimal_value",                                                :precision => 19, :scale => 4
+    t.decimal  "measure_value_value",                                          :precision => 19, :scale => 4
+    t.string   "measure_value_unit"
+    t.text     "string_value"
+    t.boolean  "boolean_value",                                                                               :default => false, :null => false
+    t.string   "choice_value"
+    t.datetime "created_at",                                                                                                     :null => false
+    t.datetime "updated_at",                                                                                                     :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                           :default => 0,     :null => false
+    t.integer  "lock_version",                                                                                :default => 0,     :null => false
+    t.spatial  "geometry_value",      :limit => {:srid=>0, :type=>"geometry"}
+  end
+
+  add_index "product_nature_variant_indicator_data", ["created_at"], :name => "index_product_nature_variant_indicator_data_on_created_at"
+  add_index "product_nature_variant_indicator_data", ["creator_id"], :name => "index_product_nature_variant_indicator_data_on_creator_id"
+  add_index "product_nature_variant_indicator_data", ["indicator"], :name => "index_product_nature_variant_indicator_data_on_indicator"
+  add_index "product_nature_variant_indicator_data", ["updated_at"], :name => "index_product_nature_variant_indicator_data_on_updated_at"
+  add_index "product_nature_variant_indicator_data", ["updater_id"], :name => "index_product_nature_variant_indicator_data_on_updater_id"
+  add_index "product_nature_variant_indicator_data", ["variant_id"], :name => "index_product_nature_variant_indicator_data_on_variant_id"
+
+  create_table "product_nature_variants", :force => true do |t|
+    t.integer  "nature_id",                                 :null => false
+    t.string   "name"
+    t.string   "number"
+    t.string   "nature_name",                               :null => false
+    t.string   "unit_name",                                 :null => false
+    t.string   "commercial_name",                           :null => false
+    t.text     "commercial_description"
+    t.text     "frozen_indicators"
+    t.text     "variable_indicators"
+    t.boolean  "active",                 :default => false, :null => false
+    t.string   "picture_file_name"
+    t.string   "picture_content_type"
+    t.integer  "picture_file_size"
+    t.datetime "picture_updated_at"
+    t.string   "contour"
+    t.integer  "horizontal_rotation",    :default => 0,     :null => false
+    t.datetime "created_at",                                :null => false
+    t.datetime "updated_at",                                :null => false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version",           :default => 0,     :null => false
   end
 
   add_index "product_nature_variants", ["created_at"], :name => "index_product_nature_variants_on_created_at"
@@ -1634,62 +1660,33 @@ ActiveRecord::Schema.define(:version => 20130410143823) do
   add_index "product_price_listings", ["updated_at"], :name => "index_product_price_listings_on_updated_at"
   add_index "product_price_listings", ["updater_id"], :name => "index_product_price_listings_on_updater_id"
 
-  create_table "product_price_templates", :force => true do |t|
-    t.decimal  "assignment_pretax_amount",                        :precision => 19, :scale => 4
-    t.decimal  "assignment_amount",                               :precision => 19, :scale => 4
-    t.integer  "product_nature_id",                                                                                :null => false
-    t.integer  "tax_id",                                                                                           :null => false
-    t.datetime "created_at",                                                                                       :null => false
-    t.datetime "updated_at",                                                                                       :null => false
-    t.integer  "creator_id"
-    t.integer  "updater_id"
-    t.integer  "lock_version",                                                                   :default => 0,    :null => false
-    t.integer  "supplier_id"
+  create_table "product_prices", :force => true do |t|
+    t.integer  "product_id"
+    t.integer  "variant_id",                                                               :null => false
+    t.integer  "listing_id"
+    t.integer  "supplier_id",                                                              :null => false
+    t.decimal  "pretax_amount",              :precision => 19, :scale => 4,                :null => false
+    t.decimal  "amount",                     :precision => 19, :scale => 4,                :null => false
+    t.integer  "tax_id",                                                                   :null => false
+    t.string   "currency",      :limit => 3,                                               :null => false
     t.datetime "started_at"
     t.datetime "stopped_at"
-    t.boolean  "active",                                                                         :default => true, :null => false
-    t.boolean  "by_default",                                                                     :default => true
-    t.integer  "listing_id"
-    t.string   "currency",                          :limit => 3
-    t.string   "pretax_amount_generation",          :limit => 32
-    t.text     "pretax_amount_calculation_formula"
-    t.integer  "amounts_scale",                                                                  :default => 2,    :null => false
-  end
-
-  add_index "product_price_templates", ["created_at"], :name => "index_product_price_templates_on_created_at"
-  add_index "product_price_templates", ["creator_id"], :name => "index_product_price_templates_on_creator_id"
-  add_index "product_price_templates", ["currency"], :name => "index_product_price_templates_on_currency"
-  add_index "product_price_templates", ["listing_id"], :name => "index_product_price_templates_on_listing_id"
-  add_index "product_price_templates", ["product_nature_id"], :name => "index_product_price_templates_on_old_product_id"
-  add_index "product_price_templates", ["supplier_id"], :name => "index_product_price_templates_on_supplier_id"
-  add_index "product_price_templates", ["tax_id"], :name => "index_product_price_templates_on_tax_id"
-  add_index "product_price_templates", ["updated_at"], :name => "index_product_price_templates_on_updated_at"
-  add_index "product_price_templates", ["updater_id"], :name => "index_product_price_templates_on_updater_id"
-
-  create_table "product_prices", :force => true do |t|
-    t.integer  "product_id",                                                  :null => false
-    t.integer  "supplier_id",                                                 :null => false
-    t.integer  "template_id",                                                 :null => false
-    t.decimal  "pretax_amount", :precision => 19, :scale => 4,                :null => false
-    t.decimal  "amount",        :precision => 19, :scale => 4,                :null => false
-    t.integer  "tax_id",                                                      :null => false
-    t.string   "currency",                                                    :null => false
-    t.datetime "computed_at",                                                 :null => false
-    t.datetime "created_at",                                                  :null => false
-    t.datetime "updated_at",                                                  :null => false
+    t.datetime "created_at",                                                               :null => false
+    t.datetime "updated_at",                                                               :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                 :default => 0, :null => false
+    t.integer  "lock_version",                                              :default => 0, :null => false
   end
 
   add_index "product_prices", ["created_at"], :name => "index_product_prices_on_created_at"
   add_index "product_prices", ["creator_id"], :name => "index_product_prices_on_creator_id"
+  add_index "product_prices", ["listing_id"], :name => "index_product_prices_on_listing_id"
   add_index "product_prices", ["product_id"], :name => "index_product_prices_on_product_id"
   add_index "product_prices", ["supplier_id"], :name => "index_product_prices_on_supplier_id"
   add_index "product_prices", ["tax_id"], :name => "index_product_prices_on_tax_id"
-  add_index "product_prices", ["template_id"], :name => "index_product_prices_on_template_id"
   add_index "product_prices", ["updated_at"], :name => "index_product_prices_on_updated_at"
   add_index "product_prices", ["updater_id"], :name => "index_product_prices_on_updater_id"
+  add_index "product_prices", ["variant_id"], :name => "index_product_prices_on_variant_id"
 
   create_table "product_process_phases", :force => true do |t|
     t.integer  "process_id",                  :null => false

@@ -383,9 +383,10 @@ fra:
       product_move: "Mouvement de stock"
       product_nature: "Type de produit"
       product_nature_variant: "Variante de type de produit"
+      # product_nature_variant_indicator_datum: "Product nature variant indicator datum"
       product_price: "Prix"
       product_price_listing: "Liste de prix"
-      product_price_template: "Type de prix"
+      product_price_template: "Type de prix" #?
       product_process: "Processus"
       product_process_phase: "Phase de processus"
       production: "Production"
@@ -422,7 +423,7 @@ fra:
     accounted_at: "Date comptabilisation"
     acquisition_amount: "Montant des acquisition"
     active: "Utilisable"
-    # active_price_templates: "Active price templates"
+    # active_prices: "Active prices"
     activity: "Activité"
     activity_code: "Code APE/NAF"
     actual_number: "Numéro en cours"
@@ -435,7 +436,7 @@ fra:
     age: "Âge" #?
     allocation_account: "Compte de dotation"
     amount: "Montant"
-    amounts_scale: "Nombre de chiffres après le virgule"
+    amounts_scale: "Nombre de chiffres après le virgule" #?
     annotation: "Annotation"
     # archived_at: "Archived at"
     # archives: "Archives"
@@ -450,8 +451,6 @@ fra:
     asset_amount: "Valeur nette comptable"
     asset_depreciations: "Dépréciations d’immobilisation"
     assets: "Immobilisations" #?
-    # assignment_amount: "Assignment amount"
-    # assignment_pretax_amount: "Assignment pretax amount"
     assimilated_taxes_amount: "Montant des taxes assimilées"
     attorney: "Mandataire"
     attorney_account: "Compte mandataire"
@@ -531,8 +530,9 @@ fra:
     commission_base_amount: "Montant fixe de la commission"
     commission_percentage: "Pourcentage de commission"
     commissioned_incoming_payment_modes: "Modes d’encaissement avec commission"
+    computation_method: "Computation method"
     compute: "Dernière valeur"
-    computed_at: "Calculé le"
+    computed_at: "Calculé le" #?
     conclusion: "Conclusion"
     condition_operator: "Comparateur"
     condition_value: "Valeur comparée"
@@ -677,9 +677,10 @@ fra:
     first_name: "Prénom"
     first_number: "Premier numéro"
     formats: "Formats"
+    # frozen_indicators: "Frozen indicators"
     full_name: "Nom complet"
     function_title: "Civilités"
-    # geometry_value: "Geometry value"
+    geometry_value: "Geometry value"
     global_balance: "Solde global"
     global_count: "Population globale"
     global_credit: "Crédit global"
@@ -791,7 +792,7 @@ fra:
     measure_unit: "Unité de mesure"
     measure_value: "Valeur de la mesure"
     measure_value_unit: "Measure value unit"
-    # measure_value_value: "Measure value value"
+    measure_value_value: "Measure value value"
     measured_at: "Mesuré à"
     # meeting: "Meeting"
     # meeting_nature: "Meeting nature"
@@ -910,8 +911,7 @@ fra:
     # prescription: "Prescription"
     # prescriptor: "Prescriptor"
     pretax_amount: "Montant HT"
-    # pretax_amount_calculation_formula: "Pretax amount calculation formula"
-    pretax_amount_generation: "Pretax amount generation"
+    pretax_amount_generation: "Pretax amount generation" #?
     price: "Prix"
     price_amount: "Montant HT"
     # price_templates: "Price templates"
@@ -941,8 +941,8 @@ fra:
     purchasable: "Achetable"
     purchase: "Achat"
     purchase_amount: "Montant d’achat"
-    purchase_indicator: "Purchase indicator"
-    purchase_indicator_unit: "Purchase indicator unit"
+    purchase_indicator: "Purchase indicator" #?
+    purchase_indicator_unit: "Purchase indicator unit" #?
     purchase_invoices: "Factures d’achats"
     purchase_item: "Ligne d’achat"
     purchase_items: "Lignes d’achat"
@@ -989,8 +989,8 @@ fra:
     root_model: "Racine"
     root_model_name: "Racine"
     sale: "Vente"
-    sale_indicator: "Indicateur de vente"
-    sale_indicator_unit: "Unité de l'indicateur de vente"
+    sale_indicator: "Indicateur de vente" #?
+    sale_indicator_unit: "Unité de l'indicateur de vente" #?
     sale_item: "Ligne de vente"
     sale_items: "Lignes de vente"
     sale_price_listing: "Sale price listing"
@@ -1065,6 +1065,7 @@ fra:
     unconfirmed_email: "E-mail non confirmé"
     undelivered_quantity: "Reste à livrer"
     unit: "Unité"
+    # unit_name: "Unit name"
     # unlock_token: "Unlock token"
     unlocked_payments: "Paiement non verrouillés"
     unpaid_sales: "Ventes impayées"
@@ -1072,13 +1073,14 @@ fra:
     updater: "Modificateur"
     usable_incoming_payments: "Encaissements utilisables"
     usage: "Utilisation"
-    usage_indicator: "Usage indicator"
-    usage_indicator_unit: "Usage indicator unit"
+    usage_indicator: "Usage indicator" #?
+    usage_indicator_unit: "Usage indicator unit" #?
     # usages: "Usages"
     useful_items: "Lignes utiles"
     user: "Utilisateur"
     users: "Utilisateurs"
     value: "Valeur"
+    # variable_indicators: "Variable indicators"
     variables: "Variables"
     variant: "Variante"
     variants: "Variantes"
@@ -1479,9 +1481,9 @@ fra:
     product_price_listing:
       default:
         name: "Par défaut"
-    product_price_template:
-      label: "%{product} / %{amount} %{currency}"
-      no_range: "Pas d’intervalle"
+    product_price_template: #?
+      label: "%{product} / %{amount} %{currency}" #?
+      no_range: "Pas d’intervalle" #?
       range: "De %{min} à %{max}"
     production:
       bookkeep: "[%{resource} %{number}] %{products} pour %{client} (%{sale})"

@@ -301,8 +301,6 @@ GEM
       rspec-core (~> 2.14.0)
       rspec-expectations (~> 2.14.0)
       rspec-mocks (~> 2.14.0)
-    ruby-debug-ide (0.4.18)
-      rake (>= 0.8.1)
     ruby-filemagic (0.4.2)
     ruby-progressbar (1.1.1)
     ruby-rc4 (0.1.5)
@@ -448,7 +446,6 @@ DEPENDENCIES
   rgeo-shapefile
   routing-filter
   rspec-rails
-  ruby-debug-ide
   rubyzip
   sass-rails (~> 3.2.3)
   savon (~> 2.2.0)

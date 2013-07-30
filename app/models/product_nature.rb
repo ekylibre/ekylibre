@@ -305,9 +305,13 @@ class ProductNature < Ekylibre::Record::Base
     end
 
     if nature.variants.count.zero?
-      nature.variants.create!(:active => true,
-                              :usage_indicator => item.usage_indicator ,
-                              :usage_indicator_unit => item.usage_indicator_unit)
+      variant = nature.variants.create!(:active => true)
+
+      if indicator = Nomen::Indicators.find(item.usage_indicator)
+        variant.is_measured!(indicator.name.to_sym, 1.in(indicator.unit))
+      else
+        raise ArgumentError.new("The indicator #{item.usage_indicator.inspect} is not known")
+      end
     end
     return nature
   end

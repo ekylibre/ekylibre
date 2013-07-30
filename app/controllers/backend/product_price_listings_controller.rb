@@ -35,10 +35,10 @@ class Backend::ProductPriceListingsController < BackendController
   def index
   end
 
-  list(:templates, :model => :product_price_templates, :conditions => {:active => true, :listing_id => ['session[:current_product_price_listing_id]']}) do |t|
-    t.column :name, :through => :product_nature, :url => true
-    t.column :assignment_pretax_amount
-    t.column :assignment_amount
+  list(:prices, :model => :product_prices, :conditions => {:active => true, :listing_id => ['session[:current_product_price_listing_id]']}) do |t|
+    t.column :name, :through => :variant, :url => true
+    t.column :pretax_amount
+    t.column :amount
     t.column :name, :through => :tax
     t.action :destroy
   end

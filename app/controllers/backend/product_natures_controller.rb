@@ -55,16 +55,16 @@ class Backend::ProductNaturesController < BackendController
 
 
 
-  list(:price_templates, :model => :product_price_template, :conditions => {:product_nature_id => ['session[:product_nature_id]'], :active => true}) do |t|
-    t.column :name, :through => :supplier, :url => true
-    t.column :name, :through => :listing, :url => true
+  #list(:prices, :model => :product_prices, :conditions => {:variant_id => ['session[:product_nature_id]'], :active => true}) do |t|
+    #t.column :name, :through => :supplier, :url => true
+    #t.column :name, :through => :listing, :url => true
     #t.column :assignment_pretax_amount, :currency  =>  true
     #t.column :amount, :currency  =>  true
-    t.column :by_default
+    #t.column :by_default
     # t.column :range
-    t.action :edit
-    t.action :destroy
-  end
+    #t.action :edit
+    #t.action :destroy
+  #end
 
   #list(:product_moves, :conditions => {:product_id  => ['session[:product_id]']}, :line_class => 'RECORD.state', :order => "updated_at DESC") do |t|
     #t.column :name

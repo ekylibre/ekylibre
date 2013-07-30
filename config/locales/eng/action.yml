@@ -24,6 +24,7 @@ eng:
       # detach: "Dissocier une transaction"
       index: "Affairs"
       # select: "Ajouter une transaction"
+    backend/aggregators: #?
     backend/analytic_repartitions:
       edit: "Edit a repartition\_: %{id} "
       index: "Analytics repartitions"
@@ -132,6 +133,7 @@ eng:
       tools: "Tools dashboard"
       welcome: "Welcome on Ekylibre"
     backend/data_view/manure_management_plans: #?
+    backend/data_view/veterinary_booklets: #?
     backend/departments:
       edit: "Edit the department: %{name}"
       index: "Departments"
@@ -242,6 +244,7 @@ eng:
       edit: "Edit the incoming delivery"
       index: "Incoming deliveries"
       new: "Add a new incoming delivery"
+      # show: "Approvisionnement %{number} ( %{reference_number} )"
     backend/incoming_delivery_items:
       # new: "Nouvel item"
     backend/incoming_delivery_modes:
@@ -449,6 +452,7 @@ eng:
       index: "Product categories" #?
       new: "Add a new product category" #?
       show: "Product category: %{name}" #?
+    backend/product_nature_variant_indicator_data: #?
     backend/product_nature_variants:
       edit: "Edit product variant\_: %{name}"
       index: "Product variant"
@@ -461,8 +465,8 @@ eng:
       show: "Product type: %{name}"
     backend/product_price_listings:
       index: "Price listings"
-    backend/product_price_templates:
-      index: "Price templates"
+    backend/product_price_templates:  #?
+      index: "Price templates" #?
     backend/product_prices:
       # index: "Prix des produits"
     backend/product_process_phases: #?
@@ -670,7 +674,6 @@ eng:
     backend/product_nature_categories: "Product categories" #?
     backend/product_natures: "Product types"
     # backend/product_price_listings: "Listes de prix"
-    # backend/product_price_templates: "Types de prix"
     # backend/product_prices: "Prix des produits"
     backend/product_transfers: "Transfers and loss" #?
     backend/product_varieties: "Product species" #?

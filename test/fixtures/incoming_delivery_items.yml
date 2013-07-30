@@ -32,7 +32,6 @@
 #  quantity         :decimal(19, 4)   default(1.0), not null
 #  updated_at       :datetime         not null
 #  updater_id       :integer
-#  weight           :decimal(19, 4)
 #
 #
 # == Fixture: incoming_delivery_items

@@ -563,6 +563,7 @@ spa:
     # commissioned_incoming_payment_modes: "Modes d’encaissement avec commission"
     company: "Compañía" #?
     company_id: "Compañía" #?
+    # computation_method: "Computation method"
     # compute: "Dernière valeur"
     # computed_at: "Calculé le"
     # conclusion: "Conclusion"
@@ -698,6 +699,7 @@ spa:
     # formats: "Formats"
     # full_name: "Nom complet"
     # function_title: "Civilités"
+    # geometry_value: "Geometry value"
     # global_balance: "Solde global"
     # global_count: "Population globale"
     # global_credit: "Crédit global"
@@ -805,6 +807,7 @@ spa:
     # measure_unit: "Unité de mesure"
     # measure_value: "Valeur de la mesure"
     # measure_value_unit: "Measure value unit"
+    # measure_value_value: "Measure value value"
     # measured_at: "Mesuré à"
     # member: "Membre"
     # members: "Membres"

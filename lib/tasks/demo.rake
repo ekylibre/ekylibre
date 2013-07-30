@@ -135,7 +135,7 @@ namespace :db do
       cow_gen    = ProductNature.import_from_nomenclature(:female_young_cow).default_variant
       cow_taur   = ProductNature.import_from_nomenclature(:male_young_cow).default_variant
       cow_v      = ProductNature.import_from_nomenclature(:calf).default_variant
-      herd = ProductNature.import_from_nomenclature(:cattle_herd).default_variant
+      herd       = ProductNature.import_from_nomenclature(:cattle_herd).default_variant
 
       for group in [{:name => "Vaches Laitières", :work_number => "VL"},
                     {:name => "Génisses 3",  :work_number => "GEN_3"},
@@ -706,7 +706,15 @@ namespace :db do
           product_nature ||= ProductNature.import_from_nomenclature(r.product_nature_name)
           # find a product_nature_variant by mapping current article of coop file
           product_nature_variant = ProductNatureVariant.find_by_name_and_nature_id(r.matter_name,product_nature.id )
-          product_nature_variant ||= product_nature.variants.create!(:name => r.matter_name)
+          product_nature_variant ||= product_nature.variants.create!(:name => r.matter_name, :active => true)
+          # find a price from current supplier for a consider variant
+          product_nature_variant_price = ProductPrice.find_by_supplier_id_and_variant_id_and_pretax_amount(coop.id, product_nature_variant.id, r.product_unit_price)
+          product_nature_variant_price ||= product_nature_variant.prices.create!(:pretax_amout => r.product_unit_price,
+                                                                                 :currency => "EUR",
+                                                                                 :supplier_id => coop.id,
+                                                                                 :tax_id => Tax.find_by_id(3),
+                                                                                 :amount => r.product_unit_price
+                                                                                 )
 
           product_model = product_nature.matching_model
           incoming_item = Product.find_by_variant_id_and_created_at(product_nature_variant.id, r.ordered_on)
@@ -1124,20 +1132,20 @@ namespace :db do
       end
 
       puts "!"
-      
+
       ##############################################################################
       ## Demo data for document                                                   ##
       ##############################################################################
       print "[#{(Time.now - start).round(2).to_s.rjust(8)}s] Documents - demo data for documents 2013: "
-      
+
       # import an outgoing_deliveries_journal in PDF"
       document = Document.create!(:key => "20130724_outgoing_001", :name => "outgoing_001", :nature => "outgoing_delivery_journal" )
       File.open(Rails.root.join("test", "fixtures", "files", "releve_apports.pdf"),"rb") do |f|
         document.archive(f.read, :pdf)
       end
-      
+
       puts "!"
-       
+
       puts "Total time: #{(Time.now - start).round(2)}s"
 
     end

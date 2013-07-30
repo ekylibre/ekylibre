@@ -1128,6 +1128,7 @@ arb:
     component: "محتوى العبوة" #?
     component_id: "محتوى العبوة" #?
     components: "مكونات المنتج" #?
+    # computation_method: "Computation method"
     compute: "القيمة الاخيرة"
     # computed_at: "Calculé le"
     conclusion: "الاستنتاج"
@@ -1339,6 +1340,7 @@ arb:
     function_title: "الكياسة"
     future_events: "احداث المستقبل" #?
     generated: "ولدت" #?
+    # geometry_value: "Geometry value"
     global_balance: "الرصيد العالمي"
     global_count: "مجموع السكان"
     global_credit: "الائتمان العالمي"
@@ -1477,6 +1479,7 @@ arb:
     # measure_unit: "Unité de mesure"
     # measure_value: "Valeur de la mesure"
     # measure_value_unit: "Measure value unit"
+    # measure_value_value: "Measure value value"
     # measured_at: "Mesuré à"
     # member: "Membre"
     # members: "Membres"

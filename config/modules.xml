@@ -359,6 +359,7 @@
         <page to="backend/incoming_deliveries#edit"/>
         <page to="backend/incoming_deliveries#list"/>
         <page to="backend/incoming_deliveries#new"/>
+        <page to="backend/incoming_deliveries#show"/>
         <page to="backend/incoming_deliveries#update"/>
       </item>
       <item name="outgoing_deliveries">
@@ -885,16 +886,16 @@
         <page to="backend/product_price_listings#update"/>
       </item>
       <item name="product_price_templates">
-        <page to="backend/product_price_templates#index"/>
-        <page to="backend/product_price_templates#create"/>
-        <page to="backend/product_price_templates#destroy"/>
-        <page to="backend/product_price_templates#edit"/>
-        <page to="backend/product_price_templates#export"/>
-        <page to="backend/product_price_templates#find"/>
-        <page to="backend/product_price_templates#import"/>
-        <page to="backend/product_price_templates#list"/>
-        <page to="backend/product_price_templates#new"/>
-        <page to="backend/product_price_templates#update"/>
+        <page to="backend/product_price_templates#index" deletable="true"/>
+        <page to="backend/product_price_templates#create" deletable="true"/>
+        <page to="backend/product_price_templates#destroy" deletable="true"/>
+        <page to="backend/product_price_templates#edit" deletable="true"/>
+        <page to="backend/product_price_templates#export" deletable="true"/>
+        <page to="backend/product_price_templates#find" deletable="true"/>
+        <page to="backend/product_price_templates#import" deletable="true"/>
+        <page to="backend/product_price_templates#list" deletable="true"/>
+        <page to="backend/product_price_templates#new" deletable="true"/>
+        <page to="backend/product_price_templates#update" deletable="true"/>
       </item>
     </group>
     <group name="stocks" icon="truck">
@@ -1013,8 +1014,10 @@
       <item name="activities">
         <page to="backend/activities#list_production"/>
       </item>
+      <item name="aggregators">
+        <page to="backend/aggregators#show"/>
+      </item>
       <item name="animals">
-        <page to="backend/animals#animal_sanitary_list"/>
         <page to="backend/animals#list_incident"/>
       </item>
       <item name="building_divisions">
@@ -1092,11 +1095,17 @@
       <item name="manure_management_plans">
         <page to="backend/data_view/manure_management_plans#show"/>
       </item>
+      <item name="veterinary_booklets">
+        <page to="backend/data_view/veterinary_booklets#show"/>
+      </item>
       <item name="entities">
         <page to="backend/entities#list_meeting_participations"/>
       </item>
       <item name="incidents">
         <page to="backend/incidents#list_procedure"/>
+      </item>
+      <item name="incoming_deliveries">
+        <page to="backend/incoming_deliveries#list_item"/>
       </item>
       <item name="incoming_delivery_items">
         <page to="backend/incoming_delivery_items#new"/>
@@ -1236,6 +1245,16 @@
         <page to="backend/product_memberships#new"/>
         <page to="backend/product_memberships#show"/>
         <page to="backend/product_memberships#update"/>
+      </item>
+      <item name="product_nature_variant_indicator_data">
+        <page to="backend/product_nature_variant_indicator_data#index"/>
+        <page to="backend/product_nature_variant_indicator_data#create"/>
+        <page to="backend/product_nature_variant_indicator_data#destroy"/>
+        <page to="backend/product_nature_variant_indicator_data#edit"/>
+        <page to="backend/product_nature_variant_indicator_data#list"/>
+        <page to="backend/product_nature_variant_indicator_data#new"/>
+        <page to="backend/product_nature_variant_indicator_data#show"/>
+        <page to="backend/product_nature_variant_indicator_data#update"/>
       </item>
       <item name="product_prices">
         <page to="backend/product_prices#index"/>

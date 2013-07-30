@@ -15,15 +15,15 @@ module Aggeratio
         raise ArgumentError.new("Bad name of procedure: #{element.attr("name").to_s.inspect}")
       end
       @name = name.shift.to_s.to_sym
-      
+
     end
 
-    
-    
+
+
   end
 
   @@list = HashWithIndifferentAccess.new
-  
+
   class << self
     # Returns the names of the aggregators
     def names

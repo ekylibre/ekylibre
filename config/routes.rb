@@ -1,5 +1,6 @@
 Ekylibre::Application.routes.draw do
 
+
   # Checks and update locale filter
   filter :locale
 
@@ -377,6 +378,7 @@ Ekylibre::Application.routes.draw do
     resources :incoming_deliveries do
       collection do
         get :list
+        get :list_item
         unroll_all
       end
       member do
@@ -735,21 +737,18 @@ Ekylibre::Application.routes.draw do
       end
     end
 
+    resources :product_nature_variant_indicator_data do
+      collection do
+        get :list
+        unroll_all
+      end
+    end
+
     resources :product_price_listings do
       collection do
         unroll_all
         get :list
         get :list_prices
-      end
-    end
-
-    resources :product_price_templates do
-      collection do
-        get :list
-        match "export", :via => [:get, :post]
-        match "import", :via => [:get, :post]
-        get :find
-        unroll_all
       end
     end
 
