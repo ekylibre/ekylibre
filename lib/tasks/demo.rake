@@ -1098,7 +1098,7 @@ namespace :db do
 
 
       # treatment procedure
-      procedure = incident.procedures.create!(:natures => "animal_cares",
+      procedure = incident.procedures.create!(:natures => "animal_care",
                                       :nomen =>"animal_treatment",
                                       :production_id => animal_production.id,
                                       :prescription_id => prescription.id

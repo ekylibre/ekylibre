@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
+  <!-- ######################################## TRAITEMENT VETERINAIRE ########################################### -->
+  <procedure name="animal_treatment" natures="animal_care" version="1" status="frozen">
+    <variables>
+      <variable name="animal" variety="animal" abilities="produce"/>
+      <variable name="molecule" variety="animal_medicine"/>
+      <variable name="molecule_to_give" same-nature-of="molecule" parameter="false" new="quantity=?"/>
+      <variable name="person" variety="worker"/>
+    </variables>
+    <operations>
+      <operation name="animal_treatment_0100">
+        <task do="[person] moves-to [animal]"/>
+        <task do="[person] measure [animal] at animal_disease_state"/>
+      </operation>
+      <operation name="animal_treatment_0200">
+        <task do="[molecule] parts-with [molecule_to_spray]"/>
+        <task do="[animal] consume [molecule_to_give]"/>    
+      </operation>
+    </operations>        
+  </procedure>
+
+</procedures>

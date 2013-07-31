@@ -41,4 +41,5 @@ class Prescription < Ekylibre::Record::Base
   validates_length_of :reference_number, :allow_nil => true, :maximum => 255
   #]VALIDATORS]
 
+  delegate :name, :to => :prescriptor, :prefix => true
 end

@@ -1,6 +1,7 @@
 = Aggregator
 
-Introduces concept of aggregators in Ekylibre.
+Introduces concept of aggregators in Ekylibre. Aggregator defines a structure 
+of heterogeneous data extracted from many models of Ekylibre.	  
 
 Rules:
 
@@ -10,23 +11,25 @@ Rules:
 == Aggregator XML
 
   <?xml version="1.0" encoding="UTF-8"?>
-  <aggregator name="veterinary_booklet">
-    <parameters>
-      <parameter name="campaigns" type="list"/>
-      <parameter name="company" type="entity_of_company"/>
-      <parameter name="breeding_number" type="string"/>
-    </parameters>
-    <list name="interventions" with="procedures">
-      <title name="name"/>
-      <attribute name="id" level="api"/>
-      <table name="inputs" with="intervention.variables.of_role(:input)">
-        <column name="id" level="api"/>
-        <column name="role_label" value="input.role.text"/>
-        <column name="indicator" level="api"/>
-        <column name="indicator_label" value="input.indicator.text" if="input.indicator != 'net_surface_area'"/>
-      </table>
-    </list>
-  </aggregator>
+  <aggregators>
+    <aggregator name="veterinary_booklet">
+      <parameters>
+        <parameter name="campaigns" type="list"/>
+        <parameter name="company" type="entity_of_company"/>
+        <parameter name="breeding_number" type="string"/>
+      </parameters>
+      <list name="interventions" with="procedures">
+        <title name="name"/>
+        <attribute name="id" level="api"/>
+        <table name="inputs" with="intervention.variables.of_role(:input)">
+          <column name="id" level="api"/>
+          <column name="role_label" value="input.role.text"/>
+          <column name="indicator" level="api"/>
+          <column name="indicator_label" value="input.indicator.text" if="input.indicator != 'net_surface_area'"/>
+        </table>
+      </list>
+    </aggregator>
+  </aggregators>
 
 === JSON
 

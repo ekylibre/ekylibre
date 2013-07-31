@@ -73,7 +73,7 @@ class Account < Ekylibre::Record::Base
   scope :majors, where("number LIKE '_'").order(:number, :name)
   scope :of_usage, lambda { |usage|
     raise ArgumentError.new("Unknown usage #{usage.inspect}") unless Nomen::Accounts[usage]
-    self.where("usages ~ E'\\\\m#{usage}\\\\M'")
+    self.where("usages ~ E?", "\\\\m#{usage}\\\\M")
   }
   # scope :deposit_pending_payments, lambda { where('number LIKE ?', self.chart_number(:deposit_pending_payments)+"%").order(:number, :name) }
   # scope :attorney_thirds,          lambda { where('number LIKE ?', self.chart_number(:attorney_thirds)+"%").order(:number, :name) }

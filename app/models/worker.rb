@@ -75,6 +75,10 @@ class Worker < Equipment
 
   default_scope -> { order(:name) }
 
+  def person_id
+    nil
+  end
+
   #def usage_duration_sum
   #  sum = 0
   # self.uses.each do |usage|
