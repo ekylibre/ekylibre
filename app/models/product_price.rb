@@ -41,7 +41,7 @@
 
 # ProductPrice stores all the prices used in sales and purchases.
 class ProductPrice < Ekylibre::Record::Base
-  attr_accessible :product_id, :variant_id, :pretax_amount, :amount, :tax_id, :currency, :supplier_id
+  attr_accessible :listing_id, :product_id, :variant_id, :pretax_amount, :amount, :tax_id, :currency, :supplier_id
   belongs_to :product
   belongs_to :variant, :class_name => "ProductNatureVariant"
   belongs_to :supplier, :class_name => "Entity"
@@ -68,7 +68,7 @@ class ProductPrice < Ekylibre::Record::Base
       self.supplier_id ||= supplier.id
     end
     if self.product
-      self.variant = self.product.variant
+      self.variant_id = self.product.variant_id
     end
     if self.started_at.nil?
       self.started_at = Time.now
@@ -151,7 +151,7 @@ class ProductPrice < Ekylibre::Record::Base
     company = Entity.of_company
     filter = {
       :supplier_id => (options.delete(:supplier) || company).id,
-      :variant_id => variant_id
+      :product_id => product.id
     }
     if filter[:supplier_id] == company.id
       filter[:listing_id] = (options.delete(:listing) || ProductPriceListing.by_default).id

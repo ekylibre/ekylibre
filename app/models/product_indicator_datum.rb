@@ -45,7 +45,7 @@ class ProductIndicatorDatum < Ekylibre::Record::Base
   belongs_to :product
   enumerize :indicator, :in => Nomen::Indicators.all, :default => Nomen::Indicators.default, :predicates => {:prefix => true}
   enumerize :indicator_datatype, :in => Nomen::Indicators.datatype.choices, :predicates => {:prefix => true}
-  enumerize :measure_value_unit, :in => Nomen::Units.all, :predicates => {:prefix => true}
+  #enumerize :measure_value_unit, :in => Nomen::Units.all, :predicates => {:prefix => true}
 
   composed_of :measure_value, :class_name => "Measure", :mapping => [%w(measure_value_value value), %w(measure_value_unit unit)]
   # composed_of :geometry_value, :class_name => "Geometry", :mapping => [%w(geometry_value value)]
@@ -91,6 +91,7 @@ class ProductIndicatorDatum < Ekylibre::Record::Base
   def value=(object)
     datatype = self.indicator_datatype || self.theoric_datatype
     self.send(datatype.to_s + '_value=', object)
+    #puts [object, self].inspect
   end
 
   # Retrieve datatype from nomenclature NOT from database

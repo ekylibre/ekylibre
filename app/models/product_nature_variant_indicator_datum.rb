@@ -43,10 +43,10 @@
 class ProductNatureVariantIndicatorDatum < Ekylibre::Record::Base
   attr_accessible :value, :created_at, :variant_id, :indicator, :description, :geometry_value, :decimal_value, :measure_value_unit, :measure_value_value, :string_value, :boolean_value, :choice_value
   belongs_to :variant, :class_name => "ProductNatureVariant"
-  enumerize :computation_method, :in => [:fixed, :proportionnal], :default => :fixed
+  enumerize :computation_method, :in => [:frozen, :proportionnal], :default => :frozen
   enumerize :indicator, :in => Nomen::Indicators.all, :default => Nomen::Indicators.default, :predicates => {:prefix => true}
   enumerize :indicator_datatype, :in => Nomen::Indicators.datatype.choices, :predicates => {:prefix => true}
-  enumerize :measure_value_unit, :in => Nomen::Units.all, :predicates => {:prefix => true}
+  #enumerize :measure_value_unit, :in => Nomen::Units.all, :predicates => {:prefix => true}
 
   composed_of :measure_value, :class_name => "Measure", :mapping => [%w(measure_value_value value), %w(measure_value_unit unit)]
   # composed_of :geometry_value, :class_name => "Geometry", :mapping => [%w(geometry_value value)]
@@ -92,6 +92,7 @@ class ProductNatureVariantIndicatorDatum < Ekylibre::Record::Base
   def value=(object)
     datatype = self.indicator_datatype || self.theoric_datatype
     self.send(datatype.to_s + '_value=', object)
+   #puts [object, self].inspect
   end
 
   # Retrieve datatype from nomenclature NOT from database

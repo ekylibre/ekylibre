@@ -45,7 +45,7 @@
 #
 
 class ProductNatureVariant < Ekylibre::Record::Base
-  attr_accessible :active, :commercial_name, :nature_id, :nature_name, :name, :indicator_data_attributes, :products_attributes, :prices_attributes
+  attr_accessible :active, :commercial_name, :nature_id, :nature_name, :unit_name, :name, :indicator_data_attributes, :products_attributes, :prices_attributes
   belongs_to :nature, :class_name => "ProductNature", :inverse_of => :variants
   has_many :products, :foreign_key => :variant_id
   has_many :indicator_data, :class_name => "ProductNatureVariantIndicatorDatum", :foreign_key => :variant_id

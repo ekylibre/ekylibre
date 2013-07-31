@@ -493,10 +493,11 @@ namespace :db do
                                                            :born_at => Time.now,
                                                            :owner_id => Entity.of_company.id,
                                                            :identification_number => r.land_parcel_group_work_number)
+          if r.land_parcel_group_shape
           cultural_land_parcel.is_measured!(:shape, r.land_parcel_group_shape, :at => Time.now)
           ind_area = cultural_land_parcel.shape_area
           cultural_land_parcel.is_measured!(:net_surface_area, ind_area.in_square_meter, :at => Time.now)
-
+          end
 
           land_parcel = LandParcel.find_by_work_number(r.land_parcel_work_number)
           land_parcel ||= LandParcel.create!(:variant_id => land_parcel_nature_variant.id,
@@ -506,10 +507,11 @@ namespace :db do
                                              :born_at => Time.now,
                                              :owner_id => Entity.of_company.id,
                                              :identification_number => r.land_parcel_work_number)
+          if r.land_parcel_shape
           land_parcel.is_measured!(:shape, r.land_parcel_shape, :at => Time.now)
           ind_area = land_parcel.shape_area
           land_parcel.is_measured!(:net_surface_area, ind_area.in_square_meter, :at => Time.now)
-
+          end
 
           land_parcel_cluster.add(land_parcel)
           cultural_land_parcel.add(land_parcel)
@@ -585,7 +587,9 @@ namespace :db do
         sale = Sale.create!(:created_on => d, :client_id => Entity.where(:of_company => false).all.sample.id, :nature_id => sale_nature.id, :sum_method => "wt")
         # Sale items
         (rand(5) + 1).times do
-          sale.items.create!(:quantity => rand(12.5)+0.5, :product_id => ble.id)
+          sale.items.create!(:quantity => rand(12.5)+0.5,
+                             :product_id => ble.id,
+                             :price_id => ble.price.id)
         end
         if !rand(20).zero?
           Sale.update_all({:created_on => d}, {:id => sale.id})

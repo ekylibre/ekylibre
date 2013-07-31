@@ -196,7 +196,7 @@ class Product < Ekylibre::Record::Base
   # Returns the price for the product.
   # It's a shortcut for ProductPrice::give
   def price(options = {})
-    return ProductPriceTemplate.price(self, options)
+    return ProductPrice.price(self, options)
   end
 
   # Add an operation for the product
