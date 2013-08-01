@@ -166,7 +166,7 @@ class SaleItem < Ekylibre::Record::Base
     if self.price and self.sale
       errors.add(:price_id, :currency_is_not_sale_currency) if self.price.currency != self.sale.currency
       if self.product
-        errors.add(:price_id, :invalid) unless self.price.product_nature_id == self.product.nature_id
+        errors.add(:price_id, :invalid) unless self.price.variant_id == self.product.variant_id
       end
     end
     # TODO validates responsible can make reduction and reduction percentage is convenient

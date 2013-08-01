@@ -163,7 +163,7 @@ class ProductPrice < Ekylibre::Record::Base
     if prices.count.zero?
       # prices = [self.create!({:tax_id => Tax.first.id, :pretax_amount => filter[:pretax_amount], :amount => filter[:amount]}.merge(filter))]
       # calling private method for creating a price for given product (Product or ProductNatureVariant) with given options
-      prices = create(product, options)
+      prices = new_price.(product, options)
       return prices
     end
     # request return at least one price, we return the first
@@ -178,7 +178,7 @@ class ProductPrice < Ekylibre::Record::Base
   private
 
   # Create a price with given parameters
-  def create(product, options = {})
+  def new_price(product, options = {})
     computed_at = options[:at] || Time.now
     price = nil
     tax = options[:tax] || Tax.first
