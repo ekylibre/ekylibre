@@ -587,9 +587,12 @@ namespace :db do
         sale = Sale.create!(:created_on => d, :client_id => Entity.where(:of_company => false).all.sample.id, :nature_id => sale_nature.id, :sum_method => "wt")
         # Sale items
         (rand(5) + 1).times do
+          #find or create a price
+          price = ble.price(:amount => rand(150)+25, :tax => wheat_price_template_tax)
+          
           sale.items.create!(:quantity => rand(12.5)+0.5,
                              :product_id => ble.id,
-                             :price_id => ble.price.id)
+                             :price_id => price.id)
         end
         if !rand(20).zero?
           Sale.update_all({:created_on => d}, {:id => sale.id})

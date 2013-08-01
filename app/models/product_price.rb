@@ -151,51 +151,56 @@ class ProductPrice < Ekylibre::Record::Base
     company = Entity.of_company
     filter = {
       :supplier_id => (options.delete(:supplier) || company).id,
-      :product_id => product.id
+      :variant_id => product.variant_id    
     }
+    # if the supplier are the company (Sale_case), the listing is the default listing
     if filter[:supplier_id] == company.id
       filter[:listing_id] = (options.delete(:listing) || ProductPriceListing.by_default).id
     end
+    # request for an existing price between dates according to filter conditions
     prices = self.actives_at(options[:at] || Time.now).where(filter)
+    # request return no prices, we create a price
     if prices.count.zero?
-      prices = [self.create!({:tax_id => Tax.first.id}.merge(filter))]
+      # prices = [self.create!({:tax_id => Tax.first.id, :pretax_amount => filter[:pretax_amount], :amount => filter[:amount]}.merge(filter))]
+      # calling private method for creating a price for given product (Product or ProductNatureVariant) with given options
+      prices = create(product, options)
+      return prices
     end
-    if prices.count == 1
-      return prices.first.send(:price, product, options)
+    # request return at least one price, we return the first
+    if prices.count >= 1
+      return prices.first
     else
-      Rails.logger.warn("#{prices.count} price templates found for #{options}")
+      #Rails.logger.warn("#{prices.count} price found for #{options}")
       return nil
     end
   end
 
-   private
+  private
 
-  # Compute price with given parameters
-  def price(product, options = {})
-    # FIXME Check if time match template period ?
+  # Create a price with given parameters
+  def create(product, options = {})
     computed_at = options[:at] || Time.now
     price = nil
-    tax = options[:tax] || self.tax
-    if self.assignment?
+    tax = options[:tax] || Tax.first
       # Assigned price
       pretax_amount = if options[:pretax_amount]
                         options[:pretax_amount].to_d
                       elsif options[:amount]
                         tax.pretax_amount_of(options[:amount])
                       else
-                        self.assignment_pretax_amount
+                        raise StandardError.new("No amounts found, at least amount or pretax_amount must be given to create a price")
                       end
       amount = tax.amount_of(pretax_amount)
       if product.is_a? Product
-        price = self.create!({:product_id => product.id, :started_at => computed_at, :pretax_amount => pretax_amount.round(self.amounts_scale), :amount => amount.round(self.amounts_scale), :tax_id => tax.id}, :without_protection => true)
+        price = self.create!({:product_id => product.id, :variant_id => product.variant_id, :started_at => computed_at, :pretax_amount => pretax_amount.round(2), :amount => amount.round(2), :tax_id => tax.id}, :without_protection => true)
       elsif product.is_a? ProductNatureVariant
-        price = self.create!({:variant_id => product.id, :started_at => computed_at, :pretax_amount => pretax_amount.round(self.amounts_scale), :amount => amount.round(self.amounts_scale), :tax_id => tax.id}, :without_protection => true)
+        price = self.create!({:variant_id => product.id, :started_at => computed_at, :pretax_amount => pretax_amount.round(2), :amount => amount.round(2), :tax_id => tax.id}, :without_protection => true)
+      else
+        raise ArgumentError.new("The product argument must be a Product or a ProductNatureVariant not a #{product.class.name}")
       end
       # elsif self.calculation?
       # price = // Formula
-    else
-      raise StandardError.new("Unexpected generation: #{self.pretax_amount_generation} (#{self.class.pretax_amount_generation.values.join(', ')} are expected)")
-    end
+
     return price
   end
 
