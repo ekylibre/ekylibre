@@ -92,7 +92,7 @@ class SaleItem < Ekylibre::Record::Base
     #   self.price = self.product.price(:listing => self.sale.client.sale_price_listing)
     # end
     listing = (self.sale.nil? ? nil : self.sale.client.sale_price_listing)
-    # @FIXME 
+    # @FIXME
     #if self.price_amount and self.tax # and not self.price
     #  self.price = self.product.price(:pretax_amount => self.price_amount, :tax => self.tax, :listing => listing)
     #else

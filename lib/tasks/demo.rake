@@ -589,7 +589,7 @@ namespace :db do
         (rand(5) + 1).times do
           #find or create a price
           price = ble.price(:amount => rand(150)+25, :tax => wheat_price_template_tax)
-          
+
           sale.items.create!(:quantity => rand(12.5)+0.5,
                              :product_id => ble.id,
                              :price_id => price.id)
