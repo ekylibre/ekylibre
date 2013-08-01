@@ -596,7 +596,7 @@ namespace :db do
                                          :amount => "105.50",
                                          :supplier_id => Entity.of_company.id,
                                          :tax_id => wheat_price_template_tax.id,
-                                         :variant_id => ble.variant_id    
+                                         :variant_id => ble.variant_id
                                          )
 
           sale.items.create!(:quantity => rand(12.5)+0.5,

@@ -733,6 +733,8 @@ Ekylibre::Application.routes.draw do
     resources :product_nature_variants do
       collection do
         get :list
+        get :list_products
+        get :list_prices
         unroll_all
       end
     end

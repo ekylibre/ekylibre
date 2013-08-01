@@ -885,17 +885,15 @@
         <page to="backend/product_price_listings#show"/>
         <page to="backend/product_price_listings#update"/>
       </item>
-      <item name="product_price_templates">
-        <page to="backend/product_price_templates#index" deletable="true"/>
-        <page to="backend/product_price_templates#create" deletable="true"/>
-        <page to="backend/product_price_templates#destroy" deletable="true"/>
-        <page to="backend/product_price_templates#edit" deletable="true"/>
-        <page to="backend/product_price_templates#export" deletable="true"/>
-        <page to="backend/product_price_templates#find" deletable="true"/>
-        <page to="backend/product_price_templates#import" deletable="true"/>
-        <page to="backend/product_price_templates#list" deletable="true"/>
-        <page to="backend/product_price_templates#new" deletable="true"/>
-        <page to="backend/product_price_templates#update" deletable="true"/>
+      <item name="product_prices">
+        <page to="backend/product_prices#index"/>
+        <page to="backend/product_prices#create"/>
+        <page to="backend/product_prices#destroy"/>
+        <page to="backend/product_prices#edit"/>
+        <page to="backend/product_prices#list"/>
+        <page to="backend/product_prices#new"/>
+        <page to="backend/product_prices#show"/>
+        <page to="backend/product_prices#update"/>
       </item>
     </group>
     <group name="stocks" icon="truck">
@@ -1256,15 +1254,9 @@
         <page to="backend/product_nature_variant_indicator_data#show"/>
         <page to="backend/product_nature_variant_indicator_data#update"/>
       </item>
-      <item name="product_prices">
-        <page to="backend/product_prices#index"/>
-        <page to="backend/product_prices#create"/>
-        <page to="backend/product_prices#destroy"/>
-        <page to="backend/product_prices#edit"/>
-        <page to="backend/product_prices#list"/>
-        <page to="backend/product_prices#new"/>
-        <page to="backend/product_prices#show"/>
-        <page to="backend/product_prices#update"/>
+      <item name="product_nature_variants">
+        <page to="backend/product_nature_variants#list_prices"/>
+        <page to="backend/product_nature_variants#list_products"/>
       </item>
       <item name="product_process_phases">
         <page to="backend/product_process_phases#index"/>

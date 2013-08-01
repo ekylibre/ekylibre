@@ -5,3 +5,13 @@
   -b.cell do
     =attributes_list(@product_nature_variant) do |l|
       -l.attribute :name
+      -l.attribute :commercial_name
+      -l.attribute :unit_name
+      -if @product_nature_variant.picture.exists?
+        =image_tag(@product_nature_variant.picture.url(:thumb))
+
+  -b.tabbox do
+    -b.cell(:products) do
+      =list(:products)
+    -b.cell(:prices) do
+      =list(:prices)

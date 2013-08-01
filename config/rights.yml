@@ -330,6 +330,8 @@
 # - "backend/product_nature_variants#edit"
 # - "backend/product_nature_variants#index"
 # - "backend/product_nature_variants#list"
+# - "backend/product_nature_variants#list_prices"
+# - "backend/product_nature_variants#list_products"
 # - "backend/product_nature_variants#new"
 # - "backend/product_nature_variants#show"
 # - "backend/product_nature_variants#update"
