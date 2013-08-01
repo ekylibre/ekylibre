@@ -32,7 +32,6 @@
 #  quantity         :decimal(19, 4)   default(1.0), not null
 #  updated_at       :datetime         not null
 #  updater_id       :integer
-#  weight           :decimal(19, 4)
 #
 
 
@@ -48,8 +47,8 @@ class IncomingDeliveryItem < Ekylibre::Record::Base
   # belongs_to :move, :class_name => "ProductMove"
   enumerize :unit, :in => Nomen::Units.all
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :quantity, :weight, :allow_nil => true
-  validates_presence_of :delivery, :product
+  validates_numericality_of :quantity, :allow_nil => true
+  validates_presence_of :delivery, :product, :quantity
   #]VALIDATORS]
   validates_presence_of :product#, :unit
 

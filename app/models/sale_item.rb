@@ -92,16 +92,17 @@ class SaleItem < Ekylibre::Record::Base
     #   self.price = self.product.price(:listing => self.sale.client.sale_price_listing)
     # end
     listing = (self.sale.nil? ? nil : self.sale.client.sale_price_listing)
-    if self.price_amount and self.tax # and not self.price
-      self.price = self.product.price(:pretax_amount => self.price_amount, :tax => self.tax, :listing => listing)
-    else
-      self.price = self.product.price(:listing => listing)
-    end
+    # @FIXME 
+    #if self.price_amount and self.tax # and not self.price
+    #  self.price = self.product.price(:pretax_amount => self.price_amount, :tax => self.tax, :listing => listing)
+    #else
+    #  self.price = self.product.price(:listing => listing)
+    #end
 
     # self.product = self.price.product if self.price
     if self.product
       self.account_id = self.product.variant.nature.product_account_id
-      self.unit = self.product.variant.sale_indicator_unit
+      self.unit = self.product.variant.unit_name
       if self.product.nature.storable
       #   self.building_id ||= self.product.stocks.first.building_id if self.product.stocks.count > 0
       # else
@@ -110,6 +111,8 @@ class SaleItem < Ekylibre::Record::Base
       self.label ||= self.product.variant.commercial_name
     end
     self.price_amount ||= 0
+    self.pretax_amount ||= 0
+    self.amount ||= 0
 
     # TODO Repairs that
     # if self.price_amount > 0

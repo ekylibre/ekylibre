@@ -76,9 +76,6 @@ class AddMissingIndexes < ActiveRecord::Migration
     add_index :outgoing_payments, :cash_id
     add_index :preferences, [:record_value_id, :record_value_type]
     # add_index :product_moves, :unit_id
-    add_index :product_price_templates, :tax_id
-    add_index :product_price_templates, :supplier_id
-    add_index :product_price_templates, :listing_id
     #add_index :product_natures, :unit_id
 #     add_index :production_chain_conveyors, :production_chain_id
 #     add_index :production_chain_conveyors, :product_nature_id

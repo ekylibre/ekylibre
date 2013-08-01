@@ -110,6 +110,7 @@ class NormalizeScoria < ActiveRecord::Migration
     remove_column :incoming_delivery_lines, :amount
     remove_column :incoming_delivery_lines, :pretax_amount
     remove_column :incoming_delivery_lines, :price_id
+    remove_column :incoming_delivery_lines, :weight
     change_column_null :incoming_delivery_lines, :purchase_line_id, true
     rename_column :incoming_delivery_lines, :warehouse_id, :container_id
     # # TODO How to manage appro

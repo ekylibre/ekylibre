@@ -5,7 +5,7 @@ class DataView::VeterinaryBooklet < DataView
     entity_breeding_number = Preference.find_by_name('services.synel17.login')
     procedures = Procedure.where("nomen = 'animal_treatment'")
     #raise groups.inspect
-    builder.list(:interventions, procedures, 
+    builder.list(:interventions, procedures,
                  :campaign => campaign.name,
                  :entity_name => entity.full_name,
                  :entity_address => entity.default_mail_address.coordinate,
@@ -23,7 +23,7 @@ class DataView::VeterinaryBooklet < DataView
           milk_min_sale_date = stopped_at + milk_withdrawal_period
           meat_min_sale_date = stopped_at + meat_withdrawal_period
           procedure_duration_day = (stopped_at - started_at)/(60*60*24)
-            
+
           builder.item(:id => input_variable.id,
                        :target_identification => target.identification_number,
                        :target_id => target.id,
@@ -65,7 +65,7 @@ class DataView::VeterinaryBooklet < DataView
     end
   end
 
-  
+
 
   define_view do |builder, campaign|
     entity = Entity.of_company
@@ -90,7 +90,7 @@ class DataView::VeterinaryBooklet < DataView
             milk_min_sale_date = stopped_at + milk_withdrawal_period
             meat_min_sale_date = stopped_at + meat_withdrawal_period
             procedure_duration_day = (stopped_at - started_at)/(60*60*24)
-            
+
             builder.input(:id => input_variable.id,
                           :target_identification => target.identification_number,
                           :target_id => target.id,
@@ -112,7 +112,7 @@ class DataView::VeterinaryBooklet < DataView
                           :stopped_at => stopped_at,
                           :procedure_duration_day => procedure_duration_day
                           ) do
-              
+
               if incident = procedure.incident
                 builder.incident(:id => incident.id,
                                  :name => incident.name,

@@ -1,5 +1,5 @@
 class DataView
-  
+
   class Builder < Nokogiri::XML::Builder
     # Produce JSON from defined source
     def to_json
@@ -50,7 +50,7 @@ class DataView
   class << self
 
     # Instantiate a view with given parameters
-    def build(*args)      
+    def build(*args)
       return new.build(*args)
     end
 

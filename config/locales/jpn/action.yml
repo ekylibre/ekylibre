@@ -26,6 +26,7 @@ jpn:
       # detach: "Dissocier une transaction"
       # index: "Transactions"
       # select: "Ajouter une transaction"
+    backend/aggregators: #?
     backend/analytic_repartitions:
       # edit: "Modifier la répartion analytique\_: %{id} "
       # index: "Répartitions analytiques"
@@ -133,6 +134,7 @@ jpn:
       # tools: "Tableau de bord des outils"
       # welcome: "Bienvenue dans Ekylibre"
     backend/data_view/manure_management_plans: #?
+    backend/data_view/veterinary_booklets: #?
     backend/departments:
       # edit: "Modifier le service\_: %{name}"
       # index: "Services"
@@ -215,6 +217,7 @@ jpn:
       # edit: "Modifier l’approvisionnement: %{number}"
       # index: "Approvisionnements"
       # new: "Enregistrer un nouvel approvisionnement"
+      # show: "Approvisionnement %{number} ( %{reference_number} )"
     backend/incoming_delivery_items:
       # new: "Nouvel item"
     backend/incoming_delivery_modes:
@@ -420,6 +423,7 @@ jpn:
     backend/product_nature_categories: #?
     backend/product_nature_indicators: #?
     backend/product_nature_prices: #?
+    backend/product_nature_variant_indicator_data: #?
     backend/product_nature_variants:
       # edit: "Modifier la variante de produit\_: %{name}"
       # index: "Variantes de produits"
@@ -432,8 +436,7 @@ jpn:
       # show: "Type de produit\_: %{name}"
     backend/product_price_listings:
       # index: "Listes de prix"
-    backend/product_price_templates:
-      # index: "Types de prix"
+    backend/product_price_templates: #?
     backend/product_prices:
       # index: "Prix des produits"
     backend/product_process_phases: #?
@@ -624,7 +627,6 @@ jpn:
     # backend/product_moves: "Mouvements de stock"
     # backend/product_natures: "Types de produits"
     # backend/product_price_listings: "Listes de prix"
-    # backend/product_price_templates: "Types de prix"
     # backend/product_prices: "Prix des produits"
     # backend/products: "Produits"
     # backend/professions: "Professions"

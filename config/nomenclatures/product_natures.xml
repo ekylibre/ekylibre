@@ -9,12 +9,6 @@
       <attribute name="number" type="string" required="true"/>
       <attribute name="product_account" type="choice" nomenclature="accounts" required="false"/>
       <attribute name="stock_account" type="choice" nomenclature="accounts" required="false"/>
-      <attribute name="usage_indicator" type="choice" nomenclature="indicators" required="true"/>
-      <attribute name="usage_indicator_unit" type="choice" nomenclature="units" required="false"/>
-      <attribute name="purchase_indicator" type="choice" nomenclature="indicators" required="false"/>
-      <attribute name="purchase_indicator_unit" type="choice" nomenclature="units" required="false"/>
-      <attribute name="sale_indicator" type="choice" nomenclature="indicators" required="false"/>
-      <attribute name="sale_indicator_unit" type="choice" nomenclature="units" required="false"/>
       <attribute name="variety" type="choice" nomenclature="varieties" required="true"/>
       <attribute name="derivative_of" type="string"/>
       <attribute name="purchasable" type="boolean" required="true" default="false"/>
@@ -23,6 +17,9 @@
       <attribute name="storable"    type="boolean" required="true" default="false"/>
       <attribute name="population_counting" type="choice" choices="unitary, integer, decimal" required="true"/>
       <attribute name="reductible" type="boolean" required="true" default="false"/>
+      <!-- For variant indicator the model-->
+      <attribute name="frozen_measures" type="string" required="false"/>
+      <attribute name="unit_name" type="choice" choices="head,unit,liter,hectare,kilogram,ton,box,hour,cubic_meter,can,bag" required="false"/>
       <!-- <attribute name="subscribing" type="boolean" required="true"/> -->
       <!-- Inside the model-->
       <attribute name="abilities" type="list" nomenclature="abilities" required="false"/>
@@ -36,9 +33,10 @@
             saleable="false"
             depreciable="false"
             storable="true"
-	    stock_account="long_time_animal_stock"
+	          stock_account="long_time_animal_stock"
             population_counting="unitary"
-            usage_indicator="population"
+            unit_name="head"
+            frozen_measures=""
             abilities="move"
             indicators="population"
             />
@@ -53,7 +51,8 @@
             depreciable="true"
             storable="true"
             population_counting="unitary"
-            usage_indicator="population"
+            unit_name="head"
+            frozen_measures="population:1unity"
             abilities="consume(water), consume(poaceae), produce(excrement), produce(milk), move"
             indicators="population, net_weight, animal_life_state,isu_index, inel_index, tp_index, tb_index, mammalia_reproduction_event_abortion, mammalia_reproduction_method_embryo_transplant, mammalia_born_cycle, mammalia_reproduction_state, mammalia_twins_condition, mammalia_lactation_state, animal_disease_state"
             />
@@ -68,7 +67,8 @@
             depreciable="true"
             storable="true"
             population_counting="unitary"
-            usage_indicator="population"
+            unit_name="head"
+            frozen_measures="population:1unity"
             abilities="consume(water), consume(poaceae), produce(excrement), produce(milk), move"
             indicators="population, net_weight, isu_index, inel_index, tp_index, tb_index"
             />
@@ -82,7 +82,8 @@
             saleable="true"
             storable="true"
             population_counting="decimal"
-            usage_indicator="net_volume"
+            unit_name="liter"
+            frozen_measures="net_volume:1.00liter"
             abilities="feed(mammalia)"
             indicators="net_volume, temperature, total_bacteria_concentration, inhibitors_presence, fat_matters_concentration, protein_matters_concentration, cells_concentration, clostridial_spores_concentration, freezing_point_temperature, lipolysis, immunoglobulins_concentration, urea_concentration"
             />
@@ -97,7 +98,8 @@
             depreciable="true"
             storable="true"
             population_counting="unitary"
-            usage_indicator="population"
+            unit_name="head"
+            frozen_measures="population:1unity"
             abilities="consume(water), consume(poaceae), produce(excrement), move"
             indicators="population, net_weight, animal_life_state, mammalia_reproduction_event_abortion, mammalia_reproduction_state, mammalia_reproduction_method_embryo_transplant, mammalia_twins_condition, mammalia_born_cycle, animal_disease_state"
             />
@@ -112,7 +114,8 @@
             depreciable="true"
             storable="true"
             population_counting="unitary"
-            usage_indicator="population"
+            unit_name="head"
+            frozen_measures="population:1unity"
             abilities="consume(water), consume(poaceae), produce(excrement), move"
             indicators="population, net_weight, animal_life_state, animal_disease_state"
             />
@@ -126,7 +129,8 @@
             saleable="true"
             storable="true"
             population_counting="unitary"
-            usage_indicator="population"
+            unit_name="head"
+            frozen_measures="population:1unity"
             abilities="consume(water), consume(poaceae), produce(excrement), consume(milk), move"
             indicators="population, net_weight, animal_life_state, animal_disease_state, mammalia_born_condition"
             />
@@ -139,7 +143,8 @@
             depreciable="false"
             storable="true"
             population_counting="decimal"
-            usage_indicator="net_surface_area"
+            unit_name="hectare"
+            frozen_measures="net_surface_area:1.00hectare"
             abilities="consume(water), consume(phytosanitary), produce(grain), produce(straw)"
             indicators="net_surface_area, plant_life_state, plant_reproduction_state"
             />
@@ -152,7 +157,8 @@
             depreciable="false"
             storable="true"
             population_counting="decimal"
-            usage_indicator="net_surface_area"
+            unit_name="hectare"
+            frozen_measures="net_surface_area:1.00hectare"
             abilities="consume(water), consume(phytosanitary), produce(hordeum_grain), produce(straw)"
             indicators="net_surface_area, plant_life_state, plant_reproduction_state"
             />
@@ -165,7 +171,8 @@
             depreciable="false"
             storable="true"
             population_counting="decimal"
-            usage_indicator="net_surface_area"
+            unit_name="hectare"
+            frozen_measures="net_surface_area:1.00hectare"
             abilities="consume(water), consume(phytosanitary), produce(zea_grain)"
             indicators="net_surface_area, plant_life_state, plant_reproduction_state"
             />
@@ -178,7 +185,8 @@
             depreciable="false"
             storable="true"
             population_counting="decimal"
-            usage_indicator="net_surface_area"
+            unit_name="hectare"
+            frozen_measures="net_surface_area:1.00hectare"
             abilities="consume(water), consume(phytosanitary), produce(durum_wheat_grain), produce(straw)"
             indicators="net_surface_area, plant_life_state, plant_reproduction_state"
             />
@@ -191,7 +199,8 @@
             depreciable="false"
             storable="true"
             population_counting="decimal"
-            usage_indicator="net_surface_area"
+            unit_name="hectare"
+            frozen_measures="net_surface_area:1.00hectare"
             abilities="consume(water), consume(phytosanitary), produce(spelt_wheat_grain), produce(straw)"
             indicators="net_surface_area, plant_life_state, plant_reproduction_state"
             />
@@ -204,7 +213,8 @@
             depreciable="false"
             storable="true"
             population_counting="decimal"
-            usage_indicator="net_surface_area"
+            unit_name="hectare"
+            frozen_measures="net_surface_area:1.00hectare"
             abilities="consume(water), consume(phytosanitary), produce(sunflower_grain)"
             indicators="net_surface_area, plant_life_state, plant_reproduction_state"
             />
@@ -217,7 +227,8 @@
             depreciable="false"
             storable="true"
             population_counting="decimal"
-            usage_indicator="net_surface_area"
+            unit_name="hectare"
+            frozen_measures="net_surface_area:1.00hectare"
             abilities="consume(water), consume(phytosanitary), produce(sorghum_grain)"
             indicators="net_surface_area, plant_life_state, plant_reproduction_state"
             />
@@ -230,7 +241,8 @@
             depreciable="false"
             storable="true"
             population_counting="decimal"
-            usage_indicator="net_surface_area"
+            unit_name="hectare"
+            frozen_measures="net_surface_area:1.00hectare"
             abilities="consume(water)"
             indicators="net_surface_area, plant_life_state, plant_reproduction_state"
             />
@@ -241,7 +253,8 @@
             depreciable="false"
             storable="false"
             population_counting="decimal"
-            usage_indicator="net_surface_area"
+            unit_name="hectare"
+            frozen_measures="net_surface_area:1.00hectare"
             abilities="produce(straw)"
             indicators="net_surface_area"
             />
@@ -255,7 +268,8 @@
             depreciable="false"
             storable="true"
             population_counting="decimal"
-            usage_indicator="net_weight"
+            unit_name="ton"
+            frozen_measures="net_weight:1.00ton"
             abilities="feed(animal)"
             indicators="net_weight"
             />
@@ -269,7 +283,8 @@
             depreciable="false"
             storable="true"
             population_counting="decimal"
-            usage_indicator="net_weight"
+            unit_name="ton"
+            frozen_measures="net_weight:1.00ton"
             abilities="feed(animal)"
             indicators="net_weight"
             />
@@ -283,7 +298,8 @@
             depreciable="false"
             storable="true"
             population_counting="decimal"
-            usage_indicator="net_weight"
+            unit_name="ton"
+            frozen_measures="net_weight:1.00ton"
             abilities="feed(animal)"
             indicators="net_weight"
             />
@@ -297,7 +313,8 @@
             depreciable="false"
             storable="true"
             population_counting="decimal"
-            usage_indicator="net_weight"
+            unit_name="ton"
+            frozen_measures="net_weight:1.00ton"
             abilities="feed(animal)"
             indicators="net_weight"
             />
@@ -311,7 +328,8 @@
             depreciable="false"
             storable="true"
             population_counting="decimal"
-            usage_indicator="net_weight"
+            unit_name="ton"
+            frozen_measures="net_weight:1.00ton"
             abilities="feed(animal)"
             indicators="net_weight"
             />
@@ -325,7 +343,8 @@
             depreciable="false"
             storable="true"
             population_counting="decimal"
-            usage_indicator="net_weight"
+            unit_name="ton"
+            frozen_measures="net_weight:1.00ton"
             abilities="feed(animal)"
             indicators="net_weight"
             />
@@ -339,9 +358,10 @@
             depreciable="false"
             storable="true"
             population_counting="decimal"
-            usage_indicator="population"
+            unit_name="liter"
+            frozen_measures="net_volume:1.00liter"
             abilities="kill(plant)"
-            indicators="population, net_weight"
+            indicators="population, net_volume, net_weight"
             />
       <item name="fungicide"
             charge_account="plant_medicine_matter_expenses"
@@ -353,9 +373,10 @@
             depreciable="false"
             storable="true"
             population_counting="decimal"
-            usage_indicator="population"
+            unit_name="liter"
+            frozen_measures="net_volume:1.00liter"
             abilities="kill(fungus)"
-            indicators="population, net_weight"
+            indicators="population, net_volume, net_weight"
             />
       <item name="insecticide"
             charge_account="plant_medicine_matter_expenses"
@@ -367,9 +388,10 @@
             depreciable="false"
             storable="true"
             population_counting="decimal"
-            usage_indicator="population"
+            unit_name="liter"
+            frozen_measures="net_volume:1.00liter"
             abilities="kill(insecta)"
-            indicators="population, net_weight"
+            indicators="population, net_volume, net_weight"
             />
       <item name="chemical_fertilizer"
             charge_account="fertilizer_expenses"
@@ -381,7 +403,8 @@
             depreciable="false"
             storable="true"
             population_counting="decimal"
-            usage_indicator="population"
+            unit_name="ton"
+            frozen_measures="net_weight:1.00ton"
             abilities="fertilize"
             indicators="population, net_weight"
             />
@@ -396,7 +419,8 @@
             depreciable="false"
             storable="true"
             population_counting="decimal"
-            usage_indicator="population"
+            unit_name="ton"
+            frozen_measures="net_weight:1.00ton"
             abilities="fertilize"
             indicators="population, net_weight"
             />
@@ -411,7 +435,8 @@
             depreciable="false"
             storable="true"
             population_counting="decimal"
-            usage_indicator="population"
+            unit_name="ton"
+            frozen_measures="net_weight:1.00ton"
             abilities="fertilize"
             indicators="population, net_weight"
             />
@@ -426,7 +451,8 @@
             depreciable="false"
             storable="true"
             population_counting="decimal"
-            usage_indicator="population"
+            unit_name="kilogram"
+            frozen_measures="net_weight:1.00kilogram"
             abilities="germinate"
             indicators="population, net_weight"
             />
@@ -441,7 +467,8 @@
             depreciable="false"
             storable="true"
             population_counting="decimal"
-            usage_indicator="population"
+            unit_name="kilogram"
+            frozen_measures="net_weight:1.00kilogram"
             abilities="feed"
             indicators="population, net_weight"
             />
@@ -455,7 +482,8 @@
             depreciable="false"
             storable="true"
             population_counting="decimal"
-            usage_indicator="population"
+            unit_name="box"
+            frozen_measures=""
             abilities="kill(bacteria,virus,fungus)"
             indicators="population, net_weight"
             />
@@ -468,9 +496,10 @@
             depreciable="false"
             storable="false"
             population_counting="decimal"
-            usage_indicator="population"
+            unit_name="hour"
+            frozen_measures="usage_duration:1hour"
             abilities="spread"
-            indicators="population"
+            indicators="population, usage_duration"
             />
       <item name="mineral_cleaner"
             charge_account="other_consumable_matter_expenses"
@@ -482,7 +511,8 @@
             depreciable="false"
             storable="true"
             population_counting="decimal"
-            usage_indicator="net_volume"
+            unit_name="liter"
+            frozen_measures="net_volume:1.00liter"
             abilities="clean"
             indicators="population, net_volume, net_weight"
             />
@@ -496,7 +526,8 @@
             depreciable="false"
             storable="true"
             population_counting="unitary"
-            usage_indicator="population"
+            unit_name="unit"
+            frozen_measures="population:1unity"
             abilities=""
             indicators="population, net_weight"
             />    
@@ -510,7 +541,8 @@
             depreciable="true"
             storable="false"
             population_counting="decimal"
-            usage_indicator="net_surface_area"
+            unit_name="hectare"
+            frozen_measures="net_surface_area:1.00hectare"
             abilities="consume(water), consume(seed), produce(plant)"
             indicators="shape, net_surface_area, sowable, in_production, ground_appearance"
             />
@@ -521,7 +553,8 @@
             depreciable="false"
             storable="false"
             population_counting="decimal"
-            usage_indicator="net_surface_area"
+            unit_name="hectare"
+            frozen_measures="net_surface_area:1.00hectare"
             abilities=""
             indicators="shape, net_surface_area"
             />
@@ -532,7 +565,8 @@
             depreciable="false"
             storable="false"
             population_counting="decimal"
-            usage_indicator="net_surface_area"
+            unit_name="hectare"
+            frozen_measures="net_surface_area:1.00hectare"
             abilities=""
             indicators="shape, net_surface_area"
             />
@@ -545,7 +579,8 @@
             saleable="true"
             depreciable="true"
             storable="false"
-            usage_indicator="net_surface_area"
+            unit_name="unit"
+            frozen_measures="population:1unity"
             population_counting="unitary"
             abilities="store(building_division)"
             indicators="net_surface_area, shape"
@@ -559,7 +594,8 @@
             saleable="true"
             depreciable="true"
             storable="false"
-            usage_indicator="net_surface_area"
+            unit_name="unit"
+            frozen_measures="population:1unity"
             population_counting="unitary"
             abilities="store(building_division)"
             indicators="net_surface_area, shape"
@@ -573,7 +609,8 @@
             saleable="true"
             depreciable="true"
             storable="false"
-            usage_indicator="net_surface_area"
+            unit_name="unit"
+            frozen_measures="population:1unity"
             population_counting="unitary"
             abilities="store(building_division)"
             indicators="net_surface_area, shape"
@@ -587,7 +624,8 @@
             saleable="true"
             depreciable="true"
             storable="false"
-            usage_indicator="net_surface_area"
+            unit_name="unit"
+            frozen_measures="population:1unity"
             population_counting="unitary"
             abilities="store(building_division)"
             indicators="net_surface_area, shape"
@@ -598,7 +636,8 @@
             saleable="false"
             depreciable="false"
             storable="false"
-            usage_indicator="net_surface_area"
+            unit_name="unit"
+            frozen_measures="population:1unity"
             population_counting="unitary"
             abilities="store(product)"
             indicators="net_surface_area, shape"
@@ -612,8 +651,8 @@
             saleable="true"
             depreciable="true"
             storable="false"
-            usage_indicator="population"
-            usage_indicator_unit="unity"
+            unit_name="unit"
+            frozen_measures="population:1unity"
             population_counting="unitary"
             abilities="catch(equipment), move, tow(equipment)"
             indicators="population"
@@ -627,8 +666,8 @@
             saleable="true"
             depreciable="true"
             storable="false"
-            usage_indicator="population"
-            usage_indicator_unit="unity"
+            unit_name="unit"
+            frozen_measures="population:1unity"
             population_counting="unitary"
             abilities="store(plant), move"
             indicators="population"
@@ -642,8 +681,8 @@
             saleable="true"
             depreciable="true"
             storable="false"
-            usage_indicator="population"
-            usage_indicator_unit="unity"
+            unit_name="unit"
+            frozen_measures="population:1unity"
             population_counting="unitary"
             abilities="fertilize(plant), catch, spread, plow, sow, harvest, store"
             indicators="population"
@@ -656,8 +695,8 @@
             saleable="true"
             depreciable="false"
             storable="false"
-            usage_indicator="population"
-            usage_indicator_unit="unity"
+            unit_name="unit"
+            frozen_measures="population:1unity"
             population_counting="unitary"
             abilities="drive(equipment)"
             indicators="population"
@@ -670,8 +709,8 @@
             saleable="true"
             depreciable="false"
             storable="false"
-            usage_indicator="population"
-            usage_indicator_unit="unity"
+            unit_name="unit"
+            frozen_measures="population:1unity"
             population_counting="unitary"
             abilities="drive(equipment), manage(worker)"
             indicators="population"

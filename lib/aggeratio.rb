@@ -17,10 +17,11 @@ module Aggeratio
     def to_xml(options = {})
       raise NotImplementedError.new
     end
+
   end
 
   @@list = HashWithIndifferentAccess.new
-  
+
   class << self
     # Returns the names of the aggregators
     def names

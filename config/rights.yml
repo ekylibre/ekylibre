@@ -14,6 +14,7 @@
 # - "backend/affairs#index"
 # - "backend/affairs#list"
 # - "backend/affairs#select"
+# - "backend/aggregators#show"
 # - "backend/analytic_repartitions#create"
 # - "backend/analytic_repartitions#destroy"
 # - "backend/analytic_repartitions#edit"
@@ -40,7 +41,6 @@
 # - "backend/animal_medicines#new"
 # - "backend/animal_medicines#show"
 # - "backend/animal_medicines#update"
-# - "backend/animals#animal_sanitary_list"
 # - "backend/animals#create"
 # - "backend/animals#destroy"
 # - "backend/animals#edit"
@@ -105,6 +105,7 @@
 # - "backend/dashboards#search"
 # - "backend/dashboards#tools"
 # - "backend/data_view/manure_management_plans#show"
+# - "backend/data_view/veterinary_booklets#show"
 # - "backend/document_archives#show"
 # - "backend/documents#create"
 # - "backend/documents#destroy"
@@ -127,6 +128,8 @@
 # - "backend/incidents#new"
 # - "backend/incidents#show"
 # - "backend/incidents#update"
+# - "backend/incoming_deliveries#list_item"
+# - "backend/incoming_deliveries#show"
 # - "backend/incoming_delivery_items#new"
 # - "backend/interfacers#autocomplete"
 # - "backend/interfacers#product_trackings"
@@ -314,6 +317,14 @@
 # - "backend/product_memberships#new"
 # - "backend/product_memberships#show"
 # - "backend/product_memberships#update"
+# - "backend/product_nature_variant_indicator_data#create"
+# - "backend/product_nature_variant_indicator_data#destroy"
+# - "backend/product_nature_variant_indicator_data#edit"
+# - "backend/product_nature_variant_indicator_data#index"
+# - "backend/product_nature_variant_indicator_data#list"
+# - "backend/product_nature_variant_indicator_data#new"
+# - "backend/product_nature_variant_indicator_data#show"
+# - "backend/product_nature_variant_indicator_data#update"
 # - "backend/product_nature_variants#create"
 # - "backend/product_nature_variants#destroy"
 # - "backend/product_nature_variants#edit"
@@ -323,7 +334,7 @@
 # - "backend/product_nature_variants#show"
 # - "backend/product_nature_variants#update"
 # - "backend/product_natures#show"
-# - "backend/product_price_listings#list_templates"
+# - "backend/product_price_listings#list_prices"
 # - "backend/product_prices#create"
 # - "backend/product_prices#destroy"
 # - "backend/product_prices#edit"
@@ -507,7 +518,7 @@ consult_journal_entries:
 # Consult the prices
 consult_prices:
 - "backend/dashboards#sales"
-- "backend/product_price_templates#index"
+- "backend/product_price_templates#index" #?
 
 # Consult the products
 consult_products:
@@ -774,7 +785,7 @@ manage_equipments:
 # Create and update estimates
 manage_estimates:
 - "backend/dashboards#sales"
-- "backend/product_price_templates#find"
+- "backend/product_price_templates#find" #?
 - "backend/sale_items#create"
 - "backend/sale_items#destroy"
 - "backend/sale_items#detail"
@@ -1033,14 +1044,14 @@ manage_outgoing_payments:
 # Manage prices
 manage_prices:
 - "backend/dashboards#sales"
-- "backend/product_price_templates#create"
-- "backend/product_price_templates#destroy"
-- "backend/product_price_templates#edit"
-- "backend/product_price_templates#export"
-- "backend/product_price_templates#import"
-- "backend/product_price_templates#list"
-- "backend/product_price_templates#new"
-- "backend/product_price_templates#update"
+- "backend/product_price_templates#create" #?
+- "backend/product_price_templates#destroy" #?
+- "backend/product_price_templates#edit" #?
+- "backend/product_price_templates#export" #?
+- "backend/product_price_templates#import" #?
+- "backend/product_price_templates#list" #?
+- "backend/product_price_templates#new" #?
+- "backend/product_price_templates#update" #?
 
 # Manage product price listings
 manage_product_price_listings:
@@ -1072,7 +1083,7 @@ manage_products:
 - "backend/product_natures#destroy"
 - "backend/product_natures#edit"
 - "backend/product_natures#list"
-- "backend/product_natures#list_price_templates"
+- "backend/product_natures#list_price_templates" #?
 - "backend/product_natures#new"
 - "backend/product_natures#update"
 

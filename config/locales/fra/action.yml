@@ -23,6 +23,8 @@ fra:
       detach: "Dissocier une transaction"
       index: "Transactions"
       select: "Ajouter une transaction"
+    backend/aggregators:
+      # show: "Show backend/aggregator"
     backend/analytic_repartitions:
       edit: "Modifier la répartion analytique\_: %{id} "
       index: "Répartitions analytiques"
@@ -39,7 +41,6 @@ fra:
       new: "Nouveau produit vétérinaire"
       show: "Produit vétérinaire\_: %{name}"
     backend/animals:
-      # animal_sanitary_list: "Animal sanitary list backend/animal"
       edit: "Modifier l’animal\_: %{name}"
       index: "Animaux"
       new: "Nouvel animal"
@@ -148,6 +149,8 @@ fra:
       welcome: "Bienvenue dans Ekylibre"
     backend/data_view/manure_management_plans:
       # show: "Show backend/data view/manure management plan"
+    backend/data_view/veterinary_booklets:
+      # show: "Show backend/data view/veterinary booklet"
     backend/departments:
       edit: "Modifier le service\_: %{name}"
       index: "Services"
@@ -225,6 +228,7 @@ fra:
       edit: "Modifier l’approvisionnement: %{number}"
       index: "Approvisionnements"
       new: "Enregistrer un nouvel approvisionnement"
+      show: "Approvisionnement %{number} ( %{reference_number} )"
     backend/incoming_delivery_items:
       new: "Nouvel item"
     backend/incoming_delivery_modes:
@@ -442,6 +446,11 @@ fra:
     backend/product_moves:
       edit: "Modifier le mouvement de stock\_: %{name}" #?
       new: "Enregistrement d’un mouvement de stock" #?
+    backend/product_nature_variant_indicator_data:
+      # edit: "Edit backend/product nature variant indicator datum"
+      # index: "Index backend/product nature variant indicator datum"
+      # new: "New backend/product nature variant indicator datum"
+      # show: "Show backend/product nature variant indicator datum"
     backend/product_nature_variants:
       edit: "Modifier la variante de produit\_: %{name}"
       index: "Variantes de produits"
@@ -457,13 +466,6 @@ fra:
       index: "Listes de prix"
       # new: "New backend/product price listing"
       # show: "Show backend/product price listing"
-    backend/product_price_templates:
-      # edit: "Edit backend/product price template"
-      # export: "Export backend/product price template"
-      # find: "Find backend/product price template"
-      # import: "Import backend/product price template"
-      index: "Types de prix"
-      # new: "New backend/product price template"
     backend/product_prices:
       # edit: "Edit backend/product price"
       index: "Prix des produits"
@@ -620,6 +622,7 @@ fra:
     backend/accounts: "Plan de comptes"
     backend/activities: "Activités"
     backend/affairs: "Affaires"
+    # backend/aggregators: "Backend/aggregators"
     backend/analytic_repartitions: "Répartitions analytiques"
     # backend/animal_groups: "Backend/animal groups"
     # backend/animal_medicines: "Backend/animal medicines"
@@ -654,6 +657,7 @@ fra:
     backend/custom_fields: "Champs personnalisés"
     backend/dashboards: "Tableaux de bord"
     # backend/data_view/manure_management_plans: "Backend/data view/manure management plans"
+    # backend/data_view/veterinary_booklets: "Backend/data view/veterinary booklets"
     # backend/data_view: "Backend/data view"
     backend/departments: "Services"
     backend/deposit_items: "Lignes de remise en banque"
@@ -718,10 +722,10 @@ fra:
     backend/product_localizations: "Localisations"
     # backend/product_memberships: "Backend/product memberships"
     backend/product_moves: "Mouvements de stock"
+    # backend/product_nature_variant_indicator_data: "Backend/product nature variant indicator data"
     # backend/product_nature_variants: "Backend/product nature variants"
     backend/product_natures: "Types de produits"
     backend/product_price_listings: "Listes de prix"
-    backend/product_price_templates: "Types de prix"
     backend/product_prices: "Prix des produits"
     # backend/product_process_phases: "Backend/product process phases"
     # backend/product_processes: "Backend/product processes"
@@ -1792,7 +1796,7 @@ fra:
     no_unconfirmed_stock_transfers: "Aucun transfert de stocks non-confirmé" #?
     no_unvalidated_operations: "Aucun travail à réaliser"
     password_successfully_changed: "Votre mot de passe a été mis à jour avec succès"
-    prices_import_succeeded: "Vos données ont été correctement importées"
+    prices_import_succeeded: "Vos données ont été correctement importées" #?
     print_failure: "Impossible d’imprimer. Essayer de recharger les modèles de documents pour corriger le problème. %{error} (%{class})." #?
     purchase_already_invoiced: "Achat déjà facturé"
     record_cannot_be_removed: "L’enregistrement ne peut pas être supprimé"
@@ -1816,7 +1820,7 @@ fra:
       other: "Il y a %{count} écritures à pointer"
       zero: "Il n’y a pas d’écritures à pointer pour l’instant"
     you_must_have_an_email_column: "Vous devez avoir une colonne Email dans votre extraction"
-    you_must_select_a_file_to_import: "Vous devez sélectionner un fichier à importer"
+    you_must_select_a_file_to_import: "Vous devez sélectionner un fichier à importer" #?
     you_will_lose_all_your_current_data: "Si vous continuez, vous allez perdre toutes vos données en cours de saisie. Voulez-vous poursuivre ?" #?
   preferences:
     assets_sequence: "Numérotation des immobilisations"

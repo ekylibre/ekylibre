@@ -18,10 +18,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: product_indicator_data
+# == Table: product_nature_variant_indicator_data
 #
 #  boolean_value       :boolean          not null
 #  choice_value        :string(255)
+#  computation_method  :string(255)      not null
 #  created_at          :datetime         not null
 #  creator_id          :integer
 #  decimal_value       :decimal(19, 4)
@@ -32,17 +33,17 @@
 #  lock_version        :integer          default(0), not null
 #  measure_value_unit  :string(255)
 #  measure_value_value :decimal(19, 4)
-#  measured_at         :datetime         not null
-#  product_id          :integer          not null
 #  string_value        :text
 #  updated_at          :datetime         not null
 #  updater_id          :integer
+#  variant_id          :integer          not null
 #
 
 
-class ProductIndicatorDatum < Ekylibre::Record::Base
-  attr_accessible :value, :created_at, :product_id, :indicator, :measured_at, :description, :geometry_value, :decimal_value, :measure_value_unit, :measure_value_value, :string_value, :boolean_value, :choice_value
-  belongs_to :product
+class ProductNatureVariantIndicatorDatum < Ekylibre::Record::Base
+  attr_accessible :value, :created_at, :variant_id, :indicator, :description, :geometry_value, :decimal_value, :measure_value_unit, :measure_value_value, :string_value, :boolean_value, :choice_value
+  belongs_to :variant, :class_name => "ProductNatureVariant"
+  enumerize :computation_method, :in => [:frozen, :proportionnal], :default => :frozen
   enumerize :indicator, :in => Nomen::Indicators.all, :default => Nomen::Indicators.default, :predicates => {:prefix => true}
   enumerize :indicator_datatype, :in => Nomen::Indicators.datatype.choices, :predicates => {:prefix => true}
   #enumerize :measure_value_unit, :in => Nomen::Units.all, :predicates => {:prefix => true}
@@ -56,9 +57,9 @@ class ProductIndicatorDatum < Ekylibre::Record::Base
   # belongs_to :choice_value, :class_name => "ProductIndicatorChoice"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :decimal_value, :measure_value_value, :allow_nil => true
-  validates_length_of :choice_value, :indicator, :indicator_datatype, :measure_value_unit, :allow_nil => true, :maximum => 255
+  validates_length_of :choice_value, :computation_method, :indicator, :indicator_datatype, :measure_value_unit, :allow_nil => true, :maximum => 255
   validates_inclusion_of :boolean_value, :in => [true, false]
-  validates_presence_of :indicator, :indicator_datatype, :measured_at, :product
+  validates_presence_of :computation_method, :indicator, :indicator_datatype, :variant
   #]VALIDATORS]
   validates_inclusion_of :indicator, :in => self.indicator.values
   validates_inclusion_of :indicator_datatype, :in => self.indicator_datatype.values
@@ -91,7 +92,7 @@ class ProductIndicatorDatum < Ekylibre::Record::Base
   def value=(object)
     datatype = self.indicator_datatype || self.theoric_datatype
     self.send(datatype.to_s + '_value=', object)
-    #puts [object, self].inspect
+   #puts [object, self].inspect
   end
 
   # Retrieve datatype from nomenclature NOT from database

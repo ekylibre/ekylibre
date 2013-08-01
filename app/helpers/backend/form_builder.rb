@@ -162,7 +162,7 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
         fs << @object.errors.inspect
 
         # Adds owner fields
-        if @object.new_record?
+       if @object.new_record?
           external = @template.params[:external].to_s
           if external == "true"
             fs << self.input(:external, :value => true, :as => :hidden)

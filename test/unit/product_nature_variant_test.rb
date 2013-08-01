@@ -20,27 +20,28 @@
 #
 # == Table: product_nature_variants
 #
-#  active                  :boolean          not null
-#  commercial_description  :text
-#  commercial_name         :string(255)      not null
-#  contour                 :string(255)
-#  created_at              :datetime         not null
-#  creator_id              :integer
-#  horizontal_rotation     :integer          default(0), not null
-#  id                      :integer          not null, primary key
-#  lock_version            :integer          default(0), not null
-#  name                    :string(255)
-#  nature_id               :integer          not null
-#  nature_name             :string(255)      not null
-#  number                  :string(255)
-#  purchase_indicator      :string(127)
-#  purchase_indicator_unit :string(255)
-#  sale_indicator          :string(127)
-#  sale_indicator_unit     :string(255)
-#  updated_at              :datetime         not null
-#  updater_id              :integer
-#  usage_indicator         :string(127)
-#  usage_indicator_unit    :string(255)
+#  active                 :boolean          not null
+#  commercial_description :text
+#  commercial_name        :string(255)      not null
+#  contour                :string(255)
+#  created_at             :datetime         not null
+#  creator_id             :integer
+#  frozen_indicators      :text
+#  horizontal_rotation    :integer          default(0), not null
+#  id                     :integer          not null, primary key
+#  lock_version           :integer          default(0), not null
+#  name                   :string(255)
+#  nature_id              :integer          not null
+#  nature_name            :string(255)      not null
+#  number                 :string(255)
+#  picture_content_type   :string(255)
+#  picture_file_name      :string(255)
+#  picture_file_size      :integer
+#  picture_updated_at     :datetime
+#  unit_name              :string(255)      not null
+#  updated_at             :datetime         not null
+#  updater_id             :integer
+#  variable_indicators    :text
 #
 require 'test_helper'
 
