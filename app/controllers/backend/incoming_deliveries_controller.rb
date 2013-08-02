@@ -40,6 +40,8 @@ class Backend::IncomingDeliveriesController < BackendController
   # Liste des items d'une appro
   list(:item, :model => :incoming_delivery_items, :conditions => [" delivery_id = ? ",['session[:current_incoming_delivery_id]']], :order => "created_at DESC") do |t|
     t.column :name, :through => :product, :url => true
+    t.column :quantity
+    t.column :name, :through => :purchase_item, :url => true
     t.column :created_at
   end
 
@@ -50,6 +52,7 @@ class Backend::IncomingDeliveriesController < BackendController
   def show
     return unless @incoming_delivery = find_and_check
     session[:current_incoming_delivery_id] = @incoming_delivery.id
+    t3e @incoming_delivery, :number => @incoming_delivery.number
     respond_with(@incoming_delivery, :methods => :picture_path, :include => [:address, :mode, :purchase, :sender])
   end
 

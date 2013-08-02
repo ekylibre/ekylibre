@@ -36,8 +36,8 @@
 
 
 class IncomingDeliveryItem < Ekylibre::Record::Base
-  attr_accessible :delivery_id, :price_id, :product_id, :product_attributes, :quantity, :container_id, :product_nature_variant_id
-  attr_readonly :purchase_item_id, :product_id, :price_id, :unit
+  attr_accessible :delivery_id, :product_id, :product_attributes, :quantity, :container_id, :product_nature_variant_id
+  attr_readonly :purchase_item_id, :product_id
   attr_accessor :product_nature_variant_id
   belongs_to :delivery, :class_name => "IncomingDelivery", :inverse_of => :items
   # belongs_to :price, :class_name => "ProductPrice"
@@ -45,7 +45,7 @@ class IncomingDeliveryItem < Ekylibre::Record::Base
   belongs_to :product
   belongs_to :purchase_item, :class_name => "PurchaseItem"
   # belongs_to :move, :class_name => "ProductMove"
-  enumerize :unit, :in => Nomen::Units.all
+  # enumerize :unit, :in => Nomen::Units.all
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :quantity, :allow_nil => true
   validates_presence_of :delivery, :product, :quantity
@@ -61,9 +61,6 @@ class IncomingDeliveryItem < Ekylibre::Record::Base
   before_validation do
     if self.purchase_item
       self.product_id  = self.purchase_item.product_id
-      self.price_id    = self.purchase_item.price.id
-      self.unit        = self.purchase_item.unit
-      self.building_id = self.purchase_item.building_id
     end
   end
 

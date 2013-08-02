@@ -8,13 +8,14 @@
 =beehive do |b|
   -b.tabbox do
     -b.cell :general do
-      .info
-        %span.title=IncomingDelivery.human_attribute_name(:number)
+      =attributes_list(@incoming_delivery) do |l| # liste des champs à afficher
+        -l.attribute :number
+        -l.attribute :received_at
+        -l.attribute :sender, :url => true
+        -l.attribute :address, :url => true
 
     -b.cell :details do
       =attributes_list(@incoming_delivery) do |l| # liste des champs à afficher
-        -l.attribute :number
-        -l.attribute :address, :url => true
         -l.attribute :mode, :url => true
         -l.attribute :purchase, :url => true
 
