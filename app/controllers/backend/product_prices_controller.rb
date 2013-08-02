@@ -4,7 +4,15 @@ class Backend::ProductPricesController < BackendController
   unroll_all
 
   list do |t|
-    t.column :name, :url => true
+    t.column :name, :through => :variant, :url => true
+    t.column :name, :through => :product, :url => true
+    t.column :pretax_amount
+    t.column :started_at
+    t.column :stopped_at
+    t.column :name, :through => :supplier, :url => true
+    t.column :name, :through => :listing, :url => true
+    t.action :edit
+    t.action :destroy, :if => "RECORD.destroyable\?"
   end
 
   # Displays the main page with the list of product_prices.

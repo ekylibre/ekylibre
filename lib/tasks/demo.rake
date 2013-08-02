@@ -588,7 +588,16 @@ namespace :db do
         # Sale items
         (rand(5) + 1).times do
           #find or create a price
-          price = ble.price(:amount => rand(150)+25, :tax => wheat_price_template_tax)
+          # @FIXME = waiting for a working method in ProductPrice.price
+          #price = ble.price(:amount => rand(150)+25, :tax => wheat_price_template_tax)
+          price = ProductPrice.find_by_variant_id_and_pretax_amount(ble.variant_id,"100.00")
+          price ||= ProductPrice.create!(:pretax_amount => "100.00",
+                                         :currency => "EUR",
+                                         :amount => "105.50",
+                                         :supplier_id => Entity.of_company.id,
+                                         :tax_id => wheat_price_template_tax.id,
+                                         :variant_id => ble.variant_id
+                                         )
 
           sale.items.create!(:quantity => rand(12.5)+0.5,
                              :product_id => ble.id,
@@ -713,14 +722,15 @@ namespace :db do
           product_nature ||= ProductNature.import_from_nomenclature(r.product_nature_name)
           # find a product_nature_variant by mapping current article of coop file
           product_nature_variant = ProductNatureVariant.find_by_name_and_nature_id(r.matter_name,product_nature.id )
-          product_nature_variant ||= product_nature.variants.create!(:name => r.matter_name, :active => true)
+          product_nature_variant ||= product_nature.variants.create!(:name => r.matter_name, :active => true, :unit_name => "unit")
           # find a price from current supplier for a consider variant
           product_nature_variant_price = ProductPrice.find_by_supplier_id_and_variant_id_and_pretax_amount(coop.id, product_nature_variant.id, r.product_unit_price)
-          product_nature_variant_price ||= product_nature_variant.prices.create!(:pretax_amout => r.product_unit_price,
+          product_nature_variant_price ||= ProductPrice.create!(:pretax_amount => r.product_unit_price,
                                                                                  :currency => "EUR",
                                                                                  :supplier_id => coop.id,
-                                                                                 :tax_id => Tax.find_by_id(3),
-                                                                                 :amount => r.product_unit_price
+                                                                                 :tax_id => appro_price_template_tax.id,
+                                                                                 :amount => appro_price_template_tax.amount_of(r.product_unit_price),
+                                                                                 :variant_id => product_nature_variant.id
                                                                                  )
 
           product_model = product_nature.matching_model
@@ -730,8 +740,7 @@ namespace :db do
           # :measure_unit => product_nature_variant.purchase_indicator_unit,
           # :measured_at => Time.now
           # )
-          incoming_unit = product_nature_variant.purchase_indicator_unit.to_s
-          incoming_item.is_measured!(product_nature_variant.purchase_indicator, r.quantity.in(incoming_unit), :at => Time.now)
+          incoming_item.is_measured!(:population, r.quantity.in_unity, :at => Time.now)
           if product_nature.present? and incoming_item.present?
             order.items.create!(:product_id => incoming_item.id, :quantity => r.product_deliver_quantity)
           end

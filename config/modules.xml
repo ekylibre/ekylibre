@@ -1256,6 +1256,10 @@
         <page to="backend/product_nature_variant_indicator_data#show"/>
         <page to="backend/product_nature_variant_indicator_data#update"/>
       </item>
+      <item name="product_nature_variants">
+        <page to="backend/product_nature_variants#list_prices"/>
+        <page to="backend/product_nature_variants#list_products"/>
+      </item>
       <item name="product_prices">
         <page to="backend/product_prices#show"/>
       </item>
