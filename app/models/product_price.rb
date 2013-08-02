@@ -151,7 +151,7 @@ class ProductPrice < Ekylibre::Record::Base
     company = Entity.of_company
     filter = {
       :supplier_id => (options.delete(:supplier) || company).id,
-      :variant_id => product.variant_id    
+      :variant_id => product.variant_id
     }
     # if the supplier are the company (Sale_case), the listing is the default listing
     if filter[:supplier_id] == company.id

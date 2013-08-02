@@ -42,16 +42,8 @@ class Operation < Event
   attr_accessible :started_at, :stopped_at, :procedure_id # :nature
   belongs_to :procedure
   has_many :tasks, :class_name => "OperationTask"
-  # enumerize :nature, :in => [:move_to, :consume, :produce, :separate, :merge, :attach, :detach], :predicates => true
-  # belongs_to :nature, :class_name => "OperationNature"
-  # belongs_to :target, :class_name => "Product"
-  # belongs_to :operand, :class_name => "Product"
-  # has_many :works, :class_name => "OperationWork", :inverse_of => :operation
-
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   #]VALIDATORS]
-
-  # accepts_nested_attributes_for :works, :reject_if => :all_blank, :allow_destroy => true
 
   default_scope -> { order(:started_at) }
   scope :unvalidateds, -> { where(:confirmed => false) }

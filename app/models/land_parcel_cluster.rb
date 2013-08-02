@@ -47,9 +47,7 @@
 #  picture_file_name        :string(255)
 #  picture_file_size        :integer
 #  picture_updated_at       :datetime
-#  reproductor              :boolean          not null
 #  reservoir                :boolean          not null
-#  sex                      :string(255)
 #  tracking_id              :integer
 #  type                     :string(255)
 #  updated_at               :datetime         not null
@@ -61,33 +59,9 @@
 
 
 class LandParcelCluster < LandParcelGroup
-  attr_accessible :born_at, :dead_at, :shape, :active, :external, :description, :name, :variety, :nature_id, :reproductor, :parent_id, :memberships_attributes
-
-  default_scope -> { order(:name) }
-  scope :groups_of, lambda { |member, viewed_at| where("id IN (SELECT group_id FROM #{ProductMembership.table_name} WHERE member_id = ? AND ? BETWEEN COALESCE(started_at, ?) AND COALESCE(stopped_at, ?))", member.id, viewed_at, viewed_at, viewed_at) }
-
-  # FIXME
-  # accepts_nested_attributes_for :memberships, :reject_if => :all_blank, :allow_destroy => true
-
+  enumerize :variety, :in => Nomen::Varieties.all(:land_parcel_cluster), :predicates => {:prefix => true}
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   #]VALIDATORS]
-  #validates_uniqueness_of :name
 
-  # Add a member to the group
-  def add(member, started_at = nil)
-    raise ArgumentError.new("LandParcel expected, got #{member.class}:#{member.inspect}") unless member.is_a?(LandParcel)
-    super(member, started_at)
-  end
-
-  # Remove a member from the group
-  def remove(member, stopped_at = nil)
-    raise ArgumentError.new("LandParcel expected, got #{member.class}:#{member.inspect}") unless member.is_a?(LandParcel)
-    super(member, stopped_at)
-  end
-
-  # Returns members of the group at a given time (or now by default)
-  def members_at(viewed_at = nil)
-    LandParcel.members_of(self, viewed_at || Time.now)
-  end
-
+  # TODO: Add check on contiguity of whole land_parcels
 end

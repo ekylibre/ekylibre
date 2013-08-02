@@ -1,6 +1,6 @@
 module Aggeratio
   class XML < Base
-    
+
     def build
       # Build code
       code  = parameter_initialization
@@ -19,7 +19,7 @@ module Aggeratio
         code << "#{element.name}\n"
         code << send(method_name, element)
       else
-        code << "#{element.name}: not implemented\n"          
+        code << "#{element.name}: not implemented\n"
       end
       return code
     end
@@ -64,7 +64,7 @@ module Aggeratio
     end
 
     def build_variable(element)
-      "#{element.attr('name')} = #{element.attr('value')} rescue nil\n"        
+      "#{element.attr('name')} = #{element.attr('value')} rescue nil\n"
     end
 
     def build_table(element)
@@ -78,9 +78,9 @@ module Aggeratio
       # code << build_elements(element).gsub(/^/, '      ')
       code << "  end\n"
       code << "end\n"
-      return code        
+      return code
     end
-    
+
     def build_attributes_hash(items, object, options = {})
       var = options[:var] || "attributes"
       code = "#{var} = {}\n"

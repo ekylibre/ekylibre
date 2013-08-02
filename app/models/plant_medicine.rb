@@ -47,9 +47,7 @@
 #  picture_file_name        :string(255)
 #  picture_file_size        :integer
 #  picture_updated_at       :datetime
-#  reproductor              :boolean          not null
 #  reservoir                :boolean          not null
-#  sex                      :string(255)
 #  tracking_id              :integer
 #  type                     :string(255)
 #  updated_at               :datetime         not null
@@ -59,10 +57,7 @@
 #  work_number              :string(255)
 #
 class PlantMedicine < Medicine
-  attr_accessible :variant_id, :variety, :nature_id, :reproductor, :external, :born_at, :dead_at, :description, :description, :father_id, :mother_id, :identification_number, :name, :picture, :sex, :work_number
   enumerize :variety, :in => Nomen::Varieties.all(:plant_medicine), :predicates => {:prefix => true}
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   #]VALIDATORS]
-
-  default_scope -> { order(:name) }
 end

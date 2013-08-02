@@ -47,9 +47,7 @@
 #  picture_file_name        :string(255)
 #  picture_file_size        :integer
 #  picture_updated_at       :datetime
-#  reproductor              :boolean          not null
 #  reservoir                :boolean          not null
-#  sex                      :string(255)
 #  tracking_id              :integer
 #  type                     :string(255)
 #  updated_at               :datetime         not null
@@ -59,22 +57,7 @@
 #  work_number              :string(255)
 #
 class Matter < Product
-  attr_accessible :variety, :nature_id, :reproductor, :external, :born_at, :dead_at, :description, :description, :identification_number, :name, :picture, :work_number
-  #enumerize :sex, :in => [:male, :female]
-  #enumerize :arrival_reasons, :in => [:birth, :purchase, :housing, :other], :default=> :birth
-  #enumerize :departure_reasons, :in => [:dead, :sale, :autoconsumption, :other], :default=> :sale
-  # has_many :groups, :class_name => "ProductGroup", :through => :passages
-  # belongs_to :nature, :class_name => "ProductNature"
-  # belongs_to :variety, :class_name => "ProductVariety"
-
-  # @TODO waiting for events and operations stabilizations
-  #has_many :events, :class_name => "Log"
-  #has_many :operations, :class_name => "Operation"
-
+  enumerize :variety, :in => Nomen::Varieties.all(:matter), :predicates => {:prefix => true}
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   #]VALIDATORS]
-
-  # validates_uniqueness_of :name, :identification_number
-
-  default_scope -> { order(:name) }
 end

@@ -48,9 +48,7 @@
 #  picture_file_name        :string(255)
 #  picture_file_size        :integer
 #  picture_updated_at       :datetime
-#  reproductor              :boolean          not null
 #  reservoir                :boolean          not null
-#  sex                      :string(255)
 #  tracking_id              :integer
 #  type                     :string(255)
 #  updated_at               :datetime         not null
@@ -61,31 +59,17 @@
 #
 
 class Animal < Bioproduct
-  attr_accessible :variant_id, :variety, :nature_id, :reproductor, :external, :born_at, :dead_at, :description, :description, :father_id, :mother_id, :identification_number, :name, :picture, :sex, :work_number
-  enumerize :sex, :in => [:male, :female]
-  # TODO: write config/nomenclatures/varieties-animal.xml
+  attr_accessible :father_id, :mother_id
   enumerize :variety, :in => Nomen::Varieties.all(:animal), :predicates => {:prefix => true}
-  #enumerize :arrival_reasons, :in => [:birth, :purchase, :housing, :other], :default=> :birth
-  #enumerize :departure_reasons, :in => [:dead, :sale, :autoconsumption, :other], :default=> :sale
-  belongs_to :father, :class_name => "Animal", :conditions => {:sex => "male", :reproductor => true}
-  belongs_to :mother, :class_name => "Animal", :conditions => {:sex => "female"}
-  # belongs_to :nature, :class_name => "ProductNature"
-  # belongs_to :variety, :class_name => "ProductVariety"
-
-  # @TODO waiting for events and operations stabilizations
-  #has_many :events, :class_name => "Log"
-  #has_many :operations, :class_name => "Operation"
-
+  belongs_to :father, :class_name => "Animal"
+  belongs_to :mother, :class_name => "Animal"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   #]VALIDATORS]
 
   validates_uniqueness_of :identification_number
-  validates_inclusion_of :sex, :in => self.sex.values
 
-  default_scope -> { order(:name) }
-  scope :fathers, -> { where(:sex => "male", :reproductor => true).order(:name) }
-  scope :mothers, -> { where(:sex => "female", :dead_at => nil, :reproductor => true).order(:name) }
-  # scope :here, -> { where("external = ? AND (departed_on IS NULL or departed_on > ?)", false, Time.now).order(:name)
+  scope :fathers, -> { indicate(:sex => "male", :reproductor => true).order(:name) }
+  scope :mothers, -> { indicate(:sex => "female", :reproductor => true).order(:name) }
 
 
   # prepare method to call EDNOTIF to exchange with EDE via SOAP Webservice

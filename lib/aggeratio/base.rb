@@ -22,7 +22,7 @@ module Aggeratio
     end
 
     def parameter_initialization
-      code = "" 
+      code = ""
       for parameter in @parameters.values
         code << "#{parameter.name} = @#{parameter.name}\n"
       end

@@ -16,6 +16,8 @@
       <item name="shape" datatype="geometry"/>
       <item name="usage_duration" datatype="measure" unit="hour"/>
       <!-- <item name="weight" datatype="measure" unit="kilogram"/> -->
+      <item name="sex" datatype="choice" choices="male, female, undefined"/>
+      <item name="reproductor" datatype="boolean"/>
       <item name="sowable" datatype="boolean"/>
       <item name="in_production" datatype="boolean"/>
       <item name="ground_appearance" datatype="choice" choices="covered, raw"/>

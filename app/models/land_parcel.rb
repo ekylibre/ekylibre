@@ -48,9 +48,7 @@
 #  picture_file_name        :string(255)
 #  picture_file_size        :integer
 #  picture_updated_at       :datetime
-#  reproductor              :boolean          not null
 #  reservoir                :boolean          not null
-#  sex                      :string(255)
 #  tracking_id              :integer
 #  type                     :string(255)
 #  updated_at               :datetime         not null

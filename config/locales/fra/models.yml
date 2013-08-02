@@ -974,7 +974,7 @@ fra:
     reminder_submissive: "Soumis à la relance"
     repartitions: "Repartitions"
     repeatable: "Répétable"
-    reproductor: "Reproducteur"
+    reproductor: "Reproducteur" #?
     required: "Obligatoire"
     reservoir: "Réservoir"
     # reset_password_sent_at: "Reset password sent at"
@@ -1004,7 +1004,7 @@ fra:
     sent_at: "Expédié le"
     serial: "N°Lot"
     serial_number: "Serial number"
-    sex: "Sexe"
+    sex: "Sexe" #?
     sign_in_count: "Nombre de connexions"
     siren: "N° SIREN"
     soundex: "Soundex"

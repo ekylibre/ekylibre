@@ -2,7 +2,7 @@ module Aggeratio
   class Parameter
     TYPES = [:record_list, :record, :string, :decimal, :integer]
     attr_reader :name, :type, :default, :class_name
-    
+
     def initialize(element)
       @type = element.attr("type").to_s.gsub('-', '_').to_sym
       raise ArgumentError.new("Type is unknown: #{@type.inspect}") unless TYPES.include?(@type)
@@ -11,6 +11,6 @@ module Aggeratio
       @default = element.attr("default").to_s
       @class_name = element.attr("of").to_s.camelcase
     end
-    
+
   end
 end

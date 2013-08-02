@@ -10,7 +10,6 @@ require 'nomen'
 require 'aggeratio'
 require 'procedures'
 require 'measure'
-require 'geometry'
 require 'reporting'
 require 'enumerize/xml'
 

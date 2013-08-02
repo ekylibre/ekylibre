@@ -842,10 +842,10 @@ class NormalizeProducts < ActiveRecord::Migration
       t.boolean :external, :null => false, :default => false # true if owner == Entity.of_company
       t.references :owner, :null => false
       # Animal specific columns
-      t.string :sex
+      # t.string :sex
       t.string :identification_number # replaceable by serial_number ? No, for now
       t.string :work_number           # replaceable by number ?        No, for now
-      t.boolean :reproductor, :null => false, :default => false
+      # t.boolean :reproductor, :null => false, :default => false
       t.references :father
       t.references :mother
       # Place specific columns
