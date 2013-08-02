@@ -102,7 +102,6 @@ class Product < Ekylibre::Record::Base
   scope :saleables, -> { where(true) }
   scope :production_supports,  -> { where(:variety =>["cultivable_land_parcel"]) }
 
-
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :picture_file_size, :allow_nil => true, :only_integer => true
   validates_numericality_of :content_maximal_quantity, :allow_nil => true

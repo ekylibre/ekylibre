@@ -7,4 +7,5 @@
   =f.input :contour
   =f.input :horizontal_rotation
 
--#=field_set(:indicator) do
+=field_set(:indicator) do
+  =f.nested_association(:indicator_data)
