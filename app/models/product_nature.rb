@@ -306,7 +306,7 @@ class ProductNature < Ekylibre::Record::Base
       if item.unit_name
         variant = nature.variants.create!(:active => true, :unit_name => item.unit_name)
         for expr in item.frozen_indicators.to_s.split(/[\s\,]+/)
-          puts [expr, expr.strip.split(/[\s\:]+/)].inspect
+          # puts [expr, expr.strip.split(/[\s\:]+/)].inspect
           variant.is_measured! *(expr.strip.split(/[\s\:]+/)[0..1])
         end if item.frozen_indicators.to_s.blank?
       else
