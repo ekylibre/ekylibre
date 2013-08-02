@@ -47,9 +47,7 @@
 #  picture_file_name        :string(255)
 #  picture_file_size        :integer
 #  picture_updated_at       :datetime
-#  reproductor              :boolean          not null
 #  reservoir                :boolean          not null
-#  sex                      :string(255)
 #  tracking_id              :integer
 #  type                     :string(255)
 #  updated_at               :datetime         not null
@@ -61,13 +59,13 @@
 
 
 class ProductGroup < Product
-  attr_accessible :active, :external, :description, :name, :variety, :nature_id, :reproductor, :reservoir, :parent_id, :memberships_attributes
+  attr_accessible :parent_id, :memberships_attributes
+  enumerize :variety, :in => Nomen::Varieties.all(:product_group), :predicates => {:prefix => true}
 
   belongs_to :parent, :class_name => "ProductGroup"
   has_many :memberships, :class_name => "ProductMembership", :foreign_key => :group_id
   has_many :members, :through => :memberships
 
-  default_scope -> { order(:name) }
   scope :groups_of, lambda { |member, viewed_at| where("id IN (SELECT group_id FROM #{ProductMembership.table_name} WHERE member_id = ? AND ? BETWEEN COALESCE(started_at, ?) AND COALESCE(stopped_at, ?))", member.id, viewed_at, viewed_at, viewed_at) }
 
   # FIXME

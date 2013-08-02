@@ -285,7 +285,7 @@ namespace :db do
           f = File.open(photo_v)
           animal = Animal.create!(:variant_id => cow_v.id, :name => r.name, :variety => "bos", :identification_number => r.identification_number,
                                   :work_number => r.work_number, :born_at => r.born_on, :dead_at => r.departed_on,
-                                  :sex => r.sex, :picture => f, :owner_id => Entity.of_company.id, :reproductor => false
+                                  :picture => f, :owner_id => Entity.of_company.id
                                  )
           f.close
           # set default indicators
@@ -303,8 +303,8 @@ namespace :db do
           f = File.open(pictures.sample)
           animal = Animal.create!(:variant_id => cow_v.id, :name => r.name, :variety => "bos",
                                   :identification_number => r.identification_number, :work_number => r.work_number,
-                                  :born_at => r.born_on, :dead_at => r.departed_on, :sex => r.sex,
-                                  :picture => f, :owner_id => Entity.of_company.id, :reproductor => false
+                                  :born_at => r.born_on, :dead_at => r.departed_on,
+                                  :picture => f, :owner_id => Entity.of_company.id
                                   )
           f.close
           # set default indicators
@@ -324,8 +324,8 @@ namespace :db do
           f = File.open(pictures.sample)
           animal = Animal.create!(:variant_id => cow_v.id, :name => r.name, :variety => "bos",
                                   :identification_number => r.identification_number, :work_number => r.work_number,
-                                  :born_at => r.born_on, :dead_at => r.departed_on, :sex => r.sex,
-                                  :picture => f, :owner_id => Entity.of_company.id, :reproductor => true
+                                  :born_at => r.born_on, :dead_at => r.departed_on,
+                                  :picture => f, :owner_id => Entity.of_company.id
                                   )
           f.close
           # set default indicators
@@ -346,8 +346,8 @@ namespace :db do
           f = File.open(pictures.sample)
           animal = Animal.create!(:variant_id => cow_vl.id, :name => r.name, :variety => "bos",
                                   :identification_number => r.identification_number, :work_number => r.work_number,
-                                  :born_at => r.born_on, :dead_at => r.departed_on, :sex => r.sex,
-                                  :picture => f, :owner_id => Entity.of_company.id, :reproductor => true
+                                  :born_at => r.born_on, :dead_at => r.departed_on,
+                                  :picture => f, :owner_id => Entity.of_company.id
                                   )
           f.close
           # set default indicators
@@ -370,7 +370,7 @@ namespace :db do
           f = File.open(photo_taur)
           animal = Animal.create!(:variant_id => cow_vl.id, :name => r.name, :variety => "bos",
                                   :identification_number => r.identification_number, :work_number => r.work_number,
-                                  :born_at => r.born_on, :dead_at => r.departed_on, :sex => r.sex,
+                                  :born_at => r.born_on, :dead_at => r.departed_on,
                                   :picture => f, :owner_id => Entity.of_company.id
                                   )
           f.close
@@ -413,7 +413,7 @@ namespace :db do
                            :tb => row[11].to_f
                            )
         # case = TAUREAU REPRO
-        animal = Animal.create!(:variant_id => cow_trepro.id, :name => r.name, :variety => "bos", :identification_number => r.identification_number, :sex => "male", :reproductor => true, :external => true, :owner_id => Entity.where(:of_company => false).all.sample.id)
+        animal = Animal.create!(:variant_id => cow_trepro.id, :name => r.name, :variety => "bos", :identification_number => r.identification_number, :external => true, :owner_id => Entity.where(:of_company => false).all.sample.id)
         # set default indicators
         animal.is_measured!(:isu_index,  r.isu.in_unity,  :at => now)
         animal.is_measured!(:inel_index, r.inel.in_unity, :at => now)
@@ -1122,7 +1122,7 @@ namespace :db do
 
 
       # treatment procedure
-      procedure = incident.procedures.create!(:natures => "animal_cares",
+      procedure = incident.procedures.create!(:natures => "animal_care",
                                       :nomen =>"animal_treatment",
                                       :production_id => animal_production.id,
                                       :prescription_id => prescription.id

@@ -47,9 +47,7 @@
 #  picture_file_name        :string(255)
 #  picture_file_size        :integer
 #  picture_updated_at       :datetime
-#  reproductor              :boolean          not null
 #  reservoir                :boolean          not null
-#  sex                      :string(255)
 #  tracking_id              :integer
 #  type                     :string(255)
 #  updated_at               :datetime         not null
@@ -61,16 +59,9 @@
 
 
 class AnimalGroup < ProductGroup
-  attr_accessible :active, :external, :description, :name, :variety, :nature_id, :reproductor, :reservoir, :parent_id, :memberships_attributes
-  enumerize :sex, :in => [:male, :female, :mixt]
-  belongs_to :parent, :class_name => "ProductGroup"
-
-  default_scope -> { order(:name) }
-  scope :groups_of, lambda { |member, viewed_at| where("id IN (SELECT group_id FROM #{ProductMembership.table_name} WHERE member_id = ? AND ? BETWEEN COALESCE(started_at, ?) AND COALESCE(stopped_at, ?))", member.id, viewed_at, viewed_at, viewed_at) }
-
+  enumerize :variety, :in => Nomen::Varieties.all(:animal_group), :predicates => {:prefix => true}
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   #]VALIDATORS]
-  validates_uniqueness_of :name
 
   # Add a member to the group
   def add(member, started_at = nil)
@@ -83,7 +74,6 @@ class AnimalGroup < ProductGroup
     raise ArgumentError.new("Animal expected, got #{member.class}:#{member.inspect}") unless member.is_a?(Animal)
     super(member, stopped_at)
   end
-
 
   # Returns members of the group at a given time (or now by default)
   def members_at(viewed_at = nil)

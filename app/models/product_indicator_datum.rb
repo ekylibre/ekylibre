@@ -40,64 +40,11 @@
 #
 
 
-class ProductIndicatorDatum < Ekylibre::Record::Base
-  attr_accessible :value, :created_at, :product_id, :indicator, :measured_at, :description, :geometry_value, :decimal_value, :measure_value_unit, :measure_value_value, :string_value, :boolean_value, :choice_value
+class ProductIndicatorDatum < IndicatorDatum
+  attr_accessible :created_at, :product_id, :measured_at, :description
   belongs_to :product
-  enumerize :indicator, :in => Nomen::Indicators.all, :default => Nomen::Indicators.default, :predicates => {:prefix => true}
-  enumerize :indicator_datatype, :in => Nomen::Indicators.datatype.choices, :predicates => {:prefix => true}
-  #enumerize :measure_value_unit, :in => Nomen::Units.all, :predicates => {:prefix => true}
 
-  composed_of :measure_value, :class_name => "Measure", :mapping => [%w(measure_value_value value), %w(measure_value_unit unit)]
-  # composed_of :geometry_value, :class_name => "Geometry", :mapping => [%w(geometry_value value)]
-
-  # belongs_to :indicator, :class_name => "ProductNatureIndicator", :inverse_of => :data
-  # belongs_to :measure_unit, :class_name => "Unit"
-  # TODO: enumerize :choice_value dynamicly
-  # belongs_to :choice_value, :class_name => "ProductIndicatorChoice"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :decimal_value, :measure_value_value, :allow_nil => true
-  validates_length_of :choice_value, :indicator, :indicator_datatype, :measure_value_unit, :allow_nil => true, :maximum => 255
-  validates_inclusion_of :boolean_value, :in => [true, false]
-  validates_presence_of :indicator, :indicator_datatype, :measured_at, :product
   #]VALIDATORS]
-  validates_inclusion_of :indicator, :in => self.indicator.values
-  validates_inclusion_of :indicator_datatype, :in => self.indicator_datatype.values
-  validates_presence_of :geometry_value, :if => :indicator_datatype_geometry?
-  validates_presence_of :string_value, :if => :indicator_datatype_string?
-  validates_presence_of :measure_value_value, :measure_value_unit, :if => :indicator_datatype_measure?
-  validates_presence_of :boolean_value, :if => :indicator_datatype_boolean?
-  validates_presence_of :choice_value, :if => :indicator_datatype_choice?
-  validates_presence_of :decimal_value, :if => :indicator_datatype_decimal?
-
-  before_validation do
-    self.indicator_datatype = self.theoric_datatype
-  end
-
-
-  validate do
-    if self.indicator_datatype_measure?
-      # TODO Check unit
-      # errors.add(:unit, :invalid) if unit.dimension != indicator.unit.dimension
-    end
-  end
-
-  # Read value from good place
-  def value
-    datatype = self.indicator_datatype || self.theoric_datatype
-    self.send(datatype.to_s + '_value')
-  end
-
-  # Write value into good place
-  def value=(object)
-    datatype = self.indicator_datatype || self.theoric_datatype
-    self.send(datatype.to_s + '_value=', object)
-    #puts [object, self].inspect
-  end
-
-  # Retrieve datatype from nomenclature NOT from database
-  def theoric_datatype
-    #return nil if self.indicator.blank?
-    Nomen::Indicators.items[self.indicator].datatype.to_sym
-  end
 
 end

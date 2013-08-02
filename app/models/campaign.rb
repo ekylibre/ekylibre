@@ -41,5 +41,6 @@ class Campaign < Ekylibre::Record::Base
   #]VALIDATORS]
 
   default_scope -> { where(:closed => false).order(:name) }
+  scope :currents, -> { }
 
 end

@@ -53,11 +53,9 @@
 
 
 class ProductNature < Ekylibre::Record::Base
-  # attr_accessible :active, :commercial_description, :commercial_name, :category_id, :deliverable, :description, :for_immobilizations, :for_productions, :for_purchases, :for_sales, :asset_account_id, :name, :nature, :number, :charge_account_id, :reduction_submissive, :product_account_id, :stockable, :subscription_nature_id, :subscription_period, :subscription_quantity, :trackable, :unit, :unquantifiable, :weight
   attr_accessible :abilities, :active, :derivative_of, :description, :depreciable, :indicators, :purchasable, :saleable, :asset_account_id, :name, :nomen, :number, :population_counting, :stock_account_id, :charge_account_id, :product_account_id, :storable, :subscription_nature_id, :subscription_duration, :reductible, :subscribing, :variety
-  #enumerize :nature, :in => [:product, :service, :subscription], :default => :product, :predicates => true
   enumerize :variety, :in => Nomen::Varieties.all, :predicates => {:prefix => true}
-  # Be careful
+  # Be careful with the fact that it depends directly on the nomenclature definition
   enumerize :population_counting, :in => Nomen::ProductNatures.attributes[:population_counting].choices, :predicates => {:prefix => true}, :default => Nomen::ProductNatures.attributes[:population_counting].choices.first
   belongs_to :asset_account, :class_name => "Account"
   belongs_to :charge_account, :class_name => "Account"
@@ -307,12 +305,10 @@ class ProductNature < Ekylibre::Record::Base
     if nature.variants.count.zero?
       if item.unit_name
         variant = nature.variants.create!(:active => true, :unit_name => item.unit_name)
-        if item.frozen_measures
-           for expr in item.frozen_measures.split(/[\s\,]+/)
-             array=expr.strip.split(/[\s\:]+/)
-             variant.is_measured!(array.first.to_sym, Measure.new(array.second.gsub(/[a-z]+/, "").to_d, array.second.gsub(/[0-9\.]+/, "").to_s))
-           end
-        end
+        for expr in item.frozen_indicators.to_s.split(/[\s\,]+/)
+          puts [expr, expr.strip.split(/[\s\:]+/)].inspect
+          variant.is_measured! *(expr.strip.split(/[\s\:]+/)[0..1])
+        end if item.frozen_indicators.to_s.blank?
       else
         raise ArgumentError.new("The unit_name #{item.unit_name.inspect} of product_nature #{item.name} is not known")
       end

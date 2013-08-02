@@ -47,9 +47,7 @@
 #  picture_file_name        :string(255)
 #  picture_file_size        :integer
 #  picture_updated_at       :datetime
-#  reproductor              :boolean          not null
 #  reservoir                :boolean          not null
-#  sex                      :string(255)
 #  tracking_id              :integer
 #  type                     :string(255)
 #  updated_at               :datetime         not null
@@ -61,14 +59,8 @@
 
 
 class LandParcelGroup < ProductGroup
-  attr_accessible :born_at, :dead_at, :shape, :active, :external, :description, :name, :variety, :nature_id, :reproductor, :reservoir, :parent_id, :memberships_attributes
-
-  belongs_to :parent, :class_name => "ProductGroup"
+  enumerize :variety, :in => Nomen::Varieties.all(:land_parcel_group), :predicates => {:prefix => true}
   has_shape
-  default_scope -> { order(:name) }
-  scope :groups_of, lambda { |member, viewed_at| where("id IN (SELECT group_id FROM #{ProductMembership.table_name} WHERE member_id = ? AND ? BETWEEN COALESCE(started_at, ?) AND COALESCE(stopped_at, ?))", member.id, viewed_at, viewed_at, viewed_at) }
-
-
 
   # # @TODO : update method with the last area indicator of the consider product
   # after_save do
@@ -108,7 +100,6 @@ class LandParcelGroup < ProductGroup
     raise ArgumentError.new("LandParcel expected, got #{member.class}:#{member.inspect}") unless member.is_a?(LandParcel)
     super(member, stopped_at)
   end
-
 
   # Returns members of the group at a given time (or now by default)
   def members_at(viewed_at = nil)

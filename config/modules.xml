@@ -890,9 +890,11 @@
         <page to="backend/product_prices#create"/>
         <page to="backend/product_prices#destroy"/>
         <page to="backend/product_prices#edit"/>
+        <page to="backend/product_prices#export"/>
+        <page to="backend/product_prices#find"/>
+        <page to="backend/product_prices#import"/>
         <page to="backend/product_prices#list"/>
         <page to="backend/product_prices#new"/>
-        <page to="backend/product_prices#show"/>
         <page to="backend/product_prices#update"/>
       </item>
     </group>
@@ -1257,6 +1259,9 @@
       <item name="product_nature_variants">
         <page to="backend/product_nature_variants#list_prices"/>
         <page to="backend/product_nature_variants#list_products"/>
+      </item>
+      <item name="product_prices">
+        <page to="backend/product_prices#show"/>
       </item>
       <item name="product_process_phases">
         <page to="backend/product_process_phases#index"/>

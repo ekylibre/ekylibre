@@ -56,12 +56,9 @@ class Procedure < Ekylibre::Record::Base
 
   # @TODO in progress - need to call parent procedure to have the name of the procedure_nature
 
-  scope :of_natures, lambda { |*natures|
-    #for nature in natures
-      #raise ArgumentError.new("Expected ProcedureNature, got #{nature.class.name}:#{nature.inspect}") unless nature.is_a?(ProcedureNature)
-    #end
-    where("natures IN (?)", natures)
-    order(:nomen)
+  scope :of_nature, lambda { |nature|
+    raise ArgumentError.new("Unknown nature #{nature.inspect}") unless Nomen::ProcedureNatures[nature]
+    where("natures ~ E?", "\\\\m#{nature}\\\\M")
   }
 
   scope :provisional, -> { where(:provisional => true).order(:nomen) }

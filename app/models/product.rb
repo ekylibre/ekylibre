@@ -48,9 +48,7 @@
 #  picture_file_name        :string(255)
 #  picture_file_size        :integer
 #  picture_updated_at       :datetime
-#  reproductor              :boolean          not null
 #  reservoir                :boolean          not null
-#  sex                      :string(255)
 #  tracking_id              :integer
 #  type                     :string(255)
 #  updated_at               :datetime         not null
@@ -62,16 +60,11 @@
 
 
 class Product < Ekylibre::Record::Base
-  # attr_accessible :nature_id, :number, :identification_number, :work_number, :born_at, :sex, :picture, :owner_id, :parent_id, :variety, :name, :description, :type, :external, :father_id, :mother_id
-  attr_accessible :created_at, :type, :variety, :external, :name, :description, :number, :identification_number, :work_number, :born_at, :sex, :picture, :owner_id, :parent_id, :variant_id , :net_weight, :population, :indicator_data_attributes
+  attr_accessible :active, :created_at, :type, :variety, :external, :name, :description, :number, :identification_number, :work_number, :born_at, :dead_at, :picture, :owner_id, :variant_id , :indicator_data_attributes # , :parent_id
   enumerize :variety, :in => Nomen::Varieties.all, :predicates => {:prefix => true}
   enumerize :content_indicator, :in => Nomen::Indicators.all, :predicates => {:prefix => true}
   enumerize :content_indicator_unit, :in => Nomen::Units.all, :predicates => {:prefix => true}
   belongs_to :nature, :class_name => "ProductNature"
-  # belongs_to :variety, :class_name => "ProductVariety"
-  # enumerize :unit, :in => Nomen::Units.all, :default => Nomen::Units.first, :predicates => {:prefix => true}
-  # belongs_to :unit
-  # belongs_to :area_unit, :class_name => "Unit"
   belongs_to :asset
   belongs_to :tracking
   belongs_to :content_nature, :class_name => "ProductNature"
@@ -99,6 +92,15 @@ class Product < Ekylibre::Record::Base
   default_scope -> { order(:name) }
   scope :members_of, lambda { |group, viewed_at| where("id IN (SELECT member_id FROM #{ProductMembership.table_name} WHERE group_id = ? AND ? BETWEEN COALESCE(started_at, ?) AND COALESCE(stopped_at, ?))", group.id, viewed_at, viewed_at, viewed_at)}
   # scope :saleables, -> { joins(:nature).where(:active => true, :product_natures => {:saleable => true}) }
+  scope :indicate, lambda { |indicators, options = {}|
+    conditions = []
+    # TODO Build conditions to filter on indicators
+    # for indicator, value in indicators
+    #   # current_indicator = value
+    #   conditions <<
+    # end
+    where(conditions.join(" AND "))
+  }
   scope :saleables, -> { where(true) }
   scope :production_supports,  -> { where(:variety =>["cultivable_land_parcel"]) }
 
@@ -106,8 +108,8 @@ class Product < Ekylibre::Record::Base
   validates_numericality_of :picture_file_size, :allow_nil => true, :only_integer => true
   validates_numericality_of :content_maximal_quantity, :allow_nil => true
   validates_length_of :variety, :allow_nil => true, :maximum => 127
-  validates_length_of :content_indicator, :content_indicator_unit, :identification_number, :name, :number, :picture_content_type, :picture_file_name, :sex, :work_number, :allow_nil => true, :maximum => 255
-  validates_inclusion_of :active, :external, :reproductor, :reservoir, :in => [true, false]
+  validates_length_of :content_indicator, :content_indicator_unit, :identification_number, :name, :number, :picture_content_type, :picture_file_name, :work_number, :allow_nil => true, :maximum => 255
+  validates_inclusion_of :active, :external, :reservoir, :in => [true, false]
   validates_presence_of :content_maximal_quantity, :name, :nature, :number, :owner, :variant, :variety
   #]VALIDATORS]
   validates_presence_of :nature, :variant, :name, :owner
@@ -238,7 +240,7 @@ class Product < Ekylibre::Record::Base
   # Returns indicators for a set of product
   def self.indicator(name, options = {})
     measured_at = options[:at] || Time.now
-    ProductIndicatorDatum.where("id IN (SELECT p1.id FROM #{self.indicator_table_name(name)} AS p1 LEFT OUTER JOIN #{self.indicator_table_name(name)} AS p2 ON (p1.product_id = p2.product_id AND (p1.measured_at < p2.measured_at OR (p1.measured_at = p2.measured_at AND p1.id < p2.id)) AND p2.measured_at <= ?) WHERE p1.measured_at <= ? AND p1.product_id IN (?) AND p2 IS NULL)", measured_at, measured_at, self.pluck(:id))
+    ProductIndicatorDatum.where("id IN (SELECT p1.id FROM #{self.indicator_table_name(name)} AS p1 LEFT OUTER JOIN #{self.indicator_table_name(name)} AS p2 ON (p1.product_id = p2.product_id AND p1.indicator = p2.indicator AND (p1.measured_at < p2.measured_at OR (p1.measured_at = p2.measured_at AND p1.id < p2.id)) AND p2.measured_at <= ?) WHERE p1.measured_at <= ? AND p1.product_id IN (?) AND p1.indicator = ? AND p2 IS NULL)", measured_at, measured_at, name, self.pluck(:id))
   end
 
 

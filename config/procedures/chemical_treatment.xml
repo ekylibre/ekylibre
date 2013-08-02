@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
+  <!-- ######################################## TRAITER CHIMIQUEMENT LA CULTURE AVEC UNE MOLECULE ########################################### -->
+  <procedure name="chemical_treatment" natures="treatment" version="1" status="frozen">
+    <variables>
+      <variable name="driver" variety="worker"/><!-- paramètre réprésentant des objets de type Humain qui possede la compétence "Conduire un ensemble tracteur + épandeur"  -->
+      <variable name="tractor" variety="equipment" abilities="tow,catch"/><!-- paramètre réprésentant des objets qui possede la compétence "Tracter"  -->
+      <variable name="molecule" variety="phytosanitary"/>
+      <variable name="molecule_to_spray" same-nature-of="molecule" parameter="false" new="quantity=?"/>
+      <variable name="sprayer" variety="equipment" abilities="spray" />
+      <variable name="culture" variety="plant"/>
+    </variables>
+    <operations>
+      <operation name="transport_0100">
+        <task do="[driver] moves-in [tractor]"/><!-- le chauffeur se déplace vers le tracteur et rentre dedans (?) -->
+      </operation>
+      <operation name="transport_0200">
+        <task do="[tractor] moves-to [sprayer]"/><!-- le chauffeur et le tracteur se déplace vers le lieu actuel de l'épandeur-->
+      </operation>
+      <operation name="catch_0300">
+        <task do="[tractor] catches [sprayer]"/><!-- le chauffeur attache l'épandeur au tracteur -->
+      </operation>
+      <operation name="transport_0400">
+        <task do="[tractor] moves-to [molecule]"/><!-- le chauffeur, tracteur et épandeur se déplacent vers le lieu actuel du tas de fumier-->
+      </operation>
+      <operation name="internal_0500">
+        <task do="[molecule] parts-with [molecule_to_spray]"/><!--  on sépare le fumier que l'on va mettre dans l'épandeur du tas global --> 
+      </operation>
+      <operation name="transport_0600">
+        <task do="[molecule_to_spray] moves-in [sprayer]"/><!-- le chauffeur charge du fumier dans l'épandeur qui est un lieu de stockage temporaire (normalement plus complexe que cela)-->
+      </operation>
+      <operation name="transport_0700">
+        <task do="[tractor] moves-to [culture]"/><!-- le chauffeur + son tracteur et son épandeur chargé de fumier se déplace vers la parcelle et rentre dedant (?) -->
+      </operation>
+      <operation name="spraying_0800">
+        <!-- tant que le [tractor] travaille (? = sous-entendu le tracteur tourne,le conducteur roule, le pulvé tourne) les task tournent -->
+        <task do="[molecule_to_spray] moves-in [culture]"/><!-- le traitement tombe sur la sole de blé car le pulvé tourne (?) -->
+        <task do="[culture] consumes [molecule_to_spray]"/><!-- la sole de blé consomme le traitement épandu car il se dépose sur les feuilles des plants de blé -->
+        <!-- Le bioprocess lié doit faire l'action suivante : [culture] consumes [fertilizer] in [land_parcel] -->
+        <!-- À terme, on devrait être capable de faire IF l'épandeur est vide alors j'arrete de travailler -->
+        <!-- et je retourne charger de l'engrais sur le tas global-->
+      </operation>
+    </operations>        
+  </procedure>
+</procedures>

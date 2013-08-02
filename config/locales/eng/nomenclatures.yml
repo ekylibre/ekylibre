@@ -383,7 +383,7 @@ eng:
         charge_account: "Charge account"
         depreciable: "Depreciable"
         derivative: "Derivative"
-        # frozen_measures: "Indicateurs figés"
+        frozen_indicators: "Frozen indicators"
         indicators: "Indicators"
         number: "Number"
         product_account: "Product account"

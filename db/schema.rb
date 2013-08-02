@@ -1790,10 +1790,8 @@ ActiveRecord::Schema.define(:version => 20130410143823) do
     t.datetime "picture_updated_at"
     t.boolean  "external",                                                               :default => false, :null => false
     t.integer  "owner_id",                                                                                  :null => false
-    t.string   "sex"
     t.string   "identification_number"
     t.string   "work_number"
-    t.boolean  "reproductor",                                                            :default => false, :null => false
     t.integer  "father_id"
     t.integer  "mother_id"
     t.integer  "address_id"

@@ -30,10 +30,29 @@ class Measure
 
   end
 
-  def initialize(value, unit)
+
+  # Ways to instanciate a measure
+  # $ Measure.new(55.23, "kilogram")
+  # $ Measure.new(55.23, :kilogram)
+  # $ Measure.new("55.23 kilogram")
+  # $ Measure.new("55.23kilogram")
+  # $ 55.23.in_kilogram
+  # $ 55.23.in(:kilogram)
+  # $ 55.23.in("kilogram")
+  def initialize(*args)
+    value, unit = nil, nil
+    if args.size == 1
+      expr = args.to_s.strip
+      value = expr.gsub(/[a-z\s]+/, "").to_d
+      unit  = expr.gsub(/[0-9\.\s]+/, "")
+    elsif args.size == 2
+      value, unit = args[0], args[1]
+    else
+      raise ArgumentError.new("wrong number of arguments (#{args.size} for 1 or 2)")
+    end
     raise ArgumentError.new("Value can't be converted to float: #{value.inspect}") unless value.is_a? Numeric
     @value = value.to_d
-    @unit = unit.to_sym
+    @unit = unit.to_s
     raise ArgumentError.new("Unknown unit: #{unit.inspect}") unless @@units.items[@unit]
   end
 
@@ -42,11 +61,11 @@ class Measure
   end
 
   def inspect
-    "#{@value.inspect}#{@unit}"
+    "#{@value.to_d} #{@unit}"
   end
 
   def to_s
-    @value.to_d.to_s + @unit.to_s
+    inspect
   end
 
   # Returns the dimension of a measure

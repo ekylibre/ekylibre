@@ -1,15 +1,15 @@
 class Backend::AggregatorsController < BackendController
   layout false
 
-  respond_to :pdf, :odt, :docx, :xml, :json, :html, :csv
+  respond_to :pdf, :odt, :ods, :docx, :xlsx, :xml, :json, :html, :csv
 
   def show
-    unless Aggeratio[params[:id]]
+    unless klass = Aggeratio[params[:id]]
       head :not_found
       return
     end
-    @aggregator = Aggeratio::Veterinary[params[:id]]
-    respond_with @aggregator.build(params)
+    @aggregator = klass.new(params)
+    respond_with @aggregator
   end
 
 

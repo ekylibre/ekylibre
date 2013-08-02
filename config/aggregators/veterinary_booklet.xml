@@ -2,17 +2,17 @@
 <aggregators xmlns="http://www.ekylibre.org/XML/2013/aggregators">
   <aggregator name="veterinary_booklet">
     <parameters>
-      <parameter name="campaigns" type="list"/>
-      <parameter name="company" type="entity_of_company"/>
-      <parameter name="breeding_number" type="string"/>
+      <parameter name="campaigns" type="record-list" of="campaign" default="currents"/>
+      <parameter name="company" type="record" of="entity" default="of_company"/>
+      <parameter name="breeding_number" type="string" default="XXXXXXXX"/>
     </parameters>
     <hash name="company">
       <attribute name="full_name"/>
       <attribute name="address" value="company.default_mail_address.coordinate"/>
       <attribute name="breeding_number"/>
-      <list name="interventions" with="procedures">
-	<element name="id" of="intervention" level="api"/>
-	<title name="name" of="intervention"/>
+      <list name="interventions" with="Procedure.of_nature(:animal_care)">
+	<attribute name="id" level="api"/>
+	<title name="name"/>
 	<variable name="target" value="intervention.variables.of_role(:target).first.target"/>
 	<variable name="worker" value="intervention.variables.of_role(:worker).first.target"/>
 	<table name="inputs" with="intervention.variables.of_role(:input)">
@@ -53,7 +53,7 @@
 
 	  <within name="prescription" value="intervention.prescription">
 	    <column name="id" level="api"/>
-	    <column name="reference_number"/>
+	    <column name="reference_number" if="true"/>
 	    <column name="prescriptor_name"/>
 	  </within>	
 	  

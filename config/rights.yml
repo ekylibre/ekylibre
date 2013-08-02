@@ -337,14 +337,7 @@
 # - "backend/product_nature_variants#update"
 # - "backend/product_natures#show"
 # - "backend/product_price_listings#list_prices"
-# - "backend/product_prices#create"
-# - "backend/product_prices#destroy"
-# - "backend/product_prices#edit"
-# - "backend/product_prices#index"
-# - "backend/product_prices#list"
-# - "backend/product_prices#new"
 # - "backend/product_prices#show"
-# - "backend/product_prices#update"
 # - "backend/product_process_phases#create"
 # - "backend/product_process_phases#destroy"
 # - "backend/product_process_phases#edit"
@@ -520,7 +513,7 @@ consult_journal_entries:
 # Consult the prices
 consult_prices:
 - "backend/dashboards#sales"
-- "backend/product_price_templates#index" #?
+- "backend/product_prices#index"
 
 # Consult the products
 consult_products:
@@ -787,7 +780,7 @@ manage_equipments:
 # Create and update estimates
 manage_estimates:
 - "backend/dashboards#sales"
-- "backend/product_price_templates#find" #?
+- "backend/product_prices#find" #?
 - "backend/sale_items#create"
 - "backend/sale_items#destroy"
 - "backend/sale_items#detail"
@@ -1046,14 +1039,14 @@ manage_outgoing_payments:
 # Manage prices
 manage_prices:
 - "backend/dashboards#sales"
-- "backend/product_price_templates#create" #?
-- "backend/product_price_templates#destroy" #?
-- "backend/product_price_templates#edit" #?
-- "backend/product_price_templates#export" #?
-- "backend/product_price_templates#import" #?
-- "backend/product_price_templates#list" #?
-- "backend/product_price_templates#new" #?
-- "backend/product_price_templates#update" #?
+- "backend/product_prices#create"
+- "backend/product_prices#destroy"
+- "backend/product_prices#edit"
+- "backend/product_prices#export" #?
+- "backend/product_prices#import" #?
+- "backend/product_prices#list"
+- "backend/product_prices#new"
+- "backend/product_prices#update"
 
 # Manage product price listings
 manage_product_price_listings:
@@ -1085,7 +1078,7 @@ manage_products:
 - "backend/product_natures#destroy"
 - "backend/product_natures#edit"
 - "backend/product_natures#list"
-- "backend/product_natures#list_price_templates" #?
+- "backend/product_natures#list_prices" #?
 - "backend/product_natures#new"
 - "backend/product_natures#update"
 

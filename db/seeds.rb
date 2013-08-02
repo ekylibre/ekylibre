@@ -10,11 +10,11 @@ user[:first_name] = ENV["first_name"] || "Jean"
 user[:last_name] = ENV["last_name"] || "DUPONT"
 unless user[:email] = ENV["email"]
   user[:email] = "admin@ekylibre.org"
-  puts "Username is: #{user[:email]}"
+  puts "Username: #{user[:email]}"
 end
 unless user[:password] = ENV["password"]
   user[:password] = (Rails.env.development? ? "12345678" : User.give_password(8, :normal))
-  puts "Password is: #{user[:password]}"
+  puts "Password: #{user[:password]}"
 end
 user[:password_confirmation] = user[:password]
 user[:employed] = true

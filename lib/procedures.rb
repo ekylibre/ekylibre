@@ -24,8 +24,8 @@ module Procedures
       @required = (element.attr('required').to_s == "true" ? true : false)
       @parent = options[:parent] if options[:parent]
       @position = options[:position] || 0
-      @id = element.attr("id").to_s
-      raise MissingAttribute.new("Attribute 'id' must be given for a <procedure>") if @id.blank?
+      # @id = element.attr("id").to_s
+      # raise MissingAttribute.new("Attribute 'id' must be given for a <procedure>") if @id.blank?
       @version = element.attr("version").to_s
       raise MissingAttribute.new("Attribute 'version' must be given for a <procedure>") if @version.blank?
       @variables = element.xpath("xmlns:variables/xmlns:variable").inject({}) do |hash, variable|
@@ -180,132 +180,8 @@ module Procedures
 
     # Load all files
     def load
-      browse_documents do |document|
-        document.root.xpath('xmlns:procedure[@status="frozen"]').each do |procedure|
-          name = procedure.attr("name").to_s
-          n = Procedure.new(procedure)
-          @@list[n.full_name] = n
-        end
-      end
-    end
-
-    # Import foreign procedures and build UID for each sub-procedures
-    def flatten_sub_procedures(sps, prefix)
-      document = sps.document
-      procedures = Nokogiri::XML::Node.new "procedures", document
-      for sp in sps.xpath('xmlns:sub-procedure')
-        procedure = document.xpath("/xmlns:procedures/xmlns:procedure[@name='#{sp.attr('name')}']").first.clone
-        for a in ['required', 'conditions']
-          procedure[a] = sp.attr(a) if sp.has_attribute?(a)
-        end
-        for a in ['natures', 'status'] # 'version',
-          procedure.remove_attribute(a) if procedure.has_attribute?(a)
-        end
-
-        unless sp.attr('id')
-          raise StandardError.new('<sub-procedure> must have a unique id for the current procedure')
-        end
-
-        procedure['id'] = prefix + '-' + sp.attr('id').to_s + '-' + procedure.attr('name')
-
-        if ssps = procedure.xpath('xmlns:sub-procedures').first
-          flatten_sub_procedures(ssps, procedure.attr('id'))
-        end
-
-        for parameter in sp.xpath('xmlns:parameter')
-          pname = parameter.attr('name').to_s
-          parameter.attributes.keys
-
-          variable = procedure.xpath("xmlns:variables/xmlns:variable[@name='#{pname}']").first
-          raise "You can't use parameter #{pname} for procedure #{procedure.attr('name')}" unless variable
-          other_attributes = ['variety', 'abilities', 'same-variety-of', 'same-nature-of']
-
-          if !other_attributes.inject(1) { |m, a| m *= (parameter.has_attribute?(a) ? 0 : 1) }.zero? and variable['parameter'].to_s != 'false'
-            variable['value'] = (parameter.has_attribute?('value') ? parameter.attr('value') : parameter.attr('name'))
-            for a in other_attributes
-              variable.remove_attribute(a)
-            end
-          elsif parameter.has_attribute?('value')
-            raise StandardError.new("You can't use 'value' attribute in parameter with other attribute like 'variety' or 'abilities' or unwanted parameters")
-          else
-            for a in other_attributes
-              variable[a] = parameter.attr(a) if parameter.has_attribute?(a)
-            end
-          end
-        end
-        procedures << procedure
-      end
-      sps.add_next_sibling(procedures)
-      sps.remove
-    end
-
-
-    # Write one file per procedure after flattening
-    def flatten
-      FileUtils.mkdir_p(root)
-      # Merge all procedures in one file
-      builder = Nokogiri::XML::Builder.new do |xml|
-        xml.procedures(:xmlns => XMLNS) {
-          browse_documents(source) do |document|
-            xml << document.root.xpath('xmlns:procedure[@status="frozen"]').to_xml.to_str
-          end
-        }
-      end
-      merger = Rails.root.join("tmp", "allinone.xml")
-      FileUtils.mkdir_p(merger.dirname)
-      File.open(merger, "wb") do |f|
-        f.write builder.to_xml
-      end
-      source = nil
-      f = File.open(merger, "rb")
-      document = Nokogiri::XML(f) do |config|
-        config.strict.nonet.noblanks.noent
-      end
-      f.close
-      document.xpath('//comment()').remove
-      # Clone and merge procedure recursively
-      for p in document.xpath('/xmlns:procedures/xmlns:procedure')
-        p['id'] = p.attr('name') unless p.has_attribute?('id')
-        if sps = p.xpath('xmlns:sub-procedures').first
-          flatten_sub_procedures(sps, p.attr('id'))
-        end
-      end
-
-      # Write one file per procedure in root dir
-      for procedure in document.xpath('/xmlns:procedures/xmlns:procedure')
-        pname = procedure.attr('name')
-        file = root.join(pname + ".xml")
-        File.open(file, "wb") do |f|
-          builder = Nokogiri::XML::Builder.new do |xml|
-            xml.procedures(:xmlns => XMLNS) {
-              xml << procedure.to_xml.to_str
-            }
-          end
-          f.write builder.to_xml
-        end
-        f = File.open(file, "rb")
-        document = Nokogiri::XML(f) do |config|
-          config.strict.nonet.noblanks.noent
-        end
-        f.close
-        File.open(file, "wb") do |f|
-          f.write(document.to_s)
-        end
-      end
-    end
-
-    # Returns the root of the procedures
-    def root
-      Rails.root.join("config", "procedures")
-    end
-
-    def source
-      Rails.root.join("config", "nomenclatures")
-    end
-
-    def browse_documents(dir = nil, &block)
-      dir ||= root
-      for path in Dir.glob(dir.join("*.xml"))
+      # Inventory procedures
+      for path in Dir.glob(root.join("*.xml")).sort
         f = File.open(path, "rb")
         document = Nokogiri::XML(f) do |config|
           config.strict.nonet.noblanks.noent
@@ -313,17 +189,35 @@ module Procedures
         f.close
         # Add a better syntax check
         if document.root.namespace.href.to_s == XMLNS
-          yield(document)
+          document.root.xpath('xmlns:procedure').each do |element|
+            # procedure = Procedure.new(element)
+            # @@list[procedure.name] = procedure
+            procedure = Procedure.new(element)
+            @@list[procedure.name] = procedure
+          end
         else
           Rails.logger.info("File #{path} is not a procedure as defined by #{XMLNS}")
         end
       end
+      return true
+
+      # browse_documents do |document|
+      #   document.root.xpath('xmlns:procedure[@status="frozen"]').each do |procedure|
+      #     name = procedure.attr("name").to_s
+      #     p = Procedure.new(procedure)
+      #     @@list[p.full_name] = p
+      #   end
+      # end
+    end
+
+    # Returns the root of the procedures
+    def root
+      Rails.root.join("config", "procedures")
     end
 
   end
 
   # Load all procedures
-  flatten
   load
 
   Rails.logger.info "Loaded procedures: " + names.to_sentence

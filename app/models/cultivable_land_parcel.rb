@@ -47,9 +47,7 @@
 #  picture_file_name        :string(255)
 #  picture_file_size        :integer
 #  picture_updated_at       :datetime
-#  reproductor              :boolean          not null
 #  reservoir                :boolean          not null
-#  sex                      :string(255)
 #  tracking_id              :integer
 #  type                     :string(255)
 #  updated_at               :datetime         not null
@@ -61,27 +59,16 @@
 
 
 class CultivableLandParcel < LandParcelGroup
-  attr_accessible :born_at, :dead_at, :shape, :active, :external, :description, :name, :variety, :nature_id, :reproductor, :parent_id, :memberships_attributes
-
+  enumerize :variety, :in => Nomen::Varieties.all(:cultivable_land_parcel), :predicates => {:prefix => true}
   has_many :supports, :class_name => "ProductionSupport", :foreign_key => :storage_id
   has_many :productions, :class_name => "Production", :through => :supports
 
-  default_scope -> { order(:name) }
-  scope :groups_of, lambda { |member, viewed_at| where("id IN (SELECT group_id FROM #{ProductMembership.table_name} WHERE member_id = ? AND ? BETWEEN COALESCE(started_at, ?) AND COALESCE(stopped_at, ?))", member.id, viewed_at, viewed_at, viewed_at) }
-    scope :of_campaign, lambda { |*campaigns|
+  scope :of_campaign, lambda { |*campaigns|
     for campaign in campaigns
-     raise ArgumentError.new("Expected Campaign, got #{campaign.class.name}:#{campaign.inspect}") unless campaign.is_a?(Campaign)
+      raise ArgumentError.new("Expected Campaign, got #{campaign.class.name}:#{campaign.inspect}") unless campaign.is_a?(Campaign)
     end
     joins(:productions).where('campaign_id IN (?)', campaigns.map(&:id))
   }
-
-
-  # FIXME
-  # accepts_nested_attributes_for :memberships, :reject_if => :all_blank, :allow_destroy => true
-
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   #]VALIDATORS]
-  #validates_uniqueness_of :name
-
-
 end
