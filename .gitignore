@@ -26,7 +26,7 @@
 /*/*/*/*/*/*/*/*~
 
 config/locales/*/prints/*.jrxml
-
+config/locales/*/prints/*.pdf
 
 # Ignore private files
 /private/**/*
@@ -61,7 +61,6 @@ capybara*.html
 .rspec
 
 # ignore jasper file stack
-*.pdf
 *.jasper
 *.jrxml
 *.jrtx
