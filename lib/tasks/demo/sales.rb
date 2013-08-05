@@ -39,7 +39,6 @@ task :sales do
       sale_nature   = SaleNature.actives.first
       sale_nature ||= SaleNature.create!(:name => I18n.t('models.sale_nature.default.name'), :currency => "EUR", :active => true)
       (140 + rand(20)).times do |i|
-        break if i >= max
         # Sale
         d = Date.today - (5*i - rand(4)).days
         sale = Sale.create!(:created_on => d, :client_id => Entity.where(:of_company => false).all.sample.id, :nature_id => sale_nature.id, :sum_method => "wt")

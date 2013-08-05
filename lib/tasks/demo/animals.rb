@@ -89,8 +89,10 @@ task :animals do
           animal.is_measured!(:animal_disease_state, :sick, :at => (Time.now - 2.days))
           animal.is_measured!(:animal_disease_state, :healthy, :at => (Time.now - 3.days))
           # place the current animal in the default group with born_at
-          ProductLocalization.create!(:container_id => place_v.id, :product_id => animal.id, :nature => :interior, :started_at => r.arrived_on, :stopped_at => r.departed_on, :arrival_cause => r.arrival_cause, :departure_cause => r.departure_cause)
-          ProductMembership.create!(:member_id => animal.id, :group_id => group_v.id, :started_at => r.arrived_on, :stopped_at => r.departed_on )
+          if place_v and group_v
+            ProductLocalization.create!(:container_id => place_v.id, :product_id => animal.id, :nature => :interior, :started_at => r.arrived_on, :stopped_at => r.departed_on, :arrival_cause => r.arrival_cause, :departure_cause => r.departure_cause)
+            ProductMembership.create!(:member_id => animal.id, :group_id => group_v.id, :started_at => r.arrived_on, :stopped_at => r.departed_on )
+          end
 
           # case = GENISSE 1
         elsif r.born_on > (Date.today - 12.months) and r.born_on < (Date.today - 3.months) and r.sex == :female
@@ -109,10 +111,11 @@ task :animals do
           animal.is_measured!(:animal_disease_state, :healthy)
           animal.is_measured!(:animal_disease_state, :sick, :at => (Time.now - 2.days))
           animal.is_measured!(:animal_disease_state, :healthy, :at => (Time.now - 3.days))
-          # place the current animal in the default group with born_at
-          ProductLocalization.create!(:container_id => place_gen.id, :product_id => animal.id, :nature => :interior, :started_at => r.arrived_on, :stopped_at => r.departed_on, :arrival_cause => r.arrival_cause, :departure_cause => r.departure_cause)
-          ProductMembership.create!(:member_id => animal.id, :group_id => group_gen1.id, :started_at => r.arrived_on, :stopped_at => r.departed_on )
-
+          if place_gen and group_gen1
+            # place the current animal in the default group with born_at
+            ProductLocalization.create!(:container_id => place_gen.id, :product_id => animal.id, :nature => :interior, :started_at => r.arrived_on, :stopped_at => r.departed_on, :arrival_cause => r.arrival_cause, :departure_cause => r.departure_cause)
+            ProductMembership.create!(:member_id => animal.id, :group_id => group_gen1.id, :started_at => r.arrived_on, :stopped_at => r.departed_on )
+          end
           # case = GENISSE 3
         elsif r.born_on > (Date.today - 28.months) and r.born_on < (Date.today - 12.months) and r.sex == :female
           f = File.open(pictures.sample)
@@ -131,10 +134,11 @@ task :animals do
           animal.is_measured!(:animal_disease_state, :healthy)
           animal.is_measured!(:animal_disease_state, :sick, :at => (Time.now - 2.days))
           animal.is_measured!(:animal_disease_state, :healthy, :at => (Time.now - 3.days))
-          # place the current animal in the default group with born_at
-          ProductLocalization.create!(:container_id => place_gen.id, :product_id => animal.id, :nature => :interior, :started_at => r.arrived_on, :stopped_at => r.departed_on, :arrival_cause => r.arrival_cause, :departure_cause => r.departure_cause)
-          ProductMembership.create!(:member_id => animal.id, :group_id => group_gen3.id, :started_at => r.arrived_on, :stopped_at => r.departed_on )
-
+          if place_gen and group_gen3
+            # place the current animal in the default group with born_at
+            ProductLocalization.create!(:container_id => place_gen.id, :product_id => animal.id, :nature => :interior, :started_at => r.arrived_on, :stopped_at => r.departed_on, :arrival_cause => r.arrival_cause, :departure_cause => r.departure_cause)
+            ProductMembership.create!(:member_id => animal.id, :group_id => group_gen3.id, :started_at => r.arrived_on, :stopped_at => r.departed_on )
+          end
           # case = VL
         elsif r.born_on > (Date.today - 20.years) and r.born_on < (Date.today - 28.months) and r.sex == :female
           f = File.open(pictures.sample)
@@ -154,10 +158,11 @@ task :animals do
           animal.is_measured!(:animal_disease_state, :healthy)
           animal.is_measured!(:animal_disease_state, :sick, :at => (Time.now - 2.days))
           animal.is_measured!(:animal_disease_state, :healthy, :at => (Time.now - 3.days))
-          # place the current animal in the default group with born_at
-          ProductLocalization.create!(:container_id => place_vl.id, :product_id => animal.id, :nature => :interior, :started_at => r.arrived_on, :stopped_at => r.departed_on, :arrival_cause => r.arrival_cause, :departure_cause => r.departure_cause)
-          ProductMembership.create!(:member_id => animal.id, :group_id => group_vl.id, :started_at => r.arrived_on, :stopped_at => r.departed_on )
-
+          if place_vl and group_vl
+            # place the current animal in the default group with born_at
+            ProductLocalization.create!(:container_id => place_vl.id, :product_id => animal.id, :nature => :interior, :started_at => r.arrived_on, :stopped_at => r.departed_on, :arrival_cause => r.arrival_cause, :departure_cause => r.departure_cause)
+            ProductMembership.create!(:member_id => animal.id, :group_id => group_vl.id, :started_at => r.arrived_on, :stopped_at => r.departed_on )
+          end
 
           # case = TAURILLON
         elsif r.born_on > (Date.today - 10.years) and r.born_on < (Date.today - 3.months) and r.sex == :male
@@ -178,9 +183,11 @@ task :animals do
           animal.is_measured!(:animal_disease_state, :healthy)
           animal.is_measured!(:animal_disease_state, :sick, :at => (Time.now - 2.days))
           animal.is_measured!(:animal_disease_state, :healthy, :at => (Time.now - 3.days))
-          # place the current animal in the default group with born_at
-          ProductLocalization.create!(:container_id => place_taur.id, :product_id => animal.id, :nature => :interior, :started_at => r.arrived_on, :stopped_at => r.departed_on, :arrival_cause => r.arrival_cause, :departure_cause => r.departure_cause)
-          ProductMembership.create!(:member_id => animal.id, :group_id => group_taur.id, :started_at => r.arrived_on, :stopped_at => r.departed_on )
+          if place_taur and group_taur
+            # place the current animal in the default group with born_at
+            ProductLocalization.create!(:container_id => place_taur.id, :product_id => animal.id, :nature => :interior, :started_at => r.arrived_on, :stopped_at => r.departed_on, :arrival_cause => r.arrival_cause, :departure_cause => r.departure_cause)
+            ProductMembership.create!(:member_id => animal.id, :group_id => group_taur.id, :started_at => r.arrived_on, :stopped_at => r.departed_on )
+          end
         else print " "
         end
 
