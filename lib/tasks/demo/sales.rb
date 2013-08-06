@@ -24,7 +24,11 @@ task :sales do
       #wheat_price_template   = ProductPriceTemplate.find_by_product_nature_id(wheat.id)
       #wheat_price_template ||= ProductPriceTemplate.create!(:assignment_amount => 211, :currency => "EUR", :assignment_pretax_amount => 200, :product_nature_id => wheat.id, :tax_id => wheat_price_template_tax.id, :listing_id => price_listing.id, :supplier_id => Entity.of_company.id )
 
-      # Create wheat product
+     
+  end
+  
+  Ekylibre::fixturize :sales do |w|
+     # Create wheat product
       wheat = ProductNature.import_from_nomenclature(:wheat_grain).default_variant
       price_listing = ProductPriceListing.find_by_code("STD")
       wheat_price_template_tax = Tax.find_by_amount(5.5)
@@ -32,9 +36,6 @@ task :sales do
       ble = OrganicMatter.find_by_work_number("BLE_001")
       ble = OrganicMatter.create!(:variant_id => wheat.id, :name => "Blé Cap Horn 2011", :variety => "organic_matter", :identification_number => "BLE_2011_07142011", :work_number => "BLE_2011",
                                   :born_at => "2011-07-14", :owner_id => Entity.of_company.id) #
-  end
-  
-  Ekylibre::fixturize :sales do |w|
     # Sale nature
       sale_nature   = SaleNature.actives.first
       sale_nature ||= SaleNature.create!(:name => I18n.t('models.sale_nature.default.name'), :currency => "EUR", :active => true)
