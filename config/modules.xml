@@ -1199,6 +1199,8 @@
       </item>
       <item name="procedures">
         <page to="backend/procedures#jump"/>
+        <page to="backend/procedures#list_operations"/>
+        <page to="backend/procedures#list_variables"/>
       </item>
       <item name="product_groups">
         <page to="backend/product_groups#list_content_product"/>

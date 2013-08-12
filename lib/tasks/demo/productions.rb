@@ -207,7 +207,7 @@ task :productions do
       end
       w.check_point
   end
-  
+
   Ekylibre::fixturize :animal_treatment_procedure_demo_data do |w|
       ##############################################################################
       ## Demo data for animal treatment
@@ -292,5 +292,5 @@ task :productions do
       end
     w.check_point
   end
-  
+
 end

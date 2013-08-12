@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 task :animals do
-  
+
       cow_vl     = ProductNature.import_from_nomenclature(:female_adult_cow).default_variant
       cow_trepro = ProductNature.import_from_nomenclature(:male_adult_cow).default_variant
       cow_gen    = ProductNature.import_from_nomenclature(:female_young_cow).default_variant
       cow_taur   = ProductNature.import_from_nomenclature(:male_young_cow).default_variant
       cow_v      = ProductNature.import_from_nomenclature(:calf).default_variant
       herd       = ProductNature.import_from_nomenclature(:cattle_herd).default_variant
-  
+
   Ekylibre::fixturize :animal_natures do |w|
   #############################################################################
   # add default product_nature for animals
@@ -33,9 +33,9 @@ task :animals do
           AnimalGroup.create!({:active => true, :variant_id => herd.id}.merge(group))
         end
       end
- 
+
   end
-  
+
   Ekylibre::fixturize :synel_animal_import do |w|
     #############################################################################
    # set finder for creating animal
@@ -193,9 +193,9 @@ task :animals do
 
         w.check_point
       end
-  
+
   end
-  
+
   Ekylibre::fixturize :upra_reproductor_list_import do |w|
   file = Rails.root.join("test", "fixtures", "files", "liste_males_reproducteurs_race_normande_ISU_130.txt")
       picture_trepro = Dir.glob(Rails.root.join("test", "fixtures", "files", "animals", "taurillon.jpg"))
@@ -234,5 +234,5 @@ task :animals do
       end
   end
 
-  
+
 end

@@ -9,7 +9,7 @@ task :buildings do
       animal_place_variant = ProductNature.import_from_nomenclature(:animal_building).default_variant
       settlement_place_variant = ProductNature.import_from_nomenclature(:screed_building).default_variant
       office_place_variant = ProductNature.import_from_nomenclature(:office_building).default_variant
- 
+
        for building in [{:variant_id => standard_place_variant.id, :name => "Bâtiment historique", :work_number => "B05", :identification_number => "STABULATION_05"},
                        {:variant_id => settlement_place_variant.id, :name => "Aire bétonnée", :work_number => "B06", :identification_number => "STABULATION_06"},
                        {:variant_id => animal_place_variant.id, :name => "Stabulation principale", :work_number => "B07", :identification_number => "STABULATION_07"},
@@ -26,13 +26,13 @@ task :buildings do
           w.check_point
         end
       end
- 
+
   end
-  
+
   Ekylibre::fixturize :buildings_shapes do |w|
     #############################################################################
-    
-    
+
+
     RGeo::Shapefile::Reader.open(Rails.root.join("test", "fixtures", "files", "buildings_2013.shp").to_s, :srid => 2154) do |file|
         # puts "File contains #{file.num_records} records."
         file.each do |record|
@@ -52,11 +52,11 @@ task :buildings do
           w.check_point
         end
       end
-  
+
   end
-  
+
   Ekylibre::fixturize :building_divisions_shapes do |w|
-  
+
   building_division_variant = ProductNature.import_from_nomenclature(:building_division).default_variant
 
       RGeo::Shapefile::Reader.open(Rails.root.join("test", "fixtures", "files", "buildings_division_2013.shp").to_s, :srid => 2154) do |file|
@@ -86,5 +86,5 @@ task :buildings do
         end
       end
   end
-  
+
 end

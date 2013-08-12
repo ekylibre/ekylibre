@@ -16,7 +16,7 @@
       -CultivableLandParcel.of_production(@production).find_each do |cultivable_land_parcel|
         %a{'xlink:href' => backend_cultivable_land_parcel_url(cultivable_land_parcel)}
           %path{:d => cultivable_land_parcel.shape_as_svg, :title => cultivable_land_parcel.name}
-  
+
   -b.tabbox do
     -b.cell(:procedures) do
       =list(:procedure)

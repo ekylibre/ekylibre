@@ -24,9 +24,9 @@ task :sales do
       #wheat_price_template   = ProductPriceTemplate.find_by_product_nature_id(wheat.id)
       #wheat_price_template ||= ProductPriceTemplate.create!(:assignment_amount => 211, :currency => "EUR", :assignment_pretax_amount => 200, :product_nature_id => wheat.id, :tax_id => wheat_price_template_tax.id, :listing_id => price_listing.id, :supplier_id => Entity.of_company.id )
 
-     
+
   end
-  
+
   Ekylibre::fixturize :sales do |w|
      # Create wheat product
       wheat = ProductNature.import_from_nomenclature(:wheat_grain).default_variant
@@ -85,5 +85,5 @@ task :sales do
         w.check_point
       end
   end
-  
+
 end

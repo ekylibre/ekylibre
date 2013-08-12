@@ -4,7 +4,7 @@ task :land_parcels do
   Ekylibre::fixturize :telepac_shape_file_import do |w|
   #############################################################################
   # Import shapefile
-  
+
 
       land_parcel_group_variant = ProductNature.import_from_nomenclature(:land_parcel_cluster).default_variant
 
@@ -28,9 +28,9 @@ task :land_parcels do
         end
       end
 
- 
+
   end
-  
+
   Ekylibre::fixturize :calc_sheet_file_import do |w|
     # Import land_parcel from Calc Sheet
 

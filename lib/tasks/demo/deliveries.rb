@@ -105,7 +105,7 @@ task :deliveries do
       end
 
   end
-  
+
   Ekylibre::fixturize :coop_outgoing_deliveries do |w|
      # #############################################################################
       # # import Coop Deliveries to make automatic sales
@@ -160,7 +160,7 @@ task :deliveries do
       #   # create an incoming_delivery if status => 2
 
       #   # create an incoming_delivery_item if status => 2
-  
+
 
       #   print "."
       # end
