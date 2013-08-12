@@ -63,6 +63,7 @@ class Production < Ekylibre::Record::Base
     where('campaign_id IN (?)', campaigns.map(&:id))
   }
 
+
   state_machine :state, :initial => :draft do
     state :draft
     state :validated

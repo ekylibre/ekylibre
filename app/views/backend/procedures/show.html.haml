@@ -12,3 +12,8 @@
         -l.attribute :state
         -l.attribute :production, :url => true
 
+  -b.tabbox do
+    -b.cell(:variables) do
+      =list(:variables)
+    -b.cell(:operations) do
+      =list(:operations)

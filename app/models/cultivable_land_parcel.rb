@@ -63,12 +63,22 @@ class CultivableLandParcel < LandParcelGroup
   has_many :supports, :class_name => "ProductionSupport", :foreign_key => :storage_id
   has_many :productions, :class_name => "Production", :through => :supports
 
+  
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  #]VALIDATORS]
+  
   scope :of_campaign, lambda { |*campaigns|
     for campaign in campaigns
       raise ArgumentError.new("Expected Campaign, got #{campaign.class.name}:#{campaign.inspect}") unless campaign.is_a?(Campaign)
     end
     joins(:productions).where('campaign_id IN (?)', campaigns.map(&:id))
   }
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  #]VALIDATORS]
+  
+  scope :of_production, lambda { |*productions|
+    for production in productions
+      raise ArgumentError.new("Expected Production, got #{production.class.name}:#{production.inspect}") unless production.is_a?(Production)
+    end
+    joins(:productions).where('production_id IN (?)', productions.map(&:id))
+  }
+  
 end

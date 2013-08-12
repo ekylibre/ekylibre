@@ -659,6 +659,8 @@ Ekylibre::Application.routes.draw do
       end
       collection do
         get :list
+        get :list_variables
+        get :list_operations
         unroll_all
       end
     end

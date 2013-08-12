@@ -30,6 +30,22 @@ class Backend::ProceduresController < BackendController
     t.action :play
     t.action :destroy, :if => :destroyable?
   end
+  
+  list(:variables, :model => :procedure_variables, :conditions => [" procedure_id = ? ",['session[:current_procedure_id]']], :order => "created_at DESC") do |t|
+    t.column :name, :through => :target, :url => true
+    t.column :role
+    t.column :indicator
+    t.column :measure_quantity
+    t.column :measure_unit
+  end
+  
+  list(:operations, :model => :operations, :conditions => [" procedure_id = ? ",['session[:current_procedure_id]']], :order => "started_at DESC") do |t|
+    t.column :name, :url => true
+    t.column :description
+    t.column :duration
+    t.column :started_at
+    t.column :stopped_at
+  end
 
   # Displays the main page with the list of procedures
   def index
@@ -43,6 +59,7 @@ class Backend::ProceduresController < BackendController
   # Displays the page for one procedure
   def show
     return unless @procedure = find_and_check
+    session[:current_procedure_id] = @procedure.id
     respond_to do |format|
       format.html { t3e(@procedure, :name => @procedure.name) }
       format.xml  { render :xml => @procedure }

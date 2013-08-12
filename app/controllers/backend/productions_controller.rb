@@ -53,7 +53,7 @@ class Backend::ProductionsController < BackendController
   # List procedures for one production
   list(:procedure, :model => :procedures, :conditions => [" production_id = ? ",['session[:current_production_id]']], :order => "created_at DESC") do |t|
     #t.column :name
-    t.column :nomen
+    t.column :nomen, :url => true
     t.column :state
     t.column :name, :through => :incident, :url => true
     t.column :started_at

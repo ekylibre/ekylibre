@@ -184,7 +184,7 @@ task :productions do
       end
 
       # real fertilization procedure
-      procedure_real = Procedure.create!(:natures => "soil_enrichment", :nomen =>"mineral_fertilizing", :production_id => production.id, :provisional_procedure_id => procedure_prev.id)
+      procedure_real = Procedure.create!(:natures => "soil_enrichment", :nomen =>"mineral_fertilizing", :production_id => production.id, :provisional_procedure_id => procedure_prev.id, :state => "done")
 
 
       # Create some procedure variable for fertilization
@@ -267,6 +267,7 @@ task :productions do
       # treatment procedure
       procedure = incident.procedures.create!(:natures => "animal_care",
                                       :nomen =>"animal_treatment",
+                                      :state => "done",
                                       :production_id => animal_production.id,
                                       :prescription_id => prescription.id
                                       )
