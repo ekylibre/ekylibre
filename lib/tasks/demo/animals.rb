@@ -84,7 +84,7 @@ task :animals do
           f.close
           # set default indicators
           animal.is_measured!(:sex, r.sex)
-          animal.is_measured!(:reproductor, false)
+          #animal.is_measured!(:reproductor, false)
           animal.is_measured!(:net_weight, 55.45.in_kilogram, :at => r.born_on.to_datetime)
           animal.is_measured!(:net_weight, 75.89.in_kilogram, :at => (r.born_on.to_datetime + 2.months))
           animal.is_measured!(:animal_disease_state, :healthy)
@@ -107,7 +107,7 @@ task :animals do
           f.close
           # set default indicators
           animal.is_measured!(:sex, r.sex)
-          animal.is_measured!(:reproductor, false)
+          #animal.is_measured!(:reproductor, false)
           animal.is_measured!(:net_weight, 55.45.in_kilogram, :at => r.born_on.to_datetime)
           animal.is_measured!(:net_weight, 75.89.in_kilogram, :at => (r.born_on.to_datetime + 2.months))
           animal.is_measured!(:net_weight, 89.56.in_kilogram, :at => (r.born_on.to_datetime + 4.months))
@@ -183,7 +183,7 @@ task :animals do
           f.close
           # set default indicators
           animal.is_measured!(:sex, r.sex)
-          animal.is_measured!(:reproductor, false)
+          #animal.is_measured!(:reproductor, false)
           animal.is_measured!(:net_weight, 55.45.in_kilogram, :at => r.born_on.to_datetime)
           animal.is_measured!(:net_weight, 75.89.in_kilogram, :at => (r.born_on.to_datetime + 2.months))
           animal.is_measured!(:net_weight, 89.56.in_kilogram, :at => (r.born_on.to_datetime + 4.months))
