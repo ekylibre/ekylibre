@@ -564,6 +564,8 @@ fra:
     currency_precision: "Nombre de décimales"
     currency_rate: "Taux de change"
     current_amount: "Montant actuel"
+    current_animal_disease_state: "Etat de santé actuel" #?
+    current_net_weight: "Dernière pesée" #?
     # current_sign_in_at: "Current sign in at"
     # current_sign_in_ip: "Current sign in ip"
     custom_field: "Champ complémentaire"

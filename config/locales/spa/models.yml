@@ -593,6 +593,8 @@ spa:
     # currency_precision: "Nombre de décimales"
     # currency_rate: "Taux de change"
     # current_amount: "Montant actuel"
+    # current_animal_disease_state: "Etat de santé actuel"
+    # current_net_weight: "Dernière pesée"
     # custom_field: "Champ complémentaire"
     # custom_field_choices: "Choix de champ complémentaire"
     # custom_fields: "Champs complémentaires"

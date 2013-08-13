@@ -1170,7 +1170,9 @@ arb:
     # currency_precision: "Nombre de décimales"
     currency_rate: "سعر الصرف"
     # current_amount: "Montant actuel"
+    # current_animal_disease_state: "Etat de santé actuel"
     current_financial_year: "الفترة المحاسبية الحالية" #?
+    # current_net_weight: "Dernière pesée"
     custom_field: "حقول اضافية"
     custom_field_choices: "اختيارات الحقول الاضافية"
     custom_field_data: "تكملة بيانات الملف" #?
