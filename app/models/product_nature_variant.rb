@@ -102,6 +102,15 @@ class ProductNatureVariant < Ekylibre::Record::Base
 
   end
 
+
+  def purchasable?
+    self.nature.purchasable?
+  end
+
+  def saleable?
+    self.nature.saleable?
+  end
+
   #validate do
     # Check that unit match indicator's unit
     #for mode in [:usage, :sale, :purchase]

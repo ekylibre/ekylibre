@@ -14,4 +14,7 @@
     -b.cell(:products) do
       =list(:products)
     -b.cell(:prices) do
+      =toolbar do |t|
+        -t.new_sales_price(:params => {:controller => :product_prices, :action => :new, :mode => :sales, :variant_id => @product_nature_variant.id}) if @product_nature_variant.saleable?
+        -t.new_purchase_price(:params => {:controller => :product_prices, :action => :new, :mode => :purchases, :variant_id => @product_nature_variant.id}) if @product_nature_variant.purchasable?
       =list(:prices)

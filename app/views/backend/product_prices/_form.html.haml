@@ -1,2 +1,7 @@
 =field_set do
-  =f.input :name
+  =f.input :amount
+  =f.input :pretax_amount
+  =f.input :currency
+  =f.referenced_association :supplier
+  =f.referenced_association :tax
+  =f.referenced_association :variant
