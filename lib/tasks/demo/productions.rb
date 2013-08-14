@@ -106,12 +106,20 @@ task :productions do
             product_nature_variant_sup = product_nature_sup.default_variant
           end
           if product_nature_variant_sup and land_parcel_support.present?
+            # find a production corresponding to campaign , activity and product_nature
             pro = Production.where(:campaign_id => campaign.id, :activity_id => activity.id, :product_nature_id => product_nature_sup.id).first
+            # or create it
             pro ||= activity.productions.create!(:product_nature_id => product_nature_sup.id, :campaign_id => campaign.id, :static_support => true)
+            # create a support for this production
             pro.supports.create!(:storage_id => land_parcel_support.id)
+            # create a name for the plant correponding to product_nature_nomen in XML Nomenclature
             plant_name = (Nomen::ProductNatures.find(r.product_nature_nomen).human_name + " " + campaign.name + " " + land_parcel_support.work_number)
+            # create a work number for the plant
             plant_work_nb = (r.product_nature_nomen.to_s + "-" + campaign.name + "-" + land_parcel_support.work_number)
-            Plant.create!(:variant_id => product_nature_variant_sup.id, :work_number => plant_work_nb , :name => plant_name, :variety => product_nature_sup.variety, :born_at => Time.now, :owner_id => Entity.of_company.id)
+            # create the plant
+            plant = Plant.create!(:variant_id => product_nature_variant_sup.id, :work_number => plant_work_nb , :name => plant_name, :variety => product_nature_sup.variety, :born_at => Time.now, :owner_id => Entity.of_company.id)
+            # localize the plant in the cultivable_land_parcel
+            ProductLocalization.create!(:container_id => land_parcel_support.id, :product_id => plant.id, :nature => :interior, :started_at => Time.now, :arrival_cause => :birth)
           elsif product_nature_variant_sup
             pro = Production.where(:product_nature_id => product_nature_sup.id, :campaign_id => campaign.id, :activity_id => activity.id).first
             pro ||= activity.productions.create!(:product_nature_id => product_nature_sup.id, :campaign_id => campaign.id)
@@ -131,8 +139,8 @@ task :productions do
 
       # create some indicator nature for fertilization
       # find some product for fertilization
-      fertilizer_product = Product.find_by_variety("organic_matter")
-      fertilizer_product_prev = Product.find_by_variety("organic_matter")
+      fertilizer_product = Product.find_by_variety("mineral_matter")
+      fertilizer_product_prev = Product.find_by_variety("mineral_matter")
       # set indicator on product for fertilization
 
       #fertilizer_product.indicator_data.create!({:measure_unit => "kilograms_per_hectogram", :measured_at => Time.now }.merge(attributes))
