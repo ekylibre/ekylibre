@@ -223,6 +223,8 @@ Ekylibre::Application.routes.draw do
     resources :cultivable_land_parcels do
       collection do
         get :list
+        get :list_content_products
+        get :list_productions
         unroll_all
       end
     end
