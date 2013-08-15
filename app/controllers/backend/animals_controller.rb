@@ -96,7 +96,7 @@ class Backend::AnimalsController < Backend::ProductsController
     return unless @animal = find_and_check
     session[:current_animal_id] = @animal.id
     t3e @animal, :nature_name => @animal.nature_name
-           respond_with(@animal, :methods => :picture_path, :include => [:father, :mother, :nature, :variety, :owner,
+           respond_with(@animal, :methods => :picture_path, :include => [:father, :mother, :variant, :nature, :variety, :owner,
                                                    {:indicator_data => {}},
                                                    {:memberships => {:include =>:group}},
                                                     {:product_localizations => {:include =>:container}}])
