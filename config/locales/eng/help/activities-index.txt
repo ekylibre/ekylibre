@@ -1,35 +1,35 @@
-====== Activité ======
+====== Activity ======
 
-===== Qu'est ce qu'une activité ? =====
+===== What is an activity ? =====
 
-Une activité regroupe des ensembles de produits, de services qui concourent à l'achevement de ses procédures et procéssus métiers.
-Une acticité est établie pour plusieurs années et correspond à un choix organisationnel.
-Elle peut être active ou inactive (clôturée).
+An activity unite some sets of products, some services which contribute for the completion of its procedures and occupations process.
+An activity is established for several years and correspond with an organizational choice.
+It could be active or inactive (closed).
 
-Une activité se caractérise par un nom, un code analytique, un type de centre analytique et une famille.
+An activity is characterized by a name, an analytic code , a type of the analytic centre and a family.
 
-Une activité peut posséder une activité parente (parfois appellé ATELIER).
+An activity can have a related activity  (sometimes called WORKING GROUP).
 
->>> Ex: L'activité BLE regroupe les activités BLE TENDRE & BLE DUR
+>>> Ex: The activity WHEAT unite the activities BREAD WHEAT & DURUM WHEAT
 
-Une activité peut présenter un type de centre dit PRINCIPAL (processus productif) ou AUXILIAIRE (processus support) selon son objectif premier.
+An activity can present a centre type called PRINCIPAL (productive process) or AUXILIAIRE (support process) according to its first aim.
 
->>> Ex: L'activité BLE possede un type de centre PRINCIPAL car son objectif premier est de produire.
->>> Ex: L'activité MECANISATION est AUXILIAIRE car son objectif premier est d'aider les autres activités.
->>> l'activité BLE se verra donc affecter des charges dites indirectes provenant de l'activité MECANISATION selon la sollicitation de l'une vers l'autre.
+>>> Ex: The activity WHEAT have a centre PRINCIPAL type because producing is its first aim.
+>>> Ex: The activity MECANIZATION is AUXILIAIRE because its first aim is helping the others activities.
+>>> So the activity WHEAT will be left affected by some loads called indirects coming from the activity MECANIZATION according to the request from one to the other.
 
-===== Quand est ce que les activités interviennent ? =====
+===== When do the activities intervene ? =====
 
-Elles interviennent :
+Its intervene :
 
-  * lors de la saisie des opérations et procédures
-  * lors de la [[>backend/journals#draft|saisie comptables]] si vous n'utilisez pas les opérations
+  * during the input of the operations and procedures
+  * during the [[>backend/journals#draft|accounts input]] if you don't use the operations
 
-===== Comment lier des produits aux activités et répartir les charges ? =====
+===== How do some products link to activities and how do the loads divide up ? =====
 
-Chaque activité peut être liée à une ou plusieurs [[>backend/productions#index|productions]]
+Each activity can be linked to one or several [[>backend/productions#index|productions]]
 
->>> Ex: L'activité BLE TENDRE est lié à la production Grain de BLE TENDRE Campagne 2013 sur la parcelle "Les Palets"
->>> Un côut de production et un prix de revient pourra être calculé pour chaque unité de Grain de BLE TENDRE produite sur une période donnée.
+>>> Ex: The activity BREAD WHEAT is linked to the production Grain of BREAD WHEAT Campaign 2013 on the plot "Les Palets"
+>>> A production costs and a factory price will be able to be calculated for each Grain unit of BREAD WHEAT produced on a period given.
 
-Chaque ligne comptable peut être liée à une ou plusieurs productions
+Each account line can be link to one or several productions
