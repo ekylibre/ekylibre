@@ -9,6 +9,35 @@ Rules:
 
 == Markup
 
+These lines describes the major attributes to define the aggregation model:
+
+  <root>: 
+    (section|sections|matrix)
+
+  section(name, value?, level?, if?):
+    title?
+    property*
+    section*
+    sections*
+    matrix*
+  
+  sections(name?, with, level?, if?): # Describe item structure like a section
+    title?
+    property*
+    section*
+    sections*
+    matrix*
+
+  matrix(name, with, level?, if?):
+    (cell|matrix)+
+
+  title(name, value?, level?, if?):
+
+  property(name, value?, level?, if?):
+    
+  cell(name, value?, level?, if?):
+ 
+Special markup <within> permits to set default name or value for a group of <title>, <property> or <cell>.
 
 == Sample
 
@@ -24,16 +53,16 @@ These following codes compose the Rosetta Stone to unciffer the Aggregator XML.
         <parameter name="company" type="record"/>
         <parameter name="breeding_number" type="string"/>
       </parameters>
-      <collection name="interventions" with="procedures">
+      <sections name="interventions" with="procedures">
         <title name="name"/>
-        <attribute name="id" level="api"/>
-        <table name="inputs" with="intervention.variables.of_role(:input)">
-          <column name="id" level="api"/>
-          <column name="role_label" value="input.role.text"/>
-          <column name="indicator" level="api"/>
-          <column name="indicator_label" value="input.indicator.text" if="input.indicator != 'net_surface_area'"/>
-        </table>
-      </collection>
+        <property name="id" level="api"/>
+        <matrix name="inputs" with="intervention.variables.of_role(:input)">
+          <cell name="id" level="api"/>
+          <cell name="role_label" value="input.role.text"/>
+          <cell name="indicator" level="api"/>
+          <cell name="indicator_label" value="input.indicator.text" if="input.indicator != 'net_surface_area'"/>
+        </matrix>
+      </sections>
     </aggregator>
   </aggregators>
 
@@ -122,3 +151,9 @@ Then through JasperReports (and a report), it gives: PDF, ODS, ODT, XLSX, DOCX, 
   "First intervention","1","1","Input",...
   "","","2","Input",...
   ...
+
+=== Other formats
+
+ODS and ODT could be generated automatically without reports.
+
+

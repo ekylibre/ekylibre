@@ -590,6 +590,7 @@
         <page to="backend/listings#mail"/>
         <page to="backend/listings#new"/>
         <page to="backend/listings#update"/>
+        <page to="backend/aggregators#show"/>
       </item>
       <item name="import">
         <page to="backend/settings#import"/>
@@ -1015,7 +1016,6 @@
         <page to="backend/activities#list_production"/>
       </item>
       <item name="aggregators">
-        <page to="backend/aggregators#show"/>
       </item>
       <item name="animals">
         <page to="backend/animals#list_incident"/>

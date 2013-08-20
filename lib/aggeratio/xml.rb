@@ -19,6 +19,7 @@ module Aggeratio
         code << "#{element.name}\n"
         code << send(method_name, element)
       else
+        Rails.logger.warn("Markup <#{element.name}> is unknown or not implemented")
         code << "#{element.name}: not implemented\n"
       end
       return code
@@ -34,7 +35,7 @@ module Aggeratio
       return code
     end
 
-    def build_list(element)
+    def build_collection(element)
       items = element.attr("name").to_s
       item  = element.attr("for") || items.singularize
       code  = "xml.#{items}() do\n"
@@ -54,7 +55,7 @@ module Aggeratio
       return code
     end
 
-    def build_hash(element)
+    def build_section(element)
       name = element.attr("name").to_s
       code = ""
       code << "xml.#{name}() do\n"

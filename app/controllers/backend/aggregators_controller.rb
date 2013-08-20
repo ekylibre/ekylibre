@@ -1,5 +1,5 @@
 class Backend::AggregatorsController < BackendController
-  layout false
+  # layout false
 
   respond_to :pdf, :odt, :ods, :docx, :xlsx, :xml, :json, :html, :csv
 

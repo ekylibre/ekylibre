@@ -1,4 +1,7 @@
--#=kujaku do |k|
-  -#for p in @aggregator.parameters
+-# = kujaku do |k|
+  -# for p in @aggregator.parameters
+= main_toolbar do |t|
+  - t.export do |e|
+    - e.send(@aggregator.aggregator_name, @aggregator.key, @aggregator)
 
-.aggregator=@aggregator.to_html
+.aggregator= @aggregator.to_html_fragment

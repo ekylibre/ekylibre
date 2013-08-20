@@ -1,14 +1,16 @@
 module Aggeratio
-  class HTML < Base
+  class DocumentFragment < Base
 
     def build
       # Build code
+      document_variable = "__doc__"
       code  = parameter_initialization
-      code << "builder = Nokogiri::XML::Builder.new do |xml|\n"
+      code << "#{document_variable} = Nokogiri::HTML::DocumentFragment.parse('')\n"
+      code << "builder = Nokogiri::HTML::Builder.with(#{document_variable}) do |xml|\n"
       code << build_element(@root).gsub(/^/, '  ')
       code << "end\n"
-      code << "puts builder.to_xml\n"
-      code << "return builder.to_xml\n"
+      code << "puts #{document_variable}.to_html\n"
+      code << "return #{document_variable}.to_html.html_safe\n"
       return code
     end
 
@@ -34,16 +36,21 @@ module Aggeratio
       return code
     end
 
-    def build_list(element)
+    def build_collection(element)
       items = element.attr("name").to_s
       item  = element.attr("for") || items.singularize
       code  = "xml.ul(:class => '#{items}') do\n"
       code << "  for #{item} in #{element.attr("with") || items}\n"
       code << build_elements(element.xpath('xmlns:variable')).gsub(/^/, '    ')
-      code << build_elements(element.xpath("xmlns:title")).gsub(/^/, '    ')
+      # code << build_element(element.xpath("xmlns:title")).gsub(/^/, '    ')
       code << build_attributes_hash(element.xpath("*[self::xmlns:attribute or self::xmlns:title]"), item, :var => "attrs").gsub(/^/, '    ')
       code << "    attrs[:class] = '#{item}'\n"
       code << "    xml.li(attrs) do\n"
+      if title = element.xpath('xmlns:title').first
+        code << "      xml.h2(" + 
+          (title.attr("value") || ("#{item}." + title.attr('name').to_s.gsub('-', '_'))) + 
+          ")\n"        
+      end
       code << build_elements(element).gsub(/^/, '      ')
       code << "    end\n"
       code << "  end\n"
@@ -51,10 +58,15 @@ module Aggeratio
       return code
     end
 
-    def build_hash(element)
+    def build_section(element)
       name = element.attr("name").to_s
       code = ""
-      code << "xml.#{name}() do\n"
+      code << "xml.section(:id => '#{name}') do\n"
+      if title = element.xpath('xmlns:title').first
+        code << "  xml.h1(" + 
+          (title.attr("value") || ("#{name}." + title.attr('name').to_s.gsub('-', '_'))) + 
+          ")\n"        
+      end
       code << build_elements(element).gsub(/^/, '  ')
       code << "end\n"
       return code
@@ -72,12 +84,20 @@ module Aggeratio
       items = element.attr("name").to_s
       item  = element.attr("for") || items.singularize
       code  = "xml.table(:class => '#{items}') do\n"
+      code << "  xml.thead do\n"
+      code << "    xml.tr do\n"
+      columns = element.xpath("xmlns:column[not(@level) or @level != 'api']")
+      for col in columns
+        code << "      xml.th(:#{col.attr('name').to_s.split('-').last}.tl)\n"
+      end
+      code << "    end\n"
+      code << "  end\n"
       code << "  xml.tbody do\n"
       code << "    for #{item} in #{element.attr("with") || items}\n"
       code << build_elements(element.xpath('xmlns:variable')).gsub(/^/, '      ')
       code << "      xml.tr(:class => '#{item}') do\n"
-      for col in element.xpath("xmlns:column")
-        value = col.attr("value") || ("#{object}." + col.attr('name').to_s.gsub('-', '_'))
+      for col in columns
+        value = col.attr("value") || ("#{item}." + col.attr('name').to_s.gsub('-', '_'))
         code << "        v = " + value + "\n"
         code << "        xml.td(v, :class => '#{col.attr('name')}')\n"
       end

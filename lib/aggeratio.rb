@@ -1,9 +1,9 @@
 module Aggeratio
 
-  autoload :Base,      'aggeratio/base'
-  autoload :Parameter, 'aggeratio/parameter'
-  autoload :XML,       'aggeratio/xml'
-  autoload :HTML,      'aggeratio/html'
+  autoload :Base,             'aggeratio/base'
+  autoload :Parameter,        'aggeratio/parameter'
+  autoload :XML,              'aggeratio/xml'
+  autoload :DocumentFragment, 'aggeratio/document_fragment'
   # autoload :JSON, 'aggeratio/json'
   # autoload :CSV,  'aggeratio/csv'
 
@@ -16,6 +16,15 @@ module Aggeratio
 
     def to_xml(options = {})
       raise NotImplementedError.new
+    end
+
+    def to_json(options = {})
+      raise NotImplementedError.new
+    end
+
+    def key
+      # raise NotImplementedError.new
+      return rand(1_000_000).to_s(36)
     end
 
   end
@@ -105,6 +114,10 @@ module Aggeratio
       code << "    '#{name}'\n"
       code << "  end\n"
 
+      code << "  def aggregator_name\n"
+      code << "    self.class.aggregator_name\n"
+      code << "  end\n"
+
       v = "params"
       code << "  def initialize(#{v} = {})\n"
       for p in parameters.values
@@ -150,13 +163,13 @@ module Aggeratio
       code << XML.new(element).build.gsub(/^/, '    ')
       code << "  end\n"
 
-      code << "  def to_html\n"
-      code << HTML.new(element).build.gsub(/^/, '    ')
+      code << "  def to_html_fragment\n"
+      code << DocumentFragment.new(element).build.gsub(/^/, '    ')
       code << "  end\n"
 
       code << "end\n"
 
-      # code.split(/\n/).each_with_index{|l,i| puts (i+1).to_s.rjust(4)+": "+l}
+      code.split(/\n/).each_with_index{|l,i| puts (i+1).to_s.rjust(4)+": "+l}
 
       class_eval(code)
 
