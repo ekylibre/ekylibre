@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-task :animals do
+task :animals => :environment do
 
       cow_vl     = ProductNature.import_from_nomenclature(:female_adult_cow).default_variant
       cow_trepro = ProductNature.import_from_nomenclature(:male_adult_cow).default_variant
@@ -84,7 +84,7 @@ task :animals do
           f.close
           # set default indicators
           animal.is_measured!(:sex, r.sex)
-          #animal.is_measured!(:reproductor, false)
+          animal.is_measured!(:reproductor, false)
           animal.is_measured!(:net_weight, 55.45.in_kilogram, :at => r.born_on.to_datetime)
           animal.is_measured!(:net_weight, 75.89.in_kilogram, :at => (r.born_on.to_datetime + 2.months))
           animal.is_measured!(:animal_disease_state, :healthy)
@@ -107,7 +107,7 @@ task :animals do
           f.close
           # set default indicators
           animal.is_measured!(:sex, r.sex)
-          #animal.is_measured!(:reproductor, false)
+          animal.is_measured!(:reproductor, false)
           animal.is_measured!(:net_weight, 55.45.in_kilogram, :at => r.born_on.to_datetime)
           animal.is_measured!(:net_weight, 75.89.in_kilogram, :at => (r.born_on.to_datetime + 2.months))
           animal.is_measured!(:net_weight, 89.56.in_kilogram, :at => (r.born_on.to_datetime + 4.months))
@@ -183,7 +183,7 @@ task :animals do
           f.close
           # set default indicators
           animal.is_measured!(:sex, r.sex)
-          #animal.is_measured!(:reproductor, false)
+          animal.is_measured!(:reproductor, false)
           animal.is_measured!(:net_weight, 55.45.in_kilogram, :at => r.born_on.to_datetime)
           animal.is_measured!(:net_weight, 75.89.in_kilogram, :at => (r.born_on.to_datetime + 2.months))
           animal.is_measured!(:net_weight, 89.56.in_kilogram, :at => (r.born_on.to_datetime + 4.months))
@@ -236,15 +236,54 @@ task :animals do
 
     end
   end
-  Ekylibre::fixturize :assign_animal_parent do |w|
-      # Assign parents
-      Animal.find_each do |animal|
-        animal.father = Animal.fathers.to_a.sample rescue nil
-        animal.mother = Animal.mothers.where("born_at <= ?", (animal.born_at - 24.months)).to_a.sample rescue nil
-        animal.save!
-        w.check_point
-      end
-  end
+  
 
+  Ekylibre::fixturize :assign_animal_parent_with_inventory do |w|
+
+      file = Rails.root.join("test", "fixtures", "files", "animals-synel17_inventory.csv")
+      CSV.foreach(file, :encoding => "CP1252", :col_sep => ",", :headers => true) do |row|
+        next if row[4].blank?
+        r = OpenStruct.new(:identification_number => row[3],
+                           :name => (row[4].blank? ? Faker::Name.first_name+"(MN)" : row[4].capitalize),
+                           :mother_identification_number => row[13],
+                           :mother_name => (row[14].blank? ? Faker::Name.first_name : row[14].capitalize),
+                           :father_identification_number => row[16],
+                           :father_name => (row[17].blank? ? Faker::Name.first_name : row[17].capitalize)
+                           )
+        # check if animal is present in DB
+        if animal = Animal.find_by_identification_number(r.identification_number)
+          # check if animal mother is present in DB or create it
+          if animal_mother = Animal.find_by_identification_number(r.mother_identification_number)
+            animal.mother = animal_mother
+          elsif not r.mother_identification_number.blank?
+            # case = VL
+            animal_mother = Animal.create!(:variant_id => cow_vl.id, :name => r.mother_name, :variety => "bos",
+                                    :identification_number => r.mother_identification_number, :work_number => r.mother_identification_number[-4..-1], :owner_id => Entity.of_company.id
+                                    )
+           
+            # set default indicators
+            animal_mother.is_measured!(:sex, :female)
+            animal_mother.is_measured!(:reproductor, true)
+            animal_mother.is_measured!(:animal_disease_state, :healthy)
+            animal_mother.is_measured!(:animal_disease_state, :sick, :at => (Time.now - 2.days))
+            animal_mother.is_measured!(:animal_disease_state, :healthy, :at => (Time.now - 3.days))
+            animal.mother = animal_mother
+          end
+          if animal_father = Animal.find_by_identification_number(r.father_identification_number)
+            animal.father = animal_father
+          elsif not r.father_identification_number.blank?
+            # case = TAUREAU REPRO
+            animal_father = Animal.create!(:variant_id => cow_trepro.id, :name => r.father_name, :variety => "bos", :identification_number => r.father_identification_number, :external => true, :owner_id => Entity.where(:of_company => false).all.sample.id)
+            # set default indicators
+            animal_father.is_measured!(:sex, :male)
+            animal_father.is_measured!(:reproductor, true)
+            animal.father = animal_father
+          end
+          animal.save!
+          w.check_point
+        end
+     end
+     
+  end
 
 end

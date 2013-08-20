@@ -151,7 +151,7 @@ module Aggeratio
       code << "  end\n"
 
       code << "  def to_html\n"
-      code << HTML::build(root).gsub(/^/, '    ')
+      #code << HTML::build(root).gsub(/^/, '    ')
       code << "  end\n"
 
       code << "end\n"
