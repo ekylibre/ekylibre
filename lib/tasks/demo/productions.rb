@@ -2,6 +2,7 @@
 demo :productions do
 
   Ekylibre::fixturize :milk_production_analysis_import do |w|
+
     #############################################################################
     # import Milk result to make automatic quality indicators
     # @TODO
@@ -55,6 +56,7 @@ demo :productions do
 
       w.check_point
     end
+
   end
 
   Ekylibre::fixturize :activities_import do |w|

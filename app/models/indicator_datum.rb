@@ -15,7 +15,7 @@ class IndicatorDatum < Ekylibre::Record::Base
   validates_presence_of :geometry_value, :if => :indicator_datatype_geometry?
   validates_presence_of :string_value,   :if => :indicator_datatype_string?
   validates_presence_of :measure_value,  :if => :indicator_datatype_measure?
-  validates_presence_of :boolean_value,  :if => :indicator_datatype_boolean?
+  validates_inclusion_of :boolean_value, :in => [true, false], :if => :indicator_datatype_boolean?
   validates_presence_of :choice_value,   :if => :indicator_datatype_choice?
   validates_presence_of :decimal_value,  :if => :indicator_datatype_decimal?
 
@@ -47,7 +47,7 @@ class IndicatorDatum < Ekylibre::Record::Base
       if datatype == :measure
         object = Measure.new(object)
       elsif datatype == :boolean
-        object = ["1", "ok", "t", "true", "y", "yes"].include?(object.strip.downcase)
+        object = ["1", "ok", "t", "true", "y", "yes"].include?(object.to_s.strip.downcase)
       elsif datatype == :decimal
         object = object.to_d
       end

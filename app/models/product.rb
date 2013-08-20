@@ -93,21 +93,17 @@ class Product < Ekylibre::Record::Base
   scope :members_of, lambda { |group, viewed_at| where("id IN (SELECT member_id FROM #{ProductMembership.table_name} WHERE group_id = ? AND ? BETWEEN COALESCE(started_at, ?) AND COALESCE(stopped_at, ?))", group.id, viewed_at, viewed_at, viewed_at)}
   # scope :saleables, -> { joins(:nature).where(:active => true, :product_natures => {:saleable => true}) }
   scope :indicate, lambda { |indicators, options = {}|
-    #measured_at = options[:at] || Time.now
+    measured_at = options[:at] || Time.now
     conditions = []
     # TODO Build conditions to filter on indicators
-    # for indicator, value in indicators
-    #   # current_indicator = value
-    #    first_db_indicator = ProductIndicatorDatum.find_by_indicator(indicator)
-    #    if first_db_indicator?
-    #      first_db_indicator.
-    #     else
+    for name, value in indicators
 
-    #    end
-    #   conditions << "( indicator = #{indicator} AND #{prefix}_value = #{value} )"
-    # end
+      conditions << " id IN (" + order(:id).indicator(name, :at => measured_at).where("#{Nomen::Indicators[name].datatype}_value" => value).pluck(:product_id).join(", ") + ")"
+    
+    end
     where(conditions.join(" AND "))
   }
+  
   scope :saleables, -> { where(true) }
   scope :production_supports,  -> { where(:variety =>["cultivable_land_parcel"]) }
 
@@ -277,6 +273,7 @@ class Product < Ekylibre::Record::Base
         x.define_singleton_method(:product_id) do
           product_id
         end
+        return x
       end
     end
     return nil

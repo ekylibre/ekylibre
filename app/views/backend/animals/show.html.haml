@@ -15,7 +15,7 @@
         %span.value=@animal.work_number
       .info
         %span.title=Animal.human_attribute_name(:sex)
-        %span.value=@animal.indicator(:sex).value
+        %span.value=@animal.sex
       -if @animal.born_at
         .info
           %span.title=Animal.human_attribute_name(:age)
@@ -43,10 +43,10 @@
           %span.value=link_to(@animal.father.name, {:action => :show, :id => @animal.father.id})
       .info
         %span.title=Animal.human_attribute_name(:current_net_weight)
-        %span.value=@animal.indicator(:net_weight).value
+        %span.value=@animal.net_weight
       .info
         %span.title=Animal.human_attribute_name(:current_animal_disease_state)
-        %span.value=@animal.indicator(:animal_disease_state).value
+        %span.value=@animal.animal_disease_state
     -b.cell :details do
       =attributes_list(@animal) do |l| # liste des champs à afficher
         -l.attribute :name
