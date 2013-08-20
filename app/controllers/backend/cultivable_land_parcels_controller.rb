@@ -18,7 +18,7 @@ class Backend::CultivableLandParcelsController < BackendController
     t.column :started_at
     t.column :stopped_at
   end
-  
+
   # content production on current cultivable land parcel
   list(:productions, :model => :production_supports, :conditions => ["storage_id = ? ",['session[:current_cultivable_land_parcel_id]']], :order => "started_at DESC") do |t|
     t.column :name, :through => :production, :url => true
@@ -26,7 +26,7 @@ class Backend::CultivableLandParcelsController < BackendController
     t.column :started_at
     t.column :stopped_at
   end
-  
+
 
   # Displays the main page with the list of cultivable_land_parcels.
   def index

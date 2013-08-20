@@ -99,11 +99,11 @@ class Product < Ekylibre::Record::Base
     for name, value in indicators
 
       conditions << " id IN (" + order(:id).indicator(name, :at => measured_at).where("#{Nomen::Indicators[name].datatype}_value" => value).pluck(:product_id).join(", ") + ")"
-    
+
     end
     where(conditions.join(" AND "))
   }
-  
+
   scope :saleables, -> { where(true) }
   scope :production_supports,  -> { where(:variety =>["cultivable_land_parcel"]) }
 

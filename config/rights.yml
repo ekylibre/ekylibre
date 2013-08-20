@@ -97,6 +97,8 @@
 # - "backend/cultivable_land_parcels#edit"
 # - "backend/cultivable_land_parcels#index"
 # - "backend/cultivable_land_parcels#list"
+# - "backend/cultivable_land_parcels#list_content_products"
+# - "backend/cultivable_land_parcels#list_productions"
 # - "backend/cultivable_land_parcels#new"
 # - "backend/cultivable_land_parcels#show"
 # - "backend/cultivable_land_parcels#update"

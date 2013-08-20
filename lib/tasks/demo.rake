@@ -25,14 +25,14 @@ module Ekylibre
     max = 1_000_000 if max.zero?
     f = Fixturize.new(max)
     start = Time.now
-    ActiveRecord::Base.transaction do
-      print "#{name.to_s.rjust(32)}: "
-      begin
-        yield(f)
-      rescue FixtureCountExceeded => e
-        print "! "
-      end
+    # ActiveRecord::Base.transaction do
+    print "#{name.to_s.rjust(32)}: "
+    begin
+      yield(f)
+    rescue FixtureCountExceeded => e
+      print "! "
     end
+    # end
     puts "#{(Time.now - start).round(2).to_s.rjust(8)}s"
   end
 
@@ -43,7 +43,7 @@ require 'pathname'
 
 # Build a task with a transaction
 def demo(name, &block)
-  task(name) do
+  task(name => :environment) do
     ActiveRecord::Base.transaction(&block)
   end
 end
