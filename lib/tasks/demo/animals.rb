@@ -225,7 +225,7 @@ demo :animals do
                          :tb => row[11].to_f
                          )
       # case = TAUREAU REPRO
-      animal = Animal.create!(:variant_id => cow_trepro.id, :name => r.name, :variety => "bos", :identification_number => r.identification_number, :external => true, :owner_id => Entity.where(:of_company => false).all.sample.id)
+      animal = Animal.create!(:variant_id => cow_trepro.id, :name => r.name, :variety => "bos", :identification_number => r.identification_number[-10..-1], :external => true, :owner_id => Entity.where(:of_company => false).all.sample.id)
       # set default indicators
       animal.is_measured!(:sex, :male)
       animal.is_measured!(:reproductor, true)
