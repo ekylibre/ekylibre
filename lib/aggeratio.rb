@@ -3,8 +3,8 @@ module Aggeratio
   autoload :Base,      'aggeratio/base'
   autoload :Parameter, 'aggeratio/parameter'
   autoload :XML,       'aggeratio/xml'
+  autoload :HTML,      'aggeratio/html'
   # autoload :JSON, 'aggeratio/json'
-  # autoload :HTML, 'aggeratio/html'
   # autoload :CSV,  'aggeratio/csv'
 
   # autoload :XSD,  'aggeratio/xsd'
@@ -143,7 +143,7 @@ module Aggeratio
       code << "  end\n"
 
       # code << "  def to_json\n"
-      # code << JSON::build(root).gsub(/^/, '    ')
+      # code << JSON.new(element).build.gsub(/^/, '    ')
       # code << "  end\n"
 
       code << "  def to_xml(options = {})\n"
@@ -151,7 +151,7 @@ module Aggeratio
       code << "  end\n"
 
       code << "  def to_html\n"
-      #code << HTML::build(root).gsub(/^/, '    ')
+      code << HTML.new(element).build.gsub(/^/, '    ')
       code << "  end\n"
 
       code << "end\n"

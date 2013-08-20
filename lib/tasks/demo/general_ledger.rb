@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-task :general_ledger do
+demo :general_ledger do
 
   Ekylibre::fixturize :general_ledger do |w|
     #############################################################################
