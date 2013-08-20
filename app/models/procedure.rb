@@ -36,7 +36,7 @@
 #  updater_id               :integer
 #
 class Procedure < Ekylibre::Record::Base
-  attr_accessible :nomen, :production_id, :natures, :provisional_procedure_id, :provisional, :prescription_id, :incident_id
+  attr_accessible :nomen, :production_id, :state, :natures, :provisional_procedure_id, :provisional, :prescription_id, :incident_id
   attr_readonly :nomen, :production_id
   belongs_to :production
   belongs_to :incident

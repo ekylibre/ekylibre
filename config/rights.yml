@@ -269,6 +269,8 @@
 # - "backend/procedures#index"
 # - "backend/procedures#jump"
 # - "backend/procedures#list"
+# - "backend/procedures#list_operations"
+# - "backend/procedures#list_variables"
 # - "backend/procedures#new"
 # - "backend/procedures#play"
 # - "backend/procedures#show"

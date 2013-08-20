@@ -47,13 +47,14 @@ class Backend::ProductionsController < BackendController
   # List supports for one production
   list(:support, :model => :production_supports, :conditions => [" production_id = ? ",['session[:current_production_id]']], :order => "created_at DESC") do |t|
     t.column :name, :through => :storage, :url => true
+    t.column :shape_area, :through => :storage
     t.column :created_at
   end
 
   # List procedures for one production
   list(:procedure, :model => :procedures, :conditions => [" production_id = ? ",['session[:current_production_id]']], :order => "created_at DESC") do |t|
     #t.column :name
-    t.column :nomen
+    t.column :nomen, :url => true
     t.column :state
     t.column :name, :through => :incident, :url => true
     t.column :started_at

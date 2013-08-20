@@ -1,7 +1,7 @@
 =field_set do # partie info general de l entité animal
   =f.referenced_association :activity, :source => :main_activity
   =f.referenced_association :campaign
-  =f.referenced_association :product_nature, :source => :producibles
+  =f.referenced_association :product_nature
   =f.input :static_support, :show => :supports
   =f.input :state
   =f.input :started_at

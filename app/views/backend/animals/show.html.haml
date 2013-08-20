@@ -13,6 +13,9 @@
       .info
         %span.title=Animal.human_attribute_name(:work_number)
         %span.value=@animal.work_number
+      .info
+        %span.title=Animal.human_attribute_name(:sex)
+        %span.value=@animal.indicator(:sex).value
       -if @animal.born_at
         .info
           %span.title=Animal.human_attribute_name(:age)
@@ -38,7 +41,12 @@
         .info
           %span.title=Animal.human_attribute_name(:father)
           %span.value=link_to(@animal.father.name, {:action => :show, :id => @animal.father.id})
-
+      .info
+        %span.title=Animal.human_attribute_name(:current_net_weight)
+        %span.value=@animal.indicator(:net_weight).value
+      .info
+        %span.title=Animal.human_attribute_name(:current_animal_disease_state)
+        %span.value=@animal.indicator(:animal_disease_state).value
     -b.cell :details do
       =attributes_list(@animal) do |l| # liste des champs à afficher
         -l.attribute :name
@@ -46,12 +54,11 @@
         -#l.attribute :group, :url => true # on affiche l'attribut name de l'entité ProductGroup associé par l'attribut group de l'entité courante Product avec un lien vers ce groupe
         -l.attribute :born_at
         -l.attribute :dead_at
-        -l.attribute :sex
+        -#l.attribute :sex.value, :through => :indicator_data
         -l.attribute :mother, :url => true
         -l.attribute :father, :url => true
         -l.attribute :identification_number
         -l.attribute :description
-
 
 
   -b.tabbox do

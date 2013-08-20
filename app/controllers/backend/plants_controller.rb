@@ -36,6 +36,8 @@ class Backend::PlantsController < BackendController
   list(:place, :model => :product_localizations, :conditions => [" product_id = ? ",['session[:current_plant_id]']], :order => "started_at DESC") do |t|
     t.column :name, :through => :container, :url => true
     t.column :nature
+    t.column :started_at
+    t.column :stopped_at
   end
 
   # Liste des indicateurs de la plante considérée

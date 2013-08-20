@@ -52,8 +52,8 @@ class ProcedureVariable < Ekylibre::Record::Base
     where("role = ?", role.to_s)
   }
 
-  def name
-    self.procedure.reference.hash[self.procedure.uid].variables[self.nomen].human_name
-  end
+  #def name
+   # self.procedure.reference.hash[self.procedure.uid].variables[self.nomen].human_name
+  #end
 
 end

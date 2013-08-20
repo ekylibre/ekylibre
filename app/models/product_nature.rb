@@ -63,7 +63,7 @@ class ProductNature < Ekylibre::Record::Base
   belongs_to :stock_account, :class_name => "Account"
   belongs_to :subscription_nature
   # has_many :available_stocks, :class_name => "ProductStock", :conditions => ["quantity > 0"], :foreign_key => :product_id
-  has_many :prices, :foreign_key => :product_nature_id, :class_name => "ProductPriceTemplate"
+  #has_many :prices, :foreign_key => :product_nature_id, :class_name => "ProductPriceTemplate"
   has_many :subscriptions, :foreign_key => :product_nature_id
   has_many :products, :foreign_key => :nature_id
   has_many :variants, :class_name => "ProductNatureVariant", :foreign_key => :nature_id, :inverse_of => :nature

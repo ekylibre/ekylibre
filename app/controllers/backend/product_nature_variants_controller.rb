@@ -13,7 +13,7 @@ class Backend::ProductNatureVariantsController < BackendController
   end
 
   list(:prices, :model => :product_prices, :conditions => ["variant_id = ? ",['session[:current_product_nature_variant_id]']], :order => "started_at DESC") do |t|
-    t.column :pretax_amount
+    t.column :pretax_amount, :url => true
     t.column :started_at
     t.column :stopped_at
     t.column :name, :through => :supplier, :url => true
@@ -24,6 +24,9 @@ class Backend::ProductNatureVariantsController < BackendController
     t.column :name, :url => true
     t.column :identification_number
     t.column :born_at
+    t.column :net_weight
+    t.column :net_volume
+    t.column :population
   end
 
   # Displays the main page with the list of product_nature_variants.

@@ -14,17 +14,6 @@
       -# l.attribute :stockable
 
   -b.tabbox do
-    -b.cell ProductNature.human_attribute_name(:prices) do
-      =toolbar do |t|
-        -t.new_sales_price(:params => {:controller => :product_price_templates, :action => :new, :mode => :sales, :product_id => session[:product_id]}) if @product_nature.saleable?
-        -t.new_purchase_price(:params => {:controller => :product_price_templates, :action => :new, :mode => :purchases, :product_id => session[:product_id]}) if @product_nature.purchasable?
-      =list :price_templates
-
-    -#b.cell :components do
-      =toolbar do |t|
-        -t.new :controller => :product_components, :product_nature_id => @product_nature.id
-      =list :components
-
     -#b.cell :stocks do
       =toolbar do |t|
         -t.new :controller => :stocks, :product_nature_id => @product_nature.id
