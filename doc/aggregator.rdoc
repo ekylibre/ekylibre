@@ -7,18 +7,24 @@ Rules:
 
   * Attributes and sub-items must have different names!
 
+== Markup
 
-== Aggregator XML
+
+== Sample
+
+These following codes compose the Rosetta Stone to unciffer the Aggregator XML.
+
+=== Aggregator XML
 
   <?xml version="1.0" encoding="UTF-8"?>
   <aggregators>
     <aggregator name="veterinary_booklet">
       <parameters>
-        <parameter name="campaigns" type="list"/>
-        <parameter name="company" type="entity_of_company"/>
+        <parameter name="campaigns" type="record-list"/>
+        <parameter name="company" type="record"/>
         <parameter name="breeding_number" type="string"/>
       </parameters>
-      <list name="interventions" with="procedures">
+      <collection name="interventions" with="procedures">
         <title name="name"/>
         <attribute name="id" level="api"/>
         <table name="inputs" with="intervention.variables.of_role(:input)">
@@ -27,7 +33,7 @@ Rules:
           <column name="indicator" level="api"/>
           <column name="indicator_label" value="input.indicator.text" if="input.indicator != 'net_surface_area'"/>
         </table>
-      </list>
+      </collection>
     </aggregator>
   </aggregators>
 
