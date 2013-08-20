@@ -150,9 +150,9 @@ module Aggeratio
       code << XML.new(element).build.gsub(/^/, '    ')
       code << "  end\n"
 
-      # code << "  def to_html\n"
-      # code << HTML::build(root).gsub(/^/, '    ')
-      # code << "  end\n"
+      code << "  def to_html\n"
+      code << HTML::build(root).gsub(/^/, '    ')
+      code << "  end\n"
 
       code << "end\n"
 
