@@ -14,23 +14,23 @@
 /log/*.log
 /tmp
 
-/*~
-/*/*~
-/*/*/*~
-/*/*/*/*~
-/*/*/*/*/*~
-/*/*/*/*/*/*~
-/*/*/*/*/*/*/*~
-/*/*/*/*/*/*/*/*~
+# Ignore generated doc
+/doc/app
 
+# Ignore backup files
+*~
+
+# Ignore jasper files
 config/locales/*/prints/*.jrxml
 config/locales/*/prints/*.pdf
 
 # Ignore private files
 /private/**/*
+
+# Ignore local database config
 /config/database.yml
-/*~
-/**/*~
+
+# Ignore installer useless files
 installer/debian/debian/ekylibre.debhelper.log
 installer/debian/debian/ekylibre.substvars
 installer/debian/debian/ekylibre

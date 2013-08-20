@@ -29,5 +29,23 @@ module Aggeratio
       return code
     end
 
+    def normalize_name(name)
+      name = name.attr('name') unless name.is_a?(String)
+      name.to_s.strip.gsub('_', '-')
+    end
+
+    def value_of(element)
+      value = (element.has_attribute?("value") ? element.attr("value") : element.has_attribute?("name") ? element.attr("name") : "inspect")
+      value = element.attr("of") + "." + value if element.has_attribute?("of")
+      return value
+    end
+
+    def human_name_of(element)
+      name = element.attr('value').to_s.downcase # unless name.is_a?(String)
+      name = element.attr('name') unless name.match(/^\w+$/)
+      name = name.to_s.strip.gsub('-', '_')
+      return "'labels.#{name}'.t(:default => [:'attributes.#{name}', '#{name.to_s.humanize}'])"
+    end
+
   end
 end

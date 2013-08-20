@@ -1015,8 +1015,6 @@
       <item name="activities">
         <page to="backend/activities#list_production"/>
       </item>
-      <item name="aggregators">
-      </item>
       <item name="animals">
         <page to="backend/animals#list_incident"/>
       </item>

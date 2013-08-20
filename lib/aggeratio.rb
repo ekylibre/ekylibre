@@ -24,6 +24,7 @@ module Aggeratio
 
     def key
       # raise NotImplementedError.new
+      Rails.logger.warn("Aggregator #{aggregator_name} should have its own :key method")
       return rand(1_000_000).to_s(36)
     end
 
@@ -75,22 +76,26 @@ module Aggeratio
     def build(element)
       # Merge <within>s
       for within in element.xpath('//xmlns:within')
-        name_prefix  = (within.has_attribute?('name')  ? within.attr('name').to_s  + '-' : nil)
-        value_prefix = (within.has_attribute?('value') ? within.attr('value').to_s + '.' : name_prefix ? within.attr('name').to_s  + '.' : nil)
+        name, of = within.attr('name'), within.attr('of')
+        of ||= name
         for child in within.children
-          if value_prefix
-            child["value"] = value_prefix + (child.attr("value") || child.attr("name")).to_s
+          unless child.has_attribute?("value")
+            child["value"] = child.attr("name").to_s
           end
-          if name_prefix
-            child["name"] = name_prefix + child.attr("name").to_s
+          if child.has_attribute?("of")
+            child["of"] = of + "." + child.attr("of").to_s
+          else
+            child["of"] = of
           end
-          # child.parent = within.parent
+          if name
+            child["name"] = (child.has_attribute?("name") ? name + "-" + child.attr("name").to_s : name)
+          end
           within.add_previous_sibling(child)
         end
         within.remove
       end
 
-      # element.to_xml.split(/\n/).each_with_index{|l,i| puts (i+1).to_s.rjust(4)+": "+l}
+      element.to_xml.split(/\n/).each_with_index{|l,i| puts (i+1).to_s.rjust(4)+": "+l}
 
       # Codes!
 

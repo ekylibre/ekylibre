@@ -11,33 +11,51 @@ Rules:
 
 These lines describes the major attributes to define the aggregation model:
 
-  <root>: 
+Standard markup:
+
+  aggregators:
+    aggregator*
+
+  aggregator(name):
+    parameters?
     (section|sections|matrix)
 
+  parameters:
+    parameter(name, type, of?, default?)
+
+Main markup:
+
   section(name, value?, level?, if?):
+    variable*
     title?
     property*
     section*
     sections*
     matrix*
   
-  sections(name?, with, level?, if?): # Describe item structure like a section
+  sections(for?, in, name?, level?, if?): # Describe item structure like a section
+    variable*
     title?
     property*
     section*
     sections*
     matrix*
 
-  matrix(name, with, level?, if?):
+  matrix(name?, for?, in?, level?, if?):
+    variable*
     (cell|matrix)+
 
-  title(name, value?, level?, if?):
-
-  property(name, value?, level?, if?):
-    
-  cell(name, value?, level?, if?):
+  [title|property|cell](name, value?, of?, level?, if?):
  
 Special markup <within> permits to set default name or value for a group of <title>, <property> or <cell>.
+
+  within(name?, value?, of?, if?, level?):
+
+  variable(name, value, if?):
+
+
+ 
+  
 
 == Sample
 

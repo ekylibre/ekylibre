@@ -2050,3 +2050,42 @@ svg.map {
   color: white;
   white-space: nowrap;
 }
+
+.aggregator {
+  background: white;
+  padding: $default-gap;
+  section {
+    padding: $default-gap;
+    margin-top: $default-gap;
+    border: 1px solid #EEE;
+    @include border-radius($default-border-radius);
+    h1 {
+      font-weight: bold;
+      font-size: $fs-large;
+      line-height: 1.4em;
+    }
+  }
+  dl {
+    @include clearfix;
+    * {
+      line-height: 1.4em;
+      @include margin-right($default-gap);
+      @include float(left);
+    }
+    dt {
+
+      font-weight: bold;
+    }
+  }
+  table.matrix {
+    border-collapse: collapse;
+    margin-top: $default-gap;
+    td, th {
+      padding: 0;
+      border: 1px solid #AAA;
+    }
+    th {
+      @include background-image(linear-gradient(lighten($menu-background, $default-lightness-variation), $menu-background, darken($menu-background, $default-lightness-variation)));
+    }
+  }
+}
