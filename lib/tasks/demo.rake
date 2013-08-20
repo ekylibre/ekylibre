@@ -41,6 +41,13 @@ end
 require 'ostruct'
 require 'pathname'
 
+# Build a task with a transaction
+def demo(name, &block)
+  task(name) do
+    ActiveRecord::Base.transaction(&block)
+  end
+end
+
 namespace :db do
   task :demo => :demo
 end
@@ -54,7 +61,6 @@ end
 
 desc "Create demo data -- also available " + Ekylibre::DEMOS.collect{|c| "demo:#{c}"}.join(", ")
 task :demo => :environment do
-  # Ekylibre::fixturize(:demo) do |w|
   ActiveRecord::Base.transaction do
     for demo in Ekylibre::DEMOS
       Rake::Task["demo:#{demo}"].invoke
