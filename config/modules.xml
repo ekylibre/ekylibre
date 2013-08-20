@@ -1077,6 +1077,10 @@
       <item name="rss_cells">
         <page to="backend/cells/rss_cells#show"/>
       </item>
+      <item name="cultivable_land_parcels">
+        <page to="backend/cultivable_land_parcels#list_content_products"/>
+        <page to="backend/cultivable_land_parcels#list_productions"/>
+      </item>
       <item name="dashboards">
         <page to="backend/dashboards#index"/>
         <page to="backend/dashboards#accountancy"/>

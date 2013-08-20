@@ -150,7 +150,7 @@ class SaleTest < ActiveSupport::TestCase
         assert_equal "invoice", @sale.state
         assert_equal Date.today, @sale.invoiced_on
       end
-      
+
       # @TODO test have to be modify in order to work when updating model was finished
       #should "not be updateable" do
        # amount = @sale.amount
