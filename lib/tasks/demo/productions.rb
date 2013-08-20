@@ -19,7 +19,7 @@ demo :productions do
       "POS" => "positive"
     }
 
-    file = Rails.root.join("test", "fixtures", "files", "HistoIP_V.csv")
+    file = Rails.root.join("test", "fixtures", "files", "HistoIP_V_1997_2013.csv")
     CSV.foreach(file, :encoding => "CP1252", :col_sep => "\t", :headers => true) do |row|
       analysis_on = Date.civil(row[0].to_i, row[1].to_i, 1)
       r = OpenStruct.new(:analysis_year => row[0],

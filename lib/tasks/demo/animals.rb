@@ -178,7 +178,7 @@ demo :animals do
         # case = TAURILLON
       elsif r.born_on > (Date.today - 10.years) and r.born_on < (Date.today - 3.months) and r.sex == :male
         f = File.open(photo_taur)
-        animal = Animal.create!(:variant_id => cow_vl.id, :name => r.name, :variety => "bos",
+        animal = Animal.create!(:variant_id => cow_taur.id, :name => r.name, :variety => "bos",
                                 :identification_number => r.identification_number, :work_number => r.work_number,
                                 :born_at => r.born_on, :dead_at => r.departed_on,
                                 :picture => f, :owner_id => Entity.of_company.id
@@ -239,15 +239,6 @@ demo :animals do
     end
   end
 
-  Ekylibre::fixturize :assign_animal_parent do |w|
-    # Assign parents
-    Animal.find_each do |animal|
-      animal.father = Animal.fathers.to_a.sample rescue nil
-      animal.mother = Animal.mothers.where("born_at <= ?", (animal.born_at - 24.months)).to_a.sample rescue nil
-      animal.save!
-      w.check_point
-    end
-  end
 
   Ekylibre::fixturize :assign_animal_parent_with_inventory do |w|
 
@@ -266,7 +257,8 @@ demo :animals do
         # check if animal mother is present in DB or create it
         if animal_mother = Animal.find_by_identification_number(r.mother_identification_number)
           animal.mother = animal_mother
-        elsif not r.mother_identification_number.blank?
+        else
+          unless r.mother_identification_number.blank?
           # case = VL
           animal_mother = Animal.create!(:variant_id => cow_vl.id, :name => r.mother_name, :variety => "bos",
                                          :identification_number => r.mother_identification_number, :work_number => r.mother_identification_number[-4..-1], :owner_id => Entity.of_company.id
@@ -279,16 +271,19 @@ demo :animals do
           animal_mother.is_measured!(:animal_disease_state, :sick, :at => (Time.now - 2.days))
           animal_mother.is_measured!(:animal_disease_state, :healthy, :at => (Time.now - 3.days))
           animal.mother = animal_mother
+          end
         end
         if animal_father = Animal.find_by_identification_number(r.father_identification_number)
           animal.father = animal_father
-        elsif not r.father_identification_number.blank?
+        else
+          unless r.father_identification_number.blank?
           # case = TAUREAU REPRO
           animal_father = Animal.create!(:variant_id => cow_trepro.id, :name => r.father_name, :variety => "bos", :identification_number => r.father_identification_number, :external => true, :owner_id => Entity.where(:of_company => false).all.sample.id)
           # set default indicators
           animal_father.is_measured!(:sex, :male)
           animal_father.is_measured!(:reproductor, true)
           animal.father = animal_father
+          end
         end
         animal.save!
         w.check_point
