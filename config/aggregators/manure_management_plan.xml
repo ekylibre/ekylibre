@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aggregators xmlns="http://www.ekylibre.org/XML/2013/aggregators">
+  <aggregator name="manure_management_plan" version="0.0">
+    <parameters>
+      <parameter name="campaigns" type="record-list" of="campaign" default="currents"/>
+    </parameters>
+    <section name="campaigns">
+      <variable name="company" value="Entity.of_company"/>
+      <property name="entity_name" value="company.full_name"/>
+      <property name="address" value="company.default_mail_address.coordinate"/>
+      <sections for="campaign" in="campaigns">
+        <property name="id" of="campaign" level="api"/>
+        <title name="name" of="campaign"/>
+        <sections for="cultivable_land_parcel" in="CultivableLandParcel.all">
+          <title name="name" of="cultivable_land_parcel"/>
+          <property name="work_number" of="cultivable_land_parcel"/>
+          <property name="id" of="cultivable_land_parcel" level="api"/>
+          <property name="shape_path" of="cultivable_land_parcel" level="api"/>
+          <sections for="production" in="cultivable_land_parcel.productions.of_campaign(campaign)">
+            <title name="name" of="production"/>
+            <sections for="intervention" in="production.procedures.real.of_nature(:soil_enrichment).with_variable(:target, cultivable_land_parcel)">
+              <variable name="target" value="intervention.variables.of_role(:target).first.target"/>
+              <variable name="worker" value="intervention.variables.of_role(:worker).first.target"/>
+              <title name="name" of="intervention"/>
+              <property name="id" of="intervention" level="api"/>
+              <property name="started_at" of="intervention"/>
+              <property name="stopped_at" of="intervention"/>
+              <property name="duration" value="((intervention.stopped_at - intervention.started_at).to_d/(60*60*24)).round(2)"/>
+              <within name="target">
+                <property name="identification_number"/>
+                <property name="name"/>
+                <property name="id" level="api"/>
+                <property name="type" level="api"/>
+                <property name="url" value="id"  level="api"/>
+              </within>
+              <within name="worker">
+                <property name="identification_number"/>
+                <property name="name"/>
+                <property name="id" level="api"/>
+                <property name="person_id" level="api"/>
+              </within>
+              <within name="incident" of="intervention.incident">
+                <property name="id" level="api"/>
+                <property name="name"/>
+                <property name="observed_at"/>
+                <property name="state" level="api"/>
+                <property name="description"/>
+              </within> 
+              <matrix name="inputs" for="input" in="intervention.variables.of_role(:input)">
+                <cell name="id" of="input" level="api"/>
+                <within of="input.target">
+                  <cell name="name"/>
+                  <cell name="nature_name"/>
+                  <cell name="variety" level="api"/>
+                </within>
+                <cell name="measure_quantity" of="input"/>
+                <cell name="measure_unit" of="input"/>
+              </matrix>
+            </sections>
+          </sections>
+        </sections>
+      </sections>
+    </section>
+  </aggregator>
+</aggregators>
