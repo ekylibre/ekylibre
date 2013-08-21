@@ -43,12 +43,12 @@
 	  <cell name="measure_quantity" of="input"/>
 	  <cell name="measure_unit" of="input"/>
 	  <matrix name="withdrawal_periods">
-	    <cell name="meat" value="meat_withdrawal_period"/>
-	    <cell name="milk" value="milk_withdrawal_period"/>
+	    <cell name="meat_withdrawal_period" value="meat_withdrawal_period"/>
+	    <cell name="milk_withdrawal_period" value="milk_withdrawal_period"/>
 	  </matrix>
 	  <matrix name="sale_dates">
-	    <cell name="meat" value="(intervention.stopped_at + meat_withdrawal_period).to_date"/>
-	    <cell name="milk" value="(intervention.stopped_at + milk_withdrawal_period).to_date"/>
+	    <cell name="meat_saleable_on" value="(intervention.stopped_at + meat_withdrawal_period).to_date"/>
+	    <cell name="milk_saleable_on" value="(intervention.stopped_at + milk_withdrawal_period).to_date"/>
 	  </matrix>
 	  <within name="incident" of="intervention.incident">
 	    <cell name="id" level="api"/>

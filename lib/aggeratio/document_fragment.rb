@@ -106,7 +106,7 @@ module Aggeratio
             ccode << "xml.th(#{human_name_of(col)}, :class => '#{normalize_name(col)}')\n"
           elsif col.name == "matrix"
             ccode << "xml.th(:class => '#{normalize_name(col)}') do\n"
-            ccode << "  xml.em(#{human_name_of(col)})\n"
+            # ccode << "  xml.em(#{human_name_of(col)})\n"
             ccode << build_matrix(col, :head, !vertical).strip.gsub(/^/, '  ') + "\n"
             ccode << "end\n"
           end
