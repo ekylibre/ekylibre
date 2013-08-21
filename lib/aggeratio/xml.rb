@@ -57,9 +57,10 @@ module Aggeratio
     def build_section(element)
       name = element.attr("name").to_s
       code = ""
+      code << build_elements(element.xpath("xmlns:variable"))
       code << build_properties_hash(element.xpath("*[self::xmlns:property or self::xmlns:title]"), :var => "attrs")
       code << "xml.send('#{normalize_name(name)}', attrs) do\n"
-      code << build_children_of(element).gsub(/^/, '  ')
+      code << build_elements(element.xpath("*[not(self::xmlns:variable)]")).gsub(/^/, '  ')
       code << "end\n"
       return code
     end

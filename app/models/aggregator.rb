@@ -1,5 +1,0 @@
-class Aggregator
-
-
-
-end

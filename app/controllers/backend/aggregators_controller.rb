@@ -3,6 +3,11 @@ class Backend::AggregatorsController < BackendController
 
   respond_to :pdf, :odt, :ods, :docx, :xlsx, :xml, :json, :html, :csv
 
+
+  def index
+  end
+
+
   def show
     unless klass = Aggeratio[params[:id]]
       head :not_found
