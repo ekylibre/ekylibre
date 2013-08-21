@@ -40,13 +40,14 @@
 class Activity < Ekylibre::Record::Base
   attr_accessible :started_at, :stopped_at, :nature, :description, :family, :name, :parent_id, :productions_attributes
   enumerize :nature, :in => [:main, :auxiliary, :none], :default => :main
-  enumerize :family, :in => [:vegetal, :perenne_vegetal, :animal, :processing, :service, :none]
+  enumerize :family, :in => Nomen::ActivityFamilies.all
   has_many :productions
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :depth, :lft, :rgt, :allow_nil => true, :only_integer => true
   validates_length_of :description, :family, :name, :nature, :allow_nil => true, :maximum => 255
   validates_presence_of :family, :name, :nature
   #]VALIDATORS]
+  validates_inclusion_of :family, :in => self.family.values, :allow_nil => true
 
   default_scope -> { where("stopped_at IS NULL OR stopped_at > ?", Time.now).order(:name) }
   scope :main_activity, -> { where(:nature => "main").order(:name) }
