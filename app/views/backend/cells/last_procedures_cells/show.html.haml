@@ -1,13 +1,16 @@
-.picture
-  %svg{:xmlns => "http://www.w3.org/2000/svg", :version => "1.1", :class => :map, :viewBox => @container.view_box.join(" "), :preserveAspectRatio => "xMidYMid meet", :width => "100", :height => "100"}
-    %path{:d => @container.shape_svg_path}
-  %p= "Lieu : "+@container.name
+- if @container.is_a?(CultivableLandParcel)
+  .picture-block
+    = @container.shape_svg(:width => 160, :height => 160)
+    %p= @container.name
 .info
-  %span.title=Procedure.human_attribute_name(:nomen)
+  %span.title= Procedure.human_attribute_name(:name)
+  %span.value= @procedure.name
 .info
-  %span.value="Epandage de fumier"
+  %span.title= Procedure.human_attribute_name(:variables_names)
+  %span.value= @procedure.variables_names
 .info
-  %span.value="02/07/2013 08:45"
+  %span.title= Procedure.human_attribute_name(:started_at)
+  %span.value= @procedure.started_at.l
 .info
-  %span.title=Procedure.human_attribute_name(:state)
-  %span.value="Fait"
+  %span.title= Procedure.human_attribute_name(:state)
+  %span.value= @procedure.state.text
