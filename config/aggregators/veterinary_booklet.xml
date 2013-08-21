@@ -4,13 +4,13 @@
     <parameters>
       <parameter name="campaigns" type="record-list" of="campaign" default="currents"/>
       <parameter name="company" type="record" of="entity" default="of_company"/>
-      <parameter name="breeding_number" type="string" default="XXXXXXXX"/>
+      <parameter name="breeding_number" type="record" of="preference" default="get('services.synel17.login')"/>
     </parameters>
     <section name="interventions">
       <property name="campaign" value="campaigns.pluck(:name).to_sentence"/>
       <property name="entity_name" value="company.full_name"/>
       <property name="address" value="company.default_mail_address.coordinate"/>
-      <property name="breeding_number"/>
+      <property name="breeding_number" value="breeding_number.value" />
       <sections for="intervention" in="Procedure.of_nature(:animal_care)">
 	<variable name="target" value="intervention.variables.of_role(:target).first.target"/>
 	<variable name="worker" value="intervention.variables.of_role(:worker).first.target"/>
