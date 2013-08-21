@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
+
+  <nomenclature name="activity_families" hierarchical="true">
+    <items>
+      <item name="exploitation"/>
+      <item name="vegetal_crops"/>
+      <item name="animal_farming"/>
+      <item name="handicraft"/>
+      <item name="service"/>
+    </items>
+  </nomenclature>
+
+  <nomenclature name="activity_families-exploitation">
+    <items>
+      <item name="accountancy"/>
+      <item name="sales"/>
+      <item name="purchases"/>
+      <item name="stocks"/>
+    </items>
+  </nomenclature>
+
+  <nomenclature name="activity_families-vegetal_crops">
+    <items>
+      <item name="straw_cereal_crops"/>
+      <item name="maize_crops"/>
+      <item name="oilseed_crops"/>
+      <item name="protein_crops"/>
+      <item name="potato_crops"/>
+      <item name="beet_crops"/>
+      <item name="aromatic_and_medicinal_plants"/>
+      <item name="vine_wine"/>
+      <item name="prairie"/>
+    </items>
+  </nomenclature>
+
+  <nomenclature name="activity_families-animal_farming">
+    <items>
+      <item name="cattle_farming"/>
+      <item name="sheep_farming"/>
+      <item name="goat_farming"/>
+      <item name="pig_farming"/>
+      <item name="poultry_farming"/>
+      <item name="palmiped_farming"/>
+      <item name="rabbit_farming"/>
+      <item name="fish_farming"/>
+      <item name="beekeeping"/>
+    </items>      
+  </nomenclature>
+
+</nomenclatures>

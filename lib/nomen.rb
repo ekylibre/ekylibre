@@ -297,7 +297,7 @@ module Nomen
       sets = HashWithIndifferentAccess.new
 
       # Inventory nomenclatures and sub-nomenclatures
-      for path in Dir.glob(root.join("*.xml")).sort
+      for path in Dir.glob(root.join("**", "*.xml")).sort
         f = File.open(path, "rb")
         document = Nokogiri::XML(f) do |config|
           config.strict.nonet.noblanks.noent

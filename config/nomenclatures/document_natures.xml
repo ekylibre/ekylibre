@@ -2,39 +2,38 @@
 <nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
   <nomenclature name="document_natures">
     <attributes>
-      <attribute name="production_natures" type="list" nomenclature="production_natures"/>
-      <attribute name="management_aspects" type="list" nomenclature="management_aspects"/>
+      <attribute name="category" type="list" nomenclature="document_categories"/>
     </attributes>
     <items>
-      <item name="sales_order" management_aspects="sales"/>
-      <item name="sales_estimate" management_aspects="sales"/>
-      <item name="sales_invoice" management_aspects="sales"/>
-      <item name="purchase_order" management_aspects="purchases"/>
-      <item name="purchase_estimate" management_aspects="purchases"/>
-      <item name="purchase_invoice" management_aspects="purchases"/>
+      <item name="sales_order" category="exploitation"/>
+      <item name="sales_estimate" category="exploitation"/>
+      <item name="sales_invoice" category="exploitation"/>
+      <item name="purchase_order" category="exploitation"/>
+      <item name="purchase_estimate" category="exploitation"/>
+      <item name="purchase_invoice" category="exploitation"/>
 
-      <item name="deposit" management_aspects="finances"/>
+      <item name="deposit" category="exploitation"/>
 
-      <item name="balance_sheet" management_aspects="accountancy"/>
-      <item name="income_statement" management_aspects="accountancy"/>
-      <item name="journal" management_aspects="accountancy"/>
-      <item name="general_journal" management_aspects="accountancy"/>
-      <item name="general_ledger" management_aspects="accountancy"/>
-      <item name="trial_balance" management_aspects="accountancy"/>
+      <item name="balance_sheet" category="exploitation"/>
+      <item name="income_statement" category="exploitation"/>
+      <item name="journal" category="exploitation"/>
+      <item name="general_journal" category="exploitation"/>
+      <item name="general_ledger" category="exploitation"/>
+      <item name="trial_balance" category="exploitation"/>
 
-      <item name="inventory" management_aspects="stocks"/>
-      <item name="stocks" management_aspects="stocks"/>
-      <item name="incoming_delivery_docket" management_aspects="stocks, identification"/>
-      <item name="outgoing_delivery_docket" management_aspects="stocks, identification"/>
-      <item name="outgoing_delivery_journal" management_aspects="stocks, identification"/>
+      <item name="inventory" category="exploitation"/>
+      <item name="stocks" category="exploitation"/>
+      <item name="incoming_delivery_docket" category="exploitation"/>
+      <item name="outgoing_delivery_docket" category="exploitation"/>
+      <item name="outgoing_delivery_journal" category="exploitation"/>
 
-      <item name="animal_sheet" management_aspects="production" production_natures="animal_farming"/>
-      <item name="animal_list" management_aspects="production" production_natures="animal_farming"/>
-      <item name="prescription" management_aspects="health" production_natures="sanitary"/>
-      <item name="veterinary_booklet" management_aspects="health" production_natures="sanitary"/>
-      <item name="land_parcel_fertilization_list" management_aspects="production" production_natures="land_parcel_management"/>
+      <item name="animal_sheet" category="animal_farming"/>
+      <item name="animal_list" category="animal_farming"/>
+      <item name="prescription" category="sanitary"/>
+      <item name="veterinary_booklet" category="sanitary"/>
+      <item name="land_parcel_fertilization_list" category="land_parcel_management"/>
             
-      <item name="entity_sheet" management_aspects="relationship"/>
+      <item name="entity_sheet" category="exploitation"/>
     </items>
   </nomenclature>
 </nomenclatures>
