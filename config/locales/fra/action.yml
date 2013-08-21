@@ -768,7 +768,6 @@ fra:
         one: "%{count} erreur a empêché l’enregistrement (%{model})"
         other: "%{count} erreurs ont empêché l’enregistrement (%{model})"
   labels:
-    section_x: "%{section} %{x}"
     abilities: "Compétences"
     account_accruals: "Comptes de régularisation"
     account_attorney_to_create: "— Créer automatiquement un compte mandataire —"
@@ -1477,6 +1476,7 @@ fra:
     search_sales: "Rechercher des ventes"
     second_building_name: "Entrée de"
     second_contact: "Adresse secondaire"
+    section_x: "%{section} %{x}"
     select_account_client: "Compte à lettrer"
     select_account_supplier: "Compte à lettrer"
     select_area: "Zone postale"

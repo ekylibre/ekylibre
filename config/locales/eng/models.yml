@@ -14,7 +14,7 @@ eng:
         # product_nature: "Type de produit concerné"
         # repartition_percentage: "Pourcentage d’affectation"
       animal:
-        born_at: "Born at" #?
+        born_at: "Born at"
         dead_at: "Dead at" #?
         # variety: "Race"
       animal_group:

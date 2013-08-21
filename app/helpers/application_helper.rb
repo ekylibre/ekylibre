@@ -453,7 +453,7 @@ module ApplicationHelper
         @beehive = beehive
         @options = options
         if block_given?
-          @content = @beehive.template.capture(&block) 
+          @content = @beehive.template.capture(&block)
         end
       end
       def content?

@@ -24,7 +24,9 @@ eng:
       # detach: "Dissocier une transaction"
       index: "Affairs"
       # select: "Ajouter une transaction"
-    backend/aggregators: #?
+    backend/aggregators:
+      # index: "Aggrégateurs"
+      # show: "%{name}"
     backend/analytic_repartitions:
       edit: "Edit a repartition\_: %{id} "
       index: "Analytics repartitions"
@@ -1440,6 +1442,7 @@ eng:
     search_sales: "Search sales"
     second_building_name: "Second building name"
     second_contact: "Second address"
+    # section_x: "%{section} %{x}"
     select_account_client: "Customer Account for lettering"
     select_account_supplier: "Supplier Account for lettering"
     select_area: "Select area"

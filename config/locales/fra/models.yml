@@ -12,8 +12,8 @@ fra:
         product_nature: "Type de produit concerné"
         repartition_percentage: "Pourcentage d’affectation"
       animal:
-        variety: "Race"
         born_at: "Né(e) le"
+        variety: "Race"
       animal_group:
         born_at: "Créé le"
       asset_depreciation:

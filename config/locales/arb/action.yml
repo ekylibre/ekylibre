@@ -33,7 +33,9 @@ arb:
       # detach: "Dissocier une transaction"
       # index: "Transactions"
       # select: "Ajouter une transaction"
-    backend/aggregators: #?
+    backend/aggregators:
+      # index: "Aggrégateurs"
+      # show: "%{name}"
     backend/analytic_repartitions:
       # edit: "Modifier la répartion analytique\_: %{id} "
       # index: "Répartitions analytiques"
@@ -1678,6 +1680,7 @@ arb:
     search_sales: "البحث عن طلبات البيع"
     second_building_name: "ادخال الاسم"
     # second_contact: "Adresse secondaire"
+    # section_x: "%{section} %{x}"
     select_account_client: "كتابة حسابات"
     select_account_supplier: "كتابة حسابات"
     select_area: "عنوان بريدي"

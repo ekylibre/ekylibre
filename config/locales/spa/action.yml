@@ -33,7 +33,9 @@ spa:
       # detach: "Dissocier une transaction"
       # index: "Transactions"
       # select: "Ajouter une transaction"
-    backend/aggregators: #?
+    backend/aggregators:
+      # index: "Aggrégateurs"
+      # show: "%{name}"
     backend/analytic_repartitions:
       # edit: "Modifier la répartion analytique\_: %{id} "
       # index: "Répartitions analytiques"
@@ -1494,6 +1496,7 @@ spa:
     # search_sales: "Rechercher des ventes"
     # second_building_name: "Entrée de"
     # second_contact: "Adresse secondaire"
+    # section_x: "%{section} %{x}"
     select_account_client: "Cuentos a marcar con letras"
     select_account_supplier: "Cuento a marcar con letra"
     # select_area: "Zone postale"
