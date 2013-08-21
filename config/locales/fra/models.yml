@@ -13,6 +13,7 @@ fra:
         repartition_percentage: "Pourcentage d’affectation"
       animal:
         variety: "Race"
+        born_at: "Né(e) le"
       animal_group:
         born_at: "Créé le"
       asset_depreciation:

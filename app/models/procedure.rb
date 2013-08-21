@@ -123,8 +123,7 @@ class Procedure < Ekylibre::Record::Base
   end
 
   def name
-    # self.reference.hash[self.nomen].human_name
-    self.nomen
+    ref.human_name
   end
 
   # Return the next procedure (depth course)
