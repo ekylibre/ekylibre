@@ -1,5 +1,6 @@
 module Aggeratio
 
+  autoload :Aggregator,       'aggeratio/aggregator'
   autoload :Base,             'aggeratio/base'
   autoload :Parameter,        'aggeratio/parameter'
   autoload :XML,              'aggeratio/xml'
@@ -12,25 +13,8 @@ module Aggeratio
   XMLNS = "http://www.ekylibre.org/XML/2013/aggregators".freeze
   NS_SEPARATOR = "-"
 
-  class Aggregator
-
-    def to_xml(options = {})
-      raise NotImplementedError.new
-    end
-
-    def to_json(options = {})
-      raise NotImplementedError.new
-    end
-
-    def key
-      # raise NotImplementedError.new
-      Rails.logger.warn("Aggregator #{aggregator_name} should have its own :key method")
-      return rand(1_000_000).to_s(36)
-    end
-
-  end
-
   @@list = HashWithIndifferentAccess.new
+  @@categories = HashWithIndifferentAccess.new
 
   class << self
     # Returns the names of the aggregators
@@ -59,6 +43,9 @@ module Aggeratio
             # @@list[aggregator.name] = aggregator
             aggregator = build(element)
             @@list[aggregator.aggregator_name] = aggregator
+            cat = aggregator.category
+            @@categories[cat] ||= []
+            @@categories[cat] << aggregator.id unless @@categories[cat].include?(aggregator.id)
           end
         else
           Rails.logger.info("File #{path} is not a aggregator as defined by #{XMLNS}")
@@ -70,6 +57,10 @@ module Aggeratio
     # Returns the root of the aggregators
     def root
       Rails.root.join("config", "aggregators")
+    end
+
+    def of_category(cat)
+      return (@@categories[cat] || []).collect{|a| Aggeratio[a]}
     end
 
 
@@ -119,9 +110,22 @@ module Aggeratio
       code << "    '#{name}'\n"
       code << "  end\n"
 
-      code << "  def aggregator_name\n"
-      code << "    self.class.aggregator_name\n"
+      code << "  def self.id\n"
+      code << "    '#{name}'\n"
       code << "  end\n"
+
+      code << "  def self.category\n"
+      code << "    '#{element.attr('category')}'\n"
+      code << "  end\n"
+
+
+      # code << "  def aggregator_name\n"
+      # code << "    self.class.aggregator_name\n"
+      # code << "  end\n"
+      # code << "  alias :id :aggregator_name\n"
+      # code << "  def category\n"
+      # code << "    self.class.category\n"
+      # code << "  end\n"
 
       v = "params"
       code << "  def initialize(#{v} = {})\n"

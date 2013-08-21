@@ -422,7 +422,7 @@ module ApplicationHelper
     html = ""
     return html unless block_given?
     name ||= "#{controller_name}_#{action_name}".to_sym
-    board = Beehive.new(name)
+    board = Beehive.new(name, self)
     if block.arity < 1
       board.instance_eval(&block)
     else
@@ -432,7 +432,7 @@ module ApplicationHelper
   end
 
   class Beehive
-    attr_reader :name, :boxes
+    attr_reader :name, :boxes, :template
 
     class TabBox < Array
       def self.short_name
@@ -447,32 +447,32 @@ module ApplicationHelper
     end
 
     class Cell
-      attr_reader :block, :name, :options
-      def initialize(name, options = {}, &block)
+      attr_reader :content, :name, :beehive, :options
+      def initialize(name, beehive, options = {}, &block)
         @name = name
+        @beehive = beehive
         @options = options
-        @block = block if block_given?
+        if block_given?
+          @content = @beehive.template.capture(&block) 
+        end
       end
-      def block?
-        !@block.nil?
+      def content?
+        !@content.nil?
       end
       def title
         @options[:title] || (@name.is_a?(String) ? @name : ::I18n.t("labels.#{@name}", @options.merge(:default => @name.to_s.humanize)))
       end
-
-      def content
-        "Content"
-      end
     end
 
-    def initialize(name)
+    def initialize(name, template)
       @name = name
       @boxes = []
       @current_box = nil
+      @template = template
     end
 
     def cell(name = :details, options = {}, &block)
-      c = Cell.new(name, options, &block)
+      c = Cell.new(name, self, options, &block)
       if @current_box
         @current_box << c
       else

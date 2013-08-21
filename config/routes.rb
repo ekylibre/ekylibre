@@ -104,7 +104,7 @@ Ekylibre::Application.routes.draw do
       end
     end
 
-    resources :aggregators, :only => :show
+    resources :aggregators, :only => [:index, :show]
 
     resources :analytic_repartitions do
       collection do

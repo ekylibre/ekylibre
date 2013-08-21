@@ -108,8 +108,8 @@ class Procedure < Ekylibre::Record::Base
 
   # Reference
   def reference
-  #  ref.hash[self.uid]
-  self.nomen
+    #  ref.hash[self.uid]
+    self.nomen
   end
 
   # Main reference
@@ -123,7 +123,7 @@ class Procedure < Ekylibre::Record::Base
   end
 
   def name
-    #self.reference.hash[self.nomen].human_name
+    # self.reference.hash[self.nomen].human_name
     self.nomen
   end
 

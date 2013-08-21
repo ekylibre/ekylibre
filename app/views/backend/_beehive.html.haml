@@ -1,30 +1,30 @@
 .beehive{:class => "beehive-#{beehive.name}"}
-  -beehive.boxes.each_with_index do |box, bid|
-    -count = box.size
-    -next if count.zero?
-    -box_id = 0
+  - beehive.boxes.each_with_index do |box, bid|
+    - count = box.size
+    - next if count.zero?
+    - box_id = 0
     .box{:class => "box-#{box.class.short_name} box-#{count}-cells"}
       %ul.cell-titles>
-        -box.each_with_index do |cell, cid|
-          -activeness = (cid.zero? ? {:class => 'active'} : {})
+        - box.each_with_index do |cell, cid|
+          - activeness = (cid.zero? ? {:class => 'active'} : {})
           %li{activeness}>
-            =link_to("#b#{bid}c#{cid}", :class => "cell-title") do
+            = link_to("#b#{bid}c#{cid}", :class => "cell-title") do
               %i
-              =cell.title
-              -if cell.options[:counter]
-                %span.badge=cell.options[:counter]
+              = cell.title
+              - if cell.options[:counter]
+                %span.badge= cell.options[:counter]
 
       .cells
-        -box.each_with_index do |cell, cid|
+        - box.each_with_index do |cell, cid|
           .cell{:id => "b#{bid}c#{cid}", :class => (cid.zero? ? ' active' : nil)}
             .cell-inner
               .cell-title
                 %i
-                =cell.title
-                -if cell.options[:counter]
-                  %span.badge=cell.options[:counter]
+                = cell.title
+                - if cell.options[:counter]
+                  %span.badge= cell.options[:counter]
                 %span{"data-toggle" => "cell"}
-              -if cell.block?
-                .cell-content=capture(&cell.block)
-              -else
+              - if cell.content?
+                .cell-content= cell.content
+              - else
                 .cell-content{"data-cell" => url_for((cell.options[:params]||{}).merge(:controller => "backend/cells/#{cell.name}_cells", :action => :show))}

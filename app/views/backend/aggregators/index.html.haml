@@ -1,0 +1,9 @@
+= beehive do |b|
+  - for category in Nomen::DocumentCategories.all
+    - aggregators = Aggeratio.of_category(category)
+    - if aggregators.size > 0
+      - b.cell Nomen::DocumentCategories[category].human_name do
+        %ul
+          - for aggregator in aggregators
+            %li= link_to(aggregator.human_name, {:action => :show, :id => aggregator.id})
+  

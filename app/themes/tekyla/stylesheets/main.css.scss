@@ -2081,11 +2081,42 @@ svg.map {
     border-collapse: collapse;
     margin-top: $default-gap;
     td, th {
-      padding: 0;
+      padding: round(0.5 * $default-gap);
       border: 1px solid #AAA;
+      text-align: center;
+      &.matrix {
+        padding: 0;
+      }
     }
     th {
       @include background-image(linear-gradient(lighten($menu-background, $default-lightness-variation), $menu-background, darken($menu-background, $default-lightness-variation)));
     }
+    table.matrix {
+      width: 100%;
+      height: 100%;
+      margin: 0;  
+      tr {
+        &:first-child {
+          td, th {
+            border-top: none;
+          }
+        }
+        &:last-child {
+          td, th {
+            border-bottom: none;
+          }
+        }
+        td, th {
+          &:first-child {
+            border-left: none;
+          }
+          &:last-child {
+            border-right: none;
+          }
+        }
+      }
+    }
   }
+
+
 }

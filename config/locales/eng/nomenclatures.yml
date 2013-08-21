@@ -281,6 +281,9 @@ eng:
         young_animal_product: "Young animal product" #?
         # young_animal_revenues: "Animaux reproducteurs (jeunes de renouvellement)"
       name: "Name"
+    document_categories:
+      items:
+        # health: "Santé - Hygiène"
     entity_natures:
       items:
         association: "Association"

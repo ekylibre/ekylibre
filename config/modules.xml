@@ -590,6 +590,9 @@
         <page to="backend/listings#mail"/>
         <page to="backend/listings#new"/>
         <page to="backend/listings#update"/>
+      </item>
+      <item name="aggregators">
+        <page to="backend/aggregators#index"/>
         <page to="backend/aggregators#show"/>
       </item>
       <item name="import">
@@ -1093,12 +1096,6 @@
         <page to="backend/dashboards#stocks"/>
         <page to="backend/dashboards#tools"/>
         <page to="backend/dashboards#welcome"/>
-      </item>
-      <item name="manure_management_plans">
-        <page to="backend/data_view/manure_management_plans#show"/>
-      </item>
-      <item name="veterinary_booklets">
-        <page to="backend/data_view/veterinary_booklets#show"/>
       </item>
       <item name="entities">
         <page to="backend/entities#list_meeting_participations"/>

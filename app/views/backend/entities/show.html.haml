@@ -1,28 +1,28 @@
-=main_toolbar do |t|
-  -t.export :entity, @entity
-  -t.edit @entity
-  -t.destroy(@entity, :method => :delete, "data-confirm" => tg(:are_you_sure_you_want_to_delete)) if @entity.destroyable?
+= main_toolbar do |t|
+  - t.export :entity, @entity
+  - t.edit @entity
+  - t.destroy(@entity, :method => :delete, "data-confirm" => tg(:are_you_sure_you_want_to_delete)) if @entity.destroyable?
 
-=beehive do |b|
-  -b.tabbox do
-    -if @entity.addresses.count > 0 or @entity.picture
-      -b.cell :coordinates do
-        -if @entity.picture.file?
-          .picture=image_tag(@entity.picture.url(:identity))
-        -for address in @entity.addresses.order(:canal, :by_default)
+= beehive do |b|
+  - b.tabbox do
+    - if @entity.addresses.count > 0 or @entity.picture
+      - b.cell :coordinates do
+        - if @entity.picture.file?
+          .picture= image_tag(@entity.picture.url(:identity))
+        - for address in @entity.addresses.order(:canal, :by_default)
           .info
-            %span.title{:class => "canal-"+address.canal.to_s}=address.canal.text
+            %span.title{:class => "canal-"+address.canal.to_s}= address.canal.text
             %span.value
-              -if address.email?
-                =mail_to(address.coordinate, address.coordinate)
-              -elsif address.phone? or address.mobile?
-                %a{:href => "tel:#{address.coordinate}"}=address.coordinate
-              -elsif address.mail?
-                =link_to(address.coordinate, "https://maps.google.fr/?q=#{URI.encode(address.coordinate)}")
-              -elsif address.website?
-                =link_to(address.coordinate, address.coordinate)
-              -else
-                =address.coordinate
+              - if address.email?
+                = mail_to(address.coordinate, address.coordinate)
+              - elsif address.phone? or address.mobile?
+                %a{:href => "tel:#{address.coordinate}"}= address.coordinate
+              - elsif address.mail?
+                = link_to(address.coordinate, "https://maps.google.fr/?q=#{URI.encode(address.coordinate)}")
+              - elsif address.website?
+                = link_to(address.coordinate, address.coordinate)
+              - else
+                = address.coordinate
     -b.cell :details do
       =attributes_list(@entity) do |l|
         -l.attribute :last_name

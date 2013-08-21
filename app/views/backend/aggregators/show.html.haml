@@ -2,6 +2,6 @@
   -# for p in @aggregator.parameters
 = main_toolbar do |t|
   - t.export do |e|
-    - e.send(@aggregator.aggregator_name, @aggregator.key, @aggregator)
+    - e.send(@aggregator.class.aggregator_name, @aggregator.key, @aggregator)
 
 .aggregator= @aggregator.to_html_fragment

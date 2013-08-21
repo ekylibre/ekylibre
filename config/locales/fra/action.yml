@@ -24,7 +24,8 @@ fra:
       index: "Transactions"
       select: "Ajouter une transaction"
     backend/aggregators:
-      # show: "Show backend/aggregator"
+      index: "Aggrégateurs"
+      show: "%{name}"
     backend/analytic_repartitions:
       edit: "Modifier la répartion analytique\_: %{id} "
       index: "Répartitions analytiques"
@@ -147,10 +148,6 @@ fra:
       stocks: "Tableau de bord des stocks"
       tools: "Tableau de bord des outils"
       welcome: "Bienvenue dans Ekylibre"
-    backend/data_view/manure_management_plans:
-      # show: "Show backend/data view/manure management plan"
-    backend/data_view/veterinary_booklets:
-      # show: "Show backend/data view/veterinary booklet"
     backend/departments:
       edit: "Modifier le service\_: %{name}"
       index: "Services"
@@ -656,8 +653,6 @@ fra:
     backend/custom_field_choices: "Choix de champs personnalisés"
     backend/custom_fields: "Champs personnalisés"
     backend/dashboards: "Tableaux de bord"
-    # backend/data_view/manure_management_plans: "Backend/data view/manure management plans"
-    # backend/data_view/veterinary_booklets: "Backend/data view/veterinary booklets"
     # backend/data_view: "Backend/data view"
     backend/departments: "Services"
     backend/deposit_items: "Lignes de remise en banque"
@@ -773,6 +768,7 @@ fra:
         one: "%{count} erreur a empêché l’enregistrement (%{model})"
         other: "%{count} erreurs ont empêché l’enregistrement (%{model})"
   labels:
+    section_x: "%{section} %{x}"
     abilities: "Compétences"
     account_accruals: "Comptes de régularisation"
     account_attorney_to_create: "— Créer automatiquement un compte mandataire —"

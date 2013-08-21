@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <aggregators xmlns="http://www.ekylibre.org/XML/2013/aggregators">
-  <aggregator name="veterinary_booklet" version="0.0">
+  <aggregator name="veterinary_booklet" version="0.0" category="health">
     <parameters>
       <parameter name="campaigns" type="record-list" of="campaign" default="currents"/>
     </parameters>
@@ -13,14 +13,14 @@
         <property name="id" of="campaign" level="api"/>
         <title name="name" of="campaign"/>
         <sections for="intervention" in="campaign.procedures.of_nature(:animal_care)">
-        	<variable name="target" value="intervention.variables.of_role(:target).first.target"/>
-        	<variable name="worker" value="intervention.variables.of_role(:worker).first.target"/>
-        	<title name="name" of="intervention"/>
-        	<property name="id" of="intervention" level="api"/>
-        	<property name="started_at" of="intervention"/>
-        	<property name="stopped_at" of="intervention"/>
-        	<property name="duration" value="((intervention.stopped_at - intervention.started_at).to_d/(60*60*24)).round(2)"/>
-        	<within name="target">
+          <variable name="target" value="intervention.variables.of_role(:target).first.target"/>
+          <variable name="worker" value="intervention.variables.of_role(:worker).first.target"/>
+          <title name="name" of="intervention"/>
+          <property name="id" of="intervention" level="api"/>
+          <property name="started_at" of="intervention"/>
+          <property name="stopped_at" of="intervention"/>
+          <property name="duration" value="((intervention.stopped_at - intervention.started_at).to_d/(60*60*24)).round(2)"/>
+          <within name="target">
             <property name="identification_number"/>
             <property name="name"/>
             <property name="id" level="api"/>
@@ -45,26 +45,26 @@
             <property name="reference_number"/>
             <property name="prescriptor_name"/>
           </within> 
-        	<matrix name="inputs" for="input" in="intervention.variables.of_role(:input)">
+          <matrix name="inputs" for="input" in="intervention.variables.of_role(:input)">
             <variable name="meat_withdrawal_period" value="input.target.meat_withdrawal_period.to_f"/>
             <variable name="milk_withdrawal_period" value="input.target.milk_withdrawal_period.to_f"/>
-        	  <cell name="id" of="input" level="api"/>
-        	  <within of="input.target">
-        	    <cell name="name"/>
-        	    <cell name="nature_name"/>
-        	    <cell name="variety" level="api"/>
-        	  </within>
-        	  <cell name="measure_quantity" of="input"/>
-        	  <cell name="measure_unit" of="input"/>
-        	  <matrix name="withdrawal_periods">
-        	    <cell name="meat_withdrawal_period" value="meat_withdrawal_period"/>
-        	    <cell name="milk_withdrawal_period" value="milk_withdrawal_period"/>
-        	  </matrix>
-        	  <matrix name="sale_dates">
-        	    <cell name="meat_saleable_on" value="(intervention.stopped_at + meat_withdrawal_period).to_date"/>
-        	    <cell name="milk_saleable_on" value="(intervention.stopped_at + milk_withdrawal_period).to_date"/>
-        	  </matrix>
-        	</matrix>
+            <cell name="id" of="input" level="api"/>
+            <within of="input.target">
+              <cell name="name"/>
+              <cell name="nature_name"/>
+              <cell name="variety" level="api"/>
+            </within>
+            <cell name="measure_quantity" of="input"/>
+            <cell name="measure_unit" of="input"/>
+            <matrix name="withdrawal_periods">
+              <cell name="meat_withdrawal_period" value="meat_withdrawal_period"/>
+              <cell name="milk_withdrawal_period" value="milk_withdrawal_period"/>
+            </matrix>
+            <matrix name="sale_dates">
+              <cell name="meat_saleable_on" value="(intervention.stopped_at + meat_withdrawal_period).to_date"/>
+              <cell name="milk_saleable_on" value="(intervention.stopped_at + milk_withdrawal_period).to_date"/>
+            </matrix>
+          </matrix>
         </sections>
       </sections>
     </section>

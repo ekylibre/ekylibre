@@ -262,6 +262,9 @@ spa:
         # young_animal_expenses: "Animaux reproducteurs (jeunes de renouvellement)"
         # young_animal_revenues: "Animaux reproducteurs (jeunes de renouvellement)"
       # name: "Code comptable"
+    document_categories:
+      items:
+        # health: "Santé - Hygiène"
     entity_natures:
       items:
         # association: "Association"

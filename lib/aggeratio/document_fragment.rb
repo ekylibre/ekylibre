@@ -69,9 +69,16 @@ module Aggeratio
       code = ""
       code << "xml.section do\n"
       if title = element.xpath('xmlns:title').first
-        code << "  xml.h1(#{value_of(title)}) rescue nil\n"
+        type = (element.has_attribute?("name") ? element.attr('name') : element.has_attribute?("for") ? element.attr('for') : nil)
+        if type.blank?
+          code << "  xml.h1(#{value_of(title)}) rescue nil\n"
+        else
+          code << "  xml.h1(:section_x.tl(:section => :#{type}.tl(:default => '#{type.humanize}'), :x => #{value_of(title)})) rescue nil\n"
+        end
       end
-      code << build_children_of(element).gsub(/^/, '  ')
+      code << "  xml.div(:class => 'section-content') do\n"
+      code << build_children_of(element).gsub(/^/, '    ')
+      code << "  end\n"
       code << "end\n"
       return code
     end
@@ -105,7 +112,7 @@ module Aggeratio
           if col.name == "cell"
             ccode << "xml.th(#{human_name_of(col)}, :class => '#{normalize_name(col)}')\n"
           elsif col.name == "matrix"
-            ccode << "xml.th(:class => '#{normalize_name(col)}') do\n"
+            ccode << "xml.th(:class => 'matrix #{normalize_name(col)}') do\n"
             # ccode << "  xml.em(#{human_name_of(col)})\n"
             ccode << build_matrix(col, :head, !vertical).strip.gsub(/^/, '  ') + "\n"
             ccode << "end\n"
@@ -122,7 +129,7 @@ module Aggeratio
           if col.name == "cell"
             ccode << "xml.td(#{value_of(col)}, :class => '#{normalize_name(col)}')\n"
           elsif col.name == "matrix"
-            ccode << "xml.td(:class => '#{normalize_name(col)}') do\n"
+            ccode << "xml.td(:class => 'matrix #{normalize_name(col)}') do\n"
             ccode << build_matrix(col, :body, !vertical).gsub(/^/, '  ')
             ccode << "end\n"
           end

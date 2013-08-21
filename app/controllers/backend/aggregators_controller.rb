@@ -5,6 +5,7 @@ class Backend::AggregatorsController < BackendController
 
 
   def index
+
   end
 
 
@@ -14,6 +15,7 @@ class Backend::AggregatorsController < BackendController
       return
     end
     @aggregator = klass.new(params)
+    t3e :name => klass.human_name
     respond_with @aggregator
   end
 
