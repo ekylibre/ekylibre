@@ -39,6 +39,19 @@ module Aggeratio
       return value
     end
 
+
+    def human_value_of(element)
+      value = value_of(element)
+      type = (element.has_attribute?("type") ? element.attr("type").to_s : :string).to_s.gsub('-', '_').to_sym
+      human_value = if type == :date or type == :datetime or type == :measure
+                      value + ".l"
+                    else
+                      value
+                    end
+      return human_value
+    end
+
+
     def human_name_of(element)
       name = element.attr('value').to_s.downcase # unless name.is_a?(String)
       name = element.attr('name') unless name.match(/^\w+$/)

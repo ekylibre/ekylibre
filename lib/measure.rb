@@ -102,6 +102,11 @@ class Measure
     self.to_d.to_f
   end
 
+  # Localize a measure
+  def l
+    self.to_s
+  end
+
 end
 
 class ::Numeric

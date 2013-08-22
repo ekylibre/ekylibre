@@ -59,9 +59,9 @@ module Aggeratio
       if title = element.xpath('xmlns:title').first
         type = (element.has_attribute?("name") ? element.attr('name') : element.has_attribute?("for") ? element.attr('for') : nil)
         if type.blank?
-          code << "  xml.h1(#{value_of(title)}) rescue nil\n"
+          code << "  xml.h1(#{human_value_of(title)}) rescue nil\n"
         else
-          code << "  xml.h1(:section_x.tl(:section => :#{type}.tl(:default => [:'activerecord.models.#{type}', '#{type.humanize}']), :x => #{value_of(title)})) rescue nil\n"
+          code << "  xml.h1(:section_x.tl(:section => :#{type}.tl(:default => [:'activerecord.models.#{type}', '#{type.humanize}']), :x => #{human_value_of(title)})) rescue nil\n"
         end
       end
       code << "  xml.div(:class => 'section-content') do\n"
@@ -76,14 +76,14 @@ module Aggeratio
     end
 
     def build_title(element)
-      "xml.h2(#{value_of(element)}, :class => '#{element.attr('name')}') rescue nil\n"
+      "xml.h2(#{human_value_of(element)}, :class => '#{element.attr('name')}') rescue nil\n"
     end
 
     def build_property(element)
       return "" if element.attr("level") == "api"
       code  = "xml.dl do\n"
       code << "  xml.dd(#{human_name_of(element)})\n"
-      code << "  xml.dt(#{value_of(element)}) rescue nil\n"
+      code << "  xml.dt(#{human_value_of(element)}) rescue nil\n"
       code << "end\n"
       return code
     end
@@ -115,7 +115,7 @@ module Aggeratio
         body_code  = build_elements(element.xpath('xmlns:variable'))
         body_code << build_table_serie(columns, vertical) do |col, ccode|
           if col.name == "cell"
-            ccode << "xml.td(#{value_of(col)}, :class => '#{normalize_name(col)}')\n"
+            ccode << "xml.td(#{human_value_of(col)}, :class => '#{normalize_name(col)}')\n"
           elsif col.name == "matrix"
             ccode << "xml.td(:class => 'matrix #{normalize_name(col)}') do\n"
             ccode << build_matrix(col, :body, !vertical).gsub(/^/, '  ')

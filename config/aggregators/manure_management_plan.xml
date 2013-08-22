@@ -11,11 +11,11 @@
       <sections for="campaign" in="campaigns">
         <property name="id" of="campaign" level="api"/>
         <title name="name" of="campaign"/>
-        <sections for="cultivable_land_parcel" in="CultivableLandParcel.all">
+        <sections for="cultivable_land_parcel" in="CultivableLandParcel.of_campaign(campaign)">
           <title name="name" of="cultivable_land_parcel"/>
           <property name="work_number" of="cultivable_land_parcel"/>
           <property name="id" of="cultivable_land_parcel" level="api"/>
-          <property name="shape_path" of="cultivable_land_parcel" level="api"/>
+          <property name="shape_path" of="cultivable_land_parcel" type="svg-path" level="api"/>
           <sections for="production" in="cultivable_land_parcel.productions.of_campaign(campaign)">
             <title name="name" of="production"/>
             <sections for="intervention" in="production.procedures.real.of_nature(:soil_enrichment).with_variable(:target, cultivable_land_parcel)">
