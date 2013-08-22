@@ -66,12 +66,32 @@ demo :productions do
 
     # attributes to map family
     families = {
-      "CEREA" => :vegetal,
-      "COPLI" => :vegetal,
-      "CUFOU" => :vegetal,
-      "ANIMX" => :animal,
-      "XXXXX" => :none,
-      "NINCO" => :none
+      "CEREA" => :straw_cereal_crops,
+      "COPLI" => :oilseed_crops,
+      "CUFOU" => :prairie,
+      "ANIMX" => :cattle_farming
+      #"XXXXX" => :none,
+      #"NINCO" => :none
+    }
+    # attributes to map family by activity name
+    families_by_activity_name = {
+      "ORGE_HIVER" => :straw_cereal_crops,
+      "BLE TENDRE" => :straw_cereal_crops,
+      "BLE DUR" => :straw_cereal_crops,
+      "MAIS SEC" => :maize_crops,
+      "TRITICALE" => :straw_cereal_crops,
+      "JACHERES ANNUELLE" => :fallow_land,
+      "TOURNESOL" => :oilseed_crops,
+      "SORGHO" => :prairie,
+      "PRAIRIE TEMPO+ARTIF" => :prairie,
+      "BOVINS LAIT" => :cattle_farming,
+      "VEAU 8-15 J" => :cattle_farming,
+      "TAURILLONS LAIT" => :cattle_farming,
+      "ADMINISTRATIF" => :exploitation,
+      "BATIMENT" => :exploitation,
+      "COMMERCIALISATION" => :sales,
+      "MECANISATION" => :exploitation,
+      "PERSONNEL" => :exploitation
     }
     # attributes to map nature
     natures = {
@@ -80,11 +100,11 @@ demo :productions do
       "" => :none
     }
     # Load file
-    file = Rails.root.join("test", "fixtures", "files", "activities_ref_demo_2.csv")
+    file = Rails.root.join("test", "fixtures", "files", "activities_ref_demo_3.csv")
     CSV.foreach(file, :encoding => "UTF-8", :col_sep => ",", :headers => true, :quote_char => "'") do |row|
       r = OpenStruct.new(:description => row[0],
                          :name => row[1].downcase.capitalize,
-                         :family => (families[row[2]] || :none).to_s,
+                         :family => (families_by_activity_name[row[1]] || nil).to_s,
                          :product_nature_nomen => row[3].blank? ? nil :row[3].to_sym,
                          :nature => (natures[row[4]] || :none).to_s,
                          :campaign_name => row[5].blank? ? nil : row[5].to_s,
@@ -131,18 +151,19 @@ demo :productions do
     end
   end
 
-  Ekylibre::fixturize :fertilizing_procedure_demo_data do |w|
+  Ekylibre::fixturize :fertilizing_procedure_demo_data_1 do |w|
     #############################################################################
     ## Demo data for fertilizing
     ##############################################################################
 
     campaign = Campaign.find_by_name("2013")
+    campaign ||= Campaign.create!(:name => "2013", :closed => false)
     sole_ble_nature = ProductNature.find_by_variety("triticum_aestivum")
 
     # create some indicator nature for fertilization
     # find some product for fertilization
-    fertilizer_product = Product.find_by_variety("mineral_matter")
-    fertilizer_product_prev = Product.find_by_variety("mineral_matter")
+    fertilizer_product = ProductNature.where(:nomen => "chemical_fertilizer").first.products.first
+    fertilizer_product_prev = ProductNature.where(:nomen => "chemical_fertilizer").first.products.last
     # set indicator on product for fertilization
 
     #fertilizer_product.indicator_data.create!({:measure_unit => "kilograms_per_hectogram", :measured_at => Time.now }.merge(attributes))
@@ -163,7 +184,7 @@ demo :productions do
 
 
     #plant = Plant.find_by_work_number("SOLE_BLE-2013-PC23")
-    land_parcel_group_fert = CultivableLandParcel.find_by_work_number("PC23")
+    land_parcel_group_fert = CultivableLandParcel.first
     if land_parcel_group_fert.nil?
       land_parcel_group_nature_variant = ProductNature.import_from_nomenclature(:cultivable_land_parcel).default_variant
       land_parcel_group_fert = CultivableLandParcel.create!(:variant_id => land_parcel_group_nature_variant.id,
@@ -217,8 +238,97 @@ demo :productions do
     end
     w.check_point
   end
+  
+  Ekylibre::fixturize :fertilizing_procedure_demo_data_2 do |w|
+    #############################################################################
+    ## Demo data for fertilizing
+    ##############################################################################
 
-  Ekylibre::fixturize :animal_treatment_procedure_demo_data do |w|
+    campaign = Campaign.find_by_name("2012")
+    campaign ||= Campaign.create!(:name => "2012", :closed => false)
+    sole_ble_nature = ProductNature.find_by_variety("triticum_aestivum")
+    sole_ble_nature ||= ProductNature.import_from_nomenclature(:wheat_crop)
+    # create some indicator nature for fertilization
+    # find some product for fertilization
+    fertilizer_product = ProductNature.where(:nomen => "chemical_fertilizer").first.products.first
+    fertilizer_product_prev = ProductNature.where(:nomen => "chemical_fertilizer").first.products.last
+    # set indicator on product for fertilization
+
+    #fertilizer_product.indicator_data.create!({:measure_unit => "kilograms_per_hectogram", :measured_at => Time.now }.merge(attributes))
+    #fertilizer_product_prev.indicator_data.create!({:measure_unit => "kilograms_per_hectogram", :measured_at => Time.now }.merge(attributes))
+
+    fertilizer_product.is_measured!(:nitrogen_concentration, 27.00.in_kilogram_per_hectogram, :at => Time.now)
+    fertilizer_product.is_measured!(:potassium_concentration, 33.00.in_kilogram_per_hectogram, :at => Time.now)
+    fertilizer_product.is_measured!(:phosphorus_concentration, 33.00.in_kilogram_per_hectogram, :at => Time.now)
+    fertilizer_product_prev.is_measured!(:nitrogen_concentration, 27.00.in_kilogram_per_hectogram, :at => Time.now)
+    fertilizer_product_prev.is_measured!(:potassium_concentration, 33.00.in_kilogram_per_hectogram, :at => Time.now)
+    fertilizer_product_prev.is_measured!(:phosphorus_concentration, 33.00.in_kilogram_per_hectogram, :at => Time.now)
+
+
+    production = Production.find_by_product_nature_id_and_campaign_id(sole_ble_nature.id, campaign.id)
+    production ||= Production.create!(:activity_id => Activity.find_by_family("straw_cereal_crops").id, :product_nature_id => sole_ble_nature.id, :campaign_id => campaign.id)
+     
+    # provisional fertilization procedure
+    procedure_prev = Procedure.create!(:natures => "soil_enrichment", :nomen =>"mineral_fertilizing", :production_id => production.id, :provisional => true )
+
+
+    #plant = Plant.find_by_work_number("SOLE_BLE-2013-PC23")
+    land_parcel_group_fert = CultivableLandParcel.last
+    if land_parcel_group_fert.nil?
+      land_parcel_group_nature_variant = ProductNature.import_from_nomenclature(:cultivable_land_parcel).default_variant
+      land_parcel_group_fert = CultivableLandParcel.create!(:variant_id => land_parcel_group_nature_variant.id,
+                                                            :name => "Les Grands Pièces 1",
+                                                            :work_number => "PC22",
+                                                            :variety => "cultivable_land_parcel",
+                                                            :born_at => Time.now,
+                                                            :owner_id => Entity.of_company.id,
+                                                            :identification_number => "PC22")
+    end
+    # Create some procedure variable for fertilization
+    for attributes in [{:target_id => land_parcel_group_fert.id, :role => "target",
+                         :indicator => "net_surface_area",
+                         :measure_quantity => "5.00", :measure_unit => "hectare"},
+                       {:target_id => fertilizer_product_prev.id, :role => "input",
+                         :indicator => "net_weight",
+                         :measure_quantity => "475.00", :measure_unit => "kilogram"},
+                       {:target_id => fertilizer_product_prev.id, :role => "input",
+                         :indicator => "net_weight",
+                         :measure_quantity => "275.00", :measure_unit => "kilogram"}
+                      ]
+      ProcedureVariable.create!({:procedure_id => procedure_prev.id}.merge(attributes) )
+    end
+
+    # Create some operation variable for fertilization
+    for attributes in [{:started_at => (Time.now - 380.days), :stopped_at => (Time.now - 370.days)}]
+      procedure_prev.operations.create!({:procedure_id => procedure_prev.id}.merge(attributes) )
+    end
+
+    # real fertilization procedure
+    procedure_real = Procedure.create!(:natures => "soil_enrichment", :nomen =>"mineral_fertilizing", :production_id => production.id, :provisional_procedure_id => procedure_prev.id, :state => "done")
+
+
+    # Create some procedure variable for fertilization
+    for attributes in [{:target_id => land_parcel_group_fert.id, :role => "target",
+                         :indicator => "net_surface_area",
+                         :measure_quantity => 5.0, :measure_unit => "hectare"},
+                       {:target_id => fertilizer_product.id, :role => "input",
+                         :indicator => "net_weight",
+                         :measure_quantity => 575.00, :measure_unit => "kilogram"},
+                       {:target_id => fertilizer_product.id, :role => "input",
+                         :indicator => "net_weight",
+                         :measure_quantity => 375.00, :measure_unit => "kilogram"}
+                      ]
+      ProcedureVariable.create!({:procedure_id => procedure_real.id}.merge(attributes) )
+    end
+
+    # Create some operation variable for fertilization
+    for attributes in [{:started_at => (Time.now - 400.days), :stopped_at => (Time.now - 420.days)}]
+      procedure_real.operations.create!({:procedure_id => procedure_real.id}.merge(attributes) )
+    end
+    w.check_point
+  end
+  
+  Ekylibre::fixturize :animal_treatment_procedure_demo_data_1 do |w|
     ##############################################################################
     ## Demo data for animal treatment
     ##############################################################################
@@ -238,14 +348,20 @@ demo :productions do
     animal_group_nature = ProductNature.find_by_nomen("female_adult_cow")
     animal_group_nature ||= ProductNature.import_from_nomenclature("female_adult_cow")
     animal_activity = Activity.find_by_description("8200")
-    animal_activity ||= Activity.create!(:nature => "main", :family => "animal", :name => "VL", :description => "8200")
+    animal_activity ||= Activity.create!(:nature => "main", :family => "cattle_farming", :name => "VL", :description => "8200")
     animal_production = Production.find_by_product_nature_id_and_campaign_id(animal_group_nature.id, campaign.id)
     animal_production ||= Production.create!(:product_nature_id => animal_group_nature.id, :campaign_id => campaign.id, :activity_id => animal_activity.id)
     # create an animal medicine product
-    animal_medicine_product   = AnimalMedicine.find_by_name("acetal")
-    animal_medicine_product ||= AnimalMedicine.create!(:name => "acetal", :identification_number => "FR_589698256352", :work_number => "FR_589698256352", :born_at => Time.now, :variant_id => sanitary_product_nature_variant.id, :owner_id => Entity.of_company.id)
+    animal_medicine_product = AnimalMedicine.find_by_name("acetal") || AnimalMedicine.create!(:name => "acetal", :identification_number => "FR_589698256352", :work_number => "FR_589698256352", :born_at => Time.now, :variant_id => sanitary_product_nature_variant.id, :owner_id => Entity.of_company.id)
+    
     animal_medicine_product.is_measured!(:meat_withdrawal_period, 5.in_day, :at => Time.now)
     animal_medicine_product.is_measured!(:milk_withdrawal_period, 5.in_day, :at => Time.now)
+
+
+    animal_medicine_product_1   = AnimalMedicine.find_by_name("advocine") || AnimalMedicine.create!(:name => "advocine", :identification_number => "FR_589698256362", :work_number => "FR_589698256362", :born_at => Time.now, :variant_id => sanitary_product_nature_variant.id, :owner_id => Entity.of_company.id)
+        
+    animal_medicine_product_1.is_measured!(:meat_withdrawal_period, 8.in_day, :at => Time.now)
+    animal_medicine_product_1.is_measured!(:milk_withdrawal_period, 4.in_day, :at => Time.now)
 
     # import a document "prescription paper"
     document = Document.create!(:key => "20130724_prescription_001", :name => "prescritpion_001", :nature => "prescription" )
@@ -267,7 +383,7 @@ demo :productions do
     # Add an incident
     incident = animal.incidents.create!(:name => "Mammitte",
                                         :nature => "mammite",
-                                        :observed_at => "2012-10-22",
+                                        :observed_at => "2013-10-22",
                                         :description => "filament blanc lors de la traite",
                                         :priority => "5",
                                         :gravity => "3"
@@ -289,6 +405,9 @@ demo :productions do
                        {:target_id => animal_medicine_product.id, :role => "input",
                          :indicator => "net_volume",
                          :measure_quantity => "50.00", :measure_unit => "milliliter"},
+                       {:target_id => animal_medicine_product_1.id, :role => "input",
+                         :indicator => "net_volume",
+                         :measure_quantity => "8.00", :measure_unit => "milliliter"},
                        {:target_id => animal.id, :role => "target",
                          :indicator => "population",
                          :measure_quantity => "1.00", :measure_unit => "unity"}
@@ -298,6 +417,78 @@ demo :productions do
 
     # Create some operation variable
     for attributes in [{:started_at => (Time.now - 2.days), :stopped_at => Time.now}]
+      procedure.operations.create!({:procedure_id => procedure.id}.merge(attributes) )
+    end
+    w.check_point
+  end
+  
+  Ekylibre::fixturize :animal_treatment_procedure_demo_data_2 do |w|
+    ##############################################################################
+    ## Demo data for animal treatment
+    ##############################################################################
+
+    worker_variant = ProductNature.import_from_nomenclature(:technician).default_variant
+    worker = Worker.create!(:variant_id => worker_variant.id, :name => "David")
+
+    # add some credentials in preferences
+    cattling_number = Preference.find_by_name("services.synel17.login")
+
+    #sanitary_product_nature_variant = ProductNatureVariant.find_by_nature_name("Animal medicine")
+    sanitary_product_nature_variant = ProductNatureVariant.find_by_nature_name("animal_medicine")
+    campaign = Campaign.find_by_name("2012")
+    animal_group_nature = ProductNature.find_by_nomen("female_adult_cow")
+    animal_group_nature ||= ProductNature.import_from_nomenclature("female_adult_cow")
+    animal_activity = Activity.find_by_description("8200")
+    animal_activity ||= Activity.create!(:nature => "main", :family => "cattle_farming", :name => "VL", :description => "8200")
+    animal_production = Production.find_by_product_nature_id_and_campaign_id(animal_group_nature.id, campaign.id)
+    animal_production ||= Production.create!(:product_nature_id => animal_group_nature.id, :campaign_id => campaign.id, :activity_id => animal_activity.id)
+    # create an animal medicine product
+    animal_medicine_product   = AnimalMedicine.find_by_name("acetal")
+    animal_medicine_product ||= AnimalMedicine.create!(:name => "acetal", :identification_number => "FR_589698256352", :work_number => "FR_589698256352", :born_at => Time.now, :variant_id => sanitary_product_nature_variant.id, :owner_id => Entity.of_company.id)
+
+    animal_medicine_product.is_measured!(:meat_withdrawal_period, 5.in_day, :at => Time.now)
+    animal_medicine_product.is_measured!(:milk_withdrawal_period, 5.in_day, :at => Time.now)
+
+   
+    # select an animal to declare on an incident
+    animal = Animal.last
+
+    # Add an incident
+    incident = animal.incidents.create!(:name => "Grippe",
+                                        :nature => "other",
+                                        :observed_at => "2012-10-22",
+                                        :description => "reste couchée et est très chaude",
+                                        :priority => "3",
+                                        :gravity => "5"
+                                        )
+
+
+    # treatment procedure
+    procedure = incident.procedures.create!(:natures => "animal_care",
+                                            :nomen =>"animal_treatment",
+                                            :state => "done",
+                                            :production_id => animal_production.id
+                                            )
+
+    # Create some procedure variable
+    for attributes in [{:target_id => worker.id, :role => "worker",
+                         :indicator => "usage_duration",
+                         :measure_quantity => "0.50", :measure_unit => "hour"},
+                       {:target_id => animal_medicine_product.id, :role => "input",
+                         :indicator => "net_volume",
+                         :measure_quantity => "50.00", :measure_unit => "milliliter"},
+                       {:target_id => animal_medicine_product.id, :role => "input",
+                         :indicator => "net_volume",
+                         :measure_quantity => "10.00", :measure_unit => "milliliter"},
+                       {:target_id => animal.id, :role => "target",
+                         :indicator => "population",
+                         :measure_quantity => "1.00", :measure_unit => "unity"}
+                      ]
+      ProcedureVariable.create!({:procedure_id => procedure.id}.merge(attributes) )
+    end
+
+    # Create some operation variable
+    for attributes in [{:started_at => (Time.now - 361.days), :stopped_at => (Time.now - 360.days)}]
       procedure.operations.create!({:procedure_id => procedure.id}.merge(attributes) )
     end
     w.check_point

@@ -46,8 +46,8 @@
             <property name="prescriptor_name"/>
           </within> 
           <matrix name="inputs" for="input" in="intervention.variables.of_role(:input)">
-            <variable name="meat_withdrawal_period" value="input.target.meat_withdrawal_period.to_f"/>
-            <variable name="milk_withdrawal_period" value="input.target.milk_withdrawal_period.to_f"/>
+            <variable name="meat_withdrawal_period" value="input.target.meat_withdrawal_period"/>
+            <variable name="milk_withdrawal_period" value="input.target.milk_withdrawal_period"/>
             <cell name="id" of="input" level="api"/>
             <within of="input.target">
               <cell name="name"/>
@@ -61,8 +61,8 @@
               <cell name="milk_withdrawal_period" value="milk_withdrawal_period"/>
             </matrix>
             <matrix name="sale_dates">
-              <cell name="meat_saleable_on" value="(intervention.stopped_at + meat_withdrawal_period).to_date"/>
-              <cell name="milk_saleable_on" value="(intervention.stopped_at + milk_withdrawal_period).to_date"/>
+              <cell name="meat_saleable_on" value="(intervention.stopped_at + meat_withdrawal_period.to_d.send(meat_withdrawal_period.unit)).to_date"/>
+              <cell name="milk_saleable_on" value="(intervention.stopped_at + milk_withdrawal_period.to_d.send(milk_withdrawal_period.unit)).to_date"/>
             </matrix>
           </matrix>
         </sections>
