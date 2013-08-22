@@ -42,6 +42,7 @@ class ProcedureVariable < Ekylibre::Record::Base
   #]VALIDATORS]
   belongs_to :procedure, :inverse_of => :variables
   belongs_to :target, :class_name => "Product"
+  composed_of :quantity, :class_name => "Measure", :mapping => [%w(measure_quantity value), %w(measure_unit unit)]
 
   delegate :name, :to => :target, :prefix => true
 
