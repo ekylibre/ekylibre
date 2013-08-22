@@ -2055,14 +2055,29 @@ svg.map {
   background: white;
   padding: $default-gap;
   section {
-    padding: $default-gap;
     margin-top: $default-gap;
-    border: 1px solid #EEE;
+    border: 1px solid #AAA;
     @include border-radius($default-border-radius);
     h1 {
-      font-weight: bold;
-      font-size: $fs-large;
-      line-height: 1.4em;
+      padding: $default-gap;
+      background: $desktop-background;
+      &, * {
+        font-weight: normal;
+        font-size: $fs-large;
+        line-height: 1.4em;
+        color: $neutral-color;
+        vertical-align: middle;
+        em {
+          &, * {
+            color: $text-color;
+            font-weight: bold;
+          }
+        }
+      }
+    }
+    .section-content {
+      margin-top: $default-gap;
+      padding: $default-gap;
     }
   }
   dl {

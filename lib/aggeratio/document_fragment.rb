@@ -20,7 +20,7 @@ module Aggeratio
       code = ""
       if respond_to?(method_name)
         # code << "#{element.name}\n"
-        code << send(method_name, element)
+        code << conditionate(send(method_name, element), element)
       else
         code << "# #{element.name}: not implemented\n"
       end
@@ -44,7 +44,7 @@ module Aggeratio
     def build_sections(element)
       item  = element.attr("for")
       code  = "for #{item} in #{element.attr("in")}\n"
-      code << build_section(element).gsub(/^/, '  ')
+      code << conditionate(build_section(element), element).gsub(/^/, '  ')
       code << "end\n"
       if element.has_attribute?("name")
         code = "xml.section(:class => 'sections') do\n" + code.strip.gsub(/^/, '  ') + "\nend\n"
@@ -59,9 +59,14 @@ module Aggeratio
       if title = element.xpath('xmlns:title').first
         type = (element.has_attribute?("name") ? element.attr('name') : element.has_attribute?("for") ? element.attr('for') : nil)
         if type.blank?
-          code << "  xml.h1(#{human_value_of(title)}) rescue nil\n"
+          code << "  xml.h1(#{human_value_of(title)})l\n"
         else
-          code << "  xml.h1(:section_x.tl(:section => :#{type}.tl(:default => [:'activerecord.models.#{type}', '#{type.humanize}']), :x => #{human_value_of(title)})) rescue nil\n"
+          code << "  xml.h1 do\n"
+          code << "    xml.span(:#{type}.tl(:default => [:'activerecord.models.#{type}', '#{type.humanize}']))\n"
+          code << "    xml.text(' ')\n"
+          code << "    xml.em(#{human_value_of(title)})\n"
+          code << "  end\n"
+          # code << "  xml.h1(:section_x.tl(:section => :#{type}.tl(:default => [:'activerecord.models.#{type}', '#{type.humanize}']), :x => '<em>' + CGI::escapeHTML(#{human_value_of(title)}) + '</em>'))\n" # 
         end
       end
       code << "  xml.div(:class => 'section-content') do\n"
@@ -72,18 +77,18 @@ module Aggeratio
     end
 
     def build_variable(element)
-      "#{element.attr('name')} = #{value_of(element)} rescue nil\n"
+      return "#{element.attr('name')} = #{value_of(element)}\n"
     end
 
-    def build_title(element)
-      "xml.h2(#{human_value_of(element)}, :class => '#{element.attr('name')}') rescue nil\n"
-    end
+    # def build_title(element)
+    #   "xml.h2(#{human_value_of(element)}, :class => '#{element.attr('name')}')\n"
+    # end
 
     def build_property(element)
       return "" if element.attr("level") == "api"
       code  = "xml.dl do\n"
       code << "  xml.dd(#{human_name_of(element)})\n"
-      code << "  xml.dt(#{human_value_of(element)}) rescue nil\n"
+      code << "  xml.dt(#{human_value_of(element)})\n"
       code << "end\n"
       return code
     end
@@ -115,10 +120,16 @@ module Aggeratio
         body_code  = build_elements(element.xpath('xmlns:variable'))
         body_code << build_table_serie(columns, vertical) do |col, ccode|
           if col.name == "cell"
-            ccode << "xml.td(#{human_value_of(col)}, :class => '#{normalize_name(col)}')\n"
+            if col.has_attribute?('if')
+              ccode << "xml.td(:class => '#{normalize_name(col)}') do\n"
+              ccode << conditionate(human_value_of(col), col).dig
+              ccode << "end\n"
+            else
+              ccode << "xml.td(#{human_value_of(col)}, :class => '#{normalize_name(col)}')\n"
+            end
           elsif col.name == "matrix"
             ccode << "xml.td(:class => 'matrix #{normalize_name(col)}') do\n"
-            ccode << build_matrix(col, :body, !vertical).gsub(/^/, '  ')
+            ccode << conditionate(build_matrix(col, :body, !vertical), col).dig
             ccode << "end\n"
           end
         end
@@ -134,24 +145,6 @@ module Aggeratio
       end
 
       code << "end\n"
-      return code
-    end
-
-    def build_properties_hash(items, object, options = {})
-      var = options[:var] || "properties"
-      code = "#{var} = {}\n"
-      items.collect do |item|
-        value = item.attr("value") || ("#{object}." + item.attr('name').to_s.gsub('-', '_'))
-        code << ("#{var}['" + item.attr('name').to_s.gsub('_', '-') + "'] = ").ljust(32) + value
-        steps = value.split('.')
-        conditions = []
-        conditions << item.attr("if") if item.has_attribute?('if')
-        (steps.size - 1).times do |i|
-          conditions << steps[0..i].join(".")
-        end if steps.size > 1
-        code << " if " + conditions.join(" and ") unless conditions.empty?
-        code << "\n"
-      end
       return code
     end
 

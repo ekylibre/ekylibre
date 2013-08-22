@@ -47,7 +47,7 @@
             </within>
           </section>
           <section name="prescription" if="intervention.prescription">
-            <within  of="intervention.prescription">
+            <within of="intervention.prescription">
               <property name="id" level="api"/>
               <title name="reference_number"/>
               <property name="prescriptor_name"/>

@@ -28,6 +28,18 @@ module Aggeratio
       return code
     end
 
+    def conditionate(code, element)
+      if element.has_attribute?('if')
+        test = element.attr('if').strip.gsub(/[\r\n\t]+/, ' ')
+        code = "if (#{test})\n" + code.dig + "end\n"
+      elsif element.has_attribute?('unless')
+        test = element.attr('unless').strip.gsub(/[\r\n\t]+/, ' ')
+        code = "unless (#{test})\n" + code.dig + "end\n"
+      end
+      return code
+    end
+
+
     def normalize_name(name)
       name = name.attr('name') unless name.is_a?(String)
       name.to_s.strip.gsub('_', '-')

@@ -49,7 +49,9 @@ def demo(name, &block)
 end
 
 namespace :db do
-  task :demo => :demo
+  task :demo do
+    Rake::Task["demo"].invoke
+  end
 end
 
 desc "Build demo data"

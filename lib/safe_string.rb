@@ -7,6 +7,11 @@ class ::String
   MEJUSCULES = ['A','A','A','A','A','A','A','E','E','E','E','I','I','I','O','O','O','U','U','U','C']  # Simplification "lisible"
   MENUSCULES = ['a','a','a','a','a','a','a','e','e','e','e','i','i','i','o','o','o','u','u','u','c']  # Simplification "lisible"
 
+
+  def dig(depth = 1)
+    return self.strip.gsub(/^/, '  ' * depth) + "\n"
+  end
+
   def translate(from, to)
     return self.dup.translate!(from, to)
   end
