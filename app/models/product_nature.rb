@@ -65,6 +65,7 @@ class ProductNature < Ekylibre::Record::Base
   # has_many :available_stocks, :class_name => "ProductStock", :conditions => ["quantity > 0"], :foreign_key => :product_id
   #has_many :prices, :foreign_key => :product_nature_id, :class_name => "ProductPriceTemplate"
   has_many :subscriptions, :foreign_key => :product_nature_id
+  has_many :productions
   has_many :products, :foreign_key => :nature_id
   has_many :variants, :class_name => "ProductNatureVariant", :foreign_key => :nature_id, :inverse_of => :nature
   has_one :default_variant, :class_name => "ProductNatureVariant", :foreign_key => :nature_id, :order => :id

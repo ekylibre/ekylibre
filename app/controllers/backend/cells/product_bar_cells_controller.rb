@@ -11,7 +11,7 @@ class Backend::Cells::ProductBarCellsController < Backend::CellsController
 
     for year in (Date.today.year-3)..Date.today.year
       animals = Animal.where("EXTRACT(year from born_at) = ?", year)
-      data_table.add_rows([[year.to_s, animals.where(:sex => "male").count, animals.where(:sex => "female").count]])
+      data_table.add_rows([[year.to_s, animals.indicate(:sex => "male").count, animals.indicate(:sex => "female").count]])
     end
 
         # set options

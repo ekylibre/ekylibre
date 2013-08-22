@@ -3,6 +3,7 @@
   <nomenclature name="varieties-equipment" hierarchical="true">
     <items>
       <item name="tractor"/>
+      <item name="worker"/>
     </items>
   </nomenclature>
 </nomenclatures>

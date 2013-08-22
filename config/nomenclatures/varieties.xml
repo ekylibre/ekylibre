@@ -68,12 +68,6 @@
   <nomenclature name="varieties-organic_matter">
   </nomenclature>
    -->
-  <!-- level 2 - branch 1 - sub-branch 2 -->
-  <nomenclature name="varieties-equipment">
-    <items>
-      <item name="worker"/>
-    </items>
-  </nomenclature>
   <!-- level 2 - branch 1 - sub-branch 3 -->
   <nomenclature name="varieties-zone">
     <items>
