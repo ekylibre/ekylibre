@@ -448,17 +448,18 @@ module ApplicationHelper
 
     class Cell
       attr_reader :content, :name, :beehive, :options
+
       def initialize(name, beehive, options = {}, &block)
         @name = name
         @beehive = beehive
         @options = options
-        if block_given?
-          @content = @beehive.template.capture(&block)
-        end
+        @content = @beehive.template.capture(&block) if block_given?
       end
+
       def content?
-        !@content.nil?
+        !@content.blank?
       end
+
       def title
         @options[:title] || (@name.is_a?(String) ? @name : ::I18n.t("labels.#{@name}", @options.merge(:default => @name.to_s.humanize)))
       end

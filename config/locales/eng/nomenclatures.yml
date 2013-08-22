@@ -284,6 +284,11 @@ eng:
     document_categories:
       items:
         # health: "Santé - Hygiène"
+        # land_parcel_management: "Conduite de la parcelle"
+    document_natures:
+      items:
+        # manure_management_plan: "Plan de fumure"
+        # veterinary_booklet: "Carnet vétérinaire"
     entity_natures:
       items:
         association: "Association"
@@ -538,7 +543,8 @@ eng:
     varieties-equipment:
       items:
         # tractor: "Tracteur"
-      # name: "Equipements"
+        # worker: "Travailleur"
+      # name: "Équipements"
     varieties-plant:
       items:
         # asteraceae: "Astéracées"
@@ -557,37 +563,37 @@ eng:
       items:
         # caphorn: "Caphorn"
       # name: "Blé tendre"
-  procedures:
-    animal_birth: "Animal birth"
-    calving_one: "Calving one"
-    calving_twin: "Calving twin"
-    chemical_treatment: "Chemical treatment"
-    mineral_fertilizing: "Mineral fertilizing"
-    organic_fertilizing: "Organic fertilizing"
-    plowing: "Plowing"
-    seed_harvest: "Seed harvest"
-    sowing: "Sowing"
-    superficial_plowing: "Superficial plowing"
-    wheat_crop: "Wheat crop"
-  variables:
-    cropper: "Cropper"
-    cropper_driver: "Cropper driver"
-    culture: "Culture"
-    driver: "Driver"
-    fertilizer: "Fertilizer"
-    fertilizer_to_spread: "Fertilizer to spread"
-    grains: "Grains"
-    harrow: "Harrow"
-    land_parcel: "Land parcel"
-    manure: "Manure"
-    manure_to_spread: "Manure to spread"
-    molecule: "Molecule"
-    plow: "Plow"
-    seeder: "Seeder"
-    seeds: "Seeds"
-    seeds_to_sow: "Seeds to sow"
-    silo: "Silo"
-    spreader: "Spreader"
-    straw: "Straw"
-    tractor: "Tractor"
-    trailer: "Trailer"
+  procedures:  #?
+    animal_birth: "Animal birth" #?
+    calving_one: "Calving one" #?
+    calving_twin: "Calving twin" #?
+    chemical_treatment: "Chemical treatment" #?
+    mineral_fertilizing: "Mineral fertilizing" #?
+    organic_fertilizing: "Organic fertilizing" #?
+    plowing: "Plowing" #?
+    seed_harvest: "Seed harvest" #?
+    sowing: "Sowing" #?
+    superficial_plowing: "Superficial plowing" #?
+    wheat_crop: "Wheat crop" #?
+  variables:  #?
+    cropper: "Cropper" #?
+    cropper_driver: "Cropper driver" #?
+    culture: "Culture" #?
+    driver: "Driver" #?
+    fertilizer: "Fertilizer" #?
+    fertilizer_to_spread: "Fertilizer to spread" #?
+    grains: "Grains" #?
+    harrow: "Harrow" #?
+    land_parcel: "Land parcel" #?
+    manure: "Manure" #?
+    manure_to_spread: "Manure to spread" #?
+    molecule: "Molecule" #?
+    plow: "Plow" #?
+    seeder: "Seeder" #?
+    seeds: "Seeds" #?
+    seeds_to_sow: "Seeds to sow" #?
+    silo: "Silo" #?
+    spreader: "Spreader" #?
+    straw: "Straw" #?
+    tractor: "Tractor" #?
+    trailer: "Trailer" #?

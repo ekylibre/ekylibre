@@ -98,68 +98,60 @@ module Aggeratio
       parameters = agg.parameters
       root = agg.root
 
-      code << "  def self.parameters\n"
-      code << "    return " + parameters.values.inject({}) do |hash, p|
-        hash[p.name] = {:type => p.type, :name => p.name}
-        hash
-      end.inspect + "\n"
+      code << "  class << self\n"
+
+      code << "    def parameters\n"
+      code << "      [" + agg.parameters.collect do |parameter|
+        "Parameter.new(#{parameter.name.inspect}, :#{parameter.type}, #{parameter.options.inspect}).freeze"
+      end.join(", ") + "].freeze\n"
+      code << "    end\n"
+
+      code << "    def aggregator_name\n"
+      code << "      '#{name}'\n"
+      code << "    end\n"
+      code << "    alias :id :aggregator_name\n"
+
+      code << "    def category\n"
+      code << "      '#{element.attr('category')}'\n"
+      code << "    end\n"
+
       code << "  end\n"
 
-      # Returns name
-      code << "  def self.aggregator_name\n"
-      code << "    '#{name}'\n"
-      code << "  end\n"
-
-      code << "  def self.id\n"
-      code << "    '#{name}'\n"
-      code << "  end\n"
-
-      code << "  def self.category\n"
-      code << "    '#{element.attr('category')}'\n"
-      code << "  end\n"
-
-
-      # code << "  def aggregator_name\n"
-      # code << "    self.class.aggregator_name\n"
-      # code << "  end\n"
-      # code << "  alias :id :aggregator_name\n"
-      # code << "  def category\n"
-      # code << "    self.class.category\n"
-      # code << "  end\n"
-
-      v = "params"
-      code << "  def initialize(#{v} = {})\n"
-      for p in parameters.values
-        if p.type == :record_list
+      params = "options"
+      code << "  def initialize(#{params} = {})\n"
+      for p in parameters
+        if p.record_list?
           # campaigns
-          code << "    if #{v}['#{p.name}']\n"
-          code << "      @#{p.name} = #{p.class_name}.where(:id => #{v}['#{p.name}'].to_s.split(/[\\,\\s]+/))\n"
-          # campaign_ids
-          name = p.name.singularize + "_ids"
-          code << "    elsif #{v}['#{name}']\n"
-          code << "      @#{p.name} = #{p.class_name}.where(:id => #{v}['#{name}'].to_s.split(/[\\,\\s]+/))\n"
+          code << "    if #{params}['#{p.name}'].is_a?(String)\n"
+          code << "      @#{p.name} = #{p.foreign_class.name}.where(:id => #{params}['#{p.name}'].to_s.split(/[\\,\\s]+/))\n"
+          code << "    elsif #{params}['#{p.name}'].is_a?(Hash)\n"
+          code << "      @#{p.name} = #{p.foreign_class.name}.where(:id => #{params}['#{p.name}'].select{|k,v| !v.to_i.zero?}.map(&:first))\n"
+          code << "    elsif #{params}['#{p.name}'].is_a?(Array)\n"
+          code << "      @#{p.name} = #{p.foreign_class.name}.where(:id => #{params}['#{p.name}'])\n"
+          # # campaign_ids
+          # name = p.name.singularize + "_ids"
+          # code << "    elsif #{params}['#{name}']\n"
+          # code << "      @#{p.name} = #{p.foreign_class.name}.where(:id => #{params}['#{name}'].to_s.split(/[\\,\\s]+/))\n"
           code << "    else\n"
-          code << "      @#{p.name} = #{p.class_name}.#{p.default}\n"
+          code << "      @#{p.name} = #{p.foreign_class.name}.#{p.default}\n"
           code << "    end\n"
-        elsif p.type == :record
+        elsif p.record?
           # campaign
-          code << "    if #{v}['#{p.name}']\n"
-          code << "      @#{p.name} = #{p.class_name}.find(#{v}['#{p.name}'].to_i)\n"
-          # campaign_id
-          name = p.name + "_id"
-          code << "    elsif #{v}['#{name}']\n"
-          code << "      @#{p.name} = #{p.class_name}.find(#{v}['#{name}'].to_i)\n"
+          code << "    if #{params}['#{p.name}']\n"
+          code << "      @#{p.name} = #{p.foreign_class.name}.find(#{params}['#{p.name}'].to_i)\n"
+          # # campaign_id
+          # name = p.name + "_id"
+          # code << "    elsif #{params}['#{name}']\n"
+          # code << "      @#{p.name} = #{p.foreign_class.name}.find(#{params}['#{name}'].to_i)\n"
           code << "    else\n"
-          code << "      @#{p.name} = #{p.class_name}.#{p.default}\n"
+          code << "      @#{p.name} = #{p.foreign_class.name}.#{p.default}\n"
           code << "    end\n"
-        elsif p.type == :string
-          code << "    @#{p.name} = (#{v}['#{name}'] ? #{v}['#{name}'].to_s : #{p.default.inspect})\n"
-        elsif p.type == :decimal
-          code << "    @#{p.name} = (#{v}['#{name}'] ? #{v}['#{name}'].to_f : #{p.default.to_f.inspect})\n"
-        elsif p.type == :integer
-          code << "    @#{p.name} = (#{v}['#{name}'] ? #{v}['#{name}'].to_i : #{p.default.to_i.inspect})\n"
+        elsif p.decimal?
+          code << "    @#{p.name} = (#{params}['#{name}'] ? #{params}['#{name}'].to_f : #{p.default.to_f.inspect})\n"
+        elsif p.integer?
+          code << "    @#{p.name} = (#{params}['#{name}'] ? #{params}['#{name}'].to_i : #{p.default.to_i.inspect})\n"
         else
-          code << "    # unknown type for #{p.name}\n"
+          code << "    @#{p.name} = (#{params}['#{name}'] ? #{params}['#{name}'].to_s : #{p.default.inspect})\n"
         end
       end
       code << "  end\n"

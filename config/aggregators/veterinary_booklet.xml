@@ -17,15 +17,15 @@
           <variable name="worker" value="intervention.variables.of_role(:worker).first.target"/>
           <title name="name" of="intervention"/>
           <property name="id" of="intervention" level="api"/>
-          <property name="started_at" of="intervention"/>
-          <property name="stopped_at" of="intervention"/>
-          <property name="duration" value="((intervention.stopped_at - intervention.started_at).to_d/(60*60*24)).round(2)"/>
+          <property name="started_at" of="intervention" type="datetime"/>
+          <property name="stopped_at" of="intervention" type="datetime"/>
+          <property name="duration" value="((intervention.stopped_at - intervention.started_at).to_d/(60*60*24)).round(2)" type="decimal"/>
           <within name="target">
             <property name="identification_number"/>
             <property name="name"/>
             <property name="id" level="api"/>
             <property name="type" level="api"/>
-            <property name="url" value="id"  level="api"/>
+            <property name="url" value="id" level="api" type="url"/>
           </within>
           <within name="worker">
             <property name="identification_number"/>
@@ -36,7 +36,7 @@
           <within name="incident" of="intervention.incident">
             <property name="id" level="api"/>
             <property name="name"/>
-            <property name="observed_at"/>
+            <property name="observed_at" type="datetime"/>
             <property name="state" level="api"/>
             <property name="description"/>
           </within> 
@@ -57,12 +57,12 @@
             <cell name="measure_quantity" of="input"/>
             <cell name="measure_unit" of="input"/>
             <matrix name="withdrawal_periods">
-              <cell name="meat_withdrawal_period" value="meat_withdrawal_period"/>
-              <cell name="milk_withdrawal_period" value="milk_withdrawal_period"/>
+              <cell name="meat_withdrawal_period" value="meat_withdrawal_period" type="integer"/>
+              <cell name="milk_withdrawal_period" value="milk_withdrawal_period" type="integer"/>
             </matrix>
             <matrix name="sale_dates">
-              <cell name="meat_saleable_on" value="(intervention.stopped_at + meat_withdrawal_period).to_date"/>
-              <cell name="milk_saleable_on" value="(intervention.stopped_at + milk_withdrawal_period).to_date"/>
+              <cell name="meat_saleable_on" value="(intervention.stopped_at + meat_withdrawal_period).to_date" type="date"/>
+              <cell name="milk_saleable_on" value="(intervention.stopped_at + milk_withdrawal_period).to_date" type="date"/>
             </matrix>
           </matrix>
         </sections>

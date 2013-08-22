@@ -1367,7 +1367,7 @@ fra:
     product_name: "Produit"
     product_price_listings: "Listes de prix"
     product_price_templates: "Types de prix"
-    production: "Gestion de la production"
+    production: "Production"
     productions: "Productions"
     productions_states:
       aborted: "Annulées"

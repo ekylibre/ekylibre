@@ -1,20 +1,41 @@
-
+# Main base class for aggregators
 class Aggregator
+  @@parameters = {}
+  @@aggregator_name = 'Aggregator'
+  @@category = 'none'
+
+  # cattr_reader :category, :parameters, :parameters_hash, :aggregator_name
 
   class << self
 
+    def parameters
+      raise NotImplementedError.new
+    end
+
+    def aggregator_name
+      raise NotImplementedError.new
+    end
+
+    def category
+      raise NotImplementedError.new
+    end
+
     def human_name
       name = self.aggregator_name
-      return ::I18n.t("aggregators.#{name}", :default => [:"labels.#{name}", name.to_s.humanize])
+      return ::I18n.t("aggregators.names.#{name}", :default => [:"nomenclatures.document_natures.items.#{name}", :"labels.#{name}", name.to_s.humanize])
     end
 
   end
 
-  def to_xml(options = {})
+  def to_xml(*args)
     raise NotImplementedError.new
   end
 
-  def to_json(options = {})
+  def to_document_fragment(*args)
+    raise NotImplementedError.new
+  end
+
+  def to_json(*args)
     raise NotImplementedError.new
   end
 

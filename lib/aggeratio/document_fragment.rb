@@ -45,18 +45,6 @@ module Aggeratio
       item  = element.attr("for")
       code  = "for #{item} in #{element.attr("in")}\n"
       code << build_section(element).gsub(/^/, '  ')
-
-      # code << build_elements(element.xpath('xmlns:variable')).gsub(/^/, '  ')
-      # # code << build_element(element.xpath("xmlns:title")).gsub(/^/, '  ')
-      # code << build_properties_hash(element.xpath("*[self::xmlns:property or self::xmlns:title]"), :var => "attrs").gsub(/^/, '  ')
-      # code << "  attrs[:class] = '#{item}'\n"
-
-      # code << "  xml.section(attrs) do\n"
-      # if title = element.xpath('xmlns:title').first
-      #   code << "    xml.h2(#{value_of(element)})\n"
-      # end
-      # code << build_elements(element).gsub(/^/, '      ')
-      # code << "    end\n"
       code << "end\n"
       if element.has_attribute?("name")
         code = "xml.section(:class => 'sections') do\n" + code.strip.gsub(/^/, '  ') + "\nend\n"
@@ -73,7 +61,7 @@ module Aggeratio
         if type.blank?
           code << "  xml.h1(#{value_of(title)}) rescue nil\n"
         else
-          code << "  xml.h1(:section_x.tl(:section => :#{type}.tl(:default => '#{type.humanize}'), :x => #{value_of(title)})) rescue nil\n"
+          code << "  xml.h1(:section_x.tl(:section => :#{type}.tl(:default => [:'activerecord.models.#{type}', '#{type.humanize}']), :x => #{value_of(title)})) rescue nil\n"
         end
       end
       code << "  xml.div(:class => 'section-content') do\n"

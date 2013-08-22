@@ -249,7 +249,7 @@ module BackendHelper
     private
 
     def add_criterion(type=nil, options={})
-      @criteria << options.merge(:type => type, :uid => "#{@uid}:"+@criteria.size.to_s)
+      @criteria << options.merge(:type => type, :uid => "#{@uid}:" + @criteria.size.to_s)
     end
   end
 

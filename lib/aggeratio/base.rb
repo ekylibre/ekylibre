@@ -6,9 +6,8 @@ module Aggeratio
     def initialize(aggregator)
       @aggregator = aggregator
       @name = @aggregator.attr("name")
-      @parameters = @aggregator.children[0].children.inject({}) do |hash, element|
-        hash[element.attr('name').to_s] = Parameter.new(element)
-        hash
+      @parameters = @aggregator.children[0].children.collect do |element|
+        Parameter.import(element)
       end
       @root = @aggregator.children[1]
     end
@@ -23,7 +22,7 @@ module Aggeratio
 
     def parameter_initialization
       code = ""
-      for parameter in @parameters.values
+      for parameter in parameters
         code << "#{parameter.name} = @#{parameter.name}\n"
       end
       return code
