@@ -158,7 +158,8 @@ demo :productions do
 
     campaign = Campaign.find_by_name("2013")
     campaign ||= Campaign.create!(:name => "2013", :closed => false)
-    sole_ble_nature = ProductNature.find_by_variety("triticum_aestivum")
+    sole_ble_nature = ProductNature.find_by_nomen("wheat_crop")
+    sole_ble_nature ||= ProductNature.import_from_nomenclature(:wheat_crop)
 
     # create some indicator nature for fertilization
     # find some product for fertilization
@@ -178,23 +179,30 @@ demo :productions do
 
 
     production = Production.find_by_product_nature_id_and_campaign_id(sole_ble_nature.id, campaign.id)
+    if production.nil?
+      land_parcel_group_fert = CultivableLandParcel.find_by_work_number("PC22")
+      if land_parcel_group_fert.nil?
+        land_parcel_group_nature_variant = ProductNature.import_from_nomenclature(:cultivable_land_parcel).default_variant
+      land_parcel_group_fert = CultivableLandParcel.create!(:variant_id => land_parcel_group_nature_variant.id,
+                                                            :name => "Les Grands Pièces 1",
+                                                            :work_number => "PC22",
+                                                            :variety => "cultivable_land_parcel",
+                                                            :born_at => Time.now,
+                                                            :owner_id => Entity.of_company.id,
+                                                            :identification_number => "PC22")
+      end
+      production = Production.create!(:activity_id => Activity.find_by_family("straw_cereal_crops").id, :product_nature_id => sole_ble_nature.id, :campaign_id => campaign.id)
+      production.supports.create!(:storage_id => land_parcel_group_fert.id)
+    end
+    
+    
 
     # provisional fertilization procedure
     procedure_prev = Procedure.create!(:natures => "soil_enrichment", :nomen =>"mineral_fertilizing", :production_id => production.id, :provisional => true )
 
+    land_parcel_group_fert = production.supports.first.storage
 
-    #plant = Plant.find_by_work_number("SOLE_BLE-2013-PC23")
-    land_parcel_group_fert = CultivableLandParcel.first
-    if land_parcel_group_fert.nil?
-      land_parcel_group_nature_variant = ProductNature.import_from_nomenclature(:cultivable_land_parcel).default_variant
-      land_parcel_group_fert = CultivableLandParcel.create!(:variant_id => land_parcel_group_nature_variant.id,
-                                                            :name => "Les Grands Pièces",
-                                                            :work_number => "PC23",
-                                                            :variety => "cultivable_land_parcel",
-                                                            :born_at => Time.now,
-                                                            :owner_id => Entity.of_company.id,
-                                                            :identification_number => "PC23")
-    end
+
     # Create some procedure variable for fertilization
     for attributes in [{:target_id => land_parcel_group_fert.id, :role => "target",
                          :indicator => "net_surface_area",
@@ -246,7 +254,7 @@ demo :productions do
 
     campaign = Campaign.find_by_name("2012")
     campaign ||= Campaign.create!(:name => "2012", :closed => false)
-    sole_ble_nature = ProductNature.find_by_variety("triticum_aestivum")
+    sole_ble_nature = ProductNature.find_by_nomen("wheat_crop")
     sole_ble_nature ||= ProductNature.import_from_nomenclature(:wheat_crop)
     # create some indicator nature for fertilization
     # find some product for fertilization
@@ -257,25 +265,15 @@ demo :productions do
     #fertilizer_product.indicator_data.create!({:measure_unit => "kilograms_per_hectogram", :measured_at => Time.now }.merge(attributes))
     #fertilizer_product_prev.indicator_data.create!({:measure_unit => "kilograms_per_hectogram", :measured_at => Time.now }.merge(attributes))
 
-    fertilizer_product.is_measured!(:nitrogen_concentration, 27.00.in_kilogram_per_hectogram, :at => Time.now)
-    fertilizer_product.is_measured!(:potassium_concentration, 33.00.in_kilogram_per_hectogram, :at => Time.now)
-    fertilizer_product.is_measured!(:phosphorus_concentration, 33.00.in_kilogram_per_hectogram, :at => Time.now)
-    fertilizer_product_prev.is_measured!(:nitrogen_concentration, 27.00.in_kilogram_per_hectogram, :at => Time.now)
-    fertilizer_product_prev.is_measured!(:potassium_concentration, 33.00.in_kilogram_per_hectogram, :at => Time.now)
-    fertilizer_product_prev.is_measured!(:phosphorus_concentration, 33.00.in_kilogram_per_hectogram, :at => Time.now)
-
-
     production = Production.find_by_product_nature_id_and_campaign_id(sole_ble_nature.id, campaign.id)
-    production ||= Production.create!(:activity_id => Activity.find_by_family("straw_cereal_crops").id, :product_nature_id => sole_ble_nature.id, :campaign_id => campaign.id)
-     
-    # provisional fertilization procedure
-    procedure_prev = Procedure.create!(:natures => "soil_enrichment", :nomen =>"mineral_fertilizing", :production_id => production.id, :provisional => true )
-
-
-    #plant = Plant.find_by_work_number("SOLE_BLE-2013-PC23")
-    land_parcel_group_fert = CultivableLandParcel.last
-    if land_parcel_group_fert.nil?
-      land_parcel_group_nature_variant = ProductNature.import_from_nomenclature(:cultivable_land_parcel).default_variant
+    
+    if production.nil?
+      production = Production.create!(:activity_id => Activity.find_by_family("straw_cereal_crops").id, :product_nature_id => sole_ble_nature.id, :campaign_id => campaign.id)
+    end
+    if production.supports.first.nil?
+      land_parcel_group_fert = CultivableLandParcel.find_by_work_number("PC22")
+      if land_parcel_group_fert.nil?
+        land_parcel_group_nature_variant = ProductNature.import_from_nomenclature(:cultivable_land_parcel).default_variant
       land_parcel_group_fert = CultivableLandParcel.create!(:variant_id => land_parcel_group_nature_variant.id,
                                                             :name => "Les Grands Pièces 1",
                                                             :work_number => "PC22",
@@ -283,7 +281,16 @@ demo :productions do
                                                             :born_at => Time.now,
                                                             :owner_id => Entity.of_company.id,
                                                             :identification_number => "PC22")
+      end  
+      production.supports.create!(:storage_id => land_parcel_group_fert.id)
     end
+    
+     
+    # provisional fertilization procedure
+    procedure_prev = Procedure.create!(:natures => "soil_enrichment", :nomen =>"mineral_fertilizing", :production_id => production.id, :provisional => true )
+    
+    land_parcel_group_fert = production.supports.first.storage
+    
     # Create some procedure variable for fertilization
     for attributes in [{:target_id => land_parcel_group_fert.id, :role => "target",
                          :indicator => "net_surface_area",

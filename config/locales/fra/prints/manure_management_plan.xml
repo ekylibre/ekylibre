@@ -20,44 +20,40 @@
 	<style name="Row" mode="Transparent"/>
 	<style name="Crosstab Data Text" hAlign="Center"/>
 	<subDataset name="land_parcel_input_prev" uuid="655036d4-b3dc-43cf-aca7-9ea6f0a004cd">
-		<parameter name="land_parcel_group_id" class="java.lang.String"/>
-		<parameter name="land_parcel_area" class="java.lang.String"/>
-		<parameter name="land_parcel_area_unit" class="java.lang.String"/>
+		<parameter name="cultivable_land_parcel_id" class="java.lang.String"/>
+		<parameter name="cultivable_land_parcel_area" class="java.lang.String"/>
 		<queryString language="xPath">
-			<![CDATA[/land_parcel_groups/land_parcel_group/production/fertilization_prev/input[ancestor::land_parcel_group/@id=$P{land_parcel_group_id}]]]>
+			<![CDATA[/campaigns/campaign/cultivable_land_parcel/production/provisionnal_intervention/inputs/input[ancestor::cultivable_land_parcel/@id=$P{cultivable_land_parcel_id}]]]>
 		</queryString>
 		<field name="input" class="java.lang.String">
-			<fieldDescription><![CDATA[@input]]></fieldDescription>
+			<fieldDescription><![CDATA[id]]></fieldDescription>
 		</field>
 		<field name="input_nature" class="java.lang.String">
-			<fieldDescription><![CDATA[@input_nature]]></fieldDescription>
+			<fieldDescription><![CDATA[nature-name]]></fieldDescription>
 		</field>
 		<field name="input_quantity" class="java.lang.Double">
-			<fieldDescription><![CDATA[@input_quantity]]></fieldDescription>
-		</field>
-		<field name="input_quantity_unit" class="java.lang.String">
-			<fieldDescription><![CDATA[@input_quantity_unit]]></fieldDescription>
+			<fieldDescription><![CDATA[quantity]]></fieldDescription>
 		</field>
 		<field name="input_variety" class="java.lang.String">
-			<fieldDescription><![CDATA[@input_variety]]></fieldDescription>
+			<fieldDescription><![CDATA[variety]]></fieldDescription>
 		</field>
 		<field name="started_at" class="java.util.Date">
-			<fieldDescription><![CDATA[@started_at]]></fieldDescription>
+			<fieldDescription><![CDATA[ancestor::intervention/@started-at]]></fieldDescription>
 		</field>
 		<field name="stopped_at" class="java.util.Date">
-			<fieldDescription><![CDATA[@stopped_at]]></fieldDescription>
+			<fieldDescription><![CDATA[ancestor::intervention/@stopped-at]]></fieldDescription>
 		</field>
 		<field name="name" class="java.lang.String">
 			<fieldDescription><![CDATA[ancestor::production/@name]]></fieldDescription>
 		</field>
 		<field name="input_nitrogen_concentration" class="java.lang.Double">
-			<fieldDescription><![CDATA[/land_parcel_groups/land_parcel_group/production/fertilization_prev/input/@input_nitrogen_concentration]]></fieldDescription>
+			<fieldDescription><![CDATA[nitrogen-concentration]]></fieldDescription>
 		</field>
 		<field name="input_phosphorus_concentration" class="java.lang.Double">
-			<fieldDescription><![CDATA[/land_parcel_groups/land_parcel_group/production/fertilization_prev/input/@input_phosphorus_concentration]]></fieldDescription>
+			<fieldDescription><![CDATA[phosphorus-concentration]]></fieldDescription>
 		</field>
 		<field name="input_potassium_concentration" class="java.lang.Double">
-			<fieldDescription><![CDATA[/land_parcel_groups/land_parcel_group/production/fertilization_prev/input/@input_potassium_concentration]]></fieldDescription>
+			<fieldDescription><![CDATA[potassium-concentration]]></fieldDescription>
 		</field>
 		<sortField name="started_at"/>
 		<variable name="total_prev_nitrogen_quantity" class="java.lang.Double" calculation="Sum">
@@ -70,51 +66,47 @@
 			<variableExpression><![CDATA[$F{input_quantity}.doubleValue()*$F{input_phosphorus_concentration}.doubleValue()*0.01]]></variableExpression>
 		</variable>
 		<variable name="total_prev_nitrogen_quantity_per_area" class="java.lang.Double">
-			<variableExpression><![CDATA[$V{total_prev_nitrogen_quantity}/Double.valueOf($P{land_parcel_area})]]></variableExpression>
+			<variableExpression><![CDATA[$V{total_prev_nitrogen_quantity}/Double.valueOf($P{cultivable_land_parcel_area})]]></variableExpression>
 		</variable>
 		<variable name="total_prev_phosphorus_quantity_per_area" class="java.lang.Double">
-			<variableExpression><![CDATA[$V{total_prev_phosphorus_quantity}/Double.valueOf($P{land_parcel_area})]]></variableExpression>
+			<variableExpression><![CDATA[$V{total_prev_phosphorus_quantity}/Double.valueOf($P{cultivable_land_parcel_area})]]></variableExpression>
 		</variable>
 	</subDataset>
 	<subDataset name="land_parcel_input_real" uuid="ec5668ea-c9c2-4e0d-b4a5-1ab7de9cfcc7">
-		<parameter name="land_parcel_group_id" class="java.lang.String"/>
-		<parameter name="land_parcel_area" class="java.lang.String"/>
-		<parameter name="land_parcel_area_unit" class="java.lang.String"/>
+		<parameter name="cultivable_land_parcel_id" class="java.lang.String"/>
+		<parameter name="cultivable_land_parcel_area" class="java.lang.String"/>
 		<queryString language="xPath">
-			<![CDATA[/land_parcel_groups/land_parcel_group/production/fertilization_real/input[ancestor::land_parcel_group/@id=$P{land_parcel_group_id}]]]>
+			<![CDATA[/campaigns/campaign/cultivable_land_parcel/production/intervention/inputs/input[ancestor::cultivable_land_parcel/@id=$P{cultivable_land_parcel_id}]]]>
 		</queryString>
 		<field name="input" class="java.lang.String">
-			<fieldDescription><![CDATA[@input]]></fieldDescription>
+			<fieldDescription><![CDATA[id]]></fieldDescription>
 		</field>
 		<field name="input_nature" class="java.lang.String">
-			<fieldDescription><![CDATA[@input_nature]]></fieldDescription>
+			<fieldDescription><![CDATA[nature-name]]></fieldDescription>
 		</field>
 		<field name="input_quantity" class="java.lang.Double">
-			<fieldDescription><![CDATA[@input_quantity]]></fieldDescription>
-		</field>
-		<field name="input_quantity_unit" class="java.lang.String">
-			<fieldDescription><![CDATA[@input_quantity_unit]]></fieldDescription>
+			<fieldDescription><![CDATA[quantity]]></fieldDescription>
 		</field>
 		<field name="input_variety" class="java.lang.String">
-			<fieldDescription><![CDATA[@input_variety]]></fieldDescription>
+			<fieldDescription><![CDATA[variety]]></fieldDescription>
 		</field>
 		<field name="started_at" class="java.util.Date">
-			<fieldDescription><![CDATA[@started_at]]></fieldDescription>
+			<fieldDescription><![CDATA[ancestor::intervention/@started-at]]></fieldDescription>
 		</field>
 		<field name="stopped_at" class="java.util.Date">
-			<fieldDescription><![CDATA[@stopped_at]]></fieldDescription>
+			<fieldDescription><![CDATA[ancestor::intervention/@stopped-at]]></fieldDescription>
 		</field>
 		<field name="name" class="java.lang.String">
 			<fieldDescription><![CDATA[ancestor::production/@name]]></fieldDescription>
 		</field>
 		<field name="input_nitrogen_concentration" class="java.lang.Double">
-			<fieldDescription><![CDATA[/land_parcel_groups/land_parcel_group/production/fertilization_prev/input/@input_nitrogen_concentration]]></fieldDescription>
+			<fieldDescription><![CDATA[nitrogen-concentration]]></fieldDescription>
 		</field>
 		<field name="input_phosphorus_concentration" class="java.lang.Double">
-			<fieldDescription><![CDATA[/land_parcel_groups/land_parcel_group/production/fertilization_prev/input/@input_phosphorus_concentration]]></fieldDescription>
+			<fieldDescription><![CDATA[phosphorus-concentration]]></fieldDescription>
 		</field>
 		<field name="input_potassium_concentration" class="java.lang.Double">
-			<fieldDescription><![CDATA[/land_parcel_groups/land_parcel_group/production/fertilization_prev/input/@input_potassium_concentration]]></fieldDescription>
+			<fieldDescription><![CDATA[potassium-concentration]]></fieldDescription>
 		</field>
 		<sortField name="started_at"/>
 		<variable name="total_prev_nitrogen_quantity" class="java.lang.Double" calculation="Sum">
@@ -127,45 +119,11 @@
 			<variableExpression><![CDATA[$F{input_quantity}.doubleValue()*$F{input_phosphorus_concentration}.doubleValue()*0.01]]></variableExpression>
 		</variable>
 		<variable name="total_prev_nitrogen_quantity_per_area" class="java.lang.Double">
-			<variableExpression><![CDATA[$V{total_prev_nitrogen_quantity}/Double.valueOf($P{land_parcel_area})]]></variableExpression>
+			<variableExpression><![CDATA[$V{total_prev_nitrogen_quantity}/Double.valueOf($P{cultivable_land_parcel_area})]]></variableExpression>
 		</variable>
 		<variable name="total_prev_phosphorus_quantity_per_area" class="java.lang.Double">
-			<variableExpression><![CDATA[$V{total_prev_phosphorus_quantity}/Double.valueOf($P{land_parcel_area})]]></variableExpression>
+			<variableExpression><![CDATA[$V{total_prev_phosphorus_quantity}/Double.valueOf($P{cultivable_land_parcel_area})]]></variableExpression>
 		</variable>
-	</subDataset>
-	<subDataset name="land_parcel_input_real_stat" uuid="7ddbe594-a7a1-46e5-b377-2eb14b6f6830">
-		<parameter name="land_parcel_group_id" class="java.lang.String"/>
-		<queryString language="xPath">
-			<![CDATA[/land_parcel_groups/land_parcel_group/production/fertilization_real/input]]>
-		</queryString>
-		<field name="input_quantity" class="java.lang.Double">
-			<fieldDescription><![CDATA[@input_quantity]]></fieldDescription>
-		</field>
-		<field name="input_potassium_concentration" class="java.lang.Double">
-			<fieldDescription><![CDATA[@input_potassium_concentration]]></fieldDescription>
-		</field>
-		<field name="input_phosphorus_concentration" class="java.lang.Double">
-			<fieldDescription><![CDATA[@input_phosphorus_concentration]]></fieldDescription>
-		</field>
-		<field name="input_nitrogen_concentration" class="java.lang.Double">
-			<fieldDescription><![CDATA[@input_nitrogen_concentration]]></fieldDescription>
-		</field>
-		<field name="work_number" class="java.lang.String">
-			<fieldDescription><![CDATA[ancestor::land_parcel_group/@work_number]]></fieldDescription>
-		</field>
-		<sortField name="work_number"/>
-		<variable name="total_prev_nitrogen_quantity" class="java.lang.Double" resetType="Group" resetGroup="group_name" calculation="Sum">
-			<variableExpression><![CDATA[$F{input_quantity}.doubleValue()*$F{input_nitrogen_concentration}.doubleValue()*0.01]]></variableExpression>
-		</variable>
-		<variable name="total_prev_input_quantity" class="java.lang.Double" resetType="Group" resetGroup="group_name" calculation="Sum">
-			<variableExpression><![CDATA[$F{input_quantity}.doubleValue()]]></variableExpression>
-		</variable>
-		<variable name="total_prev_phosphorus_quantity" class="java.lang.Double" resetType="Group" resetGroup="group_name" calculation="Sum">
-			<variableExpression><![CDATA[$F{input_quantity}.doubleValue()*$F{input_phosphorus_concentration}.doubleValue()*0.01]]></variableExpression>
-		</variable>
-		<group name="group_name">
-			<groupExpression><![CDATA[$F{work_number}]]></groupExpression>
-		</group>
 	</subDataset>
 	<parameter name="XML_DATA_DOCUMENT" class="java.lang.String" isForPrompting="false"/>
 	<parameter name="XML_URL" class="java.lang.String" isForPrompting="false"/>
@@ -173,41 +131,41 @@
 		<defaultValueExpression><![CDATA["/home/djoulin/ekylibre/config/locales/fra/prints/"]]></defaultValueExpression>
 	</parameter>
 	<queryString language="xPath">
-		<![CDATA[/land_parcel_groups/land_parcel_group]]>
+		<![CDATA[/campaigns/campaign/cultivable_land_parcel]]>
 	</queryString>
 	<field name="campaign" class="java.lang.String">
-		<fieldDescription><![CDATA[ancestor::land_parcel_groups/@campaign]]></fieldDescription>
+		<fieldDescription><![CDATA[ancestor::campaign/@name]]></fieldDescription>
 	</field>
 	<field name="entity_name" class="java.lang.String">
-		<fieldDescription><![CDATA[ancestor::land_parcel_groups/@entity_name]]></fieldDescription>
+		<fieldDescription><![CDATA[ancestor::campaigns/@entity-name]]></fieldDescription>
 	</field>
 	<field name="area" class="java.lang.String">
-		<fieldDescription><![CDATA[@area]]></fieldDescription>
-	</field>
-	<field name="area_unit" class="java.lang.String">
-		<fieldDescription><![CDATA[@area_unit]]></fieldDescription>
+		<fieldDescription><![CDATA[@net-surface-area]]></fieldDescription>
 	</field>
 	<field name="name" class="java.lang.String">
 		<fieldDescription><![CDATA[@name]]></fieldDescription>
 	</field>
 	<field name="work_number" class="java.lang.String">
-		<fieldDescription><![CDATA[@work_number]]></fieldDescription>
+		<fieldDescription><![CDATA[@work-number]]></fieldDescription>
 	</field>
 	<field name="id" class="java.lang.String">
 		<fieldDescription><![CDATA[@id]]></fieldDescription>
 	</field>
 	<field name="svg_path" class="java.lang.String">
-		<fieldDescription><![CDATA[@svg_path]]></fieldDescription>
+		<fieldDescription><![CDATA[@shape-svg]]></fieldDescription>
 	</field>
 	<field name="production_name" class="java.lang.String">
 		<fieldDescription><![CDATA[production/@name]]></fieldDescription>
+	</field>
+	<field name="area_value" class="java.lang.Double">
+		<fieldDescription><![CDATA[@net-surface-area]]></fieldDescription>
 	</field>
 	<sortField name="work_number"/>
 	<group name="campaign" isStartNewPage="true">
 		<groupExpression><![CDATA[$F{campaign}]]></groupExpression>
 	</group>
 	<group name="land_parcel_group" isStartNewPage="true" keepTogether="true">
-		<groupExpression><![CDATA[$F{work_number}]]></groupExpression>
+		<groupExpression><![CDATA[$F{id}]]></groupExpression>
 		<groupHeader>
 			<band height="125">
 				<textField>
@@ -258,12 +216,13 @@
 				<textField pattern="" isBlankWhenNull="true">
 					<reportElement uuid="b3834841-2c13-4098-90f2-dd5003f7e126" style="base" x="71" y="37" width="170" height="22"/>
 					<textElement/>
-					<textFieldExpression><![CDATA[Double.valueOf($F{area})]]></textFieldExpression>
-					<patternExpression><![CDATA["###0.00 "+$F{area_unit}]]></patternExpression>
+					<textFieldExpression><![CDATA[$F{area_value}]]></textFieldExpression>
 				</textField>
-				<image>
-					<reportElement uuid="76a9af81-d2a1-4946-8f26-98bfb1e1fb3a" x="632" y="37" width="144" height="81"/>
-					<imageExpression><![CDATA[net.sf.jasperreports.renderers.BatikRenderer.getInstance(new java.io.File($F{svg_path}))]]></imageExpression>
+				<image evaluationTime="Group" evaluationGroup="land_parcel_group">
+					<reportElement uuid="76a9af81-d2a1-4946-8f26-98bfb1e1fb3a" x="632" y="37" width="144" height="81">
+						<printWhenExpression><![CDATA[!$F{svg_path}.isEmpty()]]></printWhenExpression>
+					</reportElement>
+					<imageExpression><![CDATA[net.sf.jasperreports.renderers.BatikRenderer.getInstanceFromText($F{svg_path})]]></imageExpression>
 				</image>
 			</band>
 		</groupHeader>
@@ -310,16 +269,13 @@
 			<componentElement>
 				<reportElement uuid="d34c571c-1d69-4117-be7d-a317869058ea" key="table" x="0" y="0" width="786" height="33" isRemoveLineWhenBlank="true"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
-					<datasetRun subDataset="land_parcel_input_prev" uuid="3c730e4a-72d5-4b3b-967e-303d6cd9a39f">
+					<datasetRun subDataset="land_parcel_input_prev" uuid="296e1e49-875b-44c6-be57-0e6724c7ccaf">
 						<parametersMapExpression><![CDATA[$P{REPORT_PARAMETERS_MAP}]]></parametersMapExpression>
-						<datasetParameter name="land_parcel_group_id">
+						<datasetParameter name="cultivable_land_parcel_id">
 							<datasetParameterExpression><![CDATA[$F{id}]]></datasetParameterExpression>
 						</datasetParameter>
-						<datasetParameter name="land_parcel_area">
-							<datasetParameterExpression><![CDATA[$F{area}]]></datasetParameterExpression>
-						</datasetParameter>
-						<datasetParameter name="land_parcel_area_unit">
-							<datasetParameterExpression><![CDATA[$F{area_unit}]]></datasetParameterExpression>
+						<datasetParameter name="cultivable_land_parcel_area">
+							<datasetParameterExpression><![CDATA[$F{area_value}]]></datasetParameterExpression>
 						</datasetParameter>
 						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					</datasetRun>
@@ -455,21 +411,9 @@
 						</jr:column>
 						<jr:column width="45" uuid="55c73f4a-871f-4818-bcb9-eae218068f40">
 							<jr:tableHeader height="0" rowSpan="1"/>
-							<jr:columnHeader height="43" rowSpan="1">
-								<staticText>
-									<reportElement uuid="a525a963-1f00-4451-8265-83595648881e" style="table-td" x="0" y="0" width="45" height="43"/>
-									<textElement textAlignment="Center" verticalAlignment="Middle"/>
-									<text><![CDATA[unité]]></text>
-								</staticText>
-							</jr:columnHeader>
+							<jr:columnHeader height="43" rowSpan="1"/>
 							<jr:columnFooter height="0" rowSpan="1"/>
-							<jr:detailCell height="20" rowSpan="1">
-								<textField isBlankWhenNull="true">
-									<reportElement uuid="8e6f1f2a-e164-4378-90e5-b7e85ab754bb" style="table-td" x="0" y="0" width="45" height="20"/>
-									<textElement textAlignment="Center" verticalAlignment="Middle"/>
-									<textFieldExpression><![CDATA[$F{input_quantity_unit}]]></textFieldExpression>
-								</textField>
-							</jr:detailCell>
+							<jr:detailCell height="20" rowSpan="1"/>
 						</jr:column>
 						<jr:column width="102" uuid="638ce6b6-7136-4b40-8e3b-5c24da5e4c21">
 							<jr:tableHeader height="0" rowSpan="1"/>
@@ -483,7 +427,6 @@
 									<reportElement uuid="f492c6af-ec85-44d9-b957-326c19df63a4" style="base" x="0" y="30" width="102" height="30"/>
 									<textElement/>
 									<textFieldExpression><![CDATA[$V{total_prev_nitrogen_quantity_per_area}]]></textFieldExpression>
-									<patternExpression><![CDATA["###0.00 " + $F{input_quantity_unit} + " / " + $P{land_parcel_area_unit}]]></patternExpression>
 								</textField>
 							</jr:tableFooter>
 							<jr:columnHeader height="43" rowSpan="1">
@@ -514,7 +457,6 @@
 									<reportElement uuid="68e5a0f1-a2ee-468e-83dd-4f7ffe7665e6" style="base" x="0" y="30" width="100" height="30" isPrintInFirstWholeBand="true"/>
 									<textElement/>
 									<textFieldExpression><![CDATA[$V{total_prev_phosphorus_quantity_per_area}]]></textFieldExpression>
-									<patternExpression><![CDATA["###0.00 " + $F{input_quantity_unit} + " / " + $P{land_parcel_area_unit}]]></patternExpression>
 								</textField>
 							</jr:tableFooter>
 							<jr:columnHeader height="43" rowSpan="1">
@@ -577,16 +519,13 @@
 			<componentElement>
 				<reportElement uuid="72577195-cf73-4bb8-921b-8c0bfdab39b3" key="table" x="2" y="0" width="784" height="37" isRemoveLineWhenBlank="true"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
-					<datasetRun subDataset="land_parcel_input_real" uuid="09b7dfb3-7138-447b-9679-5428d72d64dc">
+					<datasetRun subDataset="land_parcel_input_real" uuid="b9cc4c1f-d2e0-4993-8015-e95018d2b87c">
 						<parametersMapExpression><![CDATA[$P{REPORT_PARAMETERS_MAP}]]></parametersMapExpression>
-						<datasetParameter name="land_parcel_group_id">
+						<datasetParameter name="cultivable_land_parcel_id">
 							<datasetParameterExpression><![CDATA[$F{id}]]></datasetParameterExpression>
 						</datasetParameter>
-						<datasetParameter name="land_parcel_area">
-							<datasetParameterExpression><![CDATA[$F{area}]]></datasetParameterExpression>
-						</datasetParameter>
-						<datasetParameter name="land_parcel_area_unit">
-							<datasetParameterExpression><![CDATA[$F{area_unit}]]></datasetParameterExpression>
+						<datasetParameter name="cultivable_land_parcel_area">
+							<datasetParameterExpression><![CDATA[$F{area_value}]]></datasetParameterExpression>
 						</datasetParameter>
 						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					</datasetRun>
@@ -722,21 +661,9 @@
 						</jr:column>
 						<jr:column width="45" uuid="30b124ea-581d-4765-9b91-a4c97c3a0038">
 							<jr:tableHeader height="0" rowSpan="1"/>
-							<jr:columnHeader height="43" rowSpan="1">
-								<staticText>
-									<reportElement uuid="d611f606-77bf-45ea-93a0-72a0f1a24fe0" style="table-td" x="0" y="0" width="45" height="43"/>
-									<textElement textAlignment="Center" verticalAlignment="Middle"/>
-									<text><![CDATA[unité]]></text>
-								</staticText>
-							</jr:columnHeader>
+							<jr:columnHeader height="43" rowSpan="1"/>
 							<jr:columnFooter height="0" rowSpan="1"/>
-							<jr:detailCell height="20" rowSpan="1">
-								<textField isBlankWhenNull="true">
-									<reportElement uuid="3c295b6c-9f27-4af7-bcce-228545bbf7eb" style="table-td" x="0" y="0" width="45" height="20"/>
-									<textElement textAlignment="Center" verticalAlignment="Middle"/>
-									<textFieldExpression><![CDATA[$F{input_quantity_unit}]]></textFieldExpression>
-								</textField>
-							</jr:detailCell>
+							<jr:detailCell height="20" rowSpan="1"/>
 						</jr:column>
 						<jr:column width="118" uuid="d3532eba-cb3e-430c-915c-9ded5a34b84d">
 							<jr:tableHeader height="0" rowSpan="1"/>
@@ -750,7 +677,6 @@
 									<reportElement uuid="fb541883-3007-4851-840e-75c87e149683" style="base" x="0" y="34" width="118" height="34"/>
 									<textElement/>
 									<textFieldExpression><![CDATA[$V{total_prev_nitrogen_quantity_per_area}]]></textFieldExpression>
-									<patternExpression><![CDATA["###0.00 " + $F{input_quantity_unit} + " / " + $P{land_parcel_area_unit}]]></patternExpression>
 								</textField>
 							</jr:tableFooter>
 							<jr:columnHeader height="43" rowSpan="1">
@@ -781,7 +707,6 @@
 									<reportElement uuid="0e7f023e-7f25-4860-8e13-b44b9f305303" style="base" x="0" y="34" width="111" height="34"/>
 									<textElement/>
 									<textFieldExpression><![CDATA[$V{total_prev_phosphorus_quantity_per_area}]]></textFieldExpression>
-									<patternExpression><![CDATA["###0.00 " + $F{input_quantity_unit} + " / " + $P{land_parcel_area_unit}]]></patternExpression>
 								</textField>
 							</jr:tableFooter>
 							<jr:columnHeader height="43" rowSpan="1">

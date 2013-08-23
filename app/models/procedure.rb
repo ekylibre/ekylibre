@@ -65,7 +65,7 @@ class Procedure < Ekylibre::Record::Base
   scope :real, -> { where(:provisional => false).order(:nomen) }
 
   scope :with_variable, lambda { |role, object|
-     where("id IN (SELECT procedure_id FROM #{ProcedureVariable.table_name} WHERE target_id = ? AND role = ?)", object.id, role)
+     where("id IN (SELECT procedure_id FROM #{ProcedureVariable.table_name} WHERE target_id = ? AND role = ?)", object.id, role.to_s)
   }
 
   # before_validation(:on => :create) do
