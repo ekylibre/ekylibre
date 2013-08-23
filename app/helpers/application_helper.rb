@@ -45,6 +45,10 @@ module ApplicationHelper
     controller.current_theme
   end
 
+  def current_user
+    controller.current_user
+  end
+
 
 
   # Helper which check authorization of an action
@@ -131,15 +135,6 @@ module ApplicationHelper
     return currency.to_currency.localize(amount, options)
   end
 
-
-
-
-
-
-  def preference(name)
-    # name = self.controller.controller_name.to_s << name.to_s if name.to_s.match(/^\./)
-    @current_company.preference(name)
-  end
 
   def locale_selector
     # , :selected => ::I18n.locale)
@@ -577,12 +572,12 @@ module ApplicationHelper
     return html.html_safe
   end
 
-  def theme_path(name)
-    "themes/#{current_theme}/#{name}"
-  end
-
   def theme_button(name, theme='tekyla')
     image_path(theme_path("buttons/#{name}.png"))
+  end
+
+  def theme_path(name)
+    "themes/#{current_theme}/#{name}"
   end
 
 
@@ -596,7 +591,7 @@ module ApplicationHelper
 
   def title_tag
     r = [] # reverse_menus
-    title = if @current_user
+    title = if current_user
               code = URI::parse(request.url).host # .split(".")[-3].to_s
               if r.empty?
                 tc(:page_title_special, :company_code => code, :action => controller.human_action_name)
@@ -987,21 +982,6 @@ module ApplicationHelper
     options += product.stocks.collect{|x| [x.label, x.id]}
     options += Building.of_product(product).collect{|x| [x.name, -x.id]}
     return options
-  end
-
-  def toggle_tag(name=:orientation, modes = [:vertical, :horizontal])
-    raise ArgumentError.new("Invalid name") unless name.to_s.match(/^[a-z\_]+$/)
-    pref = @current_user.preference("interface.toggle.#{name}", modes[0].to_s)
-    code = ""
-    for mode in modes
-      # code << link_to("", params.merge(name => mode), :title => tl("#{name}.#{mode}"), :class => "icon im-#{mode}#{' current' if mode.to_s==pref.value}")
-      if mode.to_s==pref.value
-        code << content_tag(:a, nil, :title => tl("#{name}.#{mode}"), :class => "icon im-#{mode} current")
-      else
-        code << link_to("", params.merge(name => mode), :title => tl("#{name}.#{mode}"), :class => "icon im-#{mode}")
-      end
-    end
-    content_tag(:div, code.html_safe, :class => "toggle tg-#{name}")
   end
 
 
