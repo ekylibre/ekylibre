@@ -11,11 +11,13 @@
       <sections for="campaign" in="campaigns">
         <property name="id" of="campaign" level="api"/>
         <title name="name" of="campaign"/>
+        <!-- looking for all CultivableLandParcel in current campaign -->
         <sections for="cultivable_land_parcel" in="CultivableLandParcel.of_campaign(campaign)">
           <title name="name" of="cultivable_land_parcel"/>
           <property name="work_number" of="cultivable_land_parcel"/>
+          <property name="shape_area" of="cultivable_land_parcel"/>
           <property name="id" of="cultivable_land_parcel" level="api"/>
-          <property name="shape_path" of="cultivable_land_parcel" type="svg-path" level="api"/>
+          <property name="shape_svg" of="cultivable_land_parcel" type="svg" level="api"/>
           <sections for="production" in="cultivable_land_parcel.productions.of_campaign(campaign)">
             <title name="name" of="production"/>
             <sections for="intervention" in="production.procedures.real.of_nature(:soil_enrichment).with_variable(:target, cultivable_land_parcel)">
@@ -53,8 +55,7 @@
                   <cell name="nature_name"/>
                   <cell name="variety" level="api"/>
                 </within>
-                <cell name="measure_quantity" of="input"/>
-                <cell name="measure_unit" of="input"/>
+                <cell name="quantity" of="input"/>
               </matrix>
             </sections>
           </sections>
