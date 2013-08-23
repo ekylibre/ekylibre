@@ -198,8 +198,8 @@ demo :productions do
       production = Production.create!(:activity_id => Activity.find_by_family("straw_cereal_crops").id, :product_nature_id => sole_ble_nature.id, :campaign_id => campaign.id)
       production.supports.create!(:storage_id => land_parcel_group_fert.id)
     end
-    
-    
+
+
 
     # provisional fertilization procedure
     procedure_prev = Procedure.create!(:natures => "soil_enrichment", :nomen =>"mineral_fertilizing", :production_id => production.id, :provisional => true )
@@ -250,7 +250,7 @@ demo :productions do
     end
     w.check_point
   end
-  
+
   Ekylibre::fixturize :fertilizing_procedure_demo_data_2 do |w|
     #############################################################################
     ## Demo data for fertilizing
@@ -270,7 +270,7 @@ demo :productions do
     #fertilizer_product_prev.indicator_data.create!({:measure_unit => "kilograms_per_hectogram", :measured_at => Time.now }.merge(attributes))
 
     production = Production.find_by_product_nature_id_and_campaign_id(sole_ble_nature.id, campaign.id)
-    
+
     if production.nil?
       production = Production.create!(:activity_id => Activity.find_by_family("straw_cereal_crops").id, :product_nature_id => sole_ble_nature.id, :campaign_id => campaign.id)
     end
@@ -288,17 +288,17 @@ demo :productions do
          land_parcel_group_shape = "01060000206A08000001000000010300000001000000100000003108AC1CBD0219418FC2F5C05BEC5841C976BE1F900319419CC4206854EC58419EEFA74657041941000000D050EC5841759318046F051941819543AB50EC5841713D0A57E60419416666663E4BEC584121B0726851051941819543F343EC5841E9263108AE051941CDCCCC6448EC584175931884D5051941E92631A045EC58410C022B0705061941B4C8765641EC5841C520B07200031941B81E85031AEC58413108AC1CC9021941295C8FCA1DEC58416DE7FBA903021941CDCCCCAC12EC584121B072E8C70119410681957314EC584148E17A94800119412DB29D7718EC584121B072683C0019413108AC5C34EC58413108AC1CBD0219418FC2F5C05BEC5841"
          land_parcel_group_fert.is_measured!(:shape, land_parcel_group_shape, :at => Time.now)
          ind_area = land_parcel_group_fert.shape_area
-          land_parcel_group_fert.is_measured!(:net_surface_area, ind_area.in_square_meter, :at => Time.now)                                                
-      end  
+          land_parcel_group_fert.is_measured!(:net_surface_area, ind_area.in_square_meter, :at => Time.now)
+      end
       production.supports.create!(:storage_id => land_parcel_group_fert.id)
     end
-    
-     
+
+
     # provisional fertilization procedure
     procedure_prev = Procedure.create!(:natures => "soil_enrichment", :nomen =>"mineral_fertilizing", :production_id => production.id, :provisional => true )
-    
+
     land_parcel_group_fert = production.supports.first.storage
-    
+
     # Create some procedure variable for fertilization
     for attributes in [{:target_id => land_parcel_group_fert.id, :role => "target",
                          :indicator => "net_surface_area",
@@ -342,7 +342,7 @@ demo :productions do
     end
     w.check_point
   end
-  
+
   Ekylibre::fixturize :animal_treatment_procedure_demo_data_1 do |w|
     ##############################################################################
     ## Demo data for animal treatment
@@ -368,13 +368,13 @@ demo :productions do
     animal_production ||= Production.create!(:product_nature_id => animal_group_nature.id, :campaign_id => campaign.id, :activity_id => animal_activity.id)
     # create an animal medicine product
     animal_medicine_product = AnimalMedicine.find_by_name("acetal") || AnimalMedicine.create!(:name => "acetal", :identification_number => "FR_589698256352", :work_number => "FR_589698256352", :born_at => Time.now, :variant_id => sanitary_product_nature_variant.id, :owner_id => Entity.of_company.id)
-    
+
     animal_medicine_product.is_measured!(:meat_withdrawal_period, 5.in_day, :at => Time.now)
     animal_medicine_product.is_measured!(:milk_withdrawal_period, 5.in_day, :at => Time.now)
 
 
     animal_medicine_product_1   = AnimalMedicine.find_by_name("advocine") || AnimalMedicine.create!(:name => "advocine", :identification_number => "FR_589698256362", :work_number => "FR_589698256362", :born_at => Time.now, :variant_id => sanitary_product_nature_variant.id, :owner_id => Entity.of_company.id)
-        
+
     animal_medicine_product_1.is_measured!(:meat_withdrawal_period, 8.in_day, :at => Time.now)
     animal_medicine_product_1.is_measured!(:milk_withdrawal_period, 4.in_day, :at => Time.now)
 
@@ -436,7 +436,7 @@ demo :productions do
     end
     w.check_point
   end
-  
+
   Ekylibre::fixturize :animal_treatment_procedure_demo_data_2 do |w|
     ##############################################################################
     ## Demo data for animal treatment
@@ -464,7 +464,7 @@ demo :productions do
     animal_medicine_product.is_measured!(:meat_withdrawal_period, 5.in_day, :at => Time.now)
     animal_medicine_product.is_measured!(:milk_withdrawal_period, 5.in_day, :at => Time.now)
 
-   
+
     # select an animal to declare on an incident
     animal = Animal.last
 

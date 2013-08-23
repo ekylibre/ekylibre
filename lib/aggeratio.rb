@@ -72,7 +72,7 @@ module Aggeratio
         for child in within.children
           unless child.has_attribute?("value")
             child["value"] = child.attr("name").to_s
-          end          
+          end
           unless of.blank?
             if child.has_attribute?("of")
               child["of"] = of + "." + child.attr("of").to_s
