@@ -2056,7 +2056,7 @@ svg.map {
   padding: $default-gap;
   section {
     margin-top: $default-gap;
-    border: 1px solid #AAA;
+    border: 1px solid #DDD;
     @include border-radius($default-border-radius);
     h1 {
       padding: $default-gap;
@@ -2064,7 +2064,7 @@ svg.map {
       &, * {
         font-weight: normal;
         font-size: $fs-large;
-        line-height: 1.4em;
+        line-height: 1em;
         color: $neutral-color;
         vertical-align: middle;
         em {
@@ -2076,7 +2076,6 @@ svg.map {
       }
     }
     .section-content {
-      margin-top: $default-gap;
       padding: $default-gap;
     }
   }

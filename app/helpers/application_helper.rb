@@ -41,6 +41,10 @@ module ApplicationHelper
   end
 
 
+  def current_theme
+    controller.current_theme
+  end
+
 
 
   # Helper which check authorization of an action
@@ -567,22 +571,18 @@ module ApplicationHelper
   # Permits to use themes for Ekylibre
   #  stylesheet_link_tag 'application', 'list', 'list-colors'
   #  stylesheet_link_tag 'print', :media => 'print'
-  def theme_link_tag(name=nil)
-    name ||= 'tekyla'
-    code = ""
-    Dir.chdir(Rails.root.join("app", "assets", "stylesheets", "themes", name)) do
-      for media in ["all", "embossed", "handheld", "print", "projection", "screen", "speech", "tty", "tv"]
-        if File.exist?(media+".css") or File.exist?(media+".css.scss")
-          code << stylesheet_link_tag("themes/#{name}/#{media}.css", :media => media)+"\n"
-        end
-      end
-    end
-    return code.html_safe
+  def theme_link_tag()
+    html = ""
+    html << stylesheet_link_tag(theme_path("all.css"))
+    return html.html_safe
   end
 
+  def theme_path(name)
+    "themes/#{current_theme}/#{name}"
+  end
 
   def theme_button(name, theme='tekyla')
-    image_path("themes/#{theme}/buttons/#{name}.png").to_s
+    image_path(theme_path("buttons/#{name}.png"))
   end
 
 
