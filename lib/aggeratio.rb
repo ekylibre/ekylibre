@@ -67,16 +67,21 @@ module Aggeratio
     def build(element)
       # Merge <within>s
       for within in element.xpath('//xmlns:within')
-        name, of = within.attr('name'), within.attr('of')
+        name, of, of_type = within.attr('name'), within.attr('of'), within.attr('of-type')
         of ||= name
         for child in within.children
           unless child.has_attribute?("value")
             child["value"] = child.attr("name").to_s
+          end          
+          unless of.blank?
+            if child.has_attribute?("of")
+              child["of"] = of + "." + child.attr("of").to_s
+            else
+              child["of"] = of
+            end
           end
-          if child.has_attribute?("of")
-            child["of"] = of + "." + child.attr("of").to_s
-          else
-            child["of"] = of
+          unless child.has_attribute?("of-type") or of_type.blank?
+            child["of-type"] = of_type
           end
           if name
             child["name"] = (child.has_attribute?("name") ? name + "-" + child.attr("name").to_s : name)
@@ -85,6 +90,27 @@ module Aggeratio
         end
         within.remove
       end
+
+      # Flatten <section> and <sections>
+      for section in element.xpath('//*[self::xmlns:section or self::xmlns:sections]')
+        of, of_type = section.attr('of'), section.attr('of-type')
+        if section.name == "section"
+          section['if'] = of unless of.blank?
+        end
+        for child in section.children
+          unless of.blank?
+            if child.has_attribute?("of")
+              child["of"] = of + "." + child.attr("of").to_s
+            else
+              child["of"] = of
+            end
+          end
+          unless child.has_attribute?("of-type") or of_type.blank?
+            child["of-type"] = of_type
+          end
+        end
+      end
+
 
       element.to_xml.split(/\n/).each_with_index{|l,i| puts (i+1).to_s.rjust(4)+": "+l}
 
