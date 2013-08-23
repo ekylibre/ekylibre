@@ -11,50 +11,70 @@
       <sections for="campaign" in="campaigns">
         <property name="id" of="campaign" level="api"/>
         <title name="name" of="campaign"/>
-        <sections for="cultivable_land_parcel" in="CultivableLandParcel.of_campaign(campaign)">
+        <!-- looking for all CultivableLandParcel in current campaign -->
+        <sections for="cultivable_land_parcel" in="CultivableLandParcel.of_campaign(campaign)" of-type="record">
           <title name="name" of="cultivable_land_parcel"/>
           <property name="work_number" of="cultivable_land_parcel"/>
+          <property name="net_surface_area" of="cultivable_land_parcel" type="measure"/>
           <property name="id" of="cultivable_land_parcel" level="api"/>
-          <property name="shape_path" of="cultivable_land_parcel" type="svg-path" level="api"/>
-          <sections for="production" in="cultivable_land_parcel.productions.of_campaign(campaign)">
+          <property name="shape_svg" of="cultivable_land_parcel" type="svg" level="api"/>
+          <!-- looking for all Production in current cultivable_land_parcel and campaign -->
+          <sections for="production" in="cultivable_land_parcel.productions.of_campaign(campaign)" of-type="record">
             <title name="name" of="production"/>
-            <sections for="intervention" in="production.procedures.real.of_nature(:soil_enrichment).with_variable(:target, cultivable_land_parcel)">
+            <!-- looking for all real soil_enrichment Procedure in current production and with cultivable land parcel in target -->
+            <sections for="intervention" in="production.procedures.real.of_nature(:soil_enrichment).with_variable(:target, cultivable_land_parcel)" of-type="record">
               <variable name="target" value="intervention.variables.of_role(:target).first.target"/>
-              <variable name="worker" value="intervention.variables.of_role(:worker).first.target"/>
               <title name="name" of="intervention"/>
               <property name="id" of="intervention" level="api"/>
-              <property name="started_at" of="intervention"/>
-              <property name="stopped_at" of="intervention"/>
+              <property name="started_at" of="intervention" type="datetime"/>
+              <property name="stopped_at" of="intervention" type="datetime"/>
               <property name="duration" value="((intervention.stopped_at - intervention.started_at).to_d/(60*60*24)).round(2)"/>
-              <within name="target">
-                <property name="identification_number"/>
-                <property name="name"/>
-                <property name="id" level="api"/>
-                <property name="type" level="api"/>
-                <property name="url" value="id"  level="api"/>
-              </within>
-              <within name="worker">
-                <property name="identification_number"/>
-                <property name="name"/>
-                <property name="id" level="api"/>
-                <property name="person_id" level="api"/>
-              </within>
-              <within name="incident" of="intervention.incident">
+              <section name="incident" of="intervention.incident">
                 <property name="id" level="api"/>
                 <property name="name"/>
                 <property name="observed_at"/>
                 <property name="state" level="api"/>
                 <property name="description"/>
-              </within> 
+              </section> 
               <matrix name="inputs" for="input" in="intervention.variables.of_role(:input)">
                 <cell name="id" of="input" level="api"/>
                 <within of="input.target">
                   <cell name="name"/>
                   <cell name="nature_name"/>
+                  <cell name="nitrogen_concentration" type="measure"/>
+                  <cell name="phosphorus_concentration" type="measure"/>
+                  <cell name="potassium_concentration" type="measure"/>
                   <cell name="variety" level="api"/>
                 </within>
-                <cell name="measure_quantity" of="input"/>
-                <cell name="measure_unit" of="input"/>
+                <cell name="quantity" of="input" type="measure"/>
+              </matrix>
+            </sections>
+            <!-- looking for all provisionnal soil_enrichment Procedure in current production and with cultivable land parcel in target -->
+            <sections for="provisionnal_intervention" in="production.procedures.provisional.of_nature(:soil_enrichment).with_variable(:target, cultivable_land_parcel)" of-type="record">
+              <variable name="target" value="provisionnal_intervention.variables.of_role(:target).first.target"/>
+              <title name="name" of="provisionnal_intervention"/>
+              <property name="id" of="provisionnal_intervention" level="api"/>
+              <property name="started_at" of="provisionnal_intervention" type="datetime"/>
+              <property name="stopped_at" of="provisionnal_intervention" type="datetime"/>
+              <property name="duration" value="((provisionnal_intervention.stopped_at - provisionnal_intervention.started_at).to_d/(60*60*24)).round(2)"/>
+              <section name="incident" of="provisionnal_intervention.incident">
+                <property name="id" level="api"/>
+                <property name="name"/>
+                <property name="observed_at"/>
+                <property name="state" level="api"/>
+                <property name="description"/>
+              </section> 
+              <matrix name="inputs" for="input" in="provisionnal_intervention.variables.of_role(:input)">
+                <cell name="id" of="input" level="api"/>
+                <within of="input.target">
+                  <cell name="name"/>
+                  <cell name="nature_name"/>
+                  <cell name="nitrogen_concentration" type="measure"/>
+                  <cell name="phosphorus_concentration" type="measure"/>
+                  <cell name="potassium_concentration" type="measure"/>
+                  <cell name="variety" level="api"/>
+                </within>
+                <cell name="quantity" of="input" type="measure"/>
               </matrix>
             </sections>
           </sections>
