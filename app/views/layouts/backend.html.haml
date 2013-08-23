@@ -1,35 +1,34 @@
--# coding: UTF-8
 !!! 5
 %html{:xmlns => "http://www.w3.org/1999/xhtml", 'xmlns:svg' => 'http://www.w3.org/2000/svg', 'xmlns:xlink' => 'http://www.w3.org/1999/xlink', :dir => t("i18n.dir"), :lang => t("i18n.iso2"), "xml:lang" => t("i18n.iso2"), :class => :backend}
   %head
     %link{:rel => "icon", :type => "image/png", :href => image_path("favicon.png")}
-    =meta_viewport_tag
-    =title_tag
-    =csrf_meta_tags
-    =stylesheet_link_tag :application
-    =theme_link_tag(@current_theme)
-    =javascript_include_tag :application
-    %script{:src => "http://www.google.com/jsapi"}
-  -expiration = {}
-  -expiration = {"timeout" => session[:expiration], "timeout-href" => renew_session_url(:user_name => current_user.user_name)} if current_user and session[:expiration].to_i > 0
+    = meta_viewport_tag
+    = title_tag
+    = csrf_meta_tags
+    = stylesheet_link_tag :application
+    = theme_link_tag
+    = javascript_include_tag :application
+    = javascript_include_tag "http://www.google.com/jsapi"
+  - expiration = {}
+  - expiration = {"timeout" => session[:expiration], "timeout-href" => renew_session_url(:user_name => current_user.user_name)} if current_user and session[:expiration].to_i > 0
   %body{:data => expiration}
-    =navigation_tag
-    -attrs = (help_shown? ? {:class => "show-help"} : {})
+    = navigation_tag
+    - attrs = (help_shown? ? {:class => "show-help"} : {})
     #wrap{attrs}
       %aside#side.visible
         .inner
-          =side_tag
-          %footer#legals=legals_sentence
+          = side_tag
+          %footer#legals= legals_sentence
       #main
         %header.header
-          -main_toolbar do |t|
-            -t.tool_to(content_tag(:i) + h(tl(:help)), toggle_backend_helps_url, 'data-toggle' => 'help', :class => "btn", :group => :help)
-          =main_toolbar_tag
-          =heading_tag
-        =deck(:id => :content) do
-          =subheading_tag
-          =notifications_tag
-          =yield
+          - main_toolbar do |t|
+            - t.tool_to(content_tag(:i) + h(tl(:help)), toggle_backend_helps_url, 'data-toggle' => 'help', :class => "btn", :group => :help)
+          = main_toolbar_tag
+          = heading_tag
+        = deck(:id => :content) do
+          = subheading_tag
+          = notifications_tag
+          = yield
       #help
-        .inner=render(:partial => "backend/helps/search", :object => @article)
-    =yield :popover
+        .inner= render(:partial => "backend/helps/search", :object => @article)
+    = yield :popover
