@@ -66,7 +66,7 @@ module Aggeratio
     end
 
     def build_variable(element)
-      return "#{element.attr('name')} = #{value_of(element)} rescue nil\n"
+      return "#{element.attr('name')} = #{value_of(element)}\n"
     end
 
     def build_matrix(element)
@@ -87,7 +87,7 @@ module Aggeratio
     end
 
     def build_cell(element)
-      code = "xml.send('#{normalize_name(element)}', #{value_of(element)}) rescue nil"
+      code = "xml.send('#{normalize_name(element)}', #{value_of(element)})"
       if element.has_attribute?('if')
         code = "if #{element.attr('if')}\n" + code.gsub(/^/, '  ') + "\nend"
       end
@@ -101,7 +101,7 @@ module Aggeratio
       max = items.collect{|i| i.attr("name").size}.max
       items.collect do |item|
         code << ("#{var}['" + normalize_name(item) + "'] = ").ljust(max + 7 + var.size) + value_of(item)
-        code << " rescue nil"
+        # code << " rescue nil"
         if item.has_attribute?('if')
           code = "if #{item.attr('if')}\n" + code.gsub(/^/, '  ') + "\nend"
         end
