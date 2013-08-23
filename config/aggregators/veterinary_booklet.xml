@@ -20,38 +20,30 @@
           <property name="started_at" of="intervention" type="datetime"/>
           <property name="stopped_at" of="intervention" type="datetime"/>
           <property name="duration" value="((intervention.stopped_at - intervention.started_at).to_d/(60*60*24)).round(2)" type="decimal"/>
-          <section name="target">
-            <within of="target">
-              <property name="identification_number"/>
-              <title name="name"/>
-              <property name="id" level="api"/>
-              <property name="type" level="api"/>
-              <property name="url" value="id" level="api" type="url"/>
-            </within>
+          <section name="target" of="target">
+            <property name="identification_number"/>
+            <title name="name"/>
+            <property name="id" level="api"/>
+            <property name="type" level="api"/>
+            <property name="url" value="id" level="api" type="url"/>
           </section>
-          <section name="worker">
-            <within of="worker">
-              <property name="identification_number"/>
-              <title name="name"/>
-              <property name="id" level="api"/>
-              <property name="person_id" level="api"/>
-            </within>
+          <section name="worker" of="worker">
+            <property name="identification_number"/>
+            <title name="name" of-type="record"/>
+            <property name="id" level="api"/>
+            <property name="person_id" level="api"/>
           </section>
-          <section name="incident" if="intervention.incident">
-            <within of="intervention.incident">
-              <property name="id" level="api"/>
-              <title name="name"/>
-              <property name="observed_at" type="datetime"/>
-              <property name="state" level="api"/>
-              <property name="description"/>
-            </within>
+          <section name="incident" of="intervention.incident" of-type="record">
+            <property name="id" level="api"/>
+            <title name="name"/>
+            <property name="observed_at" type="datetime"/>
+            <property name="state" level="api"/>
+            <property name="description"/>
           </section>
-          <section name="prescription" if="intervention.prescription">
-            <within of="intervention.prescription">
-              <property name="id" level="api"/>
-              <title name="reference_number"/>
-              <property name="prescriptor_name"/>
-            </within>
+          <section name="prescription" of="intervention.prescription">
+            <property name="id" level="api"/>
+            <title name="reference_number"/>
+            <property name="prescriptor_name"/>
           </section>
           <matrix name="inputs" for="input" in="intervention.variables.of_role(:input)">
             <variable name="meat_withdrawal_period" value="input.target.meat_withdrawal_period"/>

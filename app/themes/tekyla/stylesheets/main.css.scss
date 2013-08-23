@@ -2061,15 +2061,17 @@ svg.map {
     h1 {
       padding: $default-gap;
       background: $desktop-background;
-      &, * {
+      &, a, em, * {
         font-weight: normal;
         font-size: $fs-large;
         line-height: 1em;
-        color: $neutral-color;
+        // color: $neutral-color;
         vertical-align: middle;
         em {
-          &, * {
-            color: $text-color;
+          &, a {
+            font-size: $fs-large;
+            line-height: 1em;
+            // color: $text-color;
             font-weight: bold;
           }
         }
