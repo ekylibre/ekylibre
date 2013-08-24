@@ -9,7 +9,5 @@
     =select_tag(:product_nature_id, options_for_select([[]] + ProductNature.all.collect{|u| [u.label, u.id]}, params[:product_nature_id]))
 
 =main_toolbar do |t|
-  -t.export do |e|
-    -e.land_parcel_fertilization_list Time.now.to_s, @fertilization
   -t.new
 =list
