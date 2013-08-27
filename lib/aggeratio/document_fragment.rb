@@ -66,7 +66,7 @@ module Aggeratio
           code << "    xml.text(' ')\n"
           code << "    xml.em(#{human_value_of(title)})\n"
           code << "  end\n"
-          # code << "  xml.h1(:section_x.tl(:section => :#{type}.tl(:default => [:'activerecord.models.#{type}', '#{type.humanize}']), :x => '<em>' + CGI::escapeHTML(#{human_value_of(title)}) + '</em>'))\n" # 
+          # code << "  xml.h1(:section_x.tl(:section => :#{type}.tl(:default => [:'activerecord.models.#{type}', '#{type.humanize}']), :x => '<em>' + CGI::escapeHTML(#{human_value_of(title)}) + '</em>'))\n" #
         end
       end
       code << "  xml.div(:class => 'section-content') do\n"

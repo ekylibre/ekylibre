@@ -238,7 +238,7 @@ demo :productions do
     end
     w.check_point
   end
-  
+
   Ekylibre::fixturize :fertilizing_procedure_demo_data_2 do |w|
     #############################################################################
     ## Demo data for fertilizing
@@ -267,7 +267,7 @@ demo :productions do
 
     production = Production.find_by_product_nature_id_and_campaign_id(sole_ble_nature.id, campaign.id)
     production ||= Production.create!(:activity_id => Activity.find_by_family("straw_cereal_crops").id, :product_nature_id => sole_ble_nature.id, :campaign_id => campaign.id)
-     
+
     # provisional fertilization procedure
     procedure_prev = Procedure.create!(:natures => "soil_enrichment", :nomen =>"mineral_fertilizing", :production_id => production.id, :provisional => true )
 
@@ -327,7 +327,7 @@ demo :productions do
     end
     w.check_point
   end
-  
+
   Ekylibre::fixturize :animal_treatment_procedure_demo_data_1 do |w|
     ##############################################################################
     ## Demo data for animal treatment
@@ -353,13 +353,13 @@ demo :productions do
     animal_production ||= Production.create!(:product_nature_id => animal_group_nature.id, :campaign_id => campaign.id, :activity_id => animal_activity.id)
     # create an animal medicine product
     animal_medicine_product = AnimalMedicine.find_by_name("acetal") || AnimalMedicine.create!(:name => "acetal", :identification_number => "FR_589698256352", :work_number => "FR_589698256352", :born_at => Time.now, :variant_id => sanitary_product_nature_variant.id, :owner_id => Entity.of_company.id)
-    
+
     animal_medicine_product.is_measured!(:meat_withdrawal_period, 5.in_day, :at => Time.now)
     animal_medicine_product.is_measured!(:milk_withdrawal_period, 5.in_day, :at => Time.now)
 
 
     animal_medicine_product_1   = AnimalMedicine.find_by_name("advocine") || AnimalMedicine.create!(:name => "advocine", :identification_number => "FR_589698256362", :work_number => "FR_589698256362", :born_at => Time.now, :variant_id => sanitary_product_nature_variant.id, :owner_id => Entity.of_company.id)
-        
+
     animal_medicine_product_1.is_measured!(:meat_withdrawal_period, 8.in_day, :at => Time.now)
     animal_medicine_product_1.is_measured!(:milk_withdrawal_period, 4.in_day, :at => Time.now)
 
@@ -421,7 +421,7 @@ demo :productions do
     end
     w.check_point
   end
-  
+
   Ekylibre::fixturize :animal_treatment_procedure_demo_data_2 do |w|
     ##############################################################################
     ## Demo data for animal treatment
@@ -449,7 +449,7 @@ demo :productions do
     animal_medicine_product.is_measured!(:meat_withdrawal_period, 5.in_day, :at => Time.now)
     animal_medicine_product.is_measured!(:milk_withdrawal_period, 5.in_day, :at => Time.now)
 
-   
+
     # select an animal to declare on an incident
     animal = Animal.last
 
