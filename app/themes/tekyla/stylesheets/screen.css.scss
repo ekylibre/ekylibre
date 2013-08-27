@@ -74,7 +74,6 @@ $cell-background-current: mix($desktop-background, $base-color, 62%);
 $buttons-names: (new create) (edit update) (destroy abort) (search) (confirm validate) (cancel) (lock) (unlock) (action reflect default) (up) (down) (left) (right) (configure) (column) (table) (duplicate) (point) (mark) (unmark) (true) (false) (page) (spreadsheet) (print) (filter) (mail) (nomail) (sort) (check) (divide) (load) (logout) (increment) (decrement) (close) (help) (merge) (spread) (rgreen) (rblue) (rblack) (nav) (general-informations) (genealogy) (group) (care) (treatment) (drug) (entity) (delay) (stock) (asset) (animal) (vegetable) (document) (movement);
 $buttons-states: hover whited active disabled normal;
 $buttons-radius: $default-border-radius;
-$buttons-formats: ("themes/tekyla/icons-16.png" 24px "&" $buttons-radius) ("themes/tekyla/icons-12.png" 18px "&.mini" 2px) ("themes/tekyla/icons-24.png" 36px "&.large" 4px);
 
 $passive-bg: $menu-background;
 $active-bg: $base-color;
@@ -121,7 +120,7 @@ $include-html-classes: false;
 
 
 @mixin is-icon($size: round(1.2 * $fs-normal)) {
-  font-family: Tekyla;
+  font-family: Agric;
   font-weight: normal;
   font-style: normal;
   text-decoration: inherit;
@@ -461,12 +460,6 @@ $medium-screen: 1280px;
 $large-screen: 1440px;
 
 $mini-screen: 1024px;
-
-
-@import "foundation/components/global";
-// @import "foundation/components/grid";
-// @import "foundation/components/top-bar";
-// @import "foundation/components/buttons";
 
 @import "active-list/minimal";
 @import "beehive.css.scss";

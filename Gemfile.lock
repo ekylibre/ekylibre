@@ -40,7 +40,7 @@ GEM
       activerecord (>= 3.0)
     addressable (2.3.5)
     afm (0.2.0)
-    agric (0.0.2)
+    agric (0.1.0)
       compass (>= 0.12.0)
     akami (1.2.0)
       gyoku (>= 0.4.0)

@@ -632,7 +632,8 @@ div[data-deck] > div#default {
       }
     }
   }
-  @each $icon in $icon-names {
+  @each $icon in $icons {
+    $icon: nth($icon, 1);
     &.snippet-#{$icon} > .snippet-title > h3 > i {
       @include use-icon($icon);
     }
