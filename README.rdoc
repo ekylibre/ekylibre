@@ -11,21 +11,21 @@ https://github.com/ekylibre/ekylibre/wiki/Une-semaine-en-Ekylibre
 == Installation
 This a short explanation on installation steps:
 * Before all, install all distribution dependencies:
-    aptitude install postgresql-9.1 postgresql-server-dev-9.1 libpq-dev libqtwebkit-dev libmagic-dev libxml2-dev libxslt1-dev libgdal1-dev libjson0-dev zlib1g-dev imagemagick graphicsmagick tesseract-ocr tesseract-ocr-fra tesseract-ocr-eng tesseract-ocr-spa pdftk openjdk-7-jdk libreoffice  poppler-utils poppler-data ghostscript build-essential wget
+    aptitude install postgresql-9.1 postgresql-server-dev-9.1 libpq-dev libqtwebkit-dev libmagic-dev libxml2-dev libxslt1-dev libgdal1-dev libjson0-dev zlib1g-dev imagemagick graphicsmagick tesseract-ocr tesseract-ocr-fra tesseract-ocr-eng tesseract-ocr-spa pdftk openjdk-7-jdk libreoffice poppler-utils poppler-data ghostscript build-essential wget 
 * Install PostGIS >= 2.0:
-  * Download and install Geos (~> 3.3.8) from http://trac.osgeo.org/geos:
-      wget http://download.osgeo.org/geos/geos-3.3.8.tar.bz2 && tar xjvf geos-3.3.8.tar.bz2 && cd geos-3.3.8 && ./configure && make && sudo make install
+  * Download and install Geos (~> 3.4) from http://trac.osgeo.org/geos:
+      wget http://download.osgeo.org/geos/geos-3.4.2.tar.bz2 && tar xjvf geos-3.4.2.tar.bz2 && cd geos-3.4.2 && ./configure && make && sudo make install
   * Download and install Proj4 (~> 4.8) from http://trac.osgeo.org/proj:
       wget http://download.osgeo.org/proj/proj-4.8.0.tar.gz && tar xzvf proj-4.8.0.tar.gz && cd proj-4.8.0 && ./configure && make && sudo make install
   * Download and install PostGIS (~> 2.0) from http://postgis.net:
-      wget http://download.osgeo.org/postgis/source/postgis-2.0.3.tar.gz && tar xzvf postgis-2.0.3.tar.gz && cd postgis-2.0.3 && ./configure && make && sudo make install
+      wget http://download.osgeo.org/postgis/source/postgis-2.1.0.tar.gz && tar xzvf postgis-2.1.0.tar.gz && cd postgis-2.1.0 && ./configure && make && sudo make install
 * After, install Ruby 1.9.3 or later. If your distribution isn't up-to-date, see {RVM}[https://rvm.io] or {RBenv}[https://github.com/sstephenson/rbenv] to install the good version, else:
     aptitude install ruby1.9.1 ruby1.9.1-dev
 * Configure a normal user for DB and an admin user for PostgreSQL which can add PostGIS extension and updates config/database.yml
 * Install bundler with rubygems:
     gem install bundler
 * Move to Ekylibre directory root and install gems with bundler:
-    JAVA_HOME=/usr/lib/jvm/java-6-openjdk bundle install
+    JAVA_HOME=/usr/lib/jvm/java-7-openjdk bundle install
 * Create and migrate database:
     rake db:create db:migrate && rake db:seed
 * Launch server:
@@ -43,6 +43,10 @@ We encourage you to contribute to Ekylibre.
 * Commit and push until you are happy with your contribution
 * Make sure to add tests for it. This is important so I don't break it in a future version unintentionally.
 * Please try not to mess with the Rakefile, version, or history. If you want to have your own version, or is otherwise necessary, that is fine, but please isolate to its own commit so I can cherry-pick around it.
+
+Some additional tools are needed to manipulate some files:
+
+    aptitude install icoutils inkscape
 
 == Code status
 
