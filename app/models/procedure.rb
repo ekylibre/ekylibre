@@ -35,6 +35,7 @@
 #  updated_at               :datetime         not null
 #  updater_id               :integer
 #
+
 class Procedure < Ekylibre::Record::Base
   attr_accessible :nomen, :production_id, :state, :natures, :provisional_procedure_id, :provisional, :prescription_id, :incident_id
   attr_readonly :nomen, :production_id
@@ -43,7 +44,7 @@ class Procedure < Ekylibre::Record::Base
   belongs_to :prescription
   belongs_to :provisional_procedure
   has_many :variables, :class_name => "ProcedureVariable", :inverse_of => :procedure
-  has_many :operations, :inverse_of => :procedure
+  has_many :operations, -> { reorder(:started_at) }, :inverse_of => :procedure
   enumerize :nomen, :in => Procedures.names.sort
   enumerize :state, :in => [:undone, :squeezed, :in_progress, :done]
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
@@ -56,11 +57,13 @@ class Procedure < Ekylibre::Record::Base
 
   # @TODO in progress - need to call parent procedure to have the name of the procedure_nature
 
-  scope :of_nature, lambda { |nature|
-    raise ArgumentError.new("Unknown nature #{nature.inspect}") unless Nomen::ProcedureNatures[nature]
-    where("natures ~ E?", "\\\\m#{nature}\\\\M")
+  scope :of_nature, lambda { |*natures|
+    where("natures ~ E?", natures.sort.map { |nature| "\\\\m#{nature.gsub(/\W/, '')}\\\\M" }.join(".*"))
   }
-
+  # scope :of_nature, lambda { |nature|
+  #   raise ArgumentError.new("Unknown nature #{nature.inspect}") unless Nomen::ProcedureNatures[nature]
+  #   where("natures ~ E?", "\\\\m#{nature}\\\\M")
+  # }
   scope :provisional, -> { where(:provisional => true).order(:nomen) }
   scope :real, -> { where(:provisional => false).order(:nomen) }
 
@@ -68,30 +71,34 @@ class Procedure < Ekylibre::Record::Base
      where("id IN (SELECT procedure_id FROM #{ProcedureVariable.table_name} WHERE target_id = ? AND role = ?)", object.id, role.to_s)
   }
 
+  before_validation do
+    self.natures = self.natures.to_s.strip.split(/[\s\,]+/).sort.join(" ")
+  end
+
   # before_validation(:on => :create) do
-    # unless self.root?
-      # if root = self.root
-        # self.activity = root.activity
-        # self.campaign = root.campaign
-        # self.incident = root.incident
-      # end
-    # end
-    # if self.root?
-      # self.uid ||= Procedures[self.nomen.to_s].id
-    # end
-    # if self.reference
-      # self.version = self.reference.version
-      # self.uid = self.reference.id
-    # end
-    # if self.children.where(:state => ["undone", "in_progress"]).count > 0 or self.children.count != self.reference.children.size
-      # self.state = "in_progress"
-    # else self.children.count.zero? or self.children.where(:state => ["undone", "in_progress"]).count.zero?
-      # self.state = "done"
-    # end
+  #   unless self.root?
+  #     if root = self.root
+  #       self.activity = root.activity
+  #       self.campaign = root.campaign
+  #       self.incident = root.incident
+  #     end
+  #   end
+  #   if self.root?
+  #     self.uid ||= Procedures[self.nomen.to_s].id
+  #   end
+  #   if self.reference
+  #     self.version = self.reference.version
+  #     self.uid = self.reference.id
+  #   end
+  #   if self.children.where(:state => ["undone", "in_progress"]).count > 0 or self.children.count != self.reference.children.size
+  #     self.state = "in_progress"
+  #   else self.children.count.zero? or self.children.where(:state => ["undone", "in_progress"]).count.zero?
+  #     self.state = "done"
+  #   end
   # end
 
 
-  # started_at ( the first operation of the current procedure)
+  # started_at (the first operation of the current procedure)
   def started_at
     if operation = self.operations.reorder(:started_at).first
       return operation.started_at
@@ -126,39 +133,39 @@ class Procedure < Ekylibre::Record::Base
     ref.human_name
   end
 
-  # Return the next procedure (depth course)
-  def followings
-    reference.followings_of(self.uid)
-  end
+  # # Return the next procedure (depth course)
+  # def followings
+  #   reference.followings_of(self.uid)
+  # end
 
-  def playing
-    return self.root.playing unless self.root
-    for p in ref.tree
-      if self.children.where(:uid => p.id)
-      end
-    end
-  end
+  # def playing
+  #   return self.root.playing unless self.root
+  #   for p in ref.tree
+  #     if self.children.where(:uid => p.id)
+  #     end
+  #   end
+  # end
 
-  def get(refp)
-    return self.root.get(refp) unless self.root?
-    return self.children.where(:uid => refp.id).first
-  end
+  # def get(refp)
+  #   return self.root.get(refp) unless self.root?
+  #   return self.children.where(:uid => refp.id).first
+  # end
 
 
-  # Create a procedure from the reference with given refp
-  def load(refp, state = :undone)
-    return self.root.load(refp, state) unless self.root?
-    raise "What this proc?" unless refp.parent
-    parent = self.self_and_descendants.where(:uid => refp.parent.id).first || self.load(refp.parent)
-    unless p = self.self_and_descendants.where(:uid => refp.id).first
-      p = self.class.create!({:parent_id => parent.id, :nomen => refp.name.to_s, :state => state, :version => refp.version, :uid => refp.id}, :without_protection => true)
-    end
-    return p
-  end
+  # # Create a procedure from the reference with given refp
+  # def load(refp, state = :undone)
+  #   return self.root.load(refp, state) unless self.root?
+  #   raise "What this proc?" unless refp.parent
+  #   parent = self.self_and_descendants.where(:uid => refp.parent.id).first || self.load(refp.parent)
+  #   unless p = self.self_and_descendants.where(:uid => refp.id).first
+  #     p = self.class.create!({:parent_id => parent.id, :nomen => refp.name.to_s, :state => state, :version => refp.version, :uid => refp.id}, :without_protection => true)
+  #   end
+  #   return p
+  # end
 
-  # Set a procedure as squeezed
-  def squeeze(refp)
-    load(refp, :squeezed)
-  end
+  # # Set a procedure as squeezed
+  # def squeeze(refp)
+  #   load(refp, :squeezed)
+  # end
 
 end
