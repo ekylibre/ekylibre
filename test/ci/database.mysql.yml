@@ -1,7 +1,0 @@
-test:
-  adapter: mysql
-  encoding: utf8
-  reconnect: false
-  database: ekylibre_test
-  pool: 20
-  username:

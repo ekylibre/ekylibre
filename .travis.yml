@@ -1,19 +1,7 @@
 language: ruby
 rvm:
-# - 1.9.2
   - 1.9.3
   - 2.0.0
-env:
-#  - DB=postgis POSTGIS=1.5
-  - DB=postgis POSTGIS=2.0
-#  - DB=spatialite
-
-#  - DB=mysql
-#  - DB=postgresql
-#  - DB=sqlite3
-before_install: 
-  - ./test/ci/install.sh
-before_script:
-  - ./test/ci/setup.sh
-  - bundle exec rake db:migrate
+before_install: ./test/ci/before_install.sh
+before_script: ./test/ci/before_script.sh
 script: bundle exec rake test

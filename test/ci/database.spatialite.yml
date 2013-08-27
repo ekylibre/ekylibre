@@ -1,7 +1,0 @@
-test:
-  adapter: spatialite
-  database: ":memory:"
-  encoding: utf-8
-  timeout: 500
-
-
