@@ -20,6 +20,11 @@ module Aggeratio
       raise NotImplementedEror.new
     end
 
+    def build_variable(element)
+      return "#{element.attr('name')} = #{value_of(element)}\n"
+    end
+
+
     def parameter_initialization
       code = ""
       for parameter in parameters
@@ -52,15 +57,33 @@ module Aggeratio
     end
 
 
-    def human_value_of(element)
+    def human_value_of(*args)
+      options = args.extract_options!
+      element = args.shift
+      tag = args.shift
+
       value = value_of(element)
       type = (element.has_attribute?("type") ? element.attr("type").to_s : :string).to_s.gsub('-', '_').to_sym
-      human_value = if type == :date or type == :datetime or type == :measure
-                      value + ".l"
-                    else
-                      value
-                    end
-      return human_value
+      code = if type == :date or type == :datetime or type == :measure
+               "xml.text(#{value}.l) unless #{value}.nil?"
+             elsif type == :url
+               "xml.a(#{value}, :href => #{value}) unless #{value}.blank?"
+             else
+               "xml.text(#{value})"
+             end
+      if type != :url and element.has_attribute?("of-type")
+        of = element.attr("of").to_s
+        of_type = element.attr("of-type").to_sym
+        if of_type == :record and of.present?
+          code = "if #{of}.class < Ekylibre::Record::Base\n" +
+            "  xml.a(:href => \"/backend/\#{#{of}.class.table_name}/\#{#{of}.to_param}\") do\n" + code.dig(2) + "  end\n" +
+            "else\n" + code.dig + "end\n"
+        end
+      end
+      unless tag.nil?
+        code = "xml.#{tag}(#{options.inspect}) do\n" + code.dig + "end\n"
+      end
+      return code
     end
 
 

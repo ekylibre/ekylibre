@@ -1,7 +1,7 @@
 module Aggeratio
 
   class Parameter
-    TYPES = [:record_list, :record, :string, :decimal, :integer]
+    TYPES = [:record_list, :record, :string, :decimal, :integer, :date, :datetime]
     attr_reader :name, :type, :options, :default, :foreign_class
 
     def initialize(name, type, options = {})

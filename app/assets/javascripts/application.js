@@ -11,21 +11,22 @@
 // GO AFTER THE REQUIRES BELOW.
 //
 //= require jquery
-//= require jquery.ui.all
+//= require jquery.ui.datepicker
+//= require jquery.ui.dialog
+//= require jquery.ui.autocomplete
 //= require jquery_ujs
 //= require jquery.turbolinks
 //= require turbolinks
-//= require foundation
 //= require active-list.jquery
 //= require formize
 //= require cocoon
 //= require support
 //= require selector
-//= require jsapi
-//= require jquery.joyride-2.0.3
+//= require highcharts/highcharts
+//= require highcharts/highcharts-more
+//= require highcharts/highstock
 //= require modernizr.mq
 //= require ui
 //= require jstz
 //= require_tree .
 
-$(document).foundation();

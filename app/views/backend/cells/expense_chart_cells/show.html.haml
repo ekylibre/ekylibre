@@ -1,2 +1,3 @@
-#expense-chart
-  =render_chart(@chart, 'expense-chart')
+= high_chart("expense-chart", @chart) do |c|
+  = raw "options.tooltip.formatter = function() {return '<b> YUPI!! '+ this.point.name +'</b>: '+ this.y +' %';}"
+  = raw "options.plotOptions.pie.dataLabels.formatter = function() { if (this.y > 5) return this.point.name; }"

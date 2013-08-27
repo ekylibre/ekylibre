@@ -18,8 +18,11 @@
 #
 
 class ApplicationController < ActionController::Base
+  before_filter :set_theme
   before_filter :set_locale
   before_filter :set_time_zone
+
+  attr_accessor :current_theme
 
   def self.human_name
     ::I18n.translate("controllers." + self.controller_path)
@@ -58,6 +61,10 @@ class ApplicationController < ActionController::Base
   end
 
   protected
+
+  def set_theme()
+    @current_theme = 'tekyla'
+  end
 
   # Initialize locale with params[:locale] or HTTP_ACCEPT_LANGUAGE
   def set_locale()
