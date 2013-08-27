@@ -560,7 +560,25 @@ module ApplicationHelper
   end
 
 
-
+  def icon_tags(options = {})
+    # Favicon
+    html  = tag(:link, :rel => "icon", :type => "image/png", :href => image_path("icon/favicon.png"), "data-turbolinks-track" => true)
+    html << "\n".html_safe + tag(:link, :rel => "shortcut icon", :href => image_path("icon/favicon.ico"), "data-turbolinks-track" => true)
+    # Apple touch icon
+    unless options[:app].is_a?(FalseClass)
+      html << "\n".html_safe + tag(:link, :rel => "apple-touch-icon", :href => image_path("icon/iphone.png"), "data-turbolinks-track" => true) # , :sizes => "57x57"
+      html << "\n".html_safe + tag(:link, :rel => "apple-touch-icon", :sizes => "72x72", :href => image_path("icon/ipad.png"), "data-turbolinks-track" => true)
+      html << "\n".html_safe + tag(:link, :rel => "apple-touch-icon", :sizes => "114x114", :href => image_path("icon/iphone-retina.png"), "data-turbolinks-track" => true)
+      html << "\n".html_safe + tag(:link, :rel => "apple-touch-icon", :sizes => "144x144", :href => image_path("icon/ipad-retina.png"), "data-turbolinks-track" => true)
+    end
+    if options[:precomposed]
+      html << "\n".html_safe + tag(:link, :rel => "apple-touch-icon-precomposed", :href => image_path("icon/precomposed-iphone.png"), "data-turbolinks-track" => true) # , :sizes => "57x57"
+      html << "\n".html_safe + tag(:link, :rel => "apple-touch-icon-precomposed", :sizes => "72x72", :href => image_path("icon/precomposed-ipad.png"), "data-turbolinks-track" => true)
+      html << "\n".html_safe + tag(:link, :rel => "apple-touch-icon-precomposed", :sizes => "114x114", :href => image_path("icon/precomposed-iphone-retina.png"), "data-turbolinks-track" => true)
+      html << "\n".html_safe + tag(:link, :rel => "apple-touch-icon-precomposed", :sizes => "144x144", :href => image_path("icon/precomposed-ipad-retina.png"), "data-turbolinks-track" => true)
+    end
+    return html
+  end
 
 
   # Permits to use themes for Ekylibre
@@ -568,7 +586,7 @@ module ApplicationHelper
   #  stylesheet_link_tag 'print', :media => 'print'
   def theme_link_tag()
     html = ""
-    html << stylesheet_link_tag(theme_path("all.css"))
+    html << stylesheet_link_tag(theme_path("all.css"), :media => :all, "data-turbolinks-track" => true)
     return html.html_safe
   end
 
@@ -585,7 +603,7 @@ module ApplicationHelper
     return (session[:view_mode] == "resized" ? true : false)
   end
 
-  def meta_viewport_tag
+  def viewport_tag
     tag(:meta, :name => "viewport", :content => "width=device-width, initial-scale=1.0, maximum-scale=1.0")
   end
 
