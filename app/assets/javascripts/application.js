@@ -22,6 +22,9 @@
 //= require support
 //= require selector
 //= require jsapi
+//= require highcharts/highcharts                                                           
+//= require highcharts/highcharts-more                                                         
+//= require highcharts/highstock
 //= require jquery.joyride-2.0.3
 //= require modernizr.mq
 //= require ui
