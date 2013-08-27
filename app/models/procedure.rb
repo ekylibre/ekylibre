@@ -44,7 +44,7 @@ class Procedure < Ekylibre::Record::Base
   belongs_to :prescription
   belongs_to :provisional_procedure
   has_many :variables, :class_name => "ProcedureVariable", :inverse_of => :procedure
-  has_many :operations, -> { reorder(:started_at) }, :inverse_of => :procedure
+  has_many :operations, :inverse_of => :procedure
   enumerize :nomen, :in => Procedures.names.sort
   enumerize :state, :in => [:undone, :squeezed, :in_progress, :done]
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.

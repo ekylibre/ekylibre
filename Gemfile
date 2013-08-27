@@ -90,15 +90,15 @@ group :assets do
   gem 'coffee-rails', '~> 3.2.1'
   gem 'compass', '~> 0.13.alpha.4'
   gem 'compass-rails'
-  gem 'zurb-foundation'
+  gem 'oily_png'
+
+  # gem 'zurb-foundation'
   gem 'agric'
   # gem 'codemirror-rails'
   gem 'turbo-sprockets-rails3'
-  gem 'oily_png'
   gem 'jquery-turbolinks'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-  # gem 'libv8', '~> 3.11.8'
   gem 'therubyracer', :platform => :ruby
 
   gem 'uglifier', '>= 1.0.3'

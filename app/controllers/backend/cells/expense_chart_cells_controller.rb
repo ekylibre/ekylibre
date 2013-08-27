@@ -11,7 +11,7 @@ class Backend::Cells::ExpenseChartCellsController < Backend::CellsController
                   ['Firefox',   45.0],
                   ['IE',       26.8],
                   {
-                     :name=> 'Chrome',    
+                     :name=> 'Chrome',
                      :y=> 12.8,
                      :sliced=> true,
                      :selected=> true
@@ -23,10 +23,10 @@ class Backend::Cells::ExpenseChartCellsController < Backend::CellsController
       }
       f.series(series)
       f.options[:title][:text] = "TEST"
-      f.legend(:layout=> 'vertical',:style=> {:left=> 'auto', :bottom=> 'auto',:right=> '10px',:top=> '10px'}) 
+      f.legend(:layout=> 'vertical',:style=> {:left=> 'auto', :bottom=> 'auto',:right=> '10px',:top=> '10px'})
       f.plot_options(:pie=>{
-        :allowPointSelect=>true, 
-        :cursor=>"pointer" , 
+        :allowPointSelect=>true,
+        :cursor=>"pointer" ,
         :dataLabels=>{
           :enabled=>true,
           :color=>"black",
@@ -37,7 +37,7 @@ class Backend::Cells::ExpenseChartCellsController < Backend::CellsController
       })
     end
   end
-  
+
 
 
 
