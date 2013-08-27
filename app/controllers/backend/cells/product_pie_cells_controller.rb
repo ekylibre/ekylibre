@@ -1,8 +1,8 @@
 class Backend::Cells::ProductPieCellsController < Backend::CellsController
 
   def show
-    @values = ProductGroup.all.inject({}) do |hash, group|
-    hash[group.name] = group.products.count
+    @values = ProductNature.limit(10).inject({}) do |hash, nature|
+    hash[nature.name] = nature.products.count
     hash
     end
   end
