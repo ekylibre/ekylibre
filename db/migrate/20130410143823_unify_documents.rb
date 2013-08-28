@@ -1,10 +1,7 @@
 class UnifyDocuments < ActiveRecord::Migration
   def rename_table_and_indexes(old_table, new_table)
     rename_table(old_table, new_table)
-    # Updates indexes names
-    for index in indexes(new_table)
-      rename_index new_table, index.name.to_sym, ("index_#{new_table}_on_" + index.columns.join("_and_")).to_sym
-    end
+    normalize_indexes(new_table)
   end
 
   def up
