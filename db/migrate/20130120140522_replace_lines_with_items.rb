@@ -794,7 +794,10 @@ class ReplaceLinesWithItems < ActiveRecord::Migration
     rename_table_and_ref(old_table, new_table)
     # Updates indexes names
     for index in indexes(new_table)
-      rename_index new_table, index.name.to_sym, ("index_#{new_table}_on_" + index.columns.join("_and_")).to_sym
+      new_name = ("index_#{new_table}_on_" + index.columns.join("_and_")).to_sym
+      if index.name.to_sym != new_name
+        rename_index new_table, index.name.to_sym, new_name
+      end
     end
   end
 

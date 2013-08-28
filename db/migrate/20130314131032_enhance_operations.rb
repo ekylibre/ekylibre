@@ -1,12 +1,12 @@
 class EnhanceOperations < ActiveRecord::Migration
-  def normalize_indexes(table)
-    for index in indexes(table)
-      expected_name = ("index_#{table}_on_" + index.columns.join("_and_")).to_sym
-      if index.name.to_sym != expected_name
-        rename_index table, index.name.to_sym, expected_name
-      end
-    end
-  end
+  # def normalize_indexes(table)
+  #   for index in indexes(table)
+  #     expected_name = ("index_#{table}_on_" + index.columns.join("_and_")).to_sym
+  #     if index.name.to_sym != expected_name
+  #       rename_index table, index.name.to_sym, expected_name
+  #     end
+  #   end
+  # end
 
 
   def up

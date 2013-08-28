@@ -1,5 +1,16 @@
 module MigrationHelper
 
+  # Renames index using the standard convention
+  def normalize_indexes(table)
+    for index in indexes(table)
+      expected_name = ("index_#{table}_on_" + index.columns.join("_and_")).to_sym
+      if index.name.to_sym != expected_name
+        rename_index table, index.name.to_sym, expected_name
+      end
+    end
+  end
+
+
   # Prevents errors from SQLite only
   # Renames too long index names with short names
   # At the end of the operations the indexes are renamed back.
