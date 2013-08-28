@@ -39,7 +39,7 @@ class Backend::ProductNaturesController < BackendController
 
   # Displays the main page with the list of products
   def index
-    session[:product_nature_state] = params[:s]||"all"
+    session[:product_nature_state] = params[:s] || "all"
   end
 
 

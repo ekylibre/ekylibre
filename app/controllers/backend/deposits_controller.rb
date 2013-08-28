@@ -23,7 +23,7 @@ class Backend::DepositsController < BackendController
 
   list(:order => "created_at DESC") do |t|
     t.column :number, :url => true
-    t.column :amount, :currency => "RECORD.cash.currency", :url => true
+    t.column :amount, :currency => true, :url => true
     t.column :payments_count
     t.column :name, :through => :cash, :url => true
     t.column :label, :through => :responsible
@@ -47,7 +47,7 @@ class Backend::DepositsController < BackendController
     t.column :bank_account_number
     t.column :bank_check_number
     t.column :paid_on
-    t.column :amount, :currency => "RECORD.mode.cash.currency", :url => true
+    t.column :amount, :currency => true, :url => true
   end
 
   # Displays details of one deposit selected with +params[:id]+
@@ -92,7 +92,7 @@ class Backend::DepositsController < BackendController
     @deposit.mode_id = mode.id
     if @deposit.save
       payments = params[:depositable_payments].collect{|id, attrs| (attrs[:to_deposit].to_i==1 ? id.to_i : nil)}.compact
-      IncomingPayment.update_all({:deposit_id => @deposit.id}, {:id => payments})
+      IncomingPayment.where(:id => payments).update_all(:deposit_id => @deposit.id)
       @deposit.refresh
       return if save_and_redirect(@deposit, :saved => true)
     end
@@ -115,8 +115,8 @@ class Backend::DepositsController < BackendController
     if @deposit.update_attributes(params[:deposit]) and params[:depositable_payments]
       ActiveRecord::Base.transaction do
         payments = params[:depositable_payments].collect{|id, attrs| (attrs[:to_deposit].to_i==1 ? id.to_i : nil)}.compact
-        IncomingPayment.update_all({:deposit_id => nil}, {:deposit_id => @deposit.id})
-        IncomingPayment.update_all({:deposit_id => @deposit.id}, {:id => payments})
+        IncomingPayment.where(:deposit_id => @deposit.id).update_all(:deposit_id => nil)
+        IncomingPayment.where(:id => payments).update_all(:deposit_id => @deposit.id)
       end
       @deposit.refresh
       return if save_and_redirect(@deposit, :saved => true)

@@ -73,10 +73,10 @@ class EntityAddress < Ekylibre::Record::Base
 
   has_default :scope => [:entity_id, :canal]
 
-  # Use unscoped to get all historic
-  default_scope -> { where("deleted_at IS NULL").order(:coordinate) }
+  # Use unscoped to get.all historic
+  # default_scope -> { where("deleted_at IS NULL").order(:coordinate) }
 
-  # Defines test and scope methods for all canals
+  # Defines test and scope methods for.all canals
   self.canal.values.each do |canal|
     scope canal.to_s.pluralize, -> { where(canal: canal.to_s) }
     scope "own_#{canal.to_s.pluralize}", -> { where("canal = ? AND entity_id = ?", canal, Entity.of_company.id) }
@@ -110,13 +110,13 @@ class EntityAddress < Ekylibre::Record::Base
   before_validation(:on => :create) do
     if self.code.blank?
       self.code = 'AAAA'
-      while self.class.count(:conditions => ["entity_id = ? AND canal = ? AND code = ?", self.entity_id, self.canal, self.code]) > 0 do
+      while self.class.where("entity_id = ? AND canal = ? AND code = ?", self.entity_id, self.canal, self.code).count > 0 do
         self.code.succ!
       end
     end
   end
 
-  def update # _without_callbacks
+  def update # _without_.allbacks
     # raise Exception.new "UPDAAAAAAAAAAAATE"
     current_time = Time.now
     stamper = self.class.stamper_class.stamper rescue nil
@@ -127,13 +127,13 @@ class EntityAddress < Ekylibre::Record::Base
       nc.send("#{attr}=", val)
     end
     nc.save!
-    self.class.update_all({:deleted_at => current_time}, {:id => self.id})
+    self.class.where(:id => self.id).update_all(:deleted_at => current_time)
     return nc
   end
 
-  def destroy # _without_callbacks
+  def destroy # _without_.allbacks
     unless new_record?
-      self.class.update_all({:deleted_at => Time.now}, {:id => self.id})
+      self.class.where(:id => self.id).update_all(:deleted_at => Time.now)
     end
   end
 

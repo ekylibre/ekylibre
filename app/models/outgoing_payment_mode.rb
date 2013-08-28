@@ -51,7 +51,7 @@ class OutgoingPaymentMode < Ekylibre::Record::Base
 
   delegate :currency, :to => :cash
 
-  default_scope -> { order(:position) }
+  # default_scope -> { order(:position) }
 
   protect(:on => :destroy) do
     self.payments.count.zero?

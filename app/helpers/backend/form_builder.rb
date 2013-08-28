@@ -155,7 +155,7 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
         # Add variant selector
         fs  = self.input(:variant_id, :value => variant.id, :as => :hidden)
         # Add variety selector
-        varieties = Nomen::Varieties.all(variant.variety)
+        varieties = Nomen::Varieties.to_a(variant.variety)
         @object.variety ||= varieties.first
         fs << self.input(:variety, :collection => varieties)
 

@@ -46,7 +46,7 @@ class MeetingNature < Ekylibre::Record::Base
   validates_presence_of :name
   #]VALIDATORS]
 
-  default_scope -> { order(:name) }
+  # default_scope -> { order(:name) }
 
   protect(:on => :destroy) do
     self.meetings.count <= 0

@@ -50,7 +50,7 @@ module Ekylibre::Record
 
         code << "def ensure_#{column}_uniqueness\n"
         code << "  if self.#{column}?\n"
-        code << "    #{scope}.update_all({:#{column} => false}, ['#{column} = ? AND id != ?', true, self.id]) \n"
+        code << "    #{scope}.where('#{column} = ? AND id != ?', true, self.id).update_all(:#{column} => false)\n"
         code << "  end\n"
         code << "end\n"
 

@@ -103,7 +103,7 @@ module Backend::JournalsHelper
   def journals_crit
     code, field = "", :journals
     code << content_tag(:label, Backend::JournalsController.human_name)
-    journals = Journal.all
+    journals = Journal.to_a
     params[field] = {} unless params[field].is_a? Hash
     no_journal = !journals.detect{|x| params[field].has_key?(x.id.to_s)}
     for journal in journals

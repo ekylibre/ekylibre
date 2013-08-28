@@ -83,8 +83,7 @@ class Sale < Ekylibre::Record::Base
   has_many :credits, :class_name => "Sale", :foreign_key => :origin_id
   has_many :deliveries, :class_name => "OutgoingDelivery", :dependent => :destroy, :inverse_of => :sale
   has_many :documents, :as => :owner
-  has_many :items, :class_name => "SaleItem", :foreign_key => :sale_id, :dependent => :destroy, :order => "position, id", :inverse_of => :sale
-  # has_many :undelivered_items, :class_name => "SaleItem", :foreign_key => :sale_id, :dependent => :destroy, :order => "position, id"
+  has_many :items, -> { order("position, id") }, :class_name => "SaleItem", :foreign_key => :sale_id, :dependent => :destroy, :inverse_of => :sale
   has_many :journal_entries, :as => :resource
   has_many :subscriptions, :class_name => "Subscription"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
@@ -247,7 +246,7 @@ class Sale < Ekylibre::Record::Base
   end
 
 
-  # Remove all bad dependencies and return at draft state with no deliveries
+  # Remove.all bad dependencies and return at draft state with no deliveries
   def correct(*args)
     return false unless self.can_correct?
     self.deliveries.clear
@@ -284,7 +283,7 @@ class Sale < Ekylibre::Record::Base
   end
 
 
-  # Invoices all the products creating the delivery if necessary.
+  # Invoices.all the products creating the delivery if necessary.
   # Changes number with an invoice number saving exiting number in +initial_number+.
   def invoice(*args)
     return false unless self.can_invoice?
@@ -304,7 +303,7 @@ class Sale < Ekylibre::Record::Base
     return false
   end
 
-  # Delivers all undelivered products and sales invoice the order after. This operation cleans the order.
+  # Delivers.all undelivered products and sales invoice the order after. This operation cleans the order.
   def deliver_and_invoice
     self.deliver.invoice
   end
@@ -319,12 +318,12 @@ class Sale < Ekylibre::Record::Base
     if copy.save
       # Items
       items = {}
-      for item in self.items.find(:all, :conditions => ["quantity>0"])
+      for item in self.items.where("quantity > 0")
         l = copy.items.create! :sale_id => copy.id, :product_id => item.product_id, :quantity => item.quantity, :building_id => item.building_id
         items[item.id] = l.id
       end
       # Subscriptions
-      for sub in self.subscriptions.find(:all, :conditions => ["NOT suspended"])
+      for sub in self.subscriptions.where("NOT suspended")
         copy.subscriptions.create!(:sale_id => copy.id, :entity_id => sub.entity_id, :address_id => sub.address_id, :quantity => sub.quantity, :nature_id => sub.nature_id, :product_id => sub.product_id, :sale_item_id => items[sub.sale_item_id])
       end
     else
@@ -453,7 +452,7 @@ class Sale < Ekylibre::Record::Base
     credit = self.class.new(:origin_id => self.id, :client_id => self.client_id, :credit => true, :responsible => options[:responsible]||self.responsible, :nature_id => self.nature_id)
     ActiveRecord::Base.transaction do
       if saved = credit.save
-        for item in self.items.find(:all, :conditions => {:id => items.keys})
+        for item in self.items.where(:id => items.keys)
           quantity = -items[item.id.to_s].abs
           credit_item = credit.items.create(:quantity => quantity, :origin_id => item.id, :product_id => item.product_id, :price_id => item.price_id, :reduction_percentage => item.reduction_percentage)
           unless credit_item.save

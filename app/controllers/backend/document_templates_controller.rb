@@ -37,7 +37,7 @@ class Backend::DocumentTemplatesController < BackendController
   def index
   end
 
-  # Loads ou reloads all managed document templates
+  # Loads ou reloads.all managed document templates
   def load
     DocumentTemplate.load_defaults
     notify_success(:update_is_done)

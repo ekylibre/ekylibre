@@ -49,7 +49,7 @@ class Activity < Ekylibre::Record::Base
   #]VALIDATORS]
   validates_inclusion_of :family, :in => self.family.values, :allow_nil => true
 
-  default_scope -> { where("stopped_at IS NULL OR stopped_at > ?", Time.now).order(:name) }
+  # default_scope -> { where("stopped_at IS NULL OR stopped_at > ?", Time.now).order(:name) }
   scope :main_activity, -> { where(:nature => "main").order(:name) }
 
   accepts_nested_attributes_for :productions, :reject_if => :all_blank, :allow_destroy => true

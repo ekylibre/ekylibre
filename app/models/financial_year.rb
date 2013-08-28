@@ -40,7 +40,7 @@ class FinancialYear < Ekylibre::Record::Base
   # attr_accessible :code, :started_on, :stopped_on, :currency
   attr_readonly :currency
   belongs_to :last_journal_entry, :class_name => "JournalEntry"
-  has_many :account_balances, :class_name=>"AccountBalance", :foreign_key=>:financial_year_id, :dependent=>:delete_all
+  has_many :account_balances, :class_name => "AccountBalance", :foreign_key => :financial_year_id, :dependent => :delete_all
   has_many :asset_depreciations
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :currency_precision, :allow_nil => true, :only_integer => true
@@ -54,7 +54,7 @@ class FinancialYear < Ekylibre::Record::Base
 
   # This order must be the natural order
   # It permit to find the first and the last financial year
-  default_scope order(:started_on)
+  # default_scope order(:started_on)
   scope :currents, where(:closed => false).reorder("ABS(CURRENT_DATE - started_on) DESC")
   scope :closables, where("closed = ? AND stopped_on < CURRENT_DATE", false).reorder(:started_on).limit(1)
 
@@ -96,7 +96,7 @@ class FinancialYear < Ekylibre::Record::Base
       self.code = self.default_code
     end
     self.code.upper!
-    while self.class.count(:conditions=>["code=? AND id!=?", self.code, self.id||0]) > 0 do
+    while self.class.where("code=? AND id!=?", self.code, self.id||0).count > 0 do
       self.code.succ!
     end
   end
@@ -104,12 +104,12 @@ class FinancialYear < Ekylibre::Record::Base
   validate do
     unless self.stopped_on.blank? or self.started_on.blank?
       errors.add(:stopped_on, :end_of_month) unless self.stopped_on == self.stopped_on.end_of_month
-      errors.add(:stopped_on, :posterior, :to=>::I18n.localize(self.started_on)) unless self.started_on < self.stopped_on
+      errors.add(:stopped_on, :posterior, :to => ::I18n.localize(self.started_on)) unless self.started_on < self.stopped_on
       # If some financial years are already present
       id = self.id || 0
-      if self.class.count(:conditions=>["id!=?", id]) > 0
-        errors.add(:started_on, :overlap) if self.class.find(:first, :conditions=>["id != ? AND ? BETWEEN started_on AND stopped_on", id, self.started_on])
-        errors.add(:stopped_on, :overlap) if self.class.find(:first, :conditions=>["id != ? AND ? BETWEEN started_on AND stopped_on", id, self.stopped_on])
+      if self.class.where("id != ?", id).count > 0
+        errors.add(:started_on, :overlap) if self.class.where("id != ? AND ? BETWEEN started_on AND stopped_on", id, self.started_on).first
+        errors.add(:stopped_on, :overlap) if self.class.where("id != ? AND ? BETWEEN started_on AND stopped_on", id, self.stopped_on).first
       end
     end
   end
@@ -118,7 +118,7 @@ class FinancialYear < Ekylibre::Record::Base
     unless conditions.nil?
       conditions = " AND ("+self.class.send(:sanitize_sql_for_conditions, conditions)+")"
     end
-    JournalEntry.find(:all, :conditions=>["printed_on BETWEEN ? AND ? #{conditions}", self.started_on, self.stopped_on])
+    JournalEntry.where("printed_on BETWEEN ? AND ? #{conditions}", self.started_on, self.stopped_on)
   end
 
   def name
@@ -126,7 +126,7 @@ class FinancialYear < Ekylibre::Record::Base
   end
   
   def default_code
-    tc("code."+(self.started_on.year!=self.stopped_on.year ? "double" : "single"), :first_year=>self.started_on.year, :second_year=>self.stopped_on.year)
+    tc("code."+(self.started_on.year!=self.stopped_on.year ? "double" : "single"), :first_year => self.started_on.year, :second_year => self.stopped_on.year)
   end
 
   # tests if the financial_year can be closed.
@@ -157,14 +157,14 @@ class FinancialYear < Ekylibre::Record::Base
   end
 
 
-  # When a financial year is closed, all the matching journals are closed too.
+  # When a financial year is closed,.all the matching journals are closed too.
   def close(to_close_on=nil, options={})
     return false unless self.closable?
 
     to_close_on ||= self.stopped_on
 
     ActiveRecord::Base.transaction do
-      # Close all journals to the
+      # Close.all journals to the
       for journal in Journal.where("closed_on < ?", to_close_on)
         raise false unless journal.close(to_close_on)
       end
@@ -209,12 +209,12 @@ class FinancialYear < Ekylibre::Record::Base
 
   # this method returns the previous financial_year.
   def previous
-    return self.class.where(:stopped_on=>self.started_on-1).first
+    return self.class.where(:stopped_on => self.started_on-1).first
   end
 
   # this method returns the next financial_year.
   def next
-    return self.class.where(:started_on=>self.stopped_on+1).first
+    return self.class.where(:started_on => self.stopped_on+1).first
   end
 
   # Find or create the next financial year based on the date of the current
@@ -237,8 +237,8 @@ class FinancialYear < Ekylibre::Record::Base
 
 
   # Computes the value of list of accounts in a String
-  # 123 will take all accounts 123*
-  # ^456 will remove all accounts 456*
+  # 123 will take.all accounts 123*
+  # ^456 will remove.all accounts 456*
   # 789X will compute the balance although result is negative
   def balance(accounts, credit = false)
     normals, excepts, negatives, forceds = ["(XD)"], [], [], []
@@ -254,8 +254,8 @@ class FinancialYear < Ekylibre::Record::Base
     if forceds.size > 0 or negatives.size > 0
       forceds_and_negatives = forceds & negatives
       balance  = "CASE"
-      balance << " WHEN "+forceds_and_negatives.sort.collect{|c| "a.number LIKE '#{c}%'"}.join(" OR ")+" THEN -#{FinancialYear.balance_expr(!credit, :forced=>true)}" if forceds_and_negatives.size > 0
-      balance << " WHEN "+forceds.collect{|c| "a.number LIKE '#{c}%'"}.join(" OR ")+" THEN #{FinancialYear.balance_expr(credit, :forced=>true)}" if forceds.size > 0
+      balance << " WHEN "+forceds_and_negatives.sort.collect{|c| "a.number LIKE '#{c}%'"}.join(" OR ")+" THEN -#{FinancialYear.balance_expr(!credit, :forced => true)}" if forceds_and_negatives.size > 0
+      balance << " WHEN "+forceds.collect{|c| "a.number LIKE '#{c}%'"}.join(" OR ")+" THEN #{FinancialYear.balance_expr(credit, :forced => true)}" if forceds.size > 0
       balance << " WHEN "+negatives.sort.collect{|c| "a.number LIKE '#{c}%'"}.join(" OR ")+" THEN -#{FinancialYear.balance_expr(!credit)}" if negatives.size > 0
       balance << " ELSE #{FinancialYear.balance_expr(credit)} END"
     end
@@ -299,12 +299,12 @@ class FinancialYear < Ekylibre::Record::Base
 
 
 
-  # Re-create all account_balances record for the financial year
+  # Re-create.all account_balances record for the financial year
   def compute_balances!
     results = ActiveRecord::Base.connection.select_all("SELECT account_id, sum(jel.debit) AS debit, sum(jel.credit) AS credit, count(jel.id) AS count FROM #{JournalEntryItem.table_name} AS jel JOIN #{JournalEntry.table_name} AS je ON (je.id = jel.entry_id AND je.printed_on BETWEEN #{self.class.connection.quote(self.started_on)} AND #{self.class.connection.quote(self.stopped_on)}) WHERE je.state != 'draft' GROUP BY account_id")
     self.account_balances.clear
     for result in results
-      self.account_balances.create!(:account_id=>result["account_id"].to_i, :local_count=>result["count"].to_i, :local_credit=>result["credit"].to_f, :local_debit=>result["debit"].to_f)
+      self.account_balances.create!(:account_id => result["account_id"].to_i, :local_count => result["count"].to_i, :local_credit => result["credit"].to_f, :local_debit => result["debit"].to_f)
     end
     return self
   end
@@ -316,7 +316,7 @@ class FinancialYear < Ekylibre::Record::Base
     return "data"
   end
 
-  # Generate last journal entry with assets depreciations (optionnally)
+  # Generate last journal entry with assets depreciations (option.ally)
   def generate_last_journal_entry(options = {})
     unless self.last_journal_entry
       self.create_last_journal_entry!(:printed_on => self.stopped_on, :journal_id => options[:journal_id])

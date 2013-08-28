@@ -78,7 +78,7 @@ class IncomingPayment < Ekylibre::Record::Base
   autosave :deposit
   delegate :with_commission?, :to => :mode
 
-  default_scope -> { order("id DESC") }
+  # default_scope -> { order("id DESC") }
   scope :depositables, -> { where("deposit_id IS NULL AND to_bank_on >= ? AND mode_id IN (SELECT id FROM #{IncomingPaymentMode.table_name} WHERE with_deposit = ?)", Date.today, true) }
   scope :last_updateds, -> { order("updated_at DESC") }
 

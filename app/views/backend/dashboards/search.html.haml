@@ -1,8 +1,8 @@
--subheading("x_results", :count => @search[:count])
+- subheading("x_results", :count => @search[:count])
 
--if @search[:count] > 0
-  =search_results(@search) do |result|
+- if @search[:count] > 0
+  = search_results(@search) do |result|
     %h3
-      =link_to(result["title"], :controller => result["record_type"].tableize, :action => :show, :id => result["record_id"])
-      %small=result["pertinence"]
-    %p=truncate(result["indexer"], :length => 300)
+      = link_to(result["title"], :controller => result["record_type"].tableize, :action => :show, :id => result["record_id"])
+      %small= result["pertinence"]
+    %p= truncate(result["indexer"], :length => 300)

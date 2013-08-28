@@ -1,4 +1,4 @@
--if @inventory.new_record?
-  =list(:items_create)
--else
-  =list(:items_update)
+- if @inventory.new_record?
+  = list(:items_create)
+- else
+  = list(:items_update)

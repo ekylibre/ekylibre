@@ -64,7 +64,7 @@ class SaleNature < Ekylibre::Record::Base
 
   has_default
 
-  default_scope -> { order(:by_default, :name) }
+  # default_scope -> { order(:by_default, :name) }
   scope :actives, -> { where(:active => true) }
 
   before_validation do

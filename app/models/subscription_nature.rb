@@ -55,7 +55,7 @@ class SubscriptionNature < Ekylibre::Record::Base
   #]VALIDATORS]
   validates_numericality_of :reduction_percentage, :greater_than_or_equal_to => 0, :less_than_or_equal_to => 100
 
-  default_scope -> { order(:name) }
+  # default_scope -> { order(:name) }
 
   before_validation do
     self.reduction_percentage ||= 0

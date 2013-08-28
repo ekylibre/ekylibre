@@ -51,7 +51,7 @@ class Journal < Ekylibre::Record::Base
   validates_uniqueness_of :code
   validates_uniqueness_of :name
 
-  default_scope order(:name)
+  # default_scope order(:name)
   scope :used_for, lambda { |nature|
     raise ArgumentError.new("Journal#used_for must be one of these: #{self.nature.values.join(', ')}") unless self.nature.values.include?(nature.to_s)
     where(:nature => nature.to_s)
@@ -71,7 +71,7 @@ class Journal < Ekylibre::Record::Base
     end
   end
 
-  # this method is called before creation or validation method.
+  # this method is .alled before creation or validation method.
   before_validation do
     self.name = self.nature.text if self.name.blank? and self.nature
     if eoc = Entity.of_company
@@ -120,7 +120,7 @@ class Journal < Ekylibre::Record::Base
   #
   def closable?(closed_on=nil)
     closed_on ||= Date.today
-    self.class.update_all({:closed_on => Date.civil(1900, 12, 31)}, {:id => self.id}) if self.closed_on.nil?
+    self.class.where(:id => self.id).update_all(:closed_on => Date.civil(1900, 12, 31)) if self.closed_on.nil?
     self.reload
     return false unless (closed_on << 1).end_of_month > self.closed_on
     return true
@@ -169,7 +169,7 @@ class Journal < Ekylibre::Record::Base
 
   def reopen(closed_on)
     ActiveRecord::Base.transaction do
-      for entry in self.entries.find(:all, :conditions => ["printed_on BETWEEN ? AND ? ", closed_on+1, self.closed_on])
+      for entry in self.entries.where("printed_on BETWEEN ? AND ? ", closed_on+1, self.closed_on)
         entry.reopen
       end
       self.update_column(:closed_on, closed_on)
@@ -186,18 +186,18 @@ class Journal < Ekylibre::Record::Base
   end
 
   # this method searches the last entries according to a number.
-  def last_entries(period, number_entry=:all)
-    period.entries.find(:all, :order => "lpad(number,20,'0') DESC", :limit => number_entry)
+  def last_entries(period, count = 30)
+    period.entries.order("LPAD(number, 20, '0') DESC").limit(count)
   end
 
 
   def entry_items_between(started_on, stopped_on)
-    self.entry_items.find(:all, :joins => "JOIN #{JournalEntry.table_name} AS journal_entries ON (journal_entries.id=entry_id)", :conditions => ["printed_on BETWEEN ? AND ? ", started_on, stopped_on], :order => "printed_on, journal_entries.id, journal_entry_items.id")
+    self.entry_items.joins("JOIN #{JournalEntry.table_name} AS journal_entries ON (journal_entries.id=entry_id)").where("printed_on BETWEEN ? AND ? ", started_on, stopped_on).order("printed_on, journal_entries.id, journal_entry_items.id")
   end
 
   def entry_items_calculate(column, started_on, stopped_on, operation=:sum)
     column = (column == :balance ? "#{JournalEntryItem.table_name}.original_debit - #{JournalEntryItem.table_name}.original_credit" : "#{JournalEntryItem.table_name}.original_#{column}")
-    self.entry_items.calculate(operation, column, :joins => "JOIN #{JournalEntry.table_name} AS journal_entries ON (journal_entries.id=entry_id)", :conditions => ["printed_on BETWEEN ? AND ? ", started_on, stopped_on])
+    self.entry_items.joins("JOIN #{JournalEntry.table_name} AS journal_entries ON (journal_entries.id=entry_id)").where("printed_on BETWEEN ? AND ? ", started_on, stopped_on).calculate(operation, column)
   end
 
 
@@ -213,9 +213,9 @@ class Journal < Ekylibre::Record::Base
     conn = ActiveRecord::Base.connection
     journal_entry_items, journal_entries, accounts = "jel", "je", "a"
 
-    journal_entries_states = ' AND '+JournalEntry.state_condition(options[:states], journal_entries)
+    journal_entries_states = ' AND ' + JournalEntry.state_condition(options[:states], journal_entries)
 
-    account_range = ' AND '+Account.range_condition(options[:accounts], accounts)
+    account_range = ' AND ' + Account.range_condition(options[:accounts], accounts)
 
     # raise Exception.new(options[:centralize].to_s.strip.split(/[^A-Z0-9]+/).inspect)
     centralize = options[:centralize].to_s.strip.split(/[^A-Z0-9]+/) # .delete_if{|x| x.blank? or !expr.match(valid_expr)}

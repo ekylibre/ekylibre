@@ -1,39 +1,39 @@
-=kujaku do |k|
-  -k.crit :journal_period
-  -k.crit :journal_entries_states
-  -k.crit :accounts_range
-  -k.criterion do
-    -centralized = Preference.find(:all, :order=>"id", :conditions=>["name LIKE ? ", "third_%_accounts"]).collect{|p| p.value.to_s}.join(" ")
-    %label=tc(:centralize)
-    =text_field_tag("centralize", params[:centralize]||centralized, :size=>30)
-  -k.criterion do
-    -max = Account.maximum(Account.connection.length("COALESCE(number, '')")).to_i
-    %label=tc(:subtotals_at_level)
-    -for level in 1..max-1
-      -name = "level_#{level}"
-      =check_box_tag(name, "1", params[name]=="1")
-      %label{:for=>name}=level
+= kujaku do |k|
+  - k.crit :journal_period
+  - k.crit :journal_entries_states
+  - k.crit :accounts_range
+  - k.criterion do
+    - centralized = Preference.order("id").where("name LIKE ? ", "third_%_accounts").collect{ |p| p.value.to_s }.join(" ")
+    %label= tc(:centralize)
+    = text_field_tag("centralize", params[:centralize]||centralized, :size=>30)
+  - k.criterion do
+    - max = Account.maximum(Account.connection.length("COALESCE(number, '')")).to_i
+    %label= tc(:subtotals_at_level)
+    - for level in 1..max-1
+      - name = "level_#{level}"
+      = check_box_tag(name, "1", params[name]=="1")
+      %label{:for => name}= level
 
--if @balance
+- if @balance
   .active-list
     %table.list
       %thead
         %tr
-          %th{:rowspan=>2}=tc(:account_number)
-          %th{:rowspan=>2}=tc(:account_name)
-          %th{:colspan=>2}=tc(:total)
-          %th{:colspan=>2}=tc(:balance)
+          %th{:rowspan=>2}= tc(:account_number)
+          %th{:rowspan=>2}= tc(:account_name)
+          %th{:colspan=>2}= tc(:total)
+          %th{:colspan=>2}= tc(:balance)
         %tr
-          %th=JournalEntry.human_attribute_name("debit")
-          %th=JournalEntry.human_attribute_name("credit")
-          %th=JournalEntry.human_attribute_name("debit")
-          %th=JournalEntry.human_attribute_name("credit")
-      -for item in @balance
-        -d = item[0].size-1
-        -if item[1].to_i > 0
-          -account = @current_company.accounts.find(item[1])
+          %th= JournalEntry.human_attribute_name("debit")
+          %th= JournalEntry.human_attribute_name("credit")
+          %th= JournalEntry.human_attribute_name("debit")
+          %th= JournalEntry.human_attribute_name("credit")
+      - for item in @balance
+        - d = item[0].size-1
+        - if item[1].to_i > 0
+          - account = @current_company.accounts.find(item[1])
           %tr{:class=>cycle(:odd, :even)}
-            %td.code=link_to(account.number, :action=>:show, :controller=>:accounts, :id=>account.id)
+            %td.code= link_to(account.number, :action=>:show, :controller=>:accounts, :id=>account.id)
             %td=link_to(account.name, :action=>:show, :controller=>:accounts, :id=>account.id)
             %td.dec=number_to_accountancy(item[2])
             %td.dec=number_to_accountancy(item[3])

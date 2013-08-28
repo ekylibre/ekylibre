@@ -55,7 +55,7 @@ class Procedure < Ekylibre::Record::Base
   validates_inclusion_of :nomen, :in => self.nomen.values
   #validates_presence_of :version, :uid
 
-  # @TODO in progress - need to call parent procedure to have the name of the procedure_nature
+  # @TODO in progress - need to .all parent procedure to have the name of the procedure_nature
 
   scope :of_nature, lambda { |*natures|
     where("natures ~ E?", natures.sort.map { |nature| "\\\\m#{nature.to_s.gsub(/\W/, '')}\\\\M" }.join(".*"))

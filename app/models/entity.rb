@@ -92,14 +92,14 @@ class Entity < Ekylibre::Record::Base
   belongs_to :sale_price_listing, :class_name => "ProductPriceListing"
   belongs_to :supplier_account, :class_name => "Account"
   has_many :clients, :class_name => "Entity", :foreign_key => :responsible_id, :dependent => :nullify
-  has_many :addresses, :conditions => {:deleted_at => nil}, :class_name => "EntityAddress", :inverse_of => :entity
-  has_many :mails,     :conditions => {:canal => "mail",    :deleted_at => nil}, :class_name => "EntityAddress", :inverse_of => :entity
-  has_many :emails,    :conditions => {:canal => "email",   :deleted_at => nil}, :class_name => "EntityAddress", :inverse_of => :entity
-  has_many :phones,    :conditions => {:canal => "phone",   :deleted_at => nil}, :class_name => "EntityAddress", :inverse_of => :entity
-  has_many :mobiles,   :conditions => {:canal => "mobile",  :deleted_at => nil}, :class_name => "EntityAddress", :inverse_of => :entity
-  has_many :faxes,     :conditions => {:canal => "fax",     :deleted_at => nil}, :class_name => "EntityAddress", :inverse_of => :entity
-  has_many :websites,  :conditions => {:canal => "website", :deleted_at => nil}, :class_name => "EntityAddress", :inverse_of => :entity
-  has_many :auto_updateable_addresses, :conditions => {:deleted_at => nil, :mail_auto_update => true}, :class_name => "EntityAddress"
+  has_many :addresses, -> { where(:deleted_at => nil) }, :class_name => "EntityAddress", :inverse_of => :entity
+  has_many :mails,     -> { where(:canal => "mail",    :deleted_at => nil) }, :class_name => "EntityAddress", :inverse_of => :entity
+  has_many :emails,    -> { where(:canal => "email",   :deleted_at => nil) }, :class_name => "EntityAddress", :inverse_of => :entity
+  has_many :phones,    -> { where(:canal => "phone",   :deleted_at => nil) }, :class_name => "EntityAddress", :inverse_of => :entity
+  has_many :mobiles,   -> { where(:canal => "mobile",  :deleted_at => nil) }, :class_name => "EntityAddress", :inverse_of => :entity
+  has_many :faxes,     -> { where(:canal => "fax",     :deleted_at => nil) }, :class_name => "EntityAddress", :inverse_of => :entity
+  has_many :websites,  -> { where(:canal => "website", :deleted_at => nil) }, :class_name => "EntityAddress", :inverse_of => :entity
+  has_many :auto_updateable_addresses, -> { where(:deleted_at => nil, :mail_auto_update => true) }, :class_name => "EntityAddress"
   has_many :direct_links, :class_name => "EntityLink", :foreign_key => :entity_1_id
   has_many :product_events, :class_name => "Log", :foreign_key => :watcher_id
   has_many :godchildren, :class_name => "Entity", :foreign_key => "proposer_id"
@@ -109,21 +109,21 @@ class Entity < Ekylibre::Record::Base
   has_many :observations, :as => :subject
   has_many :participations, :class_name => "MeetingParticipation", :foreign_key => :participant_id
   has_many :prices, :class_name => "ProductPriceTemplate"
-  has_many :purchase_invoices, :class_name => "Purchase", :foreign_key => :supplier_id, :order => "created_on desc", :conditions => {:state => "invoice"}
+  has_many :purchase_invoices, -> { where(:state => "invoice").order("created_on desc") }, :class_name => "Purchase", :foreign_key => :supplier_id
   has_many :purchases, :foreign_key => :supplier_id
   has_many :outgoing_deliveries, :foreign_key => :transporter_id
   has_many :outgoing_payments, :foreign_key => :payee_id
-  has_many :sales_invoices, :class_name => "Sale", :foreign_key => :client_id, :order => "created_on desc", :conditions => {:state => "invoice"}
-  has_many :sales, :foreign_key => :client_id, :order => "created_on desc"
+  has_many :sales_invoices, -> { where(:state => "invoice").order("created_on desc") }, :class_name => "Sale", :foreign_key => :client_id
+  has_many :sales, -> { order("created_on desc") }, :foreign_key => :client_id
   has_many :sale_items, :class_name => "SaleItem"
   has_many :subscriptions, :foreign_key => :subscriber_id
   has_many :trackings, :foreign_key => :producer_id
   has_many :transfers, :foreign_key => :supplier_id
   has_many :transports, :foreign_key => :transporter_id
-  has_many :transporter_sales, :foreign_key => :transporter_id, :order => "created_on desc", :class_name => "Sale"
-  has_many :usable_incoming_payments, :conditions => ["used_amount < amount"], :class_name => "IncomingPayment", :foreign_key => :payer_id
-  has_many :waiting_deliveries, :class_name => "OutgoingDelivery", :foreign_key => :transporter_id, :conditions => ["moved_on IS NULL AND planned_on <= CURRENT_DATE"]
-  has_one :default_mail_address, :class_name => "EntityAddress", :conditions => {:by_default => true, :canal => "mail"}
+  has_many :transporter_sales, -> { order("created_on desc") }, :foreign_key => :transporter_id, :class_name => "Sale"
+  has_many :usable_incoming_payments, -> { where("used_amount < amount") }, :class_name => "IncomingPayment", :foreign_key => :payer_id
+  has_many :waiting_deliveries, -> { where("moved_on IS NULL AND planned_on <= CURRENT_DATE") }, :class_name => "OutgoingDelivery", :foreign_key => :transporter_id
+  has_one :default_mail_address, -> { where(:by_default => true, :canal => "mail") }, :class_name => "EntityAddress"
   has_attached_file :picture, {
     :url => '/backend/:class/:id/picture/:style',
     :path => ':rails_root/private/:class/:attachment/:id_partition/:style.:extension',
@@ -134,7 +134,7 @@ class Entity < Ekylibre::Record::Base
     }
   }
 
-  # default_scope order(:last_name, :first_name)
+  # # default_scope order(:last_name, :first_name)
   scope :necessary_transporters, -> { where("id IN (SELECT transporter_id FROM #{OutgoingDelivery.table_name} WHERE (sent_at IS NULL AND planned_at <= CURRENT_DATE) OR transport_id IS NULL)").order(:last_name, :first_name) }
   scope :suppliers,    -> { where(:supplier => true) }
   scope :transporters, -> { where(:transporter => true) }
@@ -217,7 +217,7 @@ class Entity < Ekylibre::Record::Base
     self.content_columns.delete_if{|c| [:active, :lock_version, :webpass, :soundex, :deliveries_conditions].include?(c.name.to_sym)}
   end
 
-  # Returns an entity scope for all other entities
+  # Returns an entity scope for.all other entities
   def others
     self.class.where("id != ?", (self.id || 0))
   end
@@ -251,7 +251,7 @@ class Entity < Ekylibre::Record::Base
   end
 
 
-  # This method creates automatically an account for the entity for its usage (client, supplier...)
+  # This method creates automati.ally an account for the entity for its usage (client, supplier...)
   def account(nature)
     natures = {:client => :client, :payer => :client, :supplier => :supplier, :payee => :supplier, :attorney => :attorney}
     raise ArgumentError.new("Unknown nature #{nature.inspect} (#{natures.keys.to_sentence} are accepted)") unless natures.keys.include? nature
@@ -299,7 +299,10 @@ class Entity < Ekylibre::Record::Base
   end
 
   def maximal_reduction_percentage(computed_on = Date.today)
-    return Subscription.maximum(:reduction_percentage, :joins => "JOIN #{SubscriptionNature.table_name} AS sn ON (#{Subscription.table_name}.nature_id = sn.id) LEFT JOIN #{EntityLink.table_name} AS el ON (el.nature = sn.entity_link_nature AND #{Subscription.table_name}.entity_id IN (entity_1_id, entity_2_id))", :conditions => ["? IN (#{Subscription.table_name}.entity_id, entity_1_id, entity_2_id) AND ? BETWEEN #{Subscription.table_name}.started_on AND #{Subscription.table_name}.stopped_on AND COALESCE(#{Subscription.table_name}.sale_id, 0) NOT IN (SELECT id FROM #{Sale.table_name} WHERE state='estimate')", self.id, computed_on]).to_f || 0.0
+    return Subscription
+      .joins("JOIN #{SubscriptionNature.table_name} AS sn ON (#{Subscription.table_name}.nature_id = sn.id) LEFT JOIN #{EntityLink.table_name} AS el ON (el.nature = sn.entity_link_nature AND #{Subscription.table_name}.entity_id IN (entity_1_id, entity_2_id))")
+      .where("? IN (#{Subscription.table_name}.entity_id, entity_1_id, entity_2_id) AND ? BETWEEN #{Subscription.table_name}.started_on AND #{Subscription.table_name}.stopped_on AND COALESCE(#{Subscription.table_name}.sale_id, 0) NOT IN (SELECT id FROM #{Sale.table_name} WHERE state='estimate')", self.id, computed_on)
+      .maximum(:reduction_percentage).to_f || 0.0
   end
 
   def picture_path(style = :original)
@@ -320,10 +323,10 @@ class Entity < Ekylibre::Record::Base
       # Classics
       for many in [:direct_links, :events, :godchildren, :indirect_links, :mandates, :observations, :prices, :purchases, :outgoing_deliveries, :outgoing_payments, :sales, :sale_items, :incoming_payments, :subscriptions, :trackings, :transfers, :transports, :transporter_sales]
         ref = self.class.reflections[many]
-        ref.class_name.constantize.update_all({ref.foreign_key => self.id}, {ref.foreign_key => entity.id})
+        ref.class_name.constantize.where(ref.foreign_key => entity.id).update_all(ref.foreign_key => self.id)
       end
       # EntityAddress
-      EntityAddress.update_all(["code = '0'||SUBSTR(code, 2, 3), entity_id=?, by_default=? ", self.id, false], {:entity_id => entity.id})
+      EntityAddress.where(:entity_id => entity.id).update_all("code = '0'||SUBSTR(code, 2, 3), entity_id=?, by_default=? ", self.id, false)
 
       # Add observation
       observation = "Merged entity (ID=#{entity.id}) :\n"
@@ -352,7 +355,7 @@ class Entity < Ekylibre::Record::Base
     columns += cols.collect{|c| [EntityAddress.model_name.human+"/"+EntityAddress.human_attribute_name(c), "address-"+c]}.sort
     columns += ["name", "abbreviation"].collect{|c| [EntityNature.model_name.human+"/"+EntityNature.human_attribute_name(c), "entity_nature-"+c]}.sort
     # columns += ["name"].collect{|c| [ProductPriceListing.model_name.human+"/"+ProductPriceListing.human_attribute_name(c), "product_price_listing-"+c]}.sort
-    columns += CustomField.find(:all, :conditions => ["nature in ('string')"]).collect{|c| [CustomField.model_name.human+"/"+c.name, "custom_field-id"+c.id.to_s]}.sort
+    columns += CustomField.where("nature in ('string')").collect{|c| [CustomField.model_name.human+"/"+c.name, "custom_field-id"+c.id.to_s]}.sort
     return columns
   end
 
@@ -452,11 +455,11 @@ class Entity < Ekylibre::Record::Base
 
 
 
-  def self.export(find_options={})
-    entities = Entity.find(:all, find_options)
+  def self.export(options={})
+    # entities = Entity.where(options)
     csv_string = Ekylibre::CSV.generate do |csv|
       csv << ["Code", "Type", "Catégorie", "Nom", "Prénom", "Dest-Service", "Bat.-Res.-ZI", "N° et voie", "Lieu dit", "Code Postal", "Ville", "Téléphone", "Mobile", "Fax", "Email", "Site Web", "Taux de réduction"]
-      entities.each do |entity|
+      self.each do |entity|
         address = EntityAddress.where(:entity_id => entity.id, :by_default => true, :deleted_at => nil).first
         item = []
         item << ["'"+entity.number.to_s, entity.nature.name, entity.sale_price_listing.name, entity.name, entity.first_name]

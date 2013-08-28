@@ -71,7 +71,7 @@ class Worker < Equipment
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   #]VALIDATORS]
 
-  default_scope -> { order(:name) }
+  # default_scope -> { order(:name) }
 
   def person_id
     nil

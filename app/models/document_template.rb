@@ -54,7 +54,7 @@ class DocumentTemplate < Ekylibre::Record::Base
 
   has_default :scope => :nature
 
-  default_scope order(:name)
+  # default_scope order(:name)
   scope :of_nature, lambda { |nature|
     raise ArgumentError.new("Unknown nature for a DocumentTemplate (got #{nature.inspect}:#{nature.class})") unless self.nature.values.include?(nature.to_s)
     where(:nature => nature.to_s, :active => true).order(:name)

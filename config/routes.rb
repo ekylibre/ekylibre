@@ -25,7 +25,7 @@ Ekylibre::Application.routes.draw do
 
     # Permits to use dynamic dashboards
     # dashboards
-    
+
     resource :dashboards, :only => [] do
       collection do
         for mod in [:relationship, :accountancy, :sales, :purchases, :stocks, :production, :tools, :settings]
@@ -77,11 +77,6 @@ Ekylibre::Application.routes.draw do
       resource :calendar_cell, :only => :show do
         get :list, :on => :collection
       end
-    end
-
-    namespace :data_view do
-      resource :manure_management_plan, :only => :show
-      resource :veterinary_booklet, :only => :show
     end
 
     # resources :account_balances

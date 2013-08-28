@@ -68,7 +68,7 @@ class ProductNature < Ekylibre::Record::Base
   has_many :productions
   has_many :products, :foreign_key => :nature_id
   has_many :variants, :class_name => "ProductNatureVariant", :foreign_key => :nature_id, :inverse_of => :nature
-  has_one :default_variant, :class_name => "ProductNatureVariant", :foreign_key => :nature_id, :order => :id
+  has_one :default_variant, -> { order(:id) }, :class_name => "ProductNatureVariant", :foreign_key => :nature_id
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :number, :allow_nil => true, :maximum => 31
   validates_length_of :derivative_of, :nomen, :variety, :allow_nil => true, :maximum => 127
@@ -89,7 +89,7 @@ class ProductNature < Ekylibre::Record::Base
   accepts_nested_attributes_for :variants, :reject_if => :all_blank, :allow_destroy => true
   acts_as_numbered :force => false
 
-  default_scope -> { order(:name) }
+  # default_scope -> { order(:name) }
   scope :availables, -> { where(:active => true).order(:name) }
   scope :stockables, -> { where(:storable => true).order(:name) } # , :variety => ["mineral_matter", "organic_matter"]
   scope :purchaseables, -> { where(:purchasable => true).order(:name) }
@@ -317,7 +317,7 @@ class ProductNature < Ekylibre::Record::Base
     return nature
   end
 
-  # Load all product nature from product nature nomenclature
+  # Load.all product nature from product nature nomenclature
   def self.import_all_from_nomenclature
     for product_nature in Nomen::ProductNatures.all
       import_from_nomenclature(product_nature)

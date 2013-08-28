@@ -90,13 +90,14 @@ module Nomen
     end
 
     # List all item names. Can filter on a given item name and its children
-    def all(item_name = nil)
+    def to_a(item_name = nil)
       if item_name
         @items[item_name].self_and_children.map(&:name)
       else
         return @items.keys.sort
       end
     end
+    alias :all :to_a
 
     # Return first item name
     def first(item_name = nil)

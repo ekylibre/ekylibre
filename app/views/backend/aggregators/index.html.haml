@@ -1,5 +1,5 @@
 = beehive do |b|
-  - for category in Nomen::DocumentCategories.all
+  - for category in Nomen::DocumentCategories.to_a
     - aggregators = Aggeratio.of_category(category)
     - if aggregators.size > 0
       - b.cell Nomen::DocumentCategories[category].human_name do

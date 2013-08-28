@@ -61,9 +61,8 @@ class OutgoingDelivery < Ekylibre::Record::Base
   acts_as_numbered
   sums :transport, :deliveries, :weight#, :amount, :pretax_amount,
 
-  default_scope order(:sent_at)
-  # scope :undelivereds, where(:sent_at => nil).order(:sent_at, :entity_id)
-  scope :without_transporter, where(:transporter_id => nil)
+  # # default_scope -> { order(:sent_at) }
+  scope :without_transporter, -> { where(:transporter_id => nil) }
 
 
   before_validation do
@@ -94,7 +93,7 @@ class OutgoingDelivery < Ekylibre::Record::Base
   def ship(shipped_on=Date.today)
     # self.confirm_transfer(shipped_on)
     # self.items.each{|l| l.confirm_move}
-    for item in self.items.find(:all, :conditions => ["quantity>0"])
+    for item in self.items.where("quantity > 0")
       item.product.move_outgoing_stock(:origin => item, :building_id => item.sale_item.building_id, :planned_on => self.sent_at, :moved_on => shipped_on)
     end
     self.sent_at = shipped_on if self.sent_at.nil?

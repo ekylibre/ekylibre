@@ -73,7 +73,7 @@ gem "calendar_helper", "~> 0.2.5"
 # Models helpers
 gem 'acts_as_list'
 gem 'state_machine'
-gem 'awesome_nested_set'
+gem 'awesome_nested_set', '~> 3.0.0.rc1'
 gem 'enumerize'
 gem 'sneaky-save'
 # gem 'paper_trail'

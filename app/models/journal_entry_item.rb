@@ -150,7 +150,7 @@ class JournalEntryItem < Ekylibre::Record::Base
 #     self.update_column(:closed, false)
 #   end
 
-  # Check if the current letter is balanced with all entrty items with the same letter
+  # Check if the current letter is balanced with all entry items with the same letter
   def balanced_letter?
     return true if letter.blank?
     self.account.balanced_letter?(letter)
@@ -181,7 +181,7 @@ class JournalEntryItem < Ekylibre::Record::Base
     end
   end
 
-  #this method allows to fix a display color if the entry containing the entry_item is balanced or not.
+  #this method:allows to fix a display color if the entry containing the entry_item is balanced or not.
   def balanced_entry
     return (self.entry.balanced? ? "balanced" : "unbalanced")
   end

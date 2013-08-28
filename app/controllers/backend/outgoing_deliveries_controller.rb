@@ -65,7 +65,7 @@ class Backend::OutgoingDeliveriesController < BackendController
       redirect_to_back
       return
     end
-    sale_items = sale.items.find_all_by_reduction_origin_id(nil)
+    sale_items = sale.items.where(:reduction_origin_id => nil)
     notify_warning(:no_items_found) if sale_items.empty?
 
     @outgoing_delivery_items = sale_items.collect{|x| OutgoingDeliveryItem.new(:sale_item_id => x.id, :quantity => x.undelivered_quantity)}
@@ -80,7 +80,7 @@ class Backend::OutgoingDeliveriesController < BackendController
       redirect_to_back
       return
     end
-    sale_items = sale.items.find_all_by_reduction_origin_id(nil)
+    sale_items = sale.items.where(:reduction_origin_id => nil)
     notify_warning(:no_items_found) if sale_items.empty?
     @outgoing_delivery_items = []
     @outgoing_delivery = sale.deliveries.new(params[:outgoing_delivery])

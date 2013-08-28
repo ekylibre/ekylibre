@@ -39,9 +39,9 @@ class Backend::ProductionsController < BackendController
     #t.column :name,:through => :campaign, :url => true
     #t.column :name,:through => :product_nature, :url => true
     t.column :state_label
-    t.action :edit, :if => 'RECORD.draft? '
-    #t.action :print, :if => 'RECORD.validated? '
-    t.action :destroy, :if => 'RECORD.aborted? '
+    t.action :edit, :if => :draft?
+    #t.action :print, :if => :validated?
+    t.action :destroy, :if => :aborted?
   end
 
   # List supports for one production
@@ -65,7 +65,7 @@ class Backend::ProductionsController < BackendController
 
   # Displays the main page with the list of productions.
   def index
-    session[:production_state] = params[:s] ||="all"
+    session[:production_state] = params[:s] ||= "all"
     session[:production_key] = params[:q]
     session[:production_product_nature_id] = params[:product_nature_id].to_i
     session[:production_campaign_id] = params[:campaign_id].to_i

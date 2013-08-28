@@ -43,7 +43,7 @@ class Campaign < Ekylibre::Record::Base
   validates_presence_of :name
   #]VALIDATORS]
 
-  default_scope -> { where(:closed => false).order(:name) }
+  # default_scope -> { where(:closed => false).order(:name) }
   scope :currents, -> { }
 
 end

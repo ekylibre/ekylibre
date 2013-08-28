@@ -71,7 +71,7 @@ class Equipment < Matter
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   #]VALIDATORS]
 
-  default_scope -> { order(:name) }
+  # default_scope -> { order(:name) }
 
   #def usage_duration_sum
   #  sum = 0

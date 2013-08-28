@@ -74,7 +74,7 @@ class Settlement < Easement
   #]VALIDATORS]
   validates_presence_of :content_nature, :if => :reservoir?
 
-  default_scope order(:name)
+  # default_scope order(:name)
   scope :of_product, lambda { |product|
     where("(product_id = ? AND reservoir = ?) OR reservoir = ?", product.id, true, false)
   }
