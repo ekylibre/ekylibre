@@ -35,7 +35,7 @@ module Ekylibre::Record
             code << "    #{v} += "+(k.is_a?(Symbol) ? "#{record}.#{k}" : k)+"\n"
           end
           code << "  end\n"
-          code << "  " + Ekylibre.references[self.name.underscore.to_sym][target_id].to_s.camelcase + ".update_all({" + options.collect{|k, v| ":#{v} => #{v}"}.join(", ") + "}, {:id => self.#{target_id}})\n"
+          code << "  " + Ekylibre.references[self.name.underscore.to_sym][target_id].to_s.camelcase + ".where(:id => self.#{target_id}).update_all(" + options.collect{|k, v| ":#{v} => #{v}"}.join(", ") + ")\n"
           code << "end\n"
         end
         # list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}

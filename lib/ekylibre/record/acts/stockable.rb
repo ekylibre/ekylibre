@@ -54,7 +54,7 @@ module Ekylibre::Record
             code << "    new_#{stock_move}.#{name} = " + (value.is_a?(Symbol) ? "self.#{value}" : value) + "\n"
           end
           code << "    raise new_#{stock_move}.errors.inspect unless new_#{stock_move}.save\n"
-          code << "    #{self.name}.update_all({:#{reflection.foreign_key} => new_#{stock_move}.id}, {:id => self.id})\n"
+          code << "    #{self.name}.where(:id => self.id).update_all(:#{reflection.foreign_key} => new_#{stock_move}.id)\n"
           code << "  end\n"
           code << "  self.reload\n"
           code << "end\n"

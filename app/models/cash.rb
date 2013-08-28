@@ -58,7 +58,7 @@ class Cash < Ekylibre::Record::Base
   has_many :deposits
   has_many :outgoing_payment_modes
   has_many :incoming_payment_modes
-  has_one :last_bank_statement, :class_name => "BankStatement", :order => "stopped_on DESC"
+  has_one :last_bank_statement, -> { order("stopped_on DESC") }, :class_name => "BankStatement"
   enumerize :nature, :in => [:bank_account, :cash_box], :default => :bank_account, :predicates => true
   enumerize :mode, :in => [:iban, :bban], :default => :iban, :predicates => {:prefix => true}
 
@@ -79,11 +79,11 @@ class Cash < Ekylibre::Record::Base
 
   has_default
 
-  default_scope -> { order(:name) }
+  # default_scope -> { order(:name) }
   scope :bank_accounts, -> { where(:nature => "bank_account") }
   scope :cash_boxes,    -> { where(:nature => "cash_box") }
 
-  # before create a bank account, this computes automatically code iban.
+  # before create a bank account, this computes automati.ally code iban.
   before_validation do
     self.mode.lower!
     self.mode = self.class.mode.default_value if self.mode.blank?

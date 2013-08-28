@@ -60,7 +60,7 @@ class Backend::SalesController < BackendController
 
   # Displays the main page with the list of sales
   def index
-    session[:sale_state] = params[:s] ||= params[:s]||"all"
+    session[:sale_state] = params[:s] ||= params[:s]|| "all"
     session[:sale_key] = params[:q]
     session[:sale_responsible_id] = params[:responsible_id].to_i
     @sales = Sale.where("state != ?", "draft")
@@ -78,8 +78,8 @@ class Backend::SalesController < BackendController
     t.column :number, :url => true, :children => :designation
     t.column :full_name, :through => :client, :children => false
     t.column :created_on, :children => false
-    t.column :pretax_amount, :currency => {:body => true, :children => "RECORD.sale.currency"}
-    t.column :amount, :currency => {:body => true, :children => "RECORD.sale.currency"}
+    t.column :pretax_amount, :currency => true
+    t.column :amount, :currency => true
   end
 
   list(:deliveries, :model => :outgoing_deliveries, :children => :items, :conditions => {:sale_id => ['session[:current_sale_id]']}) do |t|
@@ -406,7 +406,7 @@ class Backend::SalesController < BackendController
       while date <= finish
         period = '="'+t('date.abbr_month_names')[date.month]+" "+date.year.to_s+'"'
         months << period
-        for product in ProductNature.find(:all, :select => "product_natures.*, total", :joins => ActiveRecord::Base.send(:sanitize_sql_array, ["LEFT JOIN (#{query}) AS sold ON (product_natures.id=product_nature_id)"] + [date.beginning_of_month, date.end_of_month] * states.size), :order => "product_nature_id")
+        for product in ProductNature.select("product_natures.*, total").joins(ActiveRecord::Base.send(:sanitize_sql_array, ["LEFT JOIN (#{query}) AS sold ON (product_natures.id=product_nature_id)"] + [date.beginning_of_month, date.end_of_month] * states.size)).order("product_nature_id")
           data[product.id.to_s] ||= {}
           data[product.id.to_s][period] = product.total.to_f
         end

@@ -88,7 +88,7 @@ class Backend::DashboardsController < BackendController
 
 
   # Global search method is put there for now waiting for a better place
-  # This action permits to search across all the main data of the application
+  # This action permits to search across.all the main data of the application
   # TODO: Clean this!!!
   def search
     per_page = 10

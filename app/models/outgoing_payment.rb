@@ -62,7 +62,7 @@ class OutgoingPayment < Ekylibre::Record::Base
   validates_numericality_of :amount, :greater_than => 0
   validates_presence_of :to_bank_on, :created_on
 
-  default_scope -> { order("id DESC") }
+  # default_scope -> { order("id DESC") }
 
   acts_as_numbered
   acts_as_affairable :dealt_on => :to_bank_on, :debit => false, :third => :payee

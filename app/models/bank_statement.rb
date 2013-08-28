@@ -50,7 +50,7 @@ class BankStatement < Ekylibre::Record::Base
     self.credit = self.items.sum(:original_credit)
   end
 
-  # A bank account statement has to contain all the planned records.
+  # A bank account statement has to contain.all the planned records.
   validate do
     errors.add(:stopped_on, :posterior, :to=>::I18n.localize(self.started_on)) if self.started_on >= self.stopped_on
   end
@@ -64,11 +64,11 @@ class BankStatement < Ekylibre::Record::Base
   end
 
   def previous
-    self.class.find(:first, :conditions=>{:stopped_on=>self.started_on-1})
+    self.class.where(:stopped_on => self.started_on-1).first
   end
 
   def next
-    self.class.find(:first, :conditions=>{:started_on=>self.stopped_on+1})
+    self.class.where(:started_on => self.stopped_on+1).first
   end
 
   def eligible_items
@@ -77,8 +77,8 @@ class BankStatement < Ekylibre::Record::Base
 
   def point(ids)
     raise StandardError.new("A new record cannot point entry items.") if self.new_record?
-    JournalEntryItem.update_all({:bank_statement_id => nil}, {:bank_statement_id => self.id})
-    JournalEntryItem.update_all({:bank_statement_id => self.id}, {:bank_statement_id => nil, :id => ids})
+    JournalEntryItem.where(:bank_statement_id => self.id).update_all(:bank_statement_id => nil)
+    JournalEntryItem.where(:bank_statement_id => nil, :id => ids).update_all(:bank_statement_id => self.id)
     return true
   end
 

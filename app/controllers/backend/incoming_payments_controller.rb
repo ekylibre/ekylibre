@@ -54,7 +54,7 @@ class Backend::IncomingPaymentsController < BackendController
 
   # Displays the main page with the list of incoming payments
   def index
-    session[:incoming_payment_state] = params[:s]||"all"
+    session[:incoming_payment_state] = params[:s] || "all"
     session[:incoming_payment_key]   = params[:q]
   end
 

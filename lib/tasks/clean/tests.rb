@@ -1,17 +1,17 @@
-def write_functional_test_file(klass)
+def write_controller_test_file(klass)
   code  = ""
   code << "require 'test_helper'\n"
   code << "class #{klass} < ActionController::TestCase\n"
   code << "  test_restfully_all_actions\n"
   code << "end\n"
-  file = Rails.root.join("test", "functional", klass.underscore + ".rb")
+  file = Rails.root.join("test", "controllers", klass.underscore + ".rb")
   FileUtils.mkdir_p(file.dirname)
   File.open(file, "wb") do |f|
     f.write(code)
   end
 end
 
-def write_unit_test_file(klass)
+def write_model_test_file(klass)
   code  = ""
   code << "require 'test_helper'\n\n"
   code << "class #{klass} < ActiveSupport::TestCase\n\n"
@@ -20,68 +20,156 @@ def write_unit_test_file(klass)
   code << "    assert true\n"
   code << "  end\n\n"
   code << "end\n"
-  file = Rails.root.join("test", "unit", klass.underscore + ".rb")
+  file = Rails.root.join("test", "models", klass.underscore + ".rb")
   FileUtils.mkdir_p(file.dirname)
   File.open(file, "wb") do |f|
     f.write(code)
   end
 end
 
+def write_helper_test_file(klass)
+  code  = ""
+  code << "require 'test_helper'\n\n"
+  code << "class #{klass} < ActionView::TestCase\n\n"
+  code << "  # Replace this with your real tests.'\n"
+  code << "  test \"the truth\" do\n"
+  code << "    assert true\n"
+  code << "  end\n\n"
+  code << "end\n"
+  file = Rails.root.join("test", "helpers", klass.underscore + ".rb")
+  FileUtils.mkdir_p(file.dirname)
+  File.open(file, "wb") do |f|
+    f.write(code)
+  end
+end
+
+def print_stat(name, count, first = false)
+  print ", " unless first
+  count = count[name] if count.is_a?(Hash)
+  print "#{name.to_s.humanize}: #{count.to_s} errors"
+end
+
+
 desc "Analyze test files and report"
 task :tests => :environment do
   log = File.open(Rails.root.join("log", "clean-tests.log"), "wb")
 
   print " - Tests: "
-  errors = {:units => 0, :fixtures => 0, :functionals => 0} # , :unit_helpers => 0
+  errors = {:models => 0, :controllers => 0, :helpers => 0, :fixtures => 0}
   source = nil
   models      = CleanSupport.models_in_file
   controllers = CleanSupport.controllers_in_file
 
-  # Check unit test files
-  files = Dir.glob(Rails.root.join("test", "unit", "**", "*.rb")).delete_if{ |f| f.to_s.match(/^#{Rails.root.join('test', 'unit', 'helpers')}/) }.collect{|f| f.to_s}
+  # Check model test files
+  files = Dir.glob(Rails.root.join("test", "models", "**", "*.rb")).map(&:to_s)
   for model in models
     class_name = "#{model.name}Test"
-    file = Rails.root.join("test", "unit", class_name.underscore + ".rb")
+    file = Rails.root.join("test", "models", class_name.underscore + ".rb")
     if File.exist?(file)
       File.open(file, "rb") do |f|
         source = f.read
       end
       source.gsub!(/^\#[^\n]*\n/, '')
       unless source.match(/class\ +#{class_name}\ +/)
-        errors[:units] += 1
+        errors[:models] += 1
         log.write(" - Error: Test file #{file} seems to be invalid. Class name #{class_name} expected but not found\n")
         if source.blank?
-          write_unit_test_file(class_name)
+          write_model_test_file(class_name)
           log.write("   > Empty test file has been writed: #{file}\n")
         end
       end
     else
-      errors[:units] += 1
+      errors[:models] += 1
       log.write(" - Error: Test file #{file} is missing\n")
       # Create missing file
-      write_unit_test_file(class_name)
+      write_model_test_file(class_name)
       log.write("   > Test file has been created: #{file}\n")
     end
     files.delete(file.to_s)
   end
-
-
-  # Check unit helper test files
-
-
-
-
-
-
-
   for file in files.sort
-    errors[:units] += 1
+    errors[:models] += 1
     log.write(" - Error: Unexpected test file: #{file}\n")
   end
   if files.size > 0
     log.write("   > git rm #{files.join(' ')}\n")
   end
 
+  print_stat :models, errors, true
+
+
+  # Check helper test files
+  files = Dir.glob(Rails.root.join("test", "helpers", "**", "*_test.rb")).map(&:to_s)
+  for helper_name in CleanSupport.helpers_in_file.to_a
+    test_class_name = (helper_name + "_test").classify
+    file = Rails.root.join("test", "helpers", (test_class_name + ".rb").underscore)
+    if File.exist?(file)
+      File.open(file, "rb") do |f|
+        source = f.read
+      end
+      source.gsub!(/^\#[^\n]*\n/, '')
+      unless source.match(/class\ +#{test_class_name}\ +/)
+        errors[:helpers] += 1
+        log.write(" - Error: Test file #{file} seems to be invalid. Class name #{test_class_name} expected but not found\n")
+        if source.blank?
+          write_helper_test_file(test_class_name)
+          log.write("   > Empty test file has been writed: #{file}\n")
+        end
+      end
+    else
+      errors[:helpers] += 1
+      log.write(" - Error: Test file #{file} is missing\n")
+      # Create missing file
+      write_helper_test_file(test_class_name)
+      log.write("   > Test file has been created: #{file}\n")
+    end
+    files.delete(file.to_s)
+  end
+  for file in files.sort
+    errors[:helpers] += 1
+    log.write(" - Error: Unexpected test file: #{file}\n")
+  end
+  if files.size > 0
+    log.write("   > git rm #{files.join(' ')}\n")
+  end
+
+  print_stat :helpers, errors
+
+
+  # Check controller test files
+  files = Dir.glob(Rails.root.join("test", "controllers", "**", "*.rb")).collect{|f| f.to_s}
+  for controller in controllers
+    class_name = "#{controller.name}Test"
+    file = Rails.root.join("test", "controllers", class_name.underscore + ".rb")
+    if File.exist?(file)
+      File.open(file, "rb") do |f|
+        source = f.read
+      end
+      source.gsub!(/^\#[^\n]*\n/, '')
+      unless source.match(/class\ +#{class_name}\ +/)
+        errors[:controllers] += 1
+        log.write(" - Error: Test file #{file} seems to be invalid. Class name #{class_name} expected but not found\n")
+        if source.blank?
+          write_controller_test_file(class_name)
+          log.write("   > Empty test file has been writed: #{file}\n")
+        end
+      end
+    else
+      errors[:controllers] += 1
+      log.write(" - Error: Test file #{file} is missing\n")
+      write_controller_test_file(class_name)
+      log.write("   > Test file has been created: #{file}\n")
+    end
+    files.delete(file.to_s)
+  end
+  for file in files.sort
+    errors[:controllers] += 1
+    log.write(" - Error: Unexpected test files: #{file}\n")
+  end
+  if files.size > 0
+    log.write("   > git rm #{files.join(' ')}\n")
+  end
+  print_stat :controllers, errors
 
   # Check fixture files
   yaml = nil
@@ -135,42 +223,10 @@ task :tests => :environment do
   if files.size > 0
     log.write("   > git rm #{files.join(' ')}\n")
   end
+  print_stat :fixtures, errors
 
-  # Check functional test files
-  files = Dir.glob(Rails.root.join("test", "functional", "**", "*.rb")).collect{|f| f.to_s}
-  for controller in controllers
-    class_name = "#{controller.name}Test"
-    file = Rails.root.join("test", "functional", class_name.underscore + ".rb")
-    if File.exist?(file)
-      File.open(file, "rb") do |f|
-        source = f.read
-      end
-      source.gsub!(/^\#[^\n]*\n/, '')
-      unless source.match(/class\ +#{class_name}\ +/)
-        errors[:functionals] += 1
-        log.write(" - Error: Test file #{file} seems to be invalid. Class name #{class_name} expected but not found\n")
-        if source.blank?
-          write_functional_test_file(class_name)
-          log.write("   > Empty test file has been writed: #{file}\n")
-        end
-      end
-    else
-      errors[:functionals] += 1
-      log.write(" - Error: Test file #{file} is missing\n")
-      write_functional_test_file(class_name)
-      log.write("   > Test file has been created: #{file}\n")
-    end
-    files.delete(file.to_s)
-  end
-  for file in files.sort
-    errors[:functionals] += 1
-    log.write(" - Error: Unexpected test files: #{file}\n")
-  end
-  if files.size > 0
-    log.write("   > git rm #{files.join(' ')}\n")
-  end
-
-  puts " " + errors.collect{|k,v| "#{k.to_s.humanize}: #{v.to_s.rjust(3)} errors"}.join(", ")
+  # puts " " + errors.collect{|k,v| "#{k.to_s.humanize}: #{v.to_s.rjust(3)} errors"}.join(", ")
+  puts ""
   log.close
 end
 

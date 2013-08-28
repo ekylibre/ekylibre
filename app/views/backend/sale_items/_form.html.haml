@@ -7,7 +7,7 @@
 -#  -partial(:detail, :depend_on => :price)
 -##detail{"data-refresh" => url_for(:controller => :sale_items, :action => :detail, :sale_id => @sale.id), "data-refresh-mode" => "update"}=render :partial => "sale_items/detail_form"
 
--# TODO manage all new attributes
+-# TODO manage.to_a new attributes
 =field_set do
   =f.referenced_association :sale, :field => :hidden
   -# FIXME =f.referenced_association :price, :source => :availables_for_sales, :new => {:mode => :sales, :currency => "sale.currency".to_sym }

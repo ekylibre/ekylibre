@@ -73,8 +73,9 @@ class BackendController < BaseController
       if label = options.delete(:label)
         label = (label.is_a?(Symbol) ? "{#{label}:%X%}" : label.to_s)
       else
-        base = "unroll." + self.controller_path
-        label = I18n.translate(base + ".#{name || :all}", :default => [(base + ".all").to_sym, ""])
+        # base = "unroll." + self.controller_path
+        # label = I18n.translate(base + ".#{name || :all}", :default => [(base + ".all").to_sym, ""])
+        label = I18n.translate("unroll." + self.controller_path, :default => "")
         if label.blank?
           available_methods = model.columns_hash.keys.collect{|x| x.to_sym}
           label = '{' + [:title, :label, :full_name, :name, :code, :number].select{|x| available_methods.include?(x)}.first.to_s + ':%X%}'
@@ -576,11 +577,11 @@ class BackendController < BaseController
     sort = ""
     position, conditions = "#{record_name}_position_column", "#{record_name}_conditions"
     sort << "#{position}, #{conditions} = #{record_name}.position_column, #{record_name}.scope_condition\n"
-    sort << "#{records}_count = #{model.name}.count(#{position}, :conditions => #{conditions})\n"
-    sort << "unless #{records}_count == #{model.name}.count(#{position}, :conditions => #{conditions}, :distinct => true) and #{model.name}.sum(#{position}, :conditions => #{conditions}) == #{records}_count*(#{records}_count+1)/2\n"
-    sort << "  #{records} = #{model.name}.find(:all, :conditions => #{conditions}, :order => #{position}+', #{order_by}')\n"
-    sort << "  #{records}.each_index do |i|\n"
-    sort << "    #{model.name}.update_all({#{position} => i+1}, {:id => #{records}[i].id})\n"
+    sort << "#{records} = #{model.name}.where(#{conditions}).order(#{position}+', #{order_by}')\n"
+    sort << "#{records}_count = #{records}.count(#{position})\n"
+    sort << "unless #{records}_count == #{records}.uniq.count(#{position}) and #{records}.sum(#{position}) == #{records}_count*(#{records}_count+1)/2\n"
+    sort << "  #{records}.each_with_index do |#{record_name}, i|\n"
+    sort << "    #{model.name}.where(:id => #{record_name}.id).update_all(#{position} => i+1)\n"
     sort << "  end\n"
     sort << "end\n"
 

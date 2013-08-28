@@ -41,7 +41,7 @@ class Backend::LogsController < BackendController
   # end
 
   # Show a list of @animal_event
-  # @TODO FIX Jasperreport gem calling method to work with format pdf
+  # @TODO FIX Jasperreport gem .alling method to work with format pdf
   def index
     @log = Log.all
     respond_to do |format|

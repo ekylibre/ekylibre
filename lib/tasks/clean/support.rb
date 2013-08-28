@@ -224,6 +224,14 @@ module CleanSupport
       return list
     end
 
+    def helpers_in_file
+      dir = Rails.root.join("app", "helpers")
+      list = Dir.glob(dir.join("**", "*.rb")).collect do |h|
+        Pathname.new(h).relative_path_from(dir).to_s[0..-4]
+      end
+      return list
+    end
+
   end
 
 end

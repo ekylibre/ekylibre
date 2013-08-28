@@ -1,7 +1,7 @@
 - if parameter.record_list?
   - k.criterion do
     %label= parameter.human_name
-    - for item in parameter.foreign_class.all
+    - for item in parameter.foreign_class.to_a
       %label
         - checked = !params[parameter.name][item.id.to_s].to_i.zero? rescue false
         = hidden_field_tag("#{parameter.name}[#{item.id}]", "0")

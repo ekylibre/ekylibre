@@ -81,7 +81,7 @@ class Backend::InventoriesController < BackendController
       notify_warning(:need_stocks_to_create_inventories)
       redirect_to_back
     end
-    notify_warning_now(:validates_old_inventories) if Inventory.find_all_by_changes_reflected(false).size >= 1
+    notify_warning_now(:validates_old_inventories) if Inventory.where(:changes_reflected => false).count >= 1
     @inventory = Inventory.new(:responsible_id => @current_user.id)
     # render_restfully_form
   end
@@ -91,7 +91,7 @@ class Backend::InventoriesController < BackendController
       notify_warning(:need_stocks_to_create_inventories)
       redirect_to_back
     end
-    notify_warning_now(:validates_old_inventories) if Inventory.find_all_by_changes_reflected(false).size >= 1
+    notify_warning_now(:validates_old_inventories) if Inventory.where(:changes_reflected => false).count >= 1
     @inventory = Inventory.new(params[:inventory])
     params[:items_create] ||= {}
     params[:items_create].each{|k,v| v[:stock_id]=k}

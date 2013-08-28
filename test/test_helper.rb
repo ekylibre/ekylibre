@@ -34,6 +34,12 @@ class CapybaraIntegrationTest < ActionDispatch::IntegrationTest
   include Warden::Test::Helpers
   Warden.test_mode!
 
+  def shoot_screen(name)
+    file = Rails.root.join("tmp", "screenshots", name + ".png")
+    FileUtils.mkdir_p(file.dirname) unless file.dirname.exist?
+    save_screenshot file
+  end
+
   #add a method to test unroll in form
   #FIXME : add an AJAX helpers to capybara for testing unroll field
     # http://stackoverflow.com/questions/13187753/rails3-jquery-autocomplete-how-to-test-with-rspec-and-capybara/13213185#13213185

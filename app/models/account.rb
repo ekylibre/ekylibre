@@ -69,15 +69,15 @@ class Account < Ekylibre::Record::Base
   validates_format_of :number, :with => /\A\d(\d(\d[0-9A-Z]*)?)?\z/
   validates_uniqueness_of :number
 
-  default_scope order(:number, :name)
-  scope :majors, where("number LIKE '_'").order(:number, :name)
+  # default_scope order(:number, :name)
+  scope :majors, -> { where("number LIKE '_'").order(:number, :name) }
   scope :of_usage, lambda { |usage|
     raise ArgumentError.new("Unknown usage #{usage.inspect}") unless Nomen::Accounts[usage]
     self.where("usages ~ E?", "\\\\m#{usage}\\\\M")
   }
   # scope :deposit_pending_payments, lambda { where('number LIKE ?', self.chart_number(:deposit_pending_payments)+"%").order(:number, :name) }
   # scope :attorney_thirds,          lambda { where('number LIKE ?', self.chart_number(:attorney_thirds)+"%").order(:number, :name) }
-  scope :clients, -> { of_usage(:clients) }
+  scope :clients,   -> { of_usage(:clients) }
   scope :suppliers, -> { of_usage(:suppliers) }
   scope :attorneys, -> { of_usage(:attorneys) }
   # scope :supplier_thirds,          lambda { where('number LIKE ?', self.chart_number(:supplier_thirds)+"%").order(:number, :name) }
@@ -89,7 +89,7 @@ class Account < Ekylibre::Record::Base
   # scope :paid_taxes,               lambda { where('number LIKE ?', self.chart_number(:taxes_paid)+"%").order(:number, :name) }
 
 
-  # This method allows to create the parent accounts if it is necessary.
+  # This method:allows to create the parent accounts if it is necessary.
   before_validation do
     self.reconcilable = self.reconcilableable? if self.reconcilable.nil?
     self.label = tc(:label, :number => self.number.to_s, :name => self.name.to_s)
@@ -136,7 +136,7 @@ class Account < Ekylibre::Record::Base
       return account
     end
 
-    # Find account with its usage among all existing account records
+    # Find account with its usage among.all existing account records
     def find_in_chart(usage)
       return self.of_usage(usage).first
     end
@@ -174,7 +174,7 @@ class Account < Ekylibre::Record::Base
       return Nomen::ChartsOfAccounts[name || chart].human_name
     end
 
-    # Find all available accounting systems in all languages
+    # Find.all available accounting systems in.all languages
     def charts
       return Nomen::ChartsOfAccounts.all
     end
@@ -270,7 +270,7 @@ class Account < Ekylibre::Record::Base
   #   return ::I18n.translate("accounting_systems.#{chart}.name")
   # end
 
-  # # Find all available accounting systems in all languages
+  # # Find.all available accounting systems in.all languages
   # def self.charts
   #   ac = ::I18n.translate("accounting_systems")
   #   return (ac.is_a?(Hash) ? ac.keys : [])
@@ -293,7 +293,7 @@ class Account < Ekylibre::Record::Base
   #       end if options[:reconcilable]
 
   #       # Create new accounts
-  #       for num, name in chart.to_a.sort{|a,b| a[0].to_s <=>  b[0].to_s}.select{|k, v| k.to_s.match(/^n\_/)}
+  #       for num, name in chart.all.sort{|a,b| a[0].to_s <=>  b[0].to_s}.select{|k, v| k.to_s.match(/^n\_/)}
   #         number = num.to_s[2..-1]
   #         if account = self.find_by_number(number)
   #           account.update_attributes!(:name => name, :reconcilable => (options[:reconcilable] and number.match(regexp)))
@@ -315,51 +315,51 @@ class Account < Ekylibre::Record::Base
 
 
   def reconcilable_entry_items(period, started_on, stopped_on)
-    self.journal_entry_items.find(:all, :joins => "JOIN #{JournalEntry.table_name} AS je ON (entry_id=je.id)", :conditions => JournalEntry.period_condition(period, started_on, stopped_on, 'je'), :order => "letter DESC, je.number DESC, #{JournalEntryItem.table_name}.position")
+    self.journal_entry_items.joins("JOIN #{JournalEntry.table_name} AS je ON (entry_id=je.id)").where(JournalEntry.period_condition(period, started_on, stopped_on, 'je')).order("letter DESC, je.number DESC, #{JournalEntryItem.table_name}.position")
   end
 
   def new_letter
     letter = self.last_letter
     letter = letter.blank? ? "AAA" : letter.succ
     self.update_column(:last_letter, letter)
-    # item = self.journal_entry_items.find(:first, :conditions => [self.class.connection.length(self.class.connection.trim("letter"))+" > 0"], :order => "letter DESC")
+    # item = self.journal_entry_items.where(self.class.connection.length(self.class.connection.trim("letter"))+" > 0").order("letter DESC").first
     # return (item ? item.letter.succ : "AAA")
     return letter
   end
 
 
   # Finds entry items to mark, checks their "markability" and
-  # if all valids mark all with a new letter or the first defined before
+  # if.all valids mark.all with a new letter or the first defined before
   def mark_entries(*journal_entries)
     ids = journal_entries.flatten.compact.collect{|e| e.id}
-    return self.mark(self.journal_entry_items.find(:all, :conditions => {:entry_id => ids}).collect{|l| l.id})
+    return self.mark(self.journal_entry_items.where(:entry_id => ids).map(&:id))
   end
 
   # Mark entry items with the given +letter+. If no +letter+ given, it uses a new letter.
-  # Don't mark unless all the marked items will be balanced together
+  # Don't mark unless.all the marked items will be balanced together
   def mark(item_ids, letter = nil)
     conditions = ["id IN (?) AND (letter IS NULL OR #{connection.length(connection.trim('letter'))} <= 0)", item_ids]
-    items = self.journal_entry_items.find(:all, :conditions => conditions)
-    return nil unless item_ids.size > 1 and items.size == item_ids.size and items.collect{|l| l.debit-l.credit}.sum.to_f.zero?
+    items = self.journal_entry_items.where(conditions)
+    return nil unless item_ids.size > 1 and items.count == item_ids.size and items.collect{|l| l.debit-l.credit}.sum.to_f.zero?
     letter ||= self.new_letter
-    self.journal_entry_items.update_all({:letter => letter}, conditions)
+    self.journal_entry_items.where(conditions).update_all(:letter => letter)
     return letter
   end
 
-  # Unmark all the entry items concerned by the +letter+
+  # Unmark.all the entry items concerned by the +letter+
   def unmark(letter)
-    self.journal_entry_items.update_all({:letter => nil}, {:letter => letter})
+    self.journal_entry_items.where(:letter => letter).update_all(:letter => nil)
   end
 
   # Check if the balance of the entry items of the given +letter+ is zero.
   def balanced_letter?(letter)
-    items = self.journal_entry_items.find(:all, :conditions => ["letter = ?", letter.to_s])
-    return true if items.size <= 0
+    items = self.journal_entry_items.where("letter = ?", letter.to_s)
+    return true if items.count.zero?
     return items.sum("debit-credit").to_f.zero?
   end
 
   # Compute debit, credit, balance, balance_debit and balance_credit of the account
-  # with all the entry items
+  # with.all the entry items
   def totals
     hash = {}
     hash[:debit]  = self.journal_entry_items.sum(:debit)
@@ -373,12 +373,12 @@ class Account < Ekylibre::Record::Base
 
 
   # def journal_entry_items_between(started_on, stopped_on)
-  #   self.journal_entry_items.find(:all, :joins => "JOIN #{JournalEntry.table_name} AS journal_entries ON (journal_entries.id=entry_id)", :conditions => ["printed_on BETWEEN ? AND ? ", started_on, stopped_on], :order => "printed_on, journal_entries.id, #{JournalEntryItem.table_name}.id")
+  #   self.journal_entry_items.joins("JOIN #{JournalEntry.table_name} AS journal_entries ON (journal_entries.id=entry_id)").where("printed_on BETWEEN ? AND ? ", started_on, stopped_on).order("printed_on, journal_entries.id, #{JournalEntryItem.table_name}.id")
   # end
 
   def journal_entry_items_calculate(column, started_on, stopped_on, operation=:sum)
     column = (column == :balance ? "#{JournalEntryItem.table_name}.original_debit - #{JournalEntryItem.table_name}.original_credit" : "#{JournalEntryItem.table_name}.original_#{column}")
-    self.journal_entry_items.calculate(operation, column, :joins => "JOIN #{JournalEntry.table_name} AS journal_entries ON (journal_entries.id=entry_id)", :conditions => ["printed_on BETWEEN ? AND ? ", started_on, stopped_on])
+    self.journal_entry_items.joins("JOIN #{JournalEntry.table_name} AS journal_entries ON (journal_entries.id=entry_id)").where("printed_on BETWEEN ? AND ? ", started_on, stopped_on).calculate(operation, column)
   end
 
 
@@ -391,7 +391,7 @@ class Account < Ekylibre::Record::Base
         "number LIKE '"+account.to_s+"%'"
       end.join(" OR ")
     end
-    accounts = Account.find(:all, :conditions => conditions, :order => "number ASC")
+    accounts = Account.where(conditions).order("number ASC")
     #solde = 0
 
     res_debit = 0
@@ -459,14 +459,14 @@ class Account < Ekylibre::Record::Base
     balance.compact
   end
 
-  # this method loads the general ledger for all the accounts.
+  # this method loads the general ledger for.all the accounts.
   def self.ledger(from, to)
     ledger = []
-    accounts = Account.find(:all, :conditions => {}, :order => "number ASC")
+    accounts = Account.order("number ASC")
     accounts.each do |account|
       compute=[] #HashWithIndifferentAccess.new
 
-      journal_entry_items = account.journal_entry_items.find(:all, :conditions => ["r.created_on BETWEEN ? AND ?", from, to ], :joins => "INNER JOIN #{JournalEntry.table_name} AS r ON r.id=#{JournalEntryItem.table_name}.entry_id", :order => "r.number ASC")
+      journal_entry_items = account.journal_entry_items.where("r.created_on BETWEEN ? AND ?", from, to).joins("INNER JOIN #{JournalEntry.table_name} AS r ON r.id=#{JournalEntryItem.table_name}.entry_id").order("r.number ASC")
 
       if journal_entry_items.size > 0
         entries = []

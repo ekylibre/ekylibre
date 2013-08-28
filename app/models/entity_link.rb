@@ -48,7 +48,7 @@ class EntityLink < Ekylibre::Record::Base
   #]VALIDATORS]
   validates_inclusion_of :nature, :in => self.nature.values
 
-  default_scope -> { where(:stopped_at => nil) }
+  # default_scope -> { where(:stopped_at => nil) }
   scope :of_entity, lambda { |entity| where("stopped_at IS NULL AND ? IN (entity_1_id, entity_2_id)", entity.id) }
 
   before_validation do

@@ -77,10 +77,10 @@ class User < Ekylibre::Record::Base
   # has_many :events, :class_name => "Meeting" #, :foreign_key => :responsible_id
   # has_many :future_events, :class_name => "Meeting", :conditions => ["started_at >= CURRENT_TIMESTAMP"] # , :foreign_key => :responsible_id
   has_many :preferences, :dependent => :destroy, :foreign_key => :user_id
-  has_many :sales_invoices, :foreign_key => :responsible_id, :class_name => "Sale", :conditions => {:state => :invoice}
+  has_many :sales_invoices, -> { where(:state => "invoice") }, :foreign_key => :responsible_id, :class_name => "Sale"
   has_many :sales, :class_name => "Sale", :foreign_key => :responsible_id
   has_many :transports, :class_name => "Transport", :foreign_key => :responsible_id
-  has_many :unpaid_sales, :class_name => "Sale", :foreign_key => :responsible_id, :order => "created_on", :conditions => ["state IN ('order', 'invoice') AND paid_amount < amount AND lost = ? ", false]
+  has_many :unpaid_sales, -> { order("created_on").where("state IN ('order', 'invoice') AND paid_amount < amount AND lost = ? ", false) }, :class_name => "Sale", :foreign_key => :responsible_id
 
   scope :employees, -> { where(:employed => true) }
 
@@ -102,7 +102,7 @@ class User < Ekylibre::Record::Base
   # :token_authenticatable, :confirmable, :registerable
   # :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :recoverable, :rememberable, :trackable, :validatable
-  model_stamper # Needed to stamp all records
+  model_stamper # Needed to stamp.all records
   delegate :picture, :full_name, :participations, :to => :person
 
   class << self

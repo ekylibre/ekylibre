@@ -19,13 +19,13 @@ class AddANewAnimalTest < CapybaraIntegrationTest
     fill_unroll("animal-owner-input", with: "tol", select: "Toley LTD")
     attach_file('animal[picture]',Rails.root.join("test", "fixtures", "files", "animals-ld", "cow-8580.jpg"))
     click_on("Créer")
-    save_screenshot 'tmp/capybara/animal_add.png'
+    shoot_screen "animals/create"
   end
 
   test "view an animal" do
     visit ('/backend/animals')
     page.should have_content('MARGUERITTE')
-    save_screenshot 'tmp/capybara/animal_view.png'
+    shoot_screen "animals/show"
   end
 
   test "adding an incident" do
@@ -38,12 +38,12 @@ class AddANewAnimalTest < CapybaraIntegrationTest
     choose("incident_priority_1")
     choose("incident_gravity_3")
     click_on("Créer")
-    save_screenshot 'tmp/capybara/incident_add.png'
+    shoot_screen "incidents/new"
   end
 
   test "view an incident on an animal" do
     visit ('/backend/incidents')
-    save_screenshot 'tmp/capybara/animal_incident_view.png'
+    shoot_screen "incidents/view"
   end
 
 

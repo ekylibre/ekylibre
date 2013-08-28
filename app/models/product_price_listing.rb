@@ -35,7 +35,7 @@
 
 class ProductPriceListing < Ekylibre::Record::Base
   # attr_accessible :name, :description, :by_default, :code
-  has_many :active_prices, :class_name => "ProductPrice", :foreign_key => :listing_id, :conditions => {:active => true}
+  has_many :active_prices, -> { where(:active => true) }, :class_name => "ProductPrice", :foreign_key => :listing_id
   has_many :entities, :foreign_key => :sale_price_listing_id
   has_many :prices, :class_name => "ProductPrice", :foreign_key => :listing_id
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.

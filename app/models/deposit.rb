@@ -49,8 +49,7 @@ class Deposit < Ekylibre::Record::Base
   belongs_to :journal_entry
   belongs_to :mode, :class_name => "IncomingPaymentMode"
   has_many :items, :class_name => "DepositItem", :inverse_of => :deposit
-  has_many :payments, :class_name => "IncomingPayment", :dependent => :nullify, :order => "number"
-  # has_many :journal_entries, :as => :resource, :dependent => :nullify, :order => "created_at"
+  has_many :payments, -> { order("number") }, :class_name => "IncomingPayment", :dependent => :nullify
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :amount, :allow_nil => true
@@ -60,7 +59,7 @@ class Deposit < Ekylibre::Record::Base
   #]VALIDATORS]
   validates_presence_of :responsible, :cash
 
-  default_scope -> { order(:number) }
+  # default_scope -> { order(:number) }
   scope :unvalidateds, -> { where(:locked => false) }
 
 

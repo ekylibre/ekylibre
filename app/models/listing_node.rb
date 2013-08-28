@@ -128,7 +128,7 @@ class ListingNode < Ekylibre::Record::Base
   before_validation(:on => :create) do
     if self.reflection?
       for node in listing.nodes
-        if node = self.listing.nodes.find(:first, :conditions => {:name => self.name})
+        if node = self.listing.nodes.where(:name => self.name).first
           self.name = node.name.succ
         end
       end
@@ -147,7 +147,7 @@ class ListingNode < Ekylibre::Record::Base
 
   def compute_joins(sql_alias=nil)
     conditions = ""
-    for child in self.children.find(:all, :conditions => ["(nature = ? OR nature = ?)", 'belongs_to', 'has_many'])
+    for child in self.children.where("(nature = ? OR nature = ?)", 'belongs_to', 'has_many')
       parent = sql_alias||self.name||child.parent.model.table_name
       if child.nature == "has_many" #or child.nature == "belongs_to"
         conditions += " LEFT JOIN #{child.model.table_name} AS #{child.name} ON (#{child.name}.#{child.reflection.foreign_key} = #{parent}.id)"
@@ -235,7 +235,7 @@ class ListingNode < Ekylibre::Record::Base
     # raise self.parent.model.reflections[self.attribute_name.to_sym].class_name.inspect
     return nodes unless self.reflection? and model = self.model
     # Columns
-    nodes << [tc(:columns), [[tc(:all_columns), 'special-all_columns']] + model.content_columns.collect{|x| [model.human_attribute_name(x.name.to_s).to_s, "column-"+x.name]}.sort ]
+    nodes << [tc(:columns), [[tc(:all_columns), 'special.all_columns']] + model.content_columns.collect{|x| [model.human_attribute_name(x.name.to_s).to_s, "column-"+x.name]}.sort ]
     # Reflections
     nodes << [tc(:reflections), model.reflections.select{|k,v| [:has_many, :belongs_to].include? v.macro}.collect{|a,b| [model.human_attribute_name(a.to_s).to_s, b.macro.to_s+"-"+a.to_s]}.sort ]
     return nodes
@@ -296,8 +296,8 @@ class ListingNode < Ekylibre::Record::Base
     # attributes.delete("rgt")
     # attributes.delete("lft")
     # attributes.delete("depth")
-    node = self.class.create!(attributes, :without_protection => true)
-    for child in self.children.find(:all, :order => :position)
+    node = self.class.create!(attributes)
+    for child in self.children.order(:position)
       child.duplicate(listing, node)
     end
   end

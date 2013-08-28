@@ -50,7 +50,7 @@ class AnalyticRepartition < Ekylibre::Record::Base
     state :closed
   end
 
-  default_scope -> { order(:name) }
+  # default_scope -> { order(:name) }
 
 
 end

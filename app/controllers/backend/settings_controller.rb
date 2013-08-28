@@ -60,7 +60,7 @@ class Backend::SettingsController < BackendController
   end
 
 
-  # Removes existing data and restore all data contained in zipball
+  # Removes existing data and restore.all data contained in zipball
   # All the operations are included in one transaction
   def restore
     backup = params[:file][:path]

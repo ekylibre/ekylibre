@@ -61,20 +61,20 @@ demo :sales do
                            :price_id => price.id)
       end
       if !rand(20).zero?
-        Sale.update_all({:created_on => d}, {:id => sale.id})
+        Sale.where(:id => sale.id).update_all(:created_on => d)
         sale.propose
         if rand(5).zero?
           sale.abort
         elsif !rand(4).zero?
           d += rand(15).days
           sale.confirm(d)
-          Sale.update_all({:confirmed_on => d}, {:id => sale.id})
+          Sale.where(:id => sale.id).update_all(:confirmed_on => d)
           if !rand(15).zero?
             sale.deliver
             if !rand(25).zero?
               d += rand(5).days
               sale.invoice
-              Sale.update_all({:invoiced_on => d}, {:id => sale.id})
+              Sale.where(:id => sale.id).update_all(:invoiced_on => d)
             end
           end
         end

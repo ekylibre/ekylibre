@@ -73,7 +73,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
     }
   }
 
-  default_scope -> { order(:name) }
+  # default_scope -> { order(:name) }
   scope :of_variety, Proc.new { |*varieties| where(:nature_id => ProductNature.of_variety(*varieties).pluck(:id)) }
 
   before_validation :on => :create do

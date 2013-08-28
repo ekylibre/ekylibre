@@ -1,6 +1,6 @@
-MODEL_DIR   = File.join(Rails.root.to_s, "app/models")
-FIXTURE_DIR = File.join(Rails.root.to_s, "test/fixtures")
-UNIT_DIR = File.join(Rails.root.to_s, "test/unit")
+MODELS_DIR   = Rails.root.join("app", "models")
+FIXTURES_DIR = Rails.root.join("test", "fixtures")
+MODEL_TESTS_DIR = Rails.root.join("test", "models")
 
 module AnnotateModels
 
@@ -132,13 +132,13 @@ module AnnotateModels
   def self.annotate(klass, header)
     info = get_schema_info(klass, header)
 
-    model_file_name = File.join(MODEL_DIR, klass.name.underscore + ".rb")
+    model_file_name = MODELS_DIR.join(klass.name.underscore + ".rb")
     annotate_one_file(model_file_name, info)
 
-    fixture_file_name = File.join(FIXTURE_DIR, klass.table_name + ".yml")
+    fixture_file_name = FIXTURES_DIR.join(klass.table_name + ".yml")
     annotate_one_file(fixture_file_name, info+default_fixture(klass))
 
-    unit_file_name = File.join(UNIT_DIR, klass.name.underscore + "_test.rb")
+    unit_file_name = MODEL_TESTS_DIR.join(klass.name.underscore + "_test.rb")
     annotate_one_file(unit_file_name, info)
   end
 
@@ -153,7 +153,7 @@ module AnnotateModels
     models = []
 
     if models.empty?
-      Dir.chdir(MODEL_DIR) do
+      Dir.chdir(MODELS_DIR) do
         models = Dir["**/*.rb"].sort
       end
     end
@@ -166,7 +166,7 @@ module AnnotateModels
   # then pas it to the associated block
 
   def self.do_annotations
-    print " - Annots: "
+    print " - Annotations: "
 
     header = PREFIX.dup
 

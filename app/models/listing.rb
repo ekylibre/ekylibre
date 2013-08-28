@@ -41,12 +41,12 @@ class Listing < Ekylibre::Record::Base
   # attr_accessible :name, :root_model, :description, :conditions
   attr_readonly :root_model
   enumerize :root_model, :in => Ekylibre.models
-  has_many :columns, :class_name => "ListingNode", :conditions => ["nature = ?", "column"]
-  has_many :exportable_columns, :class_name => "ListingNode", :conditions => {:nature  => "column", :exportable => true}, :order => "position"
-  has_many :filtered_columns, :class_name => "ListingNode", :conditions => ["nature = ? AND condition_operator IS NOT NULL AND condition_operator != '' AND condition_operator != ? ", "column", "any"]
-  has_many :coordinate_columns, :class_name => "ListingNode", :conditions => ["name LIKE ? AND nature = ? ", '%.coordinate', "column"]
+  has_many :columns, -> { where("nature = ?", "column") }, :class_name => "ListingNode"
+  has_many :exportable_columns, -> { where(:nature  => "column", :exportable => true).order("position") }, :class_name => "ListingNode"
+  has_many :filtered_columns, -> { where("nature = ? AND condition_operator IS NOT NULL AND condition_operator != '' AND condition_operator != ? ", "column", "any") }, :class_name => "ListingNode"
+  has_many :coordinate_columns, -> { where("name LIKE ? AND nature = ? ", '%.coordinate', "column") }, :class_name => "ListingNode"
   has_many :nodes, :class_name => "ListingNode", :dependent => :delete_all
-  has_many :reflections, :class_name => "ListingNode", :conditions => ["nature IN (?)", ["belongs_to", "has_many", "root"]]
+  has_many :reflections, -> { where("nature IN (?)", ["belongs_to", "has_many", "root"]) }, :class_name => "ListingNode"
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :name, :root_model, :allow_nil => true, :maximum => 255

@@ -46,7 +46,7 @@ class CustomField < Ekylibre::Record::Base
   attr_readonly :nature
   enumerize :nature, :in => [:text, :decimal, :boolean, :date, :datetime, :choice], :predicates => true
   enumerize :customized_type, :in => Ekylibre.model_names, :predicates => {:prefix => true}
-  has_many :choices, :class_name => "CustomFieldChoice", :order => :position, :dependent => :delete_all, :inverse_of => :custom_field
+  has_many :choices, -> { order(:position) }, :class_name => "CustomFieldChoice", :dependent => :delete_all, :inverse_of => :custom_field
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :maximal_length, :minimal_length, :allow_nil => true, :only_integer => true
   validates_numericality_of :maximal_value, :minimal_value, :allow_nil => true
@@ -63,7 +63,7 @@ class CustomField < Ekylibre::Record::Base
 
   accepts_nested_attributes_for :choices
 
-  default_scope -> { order(:customized_type, :position) }
+  # default_scope -> { order(:customized_type, :position) }
   scope :actives, -> { where(:active => true).order(:position) }
   scope :of, lambda { |model| where(:active => true, :customized_type => model).order(:position) }
 

@@ -49,5 +49,5 @@ class Log < Ekylibre::Record::Base
   validates_length_of :event, :origin_type, :owner_type, :allow_nil => true, :maximum => 255
   validates_presence_of :event, :observed_at
   #]VALIDATORS]
-  default_scope -> { order("observed_at DESC", :name) }
+  # default_scope -> { order("observed_at DESC", :name) }
 end

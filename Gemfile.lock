@@ -52,8 +52,8 @@ GEM
       nokogiri (>= 1.4.0)
     arel (4.0.0)
     atomic (1.1.13)
-    awesome_nested_set (2.1.6)
-      activerecord (>= 3.0.0)
+    awesome_nested_set (3.0.0.rc.1)
+      activerecord (~> 4.0.0)
     awesome_print (1.1.0)
     bcrypt-ruby (3.1.2)
     beardley (0.6.3)
@@ -397,7 +397,7 @@ DEPENDENCIES
   activerecord-postgis-adapter
   acts_as_list
   agric
-  awesome_nested_set
+  awesome_nested_set (~> 3.0.0.rc1)
   awesome_print
   beardley
   better_errors

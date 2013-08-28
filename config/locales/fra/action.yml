@@ -653,7 +653,6 @@ fra:
     backend/custom_field_choices: "Choix de champs personnalisés"
     backend/custom_fields: "Champs personnalisés"
     backend/dashboards: "Tableaux de bord"
-    # backend/data_view: "Backend/data view"
     backend/departments: "Services"
     backend/deposit_items: "Lignes de remise en banque"
     backend/deposits: "Remises en banque"

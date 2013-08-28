@@ -52,7 +52,7 @@ class JournalEntry < Ekylibre::Record::Base
   belongs_to :resource, :polymorphic => true
   has_many :affairs, :dependent => :nullify
   has_many :asset_depreciations, :dependent => :nullify
-  has_many :useful_items, :conditions => ["balance != ?", 0.0], :foreign_key => :entry_id, :class_name => "JournalEntryItem"
+  has_many :useful_items, -> { where("balance != ?", 0.0) }, :foreign_key => :entry_id, :class_name => "JournalEntryItem"
   has_many :items, :foreign_key => :entry_id, :dependent => :delete_all, :class_name => "JournalEntryItem", :inverse_of => :entry
   has_many :outgoing_payments, :dependent => :nullify
   has_many :incoming_payments, :dependent => :nullify
@@ -255,7 +255,7 @@ class JournalEntry < Ekylibre::Record::Base
 
 
 
-#   #this method tests if all the entry_items matching to the entry does not edited in draft mode.
+#   #this method tests if.all the entry_items matching to the entry does not edited in draft mode.
 #   def normalized
 #     return (not self.items.exists?(:draft => true))
 #   end

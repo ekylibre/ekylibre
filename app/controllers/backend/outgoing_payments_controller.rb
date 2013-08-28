@@ -52,8 +52,8 @@ class Backend::OutgoingPaymentsController < BackendController
 
   # Displays the main page with the list of outgoing payments
   def index
-    session[:outgoing_payment_state] = params[:s]||"all"
-    session[:outgoing_payment_key]   = params[:q]||""
+    session[:outgoing_payment_state] = params[:s] || "all"
+    session[:outgoing_payment_key]   = params[:q] || ""
   end
 
   # list(:purchases, :conditions => ["#{Purchase.table_name}.id IN (SELECT expense_id FROM #{OutgoingPaymentUse.table_name} WHERE payment_id=?)", ['session[:current_outgoing_payment_id]']]) do |t|

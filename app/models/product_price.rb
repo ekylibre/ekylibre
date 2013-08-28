@@ -39,7 +39,7 @@
 #
 
 
-# ProductPrice stores all the prices used in sales and purchases.
+# ProductPrice stores.all the prices used in sales and purchases.
 class ProductPrice < Ekylibre::Record::Base
   # attr_accessible :listing_id, :product_id, :variant_id, :pretax_amount, :amount, :tax_id, :currency, :supplier_id
   belongs_to :product
@@ -107,8 +107,8 @@ class ProductPrice < Ekylibre::Record::Base
   def update
     current_time = Time.now
     stamper_id = self.class.stamper_class.stamper.id rescue nil
-    nc = self.class.create!(self.attributes.merge(:started_at => current_time, :created_at => current_time, :updated_at => current_time, :creator_id => stamper_id, :updater_id => stamper_id).delete_if{|k,v| k.to_s == "id"}, :without_protection => true)
-    self.class.update_all({:stopped_at => current_time}, {:id => self.id})
+    nc = self.class.create!(self.attributes.merge(:started_at => current_time, :created_at => current_time, :updated_at => current_time, :creator_id => stamper_id, :updater_id => stamper_id).delete_if{|k,v| k.to_s == "id"})
+    self.class.where(:id => self.id).update_all(:stopped_at => current_time)
     nc.ensure_by_default_uniqueness
     return nc
   end
@@ -116,7 +116,7 @@ class ProductPrice < Ekylibre::Record::Base
   def destroy
     unless self.new_record?
       current_time = Time.now
-      self.class.update_all({:stopped_at => current_time}, {:id => self.id})
+      self.class.where(:id => self.id).update_all(:stopped_at => current_time)
     end
   end
   # Returns if the price is one of our company
@@ -162,7 +162,7 @@ class ProductPrice < Ekylibre::Record::Base
     # request return no prices, we create a price
     if prices.count.zero?
       # prices = [self.create!({:tax_id => Tax.first.id, :pretax_amount => filter[:pretax_amount], :amount => filter[:amount]}.merge(filter))]
-      # calling private method for creating a price for given product (Product or ProductNatureVariant) with given options
+      # .alling private method for creating a price for given product (Product or ProductNatureVariant) with given options
       prices = new_price.(product, options)
       return prices
     end

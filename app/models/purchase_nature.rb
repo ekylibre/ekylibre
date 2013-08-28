@@ -50,7 +50,7 @@ class PurchaseNature < Ekylibre::Record::Base
 
   has_default
 
-  default_scope -> { order(:by_default, :name) }
+  # default_scope -> { order(:by_default, :name) }
   scope :actives, -> { where(:active => true) }
 
   validate do

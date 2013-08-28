@@ -45,7 +45,7 @@ class Operation < Event
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   #]VALIDATORS]
 
-  default_scope -> { order(:started_at) }
+  # default_scope -> { order(:started_at) }
   scope :unvalidateds, -> { where(:confirmed => false) }
 
   before_validation(:on => :create) do
@@ -102,7 +102,7 @@ class Operation < Event
   # end
 
 
-  # # Set all the items in one time
+  # # Set.all the items in one time
   # def set_items(items)
   #   # Reinit existing items
   #   self.items.clear

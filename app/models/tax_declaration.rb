@@ -57,17 +57,17 @@ class TaxDeclaration < Ekylibre::Record::Base
 
   NB_DAYS_MONTH=30.42
 
-  # this method allows to verify the different characteristics of the tax declaration.
+  # this method:allows to verify the different characteristics of the tax declaration.
   validate do
     errors.add(:stopped_on, :one_data_to_record_tax_declaration)  if self.collected_amount.zero? and self.acquisition_amount.zero? and self.assimilated_taxes_amount.zero? and self.paid_amount.zero? and self.balance_amount.zero?
-    errors.add(:started_on, :overlapped_period_declaration) if TaxDeclaration.find(:first, :conditions => ["? BETWEEN started_on AND stopped_on", self.started_on])
-    errors.add(:stopped_on, :overlapped_period_declaration) if TaxDeclaration.find(:first, :conditions => ["? BETWEEN started_on AND stopped_on", self.started_on])
+    errors.add(:started_on, :overlapped_period_declaration) if TaxDeclaration.where("? BETWEEN started_on AND stopped_on", self.started_on).first
+    errors.add(:stopped_on, :overlapped_period_declaration) if TaxDeclaration.where("? BETWEEN started_on AND stopped_on", self.started_on).first
     unless self.financial_year.nil?
       errors.add(:declared_on, :declaration_date_after_period) if self.declared_on < self.financial_year.stopped_on
     end
   end
 
-  # this method allows to comptabilize the tax declaration after it creation.
+  # this method:allows to comptabilize the tax declaration after it creation.
   bookkeep(:on => :nothing) do |b|
   end
 
