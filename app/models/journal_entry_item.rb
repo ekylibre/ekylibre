@@ -44,7 +44,7 @@
 
 
 class JournalEntryItem < Ekylibre::Record::Base
-  attr_accessible :entry_id, :journal_id, :original_credit, :original_debit, :account_id, :name
+  # attr_accessible :entry_id, :journal_id, :original_credit, :original_debit, :account_id, :name
   attr_readonly :entry_id, :journal_id, :state
   belongs_to :account
   belongs_to :journal, :inverse_of => :entry_items

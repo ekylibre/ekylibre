@@ -38,7 +38,7 @@
 
 
 class Listing < Ekylibre::Record::Base
-  attr_accessible :name, :root_model, :description, :conditions
+  # attr_accessible :name, :root_model, :description, :conditions
   attr_readonly :root_model
   enumerize :root_model, :in => Ekylibre.models
   has_many :columns, :class_name => "ListingNode", :conditions => ["nature = ?", "column"]
@@ -52,8 +52,7 @@ class Listing < Ekylibre::Record::Base
   validates_length_of :name, :root_model, :allow_nil => true, :maximum => 255
   validates_presence_of :name, :root_model
   #]VALIDATORS]
-  # validates_format_of :query, :with => /\s*SELECT\s+[^\;]*/
-  validates_format_of :query, :conditions, :with => /^[^\;]*$/
+  validates_format_of :query, :conditions, :with => /\A[^\;]*\z/
 
   before_validation(:on => :update) do
     self.query = self.generate

@@ -45,7 +45,7 @@
 
 
 class JournalEntry < Ekylibre::Record::Base
-  attr_accessible :journal_id, :number, :printed_on, :resource
+  # attr_accessible :journal_id, :number, :printed_on, :resource
   attr_readonly :journal_id, :created_on
   belongs_to :financial_year
   belongs_to :journal, :inverse_of => :entries
@@ -67,7 +67,7 @@ class JournalEntry < Ekylibre::Record::Base
   validates_presence_of :balance, :created_on, :credit, :debit, :journal, :number, :original_credit, :original_currency_rate, :original_debit, :printed_on, :state
   #]VALIDATORS]
   validates_presence_of :original_currency
-  validates_format_of :number, :with => /^[\dA-Z]+$/
+  validates_format_of :number, :with => /\A[\dA-Z]+\z/
   validates_numericality_of :original_currency_rate, :greater_than => 0
 
   accepts_nested_attributes_for :items
@@ -179,7 +179,7 @@ class JournalEntry < Ekylibre::Record::Base
   end
 
   after_save do
-    JournalEntryItem.update_all({:state => self.state}, ["entry_id = ? AND state != ? ", self.id, self.state])
+    JournalEntryItem.where("entry_id = ? AND state != ? ", self.id, self.state).update_all(:state => self.state)
   end
 
   protect(:on => :destroy) do

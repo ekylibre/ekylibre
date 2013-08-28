@@ -36,7 +36,7 @@
 
 
 class IncomingDeliveryItem < Ekylibre::Record::Base
-  attr_accessible :delivery_id, :product_id, :product_attributes, :quantity, :container_id, :product_nature_variant_id
+  # attr_accessible :delivery_id, :product_id, :product_attributes, :quantity, :container_id, :product_nature_variant_id
   attr_readonly :purchase_item_id, :product_id
   attr_accessor :product_nature_variant_id
   belongs_to :delivery, :class_name => "IncomingDelivery", :inverse_of => :items

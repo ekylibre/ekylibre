@@ -50,7 +50,7 @@ class Cash < Ekylibre::Record::Base
   BBAN_TRANSLATIONS = {
     :fr => ["abcdefghijklmonpqrstuvwxyz", "12345678912345678923456789"]
   }
-  attr_accessible :name, :nature, :mode, :iban, :bank_identifier_code, :bank_account_key, :bank_name, :bank_code, :bank_agency_code, :bank_account_number, :bank_agency_address, :account_id, :journal_id, :country, :currency
+  # attr_accessible :name, :nature, :mode, :iban, :bank_identifier_code, :bank_account_key, :bank_name, :bank_code, :bank_agency_code, :bank_account_number, :bank_agency_address, :account_id, :journal_id, :country, :currency
   attr_readonly :nature, :currency
   belongs_to :account
   belongs_to :journal

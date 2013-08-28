@@ -41,7 +41,7 @@
 
 
 class ProductIndicatorDatum < IndicatorDatum
-  attr_accessible :created_at, :product_id, :measured_at, :description
+  # attr_accessible :created_at, :product_id, :measured_at, :description
   belongs_to :product
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.

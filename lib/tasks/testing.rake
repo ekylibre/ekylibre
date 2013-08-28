@@ -18,10 +18,12 @@ namespace :test do
     t.verbose = true
   end
 
-  remove_task("run")
+  # remove_task("run")
 
-  task :run => %w(test:units test:functionals test:integration test:lib)
+  # task :run => %w(test:units test:functionals test:integration test:lib)
 end
+
+# Rake::Task[:test].enhance { Rake::Task["test:lib"].invoke }
 
 # # lib_task = Rake::Task["test:lib"]
 # # test_task = Rake::Task[:test]
@@ -75,7 +77,7 @@ namespace :fixtures do
 
 
   desc "Load fixtures files in development database (removing existing data)"
-  task :load=>:environment do
+  task :load => :environment do
     # ActiveRecord::Base.establish_connection(:development)
     # ActiveRecord::Base.configurations[:fixtures_load_order]
     Rake::Task["db:drop"].invoke

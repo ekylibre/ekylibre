@@ -1,7 +1,7 @@
 # encoding: UTF-8
 require 'test_helper'
 
-class DelayTest < Test::Unit::TestCase
+class DelayTest < ActiveSupport::TestCase
 
   def test_delay
     Delay.new('')

@@ -34,7 +34,7 @@
 #  updater_id            :integer
 #
 class AnalyticRepartition < Ekylibre::Record::Base
-  attr_accessible :state, :production_id, :affected_on,  :description, :journal_entry_item_id,  :percentage
+  # attr_accessible :state, :production_id, :affected_on,  :description, :journal_entry_item_id,  :percentage
   belongs_to :production
   belongs_to :journal_entry_item
 

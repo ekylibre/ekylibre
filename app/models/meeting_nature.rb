@@ -34,7 +34,7 @@
 
 
 class MeetingNature < Ekylibre::Record::Base
-  attr_accessible :name, :duration, :active, :usage
+  # attr_accessible :name, :duration, :active, :usage
   attr_readonly :name
   has_many :meetings, :foreign_key => :meeting_nature_id, :class_name => "Meeting"
   enumerize :usage, :in => [:manual, :sale, :purchase, :sales_invoice, :mailing], :defaut => :manual, :predicates => true

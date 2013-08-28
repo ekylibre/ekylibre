@@ -32,7 +32,7 @@
 #  updater_id   :integer
 #
 class Campaign < Ekylibre::Record::Base
-  attr_accessible :description, :name, :closed
+  # attr_accessible :description, :name, :closed
 
   has_many :productions
   has_many :procedures, :through => :productions

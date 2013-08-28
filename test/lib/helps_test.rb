@@ -1,7 +1,7 @@
 # encoding: UTF-8
 require 'test_helper'
 
-class HelpsTest < Test::Unit::TestCase
+class HelpsTest < ActiveSupport::TestCase
 
   # Checks the validity of references files for models
   def test_help_files

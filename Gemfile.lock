@@ -1,41 +1,46 @@
+GIT
+  remote: git://github.com/Compass/compass-rails.git
+  revision: 32c16cb90f78053310b35199a970c53355bcd300
+  branch: rails4-hack
+  specs:
+    compass-rails (1.0.3)
+      compass (>= 0.12.2, < 0.14)
+
 GEM
   remote: https://rubygems.org/
   specs:
     Ascii85 (1.0.2)
-    actionmailer (3.2.14)
-      actionpack (= 3.2.14)
-      mail (~> 2.5.4)
-    actionpack (3.2.14)
-      activemodel (= 3.2.14)
-      activesupport (= 3.2.14)
-      builder (~> 3.0.0)
+    actionmailer (4.0.0)
+      actionpack (= 4.0.0)
+      mail (~> 2.5.3)
+    actionpack (4.0.0)
+      activesupport (= 4.0.0)
+      builder (~> 3.1.0)
       erubis (~> 2.7.0)
-      journey (~> 1.0.4)
-      rack (~> 1.4.5)
-      rack-cache (~> 1.2)
-      rack-test (~> 0.6.1)
-      sprockets (~> 2.2.1)
+      rack (~> 1.5.2)
+      rack-test (~> 0.6.2)
     active-list (4.2.4)
       compass-rails (>= 1)
       fastercsv (>= 1.5)
       i18n-complements
       rails (>= 3.1)
-    activemodel (3.2.14)
-      activesupport (= 3.2.14)
-      builder (~> 3.0.0)
-    activerecord (3.2.14)
-      activemodel (= 3.2.14)
-      activesupport (= 3.2.14)
-      arel (~> 3.0.2)
-      tzinfo (~> 0.3.29)
+    activemodel (4.0.0)
+      activesupport (= 4.0.0)
+      builder (~> 3.1.0)
+    activerecord (4.0.0)
+      activemodel (= 4.0.0)
+      activerecord-deprecated_finders (~> 1.0.2)
+      activesupport (= 4.0.0)
+      arel (~> 4.0.0)
+    activerecord-deprecated_finders (1.0.3)
     activerecord-postgis-adapter (0.6.5)
       rgeo-activerecord (~> 0.5.0)
-    activeresource (3.2.14)
-      activemodel (= 3.2.14)
-      activesupport (= 3.2.14)
-    activesupport (3.2.14)
+    activesupport (4.0.0)
       i18n (~> 0.6, >= 0.6.4)
-      multi_json (~> 1.0)
+      minitest (~> 4.2)
+      multi_json (~> 1.3)
+      thread_safe (~> 0.1)
+      tzinfo (~> 0.3.37)
     acts_as_list (0.3.0)
       activerecord (>= 3.0)
     addressable (2.3.5)
@@ -45,7 +50,8 @@ GEM
     akami (1.2.0)
       gyoku (>= 0.4.0)
       nokogiri (>= 1.4.0)
-    arel (3.0.2)
+    arel (4.0.0)
+    atomic (1.1.13)
     awesome_nested_set (2.1.6)
       activerecord (>= 3.0.0)
     awesome_print (1.1.0)
@@ -67,7 +73,7 @@ GEM
       erubis (>= 2.6.6)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
-    builder (3.0.4)
+    builder (3.1.4)
     calendar_helper (0.2.6)
       open4
     capybara (2.1.0)
@@ -92,9 +98,9 @@ GEM
     code_analyzer (0.4.2)
       sexp_processor
     coderay (1.0.9)
-    coffee-rails (3.2.2)
+    coffee-rails (4.0.0)
       coffee-script (>= 2.2.0)
-      railties (~> 3.2.0)
+      railties (>= 4.0.0.beta, < 5.0)
     coffee-script (2.2.0)
       coffee-script-source
       execjs
@@ -105,8 +111,6 @@ GEM
       chunky_png (~> 1.2)
       listen (<= 0.9.9)
       sass (~> 3.2.5)
-    compass-rails (1.0.3)
-      compass (>= 0.12.2, < 0.14)
     coveralls (0.6.7)
       colorize
       multi_json (~> 1.3)
@@ -173,7 +177,9 @@ GEM
     i18n (0.6.5)
     i18n-complements (0.0.9)
       i18n (>= 0.6)
-    journey (1.0.4)
+    jbuilder (1.5.1)
+      activesupport (>= 3.0.0)
+      multi_json (>= 1.2.0)
     jquery-rails (3.0.4)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
@@ -208,6 +214,7 @@ GEM
       webrobots (>= 0.0.9, < 0.2)
     method_source (0.8.2)
     mime-types (1.24)
+    minitest (4.7.5)
     multi_json (1.7.9)
     net-http-digest_auth (1.4)
     net-http-persistent (2.9)
@@ -246,22 +253,18 @@ GEM
       slop (~> 3.4)
     quiet_assets (1.0.2)
       railties (>= 3.1, < 5.0)
-    rack (1.4.5)
-    rack-cache (1.2)
-      rack (>= 0.4)
-    rack-ssl (1.3.3)
-      rack
+    rack (1.5.2)
     rack-test (0.6.2)
       rack (>= 1.0)
     railroady (1.1.1)
-    rails (3.2.14)
-      actionmailer (= 3.2.14)
-      actionpack (= 3.2.14)
-      activerecord (= 3.2.14)
-      activeresource (= 3.2.14)
-      activesupport (= 3.2.14)
-      bundler (~> 1.0)
-      railties (= 3.2.14)
+    rails (4.0.0)
+      actionmailer (= 4.0.0)
+      actionpack (= 4.0.0)
+      activerecord (= 4.0.0)
+      activesupport (= 4.0.0)
+      bundler (>= 1.3.0, < 2.0)
+      railties (= 4.0.0)
+      sprockets-rails (~> 2.0.0)
     rails_best_practices (1.14.3)
       activesupport
       awesome_print
@@ -271,13 +274,11 @@ GEM
       i18n
       require_all
       ruby-progressbar
-    railties (3.2.14)
-      actionpack (= 3.2.14)
-      activesupport (= 3.2.14)
-      rack-ssl (~> 1.3.2)
+    railties (4.0.0)
+      actionpack (= 4.0.0)
+      activesupport (= 4.0.0)
       rake (>= 0.8.7)
-      rdoc (~> 3.4)
-      thor (>= 0.14.6, < 2.0)
+      thor (>= 0.18.1, < 2.0)
     rake (10.1.0)
     rdoc (3.12.2)
       json (~> 1.4)
@@ -294,28 +295,19 @@ GEM
       dbf (>= 1.7.0)
       rgeo (>= 0.3.3)
     rjb (1.4.8)
-    routing-filter (0.3.1)
+    routing-filter (0.4.0.pre)
       actionpack
-    rspec-core (2.14.5)
     rspec-expectations (2.14.2)
       diff-lcs (>= 1.1.3, < 2.0)
-    rspec-mocks (2.14.3)
-    rspec-rails (2.14.0)
-      actionpack (>= 3.0)
-      activesupport (>= 3.0)
-      railties (>= 3.0)
-      rspec-core (~> 2.14.0)
-      rspec-expectations (~> 2.14.0)
-      rspec-mocks (~> 2.14.0)
     ruby-filemagic (0.4.2)
     ruby-progressbar (1.2.0)
     ruby-rc4 (0.1.5)
     rubyzip (0.9.9)
     sass (3.2.10)
-    sass-rails (3.2.6)
-      railties (~> 3.2.0)
+    sass-rails (4.0.0)
+      railties (>= 4.0.0.beta, < 5.0)
       sass (>= 3.1.10)
-      tilt (~> 1.3)
+      sprockets-rails (~> 2.0.0)
     savon (2.2.0)
       akami (~> 1.2.0)
       builder (>= 2.1.2)
@@ -326,15 +318,19 @@ GEM
       wasabi (~> 3.1.0)
     sax-machine (0.2.0.rc1)
       nokogiri (~> 1.5.2)
+    sdoc (0.3.20)
+      json (>= 1.1.3)
+      rdoc (~> 3.10)
     selenium-webdriver (2.35.1)
       childprocess (>= 0.2.5)
       multi_json (~> 1.0)
       rubyzip (< 1.0.0)
       websocket (~> 1.0.4)
     sexp_processor (4.3.0)
-    simple_form (2.1.0)
-      actionpack (~> 3.0)
-      activemodel (~> 3.0)
+    shoulda-context (1.1.5)
+    simple_form (3.0.0.rc)
+      actionpack (>= 4.0.0.rc1, < 4.1)
+      activemodel (>= 4.0.0.rc1, < 4.1)
     simplecov (0.7.1)
       multi_json (~> 1.0)
       simplecov-html (~> 0.7.1)
@@ -349,16 +345,16 @@ GEM
       capybara (>= 2.0.0)
       railties (>= 3)
       spinach (>= 0.4)
-    sprockets (2.2.2)
+    sprockets (2.10.0)
       hike (~> 1.2)
       multi_json (~> 1.0)
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
+    sprockets-rails (2.0.0)
+      actionpack (>= 3.0)
+      activesupport (>= 3.0)
+      sprockets (~> 2.8)
     state_machine (1.2.0)
-    strong_parameters (0.2.1)
-      actionpack (~> 3.0)
-      activemodel (~> 3.0)
-      railties (~> 3.0)
     therubyracer (0.12.0)
       libv8 (~> 3.16.14.0)
       ref
@@ -367,14 +363,13 @@ GEM
       eventmachine (>= 0.12.6)
       rack (>= 1.0.0)
     thor (0.18.1)
+    thread_safe (0.1.2)
+      atomic
     tilt (1.4.1)
     treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
     ttfunk (1.0.3)
-    turbo-sprockets-rails3 (0.3.9)
-      railties (> 3.2.8, < 4.0.0)
-      sprockets (>= 2.0.0)
     turbolinks (1.3.0)
       coffee-rails
     tzinfo (0.3.37)
@@ -412,9 +407,9 @@ DEPENDENCIES
   capybara-screenshot
   capybara-webkit
   cocoon
-  coffee-rails (~> 3.2.1)
+  coffee-rails (~> 4.0.0)
   compass (~> 0.13.alpha.4)
-  compass-rails
+  compass-rails!
   coveralls (>= 0.6)
   database_cleaner
   devise
@@ -428,6 +423,7 @@ DEPENDENCIES
   formize (~> 1.1.0)
   haml
   i18n-complements
+  jbuilder (~> 1.2)
   jquery-rails
   jquery-turbolinks
   jquery-ui-rails
@@ -445,22 +441,22 @@ DEPENDENCIES
   pry
   quiet_assets
   railroady
-  rails (= 3.2.14)
+  rails (= 4.0.0)
   rails_best_practices
   rgeo-shapefile
-  routing-filter
-  rspec-rails
+  routing-filter (~> 0.4.0.pre)
+  rspec-expectations
   rubyzip
-  sass-rails (~> 3.2.3)
+  sass-rails (~> 4.0.0)
   savon (~> 2.2.0)
+  sdoc
   selenium-webdriver
-  simple_form
+  shoulda-context
+  simple_form (~> 3.0.0.rc)
   sneaky-save
   spinach-rails
   state_machine
-  strong_parameters
   therubyracer
   thin
-  turbo-sprockets-rails3
   turbolinks
-  uglifier (>= 1.0.3)
+  uglifier (>= 1.3.0)

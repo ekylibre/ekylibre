@@ -32,7 +32,7 @@
 
 
 class Role < Ekylibre::Record::Base
-  attr_accessible :name, :rights
+  # attr_accessible :name, :rights
   has_many :users
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :name, :allow_nil => true, :maximum => 255

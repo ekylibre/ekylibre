@@ -41,7 +41,7 @@
 
 
 class ProductNatureVariantIndicatorDatum < IndicatorDatum
-  attr_accessible :created_at, :variant_id, :description
+  # attr_accessible :created_at, :variant_id, :description
   belongs_to :variant, :class_name => "ProductNatureVariant"
   enumerize :computation_method, :in => [:frozen, :proportionnal], :default => :frozen
 

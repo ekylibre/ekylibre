@@ -35,7 +35,7 @@
 
 
 class Journal < Ekylibre::Record::Base
-  attr_accessible :code, :name, :nature, :currency
+  # attr_accessible :code, :name, :nature, :currency
   attr_readonly :currency
   has_many :cashes
   has_many :entry_items, :class_name => "JournalEntryItem", :inverse_of => :journal

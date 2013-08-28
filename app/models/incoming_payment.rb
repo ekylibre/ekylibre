@@ -52,7 +52,7 @@
 
 
 class IncomingPayment < Ekylibre::Record::Base
-  attr_accessible :bank_account_number, :amount, :bank_name, :bank_check_number, :mode_id, :paid_on, :to_bank_on, :received, :responsible_id, :payer_id
+  # attr_accessible :bank_account_number, :amount, :bank_name, :bank_check_number, :mode_id, :paid_on, :to_bank_on, :received, :responsible_id, :payer_id
   attr_readonly :payer_id
   attr_readonly :amount, :account_number, :bank, :bank_check_number, :mode_id, :if => Proc.new{ self.deposit and self.deposit.locked? }
   belongs_to :commission_account, :class_name => "Account"

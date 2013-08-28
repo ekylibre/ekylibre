@@ -2,24 +2,24 @@
 require 'coveralls'
 Coveralls.wear!('rails')
 
-ENV["RAILS_ENV"] = "test"
+ENV["RAILS_ENV"] ||= "test"
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
-require 'rspec/rails'
-require 'rspec/autorun'
+# require 'rspec/rails'
+# require 'rspec/autorun'
 require 'capybara/rails'
-require 'capybara/rspec'
-require 'capybara-screenshot/rspec'
+# require 'capybara/rspec'
+# require 'capybara-screenshot/rspec'
 
 
 # Removes use of shoulda gem until bug is not fixed for Rails >= 1.9.3
 # Use specific file lib/shoulda/context/context.rb
 # TODO: Re-add shoulda-context in Gemfile ASAP
-require File.join(File.dirname(__FILE__), 'shoulda-context')
-class Test::Unit::TestCase
-  include Shoulda::Context::InstanceMethods
-  extend Shoulda::Context::ClassMethods
-end
+# require File.join(File.dirname(__FILE__), 'shoulda-context')
+# class ActiveSupport::TestCase
+#   include Shoulda::Context::InstanceMethods
+#   extend Shoulda::Context::ClassMethods
+# end
 
 
 # Choix du driver par défaut : selenium pour le Javascript
@@ -28,12 +28,7 @@ Capybara.default_driver = :selenium
 Capybara.default_wait_time = 5
 #Capybara.default_driver = :webkit
 
-class ActionDispatch::IntegrationTest
-  # Intégration de Capybara dans tout les tests d'intégration.
-  include Capybara::DSL
-end
-
-class CapybaraIntegrationTest < ActionController::IntegrationTest
+class CapybaraIntegrationTest < ActionDispatch::IntegrationTest
   include Capybara::DSL
   include Capybara::Screenshot
   include Warden::Test::Helpers
@@ -58,9 +53,9 @@ end
 
 
 class ActiveSupport::TestCase
+  ActiveRecord::Migration.check_pending!
 
-
-  # Setup all fixtures in test/fixtures/*.(yml|csv) for all tests in alphabetical order.
+  # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   #
   # Note: You'll currently still have to declare fixtures explicitly in integration tests
   # -- they do not yet inherit this setting
@@ -159,16 +154,17 @@ class ActionController::TestCase
             file_columns = model.attachment_definitions
           end
         end
-        protected_attributes = model.protected_attributes.to_a - ["id", "type"]
-        attributes = if model.accessible_attributes.to_a.size > 0
-                       restricted = true
-                       model.accessible_attributes.to_a
-                     elsif protected_attributes.size > 0
-                       restricted = true
-                       model.attribute_names - protected_attributes
-                     else
-                       model.attribute_names
-                     end.delete_if{|a| a.blank? or a.to_s.match(/_attributes$/)}
+        # protected_attributes = model.protected_attributes.to_a - ["id", "type"]
+        # attributes = if model.accessible_attributes.to_a.size > 0
+        #                restricted = true
+        #                model.accessible_attributes.to_a
+        #              elsif protected_attributes.size > 0
+        #                restricted = true
+        #                model.attribute_names - protected_attributes
+        #              else
+        #                model.attribute_names
+        #              end.delete_if{|a| a.blank? or a.to_s.match(/_attributes$/)}
+        attributes = model.content_columns.map(&:name)
         attributes = "{" + attributes.collect do |a|
           if file_columns[a.to_sym]
             ":#{a} => fixture_file_upload('files/sample_image.png')"

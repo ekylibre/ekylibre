@@ -46,7 +46,7 @@
 
 
 class OutgoingPayment < Ekylibre::Record::Base
-  attr_accessible :amount, :bank_check_number, :paid_on, :to_bank_on, :responsible_id, :payee_id, :mode_id, :delivered # , :used_amount
+  # attr_accessible :amount, :bank_check_number, :paid_on, :to_bank_on, :responsible_id, :payee_id, :mode_id, :delivered # , :used_amount
   belongs_to :cash
   belongs_to :journal_entry
   belongs_to :mode, :class_name => "OutgoingPaymentMode"

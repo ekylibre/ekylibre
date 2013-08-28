@@ -35,7 +35,7 @@
 #  with_accounting :boolean          not null
 #
 class PurchaseNature < Ekylibre::Record::Base
-  attr_accessible :name, :description, :active, :currency, :with_accounting, :journal_id
+  # attr_accessible :name, :description, :active, :currency, :with_accounting, :journal_id
   belongs_to :journal
   has_many :purchases
 

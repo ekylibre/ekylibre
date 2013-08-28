@@ -1,7 +1,7 @@
 # encoding: UTF-8
 require 'test_helper'
 
-class BackupTest < Test::Unit::TestCase
+class BackupTest < ActiveSupport::TestCase
 
   def test_backup_and_restore
     file = Ekylibre::Backup.create(:with_prints => true, :author => "Test system")

@@ -34,7 +34,7 @@
 
 
 class CustomFieldChoice < Ekylibre::Record::Base
-  attr_accessible :name, :custom_field_id, :position
+  # attr_accessible :name, :custom_field_id, :position
   belongs_to :custom_field, :inverse_of => :choices
   acts_as_list :scope => :custom_field
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.

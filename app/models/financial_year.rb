@@ -37,7 +37,7 @@
 
 
 class FinancialYear < Ekylibre::Record::Base
-  attr_accessible :code, :started_on, :stopped_on, :currency
+  # attr_accessible :code, :started_on, :stopped_on, :currency
   attr_readonly :currency
   belongs_to :last_journal_entry, :class_name => "JournalEntry"
   has_many :account_balances, :class_name=>"AccountBalance", :foreign_key=>:financial_year_id, :dependent=>:delete_all

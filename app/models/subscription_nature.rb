@@ -37,7 +37,7 @@
 
 
 class SubscriptionNature < Ekylibre::Record::Base
-  attr_accessible :actual_number, :description, :entity_link_direction, :entity_link_nature, :name, :nature, :reduction_percentage
+  # attr_accessible :actual_number, :description, :entity_link_direction, :entity_link_nature, :name, :nature, :reduction_percentage
   attr_readonly :nature
   enumerize :nature, :in => [:period, :quantity], :default => :period, :predicates => true
   enumerize :entity_link_nature, :in => Nomen::EntityLinkNatures.all

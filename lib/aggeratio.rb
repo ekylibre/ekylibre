@@ -112,7 +112,7 @@ module Aggeratio
       end
 
 
-      element.to_xml.split(/\n/).each_with_index{|l,i| puts (i+1).to_s.rjust(4)+": "+l}
+      # element.to_xml.split(/\n/).each_with_index{|l,i| puts (i+1).to_s.rjust(4)+": "+l}
 
       # Codes!
 
@@ -196,7 +196,7 @@ module Aggeratio
 
       code << "end\n"
 
-      code.split(/\n/).each_with_index{|l,i| puts (i+1).to_s.rjust(4)+": "+l}
+      # code.split(/\n/).each_with_index{|l,i| puts (i+1).to_s.rjust(4)+": "+l}
 
       class_eval(code)
 

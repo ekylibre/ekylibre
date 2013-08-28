@@ -37,7 +37,7 @@
 #  updater_id   :integer
 #
 class Incident < Ekylibre::Record::Base
-  attr_accessible :name, :nature, :observed_at, :description, :priority, :gravity, :target_id, :target_type
+  # attr_accessible :name, :nature, :observed_at, :description, :priority, :gravity, :target_id, :target_type
   enumerize :nature, :in => Nomen::Incidents.all, :default => Nomen::Incidents.default, :predicates => {:prefix => true}
   has_many :procedures, :class_name => "Procedure"
   belongs_to :target , :polymorphic => true

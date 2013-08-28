@@ -34,7 +34,7 @@
 #
 
 class Document < Ekylibre::Record::Base
-  attr_accessible :name, :key ,:nature
+  # attr_accessible :name, :key ,:nature
   has_many :archives, :class_name => "DocumentArchive", :dependent => :destroy, :inverse_of => :document
   enumerize :nature, :in => Nomen::DocumentNatures.all, :predicates => {:prefix => true}
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
@@ -55,7 +55,7 @@ class Document < Ekylibre::Record::Base
       f.print(data)
       f.flush
       f.rewind
-      self.archives.create!({:file => f, :template_id => options[:template_id]}, :without_protection => true)
+      self.archives.create!(:file => f, :template_id => options[:template_id]) #}, :without_protection => true)
       # self.updated_at = Time.now
       # self.save!
     end

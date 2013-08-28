@@ -36,7 +36,7 @@
 #  updater_id        :integer
 #
 class Production < Ekylibre::Record::Base
-  attr_accessible :supports_attributes, :activity_id, :product_nature_id, :campaign_id, :static_support, :state, :started_at, :stopped_at
+  # attr_accessible :supports_attributes, :activity_id, :product_nature_id, :campaign_id, :static_support, :state, :started_at, :stopped_at
   belongs_to :activity
   belongs_to :campaign
   belongs_to :product_nature

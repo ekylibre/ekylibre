@@ -60,7 +60,7 @@
 
 
 class Product < Ekylibre::Record::Base
-  attr_accessible :active, :created_at, :type, :variety, :external, :name, :description, :number, :identification_number, :work_number, :born_at, :dead_at, :picture, :owner_id, :variant_id , :indicator_data_attributes # , :parent_id
+  # attr_accessible :active, :created_at, :type, :variety, :external, :name, :description, :number, :identification_number, :work_number, :born_at, :dead_at, :picture, :owner_id, :variant_id , :indicator_data_attributes # , :parent_id
   enumerize :variety, :in => Nomen::Varieties.all, :predicates => {:prefix => true}
   enumerize :content_indicator, :in => Nomen::Indicators.all, :predicates => {:prefix => true}
   enumerize :content_indicator_unit, :in => Nomen::Units.all, :predicates => {:prefix => true}
