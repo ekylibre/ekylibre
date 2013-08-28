@@ -45,7 +45,7 @@
 
 class Subscription < Ekylibre::Record::Base
   acts_as_numbered
-  attr_accessible :address_id, :description, :first_number, :last_number, :started_on, :stopped_on, :suspended, :sale_item_id, :nature_id
+  # attr_accessible :address_id, :description, :first_number, :last_number, :started_on, :stopped_on, :suspended, :sale_item_id, :nature_id
   belongs_to :address, :class_name => "EntityAddress"
   belongs_to :subscriber, :class_name => "Entity"
   belongs_to :nature, :class_name => "SubscriptionNature"

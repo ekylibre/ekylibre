@@ -48,7 +48,7 @@
 
 class EntityAddress < Ekylibre::Record::Base
   attr_readonly   :entity_id
-  attr_accessible :entity_id, :name, :by_default, :canal, :coordinate, :mail_line_1, :mail_line_2, :mail_line_3, :mail_line_4, :mail_line_5, :mail_line_6, :mail_country
+  # attr_accessible :entity_id, :name, :by_default, :canal, :coordinate, :mail_line_1, :mail_line_2, :mail_line_3, :mail_line_4, :mail_line_5, :mail_line_6, :mail_country
   belongs_to :mail_area, :class_name => "Area"
   belongs_to :entity, :inverse_of => :addresses
   has_many :incoming_deliveries
@@ -68,7 +68,7 @@ class EntityAddress < Ekylibre::Record::Base
   validates_inclusion_of :by_default, :mail_auto_update, :in => [true, false]
   validates_presence_of :canal, :coordinate, :entity
   #]VALIDATORS]
-  validates_format_of :coordinate, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i, :if => :email?
+  validates_format_of :coordinate, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, :if => :email?
   validates_inclusion_of :canal, :in => self.canal.values
 
   has_default :scope => [:entity_id, :canal]

@@ -52,18 +52,18 @@ class BackendController < BaseController
     # including the default scope
     def unroll_all(options = {})
       model = (options[:model] || self.controller_name).classify.constantize
-      # Named scopes
-      for scope in (model.scopes || [])
-        self.unroll(scope, options.dup)
-      end
+      # # Named scopes
+      # for scope in (model.scopes || [])
+      #   self.unroll(scope, options.dup)
+      # end
       # Default scope
-      self.unroll(options.dup)
-    end
+      # self.unroll(options.dup)
+    # end
 
-    # Create unroll action for one given scope
-    def unroll(*args)
-      options = (args[-1].is_a?(Hash) ? args.delete_at(-1) : {})
-      name = args[-1]
+    # # Create unroll action for one given scope
+    # def unroll(*args)
+    #   options = (args[-1].is_a?(Hash) ? args.delete_at(-1) : {})
+    #   name = args[-1]
 
       model = (options.delete(:model) || controller_name).to_s.classify.constantize
       foreign_record  = model.name.underscore
@@ -100,40 +100,41 @@ class BackendController < BaseController
       end
 
       haml  = ""
-      haml << "-if items.count > 0\n"
+      haml << "- if items.count > 0\n"
       haml << "  %ul.items-list\n"
-      haml << "    -for item in items.limit(items.count > #{(max*1.5).round} ? #{max} : #{max*2})\n"
+      haml << "    - for item in items.limit(items.count > #{(max*1.5).round} ? #{max} : #{max*2})\n"
       haml << "      %li.item{'data-item-label' => #{item_label}, 'data-item-id' => item.id}\n"
       if options[:partial]
-        haml << "        =render :partial => '#{partial}', :object => item\n"
+        haml << "        = render '#{partial}', :item => item\n"
       else
-        haml << "        =highlight(#{item_label}, keys)\n"
+        haml << "        = highlight(#{item_label}, keys)\n"
       end
-      haml << "  -if items.count > #{(max*1.5).round}\n"
+      haml << "  - if items.count > #{(max*1.5).round}\n"
       haml << "    %span.items-status.items-status-too-many-records\n"
-      haml << "      =I18n.t('labels.x_items_remain_on_y', :count => (items.count - #{max}))\n"
-      haml << "-else\n"
+      haml << "      = I18n.t('labels.x_items_remain_on_y', :count => (items.count - #{max}))\n"
+      haml << "- else\n"
       haml << "  %ul.items-list\n"
       unless fill_in.nil?
-        haml << "    -unless search.blank?\n"
-        haml << "      %li.item.special{'data-new-item' => search, 'data-new-item-parameter' => '#{fill_in}'}=I18n.t('labels.add_x', :x => content_tag(:strong, search)).html_safe\n"
+        haml << "    - unless search.blank?\n"
+        haml << "      %li.item.special{'data-new-item' => search, 'data-new-item-parameter' => '#{fill_in}'}= I18n.t('labels.add_x', :x => content_tag(:strong, search)).html_safe\n"
       end
-      haml << "    %li.item.special{'data-new-item' => ''}=I18n.t('labels.add_#{model.name.underscore}', :default => [:'labels.add_new_record'])\n"
+      haml << "    %li.item.special{'data-new-item' => ''}= I18n.t('labels.add_#{model.name.underscore}', :default => [:'labels.add_new_record'])\n"
       # haml << "  %span.items-status.items-status-empty\n"
       # haml << "    =I18n.t('labels.no_results')\n"
 
       # Write haml in cache
-      file_name = (name || "__default__").to_s
-      dir = Rails.root.join("tmp", "cache", "unroll", *(self.name.underscore.gsub(/_controller$/, '').split('/')))
-      FileUtils.mkdir_p(dir)
-      File.open(dir.join("#{file_name}.html.haml"), "wb") do |f|
+      path = self.controller_path.split('/')
+      path[-1] << ".html.haml"
+      view = Rails.root.join("tmp", "unroll", *path)
+      FileUtils.mkdir_p(view.dirname)
+      File.open(view, "wb") do |f|
         f.write(haml)
       end
-      method_name = "unroll#{'_' + name.to_s if name}".to_sym
-      @unrolls ||= []
-      @unrolls << method_name
+      # method_name = "unroll#{'_' + name.to_s if name}".to_sym
+      # @unrolls ||= []
+      # @unrolls << method_name
 
-      code  = "def #{method_name}\n"
+      code  = "def unroll\n"
       code << "  conditions = []\n"
       code << "  keys = params[:q].to_s.strip.mb_chars.downcase.normalize.split(/[\\s\\,]+/)\n"
       # code << "  # " + columns.collect{|c| c[:column].name}.to_sentence + "\n"
@@ -150,20 +151,30 @@ class BackendController < BaseController
         code << "    end\n"
         code << "    conditions[0] << ')'\n"
       else
-        ActiveSupport::Deprecation.warn("No searchable columns for #{self.controller_path}##{method_name}")
+        logger.error("No searchable columns for #{self.controller_path}#unroll")
       end
       code << "  end\n"
-      code << "  items = #{model.name}#{'.' + scope_name.to_s if scope_name}.where(conditions)\n"
+
+      code << "  items = #{model.name}\n"
+      code << "  if scope = params[:scope]\n"
+      code << "    if #{model.name}.scopes.is_a?(Array) and #{model.name}.scopes.include?(scope.to_sym)\n"
+      code << "      items = items.send(scope)\n"
+      code << "    else\n"
+      code << "      logger.error(\"Scope \#{scope.inspect} is unknown for #{model.name}\")\n"
+      code << "      head :forbidden\n"
+      code << "    end\n"
+      code << "  end\n"
+      code << "  items = items.where(conditions)\n"
 
       code << "  respond_to do |format|\n"
-      code << "    format.html { render :file => '#{dir.join(file_name).relative_path_from(Rails.root)}', :locals => { :items => items, :keys => keys, :search => params[:q].to_s.capitalize.strip }, :layout => false }\n"
+      code << "    format.html { render :file => '#{view.relative_path_from(Rails.root)}', :locals => { :items => items, :keys => keys, :search => params[:q].to_s.capitalize.strip }, :layout => false }\n"
       code << "    format.json { render :json => items.collect{|item| {:label => #{item_label}, :id => item.id}}.to_json }\n"
       code << "    format.xml  { render  :xml => items.collect{|item| {:label => #{item_label}, :id => item.id}}.to_xml }\n"
       code << "  end\n"
       code << "end"
       # puts code
       class_eval(code)
-      return method_name
+      return :unroll
     end
 
 
@@ -464,13 +475,28 @@ class BackendController < BaseController
     code << "respond_to :html, :xml, :json\n"
     # code << "respond_to :pdf, :odt, :ods, :csv, :docx, :xlsx, :only => [:show, :index]\n"
 
+    code << "def show\n"
+    code << "  head :forbidden\n"
+    code << "end\n"
+
+    code << "def index\n"
+    code << "  head :forbidden\n"
+    code << "end\n"
+
+    code << "def #{record_name}_params\n"
+    code << "  params.require(:#{record_name}).permit!\n"
+    code << "end\n"
+    code << "private :#{record_name}_params\n"
+
 
     code << "def new\n"
-    values = model.accessible_attributes.to_a.inject({}) do |hash, attr|
+    # values = model.accessible_attributes.to_a.inject({}) do |hash, attr|
+    values = model.content_columns.map(&:name).to_a.inject({}) do |hash, attr|
       hash[attr] = "params[:#{attr}]" unless attr.blank? or attr.to_s.match(/_attributes$/)
       hash
     end.merge(defaults).collect{|k,v| ":#{k} => (#{v})"}.join(", ")
     code << "  @#{record_name} = #{model.name}.new(#{values})\n"
+    # code << "  @#{record_name} = #{model.name}.new(#{record_name}_params)\n"
     if xhr
       code << "  if request.xhr?\n"
       code << "    render :partial => #{xhr.is_a?(String) ? xhr.inspect : 'detail_form'.inspect}\n"
@@ -484,7 +510,7 @@ class BackendController < BaseController
 
     code << "def create\n"
     # code << "  raise params.inspect\n"
-    code << "  @#{record_name} = #{model.name}.new(params[:#{record_name}])\n"
+    code << "  @#{record_name} = #{model.name}.new(#{record_name}_params)\n" # params[:#{record_name}]
     # code << "  @#{record_name}.save!\n"
     code << "  return if save_and_redirect(@#{record_name}#{', :url => '+url if url})\n"
     # code << "  raise params.inspect\n"
@@ -501,7 +527,7 @@ class BackendController < BaseController
     code << "def update\n"
     code << "  return unless @#{record_name} = find_and_check(:#{name})\n"
     code << "  t3e(@#{record_name}.attributes"+(t3e ? ".merge("+t3e.collect{|k,v| ":#{k} => (#{v.gsub(/RECORD/, '@' + record_name)})"}.join(", ")+")" : "")+")\n"
-    code << "  @#{record_name}.attributes = params[:#{record_name}]\n"
+    code << "  @#{record_name}.attributes = #{record_name}_params\n" # params[:#{record_name}]
     code << "  return if save_and_redirect(@#{record_name}#{', :url => ('+url+')' if url})\n"
     code << "  #{render_form}\n"
     code << "end\n"

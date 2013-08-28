@@ -37,7 +37,7 @@
 
 
 class Department < Ekylibre::Record::Base
-  attr_accessible :name, :description, :sales_conditions, :parent_id
+  # attr_accessible :name, :description, :sales_conditions, :parent_id
   has_many :employees, :class_name => "Entity"
   acts_as_nested_set
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.

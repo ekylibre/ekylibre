@@ -39,7 +39,7 @@
 
 # Sources are stored in private/document_templates/:id/content.xml
 class DocumentTemplate < Ekylibre::Record::Base
-  attr_accessible :active, :archiving, :by_default, :language, :name, :nature, :managed, :source, :formats
+  # attr_accessible :active, :archiving, :by_default, :language, :name, :nature, :managed, :source, :formats
   enumerize :archiving, :in => [:none_of_template, :first_of_template, :last_of_template, :all_of_template, :none, :first, :last, :all], :default => :none, :predicates => {:prefix => true}
   enumerize :nature, :in => Nomen::DocumentNatures.all, :predicates => {:prefix => true}
   has_many :document_archives, :foreign_key => :template_id, :dependent => :nullify
@@ -103,15 +103,15 @@ class DocumentTemplate < Ekylibre::Record::Base
   # Updates archiving methods of other templates of same nature
   after_save do
     if self.archiving.to_s =~ /\_of\_template$/
-      self.class.update_all("archiving = archiving || '_of_template'", ["nature = ? AND NOT archiving LIKE ? AND id != ?", self.nature, "%_of_template", self.id])
+      self.class.where("nature = ? AND NOT archiving LIKE ? AND id != ?", self.nature, "%_of_template", self.id).update_all("archiving = archiving || '_of_template'")
     else
-      self.class.update_all({:archiving => self.archiving}, ["nature = ? AND id != ?", self.nature, self.id])
+      self.class.where("nature = ? AND id != ?", self.nature, self.id).update_all(:archiving => self.archiving)
     end
   end
 
   # Always after protect on destroy
   after_destroy do
-    if File.exist?(self.source_dir)
+    if self.source_dir.exist?
       FileUtils.rm_rf(self.source_dir)
     end
   end
@@ -176,7 +176,7 @@ class DocumentTemplate < Ekylibre::Record::Base
       # Find exisiting document
       document = Document.where(:nature => self.nature, :key => key).first
       # Create document if not exist
-      document ||= Document.create!({:nature => self.nature, :key => key, :name => (options[:name] || tc('document_name', :nature => self.nature.text, :key => key))}, :without_protection => true)
+      document ||= Document.create!(:nature => self.nature, :key => key, :name => (options[:name] || tc('document_name', :nature => self.nature.text, :key => key))) # }, :without_protection => true)
 
       # Removes old archives if only keepping last archive
       if self.archiving_last? or self.archiving_last_of_template?
@@ -214,7 +214,7 @@ class DocumentTemplate < Ekylibre::Record::Base
         if source.exist?
           File.open(source, "rb:UTF-8") do |f|
             unless template = self.where(:nature => nature, :managed => true).first
-              template = self.new({:nature => nature, :managed => true, :active => true, :by_default => false, :archiving => "last"}, :without_protection => true)
+              template = self.new(:nature => nature, :managed => true, :active => true, :by_default => false, :archiving => "last")
             end
             manageds.delete(template.id)
             template.attributes = {:source => f, :language => locale}

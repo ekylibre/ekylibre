@@ -41,7 +41,7 @@
 
 # ProductPrice stores all the prices used in sales and purchases.
 class ProductPrice < Ekylibre::Record::Base
-  attr_accessible :listing_id, :product_id, :variant_id, :pretax_amount, :amount, :tax_id, :currency, :supplier_id
+  # attr_accessible :listing_id, :product_id, :variant_id, :pretax_amount, :amount, :tax_id, :currency, :supplier_id
   belongs_to :product
   belongs_to :variant, :class_name => "ProductNatureVariant"
   belongs_to :supplier, :class_name => "Entity"

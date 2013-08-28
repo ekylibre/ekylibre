@@ -67,7 +67,7 @@
 #
 
 class User < Ekylibre::Record::Base
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :first_name, :last_name, :employed
+  # attr_accessible :email, :password, :password_confirmation, :remember_me, :first_name, :last_name, :employed
   attr_readonly :person_id
   belongs_to :department
   belongs_to :establishment
@@ -96,7 +96,7 @@ class User < Ekylibre::Record::Base
   validates_confirmation_of :password
   validates_numericality_of :maximal_grantable_reduction_percentage, :greater_than_or_equal_to => 0, :less_than_or_equal_to => 100
   validates_uniqueness_of :email
-  # validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i, :if => lambda{|r| !r.email.blank?}
+  # validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, :if => lambda{|r| !r.email.blank?}
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable, :registerable

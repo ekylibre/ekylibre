@@ -38,7 +38,7 @@
 #
 
 class Meeting < Event
-  attr_accessible :duration, :place, :name, :meeting_nature_id, :started_at, :stopped_at
+  # attr_accessible :duration, :place, :name, :meeting_nature_id, :started_at, :stopped_at
   # belongs_to :entity
   belongs_to :meeting_nature
   has_many :participations, :class_name => "MeetingParticipation"

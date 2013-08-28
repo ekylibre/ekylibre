@@ -42,7 +42,7 @@
 
 class CustomField < Ekylibre::Record::Base
   acts_as_list :scope => 'customized_type = \'#{customized_type}\''
-  attr_accessible :active, :maximal_length, :minimal_length, :maximal_value, :minimal_value, :name, :nature, :position, :required, :customized_type, :choices_attributes
+  # attr_accessible :active, :maximal_length, :minimal_length, :maximal_value, :minimal_value, :name, :nature, :position, :required, :customized_type, :choices_attributes
   attr_readonly :nature
   enumerize :nature, :in => [:text, :decimal, :boolean, :date, :datetime, :choice], :predicates => true
   enumerize :customized_type, :in => Ekylibre.model_names, :predicates => {:prefix => true}
@@ -58,7 +58,7 @@ class CustomField < Ekylibre::Record::Base
   validates_inclusion_of :nature, :in => self.nature.values
   validates_inclusion_of :customized_type, :in => self.customized_type.values
   validates_uniqueness_of :column_name, :scope => [:customized_type]
-  validates_format_of :column_name, :with => /^(\_[a-z]+)+$/
+  validates_format_of :column_name, :with => /\A(\_[a-z]+)+\z/
   validates_presence_of :column_name
 
   accepts_nested_attributes_for :choices

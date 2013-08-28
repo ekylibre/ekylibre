@@ -45,7 +45,7 @@
 
 
 class SaleNature < Ekylibre::Record::Base
-  attr_accessible :name, :active, :currency, :downpayment, :downpayment_minimum, :downpayment_percentage, :expiration_delay, :journal_id, :payment_delay, :payment_mode_complement, :payment_mode_id, :sales_conditions, :with_accounting
+  # attr_accessible :name, :active, :currency, :downpayment, :downpayment_minimum, :downpayment_percentage, :expiration_delay, :journal_id, :payment_delay, :payment_mode_complement, :payment_mode_id, :sales_conditions, :with_accounting
   belongs_to :journal
   belongs_to :payment_mode, :class_name => "IncomingPaymentMode"
   has_many :sales

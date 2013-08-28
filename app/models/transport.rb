@@ -42,7 +42,7 @@
 
 class Transport < Ekylibre::Record::Base
   acts_as_numbered
-  attr_accessible :description, :purchase_id, :reference_number, :responsible_id, :transport_on, :transporter_id, :weight
+  # attr_accessible :description, :purchase_id, :reference_number, :responsible_id, :transport_on, :transporter_id, :weight
   belongs_to :responsible, :class_name => "User"
   belongs_to :transporter, :class_name => "Entity"
   has_many :deliveries, :dependent => :nullify, :class_name => "OutgoingDelivery"

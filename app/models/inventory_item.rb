@@ -38,7 +38,7 @@
 
 
 class InventoryItem < Ekylibre::Record::Base
-  attr_accessible :product_id, :quantity, :unit, :building_id
+  # attr_accessible :product_id, :quantity, :unit, :building_id
   belongs_to :inventory, :inverse_of => :items
   belongs_to :product
   belongs_to :move, :class_name => "ProductMove"

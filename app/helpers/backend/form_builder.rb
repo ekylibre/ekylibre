@@ -31,7 +31,8 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
     return self.association(association) if options[:field] == :hidden
 
     choices = options[:source] || {}
-    choices = {:action => "unroll_#{choices.to_s}".to_sym} unless choices.is_a?(Hash)
+    # choices = {:action => "unroll_#{choices.to_s}".to_sym} unless choices.is_a?(Hash)
+    choices = {:scope => choices.to_sym} unless choices.is_a?(Hash)
     choices[:action] ||= :unroll
     choices[:controller] ||= reflection.class_name.underscore.pluralize
 

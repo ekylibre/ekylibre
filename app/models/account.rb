@@ -38,7 +38,7 @@
 
 
 class Account < Ekylibre::Record::Base
-  attr_accessible :name, :number, :reconcilable, :description, :debtor, :usages
+  # attr_accessible :name, :number, :reconcilable, :description, :debtor, :usages
   @@references = []
   attr_readonly :number
   # has_many :account_balances
@@ -66,7 +66,7 @@ class Account < Ekylibre::Record::Base
   validates_inclusion_of :debtor, :reconcilable, :in => [true, false]
   validates_presence_of :label, :name, :number
   #]VALIDATORS]
-  validates_format_of :number, :with => /^\d(\d(\d[0-9A-Z]*)?)?$/
+  validates_format_of :number, :with => /\A\d(\d(\d[0-9A-Z]*)?)?\z/
   validates_uniqueness_of :number
 
   default_scope order(:number, :name)

@@ -36,7 +36,7 @@
 
 
 class BankStatement < Ekylibre::Record::Base
-  attr_accessible :cash_id, :number, :started_on, :stopped_on
+  # attr_accessible :cash_id, :number, :started_on, :stopped_on
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :credit, :debit, :allow_nil => true
   validates_length_of :number, :allow_nil => true, :maximum => 255

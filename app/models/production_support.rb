@@ -33,7 +33,7 @@
 #  updater_id    :integer
 #
 class ProductionSupport < Ekylibre::Record::Base
-  attr_accessible :storage_id, :production_id
+  # attr_accessible :storage_id, :production_id
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_inclusion_of :exclusive, :in => [true, false]
   validates_presence_of :production, :storage

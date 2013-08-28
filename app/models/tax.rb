@@ -38,7 +38,7 @@
 
 
 class Tax < Ekylibre::Record::Base
-  attr_accessible :name, :nature, :collected_account_id, :description, :included, :paid_account_id, :reductible, :amount
+  # attr_accessible :name, :nature, :collected_account_id, :description, :included, :paid_account_id, :reductible, :amount
   attr_readonly :nature, :amount
   enumerize :nature, :in => [:amount, :percentage], :default => :percentage, :predicates => true
   belongs_to :collected_account, :class_name => "Account"

@@ -51,7 +51,7 @@
 
 class SaleItem < Ekylibre::Record::Base
   after_save :set_reduction
-  attr_accessible :annotation, :price_amount, :price_id, :product_id, :quantity, :reduction_percentage, :sale_id, :tax_id, :unit
+  # attr_accessible :annotation, :price_amount, :price_id, :product_id, :quantity, :reduction_percentage, :sale_id, :tax_id, :unit
   attr_readonly :sale_id
   belongs_to :account
   belongs_to :entity

@@ -1,6 +1,6 @@
 class IndicatorDatum < Ekylibre::Record::Base
   self.abstract_class = true
-  attr_accessible :value, :indicator, :measured_at, :geometry_value, :decimal_value, :measure_value_unit, :measure_value_value, :string_value, :boolean_value, :choice_value
+  # attr_accessible :value, :indicator, :measured_at, :geometry_value, :decimal_value, :measure_value_unit, :measure_value_value, :string_value, :boolean_value, :choice_value
 
 
   enumerize :indicator, :in => Nomen::Indicators.all, :default => Nomen::Indicators.default, :predicates => {:prefix => true}

@@ -47,7 +47,7 @@
 
 class PurchaseItem < Ekylibre::Record::Base
   acts_as_list :scope => :purchase
-  attr_accessible :annotation, :price_id, :product_id, :quantity, :tracking_serial, :price_amount, :purchase_id, :tax_id, :unit
+  # attr_accessible :annotation, :price_id, :product_id, :quantity, :tracking_serial, :price_amount, :purchase_id, :tax_id, :unit
   belongs_to :account
   belongs_to :building, :foreign_key => :warehouse_id
   belongs_to :purchase, :inverse_of => :items

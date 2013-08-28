@@ -1,7 +1,7 @@
 # encoding: UTF-8
 require 'test_helper'
 
-class ModelsTest < Test::Unit::TestCase
+class ModelsTest < ActiveSupport::TestCase
 
   # Checks the validity of references files for models
   def test_ekylibre_models

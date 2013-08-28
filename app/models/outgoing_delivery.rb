@@ -40,7 +40,7 @@
 
 
 class OutgoingDelivery < Ekylibre::Record::Base
-  attr_accessible :address_id, :description, :mode_id, :reference_number, :sale_id, :sent_at
+  # attr_accessible :address_id, :description, :mode_id, :reference_number, :sale_id, :sent_at
   attr_readonly :sale_id, :number
   belongs_to :address, :class_name => "EntityAddress"
   belongs_to :mode, :class_name => "OutgoingDeliveryMode"

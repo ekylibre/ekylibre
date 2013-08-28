@@ -36,7 +36,7 @@
 
 
 class ProductProcessPhase < Ekylibre::Record::Base
-  attr_accessible :process_id, :name, :position, :phase_delay, :nature, :description
+  # attr_accessible :process_id, :name, :position, :phase_delay, :nature, :description
   enumerize :nature, :in => [:life, :production, :environment]
   belongs_to :process, :class_name => "ProductProcess"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.

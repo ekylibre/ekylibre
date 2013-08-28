@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # = Informations
 #
 # == License
@@ -66,9 +67,9 @@
 
 
 class Sale < Ekylibre::Record::Base
-  attr_accessible :address_id, :annotation, :client_id, :description, :conclusion, :delivery_address_id, :function_title, :introduction, :invoice_address_id, :items_attributes, :letter_format, :nature_id, :reference_number, :responsible_id, :subject, :sum_method, :transporter_id
+  # attr_accessible :address_id, :annotation, :client_id, :description, :conclusion, :delivery_address_id, :function_title, :introduction, :invoice_address_id, :items_attributes, :letter_format, :nature_id, :reference_number, :responsible_id, :subject, :sum_method, :transporter_id
   attr_readonly :created_on, :currency
-  attr_protected :pretax_amount, :amount
+  # attr_protected :pretax_amount, :amount
   belongs_to :client, :class_name => "Entity"
   belongs_to :payer, :class_name => "Entity", :foreign_key => :client_id
   belongs_to :address, :class_name => "EntityAddress"

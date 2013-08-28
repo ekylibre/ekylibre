@@ -46,7 +46,7 @@
 
 
 class TaxDeclaration < Ekylibre::Record::Base
-  attr_accessible :address, :started_on, :stopped_on
+  # attr_accessible :address, :started_on, :stopped_on
   belongs_to :financial_year
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :acquisition_amount, :amount, :assimilated_taxes_amount, :balance_amount, :collected_amount, :paid_amount, :allow_nil => true

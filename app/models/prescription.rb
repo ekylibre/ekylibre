@@ -33,7 +33,7 @@
 #  updater_id       :integer
 #
 class Prescription < Ekylibre::Record::Base
-  attr_accessible :reference_number, :prescriptor_id, :document_id, :delivered_on, :description
+  # attr_accessible :reference_number, :prescriptor_id, :document_id, :delivered_on, :description
   belongs_to :document
   belongs_to :prescriptor, :class_name => "Entity"
   has_many :procedures, :inverse_of => :prescription

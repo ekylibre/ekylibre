@@ -51,7 +51,7 @@
 #
 
 class Asset < Ekylibre::Record::Base
-  attr_accessible :name, :started_on, :stopped_on, :description, :currency, :depreciation_method
+  # attr_accessible :name, :started_on, :stopped_on, :description, :currency, :depreciation_method
   acts_as_numbered
   enumerize :depreciation_method, :in => [:simplified_linear, :linear], :predicates => {:prefix => true} # graduated
   belongs_to :charges_account, :class_name => "Account"
