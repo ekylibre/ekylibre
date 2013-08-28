@@ -58,7 +58,7 @@ class Procedure < Ekylibre::Record::Base
   # @TODO in progress - need to call parent procedure to have the name of the procedure_nature
 
   scope :of_nature, lambda { |*natures|
-    where("natures ~ E?", natures.sort.map { |nature| "\\\\m#{nature.gsub(/\W/, '')}\\\\M" }.join(".*"))
+    where("natures ~ E?", natures.sort.map { |nature| "\\\\m#{nature.to_s.gsub(/\W/, '')}\\\\M" }.join(".*"))
   }
   # scope :of_nature, lambda { |nature|
   #   raise ArgumentError.new("Unknown nature #{nature.inspect}") unless Nomen::ProcedureNatures[nature]

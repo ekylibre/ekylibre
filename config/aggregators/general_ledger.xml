@@ -2,68 +2,22 @@
 <aggregators xmlns="http://www.ekylibre.org/XML/2013/aggregators">
   <aggregator name="general_ledger" version="0.0" category="exploitation">
     <parameters>
-      <parameter name="financial_years" type="record-list" of="financial_year" default="currents"/>
-      <parameter name="started_on" type="date" default="Date.today"/>
+      <parameter name="started_on" type="date" default="Date.today - 12.months"/>
       <parameter name="stopped_on" type="date" default="Date.today"/>
     </parameters>
     <section name="financial_years">
       <variable name="company" value="Entity.of_company"/>
       <property name="entity_name" value="company.full_name"/>
       <property name="address" value="company.default_mail_address.coordinate"/>
-      <sections for="financial_year" in="financial_years">
+      <sections for="financial_year" in="FinancialYear.currents">
         <property name="id" of="financial_year" level="api"/>
-        <title name="name" of="financial_year"/>
-        <sections for="intervention" in="campaign.procedures.of_nature(:animal_care)">
-          <variable name="target" value="intervention.variables.of_role(:target).first.target"/>
-          <variable name="worker" value="intervention.variables.of_role(:worker).first.target"/>
-          <title name="name" of="intervention"/>
-          <property name="id" of="intervention" level="api"/>
-          <property name="started_at" of="intervention" type="datetime"/>
-          <property name="stopped_at" of="intervention" type="datetime"/>
-          <property name="duration" value="((intervention.stopped_at - intervention.started_at).to_d/(60*60*24)).round(2)" type="decimal"/>
-          <section name="target" of="target">
-            <property name="identification_number"/>
-            <title name="name"/>
-            <property name="id" level="api"/>
-            <property name="type" level="api"/>
-            <property name="url" value="id" level="api" type="url"/>
-          </section>
-          <section name="worker" of="worker">
-            <property name="identification_number"/>
-            <title name="name" of-type="record"/>
-            <property name="id" level="api"/>
-            <property name="person_id" level="api"/>
-          </section>
-          <section name="incident" of="intervention.incident" of-type="record">
-            <property name="id" level="api"/>
-            <title name="name"/>
-            <property name="observed_at" type="datetime"/>
-            <property name="state" level="api"/>
-            <property name="description"/>
-          </section>
-          <section name="prescription" of="intervention.prescription">
-            <property name="id" level="api"/>
-            <title name="reference_number"/>
-            <property name="prescriptor_name"/>
-          </section>
-          <matrix name="inputs" for="input" in="intervention.variables.of_role(:input)">
-            <variable name="meat_withdrawal_period" value="input.target.meat_withdrawal_period"/>
-            <variable name="milk_withdrawal_period" value="input.target.milk_withdrawal_period"/>
-            <cell name="id" of="input" level="api"/>
-            <within of="input.target">
-              <cell name="name"/>
-              <cell name="variety" level="api"/>
-            </within>
-            <cell name="quantity" of="input" type="measure"/>
-            <matrix name="withdrawal_periods">
-              <cell name="meat_withdrawal_period" value="meat_withdrawal_period" type="measure"/>
-              <cell name="milk_withdrawal_period" value="milk_withdrawal_period" type="measure"/>
-            </matrix>
-            <matrix name="sale_dates">
-              <cell name="meat_saleable_on" value="(intervention.stopped_at + meat_withdrawal_period.to_d.send(meat_withdrawal_period.unit)).to_date" type="date"/>
-              <cell name="milk_saleable_on" value="(intervention.stopped_at + milk_withdrawal_period.to_d.send(milk_withdrawal_period.unit)).to_date" type="date"/>
-            </matrix>
-          </matrix>
+        <title name="code" of="financial_year"/>
+        <sections for="account" in="Account.all">
+          <variable name="balance" value="account.journal_entry_items_calculate(:balance, started_on, stopped_on)"/>
+          <title name="label" of="account"/>
+          <property name="id" of="account" level="api"/>
+          <property name="number" of="account"/>
+          <property name="name" of="account"/>          
         </sections>
       </sections>
     </section>

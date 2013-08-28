@@ -121,7 +121,10 @@ class FinancialYear < Ekylibre::Record::Base
     JournalEntry.find(:all, :conditions=>["printed_on BETWEEN ? AND ? #{conditions}", self.started_on, self.stopped_on])
   end
 
-
+  def name
+    self.code
+  end
+  
   def default_code
     tc("code."+(self.started_on.year!=self.stopped_on.year ? "double" : "single"), :first_year=>self.started_on.year, :second_year=>self.stopped_on.year)
   end
