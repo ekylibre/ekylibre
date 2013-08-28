@@ -373,7 +373,7 @@ GEM
     turbolinks (1.3.0)
       coffee-rails
     tzinfo (0.3.37)
-    uglifier (2.2.0)
+    uglifier (2.2.1)
       execjs (>= 0.3.0)
       multi_json (~> 1.0, >= 1.0.2)
     unf (0.1.2)
@@ -448,7 +448,7 @@ DEPENDENCIES
   rspec-expectations
   rubyzip
   sass-rails (~> 4.0.0)
-  savon (~> 2.2.0)
+  savon (~> 2.2)
   sdoc
   selenium-webdriver
   shoulda-context

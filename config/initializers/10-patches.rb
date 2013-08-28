@@ -190,26 +190,26 @@ module ActiveModel
     #     end
 
 
-    def add(attribute, message = nil, options = {})
-      message ||= :invalid
+    # def add(attribute, message = nil, options = {})
+    #   message ||= :invalid
 
-      if message.is_a?(Symbol)
-        message = generate_message(attribute, message, options.except(*CALLBACKS_OPTIONS))
-      elsif message.is_a?(Proc)
-        message = message.call
-      elsif !options.delete(:forced)
-        raise ArgumentError.new("Symbol or Proc expected, #{message.inspect} received.")
-      end
+    #   if message.is_a?(Symbol)
+    #     message = generate_message(attribute, message, options.except(*CALLBACKS_OPTIONS))
+    #   elsif message.is_a?(Proc)
+    #     message = message.call
+    #   elsif !options.delete(:forced)
+    #     raise ArgumentError.new("Symbol or Proc expected, #{message.inspect} received.")
+    #   end
 
-      self[attribute] << message
-    end
+    #   self[attribute] << message
+    # end
 
-    def add_from_record(record)
-      record.errors.each do |attribute, message|
-        self[attribute] ||= []
-        self[attribute] << message
-      end
-    end
+    # def add_from_record(record)
+    #   record.errors.each do |attribute, message|
+    #     self[attribute] ||= []
+    #     self[attribute] << message
+    #   end
+    # end
 
     # Returns all the full error messages in an array.
     #
@@ -221,31 +221,31 @@ module ActiveModel
     #   company = Company.create(:address => '123 First St.')
     #   company.errors.full_messages # =>
     #     ["Name is too short (minimum is 5 characters)", "Name can't be blank", "Address can't be blank"]
-    def full_messages(options = {})
-      full_messages = []
-      each do |attribute, messages|
-        messages = Array.wrap(messages)
-        full_messages += messages
-      end
-      full_messages
-    end
+    # def full_messages(options = {})
+    #   full_messages = []
+    #   each do |attribute, messages|
+    #     messages = Array.wrap(messages)
+    #     full_messages += messages
+    #   end
+    #   full_messages
+    # end
 
   end
 end
 
 
 
-ActionView::Base.field_error_proc = Proc.new do |html_tag, instance|
-  msg = instance.error_message
-  error_class = 'invalid'
+# ActionView::Base.field_error_proc = Proc.new do |html_tag, instance|
+#   msg = instance.error_message
+#   error_class = 'invalid'
 
-  if html_tag =~ /<(input|textarea|select)[^>]+class=/
-    class_attribute = html_tag =~ /class=['"]/
-    html_tag.insert(class_attribute + 7, "#{error_class} ")
-  elsif html_tag =~ /<(input|textarea|select)/
-    first_whitespace = html_tag =~ /\s/
-    html_tag[first_whitespace] = " class=\"#{error_class}\" "
-  end
+#   if html_tag =~ /<(input|textarea|select)[^>]+class=/
+#     class_attribute = html_tag =~ /class=['"]/
+#     html_tag.insert(class_attribute + 7, "#{error_class} ")
+#   elsif html_tag =~ /<(input|textarea|select)/
+#     first_whitespace = html_tag =~ /\s/
+#     html_tag[first_whitespace] = " class=\"#{error_class}\" "
+#   end
 
-  html_tag
-end
+#   html_tag
+# end

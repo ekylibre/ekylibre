@@ -4,7 +4,7 @@
 I18n.locale = ENV["locale"] || "fra"
 language = I18n.locale
 currency = 'EUR'
-picture_company = Rails.root.join("app", "assets", "images", "ekylibre.jpg")
+picture_company = Rails.root.join("app", "assets", "images", "ekylibre.png")
 user = {}
 user[:first_name] = ENV["first_name"] || "Jean"
 user[:last_name] = ENV["last_name"] || "DUPONT"
