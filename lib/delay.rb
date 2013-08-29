@@ -108,7 +108,10 @@ module ValidatesDelayFormat
 
   module ClassMethods
     def validates_delay_format_of(*attr_names)
-      validates_with ActiveRecord::Base::DelayFormatValidator, _merge_attributes(attr_names)
+      for attr_name in attr_names
+        validate attr_name, delay: true
+      end
+      # validates_with ActiveRecord::Base::DelayFormatValidator, *attr_names
     end
   end
 
