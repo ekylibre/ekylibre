@@ -54,7 +54,7 @@ module Ekylibre
         filename ||= "COMPTA.ECC"
         file = Rails.root.join("tmp", "#{filename}.zip")
 
-        Zip::ZipFile.open(file, Zip::ZipFile::CREATE) do |zile|
+        Zip::File.open(file, Zip::File::CREATE) do |zile|
           zile.get_output_stream(filename) do |f|
             eval(code)
           end

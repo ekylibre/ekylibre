@@ -31,7 +31,7 @@ module Ekylibre
       # backup.add_attributes('records-count'=>n.to_s, 'generation-duration'=>(Time.now.to_i-start).to_s)
       stream = doc.to_s
 
-      Zip::ZipFile.open(file, Zip::ZipFile::CREATE) do |zile|
+      Zip::File.open(file, Zip::File::CREATE) do |zile|
         zile.get_output_stream("backup.xml") { |f| f.puts(stream) }
         files_dir = Document.private_directory
         if with_files and File.exist?(files_dir)
@@ -65,7 +65,7 @@ module Ekylibre
       stream = nil
 
       # Extract all files in archive
-      Zip::ZipFile.open(file) do |zile|
+      Zip::File.open(file) do |zile|
         zile.each do |entry|
           FileUtils.mkdir_p(File.join(archive, entry.name.split(/[\\\/]+/)[0..-2]))
           zile.extract(entry, File.join(archive, entry.name))

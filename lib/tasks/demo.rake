@@ -2,12 +2,15 @@
 module Ekylibre
   DEMOS = [:general_ledger, :buildings, :animals, :land_parcels, :sales, :deliveries, :productions]
 
+  MAX = -1
 
   class FixtureCountExceeded < StandardError
   end
 
   class Fixturize
-    def initialize(max)
+    attr_reader :count
+
+    def initialize(max = -1)
       @count = 0
       @max = max
     end
@@ -15,25 +18,36 @@ module Ekylibre
     def check_point
       @count += 1
       print "."
-      raise FixtureCountExceeded.new if @count >= @max
+      if @max > 0
+        raise FixtureCountExceeded.new if @count >= @max
+      end
     end
   end
 
   def self.fixturize(name, options = {}, &block)
     STDOUT.sync = true
     max = ENV["max"].to_i
-    max = 1_000_000 if max.zero?
+    max = MAX if max.zero?
     f = Fixturize.new(max)
     start = Time.now
+    label_size = options[:label_size] || 32
+    label = name.to_s.humanize.rjust(label_size)
+    if label.size > label_size
+      first = ((label_size - 3).to_f / 2).round
+      label = label[0..(first-1)] + "..." + label[-(label_size - first - 3)..-1]
+      # label = "..." + label[(-label_size + 3)..-1] 
+    end
     # ActiveRecord::Base.transaction do
-    print "#{name.to_s.rjust(32)}: "
+    print "#{label}: "
     begin
       yield(f)
+      print " " * (max - f.count) if max != MAX and f.count < max
+      print "  "
     rescue FixtureCountExceeded => e
       print "! "
-    end
+    end    
     # end
-    puts "#{(Time.now - start).round(2).to_s.rjust(8)}s"
+    puts "#{(Time.now - start).round(2).to_s.rjust(6)}s"
   end
 
 end
