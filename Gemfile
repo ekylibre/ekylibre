@@ -99,7 +99,7 @@ gem 'i18n-complements'
 gem 'nokogiri'
 gem 'libxml-ruby', :require => 'libxml'
 gem 'mechanize'
-gem 'savon', '~> 2.2.0'
+gem 'savon', '~> 2.2'
 
 # Reporting
 # gem 'thinreports-rails'
