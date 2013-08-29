@@ -110,7 +110,7 @@ gem 'prawn', '~> 0.12.0'
 # Import/Export
 gem 'fastercsv'
 gem 'rgeo-shapefile'
-gem 'rubyzip'
+gem 'rubyzip', '< 1.0.0', require: 'zip/zip' # Needed for selenium
 gem 'ofx-parser'
 
 # Demo data
