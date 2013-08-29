@@ -2,24 +2,31 @@
 <aggregators xmlns="http://www.ekylibre.org/XML/2013/aggregators">
   <aggregator name="general_ledger" version="0.0" category="exploitation">
     <parameters>
-      <parameter name="started_on" type="date" default="Date.today - 12.months"/>
-      <parameter name="stopped_on" type="date" default="Date.today"/>
+      <parameter name="started_on" type="date" default="2001-01-01"/>
+      <parameter name="stopped_on" type="date" default="2013-01-01"/>
     </parameters>
     <section name="financial_years">
       <variable name="company" value="Entity.of_company"/>
       <property name="entity_name" value="company.full_name"/>
       <property name="address" value="company.default_mail_address.coordinate"/>
-      <sections for="financial_year" in="FinancialYear.currents">
-        <property name="id" of="financial_year" level="api"/>
-        <title name="code" of="financial_year"/>
-        <sections for="account" in="Account.all">
-          <variable name="balance" value="account.journal_entry_items_calculate(:balance, started_on, stopped_on)"/>
+      <!-- looking for all Account used in journal_entry_items in the current period (started_on, stopped_on) -->
+        <sections for="account" in="Account.order('number ASC')">
           <title name="label" of="account"/>
           <property name="id" of="account" level="api"/>
           <property name="number" of="account"/>
-          <property name="name" of="account"/>          
+          <property name="name" of="account"/>
+          <matrix name="items" for="item" in="account.journal_entry_items.between(started_on, stopped_on)">
+          <cell name="id" of="item" level="api"/>
+          <cell name="name" of="item"/>
+          <within of="item.entry">
+            <cell name="printed_on" type="date"/>
+            <cell name="number" of-type="record"/>
+          </within>
+          <cell name="name" of="item.entry.journal"/>
+          <cell name="debit" of="item"/>
+          <cell name="credit" of="item"/>
+        </matrix> 
         </sections>
-      </sections>
     </section>
   </aggregator>
 </aggregators>
