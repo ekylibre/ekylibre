@@ -76,8 +76,8 @@ class Account < Ekylibre::Record::Base
     self.where("usages ~ E?", "\\\\m#{usage}\\\\M")
   }
   
-  scope :used_in_journal_entry_items, lambda { |started_on, stopped_on|
-    joins(:journal_entry_items => :entry).where("journal_entries.printed_on BETWEEN ? AND ? ", started_on, stopped_on)
+  scope :used_between, lambda { |started_on, stopped_on|
+    where("id IN (SELECT account_id FROM #{JournalEntryItem.table_name} WHERE printed_on BETWEEN ? AND ? )", started_on, stopped_on)
   }
   
   #scope :used_in_journal_entry_items, lambda { |started_on, stopped_on|

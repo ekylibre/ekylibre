@@ -10,22 +10,24 @@
       <property name="entity_name" value="company.full_name"/>
       <property name="address" value="company.default_mail_address.coordinate"/>
       <!-- looking for all Account used in journal_entry_items in the current period (started_on, stopped_on) -->
-        <sections for="account" in="Account.order('number ASC')">
+        <sections for="account" in="Account.used_between(started_on, stopped_on).order('number ASC')">
           <title name="label" of="account"/>
           <property name="id" of="account" level="api"/>
           <property name="number" of="account"/>
           <property name="name" of="account"/>
           <matrix name="items" for="item" in="account.journal_entry_items.between(started_on, stopped_on)">
-          <cell name="id" of="item" level="api"/>
-          <cell name="name" of="item"/>
-          <within of="item.entry">
+            <cell name="id" of="item" level="api"/>
+            <cell name="name" of="item"/>
             <cell name="printed_on" type="date"/>
             <cell name="number" of-type="record"/>
-          </within>
-          <cell name="name" of="item.entry.journal"/>
-          <cell name="debit" of="item"/>
-          <cell name="credit" of="item"/>
-        </matrix> 
+            <cell name="name" of="item.journal"/>
+            <cell name="debit" of="item"/>
+            <cell name="credit" of="item"/>
+            <cell name="currency" of="item"/>
+            <cell name="cumulated_debit" of="item"/>
+            <cell name="cumulated_credit" of="item"/>
+            <cell name="cumulated_currency" of="item"/>
+          </matrix> 
         </sections>
     </section>
   </aggregator>
