@@ -17,8 +17,8 @@
 
       -conditions = eval(controller.class.journal_entries_conditions)
       -totals = {}
-      -totals[:debit]  = JournalEntry.sum(:original_debit, :conditions=>conditions)
-      -totals[:credit] = JournalEntry.sum(:original_credit, :conditions=>conditions)
+      -totals[:debit]  = JournalEntry.sum(:real_debit, :conditions=>conditions)
+      -totals[:credit] = JournalEntry.sum(:real_credit, :conditions=>conditions)
       -totals[:balance_debit] = totals[:balance_credit] = 0.0
       -totals["balance_#{totals[:debit]>totals[:credit] ? 'debit' : 'credit'}".to_sym] = (totals[:debit]-totals[:credit]).abs
 

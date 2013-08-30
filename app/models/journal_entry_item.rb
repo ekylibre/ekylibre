@@ -20,47 +20,59 @@
 #
 # == Table: journal_entry_items
 #
-#  account_id        :integer          not null
-#  balance           :decimal(19, 4)   default(0.0), not null
-#  bank_statement_id :integer
-#  created_at        :datetime         not null
-#  creator_id        :integer
-#  credit            :decimal(19, 4)   default(0.0), not null
-#  debit             :decimal(19, 4)   default(0.0), not null
-#  description       :text
-#  entry_id          :integer          not null
-#  id                :integer          not null, primary key
-#  journal_id        :integer
-#  letter            :string(8)
-#  lock_version      :integer          default(0), not null
-#  name              :string(255)      not null
-#  original_credit   :decimal(19, 4)   default(0.0), not null
-#  original_debit    :decimal(19, 4)   default(0.0), not null
-#  position          :integer
-#  state             :string(32)       default("draft"), not null
-#  updated_at        :datetime         not null
-#  updater_id        :integer
+#  absolute_credit           :decimal(19, 4)   default(0.0), not null
+#  absolute_currency         :string(3)        not null
+#  absolute_debit            :decimal(19, 4)   default(0.0), not null
+#  account_id                :integer          not null
+#  balance                   :decimal(19, 4)   default(0.0), not null
+#  bank_statement_id         :integer
+#  created_at                :datetime         not null
+#  creator_id                :integer
+#  credit                    :decimal(19, 4)   default(0.0), not null
+#  cumulated_absolute_credit :decimal(19, 4)   default(0.0), not null
+#  cumulated_absolute_debit  :decimal(19, 4)   default(0.0), not null
+#  currency                  :string(3)        not null
+#  debit                     :decimal(19, 4)   default(0.0), not null
+#  description               :text
+#  entry_id                  :integer          not null
+#  entry_number              :string(255)      not null
+#  financial_year_id         :integer          not null
+#  id                        :integer          not null, primary key
+#  journal_id                :integer          not null
+#  letter                    :string(8)
+#  lock_version              :integer          default(0), not null
+#  name                      :string(255)      not null
+#  position                  :integer
+#  printed_on                :date             not null
+#  real_credit               :decimal(19, 4)   default(0.0), not null
+#  real_currency             :string(3)        not null
+#  real_currency_rate        :decimal(19, 10)  default(0.0), not null
+#  real_debit                :decimal(19, 4)   default(0.0), not null
+#  state                     :string(32)       not null
+#  updated_at                :datetime         not null
+#  updater_id                :integer
 #
 
 
 class JournalEntryItem < Ekylibre::Record::Base
-  # attr_accessible :entry_id, :journal_id, :original_credit, :original_debit, :account_id, :name
+  # attr_accessible :entry_id, :journal_id, :real_credit, :real_debit, :account_id, :name
   attr_readonly :entry_id, :journal_id, :state
   belongs_to :account
   belongs_to :journal, :inverse_of => :entry_items
   belongs_to :entry, :class_name => "JournalEntry", :inverse_of => :items
   belongs_to :bank_statement
   has_many :repartitions, :class_name => "AnalyticRepartition", :foreign_key => :journal_entry_item_id
-  delegate :original_currency, :to => :entry
+  # delegate :real_currency, :to => :entry
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :balance, :credit, :debit, :original_credit, :original_debit, :allow_nil => true
+  validates_numericality_of :absolute_credit, :absolute_debit, :balance, :credit, :cumulated_absolute_credit, :cumulated_absolute_debit, :debit, :real_credit, :real_currency_rate, :real_debit, :allow_nil => true
+  validates_length_of :absolute_currency, :currency, :real_currency, :allow_nil => true, :maximum => 3
   validates_length_of :letter, :allow_nil => true, :maximum => 8
   validates_length_of :state, :allow_nil => true, :maximum => 32
-  validates_length_of :name, :allow_nil => true, :maximum => 255
-  validates_presence_of :account, :balance, :credit, :debit, :entry, :name, :original_credit, :original_debit, :state
+  validates_length_of :entry_number, :name, :allow_nil => true, :maximum => 255
+  validates_presence_of :absolute_credit, :absolute_currency, :absolute_debit, :account, :balance, :credit, :cumulated_absolute_credit, :cumulated_absolute_debit, :currency, :debit, :entry, :entry_number, :journal, :name, :printed_on, :real_credit, :real_currency, :real_currency_rate, :real_debit, :state
   #]VALIDATORS]
-  validates_numericality_of :debit, :credit, :original_debit, :original_credit, :greater_than_or_equal_to => 0
+  validates_numericality_of :debit, :credit, :real_debit, :real_credit, :greater_than_or_equal_to => 0
   validates_presence_of :account
   # validates_uniqueness_of :letter, :scope => :account_id, :if => Proc.new{|x| !x.letter.blank?}
 
@@ -85,18 +97,27 @@ class JournalEntryItem < Ekylibre::Record::Base
     self.name = self.name.to_s[0..254]
     # computes the values depending on currency rate
     # for debit and credit.
-    self.original_debit  ||= 0
-    self.original_credit ||= 0
-    currency_rate = nil
+    self.real_debit  ||= 0
+    self.real_credit ||= 0
     if self.entry
-      self.journal_id ||= self.entry.journal_id
-      currency_rate = self.entry.original_currency_rate
-    end
-    unless currency_rate.nil?
-      unless self.closed?
-        self.debit  = self.entry.original_currency.to_currency.round(self.original_debit * currency_rate)
-        self.credit = self.entry.original_currency.to_currency.round(self.original_credit * currency_rate)
+      self.entry_number = self.entry.number
+      for replicated in [:financial_year_id, :printed_on, :journal_id, :state, :real_currency, :real_currency_rate]
+        self.send("#{replicated}=", self.entry.send(replicated))
       end
+      unless self.closed?
+        self.debit  = self.entry.real_currency.to_currency.round(self.real_debit * self.real_currency_rate)
+        self.credit = self.entry.real_currency.to_currency.round(self.real_credit * self.real_currency_rate)
+      end
+    end
+
+    self.absolute_currency ||= self.currency
+    if self.absolute_currency == self.currency
+      self.absolute_debit = self.real_debit
+      self.absolute_credit = self.real_credit
+    end
+    if previous = self.previous
+      self.cumulated_absolute_debit  = previous.cumulated_absolute_debit  + previous.absolute_debit
+      self.cumulated_absolute_credit = previous.cumulated_absolute_credit + previous.absolute_credit
     end
   end
 
@@ -116,6 +137,18 @@ class JournalEntryItem < Ekylibre::Record::Base
     errors.add(:credit, :unvalid_amounts) if self.debit != 0 and self.credit != 0
   end
 
+  before_update do
+    old = self.old_record
+    # Cancel old values if specific columns have been updated
+    if self.absolute_debit != old.absolute_debit or self.absolute_credit != old.absolute_credit or self.printed_on != old.printed_on
+      old.followings.update_all("cumulated_absolute_debit = cumulated_absolute_debit - ?, cumulated_absolute_credit = cumulated_absolute_credit - ?", old.absolute_debit, old.absolute_debit)
+    end
+  end
+
+  after_save do
+    self.followings.update_all("cumulated_absolute_debit = cumulated_absolute_debit + ?, cumulated_absolute_credit = cumulated_absolute_credit + ?", self.absolute_debit, self.absolute_credit)
+  end
+
   protect(:on => :update) do
     not self.closed? and self.entry and self.entry.updateable?
   end
@@ -133,6 +166,26 @@ class JournalEntryItem < Ekylibre::Record::Base
   # for the matching entry.
   def update_entry
     self.entry.refresh
+  end
+
+
+  # Returns the previous item
+  def previous
+    if self.new_record?
+      self.account.journal_entry_items.order("printed_on, id").where("printed_on <= ?", self.printed_on).last
+    else
+      self.account.journal_entry_items.order("printed_on, id").where("(printed_on = ? AND id < ?) OR printed_on <= ?", self.printed_on, self.id, self.printed_on).last      
+    end
+  end
+
+  
+  # Returns following items
+  def followings
+    if self.new_record?
+      self.account.journal_entry_items.where("printed_on > ?", self.printed_on)      
+    else
+      self.account.journal_entry_items.where("(printed_on = ? AND id > ?) OR printed_on > ?", self.printed_on, self.id, self.printed_on)
+    end
   end
 
 
@@ -190,9 +243,9 @@ class JournalEntryItem < Ekylibre::Record::Base
   def next(balance)
     entry_item = JournalEntryItem.new
     if balance > 0
-      entry_item.original_credit = balance.abs
+      entry_item.real_credit = balance.abs
     elsif balance < 0
-      entry_item.original_debit  = balance.abs
+      entry_item.real_debit  = balance.abs
     end
     return entry_item
   end

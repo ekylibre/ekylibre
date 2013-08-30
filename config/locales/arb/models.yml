@@ -40,7 +40,7 @@ arb:
         # asset_amount: "Valeur nette comptable (VNC)"
       bank_statement:  #?
         number: "رقم" #?
-        original_debit: "الدين" #?
+        real_debit: "الدين" #?
         started_on: "من" #?
         stopped_on: "الى" #?
       building:
@@ -279,7 +279,7 @@ arb:
         # closed: "Cloturée"
         comment: "تعليق" #?
         created_at: "انشأت ففي" #?
-        original_credit: "ائتمان" #?
+        real_credit: "ائتمان" #?
       land_parcel:
         # born_at: "Créé le"
         children: "شبه كتل"
@@ -986,6 +986,9 @@ arb:
       # zone_property_title: "Titre de propriété foncière"
   attributes:
     # abilities: "Compétences"
+    # absolute_credit: "Absolute credit"
+    # absolute_currency: "Absolute currency"
+    # absolute_debit: "Absolute debit"
     account: "الحساب"
     account_balances: "ارصدة الحسابات"
     account_id: "حساب" #?
@@ -1539,10 +1542,6 @@ arb:
     origin: "المنشأ"
     origin_id: "المنشأ" #?
     origin_type: "نوع المنشأ"
-    original_credit: "الائتمان"
-    # original_currency: "Monnaie d’origine"
-    # original_currency_rate: "Taux de convertion à partir de la monnaie d’origine"
-    original_debit: "الدين المطلوب"
     original_name: "الاسم الاصلي"
     # outgoing_deliveries: "Livraisons sortantes"
     # outgoing_delivery_items: "Lignes de livraisons sortantes"
@@ -1670,6 +1669,10 @@ arb:
     query: "التساؤل"
     range: "فترة فاصلة" #?
     rate: "معدل سعر الصرف" #?
+    real_credit: "الائتمان"
+    # real_currency: "Real currency"
+    # real_currency_rate: "Real currency rate"
+    real_debit: "الدين المطلوب"
     reason: "الدافع" #?
     receipt: "استلام الكتروني"
     received: "مستلم"

@@ -2,7 +2,7 @@
 -if @financial_year
   -if @journal.currency != @financial_year.currency
     =field_set :exchange_rate do
-      =field :exchange_rate_from_x_to_y.tl(:x => @journal.currency.to_currency.name, :y => @financial_year.currency.to_currency.name), text_field(:journal_entry, :original_currency_rate)
+      =field :exchange_rate_from_x_to_y.tl(:x => @journal.currency.to_currency.name, :y => @financial_year.currency.to_currency.name), text_field(:journal_entry, :real_currency_rate)
 
 =main_toolbar do |t|
   -t.new(:params => {:controller => :journal_entry_items, :printed_on => @journal_entry.printed_on, :journal_id => @journal.id}, :remote => true, "data-update" => "#items", "data-update-at" => :bottom, "data-type" => :html, :method => :get)
@@ -18,8 +18,8 @@
     %tfoot
       %tr#total.total{"data-valid-if-equality-between" => "#entry-original-debit, #entry-original-credit"}
         %th{"colspan" => 2}=tl(:total_in_currency, :currency => @journal.currency.to_currency.name)
-        %td#entry-original-debit.decimal{"colspan" => 2, "data-use" => "input.original-debit"}=@journal_entry.original_debit
-        %td#entry-original-credit.decimal{"colspan" => 2, "data-use" => "input.original-credit"}=@journal_entry.original_credit
+        %td#entry-original-debit.decimal{"colspan" => 2, "data-use" => "input.original-debit"}=@journal_entry.real_debit
+        %td#entry-original-credit.decimal{"colspan" => 2, "data-use" => "input.original-credit"}=@journal_entry.real_credit
 
       -if @financial_year and @journal.currency != @financial_year.currency
         %tr.subtotal{"data-valid-if-equality-between" => "#entry-debit, #entry-credit"}

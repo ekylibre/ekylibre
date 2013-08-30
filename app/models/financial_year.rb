@@ -188,14 +188,14 @@ class FinancialYear < Ekylibre::Record::Base
               result += balance.balance
             elsif balance.balance != 0
               # TODO: Use currencies properly in account_balances !
-              entry.items.create!(:account_id => balance.account_id, :name => balance.account.name, :original_debit => balance.balance_debit, :original_credit => balance.balance_credit)
+              entry.items.create!(:account_id => balance.account_id, :name => balance.account.name, :real_debit => balance.balance_debit, :real_credit => balance.balance_credit)
             end
           end
 
           if result > 0
-            entry.items.create!(:account_id => losses.id, :name => losses.name, :original_debit => result, :original_credit => 0.0)
+            entry.items.create!(:account_id => losses.id, :name => losses.name, :real_debit => result, :real_credit => 0.0)
           elsif result < 0
-            entry.items.create!(:account_id => gains.id, :name => gains.name, :original_debit => 0.0, :original_credit => result.abs)
+            entry.items.create!(:account_id => gains.id, :name => gains.name, :real_debit => 0.0, :real_credit => result.abs)
           end
 
         end

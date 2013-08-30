@@ -915,55 +915,70 @@ ActiveRecord::Schema.define(version: 20130410143823) do
   create_table "journal_entries", force: true do |t|
     t.integer  "resource_id"
     t.string   "resource_type"
-    t.date     "created_on",                                                                    null: false
-    t.date     "printed_on",                                                                    null: false
-    t.string   "number",                                                                        null: false
-    t.decimal  "debit",                             precision: 19, scale: 4,  default: 0.0,     null: false
-    t.decimal  "credit",                            precision: 19, scale: 4,  default: 0.0,     null: false
-    t.integer  "journal_id",                                                                    null: false
-    t.datetime "created_at",                                                                    null: false
-    t.datetime "updated_at",                                                                    null: false
+    t.date     "created_on",                                                            null: false
+    t.date     "printed_on",                                                            null: false
+    t.string   "number",                                                                null: false
+    t.decimal  "debit",                         precision: 19, scale: 4,  default: 0.0, null: false
+    t.decimal  "credit",                        precision: 19, scale: 4,  default: 0.0, null: false
+    t.integer  "journal_id",                                                            null: false
+    t.datetime "created_at",                                                            null: false
+    t.datetime "updated_at",                                                            null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                                default: 0,       null: false
-    t.decimal  "original_debit",                    precision: 19, scale: 4,  default: 0.0,     null: false
-    t.decimal  "original_credit",                   precision: 19, scale: 4,  default: 0.0,     null: false
-    t.decimal  "original_currency_rate",            precision: 19, scale: 10, default: 0.0,     null: false
-    t.string   "state",                  limit: 32,                           default: "draft", null: false
-    t.decimal  "balance",                           precision: 19, scale: 4,  default: 0.0,     null: false
-    t.string   "original_currency",      limit: 3
+    t.integer  "lock_version",                                            default: 0,   null: false
+    t.decimal  "real_debit",                    precision: 19, scale: 4,  default: 0.0, null: false
+    t.decimal  "real_credit",                   precision: 19, scale: 4,  default: 0.0, null: false
+    t.decimal  "real_currency_rate",            precision: 19, scale: 10, default: 0.0, null: false
+    t.string   "state",              limit: 32,                                         null: false
+    t.decimal  "balance",                       precision: 19, scale: 4,  default: 0.0, null: false
+    t.string   "real_currency",      limit: 3
     t.integer  "financial_year_id"
+    t.string   "currency",           limit: 3
+    t.decimal  "absolute_debit",                precision: 19, scale: 4,  default: 0.0, null: false
+    t.decimal  "absolute_credit",               precision: 19, scale: 4,  default: 0.0, null: false
+    t.string   "absolute_currency",  limit: 3
   end
 
   add_index "journal_entries", ["created_at"], :name => "index_journal_records_on_created_at"
   add_index "journal_entries", ["creator_id"], :name => "index_journal_records_on_creator_id"
   add_index "journal_entries", ["financial_year_id"], :name => "index_journal_entries_on_financial_year_id"
   add_index "journal_entries", ["journal_id"], :name => "index_journal_records_on_journal_id"
-  add_index "journal_entries", ["original_currency"], :name => "index_journal_entries_on_currency"
+  add_index "journal_entries", ["real_currency"], :name => "index_journal_entries_on_currency"
   add_index "journal_entries", ["resource_id", "resource_type"], :name => "index_journal_entries_on_resource_id_and_resource_type"
   add_index "journal_entries", ["updated_at"], :name => "index_journal_records_on_updated_at"
   add_index "journal_entries", ["updater_id"], :name => "index_journal_records_on_updater_id"
 
   create_table "journal_entry_items", force: true do |t|
-    t.integer  "entry_id",                                                                null: false
-    t.integer  "account_id",                                                              null: false
-    t.string   "name",                                                                    null: false
-    t.decimal  "original_debit",               precision: 19, scale: 4, default: 0.0,     null: false
-    t.decimal  "original_credit",              precision: 19, scale: 4, default: 0.0,     null: false
-    t.decimal  "debit",                        precision: 19, scale: 4, default: 0.0,     null: false
-    t.decimal  "credit",                       precision: 19, scale: 4, default: 0.0,     null: false
+    t.integer  "entry_id",                                                                     null: false
+    t.integer  "account_id",                                                                   null: false
+    t.string   "name",                                                                         null: false
+    t.decimal  "real_debit",                           precision: 19, scale: 4,  default: 0.0, null: false
+    t.decimal  "real_credit",                          precision: 19, scale: 4,  default: 0.0, null: false
+    t.decimal  "debit",                                precision: 19, scale: 4,  default: 0.0, null: false
+    t.decimal  "credit",                               precision: 19, scale: 4,  default: 0.0, null: false
     t.integer  "bank_statement_id"
-    t.string   "letter",            limit: 8
+    t.string   "letter",                    limit: 8
     t.integer  "position"
     t.text     "description"
-    t.datetime "created_at",                                                              null: false
-    t.datetime "updated_at",                                                              null: false
+    t.datetime "created_at",                                                                   null: false
+    t.datetime "updated_at",                                                                   null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                          default: 0,       null: false
-    t.integer  "journal_id"
-    t.string   "state",             limit: 32,                          default: "draft", null: false
-    t.decimal  "balance",                      precision: 19, scale: 4, default: 0.0,     null: false
+    t.integer  "lock_version",                                                   default: 0,   null: false
+    t.integer  "journal_id",                                                                   null: false
+    t.string   "state",                     limit: 32,                                         null: false
+    t.decimal  "balance",                              precision: 19, scale: 4,  default: 0.0, null: false
+    t.string   "real_currency",             limit: 3,                                          null: false
+    t.decimal  "real_currency_rate",                   precision: 19, scale: 10, default: 0.0, null: false
+    t.integer  "financial_year_id",                                                            null: false
+    t.date     "printed_on",                                                                   null: false
+    t.string   "entry_number",                                                                 null: false
+    t.string   "currency",                  limit: 3,                                          null: false
+    t.decimal  "absolute_debit",                       precision: 19, scale: 4,  default: 0.0, null: false
+    t.decimal  "absolute_credit",                      precision: 19, scale: 4,  default: 0.0, null: false
+    t.string   "absolute_currency",         limit: 3,                                          null: false
+    t.decimal  "cumulated_absolute_debit",             precision: 19, scale: 4,  default: 0.0, null: false
+    t.decimal  "cumulated_absolute_credit",            precision: 19, scale: 4,  default: 0.0, null: false
   end
 
   add_index "journal_entry_items", ["account_id"], :name => "index_journal_entry_items_on_account_id"

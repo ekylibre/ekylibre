@@ -131,6 +131,49 @@ class NormalizeScoria < ActiveRecord::Migration
     rename_column :incoming_payments, :account_number, :bank_account_number
     rename_column :incoming_payments, :check_number, :bank_check_number
 
+    rename_column :journal_entries, :original_debit,         :real_debit
+    rename_column :journal_entries, :original_credit,        :real_credit
+    rename_column :journal_entries, :original_currency,      :real_currency
+    rename_column :journal_entries, :original_currency_rate, :real_currency_rate
+    add_column :journal_entries, :currency, :string, :limit => 3
+    add_column :journal_entries, :absolute_debit, :decimal,  :precision => 19, :scale => 4, :null => false, :default => 0.0
+    add_column :journal_entries, :absolute_credit, :decimal, :precision => 19, :scale => 4, :null => false, :default => 0.0
+    add_column :journal_entries, :absolute_currency, :string, :limit => 3
+    execute "UPDATE #{quoted_table_name(:journal_entries)} SET currency = financial_year.currency FROM #{quoted_table_name(:financial_years)} AS financial_year WHERE financial_year.id = financial_year_id"
+    execute "UPDATE #{quoted_table_name(:journal_entries)} SET absolute_debit = debit, absolute_credit = credit, absolute_currency = currency"
+    change_column_null :journal_entries, :absolute_currency, null: false
+    change_column_null :journal_entries, :real_currency, null: false
+    change_column_null :journal_entries, :currency, null: false
+    change_column_default :journal_entries, :state, nil
+
+
+    rename_column :journal_entry_lines, :original_debit,  :real_debit
+    rename_column :journal_entry_lines, :original_credit, :real_credit
+    add_column :journal_entry_lines, :real_currency, :string, :limit => 3
+    add_column :journal_entry_lines, :real_currency_rate, :decimal,  :precision => 19, :scale => 10, :null => false, :default => 0.0
+    add_column :journal_entry_lines, :financial_year_id, :integer
+    add_column :journal_entry_lines, :printed_on, :date
+    add_column :journal_entry_lines, :entry_number, :string
+    add_column :journal_entry_lines, :currency, :string, :limit => 3
+    add_column :journal_entry_lines, :absolute_debit, :decimal,  :precision => 19, :scale => 4, :null => false, :default => 0.0
+    add_column :journal_entry_lines, :absolute_credit, :decimal, :precision => 19, :scale => 4, :null => false, :default => 0.0
+    add_column :journal_entry_lines, :absolute_currency, :string, :limit => 3
+    add_column :journal_entry_lines, :cumulated_absolute_debit, :decimal,  :precision => 19, :scale => 4, :null => false, :default => 0.0
+    add_column :journal_entry_lines, :cumulated_absolute_credit, :decimal, :precision => 19, :scale => 4, :null => false, :default => 0.0
+
+    duplicates = [:state, :journal_id, :financial_year_id, :printed_on, :real_currency, :real_currency_rate]
+    execute "UPDATE #{quoted_table_name(:journal_entry_lines)} SET entry_number = entry.number, " + duplicates.collect{|c| "#{c} = entry.#{c}" }.join(", ") + " FROM #{quoted_table_name(:journal_entries)} AS entry WHERE entry.id = entry_id"
+    for duplicate in duplicates
+      change_column_null :journal_entry_lines, duplicate, false
+    end
+    execute "UPDATE #{quoted_table_name(:journal_entry_lines)} SET currency = financial_year.currency FROM #{quoted_table_name(:financial_years)} AS financial_year WHERE financial_year.id = financial_year_id"
+    execute "UPDATE #{quoted_table_name(:journal_entry_lines)} SET absolute_debit = debit, absolute_credit = credit, absolute_currency = currency"
+    # TODO update cumuls
+    change_column_null :journal_entry_lines, :entry_number, false
+    change_column_null :journal_entry_lines, :currency, false
+    change_column_null :journal_entry_lines, :absolute_currency, false
+    change_column_default :journal_entry_lines, :state, nil
+
     add_column :listing_nodes, :lft, :integer
     add_column :listing_nodes, :rgt, :integer
     add_column :listing_nodes, :depth, :integer, :null => false, :default => 0

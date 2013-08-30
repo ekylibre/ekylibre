@@ -27,9 +27,9 @@ class Backend::JournalEntryItemsController < BackendController
     if params["entry-original-debit"] and params["entry-original-credit"]
       debit, credit = params["entry-original-debit"].to_f, params["entry-original-credit"].to_f
       if debit > credit
-        @journal_entry_item.original_credit = debit - credit
+        @journal_entry_item.real_credit = debit - credit
       else
-        @journal_entry_item.original_debit  = credit - debit
+        @journal_entry_item.real_debit  = credit - debit
       end
     end
     if params[:journal_id] and @journal = Journal.find_by_id(params[:journal_id])

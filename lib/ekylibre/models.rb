@@ -392,6 +392,7 @@ module Ekylibre
       :bank_statement_id => :bank_statement,
       :creator_id => :user,
       :entry_id => :journal_entry,
+      :financial_year_id => :financial_year,
       :journal_id => :journal,
       :updater_id => :user
     },

@@ -20,26 +20,37 @@
 #
 # == Table: journal_entry_items
 #
-#  account_id        :integer          not null
-#  balance           :decimal(19, 4)   default(0.0), not null
-#  bank_statement_id :integer
-#  created_at        :datetime         not null
-#  creator_id        :integer
-#  credit            :decimal(19, 4)   default(0.0), not null
-#  debit             :decimal(19, 4)   default(0.0), not null
-#  description       :text
-#  entry_id          :integer          not null
-#  id                :integer          not null, primary key
-#  journal_id        :integer
-#  letter            :string(8)
-#  lock_version      :integer          default(0), not null
-#  name              :string(255)      not null
-#  original_credit   :decimal(19, 4)   default(0.0), not null
-#  original_debit    :decimal(19, 4)   default(0.0), not null
-#  position          :integer
-#  state             :string(32)       default("draft"), not null
-#  updated_at        :datetime         not null
-#  updater_id        :integer
+#  absolute_credit           :decimal(19, 4)   default(0.0), not null
+#  absolute_currency         :string(3)        not null
+#  absolute_debit            :decimal(19, 4)   default(0.0), not null
+#  account_id                :integer          not null
+#  balance                   :decimal(19, 4)   default(0.0), not null
+#  bank_statement_id         :integer
+#  created_at                :datetime         not null
+#  creator_id                :integer
+#  credit                    :decimal(19, 4)   default(0.0), not null
+#  cumulated_absolute_credit :decimal(19, 4)   default(0.0), not null
+#  cumulated_absolute_debit  :decimal(19, 4)   default(0.0), not null
+#  currency                  :string(3)        not null
+#  debit                     :decimal(19, 4)   default(0.0), not null
+#  description               :text
+#  entry_id                  :integer          not null
+#  entry_number              :string(255)      not null
+#  financial_year_id         :integer          not null
+#  id                        :integer          not null, primary key
+#  journal_id                :integer          not null
+#  letter                    :string(8)
+#  lock_version              :integer          default(0), not null
+#  name                      :string(255)      not null
+#  position                  :integer
+#  printed_on                :date             not null
+#  real_credit               :decimal(19, 4)   default(0.0), not null
+#  real_currency             :string(3)        not null
+#  real_currency_rate        :decimal(19, 10)  default(0.0), not null
+#  real_debit                :decimal(19, 4)   default(0.0), not null
+#  state                     :string(32)       not null
+#  updated_at                :datetime         not null
+#  updater_id                :integer
 #
 
 
@@ -51,13 +62,13 @@ class JournalEntryItemTest < ActiveSupport::TestCase
 
   test "the validity of entries" do
     item = journal_entry_items(:journal_entry_items_001)
-    assert item.valid?, item.inspect+"\n"+item.errors.full_messages.to_sentence
-    item.original_debit = 5
-    assert item.valid?, item.inspect+"\n"+item.errors.full_messages.to_sentence
-    item.original_credit = 17
-    assert !item.valid?, item.inspect+"\n"+item.errors.full_messages.to_sentence
-    item.original_debit = 0
-    assert item.valid?, item.inspect+"\n"+item.errors.full_messages.to_sentence
+    assert item.valid?, item.inspect + "\n" + item.errors.full_messages.to_sentence
+    item.real_debit = 5
+    assert item.valid?, item.inspect + "\n" + item.errors.full_messages.to_sentence
+    item.real_credit = 17
+    assert !item.valid?, item.inspect + "\n" + item.errors.full_messages.to_sentence
+    item.real_debit = 0
+    assert item.valid?, item.inspect + "\n" + item.errors.full_messages.to_sentence
   end
 
 end

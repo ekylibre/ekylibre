@@ -46,8 +46,8 @@ class BankStatement < Ekylibre::Record::Base
   has_many :items, :dependent=>:nullify, :class_name=>"JournalEntryItem"
 
   before_validation do
-    self.debit  = self.items.sum(:original_debit)
-    self.credit = self.items.sum(:original_credit)
+    self.debit  = self.items.sum(:real_debit)
+    self.credit = self.items.sum(:real_credit)
   end
 
   # A bank account statement has to contain.all the planned records.

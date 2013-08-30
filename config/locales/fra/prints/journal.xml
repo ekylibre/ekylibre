@@ -30,8 +30,8 @@
 	<column label="Numéro" property="entry/number" width="24mm" align="left"/>
 	<column label="Libellé de l'écriture" property="name" width="87mm"/>
 	<column label="N°Compte" property="account/number" width="20mm"/>
-	<column label="Débit" property="original_debit" width="20mm" numeric="money"/>
-	<column label="Crédit" property="original_credit" width="20mm" numeric="money"/>
+	<column label="Débit" property="real_debit" width="20mm" numeric="money"/>
+	<column label="Crédit" property="real_credit" width="20mm" numeric="money"/>
       </table>
       
       <!-- Sum -->

@@ -561,6 +561,9 @@ eng:
       # zone_property_title: "Titre de propriété foncière"
   attributes:
     # abilities: "Compétences"
+    # absolute_credit: "Absolute credit"
+    # absolute_currency: "Absolute currency"
+    # absolute_debit: "Absolute debit"
     account: "Account"
     account_balances: "Account balances"
     account_number: "Account number" #?
@@ -1083,10 +1086,6 @@ eng:
     organization: "Organization"
     origin: "Origin"
     origin_type: "Origin type"
-    original_credit: "Original credit"
-    original_currency: "Original currency"
-    original_currency_rate: "Original currency rate"
-    original_debit: "Original debit"
     original_name: "Original name"
     outgoing_deliveries: "Outgoing deliveries"
     # outgoing_delivery_items: "Lignes de livraisons sortantes"
@@ -1214,6 +1213,10 @@ eng:
     quantity_unit: "Quantity unit" #?
     query: "Query"
     range: "Range" #?
+    real_credit: "Original credit"
+    real_currency: "Original currency"
+    real_currency_rate: "Original currency rate"
+    real_debit: "Original debit"
     real_quantity: "Real quantity" #?
     reason: "Reason" #?
     receipt: "Receipt"

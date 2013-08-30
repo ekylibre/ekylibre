@@ -20,27 +20,31 @@
 #
 # == Table: journal_entries
 #
-#  balance                :decimal(19, 4)   default(0.0), not null
-#  created_at             :datetime         not null
-#  created_on             :date             not null
-#  creator_id             :integer
-#  credit                 :decimal(19, 4)   default(0.0), not null
-#  debit                  :decimal(19, 4)   default(0.0), not null
-#  financial_year_id      :integer
-#  id                     :integer          not null, primary key
-#  journal_id             :integer          not null
-#  lock_version           :integer          default(0), not null
-#  number                 :string(255)      not null
-#  original_credit        :decimal(19, 4)   default(0.0), not null
-#  original_currency      :string(3)
-#  original_currency_rate :decimal(19, 10)  default(0.0), not null
-#  original_debit         :decimal(19, 4)   default(0.0), not null
-#  printed_on             :date             not null
-#  resource_id            :integer
-#  resource_type          :string(255)
-#  state                  :string(32)       default("draft"), not null
-#  updated_at             :datetime         not null
-#  updater_id             :integer
+#  absolute_credit    :decimal(19, 4)   default(0.0), not null
+#  absolute_currency  :string(3)
+#  absolute_debit     :decimal(19, 4)   default(0.0), not null
+#  balance            :decimal(19, 4)   default(0.0), not null
+#  created_at         :datetime         not null
+#  created_on         :date             not null
+#  creator_id         :integer
+#  credit             :decimal(19, 4)   default(0.0), not null
+#  currency           :string(3)
+#  debit              :decimal(19, 4)   default(0.0), not null
+#  financial_year_id  :integer
+#  id                 :integer          not null, primary key
+#  journal_id         :integer          not null
+#  lock_version       :integer          default(0), not null
+#  number             :string(255)      not null
+#  printed_on         :date             not null
+#  real_credit        :decimal(19, 4)   default(0.0), not null
+#  real_currency      :string(3)
+#  real_currency_rate :decimal(19, 10)  default(0.0), not null
+#  real_debit         :decimal(19, 4)   default(0.0), not null
+#  resource_id        :integer
+#  resource_type      :string(255)
+#  state              :string(32)       not null
+#  updated_at         :datetime         not null
+#  updater_id         :integer
 #
 
 
@@ -60,15 +64,15 @@ class JournalEntry < Ekylibre::Record::Base
   has_many :sales, :dependent => :nullify
   has_one :financial_year_as_last, :foreign_key => :last_journal_entry_id, :class_name => "FinancialYear", :dependent => :nullify
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :balance, :credit, :debit, :original_credit, :original_currency_rate, :original_debit, :allow_nil => true
-  validates_length_of :original_currency, :allow_nil => true, :maximum => 3
+  validates_numericality_of :absolute_credit, :absolute_debit, :balance, :credit, :debit, :real_credit, :real_currency_rate, :real_debit, :allow_nil => true
+  validates_length_of :absolute_currency, :currency, :real_currency, :allow_nil => true, :maximum => 3
   validates_length_of :state, :allow_nil => true, :maximum => 32
   validates_length_of :number, :resource_type, :allow_nil => true, :maximum => 255
-  validates_presence_of :balance, :created_on, :credit, :debit, :journal, :number, :original_credit, :original_currency_rate, :original_debit, :printed_on, :state
+  validates_presence_of :absolute_credit, :absolute_debit, :balance, :created_on, :credit, :debit, :journal, :number, :printed_on, :real_credit, :real_currency_rate, :real_debit, :state
   #]VALIDATORS]
-  validates_presence_of :original_currency
+  validates_presence_of :real_currency
   validates_format_of :number, :with => /\A[\dA-Z]+\z/
-  validates_numericality_of :original_currency_rate, :greater_than => 0
+  validates_numericality_of :real_currency_rate, :greater_than => 0
 
   accepts_nested_attributes_for :items
 
@@ -136,25 +140,31 @@ class JournalEntry < Ekylibre::Record::Base
   #
   before_validation do
     if self.journal
-      self.original_currency ||= self.journal.currency
+      self.real_currency = self.journal.currency
     end
     self.financial_year = FinancialYear.at(self.printed_on)
-    if self.original_currency and self.financial_year
-      if self.original_currency == self.financial_year.currency
-        self.original_currency_rate = 1
+    self.currency = self.financial_year.currency
+    if self.real_currency and self.financial_year
+      if self.real_currency == self.financial_year.currency
+        self.real_currency_rate = 1
       else
-        # TODO: Find a way to manage currency rates!
+        # TODO: Find a better way to manage currency rates!
         # raise self.financial_year.inspect if I18n.currencies(self.financial_year.currency).nil?
-        self.original_currency_rate = I18n.currency_rate(self.original_currency, self.financial_year.currency) # rand # self.original_currency.rate
+        self.real_currency_rate = I18n.currency_rate(self.real_currency, self.currency)
       end
     else
-      self.original_currency_rate = 1
+      self.real_currency_rate = 1
     end
-    self.original_debit  = self.items.sum(:original_debit)
-    self.original_credit = self.items.sum(:original_credit)
+    self.real_debit  = self.items.sum(:real_debit)
+    self.real_credit = self.items.sum(:real_credit)
     self.debit  = self.items.sum(:debit)
     self.credit = self.items.sum(:credit)
     self.balance = self.debit - self.credit
+    self.absolute_currency ||= self.currency
+    if self.absolute_currency == self.currency
+      self.absolute_debit = self.real_debit
+      self.absolute_credit = self.real_credit
+    end
     self.created_on = Date.today
     if self.journal and not self.number
       self.number ||= self.journal.next_number
@@ -179,7 +189,7 @@ class JournalEntry < Ekylibre::Record::Base
   end
 
   after_save do
-    JournalEntryItem.where("entry_id = ? AND state != ? ", self.id, self.state).update_all(:state => self.state)
+    JournalEntryItem.where(:entry_id => self.id).update_all(:state => self.state, :journal_id => self.journal_id, :financial_year_id => self.financial_year_id, :printed_on => self.printed_on, :entry_number => self.number, :real_currency => self.real_currency, :real_currency_rate => self.real_currency_rate)
   end
 
   protect(:on => :destroy) do
@@ -214,7 +224,7 @@ class JournalEntry < Ekylibre::Record::Base
   # Create counter-entry_items
   def cancel
     reconcilable_accounts = []
-    entry = self.class.new(:journal => self.journal, :resource => self.resource, :original_currency => self.original_currency, :original_currency_rate => self.original_currency_rate, :printed_on => self.printed_on)
+    entry = self.class.new(:journal => self.journal, :resource => self.resource, :real_currency => self.real_currency, :real_currency_rate => self.real_currency_rate, :printed_on => self.printed_on)
     ActiveRecord::Base.transaction do
       entry.save!
       for item in self.useful_items
@@ -286,13 +296,13 @@ class JournalEntry < Ekylibre::Record::Base
     credit = (not credit) if amount < 0
     attributes = options.merge(:name => name)
     attributes[:account_id] = account.is_a?(Integer) ? account : account.id
-    # attributes[:original_currency] = self.journal.currency
+    # attributes[:real_currency] = self.journal.currency
     if credit
-      attributes[:original_credit] = amount.abs
-      attributes[:original_debit]  = 0.0
+      attributes[:real_credit] = amount.abs
+      attributes[:real_debit]  = 0.0
     else
-      attributes[:original_credit] = 0.0
-      attributes[:original_debit]  = amount.abs
+      attributes[:real_credit] = 0.0
+      attributes[:real_debit]  = amount.abs
     end
     e = self.items.create!(attributes)
     return e

@@ -50,7 +50,7 @@ class Backend::AccountsController < BackendController
 
   def self.account_moves_conditions(options={})
     code = ""
-    code << light_search_conditions({:journal_entry_item => [:name, :debit, :credit, :original_debit, :original_credit], :journal_entry => [:number]}, :conditions => "c", :variable => "params[:b]")+"\n"
+    code << light_search_conditions({:journal_entry_item => [:name, :debit, :credit, :real_debit, :real_credit], :journal_entry => [:number]}, :conditions => "c", :variable => "params[:b]")+"\n"
     code << journal_period_crit("params")
     code << journal_entries_states_crit("params")
     # code << journals_crit("params")

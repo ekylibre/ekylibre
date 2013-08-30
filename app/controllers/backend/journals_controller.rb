@@ -62,16 +62,16 @@ class Backend::JournalsController < BackendController
     t.column :name, :through => :account, :url => true
     t.column :name
     t.column :state_label
-    t.column :original_debit, :currency => :original_currency
-    t.column :original_credit, :currency => :original_currency
+    t.column :real_debit, :currency => :real_currency
+    t.column :real_credit, :currency => :real_currency
   end
 
   list(:entries, :model => :journal_entries, :conditions => journal_entries_conditions, :order => "created_at DESC") do |t|
     t.column :number, :url => true
     t.column :printed_on
     t.column :state_label
-    t.column :original_debit, :currency => :original_currency
-    t.column :original_credit, :currency => :original_currency
+    t.column :real_debit, :currency => :real_currency
+    t.column :real_credit, :currency => :real_currency
     t.action :edit, :if => :updateable?
     t.action :destroy, :if => :destroyable?
   end
@@ -81,8 +81,8 @@ class Backend::JournalsController < BackendController
     t.column :printed_on, :datatype => :date, :children => false
     # t.column :label, :through => :account, :url => {:action => :account}
     t.column :state_label
-    t.column :original_debit, :currency => {:body => :original_currency, :children => "RECORD.entry.original_currency"}
-    t.column :original_credit, :currency => {:body => :original_currency, :children => "RECORD.entry.original_currency"}
+    t.column :real_debit, :currency => {:body => :real_currency, :children => "RECORD.entry.real_currency"}
+    t.column :real_credit, :currency => {:body => :real_currency, :children => "RECORD.entry.real_currency"}
     t.action :edit, :if => :updateable?
     t.action :destroy, :if => :destroyable?
   end
@@ -229,7 +229,7 @@ class Backend::JournalsController < BackendController
   def self.general_ledger_conditions(options={})
     conn = ActiveRecord::Base.connection
     code = ""
-    code << light_search_conditions({:journal_entry_item => [:name, :debit, :credit, :original_debit, :original_credit]}, :conditions => "c")+"\n"
+    code << light_search_conditions({:journal_entry_item => [:name, :debit, :credit, :real_debit, :real_credit]}, :conditions => "c")+"\n"
     code << journal_period_crit("params")
     code << journal_entries_states_crit("params")
     code << accounts_range_crit("params")

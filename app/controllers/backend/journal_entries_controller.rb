@@ -26,8 +26,8 @@ class Backend::JournalEntriesController < BackendController
     t.column :number, :through => :account, :url => true
     t.column :name, :through => :account, :url => true
     t.column :number, :through => :bank_statement, :url => true
-    t.column :original_debit, :currency => "RECORD.entry.original_currency"
-    t.column :original_credit, :currency => "RECORD.entry.original_currency"
+    t.column :real_debit, :currency => "RECORD.entry.real_currency"
+    t.column :real_credit, :currency => "RECORD.entry.real_currency"
     t.column :debit, :currency => "RECORD.entry.financial_year.currency"
     t.column :credit, :currency => "RECORD.entry.financial_year.currency"
   end

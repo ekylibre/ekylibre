@@ -35,7 +35,7 @@ module Ekylibre
     if label.size > label_size
       first = ((label_size - 3).to_f / 2).round
       label = label[0..(first-1)] + "..." + label[-(label_size - first - 3)..-1]
-      # label = "..." + label[(-label_size + 3)..-1] 
+      # label = "..." + label[(-label_size + 3)..-1]
     end
     # ActiveRecord::Base.transaction do
     print "#{label}: "
@@ -45,7 +45,7 @@ module Ekylibre
       print "  "
     rescue FixtureCountExceeded => e
       print "! "
-    end    
+    end
     # end
     puts "#{(Time.now - start).round(2).to_s.rjust(6)}s"
   end

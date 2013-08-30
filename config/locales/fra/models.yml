@@ -418,6 +418,9 @@ fra:
       zone_property_title: "Titre de propriété foncière"
   attributes:
     abilities: "Compétences"
+    absolute_credit: "Absolute credit"
+    absolute_currency: "Absolute currency"
+    absolute_debit: "Absolute debit"
     account: "Compte comptable"
     account_balances: "Balances de compte"
     accountable: "Comptabilisable"
@@ -561,6 +564,8 @@ fra:
     credits: "Avoirs"
     critic_quantity_min: "Quantité minimum critique" #?
     critic_stocks: "Stocks critiques" #?
+    # cumulated_absolute_credit: "Cumulated absolute credit"
+    # cumulated_absolute_debit: "Cumulated absolute debit"
     currency: "Devise"
     currency_precision: "Nombre de décimales"
     currency_rate: "Taux de change"
@@ -652,6 +657,7 @@ fra:
     entries: "Écritures"
     entry: "Écriture"
     entry_items: "Lignes d’écritures"
+    # entry_number: "Entry number"
     establishment: "Établissement"
     event: "Évènement"
     exclusive: "Exclusif"
@@ -850,10 +856,6 @@ fra:
     origin: "Origine"
     # origin_object: "Origin object"
     origin_type: "Type de l’origine"
-    original_credit: "Crédit"
-    original_currency: "Monnaie d’origine"
-    original_currency_rate: "Taux de convertion à partir de la monnaie d’origine"
-    original_debit: "Débit"
     original_name: "Nom original" #?
     outgoing_deliveries: "Livraisons sortantes"
     outgoing_delivery_items: "Lignes de livraisons sortantes"
@@ -954,6 +956,10 @@ fra:
     purchases_products: "Produits d’achat"
     quantity: "Quantité"
     query: "Requête"
+    real_credit: "Real credit"
+    real_currency: "Real currency"
+    real_currency_rate: "Real currency rate"
+    real_debit: "Real debit"
     receipt: "Reçu électronique"
     received: "Reçue"
     received_at: "Reçu le"

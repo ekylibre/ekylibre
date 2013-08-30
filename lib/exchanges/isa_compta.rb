@@ -135,7 +135,7 @@ module Exchanges
                       isa_line.debit = isa_line.credit.abs
                       isa_line.credit = debit.abs
                     end
-                    line =  entry.lines.create(:account_id=>all_accounts[isa_line.account], :name=>"#{isa_line.label} (#{isa_entry.label})", :original_debit=>isa_line.debit, :original_credit=>isa_line.credit, :letter=>(isa_line.lettering > 0 ? isa_line.letter : nil), :comment=>isa_line.to_s)
+                    line =  entry.lines.create(:account_id=>all_accounts[isa_line.account], :name=>"#{isa_line.label} (#{isa_entry.label})", :real_debit=>isa_line.debit, :real_credit=>isa_line.credit, :letter=>(isa_line.lettering > 0 ? isa_line.letter : nil), :comment=>isa_line.to_s)
                     raise isa_line.to_s+"\n"+line.errors.full_messages.to_sentence unless line.valid?
                   end
 
