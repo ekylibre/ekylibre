@@ -75,6 +75,15 @@ class Account < Ekylibre::Record::Base
     raise ArgumentError.new("Unknown usage #{usage.inspect}") unless Nomen::Accounts[usage]
     self.where("usages ~ E?", "\\\\m#{usage}\\\\M")
   }
+  
+  scope :used_between, lambda { |started_on, stopped_on|
+    where("id IN (SELECT account_id FROM #{JournalEntryItem.table_name} WHERE printed_on BETWEEN ? AND ? )", started_on, stopped_on)
+  }
+  
+  #scope :used_in_journal_entry_items, lambda { |started_on, stopped_on|
+  #  joins("JOIN #{JournalEntryItem.table_name} AS journal_entry_items ON (journal_entry_items.account_id=id)").joins("JOIN #{JournalEntry.table_name} AS journal_entries ON (journal_entries.id=entry_id)").where("printed_on BETWEEN ? AND ? ", started_on, stopped_on).order("printed_on, journal_entries.id, journal_entry_items.id")
+ #}
+  
   # scope :deposit_pending_payments, lambda { where('number LIKE ?', self.chart_number(:deposit_pending_payments)+"%").order(:number, :name) }
   # scope :attorney_thirds,          lambda { where('number LIKE ?', self.chart_number(:attorney_thirds)+"%").order(:number, :name) }
   scope :clients,   -> { of_usage(:clients) }
