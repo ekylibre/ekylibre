@@ -174,15 +174,15 @@ class JournalEntryItem < Ekylibre::Record::Base
     if self.new_record?
       self.account.journal_entry_items.order("printed_on, id").where("printed_on <= ?", self.printed_on).last
     else
-      self.account.journal_entry_items.order("printed_on, id").where("(printed_on = ? AND id < ?) OR printed_on <= ?", self.printed_on, self.id, self.printed_on).last      
+      self.account.journal_entry_items.order("printed_on, id").where("(printed_on = ? AND id < ?) OR printed_on <= ?", self.printed_on, self.id, self.printed_on).last
     end
   end
 
-  
+
   # Returns following items
   def followings
     if self.new_record?
-      self.account.journal_entry_items.where("printed_on > ?", self.printed_on)      
+      self.account.journal_entry_items.where("printed_on > ?", self.printed_on)
     else
       self.account.journal_entry_items.where("(printed_on = ? AND id > ?) OR printed_on > ?", self.printed_on, self.id, self.printed_on)
     end

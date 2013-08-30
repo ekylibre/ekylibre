@@ -124,7 +124,7 @@ class FinancialYear < Ekylibre::Record::Base
   def name
     self.code
   end
-  
+
   def default_code
     tc("code."+(self.started_on.year!=self.stopped_on.year ? "double" : "single"), :first_year => self.started_on.year, :second_year => self.stopped_on.year)
   end
