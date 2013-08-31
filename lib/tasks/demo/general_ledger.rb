@@ -52,7 +52,7 @@ demo :general_ledger do
     CSV.foreach(file, :encoding => "CP1252", :col_sep => ";") do |row|
       jname = (journals[row[1]] || row[1]).capitalize
       r = OpenStruct.new(:account => Account.get(row[0]),
-                         :journal => Journal.find_by_name(jname) || Journal.create!(:name => jname, :code => row[1]),
+                         :journal => Journal.find_by_name(jname) || Journal.create!(:name => jname, :code => row[1], :currency => "EUR"),
                          :page_number => row[2], # What's that ?
                          :printed_on => Date.civil(*row[3].split(/\-/).map(&:to_i)),
                          :entry_number => row[4].to_s.strip.upcase.to_s.gsub(/[^A-Z0-9]/, ''),

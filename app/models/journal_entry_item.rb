@@ -83,7 +83,7 @@ class JournalEntryItem < Ekylibre::Record::Base
   after_update  :update_entry
 
   scope :between, lambda { |started_on, stopped_on|
-    joins("JOIN #{JournalEntry.table_name} AS journal_entries ON (journal_entries.id=entry_id)").where("printed_on BETWEEN ? AND ? ", started_on, stopped_on).order("printed_on, journal_entries.id, journal_entry_items.id")
+    where("printed_on BETWEEN ? AND ? ", started_on, stopped_on).order("printed_on, id")
   }
 
   state_machine :state, :initial => :draft do
@@ -101,7 +101,7 @@ class JournalEntryItem < Ekylibre::Record::Base
     self.real_credit ||= 0
     if self.entry
       self.entry_number = self.entry.number
-      for replicated in [:financial_year_id, :printed_on, :journal_id, :state, :currency, :real_currency, :real_currency_rate]
+      for replicated in [:financial_year_id, :printed_on, :journal_id, :state, :currency, :absolute_currency, :real_currency, :real_currency_rate]
         self.send("#{replicated}=", self.entry.send(replicated))
       end
       unless self.closed?
