@@ -101,7 +101,7 @@ class JournalEntryItem < Ekylibre::Record::Base
     self.real_credit ||= 0
     if self.entry
       self.entry_number = self.entry.number
-      for replicated in [:financial_year_id, :printed_on, :journal_id, :state, :real_currency, :real_currency_rate]
+      for replicated in [:financial_year_id, :printed_on, :journal_id, :state, :currency, :real_currency, :real_currency_rate]
         self.send("#{replicated}=", self.entry.send(replicated))
       end
       unless self.closed?
@@ -141,12 +141,14 @@ class JournalEntryItem < Ekylibre::Record::Base
     old = self.old_record
     # Cancel old values if specific columns have been updated
     if self.absolute_debit != old.absolute_debit or self.absolute_credit != old.absolute_credit or self.printed_on != old.printed_on
-      old.followings.update_all("cumulated_absolute_debit = cumulated_absolute_debit - ?, cumulated_absolute_credit = cumulated_absolute_credit - ?", old.absolute_debit, old.absolute_debit)
+      # old.followings.update_all("cumulated_absolute_debit = cumulated_absolute_debit - ?, cumulated_absolute_credit = cumulated_absolute_credit - ?", old.absolute_debit, old.absolute_debit)
+      old.followings.update_all("cumulated_absolute_debit = cumulated_absolute_debit - #{old.absolute_debit.to_s}, cumulated_absolute_credit = cumulated_absolute_credit - #{old.absolute_debit}")
     end
   end
 
   after_save do
-    self.followings.update_all("cumulated_absolute_debit = cumulated_absolute_debit + ?, cumulated_absolute_credit = cumulated_absolute_credit + ?", self.absolute_debit, self.absolute_credit)
+    # self.followings.update_all("cumulated_absolute_debit = cumulated_absolute_debit + ?, cumulated_absolute_credit = cumulated_absolute_credit + ?", self.absolute_debit, self.absolute_credit)
+    self.followings.update_all("cumulated_absolute_debit = cumulated_absolute_debit + #{self.absolute_debit}, cumulated_absolute_credit = cumulated_absolute_credit + #{self.absolute_credit}")
   end
 
   protect(:on => :update) do
