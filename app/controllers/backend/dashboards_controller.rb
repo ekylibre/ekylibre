@@ -164,25 +164,26 @@ class Backend::DashboardsController < BackendController
       next if excluded.include?(model_name)
       model = model_name.to_s.camelcase.constantize
       next unless model.superclass == Ekylibre::Record::Base
-      cols = model.columns_hash.keys
+      cols = model.columns_definition.keys
       title = [:label, :name, :full_name, :reason, :code, :number].detect{|x| cols.include?(x.to_s)}
       next unless title
-      columns = model.columns.dup.delete_if do |c|
+      columns = model.columns_definition.values.delete_if do |c|
         [:created_at, :creator_id, :depth, :id, :lft, :lock_version,
-         :position, :rights, :rgt, :type, :updated_at, :updater_id].include?(c.name.to_sym) or
-          [:boolean, :spatial].include? c.type or
-          c.name.to_s =~ /\_file_size$/ or
-          c.name.to_s =~ /\_type$/ or
-          c.name.to_s =~ /\_id$/
+         :position, :rights, :rgt, :type, :updated_at, :updater_id].include?(c[:name]) or
+          [:boolean, :spatial].include? c[:type] or
+          c[:name].to_s =~ /\_file_size$/ or
+          c[:name].to_s =~ /\_type$/ or
+          c[:name].to_s =~ /\_id$/
       end.collect do |c|
-        if model.respond_to?(c.name) and model.send(c.name).respond_to?(:options) and options = model.send(c.name).send(:options) and options.size > 0
-          "CASE " + options.collect{|l, v| "WHEN #{c.name} = '#{v}' THEN '#{l} '"}.join(" ") + " ELSE '' END"
+        name = c[:name]
+        if model.respond_to?(name) and model.send(name).respond_to?(:options) and options = model.send(name).send(:options) and options.size > 0
+          "CASE " + options.collect{|l, v| "WHEN #{name} = '#{v}' THEN '#{l} '"}.join(" ") + " ELSE '' END"
         else
-          "COALESCE(#{c.name} || ' ', '')"
+          "COALESCE(#{name} || ' ', '')"
         end
       end
       if columns.size > 0
-        query =  "SELECT #{Ekylibre::Record::Base.connection.quote(model.model_name.human)} || ' ' || " + columns.join(" || ") + " AS indexer, #{title} AS title, " + (model.columns_hash['type'] ? 'type' : "'#{model.name}'") + " AS record_type, id AS record_id FROM #{model.table_name}"
+        query =  "SELECT #{Ekylibre::Record::Base.connection.quote(model.model_name.human)} || ' ' || " + columns.join(" || ") + " AS indexer, #{title} AS title, " + (model.columns_definition[:type] ? 'type' : "'#{model.name}'") + " AS record_type, id AS record_id FROM #{model.table_name}"
         queries << query
       end
     end
@@ -190,6 +191,6 @@ class Backend::DashboardsController < BackendController
     @@centralizing_query = "(" + queries.join(") UNION ALL (") + ")"
   end
 
-  build_centralizing_query unless Ekylibre.migrating?
+  build_centralizing_query
 
 end

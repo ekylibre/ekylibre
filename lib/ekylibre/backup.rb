@@ -101,7 +101,7 @@ module Ekylibre
           model_name = rows.attr('model').to_sym
           all_rows[model_name] = rows
           model = model_name.to_s.pluralize.classify.constantize
-          columns = model.columns_hash.keys.map(&:to_sym)
+          columns = model.columns_definition.keys.map(&:to_sym)
           if model.methods.include?(:acts_as_nested_set_options)
             columns.delete(model.acts_as_nested_set_options[:left_column].to_sym)
             columns.delete(model.acts_as_nested_set_options[:right_column].to_sym)

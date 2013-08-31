@@ -118,7 +118,7 @@ class ListingNode < Ekylibre::Record::Base
       self.name = self.attribute_name.to_s+"_0"
     else
       if self.parent.model
-        self.sql_type = self.convert_sql_type(self.parent.model.columns_hash[self.attribute_name].type.to_s)
+        self.sql_type = self.convert_sql_type(self.parent.model.columns_definition[self.attribute_name][:type].to_s)
       end
       #raise Exception.new self.attribute_name.inspect
       self.name = self.parent.name.underscore+"."+self.attribute_name

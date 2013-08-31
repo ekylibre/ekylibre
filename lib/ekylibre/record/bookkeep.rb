@@ -80,7 +80,7 @@ module Ekylibre::Record  #:nodoc:
         method_name = configuration[:method_name].to_s
         core_method_name ||= "_#{method_name}_#{Ekylibre::Record::Bookkeep::Base.next_id}"
 
-        raise Exception.new("#{configuration[:column]} is needed for #{self.name}.bookkeep") unless columns_hash[configuration[:column]]
+        raise Exception.new("#{configuration[:column]} is needed for #{self.name}.bookkeep") unless columns_definition[configuration[:column]]
 
         code = "include Ekylibre::Record::Bookkeep::InstanceMethods\n"
 

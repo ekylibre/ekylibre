@@ -167,7 +167,7 @@ class Sale < Ekylibre::Record::Base
   before_update do
     old = self.class.find(self.id)
     if old.invoice?
-      for attr in self.class.columns_hash.keys
+      for attr in self.class.columns_definition.keys
         self.send(attr + "=", old.send(attr))
       end
     end
