@@ -75,6 +75,10 @@ class Account < Ekylibre::Record::Base
     raise ArgumentError.new("Unknown usage #{usage.inspect}") unless Nomen::Accounts[usage]
     self.where("usages ~ E?", "\\\\m#{usage}\\\\M")
   }
+  # return Account which contains usages mentionned (OR)
+  scope :of_usages, lambda { |*usages|
+    where("usages ~ E?", usages.sort.map { |usage| "\\\\m#{usage.to_s.gsub(/\W/, '')}\\\\M" }.join(".*|"))
+  }
 
   scope :used_between, lambda { |started_on, stopped_on|
     where("id IN (SELECT account_id FROM #{JournalEntryItem.table_name} WHERE printed_on BETWEEN ? AND ? )", started_on, stopped_on)
@@ -89,6 +93,9 @@ class Account < Ekylibre::Record::Base
   scope :clients,   -> { of_usage(:clients) }
   scope :suppliers, -> { of_usage(:suppliers) }
   scope :attorneys, -> { of_usage(:attorneys) }
+  scope :banks, -> { of_usage(:banks) }
+  scope :cashes, -> { of_usage(:cashes) }
+  scope :banks_or_cashes, -> { of_usages(:cashes, :banks) }
   # scope :supplier_thirds,          lambda { where('number LIKE ?', self.chart_number(:supplier_thirds)+"%").order(:number, :name) }
   # scope :product_natures,          lambda { where('number LIKE ?', self.chart_number(:product_natures)+"%").order(:number, :name) }
   # scope :charges,                  lambda { where('number LIKE ?', self.chart_number(:charges)+"%").order(:number, :name) }
