@@ -62,6 +62,7 @@ class Journal < Ekylibre::Record::Base
   scope :forwards,  -> { where(:nature => "forward") }
   scope :various,   -> { where(:nature => "various") }
   scope :cashes,    -> { where(:nature => "cashes") }
+  scope :banks_or_cashes,    -> { where(:nature => "cashes").or.where(:nature => "bank") }
 
   before_validation(:on => :create) do
     if year = FinancialYear.first

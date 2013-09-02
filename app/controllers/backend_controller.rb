@@ -77,7 +77,7 @@ class BackendController < BaseController
         # label = I18n.translate(base + ".#{name || :all}", :default => [(base + ".all").to_sym, ""])
         label = I18n.translate("unroll." + self.controller_path, :default => "")
         if label.blank?
-          available_methods = model.columns_hash.keys.collect{|x| x.to_sym}
+          available_methods = model.columns_definition.keys.collect{|x| x.to_sym}
           label = '{' + [:title, :label, :full_name, :name, :code, :number].select{|x| available_methods.include?(x)}.first.to_s + ':%X%}'
         end
       end
@@ -86,14 +86,14 @@ class BackendController < BaseController
       columns = []
       item_label = label.inspect.gsub(/\{[a-z\_]+(\:\%?X\%?)?\}/) do |word|
         ca = word[1..-2].split(":")
-        column = model.columns_hash[ca[0]]
+        column = model.columns_definition[ca[0]]
         raise Exception.new("Unknown column #{ca[0]} for #{model.name}") unless column
-        columns << {column: column, name: column.name.to_sym, filter: ca[1]|| "X%"}
-        i = "item.#{column.name}"
+        columns << column.merge(filter: ca[1]|| "X%")
+        i = "item.#{column[:name]}"
         "\" + (#{i}.nil? ? '' : #{i}.l) + \""
       end
 
-      fill_in = (options.has_key?(:fill_in) ? options[:fill_in] : columns.size == 1 ? columns.first[:name] : model.columns_hash["name"] ? :name : nil)
+      fill_in = (options.has_key?(:fill_in) ? options[:fill_in] : columns.size == 1 ? columns.first[:name] : model.columns_definition["name"] ? :name : nil)
       fill_in = fill_in.to_sym unless fill_in.nil?
 
       if !fill_in.nil? and !columns.detect{|c| c[:name] == fill_in }
@@ -141,7 +141,7 @@ class BackendController < BaseController
       # code << "  # " + columns.collect{|c| c[:column].name}.to_sentence + "\n"
       code << "  if params[:id]\n"
       code << "    conditions = {:id => params[:id]}\n"
-      searchable_columns = columns.delete_if{ |c| c[:column].type == :boolean }
+      searchable_columns = columns.delete_if{ |c| c[:type] == :boolean }
       if searchable_columns.size > 0
         code << "  elsif keys.size > 0\n"
         code << "    conditions[0] = '('\n"
@@ -492,7 +492,7 @@ class BackendController < BaseController
 
     code << "def new\n"
     # values = model.accessible_attributes.to_a.inject({}) do |hash, attr|
-    values = model.content_columns.map(&:name).to_a.inject({}) do |hash, attr|
+    values = model.columns_definition.keys.inject({}) do |hash, attr|
       hash[attr] = "params[:#{attr}]" unless attr.blank? or attr.to_s.match(/_attributes$/)
       hash
     end.merge(defaults).collect{|k,v| ":#{k} => (#{v})"}.join(", ")
@@ -571,7 +571,7 @@ class BackendController < BaseController
     record_name = name.to_s.singularize
     model = name.to_s.singularize.classify.constantize
     records = model.name.underscore.pluralize
-    raise ArgumentError.new("Unknown column for #{model.name}") unless model.columns_hash[order_by.to_s]
+    raise ArgumentError.new("Unknown column for #{model.name}") unless model.columns_definition[order_by]
     code = ''
 
     sort = ""

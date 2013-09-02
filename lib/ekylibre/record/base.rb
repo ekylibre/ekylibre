@@ -100,6 +100,9 @@ module Ekylibre::Record
         return CustomField.of(self.name)
       end
 
+      def columns_definition
+        Ekylibre.schema[self.table_name]
+      end
 
       attr_reader :scopes
       @scopes = []

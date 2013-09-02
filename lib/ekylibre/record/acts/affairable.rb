@@ -22,7 +22,7 @@ module Ekylibre::Record
           if reflection
             affair, affair_id = reflection.name, reflection.foreign_key
           else
-            raise Exception.new("Unable to acts as affairable no affair column") unless self.columns.detect{|c| c.name.to_sym == affair_id}
+            raise Exception.new("Unable to acts as affairable no affair column") unless self.columns_definition[affair_id]
             code << "belongs_to :#{affair}, :inverse_of => :#{self.name.underscore.pluralize}\n"
           end
 

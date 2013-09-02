@@ -15,10 +15,10 @@
   =f.input :bank_account_number
   =f.input :bank_account_key
 
+=field_set(:accountancy) do
+  =f.referenced_association :account, :source => :banks_or_cashes
+  =f.referenced_association :journal, :source => {:nature => :banks_or_cashes}
+
 =field_set(:iban, :in => :bank_account_options) do
   =f.input :iban
   =f.input :bank_identifier_code
-
-=field_set(:accountancy) do
-  =f.referenced_association :account, :source => {{:nature => :bank_account} => :banks, {:nature => :cash_box} => :cashes}, :new => {:number => Account.chart_number(:banks)}
-  =f.referenced_association :journal, :source => {{:nature => :bank_account} => :banks, {:nature => :cash_box} => :cashes}, :new => {:nature => :bank}
