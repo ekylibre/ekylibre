@@ -38,7 +38,7 @@
             unit_name="head"
             frozen_indicators=""
             abilities="move"
-            indicators="population"
+            indicators="population, geographic_coordinate"
             />
       <item name="female_adult_cow"
             asset_account="adult_animal_assets"
@@ -54,7 +54,7 @@
             unit_name="head"
             frozen_indicators="population: 1unity, sex: female, reproductor: true"
             abilities="consume(water), consume(poaceae), produce(excrement), produce(milk), move"
-            indicators="population, net_weight, animal_life_state,isu_index, inel_index, tp_index, tb_index, mammalia_reproduction_event_abortion, mammalia_reproduction_method_embryo_transplant, mammalia_born_cycle, mammalia_reproduction_state, mammalia_twins_condition, mammalia_lactation_state, animal_disease_state, sex, reproductor"
+            indicators="population, net_weight, animal_life_state,isu_index, inel_index, tp_index, tb_index, mammalia_reproduction_event_abortion, mammalia_reproduction_method_embryo_transplant, mammalia_born_cycle, mammalia_reproduction_state, mammalia_twins_condition, mammalia_lactation_state, animal_disease_state, sex, reproductor, geographic_coordinate"
             />
       <item name="male_adult_cow"
             asset_account="adult_animal_assets"
@@ -655,7 +655,7 @@
             frozen_indicators="population: 1unity"
             population_counting="unitary"
             abilities="catch(equipment), move, tow(equipment)"
-            indicators="population"
+            indicators="population, geographic_coordinate"
             />
       <item name="trail"
             asset_account="equipment_assets"
@@ -699,7 +699,7 @@
             frozen_indicators="population: 1unity"
             population_counting="unitary"
             abilities="drive(equipment)"
-            indicators="population"
+            indicators="population, geographic_coordinate"
             />
       <item name="manager"
             charge_account="staff_expenses"
@@ -713,7 +713,7 @@
             frozen_indicators="population: 1unity"
             population_counting="unitary"
             abilities="drive(equipment), manage(worker)"
-            indicators="population"
+            indicators="population, geographic_coordinate"
             />
     </items>
     

@@ -14,6 +14,7 @@
       <item name="net_volume" datatype="measure" unit="liter"/>
       <item name="net_surface_area" datatype="measure" unit="square_meter"/>
       <item name="shape" datatype="geometry"/>
+      <item name="geographic_coordinate" datatype="geometry"/>
       <item name="usage_duration" datatype="measure" unit="hour"/>
       <!-- <item name="weight" datatype="measure" unit="kilogram"/> -->
       <item name="sex" datatype="choice" choices="male, female, undefined"/>
