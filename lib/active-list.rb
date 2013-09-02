@@ -5,11 +5,11 @@ require 'rails'
 require 'compass'
 
 module ActiveList #:nodoc:
-  
+
 
   CSV = (::CSV.const_defined?(:Reader) ? ::FasterCSV : ::CSV).freeze
 
-  def self.version 
+  def self.version
     "4.2.3"
   end
   VERSION = self.version.freeze

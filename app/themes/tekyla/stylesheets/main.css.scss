@@ -1116,7 +1116,8 @@ $controls-margin-left: round($label-width * 1.1);
   margin: round($fs-normal/4) 0;
   padding: round($fs-normal/4) 0;
 
-  @include clearfix;
+  // @include clearfix;
+  clear: both; 
   .control-label {
     width: $label-width;
     @include float(left);

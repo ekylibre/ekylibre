@@ -2,10 +2,10 @@
 
 div[data-list-source] {
   table.list {
-    thead { 
+    thead {
       tr {
-        th { 
-          &[data-list-column-sort] { 
+        th {
+          &[data-list-column-sort] {
             cursor: pointer;
           }
 
@@ -32,7 +32,7 @@ div[data-list-source] {
                  & { right: -1px;}
                 html[dir="rtl"] & { left: -1px;}
                 li {
-                  &[data-list-change-page-size], &[data-list-toggle-column] { 
+                  &[data-list-change-page-size], &[data-list-toggle-column] {
                     cursor: pointer;
                     display: block;
                   }
@@ -45,7 +45,7 @@ div[data-list-source] {
                   ul {
                     display: none;
                     position: absolute;
-                    top: -2px; 
+                    top: -2px;
                      & { right: 25ex; }
                     html[dir="rtl"] & { left: 25ex; }
                     &:hover { display:block; }
@@ -56,32 +56,32 @@ div[data-list-source] {
             }
           }
 
-          &.hidden { 
+          &.hidden {
             display: none;
           }
 
         }
       }
     }
-      
-    tbody { 
+
+    tbody {
       tr {
-        td.hidden { 
+        td.hidden {
           display: none;
         }
       }
     }
-  
+
   }
 
-  div.extras { 
+  div.extras {
     .pagination {
-      a[data-list-move-to-page] { 
+      a[data-list-move-to-page] {
         cursor: pointer;
       }
-      a[data-list-move-to-page][disabled] { 
+      a[data-list-move-to-page][disabled] {
         cursor: default;
       }
     }
   }
-}  
+}

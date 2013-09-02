@@ -10,7 +10,7 @@ module ActiveList
     end
 
     module ClassMethods
-      # Permits to define and generate methods to manage dynamic 
+      # Permits to define and generate methods to manage dynamic
       # table ActiveList
       def list(*args, &block)
         name, options = nil, {}
@@ -27,7 +27,7 @@ module ActiveList
         else
           table.load_default_columns
         end
-        
+
         class_eval(table.send(:generate_controller_method_code), __FILE__, __LINE__)
         ActionView::Base.send(:class_eval, table.send(:generate_view_method_code), __FILE__, __LINE__)
       end

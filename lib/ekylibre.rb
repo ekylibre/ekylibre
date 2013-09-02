@@ -1,10 +1,10 @@
-require File.join(File.dirname(__FILE__), 'ekylibre', 'record')
-require File.join(File.dirname(__FILE__), 'ekylibre', 'models')
-require File.join(File.dirname(__FILE__), 'ekylibre', 'export')
-require File.join(File.dirname(__FILE__), 'ekylibre', 'menus')
-require File.join(File.dirname(__FILE__), 'ekylibre', 'routes')
-require File.join(File.dirname(__FILE__), 'ekylibre', 'backup')
-require File.join(File.dirname(__FILE__), 'ekylibre', 'reporting')
+require_relative 'ekylibre/record'
+require_relative 'ekylibre/models'
+require_relative 'ekylibre/export'
+require_relative 'ekylibre/menus'
+require_relative 'ekylibre/routes'
+require_relative 'ekylibre/backup'
+require_relative 'ekylibre/reporting'
 
 require 'csv'
 

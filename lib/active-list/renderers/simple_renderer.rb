@@ -23,9 +23,9 @@ module ActiveList
       code << "  list_params[:hidden_columns] << column if params[:visibility] == 'hidden'\n"
       code << "  head :ok\n"
       code << "elsif params[:only]\n"
-      code << "  render(:inline=>'<%=#{table.view_method_name}(:only => params[:only])-%>')\n" 
+      code << "  render(:inline=>'<%=#{table.view_method_name}(:only => params[:only])-%>')\n"
       code << "else\n"
-      code << "  render(:inline=>'<%=#{table.view_method_name}-%>')\n" 
+      code << "  render(:inline=>'<%=#{table.view_method_name}-%>')\n"
       code << "end\n"
       return code
     end
@@ -108,7 +108,7 @@ module ActiveList
               if [:date, :datetime, :timestamp].include? column.datatype
                 datum = "(#{datum}.nil? ? '' : ::I18n.localize(#{datum}))"
               end
-              if !column.options[:currency].is_a?(FalseClass) and (currency = column.options[:currency]) # column.datatype == :decimal and 
+              if !column.options[:currency].is_a?(FalseClass) and (currency = column.options[:currency]) # column.datatype == :decimal and
                 currency = currency[nature] if currency.is_a?(Hash)
                 currency = :currency if currency.is_a?(TrueClass)
                 currency = "RECORD.#{currency}" if currency.is_a?(Symbol)
@@ -118,7 +118,7 @@ module ActiveList
               elsif column.datatype == :decimal
                 datum = "(#{datum}.nil? ? '' : ::I18n.localize(#{datum}))"
               elsif column.enumerize?
-                datum = "(#{datum}.nil? ? '' : #{datum}.text)"                
+                datum = "(#{datum}.nil? ? '' : #{datum}.text)"
               end
               if column.options[:url].is_a?(TrueClass) and nature==:body
                 datum = "(#{datum}.blank? ? '' : link_to(#{datum}, {:controller=>:#{column.class_name.underscore.pluralize}, :action=>:show, :id=>#{column.record_expr(record)+'.id'}}))"
@@ -154,7 +154,7 @@ module ActiveList
             code << ")"
           when CheckBoxColumn.name
             code << "content_tag(:td,"
-            if nature==:body 
+            if nature==:body
               code << "hidden_field_tag('#{table.name}['+#{record}.id.to_s+'][#{column.name}]', 0, :id=>nil)+"
               code << "check_box_tag('#{table.name}['+#{record}.id.to_s+'][#{column.name}]', 1, #{column.options[:value] ? column.options[:value].to_s.gsub(/RECORD/, record) : record+'.'+column.name.to_s}, :id=>'#{table.name}_'+#{record}.id.to_s+'_#{column.name}')"
             else
@@ -163,7 +163,7 @@ module ActiveList
             code << ", :class=>\"#{column_classes(column)}\")"
           when TextFieldColumn.name
             code << "content_tag(:td,"
-            if nature==:body 
+            if nature==:body
               code << "text_field_tag('#{table.name}['+#{record}.id.to_s+'][#{column.name}]', #{column.options[:value] ? column.options[:value].to_s.gsub(/RECORD/, record) : record+'.'+column.name.to_s}, :id=>'#{table.name}_'+#{record}.id.to_s+'_#{column.name}'#{column.options[:size] ? ', :size=>'+column.options[:size].to_s : ''})"
             else
               code << "''"
@@ -171,7 +171,7 @@ module ActiveList
             code << ", :class=>\"#{column_classes(column)}\")"
           when ActionColumn.name
             code << "content_tag(:td, "+(nature==:body ? column.operation(record) : "''")+", :class=>\"#{column_classes(column)}\")"
-          else 
+          else
             code << "content_tag(:td, '&#160;&#8709;&#160;'.html_safe)"
           end
           code   << "+\n        " #  unless code.blank?
@@ -214,7 +214,7 @@ module ActiveList
       menu << "</ul></li>"
 
       # Separator
-      menu << "<li class=\"separator\"></li>"      
+      menu << "<li class=\"separator\"></li>"
       # Exports
       for format, exporter in ActiveList.exporters
         menu << "<li class=\"export #{exporter.name}\">' + link_to(params.merge(:action=>:#{table.controller_method_name}, :sort=>list_params[:sort], :dir=>list_params[:dir], :format=>'#{format}')) { '<span class=\"icon\"></span>'.html_safe + content_tag('span', ::I18n.translate('list.export_as', :exported=>::I18n.translate('list.export.formats.#{format}')).gsub(/\'/,'&#39;'), :class=>'text')} + '</li>"
@@ -327,7 +327,7 @@ module ActiveList
 
 
   end
-  
+
 
 end
 

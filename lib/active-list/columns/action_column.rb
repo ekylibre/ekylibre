@@ -67,10 +67,10 @@ module ActiveList
         code = "link_to(content_tag(:i) + h(::I18n.translate('labels.#{action}')), "+url+", "+code+")"
       end
       if @options[:if]
-        code = "if (" + (@options[:if].is_a?(Symbol) ? "#{record}.#{@options[:if]}" : @options[:if].to_s.gsub('RECORD', record)) + ")\n" + code + "\n end" 
+        code = "if (" + (@options[:if].is_a?(Symbol) ? "#{record}.#{@options[:if]}" : @options[:if].to_s.gsub('RECORD', record)) + ")\n" + code + "\n end"
       end
       if @options[:unless]
-        code = "unless (" + (@options[:unless].is_a?(Symbol) ? "#{record}.#{@options[:unless]}" : @options[:unless].to_s.gsub('RECORD', record)) + ")\n" + code + "\n end" 
+        code = "unless (" + (@options[:unless].is_a?(Symbol) ? "#{record}.#{@options[:unless]}" : @options[:unless].to_s.gsub('RECORD', record)) + ")\n" + code + "\n end"
       end
       code
     end

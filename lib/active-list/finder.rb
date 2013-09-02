@@ -10,7 +10,7 @@ module ActiveList
       unless self.options.keys.include?(:order)
         columns = self.table_columns
         if columns.size > 0
-          self.options[:order] = columns[0].name.to_s # self.model.connection.quote_column_name(columns[0].name.to_s)
+          self.options[:order] = columns[0][:name].to_s # self.model.connection.quote_column_name(columns[0].name.to_s)
         else
           # raise ArgumentError.new("Option :order is needed for the list :#{self.name}")
           self.options[:order] = "id DESC"
@@ -22,7 +22,7 @@ module ActiveList
       query_code << ".select(#{self.select_code})" if self.select_code
       query_code << ".where(#{self.conditions_code})" unless self.options[:conditions].blank?
       query_code << ".joins(#{self.options[:joins].inspect})" unless self.options[:joins].blank?
-      query_code << ".includes(#{self.includes_hash.inspect})" unless self.includes_hash.empty?
+      query_code << ".includes(#{self.includes_hash.inspect}).references(#{self.includes_hash.inspect})" unless self.includes_hash.empty?
 
       code = ""
       code << "#{self.records_variable_name}_count = #{query_code}.count\n"
@@ -44,7 +44,7 @@ module ActiveList
       code << ".reorder(order)||{}\n"
       return code
     end
-   
+
     protected
 
     # Compute includes Hash
@@ -57,7 +57,7 @@ module ActiveList
           for x in through
             h[x] = {} unless h[x].is_a? Hash
             h = h[x]
-          end        
+          end
         end
       end
       return hash
@@ -93,7 +93,7 @@ module ActiveList
       end
       return code
     end
-   
+
     def select_code
       return nil unless self.options[:distinct] or self.options[:select]
       code  = ""

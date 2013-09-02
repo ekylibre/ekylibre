@@ -11,7 +11,7 @@ module ActiveList
   end
 
   class Renderer
-    
+
     def remote_update_code(table)
       raise NotImplementedError.new("#{self.class.name}#remote_update_code is not implemented.")
     end

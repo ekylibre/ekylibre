@@ -4,7 +4,7 @@
 Mime::Type.register("text/csv", :xcsv) unless defined? Mime::XCSV
 
 module ActiveList
-  
+
   class ExcelCsvExporter < ActiveList::CsvExporter
 
     def file_extension
@@ -21,7 +21,7 @@ module ActiveList
       encoding = "CP1252"
       code << "data = ActiveList::CSV.generate(:col_sep => ';') do |csv|\n"
       code << "  csv << [#{columns_to_array(table, :header, :encoding => encoding).join(', ')}]\n"
-      code << "  for #{record} in #{table.records_variable_name}\n"  
+      code << "  for #{record} in #{table.records_variable_name}\n"
       code << "    csv << [#{columns_to_array(table, :body, :record =>record, :encoding => encoding).join(', ')}]\n"
       code << "  end\n"
       code << "end\n"

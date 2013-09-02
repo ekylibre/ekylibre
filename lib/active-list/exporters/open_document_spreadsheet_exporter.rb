@@ -4,9 +4,9 @@
 Mime::Type.register("application/vnd.oasis.opendocument.spreadsheet", :ods) unless defined? Mime::ODS
 
 module ActiveList
-  
+
   class OpenDocumentSpreadsheetExporter < ActiveList::Exporter
-    
+
     DATE_ELEMENTS = {
       "m" => "<number:month number:style=\"long\"/>",
       "d" => "<number:day number:style=\"long\"/>",
@@ -53,7 +53,7 @@ module ActiveList
       code << "  zile << ('<office:body><office:spreadsheet><table:table table:name=\"'+#{table.model.name}.model_name.human.#{xml_escape}+'\">')\n"
       code << "  zile << ('<table:table-column table:number-columns-repeated=\"#{table.exportable_columns.size}\"/>')\n"
       code << "  zile << ('<table:table-header-rows><table:table-row>"+columns_headers(table).collect{|h| "<table:table-cell table:style-name=\"header\" office:value-type=\"string\"><text:p>'+(#{h}).#{xml_escape}+'</text:p></table:table-cell>"}.join+"</table:table-row></table:table-header-rows>')\n"
-      code << "  for #{record} in #{table.records_variable_name}\n"  
+      code << "  for #{record} in #{table.records_variable_name}\n"
       code << "    zile << ('<table:table-row>"+table.exportable_columns.collect do |column|
         "<table:table-cell"+(if column.numeric? or column.datatype==:decimal
                                " office:value-type=\"float\" office:value=\"'+(#{column.datum_code(record)}).#{xml_escape}+'\""
@@ -61,7 +61,7 @@ module ActiveList
                                " office:value-type=\"boolean\" office:boolean-value=\"'+(#{column.datum_code(record)}).#{xml_escape}+'\""
                              elsif column.datatype==:date
                                " office:value-type=\"date\" table:style-name=\"ce1\" office:date-value=\"'+(#{column.datum_code(record)}).#{xml_escape}+'\""
-                             else 
+                             else
                                " office:value-type=\"string\""
                              end)+"><text:p>'+("+column.exporting_datum_code(record, true)+").#{xml_escape}+'</text:p></table:table-cell>"
       end.join+"</table:table-row>')\n"

@@ -39,13 +39,11 @@ task :models => :environment do
   refs_code = "  @@references = {"+refs_code[0..-2]+"\n  }\n"
 
 
-  schema_code  = "@@schema = HashWithIndifferentAccess.new(\n"
+  schema_code  = "SCHEMA = HashWithIndifferentAccess.new(\n"
   schema_code << Ekylibre::Record::Base.connection.tables.sort.collect do |table|
     table_code  = "#{table}: HashWithIndifferentAccess.new(\n"
     table_code << Ekylibre::Record::Base.connection.columns(table).sort{|a,b| a.name <=> b.name }.collect do |column|
-      column_code  = "#{column.name}: {"
-      column_code << "name: :#{column.name}"
-      column_code << ", type: :#{column.type}"
+      column_code  = "#{column.name}: Ekylibre::Record::Column.new(:#{column.name}, :#{column.type}"
       if column.type == :decimal
         column_code << ", precision: #{column.precision}"
         column_code << ", scale: #{column.scale}"
@@ -63,13 +61,16 @@ task :models => :environment do
           column_code << ", default: #{column.default.to_s}"
         end
       end
-      column_code << "}"
+      column_code << ").freeze"
       column_code
     end.join(",\n").dig
-    table_code << ")"
+    table_code << ").freeze"
     table_code
   end.join(",\n").dig
-  schema_code << ")\n"
+  schema_code << ").freeze\n"
+  schema_code << "def self.schema\n"
+  schema_code << "  Ekylibre::SCHEMA\n"
+  schema_code << "end"
 
 
 

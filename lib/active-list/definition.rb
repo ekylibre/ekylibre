@@ -2,7 +2,7 @@ module ActiveList
 
   class Table
     attr_reader :name, :model, :options, :id, :columns, :parameters
-    
+
     @@current_id = 0
 
     def initialize(name, model = nil, options = {})
@@ -28,7 +28,7 @@ module ActiveList
     end
 
     def model_columns
-      @model.columns
+      @model.columns_definition.values
     end
 
     def sortable_columns
@@ -59,11 +59,11 @@ module ActiveList
 
   end
 
-  
+
   class Column
     attr_accessor :name, :options, :table
     attr_reader :id
-    
+
     def initialize(table, name, options={})
       @table   = table
       @name    = name
@@ -76,11 +76,11 @@ module ActiveList
     def header_code
       raise NotImplementedError.new("#{self.class.name}#header_code is not implemented.")
     end
-    
+
     def sortable?
       false
     end
-    
+
     def exportable?
       false
     end

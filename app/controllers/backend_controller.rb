@@ -58,12 +58,12 @@ class BackendController < BaseController
       # end
       # Default scope
       # self.unroll(options.dup)
-    # end
-
-    # # Create unroll action for one given scope
-    # def unroll(*args)
-    #   options = (args[-1].is_a?(Hash) ? args.delete_at(-1) : {})
-    #   name = args[-1]
+      # end
+      
+      # # Create unroll action for one given scope
+      # def unroll(*args)
+      #   options = (args[-1].is_a?(Hash) ? args.delete_at(-1) : {})
+      #   name = args[-1]
 
       model = (options.delete(:model) || controller_name).to_s.classify.constantize
       foreign_record  = model.name.underscore
@@ -88,7 +88,7 @@ class BackendController < BaseController
         ca = word[1..-2].split(":")
         column = model.columns_definition[ca[0]]
         raise Exception.new("Unknown column #{ca[0]} for #{model.name}") unless column
-        columns << column.merge(filter: ca[1]|| "X%")
+        columns << column.options.merge(filter: ca[1]|| "X%")
         i = "item.#{column[:name]}"
         "\" + (#{i}.nil? ? '' : #{i}.l) + \""
       end

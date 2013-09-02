@@ -1,6 +1,6 @@
-@import "active-list/minimal";
-@import "active-list/background";
-@import "active-list/theme";
+@import "active-list/minimal.scss";
+@import "active-list/background.scss";
+@import "active-list/theme.scss";
 $list-line-backgrounds: ("" rgba(255, 255, 255, 0)) (".odd" rgba(255, 255, 255, 0.5)) (".even" rgba(255, 255, 255, 0.5));
 $list-column-backgrounds: ("" rgba(255, 255, 255, 0)) (".act" rgba(255, 134, 0, 0)) (".sor" rgba(0, 18, 132, 0.05));
 $list-hover-backgrounds: ("" rgba(255, 255, 255, 0)) (":hover" $hover-mask);

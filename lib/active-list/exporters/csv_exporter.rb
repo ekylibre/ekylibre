@@ -1,5 +1,5 @@
 module ActiveList
-  
+
   class CsvExporter < ActiveList::Exporter
 
     def file_extension
@@ -15,7 +15,7 @@ module ActiveList
       code  = table.select_data_code(:paginate => false)
       code += "data = ActiveList::CSV.generate do |csv|\n"
       code += "  csv << [#{columns_to_array(table, :header).join(', ')}]\n"
-      code += "  for #{record} in #{table.records_variable_name}\n"  
+      code += "  for #{record} in #{table.records_variable_name}\n"
       code += "    csv << [#{columns_to_array(table, :body, :record=>record).join(', ')}]\n"
       code += "  end\n"
       code += "end\n"

@@ -191,6 +191,6 @@ class Backend::DashboardsController < BackendController
     @@centralizing_query = "(" + queries.join(") UNION ALL (") + ")"
   end
 
-  build_centralizing_query 
+  build_centralizing_query
 
 end

@@ -4,7 +4,7 @@ module ActiveList
 
     # Retrieves all columns in database
     def table_columns
-      cols = self.model_columns.collect{|c| c.name}
+      cols = self.model_columns.map(&:name)
       @columns.select{|c| c.is_a? DataColumn and cols.include? c.name.to_s}
     end
 
@@ -92,7 +92,7 @@ module ActiveList
       @options[:datatype] || (@column ? @column[:type] : nil)
     end
 
-    
+
     def enumerize?
       if self.table.model.respond_to?(@name) and !@options[:through]
         if self.table.model.method(@name).arity.zero?
@@ -133,7 +133,7 @@ module ActiveList
 
     # Check if a column is sortable
     def sortable?
-      #not self.action? and 
+      #not self.action? and
       not self.options[:through] and not @column.nil?
     end
 

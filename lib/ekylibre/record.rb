@@ -22,23 +22,21 @@
 
 module Ekylibre
   module Record
-    # VERSION = '0.0.1'
+    autoload :Base, 'ekylibre/record/base'
+    autoload :Column, 'ekylibre/record/column'
   end
 end
 
-dir = File.join(File.dirname(__FILE__), 'record')
-require File.join(dir, 'base')
-require File.join(dir, 'bookkeep')
-require File.join(dir, 'autosave')
-require File.join(dir, 'default')
-require File.join(dir, 'has_shape')
-require File.join(dir, 'sums')
-require File.join(dir, 'preference')
-require File.join(dir, 'dependents')
-# require File.join(dir, 'transfer')
-require File.join(dir, 'acts', 'numbered')
-require File.join(dir, 'acts', 'reconcilable')
-require File.join(dir, 'acts', 'stockable')
-require File.join(dir, 'acts', 'affairable')
-require File.join(dir, 'acts', 'protected')
-# require File.join(dir, 'company_record')
+require_relative('record/bookkeep')
+require_relative('record/autosave')
+require_relative('record/default')
+require_relative('record/has_shape')
+require_relative('record/sums')
+require_relative('record/preference')
+require_relative('record/dependents')
+# require_relative('record/transfer')
+require_relative('record/acts/numbered')
+require_relative('record/acts/reconcilable')
+require_relative('record/acts/stockable')
+require_relative('record/acts/affairable')
+require_relative('record/acts/protected')
