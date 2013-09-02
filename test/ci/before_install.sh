@@ -1,3 +1,5 @@
+export DISPLAY=:99.0
+sh -e /etc/init.d/xvfb start
 sudo apt-get install python-software-properties
 echo "yes" | sudo apt-add-repository ppa:sharpie/for-science
 echo "yes" | sudo apt-add-repository ppa:sharpie/postgis-stable
