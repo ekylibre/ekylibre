@@ -22,7 +22,8 @@ module ActiveList
       query_code << ".select(#{self.select_code})" if self.select_code
       query_code << ".where(#{self.conditions_code})" unless self.options[:conditions].blank?
       query_code << ".joins(#{self.options[:joins].inspect})" unless self.options[:joins].blank?
-      query_code << ".includes(#{self.includes_hash.inspect}).references(#{self.includes_hash.inspect})" unless self.includes_hash.empty?
+      query_code << ".includes(#{self.includes_hash.inspect})" unless self.includes_hash.empty?
+      #.references(#{self.includes_hash.inspect})
 
       code = ""
       code << "#{self.records_variable_name}_count = #{query_code}.count\n"
