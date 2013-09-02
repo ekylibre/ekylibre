@@ -77,9 +77,9 @@ module ActiveList
         datum = "(#{datum}.nil? ? '' : ::I18n.localize(#{datum}#{', :currency=>'+currency.gsub(/RECORD/, record) if currency}))"
       elsif @name.to_s.match(/(^|\_)currency$/) and self.datatype == :string and self.limit == 3
         datum = "(#{datum}.nil? ? '' : ::I18n.currency_label(#{datum}))"
-      elsif @name==:country and  self.datatype == :string and self.limit == 2
+      elsif @name == :country and  self.datatype == :string and self.limit == 2
         datum = "(#{datum}.nil? ? '' : ::I18n.translate('countries.'+#{datum}))"
-      elsif @name==:language and self.datatype == :string and self.limit <= 8
+      elsif @name == :language and self.datatype == :string and self.limit <= 8
         datum = "(#{datum}.nil? ? '' : ::I18n.translate('languages.'+#{datum}))"
       elsif self.enumerize?
         datum = "(#{datum}.nil? ? '' : #{datum}.text)"
@@ -94,13 +94,12 @@ module ActiveList
 
 
     def enumerize?
-      if self.table.model.respond_to?(@name) and !@options[:through]
-        if self.table.model.method(@name).arity.zero?
-          if self.table.model.send(@name).respond_to?(:values)
-            return true
-          end
-        end
+      unless @options[:through]
+        self.table.model.send(@name).send(:values)
+        return true
       end
+      return false
+    rescue
       return false
     end
 
