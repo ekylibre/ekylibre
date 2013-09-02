@@ -104,7 +104,7 @@ demo :productions do
     CSV.foreach(file, :encoding => "UTF-8", :col_sep => ",", :headers => true, :quote_char => "'") do |row|
       r = OpenStruct.new(:description => row[0],
                          :name => row[1].downcase.capitalize,
-                         :family => (families_by_activity_name[row[1]] || nil).to_s,
+                         :family => families_by_activity_name[row[1]],
                          :product_nature_nomen => row[3].blank? ? nil :row[3].to_sym,
                          :nature => (natures[row[4]] || :none).to_s,
                          :campaign_name => row[5].blank? ? nil : row[5].to_s,
