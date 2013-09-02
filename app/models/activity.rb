@@ -24,7 +24,7 @@
 #  creator_id   :integer
 #  depth        :integer
 #  description  :string(255)
-#  family       :string(255)      not null
+#  family       :string(255)
 #  id           :integer          not null, primary key
 #  lft          :integer
 #  lock_version :integer          default(0), not null
@@ -45,12 +45,13 @@ class Activity < Ekylibre::Record::Base
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :depth, :lft, :rgt, :allow_nil => true, :only_integer => true
   validates_length_of :description, :family, :name, :nature, :allow_nil => true, :maximum => 255
-  validates_presence_of :family, :name, :nature
+  validates_presence_of :name, :nature
   #]VALIDATORS]
-  validates_inclusion_of :family, :in => self.family.values, :allow_blank => true
+  validates_inclusion_of :family, :in => self.family.values, :allow_nil => true
 
   # default_scope -> { where("stopped_at IS NULL OR stopped_at > ?", Time.now).order(:name) }
-  scope :main_activity, -> { where(:nature => "main").order(:name) }
+  scope :main, -> { where(nature: "main").order(:name) }
+  scope :main_activity, -> { where(nature: "main").order(:name) }
 
   accepts_nested_attributes_for :productions, :reject_if => :all_blank, :allow_destroy => true
   acts_as_nested_set

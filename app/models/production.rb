@@ -27,7 +27,7 @@
 #  id                :integer          not null, primary key
 #  lock_version      :integer          default(0), not null
 #  position          :integer
-#  product_nature_id :integer          not null
+#  product_nature_id :integer
 #  started_at        :datetime
 #  state             :string(255)
 #  static_support    :boolean          not null
@@ -45,16 +45,17 @@ class Production < Ekylibre::Record::Base
   has_many :supports, :class_name => "ProductionSupport", :inverse_of => :production
   has_many :procedures, :class_name => "Procedure"
   has_many :variables, :through => :procedures, :class_name => "ProcedureVariable"
-  has_many :land_parcel_groups, :through => :supports, :class_name => "Product"#, :conditions => {:variety => "land_parcel_group"}
+  has_many :land_parcel_groups, :through => :supports, :class_name => "Product" #, :conditions => {:variety => "land_parcel_group"}
 
   accepts_nested_attributes_for :supports, :reject_if => :all_blank, :allow_destroy => true
-  #belongs_to :storage, :class_name => "LandParcel"
+  # belongs_to :storage, :class_name => "LandParcel"
   # belongs_to :work_unit, :class_name => "Unit"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :state, :allow_nil => true, :maximum => 255
   validates_inclusion_of :static_support, :in => [true, false]
-  validates_presence_of :activity, :campaign, :product_nature
+  validates_presence_of :activity, :campaign
   #]VALIDATORS]
+  # validates_presence_of :product_nature, :if => :activity_main?
 
   scope :of_campaign, lambda { |*campaigns|
     for campaign in campaigns
@@ -90,6 +91,10 @@ class Production < Ekylibre::Record::Base
 
   before_validation(:on => :create) do
     self.state ||= self.class.state_machine.initial_state(self)
+  end
+
+  def activity_main?
+    self.activity and self.activity_main?
   end
 
   def has_active_product?

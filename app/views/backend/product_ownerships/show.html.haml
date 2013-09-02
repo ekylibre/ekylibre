@@ -1,0 +1,7 @@
+=main_toolbar do |t|
+  -t.edit @product_ownership
+
+=beehive do |b|
+  -b.cell do
+    =attributes_list(@product_ownership) do |l|
+      -l.attribute :name

@@ -1261,6 +1261,16 @@
         <page to="backend/product_nature_variants#list_prices"/>
         <page to="backend/product_nature_variants#list_products"/>
       </item>
+      <item name="product_ownerships">
+        <page to="backend/product_ownerships#index"/>
+        <page to="backend/product_ownerships#create"/>
+        <page to="backend/product_ownerships#destroy"/>
+        <page to="backend/product_ownerships#edit"/>
+        <page to="backend/product_ownerships#list"/>
+        <page to="backend/product_ownerships#new"/>
+        <page to="backend/product_ownerships#show"/>
+        <page to="backend/product_ownerships#update"/>
+      </item>
       <item name="product_prices">
         <page to="backend/product_prices#show"/>
       </item>

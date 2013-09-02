@@ -62,7 +62,7 @@ ActiveRecord::Schema.define(version: 20130410143823) do
   create_table "activities", force: true do |t|
     t.string   "name",                     null: false
     t.string   "description"
-    t.string   "family",                   null: false
+    t.string   "family"
     t.string   "nature",                   null: false
     t.datetime "started_at"
     t.datetime "stopped_at"
@@ -106,17 +106,16 @@ ActiveRecord::Schema.define(version: 20130410143823) do
   add_index "affairs", ["updater_id"], :name => "index_affairs_on_updater_id"
 
   create_table "analytic_repartitions", force: true do |t|
-    t.integer  "production_id",                                              null: false
-    t.integer  "journal_entry_item_id",                                      null: false
-    t.string   "state",                                                      null: false
-    t.date     "affected_on",                                                null: false
-    t.decimal  "percentage",            precision: 19, scale: 4,             null: false
-    t.text     "description"
-    t.datetime "created_at",                                                 null: false
-    t.datetime "updated_at",                                                 null: false
+    t.integer  "production_id",                                               null: false
+    t.integer  "journal_entry_item_id",                                       null: false
+    t.string   "state",                                                       null: false
+    t.date     "affected_on",                                                 null: false
+    t.decimal  "affectation_percentage", precision: 19, scale: 4,             null: false
+    t.datetime "created_at",                                                  null: false
+    t.datetime "updated_at",                                                  null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                   default: 0, null: false
+    t.integer  "lock_version",                                    default: 0, null: false
   end
 
   add_index "analytic_repartitions", ["created_at"], :name => "index_analytic_repartitions_on_created_at"
@@ -1492,10 +1491,10 @@ ActiveRecord::Schema.define(version: 20130410143823) do
 
   create_table "product_localizations", force: true do |t|
     t.integer  "product_id",                    null: false
+    t.string   "nature",                        null: false
     t.integer  "container_id"
     t.string   "arrival_cause"
     t.string   "departure_cause"
-    t.string   "nature",                        null: false
     t.datetime "started_at"
     t.datetime "stopped_at"
     t.datetime "created_at",                    null: false
@@ -1658,6 +1657,28 @@ ActiveRecord::Schema.define(version: 20130410143823) do
   add_index "product_natures", ["updater_id"], :name => "index_product_natures_on_updater_id"
   add_index "product_natures", ["variety"], :name => "index_product_natures_on_variety"
 
+  create_table "product_ownerships", force: true do |t|
+    t.integer  "product_id",               null: false
+    t.string   "nature",                   null: false
+    t.integer  "owner_id"
+    t.datetime "started_at"
+    t.datetime "stopped_at"
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version", default: 0, null: false
+  end
+
+  add_index "product_ownerships", ["created_at"], :name => "index_product_ownerships_on_created_at"
+  add_index "product_ownerships", ["creator_id"], :name => "index_product_ownerships_on_creator_id"
+  add_index "product_ownerships", ["owner_id"], :name => "index_product_ownerships_on_owner_id"
+  add_index "product_ownerships", ["product_id"], :name => "index_product_ownerships_on_product_id"
+  add_index "product_ownerships", ["started_at"], :name => "index_product_ownerships_on_started_at"
+  add_index "product_ownerships", ["stopped_at"], :name => "index_product_ownerships_on_stopped_at"
+  add_index "product_ownerships", ["updated_at"], :name => "index_product_ownerships_on_updated_at"
+  add_index "product_ownerships", ["updater_id"], :name => "index_product_ownerships_on_updater_id"
+
   create_table "product_price_listings", force: true do |t|
     t.string   "name",                                   null: false
     t.text     "description"
@@ -1765,7 +1786,7 @@ ActiveRecord::Schema.define(version: 20130410143823) do
   create_table "productions", force: true do |t|
     t.integer  "activity_id",                       null: false
     t.integer  "campaign_id",                       null: false
-    t.integer  "product_nature_id",                 null: false
+    t.integer  "product_nature_id"
     t.boolean  "static_support",    default: false, null: false
     t.datetime "started_at"
     t.datetime "stopped_at"

@@ -30,11 +30,11 @@ end")
   end
 
   def create_model_test
-    template("model_test.rb", File.join('test', 'unit', "#{singular_table_name}_test.rb"))
+    template("model_test.rb", File.join('test', 'models', "#{singular_table_name}_test.rb"))
   end
 
   def create_controller_test
-    template("controller_test.rb", File.join('test', 'functional', 'backend', "#{table_name}_controller_test.rb"))
+    template("controller_test.rb", File.join('test', 'controllers', 'backend', "#{table_name}_controller_test.rb"))
   end
 
 

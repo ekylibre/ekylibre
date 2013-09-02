@@ -921,10 +921,10 @@ class NormalizeProducts < ActiveRecord::Migration
       # t.references :transfer # RO
       # t.references :operation
       t.references :product,   :null => false # Duplicated from transfer.product_id
+      t.string     :nature,    :null => false
       t.references :container
       t.string :arrival_cause
       t.string :departure_cause
-      t.string   :nature,      :null => false
       t.datetime :started_at
       t.datetime :stopped_at
       t.stamps
@@ -936,6 +936,22 @@ class NormalizeProducts < ActiveRecord::Migration
     add_index :product_localizations, :container_id
     add_index :product_localizations, :started_at
     add_index :product_localizations, :stopped_at
+
+    # Historize differents ownerships of the products
+    create_table :product_ownerships do |t|
+      t.references :product,   :null => false
+      t.string     :nature,    :null => false
+      t.references :owner
+      t.datetime :started_at
+      t.datetime :stopped_at
+      t.stamps
+    end
+    add_stamps_indexes :product_ownerships
+    add_index :product_ownerships, :product_id
+    add_index :product_ownerships, :owner_id
+    add_index :product_ownerships, :started_at
+    add_index :product_ownerships, :stopped_at
+
 
     # Historize differents catches/releases between products
     create_table :product_links do |t|

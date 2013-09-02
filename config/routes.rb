@@ -745,6 +745,13 @@ Ekylibre::Application.routes.draw do
       end
     end
 
+    resources :product_ownerships do
+      collection do
+        get :list
+        unroll_all
+      end
+    end
+
     resources :product_price_listings do
       collection do
         get :unroll

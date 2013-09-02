@@ -458,6 +458,11 @@ fra:
       index: "Type de produits"
       new: "Nouveau type de produit"
       show: "Type de produit\_: %{name}"
+    backend/product_ownerships:
+      # edit: "Edit backend/product ownership"
+      # index: "Index backend/product ownership"
+      # new: "New backend/product ownership"
+      # show: "Show backend/product ownership"
     backend/product_price_listings:
       # edit: "Edit backend/product price listing"
       index: "Listes de prix"
@@ -719,6 +724,7 @@ fra:
     # backend/product_nature_variant_indicator_data: "Backend/product nature variant indicator data"
     # backend/product_nature_variants: "Backend/product nature variants"
     backend/product_natures: "Types de produits"
+    # backend/product_ownerships: "Backend/product ownerships"
     backend/product_price_listings: "Listes de prix"
     backend/product_prices: "Prix des produits"
     # backend/product_process_phases: "Backend/product process phases"

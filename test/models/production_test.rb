@@ -27,7 +27,7 @@
 #  id                :integer          not null, primary key
 #  lock_version      :integer          default(0), not null
 #  position          :integer
-#  product_nature_id :integer          not null
+#  product_nature_id :integer
 #  started_at        :datetime
 #  state             :string(255)
 #  static_support    :boolean          not null

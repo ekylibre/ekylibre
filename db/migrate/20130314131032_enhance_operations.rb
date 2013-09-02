@@ -40,7 +40,7 @@ class EnhanceOperations < ActiveRecord::Migration
       # t.references :nature, :null => false
       t.references :activity, :null => false
       t.references :campaign, :null => false
-      t.references :product_nature, :null => false
+      t.references :product_nature
       t.boolean :static_support, :null => false, :default => false
       t.datetime :started_at
       t.datetime :stopped_at

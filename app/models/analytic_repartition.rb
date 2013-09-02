@@ -20,18 +20,17 @@
 #
 # == Table: analytic_repartitions
 #
-#  affected_on           :date             not null
-#  created_at            :datetime         not null
-#  creator_id            :integer
-#  description           :text
-#  id                    :integer          not null, primary key
-#  journal_entry_item_id :integer          not null
-#  lock_version          :integer          default(0), not null
-#  percentage            :decimal(19, 4)   not null
-#  production_id         :integer          not null
-#  state                 :string(255)      not null
-#  updated_at            :datetime         not null
-#  updater_id            :integer
+#  affectation_percentage :decimal(19, 4)   not null
+#  affected_on            :date             not null
+#  created_at             :datetime         not null
+#  creator_id             :integer
+#  id                     :integer          not null, primary key
+#  journal_entry_item_id  :integer          not null
+#  lock_version           :integer          default(0), not null
+#  production_id          :integer          not null
+#  state                  :string(255)      not null
+#  updated_at             :datetime         not null
+#  updater_id             :integer
 #
 class AnalyticRepartition < Ekylibre::Record::Base
   # attr_accessible :state, :production_id, :affected_on,  :description, :journal_entry_item_id,  :percentage
@@ -39,9 +38,9 @@ class AnalyticRepartition < Ekylibre::Record::Base
   belongs_to :journal_entry_item
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :percentage, :allow_nil => true
+  validates_numericality_of :affectation_percentage, :allow_nil => true
   validates_length_of :state, :allow_nil => true, :maximum => 255
-  validates_presence_of :affected_on, :journal_entry_item, :percentage, :production, :state
+  validates_presence_of :affectation_percentage, :affected_on, :journal_entry_item, :production, :state
   #]VALIDATORS]
 
   state_machine :state, :initial => :draft do

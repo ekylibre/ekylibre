@@ -18,31 +18,23 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: activities
+# == Table: product_ownerships
 #
 #  created_at   :datetime         not null
 #  creator_id   :integer
-#  depth        :integer
-#  description  :string(255)
-#  family       :string(255)
 #  id           :integer          not null, primary key
-#  lft          :integer
 #  lock_version :integer          default(0), not null
-#  name         :string(255)      not null
 #  nature       :string(255)      not null
-#  parent_id    :integer
-#  rgt          :integer
+#  owner_id     :integer
+#  product_id   :integer          not null
 #  started_at   :datetime
 #  stopped_at   :datetime
 #  updated_at   :datetime         not null
 #  updater_id   :integer
 #
-require 'test_helper'
-
-class ActivityTest < ActiveSupport::TestCase
-
-  test "presence of fixtures" do
-    # assert_equal 2, Activity.count
-  end
-
+class ProductOwnership < Ekylibre::Record::Base
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_length_of :nature, :allow_nil => true, :maximum => 255
+  validates_presence_of :nature
+  #]VALIDATORS]
 end

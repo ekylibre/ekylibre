@@ -385,6 +385,7 @@ fra:
       product_nature: "Type de produit"
       product_nature_variant: "Variante de type de produit"
       # product_nature_variant_indicator_datum: "Product nature variant indicator datum"
+      # product_ownership: "Product ownership"
       product_price: "Prix"
       product_price_listing: "Liste de prix"
       product_price_template: "Type de prix" #?
@@ -436,6 +437,7 @@ fra:
     administrator: "Administrateur système"
     affair: "Affaire"
     affairs: "Affaires"
+    # affectation_percentage: "Affectation percentage"
     affected_on: "Affecté le"
     age: "Âge" #?
     allocation_account: "Compte de dotation"
@@ -894,7 +896,7 @@ fra:
     payments_count: "Nb. encaissements"
     payments_to_deposit: "Encaissements à encaisser" #?
     payments_to_deposit_accounts: "Comptes des encaissements à encaisser" #?
-    percentage: "Pourcentage"
+    percentage: "Pourcentage" #?
     period: "Périodicité"
     person: "Personne"
     # phase_delay: "Phase delay"

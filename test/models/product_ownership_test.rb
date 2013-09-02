@@ -18,27 +18,26 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: analytic_repartitions
+# == Table: product_ownerships
 #
-#  affectation_percentage :decimal(19, 4)   not null
-#  affected_on            :date             not null
-#  created_at             :datetime         not null
-#  creator_id             :integer
-#  id                     :integer          not null, primary key
-#  journal_entry_item_id  :integer          not null
-#  lock_version           :integer          default(0), not null
-#  production_id          :integer          not null
-#  state                  :string(255)      not null
-#  updated_at             :datetime         not null
-#  updater_id             :integer
+#  created_at   :datetime         not null
+#  creator_id   :integer
+#  id           :integer          not null, primary key
+#  lock_version :integer          default(0), not null
+#  nature       :string(255)      not null
+#  owner_id     :integer
+#  product_id   :integer          not null
+#  started_at   :datetime
+#  stopped_at   :datetime
+#  updated_at   :datetime         not null
+#  updater_id   :integer
 #
 require 'test_helper'
 
-class AnalyticRepartitionTest < ActiveSupport::TestCase
+class ProductOwnershipTest < ActiveSupport::TestCase
 
-  # Replace this with your real tests.'
-  test "the truth" do
-    assert true
+  test "presence of fixtures" do
+    # assert_equal 2, ProductOwnership.count
   end
 
 end

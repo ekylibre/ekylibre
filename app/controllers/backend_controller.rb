@@ -59,7 +59,7 @@ class BackendController < BaseController
       # Default scope
       # self.unroll(options.dup)
       # end
-      
+
       # # Create unroll action for one given scope
       # def unroll(*args)
       #   options = (args[-1].is_a?(Hash) ? args.delete_at(-1) : {})
