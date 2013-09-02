@@ -47,7 +47,7 @@ class Activity < Ekylibre::Record::Base
   validates_length_of :description, :family, :name, :nature, :allow_nil => true, :maximum => 255
   validates_presence_of :family, :name, :nature
   #]VALIDATORS]
-  validates_inclusion_of :family, :in => self.family.values, :allow_nil => true
+  validates_inclusion_of :family, :in => self.family.values, :allow_blank => true
 
   # default_scope -> { where("stopped_at IS NULL OR stopped_at > ?", Time.now).order(:name) }
   scope :main_activity, -> { where(:nature => "main").order(:name) }
