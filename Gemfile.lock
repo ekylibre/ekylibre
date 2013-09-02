@@ -19,11 +19,6 @@ GEM
       erubis (~> 2.7.0)
       rack (~> 1.5.2)
       rack-test (~> 0.6.2)
-    active-list (4.2.4)
-      compass-rails (>= 1)
-      fastercsv (>= 1.5)
-      i18n-complements
-      rails (>= 3.1)
     activemodel (4.0.0)
       activesupport (= 4.0.0)
       builder (~> 3.1.0)
@@ -395,7 +390,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  active-list
   activerecord-postgis-adapter
   acts_as_list
   agric

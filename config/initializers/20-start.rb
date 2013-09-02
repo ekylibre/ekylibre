@@ -12,5 +12,6 @@ require 'procedures'
 require 'measure'
 require 'reporting'
 require 'enumerize/xml'
+require 'active-list'
 
 

@@ -41,7 +41,7 @@ demo :sales do
     (140 + rand(20)).times do |i|
       # Sale
       d = Date.today - (5*i - rand(4)).days
-      sale = Sale.create!(:created_on => d, :client_id => Entity.where(:of_company => false).all.sample.id, :nature_id => sale_nature.id, :sum_method => "wt")
+      sale = Sale.create!(:created_on => d, :client_id => Entity.where(:of_company => false).all.sample.id, :nature_id => sale_nature.id)
       # Sale items
       (rand(5) + 1).times do
         # # find or create a price
@@ -56,7 +56,7 @@ demo :sales do
                                        :variant_id => ble.variant_id
                                        )
 
-        sale.items.create!(:quantity => rand(12.5)+0.5,
+        sale.items.create!(:quantity => rand(12.5) + 0.5,
                            :product_id => ble.id,
                            :price_id => price.id)
       end

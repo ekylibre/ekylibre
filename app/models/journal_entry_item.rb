@@ -77,6 +77,9 @@ class JournalEntryItem < Ekylibre::Record::Base
   # validates_uniqueness_of :letter, :scope => :account_id, :if => Proc.new{|x| !x.letter.blank?}
 
   acts_as_list :scope => :entry
+
+  before_update  :uncumulate
+  before_destroy :uncumulate
   after_create  :update_entry
   after_destroy :update_entry
   after_destroy :unmark
@@ -137,15 +140,6 @@ class JournalEntryItem < Ekylibre::Record::Base
     errors.add(:credit, :unvalid_amounts) if self.debit != 0 and self.credit != 0
   end
 
-  before_update do
-    old = self.old_record
-    # Cancel old values if specific columns have been updated
-    if self.absolute_debit != old.absolute_debit or self.absolute_credit != old.absolute_credit or self.printed_on != old.printed_on
-      # old.followings.update_all("cumulated_absolute_debit = cumulated_absolute_debit - ?, cumulated_absolute_credit = cumulated_absolute_credit - ?", old.absolute_debit, old.absolute_debit)
-      old.followings.update_all("cumulated_absolute_debit = cumulated_absolute_debit - #{old.absolute_debit.to_s}, cumulated_absolute_credit = cumulated_absolute_credit - #{old.absolute_debit}")
-    end
-  end
-
   after_save do
     # self.followings.update_all("cumulated_absolute_debit = cumulated_absolute_debit + ?, cumulated_absolute_credit = cumulated_absolute_credit + ?", self.absolute_debit, self.absolute_credit)
     self.followings.update_all("cumulated_absolute_debit = cumulated_absolute_debit + #{self.absolute_debit}, cumulated_absolute_credit = cumulated_absolute_credit + #{self.absolute_credit}")
@@ -164,7 +158,7 @@ class JournalEntryItem < Ekylibre::Record::Base
     ::I18n.t('models.journal_entry.states.'+self.state.to_s)
   end
 
-  # updates the amounts to the debit and the credit
+  # Updates the amounts to the debit and the credit
   # for the matching entry.
   def update_entry
     self.entry.refresh
@@ -190,6 +184,13 @@ class JournalEntryItem < Ekylibre::Record::Base
     end
   end
 
+  # Cancel old values if specific columns have been updated
+  def uncumulate
+    old = self.old_record
+    if self.absolute_debit != old.absolute_debit or self.absolute_credit != old.absolute_credit or self.printed_on != old.printed_on
+      old.followings.update_all("cumulated_absolute_debit = cumulated_absolute_debit - #{old.absolute_debit.to_s}, cumulated_absolute_credit = cumulated_absolute_credit - #{old.absolute_debit}")
+    end
+  end
 
   # Unmark all the journal entry items with the same mark in the same account
   def unmark

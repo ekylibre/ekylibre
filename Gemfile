@@ -64,7 +64,7 @@ gem 'routing-filter', '~> 0.4.0.pre'
 gem 'exception_notification'
 
 # Views helpers
-gem 'active-list'
+# gem 'active-list'
 gem 'haml'
 # gem "google_visualr", ">= 2.1"
 gem 'lazy_high_charts'
