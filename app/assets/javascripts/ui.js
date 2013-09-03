@@ -767,8 +767,8 @@
 
     $.initializeDateSelectors = function() {
         $('input[type="date"], input[type="datetime"]').trigger('change');
-    }
-    $(document).ready($.initializeDateSelectors)
+    };
+    $(document).ready($.initializeDateSelectors);
     $(document).on("page:load cocoon:after-insert", $.initializeDateSelectors);
 
 

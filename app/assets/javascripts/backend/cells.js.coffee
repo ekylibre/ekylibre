@@ -12,6 +12,7 @@
         success: (data, status, request) ->
           element.removeClass("loading")
           element.html(data)
+          element.trigger('cell:load')
           true
       })
       true

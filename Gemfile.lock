@@ -162,7 +162,6 @@ GEM
       builder (>= 2.1.2)
     haml (4.0.3)
       tilt
-    hash-deep-merge (0.1.1)
     hashery (2.1.1)
     hike (1.2.3)
     hpricot (0.8.6)
@@ -189,9 +188,6 @@ GEM
     json (1.8.0)
     launchy (2.3.0)
       addressable (~> 2.3)
-    lazy_high_charts (1.4.3)
-      bundler (>= 1.0)
-      hash-deep-merge
     libv8 (3.16.14.3)
     libxml-ruby (2.7.0)
     listen (0.7.3)
@@ -428,7 +424,6 @@ DEPENDENCIES
   jquery-turbolinks
   jquery-ui-rails
   launchy
-  lazy_high_charts
   libxml-ruby
   mechanize
   nokogiri

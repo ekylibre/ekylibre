@@ -19,13 +19,13 @@
 
 module BackendHelper
 
-  def bar_chart(values, options = {})
-    render :partial => "backend/charts/bar_chart", :locals => {:values => values}
-  end
+  # def bar_chart(values, options = {})
+  #   render :partial => "backend/charts/bar_chart", :locals => {:values => values}
+  # end
 
-  def pie_chart(values, options = {})
-    render :partial => "backend/charts/pie_chart", :locals => {:values => values}
-  end
+  # def pie_chart(values, options = {})
+  #   render :partial => "backend/charts/pie_chart", :locals => {:values => values}
+  # end
 
   # Angles are in degrees (not in radians)
   def pie_piece_path(x, y, radius, angle_start, angle_stop)
