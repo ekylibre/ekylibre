@@ -14,6 +14,10 @@
           element.html(data)
           element.trigger('cell:load')
           true
+        error: (request, status, error) ->
+          alert("Error " + status + " on cell " + error)
+          console.log("Error while retrieving cell content")
+          element.html(request.responseXML)
       })
       true
     )

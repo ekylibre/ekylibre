@@ -1,65 +1,56 @@
 (function ($, undefined) {
     "use strict";
 
+    Highcharts.setOptions({
+        chart: {
+            style: {
+                fontFamily: '"Open Sans", "Droid Sans", "Liberation Sans", Helvetica, sans-serif',
+	        fontSize: '14px'
+            }
+        },
+        credits: {
+            enabled: false
+        },
+        tooltip: {
+            enabled: false
+        },
+        legend: {
+            enabled: false
+        },
+        title: {
+            text: ''
+        }
+    });
+
     $.fn.highchartsFromData = function () {
         $(this).each(function () {
             var chart = $(this), options = {};
-            if (chart.data('highchartLoaded') !== true) {
-                options.chart = $.parseJSON(chart.data('highchart'));
+            if (chart.prop('highchartLoaded') !== true) {
+                options.chart = chart.data('highchart');
                 //  OPTIONS: colors, credits, exporting, labels, legend, loading, navigation, pane, plot-options, series, subtitle, title, tooltip, x-axis, y-axis
-                if (chart.data('highchart-series') !== undefined) {
-                    options.series = $.parseJSON(chart.data('highchart-series'))
-                }
-                if (chart.data('highchart-colors') !== undefined) {
-                    options.colors = $.parseJSON(chart.data('highchart-colors'))
-                }
-                if (chart.data('highchart-credits') !== undefined) {
-                    options.credits = $.parseJSON(chart.data('highchart-credits'))
-                }
-                if (chart.data('highchart-exporting') !== undefined) {
-                    options.exporting = $.parseJSON(chart.data('highchart-exporting'))
-                }
-                if (chart.data('highchart-labels') !== undefined) {
-                    options.labels = $.parseJSON(chart.data('highchart-labels'))
-                }
-                if (chart.data('highchart-legend') !== undefined) {
-                    options.legend = $.parseJSON(chart.data('highchart-legend'))
-                }
-                if (chart.data('highchart-loading') !== undefined) {
-                    options.loading = $.parseJSON(chart.data('highchart-loading'))
-                }
-                if (chart.data('highchart-navigation') !== undefined) {
-                    options.navigation = $.parseJSON(chart.data('highchart-navigation'))
-                }
-                if (chart.data('highchart-pane') !== undefined) {
-                    options.pane = $.parseJSON(chart.data('highchart-pane'))
-                }
-                if (chart.data('highchart-plot-options') !== undefined) {
-                    options.plotOptions = $.parseJSON(chart.data('highchart-plot-options'))
-                }
-                if (chart.data('highchart-subtitle') !== undefined) {
-                    options.subtitle = $.parseJSON(chart.data('highchart-subtitle'))
-                }
-                if (chart.data('highchart-title') !== undefined) {
-                    options.title = $.parseJSON(chart.data('highchart-title'))
-                }
-                if (chart.data('highchart-tooltip') !== undefined) {
-                    options.tooltip = $.parseJSON(chart.data('highchart-tooltip'))
-                }
-                if (chart.data('highchart-x-axis') !== undefined) {
-                    options.xAxis = $.parseJSON(chart.data('highchart-x-axis'))
-                }
-                if (chart.data('highchart-y-axis') !== undefined) {
-                    options.yAxis = $.parseJSON(chart.data('highchart-y-axis'))
-                }
-                chart.highchart(options);
-                chart.data('highchartLoaded', true);
+                if (chart.data('highchartSeries') !== undefined)      options.series = chart.data('highchartSeries');
+                if (chart.data('highchartColors') !== undefined)      options.colors = chart.data('highchartColors');
+                if (chart.data('highchartCredits') !== undefined)     options.credits = chart.data('highchartCredits');
+                if (chart.data('highchartExporting') !== undefined)   options.exporting = chart.data('highchartExporting');
+                if (chart.data('highchartLabels') !== undefined)      options.labels = chart.data('highchartLabels');
+                if (chart.data('highchartLegend') !== undefined)      options.legend = chart.data('highchartLegend');
+                if (chart.data('highchartLoading') !== undefined)     options.loading = chart.data('highchartLoading');
+                if (chart.data('highchartNavigation') !== undefined)  options.navigation = chart.data('highchartNavigation');
+                if (chart.data('highchartPane') !== undefined)        options.pane = chart.data('highchartPane');
+                if (chart.data('highchartPlotOptions') !== undefined) options.plotOptions = chart.data('highchartPlotOptions');
+                if (chart.data('highchartSubtitle') !== undefined)    options.subtitle = chart.data('highchartSubtitle');
+                if (chart.data('highchartTitle') !== undefined)       options.title = chart.data('highchartTitle');
+                if (chart.data('highchartTooltip') !== undefined)     options.tooltip = chart.data('highchartTooltip');
+                if (chart.data('highchartXAxis') !== undefined)       options.xAxis = chart.data('highchartXAxis');
+                if (chart.data('highchartYAxis') !== undefined)       options.yAxis = chart.data('highchartYAxis');
+                chart.highcharts(options);
+                chart.prop('highchartLoaded', true);
             }
         });
     };
 
     $.loadHighcharts = function() {
-        $('*[data-highcharts]').highchartsFromData();
+        $('*[data-highchart]').highchartsFromData();
     };
 
     $(document).ready($.loadHighcharts);

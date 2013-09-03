@@ -41,22 +41,23 @@ class Delay
   def initialize(expression = nil)
     base = expression.dup
     expression ||= []
-    expression = expression.to_s.mb_chars.downcase.split(/\s*\,\s*/) if expression.is_a?(String)
+    expression = expression.to_s.strip.split(/\s*\,\s*/) if expression.is_a?(String)
     raise ArgumentError.new("String or Array expected (got #{expression.class.name}:#{expression.inspect})") unless expression.is_a?(Array)
     @expression = expression.collect do |step|
-      if step.match(/^(eom|end of month|fdm|fin de mois)$/)
+      # step = step.mb_chars.downcase
+      if step.match(/\A(eom|end of month|fdm|fin de mois)\z/)
         [:eom]
-      elsif step.match(/^(bom|beginning of month|ddm|debut de mois|début de mois)$/)
+      elsif step.match(/\A(bom|beginning of month|ddm|debut de mois|début de mois)\z/)
         [:bom]
-      elsif step.match(/^\d+\ (#{KEYS})(\ (avant|ago))?$/)
+      elsif step.match(/\A\d+\ (#{KEYS})(\ (avant|ago))?\z/)
         words = step.split(/\s+/).map(&:to_s)
         if TRANSLATIONS[words[1]].nil?
           puts TRANSLATIONS.inspect
-          raise InvalidDelayExpression.new("#{words[1].inspect} is an undefined period (#{step})")
+          raise InvalidDelayExpression.new("#{words[1].inspect} is an undefined period (#{step.inspect} of #{base.inspect})")
         end
         [TRANSLATIONS[words[1]] , (words[2].blank? ? 1 : -1) * words[0].to_i]
       elsif !step.blank?
-        raise InvalidDelayExpression.new("#{step} is an invalid step. (From #{base.inspect})")
+        raise InvalidDelayExpression.new("#{step.inspect} is an invalid step. (From #{base.inspect} => #{expression.inspect})")
       end
     end
   end
