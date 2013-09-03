@@ -56,6 +56,6 @@
     $(document).ready($.loadHighcharts);
 
     $(document).on("page:load cocoon:after-insert cell:load", $.loadHighcharts);
-    
-    
+
+
 })( jQuery );
