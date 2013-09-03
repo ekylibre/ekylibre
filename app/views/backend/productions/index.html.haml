@@ -3,10 +3,10 @@
   -k.radio :all, :validated, :draft, :aborted, :started
   -k.criterion do
     %label=Production.human_attribute_name(:campaign)
-    =select_tag(:campaign_id, options_for_select([[]] + Campaign.to_a.collect{|u| [u.name, u.id]}, params[:campaign_id]))
+    =select_tag(:campaign_id, options_for_select([[]] + Campaign.all.collect{|u| [u.name, u.id]}, params[:campaign_id]))
   -k.criterion do
     %label=Production.human_attribute_name(:product_nature)
-    =select_tag(:product_nature_id, options_for_select([[]] + ProductNature.to_a.collect{|u| [u.label, u.id]}, params[:product_nature_id]))
+    =select_tag(:product_nature_id, options_for_select([[]] + ProductNature.all.collect{|u| [u.label, u.id]}, params[:product_nature_id]))
 
 =main_toolbar do |t|
   -t.new

@@ -58,12 +58,21 @@ class Production < Ekylibre::Record::Base
   # validates_presence_of :product_nature, :if => :activity_main?
 
   scope :of_campaign, lambda { |*campaigns|
+    campaigns.flatten!
     for campaign in campaigns
       raise ArgumentError.new("Expected Campaign, got #{campaign.class.name}:#{campaign.inspect}") unless campaign.is_a?(Campaign)
     end
     where('campaign_id IN (?)', campaigns.map(&:id))
   }
-
+  
+  
+ scope :of_activities, lambda { |*activities|
+    activities.flatten!
+    for activity in activities
+      raise ArgumentError.new("Expected Activity, got #{activity.class.name}:#{activity.inspect}") unless activity.is_a?(Activity)
+    end
+    where('activity_id IN (?)', activities.map(&:id))
+  }
 
   state_machine :state, :initial => :draft do
     state :draft
@@ -114,6 +123,18 @@ class Production < Ekylibre::Record::Base
     tc('label.' + self.state, :identification => (self.product_nature.name + " " + self.campaign.name))
    end
   alias :label :name
+
+
+  def shape_area
+    if self.static_support?
+      supports = self.supports.collect do |support|
+        support.storage.shape_area
+      end
+      return supports.sum
+    else
+      return 0.0
+    end
+  end
 
 
 end
