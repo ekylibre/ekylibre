@@ -9,20 +9,13 @@
           - activeness = (cid.zero? ? {:class => 'active'} : {})
           %li{activeness}>
             = link_to("#b#{bid}c#{cid}", :class => "cell-title") do
-              %i
-              = cell.title
-              - if cell.options[:counter]
-                %span.badge= cell.options[:counter]
-
+              = render 'backend/cell_title', :cell => cell
       .cells
         - box.each_with_index do |cell, cid|
           .cell{:id => "b#{bid}c#{cid}", :class => (cid.zero? ? ' active' : nil)}
             .cell-inner
               .cell-title
-                %i
-                = cell.title
-                - if cell.options[:counter]
-                  %span.badge= cell.options[:counter]
+                = render 'backend/cell_title', :cell => cell
                 %span{"data-toggle" => "cell"}
               - if cell.content?
                 .cell-content= cell.content
