@@ -975,6 +975,8 @@ fra:
       unconfirmed: "Non-confirmés"
     critic_stock_min: "Stock minimum critique"
     critic_stocks: "Stocks sous le seuil critique"
+    cropping_plan: "Assolement"
+    cropping_plan_on_cultivable_land_parcels: "Assolement (Parcelles culturales)"
     csv_statistics: "Statistiques à exporter au format CSV"
     cumul: "Cumul du total et du solde précédent N°%{number}"
     currency_with_code: "%{code} - %{name}"

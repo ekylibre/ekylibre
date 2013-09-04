@@ -68,6 +68,7 @@ class CultivableLandParcel < LandParcelGroup
   #]VALIDATORS]
 
   scope :of_campaign, lambda { |*campaigns|
+    campaigns.flatten!
     for campaign in campaigns
       raise ArgumentError.new("Expected Campaign, got #{campaign.class.name}:#{campaign.inspect}") unless campaign.is_a?(Campaign)
     end
@@ -75,6 +76,7 @@ class CultivableLandParcel < LandParcelGroup
   }
 
   scope :of_production, lambda { |*productions|
+    productions.flatten!
     for production in productions
       raise ArgumentError.new("Expected Production, got #{production.class.name}:#{production.inspect}") unless production.is_a?(Production)
     end

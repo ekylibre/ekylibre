@@ -45,7 +45,8 @@ Ekylibre::Application.routes.draw do
     end
 
     namespace :cells do
-      resource :product_pie_cell, :only => :show
+      resource :cropping_plan_cell, :only => :show
+      resource :cropping_plan_on_cultivable_land_parcels_cell, :only => :show
       resource :product_bar_cell, :only => :show
       resource :purchases_bar_cell, :only => :show
       resource :purchases_expense_bar_cell, :only => :show

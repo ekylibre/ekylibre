@@ -1,0 +1,22 @@
+- if @campaigns
+  :ruby
+    # In theorie, @activity and @productions should be produced here from @campaign only
+    
+    activities = Activity.of_campaign(@campaigns).of_families(:straw_cereal_crops, :maize_crops, :oilseed_crops, :protein_crops, :prairie, :fallow_land).order(:id)
+
+      if activities.count > 0
+        activities_serie = activities.collect do |activity|
+          { name: activity.name, y: activity.shape_area(@campaigns).to_s.to_f*0.0001, id: activity.id, color: cycle(*Backend::ChartsHelper::COLORS) }
+        end
+        productions_serie = Production.of_campaign(@campaigns).of_activities(activities).order("activity_id, id").collect do |production|
+          { name: production.name, y: production.shape_area.to_s.to_f*0.0001, color: ligthen(activities_serie.detect{|a| a[:id] == production.activity_id}[:color], 0.3) }
+        end
+      end
+    
+    series = []
+    series << {name: Activity.model_name.human, data: activities_serie, size: "60%"}
+    series << {name: Production.model_name.human, data: productions_serie, size: "80%", inner_size: "60%"}
+
+  = pie_chart(series, tooltip: {point_format: '{point.y: 1.1f} Ha'}, title: @campaigns.map(&:name).to_sentence)
+- else
+  %strong= :no_data.tl
