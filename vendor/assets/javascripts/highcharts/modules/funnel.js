@@ -1,5 +1,5 @@
 /**
- * @license 
+ * @license
  * Highcharts funnel module, Beta
  *
  * (c) 2010-2012 Torstein Hønsi
@@ -9,7 +9,7 @@
 
 /*global Highcharts */
 (function (Highcharts) {
-	
+
 'use strict';
 
 // create shortcuts
@@ -40,12 +40,12 @@ defaultPlotOptions.funnel = merge(defaultPlotOptions.pie, {
 			borderColor: '#000000',
 			shadow: false
 		}
-	}	
+	}
 });
 
 
 seriesTypes.funnel = Highcharts.extendClass(seriesTypes.pie, {
-	
+
 	type: 'funnel',
 	animate: noop,
 
@@ -53,15 +53,15 @@ seriesTypes.funnel = Highcharts.extendClass(seriesTypes.pie, {
 	 * Overrides the pie translate method
 	 */
 	translate: function () {
-		
-		var 
+
+		var
 			// Get positions - either an integer or a percentage string must be given
 			getLength = function (length, relativeTo) {
 				return (/%$/).test(length) ?
 					relativeTo * parseInt(length, 10) / 100 :
 					parseInt(length, 10);
 			},
-			
+
 			sum = 0,
 			series = this,
 			chart = series.chart,
@@ -84,12 +84,12 @@ seriesTypes.funnel = Highcharts.extendClass(seriesTypes.pie, {
 			fraction,
 			half = options.dataLabels.position === 'left' ? 1 : 0,
 
-			x1, 
-			y1, 
-			x2, 
-			x3, 
-			y3, 
-			x4, 
+			x1,
+			y1,
+			x2,
+			x3,
+			y3,
+			x4,
 			y5;
 
 		// Return the width at a specific y coordinate
@@ -151,7 +151,7 @@ seriesTypes.funnel = Highcharts.extendClass(seriesTypes.pie, {
 			if (y1 > neckY) {
 				x1 = x3 = centerX - neckWidth / 2;
 				x2 = x4 = centerX + neckWidth / 2;
-			
+
 			// the base of the neck
 			} else if (y3 > neckY) {
 				y5 = y3;
@@ -194,7 +194,7 @@ seriesTypes.funnel = Highcharts.extendClass(seriesTypes.pie, {
 
 			// Slice is a noop on funnel points
 			point.slice = noop;
-			
+
 			// Mimicking pie data label placement logic
 			point.half = half;
 
@@ -217,7 +217,7 @@ seriesTypes.funnel = Highcharts.extendClass(seriesTypes.pie, {
 			renderer = chart.renderer;
 
 		each(series.data, function (point) {
-			
+
 			var graphic = point.graphic,
 				shapeArgs = point.shapeArgs;
 
@@ -229,13 +229,13 @@ seriesTypes.funnel = Highcharts.extendClass(seriesTypes.pie, {
 						'stroke-width': options.borderWidth
 					}).
 					add(series.group);
-					
+
 			} else { // Update the shapes
 				graphic.animate(shapeArgs);
 			}
 		});
 	},
-	
+
 	/**
 	 * Extend the pie data label method
 	 */
@@ -248,12 +248,12 @@ seriesTypes.funnel = Highcharts.extendClass(seriesTypes.pie, {
 			i = data.length,
 			x,
 			y;
-		
+
 		// In the original pie label anticollision logic, the slots are distributed
 		// from one labelDistance above to one labelDistance below the pie. In funnels
 		// we don't want this.
 		this.center[2] -= 2 * labelDistance;
-		
+
 		// Set the label position array for each point.
 		while (i--) {
 			point = data[i];
@@ -261,7 +261,7 @@ seriesTypes.funnel = Highcharts.extendClass(seriesTypes.pie, {
 			sign = leftSide ? 1 : -1;
 			y = point.plotY;
 			x = this.getX(y, leftSide);
-				
+
 			// set the anchor point for data labels
 			point.labelPos = [
 				0, // first break of connector
@@ -274,7 +274,7 @@ seriesTypes.funnel = Highcharts.extendClass(seriesTypes.pie, {
 				0 // center angle
 			];
 		}
-		
+
 		seriesTypes.pie.prototype.drawDataLabels.call(this);
 	}
 
