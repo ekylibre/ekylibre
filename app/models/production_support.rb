@@ -40,4 +40,5 @@ class ProductionSupport < Ekylibre::Record::Base
   #]VALIDATORS]
   belongs_to :storage, :class_name => "Product", :inverse_of => :supports
   belongs_to :production, :inverse_of => :supports
+  delegate :shape_area, to: :storage, prefix: true
 end

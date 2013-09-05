@@ -12,3 +12,21 @@
   -b.tabbox do
     -b.cell(:productions) do
       =list(:production)
+    -b.cell :cropping_plan_chart do
+      - if @production.supports.count > 0
+        :ruby
+  
+          cultivable_land_parcels = CultivableLandParcel.of_production(@production).order(:id)
+    
+          if cultivable_land_parcels.count > 0
+            cultivable_land_parcels_serie = cultivable_land_parcels.collect do |cultivable_land_parcel|
+                      { name: cultivable_land_parcel.name, y: cultivable_land_parcel.shape_area.to_s.to_f*0.0001, color: cycle(*Backend::ChartsHelper::COLORS), url: backend_cultivable_land_parcel_path(cultivable_land_parcel) }
+            end
+          end
+        
+          series = []
+          series << {name: CultivableLandParcel.model_name.human, data: cultivable_land_parcels_serie, size: "80%"}
+    
+        = pie_chart(series, tooltip: {point_format: '{point.y: 1.2f} Ha'}, title: {text: (@production.shape_area.to_s.to_f*0.0001).round(2).to_s + " Ha"}, plot_options: { pie: { allow_point_select: true, cursor: 'pointer', show_in_legend: true}}, legend: {})
+      - else
+        %strong= :no_data.tl

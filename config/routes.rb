@@ -53,6 +53,7 @@ Ekylibre::Application.routes.draw do
       resource :demo_bar_cell, :only => :show
       resource :demo_pie_cell, :only => :show
       resource :placeholder_cell, :only => :show
+      resource :production_cropping_plan_cell, :only => :show
       resource :rss_cell, :only => :show
       resource :last_events_cell, :only => :show do
         get :list, :on => :collection
