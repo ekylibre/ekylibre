@@ -28,7 +28,7 @@ Ekylibre::Application.routes.draw do
 
     resource :dashboards, :only => [] do
       collection do
-        for mod in [:relationship, :accountancy, :sales, :purchases, :stocks, :production, :tools, :settings]
+        for mod in [:relationship, :accountancy, :trade, :stocks, :production, :tools, :settings]
           get mod
         end
         get :list_my_future_events

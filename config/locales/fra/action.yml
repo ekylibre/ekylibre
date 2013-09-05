@@ -1205,7 +1205,7 @@ fra:
       sales: "Ventes"
       settings: "Configuration"
       stocks: "Stocks"
-      trade: "Commerce"
+      trade: "Achats/Ventes"
     merge: "Fusionner"
     meteo: "Météo"
     missing_help: "Page inexistante"

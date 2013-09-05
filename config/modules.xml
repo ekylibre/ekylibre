@@ -200,46 +200,8 @@
         <page to="backend/bank_statements#update"/>
       </item>
     </group>
-    <group name="payments" icon="credit-card">
-      <item name="incoming_payments">
-        <page to="backend/incoming_payments#index"/>
-        <page to="backend/incoming_payments#create"/>
-        <page to="backend/incoming_payments#destroy"/>
-        <page to="backend/incoming_payments#edit"/>
-        <page to="backend/incoming_payments#list"/>
-        <page to="backend/incoming_payments#list_sales"/>
-        <page to="backend/incoming_payments#new"/>
-        <page to="backend/incoming_payments#show"/>
-        <page to="backend/incoming_payments#update"/>
-      </item>
-      <item name="outgoing_payments">
-        <page to="backend/outgoing_payments#index"/>
-        <page to="backend/outgoing_payments#create"/>
-        <page to="backend/outgoing_payments#destroy"/>
-        <page to="backend/outgoing_payments#edit"/>
-        <page to="backend/outgoing_payments#list"/>
-        <page to="backend/outgoing_payments#list_purchases"/>
-        <page to="backend/outgoing_payments#new"/>
-        <page to="backend/outgoing_payments#show"/>
-        <page to="backend/outgoing_payments#update"/>
-      </item>
-      <item name="deposits">
-        <page to="backend/deposits#index"/>
-        <page to="backend/deposits#create"/>
-        <page to="backend/deposits#destroy"/>
-        <page to="backend/deposits#edit"/>
-        <page to="backend/deposits#list"/>
-        <page to="backend/deposits#list_depositable_payments"/>
-        <page to="backend/deposits#list_payments"/>
-        <page to="backend/deposits#list_unvalidateds"/>
-        <page to="backend/deposits#new"/>
-        <page to="backend/deposits#show"/>
-        <page to="backend/deposits#unvalidateds"/>
-        <page to="backend/deposits#update"/>
-      </item>
-    </group>
   </module>
-  <module name="sales" icon="bar-chart">
+  <module name="trade" icon="bar-chart">
     <group name="sales" icon="bar-chart">
       <item name="sales">
         <page to="backend/sales#index"/>
@@ -279,8 +241,6 @@
         <page to="backend/sales#statistics"/>
       </item>
     </group>
-  </module>
-  <module name="purchases" icon="shopping-cart">
     <group name="purchases" icon="shopping-cart">
       <item name="purchases">
         <page to="backend/purchases#index"/>
@@ -307,6 +267,44 @@
         <page to="backend/purchase_items#edit"/>
         <page to="backend/purchase_items#new"/>
         <page to="backend/purchase_items#update"/>
+      </item>
+    </group>
+    <group name="payments" icon="credit-card">
+      <item name="incoming_payments">
+        <page to="backend/incoming_payments#index"/>
+        <page to="backend/incoming_payments#create"/>
+        <page to="backend/incoming_payments#destroy"/>
+        <page to="backend/incoming_payments#edit"/>
+        <page to="backend/incoming_payments#list"/>
+        <page to="backend/incoming_payments#list_sales"/>
+        <page to="backend/incoming_payments#new"/>
+        <page to="backend/incoming_payments#show"/>
+        <page to="backend/incoming_payments#update"/>
+      </item>
+      <item name="outgoing_payments">
+        <page to="backend/outgoing_payments#index"/>
+        <page to="backend/outgoing_payments#create"/>
+        <page to="backend/outgoing_payments#destroy"/>
+        <page to="backend/outgoing_payments#edit"/>
+        <page to="backend/outgoing_payments#list"/>
+        <page to="backend/outgoing_payments#list_purchases"/>
+        <page to="backend/outgoing_payments#new"/>
+        <page to="backend/outgoing_payments#show"/>
+        <page to="backend/outgoing_payments#update"/>
+      </item>
+      <item name="deposits">
+        <page to="backend/deposits#index"/>
+        <page to="backend/deposits#create"/>
+        <page to="backend/deposits#destroy"/>
+        <page to="backend/deposits#edit"/>
+        <page to="backend/deposits#list"/>
+        <page to="backend/deposits#list_depositable_payments"/>
+        <page to="backend/deposits#list_payments"/>
+        <page to="backend/deposits#list_unvalidateds"/>
+        <page to="backend/deposits#new"/>
+        <page to="backend/deposits#show"/>
+        <page to="backend/deposits#unvalidateds"/>
+        <page to="backend/deposits#update"/>
       </item>
     </group>
   </module>
