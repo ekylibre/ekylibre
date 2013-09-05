@@ -3,7 +3,7 @@
     #
     activities = Activity.of_campaign(@campaigns).of_families(:vegetal_crops).order(:id)
             
-    productions = Production.of_campaign(@campaigns).where(:static_support => true).order("activity_id, id")
+    productions = Production.of_campaign(@campaigns).where(:static_support => true, :activity_id => activities).order("activity_id, id")
 
       if activities.count > 0 and productions.count > 0
       
