@@ -88,6 +88,11 @@ class JournalEntryItem < Ekylibre::Record::Base
   scope :between, lambda { |started_on, stopped_on|
     where("printed_on BETWEEN ? AND ? ", started_on, stopped_on)
   }
+  scope :lasts_of_periods, lambda { |period = :month|
+    period = :doy if period == :day 
+    order("printed_on, id DESC")
+      .select("DISTINCT ON (EXTRACT(YEAR FROM printed_on)*1000 + EXTRACT(#{period} FROM printed_on)) *")
+  }
 
   state_machine :state, :initial => :draft do
     state :draft

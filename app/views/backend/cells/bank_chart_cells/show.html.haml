@@ -22,6 +22,6 @@
       series << {name: cash.name ,data: items.collect{|k,v| v.to_s.to_f } }
     end   
 
-  = line_chart(series, x_axis: { categories: categories.values})
+  = line_chart(series,legend: { layout: 'vertical', align: 'bottom', vertical_align: 'bottom', border_width: 0 }, x_axis: { categories: categories.values})
 - else
   %strong= :no_data.tl
