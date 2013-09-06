@@ -118,9 +118,11 @@ class JournalEntryItem < Ekylibre::Record::Base
       self.absolute_debit = self.real_debit
       self.absolute_credit = self.real_credit
     end
+    self.cumulated_absolute_debit  = self.absolute_debit
+    self.cumulated_absolute_credit = self.absolute_credit
     if previous = self.previous
-      self.cumulated_absolute_debit  = previous.cumulated_absolute_debit  + previous.absolute_debit
-      self.cumulated_absolute_credit = previous.cumulated_absolute_credit + previous.absolute_credit
+      self.cumulated_absolute_debit  += previous.cumulated_absolute_debit
+      self.cumulated_absolute_credit += previous.cumulated_absolute_credit
     end
   end
 
@@ -141,7 +143,6 @@ class JournalEntryItem < Ekylibre::Record::Base
   end
 
   after_save do
-    # self.followings.update_all("cumulated_absolute_debit = cumulated_absolute_debit + ?, cumulated_absolute_credit = cumulated_absolute_credit + ?", self.absolute_debit, self.absolute_credit)
     self.followings.update_all("cumulated_absolute_debit = cumulated_absolute_debit + #{self.absolute_debit}, cumulated_absolute_credit = cumulated_absolute_credit + #{self.absolute_credit}")
   end
 
@@ -164,6 +165,21 @@ class JournalEntryItem < Ekylibre::Record::Base
     self.entry.refresh
   end
 
+  # Cancel old values if specific columns have been updated
+  def uncumulate
+    old = self.old_record
+    if self.absolute_debit != old.absolute_debit or self.absolute_credit != old.absolute_credit or self.printed_on != old.printed_on
+      # self.cumulated_absolute_debit  -= old.absolute_debit
+      # self.cumulated_absolute_credit -= old.absolute_credit
+      old.followings.update_all("cumulated_absolute_debit = cumulated_absolute_debit - #{old.absolute_debit.to_s}, cumulated_absolute_credit = cumulated_absolute_credit - #{old.absolute_debit}")
+    end
+  end
+
+  # Unmark all the journal entry items with the same mark in the same account
+  def unmark
+    self.account.unmark(self.letter) unless self.letter.blank?
+  end
+
 
   # Returns the previous item
   def previous
@@ -184,18 +200,6 @@ class JournalEntryItem < Ekylibre::Record::Base
     end
   end
 
-  # Cancel old values if specific columns have been updated
-  def uncumulate
-    old = self.old_record
-    if self.absolute_debit != old.absolute_debit or self.absolute_credit != old.absolute_credit or self.printed_on != old.printed_on
-      old.followings.update_all("cumulated_absolute_debit = cumulated_absolute_debit - #{old.absolute_debit.to_s}, cumulated_absolute_credit = cumulated_absolute_credit - #{old.absolute_debit}")
-    end
-  end
-
-  # Unmark all the journal entry items with the same mark in the same account
-  def unmark
-    self.account.unmark(self.letter) unless self.letter.blank?
-  end
 
 #   # this method allows to lock the entry_item.
 #   def close
