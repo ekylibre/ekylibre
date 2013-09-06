@@ -97,6 +97,14 @@ class Tax < Ekylibre::Record::Base
     return (1.0 + 0.01*self.amount.to_d)
   end
 
-
+  def lasts_of_periods(started_on, stopped_on, method = :paid, period = :month)
+    if method == :paid
+      self.paid_account.journal_entry_items.between(started_on, stopped_on).lasts_of_periods(period)
+    elsif method == :collected
+      self.collected_account.journal_entry_items.between(started_on, stopped_on).lasts_of_periods(period)
+    else
+      raise StandardError("Unkown method : method must be paid or collected") 
+    end
+  end
 
 end

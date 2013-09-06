@@ -166,6 +166,8 @@ fra:
         entity: "Abonné"
       tax:
         amount: "Valeur"
+        paid_taxes: "déductible"
+        collected_taxes: "collectée"
       tax_declaration:
         address: "Adresse du service destinataire"
         amount: "TVA totale"

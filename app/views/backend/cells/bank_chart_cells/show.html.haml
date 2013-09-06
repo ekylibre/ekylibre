@@ -15,12 +15,17 @@
     end
     
     for cash in cashes
-      #items = cash.monthly_sums(started_on,stopped_on)
       items = cash.lasts_of_periods(started_on,stopped_on)
+      
+      item_h = items.sort.inject({}) do |hash, pair|
+        hash[pair.printed_on.l(:format => "%b %Y")] = (pair.cumulated_absolute_debit - pair.cumulated_absolute_credit).to_d
+        hash
+      end
+      
       for cat in categories.keys
-        items[cat] ||= 0.0
+        item_h[cat] ||= 0.0
       end      
-      series << {name: cash.name ,data: items.collect{|item| (item.cumulated_absolute_debit-item.cumulated_absolute_credit) } }
+      series << {name: cash.name ,data: item_h.collect{|k,v| v.to_s.to_f } }
     end
 
   = line_chart(series,legend: { layout: 'vertical', align: 'bottom', vertical_align: 'bottom', border_width: 0 }, x_axis: { categories: categories.values})
