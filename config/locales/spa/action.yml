@@ -103,6 +103,8 @@ spa:
       show: "%{nature_label} : %{name}"
     backend/cells/bank_chart_cells: #?
     backend/cells/calendar_cells: #?
+    backend/cells/cropping_plan_cells: #?
+    backend/cells/cropping_plan_on_cultivable_land_parcels_cells: #?
     backend/cells/demo_bar_cells: #?
     backend/cells/demo_map_cells: #?
     backend/cells/demo_pie_cells: #?
@@ -963,6 +965,8 @@ spa:
       # unconfirmed: "Non-confirmés"
     # critic_stock_min: "Stock minimum critique"
     critic_stocks: "Depósitos bajo el umbral crítico"
+    # cropping_plan: "Assolement"
+    # cropping_plan_on_cultivable_land_parcels: "Assolement (Parcelles culturales)"
     csv_statistics: "Statisticas a exportar al formato CSV"
     cumul: "Cumul del total y del saldo precedente N°%{number}"
     # currency_with_code: "%{code} - %{name}"
@@ -1212,7 +1216,7 @@ spa:
       # settings: "Configuration"
       # stocks: "Stocks"
       submenus: #?
-      # trade: "Commerce"
+      # trade: "Achats/Ventes"
     # merge: "Fusionner"
     # meteo: "Météo"
     missing_help: "La página no existe"

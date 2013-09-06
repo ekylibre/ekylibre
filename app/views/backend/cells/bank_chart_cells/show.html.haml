@@ -2,25 +2,25 @@
   :ruby
     #
     cashes = Cash.all
-    
+
     started_on = @financial_years.started_on
     stopped_on = @financial_years.stopped_on
-    
+
     series = []
     categories = {}
     date = started_on
     while date < stopped_on
-      categories[date.year.to_s + date.month.to_s.rjust(2, '0')] = date.l(:format => "%b %Y") 
+      categories[date.year.to_s + date.month.to_s.rjust(2, '0')] = date.l(:format => "%b %Y")
       date = date >> 1
     end
-    
+
     for cash in cashes
       items = cash.monthly_sums(started_on,stopped_on)
       for cat in categories.keys
         items[cat] ||= 0.0
-      end  
+      end
       series << {name: cash.name ,data: items.collect{|k,v| v.to_s.to_f } }
-    end   
+    end
 
   = line_chart(series,legend: { layout: 'vertical', align: 'bottom', vertical_align: 'bottom', border_width: 0 }, x_axis: { categories: categories.values})
 - else

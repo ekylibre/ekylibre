@@ -101,6 +101,8 @@ arb:
       show: "%{nature_label} : %{name}"
     backend/cells/bank_chart_cells: #?
     backend/cells/calendar_cells: #?
+    backend/cells/cropping_plan_cells: #?
+    backend/cells/cropping_plan_on_cultivable_land_parcels_cells: #?
     backend/cells/demo_bar_cells: #?
     backend/cells/demo_map_cells: #?
     backend/cells/demo_pie_cells: #?
@@ -1063,6 +1065,8 @@ arb:
       # unconfirmed: "Non-confirmés"
     critic_stock_min: "الحد الادنى لانتقاد الاسهم"
     critic_stocks: "الاسهم على حافة الخطر"
+    # cropping_plan: "Assolement"
+    # cropping_plan_on_cultivable_land_parcels: "Assolement (Parcelles culturales)"
     csv_statistics: "نموذج احصائيات القيمة النقدية"
     cumul: "رقم الرصيد التراكمي الكلي والسابق%{number}"
     # currency_with_code: "%{code} - %{name}"

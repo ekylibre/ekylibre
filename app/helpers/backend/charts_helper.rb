@@ -28,10 +28,10 @@ module Backend::ChartsHelper
     hash[name] = name.to_s.gsub('_', '')
     hash
   end.freeze
-  
+
   COLORS = ['#2f7ed8', '#0d233a', '#8bbc21', '#910000', '#1aadce', '#492970',
     '#f28f43', '#77a1e5', '#c42525', '#a6c96a']
-  
+
   def ligthen(color, rate)
     r, g, b = color[1..2].to_i(16), color[3..4].to_i(16), color[5..6].to_i(16)
     r *= (1+rate)
@@ -40,9 +40,9 @@ module Backend::ChartsHelper
     r = 255 if r > 255
     g = 255 if g > 255
     b = 255 if b > 255
-    return '#' + r.to_i.to_s(16).rjust(2, '0') + g.to_i.to_s(16).rjust(2, '0') + b.to_i.to_s(16).rjust(2, '0') 
+    return '#' + r.to_i.to_s(16).rjust(2, '0') + g.to_i.to_s(16).rjust(2, '0') + b.to_i.to_s(16).rjust(2, '0')
   end
-  
+
   for type, absolute_type in TYPES
     code  = "def #{type}_chart(series, options = {}, html_options = {})\n"
     code << "  options[:type] = '#{absolute_type}'\n"

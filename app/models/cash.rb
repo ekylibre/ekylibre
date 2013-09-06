@@ -160,7 +160,7 @@ class Cash < Ekylibre::Record::Base
     end
     return country_code + (98 - (iban.to_i.modulo 97)).to_s + bban
   end
-  
+
   def monthly_sums(started_on, stopped_on, expr = "debit - credit") 
     self.account.journal_entry_items.between(started_on, stopped_on).group("EXTRACT(YEAR FROM printed_on)*100 + EXTRACT(MONTH FROM printed_on)").sum(expr).sort.inject({}) do |hash, pair|
       hash[pair[0].to_i.to_s] = pair[1].to_d
@@ -168,11 +168,8 @@ class Cash < Ekylibre::Record::Base
     end
   end
   
-  def monthly_balance(started_on, stopped_on, expr = "cumulated_absolute_debit - cumulated_absolute_credit")
-    self.account.journal_entry_items.between(started_on, stopped_on).order("printed_on, id DESC").select("DISTINCT ON (printed_on) #{expr}").sort.inject({}) do |hash, pair|
-      hash[pair[0].to_i.to_s] = pair[1].to_d
-      hash
-    end
+  def lasts_of_periods(started_on, stopped_on, period = :month)
+    self.account.journal_entry_items.between(started_on, stopped_on).lasts_of_periods(period)
   end
 
 end

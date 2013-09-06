@@ -94,6 +94,10 @@ fra:
       # show: "Show backend/cells/bank chart cell"
     backend/cells/calendar_cells:
       # show: "Show backend/cells/calendar cell"
+    backend/cells/cropping_plan_cells:
+      # show: "Show backend/cells/cropping plan cell"
+    backend/cells/cropping_plan_on_cultivable_land_parcels_cells:
+      # show: "Show backend/cells/cropping plan on cultivable land parcels cell"
     backend/cells/demo_bar_cells:
       # show: "Show backend/cells/demo bar cell"
     backend/cells/demo_map_cells:
@@ -114,8 +118,6 @@ fra:
       # show: "Show backend/cells/placeholder cell"
     backend/cells/product_bar_cells:
       # show: "Show backend/cells/product bar cell"
-    backend/cells/product_pie_cells:
-      # show: "Show backend/cells/product pie cell"
     backend/cells/purchases_bar_cells:
       # show: "Show backend/cells/purchases bar cell"
     backend/cells/purchases_expense_bar_cells:
@@ -140,13 +142,14 @@ fra:
       accountancy: "Tableau de bord comptable"
       index: "Tableau de bord général"
       production: "Tableau de bord de la production"
-      purchases: "Tableau de bord des achats"
+      purchases: "Tableau de bord des achats" #?
       relationship: "Tableau de bord de la gestion des relations"
-      sales: "Tableau de bord des ventes"
+      sales: "Tableau de bord des ventes" #?
       search: "Recherche de\_: %{searched}"
       settings: "Configuration"
       stocks: "Tableau de bord des stocks"
       tools: "Tableau de bord des outils"
+      # trade: "Trade backend/dashboard"
       welcome: "Bienvenue dans Ekylibre"
     backend/departments:
       edit: "Modifier le service\_: %{name}"
@@ -639,6 +642,8 @@ fra:
     backend/cashes: "Trésoreries"
     # backend/cells/bank_chart_cells: "Backend/cells/bank chart cells"
     # backend/cells/calendar_cells: "Backend/cells/calendar cells"
+    # backend/cells/cropping_plan_cells: "Backend/cells/cropping plan cells"
+    # backend/cells/cropping_plan_on_cultivable_land_parcels_cells: "Backend/cells/cropping plan on cultivable land parcels cells"
     # backend/cells/demo_bar_cells: "Backend/cells/demo bar cells"
     # backend/cells/demo_map_cells: "Backend/cells/demo map cells"
     # backend/cells/demo_pie_cells: "Backend/cells/demo pie cells"
@@ -649,7 +654,6 @@ fra:
     # backend/cells/last_products_cells: "Backend/cells/last products cells"
     # backend/cells/placeholder_cells: "Backend/cells/placeholder cells"
     # backend/cells/product_bar_cells: "Backend/cells/product bar cells"
-    # backend/cells/product_pie_cells: "Backend/cells/product pie cells"
     # backend/cells/purchases_bar_cells: "Backend/cells/purchases bar cells"
     # backend/cells/purchases_expense_bar_cells: "Backend/cells/purchases expense bar cells"
     # backend/cells/rss_cells: "Backend/cells/rss cells"

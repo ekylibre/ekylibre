@@ -94,6 +94,8 @@ eng:
       show: "%{nature}: %{name}"
     backend/cells/bank_chart_cells: #?
     backend/cells/calendar_cells: #?
+    backend/cells/cropping_plan_cells: #?
+    backend/cells/cropping_plan_on_cultivable_land_parcels_cells: #?
     backend/cells/demo_bar_cells: #?
     backend/cells/demo_map_cells: #?
     backend/cells/demo_pie_cells: #?
@@ -918,6 +920,8 @@ eng:
       unconfirmed: "Unconfirmed"
     critic_stock_min: "Critic stock min"
     critic_stocks: "Stocks below critical threshold"
+    # cropping_plan: "Assolement"
+    # cropping_plan_on_cultivable_land_parcels: "Assolement (Parcelles culturales)"
     csv_statistics: "CSV statistics"
     cumul: "Accumulation of tattle and previous balance N°%{number}"
     currency_with_code: "%{name} (%{code})"
