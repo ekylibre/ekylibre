@@ -46,4 +46,12 @@ class Campaign < Ekylibre::Record::Base
   # default_scope -> { where(:closed => false).order(:name) }
   scope :currents, -> { }
 
+  def shape_area
+    return self.productions.collect{|p| p.shape_area.to_s.to_f}.sum
+  end
+  
+  def name_with_surface_area
+    "#{self.name} (#{(self.shape_area*0.0001).round(2)} ha)"
+  end
+
 end

@@ -75,7 +75,7 @@ demo :productions do
     }
     # attributes to map family by activity name
     families_by_activity_name = {
-      "ORGE_HIVER" => :straw_cereal_crops,
+      "ORGE HIVER" => :straw_cereal_crops,
       "BLE TENDRE" => :straw_cereal_crops,
       "BLE DUR" => :straw_cereal_crops,
       "MAIS SEC" => :maize_crops,

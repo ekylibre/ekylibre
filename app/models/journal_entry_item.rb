@@ -86,7 +86,7 @@ class JournalEntryItem < Ekylibre::Record::Base
   after_update  :update_entry
 
   scope :between, lambda { |started_on, stopped_on|
-    where("printed_on BETWEEN ? AND ? ", started_on, stopped_on).order("printed_on, id")
+    where("printed_on BETWEEN ? AND ? ", started_on, stopped_on)
   }
 
   state_machine :state, :initial => :draft do

@@ -1,0 +1,27 @@
+- if @financial_years
+  :ruby
+    #
+    cashes = Cash.all
+    
+    started_on = @financial_years.started_on
+    stopped_on = @financial_years.stopped_on
+    
+    series = []
+    categories = {}
+    date = started_on
+    while date < stopped_on
+      categories[date.year.to_s + date.month.to_s.rjust(2, '0')] = date.l(:format => "%b %Y") 
+      date = date >> 1
+    end
+    
+    for cash in cashes
+      items = cash.monthly_sums(started_on,stopped_on)
+      for cat in categories.keys
+        items[cat] ||= 0.0
+      end  
+      series << {name: cash.name ,data: items.collect{|k,v| v.to_s.to_f } }
+    end   
+
+  = line_chart(series, x_axis: { categories: categories.values})
+- else
+  %strong= :no_data.tl

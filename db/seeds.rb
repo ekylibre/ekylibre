@@ -62,7 +62,7 @@ ActiveRecord::Base.transaction do
   end
 
   cash = Cash.create!(:name => I18n.t('enumerize.cash.nature.cash_box'), :nature => "cash_box", :account_id => Account.get("531101", "Caisse").id, :journal_id => journals[:cash].id)
-  baac = Cash.create!(:name => I18n.t('enumerize.cash.nature.bank_account'), :nature => "bank_account", :account_id => Account.get("512101", "Compte bancaire").id, :journal_id => journals[:bank].id, :iban => "FR7611111222223333333333391", :mode => "iban")
+  baac = Cash.create!(:name => I18n.t('enumerize.cash.nature.bank_account'), :nature => "bank_account", :account_id => Account.get("51210000", "Compte bancaire").id, :journal_id => journals[:bank].id, :iban => "FR7611111222223333333333391", :mode => "iban")
 
   IncomingPaymentMode.create!(:name => I18n.t('models.incoming_payment_mode.default.cash.name'), :cash_id => cash.id, :with_accounting => true, :attorney_journal_id => journals[:various].id)
   IncomingPaymentMode.create!(:name => I18n.t('models.incoming_payment_mode.default.check.name'), :cash_id => baac.id, :with_accounting => true, :with_deposit => true, :depositables_account_id => Account.get("5112", "Chèques à encaisser").id, :depositables_journal_id => journals[:various].id, :attorney_journal_id => journals[:various].id)

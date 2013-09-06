@@ -125,10 +125,7 @@ class Production < Ekylibre::Record::Base
 
   def shape_area
     if self.static_support?
-      supports = self.supports.collect do |support|
-        support.storage.shape_area
-      end
-      return supports.sum
+      return self.supports.map(&:storage_shape_area).sum
     else
       return 0.0
     end

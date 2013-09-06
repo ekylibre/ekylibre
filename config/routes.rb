@@ -28,7 +28,7 @@ Ekylibre::Application.routes.draw do
 
     resource :dashboards, :only => [] do
       collection do
-        for mod in [:relationship, :accountancy, :sales, :purchases, :stocks, :production, :tools, :settings]
+        for mod in [:relationship, :accountancy, :trade, :stocks, :production, :tools, :settings]
           get mod
         end
         get :list_my_future_events
@@ -45,13 +45,15 @@ Ekylibre::Application.routes.draw do
     end
 
     namespace :cells do
-      resource :product_pie_cell, :only => :show
+      resource :cropping_plan_cell, :only => :show
+      resource :cropping_plan_on_cultivable_land_parcels_cell, :only => :show
       resource :product_bar_cell, :only => :show
       resource :purchases_bar_cell, :only => :show
       resource :purchases_expense_bar_cell, :only => :show
       resource :demo_bar_cell, :only => :show
       resource :demo_pie_cell, :only => :show
       resource :placeholder_cell, :only => :show
+      resource :production_cropping_plan_cell, :only => :show
       resource :rss_cell, :only => :show
       resource :last_events_cell, :only => :show do
         get :list, :on => :collection

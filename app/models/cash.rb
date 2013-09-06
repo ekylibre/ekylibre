@@ -160,7 +160,13 @@ class Cash < Ekylibre::Record::Base
     end
     return country_code + (98 - (iban.to_i.modulo 97)).to_s + bban
   end
-
+  
+  def monthly_sums(started_on, stopped_on, expr = "debit - credit") 
+    self.account.journal_entry_items.between(started_on, stopped_on ).group("EXTRACT(YEAR FROM printed_on)*100 + EXTRACT(MONTH FROM printed_on)").sum(expr).sort.inject({}) do |hash, pair|
+      hash[pair[0].to_i.to_s] = pair[1].to_d
+      hash
+    end
+  end
 
 end
 

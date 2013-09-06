@@ -52,22 +52,25 @@ class Activity < Ekylibre::Record::Base
   scope :main, -> { where(nature: "main") }
   # scope :main_activity, -> { where(nature: "main") }
   scope :of_campaign, lambda { |*campaigns|
+    campaigns.flatten!
     for campaign in campaigns
       raise ArgumentError.new("Expected Campaign, got #{campaign.class.name}:#{campaign.inspect}") unless campaign.is_a?(Campaign)
     end
-    joins(:productions).where('campaign_id IN (?)', campaigns.map(&:id))
+    where("id IN (SELECT activity_id FROM #{Production.table_name} WHERE campaign_id IN (?))", campaigns.map(&:id))
   }
 
-  scope :of_families, lambda { |*families|
-    where("family ~ E?", "\\\\m(" + families.flatten.sort.join("|") + ")\\\\M")
-  }
+  #scope :of_families, lambda { |*families|
+  #  where("family ~ E?", "\\\\m(" + families.flatten.sort.join("|") + ")\\\\M")
+  #}
+  
+  scope :of_families, Proc.new { |*families| where(:family => families.collect{|f| Nomen::ActivityFamilies.all(f.to_sym) }.flatten.uniq.map(&:to_s)) }
 
 
   accepts_nested_attributes_for :productions, :reject_if => :all_blank, :allow_destroy => true
   acts_as_nested_set
 
-  def shape_area
-    return productions.map(&:shape_area).compact.sum
+  def shape_area(*campaigns)
+    return productions.of_campaign(campaigns).map(&:shape_area).compact.sum
   end
 
 end
