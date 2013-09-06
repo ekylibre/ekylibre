@@ -94,6 +94,8 @@ jpn:
       # show: "%{nature}\_: %{name}"
     backend/cells/bank_chart_cells: #?
     backend/cells/calendar_cells: #?
+    backend/cells/cropping_plan_cells: #?
+    backend/cells/cropping_plan_on_cultivable_land_parcels_cells: #?
     backend/cells/demo_bar_cells: #?
     backend/cells/demo_map_cells: #?
     backend/cells/demo_pie_cells: #?
@@ -867,6 +869,8 @@ jpn:
       # unconfirmed: "Non-confirmés"
     # critic_stock_min: "Stock minimum critique"
     # critic_stocks: "Stocks sous le seuil critique"
+    # cropping_plan: "Assolement"
+    # cropping_plan_on_cultivable_land_parcels: "Assolement (Parcelles culturales)"
     # csv_statistics: "Statistiques à exporter au format CSV"
     # cumul: "Cumul du total et du solde précédent N°%{number}"
     # currency_with_code: "%{code} - %{name}"
@@ -1101,7 +1105,7 @@ jpn:
       # settings: "Configuration"
       # stocks: "Stocks"
       submenus: #?
-      # trade: "Commerce"
+      # trade: "Achats/Ventes"
     # merge: "Fusionner"
     # meteo: "Météo"
     missing_help: "無意味なページ"

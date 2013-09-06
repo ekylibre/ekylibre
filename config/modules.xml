@@ -1031,6 +1031,12 @@
       <item name="calendar_cells">
         <page to="backend/cells/calendar_cells#show"/>
       </item>
+      <item name="cropping_plan_cells">
+        <page to="backend/cells/cropping_plan_cells#show"/>
+      </item>
+      <item name="cropping_plan_on_cultivable_land_parcels_cells">
+        <page to="backend/cells/cropping_plan_on_cultivable_land_parcels_cells#show"/>
+      </item>
       <item name="demo_bar_cells">
         <page to="backend/cells/demo_bar_cells#show"/>
       </item>
@@ -1064,9 +1070,6 @@
       <item name="product_bar_cells">
         <page to="backend/cells/product_bar_cells#show"/>
       </item>
-      <item name="product_pie_cells">
-        <page to="backend/cells/product_pie_cells#show"/>
-      </item>
       <item name="purchases_bar_cells">
         <page to="backend/cells/purchases_bar_cells#show"/>
       </item>
@@ -1086,13 +1089,12 @@
         <page to="backend/dashboards#list_my_future_events"/>
         <page to="backend/dashboards#list_recent_events"/>
         <page to="backend/dashboards#production"/>
-        <page to="backend/dashboards#purchases"/>
         <page to="backend/dashboards#relationship"/>
-        <page to="backend/dashboards#sales"/>
         <page to="backend/dashboards#search"/>
         <page to="backend/dashboards#settings"/>
         <page to="backend/dashboards#stocks"/>
         <page to="backend/dashboards#tools"/>
+        <page to="backend/dashboards#trade"/>
         <page to="backend/dashboards#welcome"/>
       </item>
       <item name="entities">

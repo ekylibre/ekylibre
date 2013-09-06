@@ -76,6 +76,8 @@
 # - "backend/campaigns#update"
 # - "backend/cells/bank_chart_cells#show"
 # - "backend/cells/calendar_cells#show"
+# - "backend/cells/cropping_plan_cells#show"
+# - "backend/cells/cropping_plan_on_cultivable_land_parcels_cells#show"
 # - "backend/cells/demo_bar_cells#show"
 # - "backend/cells/demo_map_cells#show"
 # - "backend/cells/demo_pie_cells#show"
@@ -89,7 +91,6 @@
 # - "backend/cells/last_products_cells#show"
 # - "backend/cells/placeholder_cells#show"
 # - "backend/cells/product_bar_cells#show"
-# - "backend/cells/product_pie_cells#show"
 # - "backend/cells/purchases_bar_cells#show"
 # - "backend/cells/purchases_expense_bar_cells#show"
 # - "backend/cells/rss_cells#show"
@@ -107,6 +108,7 @@
 # - "backend/dashboards#list_recent_events"
 # - "backend/dashboards#search"
 # - "backend/dashboards#tools"
+# - "backend/dashboards#trade"
 # - "backend/document_archives#show"
 # - "backend/documents#create"
 # - "backend/documents#destroy"
@@ -451,7 +453,7 @@ bookkeep:
 
 # Cancel sales_invoices
 cancel_sales_invoices:
-- "backend/dashboards#sales"
+- "backend/dashboards#sales" #?
 - "backend/sales#cancel"
 - "backend/sales#index"
 - "backend/sales#list_creditable_items"
@@ -523,17 +525,17 @@ consult_journal_entries:
 
 # Consult the prices
 consult_prices:
-- "backend/dashboards#sales"
+- "backend/dashboards#sales" #?
 - "backend/product_prices#index"
 
 # Consult the products
 consult_products:
-- "backend/dashboards#sales"
+- "backend/dashboards#sales" #?
 - "backend/product_natures#index"
 
 # Consult the purchases
 consult_purchases:
-- "backend/dashboards#purchases"
+- "backend/dashboards#purchases" #?
 - "backend/purchases#index"
 - "backend/purchases#list"
 - "backend/purchases#list_deliveries"
@@ -543,7 +545,7 @@ consult_purchases:
 
 # Consult the sales
 consult_sales:
-- "backend/dashboards#sales"
+- "backend/dashboards#sales" #?
 - "backend/sales#index"
 - "backend/sales#list"
 - "backend/sales#list_deliveries"
@@ -554,7 +556,7 @@ consult_sales:
 
 # Consult the stocks
 consult_stocks:
-- "backend/dashboards#sales"
+- "backend/dashboards#sales" #?
 - "backend/products#index"
 - "backend/products#list"
 
@@ -653,7 +655,7 @@ manage_buildings:
 - "backend/buildings#new"
 - "backend/buildings#show"
 - "backend/buildings#update"
-- "backend/dashboards#sales"
+- "backend/dashboards#sales" #?
 
 # Manage cash transfers
 manage_cash_transfers:
@@ -790,7 +792,7 @@ manage_equipments:
 
 # Create and update estimates
 manage_estimates:
-- "backend/dashboards#sales"
+- "backend/dashboards#sales" #?
 - "backend/product_prices#find" #?
 - "backend/sale_items#create"
 - "backend/sale_items#destroy"
@@ -832,7 +834,7 @@ manage_financial_years:
 
 # Manage incoming delivery modes
 manage_incoming_delivery_modes:
-- "backend/dashboards#sales"
+- "backend/dashboards#sales" #?
 - "backend/incoming_delivery_modes#create"
 - "backend/incoming_delivery_modes#destroy"
 - "backend/incoming_delivery_modes#edit"
@@ -870,7 +872,7 @@ manage_incoming_payments:
 
 # Manage inventories
 manage_inventories:
-- "backend/dashboards#sales"
+- "backend/dashboards#sales" #?
 - "backend/inventories#create"
 - "backend/inventories#destroy"
 - "backend/inventories#edit"
@@ -1011,7 +1013,7 @@ manage_operations:
 
 # Manage outgoing delivery modes
 manage_outgoing_delivery_modes:
-- "backend/dashboards#sales"
+- "backend/dashboards#sales" #?
 - "backend/outgoing_delivery_modes#create"
 - "backend/outgoing_delivery_modes#destroy"
 - "backend/outgoing_delivery_modes#edit"
@@ -1049,7 +1051,7 @@ manage_outgoing_payments:
 
 # Manage prices
 manage_prices:
-- "backend/dashboards#sales"
+- "backend/dashboards#sales" #?
 - "backend/product_prices#create"
 - "backend/product_prices#destroy"
 - "backend/product_prices#edit"
@@ -1084,7 +1086,7 @@ manage_productions:
 
 # Manage products
 manage_products:
-- "backend/dashboards#sales"
+- "backend/dashboards#sales" #?
 - "backend/product_natures#create"
 - "backend/product_natures#destroy"
 - "backend/product_natures#edit"
@@ -1107,7 +1109,7 @@ manage_purchase_natures:
 
 # Manage purchases
 manage_purchases:
-- "backend/dashboards#purchases"
+- "backend/dashboards#purchases" #?
 - "backend/incoming_deliveries#confirm"
 - "backend/incoming_deliveries#create"
 - "backend/incoming_deliveries#destroy"
@@ -1160,7 +1162,7 @@ manage_sale_natures:
 
 # Manages sales
 manage_sales:
-- "backend/dashboards#sales"
+- "backend/dashboards#sales" #?
 - "backend/outgoing_deliveries#create"
 - "backend/outgoing_deliveries#destroy"
 - "backend/outgoing_deliveries#edit"
@@ -1184,7 +1186,7 @@ manage_sales:
 
 # Manage subscriptions
 manage_subscriptions:
-- "backend/dashboards#sales"
+- "backend/dashboards#sales" #?
 - "backend/subscription_natures#create"
 - "backend/subscription_natures#decrement"
 - "backend/subscription_natures#destroy"

@@ -62,7 +62,7 @@ class Activity < Ekylibre::Record::Base
   #scope :of_families, lambda { |*families|
   #  where("family ~ E?", "\\\\m(" + families.flatten.sort.join("|") + ")\\\\M")
   #}
-  
+
   scope :of_families, Proc.new { |*families| where(:family => families.collect{|f| Nomen::ActivityFamilies.all(f.to_sym) }.flatten.uniq.map(&:to_s)) }
 
 

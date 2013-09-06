@@ -10,33 +10,33 @@
       -l.attribute :state
       -l.attribute :campaign
       -l.attribute :activity
-  
+
   -b.tabbox do
     -b.cell :map do
       %svg{:xmlns => "http://www.w3.org/2000/svg", :version => "1.1", :class => :map, :viewBox => CultivableLandParcel.of_production(@production).shape_view_box.join(" "), :preserveAspectRatio => "xMidYMid meet", :width => "100%", :height => "400px", "xmlns:xlink" => "http://www.w3.org/1999/xlink"}
         -CultivableLandParcel.of_production(@production).find_each do |cultivable_land_parcel|
           %a{'xlink:href' => backend_cultivable_land_parcel_url(cultivable_land_parcel)}
             %path{:d => cultivable_land_parcel.shape_as_svg, :title => cultivable_land_parcel.name }
-    
+
     -b.cell :cropping_plan_chart do
       - if @production.supports.count > 0
         :ruby
-  
+
           cultivable_land_parcels = CultivableLandParcel.of_production(@production).order(:id)
-    
+
           if cultivable_land_parcels.count > 0
             cultivable_land_parcels_serie = cultivable_land_parcels.collect do |cultivable_land_parcel|
                       { name: cultivable_land_parcel.name, y: cultivable_land_parcel.shape_area.to_s.to_f*0.0001, color: cycle(*Backend::ChartsHelper::COLORS), url: backend_cultivable_land_parcel_path(cultivable_land_parcel) }
             end
           end
-        
+
           series = []
           series << {name: CultivableLandParcel.model_name.human, data: cultivable_land_parcels_serie, size: "80%"}
-    
+
         = pie_chart(series, tooltip: {point_format: '{point.y: 1.2f} Ha'}, title: {text: (@production.shape_area.to_s.to_f*0.0001).round(2).to_s + " Ha"}, plot_options: { pie: { allow_point_select: true, cursor: 'pointer', show_in_legend: true}}, legend: {})
       - else
         %strong= :no_data.tl
-  
+
   -b.tabbox do
     -#b.cell(:procedures) do
       =list(:procedure)

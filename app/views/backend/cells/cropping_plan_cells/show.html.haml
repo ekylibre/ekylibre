@@ -1,7 +1,7 @@
 - if @campaigns
   :ruby
     # In theorie, @activity and @productions should be produced here from @campaign only
-    
+
     activities = Activity.of_campaign(@campaigns).of_families(:vegetal_crops).order(:id)
 
       if activities.count > 0
@@ -12,7 +12,7 @@
           { name: production.name, y: production.shape_area.to_s.to_f*0.0001, url: backend_production_path(production), color: ligthen(activities_serie.detect{|a| a[:id] == production.activity_id}[:color], 0.3) }
         end
       end
-    
+
     series = []
     series << {name: Activity.model_name.human, data: activities_serie, size: "60%", data_labels: {color: 'white', distance: -30}}
     series << {name: Production.model_name.human, data: productions_serie, size: "80%", inner_size: "60%", data_labels: {enabled: false}}
