@@ -86,12 +86,13 @@ class JournalEntryItem < Ekylibre::Record::Base
   after_update  :update_entry
 
   scope :between, lambda { |started_on, stopped_on|
-    where("printed_on BETWEEN ? AND ? ", started_on, stopped_on)
+    where("printed_on BETWEEN ? AND ?", started_on, stopped_on)
   }
   scope :lasts_of_periods, lambda { |period = :month|
-    period = :doy if period == :day 
-    order("printed_on, id DESC")
-      .select("DISTINCT ON (EXTRACT(YEAR FROM printed_on)*1000 + EXTRACT(#{period} FROM printed_on)) *")
+    period = :doy if period == :day
+    expr = "EXTRACT(YEAR FROM printed_on)*1000 + EXTRACT(#{period} FROM printed_on)"
+    order("#{expr}, id DESC")
+      .select("DISTINCT ON (#{expr}) *")
   }
 
   state_machine :state, :initial => :draft do

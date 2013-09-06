@@ -13,13 +13,14 @@
       categories[date.year.to_s + date.month.to_s.rjust(2, '0')] = date.l(:format => "%b %Y")
       date = date >> 1
     end
-
+    
     for cash in cashes
-      items = cash.monthly_sums(started_on,stopped_on)
+      #items = cash.monthly_sums(started_on,stopped_on)
+      items = cash.lasts_of_periods(started_on,stopped_on)
       for cat in categories.keys
         items[cat] ||= 0.0
-      end
-      series << {name: cash.name ,data: items.collect{|k,v| v.to_s.to_f } }
+      end      
+      series << {name: cash.name ,data: items.collect{|item| (item.cumulated_absolute_debit-item.cumulated_absolute_credit) } }
     end
 
   = line_chart(series,legend: { layout: 'vertical', align: 'bottom', vertical_align: 'bottom', border_width: 0 }, x_axis: { categories: categories.values})
