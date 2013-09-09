@@ -266,14 +266,20 @@ class NormalizeScoria < ActiveRecord::Migration
     add_column :subscription_natures, :entity_link_nature, :string, :limit => 127
     add_column :subscription_natures, :entity_link_direction, :string, :limit => 31
     remove_column :subscription_natures, :entity_link_nature_id
-
+    
+    # for importing taxes from nomenclatures
+    add_column :taxes, :nomen, :string, :limit => 127
+    rename_column :taxes, :collected_account_id, :collect_account_id
+    rename_column :taxes, :paid_account_id, :deduction_account_id
+    
     rename_column :transfers, :supplier_id, :client_id
     change_column_null :transfers, :client_id, false
 
     rename_column :users, :departed_on, :departed_at
     change_column :users, :departed_at, :datetime
-  end
 
+  end
+  
   def down
     rename_column :entities, :reminder_submissive, :reflation_submissive
 
@@ -284,7 +290,8 @@ class NormalizeScoria < ActiveRecord::Migration
     add_column :products, :service_coeff, :decimal, :precision => 19, :scale => 4
     execute "UPDATE #{quoted_table_name(:products)} SET nature = 'subscrip' WHERE nature = 'subscription'"
     change_column :products, :nature, :string, :limit => 8
-
+    
+    
     # TODO Reverse migration
   end
 end

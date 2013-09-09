@@ -2243,25 +2243,26 @@ ActiveRecord::Schema.define(version: 20130410143823) do
   add_index "tax_declarations", ["updater_id"], :name => "index_tax_declarations_on_updater_id"
 
   create_table "taxes", force: true do |t|
-    t.string   "name",                                                                     null: false
-    t.boolean  "included",                                                 default: false, null: false
-    t.boolean  "reductible",                                               default: true,  null: false
-    t.string   "nature",               limit: 16,                                          null: false
-    t.decimal  "amount",                          precision: 19, scale: 4, default: 0.0,   null: false
+    t.string   "name",                                                                      null: false
+    t.boolean  "included",                                                  default: false, null: false
+    t.boolean  "reductible",                                                default: true,  null: false
+    t.string   "nature",               limit: 16,                                           null: false
+    t.decimal  "amount",                           precision: 19, scale: 4, default: 0.0,   null: false
     t.text     "description"
-    t.integer  "collected_account_id"
-    t.integer  "paid_account_id"
-    t.datetime "created_at",                                                               null: false
-    t.datetime "updated_at",                                                               null: false
+    t.integer  "collect_account_id"
+    t.integer  "deduction_account_id"
+    t.datetime "created_at",                                                                null: false
+    t.datetime "updated_at",                                                                null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                             default: 0,     null: false
+    t.integer  "lock_version",                                              default: 0,     null: false
+    t.string   "nomen",                limit: 127
   end
 
-  add_index "taxes", ["collected_account_id"], :name => "index_taxes_on_account_collected_id"
+  add_index "taxes", ["collect_account_id"], :name => "index_taxes_on_account_collected_id"
   add_index "taxes", ["created_at"], :name => "index_taxes_on_created_at"
   add_index "taxes", ["creator_id"], :name => "index_taxes_on_creator_id"
-  add_index "taxes", ["paid_account_id"], :name => "index_taxes_on_account_paid_id"
+  add_index "taxes", ["deduction_account_id"], :name => "index_taxes_on_account_paid_id"
   add_index "taxes", ["updated_at"], :name => "index_taxes_on_updated_at"
   add_index "taxes", ["updater_id"], :name => "index_taxes_on_updater_id"
 

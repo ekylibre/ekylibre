@@ -70,6 +70,9 @@ class Preference < Ekylibre::Record::Base
   prefer :use_entity_codes_for_account_numbers, :boolean, true
   prefer :sales_conditions, :string, ""
   prefer :chart_of_account, :string, Nomen::ChartsOfAccounts.default
+  prefer :language, :string, "fra"
+  prefer :country, :string, "fr"
+  prefer :currency, :string, "EUR"
 
   def self.type_to_nature(klass)
     klass = klass.to_s
