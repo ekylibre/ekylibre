@@ -149,7 +149,7 @@ fra:
       settings: "Configuration"
       stocks: "Tableau de bord des stocks"
       tools: "Tableau de bord des outils"
-      # trade: "Trade backend/dashboard"
+      trade: "Tableau de bord des achats et ventes"
       welcome: "Bienvenue dans Ekylibre"
     backend/departments:
       edit: "Modifier le service\_: %{name}"
