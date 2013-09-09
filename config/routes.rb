@@ -56,6 +56,9 @@ Ekylibre::Application.routes.draw do
       resource :placeholder_cell, :only => :show
       resource :production_cropping_plan_cell, :only => :show
       resource :rss_cell, :only => :show
+      resource :last_entities_cell, :only => :show do
+        get :list, :on => :collection
+      end
       resource :last_events_cell, :only => :show do
         get :list, :on => :collection
       end
