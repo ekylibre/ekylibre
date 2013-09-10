@@ -30,24 +30,18 @@
 #  origin_id     :integer
 #  origin_object :text
 #  origin_type   :string(255)
-#  owner_id      :integer
+#  owner_id      :integer          not null
 #  owner_object  :text
-#  owner_type    :string(255)
+#  owner_type    :string(255)      not null
 #  updated_at    :datetime         not null
 #  updater_id    :integer
 #
 
 
-class Log < Ekylibre::Record::Base
-  # attr_accessible :description, :name, :nature_id, :parent_id, :started_at, :watcher_id
+class Log < ActiveRecord::Base
   belongs_to :origin, :polymorphic => true
   belongs_to :owner, :polymorphic => true
-  # No columns for this
-  # belongs_to :quantity_unit, :class_name => "Unit"
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_length_of :event, :origin_type, :owner_type, :allow_nil => true, :maximum => 255
-  validates_presence_of :event, :observed_at
   #]VALIDATORS]
-  # default_scope -> { order("observed_at DESC", :name) }
 end

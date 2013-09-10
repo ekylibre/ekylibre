@@ -20,7 +20,7 @@
 #
 # == Table: document_archives
 #
-#  archived_at       :datetime
+#  archived_at       :datetime         not null
 #  created_at        :datetime         not null
 #  creator_id        :integer
 #  document_id       :integer          not null
@@ -55,7 +55,7 @@ class DocumentArchive < Ekylibre::Record::Base
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :file_file_size, :allow_nil => true, :only_integer => true
   validates_length_of :file_content_type, :file_file_name, :file_fingerprint, :allow_nil => true, :maximum => 255
-  validates_presence_of :document
+  validates_presence_of :archived_at, :document
   #]VALIDATORS]
   validates_presence_of :archived_at
   validates_attachment_presence :file

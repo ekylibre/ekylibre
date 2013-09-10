@@ -59,7 +59,7 @@ class Asset < Ekylibre::Record::Base
   belongs_to :journal, :class_name => "Journal"
   has_many :depreciations, -> { order(:position) }, :class_name => "AssetDepreciation"
   has_many :products
-  has_many :planned_depreciations, -> { order(:position).where("NOT protected OR accounted_at IS NULL") }, :class_name => "AssetDepreciation", :dependent => :destroy
+  has_many :planned_depreciations, -> { order(:position).where("NOT locked OR accounted_at IS NULL") }, :class_name => "AssetDepreciation", :dependent => :destroy
   has_one :tool, :class_name => "Equipment"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :current_amount, :depreciable_amount, :depreciated_amount, :depreciation_percentage, :purchase_amount, :allow_nil => true

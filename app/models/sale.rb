@@ -59,7 +59,6 @@
 #  responsible_id      :integer
 #  state               :string(64)       not null
 #  subject             :string(255)
-#  sum_method          :string(8)        default("wt"), not null
 #  transporter_id      :integer
 #  updated_at          :datetime         not null
 #  updater_id          :integer
@@ -89,11 +88,10 @@ class Sale < Ekylibre::Record::Base
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :amount, :downpayment_amount, :pretax_amount, :allow_nil => true
   validates_length_of :currency, :allow_nil => true, :maximum => 3
-  validates_length_of :sum_method, :allow_nil => true, :maximum => 8
   validates_length_of :initial_number, :number, :state, :allow_nil => true, :maximum => 64
   validates_length_of :expiration_delay, :function_title, :payment_delay, :reference_number, :subject, :allow_nil => true, :maximum => 255
   validates_inclusion_of :credit, :has_downpayment, :letter_format, :in => [true, false]
-  validates_presence_of :amount, :client, :created_on, :downpayment_amount, :number, :payer, :payment_delay, :pretax_amount, :state, :sum_method
+  validates_presence_of :amount, :client, :created_on, :downpayment_amount, :number, :payer, :payment_delay, :pretax_amount, :state
   #]VALIDATORS]
   validates_presence_of :client, :currency, :nature
   validates_presence_of :invoiced_on, :if => :invoice?

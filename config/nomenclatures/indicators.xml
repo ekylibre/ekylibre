@@ -2,7 +2,7 @@
 <nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
   <nomenclature name="indicators">
     <attributes>
-      <attribute name="datatype" type="choice" choices="string, decimal, boolean, choice, measure, geometry" required="true"/>
+      <attribute name="datatype" type="choice" choices="string, decimal, boolean, choice, measure, point, multi_polygon" required="true"/>
       <attribute name="interpolation" type="choice" choices="none, previous, nearest, linear, sine" default="last"/>
       <attribute name="unit" type="choice" nomenclature="units" required="false"/>
       <attribute name="choices" type="list" required="false"/>
@@ -13,8 +13,8 @@
       <item name="net_weight" datatype="measure" unit="kilogram"/>
       <item name="net_volume" datatype="measure" unit="liter"/>
       <item name="net_surface_area" datatype="measure" unit="square_meter"/>
-      <item name="shape" datatype="geometry"/>
-      <item name="geographic_coordinate" datatype="geometry"/>
+      <item name="shape" datatype="multi_polygon"/>
+      <item name="geographic_coordinate" datatype="point"/>
       <item name="usage_duration" datatype="measure" unit="hour"/>
       <!-- <item name="weight" datatype="measure" unit="kilogram"/> -->
       <item name="sex" datatype="choice" choices="male, female, undefined"/>

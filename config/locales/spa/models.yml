@@ -197,6 +197,8 @@ spa:
         # entity: "Abonné"
       tax:
         # amount: "Valeur"
+        # collected_taxes: "collectée"
+        # paid_taxes: "déductible"
       tax_declaration:
         # address: "Adresse du service destinataire"
         # amount: "TVA totale"
@@ -829,6 +831,7 @@ spa:
     # moved_at: "Fait à"
     # moved_on: "Fait le"
     # moves: "Mouvements"
+    # multi_polygon_value: "Multi polygon value"
     name: "Nombre"
     # name_1_to_2: "Nom «\_Personne 1 vers Personne 2\_»"
     # name_2_to_1: "Nom «\_Personne 2 vers Personne 1\_»"
@@ -908,6 +911,7 @@ spa:
     # planned_at: "Prévu à"
     # planned_depreciations: "Amortissements prévus"
     # planned_on: "Prévu le"
+    # point_value: "Point value"
     # population_counting: "Gestion quantitative"
     # position: "Position"
     # postcode: "Code postal"

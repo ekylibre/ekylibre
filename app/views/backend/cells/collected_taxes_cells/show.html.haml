@@ -13,7 +13,7 @@
       categories[date.year.to_s + date.month.to_s.rjust(2, '0')] = date.l(:format => "%b %Y")
       date = date >> 1
     end
-    
+
     for tax in taxes
       items_collected = tax.lasts_of_periods(started_on, stopped_on, method = :collected)
       if items_collected.count > 0
@@ -30,8 +30,8 @@
           hash
         end
         series << {name: tax.name + " " + Tax.human_attribute_name(:paid_taxes) ,data: item_h.collect{|k,v| v.to_s.to_f } }
-      end     
-      
+      end
+
     end
 
   = bar_chart(series,legend: { layout: 'vertical', align: 'bottom', vertical_align: 'bottom', border_width: 0 }, x_axis: { categories: categories.values})

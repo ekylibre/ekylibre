@@ -1031,6 +1031,9 @@
       <item name="calendar_cells">
         <page to="backend/cells/calendar_cells#show"/>
       </item>
+      <item name="collected_taxes_cells">
+        <page to="backend/cells/collected_taxes_cells#show"/>
+      </item>
       <item name="cropping_plan_cells">
         <page to="backend/cells/cropping_plan_cells#show"/>
       </item>
@@ -1048,6 +1051,10 @@
       </item>
       <item name="expense_chart_cells">
         <page to="backend/cells/expense_chart_cells#show"/>
+      </item>
+      <item name="last_entities_cells">
+        <page to="backend/cells/last_entities_cells#list"/>
+        <page to="backend/cells/last_entities_cells#show"/>
       </item>
       <item name="last_events_cells">
         <page to="backend/cells/last_events_cells#list"/>
@@ -1133,16 +1140,6 @@
         <page to="backend/land_parcel_groups#new"/>
         <page to="backend/land_parcel_groups#show"/>
         <page to="backend/land_parcel_groups#update"/>
-      </item>
-      <item name="logs">
-        <page to="backend/logs#index"/>
-        <page to="backend/logs#create"/>
-        <page to="backend/logs#destroy"/>
-        <page to="backend/logs#edit"/>
-        <page to="backend/logs#list"/>
-        <page to="backend/logs#new"/>
-        <page to="backend/logs#show"/>
-        <page to="backend/logs#update"/>
       </item>
       <item name="matters">
         <page to="backend/matters#index"/>

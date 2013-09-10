@@ -1,8 +1,5 @@
 class IndicatorDatum < Ekylibre::Record::Base
   self.abstract_class = true
-  # attr_accessible :value, :indicator, :measured_at, :geometry_value, :decimal_value, :measure_value_unit, :measure_value_value, :string_value, :boolean_value, :choice_value
-
-
   enumerize :indicator, :in => Nomen::Indicators.all, :default => Nomen::Indicators.default, :predicates => {:prefix => true}
   enumerize :indicator_datatype, :in => Nomen::Indicators.datatype.choices, :predicates => {:prefix => true}
   enumerize :measure_value_unit, :in => Nomen::Units.all, :predicates => {:prefix => true}
@@ -12,7 +9,8 @@ class IndicatorDatum < Ekylibre::Record::Base
   validates_inclusion_of :indicator, :in => self.indicator.values
   validates_inclusion_of :indicator_datatype, :in => self.indicator_datatype.values
 
-  validates_presence_of :geometry_value, :if => :indicator_datatype_geometry?
+  validates_presence_of :point_value,    :if => :indicator_datatype_point?
+  validates_presence_of :multi_polygon_value, :if => :indicator_datatype_multi_polygon?
   validates_presence_of :string_value,   :if => :indicator_datatype_string?
   validates_presence_of :measure_value,  :if => :indicator_datatype_measure?
   validates_inclusion_of :boolean_value, :in => [true, false], :if => :indicator_datatype_boolean?

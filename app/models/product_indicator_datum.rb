@@ -25,7 +25,6 @@
 #  created_at          :datetime         not null
 #  creator_id          :integer
 #  decimal_value       :decimal(19, 4)
-#  geometry_value      :spatial({:srid=>
 #  id                  :integer          not null, primary key
 #  indicator           :string(255)      not null
 #  indicator_datatype  :string(255)      not null
@@ -33,6 +32,8 @@
 #  measure_value_unit  :string(255)
 #  measure_value_value :decimal(19, 4)
 #  measured_at         :datetime         not null
+#  multi_polygon_value :spatial({:srid=>
+#  point_value         :spatial({:srid=>
 #  product_id          :integer          not null
 #  string_value        :text
 #  updated_at          :datetime         not null

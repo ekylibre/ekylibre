@@ -220,6 +220,8 @@ eng:
         entity: "Subscriber"
       tax:
         amount: "Value"
+        # collected_taxes: "collectée"
+        # paid_taxes: "déductible"
       tax_declaration:
         address: "Department address"
         amount: "Total VAT"
@@ -1052,6 +1054,7 @@ eng:
     moved_at: "Moved at"
     moved_on: "Moved on"
     moves: "Moves"
+    # multi_polygon_value: "Multi polygon value"
     name: "Name"
     name_1_to_2: "Name 1 to 2"
     name_2_to_1: "Name 2 to 1"
@@ -1145,6 +1148,7 @@ eng:
     planned_at: "Planned at"
     planned_depreciations: "Planned depreciations"
     planned_on: "Planned on"
+    # point_value: "Point value"
     # population_counting: "Gestion quantitative"
     position: "Position"
     posologies: "Posologies" #?

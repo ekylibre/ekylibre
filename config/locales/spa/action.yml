@@ -103,6 +103,7 @@ spa:
       show: "%{nature_label} : %{name}"
     backend/cells/bank_chart_cells: #?
     backend/cells/calendar_cells: #?
+    backend/cells/collected_taxes_cells: #?
     backend/cells/cropping_plan_cells: #?
     backend/cells/cropping_plan_on_cultivable_land_parcels_cells: #?
     backend/cells/demo_bar_cells: #?
@@ -110,6 +111,7 @@ spa:
     backend/cells/demo_pie_cells: #?
     backend/cells/elevage_rss_cells: #?
     backend/cells/expense_chart_cells: #?
+    backend/cells/last_entities_cells: #?
     backend/cells/last_events_cells: #?
     backend/cells/last_milk_result_cells: #?
     backend/cells/last_procedures_cells: #?
@@ -161,6 +163,7 @@ spa:
       # settings: "Configuration"
       # stocks: "Tableau de bord des stocks"
       # tools: "Tableau de bord des outils"
+      # trade: "Tableau de bord des achats et ventes"
       # welcome: "Bienvenue dans Ekylibre"
     backend/data_view/manure_management_plans: #?
     backend/data_view/veterinary_booklets: #?
@@ -333,11 +336,7 @@ spa:
       index: "Exportacion y mailing"
       mail: "Enviar un correo electronico para «%{name}»"
       new: "Créacion de nueva extraccion"
-    backend/logs:
-      # edit: "Modifier un évènement"
-      # index: "Évènements"
-      # new: "Créer un évènement"
-      # show: "évènement %{name} commencé le %{started_at}"
+    backend/logs: #?
     backend/management:  #?
       index: "Administracion commercial" #?
       sales_invoice: "%{nature} %{number}" #?
@@ -698,7 +697,6 @@ spa:
     # backend/listing_node_items: "Élement de nœuds d’extractions"
     # backend/listing_nodes: "Nœuds d’extractions"
     backend/listings: "Exportacion y mailing"
-    # backend/logs: "Historique"
     backend/management: "Administración comercial" #?
     # backend/mandates: "Responsabilités"
     # backend/matters: "Matières"
@@ -877,7 +875,7 @@ spa:
         opera: "Opéra"
         safari: "Safari"
     balance: "Saldo"
-    # bank_chart: "Évolution du solde de banque"
+    # bank_chart: "Évolution du solde des comptes de trésorerie"
     bank_statement_point: "Despuntar el levantar" #?
     bank_statement_update: "Modificar el leventar" #?
     # bban: "Relevé d'identité bancaire (RIB)"
@@ -928,6 +926,7 @@ spa:
     # close_journal: "Clôturer le journal"
     closed: "Cerrados"
     code: "Codigo" #?
+    # collected_taxes: "TVA déductibles / collectées"
     # column: "Donnée"
     # column_family: "Famille"
     # column_organization: "Organisation"
@@ -1147,6 +1146,7 @@ spa:
     # last_animals: "Dernières naissances"
     # last_clients: "Derniers clients"
     # last_computed_balance: "Dernière balance calculée"
+    # last_entities: "Derniers tiers"
     # last_events: "Derniers évènements"
     # last_milk_result: "Dernières analyses de lait"
     # last_payment_amount: "Montant du dernier encaissement"

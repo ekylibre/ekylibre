@@ -31,7 +31,7 @@
 #  production_id            :integer          not null
 #  provisional              :boolean          not null
 #  provisional_procedure_id :integer
-#  state                    :string(255)      default("undone"), not null
+#  state                    :string(255)      not null
 #  updated_at               :datetime         not null
 #  updater_id               :integer
 #

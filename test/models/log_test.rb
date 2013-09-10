@@ -30,9 +30,9 @@
 #  origin_id     :integer
 #  origin_object :text
 #  origin_type   :string(255)
-#  owner_id      :integer
+#  owner_id      :integer          not null
 #  owner_object  :text
-#  owner_type    :string(255)
+#  owner_type    :string(255)      not null
 #  updated_at    :datetime         not null
 #  updater_id    :integer
 #

@@ -13,18 +13,18 @@
       categories[date.year.to_s + date.month.to_s.rjust(2, '0')] = date.l(:format => "%b %Y")
       date = date >> 1
     end
-    
+
     for cash in cashes
       items = cash.lasts_of_periods(started_on,stopped_on)
-      
+
       item_h = items.sort.inject({}) do |hash, pair|
         hash[pair.printed_on.l(:format => "%b %Y")] = (pair.cumulated_absolute_debit - pair.cumulated_absolute_credit).to_d
         hash
       end
-      
+
       for cat in categories.keys
         item_h[cat] ||= 0.0
-      end      
+      end
       series << {name: cash.name ,data: item_h.collect{|k,v| v.to_s.to_f } }
     end
 

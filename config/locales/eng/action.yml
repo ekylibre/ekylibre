@@ -94,12 +94,14 @@ eng:
       show: "%{nature}: %{name}"
     backend/cells/bank_chart_cells: #?
     backend/cells/calendar_cells: #?
+    backend/cells/collected_taxes_cells: #?
     backend/cells/cropping_plan_cells: #?
     backend/cells/cropping_plan_on_cultivable_land_parcels_cells: #?
     backend/cells/demo_bar_cells: #?
     backend/cells/demo_map_cells: #?
     backend/cells/demo_pie_cells: #?
     backend/cells/expense_chart_cells: #?
+    backend/cells/last_entities_cells: #?
     backend/cells/last_events_cells: #?
     backend/cells/last_milk_result_cells: #?
     backend/cells/last_procedures_cells: #?
@@ -135,6 +137,7 @@ eng:
       settings: "Settings dashboard"
       stocks: "Stocks dashboard"
       tools: "Tools dashboard"
+      # trade: "Tableau de bord des achats et ventes"
       welcome: "Welcome on Ekylibre"
     backend/data_view/manure_management_plans: #?
     backend/data_view/veterinary_booklets: #?
@@ -318,11 +321,7 @@ eng:
       index: "Listings and mailings"
       mail: "Send an email to: %{name}"
       new: "Add a new listing"
-    backend/logs:
-      # edit: "Modifier un évènement"
-      # index: "Évènements"
-      # new: "Créer un évènement"
-      # show: "évènement %{name} commencé le %{started_at}"
+    backend/logs: #?
     backend/mandates:
       configure: "Configure responsibility"
       edit: "Edit the responsibility"
@@ -660,7 +659,7 @@ eng:
     backend/listing_node_items: "Listing node items"
     backend/listing_nodes: "Listing nodes"
     backend/listings: "Listings and mailings"
-    backend/logs: "Logs"
+    backend/logs: "Logs" #?
     backend/mandates: "Mandates"
     backend/matters: "Matters"
     backend/myselves: "Myself"
@@ -883,6 +882,7 @@ eng:
     close_financial_year: "Close financial year"
     close_journal: "Close the journal"
     closed: "Closed"
+    # collected_taxes: "TVA déductibles / collectées"
     column: "Column"
     column_family: "Family"
     column_organization: "Organization"
@@ -1096,6 +1096,7 @@ eng:
     last_animals: "Last birth"
     # last_clients: "Derniers clients"
     last_computed_balance: "Last computed balance"
+    # last_entities: "Derniers tiers"
     last_events: "Last Events"
     last_milk_result: "Last milk analysis"
     last_payment_amount: "Amount of the last payment"

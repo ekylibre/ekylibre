@@ -21,16 +21,17 @@
 # == Table: taxes
 #
 #  amount               :decimal(19, 4)   default(0.0), not null
-#  collected_account_id :integer
+#  collect_account_id   :integer
 #  created_at           :datetime         not null
 #  creator_id           :integer
+#  deduction_account_id :integer
 #  description          :text
 #  id                   :integer          not null, primary key
 #  included             :boolean          not null
 #  lock_version         :integer          default(0), not null
 #  name                 :string(255)      not null
 #  nature               :string(16)       not null
-#  paid_account_id      :integer
+#  nomen                :string(127)
 #  reductible           :boolean          default(TRUE), not null
 #  updated_at           :datetime         not null
 #  updater_id           :integer
@@ -50,6 +51,7 @@ class Tax < Ekylibre::Record::Base
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :amount, :allow_nil => true
   validates_length_of :nature, :allow_nil => true, :maximum => 16
+  validates_length_of :nomen, :allow_nil => true, :maximum => 127
   validates_length_of :name, :allow_nil => true, :maximum => 255
   validates_inclusion_of :included, :reductible, :in => [true, false]
   validates_presence_of :amount, :name, :nature

@@ -28,7 +28,7 @@
 #  integer_value     :integer
 #  lock_version      :integer          default(0), not null
 #  name              :string(255)      not null
-#  nature            :string(8)        default("u"), not null
+#  nature            :string(8)        not null
 #  record_value_id   :integer
 #  record_value_type :string(255)
 #  string_value      :text

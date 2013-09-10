@@ -42,7 +42,7 @@
 #  failed_attempts                        :integer          default(0)
 #  first_name                             :string(255)      not null
 #  id                                     :integer          not null, primary key
-#  language                               :string(3)        default("???"), not null
+#  language                               :string(3)        not null
 #  last_name                              :string(255)      not null
 #  last_sign_in_at                        :datetime
 #  last_sign_in_ip                        :string(255)

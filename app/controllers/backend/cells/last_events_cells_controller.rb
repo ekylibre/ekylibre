@@ -1,7 +1,7 @@
 class Backend::Cells::LastEventsCellsController < Backend::CellsController
 
-  list(:model => :logs) do |t|
-    t.column :observed_at
+  list(:model => :events) do |t|
+    t.column :started_at
     t.column :description
   end
 

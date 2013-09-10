@@ -166,8 +166,8 @@ fra:
         entity: "Abonné"
       tax:
         amount: "Valeur"
-        paid_taxes: "déductible"
         collected_taxes: "collectée"
+        paid_taxes: "déductible"
       tax_declaration:
         address: "Adresse du service destinataire"
         amount: "TVA totale"
@@ -523,7 +523,8 @@ fra:
     closed_on: "Date de clôture"
     code: "Code"
     coefficient: "Coefficient"
-    collected_account: "TVA collectée"
+    # collect_account: "Collect account"
+    collected_account: "TVA collectée" #?
     collected_amount: "TVA brute"
     collected_taxes: "TVA collectées"
     color: "Couleur" #?
@@ -591,6 +592,7 @@ fra:
     decimal: "Decimal" #?
     decimal_value: "Valeur décimale"
     declared_on: "Déclarée le"
+    # deduction_account: "Deduction account"
     default_mail_address: "Adresse email par défaut"
     # default_variant: "Default variant"
     deferred_payment: "Crédit à reporter"
@@ -693,7 +695,7 @@ fra:
     # frozen_indicators: "Frozen indicators"
     full_name: "Nom complet"
     function_title: "Civilités"
-    geometry_value: "Geometry value"
+    geometry_value: "Geometry value" #?
     global_balance: "Solde global"
     global_count: "Population globale"
     global_credit: "Crédit global"
@@ -824,6 +826,7 @@ fra:
     moved_at: "Fait à" #?
     moved_on: "Fait le"
     moves: "Mouvements" #?
+    multi_polygon_value: "Multi polygon value"
     name: "Nom"
     name_1_to_2: "Nom «\_Personne 1 vers Personne 2\_»" #?
     name_2_to_1: "Nom «\_Personne 2 vers Personne 1\_»" #?
@@ -872,7 +875,7 @@ fra:
     # owner_object: "Owner object"
     owner_type: "Nature du propriétaire"
     paid: "Réglée" #?
-    paid_account: "TVA déductible"
+    paid_account: "TVA déductible" #?
     paid_amount: "Montant payé"
     paid_on: "Réglé le"
     paid_taxes: "Taxes payées"
@@ -912,6 +915,7 @@ fra:
     planned_at: "Prévu à" #?
     planned_depreciations: "Amortissements prévus"
     planned_on: "Prévu le"
+    point_value: "Point value"
     population_counting: "Gestion quantitative"
     # population_delta: "Population delta"
     position: "Position"
@@ -1049,7 +1053,7 @@ fra:
     subscription_period: "Période" #?
     subscription_quantity: "Quantité" #?
     subscriptions: "Abonnements"
-    sum_method: "Méthode de calcul"
+    sum_method: "Méthode de calcul" #?
     supplier: "Fournisseur"
     supplier_account: "Compte fournisseur associé"
     suppliers: "Fournisseurs"

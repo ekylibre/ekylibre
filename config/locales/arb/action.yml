@@ -101,6 +101,7 @@ arb:
       show: "%{nature_label} : %{name}"
     backend/cells/bank_chart_cells: #?
     backend/cells/calendar_cells: #?
+    backend/cells/collected_taxes_cells: #?
     backend/cells/cropping_plan_cells: #?
     backend/cells/cropping_plan_on_cultivable_land_parcels_cells: #?
     backend/cells/demo_bar_cells: #?
@@ -108,6 +109,7 @@ arb:
     backend/cells/demo_pie_cells: #?
     backend/cells/elevage_rss_cells: #?
     backend/cells/expense_chart_cells: #?
+    backend/cells/last_entities_cells: #?
     backend/cells/last_events_cells: #?
     backend/cells/last_milk_result_cells: #?
     backend/cells/last_procedures_cells: #?
@@ -161,6 +163,7 @@ arb:
       # settings: "Configuration"
       # stocks: "Tableau de bord des stocks"
       # tools: "Tableau de bord des outils"
+      # trade: "Tableau de bord des achats et ventes"
       # welcome: "Bienvenue dans Ekylibre"
     backend/data_view/manure_management_plans: #?
     backend/data_view/veterinary_booklets: #?
@@ -354,11 +357,7 @@ arb:
       index: "الصادرات وارسال الرسائل"
       mail: "ارسال الرسالة ل «%{name}»"
       new: "انشاء استخلاص جديد"
-    backend/logs:
-      # edit: "Modifier un évènement"
-      # index: "Évènements"
-      # new: "Créer un évènement"
-      # show: "évènement %{name} commencé le %{started_at}"
+    backend/logs: #?
     backend/management:  #?
       index: "ادارة الاعمال" #?
       sale_lines: "اختيار المنتجات للطلب %{sale} من : %{client}" #?
@@ -783,7 +782,6 @@ arb:
     # backend/listing_node_items: "Élement de nœuds d’extractions"
     # backend/listing_nodes: "Nœuds d’extractions"
     backend/listings: "الصادرات وارسال الرسائل"
-    # backend/logs: "Historique"
     backend/management: "الادارة" #?
     backend/mandates: "تفويضات"
     # backend/matters: "Matières"
@@ -975,7 +973,7 @@ arb:
         safari: "سفاري رحلة قنص"
     balance: "رصيد الحساب"
     bank_accounts: "" #?
-    # bank_chart: "Évolution du solde de banque"
+    # bank_chart: "Évolution du solde des comptes de trésorerie"
     bank_statement_point: "الاشارة للكشف المصرفي" #?
     bank_statement_update: "تعديل الكشف المصرفي" #?
     # bban: "Relevé d'identité bancaire (RIB)"
@@ -1027,6 +1025,7 @@ arb:
     # close_journal: "Clôturer le journal"
     closed: "مغلق"
     code: "الرمز" #?
+    # collected_taxes: "TVA déductibles / collectées"
     column: "البيانات"
     column_family: "الاسرة"
     column_organization: "المنظمة"
@@ -1276,6 +1275,7 @@ arb:
     # last_animals: "Dernières naissances"
     # last_clients: "Derniers clients"
     # last_computed_balance: "Dernière balance calculée"
+    # last_entities: "Derniers tiers"
     # last_events: "Derniers évènements"
     # last_milk_result: "Dernières analyses de lait"
     # last_payment_amount: "Montant du dernier encaissement"

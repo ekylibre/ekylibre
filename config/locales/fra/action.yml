@@ -94,6 +94,8 @@ fra:
       # show: "Show backend/cells/bank chart cell"
     backend/cells/calendar_cells:
       # show: "Show backend/cells/calendar cell"
+    backend/cells/collected_taxes_cells:
+      # show: "Show backend/cells/collected taxes cell"
     backend/cells/cropping_plan_cells:
       # show: "Show backend/cells/cropping plan cell"
     backend/cells/cropping_plan_on_cultivable_land_parcels_cells:
@@ -106,6 +108,8 @@ fra:
       # show: "Show backend/cells/demo pie cell"
     backend/cells/expense_chart_cells:
       # show: "Show backend/cells/expense chart cell"
+    backend/cells/last_entities_cells:
+      # show: "Show backend/cells/last entities cell"
     backend/cells/last_events_cells:
       # show: "Show backend/cells/last events cell"
     backend/cells/last_milk_result_cells:
@@ -304,11 +308,6 @@ fra:
       index: "Exportations et mailings"
       mail: "Envoyer un e-mail pour\_: %{name}"
       new: "Création d’une nouvelle extraction"
-    backend/logs:
-      edit: "Modifier un évènement"
-      index: "Évènements"
-      new: "Créer un évènement"
-      show: "évènement %{name} commencé le %{started_at}"
     backend/mandates:
       # autocomplete_for_family: "Autocomplete for family backend/mandate"
       # autocomplete_for_organization: "Autocomplete for organization backend/mandate"
@@ -642,12 +641,14 @@ fra:
     backend/cashes: "Trésoreries"
     # backend/cells/bank_chart_cells: "Backend/cells/bank chart cells"
     # backend/cells/calendar_cells: "Backend/cells/calendar cells"
+    # backend/cells/collected_taxes_cells: "Backend/cells/collected taxes cells"
     # backend/cells/cropping_plan_cells: "Backend/cells/cropping plan cells"
     # backend/cells/cropping_plan_on_cultivable_land_parcels_cells: "Backend/cells/cropping plan on cultivable land parcels cells"
     # backend/cells/demo_bar_cells: "Backend/cells/demo bar cells"
     # backend/cells/demo_map_cells: "Backend/cells/demo map cells"
     # backend/cells/demo_pie_cells: "Backend/cells/demo pie cells"
     # backend/cells/expense_chart_cells: "Backend/cells/expense chart cells"
+    # backend/cells/last_entities_cells: "Backend/cells/last entities cells"
     # backend/cells/last_events_cells: "Backend/cells/last events cells"
     # backend/cells/last_milk_result_cells: "Backend/cells/last milk result cells"
     # backend/cells/last_procedures_cells: "Backend/cells/last procedures cells"
@@ -696,7 +697,6 @@ fra:
     backend/listing_node_items: "Élement de nœuds d’extractions"
     backend/listing_nodes: "Nœuds d’extractions"
     backend/listings: "Exportations et mailings"
-    backend/logs: "Historique"
     backend/mandates: "Responsabilités"
     backend/matters: "Matières"
     # backend/medicines: "Backend/medicines"
@@ -1144,8 +1144,8 @@ fra:
     last_animals: "Dernières naissances"
     last_clients: "Derniers clients"
     last_computed_balance: "Dernière balance calculée"
-    last_events: "Derniers évènements"
     last_entities: "Derniers tiers"
+    last_events: "Derniers évènements"
     last_milk_result: "Dernières analyses de lait"
     last_payment_amount: "Montant du dernier encaissement"
     last_payment_date: "Date du dernier encaissement"

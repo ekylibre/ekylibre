@@ -41,7 +41,7 @@
 #  full_name                 :string(255)      not null
 #  id                        :integer          not null, primary key
 #  invoices_count            :integer
-#  language                  :string(3)        default("???"), not null
+#  language                  :string(3)        not null
 #  last_name                 :string(255)      not null
 #  lock_version              :integer          default(0), not null
 #  locked                    :boolean          not null

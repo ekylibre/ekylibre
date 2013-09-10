@@ -23,7 +23,7 @@
 #  city         :string(255)
 #  city_name    :string(255)
 #  code         :string(255)
-#  country      :string(2)        default("??")
+#  country      :string(2)        not null
 #  created_at   :datetime         not null
 #  creator_id   :integer
 #  district_id  :integer
@@ -43,7 +43,7 @@ class Area < Ekylibre::Record::Base
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :country, :allow_nil => true, :maximum => 2
   validates_length_of :city, :city_name, :code, :name, :postcode, :allow_nil => true, :maximum => 255
-  validates_presence_of :name, :postcode
+  validates_presence_of :country, :name, :postcode
   #]VALIDATORS]
 
   before_validation do

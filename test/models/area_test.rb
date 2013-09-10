@@ -23,7 +23,7 @@
 #  city         :string(255)
 #  city_name    :string(255)
 #  code         :string(255)
-#  country      :string(2)        default("??")
+#  country      :string(2)        not null
 #  created_at   :datetime         not null
 #  creator_id   :integer
 #  district_id  :integer

@@ -25,7 +25,6 @@
 #  annotation           :text
 #  created_at           :datetime         not null
 #  creator_id           :integer
-#  entity_id            :integer
 #  id                   :integer          not null, primary key
 #  label                :text
 #  lock_version         :integer          default(0), not null
@@ -54,7 +53,7 @@ class SaleItem < Ekylibre::Record::Base
   # attr_accessible :annotation, :price_amount, :price_id, :product_id, :quantity, :reduction_percentage, :sale_id, :tax_id, :unit
   attr_readonly :sale_id
   belongs_to :account
-  belongs_to :entity
+  # belongs_to :entity
   belongs_to :sale, :inverse_of => :items
   belongs_to :origin, :class_name => "SaleItem"
   belongs_to :price, :class_name => "ProductPrice"

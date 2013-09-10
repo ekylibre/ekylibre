@@ -102,12 +102,13 @@ eng:
         # capitals: "Comptes de capitaux"
         # cash: "Caisse"
         # clients: "Clients"
-        # collected_taxes: "Taxes sur le chiffre d'affaires collectées par l'entreprise"
+        # collected_vat: "Taxes sur le chiffre d'affaires collectées par l'entreprise"
         # compensation_operations: "Operations de compensation (conventions de compte courant)"
         # cooperative_participation_assets: "Sociétés coopératives agricoles (sauf CUMA)"
         # corporeal_asset_depreciations: "Ammortissements des immobilisations corporelles"
         # corporeals_and_incorporeals_depreciations_inputations_expenses: "Dotat. aux amort. des immobilisations incorporelles et corporelles"
         # debtor_suppliers: "Fournisseurs débiteurs"
+        # deductible_vat: "Taxes sur le chiffre d'affaires deductibles"
         # depreciations_inputations_expenses: "Dotations aux amortissements et aux provisions"
         # discount_from_cooperatives: "Ristournes percues des cooperatives agricoles"
         # electricity_expenses: "Electricité"
@@ -209,7 +210,6 @@ eng:
         # own_building_expenses: "Constructions (sur sol propre)"
         # ownership_assets: "Titres immobilisés (droits de propriété)"
         # ownership_loan: "Prêts consentis"
-        # paid_taxes: "Taxes sur le chiffre d'affaires deductibles"
         # pending_deposit_payments: "Valeurs à l'encaissement "
         plant_derivative_stock: "Plant derivative stock"
         plant_derivatives_product: "Plant derivatives product" #?
@@ -223,6 +223,7 @@ eng:
         # professionnals_subscriptions_expenses: "Cotisations professionnelles"
         raw_material_charge: "Raw material charge" #?
         # raw_material_expenses: "Matières premières"
+        # rectify_collected_vat: "TVA collectée à régulariser"
         # reductions: "Escomptes obtenus"
         # reevaluation_gaps: "Ecart de réévaluation"
         # reserves: "Réserves"
@@ -250,7 +251,6 @@ eng:
         # staff_due_remunerations: "Personnel - rémunérations dûes"
         # staff_expenses: "Charges de personnel"
         # staff_salary: "Salaires"
-        # state_taxes: "Etat - Taxes sur le chiffre d'affaire"
         # stocks: "Comptes de stocks et en-cours"
         # stocks_variation: "Variation de stocks"
         # studies_and_research_expenses: "Etudes et recherches"
@@ -270,9 +270,10 @@ eng:
         # transport_vehicle_assets: "Matériel de transport"
         # usual_associated_accounts: "Associes comptes courants - comptes courants"
         # usual_bank_overdraft: "Concours bancaires courants"
+        # vat: "Etat - Taxes sur le chiffre d'affaire"
         # vegetals_productions_expenses: "Achats pour productions végétales"
         # veterinary_fees_expenses: "Honoraires veterinaires"
-        # waiting_taxes: "Taxes sur le chiffres d'affaires à régulariser ou en attente"
+        # waiting_vat: "Taxes sur le chiffres d'affaires à régulariser ou en attente"
         # water_expenses: "Eau"
         young_animal_asset: "Young animal asset" #?
         # young_animal_assets: "Animaux reproducteurs (jeunes de renouvellement)"
@@ -486,6 +487,28 @@ eng:
         vegetal_global_documentation: "Vegetal global documentation"
         vinification: "Vinification"
       name: "Name"
+    taxes:
+      attributes:
+        # active: "actif"
+        # amount: "valeur"
+        # collect_account: "compte de TVA collectée (radical)"
+        # country: "pays"
+        # deduction_account: "compte de TVA déductible (radical)"
+        # nature: "nature"
+        # started_on: "débuté le"
+        # stopped_on: "arrêté le"
+        # suffix: "suffixe du compte comptable"
+      choices:
+        nature:
+          # amount: "montant"
+          # percentage: "pourcentage"
+      items:
+        # fr_vat_intermediate: "TVA 10.00%"
+        # fr_vat_normal: "TVA 20.00%"
+        # fr_vat_null: "TVA 0.00%"
+        # fr_vat_particular: "TVA 2.1%"
+        # fr_vat_reduce: "TVA 5.00%"
+      # name: "Type de taxes"
     units:
       items:
         # are: "are"

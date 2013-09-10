@@ -20,7 +20,7 @@
 #
 # == Table: document_archives
 #
-#  archived_at       :datetime
+#  archived_at       :datetime         not null
 #  created_at        :datetime         not null
 #  creator_id        :integer
 #  document_id       :integer          not null
