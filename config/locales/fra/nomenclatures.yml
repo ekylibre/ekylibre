@@ -486,11 +486,9 @@ fra:
         fr_vat_null: "TVA 0.00%"
         fr_vat_particular: "TVA 2.10%"
         fr_vat_reduced: "TVA 5.00%"
-        fr_vat_intermediate: "TVA 10.00%"
-        fr_vat_normal: "TVA 20.00%"
-        old_fr_vat_reduced: "TVA 5.50%"
         old_fr_vat_intermediate: "TVA 7.00%"
         old_fr_vat_normal: "TVA 19.60%"
+        old_fr_vat_reduced: "TVA 5.50%"
       name: "Type de taxes"
     units:
       items:

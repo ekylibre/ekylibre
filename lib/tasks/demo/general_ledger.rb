@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 demo :general_ledger do
-    
+
   Ekylibre::fixturize :general_ledger do |w|
     #############################################################################
     # Import accountancy

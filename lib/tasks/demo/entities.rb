@@ -1,17 +1,17 @@
 # -*- coding: utf-8 -*-
 demo :entities do
-  
+
   Ekylibre::fixturize :all_entity do |w|
-    
+
     file = Rails.root.join("test", "fixtures", "files", "general_ledger-istea.txt")
     picture_undefined = Rails.root.join("test", "fixtures", "files", "portrait-undefined.png")
     en_org = "legal_entity"
-    
+
     CSV.foreach(file, :encoding => "CP1252", :col_sep => ";") do |row|
       r = OpenStruct.new(:account => Account.get(row[0]),
                          :entry_number => row[4].to_s.strip.upcase.to_s.gsub(/[^A-Z0-9]/, ''),
                          :entity_name => row[5])
-    
+
     if r.account.number.match(/^401/)
         unless Entity.find_by_origin(r.entity_name)
           f = File.open(picture_undefined)
@@ -21,7 +21,7 @@ demo :entities do
           entity.addresses.create!(:canal => :phone, :coordinate => "+33" + rand(10).to_s + rand(10).to_s + rand(10).to_s + rand(10).to_s + rand(10).to_s + rand(10).to_s + rand(10).to_s + rand(10).to_s + rand(10).to_s)
         end
       end
-      
+
       if r.account.number.match(/^411/)
         unless Entity.find_by_origin(r.entity_name)
           f = File.open(picture_undefined)
@@ -31,11 +31,11 @@ demo :entities do
           entity.addresses.create!(:canal => :phone, :coordinate => "+33" + rand(10).to_s + rand(10).to_s + rand(10).to_s + rand(10).to_s + rand(10).to_s + rand(10).to_s + rand(10).to_s + rand(10).to_s + rand(10).to_s)
         end
       end
-    
+
     w.check_point
-    
+
     end
-  
+
      mails = [
              {:mail_line_4 => "46 cours Genêts", :mail_line_6 => "17100 Saintes"},
              {:mail_line_4 => "712 rue de la Mairie", :mail_line_6 => "47290 Cancon"},
@@ -49,13 +49,13 @@ demo :entities do
     Entity.find_each do |entity|
       entity.addresses.create!(mails.sample.merge(:canal => :mail))
     end
-  
+
   end
-  
+
   Ekylibre::fixturize :associates_entity do |w|
-  
+
   file = Rails.root.join("test", "fixtures", "files", "associate_entities.csv")
-  
+
   CSV.foreach(file, :encoding => "UTF-8", :col_sep => ";") do |row|
       r = OpenStruct.new(:first_name => row[0].blank? ? "" : row[0].to_s,
                          :last_name => row[1].blank? ? "" : row[1].to_s.upcase,
@@ -68,8 +68,8 @@ demo :entities do
                          :town => row[8].to_s,
                          :phone_number => row[9].blank? ? nil : row[9].to_s,
                          :origin => (row[0].to_s + " " + row[1].to_s.upcase)
-                         )               
-                 
+                         )
+
       unless Person.find_by_origin(r.origin)
         person = Person.create!(
                                :first_name => r.first_name, :last_name => r.last_name,
@@ -77,7 +77,7 @@ demo :entities do
                                :client_account_id => Account.get(r.client_account_number, :name => r.origin),
                                :origin => r.origin,
                                :supplier => true,
-                               :supplier_account_id => Account.get(r.supplier_account_number, :name => r.origin)        
+                               :supplier_account_id => Account.get(r.supplier_account_number, :name => r.origin)
                                )
         person.addresses.create!(:canal => :mail, :mail_line_4 => r.address, :mail_line_6 => r.postal_code + " " + r.town)
         if !r.phone_number.nil?
@@ -93,5 +93,5 @@ demo :entities do
     end
 
   end
-  
+
 end
