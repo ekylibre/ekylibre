@@ -188,7 +188,7 @@ class Sale < Ekylibre::Record::Base
       entry.add_debit(label, self.client.account(:client).id, self.amount) unless self.amount.zero?
       for item in self.items
         entry.add_credit(label, (item.account||item.product.sales_account).id, item.pretax_amount) unless item.pretax_amount.zero?
-        entry.add_credit(label, item.price.tax.collected_account_id, item.taxes_amount) unless item.taxes_amount.zero?
+        entry.add_credit(label, item.price.tax.collect_account_id, item.taxes_amount) unless item.taxes_amount.zero?
       end
     end
     # self.uses.first.reconciliate if self.uses.first

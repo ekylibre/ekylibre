@@ -1,0 +1,97 @@
+# -*- coding: utf-8 -*-
+demo :entities do
+  
+  Ekylibre::fixturize :all_entity do |w|
+    
+    file = Rails.root.join("test", "fixtures", "files", "general_ledger-istea.txt")
+    picture_undefined = Rails.root.join("test", "fixtures", "files", "portrait-undefined.png")
+    en_org = "legal_entity"
+    
+    CSV.foreach(file, :encoding => "CP1252", :col_sep => ";") do |row|
+      r = OpenStruct.new(:account => Account.get(row[0]),
+                         :entry_number => row[4].to_s.strip.upcase.to_s.gsub(/[^A-Z0-9]/, ''),
+                         :entity_name => row[5])
+    
+    if r.account.number.match(/^401/)
+        unless Entity.find_by_origin(r.entity_name)
+          f = File.open(picture_undefined)
+          entity = LegalEntity.create!(:last_name => r.entity_name.mb_chars.capitalize, :nature => en_org, :supplier => true, :supplier_account_id => r.account.id, :picture => f, :origin => r.entity_name)
+          f.close
+          entity.addresses.create!(:canal => :email, :coordinate => ["contact", "info", r.entity_name.parameterize].sample + "@" + r.entity_name.parameterize + "." + ["fr", "com", "org", "eu"].sample)
+          entity.addresses.create!(:canal => :phone, :coordinate => "+33" + rand(10).to_s + rand(10).to_s + rand(10).to_s + rand(10).to_s + rand(10).to_s + rand(10).to_s + rand(10).to_s + rand(10).to_s + rand(10).to_s)
+        end
+      end
+      
+      if r.account.number.match(/^411/)
+        unless Entity.find_by_origin(r.entity_name)
+          f = File.open(picture_undefined)
+          entity = LegalEntity.create!(:last_name => r.entity_name.mb_chars.capitalize, :nature => en_org, :client => true, :client_account_id => r.account.id, :picture => f, :origin => r.entity_name)
+          f.close
+          entity.addresses.create!(:canal => :email, :coordinate => ["contact", "info", r.entity_name.parameterize].sample + "@" + r.entity_name.parameterize + "." + ["fr", "com", "org", "eu"].sample)
+          entity.addresses.create!(:canal => :phone, :coordinate => "+33" + rand(10).to_s + rand(10).to_s + rand(10).to_s + rand(10).to_s + rand(10).to_s + rand(10).to_s + rand(10).to_s + rand(10).to_s + rand(10).to_s)
+        end
+      end
+    
+    w.check_point
+    
+    end
+  
+     mails = [
+             {:mail_line_4 => "46 cours Genêts", :mail_line_6 => "17100 Saintes"},
+             {:mail_line_4 => "712 rue de la Mairie", :mail_line_6 => "47290 Cancon"},
+             {:mail_line_4 => "55 Rue du Faubourg Saint-Honoré", :mail_line_6 => "75008 Paris"},
+             {:mail_line_4 => "Le Bourg", :mail_line_6 => "47210 Saint-Eutrope-de-Born"},
+             {:mail_line_4 => "Avenue de la Libération", :mail_line_6 => "47150 Monflanquin"},
+             {:mail_line_4 => "Rue du port", :mail_line_6 => "47440 Casseneuil"},
+             {:mail_line_4 => "Avenue René Cassin", :mail_line_6 => "47110 Sainte-Livrade-sur-Lot"},
+            ]
+
+    Entity.find_each do |entity|
+      entity.addresses.create!(mails.sample.merge(:canal => :mail))
+    end
+  
+  end
+  
+  Ekylibre::fixturize :associates_entity do |w|
+  
+  file = Rails.root.join("test", "fixtures", "files", "associate_entities.csv")
+  
+  CSV.foreach(file, :encoding => "UTF-8", :col_sep => ";") do |row|
+      r = OpenStruct.new(:first_name => row[0].blank? ? "" : row[0].to_s,
+                         :last_name => row[1].blank? ? "" : row[1].to_s.upcase,
+                         :nature => row[2].to_s.downcase,
+                         :client_account_number => row[3].to_s,
+                         :supplier_account_number => row[4].to_s,
+                         :usages => row[5].to_s,
+                         :address => row[6].to_s,
+                         :postal_code => row[7].to_s,
+                         :town => row[8].to_s,
+                         :phone_number => row[9].blank? ? nil : row[9].to_s,
+                         :origin => (row[0].to_s + " " + row[1].to_s.upcase)
+                         )               
+                 
+      unless Person.find_by_origin(r.origin)
+        person = Person.create!(
+                               :first_name => r.first_name, :last_name => r.last_name,
+                               :nature => r.nature, :client => true,
+                               :client_account_id => Account.get(r.client_account_number, :name => r.origin),
+                               :origin => r.origin,
+                               :supplier => true,
+                               :supplier_account_id => Account.get(r.supplier_account_number, :name => r.origin)        
+                               )
+        person.addresses.create!(:canal => :mail, :mail_line_4 => r.address, :mail_line_6 => r.postal_code + " " + r.town)
+        if !r.phone_number.nil?
+          person.addresses.create!(:canal => :phone, :coordinate => r.phone_number)
+        end
+        # update account name
+        associate_account = Account.find_by_number(r.client_account_number)
+        associate_account.name = r.origin
+        associate_account.usages = r.usages
+        associate_account.save!
+      end
+      w.check_point
+    end
+
+  end
+  
+end

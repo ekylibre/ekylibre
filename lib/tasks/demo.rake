@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 module Ekylibre
-  DEMOS = [:general_ledger, :buildings, :animals, :land_parcels, :sales, :deliveries, :productions]
+  DEMOS = [:general_ledger, :entities, :buildings, :animals, :land_parcels, :sales, :deliveries, :productions]
 
   MAX = -1
 
