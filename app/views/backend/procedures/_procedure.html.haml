@@ -2,10 +2,10 @@
   .detail
     %h3
       %i
-      =reference.human_name
-  -if procedure and procedure.operations.count > 0
-    .operations=render 'operation', :collection => procedure.operations
-  -if reference.children.count > 0
+      = reference.human_name
+  - if procedure and procedure.operations.count > 0
+    .operations= render 'operation', :collection => procedure.operations
+  - if reference.children.count > 0
     .procedures
-      -for refp in reference.children
-        =render :partial => 'procedure', :object => root.get(refp), :locals => {:root => procedure.root, :reference => refp}
+      - for refp in reference.children
+        = render 'procedure', :procedure => root.get(refp), :root => procedure.root, :reference => refp

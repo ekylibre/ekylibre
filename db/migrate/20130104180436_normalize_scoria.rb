@@ -260,6 +260,8 @@ class NormalizeScoria < ActiveRecord::Migration
 
     change_column_default :sales, :state, nil
 
+    remove_column :sale_lines, :entity_id
+
     rename_column :subscriptions, :entity_id, :subscriber_id
 
     change_column :subscription_natures, :nature, :string, :size => 16

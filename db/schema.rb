@@ -2010,7 +2010,6 @@ ActiveRecord::Schema.define(version: 20130410143823) do
     t.decimal  "price_amount",         precision: 19, scale: 4
     t.integer  "tax_id"
     t.text     "annotation"
-    t.integer  "entity_id"
     t.integer  "reduction_origin_id"
     t.text     "label"
     t.integer  "tracking_id"
@@ -2023,7 +2022,6 @@ ActiveRecord::Schema.define(version: 20130410143823) do
   add_index "sale_items", ["account_id"], :name => "index_sale_items_on_account_id"
   add_index "sale_items", ["created_at"], :name => "index_sale_items_on_created_at"
   add_index "sale_items", ["creator_id"], :name => "index_sale_items_on_creator_id"
-  add_index "sale_items", ["entity_id"], :name => "index_sale_items_on_entity_id"
   add_index "sale_items", ["origin_id"], :name => "index_sale_items_on_origin_id"
   add_index "sale_items", ["price_id"], :name => "index_sale_items_on_price_id"
   add_index "sale_items", ["product_id"], :name => "index_sale_items_on_product_id"

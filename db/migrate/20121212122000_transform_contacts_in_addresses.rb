@@ -693,11 +693,6 @@ class TransformContactsInAddresses < ActiveRecord::Migration
       end
     end
     normalize_indexes(:entity_addresses)
-    # rename_index :entity_addresses, :index_contacts_on_default, :index_entity_addresses_on_by_default
-    # rename_index :entity_addresses, :index_contacts_on_stopped_at, :index_entity_addresses_on_deleted_at
-    # for column in [:code, :created_at, :creator_id, :entity_id, :updated_at, :updater_id]
-    #   rename_index(:entity_addresses, "index_contacts_on_#{column}".to_sym, "index_entity_addresses_on_#{column}".to_sym)
-    # end
 
     execute("INSERT INTO #{quoted_table_name(:entity_addresses)} (entity_id, canal, coordinate) SELECT id, 'website', website FROM entities WHERE LENGTH(TRIM(website)) > 0")
     remove_column :entities, :website

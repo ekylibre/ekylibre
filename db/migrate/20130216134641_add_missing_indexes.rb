@@ -101,7 +101,6 @@ class AddMissingIndexes < ActiveRecord::Migration
     #add_index :sale_items, :unit_id
     add_index :sale_items, :account_id
     add_index :sale_items, :tax_id
-    add_index :sale_items, :entity_id
     add_index :sale_items, :tracking_id
     add_index :sale_items, :origin_id
     add_index :sale_natures, :payment_mode_id
