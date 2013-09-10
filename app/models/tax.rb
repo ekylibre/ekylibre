@@ -41,8 +41,8 @@ class Tax < Ekylibre::Record::Base
   # attr_accessible :name, :nature, :collected_account_id, :description, :included, :paid_account_id, :reductible, :amount
   attr_readonly :nature, :amount
   enumerize :nature, :in => [:amount, :percentage], :default => :percentage, :predicates => true
-  belongs_to :collected_account, :class_name => "Account"
-  belongs_to :paid_account, :class_name => "Account"
+  belongs_to :collect_account, :class_name => "Account"
+  belongs_to :deduction_account, :class_name => "Account"
   has_many :price_templates, :class_name => "ProductPriceTemplate"
   has_many :prices, :class_name => "ProductPrice"
   # TODO has_many :purchase_items
@@ -55,8 +55,8 @@ class Tax < Ekylibre::Record::Base
   validates_presence_of :amount, :name, :nature
   #]VALIDATORS]
   validates_inclusion_of :nature, :in => self.nature.values
-  validates_presence_of :collected_account
-  validates_presence_of :paid_account
+  validates_presence_of :collect_account
+  validates_presence_of :deduction_account
   validates_uniqueness_of :name
   validates_numericality_of :amount, :in => 0..100, :if => :percentage?
 
@@ -97,13 +97,44 @@ class Tax < Ekylibre::Record::Base
     return (1.0 + 0.01*self.amount.to_d)
   end
 
-  def lasts_of_periods(started_on, stopped_on, method = :paid, period = :month)
-    if method == :paid
-      self.paid_account.journal_entry_items.between(started_on, stopped_on).lasts_of_periods(period)
-    elsif method == :collected
-      self.collected_account.journal_entry_items.between(started_on, stopped_on).lasts_of_periods(period)
-    else
-      raise StandardError("Unkown method : method must be paid or collected") 
+  def lasts_of_periods(started_on, stopped_on, mode = :deduction, period = :month)
+    account = self.send("#{mode}_account")
+    account.journal_entry_items.between(started_on, stopped_on).lasts_of_periods(period)
+  end
+
+  # Load a tax from tax nomenclature
+  def self.import_from_nomenclature(nomen)
+    unless item = Nomen::Taxes.find(nomen)
+      raise ArgumentError.new("The tax #{nomen.inspect} is not known")
+    end
+    unless tax = Tax.find_by_nomen(nomen)
+      attributes = {
+        :nature => item.nature,
+        :amount => item.amount,
+        :name => item.human_name,
+        :nomen => item.name
+      }
+      for account in [:deduction, :collect]
+        if name = item.send("#{account}_account")
+          # find the relative account tax  by name
+          tax_radical = Account.find_or_create_in_chart(name)
+          # find if already account tax  by number was created
+          tax_account = Account.find_or_create_by!(:number => tax_radical.number + item.suffix.to_s) do |a|
+            a.name = tax_radical.name + " - " + item.human_name
+            a.usages = tax_radical.usages
+          end
+          attributes["#{account}_account_id"] = tax_account.id
+        end
+      end
+      tax = self.create!(attributes)
+    end
+    return tax
+  end
+
+  # Load.all tax from tax nomenclature by country
+  def self.import_all_from_nomenclature(country = Preference[:country])
+    for tax in Nomen::Taxes.items.values.select{|i| i.country == country}
+      import_from_nomenclature(tax.name)
     end
   end
 

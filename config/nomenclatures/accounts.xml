@@ -111,10 +111,11 @@
       <item name="clients"   fr_pcg82="411"/>
       <item name="staff_due_remunerations"   fr_pcg82="421"/>
       <item name="social_agricultural_mutuality"   fr_pcga="431"/>
-      <item name="state_taxes"   fr_pcga="445"/>
-      <item name="paid_taxes"      fr_pcg82="4456"/>
-      <item name="collected_taxes" fr_pcg82="4457"/>
-      <item name="waiting_taxes" fr_pcg82="4458"/>
+      <item name="vat"   fr_pcga="445"/>
+      <item name="deductible_vat"      fr_pcg82="445661"/>
+      <item name="collected_vat" fr_pcg82="44571"/>
+      <item name="rectify_collected_vat" fr_pcg82="44575"/>
+      <item name="waiting_vat" fr_pcg82="4458"/>
       <item name="principal_associated_accounts" fr_pcga="4551"/>
       <item name="usual_associated_accounts" fr_pcga="4552"/>
       <item name="locked_associated_accounts" fr_pcga="4553"/>

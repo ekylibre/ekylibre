@@ -9,7 +9,7 @@
   %td
     =f.input_field(:price_amount, :class => "item-pta item-wta")
   %td.decimal
-    =f.select(:tax_id, Tax.to_a.collect{|t| [t.name, t.id, {'data-rate' => (100.0 + t.amount).to_f/100.0}]}, {}, 'data-value' => 'rate', :class => "item-wta")
+    =f.select(:tax_id, Tax.all.collect{|t| [t.name, t.id, {'data-rate' => (100.0 + t.amount).to_f/100.0}]}, {}, 'data-value' => 'rate', :class => "item-wta")
   %td.decimal.pta{'data-use' => ".item-pta", 'data-use-closest' => 'tr', 'data-calculate' => 'mul'}=item.pretax_amount
   %td.decimal.wta{'data-use' => ".item-wta", 'data-use-closest' => 'tr', 'data-calculate' => 'mul'}=item.amount
   %td.currency=item.purchase.currency

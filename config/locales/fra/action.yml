@@ -149,7 +149,7 @@ fra:
       settings: "Configuration"
       stocks: "Tableau de bord des stocks"
       tools: "Tableau de bord des outils"
-      # trade: "Trade backend/dashboard"
+      trade: "Tableau de bord des achats et ventes"
       welcome: "Bienvenue dans Ekylibre"
     backend/departments:
       edit: "Modifier le service\_: %{name}"
@@ -1145,6 +1145,7 @@ fra:
     last_clients: "Derniers clients"
     last_computed_balance: "Dernière balance calculée"
     last_events: "Derniers évènements"
+    last_entities: "Derniers tiers"
     last_milk_result: "Dernières analyses de lait"
     last_payment_amount: "Montant du dernier encaissement"
     last_payment_date: "Date du dernier encaissement"

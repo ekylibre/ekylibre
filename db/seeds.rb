@@ -46,9 +46,9 @@ ActiveRecord::Base.transaction do
   establishment = Establishment.create!(:name => I18n.t('models.company.default.establishment_name'))
   # currency = company.currency || 'EUR' # company.currencies.create!(:name => 'Euro', :code => 'EUR', :value_format => '%f €', :rate => 1)
 
-  for code, tax in I18n.t("models.tax.default")
-    Tax.create!(:name => tax[:name], :nature => (tax[:nature]||Tax.nature.default_value), :amount => tax[:amount].to_f, :collected_account_id => Account.get(tax[:collected], tax[:name]).id, :paid_account_id => Account.get(tax[:paid], tax[:name]).id)
-  end
+
+  #load french tax from nomenclatures
+  Tax.import_all_from_nomenclature(:fr)
 
   # Load all the document templates
   DocumentTemplate.load_defaults

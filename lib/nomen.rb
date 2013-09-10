@@ -219,7 +219,7 @@ module Nomen
   class AttributeDefinition
     attr_reader :nomenclature, :name, :type, :fallbacks, :default
 
-    TYPES = [:boolean, :choice, :decimal, :list, :string]
+    TYPES = [:boolean, :choice, :date, :decimal, :list, :string]
 
     # New item
     def initialize(nomenclature, element, options = {})
