@@ -2,7 +2,7 @@
 class Backend::Cells::CollectedTaxesCellsController < Backend::CellsController
 
   def show
-    @financial_years = FinancialYear.find(1)
+    @financial_years = FinancialYear.last
   end
 
 end
