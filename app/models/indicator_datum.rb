@@ -46,6 +46,8 @@ class IndicatorDatum < Ekylibre::Record::Base
         object = Measure.new(object)
       elsif datatype == :boolean
         object = ["1", "ok", "t", "true", "y", "yes"].include?(object.to_s.strip.downcase)
+      elsif datatype == :multi_polygon
+        object = RGeo.factory.multi_polygon(object)
       elsif datatype == :decimal
         object = object.to_d
       end
