@@ -31,7 +31,7 @@ module Ekylibre::Record
         options = (indicators[-1].is_a?(Hash) ? indicators.delete_at(-1) : {})
         code = ""
         indicators = [:shape] if indicators.empty?
-        column = :geometry_value
+        column = :multi_polygon_value
 
         for indicator in indicators
           # code << "after_create :create_#{indicator}_images\n"

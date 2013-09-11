@@ -64,22 +64,24 @@ demo :entities do
                          :supplier_account_number => row[4].to_s,
                          :usages => row[5].to_s,
                          :address => row[6].to_s,
-                         :postal_code => row[7].to_s,
-                         :town => row[8].to_s,
+                         :postal_code => row[7].blank? ? nil : row[7].to_s,
+                         :town => row[8].blank? ? nil : row[8].to_s,
                          :phone_number => row[9].blank? ? nil : row[9].to_s,
                          :origin => (row[0].to_s + " " + row[1].to_s.upcase)
                          )
 
       unless Person.find_by_origin(r.origin)
         person = Person.create!(
-                               :first_name => r.first_name, :last_name => r.last_name,
-                               :nature => r.nature, :client => true,
-                               :client_account_id => Account.get(r.client_account_number, :name => r.origin),
-                               :origin => r.origin,
-                               :supplier => true,
-                               :supplier_account_id => Account.get(r.supplier_account_number, :name => r.origin)
+                       :first_name => r.first_name, :last_name => r.last_name,
+                       :nature => r.nature, :client => true,
+                       :client_account_id => Account.get(r.client_account_number, :name => r.origin),
+                       :origin => r.origin,
+                       :supplier => true,
+                       :supplier_account_id => Account.get(r.supplier_account_number, :name => r.origin)
                                )
-        person.addresses.create!(:canal => :mail, :mail_line_4 => r.address, :mail_line_6 => r.postal_code + " " + r.town)
+        if !r.postal_code.nil? and !r.town.nil?
+          person.addresses.create!(:canal => :mail, :mail_line_4 => r.address, :mail_line_6 => r.postal_code + " " + r.town, :mail_country => "FR")
+        end
         if !r.phone_number.nil?
           person.addresses.create!(:canal => :phone, :coordinate => r.phone_number)
         end
