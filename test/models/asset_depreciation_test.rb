@@ -33,8 +33,8 @@
 #  id                 :integer          not null, primary key
 #  journal_entry_id   :integer
 #  lock_version       :integer          default(0), not null
+#  locked             :boolean          not null
 #  position           :integer
-#  protected          :boolean          not null
 #  started_on         :date             not null
 #  stopped_on         :date             not null
 #  updated_at         :datetime         not null

@@ -33,8 +33,8 @@
 #  id                 :integer          not null, primary key
 #  journal_entry_id   :integer
 #  lock_version       :integer          default(0), not null
+#  locked             :boolean          not null
 #  position           :integer
-#  protected          :boolean          not null
 #  started_on         :date             not null
 #  stopped_on         :date             not null
 #  updated_at         :datetime         not null
@@ -51,7 +51,7 @@
 #   created_on: 2009-07-19
 #   creator_id: 1
 #   id: 1
-#   protected: true
+#   locked: true
 #   started_on: 2009-07-19
 #   stopped_on: 2009-07-19
 #   updated_at: 2009-07-19 19:13:59 +02:00

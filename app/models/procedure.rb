@@ -46,7 +46,7 @@ class Procedure < Ekylibre::Record::Base
   has_many :variables, :class_name => "ProcedureVariable", :inverse_of => :procedure
   has_many :operations, :inverse_of => :procedure
   enumerize :nomen, :in => Procedures.names.sort
-  enumerize :state, :in => [:undone, :squeezed, :in_progress, :done]
+  enumerize :state, :in => [:undone, :squeezed, :in_progress, :done], :default => :undone
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :natures, :nomen, :state, :allow_nil => true, :maximum => 255
   validates_inclusion_of :provisional, :in => [true, false]
@@ -72,6 +72,7 @@ class Procedure < Ekylibre::Record::Base
   }
 
   before_validation do
+    self.state ||= self.class.state.default
     self.natures = self.natures.to_s.strip.split(/[\s\,]+/).sort.join(" ")
   end
 

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 demo :entities do
 
-  Ekylibre::fixturize :all_entity do |w|
+  Ekylibre::fixturize :entities do |w|
 
     file = Rails.root.join("test", "fixtures", "files", "general_ledger-istea.txt")
     picture_undefined = Rails.root.join("test", "fixtures", "files", "portrait-undefined.png")
@@ -12,7 +12,7 @@ demo :entities do
                          :entry_number => row[4].to_s.strip.upcase.to_s.gsub(/[^A-Z0-9]/, ''),
                          :entity_name => row[5])
 
-    if r.account.number.match(/^401/)
+      if r.account.number.match(/^401/)
         unless Entity.find_by_origin(r.entity_name)
           f = File.open(picture_undefined)
           entity = LegalEntity.create!(:last_name => r.entity_name.mb_chars.capitalize, :nature => en_org, :supplier => true, :supplier_account_id => r.account.id, :picture => f, :origin => r.entity_name)
@@ -32,11 +32,11 @@ demo :entities do
         end
       end
 
-    w.check_point
+      w.check_point
 
     end
 
-     mails = [
+    mails = [
              {:mail_line_4 => "46 cours Genêts", :mail_line_6 => "17100 Saintes"},
              {:mail_line_4 => "712 rue de la Mairie", :mail_line_6 => "47290 Cancon"},
              {:mail_line_4 => "55 Rue du Faubourg Saint-Honoré", :mail_line_6 => "75008 Paris"},
@@ -54,9 +54,9 @@ demo :entities do
 
   Ekylibre::fixturize :associates_entity do |w|
 
-  file = Rails.root.join("test", "fixtures", "files", "associate_entities.csv")
+    file = Rails.root.join("test", "fixtures", "files", "associate_entities.csv")
 
-  CSV.foreach(file, :encoding => "UTF-8", :col_sep => ";") do |row|
+    CSV.foreach(file, :encoding => "UTF-8", :col_sep => ";") do |row|
       r = OpenStruct.new(:first_name => row[0].blank? ? "" : row[0].to_s,
                          :last_name => row[1].blank? ? "" : row[1].to_s.upcase,
                          :nature => row[2].to_s.downcase,
@@ -72,13 +72,13 @@ demo :entities do
 
       unless Person.find_by_origin(r.origin)
         person = Person.create!(
-                       :first_name => r.first_name, :last_name => r.last_name,
-                       :nature => r.nature, :client => true,
-                       :client_account_id => Account.get(r.client_account_number, :name => r.origin),
-                       :origin => r.origin,
-                       :supplier => true,
-                       :supplier_account_id => Account.get(r.supplier_account_number, :name => r.origin)
-                               )
+                                :first_name => r.first_name, :last_name => r.last_name,
+                                :nature => r.nature, :client => true,
+                                :client_account_id => Account.get(r.client_account_number, :name => r.origin),
+                                :origin => r.origin,
+                                :supplier => true,
+                                :supplier_account_id => Account.get(r.supplier_account_number, :name => r.origin)
+                                )
         if !r.postal_code.nil? and !r.town.nil?
           person.addresses.create!(:canal => :mail, :mail_line_4 => r.address, :mail_line_6 => r.postal_code + " " + r.town, :mail_country => "FR")
         end
