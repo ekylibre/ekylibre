@@ -84,8 +84,17 @@ class SaleItem < Ekylibre::Record::Base
   validates_presence_of :amount, :pretax_amount, :price, :product, :quantity, :reduction_percentage, :sale
   #]VALIDATORS]
   validates_presence_of :tax
-
-
+  
+  # return all sale items for the consider product_nature
+  scope :by_product_nature, lambda { |product_nature, started_on, stopped_on|
+    joins(:product).merge(Product.of_nature(product_nature)).joins(:sale).merge(Sale.invoiced_between(started_on, stopped_on))}
+  
+  scope :sums_of_periods, lambda { |attr_to_sum = :amount, period = :month|
+    period = :doy if period == :day
+    expr = "EXTRACT(YEAR FROM invoiced_on)*1000 + EXTRACT(#{period} FROM invoiced_on)"
+    joins(:sale).group("#{expr}").order("#{expr}").select("(#{expr}) expr, sum(#{SaleItem.table_name}.#{attr_to_sum.to_s} sum_#{attr_to_sum.to_s})")
+  }
+  
   before_validation do
     # if not self.price and self.sale and self.product
     #   self.price = self.product.price(:listing => self.sale.client.sale_price_listing)
@@ -248,5 +257,6 @@ class SaleItem < Ekylibre::Record::Base
   def uncredited_quantity
     self.quantity + self.credited_quantity
   end
-
+  
+  
 end

@@ -4,11 +4,7 @@
     
     started_on = Date.new(@campaign.name, 01, 01)
     stopped_on = Date.new(@campaign.name, 12, 31)
-
-    sales = Sales.invoiced_between(started_on, stopped_on)
-    
-    sale_items = SaleItems.where("sale_id IN ? ", sales.pluck(:id))
-    
+      
     series = []
     categories = {}
     date = started_on
@@ -17,7 +13,16 @@
       date = date >> 1
     end
     
-    
+    ProductNature.availables.find_each do |nature|
+      sale_items = SaleItems.by_product_nature(nature, started_on, stopped_on)
+      if sale_items.count > 0
+        item_h = sale_items.sums_of_periods().sort.inject({}) do |hash, pair|
+          hash[pair.expr.l(:format => "%b %Y")] = pair.sum_amount.to_d
+          hash
+        end
+        series << {name: nature.name ,data: item_h.collect{|k,v| v.to_s.to_f } }
+      end
+    end
     
 
   = bar_chart(series,legend: { layout: 'vertical', align: 'bottom', vertical_align: 'bottom', border_width: 0 }, x_axis: { categories: categories.values})

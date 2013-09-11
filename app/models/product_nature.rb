@@ -273,7 +273,8 @@ class ProductNature < Ekylibre::Record::Base
   #   attributes[:moved_on] ||= attributes[:planned_on] unless attributes.keys.include? :moved_on
   #   self.stock_moves.create!(attributes)
   # end
-
+  
+  
   # Load a product nature from product nature nomenclature
   def self.import_from_nomenclature(nomen)
     unless item = Nomen::ProductNatures.find(nomen)
