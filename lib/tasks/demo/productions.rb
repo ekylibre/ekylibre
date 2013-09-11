@@ -183,17 +183,17 @@ demo :productions do
       land_parcel_group_fert = CultivableLandParcel.find_by_work_number("PC22")
       if land_parcel_group_fert.nil?
         land_parcel_group_nature_variant = ProductNature.import_from_nomenclature(:cultivable_land_parcel).default_variant
-      land_parcel_group_fert = CultivableLandParcel.create!(:variant_id => land_parcel_group_nature_variant.id,
-                                                            :name => "Les Grands Pièces 1",
-                                                            :work_number => "PC22",
-                                                            :variety => "cultivable_land_parcel",
-                                                            :born_at => Time.now,
-                                                            :owner_id => Entity.of_company.id,
-                                                            :identification_number => "PC22")
-            land_parcel_group_shape = "01060000206A08000001000000010300000001000000100000003108AC1CBD0219418FC2F5C05BEC5841C976BE1F900319419CC4206854EC58419EEFA74657041941000000D050EC5841759318046F051941819543AB50EC5841713D0A57E60419416666663E4BEC584121B0726851051941819543F343EC5841E9263108AE051941CDCCCC6448EC584175931884D5051941E92631A045EC58410C022B0705061941B4C8765641EC5841C520B07200031941B81E85031AEC58413108AC1CC9021941295C8FCA1DEC58416DE7FBA903021941CDCCCCAC12EC584121B072E8C70119410681957314EC584148E17A94800119412DB29D7718EC584121B072683C0019413108AC5C34EC58413108AC1CBD0219418FC2F5C05BEC5841"
-         land_parcel_group_fert.is_measured!(:shape, land_parcel_group_shape, :at => Time.now)
-         ind_area = land_parcel_group_fert.shape_area
-          land_parcel_group_fert.is_measured!(:net_surface_area, ind_area.in_square_meter, :at => Time.now)
+        land_parcel_group_fert = CultivableLandParcel.create!(:variant_id => land_parcel_group_nature_variant.id,
+                                                              :name => "Les Grands Pièces 1",
+                                                              :work_number => "PC22",
+                                                              :variety => "cultivable_land_parcel",
+                                                              :born_at => Time.now,
+                                                              :owner_id => Entity.of_company.id,
+                                                              :identification_number => "PC22")
+        land_parcel_group_shape = "01060000206A08000001000000010300000001000000100000003108AC1CBD0219418FC2F5C05BEC5841C976BE1F900319419CC4206854EC58419EEFA74657041941000000D050EC5841759318046F051941819543AB50EC5841713D0A57E60419416666663E4BEC584121B0726851051941819543F343EC5841E9263108AE051941CDCCCC6448EC584175931884D5051941E92631A045EC58410C022B0705061941B4C8765641EC5841C520B07200031941B81E85031AEC58413108AC1CC9021941295C8FCA1DEC58416DE7FBA903021941CDCCCCAC12EC584121B072E8C70119410681957314EC584148E17A94800119412DB29D7718EC584121B072683C0019413108AC5C34EC58413108AC1CBD0219418FC2F5C05BEC5841"
+        land_parcel_group_fert.is_measured!(:shape, land_parcel_group_shape, :at => Time.now)
+        ind_area = land_parcel_group_fert.shape_area
+        land_parcel_group_fert.is_measured!(:net_surface_area, ind_area.in_square_meter, :at => Time.now)
       end
       production = Production.create!(:activity_id => Activity.find_by_family("straw_cereal_crops").id, :product_nature_id => sole_ble_nature.id, :campaign_id => campaign.id)
       production.supports.create!(:storage_id => land_parcel_group_fert.id)
@@ -278,17 +278,17 @@ demo :productions do
       land_parcel_group_fert = CultivableLandParcel.find_by_work_number("PC22")
       if land_parcel_group_fert.nil?
         land_parcel_group_nature_variant = ProductNature.import_from_nomenclature(:cultivable_land_parcel).default_variant
-      land_parcel_group_fert = CultivableLandParcel.create!(:variant_id => land_parcel_group_nature_variant.id,
-                                                            :name => "Les Grands Pièces 1",
-                                                            :work_number => "PC22",
-                                                            :variety => "cultivable_land_parcel",
-                                                            :born_at => Time.now,
-                                                            :owner_id => Entity.of_company.id,
-                                                            :identification_number => "PC22")
-         land_parcel_group_shape = "01060000206A08000001000000010300000001000000100000003108AC1CBD0219418FC2F5C05BEC5841C976BE1F900319419CC4206854EC58419EEFA74657041941000000D050EC5841759318046F051941819543AB50EC5841713D0A57E60419416666663E4BEC584121B0726851051941819543F343EC5841E9263108AE051941CDCCCC6448EC584175931884D5051941E92631A045EC58410C022B0705061941B4C8765641EC5841C520B07200031941B81E85031AEC58413108AC1CC9021941295C8FCA1DEC58416DE7FBA903021941CDCCCCAC12EC584121B072E8C70119410681957314EC584148E17A94800119412DB29D7718EC584121B072683C0019413108AC5C34EC58413108AC1CBD0219418FC2F5C05BEC5841"
-         land_parcel_group_fert.is_measured!(:shape, land_parcel_group_shape, :at => Time.now)
-         ind_area = land_parcel_group_fert.shape_area
-          land_parcel_group_fert.is_measured!(:net_surface_area, ind_area.in_square_meter, :at => Time.now)
+        land_parcel_group_fert = CultivableLandParcel.create!(:variant_id => land_parcel_group_nature_variant.id,
+                                                              :name => "Les Grands Pièces 1",
+                                                              :work_number => "PC22",
+                                                              :variety => "cultivable_land_parcel",
+                                                              :born_at => Time.now,
+                                                              :owner_id => Entity.of_company.id,
+                                                              :identification_number => "PC22")
+        land_parcel_group_shape = "01060000206A08000001000000010300000001000000100000003108AC1CBD0219418FC2F5C05BEC5841C976BE1F900319419CC4206854EC58419EEFA74657041941000000D050EC5841759318046F051941819543AB50EC5841713D0A57E60419416666663E4BEC584121B0726851051941819543F343EC5841E9263108AE051941CDCCCC6448EC584175931884D5051941E92631A045EC58410C022B0705061941B4C8765641EC5841C520B07200031941B81E85031AEC58413108AC1CC9021941295C8FCA1DEC58416DE7FBA903021941CDCCCCAC12EC584121B072E8C70119410681957314EC584148E17A94800119412DB29D7718EC584121B072683C0019413108AC5C34EC58413108AC1CBD0219418FC2F5C05BEC5841"
+        land_parcel_group_fert.is_measured!(:shape, land_parcel_group_shape, :at => Time.now)
+        ind_area = land_parcel_group_fert.shape_area
+        land_parcel_group_fert.is_measured!(:net_surface_area, ind_area.in_square_meter, :at => Time.now)
       end
       production.supports.create!(:storage_id => land_parcel_group_fert.id)
     end

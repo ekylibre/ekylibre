@@ -1456,6 +1456,7 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.integer  "updater_id"
     t.integer  "lock_version",                                                                                          default: 0,     null: false
     t.spatial  "point_value",         limit: {:srid=>0, :type=>"point", :has_z=>true}
+    t.spatial  "geometry_value",      limit: {:srid=>0, :type=>"geometry", :has_z=>true}
     t.spatial  "multi_polygon_value", limit: {:srid=>0, :type=>"multi_polygon", :has_z=>true}
   end
 
@@ -1577,6 +1578,7 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.integer  "updater_id"
     t.integer  "lock_version",                                                                                          default: 0,     null: false
     t.spatial  "point_value",         limit: {:srid=>0, :type=>"point", :has_z=>true}
+    t.spatial  "geometry_value",      limit: {:srid=>0, :type=>"geometry", :has_z=>true}
     t.spatial  "multi_polygon_value", limit: {:srid=>0, :type=>"multi_polygon", :has_z=>true}
   end
 

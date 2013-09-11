@@ -2,8 +2,8 @@ class CreateBase < ActiveRecord::Migration
   def up
 
     create_table :account_balances do |t|
-      t.integer  :account_id,                                               null: false
-      t.integer  :financial_year_id,                                        null: false
+      t.references :account,                                               null: false
+      t.references :financial_year,                                        null: false
       t.decimal  :global_debit,      precision: 19, scale: 4, default: 0.0, null: false
       t.decimal  :global_credit,     precision: 19, scale: 4, default: 0.0, null: false
       t.decimal  :global_balance,    precision: 19, scale: 4, default: 0.0, null: false
@@ -36,7 +36,7 @@ class CreateBase < ActiveRecord::Migration
       t.string   :nature,                   null: false
       t.datetime :started_at
       t.datetime :stopped_at
-      t.integer  :parent_id
+      t.references :parent
       t.integer  :lft
       t.integer  :rgt
       t.integer  :depth
@@ -52,14 +52,14 @@ class CreateBase < ActiveRecord::Migration
       t.decimal  :debit,                      precision: 19, scale: 4, default: 0.0,   null: false
       t.decimal  :credit,                     precision: 19, scale: 4, default: 0.0,   null: false
       t.datetime :accounted_at
-      t.integer  :journal_entry_id
+      t.references :journal_entry
       t.stamps
     end
     add_index :affairs, [:journal_entry_id], name: :index_affairs_on_journal_entry_id
 
     create_table :analytic_repartitions do |t|
-      t.integer  :production_id,                                               null: false
-      t.integer  :journal_entry_item_id,                                       null: false
+      t.references :production,                                               null: false
+      t.references :journal_entry_item,                                       null: false
       t.string   :state,                                                       null: false
       t.date     :affected_on,                                                 null: false
       t.decimal  :affectation_percentage, precision: 19, scale: 4,             null: false
@@ -72,7 +72,7 @@ class CreateBase < ActiveRecord::Migration
       t.string   :postcode,                              null: false
       t.string   :name,                                  null: false
       t.string   :country,      limit: 2, null: false
-      t.integer  :district_id
+      t.references :district
       t.string   :city
       t.string   :city_name
       t.string   :code
@@ -81,8 +81,8 @@ class CreateBase < ActiveRecord::Migration
     add_index :areas, [:district_id], name: :index_areas_on_district_id
 
     create_table :asset_depreciations do |t|
-      t.integer  :asset_id,                                                    null: false
-      t.integer  :journal_entry_id
+      t.references :asset,                                                    null: false
+      t.references :journal_entry
       t.boolean  :accountable,                                 default: false, null: false
       t.date     :created_on,                                                  null: false
       t.datetime :accounted_at
@@ -91,7 +91,7 @@ class CreateBase < ActiveRecord::Migration
       t.decimal  :amount,             precision: 19, scale: 4,                 null: false
       t.integer  :position
       t.boolean  :locked,                                      default: false, null: false
-      t.integer  :financial_year_id
+      t.references :financial_year
       t.decimal  :asset_amount,       precision: 19, scale: 4
       t.decimal  :depreciated_amount, precision: 19, scale: 4
       t.stamps
@@ -101,18 +101,18 @@ class CreateBase < ActiveRecord::Migration
     add_index :asset_depreciations, [:journal_entry_id], name: :index_asset_depreciations_on_journal_entry_id
 
     create_table :assets do |t|
-      t.integer  :allocation_account_id,                                                  null: false
-      t.integer  :journal_id,                                                             null: false
+      t.references :allocation_account,                                                  null: false
+      t.references :journal,                                                             null: false
       t.string   :name,                                                                   null: false
       t.string   :number,                                                                 null: false
       t.text     :description
       t.date     :purchased_on
-      t.integer  :purchase_id
-      t.integer  :purchase_item_id
+      t.references :purchase
+      t.references :purchase_item
       t.boolean  :ceded
       t.date     :ceded_on
-      t.integer  :sale_id
-      t.integer  :sale_item_id
+      t.references :sale
+      t.references :sale_item
       t.decimal  :purchase_amount,                   precision: 19, scale: 4
       t.date     :started_on,                                                             null: false
       t.date     :stopped_on,                                                             null: false
@@ -121,7 +121,7 @@ class CreateBase < ActiveRecord::Migration
       t.string   :depreciation_method,                                                    null: false
       t.string   :currency,                limit: 3
       t.decimal  :current_amount,                    precision: 19, scale: 4
-      t.integer  :charges_account_id
+      t.references :charges_account
       t.decimal  :depreciation_percentage,           precision: 19, scale: 4
       t.stamps
     end
@@ -135,7 +135,7 @@ class CreateBase < ActiveRecord::Migration
     add_index :assets, [:sale_item_id], name: :index_assets_on_sale_item_id
 
     create_table :bank_statements do |t|
-      t.integer  :cash_id,                                             null: false
+      t.references :cash,                                             null: false
       t.date     :started_on,                                          null: false
       t.date     :stopped_on,                                          null: false
       t.string   :number,                                              null: false
@@ -155,16 +155,16 @@ class CreateBase < ActiveRecord::Migration
     add_index :campaigns, [:name], name: :index_campaigns_on_name
 
     create_table :cash_transfers do |t|
-      t.integer  :emitter_cash_id,                                                   null: false
-      t.integer  :receiver_cash_id,                                                  null: false
-      t.integer  :emitter_journal_entry_id
+      t.references :emitter_cash,                                                   null: false
+      t.references :receiver_cash,                                                  null: false
+      t.references :emitter_journal_entry
       t.datetime :accounted_at
       t.string   :number,                                                            null: false
       t.text     :description
       t.decimal  :currency_rate,             precision: 19, scale: 10, default: 1.0, null: false
       t.decimal  :emitter_amount,            precision: 19, scale: 4,  default: 0.0, null: false
       t.decimal  :receiver_amount,           precision: 19, scale: 4,  default: 0.0, null: false
-      t.integer  :receiver_journal_entry_id
+      t.references :receiver_journal_entry
       t.date     :created_on
       t.stamps
     end
@@ -178,8 +178,8 @@ class CreateBase < ActiveRecord::Migration
       t.string   :iban,                 limit: 34
       t.string   :spaced_iban,          limit: 48
       t.string   :bank_identifier_code, limit: 16
-      t.integer  :journal_id,                                               null: false
-      t.integer  :account_id,                                               null: false
+      t.references :journal,                                               null: false
+      t.references :account,                                               null: false
       t.string   :bank_code
       t.string   :bank_agency_code
       t.string   :bank_account_number
@@ -198,7 +198,7 @@ class CreateBase < ActiveRecord::Migration
     add_index :cashes, [:journal_id], name: :index_bank_accounts_on_journal_id
 
     create_table :custom_field_choices do |t|
-      t.integer  :custom_field_id,             null: false
+      t.references :custom_field,             null: false
       t.string   :name,                        null: false
       t.string   :value
       t.integer  :position
@@ -225,7 +225,7 @@ class CreateBase < ActiveRecord::Migration
     create_table :departments do |t|
       t.string   :name,                         null: false
       t.text     :description
-      t.integer  :parent_id
+      t.references :parent
       t.text     :sales_conditions
       t.integer  :lft
       t.integer  :rgt
@@ -235,7 +235,7 @@ class CreateBase < ActiveRecord::Migration
     add_index :departments, [:parent_id], name: :index_departments_on_parent_id
 
     create_table :deposit_items do |t|
-      t.integer  :deposit_id,                                                    null: false
+      t.references :deposit,                                                    null: false
       t.decimal  :quantity,               precision: 19, scale: 4, default: 0.0, null: false
       t.decimal  :amount,                 precision: 19, scale: 4, default: 1.0, null: false
       t.string   :currency,     limit: 3,                                        null: false
@@ -248,13 +248,13 @@ class CreateBase < ActiveRecord::Migration
       t.integer  :payments_count,                            default: 0,     null: false
       t.date     :created_on,                                                null: false
       t.text     :description
-      t.integer  :cash_id,                                                   null: false
-      t.integer  :mode_id,                                                   null: false
+      t.references :cash,                                                   null: false
+      t.references :mode,                                                   null: false
       t.boolean  :locked,                                    default: false, null: false
-      t.integer  :responsible_id
+      t.references :responsible
       t.string   :number
       t.datetime :accounted_at
-      t.integer  :journal_entry_id
+      t.references :journal_entry
       t.boolean  :in_cash,                                   default: false, null: false
       t.stamps
     end
@@ -270,9 +270,9 @@ class CreateBase < ActiveRecord::Migration
     end
 
     create_table :document_archives do |t|
-      t.integer  :document_id,                   null: false
+      t.references :document,                   null: false
       t.datetime :archived_at,                   null: false
-      t.integer  :template_id
+      t.references :template
       t.string   :file_file_name
       t.integer  :file_file_size
       t.string   :file_content_type
@@ -321,8 +321,8 @@ class CreateBase < ActiveRecord::Migration
       t.string   :soundex,                   limit: 4
       t.boolean  :client,                                                        default: false, null: false
       t.boolean  :supplier,                                                      default: false, null: false
-      t.integer  :client_account_id
-      t.integer  :supplier_account_id
+      t.references :client_account
+      t.references :supplier_account
       t.boolean  :vat_subjected,                                                 default: true,  null: false
       t.boolean  :reminder_submissive,                                           default: false, null: false
       t.string   :deliveries_conditions,     limit: 60
@@ -332,12 +332,12 @@ class CreateBase < ActiveRecord::Migration
       t.string   :vat_number,                limit: 15
       t.string   :country,                   limit: 2
       t.integer  :authorized_payments_count
-      t.integer  :responsible_id
-      t.integer  :proposer_id
-      t.integer  :payment_mode_id
+      t.references :responsible
+      t.references :proposer
+      t.references :payment_mode
       t.integer  :invoices_count
       t.date     :first_met_on
-      t.integer  :sale_price_listing_id
+      t.references :sale_price_listing
       t.string   :siren,                     limit: 9
       t.string   :origin
       t.string   :webpass
@@ -346,7 +346,7 @@ class CreateBase < ActiveRecord::Migration
       t.string   :language,                  limit: 3,                                           null: false
       t.boolean  :prospect,                                                      default: false, null: false
       t.boolean  :attorney,                                                      default: false, null: false
-      t.integer  :attorney_account_id
+      t.references :attorney_account
       t.boolean  :locked,                                                        default: false, null: false
       t.string   :currency,                                                                      null: false
       t.boolean  :of_company,                                                    default: false, null: false
@@ -371,7 +371,7 @@ class CreateBase < ActiveRecord::Migration
     add_index :entities, [:supplier_account_id], name: :index_entities_on_supplier_account_id
 
     create_table :entity_addresses do |t|
-      t.integer  :entity_id,                                                           null: false
+      t.references :entity,                                                           null: false
       t.boolean  :by_default,                                          default: false, null: false
       t.string   :mail_line_2
       t.string   :mail_line_3
@@ -379,7 +379,7 @@ class CreateBase < ActiveRecord::Migration
       t.string   :mail_country,     limit: 2
       t.string   :code,             limit: 4
       t.datetime :deleted_at
-      t.integer  :mail_area_id
+      t.references :mail_area
       t.string   :mail_line_6
       t.string   :mail_line_4
       t.string   :canal,            limit: 16,                                         null: false
@@ -397,8 +397,8 @@ class CreateBase < ActiveRecord::Migration
     add_index :entity_addresses, [:mail_area_id], name: :index_entity_addresses_on_mail_area_id
 
     create_table :entity_links do |t|
-      t.integer  :entity_1_id,              null: false
-      t.integer  :entity_2_id,              null: false
+      t.references :entity_1,              null: false
+      t.references :entity_2,              null: false
       t.datetime :started_at
       t.datetime :stopped_at
       t.text     :description
@@ -420,11 +420,11 @@ class CreateBase < ActiveRecord::Migration
       t.integer  :duration
       t.datetime :started_at,                    null: false
       t.text     :name
-      t.integer  :meeting_nature_id
+      t.references :meeting_nature
       t.text     :description
       t.datetime :stopped_at
       t.string   :type
-      t.integer  :procedure_id
+      t.references :procedure
       t.stamps
     end
     add_index :events, [:meeting_nature_id], name: :index_events_on_meeting_nature_id
@@ -437,21 +437,20 @@ class CreateBase < ActiveRecord::Migration
       t.date     :stopped_on,                                       null: false
       t.string   :currency,              limit: 3
       t.integer  :currency_precision
-      t.integer  :last_journal_entry_id
+      t.references :last_journal_entry
       t.stamps
     end
     add_index :financial_years, [:currency], name: :index_financial_years_on_currency
     add_index :financial_years, [:last_journal_entry_id], name: :index_financial_years_on_last_journal_entry_id
 
     create_table :incidents do |t|
-      t.integer  :target_id,                null: false
-      t.string   :target_type,              null: false
-      t.string   :nature,                   null: false
-      t.datetime :observed_at,              null: false
+      t.references :target,    polymorphic: true, null: false
+      t.string   :nature,                         null: false
+      t.datetime :observed_at,                    null: false
       t.integer  :priority
       t.integer  :gravity
       t.string   :state
-      t.string   :name,                     null: false
+      t.string   :name,                           null: false
       t.text     :description
       t.stamps
     end
@@ -460,14 +459,14 @@ class CreateBase < ActiveRecord::Migration
     add_index :incidents, [:target_id, :target_type], name: :index_incidents_on_target_id_and_target_type
 
     create_table :incoming_deliveries do |t|
-      t.integer  :purchase_id
-      t.integer  :address_id
+      t.references :purchase
+      t.references :address
       t.datetime :received_at
       t.decimal  :weight,           precision: 19, scale: 4
-      t.integer  :mode_id
+      t.references :mode
       t.string   :number
       t.string   :reference_number
-      t.integer  :sender_id,                                             null: false
+      t.references :sender,                                             null: false
       t.stamps
     end
     add_index :incoming_deliveries, [:address_id], name: :index_incoming_deliveries_on_address_id
@@ -476,12 +475,12 @@ class CreateBase < ActiveRecord::Migration
     add_index :incoming_deliveries, [:sender_id], name: :index_incoming_deliveries_on_sender_id
 
     create_table :incoming_delivery_items do |t|
-      t.integer  :delivery_id,                                             null: false
-      t.integer  :purchase_item_id
-      t.integer  :product_id,                                              null: false
+      t.references :delivery,                                             null: false
+      t.references :purchase_item
+      t.references :product,                                              null: false
       t.decimal  :quantity,         precision: 19, scale: 4, default: 1.0, null: false
-      t.integer  :container_id
-      t.integer  :move_id
+      t.references :container
+      t.references :move
       t.stamps
     end
     add_index :incoming_delivery_items, [:delivery_id], name: :index_incoming_delivery_items_on_delivery_id
@@ -498,19 +497,19 @@ class CreateBase < ActiveRecord::Migration
 
     create_table :incoming_payment_modes do |t|
       t.string   :name,                    limit: 50,                                          null: false
-      t.integer  :depositables_account_id
-      t.integer  :cash_id
+      t.references :depositables_account
+      t.references :cash
       t.boolean  :active,                                                      default: false
       t.boolean  :with_accounting,                                             default: false, null: false
       t.boolean  :with_deposit,                                                default: false, null: false
       t.boolean  :with_commission,                                             default: false, null: false
       t.decimal  :commission_percentage,              precision: 19, scale: 4, default: 0.0,   null: false
       t.decimal  :commission_base_amount,             precision: 19, scale: 4, default: 0.0,   null: false
-      t.integer  :commission_account_id
+      t.references :commission_account
       t.integer  :position
-      t.integer  :depositables_journal_id
+      t.references :depositables_journal
       t.boolean  :detail_payments,                                             default: false, null: false
-      t.integer  :attorney_journal_id
+      t.references :attorney_journal
       t.stamps
     end
     add_index :incoming_payment_modes, [:attorney_journal_id], name: :index_incoming_payment_modes_on_attorney_journal_id
@@ -522,26 +521,26 @@ class CreateBase < ActiveRecord::Migration
     create_table :incoming_payments do |t|
       t.date     :paid_on
       t.decimal  :amount,                          precision: 19, scale: 4,                        null: false
-      t.integer  :mode_id,                                                                         null: false
+      t.references :mode,                                                                         null: false
       t.string   :bank_name
       t.string   :bank_check_number
       t.string   :bank_account_number
-      t.integer  :payer_id
+      t.references :payer
       t.date     :to_bank_on,                                               default: '0001-01-01', null: false
-      t.integer  :deposit_id
-      t.integer  :responsible_id
+      t.references :deposit
+      t.references :responsible
       t.boolean  :scheduled,                                                default: false,        null: false
       t.boolean  :received,                                                 default: true,         null: false
       t.string   :number
       t.date     :created_on
       t.datetime :accounted_at
       t.text     :receipt
-      t.integer  :journal_entry_id
-      t.integer  :commission_account_id
+      t.references :journal_entry
+      t.references :commission_account
       t.decimal  :commission_amount,               precision: 19, scale: 4, default: 0.0,          null: false
       t.string   :currency,              limit: 3,                                                 null: false
       t.boolean  :downpayment,                                              default: true,         null: false
-      t.integer  :affair_id
+      t.references :affair
       t.stamps
     end
     add_index :incoming_payments, [:accounted_at], name: :index_payments_on_accounted_at
@@ -557,9 +556,9 @@ class CreateBase < ActiveRecord::Migration
       t.date     :created_on,                               null: false
       t.text     :description
       t.boolean  :changes_reflected
-      t.integer  :responsible_id
+      t.references :responsible
       t.datetime :accounted_at
-      t.integer  :journal_entry_id
+      t.references :journal_entry
       t.string   :number,            limit: 16
       t.date     :moved_on
       t.stamps
@@ -568,13 +567,13 @@ class CreateBase < ActiveRecord::Migration
     add_index :inventories, [:responsible_id], name: :index_inventories_on_responsible_id
 
     create_table :inventory_items do |t|
-      t.integer  :product_id,                                            null: false
-      t.integer  :warehouse_id,                                          null: false
+      t.references :product,                                            null: false
+      t.references :warehouse,                                          null: false
       t.decimal  :theoric_quantity, precision: 19, scale: 4,             null: false
       t.decimal  :quantity,         precision: 19, scale: 4,             null: false
-      t.integer  :inventory_id,                                          null: false
-      t.integer  :tracking_id
-      t.integer  :move_id
+      t.references :inventory,                                          null: false
+      t.references :tracking
+      t.references :move
       t.string   :unit
       t.stamps
     end
@@ -585,21 +584,20 @@ class CreateBase < ActiveRecord::Migration
     add_index :inventory_items, [:unit], name: :index_inventory_items_on_unit
 
     create_table :journal_entries do |t|
-      t.integer  :resource_id
-      t.string   :resource_type
+      t.references :resource, polymorphic: true
       t.date     :created_on,                                                            null: false
       t.date     :printed_on,                                                            null: false
       t.string   :number,                                                                null: false
       t.decimal  :debit,                         precision: 19, scale: 4,  default: 0.0, null: false
       t.decimal  :credit,                        precision: 19, scale: 4,  default: 0.0, null: false
-      t.integer  :journal_id,                                                            null: false
+      t.references :journal,                                                            null: false
       t.decimal  :real_debit,                    precision: 19, scale: 4,  default: 0.0, null: false
       t.decimal  :real_credit,                   precision: 19, scale: 4,  default: 0.0, null: false
       t.decimal  :real_currency_rate,            precision: 19, scale: 10, default: 0.0, null: false
       t.string   :state,              limit: 32,                                         null: false
       t.decimal  :balance,                       precision: 19, scale: 4,  default: 0.0, null: false
       t.string   :real_currency,      limit: 3
-      t.integer  :financial_year_id
+      t.references :financial_year
       t.string   :currency,           limit: 3
       t.decimal  :absolute_debit,                precision: 19, scale: 4,  default: 0.0, null: false
       t.decimal  :absolute_credit,               precision: 19, scale: 4,  default: 0.0, null: false
@@ -612,13 +610,13 @@ class CreateBase < ActiveRecord::Migration
     add_index :journal_entries, [:resource_id, :resource_type], name: :index_journal_entries_on_resource_id_and_resource_type
 
     create_table :journal_entry_items do |t|
-      t.integer  :entry_id,                                                                     null: false
-      t.integer  :journal_id,                                                                   null: false
+      t.references :entry,                                                                     null: false
+      t.references :journal,                                                                   null: false
       t.string   :state,                     limit: 32,                                         null: false
-      t.integer  :financial_year_id,                                                            null: false
+      t.references :financial_year,                                                            null: false
       t.date     :printed_on,                                                                   null: false
       t.string   :entry_number,                                                                 null: false
-      t.integer  :account_id,                                                                   null: false
+      t.references :account,                                                                   null: false
       t.string   :name,                                                                         null: false
       t.decimal  :real_debit,                           precision: 19, scale: 4,  default: 0.0, null: false
       t.decimal  :real_credit,                          precision: 19, scale: 4,  default: 0.0, null: false
@@ -628,7 +626,7 @@ class CreateBase < ActiveRecord::Migration
       t.decimal  :credit,                               precision: 19, scale: 4,  default: 0.0, null: false
       t.decimal  :balance,                              precision: 19, scale: 4,  default: 0.0, null: false
       t.string   :currency,                  limit: 3,                                          null: false
-      t.integer  :bank_statement_id
+      t.references :bank_statement
       t.string   :letter,                    limit: 8
       t.integer  :position
       t.text     :description
@@ -657,7 +655,7 @@ class CreateBase < ActiveRecord::Migration
     add_index :journals, [:currency], name: :index_journals_on_currency
 
     create_table :listing_node_items do |t|
-      t.integer  :node_id,                            null: false
+      t.references :node,                            null: false
       t.string   :nature,       limit: 8,             null: false
       t.text     :value
       t.stamps
@@ -670,12 +668,12 @@ class CreateBase < ActiveRecord::Migration
       t.string   :nature,                                        null: false
       t.integer  :position
       t.boolean  :exportable,                     default: true, null: false
-      t.integer  :parent_id
+      t.references :parent
       t.string   :item_nature,          limit: 8
       t.text     :item_value
-      t.integer  :item_listing_id
-      t.integer  :item_listing_node_id
-      t.integer  :listing_id,                                    null: false
+      t.references :item_listing
+      t.references :item_listing_node
+      t.references :listing,                                    null: false
       t.string   :key
       t.string   :sql_type
       t.string   :condition_value
@@ -729,7 +727,7 @@ class CreateBase < ActiveRecord::Migration
       t.string   :family,                   null: false
       t.string   :organization,             null: false
       t.string   :title,                    null: false
-      t.integer  :entity_id,                null: false
+      t.references :entity,                null: false
       t.stamps
     end
     add_index :mandates, [:entity_id], name: :index_mandates_on_entity_id
@@ -744,8 +742,8 @@ class CreateBase < ActiveRecord::Migration
     add_index :meeting_natures, [:name], name: :index_meeting_natures_on_name
 
     create_table :meeting_participations do |t|
-      t.integer  :meeting_id,                 null: false
-      t.integer  :participant_id,             null: false
+      t.references :meeting,                 null: false
+      t.references :participant,             null: false
       t.string   :state
       t.stamps
     end
@@ -755,25 +753,24 @@ class CreateBase < ActiveRecord::Migration
     create_table :observations do |t|
       t.string   :importance,   limit: 10,             null: false
       t.text     :content,                             null: false
-      t.integer  :subject_id,                          null: false
-      t.string   :subject_type,                        null: false
+      t.references :subject,    polymorphic: true,     null: false
       t.datetime :observed_at,                         null: false
-      t.integer  :author_id,                           null: false
+      t.references :author,                            null: false
       t.stamps
     end
     add_index :observations, [:author_id], name: :index_observations_on_author_id
     add_index :observations, [:subject_id, :subject_type], name: :index_observations_on_subject_id_and_subject_type
 
     create_table :operation_tasks do |t|
-      t.integer  :operation_id,                                                null: false
-      t.integer  :parent_id
+      t.references :operation,                                                null: false
+      t.references :parent
       t.boolean  :prorated,                                    default: false, null: false
-      t.integer  :subject_id,                                                  null: false
+      t.references :subject,                                                  null: false
       t.string   :verb,                                                        null: false
-      t.integer  :operand_id
+      t.references :operand
       t.string   :operand_unit
       t.decimal  :operand_quantity,   precision: 19, scale: 4
-      t.integer  :indicator_datum_id
+      t.references :indicator_datum
       t.text     :expression
       t.stamps
     end
@@ -785,16 +782,16 @@ class CreateBase < ActiveRecord::Migration
     add_index :operation_tasks, [:subject_id], name: :index_operation_tasks_on_subject_id
 
     create_table :outgoing_deliveries do |t|
-      t.integer  :sale_id
-      t.integer  :address_id
+      t.references :sale
+      t.references :address
       t.datetime :sent_at
-      t.integer  :mode_id
+      t.references :mode
       t.decimal  :weight,           precision: 19, scale: 4
-      t.integer  :transport_id
-      t.integer  :transporter_id
+      t.references :transport
+      t.references :transporter
       t.string   :number
       t.string   :reference_number
-      t.integer  :recipient_id,                                          null: false
+      t.references :recipient,                                          null: false
       t.stamps
     end
     add_index :outgoing_deliveries, [:address_id], name: :index_outgoing_deliveries_on_address_id
@@ -805,11 +802,11 @@ class CreateBase < ActiveRecord::Migration
     add_index :outgoing_deliveries, [:transporter_id], name: :index_outgoing_deliveries_on_transporter_id
 
     create_table :outgoing_delivery_items do |t|
-      t.integer  :delivery_id,                                         null: false
-      t.integer  :sale_item_id
-      t.integer  :product_id,                                          null: false
+      t.references :delivery,                                         null: false
+      t.references :sale_item
+      t.references :product,                                          null: false
       t.decimal  :quantity,     precision: 19, scale: 4, default: 1.0, null: false
-      t.integer  :move_id
+      t.references :move
       t.stamps
     end
     add_index :outgoing_delivery_items, [:delivery_id], name: :index_outgoing_delivery_items_on_delivery_id
@@ -828,9 +825,9 @@ class CreateBase < ActiveRecord::Migration
     create_table :outgoing_payment_modes do |t|
       t.string   :name,                limit: 50,                 null: false
       t.boolean  :with_accounting,                default: false, null: false
-      t.integer  :cash_id
+      t.references :cash
       t.integer  :position
-      t.integer  :attorney_journal_id
+      t.references :attorney_journal
       t.boolean  :active,                         default: false, null: false
       t.stamps
     end
@@ -843,17 +840,17 @@ class CreateBase < ActiveRecord::Migration
       t.string   :bank_check_number
       t.boolean  :delivered,                                            default: true, null: false
       t.date     :created_on
-      t.integer  :journal_entry_id
-      t.integer  :responsible_id,                                                      null: false
-      t.integer  :payee_id,                                                            null: false
-      t.integer  :mode_id,                                                             null: false
+      t.references :journal_entry
+      t.references :responsible,                                                      null: false
+      t.references :payee,                                                            null: false
+      t.references :mode,                                                             null: false
       t.string   :number
       t.date     :paid_on
       t.date     :to_bank_on,                                                          null: false
-      t.integer  :cash_id,                                                             null: false
+      t.references :cash,                                                             null: false
       t.string   :currency,          limit: 3,                                         null: false
       t.boolean  :downpayment,                                          default: true, null: false
-      t.integer  :affair_id
+      t.references :affair
       t.stamps
     end
     add_index :outgoing_payments, [:affair_id], name: :index_outgoing_payments_on_affair_id
@@ -870,9 +867,8 @@ class CreateBase < ActiveRecord::Migration
       t.boolean  :boolean_value
       t.integer  :integer_value
       t.decimal  :decimal_value,               precision: 19, scale: 4
-      t.integer  :user_id
-      t.integer  :record_value_id
-      t.string   :record_value_type
+      t.references :user
+      t.references :record_value, polymorphic: true
       t.stamps
     end
     add_index :preferences, [:name], name: :index_parameters_on_name
@@ -881,8 +877,8 @@ class CreateBase < ActiveRecord::Migration
     add_index :preferences, [:user_id], name: :index_parameters_on_user_id
 
     create_table :prescriptions do |t|
-      t.integer  :document_id
-      t.integer  :prescriptor_id
+      t.references :document
+      t.references :prescriptor
       t.string   :reference_number
       t.date     :delivered_on
       t.text     :description
@@ -893,8 +889,8 @@ class CreateBase < ActiveRecord::Migration
     add_index :prescriptions, [:reference_number], name: :index_prescriptions_on_reference_number
 
     create_table :procedure_variables do |t|
-      t.integer  :procedure_id,                                          null: false
-      t.integer  :target_id,                                             null: false
+      t.references :procedure,                                          null: false
+      t.references :target,                                             null: false
       t.string   :indicator,                                             null: false
       t.string   :measure_unit,                                          null: false
       t.decimal  :measure_quantity, precision: 19, scale: 4,             null: false
@@ -905,11 +901,11 @@ class CreateBase < ActiveRecord::Migration
     add_index :procedure_variables, [:target_id], name: :index_procedure_variables_on_target_id
 
     create_table :procedures do |t|
-      t.integer  :provisional_procedure_id
+      t.references :provisional_procedure
       t.boolean  :provisional,              default: false,    null: false
-      t.integer  :incident_id
-      t.integer  :prescription_id
-      t.integer  :production_id,                               null: false
+      t.references :incident
+      t.references :prescription
+      t.references :production,                               null: false
       t.string   :nomen,                                       null: false
       t.string   :natures,                                     null: false
       t.string   :state,                                       null: false
@@ -922,7 +918,7 @@ class CreateBase < ActiveRecord::Migration
     add_index :procedures, [:provisional_procedure_id], name: :index_procedures_on_provisional_procedure_id
 
     create_table :product_indicator_data do |t|
-      t.integer  :product_id,                                                                                         null: false
+      t.references :product,                                                                                         null: false
       t.string   :indicator,                                                                                          null: false
       t.string   :indicator_datatype,                                                                                 null: false
       t.datetime :measured_at,                                                                                        null: false
@@ -933,6 +929,7 @@ class CreateBase < ActiveRecord::Migration
       t.boolean  :boolean_value,                                                                      default: false, null: false
       t.string   :choice_value
       t.point    :point_value, has_z: true
+      t.geometry :geometry_value, has_z: true
       t.multi_polygon :multi_polygon_value, has_z: true
       t.stamps
     end
@@ -941,11 +938,11 @@ class CreateBase < ActiveRecord::Migration
     add_index :product_indicator_data, [:product_id], name: :index_product_indicator_data_on_product_id
 
     create_table :product_links do |t|
-      t.integer  :carrier_id,                    null: false
-      t.integer  :carried_id,                    null: false
+      t.references :carrier,                    null: false
+      t.references :carried,                    null: false
       t.datetime :started_at
       t.datetime :stopped_at
-      t.integer  :operation_task_id
+      t.references :operation_task
       t.stamps
     end
     add_index :product_links, [:carried_id], name: :index_product_links_on_carried_id
@@ -955,14 +952,14 @@ class CreateBase < ActiveRecord::Migration
     add_index :product_links, [:stopped_at], name: :index_product_links_on_stopped_at
 
     create_table :product_localizations do |t|
-      t.integer  :product_id,                    null: false
+      t.references :product,                    null: false
       t.string   :nature,                        null: false
-      t.integer  :container_id
+      t.references :container
       t.string   :arrival_cause
       t.string   :departure_cause
       t.datetime :started_at
       t.datetime :stopped_at
-      t.integer  :operation_task_id
+      t.references :operation_task
       t.stamps
     end
     add_index :product_localizations, [:container_id], name: :index_product_localizations_on_container_id
@@ -972,11 +969,11 @@ class CreateBase < ActiveRecord::Migration
     add_index :product_localizations, [:stopped_at], name: :index_product_localizations_on_stopped_at
 
     create_table :product_memberships do |t|
-      t.integer  :member_id,                     null: false
-      t.integer  :group_id,                      null: false
+      t.references :member,                     null: false
+      t.references :group,                      null: false
       t.datetime :started_at,                    null: false
       t.datetime :stopped_at
-      t.integer  :operation_task_id
+      t.references :operation_task
       t.stamps
     end
     add_index :product_memberships, [:group_id], name: :index_product_memberships_on_group_id
@@ -986,7 +983,7 @@ class CreateBase < ActiveRecord::Migration
     add_index :product_memberships, [:stopped_at], name: :index_product_memberships_on_stopped_at
 
     create_table :product_moves do |t|
-      t.integer  :product_id,                                                null: false
+      t.references :product,                                                null: false
       t.decimal  :population_delta, precision: 19, scale: 4,                 null: false
       t.datetime :started_at
       t.datetime :stopped_at
@@ -998,7 +995,7 @@ class CreateBase < ActiveRecord::Migration
     add_index :product_moves, [:stopped_at], name: :index_product_moves_on_stopped_at
 
     create_table :product_nature_variant_indicator_data do |t|
-      t.integer  :variant_id,                                                                                         null: false
+      t.references :variant,                                                                                         null: false
       t.string   :indicator,                                                                                          null: false
       t.string   :indicator_datatype,                                                                                 null: false
       t.string   :computation_method,                                                                                 null: false
@@ -1009,6 +1006,7 @@ class CreateBase < ActiveRecord::Migration
       t.boolean  :boolean_value,                                                                      default: false, null: false
       t.string   :choice_value
       t.point    :point_value, has_z: true
+      t.geometry :geometry_value, has_z: true
       t.multi_polygon :multi_polygon_value, has_z: true
       t.stamps
     end
@@ -1016,7 +1014,7 @@ class CreateBase < ActiveRecord::Migration
     add_index :product_nature_variant_indicator_data, [:variant_id], name: :index_product_nature_variant_indicator_data_on_variant_id
 
     create_table :product_nature_variants do |t|
-      t.integer  :nature_id,                              null: false
+      t.references :nature,                              null: false
       t.string   :name
       t.string   :number
       t.string   :nature_name,                            null: false
@@ -1053,12 +1051,12 @@ class CreateBase < ActiveRecord::Migration
       t.boolean  :storable,                           default: false, null: false
       t.boolean  :reductible,                         default: false, null: false
       t.boolean  :subscribing,                        default: false, null: false
-      t.integer  :subscription_nature_id
+      t.references :subscription_nature
       t.string   :subscription_duration
-      t.integer  :charge_account_id
-      t.integer  :product_account_id
-      t.integer  :asset_account_id
-      t.integer  :stock_account_id
+      t.references :charge_account
+      t.references :product_account
+      t.references :asset_account
+      t.references :stock_account
       t.stamps
     end
     add_index :product_natures, [:asset_account_id], name: :index_product_natures_on_asset_account_id
@@ -1070,9 +1068,9 @@ class CreateBase < ActiveRecord::Migration
     add_index :product_natures, [:variety], name: :index_product_natures_on_variety
 
     create_table :product_ownerships do |t|
-      t.integer  :product_id,               null: false
+      t.references :product,               null: false
       t.string   :nature,                   null: false
-      t.integer  :owner_id
+      t.references :owner
       t.datetime :started_at
       t.datetime :stopped_at
       t.stamps
@@ -1091,13 +1089,13 @@ class CreateBase < ActiveRecord::Migration
     end
 
     create_table :product_prices do |t|
-      t.integer  :product_id
-      t.integer  :variant_id,                                                   null: false
-      t.integer  :listing_id
-      t.integer  :supplier_id,                                                  null: false
+      t.references :product
+      t.references :variant,                                                   null: false
+      t.references :listing
+      t.references :supplier,                                                  null: false
       t.decimal  :pretax_amount,           precision: 19, scale: 4,             null: false
       t.decimal  :amount,                  precision: 19, scale: 4,             null: false
-      t.integer  :tax_id,                                                       null: false
+      t.references :tax,                                                       null: false
       t.string   :currency,      limit: 3,                                      null: false
       t.datetime :started_at
       t.datetime :stopped_at
@@ -1110,7 +1108,7 @@ class CreateBase < ActiveRecord::Migration
     add_index :product_prices, [:variant_id], name: :index_product_prices_on_variant_id
 
     create_table :product_process_phases do |t|
-      t.integer  :process_id,               null: false
+      t.references :process,               null: false
       t.string   :name,                     null: false
       t.string   :nature,                   null: false
       t.integer  :position
@@ -1131,8 +1129,8 @@ class CreateBase < ActiveRecord::Migration
     add_index :product_processes, [:variety], name: :index_product_processes_on_variety
 
     create_table :production_supports do |t|
-      t.integer  :production_id,                 null: false
-      t.integer  :storage_id,                    null: false
+      t.references :production,                 null: false
+      t.references :storage,                    null: false
       t.datetime :started_at
       t.datetime :stopped_at
       t.boolean  :exclusive,     default: false, null: false
@@ -1142,9 +1140,9 @@ class CreateBase < ActiveRecord::Migration
     add_index :production_supports, [:storage_id], name: :index_production_supports_on_storage_id
 
     create_table :productions do |t|
-      t.integer  :activity_id,                       null: false
-      t.integer  :campaign_id,                       null: false
-      t.integer  :product_nature_id
+      t.references :activity,                       null: false
+      t.references :campaign,                       null: false
+      t.references :product_nature
       t.boolean  :static_support,    default: false, null: false
       t.datetime :started_at
       t.datetime :stopped_at
@@ -1162,10 +1160,10 @@ class CreateBase < ActiveRecord::Migration
       t.string   :number,                                                                        null: false
       t.boolean  :active,                                                        default: false, null: false
       t.string   :variety,                  limit: 127,                                          null: false
-      t.integer  :variant_id,                                                                    null: false
-      t.integer  :nature_id,                                                                     null: false
-      t.integer  :tracking_id
-      t.integer  :asset_id
+      t.references :variant,                                                                    null: false
+      t.references :nature,                                                                     null: false
+      t.references :tracking
+      t.references :asset
       t.datetime :born_at
       t.datetime :dead_at
       t.text     :description
@@ -1174,18 +1172,18 @@ class CreateBase < ActiveRecord::Migration
       t.integer  :picture_file_size
       t.datetime :picture_updated_at
       t.boolean  :external,                                                      default: false, null: false
-      t.integer  :owner_id,                                                                      null: false
+      t.references :owner,                                                                      null: false
       t.string   :identification_number
       t.string   :work_number
-      t.integer  :father_id
-      t.integer  :mother_id
-      t.integer  :address_id
+      t.references :father
+      t.references :mother
+      t.references :address
       t.boolean  :reservoir,                                                     default: false, null: false
-      t.integer  :content_nature_id
+      t.references :content_nature
       t.string   :content_indicator
       t.string   :content_indicator_unit
       t.decimal  :content_maximal_quantity,             precision: 19, scale: 4, default: 0.0,   null: false
-      t.integer  :parent_id
+      t.references :parent
       t.stamps
     end
     add_index :products, [:address_id], name: :index_products_on_address_id
@@ -1211,22 +1209,22 @@ class CreateBase < ActiveRecord::Migration
     end
 
     create_table :purchase_items do |t|
-      t.integer  :purchase_id,                                              null: false
-      t.integer  :product_id,                                               null: false
-      t.integer  :price_id,                                                 null: false
+      t.references :purchase,                                              null: false
+      t.references :product,                                               null: false
+      t.references :price,                                                 null: false
       t.decimal  :quantity,          precision: 19, scale: 4, default: 1.0, null: false
       t.decimal  :pretax_amount,     precision: 19, scale: 4, default: 0.0, null: false
       t.decimal  :amount,            precision: 19, scale: 4, default: 0.0, null: false
       t.integer  :position
-      t.integer  :account_id,                                               null: false
-      t.integer  :warehouse_id
+      t.references :account,                                               null: false
+      t.references :warehouse
       t.text     :annotation
-      t.integer  :tracking_id
+      t.references :tracking
       t.string   :tracking_serial
       t.decimal  :price_amount,      precision: 19, scale: 4,               null: false
-      t.integer  :tax_id,                                                   null: false
+      t.references :tax,                                                   null: false
       t.string   :unit
-      t.integer  :price_template_id
+      t.references :price_template
       t.stamps
     end
     add_index :purchase_items, [:account_id], name: :index_purchase_items_on_account_id
@@ -1243,7 +1241,7 @@ class CreateBase < ActiveRecord::Migration
       t.text     :description
       t.string   :currency,        limit: 3
       t.boolean  :with_accounting,           default: false, null: false
-      t.integer  :journal_id
+      t.references :journal
       t.boolean  :by_default,                default: false, null: false
       t.stamps
     end
@@ -1251,24 +1249,24 @@ class CreateBase < ActiveRecord::Migration
     add_index :purchase_natures, [:journal_id], name: :index_purchase_natures_on_journal_id
 
     create_table :purchases do |t|
-      t.integer  :supplier_id,                                                           null: false
+      t.references :supplier,                                                           null: false
       t.string   :number,              limit: 64,                                        null: false
       t.decimal  :pretax_amount,                  precision: 19, scale: 4, default: 0.0, null: false
       t.decimal  :amount,                         precision: 19, scale: 4, default: 0.0, null: false
-      t.integer  :delivery_address_id
+      t.references :delivery_address
       t.text     :description
       t.date     :planned_on
       t.date     :invoiced_on
       t.date     :created_on
       t.datetime :accounted_at
-      t.integer  :journal_entry_id
+      t.references :journal_entry
       t.string   :reference_number
       t.string   :state,               limit: 64
       t.date     :confirmed_on
-      t.integer  :responsible_id
+      t.references :responsible
       t.string   :currency,            limit: 3
-      t.integer  :nature_id
-      t.integer  :affair_id
+      t.references :nature
+      t.references :affair
       t.stamps
     end
     add_index :purchases, [:accounted_at], name: :index_purchase_orders_on_accounted_at
@@ -1287,25 +1285,25 @@ class CreateBase < ActiveRecord::Migration
     end
 
     create_table :sale_items do |t|
-      t.integer  :sale_id,                                                     null: false
-      t.integer  :product_id,                                                  null: false
-      t.integer  :price_id,                                                    null: false
+      t.references :sale,                                                     null: false
+      t.references :product,                                                  null: false
+      t.references :price,                                                    null: false
       t.decimal  :quantity,             precision: 19, scale: 4, default: 1.0, null: false
       t.decimal  :pretax_amount,        precision: 19, scale: 4, default: 0.0, null: false
       t.decimal  :amount,               precision: 19, scale: 4, default: 0.0, null: false
       t.integer  :position
-      t.integer  :account_id
-      t.integer  :warehouse_id
+      t.references :account
+      t.references :warehouse
       t.decimal  :price_amount,         precision: 19, scale: 4
-      t.integer  :tax_id
+      t.references :tax
       t.text     :annotation
-      t.integer  :reduction_origin_id
+      t.references :reduction_origin
       t.text     :label
-      t.integer  :tracking_id
+      t.references :tracking
       t.decimal  :reduction_percentage, precision: 19, scale: 4, default: 0.0, null: false
-      t.integer  :origin_id
+      t.references :origin
       t.string   :unit
-      t.integer  :price_template_id
+      t.references :price_template
       t.stamps
     end
     add_index :sale_items, [:account_id], name: :index_sale_items_on_account_id
@@ -1325,11 +1323,11 @@ class CreateBase < ActiveRecord::Migration
       t.decimal  :downpayment_minimum,               precision: 19, scale: 4, default: 0.0,   null: false
       t.decimal  :downpayment_percentage,            precision: 19, scale: 4, default: 0.0,   null: false
       t.text     :description
-      t.integer  :payment_mode_id
+      t.references :payment_mode
       t.text     :payment_mode_complement
       t.boolean  :with_accounting,                                            default: false, null: false
       t.string   :currency,                limit: 3
-      t.integer  :journal_id
+      t.references :journal
       t.text     :sales_conditions
       t.boolean  :by_default,                                                 default: false, null: false
       t.string   :expiration_delay,                                                           null: false
@@ -1340,8 +1338,8 @@ class CreateBase < ActiveRecord::Migration
     add_index :sale_natures, [:payment_mode_id], name: :index_sale_natures_on_payment_mode_id
 
     create_table :sales do |t|
-      t.integer  :client_id,                                                               null: false
-      t.integer  :nature_id
+      t.references :client,                                                               null: false
+      t.references :nature
       t.date     :created_on,                                                              null: false
       t.string   :number,              limit: 64,                                          null: false
       t.decimal  :pretax_amount,                  precision: 19, scale: 4, default: 0.0,   null: false
@@ -1350,29 +1348,29 @@ class CreateBase < ActiveRecord::Migration
       t.date     :expired_on
       t.boolean  :has_downpayment,                                         default: false, null: false
       t.decimal  :downpayment_amount,             precision: 19, scale: 4, default: 0.0,   null: false
-      t.integer  :address_id
-      t.integer  :invoice_address_id
-      t.integer  :delivery_address_id
+      t.references :address
+      t.references :invoice_address
+      t.references :delivery_address
       t.string   :subject
       t.string   :function_title
       t.text     :introduction
       t.text     :conclusion
       t.text     :description
       t.date     :confirmed_on
-      t.integer  :responsible_id
+      t.references :responsible
       t.boolean  :letter_format,                                           default: true,  null: false
       t.text     :annotation
-      t.integer  :transporter_id
+      t.references :transporter
       t.datetime :accounted_at
-      t.integer  :journal_entry_id
+      t.references :journal_entry
       t.string   :reference_number
       t.date     :invoiced_on
       t.boolean  :credit,                                                  default: false, null: false
       t.date     :payment_on
-      t.integer  :origin_id
+      t.references :origin
       t.string   :initial_number,      limit: 64
       t.string   :currency,            limit: 3
-      t.integer  :affair_id
+      t.references :affair
       t.string   :expiration_delay
       t.string   :payment_delay,                                                           null: false
       t.stamps
@@ -1420,16 +1418,16 @@ class CreateBase < ActiveRecord::Migration
       t.date     :stopped_on
       t.integer  :first_number
       t.integer  :last_number
-      t.integer  :sale_id
-      t.integer  :product_nature_id
-      t.integer  :address_id
+      t.references :sale
+      t.references :product_nature
+      t.references :address
       t.decimal  :quantity,          precision: 19, scale: 4
       t.boolean  :suspended,                                  default: false, null: false
-      t.integer  :nature_id
-      t.integer  :subscriber_id
+      t.references :nature
+      t.references :subscriber
       t.text     :description
       t.string   :number
-      t.integer  :sale_item_id
+      t.references :sale_item
       t.stamps
     end
     add_index :subscriptions, [:address_id], name: :index_subscriptions_on_address_id
@@ -1451,11 +1449,11 @@ class CreateBase < ActiveRecord::Migration
       t.decimal  :assimilated_taxes_amount, precision: 19, scale: 4
       t.decimal  :acquisition_amount,       precision: 19, scale: 4
       t.decimal  :amount,                   precision: 19, scale: 4
-      t.integer  :financial_year_id
+      t.references :financial_year
       t.date     :started_on
       t.date     :stopped_on
       t.datetime :accounted_at
-      t.integer  :journal_entry_id
+      t.references :journal_entry
       t.stamps
     end
     add_index :tax_declarations, [:financial_year_id], name: :index_tax_declarations_on_financial_year_id
@@ -1468,12 +1466,12 @@ class CreateBase < ActiveRecord::Migration
       t.string   :nature,               limit: 16,                                           null: false
       t.decimal  :amount,                           precision: 19, scale: 4, default: 0.0,   null: false
       t.text     :description
-      t.integer  :collect_account_id
-      t.integer  :deduction_account_id
+      t.references :collect_account
+      t.references :deduction_account
       t.datetime :created_at,                                                                null: false
       t.datetime :updated_at,                                                                null: false
-      t.integer  :creator_id
-      t.integer  :updater_id
+      t.references :creator
+      t.references :updater
       t.integer  :lock_version,                                              default: 0,     null: false
       t.string   :nomen,                limit: 127
       t.stamps
@@ -1486,8 +1484,8 @@ class CreateBase < ActiveRecord::Migration
       t.string   :serial
       t.boolean  :active,       default: true, null: false
       t.text     :description
-      t.integer  :product_id
-      t.integer  :producer_id
+      t.references :product
+      t.references :producer
       t.stamps
     end
     add_index :trackings, [:product_id], name: :index_trackings_on_product_id
@@ -1495,15 +1493,15 @@ class CreateBase < ActiveRecord::Migration
     create_table :transfers do |t|
       t.decimal  :amount,                     precision: 19, scale: 4, default: 0.0, null: false
       t.string   :currency,         limit: 3,                                        null: false
-      t.integer  :client_id,                                                         null: false
+      t.references :client,                                                         null: false
       t.string   :label
       t.string   :description
       t.date     :started_on
       t.date     :stopped_on
       t.date     :created_on
       t.datetime :accounted_at
-      t.integer  :journal_entry_id
-      t.integer  :affair_id
+      t.references :journal_entry
+      t.references :affair
       t.stamps
     end
     add_index :transfers, [:accounted_at], name: :index_transfers_on_accounted_at
@@ -1512,15 +1510,15 @@ class CreateBase < ActiveRecord::Migration
     add_index :transfers, [:journal_entry_id], name: :index_transfers_on_journal_entry_id
 
     create_table :transports do |t|
-      t.integer  :transporter_id,                                          null: false
-      t.integer  :responsible_id
+      t.references :transporter,                                          null: false
+      t.references :responsible
       t.decimal  :weight,           precision: 19, scale: 4
       t.date     :created_on
       t.date     :transport_on
       t.text     :description
       t.string   :number
       t.string   :reference_number
-      t.integer  :purchase_id
+      t.references :purchase
       t.decimal  :pretax_amount,    precision: 19, scale: 4, default: 0.0, null: false
       t.decimal  :amount,           precision: 19, scale: 4, default: 0.0, null: false
       t.stamps
@@ -1534,7 +1532,7 @@ class CreateBase < ActiveRecord::Migration
       t.string   :last_name,                                                                                 null: false
       t.boolean  :locked,                                                                    default: false, null: false
       t.string   :email,                                                                                     null: false
-      t.integer  :role_id,                                                                                   null: false
+      t.references :role,                                                                                   null: false
       t.decimal  :maximal_grantable_reduction_percentage,           precision: 19, scale: 4, default: 5.0,   null: false
       t.boolean  :administrator,                                                             default: true,  null: false
       t.text     :rights
@@ -1542,10 +1540,10 @@ class CreateBase < ActiveRecord::Migration
       t.text     :description
       t.boolean  :commercial
       t.datetime :departed_at
-      t.integer  :department_id
-      t.integer  :establishment_id
+      t.references :department
+      t.references :establishment
       t.string   :office
-      t.integer  :profession_id
+      t.references :profession
       t.boolean  :employed,                                                                  default: false, null: false
       t.string   :employment
       t.string   :language,                               limit: 3,                                          null: false
@@ -1566,7 +1564,7 @@ class CreateBase < ActiveRecord::Migration
       t.string   :unlock_token
       t.datetime :locked_at
       t.string   :authentication_token
-      t.integer  :person_id
+      t.references :person
       t.stamps
     end
     add_index :users, [:authentication_token], name: :index_users_on_authentication_token, unique: true

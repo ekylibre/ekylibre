@@ -158,7 +158,6 @@ class Sale < Ekylibre::Record::Base
       self.has_downpayment = self.nature.downpayment if self.has_downpayment.nil?
       self.downpayment_amount ||= (self.amount * self.nature.downpayment_percentage * 0.01) if self.amount >= self.nature.downpayment_minimum
     end
-    self.sum_method = 'wt'
     true
   end
 

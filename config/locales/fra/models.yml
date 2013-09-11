@@ -695,7 +695,7 @@ fra:
     # frozen_indicators: "Frozen indicators"
     full_name: "Nom complet"
     function_title: "Civilités"
-    geometry_value: "Geometry value" #?
+    geometry_value: "Geometry value"
     global_balance: "Solde global"
     global_count: "Population globale"
     global_credit: "Crédit global"
@@ -948,7 +948,7 @@ fra:
     proposer: "Parrain"
     prorated: "Proratisé"
     prospect: "Prospect"
-    protected: "Protégé"
+    protected: "Protégé" #?
     provisional: "Prévisionnel"
     provisional_procedure: "Procédure prévisionnelle"
     purchasable: "Achetable"
