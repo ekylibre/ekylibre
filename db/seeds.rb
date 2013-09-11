@@ -34,6 +34,7 @@ ActiveRecord::Base.transaction do
   firm.addresses.create!(:canal => "mail", :mail_line_2 => "", :mail_line_3 => "", :mail_line_4 => "", :mail_line_5 => "", :mail_line_6 => "", :by_default => true)
 
   user.administrator = true
+  user.language = language
   user.role = Role.create!(:name => I18n.t('models.company.default.role.name.administrator'), :rights => User.rights_list.join(' '))
   Role.create!(:name => I18n.t('models.company.default.role.name.public'), :rights => '')
   user.save!

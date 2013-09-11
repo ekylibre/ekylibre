@@ -156,7 +156,7 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.date     "stopped_on",                                                  null: false
     t.decimal  "amount",             precision: 19, scale: 4,                 null: false
     t.integer  "position"
-    t.boolean  "protected",                                   default: false, null: false
+    t.boolean  "locked",                                      default: false, null: false
     t.integer  "financial_year_id"
     t.decimal  "asset_amount",       precision: 19, scale: 4
     t.decimal  "depreciated_amount", precision: 19, scale: 4
