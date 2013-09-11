@@ -452,11 +452,14 @@ module ApplicationHelper
         @name = name
         @beehive = beehive
         @options = options
-        @content = @beehive.template.capture(&block) if block_given?
+        if block_given?
+          @content = @beehive.template.capture(&block) 
+          @has_content = true
+        end
       end
 
       def content?
-        !@content.blank?
+        !!@has_content
       end
 
       def title
