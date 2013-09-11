@@ -103,7 +103,11 @@ class Sale < Ekylibre::Record::Base
   after_create {|r| r.client.add_event(:sale, r.updater_id)}
 
   delegate :closed, :to => :affair, :prefix => true
-
+  
+  scope :invoiced_between, lambda { |started_on, stopped_on|
+    where("invoiced_on BETWEEN ? AND ?", started_on, stopped_on)
+  }
+  
   state_machine :state, :initial => :draft do
     state :draft
     state :estimate

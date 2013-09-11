@@ -51,10 +51,9 @@ Ekylibre::Application.routes.draw do
       resource :product_bar_cell, :only => :show
       resource :purchases_bar_cell, :only => :show
       resource :purchases_expense_bar_cell, :only => :show
-      resource :demo_bar_cell, :only => :show
-      resource :demo_pie_cell, :only => :show
       resource :placeholder_cell, :only => :show
       resource :production_cropping_plan_cell, :only => :show
+      resource :revenus_by_product_nature_cell, :only => :show
       resource :rss_cell, :only => :show
       resource :last_entities_cell, :only => :show do
         get :list, :on => :collection
@@ -66,9 +65,6 @@ Ekylibre::Application.routes.draw do
         get :list, :on => :collection
       end
       resource :bank_chart_cell, :only => :show do
-        get :list, :on => :collection
-      end
-      resource :demo_map_cell, :only => :show do
         get :list, :on => :collection
       end
       resource :expense_chart_cell, :only => :show do
