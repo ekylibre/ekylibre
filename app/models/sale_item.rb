@@ -85,15 +85,42 @@ class SaleItem < Ekylibre::Record::Base
   #]VALIDATORS]
   validates_presence_of :tax
   
-  # return all sale items for the consider product_nature
-  scope :by_product_nature, lambda { |product_nature, started_on, stopped_on|
-    joins(:product).merge(Product.of_nature(product_nature)).joins(:sale).merge(Sale.invoiced_between(started_on, stopped_on))}
+  # return all sale items  between two dates
+  scope :between, lambda { |started_on, stopped_on|
+    joins(:sale).merge(Sale.invoiced_between(started_on, stopped_on))}
   
-  scope :sums_of_periods, lambda { |attr_to_sum = :amount, period = :month|
+  # return all sale items for the consider product_nature
+  scope :by_product_nature, lambda { |product_nature|
+    joins(:product).merge(Product.of_nature(product_nature))}
+  
+  #scope :sums_of_periods, lambda { |attr_to_sum = :amount, date_to_extract = :invoiced_on, period = :month|
+  #  period = :doy if period == :day
+   # expr = "EXTRACT(YEAR FROM #{date_to_extract})*100 + EXTRACT(#{period} FROM #{date_to_extract})"
+   # joins(:sale).group(expr).order(expr).select("(#{expr}) expr, sum(#{SaleItem.table_name}.#{attr_to_sum.to_s}) sum_amount")
+  #}
+  
+  #scope :averages_of_periods, lambda { |attr_to_sum = :amount, date_to_extract = :invoiced_on, period = :month|
+  #  period = :doy if period == :day
+  #  expr = "EXTRACT(YEAR FROM #{date_to_extract})*100 + EXTRACT(#{period} FROM #{date_to_extract})"
+  #  joins(:sale).group(expr).order(expr).select("(#{expr}) expr, avg(#{SaleItem.table_name}.#{attr_to_sum.to_s}) avg_amount")
+  #}
+  
+  def self.averages_of_periods(column = :pretax_amount, reference_date_column = :invoiced_on, period = :month)
+    self.calculate_in_periods(:avg, column, reference_date_column, period)
+  end
+  
+  def self.sums_of_periods(column = :pretax_amount, reference_date_column = :invoiced_on, period = :month)
+    self.calculate_in_periods(:sum, column, reference_date_column, period)
+  end
+  
+  def self.calculate_in_periods(operation, column, reference_date_column, period = :month)
     period = :doy if period == :day
-    expr = "EXTRACT(YEAR FROM invoiced_on)*1000 + EXTRACT(#{period} FROM invoiced_on)"
-    joins(:sale).group("#{expr}").order("#{expr}").select("(#{expr}) expr, sum(#{SaleItem.table_name}.#{attr_to_sum.to_s} sum_#{attr_to_sum.to_s})")
-  }
+    expr = "EXTRACT(YEAR FROM #{reference_date_column})*100 + EXTRACT(#{period} FROM #{reference_date_column})"
+    self.joins(:sale).group(expr).order(expr).select("#{expr} AS expr, #{operation}(#{SaleItem.table_name}.#{column}) AS #{column}")  # calculate(operation, column) # .select("(#{expr}) expr, #{operation}(#{SaleItem.table_name}.#{column}) #{column}")
+  end
+  
+  
+  
   
   before_validation do
     # if not self.price and self.sale and self.product
@@ -110,7 +137,7 @@ class SaleItem < Ekylibre::Record::Base
     # self.product = self.price.product if self.price
     if self.product
       self.account_id = self.product.variant.nature.product_account_id
-      self.unit = self.product.variant.unit_name
+      #self.unit = self.product.variant.unit_name
       if self.product.nature.storable
       #   self.building_id ||= self.product.stocks.first.building_id if self.product.stocks.count > 0
       # else

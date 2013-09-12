@@ -26,14 +26,14 @@ demo :sales do
     w.check_point
   end
 
-  Ekylibre::fixturize :sales do |w|
+  Ekylibre::fixturize :wheat_sales do |w|
     # Create wheat product
     wheat = ProductNature.import_from_nomenclature(:wheat_grain).default_variant
     price_listing = ProductPriceListing.find_by_code("STD")
     wheat_price_template_tax = Tax.find_by_amount(5.5)
 
-    ble = OrganicMatter.find_by_work_number("BLE_001")
-    ble = OrganicMatter.create!(:variant_id => wheat.id, :name => "Blé Cap Horn 2011", :variety => "organic_matter", :identification_number => "BLE_2011_07142011", :work_number => "BLE_2011",
+    ble = OrganicMatter.find_by_work_number("BLE_2011")
+    ble ||= OrganicMatter.create!(:variant_id => wheat.id, :name => "Blé Cap Horn 2011", :variety => "organic_matter", :identification_number => "BLE_2011_07142011", :work_number => "BLE_2011",
                                 :born_at => "2011-07-14", :owner_id => Entity.of_company.id) #
     # Sale nature
     sale_nature   = SaleNature.actives.first
@@ -59,6 +59,67 @@ demo :sales do
         sale.items.create!(:quantity => rand(12.5) + 0.5,
                            :product_id => ble.id,
                            :price_id => price.id)
+      end
+      if !rand(20).zero?
+        Sale.where(:id => sale.id).update_all(:created_on => d)
+        sale.propose
+        if rand(5).zero?
+          sale.abort
+        elsif !rand(4).zero?
+          d += rand(15).days
+          sale.confirm(d)
+          Sale.where(:id => sale.id).update_all(:confirmed_on => d)
+          if !rand(15).zero?
+            sale.deliver
+            if !rand(25).zero?
+              d += rand(5).days
+              sale.invoice
+              Sale.where(:id => sale.id).update_all(:invoiced_on => d)
+            end
+          end
+        end
+      else
+        sale.save
+      end
+      w.check_point
+    end
+  end
+  
+  Ekylibre::fixturize :calf_sales do |w|
+    # Create cow product
+    cow = ProductNature.find_by(:nomen => 'calf').default_variant
+    cow ||= ProductNature.import_from_nomenclature(:calf).default_variant
+    price_listing = ProductPriceListing.find_by_code("STD")
+    cow_price_template_tax = Tax.find_by_amount(5.5)
+
+    animal = Animal.find_by(:work_number => "8926")
+    animal ||= Animal.create!(:variant_id => cow.id, :name => "Isere", :variety => "bos", :identification_number => "1735138926", :work_number => "8926", :born_at => "2013-04-14", :owner_id => Entity.of_company.id) #
+    # Sale nature
+    sale_nature   = SaleNature.actives.first
+    sale_nature ||= SaleNature.create!(:name => I18n.t('models.sale_nature.default.name'), :currency => "EUR", :active => true)
+    (140 + rand(20)).times do |i|
+      # Sale
+      d = Date.today - (5*i - rand(4)).days
+      sale = Sale.create!(:created_on => d, :client_id => Entity.where(:of_company => false).all.sample.id, :nature_id => sale_nature.id)
+      # Sale items
+      (rand(5) + 1).times do
+        # # find or create a price
+        # # @FIXME = waiting for a working method in ProductPrice.price
+        # price = ble.price(:amount => rand(150)+25, :tax => wheat_price_template_tax)
+        price = ProductPrice.find_by(:variant_id => animal.variant_id, :pretax_amount => "180.00")
+        price ||= ProductPrice.create!(:pretax_amount => "180.00",
+                                       :currency => "EUR",
+                                       :amount => "189.90",
+                                       :supplier_id => Entity.of_company.id,
+                                       :tax_id => cow_price_template_tax.id,
+                                       :variant_id => animal.variant_id
+                                       )
+
+        sale.items.create!(:quantity => rand(12.5) + 0.5,
+                           :product_id => animal.id,
+                           :price_id => price.id,
+                           :unit => "unity"
+                           )
       end
       if !rand(20).zero?
         Sale.where(:id => sale.id).update_all(:created_on => d)

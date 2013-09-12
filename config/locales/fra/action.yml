@@ -1436,6 +1436,7 @@ fra:
       other: "%{count} résultats"
       zero: "Aucun résultat"
     reverse: "Appliquer la condition inverse"
+    revenus_by_product_nature: "Chiffre d'affaire par type de produit"
     right_modules:
       accountancy: "Droits module Comptabilité"
       company: "Droits module Société"
