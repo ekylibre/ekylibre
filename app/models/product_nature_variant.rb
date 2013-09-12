@@ -75,6 +75,14 @@ class ProductNatureVariant < Ekylibre::Record::Base
 
   # default_scope -> { order(:name) }
   scope :of_variety, Proc.new { |*varieties| where(:nature_id => ProductNature.of_variety(*varieties).pluck(:id)) }
+  
+  scope :of_natures, lambda { |*natures|
+    natures.flatten!
+    for nature in natures
+      raise ArgumentError.new("Expected Product Nature, got #{nature.class.name}:#{nature.inspect}") unless nature.is_a?(ProductNature)
+    end
+    where('nature_id IN (?)', natures.map(&:id))
+  }
 
   before_validation :on => :create do
     if self.nature

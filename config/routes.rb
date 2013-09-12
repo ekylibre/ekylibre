@@ -46,6 +46,7 @@ Ekylibre::Application.routes.draw do
 
     namespace :cells do
       resource :collected_taxes_cell, :only => :show
+      resource :currents_stocks_by_product_nature_cell, :only => :show
       resource :cropping_plan_cell, :only => :show
       resource :cropping_plan_on_cultivable_land_parcels_cell, :only => :show
       resource :product_bar_cell, :only => :show
@@ -59,6 +60,12 @@ Ekylibre::Application.routes.draw do
         get :list, :on => :collection
       end
       resource :last_events_cell, :only => :show do
+        get :list, :on => :collection
+      end
+      resource :last_incoming_deliveries_cell, :only => :show do
+        get :list, :on => :collection
+      end
+      resource :last_outgoing_deliveries_cell, :only => :show do
         get :list, :on => :collection
       end
       resource :last_procedures_cell, :only => :show do
