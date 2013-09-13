@@ -23,6 +23,7 @@
                 = link_to(address.coordinate, address.coordinate)
               - else
                 = address.coordinate
+
     - b.cell :details do
       = attributes_list(@entity) do |l|
         - l.attribute :last_name
@@ -40,7 +41,7 @@
         - l.attribute :prospect
         - l.attribute :client
         - if @entity.client
-          - #l.attribute :category, :label => :name, :url => true
+          -#l.attribute :category, :label => :name, :url => true
           - l.attribute :first_met_on unless @entity.first_met_on.blank?
           - l.attribute :proposer, :label => :full_name unless @entity.proposer.nil?
           - l.attribute :vat_subjected
@@ -63,13 +64,13 @@
       = list(:observations)
 
   - b.tabbox do
-    - #b.cell(tl(:x_subscriptions, :count => @entity.subscriptions.count)) do
+    -#b.cell(tl(:x_subscriptions, :count => @entity.subscriptions.count)) do
       = toolbar do |t|
         - t.new(:controller => :subscriptions, :entity_id => @entity.id)
       = list(:subscriptions)
 
     - b.cell(tl(:x_meetings, :count => @entity.participations.count)) do
-      - #=toolbar do |t|
+      -#=toolbar do |t|
         - t.new :controller => :meetings, :entity_id => @entity.id
       = list(:meeting_participations)
 
@@ -101,7 +102,7 @@
 
     - b.cell(tl(:x_purchases, :count => @entity.purchases.count)) do
       = toolbar do |t|
-        - t.new(:controller => :purchases, :supplier_id => @entity.id)
+        - t.new :controller => :purchases, :supplier_id => @entity.id
       = list(:purchases)
 
     - b.cell(tl(:x_outgoing_payments, :count => @entity.outgoing_payments.count)) do

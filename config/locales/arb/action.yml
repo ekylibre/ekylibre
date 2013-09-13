@@ -106,6 +106,7 @@ arb:
     backend/cells/collected_taxes_cells: #?
     backend/cells/cropping_plan_cells: #?
     backend/cells/cropping_plan_on_cultivable_land_parcels_cells: #?
+    backend/cells/currents_stocks_by_product_nature_cells: #?
     backend/cells/demo_bar_cells: #?
     backend/cells/demo_map_cells: #?
     backend/cells/demo_pie_cells: #?
@@ -113,7 +114,9 @@ arb:
     backend/cells/expense_chart_cells: #?
     backend/cells/last_entities_cells: #?
     backend/cells/last_events_cells: #?
+    backend/cells/last_incoming_deliveries_cells: #?
     backend/cells/last_milk_result_cells: #?
+    backend/cells/last_outgoing_deliveries_cells: #?
     backend/cells/last_procedures_cells: #?
     backend/cells/last_products_cells: #?
     backend/cells/placeholder_cells: #?
@@ -121,6 +124,7 @@ arb:
     backend/cells/product_pie_cells: #?
     backend/cells/purchases_bar_cells: #?
     backend/cells/purchases_expense_bar_cells: #?
+    backend/cells/revenus_by_product_nature_cells: #?
     backend/cells/rss_cells: #?
     backend/companies:  #?
       register: "تسجيل شركة" #?
@@ -1070,6 +1074,7 @@ arb:
     # currency_with_code: "%{code} - %{name}"
     current: "الحالية"
     current_letter: "البيانات الحالية : %{letter}"
+    # currents_stocks_by_product_nature: "Etat des stocks"
     custom_field_choice_create: "اضافة خيار جديد للقائمة" #?
     custom_field_create: "انشاء حقل مخصص جديد" #?
     custom_field_sort: "تفريزة الخيارات حسب الاسم" #?
@@ -1276,7 +1281,9 @@ arb:
     # last_computed_balance: "Dernière balance calculée"
     # last_entities: "Derniers tiers"
     # last_events: "Derniers évènements"
+    # last_incoming_deliveries: "Derniers approvisionnements"
     # last_milk_result: "Dernières analyses de lait"
+    # last_outgoing_deliveries: "Dernières livraisons"
     # last_payment_amount: "Montant du dernier encaissement"
     # last_payment_date: "Date du dernier encaissement"
     # last_procedures: "Dernières procédures"
@@ -1618,6 +1625,7 @@ arb:
       one: "نتيجة واحدة"
       other: "%{count} نتائج"
       zero: "ولا نتيجة"
+    # revenus_by_product_nature: "Chiffre d'affaire par type de produit"
     reverse: "تطبيق الحالة العكسية"
     right_modules:
       accountancy: "حقوق المحاسبة"
@@ -1717,6 +1725,7 @@ arb:
     stock_max: "الحد الاقصى للاسهم"
     stock_min: "الحد الادنى للاسهم"
     stock_move_create: "اضافة حركة جديدة للاسهم" #?
+    # stock_of_x: "Stock de %{x}"
     stock_transfer_create: "اضافة عملية نقل ام خسارة الاسهم" #?
     stocks: "ادارة الاسهم"
     # stocks_preferences: "Gestion des stocks"

@@ -2600,8 +2600,7 @@ arb:
       label: "%{product} / %{amount} %{currency}" #?
       no_range: "ليس هناك من فترة استراحة" #?
       range: "من %{min} الى %{max}" #?
-    product_price_listing:  #?
- #?
+    product_price_listing: #?
     product_price_template:  #?
       label: "%{product} / %{amount} %{currency}" #?
       no_range: "ليس هناك من فترة استراحة" #?
@@ -2752,8 +2751,6 @@ arb:
         quantity: "الاشتراك حسب الكمية" #?
     tax:  #?
       amount_must_be_included_between_0_and_1: "يجب ان يكون مشتمل بين 1 و 0" #?
-      default: #?
- #?
       natures: #?
         amount: "القيمة" #?
         percent: "النسبة المئوية" #?

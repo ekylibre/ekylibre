@@ -1990,8 +1990,7 @@ eng:
       label: "%{product} / %{amount} %{currency}" #?
       no_range: "No range" #?
       range: "From %{min} to %{max}" #?
-    product_price_listing:  #?
- #?
+    product_price_listing: #?
     product_price_template:  #?
       label: "%{product} / %{amount} %{currency}" #?
       no_range: "No range" #?
@@ -2141,7 +2140,6 @@ eng:
     stock_move:  #?
       default_name: "%{origin} (%{code})" #?
     tax:  #?
-      default: #?
  #?
     tax_declaration:
       deferment: "Deferment"

@@ -1057,14 +1057,8 @@
       <item name="cropping_plan_on_cultivable_land_parcels_cells">
         <page to="backend/cells/cropping_plan_on_cultivable_land_parcels_cells#show"/>
       </item>
-      <item name="demo_bar_cells">
-        <page to="backend/cells/demo_bar_cells#show"/>
-      </item>
-      <item name="demo_map_cells">
-        <page to="backend/cells/demo_map_cells#show"/>
-      </item>
-      <item name="demo_pie_cells">
-        <page to="backend/cells/demo_pie_cells#show"/>
+      <item name="currents_stocks_by_product_nature_cells">
+        <page to="backend/cells/currents_stocks_by_product_nature_cells#show"/>
       </item>
       <item name="expense_chart_cells">
         <page to="backend/cells/expense_chart_cells#show"/>
@@ -1077,9 +1071,17 @@
         <page to="backend/cells/last_events_cells#list"/>
         <page to="backend/cells/last_events_cells#show"/>
       </item>
+      <item name="last_incoming_deliveries_cells">
+        <page to="backend/cells/last_incoming_deliveries_cells#list"/>
+        <page to="backend/cells/last_incoming_deliveries_cells#show"/>
+      </item>
       <item name="last_milk_result_cells">
         <page to="backend/cells/last_milk_result_cells#list"/>
         <page to="backend/cells/last_milk_result_cells#show"/>
+      </item>
+      <item name="last_outgoing_deliveries_cells">
+        <page to="backend/cells/last_outgoing_deliveries_cells#list"/>
+        <page to="backend/cells/last_outgoing_deliveries_cells#show"/>
       </item>
       <item name="last_procedures_cells">
         <page to="backend/cells/last_procedures_cells#show"/>
@@ -1099,6 +1101,9 @@
       </item>
       <item name="purchases_expense_bar_cells">
         <page to="backend/cells/purchases_expense_bar_cells#show"/>
+      </item>
+      <item name="revenus_by_product_nature_cells">
+        <page to="backend/cells/revenus_by_product_nature_cells#show"/>
       </item>
       <item name="rss_cells">
         <page to="backend/cells/rss_cells#show"/>

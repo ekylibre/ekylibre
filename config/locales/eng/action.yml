@@ -99,13 +99,16 @@ eng:
     backend/cells/collected_taxes_cells: #?
     backend/cells/cropping_plan_cells: #?
     backend/cells/cropping_plan_on_cultivable_land_parcels_cells: #?
+    backend/cells/currents_stocks_by_product_nature_cells: #?
     backend/cells/demo_bar_cells: #?
     backend/cells/demo_map_cells: #?
     backend/cells/demo_pie_cells: #?
     backend/cells/expense_chart_cells: #?
     backend/cells/last_entities_cells: #?
     backend/cells/last_events_cells: #?
+    backend/cells/last_incoming_deliveries_cells: #?
     backend/cells/last_milk_result_cells: #?
+    backend/cells/last_outgoing_deliveries_cells: #?
     backend/cells/last_procedures_cells: #?
     backend/cells/last_products_cells: #?
     backend/cells/placeholder_cells: #?
@@ -113,6 +116,7 @@ eng:
     backend/cells/product_pie_cells: #?
     backend/cells/purchases_bar_cells: #?
     backend/cells/purchases_expense_bar_cells: #?
+    backend/cells/revenus_by_product_nature_cells: #?
     backend/cells/rss_cells: #?
     backend/cultivable_land_parcels:
       # edit: "Modifier la parcelle culturale\_: %{name}"
@@ -927,6 +931,7 @@ eng:
     currency_with_code: "%{name} (%{code})"
     current: "Current"
     current_letter: "Current letter\_: %{letter}"
+    # currents_stocks_by_product_nature: "Etat des stocks"
     custom_field_update: "Custom field update" #?
     data_to_export: "Data to export"
     data_to_extract: "Data to extract"
@@ -1098,7 +1103,9 @@ eng:
     last_computed_balance: "Last computed balance"
     # last_entities: "Derniers tiers"
     last_events: "Last Events"
+    # last_incoming_deliveries: "Derniers approvisionnements"
     last_milk_result: "Last milk analysis"
+    # last_outgoing_deliveries: "Dernières livraisons"
     last_payment_amount: "Amount of the last payment"
     last_payment_date: "Date of the last payment"
     last_procedures: "Last procedures"
@@ -1394,6 +1401,7 @@ eng:
       one: "1 result"
       other: "%{count} results"
       zero: "No results"
+    # revenus_by_product_nature: "Chiffre d'affaire par type de produit"
     reverse: "Reverse condition"
     right_modules:
       # accountancy: "Droits module Comptabilité"
@@ -1478,6 +1486,7 @@ eng:
     state: "State"
     stock_max: "Stock max"
     stock_min: "Stock min"
+    # stock_of_x: "Stock de %{x}"
     stocks: "Stocks"
     stocks_preferences: "Stock management"
     stop: "Stop"

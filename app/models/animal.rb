@@ -77,19 +77,19 @@ class Animal < Bioproduct
   def call_notification
     # 1. Contacter l'annuaire (WsAnnuaire) pour obtenir l’URL du webservice technique et du webservice métier à contacter
     profil = {Entreprise: 'FR17387001', Zone: '17'}
-    client_ws_annuaire = Savon.client(wsdl:'http://secoiatest.arsoe-nordest.com:8080/wsannuaire/WsAnnuaire?wsdl')
+    client_ws_annuaire = Savon.client(wsdl: 'http://zoe.cmre.fr/wsannuaire/WsAnnuaire?wsdl')
     response = client_ws_annuaire.call(:tk_get_services, message: {Espece: 'B'})
 
     response = client_ws_annuaire.call(:tk_get_url, message: {ProfilDemandeur: profil})
 
     #2. Appeler le webservice technique (WsGuichet) pour authentification et obtention jeton
-    client_ws_guichet = Savon.client(wsdl:'http://secoiatest.arsoe-nordest.com:8080/wsannuaire/WsGuichet?wsdl')
+    client_ws_guichet = Savon.client(wsdl: 'https://zoe.cmre.fr/wsguichet/WsGuichet?wsdl')
     response = client_ws_guichet.call(:tk_get_url)
     token = response.header
 
     #3. Appeler le webservice métier muni du jeton
 
-    client_ws_metier = Savon.client(wsdl: 'http://secoiatest.arsoe-nordest.com:8080/wsIpBNotif_100/wsIpBNotif?wsdl')
+    client_ws_metier = Savon.client(wsdl: 'http://zoe.cmre.fr/wsIpBNotif/wsIpBNotif?wsdl')
     #client.operations
     response = client_ws_metier.call(:ip_b_get_inventaire,
                            message: { JetonAuthentification: token,

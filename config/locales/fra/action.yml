@@ -106,20 +106,20 @@ fra:
       # show: "Show backend/cells/cropping plan cell"
     backend/cells/cropping_plan_on_cultivable_land_parcels_cells:
       # show: "Show backend/cells/cropping plan on cultivable land parcels cell"
-    backend/cells/demo_bar_cells:
-      # show: "Show backend/cells/demo bar cell"
-    backend/cells/demo_map_cells:
-      # show: "Show backend/cells/demo map cell"
-    backend/cells/demo_pie_cells:
-      # show: "Show backend/cells/demo pie cell"
+    backend/cells/currents_stocks_by_product_nature_cells:
+      # show: "Show backend/cells/currents stocks by product nature cell"
     backend/cells/expense_chart_cells:
       # show: "Show backend/cells/expense chart cell"
     backend/cells/last_entities_cells:
       # show: "Show backend/cells/last entities cell"
     backend/cells/last_events_cells:
       # show: "Show backend/cells/last events cell"
+    backend/cells/last_incoming_deliveries_cells:
+      # show: "Show backend/cells/last incoming deliveries cell"
     backend/cells/last_milk_result_cells:
       # show: "Show backend/cells/last milk result cell"
+    backend/cells/last_outgoing_deliveries_cells:
+      # show: "Show backend/cells/last outgoing deliveries cell"
     backend/cells/last_procedures_cells:
       # show: "Show backend/cells/last procedures cell"
     backend/cells/last_products_cells:
@@ -132,6 +132,8 @@ fra:
       # show: "Show backend/cells/purchases bar cell"
     backend/cells/purchases_expense_bar_cells:
       # show: "Show backend/cells/purchases expense bar cell"
+    backend/cells/revenus_by_product_nature_cells:
+      # show: "Show backend/cells/revenus by product nature cell"
     backend/cells/rss_cells:
       # show: "Show backend/cells/rss cell"
     backend/cultivable_land_parcels:
@@ -642,19 +644,20 @@ fra:
     # backend/cells/collected_taxes_cells: "Backend/cells/collected taxes cells"
     # backend/cells/cropping_plan_cells: "Backend/cells/cropping plan cells"
     # backend/cells/cropping_plan_on_cultivable_land_parcels_cells: "Backend/cells/cropping plan on cultivable land parcels cells"
-    # backend/cells/demo_bar_cells: "Backend/cells/demo bar cells"
-    # backend/cells/demo_map_cells: "Backend/cells/demo map cells"
-    # backend/cells/demo_pie_cells: "Backend/cells/demo pie cells"
+    # backend/cells/currents_stocks_by_product_nature_cells: "Backend/cells/currents stocks by product nature cells"
     # backend/cells/expense_chart_cells: "Backend/cells/expense chart cells"
     # backend/cells/last_entities_cells: "Backend/cells/last entities cells"
     # backend/cells/last_events_cells: "Backend/cells/last events cells"
+    # backend/cells/last_incoming_deliveries_cells: "Backend/cells/last incoming deliveries cells"
     # backend/cells/last_milk_result_cells: "Backend/cells/last milk result cells"
+    # backend/cells/last_outgoing_deliveries_cells: "Backend/cells/last outgoing deliveries cells"
     # backend/cells/last_procedures_cells: "Backend/cells/last procedures cells"
     # backend/cells/last_products_cells: "Backend/cells/last products cells"
     # backend/cells/placeholder_cells: "Backend/cells/placeholder cells"
     # backend/cells/product_bar_cells: "Backend/cells/product bar cells"
     # backend/cells/purchases_bar_cells: "Backend/cells/purchases bar cells"
     # backend/cells/purchases_expense_bar_cells: "Backend/cells/purchases expense bar cells"
+    # backend/cells/revenus_by_product_nature_cells: "Backend/cells/revenus by product nature cells"
     # backend/cells/rss_cells: "Backend/cells/rss cells"
     # backend/cells: "Backend/cells"
     # backend/cultivable_land_parcels: "Backend/cultivable land parcels"
@@ -983,6 +986,7 @@ fra:
     currency_with_code: "%{code} - %{name}"
     current: "En cours"
     current_letter: "Lettre en cours\_: %{letter}"
+    currents_stocks_by_product_nature: "Etat des stocks"
     data_to_export: "Données à exporter"
     data_to_extract: "Données à extraire"
     dates: "Saisissez les dates de début et de fin de la période"
@@ -1142,7 +1146,9 @@ fra:
     last_computed_balance: "Dernière balance calculée"
     last_entities: "Derniers tiers"
     last_events: "Derniers évènements"
+    last_incoming_deliveries: "Derniers approvisionnements"
     last_milk_result: "Dernières analyses de lait"
+    last_outgoing_deliveries: "Dernières livraisons"
     last_payment_amount: "Montant du dernier encaissement"
     last_payment_date: "Date du dernier encaissement"
     last_procedures: "Dernières procédures"
@@ -1431,6 +1437,7 @@ fra:
       one: "%{count} résultat"
       other: "%{count} résultats"
       zero: "Aucun résultat"
+    revenus_by_product_nature: "Chiffre d'affaire par type de produit"
     reverse: "Appliquer la condition inverse"
     right_modules:
       accountancy: "Droits module Comptabilité"
@@ -1515,6 +1522,7 @@ fra:
     state: "État"
     stock_max: "Stock maximum"
     stock_min: "Stock minimum"
+    stock_of_x: "Stock de %{x}"
     stocks: "Stocks"
     stocks_preferences: "Gestion des stocks"
     stop: "Jusqu’au"

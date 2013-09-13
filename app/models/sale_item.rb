@@ -86,8 +86,29 @@ class SaleItem < Ekylibre::Record::Base
   validates_presence_of :tax
   validates_numericality_of :quantity, greater_than_or_equal_to: 0, :unless => :reduced_item
 
-
   scope :not_reduction, -> { where(reduced_item_id: nil) }
+  # return all sale items  between two dates
+  scope :between, lambda { |started_on, stopped_on|
+    joins(:sale).merge(Sale.invoiced_between(started_on, stopped_on))
+  }
+  # return all sale items for the consider product_nature
+  scope :by_product_nature, lambda { |product_nature|
+    joins(:product).merge(Product.of_nature(product_nature))
+  }
+
+  def self.averages_of_periods(column = :pretax_amount, reference_date_column = :invoiced_on, period = :month)
+    self.calculate_in_periods(:avg, column, reference_date_column, period)
+  end
+
+  def self.sums_of_periods(column = :pretax_amount, reference_date_column = :invoiced_on, period = :month)
+    self.calculate_in_periods(:sum, column, reference_date_column, period)
+  end
+
+  def self.calculate_in_periods(operation, column, reference_date_column, period = :month)
+    period = :doy if period == :day
+    expr = "EXTRACT(YEAR FROM #{reference_date_column})*100 + EXTRACT(#{period} FROM #{reference_date_column})"
+    self.joins(:sale).group(expr).order(expr).select("#{expr} AS expr, #{operation}(#{SaleItem.table_name}.#{column}) AS #{column}")  # calculate(operation, column) # .select("(#{expr}) expr, #{operation}(#{SaleItem.table_name}.#{column}) #{column}")
+  end
 
   before_validation do
     if self.variant
@@ -237,5 +258,6 @@ class SaleItem < Ekylibre::Record::Base
   def uncredited_quantity
     self.quantity + self.credited_quantity
   end
+
 
 end

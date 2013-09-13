@@ -276,6 +276,7 @@ class ProductNature < Ekylibre::Record::Base
   #   self.stock_moves.create!(attributes)
   # end
 
+
   # Load a product nature from product nature nomenclature
   def self.import_from_nomenclature(nomen)
     unless item = Nomen::ProductNatures.find(nomen)

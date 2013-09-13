@@ -108,6 +108,7 @@ spa:
     backend/cells/collected_taxes_cells: #?
     backend/cells/cropping_plan_cells: #?
     backend/cells/cropping_plan_on_cultivable_land_parcels_cells: #?
+    backend/cells/currents_stocks_by_product_nature_cells: #?
     backend/cells/demo_bar_cells: #?
     backend/cells/demo_map_cells: #?
     backend/cells/demo_pie_cells: #?
@@ -115,7 +116,9 @@ spa:
     backend/cells/expense_chart_cells: #?
     backend/cells/last_entities_cells: #?
     backend/cells/last_events_cells: #?
+    backend/cells/last_incoming_deliveries_cells: #?
     backend/cells/last_milk_result_cells: #?
+    backend/cells/last_outgoing_deliveries_cells: #?
     backend/cells/last_procedures_cells: #?
     backend/cells/last_products_cells: #?
     backend/cells/placeholder_cells: #?
@@ -123,6 +126,7 @@ spa:
     backend/cells/product_pie_cells: #?
     backend/cells/purchases_bar_cells: #?
     backend/cells/purchases_expense_bar_cells: #?
+    backend/cells/revenus_by_product_nature_cells: #?
     backend/cells/rss_cells: #?
     backend/companies:  #?
       register: "Registrar la sociedad" #?
@@ -970,6 +974,7 @@ spa:
     # currency_with_code: "%{code} - %{name}"
     # current: "En cours"
     current_letter: "Carta en curso : %{carta}"
+    # currents_stocks_by_product_nature: "Etat des stocks"
     data_to_export: "Datos a exportar"
     data_to_extract: "Datos para extraer"
     dates: "Marcar las fechas de empezo y termino por los periodos"
@@ -1147,7 +1152,9 @@ spa:
     # last_computed_balance: "Dernière balance calculée"
     # last_entities: "Derniers tiers"
     # last_events: "Derniers évènements"
+    # last_incoming_deliveries: "Derniers approvisionnements"
     # last_milk_result: "Dernières analyses de lait"
+    # last_outgoing_deliveries: "Dernières livraisons"
     # last_payment_amount: "Montant du dernier encaissement"
     # last_payment_date: "Date du dernier encaissement"
     # last_procedures: "Dernières procédures"
@@ -1443,6 +1450,7 @@ spa:
       one: "1 resultado"
       other: "%{count} resultado"
       zero: "Ningun resultado"
+    # revenus_by_product_nature: "Chiffre d'affaire par type de produit"
     # reverse: "Appliquer la condition inverse"
     right_modules:
       accountancy: "Derechos modulo contabilidad"
@@ -1534,6 +1542,7 @@ spa:
     # stock_max: "Stock maximum"
     # stock_min: "Stock minimum"
     stock_move_create: "Añadir un movimiento de deposito" #?
+    # stock_of_x: "Stock de %{x}"
     # stocks: "Stocks"
     # stocks_preferences: "Gestion des stocks"
     # stop: "Jusqu’au"

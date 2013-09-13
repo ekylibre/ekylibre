@@ -1479,8 +1479,7 @@ spa:
         # rent: "Location"
         # sales: "Vente"
     product_nature_price: #?
-    product_price_listing:  #?
- #?
+    product_price_listing: #?
     product_price_template: #?
     production:
       # bookkeep: "[%{resource} %{number}] %{products} pour %{client} (%{sale})"
@@ -1564,7 +1563,6 @@ spa:
         # subscriptions: "ABO[number|8]"
         # transports: "TR[number|8]"
     tax:  #?
-      default: #?
  #?
     tax_declaration:
       # deferment: "Reporté"
