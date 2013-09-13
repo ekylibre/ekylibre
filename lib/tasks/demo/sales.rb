@@ -49,7 +49,7 @@ demo :sales do
         # price = ble.price(:amount => rand(150)+25, :tax => wheat_tax)
         price = CatalogPrice.find_by_variant_id_and_amount(ble.variant_id, 100.0)
         price ||= CatalogPrice.create!(:currency => "EUR",
-                                       :amount => "105.50",
+                                       :amount => "100.00",
                                        :supplier_id => Entity.of_company.id,
                                        :reference_tax_id => wheat_tax.id,
                                        :variant_id => ble.variant_id
@@ -89,8 +89,8 @@ demo :sales do
     # Create cow product
     cow = ProductNature.find_by(:nomen => 'calf').default_variant
     cow ||= ProductNature.import_from_nomenclature(:calf).default_variant
-    price_listing = ProductPriceListing.find_by_code("STD")
-    cow_price_template_tax = Tax.find_by_amount(5.5)
+    catalog = Catalog.find_by_code("STD")
+    cow_price_template_tax = Tax.scoped.first
 
     animal = Animal.find_by(:work_number => "8926")
     animal ||= Animal.create!(:variant_id => cow.id, :name => "Isere", :variety => "bos", :identification_number => "1735138926", :work_number => "8926", :born_at => "2013-04-14", :owner_id => Entity.of_company.id) #
@@ -106,19 +106,18 @@ demo :sales do
         # # find or create a price
         # # @FIXME = waiting for a working method in ProductPrice.price
         # price = ble.price(:amount => rand(150)+25, :tax => wheat_price_template_tax)
-        price = ProductPrice.find_by(:variant_id => animal.variant_id, :pretax_amount => "180.00")
-        price ||= ProductPrice.create!(:pretax_amount => "180.00",
+        price = CatalogPrice.find_by(:variant_id => animal.variant_id, :amount => "180.00")
+        price ||= CatalogPrice.create!(:amount => "180.00",
                                        :currency => "EUR",
-                                       :amount => "189.90",
                                        :supplier_id => Entity.of_company.id,
-                                       :tax_id => cow_price_template_tax.id,
+                                       :reference_tax_id => cow_price_template_tax.id,
                                        :variant_id => animal.variant_id
                                        )
 
         sale.items.create!(:quantity => rand(12.5) + 0.5,
-                           :product_id => animal.id,
+                           :variant_id => cow.id,
                            :price_id => price.id,
-                           :unit => "unity"
+                           :tax_id => cow_price_template_tax.id
                            )
       end
       if !rand(20).zero?
