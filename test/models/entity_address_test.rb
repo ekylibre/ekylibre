@@ -21,9 +21,8 @@
 # == Table: entity_addresses
 #
 #  by_default       :boolean          not null
-#  canal            :string(16)       not null
-#  code             :string(4)
-#  coordinate       :string(511)      not null
+#  canal            :string(20)       not null
+#  coordinate       :string(500)      not null
 #  created_at       :datetime         not null
 #  creator_id       :integer
 #  deleted_at       :datetime
@@ -41,6 +40,7 @@
 #  mail_line_5      :string(255)
 #  mail_line_6      :string(255)
 #  name             :string(255)
+#  thread           :string(10)
 #  updated_at       :datetime         not null
 #  updater_id       :integer
 #

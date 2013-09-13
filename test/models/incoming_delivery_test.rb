@@ -26,14 +26,13 @@
 #  id               :integer          not null, primary key
 #  lock_version     :integer          default(0), not null
 #  mode_id          :integer
-#  number           :string(255)
+#  number           :string(255)      not null
 #  purchase_id      :integer
 #  received_at      :datetime
 #  reference_number :string(255)
 #  sender_id        :integer          not null
 #  updated_at       :datetime         not null
 #  updater_id       :integer
-#  weight           :decimal(19, 4)
 #
 
 

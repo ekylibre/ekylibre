@@ -42,7 +42,7 @@
 #  real_debit         :decimal(19, 4)   default(0.0), not null
 #  resource_id        :integer
 #  resource_type      :string(255)
-#  state              :string(32)       not null
+#  state              :string(30)       not null
 #  updated_at         :datetime         not null
 #  updater_id         :integer
 #
@@ -66,7 +66,7 @@ class JournalEntry < Ekylibre::Record::Base
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :absolute_credit, :absolute_debit, :balance, :credit, :debit, :real_credit, :real_currency_rate, :real_debit, :allow_nil => true
   validates_length_of :absolute_currency, :currency, :real_currency, :allow_nil => true, :maximum => 3
-  validates_length_of :state, :allow_nil => true, :maximum => 32
+  validates_length_of :state, :allow_nil => true, :maximum => 30
   validates_length_of :number, :resource_type, :allow_nil => true, :maximum => 255
   validates_presence_of :absolute_credit, :absolute_debit, :balance, :created_on, :credit, :debit, :journal, :number, :printed_on, :real_credit, :real_currency_rate, :real_debit, :state
   #]VALIDATORS]

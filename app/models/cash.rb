@@ -26,9 +26,8 @@
 #  bank_agency_address  :text
 #  bank_agency_code     :string(255)
 #  bank_code            :string(255)
-#  bank_identifier_code :string(16)
+#  bank_identifier_code :string(11)
 #  bank_name            :string(50)
-#  by_default           :boolean          not null
 #  country              :string(2)
 #  created_at           :datetime         not null
 #  creator_id           :integer
@@ -39,8 +38,8 @@
 #  lock_version         :integer          default(0), not null
 #  mode                 :string(255)      default("iban"), not null
 #  name                 :string(255)      not null
-#  nature               :string(16)       default("bank_account"), not null
-#  spaced_iban          :string(48)
+#  nature               :string(20)       default("bank_account"), not null
+#  spaced_iban          :string(42)
 #  updated_at           :datetime         not null
 #  updater_id           :integer
 #
@@ -65,21 +64,18 @@ class Cash < Ekylibre::Record::Base
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :country, :allow_nil => true, :maximum => 2
   validates_length_of :currency, :allow_nil => true, :maximum => 3
-  validates_length_of :bank_identifier_code, :nature, :allow_nil => true, :maximum => 16
+  validates_length_of :bank_identifier_code, :allow_nil => true, :maximum => 11
+  validates_length_of :nature, :allow_nil => true, :maximum => 20
   validates_length_of :iban, :allow_nil => true, :maximum => 34
-  validates_length_of :spaced_iban, :allow_nil => true, :maximum => 48
+  validates_length_of :spaced_iban, :allow_nil => true, :maximum => 42
   validates_length_of :bank_name, :allow_nil => true, :maximum => 50
   validates_length_of :bank_account_key, :bank_account_number, :bank_agency_code, :bank_code, :mode, :name, :allow_nil => true, :maximum => 255
-  validates_inclusion_of :by_default, :in => [true, false]
   validates_presence_of :account, :journal, :mode, :name, :nature
   #]VALIDATORS]
   validates_inclusion_of :mode, :in => self.mode.values
   validates_inclusion_of :nature, :in => self.nature.values
   validates_uniqueness_of :account_id
 
-  has_default
-
-  # default_scope -> { order(:name) }
   scope :bank_accounts, -> { where(:nature => "bank_account") }
   scope :cash_boxes,    -> { where(:nature => "cash_box") }
 

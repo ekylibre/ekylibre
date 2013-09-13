@@ -21,9 +21,8 @@
 # == Table: entity_addresses
 #
 #  by_default       :boolean          not null
-#  canal            :string(16)       not null
-#  code             :string(4)
-#  coordinate       :string(511)      not null
+#  canal            :string(20)       not null
+#  coordinate       :string(500)      not null
 #  created_at       :datetime         not null
 #  creator_id       :integer
 #  deleted_at       :datetime
@@ -41,6 +40,7 @@
 #  mail_line_5      :string(255)
 #  mail_line_6      :string(255)
 #  name             :string(255)
+#  thread           :string(10)
 #  updated_at       :datetime         not null
 #  updater_id       :integer
 #
@@ -61,10 +61,10 @@ class EntityAddress < Ekylibre::Record::Base
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :mail_country, :allow_nil => true, :maximum => 2
-  validates_length_of :code, :allow_nil => true, :maximum => 4
-  validates_length_of :canal, :allow_nil => true, :maximum => 16
+  validates_length_of :thread, :allow_nil => true, :maximum => 10
+  validates_length_of :canal, :allow_nil => true, :maximum => 20
   validates_length_of :mail_line_1, :mail_line_2, :mail_line_3, :mail_line_4, :mail_line_5, :mail_line_6, :name, :allow_nil => true, :maximum => 255
-  validates_length_of :coordinate, :allow_nil => true, :maximum => 511
+  validates_length_of :coordinate, :allow_nil => true, :maximum => 500
   validates_inclusion_of :by_default, :mail_auto_update, :in => [true, false]
   validates_presence_of :canal, :coordinate, :entity
   #]VALIDATORS]
@@ -106,12 +106,12 @@ class EntityAddress < Ekylibre::Record::Base
     end
   end
 
-  # Each address have a distinct code
+  # Each address have a distinct thread
   before_validation(:on => :create) do
-    if self.code.blank?
-      self.code = 'AAAA'
-      while self.class.where("entity_id = ? AND canal = ? AND code = ?", self.entity_id, self.canal, self.code).count > 0 do
-        self.code.succ!
+    if self.thread.blank?
+      self.thread = 'AAAA'
+      while self.class.where("entity_id = ? AND canal = ? AND thread = ?", self.entity_id, self.canal, self.thread).count > 0 do
+        self.thread.succ!
       end
     end
   end
@@ -138,7 +138,7 @@ class EntityAddress < Ekylibre::Record::Base
   end
 
   def self.exportable_columns
-    return self.content_columns.delete_if{|c| [:deleted_at, :closed_on, :lock_version, :code, :created_at, :updated_at].include?(c.name.to_sym)}
+    return self.content_columns.delete_if{|c| [:deleted_at, :closed_on, :lock_version, :thread, :created_at, :updated_at].include?(c.name.to_sym)}
   end
 
   def label

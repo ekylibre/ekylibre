@@ -36,7 +36,7 @@ class Backend::PurchasesController < BackendController
     t.column :amount, :currency => true
     t.action :show, :url => {:format => :pdf}, :image => :print
     t.action :edit
-    t.action :destroy, :if => "RECORD.destroyable\?"
+    t.action :destroy, :if => :destroyable?
   end
 
   # Displays the main page with the list of purchases
@@ -45,18 +45,18 @@ class Backend::PurchasesController < BackendController
   end
 
 
-  list(:deliveries, :model => :incoming_deliveries, :children => :items, :conditions => {:purchase_id => ['session[:current_purchase_id]']}) do |t|
+  list(:deliveries, :model => :incoming_deliveries, :children => :items, :conditions => {:purchase_id => ['params[:id]']}) do |t|
     t.column :coordinate, :through => :address, :children => :product_name
     t.column :planned_on, :children => false
     t.column :moved_on, :children => false
     t.column :quantity, :datatype => :decimal
-    t.column :pretax_amount, :currency => {:body => "RECORD.purchase.currency", :children => "RECORD.delivery.purchase.currency"}
-    t.column :amount, :currency => {:body => "RECORD.purchase.currency", :children => "RECORD.delivery.purchase.currency"}
+    t.column :pretax_amount, :currency => true
+    t.column :amount, :currency => true
     t.action :edit, :if => :order?
     t.action :destroy, :if => :order?
   end
 
-  # list(:payment_uses, :model => :outgoing_payment_uses, :conditions => ["#{OutgoingPaymentUse.table_name}.expense_id=? ", ['session[:current_purchase_id]']]) do |t|
+  # list(:payment_uses, :model => :outgoing_payment_uses, :conditions => ["#{OutgoingPaymentUse.table_name}.expense_id=? ", ['params[:id]']]) do |t|
   #   t.column :number, :through => :payment, :url => true
   #   t.column :amount, :currency => "RECORD.payment.currency", :through => :payment, :label => "payment_amount", :url => true
   #   t.column :amount, :currency => "RECORD.payment.currency"
@@ -66,8 +66,8 @@ class Backend::PurchasesController < BackendController
   #   t.action :destroy#, :if => 'RECORD.expense.shipped == false'
   # end
 
-  list(:undelivered_items, :model => :purchase_items, :conditions => {:purchase_id => ['session[:current_purchase_id]']}) do |t|
-    t.column :name, :through => :product
+  list(:undelivered_items, :model => :purchase_items, :conditions => {:purchase_id => ['params[:id]']}) do |t|
+    t.column :name, :through => :variant
     t.column :pretax_amount, :currency => true, :through => :price
     t.column :quantity
     t.column :unit
@@ -76,8 +76,8 @@ class Backend::PurchasesController < BackendController
     t.column :undelivered_quantity, :datatype => :decimal
   end
 
-  list(:items, :model => :purchase_items, :conditions => {:purchase_id => ['session[:current_purchase_id]']}) do |t|
-    t.column :name, :through => :product, :url => true
+  list(:items, :model => :purchase_items, :conditions => {:purchase_id => ['params[:id]']}) do |t|
+    t.column :name, :through => :variant, :url => true
     t.column :annotation
     t.column :tracking_serial
     t.column :quantity
@@ -96,7 +96,7 @@ class Backend::PurchasesController < BackendController
     return unless @purchase = find_and_check
     respond_to do |format|
       format.html do
-        session[:current_purchase_id] = @purchase.id
+        # session[:current_purchase_id] = @purchase.id
         if params[:step] and not ["products", "deliveries", "summary"].include?(params[:step])
           state  = @purchase.state
           params[:step] = (@purchase.invoice? ? :summary : @purchase.order? ? :deliveries : :products).to_s

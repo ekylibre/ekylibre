@@ -63,6 +63,8 @@ arb:
         number: "رقم الحساب المصرفي" #?
         outgoing_payment_modes: "طرق الصرف" #?
         updated_at: "تم تحديثها في" #?
+      catalog:  #?
+        description: "مواصفات" #?
       company:  #?
         account_balances: "ارصدة الحساب" #?
         born_on: "انشأ في" #?
@@ -137,9 +139,9 @@ arb:
         parent_id: "النسب" #?
         sales_conditions: "شروط البيع" #?
         updater_id: "تحديث" #?
-      deposit:
+      deposit:  #?
         accounted_at: "تمت محاسنته في" #?
-        amount: "المبلغ"
+        amount: "المبلغ" #?
         cash: "حساب مصرفي" #?
         cash_id: "حساب مصرفي" #?
         comment: "تعليق" #?
@@ -326,8 +328,7 @@ arb:
         company_id: "الشركة" #?
         updated_at: "تم انشأئها في" #?
         updater: "تم تحديثه في" #?
-      operation:
-        # consumption: "Consommation"
+      operation:  #?
         lines: "الواردات / الصادرات" #?
         moved_on: "اجرى يوم" #?
         nature: "النوع" #?
@@ -346,7 +347,7 @@ arb:
       outgoing_delivery:
         # items: "Lignes de livraison"
       outgoing_payment:
-        amount: "القيمة"
+        amount: "القيمة" #?
         created_at: "انشأ في" #?
         delivered: "قدمت للمستفيد"
         mode: "طريقة تسديد الدفعة" #?
@@ -386,8 +387,7 @@ arb:
         product_id: "الانتاج" #?
         sales_invoice_items: "طرق تسدسد الفاتورة" #?
         started_at: "ابتدأ يوم\_" #?
-      procedure:
-        # provisional: "Prévisionnel"
+      procedure: #?
       product:  #?
         active: "قبل للاستخدام" #?
         buildings: "اماكن التخزين" #?
@@ -412,16 +412,14 @@ arb:
         comment: "تعليق" #?
         product_id: "الانتاج" #?
         updater: "التحدبث" #?
-      product_indicator_datum:
-        # indicator: "Indicateur"
+      product_indicator_datum: #?
       product_localization:
         # arrival_cause: "Cause d’entrée"
         # container: "Contenant"
         # departure_cause: "Cause de sortie"
         # started_at: "Entrée"
         # stopped_at: "Sortie"
-      product_move:
-        # origin: "Origine"
+      product_move:  #?
         origin_id: "منشأ" #?
         product: "المنتج" #?
         second_building_id: "موقع تخزين الحركة الثانية" #?
@@ -451,11 +449,11 @@ arb:
         unit: "وحدة القياس" #?
         unit_id: "وحدة قياس" #?
         weight: "(الوزن(كغ" #?
-      product_nature_category:
+      product_nature_category:  #?
         catalog_description: "الوصف" #?
-        children: "دلائل فرعية"
+        children: "دلائل فرعية" #?
         creator_id: "المننتج" #?
-        published: "تم نشرها"
+        published: "تم نشرها" #?
         shelves: "فئات الانتاج" #?
       product_nature_component:  #?
         building: "مكان التخزين" #?
@@ -473,24 +471,16 @@ arb:
         sales_invoice_items: "طرق تسدسد الفاتورة" #?
         started_at: "ابتدأ يوم\_" #?
       product_nature_variant:
-        # contour: "contour de la forme"
-        # horizontal_rotation: "rotation horizontale de la forme"
-        # purchase_indicator: "Indicateur d'achat"
-        # purchase_indicator_unit: "Unité d'achat"
-        # sale_indicator: "Indicateur de vente"
-        # sale_indicator_unit: "Unité de vente"
-        # usage_indicator: "Indicateur d'usage"
-        # usage_indicator_unit: "Unité d'usage"
+        # contour: "Contour de la forme"
+        # horizontal_rotation: "Rotation horizontale de la forme"
       product_price_listing:  #?
         description: "مواصفات" #?
-      product_price_template:
-        # amount: "Montant TTC"
+      product_price_template:  #?
         category: "فئة الملف المساعد" #?
         category_id: "فئة الملف المساعد" #?
         company_id: "الشركة" #?
         entity: "الممول" #?
         entity_id: "الممول" #?
-        # listing: " associée"
         product_id: "الانتاج" #?
         sales_invoice_items: "طرق تسدسد الفاتورة" #?
         started_at: "ابتدأ يوم\_" #?
@@ -532,8 +522,7 @@ arb:
         unit: "وحدة القياس" #?
         unit_id: "وحدة قياس" #?
         weight: "(الوزن(كغ" #?
-      profession:
-        # employees: "Employés"
+      profession: #?
       purchase:
         # amount: "Montant TTC"
         amount_with_taxes: "القيمة مع كل الضرائب" #?
@@ -572,9 +561,9 @@ arb:
         # items: "Lignes de vente"
         lines: "طرق طلب البيع" #?
         nature_id: "طبيعة" #?
-        parts_amount: "القيمة المسددة"
+        parts_amount: "القيمة المسددة" #?
         payment_uses: "جوانب الدفعة" #?
-        payments: "(((PAYMENTS)))"
+        payments: "(((PAYMENTS)))" #?
         stock_moves: "حركات السهم" #?
         transporter_id: "ناقلة" #?
         updated_at: "تم تحديثها في" #?
@@ -638,12 +627,12 @@ arb:
         creator_id: "منتج" #?
         nature: "النوع" #?
         product: "المنتج" #?
-      subscription:
+      subscription:  #?
         company_id: "الشركة" #?
         contact: "عنوان المشترك" #?
         contact_id: "عنوان المشترك" #?
         created_at: "انشأ في" #?
-        entity: "المشترك"
+        entity: "المشترك" #?
         entity_id: "المشترك" #?
         nature: "النوع" #?
         product: "المنتج" #?
@@ -654,9 +643,7 @@ arb:
         subscriptions: "ملاحظة" #?
       tax:
         amount: "القيمة المالية"
-        # collected_taxes: "collectée"
         nature_label: "النوع" #?
-        # paid_taxes: "déductible"
       tax_declaration:
         accounted_at: "تمت محاسبتها يوم" #?
         address: "عنوان خدمة المستلم"
@@ -666,19 +653,24 @@ arb:
         nature: "نظام التصريح"
         # period: "Période"
         updated_at: "تم تحديثها في" #?
+      team:  #?
+        company_id: "الشركة" #?
+        parent_id: "النسب" #?
+        sales_conditions: "شروط البيع" #?
+        updater_id: "تحديث" #?
       tool:  #?
         consumption: "(الاستهلاك (لتر / ساعة " #?
         text_nature: "طبيغة النص" #?
         uses: "استخدامات الادوات" #?
-      tracking:
-        active: "مستخدم"
+      tracking:  #?
+        active: "مستخدم" #?
         company_id: "الشركة" #?
         inventory_items: "طرق عملية الجرد" #?
         operation_items: "الواردات / الصادرات" #?
         product_id: "امنتاج" #?
         stock_transfers: "تحويلات او ضياع الاسهم" #?
-      transfer:
-        amount: "القيمة"
+      transfer:  #?
+        amount: "القيمة" #?
         created_at: "انشأ في" #?
         parts_amount: "القيمة المسددة" #?
         payment_uses: "اجزاء الدفعة" #?
@@ -690,9 +682,9 @@ arb:
         created_at: "انشأ في" #?
         responsible_id: "مسؤول" #?
         transporter: "الناقل" #?
-      unit:
+      unit:  #?
         name: "Name" #?
-        start: "القيمة الاصلية"
+        start: "القيمة الاصلية" #?
         updated_at: "تم تحديثها في" #?
       user:
         commercial: "النشاط التجاري" #?
@@ -788,12 +780,12 @@ arb:
         price:  #?
           already_defined: "قد تم تحديد السعر لهذا المنتج وقائمة الاسعار سابقا" #?
           range_overlap: "تداخل فاصل زمني اخر للكمية (  %{min} الى\_ %{max})" #?
-        product_nature_price:
-          already_defined: "قد تم تحديد السعر لهذا المنتج وقائمة الاسعار سابقا"
-          range_overlap: "تداخل فاصل زمني اخر للكمية (  %{min} الى\_ %{max})"
-        product_price_template:
-          already_defined: "قد تم تحديد السعر لهذا المنتج وقائمة الاسعار سابقا"
-          range_overlap: "تداخل فاصل زمني اخر للكمية (  %{min} الى\_ %{max})"
+        product_nature_price:  #?
+          already_defined: "قد تم تحديد السعر لهذا المنتج وقائمة الاسعار سابقا" #?
+          range_overlap: "تداخل فاصل زمني اخر للكمية (  %{min} الى\_ %{max})" #?
+        product_price_template:  #?
+          already_defined: "قد تم تحديد السعر لهذا المنتج وقائمة الاسعار سابقا" #?
+          range_overlap: "تداخل فاصل زمني اخر للكمية (  %{min} الى\_ %{max})" #?
         product_stock:
           product_cannot_be_in_building: "%{building} لا يمكن تخزين المنتج في خزينة"
         product_transfer:
@@ -846,6 +838,8 @@ arb:
       # campaign: "Campagne"
       cash: "الخزينة"
       # cash_transfer: "Virement interne"
+      catalog: "فئة الفرد"
+      # catalog_price: "Prix"
       company: "الشركة" #?
       contact: "الاتصالات" #?
       # cultivable_land_parcel: "Parcelle culturale"
@@ -857,7 +851,7 @@ arb:
       delivery: "التسليم" #?
       delivery_item: "خط التسليم" #?
       delivery_mode: "نمط التسليم" #?
-      department: "الخجمة"
+      department: "الخجمة" #?
       deposit: "الاقتطاع المصرفي"
       # deposit_item: "Ligne de remise en banque"
       district: "مقاطعة"
@@ -934,7 +928,7 @@ arb:
       product_category: "فئة الانتاج" #?
       product_component: "عنصر الانتاج" #?
       # product_group: "Groupe de produit"
-      # product_indicator_datum: "Valeur d'indicateur"
+      # product_indicator_datum: "Valeur d’indicateur"
       # product_link: "Lien entre produits"
       # product_localization: "Passage d’un produit en un lieu"
       # product_membership: "Passage d’un produit dans un groupe"
@@ -944,9 +938,10 @@ arb:
       product_nature_component: "عنصر الانتاج" #?
       product_nature_price: "الاسعار" #?
       # product_nature_variant: "Variante de type de produit"
-      # product_price: "Prix"
-      product_price_listing: "فئة الفرد"
-      product_price_template: "الاسعار"
+      # product_nature_variant_indicator_datum: "Valeur d’indicateur de variante"
+      # product_ownership: "Propriété de produit"
+      product_price_listing: "فئة الفرد" #?
+      product_price_template: "الاسعار" #?
       # product_process: "Processus"
       # product_process_phase: "Phase de processus"
       product_stock: "سهم الانتاج" #?
@@ -977,6 +972,7 @@ arb:
       subscription_nature: "نوع الاشتراك"
       tax: "الضريبة"
       tax_declaration: "تصريح الضرائب"
+      team: "الخجمة"
       tool: "الاداة" #?
       tracking: "حصة ممكن عزوها"
       transfer: "التحويل"
@@ -1012,6 +1008,7 @@ arb:
     # affected_on: "Affecté le"
     # age: "Âge"
     agency_code: "رمز الوكالة" #?
+    # all_taxes_included: "All taxes included"
     # allocation_account: "Compte de dotation"
     amount: "القيمة من دون الضرائب"
     amount_with_taxes: "القيمة مع كامل الضرائب" #?
@@ -1111,7 +1108,8 @@ arb:
     code: "الرمز"
     code2: "الرمز الثاني" #?
     coefficient: "الدرجة"
-    collected_account: "جمع قيمة الضريبة الاضافية"
+    # collect_account: "TVA collectée"
+    collected_account: "جمع قيمة الضريبة الاضافية" #?
     collected_account_id: "جمع قيمة الضريبة الاضافية" #?
     collected_amount: "قيمة الضريبة الاضافية الاجمالية"
     # collected_taxes: "TVA collectées"
@@ -1198,6 +1196,7 @@ arb:
     decimal_min: "انخفاض المدى" #?
     decimal_value: "القيمة العشرية"
     declared_on: "صرح يوم"
+    # deduction_account: "TVA déductible"
     default_contact: "الشخص المتوقع الاتصال به" #?
     default_currency: "العملة الافتراضية" #?
     # default_mail_address: "Adresse email par défaut"
@@ -1272,11 +1271,11 @@ arb:
     ean13: "Ean13" #?
     email: "عنوان البريد الالكتروني"
     # emails: "Courriels (e-mails)"
-    # emitter_amount: "Montant émis"
-    # emitter_cash: "Trésorerie émettrice"
-    # emitter_currency: "Devise émise"
-    # emitter_currency_rate: "Taux de la devise émise"
-    # emitter_journal_entry: "Écriture de l’émission"
+    # emission_amount: "Montant émis"
+    # emission_cash: "Trésorerie émettrice"
+    # emission_currency: "Devise émise"
+    # emission_currency_rate: "Taux de la devise émise"
+    # emission_journal_entry: "Écriture de l’émission"
     employed: "وظف من قبل الشركة"
     employees: "الموظفين"
     employment: "الوظيفة"
@@ -1681,9 +1680,10 @@ arb:
     receipt: "استلام الكتروني"
     received: "مستلم"
     # received_at: "Reçu le"
-    # receiver_amount: "Montant reçu"
-    # receiver_cash: "Trésorerie réceptrice"
-    # receiver_journal_entry: "Écriture de la réception"
+    # reception_amount: "Montant reçu"
+    # reception_cash: "Trésorerie réceptrice"
+    # reception_currency: "Reception currency"
+    # reception_journal_entry: "Écriture de la réception"
     # recipient: "Destinataire"
     # reconcilable: "Lettrable"
     record_value: "التسجيل"
@@ -1723,6 +1723,7 @@ arb:
     root_model: "الجذر"
     root_model_name: "جذر"
     sale: "طلب البيع"
+    # sale_catalog: "Sale catalog"
     sale_id: "طلب بيع" #?
     # sale_indicator: "Indicateur de vente"
     # sale_indicator_unit: "Unité de l'indicateur de vente"
@@ -1825,6 +1826,7 @@ arb:
     text_importance: "ذو شأن" #?
     text_nature: "النوع" #?
     theoric_quantity: "الكمية النظرية"
+    # thread: "Thread"
     title: "اللقب"
     to: "ل"
     to_archive: "وثائق للارشفة" #?
@@ -1851,6 +1853,7 @@ arb:
     undelivered_quantity: "يبقى للتسليم"
     unit: "الوحدة"
     unit_id: "وحدة" #?
+    # unit_price_amount: "Unit price amount"
     unit_quantity: "وحدة مساحة الكمية" #?
     units: "الوحدات" #?
     # unlocked_payments: "Paiement non verrouillés"
@@ -2173,7 +2176,10 @@ arb:
         bank_account: "حساب مصرفي" #?
         cash_box: "صندوق النقدي" #?
     cash_transfer:
-      # bookkeep: "[%{resource} %{number}] De %{emitter} à %{receiver} %{description}"
+      # bookkeep: "[%{resource} %{number}] De %{emission} à %{reception} %{description}"
+    catalog:
+      default:
+        # name: "Par défaut"
     company:  #?
       cant_find_document_template: "لا يمكن العثور على نموذج مطابق للوثيقة" #?
       default: #?
@@ -2413,6 +2419,8 @@ arb:
         other: "اخرى" #?
         towed: "اقتران" #?
         tractor: "تراكتور" #?
+    establishment:
+      # default: "Principal"
     event_nature:  #?
       usages: #?
         mailing: "البريدي" #?
@@ -2592,13 +2600,12 @@ arb:
       label: "%{product} / %{amount} %{currency}" #?
       no_range: "ليس هناك من فترة استراحة" #?
       range: "من %{min} الى %{max}" #?
-    product_price_listing:
-      default:
-        # name: "Par défaut"
-    product_price_template:
-      label: "%{product} / %{amount} %{currency}"
-      no_range: "ليس هناك من فترة استراحة"
-      range: "من %{min} الى %{max}"
+    product_price_listing:  #?
+ #?
+    product_price_template:  #?
+      label: "%{product} / %{amount} %{currency}" #?
+      no_range: "ليس هناك من فترة استراحة" #?
+      range: "من %{min} الى %{max}" #?
     product_stock:  #?
       label: #?
         with_tracking: "%{building} : الحصة %{tracking}, %{quantity}%{unit} المتوفرة" #?
@@ -2711,46 +2718,21 @@ arb:
       no_product: "[لا لاي منتج]" #?
     sequence:
       default:
-        assets:
-          # number_format: "I[number|7]"
-        cash_transfers:
-          # number_format: "VI[year|4][number|4]"
-          # period: "year"
-        deposits:
-          # number_format: "B[year|4][number|4]"
-          # period: "year"
-        entities:
-          # number_format: "[number|8]"
-        incoming_deliveries:
-          # number_format: "BR[year|4][number|4]"
-          # period: "year"
-        incoming_payments:
-          # number_format: "R[year|4][number|6]"
-          # period: "year"
-        outgoing_deliveries:
-          # number_format: "BL[year|4][number|6]"
-          # period: "year"
-        outgoing_payments:
-          # number_format: "D[year|4][number|4]"
-          # period: "year"
-        products:
-          # number_format: "P[number|11]"
-        purchases:
-          # number_format: "A[year|4][month|2][number|6]"
-          # period: "month"
-        sales:
-          # number_format: "V[year|4][month|2][number|6]"
-          # period: "month"
-        sales_invoices:
-          # number_format: "F[year|4][number|6]"
-          # period: "year"
-        stock_transfers:
-          # number_format: "TS[year|4][number|4]"
-          # period: "year"
-        subscriptions:
-          # number_format: "ABO[number|8]"
-        transports:
-          # number_format: "TR[number|8]"
+        # assets: "I[number|7]"
+        # cash_transfers: "VI[year|4][number|4]"
+        # deposits: "B[year|4][number|4]"
+        # entities: "[number|8]"
+        # incoming_deliveries: "BR[year|4][number|4]"
+        # incoming_payments: "R[year|4][number|6]"
+        # outgoing_deliveries: "BL[year|4][number|6]"
+        # outgoing_payments: "D[year|4][number|4]"
+        # products: "P[number|11]"
+        # purchases: "A[year|4][month|2][number|6]"
+        # sales: "V[year|4][month|2][number|6]"
+        # sales_invoices: "F[year|4][number|6]"
+        # stock_transfers: "TS[year|4][number|4]"
+        # subscriptions: "ABO[number|8]"
+        # transports: "TR[number|8]"
       periods:  #?
         cweek: "اسبوع" #?
         month: "شهر" #?
@@ -2768,30 +2750,11 @@ arb:
       natures: #?
         period: "الاشتراك وفق التاريخ" #?
         quantity: "الاشتراك حسب الكمية" #?
-    tax:
+    tax:  #?
       amount_must_be_included_between_0_and_1: "يجب ان يكون مشتمل بين 1 و 0" #?
-      default:
-        tva0000:
-          # amount: "0.0"
-          # collected: "445710"
-          # name: "TVA 0,00%"
-          # paid: "445660"
-        tva0210:
-          # amount: "2.1"
-          # collected: "445711"
-          # name: "TVA 2,10%"
-          # paid: "445661"
-        tva0550:
-          # amount: "5.5"
-          # collected: "445712"
-          # name: "TVA 5,50%"
-          # paid: "445662"
-        tva1960:
-          # amount: "19.6"
-          # collected: "445713"
-          # name: "TVA 19,60%"
-          # paid: "445663"
-      natures:  #?
+      default: #?
+ #?
+      natures: #?
         amount: "القيمة" #?
         percent: "النسبة المئوية" #?
     tax_declaration:
@@ -2803,6 +2766,8 @@ arb:
       quarterly: "فصلي"
       simplified: "مبسط"
       yearly: "سنوي"
+    team:
+      # default: "Général"
     tool:  #?
       natures: #?
         other: "اخرى" #?

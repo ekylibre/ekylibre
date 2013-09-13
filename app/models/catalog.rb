@@ -18,31 +18,34 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: product_price_listings
+# == Table: catalogs
 #
-#  by_default   :boolean          not null
-#  code         :string(8)
-#  created_at   :datetime         not null
-#  creator_id   :integer
-#  description  :text
-#  id           :integer          not null, primary key
-#  lock_version :integer          default(0), not null
-#  name         :string(255)      not null
-#  updated_at   :datetime         not null
-#  updater_id   :integer
+#  all_taxes_included :boolean          not null
+#  by_default         :boolean          not null
+#  code               :string(10)
+#  created_at         :datetime         not null
+#  creator_id         :integer
+#  currency           :string(3)        not null
+#  description        :text
+#  id                 :integer          not null, primary key
+#  lock_version       :integer          default(0), not null
+#  name               :string(255)      not null
+#  updated_at         :datetime         not null
+#  updater_id         :integer
 #
 
 
-class ProductPriceListing < Ekylibre::Record::Base
+class Catalog < Ekylibre::Record::Base
   # attr_accessible :name, :description, :by_default, :code
-  has_many :active_prices, -> { where(:active => true) }, :class_name => "ProductPrice", :foreign_key => :listing_id
-  has_many :entities, :foreign_key => :sale_price_listing_id
-  has_many :prices, :class_name => "ProductPrice", :foreign_key => :listing_id
+  has_many :active_prices, -> { where(:active => true) }, :class_name => "CatalogPrice", :foreign_key => :catalog_id
+  has_many :entities, :foreign_key => :sale_catalog_id
+  has_many :prices, :class_name => "CatalogPrice", :foreign_key => :catalog_id
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_length_of :code, :allow_nil => true, :maximum => 8
+  validates_length_of :currency, :allow_nil => true, :maximum => 3
+  validates_length_of :code, :allow_nil => true, :maximum => 10
   validates_length_of :name, :allow_nil => true, :maximum => 255
-  validates_inclusion_of :by_default, :in => [true, false]
-  validates_presence_of :name
+  validates_inclusion_of :all_taxes_included, :by_default, :in => [true, false]
+  validates_presence_of :currency, :name
   #]VALIDATORS]
   validates_uniqueness_of :code
 

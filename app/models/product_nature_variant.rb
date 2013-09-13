@@ -49,7 +49,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
   belongs_to :nature, :class_name => "ProductNature", :inverse_of => :variants
   has_many :products, :foreign_key => :variant_id
   has_many :indicator_data, :class_name => "ProductNatureVariantIndicatorDatum", :foreign_key => :variant_id
-  has_many :prices, :class_name => "ProductPrice", :foreign_key => :variant_id
+  has_many :prices, :class_name => "CatalogPrice", :foreign_key => :variant_id
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :horizontal_rotation, :picture_file_size, :allow_nil => true, :only_integer => true
   validates_length_of :commercial_name, :contour, :name, :nature_name, :number, :picture_content_type, :picture_file_name, :unit_name, :allow_nil => true, :maximum => 255

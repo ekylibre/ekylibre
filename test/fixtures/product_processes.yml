@@ -30,7 +30,7 @@
 #  repeatable   :boolean          not null
 #  updated_at   :datetime         not null
 #  updater_id   :integer
-#  variety      :string(127)      not null
+#  variety      :string(120)      not null
 #
 #
 # == Fixture: product_processes

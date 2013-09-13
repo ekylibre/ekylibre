@@ -41,7 +41,7 @@
 #  function_title      :string(255)
 #  has_downpayment     :boolean          not null
 #  id                  :integer          not null, primary key
-#  initial_number      :string(64)
+#  initial_number      :string(60)
 #  introduction        :text
 #  invoice_address_id  :integer
 #  invoiced_on         :date
@@ -49,14 +49,14 @@
 #  letter_format       :boolean          default(TRUE), not null
 #  lock_version        :integer          default(0), not null
 #  nature_id           :integer
-#  number              :string(64)       not null
+#  number              :string(60)       not null
 #  origin_id           :integer
 #  payment_delay       :string(255)      not null
 #  payment_on          :date
 #  pretax_amount       :decimal(19, 4)   default(0.0), not null
 #  reference_number    :string(255)
 #  responsible_id      :integer
-#  state               :string(64)       not null
+#  state               :string(60)       not null
 #  subject             :string(255)
 #  transporter_id      :integer
 #  updated_at          :datetime         not null

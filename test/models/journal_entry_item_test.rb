@@ -39,7 +39,7 @@
 #  financial_year_id         :integer          not null
 #  id                        :integer          not null, primary key
 #  journal_id                :integer          not null
-#  letter                    :string(8)
+#  letter                    :string(10)
 #  lock_version              :integer          default(0), not null
 #  name                      :string(255)      not null
 #  position                  :integer
@@ -48,7 +48,7 @@
 #  real_currency             :string(3)        not null
 #  real_currency_rate        :decimal(19, 10)  default(0.0), not null
 #  real_debit                :decimal(19, 4)   default(0.0), not null
-#  state                     :string(32)       not null
+#  state                     :string(30)       not null
 #  updated_at                :datetime         not null
 #  updater_id                :integer
 #

@@ -26,9 +26,8 @@
 #  bank_agency_address  :text
 #  bank_agency_code     :string(255)
 #  bank_code            :string(255)
-#  bank_identifier_code :string(16)
+#  bank_identifier_code :string(11)
 #  bank_name            :string(50)
-#  by_default           :boolean          not null
 #  country              :string(2)
 #  created_at           :datetime         not null
 #  creator_id           :integer
@@ -39,8 +38,8 @@
 #  lock_version         :integer          default(0), not null
 #  mode                 :string(255)      default("iban"), not null
 #  name                 :string(255)      not null
-#  nature               :string(16)       default("bank_account"), not null
-#  spaced_iban          :string(48)
+#  nature               :string(20)       default("bank_account"), not null
+#  spaced_iban          :string(42)
 #  updated_at           :datetime         not null
 #  updater_id           :integer
 #
@@ -49,7 +48,6 @@
 #
 # cashes_001:
 #   account_id: 1
-#   by_default: true
 #   created_at: 2009-07-19 19:13:59 +02:00
 #   creator_id: 1
 #   id: 1
@@ -60,12 +58,12 @@
 #   updated_at: 2009-07-19 19:13:59 +02:00
 #   updater_id: 1
 #
+
 cashes_001:
   account_id: 1
   created_at: 2009-07-19 19:13:59 +02:00
   creator_id: 1
   currency: 'EUR'
-  by_default: true
   iban: "FR7611111222223333333333391"
   spaced_iban: "FR76 1111 1222 2233 3333 3333 391"
   id: 1
@@ -81,7 +79,6 @@ cashes_002:
   created_at: 2009-07-19 19:13:59 +02:00
   creator_id: 1
   currency: 'EUR'
-  by_default: false
   iban: "FR76"
   spaced_iban: "FR76"
   id: 2
@@ -92,13 +89,11 @@ cashes_002:
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
 
-
 cashes_003:
   account_id: 3
   created_at: 2009-07-19 19:13:59 +02:00
   creator_id: 1
   currency: 'EUR'
-  by_default: false
   id: 3
   journal_id: 1
   mode: "iban"

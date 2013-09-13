@@ -42,7 +42,7 @@
 #  real_debit         :decimal(19, 4)   default(0.0), not null
 #  resource_id        :integer
 #  resource_type      :string(255)
-#  state              :string(32)       not null
+#  state              :string(30)       not null
 #  updated_at         :datetime         not null
 #  updater_id         :integer
 #

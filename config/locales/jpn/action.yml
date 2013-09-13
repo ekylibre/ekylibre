@@ -92,6 +92,8 @@ jpn:
       # index: "Trésoreries"
       # new: "Enregistrer une nouvelle trésorerie"
       # show: "%{nature}\_: %{name}"
+    backend/catalog_prices: #?
+    backend/catalogs: #?
     backend/cells/bank_chart_cells: #?
     backend/cells/calendar_cells: #?
     backend/cells/collected_taxes_cells: #?
@@ -142,10 +144,7 @@ jpn:
       # welcome: "Bienvenue dans Ekylibre"
     backend/data_view/manure_management_plans: #?
     backend/data_view/veterinary_booklets: #?
-    backend/departments:
-      # edit: "Modifier le service\_: %{name}"
-      # index: "Services"
-      # new: "Ajout d’un nouveau service"
+    backend/departments: #?
     backend/deposits:
       # edit: "Modifier la remise en banque n°%{number} du %{created_on}"
       # index: "Remises en banque"
@@ -438,11 +437,9 @@ jpn:
       # new: "Nouveau type de produit"
       # show: "Type de produit\_: %{name}"
     backend/product_ownerships: #?
-    backend/product_price_listings:
-      # index: "Listes de prix"
+    backend/product_price_listings: #?
     backend/product_price_templates: #?
-    backend/product_prices:
-      # index: "Prix des produits"
+    backend/product_prices: #?
     backend/product_process_phases: #?
     backend/product_processes: #?
     backend/product_transfers: #?
@@ -547,6 +544,7 @@ jpn:
       # edit: "Modifier la taxe\_: %{name}"
       # index: "Taxes"
       # new: "Ajouter une nouvelle taxe"
+    backend/teams: #?
     backend/tools: #?
     backend/transports:
       # deliveries: "Livraisons du transport"
@@ -587,7 +585,6 @@ jpn:
     # backend/custom_field_choices: "Choix de champs personnalisés"
     # backend/custom_fields: "Champs personnalisés"
     # backend/dashboards: "Tableaux de bord"
-    # backend/departments: "Services"
     # backend/deposit_items: "Lignes de remise en banque"
     # backend/deposits: "Remises en banque"
     # backend/districts: "Zones administratives"
@@ -629,8 +626,6 @@ jpn:
     # backend/product_localizations: "Localisations"
     # backend/product_moves: "Mouvements de stock"
     # backend/product_natures: "Types de produits"
-    # backend/product_price_listings: "Listes de prix"
-    # backend/product_prices: "Prix des produits"
     # backend/products: "Produits"
     # backend/professions: "Professions"
     # backend/purchase_items: "Lignes d’achat"

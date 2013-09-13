@@ -22,9 +22,7 @@
 # == Table: entities
 #
 #  active                    :boolean          default(TRUE), not null
-#  activity_code             :string(32)
-#  attorney                  :boolean          not null
-#  attorney_account_id       :integer
+#  activity_code             :string(30)
 #  authorized_payments_count :integer
 #  born_on                   :date
 #  client                    :boolean          not null
@@ -36,7 +34,6 @@
 #  dead_on                   :date
 #  deliveries_conditions     :string(60)
 #  description               :text
-#  discount_percentage       :decimal(19, 4)
 #  first_met_on              :date
 #  first_name                :string(255)
 #  full_name                 :string(255)      not null
@@ -47,49 +44,41 @@
 #  lock_version              :integer          default(0), not null
 #  locked                    :boolean          not null
 #  nature                    :string(255)      not null
-#  number                    :string(64)
+#  number                    :string(60)
 #  of_company                :boolean          not null
 #  origin                    :string(255)
-#  payment_delay             :string(255)
-#  payment_mode_id           :integer
 #  picture_content_type      :string(255)
 #  picture_file_name         :string(255)
 #  picture_file_size         :integer
 #  picture_updated_at        :datetime
 #  proposer_id               :integer
 #  prospect                  :boolean          not null
-#  reduction_percentage      :decimal(19, 4)
 #  reminder_submissive       :boolean          not null
 #  responsible_id            :integer
-#  sale_price_listing_id     :integer
+#  sale_catalog_id           :integer
 #  siren                     :string(9)
-#  soundex                   :string(4)
 #  supplier                  :boolean          not null
 #  supplier_account_id       :integer
 #  transporter               :boolean          not null
 #  type                      :string(255)
 #  updated_at                :datetime         not null
 #  updater_id                :integer
-#  vat_number                :string(15)
+#  vat_number                :string(20)
 #  vat_subjected             :boolean          default(TRUE), not null
-#  webpass                   :string(255)
 #
 
 require "digest/sha2"
 
 class Entity < Ekylibre::Record::Base
-  # Setup accessible (or protected) attributes for your model
-  # attr_accessible :active, :activity_code, :attorney, :attorney_account_id, :authorized_payments_count, :born_on, :sale_price_listing_id, :client, :client_account_id, :number, :country, :currency, :dead_on, :deliveries_conditions, :first_met_on, :first_name, :full_name, :language, :last_name, :nature, :origin, :payment_delay, :payment_mode_id, :picture, :proposer_id, :prospect, :reduction_percentage, :reminder_submissive, :responsible_id, :siren, :supplier, :supplier_account_id, :transporter, :vat_number, :vat_subjected
   attr_accessor :password_confirmation, :old_password
-  # attr_protected :rights
-  belongs_to :attorney_account, :class_name => "Account"
+  # belongs_to :attorney_account, :class_name => "Account"
   belongs_to :client_account, :class_name => "Account"
   # belongs_to :nature, :class_name => "EntityNature"
   enumerize :nature, :in => Nomen::EntityNatures.all, :default => Nomen::EntityNatures.default, :predicates => {:prefix => true}
-  belongs_to :payment_mode, :class_name => "IncomingPaymentMode"
+  # belongs_to :payment_mode, :class_name => "IncomingPaymentMode"
   belongs_to :proposer, :class_name => "Entity"
   belongs_to :responsible, :class_name => "User"
-  belongs_to :sale_price_listing, :class_name => "ProductPriceListing"
+  belongs_to :sale_catalog, :class_name => "Catalog"
   belongs_to :supplier_account, :class_name => "Account"
   has_many :clients, :class_name => "Entity", :foreign_key => :responsible_id, :dependent => :nullify
   has_many :addresses, -> { where(:deleted_at => nil) }, :class_name => "EntityAddress", :inverse_of => :entity
@@ -142,21 +131,18 @@ class Entity < Ekylibre::Record::Base
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :picture_file_size, :allow_nil => true, :only_integer => true
-  validates_numericality_of :discount_percentage, :reduction_percentage, :allow_nil => true
   validates_length_of :country, :allow_nil => true, :maximum => 2
   validates_length_of :language, :allow_nil => true, :maximum => 3
-  validates_length_of :soundex, :allow_nil => true, :maximum => 4
   validates_length_of :siren, :allow_nil => true, :maximum => 9
-  validates_length_of :vat_number, :allow_nil => true, :maximum => 15
-  validates_length_of :activity_code, :allow_nil => true, :maximum => 32
-  validates_length_of :deliveries_conditions, :allow_nil => true, :maximum => 60
-  validates_length_of :number, :allow_nil => true, :maximum => 64
-  validates_length_of :currency, :first_name, :full_name, :last_name, :nature, :origin, :payment_delay, :picture_content_type, :picture_file_name, :webpass, :allow_nil => true, :maximum => 255
-  validates_inclusion_of :active, :attorney, :client, :locked, :of_company, :prospect, :reminder_submissive, :supplier, :transporter, :vat_subjected, :in => [true, false]
+  validates_length_of :vat_number, :allow_nil => true, :maximum => 20
+  validates_length_of :activity_code, :allow_nil => true, :maximum => 30
+  validates_length_of :deliveries_conditions, :number, :allow_nil => true, :maximum => 60
+  validates_length_of :currency, :first_name, :full_name, :last_name, :nature, :origin, :picture_content_type, :picture_file_name, :allow_nil => true, :maximum => 255
+  validates_inclusion_of :active, :client, :locked, :of_company, :prospect, :reminder_submissive, :supplier, :transporter, :vat_subjected, :in => [true, false]
   validates_presence_of :currency, :full_name, :language, :last_name, :nature
   #]VALIDATORS]
-  validates_presence_of :sale_price_listing
-  validates_delay_format_of :payment_delay
+  validates_presence_of :sale_catalog
+  # validates_delay_format_of :payment_delay
 
   alias_attribute :name, :full_name
 
@@ -173,12 +159,10 @@ class Entity < Ekylibre::Record::Base
   end
 
   before_validation do
-    self.webpass = User.give_password(8, :normal) if self.webpass.blank?
-    self.soundex = self.last_name.soundex2 if !self.last_name.nil?
     self.first_name = self.first_name.to_s.strip
     self.last_name  = self.last_name.to_s.strip
     self.full_name = (self.last_name.to_s + " " + self.first_name.to_s)
-    self.sale_price_listing ||= ProductPriceListing.by_default
+    self.sale_catalog ||= Catalog.by_default
     # unless self.nature.nil?
     # self.full_name = (self.nature.title.to_s + ' ' + self.full_name).strip unless self.nature.in_name? # or self.nature.abbreviation == "-")
     # end
@@ -354,7 +338,7 @@ class Entity < Ekylibre::Record::Base
     cols = EntityAddress.content_columns.collect{|c| c.name}.delete_if{|c| [:number, :started_at, :stopped_at, :deleted, :address, :by_default, :closed_on, :lock_version, :active,  :updated_at, :created_at].include?(c.to_sym)}+["item_6_city", "item_6_code"]
     columns += cols.collect{|c| [EntityAddress.model_name.human+"/"+EntityAddress.human_attribute_name(c), "address-"+c]}.sort
     columns += ["name", "abbreviation"].collect{|c| [EntityNature.model_name.human+"/"+EntityNature.human_attribute_name(c), "entity_nature-"+c]}.sort
-    # columns += ["name"].collect{|c| [ProductPriceListing.model_name.human+"/"+ProductPriceListing.human_attribute_name(c), "product_price_listing-"+c]}.sort
+    # columns += ["name"].collect{|c| [Catalog.model_name.human+"/"+Catalog.human_attribute_name(c), "product_price_listing-"+c]}.sort
     columns += CustomField.where("nature in ('string')").collect{|c| [CustomField.model_name.human+"/"+c.name, "custom_field-id"+c.id.to_s]}.sort
     return columns
   end
@@ -365,7 +349,7 @@ class Entity < Ekylibre::Record::Base
   #   columns += Entity.content_columns.collect{|c| [Entity.model_name.human+"/"+Entity.human_attribute_name(c.name), "entity-"+c.name]}.sort
   #   columns += EntityAddress.content_columns.collect{|c| [EntityAddress.model_name.human+"/"+EntityAddress.human_attribute_name(c.name), "address-"+c.name]}.sort
   #   columns += EntityNature.content_columns.collect{|c| [EntityNature.model_name.human+"/"+EntityNature.human_attribute_name(c.name), "entity_nature-"+c.name]}.sort
-  #   columns += ProductPriceListing.content_columns.collect{|c| [ProductPriceListing.model_name.human+"/"+ProductPriceListing.human_attribute_name(c.name), "product_price_listing-"+c.name]}.sort
+  #   columns += Catalog.content_columns.collect{|c| [Catalog.model_name.human+"/"+Catalog.human_attribute_name(c.name), "product_price_listing-"+c.name]}.sort
   #   columns += CustomField.all.collect{|c| [CustomField.model_name.human+"/"+c.name, "custom_field-id"+c.id.to_s]}.sort
   #   return columns
   # end
@@ -382,8 +366,8 @@ class Entity < Ekylibre::Record::Base
       # code += "  nature = EntityNature.create!(:title => '', :name => '-', :physical => false, :in_name => false, :active => true) unless nature\n"
     # end
     unless cols[:product_price_listing].is_a? Hash
-      code += "  sale_price_listing = ProductPriceListing.where('name=? or code=?', '-', '-').first\n"
-      code += "  sale_price_listing = ProductPriceListing.create!(:name => '-', :by_default => false) unless sale_price_listing\n"
+      code += "  sale_catalog = Catalog.where('name=? or code=?', '-', '-').first\n"
+      code += "  sale_catalog = Catalog.create!(:name => '-', :by_default => false) unless sale_catalog\n"
     end
     for k, v in (cols[:special]||{}).select{|k, v| v == :generate_string_custom_field}
       code += "  custom_field_#{k} = CustomField.create!(:name => #{header[k.to_i].inspect}, :active => true, :length_max => 65536, :nature => 'string', :required => false)\n"
@@ -401,18 +385,18 @@ class Entity < Ekylibre::Record::Base
       # code += "    end unless nature\n"
     # end
     if cols[:product_price_listing].is_a? Hash
-      code += "    sale_price_listing = ProductPriceListing.where("+cols[:product_price_listing].collect{|k,v| ":#{v} => item[#{k}]"}.join(', ')+").first\n"
+      code += "    sale_catalog = Catalog.where("+cols[:product_price_listing].collect{|k,v| ":#{v} => item[#{k}]"}.join(', ')+").first\n"
       code += "    begin\n"
-      code += "      sale_price_listing = ProductPriceListing.create!("+cols[:product_price_listing].collect{|k,v| ":#{v} => item[#{k}]"}.join(', ')+")\n"
+      code += "      sale_catalog = Catalog.create!("+cols[:product_price_listing].collect{|k,v| ":#{v} => item[#{k}]"}.join(', ')+")\n"
       code += "    rescue\n"
-      code += "      sale_price_listing = ProductPriceListing.where('name=? or code=?', '-', '-').first\n"
-      code += "      sale_price_listing = ProductPriceListing.create!(:name => '-', :by_default => false) unless sale_price_listing\n"
-      code += "    end unless sale_price_listing\n"
+      code += "      sale_catalog = Catalog.where('name=? or code=?', '-', '-').first\n"
+      code += "      sale_catalog = Catalog.create!(:name => '-', :by_default => false) unless sale_catalog\n"
+      code += "    end unless sale_catalog\n"
     end
 
-    # code += "    puts [nature, sale_price_listing].inspect\n"
+    # code += "    puts [nature, sale_catalog].inspect\n"
 
-    code += "    entity = Entity.build("+cols[:entity].collect{|k,v| ":#{v} => item[#{k}]"}.join(', ')+", :nature => nature, :sale_price_listing_id => sale_price_listing.id, :language => #{self.of_company.language.inspect}, :client => true)\n"
+    code += "    entity = Entity.build("+cols[:entity].collect{|k,v| ":#{v} => item[#{k}]"}.join(', ')+", :nature => nature, :sale_catalog_id => sale_catalog.id, :language => #{self.of_company.language.inspect}, :client => true)\n"
     code += "    if entity.save\n"
     if cols[:address].is_a? Hash
       code += "      address = entity.addresses.build("+cols[:address].collect{|k,v| ":#{v} => item[#{k}]"}.join(', ')+")\n"
@@ -462,7 +446,7 @@ class Entity < Ekylibre::Record::Base
       self.each do |entity|
         address = EntityAddress.where(:entity_id => entity.id, :by_default => true, :deleted_at => nil).first
         item = []
-        item << ["'"+entity.number.to_s, entity.nature.name, entity.sale_price_listing.name, entity.name, entity.first_name]
+        item << ["'"+entity.number.to_s, entity.nature.name, entity.sale_catalog.name, entity.name, entity.first_name]
         if !address.nil?
           item << [address.item_2, address.item_3, address.item_4, address.item_5, address.item_6_code, address.item_6_city, address.phone, address.mobile, address.fax ,address.email, address.website]
         else

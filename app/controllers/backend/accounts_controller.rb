@@ -55,7 +55,7 @@ class Backend::AccountsController < BackendController
     code << journal_entries_states_crit("params")
     # code << journals_crit("params")
     code << "c[0] << ' AND #{JournalEntryItem.table_name}.account_id=?'\n"
-    code << "c << session[:current_account_id]\n"
+    code << "c << params[:id]\n"
     code << "c\n"
     return code
   end
@@ -71,19 +71,12 @@ class Backend::AccountsController < BackendController
     t.column :credit, :currency => "RECORD.entry.financial_year.currency"
   end
 
-  list(:entities, :conditions => ["? IN (client_account_id, supplier_account_id, attorney_account_id)", ['session[:current_account_id]']], :order => "created_at DESC") do |t|
+  list(:entities, :conditions => ["? IN (client_account_id, supplier_account_id)", ['params[:id]']], :order => "created_at DESC") do |t| # , attorney_account_id
     t.column :code, :url => true
     t.column :full_name, :url => true
     t.column :label, :through => :client_account, :url => true
     t.column :label, :through => :supplier_account, :url => true
-    t.column :label, :through => :attorney_account, :url => true
-  end
-
-  # Displays details of one account selected with +params[:id]+
-  def show
-    return unless @account = find_and_check
-    session[:current_account_id] = @account.id
-    t3e @account
+    # t.column :label, :through => :attorney_account, :url => true
   end
 
   def self.account_reconciliation_conditions
@@ -108,7 +101,7 @@ class Backend::AccountsController < BackendController
   end
 
   def mark
-    return unless @account = find_and_check(:account)
+    return unless @account = find_and_check
     if request.post?
       if params[:journal_entry_item]
         letter = @account.mark(params[:journal_entry_item].select{|k,v| v[:to_mark].to_i==1}.collect{|k,v| k.to_i})
@@ -125,7 +118,7 @@ class Backend::AccountsController < BackendController
   end
 
   def unmark
-    return unless @account = find_and_check(:account)
+    return unless @account = find_and_check
     @account.unmark(params[:letter]) if params[:letter]
     redirect_to_current
   end

@@ -30,7 +30,7 @@
 #  id                   :integer          not null, primary key
 #  item_listing_id      :integer
 #  item_listing_node_id :integer
-#  item_nature          :string(8)
+#  item_nature          :string(10)
 #  item_value           :text
 #  key                  :string(255)
 #  label                :string(255)      not null

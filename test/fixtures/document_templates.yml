@@ -21,7 +21,7 @@
 # == Table: document_templates
 #
 #  active       :boolean          not null
-#  archiving    :string(63)       not null
+#  archiving    :string(60)       not null
 #  by_default   :boolean          not null
 #  created_at   :datetime         not null
 #  creator_id   :integer
@@ -31,7 +31,7 @@
 #  lock_version :integer          default(0), not null
 #  managed      :boolean          not null
 #  name         :string(255)      not null
-#  nature       :string(63)       not null
+#  nature       :string(60)       not null
 #  updated_at   :datetime         not null
 #  updater_id   :integer
 #

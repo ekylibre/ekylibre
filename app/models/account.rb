@@ -26,10 +26,10 @@
 #  description  :text
 #  id           :integer          not null, primary key
 #  label        :string(255)      not null
-#  last_letter  :string(8)
+#  last_letter  :string(10)
 #  lock_version :integer          default(0), not null
-#  name         :string(208)      not null
-#  number       :string(16)       not null
+#  name         :string(200)      not null
+#  number       :string(20)       not null
 #  reconcilable :boolean          not null
 #  updated_at   :datetime         not null
 #  updater_id   :integer
@@ -59,9 +59,9 @@ class Account < Ekylibre::Record::Base
   has_many :stocks_products, :class_name => "ProductNature", :foreign_key => :stock_account_id
   has_many :suppliers, :class_name => "Entity", :foreign_key => :supplier_account_id
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_length_of :last_letter, :allow_nil => true, :maximum => 8
-  validates_length_of :number, :allow_nil => true, :maximum => 16
-  validates_length_of :name, :allow_nil => true, :maximum => 208
+  validates_length_of :last_letter, :allow_nil => true, :maximum => 10
+  validates_length_of :number, :allow_nil => true, :maximum => 20
+  validates_length_of :name, :allow_nil => true, :maximum => 200
   validates_length_of :label, :allow_nil => true, :maximum => 255
   validates_inclusion_of :debtor, :reconcilable, :in => [true, false]
   validates_presence_of :label, :name, :number

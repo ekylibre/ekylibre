@@ -26,7 +26,6 @@
 #  delivery_id      :integer          not null
 #  id               :integer          not null, primary key
 #  lock_version     :integer          default(0), not null
-#  move_id          :integer
 #  product_id       :integer          not null
 #  purchase_item_id :integer
 #  quantity         :decimal(19, 4)   default(1.0), not null

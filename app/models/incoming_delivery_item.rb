@@ -26,7 +26,6 @@
 #  delivery_id      :integer          not null
 #  id               :integer          not null, primary key
 #  lock_version     :integer          default(0), not null
-#  move_id          :integer
 #  product_id       :integer          not null
 #  purchase_item_id :integer
 #  quantity         :decimal(19, 4)   default(1.0), not null
@@ -40,7 +39,7 @@ class IncomingDeliveryItem < Ekylibre::Record::Base
   attr_readonly :purchase_item_id, :product_id
   attr_accessor :product_nature_variant_id
   belongs_to :delivery, :class_name => "IncomingDelivery", :inverse_of => :items
-  # belongs_to :price, :class_name => "ProductPrice"
+  # belongs_to :price, :class_name => "CatalogPrice"
   belongs_to :container, :class_name => "Product"
   belongs_to :product
   belongs_to :purchase_item, :class_name => "PurchaseItem"

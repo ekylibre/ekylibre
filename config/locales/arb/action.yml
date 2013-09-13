@@ -99,6 +99,8 @@ arb:
       index: "الخزينة"
       new: "التسجيل لخزينة جديدة"
       show: "%{nature_label} : %{name}"
+    backend/catalog_prices: #?
+    backend/catalogs: #?
     backend/cells/bank_chart_cells: #?
     backend/cells/calendar_cells: #?
     backend/cells/collected_taxes_cells: #?
@@ -172,10 +174,10 @@ arb:
       index: "مهلة" #?
       new: "اضافة مهلة جديدة" #?
       show: "المهلة : %{name}" #?
-    backend/departments:
-      edit: "تعديل الوظيفة : %{name}"
-      index: "الوظائف/المهام"
-      new: "اضافة وظيفة جديدة"
+    backend/departments:  #?
+      edit: "تعديل الوظيفة : %{name}" #?
+      index: "الوظائف/المهام" #?
+      new: "اضافة وظيفة جديدة" #?
     backend/deposits:
       edit: "تعديل اقتطاعات البنك من %{created_on}"
       index: "اقتطاعات البنك"
@@ -539,11 +541,9 @@ arb:
       new: "اضافة منتج جديد"
       show: "المنتجات : %{name}"
     backend/product_ownerships: #?
-    backend/product_price_listings:
-      # index: "Listes de prix"
+    backend/product_price_listings: #?
     backend/product_price_templates: #?
-    backend/product_prices:
-      # index: "Prix des produits"
+    backend/product_prices: #?
     backend/product_process_phases: #?
     backend/product_processes: #?
     backend/product_species: #?
@@ -690,6 +690,7 @@ arb:
       edit: "تعديل الضريبة : %{name}"
       index: "الضرائب"
       new: "اضافة ضريبة جديدة"
+    backend/teams: #?
     backend/tool_natures: #?
     backend/tools:  #?
       edit: "تعديل المادة : %{name}" #?
@@ -747,7 +748,7 @@ arb:
     backend/custom_fields: "الحقول المخصصة"
     # backend/dashboards: "Tableaux de bord"
     backend/delays: "مهلة" #?
-    backend/departments: "الوظائف/المهام"
+    backend/departments: "الوظائف/المهام" #?
     # backend/deposit_items: "Lignes de remise en banque"
     backend/deposits: "اقتطاعات البنك"
     backend/districts: "المناطق الادارية"
@@ -803,8 +804,6 @@ arb:
     backend/product_nature: "المنتجات" #?
     backend/product_nature_categories: "فئات المنتج" #?
     backend/product_natures: "المنتجات"
-    # backend/product_price_listings: "Listes de prix"
-    # backend/product_prices: "Prix des produits"
     backend/product_stocks: "وضع الاسهم" #?
     backend/product_transfers: "عمليات نقل وخسارة الاسهم" #?
     backend/production: "المنتج" #?

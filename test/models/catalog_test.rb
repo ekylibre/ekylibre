@@ -18,27 +18,24 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: inventories
+# == Table: catalogs
 #
-#  accounted_at      :datetime
-#  changes_reflected :boolean
-#  created_at        :datetime         not null
-#  created_on        :date             not null
-#  creator_id        :integer
-#  description       :text
-#  id                :integer          not null, primary key
-#  journal_entry_id  :integer
-#  lock_version      :integer          default(0), not null
-#  moved_on          :date
-#  number            :string(20)
-#  responsible_id    :integer
-#  updated_at        :datetime         not null
-#  updater_id        :integer
+#  all_taxes_included :boolean          not null
+#  by_default         :boolean          not null
+#  code               :string(10)
+#  created_at         :datetime         not null
+#  creator_id         :integer
+#  currency           :string(3)        not null
+#  description        :text
+#  id                 :integer          not null, primary key
+#  lock_version       :integer          default(0), not null
+#  name               :string(255)      not null
+#  updated_at         :datetime         not null
+#  updater_id         :integer
 #
 
 
 require 'test_helper'
 
-class InventoryTest < ActiveSupport::TestCase
-
+class CatalogTest < ActiveSupport::TestCase
 end

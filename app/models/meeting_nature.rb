@@ -29,7 +29,7 @@
 #  name         :string(255)      not null
 #  updated_at   :datetime         not null
 #  updater_id   :integer
-#  usage        :string(64)
+#  usage        :string(60)
 #
 
 
@@ -40,7 +40,7 @@ class MeetingNature < Ekylibre::Record::Base
   enumerize :usage, :in => [:manual, :sale, :purchase, :sales_invoice, :mailing], :defaut => :manual, :predicates => true
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :duration, :allow_nil => true, :only_integer => true
-  validates_length_of :usage, :allow_nil => true, :maximum => 64
+  validates_length_of :usage, :allow_nil => true, :maximum => 60
   validates_length_of :name, :allow_nil => true, :maximum => 255
   validates_inclusion_of :active, :in => [true, false]
   validates_presence_of :name

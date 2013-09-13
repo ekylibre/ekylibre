@@ -256,7 +256,7 @@ Ekylibre::Application.routes.draw do
         post :down
       end
     end
-    resources :departments do
+    resources :teams do
       collection do
         get :list
         get :unroll
@@ -758,7 +758,7 @@ Ekylibre::Application.routes.draw do
       end
     end
 
-    resources :product_price_listings do
+    resources :catalogs do
       collection do
         get :unroll
         get :list
@@ -766,7 +766,7 @@ Ekylibre::Application.routes.draw do
       end
     end
 
-    resources :product_prices do
+    resources :catalog_prices do
       collection do
         get :list
         get :unroll

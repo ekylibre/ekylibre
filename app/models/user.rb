@@ -69,7 +69,7 @@
 class User < Ekylibre::Record::Base
   # attr_accessible :email, :password, :password_confirmation, :remember_me, :first_name, :last_name, :employed
   attr_readonly :person_id
-  belongs_to :department
+  belongs_to :department, :class_name => "Team"
   belongs_to :establishment
   belongs_to :person
   belongs_to :role

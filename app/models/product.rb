@@ -54,7 +54,7 @@
 #  updated_at               :datetime         not null
 #  updater_id               :integer
 #  variant_id               :integer          not null
-#  variety                  :string(127)      not null
+#  variety                  :string(120)      not null
 #  work_number              :string(255)
 #
 
@@ -110,7 +110,7 @@ class Product < Ekylibre::Record::Base
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :picture_file_size, :allow_nil => true, :only_integer => true
   validates_numericality_of :content_maximal_quantity, :allow_nil => true
-  validates_length_of :variety, :allow_nil => true, :maximum => 127
+  validates_length_of :variety, :allow_nil => true, :maximum => 120
   validates_length_of :content_indicator, :content_indicator_unit, :identification_number, :name, :number, :picture_content_type, :picture_file_name, :work_number, :allow_nil => true, :maximum => 255
   validates_inclusion_of :active, :external, :reservoir, :in => [true, false]
   validates_presence_of :content_maximal_quantity, :name, :nature, :number, :owner, :variant, :variety
@@ -198,9 +198,9 @@ class Product < Ekylibre::Record::Base
 
 
   # Returns the price for the product.
-  # It's a shortcut for ProductPrice::give
+  # It's a shortcut for CatalogPrice::give
   def price(options = {})
-    return ProductPrice.price(self, options)
+    return CatalogPrice.price(self, options)
   end
 
   # Add an operation for the product

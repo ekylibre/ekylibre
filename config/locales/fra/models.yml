@@ -23,8 +23,6 @@ fra:
         content_maximal_quantity: "Quantité maximale supportée"
         content_nature: "Type de Produit contenu"
         variety: "Type"
-      deposit:
-        amount: "Montant"
       document:
         filename: "Fichier"
       document_template:
@@ -75,12 +73,9 @@ fra:
         place: "Lieu"
       meeting_nature:
         duration: "Durée par défaut (en min.)"
-      operation:
-        consumption: "Consommation"
       outgoing_delivery:
         items: "Lignes de livraison"
       outgoing_payment:
-        amount: "Montant"
         delivered: "Remis au bénéficiaire"
       outgoing_payment_mode:
         payments: "Décaissements"
@@ -89,18 +84,12 @@ fra:
         nature: "Nature de la culture"
         reproductor: "Multiplication"
         variety: "Variété"
-      procedure:
-        provisional: "Prévisionnel"
-      product_indicator_datum:
-        indicator: "Indicateur"
       product_localization:
         arrival_cause: "Cause d’entrée"
         container: "Contenant"
         departure_cause: "Cause de sortie"
         started_at: "Entrée"
         stopped_at: "Sortie"
-      product_move:
-        origin: "Origine"
       product_nature:
         abilities: "Compétences"
         asset_account: "Compte d’immobilisation"
@@ -116,21 +105,9 @@ fra:
         stock_account: "Compte de stock"
         storable: "Stockable"
         subscribing: "Abonnement ?"
-      product_nature_category:
-        children: "Sous-catégories"
-        published: "Publiée"
       product_nature_variant:
-        contour: "contour de la forme"
-        horizontal_rotation: "rotation horizontale de la forme"
-        purchase_indicator: "Indicateur d'achat"
-        purchase_indicator_unit: "Unité d'achat"
-        sale_indicator: "Indicateur de vente"
-        sale_indicator_unit: "Unité de vente"
-        usage_indicator: "Indicateur d'usage"
-        usage_indicator_unit: "Unité d'usage"
-      product_price_template:
-        amount: "Montant TTC"
-        listing: " associée"
+        contour: "Contour de la forme"
+        horizontal_rotation: "Rotation horizontale de la forme"
       product_transfer:
         building: "Lieu de stockage de départ"
         second_building: "Lieu de stockage d’arrivée"
@@ -139,8 +116,6 @@ fra:
         static_support: "Support de production"
       production_support:
         storage: "Support"
-      profession:
-        employees: "Employés"
       purchase:
         amount: "Montant TTC"
         items: "Lignes d’achat"
@@ -154,31 +129,19 @@ fra:
         contact: "Adresse pour le devis"
         has_downpayment: "Acompte à verser"
         items: "Lignes de vente"
-        parts_amount: "Montant payé"
-        payments: "Encaissements"
       sale_item:
         amount: "Montant TTC"
         label: "Produit"
         price: "Prix"
       sale_nature:
         downpayment: "Avec acompte"
-      subscription:
-        entity: "Abonné"
       tax:
         amount: "Valeur"
-        collected_taxes: "collectée"
-        paid_taxes: "déductible"
       tax_declaration:
         address: "Adresse du service destinataire"
         amount: "TVA totale"
         nature: "Régime de la déclaration"
         period: "Période"
-      tracking:
-        active: "Utilisé"
-      transfer:
-        amount: "Montant"
-      unit:
-        start: "Valeur à l’origine"
       user:
         locked: "Compte verrouillé"
         maximal_grantable_reduction_percentage: "Taux de réduction autorisé (%)"
@@ -257,12 +220,6 @@ fra:
           unvalid_amounts: "L’écriture doit être renseignée soit au débit, soit au crédit mais pas les deux en même temps."
         outgoing_delivery_item:
           greater_than_undelivered_quantity: "La quantité de produit %{product} à livrer dépasse la quantité non livrée (%{maximum}%{unit})"
-        product_nature_price:
-          already_defined: "Un prix a déjà été défini pour cette liste de prix et ce produit"
-          range_overlap: "L’intervalle de quantité en chevauche un autre (de %{min} à %{max})"
-        product_price_template:
-          already_defined: "Un prix a déjà été défini pour cette liste de prix et ce produit"
-          range_overlap: "L’intervalle de quantité en chevauche un autre (de %{min} à %{max})"
         product_stock:
           product_cannot_be_in_building: "Le produit ne peut pas être stocké dans le réservoir %{building}"
         product_transfer:
@@ -315,10 +272,11 @@ fra:
       campaign: "Campagne"
       cash: "Trésorerie"
       cash_transfer: "Virement interne"
+      catalog: "Liste de prix"
+      catalog_price: "Prix"
       cultivable_land_parcel: "Parcelle culturale"
       custom_field: "Champ complémentaire"
       custom_field_choice: "Choix de champ complémentaire"
-      department: "Service"
       deposit: "Remise en banque"
       deposit_item: "Ligne de remise en banque"
       district: "Zone administrative"
@@ -379,18 +337,15 @@ fra:
       procedure_variable: "Variable de procédure"
       product: "Produits"
       product_group: "Groupe de produit"
-      product_indicator_datum: "Valeur d'indicateur"
+      product_indicator_datum: "Valeur d’indicateur"
       product_link: "Lien entre produits"
       product_localization: "Passage d’un produit en un lieu"
       product_membership: "Passage d’un produit dans un groupe"
       product_move: "Mouvement de stock"
       product_nature: "Type de produit"
       product_nature_variant: "Variante de type de produit"
-      # product_nature_variant_indicator_datum: "Product nature variant indicator datum"
-      # product_ownership: "Product ownership"
-      product_price: "Prix"
-      product_price_listing: "Liste de prix"
-      product_price_template: "Type de prix" #?
+      product_nature_variant_indicator_datum: "Valeur d’indicateur de variante"
+      product_ownership: "Propriété de produit"
       product_process: "Processus"
       product_process_phase: "Phase de processus"
       production: "Production"
@@ -412,6 +367,7 @@ fra:
       subscription_nature: "Type d’abonnement"
       tax: "Taxe"
       tax_declaration: "Déclaration de taxes"
+      team: "Service"
       tracking: "Lot traçable"
       transfer: "Transfert"
       transport: "Transport"
@@ -429,7 +385,7 @@ fra:
     accountable: "Comptabilisable"
     accounted_at: "Date comptabilisation"
     acquisition_amount: "Montant des acquisition"
-    active: "Utilisable"
+    active: "Actif"
     # active_prices: "Active prices"
     activity: "Activité"
     activity_code: "Code APE/NAF"
@@ -442,6 +398,7 @@ fra:
     # affectation_percentage: "Affectation percentage"
     affected_on: "Affecté le"
     age: "Âge" #?
+    all_taxes_included: "All taxes included"
     allocation_account: "Compte de dotation"
     amount: "Montant"
     amounts_scale: "Nombre de chiffres après le virgule" #?
@@ -460,8 +417,8 @@ fra:
     asset_depreciations: "Dépréciations d’immobilisation"
     assets: "Immobilisations" #?
     assimilated_taxes_amount: "Montant des taxes assimilées"
-    attorney: "Mandataire"
-    attorney_account: "Compte mandataire"
+    attorney: "Mandataire" #?
+    attorney_account: "Compte mandataire" #?
     attorney_journal: "Journal mandataire"
     attorneys: "Mandataires"
     attribute_name: "Nom de l’attribut"
@@ -485,7 +442,7 @@ fra:
     boolean_value: "Valeur booléenne"
     born_at: "Né(e) le"
     born_on: "Date de naissance"
-    building: "Lieu de stockage"
+    building: "Lieu de stockage" #?
     buildings: "Lieux de stockage"
     by_default: "Par défaut"
     campaign: "Campagne"
@@ -497,6 +454,7 @@ fra:
     cash_transfers: "Virements internes" #?
     cashes: "Trésoreries"
     cashes_accounts: "Comptes de caisse" #?
+    # catalog: "Catalog"
     catalog_description: "Description pour le catalogue" #?
     catalog_name: "Nom pour le catalogue" #?
     category: "Catégorie" #?
@@ -523,8 +481,7 @@ fra:
     closed_on: "Date de clôture"
     code: "Code"
     coefficient: "Coefficient"
-    # collect_account: "Collect account"
-    collected_account: "TVA collectée" #?
+    collect_account: "TVA collectée"
     collected_amount: "TVA brute"
     collected_taxes: "TVA collectées"
     color: "Couleur" #?
@@ -565,6 +522,7 @@ fra:
     creator: "Créateur"
     credit: "Crédit"
     credit_lines: "Lignes d’avoir" #?
+    # credited_item: "Credited item"
     credited_quantity: "Quantité déjà passée en avoir"
     credits: "Avoirs"
     critic_quantity_min: "Quantité minimum critique" #?
@@ -592,7 +550,7 @@ fra:
     decimal: "Decimal" #?
     decimal_value: "Valeur décimale"
     declared_on: "Déclarée le"
-    # deduction_account: "Deduction account"
+    deduction_account: "TVA déductible"
     default_mail_address: "Adresse email par défaut"
     # default_variant: "Default variant"
     deferred_payment: "Crédit à reporter"
@@ -630,7 +588,7 @@ fra:
     diff_more: "Droits rajoutés"
     direct_links: "Liens directs"
     direction: "Type" #?
-    discount_percentage: "Pourcentage d’escompte"
+    discount_percentage: "Pourcentage d’escompte" #?
     district: "Zone administrative"
     document: "Document"
     document_archives: "Archives documentaires"
@@ -644,11 +602,11 @@ fra:
     duration: "Durée"
     email: "Courriel (e-mail)"
     emails: "Courriels (e-mails)"
-    emitter_amount: "Montant émis"
-    emitter_cash: "Trésorerie émettrice"
-    emitter_currency: "Devise émise"
-    emitter_currency_rate: "Taux de la devise émise" #?
-    emitter_journal_entry: "Écriture de l’émission"
+    emission_amount: "Montant émis"
+    emission_cash: "Trésorerie émettrice"
+    emission_currency: "Devise émise"
+    emission_currency_rate: "Taux de la devise émise" #?
+    emission_journal_entry: "Écriture de l’émission"
     employed: "Employé par la société"
     employees: "employés"
     employment: "Emploi/Rôle"
@@ -926,7 +884,7 @@ fra:
     pretax_amount: "Montant HT"
     pretax_amount_generation: "Pretax amount generation" #?
     price: "Prix"
-    price_amount: "Montant HT"
+    price_amount: "Montant HT" #?
     # price_templates: "Price templates"
     prices: "Prix"
     printed_on: "Datée du"
@@ -959,6 +917,7 @@ fra:
     purchase_invoices: "Factures d’achats"
     purchase_item: "Ligne d’achat"
     purchase_items: "Lignes d’achat"
+    # purchase_taxes: "Purchase taxes"
     purchased_on: "Acheté le"
     purchases: "Achats"
     purchases_products: "Produits d’achat"
@@ -971,16 +930,18 @@ fra:
     receipt: "Reçu électronique"
     received: "Reçue"
     received_at: "Reçu le"
-    receiver_amount: "Montant reçu"
-    receiver_cash: "Trésorerie réceptrice"
-    receiver_journal_entry: "Écriture de la réception"
+    reception_amount: "Montant reçu"
+    reception_cash: "Trésorerie réceptrice"
+    reception_currency: "Reception currency"
+    reception_journal_entry: "Écriture de la réception"
     recipient: "Destinataire"
     reconcilable: "Lettrable"
     record_value: "Enregistrement"
     record_value_type: "Type d’enregistrement"
+    # reduced_item: "Reduced item"
     reductible: "Soumis à réduction"
     reduction: "Ligne de réduction"
-    reduction_origin: "Ligne soumise à réduction"
+    reduction_origin: "Ligne soumise à réduction" #?
     reduction_percentage: "Pourcentage de réduction"
     reductions: "Lignes de réductions"
     reference_number: "N°Référence"
@@ -1006,11 +967,13 @@ fra:
     root_model: "Racine"
     root_model_name: "Racine"
     sale: "Vente"
+    sale_catalog: "Sale catalog"
     sale_indicator: "Indicateur de vente" #?
     sale_indicator_unit: "Unité de l'indicateur de vente" #?
     sale_item: "Ligne de vente"
     sale_items: "Lignes de vente"
-    sale_price_listing: "Sale price listing"
+    sale_price_listing: "Sale price listing" #?
+    # sale_taxes: "Sale taxes"
     saleable: "Vendable"
     sales: "Ventes"
     sales_conditions: "Conditions Générales de Vente"
@@ -1024,7 +987,7 @@ fra:
     sex: "Sexe" #?
     sign_in_count: "Nombre de connexions"
     siren: "N° SIREN"
-    soundex: "Soundex"
+    soundex: "Soundex" #?
     source: "Source"
     spaced_iban: "IBAN"
     sql_type: "Type SQL"
@@ -1065,13 +1028,15 @@ fra:
     tax: "Taxe"
     template: "Modèle"
     theoric_quantity: "Quantité théorique"
+    thread: "Thread"
     title: "Titre"
     to: "Pour"
     to_bank_on: "À décaisser le"
     tool: "Outil"
     tracking: "Lot"
-    tracking_serial: "Numéro de lot"
+    tracking_serial: "Numéro de lot" #?
     trackings: "Lots traçables"
+    # transfered_on: "Transfered on"
     transfers: "Transferts"
     transport: "Transport"
     transport_on: "Transport le"
@@ -1083,6 +1048,7 @@ fra:
     undelivered_quantity: "Reste à livrer"
     unit: "Unité"
     # unit_name: "Unit name"
+    unit_price_amount: "Unit price amount"
     # unlock_token: "Unlock token"
     unlocked_payments: "Paiement non verrouillés"
     unpaid_sales: "Ventes impayées"
@@ -1106,7 +1072,7 @@ fra:
     vat_subjected: "Assujetti à la TVA"
     # verb: "Verb"
     waiting_deliveries: "Livraisons en attente"
-    webpass: "Mot de passe web"
+    webpass: "Mot de passe web" #?
     websites: "Sites web"
     weight: "Poids (kg)"
     with_accounting: "Passer en comptabilité"
@@ -1367,7 +1333,10 @@ fra:
     account:
       label: "%{number} - %{name}"
     cash_transfer:
-      bookkeep: "[%{resource} %{number}] De %{emitter} à %{receiver} %{description}"
+      bookkeep: "[%{resource} %{number}] De %{emission} à %{reception} %{description}"
+    catalog:
+      default:
+        name: "Par défaut"
     deposit:
       bookkeep:
         one: "[%{resource} %{number}] %{count} encaissement %{mode} %{description}"
@@ -1388,6 +1357,8 @@ fra:
       no_right_defined_for_this_part_of_the_application: "Aucun droit défini pour cette partie de l’application\_: %{controller}/%{action}"
       no_right_defined_for_this_part_of_the_application_and_this_user: "Vous n’avez pas accès à cette partie de l’application"
       supplier: "Fournisseur"
+    establishment:
+      default: "Principal"
     financial_year:
       bookkeep: "[%{resource} %{number}] Amortissement de %{name} (%{position}/%{total})"
       code:
@@ -1495,13 +1466,6 @@ fra:
         purchases: "Achat"
         rent: "Location"
         sales: "Vente"
-    product_price_listing:
-      default:
-        name: "Par défaut"
-    product_price_template: #?
-      label: "%{product} / %{amount} %{currency}" #?
-      no_range: "Pas d’intervalle" #?
-      range: "De %{min} à %{max}"
     production:
       bookkeep: "[%{resource} %{number}] %{products} pour %{client} (%{sale})"
       label:
@@ -1568,68 +1532,21 @@ fra:
         name: "Vente standard"
     sequence:
       default:
-        assets:
-          number_format: "I[number|7]"
-        cash_transfers:
-          number_format: "VI[year|4][number|4]"
-          period: "year"
-        deposits:
-          number_format: "B[year|4][number|4]"
-          period: "year"
-        entities:
-          number_format: "[number|8]"
-        incoming_deliveries:
-          number_format: "BR[year|4][number|4]"
-          period: "year"
-        incoming_payments:
-          number_format: "R[year|4][number|6]"
-          period: "year"
-        outgoing_deliveries:
-          number_format: "BL[year|4][number|6]"
-          period: "year"
-        outgoing_payments:
-          number_format: "D[year|4][number|4]"
-          period: "year"
-        products:
-          number_format: "P[number|11]"
-        purchases:
-          number_format: "A[year|4][month|2][number|6]"
-          period: "month"
-        sales:
-          number_format: "V[year|4][month|2][number|6]"
-          period: "month"
-        sales_invoices:
-          number_format: "F[year|4][number|6]"
-          period: "year"
-        stock_transfers:
-          number_format: "TS[year|4][number|4]"
-          period: "year"
-        subscriptions:
-          number_format: "ABO[number|8]"
-        transports:
-          number_format: "TR[number|8]"
-    tax:
-      default:
-        tva0000:
-          amount: "0.0"
-          collected: "445710"
-          name: "TVA 0,00%"
-          paid: "445660"
-        tva0210:
-          amount: "2.1"
-          collected: "445711"
-          name: "TVA 2,10%"
-          paid: "445661"
-        tva0550:
-          amount: "5.5"
-          collected: "445712"
-          name: "TVA 5,50%"
-          paid: "445662"
-        tva1960:
-          amount: "19.6"
-          collected: "445713"
-          name: "TVA 19,60%"
-          paid: "445663"
+        assets: "I[number|7]"
+        cash_transfers: "VI[year|4][number|4]"
+        deposits: "B[year|4][number|4]"
+        entities: "[number|8]"
+        incoming_deliveries: "BR[year|4][number|4]"
+        incoming_payments: "R[year|4][number|6]"
+        outgoing_deliveries: "BL[year|4][number|6]"
+        outgoing_payments: "D[year|4][number|4]"
+        products: "P[number|11]"
+        purchases: "A[year|4][month|2][number|6]"
+        sales: "V[year|4][month|2][number|6]"
+        sales_invoices: "F[year|4][number|6]"
+        stock_transfers: "TS[year|4][number|4]"
+        subscriptions: "ABO[number|8]"
+        transports: "TR[number|8]"
     tax_declaration:
       deferment: "Reporté"
       monthly: "Mensuelle"
@@ -1639,3 +1556,5 @@ fra:
       quarterly: "Trimestrielle"
       simplified: "Réel simplifié"
       yearly: "Annuelle"
+    team:
+      default: "Général"

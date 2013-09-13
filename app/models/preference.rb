@@ -28,7 +28,7 @@
 #  integer_value     :integer
 #  lock_version      :integer          default(0), not null
 #  name              :string(255)      not null
-#  nature            :string(8)        not null
+#  nature            :string(10)       not null
 #  record_value_id   :integer
 #  record_value_type :string(255)
 #  string_value      :text
@@ -51,7 +51,7 @@ class Preference < Ekylibre::Record::Base
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :integer_value, :allow_nil => true, :only_integer => true
   validates_numericality_of :decimal_value, :allow_nil => true
-  validates_length_of :nature, :allow_nil => true, :maximum => 8
+  validates_length_of :nature, :allow_nil => true, :maximum => 10
   validates_length_of :name, :record_value_type, :allow_nil => true, :maximum => 255
   validates_presence_of :name, :nature
   #]VALIDATORS]

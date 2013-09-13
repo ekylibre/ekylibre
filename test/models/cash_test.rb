@@ -26,9 +26,8 @@
 #  bank_agency_address  :text
 #  bank_agency_code     :string(255)
 #  bank_code            :string(255)
-#  bank_identifier_code :string(16)
+#  bank_identifier_code :string(11)
 #  bank_name            :string(50)
-#  by_default           :boolean          not null
 #  country              :string(2)
 #  created_at           :datetime         not null
 #  creator_id           :integer
@@ -39,8 +38,8 @@
 #  lock_version         :integer          default(0), not null
 #  mode                 :string(255)      default("iban"), not null
 #  name                 :string(255)      not null
-#  nature               :string(16)       default("bank_account"), not null
-#  spaced_iban          :string(48)
+#  nature               :string(20)       default("bank_account"), not null
+#  spaced_iban          :string(42)
 #  updated_at           :datetime         not null
 #  updater_id           :integer
 #

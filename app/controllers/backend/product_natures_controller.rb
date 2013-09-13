@@ -55,7 +55,7 @@ class Backend::ProductNaturesController < BackendController
 
 
 
-  #list(:prices, :model => :product_prices, :conditions => {:variant_id => ['session[:product_nature_id]'], :active => true}) do |t|
+  #list(:prices, :model => :catalog_prices, :conditions => {:variant_id => ['session[:product_nature_id]'], :active => true}) do |t|
     #t.column :name, :through => :supplier, :url => true
     #t.column :name, :through => :listing, :url => true
     #t.column :assignment_pretax_amount, :currency  =>  true

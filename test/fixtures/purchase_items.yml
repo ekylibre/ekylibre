@@ -25,23 +25,21 @@
 #  annotation        :text
 #  created_at        :datetime         not null
 #  creator_id        :integer
+#  currency          :string(3)
 #  id                :integer          not null, primary key
+#  indicator         :string(120)      not null
+#  label             :text
 #  lock_version      :integer          default(0), not null
 #  position          :integer
 #  pretax_amount     :decimal(19, 4)   default(0.0), not null
-#  price_amount      :decimal(19, 4)   not null
 #  price_id          :integer          not null
-#  price_template_id :integer
-#  product_id        :integer          not null
 #  purchase_id       :integer          not null
 #  quantity          :decimal(19, 4)   default(1.0), not null
 #  tax_id            :integer          not null
-#  tracking_id       :integer
-#  tracking_serial   :string(255)
-#  unit              :string(255)
+#  unit_price_amount :decimal(19, 4)   not null
 #  updated_at        :datetime         not null
 #  updater_id        :integer
-#  warehouse_id      :integer
+#  variant_id        :integer          not null
 #
 #
 # == Fixture: purchase_items
@@ -52,16 +50,18 @@
 #   created_at: 2009-07-19 19:13:59 +02:00
 #   creator_id: 1
 #   id: 1
+#   indicator: "Lorem ipsum"
 #   pretax_amount: 0
-#   price_amount: 0
 #   price_id: 1
-#   product_id: 1
 #   purchase_id: 1
 #   quantity: 0
 #   tax_id: 1
+#   unit_price_amount: 0
 #   updated_at: 2009-07-19 19:13:59 +02:00
 #   updater_id: 1
+#   variant_id: 1
 #
+
 purchase_items_001:
   account_id: 1
   amount: 10
@@ -69,13 +69,13 @@ purchase_items_001:
   created_at: 2009-07-19 19:13:59 +02:00
   creator_id: 1
   id: 1
+  indicator: 'population'
   purchase_id: 1
-  price_amount: 5
+  unit_price_amount: 5
   price_id: 5
-  product_id: 1
+  variant_id: 1
   quantity: 1
   tax_id: 1
-  unit: "unity"
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
 
@@ -86,13 +86,13 @@ purchase_items_002:
   created_at: 2009-07-19 19:13:59 +02:00
   creator_id: 1
   id: 2
+  indicator: 'population'
   purchase_id: 1
-  price_amount: 5
+  unit_price_amount: 5
   price_id: 5
-  product_id: 1
+  variant_id: 1
   quantity: 2
   tax_id: 1
-  unit: "unity"
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
 
@@ -103,16 +103,15 @@ purchase_items_003:
   created_at: 2009-07-19 19:13:59 +02:00
   creator_id: 1
   id: 3
+  indicator: 'population'
   purchase_id: 2
-  price_amount: 5
+  unit_price_amount: 5
   price_id: 5
-  product_id: 1
+  variant_id: 1
   quantity: 3
   tax_id: 1
-  unit: "unity"
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
-
 
 purchase_items_004:
   account_id: 1
@@ -121,16 +120,15 @@ purchase_items_004:
   created_at: 2009-07-19 19:13:59 +02:00
   creator_id: 1
   id: 4
+  indicator: 'population'
   purchase_id: 3
-  price_amount: 5
+  unit_price_amount: 5
   price_id: 5
-  product_id: 1
+  variant_id: 1
   quantity: 7
   tax_id: 1
-  unit: "unity"
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
-
 
 purchase_items_005:
   account_id: 1
@@ -139,12 +137,12 @@ purchase_items_005:
   created_at: 2009-07-19 19:13:59 +02:00
   creator_id: 1
   id: 5
+  indicator: 'population'
   purchase_id: 3
-  price_amount: 5
+  unit_price_amount: 5
   price_id: 5
-  product_id: 1
+  variant_id: 1
   quantity: 9
   tax_id: 1
-  unit: "unity"
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1

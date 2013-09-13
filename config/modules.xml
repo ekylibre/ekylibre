@@ -677,13 +677,13 @@
         <page to="backend/custom_field_choices#update"/>
       </item>
       <item name="departments">
-        <page to="backend/departments#index"/>
-        <page to="backend/departments#create"/>
-        <page to="backend/departments#destroy"/>
-        <page to="backend/departments#edit"/>
-        <page to="backend/departments#list"/>
-        <page to="backend/departments#new"/>
-        <page to="backend/departments#update"/>
+        <page to="backend/departments#index" deletable="true"/>
+        <page to="backend/departments#create" deletable="true"/>
+        <page to="backend/departments#destroy" deletable="true"/>
+        <page to="backend/departments#edit" deletable="true"/>
+        <page to="backend/departments#list" deletable="true"/>
+        <page to="backend/departments#new" deletable="true"/>
+        <page to="backend/departments#update" deletable="true"/>
       </item>
       <item name="establishments">
         <page to="backend/establishments#index"/>
@@ -876,28 +876,28 @@
         <page to="backend/product_nature_variants#update"/>
       </item>
       <item name="product_price_listings">
-        <page to="backend/product_price_listings#index"/>
-        <page to="backend/product_price_listings#create"/>
-        <page to="backend/product_price_listings#destroy"/>
-        <page to="backend/product_price_listings#edit"/>
-        <page to="backend/product_price_listings#list_templates"/>
-        <page to="backend/product_price_listings#list"/>
-        <page to="backend/product_price_listings#list_prices"/>
-        <page to="backend/product_price_listings#new"/>
-        <page to="backend/product_price_listings#show"/>
-        <page to="backend/product_price_listings#update"/>
+        <page to="backend/product_price_listings#index" deletable="true"/>
+        <page to="backend/product_price_listings#create" deletable="true"/>
+        <page to="backend/product_price_listings#destroy" deletable="true"/>
+        <page to="backend/product_price_listings#edit" deletable="true"/>
+        <page to="backend/product_price_listings#list_templates" deletable="true"/>
+        <page to="backend/product_price_listings#list" deletable="true"/>
+        <page to="backend/product_price_listings#list_prices" deletable="true"/>
+        <page to="backend/product_price_listings#new" deletable="true"/>
+        <page to="backend/product_price_listings#show" deletable="true"/>
+        <page to="backend/product_price_listings#update" deletable="true"/>
       </item>
       <item name="product_prices">
-        <page to="backend/product_prices#index"/>
-        <page to="backend/product_prices#create"/>
-        <page to="backend/product_prices#destroy"/>
-        <page to="backend/product_prices#edit"/>
-        <page to="backend/product_prices#export"/>
-        <page to="backend/product_prices#find"/>
-        <page to="backend/product_prices#import"/>
-        <page to="backend/product_prices#list"/>
-        <page to="backend/product_prices#new"/>
-        <page to="backend/product_prices#update"/>
+        <page to="backend/product_prices#index" deletable="true"/>
+        <page to="backend/product_prices#create" deletable="true"/>
+        <page to="backend/product_prices#destroy" deletable="true"/>
+        <page to="backend/product_prices#edit" deletable="true"/>
+        <page to="backend/product_prices#export" deletable="true"/>
+        <page to="backend/product_prices#find" deletable="true"/>
+        <page to="backend/product_prices#import" deletable="true"/>
+        <page to="backend/product_prices#list" deletable="true"/>
+        <page to="backend/product_prices#new" deletable="true"/>
+        <page to="backend/product_prices#update" deletable="true"/>
       </item>
     </group>
     <group name="stocks" icon="truck">
@@ -1024,6 +1024,23 @@
       </item>
       <item name="buildings">
         <page to="backend/buildings#list_building_division"/>
+      </item>
+      <item name="catalog_prices">
+        <page to="backend/catalog_prices#create"/>
+        <page to="backend/catalog_prices#destroy"/>
+        <page to="backend/catalog_prices#edit"/>
+        <page to="backend/catalog_prices#list"/>
+        <page to="backend/catalog_prices#new"/>
+        <page to="backend/catalog_prices#update"/>
+      </item>
+      <item name="catalogs">
+        <page to="backend/catalogs#create"/>
+        <page to="backend/catalogs#destroy"/>
+        <page to="backend/catalogs#edit"/>
+        <page to="backend/catalogs#list"/>
+        <page to="backend/catalogs#list_prices"/>
+        <page to="backend/catalogs#new"/>
+        <page to="backend/catalogs#update"/>
       </item>
       <item name="bank_chart_cells">
         <page to="backend/cells/bank_chart_cells#show"/>
@@ -1268,9 +1285,6 @@
         <page to="backend/product_ownerships#show"/>
         <page to="backend/product_ownerships#update"/>
       </item>
-      <item name="product_prices">
-        <page to="backend/product_prices#show"/>
-      </item>
       <item name="product_process_phases">
         <page to="backend/product_process_phases#index"/>
         <page to="backend/product_process_phases#create"/>
@@ -1334,6 +1348,15 @@
       </item>
       <item name="snippets">
         <page to="backend/snippets#toggle"/>
+      </item>
+      <item name="teams">
+        <page to="backend/teams#index"/>
+        <page to="backend/teams#create"/>
+        <page to="backend/teams#destroy"/>
+        <page to="backend/teams#edit"/>
+        <page to="backend/teams#list"/>
+        <page to="backend/teams#new"/>
+        <page to="backend/teams#update"/>
       </item>
       <item name="public">
         <page to="public#index"/>

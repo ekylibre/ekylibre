@@ -22,6 +22,7 @@
 #
 #  amount               :decimal(19, 4)   default(0.0), not null
 #  collect_account_id   :integer
+#  computation_method   :string(20)       not null
 #  created_at           :datetime         not null
 #  creator_id           :integer
 #  deduction_account_id :integer
@@ -30,8 +31,7 @@
 #  included             :boolean          not null
 #  lock_version         :integer          default(0), not null
 #  name                 :string(255)      not null
-#  nature               :string(16)       not null
-#  nomen                :string(127)
+#  nomen                :string(120)
 #  reductible           :boolean          default(TRUE), not null
 #  updated_at           :datetime         not null
 #  updater_id           :integer

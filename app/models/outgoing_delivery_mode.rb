@@ -20,7 +20,7 @@
 #
 # == Table: outgoing_delivery_modes
 #
-#  code           :string(8)        not null
+#  code           :string(10)       not null
 #  created_at     :datetime         not null
 #  creator_id     :integer
 #  description    :text
@@ -37,7 +37,7 @@ class OutgoingDeliveryMode < Ekylibre::Record::Base
   # attr_accessible :name, :code, :description, :with_transport
   has_many :deliveries, :foreign_key => :mode_id, :class_name => "OutgoingDelivery", :inverse_of => :mode
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_length_of :code, :allow_nil => true, :maximum => 8
+  validates_length_of :code, :allow_nil => true, :maximum => 10
   validates_length_of :name, :allow_nil => true, :maximum => 255
   validates_inclusion_of :with_transport, :in => [true, false]
   validates_presence_of :code, :name

@@ -30,8 +30,7 @@ jpn:
       campaign: #?
       cash: #?
       company: #?
-      deposit:
-        # amount: "Montant"
+      deposit: #?
       document:
         # filename: "Fichier"
       document_template:
@@ -89,12 +88,10 @@ jpn:
         # place: "Lieu"
       meeting_nature:
         # duration: "Durée par défaut (en min.)"
-      operation:
-        # consumption: "Consommation"
+      operation: #?
       outgoing_delivery:
         # items: "Lignes de livraison"
       outgoing_payment:
-        # amount: "Montant"
         # delivered: "Remis au bénéficiaire"
       outgoing_payment_mode:
         # payments: "Décaissements"
@@ -105,20 +102,17 @@ jpn:
         # reproductor: "Multiplication"
         # variety: "Variété"
       price: #?
-      procedure:
-        # provisional: "Prévisionnel"
+      procedure: #?
       product: #?
       product_category: #?
-      product_indicator_datum:
-        # indicator: "Indicateur"
+      product_indicator_datum: #?
       product_localization:
         # arrival_cause: "Cause d’entrée"
         # container: "Contenant"
         # departure_cause: "Cause de sortie"
         # started_at: "Entrée"
         # stopped_at: "Sortie"
-      product_move:
-        # origin: "Origine"
+      product_move: #?
       product_nature:
         # abilities: "Compétences"
         # asset_account: "Compte d’immobilisation"
@@ -134,22 +128,12 @@ jpn:
         # stock_account: "Compte de stock"
         # storable: "Stockable"
         # subscribing: "Abonnement ?"
-      product_nature_category:
-        # children: "Sous-catégories"
-        # published: "Publiée"
+      product_nature_category: #?
       product_nature_price: #?
       product_nature_variant:
-        # contour: "contour de la forme"
-        # horizontal_rotation: "rotation horizontale de la forme"
-        # purchase_indicator: "Indicateur d'achat"
-        # purchase_indicator_unit: "Unité d'achat"
-        # sale_indicator: "Indicateur de vente"
-        # sale_indicator_unit: "Unité de vente"
-        # usage_indicator: "Indicateur d'usage"
-        # usage_indicator_unit: "Unité d'usage"
-      product_price_template:
-        # amount: "Montant TTC"
-        # listing: " associée"
+        # contour: "Contour de la forme"
+        # horizontal_rotation: "Rotation horizontale de la forme"
+      product_price_template: #?
       product_specy: #?
       product_stock: #?
       product_stock_move: #?
@@ -163,8 +147,7 @@ jpn:
       production_support:
         # storage: "Support"
       products_nature: #?
-      profession:
-        # employees: "Employés"
+      profession: #?
       purchase:
         # amount: "Montant TTC"
         # items: "Lignes d’achat"
@@ -179,8 +162,6 @@ jpn:
         # contact: "Adresse pour le devis"
         # has_downpayment: "Acompte à verser"
         # items: "Lignes de vente"
-        # parts_amount: "Montant payé"
-        # payments: "Encaissements"
       sale_item:
         # amount: "Montant TTC"
         # label: "Produit"
@@ -193,24 +174,18 @@ jpn:
       stock: #?
       stock_move: #?
       stock_transfer: #?
-      subscription:
-        # entity: "Abonné"
+      subscription: #?
       tax:
         # amount: "Valeur"
-        # collected_taxes: "collectée"
-        # paid_taxes: "déductible"
       tax_declaration:
         # address: "Adresse du service destinataire"
         # amount: "TVA totale"
         # nature: "Régime de la déclaration"
         # period: "Période"
       tool: #?
-      tracking:
-        # active: "Utilisé"
-      transfer:
-        # amount: "Montant"
-      unit:
-        # start: "Valeur à l’origine"
+      tracking: #?
+      transfer: #?
+      unit: #?
       user:
         # locked: "Compte verrouillé"
         # maximal_grantable_reduction_percentage: "Taux de réduction autorisé (%)"
@@ -295,12 +270,8 @@ jpn:
           # greater_than_undelivered_quantity: "La quantité de produit %{product} à livrer dépasse la quantité non livrée (%{maximum}%{unit})"
         outgoing_delivery_line: #?
         price: #?
-        product_nature_price:
-          # already_defined: "Un prix a déjà été défini pour cette liste de prix et ce produit"
-          # range_overlap: "L’intervalle de quantité en chevauche un autre (de %{min} à %{max})"
-        product_price_template:
-          # already_defined: "Un prix a déjà été défini pour cette liste de prix et ce produit"
-          # range_overlap: "L’intervalle de quantité en chevauche un autre (de %{min} à %{max})"
+        product_nature_price: #?
+        product_price_template: #?
         product_stock:
           # product_cannot_be_in_building: "Le produit ne peut pas être stocké dans le réservoir %{building}"
         product_transfer:
@@ -355,11 +326,12 @@ jpn:
       # campaign: "Campagne"
       # cash: "Trésorerie"
       # cash_transfer: "Virement interne"
+      # catalog: "Liste de prix"
+      # catalog_price: "Prix"
       company: "会社" #?
       # cultivable_land_parcel: "Parcelle culturale"
       # custom_field: "Champ complémentaire"
       # custom_field_choice: "Choix de champ complémentaire"
-      # department: "Service"
       # deposit: "Remise en banque"
       # deposit_item: "Ligne de remise en banque"
       # district: "Zone administrative"
@@ -420,16 +392,15 @@ jpn:
       # procedure_variable: "Variable de procédure"
       # product: "Produits"
       # product_group: "Groupe de produit"
-      # product_indicator_datum: "Valeur d'indicateur"
+      # product_indicator_datum: "Valeur d’indicateur"
       # product_link: "Lien entre produits"
       # product_localization: "Passage d’un produit en un lieu"
       # product_membership: "Passage d’un produit dans un groupe"
       # product_move: "Mouvement de stock"
       # product_nature: "Type de produit"
       # product_nature_variant: "Variante de type de produit"
-      # product_price: "Prix"
-      # product_price_listing: "Liste de prix"
-      # product_price_template: "Type de prix"
+      # product_nature_variant_indicator_datum: "Valeur d’indicateur de variante"
+      # product_ownership: "Propriété de produit"
       # product_process: "Processus"
       # product_process_phase: "Phase de processus"
       # production: "Production"
@@ -451,6 +422,7 @@ jpn:
       # subscription_nature: "Type d’abonnement"
       # tax: "Taxe"
       # tax_declaration: "Déclaration de taxes"
+      # team: "Service"
       # tracking: "Lot traçable"
       # transfer: "Transfert"
       # transport: "Transport"
@@ -468,7 +440,7 @@ jpn:
     # accountable: "Comptabilisable"
     # accounted_at: "Date comptabilisation"
     # acquisition_amount: "Montant des acquisition"
-    # active: "Utilisable"
+    # active: "Actif"
     # activity: "Activité"
     # activity_code: "Code APE/NAF"
     # actual_number: "Numéro en cours"
@@ -479,6 +451,7 @@ jpn:
     # affairs: "Affaires"
     # affected_on: "Affecté le"
     # age: "Âge"
+    # all_taxes_included: "All taxes included"
     # allocation_account: "Compte de dotation"
     # amount: "Montant"
     # amounts_scale: "Nombre de chiffres après le virgule"
@@ -552,7 +525,7 @@ jpn:
     # closed_on: "Date de clôture"
     code: "コード"
     # coefficient: "Coefficient"
-    # collected_account: "TVA collectée"
+    # collect_account: "TVA collectée"
     # collected_amount: "TVA brute"
     # collected_taxes: "TVA collectées"
     # color: "Couleur"
@@ -615,6 +588,7 @@ jpn:
     # decimal: "Decimal"
     # decimal_value: "Valeur décimale"
     # declared_on: "Déclarée le"
+    # deduction_account: "TVA déductible"
     # default_mail_address: "Adresse email par défaut"
     # deferred_payment: "Crédit à reporter"
     # deleted_at: "Supprimé le"
@@ -665,11 +639,11 @@ jpn:
     # duration: "Durée"
     # email: "Courriel (e-mail)"
     # emails: "Courriels (e-mails)"
-    # emitter_amount: "Montant émis"
-    # emitter_cash: "Trésorerie émettrice"
-    # emitter_currency: "Devise émise"
-    # emitter_currency_rate: "Taux de la devise émise"
-    # emitter_journal_entry: "Écriture de l’émission"
+    # emission_amount: "Montant émis"
+    # emission_cash: "Trésorerie émettrice"
+    # emission_currency: "Devise émise"
+    # emission_currency_rate: "Taux de la devise émise"
+    # emission_journal_entry: "Écriture de l’émission"
     # employed: "Employé par la société"
     # employees: "employés"
     # employment: "Emploi/Rôle"
@@ -963,9 +937,10 @@ jpn:
     # receipt: "Reçu électronique"
     # received: "Reçue"
     # received_at: "Reçu le"
-    # receiver_amount: "Montant reçu"
-    # receiver_cash: "Trésorerie réceptrice"
-    # receiver_journal_entry: "Écriture de la réception"
+    # reception_amount: "Montant reçu"
+    # reception_cash: "Trésorerie réceptrice"
+    # reception_currency: "Reception currency"
+    # reception_journal_entry: "Écriture de la réception"
     # recipient: "Destinataire"
     # reconcilable: "Lettrable"
     # record_value: "Enregistrement"
@@ -995,6 +970,7 @@ jpn:
     # root_model: "Racine"
     # root_model_name: "Racine"
     # sale: "Vente"
+    # sale_catalog: "Sale catalog"
     # sale_indicator: "Indicateur de vente"
     # sale_indicator_unit: "Unité de l'indicateur de vente"
     # sale_item: "Ligne de vente"
@@ -1049,6 +1025,7 @@ jpn:
     # tax: "Taxe"
     # template: "Modèle"
     # theoric_quantity: "Quantité théorique"
+    # thread: "Thread"
     # title: "Titre"
     # to: "Pour"
     # to_bank_on: "À décaisser le"
@@ -1066,6 +1043,7 @@ jpn:
     # unconfirmed_email: "E-mail non confirmé"
     # undelivered_quantity: "Reste à livrer"
     # unit: "Unité"
+    # unit_price_amount: "Unit price amount"
     # unlocked_payments: "Paiement non verrouillés"
     # unpaid_sales: "Ventes impayées"
     # updated_at: "Mis à jour le"
@@ -1361,7 +1339,10 @@ jpn:
     account:
       # label: "%{number} - %{name}"
     cash_transfer:
-      # bookkeep: "[%{resource} %{number}] De %{emitter} à %{receiver} %{description}"
+      # bookkeep: "[%{resource} %{number}] De %{emission} à %{reception} %{description}"
+    catalog:
+      default:
+        # name: "Par défaut"
     company: #?
     delay: #?
     deposit:
@@ -1386,6 +1367,8 @@ jpn:
       # no_right_defined_for_this_part_of_the_application_and_this_user: "Vous n’avez pas accès à cette partie de l’application"
       # supplier: "Fournisseur"
     entity_nature: #?
+    establishment:
+      # default: "Principal"
     financial_year:
       # bookkeep: "[%{resource} %{number}] Amortissement de %{name} (%{position}/%{total})"
       code:
@@ -1496,13 +1479,9 @@ jpn:
         # rent: "Location"
         # sales: "Vente"
     product_nature_price: #?
-    product_price_listing:
-      default:
-        # name: "Par défaut"
-    product_price_template:
-      # label: "%{product} / %{amount} %{currency}"
-      # no_range: "Pas d’intervalle"
-      # range: "De %{min} à %{max}"
+    product_price_listing:  #?
+ #?
+    product_price_template: #?
     production:
       # bookkeep: "[%{resource} %{number}] %{products} pour %{client} (%{sale})"
       label:
@@ -1569,68 +1548,24 @@ jpn:
         # name: "Vente standard"
     sequence:
       default:
-        assets:
-          # number_format: "I[number|7]"
-        cash_transfers:
-          # number_format: "VI[year|4][number|4]"
-          # period: "year"
-        deposits:
-          # number_format: "B[year|4][number|4]"
-          # period: "year"
-        entities:
-          # number_format: "[number|8]"
-        incoming_deliveries:
-          # number_format: "BR[year|4][number|4]"
-          # period: "year"
-        incoming_payments:
-          # number_format: "R[year|4][number|6]"
-          # period: "year"
-        outgoing_deliveries:
-          # number_format: "BL[year|4][number|6]"
-          # period: "year"
-        outgoing_payments:
-          # number_format: "D[year|4][number|4]"
-          # period: "year"
-        products:
-          # number_format: "P[number|11]"
-        purchases:
-          # number_format: "A[year|4][month|2][number|6]"
-          # period: "month"
-        sales:
-          # number_format: "V[year|4][month|2][number|6]"
-          # period: "month"
-        sales_invoices:
-          # number_format: "F[year|4][number|6]"
-          # period: "year"
-        stock_transfers:
-          # number_format: "TS[year|4][number|4]"
-          # period: "year"
-        subscriptions:
-          # number_format: "ABO[number|8]"
-        transports:
-          # number_format: "TR[number|8]"
-    tax:
-      default:
-        tva0000:
-          # amount: "0.0"
-          # collected: "445710"
-          # name: "TVA 0,00%"
-          # paid: "445660"
-        tva0210:
-          # amount: "2.1"
-          # collected: "445711"
-          # name: "TVA 2,10%"
-          # paid: "445661"
-        tva0550:
-          # amount: "5.5"
-          # collected: "445712"
-          # name: "TVA 5,50%"
-          # paid: "445662"
-        tva1960:
-          # amount: "19.6"
-          # collected: "445713"
-          # name: "TVA 19,60%"
-          # paid: "445663"
+        # assets: "I[number|7]"
+        # cash_transfers: "VI[year|4][number|4]"
+        # deposits: "B[year|4][number|4]"
+        # entities: "[number|8]"
+        # incoming_deliveries: "BR[year|4][number|4]"
+        # incoming_payments: "R[year|4][number|6]"
+        # outgoing_deliveries: "BL[year|4][number|6]"
+        # outgoing_payments: "D[year|4][number|4]"
+        # products: "P[number|11]"
+        # purchases: "A[year|4][month|2][number|6]"
+        # sales: "V[year|4][month|2][number|6]"
+        # sales_invoices: "F[year|4][number|6]"
+        # stock_transfers: "TS[year|4][number|4]"
+        # subscriptions: "ABO[number|8]"
+        # transports: "TR[number|8]"
+    tax:  #?
+      default: #?
+ #?
     tax_declaration:
       # deferment: "Reporté"
       # monthly: "Mensuelle"
@@ -1640,4 +1575,6 @@ jpn:
       # quarterly: "Trimestrielle"
       # simplified: "Réel simplifié"
       # yearly: "Annuelle"
+    team:
+      # default: "Général"
     unit: #?

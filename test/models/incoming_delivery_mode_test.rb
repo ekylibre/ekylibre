@@ -20,7 +20,7 @@
 #
 # == Table: incoming_delivery_modes
 #
-#  code         :string(8)        not null
+#  code         :string(30)       not null
 #  created_at   :datetime         not null
 #  creator_id   :integer
 #  description  :text

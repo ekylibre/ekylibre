@@ -29,8 +29,8 @@ demo :sales do
   Ekylibre::fixturize :sales do |w|
     # Create wheat product
     wheat = ProductNature.import_from_nomenclature(:wheat_grain).default_variant
-    price_listing = ProductPriceListing.find_by_code("STD")
-    wheat_price_template_tax = Tax.find_by_amount(5.5)
+    catalog = Catalog.find_by_code("STD")
+    wheat_tax = Tax.scoped.first
 
     ble = OrganicMatter.find_by_work_number("BLE_001")
     ble = OrganicMatter.create!(:variant_id => wheat.id, :name => "Blé Cap Horn 2011", :variety => "organic_matter", :identification_number => "BLE_2011_07142011", :work_number => "BLE_2011",
@@ -46,18 +46,18 @@ demo :sales do
       (rand(5) + 1).times do
         # # find or create a price
         # # @FIXME = waiting for a working method in ProductPrice.price
-        # price = ble.price(:amount => rand(150)+25, :tax => wheat_price_template_tax)
-        price = ProductPrice.find_by_variant_id_and_pretax_amount(ble.variant_id,"100.00")
-        price ||= ProductPrice.create!(:pretax_amount => "100.00",
-                                       :currency => "EUR",
+        # price = ble.price(:amount => rand(150)+25, :tax => wheat_tax)
+        price = CatalogPrice.find_by_variant_id_and_amount(ble.variant_id, 100.0)
+        price ||= CatalogPrice.create!(:currency => "EUR",
                                        :amount => "105.50",
                                        :supplier_id => Entity.of_company.id,
-                                       :tax_id => wheat_price_template_tax.id,
+                                       :reference_tax_id => wheat_tax.id,
                                        :variant_id => ble.variant_id
                                        )
 
         sale.items.create!(:quantity => rand(12.5) + 0.5,
-                           :product_id => ble.id,
+                           :variant_id => wheat.id,
+                           :tax_id => wheat_tax.id,
                            :price_id => price.id)
       end
       if !rand(20).zero?

@@ -3,7 +3,7 @@
 # TODO: I18nize seeds !!!
 I18n.locale = ENV["locale"] || "fra"
 language = I18n.locale
-currency = 'EUR'
+currency = ENV['currency'] || 'EUR'
 picture_company = Rails.root.join("app", "assets", "images", "ekylibre.png")
 user = {}
 user[:first_name] = ENV["first_name"] || "Jean"
@@ -24,12 +24,11 @@ company = ENV["company"] || "GAEC DUPONT"
 
 ActiveRecord::Base.transaction do
   Sequence.load_defaults
-  #Unit.load_defaults
-  #EntityNature.load_defaults
+
   undefined_nature = "entity"
-  sale_price_listing = ProductPriceListing.create!(:name => I18n.t('models.product_price_listing.default.name'))
+  sale_catalog = Catalog.create!(:name => I18n.t('models.catalog.default.name'), :currency => currency)
   f = File.open(picture_company)
-  firm = LegalEntity.create!(:sale_price_listing_id => sale_price_listing.id, :nature => "company", :language => language, :last_name => company, :currency => currency, :of_company => true, :picture => f)
+  firm = LegalEntity.create!(:sale_catalog_id => sale_catalog.id, :nature => "company", :language => language, :last_name => company, :currency => currency, :of_company => true, :picture => f)
   f.close
   firm.addresses.create!(:canal => "mail", :mail_line_2 => "", :mail_line_3 => "", :mail_line_4 => "", :mail_line_5 => "", :mail_line_6 => "", :by_default => true)
 
@@ -43,12 +42,11 @@ ActiveRecord::Base.transaction do
 
   Account.load
 
-  Department.create!(:name => I18n.t('models.company.default.department_name'))
-  establishment = Establishment.create!(:name => I18n.t('models.company.default.establishment_name'))
-  # currency = company.currency || 'EUR' # company.currencies.create!(:name => 'Euro', :code => 'EUR', :value_format => '%f €', :rate => 1)
+  Team.create!(:name => 'models.team.default'.t)
 
+  Establishment.create!(:name => 'models.establishment.default'.t)
 
-  #load french tax from nomenclatures
+  # Load french tax from nomenclatures
   Tax.import_all_from_nomenclature(:fr)
 
   # Load all the document templates

@@ -101,6 +101,8 @@ spa:
       index: "Tresorerias"
       new: "Registrar una nueva tresoreria"
       show: "%{nature_label} : %{name}"
+    backend/catalog_prices: #?
+    backend/catalogs: #?
     backend/cells/bank_chart_cells: #?
     backend/cells/calendar_cells: #?
     backend/cells/collected_taxes_cells: #?
@@ -172,10 +174,10 @@ spa:
       index: "plazos" #?
       new: "Añadir un plazo" #?
       show: "plazo : %{name}" #?
-    backend/departments:
-      edit: "Modificar el servicio : %{name}"
-      index: "Servicios"
-      new: "Añadido de nuevo servicio"
+    backend/departments:  #?
+      edit: "Modificar el servicio : %{name}" #?
+      index: "Servicios" #?
+      new: "Añadido de nuevo servicio" #?
     backend/deposit_lines: #?
     backend/deposits:
       edit: "Modificacion del aposto en banco del %{created_on}"
@@ -497,11 +499,9 @@ spa:
       # new: "Nouveau type de produit"
       # show: "Type de produit\_: %{name}"
     backend/product_ownerships: #?
-    backend/product_price_listings:
-      # index: "Listes de prix"
+    backend/product_price_listings: #?
     backend/product_price_templates: #?
-    backend/product_prices:
-      # index: "Prix des produits"
+    backend/product_prices: #?
     backend/product_process_phases: #?
     backend/product_processes: #?
     backend/product_species: #?
@@ -617,6 +617,7 @@ spa:
       edit: "Modificar la tasa : %{name}"
       index: "Tasas"
       new: "Añadir nueva tarifa"
+    backend/teams: #?
     backend/tool_natures: #?
     backend/tools: #?
     backend/tracking_states: #?
@@ -668,7 +669,7 @@ spa:
     # backend/custom_fields: "Champs personnalisés"
     # backend/dashboards: "Tableaux de bord"
     backend/delays: "plazos" #?
-    backend/departments: "Servicios"
+    backend/departments: "Servicios" #?
     # backend/deposit_items: "Lignes de remise en banque"
     backend/deposits: "Aposto en banco"
     # backend/districts: "Zones administratives"
@@ -713,8 +714,6 @@ spa:
     # backend/product_localizations: "Localisations"
     # backend/product_moves: "Mouvements de stock"
     # backend/product_natures: "Types de produits"
-    # backend/product_price_listings: "Listes de prix"
-    # backend/product_prices: "Prix des produits"
     backend/production: "Producción" #?
     # backend/products: "Produits"
     # backend/professions: "Professions"

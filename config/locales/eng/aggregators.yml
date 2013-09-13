@@ -1,4 +1,4 @@
 eng:
   aggregators:
     parameters:
-      # campaigns: "Campagne"
+      campaigns: "Campaigns"

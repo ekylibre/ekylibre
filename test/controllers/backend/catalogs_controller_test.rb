@@ -17,20 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::DepartmentsController < BackendController
-  manage_restfully
-
-  unroll_all
-
-  list(:order => :name) do |t|
-    t.column :name
-    t.column :description
-    t.action :edit
-    t.action :destroy
-  end
-
-  # Displays the main page with the list of departments
-  def index
-  end
-
+require 'test_helper'
+class Backend::CatalogsControllerTest < ActionController::TestCase
+  test_restfully_all_actions
 end

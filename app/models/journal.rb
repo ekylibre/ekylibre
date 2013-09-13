@@ -28,7 +28,7 @@
 #  id           :integer          not null, primary key
 #  lock_version :integer          default(0), not null
 #  name         :string(255)      not null
-#  nature       :string(16)       not null
+#  nature       :string(30)       not null
 #  updated_at   :datetime         not null
 #  updater_id   :integer
 #
@@ -44,7 +44,7 @@ class Journal < Ekylibre::Record::Base
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :currency, :allow_nil => true, :maximum => 3
   validates_length_of :code, :allow_nil => true, :maximum => 4
-  validates_length_of :nature, :allow_nil => true, :maximum => 16
+  validates_length_of :nature, :allow_nil => true, :maximum => 30
   validates_length_of :name, :allow_nil => true, :maximum => 255
   validates_presence_of :closed_on, :code, :name, :nature
   #]VALIDATORS]

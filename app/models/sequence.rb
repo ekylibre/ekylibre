@@ -73,19 +73,25 @@ class Sequence < Ekylibre::Record::Base
     self.of_usage(usage).first
   end
 
+  def self.best_period_for(format)
+    keys = []
+    format.match(REPLACE_REGEXP) do |m|
+      key, size, pattern = $1, $3, $5
+      keys << key.to_sym
+    end
+    keys.delete(:number)
+    # Because period size correspond to alphabetical order
+    # We use thaht to find the littlest period
+    return keys.sort.first
+  end
 
   def self.load_defaults
     for usage in self.usage.values
       unless sequence = self.find_by_usage(usage)
-        attrs = "models.sequence.default.#{usage}".t
         sequence = self.new(:usage => usage)
         sequence.name = sequence.usage.text
-        if attrs.is_a?(Hash)
-          attrs = tc("default.#{usage}").delete_if{|k,v| ![:name, :number_format, :number_increment, :number_start, :period].include?(k)}
-        else
-          attrs = {:number_format => sequence.usage.to_s.upcase + "[number|12]", :period => :number}
-        end
-        sequence.attributes = attrs.merge(:usage => usage)
+        sequence.number_format = "models.sequence.default.#{usage}".t(:default => sequence.usage.to_s.upcase + "[number|12]")
+        sequence.period = best_period_for(sequence.number_format)
         sequence.save
       end
     end

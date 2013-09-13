@@ -22,6 +22,7 @@
 #
 #  amount               :decimal(19, 4)   default(0.0), not null
 #  collect_account_id   :integer
+#  computation_method   :string(20)       not null
 #  created_at           :datetime         not null
 #  creator_id           :integer
 #  deduction_account_id :integer
@@ -30,8 +31,7 @@
 #  included             :boolean          not null
 #  lock_version         :integer          default(0), not null
 #  name                 :string(255)      not null
-#  nature               :string(16)       not null
-#  nomen                :string(127)
+#  nomen                :string(120)
 #  reductible           :boolean          default(TRUE), not null
 #  updated_at           :datetime         not null
 #  updater_id           :integer
@@ -39,30 +39,29 @@
 
 
 class Tax < Ekylibre::Record::Base
-  # attr_accessible :name, :nature, :collected_account_id, :description, :included, :paid_account_id, :reductible, :amount
-  attr_readonly :nature, :amount
-  enumerize :nature, :in => [:amount, :percentage], :default => :percentage, :predicates => true
+  attr_readonly :computation_method, :amount
+  enumerize :computation_method, :in => [:amount, :percentage], :default => :percentage, :predicates => true
   belongs_to :collect_account, :class_name => "Account"
   belongs_to :deduction_account, :class_name => "Account"
   has_many :price_templates, :class_name => "ProductPriceTemplate"
-  has_many :prices, :class_name => "ProductPrice"
+  has_many :prices, :class_name => "CatalogPrice"
   # TODO has_many :purchase_items
   has_many :sale_items
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :amount, :allow_nil => true
-  validates_length_of :nature, :allow_nil => true, :maximum => 16
-  validates_length_of :nomen, :allow_nil => true, :maximum => 127
+  validates_length_of :computation_method, :allow_nil => true, :maximum => 20
+  validates_length_of :nomen, :allow_nil => true, :maximum => 120
   validates_length_of :name, :allow_nil => true, :maximum => 255
   validates_inclusion_of :included, :reductible, :in => [true, false]
-  validates_presence_of :amount, :name, :nature
+  validates_presence_of :amount, :computation_method, :name
   #]VALIDATORS]
-  validates_inclusion_of :nature, :in => self.nature.values
+  validates_inclusion_of :computation_method, :in => self.computation_method.values
   validates_presence_of :collect_account
   validates_presence_of :deduction_account
   validates_uniqueness_of :name
   validates_numericality_of :amount, :in => 0..100, :if => :percentage?
 
-  scope :percentages, -> { where(:nature => 'percentage') }
+  scope :percentages, -> { where(:computation_method => 'percentage') }
 
   protect(:on => :destroy) do
     self.prices.count <= 0 and self.sale_items.count <= 0 #  and self.purchase_items.count <= 0
@@ -71,8 +70,8 @@ class Tax < Ekylibre::Record::Base
   # Compute the tax amount
   # If +with_taxes+ is true, it's considered that the given amount
   # is an amount with tax
-  def compute(amount, with_taxes = false)
-    if self.percentage? and with_taxes
+  def compute(amount, all_tax_included = false)
+    if self.percentage? and all_tax_included
       amount.to_d / (1 + 100/self.amount.to_d)
     elsif self.percentage?
       amount.to_d * self.amount.to_d/100
@@ -80,7 +79,6 @@ class Tax < Ekylibre::Record::Base
       self.amount
     end
   end
-
 
   # Returns the pretax amount of an amount
   def pretax_amount_of(amount)
@@ -111,7 +109,7 @@ class Tax < Ekylibre::Record::Base
     end
     unless tax = Tax.find_by_nomen(nomen)
       attributes = {
-        :nature => item.nature,
+        :computation_method => item.computation_method,
         :amount => item.amount,
         :name => item.human_name,
         :nomen => item.name

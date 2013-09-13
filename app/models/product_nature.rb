@@ -28,14 +28,14 @@
 #  created_at             :datetime         not null
 #  creator_id             :integer
 #  depreciable            :boolean          not null
-#  derivative_of          :string(127)
+#  derivative_of          :string(120)
 #  description            :text
 #  id                     :integer          not null, primary key
 #  indicators             :text
 #  lock_version           :integer          default(0), not null
 #  name                   :string(255)      not null
-#  nomen                  :string(127)
-#  number                 :string(31)       not null
+#  nomen                  :string(120)
+#  number                 :string(30)       not null
 #  population_counting    :string(255)      not null
 #  product_account_id     :integer
 #  purchasable            :boolean          not null
@@ -48,7 +48,7 @@
 #  subscription_nature_id :integer
 #  updated_at             :datetime         not null
 #  updater_id             :integer
-#  variety                :string(127)      not null
+#  variety                :string(120)      not null
 #
 
 
@@ -62,6 +62,8 @@ class ProductNature < Ekylibre::Record::Base
   belongs_to :product_account, :class_name => "Account"
   belongs_to :stock_account, :class_name => "Account"
   belongs_to :subscription_nature
+  has_and_belongs_to_many :sale_taxes, class_name: "Tax" # , join_table: 'product_natures_sale_taxes'
+  has_and_belongs_to_many :purchase_taxes, class_name: "Tax" # , join_table: 'product_natures_purchase_taxes'
   # has_many :available_stocks, :class_name => "ProductStock", :conditions => ["quantity > 0"], :foreign_key => :product_id
   #has_many :prices, :foreign_key => :product_nature_id, :class_name => "ProductPriceTemplate"
   has_many :subscriptions, :foreign_key => :product_nature_id
@@ -70,8 +72,8 @@ class ProductNature < Ekylibre::Record::Base
   has_many :variants, :class_name => "ProductNatureVariant", :foreign_key => :nature_id, :inverse_of => :nature
   has_one :default_variant, -> { order(:id) }, :class_name => "ProductNatureVariant", :foreign_key => :nature_id
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_length_of :number, :allow_nil => true, :maximum => 31
-  validates_length_of :derivative_of, :nomen, :variety, :allow_nil => true, :maximum => 127
+  validates_length_of :number, :allow_nil => true, :maximum => 30
+  validates_length_of :derivative_of, :nomen, :variety, :allow_nil => true, :maximum => 120
   validates_length_of :name, :population_counting, :subscription_duration, :allow_nil => true, :maximum => 255
   validates_inclusion_of :active, :depreciable, :purchasable, :reductible, :saleable, :storable, :subscribing, :in => [true, false]
   validates_presence_of :name, :number, :population_counting, :variety

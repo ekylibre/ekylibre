@@ -35,12 +35,12 @@
 #  journal_entry_id    :integer
 #  lock_version        :integer          default(0), not null
 #  nature_id           :integer
-#  number              :string(64)       not null
+#  number              :string(60)       not null
 #  planned_on          :date
 #  pretax_amount       :decimal(19, 4)   default(0.0), not null
 #  reference_number    :string(255)
 #  responsible_id      :integer
-#  state               :string(64)
+#  state               :string(60)
 #  supplier_id         :integer          not null
 #  updated_at          :datetime         not null
 #  updater_id          :integer

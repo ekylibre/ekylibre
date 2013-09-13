@@ -26,14 +26,13 @@
 #  id               :integer          not null, primary key
 #  lock_version     :integer          default(0), not null
 #  mode_id          :integer
-#  number           :string(255)
+#  number           :string(255)      not null
 #  purchase_id      :integer
 #  received_at      :datetime
 #  reference_number :string(255)
 #  sender_id        :integer          not null
 #  updated_at       :datetime         not null
 #  updater_id       :integer
-#  weight           :decimal(19, 4)
 #
 
 
@@ -49,9 +48,8 @@ class IncomingDelivery < Ekylibre::Record::Base
   has_many :product_moves, :as => :origin
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :weight, :allow_nil => true
   validates_length_of :number, :reference_number, :allow_nil => true, :maximum => 255
-  validates_presence_of :sender
+  validates_presence_of :number, :sender
   #]VALIDATORS]
   validates_presence_of :received_at, :address
 

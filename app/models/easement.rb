@@ -53,7 +53,7 @@
 #  updated_at               :datetime         not null
 #  updater_id               :integer
 #  variant_id               :integer          not null
-#  variety                  :string(127)      not null
+#  variety                  :string(120)      not null
 #  work_number              :string(255)
 #
 class Easement < Zone

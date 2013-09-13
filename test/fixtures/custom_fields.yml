@@ -32,7 +32,7 @@
 #  minimal_length  :integer
 #  minimal_value   :decimal(19, 4)
 #  name            :string(255)      not null
-#  nature          :string(8)        not null
+#  nature          :string(20)       not null
 #  position        :integer
 #  required        :boolean          not null
 #  updated_at      :datetime         not null

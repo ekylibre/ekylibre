@@ -6,12 +6,12 @@ demo :deliveries do
     #############################################################################
     # import Coop Order to make automatic purchase
 
-    price_listing = ProductPriceListing.find_by_code("STD")
+    catalog = Catalog.find_by_code("STD") || Catalog.scoped.first
     supplier_account = Account.find_or_create_in_chart(:suppliers)
-    appro_price_template_tax = Tax.find_by_amount(5.5)
+    appro_price_template_tax = Tax.scoped.first
 
     suppliers = Entity.where(:of_company => false, :supplier => true).reorder(:supplier_account_id, :last_name)
-    suppliers ||= LegalEntity.create!(:sale_price_listing_id => price_listing.id, :nature => "company", :language => "fra", :last_name => "All", :supplier_account_id => supplier_account.id, :currency => "eur", :supplier => true)
+    suppliers ||= LegalEntity.create!(:sale_catalog_id => catalog.id, :nature => "company", :language => "fra", :last_name => "All", :supplier_account_id => supplier_account.id, :currency => "eur", :supplier => true)
 
 
     # add Coop incoming deliveries
@@ -81,18 +81,18 @@ demo :deliveries do
         product_nature_variant = ProductNatureVariant.find_by_name_and_nature_id(r.matter_name,product_nature.id )
         product_nature_variant ||= product_nature.variants.create!(:name => r.matter_name, :active => true, :unit_name => "unit")
         # find a price from current supplier for a consider variant
-        product_nature_variant_price = ProductPrice.find_by_supplier_id_and_variant_id_and_pretax_amount(Entity.of_company.id, product_nature_variant.id, r.product_unit_price)
-        product_nature_variant_price ||= ProductPrice.create!(:pretax_amount => r.product_unit_price,
-                                                              :currency => "EUR",
-                                                              :supplier_id => Entity.of_company.id,
-                                                              :tax_id => appro_price_template_tax.id,
-                                                              :amount => appro_price_template_tax.amount_of(r.product_unit_price),
-                                                              :variant_id => product_nature_variant.id
-                                                              )
+        product_nature_variant_price = catalog.prices.find_by(supplier_id: Entity.of_company.id, variant_id: product_nature_variant.id, amount: r.product_unit_price)
+        product_nature_variant_price ||= catalog.prices.create!(# :pretax_amount => r.product_unit_price,
+                                                                :currency => "EUR",
+                                                                :supplier => Entity.of_company,
+                                                                :reference_tax_id => appro_price_template_tax.id,
+                                                                :amount => appro_price_template_tax.amount_of(r.product_unit_price),
+                                                                :variant => product_nature_variant
+                                                                )
 
         product_model = product_nature.matching_model
         incoming_item = Product.find_by_variant_id_and_created_at(product_nature_variant.id, r.ordered_on)
-        incoming_item ||= product_model.create!(:owner_id => Entity.of_company.id, :identification_number => r.order_number, :variant_id => product_nature_variant.id, :born_at => r.ordered_on, :created_at => r.ordered_on)
+        incoming_item ||= product_model.create!(:owner => Entity.of_company, :identification_number => r.order_number, :variant => product_nature_variant, :born_at => r.ordered_on, :created_at => r.ordered_on)
 
         incoming_item.is_measured!(:population, r.quantity.in_unity, :at => Time.now)
         if product_nature.present? and incoming_item.present?
@@ -150,8 +150,8 @@ demo :deliveries do
     #   product   = Matter.find_by_name(r.matter_name)
     #   product ||= Matter.create!(:name => r.matter_name, :identification_number => r.matter_name, :work_number => r.matter_name, :born_at => Time.now, :nature_id => product_nature.id, :owner_id => Entity.of_company.id, :number => r.matter_name) #
     #   # create a product_price_template if not exist
-    #   product_price   = ProductPriceTemplate.find_by_product_nature_id_and_supplier_id_and_assignment_pretax_amount(product_nature.id, coop.id, r.product_unit_price)
-    #   product_price ||= ProductPriceTemplate.create!(:currency => "EUR", :assignment_pretax_amount => r.product_unit_price, :product_nature_id => product_nature.id, :tax_id => tax_price_nature_appro.id, :supplier_id => coop.id)
+    #   product_price   = CatalogPriceTemplate.find_by_product_nature_id_and_supplier_id_and_assignment_pretax_amount(product_nature.id, coop.id, r.product_unit_price)
+    #   product_price ||= CatalogPriceTemplate.create!(:currency => "EUR", :assignment_pretax_amount => r.product_unit_price, :product_nature_id => product_nature.id, :tax_id => tax_price_nature_appro.id, :supplier_id => coop.id)
     #   # create a purchase_item if not exist
     #   # purchase_item   = PurchaseItem.find_by_product_id_and_purchase_id_and_price_id(product.id, purchase.id, product_price.id)
     #   # purchase_item ||= PurchaseItem.create!(:quantity => r.quantity, :unit_id => unit_u.id, :price_id => product_price.id, :product_id => product.id, :purchase_id => purchase.id)

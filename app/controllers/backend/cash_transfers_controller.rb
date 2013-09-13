@@ -24,10 +24,10 @@ class Backend::CashTransfersController < BackendController
 
   list do |t|
     t.column :number, :url => true
-    t.column :emitter_amount,  :currency => :emitter_currency
-    t.column :name, :through => :emitter_cash, :url => true
-    t.column :receiver_amount, :currency => :receiver_currency
-    t.column :name, :through => :receiver_cash, :url => true
+    t.column :emission_amount,  :currency => :emission_currency
+    t.column :name, :through => :emission_cash, :url => true
+    t.column :reception_amount, :currency => :reception_currency
+    t.column :name, :through => :reception_cash, :url => true
     t.column :created_on
     t.column :description
     t.action :edit

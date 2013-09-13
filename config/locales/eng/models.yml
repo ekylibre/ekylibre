@@ -26,8 +26,8 @@ eng:
         # content_maximal_quantity: "Quantité maximale supportée"
         # content_nature: "Type de Produit contenu"
         # variety: "Type"
-      deposit:
-        amount: "Amount"
+      deposit:  #?
+        amount: "Amount" #?
       document:
         filename: "File"
       document_template:
@@ -83,14 +83,14 @@ eng:
         place: "Place"
       meeting_nature:
         duration: "Duration by default (in min.)"
-      operation:
-        consumption: "Consumption"
+      operation:  #?
+        consumption: "Consumption" #?
         lines: "Incoming and outgoing products" #?
       outgoing_delivery:
         items: "Items"
         lines: "Delivery lines" #?
       outgoing_payment:
-        amount: "Amount"
+        amount: "Amount" #?
         delivered: "Given to recipient"
       outgoing_payment_mode:
         payments: "Disbursements"
@@ -104,23 +104,23 @@ eng:
       price:  #?
         category: "People category" #?
         entity: "Supplier" #?
-      procedure:
-        provisional: "Provisional"
+      procedure:  #?
+        provisional: "Provisional" #?
       product:  #?
         race: "Race" #?
       product_category:  #?
         children: "Sub-product_categories" #?
         published: "Published" #?
-      product_indicator_datum:
-        indicator: "Indicator"
+      product_indicator_datum:  #?
+        indicator: "Indicator" #?
       product_localization:
         arrival_cause: "Arrival cause"
         container: "Product container"
         departure_cause: "Departure cause"
         started_at: "Started at"
         stopped_at: "Stopped at"
-      product_move:
-        origin: "Origine"
+      product_move:  #?
+        origin: "Origine" #?
       product_nature:
         # abilities: "Compétences"
         asset_account: "Asset account"
@@ -136,28 +136,21 @@ eng:
         stock_account: "Stock account"
         storable: "Storable"
         # subscribing: "Abonnement ?"
-      product_nature_category:
-        children: "Sub-product_categories"
-        published: "Published"
+      product_nature_category:  #?
+        children: "Sub-product_categories" #?
+        published: "Published" #?
       product_nature_price:  #?
         category: "People category" #?
         entity: "Supplier" #?
       product_nature_variant:
         commercial_description: "Commercial description" #?
         commercial_name: "Commercial name" #?
-        # contour: "contour de la forme"
-        # horizontal_rotation: "rotation horizontale de la forme"
-        # purchase_indicator: "Indicateur d'achat"
-        # purchase_indicator_unit: "Unité d'achat"
-        # sale_indicator: "Indicateur de vente"
-        # sale_indicator_unit: "Unité de vente"
-        # usage_indicator: "Indicateur d'usage"
-        # usage_indicator_unit: "Unité d'usage"
-      product_price_template:
-        amount: "Amount with taxes"
+        # contour: "Contour de la forme"
+        # horizontal_rotation: "Rotation horizontale de la forme"
+      product_price_template:  #?
+        amount: "Amount with taxes" #?
         category: "People category" #?
         entity: "Supplier" #?
-        # listing: " associée"
       product_specy: #?
       product_stock:  #?
         quantity: "Real quantity" #?
@@ -175,8 +168,8 @@ eng:
       products_nature:  #?
         duration: "Quantity OR period" #?
         price: "Cost price" #?
-      profession:
-        employees: "Employees"
+      profession:  #?
+        employees: "Employees" #?
       purchase:
         amount: "Amount with taxes"
         # items: "Lignes d’achat"
@@ -196,8 +189,7 @@ eng:
         has_downpayment: "Request a downpayment"
         # items: "Lignes de vente"
         lines: "sale lines" #?
-        # parts_amount: "Montant payé"
-        payments: "Incoming payments"
+        payments: "Incoming payments" #?
       sale_item:
         amount: "Amount with taxes"
         label: "Product"
@@ -216,12 +208,10 @@ eng:
       stock_transfer:  #?
         building: "Departure building" #?
         second_building: "Arrival building" #?
-      subscription:
-        entity: "Subscriber"
+      subscription:  #?
+        entity: "Subscriber" #?
       tax:
         amount: "Value"
-        # collected_taxes: "collectée"
-        # paid_taxes: "déductible"
       tax_declaration:
         address: "Department address"
         amount: "Total VAT"
@@ -229,12 +219,12 @@ eng:
         period: "Périod"
       tool:  #?
         uses: "Tool uses" #?
-      tracking:
-        active: "Used"
-      transfer:
-        amount: "Amount"
-      unit:
-        start: "Value at the origin"
+      tracking:  #?
+        active: "Used" #?
+      transfer:  #?
+        amount: "Amount" #?
+      unit:  #?
+        start: "Value at the origin" #?
       user:
         locked: "Locked"
         # maximal_grantable_reduction_percentage: "Taux de réduction autorisé (%)"
@@ -331,12 +321,12 @@ eng:
         price:  #?
           already_defined: "A price is already defined for this list and this product" #?
           range_overlap: "The range overlaps an other(from %{min} to %{max})" #?
-        product_nature_price:
-          already_defined: "A price is already defined for this list and this product"
-          range_overlap: "The range overlaps an other(from %{min} to %{max})"
-        product_price_template:
-          already_defined: "A price is already defined for this list and this product"
-          range_overlap: "The range overlaps an other(from %{min} to %{max})"
+        product_nature_price:  #?
+          already_defined: "A price is already defined for this list and this product" #?
+          range_overlap: "The range overlaps an other(from %{min} to %{max})" #?
+        product_price_template:  #?
+          already_defined: "A price is already defined for this list and this product" #?
+          range_overlap: "The range overlaps an other(from %{min} to %{max})" #?
         product_stock:
           product_cannot_be_in_building: "Product can not be stored in %{building}"
         product_transfer:
@@ -408,6 +398,8 @@ eng:
       campaign: "Campaign"
       cash: "Cash"
       cash_transfer: "Cash transfer"
+      catalog: "Person category"
+      # catalog_price: "Prix"
       company: "Company" #?
       contact: "" #?
       # cultivable_land_parcel: "Parcelle culturale"
@@ -416,7 +408,7 @@ eng:
       custom_field_choice: "Complement field choice"
       custom_field_datum: "Complement datum" #?
       delay: "Delay" #?
-      department: "Department"
+      department: "Department" #?
       deposit: "Deposit"
       deposit_item: "Deposit line"
       deposit_line: "Deposit line" #?
@@ -501,7 +493,7 @@ eng:
       product_event: "Animal event" #?
       product_event_nature: "Animal event type" #?
       product_group: "Animal group"
-      # product_indicator_datum: "Valeur d'indicateur"
+      # product_indicator_datum: "Valeur d’indicateur"
       # product_link: "Lien entre produits"
       # product_localization: "Passage d’un produit en un lieu"
       # product_membership: "Passage d’un produit dans un groupe"
@@ -511,9 +503,10 @@ eng:
       product_nature_component: "Product component" #?
       product_nature_price: "Price" #?
       # product_nature_variant: "Variante de type de produit"
-      # product_price: "Prix"
-      product_price_listing: "Person category"
-      product_price_template: "Price"
+      # product_nature_variant_indicator_datum: "Valeur d’indicateur de variante"
+      # product_ownership: "Propriété de produit"
+      product_price_listing: "Person category" #?
+      product_price_template: "Price" #?
       # product_process: "Processus"
       # product_process_phase: "Phase de processus"
       product_specy: "Animal race" #?
@@ -550,6 +543,7 @@ eng:
       subscription_nature: "Subscription type"
       tax: "Tax"
       tax_declaration: "Tax declaration"
+      team: "Department"
       tool: "Tool" #?
       tool_nature: "Tool type" #?
       tracking: "Tracking"
@@ -587,6 +581,7 @@ eng:
     # affected_on: "Affecté le"
     age: "Age"
     agency_code: "Agency code" #?
+    # all_taxes_included: "All taxes included"
     allocation_account: "Allocation account"
     amount: "Amount"
     # amounts_scale: "Nombre de chiffres après le virgule"
@@ -687,7 +682,8 @@ eng:
     code: "Code"
     code2: "Code2" #?
     coefficient: "Coefficient"
-    collected_account: "Account collected"
+    # collect_account: "TVA collectée"
+    collected_account: "Account collected" #?
     collected_amount: "Collected amount"
     collected_taxes: "Collected taxes"
     color: "Color"
@@ -763,6 +759,7 @@ eng:
     decimal_min: "Decimal min" #?
     decimal_value: "Decimal value"
     declared_on: "Declared on"
+    # deduction_account: "TVA déductible"
     default_address: "Default address" #?
     default_contact: "Default contact" #?
     default_currency: "Default currency" #?
@@ -838,11 +835,16 @@ eng:
     ean13: "Ean13" #?
     email: "Email"
     emails: "Emails"
-    emitter_amount: "Emitted amount"
-    emitter_cash: "Emitter cash"
-    emitter_currency: "Emitter currency"
-    emitter_currency_rate: "Emitted currency rate"
-    emitter_journal_entry: "Emitter journal entry"
+    # emission_amount: "Montant émis"
+    # emission_cash: "Trésorerie émettrice"
+    # emission_currency: "Devise émise"
+    # emission_currency_rate: "Taux de la devise émise"
+    # emission_journal_entry: "Écriture de l’émission"
+    emitter_amount: "Emitted amount" #?
+    emitter_cash: "Emitter cash" #?
+    emitter_currency: "Emitter currency" #?
+    emitter_currency_rate: "Emitted currency rate" #?
+    emitter_journal_entry: "Emitter journal entry" #?
     employed: "Employed"
     employees: "Employees"
     employment: "Employment"
@@ -1226,11 +1228,15 @@ eng:
     receipt: "Receipt"
     received: "Received"
     # received_at: "Reçu le"
-    receiver_amount: "Received amount"
-    receiver_cash: "Receiver cash"
+    receiver_amount: "Received amount" #?
+    receiver_cash: "Receiver cash" #?
     receiver_currency: "Receiver currency" #?
     receiver_currency_rate: "Received currency rate" #?
-    receiver_journal_entry: "Receiver journal entry"
+    receiver_journal_entry: "Receiver journal entry" #?
+    # reception_amount: "Montant reçu"
+    # reception_cash: "Trésorerie réceptrice"
+    # reception_currency: "Reception currency"
+    # reception_journal_entry: "Écriture de la réception"
     # recipient: "Destinataire"
     reconcilable: "Reconcilable"
     record_value: "Record value"
@@ -1268,6 +1274,7 @@ eng:
     root_model: "Root model"
     root_model_name: "Root model name"
     sale: "Sale"
+    # sale_catalog: "Sale catalog"
     sale_indicator: "Sale indicator"
     # sale_indicator_unit: "Unité de l'indicateur de vente"
     # sale_item: "Ligne de vente"
@@ -1358,6 +1365,7 @@ eng:
     text_importance: "Text importance" #?
     text_nature: "Text type" #?
     theoric_quantity: "Theoric quantity"
+    # thread: "Thread"
     title: "Title"
     to: "To"
     to_archive: "To archive" #?
@@ -1388,6 +1396,7 @@ eng:
     undelivered_quantity: "Undelivered quantity"
     unique_tracking: "Unique tracking" #?
     unit: "Unit"
+    # unit_price_amount: "Unit price amount"
     unit_quantity: "Unit quantity" #?
     units: "Units" #?
     unlocked_payments: "Unlocked payments"
@@ -1723,6 +1732,9 @@ eng:
       label: "%{number} - %{name}"
     cash_transfer:
       bookkeep: "[%{resource} %{number}] From %{emitter} to %{receiver} %{description}"
+    catalog:
+      default:
+        # name: "Par défaut"
     company:  #?
       cant_find_document_template: "Can not find document template" #?
       default: #?
@@ -1845,6 +1857,8 @@ eng:
       no_right_defined_for_this_part_of_the_application_and_this_user: "You can not access to this page"
       supplier: "Supplier"
     entity_nature: #?
+    establishment:
+      # default: "Principal"
     financial_year:
       bookkeep: "[%{resource} %{number}] Depreciation of %{name} (%{position}/%{total})"
       code:
@@ -1976,13 +1990,12 @@ eng:
       label: "%{product} / %{amount} %{currency}" #?
       no_range: "No range" #?
       range: "From %{min} to %{max}" #?
-    product_price_listing:
-      default:
-        # name: "Par défaut"
-    product_price_template:
-      label: "%{product} / %{amount} %{currency}"
-      no_range: "No range"
-      range: "From %{min} to %{max}"
+    product_price_listing:  #?
+ #?
+    product_price_template:  #?
+      label: "%{product} / %{amount} %{currency}" #?
+      no_range: "No range" #?
+      range: "From %{min} to %{max}" #?
     product_stock:  #?
       default_name: "%{building}/%{product}/%{tracking}" #?
       label: #?
@@ -2081,46 +2094,45 @@ eng:
         # name: "Vente standard"
     sequence:
       default:
-        assets:
-          number_format: "A[number|7]"
-        cash_transfers:
-          number_format: "CT[year|4][number|4]"
-          period: "year"
-        deposits:
-          number_format: "B[year|4][number|4]"
-          period: "year"
-        entities:
-          number_format: "[number|8]"
-        incoming_deliveries:
-          number_format: "ID[year|4][number|4]"
-          period: "year"
-        incoming_payments:
-          number_format: "P[year|4][number|6]"
-          period: "year"
-        outgoing_deliveries:
-          number_format: "OD[year|4][number|6]"
-          period: "year"
-        outgoing_payments:
-          number_format: "D[year|4][number|4]"
-          period: "year"
-        products:
-          # number_format: "P[number|11]"
-        purchases:
-          number_format: "PO[year|4][month|2][number|4]"
-          period: "month"
-        sales:
-          number_format: "SO[year|4][month|2][number|6]"
-          period: "month"
-        sales_invoices:
-          number_format: "F[year|4][number|6]"
-          period: "year"
-        stock_transfers:
-          number_format: "ST[year|4][number|4]"
-          period: "year"
-        subscriptions:
-          number_format: "SUB[number|8]"
-        transports:
-          number_format: "SH[number|8]"
+        assets:  #? String excepted (Hash:{:number_format=>"A[number|7]"})
+          number_format: "A[number|7]" #? String excepted (Hash:{:number_format=>"A[number|7]"})
+        cash_transfers:  #? String excepted (Hash:{:number_format=>"CT[year|4][number|4]", :period=>"year"})
+          number_format: "CT[year|4][number|4]" #? String excepted (Hash:{:number_format=>"CT[year|4][number|4]", :period=>"year"})
+          period: "year" #? String excepted (Hash:{:number_format=>"CT[year|4][number|4]", :period=>"year"})
+        deposits:  #? String excepted (Hash:{:number_format=>"B[year|4][number|4]", :period=>"year"})
+          number_format: "B[year|4][number|4]" #? String excepted (Hash:{:number_format=>"B[year|4][number|4]", :period=>"year"})
+          period: "year" #? String excepted (Hash:{:number_format=>"B[year|4][number|4]", :period=>"year"})
+        entities:  #? String excepted (Hash:{:number_format=>"[number|8]"})
+          number_format: "[number|8]" #? String excepted (Hash:{:number_format=>"[number|8]"})
+        incoming_deliveries:  #? String excepted (Hash:{:number_format=>"ID[year|4][number|4]", :period=>"year"})
+          number_format: "ID[year|4][number|4]" #? String excepted (Hash:{:number_format=>"ID[year|4][number|4]", :period=>"year"})
+          period: "year" #? String excepted (Hash:{:number_format=>"ID[year|4][number|4]", :period=>"year"})
+        incoming_payments:  #? String excepted (Hash:{:number_format=>"P[year|4][number|6]", :period=>"year"})
+          number_format: "P[year|4][number|6]" #? String excepted (Hash:{:number_format=>"P[year|4][number|6]", :period=>"year"})
+          period: "year" #? String excepted (Hash:{:number_format=>"P[year|4][number|6]", :period=>"year"})
+        outgoing_deliveries:  #? String excepted (Hash:{:number_format=>"OD[year|4][number|6]", :period=>"year"})
+          number_format: "OD[year|4][number|6]" #? String excepted (Hash:{:number_format=>"OD[year|4][number|6]", :period=>"year"})
+          period: "year" #? String excepted (Hash:{:number_format=>"OD[year|4][number|6]", :period=>"year"})
+        outgoing_payments:  #? String excepted (Hash:{:number_format=>"D[year|4][number|4]", :period=>"year"})
+          number_format: "D[year|4][number|4]" #? String excepted (Hash:{:number_format=>"D[year|4][number|4]", :period=>"year"})
+          period: "year" #? String excepted (Hash:{:number_format=>"D[year|4][number|4]", :period=>"year"})
+        # products: "P[number|11]"
+        purchases:  #? String excepted (Hash:{:number_format=>"PO[year|4][month|2][number|4]", :period=>"month"})
+          number_format: "PO[year|4][month|2][number|4]" #? String excepted (Hash:{:number_format=>"PO[year|4][month|2][number|4]", :period=>"month"})
+          period: "month" #? String excepted (Hash:{:number_format=>"PO[year|4][month|2][number|4]", :period=>"month"})
+        sales:  #? String excepted (Hash:{:number_format=>"SO[year|4][month|2][number|6]", :period=>"month"})
+          number_format: "SO[year|4][month|2][number|6]" #? String excepted (Hash:{:number_format=>"SO[year|4][month|2][number|6]", :period=>"month"})
+          period: "month" #? String excepted (Hash:{:number_format=>"SO[year|4][month|2][number|6]", :period=>"month"})
+        sales_invoices:  #? String excepted (Hash:{:number_format=>"F[year|4][number|6]", :period=>"year"})
+          number_format: "F[year|4][number|6]" #? String excepted (Hash:{:number_format=>"F[year|4][number|6]", :period=>"year"})
+          period: "year" #? String excepted (Hash:{:number_format=>"F[year|4][number|6]", :period=>"year"})
+        stock_transfers:  #? String excepted (Hash:{:number_format=>"ST[year|4][number|4]", :period=>"year"})
+          number_format: "ST[year|4][number|4]" #? String excepted (Hash:{:number_format=>"ST[year|4][number|4]", :period=>"year"})
+          period: "year" #? String excepted (Hash:{:number_format=>"ST[year|4][number|4]", :period=>"year"})
+        subscriptions:  #? String excepted (Hash:{:number_format=>"SUB[number|8]"})
+          number_format: "SUB[number|8]" #? String excepted (Hash:{:number_format=>"SUB[number|8]"})
+        transports:  #? String excepted (Hash:{:number_format=>"SH[number|8]"})
+          number_format: "SH[number|8]" #? String excepted (Hash:{:number_format=>"SH[number|8]"})
     stock:  #?
       default_name: "%{building}/%{product}/%{tracking}" #?
       label: #?
@@ -2128,28 +2140,9 @@ eng:
         without_tracking: "%{building}: No serial, %{quantity}%{unit} available" #?
     stock_move:  #?
       default_name: "%{origin} (%{code})" #?
-    tax:
-      default:
-        tva0000:
-          # amount: "0.0"
-          # collected: "445710"
-          # name: "TVA 0,00%"
-          # paid: "445660"
-        tva0210:
-          # amount: "2.1"
-          # collected: "445711"
-          # name: "TVA 2,10%"
-          # paid: "445661"
-        tva0550:
-          # amount: "5.5"
-          # collected: "445712"
-          # name: "TVA 5,50%"
-          # paid: "445662"
-        tva1960:
-          # amount: "19.6"
-          # collected: "445713"
-          # name: "TVA 19,60%"
-          # paid: "445663"
+    tax:  #?
+      default: #?
+ #?
     tax_declaration:
       deferment: "Deferment"
       monthly: "Monthly"
@@ -2159,6 +2152,8 @@ eng:
       quarterly: "Quarterly"
       simplified: "Simplified real"
       yearly: "Yearly"
+    team:
+      # default: "Général"
     unit:  #?
       default: #?
         a: "Are" #?

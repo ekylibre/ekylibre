@@ -74,6 +74,19 @@
 # - "backend/campaigns#new"
 # - "backend/campaigns#show"
 # - "backend/campaigns#update"
+# - "backend/catalog_prices#create"
+# - "backend/catalog_prices#destroy"
+# - "backend/catalog_prices#edit"
+# - "backend/catalog_prices#list"
+# - "backend/catalog_prices#new"
+# - "backend/catalog_prices#update"
+# - "backend/catalogs#create"
+# - "backend/catalogs#destroy"
+# - "backend/catalogs#edit"
+# - "backend/catalogs#list"
+# - "backend/catalogs#list_prices"
+# - "backend/catalogs#new"
+# - "backend/catalogs#update"
 # - "backend/cells/bank_chart_cells#show"
 # - "backend/cells/calendar_cells#show"
 # - "backend/cells/collected_taxes_cells#show"
@@ -328,12 +341,10 @@
 # - "backend/product_nature_variants#create"
 # - "backend/product_nature_variants#destroy"
 # - "backend/product_nature_variants#edit"
-# - "backend/product_nature_variants#index"
 # - "backend/product_nature_variants#list"
 # - "backend/product_nature_variants#list_prices"
 # - "backend/product_nature_variants#list_products"
 # - "backend/product_nature_variants#new"
-# - "backend/product_nature_variants#show"
 # - "backend/product_nature_variants#update"
 # - "backend/product_natures#show"
 # - "backend/product_ownerships#create"
@@ -344,8 +355,6 @@
 # - "backend/product_ownerships#new"
 # - "backend/product_ownerships#show"
 # - "backend/product_ownerships#update"
-# - "backend/product_price_listings#list_prices"
-# - "backend/product_prices#show"
 # - "backend/product_process_phases#create"
 # - "backend/product_process_phases#destroy"
 # - "backend/product_process_phases#edit"
@@ -411,6 +420,13 @@
 # - "backend/settlements#show"
 # - "backend/settlements#update"
 # - "backend/snippets#toggle"
+# - "backend/teams#create"
+# - "backend/teams#destroy"
+# - "backend/teams#edit"
+# - "backend/teams#index"
+# - "backend/teams#list"
+# - "backend/teams#new"
+# - "backend/teams#update"
 # - "backend/workers#create"
 # - "backend/workers#destroy"
 # - "backend/workers#edit"
@@ -467,13 +483,13 @@ close_journals:
 # Configure the options of the company
 configure_company:
 - "backend/dashboards#settings"
-- "backend/departments#create"
-- "backend/departments#destroy"
-- "backend/departments#edit"
-- "backend/departments#index"
-- "backend/departments#list"
-- "backend/departments#new"
-- "backend/departments#update"
+- "backend/departments#create" #?
+- "backend/departments#destroy" #?
+- "backend/departments#edit" #?
+- "backend/departments#index" #?
+- "backend/departments#list" #?
+- "backend/departments#new" #?
+- "backend/departments#update" #?
 - "backend/establishments#create"
 - "backend/establishments#destroy"
 - "backend/establishments#edit"
@@ -521,7 +537,7 @@ consult_journal_entries:
 # Consult the prices
 consult_prices:
 - "backend/dashboards#sales" #?
-- "backend/product_prices#index"
+- "backend/product_prices#index" #?
 
 # Consult the products
 consult_products:
@@ -598,7 +614,7 @@ manage_accounts:
 - "backend/accounts#list_journal_entry_items"
 - "backend/accounts#load"
 - "backend/accounts#new"
-- "backend/accounts#show"
+- "backend/accounts#show" #?
 - "backend/accounts#update"
 - "backend/dashboards#accountancy"
 
@@ -1047,26 +1063,26 @@ manage_outgoing_payments:
 # Manage prices
 manage_prices:
 - "backend/dashboards#sales" #?
-- "backend/product_prices#create"
-- "backend/product_prices#destroy"
-- "backend/product_prices#edit"
+- "backend/product_prices#create" #?
+- "backend/product_prices#destroy" #?
+- "backend/product_prices#edit" #?
 - "backend/product_prices#export" #?
 - "backend/product_prices#import" #?
-- "backend/product_prices#list"
-- "backend/product_prices#new"
-- "backend/product_prices#update"
+- "backend/product_prices#list" #?
+- "backend/product_prices#new" #?
+- "backend/product_prices#update" #?
 
 # Manage product price listings
 manage_product_price_listings:
 - "backend/dashboards#relationship"
-- "backend/product_price_listings#create"
-- "backend/product_price_listings#destroy"
-- "backend/product_price_listings#edit"
-- "backend/product_price_listings#index"
-- "backend/product_price_listings#list"
-- "backend/product_price_listings#new"
-- "backend/product_price_listings#show"
-- "backend/product_price_listings#update"
+- "backend/product_price_listings#create" #?
+- "backend/product_price_listings#destroy" #?
+- "backend/product_price_listings#edit" #?
+- "backend/product_price_listings#index" #?
+- "backend/product_price_listings#list" #?
+- "backend/product_price_listings#new" #?
+- "backend/product_price_listings#show" #?
+- "backend/product_price_listings#update" #?
 
 # Manage productions
 manage_productions:

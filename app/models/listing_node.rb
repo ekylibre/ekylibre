@@ -30,7 +30,7 @@
 #  id                   :integer          not null, primary key
 #  item_listing_id      :integer
 #  item_listing_node_id :integer
-#  item_nature          :string(8)
+#  item_nature          :string(10)
 #  item_value           :text
 #  key                  :string(255)
 #  label                :string(255)      not null
@@ -60,7 +60,7 @@ class ListingNode < Ekylibre::Record::Base
   has_many :items, :class_name => "ListingNodeItem"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :depth, :lft, :rgt, :allow_nil => true, :only_integer => true
-  validates_length_of :item_nature, :allow_nil => true, :maximum => 8
+  validates_length_of :item_nature, :allow_nil => true, :maximum => 10
   validates_length_of :attribute_name, :condition_operator, :condition_value, :key, :label, :name, :nature, :sql_type, :allow_nil => true, :maximum => 255
   validates_inclusion_of :exportable, :in => [true, false]
   validates_presence_of :depth, :label, :listing, :name, :nature

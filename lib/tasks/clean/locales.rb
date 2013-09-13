@@ -106,6 +106,11 @@ task :locales => :environment do
   acount += total-untranslated
 
 
+  # Aggregators
+  count = CleanSupport.sort_yaml_file :aggregators, log
+  atotal += count
+  acount += count
+
   # Countries
   count = CleanSupport.sort_yaml_file :countries, log
   atotal += count
@@ -148,19 +153,24 @@ task :locales => :environment do
   atotal += total
   acount += total-untranslated
 
+  # Devise
+  count = CleanSupport.sort_yaml_file :devise, log
+  atotal += count
+  acount += count
+
+  count = CleanSupport.sort_yaml_file "devise.views", log
+  atotal += count
+  acount += count
 
   # Formats
   count = CleanSupport.sort_yaml_file :formats, log
   atotal += count
   acount += count
 
-
   # Languages
   count = CleanSupport.sort_yaml_file :languages, log
   atotal += count
   acount += count
-
-
 
   # Models
   untranslated = 0
@@ -253,7 +263,10 @@ task :locales => :environment do
   atotal += count
   acount += count
 
-
+  # Procedures
+  count = CleanSupport.sort_yaml_file :procedures, log
+  atotal += count
+  acount += count
 
   # Rights
   rights = YAML.load_file(User.rights_file)
@@ -283,15 +296,6 @@ task :locales => :environment do
   atotal += count
   acount += count
 
-  # Devise
-  count = CleanSupport.sort_yaml_file :devise, log
-  atotal += count
-  acount += count
-
-  count = CleanSupport.sort_yaml_file "devise.views", log
-  atotal += count
-  acount += count
-
 
   # puts " - Locale: #{::I18n.locale_label} (Reference)"
   total, count = atotal, acount
@@ -312,7 +316,6 @@ task :locales => :environment do
     total, count = 0, 0
     for reference_path in Dir.glob(Rails.root.join("config", "locales", ::I18n.default_locale.to_s, "*.yml")).sort
       file_name = reference_path.split(/[\/\\]+/)[-1]
-      next if file_name.match(/accounting/)
       target_path = Rails.root.join("config", "locales", locale.to_s, file_name)
       unless File.exist?(target_path)
         FileUtils.mkdir_p(target_path.dirname)

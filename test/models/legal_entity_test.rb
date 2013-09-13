@@ -21,9 +21,7 @@
 # == Table: entities
 #
 #  active                    :boolean          default(TRUE), not null
-#  activity_code             :string(32)
-#  attorney                  :boolean          not null
-#  attorney_account_id       :integer
+#  activity_code             :string(30)
 #  authorized_payments_count :integer
 #  born_on                   :date
 #  client                    :boolean          not null
@@ -35,7 +33,6 @@
 #  dead_on                   :date
 #  deliveries_conditions     :string(60)
 #  description               :text
-#  discount_percentage       :decimal(19, 4)
 #  first_met_on              :date
 #  first_name                :string(255)
 #  full_name                 :string(255)      not null
@@ -46,32 +43,27 @@
 #  lock_version              :integer          default(0), not null
 #  locked                    :boolean          not null
 #  nature                    :string(255)      not null
-#  number                    :string(64)
+#  number                    :string(60)
 #  of_company                :boolean          not null
 #  origin                    :string(255)
-#  payment_delay             :string(255)
-#  payment_mode_id           :integer
 #  picture_content_type      :string(255)
 #  picture_file_name         :string(255)
 #  picture_file_size         :integer
 #  picture_updated_at        :datetime
 #  proposer_id               :integer
 #  prospect                  :boolean          not null
-#  reduction_percentage      :decimal(19, 4)
 #  reminder_submissive       :boolean          not null
 #  responsible_id            :integer
-#  sale_price_listing_id     :integer
+#  sale_catalog_id           :integer
 #  siren                     :string(9)
-#  soundex                   :string(4)
 #  supplier                  :boolean          not null
 #  supplier_account_id       :integer
 #  transporter               :boolean          not null
 #  type                      :string(255)
 #  updated_at                :datetime         not null
 #  updater_id                :integer
-#  vat_number                :string(15)
+#  vat_number                :string(20)
 #  vat_subjected             :boolean          default(TRUE), not null
-#  webpass                   :string(255)
 #
 require 'test_helper'
 

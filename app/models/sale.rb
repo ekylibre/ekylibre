@@ -42,7 +42,7 @@
 #  function_title      :string(255)
 #  has_downpayment     :boolean          not null
 #  id                  :integer          not null, primary key
-#  initial_number      :string(64)
+#  initial_number      :string(60)
 #  introduction        :text
 #  invoice_address_id  :integer
 #  invoiced_on         :date
@@ -50,14 +50,14 @@
 #  letter_format       :boolean          default(TRUE), not null
 #  lock_version        :integer          default(0), not null
 #  nature_id           :integer
-#  number              :string(64)       not null
+#  number              :string(60)       not null
 #  origin_id           :integer
 #  payment_delay       :string(255)      not null
 #  payment_on          :date
 #  pretax_amount       :decimal(19, 4)   default(0.0), not null
 #  reference_number    :string(255)
 #  responsible_id      :integer
-#  state               :string(64)       not null
+#  state               :string(60)       not null
 #  subject             :string(255)
 #  transporter_id      :integer
 #  updated_at          :datetime         not null
@@ -88,7 +88,7 @@ class Sale < Ekylibre::Record::Base
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :amount, :downpayment_amount, :pretax_amount, :allow_nil => true
   validates_length_of :currency, :allow_nil => true, :maximum => 3
-  validates_length_of :initial_number, :number, :state, :allow_nil => true, :maximum => 64
+  validates_length_of :initial_number, :number, :state, :allow_nil => true, :maximum => 60
   validates_length_of :expiration_delay, :function_title, :payment_delay, :reference_number, :subject, :allow_nil => true, :maximum => 255
   validates_inclusion_of :credit, :has_downpayment, :letter_format, :in => [true, false]
   validates_presence_of :amount, :client, :created_on, :downpayment_amount, :number, :payer, :payment_delay, :pretax_amount, :state
@@ -261,15 +261,18 @@ class Sale < Ekylibre::Record::Base
   # Create the last delivery with undelivered products if necessary.
   # The sale order is confirmed if it hasn't be done.
   def deliver
+    # TODO A sale cannot be delivered anymore...
+    ActiveSupport::Deprecation.warn "A sale cannot be delivered. Use deliveries to deliver product instead."
+    return false
     return false unless self.order?
     items = []
-    for item in self.items.find_all_by_reduction_origin_id(nil)
+    for item in self.items.not_reduction
       quantity = item.undelivered_quantity
-      if quantity > 0 and item.product_deliverable?
+      if quantity > 0 and item.deliverable?
         items << {:sale_item_id => item.id, :quantity => quantity}
       end
     end
-    if items.size>0
+    if items.count > 0
       delivery = self.deliveries.create!(:pretax_amount => 0, :amount => 0, :planned_on => Date.today, :moved_on => Date.today, :address_id => self.delivery_address_id)
       for item in items
         delivery.items.create! item

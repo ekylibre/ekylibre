@@ -26,7 +26,7 @@ class Backend::SalesController < BackendController
   # management -> sales_conditions
   def self.sales_conditions
     code = ""
-    code = search_conditions(:sale, :sales => [:pretax_amount, :amount, :number, :initial_number, :description], :entities => [:code, :full_name]) + "||=[]\n"
+    code = search_conditions(:sale, :sales => [:pretax_amount, :amount, :number, :initial_number, :description], :entities => [:code, :full_name]) + " ||= []\n"
     code << "unless session[:sale_state].blank?\n"
     code << "  if session[:sale_state] == 'all'\n"
     code << "    c[0] += \" AND state IN ('estimate', 'order', 'invoice')\"\n"
@@ -120,7 +120,7 @@ class Backend::SalesController < BackendController
   end
 
   list(:undelivered_items, :model => :sale_items, :conditions => {:sale_id => ['session[:current_sale_id]'], :reduction_origin_id => nil}) do |t|
-    t.column :name, :through => :product
+    t.column :name, :through => :variant
     t.column :pretax_amount, :currency => "RECORD.price.currency", :through => :price
     t.column :quantity
     t.column :unit
@@ -129,12 +129,12 @@ class Backend::SalesController < BackendController
     t.column :undelivered_quantity, :datatype => :decimal
   end
 
-  list(:items, :model => :sale_items, :conditions => {:sale_id => ['params[:id]']}, :order => :position, :export => false, :line_class => "((RECORD.product.nature.subscribing? and RECORD.subscriptions.sum(:quantity) != RECORD.quantity) ? 'warning' : '')", :include => [:product, :subscriptions]) do |t|
-    # t.column :name, :through => :product
+  list(:items, :model => :sale_items, :conditions => {:sale_id => ['params[:id]']}, :order => :position, :export => false, :line_class => "((RECORD.nature.subscribing? and RECORD.subscriptions.sum(:quantity) != RECORD.quantity) ? 'warning' : '')", :include => [:variant, :subscriptions]) do |t|
+    # t.column :name, :through => :variant
     # t.column :position
     t.column :label
     t.column :annotation
-    # t.column :serial_number, :through => :product, :url => true
+    # t.column :serial_number, :through => :variant, :url => true
     t.column :quantity
     t.column :unit
     t.column :pretax_amount, :through => :price, :label => "unit_price_amount", :currency => "RECORD.price.currency"
@@ -146,13 +146,13 @@ class Backend::SalesController < BackendController
 
   # Displays details of one sale selected with +params[:id]+
   def show
-    return unless @sale = find_and_check(:sale)
+    return unless @sale = find_and_check
     respond_with(@sale, :methods => [:taxes_amount, :affair_closed, :client_number ],
                         :include => {:address => {:methods => [:mail_coordinate]},
                                      :supplier => {:methods => [:picture_path], :include => {:default_mail_address => {:methods => [:mail_coordinate]}}},
                                      :credits => {},
                                      :invoice_address => {:methods => [:mail_coordinate]},
-                                     :items => {:methods => [:taxes_amount, :tax_name], :include => [:product, :price]}
+                                     :items => {:methods => [:taxes_amount, :tax_name], :include => [:variant, :price]}
                                      }
                                      ) do |format|
       format.html do
@@ -174,11 +174,11 @@ class Backend::SalesController < BackendController
         end
         t3e @sale.attributes, :client => @sale.client.full_name, :state => @sale.state_label, :label => @sale.label
       end
-      # format.json { render :json => @sale, :include => {:items => {:include => :product}} }
-      # format.xml  { render  :xml => @sale, :include => {:invoice_address => {}, :items => {:include => :product}} }
-      # format.pdf  { render  :pdf => @sale, :include => {:items => {:include => :product}} }
-      # format.odt  { render  :odt => @sale, :include => {:items => {:include => :product}} }
-      # format.docx { render :docx => @sale, :include => {:items => {:include => :product}} }
+      # format.json { render :json => @sale, :include => {:items => {:include => :variant}} }
+      # format.xml  { render  :xml => @sale, :include => {:invoice_address => {}, :items => {:include => :variant}} }
+      # format.pdf  { render  :pdf => @sale, :include => {:items => {:include => :variant}} }
+      # format.odt  { render  :odt => @sale, :include => {:items => {:include => :variant}} }
+      # format.docx { render :docx => @sale, :include => {:items => {:include => :variant}} }
       # # format.pdf do
       # #   if @sale.invoice?
       # #     render_print_sales_invoice(@sale)
@@ -191,7 +191,7 @@ class Backend::SalesController < BackendController
   end
 
   def abort
-    return unless @sale = find_and_check(:sale)
+    return unless @sale = find_and_check
     if request.post?
       @sale.abort
     end
@@ -202,7 +202,7 @@ class Backend::SalesController < BackendController
   list(:creditable_items, :model => :sale_items, :conditions => ["sale_id=? AND reduction_origin_id IS NULL", ['session[:sale_id]']]) do |t|
     t.column :label
     t.column :annotation
-    t.column :name, :through => :product
+    t.column :name, :through => :variant
     t.column :amount, :through => :price, :label => :column
     t.column :quantity
     t.column :credited_quantity, :datatype => :decimal
@@ -211,7 +211,7 @@ class Backend::SalesController < BackendController
   end
 
   def cancel
-    return unless @sale = find_and_check(:sale)
+    return unless @sale = find_and_check
     session[:sale_id] = @sale.id
     if request.post?
       items = {}
@@ -229,7 +229,7 @@ class Backend::SalesController < BackendController
   end
 
   def confirm
-    return unless @sale = find_and_check(:sale)
+    return unless @sale = find_and_check
     if request.post?
       @sale.confirm
     end
@@ -256,7 +256,7 @@ class Backend::SalesController < BackendController
   end
 
   def correct
-    return unless @sale = find_and_check(:sale)
+    return unless @sale = find_and_check
     if request.post?
       @sale.correct
     end
@@ -289,7 +289,7 @@ class Backend::SalesController < BackendController
   end
 
   def edit
-    return unless @sale = find_and_check(:sale)
+    return unless @sale = find_and_check
     unless @sale.draft?
       notify_error(:sale_cannot_be_updated)
       redirect_to :action => :show, :step => :products, :id => @sale.id
@@ -300,7 +300,7 @@ class Backend::SalesController < BackendController
   end
 
   def update
-    return unless @sale = find_and_check(:sale)
+    return unless @sale = find_and_check
     unless @sale.draft?
       notify_error(:sale_cannot_be_updated)
       redirect_to :action => :show, :step => :products, :id => @sale.id
@@ -315,7 +315,7 @@ class Backend::SalesController < BackendController
   end
 
   def destroy
-    return unless @sale = find_and_check(:sale)
+    return unless @sale = find_and_check
     if request.post? or request.delete?
       if @sale.aborted?
         @sale.destroy
@@ -327,7 +327,7 @@ class Backend::SalesController < BackendController
   end
 
   def duplicate
-    return unless sale = find_and_check(:sale)
+    return unless sale = find_and_check
     copy = nil
     begin
       copy = sale.duplicate(:responsible_id => @current_user.id)
@@ -342,7 +342,7 @@ class Backend::SalesController < BackendController
   end
 
   def invoice
-    return unless @sale = find_and_check(:sale)
+    return unless @sale = find_and_check
     if request.post?
       ActiveRecord::Base.transaction do
         raise ActiveRecord::Rollback unless @sale.invoice
@@ -354,7 +354,7 @@ class Backend::SalesController < BackendController
   end
 
   def propose
-    return unless @sale = find_and_check(:sale)
+    return unless @sale = find_and_check
     if request.post?
       @sale.propose
     end
@@ -362,7 +362,7 @@ class Backend::SalesController < BackendController
   end
 
   def propose_and_invoice
-    return unless @sale = find_and_check(:sale)
+    return unless @sale = find_and_check
     if request.post?
       ActiveRecord::Base.transaction do
         raise ActiveRecord::Rollback unless @sale.propose
@@ -375,7 +375,7 @@ class Backend::SalesController < BackendController
   end
 
   def refuse
-    return unless @sale = find_and_check(:sale)
+    return unless @sale = find_and_check
     if request.post?
       @sale.refuse
     end

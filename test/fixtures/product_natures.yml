@@ -27,14 +27,14 @@
 #  created_at             :datetime         not null
 #  creator_id             :integer
 #  depreciable            :boolean          not null
-#  derivative_of          :string(127)
+#  derivative_of          :string(120)
 #  description            :text
 #  id                     :integer          not null, primary key
 #  indicators             :text
 #  lock_version           :integer          default(0), not null
 #  name                   :string(255)      not null
-#  nomen                  :string(127)
-#  number                 :string(31)       not null
+#  nomen                  :string(120)
+#  number                 :string(30)       not null
 #  population_counting    :string(255)      not null
 #  product_account_id     :integer
 #  purchasable            :boolean          not null
@@ -47,7 +47,7 @@
 #  subscription_nature_id :integer
 #  updated_at             :datetime         not null
 #  updater_id             :integer
-#  variety                :string(127)      not null
+#  variety                :string(120)      not null
 #
 #
 # == Fixture: product_natures

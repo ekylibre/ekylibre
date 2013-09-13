@@ -18,43 +18,46 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: product_prices
+# == Table: catalog_prices
 #
-#  amount        :decimal(19, 4)   not null
-#  created_at    :datetime         not null
-#  creator_id    :integer
-#  currency      :string(3)        not null
-#  id            :integer          not null, primary key
-#  listing_id    :integer
-#  lock_version  :integer          default(0), not null
-#  pretax_amount :decimal(19, 4)   not null
-#  product_id    :integer
-#  started_at    :datetime
-#  stopped_at    :datetime
-#  supplier_id   :integer          not null
-#  tax_id        :integer          not null
-#  updated_at    :datetime         not null
-#  updater_id    :integer
-#  variant_id    :integer          not null
+#  all_taxes_included :boolean          not null
+#  amount             :decimal(19, 4)   not null
+#  catalog_id         :integer
+#  created_at         :datetime         not null
+#  creator_id         :integer
+#  currency           :string(3)        not null
+#  id                 :integer          not null, primary key
+#  indicator          :string(120)      not null
+#  lock_version       :integer          default(0), not null
+#  reference_tax_id   :integer          not null
+#  started_at         :datetime
+#  stopped_at         :datetime
+#  supplier_id        :integer          not null
+#  thread             :string(20)
+#  updated_at         :datetime         not null
+#  updater_id         :integer
+#  variant_id         :integer          not null
 #
 
 
-# ProductPrice stores.all the prices used in sales and purchases.
-class ProductPrice < Ekylibre::Record::Base
+# CatalogPrice stores.all the prices used in sales and purchases.
+class CatalogPrice < Ekylibre::Record::Base
   # attr_accessible :listing_id, :product_id, :variant_id, :pretax_amount, :amount, :tax_id, :currency, :supplier_id
-  belongs_to :product
   belongs_to :variant, :class_name => "ProductNatureVariant"
   belongs_to :supplier, :class_name => "Entity"
-  belongs_to :tax
-  belongs_to :listing, :class_name => "ProductPriceListing"
+  # belongs_to :tax
+  belongs_to :catalog
   has_many :incoming_delivery_items, :foreign_key => :price_id
   has_many :outgoing_delivery_items, :foreign_key => :price_id
   has_many :purchase_items, :foreign_key => :price_id
   has_many :sale_items, :foreign_key => :price_id
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :amount, :pretax_amount, :allow_nil => true
+  validates_numericality_of :amount, :allow_nil => true
   validates_length_of :currency, :allow_nil => true, :maximum => 3
-  validates_presence_of :amount, :currency, :pretax_amount, :supplier, :tax, :variant
+  validates_length_of :thread, :allow_nil => true, :maximum => 20
+  validates_length_of :indicator, :allow_nil => true, :maximum => 120
+  validates_inclusion_of :all_taxes_included, :in => [true, false]
+  validates_presence_of :amount, :currency, :indicator, :supplier, :variant
   #]VALIDATORS]
   validates_presence_of :started_at
 
@@ -67,21 +70,16 @@ class ProductPrice < Ekylibre::Record::Base
       self.currency ||= supplier.currency
       self.supplier_id ||= supplier.id
     end
-    if self.product
-      self.variant_id = self.product.variant_id
-    end
     if self.started_at.nil?
       self.started_at = Time.now
     end
-
-
-
-    #self.computed_at ||= Time.now
-    #if self.template
-    #  self.currency ||= self.template.currency
-     ## self.supplier ||= self.template.supplier
-     # self.tax      ||= self.template.tax
-   # end
+    self.indicator ||= :population
+    #  #self.computed_at ||= Time.now
+    #  #if self.template
+    #  #  self.currency ||= self.template.currency
+    #   ## self.supplier ||= self.template.supplier
+    #   # self.tax      ||= self.template.tax
+    # # end
   end
 
   before_save do
@@ -89,16 +87,16 @@ class ProductPrice < Ekylibre::Record::Base
     return true
   end
 
-  validate do
-    #if self.template
-    #  if self.template.supplier_id != self.supplier_id
-    #    errors.add(:supplier_id, :invalid)
-    #  end
-    #  if self.template.currency != self.currency
-    #    errors.add(:currency, :invalid)
-    #  end
-    #end
-  end
+  # validate do
+  #   #if self.template
+  #   #  if self.template.supplier_id != self.supplier_id
+  #   #    errors.add(:supplier_id, :invalid)
+  #   #  end
+  #   #  if self.template.currency != self.currency
+  #   #    errors.add(:currency, :invalid)
+  #   #  end
+  #   #end
+  # end
 
   def label
     tc(:label, :variant => self.variant.name, :amount => self.amount, :currency => self.currency)
@@ -155,7 +153,7 @@ class ProductPrice < Ekylibre::Record::Base
     }
     # if the supplier are the company (Sale_case), the listing is the default listing
     if filter[:supplier_id] == company.id
-      filter[:listing_id] = (options.delete(:listing) || ProductPriceListing.by_default).id
+      filter[:listing_id] = (options.delete(:listing) || Catalog.by_default).id
     end
     # request for an existing price between dates according to filter conditions
     prices = self.actives_at(options[:at] || Time.now).where(filter)
@@ -182,24 +180,26 @@ class ProductPrice < Ekylibre::Record::Base
     computed_at = options[:at] || Time.now
     price = nil
     tax = options[:tax] || Tax.first
-      # Assigned price
-      pretax_amount = if options[:pretax_amount]
-                        options[:pretax_amount].to_d
-                      elsif options[:amount]
-                        tax.pretax_amount_of(options[:amount])
-                      else
-                        raise StandardError.new("No amounts found, at least amount or pretax_amount must be given to create a price")
-                      end
-      amount = tax.amount_of(pretax_amount)
-      if product.is_a? Product
-        price = self.create!({:product_id => product.id, :variant_id => product.variant_id, :started_at => computed_at, :pretax_amount => pretax_amount.round(2), :amount => amount.round(2), :tax_id => tax.id}, :without_protection => true)
-      elsif product.is_a? ProductNatureVariant
-        price = self.create!({:variant_id => product.id, :started_at => computed_at, :pretax_amount => pretax_amount.round(2), :amount => amount.round(2), :tax_id => tax.id}, :without_protection => true)
-      else
-        raise ArgumentError.new("The product argument must be a Product or a ProductNatureVariant not a #{product.class.name}")
-      end
-      # elsif self.calculation?
-      # price = // Formula
+    # Assigned price
+    pretax_amount = if options[:pretax_amount]
+                      options[:pretax_amount].to_d
+                    elsif options[:amount]
+                      tax.pretax_amount_of(options[:amount])
+                    else
+                      raise StandardError.new("No amounts found, at least amount or pretax_amount must be given to create a price")
+                    end
+    amount = tax.amount_of(pretax_amount)
+    # Amount choice
+    amount = (self.all_taxes_included ? amount : pretax_amount)
+    if product.is_a? Product
+      price = self.create!(:variant_id => product.variant_id, :started_at => computed_at, :amount => amount.round(2), :tax_id => tax.id, :all_taxes_included => self.all_taxes_included)
+    elsif product.is_a? ProductNatureVariant
+      price = self.create!(:variant_id => product.id, :started_at => computed_at, :amount => amount.round(2), :tax_id => tax.id, :all_taxes_included => self.all_taxes_included)
+    else
+      raise ArgumentError.new("The product argument must be a Product or a ProductNatureVariant not a #{product.class.name}")
+    end
+    # elsif self.calculation?
+    # price = // Formula
 
     return price
   end

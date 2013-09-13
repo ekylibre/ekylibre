@@ -25,7 +25,6 @@
 #  delivery_id  :integer          not null
 #  id           :integer          not null, primary key
 #  lock_version :integer          default(0), not null
-#  move_id      :integer
 #  product_id   :integer          not null
 #  quantity     :decimal(19, 4)   default(1.0), not null
 #  sale_item_id :integer
@@ -38,7 +37,7 @@ class OutgoingDeliveryItem < Ekylibre::Record::Base
   # attr_accessible :sale_item_id, :product_id, :price_id, :unit
   attr_readonly :sale_item_id, :product_id, :price_id, :unit
   belongs_to :delivery, :class_name => "OutgoingDelivery", :inverse_of => :items
-  # belongs_to :price, :class_name => "ProductPrice"
+  # belongs_to :price, :class_name => "CatalogPrice"
   belongs_to :product
   belongs_to :sale_item
   # belongs_to :move, :class_name => "ProductMove"

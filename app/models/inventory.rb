@@ -30,7 +30,7 @@
 #  journal_entry_id  :integer
 #  lock_version      :integer          default(0), not null
 #  moved_on          :date
-#  number            :string(16)
+#  number            :string(20)
 #  responsible_id    :integer
 #  updated_at        :datetime         not null
 #  updater_id        :integer
@@ -43,7 +43,7 @@ class Inventory < Ekylibre::Record::Base
   has_many :items, :class_name => "InventoryItem", :dependent => :destroy, :inverse_of => :inventory
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_length_of :number, :allow_nil => true, :maximum => 16
+  validates_length_of :number, :allow_nil => true, :maximum => 20
   validates_presence_of :created_on
   #]VALIDATORS]
 

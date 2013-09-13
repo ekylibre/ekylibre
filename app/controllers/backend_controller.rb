@@ -444,7 +444,8 @@ class BackendController < BaseController
     xhr = defaults.delete(:xhr)
     durl = defaults.delete(:destroy_to)
     record_name = name.to_s.singularize
-    model = name.to_s.classify.constantize
+    model_name = name.to_s.classify
+    model = model_name.constantize
 
     aname = self.controller_path.underscore
     base_url = aname.gsub(/\//, "_")
@@ -476,12 +477,23 @@ class BackendController < BaseController
     code << "respond_to :html, :xml, :json\n"
     # code << "respond_to :pdf, :odt, :ods, :csv, :docx, :xlsx, :only => [:show, :index]\n"
 
-    code << "def show\n"
-    code << "  head :forbidden\n"
+    code << "def index\n"
+    code << "  respond_to do |format|\n"
+    code << "    format.html\n"
+    code << "    format.xml  { render xml:  #{model_name}.all }\n"
+    code << "    format.json { render json: #{model_name}.all }\n"
+    code << "  end\n"
+    # code << "  head :forbidden\n"
     code << "end\n"
 
-    code << "def index\n"
-    code << "  head :forbidden\n"
+    code << "def show\n"
+    code << "  return unless @#{record_name} = find_and_check\n"
+    code << "  respond_to do |format|\n"
+    code << "    format.html { t3e(@#{record_name}) }\n"
+    code << "    format.xml  { render xml:  @#{record_name} }\n"
+    code << "    format.json { render json: @#{record_name} }\n"
+    code << "  end\n"
+    # code << "  head :forbidden\n"
     code << "end\n"
 
     code << "def #{record_name}_params\n"

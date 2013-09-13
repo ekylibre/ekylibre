@@ -26,10 +26,10 @@
 #  description  :text
 #  id           :integer          not null, primary key
 #  label        :string(255)      not null
-#  last_letter  :string(8)
+#  last_letter  :string(10)
 #  lock_version :integer          default(0), not null
-#  name         :string(208)      not null
-#  number       :string(16)       not null
+#  name         :string(200)      not null
+#  number       :string(20)       not null
 #  reconcilable :boolean          not null
 #  updated_at   :datetime         not null
 #  updater_id   :integer

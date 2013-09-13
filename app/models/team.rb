@@ -18,7 +18,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: departments
+# == Table: teams
 #
 #  created_at       :datetime         not null
 #  creator_id       :integer
@@ -36,7 +36,14 @@
 #
 
 
-require 'test_helper'
-
-class DepartmentTest < ActiveSupport::TestCase
+class Team < Ekylibre::Record::Base
+  # attr_accessible :name, :description, :sales_conditions, :parent_id
+  has_many :employees, :class_name => "Entity"
+  acts_as_nested_set
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_numericality_of :depth, :lft, :rgt, :allow_nil => true, :only_integer => true
+  validates_length_of :name, :allow_nil => true, :maximum => 255
+  validates_presence_of :depth, :name
+  #]VALIDATORS]
+  validates_uniqueness_of :name
 end

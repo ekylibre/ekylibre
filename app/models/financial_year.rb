@@ -21,7 +21,7 @@
 # == Table: financial_years
 #
 #  closed                :boolean          not null
-#  code                  :string(12)       not null
+#  code                  :string(20)       not null
 #  created_at            :datetime         not null
 #  creator_id            :integer
 #  currency              :string(3)
@@ -45,7 +45,7 @@ class FinancialYear < Ekylibre::Record::Base
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :currency_precision, :allow_nil => true, :only_integer => true
   validates_length_of :currency, :allow_nil => true, :maximum => 3
-  validates_length_of :code, :allow_nil => true, :maximum => 12
+  validates_length_of :code, :allow_nil => true, :maximum => 20
   validates_inclusion_of :closed, :in => [true, false]
   validates_presence_of :code, :started_on, :stopped_on
   #]VALIDATORS]

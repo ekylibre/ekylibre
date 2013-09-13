@@ -21,7 +21,7 @@
 # == Table: financial_years
 #
 #  closed                :boolean          not null
-#  code                  :string(12)       not null
+#  code                  :string(20)       not null
 #  created_at            :datetime         not null
 #  creator_id            :integer
 #  currency              :string(3)

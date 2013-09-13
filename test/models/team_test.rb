@@ -18,22 +18,25 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: product_price_listings
+# == Table: teams
 #
-#  by_default   :boolean          not null
-#  code         :string(8)
-#  created_at   :datetime         not null
-#  creator_id   :integer
-#  description  :text
-#  id           :integer          not null, primary key
-#  lock_version :integer          default(0), not null
-#  name         :string(255)      not null
-#  updated_at   :datetime         not null
-#  updater_id   :integer
+#  created_at       :datetime         not null
+#  creator_id       :integer
+#  depth            :integer          default(0), not null
+#  description      :text
+#  id               :integer          not null, primary key
+#  lft              :integer
+#  lock_version     :integer          default(0), not null
+#  name             :string(255)      not null
+#  parent_id        :integer
+#  rgt              :integer
+#  sales_conditions :text
+#  updated_at       :datetime         not null
+#  updater_id       :integer
 #
 
 
 require 'test_helper'
 
-class ProductPriceListingTest < ActiveSupport::TestCase
+class TeamTest < ActiveSupport::TestCase
 end

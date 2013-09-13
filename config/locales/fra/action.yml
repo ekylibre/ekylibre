@@ -11,7 +11,7 @@ fra:
       mark: "Lettrage du compte\_: %{number} - %{name}"
       new: "Créer un nouveau compte"
       reconciliation: "Lettrage de comptes"
-      show: "Compte\_: %{number} - %{name}"
+      show: "Compte\_: %{number} - %{name}" #?
       unmark: "Délettrer un compte"
     backend/activities:
       edit: "Modifier une activité\_: %{name} "
@@ -90,6 +90,12 @@ fra:
       index: "Trésoreries"
       new: "Enregistrer une nouvelle trésorerie"
       show: "%{nature}\_: %{name}"
+    backend/catalog_prices:
+      # edit: "Edit backend/catalog price"
+      # new: "New backend/catalog price"
+    backend/catalogs:
+      # edit: "Edit backend/catalog"
+      # new: "New backend/catalog"
     backend/cells/bank_chart_cells:
       # show: "Show backend/cells/bank chart cell"
     backend/cells/calendar_cells:
@@ -155,10 +161,6 @@ fra:
       tools: "Tableau de bord des outils"
       trade: "Tableau de bord des achats et ventes"
       welcome: "Bienvenue dans Ekylibre"
-    backend/departments:
-      edit: "Modifier le service\_: %{name}"
-      index: "Services"
-      new: "Ajout d’un nouveau service"
     backend/deposits:
       edit: "Modifier la remise en banque n°%{number} du %{created_on}"
       index: "Remises en banque"
@@ -452,9 +454,9 @@ fra:
       # show: "Show backend/product nature variant indicator datum"
     backend/product_nature_variants:
       edit: "Modifier la variante de produit\_: %{name}"
-      index: "Variantes de produits"
+      index: "Variantes de produits" #?
       new: "Nouvelle variante de produit"
-      show: "Variante de produit\_: %{name}"
+      show: "Variante de produit\_: %{name}" #?
     backend/product_natures:
       edit: "Modifier le type de produit\_: %{name}"
       index: "Type de produits"
@@ -465,16 +467,6 @@ fra:
       # index: "Index backend/product ownership"
       # new: "New backend/product ownership"
       # show: "Show backend/product ownership"
-    backend/product_price_listings:
-      # edit: "Edit backend/product price listing"
-      index: "Listes de prix"
-      # new: "New backend/product price listing"
-      # show: "Show backend/product price listing"
-    backend/product_prices:
-      # edit: "Edit backend/product price"
-      index: "Prix des produits"
-      # new: "New backend/product price"
-      # show: "Show backend/product price"
     backend/product_process_phases:
       # edit: "Edit backend/product process phase"
       # index: "Index backend/product process phase"
@@ -597,6 +589,10 @@ fra:
       edit: "Modifier la taxe\_: %{name}"
       index: "Taxes"
       new: "Ajouter une nouvelle taxe"
+    backend/teams:
+      # edit: "Edit backend/team"
+      # index: "Index backend/team"
+      # new: "New backend/team"
     backend/transports:
       deliveries: "Livraisons du transport" #?
       delivery_delete: "Retirer la livraison du transport" #?
@@ -639,6 +635,8 @@ fra:
     backend/campaigns: "Campagnes"
     backend/cash_transfers: "Virements internes"
     backend/cashes: "Trésoreries"
+    # backend/catalog_prices: "Backend/catalog prices"
+    # backend/catalogs: "Backend/catalogs"
     # backend/cells/bank_chart_cells: "Backend/cells/bank chart cells"
     # backend/cells/calendar_cells: "Backend/cells/calendar cells"
     # backend/cells/collected_taxes_cells: "Backend/cells/collected taxes cells"
@@ -663,7 +661,6 @@ fra:
     backend/custom_field_choices: "Choix de champs personnalisés"
     backend/custom_fields: "Champs personnalisés"
     backend/dashboards: "Tableaux de bord"
-    backend/departments: "Services"
     backend/deposit_items: "Lignes de remise en banque"
     backend/deposits: "Remises en banque"
     backend/districts: "Zones administratives"
@@ -729,8 +726,6 @@ fra:
     # backend/product_nature_variants: "Backend/product nature variants"
     backend/product_natures: "Types de produits"
     # backend/product_ownerships: "Backend/product ownerships"
-    backend/product_price_listings: "Listes de prix"
-    backend/product_prices: "Prix des produits"
     # backend/product_process_phases: "Backend/product process phases"
     # backend/product_processes: "Backend/product processes"
     # backend/production_supports: "Backend/production supports"
@@ -753,6 +748,7 @@ fra:
     backend/subscriptions: "Abonnements"
     backend/tax_declarations: "Déclaration de TVA"
     backend/taxes: "Taxes"
+    # backend/teams: "Backend/teams"
     # backend/trackings: "Backend/trackings"
     backend/transfers: "Transferts"
     backend/transports: "Transports"

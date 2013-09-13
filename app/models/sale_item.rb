@@ -25,53 +25,52 @@
 #  annotation           :text
 #  created_at           :datetime         not null
 #  creator_id           :integer
+#  credited_item_id     :integer
+#  currency             :string(3)
 #  id                   :integer          not null, primary key
+#  indicator            :string(120)      not null
 #  label                :text
 #  lock_version         :integer          default(0), not null
-#  origin_id            :integer
 #  position             :integer
 #  pretax_amount        :decimal(19, 4)   default(0.0), not null
-#  price_amount         :decimal(19, 4)
 #  price_id             :integer          not null
-#  price_template_id    :integer
-#  product_id           :integer          not null
 #  quantity             :decimal(19, 4)   default(1.0), not null
-#  reduction_origin_id  :integer
+#  reduced_item_id      :integer
 #  reduction_percentage :decimal(19, 4)   default(0.0), not null
 #  sale_id              :integer          not null
 #  tax_id               :integer
-#  tracking_id          :integer
-#  unit                 :string(255)
+#  unit_price_amount    :decimal(19, 4)
 #  updated_at           :datetime         not null
 #  updater_id           :integer
-#  warehouse_id         :integer
+#  variant_id           :integer          not null
 #
 
 
 class SaleItem < Ekylibre::Record::Base
   after_save :set_reduction
-  # attr_accessible :annotation, :price_amount, :price_id, :product_id, :quantity, :reduction_percentage, :sale_id, :tax_id, :unit
   attr_readonly :sale_id
   belongs_to :account
   # belongs_to :entity
   belongs_to :sale, :inverse_of => :items
-  belongs_to :origin, :class_name => "SaleItem"
-  belongs_to :price, :class_name => "ProductPrice"
-  belongs_to :product
-  belongs_to :reduction_origin, :class_name => "SaleItem"
+  belongs_to :credited_item, class_name: "SaleItem"
+  belongs_to :price, class_name: "CatalogPrice"
+  belongs_to :variant, class_name: "ProductNatureVariant"
+  belongs_to :reduced_item, class_name: "SaleItem"
   belongs_to :tax
-  belongs_to :tracking
-  enumerize :unit, :in => Nomen::Units.all
-  has_many :delivery_items, :class_name => "OutgoingDeliveryItem", :foreign_key => :sale_item_id
-  has_one :reduction, :class_name => "SaleItem", :foreign_key => :reduction_origin_id
-  has_many :credits, :class_name => "SaleItem", :foreign_key => :origin_id
-  has_many :reductions, :class_name => "SaleItem", :foreign_key => :reduction_origin_id, :dependent => :delete_all
+  # belongs_to :tracking
+  has_many :delivery_items, class_name: "OutgoingDeliveryItem", :foreign_key => :sale_item_id
+  has_one :reduction, class_name: "SaleItem", :foreign_key => :reduced_item_id
+  has_many :credits, class_name: "SaleItem", :foreign_key => :credited_item_id
+  has_many :reductions, class_name: "SaleItem", :foreign_key => :reduced_item_id, :dependent => :delete_all
   has_many :subscriptions, :dependent => :destroy
 
   accepts_nested_attributes_for :subscriptions
   delegate :sold?, :to => :sale
+  delegate :all_taxes_included?, :to => :price
   delegate :name, :to => :tax, :prefix => true
-  delegate :subscribing?, :deliverable?, :to => :product, :prefix => true
+  delegate :nature, :name, :to => :variant, :prefix => true
+  alias :product_nature :variant_nature
+  delegate :subscribing?, :deliverable?, :to => :product_nature, :prefix => true
 
 
   acts_as_list :scope => :sale
@@ -79,70 +78,67 @@ class SaleItem < Ekylibre::Record::Base
   sums :sale, :items, :pretax_amount, :amount
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :amount, :pretax_amount, :price_amount, :quantity, :reduction_percentage, :allow_nil => true
-  validates_length_of :unit, :allow_nil => true, :maximum => 255
-  validates_presence_of :amount, :pretax_amount, :price, :product, :quantity, :reduction_percentage, :sale
+  validates_numericality_of :amount, :pretax_amount, :quantity, :reduction_percentage, :unit_price_amount, :allow_nil => true
+  validates_length_of :currency, :allow_nil => true, :maximum => 3
+  validates_length_of :indicator, :allow_nil => true, :maximum => 120
+  validates_presence_of :amount, :indicator, :pretax_amount, :price, :quantity, :reduction_percentage, :sale, :variant
   #]VALIDATORS]
   validates_presence_of :tax
+  validates_numericality_of :quantity, greater_than_or_equal_to: 0, :unless => :reduced_item
 
+
+  scope :not_reduction, -> { where(reduced_item_id: nil) }
 
   before_validation do
-    # if not self.price and self.sale and self.product
-    #   self.price = self.product.price(:listing => self.sale.client.sale_price_listing)
-    # end
-    listing = (self.sale.nil? ? nil : self.sale.client.sale_price_listing)
-    # @FIXME
-    #if self.price_amount and self.tax # and not self.price
-    #  self.price = self.product.price(:pretax_amount => self.price_amount, :tax => self.tax, :listing => listing)
-    #else
-    #  self.price = self.product.price(:listing => listing)
-    #end
-
-    # self.product = self.price.product if self.price
-    if self.product
-      self.account_id = self.product.variant.nature.product_account_id
-      self.unit = self.product.variant.unit_name
-      if self.product.nature.storable
-      #   self.building_id ||= self.product.stocks.first.building_id if self.product.stocks.count > 0
-      # else
-      #   self.building_id = nil
-      end
-      self.label ||= self.product.variant.commercial_name
+    if self.variant
+      self.account_id = self.product_nature.product_account_id
+      self.label ||= self.variant.commercial_name
     end
-    self.price_amount ||= 0
+
     self.pretax_amount ||= 0
     self.amount ||= 0
 
-    # TODO Repairs that
-    # if self.price_amount > 0
-    #   price = ProductPriceTemplate.create!(:pretax_amount => self.price_amount, :tax_id => self.tax_id||0, :entity_id => Entity.of_company.id, :active => false, :product_id => self.product_id, :listing_id => self.sale.client.sale_price_listing_id)
-    #   self.price = price
-    # end
-
     if self.price
-      if self.reduction_origin_id.nil?
-        if self.quantity
-          self.pretax_amount = (self.price.pretax_amount*self.quantity).round(2)
-          self.amount = (self.price.amount*self.quantity).round(2)
-        elsif self.pretax_amount
-          q = self.pretax_amount/self.price.pretax_amount
-          self.quantity = q.round(2)
-          self.amount = (q*self.price.amount).round(2)
-        elsif self.amount
-          q = self.amount/self.price.amount
-          self.quantity = q.round(2)
-          self.pretax_amount = (q*self.price.pretax_amount).round(2)
+      self.indicator = self.price.indicator
+      self.unit_price_amount ||= self.price.amount
+      amount = self.quantity * self.unit_price_amount
+      if self.tax
+        tax_amount = self.tax.compute(amount, self.all_taxes_included?)
+        if self.all_taxes_included?
+          self.amount = amount
+          self.pretax_amount = (self.amount - tax_amount).round(2)
+        else
+          self.pretax_amount = amount
+          self.amount = (self.pretax_amount + tax_amount).round(2)
         end
       else
-        self.pretax_amount = (self.price.pretax_amount * self.quantity).round(2)
-        self.amount = (self.price.amount * self.quantity).round(2)
+        self.amount = self.pretax_amount = amount
       end
-      self.price_amount ||= self.price.pretax_amount
-      self.tax ||= self.price.tax
-      return true
+
+      # if self.reduced_item.nil?
+      #   amount = self.quantity * self.unit_price_amount
+      #   if self.price.all_taxes_included?
+      #     self.amount = amount
+      #     self.pretax_amount = self.price.(self.amount / ()).round(2)
+      #   if self.quantity
+      #     self.pretax_amount = (self.price.pretax_amount * self.quantity).round(2)
+      #     self.amount = (self.price.amount*self.quantity).round(2)
+      #   elsif self.pretax_amount
+      #     q = self.pretax_amount/self.price.pretax_amount
+      #     self.quantity = q.round(2)
+      #     self.amount = (q*self.price.amount).round(2)
+      #   elsif self.amount
+      #     q = self.amount/self.price.amount
+      #     self.quantity = q.round(2)
+      #     self.pretax_amount = (q*self.price.pretax_amount).round(2)
+      #   end
+      # else
+      #   self.pretax_amount = (self.price.pretax_amount * self.quantity).round(2)
+      #   self.amount = (self.price.amount * self.quantity).round(2)
+      # end
+      # self.price_amount ||= self.price.pretax_amount
+      # self.tax ||= self.price.tax
     end
-
-
     #     if self.building.reservoir && self.building.product_id != self.product_id
     #       check_reservoir = false
     #       errors.add(:building_id, :building_can_not_transfer_product, :building => self.building.name, :product => self.product.name, :contained_product => self.building.product.name, :account_id => 0, :unit => self.unit)
@@ -164,9 +160,6 @@ class SaleItem < Ekylibre::Record::Base
     errors.add(:quantity, :invalid) if self.quantity.zero?
     if self.price and self.sale
       errors.add(:price_id, :currency_is_not_sale_currency) if self.price.currency != self.sale.currency
-      if self.product
-        errors.add(:price_id, :invalid) unless self.price.variant_id == self.product.variant_id
-      end
     end
     # TODO validates responsible can make reduction and reduction percentage is convenient
   end
@@ -176,9 +169,9 @@ class SaleItem < Ekylibre::Record::Base
   end
 
   def set_reduction
-    if self.reduction_percentage > 0 and self.product.reduction_submissive and self.reduction_origin_id.nil?
+    if self.reduction_percentage > 0 and self.product_nature.reduction_submissive and self.reduced_item_id.nil?
       reduction = self.reduction || self.build_reduction
-      reduction.attributes = {:reduction_origin_id => self.id, :price_id => self.price_id, :product_id => self.product_id, :sale_id => self.sale_id, :building_id => self.building_id, :quantity => -self.quantity*reduction_percentage/100, :label => tc('reduction_on', :product => self.product.commercial_name, :percentage => self.reduction_percentage)}
+      reduction.attributes = {:reduced_item_id => self.id, :price_id => self.price_id, :variant_id => self.variant_id, :sale_id => self.sale_id, :quantity => -self.quantity*reduction_percentage/100, :label => tc('reduction_on', :product => self.variant.commercial_name, :percentage => self.reduction_percentage)}
       reduction.save!
     elsif self.reduction
       self.reduction.destroy
@@ -189,29 +182,25 @@ class SaleItem < Ekylibre::Record::Base
     self.quantity - self.delivery_items.sum(:quantity)
   end
 
-  def product_name
-    self.product ? self.product.name : tc(:no_product)
-  end
+  # def stock_id
+  #   ProductStock.find_by_building_id_and_product_id_and_tracking_id(self.building_id, self.product_id, self.tracking_id).id rescue nil
+  # end
 
-  def stock_id
-    ProductStock.find_by_building_id_and_product_id_and_tracking_id(self.building_id, self.product_id, self.tracking_id).id rescue nil
-  end
-
-  def stock_id=(value)
-    value = value.to_i
-    if value > 0 and stock = ProductStock.find_by_id(value)
-      self.building_id = stock.building_id
-      self.tracking_id = stock.tracking_id
-      self.product_id  = stock.product_id
-    elsif value < 0 and building = Building.find_by_id(value.abs)
-      self.building_id = value.abs
-    end
-  end
+  # def stock_id=(value)
+  #   value = value.to_i
+  #   if value > 0 and stock = ProductStock.find_by_id(value)
+  #     self.building_id = stock.building_id
+  #     self.tracking_id = stock.tracking_id
+  #     self.product_id  = stock.product_id
+  #   elsif value < 0 and building = Building.find_by_id(value.abs)
+  #     self.building_id = value.abs
+  #   end
+  # end
 
   def designation
     d  = self.label
-    d << "\n"+self.annotation.to_s unless self.annotation.blank?
-    d << "\n"+tc(:tracking, :serial => self.tracking.serial.to_s) if self.tracking
+    d << "\n" + self.annotation.to_s unless self.annotation.blank?
+    d << "\n" + tc(:tracking, :serial => self.tracking.serial.to_s) if self.tracking
     return d
   end
 
@@ -222,7 +211,7 @@ class SaleItem < Ekylibre::Record::Base
     product = subscription.product
     nature  = subscription.nature
     if nature
-      if nature.nature == "period"
+      if nature.period?
         subscription.started_on ||= Date.today
         subscription.stopped_on ||= Delay.compute((product.subscription_period||'1 year')+", 1 day ago", subscription.started_on)
       else

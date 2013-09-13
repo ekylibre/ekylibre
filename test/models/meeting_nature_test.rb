@@ -29,7 +29,7 @@
 #  name         :string(255)      not null
 #  updated_at   :datetime         not null
 #  updater_id   :integer
-#  usage        :string(64)
+#  usage        :string(60)
 #
 require 'test_helper'
 
