@@ -1171,6 +1171,7 @@ jpn:
     # next: "Suivant"
     # no_commercial: "— Sans commercial —"
     # no_contacts: "Aucune adresse définie pour %{name}"
+    # no_data: "Aucune donnée"
     # no_deliveries: "Aucune livraison en attente"
     # no_deliveries_for_this_sale: "Cette vente n’est associée à aucune livraison"
     # no_deposits: "Aucune remise en banque à valider"

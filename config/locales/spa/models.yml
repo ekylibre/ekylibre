@@ -526,8 +526,8 @@ spa:
     # code: "Code"
     # coefficient: "Coefficient"
     # collect_account: "TVA collectée"
+    # collect_taxes: "TVA collectées"
     # collected_amount: "TVA brute"
-    # collected_taxes: "TVA collectées"
     # color: "Couleur"
     # column_name: "Nom de colonne"
     # columns: "Colonnes"
@@ -588,6 +588,7 @@ spa:
     # decimal_value: "Valeur décimale"
     # declared_on: "Déclarée le"
     # deduction_account: "TVA déductible"
+    # deduction_taxes: "TVA déductible"
     # default_mail_address: "Adresse email par défaut"
     # deferred_payment: "Crédit à reporter"
     # deleted_at: "Supprimé le"
@@ -848,10 +849,8 @@ spa:
     # owner: "Propriétaire"
     # owner_type: "Nature du propriétaire"
     # paid: "Réglée"
-    # paid_account: "TVA déductible"
     # paid_amount: "Montant payé"
     # paid_on: "Réglé le"
-    # paid_taxes: "Taxes payées"
     # parent: "Parent"
     # parent_place: "Parent place"
     # participations: "Participations"
@@ -1562,8 +1561,7 @@ spa:
         # stock_transfers: "TS[year|4][number|4]"
         # subscriptions: "ABO[number|8]"
         # transports: "TR[number|8]"
-    tax:  #?
- #?
+    tax: #?
     tax_declaration:
       # deferment: "Reporté"
       # monthly: "Mensuelle"

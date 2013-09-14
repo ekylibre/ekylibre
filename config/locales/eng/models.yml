@@ -683,9 +683,10 @@ eng:
     code2: "Code2" #?
     coefficient: "Coefficient"
     # collect_account: "TVA collectée"
+    # collect_taxes: "TVA collectées"
     collected_account: "Account collected" #?
     collected_amount: "Collected amount"
-    collected_taxes: "Collected taxes"
+    collected_taxes: "Collected taxes" #?
     color: "Color"
     column_name: "Column name"
     columns: "Columns"
@@ -760,6 +761,7 @@ eng:
     decimal_value: "Decimal value"
     declared_on: "Declared on"
     # deduction_account: "TVA déductible"
+    # deduction_taxes: "TVA déductible"
     default_address: "Default address" #?
     default_contact: "Default contact" #?
     default_currency: "Default currency" #?
@@ -1104,10 +1106,10 @@ eng:
     owner: "Owner"
     owner_type: "Owner type"
     paid: "Paid"
-    paid_account: "Account paid"
+    paid_account: "Account paid" #?
     paid_amount: "Paid amount"
     paid_on: "Paid on"
-    paid_taxes: "Paid taxes"
+    paid_taxes: "Paid taxes" #?
     parent: "Parent"
     parent_kinships: "Parent kinships" #?
     parent_land_parcel: "Parent land parcel" #?
@@ -2139,8 +2141,7 @@ eng:
         without_tracking: "%{building}: No serial, %{quantity}%{unit} available" #?
     stock_move:  #?
       default_name: "%{origin} (%{code})" #?
-    tax:  #?
- #?
+    tax: #?
     tax_declaration:
       deferment: "Deferment"
       monthly: "Monthly"

@@ -1109,10 +1109,10 @@ arb:
     code2: "الرمز الثاني" #?
     coefficient: "الدرجة"
     # collect_account: "TVA collectée"
+    # collect_taxes: "TVA collectées"
     collected_account: "جمع قيمة الضريبة الاضافية" #?
     collected_account_id: "جمع قيمة الضريبة الاضافية" #?
     collected_amount: "قيمة الضريبة الاضافية الاجمالية"
-    # collected_taxes: "TVA collectées"
     # color: "Couleur"
     # column_name: "Nom de colonne"
     # columns: "Colonnes"
@@ -1197,6 +1197,7 @@ arb:
     decimal_value: "القيمة العشرية"
     declared_on: "صرح يوم"
     # deduction_account: "TVA déductible"
+    # deduction_taxes: "TVA déductible"
     default_contact: "الشخص المتوقع الاتصال به" #?
     default_currency: "العملة الافتراضية" #?
     # default_mail_address: "Adresse email par défaut"
@@ -1556,11 +1557,10 @@ arb:
     owner_id: "مالك" #?
     owner_type: "طبيعة المالك"
     paid: "سددت"
-    paid_account: "سددت القيمة الضريبية الاضافية"
+    paid_account: "سددت القيمة الضريبية الاضافية" #?
     paid_account_id: "سددت القيمة الضريبية الاضافية" #?
     paid_amount: "خصمة من قيمة الضريبة الاضافية"
     paid_on: "سددت يوم"
-    # paid_taxes: "Taxes payées"
     parent: "النسب"
     parent_id: "نسب" #?
     # parent_place: "Parent place"

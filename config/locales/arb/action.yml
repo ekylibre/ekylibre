@@ -1433,6 +1433,7 @@ arb:
     next: "التالي"
     no_commercial: "-- دون تداول --"
     # no_contacts: "Aucune adresse définie pour %{name}"
+    # no_data: "Aucune donnée"
     no_deliveries: "ليس هناك من تسليم بالانتظار"
     no_deliveries_for_this_sale: "لم يتم التسليم لهذا الطلب من البيع"
     no_deposits: "التأكد من عدم اقتطاعات البنك"
