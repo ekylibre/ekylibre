@@ -483,7 +483,7 @@ fra:
     coefficient: "Coefficient"
     collect_account: "TVA collectée"
     collected_amount: "TVA brute"
-    collected_taxes: "TVA collectées"
+    collect_taxes: "TVA collectées"
     color: "Couleur" #?
     column_name: "Nom de colonne"
     columns: "Colonnes"
@@ -833,10 +833,10 @@ fra:
     # owner_object: "Owner object"
     owner_type: "Nature du propriétaire"
     paid: "Réglée" #?
-    paid_account: "TVA déductible" #?
+    deduction_account: "TVA déductible" #?
     paid_amount: "Montant payé"
     paid_on: "Réglé le"
-    paid_taxes: "Taxes payées"
+    deduction_taxes: "TVA déductible"
     parent: "Parent"
     parent_place: "Parent place" #?
     # participant: "Participant"
