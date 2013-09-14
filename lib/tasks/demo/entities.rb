@@ -37,13 +37,13 @@ demo :entities do
     end
 
     mails = [
-             {:mail_line_4 => "46 cours Genêts", :mail_line_6 => "17100 Saintes"},
-             {:mail_line_4 => "712 rue de la Mairie", :mail_line_6 => "47290 Cancon"},
-             {:mail_line_4 => "55 Rue du Faubourg Saint-Honoré", :mail_line_6 => "75008 Paris"},
-             {:mail_line_4 => "Le Bourg", :mail_line_6 => "47210 Saint-Eutrope-de-Born"},
-             {:mail_line_4 => "Avenue de la Libération", :mail_line_6 => "47150 Monflanquin"},
-             {:mail_line_4 => "Rue du port", :mail_line_6 => "47440 Casseneuil"},
-             {:mail_line_4 => "Avenue René Cassin", :mail_line_6 => "47110 Sainte-Livrade-sur-Lot"},
+             {:mail_line_4 => "46 cours Genêts", :mail_line_6 => "17100 Saintes", :mail_country => "FR"},
+             {:mail_line_4 => "712 rue de la Mairie", :mail_line_6 => "47290 Cancon", :mail_country => "FR"},
+             {:mail_line_4 => "55 Rue du Faubourg Saint-Honoré", :mail_line_6 => "75008 Paris", :mail_country => "FR"},
+             {:mail_line_4 => "Le Bourg", :mail_line_6 => "47210 Saint-Eutrope-de-Born", :mail_country => "FR"},
+             {:mail_line_4 => "Avenue de la Libération", :mail_line_6 => "47150 Monflanquin", :mail_country => "FR"},
+             {:mail_line_4 => "Rue du port", :mail_line_6 => "47440 Casseneuil", :mail_country => "FR"},
+             {:mail_line_4 => "Avenue René Cassin", :mail_line_6 => "47110 Sainte-Livrade-sur-Lot", :mail_country => "FR"},
             ]
 
     Entity.find_each do |entity|
