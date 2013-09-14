@@ -93,7 +93,7 @@ class SaleItem < Ekylibre::Record::Base
   }
   # return all sale items for the consider product_nature
   scope :by_product_nature, lambda { |product_nature|
-    joins(:product).merge(Product.of_nature(product_nature))
+    joins(:variant).merge(ProductNatureVariant.of_natures(product_nature))
   }
 
   def self.averages_of_periods(column = :pretax_amount, reference_date_column = :invoiced_on, period = :month)

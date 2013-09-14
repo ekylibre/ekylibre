@@ -81,7 +81,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
     for nature in natures
       raise ArgumentError.new("Expected Product Nature, got #{nature.class.name}:#{nature.inspect}") unless nature.is_a?(ProductNature)
     end
-    where('nature_id IN (?)', natures.map(&:id))
+    where("#{ProductNatureVariant.table_name}.nature_id IN (?)", natures.map(&:id))
   }
 
   before_validation :on => :create do
