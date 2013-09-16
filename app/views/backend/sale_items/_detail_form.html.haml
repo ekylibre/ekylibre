@@ -1,7 +1,7 @@
 -if product = @sale_item.product
   =formalize do |f|
     -f.field :sale_item, :quantity
-    -f.field SaleItem.human_attribute_name("unit_id"), @sale_item.product.unit.label
+    -#f.field SaleItem.human_attribute_name("unit_id"), @sale_item.product.unit.label
     -f.field :sale_item, :annotation, :field=>:textarea
   -if product.stockable?
     =formalize do |f|
