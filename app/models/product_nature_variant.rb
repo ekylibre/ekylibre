@@ -110,7 +110,11 @@ class ProductNatureVariant < Ekylibre::Record::Base
 
   end
 
-
+  
+  def deliverable?
+    self.nature.deliverable?
+  end
+  
   def purchasable?
     self.nature.purchasable?
   end
