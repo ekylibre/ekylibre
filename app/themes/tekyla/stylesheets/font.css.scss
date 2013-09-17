@@ -1,3 +1,20 @@
 @import "agric/list";
 @import "agric/paths";
 $icons: $agric-icons;
+
+$font-faces: (Light 300) (Regular 400) (Semibold 600) (Bold 700) (Extrabold 800);
+
+@each $font-face in $font-faces {
+  @font-face {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: nth($font-face, 2);
+    src: local('Open Sans #{nth($font-face, 1)}'), local('OpenSans-#{nth($font-face, 1)}'), font-url('themes/tekyla/OpenSans-#{nth($font-face, 1)}.woff') format('woff');
+  }
+  @font-face {
+    font-family: 'Open Sans';
+    font-style: italic;
+    font-weight: nth($font-face, 2);
+    src: local('Open Sans #{nth($font-face, 1)}Italic'), local('OpenSans-#{nth($font-face, 1)}Italic'), font-url('themes/tekyla/OpenSans-#{nth($font-face, 1)}Italic.woff') format('woff');
+  }
+}

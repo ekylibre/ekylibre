@@ -9,7 +9,7 @@
     // padding: 0 $cell-border-width;
     margin-top: $default-gap;
     &:first-child { margin-top: 0; }
-    @include clearfix;
+    // @include clearfix;
 
     .cell-titles {
       display: none;
@@ -39,7 +39,7 @@
         @include use-icon(bookmark);
       }
     }
-
+ 
     .cell {
       // margin-top: $default-gap;
       &:first-child { margin-top: 0; }
@@ -53,7 +53,7 @@
         background: #FFFFFF;
 	// needed for dropdown menus
         // overflow: auto;
-        @include clearfix;
+        // @include clearfix;
 	// overflow-x: auto;
         height: auto;
 
@@ -62,6 +62,10 @@
         }
 
       }
+ 
+      .cell-bottom {
+        clear: both;
+      }
     }
 
     @for $i from 1 through 30 {
@@ -69,7 +73,9 @@
         @media screen and (min-width: round($i*$min-width) + 1px) {
           &.box-h {
             .cells {
-              @include clearfix;
+              .cells-bottom {
+                clear: both;
+              }
               .cell {
                 $space: 1%;
                 width: (100% - (($i - 1) * $space)) / $i;
@@ -185,4 +191,9 @@
 
 
   }
+
+  .beehive-bottom {
+    clear: both;
+  }
+
 }
