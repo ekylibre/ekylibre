@@ -78,8 +78,9 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
-    capybara-screenshot (0.3.13)
+    capybara-screenshot (0.3.14)
       capybara (>= 1.0, < 3)
+      launchy
     capybara-webkit (1.0.0)
       capybara (~> 2.0, >= 2.0.2)
       json
@@ -107,11 +108,11 @@ GEM
       chunky_png (~> 1.2)
       listen (<= 0.9.9)
       sass (~> 3.2.5)
-    coveralls (0.6.7)
-      colorize
+    coveralls (0.6.9)
       multi_json (~> 1.3)
       rest-client
       simplecov (>= 0.7)
+      term-ansicolor
       thor
     curb (0.8.4)
     daemons (1.1.9)
@@ -134,7 +135,7 @@ GEM
       activesupport (>= 3.2)
     erubis (2.7.0)
     eventmachine (1.0.3)
-    exception_notification (4.0.0)
+    exception_notification (4.0.1)
       actionmailer (>= 3.0.4)
       activesupport (>= 3.0.4)
     execjs (2.0.1)
@@ -236,7 +237,7 @@ GEM
       hashery (~> 2.0)
       ruby-rc4
       ttfunk
-    pg (0.16.0)
+    pg (0.17.0)
     polyglot (0.3.3)
     prawn (0.12.0)
       pdf-reader (>= 0.9.0)
@@ -353,6 +354,8 @@ GEM
       activesupport (>= 3.0)
       sprockets (~> 2.8)
     state_machine (1.2.0)
+    term-ansicolor (1.2.2)
+      tins (~> 0.8)
     therubyracer (0.12.0)
       libv8 (~> 3.16.14.0)
       ref
@@ -364,6 +367,7 @@ GEM
     thread_safe (0.1.3)
       atomic
     tilt (1.4.1)
+    tins (0.9.0)
     treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)

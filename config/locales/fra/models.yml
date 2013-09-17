@@ -946,6 +946,7 @@ fra:
     reduction_percentage: "Pourcentage de réduction"
     reductions: "Lignes de réductions"
     reference_number: "N°Référence"
+    # reference_tax: "Reference tax"
     reflections: "Reflections"
     remaining_duration: "Durée d’utilisation prévue (heures)" #?
     # remember_created_at: "Remember created at"

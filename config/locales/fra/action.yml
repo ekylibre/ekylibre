@@ -300,9 +300,7 @@ fra:
       show: "Parcelle %{name}"
     backend/legal_entities:
       # edit: "Edit backend/legal entity"
-      # index: "Index backend/legal entity"
       # new: "New backend/legal entity"
-      # show: "Show backend/legal entity"
     backend/listing_nodes:
       edit: "Modifier le nœud"
       new: "Nouveau nœud"

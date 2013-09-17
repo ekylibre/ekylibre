@@ -867,16 +867,16 @@
         <page to="backend/product_nature_variants#update"/>
       </item>
       <item name="catalog_prices">
-        <page to="backend/catalog_prices#index" deletable="true"/>
-        <page to="backend/catalog_prices#create" deletable="true"/>
-        <page to="backend/catalog_prices#destroy" deletable="true"/>
-        <page to="backend/catalog_prices#edit" deletable="true"/>
-        <page to="backend/catalog_prices#export" deletable="true"/>
-        <page to="backend/catalog_prices#find" deletable="true"/>
-        <page to="backend/catalog_prices#import" deletable="true"/>
-        <page to="backend/catalog_prices#list" deletable="true"/>
-        <page to="backend/catalog_prices#new" deletable="true"/>
-        <page to="backend/catalog_prices#update" deletable="true"/>
+        <page to="backend/catalog_prices#index"/>
+        <page to="backend/catalog_prices#create"/>
+        <page to="backend/catalog_prices#destroy"/>
+        <page to="backend/catalog_prices#edit"/>
+        <page to="backend/catalog_prices#export"/>
+        <page to="backend/catalog_prices#find"/>
+        <page to="backend/catalog_prices#import"/>
+        <page to="backend/catalog_prices#list"/>
+        <page to="backend/catalog_prices#new"/>
+        <page to="backend/catalog_prices#update"/>
       </item>
     </group>
     <group name="stocks" icon="truck">
@@ -1003,14 +1003,6 @@
       </item>
       <item name="buildings">
         <page to="backend/buildings#list_building_division"/>
-      </item>
-      <item name="catalog_prices">
-        <page to="backend/catalog_prices#create"/>
-        <page to="backend/catalog_prices#destroy"/>
-        <page to="backend/catalog_prices#edit"/>
-        <page to="backend/catalog_prices#list"/>
-        <page to="backend/catalog_prices#new"/>
-        <page to="backend/catalog_prices#update"/>
       </item>
       <item name="catalogs">
         <page to="backend/catalogs#create"/>

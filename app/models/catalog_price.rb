@@ -57,7 +57,7 @@ class CatalogPrice < Ekylibre::Record::Base
   validates_length_of :thread, :allow_nil => true, :maximum => 20
   validates_length_of :indicator, :allow_nil => true, :maximum => 120
   validates_inclusion_of :all_taxes_included, :in => [true, false]
-  validates_presence_of :amount, :currency, :indicator, :supplier, :variant
+  validates_presence_of :amount, :currency, :indicator, :reference_tax, :supplier, :variant
   #]VALIDATORS]
   validates_presence_of :started_at
 
