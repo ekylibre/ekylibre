@@ -45,7 +45,7 @@ class CatalogPrice < Ekylibre::Record::Base
   # attr_accessible :listing_id, :product_id, :variant_id, :pretax_amount, :amount, :tax_id, :currency, :supplier_id
   belongs_to :variant, :class_name => "ProductNatureVariant"
   belongs_to :supplier, :class_name => "Entity"
-  # belongs_to :tax
+  belongs_to :reference_tax, :class_name => "Tax"
   belongs_to :catalog
   has_many :incoming_delivery_items, :foreign_key => :price_id
   has_many :outgoing_delivery_items, :foreign_key => :price_id

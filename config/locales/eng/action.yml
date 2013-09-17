@@ -1234,6 +1234,7 @@ eng:
     next: "Next"
     no_commercial: "No commercial"
     no_contacts: "No address defined for %{name}"
+    # no_data: "Aucune donnée"
     no_deliveries: "No deliveries"
     no_deliveries_for_this_sale: "No deliveries for this sale"
     no_deposits: "No deposits"

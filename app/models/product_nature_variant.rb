@@ -81,7 +81,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
     for nature in natures
       raise ArgumentError.new("Expected Product Nature, got #{nature.class.name}:#{nature.inspect}") unless nature.is_a?(ProductNature)
     end
-    where('nature_id IN (?)', natures.map(&:id))
+    where("#{ProductNatureVariant.table_name}.nature_id IN (?)", natures.map(&:id))
   }
 
   before_validation :on => :create do
@@ -110,7 +110,11 @@ class ProductNatureVariant < Ekylibre::Record::Base
 
   end
 
-
+  
+  def deliverable?
+    self.nature.deliverable?
+  end
+  
   def purchasable?
     self.nature.purchasable?
   end
@@ -118,7 +122,11 @@ class ProductNatureVariant < Ekylibre::Record::Base
   def saleable?
     self.nature.saleable?
   end
-
+  
+  def subscribing?
+    self.nature.subscribing?
+  end
+  
   #validate do
     # Check that unit match indicator's unit
     #for mode in [:usage, :sale, :purchase]

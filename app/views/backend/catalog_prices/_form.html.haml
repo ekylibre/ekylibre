@@ -1,7 +1,7 @@
 =field_set do
   =f.input :amount
-  =f.input :pretax_amount
   =f.input :currency
   =f.referenced_association :supplier
-  =f.referenced_association :tax
+  =f.input :all_taxes_included
+  =f.referenced_association :reference_tax
   =f.referenced_association :variant

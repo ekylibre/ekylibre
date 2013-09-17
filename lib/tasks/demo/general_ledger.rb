@@ -65,7 +65,7 @@ demo :general_ledger do
 
 
       fy = FinancialYear.at(r.printed_on)
-      unless entry = JournalEntry.find_by_journal_id_and_number(r.journal.id, r.entry_number)
+      unless entry = JournalEntry.find_by(:journal_id => r.journal.id, :number => r.entry_number)
         number = r.entry_number
         number = r.journal.code + rand(10000000000).to_s(36) if number.blank?
         entry = r.journal.entries.create!(:printed_on => r.printed_on, :number => number.upcase)

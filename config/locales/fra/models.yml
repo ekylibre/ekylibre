@@ -482,8 +482,9 @@ fra:
     code: "Code"
     coefficient: "Coefficient"
     collect_account: "TVA collectée"
+    collect_taxes: "TVA collectées" #?
     collected_amount: "TVA brute"
-    collected_taxes: "TVA collectées"
+    # collected_taxes: "Collected taxes"
     color: "Couleur" #?
     column_name: "Nom de colonne"
     columns: "Colonnes"
@@ -551,6 +552,7 @@ fra:
     decimal_value: "Valeur décimale"
     declared_on: "Déclarée le"
     deduction_account: "TVA déductible"
+    deduction_taxes: "TVA déductible" #?
     default_mail_address: "Adresse email par défaut"
     # default_variant: "Default variant"
     deferred_payment: "Crédit à reporter"
@@ -833,10 +835,9 @@ fra:
     # owner_object: "Owner object"
     owner_type: "Nature du propriétaire"
     paid: "Réglée" #?
-    paid_account: "TVA déductible" #?
     paid_amount: "Montant payé"
     paid_on: "Réglé le"
-    paid_taxes: "Taxes payées"
+    # paid_taxes: "Paid taxes"
     parent: "Parent"
     parent_place: "Parent place" #?
     # participant: "Participant"

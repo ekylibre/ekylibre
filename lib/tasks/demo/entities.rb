@@ -37,13 +37,13 @@ demo :entities do
     end
 
     mails = [
-             {:mail_line_4 => "46 cours Genêts", :mail_line_6 => "17100 Saintes"},
-             {:mail_line_4 => "712 rue de la Mairie", :mail_line_6 => "47290 Cancon"},
-             {:mail_line_4 => "55 Rue du Faubourg Saint-Honoré", :mail_line_6 => "75008 Paris"},
-             {:mail_line_4 => "Le Bourg", :mail_line_6 => "47210 Saint-Eutrope-de-Born"},
-             {:mail_line_4 => "Avenue de la Libération", :mail_line_6 => "47150 Monflanquin"},
-             {:mail_line_4 => "Rue du port", :mail_line_6 => "47440 Casseneuil"},
-             {:mail_line_4 => "Avenue René Cassin", :mail_line_6 => "47110 Sainte-Livrade-sur-Lot"},
+             {:mail_line_4 => "46 cours Genêts", :mail_line_6 => "17100 Saintes", :mail_country => "fr"},
+             {:mail_line_4 => "712 rue de la Mairie", :mail_line_6 => "47290 Cancon", :mail_country => "fr"},
+             {:mail_line_4 => "55 Rue du Faubourg Saint-Honoré", :mail_line_6 => "75008 Paris", :mail_country => "fr"},
+             {:mail_line_4 => "Le Bourg", :mail_line_6 => "47210 Saint-Eutrope-de-Born", :mail_country => "fr"},
+             {:mail_line_4 => "Avenue de la Libération", :mail_line_6 => "47150 Monflanquin", :mail_country => "fr"},
+             {:mail_line_4 => "Rue du port", :mail_line_6 => "47440 Casseneuil", :mail_country => "fr"},
+             {:mail_line_4 => "Avenue René Cassin", :mail_line_6 => "47110 Sainte-Livrade-sur-Lot", :mail_country => "fr"},
             ]
 
     Entity.find_each do |entity|
@@ -80,7 +80,7 @@ demo :entities do
                                 :supplier_account_id => Account.get(r.supplier_account_number, :name => r.origin)
                                 )
         if !r.postal_code.nil? and !r.town.nil?
-          person.addresses.create!(:canal => :mail, :mail_line_4 => r.address, :mail_line_6 => r.postal_code + " " + r.town, :mail_country => "FR")
+          person.addresses.create!(:canal => :mail, :mail_line_4 => r.address, :mail_line_6 => r.postal_code + " " + r.town, :mail_country => "fr")
         end
         if !r.phone_number.nil?
           person.addresses.create!(:canal => :phone, :coordinate => r.phone_number)

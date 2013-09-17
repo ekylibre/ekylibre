@@ -123,20 +123,20 @@ class Backend::SalesController < BackendController
     t.column :name, :through => :variant
     t.column :pretax_amount, :currency => "RECORD.price.currency", :through => :price
     t.column :quantity
-    t.column :unit
+    #t.column :unit
     t.column :pretax_amount, :currency => "RECORD.price.currency"
     t.column :amount
     t.column :undelivered_quantity, :datatype => :decimal
   end
 
-  list(:items, :model => :sale_items, :conditions => {:sale_id => ['params[:id]']}, :order => :position, :export => false, :line_class => "((RECORD.nature.subscribing? and RECORD.subscriptions.sum(:quantity) != RECORD.quantity) ? 'warning' : '')", :include => [:variant, :subscriptions]) do |t|
+  list(:items, :model => :sale_items, :conditions => {:sale_id => ['params[:id]']}, :order => :position, :export => false, :line_class => "((RECORD.variant.subscribing? and RECORD.subscriptions.sum(:quantity) != RECORD.quantity) ? 'warning' : '')", :include => [:variant, :subscriptions]) do |t|
     # t.column :name, :through => :variant
     # t.column :position
     t.column :label
     t.column :annotation
     # t.column :serial_number, :through => :variant, :url => true
     t.column :quantity
-    t.column :unit
+    #t.column :unit
     t.column :pretax_amount, :through => :price, :label => "unit_price_amount", :currency => "RECORD.price.currency"
     t.column :pretax_amount, :currency => "RECORD.sale.currency"
     t.column :amount, :currency => "RECORD.sale.currency"
