@@ -104,7 +104,7 @@
                     }
                 },
                 error: function (request, status, error) {
-                    alert("AJAX failure on " + selector.data('selector') + " (Error " + status + "): " + error);
+                    alert("Selector failure on " + selector.data('selector') + " (" + status + "): " + error);
                 }
             });
         },

@@ -20,7 +20,7 @@
 class Backend::SubscriptionsController < BackendController
   manage_restfully :address_id => "EntityAddress.find_by_entity_id(params[:subscriber_id]).id rescue 0", :nature_id => "SubscriptionNature.first.id rescue 0", :t3e => {:nature => "@subscription.nature.name", :start => "@subscription.start", :finish => "@subscription.finish"}
 
-  unroll_all
+  unroll
 
   def self.subscriptions_conditions(options={})
     code  = ""

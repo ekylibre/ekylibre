@@ -20,7 +20,7 @@
 class Backend::AccountsController < BackendController
   manage_restfully :number => "params[:number]"
 
-  unroll_all
+  unroll
 
   def self.accounts_conditions
     code  = ""

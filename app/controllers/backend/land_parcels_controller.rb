@@ -20,7 +20,7 @@
 class Backend::LandParcelsController < BackendController
   manage_restfully # :started_on => "Date.today"
 
-  unroll_all
+  unroll
 
   list() do |t|
     t.column :name, :url => true

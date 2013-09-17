@@ -19,7 +19,7 @@
 
 class Backend::DepositsController < BackendController
 
-  unroll_all
+  unroll
 
   list(:order => "created_at DESC") do |t|
     t.column :number, :url => true

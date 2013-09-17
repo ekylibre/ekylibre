@@ -20,7 +20,7 @@
 class Backend::DistrictsController < BackendController
   manage_restfully
 
-  unroll_all
+  unroll
 
   list(:children=>:areas, :conditions=>search_conditions(:districts, :districts=>[:code, :name]), :order=>:name) do |t|
     t.column :name

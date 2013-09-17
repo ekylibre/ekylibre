@@ -20,7 +20,7 @@
 class Backend::TeamsController < BackendController
   manage_restfully
 
-  unroll_all
+  unroll
 
   list(:order => :name) do |t|
     t.column :name

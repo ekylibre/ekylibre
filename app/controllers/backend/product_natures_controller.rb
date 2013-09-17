@@ -18,7 +18,7 @@
 #
 
 class Backend::ProductNaturesController < BackendController
-  unroll_all
+  unroll
 
   manage_restfully
 

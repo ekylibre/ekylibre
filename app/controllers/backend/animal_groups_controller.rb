@@ -3,7 +3,7 @@ class Backend::AnimalGroupsController < BackendController
 
   respond_to :pdf, :odt, :docx, :xml, :json, :html, :csv
 
-  unroll_all
+  unroll
 
   list do |t|
     t.column :name, :url => true

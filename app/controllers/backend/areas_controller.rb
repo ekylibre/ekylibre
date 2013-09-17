@@ -20,7 +20,7 @@
 class Backend::AreasController < BackendController
   manage_restfully :country => "Entity.of_company.country"
 
-  unroll_all
+  unroll
 
   autocomplete_for :name
 

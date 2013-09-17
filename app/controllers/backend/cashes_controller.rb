@@ -22,7 +22,7 @@ class Backend::CashesController < BackendController
   manage_restfully :mode => 'Cash.mode.default_value', :currency => 'Entity.of_company.currency', :nature => 'Cash.nature.default_value'
 
 
-  unroll_all
+  unroll
 
   list(:order => :name) do |t|
     t.column :name, :url => true

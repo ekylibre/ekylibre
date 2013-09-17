@@ -1,7 +1,7 @@
 class Backend::PrescriptionsController < BackendController
   manage_restfully
 
-  unroll_all
+  unroll
 
   list do |t|
     t.column :reference_number, :url => true

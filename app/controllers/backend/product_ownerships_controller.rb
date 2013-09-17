@@ -1,7 +1,7 @@
 class Backend::ProductOwnershipsController < BackendController
   manage_restfully
 
-  unroll_all
+  unroll
 
   list do |t|
     t.column :name, :url => true

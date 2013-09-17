@@ -20,7 +20,7 @@
 class Backend::EquipmentsController < BackendController
   manage_restfully
 
-  unroll_all
+  unroll
 
   # list(:operations, :model => :operation_uses, :conditions => {:equipment_id => ['session[:current_equipment_id]']}, :order => "created_at ASC") do |t|
   #   t.column :name,       :through => :operation, :label => :column, :url => true

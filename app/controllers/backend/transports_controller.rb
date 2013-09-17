@@ -18,7 +18,7 @@
 #
 
 class Backend::TransportsController < BackendController
-  unroll_all
+  unroll
 
   list(:children => :deliveries, :conditions => light_search_conditions(:transports => [:number, :description], :entities => [:code, :full_name])) do |t|
     t.column :number, :url => true

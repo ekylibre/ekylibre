@@ -20,7 +20,7 @@
 class Backend::JournalsController < BackendController
   manage_restfully :nature => "params[:nature]||Journal.nature", :currency => "Entity.of_company.currency"
 
-  unroll_all
+  unroll
 
   @@journal_views = ["items", "entries", "mixed"]
   cattr_reader :journal_views

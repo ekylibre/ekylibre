@@ -22,7 +22,7 @@ class Backend::ProductsController < BackendController
 
   respond_to :pdf, :odt, :docx, :xml, :json, :html, :csv
 
-  unroll_all
+  unroll
 
   def unroll
     conditions = []

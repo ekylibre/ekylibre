@@ -19,7 +19,7 @@
 
 class Backend::ListingsController < BackendController
 
-  unroll_all
+  unroll
 
   list(:order => :name) do |t|
     t.column :name, :url => {:action => :edit}

@@ -19,7 +19,7 @@
 
 class Backend::InventoriesController < BackendController
 
-  unroll_all
+  unroll
 
   list do |t|
     t.column :created_on

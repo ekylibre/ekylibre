@@ -20,7 +20,7 @@
 class Backend::OperationsController < BackendController
   manage_restfully # :target_id => "params[:target_id].to_i" # , :planned_on => "params[:planned_on]||Date.today", :hour_duration => "2", :min_duration => "0"
 
-  unroll_all :label => '{id}'
+  unroll :label => '{id}'
 
   list(:order => "id DESC") do |t|
     # t.column :name, :url => true

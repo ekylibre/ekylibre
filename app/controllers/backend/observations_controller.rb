@@ -19,5 +19,5 @@
 
 class Backend::ObservationsController < BackendController
   manage_restfully :importance => "Observation.importance.default_value"
-  unroll_all
+  unroll
 end

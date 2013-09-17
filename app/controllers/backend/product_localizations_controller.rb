@@ -1,7 +1,7 @@
 class Backend::ProductLocalizationsController < BackendController
   manage_restfully
 
-  # unroll_all # Not necessary for now
+  # unroll # Not necessary for now
 
   list do |t|
     t.column :name, :through => :container, :url => true

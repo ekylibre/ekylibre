@@ -19,7 +19,7 @@
 
 class Backend::UsersController < BackendController
 
-  unroll_all
+  unroll
 
   list(:order => "locked, last_name", :line_class => "(RECORD.locked ? 'critic' : '')") do |t|
     t.column :full_name, :url => true

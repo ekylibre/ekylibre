@@ -20,7 +20,7 @@
 class Backend::PurchasesController < BackendController
   manage_restfully :planned_on => "Date.today+2", :redirect_to => '{:action => :show, :step => :products, :id => "id"}'
 
-  unroll_all
+  unroll
 
   list(:conditions => search_conditions(:purchase, :purchases => [:created_on, :pretax_amount, :amount, :number, :reference_number, :description], :entities => [:code, :full_name]), :joins => :supplier, :line_class => 'RECORD.state', :order => "created_on DESC, number DESC") do |t|
     t.column :number, :url => {:action => :show, :step => :default}

@@ -20,7 +20,7 @@
 class Backend::CashTransfersController < BackendController
   manage_restfully :created_on => 'Date.today'
 
-  unroll_all
+  unroll
 
   list do |t|
     t.column :number, :url => true

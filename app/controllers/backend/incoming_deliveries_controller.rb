@@ -18,7 +18,7 @@
 #
 
 class Backend::IncomingDeliveriesController < BackendController
-  unroll_all
+  unroll
 
   manage_restfully
 

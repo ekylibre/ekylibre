@@ -19,7 +19,7 @@
 
 class Backend::JournalEntriesController < BackendController
 
-  unroll_all
+  unroll
 
   list(:items, :model => :journal_entry_items, :conditions => {:entry_id => ['session[:current_journal_entry_id]']}, :order => "entry_id DESC, position") do |t|
     t.column :name

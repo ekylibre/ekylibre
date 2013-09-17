@@ -20,7 +20,7 @@
 class Backend::DocumentTemplatesController < BackendController
   manage_restfully :language => "Entity.of_company.language"
 
-  unroll_all
+  unroll
 
   list(:order => :name) do |t|
     t.column :active

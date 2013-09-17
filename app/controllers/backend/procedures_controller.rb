@@ -19,7 +19,7 @@
 class Backend::ProceduresController < BackendController
   manage_restfully :t3e => {:name => "RECORD.name"}, :redirect_to => "{:controller => :procedures, :action => :play, :id => 'id'}"
 
-  unroll_all
+  unroll
 
   list do |t|
     t.column :nomen, :url => true

@@ -1,7 +1,7 @@
 class Backend::CatalogPricesController < BackendController
   manage_restfully
 
-  unroll_all
+  unroll
 
 #  all_taxes_included :boolean          not null
 #  amount             :decimal(19, 4)   not null

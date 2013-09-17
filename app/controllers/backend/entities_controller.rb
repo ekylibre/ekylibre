@@ -20,7 +20,7 @@
 class Backend::EntitiesController < BackendController
   manage_restfully
 
-  unroll_all
+  unroll
 
   autocomplete_for :origin
 

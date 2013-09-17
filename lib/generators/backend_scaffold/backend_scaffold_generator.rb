@@ -6,7 +6,7 @@ class BackendScaffoldGenerator < Rails::Generators::NamedBase
     route("resources :#{plural_name} do
   collection do
     get :list
-    unroll_all
+    get :unroll
   end
 end")
   end

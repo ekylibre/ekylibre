@@ -19,7 +19,7 @@
 
 class Backend::JournalEntryItemsController < BackendController
 
-  unroll_all
+  unroll
 
   def new
     @journal_entry_item = JournalEntryItem.new

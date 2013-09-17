@@ -10,15 +10,15 @@ class ActionDispatch::Routing::Mapper
   end
 
 
-  # Create unroll routes for all scope by default for the current_ressource
-  def unroll_all(options = {})
-    unless Ekylibre.migrating?
-      for unroll in ((((@scope[:module].blank? ? "" : @scope[:module].to_s + "/") + @scope[:controller].to_s + "_controller").camelcase.constantize.unrolls)||[])
-        get(unroll)
-      end
-    end
-    return nil
-  end
+  # # Create unroll routes for all scope by default for the current_ressource
+  # def unroll_all(options = {})
+  #   unless Ekylibre.migrating?
+  #     for unroll in ((((@scope[:module].blank? ? "" : @scope[:module].to_s + "/") + @scope[:controller].to_s + "_controller").camelcase.constantize.unrolls)||[])
+  #       get(unroll)
+  #     end
+  #   end
+  #   return nil
+  # end
 
 
 end

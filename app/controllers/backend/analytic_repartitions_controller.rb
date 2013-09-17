@@ -1,7 +1,7 @@
 class Backend::AnalyticRepartitionsController < BackendController
   manage_restfully
 
-  unroll_all
+  unroll
 
   list do |t|
     t.column :affected_on

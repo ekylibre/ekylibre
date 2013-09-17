@@ -21,7 +21,7 @@ class Backend::IncomingPaymentModesController < BackendController
   manage_restfully :with_accounting => "true"
   manage_restfully_list :name
 
-  unroll_all
+  unroll
 
   # TODO: Adds detail_payments and attorney_journal
   list(:order => :position) do |t|

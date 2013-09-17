@@ -19,7 +19,7 @@
 
 class Backend::FinancialYearsController < BackendController
 
-  unroll_all
+  unroll
 
   list(:order => "started_on DESC") do |t|
     t.column :code, :url => true

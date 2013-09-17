@@ -20,7 +20,7 @@
 class Backend::SubscriptionNaturesController < BackendController
   manage_restfully :nature => "SubscriptionNature.nature.default_value"
 
-  unroll_all
+  unroll
 
   list(:children => :products) do |t|
     t.column :name, :url => {:id => 'nil', :action => :index, :controller => :subscriptions, :nature_id => "RECORD.id"}

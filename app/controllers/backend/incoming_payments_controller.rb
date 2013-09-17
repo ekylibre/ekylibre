@@ -20,7 +20,7 @@
 class Backend::IncomingPaymentsController < BackendController
   manage_restfully :to_bank_on => "Date.today", :paid_on => "Date.today", :responsible_id => "current_user.id"
 
-  unroll_all
+  unroll
 
   def self.incoming_payments_conditions(options={})
     code = search_conditions(:incoming_payments, :incoming_payments => [:amount, :bank_check_number, :number, :bank_account_number], :entities => [:code, :full_name])+"||=[]\n"

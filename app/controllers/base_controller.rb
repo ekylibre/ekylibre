@@ -19,7 +19,6 @@
 
 class BaseController < ApplicationController
 
-
   def notify(message, options={}, nature=:information, mode=:next)
     options[:default] ||= []
     options[:default] = [options[:default]] unless options[:default].is_a?(Array)

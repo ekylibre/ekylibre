@@ -22,7 +22,7 @@ class Backend::MattersController < BackendController
 
   respond_to :pdf, :odt, :docx, :xml, :json, :html, :csv
 
-  unroll_all
+  unroll
 
   list do |t|
     t.column :work_number, :url => true

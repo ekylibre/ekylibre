@@ -3,7 +3,7 @@ class Backend::ProductionsController < BackendController
 
   manage_restfully(:t3e => {:name => 'RECORD.name'})
 
-  unroll_all
+  unroll
 
 
   # management -> sales_conditions

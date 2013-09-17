@@ -20,7 +20,7 @@
 class Backend::TaxesController < BackendController
   manage_restfully :nature => "Tax.nature.default_value"
 
-  unroll_all
+  unroll
 
   list do |t|
     t.column :name

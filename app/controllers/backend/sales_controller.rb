@@ -21,7 +21,7 @@ class Backend::SalesController < BackendController
   respond_to :csv, :ods, :xlsx, :pdf, :odt, :docx, :html, :xml, :json
   include ActionView::Helpers::NumberHelper
 
-  unroll_all
+  unroll
 
   # management -> sales_conditions
   def self.sales_conditions

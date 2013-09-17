@@ -18,7 +18,7 @@
 #
 
 class Backend::CatalogsController < BackendController
-  unroll_all
+  unroll
 
   manage_restfully
 

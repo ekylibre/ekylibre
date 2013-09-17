@@ -20,7 +20,7 @@
 class Backend::SaleNaturesController < BackendController
   manage_restfully :currency=>"Entity.of_company.currency"
 
-  unroll_all
+  unroll
 
   list do |t|
     t.column :name, :url=>true

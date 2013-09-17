@@ -24,7 +24,7 @@ class Backend::MandatesController < BackendController
   autocomplete_for :organization
   autocomplete_for :title
 
-  unroll_all
+  unroll
 
   def self.mandates_conditions(options={})
     code = ""

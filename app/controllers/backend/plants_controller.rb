@@ -22,7 +22,7 @@ class Backend::PlantsController < BackendController
 
   respond_to :pdf, :odt, :docx, :xml, :json, :html, :csv
 
-  unroll_all
+  unroll
 
   list(:conditions => [" external = false"]) do |t|
     t.column :work_number, :url => true

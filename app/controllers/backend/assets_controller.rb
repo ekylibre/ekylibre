@@ -20,7 +20,7 @@
 class Backend::AssetsController < BackendController
   manage_restfully :currency=>'Entity.of_company.currency', :depreciation_method=>"'linear'"
 
-  unroll_all
+  unroll
 
   list do |t|
     t.column :number, :url=>true

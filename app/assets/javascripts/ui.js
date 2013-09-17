@@ -114,8 +114,8 @@
     });
 
     // Alert on errors
-    $(document).behave("ajax:error", "*[data-update], *[data-redirect]", function (xhr, status, error) {
-        alert("AJAX failure (Error " + status + "): " + error);
+    $(document).behave("ajax:error", "*[data-update], *[data-redirect]", function (request, status, error) {
+        alert("AJAX " + status + ": " + error);
     });
 
 

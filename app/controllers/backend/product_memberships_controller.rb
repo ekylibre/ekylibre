@@ -20,7 +20,7 @@
 class Backend::ProductMembershipsController < BackendController
   manage_restfully
 
-  unroll_all
+  unroll
 
  # Show a list of animals
   def index

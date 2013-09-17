@@ -20,7 +20,7 @@
 class Backend::MeetingsController < BackendController
   manage_restfully :meeting_nature_id => "MeetingNature.first.id rescue nil", :duration => "MeetingNature.first.duration rescue 0", :started_at => "Time.now.to_s(:db)" # :responsible_id => 'current_user.id', :entity_id => "Entity.find(params[:entity_id]).id rescue 0"
 
-  unroll_all
+  unroll
 
   autocomplete_for :place
 
