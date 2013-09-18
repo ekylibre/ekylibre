@@ -8,7 +8,6 @@
   =f.input :prospect
   =f.input :client, :show => :client_informations
   =f.input :supplier, :show => :supplier_informations
-  =f.input :attorney, :show => :attorney_informations
   =f.input :transporter
 
 =field_set(:details) do # , :collapsed => true
@@ -23,23 +22,19 @@
   =f.custom_fields
 
 =field_set(:client_informations) do
-  =f.referenced_association :sale_price_listing
+  =f.referenced_association :sale_catalog
   =f.input :origin, :autocomplete => true
   =f.input :first_met_on
   =f.referenced_association :proposer
   =f.referenced_association :responsible, :source => :employees
   =f.input :vat_subjected
   =f.input :reminder_submissive, :show => :reduction_percentage
-  =f.input :reduction_percentage
   =f.input :authorized_payments_count
   =f.input :deliveries_conditions, :field => :text
   =f.referenced_association :client_account, :source => :thirds, :buttons => {:new => {:number => Account.find_or_create_in_chart(:clients).number}}
 
 =field_set(:supplier_informations) do
   =f.referenced_association :supplier_account, :source => :thirds, :buttons => {:new => {:number => Account.find_or_create_in_chart(:suppliers).number}}
-
-=field_set(:attorney_informations, :after => :client_informations) do
-  =f.referenced_association :attorney_account, :source => :thirds, :buttons => {:new => {:number => Account.find_or_create_in_chart(:attorneys).number}}
 
 =field_set(:coordinates, :major => true) do
   =f.nested_association(:emails)
