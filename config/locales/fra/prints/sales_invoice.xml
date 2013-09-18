@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="sale_invoice" language="groovy" pageWidth="595" pageHeight="842" columnWidth="545" leftMargin="25" rightMargin="25" topMargin="25" bottomMargin="25" isFloatColumnFooter="true" uuid="9c1f11b7-03dd-4803-9e1b-41b87b9d23c0">
 	<property name="ireport.zoom" value="1.4019755979255695"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="720"/>
+	<property name="ireport.y" value="432"/>
 	<template><![CDATA["/home/djoulin/ekylibre/config/corporate-identity/reports-style.xml"]]></template>
 	<style name="Title" fontName="DejaVu Sans" fontSize="50" isBold="true" pdfFontName="Times-Bold"/>
 	<style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18"/>
@@ -20,7 +20,7 @@
 			<fieldDescription><![CDATA[label]]></fieldDescription>
 		</field>
 		<field name="number" class="java.lang.String">
-			<fieldDescription><![CDATA[product/number]]></fieldDescription>
+			<fieldDescription><![CDATA[variant/number]]></fieldDescription>
 		</field>
 		<field name="quantity" class="java.lang.String">
 			<fieldDescription><![CDATA[quantity]]></fieldDescription>
@@ -29,7 +29,7 @@
 			<fieldDescription><![CDATA[pretax-amount]]></fieldDescription>
 		</field>
 		<field name="unit_price" class="java.lang.String">
-			<fieldDescription><![CDATA[price/pretax-amount]]></fieldDescription>
+			<fieldDescription><![CDATA[unit-price-amount]]></fieldDescription>
 		</field>
 		<field name="taxes_amount" class="java.lang.String">
 			<fieldDescription><![CDATA[taxes-amount]]></fieldDescription>
@@ -350,7 +350,7 @@
 						<textField isBlankWhenNull="true">
 							<reportElement uuid="d47a4a8e-00e6-4d3d-bcf7-719a0ee3992f" style="table-td" stretchType="RelativeToBandHeight" x="490" y="0" width="54" height="24"/>
 							<textElement textAlignment="Center" verticalAlignment="Middle">
-								<font fontName="Open Sans" size="10" isBold="false"/>
+								<font fontName="Open Sans" size="8" isBold="false"/>
 							</textElement>
 							<textFieldExpression><![CDATA[$F{taxe_name}]]></textFieldExpression>
 						</textField>
@@ -456,7 +456,6 @@
 	</pageFooter>
 	<lastPageFooter>
 		<band height="82">
-			<printWhenExpression><![CDATA[$F{letter-format} == "true"]]></printWhenExpression>
 			<textField isBlankWhenNull="true">
 				<reportElement uuid="55f88827-7455-4db5-8ef7-c921953a860f" style="base" x="459" y="37" width="85" height="22"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">

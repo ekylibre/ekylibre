@@ -29,8 +29,8 @@ demo :sales do
   Ekylibre::fixturize :wheat_sales do |w|
     # Create wheat product
     wheat = ProductNature.import_from_nomenclature(:wheat_grain).default_variant
-    catalog = Catalog.find_by_code("STD")
-    wheat_tax = Tax.scoped.first
+    catalog = Catalog.first
+    wheat_taxes = Tax.all
 
     ble = OrganicMatter.find_by_work_number("BLE_2011")
     ble ||= OrganicMatter.create!(:variant_id => wheat.id, :name => "Blé Cap Horn 2011", :variety => "organic_matter", :identification_number => "BLE_2011_07142011", :work_number => "BLE_2011",
@@ -47,17 +47,17 @@ demo :sales do
         # # find or create a price
         # # @FIXME = waiting for a working method in ProductPrice.price
         # price = ble.price(:amount => rand(150)+25, :tax => wheat_tax)
-        price = CatalogPrice.find_by_variant_id_and_amount(ble.variant_id, 100.0)
-        price ||= CatalogPrice.create!(:currency => "EUR",
-                                       :amount => "100.00",
+        price = catalog.prices.find_by(:variant_id => ble.variant_id, :amount => 100.0)
+        price ||= catalog.prices.create!(:currency => "EUR",
+                                       :amount => 100.00,
                                        :supplier_id => Entity.of_company.id,
-                                       :reference_tax_id => wheat_tax.id,
+                                       :reference_tax_id => wheat_taxes.sample.id,
                                        :variant_id => ble.variant_id
                                        )
 
         sale.items.create!(:quantity => rand(12.5) + 0.5,
                            :variant_id => wheat.id,
-                           :tax_id => wheat_tax.id,
+                           :tax_id => wheat_taxes.sample.id,
                            :price_id => price.id)
       end
       if !rand(20).zero?
@@ -89,8 +89,8 @@ demo :sales do
     # Create cow product
     cow = ProductNature.find_by(:nomen => 'calf').default_variant
     cow ||= ProductNature.import_from_nomenclature(:calf).default_variant
-    catalog = Catalog.find_by_code("STD")
-    cow_price_template_tax = Tax.scoped.first
+    catalog = Catalog.first
+    cow_price_template_taxes = Tax.all
 
     animal = Animal.find_by(:work_number => "8926")
     animal ||= Animal.create!(:variant_id => cow.id, :name => "Isere", :variety => "bos", :identification_number => "1735138926", :work_number => "8926", :born_at => "2013-04-14", :owner_id => Entity.of_company.id) #
@@ -106,18 +106,18 @@ demo :sales do
         # # find or create a price
         # # @FIXME = waiting for a working method in ProductPrice.price
         # price = ble.price(:amount => rand(150)+25, :tax => wheat_price_template_tax)
-        price = CatalogPrice.find_by(:variant_id => animal.variant_id, :amount => "180.00")
-        price ||= CatalogPrice.create!(:amount => "180.00",
+        price = catalog.prices.find_by(:variant_id => animal.variant_id, :amount => 180.00)
+        price ||= catalog.prices.create!(:amount => 180.00,
                                        :currency => "EUR",
                                        :supplier_id => Entity.of_company.id,
-                                       :reference_tax_id => cow_price_template_tax.id,
+                                       :reference_tax_id => cow_price_template_taxes.sample.id,
                                        :variant_id => animal.variant_id
                                        )
 
         sale.items.create!(:quantity => rand(12.5) + 0.5,
                            :variant_id => cow.id,
                            :price_id => price.id,
-                           :tax_id => cow_price_template_tax.id
+                           :tax_id => cow_price_template_taxes.sample.id
                            )
       end
       if !rand(20).zero?
