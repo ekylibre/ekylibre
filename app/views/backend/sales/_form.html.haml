@@ -23,8 +23,9 @@
     %table
       %thead
         %tr
-          %th=SaleItem.human_attribute_name(:product)
+          %th=SaleItem.human_attribute_name(:variant)
           %th=SaleItem.human_attribute_name(:quantity)
+          %th=SaleItem.human_attribute_name(:indicator)
           %th=SaleItem.human_attribute_name(:price) # Custom price
           %th=SaleItem.human_attribute_name(:tax) # Custom price
           %th=SaleItem.human_attribute_name(:pretax_amount)

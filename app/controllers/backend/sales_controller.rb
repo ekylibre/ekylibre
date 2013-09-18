@@ -133,11 +133,11 @@ class Backend::SalesController < BackendController
     # t.column :name, :through => :variant
     # t.column :position
     t.column :label
-    t.column :annotation
+    #t.column :annotation
     # t.column :serial_number, :through => :variant, :url => true
     t.column :quantity
-    #t.column :unit
-    t.column :pretax_amount, :through => :price, :label => "unit_price_amount", :currency => "RECORD.price.currency"
+    t.column :indicator
+    t.column :unit_price_amount
     t.column :pretax_amount, :currency => "RECORD.sale.currency"
     t.column :amount, :currency => "RECORD.sale.currency"
     # t.action :edit, :if => 'RECORD.sale.draft? and RECORD.reduction_origin_id.nil? '
@@ -283,7 +283,7 @@ class Backend::SalesController < BackendController
   end
 
   def create
-    @sale = Sale.new(params[:sale])
+    @sale = Sale.new sale_params#(params[:sale])
     @sale.number = ''
     return if save_and_redirect(@sale, :url => {:action => :show, :step => :products, :id => "id"})
   end
@@ -438,4 +438,10 @@ class Backend::SalesController < BackendController
     end
   end
 
+
+  protected
+  
+  def sale_params
+    params.require(:sale).permit!
+  end
 end
