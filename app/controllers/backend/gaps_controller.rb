@@ -17,12 +17,14 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::<%= controller_class_name -%>Controller < BackendController
+class Backend::GapsController < BackendController
   manage_restfully
 
   unroll
 
   list do |t|
-    t.column :name, url: true
+    t.column :name, through: :entity, url: true
+    t.column :direction
+    t.column :amount, :currency => true
   end
 end

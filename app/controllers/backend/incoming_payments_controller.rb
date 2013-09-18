@@ -48,7 +48,7 @@ class Backend::IncomingPaymentsController < BackendController
     t.column :bank_check_number
     t.column :to_bank_on
     t.column :number, :through => :deposit, :url => true
-    t.action :edit, :if => "RECORD.deposit.nil\?"
+    t.action :edit, :unless => :deposit?
     t.action :destroy, :if => :destroyable?
   end
 
@@ -58,18 +58,10 @@ class Backend::IncomingPaymentsController < BackendController
     session[:incoming_payment_key]   = params[:q]
   end
 
-  # list(:sales, :conditions => ["#{Sale.table_name}.id IN (SELECT expense_id FROM #{IncomingPaymentUse.table_name} WHERE payment_id=? AND expense_type=?)", ['session[:current_incoming_payment_id]'], Sale.name], :line_class => 'RECORD.tags') do |t|
-  #   t.column :number, :url => true
-  #   t.column :description, :through => :client, :url => true
-  #   t.column :created_on
-  #   t.column :pretax_amount
-  #   t.column :amount
-  # end
 
   # Displays details of one incoming payment selected with +params[:id]+
   def show
-    return unless @incoming_payment = find_and_check(:incoming_payment)
-    session[:current_incoming_payment_id] = @incoming_payment.id
+    return unless @incoming_payment = find_and_check
     t3e :number => @incoming_payment.number, :entity => @incoming_payment.payer.full_name
   end
 

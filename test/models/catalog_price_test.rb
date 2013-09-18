@@ -22,17 +22,16 @@
 #
 #  all_taxes_included :boolean          not null
 #  amount             :decimal(19, 4)   not null
-#  catalog_id         :integer
+#  catalog_id         :integer          not null
 #  created_at         :datetime         not null
 #  creator_id         :integer
 #  currency           :string(3)        not null
 #  id                 :integer          not null, primary key
 #  indicator          :string(120)      not null
 #  lock_version       :integer          default(0), not null
-#  reference_tax_id   :integer          not null
+#  reference_tax_id   :integer
 #  started_at         :datetime
 #  stopped_at         :datetime
-#  supplier_id        :integer          not null
 #  thread             :string(20)
 #  updated_at         :datetime         not null
 #  updater_id         :integer

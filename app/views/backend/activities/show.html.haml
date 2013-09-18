@@ -1,18 +1,18 @@
-=main_toolbar do |t|
-  -t.edit @activity
+= main_toolbar do |t|
+  - t.edit @activity
 
-=beehive do |b|
-  -b.cell :details do
-    =attributes_list(@activity) do |l|
-      -l.attribute :name
-      -l.attribute :parent
-      -l.attribute :nature
-      -l.attribute :family
+= beehive do |b|
+  - b.cell :details do
+    = attributes_list(@activity) do |l|
+      - l.attribute :name
+      - l.attribute :parent
+      - l.attribute :nature
+      - l.attribute :family
 
-  -b.tabbox do
-    -b.cell(:productions) do
-      =list(:production)
-    -b.cell :cropping_plan_chart do
+  - b.tabbox do
+    - b.cell(:productions) do
+      = list(:productions)
+    - b.cell :cropping_plan_chart do
       - if @production.supports.count > 0
         :ruby
 

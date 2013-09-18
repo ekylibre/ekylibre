@@ -23,10 +23,10 @@ module Ekylibre::Record
             affair, affair_id = reflection.name, reflection.foreign_key
           else
             raise Exception.new("Unable to acts as affairable no affair column") unless self.columns_definition[affair_id]
-            code << "belongs_to :#{affair}, :inverse_of => :#{self.name.underscore.pluralize}\n"
+            code << "belongs_to :#{affair}, inverse_of: :#{self.name.underscore.pluralize}\n"
           end
 
-          code << "delegate :credit, :debit, :closed?, :to => :affair, :prefix => true\n"
+          code << "delegate :credit, :debit, :closed?, to: :affair, prefix: true\n"
 
           # Marks model as affairable
           code << "def self.affairable_options\n"
@@ -37,8 +37,8 @@ module Ekylibre::Record
           code << "validate do\n"
           code << "  if self.#{affair}\n"
           code << "    unless self.#{affair}.currency == self.#{currency}\n"
-          code << "      errors.add(:#{affair}, :invalid_currency, :got => self.#{currency}, :expected => self.#{affair}.currency)\n"
-          code << "      errors.add(:#{affair_id}, :invalid_currency, :got => self.#{currency}, :expected => self.#{affair}.currency)\n"
+          code << "      errors.add(:#{affair}, :invalid_currency, got: self.#{currency}, expected: self.#{affair}.currency)\n"
+          code << "      errors.add(:#{affair_id}, :invalid_currency, got: self.#{currency}, expected: self.#{affair}.currency)\n"
           code << "    end\n"
           code << "  end\n"
           code << "  return true\n"
@@ -49,6 +49,7 @@ module Ekylibre::Record
           code << "  unless self.#{affair}\n"
           code << "    #{affair} = Affair.new\n"
           code << "    #{affair}.currency = self.#{currency}\n"
+          code << "    #{affair}.third    = self.deal_third\n"
           code << "    #{affair}.save!\n"
           code << "    self.#{affair_id} = #{affair}.id\n"
           code << "  end\n"
@@ -59,8 +60,6 @@ module Ekylibre::Record
           code << "after_save do\n"
           code << "  Affair.find(self.#{affair_id}).save!\n"
           code << "  Affair.clean_deads\n"
-          # code << "  self.#{affair}.reload\n"
-          # code << "  self.reload.#{affair}.reload\n"
           code << "  return true\n"
           code << "end\n"
 

@@ -31,6 +31,7 @@
 #  id               :integer          not null, primary key
 #  journal_entry_id :integer
 #  lock_version     :integer          default(0), not null
+#  third_id         :integer          not null
 #  updated_at       :datetime         not null
 #  updater_id       :integer
 #
@@ -43,11 +44,14 @@
 # PurchaseCredit  |         |    X    |
 # IncomingPayment |    X    |         |
 # OutgoingPayment |         |    X    |
+# ProfitGap       |    X    |         |
+# LossGap         |         |    X    |
 # Transfer        |         |    X    |
 #
 class Affair < Ekylibre::Record::Base
   AFFAIRABLE_TYPES = ["Sale", "Purchase", "IncomingPayment", "OutgoingPayment"].freeze # , "Transfer"
   AFFAIRABLE_MODELS = AFFAIRABLE_TYPES.map(&:underscore).freeze
+  belongs_to :third, class_name: "Entity"
   belongs_to :journal_entry
   has_many :sales, :inverse_of => :affair, :dependent => :nullify
   has_many :purchases, :inverse_of => :affair, :dependent => :nullify
@@ -58,7 +62,7 @@ class Affair < Ekylibre::Record::Base
   validates_numericality_of :credit, :debit, :allow_nil => true
   validates_length_of :currency, :allow_nil => true, :maximum => 3
   validates_inclusion_of :closed, :in => [true, false]
-  validates_presence_of :credit, :currency, :debit
+  validates_presence_of :credit, :currency, :debit, :third
   #]VALIDATORS]
 
   before_validation do

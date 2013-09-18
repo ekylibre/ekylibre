@@ -32,7 +32,6 @@
 #  lock_version      :integer          default(0), not null
 #  position          :integer
 #  pretax_amount     :decimal(19, 4)   default(0.0), not null
-#  price_id          :integer          not null
 #  purchase_id       :integer          not null
 #  quantity          :decimal(19, 4)   default(1.0), not null
 #  tax_id            :integer          not null
@@ -52,7 +51,6 @@
 #   id: 1
 #   indicator: "Lorem ipsum"
 #   pretax_amount: 0
-#   price_id: 1
 #   purchase_id: 1
 #   quantity: 0
 #   tax_id: 1
@@ -72,7 +70,6 @@ purchase_items_001:
   indicator: 'population'
   purchase_id: 1
   unit_price_amount: 5
-  price_id: 5
   variant_id: 1
   quantity: 1
   tax_id: 1
@@ -89,7 +86,6 @@ purchase_items_002:
   indicator: 'population'
   purchase_id: 1
   unit_price_amount: 5
-  price_id: 5
   variant_id: 1
   quantity: 2
   tax_id: 1
@@ -106,7 +102,6 @@ purchase_items_003:
   indicator: 'population'
   purchase_id: 2
   unit_price_amount: 5
-  price_id: 5
   variant_id: 1
   quantity: 3
   tax_id: 1
@@ -123,7 +118,6 @@ purchase_items_004:
   indicator: 'population'
   purchase_id: 3
   unit_price_amount: 5
-  price_id: 5
   variant_id: 1
   quantity: 7
   tax_id: 1
@@ -140,7 +134,6 @@ purchase_items_005:
   indicator: 'population'
   purchase_id: 3
   unit_price_amount: 5
-  price_id: 5
   variant_id: 1
   quantity: 9
   tax_id: 1

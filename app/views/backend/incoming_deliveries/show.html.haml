@@ -1,26 +1,26 @@
-=main_toolbar do |t|
-  -#t.export do |e|
+= main_toolbar do |t|
+  - #t.export do |e|
     -e.incoming_delivery_sheet @incoming_delivery.number, @incoming_delivery
-  -#t.new(:params =>{:controller => :incidents, :target_id => @animal.id, :target_type => @animal.class.name})
-  -t.edit @incoming_delivery
-  -t.destroy(@incoming_delivery, :method=>:delete, "data-confirm" => tg(:are_you_sure_you_want_to_delete)) if @incoming_delivery.destroyable?
+  - #t.new(:params =>{:controller => :incidents, :target_id => @animal.id, :target_type => @animal.class.name})
+  - t.edit @incoming_delivery
+  - t.destroy(@incoming_delivery, :method=>:delete, "data-confirm" => tg(:are_you_sure_you_want_to_delete)) if @incoming_delivery.destroyable?
 
-=beehive do |b|
-  -b.tabbox do
-    -b.cell :general do
-      =attributes_list(@incoming_delivery) do |l| # liste des champs à afficher
-        -l.attribute :number
-        -l.attribute :received_at
-        -l.attribute :sender, :url => true
-        -l.attribute :address, :url => true
+= beehive do |b|
+  - b.tabbox do
+    - b.cell :general do
+      = attributes_list(@incoming_delivery) do |l| # liste des champs à afficher
+        - l.attribute :number
+        - l.attribute :received_at
+        - l.attribute :sender, :url => true
+        - l.attribute :address, :url => true
 
-    -b.cell :details do
-      =attributes_list(@incoming_delivery) do |l| # liste des champs à afficher
-        -l.attribute :mode, :url => true
-        -l.attribute :purchase, :url => true
+    - b.cell :details do
+      = attributes_list(@incoming_delivery) do |l| # liste des champs à afficher
+        - l.attribute :mode, :url => true
+        - l.attribute :purchase, :url => true
 
-  -b.tabbox do
+  - b.tabbox do
 
-    -b.cell(:items) do
-      =list(:item)
+    - b.cell(:items) do
+      = list(:items)
 

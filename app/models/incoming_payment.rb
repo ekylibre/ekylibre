@@ -112,8 +112,7 @@ class IncomingPayment < Ekylibre::Record::Base
   # It depends on the preference which permit to activate the "automatic bookkeeping"
   bookkeep do |b|
     mode = self.mode
-    # TODO Reviews bookkeeping without ipu
-    label = tc(:bookkeep, :resource => self.class.model_name.human, :number => self.number, :payer => self.payer.full_name, :mode => mode.name, :check_number => self.bank_check_number) # , :expenses => "EXPENSES"
+    label = tc(:bookkeep, :resource => self.class.model_name.human, :number => self.number, :payer => self.payer.full_name, :mode => mode.name, :check_number => self.bank_check_number)
     if mode.with_deposit?
       b.journal_entry(mode.depositables_journal, :printed_on => self.to_bank_on, :unless => (!mode or !mode.with_accounting? or !self.received)) do |entry|
         entry.add_debit(label,  mode.depositables_account_id, self.amount-self.commission_amount)

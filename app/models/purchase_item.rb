@@ -32,7 +32,6 @@
 #  lock_version      :integer          default(0), not null
 #  position          :integer
 #  pretax_amount     :decimal(19, 4)   default(0.0), not null
-#  price_id          :integer          not null
 #  purchase_id       :integer          not null
 #  quantity          :decimal(19, 4)   default(1.0), not null
 #  tax_id            :integer          not null
@@ -49,15 +48,15 @@ class PurchaseItem < Ekylibre::Record::Base
   belongs_to :account
   # belongs_to :building, :foreign_key => :warehouse_id
   belongs_to :purchase, :inverse_of => :items
-  belongs_to :price, class_name: "CatalogPrice"
+  # belongs_to :price, class_name: "CatalogPrice"
   belongs_to :variant, class_name: "ProductNatureVariant"
   belongs_to :tax
   enumerize :unit, :in => Nomen::Units.all
   has_many :delivery_items, class_name: "IncomingDeliveryItem", :foreign_key => :purchase_item_id
 
-  accepts_nested_attributes_for :price
+  # accepts_nested_attributes_for :price
   delegate :purchased?, :draft?, :order?, :supplier, :to => :purchase
-  delegate :currency, :to => :price
+  # delegate :currency, :to => :price
 
   acts_as_stockable :mode => :virtual, :direction => :in, :if => :purchased?
   sums :purchase, :items, :pretax_amount, :amount
@@ -66,10 +65,10 @@ class PurchaseItem < Ekylibre::Record::Base
   validates_numericality_of :amount, :pretax_amount, :quantity, :unit_price_amount, :allow_nil => true
   validates_length_of :currency, :allow_nil => true, :maximum => 3
   validates_length_of :indicator, :allow_nil => true, :maximum => 120
-  validates_presence_of :account, :amount, :indicator, :pretax_amount, :price, :purchase, :quantity, :tax, :unit_price_amount, :variant
+  validates_presence_of :account, :amount, :indicator, :pretax_amount, :purchase, :quantity, :tax, :unit_price_amount, :variant
   #]VALIDATORS]
   # validates_presence_of :pretax_amount, :price # Already defined in auto-validators
-  validates_uniqueness_of :tracking_serial, :scope => :price_id, :allow_nil => true, :if => Proc.new{|pl| !pl.tracking_serial.blank? }, :allow_blank => true
+  # validates_uniqueness_of :tracking_serial, :scope => :price_id, :allow_nil => true, :if => Proc.new{|pl| !pl.tracking_serial.blank? }, :allow_blank => true
 
 
   before_validation do

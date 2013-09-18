@@ -22,17 +22,16 @@
 #
 #  all_taxes_included :boolean          not null
 #  amount             :decimal(19, 4)   not null
-#  catalog_id         :integer
+#  catalog_id         :integer          not null
 #  created_at         :datetime         not null
 #  creator_id         :integer
 #  currency           :string(3)        not null
 #  id                 :integer          not null, primary key
 #  indicator          :string(120)      not null
 #  lock_version       :integer          default(0), not null
-#  reference_tax_id   :integer          not null
+#  reference_tax_id   :integer
 #  started_at         :datetime
 #  stopped_at         :datetime
-#  supplier_id        :integer          not null
 #  thread             :string(20)
 #  updated_at         :datetime         not null
 #  updater_id         :integer
@@ -44,7 +43,7 @@
 class CatalogPrice < Ekylibre::Record::Base
   # attr_accessible :listing_id, :product_id, :variant_id, :pretax_amount, :amount, :tax_id, :currency, :supplier_id
   belongs_to :variant, :class_name => "ProductNatureVariant"
-  belongs_to :supplier, :class_name => "Entity"
+  # belongs_to :supplier, :class_name => "Entity"
   belongs_to :reference_tax, :class_name => "Tax"
   belongs_to :catalog
   has_many :incoming_delivery_items, :foreign_key => :price_id
@@ -57,7 +56,7 @@ class CatalogPrice < Ekylibre::Record::Base
   validates_length_of :thread, :allow_nil => true, :maximum => 20
   validates_length_of :indicator, :allow_nil => true, :maximum => 120
   validates_inclusion_of :all_taxes_included, :in => [true, false]
-  validates_presence_of :amount, :currency, :indicator, :reference_tax, :supplier, :variant
+  validates_presence_of :amount, :catalog, :currency, :indicator, :variant
   #]VALIDATORS]
   validates_presence_of :started_at
 

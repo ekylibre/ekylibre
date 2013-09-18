@@ -292,6 +292,7 @@ fra:
       event: "Évènement"
       financial_year: "Exercice"
       fungus: "Champignon"
+      # gap: "Gap"
       immatter: "Immatériel"
       incident: "Incident"
       incoming_delivery: "Approvisionnement"
@@ -589,7 +590,7 @@ fra:
     diff_less: "Droits enlevés"
     diff_more: "Droits rajoutés"
     direct_links: "Liens directs"
-    direction: "Type" #?
+    direction: "Type"
     discount_percentage: "Pourcentage d’escompte" #?
     district: "Zone administrative"
     document: "Document"
@@ -969,7 +970,7 @@ fra:
     root_model: "Racine"
     root_model_name: "Racine"
     sale: "Vente"
-    sale_catalog: "Sale catalog"
+    sale_catalog: "Sale catalog" #?
     sale_indicator: "Indicateur de vente" #?
     sale_indicator_unit: "Unité de l'indicateur de vente" #?
     sale_item: "Ligne de vente"
@@ -1030,6 +1031,7 @@ fra:
     tax: "Taxe"
     template: "Modèle"
     theoric_quantity: "Quantité théorique"
+    # third: "Third"
     thread: "Thread"
     title: "Titre"
     to: "Pour"
@@ -1498,6 +1500,10 @@ fra:
     purchase_nature:
       default:
         name: "Standard"
+    role:
+      default:
+        administrator: "Gérant"
+        public: "Public"
     sale:
       bookkeep: "[%{resource} %{number}] %{products} pour %{client} (%{sale})"
       label:

@@ -1,7 +1,7 @@
-=main_toolbar do |t|
-  -t.edit @<%= singular_table_name %>
+= main_toolbar do |t|
+  - t.edit @<%= singular_table_name %>
 
-=beehive do |b|
-  -b.cell do
-    =attributes_list(@<%= singular_table_name %>) do |l|
-      -l.attribute :name
+= beehive do |b|
+  - b.cell do
+    = attributes_list(@<%= singular_table_name %>) do |l|
+      - l.attribute :name

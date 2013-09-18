@@ -18,33 +18,29 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: affairs
+# == Table: gaps
 #
 #  accounted_at     :datetime
-#  closed           :boolean          not null
-#  closed_at        :datetime
+#  affair_id        :integer          not null
+#  amount           :decimal(19, 4)   default(0.0), not null
 #  created_at       :datetime         not null
 #  creator_id       :integer
-#  credit           :decimal(19, 4)   default(0.0), not null
 #  currency         :string(3)        not null
-#  debit            :decimal(19, 4)   default(0.0), not null
+#  direction        :string(255)      not null
+#  entity_id        :integer          not null
 #  id               :integer          not null, primary key
 #  journal_entry_id :integer
 #  lock_version     :integer          default(0), not null
-#  third_id         :integer          not null
+#  number           :string(255)      not null
 #  updated_at       :datetime         not null
 #  updater_id       :integer
 #
 require 'test_helper'
 
-class AffairTest < ActiveSupport::TestCase
+class GapTest < ActiveSupport::TestCase
 
-  # check that every model that can be affairable
-  def test_affairables
-    for type in Affair::AFFAIRABLE_TYPES
-      model = type.constantize
-      assert model.respond_to?(:affairable_options)
-    end
+  test "presence of fixtures" do
+    # assert_equal 2, Gap.count
   end
 
 end

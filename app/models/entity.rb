@@ -55,7 +55,6 @@
 #  prospect                  :boolean          not null
 #  reminder_submissive       :boolean          not null
 #  responsible_id            :integer
-#  sale_catalog_id           :integer
 #  siren                     :string(9)
 #  supplier                  :boolean          not null
 #  supplier_account_id       :integer
@@ -78,7 +77,6 @@ class Entity < Ekylibre::Record::Base
   # belongs_to :payment_mode, :class_name => "IncomingPaymentMode"
   belongs_to :proposer, :class_name => "Entity"
   belongs_to :responsible, :class_name => "User"
-  belongs_to :sale_catalog, :class_name => "Catalog"
   belongs_to :supplier_account, :class_name => "Account"
   has_many :clients, :class_name => "Entity", :foreign_key => :responsible_id, :dependent => :nullify
   has_many :addresses, -> { where(:deleted_at => nil) }, :class_name => "EntityAddress", :inverse_of => :entity
@@ -141,8 +139,6 @@ class Entity < Ekylibre::Record::Base
   validates_inclusion_of :active, :client, :locked, :of_company, :prospect, :reminder_submissive, :supplier, :transporter, :vat_subjected, :in => [true, false]
   validates_presence_of :currency, :full_name, :language, :last_name, :nature
   #]VALIDATORS]
-  validates_presence_of :sale_catalog
-  # validates_delay_format_of :payment_delay
 
   alias_attribute :name, :full_name
 
@@ -162,7 +158,6 @@ class Entity < Ekylibre::Record::Base
     self.first_name = self.first_name.to_s.strip
     self.last_name  = self.last_name.to_s.strip
     self.full_name = (self.last_name.to_s + " " + self.first_name.to_s)
-    self.sale_catalog ||= Catalog.by_default
     # unless self.nature.nil?
     # self.full_name = (self.nature.title.to_s + ' ' + self.full_name).strip unless self.nature.in_name? # or self.nature.abbreviation == "-")
     # end
@@ -355,87 +350,87 @@ class Entity < Ekylibre::Record::Base
   # end
 
 
-  def self.import(file, cols, options={})
-    sheet = Ekylibre::CSV.open(file)
-    header = sheet.shift # header
-    problems = {}
-    item_index = 1
-    code  = "ActiveRecord::Base.transaction do\n"
-    # unless cols[:entity_nature].is_a? Hash
-      # code += "  nature = EntityNature.where('title=? OR name=?', '-', '-').first\n"
-      # code += "  nature = EntityNature.create!(:title => '', :name => '-', :physical => false, :in_name => false, :active => true) unless nature\n"
-    # end
-    unless cols[:product_price_listing].is_a? Hash
-      code += "  sale_catalog = Catalog.where('name=? or code=?', '-', '-').first\n"
-      code += "  sale_catalog = Catalog.create!(:name => '-', :by_default => false) unless sale_catalog\n"
-    end
-    for k, v in (cols[:special]||{}).select{|k, v| v == :generate_string_custom_field}
-      code += "  custom_field_#{k} = CustomField.create!(:name => #{header[k.to_i].inspect}, :active => true, :length_max => 65536, :nature => 'string', :required => false)\n"
-    end
-    code += "  while item = sheet.shift\n"
-    code += "    item_index += 1\n"
-    code += "    next if #{options[:ignore].collect{|x| x.to_i}.inspect}.include?(item_index)\n" if options[:ignore]
-    # if cols[:entity_nature].is_a? Hash
-      # code += "    nature = EntityNature.where("+cols[:entity_nature].collect{|k,v| ":#{v} => item[#{k}]"}.join(', ')+").first\n"
-      # code += "    begin\n"
-      # code += "      nature = EntityNature.create!("+cols[:entity_nature].collect{|k,v| ":#{v} => item[#{k}]"}.join(', ')+")\n"
-      # code += "    rescue\n"
-      # code += "      nature = EntityNature.where('abbreviation=? OR name=?', '-', '-').first\n"
-      # code += "      nature = EntityNature.create!(:abbreviation => '-', :name => '-', :physical => false, :in_name => false, :active => true) unless nature\n"
-      # code += "    end unless nature\n"
-    # end
-    if cols[:product_price_listing].is_a? Hash
-      code += "    sale_catalog = Catalog.where("+cols[:product_price_listing].collect{|k,v| ":#{v} => item[#{k}]"}.join(', ')+").first\n"
-      code += "    begin\n"
-      code += "      sale_catalog = Catalog.create!("+cols[:product_price_listing].collect{|k,v| ":#{v} => item[#{k}]"}.join(', ')+")\n"
-      code += "    rescue\n"
-      code += "      sale_catalog = Catalog.where('name=? or code=?', '-', '-').first\n"
-      code += "      sale_catalog = Catalog.create!(:name => '-', :by_default => false) unless sale_catalog\n"
-      code += "    end unless sale_catalog\n"
-    end
+  # def self.import(file, cols, options={})
+  #   sheet = Ekylibre::CSV.open(file)
+  #   header = sheet.shift # header
+  #   problems = {}
+  #   item_index = 1
+  #   code  = "ActiveRecord::Base.transaction do\n"
+  #   # unless cols[:entity_nature].is_a? Hash
+  #     # code += "  nature = EntityNature.where('title=? OR name=?', '-', '-').first\n"
+  #     # code += "  nature = EntityNature.create!(:title => '', :name => '-', :physical => false, :in_name => false, :active => true) unless nature\n"
+  #   # end
+  #   unless cols[:product_price_listing].is_a? Hash
+  #     code += "  sale_catalog = Catalog.where('name=? or code=?', '-', '-').first\n"
+  #     code += "  sale_catalog = Catalog.create!(:name => '-', :by_default => false) unless sale_catalog\n"
+  #   end
+  #   for k, v in (cols[:special]||{}).select{|k, v| v == :generate_string_custom_field}
+  #     code += "  custom_field_#{k} = CustomField.create!(:name => #{header[k.to_i].inspect}, :active => true, :length_max => 65536, :nature => 'string', :required => false)\n"
+  #   end
+  #   code += "  while item = sheet.shift\n"
+  #   code += "    item_index += 1\n"
+  #   code += "    next if #{options[:ignore].collect{|x| x.to_i}.inspect}.include?(item_index)\n" if options[:ignore]
+  #   # if cols[:entity_nature].is_a? Hash
+  #     # code += "    nature = EntityNature.where("+cols[:entity_nature].collect{|k,v| ":#{v} => item[#{k}]"}.join(', ')+").first\n"
+  #     # code += "    begin\n"
+  #     # code += "      nature = EntityNature.create!("+cols[:entity_nature].collect{|k,v| ":#{v} => item[#{k}]"}.join(', ')+")\n"
+  #     # code += "    rescue\n"
+  #     # code += "      nature = EntityNature.where('abbreviation=? OR name=?', '-', '-').first\n"
+  #     # code += "      nature = EntityNature.create!(:abbreviation => '-', :name => '-', :physical => false, :in_name => false, :active => true) unless nature\n"
+  #     # code += "    end unless nature\n"
+  #   # end
+  #   if cols[:product_price_listing].is_a? Hash
+  #     code += "    sale_catalog = Catalog.where("+cols[:product_price_listing].collect{|k,v| ":#{v} => item[#{k}]"}.join(', ')+").first\n"
+  #     code += "    begin\n"
+  #     code += "      sale_catalog = Catalog.create!("+cols[:product_price_listing].collect{|k,v| ":#{v} => item[#{k}]"}.join(', ')+")\n"
+  #     code += "    rescue\n"
+  #     code += "      sale_catalog = Catalog.where('name=? or code=?', '-', '-').first\n"
+  #     code += "      sale_catalog = Catalog.create!(:name => '-', :by_default => false) unless sale_catalog\n"
+  #     code += "    end unless sale_catalog\n"
+  #   end
 
-    # code += "    puts [nature, sale_catalog].inspect\n"
+  #   # code += "    puts [nature, sale_catalog].inspect\n"
 
-    code += "    entity = Entity.build("+cols[:entity].collect{|k,v| ":#{v} => item[#{k}]"}.join(', ')+", :nature => nature, :sale_catalog_id => sale_catalog.id, :language => #{self.of_company.language.inspect}, :client => true)\n"
-    code += "    if entity.save\n"
-    if cols[:address].is_a? Hash
-      code += "      address = entity.addresses.build("+cols[:address].collect{|k,v| ":#{v} => item[#{k}]"}.join(', ')+")\n"
-      code += "      unless address.save\n"
-      code += "        problems[item_index.to_s] ||= []\n"
-      code += "        problems[item_index.to_s] += address.errors.full_messages\n"
-      code += "      end\n"
-    end
-    for k, v in (cols[:special]||{}).select{|k,v| v == :generate_string_custom_field}
-      code += "      datum = entity.custom_field_data.build(:custom_field_id => custom_field_#{k}.id, :string_value => item[#{k}])\n"
-      code += "      unless datum.save\n"
-      code += "        problems[item_index.to_s] ||= []\n"
-      code += "        problems[item_index.to_s] += datum.errors.full_messages\n"
-      code += "      end\n"
-    end
-    for k, v in cols[:custom_field]||{}
-      if custom_field = CustomField.find_by_id(k.to_s[2..-1].to_i)
-        if custom_field.nature == 'string'
-          code += "      datum = entity.custom_field_data.build(:custom_field_id => #{custom_field.id}, :string_value => item[#{k}])\n"
-          code += "      unless datum.save\n"
-          code += "        problems[item_index.to_s] ||= []\n"
-          code += "        problems[item_index.to_s] += datum.errors.full_messages\n"
-          code += "      end\n"
-          # elsif custom_field.nature == 'choice'
-          #   code += "    co = entity.addresses.create("+cols[:address].collect{|k,v| ":#{v} => item[#{k}]"}.join(', ')+")\n" if cols[:address].is_a? Hash
-        end
-      end
-    end
-    code += "    else\n"
-    code += "      problems[item_index.to_s] ||= []\n"
-    code += "      problems[item_index.to_s] += entity.errors.full_messages\n"
-    code += "    end\n"
-    code += "  end\n"
-    code += "  raise ActiveRecord::Rollback\n" unless options[:no_simulation]
-    code += "end\n"
-    # list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
-    eval(code)
-    return {:errors => problems, :items_count => item_index-1}
-  end
+  #   code += "    entity = Entity.build("+cols[:entity].collect{|k,v| ":#{v} => item[#{k}]"}.join(', ')+", :nature => nature, :sale_catalog_id => sale_catalog.id, :language => #{self.of_company.language.inspect}, :client => true)\n"
+  #   code += "    if entity.save\n"
+  #   if cols[:address].is_a? Hash
+  #     code += "      address = entity.addresses.build("+cols[:address].collect{|k,v| ":#{v} => item[#{k}]"}.join(', ')+")\n"
+  #     code += "      unless address.save\n"
+  #     code += "        problems[item_index.to_s] ||= []\n"
+  #     code += "        problems[item_index.to_s] += address.errors.full_messages\n"
+  #     code += "      end\n"
+  #   end
+  #   for k, v in (cols[:special]||{}).select{|k,v| v == :generate_string_custom_field}
+  #     code += "      datum = entity.custom_field_data.build(:custom_field_id => custom_field_#{k}.id, :string_value => item[#{k}])\n"
+  #     code += "      unless datum.save\n"
+  #     code += "        problems[item_index.to_s] ||= []\n"
+  #     code += "        problems[item_index.to_s] += datum.errors.full_messages\n"
+  #     code += "      end\n"
+  #   end
+  #   for k, v in cols[:custom_field]||{}
+  #     if custom_field = CustomField.find_by_id(k.to_s[2..-1].to_i)
+  #       if custom_field.nature == 'string'
+  #         code += "      datum = entity.custom_field_data.build(:custom_field_id => #{custom_field.id}, :string_value => item[#{k}])\n"
+  #         code += "      unless datum.save\n"
+  #         code += "        problems[item_index.to_s] ||= []\n"
+  #         code += "        problems[item_index.to_s] += datum.errors.full_messages\n"
+  #         code += "      end\n"
+  #         # elsif custom_field.nature == 'choice'
+  #         #   code += "    co = entity.addresses.create("+cols[:address].collect{|k,v| ":#{v} => item[#{k}]"}.join(', ')+")\n" if cols[:address].is_a? Hash
+  #       end
+  #     end
+  #   end
+  #   code += "    else\n"
+  #   code += "      problems[item_index.to_s] ||= []\n"
+  #   code += "      problems[item_index.to_s] += entity.errors.full_messages\n"
+  #   code += "    end\n"
+  #   code += "  end\n"
+  #   code += "  raise ActiveRecord::Rollback\n" unless options[:no_simulation]
+  #   code += "end\n"
+  #   # list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
+  #   eval(code)
+  #   return {:errors => problems, :items_count => item_index-1}
+  # end
 
 
 
@@ -450,7 +445,7 @@ class Entity < Ekylibre::Record::Base
         if !address.nil?
           item << [address.item_2, address.item_3, address.item_4, address.item_5, address.item_6_code, address.item_6_city, address.phone, address.mobile, address.fax ,address.email, address.website]
         else
-          item << [ "", "", "", "", "", "", "", "", "", "", ""]
+          item << ["", "", "", "", "", "", "", "", "", "", ""]
         end
         item << [ entity.reduction_percentage.to_s.gsub(/\./,",")]
         csv << item.flatten

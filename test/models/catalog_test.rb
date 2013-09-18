@@ -22,7 +22,7 @@
 #
 #  all_taxes_included :boolean          not null
 #  by_default         :boolean          not null
-#  code               :string(10)
+#  code               :string(20)       not null
 #  created_at         :datetime         not null
 #  creator_id         :integer
 #  currency           :string(3)        not null
@@ -32,6 +32,7 @@
 #  name               :string(255)      not null
 #  updated_at         :datetime         not null
 #  updater_id         :integer
+#  usage              :string(20)       not null
 #
 
 

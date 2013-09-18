@@ -250,6 +250,7 @@ spa:
       index: "Exercicios contables"
       new: "Crear un nuevo ejercicio"
       show: "Exercicio contable %{code}"
+    backend/gaps: #?
     backend/help: #?
     backend/helps:
       # index: "Aide"

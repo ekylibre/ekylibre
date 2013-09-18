@@ -12,6 +12,6 @@ Example:
         app/view/backend/my_models/index.html.haml
         app/view/backend/my_models/show.html.haml
         test/fixtures/my_models.yml
-        test/unit/my_model_test.rb
-        test/functionals/backend/my_models_controller_test.rb
+        test/models/my_model_test.rb
+        test/controllers/backend/my_models_controller_test.rb
   

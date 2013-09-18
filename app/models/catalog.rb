@@ -22,7 +22,7 @@
 #
 #  all_taxes_included :boolean          not null
 #  by_default         :boolean          not null
-#  code               :string(10)
+#  code               :string(20)       not null
 #  created_at         :datetime         not null
 #  creator_id         :integer
 #  currency           :string(3)        not null
@@ -32,32 +32,32 @@
 #  name               :string(255)      not null
 #  updated_at         :datetime         not null
 #  updater_id         :integer
+#  usage              :string(20)       not null
 #
 
 
 class Catalog < Ekylibre::Record::Base
-  # attr_accessible :name, :description, :by_default, :code
-  has_many :active_prices, -> { where(:active => true) }, :class_name => "CatalogPrice", :foreign_key => :catalog_id
-  has_many :entities, :foreign_key => :sale_catalog_id
-  has_many :prices, :class_name => "CatalogPrice", :foreign_key => :catalog_id
+  enumerize :usage, in: [:purchase, :sale, :stock], default: :sale
+  has_many :active_prices, -> { where(:active => true) }, :class_name => "CatalogPrice"
+  has_many :prices, :class_name => "CatalogPrice", dependent: :destroy, inverse_of: :catalog
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :currency, :allow_nil => true, :maximum => 3
-  validates_length_of :code, :allow_nil => true, :maximum => 10
+  validates_length_of :code, :usage, :allow_nil => true, :maximum => 20
   validates_length_of :name, :allow_nil => true, :maximum => 255
   validates_inclusion_of :all_taxes_included, :by_default, :in => [true, false]
-  validates_presence_of :currency, :name
+  validates_presence_of :code, :currency, :name, :usage
   #]VALIDATORS]
   validates_uniqueness_of :code
 
-  has_default
+  has_default :scope => :usage
 
   before_validation do
     self.code = self.name.to_s.codeize if self.code.blank?
-    self.code = self.code[0..7]
+    self.code = self.code[0..9]
   end
 
   protect(:on => :destroy) do
-    self.entities.count <= 0 and self.prices.count <= 0
+    self.prices.count <= 0
   end
 
 end

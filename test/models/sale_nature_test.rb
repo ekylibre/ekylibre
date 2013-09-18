@@ -22,13 +22,14 @@
 #
 #  active                  :boolean          default(TRUE), not null
 #  by_default              :boolean          not null
+#  catalog_id              :integer          not null
 #  created_at              :datetime         not null
 #  creator_id              :integer
-#  currency                :string(3)
+#  currency                :string(3)        not null
 #  description             :text
 #  downpayment             :boolean          not null
-#  downpayment_minimum     :decimal(19, 4)   default(0.0), not null
-#  downpayment_percentage  :decimal(19, 4)   default(0.0), not null
+#  downpayment_minimum     :decimal(19, 4)   default(0.0)
+#  downpayment_percentage  :decimal(19, 4)   default(0.0)
 #  expiration_delay        :string(255)      not null
 #  id                      :integer          not null, primary key
 #  journal_id              :integer

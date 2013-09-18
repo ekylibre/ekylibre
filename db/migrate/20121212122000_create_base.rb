@@ -47,6 +47,7 @@ class CreateBase < ActiveRecord::Migration
     create_table :affairs do |t|
       t.boolean    :closed,                                            default: false, null: false
       t.datetime   :closed_at
+      t.references :third,                                                             null: false, index: true
       t.string     :currency,       limit: 3,                                          null: false
       t.decimal    :debit,                    precision: 19, scale: 4, default: 0.0,   null: false
       t.decimal    :credit,                   precision: 19, scale: 4, default: 0.0,   null: false
@@ -184,20 +185,21 @@ class CreateBase < ActiveRecord::Migration
 
     create_table :catalogs do |t|
       t.string   :name,                                   null: false
+      t.string   :usage,         limit: 20,               null: false
+      t.string   :code,          limit: 20,               null: false
       t.boolean  :by_default,             default: false, null: false
       t.boolean  :all_taxes_included,     default: false, null: false
       t.string   :currency,      limit: 3,                null: false
       t.text     :description
-      t.string   :code,          limit: 10
       t.stamps
     end
 
     create_table :catalog_prices do |t|
       t.references :variant,                                          null: false, index: true
-      t.references :catalog,                                                       index: true
-      t.references :supplier,                                         null: false, index: true
+      t.references :catalog,                                          null: false, index: true
+      # t.references :supplier,                                         null: false, index: true
       t.string     :indicator,     limit: 120,                        null: false
-      t.references :reference_tax,                                    null: false, index: true
+      t.references :reference_tax,                                                 index: true
       # t.decimal    :pretax_amount,           precision: 19, scale: 4, null: false
       t.decimal    :amount,                  precision: 19, scale: 4, null: false
       t.boolean    :all_taxes_included,               default: false, null: false
@@ -344,7 +346,6 @@ class CreateBase < ActiveRecord::Migration
       t.integer    :invoices_count
       t.string     :origin
       t.date       :first_met_on
-      t.references :sale_catalog,                                                                               index: true
       t.string     :activity_code,             limit: 30
       t.string     :vat_number,                limit: 20
       t.string     :siren,                     limit: 9
@@ -430,6 +431,20 @@ class CreateBase < ActiveRecord::Migration
     end
     add_index :financial_years, :currency
     add_index :financial_years, :last_journal_entry_id
+
+    create_table :gaps do |t|
+      t.string     :number,                                                             null: false
+      t.string     :direction,                                                          null: false
+      t.references :affair,                                                             null: false
+      t.references :entity,                                                             null: false
+      t.decimal    :amount,                    precision: 19, scale: 4, default: 0.0,   null: false
+      t.string     :currency,       limit: 3,                                           null: false
+      t.datetime   :accounted_at
+      t.references :journal_entry,                                                                  index: true
+      t.stamps
+      t.index      :number
+      t.index      :direction
+    end
 
     create_table :incidents do |t|
       t.references :target,    polymorphic: true, null: false
@@ -1155,7 +1170,7 @@ class CreateBase < ActiveRecord::Migration
     create_table :purchase_items do |t|
       t.references :purchase,                                                 null: false, index: true
       t.references :variant,                                                  null: false, index: true
-      t.references :price,                                                    null: false, index: true
+      # t.references :price,                                                    null: false, index: true
       t.decimal    :quantity,          precision: 19, scale: 4, default: 1.0, null: false
       t.decimal    :pretax_amount,     precision: 19, scale: 4, default: 0.0, null: false
       t.decimal    :amount,            precision: 19, scale: 4, default: 0.0, null: false
@@ -1248,26 +1263,25 @@ class CreateBase < ActiveRecord::Migration
     create_table :sale_natures do |t|
       t.string     :name,                                                                       null: false
       t.boolean    :active,                                                     default: true,  null: false
-      t.boolean    :downpayment,                                                default: false, null: false
-      t.decimal    :downpayment_minimum,               precision: 19, scale: 4, default: 0.0,   null: false
-      t.decimal    :downpayment_percentage,            precision: 19, scale: 4, default: 0.0,   null: false
-      t.text       :description
-      t.references :payment_mode
-      t.text       :payment_mode_complement
-      t.boolean    :with_accounting,                                            default: false, null: false
-      t.string     :currency,                limit: 3
-      t.references :journal
-      t.text       :sales_conditions
       t.boolean    :by_default,                                                 default: false, null: false
+      t.boolean    :downpayment,                                                default: false, null: false
+      t.decimal    :downpayment_minimum,               precision: 19, scale: 4, default: 0.0
+      t.decimal    :downpayment_percentage,            precision: 19, scale: 4, default: 0.0
+      t.references :payment_mode,                                                                            index: true
+      t.references :catalog,                                                                    null: false, index: true
+      t.text       :payment_mode_complement
+      t.string     :currency,                limit: 3,                                          null: false
+      t.text       :sales_conditions
       t.string     :expiration_delay,                                                           null: false
       t.string     :payment_delay,                                                              null: false
+      t.boolean    :with_accounting,                                            default: false, null: false
+      t.references :journal,                                                                                 index: true
+      t.text       :description
       t.stamps
     end
-    add_index :sale_natures, :journal_id
-    add_index :sale_natures, :payment_mode_id
 
     create_table :sales do |t|
-      t.references :client,                                                               null: false
+      t.references :client,                                                                  null: false
       t.references :nature
       t.date       :created_on,                                                              null: false
       t.string     :number,              limit: 60,                                          null: false

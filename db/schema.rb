@@ -87,6 +87,7 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   create_table "affairs", force: true do |t|
     t.boolean  "closed",                                              default: false, null: false
     t.datetime "closed_at"
+    t.integer  "third_id",                                                            null: false
     t.string   "currency",         limit: 3,                                          null: false
     t.decimal  "debit",                      precision: 19, scale: 4, default: 0.0,   null: false
     t.decimal  "credit",                     precision: 19, scale: 4, default: 0.0,   null: false
@@ -102,6 +103,7 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "affairs", ["created_at"], :name => "index_affairs_on_created_at"
   add_index "affairs", ["creator_id"], :name => "index_affairs_on_creator_id"
   add_index "affairs", ["journal_entry_id"], :name => "index_affairs_on_journal_entry_id"
+  add_index "affairs", ["third_id"], :name => "index_affairs_on_third_id"
   add_index "affairs", ["updated_at"], :name => "index_affairs_on_updated_at"
   add_index "affairs", ["updater_id"], :name => "index_affairs_on_updater_id"
 
@@ -318,10 +320,9 @@ ActiveRecord::Schema.define(version: 20121212122000) do
 
   create_table "catalog_prices", force: true do |t|
     t.integer  "variant_id",                                                              null: false
-    t.integer  "catalog_id"
-    t.integer  "supplier_id",                                                             null: false
+    t.integer  "catalog_id",                                                              null: false
     t.string   "indicator",          limit: 120,                                          null: false
-    t.integer  "reference_tax_id",                                                        null: false
+    t.integer  "reference_tax_id"
     t.decimal  "amount",                         precision: 19, scale: 4,                 null: false
     t.boolean  "all_taxes_included",                                      default: false, null: false
     t.string   "currency",           limit: 3,                                            null: false
@@ -340,18 +341,18 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "catalog_prices", ["creator_id"], :name => "index_catalog_prices_on_creator_id"
   add_index "catalog_prices", ["reference_tax_id"], :name => "index_catalog_prices_on_reference_tax_id"
   add_index "catalog_prices", ["started_at", "stopped_at"], :name => "index_catalog_prices_on_started_at_and_stopped_at"
-  add_index "catalog_prices", ["supplier_id"], :name => "index_catalog_prices_on_supplier_id"
   add_index "catalog_prices", ["updated_at"], :name => "index_catalog_prices_on_updated_at"
   add_index "catalog_prices", ["updater_id"], :name => "index_catalog_prices_on_updater_id"
   add_index "catalog_prices", ["variant_id"], :name => "index_catalog_prices_on_variant_id"
 
   create_table "catalogs", force: true do |t|
     t.string   "name",                                          null: false
+    t.string   "usage",              limit: 20,                 null: false
+    t.string   "code",               limit: 20,                 null: false
     t.boolean  "by_default",                    default: false, null: false
     t.boolean  "all_taxes_included",            default: false, null: false
     t.string   "currency",           limit: 3,                  null: false
     t.text     "description"
-    t.string   "code",               limit: 10
     t.datetime "created_at",                                    null: false
     t.datetime "updated_at",                                    null: false
     t.integer  "creator_id"
@@ -566,7 +567,6 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.integer  "invoices_count"
     t.string   "origin"
     t.date     "first_met_on"
-    t.integer  "sale_catalog_id"
     t.string   "activity_code",             limit: 30
     t.string   "vat_number",                limit: 20
     t.string   "siren",                     limit: 9
@@ -590,7 +590,6 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "entities", ["of_company"], :name => "index_entities_on_of_company"
   add_index "entities", ["proposer_id"], :name => "index_entities_on_proposer_id"
   add_index "entities", ["responsible_id"], :name => "index_entities_on_responsible_id"
-  add_index "entities", ["sale_catalog_id"], :name => "index_entities_on_sale_catalog_id"
   add_index "entities", ["supplier_account_id"], :name => "index_entities_on_supplier_account_id"
   add_index "entities", ["updated_at"], :name => "index_entities_on_updated_at"
   add_index "entities", ["updater_id"], :name => "index_entities_on_updater_id"
@@ -712,6 +711,30 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "financial_years", ["last_journal_entry_id"], :name => "index_financial_years_on_last_journal_entry_id"
   add_index "financial_years", ["updated_at"], :name => "index_financial_years_on_updated_at"
   add_index "financial_years", ["updater_id"], :name => "index_financial_years_on_updater_id"
+
+  create_table "gaps", force: true do |t|
+    t.string   "number",                                                            null: false
+    t.string   "direction",                                                         null: false
+    t.integer  "affair_id",                                                         null: false
+    t.integer  "entity_id",                                                         null: false
+    t.decimal  "amount",                     precision: 19, scale: 4, default: 0.0, null: false
+    t.string   "currency",         limit: 3,                                        null: false
+    t.datetime "accounted_at"
+    t.integer  "journal_entry_id"
+    t.datetime "created_at",                                                        null: false
+    t.datetime "updated_at",                                                        null: false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version",                                        default: 0,   null: false
+  end
+
+  add_index "gaps", ["created_at"], :name => "index_gaps_on_created_at"
+  add_index "gaps", ["creator_id"], :name => "index_gaps_on_creator_id"
+  add_index "gaps", ["direction"], :name => "index_gaps_on_direction"
+  add_index "gaps", ["journal_entry_id"], :name => "index_gaps_on_journal_entry_id"
+  add_index "gaps", ["number"], :name => "index_gaps_on_number"
+  add_index "gaps", ["updated_at"], :name => "index_gaps_on_updated_at"
+  add_index "gaps", ["updater_id"], :name => "index_gaps_on_updater_id"
 
   create_table "incidents", force: true do |t|
     t.integer  "target_id",                null: false
@@ -1867,7 +1890,6 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   create_table "purchase_items", force: true do |t|
     t.integer  "purchase_id",                                                          null: false
     t.integer  "variant_id",                                                           null: false
-    t.integer  "price_id",                                                             null: false
     t.decimal  "quantity",                      precision: 19, scale: 4, default: 1.0, null: false
     t.decimal  "pretax_amount",                 precision: 19, scale: 4, default: 0.0, null: false
     t.decimal  "amount",                        precision: 19, scale: 4, default: 0.0, null: false
@@ -1889,7 +1911,6 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "purchase_items", ["account_id"], :name => "index_purchase_items_on_account_id"
   add_index "purchase_items", ["created_at"], :name => "index_purchase_items_on_created_at"
   add_index "purchase_items", ["creator_id"], :name => "index_purchase_items_on_creator_id"
-  add_index "purchase_items", ["price_id"], :name => "index_purchase_items_on_price_id"
   add_index "purchase_items", ["purchase_id"], :name => "index_purchase_items_on_purchase_id"
   add_index "purchase_items", ["tax_id"], :name => "index_purchase_items_on_tax_id"
   add_index "purchase_items", ["updated_at"], :name => "index_purchase_items_on_updated_at"
@@ -2012,19 +2033,20 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   create_table "sale_natures", force: true do |t|
     t.string   "name",                                                                       null: false
     t.boolean  "active",                                                     default: true,  null: false
-    t.boolean  "downpayment",                                                default: false, null: false
-    t.decimal  "downpayment_minimum",               precision: 19, scale: 4, default: 0.0,   null: false
-    t.decimal  "downpayment_percentage",            precision: 19, scale: 4, default: 0.0,   null: false
-    t.text     "description"
-    t.integer  "payment_mode_id"
-    t.text     "payment_mode_complement"
-    t.boolean  "with_accounting",                                            default: false, null: false
-    t.string   "currency",                limit: 3
-    t.integer  "journal_id"
-    t.text     "sales_conditions"
     t.boolean  "by_default",                                                 default: false, null: false
+    t.boolean  "downpayment",                                                default: false, null: false
+    t.decimal  "downpayment_minimum",               precision: 19, scale: 4, default: 0.0
+    t.decimal  "downpayment_percentage",            precision: 19, scale: 4, default: 0.0
+    t.integer  "payment_mode_id"
+    t.integer  "catalog_id",                                                                 null: false
+    t.text     "payment_mode_complement"
+    t.string   "currency",                limit: 3,                                          null: false
+    t.text     "sales_conditions"
     t.string   "expiration_delay",                                                           null: false
     t.string   "payment_delay",                                                              null: false
+    t.boolean  "with_accounting",                                            default: false, null: false
+    t.integer  "journal_id"
+    t.text     "description"
     t.datetime "created_at",                                                                 null: false
     t.datetime "updated_at",                                                                 null: false
     t.integer  "creator_id"
@@ -2032,6 +2054,7 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.integer  "lock_version",                                               default: 0,     null: false
   end
 
+  add_index "sale_natures", ["catalog_id"], :name => "index_sale_natures_on_catalog_id"
   add_index "sale_natures", ["created_at"], :name => "index_sale_natures_on_created_at"
   add_index "sale_natures", ["creator_id"], :name => "index_sale_natures_on_creator_id"
   add_index "sale_natures", ["journal_id"], :name => "index_sale_natures_on_journal_id"

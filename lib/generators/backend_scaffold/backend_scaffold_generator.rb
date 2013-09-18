@@ -4,11 +4,11 @@ class BackendScaffoldGenerator < Rails::Generators::NamedBase
 
   def create_route
     route("resources :#{plural_name} do
-  collection do
-    get :list
-    get :unroll
-  end
-end")
+    collection do
+      get :list
+      get :unroll
+    end
+  end")
   end
 
   def create_model

@@ -109,8 +109,10 @@ Ekylibre::Application.routes.draw do
     resources :activities do
       collection do
         get :list
-        get :list_production
         get :unroll
+      end
+      member do
+        get :list_productions
       end
     end
 
@@ -229,6 +231,22 @@ Ekylibre::Application.routes.draw do
       end
     end
 
+    resources :catalogs do
+      collection do
+        get :unroll
+        get :list
+      end
+      member do
+        get :list_prices
+      end
+    end
+
+    resources :catalog_prices do
+      collection do
+        get :list
+        get :unroll
+      end
+    end
 
     resources :cultivable_land_parcels do
       collection do
@@ -382,20 +400,28 @@ Ekylibre::Application.routes.draw do
         get :synthesis
       end
     end
+    resources :gaps do
+      collection do
+        get :list
+        get :unroll
+      end
+    end
     resources :incidents do
       collection do
         get :list
-        get :list_procedure
         get :unroll
+      end
+      member do
+        get :list_procedures
       end
     end
     resources :incoming_deliveries do
       collection do
         get :list
-        get :list_item
         get :unroll
       end
       member do
+        get :list_items
         match "confirm", :via => [:get, :post]
       end
     end
@@ -409,7 +435,6 @@ Ekylibre::Application.routes.draw do
     resources :incoming_payments do
       collection do
         get :list
-        get :list_sales
         get :unroll
       end
     end
@@ -741,9 +766,11 @@ Ekylibre::Application.routes.draw do
     resources :product_nature_variants do
       collection do
         get :list
+        get :unroll
+      end
+      member do
         get :list_products
         get :list_prices
-        get :unroll
       end
     end
 
@@ -755,21 +782,6 @@ Ekylibre::Application.routes.draw do
     end
 
     resources :product_ownerships do
-      collection do
-        get :list
-        get :unroll
-      end
-    end
-
-    resources :catalogs do
-      collection do
-        get :unroll
-        get :list
-        get :list_prices
-      end
-    end
-
-    resources :catalog_prices do
       collection do
         get :list
         get :unroll
@@ -821,13 +833,12 @@ Ekylibre::Application.routes.draw do
     resources :purchases do
       collection do
         get :list
-        get :list_items
-        get :list_undelivered_items
-        get :list_deliveries
-        get :list_payment_uses
         get :unroll
       end
       member do
+        get :list_items
+        get :list_undelivered_items
+        get :list_deliveries
         post :correct
         post :propose
         post :invoice

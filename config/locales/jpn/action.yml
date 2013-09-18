@@ -212,6 +212,7 @@ jpn:
       # index: "Exercices comptables"
       # new: "Créer un nouvel exercice"
       # show: "Exercice comptable %{code}"
+    backend/gaps: #?
     backend/help: #?
     backend/helps:
       # index: "Aide"

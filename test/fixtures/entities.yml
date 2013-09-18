@@ -54,7 +54,6 @@
 #  prospect                  :boolean          not null
 #  reminder_submissive       :boolean          not null
 #  responsible_id            :integer
-#  sale_catalog_id           :integer
 #  siren                     :string(9)
 #  supplier                  :boolean          not null
 #  supplier_account_id       :integer
@@ -91,7 +90,6 @@
 #
 
 legal_entities_001:
-  sale_catalog_id: 1
   language: fra
   currency: EUR
   client: false
@@ -109,7 +107,6 @@ legal_entities_001:
   updater_id: 1
 
 legal_entities_002:
-  sale_catalog_id: 1
   currency: EUR
   language: fra
   client: false
@@ -125,7 +122,6 @@ legal_entities_002:
   updater_id: 1
 
 legal_entities_003:
-  sale_catalog_id: 1
   currency: EUR
   language: fra
   client: true
@@ -141,7 +137,6 @@ legal_entities_003:
   updater_id: 1
 
 entities_001:
-  sale_catalog_id: 1
   language: fra
   currency: EUR
   client: false
@@ -159,7 +154,6 @@ entities_001:
   updater_id: 1
 
 entities_002:
-  sale_catalog_id: 1
   currency: EUR
   language: fra
   client: false
@@ -176,7 +170,6 @@ entities_002:
 
 people_001:
   active: true
-  sale_catalog_id: 1
   currency: EUR
   language: fra
   client: true
@@ -194,7 +187,6 @@ people_001:
 
 people_002:
   active: true
-  sale_catalog_id: 1
   currency: EUR
   language: fra
   client: true

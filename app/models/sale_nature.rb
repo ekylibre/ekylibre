@@ -22,13 +22,14 @@
 #
 #  active                  :boolean          default(TRUE), not null
 #  by_default              :boolean          not null
+#  catalog_id              :integer          not null
 #  created_at              :datetime         not null
 #  creator_id              :integer
-#  currency                :string(3)
+#  currency                :string(3)        not null
 #  description             :text
 #  downpayment             :boolean          not null
-#  downpayment_minimum     :decimal(19, 4)   default(0.0), not null
-#  downpayment_percentage  :decimal(19, 4)   default(0.0), not null
+#  downpayment_minimum     :decimal(19, 4)   default(0.0)
+#  downpayment_percentage  :decimal(19, 4)   default(0.0)
 #  expiration_delay        :string(255)      not null
 #  id                      :integer          not null, primary key
 #  journal_id              :integer
@@ -55,7 +56,7 @@ class SaleNature < Ekylibre::Record::Base
   validates_length_of :currency, :allow_nil => true, :maximum => 3
   validates_length_of :expiration_delay, :name, :payment_delay, :allow_nil => true, :maximum => 255
   validates_inclusion_of :active, :by_default, :downpayment, :with_accounting, :in => [true, false]
-  validates_presence_of :downpayment_minimum, :downpayment_percentage, :expiration_delay, :name, :payment_delay
+  validates_presence_of :currency, :expiration_delay, :name, :payment_delay
   #]VALIDATORS]
   validates_presence_of :journal, :if => :with_accounting?
   validates_presence_of :currency

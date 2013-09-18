@@ -54,7 +54,6 @@
 #  prospect                  :boolean          not null
 #  reminder_submissive       :boolean          not null
 #  responsible_id            :integer
-#  sale_catalog_id           :integer
 #  siren                     :string(9)
 #  supplier                  :boolean          not null
 #  supplier_account_id       :integer

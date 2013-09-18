@@ -39,7 +39,7 @@
         @include use-icon(bookmark);
       }
     }
- 
+
     .cell {
       // margin-top: $default-gap;
       &:first-child { margin-top: 0; }
@@ -62,7 +62,7 @@
         }
 
       }
- 
+
       .cell-bottom {
         clear: both;
       }

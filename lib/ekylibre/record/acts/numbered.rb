@@ -15,7 +15,8 @@ module Ekylibre::Record
           column = args.shift || :number
 
           # Bugs with MSSQL
-          raise ArgumentError.new("Method #{column.inspect} must be an existent column of the table #{self.table_name}") unless self.columns_definition[column]
+          # raise ArgumentError.new("Method #{column.inspect} must be an existent column of the table #{self.table_name}") unless self.columns_definition[column]
+          Rails.logger.fatal "Method #{column.inspect} must be an existent column of the table #{self.table_name}" unless self.columns_definition[column]
           options = {:start => '00000001'}.merge(options)
 
           main_class = self

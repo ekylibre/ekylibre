@@ -1510,6 +1510,10 @@ spa:
     purchase_nature:
       default:
         # name: "Standard"
+    role:
+      default:
+        # administrator: "Gérant"
+        # public: "Public"
     sale:
       # bookkeep: "[%{resource} %{number}] %{products} pour %{client} (%{sale})"
       label:

@@ -15,9 +15,9 @@ fra:
       unmark: "Délettrer un compte"
     backend/activities:
       edit: "Modifier une activité\_: %{name} "
-      index: "Activités"
+      index: "Activités" #?
       new: "Nouvelle activité"
-      show: "%{name}"
+      show: "%{name}" #?
     backend/affairs:
       attach: "Associer une transaction"
       detach: "Dissocier une transaction"
@@ -222,21 +222,24 @@ fra:
       index: "Exercices comptables"
       new: "Créer un nouvel exercice"
       show: "Exercice comptable %{code}"
+    backend/gaps:
+      # edit: "Edit backend/gap"
+      # new: "New backend/gap"
     backend/helps:
       index: "Aide"
       show: "Voir l'aide"
       toggle: "Basculer l'aide"
     backend/incidents:
       edit: "Modifier l’incident\_: %{name} (%{nature})"
-      index: "Incidents"
+      index: "Incidents" #?
       new: "Nouvel incident"
-      show: "Incident %{name} (%{nature})"
+      show: "Incident %{name} (%{nature})" #?
     backend/incoming_deliveries:
       confirm: "Confirmer l’arrivée de l’approvisionnement"
       edit: "Modifier l’approvisionnement: %{number}"
-      index: "Approvisionnements"
+      index: "Approvisionnements" #?
       new: "Enregistrer un nouvel approvisionnement"
-      show: "Approvisionnement %{number} ( %{reference_number} )"
+      show: "Approvisionnement %{number} ( %{reference_number} )" #?
     backend/incoming_delivery_items:
       new: "Nouvel item"
     backend/incoming_delivery_modes:
@@ -674,6 +677,7 @@ fra:
     backend/equipments: "Équipements"
     backend/establishments: "Établissements"
     backend/financial_years: "Exercices comptables"
+    # backend/gaps: "Backend/gaps"
     # backend/helps: "Backend/helps"
     # backend/incidents: "Backend/incidents"
     backend/incoming_deliveries: "Livraisons entrantes"

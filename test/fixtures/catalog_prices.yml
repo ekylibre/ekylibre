@@ -22,17 +22,16 @@
 #
 #  all_taxes_included :boolean          not null
 #  amount             :decimal(19, 4)   not null
-#  catalog_id         :integer
+#  catalog_id         :integer          not null
 #  created_at         :datetime         not null
 #  creator_id         :integer
 #  currency           :string(3)        not null
 #  id                 :integer          not null, primary key
 #  indicator          :string(120)      not null
 #  lock_version       :integer          default(0), not null
-#  reference_tax_id   :integer          not null
+#  reference_tax_id   :integer
 #  started_at         :datetime
 #  stopped_at         :datetime
-#  supplier_id        :integer          not null
 #  thread             :string(20)
 #  updated_at         :datetime         not null
 #  updater_id         :integer
@@ -44,13 +43,12 @@
 # catalog_prices_001:
 #   all_taxes_included: true
 #   amount: 0
+#   catalog_id: 1
 #   created_at: 2009-07-19 19:13:59 +02:00
 #   creator_id: 1
 #   currency: "Lorem ipsum"
 #   id: 1
 #   indicator: "Lorem ipsum"
-#   reference_tax_id: 1
-#   supplier_id: 1
 #   updated_at: 2009-07-19 19:13:59 +02:00
 #   updater_id: 1
 #   variant_id: 1
@@ -68,7 +66,6 @@ catalog_prices_001:
   id: 1
   indicator: 'population'
   variant_id: 1
-  supplier_id: 1
   reference_tax_id: 1
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
@@ -85,7 +82,6 @@ catalog_prices_002:
   id: 2
   indicator: 'population'
   variant_id: 1
-  supplier_id: 1
   reference_tax_id: 1
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
@@ -95,13 +91,13 @@ catalog_prices_003:
   all_taxes_included: false
   amount: 950
   started_at: 2009-07-19 19:13:59 +02:00
+  catalog_id: 1
   created_at: 2009-07-19 19:13:59 +02:00
   creator_id: 1
   currency: "EUR"
   id: 3
   indicator: 'population'
   variant_id: 1
-  supplier_id: 2
   reference_tax_id: 1
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
@@ -118,7 +114,6 @@ catalog_prices_004:
   id: 4
   indicator: 'population'
   variant_id: 1
-  supplier_id: 1
   reference_tax_id: 1
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
@@ -135,7 +130,6 @@ catalog_prices_005:
   id: 5
   indicator: 'population'
   variant_id: 1
-  supplier_id: 3
   reference_tax_id: 1
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1

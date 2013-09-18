@@ -25,17 +25,18 @@ company = ENV["company"] || "GAEC DUPONT"
 ActiveRecord::Base.transaction do
   Sequence.load_defaults
 
+  catalog = Catalog.create!(:name => I18n.t('models.catalog.default.name'), :currency => currency, :usage => :sale)
+
   undefined_nature = "entity"
-  sale_catalog = Catalog.create!(:name => I18n.t('models.catalog.default.name'), :currency => currency)
   f = File.open(picture_company)
-  firm = LegalEntity.create!(:sale_catalog_id => sale_catalog.id, :nature => "company", :language => language, :last_name => company, :currency => currency, :of_company => true, :picture => f)
+  firm = LegalEntity.create!(:nature => "company", :language => language, :last_name => company, :currency => currency, :of_company => true, :picture => f)
   f.close
   firm.addresses.create!(:canal => "mail", :mail_line_2 => "", :mail_line_3 => "", :mail_line_4 => "", :mail_line_5 => "", :mail_line_6 => "", :by_default => true)
 
   user.administrator = true
   user.language = language
-  user.role = Role.create!(:name => I18n.t('models.company.default.role.name.administrator'), :rights => User.rights_list.join(' '))
-  Role.create!(:name => I18n.t('models.company.default.role.name.public'), :rights => '')
+  user.role = Role.create!(:name => 'models.role.default.administrator'.t, :rights => User.rights_list.join(' '))
+  Role.create!(:name => 'models.role.default.public'.t, :rights => '')
   user.save!
 
   Account.chart = ENV["chart"] || :fr_pcga
@@ -55,9 +56,7 @@ ActiveRecord::Base.transaction do
   journals = {}
   for journal in Journal.nature.values
     j = Journal.create!(:name => I18n.t("enumerize.journal.nature.#{journal}"), :nature => journal.to_s, :currency => currency)
-    # company.prefer!("#{journal}_journal", j)
     journals[journal.to_sym] = j
-    # company.prefer!("#{journal}_journal", company.journals.create!(:name => I18n.t("models.company.default.journals.#{journal}"), :nature => journal.to_s, :currency => currency))
   end
 
   cash = Cash.create!(:name => I18n.t('enumerize.cash.nature.cash_box'), :nature => "cash_box", :account_id => Account.get("531101", "Caisse").id, :journal_id => journals[:cash].id)
@@ -73,12 +72,7 @@ ActiveRecord::Base.transaction do
 
   FinancialYear.create!(:started_on => Date.today.beginning_of_month)
 
-  SaleNature.create!(:name => I18n.t('models.sale_nature.default.name'), :active => true, :expiration_delay => "30 day", :payment_delay => "30 day", :downpayment => false, :downpayment_minimum => 300, :downpayment_percentage => 30, :currency => currency, :with_accounting => true, :journal_id => journals[:sales].id)
+  SaleNature.create!(:name => I18n.t('models.sale_nature.default.name'), :active => true, :expiration_delay => "30 day", :payment_delay => "30 day", :downpayment => false, :downpayment_minimum => 300, :downpayment_percentage => 30, :currency => currency, :with_accounting => true, :journal_id => journals[:sales].id, catalog_id: catalog.id)
   PurchaseNature.create!(:name => I18n.t('models.purchase_nature.default.name'), :active => true, :currency => currency, :with_accounting => true, :journal_id => journals[:purchases].id)
-
-
-  # @TODO - create default products
-
-  # Add custom_field data to test
 end
 

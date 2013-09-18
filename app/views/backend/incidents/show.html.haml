@@ -1,14 +1,14 @@
-=main_toolbar do |t|
-  -t.edit @incident
+= main_toolbar do |t|
+  - t.edit @incident
 
-=beehive do |b|
-  -b.cell do
-    =attributes_list(@incident) do |l|
-      -l.attribute :name
-      -l.attribute :target, :url => true
+= beehive do |b|
+  - b.cell do
+    = attributes_list(@incident) do |l|
+      - l.attribute :name
+      - l.attribute :target, :url => true
 
-  -b.tabbox do
-    -b.cell(:procedures) do
-      =toolbar do |t|
-        -t.new(:params =>{:controller => :procedures, :incident_id => @incident.id})
-      =list(:procedure)
+  - b.tabbox do
+    - b.cell(:procedures) do
+      = toolbar do |t|
+        - t.new(:params => {:controller => :procedures, :incident_id => @incident.id})
+      = list(:procedures)

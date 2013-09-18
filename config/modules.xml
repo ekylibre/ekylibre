@@ -993,7 +993,7 @@
         <page to="authentication/sessions#renew"/>
       </item>
       <item name="activities">
-        <page to="backend/activities#list_production"/>
+        <page to="backend/activities#list_productions"/>
       </item>
       <item name="animals">
         <page to="backend/animals#list_incident"/>
@@ -1100,11 +1100,19 @@
       <item name="entities">
         <page to="backend/entities#list_meeting_participations"/>
       </item>
+      <item name="gaps">
+        <page to="backend/gaps#create"/>
+        <page to="backend/gaps#destroy"/>
+        <page to="backend/gaps#edit"/>
+        <page to="backend/gaps#list"/>
+        <page to="backend/gaps#new"/>
+        <page to="backend/gaps#update"/>
+      </item>
       <item name="incidents">
-        <page to="backend/incidents#list_procedure"/>
+        <page to="backend/incidents#list_procedures"/>
       </item>
       <item name="incoming_deliveries">
-        <page to="backend/incoming_deliveries#list_item"/>
+        <page to="backend/incoming_deliveries#list_items"/>
       </item>
       <item name="incoming_delivery_items">
         <page to="backend/incoming_delivery_items#new"/>
@@ -1166,9 +1174,6 @@
         <page to="backend/mineral_matters#new"/>
         <page to="backend/mineral_matters#show"/>
         <page to="backend/mineral_matters#update"/>
-      </item>
-      <item name="operations">
-        <page to="backend/operations#unroll"/>
       </item>
       <item name="organic_matters">
         <page to="backend/organic_matters#index"/>

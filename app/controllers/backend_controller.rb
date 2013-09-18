@@ -76,7 +76,7 @@ class BackendController < BaseController
     end
     item_label.gsub!(/\A\"\"\s*\+\s*/, '')
     item_label.gsub!(/\s*\+\s*\"\"\z/, '')
-    
+
 
     fill_in = (options.has_key?(:fill_in) ? options[:fill_in] : columns.size == 1 ? columns.first[:name] : model.columns_definition["name"] ? :name : nil)
     fill_in = fill_in.to_sym unless fill_in.nil?
@@ -130,7 +130,7 @@ class BackendController < BaseController
       code << "    keys.each_with_index do |key, index|\n"
       code << "      conditions[0] << ') AND (' if index > 0\n"
       code << "      conditions[0] << " + searchable_columns.collect{|column| "LOWER(CAST(#{model.table_name}.#{column[:name]} AS VARCHAR)) ~ E?"}.join(' OR ').inspect + "\n"
-      code << "      conditions += [" + searchable_columns.collect{|column| 
+      code << "      conditions += [" + searchable_columns.collect{|column|
         column[:filter].inspect.gsub('X', '" + key + "').gsub('%', '')
           .gsub(/(^\"\"\s*\+\s*|\s*\+\s*\"\"\s*\+\s*|\s*\+\s*\"\"$)/, '')
       }.join(", ") + "]\n"
@@ -145,7 +145,7 @@ class BackendController < BaseController
 
     scopes = ([:unscoped] + (model.scopes || [])).map(&:to_s)
     code << "  scope = params[:scope] || 'unscoped'\n"
-    
+
     if scopes.size == 1
       code << "  if scope == #{scopes.first.inspect}\n"
     else

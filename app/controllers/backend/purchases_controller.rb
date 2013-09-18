@@ -56,19 +56,9 @@ class Backend::PurchasesController < BackendController
     t.action :destroy, :if => :order?
   end
 
-  # list(:payment_uses, :model => :outgoing_payment_uses, :conditions => ["#{OutgoingPaymentUse.table_name}.expense_id=? ", ['params[:id]']]) do |t|
-  #   t.column :number, :through => :payment, :url => true
-  #   t.column :amount, :currency => "RECORD.payment.currency", :through => :payment, :label => "payment_amount", :url => true
-  #   t.column :amount, :currency => "RECORD.payment.currency"
-  #   t.column :name, :through => [:payment, :mode]
-  #   t.column :downpayment
-  #   t.column :to_bank_on, :through => :payment, :label => :column, :datatype => :date
-  #   t.action :destroy#, :if => 'RECORD.expense.shipped == false'
-  # end
-
   list(:undelivered_items, :model => :purchase_items, :conditions => {:purchase_id => ['params[:id]']}) do |t|
     t.column :name, :through => :variant
-    t.column :pretax_amount, :currency => true, :through => :price
+    # t.column :pretax_amount, :currency => true, :through => :price
     t.column :quantity
     t.column :unit
     t.column :pretax_amount, :currency => true
@@ -82,7 +72,7 @@ class Backend::PurchasesController < BackendController
     t.column :tracking_serial
     t.column :quantity
     t.column :unit
-    t.column :pretax_amount, :currency => true, :through => :price
+    # t.column :pretax_amount, :currency => true, :through => :price
     t.column :pretax_amount, :currency => true
     t.column :amount, :currency => true
     t.action :edit, :if => :draft?
