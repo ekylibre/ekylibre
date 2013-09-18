@@ -440,8 +440,8 @@ class Backend::SalesController < BackendController
 
 
   protected
-  
-  def sale_params
+
+  def sale_params()
     params.require(:sale).permit!
   end
 end

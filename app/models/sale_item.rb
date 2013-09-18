@@ -49,9 +49,9 @@
 class SaleItem < Ekylibre::Record::Base
   after_save :set_reduction
   attr_readonly :sale_id
-  
+
   enumerize :indicator, :in => Nomen::Indicators.all, :predicates => {:prefix => true}, :default => :population
-   
+
   belongs_to :account
   # belongs_to :entity
   belongs_to :sale, :inverse_of => :items
@@ -84,7 +84,7 @@ class SaleItem < Ekylibre::Record::Base
   validates_numericality_of :amount, :pretax_amount, :quantity, :reduction_percentage, :unit_price_amount, :allow_nil => true
   validates_length_of :currency, :allow_nil => true, :maximum => 3
   validates_length_of :indicator, :allow_nil => true, :maximum => 120
-  validates_presence_of :amount, :indicator, :pretax_amount, :quantity, :reduction_percentage, :sale, :variant
+  validates_presence_of :amount, :indicator, :pretax_amount, :price, :quantity, :reduction_percentage, :sale, :variant
   #]VALIDATORS]
   validates_presence_of :tax
   validates_numericality_of :quantity, greater_than_or_equal_to: 0, :unless => :reduced_item
