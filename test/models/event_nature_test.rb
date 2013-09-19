@@ -18,25 +18,20 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: meeting_participations
+# == Table: event_natures
 #
-#  created_at     :datetime         not null
-#  creator_id     :integer
-#  id             :integer          not null, primary key
-#  lock_version   :integer          default(0), not null
-#  meeting_id     :integer          not null
-#  participant_id :integer          not null
-#  state          :string(255)
-#  updated_at     :datetime         not null
-#  updater_id     :integer
+#  active       :boolean          default(TRUE), not null
+#  created_at   :datetime         not null
+#  creator_id   :integer
+#  id           :integer          not null, primary key
+#  lock_version :integer          default(0), not null
+#  name         :string(255)      not null
+#  updated_at   :datetime         not null
+#  updater_id   :integer
+#  usage        :string(60)
 #
 require 'test_helper'
 
-class MeetingParticipationTest < ActiveSupport::TestCase
-
-  # Replace this with your real tests.'
-  test "the truth" do
-    assert true
-  end
+class EventNatureTest < ActiveSupport::TestCase
 
 end

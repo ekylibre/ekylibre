@@ -17,20 +17,20 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::MeetingsController < BackendController
-  manage_restfully :meeting_nature_id => "MeetingNature.first.id rescue nil", :duration => "MeetingNature.first.duration rescue 0", :started_at => "Time.now.to_s(:db)" # :responsible_id => 'current_user.id', :entity_id => "Entity.find(params[:entity_id]).id rescue 0"
+class Backend::EventsController < BackendController
+  manage_restfully :nature_id => "EventNature.first.id rescue nil", :started_at => "Time.now"
 
   unroll
 
   autocomplete_for :place
 
-  list(:conditions => search_conditions(:meetings, :meetings => [:duration, :place, :name, :description, :started_at], :users => [:first_name, :last_name, :name], :entities => [:full_name], :meeting_natures => [:name]), :order => "started_at DESC") do |t| # , :joins => {:responsible => {}, :entity => [:nature]}
+  list(:conditions => light_search_conditions(:events => [:duration, :place, :name, :description, :started_at], :event_natures => [:name]), :order => "started_at DESC") do |t| # , :joins => {:responsible => {}, :entity => [:nature]} # , :users => [:first_name, :last_name, :name], :entities => [:full_name]
     # t.column :full_name, :through => :entity, :url => true
     t.column :name
     t.column :duration
     t.column :place
     # t.column :label, :through => :responsible, :url => true
-    t.column :name, :through => :meeting_nature
+    t.column :name, :through => :nature
     t.column :started_at
     t.action :edit
     t.action :destroy
@@ -38,12 +38,11 @@ class Backend::MeetingsController < BackendController
 
   # Displays the main page with the list of meetings
   def index
-    session[:meeting_key] = params[:q] # = params[:q]||session[:meeting_key]
   end
 
   def change_minutes
-    return unless @meeting_nature = find_and_check(:meeting_nature, params[:nature_id])
-    value = @meeting_nature.send(params[:field] || :name)
+    return unless nature = find_and_check(:event_nature, params[:nature_id])
+    value = nature.send(params[:field] || :name)
     render :text => value.to_s, :layout => false
   end
 

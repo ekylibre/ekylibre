@@ -28,7 +28,6 @@
 #  lock_version       :integer          default(0), not null
 #  operand_id         :integer
 #  operand_quantity   :decimal(19, 4)
-#  operand_unit       :string(255)
 #  operation_id       :integer          not null
 #  parent_id          :integer
 #  prorated           :boolean          not null

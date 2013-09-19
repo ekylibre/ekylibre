@@ -94,7 +94,7 @@ class Entity < Ekylibre::Record::Base
   has_many :indirect_links, :class_name => "EntityLink", :foreign_key => :entity_2_id
   has_many :mandates
   has_many :observations, :as => :subject
-  has_many :participations, :class_name => "MeetingParticipation", :foreign_key => :participant_id
+  has_many :participations, :class_name => "EventParticipation", :foreign_key => :participant_id
   has_many :prices, :class_name => "ProductPriceTemplate"
   has_many :purchase_invoices, -> { where(:state => "invoice").order("created_on desc") }, :class_name => "Purchase", :foreign_key => :supplier_id
   has_many :purchases, :foreign_key => :supplier_id
@@ -267,7 +267,7 @@ class Entity < Ekylibre::Record::Base
 
   def add_event(usage, user_id)
     if user = Entity.find_by_id(user_id)
-      MeetingNature.find_all_by_usage(usage.to_s).each do |nature|
+      EventNature.find_all_by_usage(usage.to_s).each do |nature|
         nature.events.create!(:started_at => Time.now, :duration => event_nature.duration.to_s, :entity_id => self.id, :responsible_id => user.id)
       end
     end

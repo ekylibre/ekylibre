@@ -18,35 +18,25 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: meeting_participations
+# == Table: event_participations
 #
 #  created_at     :datetime         not null
 #  creator_id     :integer
+#  event_id       :integer          not null
 #  id             :integer          not null, primary key
 #  lock_version   :integer          default(0), not null
-#  meeting_id     :integer          not null
 #  participant_id :integer          not null
 #  state          :string(255)
 #  updated_at     :datetime         not null
 #  updater_id     :integer
 #
-#
-# == Fixture: meeting_participations
-#
-# meeting_participations_001:
-#   created_at: 2009-07-19 19:13:59 +02:00
-#   creator_id: 1
-#   id: 1
-#   meeting_id: 1
-#   participant_id: 1
-#   updated_at: 2009-07-19 19:13:59 +02:00
-#   updater_id: 1
-#
-meeting_participations_001:
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  id: 1
-  meeting_id: 1
-  participant_id: 1
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
+class EventParticipation < Ekylibre::Record::Base
+  # attr_accessible :meeting_id, :participant_id, :state
+  belongs_to :event
+  belongs_to :participant, :class_name => "Entity"
+  enumerize :state, :in => [:waiting, :accepted, :refused, :informative]
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_length_of :state, :allow_nil => true, :maximum => 255
+  validates_presence_of :event, :participant
+  #]VALIDATORS]
+end

@@ -136,8 +136,25 @@
 # - "backend/documents#new"
 # - "backend/documents#show"
 # - "backend/documents#update"
+# - "backend/entities#list_event_participations"
 # - "backend/entity_addresses#show"
 # - "backend/entity_links#show"
+# - "backend/event_natures#create"
+# - "backend/event_natures#destroy"
+# - "backend/event_natures#edit"
+# - "backend/event_natures#index"
+# - "backend/event_natures#list"
+# - "backend/event_natures#new"
+# - "backend/event_natures#update"
+# - "backend/events#autocomplete_for_place"
+# - "backend/events#change_minutes"
+# - "backend/events#create"
+# - "backend/events#destroy"
+# - "backend/events#edit"
+# - "backend/events#index"
+# - "backend/events#list"
+# - "backend/events#new"
+# - "backend/events#update"
 # - "backend/gaps#create"
 # - "backend/gaps#destroy"
 # - "backend/gaps#edit"
@@ -148,7 +165,7 @@
 # - "backend/incidents#destroy"
 # - "backend/incidents#edit"
 # - "backend/incidents#list"
-# - "backend/incidents#list_procedures"
+# - "backend/incidents#list_interventions"
 # - "backend/incidents#new"
 # - "backend/incidents#update"
 # - "backend/incoming_deliveries#list_items"
@@ -163,6 +180,14 @@
 # - "backend/interfacers#toggle_view_mode"
 # - "backend/interfacers#unroll"
 # - "backend/interfacers#unroll_options"
+# - "backend/interventions#create"
+# - "backend/interventions#destroy"
+# - "backend/interventions#edit"
+# - "backend/interventions#list"
+# - "backend/interventions#list_casts"
+# - "backend/interventions#list_operations"
+# - "backend/interventions#new"
+# - "backend/interventions#update"
 # - "backend/journal_entry_items#show"
 # - "backend/kujakus#toggle"
 # - "backend/land_parcel_clusters#create"
@@ -274,18 +299,6 @@
 # - "backend/prescriptions#new"
 # - "backend/prescriptions#show"
 # - "backend/prescriptions#update"
-# - "backend/procedures#create"
-# - "backend/procedures#destroy"
-# - "backend/procedures#edit"
-# - "backend/procedures#index"
-# - "backend/procedures#jump"
-# - "backend/procedures#list"
-# - "backend/procedures#list_operations"
-# - "backend/procedures#list_variables"
-# - "backend/procedures#new"
-# - "backend/procedures#play"
-# - "backend/procedures#show"
-# - "backend/procedures#update"
 # - "backend/product_groups#create"
 # - "backend/product_groups#destroy"
 # - "backend/product_groups#edit"
@@ -379,7 +392,7 @@
 # - "backend/production_supports#new"
 # - "backend/production_supports#show"
 # - "backend/production_supports#update"
-# - "backend/productions#list_procedures"
+# - "backend/productions#list_interventions"
 # - "backend/productions#list_supports"
 # - "backend/products#create"
 # - "backend/products#destroy"
@@ -521,7 +534,7 @@ consult_entities:
 - "backend/entities#index"
 - "backend/entities#list"
 - "backend/entities#list_incoming_payments"
-- "backend/entities#list_meeting_participations"
+- "backend/entities#list_meeting_participations" #?
 - "backend/entities#list_outgoing_payments"
 - "backend/entities#list_purchases"
 - "backend/entities#list_sales"
@@ -766,7 +779,7 @@ manage_entities:
 - "backend/entities#edit"
 - "backend/entities#list_incoming_payments"
 - "backend/entities#list_mandates"
-- "backend/entities#list_meeting_participations"
+- "backend/entities#list_meeting_participations" #?
 - "backend/entities#list_purchases"
 - "backend/entities#list_sales"
 - "backend/entities#list_subscriptions" #?
@@ -983,22 +996,22 @@ manage_mandates:
 # Manage meetings
 manage_meetings:
 - "backend/dashboards#relationship"
-- "backend/meeting_natures#create"
-- "backend/meeting_natures#destroy"
-- "backend/meeting_natures#edit"
-- "backend/meeting_natures#index"
-- "backend/meeting_natures#list"
-- "backend/meeting_natures#new"
-- "backend/meeting_natures#update"
-- "backend/meetings#autocomplete_for_place"
-- "backend/meetings#change_minutes"
-- "backend/meetings#create"
-- "backend/meetings#destroy"
-- "backend/meetings#edit"
-- "backend/meetings#index"
-- "backend/meetings#list"
-- "backend/meetings#new"
-- "backend/meetings#update"
+- "backend/meeting_natures#create" #?
+- "backend/meeting_natures#destroy" #?
+- "backend/meeting_natures#edit" #?
+- "backend/meeting_natures#index" #?
+- "backend/meeting_natures#list" #?
+- "backend/meeting_natures#new" #?
+- "backend/meeting_natures#update" #?
+- "backend/meetings#autocomplete_for_place" #?
+- "backend/meetings#change_minutes" #?
+- "backend/meetings#create" #?
+- "backend/meetings#destroy" #?
+- "backend/meetings#edit" #?
+- "backend/meetings#index" #?
+- "backend/meetings#list" #?
+- "backend/meetings#new" #?
+- "backend/meetings#update" #?
 
 # Manage observations
 manage_observations:

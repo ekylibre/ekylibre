@@ -47,9 +47,7 @@ eng:
         # variety: "Marque"
       event:
         duration: "Duration (in minutes)"
-        location: "Location" #?
         place: "Place"
-        responsible: "Responsible" #?
       event_nature:
         duration: "Duration by default (in min.)"
       financial_year:
@@ -59,6 +57,8 @@ eng:
         amount: "Amount"
         received: "Received"
         to_bank_on: "To bank on"
+      intervention:  #?
+        provisional: "Provisional" #?
       inventory_item:
         quantity: "Found quantity"
       journal_entry_item:
@@ -428,7 +428,8 @@ eng:
       equipment: "Tool"
       establishment: "Establishment"
       event: "Event"
-      event_nature: "Event type" #?
+      event_nature: "Event type"
+      # event_participation: "Participation à un évènement"
       financial_year: "Financial year"
       fungus: "Fungus"
       # immatter: "Immatériel"
@@ -440,6 +441,8 @@ eng:
       incoming_payment: "Incoming payment"
       incoming_payment_mode: "Incoming payment mode"
       incoming_payment_use: "Incoming payment part" #?
+      intervention: "Procedure"
+      # intervention_cast: "Variable de procédure"
       inventory: "Inventory"
       inventory_item: "Inventory line"
       inventory_line: "Inventory line" #?
@@ -954,6 +957,7 @@ eng:
     initial_number: "Initial number"
     input_conveyors: "Input conveyors" #?
     integer_value: "Integer value"
+    # intervention: "Intervention"
     introduction: "Introduction"
     inventories: "Inventories" #?
     inventory: "Inventory"
@@ -1563,6 +1567,24 @@ eng:
         purchase: "Creation of a purchase"
         sale: "Creation of a sale"
         sales_invoice: "Creation of a sales invoice"
+    intervention:
+      nomen:
+        # animal_birth: "Naissance d’un animal"
+        # calving_one: "Vêlage unique"
+        # calving_twin: "Vêlage jumeaux"
+        # chemical_treatment: "Traitement chimique"
+        # mineral_fertilizing: "Fertilisation minérale"
+        # organic_fertilizing: "Fertilisation organique"
+        # plowing: "Labour"
+        # seed_harvest: "Moisson"
+        # sowing: "Semis"
+        # superficial_plowing: "Hersage"
+        # wheat_crop: "Culture de blé (standard)"
+      state:
+        done: "Done"
+        in_progress: "In progress"
+        squeezed: "Squeezed"
+        undone: "Undone"
     journal:
       nature:
         bank: "Bank"

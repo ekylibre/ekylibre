@@ -13,6 +13,7 @@
       <item name="tillage"/>
       <item name="soil_enrichment" roles="input, target"/>
       <item name="pruning" roles="gardener+, target+"/>
+      <item name="grinding" roles="input, output"/>
     </items>
   </nomenclature>
 </nomenclatures>

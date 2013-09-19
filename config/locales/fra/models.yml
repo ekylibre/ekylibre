@@ -290,6 +290,8 @@ fra:
       equipment: "Outil"
       establishment: "Établissement"
       event: "Évènement"
+      event_nature: "Type d’évènement"
+      event_participation: "Participation à un évènement"
       financial_year: "Exercice"
       fungus: "Champignon"
       # gap: "Gap"
@@ -300,6 +302,8 @@ fra:
       incoming_delivery_mode: "Mode d’approvisionnement"
       incoming_payment: "Encaissement"
       incoming_payment_mode: "Mode d’encaissement"
+      intervention: "Procédure"
+      intervention_cast: "Variable de procédure"
       inventory: "Inventaire"
       inventory_item: "Ligne d’inventaire"
       journal: "Journal"
@@ -316,9 +320,9 @@ fra:
       mandate: "Responsabilité"
       matter: "Matière"
       medicine: "Médicament"
-      meeting: "Évènement"
-      meeting_nature: "Type d’évènement"
-      meeting_participation: "Participation à un évènement"
+      meeting: "Évènement" #?
+      meeting_nature: "Type d’évènement" #?
+      meeting_participation: "Participation à un évènement" #?
       mineral_matter: "Matière minérale"
       observation: "Observation"
       operation: "Opération"
@@ -334,8 +338,8 @@ fra:
       plant_medicine: "Produit phytosanitaire"
       preference: "Préférence"
       prescription: "Prescription"
-      procedure: "Procédure"
-      procedure_variable: "Variable de procédure"
+      procedure: "Procédure" #?
+      procedure_variable: "Variable de procédure" #?
       product: "Produits"
       product_group: "Groupe de produit"
       product_indicator_datum: "Valeur d’indicateur"
@@ -390,6 +394,7 @@ fra:
     # active_prices: "Active prices"
     activity: "Activité"
     activity_code: "Code APE/NAF"
+    # actor: "Actor"
     actual_number: "Numéro en cours"
     address: "Adresse"
     addresses: "Adresses"
@@ -455,6 +460,7 @@ fra:
     cash_transfers: "Virements internes" #?
     cashes: "Trésoreries"
     cashes_accounts: "Comptes de caisse" #?
+    # casts: "Casts"
     # catalog: "Catalog"
     catalog_description: "Description pour le catalogue" #?
     catalog_name: "Nom pour le catalogue" #?
@@ -627,6 +633,7 @@ fra:
     # entry_number: "Entry number"
     establishment: "Établissement"
     event: "Évènement"
+    # events: "Events"
     exclusive: "Exclusif"
     expiration_delay: "Délai d’expiration"
     expired_on: "Date d’expiration"
@@ -690,6 +697,7 @@ fra:
     # initial: "Initial"
     initial_number: "Numéro initial"
     integer_value: "Valeur entière"
+    intervention: "Intervention"
     introduction: "Introduction"
     inventory: "Inventaire"
     inventory_items: "Lignes d’inventaire" #?
@@ -764,15 +772,11 @@ fra:
     maximal_length: "Longueur maximale"
     maximal_quantity: "Maximal quantity" #?
     maximal_value: "Valeur maximale"
-    # measure_quantity: "Measure quantity"
-    measure_unit: "Unité de mesure"
+    measure_unit: "Unité de mesure" #?
     measure_value: "Valeur de la mesure"
     measure_value_unit: "Measure value unit"
     measure_value_value: "Measure value value"
     measured_at: "Mesuré à"
-    # meeting: "Meeting"
-    # meeting_nature: "Meeting nature"
-    # meetings: "Meetings"
     member: "Membre"
     members: "Membres"
     memberships: "Membres du groupe"
@@ -809,7 +813,6 @@ fra:
     office: "Bureau/Atelier"
     old_password: "Mot de passe actuel"
     # operand_quantity: "Operand quantity"
-    # operand_unit: "Operand unit"
     operation: "Travail" #?
     operation_items: "Intrants/sortants" #?
     operation_nature: "Type d’operation" #?
@@ -910,7 +913,8 @@ fra:
     prospect: "Prospect"
     protected: "Protégé" #?
     provisional: "Prévisionnel"
-    provisional_procedure: "Procédure prévisionnelle"
+    # provisional_intervention: "Provisional intervention"
+    provisional_procedure: "Procédure prévisionnelle" #?
     purchasable: "Achetable"
     purchase: "Achat"
     purchase_amount: "Montant d’achat"
@@ -1067,6 +1071,7 @@ fra:
     user: "Utilisateur"
     users: "Utilisateurs"
     value: "Valeur"
+    # variable: "Variable"
     # variable_indicators: "Variable indicators"
     variables: "Variables"
     variant: "Variante"
@@ -1186,6 +1191,24 @@ fra:
         purchase: "Création d’un achat"
         sale: "Création d’un devis"
         sales_invoice: "Création d’une facture"
+    intervention:
+      nomen:
+        animal_birth: "Naissance d’un animal"
+        calving_one: "Vêlage unique"
+        calving_twin: "Vêlage jumeaux"
+        chemical_treatment: "Traitement chimique"
+        mineral_fertilizing: "Fertilisation minérale"
+        organic_fertilizing: "Fertilisation organique"
+        plowing: "Labour"
+        seed_harvest: "Moisson"
+        sowing: "Semis"
+        superficial_plowing: "Hersage"
+        wheat_crop: "Culture de blé (standard)"
+      state:
+        done: "Réalisée"
+        in_progress: "En cours"
+        squeezed: "Non réalisée"
+        undone: "Pas encore réalisée"
     journal:
       nature:
         bank: "Banque"

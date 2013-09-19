@@ -18,24 +18,21 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: procedure_variables
+# == Table: intervention_casts
 #
-#  created_at       :datetime         not null
-#  creator_id       :integer
-#  id               :integer          not null, primary key
-#  indicator        :string(255)      not null
-#  lock_version     :integer          default(0), not null
-#  measure_quantity :decimal(19, 4)   not null
-#  measure_unit     :string(255)      not null
-#  procedure_id     :integer          not null
-#  role             :string(255)      not null
-#  target_id        :integer          not null
-#  updated_at       :datetime         not null
-#  updater_id       :integer
+#  actor_id        :integer          not null
+#  created_at      :datetime         not null
+#  creator_id      :integer
+#  id              :integer          not null, primary key
+#  intervention_id :integer          not null
+#  lock_version    :integer          default(0), not null
+#  updated_at      :datetime         not null
+#  updater_id      :integer
+#  variable        :string(255)      not null
 #
 require 'test_helper'
 
-class ProcedureVariableTest < ActiveSupport::TestCase
+class InterventionCastTest < ActiveSupport::TestCase
 
   # Replace this with your real tests.'
   test "the truth" do

@@ -274,6 +274,7 @@ eng:
       index: "Incoming payments"
       new: "Add a new incoming payment"
       show: "Incoming payment %{number} of %{entity}"
+    backend/interventions: #?
     backend/inventories:
       edit: "Edit the inventory"
       index: "Inventories"
@@ -345,15 +346,12 @@ eng:
       index: "Medicines"
       # new: "Nouveau médicaments"
       # show: "Médicament\_: %{name}"
-    backend/meeting_natures:
-      # edit: "Modifier le type d'évènement\_: %{name}"
-      index: "Meeting natures"
-      # new: "Créer un type d'évènement"
-      # show: "Type d'évènement\_: %{name}"
-    backend/meetings:
-      edit: "Edit a meeting"
-      index: "Meetings"
-      new: "Create a meeting"
+    backend/meeting_natures:  #?
+      index: "Meeting natures" #?
+    backend/meetings:  #?
+      edit: "Edit a meeting" #?
+      index: "Meetings" #?
+      new: "Create a meeting" #?
     backend/mineral_matters:
       edit: "Edit mineral matter\_: %{name}"
       index: "Mineral matter"
@@ -430,12 +428,11 @@ eng:
       index: "Prices" #?
       new: "Add a new price" #?
     backend/procedure_natures: #?
-    backend/procedures:
-      edit: "Edit procedure\_: %{nomen}"
-      index: "Procedures"
-      new: "Create a procedure"
-      # play: "Effectuer la procédure\_: %{name}"
-      show: "Procedure\_: %{name}"
+    backend/procedures:  #?
+      edit: "Edit procedure\_: %{nomen}" #?
+      index: "Procedures" #?
+      new: "Create a procedure" #?
+      show: "Procedure\_: %{name}" #?
     backend/product_abilities: #?
     backend/product_groups:
       edit: "Edit group\_: %{name} "

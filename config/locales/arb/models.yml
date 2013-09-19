@@ -870,7 +870,8 @@ arb:
       equipment: "الاداة"
       establishment: "المؤسسة"
       event: "الحدث"
-      event_nature: "نوع الحدث" #?
+      event_nature: "نوع الحدث"
+      # event_participation: "Participation à un évènement"
       financial_year: "السنة المالية"
       # fungus: "Champignon"
       # immatter: "Immatériel"
@@ -881,6 +882,8 @@ arb:
       incoming_payment: "الدفعة"
       incoming_payment_mode: "نوع الدفعة"
       incoming_payment_use: "تأثير الدفعة" #?
+      # intervention: "Procédure"
+      # intervention_cast: "Variable de procédure"
       inventory: "عملية الجرد"
       inventory_item: "طريقة عملية الجرد"
       journal: "الدفتر اليومي"
@@ -1386,6 +1389,7 @@ arb:
     # individual: "Individual"
     # initial_number: "Numéro initial"
     integer_value: "قيمة العدد الصحيح"
+    # intervention: "Intervention"
     introduction: "المقدمة"
     inventories: "عمليات الجرد" #?
     inventory: "عملية الجرد"
@@ -2004,6 +2008,24 @@ arb:
         # purchase: "Création d’un achat"
         # sale: "Création d’un devis"
         # sales_invoice: "Création d’une facture"
+    intervention:
+      nomen:
+        # animal_birth: "Naissance d’un animal"
+        # calving_one: "Vêlage unique"
+        # calving_twin: "Vêlage jumeaux"
+        # chemical_treatment: "Traitement chimique"
+        # mineral_fertilizing: "Fertilisation minérale"
+        # organic_fertilizing: "Fertilisation organique"
+        # plowing: "Labour"
+        # seed_harvest: "Moisson"
+        # sowing: "Semis"
+        # superficial_plowing: "Hersage"
+        # wheat_crop: "Culture de blé (standard)"
+      state:
+        # done: "Réalisée"
+        # in_progress: "En cours"
+        # squeezed: "Non réalisée"
+        # undone: "Pas encore réalisée"
     journal:
       nature:
         # bank: "Banque"

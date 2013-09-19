@@ -39,7 +39,7 @@
 class Incident < Ekylibre::Record::Base
   # attr_accessible :name, :nature, :observed_at, :description, :priority, :gravity, :target_id, :target_type
   enumerize :nature, :in => Nomen::Incidents.all, :default => Nomen::Incidents.default, :predicates => {:prefix => true}
-  has_many :procedures, :class_name => "Procedure"
+  has_many :procedures, :class_name => "Intervention"
   belongs_to :target , :polymorphic => true
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :gravity, :priority, :allow_nil => true, :only_integer => true

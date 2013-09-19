@@ -66,15 +66,15 @@
     </group>
     <group name="meetings" icon="calendar">
       <item name="meetings">
-        <page to="backend/meetings#index"/>
-        <page to="backend/meetings#change_minutes"/>
-        <page to="backend/meetings#create"/>
-        <page to="backend/meetings#destroy"/>
-        <page to="backend/meetings#edit"/>
-        <page to="backend/meetings#list"/>
-        <page to="backend/meetings#new"/>
-        <page to="backend/meetings#autocomplete_for_place"/>
-        <page to="backend/meetings#update"/>
+        <page to="backend/meetings#index" deletable="true"/>
+        <page to="backend/meetings#change_minutes" deletable="true"/>
+        <page to="backend/meetings#create" deletable="true"/>
+        <page to="backend/meetings#destroy" deletable="true"/>
+        <page to="backend/meetings#edit" deletable="true"/>
+        <page to="backend/meetings#list" deletable="true"/>
+        <page to="backend/meetings#new" deletable="true"/>
+        <page to="backend/meetings#autocomplete_for_place" deletable="true"/>
+        <page to="backend/meetings#update" deletable="true"/>
       </item>
     </group>
     <group name="subscriptions" icon="tags">
@@ -408,15 +408,15 @@
         <page to="backend/productions#update"/>
       </item>
       <item name="operations">
-        <page to="backend/procedures#index"/>
-        <page to="backend/procedures#create"/>
-        <page to="backend/procedures#destroy"/>
-        <page to="backend/procedures#edit"/>
-        <page to="backend/procedures#list"/>
-        <page to="backend/procedures#new"/>
-        <page to="backend/procedures#play"/>
-        <page to="backend/procedures#show"/>
-        <page to="backend/procedures#update"/>
+        <page to="backend/procedures#index" deletable="true"/>
+        <page to="backend/procedures#create" deletable="true"/>
+        <page to="backend/procedures#destroy" deletable="true"/>
+        <page to="backend/procedures#edit" deletable="true"/>
+        <page to="backend/procedures#list" deletable="true"/>
+        <page to="backend/procedures#new" deletable="true"/>
+        <page to="backend/procedures#play" deletable="true"/>
+        <page to="backend/procedures#show" deletable="true"/>
+        <page to="backend/procedures#update" deletable="true"/>
         <page to="backend/operations#index"/>
         <page to="backend/operations#create"/>
         <page to="backend/operations#destroy"/>
@@ -702,13 +702,13 @@
     <group name="people" icon="group">
       <page to="backend/dashboards#settings_relationship"/>
       <item name="meeting_natures">
-        <page to="backend/meeting_natures#index"/>
-        <page to="backend/meeting_natures#create"/>
-        <page to="backend/meeting_natures#destroy"/>
-        <page to="backend/meeting_natures#edit"/>
-        <page to="backend/meeting_natures#list"/>
-        <page to="backend/meeting_natures#new"/>
-        <page to="backend/meeting_natures#update"/>
+        <page to="backend/meeting_natures#index" deletable="true"/>
+        <page to="backend/meeting_natures#create" deletable="true"/>
+        <page to="backend/meeting_natures#destroy" deletable="true"/>
+        <page to="backend/meeting_natures#edit" deletable="true"/>
+        <page to="backend/meeting_natures#list" deletable="true"/>
+        <page to="backend/meeting_natures#new" deletable="true"/>
+        <page to="backend/meeting_natures#update" deletable="true"/>
       </item>
       <item name="subscription_natures">
         <page to="backend/subscription_natures#index"/>
@@ -1098,7 +1098,27 @@
         <page to="backend/dashboards#welcome"/>
       </item>
       <item name="entities">
-        <page to="backend/entities#list_meeting_participations"/>
+        <page to="backend/entities#list_event_participations"/>
+      </item>
+      <item name="event_natures">
+        <page to="backend/event_natures#index"/>
+        <page to="backend/event_natures#create"/>
+        <page to="backend/event_natures#destroy"/>
+        <page to="backend/event_natures#edit"/>
+        <page to="backend/event_natures#list"/>
+        <page to="backend/event_natures#new"/>
+        <page to="backend/event_natures#update"/>
+      </item>
+      <item name="events">
+        <page to="backend/events#index"/>
+        <page to="backend/events#autocomplete_for_place"/>
+        <page to="backend/events#change_minutes"/>
+        <page to="backend/events#create"/>
+        <page to="backend/events#destroy"/>
+        <page to="backend/events#edit"/>
+        <page to="backend/events#list"/>
+        <page to="backend/events#new"/>
+        <page to="backend/events#update"/>
       </item>
       <item name="gaps">
         <page to="backend/gaps#create"/>
@@ -1109,7 +1129,7 @@
         <page to="backend/gaps#update"/>
       </item>
       <item name="incidents">
-        <page to="backend/incidents#list_procedures"/>
+        <page to="backend/incidents#list_interventions"/>
       </item>
       <item name="incoming_deliveries">
         <page to="backend/incoming_deliveries#list_items"/>
@@ -1128,6 +1148,16 @@
         <page to="backend/interfacers#toggle_view_mode"/>
         <page to="backend/interfacers#unroll"/>
         <page to="backend/interfacers#unroll_options"/>
+      </item>
+      <item name="interventions">
+        <page to="backend/interventions#create"/>
+        <page to="backend/interventions#destroy"/>
+        <page to="backend/interventions#edit"/>
+        <page to="backend/interventions#list"/>
+        <page to="backend/interventions#list_casts"/>
+        <page to="backend/interventions#list_operations"/>
+        <page to="backend/interventions#new"/>
+        <page to="backend/interventions#update"/>
       </item>
       <item name="kujakus">
         <page to="backend/kujakus#toggle"/>
@@ -1190,11 +1220,6 @@
         <page to="backend/plants#list_indicator"/>
         <page to="backend/plants#list_place"/>
         <page to="backend/plants#picture"/>
-      </item>
-      <item name="procedures">
-        <page to="backend/procedures#jump"/>
-        <page to="backend/procedures#list_operations"/>
-        <page to="backend/procedures#list_variables"/>
       </item>
       <item name="product_groups">
         <page to="backend/product_groups#list_content_product"/>
@@ -1297,7 +1322,7 @@
         <page to="backend/production_supports#update"/>
       </item>
       <item name="productions">
-        <page to="backend/productions#list_procedures"/>
+        <page to="backend/productions#list_interventions"/>
         <page to="backend/productions#list_supports"/>
       </item>
       <item name="products">

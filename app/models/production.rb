@@ -44,8 +44,8 @@ class Production < Ekylibre::Record::Base
   # belongs_to :area_unit, :class_name => "Unit"
   has_many :repartitions, :class_name => "AnalyticRepartition"
   has_many :supports, :class_name => "ProductionSupport", :inverse_of => :production
-  has_many :procedures, :class_name => "Procedure"
-  has_many :variables, :through => :procedures, :class_name => "ProcedureVariable"
+  has_many :procedures, :class_name => "Intervention"
+  has_many :variables, :through => :procedures, :class_name => "InterventionCast"
   has_many :land_parcel_groups, :through => :supports, :class_name => "Product" #, :conditions => {:variety => "land_parcel_group"}
 
   accepts_nested_attributes_for :supports, :reject_if => :all_blank, :allow_destroy => true

@@ -372,7 +372,7 @@ Ekylibre::Application.routes.draw do
         get :unroll
       end
     end
-    resources :meetings do
+    resources :events do
       collection do
         get :list
         get :autocomplete_for_place
@@ -380,7 +380,7 @@ Ekylibre::Application.routes.draw do
         get :unroll
       end
     end
-    resources :meeting_natures do
+    resources :event_natures do
       collection do
         get :list
         get :unroll
@@ -681,16 +681,14 @@ Ekylibre::Application.routes.draw do
     #   end
     # end
 
-    resources :procedures do
-      member do
-        get :play
-        post :play, :action => :jump, :as => :jump
-      end
+    resources :interventions do
       collection do
         get :list
-        get :list_variables
-        get :list_operations
         get :unroll
+      end
+      member do
+        get :list_casts
+        get :list_operations
       end
     end
 

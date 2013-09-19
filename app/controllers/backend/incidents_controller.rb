@@ -19,7 +19,7 @@ class Backend::IncidentsController < BackendController
   end
 
 
-  list(:procedures, :conditions => {incident_id: ['params[:id]']}, :order => "created_at DESC") do |t|
+  list(:interventions, :conditions => {incident_id: ['params[:id]']}, :order => "created_at DESC") do |t|
     t.column :nomen, :url => true
     t.column :created_at
     t.column :natures

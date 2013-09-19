@@ -404,20 +404,31 @@ class CreateBase < ActiveRecord::Migration
       t.stamps
     end
 
-    create_table :events do |t|
-      t.string     :place
-      t.integer    :duration
-      t.datetime   :started_at,                    null: false
-      t.text       :name
-      t.references :meeting_nature
-      t.text       :description
-      t.datetime   :stopped_at
-      t.string     :type
-      t.references :procedure
+    create_table :event_natures do |t|
+      t.string   :name,                                   null: false
+      t.string   :usage,        limit: 60
+      t.boolean  :active,                  default: true, null: false
+      t.stamps
+      t.index    :name
+    end
+
+    create_table :event_participations do |t|
+      t.references :event,                   null: false, index: true
+      t.references :participant,             null: false, index: true
+      t.string   :state
       t.stamps
     end
-    add_index :events, :meeting_nature_id
-    add_index :events, :procedure_id
+
+    create_table :events do |t|
+      t.references :nature,                  null: false, index: true
+      t.string     :name,                    null: false
+      t.datetime   :started_at,              null: false
+      t.datetime   :stopped_at
+      t.integer    :duration
+      t.string     :place
+      t.text       :description
+      t.stamps
+    end
 
     create_table :financial_years do |t|
       t.string   :code,                  limit: 20,                 null: false
@@ -547,19 +558,46 @@ class CreateBase < ActiveRecord::Migration
     add_index :incoming_payments, :payer_id
     add_index :incoming_payments, :responsible_id
 
+    create_table :intervention_casts do |t|
+      t.references :intervention,                                          null: false, index: true
+      t.references :actor,                                                 null: false, index: true
+      # t.string     :indicator,                                             null: false
+      # t.string     :measure_unit,                                          null: false
+      # t.decimal    :measure_quantity, precision: 19, scale: 4,             null: false
+      # t.string     :procedure_nature,                                      null: false
+      # t.string     :role,                                                  null: false
+      t.string     :variable,                                              null: false
+      t.stamps
+      t.index      :variable
+      # t.index      [:procedure_nature, :role]
+    end
+
+    create_table :interventions do |t|
+      t.references :provisional_intervention,                                 index: true
+      t.boolean    :provisional,              default: false,    null: false
+      t.references :incident,                                                 index: true
+      t.references :prescription,                                             index: true
+      t.references :production,                                  null: false, index: true
+      t.string     :procedure,                                   null: false
+      t.string     :natures,                                     null: false
+      t.string     :state,                                       null: false
+      t.datetime   :started_at
+      t.datetime   :stopped_at
+      t.stamps
+      t.index      :procedure
+    end
+
     create_table :inventories do |t|
       t.date       :created_on,                               null: false
       t.text       :description
-      t.boolean    :changes_reflected
-      t.references :responsible
+      t.boolean    :changes_reflected,        default: false, null: false
+      t.references :responsible,                                           index: true
       t.datetime   :accounted_at
-      t.references :journal_entry
+      t.references :journal_entry,                                         index: true
       t.string     :number,            limit: 20
       t.date       :moved_on
       t.stamps
     end
-    add_index :inventories, :journal_entry_id
-    add_index :inventories, :responsible_id
 
     create_table :inventory_items do |t|
       t.references :product,                                             null: false
@@ -714,54 +752,36 @@ class CreateBase < ActiveRecord::Migration
       t.stamps
     end
 
-    create_table :meeting_natures do |t|
-      t.string   :name,                                   null: false
-      t.integer  :duration
-      t.string   :usage,        limit: 60
-      t.boolean  :active,                  default: true, null: false
-      t.stamps
-    end
-    add_index :meeting_natures, :name
-
-    create_table :meeting_participations do |t|
-      t.references :meeting,                 null: false
-      t.references :participant,             null: false
-      t.string   :state
-      t.stamps
-    end
-    add_index :meeting_participations, :meeting_id
-    add_index :meeting_participations, :participant_id
-
     create_table :observations do |t|
-      t.string   :importance,   limit: 10,             null: false
-      t.text     :content,                             null: false
-      t.references :subject,    polymorphic: true,     null: false
-      t.datetime :observed_at,                         null: false
-      t.references :author,                            null: false
+      t.string     :importance,   limit: 10,             null: false
+      t.text       :content,                             null: false
+      t.references :subject,      polymorphic: true,     null: false, index: true
+      t.datetime   :observed_at,                         null: false
+      t.references :author,                              null: false, index: true
       t.stamps
     end
-    add_index :observations, :author_id
-    add_index :observations, [:subject_id, :subject_type]
+
+    create_table :operations do |t|
+      t.references :intervention,                  null: false, index: true
+      t.datetime   :started_at,                    null: false
+      t.datetime   :stopped_at
+      t.integer    :duration
+      t.integer    :position
+      t.stamps
+    end
 
     create_table :operation_tasks do |t|
-      t.references :operation,                                                null: false
-      t.references :parent
-      t.boolean  :prorated,                                    default: false, null: false
-      t.references :subject,                                                  null: false
-      t.string   :verb,                                                        null: false
-      t.references :operand
-      t.string   :operand_unit
-      t.decimal  :operand_quantity,   precision: 19, scale: 4
-      t.references :indicator_datum
-      t.text     :expression
+      t.references :operation,                                    null: false, index: true
+      t.references :parent,                                                    index: true
+      t.boolean    :prorated,                     default: false, null: false
+      t.references :subject,                                      null: false, index: true
+      t.string     :verb,                                         null: false
+      t.references :operand,                                                   index: true
+      t.decimal    :operand_quantity,    precision: 19, scale: 4
+      t.references :indicator_datum,                                           index: true
+      t.text       :expression
       t.stamps
     end
-    add_index :operation_tasks, :indicator_datum_id
-    add_index :operation_tasks, :operand_id
-    add_index :operation_tasks, :operand_unit
-    add_index :operation_tasks, :operation_id
-    add_index :operation_tasks, :parent_id
-    add_index :operation_tasks, :subject_id
 
     create_table :outgoing_deliveries do |t|
       t.references :sale
@@ -865,35 +885,6 @@ class CreateBase < ActiveRecord::Migration
     add_index :prescriptions, :document_id
     add_index :prescriptions, :prescriptor_id
     add_index :prescriptions, :reference_number
-
-    create_table :procedure_variables do |t|
-      t.references :procedure,                                            null: false
-      t.references :target,                                               null: false
-      t.string     :indicator,                                             null: false
-      t.string     :measure_unit,                                          null: false
-      t.decimal    :measure_quantity, precision: 19, scale: 4,             null: false
-      t.string     :role,                                                  null: false
-      t.stamps
-    end
-    add_index :procedure_variables, :procedure_id
-    add_index :procedure_variables, :target_id
-
-    create_table :procedures do |t|
-      t.references :provisional_procedure
-      t.boolean    :provisional,              default: false,    null: false
-      t.references :incident
-      t.references :prescription
-      t.references :production,                                  null: false
-      t.string     :nomen,                                       null: false
-      t.string     :natures,                                     null: false
-      t.string     :state,                                       null: false
-      t.stamps
-    end
-    add_index :procedures, :incident_id
-    add_index :procedures, :nomen
-    add_index :procedures, :prescription_id
-    add_index :procedures, :production_id
-    add_index :procedures, :provisional_procedure_id
 
     create_table :product_indicator_data do |t|
       t.references :product,                                                                                          null: false

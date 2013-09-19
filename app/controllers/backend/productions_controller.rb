@@ -49,7 +49,7 @@ class Backend::ProductionsController < BackendController
   end
 
   # List procedures for one production
-  list(:procedures, :conditions => {production_id: ['params[:id]']}, :order => "created_at DESC") do |t|
+  list(:interventions, :conditions => {production_id: ['params[:id]']}, :order => "created_at DESC") do |t|
     #t.column :name
     t.column :nomen, :url => true
     t.column :state

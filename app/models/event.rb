@@ -20,26 +20,31 @@
 #
 # == Table: events
 #
-#  created_at        :datetime         not null
-#  creator_id        :integer
-#  description       :text
-#  duration          :integer
-#  id                :integer          not null, primary key
-#  lock_version      :integer          default(0), not null
-#  meeting_nature_id :integer
-#  name              :text
-#  place             :string(255)
-#  procedure_id      :integer
-#  started_at        :datetime         not null
-#  stopped_at        :datetime
-#  type              :string(255)
-#  updated_at        :datetime         not null
-#  updater_id        :integer
+#  created_at   :datetime         not null
+#  creator_id   :integer
+#  description  :text
+#  duration     :integer
+#  id           :integer          not null, primary key
+#  lock_version :integer          default(0), not null
+#  name         :string(255)      not null
+#  nature_id    :integer          not null
+#  place        :string(255)
+#  started_at   :datetime         not null
+#  stopped_at   :datetime
+#  updated_at   :datetime         not null
+#  updater_id   :integer
 #
 class Event < Ekylibre::Record::Base
+  belongs_to :nature, class_name: "EventNature"
+  has_many :participations, :class_name => "EventParticipation"
+  has_many :participants, :through => :participations
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :duration, :allow_nil => true, :only_integer => true
-  validates_length_of :place, :allow_nil => true, :maximum => 255
-  validates_presence_of :started_at
+  validates_length_of :name, :place, :allow_nil => true, :maximum => 255
+  validates_presence_of :name, :nature, :started_at
   #]VALIDATORS]
+
+  before_validation do
+    self.started_at ||= Time.now
+  end
 end

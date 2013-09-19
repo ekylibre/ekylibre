@@ -18,25 +18,25 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: meeting_participations
+# == Table: event_participations
 #
 #  created_at     :datetime         not null
 #  creator_id     :integer
+#  event_id       :integer          not null
 #  id             :integer          not null, primary key
 #  lock_version   :integer          default(0), not null
-#  meeting_id     :integer          not null
 #  participant_id :integer          not null
 #  state          :string(255)
 #  updated_at     :datetime         not null
 #  updater_id     :integer
 #
-class MeetingParticipation < Ekylibre::Record::Base
-  # attr_accessible :meeting_id, :participant_id, :state
-  belongs_to :meeting
-  belongs_to :participant, :class_name => "Entity"
-  enumerize :state, :in => [:waiting, :accepted, :refused, :informative]
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_length_of :state, :allow_nil => true, :maximum => 255
-  validates_presence_of :meeting, :participant
-  #]VALIDATORS]
+require 'test_helper'
+
+class EventParticipationTest < ActiveSupport::TestCase
+
+  # Replace this with your real tests.'
+  test "the truth" do
+    assert true
+  end
+
 end

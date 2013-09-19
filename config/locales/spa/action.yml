@@ -285,6 +285,7 @@ spa:
       # new: "Ajout d’un nouvel encaissement"
       # show: "Encaissement n°%{number} de %{entity}"
     backend/interfacers: #?
+    backend/interventions: #?
     backend/inventories:
       edit: "Modificacion del inventario"
       index: "Inventarios"
@@ -364,15 +365,8 @@ spa:
       # index: "Médicaments"
       # new: "Nouveau médicaments"
       # show: "Médicament\_: %{name}"
-    backend/meeting_natures:
-      # edit: "Modifier le type d'évènement\_: %{name}"
-      # index: "Types d'évènement"
-      # new: "Créer un type d'évènement"
-      # show: "Type d'évènement\_: %{name}"
-    backend/meetings:
-      # edit: "Modifier un évènement"
-      # index: "Évènements"
-      # new: "Nouvel évènement"
+    backend/meeting_natures: #?
+    backend/meetings: #?
     backend/mineral_matters:
       # edit: "Modifier la matière minérale\_: %{name}"
       # index: "Matières minérales"
@@ -450,12 +444,7 @@ spa:
       # show: "Prescription\_: %{reference_number}"
     backend/prices: #?
     backend/procedure_natures: #?
-    backend/procedures:
-      # edit: "Modifier la procédure\_: %{nomen}"
-      # index: "Procédures"
-      # new: "Nouvelle procédure"
-      # play: "Effectuer la procédure\_: %{name}"
-      # show: "Procédure\_: %{name}"
+    backend/procedures: #?
     backend/product_abilities: #?
     backend/product_categories: #?
     backend/product_components: #?
@@ -1932,7 +1921,7 @@ spa:
     # backend/animals: "{name} - {work_number}"
     # backend/campaigns: "{name}"
     # backend/entity_links: "{started_at}"
-    # backend/events: "{reason}"
+    # backend/events: "{name}"
     # backend/journal_entry_items: "{name}"
     # backend/logs: "{observed_at}"
     # backend/matters: "{name} - {work_number}"

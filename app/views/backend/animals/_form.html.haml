@@ -1,13 +1,13 @@
-=f.product_form_frame do
-  =field_set :identification do # partie info general de l entité animal
-    =f.input :name # affiche le champ name de l entité animal avec une infos derriere
-    =f.input :sex, :as => :radio_buttons # affiche le champ sexe sous forme de radio avec une collection de proposition (M ou F) de l'entité animal
-    =f.input :work_number
-    =f.input :identification_number
-    =f.input :born_at, :as => :date
-    =f.picture
-    =f.input :description # affiche le champ description formaté en zone de texte
+= f.product_form_frame do
+  = field_set :identification do # partie info general de l entité animal
+    = f.input :name # affiche le champ name de l entité animal avec une infos derriere
+    = f.input :sex, :as => :radio_buttons # affiche le champ sexe sous forme de radio avec une collection de proposition (M ou F) de l'entité animal
+    = f.input :work_number
+    = f.input :identification_number
+    = f.input :born_at, :as => :date
+    = f.picture
+    = f.input :description # affiche le champ description formaté en zone de texte
 
-  =field_set(:genealogy) do # partie entrée sortie de l entité animal
-    =f.referenced_association :mother, :source => :mothers
-    =f.referenced_association :father, :source => :fathers
+  = field_set(:genealogy) do # partie entrée sortie de l entité animal
+    = f.referenced_association :mother, :source => :mothers
+    = f.referenced_association :father, :source => :fathers

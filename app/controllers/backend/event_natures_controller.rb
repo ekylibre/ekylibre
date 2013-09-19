@@ -17,7 +17,21 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-require 'test_helper'
-class Backend::MeetingNaturesControllerTest < ActionController::TestCase
-  test_restfully_all_actions
+class Backend::EventNaturesController < BackendController
+  manage_restfully
+
+  unroll
+
+  list do |t|
+    t.column :name
+    t.column :usage
+    t.column :duration
+    t.action :edit
+    t.action :destroy, :if => :destroyable?
+  end
+
+  # Displays the main page with the list of event natures
+  def index
+  end
+
 end

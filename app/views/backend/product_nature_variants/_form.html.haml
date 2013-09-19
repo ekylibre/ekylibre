@@ -1,11 +1,11 @@
-=field_set do
-  =f.referenced_association :nature
-  =f.input :name
-  =f.input :active
-  =f.input :commercial_name
-  =f.input :commercial_description
-  =f.input :contour
-  =f.input :horizontal_rotation
+= field_set do
+  = f.referenced_association :nature
+  = f.input :name
+  = f.input :active
+  = f.input :commercial_name
+  = f.input :commercial_description
+  = f.input :contour
+  = f.input :horizontal_rotation
 
-=field_set(:indicator) do
-  =f.nested_association(:indicator_data)
+= field_set(:indicator) do
+  = f.nested_association(:indicator_data)

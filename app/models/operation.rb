@@ -18,31 +18,29 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: events
+# == Table: operations
 #
-#  created_at        :datetime         not null
-#  creator_id        :integer
-#  description       :text
-#  duration          :integer
-#  id                :integer          not null, primary key
-#  lock_version      :integer          default(0), not null
-#  meeting_nature_id :integer
-#  name              :text
-#  place             :string(255)
-#  procedure_id      :integer
-#  started_at        :datetime         not null
-#  stopped_at        :datetime
-#  type              :string(255)
-#  updated_at        :datetime         not null
-#  updater_id        :integer
+#  created_at      :datetime         not null
+#  creator_id      :integer
+#  duration        :integer
+#  id              :integer          not null, primary key
+#  intervention_id :integer          not null
+#  lock_version    :integer          default(0), not null
+#  position        :integer
+#  started_at      :datetime         not null
+#  stopped_at      :datetime
+#  updated_at      :datetime         not null
+#  updater_id      :integer
 #
 
 
-class Operation < Event
+class Operation < Ekylibre::Record::Base
   # attr_accessible :started_at, :stopped_at, :procedure_id # :nature
-  belongs_to :procedure
-  has_many :tasks, :class_name => "OperationTask"
+  belongs_to :intervention
+  has_many :tasks, class_name: "OperationTask"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_numericality_of :duration, :allow_nil => true, :only_integer => true
+  validates_presence_of :intervention, :started_at
   #]VALIDATORS]
 
   # default_scope -> { order(:started_at) }

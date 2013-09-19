@@ -2,9 +2,9 @@ class Backend::Cells::LastProceduresCellsController < Backend::CellsController
 
   def show
 
-    @procedure = Procedure.last
+    @procedure = Intervention.last
     production = Production.find(@procedure.production_id)
-    target = ProcedureVariable.find_by_procedure_id_and_role(@procedure.id,"target")
+    target = InterventionCast.find_by_procedure_id_and_role(@procedure.id,"target")
     container = Product.find(target.target_id)
     #if container.is_a?(CultivableLandParcel)
       #@container = container.class.find(container.id)

@@ -18,12 +18,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: meeting_natures
+# == Table: event_natures
 #
 #  active       :boolean          default(TRUE), not null
 #  created_at   :datetime         not null
 #  creator_id   :integer
-#  duration     :integer
 #  id           :integer          not null, primary key
 #  lock_version :integer          default(0), not null
 #  name         :string(255)      not null
@@ -33,13 +32,12 @@
 #
 
 
-class MeetingNature < Ekylibre::Record::Base
+class EventNature < Ekylibre::Record::Base
   # attr_accessible :name, :duration, :active, :usage
   attr_readonly :name
-  has_many :meetings, :foreign_key => :meeting_nature_id, :class_name => "Meeting"
+  has_many :events, :foreign_key => :nature_id, :inverse_of => :nature
   enumerize :usage, :in => [:manual, :sale, :purchase, :sales_invoice, :mailing], :defaut => :manual, :predicates => true
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :duration, :allow_nil => true, :only_integer => true
   validates_length_of :usage, :allow_nil => true, :maximum => 60
   validates_length_of :name, :allow_nil => true, :maximum => 255
   validates_inclusion_of :active, :in => [true, false]
@@ -49,7 +47,7 @@ class MeetingNature < Ekylibre::Record::Base
   # default_scope -> { order(:name) }
 
   protect(:on => :destroy) do
-    self.meetings.count <= 0
+    self.events.count <= 0
   end
 
 end

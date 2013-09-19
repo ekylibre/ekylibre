@@ -21,7 +21,7 @@
 # == Table: inventories
 #
 #  accounted_at      :datetime
-#  changes_reflected :boolean
+#  changes_reflected :boolean          not null
 #  created_at        :datetime         not null
 #  created_on        :date             not null
 #  creator_id        :integer
@@ -44,6 +44,7 @@ class Inventory < Ekylibre::Record::Base
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :number, :allow_nil => true, :maximum => 20
+  validates_inclusion_of :changes_reflected, :in => [true, false]
   validates_presence_of :created_on
   #]VALIDATORS]
 

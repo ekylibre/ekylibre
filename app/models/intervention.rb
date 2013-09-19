@@ -18,41 +18,43 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: procedures
+# == Table: interventions
 #
-#  created_at               :datetime         not null
-#  creator_id               :integer
-#  id                       :integer          not null, primary key
-#  incident_id              :integer
-#  lock_version             :integer          default(0), not null
-#  natures                  :string(255)      not null
-#  nomen                    :string(255)      not null
-#  prescription_id          :integer
-#  production_id            :integer          not null
-#  provisional              :boolean          not null
-#  provisional_procedure_id :integer
-#  state                    :string(255)      not null
-#  updated_at               :datetime         not null
-#  updater_id               :integer
+#  created_at                  :datetime         not null
+#  creator_id                  :integer
+#  id                          :integer          not null, primary key
+#  incident_id                 :integer
+#  lock_version                :integer          default(0), not null
+#  natures                     :string(255)      not null
+#  prescription_id             :integer
+#  procedure                   :string(255)      not null
+#  production_id               :integer          not null
+#  provisional                 :boolean          not null
+#  provisional_intervention_id :integer
+#  started_at                  :datetime
+#  state                       :string(255)      not null
+#  stopped_at                  :datetime
+#  updated_at                  :datetime         not null
+#  updater_id                  :integer
 #
 
-class Procedure < Ekylibre::Record::Base
+class Intervention < Ekylibre::Record::Base
   # attr_accessible :nomen, :production_id, :state, :natures, :provisional_procedure_id, :provisional, :prescription_id, :incident_id
-  attr_readonly :nomen, :production_id
+  attr_readonly :procedure, :production_id
   belongs_to :production
   belongs_to :incident
   belongs_to :prescription
-  belongs_to :provisional_procedure
-  has_many :variables, :class_name => "ProcedureVariable", :inverse_of => :procedure
-  has_many :operations, :inverse_of => :procedure
-  enumerize :nomen, :in => Procedures.names.sort
+  belongs_to :provisional_intervention, class_name: "Intervention"
+  has_many :casts, :class_name => "InterventionCast", :inverse_of => :intervention
+  has_many :operations, :inverse_of => :intervention
+  enumerize :procedure, :in => Procedures.names.sort
   enumerize :state, :in => [:undone, :squeezed, :in_progress, :done], :default => :undone
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_length_of :natures, :nomen, :state, :allow_nil => true, :maximum => 255
+  validates_length_of :natures, :procedure, :state, :allow_nil => true, :maximum => 255
   validates_inclusion_of :provisional, :in => [true, false]
-  validates_presence_of :natures, :nomen, :production, :state
+  validates_presence_of :natures, :procedure, :production, :state
   #]VALIDATORS]
-  validates_inclusion_of :nomen, :in => self.nomen.values
+  validates_inclusion_of :procedure, :in => self.procedure.values
   #validates_presence_of :version, :uid
 
   # @TODO in progress - need to .all parent procedure to have the name of the procedure_nature
@@ -68,7 +70,7 @@ class Procedure < Ekylibre::Record::Base
   scope :real, -> { where(:provisional => false).order(:nomen) }
 
   scope :with_variable, lambda { |role, object|
-     where("id IN (SELECT procedure_id FROM #{ProcedureVariable.table_name} WHERE target_id = ? AND role = ?)", object.id, role.to_s)
+     where("id IN (SELECT procedure_id FROM #{InterventionCast.table_name} WHERE target_id = ? AND role = ?)", object.id, role.to_s)
   }
 
   before_validation do
