@@ -48,7 +48,7 @@ class OutgoingDelivery < Ekylibre::Record::Base
   belongs_to :sale, :inverse_of => :deliveries
   belongs_to :transport
   belongs_to :transporter, :class_name => "Entity"
-  has_many :items, :class_name => "OutgoingDeliveryItem", :foreign_key => :delivery_id, :dependent => :destroy
+  has_many :items, :class_name => "OutgoingDeliveryItem", :foreign_key => :delivery_id, :dependent => :destroy, :inverse_of => :delivery
   has_many :product_moves, :as => :origin, :dependent => :destroy
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :weight, :allow_nil => true
@@ -56,7 +56,9 @@ class OutgoingDelivery < Ekylibre::Record::Base
   validates_presence_of :recipient
   #]VALIDATORS]
   validates_presence_of :sent_at
-
+  
+  accepts_nested_attributes_for :items
+  
   # autosave :transport
   acts_as_numbered
   sums :transport, :deliveries, :weight#, :amount, :pretax_amount,

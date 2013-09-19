@@ -35,37 +35,32 @@
 
 class OutgoingDeliveryItem < Ekylibre::Record::Base
   # attr_accessible :sale_item_id, :product_id, :price_id, :unit
-  attr_readonly :sale_item_id, :product_id, :price_id, :unit
+  attr_readonly :sale_item_id, :product_id
   belongs_to :delivery, :class_name => "OutgoingDelivery", :inverse_of => :items
   # belongs_to :price, :class_name => "CatalogPrice"
   belongs_to :product
   belongs_to :sale_item
   # belongs_to :move, :class_name => "ProductMove"
-  enumerize :unit, :in => Nomen::Units.all
+  #enumerize :unit, :in => Nomen::Units.all
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :quantity, :allow_nil => true
   validates_presence_of :delivery, :product, :quantity
   #]VALIDATORS]
-  validates_presence_of :product, :unit
 
-  acts_as_stockable :quantity => '-self.quantity', :origin => :delivery
+  #acts_as_stockable :quantity => '-self.quantity', :origin => :delivery
   sums :delivery, :items, :pretax_amount, :amount, "(item.product.weight||0)*item.quantity" => :weight
 
   before_validation do
     if self.sale_item
       self.product_id  = self.sale_item.product_id
-      self.price_id    = self.sale_item.price.id
-      self.unit     = self.sale_item.unit
     end
-    self.pretax_amount = self.sale_item.price.pretax_amount*self.quantity
-    self.amount = self.sale_item.price.amount*self.quantity
     true
   end
 
   validate(:on => :create) do
     if self.product
-      maximum = self.undelivered_quantity
-      errors.add(:quantity, :greater_than_undelivered_quantity, :maximum => maximum, :unit => self.product.unit.name, :product => self.product_name) if (self.quantity > maximum)
+      maximum = self.product.population || 0
+      errors.add(:quantity, :greater_than_undelivered_quantity, :maximum => maximum, :unit => :unity, :product => self.product_name) if (self.quantity > maximum)
     end
     true
   end
