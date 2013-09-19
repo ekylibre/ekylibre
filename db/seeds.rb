@@ -1,13 +1,14 @@
 # encoding: UTF-8
 
 # TODO: I18nize seeds !!!
-I18n.locale = ENV["locale"] || "fra"
+I18n.locale = ENV["language"] || ENV["locale"] || 'fra'
 language = I18n.locale
 currency = ENV['currency'] || 'EUR'
+country  = ENV['country']  || 'fr'
 picture_company = Rails.root.join("app", "assets", "images", "ekylibre.png")
 user = {}
 user[:first_name] = ENV["first_name"] || "Jean"
-user[:last_name] = ENV["last_name"] || "DUPONT"
+user[:last_name]  = ENV["last_name"]  || "DUPONT"
 unless user[:email] = ENV["email"]
   user[:email] = "admin@ekylibre.org"
   puts "Username: #{user[:email]}"
@@ -23,6 +24,11 @@ user = User.new(user)
 company = ENV["company"] || "GAEC DUPONT"
 
 ActiveRecord::Base.transaction do
+
+  Preference.get(:language).set!(language)
+  Preference.get(:currency).set!(currency)
+  Preference.get(:country).set!(country)
+
   Sequence.load_defaults
 
   catalog = Catalog.create!(:name => I18n.t('models.catalog.default.name'), :currency => currency, :usage => :sale)

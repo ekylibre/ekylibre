@@ -26,10 +26,11 @@
 #  creator_id        :integer
 #  id                :integer          not null, primary key
 #  lock_version      :integer          default(0), not null
+#  name              :string(255)      not null
 #  position          :integer
 #  product_nature_id :integer
 #  started_at        :datetime
-#  state             :string(255)
+#  state             :string(255)      not null
 #  static_support    :boolean          not null
 #  stopped_at        :datetime
 #  updated_at        :datetime         not null

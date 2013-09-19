@@ -804,10 +804,11 @@ Ekylibre::Application.routes.draw do
     resources :productions do
       collection do
         get :list
-        get :list_support
-        get :list_procedure
-        get :fertilization
         get :unroll
+      end
+      member do
+        get :list_supports
+        get :list_procedures
       end
     end
 

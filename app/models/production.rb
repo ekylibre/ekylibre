@@ -26,10 +26,11 @@
 #  creator_id        :integer
 #  id                :integer          not null, primary key
 #  lock_version      :integer          default(0), not null
+#  name              :string(255)      not null
 #  position          :integer
 #  product_nature_id :integer
 #  started_at        :datetime
-#  state             :string(255)
+#  state             :string(255)      not null
 #  static_support    :boolean          not null
 #  stopped_at        :datetime
 #  updated_at        :datetime         not null
@@ -51,11 +52,13 @@ class Production < Ekylibre::Record::Base
   # belongs_to :storage, :class_name => "LandParcel"
   # belongs_to :work_unit, :class_name => "Unit"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_length_of :state, :allow_nil => true, :maximum => 255
+  validates_length_of :name, :state, :allow_nil => true, :maximum => 255
   validates_inclusion_of :static_support, :in => [true, false]
-  validates_presence_of :activity, :campaign
+  validates_presence_of :activity, :campaign, :name, :state
   #]VALIDATORS]
   # validates_presence_of :product_nature, :if => :activity_main?
+
+  alias_attribute :label, :name
 
   scope :of_campaign, lambda { |*campaigns|
     campaigns.flatten!
@@ -83,16 +86,21 @@ class Production < Ekylibre::Record::Base
     end
 
     event :confirm do
-      transition :draft => :validated, :if => :has_active_product?
+      transition :draft => :validated
     end
 
     event :start do
-      transition :validated => :started, :if => :has_active_product?
+      transition :validated => :started
     end
 
     event :abort do
-      # transition [:draft, :estimate] => :aborted # , :order
-      transition :draft => :aborted # , :order
+      transition :draft => :aborted
+    end
+  end
+
+  before_validation do
+    if self.activity and self.product_nature and self.campaign
+      self.name = tc('name', state: self.state_label, activity: self.activity.name, product_nature: self.product_nature.name, campaign: self.campaign.name)
     end
   end
 
@@ -116,11 +124,6 @@ class Production < Ekylibre::Record::Base
   def state_label
     self.class.state_label(self.state)
   end
-
-  def name
-    tc('label.' + self.state, :identification => (self.product_nature.name + " " + self.campaign.name))
-   end
-  alias :label :name
 
 
   def shape_area

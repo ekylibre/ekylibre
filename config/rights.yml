@@ -379,8 +379,8 @@
 # - "backend/production_supports#new"
 # - "backend/production_supports#show"
 # - "backend/production_supports#update"
-# - "backend/productions#list_procedure"
-# - "backend/productions#list_support"
+# - "backend/productions#list_procedures"
+# - "backend/productions#list_supports"
 # - "backend/products#create"
 # - "backend/products#destroy"
 # - "backend/products#edit"
@@ -1092,7 +1092,7 @@ manage_productions:
 - "backend/productions#index"
 - "backend/productions#list"
 - "backend/productions#new"
-- "backend/productions#show"
+- "backend/productions#show" #?
 - "backend/productions#update"
 
 # Manage products
