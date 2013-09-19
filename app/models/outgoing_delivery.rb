@@ -56,9 +56,9 @@ class OutgoingDelivery < Ekylibre::Record::Base
   validates_presence_of :recipient
   #]VALIDATORS]
   validates_presence_of :sent_at
-  
+
   accepts_nested_attributes_for :items
-  
+
   # autosave :transport
   acts_as_numbered
   sums :transport, :deliveries, :weight#, :amount, :pretax_amount,

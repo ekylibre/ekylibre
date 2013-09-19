@@ -18,11 +18,11 @@
 #
 
 class Backend::OutgoingDeliveriesController < BackendController
-  
+
   manage_restfully
-  
+
   unroll
-  
+
   list(:conditions => light_search_conditions(:outgoing_deliveries => [:number, :reference_number, :weight], :entities => [:full_name, :code])) do |t|
     t.column :number, :url => true
     t.column :number, :through => :transport, :url => true

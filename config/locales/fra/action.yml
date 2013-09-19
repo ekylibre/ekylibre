@@ -375,9 +375,9 @@ fra:
       show: "Matière organique\_: %{name}"
     backend/outgoing_deliveries:
       edit: "Modifier la livraison sortante\_: %{number}"
-      index: "Livraisons sortantes"
+      index: "Livraisons sortantes" #?
       new: "Ajouter une livraison sortante"
-      show: "Livraison sortante\_: %{number}"
+      show: "Livraison sortante\_: %{number}" #?
     backend/outgoing_delivery_modes:
       edit: "Modifier le mode de livraison\_: %{name}"
       index: "Modes de livraison"

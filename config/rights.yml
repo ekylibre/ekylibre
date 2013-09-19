@@ -405,7 +405,6 @@
 # - "backend/products#list_place"
 # - "backend/products#new"
 # - "backend/products#show"
-# - "backend/products#unroll"
 # - "backend/products#update"
 # - "backend/professions#create"
 # - "backend/professions#destroy"
@@ -1190,11 +1189,11 @@ manage_sales:
 - "backend/outgoing_deliveries#create"
 - "backend/outgoing_deliveries#destroy"
 - "backend/outgoing_deliveries#edit"
-- "backend/outgoing_deliveries#index"
+- "backend/outgoing_deliveries#index" #?
 - "backend/outgoing_deliveries#list"
 - "backend/outgoing_deliveries#list_items"
 - "backend/outgoing_deliveries#new"
-- "backend/outgoing_deliveries#show"
+- "backend/outgoing_deliveries#show" #?
 - "backend/outgoing_deliveries#update"
 - "backend/sales#abort"
 - "backend/sales#confirm"

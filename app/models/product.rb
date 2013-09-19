@@ -110,7 +110,7 @@ class Product < Ekylibre::Record::Base
   }
 
   scope :saleables, -> { where(true).joins(:nature).merge(ProductNature.saleables) }
-  scope :deliverables, -> { where(:active => true, :external => false).joins(:nature).merge(ProductNature.stockables)    
+  scope :deliverables, -> { where(:active => true, :external => false).joins(:nature).merge(ProductNature.stockables)
   }
   scope :production_supports,  -> { where(:variety =>["cultivable_land_parcel"]) }
 

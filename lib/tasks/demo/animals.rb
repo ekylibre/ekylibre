@@ -208,12 +208,12 @@ demo :animals do
         end
 
       end
-      w.check_point  
-      
+      w.check_point
+
     end
     # set active all animals who is alive
     Animal.where(:dead_at => nil).update_all(:active => true)
-    
+
 
   end
 
