@@ -81,13 +81,12 @@ demo :deliveries do
         product_nature_variant = ProductNatureVariant.find_by_name_and_nature_id(r.matter_name,product_nature.id )
         product_nature_variant ||= product_nature.variants.create!(:name => r.matter_name, :active => true, :unit_name => "unit")
         # find a price from current supplier for a consider variant
-        product_nature_variant_price = catalog.prices.find_by(supplier_id: Entity.of_company.id, variant_id: product_nature_variant.id, amount: r.product_unit_price)
+        product_nature_variant_price = catalog.prices.find_by(variant_id: product_nature_variant.id, amount: r.product_unit_price)
         product_nature_variant_price ||= catalog.prices.create!(# :pretax_amount => r.product_unit_price,
                                                                 :currency => "EUR",
-                                                                :supplier => Entity.of_company,
                                                                 :reference_tax_id => appro_price_template_tax.id,
                                                                 :amount => appro_price_template_tax.amount_of(r.product_unit_price),
-                                                                :variant => product_nature_variant
+                                                                :variant_id => product_nature_variant.id
                                                                 )
 
         product_model = product_nature.matching_model

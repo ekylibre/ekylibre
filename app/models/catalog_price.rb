@@ -67,7 +67,6 @@ class CatalogPrice < Ekylibre::Record::Base
   before_validation do
     if supplier = Entity.of_company
       self.currency ||= supplier.currency
-      self.supplier_id ||= supplier.id
     end
     if self.started_at.nil?
       self.started_at = Time.now
@@ -81,10 +80,6 @@ class CatalogPrice < Ekylibre::Record::Base
     # # end
   end
 
-  before_save do
-    self.listing = nil unless own?
-    return true
-  end
 
   # validate do
   #   #if self.template
@@ -116,10 +111,6 @@ class CatalogPrice < Ekylibre::Record::Base
       self.class.where(:id => self.id).update_all(:stopped_at => current_time)
     end
   end
-  # Returns if the price is one of our company
-  def own?
-    return (self.supplier_id == Entity.of_company.id)
-  end
 
   def refresh
     self.save
@@ -147,13 +138,8 @@ class CatalogPrice < Ekylibre::Record::Base
   def self.price(product, options = {})
     company = Entity.of_company
     filter = {
-      :supplier_id => (options.delete(:supplier) || company).id,
       :variant_id => product.variant_id
     }
-    # if the supplier are the company (Sale_case), the listing is the default listing
-    if filter[:supplier_id] == company.id
-      filter[:listing_id] = (options.delete(:listing) || Catalog.by_default).id
-    end
     # request for an existing price between dates according to filter conditions
     prices = self.actives_at(options[:at] || Time.now).where(filter)
     # request return no prices, we create a price
