@@ -136,19 +136,19 @@ module ApplicationHelper
   end
 
 
-  def locale_selector
-    # , :selected => ::I18n.locale)
-    locales = ::I18n.active_locales.sort{|a,b| a.to_s <=> b.to_s}
-    locale = nil # ::I18n.locale
-    if params[:locale].to_s.match(/^[a-z][a-z][a-z]$/)
-      locale = params[:locale].to_sym if locales.include? params[:locale].to_sym
-    end
-    locale ||= ::I18n.locale||::I18n.default_locale
-    options = locales.collect do |l|
-      content_tag(:option, ::I18n.translate("i18n.name", :locale => l), {:value => l, :dir => ::I18n.translate("i18n.dir", :locale => l)}.merge(locale == l ? {:selected => true} : {}))
-    end.join.html_safe
-    select_tag("locale", options, "data-redirect" => url_for())
-  end
+  # def locale_selector
+  #   # , :selected => ::I18n.locale)
+  #   locales = ::I18n.active_locales.sort{|a,b| a.to_s <=> b.to_s}
+  #   locale = nil # ::I18n.locale
+  #   if params[:locale].to_s.match(/^[a-z][a-z][a-z]$/)
+  #     locale = params[:locale].to_sym if locales.include? params[:locale].to_sym
+  #   end
+  #   locale ||= ::I18n.locale||::I18n.default_locale
+  #   options = locales.collect do |l|
+  #     content_tag(:option, ::I18n.translate("i18n.name", :locale => l), {:value => l, :dir => ::I18n.translate("i18n.dir", :locale => l)}.merge(locale == l ? {:selected => true} : {}))
+  #   end.join.html_safe
+  #   select_tag("locale", options, "data-redirect" => url_for())
+  # end
 
   def locale_selector_tag
     # , :selected => ::I18n.locale)
@@ -212,15 +212,18 @@ module ApplicationHelper
   end
 
   def countries
-    [[]]+t('countries').to_a.sort{|a, b| a[1].ascii.to_s <=> b[1].ascii.to_s}.collect{|a| [a[1].to_s, a[0].to_s]}
+    # [[]]+t('countries').to_a.sort{|a, b| a[1].ascii.to_s <=> b[1].ascii.to_s}.collect{|a| [a[1].to_s, a[0].to_s]}
+    [[]] + Nomen::Countries.items.values.collect{|c| [c.human_name, c.name.to_s]}
   end
 
   def currencies
-    I18n.active_currencies.values.sort{|a, b| a.name.ascii.to_s <=> b.name.ascii.to_s}.collect{|c| [c.label, c.code]}
+    # I18n.active_currencies.values.sort{|a, b| a.name.ascii.to_s <=> b.name.ascii.to_s}.collect{|c| [c.label, c.code]}
+    [[]] + Nomen::Currencies.items.values.collect{|c| [c.human_name, c.name.to_s]}
   end
 
   def languages
-    I18n.valid_locales.collect{|l| [t("languages.#{l}"), l.to_s]}.to_a.sort{|a, b| a[0].ascii.to_s <=> b[0].ascii.to_s}
+    # I18n.valid_locales.collect{|l| [t("languages.#{l}"), l.to_s]}.to_a.sort{|a, b| a[0].ascii.to_s <=> b[0].ascii.to_s}
+    [[]] + Nomen::Languages.items.values.collect{|l| [l.human_name, l.name.to_s]}
   end
 
   def back_url

@@ -2006,11 +2006,8 @@ eng:
       default_name: "%{origin} (%{code})" #?
     production:
       # bookkeep: "[%{resource} %{number}] %{products} pour %{client} (%{sale})"
-      label:
-        # aborted: "Production annulée %{identification}"
-        # draft: "Production prévue %{identification}"
-        # started: "Production en cours %{identification}"
-        # validated: "Production validée %{identification}"
+      label: #?
+      # name: "%{product_nature}/%{activity} %{campaign} (%{state})"
       states:
         # aborted: "Annulée"
         # draft: "Prévue"

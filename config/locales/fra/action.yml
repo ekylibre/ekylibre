@@ -489,7 +489,7 @@ fra:
       edit: "Modifier la production\_: %{name}"
       index: "Productions"
       new: "Nouvelle production"
-      show: "Production\_: %{name}"
+      show: "Production\_: %{name}" #?
     backend/products:
       edit: "Modifier un produit"
       index: "Produits"

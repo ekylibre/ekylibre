@@ -1686,6 +1686,7 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "product_natures", ["charge_account_id"], :name => "index_product_natures_on_charge_account_id"
   add_index "product_natures", ["created_at"], :name => "index_product_natures_on_created_at"
   add_index "product_natures", ["creator_id"], :name => "index_product_natures_on_creator_id"
+  add_index "product_natures", ["name"], :name => "index_product_natures_on_name"
   add_index "product_natures", ["number"], :name => "index_product_natures_on_number", :unique => true
   add_index "product_natures", ["product_account_id"], :name => "index_product_natures_on_product_account_id"
   add_index "product_natures", ["stock_account_id"], :name => "index_product_natures_on_stock_account_id"
@@ -1787,6 +1788,8 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "production_supports", ["created_at"], :name => "index_production_supports_on_created_at"
   add_index "production_supports", ["creator_id"], :name => "index_production_supports_on_creator_id"
   add_index "production_supports", ["production_id"], :name => "index_production_supports_on_production_id"
+  add_index "production_supports", ["started_at"], :name => "index_production_supports_on_started_at"
+  add_index "production_supports", ["stopped_at"], :name => "index_production_supports_on_stopped_at"
   add_index "production_supports", ["storage_id"], :name => "index_production_supports_on_storage_id"
   add_index "production_supports", ["updated_at"], :name => "index_production_supports_on_updated_at"
   add_index "production_supports", ["updater_id"], :name => "index_production_supports_on_updater_id"
@@ -1795,11 +1798,12 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.integer  "activity_id",                       null: false
     t.integer  "campaign_id",                       null: false
     t.integer  "product_nature_id"
+    t.string   "name",                              null: false
+    t.string   "state",                             null: false
     t.boolean  "static_support",    default: false, null: false
     t.datetime "started_at"
     t.datetime "stopped_at"
     t.integer  "position"
-    t.string   "state"
     t.datetime "created_at",                        null: false
     t.datetime "updated_at",                        null: false
     t.integer  "creator_id"
@@ -1811,6 +1815,7 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "productions", ["campaign_id"], :name => "index_productions_on_campaign_id"
   add_index "productions", ["created_at"], :name => "index_productions_on_created_at"
   add_index "productions", ["creator_id"], :name => "index_productions_on_creator_id"
+  add_index "productions", ["name"], :name => "index_productions_on_name"
   add_index "productions", ["product_nature_id"], :name => "index_productions_on_product_nature_id"
   add_index "productions", ["updated_at"], :name => "index_productions_on_updated_at"
   add_index "productions", ["updater_id"], :name => "index_productions_on_updater_id"
@@ -1829,8 +1834,8 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.datetime "dead_at"
     t.text     "description"
     t.string   "picture_file_name"
-    t.string   "picture_content_type"
     t.integer  "picture_file_size"
+    t.string   "picture_content_type"
     t.datetime "picture_updated_at"
     t.boolean  "external",                                                      default: false, null: false
     t.integer  "owner_id",                                                                      null: false
@@ -1854,12 +1859,12 @@ ActiveRecord::Schema.define(version: 20121212122000) do
 
   add_index "products", ["address_id"], :name => "index_products_on_address_id"
   add_index "products", ["asset_id"], :name => "index_products_on_asset_id"
-  add_index "products", ["content_indicator_unit"], :name => "index_products_on_content_indicator_unit"
   add_index "products", ["content_nature_id"], :name => "index_products_on_content_nature_id"
   add_index "products", ["created_at"], :name => "index_products_on_created_at"
   add_index "products", ["creator_id"], :name => "index_products_on_creator_id"
   add_index "products", ["father_id"], :name => "index_products_on_father_id"
   add_index "products", ["mother_id"], :name => "index_products_on_mother_id"
+  add_index "products", ["name"], :name => "index_products_on_name"
   add_index "products", ["nature_id"], :name => "index_products_on_nature_id"
   add_index "products", ["number"], :name => "index_products_on_number", :unique => true
   add_index "products", ["owner_id"], :name => "index_products_on_owner_id"

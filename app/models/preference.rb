@@ -71,7 +71,7 @@ class Preference < Ekylibre::Record::Base
   prefer :sales_conditions, :string, ""
   prefer :chart_of_account, :string, Nomen::ChartsOfAccounts.default
   prefer :language, :string, "fra"
-  prefer :country, :string, "fr"
+  prefer :country,  :string, "fr"
   prefer :currency, :string, "EUR"
 
   def self.type_to_nature(klass)

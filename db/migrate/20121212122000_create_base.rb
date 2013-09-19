@@ -1022,50 +1022,44 @@ class CreateBase < ActiveRecord::Migration
     end
 
     create_table :product_natures do |t|
-      t.string   :name,                                               null: false
-      t.string   :number,                 limit: 30,                  null: false
-      t.text     :description
-      t.string   :variety,                limit: 120,                 null: false
-      t.string   :derivative_of,          limit: 120
-      t.string   :nomen,                  limit: 120
-      t.text     :abilities
-      t.text     :indicators
-      t.string   :population_counting,                                null: false
-      t.boolean  :active,                             default: false, null: false
-      t.boolean  :depreciable,                        default: false, null: false
-      t.boolean  :saleable,                           default: false, null: false
-      t.boolean  :purchasable,                        default: false, null: false
-      t.boolean  :storable,                           default: false, null: false
-      t.boolean  :reductible,                         default: false, null: false
-      t.boolean  :subscribing,                        default: false, null: false
-      t.references :subscription_nature
+      t.string     :name,                                               null: false
+      t.string     :number,                 limit: 30,                  null: false
+      t.text       :description
+      t.string     :variety,                limit: 120,                 null: false
+      t.string     :derivative_of,          limit: 120
+      t.string     :nomen,                  limit: 120
+      t.text       :abilities
+      t.text       :indicators
+      t.string     :population_counting,                                null: false
+      t.boolean    :active,                             default: false, null: false
+      t.boolean    :depreciable,                        default: false, null: false
+      t.boolean    :saleable,                           default: false, null: false
+      t.boolean    :purchasable,                        default: false, null: false
+      t.boolean    :storable,                           default: false, null: false
+      t.boolean    :reductible,                         default: false, null: false
+      t.boolean    :subscribing,                        default: false, null: false
+      t.references :subscription_nature,                                             index: true
       t.string     :subscription_duration
-      t.references :charge_account
-      t.references :product_account
-      t.references :asset_account
-      t.references :stock_account
+      t.references :charge_account,                                                  index: true
+      t.references :product_account,                                                 index: true
+      t.references :asset_account,                                                   index: true
+      t.references :stock_account,                                                   index: true
       t.stamps
+      t.index      :number,   unique: true
+      t.index      :variety
+      t.index      :name
     end
-    add_index :product_natures, :asset_account_id
-    add_index :product_natures, :charge_account_id
-    add_index :product_natures, :number, unique: true
-    add_index :product_natures, :product_account_id
-    add_index :product_natures, :stock_account_id
-    add_index :product_natures, :subscription_nature_id
-    add_index :product_natures, :variety
 
     create_table :product_ownerships do |t|
-      t.references :product,                null: false
-      t.string   :nature,                   null: false
-      t.references :owner
-      t.datetime :started_at
-      t.datetime :stopped_at
+      t.references :product,                  null: false, index: true
+      t.string     :nature,                   null: false
+      t.references :owner,                                 index: true
+      t.datetime   :started_at
+      t.datetime   :stopped_at
       t.stamps
+      t.index      :started_at
+      t.index      :stopped_at
     end
-    add_index :product_ownerships, :owner_id
-    add_index :product_ownerships, :product_id
-    add_index :product_ownerships, :started_at
-    add_index :product_ownerships, :stopped_at
 
     create_table :product_process_phases do |t|
       t.references :process,                null: false, index: true
@@ -1084,81 +1078,70 @@ class CreateBase < ActiveRecord::Migration
       t.string   :description
       t.boolean  :repeatable,               default: false, null: false
       t.stamps
+      t.index    :variety
     end
-    add_index :product_processes, :variety
 
     create_table :production_supports do |t|
-      t.references :production,                  null: false
-      t.references :storage,                     null: false
+      t.references :production,                  null: false, index: true
+      t.references :storage,                     null: false, index: true
       t.datetime :started_at
       t.datetime :stopped_at
       t.boolean  :exclusive,     default: false, null: false
       t.stamps
+      t.index :started_at
+      t.index :stopped_at
     end
-    add_index :production_supports, :production_id
-    add_index :production_supports, :storage_id
 
     create_table :productions do |t|
-      t.references :activity,                        null: false
-      t.references :campaign,                        null: false
-      t.references :product_nature
-      t.boolean  :static_support,    default: false, null: false
-      t.datetime :started_at
-      t.datetime :stopped_at
-      t.integer  :position
-      t.string   :state
+      t.references :activity,                        null: false, index: true
+      t.references :campaign,                        null: false, index: true
+      t.references :product_nature,                               index: true
+      t.string     :name,                            null: false
+      t.string     :state,                           null: false
+      t.boolean    :static_support,  default: false, null: false
+      t.datetime   :started_at
+      t.datetime   :stopped_at
+      t.integer    :position
       t.stamps
+      t.index      :name
     end
-    add_index :productions, :activity_id
-    add_index :productions, :campaign_id
-    add_index :productions, :product_nature_id
 
     create_table :products do |t|
-      t.string   :type
-      t.string   :name,                                                                          null: false
-      t.string   :number,                                                                        null: false
-      t.boolean  :active,                                                        default: false, null: false
-      t.string   :variety,                  limit: 120,                                          null: false
-      t.references :variant,                                                                    null: false
-      t.references :nature,                                                                     null: false
-      t.references :tracking
-      t.references :asset
-      t.datetime :born_at
-      t.datetime :dead_at
-      t.text     :description
-      t.string   :picture_file_name
-      t.string   :picture_content_type
-      t.integer  :picture_file_size
-      t.datetime :picture_updated_at
-      t.boolean  :external,                                                      default: false, null: false
-      t.references :owner,                                                                      null: false
-      t.string   :identification_number
-      t.string   :work_number
-      t.references :father
-      t.references :mother
-      t.references :address
-      t.boolean  :reservoir,                                                     default: false, null: false
-      t.references :content_nature
-      t.string   :content_indicator
-      t.string   :content_indicator_unit
-      t.decimal  :content_maximal_quantity,             precision: 19, scale: 4, default: 0.0,   null: false
-      t.references :parent
+      t.string     :type
+      t.string     :name,                                                                          null: false
+      t.string     :number,                                                                        null: false
+      t.boolean    :active,                                                        default: false, null: false
+      t.string     :variety,                  limit: 120,                                          null: false
+      t.references :variant,                                                                       null: false, index: true
+      t.references :nature,                                                                        null: false, index: true
+      t.references :tracking,                                                                                   index: true
+      t.references :asset,                                                                                      index: true
+      t.datetime   :born_at
+      t.datetime   :dead_at
+      t.text       :description
+      t.string     :picture_file_name
+      t.integer    :picture_file_size
+      t.string     :picture_content_type
+      t.datetime   :picture_updated_at
+      t.boolean    :external,                                                      default: false, null: false
+      t.references :owner,                                                                         null: false, index: true
+      t.string     :identification_number
+      t.string     :work_number
+      t.references :father,                                                                                     index: true
+      t.references :mother,                                                                                     index: true
+      t.references :address,                                                                                    index: true
+      t.boolean    :reservoir,                                                     default: false, null: false
+      t.references :content_nature,                                                                             index: true
+      t.string     :content_indicator
+      t.string     :content_indicator_unit
+      t.decimal    :content_maximal_quantity,             precision: 19, scale: 4, default: 0.0,   null: false
+      t.references :parent,                                                                                     index: true
       t.stamps
+      t.index      :type
+      t.index      :name
+      t.index      :variety
+      t.index      :number,                 unique: true
     end
-    add_index :products, :address_id
-    add_index :products, :asset_id
-    add_index :products, :content_indicator_unit
-    add_index :products, :content_nature_id
-    add_index :products, :father_id
-    add_index :products, :mother_id
-    add_index :products, :nature_id
-    add_index :products, :number, unique: true
-    add_index :products, :owner_id
-    add_index :products, :parent_id
-    add_index :products, :tracking_id
-    add_index :products, :type
-    add_index :products, :variant_id
-    add_index :products, :variety
 
     create_table :professions do |t|
       t.string   :name,                         null: false

@@ -1297,8 +1297,8 @@
         <page to="backend/production_supports#update"/>
       </item>
       <item name="productions">
-        <page to="backend/productions#list_procedure"/>
-        <page to="backend/productions#list_support"/>
+        <page to="backend/productions#list_procedures"/>
+        <page to="backend/productions#list_supports"/>
       </item>
       <item name="products">
         <page to="backend/products#list_content_product"/>

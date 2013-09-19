@@ -120,7 +120,6 @@ class BackendController < BaseController
     code  = "def unroll\n"
     code << "  conditions = []\n"
     code << "  keys = params[:q].to_s.strip.mb_chars.downcase.normalize.split(/[\\s\\,]+/)\n"
-    # code << "  # " + columns.collect{|c| c[:column].name}.to_sentence + "\n"
     code << "  if params[:id]\n"
     code << "    conditions = {:id => params[:id]}\n"
     searchable_columns = columns.delete_if{ |c| c[:type] == :boolean }
@@ -141,22 +140,25 @@ class BackendController < BaseController
     end
     code << "  end\n"
 
-    code << "  items = #{model.name}.where(conditions)\n"
+    code << "  items = nil\n"
 
-    scopes = ([:unscoped] + (model.scopes || [])).map(&:to_s)
-    code << "  scope = params[:scope] || 'unscoped'\n"
+    default_scope = :unscoped
+    scopes = ([default_scope] + (model.scopes || [])).map(&:to_s).uniq
+    code << "  scope = params[:scope] || '#{default_scope}'\n"
 
     if scopes.size == 1
       code << "  if scope == #{scopes.first.inspect}\n"
     else
       code << "  if #{scopes.inspect}.include?(scope)\n"
     end
-    code << "    items = items.send(scope)\n"
+    code << "    items = #{model.name}.send(scope)\n"
     code << "  else\n"
     code << "    logger.error(\"Scope \#{scope.inspect} is unknown for #{model.name}. #{scopes.to_sentence} are expected.\")\n"
     code << "    head :bad_request\n"
     code << "    return false\n"
     code << "  end\n"
+
+    code << "  items = items.where(conditions)\n"
 
     code << "  respond_to do |format|\n"
     code << "    format.html { render file: '#{view.relative_path_from(Rails.root)}', :locals => { items: items, keys: keys, search: params[:q].to_s.capitalize.strip }, layout: false }\n"

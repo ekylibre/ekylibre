@@ -1,12 +1,9 @@
 # -*- coding: utf-8 -*-
 class Backend::ProductionsController < BackendController
-
   manage_restfully(:t3e => {:name => 'RECORD.name'})
 
   unroll
 
-
-  # management -> sales_conditions
   def self.productions_conditions
     code = ""
     code = search_conditions(:production, :productions => [:state], :activities =>[:name], :product_natures =>[:name]) + "||=[]\n"
@@ -33,7 +30,7 @@ class Backend::ProductionsController < BackendController
 
 
 
-  list(:conditions => productions_conditions, :joins => [:activity,:product_nature,:campaign]) do |t|
+  list(:conditions => productions_conditions, :joins => [:activity, :product_nature, :campaign]) do |t|
     t.column :name, :url => true
     t.column :name,:through => :activity, :url => true
     #t.column :name,:through => :campaign, :url => true
@@ -45,14 +42,14 @@ class Backend::ProductionsController < BackendController
   end
 
   # List supports for one production
-  list(:support, :model => :production_supports, :conditions => [" production_id = ? ",['session[:current_production_id]']], :order => "created_at DESC") do |t|
+  list(:supports, :model => :production_supports, :conditions => {production_id: ['params[:id]']}, :order => "created_at DESC") do |t|
     t.column :name, :through => :storage, :url => true
     t.column :shape_area, :through => :storage
     t.column :created_at
   end
 
   # List procedures for one production
-  list(:procedure, :model => :procedures, :conditions => [" production_id = ? ",['session[:current_production_id]']], :order => "created_at DESC") do |t|
+  list(:procedures, :conditions => {production_id: ['params[:id]']}, :order => "created_at DESC") do |t|
     #t.column :name
     t.column :nomen, :url => true
     t.column :state
@@ -61,7 +58,6 @@ class Backend::ProductionsController < BackendController
     t.column :stopped_at
     t.column :provisional
   end
-
 
   # Displays the main page with the list of productions.
   def index
@@ -73,17 +69,6 @@ class Backend::ProductionsController < BackendController
       format.html
       format.xml  { render :xml => Production.all }
       format.json { render :json => Production.all }
-    end
-  end
-
-  # Displays the page for one production.
-  def show
-    return unless @production = find_and_check
-    session[:current_production_id] = @production.id
-    respond_to do |format|
-      format.html { t3e(@production, :name => @production.name) }
-      format.xml  { render :xml => @production }
-      format.json { render :json => @production }
     end
   end
 

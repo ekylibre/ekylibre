@@ -1,30 +1,27 @@
-%h2=t('.sign_in', :default => "Sign in")
+%h2= t('.sign_in', :default => "Sign in")
 
-=form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
+= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
   .field
-    =f.label :email
-    =f.email_field :email
-
-  .field
-    =f.label :password
-    =f.password_field :password
+    = f.label :email
+    = f.email_field :email
 
   .field
-    =label_tag :time_zone.tl
-    -#raise ActiveSupport::TimeZone.zones_map.inspect
-    =select_tag :time_zone, options_for_select(ActiveSupport::TimeZone.all.map{|z| [z.to_s, z.tzinfo.identifier] }), :id => "time-zone"
-    :javascript
-      $("#time-zone").val(jstz.determine().name());
+    = f.label :password
+    = f.password_field :password
 
   .field
-    =label_tag :locale.tl
-    =locale_selector_tag # select_tag :locale, options_for_select(I18n.active_locales)
+    = label_tag :time_zone.tl
+    = select_tag :time_zone, options_for_select(ActiveSupport::TimeZone.all.map{|z| [z.to_s, z.tzinfo.identifier] }), "data-auto-timezone" => true
 
-  -if devise_mapping.rememberable?
+  .field
+    = label_tag :locale.tl
+    = locale_selector_tag
+
+  - if devise_mapping.rememberable?
     .field.field-remember-me
-      =f.check_box :remember_me
-      =f.label :remember_me
+      = f.check_box :remember_me
+      = f.label :remember_me
 
-  .field=f.submit t('.sign_in', :default => "Sign in")
+  .field= f.submit t('.sign_in', :default => "Sign in")
 
-=render "devise/shared/links"
+= render "devise/shared/links"
