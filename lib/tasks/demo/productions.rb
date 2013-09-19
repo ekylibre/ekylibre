@@ -151,7 +151,7 @@ demo :productions do
     end
   end
 
-  Ekylibre::fixturize :fertilizing_procedure_demo_data_1 do |w|
+  Ekylibre::fixturize :fertilizing_intervention_demo_data_1 do |w|
     #############################################################################
     ## Demo data for fertilizing
     ##############################################################################
@@ -201,57 +201,59 @@ demo :productions do
 
 
 
-    # provisional fertilization procedure
-    procedure_prev = Procedure.create!(:natures => "soil_enrichment", :nomen =>"mineral_fertilizing", :production_id => production.id, :provisional => true )
+    # provisional fertilization intervention
+    intervention_prev = Intervention.create!(:natures => "soil_enrichment", :nomen =>"mineral_fertilizing", :production_id => production.id, :provisional => true )
 
     land_parcel_group_fert = production.supports.first.storage
 
 
-    # Create some procedure variable for fertilization
-    for attributes in [{:target_id => land_parcel_group_fert.id, :role => "target",
-                         :indicator => "net_surface_area",
-                         :measure_quantity => "5.00", :measure_unit => "hectare"},
-                       {:target_id => fertilizer_product_prev.id, :role => "input",
+    # Create some intervention cast for fertilization
+    for attributes in [{:actor_id => land_parcel_group_fert.id, 
+                         # :role => "target", :indicator => "net_surface_area", :measure_quantity => "5.00", :measure_unit => "hectare",
+                         #WHAT TO DO? Variable OR Role
+                         :variable => ""
+                       },
+                       {:actor_id => fertilizer_product_prev.id, :role => "input",
                          :indicator => "net_weight",
                          :measure_quantity => "475.00", :measure_unit => "kilogram"},
-                       {:target_id => fertilizer_product_prev.id, :role => "input",
+                       {:actor_id => fertilizer_product_prev.id, :role => "input",
                          :indicator => "net_weight",
                          :measure_quantity => "275.00", :measure_unit => "kilogram"}
                       ]
-      ProcedureVariable.create!({:procedure_id => procedure_prev.id}.merge(attributes) )
+      intervention_prev.casts.create!(attributes)
     end
 
-    # Create some operation variable for fertilization
+    # Create some operation cast for fertilization
     for attributes in [{:started_at => (Time.now - 15.days), :stopped_at => (Time.now - 10.days)}]
-      procedure_prev.operations.create!({:procedure_id => procedure_prev.id}.merge(attributes) )
+      intervention_prev.operations.create!(attributes)
     end
 
-    # real fertilization procedure
-    procedure_real = Procedure.create!(:natures => "soil_enrichment", :nomen =>"mineral_fertilizing", :production_id => production.id, :provisional_procedure_id => procedure_prev.id, :state => "done")
+    # real fertilization intervention
+    intervention_real = Intervention.create!(:natures => "soil_enrichment", :nomen =>"mineral_fertilizing", :production_id => production.id, :provisional_intervention_id => intervention_prev.id, :state => "done")
 
 
-    # Create some procedure variable for fertilization
-    for attributes in [{:target_id => land_parcel_group_fert.id, :role => "target",
+    # Create some intervention cast for fertilization
+    for attributes in [{:actor_id => land_parcel_group_fert.id, :role => "target",
                          :indicator => "net_surface_area",
                          :measure_quantity => 5.0, :measure_unit => "hectare"},
-                       {:target_id => fertilizer_product.id, :role => "input",
+                       {:actor_id => fertilizer_product.id, :role => "input",
                          :indicator => "net_weight",
                          :measure_quantity => 575.00, :measure_unit => "kilogram"},
-                       {:target_id => fertilizer_product.id, :role => "input",
+                       {:actor_id => fertilizer_product.id, :role => "input",
                          :indicator => "net_weight",
                          :measure_quantity => 375.00, :measure_unit => "kilogram"}
                       ]
-      ProcedureVariable.create!({:procedure_id => procedure_real.id}.merge(attributes) )
+      intervention_real.casts.create!(attributes)
     end
 
-    # Create some operation variable for fertilization
+    # Create some operation cast for fertilization
     for attributes in [{:started_at => (Time.now - 2.days), :stopped_at => Time.now}]
-      procedure_real.operations.create!({:procedure_id => procedure_real.id}.merge(attributes) )
+      intervention_real.operations.create!(attributes)
     end
     w.check_point
   end
 
-  Ekylibre::fixturize :fertilizing_procedure_demo_data_2 do |w|
+  Ekylibre::fixturize :fertilizing_intervention_demo_data_2 do |w|
     #############################################################################
     ## Demo data for fertilizing
     ##############################################################################
@@ -294,56 +296,56 @@ demo :productions do
     end
 
 
-    # provisional fertilization procedure
-    procedure_prev = Procedure.create!(:natures => "soil_enrichment", :nomen =>"mineral_fertilizing", :production_id => production.id, :provisional => true )
+    # provisional fertilization intervention
+    intervention_prev = Intervention.create!(:natures => "soil_enrichment", :nomen =>"mineral_fertilizing", :production_id => production.id, :provisional => true )
 
     land_parcel_group_fert = production.supports.first.storage
 
-    # Create some procedure variable for fertilization
-    for attributes in [{:target_id => land_parcel_group_fert.id, :role => "target",
+    # Create some intervention cast for fertilization
+    for attributes in [{:actor_id => land_parcel_group_fert.id, :role => "target",
                          :indicator => "net_surface_area",
                          :measure_quantity => "5.00", :measure_unit => "hectare"},
-                       {:target_id => fertilizer_product_prev.id, :role => "input",
+                       {:actor_id => fertilizer_product_prev.id, :role => "input",
                          :indicator => "net_weight",
                          :measure_quantity => "475.00", :measure_unit => "kilogram"},
-                       {:target_id => fertilizer_product_prev.id, :role => "input",
+                       {:actor_id => fertilizer_product_prev.id, :role => "input",
                          :indicator => "net_weight",
                          :measure_quantity => "275.00", :measure_unit => "kilogram"}
                       ]
-      ProcedureVariable.create!({:procedure_id => procedure_prev.id}.merge(attributes) )
+      intervention_prev.casts.create!(attributes)
     end
 
-    # Create some operation variable for fertilization
+    # Create some operation cast for fertilization
     for attributes in [{:started_at => (Time.now - 380.days), :stopped_at => (Time.now - 370.days)}]
-      procedure_prev.operations.create!({:procedure_id => procedure_prev.id}.merge(attributes) )
+      intervention_prev.operations.create!(attributes)
     end
 
-    # real fertilization procedure
-    procedure_real = Procedure.create!(:natures => "soil_enrichment", :nomen =>"mineral_fertilizing", :production_id => production.id, :provisional_procedure_id => procedure_prev.id, :state => "done")
+    # real fertilization intervention
+    intervention_real = Intervention.create!(:natures => "soil_enrichment", :nomen =>"mineral_fertilizing", :production_id => production.id, :provisional_intervention_id => intervention_prev.id, :state => "done")
 
 
-    # Create some procedure variable for fertilization
-    for attributes in [{:target_id => land_parcel_group_fert.id, :role => "target",
+    # Create some intervention cast for fertilization
+    for attributes in [{:actor_id => land_parcel_group_fert.id, :role => "target",
                          :indicator => "net_surface_area",
                          :measure_quantity => 5.0, :measure_unit => "hectare"},
-                       {:target_id => fertilizer_product.id, :role => "input",
+                       {:actor_id => fertilizer_product.id, :role => "input",
                          :indicator => "net_weight",
                          :measure_quantity => 575.00, :measure_unit => "kilogram"},
-                       {:target_id => fertilizer_product.id, :role => "input",
+                       {:actor_id => fertilizer_product.id, :role => "input",
                          :indicator => "net_weight",
                          :measure_quantity => 375.00, :measure_unit => "kilogram"}
                       ]
-      ProcedureVariable.create!({:procedure_id => procedure_real.id}.merge(attributes) )
+      intervention_real.casts.create!(attributes)
     end
 
-    # Create some operation variable for fertilization
+    # Create some operation cast for fertilization
     for attributes in [{:started_at => (Time.now - 400.days), :stopped_at => (Time.now - 420.days)}]
-      procedure_real.operations.create!({:procedure_id => procedure_real.id}.merge(attributes) )
+      intervention_real.operations.create!(attributes)
     end
     w.check_point
   end
 
-  Ekylibre::fixturize :animal_treatment_procedure_demo_data_1 do |w|
+  Ekylibre::fixturize :animal_treatment_intervention_demo_data_1 do |w|
     ##############################################################################
     ## Demo data for animal treatment
     ##############################################################################
@@ -405,39 +407,39 @@ demo :productions do
                                         )
 
 
-    # treatment procedure
-    procedure = incident.procedures.create!(:natures => "animal_care",
+    # treatment intervention
+    intervention = incident.interventions.create!(:natures => "animal_care",
                                             :nomen =>"animal_treatment",
                                             :state => "done",
                                             :production_id => animal_production.id,
                                             :prescription_id => prescription.id
                                             )
 
-    # Create some procedure variable
-    for attributes in [{:target_id => worker.id, :role => "worker",
+    # Create some intervention cast
+    for attributes in [{:actor_id => worker.id, :role => "worker",
                          :indicator => "usage_duration",
                          :measure_quantity => "0.50", :measure_unit => "hour"},
-                       {:target_id => animal_medicine_product.id, :role => "input",
+                       {:actor_id => animal_medicine_product.id, :role => "input",
                          :indicator => "net_volume",
                          :measure_quantity => "50.00", :measure_unit => "milliliter"},
-                       {:target_id => animal_medicine_product_1.id, :role => "input",
+                       {:actor_id => animal_medicine_product_1.id, :role => "input",
                          :indicator => "net_volume",
                          :measure_quantity => "8.00", :measure_unit => "milliliter"},
-                       {:target_id => animal.id, :role => "target",
+                       {:actor_id => animal.id, :role => "target",
                          :indicator => "population",
                          :measure_quantity => "1.00", :measure_unit => "unity"}
                       ]
-      ProcedureVariable.create!({:procedure_id => procedure.id}.merge(attributes) )
+      intervention.casts.create!(attributes)
     end
 
-    # Create some operation variable
+    # Create some operation cast
     for attributes in [{:started_at => (Time.now - 2.days), :stopped_at => Time.now}]
-      procedure.operations.create!({:procedure_id => procedure.id}.merge(attributes) )
+      intervention.operations.create!(attributes)
     end
     w.check_point
   end
 
-  Ekylibre::fixturize :animal_treatment_procedure_demo_data_2 do |w|
+  Ekylibre::fixturize :animal_treatment_intervention_demo_data_2 do |w|
     ##############################################################################
     ## Demo data for animal treatment
     ##############################################################################
@@ -473,38 +475,38 @@ demo :productions do
                                         :nature => "other",
                                         :observed_at => "2012-10-22",
                                         :description => "reste couchée et est très chaude",
-                                        :priority => "3",
-                                        :gravity => "5"
+                                        :priority => 3,
+                                        :gravity => 5
                                         )
 
 
-    # treatment procedure
-    procedure = incident.procedures.create!(:natures => "animal_care",
+    # treatment intervention
+    intervention = incident.interventions.create!(:natures => "animal_care",
                                             :nomen =>"animal_treatment",
                                             :state => "done",
                                             :production_id => animal_production.id
                                             )
 
-    # Create some procedure variable
-    for attributes in [{:target_id => worker.id, :role => "worker",
+    # Create some intervention cast
+    for attributes in [{:actor_id => worker.id, :role => "worker",
                          :indicator => "usage_duration",
-                         :measure_quantity => "0.50", :measure_unit => "hour"},
-                       {:target_id => animal_medicine_product.id, :role => "input",
+                         :measure_quantity => 0.50, :measure_unit => "hour"},
+                       {:actor_id => animal_medicine_product.id, :role => "input",
                          :indicator => "net_volume",
-                         :measure_quantity => "50.00", :measure_unit => "milliliter"},
-                       {:target_id => animal_medicine_product.id, :role => "input",
+                         :measure_quantity => 50.00, :measure_unit => "milliliter"},
+                       {:actor_id => animal_medicine_product.id, :role => "input",
                          :indicator => "net_volume",
-                         :measure_quantity => "10.00", :measure_unit => "milliliter"},
-                       {:target_id => animal.id, :role => "target",
+                         :measure_quantity => 10.00, :measure_unit => "milliliter"},
+                       {:actor_id => animal.id, :role => "target",
                          :indicator => "population",
-                         :measure_quantity => "1.00", :measure_unit => "unity"}
+                         :measure_quantity => 1.00, :measure_unit => "unity"}
                       ]
-      ProcedureVariable.create!({:procedure_id => procedure.id}.merge(attributes) )
+      intervention.casts.create!(attributes)
     end
 
-    # Create some operation variable
+    # Create some operation cast
     for attributes in [{:started_at => (Time.now - 361.days), :stopped_at => (Time.now - 360.days)}]
-      procedure.operations.create!({:procedure_id => procedure.id}.merge(attributes) )
+      intervention.operations.create!(attributes)
     end
     w.check_point
   end
