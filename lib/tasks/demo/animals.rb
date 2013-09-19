@@ -85,6 +85,7 @@ demo :animals do
         f.close
         # set default indicators
         animal.is_measured!(:sex, r.sex)
+        animal.is_measured!(:population, 1.in_unity)
         animal.is_measured!(:reproductor, false)
         animal.is_measured!(:net_weight, 55.45.in_kilogram, :at => r.born_on.to_datetime)
         animal.is_measured!(:net_weight, 75.89.in_kilogram, :at => (r.born_on.to_datetime + 2.months))
@@ -108,6 +109,7 @@ demo :animals do
         f.close
         # set default indicators
         animal.is_measured!(:sex, r.sex)
+        animal.is_measured!(:population, 1.in_unity)
         animal.is_measured!(:reproductor, false)
         animal.is_measured!(:net_weight, 55.45.in_kilogram, :at => r.born_on.to_datetime)
         animal.is_measured!(:net_weight, 75.89.in_kilogram, :at => (r.born_on.to_datetime + 2.months))
@@ -133,6 +135,7 @@ demo :animals do
         f.close
         # set default indicators
         animal.is_measured!(:sex, r.sex)
+        animal.is_measured!(:population, 1.in_unity)
         animal.is_measured!(:reproductor, true)
         animal.is_measured!(:net_weight, 55.45.in_kilogram, :at => r.born_on.to_datetime)
         animal.is_measured!(:net_weight, 75.89.in_kilogram, :at => (r.born_on.to_datetime + 2.months))
@@ -159,6 +162,7 @@ demo :animals do
         f.close
         # set default indicators
         animal.is_measured!(:sex, r.sex)
+        animal.is_measured!(:population, 1.in_unity)
         animal.is_measured!(:reproductor, true)
         animal.is_measured!(:net_weight, 55.45.in_kilogram, :at => r.born_on.to_datetime)
         animal.is_measured!(:net_weight, 75.89.in_kilogram, :at => (r.born_on.to_datetime + 2.months))
@@ -186,6 +190,7 @@ demo :animals do
         f.close
         # set default indicators
         animal.is_measured!(:sex, r.sex)
+        animal.is_measured!(:population, 1.in_unity)
         animal.is_measured!(:reproductor, false)
         animal.is_measured!(:net_weight, 55.45.in_kilogram, :at => r.born_on.to_datetime)
         animal.is_measured!(:net_weight, 75.89.in_kilogram, :at => (r.born_on.to_datetime + 2.months))
@@ -203,8 +208,12 @@ demo :animals do
         end
 
       end
-      w.check_point
+      w.check_point  
+      
     end
+    # set active all animals who is alive
+    Animal.where(:dead_at => nil).update_all(:active => true)
+    
 
   end
 
@@ -225,9 +234,10 @@ demo :animals do
                          :tb => row[11].to_f
                          )
       # case = TAUREAU REPRO
-      animal = Animal.create!(:variant_id => cow_trepro.id, :name => r.name, :variety => "bos", :identification_number => r.identification_number[-10..-1], :external => true, :owner_id => Entity.where(:of_company => false).all.sample.id)
+      animal = Animal.create!(:variant_id => cow_trepro.id, :name => r.name, :variety => "bos", :identification_number => r.identification_number[-10..-1], :active => true, :external => true, :owner_id => Entity.where(:of_company => false).all.sample.id)
       # set default indicators
       animal.is_measured!(:sex, :male)
+      animal.is_measured!(:population, 1.in_unity)
       animal.is_measured!(:reproductor, true)
       animal.is_measured!(:isu_index,  r.isu.in_unity,  :at => now)
       animal.is_measured!(:inel_index, r.inel.in_unity, :at => now)
@@ -266,6 +276,7 @@ demo :animals do
 
           # set default indicators
           animal_mother.is_measured!(:sex, :female)
+          animal_mother.is_measured!(:population, 1.in_unity)
           animal_mother.is_measured!(:reproductor, true)
           animal_mother.is_measured!(:animal_disease_state, :healthy)
           animal_mother.is_measured!(:animal_disease_state, :sick, :at => (Time.now - 2.days))
@@ -281,6 +292,7 @@ demo :animals do
           animal_father = Animal.create!(:variant_id => cow_trepro.id, :name => r.father_name, :variety => "bos", :identification_number => r.father_identification_number, :external => true, :owner_id => Entity.where(:of_company => false).all.sample.id)
           # set default indicators
           animal_father.is_measured!(:sex, :male)
+          animal_father.is_measured!(:population, 1.in_unity)
           animal_father.is_measured!(:reproductor, true)
           animal.father = animal_father
           end
