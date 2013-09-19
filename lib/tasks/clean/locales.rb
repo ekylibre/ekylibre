@@ -111,47 +111,47 @@ task :locales => :environment do
   atotal += count
   acount += count
 
-  # Countries
-  count = CleanSupport.sort_yaml_file :countries, log
-  atotal += count
-  acount += count
+#   # Countries
+#   count = CleanSupport.sort_yaml_file :countries, log
+#   atotal += count
+#   acount += count
 
-  # Currencies
-  currencies_ref = YAML.load_file(I18n.currencies_file)
-  currencies = YAML.load_file(locale_dir.join("currencies.yml"))[locale.to_s]
-  translation  = locale.to_s+":\n"
-  translation << "  currencies:\n"
-  to_translate, untranslated = 0, 0
-  for currency, details in currencies_ref.sort
-    to_translate += 1
-    if currencies["currencies"][currency].blank?
-      translation << "    #{missing_prompt}#{currency}: #{CleanSupport.yaml_value(details['iso_name'])}\n"
-      untranslated += 1
-    else
-      translation << "    #{currency}: "+CleanSupport.yaml_value(::I18n.translate("currencies.#{currency}"))+"\n"
-    end
-  end
-  translation << "  # Override here default formatting options for each currency IF NEEDED\n"
-  translation << "  # Ex.: number.currency.formats.XXX.format\n"
-  translation << "  number:\n"
-  translation << "    currency:\n"
-  translation << "      formats:\n"
-  for currency, details in currencies_ref.sort
-    x = CleanSupport.hash_count(::I18n.hardtranslate("number.currency.formats.#{currency}")||{})
-    to_translate += x
-    if x > 0
-      translation << "        #{currency}:"+CleanSupport.hash_to_yaml(::I18n.hardtranslate("number.currency.formats.#{currency}")||{}, 5)+"\n"
-#    else
-#      translation << "        #{missing_prompt}#{currency}:\n"
-    end
-  end
-  File.open(locale_dir.join("currencies.yml"), "wb") do |file|
-    file.write translation
-  end
-  total = to_translate
-  log.write "  - #{'currencies.yml:'.ljust(20)} #{(100*(total-untranslated)/total).round.to_s.rjust(3)}% (#{total-untranslated}/#{total})\n"
-  atotal += total
-  acount += total-untranslated
+#   # Currencies
+#   currencies_ref = YAML.load_file(I18n.currencies_file)
+#   currencies = YAML.load_file(locale_dir.join("currencies.yml"))[locale.to_s]
+#   translation  = locale.to_s+":\n"
+#   translation << "  currencies:\n"
+#   to_translate, untranslated = 0, 0
+#   for currency, details in currencies_ref.sort
+#     to_translate += 1
+#     if currencies["currencies"][currency].blank?
+#       translation << "    #{missing_prompt}#{currency}: #{CleanSupport.yaml_value(details['iso_name'])}\n"
+#       untranslated += 1
+#     else
+#       translation << "    #{currency}: "+CleanSupport.yaml_value(::I18n.translate("currencies.#{currency}"))+"\n"
+#     end
+#   end
+#   translation << "  # Override here default formatting options for each currency IF NEEDED\n"
+#   translation << "  # Ex.: number.currency.formats.XXX.format\n"
+#   translation << "  number:\n"
+#   translation << "    currency:\n"
+#   translation << "      formats:\n"
+#   for currency, details in currencies_ref.sort
+#     x = CleanSupport.hash_count(::I18n.hardtranslate("number.currency.formats.#{currency}")||{})
+#     to_translate += x
+#     if x > 0
+#       translation << "        #{currency}:"+CleanSupport.hash_to_yaml(::I18n.hardtranslate("number.currency.formats.#{currency}")||{}, 5)+"\n"
+# #    else
+# #      translation << "        #{missing_prompt}#{currency}:\n"
+#     end
+#   end
+#   File.open(locale_dir.join("currencies.yml"), "wb") do |file|
+#     file.write translation
+#   end
+#   total = to_translate
+#   log.write "  - #{'currencies.yml:'.ljust(20)} #{(100*(total-untranslated)/total).round.to_s.rjust(3)}% (#{total-untranslated}/#{total})\n"
+#   atotal += total
+#   acount += total-untranslated
 
   # Devise
   count = CleanSupport.sort_yaml_file :devise, log
@@ -167,10 +167,10 @@ task :locales => :environment do
   atotal += count
   acount += count
 
-  # Languages
-  count = CleanSupport.sort_yaml_file :languages, log
-  atotal += count
-  acount += count
+  # # Languages
+  # count = CleanSupport.sort_yaml_file :languages, log
+  # atotal += count
+  # acount += count
 
   # Models
   untranslated = 0

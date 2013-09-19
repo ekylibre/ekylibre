@@ -201,6 +201,8 @@ module Nomen
           value = (value == "true" ? true : value == "false" ? false : nil)
         elsif attribute.type == :decimal
           value = value.to_d
+        elsif attribute.type == :integer
+          value = value.to_i
         end
       elsif name.to_s != "name" # the only system name
         raise ArgumentError.new("Undefined attribute #{name} in #{@nomenclature.name}")
@@ -219,7 +221,7 @@ module Nomen
   class AttributeDefinition
     attr_reader :nomenclature, :name, :type, :fallbacks, :default
 
-    TYPES = [:boolean, :choice, :date, :decimal, :list, :string]
+    TYPES = [:boolean, :choice, :date, :decimal, :integer, :list, :string]
 
     # New item
     def initialize(nomenclature, element, options = {})
