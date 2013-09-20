@@ -160,7 +160,8 @@ demo :productions do
     campaign ||= Campaign.create!(:name => "2013", :closed => false)
     sole_ble_nature = ProductNature.find_by_nomen("wheat_crop")
     sole_ble_nature ||= ProductNature.import_from_nomenclature(:wheat_crop)
-
+    worker_variant = ProductNature.import_from_nomenclature(:manager).default_variant
+    worker = worker_variant.products.create!(:name => "Brice")
     # create some indicator nature for fertilization
     # find some product for fertilization
     fertilizer_product = ProductNature.where(:nomen => "chemical_fertilizer").first.products.first
@@ -202,32 +203,29 @@ demo :productions do
 
 
     # provisional fertilization procedure
-    procedure_prev = Procedure.create!(:natures => "soil_enrichment", :nomen =>"mineral_fertilizing", :production_id => production.id, :provisional => true )
-
+    intervention_prev = Intervention.create!(:natures => "soil_enrichment", :procedure =>"mineral_fertilizing", :production_id => production.id, :provisional => true )
+    
+    
+     # Create some procedure variable for fertilization
+    for attributes in [{:actor_id => land_parcel_group_fert.id, :variable => "target"},
+                       {:actor_id => fertilizer_product_prev.id, :variable => "input"},
+                       {:actor_id => fertilizer_product_prev.id, :variable => "input"},
+                       {:actor_id => worker.id, :variable => "worker"}
+                      ]
+    
+      intervention_prev.casts.create!(attributes)
+    end
+    
     land_parcel_group_fert = production.supports.first.storage
 
 
-    # Create some procedure variable for fertilization
-    for attributes in [{:target_id => land_parcel_group_fert.id, :role => "target",
-                         :indicator => "net_surface_area",
-                         :measure_quantity => "5.00", :measure_unit => "hectare"},
-                       {:target_id => fertilizer_product_prev.id, :role => "input",
-                         :indicator => "net_weight",
-                         :measure_quantity => "475.00", :measure_unit => "kilogram"},
-                       {:target_id => fertilizer_product_prev.id, :role => "input",
-                         :indicator => "net_weight",
-                         :measure_quantity => "275.00", :measure_unit => "kilogram"}
-                      ]
-      ProcedureVariable.create!({:procedure_id => procedure_prev.id}.merge(attributes) )
-    end
-
     # Create some operation variable for fertilization
     for attributes in [{:started_at => (Time.now - 15.days), :stopped_at => (Time.now - 10.days)}]
-      procedure_prev.operations.create!({:procedure_id => procedure_prev.id}.merge(attributes) )
+      intervention_prev.operations.create!({:procedure_id => procedure_prev.id}.merge(attributes) )
     end
 
     # real fertilization procedure
-    procedure_real = Procedure.create!(:natures => "soil_enrichment", :nomen =>"mineral_fertilizing", :production_id => production.id, :provisional_procedure_id => procedure_prev.id, :state => "done")
+    intervention_real = Intervention.create!(:natures => "soil_enrichment", :procedure =>"mineral_fertilizing", :production_id => production.id, :provisional_intervention_id => procedure_prev.id, :state => "done")
 
 
     # Create some procedure variable for fertilization

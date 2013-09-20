@@ -70,7 +70,7 @@ class Intervention < Ekylibre::Record::Base
   scope :real, -> { where(:provisional => false).order(:nomen) }
 
   scope :with_variable, lambda { |role, object|
-     where("id IN (SELECT procedure_id FROM #{InterventionCast.table_name} WHERE target_id = ? AND role = ?)", object.id, role.to_s)
+     where("id IN (SELECT intervention_id FROM #{InterventionCast.table_name} WHERE actor_id = ? AND role = ?)", object.id, role.to_s)
   }
 
   before_validation do

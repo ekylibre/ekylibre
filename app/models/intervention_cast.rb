@@ -40,7 +40,7 @@ class InterventionCast < Ekylibre::Record::Base
   belongs_to :actor, :class_name => "Product"
   # composed_of :quantity, :class_name => "Measure", :mapping => [%w(measure_quantity value), %w(measure_unit unit)]
 
-  delegate :name, :to => :target, :prefix => true
+  delegate :name, :to => :actor, :prefix => true
 
   scope :of_role, lambda { |role|
     #for nature in natures
