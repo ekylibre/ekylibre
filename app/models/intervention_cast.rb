@@ -26,6 +26,7 @@
 #  id              :integer          not null, primary key
 #  intervention_id :integer          not null
 #  lock_version    :integer          default(0), not null
+#  roles           :string(320)      not null
 #  updated_at      :datetime         not null
 #  updater_id      :integer
 #  variable        :string(255)      not null
@@ -34,7 +35,8 @@ class InterventionCast < Ekylibre::Record::Base
   # attr_accessible :nomen, :target_id, :procedure_id, :role, :measure_quantity, :indicator, :measure_unit
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :variable, :allow_nil => true, :maximum => 255
-  validates_presence_of :actor, :intervention, :variable
+  validates_length_of :roles, :allow_nil => true, :maximum => 320
+  validates_presence_of :actor, :intervention, :roles, :variable
   #]VALIDATORS]
   belongs_to :intervention, :inverse_of => :casts
   belongs_to :actor, :class_name => "Product"
