@@ -933,7 +933,7 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   create_table "intervention_casts", force: true do |t|
     t.integer  "intervention_id",                         null: false
     t.integer  "actor_id",                                null: false
-    t.string   "roles",           limit: 320,             null: false
+    t.string   "roles",           limit: 320
     t.string   "variable",                                null: false
     t.datetime "created_at",                              null: false
     t.datetime "updated_at",                              null: false

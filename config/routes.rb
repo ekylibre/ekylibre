@@ -412,7 +412,7 @@ Ekylibre::Application.routes.draw do
         get :unroll
       end
       member do
-        get :list_procedures
+        get :list_interventions
       end
     end
     resources :incoming_deliveries do
@@ -806,7 +806,7 @@ Ekylibre::Application.routes.draw do
       end
       member do
         get :list_supports
-        get :list_procedures
+        get :list_interventions
       end
     end
 

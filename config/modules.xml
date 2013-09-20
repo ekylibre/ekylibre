@@ -408,15 +408,15 @@
         <page to="backend/productions#update"/>
       </item>
       <item name="operations">
-        <page to="backend/procedures#index" deletable="true"/>
-        <page to="backend/procedures#create" deletable="true"/>
-        <page to="backend/procedures#destroy" deletable="true"/>
-        <page to="backend/procedures#edit" deletable="true"/>
-        <page to="backend/procedures#list" deletable="true"/>
-        <page to="backend/procedures#new" deletable="true"/>
-        <page to="backend/procedures#play" deletable="true"/>
-        <page to="backend/procedures#show" deletable="true"/>
-        <page to="backend/procedures#update" deletable="true"/>
+        <page to="backend/interventions#index" deletable="true"/>
+        <page to="backend/interventions#create" deletable="true"/>
+        <page to="backend/interventions#destroy" deletable="true"/>
+        <page to="backend/interventions#edit" deletable="true"/>
+        <page to="backend/interventions#list" deletable="true"/>
+        <page to="backend/interventions#new" deletable="true"/>
+        <page to="backend/interventions#play" deletable="true"/>
+        <page to="backend/interventions#show" deletable="true"/>
+        <page to="backend/interventions#update" deletable="true"/>
         <page to="backend/operations#index"/>
         <page to="backend/operations#create"/>
         <page to="backend/operations#destroy"/>
@@ -1054,8 +1054,8 @@
         <page to="backend/cells/last_outgoing_deliveries_cells#list"/>
         <page to="backend/cells/last_outgoing_deliveries_cells#show"/>
       </item>
-      <item name="last_procedures_cells">
-        <page to="backend/cells/last_procedures_cells#show"/>
+      <item name="last_interventions_cells">
+        <page to="backend/cells/last_interventions_cells#show"/>
       </item>
       <item name="last_products_cells">
         <page to="backend/cells/last_products_cells#list"/>
