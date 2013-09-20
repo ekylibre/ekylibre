@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
   <!-- ######################################## EPANDRE DE L'ENGRAIS ########################################### -->
-  <procedure name="mineral_fertilizing" natures="enrichment" version="1" status="frozen">
+  <procedure name="mineral_fertilizing" natures="soil_enrichment" version="1" status="frozen">
     <variables>
       <variable name="fertilizer" variety="mineral_matter" abilities="fertilize(plant)"/>
       <variable name="fertilizer_to_spread" same-nature-of="fertilizer" parameter="false" new="quantity=?"/>
