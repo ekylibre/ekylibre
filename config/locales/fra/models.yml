@@ -970,7 +970,7 @@ fra:
     rgt: "Limite droite"
     rights: "Droits"
     role: "Rôle de base"
-    roles: "Rôles" #?
+    roles: "Rôles"
     root_model: "Racine"
     root_model_name: "Racine"
     sale: "Vente"

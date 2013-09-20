@@ -565,7 +565,7 @@ class CreateBase < ActiveRecord::Migration
       # t.string     :measure_unit,                                          null: false
       # t.decimal    :measure_quantity, precision: 19, scale: 4,             null: false
       # t.string     :procedure_nature,                                      null: false
-      # t.string     :role,                                                  null: false
+      t.string     :roles,              limit: 320
       t.string     :variable,                                              null: false
       t.stamps
       t.index      :variable
@@ -588,13 +588,13 @@ class CreateBase < ActiveRecord::Migration
     end
 
     create_table :inventories do |t|
+      t.string     :number,            limit: 20
       t.date       :created_on,                               null: false
       t.text       :description
       t.boolean    :changes_reflected,        default: false, null: false
       t.references :responsible,                                           index: true
       t.datetime   :accounted_at
       t.references :journal_entry,                                         index: true
-      t.string     :number,            limit: 20
       t.date       :moved_on
       t.stamps
     end

@@ -26,6 +26,7 @@
 #  id              :integer          not null, primary key
 #  intervention_id :integer          not null
 #  lock_version    :integer          default(0), not null
+#  roles           :string(320)      not null
 #  updated_at      :datetime         not null
 #  updater_id      :integer
 #  variable        :string(255)      not null

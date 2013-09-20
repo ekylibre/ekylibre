@@ -931,14 +931,15 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "incoming_payments", ["updater_id"], :name => "index_incoming_payments_on_updater_id"
 
   create_table "intervention_casts", force: true do |t|
-    t.integer  "intervention_id",             null: false
-    t.integer  "actor_id",                    null: false
-    t.string   "variable",                    null: false
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
+    t.integer  "intervention_id",                         null: false
+    t.integer  "actor_id",                                null: false
+    t.string   "roles",           limit: 320,             null: false
+    t.string   "variable",                                null: false
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",    default: 0, null: false
+    t.integer  "lock_version",                default: 0, null: false
   end
 
   add_index "intervention_casts", ["actor_id"], :name => "index_intervention_casts_on_actor_id"
@@ -978,13 +979,13 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "interventions", ["updater_id"], :name => "index_interventions_on_updater_id"
 
   create_table "inventories", force: true do |t|
+    t.string   "number",            limit: 20
     t.date     "created_on",                                   null: false
     t.text     "description"
     t.boolean  "changes_reflected",            default: false, null: false
     t.integer  "responsible_id"
     t.datetime "accounted_at"
     t.integer  "journal_entry_id"
-    t.string   "number",            limit: 20
     t.date     "moved_on"
     t.datetime "created_at",                                   null: false
     t.datetime "updated_at",                                   null: false

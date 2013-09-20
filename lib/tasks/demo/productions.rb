@@ -208,7 +208,7 @@ demo :productions do
 
 
     # Create some intervention cast for fertilization
-    for attributes in [{:actor_id => land_parcel_group_fert.id, 
+    for attributes in [{:actor_id => land_parcel_group_fert.id,
                          # :role => "target", :indicator => "net_surface_area", :measure_quantity => "5.00", :measure_unit => "hectare",
                          #WHAT TO DO? Variable OR Role
                          :variable => ""

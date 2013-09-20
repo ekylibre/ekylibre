@@ -26,6 +26,7 @@
 #  id              :integer          not null, primary key
 #  intervention_id :integer          not null
 #  lock_version    :integer          default(0), not null
+#  roles           :string(320)      not null
 #  updated_at      :datetime         not null
 #  updater_id      :integer
 #  variable        :string(255)      not null
@@ -39,6 +40,7 @@
 #   creator_id: 1
 #   id: 1
 #   intervention_id: 1
+#   roles: "Lorem ipsum"
 #   updated_at: 2009-07-19 19:13:59 +02:00
 #   updater_id: 1
 #   variable: "Lorem ipsum"
@@ -60,6 +62,7 @@ intervention_casts_002:
   creator_id: 1
   id: 2
   intervention_id: 1
+  roles: 'grinding-output, soil_enrichment-input'
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
-  variable: "grindable"
+  variable: "grinded"
