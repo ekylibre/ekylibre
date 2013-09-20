@@ -10,8 +10,9 @@
       <item name="production"/>
       <item name="feeding"/>
       <item name="technical_guide"/>
-      <item name="tillage"/>
+      <item name="tillage" roles="target"/>
       <item name="soil_enrichment" roles="input, target"/>
+      <item name="sowing" roles="seed, sds, culture"/>
       <item name="pruning" roles="gardener+, target+"/>
       <item name="grinding" roles="input, output"/>
     </items>

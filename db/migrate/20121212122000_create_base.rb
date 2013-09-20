@@ -560,10 +560,11 @@ class CreateBase < ActiveRecord::Migration
 
     create_table :intervention_casts do |t|
       t.references :intervention,                                          null: false, index: true
-      t.references :actor,                                                 null: false, index: true
+      t.references :actor,                                                              index: true
       # t.string     :indicator,                                             null: false
       # t.string     :measure_unit,                                          null: false
       # t.decimal    :measure_quantity, precision: 19, scale: 4,             null: false
+      t.decimal    :quantity,           precision: 19, scale: 4
       # t.string     :procedure_nature,                                      null: false
       t.string     :roles,              limit: 320
       t.string     :variable,                                              null: false

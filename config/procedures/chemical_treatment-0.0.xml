@@ -1,6 +1,5 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <!-- ######################################## TRAITER CHIMIQUEMENT LA CULTURE AVEC UNE MOLECULE ########################################### -->
   <procedure name="chemical_treatment" natures="treatment" version="1" status="frozen">
     <variables>
       <variable name="driver" variety="worker"/><!-- paramètre réprésentant des objets de type Humain qui possede la compétence "Conduire un ensemble tracteur + épandeur"  -->

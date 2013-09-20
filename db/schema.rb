@@ -931,15 +931,16 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "incoming_payments", ["updater_id"], :name => "index_incoming_payments_on_updater_id"
 
   create_table "intervention_casts", force: true do |t|
-    t.integer  "intervention_id",                         null: false
-    t.integer  "actor_id",                                null: false
-    t.string   "roles",           limit: 320,             null: false
-    t.string   "variable",                                null: false
-    t.datetime "created_at",                              null: false
-    t.datetime "updated_at",                              null: false
+    t.integer  "intervention_id",                                                  null: false
+    t.integer  "actor_id",                                                         null: false
+    t.decimal  "quantity",                    precision: 19, scale: 4,             null: false
+    t.string   "roles",           limit: 320
+    t.string   "variable",                                                         null: false
+    t.datetime "created_at",                                                       null: false
+    t.datetime "updated_at",                                                       null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                default: 0, null: false
+    t.integer  "lock_version",                                         default: 0, null: false
   end
 
   add_index "intervention_casts", ["actor_id"], :name => "index_intervention_casts_on_actor_id"
