@@ -36,8 +36,10 @@ module Procedures
       element.xpath("xmlns:procedures/xmlns:procedure").each_with_index do |procedure, position|
         @procedures << Procedure.new(procedure, :parent => self, :position => position)
       end
+      id = 1
       @operations = element.xpath("xmlns:operations/xmlns:operation").collect do |operation|
-        Operation.new(self, operation)
+        Operation.new(self, id, operation)
+        id += 1
       end
     end
 
@@ -153,11 +155,11 @@ module Procedures
   end
 
   class Operation
-    attr_reader :name, :procedure, :tasks
+    attr_reader :id, :procedure, :tasks
 
-    def initialize(procedure, element)
+    def initialize(procedure, id, element)
       @procedure = procedure
-      @name = element.attr("name").to_sym
+      @id = id
       @tasks = element.xpath('xmlns:task').collect do |task|
         Task.new(self, task)
       end

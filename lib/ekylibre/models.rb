@@ -1646,13 +1646,14 @@ module Ekylibre
       updater_id: Ekylibre::Record::Column.new(:updater_id, :integer).freeze
     ).freeze,
     intervention_casts: HashWithIndifferentAccess.new(
-      actor_id: Ekylibre::Record::Column.new(:actor_id, :integer, null: false).freeze,
+      actor_id: Ekylibre::Record::Column.new(:actor_id, :integer).freeze,
       created_at: Ekylibre::Record::Column.new(:created_at, :datetime, null: false).freeze,
       creator_id: Ekylibre::Record::Column.new(:creator_id, :integer).freeze,
       id: Ekylibre::Record::Column.new(:id, :integer, null: false).freeze,
       intervention_id: Ekylibre::Record::Column.new(:intervention_id, :integer, null: false).freeze,
       lock_version: Ekylibre::Record::Column.new(:lock_version, :integer, null: false, default: 0).freeze,
-      roles: Ekylibre::Record::Column.new(:roles, :string, limit: 320, null: false).freeze,
+      quantity: Ekylibre::Record::Column.new(:quantity, :decimal, precision: 19, scale: 4).freeze,
+      roles: Ekylibre::Record::Column.new(:roles, :string, limit: 320).freeze,
       updated_at: Ekylibre::Record::Column.new(:updated_at, :datetime, null: false).freeze,
       updater_id: Ekylibre::Record::Column.new(:updater_id, :integer).freeze,
       variable: Ekylibre::Record::Column.new(:variable, :string, null: false).freeze

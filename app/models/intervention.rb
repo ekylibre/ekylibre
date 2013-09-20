@@ -138,11 +138,11 @@ class Intervention < Ekylibre::Record::Base
 
 
   def valid_for_run?
-    
+
   end
 
   def run!
-    
+
   end
 
   # # Return the next procedure (depth course)

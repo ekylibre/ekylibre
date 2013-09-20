@@ -139,7 +139,7 @@ demo :productions do
   #     production.supports.create!(:storage_id => land_parcel_group_fert.id)
   #   end
 
-    
+
 
 
   #   # provisional fertilization intervention
@@ -159,7 +159,7 @@ demo :productions do
   #               ]
   #     intervention_prev.casts.create!(cast)
   #   end
-    
+
   #   intervention.run!
 
   #   # Create some operation cast for fertilization

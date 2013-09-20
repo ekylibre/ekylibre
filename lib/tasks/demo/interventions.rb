@@ -1,5 +1,5 @@
 demo :interventions do
-  
+
   class Booker
 
     def self.daytime_duration(on)
@@ -42,7 +42,7 @@ demo :interventions do
       if duration > daytime_duration
         duration_days = (duration.to_f / daytime_duration).ceil
       end
-      
+
       # Split into many interventions
       periods = []
       total = duration * 1.0
@@ -91,8 +91,8 @@ demo :interventions do
             i.cast(variable: 'tractor', actor: Product.can("tow(plower)").all.sample)
             i.cast(variable: 'plower', actor: Product.can("plow").all.sample)
             i.cast(variable: 'land_parcel', actor: land_parcel)
-          end          
-          
+          end
+
           # Sowing 15-10-N -> 30-10-N
           Booker.intervene(:sowing, year - 1, 10, 15, 6.92 * coeff, :range => 15) do |i|
             i.cast(variable: 'seeds', actor: Product.of_variety("seed").derivative_of(production.product_nature).all.sample)
@@ -102,8 +102,8 @@ demo :interventions do
             i.cast(variable: 'tractor', actor: Product.can("tow(sower)").all.sample)
             i.cast(variable: 'land_parcel', actor: land_parcel)
             i.cast(variable: 'culture')
-          end          
-          
+          end
+
           # Fertilizing  01-03-M -> 31-03-M
           Booker.intervene(:mineral_fertilizing, year, 3, 1, 0.96 * coeff) do |i|
             i.cast(variable: 'fertilizer', actor: fertilizer_product_prev)
@@ -112,7 +112,7 @@ demo :interventions do
             i.cast(variable: 'driver', actor: Worker.all.sample)
             i.cast(variable: 'tractor', actor: Product.can("tow(spreader)").all.sample)
             i.cast(variable: 'land_parcel', roles: 'soil_enrichment-target', actor: land_parcel)
-          end          
+          end
 
           if w.count.mod(3).zero? # AND NOT prairie
             # Treatment herbicide 01-04 30-04
@@ -125,7 +125,7 @@ demo :interventions do
               i.cast(variable: 'land_parcel', roles: 'soil_enrichment-target', actor: land_parcel_group_fert)
             end
           end
-          
+
           # Harvest 01-07-M 30-07-M
           Booker.intervene(:harvest, year, 7, 1, 3.13 * coeff) do |i|
             i.cast(variable: 'fertilizer', actor: fertilizer_product_prev)
@@ -134,7 +134,7 @@ demo :interventions do
             i.cast(variable: 'driver', actor: Worker.all.sample)
             i.cast(variable: 'tractor', actor: Product.can("tow(spreader)").all.sample)
             i.cast(variable: 'land_parcel', roles: 'soil_enrichment-target', actor: land_parcel_group_fert)
-          end         
+          end
         end
         w.check_point
       end

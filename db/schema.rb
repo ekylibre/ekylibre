@@ -932,8 +932,8 @@ ActiveRecord::Schema.define(version: 20121212122000) do
 
   create_table "intervention_casts", force: true do |t|
     t.integer  "intervention_id",                                                  null: false
-    t.integer  "actor_id",                                                         null: false
-    t.decimal  "quantity",                    precision: 19, scale: 4,             null: false
+    t.integer  "actor_id"
+    t.decimal  "quantity",                    precision: 19, scale: 4
     t.string   "roles",           limit: 320
     t.string   "variable",                                                         null: false
     t.datetime "created_at",                                                       null: false
