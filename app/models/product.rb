@@ -60,7 +60,6 @@
 
 
 class Product < Ekylibre::Record::Base
-  # attr_accessible :active, :created_at, :type, :variety, :external, :name, :description, :number, :identification_number, :work_number, :born_at, :dead_at, :picture, :owner_id, :variant_id , :indicator_data_attributes # , :parent_id
   enumerize :variety, :in => Nomen::Varieties.all, :predicates => {:prefix => true}
   enumerize :content_indicator, :in => Nomen::Indicators.all, :predicates => {:prefix => true}
   enumerize :content_indicator_unit, :in => Nomen::Units.all, :predicates => {:prefix => true}
@@ -89,9 +88,13 @@ class Product < Ekylibre::Record::Base
     }
   }
 
-  # default_scope -> { order(:name) }
   scope :members_of, lambda { |group, viewed_at| where("id IN (SELECT member_id FROM #{ProductMembership.table_name} WHERE group_id = ? AND ? BETWEEN COALESCE(started_at, ?) AND COALESCE(stopped_at, ?))", group.id, viewed_at, viewed_at, viewed_at)}
-
+  scope :of_variety, lambda { |*varieties|
+    where(:variety => varieties.collect{|v| Nomen::Varieties.all(v.to_sym) }.flatten.map(&:to_s).uniq)
+  }
+  scope :derivative_of, lambda { |*varieties|
+    where(:nature_id => ProductNature.of_variety(*varieties))
+  }
   # for a product_nature
   scope :of_nature, lambda { |nature|
     where(:nature_id => nature.id)
@@ -113,17 +116,18 @@ class Product < Ekylibre::Record::Base
     parameters = []
     for ability in abilities.flatten.join(', ').strip.split(/[\s\,]+/)
       if ability =~ /\(.*\)\z/
-        params = ability.split(/\s*(\(\,\))\s*/)
+        params = ability.split(/\s*[\(\,\)]\s*/)
         ability = params.shift.to_sym
         item = Nomen::Abilities[ability]
-        for p in item.parameters.split(/\,\s*/)
-          v = expr.shift
-          if p == "variety"
-            raise ArgumentError.new("Unknown variety: #{v.inspect}") unless v = Nomen::Varieties[v]
+        raise ArgumentError.new("Unknown ability: #{ability.inspect}") unless Nomen::Abilities[ability]
+        for p in item.parameters
+          v = params.shift
+          if p == :variety
+            raise ArgumentError.new("Unknown variety: #{v.inspect}") unless child = Nomen::Varieties[v]
             q = []
-            for variety in v.self_and_parents
+            for variety in child.self_and_parents
               q << "abilities ~ E?"
-              parameters << "\\\\m#{ability}(#{variety})\\\\M"
+              parameters << "\\\\m#{ability}(#{variety.name})\\\\M"
             end
             query << "(" + q.join(" OR ") + ")"
           else
@@ -154,7 +158,7 @@ class Product < Ekylibre::Record::Base
 
   accepts_nested_attributes_for :memberships, :reject_if => :all_blank, :allow_destroy => true
   accepts_nested_attributes_for :indicator_data, :allow_destroy => true#, :reject_if => :all_blank,
-  acts_as_numbered
+  acts_as_numbered force: false
   delegate :serial_number, :producer, :to => :tracking
   delegate :name, :to => :nature, :prefix => true
   delegate :subscribing?, :deliverable?, :to => :nature

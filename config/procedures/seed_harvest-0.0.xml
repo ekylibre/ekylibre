@@ -4,14 +4,19 @@
   <procedure name="seed_harvest" natures="production" version="1" status="frozen">
     <variables>
       <variable name="silo" variety="settlement" abilities="store(plant)"/>
-      <variable name="driver" variety="worker"/><!-- paramètre réprésentant des objets de type Humain qui possede la compétence "Conduire un ensemble tracteur + épandeur"  -->
-      <variable name="tractor" variety="equipment" abilities="tow,catch"/><!-- paramètre réprésentant des objets qui possede la compétence "Tracter"  -->
-      <variable name="trailer" variety="equipment" abilities="store_fluid,transport"/><!-- paramètre réprésentant des objets qui possede la compétence "Semer"  -->
-      <variable name="cropper_driver" variety="worker" abilities="cropper_driving" /><!-- paramètre réprésentant des objets de type Humain qui possede la compétence "Conduire un ensemble de semis"  -->
-      <variable name="cropper" type="equipment" abilities="harvest(plant)" /><!-- paramètre réprésentant des objets de type Humain qui possede la compétence "Conduire un ensemble de semis"  -->
+      <variable name="driver" variety="worker"/>
+      <!-- paramètre réprésentant des objets de type Humain qui possede la compétence "Conduire un ensemble tracteur + épandeur"  -->
+      <variable name="tractor" variety="equipment" abilities="tow,catch"/>
+      <!-- paramètre réprésentant des objets qui possede la compétence "Tracter"  -->
+      <variable name="trailer" variety="equipment" abilities="store_fluid,transport"/>
+      <!-- paramètre réprésentant des objets qui possede la compétence "Semer"  -->
+      <variable name="cropper_driver" variety="worker" abilities="cropper_driving" />
+      <!-- paramètre réprésentant des objets de type Humain qui possede la compétence "Conduire un ensemble de semis" -->
+      <variable name="cropper" type="equipment" abilities="harvest(plant)" />
+      <!-- paramètre réprésentant des objets de type Humain qui possede la compétence "Conduire un ensemble de semis" -->
       <variable name="culture" variety="plant"/>
-      <variable name="grains" same-variety-of="culture" derivative="grain" new="quantity=?, unit=?"/>
-      <variable name="straw" same-variety-of="culture" derivative= "straw" new="quantity=?, unit=?"/>
+      <variable name="grains" same-variety-of="culture" derivative="grain" new="quantity=?, unit=?" roles="production-output"/>
+      <variable name="straw" same-variety-of="culture" derivative= "straw" new="quantity=?, unit=?" roles="production-output"/>
     </variables>
     <operation name="transport_0100">
       <task do="[cropper-driver] moves-in [cropper]"/><!-- le chauffeur se déplace vers la moissonneuse et rentre dedant (?) -->

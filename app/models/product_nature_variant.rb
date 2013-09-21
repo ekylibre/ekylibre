@@ -74,7 +74,9 @@ class ProductNatureVariant < Ekylibre::Record::Base
   }
 
   # default_scope -> { order(:name) }
-  scope :of_variety, Proc.new { |*varieties| where(:nature_id => ProductNature.of_variety(*varieties).pluck(:id)) }
+  scope :of_variety, Proc.new { |*varieties|
+    where(:nature_id => ProductNature.of_variety(*varieties))
+  }
 
   scope :of_natures, lambda { |*natures|
     natures.flatten!

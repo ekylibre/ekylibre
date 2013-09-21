@@ -75,6 +75,9 @@ class Intervention < Ekylibre::Record::Base
 
   before_validation do
     self.state ||= self.class.state.default
+    if p = Procedures[self.procedure]
+      self.natures = p.natures.sort.join(" ")
+    end
     self.natures = self.natures.to_s.strip.split(/[\s\,]+/).sort.join(" ")
   end
 
@@ -144,6 +147,19 @@ class Intervention < Ekylibre::Record::Base
   def run!
 
   end
+
+  def add_cast(attributes)
+    self.casts.create!(attributes)
+  end
+
+
+  def self.run!(attributes, &block)
+    intervention = create!(attributes)
+    yield intervention
+    intervention.run!
+    return intervention
+  end
+
 
   # # Return the next procedure (depth course)
   # def followings

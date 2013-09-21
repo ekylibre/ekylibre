@@ -11,7 +11,7 @@ module Procedures
   # This class represent a procedure
   class Procedure
 
-    attr_reader :id, :name, :namespace, :operations, :parent, :position, :procedures, :variables, :version
+    attr_reader :id, :name, :namespace, :operations, :natures, :parent, :position, :variables, :version
 
     def initialize(element, options = {})
       name = element.attr("name").to_s.split(NS_SEPARATOR)
@@ -27,15 +27,16 @@ module Procedures
       # @id = element.attr("id").to_s
       # raise MissingAttribute.new("Attribute 'id' must be given for a <procedure>") if @id.blank?
       @version = element.attr("version").to_s
+      @natures = element.attr('natures').to_s.strip.split(/[\s\,]+/).compact.map(&:to_sym)
       raise MissingAttribute.new("Attribute 'version' must be given for a <procedure>") if @version.blank?
       @variables = element.xpath("xmlns:variables/xmlns:variable").inject({}) do |hash, variable|
         hash[variable.attr("name").to_s] = Variable.new(self, variable)
         hash
       end
-      @procedures = []
-      element.xpath("xmlns:procedures/xmlns:procedure").each_with_index do |procedure, position|
-        @procedures << Procedure.new(procedure, :parent => self, :position => position)
-      end
+      # @procedures = []
+      # element.xpath("xmlns:procedures/xmlns:procedure").each_with_index do |procedure, position|
+      #   @procedures << Procedure.new(procedure, :parent => self, :position => position)
+      # end
       id = 1
       @operations = element.xpath("xmlns:operations/xmlns:operation").collect do |operation|
         Operation.new(self, id, operation)
@@ -43,7 +44,7 @@ module Procedures
       end
     end
 
-    alias :children :procedures
+    # alias :children :procedures
 
     # Returns a fully-qualified name for the procedure
     def full_name
@@ -60,22 +61,22 @@ module Procedures
       @parent.nil?
     end
 
-    # Returns self with children recursively as an array
-    def tree
-      return procedures.inject([self]) do |array, procedure|
-        array += procedure.tree
-        array
-      end
-    end
+    # # Returns self with children recursively as an array
+    # def tree
+    #   return procedures.inject([self]) do |array, procedure|
+    #     array += procedure.tree
+    #     array
+    #   end
+    # end
 
-    # Returns the full hash of procedured
-    def hash
-      return self.root.hash unless root?
-      return self.tree.inject({}) do |hash, procedure|
-        hash[procedure.id] = procedure
-        hash
-      end
-    end
+    # # Returns the full hash of procedured
+    # def hash
+    #   return self.root.hash unless root?
+    #   return self.tree.inject({}) do |hash, procedure|
+    #     hash[procedure.id] = procedure
+    #     hash
+    #   end
+    # end
 
     # Returns the root procedure
     def root

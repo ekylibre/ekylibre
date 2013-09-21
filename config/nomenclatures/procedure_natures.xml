@@ -7,7 +7,7 @@
     <items>
       <item name="animal_care" roles="input, target"/>
       <item name="reproduction"/>
-      <item name="production"/>
+      <item name="production" roles="output+"/>
       <item name="feeding"/>
       <item name="technical_guide"/>
       <item name="tillage" roles="target"/>

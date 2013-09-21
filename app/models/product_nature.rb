@@ -98,7 +98,12 @@ class ProductNature < Ekylibre::Record::Base
   scope :purchaseables, -> { where(:purchasable => true).order(:name) }
   # scope :producibles, -> { where(:variety => ["bos", "animal", "plant", "organic_matter"]).order(:name) }
 
-  scope :of_variety, Proc.new { |*varieties| where(:variety => varieties.collect{|v| Nomen::Varieties.all(v.to_sym) }.flatten.map(&:to_s).uniq) }
+  scope :of_variety, Proc.new { |*varieties|
+    where(:variety => varieties.collect{|v| Nomen::Varieties.all(v.to_sym) }.flatten.map(&:to_s).uniq)
+  }
+  scope :derivative_of, Proc.new { |*varieties|
+    where(:derivative_of => varieties.collect{|v| Nomen::Varieties.all(v.to_sym) }.flatten.map(&:to_s).uniq)
+  }
 
   before_validation do
     if self.derivative_of
