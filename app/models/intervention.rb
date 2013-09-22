@@ -47,7 +47,7 @@ class Intervention < Ekylibre::Record::Base
   belongs_to :provisional_intervention, class_name: "Intervention"
   has_many :casts, :class_name => "InterventionCast", :inverse_of => :intervention
   has_many :operations, :inverse_of => :intervention
-  enumerize :procedure, :in => Procedures.names.sort
+  enumerize :procedure, :in => Procedo.names.sort
   enumerize :state, :in => [:undone, :squeezed, :in_progress, :done], :default => :undone
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :natures, :procedure, :state, :allow_nil => true, :maximum => 255
@@ -66,17 +66,26 @@ class Intervention < Ekylibre::Record::Base
   #   raise ArgumentError.new("Unknown nature #{nature.inspect}") unless Nomen::ProcedureNatures[nature]
   #   where("natures ~ E?", "\\\\m#{nature}\\\\M")
   # }
-  scope :provisional, -> { where(:provisional => true).order(:nomen) }
-  scope :real, -> { where(:provisional => false).order(:nomen) }
+  scope :provisional, -> { where(provisional: true) }
+  scope :real, -> { where(provisional: false) }
 
   scope :with_variable, lambda { |role, object|
-     where("id IN (SELECT procedure_id FROM #{InterventionCast.table_name} WHERE target_id = ? AND role = ?)", object.id, role.to_s)
+     where("id IN (SELECT intervention_id FROM #{InterventionCast.table_name} WHERE target_id = ? AND role = ?)", object.id, role.to_s)
+  }
+  scope :with_cast, lambda { |role, object|
+     where("id IN (SELECT intervention_id FROM #{InterventionCast.table_name} WHERE actor_id = ? AND roles ~ E?)", object.id, role.to_s)
   }
 
   before_validation do
     self.state ||= self.class.state.default
-    if p = Procedures[self.procedure]
+    if p = self.reference
       self.natures = p.natures.sort.join(" ")
+    end
+    if op = self.operations.reorder("started_at").first
+      self.started_at = op.started_at
+    end
+    if op = self.operations.reorder("stopped_at DESC").first
+      self.stopped_at = op.stopped_at
     end
     self.natures = self.natures.to_s.strip.split(/[\s\,]+/).sort.join(" ")
   end
@@ -90,7 +99,7 @@ class Intervention < Ekylibre::Record::Base
   #     end
   #   end
   #   if self.root?
-  #     self.uid ||= Procedures[self.nomen.to_s].id
+  #     self.uid ||= Procedo[self.procedure.to_s].id
   #   end
   #   if self.reference
   #     self.version = self.reference.version
@@ -104,59 +113,64 @@ class Intervention < Ekylibre::Record::Base
   # end
 
 
-  # started_at (the first operation of the current procedure)
-  def started_at
-    if operation = self.operations.reorder(:started_at).first
-      return operation.started_at
-    end
-    return nil
-  end
+  # # started_at (the first operation of the current procedure)
+  # def started_at
+  #   if operation = self.operations.reorder(:started_at).first
+  #     return operation.started_at
+  #   end
+  #   return nil
+  # end
 
-  def stopped_at
-    if operation = self.operations.reorder(:stopped_at).first
-      return operation.stopped_at
-    end
-    return nil
-  end
-
-  # Reference
-  def reference
-    #  ref.hash[self.uid]
-    self.nomen
-  end
+  # def stopped_at
+  #   if operation = self.operations.reorder(:stopped_at).first
+  #     return operation.stopped_at
+  #   end
+  #   return nil
+  # end
 
   # Main reference
-  def ref
-    Procedures[self.nomen.to_s]
+  def reference
+    Procedo[self.procedure]
   end
 
   # Returns variable names
-  def variables_names
-    self.variables.map(&:target_name).sort.to_sentence
+  def casting
+    self.casts.map(&:actor).compact.map(&:name).sort.to_sentence
   end
 
   def name
-    ref.human_name
+    reference.human_name
   end
 
+  def valid_for_run?(started_at, duration)
+    if self.reference.minimal_duration < duration
+      raise ArgumentError.new("The intervention cannot last less than the minimum")
+    end
+    for op in self.reference.operations
 
-  def valid_for_run?
-
+    end
   end
 
-  def run!
+  def run!(period)
+    started_at = period[:started_at]
+    duration = period[:duration]
 
+    for op in self.reference.operations
+      self.operations.create!(started_at: x, stopped_at: y)
+    end
+    self.reload!
+    self.state = :done
+    self.save!
   end
 
   def add_cast(attributes)
     self.casts.create!(attributes)
   end
 
-
-  def self.run!(attributes, &block)
+  def self.run!(attributes, period, &block)
     intervention = create!(attributes)
     yield intervention
-    intervention.run!
+    intervention.run!(period)
     return intervention
   end
 

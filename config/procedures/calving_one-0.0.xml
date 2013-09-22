@@ -1,14 +1,14 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
   <!-- ######################################## VELAGE PRODUISANT UN VEAU ########################################### -->
-  <procedure name="calving_one" natures="reproduction" version="1" status="frozen">
+  <procedure name="calving_one" natures="reproduction" version="0.0" status="frozen">
     <variables>
       <variable name="mother_animal" variety="bos" abilities="produce"/>
       <variable name="child_animal" variety="bos" new="mother=[mother_animal], father=?, quantity=1, unit=u, weight=?, mammalia_twins_condition=none"/>
       <variable name="person" variety="worker"/>
     </variables>
     <operations>
-      <operation name="calving_0100">
+      <operation id="100">
         <task do="[mother_animal] produce [child_animal]"/><!-- une vache produit un veau -->
         <task do="[person] measure [child_animal] at mammalia_born_condition"/>
         <task do="[person] measure [mother_animal] at mammalia_born_cycle"/>

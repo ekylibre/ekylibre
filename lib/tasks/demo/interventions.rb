@@ -59,8 +59,7 @@ demo :interventions do
       # Run interventions
       int = nil
       for period in periods
-
-        int = Intervention.run!(procedure: procedure, production: Booker.production, &block)
+        int = Intervention.run!({procedure: procedure, production: Booker.production}, period, &block)
       end
       return int
     end

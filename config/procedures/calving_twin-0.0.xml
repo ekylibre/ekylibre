@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
   <!-- ######################################## VELAGE PRODUISANT DES JUMEAUX ########################################### -->
-  <procedure name="calving_twin" natures="reproduction" version="1" status="frozen">
+  <procedure name="calving_twin" natures="reproduction" version="0.0" status="frozen">
     <variables>
       <variable name="mother_animal" variety="bos" abilities="produce"/>
       <variable name="child_animal_first" variety="bos" new="mother=[mother_animal], father=?, quantity=1, unit=u, weight=?, mammalia_twins_condition=twins"/>
@@ -9,15 +9,15 @@
       <variable name="person" variety="worker"/>
     </variables>
     <operations>
-      <operation name="calving_0100">
+      <operation id="100">
         <task do="[mother_animal] produce [child_animal_first]"/><!-- une vache produit le premier veau -->
         <task do="[person] measure [child_animal_first] at mammalia_born_condition"/>
       </operation>
-      <operation name="calving_0200">
+      <operation id="200">
         <task do="[mother_animal] produce [child_animal_second]"/><!-- une vache produit le second veau -->
         <task do="[person] measure [child_animal_second] at mammalia_born_condition"/>
       </operation>
-      <operation name="calving_0300">
+      <operation id="300">
         <task do="[person] measure [mother_animal] at mammalia_born_cycle"/>
         <task do="[person] measure [mother_animal] at mammalia_reproduction_method_embryo_transplant"/>
         <task do="[person] measure [mother_animal] at mammalia_reproduction_event_abortion"/>      

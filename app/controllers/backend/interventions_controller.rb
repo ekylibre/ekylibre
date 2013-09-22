@@ -26,8 +26,8 @@ class Backend::InterventionsController < BackendController
     t.column :name, :through => :production, :url => true
     t.column :name, :through => :incident, :url => true
     t.column :state
-    t.column :variables_names
-    t.action :play
+    t.column :casting
+    # t.action :play
     t.action :destroy, :if => :destroyable?
   end
 

@@ -765,10 +765,12 @@ class CreateBase < ActiveRecord::Migration
     create_table :operations do |t|
       t.references :intervention,                  null: false, index: true
       t.datetime   :started_at,                    null: false
-      t.datetime   :stopped_at
+      t.datetime   :stopped_at,                    null: false
       t.integer    :duration
       t.integer    :position
       t.stamps
+      t.index      :started_at
+      t.index      :stopped_at
     end
 
     create_table :operation_tasks do |t|

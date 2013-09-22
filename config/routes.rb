@@ -412,7 +412,7 @@ Ekylibre::Application.routes.draw do
         get :unroll
       end
       member do
-        get :list_procedures
+        get :list_interventions
       end
     end
     resources :incoming_deliveries do
@@ -449,7 +449,18 @@ Ekylibre::Application.routes.draw do
         post :reflect
       end
     end
-    resources :incoming_payment_uses
+
+    resources :interventions do
+      collection do
+        get :list
+        get :unroll
+      end
+      member do
+        get :list_casts
+        get :list_operations
+      end
+    end
+
     resources :inventories do
       collection do
         get :list
@@ -674,36 +685,20 @@ Ekylibre::Application.routes.draw do
         get :unroll
       end
     end
-    # resources :procedure_natures do
-    #   collection do
-    #     get :list
-    #     get :unroll
-    #   end
-    # end
 
-    resources :interventions do
+    resources :products do
       collection do
         get :list
         get :unroll
       end
       member do
-        get :list_casts
-        get :list_operations
-      end
-    end
-
-    resources :products do
-      collection do
-        get :list
-        get :list_content_product
-        get :list_place
-        get :list_group
-        get :list_member
-        get :list_indicator
-        get :list_incident
-        get :list_events
-        get :list_children
-        get :unroll
+        get :list_contained_products
+        get :list_groups
+        get :list_incidents
+        get :list_indicators
+        get :list_intervention_casts
+        get :list_members
+        get :list_places
       end
     end
 
@@ -806,7 +801,7 @@ Ekylibre::Application.routes.draw do
       end
       member do
         get :list_supports
-        get :list_procedures
+        get :list_interventions
       end
     end
 

@@ -7,21 +7,24 @@
     <items>
       <!-- Empty-dimension -->
       <item name="none" expression=""/>
+
       <!-- SI first-level dimensions -->
-      <item name="temperature" expression="K"/>
-      <item name="weight"      expression="kg"/>
-      <item name="length"      expression="m"/>
-      <item name="time"        expression="s"/>
+      <item name="temperature"         expression="K"/>
+      <item name="weight"              expression="kg"/>
+      <item name="length"              expression="m"/>
+      <item name="time"                expression="s"/>
       <item name="electric_current"    expression="A"/>
       <item name="amount_of_substance" expression="mol"/>
       <item name="luminous_intensity"  expression="cd"/>
+
       <!-- SI next-levels dimensions -->
-      <item name="surface_area" expression="m2"/>
-      <item name="volume"       expression="m3"/>
+      <item name="surface_area"       expression="m2"/>
+      <item name="volume"             expression="m3"/>
       <item name="mass_concentration" expression="kg*m-3"/>
-      <item name="specific_volume" expression="m3*kg-1"/>
-      <item name="concentration" expression="m-3"/>
-      <item name="mass_density" expression="kg-1"/>
+      <item name="specific_volume"    expression="m3*kg-1"/>
+      <item name="concentration"      expression="m-3"/>
+      <item name="mass_density"       expression="kg-1"/>
+
     </items>
   </nomenclature>
 </nomenclatures>

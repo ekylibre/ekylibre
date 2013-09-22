@@ -1,19 +1,17 @@
-=main_toolbar do |t|
-  -t.edit @procedure
-  -t.play @procedure
+= main_toolbar do |t|
+  - t.edit @intervention
+  - #  t.play @intervention
 
-=beehive do |b|
-  -b.tabbox do
-    -#b.cell :operations do
-      =render :partial => @procedure, :locals => {:root => @procedure, :reference => @procedure.reference}
-    -b.cell do
-      =attributes_list(@procedure) do |l|
-        -l.attribute :nomen
-        -l.attribute :state
-        -l.attribute :production, :url => true
+= beehive do |b|
+  - b.tabbox do
+    - b.cell do
+      = attributes_list(@intervention) do |l|
+        - l.attribute :procedure
+        - l.attribute :state
+        - l.attribute :production, :url => true
 
-  -b.tabbox do
-    -b.cell(:variables) do
-      =list(:variables)
-    -b.cell(:operations) do
-      =list(:operations)
+  - b.tabbox do
+    - b.cell(:casts) do
+      = list(:casts)
+    - b.cell(:operations) do
+      = list(:operations)

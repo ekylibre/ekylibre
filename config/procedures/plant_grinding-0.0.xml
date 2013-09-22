@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="plant_grinding" natures="grinding, soil_enrichment" version="1" status="frozen">
+  <procedure name="plant_grinding" natures="grinding, soil_enrichment" version="0.0" status="frozen">
     <variables>
       <variable name="grindable" derivative-of="plant" role="grinding-input"/>
       <variable name="grinder" abilities="grind(plant)"/>
@@ -8,7 +8,7 @@
       <variable name="land_parcel" variety="land_parcel" role="soil_enrichment-target"/>
       <variable name="driver" variety="worker"/>
     </variables>
-    <operation>
+    <operation id="100">
       <task do="[driver] drives [grinder]"/>
       <task do="[grinder] consumes [grindable]"/>
       <task do="[grinder] produces [grinded]"/>

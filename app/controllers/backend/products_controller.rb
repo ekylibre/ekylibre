@@ -67,8 +67,13 @@ class Backend::ProductsController < BackendController
     t.action :destroy, :if => :destroyable?
   end
 
+  def index
+    @product = Product.all
+    respond_with @product, :include => [:father, :mother]
+  end
+
   # content product list of the consider product
-  list(:content_product, :model => :product_localizations, :conditions => ["container_id = ? ",['session[:current_product_id]']], :order => "started_at DESC") do |t|
+  list(:contained_products, :model => :product_localizations, :conditions => {container_id: ['params[:id]']}, :order => "started_at DESC") do |t|
     t.column :name, :through => :product, :url => true
     t.column :nature
     t.column :started_at
@@ -78,7 +83,7 @@ class Backend::ProductsController < BackendController
   end
 
   # localization of the consider product
-  list(:place, :model => :product_localizations, :conditions => [" product_id = ? ",['session[:current_product_id]']], :order => "started_at DESC") do |t|
+  list(:places, :model => :product_localizations, :conditions => {product_id: ['params[:id]']}, :order => "started_at DESC") do |t|
     t.column :name, :through => :container, :url => true
     t.column :nature
     t.column :started_at
@@ -88,28 +93,28 @@ class Backend::ProductsController < BackendController
   end
 
   # groups of the consider product
-  list(:group, :model => :product_memberships, :conditions => [" member_id = ? ",['session[:current_product_id]']], :order => "started_at DESC") do |t|
-    t.column :name, :through =>:group, :url => true
+  list(:groups, :model => :product_memberships, :conditions => {member_id: ['params[:id]']}, :order => "started_at DESC") do |t|
+    t.column :name, :through => :group, :url => true
     t.column :started_at
     t.column :stopped_at
   end
 
   # members of the consider product
-  list(:member, :model => :product_memberships, :conditions => [" group_id = ? ",['session[:current_product_id]']], :order => "started_at ASC") do |t|
+  list(:members, :model => :product_memberships, :conditions => {group_id: ['params[:id]']}, :order => "started_at ASC") do |t|
     t.column :name, :through => :member, :url => true
     t.column :started_at
     t.column :stopped_at
   end
 
   # indicators of the consider product
-  list(:indicator, :model => :product_indicator_data, :conditions => [" product_id = ? ",['session[:current_product_id]']], :order => "created_at DESC") do |t|
+  list(:indicators, :model => :product_indicator_data, :conditions => {product_id: ['params[:id]']}, :order => "created_at DESC") do |t|
     t.column :indicator
     t.column :measured_at
     t.column :value
   end
 
   # incidents of the consider product
-  list(:incident, :model => :incidents, :conditions => [" target_id = ? and target_type = 'Product'",['session[:current_product_id]']], :order => "observed_at DESC") do |t|
+  list(:incidents, :conditions => {target_id: ['params[:id]']}, :order => "observed_at DESC") do |t|
     t.column :name, :url => true
     t.column :nature
     t.column :observed_at
@@ -118,10 +123,15 @@ class Backend::ProductsController < BackendController
     t.column :state
   end
 
-  def index
-    @product = Product.all
-    respond_with @product, :include => [:father, :mother]
+  # incidents of the consider product
+  list(:intervention_casts, :conditions => {actor_id: ['params[:id]']}) do |t|
+    t.column :name, through: :intervention, :url => true
+    t.column :roles
+    t.column :variable
+    t.column :started_at, through: :intervention
+    t.column :stopped_at, through: :intervention
   end
+
 
   def show
     return unless @product = find_and_check

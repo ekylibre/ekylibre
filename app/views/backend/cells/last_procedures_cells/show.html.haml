@@ -3,14 +3,15 @@
     = @container.shape_svg(:width => 160, :height => 160)
     %p= @container.name
 .info
-  %span.title= Procedure.human_attribute_name(:name)
-  %span.value= @procedure.name
+  %span.title= Intervention.human_attribute_name(:name)
+  %span.value= @intervention.name
 .info
-  %span.title= Procedure.human_attribute_name(:variables_names)
-  %span.value= @procedure.variables_names
+  %span.title= Intervention.human_attribute_name(:casting)
+  %span.value= @intervention.casting
+- if @intervention.started_at?
+  .info
+    %span.title= Intervention.human_attribute_name(:started_at)
+    %span.value= @intervention.started_at.l
 .info
-  %span.title= Procedure.human_attribute_name(:started_at)
-  %span.value= @procedure.started_at.l
-.info
-  %span.title= Procedure.human_attribute_name(:state)
-  %span.value= @procedure.state.text
+  %span.title= Intervention.human_attribute_name(:state)
+  %span.value= @intervention.state.text

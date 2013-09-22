@@ -48,6 +48,13 @@ class Operation < Ekylibre::Record::Base
 
   before_validation(:on => :create) do
     self.started_at ||= Time.now
+    if self.started_at and self.stopped_at
+      self.duration = self.stopped_at - self.started_at
+    end
+  end
+
+  after_save do
+    self.intervention.save!
   end
 
   # def save_with_uses_and_items(uses=[], items=[])

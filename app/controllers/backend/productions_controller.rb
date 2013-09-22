@@ -33,11 +33,11 @@ class Backend::ProductionsController < BackendController
   list(:conditions => productions_conditions, :joins => [:activity, :product_nature, :campaign]) do |t|
     t.column :name, :url => true
     t.column :name,:through => :activity, :url => true
-    #t.column :name,:through => :campaign, :url => true
-    #t.column :name,:through => :product_nature, :url => true
+    # t.column :name,:through => :campaign, :url => true
+    # t.column :name,:through => :product_nature, :url => true
     t.column :state_label
     t.action :edit, :if => :draft?
-    #t.action :print, :if => :validated?
+    # t.action :print, :if => :validated?
     t.action :destroy, :if => :aborted?
   end
 
@@ -50,13 +50,13 @@ class Backend::ProductionsController < BackendController
 
   # List procedures for one production
   list(:interventions, :conditions => {production_id: ['params[:id]']}, :order => "created_at DESC") do |t|
-    #t.column :name
-    t.column :nomen, :url => true
+    # t.column :name
+    t.column :procedure, :url => true
     t.column :state
     t.column :name, :through => :incident, :url => true
     t.column :started_at
     t.column :stopped_at
-    t.column :provisional
+    # t.column :provisional
   end
 
   # Displays the main page with the list of productions.

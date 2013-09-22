@@ -408,15 +408,15 @@
         <page to="backend/productions#update"/>
       </item>
       <item name="operations">
-        <page to="backend/procedures#index" deletable="true"/>
-        <page to="backend/procedures#create" deletable="true"/>
-        <page to="backend/procedures#destroy" deletable="true"/>
-        <page to="backend/procedures#edit" deletable="true"/>
-        <page to="backend/procedures#list" deletable="true"/>
-        <page to="backend/procedures#new" deletable="true"/>
-        <page to="backend/procedures#play" deletable="true"/>
-        <page to="backend/procedures#show" deletable="true"/>
-        <page to="backend/procedures#update" deletable="true"/>
+        <page to="backend/interventions#index"/>
+        <page to="backend/interventions#create"/>
+        <page to="backend/interventions#destroy"/>
+        <page to="backend/interventions#edit"/>
+        <page to="backend/interventions#list"/>
+        <page to="backend/interventions#new"/>
+        <page to="backend/interventions#play"/>
+        <page to="backend/interventions#show"/>
+        <page to="backend/interventions#update"/>
         <page to="backend/operations#index"/>
         <page to="backend/operations#create"/>
         <page to="backend/operations#destroy"/>
@@ -1150,14 +1150,8 @@
         <page to="backend/interfacers#unroll_options"/>
       </item>
       <item name="interventions">
-        <page to="backend/interventions#create"/>
-        <page to="backend/interventions#destroy"/>
-        <page to="backend/interventions#edit"/>
-        <page to="backend/interventions#list"/>
         <page to="backend/interventions#list_casts"/>
         <page to="backend/interventions#list_operations"/>
-        <page to="backend/interventions#new"/>
-        <page to="backend/interventions#update"/>
       </item>
       <item name="kujakus">
         <page to="backend/kujakus#toggle"/>
@@ -1326,12 +1320,13 @@
         <page to="backend/productions#list_supports"/>
       </item>
       <item name="products">
-        <page to="backend/products#list_content_product"/>
-        <page to="backend/products#list_group"/>
-        <page to="backend/products#list_incident"/>
-        <page to="backend/products#list_indicator"/>
-        <page to="backend/products#list_member"/>
-        <page to="backend/products#list_place"/>
+        <page to="backend/products#list_contained_products"/>
+        <page to="backend/products#list_groups"/>
+        <page to="backend/products#list_incidents"/>
+        <page to="backend/products#list_indicators"/>
+        <page to="backend/products#list_intervention_casts"/>
+        <page to="backend/products#list_members"/>
+        <page to="backend/products#list_places"/>
       </item>
       <item name="professions">
         <page to="backend/professions#index"/>

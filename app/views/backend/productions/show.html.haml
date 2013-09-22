@@ -1,24 +1,24 @@
-=main_toolbar do |t|
-  -t.edit @production
+= main_toolbar do |t|
+  - t.edit @production
 
-=beehive do |b|
-  -b.cell do
-    =attributes_list(@production) do |l|
-      -l.attribute :name
-      -l.attribute :product_nature
-      -l.attribute :started_at
-      -l.attribute :state
-      -l.attribute :campaign
-      -l.attribute :activity
+= beehive do |b|
+  - b.cell do
+    = attributes_list(@production) do |l|
+      - l.attribute :name
+      - l.attribute :product_nature
+      - l.attribute :started_at
+      - l.attribute :state
+      - l.attribute :campaign
+      - l.attribute :activity
 
-  -b.tabbox do
-    -b.cell :map do
+  - b.tabbox do
+    - b.cell :map do
       %svg{:xmlns => "http://www.w3.org/2000/svg", :version => "1.1", :class => :map, :viewBox => CultivableLandParcel.of_production(@production).shape_view_box.join(" "), :preserveAspectRatio => "xMidYMid meet", :width => "100%", :height => "400px", "xmlns:xlink" => "http://www.w3.org/1999/xlink"}
         -CultivableLandParcel.of_production(@production).find_each do |cultivable_land_parcel|
           %a{'xlink:href' => backend_cultivable_land_parcel_url(cultivable_land_parcel)}
             %path{:d => cultivable_land_parcel.shape_as_svg, :title => cultivable_land_parcel.name }
 
-    -b.cell :cropping_plan_chart do
+    - b.cell :cropping_plan_chart do
       - if @production.supports.count > 0
         :ruby
 
@@ -37,8 +37,8 @@
       - else
         %strong= :no_data.tl
 
-  -b.tabbox do
-    -#b.cell(:procedures) do
-      =list(:procedure)
-    -b.cell(:supports) do
-      =list(:support)
+  - b.tabbox do
+    - b.cell(:interventions) do
+      = list(:interventions)
+    - b.cell(:supports) do
+      = list(:supports)

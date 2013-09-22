@@ -5,7 +5,7 @@ class Measure
   cattr_reader :dimensions
 
   @@dimensions = Nomen::Dimensions
-  @@units = Nomen::Units
+  @@units      = Nomen::Units
 
   class << self
 
@@ -25,11 +25,10 @@ class Measure
 
     # Returns the dimension of the given unit
     def dimension(unit)
-      @@units.items[unit].dimension.to_sym
+      @@units[unit].dimension.to_sym
     end
 
   end
-
 
   # Ways to instanciate a measure
   # $ Measure.new(55.23, "kilogram")
@@ -84,15 +83,44 @@ class Measure
     self.class.new(@value - measure.to_d(@unit), @unit)
   end
 
+  def *(numeric_or_measure)
+    if numeric_or_measure.is_a? Numeric
+      self.class.new(@value * numeric_or_measure, @unit)
+    elsif numeric_or_measure.is_a? Measure
+      # Find matching dimension
+      # Convert
+      raise NotImplementedError.new
+    else
+      raise ArgumentError.new("Only numerics and measures can be multiplicated to a measure")
+    end
+  end
+
+  def /(numeric_or_measure)
+    if numeric_or_measure.is_a? Numeric
+      self.class.new(@value / numeric_or_measure, @unit)
+    elsif numeric_or_measure.is_a? Measure
+      # Find matching dimension
+      # Convert
+      raise NotImplementedError.new
+    else
+      raise ArgumentError.new("Only numerics and measures can divide to a measure")
+    end
+  end
+
   def to_d(unit = nil)
     if unit.nil?
-      return @value
+      return @value.dup
     else
-      raise Exception.new("Unknown unit: #{unit.inspect}") unless @@units.all.include? unit.to_s
-      raise Exception.new("Measure can't be converted from one dimension (#{@@units[@unit].dimension}) to an other (#{@@units[unit].dimension})") if @@units[@unit.to_s].dimension != @@units[unit.to_s].dimension
-      value = @value
+      raise ArgumentError.new("Unknown unit: #{unit.inspect}") unless @@units[unit]
+      if @@units[@unit.to_s].dimension != @@units[unit.to_s].dimension
+        raise ArgumentError.new("Measure can't be converted from one dimension (#{@@units[@unit].dimension}) to an other (#{@@units[unit].dimension})")
+      end
       # Reduce to base
+      ref = @@units[@unit]
+      reduced = ref.a * @value + ref.b
       # Coeff to dest
+      ref = @@units[unit]
+      value = (reduced - ref.b) / ref.a
       return value
     end
   end
