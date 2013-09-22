@@ -1,42 +1,42 @@
-=main_toolbar do |t|
-  -t.edit(@account)
-  -t.mark(@account) if @account.reconcilable?
+= main_toolbar do |t|
+  - t.edit(@account)
+  - t.mark(@account) if @account.reconcilable?
 
-=beehive do |b|
-  -b.cell do
-    =attributes_list(@account) do |l|
-      -l.attribute :number
-      -l.attribute :name
-      -l.attribute :reconcilable
-      -l.attribute :description
+= beehive do |b|
+  - b.cell do
+    = attributes_list(@account) do |l|
+      - l.attribute :number
+      - l.attribute :name
+      - l.attribute :reconcilable
+      - l.attribute :description
 
-  -b.tabbox do
-    -b.cell(:journal_entry_items) do
-      =kujaku do |k|
-        -k.text :b
-        -k.crit :journal_period, :p
-        -k.crit :journal_entries_states
+  - b.tabbox do
+    - b.cell(:journal_entry_items) do
+      = kujaku do |k|
+        - k.text :b
+        - k.crit :journal_period, :p
+        - k.crit :journal_entries_states
 
-      -items = JournalEntryItem.joins(:entry).where(eval(controller.class.account_moves_conditions))
-      -currencies = items.joins(:entry=>:financial_year).select("DISTINCT currency")
-      -totals = {}
-      -totals[:debit]  = items.sum(:debit)
-      -totals[:credit] = items.sum(:credit)
-      -totals[:balance_debit] = totals[:balance_credit] = 0.0
-      -totals["balance_#{totals[:debit]>totals[:credit] ? 'debit' : 'credit'}".to_sym] = (totals[:debit]-totals[:credit]).abs
+      - items = JournalEntryItem.joins(:entry).where(eval(controller.class.account_moves_conditions))
+      -# currencies = items.joins(:entry=>:financial_year).select("DISTINCT currency")
+      - totals = {}
+      - totals[:debit]  = items.sum(:debit)
+      - totals[:credit] = items.sum(:credit)
+      - totals[:balance_debit] = totals[:balance_credit] = 0.0
+      - totals["balance_#{totals[:debit]>totals[:credit] ? 'debit' : 'credit'}".to_sym] = (totals[:debit] - totals[:credit]).abs
 
-      =list(:journal_entry_items) do
-        -if currencies.size == 1
-          -currency = currencies[0].currency
+      = list(:journal_entry_items) do
+        -# if currencies.size == 1
+          - currency = currencies[0].currency
           %tr.total
-            %th{:colspan=>6}=tc(:total)
-            %td.value=number_to_money(totals[:debit], currency)
-            %td.value=number_to_money(totals[:credit], currency)
+            %th{:colspan => 6}= tc(:total)
+            %td.value= number_to_money(totals[:debit], currency)
+            %td.value= number_to_money(totals[:credit], currency)
             %th
           %tr.total
-            %th{:colspan=>6}=tc(:balance)
-            %td.value=number_to_money(totals[:balance_debit], currency)
-            %td.value=number_to_money(totals[:balance_credit], currency)
+            %th{:colspan => 6}= tc(:balance)
+            %td.value= number_to_money(totals[:balance_debit], currency)
+            %td.value= number_to_money(totals[:balance_credit], currency)
             %th
-    -b.cell(:entities) do
-      =list(:entities)
+    - b.cell(:entities) do
+      = list(:entities)

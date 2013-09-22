@@ -25,13 +25,13 @@
       <item name="sow"/>
       <item name="harvest" parameters="variety"/>
       <item name="move"/>
-      <item name="store"   parameters="variety"/>
+      <item name="store" parameters="variety"/>
       <item name="store_fluid"/>
       <item name="store_liquid"/>
       <item name="store_gaz"/>
-      <item name="tow"     parameters="variety"/>
+      <item name="tow" parameters="variety"/>
       <!-- @QUID : niveau de compétence (charge 4T , 10T ?)  -->
-      <item name="drive"   parameters="variety"/>
+      <item name="drive" parameters="variety"/>
       <!-- @QUID : compétence liée à un outil (conduire un tracteur, conduire un tracteur + un semoir, conduire une moissonneuse, etc ) -->
     </items>
   </nomenclature>

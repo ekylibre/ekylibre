@@ -94,7 +94,10 @@ class Product < Ekylibre::Record::Base
   }
   scope :derivative_of, lambda { |*varieties|
     where(:nature_id => ProductNature.of_variety(*varieties))
-  }
+  }  
+  # scope :of_variety, lambda { |*varieties| joins(:nature).merge(ProductNature.of_variety(*varieties)) }
+  # scope :derivative_of, lambda { |nature| joins(:nature).merge(ProductNature.derivative_of(nature)) }
+
   # for a product_nature
   scope :of_nature, lambda { |nature|
     where(:nature_id => nature.id)

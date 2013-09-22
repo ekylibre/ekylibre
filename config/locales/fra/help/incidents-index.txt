@@ -4,6 +4,6 @@ Vous avez accès au récapitulatif de tous les incidents déclarés sur votre ex
 
 Un incident correspond à un problème identifié sur votre exploitation, il se déclare via la fiche d'un produit (animal, equipement, sole, batiment,..)
 
-!!! Un incident peut être rattaché à une [[>backend/procedures|procédure]].
+!!! Un incident peut être rattaché à une [[>backend/interventions|intervention]].
 
 >>> Ex : mammite, précipitation de grêle sur une parcelle, rupture d'une canalisation, disfonctionnement d'un tank à lait...

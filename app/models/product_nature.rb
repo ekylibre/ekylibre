@@ -104,6 +104,12 @@ class ProductNature < Ekylibre::Record::Base
   scope :derivative_of, Proc.new { |*varieties|
     where(:derivative_of => varieties.collect{|v| Nomen::Varieties.all(v.to_sym) }.flatten.map(&:to_s).uniq)
   }
+  # scope :of_variety, Proc.new { |*varieties| where(:variety => varieties.collect{|v| Nomen::Varieties.all(v.to_sym) }.flatten.map(&:to_s).uniq) }
+  
+  # scope :derivative_of, lambda { |nature|
+  #   raise ArgumentError.new("Expected Product Nature, got #{nature.class.name}:#{nature.inspect}") unless nature.is_a?(ProductNature)
+  #   where(:derivative_of => nature.variety)
+  # }
 
   before_validation do
     if self.derivative_of

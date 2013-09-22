@@ -4,6 +4,9 @@
     <items>
       <item name="tractor"/>
       <item name="worker"/>
+      <item name="plower"/>
+      <item name="sower"/>
+      <item name="spreader"/>
     </items>
   </nomenclature>
 </nomenclatures>
