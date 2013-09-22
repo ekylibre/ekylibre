@@ -108,11 +108,39 @@ class Product < Ekylibre::Record::Base
     end
     where(conditions.join(" AND "))
   }
-
-  scope :saleables, -> { where(true).joins(:nature).merge(ProductNature.saleables) }
-  scope :deliverables, -> { where(:active => true, :external => false).joins(:nature).merge(ProductNature.stockables)
+  scope :can, lambda { |*abilities|
+    query = []
+    parameters = []
+    for ability in abilities.flatten.join(', ').strip.split(/[\s\,]+/)
+      if ability =~ /\(.*\)\z/
+        params = ability.split(/\s*(\(\,\))\s*/)
+        ability = params.shift.to_sym
+        item = Nomen::Abilities[ability]
+        for p in item.parameters.split(/\,\s*/)
+          v = expr.shift
+          if p == "variety"
+            raise ArgumentError.new("Unknown variety: #{v.inspect}") unless v = Nomen::Varieties[v]
+            q = []
+            for variety in v.self_and_parents
+              q << "abilities ~ E?"
+              parameters << "\\\\m#{ability}(#{variety})\\\\M"
+            end
+            query << "(" + q.join(" OR ") + ")"
+          else
+            raise StandardError.new("Unknown type of parameter for an ability: #{p.inspect}")
+          end
+        end
+      else
+        raise ArgumentError.new("Unknown ability: #{ability.inspect}") unless Nomen::Abilities[ability]
+        query << "abilities ~ E?"
+        parameters << "\\\\m#{ability}\\\\M"
+      end
+    end
+    joins(:nature).where(query.join(" OR "), *parameters)
   }
-  scope :production_supports,  -> { where(:variety =>["cultivable_land_parcel"]) }
+  scope :saleables, -> { joins(:nature).merge(ProductNature.saleables) }
+  scope :deliverables, -> { where(active: true, external: false).joins(:nature).merge(ProductNature.stockables) }
+  scope :production_supports,  -> { where(variety: ["cultivable_land_parcel"]) }
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :picture_file_size, :allow_nil => true, :only_integer => true

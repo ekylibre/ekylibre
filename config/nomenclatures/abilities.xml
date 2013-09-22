@@ -2,44 +2,37 @@
 <nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
   <nomenclature name="abilities">
     <attributes>
-      <attribute name="variable" type="choice" choices="variety" required="false"/>
+      <attribute name="parameters" type="list" choices="variety" required="false"/>
     </attributes>
     <items>
       <!--
           [Product] it can ...  
-          Abilities are ACTIVE
+          Abilities are ACTIVE (not PASSIVE)
       -->
-      <item name="consume" variable="variety"/>
-      <item name="produce" variable="variety"/>
-      <item name="kill" variable="variety"/>
-      <item name="manage" variable="variety"/>
+      <item name="consume" parameters="variety"/>
+      <item name="produce" parameters="variety"/>
+      <item name="kill"    parameters="variety"/>
+      <item name="manage"  parameters="variety"/> <!-- ? -->
       <item name="germinate"/>
       <item name="feed"/>
       <item name="fertilize"/>  
-      <item name="catch"/><!-- @QUID : niveau de compétence (normal,précision)  -->
-      <item name="spread"/><!-- @QUID : niveau de compétence (normal,précision)  -->
+      <item name="catch"/>
+      <!-- @QUID : niveau de compétence (normal, précision)  -->
+      <item name="spread" parameters="variety"/>
+      <!-- @QUID : niveau de compétence (normal, précision)  -->
       <item name="plow"/>
       <item name="clean"/>
       <item name="sow"/>
-      <item name="harvest" variable="variety"/>
+      <item name="harvest" parameters="variety"/>
       <item name="move"/>
-      <item name="store" variable="variety"/>
+      <item name="store"   parameters="variety"/>
       <item name="store_fluid"/>
       <item name="store_liquid"/>
       <item name="store_gaz"/>
-      <item name="tow"/><!-- @QUID : niveau de compétence (charge 4T , 10T ?)  -->
-      <item name="drive" variable="variety"/><!-- @QUID : compétence lié à un outil (conduire un tracteur,conduire un tracteur + un semoir, conduire une moissonneusse, etc ) -->
-          <!--
-            to replace kill(variety) ?
-      <item name="acaricides"/>
-      <item name="fongicides" />
-      <item name="herbicides" />
-      <item name="insecticides" />
-      <item name="nématicides" />
-      <item name="répulsifs" />
-      <item name="virucides" />
-      -->
-    
+      <item name="tow"     parameters="variety"/>
+      <!-- @QUID : niveau de compétence (charge 4T , 10T ?)  -->
+      <item name="drive"   parameters="variety"/>
+      <!-- @QUID : compétence liée à un outil (conduire un tracteur, conduire un tracteur + un semoir, conduire une moissonneuse, etc ) -->
     </items>
   </nomenclature>
 </nomenclatures>

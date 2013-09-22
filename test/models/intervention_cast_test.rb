@@ -20,13 +20,14 @@
 #
 # == Table: intervention_casts
 #
-#  actor_id        :integer          not null
+#  actor_id        :integer
 #  created_at      :datetime         not null
 #  creator_id      :integer
 #  id              :integer          not null, primary key
 #  intervention_id :integer          not null
 #  lock_version    :integer          default(0), not null
-#  roles           :string(320)      not null
+#  quantity        :decimal(19, 4)
+#  roles           :string(320)
 #  updated_at      :datetime         not null
 #  updater_id      :integer
 #  variable        :string(255)      not null

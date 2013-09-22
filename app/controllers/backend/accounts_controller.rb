@@ -67,8 +67,8 @@ class Backend::AccountsController < BackendController
     t.column :name
     t.column :state_label
     t.column :letter
-    t.column :debit, :currency => "RECORD.entry.financial_year.currency"
-    t.column :credit, :currency => "RECORD.entry.financial_year.currency"
+    t.column :debit, :currency => true
+    t.column :credit, :currency => true
   end
 
   list(:entities, :conditions => ["? IN (client_account_id, supplier_account_id)", ['params[:id]']], :order => "created_at DESC") do |t| # , attorney_account_id

@@ -215,6 +215,7 @@ for file in Dir[config.join("locales", "*", "help", "#{old_table}-*.txt")].sort
   execute("git mv #{of} #{nf}")
 end
 
+# TODO Updates links in help files
 
 
 # config/modules
@@ -225,7 +226,7 @@ File.open(nf, "rb") do |f|
   source = f.read
 end
 unless @simulate
-  source.gsub!(/(\")#{old_table}(\#)/, '\1' + new_table + '\2')
+  source.gsub!(/(\"backend\/)#{old_table}(\#)/, '\1' + new_table + '\2')
   File.open(nf, "wb") do |f|
     f.write source
   end

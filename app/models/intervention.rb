@@ -136,6 +136,15 @@ class Intervention < Ekylibre::Record::Base
     ref.human_name
   end
 
+
+  def valid_for_run?
+
+  end
+
+  def run!
+
+  end
+
   # # Return the next procedure (depth course)
   # def followings
   #   reference.followings_of(self.uid)
