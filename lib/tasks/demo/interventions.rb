@@ -15,8 +15,8 @@ demo :interventions do
     end
 
 
-    def self.intervene(procedure, year, month, day, duration, &block)
-      options = workers.extract_options!
+    def self.intervene(procedure, year, month, day, duration, options = {})
+      #options = options.extract_options!
       day_range = options[:range] || 30
 
       # Find actors
@@ -34,7 +34,7 @@ demo :interventions do
       on = nil
       begin
         on = Date.civil(year, month, day) + rand(day_range - duration_days).days
-      end while InterventionCast.joins(:interventions).where(actor_id: actors.map(&:id)).where("? BETWEEN started_at AND stopped_at OR ? BETWEEN started_at AND stopped_at", on, on + duration_day).count > 0
+      end while InterventionCast.joins(:intervention).where(actor_id: actors.map(&:id)).where("? BETWEEN started_at AND stopped_at OR ? BETWEEN started_at AND stopped_at", on, on + duration_days).count > 0
 
       # Compute real number of day
       # 11 days shifting is here respect solstice shifting with 1st day of year
@@ -77,18 +77,32 @@ demo :interventions do
 
   Ekylibre::fixturize :interventions do |w|
 
-    for production in Production.all
+    for production in Production.where("name LIKE 'Culture%'")
       variety = production.product_nature.variety
-      if Nomen::Varieties[variety].is_a?(:poaceae)
+      #if Nomen::Varieties[variety].is_a?(:poaceae)
+      
+      fertilizer_product_prev = MineralMatter.of_variety("mineral_matter").can("fertilize").first
+      
+        product_nature = ProductNature.find_by_nomen("chemical_fertilizer")
+        product_nature ||= ProductNature.import_from_nomenclature("chemical_fertilizer")
+        product_nature_variant = product_nature.variants.create!(:name => "Ammo 33", :active => true, :unit_name => "big bag", :frozen_indicators => "net_weight")
+        product_nature_variant.is_measured!(:net_weight, 500.in_kilogram)
+        
+      fertilizer_product_prev ||= MineralMatter.create!(:name => "Ammo 1", :born_at => Time.now, :variant_id => product_nature_variant.id, :owner => Entity.of_company, :identification_number => "FR25896")
+        fertilizer_product_prev.is_measured!(:population, 50.in_unity)      
+        fertilizer_product_prev.is_measured!(:nitrogen_concentration, 27.00.in_kilogram_per_hectogram, :at => Time.now)
+        fertilizer_product_prev.is_measured!(:potassium_concentration, 33.00.in_kilogram_per_hectogram, :at => Time.now)
+        fertilizer_product_prev.is_measured!(:phosphorus_concentration, 33.00.in_kilogram_per_hectogram, :at => Time.now)
+      
         year = production.campaign.name.to_i
         for support in production.supports
           land_parcel = support.storage
           coeff = (land_parcel.shape_area / 10000) / 6
-
+          
           # Plowing 15-09-N -> 15-10-N
           Booker.intervene(:plowing, year - 1, 9, 15, 9.78 * coeff) do |i|
             i.cast(variable: 'driver', actor: Worker.all.sample)
-            i.cast(variable: 'tractor', actor: Product.can("tow(plower)").all.sample)
+            i.cast(variable: 'tractor', actor: Product.can("tow").all.sample) # tow(plower)
             i.cast(variable: 'plower', actor: Product.can("plow").all.sample)
             i.cast(variable: 'land_parcel', actor: land_parcel)
           end
@@ -99,7 +113,7 @@ demo :interventions do
             i.cast(variable: 'seeds_to_sow', quantity: 20)
             i.cast(variable: 'sower', actor: Product.can("sow").all.sample)
             i.cast(variable: 'driver', actor: Worker.all.sample)
-            i.cast(variable: 'tractor', actor: Product.can("tow(sower)").all.sample)
+            i.cast(variable: 'tractor', actor: Product.can("tow").all.sample) #tow(sower)
             i.cast(variable: 'land_parcel', actor: land_parcel)
             i.cast(variable: 'culture')
           end
@@ -108,37 +122,37 @@ demo :interventions do
           Booker.intervene(:mineral_fertilizing, year, 3, 1, 0.96 * coeff) do |i|
             i.cast(variable: 'fertilizer', actor: fertilizer_product_prev)
             i.cast(variable: 'fertilizer_to_spread', quantity: 20)
-            i.cast(variable: 'spreader', actor: Product.can("spread(mineral_matter)").all.sample)
+            i.cast(variable: 'spreader', actor: Product.can("spread").all.sample) #spread(mineral_matter)
             i.cast(variable: 'driver', actor: Worker.all.sample)
-            i.cast(variable: 'tractor', actor: Product.can("tow(spreader)").all.sample)
+            i.cast(variable: 'tractor', actor: Product.can("tow").all.sample) #tow(spreader)
             i.cast(variable: 'land_parcel', roles: 'soil_enrichment-target', actor: land_parcel)
           end
 
-          if w.count.mod(3).zero? # AND NOT prairie
+          #if w.count.mod(3).zero? # AND NOT prairie
             # Treatment herbicide 01-04 30-04
             Booker.intervene(:chemical_treatment, year, 4, 1, 1.07 * coeff) do |i|
               i.cast(variable: 'fertilizer', actor: fertilizer_product_prev)
               i.cast(variable: 'fertilizer_to_spread', roles: 'soil_enrichment-input', quantity: 20)
-              i.cast(variable: 'spreader', actor: Product.can("spread(mineral_matter)").all.sample)
+              i.cast(variable: 'spreader', actor: Product.can("spread").all.sample) # spread(mineral_matter)
               i.cast(variable: 'driver', actor: Worker.all.sample)
-              i.cast(variable: 'tractor', actor: Product.can("tow(spreader)").all.sample)
-              i.cast(variable: 'land_parcel', roles: 'soil_enrichment-target', actor: land_parcel_group_fert)
+              i.cast(variable: 'tractor', actor: Product.can("tow").all.sample) # tow(spreader)
+              i.cast(variable: 'land_parcel', roles: 'soil_enrichment-target', actor: land_parcel)
             end
-          end
+          #end
 
           # Harvest 01-07-M 30-07-M
           Booker.intervene(:harvest, year, 7, 1, 3.13 * coeff) do |i|
             i.cast(variable: 'fertilizer', actor: fertilizer_product_prev)
             i.cast(variable: 'fertilizer_to_spread', roles: 'soil_enrichment-input', quantity: 20)
-            i.cast(variable: 'spreader', actor: Product.can("spread(mineral_matter)").all.sample)
+            i.cast(variable: 'spreader', actor: Product.can("spread").all.sample) # spread(mineral_matter)
             i.cast(variable: 'driver', actor: Worker.all.sample)
-            i.cast(variable: 'tractor', actor: Product.can("tow(spreader)").all.sample)
-            i.cast(variable: 'land_parcel', roles: 'soil_enrichment-target', actor: land_parcel_group_fert)
+            i.cast(variable: 'tractor', actor: Product.can("tow").all.sample) # tow(spreader)
+            i.cast(variable: 'land_parcel', roles: 'soil_enrichment-target', actor: land_parcel)
           end
         end
         w.check_point
       end
-    end
+    #end
   end
 
 end
