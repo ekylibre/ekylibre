@@ -24,6 +24,7 @@
       <item name="specific_volume"    expression="m3*kg-1"/>
       <item name="concentration"      expression="m-3"/>
       <item name="mass_density"       expression="kg-1"/>
+      <item name="power"              expression="W"/>
 
     </items>
   </nomenclature>
