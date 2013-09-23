@@ -56,7 +56,7 @@
       <item name="day"    dimension="time" symbol="d"   coefficients="86400s"  a="86400"/>
 
       <!-- electric_current -->
-      <item name="ampere"  dimension="electric_current" symbol="A" coefficients="A" a="1"/>
+      <item name="ampere"  dimension="electric_current" symbol="A" coefficients="A" a="1"/>    
       
       <!-- amount_of_substance -->
       <item name="mole"    dimension="amount_of_substance" symbol="mol" coefficients="mol" a="1"/>
@@ -81,6 +81,13 @@
       <item name="thousand_per_hectogram" dimension="mass_density" symbol="ku/hg" coefficients="1000*0.1kg-1"            a="0.0001"/>
       <!-- <item name="kilogram_per_hectogram" dimension="mass_density" symbol="kg/100kg" coefficients="1*0.1kg-1"            a="0.0001"/> -->
       <!-- <item name="thousand_eq_per_hundred_gram" dimension="mass_density" symbol="meq/100g" coefficients="1000*0.1kg-1"/> -->
+      
+      <!-- power -->
+      <item name="french_horsepower" dimension="power" symbol="ch" a="735.5"/>
+      <item name="english_horsepower" dimension="power" symbol="hp" a="745.6998"/>
+      <item name="watt" dimension="power" symbol="W" a="1"/>
+      <item name="kilowatt" dimension="power" symbol="kW" a="1000"/>
+      <item name="megawatt" dimension="power" symbol="MW" a="1000000"/>
       
     </items>
   </nomenclature>

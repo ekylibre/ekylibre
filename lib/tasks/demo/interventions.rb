@@ -93,7 +93,7 @@ demo :interventions do
         for support in production.supports
           land_parcel = support.storage
           if area = land_parcel.shape_area
-            coeff = (area / 10000) / 6
+            coeff = (area.to_s.to_f / 10000.0) / 6.0
 
             # Plowing 15-09-N -> 15-10-N
             Booker.intervene(:plowing, year - 1, 9, 15, 9.78 * coeff) do |i|
@@ -114,7 +114,7 @@ demo :interventions do
               i.add_cast(variable: 'culture')
             end
 
-            culture = int.casts.find_by(variable: 'culture').actor
+            culture = int.casts.find_by(variable: 'culture').actor rescue nil
 
             # Fertilizing  01-03-M -> 31-03-M
             Booker.intervene(:mineral_fertilizing, year, 3, 1, 0.96 * coeff) do |i|

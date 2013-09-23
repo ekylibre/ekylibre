@@ -19,9 +19,12 @@
       <!-- <item name="weight" datatype="measure" unit="kilogram"/> -->
       <item name="sex" datatype="choice" choices="male, female, undefined"/>
       <item name="reproductor" datatype="boolean"/>
-      <item name="sowable" datatype="boolean"/>
-      <item name="in_production" datatype="boolean"/>
-      <item name="ground_appearance" datatype="choice" choices="covered, raw"/>
+       <!-- state of cultivable_land_parcel -->
+      <item name="cultural_soil_state" datatype="choice" choices="covered, raw, nude, plowed, grown"/>
+      <!-- equipment -->
+      <item name="power" datatype="measure" unit="horsepower"/>
+      <item name="application_width" datatype="measure" unit="meter"/>
+      
       <item name="animal_life_state" datatype="choice" choices="first_growth, second_growth, aging"/>
       <item name="mammalia_born_condition" datatype="choice" choices="without_help, few_help, great_help, caesarean, cutting_calf"/><!-- nomenclature EDE à terme -->
       <item name="mammalia_twins_condition" datatype="choice" choices="none, twins, triplets"/><!-- nomenclature EDE à terme -->
