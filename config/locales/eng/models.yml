@@ -654,6 +654,7 @@ eng:
     cash_transfers: "Cash transfers"
     cashes: "Bank accounts"
     cashes_accounts: "Cashes accounts"
+    # casts: "Casts"
     catalog_description: "Catalog description"
     catalog_name: "Catalog name"
     category: "Category"

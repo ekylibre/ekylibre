@@ -503,6 +503,7 @@ spa:
     # cash_transfers: "Virements internes"
     # cashes: "Trésoreries"
     # cashes_accounts: "Comptes de caisse"
+    # casts: "Casts"
     # catalog_description: "Description pour le catalogue"
     # catalog_name: "Nom pour le catalogue"
     # category: "Catégorie"

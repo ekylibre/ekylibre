@@ -460,7 +460,7 @@ fra:
     cash_transfers: "Virements internes" #?
     cashes: "Trésoreries"
     cashes_accounts: "Comptes de caisse" #?
-    # casts: "Casts"
+    casts: "Casts"
     # catalog: "Catalog"
     catalog_description: "Description pour le catalogue" #?
     catalog_name: "Nom pour le catalogue" #?
@@ -698,6 +698,7 @@ fra:
     initial_number: "Numéro initial"
     integer_value: "Valeur entière"
     intervention: "Intervention"
+    # interventions: "Interventions"
     introduction: "Introduction"
     inventory: "Inventaire"
     inventory_items: "Lignes d’inventaire" #?
@@ -717,7 +718,7 @@ fra:
     journal_entry_items: "Lignes d’écritures"
     key: "Clé"
     label: "Libellé"
-    land_parcel_groups: "Groupe d’îlots"
+    land_parcel_groups: "Groupe d’îlots" #?
     language: "Langue"
     last_bank_statement: "Dernier relevé bancaire"
     last_cweek: "Dernière semaine"
@@ -905,6 +906,7 @@ fra:
     product_moves: "Product moves"
     product_nature: "Product nature"
     production: "Production"
+    # production_support: "Production support"
     productions: "Productions"
     products: "Produits"
     profession: "Profession"
@@ -1073,7 +1075,7 @@ fra:
     value: "Valeur"
     # variable: "Variable"
     # variable_indicators: "Variable indicators"
-    variables: "Variables"
+    variables: "Variables" #?
     variant: "Variante"
     variants: "Variantes"
     variety: "Variété"
