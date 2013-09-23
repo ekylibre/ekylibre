@@ -27,7 +27,7 @@
 #  document_id      :integer
 #  id               :integer          not null, primary key
 #  lock_version     :integer          default(0), not null
-#  prescriptor_id   :integer
+#  prescriptor_id   :integer          not null
 #  reference_number :string(255)
 #  updated_at       :datetime         not null
 #  updater_id       :integer

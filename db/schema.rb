@@ -79,6 +79,7 @@ ActiveRecord::Schema.define(version: 20121212122000) do
 
   add_index "activities", ["created_at"], :name => "index_activities_on_created_at"
   add_index "activities", ["creator_id"], :name => "index_activities_on_creator_id"
+  add_index "activities", ["lft", "rgt"], :name => "index_activities_on_lft_and_rgt"
   add_index "activities", ["name"], :name => "index_activities_on_name"
   add_index "activities", ["parent_id"], :name => "index_activities_on_parent_id"
   add_index "activities", ["updated_at"], :name => "index_activities_on_updated_at"
@@ -404,7 +405,6 @@ ActiveRecord::Schema.define(version: 20121212122000) do
 
   add_index "custom_fields", ["created_at"], :name => "index_custom_fields_on_created_at"
   add_index "custom_fields", ["creator_id"], :name => "index_custom_fields_on_creator_id"
-  add_index "custom_fields", ["required"], :name => "index_custom_fields_on_required"
   add_index "custom_fields", ["updated_at"], :name => "index_custom_fields_on_updated_at"
   add_index "custom_fields", ["updater_id"], :name => "index_custom_fields_on_updater_id"
 
@@ -1449,9 +1449,9 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.boolean  "boolean_value"
     t.integer  "integer_value"
     t.decimal  "decimal_value",                precision: 19, scale: 4
-    t.integer  "user_id"
     t.integer  "record_value_id"
     t.string   "record_value_type"
+    t.integer  "user_id"
     t.datetime "created_at",                                                        null: false
     t.datetime "updated_at",                                                        null: false
     t.integer  "creator_id"
@@ -1462,15 +1462,14 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "preferences", ["created_at"], :name => "index_preferences_on_created_at"
   add_index "preferences", ["creator_id"], :name => "index_preferences_on_creator_id"
   add_index "preferences", ["name"], :name => "index_preferences_on_name"
-  add_index "preferences", ["nature"], :name => "index_preferences_on_nature"
   add_index "preferences", ["record_value_id", "record_value_type"], :name => "index_preferences_on_record_value_id_and_record_value_type"
   add_index "preferences", ["updated_at"], :name => "index_preferences_on_updated_at"
   add_index "preferences", ["updater_id"], :name => "index_preferences_on_updater_id"
   add_index "preferences", ["user_id"], :name => "index_preferences_on_user_id"
 
   create_table "prescriptions", force: true do |t|
+    t.integer  "prescriptor_id",               null: false
     t.integer  "document_id"
-    t.integer  "prescriptor_id"
     t.string   "reference_number"
     t.date     "delivered_on"
     t.text     "description"
@@ -1483,6 +1482,7 @@ ActiveRecord::Schema.define(version: 20121212122000) do
 
   add_index "prescriptions", ["created_at"], :name => "index_prescriptions_on_created_at"
   add_index "prescriptions", ["creator_id"], :name => "index_prescriptions_on_creator_id"
+  add_index "prescriptions", ["delivered_on"], :name => "index_prescriptions_on_delivered_on"
   add_index "prescriptions", ["document_id"], :name => "index_prescriptions_on_document_id"
   add_index "prescriptions", ["prescriptor_id"], :name => "index_prescriptions_on_prescriptor_id"
   add_index "prescriptions", ["reference_number"], :name => "index_prescriptions_on_reference_number"

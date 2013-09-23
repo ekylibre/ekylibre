@@ -35,14 +35,14 @@ class CreateBase < ActiveRecord::Migration
       t.string   :nature,                   null: false
       t.datetime :started_at
       t.datetime :stopped_at
-      t.references :parent
+      t.references :parent,                             index: true
       t.integer  :lft
       t.integer  :rgt
       t.integer  :depth
       t.stamps
+      t.index    :name
+      t.index    [:lft, :rgt]
     end
-    add_index :activities, :name
-    add_index :activities, :parent_id
 
     create_table :affairs do |t|
       t.boolean    :closed,                                            default: false, null: false
@@ -59,20 +59,20 @@ class CreateBase < ActiveRecord::Migration
     create_table :analytic_repartitions do |t|
       t.references :production,                                                null: false, index: true
       t.references :journal_entry_item,                                        null: false, index: true
-      t.string   :state,                                                       null: false
-      t.date     :affected_on,                                                 null: false
-      t.decimal  :affectation_percentage, precision: 19, scale: 4,             null: false
+      t.string     :state,                                                     null: false
+      t.date       :affected_on,                                               null: false
+      t.decimal    :affectation_percentage, precision: 19, scale: 4,           null: false
       t.stamps
     end
 
     create_table :areas do |t|
-      t.string   :postcode,                              null: false
-      t.string   :name,                                  null: false
-      t.string   :country,      limit: 2, null: false
-      t.references :district,                                        index: true
-      t.string   :city
-      t.string   :city_name
-      t.string   :code
+      t.string     :postcode,                              null: false
+      t.string     :name,                                  null: false
+      t.string     :country,      limit: 2, null: false
+      t.references :district,                                          index: true
+      t.string     :city
+      t.string     :city_name
+      t.string     :code
       t.stamps
     end
 
@@ -212,13 +212,12 @@ class CreateBase < ActiveRecord::Migration
     end
 
     create_table :custom_field_choices do |t|
-      t.references :custom_field,             null: false
-      t.string   :name,                        null: false
-      t.string   :value
-      t.integer  :position
+      t.references :custom_field,              null: false, index: true
+      t.string     :name,                      null: false
+      t.string     :value
+      t.integer    :position
       t.stamps
     end
-    add_index :custom_field_choices, :custom_field_id
 
     create_table :custom_fields do |t|
       t.string   :name,                                                               null: false
@@ -234,16 +233,14 @@ class CreateBase < ActiveRecord::Migration
       t.string   :column_name
       t.stamps
     end
-    add_index :custom_fields, :required
 
     create_table :deposit_items do |t|
-      t.references :deposit,                                                    null: false
-      t.decimal  :quantity,               precision: 19, scale: 4, default: 0.0, null: false
-      t.decimal  :amount,                 precision: 19, scale: 4, default: 1.0, null: false
-      t.string   :currency,     limit: 3,                                        null: false
+      t.references :deposit,                                                       null: false, index: true
+      t.decimal    :quantity,               precision: 19, scale: 4, default: 0.0, null: false
+      t.decimal    :amount,                 precision: 19, scale: 4, default: 1.0, null: false
+      t.string     :currency,     limit: 3,                                        null: false
       t.stamps
     end
-    add_index :deposit_items, :deposit_id
 
     create_table :deposits do |t|
       t.decimal  :amount,           precision: 19, scale: 4, default: 0.0,   null: false
@@ -847,10 +844,10 @@ class CreateBase < ActiveRecord::Migration
       t.references :mode,                                                             null: false
       t.string   :number
       t.date     :paid_on
-      t.date     :to_bank_on,                                                          null: false
+      t.date     :to_bank_on,                                                         null: false
       t.references :cash,                                                             null: false
-      t.string   :currency,          limit: 3,                                         null: false
-      t.boolean  :downpayment,                                          default: true, null: false
+      t.string   :currency,         limit: 3,                                         null: false
+      t.boolean  :downpayment,                                         default: true, null: false
       t.references :affair
       t.stamps
     end
@@ -862,97 +859,83 @@ class CreateBase < ActiveRecord::Migration
     add_index :outgoing_payments, :responsible_id
 
     create_table :preferences do |t|
-      t.string   :name,                                                               null: false
-      t.string   :nature,            limit: 10,                                        null: false
-      t.text     :string_value
-      t.boolean  :boolean_value
-      t.integer  :integer_value
-      t.decimal  :decimal_value,               precision: 19, scale: 4
-      t.references :user
-      t.references :record_value, polymorphic: true
+      t.string     :name,                                                      null: false
+      t.string     :nature,            limit: 10,                              null: false
+      t.text       :string_value
+      t.boolean    :boolean_value
+      t.integer    :integer_value
+      t.decimal    :decimal_value,                precision: 19, scale: 4
+      t.references :record_value,                 polymorphic: true,                        index: true
+      t.references :user,                                                                   index: true
       t.stamps
+      t.index      :name
     end
-    add_index :preferences, :name
-    add_index :preferences, :nature
-    add_index :preferences, [:record_value_id, :record_value_type]
-    add_index :preferences, :user_id
 
     create_table :prescriptions do |t|
-      t.references :document
-      t.references :prescriptor
-      t.string   :reference_number
-      t.date     :delivered_on
-      t.text     :description
+      t.references :prescriptor,       null: false, index: true
+      t.references :document,                       index: true
+      t.string     :reference_number
+      t.date       :delivered_on
+      t.text       :description
       t.stamps
+      t.index      :reference_number
+      t.index      :delivered_on
     end
-    add_index :prescriptions, :document_id
-    add_index :prescriptions, :prescriptor_id
-    add_index :prescriptions, :reference_number
 
     create_table :product_indicator_data do |t|
-      t.references :product,                                                                                          null: false
-      t.string   :indicator,                                                                                          null: false
-      t.string   :indicator_datatype,                                                                                 null: false
-      t.datetime :measured_at,                                                                                        null: false
-      t.decimal  :decimal_value,                                             precision: 19, scale: 4
-      t.decimal  :measure_value_value,                                       precision: 19, scale: 4
+      t.references :product,                                                                                      null: false, index: true
+      t.string   :indicator,                                                                                      null: false
+      t.string   :indicator_datatype,                                                                             null: false
+      t.datetime :measured_at,                                                                                    null: false
+      t.decimal  :decimal_value,                                         precision: 19, scale: 4
+      t.decimal  :measure_value_value,                                   precision: 19, scale: 4
       t.string   :measure_value_unit
       t.text     :string_value
-      t.boolean  :boolean_value,                                                                      default: false, null: false
+      t.boolean  :boolean_value,                                                                  default: false, null: false
       t.string   :choice_value
-      t.point    :point_value, has_z: true
-      t.geometry :geometry_value, has_z: true
-      t.multi_polygon :multi_polygon_value, has_z: true
+      t.point    :point_value,                 has_z: true
+      t.geometry :geometry_value,              has_z: true
+      t.multi_polygon :multi_polygon_value,    has_z: true
       t.stamps
+      t.index    :indicator
+      t.index    :measured_at
     end
-    add_index :product_indicator_data, :indicator
-    add_index :product_indicator_data, :measured_at
-    add_index :product_indicator_data, :product_id
 
     create_table :product_links do |t|
-      t.references :carrier,                    null: false
-      t.references :carried,                    null: false
-      t.datetime :started_at
-      t.datetime :stopped_at
-      t.references :operation_task
+      t.references :carrier,                    null: false, index: true
+      t.references :carried,                    null: false, index: true
+      t.datetime   :started_at
+      t.datetime   :stopped_at
+      t.references :operation_task,                          index: true
       t.stamps
+      t.index      :started_at
+      t.index      :stopped_at
     end
-    add_index :product_links, :carried_id
-    add_index :product_links, :carrier_id
-    add_index :product_links, :operation_task_id
-    add_index :product_links, :started_at
-    add_index :product_links, :stopped_at
 
     create_table :product_localizations do |t|
-      t.references :product,                    null: false
-      t.string   :nature,                        null: false
-      t.references :container
-      t.string   :arrival_cause
-      t.string   :departure_cause
-      t.datetime :started_at
-      t.datetime :stopped_at
-      t.references :operation_task
+      t.references :product,                     null: false, index: true
+      t.string     :nature,                      null: false
+      t.references :container,                                index: true
+      t.string     :arrival_cause
+      t.string     :departure_cause
+      t.datetime   :started_at
+      t.datetime   :stopped_at
+      t.references :operation_task,                           index: true
       t.stamps
+      t.index      :started_at
+      t.index      :stopped_at
     end
-    add_index :product_localizations, :container_id
-    add_index :product_localizations, :operation_task_id
-    add_index :product_localizations, :product_id
-    add_index :product_localizations, :started_at
-    add_index :product_localizations, :stopped_at
 
     create_table :product_memberships do |t|
-      t.references :member,                     null: false
-      t.references :group,                      null: false
-      t.datetime :started_at,                    null: false
-      t.datetime :stopped_at
-      t.references :operation_task
+      t.references :member,                      null: false, index: true
+      t.references :group,                       null: false, index: true
+      t.datetime   :started_at,                  null: false
+      t.datetime   :stopped_at
+      t.references :operation_task,                           index: true
       t.stamps
+      t.index      :started_at
+      t.index      :stopped_at
     end
-    add_index :product_memberships, :group_id
-    add_index :product_memberships, :member_id
-    add_index :product_memberships, :operation_task_id
-    add_index :product_memberships, :started_at
-    add_index :product_memberships, :stopped_at
 
     create_table :product_moves do |t|
       t.references :product,                                                 null: false
@@ -967,23 +950,22 @@ class CreateBase < ActiveRecord::Migration
     add_index :product_moves, :stopped_at
 
     create_table :product_nature_variant_indicator_data do |t|
-      t.references :variant,                                                                                         null: false
-      t.string   :indicator,                                                                                          null: false
-      t.string   :indicator_datatype,                                                                                 null: false
-      t.string   :computation_method,                                                                                 null: false
-      t.decimal  :decimal_value,                                             precision: 19, scale: 4
-      t.decimal  :measure_value_value,                                       precision: 19, scale: 4
-      t.string   :measure_value_unit
-      t.text     :string_value
-      t.boolean  :boolean_value,                                                                      default: false, null: false
-      t.string   :choice_value
-      t.point    :point_value, has_z: true
-      t.geometry :geometry_value, has_z: true
-      t.multi_polygon :multi_polygon_value, has_z: true
+      t.references :variant,                                                                                            null: false, index: true
+      t.string     :indicator,                                                                                          null: false
+      t.string     :indicator_datatype,                                                                                 null: false
+      t.string     :computation_method,                                                                                 null: false
+      t.decimal    :decimal_value,                                             precision: 19, scale: 4
+      t.decimal    :measure_value_value,                                       precision: 19, scale: 4
+      t.string     :measure_value_unit
+      t.text       :string_value
+      t.boolean    :boolean_value,                                                                      default: false, null: false
+      t.string     :choice_value
+      t.point      :point_value,              has_z: true
+      t.geometry   :geometry_value,           has_z: true
+      t.multi_polygon :multi_polygon_value,   has_z: true
       t.stamps
+      t.index      :indicator
     end
-    add_index :product_nature_variant_indicator_data, :indicator
-    add_index :product_nature_variant_indicator_data, :variant_id
 
     create_table :product_nature_variants do |t|
       t.references :nature,                               null: false, index: true

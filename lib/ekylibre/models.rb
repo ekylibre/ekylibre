@@ -2015,7 +2015,7 @@ module Ekylibre
       document_id: Ekylibre::Record::Column.new(:document_id, :integer).freeze,
       id: Ekylibre::Record::Column.new(:id, :integer, null: false).freeze,
       lock_version: Ekylibre::Record::Column.new(:lock_version, :integer, null: false, default: 0).freeze,
-      prescriptor_id: Ekylibre::Record::Column.new(:prescriptor_id, :integer).freeze,
+      prescriptor_id: Ekylibre::Record::Column.new(:prescriptor_id, :integer, null: false).freeze,
       reference_number: Ekylibre::Record::Column.new(:reference_number, :string).freeze,
       updated_at: Ekylibre::Record::Column.new(:updated_at, :datetime, null: false).freeze,
       updater_id: Ekylibre::Record::Column.new(:updater_id, :integer).freeze

@@ -45,8 +45,8 @@ class Intervention < Ekylibre::Record::Base
   belongs_to :incident
   belongs_to :prescription
   belongs_to :provisional_intervention, class_name: "Intervention"
-  has_many :casts, :class_name => "InterventionCast", :inverse_of => :intervention
-  has_many :operations, :inverse_of => :intervention
+  has_many :casts, :class_name => "InterventionCast", inverse_of: :intervention
+  has_many :operations, inverse_of: :intervention
   enumerize :procedure, :in => Procedo.names.sort
   enumerize :state, :in => [:undone, :squeezed, :in_progress, :done], :default => :undone
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
@@ -55,7 +55,7 @@ class Intervention < Ekylibre::Record::Base
   validates_presence_of :natures, :procedure, :production, :state
   #]VALIDATORS]
   validates_inclusion_of :procedure, :in => self.procedure.values
-  #validates_presence_of :version, :uid
+  # validates_presence_of :version, :uid
 
   # @TODO in progress - need to .all parent procedure to have the name of the procedure_nature
 
@@ -90,44 +90,6 @@ class Intervention < Ekylibre::Record::Base
     self.natures = self.natures.to_s.strip.split(/[\s\,]+/).sort.join(" ")
   end
 
-  # before_validation(:on => :create) do
-  #   unless self.root?
-  #     if root = self.root
-  #       self.activity = root.activity
-  #       self.campaign = root.campaign
-  #       self.incident = root.incident
-  #     end
-  #   end
-  #   if self.root?
-  #     self.uid ||= Procedo[self.procedure.to_s].id
-  #   end
-  #   if self.reference
-  #     self.version = self.reference.version
-  #     self.uid = self.reference.id
-  #   end
-  #   if self.children.where(:state => ["undone", "in_progress"]).count > 0 or self.children.count != self.reference.children.size
-  #     self.state = "in_progress"
-  #   else self.children.count.zero? or self.children.where(:state => ["undone", "in_progress"]).count.zero?
-  #     self.state = "done"
-  #   end
-  # end
-
-
-  # # started_at (the first operation of the current procedure)
-  # def started_at
-  #   if operation = self.operations.reorder(:started_at).first
-  #     return operation.started_at
-  #   end
-  #   return nil
-  # end
-
-  # def stopped_at
-  #   if operation = self.operations.reorder(:stopped_at).first
-  #     return operation.stopped_at
-  #   end
-  #   return nil
-  # end
-
   # Main reference
   def reference
     Procedo[self.procedure]
@@ -154,9 +116,8 @@ class Intervention < Ekylibre::Record::Base
   def run!(period)
     started_at = period[:started_at]
     duration = period[:duration]
-
     for op in self.reference.operations
-      self.operations.create!(started_at: started_at, stopped_at: started_at + duration)
+      self.operations.create!(started_at: started_at, stopped_at: started_at + duration, position: op.id)
     end
     self.reload
     self.state = :done
@@ -173,41 +134,5 @@ class Intervention < Ekylibre::Record::Base
     intervention.run!(period)
     return intervention
   end
-
-
-  # # Return the next procedure (depth course)
-  # def followings
-  #   reference.followings_of(self.uid)
-  # end
-
-  # def playing
-  #   return self.root.playing unless self.root
-  #   for p in ref.tree
-  #     if self.children.where(:uid => p.id)
-  #     end
-  #   end
-  # end
-
-  # def get(refp)
-  #   return self.root.get(refp) unless self.root?
-  #   return self.children.where(:uid => refp.id).first
-  # end
-
-
-  # # Create a procedure from the reference with given refp
-  # def load(refp, state = :undone)
-  #   return self.root.load(refp, state) unless self.root?
-  #   raise "What this proc?" unless refp.parent
-  #   parent = self.self_and_descendants.where(:uid => refp.parent.id).first || self.load(refp.parent)
-  #   unless p = self.self_and_descendants.where(:uid => refp.id).first
-  #     p = self.class.create!({:parent_id => parent.id, :nomen => refp.name.to_s, :state => state, :version => refp.version, :uid => refp.id}, :without_protection => true)
-  #   end
-  #   return p
-  # end
-
-  # # Set a procedure as squeezed
-  # def squeeze(refp)
-  #   load(refp, :squeezed)
-  # end
 
 end
