@@ -43,14 +43,11 @@ class Production < Ekylibre::Record::Base
   belongs_to :product_nature
   # belongs_to :area_unit, :class_name => "Unit"
   has_many :repartitions, :class_name => "AnalyticRepartition"
-  has_many :supports, :class_name => "ProductionSupport", :inverse_of => :production
-  has_many :procedures, :class_name => "Intervention"
-  has_many :variables, :through => :procedures, :class_name => "InterventionCast"
-  has_many :land_parcel_groups, :through => :supports, :class_name => "Product" #, :conditions => {:variety => "land_parcel_group"}
+  has_many :supports, :class_name => "ProductionSupport", inverse_of: :production
+  has_many :interventions, inverse_of: :production
+  has_many :casts, through: :interventions, :class_name => "InterventionCast"
+  # has_many :land_parcel_groups, :through => :supports, :class_name => "Product" #, :conditions => {:variety => "land_parcel_group"}
 
-  accepts_nested_attributes_for :supports, :reject_if => :all_blank, :allow_destroy => true
-  # belongs_to :storage, :class_name => "LandParcel"
-  # belongs_to :work_unit, :class_name => "Unit"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :name, :state, :allow_nil => true, :maximum => 255
   validates_inclusion_of :static_support, :in => [true, false]
@@ -74,6 +71,8 @@ class Production < Ekylibre::Record::Base
     end
     where('activity_id IN (?)', activities.map(&:id))
   }
+
+  accepts_nested_attributes_for :supports, :reject_if => :all_blank, :allow_destroy => true
 
   state_machine :state, :initial => :draft do
     state :draft

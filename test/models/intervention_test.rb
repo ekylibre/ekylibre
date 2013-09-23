@@ -29,6 +29,7 @@
 #  prescription_id             :integer
 #  procedure                   :string(255)      not null
 #  production_id               :integer          not null
+#  production_support_id       :integer
 #  provisional                 :boolean          not null
 #  provisional_intervention_id :integer
 #  started_at                  :datetime

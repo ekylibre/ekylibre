@@ -30,7 +30,6 @@
 #  quantity         :decimal(19, 4)   not null
 #  theoric_quantity :decimal(19, 4)   not null
 #  tracking_id      :integer
-#  unit             :string(255)
 #  updated_at       :datetime         not null
 #  updater_id       :integer
 #  warehouse_id     :integer          not null

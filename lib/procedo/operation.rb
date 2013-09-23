@@ -11,11 +11,17 @@ module Procedo
         raise MissingAttribute.new("Each operation must have an id attribute (which must be a decimal integer). In: #{@procedure.signature}.")
       end
       if element.has_attribute?('duration')
-        @duration = Delay.new(element.attr('duration').to_s)
+        expr = element.attr('duration').to_s.strip.split(/\s+/)
+        @duration = expr.first.to_d.send(expr.second)
       end
       @tasks = element.xpath('xmlns:task').collect do |task|
         Task.new(self, task)
       end
+    end
+
+
+    def no_duration?
+      @duration.nil?
     end
 
   end

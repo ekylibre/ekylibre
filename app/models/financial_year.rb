@@ -309,13 +309,6 @@ class FinancialYear < Ekylibre::Record::Base
     return self
   end
 
-  def print_synthesis(template)
-    template = ::LibXML::XML::Document.file(template.to_s)
-    root = template.root
-    columns = []
-    return "data"
-  end
-
   # Generate last journal entry with assets depreciations (option.ally)
   def generate_last_journal_entry(options = {})
     unless self.last_journal_entry

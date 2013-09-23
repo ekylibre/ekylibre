@@ -385,6 +385,7 @@ module Ekylibre
       :incident_id => :incident,
       :prescription_id => :prescription,
       :production_id => :production,
+      :production_support_id => :production_support,
       :provisional_intervention_id => :intervention,
       :updater_id => :user
     },
@@ -1369,7 +1370,7 @@ module Ekylibre
       key: Ekylibre::Record::Column.new(:key, :string, null: false).freeze,
       lock_version: Ekylibre::Record::Column.new(:lock_version, :integer, null: false, default: 0).freeze,
       name: Ekylibre::Record::Column.new(:name, :string, null: false).freeze,
-      nature: Ekylibre::Record::Column.new(:nature, :string, limit: 60, null: false).freeze,
+      nature: Ekylibre::Record::Column.new(:nature, :string, limit: 120, null: false).freeze,
       number: Ekylibre::Record::Column.new(:number, :string, limit: 60, null: false).freeze,
       updated_at: Ekylibre::Record::Column.new(:updated_at, :datetime, null: false).freeze,
       updater_id: Ekylibre::Record::Column.new(:updater_id, :integer).freeze
@@ -1668,6 +1669,7 @@ module Ekylibre
       prescription_id: Ekylibre::Record::Column.new(:prescription_id, :integer).freeze,
       procedure: Ekylibre::Record::Column.new(:procedure, :string, null: false).freeze,
       production_id: Ekylibre::Record::Column.new(:production_id, :integer, null: false).freeze,
+      production_support_id: Ekylibre::Record::Column.new(:production_support_id, :integer).freeze,
       provisional: Ekylibre::Record::Column.new(:provisional, :boolean, null: false).freeze,
       provisional_intervention_id: Ekylibre::Record::Column.new(:provisional_intervention_id, :integer).freeze,
       started_at: Ekylibre::Record::Column.new(:started_at, :datetime).freeze,
@@ -1703,7 +1705,6 @@ module Ekylibre
       quantity: Ekylibre::Record::Column.new(:quantity, :decimal, precision: 19, scale: 4, null: false).freeze,
       theoric_quantity: Ekylibre::Record::Column.new(:theoric_quantity, :decimal, precision: 19, scale: 4, null: false).freeze,
       tracking_id: Ekylibre::Record::Column.new(:tracking_id, :integer).freeze,
-      unit: Ekylibre::Record::Column.new(:unit, :string).freeze,
       updated_at: Ekylibre::Record::Column.new(:updated_at, :datetime, null: false).freeze,
       updater_id: Ekylibre::Record::Column.new(:updater_id, :integer).freeze,
       warehouse_id: Ekylibre::Record::Column.new(:warehouse_id, :integer, null: false).freeze

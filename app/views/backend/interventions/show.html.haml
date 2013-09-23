@@ -7,6 +7,8 @@
     - b.cell do
       = attributes_list(@intervention) do |l|
         - l.attribute :procedure
+        - l.attribute :started_at
+        - l.attribute :stopped_at
         - l.attribute :state
         - l.attribute :production, :url => true
 

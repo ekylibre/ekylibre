@@ -488,6 +488,7 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.integer  "lock_version",      default: 0, null: false
   end
 
+  add_index "document_archives", ["archived_at"], :name => "index_document_archives_on_archived_at"
   add_index "document_archives", ["created_at"], :name => "index_document_archives_on_created_at"
   add_index "document_archives", ["creator_id"], :name => "index_document_archives_on_creator_id"
   add_index "document_archives", ["document_id"], :name => "index_document_archives_on_document_id"
@@ -517,16 +518,16 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "document_templates", ["updater_id"], :name => "index_document_templates_on_updater_id"
 
   create_table "documents", force: true do |t|
-    t.string   "number",         limit: 60,             null: false
-    t.string   "name",                                  null: false
-    t.string   "nature",         limit: 60,             null: false
-    t.string   "key",                                   null: false
-    t.integer  "archives_count",            default: 0, null: false
-    t.datetime "created_at",                            null: false
-    t.datetime "updated_at",                            null: false
+    t.string   "number",         limit: 60,              null: false
+    t.string   "name",                                   null: false
+    t.string   "nature",         limit: 120,             null: false
+    t.string   "key",                                    null: false
+    t.integer  "archives_count",             default: 0, null: false
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",              default: 0, null: false
+    t.integer  "lock_version",               default: 0, null: false
   end
 
   add_index "documents", ["created_at"], :name => "index_documents_on_created_at"
@@ -586,6 +587,7 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "entities", ["client_account_id"], :name => "index_entities_on_client_account_id"
   add_index "entities", ["created_at"], :name => "index_entities_on_created_at"
   add_index "entities", ["creator_id"], :name => "index_entities_on_creator_id"
+  add_index "entities", ["full_name"], :name => "index_entities_on_full_name"
   add_index "entities", ["number"], :name => "index_entities_on_number"
   add_index "entities", ["of_company"], :name => "index_entities_on_of_company"
   add_index "entities", ["proposer_id"], :name => "index_entities_on_proposer_id"
@@ -739,7 +741,6 @@ ActiveRecord::Schema.define(version: 20121212122000) do
 
   add_index "financial_years", ["created_at"], :name => "index_financial_years_on_created_at"
   add_index "financial_years", ["creator_id"], :name => "index_financial_years_on_creator_id"
-  add_index "financial_years", ["currency"], :name => "index_financial_years_on_currency"
   add_index "financial_years", ["last_journal_entry_id"], :name => "index_financial_years_on_last_journal_entry_id"
   add_index "financial_years", ["updated_at"], :name => "index_financial_years_on_updated_at"
   add_index "financial_years", ["updater_id"], :name => "index_financial_years_on_updater_id"
@@ -953,6 +954,7 @@ ActiveRecord::Schema.define(version: 20121212122000) do
 
   create_table "interventions", force: true do |t|
     t.integer  "provisional_intervention_id"
+    t.integer  "production_support_id"
     t.boolean  "provisional",                 default: false, null: false
     t.integer  "incident_id"
     t.integer  "prescription_id"
@@ -975,6 +977,7 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "interventions", ["prescription_id"], :name => "index_interventions_on_prescription_id"
   add_index "interventions", ["procedure"], :name => "index_interventions_on_procedure"
   add_index "interventions", ["production_id"], :name => "index_interventions_on_production_id"
+  add_index "interventions", ["production_support_id"], :name => "index_interventions_on_production_support_id"
   add_index "interventions", ["provisional_intervention_id"], :name => "index_interventions_on_provisional_intervention_id"
   add_index "interventions", ["updated_at"], :name => "index_interventions_on_updated_at"
   add_index "interventions", ["updater_id"], :name => "index_interventions_on_updater_id"
@@ -1010,7 +1013,6 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.integer  "inventory_id",                                          null: false
     t.integer  "tracking_id"
     t.integer  "move_id"
-    t.string   "unit"
     t.datetime "created_at",                                            null: false
     t.datetime "updated_at",                                            null: false
     t.integer  "creator_id"
@@ -1024,9 +1026,9 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "inventory_items", ["move_id"], :name => "index_inventory_items_on_move_id"
   add_index "inventory_items", ["product_id"], :name => "index_inventory_items_on_product_id"
   add_index "inventory_items", ["tracking_id"], :name => "index_inventory_items_on_tracking_id"
-  add_index "inventory_items", ["unit"], :name => "index_inventory_items_on_unit"
   add_index "inventory_items", ["updated_at"], :name => "index_inventory_items_on_updated_at"
   add_index "inventory_items", ["updater_id"], :name => "index_inventory_items_on_updater_id"
+  add_index "inventory_items", ["warehouse_id"], :name => "index_inventory_items_on_warehouse_id"
 
   create_table "journal_entries", force: true do |t|
     t.integer  "journal_id",                                                            null: false
@@ -1123,7 +1125,6 @@ ActiveRecord::Schema.define(version: 20121212122000) do
 
   add_index "journals", ["created_at"], :name => "index_journals_on_created_at"
   add_index "journals", ["creator_id"], :name => "index_journals_on_creator_id"
-  add_index "journals", ["currency"], :name => "index_journals_on_currency"
   add_index "journals", ["updated_at"], :name => "index_journals_on_updated_at"
   add_index "journals", ["updater_id"], :name => "index_journals_on_updater_id"
 

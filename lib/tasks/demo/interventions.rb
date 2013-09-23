@@ -28,6 +28,9 @@ demo :interventions do
         raise ArgumentError.new("What's the fuck ? No actors ? ")
       end
 
+      # Adds fixed durations to given time
+      duration += Procedo[procedure].fixed_duration / 3600
+
       # Estimate number of days to work
       duration_days = (duration / 8.0).ceil
 
@@ -48,10 +51,10 @@ demo :interventions do
       periods = []
       total = duration * 1.0
       duration_days.times do
-        started_at = on.to_time + self.sunset(on).hours + 1.hour
+        started_at = on.to_time + self.sunrise(on).hours + 1.hour
         d = self.daytime_duration(on) - 2.0
         d = total if d > total
-        periods << {started_at: started_at, duration: d} if d > 0
+        periods << {started_at: started_at, duration: d * 3600} if d > 0
         total -= d
         on += 1
       end

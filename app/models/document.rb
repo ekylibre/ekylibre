@@ -27,7 +27,7 @@
 #  key            :string(255)      not null
 #  lock_version   :integer          default(0), not null
 #  name           :string(255)      not null
-#  nature         :string(60)       not null
+#  nature         :string(120)      not null
 #  number         :string(60)       not null
 #  updated_at     :datetime         not null
 #  updater_id     :integer
@@ -38,7 +38,8 @@ class Document < Ekylibre::Record::Base
   has_many :archives, :class_name => "DocumentArchive", :dependent => :destroy, :inverse_of => :document
   enumerize :nature, :in => Nomen::DocumentNatures.all, :predicates => {:prefix => true}
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_length_of :nature, :number, :allow_nil => true, :maximum => 60
+  validates_length_of :number, :allow_nil => true, :maximum => 60
+  validates_length_of :nature, :allow_nil => true, :maximum => 120
   validates_length_of :key, :name, :allow_nil => true, :maximum => 255
   validates_presence_of :key, :name, :nature, :number
   #]VALIDATORS]

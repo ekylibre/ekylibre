@@ -269,20 +269,19 @@ class CreateBase < ActiveRecord::Migration
     end
 
     create_table :document_archives do |t|
-      t.references :document,                   null: false
-      t.datetime :archived_at,                   null: false
-      t.references :template
-      t.string   :file_file_name
-      t.integer  :file_file_size
-      t.string   :file_content_type
-      t.datetime :file_updated_at
-      t.string   :file_fingerprint
-      t.integer  :file_pages_count
-      t.text     :file_content_text
+      t.references :document,                   null: false, index: true
+      t.datetime   :archived_at,                null: false
+      t.references :template,                                index: true
+      t.string     :file_file_name
+      t.integer    :file_file_size
+      t.string     :file_content_type
+      t.datetime   :file_updated_at
+      t.string     :file_fingerprint
+      t.integer    :file_pages_count
+      t.text       :file_content_text
       t.stamps
+      t.index      :archived_at
     end
-    add_index :document_archives, :document_id
-    add_index :document_archives, :template_id
 
     create_table :document_templates do |t|
       t.string   :name,                                    null: false
@@ -299,15 +298,15 @@ class CreateBase < ActiveRecord::Migration
     create_table :documents do |t|
       t.string   :number,         limit: 60,             null: false
       t.string   :name,                                  null: false
-      t.string   :nature,         limit: 60,             null: false
+      t.string   :nature,         limit: 120,            null: false
       t.string   :key,                                   null: false
       t.integer  :archives_count,            default: 0, null: false
       t.stamps
+      t.index    :name
+      t.index    [:nature, :key], unique: true
+      t.index    :nature
+      t.index    :number
     end
-    add_index :documents, :name
-    add_index :documents, [:nature, :key], unique: true
-    add_index :documents, :nature
-    add_index :documents, :number
 
     create_table :entities do |t|
       t.string     :type
@@ -357,6 +356,7 @@ class CreateBase < ActiveRecord::Migration
       t.datetime   :picture_updated_at
       t.stamps
       t.index      :number
+      t.index      :full_name
       t.index      :of_company
     end
 
@@ -387,15 +387,15 @@ class CreateBase < ActiveRecord::Migration
     create_table :entity_links do |t|
       t.references :entity_1,              null: false, index: true
       t.references :entity_2,              null: false, index: true
-      t.datetime :started_at
-      t.datetime :stopped_at
-      t.text     :description
-      t.string   :nature,                  null: false
+      t.datetime   :started_at
+      t.datetime   :stopped_at
+      t.text       :description
+      t.string     :nature,                null: false
       t.stamps
     end
 
     create_table :establishments do |t|
-      t.string   :name,                     null: false
+      t.string   :name,                    null: false
       t.string   :code
       t.text     :description
       t.stamps
@@ -428,17 +428,15 @@ class CreateBase < ActiveRecord::Migration
     end
 
     create_table :financial_years do |t|
-      t.string   :code,                  limit: 20,                 null: false
-      t.boolean  :closed,                           default: false, null: false
-      t.date     :started_on,                                       null: false
-      t.date     :stopped_on,                                       null: false
-      t.string   :currency,              limit: 3
-      t.integer  :currency_precision
-      t.references :last_journal_entry
+      t.string     :code,                  limit: 20,                 null: false
+      t.boolean    :closed,                           default: false, null: false
+      t.date       :started_on,                                       null: false
+      t.date       :stopped_on,                                       null: false
+      t.string     :currency,              limit: 3
+      t.integer    :currency_precision
+      t.references :last_journal_entry,                                            index: true
       t.stamps
     end
-    add_index :financial_years, :currency
-    add_index :financial_years, :last_journal_entry_id
 
     create_table :gaps do |t|
       t.string     :number,                                                             null: false
@@ -455,19 +453,18 @@ class CreateBase < ActiveRecord::Migration
     end
 
     create_table :incidents do |t|
-      t.references :target,    polymorphic: true, null: false
-      t.string   :nature,                         null: false
-      t.datetime :observed_at,                    null: false
-      t.integer  :priority
-      t.integer  :gravity
-      t.string   :state
-      t.string   :name,                           null: false
-      t.text     :description
+      t.references :target,      polymorphic: true, null: false, index: true
+      t.string     :nature,                         null: false
+      t.datetime   :observed_at,                    null: false
+      t.integer    :priority
+      t.integer    :gravity
+      t.string     :state
+      t.string     :name,                           null: false
+      t.text       :description
       t.stamps
+      t.index      :name
+      t.index      :nature
     end
-    add_index :incidents, :name
-    add_index :incidents, :nature
-    add_index :incidents, [:target_id, :target_type]
 
     create_table :incoming_deliveries do |t|
       t.string     :number,                                             null: false
@@ -572,7 +569,8 @@ class CreateBase < ActiveRecord::Migration
 
     create_table :interventions do |t|
       t.references :provisional_intervention,                                 index: true
-      t.boolean    :provisional,              default: false,    null: false
+      t.references :production_support,                                       index: true
+      t.boolean    :provisional,                 default: false, null: false
       t.references :incident,                                                 index: true
       t.references :prescription,                                             index: true
       t.references :production,                                  null: false, index: true
@@ -598,21 +596,15 @@ class CreateBase < ActiveRecord::Migration
     end
 
     create_table :inventory_items do |t|
-      t.references :product,                                             null: false
-      t.references :warehouse,                                           null: false
+      t.references :product,                                             null: false, index: true
+      t.references :warehouse,                                           null: false, index: true
       t.decimal    :theoric_quantity, precision: 19, scale: 4,           null: false
       t.decimal    :quantity,         precision: 19, scale: 4,           null: false
-      t.references :inventory,                                           null: false
-      t.references :tracking
-      t.references :move
-      t.string     :unit
+      t.references :inventory,                                           null: false, index: true
+      t.references :tracking, index: true
+      t.references :move, index: true
       t.stamps
     end
-    add_index :inventory_items, :inventory_id
-    add_index :inventory_items, :move_id
-    add_index :inventory_items, :product_id
-    add_index :inventory_items, :tracking_id
-    add_index :inventory_items, :unit
 
     create_table :journal_entries do |t|
       t.references :journal,                                                               null: false, index: true
@@ -675,7 +667,6 @@ class CreateBase < ActiveRecord::Migration
       t.string   :currency,     limit: 3
       t.stamps
     end
-    add_index :journals, :currency
 
     create_table :listing_node_items do |t|
       t.references :node,                               null: false, index: true
@@ -737,7 +728,7 @@ class CreateBase < ActiveRecord::Migration
       t.text       :origin_object
       t.text       :description
       t.stamps
-      t.index :observed_at
+      t.index      :observed_at
     end
 
     create_table :mandates do |t|
@@ -821,16 +812,14 @@ class CreateBase < ActiveRecord::Migration
     end
 
     create_table :outgoing_payment_modes do |t|
-      t.string   :name,                limit: 50,                 null: false
-      t.boolean  :with_accounting,                default: false, null: false
-      t.references :cash
-      t.integer  :position
-      t.references :attorney_journal
-      t.boolean  :active,                         default: false, null: false
+      t.string     :name,                limit: 50,                 null: false
+      t.boolean    :with_accounting,                default: false, null: false
+      t.references :cash,                                                        index: true
+      t.integer    :position
+      t.references :attorney_journal,                                            index: true
+      t.boolean    :active,                         default: false, null: false
       t.stamps
     end
-    add_index :outgoing_payment_modes, :attorney_journal_id
-    add_index :outgoing_payment_modes, :cash_id
 
     create_table :outgoing_payments do |t|
       t.datetime :accounted_at
@@ -883,22 +872,22 @@ class CreateBase < ActiveRecord::Migration
     end
 
     create_table :product_indicator_data do |t|
-      t.references :product,                                                                                      null: false, index: true
-      t.string   :indicator,                                                                                      null: false
-      t.string   :indicator_datatype,                                                                             null: false
-      t.datetime :measured_at,                                                                                    null: false
-      t.decimal  :decimal_value,                                         precision: 19, scale: 4
-      t.decimal  :measure_value_value,                                   precision: 19, scale: 4
-      t.string   :measure_value_unit
-      t.text     :string_value
-      t.boolean  :boolean_value,                                                                  default: false, null: false
-      t.string   :choice_value
-      t.point    :point_value,                 has_z: true
-      t.geometry :geometry_value,              has_z: true
+      t.references :product,                                                                                    null: false, index: true
+      t.string     :indicator,                                                                                  null: false
+      t.string     :indicator_datatype,                                                                         null: false
+      t.datetime   :measured_at,                                                                                null: false
+      t.decimal    :decimal_value,                                     precision: 19, scale: 4
+      t.decimal    :measure_value_value,                               precision: 19, scale: 4
+      t.string     :measure_value_unit
+      t.text       :string_value
+      t.boolean    :boolean_value,                                                              default: false, null: false
+      t.string     :choice_value
+      t.point      :point_value,               has_z: true
+      t.geometry   :geometry_value,            has_z: true
       t.multi_polygon :multi_polygon_value,    has_z: true
       t.stamps
-      t.index    :indicator
-      t.index    :measured_at
+      t.index      :indicator
+      t.index      :measured_at
     end
 
     create_table :product_links do |t|

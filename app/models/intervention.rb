@@ -29,6 +29,7 @@
 #  prescription_id             :integer
 #  procedure                   :string(255)      not null
 #  production_id               :integer          not null
+#  production_support_id       :integer
 #  provisional                 :boolean          not null
 #  provisional_intervention_id :integer
 #  started_at                  :datetime
@@ -39,9 +40,9 @@
 #
 
 class Intervention < Ekylibre::Record::Base
-  # attr_accessible :nomen, :production_id, :state, :natures, :provisional_procedure_id, :provisional, :prescription_id, :incident_id
   attr_readonly :procedure, :production_id
-  belongs_to :production
+  belongs_to :production, inverse_of: :interventions
+  belongs_to :production_support
   belongs_to :incident
   belongs_to :prescription
   belongs_to :provisional_intervention, class_name: "Intervention"
@@ -69,9 +70,9 @@ class Intervention < Ekylibre::Record::Base
   scope :provisional, -> { where(provisional: true) }
   scope :real, -> { where(provisional: false) }
 
-  scope :with_variable, lambda { |role, object|
-     where("id IN (SELECT intervention_id FROM #{InterventionCast.table_name} WHERE target_id = ? AND role = ?)", object.id, role.to_s)
-  }
+  # scope :with_variable, lambda { |role, object|
+  #    where("id IN (SELECT intervention_id FROM #{InterventionCast.table_name} WHERE target_id = ? AND role = ?)", object.id, role.to_s)
+  # }
   scope :with_cast, lambda { |role, object|
      where("id IN (SELECT intervention_id FROM #{InterventionCast.table_name} WHERE actor_id = ? AND roles ~ E?)", object.id, role.to_s)
   }
@@ -89,6 +90,14 @@ class Intervention < Ekylibre::Record::Base
     end
     self.natures = self.natures.to_s.strip.split(/[\s\,]+/).sort.join(" ")
   end
+
+  validate do
+    if self.production_support != self.production
+      errors.add(:production_id, :invalid) if self.production_support.production != self.production
+    end
+    # Checks started_at >= stopped_at
+  end
+
 
   # Main reference
   def reference
@@ -116,8 +125,12 @@ class Intervention < Ekylibre::Record::Base
   def run!(period)
     started_at = period[:started_at]
     duration = period[:duration]
-    for op in self.reference.operations
-      self.operations.create!(started_at: started_at, stopped_at: started_at + duration, position: op.id)
+    reference = self.reference
+    rep = reference.spread_time(duration)
+    for op in reference.operations
+      d = op.duration || rep
+      self.operations.create!(started_at: started_at, stopped_at: started_at + d, position: op.id)
+      started_at += d
     end
     self.reload
     self.state = :done

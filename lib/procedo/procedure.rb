@@ -53,9 +53,17 @@ module Procedo
       "procedures.#{name}".t(:default => ["labels.procedures.#{name}".to_sym, "labels.#{name}".to_sym, name.to_s.humanize])
     end
 
+    # Returns the fixed time for a procedure
     def minimal_duration
-      self.operations.map(&:duration).compact.sum
+      return self.operations.map(&:duration).compact.sum
     end
+    alias :fixed_duration :minimal_duration
+
+    # Returns the spread duration for operation with unknown duration
+    def spread_time(duration)
+      return (duration - self.fixed_duration).to_d / self.operations.select(&:no_duration?).size
+    end
+
 
   end
 

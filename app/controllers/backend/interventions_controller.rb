@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 class Backend::InterventionsController < BackendController
-  manage_restfully :t3e => {:name => "RECORD.name"}, :redirect_to => "{:controller => :procedures, :action => :play, :id => 'id'}"
+  manage_restfully :t3e => {:name => "RECORD.name"}
 
   unroll
 
@@ -39,59 +39,14 @@ class Backend::InterventionsController < BackendController
     # t.column :measure_unit
   end
 
-  list(:operations, :conditions => {intervention_id: ['params[:id]']}, :order => "started_at DESC") do |t|
+  list(:operations, :conditions => {intervention_id: ['params[:id]']}, :order => "started_at") do |t|
+    t.column :position
     # t.column :name, :url => true
     # t.column :description
     # t.column :duration
-    t.column :duration
     t.column :started_at
     t.column :stopped_at
+    t.column :duration
   end
-
-
-  # def play
-  #   return unless @procedure = find_and_check
-  #   # if @procedure.id != @procedure.playing.id
-  #   #   redirect_to :action => :play, :id => @procedure.playing.id
-  #   #   return
-  #   # end
-  #   t3e @procedure, :name => @procedure.name
-  # end
-
-  # # Register parameters and prepare for next step
-  # def jump
-  #   return unless @procedure = find_and_check
-  #   Ekylibre::Record::Base.transaction do
-  #     @procedure.variables.where("nomen NOT IN (?)", params[:variables].keys).each(&:destroy)
-  #     for nomen, id in params[:variables]
-  #       v = @procedure.variables.where(:nomen => nomen).first || @procedure.variables.build
-  #       v.attributes = {:target_id => id.to_i, :nomen => nomen}
-  #       v.save!
-  #     end
-  #     @procedure.save!
-  #   end
-
-  #   if params[:go_to]
-  #     step = params[:go_to].to_sym
-  #     followings = @procedure.followings
-  #     raise StandardError.new("Following is not possible") unless followings.map(&:name).include?(step)
-  #     # Squeeze intermediates
-  #     future = nil
-  #     for f in followings
-  #       if f.name == step
-  #         future = @procedure.load(f)
-  #         break
-  #       else
-  #         @procedure.squeeze(f)
-  #       end
-  #     end
-  #     redirect_to play_backend_procedure_url(future)
-  #   elsif params[:redirect]
-  #     redirect_to params[:redirect]
-  #   else
-  #     redirect_to @procedure
-  #   end
-  # end
-
 
 end
