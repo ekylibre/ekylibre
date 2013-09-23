@@ -32,8 +32,8 @@ class Backend::InterventionsController < BackendController
   end
 
   list(:casts, :model => :intervention_casts, :conditions => {intervention_id: ['params[:id]']}, :order => "created_at DESC") do |t|
-    t.column :name, :through => :actor, :url => true
     t.column :variable
+    t.column :name, :through => :actor, :url => true
     # t.column :indicator
     # t.column :measure_quantity
     # t.column :measure_unit
@@ -41,8 +41,9 @@ class Backend::InterventionsController < BackendController
 
   list(:operations, :conditions => {intervention_id: ['params[:id]']}, :order => "started_at DESC") do |t|
     # t.column :name, :url => true
-    t.column :description
+    # t.column :description
     # t.column :duration
+    t.column :duration
     t.column :started_at
     t.column :stopped_at
   end

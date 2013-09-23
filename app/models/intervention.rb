@@ -156,9 +156,9 @@ class Intervention < Ekylibre::Record::Base
     duration = period[:duration]
 
     for op in self.reference.operations
-      self.operations.create!(started_at: x, stopped_at: y)
+      self.operations.create!(started_at: started_at, stopped_at: started_at + duration)
     end
-    self.reload!
+    self.reload
     self.state = :done
     self.save!
   end

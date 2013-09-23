@@ -99,20 +99,20 @@ demo :interventions do
         #     for production in Production.where("name LIKE 'Culture%'")
         #       variety = production.product_nature.variety
         #       #if Nomen::Varieties[variety].is_a?(:poaceae)
-        
+
         #       fertilizer_product_prev = MineralMatter.of_variety("mineral_matter").can("fertilize").first
-        
+
         #         product_nature = ProductNature.find_by_nomen("chemical_fertilizer")
         #         product_nature ||= ProductNature.import_from_nomenclature("chemical_fertilizer")
         #         product_nature_variant = product_nature.variants.create!(:name => "Ammo 33", :active => true, :unit_name => "big bag", :frozen_indicators => "net_weight")
         #         product_nature_variant.is_measured!(:net_weight, 500.in_kilogram)
-        
+
         #       fertilizer_product_prev ||= MineralMatter.create!(:name => "Ammo 1", :born_at => Time.now, :variant_id => product_nature_variant.id, :owner => Entity.of_company, :identification_number => "FR25896")
-        #         fertilizer_product_prev.is_measured!(:population, 50.in_unity)      
+        #         fertilizer_product_prev.is_measured!(:population, 50.in_unity)
         #         fertilizer_product_prev.is_measured!(:nitrogen_concentration, 27.00.in_kilogram_per_hectogram, :at => Time.now)
         #         fertilizer_product_prev.is_measured!(:potassium_concentration, 33.00.in_kilogram_per_hectogram, :at => Time.now)
         #         fertilizer_product_prev.is_measured!(:phosphorus_concentration, 33.00.in_kilogram_per_hectogram, :at => Time.now)
-        
+
         # >>>>>>> c23a36b6714fc4b124ed35113576fba11fc9f33c
         year = production.campaign.name.to_i
         Booker.production = production
@@ -181,7 +181,7 @@ demo :interventions do
             end
             # =======
             #           coeff = (land_parcel.shape_area / 10000) / 6
-            
+
             #           # Plowing 15-09-N -> 15-10-N
             #           Booker.intervene(:plowing, year - 1, 9, 15, 9.78 * coeff) do |i|
             #             i.cast(variable: 'driver', actor: Worker.all.sample)
@@ -238,5 +238,5 @@ demo :interventions do
       end
     end
   end
-  
+
 end

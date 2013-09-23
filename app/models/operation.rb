@@ -28,7 +28,7 @@
 #  lock_version    :integer          default(0), not null
 #  position        :integer
 #  started_at      :datetime         not null
-#  stopped_at      :datetime
+#  stopped_at      :datetime         not null
 #  updated_at      :datetime         not null
 #  updater_id      :integer
 #
@@ -40,7 +40,7 @@ class Operation < Ekylibre::Record::Base
   has_many :tasks, class_name: "OperationTask"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :duration, :allow_nil => true, :only_integer => true
-  validates_presence_of :intervention, :started_at
+  validates_presence_of :intervention, :started_at, :stopped_at
   #]VALIDATORS]
 
   # default_scope -> { order(:started_at) }
@@ -49,7 +49,7 @@ class Operation < Ekylibre::Record::Base
   before_validation(:on => :create) do
     self.started_at ||= Time.now
     if self.started_at and self.stopped_at
-      self.duration = self.stopped_at - self.started_at
+      self.duration = (self.stopped_at - self.started_at).to_i
     end
   end
 

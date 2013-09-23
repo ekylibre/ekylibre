@@ -1302,7 +1302,7 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   create_table "operations", force: true do |t|
     t.integer  "intervention_id",             null: false
     t.datetime "started_at",                  null: false
-    t.datetime "stopped_at"
+    t.datetime "stopped_at",                  null: false
     t.integer  "duration"
     t.integer  "position"
     t.datetime "created_at",                  null: false
@@ -1315,6 +1315,8 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "operations", ["created_at"], :name => "index_operations_on_created_at"
   add_index "operations", ["creator_id"], :name => "index_operations_on_creator_id"
   add_index "operations", ["intervention_id"], :name => "index_operations_on_intervention_id"
+  add_index "operations", ["started_at"], :name => "index_operations_on_started_at"
+  add_index "operations", ["stopped_at"], :name => "index_operations_on_stopped_at"
   add_index "operations", ["updated_at"], :name => "index_operations_on_updated_at"
   add_index "operations", ["updater_id"], :name => "index_operations_on_updater_id"
 
