@@ -32,6 +32,7 @@
 #  updater_id      :integer
 #  variable        :string(255)      not null
 #
+
 class InterventionCast < Ekylibre::Record::Base
   # attr_accessible :nomen, :target_id, :procedure_id, :role, :measure_quantity, :indicator, :measure_unit
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.

@@ -2,18 +2,17 @@
 <nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
   <nomenclature name="procedure_natures">
     <attributes>
-      <attribute name="roles" type="list" required="false"/>
+      <attribute name="roles" type="list" choices="input, output, target" required="false"/>
     </attributes>
     <items>
       <item name="animal_care" roles="input, target"/>
-      <item name="reproduction"/>
-      <item name="production" roles="output+"/>
-      <item name="feeding"/>
-      <item name="technical_guide"/>
+      <item name="reproduction" roles="input, target"/>
+      <item name="production" roles="target, output"/>
+      <item name="feeding" roles="input, target"/>
       <item name="tillage" roles="target"/>
       <item name="soil_enrichment" roles="input, target"/>
-      <item name="sowing" roles="seed, sds, culture"/>
-      <item name="pruning" roles="gardener+, target+"/>
+      <item name="sowing" roles="input, target, output"/>
+      <item name="pruning" roles="target"/>
       <item name="grinding" roles="input, output"/>
     </items>
   </nomenclature>
