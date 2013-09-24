@@ -655,7 +655,7 @@
             frozen_indicators="population: 1 unity"
             population_counting="unitary"
             abilities="catch(equipment), move, tow(plower), tow(sower), tow(spreader)"
-            indicators="population, geographic_coordinate, power"
+            indicators="population, geographic_coordinate, motor_power"
             />
       <item name="trail"
             asset_account="equipment_assets"
