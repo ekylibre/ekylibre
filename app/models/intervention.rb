@@ -91,12 +91,11 @@ class Intervention < Ekylibre::Record::Base
     self.natures = self.natures.to_s.strip.split(/[\s\,]+/).sort.join(" ")
   end
 
-  #validate do
-  #  if self.production_support.production != self.production
-   #   errors.add(:production_id, :invalid)
-   # end
-    # Checks started_at >= stopped_at
-  #end
+  validate do
+   if self.production_support and self.production
+     errors.add(:production_id, :invalid) if self.production_support.production != self.production
+   end 
+  end
 
 
   # Main reference
