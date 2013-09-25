@@ -4,7 +4,7 @@
     <variables>
       <variable name="fertilizer" variety="mineral_matter" abilities="fertilize(plant)"/>
       <variable name="fertilizer_to_spread" same-nature-of="fertilizer" parameter="false" new="quantity=?" roles="soil_enrichment-input"/>
-      <variable name="spreader" abilities="spread(mineral_matter)" /><!-- paramètre réprésentant des objets qui possede la compétence "Epandre"  un produit de la variété "organic_matter"-->
+      <variable name="spreader" abilities="spread" /><!-- paramètre réprésentant des objets qui possede la compétence "Epandre"  un produit de la variété "organic_matter"-->
       <variable name="driver" variety="worker"/><!-- paramètre réprésentant des objets de type Humain qui possede la compétence "Conduire un ensemble tracteur + épandeur"  -->
       <variable name="tractor" variety="equipment" abilities="tow(spreader)"/><!-- paramètre réprésentant des objets qui possede la compétence "Tracter"  -->
       <variable name="land_parcel" variety="cultivable_land_parcel" roles="soil_enrichment-target"/>
@@ -37,13 +37,26 @@
       <operation id="700" duration="18 minutes">
         <task do="[tractor] moves-to [land_parcel]"/><!-- le chauffeur + son tracteur et son épandeur chargé de fumier se déplace vers la parcelle et rentre dedant (?) -->
       </operation>
-      <operation id="800">
+      <operation id="800" repeatable="true">
         <!-- tant que le [tractor] travaille (? = sous-entendu le tracteur tourne,le conducteur roule, l'épandeur tourne) les task tournent -->
         <task do="[fertilizer_to_spread] moves-in [land_parcel]"/><!-- le fumier tombe par terre car l'épandeur tourne (?) -->
         <task do="[land_parcel] consumes [fertilizer_to_spread]"/><!-- la parcelle consomme le fumier épandu -->
         <!-- a terme, on devrait être capable de faire IF l'épandeur est vide alors j'arrete de travailler -->
         <!-- et je retourne charger du fumier sur le tas global-->
-      </operation><!-- a terme, on devrait être capable de faire une boucle WHILE tant que la parcelle n'a pas eu la dose de fumier , je continue de charger et épandre  -->
+      </operation>
+      <!-- a terme, on devrait être capable de faire une boucle WHILE tant que la parcelle n'a pas eu la dose de fumier , je continue de charger et épandre  -->
+      <operation id="900" duration="18 minutes">
+        <task do="[tractor] moves-in-default-storage-of [spreader]"/>
+      </operation>
+      <operation id="1000" duration="4 minutes">
+        <task do="[tractor] releases [spreader]"/>
+      </operation>
+      <operation id="1100" duration="7 minutes">
+        <task do="[tractor] moves-in-default-storage"/>
+      </operation>
+      <operation id="1200" duration="4 minutes">
+        <task do="[driver] moves-in-default-storage"/>
+      </operation>
     </operations> 
   </procedure>
 </procedures>

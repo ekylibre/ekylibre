@@ -13,7 +13,7 @@
         <task do="[person] moves-to [animal]"/>
         <task do="[person] measure [animal] at animal_disease_state"/>
       </operation>
-      <operation id="200">
+      <operation id="200" duration="10 minutes">
         <task do="[molecule] parts-with [molecule_to_spray]"/>
         <task do="[animal] consume [molecule_to_give]"/>    
       </operation>

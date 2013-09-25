@@ -19,7 +19,7 @@
       <item name="catch"/>
       <!-- @QUID : niveau de compétence (normal, précision)  -->
       <item name="spread" parameters="variety"/>
-      <item name="spray_liquid"/>
+      <item name="spray"/>
       <!-- @QUID : niveau de compétence (normal, précision)  -->
       <item name="plow"/>
       <item name="superficial_plow"/>
