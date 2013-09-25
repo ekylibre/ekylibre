@@ -108,7 +108,7 @@ module ActiveList
               if [:date, :datetime, :timestamp].include? column.datatype
                 datum = "(#{datum}.nil? ? '' : ::I18n.localize(#{datum}))"
               end
-              if !column.options[:currency].is_a?(FalseClass) and (currency = column.options[:currency]) # column.datatype == :decimal and
+              if !column.options[:currency].is_a?(FalseClass) and currency = column.options[:currency]
                 currency = currency[nature] if currency.is_a?(Hash)
                 currency = :currency if currency.is_a?(TrueClass)
                 currency = "RECORD.#{currency}" if currency.is_a?(Symbol)
@@ -138,11 +138,11 @@ module ActiveList
               elsif column.name==:color
                 style << "background: #'+"+column.datum_code(record)+"+';"
               elsif column.name.to_s.match(/(^|\_)currency$/) and column.datatype == :string and column.limit == 3
-                datum = "(#{datum}.blank? ? '' : ::I18n.currency_label(#{datum}))"
+                datum = "(#{datum}.blank? ? '' : Nomen::Languages[#{datum}].human_name)"
               elsif column.name==:language and column.datatype == :string and column.limit <= 8
-                datum = "(#{datum}.blank? ? '' : ::I18n.translate('languages.'+#{datum}))"
+                datum = "(#{datum}.blank? ? '' :  + Nomen::Languages[#{datum}].human_name)"
               elsif column.name==:country and  column.datatype == :string and column.limit <= 8
-                datum = "(#{datum}.blank? ? '' : (image_tag('countries/'+#{datum}.to_s+'.png')+' '+::I18n.translate('countries.'+#{datum})).html_safe)"
+                datum = "(#{datum}.blank? ? '' : (image_tag('countries/'+#{datum}.to_s+'.png') + ' ' + Nomen::Countries[#{datum}].human_name).html_safe)"
               elsif column.datatype == :string
                 datum = "h("+datum+")"
               end
