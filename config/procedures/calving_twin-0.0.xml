@@ -17,7 +17,7 @@
         <task do="[mother_animal] produce [child_animal_second]"/><!-- une vache produit le second veau -->
         <task do="[person] measure [child_animal_second] at mammalia_born_condition"/>
       </operation>
-      <operation id="300">
+      <operation id="300" duration="5 minutes">
         <task do="[person] measure [mother_animal] at mammalia_born_cycle"/>
         <task do="[person] measure [mother_animal] at mammalia_reproduction_method_embryo_transplant"/>
         <task do="[person] measure [mother_animal] at mammalia_reproduction_event_abortion"/>      

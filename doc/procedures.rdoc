@@ -1,0 +1,46 @@
+= Procedures
+
+Procedures permits to define how things are done.
+
+== Tasks
+
+These are many types of task depending on what we want to do.
+
+  * Localization:
+    * [product-1] moves-to [product-2]
+    * [product-1] moves-in [product-2]
+    * [product-1] moves-in-default-storage
+    * [product-1] moves-in-default-storage-of [product-2]
+
+  * Production/comsumption:
+    * [product-1] produces [product-2]*
+    * [product-1] consumes [product-2]
+    * [product-1] dies
+
+  * Physical links:
+    * [product-1] catches  [product-2]
+    * [product-1] releases [product-2]
+
+  * Memberships/groups:
+    * [product-1] goes-into [product-2]
+    * [product-1] goes-out  [product-2]
+
+  * Merge/split:
+    * [product-1] merges-with [product-2]*
+    * [product-1] parts-with  [product-2]
+
+  * Measures:
+    * [product-1] is-measured-at [indicator]
+
+  * Deliveries:
+    * [product-1] is-delivered
+    * [product-1] is-delivered-to  [client]
+    * [product-1] is-received
+    * [product-1] is-received-from [supplier]
+
+
+=== Not decided
+
+  * [product-1] acts-on  [product-2]: To declare sub-actions
+  * [product-1] modifies [product-2]: Updates
+  * [product-1] drives   [product-2] as [role]

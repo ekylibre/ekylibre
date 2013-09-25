@@ -1101,6 +1101,7 @@ class CreateBase < ActiveRecord::Migration
       t.string     :content_indicator_unit
       t.decimal    :content_maximal_quantity,             precision: 19, scale: 4, default: 0.0,   null: false
       t.references :parent,                                                                                     index: true
+      t.references :default_storage,                                                                            index: true
       t.stamps
       t.index      :type
       t.index      :name
