@@ -163,7 +163,7 @@ demo :interventions do
 
 
   Ekylibre::fixturize :animal_interventions do |w|
-    
+
   end
-  
+
 end
