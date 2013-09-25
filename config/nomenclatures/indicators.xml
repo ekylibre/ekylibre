@@ -9,7 +9,8 @@
     </attributes>
     <items>
       <item name="temperature" datatype="measure" unit="celsius"/>
-      <item name="population" datatype="measure" unit="unity"/>
+      <!-- <item name="population" datatype="measure" unit="unity"/> -->
+      <item name="population" datatype="decimal"/>
       <item name="net_weight" datatype="measure" unit="kilogram"/>
       <item name="net_volume" datatype="measure" unit="liter"/>
       <item name="net_surface_area" datatype="measure" unit="square_meter"/>

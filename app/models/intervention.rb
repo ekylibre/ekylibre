@@ -94,7 +94,7 @@ class Intervention < Ekylibre::Record::Base
   validate do
    if self.production_support and self.production
      errors.add(:production_id, :invalid) if self.production_support.production != self.production
-   end 
+   end
   end
 
 

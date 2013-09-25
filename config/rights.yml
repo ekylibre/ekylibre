@@ -136,25 +136,8 @@
 # - "backend/documents#new"
 # - "backend/documents#show"
 # - "backend/documents#update"
-# - "backend/entities#list_event_participations"
 # - "backend/entity_addresses#show"
 # - "backend/entity_links#show"
-# - "backend/event_natures#create"
-# - "backend/event_natures#destroy"
-# - "backend/event_natures#edit"
-# - "backend/event_natures#index"
-# - "backend/event_natures#list"
-# - "backend/event_natures#new"
-# - "backend/event_natures#update"
-# - "backend/events#autocomplete_for_place"
-# - "backend/events#change_minutes"
-# - "backend/events#create"
-# - "backend/events#destroy"
-# - "backend/events#edit"
-# - "backend/events#index"
-# - "backend/events#list"
-# - "backend/events#new"
-# - "backend/events#update"
 # - "backend/gaps#create"
 # - "backend/gaps#destroy"
 # - "backend/gaps#edit"
@@ -533,8 +516,8 @@ consult_entities:
 - "backend/dashboards#relationship"
 - "backend/entities#index"
 - "backend/entities#list"
+- "backend/entities#list_event_participations"
 - "backend/entities#list_incoming_payments"
-- "backend/entities#list_meeting_participations" #?
 - "backend/entities#list_outgoing_payments"
 - "backend/entities#list_purchases"
 - "backend/entities#list_sales"
@@ -777,9 +760,9 @@ manage_entities:
 - "backend/entities#create"
 - "backend/entities#destroy"
 - "backend/entities#edit"
+- "backend/entities#list_event_participations"
 - "backend/entities#list_incoming_payments"
 - "backend/entities#list_mandates"
-- "backend/entities#list_meeting_participations" #?
 - "backend/entities#list_purchases"
 - "backend/entities#list_sales"
 - "backend/entities#list_subscriptions" #?
@@ -838,6 +821,26 @@ manage_estimates:
 - "backend/sales#show"
 - "backend/sales#update"
 - "backend/subscriptions#coordinates"
+
+# translation missing: eng.rights.manage_events
+manage_events:
+- "backend/dashboards#relationship"
+- "backend/event_natures#create"
+- "backend/event_natures#destroy"
+- "backend/event_natures#edit"
+- "backend/event_natures#index"
+- "backend/event_natures#list"
+- "backend/event_natures#new"
+- "backend/event_natures#update"
+- "backend/events#autocomplete_for_place"
+- "backend/events#change_minutes"
+- "backend/events#create"
+- "backend/events#destroy"
+- "backend/events#edit"
+- "backend/events#index"
+- "backend/events#list"
+- "backend/events#new"
+- "backend/events#update"
 
 # Manage and close financial years
 manage_financial_years:
@@ -992,26 +995,6 @@ manage_mandates:
 - "backend/mandates#list"
 - "backend/mandates#new"
 - "backend/mandates#update"
-
-# Manage meetings
-manage_meetings:
-- "backend/dashboards#relationship"
-- "backend/meeting_natures#create" #?
-- "backend/meeting_natures#destroy" #?
-- "backend/meeting_natures#edit" #?
-- "backend/meeting_natures#index" #?
-- "backend/meeting_natures#list" #?
-- "backend/meeting_natures#new" #?
-- "backend/meeting_natures#update" #?
-- "backend/meetings#autocomplete_for_place" #?
-- "backend/meetings#change_minutes" #?
-- "backend/meetings#create" #?
-- "backend/meetings#destroy" #?
-- "backend/meetings#edit" #?
-- "backend/meetings#index" #?
-- "backend/meetings#list" #?
-- "backend/meetings#new" #?
-- "backend/meetings#update" #?
 
 # Manage observations
 manage_observations:

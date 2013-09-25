@@ -77,7 +77,7 @@ module Nomen
 
     # Returns the given item
     def [](item_name)
-      @items[item_name.to_sym]
+      @items[item_name]
     end
 
     # List all item names. Can filter on a given item name and its children
@@ -103,6 +103,17 @@ module Nomen
     # Return the Item for the given name
     def find(item_name)
       return @items[item_name]
+    end
+
+    # List items with attributes filtering
+    def where(attributes)
+      @items.values.select do |item|
+        valid = true
+        for attribute, value in attributes
+          valid = false unless item.attr(attribute) == value
+        end
+        valid
+      end
     end
 
     # Returns Attribute descriptor

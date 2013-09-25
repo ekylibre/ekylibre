@@ -50,10 +50,10 @@ module Nomen
       "#{@nomenclature.name}-#{@name}"
     end
 
-    # Returns Attribute descriptor
-    def method_missing(method_name)
-      return super unless attribute = @nomenclature.attributes[method_name]
-      value = @attributes[method_name]
+    # Returns attribute value
+    def attr(name)
+      attribute = @nomenclature.attributes[name]
+      value = @attributes[name]
       if value.nil? and attribute.fallbacks
         for fallback in attribute.fallbacks
           value ||= @attributes[fallback]
@@ -61,9 +61,20 @@ module Nomen
         end
       end
       if attribute.default
-        value ||= cast_attribute(method_name, attribute.default)
+        value ||= cast_attribute(name, attribute.default)
       end
       return value
+    end
+
+    # Checks if item has attribute with given name
+    def has_attribute?(name)
+      !@nomenclature.attributes[name].nil?
+    end
+
+    # Returns Attribute descriptor
+    def method_missing(method_name)
+      return attr(method_name) if has_attribute?(method_name)
+      return super
     end
 
     private

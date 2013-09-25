@@ -13,7 +13,7 @@
         <page to="backend/entities#list"/>
         <page to="backend/entities#list_cashes"/>
         <page to="backend/entities#list_contacts"/>
-        <page to="backend/entities#list_meetings"/>
+        <page to="backend/entities#list_events"/>
         <page to="backend/entities#list_incoming_payments"/>
         <page to="backend/entities#list_links"/>
         <page to="backend/entities#list_mandates"/>
@@ -64,15 +64,15 @@
         <page to="backend/people#update"/>
       </item>
     </group>
-    <group name="meetings" icon="calendar">
+    <group name="events" icon="calendar">
       <item name="events">
-        <page to="backend/events#index" deletable="true"/>
-        <page to="backend/events#create" deletable="true"/>
-        <page to="backend/events#destroy" deletable="true"/>
-        <page to="backend/events#edit" deletable="true"/>
-        <page to="backend/events#list" deletable="true"/>
-        <page to="backend/events#new" deletable="true"/>
-        <page to="backend/events#update" deletable="true"/>
+        <page to="backend/events#index"/>
+        <page to="backend/events#create"/>
+        <page to="backend/events#destroy"/>
+        <page to="backend/events#edit"/>
+        <page to="backend/events#list"/>
+        <page to="backend/events#new"/>
+        <page to="backend/events#update"/>
       </item>
     </group>
     <group name="subscriptions" icon="tags">
@@ -699,14 +699,14 @@
     </group>
     <group name="people" icon="group">
       <page to="backend/dashboards#settings_relationship"/>
-      <item name="meeting_natures">
-        <page to="backend/meeting_natures#index" deletable="true"/>
-        <page to="backend/meeting_natures#create" deletable="true"/>
-        <page to="backend/meeting_natures#destroy" deletable="true"/>
-        <page to="backend/meeting_natures#edit" deletable="true"/>
-        <page to="backend/meeting_natures#list" deletable="true"/>
-        <page to="backend/meeting_natures#new" deletable="true"/>
-        <page to="backend/meeting_natures#update" deletable="true"/>
+      <item name="event_natures">
+        <page to="backend/event_natures#index"/>
+        <page to="backend/event_natures#create"/>
+        <page to="backend/event_natures#destroy"/>
+        <page to="backend/event_natures#edit"/>
+        <page to="backend/event_natures#list"/>
+        <page to="backend/event_natures#new"/>
+        <page to="backend/event_natures#update"/>
       </item>
       <item name="subscription_natures">
         <page to="backend/subscription_natures#index"/>
@@ -1098,25 +1098,9 @@
       <item name="entities">
         <page to="backend/entities#list_event_participations"/>
       </item>
-      <item name="event_natures">
-        <page to="backend/event_natures#index"/>
-        <page to="backend/event_natures#create"/>
-        <page to="backend/event_natures#destroy"/>
-        <page to="backend/event_natures#edit"/>
-        <page to="backend/event_natures#list"/>
-        <page to="backend/event_natures#new"/>
-        <page to="backend/event_natures#update"/>
-      </item>
       <item name="events">
-        <page to="backend/events#index"/>
         <page to="backend/events#autocomplete_for_place"/>
         <page to="backend/events#change_minutes"/>
-        <page to="backend/events#create"/>
-        <page to="backend/events#destroy"/>
-        <page to="backend/events#edit"/>
-        <page to="backend/events#list"/>
-        <page to="backend/events#new"/>
-        <page to="backend/events#update"/>
       </item>
       <item name="gaps">
         <page to="backend/gaps#create"/>

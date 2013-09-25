@@ -1868,6 +1868,7 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.string   "content_indicator_unit"
     t.decimal  "content_maximal_quantity",             precision: 19, scale: 4, default: 0.0,   null: false
     t.integer  "parent_id"
+    t.integer  "default_storage_id"
     t.datetime "created_at",                                                                    null: false
     t.datetime "updated_at",                                                                    null: false
     t.integer  "creator_id"
@@ -1880,6 +1881,7 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "products", ["content_nature_id"], :name => "index_products_on_content_nature_id"
   add_index "products", ["created_at"], :name => "index_products_on_created_at"
   add_index "products", ["creator_id"], :name => "index_products_on_creator_id"
+  add_index "products", ["default_storage_id"], :name => "index_products_on_default_storage_id"
   add_index "products", ["father_id"], :name => "index_products_on_father_id"
   add_index "products", ["mother_id"], :name => "index_products_on_mother_id"
   add_index "products", ["name"], :name => "index_products_on_name"

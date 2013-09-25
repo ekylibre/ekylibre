@@ -45,7 +45,7 @@ eng:
     manage_land_parcels: "Manage fields"
     manage_listings: "Manage listings"
     manage_mandates: "Manage mandates"
-    manage_meetings: "Manage meetings"
+    manage_meetings: "Manage meetings" #?
     manage_observations: "Manage observations"
     manage_operations: "Manage operations"
     manage_outgoing_delivery_modes: "Manage outgoing delivery modes"
