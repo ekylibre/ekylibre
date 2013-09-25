@@ -12,6 +12,7 @@
       <item name="consume" parameters="variety"/>
       <item name="produce" parameters="variety"/>
       <item name="kill"    parameters="variety"/>
+      <item name="care"    parameters="variety"/>
       <item name="manage"  parameters="variety"/> <!-- ? -->
       <item name="germinate"/>
       <item name="feed"/>

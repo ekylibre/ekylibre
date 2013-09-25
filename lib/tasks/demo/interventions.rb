@@ -163,7 +163,25 @@ demo :interventions do
 
 
   Ekylibre::fixturize :animal_interventions do |w|
-    
+    for production in Production.all
+      variety = production.product_nature.variety
+      if Nomen::Varieties[variety].self_and_parents.include?(Nomen::Varieties[:bos])
+        year = production.campaign.name.to_i
+        Booker.production = production
+        for support in production.supports
+          if support.is_a?(AnimalGroup)
+            for animal in support.members_at()
+              Booker.intervene(:animal_treatment, year - 1, 9, 15, 0.5 * coeff) do |i|
+                  i.add_cast(variable: 'animal', actor: animal)
+                  i.add_cast(variable: 'person', actor: Worker.all.sample)
+                  i.add_cast(variable: 'molecule', actor: AnimalMedicine.can("care(bos)").all.sample)
+                  i.add_cast(variable: 'molecule_to_give', quantity: 20)
+              end
+            end
+          end
+        end
+      end
+    end
   end
   
 end

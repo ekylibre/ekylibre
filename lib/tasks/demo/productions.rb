@@ -48,9 +48,10 @@ demo :productions do
                          :product_nature_nomen => row[3].blank? ? nil :row[3].to_sym,
                          :nature => (natures[row[4]] || :none).to_s,
                          :campaign_name => row[5].blank? ? nil : row[5].to_s,
-                         :work_number_land_parcel_storage => row[6].blank? ? nil : row[6].to_s
+                         :work_number_storage => row[6].blank? ? nil : row[6].to_s
                          )
-      land_parcel_support = CultivableLandParcel.find_by(work_number: r.work_number_land_parcel_storage)
+      product_support = Product.find_by(work_number: r.work_number_storage)
+
       # Create a campaign if not exist
       if r.campaign_name.present?
         campaign   = Campaign.find_by(name: r.campaign_name)
@@ -67,21 +68,23 @@ demo :productions do
           product_nature_sup = ProductNature.import_from_nomenclature(r.product_nature_nomen)
           product_nature_variant_sup = product_nature_sup.default_variant
         end
-        if product_nature_variant_sup and land_parcel_support.present?
+        if product_nature_variant_sup and product_support.present?
           # find a production corresponding to campaign , activity and product_nature
           pro = Production.where(:campaign_id => campaign.id, :activity_id => activity.id, :product_nature_id => product_nature_sup.id).first
           # or create it
           pro ||= activity.productions.create!(:product_nature_id => product_nature_sup.id, :campaign_id => campaign.id, :static_support => true)
           # create a support for this production
-          pro.supports.create!(:storage_id => land_parcel_support.id)
-          # create a name for the plant correponding to product_nature_nomen in XML Nomenclature
-          plant_name = (Nomen::ProductNatures.find(r.product_nature_nomen).human_name + " " + campaign.name + " " + land_parcel_support.work_number)
-          # create a work number for the plant
-          plant_work_nb = (r.product_nature_nomen.to_s + "-" + campaign.name + "-" + land_parcel_support.work_number)
-          # create the plant
-          plant = Plant.create!(:variant_id => product_nature_variant_sup.id, :work_number => plant_work_nb , :name => plant_name, :variety => product_nature_sup.variety, :born_at => Time.now, :owner_id => Entity.of_company.id)
-          # localize the plant in the cultivable_land_parcel
-          ProductLocalization.create!(:container_id => land_parcel_support.id, :product_id => plant.id, :nature => :interior, :started_at => Time.now, :arrival_cause => :birth)
+          pro.supports.create!(:storage_id => product_support.id)
+          if product_support.is_a?(CultivableLandParcel)
+            # create a name for the plant correponding to product_nature_nomen in XML Nomenclature
+            plant_name = (Nomen::ProductNatures.find(r.product_nature_nomen).human_name + " " + campaign.name + " " + product_support.work_number)
+            # create a work number for the plant
+            plant_work_nb = (r.product_nature_nomen.to_s + "-" + campaign.name + "-" + product_support.work_number)
+            # create the plant
+            plant = Plant.create!(:variant_id => product_nature_variant_sup.id, :work_number => plant_work_nb , :name => plant_name, :variety => product_nature_sup.variety, :born_at => Time.now, :owner_id => Entity.of_company.id)
+            # localize the plant in the cultivable_land_parcel
+            ProductLocalization.create!(:container_id => product_support.id, :product_id => plant.id, :nature => :interior, :started_at => Time.now, :arrival_cause => :birth)            
+          end
         elsif product_nature_variant_sup
           pro = Production.where(:product_nature_id => product_nature_sup.id, :campaign_id => campaign.id, :activity_id => activity.id).first
           pro ||= activity.productions.create!(:product_nature_id => product_nature_sup.id, :campaign_id => campaign.id)
