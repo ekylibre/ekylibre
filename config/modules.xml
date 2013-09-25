@@ -65,16 +65,14 @@
       </item>
     </group>
     <group name="meetings" icon="calendar">
-      <item name="meetings">
-        <page to="backend/meetings#index" deletable="true"/>
-        <page to="backend/meetings#change_minutes" deletable="true"/>
-        <page to="backend/meetings#create" deletable="true"/>
-        <page to="backend/meetings#destroy" deletable="true"/>
-        <page to="backend/meetings#edit" deletable="true"/>
-        <page to="backend/meetings#list" deletable="true"/>
-        <page to="backend/meetings#new" deletable="true"/>
-        <page to="backend/meetings#autocomplete_for_place" deletable="true"/>
-        <page to="backend/meetings#update" deletable="true"/>
+      <item name="events">
+        <page to="backend/events#index" deletable="true"/>
+        <page to="backend/events#create" deletable="true"/>
+        <page to="backend/events#destroy" deletable="true"/>
+        <page to="backend/events#edit" deletable="true"/>
+        <page to="backend/events#list" deletable="true"/>
+        <page to="backend/events#new" deletable="true"/>
+        <page to="backend/events#update" deletable="true"/>
       </item>
     </group>
     <group name="subscriptions" icon="tags">

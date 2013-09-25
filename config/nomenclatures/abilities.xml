@@ -25,6 +25,9 @@
       <item name="superficial_plow"/>
       <item name="clean"/>
       <item name="sow"/>
+      <item name="mow_down"/>
+      <item name="bunch"/>
+      <item name="swath"/>
       <item name="harvest" parameters="variety"/>
       <item name="move"/>
       <item name="store" parameters="variety"/>
