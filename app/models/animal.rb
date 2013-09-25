@@ -32,6 +32,7 @@
 #  created_at               :datetime         not null
 #  creator_id               :integer
 #  dead_at                  :datetime
+#  default_storage_id       :integer
 #  description              :text
 #  external                 :boolean          not null
 #  father_id                :integer

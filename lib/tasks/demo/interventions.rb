@@ -144,7 +144,7 @@ demo :interventions do
             # Harvest 01-07-M 30-07-M
             bob = Worker.all.sample
             other = Worker.where("id != ?", bob.id).all.sample
-            Booker.intervene(:seed_harvest, year, 7, 1, 3.13 * coeff) do |i|
+            Booker.intervene(:grains_harvest, year, 7, 1, 3.13 * coeff) do |i|
               i.add_cast(variable: 'silo', actor: Product.can("store(grain)").all.sample)
               i.add_cast(variable: 'driver', actor: bob)
               i.add_cast(variable: 'tractor', actor: Product.can("tow(equipment)").all.sample)

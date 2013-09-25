@@ -1,4 +1,11 @@
+# -*- coding: utf-8 -*-
 require 'nomen'
+
+class AmbiguousUnit < ArgumentError
+end
+
+class InvalidExpression < ArgumentError
+end
 
 class Measure
   attr_reader :value, :unit
@@ -41,18 +48,33 @@ class Measure
   def initialize(*args)
     value, unit = nil, nil
     if args.size == 1
-      expr = args.to_s.strip
-      value = expr.gsub(/[a-z\s]+/, "").to_d
-      unit  = expr.gsub(/[0-9\.\s]+/, "")
+      expr  = args.shift.to_s.gsub(/[[:space:]]+/, ' ').strip
+      unless expr.match(/\A([\,\.]\d+|\d+([\,\.]\d+)?)\s*[a-zA-Z].*\z/)
+        raise InvalidExpression, "#{expr} cannot be parsed."
+      end
+      unit  = expr.gsub(/\A[\d\.\,\s]+/, '')
+      value = expr.split(/[a-zA-Z\s]/).first.strip.gsub(/\,/, '.').to_d
     elsif args.size == 2
-      value, unit = args[0], args[1]
+      value = args.shift
+      unit  = args.shift
     else
-      raise ArgumentError.new("wrong number of arguments (#{args.size} for 1 or 2)")
+      raise ArgumentError, "wrong number of arguments (#{args.size} for 1 or 2)"
     end
-    raise ArgumentError.new("Value can't be converted to float: #{value.inspect}") unless value.is_a? Numeric
+    unless value.is_a? Numeric
+      raise ArgumentError, "Value can't be converted to float: #{value.inspect}"
+    end
     @value = value.to_d
     @unit = unit.to_s
-    raise ArgumentError.new("Unknown unit: #{unit.inspect}") unless @@units.items[@unit]
+    unless @@units.items[@unit]
+      units = @@units.where(symbol: @unit)
+      if units.size > 1
+        raise AmbiguousUnit, "The unit #{@unit} match with too many units: #{units.map(&:name).to_sentence}."
+      elsif units.size.zero?
+        raise ArgumentError, "Unknown unit: #{unit.inspect}"
+      else
+        @unit = units.first.name.to_s
+      end
+    end
   end
 
   def convert(unit)
@@ -109,7 +131,7 @@ class Measure
 
   def to_d(unit = nil)
     if unit.nil?
-      return @value.dup
+      return @value
     else
       raise ArgumentError.new("Unknown unit: #{unit.inspect}") unless @@units[unit]
       if @@units[@unit.to_s].dimension != @@units[unit.to_s].dimension
