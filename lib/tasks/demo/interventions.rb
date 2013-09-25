@@ -169,9 +169,9 @@ demo :interventions do
         year = production.campaign.name.to_i
         Booker.production = production
         for support in production.supports
-          if support.is_a?(AnimalGroup)
-            for animal in support.members_at()
-              Booker.intervene(:animal_treatment, year - 1, 9, 15, 0.5 * coeff) do |i|
+          if support.storage.is_a?(AnimalGroup)
+            for animal in support.storage.members_at()
+              Booker.intervene(:animal_treatment, year - 1, 9, 15, 0.5) do |i|
                   i.add_cast(variable: 'animal', actor: animal)
                   i.add_cast(variable: 'person', actor: Worker.all.sample)
                   i.add_cast(variable: 'molecule', actor: AnimalMedicine.can("care(bos)").all.sample)

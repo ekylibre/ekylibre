@@ -43,14 +43,13 @@ class ProductionSupport < Ekylibre::Record::Base
   delegate :shape_area, to: :storage, prefix: true
 
 
-  validate do
-    if self.storage
+  #validate do
+   # if self.storage
       # must be a CultivableLandParcel or an AnimalGroup
-      errors.add(:storage, :invalid) unless self.storage.is_a?(CultivableLandParcel) || self.storage.is_a?(AnimalGroup)
-    end
-  end
+      #errors.add(:storage, :invalid) unless self.storage.is_a?(CultivableLandParcel || AnimalGroup)
+  #  end
+  #end
 
 end
-
 
 

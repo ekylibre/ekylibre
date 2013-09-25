@@ -266,8 +266,10 @@ fra:
       new: "Ajout d’un nouvel encaissement"
       show: "Encaissement n°%{number} de %{entity}"
     backend/interventions:
-      # edit: "Edit backend/intervention"
-      # new: "New backend/intervention"
+      edit: "Modifier l’intervention %{name}"
+      new: "Nouvelle intervention"
+      index: "Interventions"
+      show: "Intervention n°%{id}"
     backend/inventories:
       edit: "Modifier l’inventaire"
       index: "Inventaires"
