@@ -79,15 +79,14 @@ demo :interventions do
 
   end
 
-
   nature = ProductNature.find_or_create_by!(name: "Travailleur", variety: "worker")
   variant = nature.variants.find_or_create_by!(name: "Technicien", unit_name: "Personne")
-  Worker.find_or_create_by!(number: 'ALICEALI', name: 'Alice', variant: variant)
-  Worker.find_or_create_by!(number: 'BOBOBOBO', name: 'Bob', variant: variant)
-  Worker.find_or_create_by!(number: 'CHARLENE', name: 'Charlene', variant: variant)
+  Worker.find_or_create_by!(number: 'BURISU', name: 'Brice TEXIER', variant: variant)
+  Worker.find_or_create_by!(number: 'IONOSPHERE', name: 'David JOULIN', variant: variant)
+  Worker.find_or_create_by!(number: 'CHEF_PIEGE', name: 'Yvan JOULIN', variant: variant)
 
 
-  Ekylibre::fixturize :interventions do |w|
+  Ekylibre::fixturize :cultural_interventions do |w|
     for production in Production.all
       variety = production.product_nature.variety
       if Nomen::Varieties[variety].self_and_parents.include?(Nomen::Varieties[:poaceae])
@@ -162,4 +161,9 @@ demo :interventions do
     end
   end
 
+
+  Ekylibre::fixturize :animal_interventions do |w|
+    
+  end
+  
 end
