@@ -1,25 +1,25 @@
-'name','nature','variant','born_at','marque','modèle','indicateurs','notes'
-533,'tractor',,1983-01-01,'CASE-IH',533,'Power : 45 ch',
-745,'tractor',,1987-01-01,'CASE-IH',745,'Power : 75 ch',
-'745 Desilleuse fourche','tractor',,1990-01-01,'CASE-IH',745,'Power : 75 ch',
-4240,'tractor',,1994-07-15,'CASE-IH',4240,'Power : 92 ch',
-'renault','tractor',,2005-08-15,'RENAULT',,'Power : 110 ch',
-'semoir engrais centrifuge','spreader',,1999-10-01,,,'net_volume : 700l',
-'semoir grains','sower',,2006-05-15,,,'application_width : 3m',
-'semoir maïs','sower',,1988-10-01,,,,'Co-propriété (BOUCHERIE)'
-'remorque 11T','trail',,,,,'net_weight : 11000 kg',
-'remorque épandeur ','trail',,,,,'net_weight : 8000 kg',
-'monocoque','trail',,,,,'net_weight : 8000 kg',
-'Charrue 4 socs','plow',,,,,,
-'charrue réversible 5 socs','plow',,,,,,
-'vibroculteur','surperficial_plow',,,,,'application_width : 4m',
-'presse balle carré','baler',,,,,,
-'pulvé','sprayer',,,'BERTHOULD',,'application_width : 12m ; net_volume : 900l',
-'covercrop','surperficial_plow',,,,,,'CUMA'
-'herse','surperficial_plow',,,,,,'CUMA'
-'cultipacker','surperficial_plow',,,,,,'CUMA'
-'faucheuse','mower',,,,,'application_width : 3,2m','CUMA'
-'andaineur','hay_rake',,,,,,'CUMA'
-'presse balle ronde','baler',,,,,,'CUMA'
-'moissonneuse batteuse','harvester',,,,,,'ETA'
-'epandeur chaux','spreader',,,,,,'COOP'
+'name','nature','variant','born_at','marque','modèle','external','indicateurs','owner_name','notes'
+'CASE-IH 533','tractor',,'1983-01-01','CASE-IH',533,,'Motor_power : 45ch',,
+'CASE-IH 745','tractor',,'1987-01-01','CASE-IH',745,,'Motor_power : 75ch',,
+'CASE-IH 745 Desilleuse fourche','tractor',,'1990-01-01','CASE-IH',745,,'Motor_power : 75ch',,
+'CASE-IH 4240','tractor',,'1994-07-15','CASE-IH',4240,,'Motor_power : 92 ch',,
+'RENAULT 110.54','tractor',,'2005-08-15','RENAULT','110.54',,'Motor_power : 110ch',,
+'semoir engrais centrifuge','spreader',,'1999-10-01',,,,'net_volume : 700l',,
+'semoir grains','sower',,'2006-05-15',,,,'application_width : 3m',,
+'semoir maïs','sower',,'1988-10-01',,,,,,'Co-propriété (BOUCHERIE)'
+'remorque 11T','trail',,,,,,'net_weight : 11000 kg',,
+'remorque épandeur ','trail',,,,,,'net_weight : 8000 kg',,
+'remorque monocoque','trail',,,,,,'net_weight : 8000 kg',,
+'Charrue 4 socs','plow',,,,,,'application_width : 1m',,
+'charrue réversible 5 socs','plow',,,,,,'application_width : 1,25m',,
+'vibroculteur','surperficial_plow',,,,,,'application_width : 4m',,
+'pulvérisateur','sprayer',,,'BERTHOULD',,,'application_width : 12m ; net_volume : 900l',,
+'presse balle carré','baler',,,,,,,,
+'covercrop','surperficial_plow',,,,,,'application_width : 2,5m','CUMA',
+'herse','surperficial_plow',,,,,,'application_width : 2,5m','CUMA',
+'cultipacker','surperficial_plow',,,,,,'application_width : 2,5m','CUMA',
+'faucheuse','mower',,,,,,'application_width : 3,2m','CUMA',
+'andaineur','hay_rake',,,,,,'application_width : 5m','CUMA',
+'presse balle ronde','baler',,,,,,,'CUMA',
+'moissonneuse batteuse','harvester',,,,,,,'ETA',
+'epandeur chaux','spreader',,,,,,,'COOP',
