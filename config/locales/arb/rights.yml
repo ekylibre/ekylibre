@@ -51,7 +51,6 @@ arb:
     manage_land_parcels: "ادارة الهيئة"
     manage_listings: "ادارة المستخرج"
     manage_mandates: "ادارة التفويضات"
-    # manage_meetings: "Gérer les évènements"
     manage_observations: "ادارة الملاحظات"
     manage_operations: "ادارة الاجراءات"
     manage_outgoing_deliveries: "ادارة انواع التسليم" #?

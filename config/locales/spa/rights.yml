@@ -45,7 +45,6 @@ spa:
     # manage_land_parcels: "Gérer les îlots"
     # manage_listings: "Gérer les extractions"
     # manage_mandates: "Gérer les responsabilités"
-    # manage_meetings: "Gérer les évènements"
     # manage_observations: "Gérer les observations"
     # manage_operations: "Gérer les travaux"
     # manage_outgoing_delivery_modes: "Gérer les types de livraison"
