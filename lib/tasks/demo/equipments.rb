@@ -28,10 +28,11 @@ demo :equipments do
       h_indicators = r.indicators.inject({}) do |k, v|
         k.merge!({v[0].to_sym => v[1]})
       end
-                                                
-      for indicator, value in h_indicators
-        equipment.is_measured!(indicator, value)
-      end                                    
+      
+      puts h_indicators                                       
+      #for indicator, value in h_indicators
+      #  equipment.is_measured!(indicator, value)
+      #end                                    
                                     
     w.check_point
     end

@@ -24,6 +24,8 @@
       <!-- equipment -->
       <item name="motor_power" datatype="measure" unit="french_horsepower"/>
       <item name="application_width" datatype="measure" unit="meter"/>
+      <item name="maximum_load_net_volume" datatype="measure" unit="liter"/>
+      <item name="maximum_load_net_weight" datatype="measure" unit="kilogram"/>
       
       <item name="animal_life_state" datatype="choice" choices="first_growth, second_growth, aging"/>
       <item name="mammalia_born_condition" datatype="choice" choices="without_help, few_help, great_help, caesarean, cutting_calf"/><!-- nomenclature EDE à terme -->
