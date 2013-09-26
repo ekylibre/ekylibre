@@ -41,4 +41,15 @@ class ProductionSupport < Ekylibre::Record::Base
   belongs_to :storage, :class_name => "Product", :inverse_of => :supports
   belongs_to :production, :inverse_of => :supports
   delegate :shape_area, to: :storage, prefix: true
+
+
+  #validate do
+   # if self.storage
+      # must be a CultivableLandParcel or an AnimalGroup
+      #errors.add(:storage, :invalid) unless self.storage.is_a?(CultivableLandParcel || AnimalGroup)
+  #  end
+  #end
+
 end
+
+

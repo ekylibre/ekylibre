@@ -8,9 +8,9 @@ demo :animals do
   cow_taur   = ProductNature.import_from_nomenclature(:male_young_cow).default_variant
   cow_v      = ProductNature.import_from_nomenclature(:calf).default_variant
   herd       = ProductNature.import_from_nomenclature(:cattle_herd).default_variant
-
-  # add some credentials in preferences
-  cattling_number = Preference.where(:nature => :string, :name => "services.synel17.login", :value => "17387001").first_or_create
+  
+  # add animals credentials in preferences
+  cattling_number = Preference.where(:nature => :string, :name => "services.synel17.login", :string_value => "17387001").first_or_create
 
   Ekylibre::fixturize :animal_natures do |w|
     #############################################################################
@@ -22,16 +22,9 @@ demo :animals do
                   {:name => "Génisses 3",  :work_number => "GEN_3"},
                   {:name => "Génisses 2",  :work_number => "GEN_2"},
                   {:name => "Génisses 1",  :work_number => "GEN_1"},
-                  {:name => "Veaux Niche", :work_number => "VEAU_NICHE", :description => "Veaux en niche individuel"},
-                  {:name => "Veaux Poulailler 1", :work_number => "VEAU_1"},
-                  {:name => "Veaux Poulailler 2", :work_number => "VEAU_2"},
-                  {:name => "Taurillons case 7", :work_number => "TAUR_7", :description => "Côté Hangar"},
-                  {:name => "Taurillons case 6", :work_number => "TAUR_6"},
-                  {:name => "Taurillons case 5", :work_number => "TAUR_5"},
-                  {:name => "Taurillons case 4", :work_number => "TAUR_4"},
-                  {:name => "Taurillons case 3", :work_number => "TAUR_3"},
-                  {:name => "Taurillons case 2", :work_number => "TAUR_2"},
-                  {:name => "Taurillons case 1", :work_number => "TAUR_1"}
+                  {:name => "Veaux Niche", :work_number => "VEAU", :description => "Veaux en niche individuel"},
+                  {:name => "Veaux 8-15j", :work_number => "VEAU_8_15", :description => "Veaux vendus à 8-15 J"},
+                  {:name => "Taurillons", :work_number => "TAUR", :description => "Taurillons vendus entre 21 et 26 mois"}
                  ]
       unless AnimalGroup.find_by_work_number(group[:work_number])
         AnimalGroup.create!({:active => true, :variant_id => herd.id}.merge(group))
@@ -44,13 +37,13 @@ demo :animals do
     #############################################################################
     # set finder for creating animal
     place_v = BuildingDivision.find_by_work_number("B09_D1")
-    group_v = AnimalGroup.find_by_work_number("VEAU_1")
+    group_v = AnimalGroup.find_by_work_number("VEAU")
     place_gen = BuildingDivision.find_by_work_number("B03_D9")
     group_gen1 = AnimalGroup.find_by_work_number("GEN_1")
     group_gen2 = AnimalGroup.find_by_work_number("GEN_2")
     group_gen3 = AnimalGroup.find_by_work_number("GEN_3")
     place_taur = BuildingDivision.find_by_work_number("B04_D4")
-    group_taur = AnimalGroup.find_by_work_number("TAUR_7")
+    group_taur = AnimalGroup.find_by_work_number("TAUR")
     place_vl = BuildingDivision.find_by_work_number("B07_D2")
     group_vl = AnimalGroup.find_by_work_number("VL")
 
