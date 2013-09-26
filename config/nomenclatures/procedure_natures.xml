@@ -2,10 +2,10 @@
 <nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
   <nomenclature name="procedure_natures">
     <attributes>
-      <attribute name="roles" type="list" choices="input, output, target" required="false"/>
+      <attribute name="roles" type="list" choices="input, output, target, doer" required="false"/>
     </attributes>
     <items>
-      <item name="animal_care" roles="input, target"/>
+      <item name="animal_treatment" roles="input, target, doer"/>
       <item name="reproduction" roles="input, target"/>
       <item name="production" roles="target, output"/>
       <item name="feeding" roles="input, target"/>
