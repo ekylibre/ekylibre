@@ -267,9 +267,9 @@ fra:
       show: "Encaissement n°%{number} de %{entity}"
     backend/interventions:
       edit: "Modifier l’intervention %{name}"
+      index: "Interventions" #?
       new: "Nouvelle intervention"
-      index: "Interventions"
-      show: "Intervention n°%{id}"
+      show: "Intervention n°%{id}" #?
     backend/inventories:
       edit: "Modifier l’inventaire"
       index: "Inventaires"

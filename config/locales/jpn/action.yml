@@ -244,7 +244,11 @@ jpn:
       # index: "Encaissements"
       # new: "Ajout d’un nouvel encaissement"
       # show: "Encaissement n°%{number} de %{entity}"
-    backend/interventions: #?
+    backend/interventions:
+      # edit: "Modifier l’intervention %{name}"
+      # index: "Interventions"
+      # new: "Nouvelle intervention"
+      # show: "Intervention n°%{id}"
     backend/inventories:
       # edit: "Modifier l’inventaire"
       # index: "Inventaires"

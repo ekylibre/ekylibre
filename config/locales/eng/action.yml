@@ -274,7 +274,11 @@ eng:
       index: "Incoming payments"
       new: "Add a new incoming payment"
       show: "Incoming payment %{number} of %{entity}"
-    backend/interventions: #?
+    backend/interventions:
+      # edit: "Modifier l’intervention %{name}"
+      # index: "Interventions"
+      # new: "Nouvelle intervention"
+      # show: "Intervention n°%{id}"
     backend/inventories:
       edit: "Edit the inventory"
       index: "Inventories"
