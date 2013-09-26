@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 class Backend::InterventionsController < BackendController
-  manage_restfully :t3e => {:name => :name}
+  manage_restfully :t3e => {:procedure_name => "Procedo[RECORD.procedure].human_name".c}
 
   unroll
 

@@ -4,7 +4,7 @@
     %p= @container.name
 .info
   %span.title= Intervention.human_attribute_name(:name)
-  %span.value= @intervention.name
+  %span.value= link_to(@intervention.name, controller: "/backend/interventions", action: :show, id: @intervention.to_param)
 .info
   %span.title= Intervention.human_attribute_name(:casting)
   %span.value= @intervention.casting

@@ -1,4 +1,4 @@
-class Backend::Cells::LastProceduresCellsController < Backend::CellsController
+class Backend::Cells::LastInterventionsCellsController < Backend::CellsController
 
   def show
     @intervention = Intervention.last

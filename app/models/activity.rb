@@ -40,7 +40,7 @@
 class Activity < Ekylibre::Record::Base
   # attr_accessible :started_at, :stopped_at, :nature, :description, :family, :name, :parent_id, :productions_attributes
   enumerize :nature, :in => [:main, :auxiliary, :none], :default => :main
-  enumerize :family, :in => Nomen::ActivityFamilies.all
+  enumerize :family, :in => Nomen::ActivityFamilies.all, :predicate => true
   has_many :productions
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :depth, :lft, :rgt, :allow_nil => true, :only_integer => true
@@ -74,5 +74,9 @@ class Activity < Ekylibre::Record::Base
   def shape_area(*campaigns)
     return productions.of_campaign(campaigns).map(&:shape_area).compact.sum
   end
-
+  
+  def is_of_family?(family)
+    Nomen::ActivityFamilies.all(family).include?(self.family.to_s)
+  end
+  
 end

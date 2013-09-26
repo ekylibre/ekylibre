@@ -12,9 +12,9 @@
       <sections for="campaign" in="campaigns">
         <property name="id" of="campaign" level="api"/>
         <title name="name" of="campaign"/>
-        <sections for="intervention" in="campaign.procedures.of_nature(:animal_care)">
-          <variable name="target" value="intervention.variables.of_role(:target).first.target"/>
-          <variable name="worker" value="intervention.variables.of_role(:worker).first.target"/>
+        <sections for="intervention" in="campaign.interventions.of_nature(:animal_treatment)">
+          <variable name="target" value="intervention.casts.of_role("animal_treatment-target").first.actor"/>
+          <variable name="worker" value="intervention.casts.of_role("animal_treatment-doer").first.actor"/>
           <title name="name" of="intervention"/>
           <property name="id" of="intervention" level="api"/>
           <property name="started_at" of="intervention" type="datetime"/>
@@ -45,11 +45,11 @@
             <title name="reference_number"/>
             <property name="prescriptor_name"/>
           </section>
-          <matrix name="inputs" for="input" in="intervention.variables.of_role(:input)">
-            <variable name="meat_withdrawal_period" value="input.target.meat_withdrawal_period"/>
-            <variable name="milk_withdrawal_period" value="input.target.milk_withdrawal_period"/>
+          <matrix name="inputs" for="input" in="intervention.casts.of_role("animal_treatment-input")">
+            <variable name="meat_withdrawal_period" value="input.actor.meat_withdrawal_period"/>
+            <variable name="milk_withdrawal_period" value="input.actor.milk_withdrawal_period"/>
             <cell name="id" of="input" level="api"/>
-            <within of="input.target">
+            <within of="input.actor">
               <cell name="name"/>
               <cell name="variety" level="api"/>
             </within>

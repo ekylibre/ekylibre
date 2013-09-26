@@ -51,7 +51,7 @@ class InterventionCast < Ekylibre::Record::Base
     #for nature in natures
       #raise ArgumentError.new("Expected ProcedureNature, got #{nature.class.name}:#{nature.inspect}") unless nature.is_a?(ProcedureNature)
     #end
-    where("role = ?", role.to_s)
+    where("roles = ?", role.to_s)
   }
 
   #def name
