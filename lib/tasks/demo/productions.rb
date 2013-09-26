@@ -83,7 +83,7 @@ demo :productions do
             # create the plant
             plant = Plant.create!(:variant_id => product_nature_variant_sup.id, :work_number => plant_work_nb , :name => plant_name, :variety => product_nature_sup.variety, :born_at => Time.now, :owner_id => Entity.of_company.id)
             # localize the plant in the cultivable_land_parcel
-            ProductLocalization.create!(:container_id => product_support.id, :product_id => plant.id, :nature => :interior, :started_at => Time.now, :arrival_cause => :birth)            
+            ProductLocalization.create!(:container_id => product_support.id, :product_id => plant.id, :nature => :interior, :started_at => Time.now, :arrival_cause => :birth)
           end
         elsif product_nature_variant_sup
           pro = Production.where(:product_nature_id => product_nature_sup.id, :campaign_id => campaign.id, :activity_id => activity.id).first

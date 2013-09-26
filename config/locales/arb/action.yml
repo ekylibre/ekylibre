@@ -307,7 +307,11 @@ arb:
       new: "اضافة دفعة جديدة"
       show: "دفعة رقم%{number} من %{entity}"
     backend/interfacers: #?
-    backend/interventions: #?
+    backend/interventions:
+      # edit: "Modifier l’intervention %{name}"
+      # index: "Interventions"
+      # new: "Nouvelle intervention"
+      # show: "Intervention n°%{id}"
     backend/inventories:
       edit: "تعديل الجرد"
       index: "الجرد"

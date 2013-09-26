@@ -285,7 +285,11 @@ spa:
       # new: "Ajout d’un nouvel encaissement"
       # show: "Encaissement n°%{number} de %{entity}"
     backend/interfacers: #?
-    backend/interventions: #?
+    backend/interventions:
+      # edit: "Modifier l’intervention %{name}"
+      # index: "Interventions"
+      # new: "Nouvelle intervention"
+      # show: "Intervention n°%{id}"
     backend/inventories:
       edit: "Modificacion del inventario"
       index: "Inventarios"

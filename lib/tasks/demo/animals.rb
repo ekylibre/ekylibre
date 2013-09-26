@@ -8,7 +8,7 @@ demo :animals do
   cow_taur   = ProductNature.import_from_nomenclature(:male_young_cow).default_variant
   cow_v      = ProductNature.import_from_nomenclature(:calf).default_variant
   herd       = ProductNature.import_from_nomenclature(:cattle_herd).default_variant
-  
+
   # add animals credentials in preferences
   cattling_number = Preference.where(:nature => :string, :name => "services.synel17.login", :string_value => "17387001").first_or_create
 
