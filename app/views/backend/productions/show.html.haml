@@ -10,7 +10,7 @@
       - l.attribute :state
       - l.attribute :campaign
       - l.attribute :activity
-  
+
   - if Nomen::Varieties[@production.product_nature.variety].self_and_parents.include?(Nomen::Varieties[:plant])
     - b.tabbox do
       - b.cell :map do

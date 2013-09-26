@@ -18,7 +18,7 @@
 #
 
 class Backend::OutgoingPaymentModesController < BackendController
-  manage_restfully :with_accounting => "true"
+  manage_restfully with_accounting: true
   manage_restfully_list :name
 
   unroll

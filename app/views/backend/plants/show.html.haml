@@ -1,31 +1,27 @@
-=main_toolbar do |t|
-  -t.edit @plant
-  -t.destroy(@plant, :method=>:delete, "data-confirm" => tg(:are_you_sure_you_want_to_delete))
+= main_toolbar do |t|
+  - t.edit @plant
+  - t.destroy(@plant, :method=>:delete, "data-confirm" => tg(:are_you_sure_you_want_to_delete))
 
-=beehive do |b|
-  -b.cell :details do
-    =attributes_list(@plant) do |l| # liste des champs à afficher
-      -l.attribute :name
-      -l.attribute :born_at
-      -#-l.attribute :variety, :url => true
-      -#-l.attribute :group, :url => true # on affiche l'attribut name de l'entité ProductGroup associé par l'attribut group de l'entité courante Product avec un lien vers ce groupe
-      -l.attribute :description
-    -if @plant.picture.exists?
-      =image_tag(@plant.picture.url(:thumb))
+= beehive do |b|
+  - b.cell :details do
+    - if @plant.picture.exists?
+      .picture= image_tag(@plant.picture.url(:identity))
+    = attributes_list(@plant) do |l| # liste des champs à afficher
+      - l.attribute :name
+      - l.attribute :born_at
+      - #-l.attribute :variety, :url => true
+      - #-l.attribute :group, :url => true # on affiche l'attribut name de l'entité ProductGroup associé par l'attribut group de l'entité courante Product avec un lien vers ce groupe
+      - l.attribute :description
 
-
-  -b.tabbox do
-    -b.cell(:incidents) do
-      =toolbar do |t|
-        -t.new(:params =>{:controller => :incidents, :target_id => @plant.id, :target_type => @plant.class.name})
-      =list(:incident)
-    -b.cell(tl(:x_indicators, :count => @plant.indicator_data.count)) do
-      =list(:indicator)
-    -b.cell(:places) do
-      =list(:place)
-
-  -b.tabbox do
-    -b.cell(:picture) do
-      -if @plant.picture.exists?
-        =image_tag(@plant.picture.url(:original))
+  - b.tabbox do
+    - b.cell(:intervention_casts) do
+      = list(:intervention_casts)
+    - b.cell(:incidents) do
+      = toolbar do |t|
+        - t.new(:params =>{:controller => :incidents, :target_id => @plant.id, :target_type => @plant.class.name})
+      = list(:incidents)
+    - b.cell(tl(:x_indicators, :count => @plant.indicator_data.count)) do
+      = list(:indicators)
+    - b.cell(:places) do
+      = list(:places)
 

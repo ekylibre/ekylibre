@@ -18,7 +18,7 @@
 #
 
 class Backend::SubscriptionsController < BackendController
-  manage_restfully :address_id => "EntityAddress.find_by_entity_id(params[:subscriber_id]).id rescue 0", :nature_id => "SubscriptionNature.first.id rescue 0", :t3e => {:nature => "@subscription.nature.name", :start => "@subscription.start", :finish => "@subscription.finish"}
+  manage_restfully :address_id => "EntityAddress.find_by_entity_id(params[:subscriber_id]).id rescue 0".c, :nature_id => "SubscriptionNature.first.id rescue 0".c, :t3e => {:nature => "@subscription.nature.name".c, :start => "@subscription.start".c, :finish => "@subscription.finish".c}
 
   unroll
 

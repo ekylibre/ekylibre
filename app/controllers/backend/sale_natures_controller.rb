@@ -18,7 +18,7 @@
 #
 
 class Backend::SaleNaturesController < BackendController
-  manage_restfully :currency=>"Entity.of_company.currency"
+  manage_restfully currency: "Preference[:currency]".c
 
   unroll
 

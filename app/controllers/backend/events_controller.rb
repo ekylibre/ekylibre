@@ -18,7 +18,7 @@
 #
 
 class Backend::EventsController < BackendController
-  manage_restfully :nature_id => "EventNature.first.id rescue nil", :started_at => "Time.now"
+  manage_restfully :nature_id => "EventNature.first.id rescue nil".c, :started_at => "Time.now".c
 
   unroll
 

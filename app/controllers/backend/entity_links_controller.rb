@@ -18,7 +18,7 @@
 #
 
 class Backend::EntityLinksController < BackendController
-  manage_restfully :entity_1_id => 'Entity.find(params[:entity_id]).id rescue 0'
+  manage_restfully :entity_1_id => 'params[:entity_id]'.c
   unroll
 
   def show

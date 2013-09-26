@@ -18,7 +18,7 @@
 #
 
 class Backend::ProductsController < BackendController
-  manage_restfully :t3e => {:nature_name => "@product.nature_name"}
+  manage_restfully :t3e => {:nature_name => :nature_name}
 
   respond_to :pdf, :odt, :docx, :xml, :json, :html, :csv
 
@@ -135,10 +135,12 @@ class Backend::ProductsController < BackendController
 
   def show
     return unless @product = find_and_check
-    session[:current_product_id] = @product.id
+    if @product.type != "Product"
+      redirect_to controller: @product.type.tableize, action: :show, id: @product.id
+      return
+    end
     t3e @product, :nature_name => @product.nature_name
     respond_with(@product, :include => [:father, :mother, :nature, {:memberships => {:include => :group},:indicator_data => {:include => :indicator}, :product_localizations => {:include => :container}}])
-
   end
 
 end

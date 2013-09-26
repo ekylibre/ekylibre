@@ -18,7 +18,7 @@
 #
 
 class Backend::BankStatementsController < BackendController
-  manage_restfully :started_on => "Cash.find(params[:cash_id]).last_bank_statement.stopped_on+1 rescue (Date.today-1.month-2.days)", :stopped_on => "Cash.find(params[:cash_id]).last_bank_statement.stopped_on>>1 rescue (Date.today-2.days)", :redirect_to => '{:action => :point, :id  => "id"}'
+  manage_restfully :started_on => "Cash.find(params[:cash_id]).last_bank_statement.stopped_on+1 rescue (Date.today-1.month-2.days)".c, :stopped_on => "Cash.find(params[:cash_id]).last_bank_statement.stopped_on>>1 rescue (Date.today-2.days)".c, :redirect_to => '{:action => :point, :id  => "id"}'.c
 
   unroll
 

@@ -18,7 +18,7 @@
 #
 
 class Backend::DocumentTemplatesController < BackendController
-  manage_restfully :language => "Entity.of_company.language"
+  manage_restfully :language => "Preference[:language]".c
 
   unroll
 

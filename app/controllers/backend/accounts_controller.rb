@@ -18,7 +18,7 @@
 #
 
 class Backend::AccountsController < BackendController
-  manage_restfully :number => "params[:number]"
+  manage_restfully :number => "params[:number]".c
 
   unroll
 

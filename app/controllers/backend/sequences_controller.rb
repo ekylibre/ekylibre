@@ -18,7 +18,7 @@
 #
 
 class Backend::SequencesController < BackendController
-  manage_restfully :number_format=>"'[number|8]'", :last_number=>"0"
+  manage_restfully number_format: '[number|8]', last_number: 0
 
   unroll
 
@@ -29,11 +29,7 @@ class Backend::SequencesController < BackendController
     t.column :usage
     t.column :period
     t.action :edit
-    t.action :destroy, :if=>"RECORD.destroyable\?"
-  end
-
-  # Displays the main page with the list of sequences
-  def index
+    t.action :destroy, :if => :destroyable?
   end
 
   # Load missing sequences for current company

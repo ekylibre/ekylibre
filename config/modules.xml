@@ -1192,9 +1192,10 @@
         <page to="backend/organic_matters#update"/>
       </item>
       <item name="plants">
-        <page to="backend/plants#list_incident"/>
-        <page to="backend/plants#list_indicator"/>
-        <page to="backend/plants#list_place"/>
+        <page to="backend/plants#list_incidents"/>
+        <page to="backend/plants#list_indicators"/>
+        <page to="backend/plants#list_intervention_casts"/>
+        <page to="backend/plants#list_places"/>
         <page to="backend/plants#picture"/>
       </item>
       <item name="product_groups">

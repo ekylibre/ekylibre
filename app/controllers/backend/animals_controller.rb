@@ -18,7 +18,7 @@
 #
 
 class Backend::AnimalsController < Backend::ProductsController
-  manage_restfully :t3e => {:nature_name => "@animal.nature_name"}
+  manage_restfully :t3e => {:nature_name => :nature_name}
 
   respond_to :pdf, :odt, :docx, :xml, :json, :html, :csv
 

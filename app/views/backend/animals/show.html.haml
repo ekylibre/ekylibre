@@ -1,80 +1,81 @@
-=main_toolbar do |t|
-  -t.export do |e|
-    -e.animal_sheet @animal.identification_number, @animal
-  -t.new(:params =>{:controller => :incidents, :target_id => @animal.id, :target_type => @animal.class.name})
-  -t.edit @animal
-  -t.destroy(@animal, :method=>:delete, "data-confirm" => tg(:are_you_sure_you_want_to_delete)) if @animal.destroyable?
+= main_toolbar do |t|
+  - t.export do |e|
+    - e.animal_sheet @animal.identification_number, @animal
+  - t.new(:params =>{:controller => :incidents, :target_id => @animal.id, :target_type => @animal.class.name})
+  - t.edit @animal
+  - t.destroy(@animal, :method=>:delete, "data-confirm" => tg(:are_you_sure_you_want_to_delete)) if @animal.destroyable?
 
-=beehive do |b|
-  -b.tabbox do
-    -b.cell :general do
-      -if @animal.picture.exists?
-        .picture=image_tag(@animal.picture.url(:identity))
+= beehive do |b|
+  - b.tabbox do
+    - b.cell :general do
+      - if @animal.picture.exists?
+        .picture= image_tag(@animal.picture.url(:identity))
       .info
-        %span.title=Animal.human_attribute_name(:work_number)
-        %span.value=@animal.work_number
+        %span.title= Animal.human_attribute_name(:work_number)
+        %span.value= @animal.work_number
       .info
-        %span.title=Animal.human_attribute_name(:sex)
-        %span.value=@animal.sex
-      -if @animal.born_at
+        %span.title= Animal.human_attribute_name(:sex)
+        %span.value= @animal.sex
+      - if @animal.born_at
         .info
-          %span.title=Animal.human_attribute_name(:age)
+          %span.title= Animal.human_attribute_name(:age)
           -#%span.value=distance_of_time_in_words(@animal.born_at, (@animal.dead_at||Time.now)) rescue @animal.born_at.l
           %span.value
-            -seconds = (@animal.dead_at||Time.now) - @animal.born_at
-            -vals = []
-            -if (seconds/1.year).floor > 0
-              -vals << "labels.x_years".t(:count => (seconds/1.year).floor)
-              -seconds -= 1.year * (seconds/1.year).floor
-            -if (seconds/1.month).floor > 0
-              -vals << "labels.x_months".t(:count => (seconds/1.month).floor)
-              -seconds -= 1.month * (seconds/1.month).floor
-            -if (seconds/1.day).floor > 0
-              -vals << "labels.x_days".t(:count => (seconds/1.day).floor)
-              -seconds -= 1.day * (seconds/1.day).floor
-            =vals.to_sentence
-      -if @animal.mother
+            :ruby
+              seconds = (@animal.dead_at||Time.now) - @animal.born_at
+              vals = []
+              if (seconds/1.year).floor > 0
+                vals << "labels.x_years".t(:count => (seconds/1.year).floor)
+                seconds -= 1.year * (seconds/1.year).floor
+              if (seconds/1.month).floor > 0
+                vals << "labels.x_months".t(:count => (seconds/1.month).floor)
+                seconds -= 1.month * (seconds/1.month).floor
+              if (seconds/1.day).floor > 0
+                vals << "labels.x_days".t(:count => (seconds/1.day).floor)
+                seconds -= 1.day * (seconds/1.day).floor
+            = vals.to_sentence
+      - if @animal.mother
         .info
-          %span.title=Animal.human_attribute_name(:mother)
-          %span.value=link_to(@animal.mother.name, {:action => :show, :id => @animal.mother.id})
-      -if @animal.father
+          %span.title= Animal.human_attribute_name(:mother)
+          %span.value= link_to(@animal.mother.name, {:action => :show, :id => @animal.mother.id})
+      - if @animal.father
         .info
-          %span.title=Animal.human_attribute_name(:father)
-          %span.value=link_to(@animal.father.name, {:action => :show, :id => @animal.father.id})
+          %span.title= Animal.human_attribute_name(:father)
+          %span.value= link_to(@animal.father.name, {:action => :show, :id => @animal.father.id})
       .info
-        %span.title=Animal.human_attribute_name(:current_net_weight)
-        %span.value=@animal.net_weight
+        %span.title= Animal.human_attribute_name(:current_net_weight)
+        %span.value= @animal.net_weight
       .info
-        %span.title=Animal.human_attribute_name(:current_animal_disease_state)
-        %span.value=@animal.animal_disease_state
-    -b.cell :details do
-      =attributes_list(@animal) do |l| # liste des champs à afficher
-        -l.attribute :name
-        -l.attribute :variety, :url => true
-        -#l.attribute :group, :url => true # on affiche l'attribut name de l'entité ProductGroup associé par l'attribut group de l'entité courante Product avec un lien vers ce groupe
-        -l.attribute :born_at
-        -l.attribute :dead_at
-        -#l.attribute :sex.value, :through => :indicator_data
-        -l.attribute :mother, :url => true
-        -l.attribute :father, :url => true
-        -l.attribute :identification_number
-        -l.attribute :description
+        %span.title= Animal.human_attribute_name(:current_animal_disease_state)
+        %span.value= @animal.animal_disease_state
+    - b.cell :details do
+      = attributes_list(@animal) do |l| # liste des champs à afficher
+        - l.attribute :name
+        - l.attribute :variety, :url => true
+        - #l.attribute :group, :url => true # on affiche l'attribut name de l'entité ProductGroup associé par l'attribut group de l'entité courante Product avec un lien vers ce groupe
+        - l.attribute :born_at
+        - l.attribute :dead_at
+        - #l.attribute :sex.value, :through => :indicator_data
+        - l.attribute :mother, :url => true
+        - l.attribute :father, :url => true
+        - l.attribute :identification_number
+        - l.attribute :description
 
 
-  -b.tabbox do
+  - b.tabbox do
 
-    -b.cell(:childrens) do
-      =list(:children)
-    -b.cell(:places) do
-      =list(:place)
-    -b.cell(:groups) do
-      =list(:group)
+    - b.cell(:children) do
+      = list(:children)
+    - b.cell(:places) do
+      = list(:places)
+    - b.cell(:groups) do
+      = list(:groups)
 
-  -b.tabbox do
-    -b.cell(:incidents) do
-      =toolbar do |t|
-        -t.new(:params =>{:controller => :incidents, :target_id => @animal.id, :target_type => @animal.class.name})
-      =list(:incident)
-    -b.cell(tl(:x_indicators, :count => @animal.indicator_data.count)) do
-      =list(:indicator)
+  - b.tabbox do
+    - b.cell(:incidents) do
+      = toolbar do |t|
+        - t.new(:params =>{:controller => :incidents, :target_id => @animal.id, :target_type => @animal.class.name})
+      = list(:incidents)
+    - b.cell(tl(:x_indicators, :count => @animal.indicator_data.count)) do
+      = list(:indicators)
 

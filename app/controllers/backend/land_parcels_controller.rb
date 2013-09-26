@@ -18,7 +18,7 @@
 #
 
 class Backend::LandParcelsController < BackendController
-  manage_restfully # :started_on => "Date.today"
+  manage_restfully
 
   unroll
 

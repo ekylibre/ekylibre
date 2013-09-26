@@ -461,6 +461,14 @@ class BackendController < BaseController
     end
     render_form = "render(" + render_form_options.join(", ") + ")"
 
+    t3e_code = "t3e(@#{record_name}.attributes"
+    if t3e
+      t3e_code << ".merge(" + t3e.collect{|k,v|
+        "#{k}: (" + (v.is_a?(Symbol) ? "@#{record_name}.#{v}" : v.inspect.gsub(/RECORD/, '@' + record_name)) + ")"
+      }.join(", ") + ")"
+    end
+    t3e_code << ")"
+
     code = ''
 
     code << "respond_to :html, :xml, :json\n"
@@ -478,7 +486,7 @@ class BackendController < BaseController
     code << "def show\n"
     code << "  return unless @#{record_name} = find_and_check\n"
     code << "  respond_to do |format|\n"
-    code << "    format.html { t3e(@#{record_name}) }\n"
+    code << "    format.html { #{t3e_code} }\n"
     code << "    format.xml  { render xml:  @#{record_name} }\n"
     code << "    format.json { render json: @#{record_name} }\n"
     code << "  end\n"
@@ -496,7 +504,7 @@ class BackendController < BaseController
     values = model.columns_definition.keys.inject({}) do |hash, attr|
       hash[attr] = "params[:#{attr}]" unless attr.blank? or attr.to_s.match(/_attributes$/)
       hash
-    end.merge(defaults).collect{|k,v| ":#{k} => (#{v})"}.join(", ")
+    end.merge(defaults).collect{|k,v| "#{k}: (#{v.inspect})"}.join(", ")
     code << "  @#{record_name} = #{model.name}.new(#{values})\n"
     # code << "  @#{record_name} = #{model.name}.new(#{record_name}_params)\n"
     if xhr
@@ -522,13 +530,13 @@ class BackendController < BaseController
     # this action updates an existing record with a form.
     code << "def edit\n"
     code << "  return unless @#{record_name} = find_and_check(:#{name})\n"
-    code << "  t3e(@#{record_name}.attributes"+(t3e ? ".merge("+t3e.collect{|k,v| ":#{k} => (#{v.gsub(/RECORD/, '@' + record_name)})"}.join(", ")+")" : "")+")\n"
+    code << "  #{t3e_code}\n"
     code << "  #{render_form}\n"
     code << "end\n"
 
     code << "def update\n"
     code << "  return unless @#{record_name} = find_and_check(:#{name})\n"
-    code << "  t3e(@#{record_name}.attributes"+(t3e ? ".merge("+t3e.collect{|k,v| ":#{k} => (#{v.gsub(/RECORD/, '@' + record_name)})"}.join(", ")+")" : "")+")\n"
+    code << "  #{t3e_code}\n"
     code << "  @#{record_name}.attributes = #{record_name}_params\n" # params[:#{record_name}]
     code << "  return if save_and_redirect(@#{record_name}#{', :url => ('+url+')' if url})\n"
     code << "  #{render_form}\n"

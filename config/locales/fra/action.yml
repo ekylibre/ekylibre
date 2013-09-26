@@ -405,10 +405,10 @@ fra:
       show: "Produit phytosanitaire\_: %{name}"
     backend/plants:
       edit: "Modifier la culture\_: %{name}"
-      index: "Cutures"
+      index: "Cutures" #?
       new: "Nouvelle culture"
       # picture: "Picture backend/plant"
-      show: "Culture\_: %{name}"
+      show: "Culture\_: %{name}" #?
     backend/preferences:
       edit: "Modifier les préférences"
       index: "Préférences"
@@ -548,7 +548,7 @@ fra:
       statistics: "Statistiques  de ventes"
     backend/sequences:
       edit: "Modifier la séquence\_: %{name}"
-      index: "Séquences"
+      index: "Séquences" #?
       load: "Charger les séquences manquantes"
       new: "Création d’une nouvelle séquence"
     backend/services:

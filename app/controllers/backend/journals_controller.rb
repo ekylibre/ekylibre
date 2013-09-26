@@ -18,7 +18,7 @@
 #
 
 class Backend::JournalsController < BackendController
-  manage_restfully :nature => "params[:nature]||Journal.nature", :currency => "Entity.of_company.currency"
+  manage_restfully :nature => "params[:nature]".c, :currency => "Preference[:currency]".c
 
   unroll
 

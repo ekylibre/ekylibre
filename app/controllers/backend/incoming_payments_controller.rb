@@ -18,7 +18,7 @@
 #
 
 class Backend::IncomingPaymentsController < BackendController
-  manage_restfully :to_bank_on => "Date.today", :paid_on => "Date.today", :responsible_id => "current_user.id"
+  manage_restfully :to_bank_on => "Date.today".c, :paid_on => "Date.today".c, :responsible_id => "current_user.id".c
 
   unroll
 

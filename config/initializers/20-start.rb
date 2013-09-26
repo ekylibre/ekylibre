@@ -4,6 +4,7 @@ require 'migration_helper'
 # Data types and core ext
 require 'delay'
 require 'measure'
+require 'code'
 require 'safe_string'
 # Data exchanges
 require 'exchanges'

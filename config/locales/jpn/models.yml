@@ -1491,7 +1491,7 @@ jpn:
       informations:
         # with_components: "%{product} (%{unit}) (produit transformé)"
         # without_components: "%{product} (%{unit}) (matière première)"
-      # label: "%{product_nature})"
+      # label: "%{product_nature}"
       # stock_move: "%{origin} (%{code})"
       subscription_label:
         # period: "Abonnement %{subscription_nature} pour %{entity} à l’adresse %{address} du %{start} au %{finish}"

@@ -18,7 +18,7 @@
 #
 
 class Backend::AssetsController < BackendController
-  manage_restfully :currency=>'Entity.of_company.currency', :depreciation_method=>"'linear'"
+  manage_restfully currency: 'Preference[:currency]'.c, depreciation_method: 'linear'
 
   unroll
 

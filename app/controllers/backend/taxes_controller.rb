@@ -18,7 +18,7 @@
 #
 
 class Backend::TaxesController < BackendController
-  manage_restfully :nature => "Tax.nature.default_value"
+  manage_restfully :nature => "Tax.nature.default_value".c
 
   unroll
 

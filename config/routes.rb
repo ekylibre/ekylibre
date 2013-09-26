@@ -660,10 +660,13 @@ Ekylibre::Application.routes.draw do
     resources :plants do
       collection do
         get :list
-        get :list_indicator
-        get :list_incident
-        get :list_place
         get :unroll
+      end
+      member do
+        get :list_intervention_casts
+        get :list_indicators
+        get :list_incidents
+        get :list_places
       end
     end
     resources :plant_medicines do

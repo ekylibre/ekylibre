@@ -33,23 +33,15 @@
 #  updater_id    :integer
 #
 class ProductionSupport < Ekylibre::Record::Base
-  # attr_accessible :storage_id, :production_id
+  belongs_to :storage, :class_name => "Product", :inverse_of => :supports
+  belongs_to :production, :inverse_of => :supports
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_inclusion_of :exclusive, :in => [true, false]
   validates_presence_of :production, :storage
   #]VALIDATORS]
-  belongs_to :storage, :class_name => "Product", :inverse_of => :supports
-  belongs_to :production, :inverse_of => :supports
+  validates_uniqueness_of :storage_id, scope: :production_id
+
   delegate :shape_area, to: :storage, prefix: true
-
-
-  #validate do
-   # if self.storage
-      # must be a CultivableLandParcel or an AnimalGroup
-      #errors.add(:storage, :invalid) unless self.storage.is_a?(CultivableLandParcel || AnimalGroup)
-  #  end
-  #end
-
 end
 
 

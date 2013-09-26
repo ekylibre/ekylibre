@@ -18,8 +18,7 @@
 #
 
 class Backend::CashesController < BackendController
-
-  manage_restfully :mode => 'Cash.mode.default_value', :currency => 'Entity.of_company.currency', :nature => 'Cash.nature.default_value'
+  manage_restfully mode: 'Cash.mode.default_value'.c, currency: 'Preference[:currency]'.c, nature: 'Cash.nature.default_value'.c
 
 
   unroll

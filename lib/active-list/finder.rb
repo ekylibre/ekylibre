@@ -114,6 +114,8 @@ module ActiveList
         else
           value.inspect
         end
+      elsif value.is_a? Code
+        value.inspect
       elsif value.is_a? String
         '"'+value.gsub('"','\"')+'"'
       elsif [Date, DateTime].include? value.class

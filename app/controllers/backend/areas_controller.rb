@@ -18,7 +18,7 @@
 #
 
 class Backend::AreasController < BackendController
-  manage_restfully :country => "Entity.of_company.country"
+  manage_restfully :country => "Preference[:country]"
 
   unroll
 

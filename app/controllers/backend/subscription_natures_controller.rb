@@ -18,7 +18,7 @@
 #
 
 class Backend::SubscriptionNaturesController < BackendController
-  manage_restfully :nature => "SubscriptionNature.nature.default_value"
+  manage_restfully :nature => "SubscriptionNature.nature.default_value".c
 
   unroll
 

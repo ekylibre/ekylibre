@@ -18,5 +18,4 @@
 #
 
 class Backend::ProductMovesController < BackendController
-  # manage_restfully :planned_on=>'Date.today'
 end

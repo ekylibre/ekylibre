@@ -18,7 +18,7 @@
 #
 
 class Backend::CashTransfersController < BackendController
-  manage_restfully :created_on => 'Date.today'
+  manage_restfully :created_on => 'Date.today'.c
 
   unroll
 

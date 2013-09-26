@@ -56,7 +56,9 @@ class Intervention < Ekylibre::Record::Base
   validates_presence_of :natures, :procedure, :production, :state
   #]VALIDATORS]
   validates_inclusion_of :procedure, :in => self.procedure.values
-  # validates_presence_of :version, :uid
+
+
+  delegate :storage, to: :production_support
 
   # @TODO in progress - need to .all parent procedure to have the name of the procedure_nature
 

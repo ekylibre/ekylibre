@@ -11,6 +11,8 @@
         - l.attribute :stopped_at
         - l.attribute :state
         - l.attribute :production, :url => true
+        - if @intervention.production_support
+          - l.attribute :storage, :url => true
 
   - b.tabbox do
     - b.cell(:casts) do

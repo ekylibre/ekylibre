@@ -18,7 +18,7 @@
 #
 
 class Backend::OperationsController < BackendController
-  manage_restfully # :target_id => "params[:target_id].to_i" # , :planned_on => "params[:planned_on]||Date.today", :hour_duration => "2", :min_duration => "0"
+  manage_restfully
 
   unroll :label => '{id}'
 
