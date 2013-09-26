@@ -20,6 +20,7 @@ fra:
         syndicate: "Syndicat"
     procedure:
       nomen:
+        animal_treatment: "Traitement animal"
         animal_birth: "Naissance d’un animal"
         calving_one: "Vêlage unique"
         calving_twin: "Vêlage jumeaux"

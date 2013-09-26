@@ -478,7 +478,7 @@ class BackendController < BaseController
     code << "def show\n"
     code << "  return unless @#{record_name} = find_and_check\n"
     code << "  respond_to do |format|\n"
-    code << "    format.html { t3e(@#{record_name}) }\n"
+    code << "    format.html { t3e(@#{record_name}.attributes"+(t3e ? ".merge("+t3e.collect{|k,v| ":#{k} => (#{v.gsub(/RECORD/, '@' + record_name)})"}.join(", ")+")" : "")+") }\n"
     code << "    format.xml  { render xml:  @#{record_name} }\n"
     code << "    format.json { render json: @#{record_name} }\n"
     code << "  end\n"
