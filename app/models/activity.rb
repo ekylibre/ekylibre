@@ -63,7 +63,9 @@ class Activity < Ekylibre::Record::Base
   #  where("family ~ E?", "\\\\m(" + families.flatten.sort.join("|") + ")\\\\M")
   #}
 
-  scope :of_families, Proc.new { |*families| where(:family => families.collect{|f| Nomen::ActivityFamilies.all(f.to_sym) }.flatten.uniq.map(&:to_s)) }
+  scope :of_families, Proc.new { |*families|
+    where(:family => families.collect{|f| Nomen::ActivityFamilies.all(f.to_sym) }.flatten.uniq.map(&:to_s)) 
+  }
 
 
   accepts_nested_attributes_for :productions, :reject_if => :all_blank, :allow_destroy => true
