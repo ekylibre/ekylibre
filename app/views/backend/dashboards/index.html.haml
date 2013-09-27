@@ -6,6 +6,8 @@
           %i
           =Ekylibre::Modules.human_name(mod)
   -b.hbox do
+    -b.cell :meteo do
+      %img{:alt => "Météo Saint-Porchaire heure par heure", :border => "0", :src => "http://meteorologic.net/vignette-previ-1h/6026.png", :style => "max-width: 100%; margin: 0 auto; display: block"}
     -b.cell :today do
       -date = Date.today
       %span#cell-date.date
@@ -13,4 +15,3 @@
         %span.day=date.day
         %span.month=date.l(:format => '%B')
         %span.year=date.year
-    -b.cell(:rss, :params => {:url => 'http://www.lafranceagricole.fr/Rss/elevage/actu-elevage-14652.html'}, :title => "Actualité élevage")
