@@ -3,12 +3,13 @@ module Nomen
   # This class represent a nomenclature
   class Nomenclature
 
-    attr_reader :attributes, :items, :name
+    attr_reader :attributes, :items, :name, :roots
 
     # Instanciate a new nomenclature
     def initialize(name)
       @name = name.to_sym
       @items = HashWithIndifferentAccess.new
+      @roots = []
       @attributes = HashWithIndifferentAccess.new
     end
 
@@ -34,20 +35,13 @@ module Nomen
 
     # Browse and harvest items recursively
     def harvest(nomenclature, sets, options = {})
-      # puts "Harvest #{nomenclature.attr('name')}..."
-      # Attributes
-      # attributes = options[:attributes] || HashWithIndifferentAccess.new
       for attribute in nomenclature.xpath('xmlns:attributes/xmlns:attribute')
         add_attribute(attribute)
-        # n = attribute.attr("name")
-        # attributes[n] = attribute.attributes.inject(HashWithIndifferentAccess.new) do |h, pair|
-        #   h[pair[0]] = pair[1].to_s
-        #   h
-        # end
       end
       # Items
       for item in nomenclature.xpath('xmlns:items/xmlns:item')
         i = self.add_item(item, :parent => options[:parent]) # , :attributes => attributes
+        @roots << i
         if sets[i.name]
           self.harvest(sets[i.name], sets, :parent => i) # , :attributes => attributes
         end

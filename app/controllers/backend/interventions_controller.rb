@@ -21,6 +21,8 @@ class Backend::InterventionsController < BackendController
 
   unroll
 
+  # INDEX
+
   list do |t|
     t.column :procedure, :url => true
     t.column :name, :through => :production, :url => true
@@ -31,7 +33,9 @@ class Backend::InterventionsController < BackendController
     t.action :destroy, :if => :destroyable?
   end
 
-  list(:casts, :model => :intervention_casts, :conditions => {intervention_id: ['params[:id]']}, :order => "created_at DESC") do |t|
+  # SHOW
+
+  list(:casts, :model => :intervention_casts, :conditions => {intervention_id: 'params[:id]'.c}, :order => "created_at DESC") do |t|
     t.column :variable
     t.column :name, :through => :actor, :url => true
     # t.column :indicator
@@ -39,7 +43,7 @@ class Backend::InterventionsController < BackendController
     # t.column :measure_unit
   end
 
-  list(:operations, :conditions => {intervention_id: ['params[:id]']}, :order => "started_at") do |t|
+  list(:operations, :conditions => {intervention_id: 'params[:id]'.c}, :order => "started_at") do |t|
     t.column :position
     # t.column :name, :url => true
     # t.column :description

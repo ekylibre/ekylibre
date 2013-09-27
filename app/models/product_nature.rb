@@ -164,7 +164,7 @@ class ProductNature < Ekylibre::Record::Base
   # Returns list of abilities as an array of ability items from the nomenclature
   def abilities_array
     return self.abilities.to_s.strip.split(/[\,\s]/).collect do |i|
-      Nomen::Abilities[i]
+      Nomen::Abilities[i.split(/\(/).first]
     end.compact
   end
 

@@ -189,22 +189,14 @@ class BackendController < BaseController
   # Find a record with the current environment or given parameters and check availability of it
   def find_and_check(model = nil, id = nil)
     model ||= self.controller_name
-    model, record, klass = model.to_s, nil, nil
-    id ||= params[:id]
+    id    ||= params[:id]
     begin
-      klass = model.to_s.classify.constantize
-      record = klass.find_by_id(id.to_s.to_i)
+      return model.to_s.classify.constantize.find(id)
     rescue
       notify_error(:unavailable_model, :model => model.inspect, :id => id)
       redirect_to_current
       return false
     end
-    if record.nil?
-      notify_error(:unavailable_model, :model => klass.model_name.human, :id => id)
-      redirect_to_current
-      return false
-    end
-    return record
   end
 
   def save_and_redirect(record, options={}, &block)
@@ -498,11 +490,10 @@ class BackendController < BaseController
     code << "end\n"
     code << "private :#{record_name}_params\n"
 
-
     code << "def new\n"
     # values = model.accessible_attributes.to_a.inject({}) do |hash, attr|
     values = model.columns_definition.keys.inject({}) do |hash, attr|
-      hash[attr] = "params[:#{attr}]" unless attr.blank? or attr.to_s.match(/_attributes$/)
+      hash[attr] = "params[:#{attr}]".c unless attr.blank? or attr.to_s.match(/_attributes$/)
       hash
     end.merge(defaults).collect{|k,v| "#{k}: (#{v.inspect})"}.join(", ")
     code << "  @#{record_name} = #{model.name}.new(#{values})\n"
@@ -563,7 +554,7 @@ class BackendController < BaseController
 
     # code.split("\n").each_with_index{|l, x| puts((x+1).to_s.rjust(4)+": "+l)}
     unless Rails.env.production?
-      file = Rails.root.join("tmp", "auto-rest", "manage-restfully-#{controller_name}.rb")
+      file = Rails.root.join("tmp", "manage_restfully", "#{controller_path}.rb")
       FileUtils.mkdir_p(file.dirname)
       File.open(file, "wb") do |f|
         f.write code
