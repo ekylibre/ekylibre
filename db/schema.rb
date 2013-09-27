@@ -1844,6 +1844,7 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.string   "number",                                                                        null: false
     t.boolean  "active",                                                        default: false, null: false
     t.string   "variety",                  limit: 120,                                          null: false
+    t.string   "derivative_of",            limit: 120
     t.integer  "variant_id",                                                                    null: false
     t.integer  "nature_id",                                                                     null: false
     t.integer  "tracking_id"
