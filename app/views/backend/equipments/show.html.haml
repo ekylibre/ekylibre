@@ -1,13 +1,15 @@
 =main_toolbar do |t|
-  -t.edit @equipment
+  -t.edit resource
 
-=attributes_list(@equipment) do |l|
-  -l.attribute :name
-  -# l.attribute :nature
-  -# l.attribute :consumption
-  -# l.attribute :usage_duration, :duration=>:minutes
-  -# l.attribute :remaining_duration, :duration=>:minutes
-  =image_tag(@equipment.picture.url(:thumb)) if @equipment.picture.file?
+= beehive do |b|
+  - b.tabbox do
+    - b.cell :general do
+      =attributes_list(resource) do |l|
+        -l.attribute :name
+        -l.attribute :nature
+        -l.attribute :variety
+        =image_tag(resource.picture.url(:thumb)) if resource.picture.file?
 
--#%h2=tc(:x_operations, :count=>@equipment.uses.count)
--#=list(:operations)
+  -b.tabbox do
+    -b.cell(:intervention_casts) do
+      =list(:intervention_casts)
