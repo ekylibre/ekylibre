@@ -1812,13 +1812,18 @@ ul.tree {
   @include box-emphasis;
 }
 
-.variant-list {
+.proposal-list {
   padding: $default-gap;
   text-align: center;
   .btn {
     min-width: 38ex;
     margin: $default-gap * 0.6;
     text-align: center;
+    &.btn-important {
+      &, * {
+        font-weight: bold;
+      }
+    }
   }
 }
 

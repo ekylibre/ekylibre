@@ -29,7 +29,7 @@ module Nomen
 
       # Browse recursively nomenclatures and sub-nomenclatures
       n = Nomenclature.new(nomenclature_name)
-      n.harvest(root, sets)
+      n.harvest(root, sets, root: true)
       return n
     end
 
@@ -41,7 +41,7 @@ module Nomen
       # Items
       for item in nomenclature.xpath('xmlns:items/xmlns:item')
         i = self.add_item(item, :parent => options[:parent]) # , :attributes => attributes
-        @roots << i
+        @roots << i if options[:root]
         if sets[i.name]
           self.harvest(sets[i.name], sets, :parent => i) # , :attributes => attributes
         end

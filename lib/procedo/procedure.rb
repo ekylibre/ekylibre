@@ -33,6 +33,19 @@ module Procedo
       end
     end
 
+    def self.of_nature(nature)
+      Procedo.procedures_of_nature(nature)
+    end
+
+    # Returns true if the procedure nature match one of the given natures
+    def of_nature?(*natures)
+      puts "> " + self.natures.inspect
+      puts "& " + natures.inspect
+      puts "= " + (self.natures & natures).inspect
+      (self.natures & natures).any?
+    end
+
+
     # Returns a fully-qualified name for the procedure
     def full_name
       (namespace ? namespace.to_s + NS_SEPARATOR + name.to_s : name.to_s)

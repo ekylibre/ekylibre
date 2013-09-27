@@ -9,13 +9,24 @@
 - else # Root Procedure Natures
   :ruby
     natures = []
-    if params[:procedure_nature]
-      natures = Nomen::ProcedureNatures
-    else
-    end
-  - for procedure in Nomen::ProcedureNatures.roots
-    - link_to(procedure.human_name, {})
-    
+    nature = Nomen::ProcedureNatures[params[:procedure_nature]]
+    natures += (nature ? nature.children : Nomen::ProcedureNatures.roots)
+    natures.delete_if{|n| Procedo.procedures_of_nature_and_its_children(n.name).empty?}
+
+  .proposal-list
+    - if natures.any?
+      - for n in natures
+        - procedures = Procedo.procedures_of_nature(n.name.to_sym)
+        - if procedures.size == 1
+          - procedure = procedures.first
+          = link_to(procedure.human_name, {procedure: procedure.name}, class: "btn")
+        - else
+          = link_to(n.human_name, {procedure_nature: n.name}, class: "btn btn-important")
+    - if nature
+      - procedures = Procedo.procedures_of_nature(nature.name.to_sym)
+      - if procedures.any?
+        - for procedure in Procedo.procedures_of_nature(nature.name.to_sym)
+          = link_to(procedure.human_name, {procedure: procedure.name}, class: "btn")
 
 
 
