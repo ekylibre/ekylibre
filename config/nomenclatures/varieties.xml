@@ -5,6 +5,7 @@
     <attributes>
       <!-- <attribute name="derivatives" type="list" required="false" inherit="true" merge="true"/> -->
       <attribute name="derivative_of" type="choice" required="false" nomenclature="varieties" inherit="true"/>
+    
     </attributes>
     <items>
       <item name="product"/>
@@ -47,9 +48,9 @@
   <!-- level 2 - branch 1 - sub-branch 1 -->
   <nomenclature name="varieties-bioproduct">
     <attributes>
-      <attribute name="itis-tsn" type="string"/>
+      <attribute name="itis-tsn" type="string" required="false"/>
       <!-- http://www.itis.gov/ -->
-      <attribute name="europa-tsn" type="string"/>
+      <attribute name="europa-tsn" type="string" required="false"/>
       <!-- http://ec.europa.eu/food/plant/propagation/catalogues/database/public/index.cfm?event=SearchForm&cat=A -->
     </attributes>
     <items>

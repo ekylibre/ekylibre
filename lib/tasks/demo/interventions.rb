@@ -103,7 +103,7 @@ demo :interventions do
             # Plowing 15-09-N -> 15-10-N
             Booker.intervene(:plowing, year - 1, 9, 15, 9.78 * coeff, support: land_parcel) do |i|
               i.add_cast(variable: 'driver', actor: Worker.all.sample)
-              i.add_cast(variable: 'tractor', actor: Product.can("tow(equipment)").all.sample)
+              i.add_cast(variable: 'tractor', actor: Product.can("tow(plower)").all.sample)
               i.add_cast(variable: 'plower', actor: Product.can("plow").all.sample)
               i.add_cast(variable: 'land_parcel', actor: land_parcel)
             end
@@ -114,7 +114,7 @@ demo :interventions do
               i.add_cast(variable: 'seeds_to_sow', quantity: 20)
               i.add_cast(variable: 'sower', actor: Product.can("sow").all.sample)
               i.add_cast(variable: 'driver', actor: Worker.all.sample)
-              i.add_cast(variable: 'tractor', actor: Product.can("tow(equipment)").all.sample)
+              i.add_cast(variable: 'tractor', actor: Product.can("tow(sower)").all.sample)
               i.add_cast(variable: 'land_parcel', actor: land_parcel)
               i.add_cast(variable: 'culture')
             end
@@ -127,7 +127,7 @@ demo :interventions do
               i.add_cast(variable: 'fertilizer_to_spread', quantity: 20)
               i.add_cast(variable: 'spreader', actor: Product.can("spread(mineral_matter)").all.sample)
               i.add_cast(variable: 'driver', actor: Worker.all.sample)
-              i.add_cast(variable: 'tractor', actor: Product.can("tow(equipment)").all.sample)
+              i.add_cast(variable: 'tractor', actor: Product.can("tow(spreader)").all.sample)
               i.add_cast(variable: 'land_parcel', actor: land_parcel)
             end
 
@@ -138,7 +138,7 @@ demo :interventions do
                 i.add_cast(variable: 'molecule_to_spread', quantity: 20)
                 i.add_cast(variable: 'spreader', actor: Product.can("spread").all.sample)
                 i.add_cast(variable: 'driver', actor: Worker.all.sample)
-                i.add_cast(variable: 'tractor', actor: Product.can("tow(equipment)").all.sample)
+                i.add_cast(variable: 'tractor', actor: Product.can("tow(spreader)").all.sample)
                 i.add_cast(variable: 'land_parcel', actor: land_parcel)
               end
             end
@@ -149,9 +149,9 @@ demo :interventions do
             Booker.intervene(:grains_harvest, year, 7, 1, 3.13 * coeff, support: land_parcel) do |i|
               i.add_cast(variable: 'silo', actor: Product.can("store(grain)").all.sample)
               i.add_cast(variable: 'driver', actor: bob)
-              i.add_cast(variable: 'tractor', actor: Product.can("tow(equipment)").all.sample)
-              i.add_cast(variable: 'trailer', actor: Product.can("store_fluid").all.sample)
-              i.add_cast(variable: 'cropper', actor: Product.can("spread(mineral_matter)").all.sample)
+              i.add_cast(variable: 'tractor', actor: Product.can("tow(trail)").all.sample)
+              i.add_cast(variable: 'trailer', actor: Product.can("store(grain)").all.sample)
+              i.add_cast(variable: 'cropper', actor: Product.can("harvest(poaceae)").all.sample)
               i.add_cast(variable: 'cropper_driver', actor: other)
               i.add_cast(variable: 'culture',  actor: culture)
               i.add_cast(variable: 'grains')
