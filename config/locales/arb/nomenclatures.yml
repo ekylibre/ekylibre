@@ -31,8 +31,7 @@ arb:
         # plowing: "Labour"
         # raking: "Hersage"
         # sowing: "Semis"
-    procedure:  #?
- #?
+    procedure: #?
     product:
       unit:
         # celsius: "celsius"
