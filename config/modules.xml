@@ -1044,6 +1044,9 @@
         <page to="backend/cells/last_incoming_deliveries_cells#list"/>
         <page to="backend/cells/last_incoming_deliveries_cells#show"/>
       </item>
+      <item name="last_interventions_cells">
+        <page to="backend/cells/last_interventions_cells#show"/>
+      </item>
       <item name="last_milk_result_cells">
         <page to="backend/cells/last_milk_result_cells#list"/>
         <page to="backend/cells/last_milk_result_cells#show"/>
@@ -1051,9 +1054,6 @@
       <item name="last_outgoing_deliveries_cells">
         <page to="backend/cells/last_outgoing_deliveries_cells#list"/>
         <page to="backend/cells/last_outgoing_deliveries_cells#show"/>
-      </item>
-      <item name="last_procedures_cells">
-        <page to="backend/cells/last_procedures_cells#show"/>
       </item>
       <item name="last_products_cells">
         <page to="backend/cells/last_products_cells#list"/>
@@ -1097,6 +1097,9 @@
       </item>
       <item name="entities">
         <page to="backend/entities#list_event_participations"/>
+      </item>
+      <item name="equipments">
+        <page to="backend/equipments#list_intervention_casts"/>
       </item>
       <item name="events">
         <page to="backend/events#autocomplete_for_place"/>
@@ -1341,6 +1344,9 @@
         <page to="backend/teams#list"/>
         <page to="backend/teams#new"/>
         <page to="backend/teams#update"/>
+      </item>
+      <item name="workers">
+        <page to="backend/workers#list_intervention_casts"/>
       </item>
       <item name="public">
         <page to="public#index"/>

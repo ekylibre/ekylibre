@@ -59,13 +59,10 @@ demo :interventions do
         on += 1
       end
 
-      # Identifies storage
-      support = (options[:storage] ? Booker.production.support.find_by(storage_id: options[:storage].id) : nil)
-
       # Run interventions
       int = nil
       for period in periods
-        int = Intervention.run!({procedure: procedure, production: Booker.production, production_support: support}, period, &block)
+        int = Intervention.run!({procedure: procedure, production: Booker.production, production_support: options[:support]}, period, &block)
       end
       return int
     end
@@ -101,7 +98,7 @@ demo :interventions do
             coeff = (area.to_s.to_f / 10000.0) / 6.0
 
             # Plowing 15-09-N -> 15-10-N
-            Booker.intervene(:plowing, year - 1, 9, 15, 9.78 * coeff, support: land_parcel) do |i|
+            Booker.intervene(:plowing, year - 1, 9, 15, 9.78 * coeff, support: support) do |i|
               i.add_cast(variable: 'driver', actor: Worker.all.sample)
               i.add_cast(variable: 'tractor', actor: Product.can("tow(plower)").all.sample)
               i.add_cast(variable: 'plower', actor: Product.can("plow").all.sample)
@@ -109,7 +106,7 @@ demo :interventions do
             end
 
             # Sowing 15-10-N -> 30-10-N
-            int = Booker.intervene(:sowing, year - 1, 10, 15, 6.92 * coeff, :range => 15, support: land_parcel) do |i|
+            int = Booker.intervene(:sowing, year - 1, 10, 15, 6.92 * coeff, :range => 15, support: support) do |i|
               i.add_cast(variable: 'seeds', actor: Product.of_variety("seed").derivative_of(variety).all.sample)
               i.add_cast(variable: 'seeds_to_sow', quantity: 20)
               i.add_cast(variable: 'sower', actor: Product.can("sow").all.sample)
@@ -122,7 +119,7 @@ demo :interventions do
             culture = int.casts.find_by(variable: 'culture').actor rescue nil
 
             # Fertilizing  01-03-M -> 31-03-M
-            Booker.intervene(:mineral_fertilizing, year, 3, 1, 0.96 * coeff, support: land_parcel) do |i|
+            Booker.intervene(:mineral_fertilizing, year, 3, 1, 0.96 * coeff, support: support) do |i|
               i.add_cast(variable: 'fertilizer', actor: Product.of_variety(:mineral_matter).all.sample)
               i.add_cast(variable: 'fertilizer_to_spread', quantity: 20)
               i.add_cast(variable: 'spreader', actor: Product.can("spread(mineral_matter)").all.sample)
@@ -133,12 +130,12 @@ demo :interventions do
 
             if w.count.modulo(3).zero? # AND NOT prairie
               # Treatment herbicide 01-04 30-04
-              Booker.intervene(:chemical_treatment, year, 4, 1, 1.07 * coeff, support: land_parcel) do |i|
+              Booker.intervene(:chemical_treatment, year, 4, 1, 1.07 * coeff, support: support) do |i|
                 i.add_cast(variable: 'molecule', actor: Product.can("kill(plant)").all.sample)
                 i.add_cast(variable: 'molecule_to_spread', quantity: 20)
-                i.add_cast(variable: 'spreader', actor: Product.can("spread").all.sample)
+                i.add_cast(variable: 'sprayer', actor: Product.can("spray").all.sample)
                 i.add_cast(variable: 'driver', actor: Worker.all.sample)
-                i.add_cast(variable: 'tractor', actor: Product.can("tow(spreader)").all.sample)
+                i.add_cast(variable: 'tractor', actor: Product.can("catch").all.sample)
                 i.add_cast(variable: 'land_parcel', actor: land_parcel)
               end
             end
@@ -146,7 +143,7 @@ demo :interventions do
             # Harvest 01-07-M 30-07-M
             bob = Worker.all.sample
             other = Worker.where("id != ?", bob.id).all.sample
-            Booker.intervene(:grains_harvest, year, 7, 1, 3.13 * coeff, support: land_parcel) do |i|
+            Booker.intervene(:grains_harvest, year, 7, 1, 3.13 * coeff, support: support) do |i|
               i.add_cast(variable: 'silo', actor: Product.can("store(grain)").all.sample)
               i.add_cast(variable: 'driver', actor: bob)
               i.add_cast(variable: 'tractor', actor: Product.can("tow(trail)").all.sample)

@@ -48,7 +48,7 @@ demo :products do
 
 
   end
-  
+
   Ekylibre::fixturize :matters do |w|
     #############################################################################
 

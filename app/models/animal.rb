@@ -33,6 +33,7 @@
 #  creator_id               :integer
 #  dead_at                  :datetime
 #  default_storage_id       :integer
+#  derivative_of            :string(120)
 #  description              :text
 #  external                 :boolean          not null
 #  father_id                :integer

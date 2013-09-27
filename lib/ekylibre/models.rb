@@ -2292,6 +2292,7 @@ module Ekylibre
       creator_id: Ekylibre::Record::Column.new(:creator_id, :integer).freeze,
       dead_at: Ekylibre::Record::Column.new(:dead_at, :datetime).freeze,
       default_storage_id: Ekylibre::Record::Column.new(:default_storage_id, :integer).freeze,
+      derivative_of: Ekylibre::Record::Column.new(:derivative_of, :string, limit: 120).freeze,
       description: Ekylibre::Record::Column.new(:description, :text).freeze,
       external: Ekylibre::Record::Column.new(:external, :boolean, null: false).freeze,
       father_id: Ekylibre::Record::Column.new(:father_id, :integer).freeze,

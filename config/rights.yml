@@ -98,11 +98,11 @@
 # - "backend/cells/last_events_cells#show"
 # - "backend/cells/last_incoming_deliveries_cells#list"
 # - "backend/cells/last_incoming_deliveries_cells#show"
+# - "backend/cells/last_interventions_cells#show"
 # - "backend/cells/last_milk_result_cells#list"
 # - "backend/cells/last_milk_result_cells#show"
 # - "backend/cells/last_outgoing_deliveries_cells#list"
 # - "backend/cells/last_outgoing_deliveries_cells#show"
-# - "backend/cells/last_procedures_cells#show"
 # - "backend/cells/last_products_cells#list"
 # - "backend/cells/last_products_cells#show"
 # - "backend/cells/placeholder_cells#show"
@@ -138,6 +138,7 @@
 # - "backend/documents#update"
 # - "backend/entity_addresses#show"
 # - "backend/entity_links#show"
+# - "backend/equipments#list_intervention_casts"
 # - "backend/gaps#create"
 # - "backend/gaps#destroy"
 # - "backend/gaps#edit"
@@ -425,10 +426,9 @@
 # - "backend/workers#create"
 # - "backend/workers#destroy"
 # - "backend/workers#edit"
-# - "backend/workers#index"
 # - "backend/workers#list"
+# - "backend/workers#list_intervention_casts"
 # - "backend/workers#new"
-# - "backend/workers#show"
 # - "backend/workers#update"
 
 # Access to the minimum
@@ -790,10 +790,10 @@ manage_equipments:
 - "backend/equipments#create"
 - "backend/equipments#destroy"
 - "backend/equipments#edit"
-- "backend/equipments#index"
+- "backend/equipments#index" #?
 - "backend/equipments#list"
 - "backend/equipments#new"
-- "backend/equipments#show"
+- "backend/equipments#show" #?
 - "backend/equipments#update"
 
 # Create and update estimates

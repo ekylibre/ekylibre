@@ -117,6 +117,7 @@ spa:
     backend/cells/last_entities_cells: #?
     backend/cells/last_events_cells: #?
     backend/cells/last_incoming_deliveries_cells: #?
+    backend/cells/last_interventions_cells: #?
     backend/cells/last_milk_result_cells: #?
     backend/cells/last_outgoing_deliveries_cells: #?
     backend/cells/last_procedures_cells: #?
@@ -286,10 +287,10 @@ spa:
       # show: "Encaissement n°%{number} de %{entity}"
     backend/interfacers: #?
     backend/interventions:
-      # edit: "Modifier l’intervention %{name}"
+      # edit: "Modifier l’intervention %{name} N°%{id}"
       # index: "Interventions"
       # new: "Nouvelle intervention"
-      # show: "Intervention n°%{id}"
+      # show: "%{procedure_name} N°%{id}"
     backend/inventories:
       edit: "Modificacion del inventario"
       index: "Inventarios"
@@ -641,7 +642,11 @@ spa:
       statistics: "Mis estadisticas" #?
       # unlock: "Déverrouiller l’utilisateur"
     backend/vegetals: #?
-    backend/workers: #?
+    backend/workers:
+      # edit: "Modifier l'équipier %{name}"
+      # index: "Equipiers"
+      # new: "Nouvel équipier"
+      # show: "Equipier %{name}"
     backend/working_sets: #?
     public:
       # index: "Accueil"
@@ -897,6 +902,7 @@ spa:
       bank_statements: "Leventar de cuento"
       deposits: "Entregas en banca"
     cash_update: "Modificar la tresoreria" #?
+    # casts: "Intervenants"
     # catalog: "Description pour catalogue"
     # category: "Catégorie"
     # category_name: "Catégorie"
@@ -1147,6 +1153,7 @@ spa:
     # last_entities: "Derniers tiers"
     # last_events: "Derniers évènements"
     # last_incoming_deliveries: "Derniers approvisionnements"
+    # last_interventions: "Dernières interventions"
     # last_milk_result: "Dernières analyses de lait"
     # last_outgoing_deliveries: "Dernières livraisons"
     # last_payment_amount: "Montant du dernier encaissement"
@@ -1541,6 +1548,7 @@ spa:
     # stocks: "Stocks"
     # stocks_preferences: "Gestion des stocks"
     # stop: "Jusqu’au"
+    # storage: "Support"
     # string_case: "Options pour le texte"
     # string_options: "Indicateur de type Texte"
     subject: "Tema"

@@ -18,19 +18,32 @@ eng:
         public_interest_group: "Public interest group"
         sir: "Sir"
         syndicate: "Syndicate"
-    procedure:
-      nomen:
-        animal_birth: "Animal birth"
-        calving_one: "Calving one"
-        calving_twin: "Calving twin"
-        chemical_treatment: "Chemical treatment"
-        mineral_fertilizing: "Mineral fertilizing"
-        organic_fertilizing: "Organic fertilizing"
-        plowing: "Plowing"
-        seed_harvest: "Seed harvest"
-        sowing: "Sowing"
-        superficial_plowing: "Superficial plowing"
-        wheat_crop: "Wheat crop"
+    intervention:
+      procedure:
+        # animal_birth: "Naissance d’un animal"
+        # animal_treatment: "Traitement animal"
+        # calving_one: "Vêlage unique"
+        # calving_twin: "Vêlage jumeaux"
+        # chemical_treatment: "Traitement chimique"
+        # grains_harvest: "Moisson"
+        # mineral_fertilizing: "Fertilisation minérale"
+        # organic_fertilizing: "Fertilisation organique"
+        # plowing: "Labour"
+        # raking: "Hersage"
+        # sowing: "Semis"
+    procedure:  #?
+      nomen: #?
+        animal_birth: "Animal birth" #?
+        calving_one: "Calving one" #?
+        calving_twin: "Calving twin" #?
+        chemical_treatment: "Chemical treatment" #?
+        mineral_fertilizing: "Mineral fertilizing" #?
+        organic_fertilizing: "Organic fertilizing" #?
+        plowing: "Plowing" #?
+        seed_harvest: "Seed harvest" #?
+        sowing: "Sowing" #?
+        superficial_plowing: "Superficial plowing" #?
+        wheat_crop: "Wheat crop" #?
     product:
       unit:
         celsius: "Celsius"

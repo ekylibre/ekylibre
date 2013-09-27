@@ -107,6 +107,7 @@ eng:
     backend/cells/last_entities_cells: #?
     backend/cells/last_events_cells: #?
     backend/cells/last_incoming_deliveries_cells: #?
+    backend/cells/last_interventions_cells: #?
     backend/cells/last_milk_result_cells: #?
     backend/cells/last_outgoing_deliveries_cells: #?
     backend/cells/last_procedures_cells: #?
@@ -275,10 +276,10 @@ eng:
       new: "Add a new incoming payment"
       show: "Incoming payment %{number} of %{entity}"
     backend/interventions:
-      # edit: "Modifier l’intervention %{name}"
+      # edit: "Modifier l’intervention %{name} N°%{id}"
       # index: "Interventions"
       # new: "Nouvelle intervention"
-      # show: "Intervention n°%{id}"
+      # show: "%{procedure_name} N°%{id}"
     backend/inventories:
       edit: "Edit the inventory"
       index: "Inventories"
@@ -612,7 +613,11 @@ eng:
       new: "Add a new user"
       show: "User: %{first_name} %{last_name} (%{name})"
       unlock: "Unlock user"
-    backend/workers: #?
+    backend/workers:
+      # edit: "Modifier l'équipier %{name}"
+      # index: "Equipiers"
+      # new: "Nouvel équipier"
+      # show: "Equipier %{name}"
     public:
       index: "Home"
   controllers:
@@ -863,6 +868,7 @@ eng:
       bank_statements: "Bank statements"
       deposits: "Deposits"
     cash_update: "Update cash" #?
+    # casts: "Intervenants"
     catalog: "Catalog"
     category: "Category"
     category_name: "Category"
@@ -1106,6 +1112,7 @@ eng:
     # last_entities: "Derniers tiers"
     last_events: "Last Events"
     # last_incoming_deliveries: "Derniers approvisionnements"
+    # last_interventions: "Dernières interventions"
     last_milk_result: "Last milk analysis"
     # last_outgoing_deliveries: "Dernières livraisons"
     last_payment_amount: "Amount of the last payment"
@@ -1493,6 +1500,7 @@ eng:
     stocks: "Stocks"
     stocks_preferences: "Stock management"
     stop: "Stop"
+    # storage: "Support"
     string_case: "String case"
     string_options: "Text options"
     subject: "Subject"

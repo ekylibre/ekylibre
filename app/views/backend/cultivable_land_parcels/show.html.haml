@@ -10,13 +10,11 @@
         %span.title=CultivableLandParcel.human_attribute_name(:area_measure)
         %span.value=@cultivable_land_parcel.shape_area.round(-2).in_square_meter.convert(:hectare)
 
-
     -b.cell do
       =attributes_list(@cultivable_land_parcel) do |l|
         -l.attribute :name
 
   -b.tabbox do
-
     -b.cell(:content_products) do
       =list(:content_products)
     -b.cell(:productions) do

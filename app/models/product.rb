@@ -33,6 +33,7 @@
 #  creator_id               :integer
 #  dead_at                  :datetime
 #  default_storage_id       :integer
+#  derivative_of            :string(120)
 #  description              :text
 #  external                 :boolean          not null
 #  father_id                :integer
@@ -94,7 +95,7 @@ class Product < Ekylibre::Record::Base
     where(:variety => varieties.collect{|v| Nomen::Varieties.all(v.to_sym) }.flatten.map(&:to_s).uniq)
   }
   scope :derivative_of, lambda { |*varieties|
-    where(:nature_id => ProductNature.of_variety(*varieties))
+    where(:derivative_of => varieties.collect{|v| Nomen::Varieties.all(v.to_sym) }.flatten.map(&:to_s).uniq)
   }
   # scope :of_variety, lambda { |*varieties| joins(:nature).merge(ProductNature.of_variety(*varieties)) }
   # scope :derivative_of, lambda { |nature| joins(:nature).merge(ProductNature.derivative_of(nature)) }
@@ -131,7 +132,7 @@ class Product < Ekylibre::Record::Base
             q = []
             for variety in child.self_and_parents
               q << "abilities ~ E?"
-              parameters << "\\\\m#{ability}(#{variety.name})\\\\M"
+              parameters << "\\\\m#{ability}\\\\(#{variety.name}\\\\)\\\\Y"
             end
             query << "(" + q.join(" OR ") + ")"
           else
@@ -153,7 +154,7 @@ class Product < Ekylibre::Record::Base
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :picture_file_size, :allow_nil => true, :only_integer => true
   validates_numericality_of :content_maximal_quantity, :allow_nil => true
-  validates_length_of :variety, :allow_nil => true, :maximum => 120
+  validates_length_of :derivative_of, :variety, :allow_nil => true, :maximum => 120
   validates_length_of :content_indicator, :content_indicator_unit, :identification_number, :name, :number, :picture_content_type, :picture_file_name, :work_number, :allow_nil => true, :maximum => 255
   validates_inclusion_of :active, :external, :reservoir, :in => [true, false]
   validates_presence_of :content_maximal_quantity, :name, :nature, :number, :owner, :variant, :variety
