@@ -1,19 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
-  <nomenclature name="procedure_natures">
+
+  <nomenclature name="procedure_natures" hierarchical="true">
     <attributes>
       <attribute name="roles" type="list" choices="input, output, target, doer" required="false"/>
     </attributes>
     <items>
-      <item name="animal_treatment" roles="input, target, doer"/>
-      <item name="reproduction" roles="input, target"/>
-      <item name="production" roles="target, output"/>
+      <item name="animal_feeding" roles="input, target, doer"/>
+      <item name="animal_illness_treatment" roles="input, target, doer"/>
+      <item name="animal_fertilisation" roles="input, target, doer"/>
+      <item name="animal_production" roles="target, output"/>
+      <item name="viviparous_birth" roles="target, output"/>
+      <item name="oviparous_birth" roles="target, output"/>
+      <item name="harvest" roles="target, output"/>
       <item name="feeding" roles="input, target"/>
       <item name="tillage" roles="target"/>
+      <item name="plant_feeding" roles="input, target"/>
+      <item name="plant_illness_treatment" roles="input, target"/>
       <item name="soil_enrichment" roles="input, target"/>
+      <item name="soil_cleaning" roles="target"/>
       <item name="sowing" roles="input, target, output"/>
       <item name="pruning" roles="target"/>
       <item name="grinding" roles="input, output"/>
+      <item name="growth_control" roles="target"/>
     </items>
   </nomenclature>
+
+  <nomenclature name="procedure_natures-tillage">
+    <items>
+      <item name="plowing" roles="target"/>
+      <item name="raking" roles="target"/>
+      <item name="hoeing" roles="target"/>
+      <item name="cultipacking" roles="target"/>
+    </items>
+  </nomenclature>
+
+  <nomenclature name="procedure_natures-animal_illness_treatment">
+    <items>
+      <item name="animal_curative_medicine_admission" roles="input, target, doer"/>
+      <item name="animal_preventive_medicine_admission" roles="input, target, doer"/>
+    </items>
+  </nomenclature>
+
+
+  <nomenclature name="procedure_natures-plant_feeding">
+    <items>
+      <item name="plant_irrigation" roles="input, target"/>
+      <item name="plant_nutrition" roles="input, target, doer"/>
+      <item name="plant_growth_inflector_feeding" roles="input, target, doer"/>
+    </items>
+  </nomenclature>
+
 </nomenclatures>

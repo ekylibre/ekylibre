@@ -1,7 +1,7 @@
 # encoding: utf-8
 # ##### BEGIN LICENSE BLOCK #####
 # Ekylibre - Simple ERP
-# Copyright (C) 2009 Brice Texier, Thibaud Merigon
+# Copyright (C) 2009 Brice Texier
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
