@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-demo :equipments do
+demo :products do
 
 
   Ekylibre::fixturize :equipments do |w|
@@ -41,6 +41,54 @@ demo :equipments do
       # create indicators linked to equipment
       for indicator, value in r.indicators
         equipment.is_measured!(indicator, value)
+      end
+
+      w.check_point
+    end
+
+
+  end
+  
+  Ekylibre::fixturize :matters do |w|
+    #############################################################################
+
+    file = Rails.root.join("test", "fixtures", "files", "matters_list.csv")
+    CSV.foreach(file, :encoding => "UTF-8", :col_sep => ",", :headers => true, :quote_char => "'") do |row|
+      r = OpenStruct.new(:name => row[0].blank? ? nil : row[0].to_s,
+                         :nature_nomen => row[1].downcase.to_sym,
+                         :variant => row[2].blank? ? nil : row[2],
+                         :born_at => row[3].blank? ? Date.today : row[3],
+                         :variety => row[4].blank? ? nil : row[4].to_s,
+                         :derivative_of => row[5].blank? ? nil : row[5].to_s,
+                         :external => !row[6].blank?,
+                         :indicators => row[7].blank? ? {} : row[7].to_s.strip.split(/[[:space:]]*\;[[:space:]]*/).collect{|i| i.split(/[[:space:]]*\:[[:space:]]*/)}.inject({}) { |h, i|
+                           h[i.first.strip.downcase.to_sym] = i.second
+                           h
+                         },
+                         :owner_name => row[6].blank? ? nil : row[6].to_s,
+                         :notes => row[8].blank? ? nil : row[8].to_s
+                         )
+
+      # find or import from nomenclature the correct ProductNature
+      product_nature = ProductNature.find_by(:nomen => r.nature_nomen) || ProductNature.import_from_nomenclature(r.nature_nomen)
+      variant = product_nature.default_variant
+      pmodel = product_nature.matching_model
+
+      # create the owner if not exist
+      if r.external == true
+        owner = Entity.where(:last_name => r.owner_name.to_s).first
+        owner ||= Entity.create!(:born_on => Date.today, :last_name => r.owner_name.to_s, :currency => "EUR", :language => "fra", :nature => "company")
+      else
+        owner = Entity.of_company
+      end
+
+      # create the product
+      product = pmodel.create!(:variant_id => variant.id, :active => true, :external => r.external,
+                                    :name => r.name, :born_at => r.born_at, :owner_id => owner.id, :variety => r.variety, :derivative_of => r.derivative_of )
+
+      # create indicators linked to equipment
+      for indicator, value in r.indicators
+        product.is_measured!(indicator, value)
       end
 
       w.check_point
